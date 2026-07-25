@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+*.log
+.DS_Store
+
+# Design-archive material awaiting relocation by the owner — NOT FOR BUILD,
+# must never enter git history. Remove these lines once the files leave the repo.
+design-spec.md
+README.md
+1-career-talent-market.md
+2-historical-talent.md
+3-acquisition.md
+4-filmmaker-pitches.md
