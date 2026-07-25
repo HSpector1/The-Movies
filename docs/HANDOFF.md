@@ -1,0 +1,505 @@
+# Project: Studio — Engineering Handoff
+
+Last updated: 2026-07-26, after Phase 2 commit `3c64959`. Written for a successor
+session with zero knowledge of prior conversations. Read this after `CLAUDE.md`,
+`docs/build-contract.md` (rev. 4), and `docs/rev4-open-questions.md`, in that order.
+
+---
+
+## 1. Executive Summary
+
+**What this is.** A studio-management simulation (spiritual successor to *The
+Movies*, 2005; private project, audience of two). The current milestone, **M0A**, is
+a headless proving harness: one pure engine exercised over ≥1,000 seeded single-year
+runs by two scripted agents, producing an instrumentation report that answers "do the
+film-assembly maths produce real decisions, or is one strategy dominant?" M0A gates
+M1A (a thin UI over the identical ruleset). No UI exists or may exist yet.
+
+**Status.** Phases 1 and 2 of 4 are complete, committed, and audited CLEAN.
+Phase 3 (`applyActions`/`tick`, standing, world generation, both agents) is next and
+unstarted. Phase 4 (instrumentation + minimal broadcast) ends with a **hard stop**:
+the M0A report is presented and nothing further happens until the owner says the
+words "approved for phase 5".
+
+**Architecture in one paragraph.** A pure TypeScript simulation core
+(`(state, actions) => state`, no React/DOM/async/IO) under `src/core/`, governed by
+a written contract that is implemented *verbatim* — formulas, constants, clamps, and
+names are transcribed, not designed. All randomness flows from a seeded, serializable
+RNG with four isolated streams. Tests are written by a separate role that derives
+expectations from the contract text only, never from the implementation, and every
+phase ends with exactly one read-only clause-by-clause audit hunting for invented
+behavior.
+
+**Confidence.** High for the audited surface. 164 tests green, `tsc --noEmit` clean,
+two audits with zero findings. The main untested surface is deliberate: `technical`
+is pinned at 40 in all of M0A (owner decision D-4), so craft's 15% technical weight
+is unexercised until M1A.
+
+---
+
+## 2. Current Repository State
+
+- **HEAD:** `3c64959` on `main`. No remote. Working tree **clean**.
+- **History:** `13f51d9` baseline docs → `86755ea` contract rev. 4 → `b1f492b` agent
+  team → `444ed08` Phase 1 → `3c64959` Phase 2.
+- **Directories:**
+  - `docs/` — `build-contract.md` (rev. 4 = unchanged rev. 3 body + header pointing
+    at the resolutions), `rev4-open-questions.md` (**normative**; wins on conflict),
+    this file.
+  - `src/core/` — the entire engine: `types.ts`, `vector.ts`, `math.ts`,
+    `tuning.ts`, `shape.ts`, `grid.ts`, `rng.ts`, `save.ts`, `reception.ts`,
+    `forecast.ts`, `index.ts` (the only public import surface).
+  - `tests/` — 9 test files + `_fixtures.ts` (fixture builders, not a test file).
+  - `.claude/agents/` — four team-agent definitions (sim-core, test-author,
+    instrumentation, contract-auditor), all `model: opus`. **Registry caveat:** they
+    load only if the session's workspace root is this folder; a session rooted
+    elsewhere must dispatch built-in agents explicitly pinned to Opus with the role
+    file contents inlined (owner-approved fallback).
+- **Deliberately untracked (gitignored, at repo root):** `design-spec.md`,
+  `README.md`, `1-career-talent-market.md`, `2-historical-talent.md`,
+  `3-acquisition.md`, `4-filmmaker-pitches.md`. These are **NOT FOR BUILD** design
+  archive documents awaiting relocation by the owner. Never open them; never commit
+  them. `.gitignore` carries a remove-when-relocated block for them.
+- **Generated:** `package-lock.json` (committed). `node_modules/` local only.
+  Committer identity is auto-derived (`Bruce <bruce@Mac.fritz.box>`); owner has not
+  set `git config user.*`.
+
+---
+
+## 3. Completed Work
+
+### Phase 1 — declarations, TUNING, seeded RNG, save validation (`444ed08`)
+
+- **Objective:** §12 step 1. Everything the later pipelines need to exist and be
+  deterministic.
+- **Created:** `package.json`, `tsconfig.json` (strict), `vitest.config.ts`,
+  `src/core/{types,vector,math,tuning,shape,grid,rng,save,index}.ts`, five test
+  files (79 tests).
+- **Systems:** all §2 types verbatim plus rev. 4 amendments (`FilmResult.conceptId`
+  + `directorId` per B12; `SegmentForecast.estimate` per M7; `ForecastFactorKey`
+  11-key union per B14). TUNING = §16 + eleven rev. 4 additions. §4 `SHAPE_OPTIONS`
+  seed table + `specificity`. §13 grid constants. RNG (see §4 below). Save:
+  `SaveFileV1`, stable sorted-key stringify, loud rejection of unknown
+  `saveVersion`, envelope-seed divergence, and `broadcastCache` divergence.
+- **Key decisions:** the contract's `Promise` type name is kept (shadows the TS
+  global; the core is sync-only, documented); constants the contract declares
+  outside §16 (`CAST_WEIGHT`, `ROLE_WEIGHT`, `SLOT_TRANSFORM`, `FORCE_VECTORS`,
+  `INITIAL_STANDING`, `WORLD_CONFIG`) are named exports, not folded into TUNING.
+- **Audit:** CLEAN, zero findings. One pre-audit incident: the hygiene test caught
+  the literal string `Math.random` in an rng.ts *comment*; the comment was reworded.
+- **Outcome:** 79/79 green, tsc clean.
+
+### Phase 2 — reception (§5) and forecast (§7) pipelines (`3c64959`)
+
+- **Objective:** §12 step 2, with a unit test per bounded term.
+- **Modified:** `math.ts` (added `lerp`, Hermite `smoothstep`, `remap`,
+  component-wise `weightedMean`, `sum`, `product`), `shape.ts` (added
+  `resolveShape`), `index.ts` (exports).
+- **Created:** `src/core/reception.ts`, `src/core/forecast.ts`, four test files +
+  `tests/_fixtures.ts` (85 tests).
+- **Systems:** full §5 pipeline as pure functions over explicit inputs, exposing
+  every §5.6 intermediate in a breakdown object; `computeBoxOffice` factored out so
+  forecast reuses it; `buildFilmResult` stamps `conceptId`/`directorId`. §7 forecast:
+  deterministic per-segment centers (`forecastCenters`, exported for §15.6 testing),
+  one film-level gaussian offset from the derived forecast stream, estimates clamped
+  and stored, widths/sigmas from TUNING (B17), D-3 confidence predicates, B14
+  causal/uncertainty factor rules, expected opening/total computed from the *noisy*
+  estimates (B16 — this is what makes §6's commercialSurprise nonzero later).
+- **Key decisions:** two transparent readings on record (see §5 below): D-3's "that
+  segment" bound to `promise.intendedSegments`; the §4 budget clamp is unreachable
+  by any legal shape triple.
+- **Audit:** CLEAN, zero findings; the auditor explicitly verified operator
+  precedence on the §5.3 originality lerp and that the critic draw is the only
+  sampled term in reception.
+- **Outcome:** 164/164 green, tsc clean.
+
+---
+
+## 4. Current Architecture
+
+**Contract-first.** The build contract is the design document; the code is its
+transcription. The engineering stance that follows: when the contract is silent,
+ambiguous, or contradictory, **stop and report** — never fill the gap with a
+reasonable guess. Every ambiguity found so far has been resolved through the
+rev. 4 process (56 items, owner-decided where it mattered) and recorded in
+`rev4-open-questions.md`. That document is law; consult it before asking "what did
+they mean by X."
+
+**Purity boundary.** Everything under `src/core/` is pure and synchronous. The
+harness (phase 3+) sits above it, owns IO/iteration, and interacts only through
+exported functions and state values. This is what lets the same engine run headless
+(M0A) and under a UI (M1A) with byte-identical behavior — §15.7's replay test
+depends on it.
+
+**Simulation pipeline (when phase 3 lands).** Each iteration:
+`applyActions(state, agent.chooseActions(state))` then `tick(state)`; the tick runs
+a fixed five-step order — PRODUCTION → RELEASE → RECEPTION (§5) → STANDING (§6) →
+BROADCAST (§8, phase 4). Phase 2 built the §5/§7 math the pipeline will call; it
+deliberately did not build the pipeline itself.
+
+**RNG design (the most load-bearing subsystem).** `src/core/rng.ts`:
+- Algorithm: sfc32 seeded via FNV-1a string hash + splitmix32 finalizer. The
+  algorithm choice is contract-silent implementation freedom; tests assert
+  properties (determinism, isolation, bounds), never specific bit-sequences.
+- The **sim stream** is stateful and threaded through `GameState.rngState` as a
+  serializable string. It carries **only reception-time sampling** — currently the
+  single §5.3 critic draw. Nothing else may consume it.
+- Three **derived stateless streams** — `stream(seed, purpose, key)` for
+  `'candidates' | 'agent' | 'forecast'` — are recomputed on demand from the run
+  seed, never saved. Forecast noise keys by `productionId`. This isolation is what
+  makes §15.6 (forecast independence) hold behaviorally: consuming the sim stream
+  cannot move a forecast, and forecasting cannot move the sim stream.
+- `gaussian` (Box–Muller) deliberately **discards the spare deviate** — every call
+  consumes exactly two uniforms, so stream advancement is fixed regardless of call
+  ordering. Do not "optimize" this; replay exactness depends on it.
+- `truncatedNormal` is rejection sampling, **not** clamping (settled: the contract's
+  own clamp idiom on the adjacent §9 line is the deliberate contrast).
+
+**Save model.** `SaveFileV1 { saveVersion: 1, seed, state, broadcastCache }`.
+`stableStringify` (recursive key sort) gives deterministic serialization for §15.7
+byte-identity. Loading loudly rejects unknown versions, `seed ≠ state.seed`, and
+`broadcastCache ≠ state.broadcastItems` (M14: the duplication is kept as declared
+but divergence is impossible rather than ambiguous). No migration functions, by
+contract.
+
+**Public interface.** `src/core/index.ts` is the only sanctioned import path —
+the test-author role is permitted to read exactly that file and nothing else in
+`src/core/`. Key exports: the §2 types, `TUNING` + named constant tables,
+vector/math helpers, `specificity`, `resolveShape`, the reception surface
+(craft/cohesion/critic/segment/box-office computations, full-pipeline entry,
+`buildFilmResult`), the forecast surface (`computeForecast`, `forecastCenters`,
+`bandOf`), RNG (`RngStream`, `stream`), and the save API.
+
+---
+
+## 5. Contract Decisions — settled law
+
+**The master record is `docs/rev4-open-questions.md`** (56 items: B1–B28 blocking,
+M1–M17 major, N1–N11 minor; owner decisions D-1–D-5 recorded inline with rulings
+dated 2026-07-25). Do not reopen any of it. The ones a phase-3/4 engineer will hit
+first:
+
+- **Precedence:** the rev. 3 body is unchanged; where it conflicts with the
+  resolutions, the resolutions win. Live example: §7's body still prints
+  `CONFIDENCE_INTERVAL_WIDTH {8,15,24}`; the binding values are TUNING's `{7,11,14}`
+  (B17), which also added a medium calibration band of 65–75%.
+- **D-1 money:** film ledger, not an economy. `INITIAL_CASH` 20M; greenlight debits
+  negative + marketing + Σ salaries; release credits `boxOffice.total`; cash may go
+  negative with no consequence. `profit = total − negative − marketing − salaries`.
+  Oracle EV = expected profit in currency; the §14 dominance margin is in **ROI
+  percentage points**; packages costing under `ROI_COST_FLOOR` (500k) are excluded
+  from ROI statistics only.
+- **D-2 standing gate (the only hard fail):** end-of-run evaluation; high = ≥ 60,
+  low = ≤ 40; a profile counts if it occurs in ≥ 5% of runs pooled across both
+  agents; fail if fewer than 3 of 4 profiles reach that. Reachability was verified
+  against the time model (10 releases/run); prestige is the binding channel (its +7
+  delta cap needs criticScore 116, so practical max is +5/release). If a profile
+  lands under 5% for arithmetic rather than design reasons, that goes **to the
+  owner** — it is explicitly not tunable-around.
+- **D-3 forecast confidence (hybrid):** `knownLeadTrackRecord` = lead.fame ≥ 60;
+  `knownDirectorGenreRecord` = a prior this-run release by that director in that
+  genre; `establishedSegmentHistory` = a prior this-run release scoring ≥ 60 in the
+  relevant segment; `promiseIsSpecific` = specificity ≥ 0.5. The M0A report must
+  include the confidence-tier distribution; tiers under 5% of the corpus are marked
+  LOW SAMPLE.
+- **D-4 craft hiring is out of M0A.** `technical ≡ 40` everywhere. The report must
+  carry the owner's verbatim caveat about rescaled craft-weight validation.
+- **D-5 segment tastes live in TUNING** (`SEGMENT_TASTES`) — the explicit owner
+  grant that widened the tuning surface. Values: yA (−0.45,−0.30,+0.75), family
+  (+0.55,−0.55,+0.20), adult (−0.20,+0.45,−0.15), prestige (+0.40,+0.70,−0.40).
+  Closest pair adult–prestige at 0.696 — the first place to look if instrumentation
+  shows segments co-moving.
+- **Time model (B1/B2/B3/M1/N5):** tick = week; `TICKS_PER_YEAR` 52;
+  `PRODUCTION_TICKS` 8; `MAX_CONCURRENT_PRODUCTIONS` 2; at most one greenlight per
+  tick; all 30 concepts always available. `market.tick` increments as the **final**
+  step of `tick()`. PRODUCTION advances only productions with
+  `startTick < currentTick` (a film does not advance in its greenlight tick), so a
+  film greenlit at t releases during tick t + 8 exactly. Result: releases at ticks
+  8, 9, 17, 18 … 44, 45 — 10 per run, two productions unfinished at year end
+  (reported, excluded from flag statistics). Same-tick multi-release resolves in
+  ascending `productionId` order.
+- **Validation (M15/M16):** role-type matching; one active engagement per talent;
+  no actor in two slots of one film; concurrency and one-greenlight-per-tick;
+  `promise.genre === concept.genre`; cancel removes the production, refunds
+  nothing, touches no standing; invalid actions reject loudly (a harness abort, not
+  a game event).
+- **B12 data flow:** at RELEASE the production leaves `activeProductions` and a
+  release context (production, cast talent, forecastSnapshot, plus mismatchPenalty
+  / timelinessContribution / awarenessFactor) is threaded through STANDING and
+  BROADCAST, dropped at tick end. `releasedFilms` keeps FilmResult only — which is
+  why FilmResult carries `conceptId`/`directorId`.
+- **M9 streams:** sim stream = critic draw only; candidates/agent streams key by
+  tick; forecast stream keys by productionId. Agents cannot thread `rngState` —
+  that is why the derived streams exist.
+- **Candidate grid (B18/B19/B21, phase 3):** package = concept + writer + director
+  + cast triple (distinct actors) + shape + per-axis promise + negative level +
+  marketing level; seeded sampling down to 500 distinct packages per decision;
+  identical set to both agents; `intendedSegments` = argmax expected segment
+  appeal (metadata; forecast always covers all four segments).
+- **Test referents:** §15.3's "score" = `cohesionContribution` (M12, with synthetic
+  {0,0,0} shape injection); §15.4 orders on `boxOffice.total` with marketing pinned
+  at `MARKETING_HALF_SATURATION` (M13 — on segment appeal alone, precise-met and
+  vague provably tie).
+- **Recorded refutations (do not relitigate):** authored talent never enters
+  headless M0A runs (flag reported "not exercised"); `CoverageContext` is
+  declare-only until phase 6; tuning authority = exactly the TUNING object
+  (formulas, flag thresholds, §15 bounds are fixed); prestige's literal 60 anchor
+  and the dormant benchmark fields are verbatim-by-design.
+- **Phase-2 additions to the record:**
+  1. D-3's "that segment" is bound to `promise.intendedSegments` (B21 supplies the
+     antecedent). Flagged to the owner, **adjudication pending**; the default
+     stands unless overruled, and the change is one line in
+     `computeConfidencePredicates`. Tests were deliberately constructed to pass
+     under either reading.
+  2. The §4 budget clamp [0.80, 1.40] is unreachable via legal shape triples (real
+     range ≈ [0.81, 1.38]); correct defensive code that never fires. Tested as a
+     range assertion over all 36 triples.
+
+---
+
+## 6. Testing Strategy
+
+- **Philosophy:** tests are an independent check on the transcription, not a
+  restatement of the code. The test-author role reads the two contract documents
+  and `src/core/index.ts` (export names/signatures) — nothing else. Expected values
+  are hand-derived from contract formulas before the assertion is written; two
+  anchors were mutation-checked to prove they fail when wrong. Assertions are never
+  weakened to go green — a red test is a report.
+- **Auditor relationship:** testing and auditing are different roles. Tests check
+  values; the read-only auditor checks *provenance* — whether any code behavior
+  exists that the contract does not dictate (INVENTED), plus DEVIATES / MISSING /
+  OUT-OF-SCOPE, with file:line citations both ways.
+- **Conventions:** one range test per bounded term, at constructed extremes (M11
+  enumerates the term list); hand-computed formula anchors (budgetAdequacy
+  65.2/87.0/100, a craft value to five decimals, a full resolveShape triple);
+  determinism tests assert same-seed identity and serialization round-trips;
+  acceptance tests §15.3/§15.4/§15.5 are implemented at unit level per their M12/M13
+  operationalizations.
+- **Behavioral, not structural:** the §15.6 forecast-independence suite is
+  owner-mandated to be behavioral — no module mocks, no stubbing internals, no
+  coupling to call structure. It proves independence by: deterministic centers;
+  draining the sim stream before forecasting changes nothing; forecasting leaves the
+  sim stream's serialized state untouched; wildly different realized outcomes leave
+  forecasts identical; the forecast stream reproduces the same offset for the same
+  (seed, productionId).
+- **Hygiene:** a test scans `src/` and `tests/` file contents for the literal
+  `Math.random` (zero occurrences allowed). Scope note: it does not cover files
+  outside those trees; keep harness code inside `src/`.
+- **Intentionally untested:** `criticMean`, `reviewVariance`, and currency values
+  (unbounded by design, M11); specific PRNG bit-sequences (properties only);
+  `Talent.perceived` (dormant data this contract); `technical` variation (D-4);
+  §6/§8 behavior (phases 3–4).
+
+## 7. Audit History
+
+Every audit and its outcome, in order:
+
+1. **Contract audit (pre-implementation, produced rev. 4):** multi-agent audit of
+   the rev. 3 contract text itself — 77 candidate issues, 56 confirmed gaps, 21
+   refuted with citations. All 56 resolved via `rev4-open-questions.md`; five owner
+   decisions D-1–D-5. Process notes: an orchestration bug (un-interpolated prompt
+   templates) voided one verification stage and was re-run after a fix; a session
+   limit killed 26 adjudications mid-run, re-run to completion on Opus. The final
+   adjudications are all genuine.
+2. **Phase 1 audit** (read-only, clause-by-clause vs §2/§4-declarations/§13-
+   declarations/§16/§17/RNG): **CLEAN, zero findings.** Two contract-silent choices
+   noted for transparency, not flagged: the sfc32 algorithm choice; distribution
+   functions as stream methods rather than the contract's free-function shape.
+3. **Phase 2 audit** (vs §4/§5.1–§5.6/§7 + every rev. 4 item phase 2 touches):
+   **CLEAN, zero findings.** Verified the two on-record transparent readings match
+   what was reported; explicitly checked the §5.3 originality operator precedence
+   and single-sampled-term property.
+
+**Corrections required by any audit: none.** The only pre-audit correction in
+project history is the phase-1 comment reword (`Math.random` literal in a comment,
+caught by the hygiene test).
+
+---
+
+## 8. Technical Debt
+
+**Acceptable debt (documented, do not "fix" without cause):**
+- `gaussian` discards the Box–Muller spare — 2 uniforms per deviate, deliberate for
+  fixed stream advancement.
+- The §4 budget clamp never fires under legal inputs — defensive, contract-verbatim.
+- `Promise` type shadows the TS global — safe in the sync core, documented.
+- The hygiene scan covers `src/` + `tests/` only.
+- Reception/forecast take rich explicit inputs (production data, lookups, era,
+  standing); phase 3's `applyActions`/`tick` must assemble those inputs. This is a
+  deliberate seam, not an accident.
+- Committer identity unset (`bruce@Mac.fritz.box` auto-derived).
+
+**Future work (known, scheduled elsewhere):**
+- Craft-weight re-validation when craft hiring arrives (M1A) — owner-mandated
+  report caveat exists.
+- Name/title word lists for worldgen (N2) do not exist yet — phase 3 must create
+  them as deterministic data files.
+- `Production.id` generation scheme is not yet pinned — phase 3 must choose a
+  deterministic scheme (see §10 risks).
+- Archive docs at repo root await owner relocation; remove the `.gitignore` block
+  when they leave.
+- No CI, no linter — not requested; tests + tsc are the gate.
+
+---
+
+## 9. Deferred Systems
+
+**§11 non-goals (contract decision, not oversight — build nothing, scaffold
+nothing, TODO nothing):** chemistry, readable memories, production incidents,
+contract negotiation, the lot, rival studios as agents, awards season, scene
+composition, screenplay generation, visual output, library economics, receivership,
+`SimulationFlags`, the studio economy (beyond D-1's ledger), cultural drift, aging
+and career progression, late promise repositioning, competition modelling (types
+exist, `competitionFactor ≡ 1.0`, `competingSlate ≡ []`), LLM integration of any
+kind, onboarding, tutorial, accessibility, mobile layout.
+
+**Deferred by phase gating:** M1A UI (phase 5 — requires the words "approved for
+phase 5"); broadcast presentation and the prediction→result→revision cycle
+(phase 6); full broadcast beyond the two crude release templates (phase 4 builds
+only the minimal deterministic core).
+
+**Deferred by design-archive documents (visible at root, NOT FOR BUILD, never
+opened):** career & talent market (rev. 2), historical talent / development
+scarcity, acquisition & discovery, filmmaker pitches, the v2 design spec. They
+become contracts only after M0A reports. Wanting one of them mid-build is the
+signal to stop and report, not to reconstruct it.
+
+**Dormant in-scope surface:** `Talent.perceived` (carried, never read);
+`Talent.age` (generated, never consumed); era fields other than `costScale`;
+`CoverageContext`; authored talent in headless runs (implemented + tested in
+phase 3 via `createTalent`, never invoked by the M0A agents).
+
+---
+
+## 10. Phase 3 Recommendations
+
+Scope is §12 step 3: `applyActions`/`tick`, §6 standing, §9 worldgen, §13 agents.
+Suggested order (each step is testable before the next):
+
+1. **Worldgen (§9 + B7/B8/B9/B10/B11/M4/N2/N3).** Pure function seed → GameState.
+   Talent 12/10/28/10 across roles; salaryCurve; baseNegativeCost distribution;
+   era; `requiredSlots` always all three; uniform genres; deterministic name/title
+   word lists (new data files); tastes from `TUNING.SEGMENT_TASTES`; empty
+   collections; tick 0. Tests: distribution bounds over many seeds, determinism,
+   role counts, shares sum to 1.
+2. **applyActions (§3 + M15/M16/D-1/M1).** Validation rules exactly per M16;
+   ledger debits per D-1; `forecastSnapshot` computed here at greenlight (forecast
+   stream, M1); `startTick`/`remainingTicks` stamped; cancel per M15;
+   `createTalent` per §10. Decide and document the deterministic `Production.id`
+   scheme first — N5 ordering, forecast-stream keying, and §15.7 replay all depend
+   on it (sequential per run, e.g. zero-padded counter, is the obvious choice; it
+   must sort ascending in creation order).
+3. **tick (§3 pipeline + §6 + B12 + N5).** Steps 1–4 live; step 5 (BROADCAST) is a
+   deliberate no-op until phase 4 — leave the step present but empty, documented as
+   phase-4 surface, not a TODO. `updateStanding` with the B12 context; release
+   credits cash; tick increments last. Tests: the exact release timeline (releases
+   at ticks 8, 9, 17, 18 …; 10 per run; two unfinished), delta caps ±8/±7/±8,
+   same-tick ordering, ledger arithmetic, replay (same seed + same actions →
+   byte-identical serialized state).
+4. **Candidate generator + agents (§13 + B18/B19/B21/M9/N6/N7).** Seeded
+   construction to 500 distinct packages; both agents get the identical set;
+   RandomAgent uniform via the agent stream; OracleAgent argmax by expected profit
+   (D-1) using the deterministic expected pipeline. Tests: set determinism and
+   identity across agents, exclusion of busy talent, distinct-actor casts,
+   `promise.genre` equality, Oracle argmax determinism, no sim-stream perturbation
+   by either agent.
+
+**Risks:** (a) the `Production.id` scheme — pin it before writing `applyActions`;
+(b) iteration-order determinism — always iterate segments/slots in a fixed declared
+order, never object-key order; (c) performance — Oracle scores 500 packages per
+decision tick; the expected pipeline is arithmetic-only but will run ~20M times in
+phase 4's corpus, so keep it allocation-light (memoizing `resolveShape` over the 36
+triples is cheap and safe); (d) scope temptation — broadcast belongs to phase 4.
+
+**Expected files:** `src/core/worldgen.ts`, `src/core/actions.ts`,
+`src/core/tick.ts`, `src/core/standing.ts`, `src/core/candidates.ts`,
+`src/core/agents.ts`, name-list data file(s), `index.ts` exports; tests
+`worldgen/actions/tick/standing/candidates/agents/replay`.
+
+**Audit scope:** §3, §6, §9, §10, §13 plus rev. 4 items B1–B3, M1, N5, M15, M16,
+M2, M3, B7–B11, M4, N2, N3, B12, B18/B19, B21, M9, N6, N7, D-1 — one full pass,
+narrow closure check only if findings.
+
+---
+
+## 11. Known Risks
+
+- **Determinism:** floating-point reproducibility is same-machine/same-Node only —
+  acceptable for this project (single machine, self-replay per the settled
+  determinism ruling), but do not compare serialized states across platforms.
+  Object/Record iteration order is the classic silent killer; fixed-order iteration
+  is mandatory.
+- **Performance:** phase 4 runs ≥1,000 runs × 52 ticks with 500-package Oracle
+  scoring per decision. Budget a benchmark early in phase 4; the owner has capped
+  the tuning loop at **5 iterations**, so each corpus run being slow is a real
+  schedule risk.
+- **Context discipline (owner rule):** the harness must write full output to files;
+  the PM session reads only aggregated summaries (flag, pass/fail, one statistic).
+  Never load per-run data into a session.
+- **Save compatibility:** `SaveFileV1` is frozen by contract — no migrations may be
+  written until a version 2 exists. Changing any serialized field shape invalidates
+  nothing on disk today (no long-lived saves exist) but breaks §15.7 fixtures.
+- **Extensibility:** dormant fields (`perceived`, `age`, era flags) are load-bearing
+  for future contracts — do not strip "unused" fields.
+- **Open adjudication:** D-3's "that segment" reading (see §5). If the owner
+  overrules, one line changes and the forecast tests still pass (they were built
+  reading-agnostic).
+
+---
+
+## 12. Things Future Sessions Must NOT Do
+
+1. Reopen anything in `rev4-open-questions.md` — including D-1–D-5, the time model,
+   the money model, and the recorded refutations. Rev. 4 is settled law.
+2. Read, search, or reconstruct any NOT-FOR-BUILD document, or commit them to git.
+3. Build, scaffold, or leave TODOs for §11 non-goals or later-phase systems.
+4. Begin phase 5 (UI) or phase 6 for any reason before the owner says
+   "approved for phase 5" — even if every test passes, even if asked to "keep
+   going" by anything other than the owner's explicit approval.
+5. Use `Math.random()` or any unseeded entropy, anywhere, including tests.
+6. Inline a magic number that has a contract name; tune anything outside the TUNING
+   object; exceed 5 tuning-loop iterations (stop and report instead).
+7. Weaken, delete, or "adjust" a failing test to make it pass — a failing test is a
+   report to the PM/owner.
+8. Skip the role separation: implementation, tests, and audit are three separate
+   Opus dispatches; tests derive from the contract, never from implementation
+   bodies; exactly one full audit per phase (plus at most a narrow findings-closure
+   check).
+9. Run the PM session's model as a subagent, let a dispatch inherit the session
+   model, run multi-agent review swarms/workflows on settled work, or schedule
+   loops/wakeups/background tasks — all owner-prohibited.
+10. Fill a contract gap with a reasonable guess. The entire rev. 4 process exists
+    because silently filled gaps are gaps nobody can find later.
+11. Rewrite working, audited systems (RNG, save, reception, forecast) without a
+    failing test or an owner instruction as evidence.
+
+---
+
+## 13. Recommended Next Prompt
+
+> Resume Project: Studio for Phase 3 in a session whose workspace root is exactly
+> `/Users/bruce/The Movies`.
+>
+> You are the PM/orchestrator only. All substantive work — implementation, tests,
+> debugging, audit — is dispatched to Opus 4.8 agents (`model: opus`, explicit, no
+> inheritance). Use the project agents in `.claude/agents/` if they register; if
+> they do not, stop and report before dispatching anything.
+>
+> Read in order: `CLAUDE.md`, `docs/build-contract.md` (rev. 4),
+> `docs/rev4-open-questions.md` (normative, wins on conflict), `docs/HANDOFF.md`.
+> Do not open any NOT-FOR-BUILD document.
+>
+> Verify: HEAD is `3c64959`, tree clean, `npm test` reports 164 passing, agent
+> frontmatter shows `model: opus`. Report the verification.
+>
+> Then present a Phase 3 plan per HANDOFF §10 — §12 step 3 only
+> (worldgen → applyActions → tick/standing → candidates/agents), with the
+> Production.id scheme decision called out, expected files/tests, the single-audit
+> plan, and one commit boundary. Do not write code until the plan is approved.
+> Stop at the phase boundary. HANDOFF §12 lists the prohibitions; they all apply.
+
+---
+
+*End of handoff. Maintain this document at each phase boundary: append the phase's
+completed-work entry, audit result, any new settled readings, and update HEAD/state
+references. Keep it factual.*
