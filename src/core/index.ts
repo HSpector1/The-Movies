@@ -104,6 +104,29 @@ export {
 export { RngStream, stream } from './rng.js'
 export type { RngPurpose } from './rng.js'
 
+// §9 world generation (phase 3) + the §10-shared salary curve (B7)
+export { generateWorld, salaryCurve } from './worldgen.js'
+
+// §3 applyActions (phase 3) — greenlight / cancel / createTalent
+export { applyActions } from './actions.js'
+
+// §6 standing (phase 3) — the three-channel updateStanding (B12 context param)
+export { updateStanding } from './standing.js'
+export type { ReleaseBenchmarks, StandingContext } from './standing.js'
+
+// §3 tick (phase 3) — the fixed-order PRODUCTION→RELEASE→RECEPTION→STANDING→BROADCAST pipeline
+export { tick } from './tick.js'
+
+// §13 candidate generator (phase 3, step 4) — the finite, deterministic,
+// agent-independent decision grid (B18/B19/B21).
+export { generateCandidates, packageReceptionInputs } from './candidates.js'
+export type { CandidatePackage } from './candidates.js'
+
+// §13 agents (phase 3, step 4) — RandomAgent + OracleAgent over the shared grid
+// (ruling #3/#4, D-1).
+export { RandomAgent, OracleAgent } from './agents.js'
+export type { Agent } from './agents.js'
+
 // §17 save
 export {
   stableStringify,

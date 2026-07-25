@@ -1,6 +1,6 @@
 # Project: Studio — Engineering Handoff
 
-Last updated: 2026-07-26, after Phase 2 commit `3c64959`. Written for a successor
+Last updated: 2026-07-26, after Phase 3 (this commit). Written for a successor
 session with zero knowledge of prior conversations. Read this after `CLAUDE.md`,
 `docs/build-contract.md` (rev. 4), and `docs/rev4-open-questions.md`, in that order.
 
@@ -15,11 +15,14 @@ runs by two scripted agents, producing an instrumentation report that answers "d
 film-assembly maths produce real decisions, or is one strategy dominant?" M0A gates
 M1A (a thin UI over the identical ruleset). No UI exists or may exist yet.
 
-**Status.** Phases 1 and 2 of 4 are complete, committed, and audited CLEAN.
-Phase 3 (`applyActions`/`tick`, standing, world generation, both agents) is next and
-unstarted. Phase 4 (instrumentation + minimal broadcast) ends with a **hard stop**:
-the M0A report is presented and nothing further happens until the owner says the
-words "approved for phase 5".
+**Status.** Phases 1, 2, and 3 of 4 are complete, committed, and audited CLEAN
+(Phase 3 audit: CLEAN WITH NOTES — one conforming provenance note, zero
+findings). Phase 3 delivered world generation (§9), `applyActions` (§3), the
+`tick` pipeline + standing (§3/§6), the candidate grid, and both agents (§13),
+plus `createTalent` (§10). Phase 4 (instrumentation §14 + minimal deterministic
+broadcast §8) is next and unstarted; it ends with a **hard stop**: the M0A report
+is presented and nothing further happens until the owner says the words "approved
+for phase 5".
 
 **Architecture in one paragraph.** A pure TypeScript simulation core
 (`(state, actions) => state`, no React/DOM/async/IO) under `src/core/`, governed by
@@ -30,26 +33,36 @@ expectations from the contract text only, never from the implementation, and eve
 phase ends with exactly one read-only clause-by-clause audit hunting for invented
 behavior.
 
-**Confidence.** High for the audited surface. 164 tests green, `tsc --noEmit` clean,
-two audits with zero findings. The main untested surface is deliberate: `technical`
-is pinned at 40 in all of M0A (owner decision D-4), so craft's 15% technical weight
-is unexercised until M1A.
+**Confidence.** High for the audited surface. **283 tests green**, `tsc --noEmit`
+clean, three phase audits with zero findings (Phase 3: CLEAN WITH NOTES). The main
+untested surface is deliberate: `technical` is pinned at 40 in all of M0A (owner
+decision D-4), so craft's 15% technical weight is unexercised until M1A. The full
+engine now runs headless end to end (`applyActions`→`tick` over a seeded year);
+what remains for M0A is Phase 4: the §14 instrumentation over ≥1,000 runs, the two
+crude §8 broadcast templates, and the M0A report.
 
 ---
 
 ## 2. Current Repository State
 
-- **HEAD:** `3c64959` on `main`. No remote. Working tree **clean**.
+- **HEAD:** the Phase-3 commit on `main` (this document is committed within it, so it
+  cannot cite its own hash; the prior commit was `56d5eef`, the post-Phase-2 handoff).
+  No remote. Working tree **clean** after commit.
 - **History:** `13f51d9` baseline docs → `86755ea` contract rev. 4 → `b1f492b` agent
-  team → `444ed08` Phase 1 → `3c64959` Phase 2.
+  team → `444ed08` Phase 1 → `3c64959` Phase 2 → `56d5eef` handoff → Phase 3 (this commit).
 - **Directories:**
   - `docs/` — `build-contract.md` (rev. 4 = unchanged rev. 3 body + header pointing
     at the resolutions), `rev4-open-questions.md` (**normative**; wins on conflict),
     this file.
-  - `src/core/` — the entire engine: `types.ts`, `vector.ts`, `math.ts`,
+  - `src/core/` — the engine. Phase 1–2: `types.ts`, `vector.ts`, `math.ts`,
     `tuning.ts`, `shape.ts`, `grid.ts`, `rng.ts`, `save.ts`, `reception.ts`,
-    `forecast.ts`, `index.ts` (the only public import surface).
-  - `tests/` — 9 test files + `_fixtures.ts` (fixture builders, not a test file).
+    `forecast.ts`. Phase 3 added: `worldgen.ts` (§9), `data/wordlists.ts` (N2 name/
+    title data), `actions.ts` (§3 applyActions), `tick.ts` (§3 pipeline),
+    `standing.ts` (§6), `candidates.ts` + `agents.ts` (§13). `index.ts` remains the
+    only public import surface. `rng.ts` gained a `'worldgen'` `RngPurpose` (additive).
+  - `tests/` — 16 test files (Phase 3 added `worldgen`, `actions`, `tick`, `standing`,
+    `candidates`, `agents`, `replay`) + `_fixtures.ts` (fixture builders, not a test
+    file). **283 tests** total.
   - `.claude/agents/` — four team-agent definitions (sim-core, test-author,
     instrumentation, contract-auditor), all `model: opus`. **Registry caveat:** they
     load only if the session's workspace root is this folder; a session rooted
@@ -112,6 +125,36 @@ is unexercised until M1A.
   precedence on the §5.3 originality lerp and that the critic draw is the only
   sampled term in reception.
 - **Outcome:** 164/164 green, tsc clean.
+
+### Phase 3 — worldgen, applyActions, tick/standing, candidates+agents (this commit)
+
+- **Objective:** §12 step 3 — the pieces that turn the Phase-2 math into a running
+  headless engine. Built by role-separated Opus dispatches (implementation, then
+  independent contract-derived tests, then one full audit), PM-orchestrated.
+- **Created:** `worldgen.ts` + `data/wordlists.ts`, `actions.ts`, `tick.ts`,
+  `standing.ts`, `candidates.ts`, `agents.ts`; test files `worldgen` (25),
+  `actions` (29), `tick` (9), `standing` (28), `candidates` (12), `agents` (9),
+  `replay` (7) — **+119 tests (164→283)**. `rng.ts` gained an additive `'worldgen'`
+  `RngPurpose`; `index.ts` gained the phase-3 exports.
+- **Systems:** §9 worldgen (pure seed→GameState; talent 12/10/28/10, salaryCurve B7,
+  baseNegativeCost B8, era B10, tastes from `TUNING.SEGMENT_TASTES` D-5, all
+  distributions from a derived `'worldgen'` stream that never touches the sim
+  stream); §3 `applyActions` (M16 validation, D-1 ledger debit, forecast snapshot at
+  greenlight via the forecast stream, cancel M15, createTalent §10); §3 `tick`
+  (PRODUCTION→RELEASE→RECEPTION→STANDING→BROADCAST-noop, tick++ last; reception is the
+  sole sim-stream consumer, in ascending-id order; cash credit); §6 `updateStanding`
+  (verbatim four deltas + caps, B12 context param); §13 `generateCandidates`
+  (500-distinct sampled grid, B18/B19/B21) + `RandomAgent`/`OracleAgent` (agent stream
+  vs deterministic omniscient profit argmax).
+- **Settled readings recorded (see §5):** Production.id `prod-<startTick4>` (owner
+  ruling #1); D-3 "that segment" = `promise.intendedSegments` (owner ruling #2, now
+  settled — Phase-2's pending adjudication is closed); Oracle uses the deterministic
+  noise-free pipeline (owner ruling #3); greenlight-when-`active<2` (owner ruling #4);
+  candidate distinctness is index-tuple, not content (B19 reading, audit NOTE).
+- **Audit:** CLEAN WITH NOTES — zero DEVIATED/INVENTED/MISSING/OUT-OF-SCOPE findings;
+  one conforming provenance NOTE (the B19 index-tuple reading). Mechanical checks all
+  pass; `rng.ts` change confirmed additive-only; no §11/Phase-4/UI leakage.
+- **Outcome:** 283/283 green, tsc clean.
 
 ---
 
@@ -247,13 +290,36 @@ first:
   and the dormant benchmark fields are verbatim-by-design.
 - **Phase-2 additions to the record:**
   1. D-3's "that segment" is bound to `promise.intendedSegments` (B21 supplies the
-     antecedent). Flagged to the owner, **adjudication pending**; the default
-     stands unless overruled, and the change is one line in
-     `computeConfidencePredicates`. Tests were deliberately constructed to pass
-     under either reading.
+     antecedent). **Now SETTLED (owner ruling #2, Phase 3):** success with ≥1 segment
+     in the film's `promise.intendedSegments` — an unrelated arbitrary segment is not
+     sufficient. Phase-3's candidate `intendedSegments` (B21 argmax) feed this
+     predicate consistently. The Phase-2 "adjudication pending" flag is closed.
   2. The §4 budget clamp [0.80, 1.40] is unreachable via legal shape triples (real
      range ≈ [0.81, 1.38]); correct defensive code that never fires. Tested as a
      range assertion over all 36 triples.
+- **Phase-3 additions to the record (owner rulings, 2026-07-26 authorization):**
+  1. **Production.id = `prod-<startTick zero-padded to 4>`** (ruling #1). `startTick`
+     is unique per run (≤1 greenlight/tick) so the id is unique, monotonic, and
+     lexically ordered = creation order; no `GameState` counter was added. Talent ids
+     are `t-<role3>-NN`, concepts `c-NN`, authored talent `authored-NNNN` (delegated,
+     collision-free by prefix).
+  2. **OracleAgent uses the deterministic omniscient noise-free pipeline** (ruling #3,
+     = HANDOFF §10.4): `forecastCenters`→`computeBoxOffice`, no critic sampling, no
+     forecast gaussian, no realized outcomes; EV = expected profit (D-1); ties broken
+     by ascending candidate index. This is the load-bearing wiring the §14
+     dominance/dead-state flags will measure — the auditor verified it explicitly.
+  3. **Greenlight policy = greenlight whenever `activeProductions.length < 2`**
+     (ruling #4). This is the only policy that reproduces the D-2/B2 ten-release
+     cadence (releases at ticks 8,9,17,18,26,27,35,36,44,45; two unfinished at year
+     end) — verified by an independent timeline test.
+  4. **Worldgen determinism** (ruling #5): all artifacts derive from the seed via a
+     derived `'worldgen'` stream (never the sim stream); word lists are committed TS
+     modules consumed in fixed declared order (no fs enumeration).
+  5. **Candidate distinctness is index-tuple, not content** (B19 reading; audit NOTE):
+     `generateCandidates` dedups the 500 on the cross-product index tuple. Because the
+     8 promise triples are sampled independently, two index-distinct packages could
+     carry identical content; judged CONFORMS (B19's "distinct packages" ranges over
+     the sampled cross-product's cells). Recorded so the provenance is on file.
 
 ---
 
@@ -309,6 +375,16 @@ Every audit and its outcome, in order:
    **CLEAN, zero findings.** Verified the two on-record transparent readings match
    what was reported; explicitly checked the §5.3 originality operator precedence
    and single-sampled-term property.
+4. **Phase 3 audit** (read-only, clause-by-clause vs §3/§6/§9/§10/§13 + the rev. 4
+   items and owner rulings the phase touches; determinism/ordering, RNG stream
+   isolation, replay posture, scope): **CLEAN WITH NOTES — zero
+   DEVIATED/INVENTED/MISSING/OUT-OF-SCOPE findings.** One conforming NOTE recorded:
+   B19's "500 distinct packages" is implemented as cross-product index-tuple
+   distinctness (content-identical-but-index-distinct packages are possible), which
+   the auditor judged the governing text's specified reading and an authorized
+   engineering choice — CONFORMS, flagged for provenance. Mechanical checks pass; the
+   `rng.ts` `'worldgen'`-purpose change verified additive-only (existing streams
+   byte-identical). No correction required.
 
 **Corrections required by any audit: none.** The only pre-audit correction in
 project history is the phase-1 comment reword (`Math.random` literal in a comment,
@@ -371,10 +447,15 @@ phase 3 via `createTalent`, never invoked by the M0A agents).
 
 ---
 
-## 10. Phase 3 Recommendations
+## 10. Phase 3 Recommendations — COMPLETE
 
-Scope is §12 step 3: `applyActions`/`tick`, §6 standing, §9 worldgen, §13 agents.
-Suggested order (each step is testable before the next):
+**STATUS: DONE (this commit).** The plan below was executed in this order; every
+step landed with independent contract-derived tests, and the single Phase-3 audit
+returned CLEAN WITH NOTES. The Phase-4 recommendations follow at the end of this
+section. Kept for the record:
+
+Scope was §12 step 3: `applyActions`/`tick`, §6 standing, §9 worldgen, §13 agents.
+Order (each step tested before the next):
 
 1. **Worldgen (§9 + B7/B8/B9/B10/B11/M4/N2/N3).** Pure function seed → GameState.
    Talent 12/10/28/10 across roles; salaryCurve; baseNegativeCost distribution;
@@ -418,7 +499,44 @@ triples is cheap and safe); (d) scope temptation — broadcast belongs to phase 
 
 **Audit scope:** §3, §6, §9, §10, §13 plus rev. 4 items B1–B3, M1, N5, M15, M16,
 M2, M3, B7–B11, M4, N2, N3, B12, B18/B19, B21, M9, N6, N7, D-1 — one full pass,
-narrow closure check only if findings.
+narrow closure check only if findings. *(Executed as written; CLEAN WITH NOTES.)*
+
+### Phase 4 Recommendations (next; still under the "approved for phase 5" hard stop)
+
+Scope is §12 step 4: the §14 instrumentation harness over ≥1,000 seeded runs, the
+minimal deterministic §8 broadcast core (two crude release templates only), and the
+`M0A-REPORT.md`. Then **STOP** — present the report and end the turn; do not begin
+phase 5/UI until the owner says the exact words "approved for phase 5".
+
+- **Harness / corpus (N8, §14).** A run driver: `generateWorld(m0a-NNNN)` then, for
+  ticks 0–51, `applyActions(state, agent.chooseActions(state))` → `tick(state)` per
+  agent (Random, Oracle), pooled per the §14 Agent column. Seeds `m0a-0001…` from a
+  master seed. **Owner rule (§11):** the harness writes full output to files; the PM
+  session reads only aggregated summaries (flag, pass/fail, one stat) — never per-run
+  data into a session. Benchmark early: Oracle scores 500 packages/decision (~20M
+  expected-pipeline calls across the corpus); the tuning loop is capped at **5
+  iterations**.
+- **The eight flags** with rev. 4 operationalizations: choice dominance (B25),
+  strategy concentration (B26), dead cultural state (B27), standing differentiation
+  (D-2 — the ONLY hard fail: ≥3 of 4 asymmetric profiles each in ≥5% of runs, 60/40
+  end-of-run), standing correlation (M6, warning), forecast calibration (M8, B17
+  bands 80–90/65–75/55–65, tiers <5% marked LOW SAMPLE), casting diversity (M17,
+  Random, per-run median <25%), authored-talent effect (reported "not exercised").
+  Flag consequences per N9 (only D-2 blocks).
+- **Broadcast (§8, B22/B23/B24/M10).** Fill the `tick` BROADCAST no-op: release-topic
+  candidate items only, the two `release-better`/`release-worse` templates,
+  `air = rankScore ≥ BROADCAST_THRESHOLD`, `asExpected` items don't air. The B12
+  release context must now also carry the broadcast-only intermediates (mismatchPenalty
+  / timeliness / awareness) that Phase 3 deliberately did NOT thread (STANDING didn't
+  need them). `broadcastCache ≡ state.broadcastItems` (M14).
+- **Report (N8, D-3, D-4).** `M0A-REPORT.md`: one section per flag (definition,
+  measured value, evidence, verdict) + §15 results; the confidence-tier distribution
+  table; and the **verbatim D-4 caveat** (technical pinned at 40; craft weights
+  validated at rescaled proportions; re-validation flagged for M1A).
+- **Acceptance tests (§15).** §15.1 bounds over the corpus, §15.2 four-quadrants (B28
+  unit + corpus), §15.7 replay (Phase-3 already proves byte-identical full-run replay;
+  extend to SaveFileV1 + broadcast cache once broadcast items exist).
+- **Audit:** one full pass over §8/§14 + rev.4 B22–B28/M6/M8/M10/M17/N8/N9.
 
 ---
 

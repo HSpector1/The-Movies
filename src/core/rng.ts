@@ -13,13 +13,14 @@
 //   stream(seed, purpose, key) — a stateless DERIVED stream: purpose and key are
 //     mixed into the hash so the same (seed, purpose, key) always produces the
 //     same independent stream. Used by phases 2–3 for the 'candidates' | 'agent' |
-//     'forecast' substreams (M9). "Stateless" means: derived on demand from the
-//     run seed, never threaded through save — so replays are exact without storing
-//     these streams.
+//     'forecast' | 'worldgen' substreams (M9; 'worldgen' added in phase 3 for §9
+//     world generation). "Stateless" means: derived on demand from the run seed,
+//     never threaded through save — so replays are exact without storing these
+//     streams.
 //
 // No unseeded randomness anywhere in this tree — including tests and config.
 
-export type RngPurpose = 'candidates' | 'agent' | 'forecast'
+export type RngPurpose = 'candidates' | 'agent' | 'forecast' | 'worldgen'
 
 // A 32-bit hash accumulator step (splitmix32 finalizer). Deterministic, avalanche-y.
 function splitmix32(seed: number): { value: number; next: number } {
