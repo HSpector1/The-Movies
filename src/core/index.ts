@@ -56,8 +56,8 @@ export {
   safeCosine,
 } from './vector.js'
 
-// numeric primitives used by contract formulas (phase-1 subset)
-export { clamp, mean } from './math.js'
+// numeric primitives used by contract formulas
+export { clamp, mean, lerp, smoothstep, remap, weightedMean, sum, product } from './math.js'
 
 // §16 TUNING + contract-declared named constants
 export {
@@ -70,8 +70,25 @@ export {
   WORLD_CONFIG,
 } from './tuning.js'
 
-// §4 shape declarations
-export { SHAPE_OPTIONS, specificity } from './shape.js'
+// §4 shape declarations + resolveShape (phase 2)
+export { SHAPE_OPTIONS, specificity, resolveShape } from './shape.js'
+
+// §5 reception pipeline (phase 2)
+export {
+  resolveReception,
+  buildFilmResult,
+  roleFit,
+  castContribution,
+  computeSegmentAppeal,
+  computeBoxOffice,
+} from './reception.js'
+export type { ReceptionInputs, ReceptionResult } from './reception.js'
+
+// §7 forecast pipeline (phase 2) + the deterministic forecast-center helper
+// (§15.6's behavioral-independence tests use it; the contract itself defines the
+// deterministic center in §7/B16).
+export { computeForecast, forecastCenters, bandOf } from './forecast.js'
+export type { ForecastInputs, ForecastContext, ForecastCenters } from './forecast.js'
 
 // §13 grid declarations
 export {
