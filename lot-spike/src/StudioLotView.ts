@@ -10,8 +10,10 @@
 // surface as `onAction`. That is the entire contract.
 
 import Phaser from 'phaser'
-import { LotScene, type LotEvent } from './lot/LotScene'
+import { LotScene, type LotEvent, type CameraPreset } from './lot/LotScene'
 import type { StudioLotSnapshot, BuildingId, LotActionKind, ProductionCard } from './snapshot/StudioLotSnapshot'
+
+export type { CameraPreset }
 
 export type SelectionInfo = {
   buildingId: BuildingId
@@ -45,10 +47,13 @@ export class StudioLotView {
   constructor(opts: StudioLotViewOptions) {
     this.opts = opts
     this.pendingSnapshot = opts.snapshot
+    this.game = this.boot()
+  }
 
-    this.game = new Phaser.Game({
+  private boot(): Phaser.Game {
+    const game = new Phaser.Game({
       type: Phaser.AUTO,
-      parent: opts.parent,
+      parent: this.opts.parent,
       // Transparent so the golden-hour CSS gradient on the mount element reads as
       // sky/atmosphere around the lot rather than a flat fill.
       transparent: true,
@@ -56,15 +61,13 @@ export class StudioLotView {
       render: { antialias: true, roundPixels: false, powerPreference: 'low-power' },
       scene: [],
     })
-
-    this.game.events.once('ready', () => {
-      this.game.scene.add(
-        'lot',
-        LotScene,
-        true,
-        { snapshot: opts.snapshot, onEvent: (e: LotEvent) => this.handleEvent(e) },
-      )
+    game.events.once('ready', () => {
+      game.scene.add('lot', LotScene, true, {
+        snapshot: this.pendingSnapshot ?? this.opts.snapshot,
+        onEvent: (e: LotEvent) => this.handleEvent(e),
+      })
     })
+    return game
   }
 
   private handleEvent(e: LotEvent): void {
@@ -118,6 +121,23 @@ export class StudioLotView {
 
   resetCamera(): void {
     this.scene?.resetCamera()
+  }
+
+  /** Move the camera to a named framing (overview / production / wide). */
+  camera(preset: CameraPreset): void {
+    this.scene?.applyCameraPreset(preset)
+  }
+
+  /** Introspection for tests/verification (selection, active tags, object count). */
+  getDebugState(): { selected: BuildingId | null; activeTags: number; displayObjects: number } | null {
+    return this.scene?.debugState() ?? null
+  }
+
+  /** Tear down and rebuild the game from scratch (leak/teardown check). */
+  recreate(): void {
+    this.scene = null
+    this.game.destroy(true)
+    this.game = this.boot()
   }
 
   destroy(): void {

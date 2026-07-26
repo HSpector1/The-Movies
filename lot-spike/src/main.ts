@@ -61,18 +61,26 @@ function labelFor(id: BuildingId): string {
 
 // ── verification hook ─────────────────────────────────────────────────────────
 // A tiny window-level record so the headless screenshot/interaction script can
-// assert that clicks produce selections and actions. Harmless in normal use.
+// drive the view and assert behavior. Harmless in normal use.
 type DebugApi = {
   events: LotActionEvent[]
   setMode: (k: FixtureKey) => void
   select: (id: BuildingId) => void
+  clearSelection: () => void
   triggerAction: (id: BuildingId) => void
+  camera: (preset: 'overview' | 'production' | 'wide' | 'entrance') => void
+  debugState: () => ReturnType<StudioLotView['getDebugState']>
+  recreate: () => void
 }
 const debug: DebugApi = {
   events: [],
   setMode,
   select: (id) => view.select(id),
+  clearSelection: () => view.clearSelection(),
   triggerAction: (id) => view.triggerAction(id),
+  camera: (preset) => view.camera(preset),
+  debugState: () => view.getDebugState(),
+  recreate: () => view.recreate(),
 }
 function debugRecord(e: LotActionEvent): void {
   debug.events.push(e)

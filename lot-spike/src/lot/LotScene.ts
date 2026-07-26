@@ -1,8 +1,10 @@
-// ── LotScene — the isometric studio lot ───────────────────────────────────────
-// Presentation only. It renders a StudioLotSnapshot: ground, composed buildings,
-// landscaping, active productions on stages, and a little ambient life. It owns no
-// simulation state — it reads facts and paints. Camera, hover/select, and action
-// emission live here; the surrounding HTML chrome lives in the host.
+// ── LotScene — the living isometric studio lot ────────────────────────────────
+// Presentation only. Renders a StudioLotSnapshot into a composed, grounded, and
+// animated studio lot: framed terrain, foundation plinths, a hero gate, buildings
+// with distinct silhouettes, production activity you can read without a card
+// (open doors + spill light + gear + crew), deterministic ambient life (four
+// roles + vehicles with dwell stops), and authored struggling/established
+// dressing. Owns no simulation truth — it reads facts and paints.
 
 import Phaser from 'phaser'
 import { TILE_W, TILE_H, gridToScreen, depthFor, LAYER } from './iso'
@@ -15,9 +17,12 @@ import {
   ROADS,
   PLAZA,
   PATHS,
+  APRONS,
   EXPANSION_PADS,
+  STAGE_APRONS,
   placedBuildings,
   landscaping,
+  establishedDressing,
   type PlacedBuilding,
   type Rect,
 } from './layout'
@@ -32,8 +37,8 @@ import { BUILDING_ACTION } from '../snapshot/StudioLotSnapshot'
 const hw = TILE_W / 2
 const hh = TILE_H / 2
 
-const ZOOM_MIN = 0.35
-const ZOOM_MAX = 1.7
+const ZOOM_MIN = 0.32
+const ZOOM_MAX = 1.9
 
 const FONT_SERIF = 'Georgia, "Iowan Old Style", "Times New Roman", serif'
 const FONT_SANS = 'Avenir, "Helvetica Neue", Arial, sans-serif'
@@ -53,9 +58,17 @@ export type LotEvent =
   | { type: 'action'; buildingId: BuildingId; action: LotActionKind }
   | { type: 'ready' }
 
+export type CameraPreset = 'overview' | 'production' | 'wide' | 'entrance'
+
 export type LotSceneData = {
   snapshot: StudioLotSnapshot
   onEvent: (e: LotEvent) => void
+}
+
+type ProdTag = {
+  container: Phaser.GameObjects.Container
+  full: Phaser.GameObjects.Container
+  compact: Phaser.GameObjects.Container
 }
 
 type BuildingView = {
@@ -65,18 +78,26 @@ type BuildingView = {
   outline: Phaser.GameObjects.Graphics
   label: Phaser.GameObjects.Container
   recLight: Phaser.GameObjects.Sprite | null
-  prodTag: Phaser.GameObjects.Container | null
+  doorGlow: Phaser.GameObjects.Graphics | null
+  prodTag: ProdTag | null
+  dressing: Phaser.GameObjects.GameObject[]
 }
 
-type Route = { gx: number; gy: number }[]
+type Waypt = { gx: number; gy: number; dwell?: number }
 
 type Agent = {
   sprite: Phaser.GameObjects.Sprite
-  route: Route
+  route: Waypt[]
+  seg: number
+  pos: number
+  dwellLeft: number
   speed: number
-  dist: number
   bob: number
   kind: 'worker' | 'vehicle'
+  /** only visible when this stage is active (crew/loading); undefined = always */
+  stageGate?: 'stage-a' | 'stage-b'
+  /** only visible when the studio is busy */
+  busyOnly?: boolean
 }
 
 export class LotScene extends Phaser.Scene {
@@ -85,11 +106,13 @@ export class LotScene extends Phaser.Scene {
 
   private views = new Map<BuildingId, BuildingView>()
   private agents: Agent[] = []
-  private routeLen = new WeakMap<object, number>()
   private originByKey = new Map<string, number>()
+  private establishedProps: Phaser.GameObjects.Sprite[] = []
+  private gateLabel: Phaser.GameObjects.Text | null = null
 
   private selected: BuildingId | null = null
   private hovered: BuildingId | null = null
+  private tagZoomBand = -1
 
   private dragging = false
   private dragMoved = false
@@ -110,14 +133,14 @@ export class LotScene extends Phaser.Scene {
 
   create(): void {
     bakeAllTextures(this)
-
-    // remember the baked origins so placement matches the art exactly
     for (const t of Object.values(BUILDING_TEX)) this.originByKey.set(t.key, t.originY)
     for (const t of Object.values(PROP_TEX)) this.originByKey.set(t.key, t.originY)
 
     this.buildGround()
+    this.buildBoundary()
     this.buildBuildings()
     this.buildLandscaping()
+    this.buildEstablishedDressing()
     this.buildAgents()
 
     this.setupCamera()
@@ -134,6 +157,15 @@ export class LotScene extends Phaser.Scene {
     return { w: img.width, h: img.height, originY: this.originByKey.get(key) ?? 0.9 }
   }
 
+  private lotCorners(): { x: number; y: number }[] {
+    return [
+      gridToScreen(0, 0),
+      gridToScreen(LOT_W, 0),
+      gridToScreen(LOT_W, LOT_D),
+      gridToScreen(0, LOT_D),
+    ]
+  }
+
   // ── ground ──────────────────────────────────────────────────────────────────
 
   private buildGround(): void {
@@ -147,7 +179,6 @@ export class LotScene extends Phaser.Scene {
     const rt = this.add.renderTexture(minX, minY, maxX - minX, maxY - minY)
     rt.setOrigin(0, 0)
     rt.setDepth(-1_000_000)
-
     rt.beginDraw()
     for (let gy = 0; gy < LOT_D; gy++) {
       for (let gx = 0; gx < LOT_W; gx++) {
@@ -182,7 +213,74 @@ export class LotScene extends Phaser.Scene {
     paint(PLAZA, 't-plaza')
     paint(PATHS, 't-path')
     paint(ROADS, 't-road', 't-road-line')
+    paint(APRONS, 't-apron')
     return g
+  }
+
+  /** A framing wall along the back edges + a low hedge along the front edges. */
+  private buildBoundary(): void {
+    const backWall = (
+      a: { gx: number; gy: number },
+      b: { gx: number; gy: number },
+    ): void => {
+      const wallH = 20
+      const g = this.add.graphics()
+      g.setDepth(-900_000)
+      const pa = gridToScreen(a.gx, a.gy)
+      const pb = gridToScreen(b.gx, b.gy)
+      g.fillStyle(K.hedgeDark, 1)
+      g.fillPoints([pa, pb, { x: pb.x, y: pb.y - 10 }, { x: pa.x, y: pa.y - 10 }], true)
+      g.fillStyle(K.wallStuccoL, 1)
+      g.fillPoints(
+        [
+          { x: pa.x, y: pa.y - 8 },
+          { x: pb.x, y: pb.y - 8 },
+          { x: pb.x, y: pb.y - 8 - wallH },
+          { x: pa.x, y: pa.y - 8 - wallH },
+        ],
+        true,
+      )
+      g.fillStyle(K.wallCoping, 1)
+      g.fillPoints(
+        [
+          { x: pa.x, y: pa.y - 8 - wallH },
+          { x: pb.x, y: pb.y - 8 - wallH },
+          { x: pb.x, y: pb.y - 12 - wallH },
+          { x: pa.x, y: pa.y - 12 - wallH },
+        ],
+        true,
+      )
+    }
+    // back-right (gy=0) and back-left (gx=0) walls, behind everything
+    backWall({ gx: 0, gy: 0 }, { gx: LOT_W, gy: 0 })
+    backWall({ gx: 0, gy: 0 }, { gx: 0, gy: LOT_D })
+
+    // low perimeter hedge along the two FRONT edges (in front), with a gap at the
+    // boulevard so the gate reads as the opening. Drawn per-tile for depth safety.
+    const hedgeTile = (gx: number, gy: number, along: 'gx' | 'gy'): void => {
+      const g = this.add.graphics()
+      g.setDepth(depthFor(gx, gy, LAYER.prop))
+      const p0 = gridToScreen(gx, gy)
+      const p1 = along === 'gx' ? gridToScreen(gx + 1, gy) : gridToScreen(gx, gy + 1)
+      const h = 13
+      g.fillStyle(K.hedge, 1)
+      g.fillPoints([p0, p1, { x: p1.x, y: p1.y - h }, { x: p0.x, y: p0.y - h }], true)
+      g.fillStyle(K.hedgeDark, 1)
+      g.fillPoints(
+        [
+          { x: p0.x, y: p0.y - h },
+          { x: p1.x, y: p1.y - h },
+          { x: p1.x, y: p1.y - h - 3 },
+          { x: p0.x, y: p0.y - h - 3 },
+        ],
+        true,
+      )
+    }
+    for (let gx = 0; gx < LOT_W; gx++) {
+      if (gx >= 8 && gx <= 11) continue // gate opening on the boulevard
+      hedgeTile(gx, LOT_D, 'gx') // front-left edge (gy = LOT_D)
+    }
+    for (let gy = 0; gy < LOT_D; gy++) hedgeTile(LOT_W, gy, 'gy') // front-right edge (gx = LOT_W)
   }
 
   // ── buildings ─────────────────────────────────────────────────────────────
@@ -192,6 +290,13 @@ export class LotScene extends Phaser.Scene {
       const center = gridToScreen(spec.gx + spec.fw / 2, spec.gy + spec.fd / 2)
       const container = this.add.container(center.x, center.y)
       container.setDepth(depthFor(spec.gx + spec.fw, spec.gy + spec.fd, LAYER.building))
+
+      // foundation plinth (grounds the massing so it doesn't float)
+      if (spec.texKey && spec.id !== 'gate') {
+        const plinth = this.add.graphics()
+        this.drawFootprint(plinth, spec, K.plinthEdge, false, 0.16, K.plinth)
+        container.add(plinth)
+      }
 
       const outline = this.add.graphics()
       outline.setVisible(false)
@@ -203,11 +308,10 @@ export class LotScene extends Phaser.Scene {
 
       if (spec.texKey) {
         const meta = this.texMeta(spec.texKey)
-
-        const shadow = this.add.sprite(0, 0, 'p-shadow')
+        const shadow = this.add.sprite(0, 6, 'p-shadow')
         shadow.setOrigin(0.5, 0.5)
-        shadow.setScale(((spec.fw + spec.fd) / 2) * 0.9, ((spec.fw + spec.fd) / 2) * 0.5)
-        shadow.setAlpha(0.45)
+        shadow.setScale(((spec.fw + spec.fd) / 2) * 1.0, ((spec.fw + spec.fd) / 2) * 0.55)
+        shadow.setAlpha(0.4)
         container.add(shadow)
 
         sprite = this.add.sprite(0, 0, spec.texKey)
@@ -217,14 +321,13 @@ export class LotScene extends Phaser.Scene {
         hitTarget = sprite
 
         if (spec.id === 'stage-a' || spec.id === 'stage-b') {
-          const apexY = -meta.h * meta.originY + meta.h * 0.1
-          recLight = this.add.sprite(meta.w * 0.16, apexY, 'p-bulb')
+          const apexY = -meta.h * meta.originY + meta.h * 0.12
+          recLight = this.add.sprite(meta.w * 0.14, apexY, 'p-bulb')
           recLight.setTint(K.recordingOff)
-          recLight.setScale(1.2)
+          recLight.setScale(1.3)
           container.add(recLight)
         }
       } else {
-        // expansion pad — no massing, just a graded diamond + a stake
         const pad = this.add.graphics()
         this.drawFootprint(pad, spec, K.dirtEdge, true)
         pad.setInteractive(this.footprintPolygon(spec), Phaser.Geom.Polygon.Contains)
@@ -239,28 +342,57 @@ export class LotScene extends Phaser.Scene {
         hitTarget = pad
       }
 
-      const labelY = spec.texKey ? -this.texMeta(spec.texKey).h * this.texMeta(spec.texKey).originY - 12 : -34
+      const labelY = spec.texKey
+        ? -this.texMeta(spec.texKey).h * this.texMeta(spec.texKey).originY - 12
+        : -34
       const label = this.makeLabel(spec.label)
       label.setPosition(0, labelY)
       label.setVisible(false)
       container.add(label)
 
-      const view: BuildingView = { spec, container, sprite, outline, label, recLight, prodTag: null }
+      const view: BuildingView = {
+        spec,
+        container,
+        sprite,
+        outline,
+        label,
+        recLight,
+        doorGlow: null,
+        prodTag: null,
+        dressing: [],
+      }
       this.views.set(spec.id, view)
       this.wireInteractive(hitTarget, spec.id)
     }
+
+    // studio-name lettering on the gate header (Text overlay; Graphics can't)
+    const gate = this.views.get('gate')
+    if (gate) {
+      const meta = this.texMeta('p-gate')
+      this.gateLabel = this.add.text(2, -meta.h * this.originByKey.get('p-gate')! + 30, '', {
+        fontFamily: FONT_SERIF,
+        fontSize: '13px',
+        color: '#f5ecd8',
+        fontStyle: 'bold',
+      })
+      this.gateLabel.setOrigin(0.5, 0.5)
+      this.gateLabel.setLetterSpacing?.(1)
+      gate.container.add(this.gateLabel)
+    }
   }
 
-  private footprintCorners(spec: PlacedBuilding): { x: number; y: number }[] {
+  private footprintCorners(spec: PlacedBuilding, margin = 0): { x: number; y: number }[] {
+    const fw = spec.fw + margin * 2
+    const fd = spec.fd + margin * 2
     const rel = (a: number, b: number): { x: number; y: number } => ({
       x: (a - b) * hw,
       y: (a + b) * hh,
     })
     return [
-      rel(-spec.fw / 2, -spec.fd / 2),
-      rel(spec.fw / 2, -spec.fd / 2),
-      rel(spec.fw / 2, spec.fd / 2),
-      rel(-spec.fw / 2, spec.fd / 2),
+      rel(-fw / 2, -fd / 2),
+      rel(fw / 2, -fd / 2),
+      rel(fw / 2, fd / 2),
+      rel(-fw / 2, fd / 2),
     ]
   }
 
@@ -273,14 +405,19 @@ export class LotScene extends Phaser.Scene {
     spec: PlacedBuilding,
     color: number,
     dashed = false,
+    margin = 0,
+    fill?: number,
   ): void {
-    const [N, E, S, W] = this.footprintCorners(spec)
+    const [N, E, S, W] = this.footprintCorners(spec, margin)
     g.clear()
-    if (dashed) {
+    if (fill !== undefined) {
+      g.fillStyle(fill, 1)
+      g.fillPoints([N, E, S, W], true)
+    } else if (dashed) {
       g.fillStyle(K.dirt, 0.5)
       g.fillPoints([N, E, S, W], true)
     }
-    g.lineStyle(dashed ? 2 : 3, color, dashed ? 0.7 : 0.95)
+    g.lineStyle(dashed ? 2 : fill !== undefined ? 1.5 : 3, color, dashed ? 0.7 : fill !== undefined ? 0.6 : 0.95)
     g.strokePoints([N, E, S, W], true, true)
   }
 
@@ -317,7 +454,20 @@ export class LotScene extends Phaser.Scene {
     })
   }
 
-  // ── landscaping ─────────────────────────────────────────────────────────────
+  // ── landscaping + established dressing ──────────────────────────────────────
+
+  private placeProp(
+    texKey: string,
+    gx: number,
+    gy: number,
+    layer = LAYER.prop,
+  ): Phaser.GameObjects.Sprite {
+    const s = gridToScreen(gx, gy)
+    const spr = this.add.sprite(s.x, s.y, texKey)
+    spr.setOrigin(0.5, this.originByKey.get(texKey) ?? 0.9)
+    spr.setDepth(depthFor(gx, gy, layer))
+    return spr
+  }
 
   private buildLandscaping(): void {
     const rng = new Rng(this.snapshot.sceneSeed + ':props')
@@ -325,10 +475,19 @@ export class LotScene extends Phaser.Scene {
       const j = p.jitter ?? 0
       const gx = p.gx + (j ? rng.range(-j, j) : 0)
       const gy = p.gy + (j ? rng.range(-j, j) : 0)
-      const s = gridToScreen(gx, gy)
-      const spr = this.add.sprite(s.x, s.y, p.texKey)
-      spr.setOrigin(0.5, this.originByKey.get(p.texKey) ?? 0.9)
-      spr.setDepth(depthFor(gx, gy, LAYER.prop))
+      this.placeProp(p.texKey, gx, gy)
+    }
+  }
+
+  private buildEstablishedDressing(): void {
+    const rng = new Rng(this.snapshot.sceneSeed + ':lush')
+    for (const p of establishedDressing()) {
+      const j = p.jitter ?? 0
+      const gx = p.gx + (j ? rng.range(-j, j) : 0)
+      const gy = p.gy + (j ? rng.range(-j, j) : 0)
+      const spr = this.placeProp(p.texKey, gx, gy)
+      spr.setVisible(false)
+      this.establishedProps.push(spr)
     }
   }
 
@@ -336,91 +495,127 @@ export class LotScene extends Phaser.Scene {
 
   private buildAgents(): void {
     const rng = new Rng(this.snapshot.sceneSeed + ':agents')
-    const routes: Route[] = [
-      [
-        { gx: 8, gy: 11 },
-        { gx: 10.5, gy: 11 },
-        { gx: 10.5, gy: 13.5 },
-        { gx: 8, gy: 13.5 },
-      ],
-      [
-        { gx: 3, gy: 7.5 },
-        { gx: 22, gy: 7.5 },
-      ],
-      [
-        { gx: 12.5, gy: 3 },
-        { gx: 12.5, gy: 17 },
-      ],
-      [
-        { gx: 14, gy: 5 },
-        { gx: 14, gy: 6.5 },
-        { gx: 17, gy: 6.5 },
-      ],
-    ]
-    for (let i = 0; i < 8; i++) {
-      const route = routes[i % routes.length]
-      const spr = this.add.sprite(0, 0, i % 2 ? 'p-worker2' : 'p-worker')
-      spr.setOrigin(0.5, 0.94)
+    const addWorker = (
+      role: string,
+      route: Waypt[],
+      opts: { stageGate?: 'stage-a' | 'stage-b'; busyOnly?: boolean } = {},
+    ): void => {
+      const spr = this.add.sprite(0, 0, role)
+      spr.setOrigin(0.5, 0.95)
       this.agents.push({
         sprite: spr,
         route,
-        speed: rng.range(0.6, 1.1),
-        dist: rng.range(0, this.lenOf(route)),
+        seg: rng.int(0, route.length - 1),
+        pos: rng.range(0, 1),
+        dwellLeft: 0,
+        speed: rng.range(0.55, 0.95),
         bob: rng.range(0, Math.PI * 2),
         kind: 'worker',
+        ...opts,
       })
     }
-    const vroute: Route = [
-      { gx: 12.5, gy: 17 },
+
+    // office/creative staff strolling the plaza + boulevard
+    addWorker('p-office', [
+      { gx: 8, gy: 11, dwell: 1.2 },
+      { gx: 10.5, gy: 11 },
+      { gx: 10.5, gy: 13.5, dwell: 0.8 },
+      { gx: 8, gy: 13.5 },
+    ])
+    addWorker('p-talent', [
+      { gx: 9.5, gy: 16 },
+      { gx: 9.5, gy: 11, dwell: 1.5 },
+      { gx: 9.5, gy: 6.5 },
+      { gx: 9.5, gy: 11 },
+    ])
+    // crew crossing the avenue between districts
+    addWorker('p-crew', [
+      { gx: 4, gy: 7.5 },
+      { gx: 12, gy: 7.5, dwell: 0.6 },
+      { gx: 20, gy: 7.5 },
+    ])
+    addWorker('p-grip', [
+      { gx: 13.5, gy: 3 },
+      { gx: 13.5, gy: 12, dwell: 1 },
+      { gx: 13.5, gy: 16 },
+    ])
+    // extra life for a busy studio
+    addWorker('p-office', [
+      { gx: 6, gy: 6.4 },
+      { gx: 2, gy: 6.4, dwell: 1 },
+      { gx: 6, gy: 6.4 },
+    ], { busyOnly: true })
+    addWorker('p-talent', [
+      { gx: 4, gy: 14 },
+      { gx: 8, gy: 14, dwell: 1.2 },
+    ], { busyOnly: true })
+
+    // stage crews: loiter at the apron, visible only when the stage is shooting
+    for (const stageId of ['stage-a', 'stage-b'] as const) {
+      const a = STAGE_APRONS[stageId]
+      addWorker('p-crew', [
+        { gx: a.crew[0].gx, gy: a.crew[0].gy, dwell: 1.5 },
+        { gx: a.gear.gx + 0.6, gy: a.gear.gy, dwell: 1.2 },
+        { gx: a.crew[1].gx, gy: a.crew[1].gy, dwell: 1.8 },
+      ], { stageGate: stageId })
+      addWorker('p-grip', [
+        { gx: a.crew[2].gx, gy: a.crew[2].gy, dwell: 1 },
+        { gx: a.door.gx, gy: a.door.gy + 0.4, dwell: 2 },
+      ], { stageGate: stageId })
+    }
+
+    // vehicles on the road network, with a dwell at a stage park
+    const mkVehicle = (
+      tex: string,
+      route: Waypt[],
+      opts: { busyOnly?: boolean } = {},
+    ): void => {
+      const spr = this.add.sprite(0, 0, tex)
+      spr.setOrigin(0.5, 0.82)
+      this.agents.push({
+        sprite: spr,
+        route,
+        seg: 0,
+        pos: rng.range(0, 1),
+        dwellLeft: 0,
+        speed: rng.range(2.0, 2.6),
+        bob: 0,
+        kind: 'vehicle',
+        ...opts,
+      })
+    }
+    // roadster circulating the boulevard + avenue
+    mkVehicle('p-vehicle', [
+      { gx: 9.5, gy: 20 },
+      { gx: 9.5, gy: 7.5, dwell: 0.5 },
       { gx: 12.5, gy: 7.5 },
-      { gx: 21, gy: 7.5 },
+      { gx: 12.5, gy: 2 },
       { gx: 12.5, gy: 7.5 },
-    ]
-    const veh = this.add.sprite(0, 0, 'p-vehicle')
-    veh.setOrigin(0.5, 0.82)
-    this.agents.push({ sprite: veh, route: vroute, speed: 2.4, dist: 0, bob: 0, kind: 'vehicle' })
+      { gx: 9.5, gy: 7.5 },
+    ])
+    // delivery van visiting stage-a apron (established)
+    mkVehicle('p-van', [
+      { gx: 20, gy: 7.5 },
+      { gx: 15.5, gy: 7.5 },
+      { gx: 15.5, gy: 6.4, dwell: 3 },
+      { gx: 15.5, gy: 7.5 },
+      { gx: 22, gy: 7.5 },
+    ], { busyOnly: true })
+    mkVehicle('p-golfcart', [
+      { gx: 9.5, gy: 9 },
+      { gx: 9.5, gy: 18, dwell: 1 },
+      { gx: 9.5, gy: 9 },
+      { gx: 9.5, gy: 6.5, dwell: 0.8 },
+    ], { busyOnly: true })
   }
 
-  private lenOf(route: Route): number {
-    let v = this.routeLen.get(route)
-    if (v === undefined) {
-      v = 0
-      for (let i = 0; i < route.length; i++) {
-        const a = route[i]
-        const b = route[(i + 1) % route.length]
-        v += Math.hypot(b.gx - a.gx, b.gy - a.gy)
-      }
-      this.routeLen.set(route, v)
-    }
-    return v
-  }
-
-  private pointOnRoute(route: Route, dist: number): { gx: number; gy: number } {
-    const total = this.lenOf(route)
-    let d = ((dist % total) + total) % total
-    for (let i = 0; i < route.length; i++) {
-      const a = route[i]
-      const b = route[(i + 1) % route.length]
-      const seg = Math.hypot(b.gx - a.gx, b.gy - a.gy)
-      if (d <= seg) {
-        const t = seg === 0 ? 0 : d / seg
-        return { gx: a.gx + (b.gx - a.gx) * t, gy: a.gy + (b.gy - a.gy) * t }
-      }
-      d -= seg
-    }
-    return route[0]
+  private segLen(route: Waypt[], i: number): number {
+    const a = route[i]
+    const b = route[(i + 1) % route.length]
+    return Math.hypot(b.gx - a.gx, b.gy - a.gy)
   }
 
   // ── camera + input ──────────────────────────────────────────────────────────
-
-  private lotCorners(): { x: number; y: number }[] {
-    return [
-      gridToScreen(0, 0),
-      gridToScreen(LOT_W, 0),
-      gridToScreen(LOT_W, LOT_D),
-      gridToScreen(0, LOT_D),
-    ]
-  }
 
   private setupCamera(): void {
     const corners = this.lotCorners()
@@ -480,19 +675,38 @@ export class LotScene extends Phaser.Scene {
   }
 
   resetCamera(): void {
+    this.applyCameraPreset('overview')
+  }
+
+  applyCameraPreset(preset: CameraPreset): void {
     const cam = this.cameras.main
     const corners = this.lotCorners()
     const minX = Math.min(...corners.map((c) => c.x))
     const minY = Math.min(...corners.map((c) => c.y)) - 170
     const maxX = Math.max(...corners.map((c) => c.x))
     const maxY = Math.max(...corners.map((c) => c.y)) + 120
-    const zoom = Phaser.Math.Clamp(
+    const fit = Phaser.Math.Clamp(
       Math.min(this.scale.width / (maxX - minX), this.scale.height / (maxY - minY)) * 0.98,
       ZOOM_MIN,
       ZOOM_MAX,
     )
-    cam.setZoom(zoom)
-    cam.centerOn((minX + maxX) / 2, (minY + maxY) / 2)
+    if (preset === 'overview') {
+      cam.setZoom(fit)
+      cam.centerOn((minX + maxX) / 2, (minY + maxY) / 2)
+    } else if (preset === 'wide') {
+      cam.setZoom(Math.max(ZOOM_MIN, fit * 0.72))
+      cam.centerOn((minX + maxX) / 2, (minY + maxY) / 2)
+    } else if (preset === 'entrance') {
+      // frame the studio gate + boulevard approach
+      const c = gridToScreen(10, 17)
+      cam.setZoom(Phaser.Math.Clamp(fit * 2.1, ZOOM_MIN, ZOOM_MAX))
+      cam.centerOn(c.x, c.y)
+    } else {
+      // production: frame the stage district
+      const c = gridToScreen(16, 8)
+      cam.setZoom(Phaser.Math.Clamp(fit * 1.9, ZOOM_MIN, ZOOM_MAX))
+      cam.centerOn(c.x, c.y)
+    }
   }
 
   // ── selection / highlight ─────────────────────────────────────────────────
@@ -523,7 +737,6 @@ export class LotScene extends Phaser.Scene {
     this.select(id)
   }
 
-  /** Host asks the lot to take a building's default navigation action. */
   triggerAction(id: BuildingId): void {
     this.emitEvent({ type: 'action', buildingId: id, action: BUILDING_ACTION[id] })
   }
@@ -534,7 +747,7 @@ export class LotScene extends Phaser.Scene {
       const isHov = id === this.hovered
       const show = isSel || isHov
       view.outline.setVisible(show)
-      if (show) this.drawFootprint(view.outline, view.spec, isSel ? K.selection : K.hover)
+      if (show) this.drawFootprint(view.outline, view.spec, isSel ? K.selection : K.hover, false, 0.05)
       view.label.setVisible(show)
       if (view.sprite) view.sprite.setY(isHov && !isSel ? -3 : 0)
     }
@@ -544,89 +757,204 @@ export class LotScene extends Phaser.Scene {
 
   applySnapshot(snap: StudioLotSnapshot): void {
     this.snapshot = snap
+    const busy = snap.standing === 'established' || snap.standing === 'prestige'
 
+    // building availability tint (non-stage)
     for (const [id, view] of this.views) {
-      const available = this.isAvailable(id)
       if (view.sprite && id !== 'stage-a' && id !== 'stage-b') {
-        view.sprite.setAlpha(available ? 1 : 0.5)
+        const available = this.isAvailable(id)
         view.sprite.clearTint()
+        view.sprite.setAlpha(available ? 1 : 0.55)
         if (!available) view.sprite.setTint(0x9a927e)
       }
     }
 
+    // stage production grammar
     for (const stageId of ['stage-a', 'stage-b'] as const) {
       const view = this.views.get(stageId)
-      if (view) this.setProduction(view, snap.activeProductions.find((p) => p.stageId === stageId) ?? null)
+      if (view) this.dressStage(view, snap.activeProductions.find((p) => p.stageId === stageId) ?? null)
     }
 
-    if (this.selected) {
-      // refresh the panel details for the current selection under the new snapshot
-      this.select(this.selected)
-    } else if (snap.selectedBuildingId) {
-      this.select(snap.selectedBuildingId)
+    // established dressing + marquee
+    for (const spr of this.establishedProps) spr.setVisible(busy)
+    const theater = this.views.get('theater')
+    if (theater?.sprite) {
+      const hasHit = snap.releasedFilms.some((f) => f.reception === 'hit' || f.reception === 'smash')
+      theater.sprite.setTint(busy && hasHit ? 0xfff2cf : 0xffffff)
     }
+
+    // gate lettering
+    if (this.gateLabel) this.gateLabel.setText(snap.studioName.toUpperCase())
+
+    if (this.selected) this.select(this.selected)
+    else if (snap.selectedBuildingId) this.select(snap.selectedBuildingId)
+
+    this.tagZoomBand = -1 // force tag layout refresh under new snapshot
   }
 
-  private setProduction(view: BuildingView, prod: ProductionCard | null): void {
-    const available = this.isAvailable(view.spec.id)
-    const working = !!prod && prod.active
+  private stageState(view: BuildingView, prod: ProductionCard | null): 'active' | 'idle' | 'closed' {
+    if (!this.isAvailable(view.spec.id)) return 'closed'
+    return prod && prod.active ? 'active' : 'idle'
+  }
 
-    if (view.recLight) {
-      view.recLight.setData('on', working)
-      view.recLight.setTint(working ? K.recordingOn : K.recordingOff)
-    }
-    if (view.sprite) {
-      view.sprite.clearTint()
-      if (!available) {
-        view.sprite.setAlpha(0.5)
-        view.sprite.setTint(0x9a927e) // dark, closed stage
-      } else {
-        view.sprite.setAlpha(1)
-        if (!working) view.sprite.setTint(0xe9e1cf) // open but idle: slightly muted
-      }
+  private dressStage(view: BuildingView, prod: ProductionCard | null): void {
+    const state = this.stageState(view, prod)
+
+    // clear previous dressing
+    for (const o of view.dressing) o.destroy()
+    view.dressing = []
+    if (view.doorGlow) {
+      view.doorGlow.destroy()
+      view.doorGlow = null
     }
     if (view.prodTag) {
-      view.prodTag.destroy()
+      view.prodTag.container.destroy()
       view.prodTag = null
     }
-    if (prod) view.prodTag = this.makeProductionTag(view, prod)
+
+    // sprite tint by state
+    if (view.sprite) {
+      view.sprite.clearTint()
+      if (state === 'closed') {
+        view.sprite.setAlpha(0.5)
+        view.sprite.setTint(0x8f8778)
+      } else {
+        view.sprite.setAlpha(1)
+        if (state === 'idle') view.sprite.setTint(0xece4d2)
+      }
+    }
+    if (view.recLight) {
+      view.recLight.setData('on', state === 'active')
+      view.recLight.setTint(state === 'active' ? K.recordingOn : K.recordingOff)
+    }
+
+    if (state !== 'active' || !prod) return
+
+    // ── active: open-door spill, gear cluster, title board, parked van ────────
+    view.doorGlow = this.makeDoorGlow(view)
+    view.container.add(view.doorGlow)
+
+    const a = STAGE_APRONS[view.spec.id as 'stage-a' | 'stage-b']
+    const rng = new Rng(this.snapshot.sceneSeed + ':' + prod.id) // deterministic per film
+    const gear: Array<[string, number, number]> = [
+      ['p-cart', a.gear.gx, a.gear.gy],
+      ['p-crate', a.gear.gx - 0.4, a.gear.gy + 0.3],
+      ['p-light', a.gear.gx + 0.7, a.gear.gy - 0.2],
+      ['p-cone', a.door.gx - 1.1, a.door.gy + 0.5],
+      ['p-cone', a.door.gx + 1.2, a.door.gy + 0.5],
+    ]
+    for (const [tex, gx, gy] of gear) {
+      const jx = rng.range(-0.08, 0.08)
+      this.trackDressing(view, this.placeProp(tex, gx + jx, gy, LAYER.prop))
+    }
+
+    // title board (easel) with the film title
+    const boardG = a.gear.gx - 1.0
+    const board = this.placeProp('p-titleboard', boardG, a.gear.gy - 0.4, LAYER.prop)
+    this.trackDressing(view, board)
+    const bt = this.add.text(board.x, board.y - 34, this.truncate(prod.title, 12), {
+      fontFamily: FONT_SERIF,
+      fontSize: '9px',
+      color: '#3a2f20',
+      align: 'center',
+    })
+    bt.setOrigin(0.5, 0.5)
+    bt.setDepth(board.depth + 1)
+    this.trackDressing(view, bt)
+
+    // parked production van at the park spot
+    this.trackDressing(view, this.placeProp('p-van', a.park.gx, a.park.gy, LAYER.prop))
+
+    // floating production tag (zoom-responsive)
+    view.prodTag = this.makeProductionTag(view, prod)
   }
 
-  private makeProductionTag(view: BuildingView, prod: ProductionCard): Phaser.GameObjects.Container {
+  private trackDressing(view: BuildingView, obj: Phaser.GameObjects.GameObject): void {
+    view.dressing.push(obj)
+  }
+
+  private truncate(s: string, n: number): string {
+    return s.length > n ? s.slice(0, n - 1) + '…' : s
+  }
+
+  /** Bright quad over the stage doors, drawn in the building container. */
+  private makeDoorGlow(view: BuildingView): Phaser.GameObjects.Graphics {
+    const spec = view.spec
+    // door face is the +gy face; coords relative to the footprint ground-center.
+    const H = 78
+    const rel = (fgx: number, fgy: number, z: number): { x: number; y: number } => ({
+      x: (fgx - spec.fw / 2 - (fgy - spec.fd / 2)) * hw,
+      y: (fgx - spec.fw / 2 + (fgy - spec.fd / 2)) * hh - z,
+    })
+    const g = this.add.graphics()
+    const y0 = 0
+    const y1 = 0.62 * H
+    const c0 = rel(0.85, spec.fd, y0)
+    const c1 = rel(spec.fw - 0.85, spec.fd, y0)
+    const c2 = rel(spec.fw - 0.85, spec.fd, y1)
+    const c3 = rel(0.85, spec.fd, y1)
+    g.fillStyle(K.stageInterior, 0.9)
+    g.fillPoints([c0, c1, c2, c3], true)
+    // warm rim
+    g.lineStyle(2, K.marqueeBulb, 0.6)
+    g.strokePoints([c0, c1, c2, c3], true, true)
+    return g
+  }
+
+  private makeProductionTag(view: BuildingView, prod: ProductionCard): ProdTag {
     const meta = this.texMeta(view.spec.texKey)
-    const topY = -meta.h * meta.originY - 14
-    const w = 172
-    const h = 56
+    const topY = -meta.h * meta.originY - 12
 
+    // full card
+    const w = 176
+    const h = 58
+    const full = this.add.container(0, 0)
     const bg = this.add.graphics()
-    bg.fillStyle(K.labelBg, 0.92)
+    bg.fillStyle(K.labelBg, 0.93)
     bg.fillRoundedRect(-w / 2, -h, w, h, 6)
-    bg.lineStyle(1.5, prod.active ? K.recordingOn : K.brass, 0.9)
+    bg.lineStyle(1.5, K.recordingOn, 0.9)
     bg.strokeRoundedRect(-w / 2, -h, w, h, 6)
-    bg.fillStyle(K.labelBg, 0.92)
-    bg.fillTriangle(-6, -2, 6, -2, 0, 6)
-
-    const title = this.add.text(-w / 2 + 11, -h + 8, prod.title, {
+    bg.fillStyle(K.labelBg, 0.93)
+    bg.fillTriangle(-6, -2, 6, -2, 0, 7)
+    const title = this.add.text(-w / 2 + 12, -h + 9, prod.title, {
       fontFamily: FONT_SERIF,
       fontSize: '13px',
       color: '#f5ecd8',
     })
-    const sub = this.add.text(-w / 2 + 11, -h + 27, `${prod.genre}  ·  ${prod.weeksRemaining} wks left`, {
+    const sub = this.add.text(-w / 2 + 12, -h + 28, `${prod.genre}  ·  ${prod.weeksRemaining} wks left`, {
       fontFamily: FONT_SANS,
       fontSize: '10px',
       color: '#c9bfa6',
     })
-    const barW = w - 22
+    const barW = w - 24
     const by = -13
     const bar = this.add.graphics()
     bar.fillStyle(0x000000, 0.4)
-    bar.fillRoundedRect(-w / 2 + 11, by, barW, 6, 3)
-    bar.fillStyle(prod.active ? K.recordingOn : K.brass, 0.95)
-    bar.fillRoundedRect(-w / 2 + 11, by, Math.max(4, barW * prod.progress01), 6, 3)
+    bar.fillRoundedRect(-w / 2 + 12, by, barW, 6, 3)
+    bar.fillStyle(K.recordingOn, 0.95)
+    bar.fillRoundedRect(-w / 2 + 12, by, Math.max(4, barW * prod.progress01), 6, 3)
+    full.add([bg, title, sub, bar])
 
-    const tag = this.add.container(view.container.x, view.container.y + topY, [bg, title, sub, bar])
-    tag.setDepth(LAYER.overlay + view.container.depth)
-    return tag
+    // compact marker (far zoom): a small lit pill with the title
+    const compact = this.add.container(0, 0)
+    const cg = this.add.graphics()
+    const ct = this.add.text(10, -9, this.truncate(prod.title, 16), {
+      fontFamily: FONT_SANS,
+      fontSize: '11px',
+      color: '#f5ecd8',
+    })
+    ct.setOrigin(0, 0.5)
+    const cw = ct.width + 24
+    cg.fillStyle(K.labelBg, 0.9)
+    cg.fillRoundedRect(-cw / 2 + 8, -16, cw, 20, 10)
+    cg.fillStyle(K.recordingOn, 1)
+    cg.fillCircle(-cw / 2 + 18, -6, 3.5)
+    ct.setPosition(-cw / 2 + 26, -6)
+    compact.add([cg, ct])
+
+    const container = this.add.container(view.container.x, view.container.y + topY, [full, compact])
+    container.setDepth(LAYER.overlay + view.container.depth)
+    return { container, full, compact }
   }
 
   private isAvailable(id: BuildingId): boolean {
@@ -639,14 +967,14 @@ export class LotScene extends Phaser.Scene {
     return this.snapshot.activeProductions.find((p) => p.stageId === id) ?? null
   }
 
-  // ── update loop (ambient + camera keys) ─────────────────────────────────────
+  // ── update loop ─────────────────────────────────────────────────────────────
 
   update(_time: number, delta: number): void {
-    const dt = delta / 1000
+    const dt = Math.min(delta / 1000, 0.05)
     const t = this.time.now / 1000
-
-    // smooth keyboard panning
     const cam = this.cameras.main
+
+    // keyboard panning
     let mx = 0
     let my = 0
     if (this.wasd) {
@@ -661,34 +989,72 @@ export class LotScene extends Phaser.Scene {
     }
 
     const busy = this.snapshot.standing === 'established' || this.snapshot.standing === 'prestige'
-    const workerCount = busy ? 8 : 3
+    const activeStages = new Set(
+      this.snapshot.activeProductions.filter((p) => p.active).map((p) => p.stageId),
+    )
 
-    let wi = 0
+    // agents
     for (const a of this.agents) {
-      if (a.kind === 'worker') {
-        const show = wi < workerCount
-        a.sprite.setVisible(show)
-        wi++
-        if (!show) continue
+      let show = true
+      if (a.busyOnly && !busy) show = false
+      if (a.stageGate && !activeStages.has(a.stageGate)) show = false
+      a.sprite.setVisible(show)
+      if (!show) continue
+
+      if (a.dwellLeft > 0) {
+        a.dwellLeft -= dt
       } else {
-        a.sprite.setVisible(busy)
-        if (!busy) continue
+        const len = this.segLen(a.route, a.seg)
+        a.pos += a.speed * dt
+        if (a.pos >= len) {
+          a.pos -= len
+          a.seg = (a.seg + 1) % a.route.length
+          const w = a.route[a.seg]
+          if (w.dwell) a.dwellLeft = w.dwell
+        }
       }
-      a.dist += a.speed * dt
-      const pos = this.pointOnRoute(a.route, a.dist)
-      const s = gridToScreen(pos.gx, pos.gy)
-      const bob = a.kind === 'worker' ? Math.sin(t * 6 + a.bob) * 1.5 : 0
+      const from = a.route[a.seg]
+      const to = a.route[(a.seg + 1) % a.route.length]
+      const len = this.segLen(a.route, a.seg) || 1
+      const t01 = a.dwellLeft > 0 ? 0 : Phaser.Math.Clamp(a.pos / len, 0, 1)
+      const gx = from.gx + (to.gx - from.gx) * t01
+      const gy = from.gy + (to.gy - from.gy) * t01
+      const s = gridToScreen(gx, gy)
+      const bob = a.kind === 'worker' && a.dwellLeft <= 0 ? Math.sin(t * 6 + a.bob) * 1.4 : 0
       a.sprite.setPosition(s.x, s.y + bob)
-      a.sprite.setDepth(depthFor(pos.gx, pos.gy, LAYER.prop + 1))
+      a.sprite.setDepth(depthFor(gx, gy, LAYER.prop + 1))
     }
 
+    // recording lights pulse
     for (const view of this.views.values()) {
       if (!view.recLight) continue
-      if (view.recLight.getData('on')) {
-        view.recLight.setAlpha(0.55 + 0.45 * (0.5 + 0.5 * Math.sin(t * 4)))
-      } else {
-        view.recLight.setAlpha(0.45)
+      view.recLight.setAlpha(
+        view.recLight.getData('on') ? 0.55 + 0.45 * (0.5 + 0.5 * Math.sin(t * 4)) : 0.4,
+      )
+    }
+
+    // zoom-responsive production tags
+    const band = cam.zoom < 0.55 ? 0 : cam.zoom < 1.15 ? 1 : 2
+    if (band !== this.tagZoomBand) {
+      this.tagZoomBand = band
+      for (const view of this.views.values()) {
+        if (!view.prodTag) continue
+        view.prodTag.full.setVisible(band === 1)
+        view.prodTag.compact.setVisible(band === 0)
+        view.prodTag.container.setVisible(band !== 2)
       }
+    }
+  }
+
+  // ── debug (used by the headless verification harness) ────────────────────────
+
+  debugState(): { selected: BuildingId | null; activeTags: number; displayObjects: number } {
+    let activeTags = 0
+    for (const v of this.views.values()) if (v.prodTag) activeTags++
+    return {
+      selected: this.selected,
+      activeTags,
+      displayObjects: this.children.list.length,
     }
   }
 }

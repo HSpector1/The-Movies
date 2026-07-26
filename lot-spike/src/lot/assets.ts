@@ -498,18 +498,51 @@ function bakeProps(scene: Phaser.Scene): void {
     g.fillRect(10, 24, 2.5, 8)
   })
 
-  // entrance gate: two pillars + arch beam (drawn as an iso-facing prop)
-  bakeProp(scene, 'p-gate', 200, 150, 0.9, (g) => {
-    const p = (gx: number, gy: number, z: number): Pt => ({ x: (gx - gy) * hw + hw + 30, y: (gx + gy) * hh - z + 108 })
-    // left pillar at grid (0,0), right pillar at (0,2)
-    for (const gy of [0, 2]) {
-      poly(g, [p(0, gy, 0), p(0.5, gy, 0), p(0.5, gy, 96), p(0, gy, 96)], K.creamRight)
-      poly(g, [p(0.5, gy, 0), p(0.5, gy + 0.4, 0), p(0.5, gy + 0.4, 96), p(0.5, gy, 96)], K.creamLeft)
-      poly(g, [p(0, gy, 96), p(0.5, gy, 96), p(0.5, gy + 0.4, 96), p(0, gy + 0.4, 96)], K.roofFlat)
+  // entrance gate: a hero arch — two deco pillars + a lettered header beam.
+  // Spans 3 tiles in gy (a proper boulevard-width entrance). Studio-name text is
+  // added by the scene as an overlay on the header (Graphics can't draw text).
+  bakeProp(scene, 'p-gate', 260, 210, 0.9, (g) => {
+    const OX = 100
+    const OY = 150
+    const p = (gx: number, gy: number, z: number): Pt => ({ x: (gx - gy) * hw + OX, y: (gx + gy) * hh - z + OY })
+    const PW = 0.7 // pillar footprint
+    const H = 120
+    for (const gy of [0, 3 - PW]) {
+      // pillar: two lit/shadow faces + deco cap
+      poly(g, [p(0, gy, 0), p(PW, gy, 0), p(PW, gy, H), p(0, gy, H)], K.taupeRight)
+      poly(g, [p(PW, gy, 0), p(PW, gy + PW, 0), p(PW, gy + PW, H), p(PW, gy, H)], K.taupeLeft)
+      poly(g, [p(0, gy, H), p(PW, gy, H), p(PW, gy + PW, H), p(0, gy + PW, H)], K.roofFlat)
+      // brass base band
+      poly(g, [p(0, gy, 10), p(PW, gy, 10), p(PW, gy, 16), p(0, gy, 16)], K.brass, 0.9)
     }
-    // arch beam
-    poly(g, [p(0.1, 0, 96), p(0.4, 0, 96), p(0.4, 2.4, 96), p(0.1, 2.4, 96)], K.marqueeTrim)
-    poly(g, [p(0.1, 0, 108), p(0.4, 0, 108), p(0.4, 2.4, 108), p(0.1, 2.4, 108)], K.brass)
+    // header beam spanning the two pillars (deep so text reads on it)
+    const bz0 = H - 26
+    poly(g, [p(0.1, 0, bz0), p(0.55, 0, bz0), p(0.55, 3, bz0), p(0.1, 3, bz0)], K.taupe)
+    poly(g, [p(0.1, 0, H), p(0.55, 0, H), p(0.55, 3, H), p(0.1, 3, H)], K.roofFlat)
+    poly(g, [p(0.55, 0, bz0), p(0.55, 3, bz0), p(0.55, 3, H), p(0.55, 0, H)], K.taupeLeft)
+    // brass trim lines on the header face
+    poly(g, [p(0.1, 0, H - 4), p(0.1, 3, H - 4), p(0.1, 3, H), p(0.1, 0, H)], K.brass, 0.9)
+    poly(g, [p(0.1, 0, bz0), p(0.1, 3, bz0), p(0.1, 3, bz0 + 3), p(0.1, 0, bz0 + 3)], K.brass, 0.9)
+    // stepped deco finial centered on the beam
+    poly(g, [p(0.2, 1.1, H), p(0.45, 1.1, H), p(0.45, 1.9, H), p(0.2, 1.9, H)], K.brass)
+    poly(g, [p(0.2, 1.9, H), p(0.45, 1.9, H), p(0.45, 1.9, H + 12), p(0.2, 1.9, H + 12)], K.brassDark)
+    poly(g, [p(0.25, 1.3, H + 12), p(0.4, 1.3, H + 12), p(0.4, 1.7, H + 12), p(0.25, 1.7, H + 12)], K.brass)
+  })
+
+  // guard booth beside the gate
+  bakeProp(scene, 'p-booth', 70, 78, 0.9, (g) => {
+    const OX = 24
+    const OY = 52
+    const p = (gx: number, gy: number, z: number): Pt => ({ x: (gx - gy) * hw * 0.5 + OX, y: (gx + gy) * hh * 0.5 - z + OY })
+    const H = 40
+    poly(g, [p(0, 1, 0), p(1, 1, 0), p(1, 1, H), p(0, 1, H)], K.creamRight)
+    poly(g, [p(1, 0, 0), p(1, 1, 0), p(1, 1, H), p(1, 0, H)], K.creamLeft)
+    // window band
+    poly(g, [p(0.1, 1, H * 0.55), p(0.9, 1, H * 0.55), p(0.9, 1, H * 0.85), p(0.1, 1, H * 0.85)], K.glass, 0.9)
+    // hip roof
+    poly(g, [p(0, 0, H), p(1, 0, H), p(1, 1, H), p(0, 1, H)], K.terracottaDark)
+    poly(g, [p(0, 0, H), p(1, 0, H), p(0.5, 0.5, H + 14)], K.terracotta)
+    poly(g, [p(1, 0, H), p(1, 1, H), p(0.5, 0.5, H + 14)], K.terracottaDark)
   })
 
   // rooftop recording light bulb (baked small; scene toggles tint/alpha)
@@ -533,6 +566,183 @@ function bakeProps(scene: Phaser.Scene): void {
     g.fillStyle(K.bannerGold, 1)
     g.fillRect(8, 8, 104, 4)
     for (let i = 0; i < 6; i++) g.fillCircle(20 + i * 16, 6, 2.5)
+  })
+}
+
+// ── pass-2 props: ambient roles, equipment, vehicles, dressing ────────────────
+
+function figure(g: Phaser.GameObjects.Graphics, body: number, opts: {
+  hat?: number
+  trim?: number
+}): void {
+  // shared little-person silhouette, 18x36, feet near y=34
+  g.fillStyle(body, 1)
+  g.fillRoundedRect(6, 13, 6, 14, 2) // torso
+  if (opts.trim) {
+    g.fillStyle(opts.trim, 1)
+    g.fillRect(6, 13, 6, 3) // collar/scarf
+  }
+  g.fillStyle(K.skin, 1)
+  g.fillCircle(9, 9, 4) // head
+  if (opts.hat) {
+    g.fillStyle(opts.hat, 1)
+    g.fillRect(5, 6, 8, 3) // hat brim
+    g.fillRect(6.5, 3.5, 5, 3)
+  }
+  g.fillStyle(body, 1)
+  g.fillRect(6, 25, 2.6, 9) // legs
+  g.fillRect(10, 25, 2.6, 9)
+}
+
+function bakeProps2(scene: Phaser.Scene): void {
+  // ── ambient roles (four distinct silhouettes) ──────────────────────────────
+  // general crew: blue coverall + hard hat
+  bakeProp(scene, 'p-crew', 18, 36, 0.95, (g) => figure(g, K.roleCrew, { hat: K.roleCrewHat }))
+  // office/creative staff: tan, carrying a clipboard
+  bakeProp(scene, 'p-office', 20, 36, 0.95, (g) => {
+    figure(g, K.roleOffice, {})
+    g.fillStyle(K.titleBoard, 1)
+    g.fillRect(12, 17, 5, 6) // clipboard
+  })
+  // talent / executive: pale glamour coat + red scarf
+  bakeProp(scene, 'p-talent', 18, 37, 0.95, (g) => figure(g, K.roleTalent, { trim: K.roleTalentTrim }))
+  // grip pushing a hand-cart of gear
+  bakeProp(scene, 'p-grip', 30, 36, 0.95, (g) => {
+    figure(g, K.roleGrip, {})
+    g.fillStyle(K.cartFrame, 1)
+    g.fillRect(14, 24, 12, 3) // cart deck
+    g.fillStyle(K.crate, 1)
+    g.fillRect(16, 15, 9, 9) // crate on cart
+    g.fillStyle(0x000000, 0.5)
+    g.fillCircle(16, 30, 3)
+    g.fillCircle(24, 30, 3)
+  })
+
+  // ── production equipment (clusters near active stages) ─────────────────────
+  bakeProp(scene, 'p-cart', 40, 34, 0.85, (g) => {
+    g.fillStyle(K.cartFrame, 1)
+    g.fillRect(6, 20, 28, 4)
+    g.fillStyle(K.crate, 1)
+    g.fillRect(9, 8, 11, 12)
+    g.fillStyle(K.cartBody, 1)
+    g.fillRect(21, 11, 10, 9)
+    g.fillStyle(0x000000, 0.5)
+    g.fillCircle(11, 26, 3.5)
+    g.fillCircle(29, 26, 3.5)
+  })
+  bakeProp(scene, 'p-crate', 30, 28, 0.82, (g) => {
+    g.fillStyle(K.crate, 1)
+    g.fillRect(4, 12, 13, 13)
+    g.fillStyle(0xffffff, 0.06)
+    g.fillRect(4, 12, 13, 3)
+    g.fillStyle(K.cartFrame, 1)
+    g.fillRect(15, 8, 11, 17)
+    g.fillStyle(K.brass, 0.7)
+    g.fillRect(15, 15, 11, 2)
+  })
+  bakeProp(scene, 'p-cone', 16, 20, 0.9, (g) => {
+    g.fillStyle(K.cone, 1)
+    poly(g, [{ x: 8, y: 4 }, { x: 12, y: 17 }, { x: 4, y: 17 }], K.cone)
+    g.fillStyle(K.titleBoard, 0.85)
+    g.fillRect(5.5, 10, 5, 2)
+    g.fillStyle(K.cartFrame, 1)
+    g.fillRect(3, 17, 10, 2)
+  })
+  bakeProp(scene, 'p-light', 20, 48, 0.96, (g) => {
+    stroke(g, [{ x: 10, y: 46 }, { x: 10, y: 20 }], K.lightStand, 2.5)
+    stroke(g, [{ x: 10, y: 44 }, { x: 4, y: 47 }], K.lightStand, 2)
+    stroke(g, [{ x: 10, y: 44 }, { x: 16, y: 47 }], K.lightStand, 2)
+    g.fillStyle(K.lightStand, 1)
+    g.fillRect(4, 8, 12, 12) // fixture body
+    g.fillStyle(K.lightHead, 1)
+    g.fillRect(6, 10, 8, 8) // lens
+  })
+  bakeProp(scene, 'p-titleboard', 40, 48, 0.95, (g) => {
+    // A-frame easel with a title placard (scene overlays the film title text)
+    stroke(g, [{ x: 12, y: 46 }, { x: 8, y: 20 }], K.titleBoardLeg, 2.5)
+    stroke(g, [{ x: 28, y: 46 }, { x: 32, y: 20 }], K.titleBoardLeg, 2.5)
+    g.fillStyle(K.titleBoard, 1)
+    g.fillRoundedRect(4, 8, 32, 16, 2)
+    g.lineStyle(1.5, K.titleBoardLeg, 0.8)
+    g.strokeRoundedRect(4, 8, 32, 16, 2)
+    // clapper stripes at the top
+    g.fillStyle(0x241a12, 1)
+    g.fillRect(4, 8, 32, 4)
+    g.fillStyle(K.titleBoard, 1)
+    for (let i = 0; i < 6; i++) g.fillRect(6 + i * 5.4, 8, 2.6, 4)
+  })
+
+  // ── vehicles ───────────────────────────────────────────────────────────────
+  bakeProp(scene, 'p-van', 74, 48, 0.82, (g) => {
+    g.fillStyle(K.vanBody, 1)
+    g.fillRoundedRect(6, 12, 58, 18, 3)
+    g.fillStyle(K.vanRoof, 1)
+    g.fillRect(10, 8, 40, 8)
+    g.fillStyle(K.glass, 0.9)
+    g.fillRect(50, 14, 10, 8) // windshield
+    g.fillStyle(K.brass, 0.8)
+    g.fillRect(12, 20, 30, 3) // studio stripe
+    g.fillStyle(0x1c1712, 1)
+    g.fillCircle(20, 31, 6)
+    g.fillCircle(54, 31, 6)
+    g.fillStyle(K.cartFrame, 1)
+    g.fillCircle(20, 31, 2.5)
+    g.fillCircle(54, 31, 2.5)
+  })
+  bakeProp(scene, 'p-golfcart', 46, 38, 0.82, (g) => {
+    g.fillStyle(K.cartFrame, 1)
+    g.fillRect(8, 18, 30, 8)
+    g.fillStyle(K.cartRoof, 1)
+    g.fillRect(6, 6, 34, 4) // canopy
+    stroke(g, [{ x: 9, y: 10 }, { x: 9, y: 18 }], K.cartFrame, 2)
+    stroke(g, [{ x: 37, y: 10 }, { x: 37, y: 18 }], K.cartFrame, 2)
+    g.fillStyle(K.vehicleTrim, 0.9)
+    g.fillRect(10, 13, 12, 5) // seat
+    g.fillStyle(0x1c1712, 1)
+    g.fillCircle(14, 27, 4.5)
+    g.fillCircle(32, 27, 4.5)
+  })
+
+  // ── dressing / signage / flags ─────────────────────────────────────────────
+  bakeProp(scene, 'p-flag', 30, 84, 0.97, (g) => {
+    stroke(g, [{ x: 8, y: 82 }, { x: 8, y: 6 }], K.flagPole, 2.5)
+    g.fillStyle(K.brass, 1)
+    g.fillCircle(8, 6, 2.5)
+    poly(g, [{ x: 8, y: 9 }, { x: 26, y: 13 }, { x: 8, y: 22 }], K.flagCloth)
+  })
+  // vertical hanging premiere banner (established dressing)
+  bakeProp(scene, 'p-bannerpole', 34, 96, 0.97, (g) => {
+    stroke(g, [{ x: 6, y: 94 }, { x: 6, y: 6 }], K.flagPole, 3)
+    g.fillStyle(K.pennantRed, 1)
+    g.fillRect(6, 12, 22, 54)
+    g.fillStyle(K.pennantWarm, 1)
+    g.fillRect(6, 12, 22, 5)
+    g.fillRect(6, 61, 22, 5)
+    // simple star motif
+    g.fillStyle(K.pennantWarm, 1)
+    g.fillCircle(17, 38, 5)
+    g.fillStyle(K.pennantRed, 1)
+    g.fillCircle(17, 38, 2.5)
+  })
+  // café table + umbrella for a lively plaza
+  bakeProp(scene, 'p-umbrella', 44, 52, 0.9, (g) => {
+    stroke(g, [{ x: 22, y: 50 }, { x: 22, y: 22 }], K.cartFrame, 2)
+    g.fillStyle(K.titleBoard, 1)
+    g.fillEllipse(22, 44, 20, 7) // table top
+    g.fillStyle(K.pennantRed, 1)
+    poly(g, [{ x: 22, y: 6 }, { x: 42, y: 20 }, { x: 2, y: 20 }], K.pennantRed)
+    g.fillStyle(K.pennantWarm, 1)
+    for (let i = 0; i < 3; i++) poly(g, [{ x: 6 + i * 12, y: 20 }, { x: 12 + i * 12, y: 20 }, { x: 9 + i * 12, y: 24 }], K.pennantWarm)
+  })
+  // free-standing studio directional sign
+  bakeProp(scene, 'p-sign', 40, 46, 0.95, (g) => {
+    stroke(g, [{ x: 20, y: 44 }, { x: 20, y: 20 }], K.signPost, 3)
+    g.fillStyle(K.signPanel, 1)
+    g.fillRoundedRect(4, 10, 32, 12, 2)
+    g.lineStyle(1, K.brass, 0.8)
+    g.strokeRoundedRect(4, 10, 32, 12, 2)
+    g.fillStyle(K.brass, 0.9)
+    g.fillRect(8, 15, 18, 2)
   })
 }
 
@@ -574,6 +784,13 @@ function bakeTiles(scene: Phaser.Scene): void {
     g.strokePath()
   })
   mk('t-dirt', K.dirt, K.dirtEdge)
+  mk('t-apron', K.tarmacApron, K.roadEdge, (g) => {
+    g.lineStyle(1, K.roadLine, 0.25)
+    g.beginPath()
+    g.moveTo(10, hh)
+    g.lineTo(TILE_W - 10, hh)
+    g.strokePath()
+  })
 }
 
 /** Generate every texture once. Call from Scene.create before building the lot. */
@@ -586,4 +803,5 @@ export function bakeAllTextures(scene: Phaser.Scene): void {
   bakePost(scene)
   bakeTheater(scene)
   bakeProps(scene)
+  bakeProps2(scene)
 }

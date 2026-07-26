@@ -9,6 +9,63 @@ folder (`lot-spike/`), on the `studio-lot-spike` branch, in its own git worktree
 It does not touch the simulation core, `GameState`, `SaveFileV1`, the M0A formulas,
 or any contract document. It imports **nothing** from `src/core`.
 
+> **Pass 2 — "the lot is alive".** The functional spike has had a visual-design
+> pass: the lot is enclosed and grounded, the gate is a hero entrance, soundstages
+> show real production activity (open-door spill light, gear, crew, a parked van,
+> a title board), four ambient roles and vehicles move with dwell stops, and the
+> struggling/established states differ through authored dressing — not just tint.
+> See **`docs/`** for the design bible, the reference research, and the pass-2
+> review; **`shots/pass-2/`** for before/after evidence.
+
+## Launch (exact)
+
+```bash
+cd lot-spike
+npm install
+npm run dev          # → http://localhost:4316/  (Vite prints the URL)
+```
+
+**Controls:** drag to pan · scroll to zoom (cursor-centered) · WASD/arrows to pan ·
+`R` or **Reset View** to reframe · click a building to select it.
+
+**Switch studio state:** use the **PROTOTYPE** dock (bottom-left) → *Studio state:
+Small / Established*. In the real app the host supplies this state; here two
+fixtures stand in.
+
+## Docs
+
+- `docs/VISUAL-DIRECTION.md` — the design bible (north star, shape/color grammar,
+  three-distance rule, production-state grammar, struggling vs established).
+- `docs/VISUAL-REFERENCE-SYNTHESIS.md` — cited research from studio/management sims.
+- `docs/PASS-2-VISUAL-REVIEW.md` — baseline diagnosis, changes, reviews A–D,
+  correction, limitations, next milestone.
+
+## Screenshots
+
+- `shots/pass-2/` — the pass-2 evidence set (14 required shots + entrance + baselines
+  + two side-by-side comparisons). Regenerate with `npm run preview` then
+  `node tools/capture.mjs after`.
+- `shots/1-4*.png` — original pass-1 evidence (kept for comparison).
+
+## Tests / verification
+
+`node tools/capture.mjs verify` (with `npm run preview` running) drives the built
+app in headless Chrome and asserts: fixtures load, state switching changes the lot,
+select/deselect, navigation events reach the host, repeated snapshot updates don't
+leak display objects, destroy/recreate leaves exactly one canvas, and no console
+errors. `npm run typecheck` and `npm run build` must both pass.
+
+## Current limitations (honest)
+
+- Implemented **and visually demonstrated:** everything in the screenshots.
+- **Structurally proven only:** `GameState → StudioLotSnapshot` (types-only in
+  `fromGameState.ts`) — not yet wired to a live engine.
+- **Not integrated:** the prototype does not touch the Phase 5 app; navigation
+  actions open the action log, not real screens.
+- The gate arch could be a stronger overview landmark; ambient life lacks one-off
+  surprise beats; no click-to-inspect on characters yet (see the next milestone in
+  the pass-2 review).
+
 ---
 
 ## For the owner — what to look at (no code required)
@@ -44,28 +101,6 @@ experiment: **the lot is a window onto the game, not a second game.**
 5. **Is it promising enough to integrate after Phase 5?** The prototype makes the
    case: the fantasy survives the translation to a small browser view, and the
    architecture keeps the simulation untouched. Recommended as a Phase-5-plus layer.
-
----
-
-## Running it
-
-```bash
-cd lot-spike
-npm install
-npm run dev        # open the printed localhost URL
-```
-
-Controls: **drag** to pan · **scroll** to zoom · **WASD / arrows** to pan ·
-**R** to reset the camera · click a building to select it.
-
-Other scripts:
-
-```bash
-npm run build      # typecheck + production bundle into dist/
-npm run typecheck  # types only
-npm run preview    # serve the built dist/ on :4317
-npm run shots      # headless screenshots + interaction check → shots/ (needs preview running)
-```
 
 ---
 

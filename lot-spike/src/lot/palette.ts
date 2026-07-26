@@ -97,6 +97,58 @@ export const COLORS = {
   selection: 0xf7d774,
   hover: 0xffffff,
   shadow: 0x2a2016,
+
+  // ── pass-2 additions ──────────────────────────────────────────────────────
+  // grounding & terrain
+  plinth: 0xd7c6a6, // building foundation slab
+  plinthEdge: 0xbda983,
+  curb: 0xd9cbac,
+  wallStucco: 0xe3d4b4, // perimeter wall
+  wallStuccoR: 0xd3c19c,
+  wallStuccoL: 0xbba982,
+  wallCoping: 0xb56a4a, // terracotta coping cap
+  tarmacApron: 0x7c766d, // stage apron paving
+
+  // production activity
+  stageInterior: 0xf6e6b0, // warm light spilling from an open stage
+  stageInteriorDim: 0x2b2418,
+  doorOpen: 0x3a3227,
+  titleBoard: 0xf1e6cc,
+  titleBoardLeg: 0x6d5a3c,
+  cartBody: 0x5e6b6a,
+  crate: 0x2b2620,
+  cone: 0xc86a3c,
+  cable: 0x2a2620,
+  lightStand: 0x4a443c,
+  lightHead: 0xf6e6b0,
+  reflector: 0xd8cdb2,
+
+  // ambient roles
+  skin: 0xe8caa8,
+  roleCrew: 0x3d4a63, // blue coverall
+  roleCrewHat: 0xd8b04a, // hard hat
+  roleOffice: 0x8a6a48, // tan/brown office wear
+  roleTalent: 0xf0ead9, // pale glamour coat
+  roleTalentTrim: 0xb8484a,
+  roleGrip: 0x5a5048, // grip in olive/grey
+
+  // vehicles
+  vanBody: 0x4a5a52,
+  vanRoof: 0xe4d7bc,
+  cartRoof: 0xb8484a,
+  cartFrame: 0x6d6459,
+
+  // dressing / signage / flags
+  pennantWarm: 0xcaa25a,
+  pennantRed: 0xb8484a,
+  flagCloth: 0xb8484a,
+  flagPole: 0x6d6459,
+  signPost: 0x6d5a3c,
+  signPanel: 0x2f2318,
+  gateLetter: 0xf5ecd8,
+  boothRoof: 0xb56a4a,
+  marqueeLit: 0xf6e6b0,
+  marqueeBulb: 0xffe9a8,
 } as const
 
 export type ColorKey = keyof typeof COLORS

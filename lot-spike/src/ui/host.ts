@@ -89,16 +89,11 @@ export function createHost(app: HTMLElement, initialMode: FixtureKey, cb: HostCa
   const cashStat = mkStat('Cash')
   stats.append(weekStat.wrap, standingStat.wrap, cashStat.wrap)
 
+  // Player-facing controls only: camera reset lives with the studio chrome.
   const controls = el('div', 'controls')
-  const toggle = el('div', 'mode-toggle')
-  const btnStruggle = el('button', 'mode-btn', 'Small Studio')
-  const btnSuccess = el('button', 'mode-btn', 'Established Studio')
-  btnStruggle.addEventListener('click', () => cb.onMode('struggling'))
-  btnSuccess.addEventListener('click', () => cb.onMode('successful'))
-  toggle.append(btnStruggle, btnSuccess)
   const resetBtn = el('button', 'ghost-btn', 'Reset View')
   resetBtn.addEventListener('click', () => cb.onReset())
-  controls.append(toggle, resetBtn)
+  controls.append(resetBtn)
 
   top.append(brand, stats, controls)
 
@@ -121,18 +116,37 @@ export function createHost(app: HTMLElement, initialMode: FixtureKey, cb: HostCa
   })
   panel.append(close, pTitle, pStatus, pBlurb, pProd, pReleases, pAction)
 
-  // ── action log (integration proof) ───────────────────────────────────────────
-  const log = el('section', 'action-log')
+  // ── prototype dock ───────────────────────────────────────────────────────────
+  // Everything the SHIPPING app would not show a player lives here, visually set
+  // apart (dashed frame, muted) from the studio chrome: the state toggle (the host
+  // supplies real state later) and the navigation-event log (integration evidence).
+  const dock = el('section', 'proto-dock')
+  const dockHead = el('div', 'dock-head')
+  dockHead.append(el('span', 'dock-tag', 'PROTOTYPE'), el('span', 'dock-sub', 'spike controls — not shipping UI'))
+
+  const toggleRow = el('div', 'dock-row')
+  toggleRow.append(el('div', 'dock-label', 'Studio state'))
+  const toggle = el('div', 'mode-toggle')
+  const btnStruggle = el('button', 'mode-btn', 'Small')
+  const btnSuccess = el('button', 'mode-btn', 'Established')
+  btnStruggle.addEventListener('click', () => cb.onMode('struggling'))
+  btnSuccess.addEventListener('click', () => cb.onMode('successful'))
+  toggle.append(btnStruggle, btnSuccess)
+  toggleRow.append(toggle)
+
+  const log = el('div', 'action-log')
   const logHead = el('div', 'log-head', 'Navigation events → host')
   const logList = el('ul', 'log-list')
   const logEmpty = el('li', 'log-empty', 'Select a building, then choose its action.')
   logList.append(logEmpty)
   log.append(logHead, logList)
 
+  dock.append(dockHead, toggleRow, log)
+
   // ── hint ─────────────────────────────────────────────────────────────────────
   const hint = el('div', 'hint', 'Drag to pan · Scroll to zoom · WASD/Arrows · R to reset')
 
-  app.append(top, panel, log, hint)
+  app.append(top, panel, dock, hint)
 
   // ── api ───────────────────────────────────────────────────────────────────────
   const setActiveMode = (k: FixtureKey): void => {
