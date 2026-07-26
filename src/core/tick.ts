@@ -30,11 +30,13 @@
 //          only; the release context is dropped at tick end.
 //   N10  — §6's "§9 gate" pointer is stale; there is no gate in this pipeline.
 
+import { evaluateReleaseBroadcast, type ReleaseBroadcastInputs } from './broadcast.js'
 import { buildFilmResult, resolveReception, type ReceptionInputs } from './reception.js'
 import { RngStream } from './rng.js'
 import { resolveShape } from './shape.js'
 import { updateStanding, type ReleaseBenchmarks, type StandingContext } from './standing.js'
 import type {
+  BroadcastItem,
   CastSlot,
   FilmResult,
   GameState,
@@ -57,12 +59,19 @@ function requireTalent(talent: readonly Talent[], id: string, label: string): Ta
   return found
 }
 
-// The per-release pieces STANDING (§6) needs, captured during RECEPTION so the
-// Production (removed from activeProductions at RELEASE) need not be revisited.
+// The per-release pieces STANDING (§6) and BROADCAST (§8) need, captured during
+// RECEPTION so the Production (removed from activeProductions at RELEASE) need not
+// be revisited. `broadcast` carries the §8 inputs (B23/B24) that the ReceptionResult
+// exposes — plus the forecast snapshot, lead fame, concept title, and market
+// segments — with `standing` and `tick` filled in at step 5 (standing must be the
+// AFTER-step-4 value, so it is not captured here).
+type ReleaseBroadcastCapture = Omit<ReleaseBroadcastInputs, 'standing'>
+
 type ReleaseRecord = {
   filmResult: FilmResult
   benchmarks: ReleaseBenchmarks
   ctx: StandingContext
+  broadcast: ReleaseBroadcastCapture
 }
 
 export function tick(state: GameState): GameState {
@@ -163,7 +172,24 @@ export function tick(state: GameState): GameState {
       requiredNegative: result.requiredNegative,
     }
 
-    records.push({ filmResult, benchmarks, ctx })
+    // §8 broadcast inputs (B23/B24), captured now from the ReceptionResult + the
+    // production's forecastSnapshot + the lead's fame + the concept title. `standing`
+    // is deferred: broadcast reads standing AS IT STANDS after step-4 STANDING.
+    const broadcast: ReleaseBroadcastCapture = {
+      productionId: prod.id,
+      forecastSnapshot: prod.forecastSnapshot,
+      segments: state.market.segments,
+      weightedAudienceScore: result.weightedAudienceScore,
+      mismatchPenalty: result.mismatchPenalty,
+      cohesion: result.cohesion,
+      timelinessContribution: result.timelinessContribution,
+      awarenessFactor: result.awarenessFactor,
+      leadFame: cast.lead.fame,
+      conceptTitle: concept.title,
+      tick: currentTick,
+    }
+
+    records.push({ filmResult, benchmarks, ctx, broadcast })
   }
 
   // ── 4. STANDING ────────────────────────────────────────────────────────────
@@ -175,11 +201,29 @@ export function tick(state: GameState): GameState {
   }
 
   // ── 5. BROADCAST ───────────────────────────────────────────────────────────
-  // phase-4 surface (§8 broadcast content deferred; see build order §12 step 4)
+  // §8 minimal deterministic core (B22/B23/B24/M10). Process releases in the SAME
+  // ascending-id order used above (`records` is already release-ordered). For each
+  // release, evaluate the release broadcast against the ACCUMULATING aired-item list
+  // (state.broadcastItems plus any items aired earlier THIS tick) so a later same-tick
+  // release sees earlier same-tick aired items in its window. Broadcast reads the
+  // AFTER-step-4 `standing`. asExpected items and sub-threshold items do not air.
+  //
+  // broadcastItems is the ONLY thing broadcast changes — cash/standing/reception/
+  // rngState/market are untouched by this step. It draws from no RNG stream.
+  const broadcastItems: BroadcastItem[] = [...state.broadcastItems]
+  for (const rec of records) {
+    const item = evaluateReleaseBroadcast(
+      { ...rec.broadcast, standing },
+      broadcastItems,
+    )
+    if (item !== null) broadcastItems.push(item)
+  }
 
   // ── Finalize ───────────────────────────────────────────────────────────────
   // market.tick increments as the LAST step (M1). The sim stream (advanced only by
-  // the RECEPTION draws) is re-serialized once into the new rngState.
+  // the RECEPTION draws) is re-serialized once into the new rngState. broadcastItems
+  // is the accumulated aired list (unchanged when no release aired). coverageContexts
+  // stays untouched (declare-only until phase 6).
   return {
     ...state,
     rngState: rng.serialize(),
@@ -191,5 +235,6 @@ export function tick(state: GameState): GameState {
       activeProductions: stillActive,
       releasedFilms,
     },
+    broadcastItems,
   }
 }

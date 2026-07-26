@@ -117,6 +117,21 @@ export type { ReleaseBenchmarks, StandingContext } from './standing.js'
 // §3 tick (phase 3) — the fixed-order PRODUCTION→RELEASE→RECEPTION→STANDING→BROADCAST pipeline
 export { tick } from './tick.js'
 
+// §8 broadcast (phase 4) — the minimal deterministic broadcast core (B22/B23/B24/M10).
+// Public entry + facts/ranking/template helpers for the test author, plus the two
+// release template ids and their renderer.
+export {
+  evaluateReleaseBroadcast,
+  deriveFacts,
+  rankRelease,
+  editorialRelevance,
+  renderReleaseTemplate,
+  releaseTemplateId,
+  RELEASE_BETTER_TEMPLATE_ID,
+  RELEASE_WORSE_TEMPLATE_ID,
+} from './broadcast.js'
+export type { ReleaseBroadcastInputs, RankingBreakdown } from './broadcast.js'
+
 // §13 candidate generator (phase 3, step 4) — the finite, deterministic,
 // agent-independent decision grid (B18/B19/B21).
 export { generateCandidates, packageReceptionInputs } from './candidates.js'

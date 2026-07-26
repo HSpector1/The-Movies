@@ -1,8 +1,10 @@
 # Project: Studio — Engineering Handoff
 
-Last updated: 2026-07-26, after Phase 3 (this commit). Written for a successor
-session with zero knowledge of prior conversations. Read this after `CLAUDE.md`,
-`docs/build-contract.md` (rev. 4), and `docs/rev4-open-questions.md`, in that order.
+Last updated: 2026-07-26, after Phase 4 (this commit) — M0A complete, verdict
+BLOCKED on the standing-differentiation gate (see §14 below and `M0A-REPORT.md`).
+Written for a successor session with zero knowledge of prior conversations. Read
+this after `CLAUDE.md`, `docs/build-contract.md` (rev. 4), and
+`docs/rev4-open-questions.md`, in that order.
 
 ---
 
@@ -15,14 +17,17 @@ runs by two scripted agents, producing an instrumentation report that answers "d
 film-assembly maths produce real decisions, or is one strategy dominant?" M0A gates
 M1A (a thin UI over the identical ruleset). No UI exists or may exist yet.
 
-**Status.** Phases 1, 2, and 3 of 4 are complete, committed, and audited CLEAN
-(Phase 3 audit: CLEAN WITH NOTES — one conforming provenance note, zero
-findings). Phase 3 delivered world generation (§9), `applyActions` (§3), the
-`tick` pipeline + standing (§3/§6), the candidate grid, and both agents (§13),
-plus `createTalent` (§10). Phase 4 (instrumentation §14 + minimal deterministic
-broadcast §8) is next and unstarted; it ends with a **hard stop**: the M0A report
-is presented and nothing further happens until the owner says the words "approved
-for phase 5".
+**Status.** All four M0A phases are complete, committed, and audited. Phase 4
+delivered the §8 minimal broadcast core, the §14 instrumentation harness + the
+eight diagnostic flags over 1,000 seeds × 2 agents, the §15 Phase-4 acceptance
+tests, and `M0A-REPORT.md`. **M0A verdict: BLOCKED** — 7 of 8 flags pass and every
+acceptance test except one passes, but the ONE completion-blocking gate (**D-2
+standing differentiation**) hard-fails and cannot be fixed within the TUNING
+surface (root cause is §5/§6 formula constants; see §14). This is a contract-level
+finding routed to the owner, exactly as D-2's own reachability ruling anticipated.
+**The next decision is the owner's** (revise §6 / relax the gate by ruling / accept
+BLOCKED — see `M0A-REPORT.md` §9). **The "approved for phase 5" hard stop stands:**
+no UI/Phase-5 work has begun and none may until the owner says those words.
 
 **Architecture in one paragraph.** A pure TypeScript simulation core
 (`(state, actions) => state`, no React/DOM/async/IO) under `src/core/`, governed by
@@ -33,36 +38,45 @@ expectations from the contract text only, never from the implementation, and eve
 phase ends with exactly one read-only clause-by-clause audit hunting for invented
 behavior.
 
-**Confidence.** High for the audited surface. **283 tests green**, `tsc --noEmit`
-clean, three phase audits with zero findings (Phase 3: CLEAN WITH NOTES). The main
-untested surface is deliberate: `technical` is pinned at 40 in all of M0A (owner
-decision D-4), so craft's 15% technical weight is unexercised until M1A. The full
-engine now runs headless end to end (`applyActions`→`tick` over a seeded year);
-what remains for M0A is Phase 4: the §14 instrumentation over ≥1,000 runs, the two
-crude §8 broadcast templates, and the M0A report.
+**Confidence.** High for the audited surface. **320 tests green**, `tsc --noEmit`
+clean, four phase audits (Phase 3 & 4: CLEAN WITH NOTES, zero findings) plus one
+focused Phase-4 adversarial review (verdict: study TRUSTWORTHY). The corpus is
+byte-reproducible. The main untested surface is deliberate: `technical` is pinned
+at 40 in all of M0A (owner decision D-4). The M0A study is DONE; its finding
+(D-2 BLOCKED for structural §5/§6 reasons) is now an owner decision, not further
+engineering. `technical` re-validation is deferred to M1A per D-4.
 
 ---
 
 ## 2. Current Repository State
 
-- **HEAD:** the Phase-3 commit on `main` (this document is committed within it, so it
-  cannot cite its own hash; the prior commit was `56d5eef`, the post-Phase-2 handoff).
-  No remote. Working tree **clean** after commit.
+- **HEAD:** the Phase-4 commit on `main` (this document is committed within it, so it
+  cannot cite its own hash; the prior commit was `ac55902`, Phase 3). No remote.
+  Working tree **clean** after commit.
 - **History:** `13f51d9` baseline docs → `86755ea` contract rev. 4 → `b1f492b` agent
-  team → `444ed08` Phase 1 → `3c64959` Phase 2 → `56d5eef` handoff → Phase 3 (this commit).
+  team → `444ed08` Phase 1 → `3c64959` Phase 2 → `56d5eef` handoff → `ac55902` Phase 3
+  → Phase 4 (this commit).
 - **Directories:**
   - `docs/` — `build-contract.md` (rev. 4 = unchanged rev. 3 body + header pointing
     at the resolutions), `rev4-open-questions.md` (**normative**; wins on conflict),
     this file.
-  - `src/core/` — the engine. Phase 1–2: `types.ts`, `vector.ts`, `math.ts`,
+  - `src/core/` — the pure engine. Phase 1–2: `types.ts`, `vector.ts`, `math.ts`,
     `tuning.ts`, `shape.ts`, `grid.ts`, `rng.ts`, `save.ts`, `reception.ts`,
-    `forecast.ts`. Phase 3 added: `worldgen.ts` (§9), `data/wordlists.ts` (N2 name/
-    title data), `actions.ts` (§3 applyActions), `tick.ts` (§3 pipeline),
-    `standing.ts` (§6), `candidates.ts` + `agents.ts` (§13). `index.ts` remains the
-    only public import surface. `rng.ts` gained a `'worldgen'` `RngPurpose` (additive).
-  - `tests/` — 16 test files (Phase 3 added `worldgen`, `actions`, `tick`, `standing`,
-    `candidates`, `agents`, `replay`) + `_fixtures.ts` (fixture builders, not a test
-    file). **283 tests** total.
+    `forecast.ts`. Phase 3 added: `worldgen.ts` (§9), `data/wordlists.ts`,
+    `actions.ts` (§3), `tick.ts` (§3), `standing.ts` (§6), `candidates.ts` +
+    `agents.ts` (§13). Phase 4 added `broadcast.ts` (§8) and filled `tick.ts` step 5.
+    `index.ts` is the only public import surface. **Purity note:** everything under
+    `src/core/` stays pure/sync/no-IO.
+  - `src/harness/` — Phase-4 **instrumentation layer** (INSIDE `src/` so the hygiene
+    scan covers it, OUTSIDE `src/core/` so it may do file I/O): `run-driver.ts`,
+    `measure.ts`, `aggregate.ts`, `run-corpus.ts`. Run: `npx tsc && node
+    dist/src/harness/run-corpus.js`. Writes `out/m0a/` (gitignored). Never imports
+    into `src/core/`; interacts with the sim only through `../core/index.js`.
+  - `M0A-REPORT.md` (repo root) — the milestone deliverable (owner-facing).
+  - `tests/` — 18 test files (Phase 4 added `broadcast`, `acceptance-corpus`) +
+    `_fixtures.ts`. **320 tests** total.
+  - `.gitignore` now also ignores `out/` (raw corpus evidence — reproducible from
+    seeds, not committed).
   - `.claude/agents/` — four team-agent definitions (sim-core, test-author,
     instrumentation, contract-auditor), all `model: opus`. **Registry caveat:** they
     load only if the session's workspace root is this folder; a session rooted
@@ -155,6 +169,65 @@ crude §8 broadcast templates, and the M0A report.
   one conforming provenance NOTE (the B19 index-tuple reading). Mechanical checks all
   pass; `rng.ts` change confirmed additive-only; no §11/Phase-4/UI leakage.
 - **Outcome:** 283/283 green, tsc clean.
+
+### Phase 4 — instrumentation harness, 8 flags, broadcast core, M0A report (this commit)
+
+- **Objective:** §12 step 4 — the §14 study that answers M0A's question, the §8
+  broadcast core, and `M0A-REPORT.md`. Role-separated Opus dispatches (broadcast +
+  harness implementers, independent test-author, one focused adversarial reviewer,
+  one full contract auditor), PM-orchestrated.
+- **Created:** `src/core/broadcast.ts`; `src/harness/{run-driver,measure,aggregate,
+  run-corpus}.ts`; `tests/{broadcast,acceptance-corpus}.test.ts`; `M0A-REPORT.md`.
+  Modified: `tick.ts` (filled step-5 broadcast, extended the release context — steps
+  1–4 unchanged), `index.ts` (broadcast exports), `.gitignore` (+`out/`). **+37 tests
+  (283→320).**
+- **Systems:** §8 broadcast (B22/B23/B24/M10/M14) — pure, deterministic, changes only
+  `broadcastItems`; §14 harness — 1000 seeds × 2 agents, all 8 flags per exact rev.4
+  defs (B25–B28, M6, M8, M10, M17, N8, N9), raw evidence to files, aggregated summary
+  only to the PM; §15.1 corpus bounds + §15.2 four-quadrant (unit + corpus) + §15.7
+  replay incl. broadcast copy.
+- **Review:** one focused adversarial review — verdict **study TRUSTWORTHY** (corpus
+  complete, byte-deterministic, RNG isolated, replay byte-identical, broadcast pure,
+  D-2 FAIL independently reconfirmed). No corrections required.
+- **Audit:** **CLEAN WITH NOTES** — zero DEVIATED/INVENTED/MISSING/OUT-OF-SCOPE; the
+  sole note is that the D-2 hard fail is genuine and traceable to fixed §5/§6 formula
+  constants outside the tuning surface (a contract-level owner matter, correctly
+  caught by the instrumentation).
+- **Two disclosed findings (owner decisions, not tech debt — see §9a below):**
+  (1) Broadcast is inert in M0A (contract-forced magnitude≡0); (2) **D-2 BLOCKED** —
+  the reputation model differentiates into ≤2 dimensions, not the 3–4 the gate needs.
+- **Tuning:** 2 documented iterations (prestige-lift via COHESION_CAP/SMOOTH_LO/
+  ORIGINALITY), both FAIL (max aggressive gets prestige≥60 to only 0.75%, still <5%);
+  **all reverted to contract defaults** — the true levers are §5/§6 formula constants
+  outside TUNING.
+- **Outcome:** 320/320 green, tsc clean, corpus byte-reproducible. M0A verdict BLOCKED.
+
+---
+
+## 3a. M0A verdict & the decisions now owed to the owner
+
+**Verdict: BLOCKED** on the D-2 standing-differentiation gate. The decision engine is
+healthy (7/8 flags pass, all §15 acceptance except D-2 pass). Two owner decisions are
+now owed; a successor session must NOT resolve either autonomously:
+
+1. **Reputation model (the BLOCKED gate).** D-2 needs ≥3 of 4 asymmetric reputation
+   profiles in ≥5% of runs; only 2 occur. Root cause (proven, not tunable): (a)
+   prestige structurally can't reach ≥60 (critic scores sit below the §6 "60" anchor;
+   max end-prestige across 2000 runs = 39.5; even maximal legal tuning reaches ≥60 in
+   only 0.75% of runs), and (b) awareness & confidence are r≈0.98 redundant (both
+   driven by the same `commercialSurprise` term in §6). The fix levers (the 60 anchor,
+   /8 divisor, the 6/5/2/2 delta coefficients) live in `standing.ts`/`reception.ts`
+   formulas OUTSIDE the tuning surface. Owner options (`M0A-REPORT.md` §9): revise §6
+   (contract change), relax the gate by ruling, or accept BLOCKED. Recommended: revise
+   §6. This is exactly the case D-2's own reachability ruling routed to the owner.
+2. **Broadcast surprise model (future, before full broadcast presentation).** Broadcast
+   is inert in M0A because the contracted surprise input (realized − noise-free
+   forecast center) is identically 0 (audience appeal has no variance). Before full
+   broadcast is built, the owner must decide whether later gameplay should (1)
+   introduce genuine outcome variance, (2) define surprise relative to the studio's
+   published noisy forecast, or (3) use another explicitly designed source of
+   unexpected outcomes. **Do not choose among these now. Adding a human player alone
+   does NOT fix it — a later mechanic or contract ruling is required.**
 
 ---
 
@@ -385,6 +458,23 @@ Every audit and its outcome, in order:
    engineering choice — CONFORMS, flagged for provenance. Mechanical checks pass; the
    `rng.ts` `'worldgen'`-purpose change verified additive-only (existing streams
    byte-identical). No correction required.
+5. **Phase 4 adversarial review** (one focused Opus pass over the harness + broadcast +
+   flags, actively hunting for a hidden dominant strategy, misattributed profiles,
+   pooling errors, cherry-picked seeds, nondeterminism, RNG contamination, replay
+   divergence, broadcast affecting results, threshold drift, corpus reduction,
+   phase-5 leakage): **verdict — study TRUSTWORTHY.** Independently recomputed the
+   D-2 profile rates from raw (matched exactly), ran the corpus twice (byte-identical),
+   and empirically proved the proposed COHESION_CAP tuning ineffective (prestige≥60
+   → 0.75%). One MEDIUM disclosure: B25/B26 signatures are blind to single-axis
+   dominance (Oracle picks max-marketing 98%, bittersweet 53%) — contract-faithful
+   (N9), reported. No corrections required.
+6. **Phase 4 audit** (read-only, clause-by-clause vs §8/§14/§15 + B22–B28, M6, M8, M10,
+   M17, N8, N9, owner rulings; determinism, corpus size/pooling, replay, scope):
+   **CLEAN WITH NOTES — zero DEVIATED/INVENTED/MISSING/OUT-OF-SCOPE findings.**
+   Re-ran the full suite (320/320), regenerated the corpus byte-identically. Sole
+   note: the D-2 hard fail is genuine, correctly reported (not masked), and traceable
+   to fixed §5/§6 formula constants outside the tuning surface — an owner matter. No
+   correction required.
 
 **Corrections required by any audit: none.** The only pre-audit correction in
 project history is the phase-1 comment reword (`Math.random` literal in a comment,
@@ -501,12 +591,17 @@ triples is cheap and safe); (d) scope temptation — broadcast belongs to phase 
 M2, M3, B7–B11, M4, N2, N3, B12, B18/B19, B21, M9, N6, N7, D-1 — one full pass,
 narrow closure check only if findings. *(Executed as written; CLEAN WITH NOTES.)*
 
-### Phase 4 Recommendations (next; still under the "approved for phase 5" hard stop)
+### Phase 4 Recommendations — COMPLETE (this commit)
 
-Scope is §12 step 4: the §14 instrumentation harness over ≥1,000 seeded runs, the
+**STATUS: DONE.** The plan below was executed; the harness, §8 broadcast core, §15
+Phase-4 tests, adversarial review, single audit, documented tuning attempt, and
+`M0A-REPORT.md` all landed. **M0A verdict BLOCKED on D-2** (see §3a). The phase-5
+hard stop stands — no UI work has begun and none may until the owner says the exact
+words "approved for phase 5". Kept for the record:
+
+Scope was §12 step 4: the §14 instrumentation harness over ≥1,000 seeded runs, the
 minimal deterministic §8 broadcast core (two crude release templates only), and the
-`M0A-REPORT.md`. Then **STOP** — present the report and end the turn; do not begin
-phase 5/UI until the owner says the exact words "approved for phase 5".
+`M0A-REPORT.md`.
 
 - **Harness / corpus (N8, §14).** A run driver: `generateWorld(m0a-NNNN)` then, for
   ticks 0–51, `applyActions(state, agent.chooseActions(state))` → `tick(state)` per
