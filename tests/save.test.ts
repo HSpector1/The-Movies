@@ -19,6 +19,7 @@ import {
   loadSave,
   exportSave,
   importSave,
+  generateWorld,
 } from '../src/core/index.js'
 import type {
   GameState,
@@ -27,20 +28,25 @@ import type {
   FilmConcept,
   Segment,
 } from '../src/core/index.js'
-import type { SaveFileV1 } from '../src/core/save.js'
+import type { SaveFileV2 } from '../src/core/save.js'
 
 // ── Minimal valid fixtures (all values are chosen inputs) ────────────────────
 
 const SEED = 'save-fixture-seed'
 
+// A real D-9 (multi-discipline) Talent. New games save as V2, whose GameState carries
+// the full Talent shape (24 skills, ceilings, dev rates, work ethic, genre experience,
+// work history). Rather than hand-transcribe those 24-skill records (fragile, and a
+// silent drift risk), source a genuine talent from a generated world and stamp the
+// fixture's chosen id/persona/fame/salary onto it. The values remain chosen INPUTS.
+const genWriter: Talent = generateWorld('save-fixture-world').talent.find((t) => t.role === 'writer')!
 const talent: Talent = {
+  ...genWriter,
   id: 't1',
   name: 'Fixture Writer',
-  role: 'writer',
   age: 40,
   actual: { warmth: 0.1, gravity: -0.2, physicality: 0.3 },
   perceived: { warmth: 0.1, gravity: -0.2, physicality: 0.3 },
-  skill: 55,
   fame: 30,
   salary: 100_000,
   authored: false,
@@ -123,7 +129,8 @@ function makeState(broadcastItems: BroadcastItem[]): GameState {
 }
 
 // A well-formed save: envelope seed === state.seed, broadcastCache === broadcastItems.
-function wellFormedSave(): SaveFileV1 {
+// makeSave is the D-9 default (V2), so a new-game save is a SaveFileV2.
+function wellFormedSave(): SaveFileV2 {
   const items = [broadcastItem]
   const state = makeState(items)
   return makeSave(state)
@@ -149,10 +156,12 @@ describe('§17 / §15.7 — export→import→export round-trips byte-identicall
 })
 
 describe('§17 — loud rejection of an unknown saveVersion', () => {
-  it('throws on saveVersion 2', () => {
-    // Source: §17 "loud rejection of unknown versions"; no 1→2 migration exists.
+  it('throws on an unknown saveVersion (e.g. 3)', () => {
+    // Source: §17 "loud rejection of unknown versions". Versions 1 and 2 are both
+    // valid now (the owner-authorized D-9 SaveFileV2, ruling 2026-07-26); any other
+    // version is rejected loudly. V2 acceptance is covered by migration.test.ts.
     const save = wellFormedSave()
-    const bad = { ...save, saveVersion: 2 } as unknown as SaveFileV1
+    const bad = { ...save, saveVersion: 3 } as unknown as SaveFileV2
     expect(() => loadSave(bad)).toThrow()
   })
 })
@@ -162,7 +171,7 @@ describe('M14 — loud rejection when envelope seed ≠ state.seed', () => {
     // Source: M14 "the envelope seed must equal state.seed; load validation
     // rejects any divergence loudly (same failure mode as an unknown saveVersion)."
     const save = wellFormedSave()
-    const bad: SaveFileV1 = { ...save, seed: 'a-different-seed' }
+    const bad: SaveFileV2 = { ...save, seed: 'a-different-seed' }
     expect(() => loadSave(bad)).toThrow()
   })
 })
@@ -173,14 +182,14 @@ describe('M14 — loud rejection when broadcastCache ≠ state.broadcastItems', 
     // divergence loudly." Divergent content in the cache must be caught.
     const save = wellFormedSave()
     const divergentItem: BroadcastItem = { ...broadcastItem, template: 'release-worse' }
-    const bad: SaveFileV1 = { ...save, broadcastCache: [divergentItem] }
+    const bad: SaveFileV2 = { ...save, broadcastCache: [divergentItem] }
     expect(() => loadSave(bad)).toThrow()
   })
 
   it('throws when broadcastCache differs from state.broadcastItems by length', () => {
     // Source: M14 — any divergence (including cardinality) is rejected.
     const save = wellFormedSave()
-    const bad: SaveFileV1 = { ...save, broadcastCache: [] }
+    const bad: SaveFileV2 = { ...save, broadcastCache: [] }
     expect(() => loadSave(bad)).toThrow()
   })
 })

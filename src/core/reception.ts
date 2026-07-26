@@ -15,6 +15,7 @@
 import { clamp, lerp, mean, remap, smoothstep } from './math.js'
 import type { RngStream } from './rng.js'
 import { specificity } from './shape.js'
+import { effectiveSkill } from './talentSummary.js'
 import { CAST_WEIGHT, FORCE_VECTORS, ROLE_WEIGHT, SLOT_TRANSFORM, TUNING } from './tuning.js'
 import type {
   CastSlot,
@@ -23,6 +24,7 @@ import type {
   Expression,
   FilmConcept,
   FilmResult,
+  FilmShape,
   MarketState,
   Persona,
   Promise as FilmPromise,
@@ -56,6 +58,13 @@ export function castContribution(p: Persona, slot: CastSlot): Expression {
 // traversal below the harness boundary.
 export type ReceptionInputs = {
   concept: FilmConcept
+  // The greenlight-LOCKED FilmShape (RULING C, 2026-07-26). Threaded so the sim's
+  // effectiveSkill reads honor SHAPE_SKILL_MODS — the SAME shape-weighting path UI
+  // Fit/EP already use. `shapeEffects` (resolveShape(shape)) still governs the
+  // film-level structural mechanics (craft/cohesion/segment affinity); `shape`
+  // governs ONLY the D-9 talent-skill reweighting. No double-count: the two touch
+  // disjoint paths (see projectSkillWeights vs computeContributions/segmentAffinity).
+  shape: FilmShape
   shapeEffects: ShapeEffects
   promise: FilmPromise
   budget: { negative: number; marketing: number }
@@ -132,24 +141,51 @@ function computeCraft(inp: ReceptionInputs): {
   budgetAdequacy: number
   craft: number
 } {
-  const scriptStrength = 0.6 * inp.concept.baselineStrength + 0.4 * inp.writer.skill
-  const directorExecution = inp.director.skill
+  // D-9.5 — the FOUR §5 skill reads become effectiveSkill(..., 'actual'). The
+  // pipeline shape, roleFit (persona), M5 contributions, box office, and bounds are
+  // unchanged. effectiveSkill stays in [0,100] (D-9.0 invariant). concept/shapeEffects/
+  // promise come from ReceptionInputs.
+  // RULING C (2026-07-26): the greenlight-LOCKED `inp.shape` (raw FilmShape) is now
+  // threaded as the trailing arg so SHAPE_SKILL_MODS reweights skills here — the SAME
+  // shape-weighting path UI Fit/EP and §7 forecast use. Reception reads the ACTUAL
+  // skills (use='actual'); the shape is identical to the one §7 forecast weighted,
+  // so the only forecast-vs-result difference is perceived-vs-actual skills.
+  const scriptStrength =
+    0.6 * inp.concept.baselineStrength +
+    0.4 * effectiveSkill(inp.writer, 'writing', inp.concept, undefined, inp.shapeEffects, inp.promise, 'actual', inp.shape)
+  const directorExecution = effectiveSkill(
+    inp.director,
+    'directing',
+    inp.concept,
+    undefined,
+    inp.shapeEffects,
+    inp.promise,
+    'actual',
+    inp.shape,
+  )
 
-  // castExecution = Σ CAST_WEIGHT[slot]·(0.60·skill + 0.40·100·roleFit) / Σ CAST_WEIGHT
+  // castExecution = Σ CAST_WEIGHT[slot]·(0.60·effectiveSkill + 0.40·100·roleFit) / Σ CAST_WEIGHT
   let castNum = 0
   let castDen = 0
   for (const slot of CAST_SLOTS) {
     const t = inp.cast[slot]
     const req = inp.concept.roleRequirements[slot]
     const fit = roleFit(t, req)
-    castNum += CAST_WEIGHT[slot] * (0.6 * t.skill + 0.4 * 100 * fit)
+    const eff = effectiveSkill(t, 'acting', inp.concept, slot, inp.shapeEffects, inp.promise, 'actual', inp.shape)
+    castNum += CAST_WEIGHT[slot] * (0.6 * eff + 0.4 * 100 * fit)
     castDen += CAST_WEIGHT[slot]
   }
   const castExecution = castNum / castDen
 
-  // D-4: technical = mean craft-hire skill, or 40 when craftIds is empty.
+  // D-4: technical = mean craft-hire effectiveSkill, or 40 when craftIds is empty.
   const technical =
-    inp.craftHires.length > 0 ? mean(inp.craftHires.map((c) => c.skill)) : 40
+    inp.craftHires.length > 0
+      ? mean(
+          inp.craftHires.map((c) =>
+            effectiveSkill(c, 'craft', inp.concept, undefined, inp.shapeEffects, inp.promise, 'actual', inp.shape),
+          ),
+        )
+      : 40
 
   const requiredNegative =
     inp.concept.baseNegativeCost * inp.shapeEffects.budgetDemandMultiplier * inp.era.costScale

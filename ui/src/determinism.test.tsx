@@ -41,9 +41,11 @@ function playFixedSequence(seed: string, weeks: number): string {
   fireEvent.click(screen.getByTestId('assembly-next')) // talent
   for (const p of ['picker-writer', 'picker-director', 'picker-lead', 'picker-antagonist', 'picker-support']) {
     const picker = screen.getByTestId(p)
+    // The selectable candidate button carries aria-pressed (redesigned cards also add a
+    // "Details" toggle per row, which we must skip). Pick the first ELIGIBLE candidate.
     const btn = within(picker)
       .getAllByRole('button')
-      .find((b) => !(b as HTMLButtonElement).disabled)!
+      .find((b) => b.hasAttribute('aria-pressed') && !(b as HTMLButtonElement).disabled)!
     fireEvent.click(btn)
   }
   fireEvent.click(screen.getByTestId('assembly-next')) // budget

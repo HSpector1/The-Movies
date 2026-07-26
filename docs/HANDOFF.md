@@ -1,11 +1,13 @@
 # Project: Studio — Engineering Handoff
 
-Last updated: 2026-07-26, after **Phase 5 / M1A** (this commit) — the thin playable
-browser UI over the frozen engine. M0A is PASS (D-6); Phase 5 is PLAYABLE. **Phase 6
-is NOT started** and needs explicit owner authorization. Written for a successor
-session with zero knowledge of prior conversations. Read this after `CLAUDE.md`,
-`docs/build-contract.md` (rev. 4), `docs/rev4-open-questions.md` (incl. ruling
-**D-6**), `M0A-REPORT.md`, and `PLAYTEST.md`, in that order.
+Last updated: 2026-07-26, after the **Phase 5.1 talent milestone** (uncommitted in the
+working tree; see §2c). M0A is PASS (D-6); the D-9 multi-discipline talent system plus
+the three 2026-07-26 owner rulings (D-10 A/B/C) and the M16.7 closure are implemented,
+tested, reviewed, and audited. **Phase 6 is NOT started** and needs explicit owner
+authorization. Written for a successor session with zero knowledge of prior
+conversations. Read this after `CLAUDE.md`, `docs/build-contract.md` (rev. 4),
+`docs/rev4-open-questions.md` (incl. rulings **D-6**, **D-9**, **D-10**), `M0A-REPORT.md`,
+and `PLAYTEST.md`, in that order.
 
 ---
 
@@ -54,9 +56,11 @@ and the D-6 pass is robust (split-corpus both halves 3/4). `technical` pinned at
 
 ## 2. Current Repository State
 
-- **HEAD:** the Phase-4 commit on `main` (this document is committed within it, so it
-  cannot cite its own hash; the prior commit was `ac55902`, Phase 3). No remote.
-  Working tree **clean** after commit.
+- **HEAD:** `f6ecfa7` on `main` (the Phase 5 / M1A commit). No remote. **The working
+  tree is NOT clean:** it carries the **uncommitted Phase 5.1 talent milestone** (D-9 +
+  D-10, complete, tested, reviewed, audited — see §2c), awaiting the owner's single
+  commit. Only that milestone's `src/**`, `ui/**`, `tests/**`, and doc edits are present;
+  no other change.
 - **History:** `13f51d9` baseline docs → `86755ea` contract rev. 4 → `b1f492b` agent
   team → `444ed08` Phase 1 → `3c64959` Phase 2 → `56d5eef` handoff → `ac55902` Phase 3
   → Phase 4 (this commit).
@@ -257,6 +261,127 @@ and the D-6 pass is robust (split-corpus both halves 3/4). `technical` pinned at
 - **Phase 6 boundary (HARD STOP):** NOT started. Do not build Broadcast presentation,
   the prediction→result→revision cycle, filmmaker pitches, or any deferred system until
   the owner explicitly authorizes Phase 6. This commit does not imply that authorization.
+
+## 2c. Phase 5.1 — the multi-discipline talent milestone (this working tree, uncommitted)
+
+- **Status:** COMPLETE, tested, reviewed, and audited; **awaiting the owner's single
+  commit**. Built the owner-authorized Phase 5.1 talent milestone: the D-9 ruling
+  (`docs/rev4-open-questions.md`), owner-ratified 2026-07-26, plus the three 2026-07-26
+  owner rulings recorded as **D-10 A/B/C** and the **M16.7** closure.
+- **What was built:**
+  - **Multi-discipline talent** — every person carries all four disciplines
+    (acting/writing/directing/craft), each with six perceived/actual professional skills,
+    replacing the scalar `talent.skill`.
+  - **Four role OVRs** (Actor/Writer/Director/Craft OVR, 1–99, read-only display summaries
+    computed from perceived skills; the sim never reads OVR) with the owner's 99/95 gates.
+  - **`effectiveSkill` substitution** — the four §5 `.skill` reads now call
+    `effectiveSkill(...)` (project-weighted by genre/shape/promise/slot), preserving the
+    D-9.0 `[0,100]` invariant; reception reads `actual`, forecast reads `perceived`.
+  - **Fit, Expected Performance, Creative Temperament** (persona-derived), **Potential**
+    (hidden ceilings + a noised visible estimate that never exposes the truth), **Work
+    Ethic** (affects development only, nothing on release day), and **genre experience**
+    (small, capped effective-skill bonus — experience is not skill).
+  - **Development-in-play** (D-10.A) — a new deterministic `tick` step on completed
+    releases, from its own `'develop'` stream; per-release **development summaries** in
+    the UI.
+  - **SaveFileV2 + legacy import** — D-9 games save as `SaveFileV2` (`saveVersion: 2`);
+    `SaveFileV1` stays immutable/readable; `convertV1ToV2` / `importLegacyV1` do a
+    non-mutating, idempotent, replay-exact V1→V2 conversion.
+  - **Talent Hub + redesigned Talent Creator** UI (staged flow, creation budget, no free
+    superstar), **multi-hyphenate generation** (D-10.B), **FilmShape threading** through
+    one shared helper (D-10.C), and the **M16.7** greenlight closure.
+- **New public interface highlights** (`src/core/index.ts`): `SaveFileV2` / `SaveFile` /
+  `convertV1ToV2` / `importLegacyV1`; the read-only `talentSummary` surface (`roleOVR`,
+  `roleTier`, `projectFit`, `expectedPerformance`, `temperamentSummary`,
+  `expectedPotentialTier/Range`, `workEthicLabel`, `developmentReport`,
+  career-identity/Capable-but-Unproven); `development` step; the D-9/D-10 `TUNING`
+  constants. None of the summary surface is read by §5/§7.
+- **Verdicts:** **Adversarial review = SOUND-WITH-CAVEATS** (3 LOW: uncommitted work has
+  no committed baseline; a non-acting-primary stream-position note; one cosmetic wording
+  item). **Contract audit = CLEAN WITH NOTES** (the stale D-9.15/header prose and leaked
+  chatter — now fixed in this doc pass; the ≥70/≥80 multi-hyphenate tiers are measured by
+  corpus study, not unit-asserted).
+- **Settled readings (new law):**
+  - **SaveFileV2 overrides D-9.15's "NO SaveFileV2"** — the envelope was never frozen
+    against a successor; V1 stays readable, V2 is the D-9 format (see D-9.15 as amended
+    by D-10 in `rev4-open-questions.md`).
+  - **Migration asserts skill-mean, not OVR** — the V1→V2 conversion centers migrated
+    primary skills on the old scalar (so ability stays comparable); it does not target a
+    specific migrated OVR.
+  - **Development-in-play applies once only** — idempotent across export/import/V1→V2/
+    replay/reload.
+  - **OQ-2 stays dormant** — genre-experience → forecast confidence remains gated behind
+    `CONF_EXP_THRESHOLD` (off); D-3's approved confidence corpus is untouched.
+- **Verified metrics (this working tree):**
+  - **547 tests pass** (439 core / 108 ui); **root + ui `tsc` clean**; **`vite build` OK**;
+    **Playwright smoke passes**; screenshots `ui/screenshots/1-10`.
+  - **Official M0A corpus (development OFF, role-partitioned): all 8 flags PASS, D-6
+    unchanged** (`standing.ts` byte-untouched). D-2 = prestigeHigh 6.7% / awarenessHigh
+    6.05% / confidenceHigh 22.9% / profile-D 0% (3/4). M6 max |r| 0.34. M8 high 83.4% /
+    med 72.8% / low 62.6%. M17 random median 0.786. (See `M0A-REPORT.md`.)
+  - **Shape study:** budget-neutral (aggregate talent contribution 321.18 vs 321.28 across
+    36 shapes); flips the Oracle's pick on 50.3% of seeds; max shape-driven contribution
+    change 8.6 pts.
+  - **Multi-hyphenate study (15k talent):** 11.0% with a non-primary OVR ≥ 60; ≥ 2 usable
+    1.0%; primary OVR mean 43.7 vs secondary 10.8; strongest pairing writing→directing
+    6.7%; Capable-but-Unproven 32.2%; no elite inflation (primary ≥ 90 1.0%, ≥ 95 0.03%,
+    == 99 0).
+  - **Development-ON study (supplementary):** avg gain 1.185 pts/completed film; largest
+    one-film OVR jump +5; WE-tier monotone (Poor 0.44 → Relentless 2.86); age monotone
+    with no decline (young 1.77 → senior 0.23); Ability⊥WE and Potential⊥WE ≈ 0.01.
+- **Milestone status:** **COMPLETE and awaiting the owner's single commit.** The Phase 6
+  hard stop below still stands — no Broadcast/presentation work has begun and none may
+  until the owner authorizes Phase 6.
+
+## 2d. Phase 5.1 cycle-3 — assembly legibility (review-branch correction)
+
+- **Status:** on `phase-5.1-talent`, **NOT merged, awaiting another owner playtest.** An
+  owner playtest found film assembly **opaque** — the player could not read what a package
+  actually was or why the forecast said what it said. Cycle 3 made assembly legible. It is
+  presentation-only: the sim never reads any of the new surfaces, and no D-3, D-6
+  (`standing.ts`), reception/forecast formula, or save-schema byte changed.
+- **What cycle 3 shipped:**
+  - **A persistent Film Package summary** (in assembly + greenlight review) with **four
+    separate dimensions**, each from real engine values, never a hidden master score:
+    - **Creative Cohesion** — talent-**independent** creative-brief coherence (shape /
+      promise / audience), reusing the §5.4 expression/segment-taste metric.
+    - **Talent Fit** — per-assignment (writer / director / each cast slot / crew) plus
+      overall, weakest-link, severe-mismatch, and unfilled, reusing
+      `projectFit` / `expectedPerformance`.
+    - **Execution Confidence** — perceived-only: EP band widths + D-3 confidence tier +
+      budget adequacy + unproven cross-discipline. **No D-3 change, no Work Ethic.**
+    - **Commercial Outlook** — studio-revenue/profit ranges + break-even + confidence +
+      upside/downside, via `computeBoxOffice` on the forecast bands.
+  - **Redesigned candidate cards** — per-assignment Fit / Expected-Performance / Star Power /
+    salary / genre-experience / strengths / weakness / cross-role, expandable; default-sorted
+    by assignment Fit; **all 10 filters** (strengths, Fit-tier, OVR, salary, Star Power,
+    genre-exp, proven/unproven, specialists, multi-hyphenates, availability).
+  - **Change-preview on swap** — real `packageDelta` deltas only.
+  - **Film Readiness panel** — strong / risky / judgment derived from the real dimensions;
+    no secret master score.
+  - **Post-release Autopsy compare** — the **LOCKED** greenlight assessment vs the actual
+    result, and which risks materialized.
+  - **Crew/Craft is now assignable in the assembly UI** (the concrete playtest blocker). The
+    engine already accepted craft; the fix was **UI-only** (add a craft slot; stop hardcoding
+    `craftIds:[]`). **The M0A corpus is unaffected** — role-partitioned, `craftIds:[]`.
+- **New pure engine helpers** (`src/core/filmPackage.ts`) — read-only summaries the sim never
+  reads: `creativeCohesion`, `packageFit`, `executionConfidence`, `forecastProfitRange`,
+  `greenlightAssessment`, `risksMaterialized`, `packageDelta`. Additive `forecast.ts` (exported
+  `DeterministicCore` type + surfaced `budgetAdequacy`). No change to D-3, D-6/`standing.ts`,
+  the reception/forecast formulas, or the save schema (all byte-unchanged).
+- **Two disclosed limitations (honest, not fabricated):**
+  1. The engine's cohesion is **talent-persona alignment**, so the summary's **Creative
+     Cohesion** is the talent-**independent** creative-brief coherence, shown separately (it
+     does not claim to be the engine's cohesion term).
+  2. There is **no distributor/rental split** in the D-1 model — the studio receives the
+     **full box-office total**, so **"Studio Revenue" = full gross** (disclosed in the UI).
+- **Verification:** **591 tests pass** (incl. a 27-test truthfulness suite + a 12-step
+  Playwright browser playtest); **root + UI `tsc` clean**; **`vite build` succeeds**;
+  **Playwright green.** Adversarial review = **SOUND**; contract audit = **CLEAN WITH NOTES**
+  (the one flagged deviation — an incomplete filter set — is **closed**; all 10 filters now
+  ship).
+- **Milestone status:** on `phase-5.1-talent`, **NOT merged, awaiting another owner
+  playtest.** The Phase 6 hard stop below still stands.
 
 ## 3a. M0A verdict & the decisions still owed to the owner
 

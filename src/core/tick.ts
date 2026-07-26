@@ -9,11 +9,19 @@
 //   2. RELEASE     finished productions enter release
 //   3. RECEPTION   resolve released films (§5)
 //   4. STANDING    update the three channels (§6)
-//   5. BROADCAST   phase-4 surface — an intentional no-op here
+//   5. BROADCAST   phase-4 surface
+//   6. DEVELOPMENT D-9.8 talent growth — GATED OFF by default (owner ruling)
 //
-// The ONLY randomness consumed is the sim stream (state.rngState), and ONLY in
+// The ONLY randomness consumed FROM THE SIM STREAM (state.rngState) is in
 // RECEPTION (the single §5.3 critic gaussian per release). `applyActions` and the
 // §7 forecast pipeline are NOT called here.
+//
+// DEVELOPMENT (step 6, D-9.8) is a RUN/HARNESS GATE, not a persisted GameState
+// field and not a §11 "SimulationFlags" object. It is threaded as an optional
+// `options.develop` flag, default FALSE — so `tick(state)` (the M0A corpus call)
+// leaves talent untouched and the validated D-6 baseline is unchanged. When ON,
+// it draws ONLY from the DERIVED stream(seed,'develop',prodId+':'+talentId), which
+// never advances state.rngState, so §15.7 replay stays exact either way.
 //
 // Rev. 4 references folded in:
 //   M1   — currentTick = state.market.tick; PRODUCTION advances only productions
@@ -31,13 +39,15 @@
 //   N10  — §6's "§9 gate" pointer is stale; there is no gate in this pipeline.
 
 import { evaluateReleaseBroadcast, type ReleaseBroadcastInputs } from './broadcast.js'
+import { developTalent, type DevelopmentContext } from './development.js'
 import { buildFilmResult, resolveReception, type ReceptionInputs } from './reception.js'
-import { RngStream } from './rng.js'
+import { RngStream, stream } from './rng.js'
 import { resolveShape } from './shape.js'
 import { updateStanding, type ReleaseBenchmarks, type StandingContext } from './standing.js'
 import type {
   BroadcastItem,
   CastSlot,
+  Discipline,
   FilmResult,
   GameState,
   Production,
@@ -67,14 +77,34 @@ function requireTalent(talent: readonly Talent[], id: string, label: string): Ta
 // AFTER-step-4 value, so it is not captured here).
 type ReleaseBroadcastCapture = Omit<ReleaseBroadcastInputs, 'standing'>
 
+// D-9.8 DEVELOPMENT capture: who worked on this release and in what discipline,
+// plus the film facts development reads (concept/shapeEffects/promise/requiredNegative
+// /criticScore). Performers in fixed order: writer→writing, director→directing,
+// each cast actor→acting, each craft hire→craft (D-9.8).
+type Performer = { talentId: string; discipline: Discipline }
+type DevelopCapture = {
+  productionId: string
+  performers: Performer[]
+  ctx: DevelopmentContext
+}
+
 type ReleaseRecord = {
   filmResult: FilmResult
   benchmarks: ReleaseBenchmarks
   ctx: StandingContext
   broadcast: ReleaseBroadcastCapture
+  develop: DevelopCapture
 }
 
-export function tick(state: GameState): GameState {
+// Run/harness options for a tick. `develop` GATES the D-9.8 DEVELOPMENT step and
+// defaults to FALSE (owner ruling: development is OFF in the official M0A corpus).
+// This is a parameter — like agent choice — NOT a persisted GameState field.
+export type TickOptions = {
+  develop?: boolean
+}
+
+export function tick(state: GameState, options?: TickOptions): GameState {
+  const develop = options?.develop ?? false
   const currentTick = state.market.tick
 
   // Deserialize the sim stream ONCE. Its state is re-serialized as the final step.
@@ -127,6 +157,10 @@ export function tick(state: GameState): GameState {
 
     const inp: ReceptionInputs = {
       concept,
+      // RULING C: the greenlight-LOCKED shape stored on the Production (never a
+      // mutable UI draft). resolveShape(prod.shape) still drives the film-level
+      // ShapeEffects; the raw prod.shape drives the D-9 talent-skill reweighting.
+      shape: prod.shape,
       shapeEffects: resolveShape(prod.shape),
       promise: prod.promise,
       budget: prod.budget,
@@ -197,7 +231,31 @@ export function tick(state: GameState): GameState {
       tick: currentTick,
     }
 
-    records.push({ filmResult, benchmarks, ctx, broadcast })
+    // D-9.8 DEVELOPMENT capture — performers in fixed order (writer, director,
+    // cast lead/antagonist/support, then craft hires in craftIds order), each in
+    // the discipline they performed. The dev context is the film facts §5 produced.
+    const performers: Performer[] = []
+    performers.push({ talentId: prod.writerId, discipline: 'writing' })
+    performers.push({ talentId: prod.directorId, discipline: 'directing' })
+    for (const slot of CAST_SLOTS) performers.push({ talentId: prod.cast[slot], discipline: 'acting' })
+    for (const cid of prod.craftIds) performers.push({ talentId: cid, discipline: 'craft' })
+
+    const develop: DevelopCapture = {
+      productionId: prod.id,
+      performers,
+      ctx: {
+        concept,
+        // RULING C: development weights skills through the SAME shape path as §5/§7,
+        // using the LOCKED production.shape. Confined to the performed discipline.
+        shape: prod.shape,
+        shapeEffects: inp.shapeEffects,
+        promise: prod.promise,
+        requiredNegative: result.requiredNegative,
+        criticScore: result.criticScore,
+      },
+    }
+
+    records.push({ filmResult, benchmarks, ctx, broadcast, develop })
   }
 
   // ── 4. STANDING ────────────────────────────────────────────────────────────
@@ -227,15 +285,48 @@ export function tick(state: GameState): GameState {
     if (item !== null) broadcastItems.push(item)
   }
 
+  // ── 6. DEVELOPMENT (D-9.8) — GATED OFF by default ──────────────────────────
+  // Only runs when options.develop === true. Over the SAME `records` (this tick's
+  // releases) in the SAME ascending-id order, each performer develops in the
+  // discipline they performed, drawing ONLY from the DERIVED per-(prod,talent)
+  // stream(seed,'develop',prodId+':'+talentId) — NEVER the sim stream, so rngState
+  // is untouched and §15.7 replay is exact. Builds a NEW immutable talent[] (each
+  // developed talent is a fresh object; talent not in any release is shared by
+  // reference). When develop === false, `talent` is state.talent unchanged — the
+  // validated M0A/D-6 baseline. A single talent working on two same-tick releases
+  // develops once per release, in release order, over the evolving talent list.
+  let talent: Talent[] = state.talent
+  if (develop && records.length > 0) {
+    // Index into the current talent list for O(1) resolution as it evolves.
+    const byId = new Map<string, Talent>()
+    for (const t of talent) byId.set(t.id, t)
+
+    for (const rec of records) {
+      for (const performer of rec.develop.performers) {
+        const current = byId.get(performer.talentId)
+        if (current === undefined) continue // craft with no hire etc. — nothing to develop
+        const devStream = stream(state.seed, 'develop', `${rec.develop.productionId}:${performer.talentId}`)
+        const developed = developTalent(current, performer.discipline, rec.develop.ctx, devStream)
+        byId.set(performer.talentId, developed)
+      }
+    }
+
+    // Rebuild the array in the ORIGINAL talent order (stable serialization),
+    // substituting developed objects; untouched talent shared by reference.
+    talent = state.talent.map((t) => byId.get(t.id) ?? t)
+  }
+
   // ── Finalize ───────────────────────────────────────────────────────────────
   // market.tick increments as the LAST step (M1). The sim stream (advanced only by
   // the RECEPTION draws) is re-serialized once into the new rngState. broadcastItems
   // is the accumulated aired list (unchanged when no release aired). coverageContexts
-  // stays untouched (declare-only until phase 6).
+  // stays untouched (declare-only until phase 6). `talent` is unchanged unless the
+  // DEVELOPMENT gate (step 6) is on.
   return {
     ...state,
     rngState: rng.serialize(),
     market: { ...state.market, tick: currentTick + 1 },
+    talent,
     studio: {
       ...state.studio,
       cash,

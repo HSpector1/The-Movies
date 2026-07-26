@@ -6,8 +6,8 @@
 // alignment, timing, reach, the full critic breakdown, per-segment response, the
 // box-office breakdown, profit/loss, standing deltas and WHY each channel moved.
 
-import type { AutopsyView } from '../engine/adapter.ts'
-import { money, moneyExact, score, axis, signed, segmentLabel } from '../format.ts'
+import type { AutopsyView, AutopsyCompareView } from '../engine/adapter.ts'
+import { money, moneyExact, score, axis, signed, segmentLabel, factorLabel } from '../format.ts'
 import { Metric, Delta } from '../components/common.tsx'
 
 function Vec({ v }: { v: { intimacy: number; tonalWeight: number; kineticEnergy: number } }) {
@@ -18,7 +18,15 @@ function Vec({ v }: { v: { intimacy: number; tonalWeight: number; kineticEnergy:
   )
 }
 
-export function Autopsy({ view, onBack }: { view: AutopsyView; onBack: () => void }) {
+export function Autopsy({
+  view,
+  compare,
+  onBack,
+}: {
+  view: AutopsyView
+  compare: AutopsyCompareView | null
+  onBack: () => void
+}) {
   const profitPositive = view.profit >= 0
   return (
     <div className="app-shell" data-testid="autopsy">
@@ -69,6 +77,9 @@ export function Autopsy({ view, onBack }: { view: AutopsyView; onBack: () => voi
       </div>
 
       <div style={{ height: 16 }} />
+
+      {/* Greenlight expectation vs actual — the locked decision, graded against reality */}
+      {compare && <GreenlightCompare compare={compare} view={view} />}
 
       <div className="grid grid-2">
         {/* Craft breakdown */}
@@ -334,5 +345,198 @@ export function Autopsy({ view, onBack }: { view: AutopsyView; onBack: () => voi
         </div>
       </div>
     </div>
+  )
+}
+
+// ── Greenlight expectation vs actual ──────────────────────────────────────────
+// The LOCKED greenlight assessment (cohesion, fit-by-assignment, execution confidence,
+// commercial forecast, identified strengths & risks) side-by-side with the ACTUAL
+// result, plus which identified RISKS materialized (risksMaterialized). Every value is
+// an engine output (greenlightAssessment / risksMaterialized via the adapter); no
+// unsupported causal prose. This lets the player read distinctions like good-film-bad-
+// investment, weak-film-commercial-success, risky-gamble-paid-off, poor-talent-match.
+function GreenlightCompare({
+  compare,
+  view,
+}: {
+  compare: AutopsyCompareView
+  view: AutopsyView
+}) {
+  const { assessment, risks } = compare
+  const expectedProfit = assessment.profit.profit.expected
+  const actualProfit = view.profit
+  // A plain read of the two axes the decision cared about — derived ONLY from recorded
+  // values (cohesion tier expected vs realized cohesion; expected vs actual profit).
+  const filmStrong = view.cohesion >= 0.5 || view.criticScore >= 55
+  const investmentGood = actualProfit >= 0
+  const verdict =
+    filmStrong && investmentGood
+      ? 'Good film, good investment.'
+      : filmStrong && !investmentGood
+        ? 'Good film, disappointing investment.'
+        : !filmStrong && investmentGood
+          ? 'Weak film, commercial success.'
+          : 'Weak film, poor investment.'
+
+  return (
+    <>
+      <div className="card" data-testid="autopsy-greenlight-compare">
+        <div className="spread">
+          <h2 style={{ margin: 0 }}>The greenlight decision, graded</h2>
+          <span className="badge" data-testid="autopsy-verdict">
+            {verdict}
+          </span>
+        </div>
+        <p className="hint">
+          What the studio committed to at greenlight, and how each judgment held up. These are the
+          locked estimates — the film could still have gone the other way.
+        </p>
+
+        <div className="grid grid-2" style={{ marginTop: 12 }}>
+          {/* Commercial: expected forecast vs actual */}
+          <div className="panel stack">
+            <h4 style={{ margin: 0 }}>Commercial outlook vs result</h4>
+            <div className="spread">
+              <span>Expected studio revenue</span>
+              <span className="mono" data-testid="autopsy-expected-revenue">
+                {money(assessment.profit.studioRevenue.expected)}
+              </span>
+            </div>
+            <div className="spread">
+              <span>Actual studio revenue</span>
+              <span className="mono">{money(view.boxOffice.total)}</span>
+            </div>
+            <div className="spread">
+              <span>Expected profit / loss</span>
+              <span className={`mono ${expectedProfit >= 0 ? 'money pos' : 'money neg'}`}>
+                {moneyExact(expectedProfit)}
+              </span>
+            </div>
+            <div className="spread">
+              <span>Actual profit / loss</span>
+              <span
+                className={`mono ${actualProfit >= 0 ? 'money pos' : 'money neg'}`}
+                data-testid="autopsy-actual-profit"
+              >
+                {moneyExact(actualProfit)}
+              </span>
+            </div>
+            <span className="hint">
+              Forecast range at greenlight:{' '}
+              {money(assessment.profit.profit.low)}–{money(assessment.profit.profit.high)}. Studio
+              Revenue is the full box-office total (no distributor split in the model).
+            </span>
+          </div>
+
+          {/* Perceived judgment vs realized */}
+          <div className="panel stack">
+            <h4 style={{ margin: 0 }}>Perceived judgment vs realized</h4>
+            <div className="spread">
+              <span>Creative cohesion (expected)</span>
+              <span className="mono">
+                {Math.round(assessment.cohesion.score)} ({assessment.cohesion.tier})
+              </span>
+            </div>
+            <div className="spread">
+              <span>Cohesion (realized)</span>
+              <span className="mono" data-testid="autopsy-realized-cohesion">
+                {score(view.cohesion, 2)}
+              </span>
+            </div>
+            <div className="spread">
+              <span>Execution confidence (expected)</span>
+              <span className="mono">
+                {assessment.execution.tier} ({Math.round(assessment.execution.score)})
+              </span>
+            </div>
+            <div className="spread">
+              <span>Overall talent Fit (expected)</span>
+              <span className="mono">{Math.round(assessment.fit.overall)}</span>
+            </div>
+            <span className="hint">
+              Execution confidence was a PERCEIVED estimate from greenlight-time information — never
+              a guarantee of the film's quality.
+            </span>
+          </div>
+        </div>
+
+        {/* Fit-by-assignment (expected) vs actual segment/critic outcome */}
+        <div className="sep" />
+        <h4>Expected Fit by assignment (locked at greenlight)</h4>
+        <table className="data" data-testid="autopsy-fit-by-assignment">
+          <thead>
+            <tr>
+              <th>Assignment</th>
+              <th>Who</th>
+              <th className="num">Fit</th>
+              <th className="num">Expected perf.</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {assessment.fit.perAssignment.map((a) => (
+              <tr key={`${a.role}-${a.slot ?? ''}`} data-testid={`autopsy-fit-${a.role}${a.slot ? '-' + a.slot : ''}`}>
+                <td>
+                  {a.role}
+                  {a.slot ? ` (${a.slot})` : ''}
+                </td>
+                <td>{a.talentName}</td>
+                <td className="num mono">{a.fit.toFixed(0)}</td>
+                <td className="num mono">
+                  {a.expected.low.toFixed(0)}–{a.expected.high.toFixed(0)}
+                </td>
+                <td>
+                  {a === assessment.fit.weakest && <span className="tag">weakest link</span>}
+                  {a === assessment.fit.strongest && <span className="tag">strongest</span>}
+                  {a.unproven && <span className="badge">unproven</span>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {/* Identified strengths & risks, and which risks materialized */}
+        <div className="sep" />
+        <div className="grid grid-2">
+          <div className="stack">
+            <h4 style={{ margin: 0 }}>Identified strengths (at greenlight)</h4>
+            {assessment.strengths.length > 0 ? (
+              <ul style={{ margin: 0, paddingLeft: 18 }} data-testid="autopsy-identified-strengths">
+                {assessment.strengths.map((s, i) => (
+                  <li key={i}>{s}</li>
+                ))}
+              </ul>
+            ) : (
+              <p className="hint">No standout strengths were identified.</p>
+            )}
+          </div>
+          <div className="stack">
+            <div className="spread">
+              <h4 style={{ margin: 0 }}>Identified risks — did they bite?</h4>
+              <span className="badge" data-testid="autopsy-risks-materialized-count">
+                {risks.materializedCount}/{risks.risks.length} materialized
+              </span>
+            </div>
+            {risks.risks.length > 0 ? (
+              <ul style={{ margin: 0, paddingLeft: 18 }} data-testid="autopsy-risks">
+                {risks.risks.map((r, i) => (
+                  <li key={i} data-testid={`autopsy-risk-${r.factor}`}>
+                    <span className={r.materialized ? 'money neg' : 'money pos'}>
+                      {r.materialized ? 'Materialized' : 'Avoided'}
+                    </span>{' '}
+                    — {factorLabel(r.factor)}: {r.detail}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="hint" data-testid="autopsy-risks">
+                No uncertainty factors were flagged at greenlight.
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+      <div style={{ height: 16 }} />
+    </>
   )
 }

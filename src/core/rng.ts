@@ -20,7 +20,13 @@
 //
 // No unseeded randomness anywhere in this tree — including tests and config.
 
-export type RngPurpose = 'candidates' | 'agent' | 'forecast' | 'worldgen'
+// D-9 adds two DERIVED-stream purposes (additive; existing streams unchanged):
+//   'migrate' — legacy V1→V2 talent conversion (D-9.15 formulas), keyed by
+//               old.id + '-' + field
+//   'develop' — the tick DEVELOPMENT step (D-9.8), keyed by productionId + ':' + talentId
+// Both are stateless derived streams, so they never advance state.rngState → §15.7
+// replay-exactness is preserved.
+export type RngPurpose = 'candidates' | 'agent' | 'forecast' | 'worldgen' | 'migrate' | 'develop'
 
 // A 32-bit hash accumulator step (splitmix32 finalizer). Deterministic, avalanche-y.
 function splitmix32(seed: number): { value: number; next: number } {

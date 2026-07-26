@@ -20,16 +20,19 @@
 import { describe, expect, it } from 'vitest'
 import {
   applyActions,
+  convertV1ToV2,
   exportSave,
   generateCandidates,
   generateWorld,
   makeSave,
+  makeSaveV2,
   OracleAgent,
   RandomAgent,
   tick,
   TUNING,
 } from '../src/core/index.js'
 import type { Agent, GameState } from '../src/core/index.js'
+import { makeLegacySaveV1, toLegacyTalent } from './_legacyV1Fixtures.js'
 
 // One full simulated year from generateWorld(seed): every tick, the agent chooses,
 // applyActions applies, tick advances. Ticks 0..TICKS_PER_YEAR-1 (52). Per the brief.
@@ -38,6 +41,26 @@ function runYear(seed: string, agent: Agent): GameState {
   for (let t = 0; t < TUNING.TICKS_PER_YEAR; t++) {
     state = applyActions(state, agent.chooseActions(state))
     state = tick(state)
+  }
+  return state
+}
+
+// Same loop, but with the D-9.8 DEVELOPMENT step (tick option) ON.
+function runYearDeveloping(seed: string, agent: Agent): GameState {
+  let state = generateWorld(seed)
+  for (let t = 0; t < TUNING.TICKS_PER_YEAR; t++) {
+    state = applyActions(state, agent.chooseActions(state))
+    state = tick(state, { develop: true })
+  }
+  return state
+}
+
+// Advance an arbitrary GameState `n` ticks with a chosen agent + develop flag.
+function advance(start: GameState, n: number, agent: Agent, develop: boolean): GameState {
+  let state = start
+  for (let t = 0; t < n; t++) {
+    state = applyActions(state, agent.chooseActions(state))
+    state = tick(state, { develop })
   }
   return state
 }
@@ -124,5 +147,83 @@ describe('§15.6/M9 — greenlight forecast snapshot draws from the forecast str
     expect(after.studio.activeProductions[0].forecastSnapshot).toBeDefined()
     // ...yet the sim stream did not advance.
     expect(after.rngState).toBe(before)
+  })
+})
+
+// ── AGENT D: development-ON full-run replay is byte-identical (D-9.8 replay-exact) ─
+// D-9.8: the DEVELOPMENT step draws ONLY from stream(seed,'develop',prod:talent) and
+// never advances state.rngState, so a full run with develop:true replays byte-for-byte
+// across two runs of the same seed + actions — exactly like the develop:false run.
+describe('§15.7/D-9.8 — develop:true full-run replay is byte-identical', () => {
+  for (const [name, agent] of [
+    ['OracleAgent', OracleAgent],
+    ['RandomAgent', RandomAgent],
+  ] as const) {
+    it(`${name}: two develop:true full-year runs with the same seed are byte-identical`, () => {
+      const seed = `replay-dev-${name}`
+      const a = runYearDeveloping(seed, agent)
+      const b = runYearDeveloping(seed, agent)
+      expect(exportSave(makeSave(a))).toBe(exportSave(makeSave(b)))
+    })
+
+    it(`${name}: development actually changed some talent (the flag is not a no-op here)`, () => {
+      // Sanity anchor for the replay claim: with develop ON over a full year that has
+      // releases, at least one talent's serialized skills differ from the develop-OFF
+      // run. (If nothing developed, the byte-identity above would be vacuous.)
+      const seed = `replay-dev-effect-${name}`
+      const on = runYearDeveloping(seed, agent)
+      const off = runYear(seed, agent)
+      expect(exportSave(makeSave(on))).not.toBe(exportSave(makeSave(off)))
+    })
+  }
+})
+
+// ── AGENT D: a run RESUMED from a converted V2 replays identically ────────────────
+// D-9.15 replay-exactness: convertV1ToV2 carries rngState through UNCHANGED, so the
+// resumed sim stream is anchored exactly. Two independent conversions of the SAME
+// legacy V1, each advanced by the SAME agent + actions, produce byte-identical
+// serialized state. This is the migration analogue of the §15.7 replay guarantee.
+describe('§15.7/D-9.15 — a run resumed from a converted V2 replays byte-identically', () => {
+  // Build a legacy V1 by REDUCING a real generated world's roster to old-shape talent
+  // (scalar `skill`, no `skills` record). This guarantees a fully castable roster so
+  // generateCandidates can form valid productions on resume. The seed + a valid live
+  // rngState anchor come from the same generated world, so tick can resume from it.
+  function legacyResumable(seed: string): ReturnType<typeof makeLegacySaveV1> {
+    const anchor = generateWorld(seed)
+    return makeLegacySaveV1({
+      seed,
+      talent: anchor.talent.map(toLegacyTalent),
+      rngState: anchor.rngState,
+    })
+  }
+
+  for (const [name, agent, develop] of [
+    ['OracleAgent/develop-off', OracleAgent, false],
+    ['OracleAgent/develop-on', OracleAgent, true],
+    ['RandomAgent/develop-on', RandomAgent, true],
+  ] as const) {
+    it(`${name}: two resumes of the same converted V2 are byte-identical`, () => {
+      const seed = `resume-${name.replace(/\W+/g, '-')}`
+      const v1 = legacyResumable(seed)
+
+      // Two INDEPENDENT conversions of the same V1 → two V2 states.
+      const s1 = convertV1ToV2(v1).state
+      const s2 = convertV1ToV2(v1).state
+
+      // The converted starting states are already byte-identical (idempotent migrate).
+      expect(exportSave(makeSaveV2(s1))).toBe(exportSave(makeSaveV2(s2)))
+
+      // Resume each for several ticks with the same agent + develop flag.
+      const r1 = advance(s1, 8, agent, develop)
+      const r2 = advance(s2, 8, agent, develop)
+      expect(exportSave(makeSaveV2(r1))).toBe(exportSave(makeSaveV2(r2)))
+    })
+  }
+
+  it('the resumed V2 starts from the SAME rngState the legacy V1 carried (no reset)', () => {
+    const seed = 'resume-anchor-check'
+    const v1 = legacyResumable(seed)
+    const v2 = convertV1ToV2(v1)
+    expect(v2.state.rngState).toBe(v1.state.rngState)
   })
 })

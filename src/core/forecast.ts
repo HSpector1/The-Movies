@@ -37,6 +37,7 @@ import type {
 } from './types.js'
 import { magnitude, personaToExpression, safeCosine } from './vector.js'
 import { castContribution, roleFit } from './reception.js'
+import { effectiveSkill } from './talentSummary.js'
 
 const CAST_SLOTS: CastSlot[] = ['lead', 'antagonist', 'support']
 
@@ -54,7 +55,11 @@ export type ForecastInputs = ReceptionInputs
 // The deterministic core that §5.4 segment centers depend on: craft, delivered,
 // criticMean, timelinessContribution. Recomputed here WITHOUT any sampled term so
 // forecastCenters never draws from any stream. Mirrors §5.1–§5.3 up to criticMean.
-type DeterministicCore = {
+// EXPORTED (Phase 5.1 CYCLE 3) as a READ-ONLY type so the additive filmPackage.ts
+// UI summaries can consume the intermediate PERCEIVED quantities `forecastCenters`
+// already computes-and-discards (scriptStrength/directorExecution/castWeightedRoleFit).
+// This is a type export only — the computation and its formulas are unchanged.
+export type DeterministicCore = {
   craft: number
   delivered: Expression
   criticMean: number
@@ -63,12 +68,34 @@ type DeterministicCore = {
   scriptStrength: number
   directorExecution: number
   castWeightedRoleFit: number
+  // §5.1 production-difficulty read (0..100). Already computed below; now RETURNED
+  // (Phase 5.1 CYCLE 3) so the filmPackage.ts execution-confidence summary can read
+  // production difficulty without re-deriving the §5.1 formula. Additive field only —
+  // the value and its formula are unchanged (identical to reception.ts:190-195).
+  budgetAdequacy: number
 }
 
 function computeDeterministicCore(inp: ForecastInputs): DeterministicCore {
-  // §5.1 craft
-  const scriptStrength = 0.6 * inp.concept.baselineStrength + 0.4 * inp.writer.skill
-  const directorExecution = inp.director.skill
+  // §5.1 craft — D-9.5: the identical FOUR reads, but use = 'perceived' (forecast
+  // reads perceived; reception reads actual). Structure downstream unchanged.
+  // RULING C (2026-07-26): the shape being greenlit (`inp.shape`, the raw FilmShape)
+  // is threaded as the trailing arg so SHAPE_SKILL_MODS reweights the perceived
+  // forecast identically to how reception reweights the actual result — the shared
+  // projectSkillWeights path. Forecast uses the shape being greenlit; reception uses
+  // production.shape (the same locked value once greenlit).
+  const scriptStrength =
+    0.6 * inp.concept.baselineStrength +
+    0.4 * effectiveSkill(inp.writer, 'writing', inp.concept, undefined, inp.shapeEffects, inp.promise, 'perceived', inp.shape)
+  const directorExecution = effectiveSkill(
+    inp.director,
+    'directing',
+    inp.concept,
+    undefined,
+    inp.shapeEffects,
+    inp.promise,
+    'perceived',
+    inp.shape,
+  )
 
   let castNum = 0
   let castDen = 0
@@ -76,7 +103,8 @@ function computeDeterministicCore(inp: ForecastInputs): DeterministicCore {
   for (const slot of CAST_SLOTS) {
     const t = inp.cast[slot]
     const fit = roleFit(t, inp.concept.roleRequirements[slot])
-    castNum += CAST_WEIGHT[slot] * (0.6 * t.skill + 0.4 * 100 * fit)
+    const eff = effectiveSkill(t, 'acting', inp.concept, slot, inp.shapeEffects, inp.promise, 'perceived', inp.shape)
+    castNum += CAST_WEIGHT[slot] * (0.6 * eff + 0.4 * 100 * fit)
     castDen += CAST_WEIGHT[slot]
     fitNum += CAST_WEIGHT[slot] * fit
   }
@@ -84,7 +112,13 @@ function computeDeterministicCore(inp: ForecastInputs): DeterministicCore {
   const castWeightedRoleFit = fitNum / castDen
 
   const technical =
-    inp.craftHires.length > 0 ? mean(inp.craftHires.map((c) => c.skill)) : 40
+    inp.craftHires.length > 0
+      ? mean(
+          inp.craftHires.map((c) =>
+            effectiveSkill(c, 'craft', inp.concept, undefined, inp.shapeEffects, inp.promise, 'perceived', inp.shape),
+          ),
+        )
+      : 40
 
   const requiredNegative =
     inp.concept.baseNegativeCost * inp.shapeEffects.budgetDemandMultiplier * inp.era.costScale
@@ -184,6 +218,7 @@ function computeDeterministicCore(inp: ForecastInputs): DeterministicCore {
     scriptStrength,
     directorExecution,
     castWeightedRoleFit,
+    budgetAdequacy,
   }
 }
 

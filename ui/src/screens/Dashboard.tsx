@@ -22,6 +22,7 @@ export function Dashboard({
   onAssemble,
   onAdvance,
   onCreateTalent,
+  onOpenHub,
   onSaves,
   onOpenAutopsy,
 }: {
@@ -29,6 +30,7 @@ export function Dashboard({
   onAssemble: () => void
   onAdvance: () => void
   onCreateTalent: () => void
+  onOpenHub?: () => void
   onSaves: () => void
   onOpenAutopsy: (film: FilmResult) => void
 }) {
@@ -104,6 +106,14 @@ export function Dashboard({
           )}
           <div className="sep" />
           <div className="btn-row">
+            <button
+              className="ghost"
+              onClick={onOpenHub}
+              disabled={!onOpenHub}
+              data-testid="open-talent-hub"
+            >
+              Talent Hub
+            </button>
             <button className="ghost" onClick={onCreateTalent} data-testid="open-talent-creator">
               Create talent
             </button>

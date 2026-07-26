@@ -57,6 +57,26 @@ Broadcast remains mechanically correct but inert in natural M0A (contract-forced
 
 ---
 
+# Revision — M0A after D-9/D-10 (Phase 5.1 talent milestone, 2026-07-26) — **still PASS**
+
+The D-9 multi-discipline talent system and the three 2026-07-26 owner rulings (D-10 A/B/C, `docs/rev4-open-questions.md`) shipped after D-6. Per **ruling D-10.A**, the **official M0A calibration corpus runs with development OFF and role-partitioned**, and **D-6 is unchanged** (`standing.ts` byte-untouched). Re-run over the **full 1,000-seed × 2-agent** corpus, the study **still PASSES all eight flags** with no regression:
+
+- **D-2 standing differentiation — PASS (3/4):** prestigeHigh **6.7%** / awarenessHigh **6.05%** / confidenceHigh **22.9%** / profile-D **0%** (profile D still 0% for the same honest arithmetic reason as under D-6 — see the note above).
+- **M6 standing correlation — PASS:** max |r| **0.34**.
+- **M8 forecast calibration — PASS:** high **83.4%** / medium **72.8%** / low **62.6%**.
+- **M17 casting diversity — PASS:** Random median **0.786**.
+- Choice dominance, strategy concentration, dead cultural state, and authored-talent flags: unchanged and PASS.
+
+The talent representation changed underneath (scalar `skill` → the four disciplines' skills consumed via `effectiveSkill`), but with development gated OFF and the candidate grid role-partitioned, the reception/economics corpus the D-6 channels were calibrated against is preserved. This is a PASS of the M0A study; it is **not** approval for Phase 6.
+
+**Supplementary studies (NOT part of the calibration gate).** Three studies were run alongside the milestone to validate the new mechanisms; they are diagnostic, not gate criteria:
+
+- **Development-ON study** (development enabled, the normal-play behavior): avg gain **1.185 pts/completed film**; largest one-film OVR jump **+5**; Work-Ethic tier monotone (Poor 0.44 → Relentless 2.86); age monotone with no decline (young 1.77 → senior 0.23); Ability⊥WE and Potential⊥WE ≈ **0.01** (WE and Potential are independent of current ability, as designed).
+- **Shape study** (D-10.C FilmShape threading): budget-neutral (aggregate talent contribution **321.18 vs 321.28** across 36 shapes); flips the Oracle's pick on **50.3%** of seeds; max shape-driven contribution change **8.6 pts**.
+- **Multi-hyphenate study** (D-10.B, 15k talent): **11.0%** with a non-primary OVR ≥ 60; ≥ 2 usable **1.0%**; primary OVR mean **43.7** vs secondary **10.8**; strongest pairing writing→directing **6.7%**; Capable-but-Unproven **32.2%**; no elite inflation (primary ≥ 90 **1.0%**, ≥ 95 **0.03%**, == 99 **0**).
+
+---
+
 # Baseline (commit `81ee613`) — the original M0A study, preserved
 
 *The following sections are the original baseline study and its BLOCKED verdict. They are preserved verbatim (the owner directed the baseline result be kept, not erased). They correctly implemented the prior contract and revealed the design problem that D-6 above repairs.*

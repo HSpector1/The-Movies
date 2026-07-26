@@ -43,6 +43,22 @@ export type {
   BroadcastFacts,
   BroadcastItem,
   CoverageContext,
+  // D-9 multi-discipline talent vocabulary + supporting types (types.ts)
+  Discipline,
+  ActingSkill,
+  WritingSkill,
+  DirectingSkill,
+  CraftSkill,
+  SkillPair,
+  DisciplineSkills,
+  SkillProfiles,
+  Ceilings,
+  GenreExpEntry,
+  GenreExperience,
+  DevRates,
+  WorkHistory,
+  PotentialTier,
+  SkillBias,
 } from './types.js'
 
 // §2.1 vector math + EPSILON
@@ -59,7 +75,7 @@ export {
 // numeric primitives used by contract formulas
 export { clamp, mean, lerp, smoothstep, remap, weightedMean, sum, product } from './math.js'
 
-// §16 TUNING + contract-declared named constants
+// §16 TUNING + contract-declared named constants + D-9 named tables (D-9.16)
 export {
   TUNING,
   CAST_WEIGHT,
@@ -68,6 +84,26 @@ export {
   FORCE_VECTORS,
   INITIAL_STANDING,
   WORLD_CONFIG,
+  // D-9.16 large tables / fixed orders (named exports beside CAST_WEIGHT/FORCE_VECTORS)
+  SKILL_ORDER,
+  DISCIPLINE_ORDER,
+  GENRE_ORDER,
+  ROLE_TO_DISCIPLINE,
+  // RULING B (2026-07-26) — multi-hyphenate generation mixture tables
+  GEN_ARCHETYPE_MIX,
+  GEN_SECONDARY_BANDS,
+  GEN_ADJACENCY,
+  OVR_WEIGHTS,
+  GENRE_SKILL_WEIGHTS,
+  SHAPE_SKILL_MODS,
+  PROMISE_SKILL_MODS,
+  PROMISE_MOD_THRESHOLDS,
+  SLOT_SKILL_MODS,
+  TEMPER_BANDS,
+  POTENTIAL_TIER_THRESHOLDS,
+  AUTHORED_TIER_COST,
+  AUTHORED_TIER_RANGE,
+  AUTHORED_START_OVR,
 } from './tuning.js'
 
 // §4 shape declarations + resolveShape (phase 2)
@@ -88,7 +124,7 @@ export type { ReceptionInputs, ReceptionResult } from './reception.js'
 // (§15.6's behavioral-independence tests use it; the contract itself defines the
 // deterministic center in §7/B16).
 export { computeForecast, forecastCenters, bandOf } from './forecast.js'
-export type { ForecastInputs, ForecastContext, ForecastCenters } from './forecast.js'
+export type { ForecastInputs, ForecastContext, ForecastCenters, DeterministicCore } from './forecast.js'
 
 // §13 grid declarations
 export {
@@ -114,8 +150,70 @@ export { applyActions } from './actions.js'
 export { updateStanding } from './standing.js'
 export type { ReleaseBenchmarks, StandingContext } from './standing.js'
 
-// §3 tick (phase 3) — the fixed-order PRODUCTION→RELEASE→RECEPTION→STANDING→BROADCAST pipeline
+// §3 tick (phase 3/D-9) — PRODUCTION→RELEASE→RECEPTION→STANDING→BROADCAST→DEVELOPMENT.
+// DEVELOPMENT (step 6, D-9.8) is gated by TickOptions.develop (default false).
 export { tick } from './tick.js'
+export type { TickOptions } from './tick.js'
+
+// ── D-9 talent read-only summaries + the §5/§7 effectiveSkill substitute ──────
+// effectiveSkill + projectSkillWeights are the ONLY sim-read functions; the rest
+// are display/development inputs (never read by §5/§7). (talentSummary.ts)
+export {
+  effectiveSkill,
+  projectSkillWeights,
+  genreExperience,
+  workHistoryCount,
+  roleOVR,
+  roleTier,
+  projectFit,
+  expectedPerformance,
+  temperamentSummary,
+  expectedPotentialTier,
+  expectedPotentialRange,
+  workEthicLabel,
+  careerIdentity,
+  developmentReport,
+  ageRunwayMult,
+} from './talentSummary.js'
+export type { PerformanceBand, DisciplineStanding, CareerIdentity } from './talentSummary.js'
+
+// ── D-9.8 development (tick step 6 core) — pure per-release skill growth ───────
+export { developTalent } from './development.js'
+export type { DevelopmentContext } from './development.js'
+
+// ── Phase 5.1 CYCLE 3 — Film Package assessment helpers (READ-ONLY UI summaries) ─
+// Pure, deterministic, JSON-serializable read-only assessments the UI calls so it
+// never reinvents a §5/§7/D-9 formula. The sim never reads any of these (exactly
+// like the D-9 talentSummary display functions). (filmPackage.ts)
+export {
+  creativeCohesion,
+  packageFit,
+  executionConfidence,
+  forecastProfitRange,
+  greenlightAssessment,
+  risksMaterialized,
+  packageDelta,
+} from './filmPackage.js'
+export type {
+  CreativeCohesion,
+  AssignmentFit,
+  PackageFitInput,
+  PackageFit,
+  ExecutionConfidence,
+  ExecutionConfidenceInput,
+  ExecutionConfidenceContext,
+  MoneyRange,
+  ForecastProfitRange,
+  ForecastProfitInput,
+  ForecastProfitContext,
+  GreenlightAssessment,
+  PreTickSnapshot,
+  MaterializedRisk,
+  RisksMaterialized,
+  AssignmentDelta,
+  PackageDelta,
+  PackageSide,
+} from './filmPackage.js'
 
 // §8 broadcast (phase 4) — the minimal deterministic broadcast core (B22/B23/B24/M10).
 // Public entry + facts/ranking/template helpers for the test author, plus the two
@@ -142,14 +240,24 @@ export type { CandidatePackage } from './candidates.js'
 export { RandomAgent, OracleAgent } from './agents.js'
 export type { Agent } from './agents.js'
 
-// §17 save
+// §17 save — V1 (frozen, legacy shape) + V2 (D-9) + deterministic V1→V2 conversion.
+// stableStringify/deepEqual are unchanged. validateSave dispatches on version and
+// loudly rejects unknown versions. New games save as V2 (makeSave === makeSaveV2).
 export {
   stableStringify,
   deepEqual,
   validateSave,
+  validateSaveV1,
+  validateSaveV2,
   makeSave,
+  makeSaveV1,
+  makeSaveV2,
   loadSave,
   exportSave,
   importSave,
+  // D-9.15 (owner-overridden) — legacy V1 → NEW V2, deterministic + idempotent.
+  migrateTalent,
+  convertV1ToV2,
+  importLegacyV1,
 } from './save.js'
-export type { SaveFileV1 } from './save.js'
+export type { SaveFileV1, SaveFileV2, SaveFile, TalentV1, GameStateV1 } from './save.js'

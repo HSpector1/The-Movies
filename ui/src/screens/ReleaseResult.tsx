@@ -4,7 +4,13 @@
 // profit/loss, standing changes, forecast-vs-result — clearly marked as RESULTS.
 // From here the player can open the full autopsy for any released film.
 
-import type { GameState, FilmResult, AutopsyView } from '../engine/adapter.ts'
+import type {
+  GameState,
+  FilmResult,
+  AutopsyView,
+  ReleaseDevelopment,
+  ParticipantDevelopment,
+} from '../engine/adapter.ts'
 import { explainRelease, findConcept } from '../engine/adapter.ts'
 import { money, moneyExact, score, segmentLabel } from '../format.ts'
 import { Metric, Delta } from '../components/common.tsx'
@@ -13,15 +19,21 @@ export function ReleaseResult({
   preTick,
   postTickStanding,
   released,
+  development,
   onOpenAutopsy,
   onContinue,
 }: {
   preTick: GameState
   postTickStanding: GameState['studio']['standing']
   released: FilmResult[]
+  // RULING A: per-release development summary for every participating talent.
+  development: ReleaseDevelopment[]
   onOpenAutopsy: (view: AutopsyView, film: FilmResult) => void
   onContinue: () => void
 }) {
+  // Index the development summary by productionId for O(1) lookup per released film.
+  const devByProd = new Map<string, ReleaseDevelopment>()
+  for (const d of development) devByProd.set(d.productionId, d)
   return (
     <div className="app-shell">
       <div className="topbar">
@@ -132,6 +144,9 @@ export function ReleaseResult({
                 </div>
               </div>
 
+              <div className="sep" />
+              <DevelopmentSummary dev={devByProd.get(f.productionId)} productionId={f.productionId} />
+
               <div className="btn-row" style={{ marginTop: 16 }}>
                 <button
                   className="accent"
@@ -150,6 +165,110 @@ export function ReleaseResult({
           </div>
         )}
       </div>
+    </div>
+  )
+}
+
+// ── RULING A — Per-release development summary ────────────────────────────────
+// Every participating talent's development this release: discipline performed, the
+// professional-skill changes (or a truthful "no measurable increase" line), genre
+// experience gained, role OVR before → after, and any truthful Work-Ethic / approaching-
+// range note. All lines come from the engine (developmentReport / careerIdentity via the
+// adapter); nothing is recomputed here. Hidden ceilings, rolls, and true potential are
+// never shown.
+function DevelopmentSummary({
+  dev,
+  productionId,
+}: {
+  dev: ReleaseDevelopment | undefined
+  productionId: string
+}) {
+  if (!dev) return null
+  return (
+    <div data-testid={`development-summary-${productionId}`}>
+      <h4>How the team developed</h4>
+      <p className="hint" style={{ marginTop: 0 }}>
+        Working on a film develops the people who made it. These are the lasting changes from
+        this release — estimates of ability, never hidden ceilings or true potential.
+      </p>
+      <div className="grid grid-2" style={{ gap: 12 }}>
+        {dev.participants.map((p) => (
+          <ParticipantRow key={p.talentId} p={p} productionId={productionId} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function ParticipantRow({
+  p,
+  productionId,
+}: {
+  p: ParticipantDevelopment
+  productionId: string
+}) {
+  // The professional-skill lines only (OVR + experience lines are shown separately below,
+  // structured). A truthful "no measurable increase" line when no professional skill rose.
+  const ovrMoved = p.ovrAfter !== p.ovrBefore
+  return (
+    <div
+      className="panel stack"
+      style={{ padding: 10, gap: 4 }}
+      data-testid={`dev-participant-${productionId}-${p.talentId}`}
+    >
+      <div className="spread">
+        <strong>{p.name}</strong>
+        <span className="badge">{p.disciplineLabel}</span>
+      </div>
+
+      {/* Role OVR before → after (a public perceived summary). */}
+      <div className="spread mono" style={{ fontSize: 13 }}>
+        <span className="hint">Role OVR</span>
+        <span data-testid={`dev-ovr-${productionId}-${p.talentId}`}>
+          {p.ovrBefore} → {p.ovrAfter}
+          {ovrMoved && <span className="tag estimate" style={{ marginLeft: 6 }}>changed</span>}
+        </span>
+      </div>
+
+      {/* Professional-skill changes + genre experience — the engine's report lines. */}
+      {p.professionalSkillRose ? (
+        <ul style={{ margin: 0, paddingLeft: 18 }} data-testid={`dev-lines-${productionId}-${p.talentId}`}>
+          {p.lines.map((line, i) => (
+            <li key={i} className="mono" style={{ fontSize: 12 }}>
+              {line}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <>
+          <div className="hint" data-testid={`dev-nogain-${productionId}-${p.talentId}`}>
+            No measurable professional-skill increase.
+          </div>
+          {/* Experience/OVR lines can still be present even when no professional skill rose. */}
+          {p.lines.length > 0 && p.lines[0] !== 'No measurable skill increase.' && (
+            <ul style={{ margin: 0, paddingLeft: 18 }}>
+              {p.lines
+                .filter((l) => l.includes('experience'))
+                .map((line, i) => (
+                  <li key={i} className="mono" style={{ fontSize: 12 }}>
+                    {line}
+                  </li>
+                ))}
+            </ul>
+          )}
+        </>
+      )}
+
+      {/* Truthful Work-Ethic / approaching-range notes (only when the calc used them). */}
+      {p.notes.length > 0 && (
+        <div className="stack" style={{ gap: 2 }} data-testid={`dev-notes-${productionId}-${p.talentId}`}>
+          {p.notes.map((n, i) => (
+            <span key={i} className="hint" style={{ fontSize: 11 }}>
+              {n}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

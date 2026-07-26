@@ -18,23 +18,43 @@
 
 import { Component, useState } from 'react'
 import type { ErrorInfo, ReactNode } from 'react'
-import type { GameState, FilmResult, AutopsyView, Standing } from './engine/adapter.ts'
-import { advanceWeek, explainRelease } from './engine/adapter.ts'
+import type {
+  GameState,
+  FilmResult,
+  AutopsyView,
+  AutopsyCompareView,
+  Standing,
+  ReleaseDevelopment,
+} from './engine/adapter.ts'
+import {
+  advanceWeek,
+  explainRelease,
+  buildReleaseDevelopment,
+  autopsyCompare,
+} from './engine/adapter.ts'
 import { StartScreen } from './screens/StartScreen.tsx'
 import { Dashboard } from './screens/Dashboard.tsx'
 import { Assembly } from './screens/Assembly.tsx'
 import { ReleaseResult } from './screens/ReleaseResult.tsx'
 import { Autopsy } from './screens/Autopsy.tsx'
 import { TalentCreator } from './screens/TalentCreator.tsx'
+import { TalentHub } from './screens/TalentHub.tsx'
 import { Saves } from './screens/Saves.tsx'
 
 type Screen =
   | { kind: 'start' }
   | { kind: 'dashboard' }
   | { kind: 'assembly' }
-  | { kind: 'release'; preTick: GameState; postTickStanding: Standing; released: FilmResult[] }
-  | { kind: 'autopsy'; view: AutopsyView }
+  | {
+      kind: 'release'
+      preTick: GameState
+      postTickStanding: Standing
+      released: FilmResult[]
+      development: ReleaseDevelopment[]
+    }
+  | { kind: 'autopsy'; view: AutopsyView; compare: AutopsyCompareView | null }
   | { kind: 'talent' }
+  | { kind: 'hub' }
   | { kind: 'saves' }
 
 // Per-film pre-release snapshot for exact autopsy reconstruction (UI-only).
@@ -90,7 +110,13 @@ export function App() {
 
   function handleAdvance() {
     if (!state) return
+    // RULING A: advanceWeek ticks with development ON. The engine applies development
+    // EXACTLY ONCE inside this single tick; we then replace the authoritative GameState
+    // with `next` and never re-tick on re-render — so development is never double-applied.
     const { preTick, next, released } = advanceWeek(state)
+    // Build the per-release development summary by DIFFING the pre-tick vs post-tick
+    // talent (pure read of two immutable snapshots — no re-run of development).
+    const development = buildReleaseDevelopment(preTick, next, released)
     setState(next)
     // Record a per-film snapshot so each release keeps an exact autopsy path.
     if (released.length > 0) {
@@ -107,6 +133,7 @@ export function App() {
       preTick,
       postTickStanding: next.studio.standing,
       released,
+      development,
     })
   }
 
@@ -122,7 +149,10 @@ export function App() {
       return
     }
     const view = explainRelease(snap.preTick, snap.postTickStanding, film)
-    setScreen({ kind: 'autopsy', view })
+    // Locked greenlight expectation vs actual (the compare panel). Uses the same retained
+    // pre-tick snapshot; null only if the production is not in the pre-tick active list.
+    const compare = autopsyCompare(snap.preTick, film)
+    setScreen({ kind: 'autopsy', view, compare })
   }
 
   if (!state || screen.kind === 'start') {
@@ -141,6 +171,7 @@ export function App() {
           onAssemble={() => setScreen({ kind: 'assembly' })}
           onAdvance={handleAdvance}
           onCreateTalent={() => setScreen({ kind: 'talent' })}
+          onOpenHub={() => setScreen({ kind: 'hub' })}
           onSaves={() => setScreen({ kind: 'saves' })}
           onOpenAutopsy={openAutopsyForFilm}
         />
@@ -162,12 +193,21 @@ export function App() {
           preTick={screen.preTick}
           postTickStanding={screen.postTickStanding}
           released={screen.released}
-          onOpenAutopsy={(view) => setScreen({ kind: 'autopsy', view })}
+          development={screen.development}
+          onOpenAutopsy={(view, film) =>
+            setScreen({
+              kind: 'autopsy',
+              view,
+              compare: autopsyCompare(screen.preTick, film),
+            })
+          }
           onContinue={goDashboard}
         />
       )}
 
-      {screen.kind === 'autopsy' && <Autopsy view={screen.view} onBack={goDashboard} />}
+      {screen.kind === 'autopsy' && (
+        <Autopsy view={screen.view} compare={screen.compare} onBack={goDashboard} />
+      )}
 
       {screen.kind === 'talent' && (
         <TalentCreator
@@ -179,6 +219,8 @@ export function App() {
           onBack={goDashboard}
         />
       )}
+
+      {screen.kind === 'hub' && <TalentHub state={state} onBack={goDashboard} />}
 
       {screen.kind === 'saves' && (
         <Saves

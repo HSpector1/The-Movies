@@ -50,9 +50,11 @@ describe('App end-to-end loop', () => {
     // Talent step: pick first eligible writer, director, and three distinct actors.
     function pickFirstEligible(pickerTestId: string) {
       const picker = screen.getByTestId(pickerTestId)
+      // The selectable candidate button carries aria-pressed (redesigned cards also add a
+      // "Details" toggle per row, which we must skip). Pick the first ELIGIBLE candidate.
       const btn = within(picker)
         .getAllByRole('button')
-        .find((b) => !(b as HTMLButtonElement).disabled)!
+        .find((b) => b.hasAttribute('aria-pressed') && !(b as HTMLButtonElement).disabled)!
       fireEvent.click(btn)
     }
     pickFirstEligible('picker-writer')

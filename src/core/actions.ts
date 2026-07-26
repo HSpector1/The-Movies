@@ -34,17 +34,40 @@
 //     createTalent earlier in the list is visible to a later greenlight.
 
 import { computeForecast, type ForecastContext } from './forecast.js'
+import { clamp } from './math.js'
 import type { ReceptionInputs } from './reception.js'
+import { stream, type RngStream } from './rng.js'
 import { resolveShape } from './shape.js'
-import { TUNING } from './tuning.js'
+import {
+  AUTHORED_START_OVR,
+  AUTHORED_TIER_COST,
+  AUTHORED_TIER_RANGE,
+  DISCIPLINE_ORDER,
+  GENRE_ORDER,
+  ROLE_TO_DISCIPLINE,
+  SKILL_ORDER,
+  TUNING,
+} from './tuning.js'
+import { roleOVR } from './talentSummary.js'
 import type {
   Action,
+  AuthoredTalentInput,
   CastSlot,
+  Ceilings,
   CreativeRole,
+  DevRates,
+  Discipline,
+  DisciplineSkills,
   Forecast,
   GameState,
+  Genre,
+  GenreExperience,
+  PotentialTier,
   Production,
+  SkillBias,
+  SkillProfiles,
   Talent,
+  WorkHistory,
 } from './types.js'
 import { salaryCurve } from './worldgen.js'
 
@@ -84,11 +107,27 @@ function requireTalent(talent: readonly Talent[], id: string, label: string): Ta
   return found
 }
 
-// Enforce a talent's declared CreativeRole (M16 role-type matching).
+// D-9 / OQ-1 — cross-discipline eligibility. The owner requires cross-discipline
+// careers, so M16's role-TYPE check is RELAXED to a HAS-DISCIPLINE check: a talent
+// is legal for any assignment because every D-9 talent carries all four skill sets
+// (24 skills). This check therefore always passes (it exists as the legality point
+// and a defensive guard that the talent's skills record is well-formed). The M0A
+// candidate generator stays role-partitioned (candidates.ts), so the frozen
+// D-2/economics corpus is unchanged; cross-discipline is exercised via tests +
+// human play only. `role` names the discipline the assignment expects.
+const ROLE_DISCIPLINE: Record<CreativeRole, Discipline> = {
+  writer: 'writing',
+  director: 'directing',
+  actor: 'acting',
+  craft: 'craft',
+}
+
 function requireRole(t: Talent, role: CreativeRole, label: string): void {
-  if (t.role !== role) {
+  const discipline = ROLE_DISCIPLINE[role]
+  // Has-discipline check: every talent has all four skill sets, so this passes.
+  if (t.skills[discipline] === undefined) {
     throw new Error(
-      `applyActions: ${label} talent "${t.id}" has role "${t.role}", expected "${role}"`,
+      `applyActions: ${label} talent "${t.id}" lacks a "${discipline}" skill profile (has-discipline check)`,
     )
   }
 }
@@ -150,6 +189,33 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
     )
   }
 
+  // M16.7 — within-production single-role uniqueness (SETTLED OWNER RULING: "a
+  // talent fills exactly one role in one production" / no simultaneous multi-role
+  // credits this milestone). Cross-discipline eligibility (OQ-1) makes any talent
+  // legal for any assignment, so nothing else stops the SAME id filling two roles
+  // in ONE production (e.g. writerId === cast.lead), which would develop, salary,
+  // and exclusivity-double-count them. Collect every assigned id for this
+  // production in a FIXED order — writerId, directorId, each craftId (array order),
+  // then each cast slot (lead → antagonist → support) — and reject loudly if any
+  // id appears more than once.
+  const roleAssignments: { id: string; role: string }[] = [
+    { id: p.writerId, role: 'writerId' },
+    { id: p.directorId, role: 'directorId' },
+    ...p.craftIds.map((id, i) => ({ id, role: `craftIds[${i}]` })),
+    ...CAST_SLOTS.map((slot) => ({ id: p.cast[slot], role: `cast.${slot}` })),
+  ]
+  const seenRoleById = new Map<string, string>()
+  for (const { id, role } of roleAssignments) {
+    const priorRole = seenRoleById.get(id)
+    if (priorRole !== undefined) {
+      throw new Error(
+        `applyActions: greenlight assigns talent "${id}" to more than one role in the same production ` +
+          `(${priorRole} and ${role}) — a talent fills exactly one role in one production (M16)`,
+      )
+    }
+    seenRoleById.set(id, role)
+  }
+
   // M16.5 — talent exclusivity: none of the engaged ids (writer, director, the
   // three cast, all craft) may already be engaged in ANY active production (as
   // its writerId/directorId/any cast/any craftId). Fixed-order id list.
@@ -182,6 +248,8 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
   // Assemble the §5 ReceptionInputs the forecast reads at greenlight (M1/B16).
   const inp: ReceptionInputs = {
     concept,
+    // RULING C: the shape being greenlit — becomes production.shape (locked) below.
+    shape: p.shape,
     shapeEffects: resolveShape(p.shape),
     promise: p.promise,
     budget: p.budget,
@@ -259,11 +327,163 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
   }
 }
 
-// ── createTalent (§10) ───────────────────────────────────────────────────────
-// Validate: age ∈ [18,70]; role is a valid CreativeRole. Apply: append a Talent
-// with perceived = {...actual}, skill/fame = AUTHORED_START_*, salary from the
-// curve, authored = true, and a deterministic unique authored-* id. The player
-// NEVER sets skill or fame.
+// ── createTalent (§10 / D-9.14 creation budget) ──────────────────────────────
+// Validate: age ∈ [18,70]; role is a valid CreativeRole; workEthic ∈ [1,99];
+// potentialTier valid; the creation BUDGET is not overspent (loud reject, M16).
+// Then construct the full D-9 talent deterministically from the authored input +
+// seed + talent id: starting skills near AUTHORED_START_OVR (biased by skillBias),
+// ceilings from the tier band, workEthic exactly as chosen, fame = AUTHORED_START_FAME.
+// perceived = actual at creation (skills AND persona). The player NEVER sets skills
+// or fame directly.
+
+const POTENTIAL_TIERS: readonly PotentialTier[] = [
+  'Limited',
+  'Steady',
+  'Promising',
+  'HighUpside',
+  'ExceptionalUpside',
+  'GenerationalUpside',
+] as const
+
+const iround = (x: number): number => Math.round(x)
+
+// Total creation-budget cost (D-9.14). Rejected loudly if > AUTHORED_BUDGET.
+function authoredTotalCost(a: AuthoredTalentInput): number {
+  const tierCost = AUTHORED_TIER_COST[a.potentialTier]
+  const weCost = TUNING.AUTHORED_WE_COST * (a.workEthic / 99)
+  const biasCost = a.skillBias ? TUNING.AUTHORED_BIAS_COST * a.skillBias.magnitude : 0
+  const secondaryCost = a.secondaryDiscipline ? TUNING.AUTHORED_SECONDARY_COST : 0
+  return tierCost + weCost + biasCost + secondaryCost
+}
+
+// Build a discipline's authored actual skills around a center, applying skillBias
+// (spike one skill, sag the rest) when it targets this discipline. perceived = actual.
+function buildAuthoredDisciplineSkills(
+  discipline: Discipline,
+  center: number,
+  bias: SkillBias | undefined,
+): DisciplineSkills {
+  const keys = SKILL_ORDER[discipline]
+  const out: DisciplineSkills = {}
+  // Bias magnitude scales the spread: a sharp specialist spikes ~+25, sags ~−12.
+  const spike = bias && bias.discipline === discipline ? 25 * bias.magnitude : 0
+  const sag = bias && bias.discipline === discipline ? 12 * bias.magnitude : 0
+  const spikeIdx = bias && bias.discipline === discipline ? clamp(bias.skillIndex, 0, 5) : -1
+  for (let i = 0; i < keys.length; i++) {
+    let v = center
+    if (spikeIdx >= 0) v += i === spikeIdx ? spike : -sag
+    const a = clamp(iround(v), 1, 99)
+    out[keys[i]!] = { actual: a, perceived: a } // perceived = actual at creation
+  }
+  return out
+}
+
+// Distribute a target ceiling-OVR into per-skill ceilings around it (respecting
+// skillBias), jittered by AUTHORED_CEILING_JITTER, floored at current actual, ≤99.
+function buildAuthoredDisciplineCeilings(
+  discipline: Discipline,
+  skills: DisciplineSkills,
+  ceilingOVRTarget: number,
+  bias: SkillBias | undefined,
+  jitterS: RngStream,
+): Record<string, number> {
+  const keys = SKILL_ORDER[discipline]
+  const rec: Record<string, number> = {}
+  const spikeIdx = bias && bias.discipline === discipline ? clamp(bias.skillIndex, 0, 5) : -1
+  const spike = bias && bias.discipline === discipline ? 6 * bias.magnitude : 0
+  for (let i = 0; i < keys.length; i++) {
+    const a = skills[keys[i]!]!.actual
+    let target = ceilingOVRTarget + (i === spikeIdx ? spike : 0)
+    target += jitterS.uniform(-TUNING.AUTHORED_CEILING_JITTER, TUNING.AUTHORED_CEILING_JITTER)
+    rec[keys[i]!] = clamp(iround(target), a, 99)
+  }
+  return rec
+}
+
+// Full D-9.14 authored talent construction (deterministic given input + seed + id).
+function constructAuthoredTalent(
+  a: AuthoredTalentInput,
+  id: string,
+  seed: string,
+): Talent {
+  const s = stream(seed, 'worldgen', `authored-${id}`)
+  const primary = ROLE_TO_DISCIPLINE[a.role]
+  const secondary = a.secondaryDiscipline ? ROLE_TO_DISCIPLINE[a.secondaryDiscipline] : null
+
+  // Ceiling-OVR target drawn from the tier band (the range shown to the player).
+  const tierRange = AUTHORED_TIER_RANGE[a.potentialTier]
+  const ceilingOVRTarget = s.uniform(tierRange[0], tierRange[1])
+
+  // Starting skills: primary near AUTHORED_START_OVR (biased); secondary near
+  // start − penalty; the rest weak at start − a larger penalty (so authored talent
+  // is not a superstar). perceived = actual.
+  const skills = {} as SkillProfiles
+  for (const d of DISCIPLINE_ORDER) {
+    let center: number
+    if (d === primary) center = AUTHORED_START_OVR
+    else if (d === secondary) center = AUTHORED_START_OVR - TUNING.AUTHORED_SECONDARY_PENALTY
+    else center = TUNING.GEN_WEAK_MEAN - 4 // weak, well below primary
+    skills[d] = buildAuthoredDisciplineSkills(d, center, a.skillBias)
+  }
+
+  // Ceilings: primary from the tier band; secondary one-tier-lower band feel via a
+  // reduced target; weak disciplines get a low target. Floored at current actual.
+  const ceilings = {} as Ceilings
+  for (const d of DISCIPLINE_ORDER) {
+    let target: number
+    if (d === primary) target = ceilingOVRTarget
+    else if (d === secondary) target = Math.max(AUTHORED_START_OVR, ceilingOVRTarget - 15)
+    else target = TUNING.GEN_WEAK_MEAN
+    ceilings[d] = buildAuthoredDisciplineCeilings(d, skills[d], target, a.skillBias, s)
+  }
+
+  // Work ethic = the chosen number exactly (visible, no jitter).
+  const workEthic = clamp(iround(a.workEthic), 1, 99)
+
+  // Dev rates: independent per-discipline uniform draws (as generation).
+  const devRate = {} as DevRates
+  for (const d of DISCIPLINE_ORDER) {
+    devRate[d] = clamp(
+      s.uniform(TUNING.DEV_RATE_MIN, TUNING.DEV_RATE_MAX),
+      TUNING.DEV_RATE_MIN,
+      TUNING.DEV_RATE_MAX,
+    )
+  }
+
+  // Genre experience: authored talent starts blank (no career yet) — all zeros.
+  const genreExperience = {} as GenreExperience
+  for (const d of DISCIPLINE_ORDER) {
+    const g = {} as Record<Genre, { actual: number; perceived: number }>
+    for (const genre of GENRE_ORDER) g[genre] = { actual: 0, perceived: 0 }
+    genreExperience[d] = g
+  }
+
+  const workHistory = {} as WorkHistory
+  for (const d of DISCIPLINE_ORDER) workHistory[d] = 0
+
+  const t: Talent = {
+    id,
+    name: a.name,
+    role: a.role,
+    age: a.age,
+    actual: { ...a.actual },
+    perceived: { ...a.actual }, // temperament perceived = actual (§10)
+    fame: TUNING.AUTHORED_START_FAME,
+    salary: 0, // set below
+    authored: true,
+    skills,
+    ceilings,
+    devRate,
+    workEthic,
+    genreExperience,
+    workHistory,
+    skill: 0, // set below
+  }
+  t.skill = roleOVR(t, primary) // legacy proxy = primary perceived OVR
+  t.salary = salaryCurve(t)
+  return t
+}
+
 function applyCreateTalent(state: GameState, action: Action & { kind: 'createTalent' }): GameState {
   const a = action.talent
 
@@ -275,22 +495,49 @@ function applyCreateTalent(state: GameState, action: Action & { kind: 'createTal
   if (!CREATIVE_ROLES.includes(a.role)) {
     throw new Error(`applyActions: createTalent role "${a.role}" is not a valid CreativeRole`)
   }
-
-  const skill = TUNING.AUTHORED_START_SKILL
-  const fame = TUNING.AUTHORED_START_FAME
-
-  const talent: Talent = {
-    id: authoredTalentId(state.talent),
-    name: a.name,
-    role: a.role,
-    age: a.age,
-    actual: { ...a.actual },
-    perceived: { ...a.actual }, // perceived = actual (§10)
-    skill,
-    fame,
-    salary: salaryCurve(skill, fame),
-    authored: true,
+  // Validation: workEthic ∈ [1,99].
+  if (!Number.isFinite(a.workEthic) || a.workEthic < 1 || a.workEthic > 99) {
+    throw new Error(`applyActions: createTalent workEthic ${a.workEthic} out of range [1, 99]`)
   }
+  // Validation: potentialTier is a valid tier.
+  if (!POTENTIAL_TIERS.includes(a.potentialTier)) {
+    throw new Error(`applyActions: createTalent potentialTier "${a.potentialTier}" is not valid`)
+  }
+  // Validation: skillBias magnitude ∈ [0,1] and skillIndex ∈ [0,5] when present.
+  if (a.skillBias) {
+    if (a.skillBias.magnitude < 0 || a.skillBias.magnitude > 1) {
+      throw new Error(
+        `applyActions: createTalent skillBias.magnitude ${a.skillBias.magnitude} out of range [0, 1]`,
+      )
+    }
+    if (
+      !Number.isInteger(a.skillBias.skillIndex) ||
+      a.skillBias.skillIndex < 0 ||
+      a.skillBias.skillIndex > 5
+    ) {
+      throw new Error(
+        `applyActions: createTalent skillBias.skillIndex ${a.skillBias.skillIndex} out of range [0, 5]`,
+      )
+    }
+  }
+  // Validation: secondaryDiscipline is a valid CreativeRole when present.
+  if (a.secondaryDiscipline !== undefined && !CREATIVE_ROLES.includes(a.secondaryDiscipline)) {
+    throw new Error(
+      `applyActions: createTalent secondaryDiscipline "${a.secondaryDiscipline}" is not a valid CreativeRole`,
+    )
+  }
+
+  // D-9.14 budget: reject loudly if the request overspends the creation pool.
+  const totalCost = authoredTotalCost(a)
+  if (totalCost > TUNING.AUTHORED_BUDGET) {
+    throw new Error(
+      `applyActions: createTalent over budget — total cost ${totalCost.toFixed(2)} > AUTHORED_BUDGET ${TUNING.AUTHORED_BUDGET} ` +
+        `(tier=${a.potentialTier}, workEthic=${a.workEthic}, bias=${a.skillBias ? a.skillBias.magnitude : 0}, secondary=${a.secondaryDiscipline ?? 'none'})`,
+    )
+  }
+
+  const id = authoredTalentId(state.talent)
+  const talent = constructAuthoredTalent(a, id, state.seed)
 
   return {
     ...state,

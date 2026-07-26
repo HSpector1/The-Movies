@@ -18,11 +18,14 @@ import {
   generateWorld,
   computeForecast,
   resolveShape,
+  roleOVR,
   salaryCurve,
+  ROLE_TO_DISCIPLINE,
   TUNING,
 } from '../src/core/index.js'
 import type {
   Action,
+  AuthoredTalentInput,
   CastSlot,
   FilmConcept,
   FilmShape,
@@ -112,6 +115,10 @@ function assembleForecastInputs(
   const concept = state.concepts.find((c) => c.id === prod.conceptId) as FilmConcept
   return {
     concept,
+    // RULING C: the greenlight-LOCKED raw FilmShape is threaded into the perceived
+    // path (forecast). Supplying prod.shape makes this independent recompute match
+    // what applyActions computed internally (both use the same locked shape).
+    shape: prod.shape,
     shapeEffects: resolveShape(prod.shape),
     promise: prod.promise,
     budget: prod.budget,
@@ -297,34 +304,54 @@ describe('applyActions — greenlight M16 validation rejections', () => {
     expect(() => applyActions(state, [greenlight(prod)])).toThrow()
   })
 
-  it('role mismatch: writerId is a director-role talent throws', () => {
-    const state = generateWorld('gl-rej-role-w')
-    const director = byRole(state, 'director')[0]
+  // ── D-9 / OQ-1 — cross-discipline eligibility (the owner-required change) ──────
+  // The prior M16 role-TYPE check ("writerId must be role 'writer'", etc.) is
+  // RELAXED to a has-discipline check: every D-9 talent carries all four skill sets,
+  // so any-role-in-any-slot is now LEGAL at the applyActions legality layer (D-9
+  // "Cross-discipline eligibility"; acceptance-test list: "an actor with usable
+  // writing skills can be legally assigned as writer"). These tests assert the NEW
+  // contract — a cross-discipline assignment is accepted, NOT rejected — while the
+  // engagement-exclusivity and no-double-cast rejections below are UNCHANGED. Each
+  // cross-role talent chosen here is otherwise disjoint from the other slots so the
+  // test isolates the discipline relaxation from exclusivity/double-cast.
+  it('cross-discipline: writerId may be a director-role talent (legal, does not throw)', () => {
+    const state = generateWorld('gl-xdisc-w')
+    const director = byRole(state, 'director')[3] // disjoint from the default crew/cast
     const prod = { ...buildGreenlightProduction(state), writerId: director.id }
-    expect(() => applyActions(state, [greenlight(prod)])).toThrow()
+    expect(() => applyActions(state, [greenlight(prod)])).not.toThrow()
+    const result = applyActions(state, [greenlight(prod)])
+    expect(result.studio.activeProductions.length).toBe(1)
+    expect(result.studio.activeProductions[0].writerId).toBe(director.id)
   })
 
-  it('role mismatch: directorId is an actor throws', () => {
-    const state = generateWorld('gl-rej-role-d')
-    // use an actor NOT already in the cast slots (indices 0,1,2) to isolate the role fault
+  it('cross-discipline: directorId may be an actor-role talent (legal, does not throw)', () => {
+    const state = generateWorld('gl-xdisc-d')
+    // an actor NOT already in the cast slots (indices 0,1,2) — isolates discipline
+    // relaxation from the no-double-cast rule.
     const actor = byRole(state, 'actor')[5]
     const prod = { ...buildGreenlightProduction(state), directorId: actor.id }
-    expect(() => applyActions(state, [greenlight(prod)])).toThrow()
+    expect(() => applyActions(state, [greenlight(prod)])).not.toThrow()
+    const result = applyActions(state, [greenlight(prod)])
+    expect(result.studio.activeProductions[0].directorId).toBe(actor.id)
   })
 
-  it('role mismatch: a cast slot filled by a writer-role talent throws', () => {
-    const state = generateWorld('gl-rej-role-cast')
+  it('cross-discipline: a cast slot may be filled by a writer-role talent (legal)', () => {
+    const state = generateWorld('gl-xdisc-cast')
     const writer = byRole(state, 'writer')[1] // distinct from the production's writer[0]
     const base = buildGreenlightProduction(state)
     const prod = { ...base, cast: { ...base.cast, support: writer.id } }
-    expect(() => applyActions(state, [greenlight(prod)])).toThrow()
+    expect(() => applyActions(state, [greenlight(prod)])).not.toThrow()
+    const result = applyActions(state, [greenlight(prod)])
+    expect(result.studio.activeProductions[0].cast.support).toBe(writer.id)
   })
 
-  it('role mismatch: a craftId that is an actor throws', () => {
-    const state = generateWorld('gl-rej-role-craft')
+  it('cross-discipline: a craftId may be an actor-role talent (legal)', () => {
+    const state = generateWorld('gl-xdisc-craft')
     const actor = byRole(state, 'actor')[6] // not in cast slots 0,1,2
     const prod = { ...buildGreenlightProduction(state), craftIds: [actor.id] }
-    expect(() => applyActions(state, [greenlight(prod)])).toThrow()
+    expect(() => applyActions(state, [greenlight(prod)])).not.toThrow()
+    const result = applyActions(state, [greenlight(prod)])
+    expect(result.studio.activeProductions[0].craftIds).toEqual([actor.id])
   })
 
   it('same actor in two cast slots throws (M16: no person fills two slots)', () => {
@@ -332,6 +359,53 @@ describe('applyActions — greenlight M16 validation rejections', () => {
     const base = buildGreenlightProduction(state)
     const prod = { ...base, cast: { ...base.cast, support: base.cast.lead } }
     expect(() => applyActions(state, [greenlight(prod)])).toThrow()
+  })
+
+  // ── Within-production single-role uniqueness (SETTLED OWNER RULING) ────────────
+  // rev4-open-questions.md: "No simultaneous multi-role credits this milestone (a
+  // talent fills exactly one role in one production)." Cross-discipline eligibility
+  // (OQ-1) makes any talent legal for any single assignment, but the SAME talent
+  // may NOT fill two roles inside ONE production — that would develop, salary, and
+  // exclusivity-double-count them. Expectations below are derived from the ruling,
+  // not the implementation.
+  it('same talent as writerId AND cast.lead in one production throws (single-role uniqueness)', () => {
+    const state = generateWorld('gl-rej-multi-role')
+    const base = buildGreenlightProduction(state)
+    // Put the production's writer into the lead cast slot as well. The other two
+    // cast slots stay distinct actors, so the ONLY collision is writer↔lead.
+    const prod = { ...base, cast: { ...base.cast, lead: base.writerId } }
+    expect(() => applyActions(state, [greenlight(prod)])).toThrow()
+  })
+
+  it('cross-discipline single-role: an actor-role talent used ONLY as writerId still succeeds', () => {
+    // The ruling forbids DUPLICATION within a production, NOT cross-discipline
+    // casting. An actor-role talent assigned to exactly one role (writer here),
+    // with a fully distinct director, cast, and no craft, must be accepted.
+    const state = generateWorld('gl-xdisc-single-role')
+    // An actor NOT occupying any of the default cast slots (indices 0,1,2) or any
+    // other assigned role — so this talent appears exactly once (as writerId).
+    const actor = byRole(state, 'actor')[7]
+    const base = buildGreenlightProduction(state)
+    const prod = { ...base, writerId: actor.id }
+    // Guard: the chosen actor collides with no other assigned slot.
+    expect([prod.directorId, prod.cast.lead, prod.cast.antagonist, prod.cast.support]).not.toContain(
+      actor.id,
+    )
+    expect(() => applyActions(state, [greenlight(prod)])).not.toThrow()
+    const result = applyActions(state, [greenlight(prod)])
+    expect(result.studio.activeProductions.length).toBe(1)
+    expect(result.studio.activeProductions[0].writerId).toBe(actor.id)
+  })
+
+  it('a normal all-distinct greenlight still succeeds (no over-rejection)', () => {
+    const state = generateWorld('gl-all-distinct')
+    const prod = buildGreenlightProduction(state)
+    // All five assigned ids are distinct by construction (distinct roles/indices).
+    const ids = [prod.writerId, prod.directorId, prod.cast.lead, prod.cast.antagonist, prod.cast.support]
+    expect(new Set(ids).size).toBe(ids.length)
+    expect(() => applyActions(state, [greenlight(prod)])).not.toThrow()
+    const result = applyActions(state, [greenlight(prod)])
+    expect(result.studio.activeProductions.length).toBe(1)
   })
 
   it('promise.genre !== concept.genre throws (M4)', () => {
@@ -474,12 +548,24 @@ describe('applyActions — cancel (M15)', () => {
 
 // ── CREATETALENT (§10) ────────────────────────────────────────────────────────
 
-describe('applyActions — createTalent (§10)', () => {
-  it('appends one authored talent with TUNING skill/fame, perceived=actual, derived salary', () => {
+describe('applyActions — createTalent (§10 / D-9.14 creation budget)', () => {
+  // A minimal, WITHIN-BUDGET authored input (D-9.14). Steady tier (cost 12) +
+  // Professional work ethic (60 → cost 30·60/99 ≈ 18.2), no bias, no secondary →
+  // total ≈ 30.2 ≤ AUTHORED_BUDGET 100. The player never sets skills/fame.
+  const authoredInput = (over: Partial<AuthoredTalentInput>): AuthoredTalentInput => ({
+    name: 'Authored One',
+    role: 'actor',
+    age: 41,
+    actual: { warmth: 0.3, gravity: -0.4, physicality: 0.7 },
+    potentialTier: 'Steady',
+    workEthic: 60,
+    ...over,
+  })
+
+  it('appends one authored talent; fame/authored/perceived=actual, D-9 skill proxy + derived salary', () => {
     const state = generateWorld('ct-1')
     const before = state.talent.length
-    const actual = { warmth: 0.3, gravity: -0.4, physicality: 0.7 }
-    const input = { name: 'Authored One', role: 'actor' as const, age: 41, actual }
+    const input = authoredInput({})
 
     const result = applyActions(state, [{ kind: 'createTalent', talent: input }])
 
@@ -487,18 +573,24 @@ describe('applyActions — createTalent (§10)', () => {
     expect(result.talent.length).toBe(before + 1)
     const t = result.talent[result.talent.length - 1]
 
-    // §10: skill/fame come from TUNING (player never sets them)
-    expect(t.skill).toBe(TUNING.AUTHORED_START_SKILL)
+    // §10 / D-9.14: fame comes from TUNING (player never sets it)
     expect(t.fame).toBe(TUNING.AUTHORED_START_FAME)
-    // §10: perceived = actual
+    // §10: temperament perceived = actual at creation
     expect(t.perceived).toEqual(t.actual)
-    expect(t.actual).toEqual(actual)
+    expect(t.actual).toEqual(input.actual)
     // §10: authored = true
     expect(t.authored).toBe(true)
-    // §10 / B7: salary = salaryCurve(AUTHORED_START_SKILL, AUTHORED_START_FAME)
-    expect(t.salary).toBe(
-      salaryCurve(TUNING.AUTHORED_START_SKILL, TUNING.AUTHORED_START_FAME),
-    )
+    // D-9.14: WorkEthic is exactly the chosen number (visible, no jitter)
+    expect(t.workEthic).toBe(input.workEthic)
+    // D-9.13 step 12 / OQ-5: legacy `skill` = roleOVR on the PRIMARY discipline
+    // (perceived), NOT the old flat AUTHORED_START_SKILL scalar.
+    const primary = ROLE_TO_DISCIPLINE[input.role]
+    expect(t.skill).toBe(roleOVR(t, primary))
+    // §10 / B7 / D-9.13: salary = salaryCurve(talent) recomputed through the export
+    expect(t.salary).toBe(salaryCurve(t))
+    // D-9.14: authored talent is not a superstar — the primary OVR starts low
+    // (skills centered on AUTHORED_START_OVR 35), well under the elite tiers.
+    expect(t.skill).toBeLessThanOrEqual(70)
     // echoed input fields
     expect(t.role).toBe(input.role)
     expect(t.name).toBe(input.name)
@@ -507,52 +599,32 @@ describe('applyActions — createTalent (§10)', () => {
 
   it('does NOT touch state.rngState (createTalent is deterministic, no sim draw)', () => {
     const state = generateWorld('ct-rng')
-    const input = {
-      name: 'No RNG',
-      role: 'writer' as const,
-      age: 33,
-      actual: { warmth: 0, gravity: 0, physicality: 0 },
-    }
+    const input = authoredInput({ name: 'No RNG', role: 'writer', age: 33, actual: { warmth: 0, gravity: 0, physicality: 0 } })
     const result = applyActions(state, [{ kind: 'createTalent', talent: input }])
     expect(result.rngState).toBe(state.rngState)
   })
 
   it('age below 18 throws (§10 range 18..70)', () => {
     const state = generateWorld('ct-age-lo')
-    const input = {
-      name: 'Too Young',
-      role: 'actor' as const,
-      age: 17,
-      actual: { warmth: 0, gravity: 0, physicality: 0 },
-    }
+    const input = authoredInput({ name: 'Too Young', role: 'actor', age: 17, actual: { warmth: 0, gravity: 0, physicality: 0 } })
     expect(() => applyActions(state, [{ kind: 'createTalent', talent: input }])).toThrow()
   })
 
   it('age above 70 throws (§10 range 18..70)', () => {
     const state = generateWorld('ct-age-hi')
-    const input = {
-      name: 'Too Old',
-      role: 'actor' as const,
-      age: 71,
-      actual: { warmth: 0, gravity: 0, physicality: 0 },
-    }
+    const input = authoredInput({ name: 'Too Old', role: 'actor', age: 71, actual: { warmth: 0, gravity: 0, physicality: 0 } })
     expect(() => applyActions(state, [{ kind: 'createTalent', talent: input }])).toThrow()
   })
 
-  it('created talent skill/fame are TUNING values regardless of input (no skill/fame field)', () => {
-    // The AuthoredTalentInput type has no skill/fame fields, so the player cannot set
-    // them; assert the created talent's skill/fame come from TUNING.
+  it('created talent fame/skill come from the engine, not the player (no skill/fame input field)', () => {
+    // AuthoredTalentInput has no skill/fame fields, so the player cannot set them;
+    // fame = AUTHORED_START_FAME and skill = the derived primary-OVR proxy.
     const state = generateWorld('ct-nofields')
-    const input = {
-      name: 'From Tuning',
-      role: 'director' as const,
-      age: 50,
-      actual: { warmth: -0.9, gravity: 0.9, physicality: -0.1 },
-    }
+    const input = authoredInput({ name: 'From Tuning', role: 'director', age: 50, actual: { warmth: -0.9, gravity: 0.9, physicality: -0.1 } })
     const result = applyActions(state, [{ kind: 'createTalent', talent: input }])
     const t = result.talent[result.talent.length - 1]
-    expect(t.skill).toBe(TUNING.AUTHORED_START_SKILL)
     expect(t.fame).toBe(TUNING.AUTHORED_START_FAME)
+    expect(t.skill).toBe(roleOVR(t, ROLE_TO_DISCIPLINE[input.role]))
   })
 })
 
@@ -566,12 +638,18 @@ describe('applyActions — createTalent then greenlight (same call)', () => {
   it('a greenlight may cast a talent created earlier in the same actions array', () => {
     const state = generateWorld('ct-then-gl')
     const actual = { warmth: 0.2, gravity: 0.1, physicality: -0.3 }
+    const castMe: AuthoredTalentInput = {
+      name: 'Cast Me',
+      role: 'actor',
+      age: 30,
+      actual,
+      potentialTier: 'Steady',
+      workEthic: 60,
+    }
     // Deterministic authored id is not a settled ruling, so we discover it by first
     // applying createTalent alone and reading the appended talent's id — then reuse
     // that exact id in the combined call (same seed → same id, deterministic engine).
-    const solo = applyActions(state, [
-      { kind: 'createTalent', talent: { name: 'Cast Me', role: 'actor', age: 30, actual } },
-    ])
+    const solo = applyActions(state, [{ kind: 'createTalent', talent: castMe }])
     const newTalent = solo.talent[solo.talent.length - 1]
 
     const base = buildGreenlightProduction(state)
@@ -579,7 +657,7 @@ describe('applyActions — createTalent then greenlight (same call)', () => {
     const prod = { ...base, cast: { ...base.cast, lead: newTalent.id } }
 
     const combined = applyActions(state, [
-      { kind: 'createTalent', talent: { name: 'Cast Me', role: 'actor', age: 30, actual } },
+      { kind: 'createTalent', talent: castMe },
       greenlight(prod),
     ])
 
