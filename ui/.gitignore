@@ -1,0 +1,8 @@
+dist/
+node_modules/
+
+# Playwright smoke artifacts (deterministic screenshots + report/results)
+screenshots/
+playwright-report/
+test-results/
+.playwright/

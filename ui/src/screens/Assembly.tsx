@@ -1,0 +1,728 @@
+// ── Film assembly wizard ─────────────────────────────────────────────────────
+// Staged: Concept → Shape → Promise → Talent → Budget & Forecast → Review.
+// Back-navigation keeps valid selections (all draft state lives in one object at
+// this component's root; steps only read/patch it). Illegal talent is disabled
+// with a plain reason (via TalentPicker). Consequences are shown via ENGINE
+// outputs (previewForecast, requiredNegative, salaries) — no invented scores.
+// Greenlight surfaces engine validation errors in plain English before committing.
+
+import { useMemo, useState } from 'react'
+import type {
+  GameState,
+  FilmConcept,
+  FilmShape,
+  FilmPromise,
+  CastSlot,
+  Genre,
+  DraftPackage,
+} from '../engine/adapter.ts'
+import {
+  selectConcepts,
+  talentByRole,
+  requiredNegative,
+  salarySum,
+  totalCommittedCost,
+  previewForecast,
+  greenlight,
+  findConcept,
+  NEGATIVE_BUDGET_MULTIPLIERS,
+  MARKETING_BUDGET_LEVELS,
+  PROMISE_WIDTHS,
+  PROMISE_CENTERS,
+  rangeFrom,
+  SHAPE_OPTIONS,
+  CAST_SLOTS,
+  PROMISE_AXES,
+  SEGMENT_ORDER,
+  selectCash,
+} from '../engine/adapter.ts'
+import {
+  SHAPE_DESCRIPTIONS,
+  OPENING_OPTIONS,
+  MIDPOINT_OPTIONS,
+  ENDING_OPTIONS,
+  PROMISE_AXIS_INFO,
+  genreLabel,
+} from '../content.ts'
+import { money, moneyExact, axis, segmentLabel } from '../format.ts'
+import { ConceptCard } from '../components/ConceptCard.tsx'
+import { ForecastDisplay } from '../components/ForecastDisplay.tsx'
+import { TalentPicker } from '../components/TalentPicker.tsx'
+import { ErrorBox, Warn, Metric } from '../components/common.tsx'
+
+type Step = 'concept' | 'shape' | 'promise' | 'talent' | 'budget' | 'review'
+const STEP_ORDER: Step[] = ['concept', 'shape', 'promise', 'talent', 'budget', 'review']
+const STEP_LABELS: Record<Step, string> = {
+  concept: 'Concept',
+  shape: 'Shape',
+  promise: 'Promise',
+  talent: 'Talent',
+  budget: 'Budget & Forecast',
+  review: 'Review',
+}
+
+// Sensible default shape (choices are still explicit; this is only a starting point).
+const DEFAULT_SHAPE: FilmShape = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' }
+
+// Draft state — separate from GameState until greenlight. Ids only for talent.
+type Draft = {
+  conceptId: string | null
+  shape: FilmShape
+  // per-axis center/width index into PROMISE_CENTERS / PROMISE_WIDTHS
+  promiseCenterIdx: Record<'intimacy' | 'tonalWeight' | 'kineticEnergy', number>
+  promiseWidthIdx: Record<'intimacy' | 'tonalWeight' | 'kineticEnergy', number>
+  intendedSegments: string[]
+  writerId: string | null
+  directorId: string | null
+  cast: Record<CastSlot, string | null>
+  negativeLevelIdx: number // index into NEGATIVE_BUDGET_MULTIPLIERS
+  marketingLevelIdx: number // index into MARKETING_BUDGET_LEVELS
+}
+
+function makeInitialDraft(): Draft {
+  return {
+    conceptId: null,
+    shape: DEFAULT_SHAPE,
+    // default centers to 0.25 index (mild), widths to a middle width
+    promiseCenterIdx: { intimacy: 1, tonalWeight: 1, kineticEnergy: 1 },
+    promiseWidthIdx: { intimacy: 1, tonalWeight: 1, kineticEnergy: 1 },
+    intendedSegments: ['adult'],
+    writerId: null,
+    directorId: null,
+    cast: { lead: null, antagonist: null, support: null },
+    negativeLevelIdx: 1, // 1.0×
+    marketingLevelIdx: 1, // 400k
+  }
+}
+
+// Build the concrete Promise from the draft indices + concept genre.
+function buildPromise(draft: Draft, genre: Genre): FilmPromise {
+  const ranges = {} as FilmPromise['ranges']
+  for (const ax of PROMISE_AXES) {
+    const center = PROMISE_CENTERS[draft.promiseCenterIdx[ax]]!
+    const width = PROMISE_WIDTHS[draft.promiseWidthIdx[ax]]!
+    ranges[ax] = rangeFrom(center, width)
+  }
+  return {
+    genre,
+    intendedSegments: draft.intendedSegments as FilmPromise['intendedSegments'],
+    ranges,
+  }
+}
+
+// Assemble a full DraftPackage when everything required is chosen (else null).
+function buildPackage(state: GameState, draft: Draft): DraftPackage | null {
+  if (!draft.conceptId || !draft.writerId || !draft.directorId) return null
+  if (!draft.cast.lead || !draft.cast.antagonist || !draft.cast.support) return null
+  const concept = findConcept(state, draft.conceptId)
+  if (!concept) return null
+  const req = requiredNegative(concept, draft.shape, state)
+  const negative = NEGATIVE_BUDGET_MULTIPLIERS[draft.negativeLevelIdx]! * req
+  const marketing = MARKETING_BUDGET_LEVELS[draft.marketingLevelIdx]!
+  return {
+    conceptId: draft.conceptId,
+    shape: draft.shape,
+    promise: buildPromise(draft, concept.genre),
+    writerId: draft.writerId,
+    directorId: draft.directorId,
+    craftIds: [],
+    cast: {
+      lead: draft.cast.lead,
+      antagonist: draft.cast.antagonist,
+      support: draft.cast.support,
+    },
+    budget: { negative, marketing },
+  }
+}
+
+export function Assembly({
+  state,
+  onGreenlit,
+  onCancel,
+}: {
+  state: GameState
+  onGreenlit: (next: GameState) => void
+  onCancel: () => void
+}) {
+  const [draft, setDraft] = useState<Draft>(makeInitialDraft)
+  const [step, setStep] = useState<Step>('concept')
+  const [error, setError] = useState<string | null>(null)
+
+  const concepts = selectConcepts(state)
+  const concept = draft.conceptId ? findConcept(state, draft.conceptId) : undefined
+  const writers = useMemo(() => talentByRole(state, 'writer'), [state])
+  const directors = useMemo(() => talentByRole(state, 'director'), [state])
+  const actors = useMemo(() => talentByRole(state, 'actor'), [state])
+
+  const pkg = useMemo(() => buildPackage(state, draft), [state, draft])
+  const cash = selectCash(state)
+
+  function patch(p: Partial<Draft>) {
+    setDraft((d) => ({ ...d, ...p }))
+  }
+
+  function go(next: Step) {
+    setError(null)
+    setStep(next)
+  }
+  function stepIndex(s: Step): number {
+    return STEP_ORDER.indexOf(s)
+  }
+  function next() {
+    const i = stepIndex(step)
+    if (i < STEP_ORDER.length - 1) go(STEP_ORDER[i + 1]!)
+  }
+  function back() {
+    const i = stepIndex(step)
+    if (i > 0) go(STEP_ORDER[i - 1]!)
+    else onCancel()
+  }
+
+  // Per-step "can advance" gates.
+  function canAdvance(): boolean {
+    switch (step) {
+      case 'concept':
+        return draft.conceptId !== null
+      case 'shape':
+        return true
+      case 'promise':
+        return draft.intendedSegments.length > 0
+      case 'talent':
+        return (
+          draft.writerId !== null &&
+          draft.directorId !== null &&
+          draft.cast.lead !== null &&
+          draft.cast.antagonist !== null &&
+          draft.cast.support !== null
+        )
+      case 'budget':
+        return pkg !== null
+      case 'review':
+        return pkg !== null
+    }
+  }
+
+  function handleGreenlight() {
+    setError(null)
+    if (!pkg) {
+      setError('The film is not fully assembled yet.')
+      return
+    }
+    const result = greenlight(state, pkg)
+    if (!result.ok) {
+      setError(result.error)
+      return
+    }
+    onGreenlit(result.next)
+  }
+
+  return (
+    <div className="app-shell">
+      <div className="topbar">
+        <div className="brand">
+          <span className="mark">ASSEMBLE A FILM</span>
+        </div>
+        <button className="ghost" onClick={onCancel} data-testid="assembly-back-dashboard">
+          Back to studio
+        </button>
+      </div>
+
+      <div className="steps" data-testid="assembly-steps">
+        {STEP_ORDER.map((s) => (
+          <span
+            key={s}
+            className={`step${s === step ? ' active' : ''}${stepIndex(s) < stepIndex(step) ? ' done' : ''}`}
+            data-testid={`step-${s}`}
+          >
+            {STEP_LABELS[s]}
+          </span>
+        ))}
+      </div>
+
+      {step === 'concept' && (
+        <ConceptStep concepts={concepts} selected={draft.conceptId} onSelect={(id) => patch({ conceptId: id })} />
+      )}
+      {step === 'shape' && <ShapeStep shape={draft.shape} onChange={(shape) => patch({ shape })} />}
+      {step === 'promise' && concept && (
+        <PromiseStep draft={draft} concept={concept} patch={patch} />
+      )}
+      {step === 'talent' && (
+        <TalentStep
+          draft={draft}
+          writers={writers}
+          directors={directors}
+          actors={actors}
+          patch={patch}
+        />
+      )}
+      {step === 'budget' && concept && (
+        <BudgetStep state={state} draft={draft} concept={concept} pkg={pkg} patch={patch} />
+      )}
+      {step === 'review' && concept && pkg && (
+        <ReviewStep state={state} pkg={pkg} conceptTitle={concept.title} cash={cash} />
+      )}
+
+      {error && (
+        <div style={{ marginTop: 16 }}>
+          <ErrorBox message={error} />
+        </div>
+      )}
+
+      <div className="btn-row" style={{ marginTop: 20 }}>
+        <button onClick={back} data-testid="assembly-back">
+          {step === 'concept' ? 'Cancel' : 'Back'}
+        </button>
+        {step !== 'review' ? (
+          <button className="primary" onClick={next} disabled={!canAdvance()} data-testid="assembly-next">
+            Next
+          </button>
+        ) : (
+          <button
+            className="accent"
+            onClick={handleGreenlight}
+            disabled={!pkg}
+            data-testid="greenlight"
+          >
+            Greenlight this film
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ── Step: Concept ────────────────────────────────────────────────────────────
+function ConceptStep({
+  concepts,
+  selected,
+  onSelect,
+}: {
+  concepts: FilmConcept[]
+  selected: string | null
+  onSelect: (id: string) => void
+}) {
+  return (
+    <div className="card">
+      <h2>Choose a concept</h2>
+      <p className="hint">Only the studio-visible details are shown: title, genre, base needs, roles.</p>
+      <div className="grid grid-3" data-testid="concept-grid">
+        {concepts.map((c) => (
+          <ConceptCard
+            key={c.id}
+            concept={c}
+            mode="normal"
+            selected={selected === c.id}
+            onSelect={onSelect}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ── Step: Shape ──────────────────────────────────────────────────────────────
+function ShapeStep({ shape, onChange }: { shape: FilmShape; onChange: (s: FilmShape) => void }) {
+  const groups: { key: keyof FilmShape; label: string; options: readonly string[] }[] = [
+    { key: 'opening', label: 'Opening', options: OPENING_OPTIONS },
+    { key: 'midpoint', label: 'Midpoint', options: MIDPOINT_OPTIONS },
+    { key: 'ending', label: 'Ending', options: ENDING_OPTIONS },
+  ]
+  return (
+    <div className="card">
+      <h2>Shape the story</h2>
+      <p className="hint">
+        Three structural choices. Each has a creative meaning; the studio does not tell you which is
+        “best”.
+      </p>
+      <div className="grid grid-3">
+        {groups.map((g) => (
+          <div className="stack" key={g.key} data-testid={`shape-group-${g.key}`}>
+            <h4>{g.label}</h4>
+            {g.options.map((optRaw) => {
+              const opt = optRaw as string
+              const info = SHAPE_DESCRIPTIONS[opt]!
+              const selected = (shape[g.key] as string) === opt
+              const eff = SHAPE_OPTIONS[opt as keyof typeof SHAPE_OPTIONS]
+              return (
+                <button
+                  key={opt}
+                  type="button"
+                  className={`option${selected ? ' selected' : ''}`}
+                  onClick={() => onChange({ ...shape, [g.key]: opt })}
+                  data-testid={`shape-${opt}`}
+                  aria-pressed={selected}
+                >
+                  <div className="opt-title">{info.title}</div>
+                  <div className="opt-desc">{info.desc}</div>
+                  <div className="opt-desc mono">
+                    reach {eff.openingReachMod > 0 ? '+' : ''}
+                    {eff.openingReachMod} · craft {eff.craftMod > 0 ? '+' : ''}
+                    {eff.craftMod}
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ── Step: Promise ────────────────────────────────────────────────────────────
+function PromiseStep({
+  draft,
+  concept,
+  patch,
+}: {
+  draft: Draft
+  concept: FilmConcept
+  patch: (p: Partial<Draft>) => void
+}) {
+  function toggleSegment(id: string) {
+    const has = draft.intendedSegments.includes(id)
+    const next = has
+      ? draft.intendedSegments.filter((s) => s !== id)
+      : [...draft.intendedSegments, id]
+    patch({ intendedSegments: next })
+  }
+  return (
+    <div className="card">
+      <h2>Make a promise</h2>
+      <p className="hint">
+        Genre is fixed by the concept ({genreLabel(concept.genre)}). For each dimension, set where
+        the film sits and how tightly you commit to it. A tighter promise is more specific.
+      </p>
+
+      <div className="grid grid-3" style={{ marginTop: 8 }}>
+        {PROMISE_AXES.map((ax) => {
+          const info = PROMISE_AXIS_INFO[ax]
+          const center = PROMISE_CENTERS[draft.promiseCenterIdx[ax]]!
+          const width = PROMISE_WIDTHS[draft.promiseWidthIdx[ax]]!
+          const range = rangeFrom(center, width)
+          return (
+            <div className="panel stack" key={ax} data-testid={`promise-${ax}`}>
+              <h4>{info.title}</h4>
+              <p className="hint">{info.desc}</p>
+
+              <label>
+                Center:{' '}
+                <strong>
+                  {center < -0.5
+                    ? info.low
+                    : center > 0.5
+                      ? info.high
+                      : 'Balanced'}
+                </strong>
+              </label>
+              <div className="btn-row">
+                {PROMISE_CENTERS.map((c, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    className={`option${draft.promiseCenterIdx[ax] === i ? ' selected' : ''}`}
+                    style={{ width: 'auto', padding: '6px 10px' }}
+                    onClick={() => patch({ promiseCenterIdx: { ...draft.promiseCenterIdx, [ax]: i } })}
+                    data-testid={`promise-${ax}-center-${i}`}
+                  >
+                    {c > 0 ? '+' : ''}
+                    {c}
+                  </button>
+                ))}
+              </div>
+
+              <label style={{ marginTop: 8 }}>
+                Width:{' '}
+                <strong>{width <= 0.4 ? 'Tight' : width <= 0.8 ? 'Focused' : width <= 1.4 ? 'Loose' : 'Broad'}</strong>
+              </label>
+              <div className="btn-row">
+                {PROMISE_WIDTHS.map((w, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    className={`option${draft.promiseWidthIdx[ax] === i ? ' selected' : ''}`}
+                    style={{ width: 'auto', padding: '6px 10px' }}
+                    onClick={() => patch({ promiseWidthIdx: { ...draft.promiseWidthIdx, [ax]: i } })}
+                    data-testid={`promise-${ax}-width-${i}`}
+                  >
+                    {w}
+                  </button>
+                ))}
+              </div>
+              <div className="opt-desc mono">
+                range {axis(range[0])} … {axis(range[1])}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      <div className="sep" />
+      <h4>Intended segments</h4>
+      <p className="hint">Which audiences is this film aimed at?</p>
+      <div className="btn-row" data-testid="segment-toggles">
+        {SEGMENT_ORDER.map((id) => (
+          <button
+            key={id}
+            type="button"
+            className={`option${draft.intendedSegments.includes(id) ? ' selected' : ''}`}
+            style={{ width: 'auto' }}
+            onClick={() => toggleSegment(id)}
+            data-testid={`segment-${id}`}
+            aria-pressed={draft.intendedSegments.includes(id)}
+          >
+            {segmentLabel(id)}
+          </button>
+        ))}
+      </div>
+      {draft.intendedSegments.length === 0 && (
+        <p className="reason" style={{ color: 'var(--neg)' }}>
+          Choose at least one intended segment.
+        </p>
+      )}
+    </div>
+  )
+}
+
+// ── Step: Talent ─────────────────────────────────────────────────────────────
+function TalentStep({
+  draft,
+  writers,
+  directors,
+  actors,
+  patch,
+}: {
+  draft: Draft
+  writers: ReturnType<typeof talentByRole>
+  directors: ReturnType<typeof talentByRole>
+  actors: ReturnType<typeof talentByRole>
+  patch: (p: Partial<Draft>) => void
+}) {
+  const castIds = CAST_SLOTS.map((s) => draft.cast[s]).filter((x): x is string => x !== null)
+  const SLOT_TITLES: Record<CastSlot, string> = {
+    lead: 'Lead',
+    antagonist: 'Antagonist',
+    support: 'Support',
+  }
+  return (
+    <div className="card">
+      <h2>Cast the film</h2>
+      <p className="hint">
+        Pick a writer, a director, and one actor per cast slot. Anyone already engaged in another
+        production, or already used on this film, is disabled with the reason shown.
+      </p>
+      <div className="grid grid-2">
+        <TalentPicker
+          title="Writer"
+          pool={writers}
+          role="writer"
+          selectedId={draft.writerId}
+          chosenElsewhere={[]}
+          onSelect={(id) => patch({ writerId: id })}
+          testid="picker-writer"
+        />
+        <TalentPicker
+          title="Director"
+          pool={directors}
+          role="director"
+          selectedId={draft.directorId}
+          chosenElsewhere={[]}
+          onSelect={(id) => patch({ directorId: id })}
+          testid="picker-director"
+        />
+      </div>
+      <div className="sep" />
+      <div className="grid grid-3">
+        {CAST_SLOTS.map((slot) => (
+          <TalentPicker
+            key={slot}
+            title={SLOT_TITLES[slot]}
+            pool={actors}
+            role="actor"
+            selectedId={draft.cast[slot]}
+            chosenElsewhere={castIds.filter((id) => id !== draft.cast[slot])}
+            onSelect={(id) => patch({ cast: { ...draft.cast, [slot]: id } })}
+            testid={`picker-${slot}`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ── Step: Budget & Forecast ──────────────────────────────────────────────────
+function BudgetStep({
+  state,
+  draft,
+  concept,
+  pkg,
+  patch,
+}: {
+  state: GameState
+  draft: Draft
+  concept: FilmConcept
+  pkg: DraftPackage | null
+  patch: (p: Partial<Draft>) => void
+}) {
+  const req = requiredNegative(concept, draft.shape, state)
+  const negative = NEGATIVE_BUDGET_MULTIPLIERS[draft.negativeLevelIdx]! * req
+  const marketing = MARKETING_BUDGET_LEVELS[draft.marketingLevelIdx]!
+  const salaries = salarySum(state, {
+    writerId: draft.writerId!,
+    directorId: draft.directorId!,
+    cast: draft.cast as Record<CastSlot, string>,
+    craftIds: [],
+  })
+  const committed = negative + marketing + salaries
+  const cash = selectCash(state)
+  const goesNegative = cash - committed < 0
+
+  const NEG_LABELS = ['Lean (0.75×)', 'Adequate (1.0×)', 'Generous (1.25×)']
+  const MKT_LABELS = ['Small campaign', 'Standard campaign', 'Wide campaign']
+
+  return (
+    <div className="grid grid-2">
+      <div className="card stack">
+        <h2>Budget</h2>
+        <div className="fact-block">
+          <Metric label="Required negative (from concept + shape)" small testid="required-negative">
+            <span className="tag fact" style={{ marginRight: 6 }}>
+              Fact
+            </span>
+            {money(req)}
+          </Metric>
+        </div>
+
+        <div>
+          <h4>Negative budget</h4>
+          <div className="btn-row" data-testid="negative-levels">
+            {NEGATIVE_BUDGET_MULTIPLIERS.map((m, i) => (
+              <button
+                key={i}
+                type="button"
+                className={`option${draft.negativeLevelIdx === i ? ' selected' : ''}`}
+                style={{ width: 'auto' }}
+                onClick={() => patch({ negativeLevelIdx: i })}
+                data-testid={`negative-${i}`}
+              >
+                <div className="opt-title">{NEG_LABELS[i]}</div>
+                <div className="opt-desc mono">{money(m * req)}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h4>Marketing</h4>
+          <div className="btn-row" data-testid="marketing-levels">
+            {MARKETING_BUDGET_LEVELS.map((m, i) => (
+              <button
+                key={i}
+                type="button"
+                className={`option${draft.marketingLevelIdx === i ? ' selected' : ''}`}
+                style={{ width: 'auto' }}
+                onClick={() => patch({ marketingLevelIdx: i })}
+                data-testid={`marketing-${i}`}
+              >
+                <div className="opt-title">{MKT_LABELS[i]}</div>
+                <div className="opt-desc mono">{money(m)}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="sep" />
+        <div className="stack fact-block">
+          <div className="spread">
+            <span>Negative</span>
+            <span className="mono">{moneyExact(negative)}</span>
+          </div>
+          <div className="spread">
+            <span>Marketing</span>
+            <span className="mono">{moneyExact(marketing)}</span>
+          </div>
+          <div className="spread">
+            <span>Talent salaries</span>
+            <span className="mono" data-testid="salaries">
+              {moneyExact(salaries)}
+            </span>
+          </div>
+          <div className="spread">
+            <strong>Total committed cost</strong>
+            <strong className="mono" data-testid="committed-cost">
+              {moneyExact(committed)}
+            </strong>
+          </div>
+          <div className="spread">
+            <span>Current cash</span>
+            <span className={`mono ${cash < 0 ? 'money neg' : 'money pos'}`}>{moneyExact(cash)}</span>
+          </div>
+        </div>
+
+        {goesNegative && (
+          <Warn>
+            Greenlighting this film spends more than you have on hand. Cash will go negative. The
+            studio allows it, but you carry the shortfall.
+          </Warn>
+        )}
+      </div>
+
+      <div className="stack">
+        {pkg ? (
+          <ForecastDisplay forecast={previewForecast(state, pkg)} mode="normal" source="estimate" />
+        ) : (
+          <div className="panel">
+            <p className="hint">Finish choosing talent to see the forecast.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ── Step: Review ─────────────────────────────────────────────────────────────
+function ReviewStep({
+  state,
+  pkg,
+  conceptTitle,
+  cash,
+}: {
+  state: GameState
+  pkg: DraftPackage
+  conceptTitle: string
+  cash: number
+}) {
+  const committed = totalCommittedCost(state, pkg)
+  const goesNegative = cash - committed < 0
+  return (
+    <div className="grid grid-2">
+      <div className="card stack">
+        <h2>Review &amp; greenlight</h2>
+        <div className="spread">
+          <span>Film</span>
+          <strong>{conceptTitle}</strong>
+        </div>
+        <div className="spread">
+          <span>Total committed cost</span>
+          <strong className="mono">{moneyExact(committed)}</strong>
+        </div>
+        <div className="spread">
+          <span>Cash after greenlight</span>
+          <strong className={`mono ${cash - committed < 0 ? 'money neg' : 'money pos'}`}>
+            {moneyExact(cash - committed)}
+          </strong>
+        </div>
+        {goesNegative && (
+          <Warn>This greenlight takes cash negative. Confirm you intend to spend beyond your balance.</Warn>
+        )}
+        <p className="hint">
+          Greenlighting commits the budget and salaries now. The film enters production and releases
+          after it finishes. The forecast is the studio’s prediction — not a guarantee.
+        </p>
+      </div>
+      <div className="stack">
+        <ForecastDisplay forecast={previewForecast(state, pkg)} mode="normal" source="estimate" />
+      </div>
+    </div>
+  )
+}

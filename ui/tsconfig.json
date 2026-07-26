@@ -1,0 +1,24 @@
+{
+  "//": "M1A UI typecheck. Separate from the root (core) tsconfig so the core's strict node-lib check is unchanged (npx tsc --noEmit still checks src+tests exactly as before). This config adds the DOM lib + JSX for the React UI and typechecks ui/ PLUS the core it imports (src/core is included so cross-boundary types resolve). Run: tsc -p ui/tsconfig.json --noEmit.",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "exactOptionalPropertyTypes": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["node", "vitest/globals", "@testing-library/jest-dom"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "../src/core/**/*.ts"]
+}

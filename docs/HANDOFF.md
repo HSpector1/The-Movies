@@ -1,11 +1,11 @@
 # Project: Studio — Engineering Handoff
 
-Last updated: 2026-07-26, after M0A.1 (this commit) — the D-6 standing-channel
-repair. **M0A verdict is now PASS** (the D-2 gate passes after D-6); the Phase-4
-baseline (`81ee613`, verdict BLOCKED) is preserved in `M0A-REPORT.md`. Written for a
-successor session with zero knowledge of prior conversations. Read this after
-`CLAUDE.md`, `docs/build-contract.md` (rev. 4), and `docs/rev4-open-questions.md`
-(now including ruling **D-6**), in that order.
+Last updated: 2026-07-26, after **Phase 5 / M1A** (this commit) — the thin playable
+browser UI over the frozen engine. M0A is PASS (D-6); Phase 5 is PLAYABLE. **Phase 6
+is NOT started** and needs explicit owner authorization. Written for a successor
+session with zero knowledge of prior conversations. Read this after `CLAUDE.md`,
+`docs/build-contract.md` (rev. 4), `docs/rev4-open-questions.md` (incl. ruling
+**D-6**), `M0A-REPORT.md`, and `PLAYTEST.md`, in that order.
 
 ---
 
@@ -207,6 +207,56 @@ and the D-6 pass is robust (split-corpus both halves 3/4). `technical` pinned at
 - **Outcome:** 320/320 green, tsc clean, corpus byte-reproducible. M0A verdict BLOCKED.
 
 ---
+
+## 2b. Phase 5 / M1A — the playable UI (this commit)
+
+- **Status:** PLAYABLE. A thin browser UI over the M0A-frozen engine, delivering the
+  full film loop: new-game/seed → studio dashboard → assemble (concept → shape →
+  promise → writer/director/cast → budget → forecast → greenlight) → advance weeks →
+  release result → autopsy → talent creator → save export/import → restart.
+- **Stack:** React + TypeScript + Vite + Vitest + React Testing Library + Playwright,
+  plain CSS. Single-package repo (deps in root `package.json`; UI under `ui/`). No
+  backend/DB/auth/LLM/state-framework.
+- **Structure:** `ui/src/engine/adapter.ts` is the ONLY module importing the core, and
+  ONLY via the public `src/core/index.ts` — no component reaches into `src/core`, no
+  simulation formula is duplicated. `ui/src/screens/*` (Start/Dashboard/Assembly/
+  ReleaseResult/Autopsy/TalentCreator/Saves), `ui/src/components/*` (ConceptCard,
+  ForecastDisplay, TalentPicker, common), `App.tsx` (root state + routing).
+- **Engine boundary discipline:** UI calls `generateWorld`/`applyActions`/`tick`/
+  `computeForecast`/`resolveReception`/`makeSave`/`loadSave`; never mutates GameState
+  outside engine actions; no `Math.random` in the UI. **The core, harness, and tests
+  are byte-untouched since `279e58e`** (verified by the audit and adversarial review).
+- **Information integrity:** the player sees `perceived` talent (never `actual`), the
+  stored `forecastSnapshot` for active/released films (never a post-greenlight
+  recompute), and no Oracle/realized info pre-release — all mutation-grade tested.
+- **Autopsy:** reconstructs the full §5 breakdown by calling the public
+  `resolveReception` on inputs rebuilt from a UI-only pre-tick snapshot, using the
+  stored `FilmResult` for the two sampled fields (criticScore/reviewVariance — the
+  random term is shown, never hidden). Films present only in an imported prior-session
+  save show a plain "no full autopsy" message rather than a fabricated one.
+- **Restricted-mode capability (owner-authorized, Phase-5 directive):** `ConceptCard`
+  and `ForecastDisplay` accept `mode='normal'|'restricted'`; restricted genuinely hides
+  precise values (qualitative bands). Adds NO filmmaker-pitch mechanic and NO GameState
+  field; NOT wired into the normal game (normal play uses `mode='normal'`). This
+  supports a future deferred system cheaply without building it.
+- **Tests:** **383 total** (309 core, unchanged; **74 UI** — engine-boundary,
+  information-integrity, assembly-legality, simulation, autopsy-fidelity, talent-creator,
+  saves, determinism, hygiene). `tsc --noEmit` clean; `vite build` succeeds; Playwright
+  full-loop browser smoke PASSES.
+- **Adversarial review:** PLAYABLE + CONTRACT-FAITHFUL, 16/17 categories clean; the one
+  LOW finding (restricted mode "looks like §11 scaffolding") is a false positive — the
+  owner's Phase-5 directive explicitly required it; disposition: keep as authorized.
+- **Contract audit:** **CLEAN** — 12/12 items CONFORM, zero DEVIATED/INVENTED/MISSING/
+  OUT-OF-SCOPE.
+- **Screenshots:** `ui/screenshots/1-start-new-game.png` … `7-talent-creator.png`
+  (git-ignored, regenerate via the Playwright screenshot run on seed
+  `e2e-browser-smoke`). **Playtest guide:** `PLAYTEST.md` (repo root).
+- **Known limits:** Broadcast/headlines deferred (Phase 6); craft hires simplified
+  (D-4 `technical`=40); desktop-first (no mobile/accessibility program); the rare
+  prestige/awareness identities are uncommon by design (M0A-REPORT).
+- **Phase 6 boundary (HARD STOP):** NOT started. Do not build Broadcast presentation,
+  the prediction→result→revision cycle, filmmaker pitches, or any deferred system until
+  the owner explicitly authorizes Phase 6. This commit does not imply that authorization.
 
 ## 3a. M0A verdict & the decisions still owed to the owner
 

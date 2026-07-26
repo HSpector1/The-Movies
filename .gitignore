@@ -3,6 +3,9 @@ dist/
 coverage/
 out/
 tools/
+test-results/
+playwright-report/
+.last-run.json
 *.log
 .DS_Store
 
