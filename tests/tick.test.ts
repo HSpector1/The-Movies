@@ -48,6 +48,10 @@ type Greenlit = {
   conceptId: string
   budgetNegative: number
   requiredNegative: number
+  marketing: number
+  baseMarketValue: number
+  writer: Talent
+  director: Talent
   cast: { lead: Talent; antagonist: Talent; support: Talent }
 }
 
@@ -113,6 +117,10 @@ function greenlight(state: GameState, conceptIndex = 0): Greenlit {
     conceptId: concept.id,
     budgetNegative,
     requiredNegative,
+    marketing: production.budget.marketing, // = TUNING.MARKETING_HALF_SATURATION here
+    baseMarketValue: state.market.baseMarketValue, // the market this film releases into
+    writer,
+    director,
     cast: { lead, antagonist, support },
   }
 }
@@ -229,6 +237,17 @@ describe('§6/B12 tick threads updateStanding correctly (cross-check)', () => {
       },
       actualNegative: g.budgetNegative, // = production.budget.negative (M2)
       requiredNegative: g.requiredNegative, // baseNegativeCost * budgetDemandMultiplier * era.costScale
+      // D-6 widened StandingContext: the already-existing release values.
+      baseMarketValue: g.baseMarketValue, // reach = boxOffice.total / baseMarketValue
+      marketing: g.marketing, // production.budget.marketing
+      // committed-cost salaries = Σ(writer + director + cast) resolved talent salaries
+      // (craft salaries are 0 in M0A — no craft hires).
+      salaries:
+        g.writer.salary +
+        g.director.salary +
+        g.cast.lead.salary +
+        g.cast.antagonist.salary +
+        g.cast.support.salary,
     }
 
     const expected = updateStanding(prevStanding, releasedFilm, benchmarks, ctx)

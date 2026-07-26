@@ -205,6 +205,77 @@ instrumentation will surface if the middle ever dominates in practice.)
 
 ---
 
+### D-6 — Standing Channel Revision (owner ruling, 2026-07-26) — supersedes the §6 standing delta formulas ONLY
+
+**Why the prior §6 was superseded.** The M0A study (baseline commit `81ee613`) BLOCKED
+on the D-2 standing-differentiation gate. Two structural causes, both proven and both
+outside the tuning surface: (a) the prior §6 keyed BOTH `awarenessDelta` and
+`confidenceDelta` off one shared `commercialSurprise` (realized-vs-forecast box office),
+collapsing those two channels into one dimension (corpus M6 |r| ≈ 0.99); and (b)
+`prestigeDelta = (criticScore − 60)/8` anchored prestige to a fixed criticScore of 60
+that the corpus reaches above ~p90 — so prestige only ever fell (baseline prestige-high
+rate ≈ 0%). Only 2 of 4 asymmetric profiles occurred. This ruling redefines the three
+channels by MEANING and drives each from an ABSOLUTE realized quantity (not forecast
+surprise) so they move on genuinely different causes — which §6's own text already
+demanded ("the three channels must move on different causes — that is the point"). The
+rest of §6 (INITIAL_STANDING 40/40/50, the [0,100] channel clamps, the per-release
+delta-then-clamp shape) is unchanged.
+
+**Channel meanings (SETTLED product decisions):**
+- **Audience Awareness = how visible / culturally noticeable the studio is.** PRIMARY
+  driver: absolute audience REACH (box-office relative to the available market).
+  SECONDARY: star attention. It must NOT primarily measure forecast surprise.
+- **Industry Prestige = how artistically / critically respected the studio is.** SOLE
+  driver: absolute critical achievement (realized criticScore vs a REACHABLE neutral
+  benchmark). It must NOT be driven by box office, profit, star fame, or forecast surprise.
+- **Commercial Confidence = how strongly financiers trust the studio to deploy money.**
+  PRIMARY drivers: realized ROI on committed cost, and budget discipline. It must NOT
+  primarily measure absolute reach and must NOT reuse the awareness/commercial-surprise signal.
+
+**Exact final formulas** (`updateStanding(standing, r, b, ctx)`; each delta clamped to
+its channel cap; each channel value clamped [0,100]; `b`/`ReleaseBenchmarks` is RETAINED
+in the signature but DORMANT — the old forecast-surprise term is deleted):
+- `reach = clamp(r.boxOffice.total / max(baseMarketValue, 1) / AWARENESS_REACH_SCALE, 0, 1)`
+- `starAttention = clamp(mean(cast fame)/100, 0, 1)`
+- **`awarenessDelta = clamp(AWARENESS_REACH_WEIGHT·(reach − AWARENESS_REACH_NEUTRAL) + AWARENESS_STAR_WEIGHT·starAttention, −AWARENESS_DELTA_CAP, +AWARENESS_DELTA_CAP)`** — the NEUTRAL offset lets a low-reach film contribute a negative delta so awareness can stay low.
+- **`prestigeDelta = clamp((r.criticScore − PRESTIGE_CRITIC_BENCHMARK)/PRESTIGE_CRITIC_SCALE, −PRESTIGE_DELTA_CAP, +PRESTIGE_DELTA_CAP)`** — BENCHMARK is reachable (near the corpus criticScore median).
+- `committedCost = actualNegative + marketing + salaries`; `cost = max(committedCost, CONFIDENCE_COST_FLOOR)`; `roi = (r.boxOffice.total − committedCost)/cost`; `roiSignal = clamp(roi / CONFIDENCE_ROI_SCALE, −1, +1)`; `budgetOverrun = clamp((actualNegative − requiredNegative)/max(requiredNegative,1), 0, 1)`
+- **`confidenceDelta = clamp(CONFIDENCE_ROI_WEIGHT·roiSignal − CONFIDENCE_DISCIPLINE_WEIGHT·budgetOverrun, −CONFIDENCE_DELTA_CAP, +CONFIDENCE_DELTA_CAP)`** — no reach term; does not reuse the awareness signal.
+
+**New TUNING constants** (all normalized against the STEP-1 per-release corpus, 200
+seeds × 2 agents; evidence `out/d6/step1-releases.jsonl`): `AWARENESS_REACH_SCALE 0.9`
+(≈ p90 reach = "fully visible"), `AWARENESS_REACH_NEUTRAL 0.58` (normalized-reach pivot),
+`AWARENESS_REACH_WEIGHT 7`, `AWARENESS_STAR_WEIGHT 1.2`, `AWARENESS_DELTA_CAP 6`;
+`PRESTIGE_CRITIC_BENCHMARK 45` (≈ criticScore median), `PRESTIGE_CRITIC_SCALE 1.2`,
+`PRESTIGE_DELTA_CAP 10`; `CONFIDENCE_ROI_SCALE 5` (≈ Oracle median ROI), `CONFIDENCE_ROI_WEIGHT 4`,
+`CONFIDENCE_DISCIPLINE_WEIGHT 4`, `CONFIDENCE_COST_FLOOR 500_000` (ROI-denominator guard),
+`CONFIDENCE_DELTA_CAP 5`. These are tuning values the loop may adjust; formulas, caps'
+existence, and the D-2 gate are fixed.
+
+**Normalization rules.** reach and roiSignal are normalized into fixed ranges before
+weighting (reach ∈ [0,1], roiSignal ∈ [−1,+1]); star attention ∈ [0,1]; budgetOverrun ∈
+[0,1]. Every constant carries units/normalization (see the `TUNING` comments).
+
+**Allowed delta caps.** Per-release: awareness ±6, prestige ±10, confidence ±5 (named
+TUNING caps). Chosen so a channel can reach ≥60 from its start over ten releases AND
+fall to ≤40 — both D-2 extremes reachable.
+
+**Required inputs (B12 ephemeral release context, `StandingContext`).** Existing:
+`castFames`, `actualNegative`, `requiredNegative`. Added (all already-existing values
+captured at release, dropped at tick end — GameState/SaveFileV1 UNCHANGED):
+`baseMarketValue`, `marketing`, `salaries` (Σ writer+director+cast salaries).
+
+**The D-2 gate is UNCHANGED** — end-of-run, high ≥60 / low ≤40, the four named
+asymmetric profiles, ≥5% occurrence pooled across both agents, HARD FAIL if fewer than
+3 of 4. Under D-6 the gate PASSES with profiles A/B/C (6.75% / 6.95% / 24.1%); profile D
+(confidence-low & awareness-high) remains sub-5% for arithmetic reasons — D-1's economy
+is almost always profitable, so confidence rarely falls — which D-2's own reachability
+ruling routes to the owner rather than being tuned around. Making D reachable would
+require a confidence baseline term (reward ROI only ABOVE an expected return); that is a
+further owner decision, not adopted here.
+
+---
+
 ## §2 PROPOSED RESOLUTIONS (skim and rubber-stamp)
 
 ### A. Time and the run
@@ -595,6 +666,12 @@ instrumentation will surface if the middle ever dominates in practice.)
 `FORECAST_SIGMA: { high: 5, medium: 10, low: 16 }` (moved in per B17) ·
 `CONFIDENCE_INTERVAL_WIDTH: { high: 7, medium: 11, low: 14 }` (moved in per B17) ·
 `SEGMENT_TASTES` (per D-5).
+
+**Per D-6 (Standing Channel Revision, 2026-07-26):** `AWARENESS_REACH_SCALE 0.9` ·
+`AWARENESS_REACH_NEUTRAL 0.58` · `AWARENESS_REACH_WEIGHT 7` · `AWARENESS_STAR_WEIGHT 1.2` ·
+`AWARENESS_DELTA_CAP 6` · `PRESTIGE_CRITIC_BENCHMARK 45` · `PRESTIGE_CRITIC_SCALE 1.2` ·
+`PRESTIGE_DELTA_CAP 10` · `CONFIDENCE_ROI_SCALE 5` · `CONFIDENCE_ROI_WEIGHT 4` ·
+`CONFIDENCE_DISCIPLINE_WEIGHT 4` · `CONFIDENCE_COST_FLOOR 500_000` · `CONFIDENCE_DELTA_CAP 5`.
 
 ---
 

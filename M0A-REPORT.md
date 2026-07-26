@@ -7,7 +7,61 @@
 
 ---
 
-## 1. Executive verdict: **BLOCKED**
+# Revision — M0A.1: D-6 Standing Channel Repair (2026-07-26) — verdict **PASS**
+
+The baseline study (commit `81ee613`, preserved in full below) was BLOCKED on the one hard gate — reputation differentiation. The owner authorized a bounded repair (ruling **D-6**) redefining what the three reputation dials *mean* and driving each from a different cause. This section reports the result; the baseline sections below are unchanged and remain valid.
+
+## Executive verdict (revised): **PASS**
+
+The D-2 standing-differentiation gate — the sole blocker — now **PASSES**, all eight flags are healthy, and the three reputation dials are genuinely independent. The decision engine underneath is unchanged (the repair touched only the §6 reputation formulas). **This is a PASS of the M0A study; it is not, and must not be read as, approval for Phase 5** — that decision remains the owner's after review.
+
+## What D-6 changed (plain English)
+- **Audience Awareness = public visibility** → now driven by how widely a film is *seen* (box office relative to the market), plus a smaller star-power effect. (Was: driven by "beat the forecast".)
+- **Industry Prestige = artistic respect** → now driven by *critic scores* against a **reachable** benchmark (~45, near the typical score), replacing the old fixed "60" that prestige could never climb to. (Prestige could only sink before.)
+- **Commercial Confidence = financial trust** → now driven by *return on investment* and budget discipline — no longer the same "beat the forecast" signal that drove awareness.
+
+The three dials now move on three different causes and **can move in different directions after the same release** (e.g. a huge-grossing money-loser makes the studio *more famous* but *less trusted with money*).
+
+## Before → after
+| Metric | Baseline `81ee613` | Revised (D-6) |
+|---|---|---|
+| **D-2 hard gate** | FAIL (2 of 4 profiles) | **PASS (3 of 4)** |
+| A: prestige-high / awareness-low | 0% | **6.75%** ✓ |
+| B: awareness-high / prestige-low | 33.5% | **6.95%** ✓ |
+| C: confidence-high / prestige-low | 21.0% | **24.1%** ✓ |
+| D: confidence-low / awareness-high | 0% | 0% (see note) |
+| awareness↔confidence correlation | **0.99** (WARNING) | **0.345 / 0.108** (PASS) |
+| end-of-run prestige | max 39.5 — never rises | spans 0–100 (Oracle med 64, Random 37) |
+
+## All eight flags (revised) — all PASS
+Choice dominance 0.66%, strategy concentration 0.02%, dead cultural state 0%, **standing differentiation PASS (3/4)**, **standing correlation PASS (max r 0.345, was 0.99)**, forecast calibration 83.2/73.1/62.5, casting diversity 78.6% (Random), authored not-exercised. **No previously-passing diagnostic regressed** — the §14 harness is byte-identical to baseline; only §6 changed, so the seven non-standing flags are computed by identical code over identical film outcomes.
+
+## Candidate formulas, screening & selection
+One structural family, dictated by the D-6 semantics (awareness ← reach + star; prestige ← critic-vs-benchmark; confidence ← ROI − discipline). Constants were calibrated to the observed per-release corpus distributions — criticScore median 46.5 → benchmark 45; reach p90 ≈ 0.90 → reach scale; Oracle median ROI ≈ 5 → ROI scale — by a grid sweep maximizing the joint profile occurrence. Selection priority: semantic correctness → D-2 pass → channel independence → no 7-flag regression → simplicity. Iterations used: within the 5-cap (one calibrated family; no structural re-do needed). Exact formulas + all 13 constants are recorded in `docs/rev4-open-questions.md` (ruling D-6) and `TUNING`.
+
+## Behavioral cases — all PASS
+The 7 D-6 behavioral case groups + 5 cause-isolation pairs all pass: widely-seen critical flop (awareness ↑, prestige ↓); acclaimed money-loser (prestige ↑, confidence ↓); profitable disciplined sleeper (confidence ↑, modest awareness); huge-gross money-loser (awareness ↑, **confidence ↓**); star-driven flop (awareness ↑ via visibility, prestige ↓, confidence ↓); low-budget prestige success (prestige ↑, awareness materially below a mass hit). Cause-isolation: changing only critic score moves only prestige; only reach moves only awareness; only profitability moves only confidence; only star fame moves awareness (small, secondary); changing only the dormant forecast moves **nothing** (proving the old surprise driver is gone).
+
+## Independent verification of the revision
+- **Adversarial review: SOUND — the pass is HONEST.** Split-corpus robustness confirmed (seeds 1–500 → 3/4; seeds 501–1000 → 3/4; even a stricter 62/38 boundary passes); no floor/ceiling saturation; three genuinely independent signals; tests mutation-verified; the flagship "huge-gross money-loser → confidence falls" holds; no agent-specific rules; seven flags unregressed.
+- **Contract audit: CLEAN WITH NOTES** — the implementation matches D-6 exactly, touches only §6 + the ephemeral release context (no save-schema change), and the two flagged notes were stale comments (now fixed). Zero value/behavior deviations.
+
+## Note on profile D (confidence-low / awareness-high — still 0%)
+Only 3 of 4 profiles are required and A/B/C pass. Profile D stays at 0% for an **honest arithmetic reason**: this game's economy is almost always profitable (only ~1.6% of releases lose money), so confidence rarely falls low enough to co-occur with high awareness. Making D reachable would require redefining confidence as return *above an expected baseline* (financiers rewarding only better-than-expected ROI) — a further product decision beyond D-6, which the D-2 ruling routes to the owner rather than tuning around. **Flagged for your decision; not adopted here.**
+
+## Honest characteristic to know
+The two *thin* profiles (A at 6.75%, B at 6.95%) are **agent-segregated**: Random's low-reach slates produce prestige-high/awareness-low, while Oracle's high-reach slates produce awareness-high/prestige-low. This is legitimate — the profiles emerge from real slate-quality differences, not from any agent-specific code — but you should know the two thin profiles appear across the two agents rather than within a single agent's play.
+
+## Preserved disclosures (unchanged by D-6)
+Broadcast remains mechanically correct but inert in natural M0A (contract-forced); `technical` remains pinned at 40 (D-4); authored talent remains not-exercised; the Oracle's maximum-marketing tendency (98%) remains a report-only warning and was **not** part of this repair.
+
+---
+
+# Baseline (commit `81ee613`) — the original M0A study, preserved
+
+*The following sections are the original baseline study and its BLOCKED verdict. They are preserved verbatim (the owner directed the baseline result be kept, not erased). They correctly implemented the prior contract and revealed the design problem that D-6 above repairs.*
+
+## 1. Executive verdict (baseline): **BLOCKED**
 
 M0A is **BLOCKED** — the one completion-blocking gate (**standing differentiation**) fails, and it **cannot be fixed within the tuning I am permitted to use**. The fix is a design decision that belongs to you, not a tuning tweak and not a bug.
 

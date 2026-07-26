@@ -43,6 +43,46 @@ export const TUNING = {
   SALARY_FAME_COEF: 600_000,
   ROI_COST_FLOOR: 500_000,
 
+  // ── §6 standing, owner ruling D-6 (2026-07-26) ─────────────────────────────
+  // Named constants for the three-channel update. Every value is normalized against
+  // the STEP-1 per-release corpus distributions (200 seeds × 2 agents, 4000
+  // releases; evidence in out/d6/step1-releases.jsonl). No magic number is inlined
+  // in standing.ts; these are the only knobs.
+  //
+  // Awareness (reach primary, star secondary). reach = boxOffice.total /
+  // baseMarketValue; SCALE = the reach that reads as "fully visible" (≈ pooled p90
+  // reach 0.90). NEUTRAL = the normalized-reach pivot (0.58 ⇒ a film at ~0.58 of the
+  // "fully visible" reach contributes ~0 from the reach term); below it the reach
+  // term is negative so a low-reach studio stays low-awareness. WEIGHTs set so a
+  // high-reach slate (Oracle, reach_norm ≈ 0.9) climbs each release (→ ≥60 over ten)
+  // while a low-reach slate (Random, reach_norm ≈ 0.47) hovers near its start.
+  AWARENESS_REACH_SCALE: 0.9, // reach value read as "fully visible" (pooled p90)
+  AWARENESS_REACH_NEUTRAL: 0.58, // normalized-reach pivot (0..1); below → negative reach term
+  AWARENESS_REACH_WEIGHT: 7, // primary reach coefficient (delta points per unit)
+  AWARENESS_STAR_WEIGHT: 1.2, // secondary star-attention coefficient (delta points per unit)
+  AWARENESS_DELTA_CAP: 6, // per-release |ΔaudienceAwareness| cap
+
+  // Prestige (absolute critic achievement). BENCHMARK sits near the pooled
+  // criticScore median (46.5) so it is REACHABLE from both sides — the prior fixed
+  // 60 was above ~p90, so prestige could only fall. SCALE 1.2 makes a criticScore
+  // ~2.4 above the benchmark give ~+2/release; a critic gap ≥12 saturates the ±10 cap.
+  PRESTIGE_CRITIC_BENCHMARK: 45, // reachable neutral benchmark (≈ criticScore median)
+  PRESTIGE_CRITIC_SCALE: 1.2, // criticScore points per one prestige delta point
+  PRESTIGE_DELTA_CAP: 10, // per-release |ΔindustryPrestige| cap
+
+  // Confidence (ROI primary, budget discipline penalty). ROI = profit /
+  // max(cost, floor); ROI_SCALE = the ROI at which roiSignal saturates to 1
+  // (≈ Oracle median ROI 5). DISCIPLINE_WEIGHT prices the over-funding fraction
+  // (overrun ∈ {0, 0.25} in the corpus). COST_FLOOR guards the ROI denominator
+  // (min observed committed cost ≈ 2.5M, so the 500k floor is a pure guard, matching
+  // D-1's ROI_COST_FLOOR rationale). No absolute-reach term; no reuse of the
+  // awareness surprise signal.
+  CONFIDENCE_ROI_SCALE: 5, // ROI at which roiSignal saturates to ±1
+  CONFIDENCE_ROI_WEIGHT: 4, // primary ROI coefficient (delta points per unit roiSignal)
+  CONFIDENCE_DISCIPLINE_WEIGHT: 4, // over-funding penalty coefficient (delta points per unit overrun)
+  CONFIDENCE_COST_FLOOR: 500_000, // ROI-denominator floor (currency); pure guard
+  CONFIDENCE_DELTA_CAP: 5, // per-release |ΔcommercialConfidence| cap
+
   // moved into TUNING per B17, at B17-revised values
   FORECAST_SIGMA: { high: 5, medium: 10, low: 16 },
   CONFIDENCE_INTERVAL_WIDTH: { high: 7, medium: 11, low: 14 },

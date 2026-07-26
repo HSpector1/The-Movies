@@ -160,8 +160,13 @@ export function tick(state: GameState): GameState {
       expectedCriticScore: prod.forecastSnapshot.expectedCriticScore,
     }
 
-    // B12 context: the three cast fames + actual/required negative. requiredNegative
-    // is the §5.1 value the reception result already computed.
+    // B12 context (D-6): the three cast fames + actual/required negative (already
+    // captured), PLUS baseMarketValue, marketing, and salaries — all ALREADY-EXISTING
+    // values read at RELEASE. salaries = Σ(writer + director + cast) resolved talent
+    // salaries (craft salaries are 0 in M0A — no craft hires — but excluded here since
+    // D-1's committed cost is negative + marketing + writer/director/cast salaries).
+    // This context is dropped at tick end (B12); nothing is persisted to GameState.
+    const castSalaries = cast.lead.salary + cast.antagonist.salary + cast.support.salary
     const ctx: StandingContext = {
       castFames: {
         lead: cast.lead.fame,
@@ -170,6 +175,9 @@ export function tick(state: GameState): GameState {
       },
       actualNegative: prod.budget.negative,
       requiredNegative: result.requiredNegative,
+      baseMarketValue: state.market.baseMarketValue,
+      marketing: prod.budget.marketing,
+      salaries: writer.salary + director.salary + castSalaries,
     }
 
     // §8 broadcast inputs (B23/B24), captured now from the ReceptionResult + the

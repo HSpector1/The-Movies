@@ -1,22 +1,42 @@
-// ── §6 Standing — INDEPENDENT contract-derived unit tests ────────────────────
+// ── §6 Standing — owner ruling D-6: behavioral + cause-isolation tests ───────
 //
-// Every expected value here is hand-derived from build-contract.md rev. 4 §6 and
-// the NORMATIVE resolutions (docs/rev4-open-questions.md, B12/M2). NOTHING is copied
-// from src/core/standing.ts (its body is never read). We import ONLY the public
+// Under D-6 the three standing channels have SETTLED MEANINGS, and every
+// expectation below is derived from those MEANINGS — never from the formula
+// (the body of src/core/standing.ts is NEVER read). We import ONLY the public
 // surface (src/core/index.ts).
 //
-// §6 formulas under test (verbatim):
-//   commercialSurprise = clamp((total - expectedTotal)/max(expectedTotal,1), -1, 1)
-//   normalizedStarAttention = clamp(mean(cast fame)/100, 0, 1)
-//   normalizedBudgetOverrun = clamp((actualNegative - requiredNegative)/max(requiredNegative,1), 0, 1)
-//   awarenessDelta  = clamp(6*surprise + 2*normStarAttention, -8, 8)
-//   prestigeDelta   = clamp((criticScore - 60)/8, -7, 7)
-//   confidenceDelta = clamp(5*surprise - 2*normBudgetOverrun, -8, 8)
-//   audienceAwareness    = clamp(prev + awarenessDelta,  0, 100)
-//   industryPrestige     = clamp(prev + prestigeDelta,   0, 100)
-//   commercialConfidence = clamp(prev + confidenceDelta, 0, 100)
+// D-6 channel meanings (the ONLY thing these tests encode):
+//
+//   Audience Awareness = PUBLIC VISIBILITY.
+//     PRIMARY driver  : absolute REACH = boxOffice.total / baseMarketValue.
+//     SECONDARY driver: star attention (mean cast fame / 100).
+//     Does NOT respond to forecast surprise. Higher reach ⇒ awareness rises;
+//     very low reach ⇒ awareness flat or falls; a widely-seen flop still raises
+//     awareness; a tiny profitable film does not.
+//
+//   Industry Prestige = ARTISTIC RESPECT.
+//     SOLE driver: absolute criticScore vs a REACHABLE neutral benchmark.
+//     Does NOT respond to box office, profit, star fame, or forecast surprise.
+//     Higher criticScore ⇒ prestige rises; low criticScore ⇒ prestige falls.
+//
+//   Commercial Confidence = FINANCIAL TRUST.
+//     PRIMARY drivers: realized ROI = (boxOffice.total − committedCost)/committedCost,
+//       where committedCost = actualNegative + marketing + salaries; AND budget
+//       discipline (over-funding overrun = (actualNegative − requiredNegative)/
+//       requiredNegative penalizes it).
+//     Does NOT respond to absolute reach and does NOT reuse the awareness signal.
+//     Higher ROI ⇒ confidence rises; a money-loser ⇒ confidence falls; over-funding
+//     ⇒ confidence penalized.
+//
+// The three channels MUST be able to move in DIFFERENT directions after the same
+// release. The (dormant) ReleaseBenchmarks / forecast values move NOTHING.
+//
+// We PREFER directional / relative assertions (sign of each channel's change,
+// one channel vs another) so the tests survive constant re-tuning; the per-release
+// caps are read from TUNING.
 
 import { describe, expect, it } from 'vitest'
+import { TUNING } from '../src/core/index.js'
 import { updateStanding } from '../src/core/index.js'
 import type {
   FilmResult,
@@ -26,318 +46,424 @@ import type {
   StandingContext,
 } from '../src/core/index.js'
 
-// ── minimal builders (values chosen by the test author; expectations derived) ──
+// ── minimal builders (all values are INPUTS, never copied expectations) ────────
 
-// A FilmResult with only the §6-relevant fields varying. The other fields are
-// declared-shape filler the standing update never reads (§6 reads box office total,
-// criticScore, and — via ctx — cast fames + negatives). Values are inputs, not
-// expectations.
-function makeResult(over: {
-  total?: number
-  criticScore?: number
-} = {}): FilmResult {
+// A type-complete FilmResult where updateStanding reads ONLY boxOffice.total and
+// criticScore; the rest is declared-shape filler.
+function makeResult(over: { total?: number; criticScore?: number } = {}): FilmResult {
   const segScores = {
     youngAdult: 50,
     family: 50,
     adult: 50,
     prestige: 50,
   } as Record<SegmentId, number>
+  const total = over.total ?? 0
+  const criticScore = over.criticScore ?? 50
   return {
     productionId: 'p-1',
     releaseTick: 8,
     delivered: { intimacy: 0, tonalWeight: 0, kineticEnergy: 0 },
     cohesion: 0.5,
     craft: 50,
-    criticMean: over.criticScore ?? 60,
+    criticMean: criticScore,
     criticSigma: 4,
-    criticScore: over.criticScore ?? 60,
+    criticScore,
     reviewVariance: 0,
     segmentScores: segScores,
-    boxOffice: { opening: 0, total: over.total ?? 0 },
+    boxOffice: { opening: 0, total },
     conceptId: 'concept-1',
     directorId: 'd-1',
   }
 }
 
-function bench(expectedTotal: number): ReleaseBenchmarks {
-  // expectedOpening / expectedCriticScore are dormant in updateStanding (§6 reads
-  // expectedTotal only), so any finite values suffice for those two.
-  return { expectedOpening: 1, expectedTotal, expectedCriticScore: 60 }
+// ReleaseBenchmarks are DORMANT under D-6 (updateStanding no longer reads them);
+// any finite values suffice.
+function bench(over: Partial<ReleaseBenchmarks> = {}): ReleaseBenchmarks {
+  return {
+    expectedOpening: over.expectedOpening ?? 1,
+    expectedTotal: over.expectedTotal ?? 1,
+    expectedCriticScore: over.expectedCriticScore ?? 50,
+  }
 }
 
-function ctxOf(over: {
-  fames?: [number, number, number]
-  actualNegative?: number
-  requiredNegative?: number
-} = {}): StandingContext {
+// Context with sensible neutral defaults. baseMarketValue governs reach together
+// with boxOffice.total; marketing + salaries + actualNegative are the committed
+// cost; requiredNegative is the discipline reference.
+function ctxOf(
+  over: {
+    fames?: [number, number, number]
+    actualNegative?: number
+    requiredNegative?: number
+    baseMarketValue?: number
+    marketing?: number
+    salaries?: number
+  } = {},
+): StandingContext {
   const f = over.fames ?? [0, 0, 0]
   return {
     castFames: { lead: f[0], antagonist: f[1], support: f[2] },
     actualNegative: over.actualNegative ?? 1_000_000,
     requiredNegative: over.requiredNegative ?? 1_000_000,
+    baseMarketValue: over.baseMarketValue ?? 1_000_000,
+    marketing: over.marketing ?? 400_000,
+    salaries: over.salaries ?? 600_000,
   }
 }
 
-// prev standing far from every clamp edge so a delta shows through cleanly.
-const MID: Standing = { audienceAwareness: 50, industryPrestige: 50, commercialConfidence: 50 }
+// committedCost = actualNegative + marketing + salaries — the D-6 confidence base.
+function committedCost(ctx: StandingContext): number {
+  return ctx.actualNegative + ctx.marketing + ctx.salaries
+}
 
-const EPS = 1e-9
+// prev standing mid-range so BOTH up and down are observable (far from 0/100).
+const MID: Standing = {
+  audienceAwareness: 50,
+  industryPrestige: 50,
+  commercialConfidence: 50,
+}
 
-describe('§6 commercialSurprise → the three deltas', () => {
-  // surprise = clamp((total - expectedTotal)/max(expectedTotal,1), -1, 1)
+function deltas(prev: Standing, out: Standing) {
+  return {
+    dAware: out.audienceAwareness - prev.audienceAwareness,
+    dPrestige: out.industryPrestige - prev.industryPrestige,
+    dConf: out.commercialConfidence - prev.commercialConfidence,
+  }
+}
 
-  it('surprise = +1 (total >> expectedTotal): saturates the positive side', () => {
-    // total=200, expectedTotal=100 → (100)/100 = 1.0 (already at the +1 cap edge; any
-    // larger ratio still clamps to +1). Use fames=0 to isolate surprise in awareness,
-    // overrun=0 to isolate surprise in confidence.
-    const r = makeResult({ total: 200, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ fames: [0, 0, 0] }))
-    // awarenessDelta = 6*1 + 2*0 = 6 → 50+6 = 56
-    expect(out.audienceAwareness).toBeCloseTo(56, 9)
-    // confidenceDelta = 5*1 - 2*0 = 5 → 50+5 = 55
-    expect(out.commercialConfidence).toBeCloseTo(55, 9)
-    // prestige untouched by surprise; criticScore 60 → delta 0 → 50
-    expect(out.industryPrestige).toBeCloseTo(50, 9)
+// ── Reach / benchmark anchors derived from the D-6 MEANINGS + TUNING pivots ─────
+//
+// Awareness reach is "absolute reach vs a reachable neutral". To land clearly on
+// the HIGH-reach side we make boxOffice.total ≈ baseMarketValue (reach ≈ 1: a film
+// seen by essentially the whole market). To land clearly LOW we make boxOffice.total
+// a small fraction of baseMarketValue (reach ≪ 1). We do NOT depend on the exact
+// pivot value, only that reach≈1 is high and reach≈0.05 is low.
+const MARKET = 1_000_000
+const HIGH_REACH_TOTAL = MARKET // reach ≈ 1.0  → widely seen
+const LOW_REACH_TOTAL = 50_000 // reach ≈ 0.05 → barely seen
+
+// Prestige benchmark is REACHABLE from both sides (D-6). criticScore well above it
+// ⇒ prestige rises; well below ⇒ falls. We straddle it generously.
+const HIGH_CRITIC = 90
+const LOW_CRITIC = 15
+const NEUTRAL_CRITIC = TUNING.PRESTIGE_CRITIC_BENCHMARK // on-benchmark ⇒ ~no prestige move
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// BEHAVIORAL CASES — assert the SIGN of each channel's change from the D-6 meaning
+// ═══════════════════════════════════════════════════════════════════════════════
+
+describe('D-6 behavioral: each channel moves in the direction its MEANING dictates', () => {
+  it('1. widely-seen critical failure → Awareness ↑, Prestige ↓, Confidence per ROI', () => {
+    // High reach (total ≈ market) makes the studio famous even though critics pan it.
+    // Build it as a MONEY-LOSER: committedCost well above revenue ⇒ ROI < 0 ⇒ Confidence ↓.
+    const ctx = ctxOf({ baseMarketValue: MARKET, actualNegative: 3_000_000, marketing: 1_000_000, salaries: 1_000_000 })
+    const r = makeResult({ total: HIGH_REACH_TOTAL, criticScore: LOW_CRITIC })
+    // ROI = (1.0M − 5.0M)/5.0M < 0 (money-loser) → Confidence must FALL.
+    expect(r.boxOffice.total).toBeLessThan(committedCost(ctx))
+    const { dAware, dPrestige, dConf } = deltas(MID, updateStanding(MID, r, bench(), ctx))
+    expect(dAware).toBeGreaterThan(0) // widely seen ⇒ more visible
+    expect(dPrestige).toBeLessThan(0) // panned ⇒ less respected
+    expect(dConf).toBeLessThan(0) // lost money ⇒ less trusted
   })
 
-  it('surprise clamps at +1 even for a huge overshoot', () => {
-    // total = 10x expected → raw ratio 9, clamp to +1. Same deltas as the exact-+1 case.
-    const r = makeResult({ total: 1_000, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ fames: [0, 0, 0] }))
-    expect(out.audienceAwareness).toBeCloseTo(56, 9) // 6*1
-    expect(out.commercialConfidence).toBeCloseTo(55, 9) // 5*1
+  it('2. acclaimed financial failure → Prestige ↑, Confidence ↓, Awareness per reach', () => {
+    // Great reviews, but a money-LOSER (total < committedCost). Give it high reach so
+    // awareness also rises — proves prestige/confidence diverge from awareness.
+    const ctx = ctxOf({ baseMarketValue: MARKET, actualNegative: 4_000_000, marketing: 1_000_000, salaries: 1_000_000 })
+    const r = makeResult({ total: HIGH_REACH_TOTAL, criticScore: HIGH_CRITIC })
+    expect(r.boxOffice.total).toBeLessThan(committedCost(ctx)) // money-loser
+    const { dAware, dPrestige, dConf } = deltas(MID, updateStanding(MID, r, bench(), ctx))
+    expect(dPrestige).toBeGreaterThan(0) // acclaimed ⇒ more respected
+    expect(dConf).toBeLessThan(0) // lost money ⇒ less trusted
+    expect(dAware).toBeGreaterThan(0) // widely seen ⇒ more visible
   })
 
-  it('surprise = -1 (total = 0): saturates the negative side', () => {
-    // total=0, expectedTotal=100 → -100/100 = -1.
-    const r = makeResult({ total: 0, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ fames: [0, 0, 0] }))
-    // awarenessDelta = 6*(-1) + 2*0 = -6 → 50-6 = 44
-    expect(out.audienceAwareness).toBeCloseTo(44, 9)
-    // confidenceDelta = 5*(-1) - 2*0 = -5 → 50-5 = 45
-    expect(out.commercialConfidence).toBeCloseTo(45, 9)
-    expect(out.industryPrestige).toBeCloseTo(50, 9)
+  it('3. profitable disciplined sleeper → Confidence ↑, Awareness rises little, Prestige per critics', () => {
+    // Modest reach (low), strong ROI (total ≫ committedCost), no over-funding.
+    // Confidence must rise; awareness should move only modestly vs a mass hit (case 1).
+    const cheapCost = ctxOf({
+      baseMarketValue: MARKET,
+      actualNegative: 200_000,
+      requiredNegative: 200_000, // funded exactly to requirement → overrun 0
+      marketing: 100_000,
+      salaries: 100_000, // committedCost = 400k
+    })
+    const r = makeResult({ total: LOW_REACH_TOTAL * 20, criticScore: NEUTRAL_CRITIC }) // total 1.0M ≫ 400k cost
+    expect(r.boxOffice.total).toBeGreaterThan(committedCost(cheapCost)) // profitable
+    const { dAware, dConf } = deltas(MID, updateStanding(MID, r, bench(), cheapCost))
+    expect(dConf).toBeGreaterThan(0) // strong ROI, no overrun ⇒ more trusted
+
+    // Awareness of this sleeper (reach = 1.0M/1.0M ≈ 1? no — total here is 1.0M vs
+    // market 1.0M). Keep the sleeper's reach genuinely modest by raising its market.
+    const sleeperCtx = ctxOf({
+      baseMarketValue: 20_000_000, // huge available market → this film reaches a small slice
+      actualNegative: 200_000,
+      requiredNegative: 200_000,
+      marketing: 100_000,
+      salaries: 100_000,
+    })
+    const sleeper = updateStanding(MID, makeResult({ total: 1_000_000, criticScore: NEUTRAL_CRITIC }), bench(), sleeperCtx)
+    const massHitCtx = ctxOf({ baseMarketValue: MARKET, actualNegative: 200_000, marketing: 100_000, salaries: 100_000 })
+    const massHit = updateStanding(MID, makeResult({ total: HIGH_REACH_TOTAL, criticScore: NEUTRAL_CRITIC }), bench(), massHitCtx)
+    const dAwareSleeper = sleeper.audienceAwareness - MID.audienceAwareness
+    const dAwareMass = massHit.audienceAwareness - MID.audienceAwareness
+    // A tiny-slice film raises awareness LESS than a whole-market hit.
+    expect(dAwareMass).toBeGreaterThan(dAwareSleeper)
+    void dAware // (the same-market sleeper's awareness is only sanity-referenced)
   })
 
-  it('surprise interior value (+0.30): deltas scale linearly', () => {
-    // total=130, expectedTotal=100 → 30/100 = 0.30. fames=0, overrun=0.
-    const r = makeResult({ total: 130, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ fames: [0, 0, 0] }))
-    // awarenessDelta = 6*0.30 + 0 = 1.8 → 51.8
-    expect(out.audienceAwareness).toBeCloseTo(51.8, 9)
-    // confidenceDelta = 5*0.30 - 0 = 1.5 → 51.5
-    expect(out.commercialConfidence).toBeCloseTo(51.5, 9)
+  it('4. expensive blockbuster disappointment → Awareness ↑, Confidence ↓, Prestige per critics', () => {
+    // High reach (widely seen) but a money-loser because the cost was enormous.
+    const ctx = ctxOf({ baseMarketValue: MARKET, actualNegative: 8_000_000, marketing: 3_000_000, salaries: 4_000_000 })
+    const r = makeResult({ total: HIGH_REACH_TOTAL, criticScore: NEUTRAL_CRITIC })
+    expect(r.boxOffice.total).toBeLessThan(committedCost(ctx)) // huge cost ⇒ loss
+    const { dAware, dConf } = deltas(MID, updateStanding(MID, r, bench(), ctx))
+    expect(dAware).toBeGreaterThan(0) // widely seen ⇒ more visible
+    expect(dConf).toBeLessThan(0) // enormous cost, lost money ⇒ less trusted
   })
 
-  it('expectedTotal guarded by max(.,1): expectedTotal=0 → denominator 1', () => {
-    // total=0.5, expectedTotal=0 → (0.5-0)/max(0,1)=0.5 surprise.
-    const r = makeResult({ total: 0.5, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(0), ctxOf({ fames: [0, 0, 0] }))
-    // awarenessDelta = 6*0.5 = 3 → 53
-    expect(out.audienceAwareness).toBeCloseTo(53, 9)
-  })
-})
-
-describe('§6 awarenessDelta = clamp(6*surprise + 2*normStarAttention, -8, 8)', () => {
-  // normStarAttention = clamp(mean(3 cast fames)/100, 0, 1)
-
-  it('hits the +8 clamp: surprise=+1, fames all 100 → 6+2 = 8', () => {
-    // raw = 6*1 + 2*1 = 8 (exactly the cap edge).
-    const r = makeResult({ total: 200, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ fames: [100, 100, 100] }))
-    expect(out.audienceAwareness).toBeCloseTo(58, 9) // 50 + 8
+  it('5. star-driven flop → Awareness may rise (visibility/star), Prestige ↓, Confidence ↓', () => {
+    // Famous cast + high reach make it visible; poor critics and poor financials.
+    const ctx = ctxOf({
+      fames: [100, 100, 100],
+      baseMarketValue: MARKET,
+      actualNegative: 3_000_000,
+      marketing: 1_000_000,
+      salaries: 2_000_000,
+    })
+    const r = makeResult({ total: HIGH_REACH_TOTAL, criticScore: LOW_CRITIC })
+    expect(r.boxOffice.total).toBeLessThan(committedCost(ctx)) // money-loser
+    const { dAware, dPrestige, dConf } = deltas(MID, updateStanding(MID, r, bench(), ctx))
+    expect(dAware).toBeGreaterThan(0) // visibility + star attention
+    expect(dPrestige).toBeLessThan(0) // panned
+    expect(dConf).toBeLessThan(0) // lost money
   })
 
-  it('clamps at +8 when the raw sum would exceed it', () => {
-    // surprise clamps to +1 (total=10x), fames=100 → raw would be 8 exactly; push
-    // past by nothing available in the formula, so instead prove the cap binds by
-    // construction: even the max attainable raw (6*1 + 2*1 = 8) equals the cap, never
-    // exceeds it. A separate interior case below shows the sub-cap regime.
-    const r = makeResult({ total: 5_000, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ fames: [100, 100, 100] }))
-    expect(out.audienceAwareness).toBeCloseTo(58, 9)
+  it('6. low-budget prestige success → Prestige ↑, Confidence ≥ 0, Awareness ≪ a mass hit', () => {
+    // Acclaimed AND profitable, but limited reach (small slice of a big market).
+    const ctx = ctxOf({
+      baseMarketValue: 20_000_000, // big market → limited reach
+      actualNegative: 150_000,
+      requiredNegative: 150_000, // no overrun
+      marketing: 100_000,
+      salaries: 100_000, // committedCost = 350k
+    })
+    const r = makeResult({ total: 1_500_000, criticScore: HIGH_CRITIC }) // profitable (1.5M ≫ 350k)
+    expect(r.boxOffice.total).toBeGreaterThan(committedCost(ctx))
+    const out = updateStanding(MID, r, bench(), ctx)
+    const { dAware, dPrestige, dConf } = deltas(MID, out)
+    expect(dPrestige).toBeGreaterThan(0) // acclaimed
+    expect(dConf).toBeGreaterThanOrEqual(0) // profitable, disciplined ⇒ not penalized
+
+    // Compare its awareness gain against a genuine mass hit (case-1-style whole-market reach).
+    const massHitCtx = ctxOf({ baseMarketValue: MARKET, actualNegative: 3_000_000, marketing: 1_000_000, salaries: 1_000_000 })
+    const massHit = updateStanding(MID, makeResult({ total: HIGH_REACH_TOTAL, criticScore: LOW_CRITIC }), bench(), massHitCtx)
+    const dAwareMass = massHit.audienceAwareness - MID.audienceAwareness
+    expect(dAwareMass).toBeGreaterThan(dAware) // limited reach ⇒ materially less awareness
   })
 
-  it('hits the -8 clamp: surprise=-1, fames=0 gives -6; need extra negative — so cap is -8 by formula, verify -6 floor of star term', () => {
-    // With surprise=-1 and fames=0: raw = -6. The star term is >= 0 always, so the
-    // most-negative attainable awarenessDelta is -6 (star attention cannot push it
-    // below -6). Assert -6, and that it never dips under the -8 clamp bound.
-    const r = makeResult({ total: 0, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ fames: [0, 0, 0] }))
-    expect(out.audienceAwareness).toBeCloseTo(44, 9) // 50 - 6
-    expect(out.audienceAwareness).toBeGreaterThanOrEqual(50 - 8 - EPS)
-  })
-
-  it('normStarAttention clamps to 1 for fames >100-equivalent mean; mean of [100,100,100]=100 → 1.0', () => {
-    // surprise=0 isolates the star term: awarenessDelta = 2*1 = 2.
-    const r = makeResult({ total: 100, criticScore: 60 }) // total=expected → surprise 0
-    const out = updateStanding(MID, r, bench(100), ctxOf({ fames: [100, 100, 100] }))
-    expect(out.audienceAwareness).toBeCloseTo(52, 9) // 50 + 2*1
-  })
-
-  it('normStarAttention interior: mean fame 60 → 0.6; surprise 0 → delta 1.2', () => {
-    // mean([90,60,30]) = 60 → norm 0.6 → 2*0.6 = 1.2.
-    const r = makeResult({ total: 100, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ fames: [90, 60, 30] }))
-    expect(out.audienceAwareness).toBeCloseTo(51.2, 9)
-  })
-
-  it('channel clamp at 100: prev near 100, positive delta cannot exceed 100', () => {
-    const near100: Standing = { audienceAwareness: 97, industryPrestige: 50, commercialConfidence: 50 }
-    const r = makeResult({ total: 200, criticScore: 60 }) // surprise +1
-    // awarenessDelta = 6 + 2 = 8 → 97+8 = 105 → clamp 100
-    const out = updateStanding(near100, r, bench(100), ctxOf({ fames: [100, 100, 100] }))
-    expect(out.audienceAwareness).toBe(100)
-  })
-
-  it('channel clamp at 0: prev near 0, negative delta cannot go below 0', () => {
-    const near0: Standing = { audienceAwareness: 3, industryPrestige: 50, commercialConfidence: 50 }
-    const r = makeResult({ total: 0, criticScore: 60 }) // surprise -1
-    // awarenessDelta = -6 → 3-6 = -3 → clamp 0
-    const out = updateStanding(near0, r, bench(100), ctxOf({ fames: [0, 0, 0] }))
-    expect(out.audienceAwareness).toBe(0)
-  })
-})
-
-describe('§6 prestigeDelta = clamp((criticScore - 60)/8, -7, 7)', () => {
-  it('criticScore = 60 → delta 0 (the literal 60 anchor)', () => {
-    const r = makeResult({ total: 100, criticScore: 60 }) // surprise 0 so other channels quiet
-    const out = updateStanding(MID, r, bench(100), ctxOf())
-    expect(out.industryPrestige).toBeCloseTo(50, 9)
-  })
-
-  it('criticScore = 100 → +5 (NOTE: the +7 cap is unreachable for criticScore<=100)', () => {
-    // (100-60)/8 = 40/8 = 5.0. The +7 cap needs criticScore = 116, impossible (0..100),
-    // so 5 is the attainable maximum; assert 5 AND that it respects the +7 bound.
-    const r = makeResult({ total: 100, criticScore: 100 })
-    const out = updateStanding(MID, r, bench(100), ctxOf())
-    expect(out.industryPrestige).toBeCloseTo(55, 9) // 50 + 5
-    expect(out.industryPrestige - 50).toBeLessThanOrEqual(7 + EPS) // clamp bound holds
-    expect(out.industryPrestige - 50).toBeCloseTo(5, 9) // and it is 5, not 7
-  })
-
-  it('criticScore = 0 → clamp binds at -7', () => {
-    // (0-60)/8 = -7.5 → clamp to -7.
-    const r = makeResult({ total: 100, criticScore: 0 })
-    const out = updateStanding(MID, r, bench(100), ctxOf())
-    expect(out.industryPrestige).toBeCloseTo(43, 9) // 50 - 7
-  })
-
-  it('criticScore = 84 → interior +3', () => {
-    // (84-60)/8 = 24/8 = 3.
-    const r = makeResult({ total: 100, criticScore: 84 })
-    const out = updateStanding(MID, r, bench(100), ctxOf())
-    expect(out.industryPrestige).toBeCloseTo(53, 9)
-  })
-
-  it('industryPrestige channel clamps to [0,100]: near-100 with +5', () => {
-    const near100: Standing = { audienceAwareness: 50, industryPrestige: 98, commercialConfidence: 50 }
-    const r = makeResult({ total: 100, criticScore: 100 })
-    const out = updateStanding(near100, r, bench(100), ctxOf())
-    expect(out.industryPrestige).toBe(100) // 98 + 5 = 103 → clamp 100
-  })
-
-  it('industryPrestige channel clamps at 0: near-0 with -7', () => {
-    const near0: Standing = { audienceAwareness: 50, industryPrestige: 4, commercialConfidence: 50 }
-    const r = makeResult({ total: 100, criticScore: 0 })
-    const out = updateStanding(near0, r, bench(100), ctxOf())
-    expect(out.industryPrestige).toBe(0) // 4 - 7 = -3 → clamp 0
-  })
-})
-
-describe('§6 confidenceDelta = clamp(5*surprise - 2*normBudgetOverrun, -8, 8)', () => {
-  // normBudgetOverrun = clamp((actualNegative - requiredNegative)/max(requiredNegative,1), 0, 1)
-
-  it('overrun = 0 (actualNegative = requiredNegative): confidence moves on surprise only', () => {
-    // surprise = +0.30 (total 130 / exp 100), overrun 0 → 5*0.30 - 0 = 1.5.
-    const r = makeResult({ total: 130, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ actualNegative: 1_000_000, requiredNegative: 1_000_000 }))
-    expect(out.commercialConfidence).toBeCloseTo(51.5, 9)
-  })
-
-  it('overrun = 1 (actualNegative = 2x requiredNegative): -2 penalty term at full', () => {
-    // (2M - 1M)/max(1M,1) = 1 → overrun clamps at 1. surprise 0 (total=exp) → 5*0 - 2*1 = -2.
-    const r = makeResult({ total: 100, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ actualNegative: 2_000_000, requiredNegative: 1_000_000 }))
-    expect(out.commercialConfidence).toBeCloseTo(48, 9) // 50 - 2
-  })
-
-  it('overrun clamps at 1 for actualNegative far above requiredNegative', () => {
-    // 10M vs 1M → raw ratio 9 → clamp 1. Same -2 term. surprise +1 → 5*1 - 2*1 = 3.
-    const r = makeResult({ total: 200, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ actualNegative: 10_000_000, requiredNegative: 1_000_000 }))
-    expect(out.commercialConfidence).toBeCloseTo(53, 9) // 50 + 3
-  })
-
-  it('overrun floors at 0 for underfunding (actualNegative < requiredNegative)', () => {
-    // actual 0.5M, required 1M → (−0.5M)/1M = −0.5 → clamp to 0. surprise 0 → delta 0.
-    const r = makeResult({ total: 100, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ actualNegative: 500_000, requiredNegative: 1_000_000 }))
-    expect(out.commercialConfidence).toBeCloseTo(50, 9)
-  })
-
-  it('hits the -8 confidence clamp: surprise=-1 and full overrun → 5*(-1) - 2*1 = -7 (>= -8 bound)', () => {
-    const r = makeResult({ total: 0, criticScore: 60 }) // surprise -1
-    const out = updateStanding(MID, r, bench(100), ctxOf({ actualNegative: 2_000_000, requiredNegative: 1_000_000 }))
-    expect(out.commercialConfidence).toBeCloseTo(43, 9) // 50 - 7
-    expect(out.commercialConfidence).toBeGreaterThanOrEqual(50 - 8 - EPS)
-  })
-
-  it('commercialConfidence channel clamps to [0,100]', () => {
-    const near0: Standing = { audienceAwareness: 50, industryPrestige: 50, commercialConfidence: 5 }
-    const r = makeResult({ total: 0, criticScore: 60 }) // surprise -1
-    // delta = 5*(-1) - 2*1 = -7 → 5-7 = -2 → clamp 0
-    const out = updateStanding(near0, r, bench(100), ctxOf({ actualNegative: 2_000_000, requiredNegative: 1_000_000 }))
-    expect(out.commercialConfidence).toBe(0)
-  })
-
-  it('requiredNegative guarded by max(.,1): requiredNegative=0 → denominator 1', () => {
-    // actual 1, required 0 → (1-0)/max(0,1)=1 → overrun 1. surprise 0 → -2.
-    const r = makeResult({ total: 100, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ actualNegative: 1, requiredNegative: 0 }))
-    expect(out.commercialConfidence).toBeCloseTo(48, 9)
+  it('7. channels diverge: one release moves the three deltas in DIFFERENT signs', () => {
+    // Constructed to give Awareness ↑ (high reach), Prestige ↓ (panned),
+    // Confidence ↓ (money-loser) — three distinct simultaneous directions.
+    const ctx = ctxOf({ baseMarketValue: MARKET, actualNegative: 3_000_000, marketing: 1_000_000, salaries: 1_500_000 })
+    const r = makeResult({ total: HIGH_REACH_TOTAL, criticScore: LOW_CRITIC })
+    const { dAware, dPrestige, dConf } = deltas(MID, updateStanding(MID, r, bench(), ctx))
+    expect(dAware).toBeGreaterThan(0)
+    expect(dPrestige).toBeLessThan(0)
+    expect(dConf).toBeLessThan(0)
+    // Awareness sign differs from the other two (the core divergence proof).
+    expect(Math.sign(dAware)).not.toBe(Math.sign(dPrestige))
+    expect(Math.sign(dAware)).not.toBe(Math.sign(dConf))
   })
 })
 
-describe('§6/§14 differentiation: the three channels move on DIFFERENT causes', () => {
-  it('a release that moves ONLY awareness materially (high surprise+fame, neutral critics, no overrun)', () => {
-    // surprise +1, fames 100 → awarenessDelta = +8 (big). criticScore = 60 → prestigeDelta 0.
-    // confidence also gets 5*surprise here, so to isolate awareness we neutralize the
-    // commercial channel of confidence by holding surprise's confidence contribution
-    // against the fact that prestige (the critic channel) is the one we prove untouched:
-    // this case shows awareness >> prestige (prestige is exactly flat).
-    const r = makeResult({ total: 200, criticScore: 60 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ fames: [100, 100, 100] }))
-    const dAware = out.audienceAwareness - MID.audienceAwareness
-    const dPrestige = out.industryPrestige - MID.industryPrestige
-    expect(dAware).toBeCloseTo(8, 9) // moved a lot
-    expect(dPrestige).toBeCloseTo(0, 9) // critic channel untouched by commercial success
-    expect(Math.abs(dAware)).toBeGreaterThan(Math.abs(dPrestige) + 5)
+// ═══════════════════════════════════════════════════════════════════════════════
+// CAUSE-ISOLATION — PAIRS identical except one input; ONLY the intended channel moves
+// ═══════════════════════════════════════════════════════════════════════════════
+
+describe('D-6 cause-isolation: each authorized driver moves ONLY its own channel', () => {
+  it('changing ONLY criticScore → ONLY Prestige changes (awareness & confidence identical)', () => {
+    // Everything fixed; sweep criticScore across the benchmark. Prestige must be the
+    // ONLY channel that differs between the two runs.
+    const ctx = ctxOf({ baseMarketValue: MARKET, actualNegative: 1_000_000, marketing: 400_000, salaries: 600_000 })
+    const lo = updateStanding(MID, makeResult({ total: 700_000, criticScore: LOW_CRITIC }), bench(), ctx)
+    const hi = updateStanding(MID, makeResult({ total: 700_000, criticScore: HIGH_CRITIC }), bench(), ctx)
+    expect(hi.audienceAwareness).toBe(lo.audienceAwareness) // reach identical
+    expect(hi.commercialConfidence).toBe(lo.commercialConfidence) // ROI identical
+    expect(hi.industryPrestige).toBeGreaterThan(lo.industryPrestige) // ONLY prestige moved (and rose)
   })
 
-  it('a release that moves ONLY prestige materially (great reviews, on-benchmark box office, no fame)', () => {
-    // total = expectedTotal → surprise 0 → awarenessDelta = 2*normStar; with fames 0 → 0,
-    // and confidenceDelta = 5*0 - 2*0 = 0. criticScore 100 → prestigeDelta +5.
-    const r = makeResult({ total: 100, criticScore: 100 })
-    const out = updateStanding(MID, r, bench(100), ctxOf({ fames: [0, 0, 0], actualNegative: 1_000_000, requiredNegative: 1_000_000 }))
-    const dAware = out.audienceAwareness - MID.audienceAwareness
-    const dPrestige = out.industryPrestige - MID.industryPrestige
-    const dConf = out.commercialConfidence - MID.commercialConfidence
-    expect(dPrestige).toBeCloseTo(5, 9) // moved a lot
-    expect(dAware).toBeCloseTo(0, 9) // awareness untouched by critics
-    expect(dConf).toBeCloseTo(0, 9) // confidence untouched by critics
-    expect(Math.abs(dPrestige)).toBeGreaterThan(Math.abs(dAware) + 4)
-    expect(Math.abs(dPrestige)).toBeGreaterThan(Math.abs(dConf) + 4)
+  it('changing ONLY reach (via baseMarketValue, holding revenue/cost/critics/fame fixed) → ONLY Awareness changes', () => {
+    // Reach = boxOffice.total / baseMarketValue. Vary baseMarketValue ONLY: revenue,
+    // committed cost (ROI), criticScore and fame are all held byte-identical, so ONLY
+    // awareness may move. Smaller market ⇒ higher reach ⇒ higher awareness.
+    const common = { actualNegative: 1_000_000, requiredNegative: 1_000_000, marketing: 400_000, salaries: 600_000 }
+    const r = makeResult({ total: 800_000, criticScore: NEUTRAL_CRITIC })
+    const bigMarket = updateStanding(MID, r, bench(), ctxOf({ ...common, baseMarketValue: 20_000_000 })) // reach ≈ 0.04
+    const smallMarket = updateStanding(MID, r, bench(), ctxOf({ ...common, baseMarketValue: 900_000 })) // reach ≈ 0.9
+    expect(smallMarket.industryPrestige).toBe(bigMarket.industryPrestige) // critics unchanged
+    expect(smallMarket.commercialConfidence).toBe(bigMarket.commercialConfidence) // ROI unchanged (cost/revenue fixed)
+    expect(smallMarket.audienceAwareness).toBeGreaterThan(bigMarket.audienceAwareness) // ONLY awareness moved
   })
 
-  it('critic score alone does not touch awareness or confidence (orthogonality)', () => {
-    // Vary criticScore across [0,100] with box office pinned on-benchmark and no fame/overrun:
-    // awareness and confidence deltas stay 0 while prestige sweeps.
-    for (const cs of [0, 30, 60, 84, 100]) {
-      const r = makeResult({ total: 100, criticScore: cs })
-      const out = updateStanding(MID, r, bench(100), ctxOf({ fames: [0, 0, 0], actualNegative: 1_000_000, requiredNegative: 1_000_000 }))
-      expect(out.audienceAwareness).toBeCloseTo(50, 9)
-      expect(out.commercialConfidence).toBeCloseTo(50, 9)
+  it('changing ONLY profitability/cost (holding reach, critics, fame fixed) → ONLY Confidence changes', () => {
+    // Hold reach (total & baseMarketValue fixed), criticScore, and fame. Vary committed
+    // cost via marketing + salaries, and vary discipline via requiredNegative. ONLY
+    // confidence may move.
+    const r = makeResult({ total: 5_000_000, criticScore: NEUTRAL_CRITIC })
+    const market = 5_000_000 // reach = 5M/5M = 1.0 in BOTH runs
+    const profitable = updateStanding(
+      MID,
+      r,
+      bench(),
+      ctxOf({ baseMarketValue: market, actualNegative: 500_000, requiredNegative: 500_000, marketing: 100_000, salaries: 100_000 }),
+    ) // committedCost 700k ⇒ ROI ≫ 0
+    const lossMaking = updateStanding(
+      MID,
+      r,
+      bench(),
+      ctxOf({ baseMarketValue: market, actualNegative: 8_000_000, requiredNegative: 500_000, marketing: 2_000_000, salaries: 2_000_000 }),
+    ) // committedCost 12M ⇒ ROI < 0, and massive over-funding overrun
+    expect(profitable.audienceAwareness).toBe(lossMaking.audienceAwareness) // reach identical
+    expect(profitable.industryPrestige).toBe(lossMaking.industryPrestige) // critics identical
+    expect(profitable.commercialConfidence).toBeGreaterThan(lossMaking.commercialConfidence) // ONLY confidence moved
+
+    // And discipline in isolation: same revenue/cost/reach/critics, only requiredNegative
+    // (the over-funding reference) differs → only confidence may move.
+    const disciplined = updateStanding(
+      MID,
+      r,
+      bench(),
+      ctxOf({ baseMarketValue: market, actualNegative: 2_000_000, requiredNegative: 2_000_000, marketing: 100_000, salaries: 100_000 }),
+    ) // overrun 0
+    const overFunded = updateStanding(
+      MID,
+      r,
+      bench(),
+      ctxOf({ baseMarketValue: market, actualNegative: 2_000_000, requiredNegative: 1_000_000, marketing: 100_000, salaries: 100_000 }),
+    ) // overrun = (2M−1M)/1M = 1.0 ; identical committedCost & revenue ⇒ identical ROI
+    expect(overFunded.audienceAwareness).toBe(disciplined.audienceAwareness)
+    expect(overFunded.industryPrestige).toBe(disciplined.industryPrestige)
+    expect(overFunded.commercialConfidence).toBeLessThan(disciplined.commercialConfidence) // over-funding penalized
+  })
+
+  it('changing ONLY star fame → Awareness moves (small, authorized secondary); Prestige & Confidence identical', () => {
+    // Fame is awareness's SECONDARY contributor only. Hold reach, critics, ROI fixed;
+    // vary fame from 0 to 100. Awareness may move (small); the other two must not.
+    const ctx = { baseMarketValue: MARKET, actualNegative: 1_000_000, requiredNegative: 1_000_000, marketing: 400_000, salaries: 600_000 }
+    const r = makeResult({ total: 700_000, criticScore: NEUTRAL_CRITIC })
+    const noFame = updateStanding(MID, r, bench(), ctxOf({ ...ctx, fames: [0, 0, 0] }))
+    const famous = updateStanding(MID, r, bench(), ctxOf({ ...ctx, fames: [100, 100, 100] }))
+    expect(famous.industryPrestige).toBe(noFame.industryPrestige) // critics unchanged
+    expect(famous.commercialConfidence).toBe(noFame.commercialConfidence) // ROI unchanged
+    expect(famous.audienceAwareness).toBeGreaterThan(noFame.audienceAwareness) // fame lifts awareness
+    // Secondary means SMALL: the fame-only lift must be less than a full reach swing
+    // (reach term is the PRIMARY driver). Compare fame's lift to a big reach lift.
+    const fameLift = famous.audienceAwareness - noFame.audienceAwareness
+    const highReach = updateStanding(MID, makeResult({ total: MARKET, criticScore: NEUTRAL_CRITIC }), bench(), ctxOf({ ...ctx, fames: [0, 0, 0] }))
+    const lowReach = updateStanding(MID, makeResult({ total: 30_000, criticScore: NEUTRAL_CRITIC }), bench(), ctxOf({ ...ctx, fames: [0, 0, 0] }))
+    const reachSwing = highReach.audienceAwareness - lowReach.audienceAwareness
+    expect(fameLift).toBeLessThan(reachSwing) // secondary < primary
+  })
+
+  it('changing ONLY the dormant ReleaseBenchmarks/forecast values → NO channel changes (D-6 dropped forecast surprise)', () => {
+    // Same FilmResult + same ctx; ONLY the forecast benchmarks differ (wildly). If any
+    // channel moved, the implementation would still be reading forecast surprise.
+    const ctx = ctxOf({ baseMarketValue: MARKET, actualNegative: 1_000_000, marketing: 400_000, salaries: 600_000 })
+    const r = makeResult({ total: 800_000, criticScore: 70 })
+    const lowExpect = updateStanding(MID, r, bench({ expectedTotal: 1, expectedOpening: 1, expectedCriticScore: 1 }), ctx)
+    const highExpect = updateStanding(MID, r, bench({ expectedTotal: 999_999_999, expectedOpening: 999_999, expectedCriticScore: 100 }), ctx)
+    expect(highExpect).toStrictEqual(lowExpect) // forecast is dormant → nothing moves
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// BOUNDS / CAPS — channels stay in [0,100]; per-release delta within its cap
+// ═══════════════════════════════════════════════════════════════════════════════
+
+describe('D-6 bounds: [0,100] clamping and per-release delta caps', () => {
+  // Extreme releases used to probe both the positive and negative caps.
+  const HUGE_POS_CTX = ctxOf({
+    fames: [100, 100, 100],
+    baseMarketValue: 500_000, // reach = 5.0M/500k = 10 → far above "fully visible"
+    actualNegative: 500_000,
+    requiredNegative: 5_000_000, // under-funded → no overrun penalty
+    marketing: 100_000,
+    salaries: 100_000, // tiny cost vs 5M revenue → ROI enormous
+  })
+  const HUGE_NEG_CTX = ctxOf({
+    fames: [0, 0, 0],
+    baseMarketValue: 100_000_000, // reach ≈ 0 → awareness pushed down hard
+    actualNegative: 50_000_000,
+    requiredNegative: 1_000_000, // massive over-funding
+    marketing: 10_000_000,
+    salaries: 10_000_000, // committedCost ≫ revenue → ROI deeply negative
+  })
+  const posResult = makeResult({ total: 5_000_000, criticScore: 100 })
+  const negResult = makeResult({ total: 10_000, criticScore: 0 })
+
+  it('per-release |Δ| of each channel never exceeds its TUNING cap (positive extreme)', () => {
+    const { dAware, dPrestige, dConf } = deltas(MID, updateStanding(MID, posResult, bench(), HUGE_POS_CTX))
+    expect(Math.abs(dAware)).toBeLessThanOrEqual(TUNING.AWARENESS_DELTA_CAP + 1e-9)
+    expect(Math.abs(dPrestige)).toBeLessThanOrEqual(TUNING.PRESTIGE_DELTA_CAP + 1e-9)
+    expect(Math.abs(dConf)).toBeLessThanOrEqual(TUNING.CONFIDENCE_DELTA_CAP + 1e-9)
+    // and the direction is up on every channel for this all-good release
+    expect(dAware).toBeGreaterThan(0)
+    expect(dPrestige).toBeGreaterThan(0)
+    expect(dConf).toBeGreaterThan(0)
+  })
+
+  it('per-release |Δ| of each channel never exceeds its TUNING cap (negative extreme)', () => {
+    const { dAware, dPrestige, dConf } = deltas(MID, updateStanding(MID, negResult, bench(), HUGE_NEG_CTX))
+    expect(Math.abs(dAware)).toBeLessThanOrEqual(TUNING.AWARENESS_DELTA_CAP + 1e-9)
+    expect(Math.abs(dPrestige)).toBeLessThanOrEqual(TUNING.PRESTIGE_DELTA_CAP + 1e-9)
+    expect(Math.abs(dConf)).toBeLessThanOrEqual(TUNING.CONFIDENCE_DELTA_CAP + 1e-9)
+    expect(dAware).toBeLessThan(0)
+    expect(dPrestige).toBeLessThan(0)
+    expect(dConf).toBeLessThan(0)
+  })
+
+  it('starting near 100 clamps to ≤ 100 on an all-good release', () => {
+    const near100: Standing = { audienceAwareness: 99, industryPrestige: 99, commercialConfidence: 99 }
+    const out = updateStanding(near100, posResult, bench(), HUGE_POS_CTX)
+    expect(out.audienceAwareness).toBeLessThanOrEqual(100)
+    expect(out.industryPrestige).toBeLessThanOrEqual(100)
+    expect(out.commercialConfidence).toBeLessThanOrEqual(100)
+    expect(out.audienceAwareness).toBeGreaterThanOrEqual(99) // rose but capped
+    expect(out.industryPrestige).toBeGreaterThanOrEqual(99)
+    expect(out.commercialConfidence).toBeGreaterThanOrEqual(99)
+  })
+
+  it('starting near 0 clamps to ≥ 0 on an all-bad release', () => {
+    const near0: Standing = { audienceAwareness: 1, industryPrestige: 1, commercialConfidence: 1 }
+    const out = updateStanding(near0, negResult, bench(), HUGE_NEG_CTX)
+    expect(out.audienceAwareness).toBeGreaterThanOrEqual(0)
+    expect(out.industryPrestige).toBeGreaterThanOrEqual(0)
+    expect(out.commercialConfidence).toBeGreaterThanOrEqual(0)
+    expect(out.audienceAwareness).toBeLessThanOrEqual(1) // fell but floored
+    expect(out.industryPrestige).toBeLessThanOrEqual(1)
+    expect(out.commercialConfidence).toBeLessThanOrEqual(1)
+  })
+
+  it('output values always land inside [0,100] across a spread of releases', () => {
+    const cases: Array<{ total: number; critic: number; ctx: StandingContext }> = [
+      { total: 5_000_000, critic: 100, ctx: HUGE_POS_CTX },
+      { total: 10_000, critic: 0, ctx: HUGE_NEG_CTX },
+      { total: 800_000, critic: 50, ctx: ctxOf() },
+      { total: 0, critic: 45, ctx: ctxOf({ baseMarketValue: MARKET }) },
+    ]
+    const starts: Standing[] = [
+      { audienceAwareness: 0, industryPrestige: 0, commercialConfidence: 0 },
+      { audienceAwareness: 100, industryPrestige: 100, commercialConfidence: 100 },
+      MID,
+    ]
+    for (const start of starts) {
+      for (const c of cases) {
+        const out = updateStanding(start, makeResult({ total: c.total, criticScore: c.critic }), bench(), c.ctx)
+        for (const v of [out.audienceAwareness, out.industryPrestige, out.commercialConfidence]) {
+          expect(v).toBeGreaterThanOrEqual(0)
+          expect(v).toBeLessThanOrEqual(100)
+        }
+      }
     }
   })
 })

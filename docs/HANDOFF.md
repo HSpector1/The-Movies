@@ -1,10 +1,11 @@
 # Project: Studio — Engineering Handoff
 
-Last updated: 2026-07-26, after Phase 4 (this commit) — M0A complete, verdict
-BLOCKED on the standing-differentiation gate (see §14 below and `M0A-REPORT.md`).
-Written for a successor session with zero knowledge of prior conversations. Read
-this after `CLAUDE.md`, `docs/build-contract.md` (rev. 4), and
-`docs/rev4-open-questions.md`, in that order.
+Last updated: 2026-07-26, after M0A.1 (this commit) — the D-6 standing-channel
+repair. **M0A verdict is now PASS** (the D-2 gate passes after D-6); the Phase-4
+baseline (`81ee613`, verdict BLOCKED) is preserved in `M0A-REPORT.md`. Written for a
+successor session with zero knowledge of prior conversations. Read this after
+`CLAUDE.md`, `docs/build-contract.md` (rev. 4), and `docs/rev4-open-questions.md`
+(now including ruling **D-6**), in that order.
 
 ---
 
@@ -17,17 +18,20 @@ runs by two scripted agents, producing an instrumentation report that answers "d
 film-assembly maths produce real decisions, or is one strategy dominant?" M0A gates
 M1A (a thin UI over the identical ruleset). No UI exists or may exist yet.
 
-**Status.** All four M0A phases are complete, committed, and audited. Phase 4
-delivered the §8 minimal broadcast core, the §14 instrumentation harness + the
-eight diagnostic flags over 1,000 seeds × 2 agents, the §15 Phase-4 acceptance
-tests, and `M0A-REPORT.md`. **M0A verdict: BLOCKED** — 7 of 8 flags pass and every
-acceptance test except one passes, but the ONE completion-blocking gate (**D-2
-standing differentiation**) hard-fails and cannot be fixed within the TUNING
-surface (root cause is §5/§6 formula constants; see §14). This is a contract-level
-finding routed to the owner, exactly as D-2's own reachability ruling anticipated.
-**The next decision is the owner's** (revise §6 / relax the gate by ruling / accept
-BLOCKED — see `M0A-REPORT.md` §9). **The "approved for phase 5" hard stop stands:**
-no UI/Phase-5 work has begun and none may until the owner says those words.
+**Status.** All four M0A phases plus the owner-authorized **M0A.1 repair** are
+complete, committed, and audited. Phase 4 delivered the §8 broadcast core, the §14
+harness + eight flags over 1,000 seeds × 2 agents, the §15 tests, and
+`M0A-REPORT.md` — and BLOCKED on the D-2 standing-differentiation gate. The owner
+then chose Option 1 (revise §6, not relax the gate), recorded as **ruling D-6**, and
+M0A.1 implemented it. **M0A verdict is now PASS:** the D-2 gate passes (profiles A/B/C
+= 6.75% / 6.95% / 24.1%, ≥3 of 4 ≥5%), the awareness↔confidence correlation dropped
+from 0.99 to ≤0.35 (M6 now PASS), and all 8 flags pass with no regression (the §14
+harness is byte-identical; only §6 changed). D-6 drove each reputation channel from a
+distinct absolute cause — awareness←reach, prestige←critics, confidence←ROI. **The
+"approved for phase 5" hard stop STILL stands:** no UI/Phase-5 work has begun and none
+may until the owner says those exact words. Two items remain the owner's (not blocking
+M0A): the broadcast surprise-model (§3a) and, optionally, a confidence-baseline term
+to make profile D reachable (§3a).
 
 **Architecture in one paragraph.** A pure TypeScript simulation core
 (`(state, actions) => state`, no React/DOM/async/IO) under `src/core/`, governed by
@@ -38,13 +42,13 @@ expectations from the contract text only, never from the implementation, and eve
 phase ends with exactly one read-only clause-by-clause audit hunting for invented
 behavior.
 
-**Confidence.** High for the audited surface. **320 tests green**, `tsc --noEmit`
-clean, four phase audits (Phase 3 & 4: CLEAN WITH NOTES, zero findings) plus one
-focused Phase-4 adversarial review (verdict: study TRUSTWORTHY). The corpus is
-byte-reproducible. The main untested surface is deliberate: `technical` is pinned
-at 40 in all of M0A (owner decision D-4). The M0A study is DONE; its finding
-(D-2 BLOCKED for structural §5/§6 reasons) is now an owner decision, not further
-engineering. `technical` re-validation is deferred to M1A per D-4.
+**Confidence.** High for the audited surface. **309 tests green** (Phase-4 was 320;
+the D-6 rewrite replaced 28 old §6 unit tests with 17 D-6 behavioral/cause-isolation
+tests), `tsc --noEmit` clean, five phase/repair audits (all CLEAN or CLEAN WITH
+NOTES, zero value/behavior findings) plus two focused adversarial reviews (Phase-4:
+study TRUSTWORTHY; M0A.1: D-6 SOUND, pass HONEST). The corpus is byte-reproducible
+and the D-6 pass is robust (split-corpus both halves 3/4). `technical` pinned at 40
+(D-4), re-validation deferred to M1A. **M0A now PASSES.**
 
 ---
 
@@ -204,22 +208,27 @@ engineering. `technical` re-validation is deferred to M1A per D-4.
 
 ---
 
-## 3a. M0A verdict & the decisions now owed to the owner
+## 3a. M0A verdict & the decisions still owed to the owner
 
-**Verdict: BLOCKED** on the D-2 standing-differentiation gate. The decision engine is
-healthy (7/8 flags pass, all §15 acceptance except D-2 pass). Two owner decisions are
-now owed; a successor session must NOT resolve either autonomously:
+**Verdict: PASS** (after the D-6 repair). The reputation-differentiation gate now
+passes and all 8 flags are healthy. One decision is now RESOLVED and two remain the
+owner's; a successor session must NOT resolve the remaining two autonomously:
 
-1. **Reputation model (the BLOCKED gate).** D-2 needs ≥3 of 4 asymmetric reputation
-   profiles in ≥5% of runs; only 2 occur. Root cause (proven, not tunable): (a)
-   prestige structurally can't reach ≥60 (critic scores sit below the §6 "60" anchor;
-   max end-prestige across 2000 runs = 39.5; even maximal legal tuning reaches ≥60 in
-   only 0.75% of runs), and (b) awareness & confidence are r≈0.98 redundant (both
-   driven by the same `commercialSurprise` term in §6). The fix levers (the 60 anchor,
-   /8 divisor, the 6/5/2/2 delta coefficients) live in `standing.ts`/`reception.ts`
-   formulas OUTSIDE the tuning surface. Owner options (`M0A-REPORT.md` §9): revise §6
-   (contract change), relax the gate by ruling, or accept BLOCKED. Recommended: revise
-   §6. This is exactly the case D-2's own reachability ruling routed to the owner.
+0. **RESOLVED — Reputation model (was the BLOCKED gate).** The owner chose Option 1
+   (revise §6, do not relax the gate), recorded as **ruling D-6** in
+   `rev4-open-questions.md`. M0A.1 redefined the three channels by meaning and drove
+   each from a distinct absolute cause — awareness←reach (box office / market) + star,
+   prestige←criticScore vs a reachable benchmark (45, not the old 60), confidence←ROI −
+   budget discipline. The prior shared `commercialSurprise` term is deleted. Result:
+   D-2 passes (A/B/C = 6.75/6.95/24.1%), awareness↔confidence correlation 0.99→≤0.35.
+   Only §6 (`standing.ts`) + the ephemeral release context (`tick.ts`) + `TUNING`
+   changed; the save schema and all other surfaces are untouched.
+1. **Profile D (optional, still 0%).** D-2 passes on 3 of 4; profile D (confidence-low
+   & awareness-high) stays ~0% because D-1's economy is almost always profitable
+   (~1.6% of releases lose money) so confidence rarely falls low. Making D reachable
+   would require redefining confidence as return *above an expected baseline* — a
+   further product decision beyond D-6, routed to the owner rather than tuned around.
+   Not adopted. Only pursue on an explicit owner ruling.
 2. **Broadcast surprise model (future, before full broadcast presentation).** Broadcast
    is inert in M0A because the contracted surprise input (realized − noise-free
    forecast center) is identically 0 (audience appeal has no variance). Before full
@@ -475,10 +484,23 @@ Every audit and its outcome, in order:
    note: the D-2 hard fail is genuine, correctly reported (not masked), and traceable
    to fixed §5/§6 formula constants outside the tuning surface — an owner matter. No
    correction required.
+7. **M0A.1 (D-6) adversarial review** (one focused Opus pass over the standing rewrite,
+   hunting for a hidden shared driver, semantic violations, reverse-engineered thresholds,
+   saturation, agent-specific/cherry-picked/hidden-randomness, huge-gross→confidence,
+   prestige-as-quality-echo, awareness upward-only, weakened tests, 7-flag regressions):
+   **verdict — D-6 SOUND, the D-2 pass is HONEST.** Split-corpus robustness (both halves
+   3/4; stricter 62/38 boundary still passes), three independent signals, mutation-verified
+   tests, no saturation, no regressions. No high-severity findings.
+8. **M0A.1 (D-6) contract audit** (read-only, vs the recorded D-6 ruling): **CLEAN WITH
+   NOTES — zero value/behavioral deviations.** Implementation matches D-6 exactly (all
+   formulas + 13 constants); only §6 + the ephemeral release context changed; save schema
+   untouched. Two NOTES were stale `tuning.ts` comments (values already correct), corrected
+   by the PM (documentation-only, no re-audit needed).
 
-**Corrections required by any audit: none.** The only pre-audit correction in
-project history is the phase-1 comment reword (`Math.random` literal in a comment,
-caught by the hygiene test).
+**Corrections required by any audit: none substantive.** The only corrections in project
+history are two documentation touch-ups: the phase-1 `Math.random`-in-a-comment reword,
+and the M0A.1 stale-comment fix in `tuning.ts` — neither changed any value, behavior, or
+test outcome.
 
 ---
 
