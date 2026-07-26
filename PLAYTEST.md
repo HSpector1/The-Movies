@@ -125,6 +125,52 @@ and `10-talent-hub-profile.png`.
 
 ---
 
+## Assembly is now legible (latest change)
+
+An earlier playtest found film assembly **opaque** — hard to tell what a package really was,
+or why the forecast said what it said. Assembly has been rebuilt to show its reasoning. This
+is display only: it reads the same engine, it does not change how any film turns out.
+
+- **Film Package summary** — a persistent panel (in assembly and in the greenlight review)
+  that reads your film across **four separate dimensions**, each honestly labeled:
+  - **Creative Cohesion** — how coherent the *creative brief itself* is (shape / promise /
+    intended audience), independent of who you hire.
+  - **Talent Fit** — how well each person you've hired suits *this* film (writer, director,
+    each cast slot, crew), plus an overall read, the weakest link, any severe mismatch, and
+    any slot still unfilled.
+  - **Execution Confidence** — how confident the studio is it can *deliver* this film: how
+    wide the expected-performance ranges are, the forecast confidence tier, whether the
+    budget is adequate, and any unproven cross-discipline hire.
+  - **Commercial Outlook** — the studio's revenue and profit ranges, the break-even point,
+    confidence, and the upside/downside.
+- **Richer candidate cards + sort/filter** — each hiring candidate now shows their **Fit**
+  and **Expected Performance** for the current role, **Star Power**, salary, genre
+  experience, strengths, a weakness, and any cross-role ability (expand for detail). The list
+  is **sorted by Fit** by default, and you can **filter** ten ways (by strength, Fit tier,
+  OVR, salary, Star Power, genre experience, proven vs unproven, specialists,
+  multi-hyphenates, and availability).
+- **Change preview on swap** — swap a person and you see exactly what changes (the real
+  before/after deltas), so you can compare choices instead of guessing.
+- **Film Readiness panel** — a plain read of what's **strong** and what's **risky** about the
+  package as assembled, drawn from the four dimensions above (there is no hidden overall
+  score behind it).
+- **Autopsy compare** — after release, the autopsy now shows the **greenlight assessment you
+  locked in** next to what actually happened, and **which risks materialized** — so you can
+  check the studio's pre-release read against reality.
+- **Crew is now assignable** — you can now hire the **crew / craft** slot during assembly
+  (previously it was stuck empty). This was the concrete blocker the last playtest hit.
+
+Two things are stated plainly in the UI so nothing misleads you:
+
+1. **Creative Cohesion here means the creative brief's own coherence** (shape / promise /
+   audience), *not* how well a specific cast's personalities mesh. It is deliberately shown
+   independent of who you hire.
+2. **"Studio Revenue" is the full box office.** This model has no distributor or rental cut,
+   so the studio is shown receiving the full gross — the number is the whole ticket total,
+   not a studio-only share.
+
+---
+
 ## Saving
 
 - **Export:** open **Saves → Export**. Your entire game is a `SaveFileV2` JSON (the talent

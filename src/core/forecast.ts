@@ -55,7 +55,11 @@ export type ForecastInputs = ReceptionInputs
 // The deterministic core that §5.4 segment centers depend on: craft, delivered,
 // criticMean, timelinessContribution. Recomputed here WITHOUT any sampled term so
 // forecastCenters never draws from any stream. Mirrors §5.1–§5.3 up to criticMean.
-type DeterministicCore = {
+// EXPORTED (Phase 5.1 CYCLE 3) as a READ-ONLY type so the additive filmPackage.ts
+// UI summaries can consume the intermediate PERCEIVED quantities `forecastCenters`
+// already computes-and-discards (scriptStrength/directorExecution/castWeightedRoleFit).
+// This is a type export only — the computation and its formulas are unchanged.
+export type DeterministicCore = {
   craft: number
   delivered: Expression
   criticMean: number
@@ -64,6 +68,11 @@ type DeterministicCore = {
   scriptStrength: number
   directorExecution: number
   castWeightedRoleFit: number
+  // §5.1 production-difficulty read (0..100). Already computed below; now RETURNED
+  // (Phase 5.1 CYCLE 3) so the filmPackage.ts execution-confidence summary can read
+  // production difficulty without re-deriving the §5.1 formula. Additive field only —
+  // the value and its formula are unchanged (identical to reception.ts:190-195).
+  budgetAdequacy: number
 }
 
 function computeDeterministicCore(inp: ForecastInputs): DeterministicCore {
@@ -209,6 +218,7 @@ function computeDeterministicCore(inp: ForecastInputs): DeterministicCore {
     scriptStrength,
     directorExecution,
     castWeightedRoleFit,
+    budgetAdequacy,
   }
 }
 

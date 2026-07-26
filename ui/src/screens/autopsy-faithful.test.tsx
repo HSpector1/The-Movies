@@ -22,11 +22,19 @@ import {
   greenlight,
   advanceWeek,
   explainRelease,
+  autopsyCompare,
   requiredNegative,
   talentByRole,
 } from '../engine/adapter.ts'
-import type { DraftPackage, GameState, FilmResult, AutopsyView, Standing } from '../engine/adapter.ts'
-import { money, signed, score, segmentLabel } from '../format.ts'
+import type {
+  DraftPackage,
+  GameState,
+  FilmResult,
+  AutopsyView,
+  AutopsyCompareView,
+  Standing,
+} from '../engine/adapter.ts'
+import { money, moneyExact, signed, score, segmentLabel } from '../format.ts'
 
 afterEach(cleanup)
 
@@ -57,6 +65,7 @@ function legalPackage(state: GameState): DraftPackage {
 function playToRelease(seed: string): {
   film: FilmResult
   view: AutopsyView
+  compare: AutopsyCompareView | null
   preStanding: Standing
   postStanding: Standing
 } {
@@ -79,13 +88,14 @@ function playToRelease(seed: string): {
   const film = released[0]!
   const preStanding = preTick.studio.standing
   const view = explainRelease(preTick, postStanding, film)
-  return { film, view, preStanding, postStanding }
+  const compare = autopsyCompare(preTick, film)
+  return { film, view, compare, preStanding, postStanding }
 }
 
 describe('autopsy: shows forecast snapshot AND realized result', () => {
   it('renders both the forecast estimate and the realized result numbers', () => {
-    const { view, film } = playToRelease('autopsy-both-1')
-    render(<Autopsy view={view} onBack={() => {}} />)
+    const { view, film, compare } = playToRelease('autopsy-both-1')
+    render(<Autopsy view={view} compare={compare} onBack={() => {}} />)
     expect(screen.getByTestId('autopsy')).toBeInTheDocument()
 
     const body = screen.getByTestId('autopsy').textContent ?? ''
@@ -103,8 +113,8 @@ describe('autopsy: shows forecast snapshot AND realized result', () => {
   })
 
   it('the realized critic score shown equals the engine FilmResult.criticScore', () => {
-    const { view, film } = playToRelease('autopsy-both-2')
-    render(<Autopsy view={view} onBack={() => {}} />)
+    const { view, film, compare } = playToRelease('autopsy-both-2')
+    render(<Autopsy view={view} compare={compare} onBack={() => {}} />)
     // The autopsy critic cell shows the STORED sampled critic score.
     expect(screen.getByTestId('autopsy-critic')).toHaveTextContent(score(film.criticScore))
   })
@@ -112,8 +122,8 @@ describe('autopsy: shows forecast snapshot AND realized result', () => {
 
 describe('autopsy: the sampled review term is NEVER hidden', () => {
   it('displays criticMean, criticSigma, and the sampled reviewVariance', () => {
-    const { view } = playToRelease('autopsy-variance-1')
-    render(<Autopsy view={view} onBack={() => {}} />)
+    const { view, compare } = playToRelease('autopsy-variance-1')
+    render(<Autopsy view={view} compare={compare} onBack={() => {}} />)
     const mean = screen.getByTestId('autopsy-criticmean')
     const variance = screen.getByTestId('autopsy-reviewvariance')
     expect(mean).toBeInTheDocument()
@@ -141,8 +151,8 @@ describe('autopsy: the sampled review term is NEVER hidden', () => {
 
 describe('autopsy: each segment response is displayed', () => {
   it('shows an appeal figure for every segment', () => {
-    const { view } = playToRelease('autopsy-seg-1')
-    render(<Autopsy view={view} onBack={() => {}} />)
+    const { view, compare } = playToRelease('autopsy-seg-1')
+    render(<Autopsy view={view} compare={compare} onBack={() => {}} />)
     const autopsyText = screen.getByTestId('autopsy').textContent ?? ''
     for (const seg of Object.keys(view.segmentAppeal)) {
       expect(autopsyText).toContain(segmentLabel(seg))
@@ -152,8 +162,8 @@ describe('autopsy: each segment response is displayed', () => {
 
 describe('autopsy: box office and profit match the public engine outputs', () => {
   it('the shown total box office equals the engine FilmResult.boxOffice.total', () => {
-    const { view, film } = playToRelease('autopsy-money-1')
-    render(<Autopsy view={view} onBack={() => {}} />)
+    const { view, film, compare } = playToRelease('autopsy-money-1')
+    render(<Autopsy view={view} compare={compare} onBack={() => {}} />)
     // The autopsy view's box office is the STORED FilmResult box office.
     expect(view.boxOffice.total).toBeCloseTo(film.boxOffice.total, 6)
     expect(view.boxOffice.opening).toBeCloseTo(film.boxOffice.opening, 6)
@@ -163,8 +173,8 @@ describe('autopsy: box office and profit match the public engine outputs', () =>
   })
 
   it('profit shown equals total − committedCost', () => {
-    const { view } = playToRelease('autopsy-money-2')
-    render(<Autopsy view={view} onBack={() => {}} />)
+    const { view, compare } = playToRelease('autopsy-money-2')
+    render(<Autopsy view={view} compare={compare} onBack={() => {}} />)
     // Engine identity: profit = total − committedCost.
     expect(view.profit).toBeCloseTo(view.boxOffice.total - view.committedCost, 4)
     // Rendered in the profit metric.
@@ -190,8 +200,8 @@ describe('autopsy: standing deltas equal engine post−pre and the WHY lines map
   })
 
   it('the three WHY lines reference reach, critic-vs-benchmark, and ROI respectively', () => {
-    const { view } = playToRelease('autopsy-standing-2')
-    render(<Autopsy view={view} onBack={() => {}} />)
+    const { view, compare } = playToRelease('autopsy-standing-2')
+    render(<Autopsy view={view} compare={compare} onBack={() => {}} />)
     const text = screen.getByTestId('autopsy').textContent ?? ''
     // Awareness → reach; Prestige → critic vs benchmark; Confidence → ROI.
     expect(view.standingWhy.awareness.toLowerCase()).toContain('reach')
@@ -216,5 +226,52 @@ describe('autopsy: nothing is invented — headline numbers are finite engine va
     expect(Number.isFinite(view.criticMean)).toBe(true)
     expect(Number.isFinite(view.profit)).toBe(true)
     expect(Number.isFinite(view.boxOffice.total)).toBe(true)
+  })
+})
+
+describe('autopsy: greenlight expectation vs actual compare (locked assessment)', () => {
+  it('renders the locked greenlight expectation beside the actual result', () => {
+    const { view, compare } = playToRelease('autopsy-compare-1')
+    expect(compare).not.toBeNull()
+    render(<Autopsy view={view} compare={compare} onBack={() => {}} />)
+    // The compare panel exists and shows a plain verdict label.
+    expect(screen.getByTestId('autopsy-greenlight-compare')).toBeInTheDocument()
+    expect(screen.getByTestId('autopsy-verdict')).toBeInTheDocument()
+    // The locked expected studio revenue equals the greenlight assessment value.
+    const expRev = screen.getByTestId('autopsy-expected-revenue')
+    expect(expRev).toHaveTextContent(money(compare!.assessment.profit.studioRevenue.expected))
+    // The actual profit shown equals the reconstructed autopsy profit (moneyExact).
+    expect(screen.getByTestId('autopsy-actual-profit')).toHaveTextContent(
+      moneyExact(view.profit),
+    )
+  })
+
+  it('the fit-by-assignment table lists every locked assignment with its Fit', () => {
+    const { view, compare } = playToRelease('autopsy-compare-2')
+    render(<Autopsy view={view} compare={compare} onBack={() => {}} />)
+    const table = screen.getByTestId('autopsy-fit-by-assignment')
+    // Every assignment in the LOCKED assessment appears with its perceived Fit (rounded).
+    for (const a of compare!.assessment.fit.perAssignment) {
+      const row = screen.getByTestId(`autopsy-fit-${a.role}${a.slot ? '-' + a.slot : ''}`)
+      expect(row).toBeInTheDocument()
+      expect(row).toHaveTextContent(a.fit.toFixed(0))
+    }
+    // The weakest link is NEVER hidden — it is tagged explicitly.
+    expect(table.textContent ?? '').toContain('weakest link')
+  })
+
+  it('maps identified risks to whether they materialized (engine risksMaterialized)', () => {
+    const { view, compare } = playToRelease('autopsy-compare-3')
+    render(<Autopsy view={view} compare={compare} onBack={() => {}} />)
+    const badge = screen.getByTestId('autopsy-risks-materialized-count')
+    // The badge count matches the engine's materializedCount / total exactly.
+    expect(badge).toHaveTextContent(
+      `${compare!.risks.materializedCount}/${compare!.risks.risks.length} materialized`,
+    )
+    // Each stored uncertainty factor is shown with an Avoided/Materialized verdict.
+    for (const r of compare!.risks.risks) {
+      const li = screen.getByTestId(`autopsy-risk-${r.factor}`)
+      expect(li).toHaveTextContent(r.materialized ? 'Materialized' : 'Avoided')
+    }
   })
 })

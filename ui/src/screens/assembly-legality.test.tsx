@@ -41,11 +41,17 @@ function openToTalentStep(seed: string) {
   return { state, onGreenlit }
 }
 
+// Pick the first ELIGIBLE candidate in a picker. The redesigned cards add auxiliary
+// buttons (a "Details" expand toggle) per row; the SELECTABLE candidate button is the
+// one carrying aria-pressed (the option toggle). We pick the first enabled such button —
+// i.e. the first eligible candidate in the picker's (Fit-sorted) order.
 function pickFirstEligible(pickerTestId: string) {
   const picker = screen.getByTestId(pickerTestId)
   const btn = within(picker)
     .getAllByRole('button')
-    .find((b) => !(b as HTMLButtonElement).disabled)!
+    .find(
+      (b) => b.hasAttribute('aria-pressed') && !(b as HTMLButtonElement).disabled,
+    )!
   fireEvent.click(btn)
   return btn
 }
@@ -271,34 +277,32 @@ describe('assembly legality: review cost arithmetic equals what the adapter send
   it('the budget-step Total committed cost equals negative + marketing + Σsalaries and equals totalCommittedCost()', () => {
     const seed = 'legal-cost-1'
     const { state } = openToTalentStep(seed)
-    // Complete the cast so a package can be built.
-    pickFirstEligible('picker-writer')
-    pickFirstEligible('picker-director')
-    pickFirstEligible('picker-lead')
-    pickFirstEligible('picker-antagonist')
-    pickFirstEligible('picker-support')
+    // Complete the cast so a package can be built. Candidates are Fit-sorted, so we do
+    // NOT assume which talent gets picked — we READ the chosen ids back from the DOM.
+    const writerBtn = pickFirstEligible('picker-writer')
+    const directorBtn = pickFirstEligible('picker-director')
+    const leadBtn = pickFirstEligible('picker-lead')
+    const antagBtn = pickFirstEligible('picker-antagonist')
+    const supportBtn = pickFirstEligible('picker-support')
+    const idOf = (b: HTMLElement): string =>
+      (b.getAttribute('data-testid') ?? '').replace(/^talent-/, '')
     fireEvent.click(screen.getByTestId('assembly-next')) // → budget
 
     // Read the shown component figures.
     const committedShown = (screen.getByTestId('committed-cost').textContent ?? '').trim()
     const salariesShown = (screen.getByTestId('salaries').textContent ?? '').trim()
 
-    // Reconstruct the exact package the wizard has (defaults: 1.0× negative, 400k mkt).
-    // We recompute salaries/committed from the engine and assert equality with the
-    // rendered strings (the UI shows engine arithmetic, not invented numbers).
-    // Determine which talent the wizard picked by matching the shown salary sum
-    // across the first-eligible picks the wizard makes.
-    const writer = talentByRole(state, 'writer').find((t) => t.available)!
-    const director = talentByRole(state, 'director').find((t) => t.available)!
-    const actors = talentByRole(state, 'actor').filter((t) => t.available)
+    // Reconstruct the exact package the wizard has (defaults: 1.0× negative, 400k mkt),
+    // using the ACTUAL talent the Fit-sorted pickers selected (read from the DOM). The UI
+    // must show engine arithmetic over the real chosen talent, not invented numbers.
     const concept = state.concepts[0]!
     const req = requiredNegative(concept, { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' }, state)
     const negative = NEGATIVE_BUDGET_MULTIPLIERS[1]! * req // default negative level idx 1
     const marketing = MARKETING_BUDGET_LEVELS[1]! // default marketing level idx 1
     const idsGuess = {
-      writerId: writer.id,
-      directorId: director.id,
-      cast: { lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id },
+      writerId: idOf(writerBtn),
+      directorId: idOf(directorBtn),
+      cast: { lead: idOf(leadBtn), antagonist: idOf(antagBtn), support: idOf(supportBtn) },
       craftIds: [] as string[],
     }
     const salaries = salarySum(state, idsGuess)

@@ -333,6 +333,56 @@ and the D-6 pass is robust (split-corpus both halves 3/4). `technical` pinned at
   hard stop below still stands — no Broadcast/presentation work has begun and none may
   until the owner authorizes Phase 6.
 
+## 2d. Phase 5.1 cycle-3 — assembly legibility (review-branch correction)
+
+- **Status:** on `phase-5.1-talent`, **NOT merged, awaiting another owner playtest.** An
+  owner playtest found film assembly **opaque** — the player could not read what a package
+  actually was or why the forecast said what it said. Cycle 3 made assembly legible. It is
+  presentation-only: the sim never reads any of the new surfaces, and no D-3, D-6
+  (`standing.ts`), reception/forecast formula, or save-schema byte changed.
+- **What cycle 3 shipped:**
+  - **A persistent Film Package summary** (in assembly + greenlight review) with **four
+    separate dimensions**, each from real engine values, never a hidden master score:
+    - **Creative Cohesion** — talent-**independent** creative-brief coherence (shape /
+      promise / audience), reusing the §5.4 expression/segment-taste metric.
+    - **Talent Fit** — per-assignment (writer / director / each cast slot / crew) plus
+      overall, weakest-link, severe-mismatch, and unfilled, reusing
+      `projectFit` / `expectedPerformance`.
+    - **Execution Confidence** — perceived-only: EP band widths + D-3 confidence tier +
+      budget adequacy + unproven cross-discipline. **No D-3 change, no Work Ethic.**
+    - **Commercial Outlook** — studio-revenue/profit ranges + break-even + confidence +
+      upside/downside, via `computeBoxOffice` on the forecast bands.
+  - **Redesigned candidate cards** — per-assignment Fit / Expected-Performance / Star Power /
+    salary / genre-experience / strengths / weakness / cross-role, expandable; default-sorted
+    by assignment Fit; **all 10 filters** (strengths, Fit-tier, OVR, salary, Star Power,
+    genre-exp, proven/unproven, specialists, multi-hyphenates, availability).
+  - **Change-preview on swap** — real `packageDelta` deltas only.
+  - **Film Readiness panel** — strong / risky / judgment derived from the real dimensions;
+    no secret master score.
+  - **Post-release Autopsy compare** — the **LOCKED** greenlight assessment vs the actual
+    result, and which risks materialized.
+  - **Crew/Craft is now assignable in the assembly UI** (the concrete playtest blocker). The
+    engine already accepted craft; the fix was **UI-only** (add a craft slot; stop hardcoding
+    `craftIds:[]`). **The M0A corpus is unaffected** — role-partitioned, `craftIds:[]`.
+- **New pure engine helpers** (`src/core/filmPackage.ts`) — read-only summaries the sim never
+  reads: `creativeCohesion`, `packageFit`, `executionConfidence`, `forecastProfitRange`,
+  `greenlightAssessment`, `risksMaterialized`, `packageDelta`. Additive `forecast.ts` (exported
+  `DeterministicCore` type + surfaced `budgetAdequacy`). No change to D-3, D-6/`standing.ts`,
+  the reception/forecast formulas, or the save schema (all byte-unchanged).
+- **Two disclosed limitations (honest, not fabricated):**
+  1. The engine's cohesion is **talent-persona alignment**, so the summary's **Creative
+     Cohesion** is the talent-**independent** creative-brief coherence, shown separately (it
+     does not claim to be the engine's cohesion term).
+  2. There is **no distributor/rental split** in the D-1 model — the studio receives the
+     **full box-office total**, so **"Studio Revenue" = full gross** (disclosed in the UI).
+- **Verification:** **591 tests pass** (incl. a 27-test truthfulness suite + a 12-step
+  Playwright browser playtest); **root + UI `tsc` clean**; **`vite build` succeeds**;
+  **Playwright green.** Adversarial review = **SOUND**; contract audit = **CLEAN WITH NOTES**
+  (the one flagged deviation — an incomplete filter set — is **closed**; all 10 filters now
+  ship).
+- **Milestone status:** on `phase-5.1-talent`, **NOT merged, awaiting another owner
+  playtest.** The Phase 6 hard stop below still stands.
+
 ## 3a. M0A verdict & the decisions still owed to the owner
 
 **Verdict: PASS** (after the D-6 repair). The reputation-differentiation gate now

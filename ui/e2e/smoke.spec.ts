@@ -39,10 +39,21 @@ async function assembleLegalFilm(page: Page) {
   await page.getByTestId('assembly-next').click() // → promise (defaults valid)
   await page.getByTestId('assembly-next').click() // → talent (default segment chosen)
 
-  // Talent: first ENABLED option in each picker.
+  // Talent: first ENABLED candidate in each picker. The redesigned cards add a per-row
+  // "Details" toggle, so we target the SELECTABLE candidate button (it carries
+  // aria-pressed) and take the first enabled one — the first eligible candidate.
   for (const picker of ['picker-writer', 'picker-director', 'picker-lead', 'picker-antagonist', 'picker-support']) {
-    const enabled = page.getByTestId(picker).getByRole('button').and(page.locator(':not([disabled])')).first()
+    const enabled = page
+      .getByTestId(picker)
+      .locator('button[aria-pressed]:not([disabled])')
+      .first()
     await enabled.click()
+  }
+  // Assign a Crew/Craft lead too (the new optional slot), so the screenshot shows it and
+  // the crew flows into the package summary + committed cost like any other assignment.
+  const crew = page.getByTestId('picker-craft').locator('button[aria-pressed]:not([disabled])').first()
+  if (await crew.isVisible().catch(() => false)) {
+    await crew.click()
   }
   await shot(page, '2-assembly-talent')
   await page.getByTestId('assembly-next').click() // → budget

@@ -221,6 +221,44 @@ export const TUNING = {
   // helper (capability = OVR ≥ threshold; career identity additionally requires a
   // demonstrated credit — workHistory[discipline] > 0).
   CAPABILITY_OVR_MIN: 60,
+
+  // ── Phase 5.1 CYCLE 3 — Film Package assessment helpers (filmPackage.ts) ─────
+  // PROVISIONAL weights/thresholds for the READ-ONLY UI assessment summaries. These
+  // are NOT sim-read (the sim never reads filmPackage.ts, exactly like the D-9
+  // talentSummary display functions). They only weight/threshold quantities that
+  // already come out of REAL engine mechanics (reception §5, forecast §7, D-9 fit).
+  // None of these change a reception/forecast/cohesion/D-3/D-6 formula.
+
+  // creativeCohesion (#1) — talent-independent creative-brief coherence. Two real,
+  // talent-independent alignment terms, both on the same Expression-distance metric
+  // §5 uses (distance / sqrt(12), 0..1): (1) how well the shape's expression supports
+  // the promise's intended expression (the promiseMismatch axes), and (2) how well
+  // the combined brief expression sits in the intended-audience segment tastes (the
+  // segmentFit metric). Blended, then mapped to 0..100. STRENGTH/CONFLICT band the
+  // per-axis gap into "aligned"/"conflicting".
+  COHESION_BRIEF_SHAPE_PROMISE_W: 0.55, // weight on shape↔promise expression support
+  COHESION_BRIEF_SEGMENT_W: 0.45, // weight on brief↔intended-segment taste alignment
+  COHESION_AXIS_ALIGNED: 0.35, // |per-axis gap| ≤ this ⇒ that axis is a STRENGTH
+  COHESION_AXIS_CONFLICT: 0.9, // |per-axis gap| ≥ this ⇒ that axis is a CONFLICT
+  COHESION_TIER_STRONG: 70, // score ≥ ⇒ 'strong' | ≥ MIXED ⇒ 'mixed' | else 'weak'
+  COHESION_TIER_MIXED: 45,
+
+  // executionConfidence (#3) — aggregate PERCEIVED-info confidence, 0..100. Blends
+  // (a) the per-assignment expectedPerformance band widths (wider ⇒ less confident),
+  // (b) the D-3 film-level forecast confidence tier, (c) production difficulty
+  // (budgetAdequacy = negative/requiredNegative), (d) unproven cross-discipline
+  // assignments (workHistory[discipline]==0). NEVER Work Ethic (development-only).
+  EXEC_CONF_BAND_W: 0.4, // weight on the (inverted) mean EP band width
+  EXEC_CONF_FORECAST_W: 0.3, // weight on the D-3 confidence-tier score
+  EXEC_CONF_BUDGET_W: 0.2, // weight on budgetAdequacy (production difficulty)
+  EXEC_CONF_UNPROVEN_W: 0.1, // weight on the proven-assignment fraction
+  EXEC_CONF_BAND_REF: 16, // EP half-width read as "fully uncertain" (EP max ≈ 16)
+  EXEC_CONF_TIER_SCORE: { high: 100, medium: 60, low: 25 }, // D-3 tier → 0..100
+  EXEC_CONF_TIER_STRONG: 70, // score ≥ ⇒ 'strong' | ≥ MIXED ⇒ 'mixed' | else 'weak'
+  EXEC_CONF_TIER_MIXED: 45,
+
+  // forecastProfitRange (#4) — no new numeric weights; it reuses computeBoxOffice on
+  // the per-segment low/high estimates and the D-1 committed-cost identity verbatim.
 } as const
 
 // ── §5.1 cast weighting ──────────────────────────────────────────────────────

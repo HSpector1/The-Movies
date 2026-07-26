@@ -22,10 +22,16 @@ import type {
   GameState,
   FilmResult,
   AutopsyView,
+  AutopsyCompareView,
   Standing,
   ReleaseDevelopment,
 } from './engine/adapter.ts'
-import { advanceWeek, explainRelease, buildReleaseDevelopment } from './engine/adapter.ts'
+import {
+  advanceWeek,
+  explainRelease,
+  buildReleaseDevelopment,
+  autopsyCompare,
+} from './engine/adapter.ts'
 import { StartScreen } from './screens/StartScreen.tsx'
 import { Dashboard } from './screens/Dashboard.tsx'
 import { Assembly } from './screens/Assembly.tsx'
@@ -46,7 +52,7 @@ type Screen =
       released: FilmResult[]
       development: ReleaseDevelopment[]
     }
-  | { kind: 'autopsy'; view: AutopsyView }
+  | { kind: 'autopsy'; view: AutopsyView; compare: AutopsyCompareView | null }
   | { kind: 'talent' }
   | { kind: 'hub' }
   | { kind: 'saves' }
@@ -143,7 +149,10 @@ export function App() {
       return
     }
     const view = explainRelease(snap.preTick, snap.postTickStanding, film)
-    setScreen({ kind: 'autopsy', view })
+    // Locked greenlight expectation vs actual (the compare panel). Uses the same retained
+    // pre-tick snapshot; null only if the production is not in the pre-tick active list.
+    const compare = autopsyCompare(snap.preTick, film)
+    setScreen({ kind: 'autopsy', view, compare })
   }
 
   if (!state || screen.kind === 'start') {
@@ -185,12 +194,20 @@ export function App() {
           postTickStanding={screen.postTickStanding}
           released={screen.released}
           development={screen.development}
-          onOpenAutopsy={(view) => setScreen({ kind: 'autopsy', view })}
+          onOpenAutopsy={(view, film) =>
+            setScreen({
+              kind: 'autopsy',
+              view,
+              compare: autopsyCompare(screen.preTick, film),
+            })
+          }
           onContinue={goDashboard}
         />
       )}
 
-      {screen.kind === 'autopsy' && <Autopsy view={screen.view} onBack={goDashboard} />}
+      {screen.kind === 'autopsy' && (
+        <Autopsy view={screen.view} compare={screen.compare} onBack={goDashboard} />
+      )}
 
       {screen.kind === 'talent' && (
         <TalentCreator

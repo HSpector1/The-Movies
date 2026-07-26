@@ -70,6 +70,15 @@ import {
   careerIdentity,
   developmentReport,
   projectSkillWeights,
+  // Phase 5.1 CYCLE 3 — Film Package READ-ONLY assessment helpers. Pure, deterministic,
+  // never read by the sim. The UI calls these so it NEVER reinvents a §5/§7/D-9 formula.
+  creativeCohesion,
+  packageFit,
+  executionConfidence,
+  forecastProfitRange,
+  greenlightAssessment,
+  risksMaterialized,
+  packageDelta,
   // save
   makeSave,
   exportSave,
@@ -103,6 +112,17 @@ import type {
   DisciplineStanding,
   SaveFile,
   SaveFileV2,
+  // Film Package assessment result/input types (READ-ONLY summaries).
+  CreativeCohesion,
+  AssignmentFit,
+  PackageFit,
+  ExecutionConfidence,
+  ForecastProfitRange,
+  GreenlightAssessment,
+  PreTickSnapshot,
+  RisksMaterialized,
+  PackageDelta,
+  PackageSide,
 } from '../../../src/core/index.ts'
 
 // Re-export the core types the UI needs, so components import types from the
@@ -130,6 +150,15 @@ export type {
   SkillBias,
   CareerIdentity,
   DisciplineStanding,
+  // Film Package assessment types re-exported through the single boundary.
+  CreativeCohesion,
+  AssignmentFit,
+  PackageFit,
+  ExecutionConfidence,
+  ForecastProfitRange,
+  GreenlightAssessment,
+  RisksMaterialized,
+  PackageDelta,
 }
 
 export const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support']
@@ -1579,3 +1608,334 @@ export {
   genreExperience,
   ageRunwayMult,
 }
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// FILM PACKAGE ASSESSMENT — the single boundary for the CYCLE-3 Film Package summary,
+// candidate cards, change-preview and greenlight autopsy. Every value below is a CALL
+// into the frozen core's READ-ONLY filmPackage helpers (creativeCohesion / packageFit /
+// executionConfidence / forecastProfitRange / packageDelta / greenlightAssessment /
+// risksMaterialized). NO §5/§7/D-9 formula is re-implemented here; this file only
+// RESOLVES the DraftPackage's talent ids to core Talent and assembles the input shape
+// each helper expects, then returns the helper's output verbatim. Perceived-only:
+// creativeCohesion is talent-independent; the others read PERCEIVED talent summaries.
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// The Film Package result types (CreativeCohesion / PackageFit / …) are re-exported
+// from the single `export type {…}` block at the top of this file. Here we add the one
+// remaining type the UI renders (MoneyRange) and re-export the raw creativeCohesion fn
+// (talent-independent — usable before any talent is chosen) for tests to assert against.
+export type { MoneyRange } from '../../../src/core/index.ts'
+export { creativeCohesion }
+
+// A partial cast (the assembly draft may not have chosen every slot yet). Only fully
+// resolved slots are passed to packageFit; the rest are reported as `unfilled`.
+type PartialCast = Partial<Record<CastSlot, Talent>>
+
+// Resolve the fully-chosen talent of a DraftPackage. Cast slots that are unset (null)
+// are simply omitted — packageFit tolerates a partial cast and reports `unfilled`.
+// Writer/director must be present for the fit/execution/profit summaries (the caller
+// guards); creativeCohesion needs NONE of them (talent-independent).
+function resolveDraftTalent(
+  state: GameState,
+  pkg: DraftPackage,
+): {
+  concept: FilmConcept
+  writer: Talent
+  director: Talent
+  cast: PartialCast
+  craftHires: Talent[]
+} {
+  const concept = findConcept(state, pkg.conceptId)
+  if (!concept) throw new Error(`assess: unknown conceptId "${pkg.conceptId}"`)
+  const writer = findTalent(state, pkg.writerId)
+  if (!writer) throw new Error(`assess: unknown writerId "${pkg.writerId}"`)
+  const director = findTalent(state, pkg.directorId)
+  if (!director) throw new Error(`assess: unknown directorId "${pkg.directorId}"`)
+  const cast: PartialCast = {}
+  for (const slot of CAST_SLOTS) {
+    const id = pkg.cast[slot]
+    if (!id) continue
+    const t = findTalent(state, id)
+    if (t) cast[slot] = t
+  }
+  const craftHires: Talent[] = (pkg.craftIds ?? []).map((id) => {
+    const t = findTalent(state, id)
+    if (!t) throw new Error(`assess: unknown craft id "${id}"`)
+    return t
+  })
+  return { concept, writer, director, cast, craftHires }
+}
+
+// #1 Creative Cohesion — TALENT-INDEPENDENT. Needs only concept+shape+promise; can be
+// shown before any talent is chosen. Direct passthrough to the core helper.
+export function assessCreativeCohesion(
+  concept: FilmConcept,
+  shape: FilmShape,
+  promise: FilmPromise,
+): CreativeCohesion {
+  return creativeCohesion(concept, shape, promise)
+}
+
+// #2 Talent Fit — per-assignment Fit (writer/director/each cast slot/craft) + overall +
+// strongest + weakest + severeMismatch + unfilled. Passthrough to core packageFit with
+// the resolved talent. Requires writer+director resolved (the summary is shown from the
+// talent step onward). Cast slots not yet chosen appear in `unfilled`.
+export function assessPackageFit(state: GameState, pkg: DraftPackage): PackageFit {
+  const { concept, writer, director, cast, craftHires } = resolveDraftTalent(state, pkg)
+  return packageFit({
+    concept,
+    shape: pkg.shape,
+    promise: pkg.promise,
+    writer,
+    director,
+    cast: cast as Record<CastSlot, Talent>, // packageFit tolerates missing slots (→ unfilled)
+    craftHires,
+  })
+}
+
+// Assemble the §5 ReceptionInputs the execution/profit helpers read, from a FULLY
+// assembled DraftPackage (all cast slots chosen). Throws (loudly) if a slot is missing —
+// the caller guards with `pkg` completeness. Identical shape to assembleReceptionInputs.
+function assembleFullReceptionInputs(state: GameState, pkg: DraftPackage): ReceptionInputs {
+  return assembleReceptionInputs(state, pkg)
+}
+
+// #3 Execution Confidence — PERCEIVED-only aggregate. Needs the full ReceptionInputs +
+// forecast context. Passthrough to core executionConfidence.
+export function assessExecutionConfidence(
+  state: GameState,
+  pkg: DraftPackage,
+): ExecutionConfidence {
+  const inp = assembleFullReceptionInputs(state, pkg)
+  return executionConfidence(inp, {
+    seed: state.seed,
+    productionId: predictedProductionId(state),
+    directorId: pkg.directorId,
+    releasedFilms: state.studio.releasedFilms,
+    concepts: state.concepts,
+  })
+}
+
+// #4 Commercial Outlook — studio-revenue + profit RANGE. `studioRevenueIsFullBoxOffice`
+// is surfaced so the UI shows the full-box-office disclosure. Passthrough to core
+// forecastProfitRange; salaries summed from the same resolved talent.
+export function assessProfitRange(state: GameState, pkg: DraftPackage): ForecastProfitRange {
+  const inp = assembleFullReceptionInputs(state, pkg)
+  const salaries = salarySum(state, pkg)
+  return forecastProfitRange(inp, {
+    seed: state.seed,
+    productionId: predictedProductionId(state),
+    directorId: pkg.directorId,
+    releasedFilms: state.studio.releasedFilms,
+    concepts: state.concepts,
+    salaries,
+  })
+}
+
+// A `PackageSide` (fit+execution+profit+castStarPower) for one fully-assembled draft —
+// the input to packageDelta. Cast star power = Σ cast fame (0..300). Reads perceived
+// fame only (never actual). Returns null when the draft is not fully assembled.
+function packageSideFor(state: GameState, pkg: DraftPackage): PackageSide {
+  const fit = assessPackageFit(state, pkg)
+  const execution = assessExecutionConfidence(state, pkg)
+  const profit = assessProfitRange(state, pkg)
+  let castStarPower = 0
+  for (const slot of CAST_SLOTS) {
+    const t = findTalent(state, pkg.cast[slot])
+    if (t) castStarPower += t.fame
+  }
+  return { fit, execution, profit, castStarPower }
+}
+
+// #6 Change preview — the pure diff of two fully-assembled drafts (before → after a
+// select/swap). Passthrough to core packageDelta. Only REAL computed deltas.
+export function assessPackageDelta(
+  state: GameState,
+  before: DraftPackage,
+  after: DraftPackage,
+): PackageDelta {
+  return packageDelta(packageSideFor(state, before), packageSideFor(state, after))
+}
+
+// ── Per-assignment candidate card (redesigned TalentPicker) ────────────────────
+// Everything a candidate card shows for ONE talent in ONE assignment, all from PUBLIC
+// engine summaries (never actual skills / true ceilings). Reuses crossRoleAssessment
+// (Fit + Expected Performance + unproven), roleOVR, genreExperience, and shapeFitReasons
+// (the shared projectSkillWeights path). `strengths`/`weakness` are the top assignment-
+// relevant perceived-skill reads (shape-material where shape matters). NOTHING here reads
+// the hidden `actual` layer.
+export type CandidateCard = {
+  talentId: string
+  name: string
+  authored: boolean
+  available: boolean
+  engagedIn: string | null
+  discipline: Discipline
+  slot: CastSlot | undefined
+  ovr: number // role-specific OVR (perceived) for THIS assignment's discipline
+  ovrTier: string
+  fit: number // projectFit for THIS assignment (0..100)
+  performance: PerformanceBand // expectedPerformance {low, high, expected}
+  bandWidth: number
+  starPower: number // fame (0..100)
+  salary: number
+  age: number
+  genreExp: number // perceived genre experience for this discipline+genre
+  unproven: boolean // cross-role / first job in this discipline
+  strengths: string[] // top assignment-relevant reasons the talent SUITS this assignment
+  weakness: string | null // the most important assignment-relevant concern (or null)
+  // "Capable but Unproven" — a usable OVR with no credit in this discipline.
+  capableButUnproven: boolean
+  // ── Phase 5.1 CYCLE 3 (owner-ruling filters) — two PERCEIVED-only classification flags ──
+  // multiHyphenate: the talent's credited/capable CAREER IDENTITY spans MORE than their
+  // primary discipline — i.e. at least one NON-primary discipline is CAPABLE (roleOVR ≥
+  // CAPABILITY_OVR_MIN = 60), from the engine's careerIdentity summary (perceived OVR, no
+  // hidden data). This is the honest "writer-director", "actor-writer" reading: someone who
+  // could genuinely carry a second discipline, not merely their one home.
+  multiHyphenate: boolean
+  // specialist: a PEAKED perceived-skill profile in THIS assignment's discipline — the
+  // talent's single best perceived skill in the discipline exceeds the discipline's own
+  // perceived-skill MEAN by at least SPECIALIST_PEAK_MIN points. A spiky profile (one
+  // standout suit above an otherwise-flat set) reads as a specialist; an even, generalist
+  // profile does not. Computed ONLY from PERCEIVED skills (the player-visible layer the
+  // adapter already reads for shapeFitReasons) — never from hidden actual skills.
+  specialist: boolean
+}
+
+// Perceived thresholds for the qualitative strong/concern read on a card (display only;
+// mirror the shapeFitReasons thresholds). Reads PERCEIVED skills only.
+const CARD_CAPABILITY_MIN = 50 // a usable OVR floor for "capable but unproven"
+
+// A talent's single best perceived skill in a discipline must exceed the discipline's
+// perceived-skill MEAN by at least this many points to read as a "specialist" (a peaked,
+// spiky profile). Named threshold — never an inline magic number in the picker.
+const SPECIALIST_PEAK_MIN = 12
+
+// specialistInDiscipline: does the talent have a PEAKED perceived-skill profile in this
+// discipline? True when max(perceived skill) − mean(perceived skills) ≥ SPECIALIST_PEAK_MIN.
+// Reads ONLY the PERCEIVED skill layer (t.skills[discipline][key].perceived) — the same
+// player-visible values shapeFitReasons reads; never the hidden `actual` layer.
+function specialistInDiscipline(t: Talent, discipline: Discipline): boolean {
+  const keys = SKILL_ORDER[discipline] // always the discipline's 6 perceived skills
+  let sum = 0
+  let max = -Infinity
+  for (const key of keys) {
+    const perceived = t.skills[discipline][key]!.perceived
+    sum += perceived
+    if (perceived > max) max = perceived
+  }
+  const mean = sum / keys.length
+  return max - mean >= SPECIALIST_PEAK_MIN
+}
+
+// multiHyphenateOf: does the talent's career identity span a CAPABLE non-primary discipline?
+// True when careerIdentity reports at least one discipline other than the primary with a
+// usable OVR (capable ≡ roleOVR ≥ CAPABILITY_OVR_MIN = 60). Perceived OVR only (no hidden data).
+function multiHyphenateOf(t: Talent): boolean {
+  const ci = careerIdentity(t)
+  return ci.disciplines.some((d) => d.discipline !== ci.primary && d.capable)
+}
+
+export function assignmentCard(
+  state: GameState,
+  discipline: Discipline,
+  conceptId: string,
+  slot: CastSlot | undefined,
+  promise: FilmPromise,
+  shape: FilmShape,
+  talentId: string,
+): CandidateCard {
+  const t = findTalent(state, talentId)
+  if (!t) throw new Error(`assignmentCard: unknown talent "${talentId}"`)
+  const concept = findConcept(state, conceptId)
+  if (!concept) throw new Error(`assignmentCard: unknown concept "${conceptId}"`)
+  const engaged = engagedTalentIds(state)
+  const engagedIn = engaged.get(talentId) ?? null
+
+  const cross = crossRoleAssessment(state, talentId, discipline, conceptId, slot, promise, shape)
+  const reasons = shapeFitReasons(state, talentId, discipline, conceptId, slot, promise, shape)
+  const strengths = reasons.filter((r) => r.kind === 'suits').map((r) => r.text).slice(0, 3)
+  const firstConcern = reasons.find((r) => r.kind === 'concern')
+  const genreExp = genreExperience(t, discipline, concept.genre, 'perceived')
+
+  return {
+    talentId,
+    name: t.name,
+    authored: t.authored,
+    available: engagedIn === null,
+    engagedIn,
+    discipline,
+    slot,
+    ovr: cross.ovr,
+    ovrTier: cross.tier,
+    fit: cross.fit,
+    performance: cross.performance,
+    bandWidth: cross.bandWidth,
+    starPower: t.fame,
+    salary: t.salary,
+    age: t.age,
+    genreExp,
+    unproven: cross.unproven,
+    strengths,
+    weakness: firstConcern ? firstConcern.text : null,
+    capableButUnproven: cross.unproven && cross.ovr >= CARD_CAPABILITY_MIN,
+    multiHyphenate: multiHyphenateOf(t),
+    specialist: specialistInDiscipline(t, discipline),
+  }
+}
+
+// #5/#6 Greenlight assessment — the LOCKED greenlight-time PERCEIVED assessment, rebuilt
+// deterministically from a pre-tick snapshot + the locked Production, for the autopsy to
+// diff against actuals. Passthrough to core greenlightAssessment: this adapter only
+// assembles the PreTickSnapshot from the pre-tick GameState (never live/mutable state).
+export function assessGreenlight(
+  preTick: GameState,
+  production: Production,
+): GreenlightAssessment {
+  const talentById: Record<string, Talent> = {}
+  for (const t of preTick.talent) talentById[t.id] = t
+  const snapshot: PreTickSnapshot = {
+    seed: preTick.seed,
+    concepts: preTick.concepts,
+    releasedFilms: preTick.studio.releasedFilms,
+    talentById,
+    market: preTick.market,
+    standing: preTick.studio.standing,
+    era: preTick.era,
+  }
+  return greenlightAssessment(snapshot, production)
+}
+
+// #6 risksMaterialized — map each stored greenlight uncertainty factor to whether it BIT,
+// from the LOCKED assessment + the ACTUAL FilmResult. Passthrough to the core helper.
+export function assessRisksMaterialized(
+  assessment: GreenlightAssessment,
+  actualResult: FilmResult,
+): RisksMaterialized {
+  return risksMaterialized(assessment, actualResult)
+}
+
+// ── Autopsy compare — the LOCKED greenlight expectation vs the ACTUAL result ────
+// For a film released THIS session (its pre-tick snapshot is retained by the UI), build
+// the greenlight-time PERCEIVED assessment (cohesion / fit-by-assignment / execution /
+// commercial forecast / strengths / risks) from the LOCKED production, and map which of
+// the identified risks MATERIALIZED against the actual FilmResult. Both are passthroughs
+// to the core helpers — nothing is recomputed here. Returns null if the production is not
+// in the pre-tick active list (a film released inside an imported save has no snapshot).
+export type AutopsyCompare = {
+  assessment: GreenlightAssessment
+  risks: RisksMaterialized
+}
+export function autopsyCompare(
+  preTick: GameState,
+  filmResult: FilmResult,
+): AutopsyCompare | null {
+  const prod = preTick.studio.activeProductions.find((p) => p.id === filmResult.productionId)
+  if (!prod) return null // released-in-imported-save: no locked production to assess
+  const assessment = assessGreenlight(preTick, prod)
+  const risks = assessRisksMaterialized(assessment, filmResult)
+  return { assessment, risks }
+}
+
+// Re-export the AutopsyCompare's constituent result types (single boundary).
+export type { AutopsyCompare as AutopsyCompareView }

@@ -6,7 +6,7 @@
 // outputs (previewForecast, requiredNegative, salaries) — no invented scores.
 // Greenlight surfaces engine validation errors in plain English before committing.
 
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import type {
   GameState,
   FilmConcept,
@@ -25,6 +25,12 @@ import {
   previewForecast,
   greenlight,
   findConcept,
+  assessCreativeCohesion,
+  assessPackageFit,
+  assessExecutionConfidence,
+  assessProfitRange,
+  assessPackageDelta,
+  primaryDiscipline,
   NEGATIVE_BUDGET_MULTIPLIERS,
   MARKETING_BUDGET_LEVELS,
   PROMISE_WIDTHS,
@@ -35,6 +41,13 @@ import {
   PROMISE_AXES,
   SEGMENT_ORDER,
   selectCash,
+} from '../engine/adapter.ts'
+import type {
+  CreativeCohesion,
+  PackageFit,
+  ExecutionConfidence,
+  ForecastProfitRange,
+  PackageDelta,
 } from '../engine/adapter.ts'
 import {
   SHAPE_DESCRIPTIONS,
@@ -48,6 +61,10 @@ import { money, moneyExact, axis, segmentLabel } from '../format.ts'
 import { ConceptCard } from '../components/ConceptCard.tsx'
 import { ForecastDisplay } from '../components/ForecastDisplay.tsx'
 import { TalentPicker } from '../components/TalentPicker.tsx'
+import type { PickerAssignment } from '../components/TalentPicker.tsx'
+import { FilmPackageSummary } from '../components/FilmPackageSummary.tsx'
+import { FilmReadiness } from '../components/FilmReadiness.tsx'
+import { ChangePreview } from '../components/ChangePreview.tsx'
 import { ErrorBox, Warn, Metric } from '../components/common.tsx'
 
 type Step = 'concept' | 'shape' | 'promise' | 'talent' | 'budget' | 'review'
@@ -75,6 +92,9 @@ type Draft = {
   writerId: string | null
   directorId: string | null
   cast: Record<CastSlot, string | null>
+  // Crew/Craft hires (D-4). The engine already accepts craftIds; the UI now lets the
+  // player assign one (or none). Empty ⇒ technical defaults (as before).
+  craftIds: string[]
   negativeLevelIdx: number // index into NEGATIVE_BUDGET_MULTIPLIERS
   marketingLevelIdx: number // index into MARKETING_BUDGET_LEVELS
 }
@@ -90,6 +110,7 @@ function makeInitialDraft(): Draft {
     writerId: null,
     directorId: null,
     cast: { lead: null, antagonist: null, support: null },
+    craftIds: [], // no craft hire by default (technical falls back to D-4 default)
     negativeLevelIdx: 1, // 1.0×
     marketingLevelIdx: 1, // 400k
   }
@@ -125,7 +146,7 @@ function buildPackage(state: GameState, draft: Draft): DraftPackage | null {
     promise: buildPromise(draft, concept.genre),
     writerId: draft.writerId,
     directorId: draft.directorId,
-    craftIds: [],
+    craftIds: draft.craftIds, // the player-chosen Crew/Craft hires (may be empty)
     cast: {
       lead: draft.cast.lead,
       antagonist: draft.cast.antagonist,
@@ -133,6 +154,47 @@ function buildPackage(state: GameState, draft: Draft): DraftPackage | null {
     },
     budget: { negative, marketing },
   }
+}
+
+// A PARTIAL package for the Film Package summary — buildable as soon as writer+director
+// are chosen (cast slots may still be empty; assessPackageFit reports them as unfilled).
+// Returns null until writer+director exist. Craft is included (empty allowed).
+function buildPartialPackage(state: GameState, draft: Draft): DraftPackage | null {
+  if (!draft.conceptId || !draft.writerId || !draft.directorId) return null
+  const concept = findConcept(state, draft.conceptId)
+  if (!concept) return null
+  const req = requiredNegative(concept, draft.shape, state)
+  const negative = NEGATIVE_BUDGET_MULTIPLIERS[draft.negativeLevelIdx]! * req
+  const marketing = MARKETING_BUDGET_LEVELS[draft.marketingLevelIdx]!
+  return {
+    conceptId: draft.conceptId,
+    shape: draft.shape,
+    promise: buildPromise(draft, concept.genre),
+    writerId: draft.writerId,
+    directorId: draft.directorId,
+    craftIds: draft.craftIds,
+    // cast may be partial; assessPackageFit tolerates missing slots (cast lookups guard).
+    cast: {
+      lead: draft.cast.lead ?? '',
+      antagonist: draft.cast.antagonist ?? '',
+      support: draft.cast.support ?? '',
+    },
+    budget: { negative, marketing },
+  }
+}
+
+// Whether two complete packages assign the SAME talent to every slot (writer, director,
+// each cast slot, and craft). Used to decide when a change preview is worth showing.
+function samePackageTalent(a: DraftPackage, b: DraftPackage): boolean {
+  if (a.writerId !== b.writerId || a.directorId !== b.directorId) return false
+  for (const slot of CAST_SLOTS) {
+    if (a.cast[slot] !== b.cast[slot]) return false
+  }
+  const ac = a.craftIds ?? []
+  const bc = b.craftIds ?? []
+  if (ac.length !== bc.length) return false
+  for (let i = 0; i < ac.length; i++) if (ac[i] !== bc[i]) return false
+  return true
 }
 
 export function Assembly({
@@ -153,9 +215,37 @@ export function Assembly({
   const writers = useMemo(() => talentByRole(state, 'writer'), [state])
   const directors = useMemo(() => talentByRole(state, 'director'), [state])
   const actors = useMemo(() => talentByRole(state, 'actor'), [state])
+  const crew = useMemo(() => talentByRole(state, 'craft'), [state])
 
   const pkg = useMemo(() => buildPackage(state, draft), [state, draft])
+  const partialPkg = useMemo(() => buildPartialPackage(state, draft), [state, draft])
   const cash = selectCash(state)
+
+  // ── Film Package summary — the four real engine dimensions (perceived-only) ──
+  // Cohesion is TALENT-INDEPENDENT: it can be shown from the promise step onward.
+  // Fit needs writer+director (partial cast OK). Execution/Profit need a FULL package
+  // (every cast slot chosen) because they run the §5/§7 pipeline over resolved talent.
+  const promiseForSummary = concept ? buildPromise(draft, concept.genre) : null
+  const cohesion: CreativeCohesion | null =
+    concept && promiseForSummary
+      ? assessCreativeCohesion(concept, draft.shape, promiseForSummary)
+      : null
+  const fit: PackageFit | null = partialPkg ? assessPackageFit(state, partialPkg) : null
+  const execution: ExecutionConfidence | null = pkg ? assessExecutionConfidence(state, pkg) : null
+  const profit: ForecastProfitRange | null = pkg ? assessProfitRange(state, pkg) : null
+
+  // ── Change preview (on select/swap) — real computed packageDelta ────────────
+  // A delta needs TWO complete packages. We remember the last complete package the
+  // player had; whenever the current complete package differs (a swap/select changed a
+  // slot), we show the resulting change via packageDelta (real deltas only). The ref is
+  // updated after render so the NEXT change diffs against this one.
+  const prevCompletePkg = useRef<DraftPackage | null>(null)
+  let changeDelta: PackageDelta | null = null
+  if (pkg && prevCompletePkg.current && !samePackageTalent(prevCompletePkg.current, pkg)) {
+    changeDelta = assessPackageDelta(state, prevCompletePkg.current, pkg)
+  }
+  // Remember the current complete package as the baseline for the next change.
+  if (pkg) prevCompletePkg.current = pkg
 
   function patch(p: Partial<Draft>) {
     setDraft((d) => ({ ...d, ...p }))
@@ -246,12 +336,16 @@ export function Assembly({
       {step === 'promise' && concept && (
         <PromiseStep draft={draft} concept={concept} patch={patch} />
       )}
-      {step === 'talent' && (
+      {step === 'talent' && concept && promiseForSummary && (
         <TalentStep
+          state={state}
           draft={draft}
+          concept={concept}
+          promise={promiseForSummary}
           writers={writers}
           directors={directors}
           actors={actors}
+          crew={crew}
           patch={patch}
         />
       )}
@@ -259,7 +353,38 @@ export function Assembly({
         <BudgetStep state={state} draft={draft} concept={concept} pkg={pkg} patch={patch} />
       )}
       {step === 'review' && concept && pkg && (
-        <ReviewStep state={state} pkg={pkg} conceptTitle={concept.title} cash={cash} />
+        <ReviewStep
+          state={state}
+          pkg={pkg}
+          conceptTitle={concept.title}
+          cash={cash}
+          cohesion={cohesion}
+          fit={fit}
+          execution={execution}
+          profit={profit}
+        />
+      )}
+
+      {/* Change preview — the real computed effect of the latest select/swap. Shown on
+          the talent/budget steps once a complete package exists and a slot just changed. */}
+      {(step === 'talent' || step === 'budget') && changeDelta && (
+        <div style={{ marginTop: 16 }}>
+          <ChangePreview delta={changeDelta} label="Effect of your last change" />
+        </div>
+      )}
+
+      {/* Persistent Film Package summary — the four real engine dimensions. Shown from
+          the promise step onward (cohesion is talent-independent; the rest fill in as
+          the package is assembled). Never on the concept/shape steps (no promise yet). */}
+      {(step === 'promise' || step === 'talent' || step === 'budget') && cohesion && (
+        <div style={{ marginTop: 16 }}>
+          <FilmPackageSummary
+            cohesion={cohesion}
+            {...(fit ? { fit } : {})}
+            {...(execution ? { execution } : {})}
+            {...(profit ? { profit } : {})}
+          />
+        </div>
       )}
 
       {error && (
@@ -486,16 +611,24 @@ function PromiseStep({
 
 // ── Step: Talent ─────────────────────────────────────────────────────────────
 function TalentStep({
+  state,
   draft,
+  concept,
+  promise,
   writers,
   directors,
   actors,
+  crew,
   patch,
 }: {
+  state: GameState
   draft: Draft
+  concept: FilmConcept
+  promise: FilmPromise
   writers: ReturnType<typeof talentByRole>
   directors: ReturnType<typeof talentByRole>
   actors: ReturnType<typeof talentByRole>
+  crew: ReturnType<typeof talentByRole>
   patch: (p: Partial<Draft>) => void
 }) {
   const castIds = CAST_SLOTS.map((s) => draft.cast[s]).filter((x): x is string => x !== null)
@@ -504,12 +637,37 @@ function TalentStep({
     antagonist: 'Antagonist',
     support: 'Support',
   }
+  const gLabel = genreLabel(concept.genre)
+  // A per-assignment context factory: the picker uses it to compute rich cards (Fit,
+  // Expected Performance, genre experience, strengths/concerns) via the adapter.
+  const assignmentFor = (role: 'writer' | 'director' | 'craft', slot?: CastSlot): PickerAssignment => ({
+    state,
+    discipline: primaryDiscipline(role),
+    conceptId: concept.id,
+    slot,
+    promise,
+    shape: draft.shape,
+    genreLabel: gLabel,
+  })
+  const castAssignment = (slot: CastSlot): PickerAssignment => ({
+    state,
+    discipline: 'acting',
+    conceptId: concept.id,
+    slot,
+    promise,
+    shape: draft.shape,
+    genreLabel: gLabel,
+  })
+  // The chosen Crew member (single hire supported in the UI; engine accepts a list).
+  const craftId = draft.craftIds[0] ?? null
   return (
     <div className="card">
-      <h2>Cast the film</h2>
+      <h2>Cast &amp; crew the film</h2>
       <p className="hint">
-        Pick a writer, a director, and one actor per cast slot. Anyone already engaged in another
-        production, or already used on this film, is disabled with the reason shown.
+        Pick a writer, a director, one actor per cast slot, and (optionally) a Crew/Craft lead.
+        Candidates are sorted by Project Fit for the assignment — not by fame. Anyone already
+        engaged in another production, or already used on this film, is disabled with the reason
+        shown.
       </p>
       <div className="grid grid-2">
         <TalentPicker
@@ -520,6 +678,7 @@ function TalentStep({
           chosenElsewhere={[]}
           onSelect={(id) => patch({ writerId: id })}
           testid="picker-writer"
+          assignment={assignmentFor('writer')}
         />
         <TalentPicker
           title="Director"
@@ -529,6 +688,7 @@ function TalentStep({
           chosenElsewhere={[]}
           onSelect={(id) => patch({ directorId: id })}
           testid="picker-director"
+          assignment={assignmentFor('director')}
         />
       </div>
       <div className="sep" />
@@ -543,8 +703,25 @@ function TalentStep({
             chosenElsewhere={castIds.filter((id) => id !== draft.cast[slot])}
             onSelect={(id) => patch({ cast: { ...draft.cast, [slot]: id } })}
             testid={`picker-${slot}`}
+            assignment={castAssignment(slot)}
           />
         ))}
+      </div>
+      <div className="sep" />
+      {/* Crew / Craft — an optional hire. Selecting toggles it into craftIds; the same
+          member sets it back to none. Its Fit/OVR/EP/salary/strengths appear on the card
+          and it flows into the package summary and committed cost like any assignment. */}
+      <div className="grid grid-3">
+        <TalentPicker
+          title="Crew / Craft (optional)"
+          pool={crew}
+          role="craft"
+          selectedId={craftId}
+          chosenElsewhere={[]}
+          onSelect={(id) => patch({ craftIds: craftId === id ? [] : [id] })}
+          testid="picker-craft"
+          assignment={assignmentFor('craft')}
+        />
       </div>
     </div>
   )
@@ -571,7 +748,7 @@ function BudgetStep({
     writerId: draft.writerId!,
     directorId: draft.directorId!,
     cast: draft.cast as Record<CastSlot, string>,
-    craftIds: [],
+    craftIds: draft.craftIds, // include the Crew/Craft hire in the committed salary sum
   })
   const committed = negative + marketing + salaries
   const cash = selectCash(state)
@@ -686,43 +863,68 @@ function ReviewStep({
   pkg,
   conceptTitle,
   cash,
+  cohesion,
+  fit,
+  execution,
+  profit,
 }: {
   state: GameState
   pkg: DraftPackage
   conceptTitle: string
   cash: number
+  cohesion: CreativeCohesion | null
+  fit: PackageFit | null
+  execution: ExecutionConfidence | null
+  profit: ForecastProfitRange | null
 }) {
   const committed = totalCommittedCost(state, pkg)
   const goesNegative = cash - committed < 0
   return (
-    <div className="grid grid-2">
-      <div className="card stack">
-        <h2>Review &amp; greenlight</h2>
-        <div className="spread">
-          <span>Film</span>
-          <strong>{conceptTitle}</strong>
+    <div className="stack">
+      {/* Film Readiness — assembled from the four real dimensions, not a hidden score */}
+      {cohesion && fit && execution && profit && (
+        <FilmReadiness cohesion={cohesion} fit={fit} execution={execution} profit={profit} />
+      )}
+
+      <div className="grid grid-2">
+        <div className="card stack">
+          <h2>Review &amp; greenlight</h2>
+          <div className="spread">
+            <span>Film</span>
+            <strong>{conceptTitle}</strong>
+          </div>
+          <div className="spread">
+            <span>Total committed cost</span>
+            <strong className="mono">{moneyExact(committed)}</strong>
+          </div>
+          <div className="spread">
+            <span>Cash after greenlight</span>
+            <strong className={`mono ${cash - committed < 0 ? 'money neg' : 'money pos'}`}>
+              {moneyExact(cash - committed)}
+            </strong>
+          </div>
+          {goesNegative && (
+            <Warn>This greenlight takes cash negative. Confirm you intend to spend beyond your balance.</Warn>
+          )}
+          <p className="hint">
+            Greenlighting commits the budget and salaries now. The film enters production and
+            releases after it finishes. The forecast is the studio’s prediction — not a guarantee.
+          </p>
         </div>
-        <div className="spread">
-          <span>Total committed cost</span>
-          <strong className="mono">{moneyExact(committed)}</strong>
+        <div className="stack">
+          <ForecastDisplay forecast={previewForecast(state, pkg)} mode="normal" source="estimate" />
         </div>
-        <div className="spread">
-          <span>Cash after greenlight</span>
-          <strong className={`mono ${cash - committed < 0 ? 'money neg' : 'money pos'}`}>
-            {moneyExact(cash - committed)}
-          </strong>
-        </div>
-        {goesNegative && (
-          <Warn>This greenlight takes cash negative. Confirm you intend to spend beyond your balance.</Warn>
-        )}
-        <p className="hint">
-          Greenlighting commits the budget and salaries now. The film enters production and releases
-          after it finishes. The forecast is the studio’s prediction — not a guarantee.
-        </p>
       </div>
-      <div className="stack">
-        <ForecastDisplay forecast={previewForecast(state, pkg)} mode="normal" source="estimate" />
-      </div>
+
+      {/* Full four-dimension Film Package summary at greenlight review */}
+      {cohesion && (
+        <FilmPackageSummary
+          cohesion={cohesion}
+          {...(fit ? { fit } : {})}
+          {...(execution ? { execution } : {})}
+          {...(profit ? { profit } : {})}
+        />
+      )}
     </div>
   )
 }

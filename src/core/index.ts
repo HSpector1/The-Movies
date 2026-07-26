@@ -124,7 +124,7 @@ export type { ReceptionInputs, ReceptionResult } from './reception.js'
 // (§15.6's behavioral-independence tests use it; the contract itself defines the
 // deterministic center in §7/B16).
 export { computeForecast, forecastCenters, bandOf } from './forecast.js'
-export type { ForecastInputs, ForecastContext, ForecastCenters } from './forecast.js'
+export type { ForecastInputs, ForecastContext, ForecastCenters, DeterministicCore } from './forecast.js'
 
 // §13 grid declarations
 export {
@@ -180,6 +180,40 @@ export type { PerformanceBand, DisciplineStanding, CareerIdentity } from './tale
 // ── D-9.8 development (tick step 6 core) — pure per-release skill growth ───────
 export { developTalent } from './development.js'
 export type { DevelopmentContext } from './development.js'
+
+// ── Phase 5.1 CYCLE 3 — Film Package assessment helpers (READ-ONLY UI summaries) ─
+// Pure, deterministic, JSON-serializable read-only assessments the UI calls so it
+// never reinvents a §5/§7/D-9 formula. The sim never reads any of these (exactly
+// like the D-9 talentSummary display functions). (filmPackage.ts)
+export {
+  creativeCohesion,
+  packageFit,
+  executionConfidence,
+  forecastProfitRange,
+  greenlightAssessment,
+  risksMaterialized,
+  packageDelta,
+} from './filmPackage.js'
+export type {
+  CreativeCohesion,
+  AssignmentFit,
+  PackageFitInput,
+  PackageFit,
+  ExecutionConfidence,
+  ExecutionConfidenceInput,
+  ExecutionConfidenceContext,
+  MoneyRange,
+  ForecastProfitRange,
+  ForecastProfitInput,
+  ForecastProfitContext,
+  GreenlightAssessment,
+  PreTickSnapshot,
+  MaterializedRisk,
+  RisksMaterialized,
+  AssignmentDelta,
+  PackageDelta,
+  PackageSide,
+} from './filmPackage.js'
 
 // §8 broadcast (phase 4) — the minimal deterministic broadcast core (B22/B23/B24/M10).
 // Public entry + facts/ranking/template helpers for the test author, plus the two
