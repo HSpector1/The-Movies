@@ -617,6 +617,37 @@ function bakeProps2(scene: Phaser.Scene): void {
     g.fillCircle(16, 30, 3)
     g.fillCircle(24, 30, 3)
   })
+  // director: long coat, fedora, red scarf, rolled script — a confident silhouette
+  bakeProp(scene, 'p-director', 20, 40, 0.95, (g) => {
+    g.fillStyle(K.roleDirector, 1)
+    g.fillRoundedRect(5, 13, 8, 18, 2) // longer coat
+    g.fillStyle(K.roleDirectorScarf, 1)
+    g.fillRect(5, 13, 8, 3)
+    g.fillStyle(K.skin, 1)
+    g.fillCircle(9, 9, 4)
+    g.fillStyle(K.roleDirectorHat, 1)
+    g.fillRect(4, 6, 10, 2.5) // fedora brim
+    g.fillRect(6, 3, 6, 3.5) // crown
+    g.fillStyle(K.titleBoard, 1)
+    g.fillRect(13, 18, 3, 8) // rolled script under arm
+    g.fillStyle(K.roleDirector, 1)
+    g.fillRect(5, 29, 3, 8)
+    g.fillRect(10, 29, 3, 8)
+  })
+  // publicity photographer: crouched stance, big camera at the face
+  bakeProp(scene, 'p-photog', 22, 34, 0.95, (g) => {
+    g.fillStyle(K.rolePhotog, 1)
+    g.fillRoundedRect(5, 14, 7, 12, 2)
+    g.fillStyle(K.skin, 1)
+    g.fillCircle(9, 10, 4)
+    g.fillStyle(K.cameraBox, 1)
+    g.fillRect(10, 7, 9, 7) // camera body
+    g.fillStyle(K.glass, 0.9)
+    g.fillCircle(18, 10.5, 2.5) // lens
+    g.fillStyle(K.rolePhotog, 1)
+    g.fillRect(5, 24, 2.6, 9)
+    g.fillRect(9, 24, 2.6, 9)
+  })
 
   // ── production equipment (clusters near active stages) ─────────────────────
   bakeProp(scene, 'p-cart', 40, 34, 0.85, (g) => {

@@ -10,10 +10,11 @@
 // surface as `onAction`. That is the entire contract.
 
 import Phaser from 'phaser'
-import { LotScene, type LotEvent, type CameraPreset } from './lot/LotScene'
+import { LotScene, type LotEvent, type CameraPreset, type CharacterInfo } from './lot/LotScene'
+import type { MomentKind } from './lot/vignettes'
 import type { StudioLotSnapshot, BuildingId, LotActionKind, ProductionCard } from './snapshot/StudioLotSnapshot'
 
-export type { CameraPreset }
+export type { CameraPreset, CharacterInfo, MomentKind }
 
 export type SelectionInfo = {
   buildingId: BuildingId
@@ -34,6 +35,10 @@ export type StudioLotViewOptions = {
   onAction?: (e: LotActionEvent) => void
   /** Selection changed (host shows/updates an info panel). null = cleared. */
   onSelect?: (sel: SelectionInfo | null) => void
+  /** An ambient/vignette character was inspected. null = dismissed. */
+  onCharacter?: (info: CharacterInfo | null) => void
+  /** A cosmetic activity cue (vignette toast). null = clear. */
+  onActivity?: (text: string | null) => void
   /** The lot finished first paint. */
   onReady?: () => void
 }
@@ -94,6 +99,14 @@ export class StudioLotView {
       this.opts.onSelect?.(null)
       return
     }
+    if (e.type === 'character') {
+      this.opts.onCharacter?.(e.info)
+      return
+    }
+    if (e.type === 'activity') {
+      this.opts.onActivity?.(e.text)
+      return
+    }
     if (e.type === 'action') {
       this.opts.onAction?.({ buildingId: e.buildingId, action: e.action })
     }
@@ -126,6 +139,26 @@ export class StudioLotView {
   /** Move the camera to a named framing (overview / production / wide). */
   camera(preset: CameraPreset): void {
     this.scene?.applyCameraPreset(preset)
+  }
+
+  /** Debug/testing: force a vignette (optionally jumped to a phase). */
+  forceVignette(kind: MomentKind, phase?: string): boolean {
+    return this.scene?.forceVignette(kind, phase) ?? false
+  }
+
+  /** Debug/testing: pause the automatic vignette scheduler. */
+  pauseVignettes(p: boolean): void {
+    this.scene?.setDirectorPaused(p)
+  }
+
+  /** Debug/testing: screen position of the first visible inspectable character. */
+  firstInspectableScreen(): { x: number; y: number; role: string } | null {
+    return this.scene?.firstInspectableScreen() ?? null
+  }
+
+  /** Debug/testing: seek the active vignette to an absolute time (frame sequences). */
+  seekVignette(t: number): void {
+    this.scene?.seekVignette(t)
   }
 
   /** Introspection for tests/verification (selection, active tags, object count). */

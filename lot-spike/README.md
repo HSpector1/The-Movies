@@ -9,13 +9,18 @@ folder (`lot-spike/`), on the `studio-lot-spike` branch, in its own git worktree
 It does not touch the simulation core, `GameState`, `SaveFileV1`, the M0A formulas,
 or any contract document. It imports **nothing** from `src/core`.
 
-> **Pass 2 — "the lot is alive".** The functional spike has had a visual-design
-> pass: the lot is enclosed and grounded, the gate is a hero entrance, soundstages
-> show real production activity (open-door spill light, gear, crew, a parked van,
-> a title board), four ambient roles and vehicles move with dwell stops, and the
-> struggling/established states differ through authored dressing — not just tint.
-> See **`docs/`** for the design bible, the reference research, and the pass-2
-> review; **`shots/pass-2/`** for before/after evidence.
+> **Pass 2 — "the lot is alive".** The lot is enclosed and grounded, the gate is a
+> hero entrance, soundstages show production dressing, ambient roles + vehicles
+> move with dwell stops, and struggling/established differ through authored
+> dressing. See `docs/VISUAL-*` and `shots/pass-2/`.
+
+> **Pass 3 — "the lot is being made".** Occasional, deterministic **production
+> vignettes** punctuate studio life: a director arrives, a stage is prepped, a take
+> is filmed, the studio reacts to a release. Ambient characters are **click-to-
+> inspect** (a light card names their role and what they're broadly doing).
+> One major vignette at a time, with quiet periods between. See
+> `docs/PASS-3-VIGNETTE-DESIGN.md`, `docs/PASS-3-REVIEW.md`, and `shots/pass-3/`
+> (including two ordered PNG frame sequences).
 
 ## Launch (exact)
 
@@ -26,45 +31,72 @@ npm run dev          # → http://localhost:4316/  (Vite prints the URL)
 ```
 
 **Controls:** drag to pan · scroll to zoom (cursor-centered) · WASD/arrows to pan ·
-`R` or **Reset View** to reframe · click a building to select it.
+`R` or **Reset View** to reframe · **click a building** to select it · **click a
+person** (when zoomed in) to inspect them. Vignettes play on their own; watch an
+active soundstage for a moment.
 
 **Switch studio state:** use the **PROTOTYPE** dock (bottom-left) → *Studio state:
-Small / Established*. In the real app the host supplies this state; here two
-fixtures stand in.
+Small / Established*. In the real app the host supplies this state; here fixtures
+stand in.
+
+**Debug / evidence hooks** (browser console, `window.__lot`):
+`setMode('struggling'|'successful'|'celebration'|'disappointment')`,
+`forceVignette('production-arrival'|'stage-preparation'|'filming-beat'|'studio-reaction', 'start'|'action'|'complete')`,
+`pauseVignettes(true)`, `seekVignette(seconds)`, `camera('overview'|'production'|'theater'|'entrance'|'wide')`.
+These are prototype-only and isolated from player UI.
 
 ## Docs
 
-- `docs/VISUAL-DIRECTION.md` — the design bible (north star, shape/color grammar,
-  three-distance rule, production-state grammar, struggling vs established).
+- `docs/VISUAL-DIRECTION.md` — the design bible (north star, grammar, three-distance
+  rule, production-state grammar, struggling vs established).
 - `docs/VISUAL-REFERENCE-SYNTHESIS.md` — cited research from studio/management sims.
-- `docs/PASS-2-VISUAL-REVIEW.md` — baseline diagnosis, changes, reviews A–D,
-  correction, limitations, next milestone.
+- `docs/PASS-2-VISUAL-REVIEW.md` — pass-2 diagnosis, changes, reviews, limitations.
+- `docs/PASS-3-VIGNETTE-DESIGN.md` — vignette grammar, scheduling, camera policy,
+  interaction hierarchy, character inspection, contract changes.
+- `docs/PASS-3-REVIEW.md` — pass-3 reviews A–D, performance, limitations, next step.
 
-## Screenshots
+## Screenshots / evidence
 
-- `shots/pass-2/` — the pass-2 evidence set (14 required shots + entrance + baselines
-  + two side-by-side comparisons). Regenerate with `npm run preview` then
-  `node tools/capture.mjs after`.
-- `shots/1-4*.png` — original pass-1 evidence (kept for comparison).
+- `shots/pass-3/` — vignette + inspection evidence (12 screenshots + two ordered
+  PNG frame sequences `seq-arrival-*`, `seq-preparation-*`). Regenerate with
+  `npm run preview` then `node tools/capture-pass3.mjs shots`.
+- `shots/pass-2/` — pass-2 evidence (overviews, selections, comparisons).
+- `shots/1-4*.png` — original pass-1 evidence.
 
 ## Tests / verification
 
-`node tools/capture.mjs verify` (with `npm run preview` running) drives the built
-app in headless Chrome and asserts: fixtures load, state switching changes the lot,
-select/deselect, navigation events reach the host, repeated snapshot updates don't
-leak display objects, destroy/recreate leaves exactly one canvas, and no console
-errors. `npm run typecheck` and `npm run build` must both pass.
+With `npm run preview` running:
+
+- `node tools/capture-pass3.mjs verify` — asserts fixtures load, each vignette can
+  be forced deterministically, one major vignette at a time, re-force stays clean,
+  snapshot switch cancels a vignette and frees the actor pool, no stranded actors
+  after repeated snapshots, character hover/select works, **building selection
+  supersedes character inspection**, far zoom disables inspection, destroy/recreate
+  leaves one canvas, and no console errors.
+- `node tools/capture.mjs verify` — the pass-2 assertions (still green).
+
+`npm run typecheck` and `npm run build` must both pass. No `Math.random` in
+`src/` (deterministic seeded RNG only).
+
+## Presentation contract (unchanged snapshot)
+
+Pass 3 added **no `StudioLotSnapshot` fields** — vignette eligibility is derived
+from existing facts (active productions; `releasedFilms` reception + recency). New
+surface is presentation-only: `onCharacter(info)` and `onActivity(text)` callbacks,
+and debug-only view methods (`forceVignette`, `pauseVignettes`, `seekVignette`).
 
 ## Current limitations (honest)
 
-- Implemented **and visually demonstrated:** everything in the screenshots.
-- **Structurally proven only:** `GameState → StudioLotSnapshot` (types-only in
-  `fromGameState.ts`) — not yet wired to a live engine.
-- **Not integrated:** the prototype does not touch the Phase 5 app; navigation
-  actions open the action log, not real screens.
-- The gate arch could be a stronger overview landmark; ambient life lacks one-off
-  surprise beats; no click-to-inspect on characters yet (see the next milestone in
-  the pass-2 review).
+- Implemented **and visually demonstrated:** everything in the screenshots +
+  frame sequences.
+- **Authored & finite:** four vignette types on cooldowns — engaging but not
+  surprising over a long watch. The take flash is transient (won't show in an
+  arbitrary still).
+- **Fixture-driven, not live-integrated:** the director reads a snapshot; it does
+  not observe a running engine. `GameState → StudioLotSnapshot` remains proven at
+  the type level only (`fromGameState.ts`).
+- **Not integrated:** navigation actions open the prototype action log, not real
+  Phase 5 screens. Reaction fixtures are debug-selectable, not player UI modes.
 
 ---
 

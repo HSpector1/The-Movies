@@ -488,6 +488,91 @@ body {
   }
 }
 
+/* ── character inspection card (lighter + smaller than the building panel) ────── */
+
+.char-card {
+  position: absolute;
+  right: 20px;
+  top: 84px;
+  z-index: 11;
+  width: 224px;
+  padding: 13px 15px 14px;
+  background: linear-gradient(180deg, rgba(52, 41, 28, 0.94), rgba(40, 30, 20, 0.94));
+  border: 1px solid var(--edge);
+  border-left: 3px solid var(--brass);
+  border-radius: 9px;
+  box-shadow: var(--shadow);
+  transition: opacity 0.15s, transform 0.15s;
+}
+.char-card.hidden {
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+}
+.char-close {
+  position: absolute;
+  top: 6px;
+  right: 9px;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--ink-dim);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+.char-close:hover {
+  color: var(--ink);
+}
+.char-role {
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.char-activity {
+  font-size: 12px;
+  color: var(--brass);
+  margin-bottom: 7px;
+}
+.char-desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-dim);
+  font-style: italic;
+}
+
+/* ── activity toast (optional cosmetic cue) ──────────────────────────────────── */
+
+.activity-toast {
+  position: absolute;
+  top: 74px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 11;
+  padding: 8px 18px;
+  background: rgba(26, 18, 10, 0.86);
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  box-shadow: var(--shadow);
+  transition: opacity 0.25s, transform 0.25s;
+}
+.activity-toast::before {
+  content: '●';
+  color: var(--red);
+  margin-right: 8px;
+  font-size: 10px;
+  vertical-align: middle;
+}
+.activity-toast.hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-6px);
+  pointer-events: none;
+}
+
 /* ── hint ────────────────────────────────────────────────────────────────────── */
 
 .hint {

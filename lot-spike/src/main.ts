@@ -6,7 +6,13 @@
 // The dashed data-flow the spike set out to prove:
 //   StudioLotSnapshot → StudioLotView → building selected / navigation event
 
-import { StudioLotView, type LotActionEvent, type SelectionInfo } from './StudioLotView'
+import {
+  StudioLotView,
+  type LotActionEvent,
+  type SelectionInfo,
+  type CharacterInfo,
+  type MomentKind,
+} from './StudioLotView'
 import { createHost } from './ui/host'
 import { FIXTURES, type FixtureKey } from './snapshot/fixtures'
 import type { BuildingId } from './snapshot/StudioLotSnapshot'
@@ -27,6 +33,11 @@ const view = new StudioLotView({
   parent: stage as HTMLElement,
   snapshot: FIXTURES[mode],
   onSelect: (sel: SelectionInfo | null) => host.showSelection(sel),
+  onCharacter: (info: CharacterInfo | null) => {
+    host.showCharacter(info)
+    debug.character = info
+  },
+  onActivity: (text: string | null) => host.showActivity(text),
   onAction: (e: LotActionEvent) => {
     host.logAction(labelFor(e.buildingId), e.action)
     // Prototype navigation: a real host would open the Phase 5 screen here.
@@ -68,9 +79,14 @@ type DebugApi = {
   select: (id: BuildingId) => void
   clearSelection: () => void
   triggerAction: (id: BuildingId) => void
-  camera: (preset: 'overview' | 'production' | 'wide' | 'entrance') => void
+  camera: (preset: 'overview' | 'production' | 'wide' | 'entrance' | 'theater') => void
   debugState: () => ReturnType<StudioLotView['getDebugState']>
   recreate: () => void
+  forceVignette: (kind: MomentKind, phase?: string) => boolean
+  pauseVignettes: (p: boolean) => void
+  seekVignette: (t: number) => void
+  firstInspectableScreen: () => { x: number; y: number; role: string } | null
+  character: CharacterInfo | null
 }
 const debug: DebugApi = {
   events: [],
@@ -81,6 +97,11 @@ const debug: DebugApi = {
   camera: (preset) => view.camera(preset),
   debugState: () => view.getDebugState(),
   recreate: () => view.recreate(),
+  forceVignette: (kind, phase) => view.forceVignette(kind, phase),
+  pauseVignettes: (p) => view.pauseVignettes(p),
+  seekVignette: (t) => view.seekVignette(t),
+  firstInspectableScreen: () => view.firstInspectableScreen(),
+  character: null,
 }
 function debugRecord(e: LotActionEvent): void {
   debug.events.push(e)

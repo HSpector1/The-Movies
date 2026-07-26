@@ -7,7 +7,7 @@
 // The host renders facts and forwards intent. It never simulates anything.
 
 import type { StudioLotSnapshot, BuildingId } from '../snapshot/StudioLotSnapshot'
-import type { SelectionInfo } from '../StudioLotView'
+import type { SelectionInfo, CharacterInfo } from '../StudioLotView'
 import type { FixtureKey } from '../snapshot/fixtures'
 
 export type HostCallbacks = {
@@ -20,6 +20,8 @@ export type HostCallbacks = {
 export type HostApi = {
   setTopBar: (snap: StudioLotSnapshot) => void
   showSelection: (sel: SelectionInfo | null) => void
+  showCharacter: (info: CharacterInfo | null) => void
+  showActivity: (text: string | null) => void
   logAction: (label: string, action: string) => void
   setActiveMode: (k: FixtureKey) => void
 }
@@ -143,10 +145,23 @@ export function createHost(app: HTMLElement, initialMode: FixtureKey, cb: HostCa
 
   dock.append(dockHead, toggleRow, log)
 
+  // ── character inspection card (light, small; distinct from building panel) ────
+  const charCard = el('aside', 'char-card')
+  charCard.classList.add('hidden')
+  const charRole = el('div', 'char-role', '')
+  const charActivity = el('div', 'char-activity', '')
+  const charDesc = el('div', 'char-desc', '')
+  const charClose = el('button', 'char-close', '×')
+  charCard.append(charClose, charRole, charActivity, charDesc)
+
+  // ── activity toast (cosmetic vignette cue; never seizes the camera) ───────────
+  const toast = el('div', 'activity-toast')
+  toast.classList.add('hidden')
+
   // ── hint ─────────────────────────────────────────────────────────────────────
   const hint = el('div', 'hint', 'Drag to pan · Scroll to zoom · WASD/Arrows · R to reset')
 
-  app.append(top, panel, dock, hint)
+  app.append(top, panel, charCard, toast, dock, hint)
 
   // ── api ───────────────────────────────────────────────────────────────────────
   const setActiveMode = (k: FixtureKey): void => {
@@ -221,6 +236,36 @@ export function createHost(app: HTMLElement, initialMode: FixtureKey, cb: HostCa
     pAction.disabled = !sel.available
   }
 
+  const showCharacter = (info: CharacterInfo | null): void => {
+    if (!info) {
+      charCard.classList.add('hidden')
+      return
+    }
+    charCard.classList.remove('hidden')
+    charRole.textContent = info.role
+    const bits = [info.activity]
+    if (info.production) bits.push(`“${info.production}”`)
+    else if (info.building) bits.push(info.building)
+    charActivity.textContent = bits.join(' · ')
+    charDesc.textContent = info.description
+  }
+  charClose.addEventListener('click', () => showCharacter(null))
+
+  let toastTimer = 0
+  const showActivity = (text: string | null): void => {
+    if (toastTimer) {
+      window.clearTimeout(toastTimer)
+      toastTimer = 0
+    }
+    if (!text) {
+      toast.classList.add('hidden')
+      return
+    }
+    toast.textContent = text
+    toast.classList.remove('hidden')
+    toastTimer = window.setTimeout(() => toast.classList.add('hidden'), 4500)
+  }
+
   const logAction = (label: string, action: string): void => {
     logEmpty.remove()
     const li = el('li', 'log-item')
@@ -231,5 +276,5 @@ export function createHost(app: HTMLElement, initialMode: FixtureKey, cb: HostCa
     while (logList.children.length > 8) logList.lastChild?.remove()
   }
 
-  return { setTopBar, showSelection, logAction, setActiveMode }
+  return { setTopBar, showSelection, showCharacter, showActivity, logAction, setActiveMode }
 }

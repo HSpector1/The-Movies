@@ -131,6 +131,13 @@ export const COLORS = {
   roleTalent: 0xf0ead9, // pale glamour coat
   roleTalentTrim: 0xb8484a,
   roleGrip: 0x5a5048, // grip in olive/grey
+  roleDirector: 0x4a3b2c, // director: brown coat
+  roleDirectorHat: 0x2f2419, // fedora / beret
+  roleDirectorScarf: 0xb8484a,
+  rolePhotog: 0x4b4640, // photographer: grey
+  cameraBox: 0x1c1712,
+  takeFlash: 0xfff4d0, // brief "take" light cue
+  activityMark: 0xf7d774,
 
   // vehicles
   vanBody: 0x4a5a52,

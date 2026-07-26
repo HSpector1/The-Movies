@@ -97,10 +97,42 @@ export const SUCCESSFUL_STUDIO: StudioLotSnapshot = {
   sceneSeed: 'meridian-y3-thriving',
 }
 
-/** Menu of the demo snapshots the host can toggle between. */
+/**
+ * A thriving studio the very week a picture opens huge — drives the celebration
+ * studio-reaction vignette (a fresh smash on the marquee).
+ */
+export const RELEASE_CELEBRATION: StudioLotSnapshot = {
+  ...SUCCESSFUL_STUDIO,
+  week: 141,
+  releasedFilms: [
+    { id: 'rel-new', title: 'The Silver Curtain', reception: 'smash', weeksAgo: 1 },
+    { id: 'rel-a', title: 'Midnight Republic', reception: 'smash', weeksAgo: 7 },
+    { id: 'rel-b', title: 'The Copper Coast', reception: 'hit', weeksAgo: 14 },
+  ],
+  sceneSeed: 'meridian-celebration',
+}
+
+/**
+ * A studio absorbing a flop the week it opened — drives the subdued
+ * disappointment reaction. Still solvent, just quieter.
+ */
+export const RELEASE_DISAPPOINTMENT: StudioLotSnapshot = {
+  ...STRUGGLING_STUDIO,
+  standing: 'finding-footing',
+  week: 31,
+  releasedFilms: [
+    { id: 'rel-flop', title: 'Harbor Lights', reception: 'flop', weeksAgo: 1 },
+    { id: 'rel-1', title: 'Dust & Nickels', reception: 'flop', weeksAgo: 12 },
+  ],
+  sceneSeed: 'meridian-disappointment',
+}
+
+/** Menu of the demo snapshots the host can toggle between (+ debug-only variants). */
 export const FIXTURES = {
   struggling: STRUGGLING_STUDIO,
   successful: SUCCESSFUL_STUDIO,
+  celebration: RELEASE_CELEBRATION,
+  disappointment: RELEASE_DISAPPOINTMENT,
 } as const
 
 export type FixtureKey = keyof typeof FIXTURES

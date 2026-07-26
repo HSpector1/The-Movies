@@ -33,6 +33,12 @@ import type {
   LotActionKind,
 } from '../snapshot/StudioLotSnapshot'
 import { BUILDING_ACTION } from '../snapshot/StudioLotSnapshot'
+import {
+  VignetteDirector,
+  type VignetteHost,
+  type MomentKind,
+  type Inspect,
+} from './vignettes'
 
 const hw = TILE_W / 2
 const hh = TILE_H / 2
@@ -42,6 +48,15 @@ const ZOOM_MAX = 1.9
 
 const FONT_SERIF = 'Georgia, "Iowan Old Style", "Times New Roman", serif'
 const FONT_SANS = 'Avenir, "Helvetica Neue", Arial, sans-serif'
+
+/** A presentation-only description of an ambient/vignette character. */
+export type CharacterInfo = {
+  role: string
+  activity: string
+  production?: string
+  building?: string
+  description: string
+}
 
 /** Events the scene emits up to the host. */
 export type LotEvent =
@@ -56,9 +71,11 @@ export type LotEvent =
     }
   | { type: 'deselected' }
   | { type: 'action'; buildingId: BuildingId; action: LotActionKind }
+  | { type: 'character'; info: CharacterInfo | null }
+  | { type: 'activity'; text: string | null }
   | { type: 'ready' }
 
-export type CameraPreset = 'overview' | 'production' | 'wide' | 'entrance'
+export type CameraPreset = 'overview' | 'production' | 'wide' | 'entrance' | 'theater'
 
 export type LotSceneData = {
   snapshot: StudioLotSnapshot
@@ -98,6 +115,8 @@ type Agent = {
   stageGate?: 'stage-a' | 'stage-b'
   /** only visible when the studio is busy */
   busyOnly?: boolean
+  /** presentation-only inspection card data */
+  inspect?: Inspect
 }
 
 export class LotScene extends Phaser.Scene {
@@ -113,6 +132,14 @@ export class LotScene extends Phaser.Scene {
   private selected: BuildingId | null = null
   private hovered: BuildingId | null = null
   private tagZoomBand = -1
+
+  // ── pass-3: vignettes + character inspection ────────────────────────────────
+  private director!: VignetteDirector
+  private pool: Phaser.GameObjects.Sprite[] = []
+  private poolUsed: boolean[] = []
+  private marker: Phaser.GameObjects.Container | null = null
+  private filmingHush = false
+  private characterActive = false
 
   private dragging = false
   private dragMoved = false
@@ -142,12 +169,16 @@ export class LotScene extends Phaser.Scene {
     this.buildLandscaping()
     this.buildEstablishedDressing()
     this.buildAgents()
+    this.buildVignetteSystem()
 
     this.setupCamera()
     this.setupInput()
 
     this.applySnapshot(this.snapshot)
     this.resetCamera()
+
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.director?.destroy())
+    this.events.once(Phaser.Scenes.Events.DESTROY, () => this.director?.destroy())
 
     this.emitEvent({ type: 'ready' })
   }
@@ -615,6 +646,226 @@ export class LotScene extends Phaser.Scene {
     return Math.hypot(b.gx - a.gx, b.gy - a.gy)
   }
 
+  // ── pass-3: vignette system + character inspection ──────────────────────────
+
+  private buildVignetteSystem(): void {
+    // small reusable actor pool (no per-vignette churn)
+    for (let i = 0; i < 10; i++) {
+      const spr = this.add.sprite(0, 0, 'p-crew')
+      spr.setOrigin(0.5, 0.95)
+      spr.setVisible(false)
+      this.makeInspectable(spr)
+      this.pool.push(spr)
+      this.poolUsed.push(false)
+    }
+
+    // ambient agents are inspectable too
+    for (const a of this.agents) {
+      a.sprite.setData('inspect', a.inspect ?? this.ambientInspect(a))
+      this.makeInspectable(a.sprite)
+    }
+
+    // world-space activity marker (a small pin; never seizes the camera)
+    const g = this.add.graphics()
+    g.fillStyle(K.activityMark, 0.95)
+    g.fillTriangle(-7, -12, 7, -12, 0, 0)
+    g.lineStyle(1.5, K.labelBg, 0.8)
+    g.strokeTriangle(-7, -12, 7, -12, 0, 0)
+    g.fillStyle(K.labelBg, 0.9)
+    g.fillCircle(0, -13, 2.2)
+    const label = this.add.text(0, -26, '', {
+      fontFamily: FONT_SANS,
+      fontSize: '11px',
+      color: '#f5ecd8',
+      backgroundColor: '#241a12cc',
+      padding: { x: 6, y: 3 },
+    })
+    label.setOrigin(0.5, 1)
+    this.marker = this.add.container(0, 0, [label, g])
+    this.marker.setDepth(LAYER.overlay + 500)
+    this.marker.setVisible(false)
+
+    const host: VignetteHost = {
+      getSnapshot: () => this.snapshot,
+      acquire: () => this.acquireActor(),
+      release: (i) => this.releaseActor(i),
+      setActor: (i, tex, gx, gy, opts) => this.setPoolActor(i, tex, gx, gy, opts),
+      emphasizeStage: (id, on) => this.emphasizeStage(id, on),
+      takeFlash: (gx, gy) => this.takeFlash(gx, gy),
+      marker: (gx, gy, text) => this.showMarker(gx, gy, text),
+      clearMarker: () => this.hideMarker(),
+      toast: (text) => this.emitEvent({ type: 'activity', text }),
+      setFilmingHush: (on) => {
+        this.filmingHush = on
+      },
+    }
+    this.director = new VignetteDirector(host, this.snapshot.sceneSeed)
+  }
+
+  private ambientInspect(a: Agent): Inspect {
+    const key = a.sprite.texture.key
+    const stage = a.stageGate ? (a.stageGate === 'stage-a' ? 'Soundstage A' : 'Soundstage B') : undefined
+    const base: Record<string, Inspect> = {
+      'p-crew': { role: 'Production Crew', activity: 'On the lot', description: 'Moving between departments.' },
+      'p-office': { role: 'Office Staff', activity: 'Crossing the lot', description: 'Carrying the day’s paperwork.' },
+      'p-talent': { role: 'Talent', activity: 'Strolling the lot', description: 'Between calls.' },
+      'p-grip': { role: 'Grip', activity: 'Hauling gear', description: 'Between stage and storage.' },
+    }
+    const info = base[key] ?? { role: 'Studio Staff', activity: 'On the lot', description: 'Part of studio life.' }
+    return stage ? { ...info, activity: 'On set', building: stage } : info
+  }
+
+  private acquireActor(): number | null {
+    for (let i = 0; i < this.pool.length; i++) {
+      if (!this.poolUsed[i]) {
+        this.poolUsed[i] = true
+        return i
+      }
+    }
+    return null
+  }
+
+  private releaseActor(i: number): void {
+    if (i < 0 || i >= this.pool.length) return
+    this.poolUsed[i] = false
+    this.pool[i].setVisible(false)
+    this.pool[i].setData('inspect', null)
+  }
+
+  private setPoolActor(
+    i: number,
+    tex: string,
+    gx: number,
+    gy: number,
+    opts: { hidden?: boolean; inspect?: Inspect; faceLeft?: boolean },
+  ): void {
+    const spr = this.pool[i]
+    if (!spr) return
+    if (spr.getData('tex') !== tex) {
+      spr.setTexture(tex)
+      spr.setData('tex', tex)
+      spr.setInteractive({ pixelPerfect: false }) // refresh hit area to new frame
+    }
+    const s = gridToScreen(gx, gy)
+    spr.setPosition(s.x, s.y)
+    spr.setDepth(depthFor(gx, gy, LAYER.prop + 2))
+    spr.setFlipX(!!opts.faceLeft)
+    spr.setVisible(!opts.hidden)
+    spr.setData('inspect', opts.inspect ?? null)
+  }
+
+  private emphasizeStage(id: 'stage-a' | 'stage-b', on: boolean): void {
+    const view = this.views.get(id)
+    if (view?.recLight) {
+      view.recLight.setData('on', on || view.recLight.getData('on'))
+      view.recLight.setScale(on ? 1.9 : 1.3)
+    }
+    if (view?.doorGlow) view.doorGlow.setAlpha(on ? 1 : 0.9)
+  }
+
+  private takeFlash(gx: number, gy: number): void {
+    const s = gridToScreen(gx, gy)
+    const flash = this.add.circle(s.x, s.y - 18, 13, K.takeFlash, 0.95)
+    flash.setDepth(LAYER.overlay + 400)
+    this.tweens.add({
+      targets: flash,
+      alpha: 0,
+      scale: 2.1,
+      duration: 420,
+      ease: 'Quad.easeOut',
+      onComplete: () => flash.destroy(),
+    })
+  }
+
+  private showMarker(gx: number, gy: number, text: string): void {
+    if (!this.marker) return
+    const s = gridToScreen(gx, gy)
+    this.marker.setPosition(s.x, s.y - 40)
+    this.marker.setData('baseY', s.y - 40)
+    const label = this.marker.list[0] as Phaser.GameObjects.Text
+    label.setText(text)
+    this.marker.setVisible(true)
+  }
+
+  private hideMarker(): void {
+    this.marker?.setVisible(false)
+  }
+
+  private makeInspectable(spr: Phaser.GameObjects.Sprite): void {
+    spr.setInteractive({ pixelPerfect: false })
+    spr.on('pointerover', () => {
+      if (!this.inspectAllowed()) return
+      spr.setScale(spr.flipX ? -1.15 : 1.15, 1.15)
+      if (!this.dragging) this.input.setDefaultCursor('help')
+    })
+    spr.on('pointerout', () => {
+      spr.setScale(spr.flipX ? -1 : 1, 1)
+      if (!this.dragging) this.input.setDefaultCursor(this.hovered ? 'pointer' : 'grab')
+    })
+    spr.on('pointerup', () => {
+      if (this.dragMoved || !this.inspectAllowed()) return
+      const info = spr.getData('inspect') as Inspect | null
+      if (info) this.selectCharacter(info)
+    })
+  }
+
+  private inspectAllowed(): boolean {
+    return this.cameras.main.zoom >= 0.55
+  }
+
+  private selectCharacter(info: Inspect): void {
+    this.characterActive = true
+    if (this.selected) {
+      this.selected = null
+      this.refreshHighlights()
+      this.emitEvent({ type: 'deselected' })
+    }
+    this.emitEvent({ type: 'character', info })
+  }
+
+  private clearCharacter(): void {
+    if (!this.characterActive) return
+    this.characterActive = false
+    this.emitEvent({ type: 'character', info: null })
+  }
+
+  /** Debug: force a vignette (optionally jumped to a phase) for evidence/tests. */
+  forceVignette(kind: MomentKind, phase?: string): boolean {
+    return this.director?.force(kind, phase) ?? false
+  }
+
+  setDirectorPaused(p: boolean): void {
+    this.director?.setPaused(p)
+  }
+
+  seekVignette(t: number): void {
+    this.director?.seek(t)
+  }
+
+  /** Screen position (CSS px) of the first visible inspectable character, for tests. */
+  firstInspectableScreen(): { x: number; y: number; role: string } | null {
+    const cam = this.cameras.main
+    const w2s = (wx: number, wy: number): { x: number; y: number } => ({
+      x: (wx - cam.worldView.x) * cam.zoom,
+      y: (wy - cam.worldView.y) * cam.zoom,
+    })
+    const pick = (spr: Phaser.GameObjects.Sprite): { x: number; y: number; role: string } | null => {
+      const info = spr.getData('inspect') as Inspect | null
+      if (!spr.visible || !info) return null
+      const p = w2s(spr.x, spr.y - 14)
+      return { x: p.x, y: p.y, role: info.role }
+    }
+    for (const s of this.pool) {
+      const r = pick(s)
+      if (r) return r
+    }
+    for (const a of this.agents) {
+      const r = pick(a.sprite)
+      if (r) return r
+    }
+    return null
+  }
+
   // ── camera + input ──────────────────────────────────────────────────────────
 
   private setupCamera(): void {
@@ -701,6 +952,11 @@ export class LotScene extends Phaser.Scene {
       const c = gridToScreen(10, 17)
       cam.setZoom(Phaser.Math.Clamp(fit * 2.1, ZOOM_MIN, ZOOM_MAX))
       cam.centerOn(c.x, c.y)
+    } else if (preset === 'theater') {
+      // frame the screening theater forecourt (studio-reaction gatherings)
+      const c = gridToScreen(5, 15)
+      cam.setZoom(Phaser.Math.Clamp(fit * 2.0, ZOOM_MIN, ZOOM_MAX))
+      cam.centerOn(c.x, c.y)
     } else {
       // production: frame the stage district
       const c = gridToScreen(16, 8)
@@ -712,6 +968,7 @@ export class LotScene extends Phaser.Scene {
   // ── selection / highlight ─────────────────────────────────────────────────
 
   private select(id: BuildingId): void {
+    this.clearCharacter() // building navigation supersedes character inspection
     this.selected = id
     this.refreshHighlights()
     const view = this.views.get(id)
@@ -758,6 +1015,10 @@ export class LotScene extends Phaser.Scene {
   applySnapshot(snap: StudioLotSnapshot): void {
     this.snapshot = snap
     const busy = snap.standing === 'established' || snap.standing === 'prestige'
+
+    // a new set of facts cancels in-flight cosmetic activity and clears cards
+    this.clearCharacter()
+    this.director?.onSnapshot()
 
     // building availability tint (non-stage)
     for (const [id, view] of this.views) {
@@ -1005,7 +1266,9 @@ export class LotScene extends Phaser.Scene {
         a.dwellLeft -= dt
       } else {
         const len = this.segLen(a.route, a.seg)
-        a.pos += a.speed * dt
+        // during a filming take, nearby life goes quiet
+        const hush = this.filmingHush && a.kind === 'worker' ? 0.12 : 1
+        a.pos += a.speed * hush * dt
         if (a.pos >= len) {
           a.pos -= len
           a.seg = (a.seg + 1) % a.route.length
@@ -1044,17 +1307,34 @@ export class LotScene extends Phaser.Scene {
         view.prodTag.container.setVisible(band !== 2)
       }
     }
+
+    // vignette director + marker bob
+    this.director?.update(dt)
+    if (this.marker?.visible) {
+      const base = (this.marker.getData('baseY') as number) ?? this.marker.y
+      this.marker.setY(base + Math.sin(t * 3) * 2)
+    }
   }
 
   // ── debug (used by the headless verification harness) ────────────────────────
 
-  debugState(): { selected: BuildingId | null; activeTags: number; displayObjects: number } {
+  debugState(): {
+    selected: BuildingId | null
+    activeTags: number
+    displayObjects: number
+    characterActive: boolean
+    poolInUse: number
+    vignette: ReturnType<VignetteDirector['debug']> | null
+  } {
     let activeTags = 0
     for (const v of this.views.values()) if (v.prodTag) activeTags++
     return {
       selected: this.selected,
       activeTags,
       displayObjects: this.children.list.length,
+      characterActive: this.characterActive,
+      poolInUse: this.poolUsed.filter(Boolean).length,
+      vignette: this.director?.debug() ?? null,
     }
   }
 }
