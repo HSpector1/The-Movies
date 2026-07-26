@@ -23,6 +23,7 @@ import type {
   FilmResult,
   AutopsyView,
   AutopsyCompareView,
+  FilmRecordView,
   Standing,
   ReleaseDevelopment,
 } from './engine/adapter.ts'
@@ -31,6 +32,7 @@ import {
   explainRelease,
   buildReleaseDevelopment,
   autopsyCompare,
+  filmRecordView,
 } from './engine/adapter.ts'
 import { StartScreen } from './screens/StartScreen.tsx'
 import { Dashboard } from './screens/Dashboard.tsx'
@@ -43,6 +45,7 @@ import { Saves } from './screens/Saves.tsx'
 import { FoundingScreen } from './screens/FoundingScreen.tsx'
 import { StudioRoster } from './screens/StudioRoster.tsx'
 import { HiringMarket } from './screens/HiringMarket.tsx'
+import { FilmRecord } from './screens/FilmRecord.tsx'
 
 type Screen =
   | { kind: 'start' }
@@ -59,9 +62,18 @@ type Screen =
       development: ReleaseDevelopment[]
     }
   | { kind: 'autopsy'; view: AutopsyView; compare: AutopsyCompareView | null }
-  | { kind: 'talent' }
+  | { kind: 'filmRecord'; view: FilmRecordView }
+  | { kind: 'talent'; returnTo: 'dashboard' | 'founding' | 'hiring' }
   | { kind: 'hub' }
   | { kind: 'saves' }
+
+// Where the Talent Creator returns after create/back (D-11.A: reachable during founding,
+// from the Hiring Market, and from the Dashboard).
+function returnScreen(returnTo: 'dashboard' | 'founding' | 'hiring'): Screen {
+  if (returnTo === 'founding') return { kind: 'founding' }
+  if (returnTo === 'hiring') return { kind: 'hiring' }
+  return { kind: 'dashboard' }
+}
 
 // Per-film pre-release snapshot for exact autopsy reconstruction (UI-only).
 type ReleaseSnapshot = { preTick: GameState; postTickStanding: Standing }
@@ -149,6 +161,15 @@ export function App() {
   function openAutopsyForFilm(film: FilmResult) {
     const snap = snapshots[film.productionId]
     if (!snap) {
+      // No session snapshot (e.g. after a save/reload). If the film carries its own
+      // immutable participant record (D-11.A), show that archived record — WHO made it
+      // and how it did — so identity survives reload. Otherwise (legacy film) explain.
+      if (!state) return
+      const record = filmRecordView(state, film)
+      if (record) {
+        setScreen({ kind: 'filmRecord', view: record })
+        return
+      }
       alert(
         'The full autopsy needs the studio state from just before this film released. ' +
           'That snapshot is kept only for films that released while you were playing this session ' +
@@ -177,6 +198,7 @@ export function App() {
         <FoundingScreen
           state={state}
           onChange={setState}
+          onCreate={() => setScreen({ kind: 'talent', returnTo: 'founding' })}
           onFounded={(next) => {
             setState(next)
             goDashboard()
@@ -189,7 +211,7 @@ export function App() {
           state={state}
           onAssemble={() => setScreen({ kind: 'assembly' })}
           onAdvance={handleAdvance}
-          onCreateTalent={() => setScreen({ kind: 'talent' })}
+          onCreateTalent={() => setScreen({ kind: 'talent', returnTo: 'dashboard' })}
           onOpenHub={() => setScreen({ kind: 'hub' })}
           onOpenRoster={() => setScreen({ kind: 'roster' })}
           onOpenHiring={() => setScreen({ kind: 'hiring' })}
@@ -203,7 +225,12 @@ export function App() {
       )}
 
       {screen.kind === 'hiring' && (
-        <HiringMarket state={state} onChange={setState} onBack={goDashboard} />
+        <HiringMarket
+          state={state}
+          onChange={setState}
+          onCreate={() => setScreen({ kind: 'talent', returnTo: 'hiring' })}
+          onBack={goDashboard}
+        />
       )}
 
       {screen.kind === 'assembly' && (
@@ -238,14 +265,16 @@ export function App() {
         <Autopsy view={screen.view} compare={screen.compare} onBack={goDashboard} />
       )}
 
+      {screen.kind === 'filmRecord' && <FilmRecord view={screen.view} onBack={goDashboard} />}
+
       {screen.kind === 'talent' && (
         <TalentCreator
           state={state}
           onCreated={(next) => {
             setState(next)
-            goDashboard()
+            setScreen(returnScreen(screen.returnTo))
           }}
-          onBack={goDashboard}
+          onBack={() => setScreen(returnScreen(screen.returnTo))}
         />
       )}
 

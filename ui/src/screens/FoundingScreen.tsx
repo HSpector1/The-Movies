@@ -17,7 +17,7 @@ import {
   payrollSummary,
   selectCash,
 } from '../engine/adapter.ts'
-import { money } from '../format.ts'
+import { money, starPower, ageYears } from '../format.ts'
 import { Metric } from '../components/common.tsx'
 
 // Applicant roles in the order the pool is grouped for display.
@@ -40,10 +40,12 @@ const ROLE_LABEL: Record<CreativeRole, string> = {
 export function FoundingScreen({
   state,
   onChange,
+  onCreate,
   onFounded,
 }: {
   state: GameState
   onChange: (next: GameState) => void
+  onCreate: () => void // D-11.A: open the Talent Creator to add a Custom Applicant
   onFounded: (next: GameState) => void
 }) {
   const [error, setError] = useState<string | null>(null)
@@ -143,15 +145,24 @@ export function FoundingScreen({
       <div className="card stack">
         <div className="spread">
           <h2>Applicant pool</h2>
-          <button
-            className="accent"
-            onClick={found}
-            disabled={!canFound}
-            data-testid="found-studio"
-          >
-            Found the studio
-          </button>
+          <div className="btn-row">
+            <button className="ghost" onClick={onCreate} data-testid="founding-create-applicant">
+              Create Custom Applicant
+            </button>
+            <button
+              className="accent"
+              onClick={found}
+              disabled={!canFound}
+              data-testid="found-studio"
+            >
+              Found the studio
+            </button>
+          </div>
         </div>
+        <p className="hint">
+          A custom applicant joins this pool and is signed under the same recruitment-fund
+          rules — creating them does not employ them.
+        </p>
         {!canFound && (
           <p className="hint">
             Found the studio once every role minimum above is met (✓). Freelancers can later cover
@@ -227,10 +238,10 @@ function ApplicantCard({
           </Metric>
         )}
         <Metric label="Star power" small>
-          {profile.fame}
+          {starPower(profile.fame)}
         </Metric>
         <Metric label="Age" small>
-          {profile.age}
+          {ageYears(profile.age)}
         </Metric>
       </div>
 

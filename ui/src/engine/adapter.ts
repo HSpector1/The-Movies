@@ -24,6 +24,8 @@ import {
   // world + actions + tick
   generateWorld,
   applyActions,
+  previewCustomTalent,
+  offerForTalent,
   tick,
   // reception (autopsy) + forecast (preview)
   resolveReception,
@@ -120,9 +122,12 @@ import type {
   Standing,
   Production,
   FilmResult,
+  FilmParticipant,
+  FilmParticipants,
   Forecast,
   ReceptionInputs,
   AuthoredTalentInput,
+  CustomTalentInput,
   Persona,
   CreativeRole,
   Discipline,
@@ -166,8 +171,11 @@ export type {
   Standing,
   Production,
   FilmResult,
+  FilmParticipant,
+  FilmParticipants,
   Forecast,
   AuthoredTalentInput,
+  CustomTalentInput,
   Persona,
   CreativeRole,
   Discipline,
@@ -201,7 +209,7 @@ export type PromiseAxis = (typeof PROMISE_AXES)[number]
 // The four D-9 disciplines, in the core's fixed display order (acting → writing →
 // directing → craft). Re-exported so Hub/profile screens iterate a single source.
 export const DISCIPLINES: readonly Discipline[] = DISCIPLINE_ORDER
-export { GENRE_ORDER, ROLE_TO_DISCIPLINE }
+export { GENRE_ORDER, ROLE_TO_DISCIPLINE, SKILL_ORDER }
 
 // The discipline a role practises by default (its PRIMARY). Cross-role assignment
 // (D-9.9) lets any talent be *considered* in any discipline; this is only the home.
@@ -540,6 +548,39 @@ export function createTalent(state: GameState, input: AuthoredTalentInput): Acti
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
+}
+
+// ── D-11.A Full Custom creation ──────────────────────────────────────────────
+// Execute the Full-Custom create (engine validates/clamps; errors surface as DATA).
+export function createCustomTalent(state: GameState, input: CustomTalentInput): ActionOutcome {
+  try {
+    const next = applyActions(state, [{ kind: 'createCustomTalent', talent: input }])
+    return { ok: true, next }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+// Live preview for the Full-Custom editor: OVR is DERIVED from the edited skills (never
+// an input), and the contract terms are estimated from a preview talent that is NOT yet
+// in the world. Fit is deliberately absent (film/assignment-dependent, D-11.A A3).
+export type CustomOvrPreview = { discipline: Discipline; label: string; ovr: number; tier: string; isPrimary: boolean }
+export type CustomTalentPreview = {
+  primaryDiscipline: Discipline
+  disciplines: CustomOvrPreview[]
+  offers: ContractOffer[] // estimated 1/2/3/4-year offers (salary demand + signing bonus)
+}
+export function customTalentPreview(state: GameState, input: CustomTalentInput): CustomTalentPreview {
+  const t = previewCustomTalent(input, state.seed)
+  const primary = primaryDiscipline(t.role)
+  const disciplines = DISCIPLINE_ORDER.map((d) => {
+    const ovr = roleOVR(t, d)
+    return { discipline: d, label: DISCIPLINE_LABEL[d], ovr, tier: roleTier(ovr), isPrimary: d === primary }
+  })
+  const offers = TUNING.CONTRACT_TERM_OPTIONS.map((term) =>
+    offerForTalent(state.seed, t, term, state.market.tick),
+  )
+  return { primaryDiscipline: primary, disciplines, offers }
 }
 
 // Contract-disclosed authored starting values (§10 / D-9.14 / §16). Authored talent
@@ -917,6 +958,10 @@ export function buildReleaseDevelopment(
 export type AutopsyView = {
   productionId: string
   conceptTitle: string
+  // D-11.A — the film's OWN immutable participant record (frozen at greenlight). Present
+  // for films made in an engaged game; absent for legacy/M0A films (autopsy then omits
+  // the participant list). NEVER reflects current roster/employment/other films.
+  participants?: FilmParticipants
   // forecast vs result
   forecast: Forecast
   // craft breakdown (§5.1)
@@ -1062,6 +1107,11 @@ export function explainRelease(
   return {
     productionId: prod.id,
     conceptTitle: concept?.title ?? prod.conceptId,
+    // D-11.A — the film's OWN frozen participants (prefer the released record; fall back
+    // to the locked production's captured record). Immutable; never current state.
+    ...(filmResult.participants ?? prod.participants
+      ? { participants: filmResult.participants ?? prod.participants }
+      : {}),
     forecast: prod.forecastSnapshot,
     scriptStrength: r.scriptStrength,
     directorExecution: r.directorExecution,
@@ -2197,3 +2247,36 @@ export function autopsyCompare(
 
 // Re-export the AutopsyCompare's constituent result types (single boundary).
 export type { AutopsyCompare as AutopsyCompareView }
+
+// ── D-11.A post-reload film record ────────────────────────────────────────────
+// After a save/reload the per-session pre-tick snapshot is gone, so the FULL autopsy
+// (which reconstructs reception from the production) cannot run. But the film's
+// IMMUTABLE participant record + its result persist on the FilmResult (V3), so we can
+// still show WHO made the film and how it did — the identity the owner needs preserved.
+// Committed cost is recovered from the persisted ledger. Returns null for legacy films
+// with no participant record (autopsy then remains session-only).
+export type FilmRecordView = {
+  productionId: string
+  conceptTitle: string
+  participants: FilmParticipants
+  criticScore: number
+  boxOffice: { opening: number; total: number }
+  committedCost: number
+  profit: number
+}
+export function filmRecordView(state: GameState, film: FilmResult): FilmRecordView | null {
+  if (!film.participants) return null
+  const concept = findConcept(state, film.conceptId)
+  const committedCost = state.ledger
+    .filter((e) => e.productionId === film.productionId && (e.kind === 'production' || e.kind === 'freelancerFee'))
+    .reduce((a, e) => a - e.amount, 0)
+  return {
+    productionId: film.productionId,
+    conceptTitle: concept?.title ?? film.conceptId,
+    participants: film.participants,
+    criticScore: film.criticScore,
+    boxOffice: film.boxOffice,
+    committedCost,
+    profit: film.boxOffice.total - committedCost,
+  }
+}

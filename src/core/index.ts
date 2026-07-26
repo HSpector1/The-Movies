@@ -26,6 +26,9 @@ export type {
   Budget,
   Production,
   FilmResult,
+  FilmParticipant,
+  FilmParticipantRole,
+  FilmParticipants,
   Standing,
   Segment,
   CompetingRelease,
@@ -36,6 +39,7 @@ export type {
   GameStateV2,
   Action,
   AuthoredTalentInput,
+  CustomTalentInput,
   // D-11 employment / contracts / ledger / founding (types.ts)
   EmploymentStatus,
   Contract,
@@ -150,8 +154,8 @@ export type { RngPurpose } from './rng.js'
 // §9 world generation (phase 3) + the §10-shared salary curve (B7)
 export { generateWorld, salaryCurve } from './worldgen.js'
 
-// §3 applyActions (phase 3) — greenlight / cancel / createTalent
-export { applyActions } from './actions.js'
+// §3 applyActions (phase 3) — greenlight / cancel / createTalent / createCustomTalent
+export { applyActions, previewCustomTalent } from './actions.js'
 
 // §6 standing (phase 3) — the three-channel updateStanding (B12 context param)
 export { updateStanding } from './standing.js'
@@ -207,6 +211,7 @@ export {
   renewalWindowOpen,
   contractOffer,
   contractOfferOptions,
+  offerForTalent,
   freelancerFee,
   freelancerMarketIds,
   hiringMarketIds,

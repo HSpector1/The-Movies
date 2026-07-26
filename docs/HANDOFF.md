@@ -1,5 +1,30 @@
 # Project: Studio — Engineering Handoff
 
+> ## ⏱ 2026-07-26 — Phase 5.2A **cycle 2** correction (D-11.A) — latest
+>
+> On top of the cycle-1 milestone (`0f9d23d`), a cycle-2 correction addressed the first
+> playtest's findings (see ruling **D-11.A** in `docs/rev4-open-questions.md`):
+> - **Merge-blocker 1 — missing character creator: RESTORED.** The Talent Creator is
+>   reachable during founding ("Create Custom Applicant"), from the Hiring Market, and the
+>   Dashboard; a created talent is NOT auto-employed (founding → applicant pool; ops →
+>   free agent) and must be signed. A new **Full Custom** creator mode edits all 24 skills
+>   + Star Power + Work Ethic + ceilings + temperament + genre experience directly (OVR is
+>   derived, never an input; Fit is never stored); Balanced mode is preserved.
+> - **Merge-blocker 2 — duplicated autopsy casts: FIXED at the root.** `productionId` was
+>   `prod-<startTick>`, which COLLIDED when two films were greenlit the same week
+>   (concurrency 2). Now ids are unique (`-k` suffix on collision; base unchanged → M0A
+>   byte-identical), and each released film carries an **immutable participant record**
+>   (writer/director/cast/craft with greenlight OVR/Fit/EP + freelancer flag) frozen at
+>   greenlight — the autopsy renders from the film's OWN record, immune to later talent
+>   changes and surviving save/reload (post-reload shows the archived **FilmRecord**).
+> - **Owner corrections:** Star Power → whole number (round), age → completed whole years
+>   (floor) via centralized formatters (display-only; sim keeps full precision). Founding
+>   actor minimum **5 → 3**. Participants are an **additive optional field on V3 — no V4**.
+> - **Validation:** 664 tests (42 files); root+UI TS clean; build clean; all 4 Playwright
+>   specs pass (incl. new two-film-autopsy regression + the owner's 21-step playtest;
+>   16+ screenshots in `ui/screenshots/`). Adversarial review = SOUND; contract audit =
+>   CLEAN. Cycle-2 commit sits above `0f9d23d`; still NOT merged (owner playtest).
+>
 > ## ⏱ 2026-07-26 — Phase 5.2A (D-11 Studio Employment) resumption banner
 >
 > **Branch state now (supersedes the stale §2 below):**

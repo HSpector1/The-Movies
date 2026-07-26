@@ -14,7 +14,7 @@ import {
   renewContractAction,
   releaseTalentAction,
 } from '../engine/adapter.ts'
-import { money } from '../format.ts'
+import { money, starPower } from '../format.ts'
 import { Metric } from '../components/common.tsx'
 
 type ProfessionFilter = 'all' | CreativeRole
@@ -230,7 +230,7 @@ function RosterCard({
       </div>
 
       <div className="spread">
-        <span className="hint">Star power: {profile.fame}</span>
+        <span className="hint">Star power: {starPower(profile.fame)}</span>
         <span className="hint">Work ethic: {profile.workEthicLabel}</span>
       </div>
       {primary && (

@@ -32,7 +32,7 @@ async function startNewGame(page: Page, seed: string) {
 async function foundStudioViaUi(page: Page) {
   await expect(page.getByTestId('found-studio')).toBeVisible()
   const need: Array<[string, number]> = [
-    ['actor', 5],
+    ['actor', 3], // D-11.A minimum
     ['director', 1],
     ['writer', 2],
     ['craft', 1],

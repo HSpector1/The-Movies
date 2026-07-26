@@ -6,7 +6,7 @@
 // alignment, timing, reach, the full critic breakdown, per-segment response, the
 // box-office breakdown, profit/loss, standing deltas and WHY each channel moved.
 
-import type { AutopsyView, AutopsyCompareView } from '../engine/adapter.ts'
+import type { AutopsyView, AutopsyCompareView, FilmParticipant, FilmParticipants } from '../engine/adapter.ts'
 import { money, moneyExact, score, axis, signed, segmentLabel, factorLabel } from '../format.ts'
 import { Metric, Delta } from '../components/common.tsx'
 
@@ -15,6 +15,58 @@ function Vec({ v }: { v: { intimacy: number; tonalWeight: number; kineticEnergy:
     <span className="mono">
       ({axis(v.intimacy)}, {axis(v.tonalWeight)}, {axis(v.kineticEnergy)})
     </span>
+  )
+}
+
+// D-11.A — the film's OWN immutable participants, in a fixed role order. Rendered from
+// the frozen record captured at THIS film's greenlight; never current roster/other films.
+const PART_ROLE_LABEL: Record<FilmParticipant['role'], string> = {
+  writer: 'Writer',
+  director: 'Director',
+  lead: 'Lead',
+  antagonist: 'Antagonist',
+  support: 'Support',
+  craft: 'Production/Craft Lead',
+}
+function flattenParticipants(p: FilmParticipants): FilmParticipant[] {
+  return [p.writer, p.director, p.cast.lead, p.cast.antagonist, p.cast.support, ...p.craft]
+}
+function ParticipantsCard({ participants }: { participants: FilmParticipants }) {
+  const rows = flattenParticipants(participants)
+  return (
+    <div className="card" data-testid="autopsy-participants">
+      <h2>Who made this film</h2>
+      <p className="hint">
+        The cast and crew as greenlit — this film&rsquo;s own frozen record. Later changes to
+        these people never rewrite it.
+      </p>
+      <table className="data">
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Name</th>
+            <th>Employment</th>
+            <th className="num">Greenlight OVR</th>
+            <th className="num">Fit</th>
+            <th className="num">Expected</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={`${r.role}-${r.talentId}`} data-testid={`autopsy-participant-${r.talentId}`}>
+              <td>{PART_ROLE_LABEL[r.role]}</td>
+              <td data-testid={`autopsy-participant-name-${r.role}`}>{r.name}</td>
+              <td>{r.freelancer ? 'Freelancer' : 'Studio'}</td>
+              <td className="num">{r.greenlightOVR}</td>
+              <td className="num">{r.greenlightFit}</td>
+              <td className="num">
+                {r.greenlightEP.low.toFixed(0)}–{r.greenlightEP.high.toFixed(0)}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   )
 }
 
@@ -77,6 +129,11 @@ export function Autopsy({
       </div>
 
       <div style={{ height: 16 }} />
+
+      {/* D-11.A — this film's OWN immutable cast & crew (frozen at greenlight) */}
+      {view.participants && <ParticipantsCard participants={view.participants} />}
+
+      {view.participants && <div style={{ height: 16 }} />}
 
       {/* Greenlight expectation vs actual — the locked decision, graded against reality */}
       {compare && <GreenlightCompare compare={compare} view={view} />}

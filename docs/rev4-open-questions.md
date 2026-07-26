@@ -1858,3 +1858,79 @@ milestone. Future hooks recorded in the handoff: the **rival-offer** hook (D-11.
 *Record: D-11 authorized by the owner 2026-07-26 (Phase 5.2A directive), implemented on
 branch `phase-5.2-studio-roster`. This section is normative alongside D-1..D-10; where they
 conflict, D-11 wins for the employment/roster/contract/freelancer surface only.*
+
+## D-11.A — Cycle-2 owner corrections (amendment, 2026-07-26)
+
+Owner-approved amendment from the first Phase-5.2A playtest. It refines D-11 without
+reopening unrelated subsections; where it differs from the original text it says so.
+
+**A1 — Three-actor founding minimum (supersedes D-11.2's "5 actors").** The required
+starting roster is now **3 actors / 1 director / 2 writers / 1 Production/Craft Lead**
+(`HIRING_MIN_ACTORS = 3`; the others unchanged). These are minimums, not maximums; the
+applicant pool sizes (D-11.2) are unchanged so founding still offers meaningful variety.
+Three actors legally staff the standard film (lead + antagonist + support are the three
+distinct cast slots); the one-role-per-production rule (M16.7) is unchanged — one actor may
+never fill two slots.
+
+**A2 — Custom-created talent: employment status + signing.** A player-created talent is a
+normal industry person, **never auto-employed**. Placement by phase: created **during
+founding** → added to the **founding applicant pool** (`founding.applicantIds`), signable
+under the founding recruitment-fund rules and countable toward the minimum **once signed**;
+created **during operations** → added as a **Free Agent** (`freeAgents`), signable via the
+Hiring Market under normal cash/contract rules. Either way the player must sign them
+(signing bonus, then weekly payroll), and they remain subject to availability and
+assignment legality (D-11.12). A custom Production/Craft Lead is creatable, signable, and
+assignable. Creation is **idempotent** — repeated confirmation / back-nav / save-load never
+duplicates a talent id.
+
+**A3 — Balanced Creator vs Full Custom Creator.** The Talent Creator has two explicit modes.
+**Balanced Career Mode** = the existing D-9.14 creation-budget creator (constrained, for
+normal generated-career play) — unchanged. **Full Custom Mode** = an advanced, clearly
+labelled mode that edits the person's *authoritative underlying attributes directly* (all 24
+professional skills, Star Power, Work Ethic, per-discipline potential/ceiling inputs,
+Creative Temperament, primary profession, and per-(discipline,genre) genre experience from
+the engine's genre list) and **may deliberately produce powerful/unbalanced people** (shown
+with a restrained notice). **OVR is always a live derived preview from the edited skills —
+never an independent editable field.** **Project Fit is never a stored creator attribute** —
+it stays film/assignment/shape/promise/genre dependent. All inputs obey the authoritative
+attribute bounds (0–99 skills, valid age range); no NaN/Infinity/out-of-range. Sensible
+presets (Blank / Balanced Professional / Promising Prospect / Established Star / Acting
+Specialist / Writer-Director / Craft Specialist) populate only the same authoritative fields.
+A pre-creation contract preview (est. salary demand, signing bonus, term range, primary
+profession, OVR profile) is shown; **creation is not signing.**
+
+**A4 — Film-specific immutable participant history.** Each released film retains an
+**immutable, film-specific participant record** captured at its locked greenlight (writer,
+director, each cast slot, and the Production/Craft Lead — with talent id, displayed name,
+role, assigned discipline, greenlight OVR/Fit/Expected-Performance, contracted-vs-freelancer
+status) plus the actual resolved outcome. The post-release **autopsy renders from that
+film's own stored record**, never from the currently-assembled film, current roster/
+employment, the most recent release, or another film's data. Later talent development,
+Star-Power change, contract change, or departure **must not rewrite** who made an older film
+or what the studio believed at that film's greenlight. Implementation notes: (i) production
+ids are made **unique even for same-tick greenlights** (the prior `prod-<startTick>` scheme
+collided under the 2-concurrent-productions rule — the true cause of the duplicated-autopsy
+bug); (ii) the participant record is an **additive optional field on the current V3
+`FilmResult`** captured only when employment is engaged, so old V3 saves stay valid (autopsy
+falls back to the session snapshot when the record is absent) and **no V4 is required**; the
+M0A corpus (employment not engaged) is unaffected.
+
+**A5 — Player-facing integer display precision (distinct from simulation precision).**
+The engine keeps its authoritative full-precision values (Star Power/age may be fractional;
+sorting and simulation use them unchanged). **Player-facing displays show whole numbers**
+via centralized formatters: **Star Power = round(value)**; **age = completed whole years
+(floor of elapsed years)** — never round age up before a birthday. Applied consistently
+everywhere either is shown. This is presentation only; it never alters a simulation value or
+a stored historical record.
+
+**A6 — Four precision/record concepts, kept distinct.** (1) *Simulation precision* — the
+authoritative full-precision engine values (unchanged; sorting/RNG/reception read these).
+(2) *Player-facing display precision* — the integer formatters in A5 (presentation only).
+(3) *Persistent historical film records* — the immutable per-film participant history in A4
+(what the studio DID and believed, frozen at greenlight). (4) *Current mutable talent state*
+— a person's present skills/Star-Power/contract/availability, which evolve and are shown on
+their profile; these never overwrite (3).
+
+*Record: D-11.A cycle-2 corrections authorized by the owner 2026-07-26, implemented as the
+Phase 5.2A cycle-2 correction on `phase-5.2-studio-roster` (above `0f9d23d`). Normative
+alongside D-11; where they differ, D-11.A wins.*

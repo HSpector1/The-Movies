@@ -43,7 +43,7 @@ import {
   selectConcepts,
 } from '../engine/adapter.ts'
 import type { ShapeReason } from '../engine/adapter.ts'
-import { money, score } from '../format.ts'
+import { money, score, starPower, ageYears } from '../format.ts'
 import { genreLabel } from '../content.ts'
 
 // A neutral assignment context the Hub uses to make Fit/Expected-Performance
@@ -314,8 +314,8 @@ function ProfileView({
         </div>
 
         <div className="opt-desc mono">
-          Primary {DISCIPLINE_LABEL[profile.primaryDiscipline]} · Age {profile.age.toFixed(0)} · Fame{' '}
-          {profile.fame.toFixed(0)} · Salary {money(profile.salary)}
+          Primary {DISCIPLINE_LABEL[profile.primaryDiscipline]} · Age {ageYears(profile.age)} · Fame{' '}
+          {starPower(profile.fame)} · Salary {money(profile.salary)}
           {!profile.available && ` · Engaged in ${profile.engagedIn}`}
         </div>
 

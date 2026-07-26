@@ -269,7 +269,7 @@ export const TUNING = {
   HIRING_DRAFT_DIRECTORS: 4, // (owner range 3–4)
   HIRING_DRAFT_WRITERS: 6, // (owner range 5–6)
   HIRING_DRAFT_CRAFT: 3, // Production/Craft candidates (owner: 3)
-  HIRING_MIN_ACTORS: 5, // required initial hires (owner: 5)
+  HIRING_MIN_ACTORS: 3, // required initial hires (owner: 3 as of D-11.A cycle-2; was 5)
   HIRING_MIN_DIRECTORS: 1, // (owner: 1)
   HIRING_MIN_WRITERS: 2, // (owner: 2)
   HIRING_MIN_CRAFT: 1, // (owner: 1 Production/Craft Lead)

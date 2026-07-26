@@ -46,6 +46,7 @@ import { TemperamentStep } from '../components/creator/TemperamentStep.tsx'
 import { PotentialStep } from '../components/creator/PotentialStep.tsx'
 import { WorkEthicStep } from '../components/creator/WorkEthicStep.tsx'
 import { EmphasisStep } from '../components/creator/EmphasisStep.tsx'
+import { FullCustomCreator } from '../components/creator/FullCustomCreator.tsx'
 
 const ROLES: { value: CreativeRole; label: string }[] = [
   { value: 'writer', label: 'Writer' },
@@ -123,6 +124,39 @@ function toAuthoredInput(d: Draft): AuthoredTalentInput {
   return input
 }
 
+// ── Creator mode (D-11.A A3): Balanced Career (default) vs Full Custom ────────
+type CreatorMode = 'balanced' | 'full'
+
+// A shared segmented control at the top of the creator. Switching swaps which
+// editor renders. Kept identical in both topbars so the toggle never moves.
+function ModeToggle({ mode, onMode }: { mode: CreatorMode; onMode: (m: CreatorMode) => void }) {
+  return (
+    <div className="btn-row" data-testid="creator-mode-toggle" role="group" aria-label="Creator mode">
+      <button
+        type="button"
+        className={mode === 'balanced' ? 'primary' : 'ghost'}
+        aria-pressed={mode === 'balanced'}
+        onClick={() => onMode('balanced')}
+        data-testid="creator-mode-balanced"
+      >
+        Balanced Career
+      </button>
+      <button
+        type="button"
+        className={mode === 'full' ? 'primary' : 'ghost'}
+        aria-pressed={mode === 'full'}
+        onClick={() => onMode('full')}
+        data-testid="creator-mode-full"
+      >
+        Full Custom
+      </button>
+    </div>
+  )
+}
+
+// The exported screen: owns the mode toggle and swaps editors. Balanced is default
+// and renders EXACTLY as before (its own app-shell/topbar preserved) so existing
+// tests and the browser flow are unchanged. The toggle lives in each topbar.
 export function TalentCreator({
   state,
   onCreated,
@@ -131,6 +165,44 @@ export function TalentCreator({
   state: GameState
   onCreated: (next: GameState) => void
   onBack: () => void
+}) {
+  const [mode, setMode] = useState<CreatorMode>('balanced')
+
+  if (mode === 'full') {
+    return (
+      <div className="app-shell">
+        <div className="topbar">
+          <div className="brand">
+            <span className="mark">CREATE TALENT</span>
+          </div>
+          <div className="row" style={{ gap: 8, alignItems: 'center' }}>
+            <ModeToggle mode={mode} onMode={setMode} />
+            <button className="ghost" onClick={onBack} data-testid="talent-creator-back">
+              Back to studio
+            </button>
+          </div>
+        </div>
+        <FullCustomCreator state={state} onCreated={onCreated} />
+      </div>
+    )
+  }
+
+  return <BalancedCreator state={state} onCreated={onCreated} onBack={onBack} mode={mode} onMode={setMode} />
+}
+
+// ── Balanced Career creator (the original staged flow, unchanged behavior) ────
+function BalancedCreator({
+  state,
+  onCreated,
+  onBack,
+  mode,
+  onMode,
+}: {
+  state: GameState
+  onCreated: (next: GameState) => void
+  onBack: () => void
+  mode: CreatorMode
+  onMode: (m: CreatorMode) => void
 }) {
   const [draft, setDraft] = useState<Draft>(initialDraft)
   const [stage, setStage] = useState<Stage>('identity')
@@ -222,9 +294,12 @@ export function TalentCreator({
         <div className="brand">
           <span className="mark">CREATE TALENT</span>
         </div>
-        <button className="ghost" onClick={onBack} data-testid="talent-creator-back">
-          Back to studio
-        </button>
+        <div className="row" style={{ gap: 8, alignItems: 'center' }}>
+          <ModeToggle mode={mode} onMode={onMode} />
+          <button className="ghost" onClick={onBack} data-testid="talent-creator-back">
+            Back to studio
+          </button>
+        </div>
       </div>
 
       {/* Stage indicator (mirrors the Assembly wizard). */}

@@ -181,12 +181,17 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // The single §5.3 critic draw for this release — the ONLY sim-stream advance.
     const result = resolveReception(inp, rng)
 
-    const filmResult = buildFilmResult(result, {
+    const baseFilmResult = buildFilmResult(result, {
       productionId: prod.id,
       releaseTick: currentTick,
       conceptId: prod.conceptId,
       directorId: prod.directorId,
     })
+    // D-11.A — freeze the film's own immutable participant record onto the result (when
+    // captured at an engaged greenlight). Absent on M0A/legacy films → byte-identical.
+    const filmResult = prod.participants
+      ? { ...baseFilmResult, participants: prod.participants }
+      : baseFilmResult
 
     // Credit the box office total (D-1 ledger; the debit happened at greenlight).
     cash += filmResult.boxOffice.total

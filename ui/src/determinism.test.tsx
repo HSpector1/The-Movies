@@ -37,7 +37,7 @@ function foundViaUi() {
       fireEvent.click(signBtn)
     }
   }
-  signInGroup('actor', 6) // > min 5; enough distinct cast for a film
+  signInGroup('actor', 6) // > min 3 (D-11.A); enough distinct cast for a film
   signInGroup('director', 2) // > min 1
   signInGroup('writer', 2) // = min 2
   signInGroup('craft', 2) // > min 1; a craft lead is required to cast (D-11.13)

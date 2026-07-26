@@ -8,8 +8,8 @@ import { render, screen, within, fireEvent } from '@testing-library/react'
 import { App } from './App.tsx'
 
 // D-11.2: a new game now opens the FOUNDING DRAFT — the player hires an initial
-// roster before the studio can staff films. Sign the role minimums (5 actors, 1
-// director, 2 writers, 1 craft), with extra actors so a full cast can be chosen,
+// roster before the studio can staff films. Sign the role minimums (D-11.A: 3 actors,
+// 1 director, 2 writers, 1 craft), with extra actors so a full cast can be chosen,
 // then found the studio to land on the dashboard. Signing draws the recruitment
 // fund, not operating cash. We click the first available sign button in each role
 // group N times (a signed applicant no longer shows a sign button, so re-querying
@@ -24,7 +24,7 @@ function foundViaUi() {
       fireEvent.click(signBtn)
     }
   }
-  signInGroup('actor', 6) // > min 5; enough distinct actors for a full cast
+  signInGroup('actor', 6) // > min 3 (D-11.A); enough distinct actors for a full cast
   signInGroup('director', 2) // > min 1
   signInGroup('writer', 2) // = min 2
   signInGroup('craft', 2) // > min 1; a craft lead is required to cast a film (D-11.13)

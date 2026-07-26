@@ -23,7 +23,7 @@ afterEach(cleanup)
 // Stateful wrapper: holds the GameState so onChange re-renders the controlled screen.
 function FoundingHarness({ seed, onFounded }: { seed: string; onFounded: (s: GameState) => void }) {
   const [s, setS] = useState<GameState>(() => newGame(seed))
-  return <FoundingScreen state={s} onChange={setS} onFounded={onFounded} />
+  return <FoundingScreen state={s} onChange={setS} onCreate={() => {}} onFounded={onFounded} />
 }
 function RosterHarness({ seed }: { seed: string }) {
   const [s, setS] = useState<GameState>(() => newFoundedGame(seed))
@@ -31,7 +31,7 @@ function RosterHarness({ seed }: { seed: string }) {
 }
 function HiringHarness({ seed }: { seed: string }) {
   const [s, setS] = useState<GameState>(() => newFoundedGame(seed))
-  return <HiringMarket state={s} onChange={setS} onBack={() => {}} />
+  return <HiringMarket state={s} onChange={setS} onCreate={() => {}} onBack={() => {}} />
 }
 
 function requiredFoundingIds(seed: string): string[] {

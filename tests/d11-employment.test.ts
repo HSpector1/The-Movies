@@ -55,7 +55,7 @@ function byRole(pool: Talent[], role: CreativeRole): Talent[] {
   return pool.filter((t) => t.role === role)
 }
 
-// Sign the minimum legal founding roster (5 actors, 1 director, 2 writers, 1 craft),
+// Sign the minimum legal founding roster (FOUNDING_MINIMUMS — D-11.A: 3 actors, 1 director, 2 writers, 1 craft),
 // then close founding. Returns the operating GameState.
 function foundStudio(seed: string, termWeeks = 104): GameState {
   let s = beginFounding(generateWorld(seed))

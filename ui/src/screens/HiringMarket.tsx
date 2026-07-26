@@ -14,7 +14,7 @@ import {
   signContractAction,
   selectCash,
 } from '../engine/adapter.ts'
-import { money } from '../format.ts'
+import { money, starPower, ageYears } from '../format.ts'
 import { Metric } from '../components/common.tsx'
 
 // D-11.19: sortable by OVR, salary, Star Power, Potential, Work Ethic, contract
@@ -90,10 +90,12 @@ function sortScore(card: EmploymentCard, key: SortKey): number {
 export function HiringMarket({
   state,
   onChange,
+  onCreate,
   onBack,
 }: {
   state: GameState
   onChange: (next: GameState) => void
+  onCreate: () => void // D-11.A: open the Talent Creator to add a Custom Talent (free agent)
   onBack: () => void
 }) {
   const [sortKey, setSortKey] = useState<SortKey>('ovr')
@@ -126,6 +128,9 @@ export function HiringMarket({
           <Metric label="Cash" testid="hiring-cash">
             <span className={cash < 0 ? 'money neg' : 'money pos'}>{money(cash)}</span>
           </Metric>
+          <button className="ghost" onClick={onCreate} data-testid="hiring-create-talent">
+            Create Custom Talent
+          </button>
           <button className="ghost" onClick={onBack} data-testid="hiring-back">
             Back
           </button>
@@ -225,10 +230,10 @@ function HiringCard({
           </Metric>
         )}
         <Metric label="Star power" small>
-          {profile.fame}
+          {starPower(profile.fame)}
         </Metric>
         <Metric label="Age" small>
-          {profile.age}
+          {ageYears(profile.age)}
         </Metric>
       </div>
 
@@ -286,7 +291,7 @@ function FreelancerCard({ card }: { card: EmploymentCard }) {
           </Metric>
         )}
         <Metric label="Star power" small>
-          {profile.fame}
+          {starPower(profile.fame)}
         </Metric>
         <Metric label="One-film fee" small testid={`freelancer-fee-${id}`}>
           {employment.freelancerFee === null ? '—' : money(employment.freelancerFee)}

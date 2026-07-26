@@ -136,6 +136,33 @@ function ageFactor(age: number): number {
   return TUNING.CONTRACT_AGE_FACTOR_MIN + (1 - TUNING.CONTRACT_AGE_FACTOR_MIN) * bell
 }
 
+// Price an offer for a Talent OBJECT (does not require it to be in state) — so a
+// Full-Custom creation PREVIEW can show terms before the person exists in the world.
+export function offerForTalent(
+  seed: string,
+  talent: Talent,
+  termWeeks: number,
+  week: number,
+): ContractOffer {
+  const term = clamp(termWeeks, TUNING.CONTRACT_MIN_WEEKS, TUNING.CONTRACT_MAX_WEEKS)
+  const lengthFactor = TUNING.CONTRACT_LENGTH_FACTOR[term] ?? 1.0
+  // Per-talent scarcity jitter (stable per person; not per week/term).
+  const jitterS = stream(seed, 'hiring', `offer-${talent.id}`)
+  const jitter = 1 + (jitterS.next() * 2 - 1) * TUNING.CONTRACT_SCARCITY_JITTER
+  const annual = iround(
+    salaryCurve(talent) * TUNING.CONTRACT_ANNUAL_MULT * lengthFactor * ageFactor(talent.age) * jitter,
+  )
+  const signingBonus = iround(annual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
+  return {
+    talentId: talent.id,
+    annualSalary: annual,
+    signingBonus,
+    termWeeks: term,
+    startWeek: week,
+    endWeekExclusive: week + term,
+  }
+}
+
 export function contractOffer(
   state: GameState,
   talentId: string,
@@ -146,23 +173,7 @@ export function contractOffer(
   if (talent === undefined) {
     throw new Error(`contractOffer: unknown talent id "${talentId}"`)
   }
-  const term = clamp(termWeeks, TUNING.CONTRACT_MIN_WEEKS, TUNING.CONTRACT_MAX_WEEKS)
-  const lengthFactor = TUNING.CONTRACT_LENGTH_FACTOR[term] ?? 1.0
-  // Per-talent scarcity jitter (stable per person; not per week/term).
-  const jitterS = stream(state.seed, 'hiring', `offer-${talentId}`)
-  const jitter = 1 + (jitterS.next() * 2 - 1) * TUNING.CONTRACT_SCARCITY_JITTER
-  const annual = iround(
-    salaryCurve(talent) * TUNING.CONTRACT_ANNUAL_MULT * lengthFactor * ageFactor(talent.age) * jitter,
-  )
-  const signingBonus = iround(annual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
-  return {
-    talentId,
-    annualSalary: annual,
-    signingBonus,
-    termWeeks: term,
-    startWeek: week,
-    endWeekExclusive: week + term,
-  }
+  return offerForTalent(state.seed, talent, termWeeks, week)
 }
 
 // The bounded set of term alternatives offered for a talent (D-11.6).

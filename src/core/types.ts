@@ -197,6 +197,30 @@ export type Promise = {
 
 export type Budget = { negative: number; marketing: number }
 
+// ── D-11.A film-specific immutable participant history ────────────────────────
+// Captured at the LOCKED greenlight (perceived values); frozen onto the released
+// FilmResult so the autopsy renders each film's OWN participants — immune to later
+// talent development / Star-Power / contract / availability changes. Optional +
+// captured ONLY when employment is engaged, so old V3 saves and the M0A corpus
+// (employment-free) are unaffected (autopsy falls back to the session snapshot).
+export type FilmParticipantRole = 'writer' | 'director' | 'lead' | 'antagonist' | 'support' | 'craft'
+export type FilmParticipant = {
+  talentId: string
+  name: string // displayed name AT GREENLIGHT (frozen; the person may rename/leave later)
+  role: FilmParticipantRole
+  discipline: Discipline // the ASSIGNED discipline (D-11.12 relevant discipline)
+  greenlightOVR: number // perceived role OVR at greenlight
+  greenlightFit: number // Project Fit for this exact assignment at greenlight
+  greenlightEP: { low: number; high: number; expected: number } // Expected Performance band
+  freelancer: boolean // engaged as a freelancer (true) vs studio-contracted (false)
+}
+export type FilmParticipants = {
+  writer: FilmParticipant
+  director: FilmParticipant
+  cast: Record<CastSlot, FilmParticipant>
+  craft: FilmParticipant[] // the Production/Craft Lead(s)
+}
+
 // §2.4 Production and result
 export type Production = {
   id: string
@@ -211,6 +235,7 @@ export type Production = {
   startTick: number
   remainingTicks: number
   forecastSnapshot: Forecast
+  participants?: FilmParticipants // D-11.A — locked at greenlight (engaged games only)
 }
 
 export type FilmResult = {
@@ -229,6 +254,9 @@ export type FilmResult = {
   // is gone (D-3's director-genre predicate needs them).
   conceptId: string
   directorId: string
+  // D-11.A — the film's OWN immutable participant record (present iff captured at an
+  // engaged greenlight). The autopsy renders from this; absent on M0A/legacy films.
+  participants?: FilmParticipants
 }
 
 // §2.5 World and state
@@ -349,7 +377,8 @@ export type Action =
       production: Omit<Production, 'id' | 'startTick' | 'remainingTicks' | 'forecastSnapshot'>
     }
   | { kind: 'cancel'; productionId: string }
-  | { kind: 'createTalent'; talent: AuthoredTalentInput } // §10
+  | { kind: 'createTalent'; talent: AuthoredTalentInput } // §10 (Balanced creator)
+  | { kind: 'createCustomTalent'; talent: CustomTalentInput } // §10 / D-11.A (Full Custom)
   // ── D-11 employment actions ──
   | { kind: 'foundStudio' } // close the founding draft (minimums must be met)
   | { kind: 'signContract'; talentId: string; termWeeks: number } // sign to studio contract
@@ -369,6 +398,24 @@ export type AuthoredTalentInput = {
   workEthic: number // 1..99, player-chosen numerically (D-9.11)
   skillBias?: SkillBias // optional per-discipline emphasis (specialist vs generalist)
   secondaryDiscipline?: CreativeRole // optional; costs budget (D-9.14)
+}
+
+// §10 / D-11.A Full Custom talent — the player edits the AUTHORITATIVE underlying
+// attributes DIRECTLY (no creation budget). perceived = actual at creation. Skills are
+// six values per discipline in SKILL_ORDER (1..99). Ceilings default to the skill value
+// (no hidden upside) unless supplied; genre experience defaults to 0. May deliberately
+// produce a powerful/unbalanced person. OVR is always DERIVED from these skills (never
+// an input); Fit is never stored (it is film/assignment-dependent). See D-11.A (A3).
+export type CustomTalentInput = {
+  name: string
+  role: CreativeRole // primary profession
+  age: number // 18..70
+  actual: Persona // Creative Temperament
+  workEthic: number // 1..99
+  fame: number // 0..100 Star Power
+  skills: Record<Discipline, number[]> // 6 per discipline in SKILL_ORDER, each 1..99
+  ceilings?: Partial<Record<Discipline, number[]>> // optional per-skill potential ceilings (≥ skill, ≤ 99)
+  genreExperience?: Partial<Record<Discipline, Partial<Record<Genre, number>>>> // optional 0..100
 }
 
 // ── §7 Forecast types ───────────────────────────────────────────────────────

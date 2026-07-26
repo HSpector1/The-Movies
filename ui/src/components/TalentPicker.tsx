@@ -28,7 +28,7 @@ import type {
   GameState,
 } from '../engine/adapter.ts'
 import { talentEligibility, assignmentCard } from '../engine/adapter.ts'
-import { money, score, axis } from '../format.ts'
+import { money, score, axis, starPower, ageYears } from '../format.ts'
 
 // The assignment context the picker needs to compute per-assignment cards. The parent
 // (Assembly) threads the concept/discipline/slot/promise/shape it already has in hand.
@@ -416,7 +416,7 @@ function RichPicker({
                   <span data-testid={`talent-${t.id}-ep`}>
                     {c.performance.low.toFixed(0)}–{c.performance.high.toFixed(0)}
                   </span>{' '}
-                  · Star {c.starPower.toFixed(0)} ·{' '}
+                  · Star {starPower(c.starPower)} ·{' '}
                   {freelancerFees?.[t.id] !== undefined
                     ? `Freelancer fee ${money(freelancerFees[t.id]!)}`
                     : money(c.salary)}
@@ -467,7 +467,7 @@ function RichPicker({
                     {c.bandWidth.toFixed(0)}
                   </div>
                   <div className="opt-desc mono">
-                    Age {t.age.toFixed(0)} · {c.unproven ? 'Unproven' : 'Proven'} in this discipline
+                    Age {ageYears(t.age)} · {c.unproven ? 'Unproven' : 'Proven'} in this discipline
                   </div>
                   {c.strengths.length === 0 && !c.weakness && (
                     <div className="hint">
@@ -528,10 +528,10 @@ function MinimalPicker({
                     </span>
                   )}
                 </span>
-                <span className="badge">Fame {t.fame.toFixed(0)}</span>
+                <span className="badge">Fame {starPower(t.fame)}</span>
               </div>
               <div className="opt-desc">
-                Known ability {t.skill.toFixed(0)} · Salary {money(t.salary)} · Age {t.age.toFixed(0)}
+                Known ability {t.skill.toFixed(0)} · Salary {money(t.salary)} · Age {ageYears(t.age)}
               </div>
               <div className="opt-desc">
                 Believed to be — warmth {axis(t.perceived.warmth)}, gravity{' '}
