@@ -16,9 +16,9 @@ import {
   greenlight,
   advanceWeek,
   requiredNegative,
-  talentByRole,
 } from './engine/adapter.ts'
 import { stableStringify, generateWorld, exportSave, makeSaveV1 } from '../../src/core/index.ts'
+import { newFoundedGame, foundedRosterIds } from './test/founding.ts'
 import type { DraftPackage, GameState } from './engine/adapter.ts'
 import type { GameStateV1, TalentV1 } from '../../src/core/index.ts'
 
@@ -45,11 +45,16 @@ function legacyV1SaveJson(seed: string): string {
   return exportSave(makeSaveV1(stateV1))
 }
 
+// Build a legal package from the FOUNDED studio roster. Under D-11.12 film assembly
+// draws ONLY from studio-contracted talent (the global pool is no longer staffable),
+// and D-11.13 requires exactly ONE Production/Craft Lead — so we pick roster ids by
+// role and fill the craft slot.
 function legalPackage(state: GameState): DraftPackage {
   const concept = state.concepts[0]!
-  const writer = talentByRole(state, 'writer').find((t) => t.available)!
-  const director = talentByRole(state, 'director').find((t) => t.available)!
-  const actors = talentByRole(state, 'actor').filter((t) => t.available)
+  const writers = foundedRosterIds(state, 'writer')
+  const directors = foundedRosterIds(state, 'director')
+  const actors = foundedRosterIds(state, 'actor')
+  const craft = foundedRosterIds(state, 'craft')
   const shape = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' } as const
   return {
     conceptId: concept.id,
@@ -59,17 +64,17 @@ function legalPackage(state: GameState): DraftPackage {
       intendedSegments: ['adult'],
       ranges: { intimacy: [-0.4, 0.4], tonalWeight: [-0.4, 0.4], kineticEnergy: [-0.4, 0.4] },
     },
-    writerId: writer.id,
-    directorId: director.id,
-    craftIds: [],
-    cast: { lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id },
+    writerId: writers[0]!,
+    directorId: directors[0]!,
+    craftIds: [craft[0]!],
+    cast: { lead: actors[0]!, antagonist: actors[1]!, support: actors[2]! },
     budget: { negative: requiredNegative(concept, shape, state), marketing: 400_000 },
   }
 }
 
 describe('saves: export → import round-trips the EXACT state', () => {
   it('importSaveJson(exportSaveJson(state)) has a serialized form equal to the original', () => {
-    let state = newGame('save-roundtrip-1')
+    let state = newFoundedGame('save-roundtrip-1')
     // Exercise a non-trivial mid-game state (greenlit production + a few ticks).
     const g = greenlight(state, legalPackage(state))
     expect(g.ok).toBe(true)
@@ -87,7 +92,7 @@ describe('saves: export → import round-trips the EXACT state', () => {
   })
 
   it('a restored state continues deterministically (same next tick as the original)', () => {
-    let state = newGame('save-roundtrip-2')
+    let state = newFoundedGame('save-roundtrip-2')
     const g = greenlight(state, legalPackage(state))
     expect(g.ok).toBe(true)
     if (!g.ok) return

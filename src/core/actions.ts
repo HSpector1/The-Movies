@@ -33,6 +33,19 @@
 //   - Actions are processed in array order over an evolving state, so a
 //     createTalent earlier in the list is visible to a later greenlight.
 
+import {
+  activeContract,
+  contractOffer,
+  employmentEngaged,
+  foundingGaps,
+  foundingMinimumsMet,
+  freelancerFee,
+  freelancerMarketIds,
+  hiringMarketIds,
+  isContracted,
+  renewalWindowOpen,
+  terminationCost,
+} from './employment.js'
 import { computeForecast, type ForecastContext } from './forecast.js'
 import { clamp } from './math.js'
 import type { ReceptionInputs } from './reception.js'
@@ -54,6 +67,7 @@ import type {
   AuthoredTalentInput,
   CastSlot,
   Ceilings,
+  Contract,
   CreativeRole,
   DevRates,
   Discipline,
@@ -62,6 +76,7 @@ import type {
   GameState,
   Genre,
   GenreExperience,
+  LedgerEntry,
   PotentialTier,
   Production,
   SkillBias,
@@ -139,6 +154,11 @@ function requireRole(t: Talent, role: CreativeRole, label: string): void {
 function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }): GameState {
   const p = prod.production
   const currentTick = state.market.tick
+
+  // D-11.2 — no greenlight during the founding draft (assemble a roster first).
+  if (state.founding !== null) {
+    throw new Error('applyActions: greenlight rejected — the studio is still in its founding draft (D-11)')
+  }
 
   // M16.6 / B3 — concurrency: greenlight valid only while under the cap.
   if (state.studio.activeProductions.length >= TUNING.MAX_CONCURRENT_PRODUCTIONS) {
@@ -274,12 +294,69 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
   }
   const forecastSnapshot: Forecast = computeForecast(inp, ctx)
 
-  // D-1 ledger: debit negative + marketing + Σ salaries (writer, director, all
-  // cast, all craft — summed in fixed order). Cash may go negative; no credit here.
-  let salaries = writer.salary + director.salary
-  for (const slot of CAST_SLOTS) salaries += cast[slot].salary
-  for (const c of craftHires) salaries += c.salary
-  const cash = state.studio.cash - (p.budget.negative + p.budget.marketing + salaries)
+  // ── Ledger + cash (D-1 unchanged when employment NOT engaged; D-11 economics
+  // when engaged). Both paths keep the reconciliation invariant
+  //   cash === INITIAL_CASH + Σ ledger.amount
+  // by logging every cash movement. The production entry always covers
+  // negative + marketing; the salary/fee treatment differs by mode.
+  const productionCost = p.budget.negative + p.budget.marketing
+  let cash: number
+  const ledgerAdds: LedgerEntry[] = []
+
+  if (employmentEngaged(state)) {
+    // D-11.13 — every film requires exactly ONE Production/Craft Lead.
+    if (p.craftIds.length !== 1) {
+      throw new Error(
+        `applyActions: greenlight rejected — a film requires exactly one Production/Craft Lead (got ${p.craftIds.length}) (D-11.13)`,
+      )
+    }
+    // D-11.12 — each assigned talent must be Studio-Contracted OR an Available
+    // Freelancer. Contracted talent cost nothing at greenlight (payroll covers
+    // them, D-11.5); each freelancer costs a one-film fee (a direct project cost,
+    // D-11.10), debited and logged separately from payroll.
+    const freelancerMarket = new Set(freelancerMarketIds(state))
+    const assigned: Talent[] = [writer, director, cast.lead, cast.antagonist, cast.support, ...craftHires]
+    let freelancerFees = 0
+    for (const t of assigned) {
+      if (isContracted(state, t.id)) continue // payroll covers contracted talent
+      if (!freelancerMarket.has(t.id)) {
+        throw new Error(
+          `applyActions: greenlight rejected — talent "${t.id}" is neither studio-contracted nor an available freelancer (D-11.12)`,
+        )
+      }
+      const fee = freelancerFee(t)
+      freelancerFees += fee
+      ledgerAdds.push({
+        week: currentTick,
+        kind: 'freelancerFee',
+        amount: -fee,
+        talentId: t.id,
+        productionId: id,
+        note: 'freelancer one-film fee',
+      })
+    }
+    cash = state.studio.cash - productionCost - freelancerFees
+    ledgerAdds.unshift({
+      week: currentTick,
+      kind: 'production',
+      amount: -productionCost,
+      productionId: id,
+      note: 'negative + marketing',
+    })
+  } else {
+    // D-1 (open pool, headless corpus): debit negative + marketing + Σ salaries.
+    let salaries = writer.salary + director.salary
+    for (const slot of CAST_SLOTS) salaries += cast[slot].salary
+    for (const c of craftHires) salaries += c.salary
+    cash = state.studio.cash - (productionCost + salaries)
+    ledgerAdds.push({
+      week: currentTick,
+      kind: 'production',
+      amount: -(productionCost + salaries),
+      productionId: id,
+      note: 'negative + marketing + salaries (D-1)',
+    })
+  }
 
   const production: Production = {
     id,
@@ -303,6 +380,7 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
       cash,
       activeProductions: [...state.studio.activeProductions, production],
     },
+    ledger: [...state.ledger, ...ledgerAdds],
   }
 }
 
@@ -539,9 +617,158 @@ function applyCreateTalent(state: GameState, action: Action & { kind: 'createTal
   const id = authoredTalentId(state.talent)
   const talent = constructAuthoredTalent(a, id, state.seed)
 
+  // D-11: an authored talent joins the industry as a FREE AGENT — immediately
+  // signable via the hiring market so the player can actually employ (and then
+  // assign) the person they created. (Harmless in the headless corpus, which never
+  // creates talent; freeAgents only affects the engaged employment surface.) A
+  // duplicate guard keeps it idempotent.
+  const freeAgents = state.freeAgents.includes(id) ? state.freeAgents : [...state.freeAgents, id]
+
   return {
     ...state,
     talent: [...state.talent, talent],
+    freeAgents,
+  }
+}
+
+// ── D-11 foundStudio — close the founding draft ──────────────────────────────
+// Valid only during a founding draft with every required-discipline minimum met.
+function applyFoundStudio(state: GameState, _action: Action & { kind: 'foundStudio' }): GameState {
+  if (state.founding === null) {
+    throw new Error('applyActions: foundStudio rejected — no founding draft is open (D-11.2)')
+  }
+  if (!foundingMinimumsMet(state)) {
+    const gaps = foundingGaps(state)
+    throw new Error(
+      `applyActions: foundStudio rejected — required roster incomplete (missing actors:${gaps.actor} directors:${gaps.director} writers:${gaps.writer} craft:${gaps.craft}) (D-11.2)`,
+    )
+  }
+  return { ...state, founding: null }
+}
+
+// ── D-11 signContract — sign a talent to a studio contract (D-11.4/.5/.6) ─────
+// During founding: talent must be in the applicant pool; the signing bonus draws
+// the recruitment fund (NOT cash), tracked in founding.spentBonus. During ops:
+// talent must be signable (free agent / hiring market); the bonus debits cash and
+// is logged. Rejected if already contracted. Terms are the deterministic offer.
+function applySignContract(state: GameState, action: Action & { kind: 'signContract' }): GameState {
+  const { talentId, termWeeks } = action
+  const week = state.market.tick
+  requireTalent(state.talent, talentId, 'signContract talentId')
+  if (isContracted(state, talentId)) {
+    throw new Error(`applyActions: signContract rejected — talent "${talentId}" is already contracted (D-11)`)
+  }
+  const offer = contractOffer(state, talentId, termWeeks, week)
+  const contract: Contract = {
+    talentId,
+    annualSalary: offer.annualSalary,
+    signingBonus: offer.signingBonus,
+    startWeek: offer.startWeek,
+    endWeekExclusive: offer.endWeekExclusive,
+    termWeeks: offer.termWeeks,
+  }
+
+  if (state.founding !== null) {
+    if (!state.founding.applicantIds.includes(talentId)) {
+      throw new Error(
+        `applyActions: signContract rejected — talent "${talentId}" is not in the founding applicant pool (D-11.2)`,
+      )
+    }
+    const remaining = state.founding.budget - state.founding.spentBonus
+    if (offer.signingBonus > remaining) {
+      throw new Error(
+        `applyActions: signContract rejected — signing bonus ${offer.signingBonus} exceeds remaining recruitment fund ${remaining} (D-11.2)`,
+      )
+    }
+    return {
+      ...state,
+      founding: { ...state.founding, spentBonus: state.founding.spentBonus + offer.signingBonus },
+      contracts: [...state.contracts, contract],
+      freeAgents: state.freeAgents.filter((id) => id !== talentId),
+    }
+  }
+
+  // Operating phase: talent must be currently signable (hiring market ∪ free agents).
+  if (!hiringMarketIds(state).includes(talentId)) {
+    throw new Error(
+      `applyActions: signContract rejected — talent "${talentId}" is not currently available to sign (D-11.14)`,
+    )
+  }
+  const entry: LedgerEntry = {
+    week,
+    kind: 'signingBonus',
+    amount: -offer.signingBonus,
+    talentId,
+    note: 'contract signing bonus',
+  }
+  return {
+    ...state,
+    studio: { ...state.studio, cash: state.studio.cash - offer.signingBonus },
+    contracts: [...state.contracts, contract],
+    ledger: [...state.ledger, entry],
+    freeAgents: state.freeAgents.filter((id) => id !== talentId),
+  }
+}
+
+// ── D-11 renewContract — extend during the renewal window (D-11.7) ────────────
+function applyRenewContract(state: GameState, action: Action & { kind: 'renewContract' }): GameState {
+  const { talentId, termWeeks } = action
+  const week = state.market.tick
+  const contract = activeContract(state, talentId)
+  if (contract === undefined) {
+    throw new Error(`applyActions: renewContract rejected — talent "${talentId}" has no active contract (D-11.7)`)
+  }
+  if (!renewalWindowOpen(contract, week)) {
+    throw new Error(
+      `applyActions: renewContract rejected — talent "${talentId}" is not in its renewal window (D-11.7)`,
+    )
+  }
+  const offer = contractOffer(state, talentId, termWeeks, week)
+  const renewed: Contract = {
+    talentId,
+    annualSalary: offer.annualSalary,
+    signingBonus: offer.signingBonus,
+    startWeek: week,
+    endWeekExclusive: week + offer.termWeeks,
+    termWeeks: offer.termWeeks,
+  }
+  const entry: LedgerEntry = {
+    week,
+    kind: 'signingBonus',
+    amount: -offer.signingBonus,
+    talentId,
+    note: 'renewal signing bonus',
+  }
+  return {
+    ...state,
+    studio: { ...state.studio, cash: state.studio.cash - offer.signingBonus },
+    contracts: state.contracts.map((c) => (c === contract ? renewed : c)),
+    ledger: [...state.ledger, entry],
+  }
+}
+
+// ── D-11 releaseTalent — early release; financial consequence only (D-11.9) ───
+function applyReleaseTalent(state: GameState, action: Action & { kind: 'releaseTalent' }): GameState {
+  const { talentId } = action
+  const week = state.market.tick
+  const contract = activeContract(state, talentId)
+  if (contract === undefined) {
+    throw new Error(`applyActions: releaseTalent rejected — talent "${talentId}" has no active contract (D-11.9)`)
+  }
+  const cost = terminationCost(contract, week)
+  const entry: LedgerEntry = {
+    week,
+    kind: 'termination',
+    amount: -cost,
+    talentId,
+    note: 'early-release termination cost',
+  }
+  return {
+    ...state,
+    studio: { ...state.studio, cash: state.studio.cash - cost },
+    contracts: state.contracts.filter((c) => c !== contract),
+    ledger: [...state.ledger, entry],
+    freeAgents: state.freeAgents.includes(talentId) ? state.freeAgents : [...state.freeAgents, talentId],
   }
 }
 
@@ -571,6 +798,18 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'createTalent':
         next = applyCreateTalent(next, action)
+        break
+      case 'foundStudio':
+        next = applyFoundStudio(next, action)
+        break
+      case 'signContract':
+        next = applySignContract(next, action)
+        break
+      case 'renewContract':
+        next = applyRenewContract(next, action)
+        break
+      case 'releaseTalent':
+        next = applyReleaseTalent(next, action)
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).

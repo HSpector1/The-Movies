@@ -13,26 +13,30 @@ import { render, screen, within, fireEvent, cleanup } from '@testing-library/rea
 import { App } from './App.tsx'
 import { Dashboard } from './screens/Dashboard.tsx'
 import {
-  newGame,
   advanceWeek,
   greenlight,
   requiredNegative,
-  talentByRole,
   selectWeek,
   selectCash,
   TUNING,
 } from './engine/adapter.ts'
 import { tick as coreTick } from '../../src/core/index.ts'
+import { newFoundedGame, foundedRosterIds } from './test/founding.ts'
 import type { DraftPackage, GameState, FilmResult } from './engine/adapter.ts'
 import { money } from './format.ts'
 
 afterEach(cleanup)
 
+// Build a legal package from the FOUNDED studio roster. Under D-11.12 film assembly
+// draws ONLY from studio-contracted talent (or available freelancers) — the global
+// talent pool is no longer staffable — so we pick roster ids by role. D-11.13 also
+// requires exactly ONE Production/Craft Lead, so the craft slot is now filled.
 function legalPackage(state: GameState): DraftPackage {
   const concept = state.concepts[0]!
-  const writer = talentByRole(state, 'writer').find((t) => t.available)!
-  const director = talentByRole(state, 'director').find((t) => t.available)!
-  const actors = talentByRole(state, 'actor').filter((t) => t.available)
+  const writers = foundedRosterIds(state, 'writer')
+  const directors = foundedRosterIds(state, 'director')
+  const actors = foundedRosterIds(state, 'actor')
+  const craft = foundedRosterIds(state, 'craft')
   const shape = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' } as const
   return {
     conceptId: concept.id,
@@ -42,17 +46,37 @@ function legalPackage(state: GameState): DraftPackage {
       intendedSegments: ['adult'],
       ranges: { intimacy: [-0.4, 0.4], tonalWeight: [-0.4, 0.4], kineticEnergy: [-0.4, 0.4] },
     },
-    writerId: writer.id,
-    directorId: director.id,
-    craftIds: [],
-    cast: { lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id },
+    writerId: writers[0]!,
+    directorId: directors[0]!,
+    craftIds: [craft[0]!],
+    cast: { lead: actors[0]!, antagonist: actors[1]!, support: actors[2]! },
     budget: { negative: requiredNegative(concept, shape, state), marketing: 400_000 },
   }
 }
 
+// D-11.2: a new game opens the FOUNDING DRAFT. For full-<App/> tests, sign the role
+// minimums (extra actors so a full cast can be chosen) then found the studio, landing
+// on the dashboard. Founding draws the recruitment fund, not operating cash.
+function foundViaUi() {
+  const signInGroup = (role: string, n: number) => {
+    for (let i = 0; i < n; i++) {
+      const group = screen.getByTestId(`founding-group-${role}`)
+      const signBtn = within(group)
+        .getAllByRole('button')
+        .find((b) => (b.getAttribute('data-testid') ?? '').startsWith('founding-sign-'))!
+      fireEvent.click(signBtn)
+    }
+  }
+  signInGroup('actor', 6)
+  signInGroup('director', 2)
+  signInGroup('writer', 2)
+  signInGroup('craft', 2) // a craft lead is required to cast a film (D-11.13)
+  fireEvent.click(screen.getByTestId('found-studio'))
+}
+
 describe('simulation: advancing a week ticks the engine exactly once', () => {
   it('advanceWeek advances market.tick by exactly 1 and equals one core tick()', () => {
-    const state = newGame('sim-tick-1')
+    const state = newFoundedGame('sim-tick-1')
     const before = selectWeek(state)
     const { next } = advanceWeek(state)
     expect(selectWeek(next)).toBe(before + 1)
@@ -71,7 +95,7 @@ describe('simulation: advancing a week ticks the engine exactly once', () => {
   })
 
   it('two advanceWeek calls advance tick by exactly 2 (no double-tick per press)', () => {
-    let state = newGame('sim-tick-2')
+    let state = newFoundedGame('sim-tick-2')
     const start = selectWeek(state)
     state = advanceWeek(state).next
     state = advanceWeek(state).next
@@ -83,6 +107,7 @@ describe('simulation: advancing a week ticks the engine exactly once', () => {
     const seedInput = screen.getByTestId('seed-input') as HTMLInputElement
     fireEvent.change(seedInput, { target: { value: 'sim-tick-ui' } })
     fireEvent.click(screen.getByTestId('new-game'))
+    foundViaUi() // D-11.2: found the studio to reach the dashboard
     expect(screen.getByTestId('dash-week')).toHaveTextContent('0')
     fireEvent.click(screen.getByTestId('advance-week'))
     // A week with no releases shows the release screen; return to dashboard.
@@ -95,7 +120,7 @@ describe('simulation: advancing a week ticks the engine exactly once', () => {
 
 describe('simulation: release timing follows PRODUCTION_TICKS exactly', () => {
   it('a film greenlit at week t is NOT released before t+PRODUCTION_TICKS and IS at t+PRODUCTION_TICKS', () => {
-    let state = newGame('sim-release-1')
+    let state = newFoundedGame('sim-release-1')
     const greenlitAt = selectWeek(state)
     const g = greenlight(state, legalPackage(state))
     expect(g.ok).toBe(true)
@@ -129,7 +154,7 @@ describe('simulation: release timing follows PRODUCTION_TICKS exactly', () => {
   })
 
   it('the active production countdown (remainingTicks) follows the engine toward release', () => {
-    let state = newGame('sim-release-2')
+    let state = newFoundedGame('sim-release-2')
     const g = greenlight(state, legalPackage(state))
     expect(g.ok).toBe(true)
     if (!g.ok) return
@@ -163,7 +188,7 @@ describe('simulation: release timing follows PRODUCTION_TICKS exactly', () => {
 
 describe('simulation: cash and standing on the dashboard reflect the engine post-tick state', () => {
   it('greenlight debits cash by the committed cost (engine), shown on the dashboard', () => {
-    let state = newGame('sim-cash-1')
+    let state = newFoundedGame('sim-cash-1')
     const cashBefore = selectCash(state)
     const g = greenlight(state, legalPackage(state))
     expect(g.ok).toBe(true)
@@ -188,7 +213,7 @@ describe('simulation: cash and standing on the dashboard reflect the engine post
   })
 
   it('after a release, at least one standing channel on the dashboard reflects the engine post-tick standing', () => {
-    let state = newGame('sim-standing-1')
+    let state = newFoundedGame('sim-standing-1')
     const g = greenlight(state, legalPackage(state))
     expect(g.ok).toBe(true)
     if (!g.ok) return
@@ -223,6 +248,7 @@ describe('simulation: NO Broadcast presentation or feed appears anywhere in the 
     render(<App />)
     fireEvent.change(screen.getByTestId('seed-input'), { target: { value: 'sim-nobroadcast' } })
     fireEvent.click(screen.getByTestId('new-game'))
+    foundViaUi() // D-11.2: found the studio to reach the dashboard
 
     // Assemble + greenlight a film via the wizard.
     fireEvent.click(screen.getByTestId('assemble-film'))
@@ -231,7 +257,8 @@ describe('simulation: NO Broadcast presentation or feed appears anywhere in the 
     fireEvent.click(screen.getByTestId('assembly-next')) // shape
     fireEvent.click(screen.getByTestId('assembly-next')) // promise
     fireEvent.click(screen.getByTestId('assembly-next')) // talent
-    for (const p of ['picker-writer', 'picker-director', 'picker-lead', 'picker-antagonist', 'picker-support']) {
+    // D-11.13: a Production/Craft Lead is now required to leave the talent step.
+    for (const p of ['picker-writer', 'picker-director', 'picker-lead', 'picker-antagonist', 'picker-support', 'picker-craft']) {
       const picker = screen.getByTestId(p)
       // The selectable candidate button carries aria-pressed (redesigned cards also add a
       // "Details" toggle per row, which we must skip). Pick the first ELIGIBLE candidate.

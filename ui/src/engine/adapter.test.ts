@@ -23,16 +23,21 @@ import {
   findTalent,
 } from './adapter.ts'
 import type { GameState, DraftPackage } from './adapter.ts'
+import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
 
 const SEED = 'studio-ui-test'
 
-// Build a legal draft package by picking the first eligible talent of each role.
+// Build a legal draft package from the FOUNDED studio roster. Under D-11.12 film
+// assembly draws ONLY from studio-contracted talent (the global pool is no longer
+// staffable), and D-11.13 requires exactly ONE Production/Craft Lead — so we pick
+// roster ids by role and fill the craft slot.
 function makeLegalPackage(state: GameState): DraftPackage {
   const concepts = state.concepts
   const concept = concepts[0]!
-  const writer = talentByRole(state, 'writer').find((t) => t.available)!
-  const director = talentByRole(state, 'director').find((t) => t.available)!
-  const actors = talentByRole(state, 'actor').filter((t) => t.available)
+  const writers = foundedRosterIds(state, 'writer')
+  const directors = foundedRosterIds(state, 'director')
+  const actors = foundedRosterIds(state, 'actor')
+  const craft = foundedRosterIds(state, 'craft')
   const req = requiredNegative(concept, { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' }, state)
   return {
     conceptId: concept.id,
@@ -46,10 +51,10 @@ function makeLegalPackage(state: GameState): DraftPackage {
         kineticEnergy: [-0.5, 0.5],
       },
     },
-    writerId: writer.id,
-    directorId: director.id,
-    craftIds: [],
-    cast: { lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id },
+    writerId: writers[0]!,
+    directorId: directors[0]!,
+    craftIds: [craft[0]!],
+    cast: { lead: actors[0]!, antagonist: actors[1]!, support: actors[2]! },
     budget: { negative: req, marketing: 400_000 },
   }
 }
@@ -106,7 +111,7 @@ describe('adapter: eligibility mirrors engine legality', () => {
   })
 
   it('marks talent engaged in an active production unavailable after greenlight', () => {
-    const state = newGame(SEED)
+    const state = newFoundedGame(SEED)
     const pkg = makeLegalPackage(state)
     const result = greenlight(state, pkg)
     expect(result.ok).toBe(true)
@@ -120,7 +125,7 @@ describe('adapter: eligibility mirrors engine legality', () => {
 
 describe('adapter: preview forecast equals stored snapshot at greenlight', () => {
   it('previewForecast === the greenlit production forecastSnapshot (determinism)', () => {
-    const state = newGame(SEED)
+    const state = newFoundedGame(SEED)
     const pkg = makeLegalPackage(state)
     const predictedId = predictedProductionId(state)
     const preview = previewForecast(state, pkg)
@@ -136,7 +141,7 @@ describe('adapter: preview forecast equals stored snapshot at greenlight', () =>
 
 describe('adapter: greenlight surfaces validation as data', () => {
   it('returns { ok:false } with a message on illegal package (not a throw)', () => {
-    const state = newGame(SEED)
+    const state = newFoundedGame(SEED)
     const pkg = makeLegalPackage(state)
     // duplicate cast → engine rejects
     const bad = { ...pkg, cast: { ...pkg.cast, antagonist: pkg.cast.lead } }
@@ -149,7 +154,7 @@ describe('adapter: greenlight surfaces validation as data', () => {
 
 describe('adapter: full loop + autopsy reconstruction', () => {
   it('greenlight → advance to release → autopsy matches stored FilmResult', () => {
-    let state = newGame(SEED)
+    let state = newFoundedGame(SEED)
     const pkg = makeLegalPackage(state)
     const g = greenlight(state, pkg)
     expect(g.ok).toBe(true)

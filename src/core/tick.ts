@@ -40,6 +40,7 @@
 
 import { evaluateReleaseBroadcast, type ReleaseBroadcastInputs } from './broadcast.js'
 import { developTalent, type DevelopmentContext } from './development.js'
+import { weeklyPayroll } from './employment.js'
 import { buildFilmResult, resolveReception, type ReceptionInputs } from './reception.js'
 import { RngStream, stream } from './rng.js'
 import { resolveShape } from './shape.js'
@@ -47,9 +48,11 @@ import { updateStanding, type ReleaseBenchmarks, type StandingContext } from './
 import type {
   BroadcastItem,
   CastSlot,
+  Contract,
   Discipline,
   FilmResult,
   GameState,
+  LedgerEntry,
   Production,
   Standing,
   Talent,
@@ -136,6 +139,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   const records: ReleaseRecord[] = []
   let cash = state.studio.cash
   const releasedFilms: FilmResult[] = [...state.studio.releasedFilms]
+  // D-11.18 financial ledger — every cash movement is recorded (reconciles with cash).
+  const ledger: LedgerEntry[] = [...state.ledger]
 
   for (const prod of releasing) {
     const concept = state.concepts.find((c) => c.id === prod.conceptId)
@@ -186,6 +191,14 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // Credit the box office total (D-1 ledger; the debit happened at greenlight).
     cash += filmResult.boxOffice.total
     releasedFilms.push(filmResult)
+    // D-11.18 — record the release credit (Studio Revenue = full box office, disclosed).
+    ledger.push({
+      week: currentTick,
+      kind: 'boxOffice',
+      amount: filmResult.boxOffice.total,
+      productionId: prod.id,
+      note: 'box-office total',
+    })
 
     // Benchmarks from the production's forecastSnapshot (§6 / B12).
     const benchmarks: ReleaseBenchmarks = {
@@ -316,12 +329,43 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     talent = state.talent.map((t) => byId.get(t.id) ?? t)
   }
 
+  // ── 7. PAYROLL (D-11.5) ────────────────────────────────────────────────────
+  // Weekly Σ contracted salaries, debited from cash EXACTLY ONCE per tick and
+  // logged to the ledger. Applied for the week being advanced (currentTick).
+  // Naturally 0 — and no ledger entry — when no contracts exist (the headless M0A
+  // corpus), so M0A/D-6 stay byte-identical. Skipped during a founding draft
+  // (no operations before the studio is founded).
+  if (state.founding === null) {
+    const payroll = weeklyPayroll(state, currentTick)
+    if (payroll > 0) {
+      cash -= payroll
+      ledger.push({ week: currentTick, kind: 'payroll', amount: -payroll, note: 'weekly payroll' })
+    }
+  }
+
+  // ── 8. CONTRACT EXPIRATION (D-11.8) ────────────────────────────────────────
+  // Contracts whose term ends at or before the NEW week expire; their talent
+  // become free agents (deterministic order: existing free agents, then expiring
+  // contracts in state order). No cash effect. Payroll above already paid the
+  // final active week (a contract active while week < endWeekExclusive).
+  const newTick = currentTick + 1
+  let contracts: Contract[] = state.contracts
+  let freeAgents: string[] = state.freeAgents
+  const expired = state.contracts.filter((c) => c.endWeekExclusive <= newTick)
+  if (expired.length > 0) {
+    contracts = state.contracts.filter((c) => c.endWeekExclusive > newTick)
+    const fa = [...state.freeAgents]
+    for (const c of expired) if (!fa.includes(c.talentId)) fa.push(c.talentId)
+    freeAgents = fa
+  }
+
   // ── Finalize ───────────────────────────────────────────────────────────────
   // market.tick increments as the LAST step (M1). The sim stream (advanced only by
   // the RECEPTION draws) is re-serialized once into the new rngState. broadcastItems
   // is the accumulated aired list (unchanged when no release aired). coverageContexts
   // stays untouched (declare-only until phase 6). `talent` is unchanged unless the
-  // DEVELOPMENT gate (step 6) is on.
+  // DEVELOPMENT gate (step 6) is on. D-11 employment fields (contracts/ledger/
+  // freeAgents) thread through; founding is unchanged (ticks only run post-founding).
   return {
     ...state,
     rngState: rng.serialize(),
@@ -335,5 +379,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       releasedFilms,
     },
     broadcastItems,
+    contracts,
+    ledger,
+    freeAgents,
   }
 }

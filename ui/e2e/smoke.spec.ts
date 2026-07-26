@@ -25,6 +25,30 @@ async function startNewGame(page: Page, seed: string) {
   await page.getByTestId('seed-input').fill(seed)
 }
 
+// D-11: a new game opens the founding draft. Hire the required minimum roster
+// (5 actors, 1 director, 2 writers, 1 craft) by clicking the first sign offer in
+// each role group, then found the studio. Signing a card replaces its offers with a
+// "signed" marker, so `.first()` advances to the next unsigned card each pass.
+async function foundStudioViaUi(page: Page) {
+  await expect(page.getByTestId('found-studio')).toBeVisible()
+  const need: Array<[string, number]> = [
+    ['actor', 5],
+    ['director', 1],
+    ['writer', 2],
+    ['craft', 1],
+  ]
+  for (const [role, count] of need) {
+    const group = page.getByTestId(`founding-group-${role}`)
+    for (let i = 0; i < count; i++) {
+      await group.locator('button[data-testid^="founding-sign-"]').first().click()
+    }
+  }
+  await shot(page, '1b-founding-roster')
+  const found = page.getByTestId('found-studio')
+  await expect(found).toBeEnabled()
+  await found.click()
+}
+
 // Assemble a legal film through the wizard, choosing the first eligible option in
 // each picker so the package is always legal (distinct cast enforced by the UI).
 async function assembleLegalFilm(page: Page) {
@@ -71,6 +95,8 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
   await startNewGame(page, SEED)
   await shot(page, '1-start-new-game')
   await page.getByTestId('new-game').click()
+  // D-11: hire an initial roster and found the studio before the studio can operate.
+  await foundStudioViaUi(page)
   await expect(page.getByTestId('dash-week')).toHaveText('0')
 
   // (2) + (3) Assembly flow + budget/forecast review (screens captured inside).

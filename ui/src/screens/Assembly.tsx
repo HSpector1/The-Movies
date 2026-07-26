@@ -13,12 +13,16 @@ import type {
   FilmShape,
   FilmPromise,
   CastSlot,
+  CreativeRole,
   Genre,
   DraftPackage,
 } from '../engine/adapter.ts'
 import {
   selectConcepts,
   talentByRole,
+  studioPool,
+  freelancerPool,
+  isEmploymentEngaged,
   requiredNegative,
   salarySum,
   totalCommittedCost,
@@ -212,10 +216,28 @@ export function Assembly({
 
   const concepts = selectConcepts(state)
   const concept = draft.conceptId ? findConcept(state, draft.conceptId) : undefined
-  const writers = useMemo(() => talentByRole(state, 'writer'), [state])
-  const directors = useMemo(() => talentByRole(state, 'director'), [state])
-  const actors = useMemo(() => talentByRole(state, 'actor'), [state])
-  const crew = useMemo(() => talentByRole(state, 'craft'), [state])
+  // D-11.11 candidate sources: when employment is engaged, staffing draws from the
+  // studio roster + available freelancers ONLY (unavailable global talent excluded);
+  // a converted legacy save (not engaged) falls back to the open global pool.
+  const engaged = isEmploymentEngaged(state)
+  const buildPool = (role: CreativeRole) =>
+    engaged
+      ? [...studioPool(state, role), ...freelancerPool(state, role).map((f) => f.talent)]
+      : talentByRole(state, role)
+  const writers = useMemo(() => buildPool('writer'), [state])
+  const directors = useMemo(() => buildPool('director'), [state])
+  const actors = useMemo(() => buildPool('actor'), [state])
+  const crew = useMemo(() => buildPool('craft'), [state])
+  // id → one-film freelancer fee, for every available freelancer across all roles.
+  const freelancerFees = useMemo(() => {
+    const m: Record<string, number> = {}
+    if (engaged) {
+      for (const role of ['writer', 'director', 'actor', 'craft'] as CreativeRole[]) {
+        for (const f of freelancerPool(state, role)) m[f.talent.id] = f.fee
+      }
+    }
+    return m
+  }, [state, engaged])
 
   const pkg = useMemo(() => buildPackage(state, draft), [state, draft])
   const partialPkg = useMemo(() => buildPartialPackage(state, draft), [state, draft])
@@ -283,7 +305,9 @@ export function Assembly({
           draft.directorId !== null &&
           draft.cast.lead !== null &&
           draft.cast.antagonist !== null &&
-          draft.cast.support !== null
+          draft.cast.support !== null &&
+          // D-11.13: a Production/Craft Lead is required once employment is engaged.
+          (!engaged || draft.craftIds.length === 1)
         )
       case 'budget':
         return pkg !== null
@@ -347,6 +371,8 @@ export function Assembly({
           actors={actors}
           crew={crew}
           patch={patch}
+          engaged={engaged}
+          freelancerFees={freelancerFees}
         />
       )}
       {step === 'budget' && concept && (
@@ -620,6 +646,8 @@ function TalentStep({
   actors,
   crew,
   patch,
+  engaged,
+  freelancerFees,
 }: {
   state: GameState
   draft: Draft
@@ -630,6 +658,8 @@ function TalentStep({
   actors: ReturnType<typeof talentByRole>
   crew: ReturnType<typeof talentByRole>
   patch: (p: Partial<Draft>) => void
+  engaged: boolean
+  freelancerFees: Record<string, number>
 }) {
   const castIds = CAST_SLOTS.map((s) => draft.cast[s]).filter((x): x is string => x !== null)
   const SLOT_TITLES: Record<CastSlot, string> = {
@@ -664,7 +694,9 @@ function TalentStep({
     <div className="card">
       <h2>Cast &amp; crew the film</h2>
       <p className="hint">
-        Pick a writer, a director, one actor per cast slot, and (optionally) a Crew/Craft lead.
+        {engaged
+          ? 'Staff the film from Your Studio (talent you employ — on payroll, no per-film cost) or from Available Freelancers (a one-film fee, tagged “Freelancer”). Unavailable industry talent is not shown. A Production/Craft Lead is required.'
+          : 'Pick a writer, a director, one actor per cast slot, and (optionally) a Crew/Craft lead.'}{' '}
         Candidates are sorted by Project Fit for the assignment — not by fame. Anyone already
         engaged in another production, or already used on this film, is disabled with the reason
         shown.
@@ -679,6 +711,7 @@ function TalentStep({
           onSelect={(id) => patch({ writerId: id })}
           testid="picker-writer"
           assignment={assignmentFor('writer')}
+          freelancerFees={freelancerFees}
         />
         <TalentPicker
           title="Director"
@@ -689,6 +722,7 @@ function TalentStep({
           onSelect={(id) => patch({ directorId: id })}
           testid="picker-director"
           assignment={assignmentFor('director')}
+          freelancerFees={freelancerFees}
         />
       </div>
       <div className="sep" />
@@ -704,16 +738,17 @@ function TalentStep({
             onSelect={(id) => patch({ cast: { ...draft.cast, [slot]: id } })}
             testid={`picker-${slot}`}
             assignment={castAssignment(slot)}
+            freelancerFees={freelancerFees}
           />
         ))}
       </div>
       <div className="sep" />
-      {/* Crew / Craft — an optional hire. Selecting toggles it into craftIds; the same
-          member sets it back to none. Its Fit/OVR/EP/salary/strengths appear on the card
-          and it flows into the package summary and committed cost like any assignment. */}
+      {/* Production/Craft Lead — REQUIRED once employment is engaged (D-11.13). One hire;
+          selecting toggles it into craftIds. Its Fit/OVR/EP/cost/strengths appear on the
+          card and it flows into the package summary and committed cost like any assignment. */}
       <div className="grid grid-3">
         <TalentPicker
-          title="Crew / Craft (optional)"
+          title={engaged ? 'Production/Craft Lead (required)' : 'Crew / Craft (optional)'}
           pool={crew}
           role="craft"
           selectedId={craftId}
@@ -721,8 +756,14 @@ function TalentStep({
           onSelect={(id) => patch({ craftIds: craftId === id ? [] : [id] })}
           testid="picker-craft"
           assignment={assignmentFor('craft')}
+          freelancerFees={freelancerFees}
         />
       </div>
+      {engaged && craftId === null && (
+        <p className="reason" style={{ color: 'var(--neg)' }}>
+          Choose a Production/Craft Lead to continue.
+        </p>
+      )}
     </div>
   )
 }

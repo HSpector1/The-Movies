@@ -44,6 +44,7 @@ import type {
   Discipline,
   DisciplineSkills,
   GameState,
+  GameStateV2,
   Genre,
   GenreExperience,
   Persona,
@@ -69,8 +70,10 @@ export type TalentV1 = {
   authored: boolean
 }
 
-// The frozen V1 GameState — identical to GameState EXCEPT talent is TalentV1[].
-export type GameStateV1 = Omit<GameState, 'talent'> & { talent: TalentV1[] }
+// The frozen V1 GameState — identical to the FROZEN GameStateV2 EXCEPT talent is
+// TalentV1[]. Anchored to GameStateV2 (NOT the live GameState) so the D-11
+// employment fields do NOT leak into the frozen V1 shape (D-11.16).
+export type GameStateV1 = Omit<GameStateV2, 'talent'> & { talent: TalentV1[] }
 
 export type SaveFileV1 = {
   saveVersion: 1
@@ -79,16 +82,26 @@ export type SaveFileV1 = {
   broadcastCache: BroadcastItem[]
 }
 
-// The D-9 V2 envelope. state.talent is the new multi-discipline Talent[].
+// The D-9 V2 envelope — FROZEN pre-employment shape (GameStateV2). D-9
+// multi-discipline talent, no employment/contract/ledger/founding fields.
 export type SaveFileV2 = {
   saveVersion: 2
+  seed: string
+  state: GameStateV2
+  broadcastCache: BroadcastItem[]
+}
+
+// The D-11 V3 envelope — the live GameState (V2 + employment surface: founding,
+// contracts, ledger, freeAgents). This is what D-11 games save as.
+export type SaveFileV3 = {
+  saveVersion: 3
   seed: string
   state: GameState
   broadcastCache: BroadcastItem[]
 }
 
-// Either envelope (the return of the version-dispatching validateSave/loadSave).
-export type SaveFile = SaveFileV1 | SaveFileV2
+// Any envelope (the return of the version-dispatching validateSave/loadSave).
+export type SaveFile = SaveFileV1 | SaveFileV2 | SaveFileV3
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -221,9 +234,27 @@ export function validateSaveV2(save: unknown): SaveFileV2 {
   return save as SaveFileV2
 }
 
+// ── V3 validation (D-11 shape) ───────────────────────────────────────────────
+// Same envelope rules as V1/V2; the difference is the state carries the D-11
+// employment surface (not re-validated field-by-field — the save is plain data).
+export function validateSaveV3(save: unknown): SaveFileV3 {
+  if (save === null || typeof save !== 'object') {
+    throw new Error('validateSaveV3: save is not an object')
+  }
+  const s = save as Record<string, unknown>
+  if (s.saveVersion !== 3) {
+    throw new Error(
+      `validateSaveV3: expected saveVersion 3, got ${JSON.stringify(s.saveVersion)}`,
+    )
+  }
+  checkEnvelope(s, 'validateSaveV3')
+  return save as SaveFileV3
+}
+
 // ── Version-dispatching validation (LOUD rejection of unknown versions) ──────
 // Returns the correctly-narrowed envelope for a known version; throws for any
-// other saveVersion. V1 and V2 are NOT byte-identical (different talent shapes).
+// other saveVersion. The three versions carry DIFFERENT shapes (V1 legacy scalar
+// talent, V2 D-9 talent, V3 D-9 talent + D-11 employment); they are NOT identical.
 export function validateSave(save: unknown): SaveFile {
   if (save === null || typeof save !== 'object') {
     throw new Error('validateSave: save is not an object')
@@ -231,8 +262,9 @@ export function validateSave(save: unknown): SaveFile {
   const s = save as Record<string, unknown>
   if (s.saveVersion === 1) return validateSaveV1(save)
   if (s.saveVersion === 2) return validateSaveV2(save)
+  if (s.saveVersion === 3) return validateSaveV3(save)
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 and 2 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1, 2 and 3 only)`,
   )
 }
 
@@ -250,8 +282,9 @@ export function makeSaveV1(state: GameStateV1): SaveFileV1 {
   return validateSaveV1(save)
 }
 
-// Build a validated V2 envelope from a (D-9) GameState. This is what D-9 games use.
-export function makeSaveV2(state: GameState): SaveFileV2 {
+// Build a validated V2 envelope from a FROZEN (pre-employment) GameStateV2. Kept
+// so V2 fixtures / the V1→V2 conversion stay typed against the frozen shape.
+export function makeSaveV2(state: GameStateV2): SaveFileV2 {
   const save: SaveFileV2 = {
     saveVersion: 2,
     seed: state.seed,
@@ -261,9 +294,20 @@ export function makeSaveV2(state: GameState): SaveFileV2 {
   return validateSaveV2(save)
 }
 
-// makeSave — the D-9 default. New games save as V2.
-export function makeSave(state: GameState): SaveFileV2 {
-  return makeSaveV2(state)
+// Build a validated V3 envelope from a (D-11) GameState. This is what D-11 games use.
+export function makeSaveV3(state: GameState): SaveFileV3 {
+  const save: SaveFileV3 = {
+    saveVersion: 3,
+    seed: state.seed,
+    state,
+    broadcastCache: state.broadcastItems,
+  }
+  return validateSaveV3(save)
+}
+
+// makeSave — the D-11 default. New games save as V3.
+export function makeSave(state: GameState): SaveFileV3 {
+  return makeSaveV3(state)
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -500,7 +544,7 @@ export function convertV1ToV2(v1: SaveFileV1): SaveFileV2 {
 
   const migratedTalent: Talent[] = oldState.talent.map((old) => migrateTalent(old, seed))
 
-  const newState: GameState = {
+  const newState: GameStateV2 = {
     ...oldState,
     talent: migratedTalent, // the ONLY field whose shape changes
     // rngState carried through UNCHANGED — the resumed run replays identically.
@@ -521,4 +565,50 @@ export function importLegacyV1(json: string): SaveFileV2 {
   }
   const v1 = validateSaveV1(parsed)
   return convertV1ToV2(v1)
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// D-11.16 — deterministic V2 → V3 conversion (same precedent as D-9.15).
+//   Input:  a validated SaveFileV2 (pre-employment shape).
+//   Output: a NEW SaveFileV3. The V2 input is NEVER mutated.
+//   A converted legacy save has NO employment (founding: null, contracts/ledger/
+//   freeAgents empty), so the D-11.0 engagement gate stays inactive until its first
+//   signing — legacy play continues open-pool. rngState is copied through UNCHANGED;
+//   the conversion is deterministic and idempotent (byte-identical under
+//   stableStringify); the original file is never overwritten.
+// ═══════════════════════════════════════════════════════════════════════════════
+export function convertV2ToV3(v2: SaveFileV2): SaveFileV3 {
+  const validated = validateSaveV2(v2) // defensive: never trust an unvalidated input
+  const oldState = validated.state
+
+  const newState: GameState = {
+    ...oldState,
+    // D-11 employment surface — empty on conversion (no employment in a V2 save).
+    founding: null,
+    contracts: [],
+    ledger: [],
+    freeAgents: [],
+    // rngState carried through UNCHANGED — the resumed run replays identically.
+  }
+
+  return makeSaveV3(newState)
+}
+
+// importLegacyV2 — parse a legacy V2 JSON string and return a NEW SaveFileV3.
+// Loudly rejects anything that is not a valid V2 save. Input untouched.
+export function importLegacyV2(json: string): SaveFileV3 {
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(json)
+  } catch (e) {
+    throw new Error(`importLegacyV2: not valid JSON — ${(e as Error).message}`)
+  }
+  const v2 = validateSaveV2(parsed)
+  return convertV2ToV3(v2)
+}
+
+// importLegacyV1ToV3 — parse a legacy V1 JSON string and return a NEW SaveFileV3
+// (via V1 → V2 → V3). Deterministic and idempotent. Input untouched.
+export function importLegacyV1ToV3(json: string): SaveFileV3 {
+  return convertV2ToV3(importLegacyV1(json))
 }

@@ -83,8 +83,29 @@ import {
   makeSave,
   exportSave,
   importSave,
-  loadSave,
-  importLegacyV1,
+  convertV2ToV3,
+  importLegacyV2,
+  importLegacyV1ToV3,
+  // ── D-11 employment / contracts / roster / freelancer market ──
+  beginFounding,
+  employmentEngaged,
+  employmentStatus,
+  isContracted,
+  activeContract,
+  contractOfferOptions,
+  freelancerFee,
+  freelancerMarketIds,
+  hiringMarketIds,
+  weeklyPayroll,
+  annualPayroll,
+  terminationCost,
+  guaranteedComp,
+  renewalWindowOpen,
+  rosterTalent,
+  rosterCoverage,
+  foundingMinimumsMet,
+  foundingGaps,
+  FOUNDING_MINIMUMS,
 } from '../../../src/core/index.ts'
 import type {
   GameState,
@@ -111,7 +132,12 @@ import type {
   CareerIdentity,
   DisciplineStanding,
   SaveFile,
-  SaveFileV2,
+  // ── D-11 employment types ──
+  Contract,
+  LedgerEntry,
+  EmploymentStatus,
+  FoundingState,
+  ContractOffer,
   // Film Package assessment result/input types (READ-ONLY summaries).
   CreativeCohesion,
   AssignmentFit,
@@ -150,6 +176,12 @@ export type {
   SkillBias,
   CareerIdentity,
   DisciplineStanding,
+  // D-11 employment types re-exported through the single boundary.
+  Contract,
+  LedgerEntry,
+  EmploymentStatus,
+  FoundingState,
+  ContractOffer,
   // Film Package assessment types re-exported through the single boundary.
   CreativeCohesion,
   AssignmentFit,
@@ -204,8 +236,11 @@ export {
 }
 
 // ── New game ─────────────────────────────────────────────────────────────────
+// A new PLAYER game opens in the founding draft (D-11.2): generateWorld builds the
+// employment-free world, beginFounding selects the bounded applicant pool and seeds
+// the recruitment fund. The player hires an initial roster, then founds the studio.
 export function newGame(seed: string): GameState {
-  return generateWorld(seed)
+  return beginFounding(generateWorld(seed))
 }
 
 // ── Dashboard selectors ──────────────────────────────────────────────────────
@@ -365,28 +400,26 @@ export function requiredNegative(concept: FilmConcept, shape: FilmShape, state: 
   )
 }
 
-// Sum of the salaries of the engaged talent (writer + director + all cast + craft).
+// Committed TALENT cost of a package at greenlight. Under D-11 (employment engaged),
+// contracted talent cost nothing at greenlight (they are on weekly payroll) and each
+// freelancer costs a one-film fee — so this sums assignmentProjectCost per assigned
+// id (0 for contracted, freelancerFee for freelancers). In the legacy open-pool mode
+// it sums per-production salaries (D-1). This is the "salaries" input the profit
+// range and the Budget step read, so the break-even reflects real project cost.
 export function salarySum(state: GameState, pkg: DraftPackageIds): number {
   let total = 0
-  const w = findTalent(state, pkg.writerId)
-  const d = findTalent(state, pkg.directorId)
-  if (w) total += w.salary
-  if (d) total += d.salary
+  total += assignmentProjectCost(state, pkg.writerId)
+  total += assignmentProjectCost(state, pkg.directorId)
   for (const slot of CAST_SLOTS) {
     const id = pkg.cast[slot]
-    if (id) {
-      const t = findTalent(state, id)
-      if (t) total += t.salary
-    }
+    if (id) total += assignmentProjectCost(state, id)
   }
-  for (const cid of pkg.craftIds ?? []) {
-    const t = findTalent(state, cid)
-    if (t) total += t.salary
-  }
+  for (const cid of pkg.craftIds ?? []) total += assignmentProjectCost(state, cid)
   return total
 }
 
-// Total committed cost at greenlight = negative + marketing + Σ salaries (D-1).
+// Total committed cost at greenlight = negative + marketing + Σ committed talent cost.
+// (D-1 in legacy mode; D-11.10 freelancer-fee economics when employment is engaged.)
 export function totalCommittedCost(state: GameState, pkg: DraftPackage): number {
   return pkg.budget.negative + pkg.budget.marketing + salarySum(state, pkg)
 }
@@ -1006,7 +1039,7 @@ export function explainRelease(
     shape: { role: 'Shape', vector: r.contributions.shape },
   }
 
-  const committedCost = prod.budget.negative + prod.budget.marketing + salarySumForProduction(preTick, prod)
+  const committedCost = productionCommittedCost(preTick, prod)
   const profit = filmResult.boxOffice.total - committedCost
 
   const standingBefore = preTick.studio.standing
@@ -1088,15 +1121,29 @@ function salarySumForProduction(state: GameState, prod: Production): number {
   return total
 }
 
+// The committed cost of an already-greenlit production — the EXACT amount debited,
+// read from the ledger (production + freelancerFee entries for this production, which
+// already include negative + marketing). Truthful under both D-11 (contracted talent
+// cost 0 at greenlight; freelancers a one-film fee) and legacy D-1 (negative +
+// marketing + salaries in one production entry). Falls back to budget + salaries for a
+// pre-existing production carried in from a converted legacy save (no ledger entries).
+function productionCommittedCost(state: GameState, prod: Production): number {
+  const fromLedger = state.ledger
+    .filter((e) => e.productionId === prod.id && (e.kind === 'production' || e.kind === 'freelancerFee'))
+    .reduce((a, e) => a - e.amount, 0)
+  if (fromLedger > 0) return fromLedger
+  return prod.budget.negative + prod.budget.marketing + salarySumForProduction(state, prod)
+}
+
 // Remaining weeks of an active production, for the dashboard.
 export function remainingWeeks(prod: Production): number {
   return prod.remainingTicks
 }
 
 // ── Saves ────────────────────────────────────────────────────────────────────
-// New games always save as the D-9 SaveFileV2 (makeSave === makeSaveV2). The V2
-// envelope's state.talent is the multi-discipline Talent[]; the UI only ever loads a
-// GameState (never a GameStateV1) — a legacy V1 import is converted first (below).
+// New games save as the D-11 SaveFileV3 (makeSave === makeSaveV3). The V3 envelope's
+// state carries the employment surface (founding/contracts/ledger/freeAgents). Legacy
+// V2 and V1 imports are converted deterministically to V3 (originals never touched).
 export function exportSaveJson(state: GameState): string {
   return exportSave(makeSave(state))
 }
@@ -1105,36 +1152,247 @@ export type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
   | { ok: false; error: string }
 
-// Import a save. Accepts BOTH the current V2 envelope and (via convertV1ToV2) a
-// legacy V1 envelope, converting the latter deterministically. `converted` tells the
-// caller a V1 save was upgraded to V2 so the UI can inform the player (their original
-// V1 file is never overwritten — this returns a fresh V2 state).
+// Import a save. Accepts V3 (current), V2 (→ convertV2ToV3), and V1 (→ V2 → V3), all
+// deterministic. `converted` tells the caller a legacy save was upgraded so the UI can
+// inform the player — their original file is never overwritten (a fresh V3 is returned).
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    const loaded = loadSave(save)
-    if (loaded.saveVersion === 2) {
-      return { ok: true, state: loaded.state, converted: false }
-    }
-    // Legacy V1: convert to V2 in place (the input string/file is untouched).
-    const v2: SaveFileV2 = importLegacyV1(json)
-    return { ok: true, state: v2.state, converted: true }
+    if (save.saveVersion === 3) return { ok: true, state: save.state, converted: false }
+    if (save.saveVersion === 2) return { ok: true, state: convertV2ToV3(save).state, converted: true }
+    // Legacy V1 → V2 → V3 (the input string/file is untouched).
+    return { ok: true, state: importLegacyV1ToV3(json).state, converted: true }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
 }
 
-// Explicit "Import a legacy V1 save" affordance (D-9.15). Parses a legacy V1 JSON
-// string, converts it deterministically to a V2 GameState, and reports success so the
-// UI can clearly tell the player the save was converted. Rejects anything that is not
-// a valid V1 save as DATA. The player's original V1 file is never overwritten.
-export function importLegacyV1SaveJson(json: string): ImportOutcome {
+// Explicit "Import a legacy V2 save" affordance (D-11.16). Converts a V2 JSON string
+// deterministically to a V3 GameState. Rejects non-V2 input as DATA. Original untouched.
+export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
-    const v2 = importLegacyV1(json)
-    return { ok: true, state: v2.state, converted: true }
+    const v3 = importLegacyV2(json)
+    return { ok: true, state: v3.state, converted: true }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
+}
+
+// Explicit "Import a legacy V1 save" affordance (D-9.15/D-11.16). Converts a V1 JSON
+// string deterministically to a V3 GameState (via V2). Rejects non-V1 input as DATA.
+export function importLegacyV1SaveJson(json: string): ImportOutcome {
+  try {
+    const v3 = importLegacyV1ToV3(json)
+    return { ok: true, state: v3.state, converted: true }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// D-11 — Studio Employment, Contracts, Roster, Freelancer Market
+// Action wrappers (validation surfaced as DATA) + read-only selectors/cards. Every
+// value comes from the PUBLIC engine employment helpers; nothing is recomputed here.
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ── actions ──
+export function foundStudioAction(state: GameState): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'foundStudio' }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+export function signContractAction(state: GameState, talentId: string, termWeeks: number): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'signContract', talentId, termWeeks }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+export function renewContractAction(state: GameState, talentId: string, termWeeks: number): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'renewContract', talentId, termWeeks }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+export function releaseTalentAction(state: GameState, talentId: string): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'releaseTalent', talentId }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+// ── engagement / founding selectors ──
+export function isEmploymentEngaged(state: GameState): boolean {
+  return employmentEngaged(state)
+}
+export function selectFounding(state: GameState): FoundingState | null {
+  return state.founding
+}
+export function foundingBudgetRemaining(state: GameState): number {
+  const f = state.founding
+  return f ? f.budget - f.spentBonus : 0
+}
+export function canFoundStudio(state: GameState): boolean {
+  return state.founding !== null && foundingMinimumsMet(state)
+}
+export type CoverageRow = { role: CreativeRole; label: string; count: number; min: number; met: boolean }
+const ROLE_LABEL: Record<CreativeRole, string> = {
+  actor: 'Actors',
+  director: 'Directors',
+  writer: 'Writers',
+  craft: 'Production/Craft Leads',
+}
+export function foundingCoverage(state: GameState): CoverageRow[] {
+  const cov = rosterCoverage(state)
+  const gaps = foundingGaps(state)
+  return (['actor', 'director', 'writer', 'craft'] as CreativeRole[]).map((role) => ({
+    role,
+    label: ROLE_LABEL[role],
+    count: cov[role],
+    min: FOUNDING_MINIMUMS[role],
+    met: gaps[role] === 0,
+  }))
+}
+
+// ── employment info (status + contract + offers + fee) for one talent ──
+export type ContractInfo = {
+  annualSalary: number
+  weeklySalary: number
+  signingBonus: number
+  startWeek: number
+  endWeekExclusive: number
+  termWeeks: number
+  remainingWeeks: number
+  terminationCost: number
+  renewalOpen: boolean
+}
+export type EmploymentInfo = {
+  status: EmploymentStatus
+  contract: ContractInfo | null
+  offerOptions: ContractOffer[] // populated when signable (founding pool / hiring market)
+  freelancerFee: number | null // populated when an available freelancer
+}
+export function employmentInfo(state: GameState, talentId: string): EmploymentInfo {
+  const week = state.market.tick
+  const status = employmentStatus(state, talentId)
+  const c = activeContract(state, talentId)
+  const contract: ContractInfo | null = c
+    ? {
+        annualSalary: c.annualSalary,
+        weeklySalary: Math.round(c.annualSalary / TUNING.TICKS_PER_YEAR),
+        signingBonus: c.signingBonus,
+        startWeek: c.startWeek,
+        endWeekExclusive: c.endWeekExclusive,
+        termWeeks: c.termWeeks,
+        remainingWeeks: Math.max(0, c.endWeekExclusive - week),
+        terminationCost: terminationCost(c, week),
+        renewalOpen: renewalWindowOpen(c, week),
+      }
+    : null
+  const t = findTalent(state, talentId)
+  const signable =
+    status === 'freeAgent' ||
+    (state.founding !== null && state.founding.applicantIds.includes(talentId) && c === undefined)
+  const offerOptions = signable ? contractOfferOptions(state, talentId) : []
+  const fee = status === 'availableFreelancer' && t ? freelancerFee(t) : null
+  return { status, contract, offerOptions, freelancerFee: fee }
+}
+
+// ── employment cards (a rich TalentProfile + employment info) ──
+export type EmploymentCard = { profile: TalentProfile; employment: EmploymentInfo }
+function employmentCard(state: GameState, id: string): EmploymentCard {
+  return { profile: talentProfile(state, id)!, employment: employmentInfo(state, id) }
+}
+
+// The studio roster (contracted talent), stable order.
+export function rosterCards(state: GameState): EmploymentCard[] {
+  return rosterTalent(state).map((t) => employmentCard(state, t.id))
+}
+// The founding applicant pool (draft), in draft order.
+export function foundingApplicantCards(state: GameState): EmploymentCard[] {
+  const f = state.founding
+  if (f === null) return []
+  return f.applicantIds.map((id) => employmentCard(state, id))
+}
+// The rotating hiring (contract) market — free agents + fresh signable talent.
+export function hiringMarketCards(state: GameState): EmploymentCard[] {
+  return hiringMarketIds(state).map((id) => employmentCard(state, id))
+}
+// The rotating freelancer market (available freelancers).
+export function freelancerMarketCards(state: GameState): EmploymentCard[] {
+  return freelancerMarketIds(state).map((id) => employmentCard(state, id))
+}
+
+// ── payroll & runway summary (D-11.19) ──
+export type PayrollSummary = {
+  cash: number
+  weeklyPayroll: number
+  annualPayroll: number
+  signingBonusesPaid: number // recruitment fund + operating bonuses, informational
+  projectedObligations: number // Σ remaining guaranteed salary across active contracts
+  upcomingRenewals: number // contracts currently in their renewal window
+  runwayWeeks: number | null // cash / weeklyPayroll (null = no payroll → unbounded)
+  contractCount: number
+}
+export function payrollSummary(state: GameState): PayrollSummary {
+  const week = state.market.tick
+  const weekly = weeklyPayroll(state)
+  let projected = 0
+  let renewals = 0
+  for (const c of state.contracts) {
+    projected += guaranteedComp(c, week)
+    if (renewalWindowOpen(c, week)) renewals += 1
+  }
+  const operatingBonuses = state.ledger
+    .filter((e) => e.kind === 'signingBonus')
+    .reduce((a, e) => a - e.amount, 0)
+  const foundingBonuses = state.founding ? state.founding.spentBonus : 0
+  return {
+    cash: state.studio.cash,
+    weeklyPayroll: weekly,
+    annualPayroll: annualPayroll(state),
+    signingBonusesPaid: operatingBonuses + foundingBonuses,
+    projectedObligations: projected,
+    upcomingRenewals: renewals,
+    runwayWeeks: weekly > 0 ? Math.floor(state.studio.cash / weekly) : null,
+    contractCount: state.contracts.length,
+  }
+}
+
+// ── assembly candidate sources (D-11.11) ──
+// When employment is engaged, film assembly draws from the studio roster first and
+// available freelancers second; unavailable global talent is excluded. When NOT
+// engaged (a converted legacy save that never signed), fall back to the global pool.
+export type FreelancerCandidate = { talent: PlayerVisibleTalent; fee: number }
+export function studioPool(state: GameState, role: CreativeRole): PlayerVisibleTalent[] {
+  if (!employmentEngaged(state)) return talentByRole(state, role)
+  const engaged = engagedTalentIds(state)
+  return rosterTalent(state)
+    .filter((t) => t.role === role)
+    .map((t) => toPlayerVisible(t, engaged))
+}
+export function freelancerPool(state: GameState, role: CreativeRole): FreelancerCandidate[] {
+  if (!employmentEngaged(state)) return []
+  const engaged = engagedTalentIds(state)
+  return freelancerMarketIds(state)
+    .map((id) => findTalent(state, id)!)
+    .filter((t) => t.role === role)
+    .map((t) => ({ talent: toPlayerVisible(t, engaged), fee: freelancerFee(t) }))
+}
+// The per-assignment cost of a chosen talent: 0 if contracted (payroll), else the
+// freelancer fee (a direct project cost). Used by the Budget step to show real cost.
+export function assignmentProjectCost(state: GameState, talentId: string): number {
+  if (!employmentEngaged(state)) {
+    const t = findTalent(state, talentId)
+    return t ? t.salary : 0 // legacy open-pool: salary is the per-production cost (D-1)
+  }
+  if (isContracted(state, talentId)) return 0
+  const t = findTalent(state, talentId)
+  return t ? freelancerFee(t) : 0
 }
 
 // ── Small display helpers (formatting only — no simulation logic) ─────────────

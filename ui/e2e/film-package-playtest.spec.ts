@@ -60,6 +60,21 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
   await expect(page.getByTestId('new-game')).toBeVisible()
   await page.getByTestId('seed-input').fill(SEED)
   await page.getByTestId('new-game').click()
+  // D-11: hire a generous initial roster (so the specialist-vs-star comparison below
+  // has variety in the studio pool), then found the studio.
+  await expect(page.getByTestId('found-studio')).toBeVisible()
+  for (const [role, count] of [
+    ['actor', 9],
+    ['director', 3],
+    ['writer', 4],
+    ['craft', 3],
+  ] as Array<[string, number]>) {
+    const group = page.getByTestId(`founding-group-${role}`)
+    for (let i = 0; i < count; i++) {
+      await group.locator('button[data-testid^="founding-sign-"]').first().click()
+    }
+  }
+  await page.getByTestId('found-studio').click()
   await expect(page.getByTestId('dash-week')).toHaveText('0')
 
   // ── STEP 2 — Assemble Film A with obvious mismatches. ───────────────────────
@@ -112,6 +127,8 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
   await shot(page, 'fp-A2-improved-package')
 
   // ── STEP 6 — Greenlight and release Film A. ─────────────────────────────────
+  // D-11.13: a Production/Craft Lead is required before leaving the talent step.
+  await page.getByTestId('picker-craft').locator('button[aria-pressed]:not([disabled])').first().click()
   await page.getByTestId('assembly-next').click() // → budget/forecast
   await expect(page.getByTestId('forecast-display')).toBeVisible()
   await page.getByTestId('assembly-next').click() // → review
@@ -151,9 +168,21 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
   // identity → temperament → potential → workEthic → emphasis → review (5 Next clicks).
   for (let i = 0; i < 5; i++) await page.getByTestId('creator-next').click()
   await page.getByTestId('create-talent').click()
-  // Back on the dashboard after adding to the pool.
+  // Back on the dashboard after adding to the industry.
   await expect(page.getByTestId('dash-week')).toBeVisible()
   await shot(page, 'fp-B0-crew-created')
+
+  // D-11: a created talent joins the industry as a FREE AGENT. To staff them on a
+  // film the studio must SIGN them first (assembly draws only from the roster +
+  // freelancers). Sign the created crew via the Hiring Market, then return.
+  await page.getByTestId('open-hiring').click()
+  await expect(page.getByTestId('hiring-list')).toBeVisible()
+  const crewMarketCard = page.locator('[data-testid^="hiring-card-"]').filter({ hasText: CREW_NAME })
+  await expect(crewMarketCard).toHaveCount(1) // the created crew is signable as a free agent
+  await crewMarketCard.locator('button[data-testid^="hiring-sign-"]').first().click()
+  await page.getByTestId('hiring-back').click()
+  await expect(page.getByTestId('dash-week')).toBeVisible()
+  await shot(page, 'fp-B0b-crew-signed')
 
   // ── STEP 8 — Assemble Film B using a lower-OVR SPECIALIST with higher Fit. ───
   await toTalentStep(page)

@@ -1484,3 +1484,377 @@ This is the complete D-9 ruling: exact formulas, the new type set, every named `
 - This check **never fires** in the role-partitioned M0A corpus (candidate pools keep roles disjoint), so it does not perturb the calibration study.
 
 *Record: D-10 A/B/C and the M16.7 closure decided by the owner 2026-07-26, implemented in the Phase 5.1 talent milestone. Adversarial review = SOUND-WITH-CAVEATS; contract audit = CLEAN WITH NOTES. This section is normative alongside D-9; where they conflict, D-10 wins.*
+
+# D-11 — Studio Employment, Contracts, Roster, and the Freelancer Market (owner ruling, 2026-07-26)
+
+**Status: normative, owner-authorized 2026-07-26 (Phase 5.2A directive).** This section
+is incorporated into `docs/build-contract.md` rev. 4 alongside D-1..D-10; where it
+conflicts with an earlier ruling it says so explicitly and wins. It transforms talent
+from an unrestricted global selection pool (M0A/Phase-5.1 behavior) into a persistent
+studio resource: the player employs a limited roster under contracts, pays weekly
+payroll, staffs films primarily from that roster, and hires one-film freelancers to
+cover real gaps. It does **not** authorize the script-development milestone, automatic
+time, rival studios, competing offers, the studio lot, or distribution economics
+(§11 non-goals and Phase-5.2A "EXPLICITLY DEFERRED" list; see D-11.20).
+
+## D-11.0 The compatibility invariant (why the employment system is *gated*)
+
+The protected M0A acceptance corpus (`tests/acceptance-corpus.test.ts`) and the frozen
+D-6 economics run **headless**: `RandomAgent`/`OracleAgent` greenlight packages drawn by
+`generateCandidates` from the **global, role-partitioned** talent pool, and D-1 debits
+`negative + marketing + Σ salaries` at greenlight. That path must stay **byte-identical**.
+
+Therefore the employment system is **engaged** only when the studio has actually entered
+it, defined precisely as:
+
+> `employmentEngaged(state) ≡ state.founding !== null || state.contracts.length > 0`
+
+This is **not** a §11 `SimulationFlags` object; it is derived from real state (whether a
+founding draft is open or any contract exists), exactly as "busy" is derived from
+`activeProductions`. When employment is **not** engaged (the headless corpus, legacy
+fixtures, converted V2 saves before their first signing), greenlight keeps the **exact
+D-1 open-pool behavior**: any global talent is assignable and the greenlight debit is
+`negative + marketing + Σ salaries`. When employment **is** engaged (a real player game),
+the roster/freelancer legality (D-11.12), the freelancer-fee economics (D-11.10), and the
+required Production/Craft Lead (D-11.13) all apply. **D-6 `standing.ts` stays byte-untouched.**
+
+## D-11.1 Employment status (five explicit statuses, derived — not stored per talent)
+
+Every talent has exactly one **employment status**, computed by a pure function
+`employmentStatus(state, talentId)` in first-match priority order:
+
+1. **Studio Contracted** — an active contract exists (`startWeek ≤ week < endWeekExclusive`).
+2. **Engaged Freelancer** — assigned in an active production, not contracted.
+3. **Available Freelancer** — listed in the current freelancer market, not contracted/engaged.
+4. **Free Agent** — immediately signable (in `state.freeAgents`, i.e. a former employee whose
+   contract expired or was terminated), not contracted/engaged/freelancer-listed.
+5. **Unavailable** — exists in the world but is not currently accessible.
+
+Status is **derived**, never a mutable field on `Talent` (the person is separate from the
+studio's relationship to them, mirroring D-9 keeping OVR/Fit derived). **Primary profession
+and employment status are independent:** a Studio-Contracted *actor* still carries writing/
+directing/craft skills (D-9) and may be assigned cross-discipline (D-11.12). The status
+enum reserves an extensible identifier space for future rival ownership **without inventing
+any rival behavior now** (Phase-5.2A). Rival contracts are NOT simulated this milestone.
+
+## D-11.2 Starting applicant draft (a bounded founding team, not the whole industry)
+
+A new **player** game opens in a **founding draft** (`state.founding !== null`) rather than
+dropping the player into a full-access studio. **Critically, `generateWorld(seed)` itself
+stays employment-free** — it produces `founding: null, contracts: [], ledger: [],
+freeAgents: []` so the headless M0A corpus (which calls `generateWorld` directly) never
+engages the gate (D-11.0) and stays byte-identical. The founding draft is opened by a
+**separate pure entry point** `beginFounding(state): GameState` (the player's `newGame`
+adapter = `beginFounding(generateWorld(seed))`); `beginFounding` selects a deterministic
+applicant pool from the generated talent, sized by named constants (values within the
+owner's stated ranges): `HIRING_DRAFT_ACTORS = 11`, `HIRING_DRAFT_DIRECTORS = 4`,
+`HIRING_DRAFT_WRITERS = 6`, `HIRING_DRAFT_CRAFT = 3` (24 applicants). The pool is chosen to span **dependable
+professionals, narrow specialists, inexpensive prospects, high-upside risks, low-fame
+skilled people, at least an occasional usable multi-hyphenate, and meaningful weaknesses**;
+worldgen (D-9.13 / D-10.B) already produces this variety, and the draft selection preserves
+it (sort the eligible generated talent by a deterministic spread key, then take a diverse
+slice — never "the top N by OVR", and **never a guaranteed superstar**).
+
+The player must hire an initial roster meeting the minimums `HIRING_MIN_ACTORS = 5`,
+`HIRING_MIN_DIRECTORS = 1`, `HIRING_MIN_WRITERS = 2`, `HIRING_MIN_CRAFT = 1` (9 hires).
+`foundStudio` is **rejected** until every required discipline minimum is met — the player
+**may not begin with an illegal roster missing a required discipline.**
+
+The player receives a bounded **recruitment fund** `HIRING_FOUNDING_BUDGET` (a dedicated
+signing-bonus pool, separate from operating cash). Founding **signing bonuses draw from the
+recruitment fund**, never from `studio.cash`; cash stays at `INITIAL_CASH` (D-1) so the
+studio enters operations with its full operating runway. The founding UI shows **projected
+annual payroll, remaining cash, approximate runway, discipline coverage, roster strengths,
+and roster gaps** (D-11.19).
+
+## D-11.3 Studio roster + D-11.4 Contract model
+
+A **contract** is a plain-JSON record on `state.contracts`:
+
+```
+Contract = {
+  talentId: string
+  annualSalary: number        // currency; paid weekly as annualSalary / TICKS_PER_YEAR
+  signingBonus: number        // currency; paid ONCE at signing (D-11.5)
+  startWeek: number           // market.tick at signing
+  endWeekExclusive: number    // startWeek + termWeeks; contract active while week < this
+  termWeeks: number           // 52..208 (1..4 years); stored in WEEKS, displayed in years
+}
+```
+
+- **Term** is `1..4 years`, stored in weeks (`CONTRACT_MIN_WEEKS = 52`,
+  `CONTRACT_MAX_WEEKS = 208`), displayed as understandable years + remaining time.
+- **Exclusive studio employment:** a contracted talent is the studio's; they cannot be
+  freelanced elsewhere (no rivals this milestone) and are staffed from the roster.
+- **Guaranteed compensation** = `weeklySalary × remainingWeeks` where
+  `weeklySalary = annualSalary / TICKS_PER_YEAR` and `remainingWeeks = endWeekExclusive − week`.
+- **Renewal eligibility** = the renewal window is open (D-11.7).
+- Longer contracts trade **cost certainty** for **termination exposure**; short contracts
+  reduce commitment but bring **earlier renewal risk**. No option years, backend
+  percentages, guaranteed-film clauses, loan-outs, or buyouts this milestone.
+
+The **Studio Roster** screen (D-11.19) lists, per employee: name, employment status,
+primary profession, all four role OVRs, Star Power, Potential estimate, Work Ethic,
+current annual salary, contract expiration, current termination cost, availability,
+current assignment, recent development, and renewal status — with filters for profession,
+role OVR, specialties, Potential, Work Ethic, salary, contract duration, availability,
+multi-hyphenates, and expiring contracts.
+
+## D-11.5 Salary, payroll timing, and signing bonuses
+
+- **Payroll** accrues **weekly**: `weeklyPayroll = Σ over active contracts of round(annualSalary / TICKS_PER_YEAR)`.
+  It is debited from `studio.cash` **exactly once per `tick()`** (the week advance), as a
+  dedicated payroll step, and recorded in the ledger (D-11.18). It applies whether or not
+  any film releases that week. Payroll is naturally **0** when no contracts exist (the
+  headless corpus), so no spurious ledger entry is emitted there and M0A is unaffected.
+- **Payroll must never silently disappear into production costs** — it is a distinct ledger
+  `kind: 'payroll'` and reconciles (D-11.18). No double-charge across save/reload/replay
+  (payroll is applied inside `tick`, never pre-committed).
+- **Signing bonus** is `round(annualSalary × CONTRACT_SIGNING_BONUS_FRACTION)` (a star
+  premium is folded in via `annualSalary`, which already scales with fame). It is paid
+  **immediately** when a contract is accepted: from the **recruitment fund** during founding,
+  from **`studio.cash`** during operations. Recorded as ledger `kind: 'signingBonus'`.
+- **D-1 negative-cash behavior remains authoritative:** cash may go negative with **no
+  mechanical consequence**; there is **no bankruptcy and no forced game-over** this milestone.
+
+## D-11.6 Contract offers (understandable asking terms, not a negotiation simulator)
+
+Each candidate presents a **deterministic asking offer** derived from real factors, computed
+by `contractOffer(state, talentId, termWeeks)`:
+
+```
+askAnnualSalary = round( salaryCurve(talent)                    // D-9.13: OVR(perceived)+fame
+                         × CONTRACT_ANNUAL_MULT                 // per-production salary → annual
+                         × lengthFactor(termWeeks)              // longer term ⇒ slightly lower annual
+                         × ageFactor(age)                       // prime-career ⇒ slightly higher
+                         × scarcityJitter(seed, talentId) )     // small deterministic ± from the 'hiring' stream
+```
+
+`CONTRACT_ANNUAL_MULT = 3.0` (calibration default). It **must** stay in the band that keeps
+a freelancer more expensive than a contracted employee **for a single film** — i.e.
+`FREELANCER_FEE_PREMIUM > CONTRACT_ANNUAL_MULT × PRODUCTION_TICKS / TICKS_PER_YEAR` fails
+(freelancer dearer per one-off) while the full contract term costs far more than one fee
+(contract amortizes over many films). At the defaults (`1.5` vs `3.0 × 8/52 ≈ 0.46`
+salaryCurve-multiples) a freelancer costs ≈ 3.3× a contracted employee's 8-week cost, so
+freelancers are the pricey one-off and contracts win only across repeated use — the intended
+tension. The balance study (D-11.21.5) confirms this empirically.
+
+The player may **accept**, **decline**, **choose among a small bounded set of term
+alternatives** (the four year-terms `{52,104,156,208}`, each re-priced by `lengthFactor`),
+or **return later** if the opportunity remains available. This is **not** a free-form
+negotiation simulator. Demand is grounded in **relevant OVR, Star Power, age/career stage,
+market scarcity, and contract length**. **Potential and Work Ethic may nudge market
+perception only where named here (they do not); they never inflate current OVR** (D-9
+keeps OVR from perceived skills only).
+
+## D-11.7 Renewals
+
+A contract enters its **renewal window** when `0 < (endWeekExclusive − week) ≤
+HIRING_RENEWAL_WINDOW_WEEKS` (= 12, within the owner's "8–12 weeks before expiration"
+band). During the window the talent presents fresh asking terms (`contractOffer` at the
+current week — an older, more experienced, possibly higher-OVR talent may ask for more).
+The player may **extend** (replace the contract with a new term at the new terms; a renewal
+signing bonus applies), **decline**, **wait**, or **release early** (D-11.9). If no renewal
+occurs, the contract **expires** at `endWeekExclusive` and the person **becomes a Free
+Agent** (pushed to `state.freeAgents`). **No competing rival offers this milestone;** the
+rival-offer hook is recorded in the handoff.
+
+## D-11.8 / D-11.9 Expiration and early release
+
+- **Expiration:** at `tick()`, every contract with `endWeekExclusive ≤ newWeek` is removed
+  and its talent pushed to `state.freeAgents` (deterministic order).
+- **Early release** (`releaseTalent`): the player may release a contracted employee. The
+  **initial termination consequence is financial only**:
+  `terminationCost = round(HIRING_TERMINATION_FRACTION × guaranteedComp)` where
+  `HIRING_TERMINATION_FRACTION = 0.5` and `guaranteedComp = weeklySalary × remainingWeeks`.
+  **This 50% is a calibration default, not an immutable design truth.** The exact
+  termination cost is **displayed before confirmation** (D-11.19). It is debited from cash
+  and recorded as ledger `kind: 'termination'`; the talent becomes a Free Agent. **No**
+  morale, agent hostility, reputation, lawsuits, scandals, or relationship effects.
+
+## D-11.10 Freelancers (one film, premium, cannot be assumed available)
+
+A small **rotating freelancer market** (`freelancerMarket(state)`, size
+`HIRING_FREELANCER_MARKET_SIZE = 6`) offers talent for **one film**:
+
+- A freelancer receives a **one-film fee** `freelancerFee = round(salaryCurve(talent) ×
+  FREELANCER_FEE_PREMIUM)` (`FREELANCER_FEE_PREMIUM = 1.5`). The fee is a **direct project
+  cost** debited at greenlight (ledger `kind: 'freelancerFee'`) and is **never** payroll.
+- Freelancers do **not** enter ongoing payroll, are **normally more expensive than an
+  equivalent contracted employee for the same single film**, may be **unavailable**, and
+  **leave after the production completes** — they **cannot be assumed available for the next
+  project** (the market rotates; D-11.14).
+- **Contract salary and freelancer fee must never be conflated:** a contracted employee's
+  annual salary is payroll (spread weekly); a freelancer's fee is a one-time project cost.
+
+The strategic tension (which the balance study must confirm, D-11.21): a freelancer is
+cheaper for a **one-off**, but a contract **amortizes** over many films — so "freelancers
+are always cheaper" is false and "contracts are cosmetic" is false.
+
+## D-11.11 Film assembly candidate sources
+
+Routine assembly shows **only two sources**, in this order:
+
+1. **Your Studio** (Studio-Contracted talent) — the **default** view.
+2. **Available Freelancers** — a clearly-secondary section that communicates the premium.
+
+**Unavailable global talent is excluded from routine selection.** All Phase-5.1 legibility
+(Project Fit, Expected Performance, OVR, Star Power, salary/fee, strengths & concerns,
+package summary, weakest-role identification, Commercial Outlook, locked greenlight
+assessment, post-release autopsy) is **preserved**; only the candidate **source** changes.
+
+## D-11.12 Film-assignment legality (engine-enforced when employment is engaged)
+
+A talent may be assigned to a film only if (checked in `applyGreenlight`, and **only when
+`employmentEngaged(state)`** — see D-11.0):
+
+- they are **Studio-Contracted** OR **legally engaged as a freelancer** (present in the
+  current freelancer market at greenlight), AND
+- they are **available** (not already engaged in a conflicting active production — the
+  existing M16.5 exclusivity), AND
+- they meet **discipline eligibility** (the D-9 has-discipline check — every talent has all
+  four skill sets, so cross-discipline assignment is legal), AND
+- same-production multiple-job rules remain **deferred** (M16.7 stays: one talent, one role
+  per production).
+
+The **relevant assigned discipline** governs OVR, Fit, Expected Performance, genre
+experience, and development (D-9 / D-10.C, unchanged). Primary profession does **not** create
+a permanent role restriction.
+
+## D-11.13 Production/Craft Lead (a single required senior role)
+
+The existing Crew/Craft system is preserved. In player-facing language the single craft
+hire is the **Production/Craft Lead**, representing senior responsibility across
+Cinematography, Editing, Production Design, Sound & Music, Effects Execution, and Technical
+Coordination. **Every film requires exactly one Production/Craft Lead** (when employment is
+engaged): greenlight is **rejected** with an empty `craftIds`, and the UI blocks the talent
+step until a Lead is chosen. The Lead **must be employed or engaged as a freelancer**, has a
+contract or one-film fee, **contributes real Craft skills and Fit**, receives development
+through completed Craft work (D-9.8), and appears in roster, payroll, assembly, result, and
+career history. **Craft is NOT split into six separate employees** this milestone.
+(This activates the previously-inert `craftIds`/`technical` surface D-4 deferred; D-4's
+"technical pinned at 40" limitation is thereby lifted for player games — the M0A corpus,
+employment-not-engaged, keeps `craftIds: []` and D-4's stated behavior.)
+
+## D-11.14 Market rotation (deterministic)
+
+Both markets rotate on a fixed cadence `HIRING_MARKET_ROTATION_WEEKS = 13`. The listing for
+an epoch `e = floor(week / HIRING_MARKET_ROTATION_WEEKS)` is derived purely from
+`stream(seed, 'hiring', 'freelancers-' + e)` / `stream(seed, 'hiring', 'market-' + e)` over
+the currently-signable universe (non-contracted, non-engaged talent), so it is **fully
+deterministic** and needs no stored market state. `state.freeAgents` (former employees) are
+always immediately signable and additionally surface in the hiring market. A hired talent
+**leaves** the market (they are now contracted/engaged); a freelancer engaged in a
+production is excluded until it completes and is not guaranteed to return.
+
+## D-11.15 Hidden information
+
+Consistent with D-9's perceived/actual split: pre-signing and pre-hire the player sees
+**perceived** information only — role OVR, Fit, Expected Performance band, Star Power,
+asking salary/fee, contract term, signing bonus, top strengths, the single most important
+concern, a **Potential estimate** (tier + band, never true ceilings), and Work Ethic
+(D-9.11 visible). The player **never** sees actual skills, true ceilings, or true Potential.
+The roster and hiring-market cards keep advanced detail behind expandable panels (restrained
+default; D-11.19).
+
+## D-11.16 Save behavior (SaveFileV3 — a new explicit version)
+
+Employment cannot be represented honestly in SaveFileV2 (which predates it), so a **new
+explicit version SaveFileV3** is created, following the D-9.15 precedent exactly:
+
+- `SaveFileV3 = { saveVersion: 3; seed; state: GameState; broadcastCache }` where the live
+  `GameState` gains `founding`, `contracts`, `ledger`, and `freeAgents`. **SaveFileV2's state
+  is frozen** as a new `GameStateV2` type alias capturing the pre-employment shape, and
+  **`GameStateV1` is re-anchored onto it** — `GameStateV1 = Omit<GameStateV2, 'talent'> &
+  { talent: TalentV1[] }` (today it derives from the live `GameState`; it must be re-based so
+  the added employment fields do NOT leak into the frozen V1/V2 shapes or break the V1
+  fixtures). **V1 and V2 validation rules are unchanged.** `validateSave` dispatches on
+  version and **loudly rejects** unknown versions.
+- **`convertV2ToV3` / `importLegacyV2`** take a validated V2 and produce a **new** V3 with
+  `founding: null, contracts: [], ledger: [], freeAgents: []` (a converted legacy save has
+  no employment; the D-11.0 gate is inactive until its first signing, so legacy play
+  continues open-pool). The V2 input is **never mutated**; `rngState` is carried through
+  **unchanged**; conversion is **deterministic and idempotent** (byte-identical under
+  `stableStringify`); the original file is **never overwritten**; repeated import yields
+  **identical** state. `V1 → V3` is available via `V1 → V2 → V3`.
+- New games save as **V3** (`makeSave === makeSaveV3`). The **M14** envelope rules
+  (`seed === state.seed`, `broadcastCache` deep-equals `state.broadcastItems`) hold for V3.
+
+## D-11.17 Determinism (all preserved)
+
+No `Math.random`; a new named derived stream purpose **`'hiring'`** (applicant draft,
+contract offers, freelancer/hiring rotation) that is **stateless** and **never advances
+`state.rngState`** (like `'candidates'`/`'forecast'`/`'develop'`); stable iteration order
+everywhere; deterministic applicant markets, contract offers, and freelancer rotation; exact
+replay; JSON-serializable state; **no duplicate** weekly payroll, renewals, termination
+costs, or freelancer charges (each is applied at exactly one deterministic point).
+
+## D-11.18 Economy interaction + the financial ledger
+
+`studio.cash` (D-1) stays the single balance. A new **`state.ledger: LedgerEntry[]`** records
+**every** cash movement for traceability and reconciliation:
+
+```
+LedgerEntry = { week; kind: 'production' | 'boxOffice' | 'payroll' | 'signingBonus'
+                       | 'termination' | 'freelancerFee'; amount; talentId?; productionId?; note }
+```
+
+`amount` is **signed** (outflow negative, inflow positive). The reconciliation invariant is
+`studio.cash ≈ INITIAL_CASH + Σ ledger.amount` — the ledger accounts for **every** cash
+movement; because currency is floating-point and `cash` is accumulated incrementally while
+the ledger is re-summed in one pass, the two agree **to within sub-cent floating-point
+rounding** (the residual is a representation artifact, never a lost transaction). Founding
+recruitment-fund bonuses are the one deliberate exception — they draw the fund, not cash,
+and are logged with a note. Theatrical
+revenue and distribution are **not** redesigned: the disclosed limitation
+**"Studio Revenue currently equals full box-office revenue because distributor and exhibitor
+economics are not yet modeled"** remains (recorded for future correction, not implemented here).
+
+## D-11.19 UI responsibilities
+
+Founding draft; Studio Roster screen (D-11.3 fields + filters, restrained default, advanced
+detail behind expandable panels); Hiring Market (card fields per D-11.15, sortable by OVR,
+salary, Star Power, Potential, Work Ethic, contract value, specialty; never all 24 skills at
+once); assembly Your-Studio / Available-Freelancers sources with the premium communicated;
+Production/Craft Lead required; a Payroll & Runway summary (current cash, weekly payroll,
+annual payroll, committed signing bonuses, projected contract obligations, upcoming renewals,
+estimated operating runway at current payroll); contract cards; renewal window; release
+confirmation showing the exact termination cost. All numbers come from engine helpers (no
+UI-invented figures), exactly as Phase 5.1.
+
+## D-11.20 Explicitly deferred (recorded boundaries)
+
+Persistent screenplay development, writers' rooms, script buying/selling, automatic time
+speeds, auto-pause, rival studios, competing contract offers, talent buyouts, loan-outs,
+relationships, morale, stress, agents, awards, scandals, retirement, studio-lot integration,
+facility construction, distribution economics, and all Phase-6 systems unrelated to this
+milestone. Future hooks recorded in the handoff: the **rival-offer** hook (D-11.7), the
+**distribution-economics** correction (D-11.18), and **script/writers'-room** as Phase 5.2B.
+
+## D-11.21 Acceptance criteria
+
+1. **Starting roster:** deterministic applicant pool; required-profession coverage enforced;
+   bounded roster selection; no unrestricted global-pool access once engaged; no guaranteed
+   superstar; a valid, bounded starting payroll.
+2. **Contracts:** 1–4-year terms; weekly payroll exactly once; signing bonus exactly once;
+   expiration → Free Agent; renewal window opens on schedule; extension; release; termination
+   cost = 50% remaining guaranteed; save/reload persistence.
+3. **Hiring & market:** deterministic rotation; demand grounded in real inputs; filters/sorts
+   truthful; hired talent leaves the free-agent/market pool; declined/expired offers behave
+   correctly; no duplicate contracts.
+4. **Assignment:** own roster is the default; unavailable global talent absent from routine
+   selection; freelancers shown separately; freelancer fee enters film cost; studio salary
+   stays payroll; cross-discipline assignment uses relevant OVR & Fit; engagement conflicts
+   prohibited; Production/Craft Lead required and contributing.
+5. **Economy:** weekly payroll changes cash; the ledger reconciles; contract obligations
+   visible; a lean roster burns less than a star-heavy roster; the studio can recover from a
+   poor film under plausible conditions; payroll creates pressure without immediate
+   unavoidable failure.
+6. **Determinism & saves:** exact replay; deterministic applicant pool/offers/rotation; no
+   duplicate payroll or contract events after reload; explicit V2→V3 (and V1→V3) import.
+7. **Compatibility:** the M0A acceptance corpus and D-6 economics are byte-identical
+   (employment not engaged); `standing.ts` untouched.
+
+*Record: D-11 authorized by the owner 2026-07-26 (Phase 5.2A directive), implemented on
+branch `phase-5.2-studio-roster`. This section is normative alongside D-1..D-10; where they
+conflict, D-11 wins for the employment/roster/contract/freelancer surface only.*

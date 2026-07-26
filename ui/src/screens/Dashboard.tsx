@@ -13,6 +13,7 @@ import {
   selectReleasedFilms,
   canGreenlightMore,
   findConcept,
+  payrollSummary,
 } from '../engine/adapter.ts'
 import { money, score } from '../format.ts'
 import { Metric, StandingBar } from '../components/common.tsx'
@@ -23,6 +24,8 @@ export function Dashboard({
   onAdvance,
   onCreateTalent,
   onOpenHub,
+  onOpenRoster,
+  onOpenHiring,
   onSaves,
   onOpenAutopsy,
 }: {
@@ -31,6 +34,8 @@ export function Dashboard({
   onAdvance: () => void
   onCreateTalent: () => void
   onOpenHub?: () => void
+  onOpenRoster?: () => void
+  onOpenHiring?: () => void
   onSaves: () => void
   onOpenAutopsy: (film: FilmResult) => void
 }) {
@@ -40,6 +45,7 @@ export function Dashboard({
   const active = selectActiveProductions(state)
   const released = selectReleasedFilms(state)
   const canGreenlight = canGreenlightMore(state)
+  const payroll = payrollSummary(state)
 
   // Recent releases: most recent first.
   const recent = [...released].reverse().slice(0, 6)
@@ -108,6 +114,22 @@ export function Dashboard({
           <div className="btn-row">
             <button
               className="ghost"
+              onClick={onOpenRoster}
+              disabled={!onOpenRoster}
+              data-testid="open-roster"
+            >
+              Studio Roster
+            </button>
+            <button
+              className="ghost"
+              onClick={onOpenHiring}
+              disabled={!onOpenHiring}
+              data-testid="open-hiring"
+            >
+              Hiring Market
+            </button>
+            <button
+              className="ghost"
               onClick={onOpenHub}
               disabled={!onOpenHub}
               data-testid="open-talent-hub"
@@ -122,6 +144,39 @@ export function Dashboard({
             </button>
           </div>
         </div>
+      </div>
+
+      <div style={{ height: 16 }} />
+
+      <div className="card">
+        <h2>Payroll &amp; runway</h2>
+        <div className="row" style={{ gap: 24, flexWrap: 'wrap' }} data-testid="payroll-summary">
+          <Metric label="Roster" small testid="payroll-count">
+            {payroll.contractCount}
+          </Metric>
+          <Metric label="Weekly payroll" small testid="payroll-weekly">
+            {money(payroll.weeklyPayroll)}
+          </Metric>
+          <Metric label="Annual payroll" small testid="payroll-annual">
+            {money(payroll.annualPayroll)}
+          </Metric>
+          <Metric label="Contract obligations" small>
+            {money(payroll.projectedObligations)}
+          </Metric>
+          <Metric label="Signing bonuses paid" small testid="payroll-bonuses">
+            {money(payroll.signingBonusesPaid)}
+          </Metric>
+          <Metric label="Upcoming renewals" small testid="payroll-renewals">
+            {payroll.upcomingRenewals}
+          </Metric>
+          <Metric label="Runway" small testid="payroll-runway">
+            {payroll.runwayWeeks === null ? '—' : `${payroll.runwayWeeks} wk`}
+          </Metric>
+        </div>
+        <p className="hint" style={{ marginTop: 8 }}>
+          Weekly payroll is charged every time you advance a week. Studio Revenue currently equals
+          full box-office revenue (distributor and exhibitor economics are not yet modeled).
+        </p>
       </div>
 
       <div style={{ height: 16 }} />

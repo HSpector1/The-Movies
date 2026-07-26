@@ -1,12 +1,59 @@
 # Project: Studio — Engineering Handoff
 
+> ## ⏱ 2026-07-26 — Phase 5.2A (D-11 Studio Employment) resumption banner
+>
+> **Branch state now (supersedes the stale §2 below):**
+> - `main` = `eb9dd43` — the **Phase 5.1 merge** ("Merge Phase 5.1 talent foundation and
+>   legible film assembly"; contains `f267cd9` + `3ac66bb`). Phase 5.1 IS merged.
+> - `phase-5.2-studio-roster` = the **Phase 5.2A milestone** (D-11 studio employment,
+>   contracts, payroll, roster, freelancer market). Implemented, tested, reviewed,
+>   audited. **NOT merged** — returned for owner playtest.
+> - `studio-lot-spike` (separate worktree) — untouched (`3806ef65`).
+>
+> **What Phase 5.2A added** (ruling **D-11** in `docs/rev4-open-questions.md`): a founding
+> draft; studio contracts (1–4 yr, weekly payroll, signing bonus, renewal, early release
+> with a termination cost); a deterministic rotating hiring + freelancer market; roster-
+> gated film assembly (Your Studio + Available Freelancers; a required Production/Craft
+> Lead); a financial **ledger** that reconciles with cash; **SaveFileV3** (V2 frozen,
+> deterministic V2→V3 / V1→V3 import); and the three new UI screens (Founding, Studio
+> Roster, Hiring Market) plus a Dashboard Payroll & Runway summary.
+>
+> **The compatibility gate (D-11.0):** employment is *engaged* only when
+> `founding !== null || contracts.length > 0`. `generateWorld` stays employment-free, so
+> the **protected M0A corpus and D-6 economics are byte-identical** and `standing.ts` is
+> untouched. `beginFounding(generateWorld(seed))` opens the player game.
+>
+> **Validation at this milestone:** 634 tests pass (40 files); root+UI TypeScript clean;
+> Vite build clean; both Playwright specs pass (20 screenshots); adversarial review =
+> SOUND-WITH-CAVEATS (the one finding — the ledger reconciliation was `===` on floats —
+> was resolved to a sub-cent tolerance); contract audit = CLEAN (two minor UI shortfalls
+> closed: HiringMarket now sorts by all 7 D-11.19 keys; Dashboard shows committed signing
+> bonuses).
+>
+> **DISCLOSED ECONOMY FINDING (not a 5.2A regression):** the dedicated balance study
+> (`src/harness/run-roster-balance-study.ts`, out/roster-balance/) shows the roster
+> MECHANICS create real decisions (star rosters burn more; freelancers aren't always used;
+> a craft-depth-vs-concurrency tradeoff; firing everyone makes the fewest films) — but two
+> desired properties FAIL: *payroll doesn't create downside pressure* and *the best
+> strategy IS the highest-OVR one*. Both trace to the **disclosed limitation "Studio
+> Revenue = full box-office"** (no distributor/exhibitor economics yet) — films are so
+> profitable that payroll never bites. **The fix is the deferred distribution economics
+> (D-11.18 records it); it is out of scope for this milestone (owner: do not redesign
+> revenue).**
+>
+> **Future hooks recorded (D-11.20):** rival competing-offers (D-11.7), distribution
+> economics (D-11.18), and **Phase 5.2B = persistent scripts & writers' rooms** (the next
+> milestone after employment is proven). **Explicitly deferred / DO NOT build:** rival
+> studios, competing offers, screenplay development, writers' rooms, auto-time, morale,
+> agents, buyouts, loan-outs, distribution economics, studio-lot integration.
+
 Last updated: 2026-07-26, after the **Phase 5.1 talent milestone** (uncommitted in the
 working tree; see §2c). M0A is PASS (D-6); the D-9 multi-discipline talent system plus
 the three 2026-07-26 owner rulings (D-10 A/B/C) and the M16.7 closure are implemented,
 tested, reviewed, and audited. **Phase 6 is NOT started** and needs explicit owner
 authorization. Written for a successor session with zero knowledge of prior
 conversations. Read this after `CLAUDE.md`, `docs/build-contract.md` (rev. 4),
-`docs/rev4-open-questions.md` (incl. rulings **D-6**, **D-9**, **D-10**), `M0A-REPORT.md`,
+`docs/rev4-open-questions.md` (incl. rulings **D-6**, **D-9**, **D-10**, **D-11**), `M0A-REPORT.md`,
 and `PLAYTEST.md`, in that order.
 
 ---

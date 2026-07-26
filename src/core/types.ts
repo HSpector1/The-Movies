@@ -263,7 +263,66 @@ export type Studio = {
   releasedFilms: FilmResult[]
 }
 
-export type GameState = {
+// ── D-11 Studio Employment, Contracts, Roster, Freelancer Market ──────────────
+// Employment/contract/ledger/founding state lives on GameState (studio-relative),
+// NOT on Talent (the person). Talent stays the shared "industry" population; the
+// studio's relationship to each person is derived (employmentStatus) or recorded
+// here (contracts / freeAgents / founding). See docs/rev4-open-questions.md D-11.
+
+// Five explicit employment statuses (D-11.1). Derived, never stored per talent.
+// The identifier space is deliberately extensible for future rival ownership; NO
+// rival behavior is simulated this milestone.
+export type EmploymentStatus =
+  | 'contracted'
+  | 'engagedFreelancer'
+  | 'availableFreelancer'
+  | 'freeAgent'
+  | 'unavailable'
+
+// A studio contract (D-11.4). Term stored in WEEKS (displayed in years). A contract
+// is active while startWeek ≤ week < endWeekExclusive.
+export type Contract = {
+  talentId: string
+  annualSalary: number // currency; paid weekly as round(annualSalary / TICKS_PER_YEAR)
+  signingBonus: number // currency; paid ONCE at signing (D-11.5)
+  startWeek: number // market.tick at signing
+  endWeekExclusive: number // startWeek + termWeeks; active while week < this
+  termWeeks: number // 52..208 (1..4 years)
+}
+
+// Financial ledger (D-11.18). Every cash movement is recorded so payroll never
+// "silently disappears into production costs" and cash reconciles:
+//   studio.cash === INITIAL_CASH + Σ ledger.amount
+// (founding recruitment-fund signing bonuses are the one deliberate exception —
+// they draw founding.budget, never cash, and are tracked in founding.spentBonus).
+export type LedgerKind =
+  | 'production' // negative + marketing debited at greenlight
+  | 'boxOffice' // box-office total credited at release
+  | 'payroll' // weekly Σ contracted salaries debited at tick
+  | 'signingBonus' // operating-phase contract signing bonus debited at signing
+  | 'termination' // early-release termination cost debited at release
+  | 'freelancerFee' // one-film freelancer fee debited at greenlight
+
+export type LedgerEntry = {
+  week: number
+  kind: LedgerKind
+  amount: number // SIGNED: outflow negative, inflow positive
+  talentId?: string
+  productionId?: string
+  note: string
+}
+
+// The founding draft (D-11.2). Present only in a new PLAYER game until foundStudio
+// closes it; null in the headless world (generateWorld stays employment-free).
+export type FoundingState = {
+  applicantIds: string[] // the bounded deterministic applicant pool
+  budget: number // the recruitment fund (signing-bonus pool, separate from cash)
+  spentBonus: number // recruitment-fund signing bonus spent so far
+}
+
+// The pre-employment state shape, FROZEN as SaveFileV2's state (D-11.16). Anchoring
+// GameStateV1/V2 to this keeps the added employment fields out of the frozen shapes.
+export type GameStateV2 = {
   seed: string
   rngState: string
   market: MarketState
@@ -275,6 +334,14 @@ export type GameState = {
   coverageContexts: CoverageContext[]
 }
 
+// The live D-11 state: the frozen V2 shape PLUS the employment surface.
+export type GameState = GameStateV2 & {
+  founding: FoundingState | null
+  contracts: Contract[]
+  ledger: LedgerEntry[]
+  freeAgents: string[] // ids immediately signable (former employees; expired/released)
+}
+
 // §2.6 Actions
 export type Action =
   | {
@@ -283,6 +350,11 @@ export type Action =
     }
   | { kind: 'cancel'; productionId: string }
   | { kind: 'createTalent'; talent: AuthoredTalentInput } // §10
+  // ── D-11 employment actions ──
+  | { kind: 'foundStudio' } // close the founding draft (minimums must be met)
+  | { kind: 'signContract'; talentId: string; termWeeks: number } // sign to studio contract
+  | { kind: 'renewContract'; talentId: string; termWeeks: number } // extend during renewal window
+  | { kind: 'releaseTalent'; talentId: string } // early release (financial cost only)
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

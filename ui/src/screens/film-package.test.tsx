@@ -20,7 +20,6 @@ import {
   newGame,
   greenlight,
   advanceWeek,
-  createTalent,
   talentByRole,
   findTalent,
   requiredNegative,
@@ -32,13 +31,13 @@ import {
   assessProfitRange,
   assessPackageDelta,
 } from '../engine/adapter.ts'
+import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
 import type {
   DraftPackage,
   GameState,
   FilmResult,
   FilmShape,
   FilmPromise,
-  AuthoredTalentInput,
 } from '../engine/adapter.ts'
 
 afterEach(cleanup)
@@ -102,42 +101,57 @@ function playToRelease(state: GameState, pkg: DraftPackage): FilmResult {
   return released[0]!
 }
 
-describe('crew: a created Crew/Craft talent can be assigned and contributes to the result', () => {
-  it('assigning a Crew hire changes the released technical (no craft ⇒ D-4 default)', () => {
-    const base = newGame('crew-contributes-1')
-    // Author a strong craft (Crew) talent through the engine (never sets skill directly).
-    const input: AuthoredTalentInput = {
-      name: 'Ada the Cinematographer',
-      role: 'craft',
-      age: 40,
-      actual: { warmth: 0, gravity: 0.2, physicality: 0 },
-      potentialTier: 'HighUpside',
-      workEthic: 80,
+describe('crew: the Production/Craft Lead is assigned and contributes to the result', () => {
+  // D-11.13 PREMISE UPDATE (owner-approved during the milestone): the pre-D-11 test
+  // compared a "no craft ⇒ D-4 default" film against a with-craft film. Under D-11 a
+  // founded studio's films REQUIRE exactly one Production/Craft Lead, so the no-craft
+  // baseline is unreachable in normal play. The Lead's CONTRIBUTION is proven the
+  // honest way instead: two founded films identical except for their Production/Craft
+  // Lead (A vs B, both contracted) produce DIFFERENT craft output — i.e. the Lead's
+  // real Craft skills feed the result (D-11.13 "contributes real Craft skills"). No
+  // assertion is weakened; the mechanism proven (craft contributes) is the same.
+
+  // A legal package from the FOUNDED roster with a chosen Production/Craft Lead.
+  function foundedPackage(state: GameState, craftId: string): DraftPackage {
+    const concept = state.concepts[0]!
+    const writer = foundedRosterIds(state, 'writer')[0]!
+    const director = foundedRosterIds(state, 'director')[0]!
+    const actors = foundedRosterIds(state, 'actor')
+    return {
+      conceptId: concept.id,
+      shape: SHAPE,
+      promise: promiseFor(concept.genre),
+      writerId: writer,
+      directorId: director,
+      craftIds: [craftId],
+      cast: { lead: actors[0]!, antagonist: actors[1]!, support: actors[2]! },
+      budget: { negative: requiredNegative(concept, SHAPE, state), marketing: 400_000 },
     }
-    const created = createTalent(base, input)
-    expect(created.ok).toBe(true)
-    if (!created.ok) return
-    const stateWithCrew = created.next
-    const crew = talentByRole(stateWithCrew, 'craft').find((t) => t.name === input.name)!
-    expect(crew).toBeTruthy()
+  }
 
-    // Two identical films from the SAME seed state: one with the crew, one without.
-    const filmNoCrew = playToRelease(stateWithCrew, legalPackage(stateWithCrew, []))
-    const filmWithCrew = playToRelease(stateWithCrew, legalPackage(stateWithCrew, [crew.id]))
+  it('two films differing ONLY in the Production/Craft Lead produce different craft output', () => {
+    const state = newFoundedGame('crew-contributes-1')
+    const crafts = foundedRosterIds(state, 'craft')
+    expect(crafts.length).toBeGreaterThanOrEqual(2)
+    const [craftA, craftB] = crafts
 
-    // The engine's technical output (craft's channel, D-4) differs — the crew CONTRIBUTED.
-    expect(filmWithCrew.craft).not.toBe(filmNoCrew.craft)
+    // Two identical films from the SAME founded state, differing only in the Lead.
+    const filmA = playToRelease(state, foundedPackage(state, craftA!))
+    const filmB = playToRelease(state, foundedPackage(state, craftB!))
+
+    // The engine's craft output differs — the Production/Craft Lead CONTRIBUTED (D-11.13).
+    expect(filmA.craft).not.toBe(filmB.craft)
   })
 
-  it('the assigned Crew hire appears in the package Talent-Fit summary as a craft assignment', () => {
-    const base = newGame('crew-in-summary-1')
-    const crew = talentByRole(base, 'craft').find((t) => t.available)!
-    const pkg = legalPackage(base, [crew.id])
-    const fit = assessPackageFit(base, pkg)
-    // A craft assignment for the hired Crew member is present in the per-assignment list.
+  it('the assigned Production/Craft Lead appears in the package Talent-Fit summary as a craft assignment', () => {
+    const state = newFoundedGame('crew-in-summary-1')
+    const craftId = foundedRosterIds(state, 'craft')[0]!
+    const pkg = foundedPackage(state, craftId)
+    const fit = assessPackageFit(state, pkg)
+    // A craft assignment for the Production/Craft Lead is present in the per-assignment list.
     const craftRow = fit.perAssignment.find((a) => a.role === 'craft')
     expect(craftRow).toBeTruthy()
-    expect(craftRow!.talentId).toBe(crew.id)
+    expect(craftRow!.talentId).toBe(craftId)
   })
 })
 
@@ -545,7 +559,9 @@ function pickCandidate(pickerTestId: string): HTMLElement {
 
 describe('change preview: a swap in the wizard shows the resulting package change', () => {
   it('the Film Package summary + a change preview appear, and swapping updates them', () => {
-    const state = newGame('swap-ui-1')
+    // D-11.2/D-11.12: the Assembly wizard now staffs from the studio roster, so a
+    // founded studio (a signed roster) is needed for the pickers to be non-empty.
+    const state = newFoundedGame('swap-ui-1')
     render(<Assembly state={state} onGreenlit={() => {}} onCancel={() => {}} />)
     // Walk concept → shape → promise → talent.
     fireEvent.click(within(screen.getByTestId('concept-grid')).getAllByRole('button')[0]!)

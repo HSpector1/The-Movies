@@ -24,12 +24,15 @@ import {
 } from '../engine/adapter.ts'
 import type { DraftPackage, GameState } from '../engine/adapter.ts'
 import { moneyExact } from '../format.ts'
+import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
 
 afterEach(cleanup)
 
 // Drive the wizard from the concept step to the talent step, choosing defaults.
+// D-11.2/D-11.12: the Assembly wizard staffs from the studio roster, so a FOUNDED
+// studio (signed roster) is required for the talent pickers to be non-empty.
 function openToTalentStep(seed: string) {
-  const state = newGame(seed)
+  const state = newFoundedGame(seed)
   const onGreenlit = vi.fn()
   render(<Assembly state={state} onGreenlit={onGreenlit} onCancel={() => {}} />)
   // Concept: pick the first concept card.
@@ -72,7 +75,12 @@ describe('assembly legality: greenlight is blocked until every required choice i
     pickFirstEligible('picker-antagonist')
     expect((screen.getByTestId('assembly-next') as HTMLButtonElement).disabled).toBe(true)
     pickFirstEligible('picker-support')
-    // Now complete — Next enables.
+    // D-11.13: with the studio founded (employment engaged), a Production/Craft Lead is
+    // now ALSO required to leave the talent step — so writer+director+3 cast is no longer
+    // sufficient; Next stays disabled until the craft lead is chosen too.
+    expect((screen.getByTestId('assembly-next') as HTMLButtonElement).disabled).toBe(true)
+    pickFirstEligible('picker-craft')
+    // Now complete (writer + director + 3 cast + craft lead) — Next enables.
     expect((screen.getByTestId('assembly-next') as HTMLButtonElement).disabled).toBe(false)
   })
 
@@ -156,12 +164,15 @@ describe('assembly legality: a wrong-role talent is not offered for a slot', () 
 
 describe('assembly legality: an engaged actor cannot be selected and the conflict is explained', () => {
   it('after greenlight, the engaged talent shows as busy-until-release in the picker', () => {
-    let state: GameState = newGame('legal-engaged-1')
+    // D-11.2/D-11.12: staff from the FOUNDED studio roster; D-11.13 requires exactly
+    // one Production/Craft Lead per film.
+    let state: GameState = newFoundedGame('legal-engaged-1')
     // Greenlight a legal film so its talent become engaged.
     const concept = state.concepts[0]!
-    const writer = talentByRole(state, 'writer').find((t) => t.available)!
-    const director = talentByRole(state, 'director').find((t) => t.available)!
-    const actors = talentByRole(state, 'actor').filter((t) => t.available)
+    const writers = foundedRosterIds(state, 'writer')
+    const directors = foundedRosterIds(state, 'director')
+    const actors = foundedRosterIds(state, 'actor')
+    const craft = foundedRosterIds(state, 'craft')
     const shape = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' } as const
     const pkg: DraftPackage = {
       conceptId: concept.id,
@@ -171,10 +182,10 @@ describe('assembly legality: an engaged actor cannot be selected and the conflic
         intendedSegments: ['adult'],
         ranges: { intimacy: [-0.4, 0.4], tonalWeight: [-0.4, 0.4], kineticEnergy: [-0.4, 0.4] },
       },
-      writerId: writer.id,
-      directorId: director.id,
-      craftIds: [],
-      cast: { lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id },
+      writerId: writers[0]!,
+      directorId: directors[0]!,
+      craftIds: [craft[0]!],
+      cast: { lead: actors[0]!, antagonist: actors[1]!, support: actors[2]! },
       budget: { negative: requiredNegative(concept, shape, state), marketing: 400_000 },
     }
     const g = greenlight(state, pkg)
@@ -195,17 +206,20 @@ describe('assembly legality: an engaged actor cannot be selected and the conflic
         testid="picker-lead"
       />,
     )
-    const engaged = screen.getByTestId(`talent-${actors[0]!.id}`) as HTMLButtonElement
+    const engaged = screen.getByTestId(`talent-${actors[0]!}`) as HTMLButtonElement
     expect(engaged.disabled).toBe(true)
     expect(engaged.textContent ?? '').toMatch(/already engaged in production/i)
   })
 
   it('the engine itself rejects a greenlight that reuses engaged talent (adapter surfaces it as data)', () => {
-    let state: GameState = newGame('legal-engaged-2')
+    // D-11.2/D-11.12: staff from the FOUNDED studio roster (generous enough for two
+    // concurrent films); D-11.13 requires exactly one Production/Craft Lead per film.
+    let state: GameState = newFoundedGame('legal-engaged-2')
     const concept = state.concepts[0]!
-    const writer = talentByRole(state, 'writer').find((t) => t.available)!
-    const director = talentByRole(state, 'director').find((t) => t.available)!
-    const actors = talentByRole(state, 'actor').filter((t) => t.available)
+    const writers = foundedRosterIds(state, 'writer')
+    const directors = foundedRosterIds(state, 'director')
+    const actors = foundedRosterIds(state, 'actor')
+    const craft = foundedRosterIds(state, 'craft')
     const shape = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' } as const
     const first: DraftPackage = {
       conceptId: concept.id,
@@ -215,10 +229,10 @@ describe('assembly legality: an engaged actor cannot be selected and the conflic
         intendedSegments: ['adult'],
         ranges: { intimacy: [-0.4, 0.4], tonalWeight: [-0.4, 0.4], kineticEnergy: [-0.4, 0.4] },
       },
-      writerId: writer.id,
-      directorId: director.id,
-      craftIds: [],
-      cast: { lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id },
+      writerId: writers[0]!,
+      directorId: directors[0]!,
+      craftIds: [craft[0]!],
+      cast: { lead: actors[0]!, antagonist: actors[1]!, support: actors[2]! },
       budget: { negative: requiredNegative(concept, shape, state), marketing: 400_000 },
     }
     const g1 = greenlight(state, first)
@@ -226,14 +240,17 @@ describe('assembly legality: an engaged actor cannot be selected and the conflic
     if (!g1.ok) return
     state = g1.next
 
-    // Second film reuses the engaged writer → engine rejects; adapter returns data.
+    // Second film reuses the engaged writer (writers[0], now busy) but is otherwise legal
+    // (distinct still-available roster actors, a second director and the second craft lead)
+    // → the engine rejects it on the reused writer; the adapter surfaces that as data.
     const concept2 = state.concepts[1]!
-    const freshActors = talentByRole(state, 'actor').filter((t) => t.available)
     const second: DraftPackage = {
       ...first,
       conceptId: concept2.id,
       promise: { ...first.promise, genre: concept2.genre },
-      cast: { lead: freshActors[0]!.id, antagonist: freshActors[1]!.id, support: freshActors[2]!.id },
+      directorId: directors[1]!,
+      craftIds: [craft[1]!],
+      cast: { lead: actors[3]!, antagonist: actors[4]!, support: actors[5]! },
       budget: { negative: requiredNegative(concept2, shape, state), marketing: 400_000 },
     }
     const g2 = greenlight(state, second)
@@ -245,12 +262,16 @@ describe('assembly legality: an engaged actor cannot be selected and the conflic
 
 describe('assembly legality: promise.genre must equal the concept genre', () => {
   it('the wizard builds the promise with the concept genre; a mismatched promise is engine-rejected', () => {
-    const state = newGame('legal-genre-1')
+    // D-11.2/D-11.12: staff from the FOUNDED studio roster; D-11.13 requires a craft
+    // lead. Everything here is legal EXCEPT the genre, so the genre mismatch is the
+    // rejection cause the assertion checks for.
+    const state = newFoundedGame('legal-genre-1')
     const concept = state.concepts.find((c) => c.genre === 'comedy') ?? state.concepts[0]!
     const wrongGenre = concept.genre === 'drama' ? 'comedy' : 'drama'
-    const writer = talentByRole(state, 'writer').find((t) => t.available)!
-    const director = talentByRole(state, 'director').find((t) => t.available)!
-    const actors = talentByRole(state, 'actor').filter((t) => t.available)
+    const writers = foundedRosterIds(state, 'writer')
+    const directors = foundedRosterIds(state, 'director')
+    const actors = foundedRosterIds(state, 'actor')
+    const craft = foundedRosterIds(state, 'craft')
     const shape = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' } as const
     const bad: DraftPackage = {
       conceptId: concept.id,
@@ -260,10 +281,10 @@ describe('assembly legality: promise.genre must equal the concept genre', () => 
         intendedSegments: ['adult'],
         ranges: { intimacy: [-0.4, 0.4], tonalWeight: [-0.4, 0.4], kineticEnergy: [-0.4, 0.4] },
       },
-      writerId: writer.id,
-      directorId: director.id,
-      craftIds: [],
-      cast: { lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id },
+      writerId: writers[0]!,
+      directorId: directors[0]!,
+      craftIds: [craft[0]!],
+      cast: { lead: actors[0]!, antagonist: actors[1]!, support: actors[2]! },
       budget: { negative: requiredNegative(concept, shape, state), marketing: 400_000 },
     }
     const g = greenlight(state, bad)
@@ -284,6 +305,11 @@ describe('assembly legality: review cost arithmetic equals what the adapter send
     const leadBtn = pickFirstEligible('picker-lead')
     const antagBtn = pickFirstEligible('picker-antagonist')
     const supportBtn = pickFirstEligible('picker-support')
+    // D-11.13: a Production/Craft Lead is now required to leave the talent step, so the
+    // craft assignment is part of the package and its committed project cost is part of
+    // the shown Total. We read the chosen craft id back from the DOM (like the others)
+    // and include it in the reconstruction so the arithmetic covers the full package.
+    const craftBtn = pickFirstEligible('picker-craft')
     const idOf = (b: HTMLElement): string =>
       (b.getAttribute('data-testid') ?? '').replace(/^talent-/, '')
     fireEvent.click(screen.getByTestId('assembly-next')) // → budget
@@ -303,7 +329,7 @@ describe('assembly legality: review cost arithmetic equals what the adapter send
       writerId: idOf(writerBtn),
       directorId: idOf(directorBtn),
       cast: { lead: idOf(leadBtn), antagonist: idOf(antagBtn), support: idOf(supportBtn) },
-      craftIds: [] as string[],
+      craftIds: [idOf(craftBtn)], // D-11.13 craft lead — its cost is part of the Total
     }
     const salaries = salarySum(state, idsGuess)
     const committed = negative + marketing + salaries

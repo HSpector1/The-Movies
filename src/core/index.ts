@@ -33,8 +33,15 @@ export type {
   EraConfig,
   Studio,
   GameState,
+  GameStateV2,
   Action,
   AuthoredTalentInput,
+  // D-11 employment / contracts / ledger / founding (types.ts)
+  EmploymentStatus,
+  Contract,
+  LedgerKind,
+  LedgerEntry,
+  FoundingState,
   Confidence,
   ForecastBand,
   ForecastFactorKey,
@@ -181,6 +188,37 @@ export type { PerformanceBand, DisciplineStanding, CareerIdentity } from './tale
 export { developTalent } from './development.js'
 export type { DevelopmentContext } from './development.js'
 
+// ── D-11 employment / contracts / roster / freelancer market (employment.ts) ──
+// Pure, deterministic, read-only helpers (status/offers/markets/payroll/founding).
+// The engine reads these in actions.ts (sign/renew/release/greenlight legality) and
+// tick.ts (payroll/expiration); the UI reads the display/selector helpers.
+export {
+  employmentEngaged,
+  employmentStatus,
+  activeContract,
+  isContracted,
+  assignableForFilm,
+  busyTalentIds,
+  weeklySalary,
+  guaranteedComp,
+  terminationCost,
+  weeklyPayroll,
+  annualPayroll,
+  renewalWindowOpen,
+  contractOffer,
+  contractOfferOptions,
+  freelancerFee,
+  freelancerMarketIds,
+  hiringMarketIds,
+  rosterTalent,
+  rosterCoverage,
+  foundingMinimumsMet,
+  foundingGaps,
+  FOUNDING_MINIMUMS,
+  beginFounding,
+} from './employment.js'
+export type { ContractOffer } from './employment.js'
+
 // ── Phase 5.1 CYCLE 3 — Film Package assessment helpers (READ-ONLY UI summaries) ─
 // Pure, deterministic, JSON-serializable read-only assessments the UI calls so it
 // never reinvents a §5/§7/D-9 formula. The sim never reads any of these (exactly
@@ -249,9 +287,11 @@ export {
   validateSave,
   validateSaveV1,
   validateSaveV2,
+  validateSaveV3,
   makeSave,
   makeSaveV1,
   makeSaveV2,
+  makeSaveV3,
   loadSave,
   exportSave,
   importSave,
@@ -259,5 +299,9 @@ export {
   migrateTalent,
   convertV1ToV2,
   importLegacyV1,
+  // D-11.16 — legacy V2 → NEW V3 (and V1 → V3), deterministic + idempotent.
+  convertV2ToV3,
+  importLegacyV2,
+  importLegacyV1ToV3,
 } from './save.js'
-export type { SaveFileV1, SaveFileV2, SaveFile, TalentV1, GameStateV1 } from './save.js'
+export type { SaveFileV1, SaveFileV2, SaveFileV3, SaveFile, TalentV1, GameStateV1 } from './save.js'

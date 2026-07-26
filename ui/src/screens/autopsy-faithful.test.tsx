@@ -18,13 +18,11 @@ import { describe, it, expect, afterEach } from 'vitest'
 import { render, screen, cleanup } from '@testing-library/react'
 import { Autopsy } from './Autopsy.tsx'
 import {
-  newGame,
   greenlight,
   advanceWeek,
   explainRelease,
   autopsyCompare,
   requiredNegative,
-  talentByRole,
 } from '../engine/adapter.ts'
 import type {
   DraftPackage,
@@ -35,14 +33,20 @@ import type {
   Standing,
 } from '../engine/adapter.ts'
 import { money, moneyExact, signed, score, segmentLabel } from '../format.ts'
+import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
 
 afterEach(cleanup)
 
+// Build a legal package from the FOUNDED studio roster. Under D-11.12 film assembly
+// draws ONLY from studio-contracted talent (the global pool is no longer staffable),
+// and D-11.13 requires exactly ONE Production/Craft Lead — so we pick roster ids by
+// role and fill the craft slot.
 function legalPackage(state: GameState): DraftPackage {
   const concept = state.concepts[0]!
-  const writer = talentByRole(state, 'writer').find((t) => t.available)!
-  const director = talentByRole(state, 'director').find((t) => t.available)!
-  const actors = talentByRole(state, 'actor').filter((t) => t.available)
+  const writers = foundedRosterIds(state, 'writer')
+  const directors = foundedRosterIds(state, 'director')
+  const actors = foundedRosterIds(state, 'actor')
+  const craft = foundedRosterIds(state, 'craft')
   const shape = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' } as const
   return {
     conceptId: concept.id,
@@ -52,10 +56,10 @@ function legalPackage(state: GameState): DraftPackage {
       intendedSegments: ['adult'],
       ranges: { intimacy: [-0.4, 0.4], tonalWeight: [-0.4, 0.4], kineticEnergy: [-0.4, 0.4] },
     },
-    writerId: writer.id,
-    directorId: director.id,
-    craftIds: [],
-    cast: { lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id },
+    writerId: writers[0]!,
+    directorId: directors[0]!,
+    craftIds: [craft[0]!],
+    cast: { lead: actors[0]!, antagonist: actors[1]!, support: actors[2]! },
     budget: { negative: requiredNegative(concept, shape, state), marketing: 400_000 },
   }
 }
@@ -69,7 +73,7 @@ function playToRelease(seed: string): {
   preStanding: Standing
   postStanding: Standing
 } {
-  let state = newGame(seed)
+  let state = newFoundedGame(seed)
   const g = greenlight(state, legalPackage(state))
   if (!g.ok) throw new Error('setup: greenlight failed: ' + g.error)
   state = g.next

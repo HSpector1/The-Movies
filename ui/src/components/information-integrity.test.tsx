@@ -29,6 +29,7 @@ import {
   greenlight,
   toPlayerVisible,
 } from '../engine/adapter.ts'
+import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
 import type { DraftPackage, GameState } from '../engine/adapter.ts'
 import { axis, money } from '../format.ts'
 
@@ -41,11 +42,16 @@ function formattedAxes(p: { warmth: number; gravity: number; physicality: number
   return [axis(p.warmth), axis(p.gravity), axis(p.physicality)]
 }
 
+// Build a legal package from the FOUNDED studio roster. Under D-11.12 film assembly
+// draws ONLY from studio-contracted talent (the global pool is no longer staffable),
+// and D-11.13 requires exactly ONE Production/Craft Lead — so we pick roster ids by
+// role and fill the craft slot.
 function legalPackage(state: GameState): DraftPackage {
   const concept = state.concepts[0]!
-  const writer = talentByRole(state, 'writer').find((t) => t.available)!
-  const director = talentByRole(state, 'director').find((t) => t.available)!
-  const actors = talentByRole(state, 'actor').filter((t) => t.available)
+  const writers = foundedRosterIds(state, 'writer')
+  const directors = foundedRosterIds(state, 'director')
+  const actors = foundedRosterIds(state, 'actor')
+  const craft = foundedRosterIds(state, 'craft')
   const shape = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' } as const
   return {
     conceptId: concept.id,
@@ -55,10 +61,10 @@ function legalPackage(state: GameState): DraftPackage {
       intendedSegments: ['adult'],
       ranges: { intimacy: [-0.4, 0.4], tonalWeight: [-0.4, 0.4], kineticEnergy: [-0.4, 0.4] },
     },
-    writerId: writer.id,
-    directorId: director.id,
-    craftIds: [],
-    cast: { lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id },
+    writerId: writers[0]!,
+    directorId: directors[0]!,
+    craftIds: [craft[0]!],
+    cast: { lead: actors[0]!, antagonist: actors[1]!, support: actors[2]! },
     budget: { negative: requiredNegative(concept, shape, state), marketing: 400_000 },
   }
 }
@@ -174,7 +180,7 @@ describe('information integrity: actual persona is NEVER rendered', () => {
 
 describe('information integrity: no Oracle expected-value, no realized quality pre-release', () => {
   it('the pre-greenlight forecast is labeled an ESTIMATE and shows no realized critic score', () => {
-    const state = newGame('ii-oracle-1')
+    const state = newFoundedGame('ii-oracle-1')
     const forecast = previewForecast(state, legalPackage(state))
     render(<ForecastDisplay forecast={forecast} mode="normal" source="estimate" />)
     const display = screen.getByTestId('forecast-display')
@@ -193,7 +199,7 @@ describe('information integrity: no Oracle expected-value, no realized quality p
   })
 
   it('an active (un-released) production on the dashboard shows only the ESTIMATE, never a realized result', () => {
-    let state = newGame('ii-oracle-2')
+    let state = newFoundedGame('ii-oracle-2')
     const g = greenlight(state, legalPackage(state))
     expect(g.ok).toBe(true)
     if (!g.ok) return
@@ -220,7 +226,7 @@ describe('information integrity: no Oracle expected-value, no realized quality p
 
 describe('information integrity: displayed forecast equals the STORED snapshot (not a recompute)', () => {
   it('after greenlight the dashboard shows the greenlit forecastSnapshot exactly', () => {
-    let state = newGame('ii-snapshot-1')
+    let state = newFoundedGame('ii-snapshot-1')
     const pkg = legalPackage(state)
     // What the studio predicted at greenlight (deterministic preview == stored).
     const preview = previewForecast(state, pkg)
@@ -268,7 +274,7 @@ describe('information integrity: restricted mode hides the PRECISE values normal
   })
 
   it('ForecastDisplay restricted omits the exact expected-total money that normal renders (mutation-grade)', () => {
-    const state = newGame('ii-restr-forecast')
+    const state = newFoundedGame('ii-restr-forecast')
     const forecast = previewForecast(state, legalPackage(state))
     const exactTotal = money(forecast.expectedTotal)
     const exactOpening = money(forecast.expectedOpening)

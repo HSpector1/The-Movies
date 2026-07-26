@@ -40,10 +40,16 @@ import { Autopsy } from './screens/Autopsy.tsx'
 import { TalentCreator } from './screens/TalentCreator.tsx'
 import { TalentHub } from './screens/TalentHub.tsx'
 import { Saves } from './screens/Saves.tsx'
+import { FoundingScreen } from './screens/FoundingScreen.tsx'
+import { StudioRoster } from './screens/StudioRoster.tsx'
+import { HiringMarket } from './screens/HiringMarket.tsx'
 
 type Screen =
   | { kind: 'start' }
+  | { kind: 'founding' }
   | { kind: 'dashboard' }
+  | { kind: 'roster' }
+  | { kind: 'hiring' }
   | { kind: 'assembly' }
   | {
       kind: 'release'
@@ -101,7 +107,9 @@ export function App() {
   function startGame(next: GameState) {
     setState(next)
     setSnapshots({})
-    setScreen({ kind: 'dashboard' })
+    // A new PLAYER game opens in the founding draft (D-11.2); a founded game (or a
+    // loaded save past founding) goes straight to the dashboard.
+    setScreen(next.founding !== null ? { kind: 'founding' } : { kind: 'dashboard' })
   }
 
   function goDashboard() {
@@ -165,6 +173,17 @@ export function App() {
 
   return (
     <DevErrorBoundary>
+      {screen.kind === 'founding' && (
+        <FoundingScreen
+          state={state}
+          onChange={setState}
+          onFounded={(next) => {
+            setState(next)
+            goDashboard()
+          }}
+        />
+      )}
+
       {screen.kind === 'dashboard' && (
         <Dashboard
           state={state}
@@ -172,9 +191,19 @@ export function App() {
           onAdvance={handleAdvance}
           onCreateTalent={() => setScreen({ kind: 'talent' })}
           onOpenHub={() => setScreen({ kind: 'hub' })}
+          onOpenRoster={() => setScreen({ kind: 'roster' })}
+          onOpenHiring={() => setScreen({ kind: 'hiring' })}
           onSaves={() => setScreen({ kind: 'saves' })}
           onOpenAutopsy={openAutopsyForFilm}
         />
+      )}
+
+      {screen.kind === 'roster' && (
+        <StudioRoster state={state} onChange={setState} onBack={goDashboard} />
+      )}
+
+      {screen.kind === 'hiring' && (
+        <HiringMarket state={state} onChange={setState} onBack={goDashboard} />
       )}
 
       {screen.kind === 'assembly' && (
@@ -228,7 +257,7 @@ export function App() {
           onLoad={(next) => {
             setState(next)
             setSnapshots({})
-            goDashboard()
+            setScreen(next.founding !== null ? { kind: 'founding' } : { kind: 'dashboard' })
           }}
           onNewGame={() => {
             setState(null)

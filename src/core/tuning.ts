@@ -259,6 +259,49 @@ export const TUNING = {
 
   // forecastProfitRange (#4) — no new numeric weights; it reuses computeBoxOffice on
   // the per-segment low/high estimates and the D-1 committed-cost identity verbatim.
+
+  // ── D-11 Studio Employment, Contracts, Roster, Freelancer Market ─────────────
+  // All calibration defaults (owner: "not immutable design truth"). The balance
+  // study (run-roster-balance-study.ts) validates the resulting distributions.
+
+  // Founding draft (D-11.2): applicant pool sizes + required starting-roster minimums.
+  HIRING_DRAFT_ACTORS: 11, // applicant pool (owner range 10–12)
+  HIRING_DRAFT_DIRECTORS: 4, // (owner range 3–4)
+  HIRING_DRAFT_WRITERS: 6, // (owner range 5–6)
+  HIRING_DRAFT_CRAFT: 3, // Production/Craft candidates (owner: 3)
+  HIRING_MIN_ACTORS: 5, // required initial hires (owner: 5)
+  HIRING_MIN_DIRECTORS: 1, // (owner: 1)
+  HIRING_MIN_WRITERS: 2, // (owner: 2)
+  HIRING_MIN_CRAFT: 1, // (owner: 1 Production/Craft Lead)
+  HIRING_FOUNDING_BUDGET: 6_000_000, // recruitment fund (signing-bonus pool; NOT cash)
+
+  // Contract terms (D-11.4). Term stored in weeks; 1..4 years at TICKS_PER_YEAR = 52.
+  CONTRACT_MIN_WEEKS: 52, // 1 year
+  CONTRACT_MAX_WEEKS: 208, // 4 years
+  CONTRACT_TERM_OPTIONS: [52, 104, 156, 208] as readonly number[], // 1/2/3/4-year offers
+
+  // Contract offer pricing (D-11.6). askAnnualSalary = salaryCurve × ANNUAL_MULT ×
+  // lengthFactor × ageFactor × scarcityJitter. ANNUAL_MULT MUST stay < ~9.75 so a
+  // freelancer stays pricier per single film (FREELANCER_FEE_PREMIUM band, D-11.10).
+  CONTRACT_ANNUAL_MULT: 3.0, // per-production salaryCurve → annual salary
+  CONTRACT_LENGTH_FACTOR: { 52: 1.08, 104: 1.0, 156: 0.95, 208: 0.9 } as Record<number, number>,
+  CONTRACT_AGE_PRIME: 34, // age of peak market demand (bell centered here)
+  CONTRACT_AGE_FACTOR_MIN: 0.85, // youngest/oldest ageFactor floor
+  CONTRACT_AGE_SPREAD: 22, // age half-spread for the ageFactor bell
+  CONTRACT_SCARCITY_JITTER: 0.08, // ± deterministic jitter from the 'hiring' stream
+  CONTRACT_SIGNING_BONUS_FRACTION: 0.18, // signingBonus = round(annualSalary × this)
+
+  // Renewal / termination (D-11.7 / D-11.9).
+  HIRING_RENEWAL_WINDOW_WEEKS: 12, // window opens when 0 < remaining ≤ this (owner 8–12)
+  HIRING_TERMINATION_FRACTION: 0.5, // terminationCost = this × remaining guaranteed salary
+
+  // Freelancers (D-11.10). fee = round(salaryCurve × premium); a one-time project cost.
+  FREELANCER_FEE_PREMIUM: 1.5, // freelancer one-film fee vs base per-production salary
+  HIRING_FREELANCER_MARKET_SIZE: 6, // rotating freelancer listing size
+  HIRING_MARKET_SIZE: 8, // rotating hiring-market (contract) listing size
+
+  // Market rotation (D-11.14). Both markets rotate on this cadence, epoch-derived.
+  HIRING_MARKET_ROTATION_WEEKS: 13,
 } as const
 
 // ── §5.1 cast weighting ──────────────────────────────────────────────────────
