@@ -188,8 +188,8 @@ describe('adapter: full loop + autopsy reconstruction', () => {
   })
 })
 
-describe('adapter: authored talent', () => {
-  it('createTalent appears in the pool at contracted starting skill/fame', () => {
+describe('adapter: authored talent (D-9.14)', () => {
+  it('createTalent appears in the pool at the contracted fixed fame; the player never sets skill', () => {
     const state = newGame(SEED)
     const before = talentByRole(state, 'actor').length
     const r = createTalent(state, {
@@ -197,14 +197,19 @@ describe('adapter: authored talent', () => {
       role: 'actor',
       age: 30,
       actual: { warmth: 0.2, gravity: -0.1, physicality: 0.5 },
+      potentialTier: 'Promising',
+      workEthic: 60,
     })
     expect(r.ok).toBe(true)
     if (!r.ok) return
     const pool = talentByRole(r.next, 'actor')
     expect(pool.length).toBe(before + 1)
     const created = pool.find((t) => t.authored)!
-    expect(created.skill).toBe(AUTHORED_START.skill)
+    // Fame is fixed by the contract; skill is a DERIVED proxy (primary perceived OVR),
+    // not a player-set number — so we assert only that it is a finite, unset-by-player
+    // value, never the false "35 known ability" the old scalar model claimed.
     expect(created.fame).toBe(AUTHORED_START.fame)
+    expect(Number.isFinite(created.skill)).toBe(true)
     // perceived = actual on creation, and we only ever expose perceived.
     const raw = findTalent(r.next, created.id)!
     expect(raw.perceived).toEqual(raw.actual)
@@ -217,6 +222,8 @@ describe('adapter: authored talent', () => {
       role: 'actor',
       age: 5,
       actual: { warmth: 0, gravity: 0, physicality: 0 },
+      potentialTier: 'Steady',
+      workEthic: 60,
     })
     expect(r.ok).toBe(false)
   })

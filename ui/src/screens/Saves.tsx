@@ -5,7 +5,7 @@
 
 import { useMemo, useState } from 'react'
 import type { GameState } from '../engine/adapter.ts'
-import { exportSaveJson, importSaveJson } from '../engine/adapter.ts'
+import { exportSaveJson, importSaveJson, importLegacyV1SaveJson } from '../engine/adapter.ts'
 import { ErrorBox } from '../components/common.tsx'
 
 export function Saves({
@@ -22,6 +22,7 @@ export function Saves({
   const exported = useMemo(() => exportSaveJson(state), [state])
   const [importText, setImportText] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const [notice, setNotice] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
   function handleDownload() {
@@ -47,11 +48,37 @@ export function Saves({
 
   function handleImport() {
     setError(null)
+    setNotice(null)
     const result = importSaveJson(importText)
     if (!result.ok) {
       setError(`This save was rejected: ${result.error}`)
       return
     }
+    if (result.converted) {
+      // A legacy V1 save was auto-upgraded to the current format on load.
+      setNotice(
+        'This was an older (V1) save. It was converted to the current format on load — your ' +
+          'original file is unchanged. Export again to keep a copy in the new format.',
+      )
+    }
+    onLoad(result.state)
+  }
+
+  // Explicit "Import a legacy V1 save" affordance (D-9.15): converts a legacy save to
+  // the current format and clearly tells the player it was converted. The original V1
+  // file is never overwritten (this produces a fresh converted state to play).
+  function handleImportLegacy() {
+    setError(null)
+    setNotice(null)
+    const result = importLegacyV1SaveJson(importText)
+    if (!result.ok) {
+      setError(`This is not a valid legacy V1 save: ${result.error}`)
+      return
+    }
+    setNotice(
+      'Legacy V1 save converted to the current format. Your original file is unchanged — export ' +
+        'again to save a copy in the new format.',
+    )
     onLoad(result.state)
   }
 
@@ -117,6 +144,11 @@ export function Saves({
             data-testid="saves-import-text"
           />
           {error && <ErrorBox message={error} />}
+          {notice && (
+            <div className="warn" role="status" data-testid="saves-notice">
+              {notice}
+            </div>
+          )}
           <div className="btn-row">
             <button
               className="primary"
@@ -126,7 +158,20 @@ export function Saves({
             >
               Load save
             </button>
+            <button
+              className="ghost"
+              onClick={handleImportLegacy}
+              disabled={importText.trim().length === 0}
+              data-testid="saves-import-legacy"
+              title="Convert an older (V1) save to the current format"
+            >
+              Import legacy V1 save
+            </button>
           </div>
+          <p className="hint" style={{ fontSize: 11 }}>
+            Older V1 saves load automatically (and are converted). Use “Import legacy V1 save” to
+            convert one explicitly; your original file is never overwritten.
+          </p>
         </div>
       </div>
 

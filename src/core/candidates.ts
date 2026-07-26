@@ -292,6 +292,7 @@ export function generateCandidates(state: GameState, tick: number): CandidatePac
     }
     const inp: ForecastInputs = {
       concept,
+      shape, // RULING C: the candidate's sampled shape drives the shared weighting path
       shapeEffects,
       promise: promiseForCenters,
       budget,
@@ -343,6 +344,7 @@ export function packageReceptionInputs(state: GameState, pkg: CandidatePackage):
   }
   return {
     concept,
+    shape: pkg.shape, // RULING C: shared shape-weighting path (locked package shape)
     shapeEffects: resolveShape(pkg.shape),
     promise: pkg.promise,
     budget: pkg.budget,

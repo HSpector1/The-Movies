@@ -35,18 +35,117 @@ export type Expression = {
   kineticEnergy: number
 }
 
-// §2.2 People
+// §2.2 People — D-9 Multi-Discipline Talent.
+//
+// D-9.1 vocab: four disciplines, six skills each (24 professional skills), every
+// skill an integer 1..99 with a perceived/actual split. Reception (§5) reads
+// actual; forecast (§7) reads perceived. See talentSummary.ts for the read-only
+// summaries (OVR/Fit/Potential/…) and effectiveSkill (the §5/§7 substitute).
+
+export type Discipline = 'acting' | 'writing' | 'directing' | 'craft'
+
+// The six skill keys of each discipline, in fixed SKILL_ORDER (D-9.1).
+export type ActingSkill =
+  | 'actingTechnique'
+  | 'emotionalRange'
+  | 'dialogueDelivery'
+  | 'comicTiming'
+  | 'physicalPerformance'
+  | 'screenPresence'
+export type WritingSkill =
+  | 'storyStructure'
+  | 'characterDevelopment'
+  | 'dialogue'
+  | 'originality'
+  | 'narrativePacing'
+  | 'rewriting'
+export type DirectingSkill =
+  | 'visualStorytelling'
+  | 'performanceDirection'
+  | 'toneControl'
+  | 'directingPacing'
+  | 'productionManagement'
+  | 'adaptability'
+export type CraftSkill =
+  | 'cinematography'
+  | 'editing'
+  | 'productionDesign'
+  | 'soundAndMusic'
+  | 'effectsExecution'
+  | 'technicalCoordination'
+
+// a perceived/actual pair for one professional skill (both 1..99)
+export type SkillPair = { actual: number; perceived: number }
+
+// all six skills of one discipline; keys fixed in SKILL_ORDER[discipline]
+export type DisciplineSkills = Record<string, SkillPair> // 6 entries; keyed by that discipline's skill names
+
+// per-discipline skill profiles (24 SkillPairs total). Field order fixed:
+// acting → writing → directing → craft (D-9.16) so stableStringify is stable.
+export type SkillProfiles = {
+  acting: DisciplineSkills
+  writing: DisciplineSkills
+  directing: DisciplineSkills
+  craft: DisciplineSkills
+}
+
+// hidden per-skill actual ceilings (1..99), one 6-vector per discipline (D-9.10)
+export type Ceilings = {
+  acting: Record<string, number>
+  writing: Record<string, number>
+  directing: Record<string, number>
+  craft: Record<string, number>
+}
+
+// per-(discipline,genre) experience, perceived+actual (0..100) (D-9.9)
+export type GenreExpEntry = { actual: number; perceived: number }
+export type GenreExperience = Record<Discipline, Record<Genre, GenreExpEntry>>
+
+export type DevRates = Record<Discipline, number> // 0.5..1.5 per discipline (D-9.10)
+export type WorkHistory = Record<Discipline, number> // completed-production counters (D-9.9)
+
 export type Talent = {
   id: string
   name: string
-  role: CreativeRole
+  role: CreativeRole // PRIMARY profession (unchanged; drives worldgen counts)
   age: number
-  actual: Persona // natural expressive profile; does NOT represent execution quality
-  perceived: Persona // what audiences believe they are
-  skill: number // 0..100 — execution quality, independent of `actual`
-  fame: number // 0..100
-  salary: number // per production
+  actual: Persona // temperament (unchanged; reception/roleFit source)
+  perceived: Persona // temperament as believed (unchanged)
+  fame: number // 0..100 STAR POWER (unchanged; separate from OVR)
+  salary: number // per production; now from salaryCurve(talent) (D-9.13)
   authored: boolean // true if player-created (§10)
+
+  // ── D-9 additions (all plain JSON) ──
+  skills: SkillProfiles // 24 perceived/actual professional skills (§ D-9.1)
+  ceilings: Ceilings // hidden per-skill actual ceilings (§ D-9.10)
+  devRate: DevRates // per-discipline development rate (§ D-9.10)
+  workEthic: number // 1..99 visible (§ D-9.11)
+  genreExperience: GenreExperience // per (discipline,genre) perceived+actual (§ D-9.9)
+  workHistory: WorkHistory // completed productions per discipline (§ D-9.9)
+
+  // legacy scalar retained for back-compat & the V1→V2 migration proxy; NOT read
+  // by §5/§7 after D-9 (OQ-5). Set to roleOVR(talent, primaryDiscipline) on
+  // perceived skills. (Owner ruling: D-9 talent lives in SaveFileV2, NOT V1.)
+  skill: number // = roleOVR(primary, perceived) proxy
+}
+
+// §10 authored-talent potential tiers (D-9.10 / D-9.14). 'GenerationalUpside' is
+// reserved for authored talent only (worldgen never produces it).
+export type PotentialTier =
+  | 'Limited'
+  | 'Steady'
+  | 'Promising'
+  | 'HighUpside'
+  | 'ExceptionalUpside'
+  | 'GenerationalUpside'
+
+// Optional per-discipline authored specialist/generalist emphasis (D-9.14). The
+// magnitude drives AUTHORED_BIAS_COST; a single spiked skill index within the
+// primary discipline raises that skill and sags the others by biasMagnitude.
+export type SkillBias = {
+  discipline: Discipline // which discipline to emphasize (defaults to primary)
+  skillIndex: number // 0..5 — the SKILL_ORDER index to spike
+  magnitude: number // 0..1 — sharper specialist ⇒ larger, costlier
 }
 
 // §2.3 Concept, shape, promise
@@ -185,12 +284,19 @@ export type Action =
   | { kind: 'cancel'; productionId: string }
   | { kind: 'createTalent'; talent: AuthoredTalentInput } // §10
 
-// §10 Authored talent
+// §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
+// stays fully player-chosen; potential/workEthic/skillBias/secondary share a
+// bounded creation budget (AUTHORED_BUDGET). The player never sets skills/fame
+// directly — they are derived from the tier + bias (D-9.14).
 export type AuthoredTalentInput = {
   name: string
   role: CreativeRole
   age: number // 18..70
-  actual: Persona // fully player-chosen
+  actual: Persona // temperament, fully player-chosen (or a preset, D-9.8)
+  potentialTier: PotentialTier // hidden ceilings drawn from the tier band (D-9.10/14)
+  workEthic: number // 1..99, player-chosen numerically (D-9.11)
+  skillBias?: SkillBias // optional per-discipline emphasis (specialist vs generalist)
+  secondaryDiscipline?: CreativeRole // optional; costs budget (D-9.14)
 }
 
 // ── §7 Forecast types ───────────────────────────────────────────────────────

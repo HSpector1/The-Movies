@@ -1,7 +1,9 @@
-# Project: Studio — Playtest Guide (Phase 5 / M1A)
+# Project: Studio — Playtest Guide (Phase 5.1 — talent milestone)
 
 This is a thin, playable film-studio laboratory over the proven simulation engine.
-It is not a finished product — it is a real game loop you can open and play.
+It is not a finished product — it is a real game loop you can open and play. The
+Phase 5.1 milestone adds a full **multi-discipline talent** layer: a **Talent Hub**,
+a redesigned **Talent Creator**, and **talent that develops as it works**.
 
 ---
 
@@ -64,22 +66,74 @@ studio. Try a different seed any time for a fresh world.
    **autopsy**. This is the heart of the game: it explains *why* the film turned out the
    way it did — craft, cohesion, each collaborator's contribution, the promise you kept or
    broke, the critics, the box office, and exactly why each reputation dial changed.
-7. **Create your own talent (optional).** Click **Create talent**, author a person's
-   personality, and see them appear in the hiring pool. (They start unknown — low skill
-   and fame — and earn their reputation by performing.)
-8. **Save and reload.** Open **Saves**, **Export** your game (copy/download the JSON), then
-   **Import** it into a fresh game and confirm it continues exactly where you left off.
-9. **Make another film** and compare — try aiming for a *critical* success vs a *commercial*
-   one and watch different reputation dials respond.
+7. **Create your own talent (optional).** Click **Create talent** for the redesigned,
+   **staged** creator: you author a person's personality and allocate a **creation budget**
+   across their disciplines and skills. The budget is deliberately finite — **you cannot
+   mint a free superstar**; a stronger primary means weaker everything else. They appear in
+   the hiring pool starting unknown (low fame) and earn their reputation by performing.
+8. **Browse the Talent Hub.** Open the **Talent Hub** to inspect people in depth (see the
+   Phase 5.1 section below): their four **role OVRs**, **Fit** for a film, **Potential**,
+   **Work Ethic**, **Creative Temperament**, any **cross-role** ability, and whether a
+   secondary discipline is a proven credit or merely **Capable but Unproven**.
+9. **Save and reload.** Open **Saves**, **Export** your game (copy/download the JSON), then
+   **Import** it into a fresh game and confirm it continues exactly where you left off. You
+   can also **import a legacy save** from an earlier prototype build (see **Saving** below).
+10. **Make another film** and compare — try aiming for a *critical* success vs a *commercial*
+    one and watch different reputation dials respond. After each release, read the
+    **development summary** to see who grew.
+
+---
+
+## New in Phase 5.1 — the talent layer
+
+Talent is no longer a single number. Every person now has **four disciplines** — Acting,
+Writing, Directing, and Craft — each built from real professional skills, and the game
+shows you a lot more about who they are and how they will grow.
+
+- **Talent Hub.** A dedicated screen to inspect anyone in the world. For each person you
+  see:
+  - **Four role OVRs** (Actor / Writer / Director / Craft, 1–99) — a broad read of ability
+    *and versatility* in each discipline. A specialist can read lower here yet still be
+    devastating on a film that plays to their strength.
+  - **Fit** — how well they suit the *currently selected* film (this changes with the film;
+    OVR does not).
+  - **Potential** — a *rough* estimate of how much room they have to grow. It is honestly
+    fuzzy: it may read high or low relative to the truth, and the true ceiling is never shown.
+  - **Work Ethic** — affects **how reliably they improve over time**, not their quality on
+    any given release. Two people with identical skills perform identically today; the
+    higher-Work-Ethic one pulls ahead only through development.
+  - **Creative Temperament** — a personality read (derived from persona), separate from raw skill.
+  - **Cross-role** — many people have a usable secondary discipline. The Hub distinguishes a
+    **credited** career identity (they've actually done the job) from **"Capable but
+    Unproven"** (the ability is there, but no credits yet — the game never invents credits).
+- **Redesigned Talent Creator.** A staged flow with a **creation budget**: you shape a
+  person across disciplines and skills within a fixed allowance, so **there is no free
+  superstar** — strength somewhere is paid for with weakness elsewhere.
+- **Development in play.** When a film **completes and releases**, the people who worked on
+  it **develop** — only in the discipline they actually performed, and only up to their own
+  potential. After each release you get a **development summary**: which skills moved, each
+  person's **OVR before → after**, an explicit line when there was **no measurable increase**,
+  and honest notes on Work Ethic / Potential — all **without** revealing hidden ceilings or
+  the dice. A canceled film develops no one; a flop still teaches.
+- **Legacy-save import.** Saves from the earlier prototype (before the talent layer) can be
+  imported and are **converted** into the new format deterministically — your studio
+  continues exactly, with each old person given a full, comparable multi-discipline profile.
+
+Screenshots of these screens are in `ui/screenshots/` (`1-start-new-game.png` …
+`10-talent-hub-profile.png`) — see especially `8-development-summary.png`, `9-talent-hub.png`,
+and `10-talent-hub-profile.png`.
 
 ---
 
 ## Saving
 
-- **Export:** open **Saves → Export**. Your entire game is a `SaveFileV1` JSON you can copy
-  or download.
+- **Export:** open **Saves → Export**. Your entire game is a `SaveFileV2` JSON (the talent
+  format) you can copy or download.
 - **Import:** open **Saves → Import**, paste the JSON, and continue. A malformed or
-  wrong-version save is rejected with a clear message (it will not silently corrupt play).
+  unknown-version save is rejected with a clear message (it will not silently corrupt play).
+- **Legacy imports:** a save from the earlier prototype (a `SaveFileV1`, before the talent
+  layer) is accepted and **converted** to the new format on import — deterministically, so
+  the same legacy save always converts the same way and your run continues exactly.
 
 ---
 

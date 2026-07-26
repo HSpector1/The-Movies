@@ -95,6 +95,13 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
   // (5) Release result screen.
   await shot(page, '5-release-result')
 
+  // (5b) RULING A — the per-release development summary is shown on the release screen for
+  // every participating talent (development is ON in normal play). Capture it explicitly.
+  const prodId0 = releaseCardTestId!.replace('release-card-', '')
+  await expect(page.getByTestId(`development-summary-${prodId0}`)).toBeVisible()
+  await page.getByTestId(`development-summary-${prodId0}`).scrollIntoViewIfNeeded()
+  await shot(page, '8-development-summary')
+
   // (6) Open the full autopsy from the release card.
   const prodId = releaseCardTestId!.replace('release-card-', '')
   await page.getByTestId(`open-autopsy-${prodId}`).click()
@@ -107,6 +114,20 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
   // Back to the studio, then capture the state to round-trip through a save.
   await page.getByTestId('autopsy-back').click()
   await expect(page.getByTestId('dash-week')).toBeVisible()
+
+  // (RULING B) Talent Hub — capability vs credited career identity. After a release, the
+  // performing disciplines can read as credited; capable-but-unproven disciplines read as
+  // such. Capture the roster, then a profile (with the career-identity panel).
+  await page.getByTestId('open-talent-hub').click()
+  await expect(page.getByTestId('hub-roster')).toBeVisible()
+  await shot(page, '9-talent-hub')
+  // Open the first profile to show the career-identity panel + shape-sensitive Fit.
+  await page.getByTestId('hub-roster').getByRole('button').first().click()
+  await expect(page.getByTestId('hub-career-identity')).toBeVisible()
+  await shot(page, '10-talent-hub-profile')
+  await page.getByTestId('hub-back').click()
+  await expect(page.getByTestId('dash-week')).toBeVisible()
+
   const weekBefore = await page.getByTestId('dash-week').textContent()
   const cashBefore = await page.getByTestId('dash-cash').textContent()
   const prestigeBefore = await page.getByTestId('standing-industryPrestige').textContent()

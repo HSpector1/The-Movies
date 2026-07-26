@@ -182,7 +182,10 @@ function deadAtTick0(freshState: GameState): { dead: boolean; maxProfit: number 
 }
 
 // ── The run ───────────────────────────────────────────────────────────────────
-export function runOneRun(seed: string, agentName: AgentName): RunRecord {
+// `develop` GATES the D-9.8 DEVELOPMENT step in tick(). It DEFAULTS to false so the
+// official M0A corpus (development OFF, owner ruling §1) is byte-identical to before
+// this parameter existed. The separate D-9 development study passes develop=true.
+export function runOneRun(seed: string, agentName: AgentName, develop = false): RunRecord {
   const agent = agentName === 'oracle' ? OracleAgent : RandomAgent
 
   let state = generateWorld(seed)
@@ -246,7 +249,8 @@ export function runOneRun(seed: string, agentName: AgentName): RunRecord {
     }
 
     // ── tick ───────────────────────────────────────────────────────────────────
-    state = tick(state)
+    // develop === false (default) → tick(state) exactly, the frozen dev-OFF path.
+    state = develop ? tick(state, { develop: true }) : tick(state)
 
     // Standing AFTER this tick.
     const after = state.studio.standing

@@ -678,3 +678,809 @@ further owner decision, not adopted here.
 *Record: D-1 through D-5 decided by the owner 2026-07-25, adjustments recorded
 inline. This document is normative alongside `docs/build-contract.md` (rev. 4).
 Phase 1 may begin.*
+
+
+---
+
+# D-9 — Multi-Discipline Talent, OVR, Fit, Potential, Work Ethic, and Development
+
+**Status:** **normative — owner-ratified on 2026-07-26 and IMPLEMENTED** (was drafted as a design ruling in the rev. 4 style: precise formulas, named `TUNING` constants, acceptance tests). Incorporated by reference into `docs/build-contract.md`; where D-9 and prior text conflict on the definition of talent ability, **D-9 wins**. This ruling supersedes the scalar `talent.skill` model everywhere the four §5 reads consume it and everywhere §7/§9/§10/§17 produce it. D-9 shipped as part of the Phase 5.1 talent milestone; the three 2026-07-26 owner rulings that governed how it was implemented are recorded in **D-10** below, and where D-10 amends this text (notably **D-9.15**, overridden by the SaveFileV2 ruling) **D-10 wins**.
+
+**Guardrails the implementation honored.** D-9 changes *what* ability is and *how it is read/produced/grown*. It does **not** touch: the §5 pipeline shape and bounds, persona→expression contributions (M5), box office (§5.5), D-6 standing (`standing.ts` byte-untouched), fame→star power, the D-3 confidence predicates' structure, the sim-stream / derived-stream discipline (M9), or §15 replay exactness. Development adds **one new deterministic seeded step** to `tick`, drawn only from its own derived `'develop'` stream (never the sim RNG). **SaveFileV1 was NOT frozen against a successor:** it stays immutable and readable, but D-9 games save as a new **SaveFileV2** (see D-9.15 as amended by D-10). The official M0A calibration corpus runs with development **OFF** and role-partitioned (D-10.A), so D-6 and the M0A study are preserved.
+
+---
+
+## D-9.0 The one coupling invariant (why every effective-skill quantity is 0–100)
+
+The engine consumes exactly one ability scalar, `talent.skill ∈ [0,100]`, in four §5 places (mirrored in §7's `computeDeterministicCore`):
+
+1. `scriptStrength = 0.6·concept.baselineStrength + 0.4·writer.skill`
+2. `directorExecution = director.skill`
+3. per cast slot: `0.6·t.skill + 0.4·100·roleFit`
+4. `technical = mean(craftHire.skill)` or `40` when no craft hires (D-4)
+
+**D-9 replaces each `t.skill` read with a call to `effectiveSkill(...) ∈ [0,100]`** (D-9.5). Because the substitute stays in `[0,100]` with the same central tendency as the old scalar (guaranteed by the migration in D-9.15 and the generation calibration in D-9.13), the §5 output bounds hold, the M0A §15 bounds tests still pass, and D-6 remains calibrated after a re-tuning pass. **This is the hard invariant every formula below must respect.** OVR, Fit, Expected Performance, Potential, Work Ethic, and Genre Experience are **read-only summaries or development inputs** — the sim never reads them in §5. Only `effectiveSkill`, `roleFit` (unchanged, persona-driven), and `fame` (star power, unchanged) enter reception.
+
+---
+
+## D-9.1 Disciplines and the 24 professional skills
+
+Four disciplines, six skills each, every skill an integer **1–99**, each with a **perceived** and an **actual** value (a real perceived/actual split, exactly as persona already has `actual`/`perceived`). Reception (§5) reads **actual**; forecast (§7) reads **perceived**.
+
+**Skill meanings** (restated concisely from the owner's list; these are documentation, not formulas):
+
+**Acting** (`acting`)
+- `actingTechnique` — command of craft: hitting marks, take-to-take consistency, control.
+- `emotionalRange` — believable reach across emotional registers.
+- `dialogueDelivery` — line readings, rhythm, naturalism of speech.
+- `comicTiming` — timing and control of comic beats.
+- `physicalPerformance` — body, movement, action, physical characterization.
+- `screenPresence` — how much the frame belongs to them. **Not** Star Power: an unknown (low `fame`) can have high `screenPresence`.
+
+**Writing** (`writing`)
+- `storyStructure` — architecture: act shape, causality, payoff.
+- `characterDevelopment` — dimensional, motivated characters with arcs.
+- `dialogue` — line-level writing.
+- `originality` — freshness of premise and execution (the *writer's* trait; distinct from `concept.originalityRaw`).
+- `narrativePacing` — scene-to-scene momentum.
+- `rewriting` — diagnosing and repairing a draft.
+
+**Directing** (`directing`)
+- `visualStorytelling` — telling story through image and staging.
+- `performanceDirection` — getting performances out of actors.
+- `toneControl` — holding a consistent tone.
+- `directingPacing` — cutting-room and on-set rhythm.
+- `productionManagement` — running the shoot on scope.
+- `adaptability` — solving problems as conditions change.
+
+**Craft** (`craft`)
+- `cinematography`, `editing`, `productionDesign`, `soundAndMusic`, `effectsExecution`, `technicalCoordination` — the technical departments. Craft **stays a single generic employee this milestone** (D-4: craft hiring is not in the M0A grid; `technical` is pinned at 40 headless), but every craft talent carries all six actual/perceived skills so the mechanism is complete when craft hiring arrives in M1A.
+
+Skill keys are fixed and ordered per discipline exactly as listed above (`SKILL_ORDER`, D-9.16). This order drives every deterministic draw and every weighted mean, so `Object.keys` iteration is stable (same discipline the worldgen force/segment orders already impose).
+
+---
+
+## D-9.2 Role OVR (Actor / Writer / Director / Craft OVR, 1–99)
+
+Every talent has **all four** role OVRs — "current estimate of broad professional ability + versatility in that discipline," computed from **perceived** skills. OVR is a **read-only display summary**. **The sim consumes the underlying skills via `effectiveSkill`, never OVR.**
+
+OVR **excludes**: Fit, temperament, genre experience, star power, salary, availability, work ethic, potential, condition, and the selected film. **OVR does not change when the selected film changes.**
+
+### Formula
+
+For discipline `d` with perceived skills `s₁…s₆` and OVR core-weights `w₁…w₆` (D-9.16, `OVR_WEIGHTS[d]`, `Σwᵢ = 1`):
+
+```
+weightedMean(d) = Σ wᵢ·sᵢ                                    // 1..99
+
+// WEAKNESS PENALTY — the worst core skills drag the estimate.
+// deficit of skill i below the "no-weak-spot" line:
+deficitᵢ    = max(0, OVR_WEAKNESS_KNEE − sᵢ)                  // 0.. (KNEE−1)
+weaknessPen = OVR_WEAKNESS_COEF · sqrt( Σ wᵢ·deficitᵢ² )      // RMS, core-weighted
+
+// BREADTH REQUIREMENT — reward covering all six; a two-trick pony is penalized.
+// breadth = fraction of core skills at or above the breadth floor, core-weighted.
+breadth     = Σ wᵢ·[ sᵢ ≥ OVR_BREADTH_FLOOR ]                 // 0..1
+breadthPen  = OVR_BREADTH_COEF · (1 − breadth)                // 0..OVR_BREADTH_COEF
+
+raw(d)      = weightedMean(d) − weaknessPen − breadthPen
+
+// UPPER-TIER GATES — a displayed 99 is unreachable without genuine mastery
+// AND no weak core skill; rounding alone cannot make a 99.
+ovr(d)      = clamp( floor( applyGates(raw(d)) ), 1, 99 )
+```
+
+**`applyGates(x)`** enforces the ceiling structure:
+
+```
+minCore = min over core skills of sᵢ            // weakest core perceived skill
+gate =  99  if weightedMean ≥ OVR_GATE_99_MEAN (98)  AND minCore ≥ OVR_GATE_99_MINCORE (94)
+        95  else if weightedMean ≥ OVR_GATE_95_MEAN (93) AND minCore ≥ OVR_GATE_95_MINCORE (88)
+        94  else  // hard cap below the elite gate
+applyGates(x) = min(x, gate)
+```
+
+So:
+- A displayed **99** requires core-weighted mean ≥ **98** *and* no core skill below **94** — exactly the owner's rule.
+- One or two elite skills with a real weakness elsewhere pushes `weaknessPen` up and `minCore` down, capping the display at **94 (Elite)** — a **specialist**, not a 99. The person can still be devastating on a *matching* film (via `effectiveSkill`, D-9.5), but their broad OVR reads Elite, not Generational.
+- Because `ovr = floor(...)` after the gate and the gate is a hard `min`, **rounding alone cannot cross 99** — `raw` must genuinely reach ≥ 99 pre-floor *and* pass the mean+minCore gate.
+
+`OVR_WEAKNESS_KNEE`, the two gate mean/minCore pairs, and the coefficients are named constants (D-9.16), so the shape is tunable but never inlined.
+
+### Player-facing tier labels (display only)
+
+`95–99 Generational · 90–94 Elite · 80–89 Major-studio · 70–79 Strong · 60–69 Limited-or-developing · 50–59 Raw prospect · <50 Highly unproven.`
+
+Function: `roleOVR(talent, discipline): number` and `roleTier(ovr): string`.
+
+---
+
+## D-9.3 Project-relevant skill weighting (the mechanism that makes specialists outperform)
+
+This is the load-bearing new mechanism. Given a concept (genre, shape, promise) and — for actors — the cast slot, we derive a **project weight vector** over a discipline's six skills. A specialist whose *elite* skill is the *project-relevant* one gets a high **effective** skill for **that** project even at a lower OVR. **No hidden flat specialty bonus exists** — the advantage is fully traceable to (real skills × project weights) + temperament roleFit + genre experience.
+
+### Base per-genre profiles
+
+For each discipline `d` and genre `g`, `GENRE_SKILL_WEIGHTS[d][g]` is a non-negative 6-vector over that discipline's skills (D-9.16). Weights need not sum to 1; they are normalized at use (`Σ = 1` after normalization). The profiles encode which skills a genre leans on. Concrete starting profiles (unnormalized relative weights, in `SKILL_ORDER`):
+
+**Acting** `[actingTechnique, emotionalRange, dialogueDelivery, comicTiming, physicalPerformance, screenPresence]`
+
+| genre | tech | emo | dlg | comic | phys | presence |
+|---|---|---|---|---|---|---|
+| comedy | 1.0 | 0.8 | 1.2 | **2.0** | 0.7 | 1.1 |
+| drama | 1.2 | **2.0** | 1.4 | 0.4 | 0.6 | 1.2 |
+| crime | 1.3 | 1.2 | 1.1 | 0.4 | 1.0 | 1.4 |
+| romance | 1.0 | **1.8** | 1.3 | 0.8 | 0.6 | 1.3 |
+| horror | 1.1 | 1.3 | 0.7 | 0.3 | **1.6** | 1.2 |
+| adventure | 1.0 | 0.8 | 0.8 | 0.6 | **1.9** | 1.4 |
+
+**Writing** `[storyStructure, characterDevelopment, dialogue, originality, narrativePacing, rewriting]`
+
+| genre | struct | char | dlg | orig | pacing | rewrite |
+|---|---|---|---|---|---|---|
+| comedy | 1.0 | 1.1 | **1.9** | 1.3 | 1.4 | 1.0 |
+| drama | 1.4 | **1.9** | 1.4 | 1.1 | 1.0 | 1.1 |
+| crime | **1.8** | 1.2 | 1.1 | 1.2 | 1.5 | 1.1 |
+| romance | 1.1 | **1.8** | 1.5 | 1.0 | 1.1 | 1.0 |
+| horror | 1.3 | 1.0 | 0.8 | 1.4 | **1.8** | 1.1 |
+| adventure | **1.7** | 1.0 | 0.9 | 1.3 | 1.5 | 1.0 |
+
+**Directing** `[visualStorytelling, performanceDirection, toneControl, directingPacing, productionManagement, adaptability]`
+
+| genre | visual | perfDir | tone | pacing | prodMgmt | adapt |
+|---|---|---|---|---|---|---|
+| comedy | 1.0 | 1.5 | 1.3 | **1.8** | 0.9 | 1.1 |
+| drama | 1.2 | **1.9** | 1.5 | 1.0 | 0.9 | 1.0 |
+| crime | 1.4 | 1.3 | **1.7** | 1.3 | 1.0 | 1.0 |
+| romance | 1.1 | **1.8** | 1.5 | 1.0 | 0.9 | 1.0 |
+| horror | 1.5 | 1.2 | **1.8** | 1.4 | 0.9 | 1.1 |
+| adventure | **1.7** | 1.0 | 1.1 | 1.3 | **1.5** | 1.3 |
+
+**Craft** `[cinematography, editing, productionDesign, soundAndMusic, effectsExecution, technicalCoordination]` — craft is inert headless (D-4); a single balanced profile per genre suffices this milestone. Starting value: all six weights `1.0` for every genre (`CRAFT_GENRE_UNIFORM`), with `effectsExecution` raised to `1.6` for `horror`/`adventure` (spectacle-leaning). Fully specified so M1A inherits a real table, not a stub.
+
+### Shape / promise / slot modifiers (multiplicative, bounded)
+
+After the base genre profile, apply bounded multiplicative modifiers so *this exact film* re-weights within the genre. All modifiers are named constants; the composite modifier per skill is clamped to `[1/PROJECT_MOD_CLAMP, PROJECT_MOD_CLAMP]` (`PROJECT_MOD_CLAMP = 1.6`) so no film can erase a genre's core dimension.
+
+- **Shape → skill nudges** (`SHAPE_SKILL_MODS`): the FilmShape drives a small set of skill emphases. Examples (multipliers applied to the named skill, all disciplines' relevant skill):
+  - `opening = 'immediateAction'` → +physical/pacing emphasis: `physicalPerformance ×1.25`, `directingPacing ×1.2`, `narrativePacing ×1.2`.
+  - `opening = 'slowSetup'` → `emotionalRange ×1.15`, `characterDevelopment ×1.2`, `toneControl ×1.15`.
+  - `opening = 'mysteryHook'` → `storyStructure ×1.2`, `visualStorytelling ×1.15`.
+  - `midpoint = 'reversal'` → `storyStructure ×1.2`, `rewriting ×1.15`.
+  - `midpoint = 'escalation'` → `physicalPerformance ×1.15`, `directingPacing ×1.15`.
+  - `midpoint = 'revelation'` → `emotionalRange ×1.15`, `performanceDirection ×1.15`.
+  - `ending ∈ {tragic, bittersweet}` → `emotionalRange ×1.2`, `toneControl ×1.2`, `characterDevelopment ×1.15`.
+  - `ending = 'triumph'` → `physicalPerformance ×1.1`, `narrativePacing ×1.1`.
+  - `ending = 'ambiguous'` → `toneControl ×1.2`, `originality ×1.15`.
+- **Promise → skill nudges** (`PROMISE_SKILL_MODS`): the promise range midpoints signal emphasis. Let `tMid = midpoint(promise.ranges.tonalWeight)`, `kMid = midpoint(promise.ranges.kineticEnergy)`, `iMid = midpoint(promise.ranges.intimacy)`.
+  - `tMid ≥ +0.4` (serious) → `emotionalRange ×1.15`, `toneControl ×1.15`, `characterDevelopment ×1.1`.
+  - `tMid ≤ −0.4` (light) → `comicTiming ×1.2`, `dialogue ×1.1`.
+  - `kMid ≥ +0.4` (kinetic) → `physicalPerformance ×1.2`, `visualStorytelling ×1.15`, `directingPacing ×1.15`.
+  - `iMid ≥ +0.4` (intimate) → `emotionalRange ×1.1`, `dialogueDelivery ×1.1`, `performanceDirection ×1.1`.
+  - `specificity(promise) ≥ 0.5` → `toneControl ×1.1`, `storyStructure ×1.05` (a precise promise rewards tonal/structural control).
+- **Cast slot → skill nudges** (actors only, `SLOT_SKILL_MODS`):
+  - `lead` → `emotionalRange ×1.2`, `screenPresence ×1.2` (leads carry the emotional throughline and the frame).
+  - `antagonist` → `screenPresence ×1.3`, `physicalPerformance ×1.1`, `emotionalRange ×0.9` (menace over warmth).
+  - `support` → flat 1.0 (no emphasis; support is generalist).
+
+Applying an absent-skill modifier is a no-op (multiplier 1.0). The final **project weight** for skill `i` in discipline `d` on this film is:
+
+```
+projWeightᵢ = normalize_i( GENRE_SKILL_WEIGHTS[d][genre]ᵢ
+                           · clamp(shapeModᵢ · promiseModᵢ · slotModᵢ, 1/1.6, 1.6) )
+```
+
+Function: `projectSkillWeights(discipline, concept, [slot], shapeEffects, promise): number[6]` (normalized). Pure; reads only concept/shape/promise — deterministic, no stream.
+
+---
+
+## D-9.4 (reserved — merged into D-9.3/D-9.5)
+
+---
+
+## D-9.5 Effective skill (replaces the scalar `skill` in §5/§7)
+
+```
+effectiveSkill(talent, discipline, concept, slot?, use): number   // ∈ [0,100]
+  use ∈ { 'actual' (reception §5), 'perceived' (forecast §7) }
+```
+
+Definition:
+
+```
+w        = projectSkillWeights(discipline, concept, slot?, shapeEffects, promise)   // 6-vec, Σ=1
+skills   = talent[discipline].actual  (use='actual')  |  .perceived  (use='perceived')
+base     = Σ wᵢ·skillsᵢ                                        // 1..99, project-weighted mean
+exp      = genreExperience(talent, discipline, concept.genre, use)  // 0..100 (D-9.7)
+expBonus = EXP_SKILL_CAP · smoothstep(0, 100, exp)             // 0..EXP_SKILL_CAP, small
+effective = clamp( base + expBonus, 0, 100 )
+```
+
+- `base` is the whole story of ability: a specialist with `comicTiming = 96` on a comedy where `comicTiming` carries the dominant project weight gets a `base` far above their broad OVR; a generalist with a flat 78 profile gets `base ≈ 78` on every genre. **The advantage is entirely in the weights × real skills.**
+- `expBonus` is deliberately **small** (`EXP_SKILL_CAP = 4`): experience is *not* skill. A veteran of the genre gets at most +4 effective points; a first-timer of equal skill loses at most 4. This keeps "experience ≠ skill" true while giving development something to move (D-9.8).
+- The result stays in `[0,100]` → D-9.0 invariant holds.
+
+**Substitution into §5 (reception.ts `computeCraft`) — the exact line changes:**
+
+| current | D-9 replacement (`use = 'actual'`) |
+|---|---|
+| `0.6*concept.baselineStrength + 0.4*writer.skill` | `0.6*concept.baselineStrength + 0.4*effectiveSkill(writer,'writing',concept,undefined,'actual')` |
+| `directorExecution = director.skill` | `directorExecution = effectiveSkill(director,'directing',concept,undefined,'actual')` |
+| `0.6*t.skill + 0.4*100*roleFit` (per slot) | `0.6*effectiveSkill(t,'acting',concept,slot,'actual') + 0.4*100*roleFit` |
+| `mean(craftHires.map(c => c.skill))` else `40` | `mean(craftHires.map(c => effectiveSkill(c,'craft',concept,undefined,'actual')))` else `40` |
+
+`roleFit` is **unchanged** — still `1 − clamp(personaDistance(t.actual, req.target)/tolerance,0,1)`, persona-driven. Persona stays the temperament source; M5 contributions still use `personaToExpression(actual)`.
+
+**Substitution into §7 (forecast.ts `computeDeterministicCore`) — identical four reads, but `use = 'perceived'`** (forecast reads perceived; reception reads actual). This is the perceived/actual split the owner requires. Everything downstream of these four numbers (craft, cohesion, critic, segment appeal, box office, D-6) is byte-for-byte unchanged in structure.
+
+Because `effectiveSkill` needs the concept/shape/promise, and the four §5 reads already have `ReceptionInputs` (which carries `concept`, `shapeEffects`, `promise`), **no signature change to `resolveReception`/`computeCraft`/`computeDeterministicCore` is required** beyond threading those already-present fields into the helper. `craftHires` currently has no per-slot notion; craft uses `slot = undefined`.
+
+---
+
+## D-9.6 Project Fit (displayed estimate, perceived only)
+
+`0–100` estimate of suitability for **this exact film / discipline / job**, from **perceived** skills only. **Excludes** salary, star power, hidden actual skill, hidden potential, post-release info, and any arbitrary bonus. Fit must **not completely erase professional ability** (floored contribution of effective skill).
+
+Per-discipline formula (all use `perceived`):
+
+```
+effP   = effectiveSkill(talent, d, concept, slot?, 'perceived')     // 0..100 project-weighted, perceived
+abilityTerm = FIT_ABILITY_FLOOR + (1 − FIT_ABILITY_FLOOR)·(effP/100)  // ∈ [FIT_ABILITY_FLOOR, 1], never 0
+```
+
+**Actor Fit** (uses temperament roleFit):
+```
+fit_actor = 100 · clamp(
+    FIT_ACTOR_ABILITY · (effP/100)
+  + FIT_ACTOR_ROLEFIT · roleFit(talent, req_slot)          // persona/temperament match, 0..1
+  + FIT_ACTOR_EXP     · (genreExperience(...,'perceived')/100)
+, 0, 1)
+```
+with `FIT_ACTOR_ABILITY + FIT_ACTOR_ROLEFIT + FIT_ACTOR_EXP = 1` and `FIT_ACTOR_ABILITY ≥ FIT_MIN_ABILITY_SHARE (0.45)` so ability cannot be erased by temperament. Proposed: `0.55 / 0.30 / 0.15`.
+
+**Writer / Director Fit** (no cast slot; temperament enters weakly via a discipline-appropriate persona-target derived from the promise, see below):
+```
+fit_writer = 100 · clamp(
+    FIT_CREW_ABILITY · (effP/100)
+  + FIT_CREW_TEMPER  · temperamentMatch(talent, promise)   // 0..1
+  + FIT_CREW_EXP     · (genreExperience(...,'perceived')/100)
+, 0, 1)
+```
+Proposed weights `0.65 / 0.20 / 0.15` (`FIT_CREW_ABILITY ≥ 0.45`). Director uses the same shape with `'directing'`.
+
+**`temperamentMatch(talent, promise)`** = `1 − clamp(personaDistance(talent.actual, promiseTargetPersona(promise)) / TEMPER_TOLERANCE, 0, 1)`, where `promiseTargetPersona(promise)` maps the promise range midpoints back into persona axes (`warmth←iMid, gravity←tMid, physicality←kMid`) — a writer/director whose temperament matches the film's intended expressive direction fits better. `TEMPER_TOLERANCE = 1.8` (mid of the concept tolerance band).
+
+**Craft Fit** = `fit_writer` shape with `'craft'`, `temperamentMatch` weight 0 (craft is temperament-neutral): `FIT_CRAFT_ABILITY 0.85 / FIT_CRAFT_EXP 0.15`.
+
+**Properties the owner requires, and how they hold:**
+- A lower-OVR **specialist** can have **higher Fit** for a matching film: `effP` is project-weighted, so their elite project-relevant skill lifts `effP` above a generalist's; `roleFit`/`temperamentMatch` can lift it further. Changing the film (genre/shape/promise/slot) re-weights `effP` and can **reverse** the ranking — exactly as required.
+- Fit never erases ability (`FIT_*_ABILITY ≥ 0.45`, `abilityTerm` floored).
+
+Function: `projectFit(talent, discipline, concept, slot?, shapeEffects, promise): number` (0–100). Display only; the sim never reads it.
+
+---
+
+## D-9.7 Expected Performance (displayed band, separate from OVR and Fit)
+
+A displayed **performance band** for a proposed assignment, derived from the **perceived effective contribution** plus **uncertainty**. It is the number the player reads as "how well will this person do on this job," distinct from OVR (broad) and Fit (suitability).
+
+```
+center  = effectiveSkill(talent, d, concept, slot?, 'perceived')        // 0..100
+// uncertainty widens with (a) low perceived genre experience and
+// (b) the perceived/rest gap the studio cannot see (scouting noise proxy).
+uncertainty = EP_BASE_WIDTH
+            + EP_EXP_WIDTH   · (1 − smoothstep(0,100, genreExperience(...,'perceived')))
+            + EP_UNPROVEN_WIDTH · [ workHistoryCount(talent, d) == 0 ]     // "Unproven in this role"
+low   = clamp(center − uncertainty, 0, 100)
+high  = clamp(center + uncertainty, 0, 100)
+band  = { low, high, expected: center }
+```
+
+Width source is therefore: a base width, plus a genre-inexperience term, plus a discrete "no work history in this discipline" bump (which is also what surfaces the **"Unproven in this role"** label, D-9.9). Proposed: `EP_BASE_WIDTH = 5`, `EP_EXP_WIDTH = 6`, `EP_UNPROVEN_WIDTH = 5`. Function: `expectedPerformance(talent, discipline, concept, slot?, ...): {low, high, expected}`. Display only.
+
+---
+
+## D-9.8 Creative Temperament (rename of persona for the player)
+
+The persona axes are **unchanged internally** (`warmth`, `gravity`, `physicality`, each `−1..+1`, still the reception contribution + roleFit source). D-9 adds a **display renaming** and a deterministic summary — no new stored field.
+
+**Axis mapping** (`persona axis ∈ [−1,1] → labeled axis`, display only):
+- Emotional Temperature (Reserved ↔ Warm) ← `warmth`
+- Tonal Instinct (Playful ↔ Serious) ← `gravity`
+- Expressive Energy (Subtle ↔ Kinetic) ← `physicality`
+
+**Per-profession interpretation** (documentation for the display layer; no mechanical effect):
+- Actor: how they *read* on screen (a Warm/Serious/Subtle actor lands intimate dramas).
+- Writer/Director: the *voice* they push a project toward (feeds `temperamentMatch`, D-9.6, and the §5 M5 contribution).
+- Craft: cosmetic this milestone (craft contributes no persona vector to the centroid).
+
+**Deterministic live-summary rule** (`temperamentSummary(persona): string`): for each axis, bucket the value into five bands by fixed thresholds and emit the band's word, then compose a fixed sentence template. Thresholds (`TEMPER_BANDS`): `≤ −0.6`, `(−0.6,−0.2]`, `(−0.2,+0.2]`, `(+0.2,+0.6]`, `> +0.6` →
+- warmth: `Cold · Reserved · Even · Warm · Radiant`
+- gravity: `Playful · Light · Balanced · Serious · Grave`
+- physicality: `Still · Subtle · Measured · Kinetic · Explosive`
+
+Template (deterministic given the three words): *"{gravityWord}, {warmthWord} presence with {physicalityWord} energy."* e.g. `(−0.7, +0.5, +0.8)` → *"Serious, Cold presence with Explosive energy."* Pure function of the persona; no stream.
+
+**Presets** set **only** temperament (no skill bonus): a preset is a persona triple (or a small labeled set), applied at authored-talent creation (D-9.14). Presets never touch skills, potential, or work ethic.
+
+**Temperament affects Fit (via roleFit / temperamentMatch), NOT OVR** — OVR (D-9.2) reads skills only. This is enforced by construction: `roleOVR` has no persona input.
+
+---
+
+## D-9.9 Genre experience (discipline-specific, per (discipline, genre))
+
+`0–100`, per `(discipline, genre)` pair, with a **perceived** and an **actual** value. Storage: `talent.genreExperience[discipline][genre] = { actual, perceived }` (24 pairs per talent; see the type, D-9.11). Contributes to:
+- **Fit** (D-9.6 `*_EXP` term),
+- a **small effective-skill bonus** (D-9.5 `expBonus`, capped at `EXP_SKILL_CAP = 4`),
+- **forecast confidence** (D-9.12): a new predicate can read perceived experience.
+
+`genreExperience(talent, discipline, genre, use)` returns the requested value, or 0 if absent. **Grows only via completed work in that exact `(discipline, genre)`** (D-9.8 development). Experience ≠ skill (capped bonus, separate storage).
+
+`workHistoryCount(talent, discipline)` (used by Expected Performance and the "Unproven in this role" label) = number of completed productions the talent performed in that discipline this run. Stored as `talent.workHistory[discipline]` (an integer counter, incremented in development; see D-9.11). When 0 → **"Unproven in this role."**
+
+---
+
+## D-9.10 Potential (hidden per-skill ceilings + development params; visible estimate)
+
+Each of the 24 skills has a **hidden actual ceiling** `ceiling[d][skill] ∈ [current actual, 99]` (the max that skill can ever reach) and a **development-rate** parameter. Potential is **discipline-specific** (high acting ceilings, low directing ceilings possible on the same person). No skill ever exceeds **99**; no actual skill ever exceeds its ceiling.
+
+**Storage** (hidden, never displayed raw): `talent.ceilings[discipline][skill] ∈ [1,99]`, integer; `talent.devRate[discipline] ∈ [DEV_RATE_MIN, DEV_RATE_MAX]` (a per-discipline multiplier, `0.5..1.5`). See the type (D-9.11).
+
+**Visible estimate** (noisy, may be wrong, never exposes the true ceiling):
+- `expectedPotentialTier(talent, discipline)` → one of `Limited · Steady · Promising · High Upside · Exceptional Upside` (`+ Generational Upside` only for **authored** talent, D-9.14). Derived from a **noised** projected-OVR-at-ceiling.
+- `expectedPotentialRange(talent, discipline)` → an OVR band, e.g. *"Expected Actor Potential: 78–86"*.
+
+Derivation:
+```
+ceilingOVR(d)   = roleOVR-style summary computed on the CEILINGS (not current skills)   // 1..99, the true (hidden) potential OVR
+scoutNoise      = stream(seed, 'worldgen', 'scout-'+talentId+'-'+d).gaussian(0, POTENTIAL_SCOUT_SIGMA)   // deterministic per (seed,talent,discipline)
+estOVR          = clamp(ceilingOVR(d) + scoutNoise, currentOVR(d), 99)
+// The band is centered on the noisy estimate, never on the true ceilingOVR:
+range           = [ clamp(round(estOVR − POTENTIAL_BAND_HALF),1,99),
+                    clamp(round(estOVR + POTENTIAL_BAND_HALF),1,99) ]
+tier            = tierOf(estOVR − currentOVR(d))   // upside = headroom above current
+```
+`tierOf(upside)`: `< 3 Limited · 3–8 Steady · 9–15 Promising · 16–24 High Upside · ≥ 25 Exceptional Upside`. The **true ceiling is never shown** — only `estOVR ± POTENTIAL_BAND_HALF`, and the noise (`POTENTIAL_SCOUT_SIGMA`, proposed 4) can push the estimate above or below the truth. `POTENTIAL_BAND_HALF = 4`.
+
+**High Work Ethic may let someone EXCEED the visible estimate** (the studio underestimated them) but **never the true ceiling** — because development (D-9.8) is bounded by `ceilings`, not by the visible band, and WE only accelerates approach to `ceilings`. No skill exceeds 99 because ceilings ≤ 99.
+
+---
+
+## D-9.11 Work Ethic (visible 1–99)
+
+`talent.workEthic ∈ [1,99]`, integer, **visible**. "How consistently the person turns experience into development." Labels (`workEthicLabel`): `1–29 Poor · 30–49 Inconsistent · 50–69 Professional · 70–84 Driven · 85–94 Exceptional · 95–99 Relentless`.
+
+**WE affects ONLY development** (D-9.8): conversion probability, magnitude, consistency, reaching upper potential, exceeding the visible estimate, and secondary-discipline growth. **WE MUST NOT affect** current OVR, Fit, star power, box office, critic, or immediate quality — enforced by construction: no §5/§7 read and no OVR/Fit formula references `workEthic`. High WE ≠ guaranteed greatness (a low ceiling still caps you); low WE ≠ untalented (high current skill is independent of WE). Effects flow **only** through the development step.
+
+---
+
+## D-9.12 Forecast (perceived) vs Reception (actual) integration
+
+- **Reception §5** reads **actual** skills + **actual** genre experience → `effectiveSkill(..., 'actual')`.
+- **Forecast §7** reads **perceived** skills + **perceived** genre experience → `effectiveSkill(..., 'perceived')`. The four §7 reads in `computeDeterministicCore` change to the perceived calls (D-9.5). Everything else in §7 (the confidence predicates' structure, the single forecast gaussian from the derived stream, causal/uncertainty factors) is **unchanged**.
+- **Genre experience may extend forecast confidence** — a small, additive amendment to D-3's `knownDirectorGenreRecord` predicate (kept optional, gated behind a named flag so D-3's approved calibration is not silently disturbed):
+  ```
+  knownDirectorGenreRecord =
+      (director has a released film THIS RUN in this genre)     // D-3 as approved
+   OR (director.genreExperience['directing'][genre].perceived ≥ CONF_EXP_THRESHOLD)   // D-9 addition
+  ```
+  with `CONF_EXP_THRESHOLD = 60`. **⚠ This changes the D-3 confidence corpus** — flagged as **Open Question OQ-2** below; do not adopt it silently.
+
+Persona contributions (M5), box office (§5.5), and D-6 standing keep their structure with `fame` → star power throughout.
+
+---
+
+## D-9.13 Generated talent (deterministic, seeded — replaces scalar-skill generation)
+
+Role counts stay **12 writers / 10 directors / 28 actors / 10 craft** = the **primary** profession (`role` field unchanged, `ROLE_BLOCKS` unchanged). **Every talent gets all four role OVRs** because every talent gets all 24 actual/perceived skills, all 24 ceilings, work ethic, dev rates, secondary aptitude, and genre experience.
+
+**New worldgen substreams** (added to the `talent-*` family; each walked once per talent in generation order, fixed field-draw order — same scheme §9 already documents):
+`talent-skillprofile`, `talent-secondary`, `talent-ceilings`, `talent-workethic`, `talent-devrate`, `talent-genreexp`, and (for the visible potential estimate) the per-talent `scout-<id>-<discipline>` derived streams.
+
+**Per-talent generation, in fixed order:**
+
+1. **Primary discipline** = the mapping `role → discipline` (`writer→writing`, `director→directing`, `actor→acting`, `craft→craft`).
+2. **Primary skill center** `μ_primary ~ truncatedNormal(GEN_SKILL_MEAN 60, GEN_SKILL_SD 15, GEN_SKILL_LO 20, GEN_SKILL_HI 95)` (matches the old `talent-skill` distribution exactly, so migrated worlds and fresh worlds have the same primary-ability center — preserves D-6 calibration).
+3. **Per-skill actual draws (primary discipline)** for each of the 6 skills: `actualᵢ = round(clamp(μ_primary + N(0, GEN_SKILL_SPREAD 9), 1, 99))`. Spread makes specialists/generalists emerge naturally: a talent with a high spread and one skill near 95 and the rest near 55 is a **specialist**; low spread near a common μ is a **generalist**. To deliberately manufacture specialists at the target rate, with probability `GEN_SPECIALIST_P (0.22)` pick one skill index (uniform) and add `GEN_SPECIALIST_SPIKE ~ uniform(8,20)` to it (clamped 99), and subtract `GEN_SPECIALIST_SAG ~ uniform(3,9)` from two other skills — a peaked profile with real weaknesses.
+4. **Secondary aptitude:** with probability `GEN_SECONDARY_P (0.15)` the talent has a **genuinely usable** secondary discipline (calibration target **10–20 %**, so 0.15 centers it): pick a secondary discipline (uniform over the other three), draw its skills with a **lower** center `μ_secondary = clamp(μ_primary − GEN_SECONDARY_PENALTY, 20, 90)` (`GEN_SECONDARY_PENALTY ~ uniform(8,22)`), spread as above. Otherwise the other three disciplines are **weak** — skills drawn at `μ_weak ~ truncatedNormal(GEN_WEAK_MEAN 34, 10, 1, 70)`. This yields *weak secondary disciplines* by default and occasional *legit multi-hyphenates*.
+5. **Perceived skills** = `clamp(actual + N(0, GEN_PERCEIVED_SD 6), 1, 99)` per skill (a real perceived/actual split, same idea as persona's 0.25 gaussian, scaled to the 1–99 range).
+6. **Ceilings:** `ceiling[d][i] = clamp(round(max(actual[d][i], actual[d][i] + headroom)), actual[d][i], 99)`, `headroom ~ truncatedNormal(GEN_HEADROOM_MEAN 14, GEN_HEADROOM_SD 10, 0, 60)`. Younger talent gets **more runway**: `headroom *= ageRunwayMult(age)` (D-9.8). This produces *raw high-upside prospects* (low actual, high headroom) and *polished low-ceiling pros* (high actual, near-zero headroom). Ceiling generation is drawn **independently of work ethic** (`Potential ⊥ WorkEthic`) and independently of current actual beyond the `≥ actual` floor (so *high-potential-low-WE* and *low-potential-high-WE* both occur).
+7. **Work Ethic:** `workEthic = round(truncatedNormal(GEN_WE_MEAN 60, GEN_WE_SD 18, 1, 99))`, drawn from its **own** stream, **uncorrelated** with skills, ceilings, and fame (`Ability ⊥ WorkEthic`, `Potential ⊥ WorkEthic`).
+8. **Dev rate:** `devRate[d] = clamp(uniform(DEV_RATE_MIN 0.5, DEV_RATE_MAX 1.5), …)` per discipline (independent draws so a person can develop fast in acting, slow in writing).
+9. **Star power (`fame`):** unchanged draw `truncatedNormal(40, 22, 0, 95)` from `talent-fame`, **independent of ability** (`Fame ⊥ Ability` — a *low-fame-skilled* pro and a *famous-limited* actor both occur because fame is a separate stream). This is Star Power, kept, separate from OVR.
+10. **Persona (temperament):** unchanged (`talent-persona`), **not perfectly correlated with competence** (`Temperament ⊥ competence` — persona is its own stream).
+11. **Genre experience (starting):** for the **primary** `(discipline, genre)` pairs, seed a small experience so veterans aren't blank: for each genre, `actual = round(clamp(N(GEN_EXP_MEAN 12, GEN_EXP_SD 12, ), 0, 60))` scaled by age (older → a bit more starting experience, `expAgeMult(age)`); perceived = `clamp(actual + N(0, GEN_EXP_PERCEIVED_SD 6), 0, 100)`. Secondary/weak disciplines start at experience 0. Keeps experience meaningful from tick 0 without inventing careers.
+12. **Legacy `skill` field** (kept for save-shape stability, see D-9.15): set `talent.skill = roleOVR(talent, primaryDiscipline)` on **perceived** skills — a faithful scalar proxy so any legacy consumer reads a comparable number. (No live §5 code reads it after D-9; it is retained only for the frozen `SaveFileV1` shape and back-compat.)
+
+**Calibration targets** (verified in the M0A re-run, reported as counts/shares): very few 90+ primary OVRs, ~no 99s (occasional single generational world), many 60–79, a meaningful <60 prospect tail, and **10–20 % of talent with a genuinely usable secondary discipline** (secondary primary-discipline OVR ≥ 60). The `GEN_*` constants are the tuning knobs; the distribution *shapes* are fixed here.
+
+**Salary redefinition** (D-9 replaces `salaryCurve`): salary must come from **professional ability + star power**, kept convex/fame-dominant like B7 so D-1's ledger and M0A economics stay sane.
+
+```
+salaryCurve(talent): number
+  primaryOVR = roleOVR(talent, primaryDiscipline)         // 1..99, perceived
+  s = primaryOVR / 100
+  f = talent.fame / 100
+  salary = SALARY_BASE
+         + SALARY_SKILL_COEF · s²                          // convex in ability
+         + SALARY_FAME_COEF  · f²                          // fame-dominant, convex (as B7)
+```
+`SALARY_BASE/SKILL_COEF/FAME_COEF` keep their B7 values (`25_000 / 150_000 / 600_000`) so the range and fame-dominance are unchanged — the **only** change is `skill →ovr`, and since migrated primaryOVR is centered near the old `skill` (D-9.15), the salary distribution is preserved. **⚠ Signature change** (`salaryCurve(talent)` vs `salaryCurve(skill, fame)`): `worldgen.generateTalent` and `actions.applyCreateTalent` call sites update accordingly. Documented change; range is preserved.
+
+---
+
+## D-9.14 Authored talent (creation budget)
+
+Potential + Work Ethic + starting skills + secondary aptitude share a **bounded creation budget** — you cannot max everything; no free 99-OVR superstar. Archetypes configure **real attributes + tradeoffs**, never unexplained bonuses.
+
+**Extended authored input** (extends `AuthoredTalentInput`; `actual` persona stays fully player-chosen):
+```
+AuthoredTalentInput = {
+  name, role, age,                      // as today
+  actual: Persona,                      // temperament, fully player-chosen (or a preset, D-9.8)
+  potentialTier: PotentialTier,         // 'Limited'|'Steady'|'Promising'|'HighUpside'|'ExceptionalUpside'|'GenerationalUpside'
+  workEthic: number,                    // 1..99, player-chosen numerically
+  skillBias?: SkillBias,                // optional per-discipline emphasis (specialist vs generalist)
+  secondaryDiscipline?: CreativeRole    // optional; costs budget
+}
+```
+
+**Budget model.** A fixed pool `AUTHORED_BUDGET (100)` is spent across four cost centers; the request is **rejected loudly** (M16 posture) if it overspends:
+```
+cost(potentialTier)  = AUTHORED_TIER_COST[tier]   // Limited 5 … Generational 45 (monotone)
+cost(workEthic)      = AUTHORED_WE_COST · (workEthic / 99)          // linear, WE_COST 30
+cost(skillBias)      = AUTHORED_BIAS_COST · biasMagnitude           // sharper specialist ⇒ costlier, BIAS_COST 20
+cost(secondary)      = secondaryDiscipline ? AUTHORED_SECONDARY_COST (20) : 0
+totalCost = Σ ≤ AUTHORED_BUDGET  (else reject)
+```
+So a Generational ceiling + Relentless WE + a strong specialist bias + a secondary discipline cannot all coexist — the owner's "no free superstar" rule is a hard budget constraint, not a soft nudge.
+
+**Mapping selections → hidden values (deterministic given the authored input + seed + talent id).** Use `stream(seed, 'worldgen', 'authored-'+talentId)`:
+- **Starting skills:** authored talent starts at `AUTHORED_START_OVR`-equivalent skills (keep the spirit of `AUTHORED_START_SKILL = 35`: primary-discipline skills drawn near center 35, spread by `skillBias`; a specialist bias raises one skill and lowers others within the budgeted magnitude). `fame = AUTHORED_START_FAME (5)`. Perceived = actual at creation (matches today's `perceived = actual` rule for authored talent).
+- **Ceilings** are set from `potentialTier`: `ceilingOVR ~ uniform(TIER_RANGE[tier])` (the range shown to the player, e.g. *"High Upside — ceiling ≈ 82–91"*), then per-skill ceilings distributed around it (respecting `skillBias`) and jittered by `AUTHORED_CEILING_JITTER (3)` so the **true ceiling varies within or slightly outside** the displayed range — the studio's own creation is still a little uncertain. Ceilings floored at current actual, capped 99.
+- **Work Ethic** = the chosen number exactly (visible, no jitter).
+- **Secondary discipline** (if bought): seeded skills at `μ = start − AUTHORED_SECONDARY_PENALTY (10)`, its own ceilings from a one-tier-lower band.
+
+Authored talent may show the extra **Generational Upside** tier (worldgen never does — reserved for authored). `applyCreateTalent` validates the budget and role/age as today, then constructs the full D-9 talent.
+
+---
+
+## D-9.15 Legacy-save conversion (V1 → V2)
+
+> **⚠ OVERRIDDEN BY THE OWNER, 2026-07-26 (see D-10).** The original "NO SaveFileV2 —
+> the envelope stays frozen" position below is **superseded**. Settled law is now:
+> `SaveFileV1` (`saveVersion: 1`) stays **immutable and readable**; D-9 games save as a
+> new **`SaveFileV2`** (`saveVersion: 2`); and an explicit, **deterministic**
+> `importLegacyV1` / `convertV1ToV2` converts a validated V1 into a fresh V2. That
+> converter is **non-mutating** (never touches the caller's V1), **idempotent**, and
+> **replay-exact** (draws only from the derived `stream(seed,'migrate',…)` family,
+> never the sim stream). `validateSave` dispatches on `saveVersion` and loudly rejects
+> any unknown version. The derivation of the D-9 fields (below) is retained verbatim —
+> it is exactly the conversion `convertV1ToV2` performs — but it produces a NEW V2
+> envelope rather than back-filling a frozen V1 in place. The rest of this section is
+> preserved for its derivation detail; read "on load, in place" as "in `convertV1ToV2`,
+> into a new V2."
+
+D-9 fields are **derived deterministically from the OLD (V1) talent** `{id,name,role,age,actual,perceived,skill,fame,salary,authored}` + `state.seed` + talent id, when the new fields are absent. Deterministic, **idempotent** (re-convert → identical), and **replay-exact** (uses only derived worldgen-family streams, never the sim stream).
+
+**Detection.** A talent is "old-shape" iff it lacks the D-9 marker field (`talent.skills === undefined`, where `skills` is the new per-discipline record, D-9.16). `loadSave`/`importSave` map `migrateTalent(t, seed)` over `state.talent` when any old-shape talent is present. Migration preserves `name`, `age`, `role` (primary), `fame` (star power), `actual`/`perceived` persona (temperament), and any engagement/history already in state.
+
+**Derivation** (`migrateTalent(old, seed)`, all draws from `stream(seed, 'migrate', old.id + '-' + fieldkey)` — a **new** derived key family so it never collides with worldgen or sim draws):
+
+1. **Primary discipline** = `role → discipline`.
+2. **Primary skills centered on `old.skill`:** for each of the 6 primary skills, `actualᵢ = round(clamp(old.skill + N(0, MIGRATE_SKILL_SD 7), 1, 99))` — *centered near the old scalar so comparable ability is maintained*, with per-skill variation so they are **not all identical**. (SD 7 ≈ the generation spread; keeps the migrated primary OVR ≈ `old.skill` in expectation, preserving D-6 economics.)
+3. **Perceived primary skills:** `clamp(actualᵢ + (old.perceived-vs-actual persona bias sign) + N(0, MIGRATE_PERCEIVED_SD 5), 1, 99)`. (Simplest faithful rule: reuse the same perceived-noise magnitude as generation.)
+4. **Secondary/weak disciplines:** with probability `MIGRATE_SECONDARY_P (0.15)` a usable secondary at `μ = old.skill − uniform(8,22)`; else weak at `μ ~ N(MIGRATE_WEAK_MEAN 34, 10)`. Same target 10–20 % usable secondary as fresh worldgen.
+5. **Ceilings:** `ceiling = clamp(round(max(actual, actual + headroom·ageRunwayMult(old.age))), actual, 99)`, `headroom ~ truncatedNormal(MIGRATE_HEADROOM_MEAN 14, 10, 0, 60)`.
+6. **Work Ethic:** `round(truncatedNormal(MIGRATE_WE_MEAN 60, 18, 1, 99))` from its own migrate key (independent of skill/fame).
+7. **Dev rates:** `uniform(0.5,1.5)` per discipline.
+8. **Genre experience defaults:** primary `(discipline, genre)` seeded small (as generation step 11, scaled by `old.age`); secondary/weak at 0.
+9. **`workHistory`** = all-zero (no completed work recorded pre-migration; a loaded run's history counters begin at 0 — a documented, deterministic choice).
+10. **`skill`, `salary`, `authored`** kept as-is from `old` (legacy `skill` preserved for shape; `salary` unchanged so no ledger drift on load; `authored` unchanged).
+
+**Idempotency:** if `talent.skills` is already present (already migrated), `migrateTalent` returns the talent unchanged — re-import is a no-op. **Replay-exactness:** all migration randomness is derived from `stream(seed,'migrate',...)`, which is stateless and never advances `state.rngState`; the migrated state's `rngState` equals the imported one, so a resumed run replays identically.
+
+`validateSave`/`makeSave`/`stableStringify` are **unchanged** — the migrated talent are plain JSON (D-9.16 keeps every field a JSON primitive/array/record), so byte-identity (§15.7) still holds after a save round-trip.
+
+---
+
+## D-9.16 The new `Talent` type and supporting types (lean, JSON-serializable)
+
+```ts
+// discipline & skill vocab
+export type Discipline = 'acting' | 'writing' | 'directing' | 'craft'
+
+export type ActingSkill    = 'actingTechnique'|'emotionalRange'|'dialogueDelivery'|'comicTiming'|'physicalPerformance'|'screenPresence'
+export type WritingSkill   = 'storyStructure'|'characterDevelopment'|'dialogue'|'originality'|'narrativePacing'|'rewriting'
+export type DirectingSkill = 'visualStorytelling'|'performanceDirection'|'toneControl'|'directingPacing'|'productionManagement'|'adaptability'
+export type CraftSkill     = 'cinematography'|'editing'|'productionDesign'|'soundAndMusic'|'effectsExecution'|'technicalCoordination'
+
+// a perceived/actual pair for one professional skill (both 1..99)
+export type SkillPair = { actual: number; perceived: number }
+
+// all six skills of one discipline; keys fixed in SKILL_ORDER[discipline]
+export type DisciplineSkills = Record<string, SkillPair>   // 6 entries; keyed by that discipline's skill names
+
+// per-discipline skill profiles (24 SkillPairs total)
+export type SkillProfiles = {
+  acting: DisciplineSkills; writing: DisciplineSkills
+  directing: DisciplineSkills; craft: DisciplineSkills
+}
+
+// hidden per-skill ceilings (1..99), one 6-vector per discipline
+export type Ceilings = {
+  acting: Record<string, number>; writing: Record<string, number>
+  directing: Record<string, number>; craft: Record<string, number>
+}
+
+// per-(discipline,genre) experience, perceived+actual (0..100)
+export type GenreExpEntry = { actual: number; perceived: number }
+export type GenreExperience = Record<Discipline, Record<Genre, GenreExpEntry>>
+
+export type DevRates = Record<Discipline, number>          // 0.5..1.5 per discipline
+export type WorkHistory = Record<Discipline, number>       // completed-production counters
+
+export type Talent = {
+  id: string
+  name: string
+  role: CreativeRole            // PRIMARY profession (unchanged; drives worldgen counts)
+  age: number
+  actual: Persona               // temperament (unchanged; reception/roleFit source)
+  perceived: Persona            // temperament as believed (unchanged)
+  fame: number                  // 0..100 STAR POWER (unchanged; separate from OVR)
+  salary: number                // per production; now from salaryCurve(talent) (D-9.13)
+  authored: boolean
+
+  // ── D-9 additions (all plain JSON) ──
+  skills: SkillProfiles         // 24 perceived/actual professional skills (§ D-9.1)
+  ceilings: Ceilings            // hidden per-skill actual ceilings (§ D-9.10)
+  devRate: DevRates             // per-discipline development rate (§ D-9.10)
+  workEthic: number             // 1..99 visible (§ D-9.11)
+  genreExperience: GenreExperience   // per (discipline,genre) perceived+actual (§ D-9.9)
+  workHistory: WorkHistory      // completed productions per discipline (§ D-9.9)
+
+  // legacy scalar retained for SaveFileV1 shape & back-compat; NOT read by §5 after D-9.
+  skill: number                 // = roleOVR(primary, perceived) proxy
+}
+```
+
+`SkillProfiles`/`Ceilings`/`GenreExperience` use `Record`s built in a **fixed declared field order** (`SKILL_ORDER`, discipline order `acting→writing→directing→craft`, genre order = `GENRE_ORDER`) so `Object.keys` iteration and `stableStringify` are stable (the same discipline the worldgen force/segment orders already impose). The presence of `skills` is the migration marker (D-9.15). Every value is a `number`/`string`/`boolean` or a `Record`/array of them — fully `SaveFileV1`-serializable.
+
+---
+
+## D-9.8 (development) — the new deterministic seeded `tick` step
+
+**Placement.** A **new step 6 DEVELOPMENT** in `tick`, **after STANDING (step 4) and BROADCAST (step 5)**, over the same `records` (the released films this tick), in the same ascending-`productionId` order. It updates `GameState.talent` immutably. It draws from a **derived stream** `stream(seed, 'develop', productionId + ':' + talentId)` — **never** the sim stream — so `rngState` is untouched and §15.7 replay is exact. (Determinism source: seed + productionId + talentId, exactly as the ruling requires.)
+
+**Who develops, and in what discipline.** For each released production, every talent who **worked** on it develops in the **discipline they performed**: writer → `writing`, director → `directing`, each cast actor → `acting`, each craft hire → `craft`. **Growth is confined to the used discipline** — acting work never raises writing skills.
+
+**Which skills grow.** The **exercised** skills = the skills with non-trivial **project weight** on that film: `exercised = { i : projWeightᵢ ≥ DEV_EXERCISE_THRESHOLD }` (`0.10`). This ties development to what the film actually demanded (a comedy grows `comicTiming`, not `physicalPerformance`).
+
+**Per-skill gain formula** (deterministic, bounded, ceiling-respecting, WE-modulated). For a talent `t`, discipline `d`, skill `i` with actual `a = skills[d][i].actual` and ceiling `c = ceilings[d][i]`:
+
+```
+if a ≥ c: gain = 0            // already at ceiling; nothing to give
+else:
+  headroom     = c − a                                  // >0
+  // 1) base opportunity — larger for exercised skills, tiny for merely-present ones
+  opportunity  = projWeightᵢ                            // 0..1
+
+  // 2) difficulty & result — a hard, well-received film teaches more; failure still teaches
+  difficulty   = clamp(requiredNegative / DEV_DIFFICULTY_SCALE, DEV_DIFF_MIN, DEV_DIFF_MAX)   // ~0.7..1.3
+  resultMult   = DEV_RESULT_FLOOR + (1 − DEV_RESULT_FLOOR)·smoothstep(DEV_RESULT_LO, DEV_RESULT_HI, criticScore)
+                 // FLOOR>0 ⇒ a flop still teaches (nonzero possible)
+
+  // 3) diminishing returns — slows near the ceiling AND near the top of the 1..99 range
+  diminishing  = smoothstep(0, DEV_HEADROOM_FULL, headroom) · (1 − DEV_HIGHLEVEL_SLOW·(a/99))
+
+  // 4) age / career stage — younger develops faster; older still improves, slower; no decline
+  ageMult      = ageRunwayMult(t.age)                   // 1.0 young … DEV_AGE_FLOOR old, never 0
+
+  // 5) work ethic — the multiplier on conversion magnitude
+  weMult       = DEV_WE_FLOOR + (DEV_WE_CEIL − DEV_WE_FLOOR)·(t.workEthic/99)
+
+  rawGain = DEV_BASE_RATE · devRate[d] · opportunity · difficulty · resultMult
+                          · diminishing · ageMult · weMult
+```
+
+**Conversion to an integer increment** (deterministic; WE modulates *probability & consistency*, not just magnitude):
+```
+u        = stream(seed,'develop', prodId+':'+talentId).next()     // one draw per (talent,skill) in fixed SKILL_ORDER
+// WE raises the odds a fractional gain "lands" as a whole point:
+threshold = 1 − (weMult · DEV_LAND_BIAS)                          // higher WE ⇒ lower threshold ⇒ lands more often
+increment = floor(rawGain) + ( (rawGain − floor(rawGain)) > threshold·u ? 1 : 0 )
+newActual = min(c, a + increment)
+```
+Ordinary films yield `increment ∈ {0,1}` for a couple of exercised skills → **small gains, no huge OVR jumps** (`DEV_BASE_RATE` tuned so the mean per-release gain across exercised skills is ≈ 0.4 points; an OVR moves ~0/+1 per film, occasionally +2 for a young high-WE talent on a demanding hit). `newActual` never exceeds `c` (≤ 99). Perceived skill updates toward actual by `DEV_PERCEIVED_CATCHUP` of the gain (the studio learns what it has): `newPerceived = clamp(perceived + round(DEV_PERCEIVED_CATCHUP·increment), 1, 99)`.
+
+**Genre experience growth:** the film's `(discipline, genre)` experience rises: `expActual += DEV_EXP_GAIN · resultMult` (clamped 0..100), perceived catches up by `DEV_EXP_PERCEIVED_CATCHUP`. `workHistory[d] += 1` for the performer.
+
+**Secondary-discipline growth** (WE-gated): a talent working *outside* their primary discipline develops normally in that discipline (cross-discipline is allowed, D-9.9). WE also grants a *small* passive secondary-discipline nudge only when `workEthic ≥ DEV_SECONDARY_WE_GATE (70)` and only for skills below their ceiling — encoding "high WE grows secondary disciplines," bounded and rare.
+
+**Immutable update in `tick`.** DEVELOPMENT builds a **new** `talent[]`: it maps `state.talent`, replacing each developed talent with a **fresh** object (spread + new nested `skills`/`genreExperience`/`workHistory` records — never mutate in place, matching the tick purity contract). Talent not in any release is shared by reference. The returned `GameState.talent` is this new array. **Salaries are NOT recomputed at development time** (salary is a slow-moving, greenlight-time quantity; recomputing every tick would churn the ledger); a talent's salary refreshes only when next referenced by worldgen/authored creation — documented choice, keeps D-1 stable. *(If the owner wants salary to track development within a run, that is a small addition — flagged as **OQ-3**.)*
+
+**Post-release development report content** (for the M0A report / future UI; a pure formatter over the before/after talent): per developed talent, list each skill that rose (`"Dialogue Delivery +1"`) and any role-OVR change (`"Actor OVR 62 → 63"`), plus experience gains (`"Comedy directing experience +2"`); if nothing rose, `"No measurable skill increase."` Function `developmentReport(before, after): string[]`.
+
+**`ageRunwayMult(age)`** (shared by generation headroom scaling and development): a decreasing, always-positive curve — `1.0` at age ≤ `DEV_AGE_YOUNG (26)`, falling smoothly to `DEV_AGE_FLOOR (0.35)` at age ≥ `DEV_AGE_OLD (60)`, never reaching 0 (older still improves, slower; **no decline/retirement/death this milestone**). Precisely: `DEV_AGE_FLOOR + (1 − DEV_AGE_FLOOR)·(1 − smoothstep(DEV_AGE_YOUNG, DEV_AGE_OLD, age))`.
+
+---
+
+## Cross-discipline eligibility & engagement rules
+
+- **Primary profession does NOT restrict eligibility.** Candidate/greenlight legality must now allow **any-discipline assignment** based on the person **having that discipline's skills** — which every talent does. Concretely: the M16 `requireRole` role-type check (writerId must be role 'writer', etc.) is **replaced** by a **has-discipline** check that always passes (everyone has all four skill sets). **⚠ This relaxes M16 role-matching** — see **OQ-1** below; it changes what greenlights/candidates are legal, so it is a decision, not a silent edit. For the **M0A headless corpus**, the candidate generator's role-pool split (writers-pool → writerId, etc.) can be **kept as-is** so the M0A economics corpus is unchanged, with cross-discipline casting exercised only via unit tests + authored/manual play — *this preserves the frozen M0A calibration while making the engine capable*. Recommended default: keep candidate generation role-partitioned in M0A; allow cross-discipline at the `applyActions` legality layer.
+- **Preserve** the existing engagement rules exactly: one active engagement per talent (M16 exclusivity), no same actor in two slots of one film (M16), role-existence/id-resolution. **No simultaneous multi-role credits this milestone** (a talent fills exactly one role in one production).
+- **"Unproven in this role"** surfaces when `workHistory[discipline] == 0` (D-9.9), widening Expected Performance (D-9.7).
+
+---
+
+## D-9.16 TUNING constants (every new named constant + proposed value)
+
+All live in `TUNING` (or, for the large tables, as named exports beside `CAST_WEIGHT`/`FORCE_VECTORS` — the same pattern the contract uses for non-scalar tables). **No magic number is inlined.** Justifications reference the current engine's ranges.
+
+**OVR (D-9.2)** — `OVR_WEIGHTS[discipline]` (6-vectors, Σ=1; proposed: core skills weighted ~0.20 each, softer skills ~0.13 — e.g. acting `[0.18,0.20,0.16,0.10,0.14,0.22]`), `OVR_WEAKNESS_KNEE 80`, `OVR_WEAKNESS_COEF 0.5`, `OVR_BREADTH_FLOOR 70`, `OVR_BREADTH_COEF 6`, `OVR_GATE_99_MEAN 98`, `OVR_GATE_99_MINCORE 94`, `OVR_GATE_95_MEAN 93`, `OVR_GATE_95_MINCORE 88`. (Gates chosen to make 99 require near-perfect breadth, matching the owner's spec; coefficients scaled to the 1–99 skill range.)
+
+**Project weighting (D-9.3)** — `GENRE_SKILL_WEIGHTS[discipline][genre]` (the four tables above), `SHAPE_SKILL_MODS`, `PROMISE_SKILL_MODS`, `SLOT_SKILL_MODS`, `PROJECT_MOD_CLAMP 1.6`.
+
+**Effective skill (D-9.5)** — `EXP_SKILL_CAP 4` (experience ≠ skill: at most +4 on a 0–100 scale, small vs the ±40 range skills already span).
+
+**Fit (D-9.6)** — `FIT_ACTOR_ABILITY 0.55`, `FIT_ACTOR_ROLEFIT 0.30`, `FIT_ACTOR_EXP 0.15`; `FIT_CREW_ABILITY 0.65`, `FIT_CREW_TEMPER 0.20`, `FIT_CREW_EXP 0.15`; `FIT_CRAFT_ABILITY 0.85`, `FIT_CRAFT_EXP 0.15`; `FIT_MIN_ABILITY_SHARE 0.45`, `FIT_ABILITY_FLOOR 0.15`, `TEMPER_TOLERANCE 1.8`.
+
+**Expected performance (D-9.7)** — `EP_BASE_WIDTH 5`, `EP_EXP_WIDTH 6`, `EP_UNPROVEN_WIDTH 5`.
+
+**Temperament (D-9.8 display)** — `TEMPER_BANDS` (the four thresholds `−0.6,−0.2,+0.2,+0.6`) and the three word tables.
+
+**Potential (D-9.10)** — `POTENTIAL_SCOUT_SIGMA 4`, `POTENTIAL_BAND_HALF 4`, tier thresholds `{Limited<3, Steady3-8, Promising9-15, HighUpside16-24, Exceptional≥25}`.
+
+**Generation (D-9.13)** — `GEN_SKILL_MEAN 60`, `GEN_SKILL_SD 15`, `GEN_SKILL_LO 20`, `GEN_SKILL_HI 95` (= the old `talent-skill` distribution, preserving primary-ability center), `GEN_SKILL_SPREAD 9`, `GEN_SPECIALIST_P 0.22`, `GEN_SPECIALIST_SPIKE [8,20]`, `GEN_SPECIALIST_SAG [3,9]`, `GEN_SECONDARY_P 0.15` (centers the 10–20 % usable-secondary target), `GEN_SECONDARY_PENALTY [8,22]`, `GEN_WEAK_MEAN 34`, `GEN_PERCEIVED_SD 6`, `GEN_HEADROOM_MEAN 14`, `GEN_HEADROOM_SD 10`, `GEN_WE_MEAN 60`, `GEN_WE_SD 18`, `DEV_RATE_MIN 0.5`, `DEV_RATE_MAX 1.5`, `GEN_EXP_MEAN 12`, `GEN_EXP_SD 12`, `GEN_EXP_PERCEIVED_SD 6`.
+
+**Authored (D-9.14)** — `AUTHORED_BUDGET 100`, `AUTHORED_TIER_COST {Limited5,Steady12,Promising22,HighUpside32,Exceptional40,Generational45}`, `AUTHORED_WE_COST 30`, `AUTHORED_BIAS_COST 20`, `AUTHORED_SECONDARY_COST 20`, `AUTHORED_TIER_RANGE` (ceiling-OVR band per tier, e.g. HighUpside `[82,91]`), `AUTHORED_CEILING_JITTER 3`, `AUTHORED_SECONDARY_PENALTY 10`. `AUTHORED_START_SKILL 35`/`AUTHORED_START_FAME 5` retained.
+
+**Migration (D-9.15)** — `MIGRATE_SKILL_SD 7`, `MIGRATE_PERCEIVED_SD 5`, `MIGRATE_SECONDARY_P 0.15`, `MIGRATE_WEAK_MEAN 34`, `MIGRATE_HEADROOM_MEAN 14`, `MIGRATE_WE_MEAN 60`, `MIGRATE_WE_SD 18`.
+
+**Development (D-9.8)** — `DEV_BASE_RATE 2.2` (tuned to ≈0.4 mean point/exercised skill/release), `DEV_EXERCISE_THRESHOLD 0.10`, `DEV_DIFFICULTY_SCALE 5_000_000`, `DEV_DIFF_MIN 0.7`, `DEV_DIFF_MAX 1.3`, `DEV_RESULT_FLOOR 0.35` (flops still teach), `DEV_RESULT_LO 35`, `DEV_RESULT_HI 75`, `DEV_HEADROOM_FULL 20`, `DEV_HIGHLEVEL_SLOW 0.4`, `DEV_WE_FLOOR 0.5`, `DEV_WE_CEIL 1.5`, `DEV_LAND_BIAS 0.6`, `DEV_PERCEIVED_CATCHUP 0.7`, `DEV_EXP_GAIN 2`, `DEV_EXP_PERCEIVED_CATCHUP 0.7`, `DEV_SECONDARY_WE_GATE 70`, `DEV_AGE_YOUNG 26`, `DEV_AGE_OLD 60`, `DEV_AGE_FLOOR 0.35`.
+
+**Salary (D-9.13)** — `SALARY_BASE/SKILL_COEF/FAME_COEF` unchanged (B7 values); the change is `skill →primaryOVR` only.
+
+**Forecast confidence (D-9.12, gated)** — `CONF_EXP_THRESHOLD 60` (only if OQ-2 is adopted).
+
+`SKILL_ORDER` (the six skill keys per discipline, in the D-9.1 order) is a named export driving all draws and means.
+
+---
+
+## Acceptance tests (concrete assertions)
+
+Restating the owner's required list as unit/corpus assertions in the §15 style (bounded terms get range tests; behaviors get disjoint-outcome tests). Seeded, deterministic.
+
+**OVR**
+- `roleOVR` ∈ [1,99] for 10 000 generated talent across seeds (bounds).
+- *(Illustrative — corrected to the implemented formula.)* The 99 gate is `min(x, 99)`: it **caps** at 99, it does not lift to 99. A weighted mean of 98 **alone** floors to 98 (`raw = 98 − penalties ≤ 98` → `floor(min(raw,99)) = 98`, **not** 99). A displayed **99** requires the gate to pass (`weightedMean ≥ 98` **and** `minCore ≥ 94`) **and** `raw` to genuinely reach 99 pre-floor — e.g. an all-core-99 profile (zero weakness/breadth penalty → `raw = 99` → 99). Dropping one core skill below the min-core gate (e.g. to 90 < 94) fails the 99 gate → capped at ≤ 95, never 99. *(See the implemented assertions in `tests/d9-talent.test.ts`: all-99 → 99; all-98 → 98; one core at 90 → < 99.)*
+- A two-elite/rest-weak specialist (two skills 96, four skills 60) displays ≤ 94, never 99 (specialist ≠ 99).
+- `raw = 98.9` pre-floor with a failing gate → OVR ≤ 94; `raw = 98.9` with passing gate → 99 only via the gate, not via rounding (rounding-can't-make-99).
+- OVR is invariant to the selected film (compute for two different concepts → identical).
+
+**Project weighting / specialists**
+- *(Illustrative — corrected to the implemented weights.)* The mechanism (a genre specialist beats a broader generalist on a matching film, and the ranking **reverses** off it) is real, but the old `comicTiming 96` / flat-80 numbers do **not** satisfy it under comedy's own weight table (`comicTiming` normalizes to ≈ 0.29 of the weight, not enough for a 4-point OVR-favored generalist to lose). A genuine specialist needs a larger spike. The implemented test uses a `comicTiming 98` specialist (its other five acting skills ≈ 72, broad OVR **lower** than the generalist) vs a flat-76 generalist: the specialist has strictly higher `effectiveSkill` on a **comedy** (comicTiming carries the weight) yet **lower** on a **drama** (`emotionalRange`-weighted, where it is ordinary). Both effective values ∈ [0,100]. *(Assertions in `tests/d9-talent.test.ts`, D-9.3/D-9.5 block.)*
+- No talent's `effectiveSkill` exceeds `max(skills)+EXP_SKILL_CAP` or 100 (no hidden bonus).
+
+**Fit**
+- `projectFit` ∈ [0,100] (bounds). A lower-OVR matching specialist has higher Fit than a higher-OVR mismatch on the matching film; changing the film reverses it. Ability share ≥ 0.45 verified (zero-temperament-match still leaves ≥ 45 % of ability contribution).
+
+**Temperament**
+- `temperamentSummary` is a pure function of persona (same triple → same string, 5×5×5 buckets). Applying a preset changes only persona, leaving all 24 skills, ceilings, and WE untouched (asserted field-by-field). OVR is unchanged by any persona change.
+
+**Potential**
+- Visible `expectedPotentialRange` never equals or exposes the true ceiling; the noised estimate lands above the truth in some seeds and below in others (both occur across 1 000 talent). No ceiling > 99; no actual > its ceiling ever, across a full-run development corpus.
+
+**Work Ethic**
+- Across a controlled A/B (two talents identical except WE 20 vs WE 95, same films), OVR/Fit/salary/box office/critic on release day are **identical** (WE touches nothing immediate); after N releases the high-WE talent has **≥** the low-WE talent's total skill gain, and reaches nearer its ceiling (WE flows only through development). A low-WE talent with high ceilings can still be out-developed by a high-WE talent with lower ceilings only up to each one's own ceiling (high WE ≠ guaranteed greatness).
+
+**Cross-discipline**
+- An actor with usable `writing` skills can be legally assigned as writer at the `applyActions` legality layer; `workHistory.writing == 0` → "Unproven in this role" and a wider Expected Performance band. Engagement exclusivity and no-double-cast still reject as before.
+
+**Development**
+- Deterministic: same (seed, productionId, talentId) → identical gains on replay; `rngState` unchanged by the development step (replay-exact). Growth only in the performed discipline (a writer's `acting` skills never move on a film they wrote). A flop (`criticScore` 30) still produces a non-zero gain for some exercised skill in some seed (failure can teach). An ordinary film moves OVR by 0 or +1 (no huge jumps); no skill exceeds its ceiling. Diminishing returns: a near-ceiling skill gains strictly less than a far-from-ceiling skill of equal weight.
+
+**Creator (authored budget)**
+- An over-budget request (Generational + Relentless WE + strong bias + secondary) is **rejected loudly**. A within-budget authored talent maps deterministically (same input+seed → identical hidden ceilings within the shown tier band, WE exactly as chosen, no skill/OVR above the tier's implied cap). No authored talent starts as a 99-OVR superstar.
+
+**Migration**
+- `migrateTalent(old, seed)` is idempotent (re-import → byte-identical via `stableStringify`) and replay-exact (migrated `rngState` == imported). Migrated primary-discipline OVR is centered near `old.skill` (mean |Δ| < ~3 across 10 000 old talent), per-skill values are not all identical, and 10–20 % have a usable secondary. Persona/age/role/fame preserved exactly. A save with new-shape talent loads unchanged (no double migration).
+
+**Bounds / §15 regression**
+- After substitution, every §15 bounded term still holds (M11 list), the four-quadrant unit recipes (B28) still hit their disjoint craft/cohesion ranges (with `skill` replaced by `effectiveSkill` on the pinned inputs), and the D-6 differentiation gate still passes after a re-tune (documented as a re-run, not an assertion of the old numbers).
+
+---
+
+## D-9 PM RESOLUTIONS (settled 2026-07-26)
+
+The architect flagged six places where D-9 touches the frozen engine or the owner's
+spec. The PM resolved all six, consistent with the owner's explicit Phase-5.1 directives
+plus routine-engineering latitude — NONE required a new owner ruling:
+
+- **OQ-1 (cross-discipline / M16) — RESOLVED.** The owner explicitly required
+  cross-discipline careers, so `applyActions` role-matching is relaxed to a
+  has-discipline check (every talent has all four skill sets). The M0A candidate
+  generator stays **role-partitioned** so the frozen D-2/economics corpus is unchanged;
+  cross-discipline assignment is exercised via unit tests + human play only.
+- **OQ-2 (genre-exp → forecast confidence) — RESOLVED.** The owner said "may"; NOT
+  adopted into D-3 (the approved confidence corpus is left intact). Genre experience
+  feeds only Project Fit + the small (`EXP_SKILL_CAP=4`) effective-skill bonus.
+- **OQ-3 (dynamic salary) — RESOLVED.** Salary stays a greenlight-time quantity, not
+  recomputed as skills develop within a run (no D-1 ledger churn). Future extension.
+- **OQ-4 (development in the M0A corpus) — RESOLVED.** The owner explicitly required
+  re-running + re-validating the 1000×2 study, so DEVELOPMENT is ON headless (gains
+  tuned small), the corpus is re-run, the eight M0A flags revalidated, and D-6/D-2
+  re-tuned within TUNING if they shifted (escalate to the owner only if a gate becomes
+  structurally unreachable).
+- **OQ-5 (legacy `skill` field) — RESOLVED.** Keep `skill` as a read-only primary-OVR
+  proxy for SaveFileV1 shape stability; it is NEVER read by §5/§7.
+- **OQ-6 (craft generic/inert) — RESOLVED.** Craft carries the full mechanism but is
+  inert headless (matches D-4: no craft hired, `technical`=40). Confirmed intended.
+
+The original architect notes follow for provenance.
+
+## Open questions for the PM — RAISED BY THE ARCHITECT; all resolved above (provenance)
+
+- **OQ-1 — Relaxing M16 role-matching.** D-9's cross-discipline requirement ("primary profession does not restrict eligibility") **directly conflicts** with M16's approved role-type check (`writerId` must be role `'writer'`, etc.) and with the candidate generator's role-partitioned pools (B18/B19). D-9 proposes: relax the **legality** check to "has this discipline's skills" (always true) while **keeping candidate generation role-partitioned for the M0A corpus** so M0A economics/calibration are unchanged, exercising cross-discipline only via tests + authored/manual play. This preserves the frozen M0A study but is a real change to M16's contract text — **needs an owner ruling** on (a) whether to relax legality at all in this milestone, and (b) whether the M0A candidate grid should stay role-partitioned or open up (opening it would re-open the D-2/economics corpus).
+
+- **OQ-2 — Genre experience feeding forecast confidence.** D-9.12 offers an optional amendment to D-3's `knownDirectorGenreRecord` (OR perceived directing genre-experience ≥ 60). This **changes the D-3 confidence-tier corpus** the owner already approved and required a distribution table for (D-3 addendum). Adopt, or leave D-3 exactly as approved and have experience feed **only** Fit and the small effective-skill bonus? Default in this ruling: **not adopted** (gated behind `CONF_EXP_THRESHOLD`, off) pending the owner.
+
+- **OQ-3 — Salary vs within-run development.** D-9.13 keeps salary a greenlight-time quantity and does **not** recompute it as skills develop within a run (avoids churning the D-1 ledger). If the owner wants a talent's price to rise as they develop (arguably realistic), that is a small addition (recompute `salary` in the development step). Not adopted here; flagged.
+
+- **OQ-4 — Development timing vs the frozen M0A calibration.** Adding DEVELOPMENT to `tick` means the **10-release M0A run now has talent whose actual skills drift upward mid-run**. This shifts the reception/economics corpus that D-1/D-2/D-6 were calibrated against (later films use slightly stronger crews). D-9 keeps per-release gains tiny (mean ≈0.4 pts) to minimize drift, but the owner should confirm whether M0A's headless corpus should run **with development on** (realistic, but re-tunes D-6) or **with development gated off** for the calibration corpus and on only for play. Default: development **on**, gains tuned small, D-6 re-run and re-reported as part of implementing D-9.
+
+- **OQ-5 — The legacy `skill` field.** D-9 retains `talent.skill` (as an OVR proxy) purely for `SaveFileV1` shape stability and back-compat, but nothing in §5/§7 reads it after D-9. The owner may prefer to **drop** it (cleaner type) at the cost of touching the frozen save shape, or **keep** it (chosen here). Confirm.
+
+- **OQ-6 — Craft as a single generic employee.** The owner said "Craft may stay a single generic employee this milestone," and D-4 pins `technical` at 40 headless. D-9 fully specifies craft's six skills / OVR / weights / development anyway (so M1A inherits a real system), but craft **never develops in M0A** (no craft is ever hired, so no craft talent is ever in a `records` release). Confirm that "craft carries the full mechanism but is inert until M1A hiring" is the intended reading (it matches D-4).
+
+---
+
+**Summary of engine-integration points (for the implementer):**
+- `reception.ts computeCraft` — 4 `.skill` reads →`effectiveSkill(..., 'actual')` (D-9.5 table). No signature change (`ReceptionInputs` already carries concept/shape/promise).
+- `forecast.ts computeDeterministicCore` — same 4 reads →`effectiveSkill(..., 'perceived')`.
+- `worldgen.ts generateTalent` — full D-9.13 generation; `salaryCurve(talent)`.
+- `actions.ts applyCreateTalent` — D-9.14 authored budget + full talent construction; `salaryCurve(talent)`.
+- `tick.ts` — **new step 6 DEVELOPMENT** after BROADCAST, over `records`, from `stream(seed,'develop',...)`; returns new `talent[]`. Also thread the performed-discipline resolution (writer→writing etc.).
+- `save.ts loadSave/importSave` — call `migrateTalent` over `state.talent` when old-shape detected (D-9.15); `validateSave`/`stableStringify` unchanged.
+- `types.ts` — the new `Talent` + supporting types (D-9.16).
+- `tuning.ts` — all D-9.16 constants + tables.
+- New read-only summary module (e.g. `talentSummary.ts`): `roleOVR`, `roleTier`, `projectFit`, `expectedPerformance`, `temperamentSummary`, `expectedPotentialTier/Range`, `workEthicLabel`, `developmentReport` — none read by §5/§7.
+- `candidates.ts`/`agents.ts` — **no change** (they consume `forecastCenters`/`resolveReception`/`salaryCurve`, so the substitution propagates automatically); the only decision is OQ-1's candidate-pool question.
+
+This is the complete D-9 ruling: exact formulas, the new type set, every named `TUNING` constant with a proposed value justified against the current engine's ranges, the deterministic migration, the precise §5/§7 substitution points, the new development step, the acceptance-test list, and the flagged open questions where the owner's requirements genuinely touch or conflict with the engine. D-9 was **owner-ratified and implemented on 2026-07-26**; the rulings that governed its implementation follow in **D-10**.
+
+---
+
+# D-10 — Phase 5.1 owner rulings (2026-07-26)
+
+**Status:** normative, owner-ratified 2026-07-26, IMPLEMENTED as part of the Phase 5.1 talent milestone. D-10 records three owner rulings (A, B, C) plus the M16.7 closure that governed how D-9 was built. Where D-10 amends earlier text (notably the **D-9.15 "NO SaveFileV2"** position, now overridden), **D-10 wins**. All numeric values here and in D-9 marked "Proposed" are **provisional working defaults** implemented as named `TUNING` constants and validated behaviorally plus by corpus/distribution studies (see `M0A-REPORT.md` and the harness studies); they are tunable, never inlined. Full per-ruling test lists live in `tests/ruling-{a,b,c}-*.test.ts` — this section records the **binding decisions and guardrails**, not those lists.
+
+## D-10.A — Development is ON in normal play
+
+- Normal play **develops talent** on a **completed release**. A canceled or unfinished production develops **no one**.
+- Only the **performed / assigned discipline** develops (a writer's writing grows, not their acting); the exercised skills are those the film actually demanded (D-9.8).
+- Development is **deterministic** and draws only from its own derived **`'develop'` stream** (`stream(seed,'develop', prodId+':'+talentId)`); it **never advances** the reception / sim RNG, so replay stays byte-exact.
+- **Potential constrains** growth (no skill exceeds its hidden ceiling; no OVR exceeds the ceiling OVR or 99). **Work Ethic** affects the **likelihood and consistency** of conversion, **not** immediate quality — WE touches nothing on release day. **Failure still teaches** (a flop still develops the performer). **No extreme OVR jumps.**
+- A per-release **development summary** is shown to the player: skill deltas, OVR before→after, an explicit **no-measurable-increase** line when nothing crossed a display threshold, and **truthful** Work-Ethic / Potential notes — **without** exposing hidden ceilings, rolls, or true Potential.
+- Development **survives export/import, V1→V2 conversion, replay, and reload exactly once** (idempotent; never double-applied).
+- **Guardrail:** the **official M0A calibration corpus stays development-OFF**, role-partitioned, with **D-6 unchanged** (`standing.ts` byte-untouched). Development-ON is a normal-play behavior and a separate supplementary study, not part of the M0A gate.
+
+## D-10.B — Multi-hyphenate generation
+
+- Generation is retuned to a **mixture-model archetype population** with **modest discipline-adjacency correlations**, so **~10–15%** of talent have a non-primary discipline **OVR ≥ 60** (~2–5% ≥ 70, < 1% ≥ 80).
+- This is achieved **WITHOUT** weakening or special-casing the OVR formula, **WITHOUT** any secondary-OVR bonus, and **WITHOUT** inflating the 90+/95+/99 tiers. **Primaries stay meaningfully stronger** than secondaries.
+- "**Usable secondary**" is defined by **OVR ≥ 60** (not skill-mean).
+- **Career identity:** a "**Capable but Unproven**" discipline (OVR ≥ 60 but **no credits**) is distinguished from a **credited** career identity. Career labels **require demonstrated credits**; the system never fabricates credits.
+
+## D-10.C — FilmShape threaded into the sim
+
+- The **greenlight-LOCKED** FilmShape now **reweights professional-skill contribution** through **ONE shared helper**, used by: UI **Fit** and **Expected Performance** (perceived), **forecast** (perceived), **reception** (actual), and **development** skill-exercise. One helper, five call sites → they cannot drift.
+- The reweighting is **budget-neutral** (weights renormalized), **NOT an additive bonus**, and is **NOT double-counted** with `ShapeEffects` (which keeps its separate film-level role).
+- **OVR, Star Power, and salary are invariant to shape.** Replay is **byte-identical**.
+
+## M16.7 closure — one talent, one role per production
+
+- Greenlight **rejects** a talent filling **more than one role** in a **single production** (e.g. the same person as both writer and director of one film). **Cross-discipline SINGLE-role assignment stays legal** (a talent may be hired for a discipline other than their primary, in one role).
+- This check **never fires** in the role-partitioned M0A corpus (candidate pools keep roles disjoint), so it does not perturb the calibration study.
+
+*Record: D-10 A/B/C and the M16.7 closure decided by the owner 2026-07-26, implemented in the Phase 5.1 talent milestone. Adversarial review = SOUND-WITH-CAVEATS; contract audit = CLEAN WITH NOTES. This section is normative alongside D-9; where they conflict, D-10 wins.*

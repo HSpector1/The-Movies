@@ -111,8 +111,11 @@ describe('worldgen — talent field bounds (§9, B7, N3)', () => {
   it('every talent satisfies §9 bounds across many seeds (truncation/clamp exercised)', () => {
     for (const s of SEEDS) {
       for (const t of generateWorld(s).talent) {
-        // skill ~ truncatedNormal(60,15,20,95)
-        expect(inRange(t.skill, 20, 95)).toBe(true)
+        // D-9.13 step 12 / OQ-5: `skill` is now the PRIMARY-discipline roleOVR proxy
+        // (perceived), not the old scalar draw. roleOVR is a display OVR ∈ [1,99]
+        // (D-9.2 gate range) — a specialist/weak profile can drive it below the old
+        // 20 floor, so the faithful bound is the OVR range, not the μ-draw range.
+        expect(inRange(t.skill, 1, 99)).toBe(true)
         // fame ~ truncatedNormal(40,22,0,95)
         expect(inRange(t.fame, 0, 95)).toBe(true)
         // age ~ truncatedNormal(38,10,20,70)
@@ -129,10 +132,14 @@ describe('worldgen — talent field bounds (§9, B7, N3)', () => {
     }
   })
 
-  it('salary equals salaryCurve(skill, fame) recomputed (B7 — public export reuse)', () => {
+  it('salary equals salaryCurve(talent) recomputed (B7 / D-9.13 — public export reuse)', () => {
+    // D-9.13 salary redefinition: salaryCurve now takes the whole Talent and reads
+    // the PRIMARY-discipline roleOVR (perceived) instead of the old scalar skill.
+    // The convex fame-dominant B7 form and constants are unchanged, so the stored
+    // salary must equal a fresh salaryCurve(t) recompute through the public export.
     for (const s of SEEDS) {
       for (const t of generateWorld(s).talent) {
-        expect(t.salary).toBe(salaryCurve(t.skill, t.fame))
+        expect(t.salary).toBe(salaryCurve(t))
       }
     }
   })

@@ -18,10 +18,32 @@ import {
   requiredNegative,
   talentByRole,
 } from './engine/adapter.ts'
-import { stableStringify } from '../../src/core/index.ts'
+import { stableStringify, generateWorld, exportSave, makeSaveV1 } from '../../src/core/index.ts'
 import type { DraftPackage, GameState } from './engine/adapter.ts'
+import type { GameStateV1, TalentV1 } from '../../src/core/index.ts'
 
 afterEach(cleanup)
+
+// Build a valid legacy V1 save JSON by projecting a fresh world's talent down to the
+// old scalar TalentV1 shape (V1 validation is envelope-only, so this is accepted and
+// then deterministically converted by the D-9.15 migration).
+function legacyV1SaveJson(seed: string): string {
+  const world = generateWorld(seed)
+  const talentV1: TalentV1[] = world.talent.map((t) => ({
+    id: t.id,
+    name: t.name,
+    role: t.role,
+    age: t.age,
+    actual: t.actual,
+    perceived: t.perceived,
+    skill: t.skill, // the legacy scalar (the V2 talent keeps this proxy field)
+    fame: t.fame,
+    salary: t.salary,
+    authored: t.authored,
+  }))
+  const stateV1: GameStateV1 = { ...world, talent: talentV1 }
+  return exportSave(makeSaveV1(stateV1))
+}
 
 function legalPackage(state: GameState): DraftPackage {
   const concept = state.concepts[0]!
@@ -156,5 +178,61 @@ describe('saves: malformed / unsupported saves are rejected loudly and understan
     fireEvent.click(screen.getByTestId('import-save'))
     expect(started).toBe(false)
     expect(screen.getByRole('alert')).toBeInTheDocument()
+  })
+})
+
+describe('saves: legacy V1 import (D-9.15) converts and tells the player', () => {
+  it('a legacy V1 save auto-loads, is flagged converted, and yields a playable V2 state', () => {
+    const json = legacyV1SaveJson('legacy-v1-auto')
+    const r = importSaveJson(json)
+    expect(r.ok).toBe(true)
+    if (!r.ok) return
+    // Converted, and the loaded state is the NEW multi-discipline shape (talent has
+    // the D-9 `skills` record — the migration marker).
+    expect(r.converted).toBe(true)
+    expect((r.state.talent[0] as Record<string, unknown>).skills).toBeDefined()
+  })
+
+  it('the explicit "Import legacy V1 save" affordance converts and shows a conversion notice', () => {
+    const state = newGame('legacy-v1-ui')
+    const json = legacyV1SaveJson('legacy-v1-ui-src')
+    let loaded: GameState | null = null
+    render(
+      <Saves
+        state={state}
+        onLoad={(s) => {
+          loaded = s
+        }}
+        onNewGame={() => {}}
+        onBack={() => {}}
+      />,
+    )
+    fireEvent.change(screen.getByTestId('saves-import-text'), { target: { value: json } })
+    fireEvent.click(screen.getByTestId('saves-import-legacy'))
+    expect(loaded).not.toBeNull()
+    // The player is clearly told the save was converted (V1 original untouched).
+    const notice = screen.getByTestId('saves-notice')
+    expect(notice.textContent ?? '').toMatch(/converted/i)
+  })
+
+  it('the legacy affordance rejects a NON-V1 save as data (no crash)', () => {
+    const state = newGame('legacy-reject')
+    // A current V2 save is not a V1 save → the legacy path rejects it clearly.
+    const v2Json = exportSaveJson(state)
+    let loaded = false
+    render(
+      <Saves
+        state={state}
+        onLoad={() => {
+          loaded = true
+        }}
+        onNewGame={() => {}}
+        onBack={() => {}}
+      />,
+    )
+    fireEvent.change(screen.getByTestId('saves-import-text'), { target: { value: v2Json } })
+    fireEvent.click(screen.getByTestId('saves-import-legacy'))
+    expect(loaded).toBe(false)
+    expect(screen.getByRole('alert').textContent ?? '').toMatch(/legacy V1/i)
   })
 })

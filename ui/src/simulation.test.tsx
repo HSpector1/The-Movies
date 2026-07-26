@@ -56,12 +56,18 @@ describe('simulation: advancing a week ticks the engine exactly once', () => {
     const before = selectWeek(state)
     const { next } = advanceWeek(state)
     expect(selectWeek(next)).toBe(before + 1)
-    // Independent engine truth: one direct core tick lands on the same tick number
-    // and the same state (advanceWeek is a single tick, no duplication).
+    // RULING A: advanceWeek now ticks with { develop: true }. Development is a single
+    // in-tick step (never a second tick), so market.tick/cash/releasedFilms are still a
+    // single core tick's worth — assert against a bare core tick for those develop-invariant
+    // fields (development can only change talent, not tick number, cash, or release count).
     const direct = coreTick(state)
     expect(next.market.tick).toBe(direct.market.tick)
     expect(next.studio.cash).toBe(direct.studio.cash)
     expect(next.studio.releasedFilms.length).toBe(direct.studio.releasedFilms.length)
+    // And the full state equals ONE develop-ON core tick (no duplication of the tick).
+    const directDev = coreTick(state, { develop: true })
+    expect(next.market.tick).toBe(directDev.market.tick)
+    expect(next.rngState).toBe(directDev.rngState) // dev never advances the sim stream
   })
 
   it('two advanceWeek calls advance tick by exactly 2 (no double-tick per press)', () => {
