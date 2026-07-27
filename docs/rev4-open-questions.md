@@ -2056,3 +2056,66 @@ superseding 40-point/floor/baseline ruling AND the percentile-calibration amendm
 the controlling Balanced-creator authority), implemented as the Phase 5.2A cycle-3
 correction on `phase-5.2-studio-roster` (above `6b51497`). Normative alongside
 D-11/D-11.A; where they differ, D-11.C wins.*
+
+## D-11.D — Cycle-4A owner corrections: founding UX, film-flow clarity, accessible autopsy (amendment, 2026-07-27)
+
+Owner-approved Cycle-4A amendment (the non-financial half of the Cycle-4 playtest
+corrections; the studio economy is authorized separately under D-12). Refines D-11 / D-11.A
+without reopening unrelated provisions. Implemented as the Phase 5.2A **cycle-4A** correction
+on `phase-5.2-economy` (a branch off `phase-5.2-studio-roster` @ `b6f378a`), above `b6f378a`.
+
+**D1 — Creator terminology (clarity only; NO calibration change).** The Balanced creator's
+two concepts are renamed so they stop being confused: the archetype selector is
+**"Starting Skill Profile"** (what the person is good at *today* — current skills, OVR,
+specialties, genre experience) and the potential selector is **"Career Potential"** (the
+estimated *future* ceiling; it does not change current OVR). **Work Ethic** is labelled as
+"how efficiently this person turns experience into long-term improvement." A concise
+three-concept legend states the distinction. The `highUpsideProspect` preset is **relabelled
+"Raw Prospect"** (a low-current-ability starting profile) so "upside" appears only in the
+Career Potential control, not in both dropdowns; its underlying values (skills, default
+potential tier `HighUpside`, work ethic) are UNCHANGED — no creator calibration was altered,
+and Generational Upside remains available under its approved tradeoffs.
+
+**D2 — Profession-based founding.** The single undifferentiated applicant list becomes four
+profession TABS (Actors / Directors / Writers / Production-Craft), each showing its own
+progress (signed / required, met ✓, optional extras) and offering to continue to the next
+incomplete profession. Applicant cards remain restrained (name, relevant OVR + tier, Star
+Power, Career Potential estimate, Work Ethic, contract ask, signing bonus, up to two
+qualitative strengths + a primary concern, approximate market standing) — never the full
+24-skill grid. There is no separate Producer profession (the player is the studio head /
+producer).
+
+**D3 — One-writer founding minimum (supersedes D-11.A A1's "2 writers").** The required
+starting roster is now **3 actors / 1 director / 1 Writer / 1 Production-Craft Lead**
+(`TUNING.HIRING_MIN_WRITERS = 1`; the others unchanged). A second writer has no assignable
+role in the current instant film-assembly flow — Lead Writer + optional Co-Writer belong to
+the future persistent-screenplay milestone (Phase 5.2B, documented D-11.C C5) — so a second
+writer is optional, not required. No hidden two-writer requirement remains.
+
+**D4 — Restrained applicant discovery.** Each profession tab supports simple SORTING by a real
+field (relevant OVR — the default, never fame alone — · Star Power · Career Potential · Work
+Ethic · annual salary · signing bonus · Value (OVR per $M/yr) · age) and simple FILTERING
+(min OVR · min Star Power · max annual salary · Career Potential ≥ tier · profile
+Specialist/Multi-hyphenate · created-talent-only · affordable-under-fund) behind one
+expandable control. Every value comes from the existing profile/employment read-model; sorting
+and filtering are pure, deterministic, and never present another profession's talent.
+
+**D5 — Accessible default autopsy (technical report preserved).** Opening the full autopsy
+first shows a concise, plain-language report synthesized ENTIRELY from stored mechanics:
+**The result** (critic stars + score, audience reaction, revenue, profit/loss, forecast
+comparison) · **What worked** / **What hurt** (2–3 supported reasons each, from identified
+strengths, materialized risks, Fit strongest/weakest, cohesion, forecast delta, promise
+mismatch) · **Biggest surprise** (the largest forecast-vs-result divergence) · **What the
+studio learned** (1–2 grounded lessons) · a **decision-grade label** on the real
+film-quality × investment axes ("Good film, good investment" / "Creative success, commercial
+failure" / "Commercial hit, critical disappointment" / "Weak film, poor investment"; film
+strong iff cohesion ≥ 0.5 OR critic ≥ 55). No invented recommendations. The existing detailed
+technical report (craft, cohesion vectors, critic construction incl. sampled variance,
+per-segment response, box-office build, standing changes, the locked greenlight assessment)
+moves UNCHANGED beneath **Advanced Analysis**, collapsed by default but always mounted — every
+technical calculation is preserved; the sampled review variance is never hidden.
+
+*Record: D-11.D cycle-4A corrections authorized by the owner 2026-07-27, implemented as the
+Phase 5.2A cycle-4A correction on `phase-5.2-economy` (above `b6f378a`). Normative alongside
+D-11 / D-11.A / D-11.C; where they differ, D-11.D wins. D3 supersedes the "2 writers" clause
+of D-11.A A1.*

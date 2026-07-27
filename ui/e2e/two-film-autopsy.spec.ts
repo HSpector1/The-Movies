@@ -40,6 +40,7 @@ async function foundGenerousStudio(page: Page) {
     ['craft', 2],
   ]
   for (const [role, count] of need) {
+    await page.getByTestId(`founding-tab-${role}`).click() // D-11.D: select the profession tab
     const group = page.getByTestId(`founding-group-${role}`)
     for (let i = 0; i < count; i++) {
       await group.locator('button[data-testid^="founding-sign-"]').first().click()

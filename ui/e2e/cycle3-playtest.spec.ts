@@ -45,6 +45,7 @@ test('cycle-3: Balanced specialization creator + newspaper release reveal', asyn
     ['writer', 2],
     ['craft', 2],
   ] as Array<[string, number]>) {
+    await page.getByTestId(`founding-tab-${role}`).click() // D-11.D: select the profession tab
     const group = page.getByTestId(`founding-group-${role}`)
     for (let i = 0; i < count; i++) {
       await group.locator('button[data-testid^="founding-sign-"]').first().click()

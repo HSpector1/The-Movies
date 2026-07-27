@@ -272,7 +272,7 @@ export const TUNING = {
   HIRING_DRAFT_CRAFT: 3, // Production/Craft candidates (owner: 3)
   HIRING_MIN_ACTORS: 3, // required initial hires (owner: 3 as of D-11.A cycle-2; was 5)
   HIRING_MIN_DIRECTORS: 1, // (owner: 1)
-  HIRING_MIN_WRITERS: 2, // (owner: 2)
+  HIRING_MIN_WRITERS: 1, // (owner: 1 as of D-11.D cycle-4; was 2 — a second writer has no assignable role until persistent scripts)
   HIRING_MIN_CRAFT: 1, // (owner: 1 Production/Craft Lead)
   HIRING_FOUNDING_BUDGET: 6_000_000, // recruitment fund (signing-bonus pool; NOT cash)
 
@@ -695,7 +695,10 @@ export const BALANCED_ARCHETYPES: readonly ArchetypePreset[] = [
     primarySkills: [52, 52, 53, 53, 68, 55], secondaryBaseline: 42, genreBaseline: { horror: 20, adventure: 15 },
     defaultPotentialTier: 'Promising', defaultWorkEthic: 60, fame: 4 },
   // ── Career path (any profession) ──
-  { id: 'highUpsideProspect', label: 'High-Upside Prospect', appliesTo: 'any',
+  // D-11.D: labelled "Raw Prospect" (a low-current-ability STARTING SKILL PROFILE), not
+  // "High-Upside" — the upside now lives solely in the separate Career Potential control
+  // (defaultPotentialTier 'HighUpside'), so the two creator dropdowns stop duplicating "upside".
+  { id: 'highUpsideProspect', label: 'Raw Prospect', appliesTo: 'any',
     primarySkills: [52, 52, 52, 52, 52, 52], secondaryBaseline: 38, genreBaseline: {},
     defaultPotentialTier: 'HighUpside', defaultWorkEthic: 85, fame: 4 },
   { id: 'polishedLowCeiling', label: 'Polished Low-Ceiling Professional', appliesTo: 'any',

@@ -33,6 +33,7 @@ type RoleName = (typeof ROLES)[number]
 
 // Sign the first available offer on the first unsigned card in a founding role group.
 async function signFirstInGroup(page: Page, role: string) {
+  await page.getByTestId(`founding-tab-${role}`).click() // D-11.D: select the profession tab
   const group = page.getByTestId(`founding-group-${role}`)
   await group.locator('button[data-testid^="founding-sign-"]').first().click()
 }
@@ -162,20 +163,25 @@ test('cycle-2 owner playtest: custom-actor founding → hiring → two distinct 
 
   // ── STEP 6 — Back on founding, SIGN the created actor by name. ───────────────
   await expect(page.getByTestId('found-studio')).toBeVisible()
+  await page.getByTestId('founding-tab-actor').click() // D-11.D: the custom actor is in the Actors tab
   const adaCard = page.locator('[data-testid^="founding-card-"]').filter({ hasText: CUSTOM_ACTOR })
   await expect(adaCard).toHaveCount(1) // the created actor joined the applicant pool
   await adaCard.locator('button[data-testid^="founding-sign-"]').first().click()
   await expect(adaCard.locator('[data-testid^="founding-signed-"]')).toBeVisible()
 
-  // ── STEP 7 — Complete the roster to EXACTLY 3 actors / 1 director / 2 writers / 1 craft. ──
-  // The custom actor is 1 of the 3 actors; sign 2 more actors + 1 director + 2 writers + 1 craft.
-  for (let i = 0; i < 2; i++) await signFirstInGroup(page, 'actor')
-  await signFirstInGroup(page, 'director')
+  // ── STEP 7 — Complete the roster with enough depth for TWO CONCURRENT films. ──
+  // The founding minimum is 3 actors / 1 director / 1 writer / 1 craft (D-11.D). This test
+  // greenlights Film A and Film B in the SAME week, so it signs enough of each role (6/2/2/2,
+  // the custom actor being 1 of the 6) that both films cast distinctly from the roster —
+  // independent of the applicant SORT order. The 3-actor minimum itself is covered by the
+  // engine/component tests (d11-cycle2, d11-employment, d11-screens).
+  for (let i = 0; i < 5; i++) await signFirstInGroup(page, 'actor') // + the custom actor = 6
+  for (let i = 0; i < 2; i++) await signFirstInGroup(page, 'director')
   for (let i = 0; i < 2; i++) await signFirstInGroup(page, 'writer')
-  await signFirstInGroup(page, 'craft')
-  // Coverage reads 3 actors (custom + 2 signed from the pool).
-  await expect(page.getByTestId('founding-coverage-actor')).toContainText('3/')
-  await shot(page, 'c2-three-actor-founding')
+  for (let i = 0; i < 2; i++) await signFirstInGroup(page, 'craft')
+  // The actor minimum (3) is comfortably met (custom + signed from the pool).
+  await expect(page.getByTestId('founding-coverage-actor')).toContainText('/3')
+  await shot(page, 'c2-founding-roster')
   const found = page.getByTestId('found-studio')
   await expect(found).toBeEnabled()
   await found.click()

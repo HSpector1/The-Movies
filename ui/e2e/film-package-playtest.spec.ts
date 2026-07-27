@@ -69,6 +69,7 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
     ['writer', 4],
     ['craft', 3],
   ] as Array<[string, number]>) {
+    await page.getByTestId(`founding-tab-${role}`).click() // D-11.D: select the profession tab
     const group = page.getByTestId(`founding-group-${role}`)
     for (let i = 0; i < count; i++) {
       await group.locator('button[data-testid^="founding-sign-"]').first().click()
@@ -141,6 +142,8 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
   // ── STEP 7 — Compare the greenlight assessment with the autopsy (locked vs actual). ──
   await page.getByTestId(`open-autopsy-${prodIdA}`).click()
   await expect(page.getByTestId('autopsy')).toBeVisible()
+  // D-11.D: the locked greenlight comparison now lives under Advanced Analysis — expand it.
+  await page.getByTestId('autopsy-advanced-toggle').click()
   // The LOCKED greenlight decision is graded against the ACTUAL result: both are visible.
   const compare = page.getByTestId('autopsy-greenlight-compare')
   await expect(compare).toBeVisible()
@@ -226,6 +229,7 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
   // ── STEP 12 — Confirm the result remains uncertain but EXPLAINABLE. ──────────
   await page.getByTestId(`open-autopsy-${prodIdB}`).click()
   await expect(page.getByTestId('autopsy')).toBeVisible()
+  await page.getByTestId('autopsy-advanced-toggle').click() // D-11.D: expand Advanced Analysis
   // The autopsy explicitly frames the locked estimate as never-a-guarantee (uncertain)...
   await expect(page.getByTestId('autopsy-greenlight-compare')).toContainText(
     /could still have gone the other way/i,

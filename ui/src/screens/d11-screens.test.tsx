@@ -40,6 +40,18 @@ function requiredFoundingIds(seed: string): string[] {
     cards.filter((c) => c.profile.role === role).slice(0, n).map((c) => c.profile.id)
   return [...pick('actor', 5), ...pick('director', 1), ...pick('writer', 2), ...pick('craft', 1)]
 }
+// D-11.D: applicants are now grouped in profession tabs; sign each role within its tab.
+function requiredFoundingByRole(seed: string): [CreativeRole, string[]][] {
+  const cards = foundingApplicantCards(newGame(seed))
+  const pick = (role: CreativeRole, n: number) =>
+    cards.filter((c) => c.profile.role === role).slice(0, n).map((c) => c.profile.id)
+  return [
+    ['actor', pick('actor', 5)],
+    ['director', pick('director', 1)],
+    ['writer', pick('writer', 2)],
+    ['craft', pick('craft', 1)],
+  ]
+}
 
 describe('FoundingScreen — hire an initial roster, then found', () => {
   it('found-studio is disabled until the required minimums are met, then founds the studio', () => {
@@ -49,9 +61,11 @@ describe('FoundingScreen — hire an initial roster, then found', () => {
     const foundBtn = () => screen.getByTestId('found-studio') as HTMLButtonElement
     expect(foundBtn().disabled).toBe(true) // no roster yet
 
-    // Sign the minimum roster (2-year terms) by clicking each applicant's 104-week offer.
-    for (const id of requiredFoundingIds('ui-found-1')) {
-      fireEvent.click(screen.getByTestId(`founding-sign-${id}-104`))
+    // Sign the minimum roster (2-year terms). D-11.D: select each profession tab, then
+    // click each applicant's 104-week offer within that tab.
+    for (const [role, ids] of requiredFoundingByRole('ui-found-1')) {
+      fireEvent.click(screen.getByTestId(`founding-tab-${role}`))
+      for (const id of ids) fireEvent.click(screen.getByTestId(`founding-sign-${id}-104`))
     }
 
     expect(foundBtn().disabled).toBe(false) // minimums met

@@ -114,8 +114,10 @@ import {
   // D-11.C newspaper release reveal (pure derivation)
   buildNewspaper,
   criticStars,
+  audienceTier,
   NEWSPAPER_MASTHEAD,
 } from '../../../src/core/index.ts'
+import { money, factorLabel } from '../format.ts'
 import type {
   GameState,
   Talent,
@@ -1485,6 +1487,219 @@ export function freelancerMarketCards(state: GameState): EmploymentCard[] {
   return freelancerMarketIds(state).map((id) => employmentCard(state, id))
 }
 
+// ── Cycle 4A (D-11.D): founding applicant DISCOVERY — sort / filter / progress ─
+// A restrained, sortable/filterable read model over the founding pool. Every field is
+// derived from the EXISTING profile/employment adapters (no new sim, no new state, no
+// per-skill exposure). Pure functions so sorting/filtering truthfulness is unit-testable.
+const POTENTIAL_RANK: Record<PotentialTier, number> = Object.fromEntries(
+  AUTHORED_POTENTIAL_TIERS.map((t, i) => [t, i]),
+) as Record<PotentialTier, number>
+
+export type FoundingSortKey =
+  | 'ovr'
+  | 'fame'
+  | 'potential'
+  | 'workEthic'
+  | 'salary'
+  | 'signingBonus'
+  | 'value'
+  | 'age'
+export type FoundingProfileFilter = 'any' | 'specialist' | 'multiHyphenate'
+export type FoundingFilters = {
+  minOVR: number
+  potential: PotentialTier | 'any' // primary Career Potential at least this rank
+  maxSalary: number | null
+  minFame: number
+  profile: FoundingProfileFilter
+  createdOnly: boolean
+  affordableOnly: boolean
+}
+export const FOUNDING_FILTERS_NONE: FoundingFilters = {
+  minOVR: 0,
+  potential: 'any',
+  maxSalary: null,
+  minFame: 0,
+  profile: 'any',
+  createdOnly: false,
+  affordableOnly: false,
+}
+export type FoundingApplicantRow = {
+  card: EmploymentCard
+  id: string
+  name: string
+  role: CreativeRole
+  signed: boolean
+  ovr: number
+  ovrTier: string
+  fame: number
+  potentialTier: PotentialTier
+  potentialRank: number
+  potentialHigh: number
+  workEthic: number
+  workEthicLabel: string
+  annualSalary: number // representative ask (offers share annual salary; cheapest bonus's row)
+  signingBonus: number // cheapest offer's signing bonus (the recruitment-fund cost to sign)
+  age: number
+  authored: boolean
+  multiHyphenate: boolean
+  affordable: boolean // cheapest signing bonus ≤ remaining recruitment fund
+  value: number // relevant OVR per $M annual ask (documented heuristic; higher = better value)
+  standing: string // approximate market standing (percentile tier)
+  standingPct: number
+  topStrengths: string[] // up to 2 qualitative strengths from STORED signals (no raw skills)
+  primaryConcern: string | null
+}
+
+function assignmentText(a: { role: string; slot?: string | null }): string {
+  return a.slot ? `${a.role} (${a.slot})` : a.role
+}
+function foundingRowOf(state: GameState, card: EmploymentCard, fundRemaining: number): FoundingApplicantRow {
+  const p = card.profile
+  const primary = p.disciplines.find((d) => d.isPrimary) ?? p.disciplines[0]!
+  const pt = primary.potentialTier as PotentialTier // DisciplineSummary types it as a string
+  // Cheapest offer = the smallest signing bonus (its annual salary is the recurring ask).
+  const cheapest = card.employment.offerOptions.reduce<ContractOffer | null>(
+    (best, o) => (best === null || o.signingBonus < best.signingBonus ? o : best),
+    null,
+  )
+  const annualSalary = cheapest?.annualSalary ?? 0
+  const signingBonus = cheapest?.signingBonus ?? 0
+  const t = findTalent(state, p.id)
+  const multiHyphenate = t ? multiHyphenateOf(t) : false
+  const standingPct = disciplineOVRPercentile(state, primary.discipline, primary.ovr)
+  const value = annualSalary > 0 ? +(primary.ovr / (annualSalary / 1_000_000)).toFixed(1) : primary.ovr
+
+  // Qualitative strengths / concern — from STORED profile signals only (restrained; no skills).
+  const strengths: string[] = []
+  if (primary.ovr >= 60) strengths.push(`Strong ${primary.label.toLowerCase()} (${primary.tier})`)
+  if (p.fame >= 40) strengths.push('Recognized name')
+  if (POTENTIAL_RANK[pt] >= POTENTIAL_RANK.HighUpside) strengths.push('High ceiling')
+  if (p.workEthic >= 75) strengths.push('Strong work ethic')
+  if (multiHyphenate) strengths.push('Multi-hyphenate')
+
+  let primaryConcern: string | null = null
+  if (primary.unproven) primaryConcern = 'Unproven — no credits yet'
+  else if (p.fame < 10) primaryConcern = 'Little audience draw'
+  else if (p.workEthic < 40) primaryConcern = 'Low work ethic'
+  else if (POTENTIAL_RANK[pt] <= POTENTIAL_RANK.Limited) primaryConcern = 'Limited ceiling'
+  else if (p.age >= 55) primaryConcern = 'Late career'
+
+  return {
+    card,
+    id: p.id,
+    name: p.name,
+    role: p.role,
+    signed: card.employment.status === 'contracted',
+    ovr: primary.ovr,
+    ovrTier: primary.tier,
+    fame: p.fame,
+    potentialTier: pt,
+    potentialRank: POTENTIAL_RANK[pt],
+    potentialHigh: primary.potentialHigh,
+    workEthic: p.workEthic,
+    workEthicLabel: p.workEthicLabel,
+    annualSalary,
+    signingBonus,
+    age: p.age,
+    authored: p.authored,
+    multiHyphenate,
+    affordable: signingBonus <= fundRemaining,
+    value,
+    standing: standingTier(standingPct),
+    standingPct,
+    topStrengths: strengths.slice(0, 2),
+    primaryConcern,
+  }
+}
+
+// All founding applicants (optionally one profession), enriched.
+export function foundingApplicantRows(state: GameState, role?: CreativeRole): FoundingApplicantRow[] {
+  const fund = foundingBudgetRemaining(state)
+  return foundingApplicantCards(state)
+    .filter((c) => role === undefined || c.profile.role === role)
+    .map((c) => foundingRowOf(state, c, fund))
+}
+
+// Pure sort. Descending for quality keys, ascending for age/salary/signingBonus. A
+// deterministic id tiebreak keeps ordering stable (never fame-alone).
+const FOUNDING_SORT_ASC: Record<FoundingSortKey, boolean> = {
+  ovr: false,
+  fame: false,
+  potential: false,
+  workEthic: false,
+  value: false,
+  salary: true,
+  signingBonus: true,
+  age: true,
+}
+export function sortFoundingRows(rows: FoundingApplicantRow[], key: FoundingSortKey): FoundingApplicantRow[] {
+  const val = (r: FoundingApplicantRow): number => {
+    switch (key) {
+      case 'ovr':
+        return r.ovr
+      case 'fame':
+        return r.fame
+      case 'potential':
+        return r.potentialRank * 1000 + r.potentialHigh
+      case 'workEthic':
+        return r.workEthic
+      case 'salary':
+        return r.annualSalary
+      case 'signingBonus':
+        return r.signingBonus
+      case 'value':
+        return r.value
+      case 'age':
+        return r.age
+    }
+  }
+  const asc = FOUNDING_SORT_ASC[key]
+  return [...rows].sort((a, b) => {
+    const d = asc ? val(a) - val(b) : val(b) - val(a)
+    return d !== 0 ? d : a.id < b.id ? -1 : a.id > b.id ? 1 : 0
+  })
+}
+
+// Pure filter. Applied uniformly (profession is already narrowed by foundingApplicantRows).
+export function filterFoundingRows(rows: FoundingApplicantRow[], f: FoundingFilters): FoundingApplicantRow[] {
+  return rows.filter((r) => {
+    if (r.ovr < f.minOVR) return false
+    if (f.potential !== 'any' && r.potentialRank < POTENTIAL_RANK[f.potential]) return false
+    if (f.maxSalary !== null && r.annualSalary > f.maxSalary) return false
+    if (r.fame < f.minFame) return false
+    if (f.profile === 'specialist' && r.multiHyphenate) return false
+    if (f.profile === 'multiHyphenate' && !r.multiHyphenate) return false
+    if (f.createdOnly && !r.authored) return false
+    if (f.affordableOnly && !r.affordable) return false
+    return true
+  })
+}
+
+// Per-profession founding progress (count / min / met / optional-extra) + the next
+// still-incomplete profession, for the tab flow.
+export type FoundingProgress = {
+  role: CreativeRole
+  label: string
+  count: number
+  min: number
+  met: boolean
+  extra: number
+}
+export function foundingProgress(state: GameState): FoundingProgress[] {
+  return foundingCoverage(state).map((c) => ({
+    role: c.role,
+    label: c.label,
+    count: c.count,
+    min: c.min,
+    met: c.met,
+    extra: Math.max(0, c.count - c.min),
+  }))
+}
+export function nextIncompleteProfession(state: GameState): CreativeRole | null {
+  const p = foundingProgress(state).find((x) => !x.met)
+  return p ? p.role : null
+}
+
 // ── payroll & runway summary (D-11.19) ──
 export type PayrollSummary = {
   cash: number
@@ -2355,6 +2570,138 @@ export function autopsyCompare(
 
 // Re-export the AutopsyCompare's constituent result types (single boundary).
 export type { AutopsyCompare as AutopsyCompareView }
+
+// ── Cycle 4A (D-11.D): the ACCESSIBLE default autopsy ────────────────────────
+// A concise, plain-language read of a released film, synthesized ENTIRELY from the
+// already-computed AutopsyView + the locked AutopsyCompare. Every line maps to a stored
+// mechanic (identified strengths, materialized risks, Fit strongest/weakest, cohesion,
+// forecast delta, promise mismatch, audience score) — no invented recommendations. The
+// full technical report is preserved verbatim under "Advanced Analysis"; this is only the
+// default surface, readable in a few seconds by a non-expert.
+const AUDIENCE_REACTION: Record<ReturnType<typeof audienceTier>, string> = {
+  hated: 'Audiences hated it',
+  disliked: 'Audiences disliked it',
+  divided: 'Audiences were divided',
+  liked: 'Audiences liked it',
+  loved: 'Audiences loved it',
+}
+export type AutopsyGrade =
+  | 'Good film, good investment'
+  | 'Creative success, commercial failure'
+  | 'Commercial hit, critical disappointment'
+  | 'Weak film, poor investment'
+export type AccessibleAutopsy = {
+  conceptTitle: string
+  criticScore: number
+  criticStars: number
+  audienceLabel: string
+  revenue: number
+  profit: number
+  profitable: boolean
+  expectedCritic: number
+  expectedTotal: number
+  whatWorked: string[]
+  whatHurt: string[]
+  biggestSurprise: string
+  lessons: string[]
+  grade: AutopsyGrade
+}
+export function accessibleAutopsy(view: AutopsyView, compare: AutopsyCompare | null): AccessibleAutopsy {
+  const profit = view.profit
+  const profitable = profit >= 0
+  const critic = view.criticScore
+  const total = view.boxOffice.total
+  const expCritic = view.forecast.expectedCriticScore
+  const expTotal = view.forecast.expectedTotal
+  const round0 = (n: number) => Math.round(n)
+  // Same two REAL axes the greenlight verdict uses (film quality × investment), in the
+  // owner's decision-grade vocabulary. cohesion ≥ 0.5 OR critic ≥ 55 = a "good film".
+  const filmStrong = view.cohesion >= 0.5 || critic >= 55
+  const grade: AutopsyGrade = filmStrong
+    ? profitable
+      ? 'Good film, good investment'
+      : 'Creative success, commercial failure'
+    : profitable
+      ? 'Commercial hit, critical disappointment'
+      : 'Weak film, poor investment'
+
+  const fit = compare?.assessment.fit
+  const strongest = fit?.strongest
+  const weakest = fit?.weakest
+
+  const worked: string[] = []
+  if (critic >= 70) worked.push(`Critics responded well — a ${round0(critic)}/100 review.`)
+  if (view.cohesion >= 0.6) worked.push('The film felt coherent — its makers pulled in the same direction.')
+  if (strongest && strongest.fit >= 65)
+    worked.push(`${strongest.talentName} was an excellent fit as ${assignmentText(strongest)}.`)
+  if (total > expTotal * 1.1) worked.push('It outperformed its box-office forecast.')
+  if (profitable && profit >= 3_000_000) worked.push(`It turned a healthy profit of ${money(profit)}.`)
+  for (const s of compare?.assessment.strengths ?? []) {
+    if (worked.length >= 3) break
+    worked.push(s)
+  }
+
+  const hurt: string[] = []
+  if (critic < 45) hurt.push(`Critics were unimpressed — a ${round0(critic)}/100 review.`)
+  if (view.cohesion < 0.4) hurt.push('The film pulled in different directions — low creative cohesion.')
+  if (weakest && weakest.fit < 45)
+    hurt.push(`${weakest.talentName} was a stretch as ${assignmentText(weakest)}.`)
+  if (view.promiseMismatch >= 0.5) hurt.push('The delivered film drifted from what was promised.')
+  if (!profitable) hurt.push(`It lost ${money(Math.abs(profit))} against its committed cost.`)
+  else if (total < expTotal * 0.9) hurt.push('It came in under its box-office forecast.')
+  for (const r of compare?.risks.risks ?? []) {
+    if (hurt.length >= 3) break
+    if (r.materialized) hurt.push(`${factorLabel(r.factor)}: ${r.detail}`)
+  }
+
+  const boxRel = expTotal > 0 ? Math.abs(total - expTotal) / expTotal : 0
+  const criticRel = expCritic > 0 ? Math.abs(critic - expCritic) / expCritic : 0
+  let biggestSurprise: string
+  if (boxRel >= criticRel && boxRel > 0.12) {
+    biggestSurprise =
+      total >= expTotal
+        ? `Box office beat the forecast — ${money(total)} vs an expected ${money(expTotal)}.`
+        : `Box office fell short — ${money(total)} vs an expected ${money(expTotal)}.`
+  } else if (criticRel > 0.1) {
+    biggestSurprise =
+      critic >= expCritic
+        ? `Critics were kinder than expected — ${round0(critic)} vs a forecast ${round0(expCritic)}.`
+        : `Critics were harsher than expected — ${round0(critic)} vs a forecast ${round0(expCritic)}.`
+  } else {
+    biggestSurprise = 'The film landed close to its forecast — no major surprises.'
+  }
+
+  const lessons: string[] = []
+  if (weakest && weakest.fit < 45)
+    lessons.push(`Match talent to the material — ${weakest.talentName}'s Fit was the weak link.`)
+  if (view.promiseMismatch >= 0.5) lessons.push('Keep the delivered film close to the promise you market.')
+  if (filmStrong && !profitable) lessons.push('A well-made film still has to clear its budget to pay off.')
+  if (!filmStrong && profitable)
+    lessons.push('Commercial success and critical acclaim are separate outcomes.')
+  if (lessons.length === 0)
+    lessons.push(
+      profitable
+        ? 'A disciplined package delivered a sound result.'
+        : 'The economics did not work this time — revisit budget or Fit.',
+    )
+
+  return {
+    conceptTitle: view.conceptTitle,
+    criticScore: critic,
+    criticStars: criticStars(critic),
+    audienceLabel: AUDIENCE_REACTION[audienceTier(view.weightedAudienceScore)],
+    revenue: total,
+    profit,
+    profitable,
+    expectedCritic: expCritic,
+    expectedTotal: expTotal,
+    whatWorked: worked.slice(0, 3),
+    whatHurt: hurt.slice(0, 3),
+    biggestSurprise,
+    lessons: lessons.slice(0, 2),
+    grade,
+  }
+}
 
 // ── D-11.A post-reload film record ────────────────────────────────────────────
 // After a save/reload the per-session pre-tick snapshot is gone, so the FULL autopsy

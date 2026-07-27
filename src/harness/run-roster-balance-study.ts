@@ -40,10 +40,10 @@ const STRATEGIES: readonly Strategy[] = ['lean', 'balanced', 'star', 'fireAll']
 
 // Roster targets per strategy (counts by role). fireAll founds the minimum then fires.
 const ROSTER_PLAN: Record<Strategy, Record<CreativeRole, number>> = {
-  lean: { actor: 3, director: 1, writer: 2, craft: 1 }, // the new legal minimum (D-11.A)
+  lean: { actor: 3, director: 1, writer: 1, craft: 1 }, // the legal minimum (D-11.D: 1 writer)
   balanced: { actor: 7, director: 2, writer: 3, craft: 2 },
   star: { actor: 6, director: 2, writer: 2, craft: 1 },
-  fireAll: { actor: 3, director: 1, writer: 2, craft: 1 },
+  fireAll: { actor: 3, director: 1, writer: 1, craft: 1 }, // founds the minimum, then fires
 }
 
 const ovrOf = (t: Talent): number => roleOVR(t, ROLE_TO_DISCIPLINE[t.role])

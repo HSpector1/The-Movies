@@ -6,7 +6,9 @@
 // alignment, timing, reach, the full critic breakdown, per-segment response, the
 // box-office breakdown, profit/loss, standing deltas and WHY each channel moved.
 
+import { useState } from 'react'
 import type { AutopsyView, AutopsyCompareView, FilmParticipant, FilmParticipants } from '../engine/adapter.ts'
+import { accessibleAutopsy } from '../engine/adapter.ts'
 import { money, moneyExact, score, axis, signed, segmentLabel, factorLabel } from '../format.ts'
 import { Metric, Delta } from '../components/common.tsx'
 
@@ -79,6 +81,8 @@ export function Autopsy({
   compare: AutopsyCompareView | null
   onBack: () => void
 }) {
+  const [advancedOpen, setAdvancedOpen] = useState(false)
+  const simple = accessibleAutopsy(view, compare)
   const profitPositive = view.profit >= 0
   return (
     <div className="app-shell" data-testid="autopsy">
@@ -92,8 +96,118 @@ export function Autopsy({
         </button>
       </div>
 
-      {/* Headline: forecast (estimate) vs result */}
-      <div className="card">
+      {/* ── ACCESSIBLE DEFAULT (D-11.D): a concise, plain-language result. Every line is
+          synthesized from stored mechanics (adapter.accessibleAutopsy); the full technical
+          report is preserved below under Advanced Analysis. ── */}
+      <div className="card stack" data-testid="autopsy-summary">
+        <div className="spread">
+          <h2 style={{ margin: 0 }}>The result</h2>
+          <span className="badge" data-testid="autopsy-grade">
+            {simple.grade}
+          </span>
+        </div>
+        <div className="grid grid-4" style={{ marginTop: 8 }}>
+          <Metric label="Critics" small testid="autopsy-result-critic">
+            {simple.criticStars.toFixed(1)}/5 · {Math.round(simple.criticScore)}/100
+          </Metric>
+          <Metric label="Audience" small testid="autopsy-result-audience">
+            {simple.audienceLabel}
+          </Metric>
+          <Metric label="Revenue" small testid="autopsy-result-revenue">
+            {money(simple.revenue)}
+          </Metric>
+          <Metric label="Profit / loss" small testid="autopsy-result-profit">
+            <span className={simple.profitable ? 'money pos' : 'money neg'}>
+              {simple.profitable ? 'Profit ' : 'Loss '}
+              {moneyExact(simple.profit)}
+            </span>
+          </Metric>
+        </div>
+        <span className="hint" data-testid="autopsy-result-forecast">
+          Forecast at greenlight: {score(simple.expectedCritic)} critic · {money(simple.expectedTotal)}{' '}
+          total. Studio Revenue is the full box-office total (no distributor split in the current model).
+        </span>
+      </div>
+
+      <div style={{ height: 16 }} />
+
+      <div className="grid grid-2">
+        <div className="card stack" data-testid="autopsy-worked">
+          <h3 style={{ marginTop: 0 }}>What worked</h3>
+          {simple.whatWorked.length > 0 ? (
+            <ul style={{ margin: 0, paddingLeft: 18 }}>
+              {simple.whatWorked.map((s, i) => (
+                <li key={i}>{s}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="hint">Nothing stood out as a clear strength.</p>
+          )}
+        </div>
+        <div className="card stack" data-testid="autopsy-hurt">
+          <h3 style={{ marginTop: 0 }}>What hurt</h3>
+          {simple.whatHurt.length > 0 ? (
+            <ul style={{ margin: 0, paddingLeft: 18 }}>
+              {simple.whatHurt.map((s, i) => (
+                <li key={i}>{s}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="hint">Nothing went badly wrong.</p>
+          )}
+        </div>
+      </div>
+
+      <div style={{ height: 16 }} />
+
+      <div className="grid grid-2">
+        <div className="card stack" data-testid="autopsy-surprise">
+          <h3 style={{ marginTop: 0 }}>Biggest surprise</h3>
+          <p style={{ margin: 0 }}>{simple.biggestSurprise}</p>
+        </div>
+        <div className="card stack" data-testid="autopsy-lessons">
+          <h3 style={{ marginTop: 0 }}>What the studio learned</h3>
+          <ul style={{ margin: 0, paddingLeft: 18 }}>
+            {simple.lessons.map((s, i) => (
+              <li key={i}>{s}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div style={{ height: 16 }} />
+
+      {/* D-11.A — this film's OWN immutable cast & crew (frozen at greenlight). Kept in the
+          accessible view: this is identity, not deep math. */}
+      {view.participants && <ParticipantsCard participants={view.participants} />}
+
+      {view.participants && <div style={{ height: 16 }} />}
+
+      {/* ── Advanced Analysis (D-11.D): the full technical report, collapsed by default but
+          always MOUNTED (preserved verbatim), so nothing is lost. ── */}
+      <div className="card stack">
+        <button
+          type="button"
+          className="ghost spread"
+          style={{ width: '100%' }}
+          onClick={() => setAdvancedOpen((o) => !o)}
+          data-testid="autopsy-advanced-toggle"
+        >
+          <strong>Advanced Analysis</strong>
+          <span className="mono">{advancedOpen ? 'Hide −' : 'Show +'}</span>
+        </button>
+        <p className="hint" style={{ marginBottom: 0 }}>
+          The full technical breakdown — the locked greenlight assessment, craft, cohesion vectors,
+          critic construction (including the sampled variance), per-segment response, the box-office
+          build, and standing changes. Every number the summary above is built from.
+        </p>
+      </div>
+
+      <div hidden={!advancedOpen} data-testid="autopsy-advanced">
+        <div style={{ height: 16 }} />
+
+        {/* Headline: forecast (estimate) vs result */}
+        <div className="card">
         <div className="spread">
           <h2 style={{ margin: 0 }}>What we expected, and what happened</h2>
         </div>
@@ -128,15 +242,10 @@ export function Autopsy({
         </div>
       </div>
 
-      <div style={{ height: 16 }} />
+        <div style={{ height: 16 }} />
 
-      {/* D-11.A — this film's OWN immutable cast & crew (frozen at greenlight) */}
-      {view.participants && <ParticipantsCard participants={view.participants} />}
-
-      {view.participants && <div style={{ height: 16 }} />}
-
-      {/* Greenlight expectation vs actual — the locked decision, graded against reality */}
-      {compare && <GreenlightCompare compare={compare} view={view} />}
+        {/* Greenlight expectation vs actual — the locked decision, graded against reality */}
+        {compare && <GreenlightCompare compare={compare} view={view} />}
 
       <div className="grid grid-2">
         {/* Craft breakdown */}
@@ -400,6 +509,7 @@ export function Autopsy({
             </span>
           </div>
         </div>
+      </div>
       </div>
     </div>
   )

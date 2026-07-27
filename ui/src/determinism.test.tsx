@@ -29,6 +29,7 @@ function dashboardSnapshot(): string {
 // cash, so INITIAL_CASH is unchanged and the dashboard snapshot stays deterministic.
 function foundViaUi() {
   const signInGroup = (role: string, n: number) => {
+    fireEvent.click(screen.getByTestId(`founding-tab-${role}`)) // D-11.D: select the profession tab
     for (let i = 0; i < n; i++) {
       const group = screen.getByTestId(`founding-group-${role}`)
       const signBtn = within(group)

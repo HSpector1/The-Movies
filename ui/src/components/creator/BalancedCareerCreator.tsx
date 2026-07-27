@@ -650,8 +650,21 @@ export function BalancedCareerCreator({
 
         {stage === 'profession' && (
           <div className="card stack">
-            <h2>Profession &amp; preset</h2>
-            <label htmlFor="balanced-preset">Career archetype</label>
+            <h2>Profession, profile &amp; potential</h2>
+            <div className="panel stack" data-testid="creator-concept-legend" style={{ fontSize: 11 }}>
+              <span>
+                <strong>Starting Skill Profile</strong> — what they are good at <em>today</em> (current
+                skills &amp; OVR).
+              </span>
+              <span>
+                <strong>Career Potential</strong> — the ceiling they might <em>eventually</em> reach. Does
+                not change current OVR.
+              </span>
+              <span>
+                <strong>Work Ethic</strong> — how efficiently they turn experience into that long-term growth.
+              </span>
+            </div>
+            <label htmlFor="balanced-preset">Starting Skill Profile</label>
             <select
               id="balanced-preset"
               value={draft.presetId}
@@ -665,19 +678,21 @@ export function BalancedCareerCreator({
               ))}
             </select>
             <p className="hint" style={{ fontSize: 11 }}>
-              The archetype sets a starting six-skill profile and a little genre experience. Choosing one
-              resets your specialization spend. You then sculpt from there with {SPECIALIZATION_POINTS}{' '}
-              points.
+              This determines what the person is good at <strong>today</strong> — their current skills, OVR,
+              specialties and genre experience. Choosing one resets your specialization spend; you then
+              sculpt from there with {SPECIALIZATION_POINTS} points. It does <strong>not</strong> set their
+              future ceiling — that is Career Potential, below.
             </p>
 
-            <h3 style={{ marginBottom: 0 }}>Potential &amp; work ethic</h3>
+            <h3 style={{ marginBottom: 0 }}>Career Potential &amp; Work Ethic</h3>
             <p className="hint" style={{ fontSize: 11 }}>
-              A separate career tradeoff — <strong>not</strong> bought with specialization points. Potential
-              is a hidden ceiling estimate; work ethic drives how fast they develop toward it.
+              A separate career tradeoff — <strong>not</strong> bought with specialization points, and it
+              does <strong>not</strong> improve their current OVR. Career Potential is the estimated ceiling
+              they may eventually reach; Work Ethic is how efficiently they turn experience into that growth.
             </p>
             <div className="grid grid-2">
               <div className="stack">
-                <label htmlFor="balanced-potential">Potential tier</label>
+                <label htmlFor="balanced-potential">Career Potential</label>
                 <select
                   id="balanced-potential"
                   value={draft.potentialTier}
@@ -703,6 +718,10 @@ export function BalancedCareerCreator({
                   onChange={(e) => patch({ workEthic: clampInt(Number(e.target.value), 1, 99, 50) })}
                   data-testid="balanced-workethic"
                 />
+                <span className="hint" style={{ fontSize: 11 }}>
+                  How efficiently this person turns experience into long-term improvement. Higher grows
+                  faster toward the ceiling; it does not change current ability.
+                </span>
               </div>
             </div>
           </div>

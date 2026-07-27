@@ -38,6 +38,7 @@ async function foundStudioViaUi(page: Page) {
     ['craft', 1],
   ]
   for (const [role, count] of need) {
+    await page.getByTestId(`founding-tab-${role}`).click() // D-11.D: select the profession tab
     const group = page.getByTestId(`founding-group-${role}`)
     for (let i = 0; i < count; i++) {
       await group.locator('button[data-testid^="founding-sign-"]').first().click()
@@ -155,6 +156,8 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
   const prodId = releaseCardTestId!.replace('release-card-', '')
   await page.getByTestId(`open-autopsy-${prodId}`).click()
   await expect(page.getByTestId('autopsy')).toBeVisible()
+  // D-11.D: the technical breakdown now lives under Advanced Analysis — expand it.
+  await page.getByTestId('autopsy-advanced-toggle').click()
   // The sampled review variance is present (never hidden).
   await expect(page.getByTestId('autopsy-reviewvariance')).toBeVisible()
   await expect(page.getByTestId('autopsy-criticmean')).toBeVisible()
