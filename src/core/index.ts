@@ -26,6 +26,9 @@ export type {
   Budget,
   Production,
   FilmResult,
+  TheatricalRun,
+  TheatricalRunStatus,
+  GameStateV3,
   FilmParticipant,
   FilmParticipantRole,
   FilmParticipants,
@@ -206,12 +209,39 @@ export {
 } from './newspaper.js'
 export type { NewspaperView, NewspaperInput, CriticRating, AudienceTier } from './newspaper.js'
 
+// ── D-12 studio economy (economy.ts) — pure theatrical-run + fame-saturation math ─
+export { fameReach, theatricalSchedule, openTheatricalRun, legacyTheatricalRun } from './economy.js'
+
+// ── D-12 financial read models (economyView.ts) — the SINGLE UI money source ────
+// Pure, deterministic, display-only. Mirrors the exact engine math (tick 3.5/7.5,
+// payroll, solvency, runway). The sim never reads these.
+export {
+  weeklyOverhead,
+  weeklyBurn,
+  runNextWeekRevenue,
+  runRemainingRevenue,
+  expectedWeeklyRunRevenue,
+  pipelineRunRevenue,
+  runway,
+  affordability,
+  commitmentPreview,
+  breakEvenGross,
+  runView,
+  activeRunViews,
+  financeTotals,
+  periodSummary,
+  financeView,
+} from './economyView.js'
+export type { Runway, CommitmentPreview, RunView, FinanceTotals, PeriodSummary, FinanceView } from './economyView.js'
+
 // ── D-11 employment / contracts / roster / freelancer market (employment.ts) ──
 // Pure, deterministic, read-only helpers (status/offers/markets/payroll/founding).
 // The engine reads these in actions.ts (sign/renew/release/greenlight legality) and
 // tick.ts (payroll/expiration); the UI reads the display/selector helpers.
 export {
   employmentEngaged,
+  economyEngaged,
+  canAfford,
   employmentStatus,
   activeContract,
   isContracted,
@@ -236,7 +266,7 @@ export {
   FOUNDING_MINIMUMS,
   beginFounding,
 } from './employment.js'
-export type { ContractOffer } from './employment.js'
+export type { ContractOffer, Affordability } from './employment.js'
 
 // ── Phase 5.1 CYCLE 3 — Film Package assessment helpers (READ-ONLY UI summaries) ─
 // Pure, deterministic, JSON-serializable read-only assessments the UI calls so it
@@ -307,10 +337,12 @@ export {
   validateSaveV1,
   validateSaveV2,
   validateSaveV3,
+  validateSaveV4,
   makeSave,
   makeSaveV1,
   makeSaveV2,
   makeSaveV3,
+  makeSaveV4,
   loadSave,
   exportSave,
   importSave,
@@ -322,5 +354,11 @@ export {
   convertV2ToV3,
   importLegacyV2,
   importLegacyV1ToV3,
+  // D-12 — legacy V3 → NEW V4 (and V2/V1 → V4) + migrateToV4, deterministic + idempotent.
+  convertV3ToV4,
+  importLegacyV3ToV4,
+  importLegacyV2ToV4,
+  importLegacyV1ToV4,
+  migrateToV4,
 } from './save.js'
-export type { SaveFileV1, SaveFileV2, SaveFileV3, SaveFile, TalentV1, GameStateV1 } from './save.js'
+export type { SaveFileV1, SaveFileV2, SaveFileV3, SaveFileV4, SaveFile, TalentV1, GameStateV1 } from './save.js'

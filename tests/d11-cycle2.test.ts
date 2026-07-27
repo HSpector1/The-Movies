@@ -211,7 +211,7 @@ describe('D-11.A — each released film keeps its OWN immutable participants', (
   it('save/reload (V3) preserves each film\'s distinct participant history', () => {
     const { s } = twoFilms('c2-part-5')
     const reloaded = importSave(exportSave(makeSave(s)))
-    if (reloaded.saveVersion !== 3) throw new Error('expected V3')
+    if (reloaded.saveVersion !== 4) throw new Error('expected V4') // D-12: new games save as V4
     const before = s.studio.releasedFilms.map((f) => f.participants!.writer.talentId).sort()
     const after = reloaded.state.studio.releasedFilms.map((f) => f.participants!.writer.talentId).sort()
     expect(after).toEqual(before)

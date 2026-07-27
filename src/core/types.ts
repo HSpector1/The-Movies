@@ -295,6 +295,26 @@ export type Studio = {
   releasedFilms: FilmResult[]
 }
 
+// ── D-12 theatrical runs ──────────────────────────────────────────────────────
+// A film's multi-week theatrical run, LOCKED at release from already-resolved reception
+// outputs (opening, legs) + TUNING. Kept as a HISTORY (never deleted); `status` filters
+// active vs completed. `legacyCompleted` = a migrated V3 release (full-gross, paid once,
+// never repaid). Additive; empty on M0A/legacy → byte-identical.
+export type TheatricalRunStatus = 'active' | 'completed' | 'legacyCompleted'
+export type TheatricalRun = {
+  productionId: string
+  conceptId: string
+  releaseTick: number
+  totalWeeks: number
+  weekIndex: number // weeks credited so far (0-based); === totalWeeks when finished
+  weeklyGross: number[] // locked; Σ = opening×legs (= FilmResult.boxOffice.total for D-12 runs)
+  studioShare: number // locked blended rental share (1.0 for legacyCompleted)
+  cumulativeGrossPaid: number
+  cumulativeStudioRevenuePaid: number // Studio Revenue ACTUALLY credited to cash
+  economyModelVersion: number // 1 = D-12 blended; 0 = legacy full-gross (migrated V3)
+  status: TheatricalRunStatus
+}
+
 // ── D-11 Studio Employment, Contracts, Roster, Freelancer Market ──────────────
 // Employment/contract/ledger/founding state lives on GameState (studio-relative),
 // NOT on Talent (the person). Talent stays the shared "industry" population; the
@@ -329,11 +349,13 @@ export type Contract = {
 // they draw founding.budget, never cash, and are tracked in founding.spentBonus).
 export type LedgerKind =
   | 'production' // negative + marketing debited at greenlight
-  | 'boxOffice' // box-office total credited at release
+  | 'boxOffice' // box-office total credited at release (LEGACY/M0A single-lump path only)
   | 'payroll' // weekly Σ contracted salaries debited at tick
   | 'signingBonus' // operating-phase contract signing bonus debited at signing
   | 'termination' // early-release termination cost debited at release
   | 'freelancerFee' // one-film freelancer fee debited at greenlight
+  | 'studioRevenue' // D-12: weekly Studio Revenue cash receipt (blended share of weekly gross)
+  | 'overhead' // D-12: weekly studio overhead (base + per-employee), engaged only
 
 export type LedgerEntry = {
   week: number
@@ -366,12 +388,19 @@ export type GameStateV2 = {
   coverageContexts: CoverageContext[]
 }
 
-// The live D-11 state: the frozen V2 shape PLUS the employment surface.
-export type GameState = GameStateV2 & {
+// The D-11 employment surface, FROZEN as SaveFileV3's state (D-12.19). Anchoring
+// SaveFileV3 to GameStateV3 (not the live GameState) keeps the D-12 `theatricalRuns`
+// field out of the frozen V3 shape, exactly as GameStateV1/V2 are anchored.
+export type GameStateV3 = GameStateV2 & {
   founding: FoundingState | null
   contracts: Contract[]
   ledger: LedgerEntry[]
   freeAgents: string[] // ids immediately signable (former employees; expired/released)
+}
+
+// The live D-12 state: the frozen V3 surface PLUS theatrical runs (empty on M0A/legacy).
+export type GameState = GameStateV3 & {
+  theatricalRuns: TheatricalRun[]
 }
 
 // §2.6 Actions

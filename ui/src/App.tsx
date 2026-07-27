@@ -27,9 +27,12 @@ import type {
   NewspaperView,
   Standing,
   ReleaseDevelopment,
+  PeriodSummary,
+  SimStopReason,
 } from './engine/adapter.ts'
 import {
   advanceWeek,
+  advanceToNextEvent,
   explainRelease,
   buildReleaseDevelopment,
   autopsyCompare,
@@ -49,6 +52,7 @@ import { StudioRoster } from './screens/StudioRoster.tsx'
 import { HiringMarket } from './screens/HiringMarket.tsx'
 import { FilmRecord } from './screens/FilmRecord.tsx'
 import { NewspaperReveal } from './screens/NewspaperReveal.tsx'
+import { WeeklySummary } from './screens/WeeklySummary.tsx'
 
 type Screen =
   | { kind: 'start' }
@@ -84,6 +88,15 @@ type Screen =
     }
   | { kind: 'autopsy'; view: AutopsyView; compare: AutopsyCompareView | null }
   | { kind: 'filmRecord'; view: FilmRecordView }
+  | {
+      // D-12.18: "Sim to next event" stopped on a non-release event. The aggregate cash
+      // movement over the weeks advanced + why it stopped. (Releases route to newspaper.)
+      kind: 'periodSummary'
+      summary: PeriodSummary
+      stopReason: SimStopReason
+      weeks: number
+      cashNow: number
+    }
   | { kind: 'talent'; returnTo: 'dashboard' | 'founding' | 'hiring' }
   | { kind: 'hub' }
   | { kind: 'saves' }
@@ -187,6 +200,47 @@ export function App() {
     setScreen({ kind: 'release', ...release })
   }
 
+  // D-12.18: Sim to next event — advance many weeks through the engine, stopping before the
+  // next blocking event. A release routes to the same newspaper/release flow as Advance (the
+  // stop tick is exactly one tick after `preTick`); any other stop shows the weekly summary.
+  function handleSimToEvent() {
+    if (!state) return
+    const result = advanceToNextEvent(state)
+    setState(result.next)
+    if (result.released.length > 0) {
+      const development = buildReleaseDevelopment(result.preTick, result.next, result.released)
+      const release = {
+        preTick: result.preTick,
+        postTickStanding: result.next.studio.standing,
+        released: result.released,
+        development,
+      }
+      setSnapshots((prev) => {
+        const merged = { ...prev }
+        for (const f of result.released) {
+          merged[f.productionId] = { preTick: result.preTick, postTickStanding: result.next.studio.standing }
+        }
+        return merged
+      })
+      const views = result.released
+        .map((f) => releaseNewspaper(result.next, f))
+        .filter((v): v is NewspaperView => v !== null)
+      if (views.length > 0) {
+        setScreen({ kind: 'newspaper', source: 'release', views, films: result.released, release })
+        return
+      }
+      setScreen({ kind: 'release', ...release })
+      return
+    }
+    setScreen({
+      kind: 'periodSummary',
+      summary: result.summary,
+      stopReason: result.stopReason,
+      weeks: result.weeks,
+      cashNow: result.next.studio.cash,
+    })
+  }
+
   // D-11.C PART 2: re-open a film's newspaper clipping after the fact (dashboard / record).
   // Reconstructed purely from persisted state (participants + forecast + ledger), so it
   // survives save/reload. Continue returns to the dashboard; the clipping is not "news"
@@ -258,6 +312,7 @@ export function App() {
           state={state}
           onAssemble={() => setScreen({ kind: 'assembly' })}
           onAdvance={handleAdvance}
+          onSimToEvent={handleSimToEvent}
           onCreateTalent={() => setScreen({ kind: 'talent', returnTo: 'dashboard' })}
           onOpenHub={() => setScreen({ kind: 'hub' })}
           onOpenRoster={() => setScreen({ kind: 'roster' })}
@@ -329,6 +384,16 @@ export function App() {
       )}
 
       {screen.kind === 'filmRecord' && <FilmRecord view={screen.view} onBack={goDashboard} />}
+
+      {screen.kind === 'periodSummary' && (
+        <WeeklySummary
+          summary={screen.summary}
+          stopReason={screen.stopReason}
+          weeks={screen.weeks}
+          cashNow={screen.cashNow}
+          onContinue={goDashboard}
+        />
+      )}
 
       {screen.kind === 'talent' && (
         <TalentCreator

@@ -176,11 +176,14 @@ describe('autopsy: box office and profit match the public engine outputs', () =>
     expect(autopsyText).toContain(money(film.boxOffice.total))
   })
 
-  it('profit shown equals total − committedCost', () => {
+  it('profit shown equals studio revenue − committedCost', () => {
     const { view, compare } = playToRelease('autopsy-money-2')
     render(<Autopsy view={view} compare={compare} onBack={() => {}} />)
-    // Engine identity: profit = total − committedCost.
-    expect(view.profit).toBeCloseTo(view.boxOffice.total - view.committedCost, 4)
+    // D-12 identity: profit = Studio Revenue (blended rental share of gross) − committedCost.
+    expect(view.profit).toBeCloseTo(view.studioRevenue - view.committedCost, 4)
+    // Studio Revenue is a rental SHARE of the gross — strictly less than the full box office.
+    expect(view.studioRevenue).toBeGreaterThan(0)
+    expect(view.studioRevenue).toBeLessThan(view.boxOffice.total)
     // Rendered in the profit metric.
     expect(screen.getByTestId('autopsy-profit')).toBeInTheDocument()
   })

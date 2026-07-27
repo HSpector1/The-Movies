@@ -35,6 +35,7 @@
 
 import {
   activeContract,
+  canAfford,
   contractOffer,
   employmentEngaged,
   foundingGaps,
@@ -369,7 +370,10 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
     releasedFilms: state.studio.releasedFilms,
     concepts: state.concepts,
   }
-  const forecastSnapshot: Forecast = computeForecast(inp, ctx)
+  // D-12: the greenlight forecast saturates fame→opening reach with the SAME helper as the
+  // realized release when the economy is engaged (economyEngaged ≡ employmentEngaged), so
+  // forecast and result stay consistent; M0A (not engaged) uses the legacy path (byte-identical).
+  const forecastSnapshot: Forecast = computeForecast(inp, ctx, employmentEngaged(state))
 
   // ── Ledger + cash (D-1 unchanged when employment NOT engaged; D-11 economics
   // when engaged). Both paths keep the reconciliation invariant
@@ -411,6 +415,12 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
         productionId: id,
         note: 'freelancer one-film fee',
       })
+    }
+    // D-12 solvency gate — a voluntary greenlight (production + marketing + freelancer fees)
+    // may not leave cash below zero. Unavoidable weekly costs may still go negative later.
+    const aff = canAfford(state, productionCost + freelancerFees)
+    if (!aff.ok) {
+      throw new Error(`applyActions: greenlight rejected — ${aff.reason} (D-12 solvency gate)`)
     }
     cash = state.studio.cash - productionCost - freelancerFees
     ledgerAdds.unshift({
@@ -1118,6 +1128,11 @@ function applySignContract(state: GameState, action: Action & { kind: 'signContr
       `applyActions: signContract rejected — talent "${talentId}" is not currently available to sign (D-11.14)`,
     )
   }
+  // D-12 solvency gate — the signing bonus is a voluntary immediate commitment.
+  const aff = canAfford(state, offer.signingBonus)
+  if (!aff.ok) {
+    throw new Error(`applyActions: signContract rejected — ${aff.reason} (D-12 solvency gate)`)
+  }
   const entry: LedgerEntry = {
     week,
     kind: 'signingBonus',
@@ -1155,6 +1170,11 @@ function applyRenewContract(state: GameState, action: Action & { kind: 'renewCon
     startWeek: week,
     endWeekExclusive: week + offer.termWeeks,
     termWeeks: offer.termWeeks,
+  }
+  // D-12 solvency gate — the renewal signing bonus is a voluntary immediate commitment.
+  const affRenew = canAfford(state, offer.signingBonus)
+  if (!affRenew.ok) {
+    throw new Error(`applyActions: renewContract rejected — ${affRenew.reason} (D-12 solvency gate)`)
   }
   const entry: LedgerEntry = {
     week,

@@ -4,7 +4,7 @@
 // active productions (stored forecast + remaining weeks), recent releases, and the
 // primary actions (Assemble a film, Advance one week) plus Talent creator / Saves.
 
-import type { GameState, FilmResult } from '../engine/adapter.ts'
+import type { GameState, FilmResult, RunView } from '../engine/adapter.ts'
 import {
   selectWeek,
   selectCash,
@@ -13,7 +13,9 @@ import {
   selectReleasedFilms,
   canGreenlightMore,
   findConcept,
-  payrollSummary,
+  financeCard,
+  theatricalRuns,
+  studioRevenueForFilm,
 } from '../engine/adapter.ts'
 import { money, score } from '../format.ts'
 import { Metric, StandingBar } from '../components/common.tsx'
@@ -22,6 +24,7 @@ export function Dashboard({
   state,
   onAssemble,
   onAdvance,
+  onSimToEvent,
   onCreateTalent,
   onOpenHub,
   onOpenRoster,
@@ -33,6 +36,7 @@ export function Dashboard({
   state: GameState
   onAssemble: () => void
   onAdvance: () => void
+  onSimToEvent: () => void
   onCreateTalent: () => void
   onOpenHub?: () => void
   onOpenRoster?: () => void
@@ -49,7 +53,8 @@ export function Dashboard({
   const active = selectActiveProductions(state)
   const released = selectReleasedFilms(state)
   const canGreenlight = canGreenlightMore(state)
-  const payroll = payrollSummary(state)
+  const fin = financeCard(state)
+  const runs = theatricalRuns(state)
 
   // Recent releases: most recent first.
   const recent = [...released].reverse().slice(0, 6)
@@ -107,7 +112,15 @@ export function Dashboard({
             <button className="primary" onClick={onAdvance} data-testid="advance-week">
               Advance one week
             </button>
+            <button className="primary" onClick={onSimToEvent} data-testid="sim-to-event">
+              Sim to next event
+            </button>
           </div>
+          <p className="hint">
+            Sim to next event runs weeks in order — applying payroll, overhead, and theatrical
+            revenue — and stops before the next thing that needs you: a release, a run ending, a
+            contract change, or cash going negative.
+          </p>
           {!canGreenlight && (
             <p className="hint">
               At the production cap ({active.length}). Advance weeks until a film releases before
@@ -153,34 +166,66 @@ export function Dashboard({
       <div style={{ height: 16 }} />
 
       <div className="card">
-        <h2>Payroll &amp; runway</h2>
-        <div className="row" style={{ gap: 24, flexWrap: 'wrap' }} data-testid="payroll-summary">
-          <Metric label="Roster" small testid="payroll-count">
-            {payroll.contractCount}
+        <h2>Finances</h2>
+        <div className="row" style={{ gap: 24, flexWrap: 'wrap' }} data-testid="finances-card">
+          <Metric label="Cash" small testid="fin-cash">
+            <span className={fin.cash < 0 ? 'money neg' : 'money pos'}>{money(fin.cash)}</span>
           </Metric>
-          <Metric label="Weekly payroll" small testid="payroll-weekly">
-            {money(payroll.weeklyPayroll)}
+          <Metric label="Runway" small testid="fin-runway">
+            {fin.runway.infinite ? '—' : `${fin.runway.weeks} wk`}
           </Metric>
-          <Metric label="Annual payroll" small testid="payroll-annual">
-            {money(payroll.annualPayroll)}
+          <Metric label="Weekly payroll" small testid="fin-payroll">
+            {money(fin.weeklyPayroll)}
           </Metric>
-          <Metric label="Contract obligations" small>
-            {money(payroll.projectedObligations)}
+          <Metric label="Weekly overhead" small testid="fin-overhead">
+            {money(fin.weeklyOverhead)}
           </Metric>
-          <Metric label="Signing bonuses paid" small testid="payroll-bonuses">
-            {money(payroll.signingBonusesPaid)}
+          <Metric label="Weekly burn" small testid="fin-burn">
+            {money(fin.weeklyBurn)}
           </Metric>
-          <Metric label="Upcoming renewals" small testid="payroll-renewals">
-            {payroll.upcomingRenewals}
+          <Metric label="Active-run revenue / wk" small testid="fin-run-revenue">
+            {money(fin.expectedWeeklyRunRevenue)}
           </Metric>
-          <Metric label="Runway" small testid="payroll-runway">
-            {payroll.runwayWeeks === null ? '—' : `${payroll.runwayWeeks} wk`}
+          <Metric label="Net weekly" small testid="fin-net-weekly">
+            <span className={fin.netWeeklyCash < 0 ? 'money neg' : 'money pos'}>
+              {fin.netWeeklyCash >= 0 ? '+' : ''}
+              {money(fin.netWeeklyCash)}
+            </span>
+          </Metric>
+          <Metric label="In theaters" small testid="fin-active-runs">
+            {fin.activeRuns}
+          </Metric>
+          <Metric label="Revenue still to come" small testid="fin-pipeline">
+            {money(fin.pipelineRunRevenue)}
           </Metric>
         </div>
         <p className="hint" style={{ marginTop: 8 }}>
-          Weekly payroll is charged every time you advance a week. Studio Revenue currently equals
-          full box-office revenue (distributor and exhibitor economics are not yet modeled).
+          Runway answers “how long can the studio last under its current commitments” — it never
+          reserves cash for a film you haven’t greenlit. Studio Revenue is your rental share
+          (about {Math.round((runs[0]?.studioShare ?? 0.52) * 100)}%) of box office, paid weekly
+          across a film’s theatrical run — not the full gross.
         </p>
+      </div>
+
+      <div style={{ height: 16 }} />
+
+      <div className="card">
+        <h2>In theaters</h2>
+        {runs.length === 0 ? (
+          <div className="empty" data-testid="no-runs">
+            No films in theaters. A released film pays Studio Revenue weekly across its run.
+          </div>
+        ) : (
+          <div className="grid grid-2" data-testid="theatrical-runs">
+            {runs.map((r) => (
+              <TheatricalRunPanel
+                key={r.productionId}
+                run={r}
+                title={findConcept(state, r.conceptId)?.title ?? r.conceptId}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <div style={{ height: 16 }} />
@@ -240,7 +285,8 @@ export function Dashboard({
                 <th>Film</th>
                 <th className="num">Critic</th>
                 <th className="num">Opening</th>
-                <th className="num">Total</th>
+                <th className="num">Gross</th>
+                <th className="num">Studio Rev</th>
                 <th>Released</th>
                 <th></th>
               </tr>
@@ -248,12 +294,16 @@ export function Dashboard({
             <tbody>
               {recent.map((f) => {
                 const concept = findConcept(state, f.conceptId)
+                const studioRev = studioRevenueForFilm(state, f.productionId)
                 return (
                   <tr key={f.productionId} data-testid={`release-${f.productionId}`}>
                     <td>{concept?.title ?? f.conceptId}</td>
                     <td className="num">{score(f.criticScore)}</td>
                     <td className="num">{money(f.boxOffice.opening)}</td>
                     <td className="num">{money(f.boxOffice.total)}</td>
+                    <td className="num" data-testid={`release-${f.productionId}-studiorev`}>
+                      {studioRev === null ? '—' : money(studioRev)}
+                    </td>
                     <td>week {f.releaseTick}</td>
                     <td>
                       <div className="btn-row">
@@ -287,6 +337,34 @@ export function Dashboard({
             pre-release studio state, which is kept only for films released while you play).
           </p>
         )}
+      </div>
+    </div>
+  )
+}
+
+// One active theatrical run — its progress, this-week Studio Revenue, and gross→revenue.
+function TheatricalRunPanel({ run, title }: { run: RunView; title: string }) {
+  return (
+    <div className="panel" data-testid={`run-${run.productionId}`}>
+      <div className="spread">
+        <strong>{title ?? run.conceptId}</strong>
+        <span className="tag fact">
+          week {run.weekIndex} of {run.totalWeeks}
+        </span>
+      </div>
+      <div className="row" style={{ marginTop: 8, gap: 24, flexWrap: 'wrap' }}>
+        <Metric label="This week" small testid={`run-${run.productionId}-thisweek`}>
+          {money(run.nextWeekRevenue)}
+        </Metric>
+        <Metric label="Remaining" small testid={`run-${run.productionId}-remaining`}>
+          {money(run.remainingRevenue)}
+        </Metric>
+        <Metric label="Gross" small>
+          {money(run.totalGross)}
+        </Metric>
+        <Metric label="Studio revenue" small testid={`run-${run.productionId}-total`}>
+          {money(run.totalStudioRevenue)}
+        </Metric>
       </div>
     </div>
   )

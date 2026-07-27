@@ -210,6 +210,7 @@ describe('information integrity: no Oracle expected-value, no realized quality p
         state={state}
         onAssemble={() => {}}
         onAdvance={() => {}}
+        onSimToEvent={() => {}}
         onCreateTalent={() => {}}
         onSaves={() => {}}
         onOpenAutopsy={() => {}}
@@ -243,6 +244,7 @@ describe('information integrity: displayed forecast equals the STORED snapshot (
         state={state}
         onAssemble={() => {}}
         onAdvance={() => {}}
+        onSimToEvent={() => {}}
         onCreateTalent={() => {}}
         onSaves={() => {}}
         onOpenAutopsy={() => {}}

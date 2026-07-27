@@ -263,7 +263,7 @@ describe('information integrity: the package summary/cards never leak hidden dat
       /creative brief.*talent is assessed separately/i,
     )
     expect(screen.getByTestId('pkg-profit-disclosure').textContent ?? '').toMatch(
-      /full box-office total.*no distributor split/i,
+      /blended rental share of box office.*break-even/i,
     )
     // The revenue metric is labeled "Studio Revenue", not "box office take" etc.
     expect(text).toMatch(/Studio Revenue/i)

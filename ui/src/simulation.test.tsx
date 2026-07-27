@@ -205,6 +205,7 @@ describe('simulation: cash and standing on the dashboard reflect the engine post
         state={state}
         onAssemble={() => {}}
         onAdvance={() => {}}
+        onSimToEvent={() => {}}
         onCreateTalent={() => {}}
         onSaves={() => {}}
         onOpenAutopsy={() => {}}
@@ -233,6 +234,7 @@ describe('simulation: cash and standing on the dashboard reflect the engine post
         state={state}
         onAssemble={() => {}}
         onAdvance={() => {}}
+        onSimToEvent={() => {}}
         onCreateTalent={() => {}}
         onSaves={() => {}}
         onOpenAutopsy={() => {}}

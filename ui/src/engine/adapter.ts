@@ -88,9 +88,9 @@ import {
   makeSave,
   exportSave,
   importSave,
-  convertV2ToV3,
-  importLegacyV2,
-  importLegacyV1ToV3,
+  migrateToV4,
+  importLegacyV2ToV4,
+  importLegacyV1ToV4,
   // ── D-11 employment / contracts / roster / freelancer market ──
   beginFounding,
   employmentEngaged,
@@ -116,6 +116,12 @@ import {
   criticStars,
   audienceTier,
   NEWSPAPER_MASTHEAD,
+  // D-12 financial read models (the SINGLE money source; pure, mirrors the engine)
+  financeView,
+  activeRunViews,
+  commitmentPreview as coreCommitmentPreview,
+  periodSummary as corePeriodSummary,
+  breakEvenGross,
 } from '../../../src/core/index.ts'
 import { money, factorLabel } from '../format.ts'
 import type {
@@ -168,6 +174,11 @@ import type {
   RisksMaterialized,
   PackageDelta,
   PackageSide,
+  // ── D-12 financial read-model types ──
+  FinanceView,
+  RunView,
+  CommitmentPreview,
+  PeriodSummary,
 } from '../../../src/core/index.ts'
 
 // Re-export the core types the UI needs, so components import types from the
@@ -219,6 +230,11 @@ export type {
   GreenlightAssessment,
   RisksMaterialized,
   PackageDelta,
+  // D-12 financial read-model types re-exported through the single boundary.
+  FinanceView,
+  RunView,
+  CommitmentPreview,
+  PeriodSummary,
 }
 
 export const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support']
@@ -519,13 +535,18 @@ export function predictedProductionId(state: GameState): string {
 // productions display their STORED forecastSnapshot instead.
 export function previewForecast(state: GameState, pkg: DraftPackage): Forecast {
   const inp = assembleReceptionInputs(state, pkg)
-  return computeForecast(inp, {
-    seed: state.seed,
-    productionId: predictedProductionId(state),
-    directorId: pkg.directorId,
-    releasedFilms: state.studio.releasedFilms,
-    concepts: state.concepts,
-  })
+  // D-12: match applyGreenlight — saturate fame→opening reach when the economy is engaged.
+  return computeForecast(
+    inp,
+    {
+      seed: state.seed,
+      productionId: predictedProductionId(state),
+      directorId: pkg.directorId,
+      releasedFilms: state.studio.releasedFilms,
+      concepts: state.concepts,
+    },
+    employmentEngaged(state),
+  )
 }
 
 // ── Greenlight (validation errors surfaced as DATA) ──────────────────────────
@@ -901,6 +922,101 @@ export function advanceWeek(state: GameState): AdvanceResult {
   return { preTick, next, released }
 }
 
+// ── D-12 financial read models (thin selectors over the pure core economyView) ─
+// The UI reads money ONLY through these — never recomputing a formula. Each wraps a
+// pure core function (financeView / activeRunViews / commitmentPreview / periodSummary).
+export function financeCard(state: GameState): FinanceView {
+  return financeView(state)
+}
+export function theatricalRuns(state: GameState): RunView[] {
+  return activeRunViews(state)
+}
+// The Studio Revenue a released film has earned / will earn for the studio (share × total
+// gross) — read off its theatrical run, uniformly for active / completed / legacy runs.
+// null only for a legacy film with no run record at all (pre-D-12 imported save).
+export function studioRevenueForFilm(state: GameState, productionId: string): number | null {
+  const run = state.theatricalRuns.find((r) => r.productionId === productionId)
+  if (!run) return null
+  return run.weeklyGross.reduce((a, b) => a + b, 0) * run.studioShare
+}
+export function commitmentPreview(state: GameState, amount: number): CommitmentPreview {
+  return coreCommitmentPreview(state, amount)
+}
+// Break-even theatrical gross for a committed cost (Studio Revenue = share × gross).
+export { breakEvenGross }
+
+// ── D-12 Sim to Next Event (contract §18) ──────────────────────────────────────
+// Advance week-by-week through the REAL engine (never editing the week number), stopping
+// AFTER the tick in which a blocking event occurs: a film releases, a theatrical run ends,
+// a contract expires or enters its renewal window, or cash crosses below zero. Ordinary
+// weekly earnings accrue silently and are reported as one aggregate `summary` (periodSummary
+// over the ticks processed). A reloaded skip equals continuous play because every step is a
+// plain `tick`. `preTick` is the state just before the STOPPING tick, so a stop-on-release
+// hands off to the identical autopsy/development path as a single Advance (the stop tick is
+// exactly one tick after `preTick`).
+export type SimStopReason = 'release' | 'runCompleted' | 'contractExpired' | 'renewalWindow' | 'cashNegative' | 'limit'
+export type SimResult = {
+  preTick: GameState // state immediately BEFORE the stopping tick (release autopsy/development)
+  next: GameState // final state after the sim
+  released: FilmResult[] // films released on the stopping tick (empty unless stopReason==='release')
+  fromWeek: number
+  toWeek: number
+  weeks: number
+  stopReason: SimStopReason
+  summary: PeriodSummary
+}
+const SIM_CAP = 260 // backstop; a studio with a production always releases well before this
+
+export function advanceToNextEvent(state: GameState): SimResult {
+  const fromWeek = state.market.tick
+  let cur = state
+  let preStop = state
+  let released: FilmResult[] = []
+  let stopReason: SimStopReason = 'limit'
+  for (let i = 0; i < SIM_CAP; i++) {
+    const before = cur
+    const beforeReleases = before.studio.releasedFilms.length
+    const beforeContracts = before.contracts.length
+    const beforeCompleted = before.theatricalRuns.filter((r) => r.status === 'completed').length
+    const beforeRenewals = before.contracts.filter((c) => renewalWindowOpen(c, before.market.tick)).length
+    const after = tick(before, { develop: true })
+    cur = after
+    // Stop-condition checks on the post-tick state (the FIRST that fires wins).
+    const newReleases = after.studio.releasedFilms.slice(beforeReleases)
+    if (newReleases.length > 0) {
+      stopReason = 'release'
+      released = newReleases
+      preStop = before
+      break
+    }
+    if (after.studio.cash < 0 && before.studio.cash >= 0) {
+      stopReason = 'cashNegative'
+      preStop = before
+      break
+    }
+    if (after.theatricalRuns.filter((r) => r.status === 'completed').length > beforeCompleted) {
+      stopReason = 'runCompleted'
+      preStop = before
+      break
+    }
+    if (after.contracts.length < beforeContracts) {
+      stopReason = 'contractExpired'
+      preStop = before
+      break
+    }
+    if (after.contracts.filter((c) => renewalWindowOpen(c, after.market.tick)).length > beforeRenewals) {
+      stopReason = 'renewalWindow'
+      preStop = before
+      break
+    }
+  }
+  const toWeek = cur.market.tick
+  // Ledger entries + releaseTick are stamped with the PRE-increment week, so the ticks
+  // processed span weeks [fromWeek, toWeek − 1] (tick.ts:114/437).
+  const summary = corePeriodSummary(cur, fromWeek, Math.max(fromWeek, toWeek - 1))
+  return { preTick: preStop, next: cur, released, fromWeek, toWeek, weeks: toWeek - fromWeek, stopReason, summary }
+}
+
 // ── RULING A — Per-release development summary (built by DIFFING before→after) ──
 // After a develop-ON week, for EVERY talent who participated in a released film show a
 // clear, truthful development summary. This is built by SNAPSHOTTING the participating
@@ -1112,6 +1228,7 @@ export type AutopsyView = {
   legs: number
   // money
   committedCost: number
+  studioRevenue: number // D-12: blended rental share of gross (what the studio banks); profit = this − cost
   profit: number
   // standing (§6 D-6) — the deltas and WHY each channel moved
   standingBefore: Standing
@@ -1195,7 +1312,11 @@ export function explainRelease(
   }
 
   const committedCost = productionCommittedCost(preTick, prod)
-  const profit = filmResult.boxOffice.total - committedCost
+  // D-12: the studio banks its blended rental SHARE of the gross (a UI session release is always
+  // the engaged path, so run.totalStudioRevenue === gross × STUDIO_RENTAL_BLENDED). Profit and ROI
+  // are on Studio Revenue, not the full box office.
+  const studioRevenue = filmResult.boxOffice.total * TUNING.STUDIO_RENTAL_BLENDED
+  const profit = studioRevenue - committedCost
 
   const standingBefore = preTick.studio.standing
   const standingDeltas: Standing = {
@@ -1255,6 +1376,7 @@ export function explainRelease(
     boxOffice: filmResult.boxOffice, // equals r.opening/r.total by determinism
     legs: r.legs,
     committedCost,
+    studioRevenue, // D-12: blended rental share of gross (what the studio actually banks)
     profit,
     standingBefore,
     standingAfter: postTickStanding,
@@ -1318,10 +1440,10 @@ export type ImportOutcome =
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    if (save.saveVersion === 3) return { ok: true, state: save.state, converted: false }
-    if (save.saveVersion === 2) return { ok: true, state: convertV2ToV3(save).state, converted: true }
-    // Legacy V1 → V2 → V3 (the input string/file is untouched).
-    return { ok: true, state: importLegacyV1ToV3(json).state, converted: true }
+    // D-12: migrate any known version up to the live V4 shape (adds theatricalRuns; for a
+    // migrated V3, released films become legacyCompleted runs — recorded, never repaid).
+    const converted = save.saveVersion !== 4
+    return { ok: true, state: migrateToV4(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -1331,8 +1453,7 @@ export function importSaveJson(json: string): ImportOutcome {
 // deterministically to a V3 GameState. Rejects non-V2 input as DATA. Original untouched.
 export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
-    const v3 = importLegacyV2(json)
-    return { ok: true, state: v3.state, converted: true }
+    return { ok: true, state: importLegacyV2ToV4(json).state, converted: true }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -1342,8 +1463,7 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
 // string deterministically to a V3 GameState (via V2). Rejects non-V1 input as DATA.
 export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
-    const v3 = importLegacyV1ToV3(json)
-    return { ok: true, state: v3.state, converted: true }
+    return { ok: true, state: importLegacyV1ToV4(json).state, converted: true }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -2717,6 +2837,7 @@ export type FilmRecordView = {
   criticScore: number
   boxOffice: { opening: number; total: number }
   committedCost: number
+  studioRevenue: number // D-12: blended rental share of gross (from the run); full gross for legacy
   profit: number
 }
 export function filmRecordView(state: GameState, film: FilmResult): FilmRecordView | null {
@@ -2725,6 +2846,9 @@ export function filmRecordView(state: GameState, film: FilmResult): FilmRecordVi
   const committedCost = state.ledger
     .filter((e) => e.productionId === film.productionId && (e.kind === 'production' || e.kind === 'freelancerFee'))
     .reduce((a, e) => a - e.amount, 0)
+  // D-12: profit is on Studio Revenue (the run's blended rental share); a pre-D-12 legacy film
+  // with no run falls back to full gross.
+  const studioRevenue = studioRevenueForFilm(state, film.productionId) ?? film.boxOffice.total
   return {
     productionId: film.productionId,
     conceptTitle: concept?.title ?? film.conceptId,
@@ -2732,7 +2856,8 @@ export function filmRecordView(state: GameState, film: FilmResult): FilmRecordVi
     criticScore: film.criticScore,
     boxOffice: film.boxOffice,
     committedCost,
-    profit: film.boxOffice.total - committedCost,
+    studioRevenue,
+    profit: studioRevenue - committedCost,
   }
 }
 
@@ -2749,11 +2874,14 @@ export function releaseNewspaper(state: GameState, film: FilmResult): NewspaperV
     .reduce((a, e) => a - e.amount, 0)
   const segmentShares: Record<SegmentId, number> = {} as Record<SegmentId, number>
   for (const s of state.market.segments) segmentShares[s.id] = s.share
+  // D-12: the film's ACTUAL Studio Revenue (blended rental share × gross) from its theatrical run.
+  const studioRevenue = studioRevenueForFilm(state, film.productionId)
   return buildNewspaper({
     film,
     conceptTitle: concept?.title ?? film.conceptId,
     committedCost,
     segmentShares,
+    ...(studioRevenue !== null ? { studioRevenue } : {}),
     week: film.releaseTick,
   })
 }

@@ -311,6 +311,20 @@ export const TUNING = {
   // specialization budget (+1 per authoritative skill/genre point). See BALANCED_ARCHETYPES.
   BALANCED_CREATOR_SKILL_FLOOR: 15,
   BALANCED_CREATOR_SPECIALIZATION_POINTS: 40,
+
+  // ── D-12 Studio Economy and Theatrical Runs (all Initial Calibration Hypotheses,
+  // harness-tuned, unless marked owner) ────────────────────────────────────────
+  // Gross is conserved (Σ weekly = opening×legs); only the TIMING and the SHARE change,
+  // and everything is gated on economyEngaged so the M0A corpus is byte-identical.
+  STUDIO_RENTAL_BLENDED: 0.52, // [ICH] fraction of weekly gross the studio keeps (sweep 0.42–0.62)
+  THEATRICAL_WEEKS: 6, // [ICH] N_WEEKS modeled theatrical weeks
+  THEATRICAL_HOLD_BASE: 0.42, // [ICH] geometric hold at LEGS_MIN
+  THEATRICAL_HOLD_LEGS_COEF: 0.09, // [ICH] hold += this × (legs − LEGS_MIN)
+  THEATRICAL_TAIL_FLOOR: 0.05, // [ICH] each modeled week earns ≥ this fraction of gross
+  FAME_REACH_HALF_SAT: 50, // [OWNER surface/form; ICH value] Hill K for fame→opening-reach saturation
+  OVERHEAD_BASE: 15_000, // [ICH] fixed weekly studio overhead
+  OVERHEAD_PER_EMPLOYEE: 1_500, // [ICH] weekly overhead per contracted employee
+  ECONOMY_MODEL_VERSION: 1, // [OWNER] 1 = D-12 blended-share theatrical run (0 = legacy full-gross)
 } as const
 
 // ── §5.1 cast weighting ──────────────────────────────────────────────────────

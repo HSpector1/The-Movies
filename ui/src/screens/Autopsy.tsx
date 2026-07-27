@@ -125,7 +125,7 @@ export function Autopsy({
         </div>
         <span className="hint" data-testid="autopsy-result-forecast">
           Forecast at greenlight: {score(simple.expectedCritic)} critic · {money(simple.expectedTotal)}{' '}
-          total. Studio Revenue is the full box-office total (no distributor split in the current model).
+          total. Studio Revenue is the studio’s blended rental share of box office, paid weekly across the run.
         </span>
       </div>
 
@@ -571,7 +571,9 @@ function GreenlightCompare({
             </div>
             <div className="spread">
               <span>Actual studio revenue</span>
-              <span className="mono">{money(view.boxOffice.total)}</span>
+              <span className="mono" data-testid="autopsy-actual-revenue">
+                {money(view.studioRevenue)}
+              </span>
             </div>
             <div className="spread">
               <span>Expected profit / loss</span>
@@ -591,7 +593,8 @@ function GreenlightCompare({
             <span className="hint">
               Forecast range at greenlight:{' '}
               {money(assessment.profit.profit.low)}–{money(assessment.profit.profit.high)}. Studio
-              Revenue is the full box-office total (no distributor split in the model).
+              Revenue is the studio’s blended rental share of box office, paid weekly across the
+              film’s theatrical run — not the full gross.
             </span>
           </div>
 

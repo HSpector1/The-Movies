@@ -442,31 +442,35 @@ function factorLabel(k: ForecastFactorKey): string {
 // #4 forecastProfitRange — a profit RANGE by running computeBoxOffice on the
 // per-segment low/high forecast estimates, plus the D-1 committed-cost identity.
 // ═══════════════════════════════════════════════════════════════════════════════
-// DISCLOSURE (important): studioRevenue = the FULL box-office TOTAL. There is NO
-// distributor / rental split in the D-1 model — release credits `boxOffice.total` in
-// full (tick.ts:187). `studioRevenueIsFullBoxOffice: true` makes that explicit so the
-// UI never implies a split that the engine does not model.
+// D-12 §6/§17: studioRevenue = the blended RENTAL SHARE of box office (STUDIO_RENTAL_BLENDED),
+// NOT the full gross. `studioRevenueIsFullBoxOffice: false` under D-12 (was true pre-D-12, when
+// release credited the full `boxOffice.total`). Distributor/exhibitor economics are abstracted
+// into the single blended share.
 //
 //   committedCost = budget.negative + budget.marketing + Σ salaries (writer +
 //                   director + all cast + all craft) — the D-1 debit identity
 //                   (actions.ts:279-282, agents.ts:128-132, standing/D-1).
-//   breakEven     = committedCost.
-//   studioRevenue.{low,high,expected} = computeBoxOffice(estimates).total on the
+//   breakEven     = committedCost / share — the break-even GROSS box office (studio keeps `share`).
+//   studioRevenue.{low,high,expected} = share × computeBoxOffice(estimates).total on the
 //     per-segment {low, high, estimate} forecast bands (reusing §5.5 verbatim).
 //   profit        = studioRevenue − committedCost, per band edge.
 // Does NOT guarantee profit; a negative `profit.low` is reported honestly.
+// NOTE (minor, disclosed): this LIVE re-forecast computes openings on the linear fame path;
+// the greenlight-LOCKED forecast (actions.ts) and the realized release both apply the §7 fame
+// saturation. The decision-relevant locked forecast is correct; this panel's opening magnitude
+// may differ slightly from the realized opening for very-high-fame casts.
 
 export type MoneyRange = { low: number; high: number; expected: number }
 
 export type ForecastProfitRange = {
   studioRevenue: MoneyRange
   profit: MoneyRange
-  breakEven: number // = committedCost
+  breakEven: number // = committedCost / share (break-even GROSS box office)
   committedCost: number
   confidence: Confidence
   upsideDrivers: string[] // from the §7 causal factors
   downsideRisks: string[] // from the §7 uncertainty factors
-  studioRevenueIsFullBoxOffice: true // DISCLOSURE: no distributor/rental split (D-1)
+  studioRevenueIsFullBoxOffice: boolean // D-12: false (blended rental share); pre-D-12: true
 }
 
 export type ForecastProfitInput = ReceptionInputs
@@ -519,11 +523,14 @@ export function forecastProfitRange(
   // D-1 committed cost = negative + marketing + Σ salaries (salaries passed in ctx).
   const committedCost = inp.budget.negative + inp.budget.marketing + ctx.salaries
 
-  const studioRevenue: MoneyRange = { low: revLow, high: revHigh, expected: revExpected }
+  // D-12 §6/§17: Studio Revenue is the blended RENTAL SHARE of box office (not the full gross);
+  // break-even GROSS = cost / share. The revLow/expected/high above are GROSS box office; scale.
+  const share = TUNING.STUDIO_RENTAL_BLENDED
+  const studioRevenue: MoneyRange = { low: revLow * share, high: revHigh * share, expected: revExpected * share }
   const profit: MoneyRange = {
-    low: revLow - committedCost,
-    high: revHigh - committedCost,
-    expected: revExpected - committedCost,
+    low: revLow * share - committedCost,
+    high: revHigh * share - committedCost,
+    expected: revExpected * share - committedCost,
   }
 
   const confidence: Confidence = forecast.segments[0]?.confidence ?? 'low'
@@ -533,12 +540,12 @@ export function forecastProfitRange(
   return {
     studioRevenue,
     profit,
-    breakEven: committedCost,
+    breakEven: committedCost / share, // break-even GROSS (studio keeps only `share` of it)
     committedCost,
     confidence,
     upsideDrivers,
     downsideRisks,
-    studioRevenueIsFullBoxOffice: true,
+    studioRevenueIsFullBoxOffice: false,
   }
 }
 

@@ -302,7 +302,10 @@ describe('D-11 — contracts & offers', () => {
     const payrollEntries = s1.ledger.filter((e) => e.kind === 'payroll')
     expect(payrollEntries.length).toBe(1)
     expect(payrollEntries[0]!.amount).toBe(-weekly)
-    expect(s1.studio.cash).toBe(s0.studio.cash - weekly)
+    // D-12: studio overhead (base + per-employee) is also debited once per founded week.
+    const overhead = TUNING.OVERHEAD_BASE + TUNING.OVERHEAD_PER_EMPLOYEE * s0.contracts.length
+    expect(s1.ledger.filter((e) => e.kind === 'overhead').length).toBe(1)
+    expect(s1.studio.cash).toBe(s0.studio.cash - weekly - overhead)
     expect(reconciles(s1)).toBe(true)
   })
 
@@ -517,11 +520,11 @@ describe('D-11.5 — economy pressure', () => {
 })
 
 // ── D-11.16/.17 determinism & saves ───────────────────────────────────────────
-describe('D-11 — determinism & saves (V3)', () => {
-  it('new games save as V3 and round-trip byte-identically', () => {
-    const s = foundStudio('save-v3')
+describe('D-11 — determinism & saves (V4)', () => {
+  it('new games save as V4 and round-trip byte-identically', () => {
+    const s = foundStudio('save-v4')
     const save = makeSave(s)
-    expect(save.saveVersion).toBe(3)
+    expect(save.saveVersion).toBe(4) // D-12: new games save as V4
     const a = exportSave(save)
     const b = exportSave(importSave(a))
     expect(b).toBe(a)
@@ -533,7 +536,7 @@ describe('D-11 — determinism & saves (V3)', () => {
     // Split: advance 3, export/import (V3), advance 3 more.
     const mid = advanceWeeks(s0, 3)
     const reloaded = importSave(exportSave(makeSave(mid)))
-    if (reloaded.saveVersion !== 3) throw new Error('expected V3')
+    if (reloaded.saveVersion !== 4) throw new Error('expected V4') // D-12: new games save as V4
     const split = advanceWeeks(reloaded.state, 3)
     expect(split.studio.cash).toBe(continuous.studio.cash)
     expect(split.ledger.length).toBe(continuous.ledger.length)

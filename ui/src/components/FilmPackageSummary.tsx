@@ -258,7 +258,9 @@ export function FilmPackageSummary({
           </div>
 
           <p className="hint" data-testid="pkg-profit-disclosure" style={{ marginTop: 8 }}>
-            Studio Revenue is the full box-office total — the model has no distributor split.
+            Studio Revenue is the studio’s blended rental share of box office (distributor and
+            exhibitor economics are abstracted into that share); break-even is the gross the film
+            must reach to return its cost.
           </p>
         </div>
       )}

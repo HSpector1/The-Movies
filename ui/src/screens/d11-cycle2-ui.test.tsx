@@ -219,6 +219,7 @@ describe('D-11.A — autopsy / record render the film\'s OWN participants', () =
       criticScore: 60,
       boxOffice: { opening: 1_000_000, total: 5_000_000 },
       committedCost: 2_000_000,
+      studioRevenue: 5_000_000,
       profit: 3_000_000,
     }
   }

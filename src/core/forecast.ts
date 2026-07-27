@@ -228,6 +228,7 @@ function computeDeterministicCore(inp: ForecastInputs): DeterministicCore {
 // function must NEVER touch the sim stream (it draws nothing at all).
 export type ForecastCenters = {
   centers: Record<SegmentId, number>
+  centersOpening: Record<SegmentId, number> // D-12: fame-saturated opening appeal (=== centers unless engaged)
   criticMean: number
   core: DeterministicCore
   segmentFit: Record<SegmentId, number>
@@ -235,11 +236,12 @@ export type ForecastCenters = {
   starDraw: number
 }
 
-export function forecastCenters(inp: ForecastInputs): ForecastCenters {
+export function forecastCenters(inp: ForecastInputs, saturateFame = false): ForecastCenters {
   const core = computeDeterministicCore(inp)
-  const appeal = computeSegmentAppeal(inp, core.delivered, core.craft, core.timelinessContribution)
+  const appeal = computeSegmentAppeal(inp, core.delivered, core.craft, core.timelinessContribution, saturateFame)
   return {
     centers: appeal.segmentAppeal,
+    centersOpening: appeal.segmentAppealOpening,
     criticMean: core.criticMean,
     core,
     segmentFit: appeal.segmentFit,
@@ -351,8 +353,8 @@ export type ForecastContext = {
   concepts: FilmConcept[]
 }
 
-export function computeForecast(inp: ForecastInputs, ctx: ForecastContext): Forecast {
-  const centers = forecastCenters(inp)
+export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, saturateFame = false): Forecast {
+  const centers = forecastCenters(inp, saturateFame)
 
   // Confidence (film-level) — computed BEFORE the offset because sigma depends on it.
   const predicates = computeConfidencePredicates(
@@ -375,11 +377,15 @@ export function computeForecast(inp: ForecastInputs, ctx: ForecastContext): Fore
   // Per-segment forecasts. The same film-level offset is added to every center
   // (M7); estimate clamped to [0,100] before the box-office pass (B16).
   const noisyEstimates: Record<SegmentId, number> = {} as Record<SegmentId, number>
+  // D-12: the same film-level offset applied to the fame-saturated OPENING centers (=== the
+  // linear centers unless engaged → byte-identical). Feeds only the opening reach.
+  const noisyOpening: Record<SegmentId, number> = {} as Record<SegmentId, number>
   const segments: SegmentForecast[] = []
   for (const seg of inp.market.segments) {
     const center = centers.centers[seg.id]
     const estimate = clamp(center + offset, 0, 100)
     noisyEstimates[seg.id] = estimate
+    noisyOpening[seg.id] = clamp(centers.centersOpening[seg.id] + offset, 0, 100)
     const low = clamp(estimate - width, 0, 100)
     const high = clamp(estimate + width, 0, 100)
     segments.push({
@@ -404,6 +410,7 @@ export function computeForecast(inp: ForecastInputs, ctx: ForecastContext): Fore
     inp.promise,
     inp.budget,
     inp.shapeEffects,
+    noisyOpening,
   )
 
   return {

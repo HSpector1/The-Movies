@@ -12,6 +12,7 @@
 // This module is pure: no React/DOM/async/IO. The RngStream is threaded in and
 // its single draw mutates only that stream's state (which the harness owns).
 
+import { fameReach } from './economy.js'
 import { clamp, lerp, mean, remap, smoothstep } from './math.js'
 import type { RngStream } from './rng.js'
 import { specificity } from './shape.js'
@@ -366,12 +367,14 @@ export function computeSegmentAppeal(
   delivered: Expression,
   craft: number,
   timelinessContribution: number,
+  saturateFame = false, // D-12: when engaged, the Fame→OPENING-reach component saturates
 ): {
   promiseMismatch: number
   mismatchPenalty: number
   starDraw: number
   segmentFit: Record<SegmentId, number>
   segmentAppeal: Record<SegmentId, number>
+  segmentAppealOpening: Record<SegmentId, number> // === segmentAppeal unless saturateFame
 } {
   // promiseMismatch = clamp(sqrt(Σ_axis square(distanceOutsideRange)) / sqrt(12), 0, 1)
   let sq = 0
@@ -390,9 +393,17 @@ export function computeSegmentAppeal(
     starDen += CAST_WEIGHT[slot]
   }
   const starDraw = 100 * clamp(starNum / starDen, 0, 1)
+  // D-12 (gated): the Fame-driven component of OPENING reach saturates via the Hill helper
+  // (fameReach substitutes for fame/100), while segment appeal / audience response / legs
+  // keep the LINEAR starDraw. When NOT engaged (M0A), starDrawOpening === starDraw →
+  // segmentAppealOpening === segmentAppeal → byte-identical.
+  let satNum = 0
+  for (const slot of CAST_SLOTS) satNum += CAST_WEIGHT[slot] * fameReach(inp.cast[slot].fame)
+  const starDrawOpening = saturateFame ? 100 * clamp(satNum / starDen, 0, 1) : starDraw
 
   const segmentFit: Record<SegmentId, number> = {} as Record<SegmentId, number>
   const segmentAppeal: Record<SegmentId, number> = {} as Record<SegmentId, number>
+  const segmentAppealOpening: Record<SegmentId, number> = {} as Record<SegmentId, number>
   for (const seg of inp.market.segments) {
     const fit = 100 * (1 - clamp(distance(delivered, seg.taste) / Math.sqrt(12), 0, 1))
     segmentFit[seg.id] = fit
@@ -406,9 +417,22 @@ export function computeSegmentAppeal(
       0,
       100,
     )
+    // Opening-only appeal: the SAME formula with the saturated star term (else identical).
+    segmentAppealOpening[seg.id] = saturateFame
+      ? clamp(
+          0.35 * craft +
+            0.25 * starDrawOpening +
+            0.25 * fit +
+            0.15 * (timelinessContribution * 5) +
+            inp.shapeEffects.segmentAffinity[seg.id] -
+            mismatchPenalty,
+          0,
+          100,
+        )
+      : segmentAppeal[seg.id]
   }
 
-  return { promiseMismatch, mismatchPenalty, starDraw, segmentFit, segmentAppeal }
+  return { promiseMismatch, mismatchPenalty, starDraw, segmentFit, segmentAppeal, segmentAppealOpening }
 }
 
 // ── §5.5 Box office ──────────────────────────────────────────────────────────
@@ -422,6 +446,9 @@ export function computeBoxOffice(
   promise: FilmPromise,
   budget: { negative: number; marketing: number },
   shapeEffects: ShapeEffects,
+  // D-12: the OPENING-reach appeal (fame-saturated when engaged). Defaults to segmentAppeal
+  // so every existing caller is unchanged (opening === legs appeal → byte-identical).
+  openingSegmentAppeal: Record<SegmentId, number> = segmentAppeal,
 ): {
   marketingQuality: number
   baseAwareness: number
@@ -454,7 +481,9 @@ export function computeBoxOffice(
   let weightedAudienceScore = 0
   for (const seg of segments) {
     const appeal = segmentAppeal[seg.id]
-    const appealCurve = Math.pow(appeal / 100, TUNING.APPEAL_CURVE_EXP)
+    // D-12: OPENING reach uses the (fame-saturated when engaged) opening appeal; LEGS and
+    // the audience score keep the LINEAR appeal → legs is untouched by fame saturation.
+    const appealCurve = Math.pow(openingSegmentAppeal[seg.id] / 100, TUNING.APPEAL_CURVE_EXP)
     reachSum += seg.share * awarenessFactor * appealCurve
     weightedAudienceScore += seg.share * appeal
   }
@@ -478,7 +507,7 @@ export function computeBoxOffice(
 
 // ── §5 Full pipeline ─────────────────────────────────────────────────────────
 // The single §5.3 critic draw comes from the passed-in sim stream (rng).
-export function resolveReception(inp: ReceptionInputs, rng: RngStream): ReceptionResult {
+export function resolveReception(inp: ReceptionInputs, rng: RngStream, saturateFame = false): ReceptionResult {
   const craftBlock = computeCraft(inp)
   const contribBlock = computeContributions(inp)
   const delivered = contribBlock.centroid
@@ -490,6 +519,7 @@ export function resolveReception(inp: ReceptionInputs, rng: RngStream): Receptio
     delivered,
     craftBlock.craft,
     criticBlock.timelinessContribution,
+    saturateFame,
   )
 
   const boxOffice = computeBoxOffice(
@@ -500,6 +530,7 @@ export function resolveReception(inp: ReceptionInputs, rng: RngStream): Receptio
     inp.promise,
     inp.budget,
     inp.shapeEffects,
+    appealBlock.segmentAppealOpening,
   )
 
   return {

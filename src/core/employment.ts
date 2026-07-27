@@ -13,6 +13,7 @@ import { clamp } from './math.js'
 import { stream } from './rng.js'
 import { TUNING } from './tuning.js'
 import type {
+  GameStateV3,
   Contract,
   CreativeRole,
   EmploymentStatus,
@@ -42,8 +43,35 @@ export const FOUNDING_MINIMUMS: Record<CreativeRole, number> = {
 // ── engagement gate (D-11.0) ─────────────────────────────────────────────────
 // The employment system is engaged iff a founding draft is open OR any contract
 // exists. Derived from real state — NOT a §11 SimulationFlags object.
-export function employmentEngaged(state: GameState): boolean {
+export function employmentEngaged(state: GameStateV3): boolean {
   return state.founding !== null || state.contracts.length > 0
+}
+
+// ── D-12 economy gate (D-12.21) ──────────────────────────────────────────────
+// The theatrical-run economy engages iff the studio is a real PLAYER studio; for this
+// milestone that coincides with employment engagement, so the headless M0A corpus (never
+// engaged) keeps the D-1 single-lump credit and stays byte-identical. Derived from real
+// state — NOT a §11 SimulationFlags object; separate name leaves room for future
+// economy-without-employment cases without touching M0A.
+export function economyEngaged(state: GameStateV3): boolean {
+  return employmentEngaged(state)
+}
+
+// ── D-12 solvency gate (D-12.11) ─────────────────────────────────────────────
+// One authoritative affordability check for a VOLUNTARY immediate commitment (signing,
+// renewal, freelancer engagement, greenlight, marketing). Rule: cash AFTER this immediate
+// transaction must be ≥ 0. Only the immediate transaction is checked — NOT future payroll
+// or overhead (that is advisory runway, never a legality rule). Unavoidable weekly debits
+// (payroll/overhead/existing commitments) may still push cash below zero. The engine rejects
+// illegal commitments with this reason; the UI disables + shows the SAME reason.
+export type Affordability = { ok: true } | { ok: false; reason: string }
+export function canAfford(state: GameStateV3, amount: number): Affordability {
+  const after = state.studio.cash - amount
+  if (after >= 0) return { ok: true }
+  return {
+    ok: false,
+    reason: `Insufficient cash — this ${Math.round(amount)} commitment would leave cash at ${Math.round(after)}. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative).`,
+  }
 }
 
 // ── contract lookups ─────────────────────────────────────────────────────────

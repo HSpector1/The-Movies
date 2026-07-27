@@ -640,5 +640,8 @@ export function generateWorld(seed: string): GameState {
     contracts: [],
     ledger: [],
     freeAgents: [],
+    // ── D-12 economy — EMPTY here (gated the same way; the headless corpus never
+    // opens a theatrical run, so it stays byte-identical on the single-lump path).
+    theatricalRuns: [],
   }
 }

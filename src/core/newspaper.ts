@@ -102,11 +102,14 @@ export type NewspaperInput = {
   conceptTitle: string
   committedCost: number
   segmentShares: Record<SegmentId, number>
+  // D-12: the studio's ACTUAL Studio Revenue for this film (blended rental share × gross), read
+  // from its theatrical run. Absent for a pre-D-12 legacy film → falls back to full box office.
+  studioRevenue?: number
   week?: number
 }
 
 const DISCLOSURE =
-  'Studio Revenue currently equals full box-office revenue because distributor and exhibitor economics are not yet modeled.'
+  'Studio Revenue is the studio’s blended rental share of box office; distributor and exhibitor economics are abstracted into that share.'
 
 const upper = (s: string) => s.toUpperCase()
 
@@ -250,7 +253,10 @@ export function buildNewspaper(input: NewspaperInput): NewspaperView | null {
   const critic = film.criticScore
   const aud = aggregateAudienceScore(film.segmentScores, segmentShares)
   const boxOffice = film.boxOffice.total
-  const profit = boxOffice - committedCost
+  // D-12 §13-C: profit/label reflect the studio's ACTUAL Studio Revenue (blended rental share),
+  // not the full gross. Legacy films (no run) fall back to full box office.
+  const studioRevenue = input.studioRevenue ?? boxOffice
+  const profit = studioRevenue - committedCost
   const expectedCritic = film.forecast?.expectedCriticScore ?? critic
   const expectedTotal = film.forecast?.expectedTotal ?? boxOffice
   const criticDelta = deltaOf(critic, expectedCritic, 5)
@@ -282,7 +288,7 @@ export function buildNewspaper(input: NewspaperInput): NewspaperView | null {
     audience: { tier: dims.audTier, label: AUDIENCE_LABEL[dims.audTier], score: Math.round(aud) },
     financial: {
       boxOffice,
-      studioRevenue: boxOffice, // disclosed: Studio Revenue = full box office
+      studioRevenue, // D-12: blended rental share of gross (from the film's theatrical run)
       productionCost: committedCost,
       profit,
       label: profit >= 0 ? 'Profit' : 'Loss',

@@ -26,6 +26,8 @@ import {
   requiredNegative,
   salarySum,
   totalCommittedCost,
+  commitmentPreview,
+  breakEvenGross,
   previewForecast,
   greenlight,
   findConcept,
@@ -52,6 +54,7 @@ import type {
   ExecutionConfidence,
   ForecastProfitRange,
   PackageDelta,
+  CommitmentPreview,
 } from '../engine/adapter.ts'
 import {
   SHAPE_DESCRIPTIONS,
@@ -241,7 +244,6 @@ export function Assembly({
 
   const pkg = useMemo(() => buildPackage(state, draft), [state, draft])
   const partialPkg = useMemo(() => buildPartialPackage(state, draft), [state, draft])
-  const cash = selectCash(state)
 
   // ── Film Package summary — the four real engine dimensions (perceived-only) ──
   // Cohesion is TALENT-INDEPENDENT: it can be shown from the promise step onward.
@@ -255,6 +257,13 @@ export function Assembly({
   const fit: PackageFit | null = partialPkg ? assessPackageFit(state, partialPkg) : null
   const execution: ExecutionConfidence | null = pkg ? assessExecutionConfidence(state, pkg) : null
   const profit: ForecastProfitRange | null = pkg ? assessProfitRange(state, pkg) : null
+  // D-12: the release-strategy financials for the fully-committed package — the immediate
+  // commitment (negative + marketing + salaries), the solvency gate, and post-greenlight cash
+  // and runway. `null` until the package is complete. The greenlight is BLOCKED when the gate
+  // fails (D-12.11) — a voluntary commitment may not overdraw.
+  const commitment = pkg ? totalCommittedCost(state, pkg) : null
+  const preview: CommitmentPreview | null = commitment !== null ? commitmentPreview(state, commitment) : null
+  const blockedByGate = preview !== null && !preview.affordable
 
   // ── Change preview (on select/swap) — real computed packageDelta ────────────
   // A delta needs TWO complete packages. We remember the last complete package the
@@ -378,12 +387,12 @@ export function Assembly({
       {step === 'budget' && concept && (
         <BudgetStep state={state} draft={draft} concept={concept} pkg={pkg} patch={patch} />
       )}
-      {step === 'review' && concept && pkg && (
+      {step === 'review' && concept && pkg && preview && (
         <ReviewStep
           state={state}
           pkg={pkg}
           conceptTitle={concept.title}
-          cash={cash}
+          preview={preview}
           cohesion={cohesion}
           fit={fit}
           execution={execution}
@@ -431,13 +440,18 @@ export function Assembly({
           <button
             className="accent"
             onClick={handleGreenlight}
-            disabled={!pkg}
+            disabled={!pkg || blockedByGate}
             data-testid="greenlight"
           >
             Greenlight this film
           </button>
         )}
       </div>
+      {step === 'review' && blockedByGate && preview && (
+        <div style={{ marginTop: 12 }}>
+          <ErrorBox message={preview.reason ?? 'This commitment would overdraw the studio.'} />
+        </div>
+      )}
     </div>
   )
 }
@@ -879,8 +893,9 @@ function BudgetStep({
 
         {goesNegative && (
           <Warn>
-            Greenlighting this film spends more than you have on hand. Cash will go negative. The
-            studio allows it, but you carry the shortfall.
+            This commitment ({moneyExact(committed)}) is more than the studio has on hand
+            ({moneyExact(cash)}). A greenlight can’t overdraw the studio (D-12 solvency rule), so
+            lower the negative or marketing budget until the commitment fits your cash.
           </Warn>
         )}
       </div>
@@ -903,7 +918,7 @@ function ReviewStep({
   state,
   pkg,
   conceptTitle,
-  cash,
+  preview,
   cohesion,
   fit,
   execution,
@@ -912,14 +927,14 @@ function ReviewStep({
   state: GameState
   pkg: DraftPackage
   conceptTitle: string
-  cash: number
+  preview: CommitmentPreview
   cohesion: CreativeCohesion | null
   fit: PackageFit | null
   execution: ExecutionConfidence | null
   profit: ForecastProfitRange | null
 }) {
   const committed = totalCommittedCost(state, pkg)
-  const goesNegative = cash - committed < 0
+  const breakEven = breakEvenGross(committed)
   return (
     <div className="stack">
       {/* Film Readiness — assembled from the four real dimensions, not a hidden score */}
@@ -929,27 +944,50 @@ function ReviewStep({
 
       <div className="grid grid-2">
         <div className="card stack">
-          <h2>Review &amp; greenlight</h2>
+          <h2>Review &amp; release strategy</h2>
           <div className="spread">
             <span>Film</span>
             <strong>{conceptTitle}</strong>
           </div>
           <div className="spread">
-            <span>Total committed cost</span>
-            <strong className="mono">{moneyExact(committed)}</strong>
+            <span>Commitment now (negative + marketing + salaries)</span>
+            <strong className="mono" data-testid="release-commitment">
+              {moneyExact(committed)}
+            </strong>
+          </div>
+          <div className="spread">
+            <span>Break-even gross</span>
+            <strong className="mono" data-testid="release-breakeven">
+              {money(breakEven)}
+            </strong>
           </div>
           <div className="spread">
             <span>Cash after greenlight</span>
-            <strong className={`mono ${cash - committed < 0 ? 'money neg' : 'money pos'}`}>
-              {moneyExact(cash - committed)}
+            <strong
+              className={`mono ${preview.cashAfter < 0 ? 'money neg' : 'money pos'}`}
+              data-testid="release-cash-after"
+            >
+              {moneyExact(preview.cashAfter)}
             </strong>
           </div>
-          {goesNegative && (
-            <Warn>This greenlight takes cash negative. Confirm you intend to spend beyond your balance.</Warn>
-          )}
+          <div className="spread">
+            <span>Post-greenlight runway</span>
+            <strong className="mono" data-testid="release-runway">
+              {preview.postRunway.infinite ? '—' : `${preview.postRunway.weeks} wk`}
+            </strong>
+          </div>
+          <div className="spread" data-testid="release-gate">
+            <span>Solvency gate</span>
+            <strong className={preview.affordable ? 'money pos' : 'money neg'}>
+              {preview.affordable ? 'Affordable ✓' : 'Blocked ✗'}
+            </strong>
+          </div>
+          {!preview.affordable && <Warn>{preview.reason}</Warn>}
           <p className="hint">
-            Greenlighting commits the budget and salaries now. The film enters production and
-            releases after it finishes. The forecast is the studio’s prediction — not a guarantee.
+            Greenlighting commits the budget and salaries now. Studio Revenue is your rental share
+            of box office, paid weekly across the film’s theatrical run — so the film must gross
+            about {money(breakEven)} to return its cost. The forecast is a prediction, not a
+            guarantee.
           </p>
         </div>
         <div className="stack">
