@@ -866,7 +866,7 @@ function BudgetStep({
         <div className="sep" />
         <div className="stack fact-block">
           <div className="spread">
-            <span>Negative</span>
+            <span>Production Budget (negative)</span>
             <span className="mono">{moneyExact(negative)}</span>
           </div>
           <div className="spread">
@@ -874,13 +874,13 @@ function BudgetStep({
             <span className="mono">{moneyExact(marketing)}</span>
           </div>
           <div className="spread">
-            <span>Talent salaries</span>
+            <span>Freelancer Fees (this film)</span>
             <span className="mono" data-testid="salaries">
               {moneyExact(salaries)}
             </span>
           </div>
           <div className="spread">
-            <strong>Total committed cost</strong>
+            <strong>Total Immediate Commitment</strong>
             <strong className="mono" data-testid="committed-cost">
               {moneyExact(committed)}
             </strong>

@@ -12,6 +12,7 @@ import {
   selectActiveProductions,
   selectReleasedFilms,
   canGreenlightMore,
+  assemblyAvailability,
   findConcept,
   financeCard,
   theatricalRuns,
@@ -53,6 +54,7 @@ export function Dashboard({
   const active = selectActiveProductions(state)
   const released = selectReleasedFilms(state)
   const canGreenlight = canGreenlightMore(state)
+  const availability = assemblyAvailability(state) // P5: block Assemble early if no legal team can form
   const fin = financeCard(state)
   const runs = theatricalRuns(state)
 
@@ -104,7 +106,7 @@ export function Dashboard({
             <button
               className="accent"
               onClick={onAssemble}
-              disabled={!canGreenlight}
+              disabled={!canGreenlight || !availability.canAssemble}
               data-testid="assemble-film"
             >
               Assemble a film
@@ -125,6 +127,11 @@ export function Dashboard({
             <p className="hint">
               At the production cap ({active.length}). Advance weeks until a film releases before
               starting another.
+            </p>
+          )}
+          {canGreenlight && !availability.canAssemble && (
+            <p className="hint" data-testid="assemble-blocked-reason">
+              {availability.reason}
             </p>
           )}
           <div className="sep" />
@@ -342,27 +349,31 @@ export function Dashboard({
   )
 }
 
-// One active theatrical run — its progress, this-week Studio Revenue, and gross→revenue.
+// One active theatrical run. Labels are unambiguous about state (P-secondary off-by-one fix):
+// weekIndex = Studio-Revenue payments ALREADY received; nextWeekRevenue = the NEXT scheduled payment.
 function TheatricalRunPanel({ run, title }: { run: RunView; title: string }) {
   return (
     <div className="panel" data-testid={`run-${run.productionId}`}>
       <div className="spread">
         <strong>{title ?? run.conceptId}</strong>
         <span className="tag fact">
-          week {run.weekIndex} of {run.totalWeeks}
+          Payments received: {run.weekIndex} of {run.totalWeeks}
         </span>
       </div>
       <div className="row" style={{ marginTop: 8, gap: 24, flexWrap: 'wrap' }}>
-        <Metric label="This week" small testid={`run-${run.productionId}-thisweek`}>
+        <Metric label="Next-week Studio Revenue" small testid={`run-${run.productionId}-thisweek`}>
           {money(run.nextWeekRevenue)}
         </Metric>
-        <Metric label="Remaining" small testid={`run-${run.productionId}-remaining`}>
+        <Metric label="Received to date" small testid={`run-${run.productionId}-received`}>
+          {money(run.studioRevenuePaid)}
+        </Metric>
+        <Metric label="Still to come" small testid={`run-${run.productionId}-remaining`}>
           {money(run.remainingRevenue)}
         </Metric>
-        <Metric label="Gross" small>
+        <Metric label="Total gross" small>
           {money(run.totalGross)}
         </Metric>
-        <Metric label="Studio revenue" small testid={`run-${run.productionId}-total`}>
+        <Metric label="Total Studio Revenue" small testid={`run-${run.productionId}-total`}>
           {money(run.totalStudioRevenue)}
         </Metric>
       </div>

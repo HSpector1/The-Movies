@@ -24,6 +24,7 @@ import {
   // world + actions + tick
   generateWorld,
   applyActions,
+  predictProductionId,
   previewCustomTalent,
   previewBalancedTalent,
   balancedBoostDiscipline,
@@ -96,6 +97,7 @@ import {
   employmentEngaged,
   employmentStatus,
   isContracted,
+  busyTalentIds,
   activeContract,
   contractOfferOptions,
   freelancerFee,
@@ -122,8 +124,10 @@ import {
   commitmentPreview as coreCommitmentPreview,
   periodSummary as corePeriodSummary,
   breakEvenGross,
+  foundingRunwayPreview,
+  projectedWeeklyOverhead,
 } from '../../../src/core/index.ts'
-import { money, factorLabel } from '../format.ts'
+import { money } from '../format.ts'
 import type {
   GameState,
   Talent,
@@ -356,16 +360,19 @@ export type PlayerVisibleTalent = {
   salary: number
   authored: boolean
   available: boolean // not engaged in an active production
-  engagedIn: string | null // productionId if unavailable, else null
+  engagedIn: string | null // film TITLE it is busy on if unavailable, else null (never a raw id)
 }
 
+// Map each busy talent id → the player-facing FILM TITLE it is engaged on (never a raw production
+// id — D-12 beta secondary). Value is the title; absence means free.
 function engagedTalentIds(state: GameState): Map<string, string> {
   const busy = new Map<string, string>()
   for (const prod of state.studio.activeProductions) {
-    busy.set(prod.writerId, prod.id)
-    busy.set(prod.directorId, prod.id)
-    for (const slot of CAST_SLOTS) busy.set(prod.cast[slot], prod.id)
-    for (const cid of prod.craftIds) busy.set(cid, prod.id)
+    const title = findConcept(state, prod.conceptId)?.title ?? prod.conceptId
+    busy.set(prod.writerId, title)
+    busy.set(prod.directorId, title)
+    for (const slot of CAST_SLOTS) busy.set(prod.cast[slot], title)
+    for (const cid of prod.craftIds) busy.set(cid, title)
   }
   return busy
 }
@@ -422,7 +429,7 @@ export function talentEligibility(
   if (!talent.available) {
     return {
       eligible: false,
-      reason: `Already engaged in production ${talent.engagedIn} — busy until it releases.`,
+      reason: `Already working on ${talent.engagedIn} — busy until it releases.`,
     }
   }
   if (chosenElsewhere.includes(talent.id)) {
@@ -434,6 +441,68 @@ export function talentEligibility(
 // Concurrency: greenlight is legal only under the production cap (B3/M16.6).
 export function canGreenlightMore(state: GameState): boolean {
   return state.studio.activeProductions.length < TUNING.MAX_CONCURRENT_PRODUCTIONS
+}
+
+// ── D-12 beta P5: can a LEGAL complete creative team be staffed right now? ─────
+// A film needs 1 writer, 1 director, 3 actors, and 1 Production/Craft Lead from currently
+// AVAILABLE talent (non-busy contracted + available-market freelancers). If any required role
+// can't be filled, Assemble should be blocked BEFORE the player walks the wizard into a dead
+// end — with a plain-English reason that names the busy film (never a raw production id).
+const ASSEMBLE_ROLE_LABEL: Record<CreativeRole, string> = {
+  writer: 'Writer',
+  director: 'Director',
+  actor: 'Actor',
+  craft: 'Production/Craft Lead',
+}
+const TEAM_NEED: Record<CreativeRole, number> = { writer: 1, director: 1, actor: 3, craft: 1 }
+
+export type AssemblyAvailability = { canAssemble: boolean; missingRoles: CreativeRole[]; reason?: string }
+
+export function assemblyAvailability(state: GameState): AssemblyAvailability {
+  // Pre-employment (founding not closed / no contracts): the original open-talent-pool path
+  // staffs from state.talent directly — no roster gate applies.
+  if (!employmentEngaged(state)) return { canAssemble: true, missingRoles: [] }
+  const busy = busyTalentIds(state)
+  const market = new Set(freelancerMarketIds(state))
+  const availableOf = (role: CreativeRole): number => {
+    let n = 0
+    for (const c of state.contracts) {
+      const t = state.talent.find((x) => x.id === c.talentId)
+      if (t && t.role === role && !busy.has(t.id) && isContracted(state, t.id)) n++
+    }
+    for (const t of state.talent) if (t.role === role && market.has(t.id) && !busy.has(t.id)) n++
+    return n
+  }
+  const roles: CreativeRole[] = ['writer', 'director', 'actor', 'craft']
+  const missingRoles = roles.filter((r) => availableOf(r) < TEAM_NEED[r])
+  if (missingRoles.length === 0) return { canAssemble: true, missingRoles: [] }
+
+  // Name the bottleneck: for the first missing role, if a CONTRACTED member of that role is busy,
+  // name them + the film they're on; otherwise the studio simply has too few under contract.
+  const first = missingRoles[0]!
+  const busyBlurbFor = (role: CreativeRole): string => {
+    for (const p of state.studio.activeProductions) {
+      const ids = [p.writerId, p.directorId, p.cast.lead, p.cast.antagonist, p.cast.support, ...p.craftIds]
+      const hitId = ids.find((id) => {
+        const t = state.talent.find((x) => x.id === id)
+        return t?.role === role
+      })
+      if (hitId) {
+        const t = state.talent.find((x) => x.id === hitId)
+        const title = findConcept(state, p.conceptId)?.title ?? p.conceptId
+        return `${t ? toPlayerVisible(t, new Map()).name : 'A team member'} is working on ${title} until it releases`
+      }
+    }
+    return `you have too few ${ASSEMBLE_ROLE_LABEL[role]}s under contract`
+  }
+  const label = ASSEMBLE_ROLE_LABEL[first]
+  const reason =
+    `No ${label} is currently available — ${busyBlurbFor(first)}. ` +
+    `Sign another ${label}, hire an available freelancer, or wait for the film to finish.` +
+    (missingRoles.length > 1
+      ? ` (Also unavailable: ${missingRoles.slice(1).map((r) => ASSEMBLE_ROLE_LABEL[r]).join(', ')}.)`
+      : '')
+  return { canAssemble: false, missingRoles, reason }
 }
 
 // ── Cost helpers (engine formulas, called not re-derived) ─────────────────────
@@ -525,7 +594,10 @@ function assembleReceptionInputs(state: GameState, pkg: DraftPackage): Reception
 
 // The predicted production id the greenlight will assign (§3 M1: prod-<tick pad4>).
 export function predictedProductionId(state: GameState): string {
-  return `prod-${String(state.market.tick).padStart(4, '0')}`
+  // D-12 beta P1: delegate to the ENGINE allocator (never re-derive the id in the UI), so a
+  // Review/Commercial-Outlook forecast previews on the SAME forecast stream the greenlight will
+  // persist — including the collision-safe suffix for a same-week second greenlight.
+  return predictProductionId(state)
 }
 
 // ── Forecast PREVIEW (pre-greenlight) ────────────────────────────────────────
@@ -944,6 +1016,9 @@ export function commitmentPreview(state: GameState, amount: number): CommitmentP
 }
 // Break-even theatrical gross for a committed cost (Studio Revenue = share × gross).
 export { breakEvenGross }
+// D-12 beta secondary: shared runway definition projected to the post-founding state (payroll +
+// the overhead the proposed roster will incur), + the projected overhead itself, for the founding UI.
+export { foundingRunwayPreview, projectedWeeklyOverhead }
 
 // ── D-12 Sim to Next Event (contract §18) ──────────────────────────────────────
 // Advance week-by-week through the REAL engine (never editing the week number), stopping
@@ -977,7 +1052,6 @@ export function advanceToNextEvent(state: GameState): SimResult {
     const before = cur
     const beforeReleases = before.studio.releasedFilms.length
     const beforeContracts = before.contracts.length
-    const beforeCompleted = before.theatricalRuns.filter((r) => r.status === 'completed').length
     const beforeRenewals = before.contracts.filter((c) => renewalWindowOpen(c, before.market.tick)).length
     const after = tick(before, { develop: true })
     cur = after
@@ -994,11 +1068,9 @@ export function advanceToNextEvent(state: GameState): SimResult {
       preStop = before
       break
     }
-    if (after.theatricalRuns.filter((r) => r.status === 'completed').length > beforeCompleted) {
-      stopReason = 'runCompleted'
-      preStop = before
-      break
-    }
+    // D-12 beta P2: a theatrical run COMPLETING is routine financial activity (like weekly
+    // Studio Revenue, payroll, overhead) — it must NOT stop the sim. It is reported in the
+    // aggregate period summary (`completedRuns`), never as the stop reason.
     if (after.contracts.length < beforeContracts) {
       stopReason = 'contractExpired'
       preStop = before
@@ -2718,8 +2790,9 @@ export type AccessibleAutopsy = {
   criticScore: number
   criticStars: number
   audienceLabel: string
-  revenue: number
-  profit: number
+  revenue: number // Total Theatrical Gross
+  studioRevenue: number // blended rental share of gross (banked by the studio)
+  profit: number // Film Contribution = Studio Revenue − direct film costs
   profitable: boolean
   expectedCritic: number
   expectedTotal: number
@@ -2754,28 +2827,28 @@ export function accessibleAutopsy(view: AutopsyView, compare: AutopsyCompare | n
 
   const worked: string[] = []
   if (critic >= 70) worked.push(`Critics responded well — a ${round0(critic)}/100 review.`)
-  if (view.cohesion >= 0.6) worked.push('The film felt coherent — its makers pulled in the same direction.')
+  // P4: this is DELIVERED talent alignment (execution), NOT the authored brief's coherence.
+  if (view.cohesion >= 0.6) worked.push('The talent pulled execution in the same direction — strong delivered alignment.')
   if (strongest && strongest.fit >= 65)
     worked.push(`${strongest.talentName} was an excellent fit as ${assignmentText(strongest)}.`)
   if (total > expTotal * 1.1) worked.push('It outperformed its box-office forecast.')
   if (profitable && profit >= 3_000_000) worked.push(`It turned a healthy profit of ${money(profit)}.`)
-  for (const s of compare?.assessment.strengths ?? []) {
-    if (worked.length >= 3) break
-    worked.push(s)
-  }
+  // P4 (beta closure): the accessible What Worked / What Hurt describe REALIZED outcomes only. The
+  // greenlight-PLANNED assessment strengths / uncertainty factors are NOT dumped here — they raise
+  // internal detail (e.g. "realized cohesion 0.45") and can contradict the realized narrative
+  // (a coherent PLANNED brief vs weak DELIVERED alignment). The full planned breakdown stays in
+  // Advanced Analysis (the greenlight-compare section), keeping the two accessible panels truthful.
 
   const hurt: string[] = []
   if (critic < 45) hurt.push(`Critics were unimpressed — a ${round0(critic)}/100 review.`)
-  if (view.cohesion < 0.4) hurt.push('The film pulled in different directions — low creative cohesion.')
+  // Attribute weak execution to the TALENT pulling apart — never to the FilmShape/Promise brief
+  // (whose coherence is a separate, greenlight-time quantity that may have been strong).
+  if (view.cohesion < 0.4) hurt.push('The talent pulled execution in different directions — weak delivered alignment.')
   if (weakest && weakest.fit < 45)
     hurt.push(`${weakest.talentName} was a stretch as ${assignmentText(weakest)}.`)
   if (view.promiseMismatch >= 0.5) hurt.push('The delivered film drifted from what was promised.')
   if (!profitable) hurt.push(`It lost ${money(Math.abs(profit))} against its committed cost.`)
   else if (total < expTotal * 0.9) hurt.push('It came in under its box-office forecast.')
-  for (const r of compare?.risks.risks ?? []) {
-    if (hurt.length >= 3) break
-    if (r.materialized) hurt.push(`${factorLabel(r.factor)}: ${r.detail}`)
-  }
 
   const boxRel = expTotal > 0 ? Math.abs(total - expTotal) / expTotal : 0
   const criticRel = expCritic > 0 ? Math.abs(critic - expCritic) / expCritic : 0
@@ -2813,8 +2886,9 @@ export function accessibleAutopsy(view: AutopsyView, compare: AutopsyCompare | n
     criticScore: critic,
     criticStars: criticStars(critic),
     audienceLabel: AUDIENCE_REACTION[audienceTier(view.weightedAudienceScore)],
-    revenue: total,
-    profit,
+    revenue: total, // Total Theatrical Gross (labeled as such in the UI, never bare "Revenue")
+    studioRevenue: view.studioRevenue, // blended rental share of gross (what the studio banked)
+    profit, // Film Contribution = Studio Revenue − direct film costs
     profitable,
     expectedCritic: expCritic,
     expectedTotal: expTotal,
@@ -2877,14 +2951,17 @@ export function releaseNewspaper(state: GameState, film: FilmResult): NewspaperV
     .reduce((a, e) => a - e.amount, 0)
   const segmentShares: Record<SegmentId, number> = {} as Record<SegmentId, number>
   for (const s of state.market.segments) segmentShares[s.id] = s.share
-  // D-12: the film's ACTUAL Studio Revenue (blended rental share × gross) from its theatrical run.
+  // D-12: the film's PROJECTED full-run Studio Revenue (blended rental share × gross) + the opening
+  // gross + locked run share, so the front page separates opening-week PAID from full-run PROJECTED.
   const studioRevenue = studioRevenueForFilm(state, film.productionId)
+  const run = state.theatricalRuns.find((r) => r.productionId === film.productionId)
   return buildNewspaper({
     film,
     conceptTitle: concept?.title ?? film.conceptId,
     committedCost,
     segmentShares,
     ...(studioRevenue !== null ? { studioRevenue } : {}),
+    ...(run ? { openingGross: run.weeklyGross[0] ?? film.boxOffice.opening, studioShare: run.studioShare } : {}),
     week: film.releaseTick,
   })
 }

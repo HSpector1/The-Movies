@@ -28,6 +28,15 @@ export function weeklyBurn(state: GameState): number {
   return weeklyPayroll(state) + weeklyOverhead(state)
 }
 
+// During FOUNDING (founding !== null) overhead is not yet charged (tick step 7.5 gates on
+// founding === null). This is the weekly overhead that WILL apply once the studio is founded with
+// the proposed roster — so the founding preview can show the same current-commitments runway the
+// Dashboard will show, just projected past the founding gate (no formula duplicated in the UI).
+export function projectedWeeklyOverhead(state: GameStateV3): number {
+  if (!economyEngaged(state)) return 0
+  return TUNING.OVERHEAD_BASE + TUNING.OVERHEAD_PER_EMPLOYEE * state.contracts.length
+}
+
 // ── active-run revenue side ────────────────────────────────────────────────────
 
 // Studio Revenue an ACTIVE run pays NEXT tick (current weekIndex's gross × locked share).
@@ -73,6 +82,15 @@ export function runway(state: GameState): Runway {
   const netWeeklyCash = rev - burn
   if (net <= EPS) return { netWeeklyCash, weeks: null, infinite: true }
   return { netWeeklyCash, weeks: Math.floor(state.studio.cash / net), infinite: false }
+}
+
+// The SAME current-commitments runway definition, PROJECTED to the post-founding state: payroll +
+// the overhead the proposed roster will incur once founded (no active runs exist during founding).
+// So the founding screen and the Dashboard use one shared "Runway" definition.
+export function foundingRunwayPreview(state: GameState): Runway {
+  const burn = weeklyPayroll(state) + projectedWeeklyOverhead(state)
+  if (burn <= EPS) return { netWeeklyCash: 0, weeks: null, infinite: true }
+  return { netWeeklyCash: -burn, weeks: Math.floor(state.studio.cash / burn), infinite: false }
 }
 
 // ── affordability + post-commitment preview (D-12.11 / D-12.16) ────────────────

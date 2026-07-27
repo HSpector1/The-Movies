@@ -208,7 +208,9 @@ describe('assembly legality: an engaged actor cannot be selected and the conflic
     )
     const engaged = screen.getByTestId(`talent-${actors[0]!}`) as HTMLButtonElement
     expect(engaged.disabled).toBe(true)
-    expect(engaged.textContent ?? '').toMatch(/already engaged in production/i)
+    // D-12 beta: the busy reason names the FILM (a title), never a raw production id.
+    expect(engaged.textContent ?? '').toMatch(/already working on .+ — busy until it releases/i)
+    expect(engaged.textContent ?? '').not.toMatch(/prod-\d/)
   })
 
   it('the engine itself rejects a greenlight that reuses engaged talent (adapter surfaces it as data)', () => {

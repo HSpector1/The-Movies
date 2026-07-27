@@ -146,24 +146,44 @@ export function NewspaperReveal({
           </div>
         </div>
 
-        {/* ── Restrained financial summary ── */}
+        {/* ── Opening-day financials: PAID this week vs PROJECTED full run (P3) ── */}
         <div className="panel stack" data-testid="newspaper-financial">
-          <span className="hint">At the box office</span>
+          <span className="hint">Opening week — banked so far</span>
           <div className="spread">
-            <span>Box office</span>
-            <span className="mono">{money(primary.financial.boxOffice)}</span>
+            <span>Opening gross</span>
+            <span className="mono">{money(primary.financial.openingGross)}</span>
           </div>
           <div className="spread">
-            <span>Studio Revenue</span>
-            <span className="mono">{money(primary.financial.studioRevenue)}</span>
+            <span>Studio Revenue paid this week</span>
+            <span className="mono" data-testid="newspaper-paid-this-week">
+              {money(primary.financial.studioRevenueThisWeek)}
+            </span>
+          </div>
+          <div className="sep" />
+          <span className="hint">Projected — full theatrical run (not yet banked)</span>
+          <div className="spread">
+            <span>Projected total gross</span>
+            <span className="mono">{money(primary.financial.projectedTotalGross)}</span>
           </div>
           <div className="spread">
-            <span>Production cost</span>
-            <span className="mono">{money(primary.financial.productionCost)}</span>
+            <span>Projected total Studio Revenue</span>
+            <span className="mono">{money(primary.financial.projectedTotalStudioRevenue)}</span>
           </div>
           <div className="spread">
-            <span>Result</span>
-            <ProfitFigure value={primary.financial.profit} label={primary.financial.label} />
+            <span>Studio Revenue still to come</span>
+            <span className="mono">{money(primary.financial.studioRevenueStillToCome)}</span>
+          </div>
+          <div className="sep" />
+          <div className="spread">
+            <span>Total immediate commitment</span>
+            <span className="mono">{money(primary.financial.totalCommitment)}</span>
+          </div>
+          <div className="spread">
+            <span>Projected film contribution</span>
+            <ProfitFigure
+              value={primary.financial.projectedContribution}
+              label={primary.financial.projectedContributionLabel}
+            />
           </div>
           <span className="hint" style={{ fontSize: 10 }}>
             {primary.financial.disclosure}

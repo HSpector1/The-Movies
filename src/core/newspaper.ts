@@ -84,12 +84,17 @@ export type NewspaperView = {
   subheadline: string
   critic: CriticRating
   audience: { tier: AudienceTier; label: string; score: number }
+  // D-12 beta P3: opening-day truthfulness — what is PAID this week vs what is PROJECTED for the
+  // full 6-week run. Never present projected full-run totals as already realized/banked.
   financial: {
-    boxOffice: number
-    studioRevenue: number
-    productionCost: number
-    profit: number
-    label: string
+    openingGross: number // opening-week theatrical gross
+    studioRevenueThisWeek: number // Studio Revenue PAID this opening week (share × opening gross)
+    projectedTotalGross: number // projected full-run theatrical gross
+    projectedTotalStudioRevenue: number // projected full-run Studio Revenue (share × total gross)
+    studioRevenueStillToCome: number // projected total − paid this week
+    totalCommitment: number // Production Budget + Marketing + Freelancer Fees (direct film costs)
+    projectedContribution: number // projected total Studio Revenue − total commitment (NOT realized)
+    projectedContributionLabel: string // 'Projected profit' | 'Projected loss'
     disclosure: string
   }
   forecast: { expectedCritic: number; expectedTotal: number; criticDelta: Delta; boxDelta: Delta }
@@ -102,14 +107,18 @@ export type NewspaperInput = {
   conceptTitle: string
   committedCost: number
   segmentShares: Record<SegmentId, number>
-  // D-12: the studio's ACTUAL Studio Revenue for this film (blended rental share × gross), read
-  // from its theatrical run. Absent for a pre-D-12 legacy film → falls back to full box office.
+  // D-12: the studio's PROJECTED full-run Studio Revenue for this film (blended rental share ×
+  // total gross), read from its theatrical run. Absent for a pre-D-12 legacy film → full box office.
   studioRevenue?: number
+  // D-12 beta P3: the opening-week gross + the locked run share, so the front page can separate
+  // the Studio Revenue PAID this opening week from the projected full-run total.
+  openingGross?: number
+  studioShare?: number
   week?: number
 }
 
 const DISCLOSURE =
-  'Studio Revenue is the studio’s blended rental share of box office; distributor and exhibitor economics are abstracted into that share.'
+  'Only the opening week is banked so far. Full-run figures are PROJECTIONS. Studio Revenue is the studio’s blended rental share of box office, paid weekly across the theatrical run; distributor and exhibitor economics are abstracted into that share.'
 
 const upper = (s: string) => s.toUpperCase()
 
@@ -253,10 +262,17 @@ export function buildNewspaper(input: NewspaperInput): NewspaperView | null {
   const critic = film.criticScore
   const aud = aggregateAudienceScore(film.segmentScores, segmentShares)
   const boxOffice = film.boxOffice.total
-  // D-12 §13-C: profit/label reflect the studio's ACTUAL Studio Revenue (blended rental share),
-  // not the full gross. Legacy films (no run) fall back to full box office.
-  const studioRevenue = input.studioRevenue ?? boxOffice
-  const profit = studioRevenue - committedCost
+  // D-12 beta P3: separate what is BANKED this opening week from the PROJECTED full-run totals.
+  const projectedTotalGross = boxOffice
+  const share =
+    input.studioShare ??
+    (input.studioRevenue !== undefined && projectedTotalGross > 0 ? input.studioRevenue / projectedTotalGross : 1)
+  const projectedTotalStudioRevenue = input.studioRevenue ?? projectedTotalGross * share
+  const openingGross = input.openingGross ?? film.boxOffice.opening
+  const studioRevenueThisWeek = openingGross * share
+  const studioRevenueStillToCome = Math.max(0, projectedTotalStudioRevenue - studioRevenueThisWeek)
+  // PROJECTED contribution (NOT realized until the run completes) = projected Studio Revenue − cost.
+  const profit = projectedTotalStudioRevenue - committedCost
   const expectedCritic = film.forecast?.expectedCriticScore ?? critic
   const expectedTotal = film.forecast?.expectedTotal ?? boxOffice
   const criticDelta = deltaOf(critic, expectedCritic, 5)
@@ -287,11 +303,14 @@ export function buildNewspaper(input: NewspaperInput): NewspaperView | null {
     critic: { stars: criticStars(critic), score: Math.round(critic) },
     audience: { tier: dims.audTier, label: AUDIENCE_LABEL[dims.audTier], score: Math.round(aud) },
     financial: {
-      boxOffice,
-      studioRevenue, // D-12: blended rental share of gross (from the film's theatrical run)
-      productionCost: committedCost,
-      profit,
-      label: profit >= 0 ? 'Profit' : 'Loss',
+      openingGross,
+      studioRevenueThisWeek,
+      projectedTotalGross,
+      projectedTotalStudioRevenue,
+      studioRevenueStillToCome,
+      totalCommitment: committedCost,
+      projectedContribution: profit,
+      projectedContributionLabel: profit >= 0 ? 'Projected profit' : 'Projected loss',
       disclosure: DISCLOSURE,
     },
     forecast: { expectedCritic: Math.round(expectedCritic), expectedTotal, criticDelta, boxDelta },

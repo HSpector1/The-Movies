@@ -33,6 +33,14 @@ const PART_ROLE_LABEL: Record<FilmParticipant['role'], string> = {
 function flattenParticipants(p: FilmParticipants): FilmParticipant[] {
   return [p.writer, p.director, p.cast.lead, p.cast.antagonist, p.cast.support, ...p.craft]
 }
+
+// P4: a Weak/Mixed/Strong band for DELIVERED talent alignment (view.cohesion, 0..1) — the same
+// <0.4 / 0.4–0.7 / >0.7 thresholds the §7 forecast band uses, so the label reads truthfully.
+function alignmentBand(cohesion: number): 'Weak' | 'Mixed' | 'Strong' {
+  if (cohesion < 0.4) return 'Weak'
+  if (cohesion > 0.7) return 'Strong'
+  return 'Mixed'
+}
 function ParticipantsCard({ participants }: { participants: FilmParticipants }) {
   const rows = flattenParticipants(participants)
   return (
@@ -113,10 +121,10 @@ export function Autopsy({
           <Metric label="Audience" small testid="autopsy-result-audience">
             {simple.audienceLabel}
           </Metric>
-          <Metric label="Revenue" small testid="autopsy-result-revenue">
+          <Metric label="Total Theatrical Gross" small testid="autopsy-result-revenue">
             {money(simple.revenue)}
           </Metric>
-          <Metric label="Profit / loss" small testid="autopsy-result-profit">
+          <Metric label="Film Contribution" small testid="autopsy-result-profit">
             <span className={simple.profitable ? 'money pos' : 'money neg'}>
               {simple.profitable ? 'Profit ' : 'Loss '}
               {moneyExact(simple.profit)}
@@ -124,8 +132,9 @@ export function Autopsy({
           </Metric>
         </div>
         <span className="hint" data-testid="autopsy-result-forecast">
-          Forecast at greenlight: {score(simple.expectedCritic)} critic · {money(simple.expectedTotal)}{' '}
-          total. Studio Revenue is the studio’s blended rental share of box office, paid weekly across the run.
+          Forecast at greenlight: {score(simple.expectedCritic)} critic · {money(simple.expectedTotal)} total
+          gross. Studio Revenue (the studio’s blended rental share of gross, paid weekly across the run) was{' '}
+          {money(simple.studioRevenue)}; Film Contribution is that minus direct film costs.
         </span>
       </div>
 
@@ -287,12 +296,13 @@ export function Autopsy({
           <p className="hint">Required negative: {money(view.requiredNegative)}</p>
         </div>
 
-        {/* Cohesion + contributions */}
+        {/* Delivered talent alignment + contributions (execution-time, NOT the authored brief) */}
         <div className="card">
-          <h3>Cohesion</h3>
+          <h3>Delivered talent alignment</h3>
           <p className="hint">
-            Does the film feel intentional? Each contributor pulls the film in a direction; cohesion
-            measures how aligned they are.
+            During execution, each participant pulled the film in a creative direction. This measures how
+            aligned those delivered vectors were — separate from the authored brief’s coherence (shown at
+            greenlight as Creative Brief Coherence).
           </p>
           <table className="data">
             <thead>
@@ -329,8 +339,8 @@ export function Autopsy({
             <Metric label="Expressive strength" small>
               {score(view.expressiveStrength, 2)}
             </Metric>
-            <Metric label="Cohesion" small testid="autopsy-cohesion">
-              {score(view.cohesion, 2)}
+            <Metric label="Delivered alignment" small testid="autopsy-cohesion">
+              {Math.round(view.cohesion * 100)}/100
             </Metric>
           </div>
         </div>
@@ -601,16 +611,17 @@ function GreenlightCompare({
           {/* Perceived judgment vs realized */}
           <div className="panel stack">
             <h4 style={{ margin: 0 }}>Perceived judgment vs realized</h4>
+            {/* P4: two DISTINCT concepts, not an expected/realized pair — both on a 0–100 scale. */}
             <div className="spread">
-              <span>Creative cohesion (expected)</span>
+              <span>Creative Brief Coherence (planned)</span>
               <span className="mono">
-                {Math.round(assessment.cohesion.score)} ({assessment.cohesion.tier})
+                {Math.round(assessment.cohesion.score)}/100 ({assessment.cohesion.tier})
               </span>
             </div>
             <div className="spread">
-              <span>Cohesion (realized)</span>
+              <span>Delivered Talent Alignment</span>
               <span className="mono" data-testid="autopsy-realized-cohesion">
-                {score(view.cohesion, 2)}
+                {Math.round(view.cohesion * 100)}/100 ({alignmentBand(view.cohesion)})
               </span>
             </div>
             <div className="spread">

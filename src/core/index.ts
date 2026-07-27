@@ -162,7 +162,7 @@ export type { RngPurpose } from './rng.js'
 export { generateWorld, salaryCurve } from './worldgen.js'
 
 // §3 applyActions (phase 3) — greenlight / cancel / createTalent / createCustomTalent / createBalancedTalent
-export { applyActions, previewCustomTalent, previewBalancedTalent, balancedBoostDiscipline } from './actions.js'
+export { applyActions, previewCustomTalent, previewBalancedTalent, balancedBoostDiscipline, predictProductionId } from './actions.js'
 
 // §6 standing (phase 3) — the three-channel updateStanding (B12 context param)
 export { updateStanding } from './standing.js'
@@ -217,7 +217,9 @@ export { fameReach, theatricalSchedule, openTheatricalRun, legacyTheatricalRun }
 // payroll, solvency, runway). The sim never reads these.
 export {
   weeklyOverhead,
+  projectedWeeklyOverhead,
   weeklyBurn,
+  foundingRunwayPreview,
   runNextWeekRevenue,
   runRemainingRevenue,
   expectedWeeklyRunRevenue,

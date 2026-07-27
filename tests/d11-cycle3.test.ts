@@ -366,13 +366,14 @@ describe('D-11.C PART 2: buildNewspaper is pure, guarded, and financially consis
     expect(v.audience.tier).toBe(audienceTier(aggregateAudienceScore(seg(66), SHARES)))
   })
 
-  it('profit sign and label follow box office minus committed cost', () => {
+  it('projected contribution sign and label follow projected Studio Revenue minus committed cost', () => {
+    // No run share passed → legacy full-gross fallback (share 1.0): projected Studio Revenue = gross.
     const profit = view({ total: 20_000_000 }, 5_000_000)
-    expect(profit.financial.profit).toBe(15_000_000)
-    expect(profit.financial.label).toBe('Profit')
+    expect(profit.financial.projectedContribution).toBe(15_000_000)
+    expect(profit.financial.projectedContributionLabel).toBe('Projected profit')
     const loss = view({ total: 2_000_000 }, 8_000_000)
-    expect(loss.financial.profit).toBe(-6_000_000)
-    expect(loss.financial.label).toBe('Loss')
+    expect(loss.financial.projectedContribution).toBe(-6_000_000)
+    expect(loss.financial.projectedContributionLabel).toBe('Projected loss')
   })
 
   it('the week comes from the input when supplied, else the release tick', () => {

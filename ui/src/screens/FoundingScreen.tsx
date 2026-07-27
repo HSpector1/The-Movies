@@ -26,6 +26,8 @@ import {
   foundStudioAction,
   signContractAction,
   payrollSummary,
+  foundingRunwayPreview,
+  projectedWeeklyOverhead,
   selectCash,
   authoredTierTable,
 } from '../engine/adapter.ts'
@@ -85,6 +87,7 @@ export function FoundingScreen({
   const fund = foundingBudgetRemaining(state)
   const cash = selectCash(state)
   const payroll = payrollSummary(state)
+  const foundingRunway = foundingRunwayPreview(state) // shared runway model, incl. post-founding overhead
   const progress = foundingProgress(state)
   const canFound = canFoundStudio(state)
   const nextIncomplete = nextIncompleteProfession(state)
@@ -159,16 +162,19 @@ export function FoundingScreen({
 
         <div className="card stack">
           <h2>Payroll outlook</h2>
-          <p className="hint">Updates as you sign. Weekly salary begins once the studio is founded.</p>
+          <p className="hint">
+            Updates as you sign. Weekly salary and studio overhead both begin once the studio is
+            founded; Runway below already includes the overhead this roster will incur.
+          </p>
           <div className="row" style={{ gap: 24 }}>
             <Metric label="Weekly payroll" small testid="founding-weekly">
               {money(payroll.weeklyPayroll)}
             </Metric>
-            <Metric label="Annual payroll" small testid="founding-annual">
-              {money(payroll.annualPayroll)}
+            <Metric label="Weekly overhead (once founded)" small testid="founding-overhead">
+              {money(projectedWeeklyOverhead(state))}
             </Metric>
             <Metric label="Runway" small testid="founding-runway">
-              {payroll.runwayWeeks === null ? '—' : `${payroll.runwayWeeks} wks`}
+              {foundingRunway.infinite ? '—' : `${foundingRunway.weeks} wks`}
             </Metric>
           </div>
         </div>

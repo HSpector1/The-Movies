@@ -117,6 +117,20 @@ function productionId(startTick: number, taken: ReadonlySet<string>): string {
   return `${base}-${k}`
 }
 
+// The production id the NEXT greenlight at the current tick WILL allocate — the SAME
+// collision-safe allocation applyGreenlight uses (currentTick + taken active/released ids).
+// Exposed so the UI can preview a Review/Commercial-Outlook forecast on the SAME forecast
+// stream the greenlight will persist. Without this, a same-week SECOND greenlight previews on
+// the bare `prod-<tick>` stream but the engine persists a forecast drawn from `prod-<tick>-1`
+// → the two diverge (D-12 beta P1). Pure; draws from no stream. Identical to the base id in
+// M0A (≤1 greenlight/tick → no collision) so no headless behavior changes.
+export function predictProductionId(state: GameState): string {
+  const taken = new Set<string>()
+  for (const active of state.studio.activeProductions) taken.add(active.id)
+  for (const f of state.studio.releasedFilms) taken.add(f.productionId)
+  return productionId(state.market.tick, taken)
+}
+
 // D-11.A — capture the film's immutable participant record at the LOCKED greenlight
 // (perceived values). `freelancer` = engaged as a freelancer (not studio-contracted).
 function buildParticipant(

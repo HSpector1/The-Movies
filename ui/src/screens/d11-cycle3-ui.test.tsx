@@ -254,9 +254,9 @@ describe('D-11.C PART 2: the newspaper front page renders from the recorded resu
     expect(view!.critic.stars).toBe(criticStars(film.criticScore))
     // Audience verdict label is shown.
     expect(screen.getByTestId('newspaper-audience').textContent ?? '').toContain(view!.audience.label)
-    // Financial panel shows the profit/loss figure.
+    // Financial panel shows the projected contribution figure (labeled Projected).
     expect(screen.getByTestId('newspaper-financial')).toBeInTheDocument()
-    expect(screen.getByTestId('newspaper-profit').textContent ?? '').toContain(view!.financial.label)
+    expect(screen.getByTestId('newspaper-profit').textContent ?? '').toContain(view!.financial.projectedContributionLabel)
   })
 
   it('the headline never contradicts the numbers: a critic-love/audience-reject split reads as such', () => {
