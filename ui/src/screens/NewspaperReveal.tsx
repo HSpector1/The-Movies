@@ -23,18 +23,21 @@ function StarGlyphs({ stars }: { stars: number }) {
 }
 
 // A profit/loss number colored via money pos|neg (text sign + color, never color alone).
-function ProfitFigure({ value, label }: { value: number; label: string }) {
+function ProfitFigure({ value, label, testid = 'newspaper-profit' }: { value: number; label: string; testid?: string }) {
   const cls = value >= 0 ? 'money pos' : 'money neg'
   const sign = value >= 0 ? '' : '-'
   return (
-    <span className={cls} data-testid="newspaper-profit">
+    <span className={cls} data-testid={testid}>
       {sign}
       {money(Math.abs(value))} · {label}
     </span>
   )
 }
 
-// One secondary film's small headline + its own autopsy link.
+// One secondary film — A9: every same-week release is EQUALLY inspectable. A secondary
+// story is not just a headline: it carries the same reception + opening-vs-projected
+// financials the lead story shows, plus a link to its own full autopsy. No metric a
+// player needs to judge the film is hidden behind the lead story.
 function SecondaryStory({
   view,
   index,
@@ -44,14 +47,11 @@ function SecondaryStory({
   index: number
   onOpenAutopsy: (index: number) => void
 }) {
+  const f = view.financial
   return (
     <div className="panel stack" data-testid={`newspaper-secondary-${index}`}>
-      <strong>{view.headline}</strong>
-      <span className="hint">{view.subheadline}</span>
       <div className="spread">
-        <span className="mono">
-          {view.critic.stars.toFixed(1)}/5 · {view.audience.label}
-        </span>
+        <strong data-testid={`newspaper-secondary-title-${index}`}>{view.filmTitle}</strong>
         <button
           type="button"
           className="ghost"
@@ -60,6 +60,41 @@ function SecondaryStory({
         >
           Autopsy →
         </button>
+      </div>
+      <span className="hint">{view.headline}</span>
+      <div className="row" style={{ gap: 24, flexWrap: 'wrap' }}>
+        <span className="mono" data-testid={`newspaper-secondary-critic-${index}`}>
+          Critics {view.critic.stars.toFixed(1)}/5 · {Math.round(view.critic.score)}/100
+        </span>
+        <span className="mono" data-testid={`newspaper-secondary-audience-${index}`}>
+          Audiences: {view.audience.label}
+        </span>
+      </div>
+      <div className="spread">
+        <span>Opening gross</span>
+        <span className="mono">{money(f.openingGross)}</span>
+      </div>
+      <div className="spread">
+        <span>Studio Revenue paid this week</span>
+        <span className="mono" data-testid={`newspaper-secondary-paid-${index}`}>
+          {money(f.studioRevenueThisWeek)}
+        </span>
+      </div>
+      <div className="spread">
+        <span>Projected total theatrical gross</span>
+        <span className="mono">{money(f.projectedTotalGross)}</span>
+      </div>
+      <div className="spread">
+        <span>Projected total Studio Revenue</span>
+        <span className="mono">{money(f.projectedTotalStudioRevenue)}</span>
+      </div>
+      <div className="spread">
+        <span>Projected film contribution</span>
+        <ProfitFigure
+          value={f.projectedContribution}
+          label={f.projectedContributionLabel}
+          testid={`newspaper-secondary-contribution-${index}`}
+        />
       </div>
     </div>
   )

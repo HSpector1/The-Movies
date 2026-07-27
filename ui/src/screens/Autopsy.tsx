@@ -8,8 +8,9 @@
 
 import { useState } from 'react'
 import type { AutopsyView, AutopsyCompareView, FilmParticipant, FilmParticipants } from '../engine/adapter.ts'
-import { accessibleAutopsy } from '../engine/adapter.ts'
+import { accessibleAutopsy, deliveredAlignmentReport } from '../engine/adapter.ts'
 import { money, moneyExact, score, axis, signed, segmentLabel, factorLabel } from '../format.ts'
+import { PROMISE_AXIS_INFO } from '../content.ts'
 import { Metric, Delta } from '../components/common.tsx'
 
 function Vec({ v }: { v: { intimacy: number; tonalWeight: number; kineticEnergy: number } }) {
@@ -91,6 +92,9 @@ export function Autopsy({
 }) {
   const [advancedOpen, setAdvancedOpen] = useState(false)
   const simple = accessibleAutopsy(view, compare)
+  // A8: plain-English delivered-talent-alignment account, so normal play never needs the
+  // raw contributor vectors (those move into Technical Details in Advanced Analysis).
+  const align = deliveredAlignmentReport(view)
   const profitPositive = view.profit >= 0
   return (
     <div className="app-shell" data-testid="autopsy">
@@ -169,6 +173,36 @@ export function Autopsy({
 
       <div style={{ height: 16 }} />
 
+      {/* A8: Delivered Talent Alignment in plain English — a 0–100 value, a band, whether the
+          contributors pulled together or apart, and the distinction from Creative Brief
+          Coherence. The raw vectors live under Advanced Analysis → Technical Details. */}
+      <div className="card stack" data-testid="autopsy-alignment-summary">
+        <div className="spread">
+          <h3 style={{ marginTop: 0 }}>Delivered talent alignment</h3>
+          <span className="badge" data-testid="autopsy-alignment-band">
+            {align.score}/100 · {align.band}
+          </span>
+        </div>
+        <p style={{ margin: 0 }} data-testid="autopsy-alignment-text">
+          {align.summary}
+        </p>
+        {align.mostOpposed && align.mostAligned && (
+          <div className="row" style={{ gap: 24, flexWrap: 'wrap' }}>
+            <Metric label="Most aligned pair" small testid="autopsy-alignment-most-aligned">
+              {align.mostAligned.a} &amp; {align.mostAligned.b}
+            </Metric>
+            <Metric label="Most opposed pair" small testid="autopsy-alignment-most-opposed">
+              {align.mostOpposed.a} &amp; {align.mostOpposed.b}
+            </Metric>
+          </div>
+        )}
+        <p className="hint" style={{ marginBottom: 0 }}>
+          {align.distinction}
+        </p>
+      </div>
+
+      <div style={{ height: 16 }} />
+
       <div className="grid grid-2">
         <div className="card stack" data-testid="autopsy-surprise">
           <h3 style={{ marginTop: 0 }}>Biggest surprise</h3>
@@ -222,29 +256,29 @@ export function Autopsy({
         </div>
         <div className="grid grid-3" style={{ marginTop: 12 }}>
           <div className="estimate-block">
-            <Metric label="Forecast critic (estimate)" small>
+            <Metric label="Expected Critic Score" small>
               {score(view.forecast.expectedCriticScore)}
             </Metric>
-            <Metric label="Forecast total (estimate)" small>
+            <Metric label="Expected Total Theatrical Gross" small>
               {money(view.forecast.expectedTotal)}
             </Metric>
           </div>
           <div className="result-block">
-            <Metric label="Realized critic (result)" small testid="autopsy-critic">
+            <Metric label="Actual Critic Score" small testid="autopsy-critic">
               {score(view.criticScore)}
             </Metric>
-            <Metric label="Realized total (result)" small>
+            <Metric label="Actual Total Theatrical Gross" small>
               {money(view.boxOffice.total)}
             </Metric>
           </div>
           <div>
-            <Metric label="Profit / loss (result)" small testid="autopsy-profit">
+            <Metric label="Film Contribution (result)" small testid="autopsy-profit">
               <span className={profitPositive ? 'money pos' : 'money neg'}>
                 {profitPositive ? 'Profit ' : 'Loss '}
                 {moneyExact(view.profit)}
               </span>
             </Metric>
-            <Metric label="Committed cost" small>
+            <Metric label="Total immediate commitment" small>
               {moneyExact(view.committedCost)}
             </Metric>
           </div>
@@ -293,7 +327,7 @@ export function Autopsy({
               </tr>
             </tbody>
           </table>
-          <p className="hint">Required negative: {money(view.requiredNegative)}</p>
+          <p className="hint">Baseline Production Budget: {money(view.requiredNegative)}</p>
         </div>
 
         {/* Delivered talent alignment + contributions (execution-time, NOT the authored brief) */}
@@ -304,34 +338,6 @@ export function Autopsy({
             aligned those delivered vectors were — separate from the authored brief’s coherence (shown at
             greenlight as Creative Brief Coherence).
           </p>
-          <table className="data">
-            <thead>
-              <tr>
-                <th>Contributor</th>
-                <th className="num">Vector (intimacy, weight, energy)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(view.contributions).map(([key, c]) => (
-                <tr key={key}>
-                  <td>{c.role}</td>
-                  <td className="num">
-                    <Vec v={c.vector} />
-                  </td>
-                </tr>
-              ))}
-              <tr>
-                <td>
-                  <strong>Delivered (centroid)</strong>
-                </td>
-                <td className="num">
-                  <strong>
-                    <Vec v={view.delivered} />
-                  </strong>
-                </td>
-              </tr>
-            </tbody>
-          </table>
           <div className="row" style={{ gap: 24, marginTop: 8 }}>
             <Metric label="Directional agreement" small>
               {score(view.directionalAgreement, 2)}
@@ -343,6 +349,82 @@ export function Autopsy({
               {Math.round(view.cohesion * 100)}/100
             </Metric>
           </div>
+          {align.mostOpposed && align.mostAligned && (
+            <p className="hint" style={{ marginTop: 8 }} data-testid="autopsy-alignment-pairs">
+              Most aligned: {align.mostAligned.a} &amp; {align.mostAligned.b} (
+              {align.mostAligned.agreement.toFixed(2)}). Most opposed: {align.mostOpposed.a} &amp;{' '}
+              {align.mostOpposed.b} ({align.mostOpposed.agreement.toFixed(2)}).
+            </p>
+          )}
+
+          {/* A8: raw contributor vectors + axis definitions — advanced explainability, kept
+              intact but collapsed by default so normal play never has to read coordinates. */}
+          <details data-testid="autopsy-technical-details" style={{ marginTop: 8 }}>
+            <summary style={{ cursor: 'pointer' }}>
+              <strong>Technical Details</strong>
+            </summary>
+            <p className="hint" style={{ marginTop: 8 }}>
+              Each contributor&rsquo;s delivered vector sits on the three creative axes below. The{' '}
+              <strong>sign</strong> of each number is the direction along an axis; the{' '}
+              <strong>magnitude</strong> is how strongly the contributor pulled that way. When
+              contributors point the same way their vectors agree, which raises Delivered Talent
+              Alignment; when they point opposite ways they cancel, lowering it.
+            </p>
+            <table className="data">
+              <thead>
+                <tr>
+                  <th>Axis</th>
+                  <th>Negative pole (−)</th>
+                  <th>Positive pole (+)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Intimacy</td>
+                  <td>{PROMISE_AXIS_INFO.intimacy.low}</td>
+                  <td>{PROMISE_AXIS_INFO.intimacy.high}</td>
+                </tr>
+                <tr>
+                  <td>Tonal weight</td>
+                  <td>{PROMISE_AXIS_INFO.tonalWeight.low}</td>
+                  <td>{PROMISE_AXIS_INFO.tonalWeight.high}</td>
+                </tr>
+                <tr>
+                  <td>Kinetic energy</td>
+                  <td>{PROMISE_AXIS_INFO.kineticEnergy.low}</td>
+                  <td>{PROMISE_AXIS_INFO.kineticEnergy.high}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table className="data" style={{ marginTop: 8 }}>
+              <thead>
+                <tr>
+                  <th>Contributor</th>
+                  <th className="num">Vector (intimacy, weight, energy)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(view.contributions).map(([key, c]) => (
+                  <tr key={key}>
+                    <td>{c.role}</td>
+                    <td className="num">
+                      <Vec v={c.vector} />
+                    </td>
+                  </tr>
+                ))}
+                <tr>
+                  <td>
+                    <strong>Delivered (centroid)</strong>
+                  </td>
+                  <td className="num">
+                    <strong>
+                      <Vec v={view.delivered} />
+                    </strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </details>
         </div>
       </div>
 
@@ -383,7 +465,7 @@ export function Autopsy({
             </span>
             {signed(view.reviewVariance)}
           </Metric>
-          <Metric label="Realized critic score" small>
+          <Metric label="Actual critic score" small>
             {score(view.criticScore)}
           </Metric>
         </div>

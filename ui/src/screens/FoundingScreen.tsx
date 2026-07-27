@@ -136,6 +136,23 @@ export function FoundingScreen({
         </div>
       </div>
 
+      {/* A10: set the player's expectation about studio size and capacity up front — the
+          original game did not offer Small/Medium/Large starting sizes either, and the
+          two-production capacity + separate-team requirement is easy to miss otherwise. */}
+      <div className="card stack" data-testid="founding-intro">
+        <h2 style={{ marginTop: 0 }}>You are founding a small independent studio</h2>
+        <p className="hint" style={{ marginBottom: 0 }}>
+          There is no Small / Medium / Large choice — every studio starts the same way, small and
+          independent, and grows through the films it makes. Your studio can run{' '}
+          <strong>up to two productions at once</strong>, but each production needs its own{' '}
+          <strong>complete, available team</strong> (a writer, a director, three cast, and a
+          Production/Craft Lead). To staff a second film at the same time you need roster depth —
+          extra people beyond one team — or an available freelancer for each open role.
+        </p>
+      </div>
+
+      <div style={{ height: 16 }} />
+
       <div className="grid grid-2">
         <div className="card stack">
           <h2>Roster requirements</h2>

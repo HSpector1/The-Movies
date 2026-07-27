@@ -344,6 +344,9 @@ export function App() {
             goDashboard()
           }}
           onCancel={goDashboard}
+          // A1: a Custom Talent created mid-assembly updates the authoritative GameState here,
+          // while Assembly stays mounted so the in-progress film-package draft is preserved.
+          onStateChange={setState}
         />
       )}
 

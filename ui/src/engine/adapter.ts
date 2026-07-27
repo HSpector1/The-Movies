@@ -2900,6 +2900,70 @@ export function accessibleAutopsy(view: AutopsyView, compare: AutopsyCompare | n
   }
 }
 
+// ── D-12 owner UX (A8): plain-English Delivered Talent Alignment ──────────────
+// The autopsy's raw contribution vectors are impenetrable to a normal player. This turns
+// them into a readable account of whether the people on the film pulled in the same
+// creative direction (high Delivered Talent Alignment) or against each other (low). Every
+// value is derived ONLY from the recorded contribution vectors + the stored cohesion — no
+// invented numbers. Pairwise "agreement" is the cosine similarity of two contributors'
+// delivered vectors (−1 fully opposed … +1 fully aligned; 0 when a vector is ~zero, i.e.
+// too neutral to have a direction). The distinction sentence keeps Creative Brief Coherence
+// (a greenlight-time PLAN quality) separate from Delivered Talent Alignment (an EXECUTION
+// outcome), so the autopsy never blames the authored brief for a talent-alignment problem.
+export type AlignmentVec = { intimacy: number; tonalWeight: number; kineticEnergy: number }
+export type AlignmentPair = { a: string; b: string; agreement: number }
+export type DeliveredAlignmentReport = {
+  score: number // 0..100 (= round(cohesion × 100))
+  band: 'Weak' | 'Mixed' | 'Strong'
+  summary: string // plain-English account of the execution alignment
+  distinction: string // Creative Brief Coherence vs Delivered Talent Alignment
+  mostAligned: AlignmentPair | null
+  mostOpposed: AlignmentPair | null
+  pairs: AlignmentPair[]
+}
+const ALIGNMENT_ROLES = ['writer', 'director', 'lead', 'antagonist', 'support'] as const
+function alignDot(a: AlignmentVec, b: AlignmentVec): number {
+  return a.intimacy * b.intimacy + a.tonalWeight * b.tonalWeight + a.kineticEnergy * b.kineticEnergy
+}
+function alignCosine(a: AlignmentVec, b: AlignmentVec): number {
+  const m = Math.sqrt(alignDot(a, a)) * Math.sqrt(alignDot(b, b))
+  if (m <= 1e-9) return 0
+  return Math.max(-1, Math.min(1, alignDot(a, b) / m))
+}
+export function deliveredAlignmentReport(view: AutopsyView): DeliveredAlignmentReport {
+  const score = Math.round(view.cohesion * 100)
+  const band: DeliveredAlignmentReport['band'] =
+    view.cohesion < 0.4 ? 'Weak' : view.cohesion > 0.7 ? 'Strong' : 'Mixed'
+  const pairs: AlignmentPair[] = []
+  for (let i = 0; i < ALIGNMENT_ROLES.length; i++) {
+    for (let j = i + 1; j < ALIGNMENT_ROLES.length; j++) {
+      const ca = view.contributions[ALIGNMENT_ROLES[i]!]
+      const cb = view.contributions[ALIGNMENT_ROLES[j]!]
+      pairs.push({ a: ca.role, b: cb.role, agreement: alignCosine(ca.vector, cb.vector) })
+    }
+  }
+  const sorted = [...pairs].sort((x, y) => y.agreement - x.agreement)
+  const mostAligned = sorted[0] ?? null
+  const mostOpposed = sorted.length > 0 ? sorted[sorted.length - 1]! : null
+  let summary: string
+  if (band === 'Strong') {
+    summary = mostAligned
+      ? `The cast and crew pulled the film in largely the same creative direction — ${mostAligned.a} and ${mostAligned.b} were especially aligned — so the execution held together.`
+      : 'The cast and crew pulled the film in largely the same creative direction, so the execution held together.'
+  } else if (band === 'Weak') {
+    summary = mostOpposed
+      ? `Key contributors pulled the film toward different tones — ${mostOpposed.a} and ${mostOpposed.b} pulled hardest against each other — so the execution never fully cohered.`
+      : 'Key contributors pulled the film toward different tones, so the execution never fully cohered.'
+  } else {
+    summary = mostOpposed
+      ? `Contributors mostly agreed on the film's direction, though ${mostOpposed.a} and ${mostOpposed.b} pulled against the grain.`
+      : "Contributors mostly agreed on the film's direction, with some pulling against the grain."
+  }
+  const distinction =
+    'Creative Brief Coherence rated whether the plan — concept, shape and promise — fit together at greenlight. Delivered Talent Alignment measures whether the people you cast actually pulled in the same direction during execution. A coherent plan can still be pulled apart by mismatched talent.'
+  return { score, band, summary, distinction, mostAligned, mostOpposed, pairs }
+}
+
 // ── D-11.A post-reload film record ────────────────────────────────────────────
 // After a save/reload the per-session pre-tick snapshot is gone, so the FULL autopsy
 // (which reconstructs reception from the production) cannot run. But the film's

@@ -6,7 +6,7 @@
 // outputs (previewForecast, requiredNegative, salaries) — no invented scores.
 // Greenlight surfaces engine validation errors in plain English before committing.
 
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type {
   GameState,
   FilmConcept,
@@ -73,6 +73,7 @@ import { FilmPackageSummary } from '../components/FilmPackageSummary.tsx'
 import { FilmReadiness } from '../components/FilmReadiness.tsx'
 import { ChangePreview } from '../components/ChangePreview.tsx'
 import { ErrorBox, Warn, Metric } from '../components/common.tsx'
+import { TalentCreator } from './TalentCreator.tsx'
 
 type Step = 'concept' | 'shape' | 'promise' | 'talent' | 'budget' | 'review'
 const STEP_ORDER: Step[] = ['concept', 'shape', 'promise', 'talent', 'budget', 'review']
@@ -208,14 +209,47 @@ export function Assembly({
   state,
   onGreenlit,
   onCancel,
+  onStateChange,
 }: {
   state: GameState
   onGreenlit: (next: GameState) => void
   onCancel: () => void
+  // A1: apply an authoritative GameState change (a Custom Talent created mid-assembly) WITHOUT
+  // unmounting Assembly, so the in-progress film-package draft is preserved. Optional so existing
+  // tests that render <Assembly> without it still work (the create action is simply unavailable).
+  onStateChange?: (next: GameState) => void
 }) {
   const [draft, setDraft] = useState<Draft>(makeInitialDraft)
   const [step, setStep] = useState<Step>('concept')
   const [error, setError] = useState<string | null>(null)
+  // A1: when true, the embedded Talent Creator is shown IN PLACE of the wizard. Assembly stays
+  // mounted the whole time, so `draft` (concept/shape/promise/talent picks) survives the round-trip.
+  const [creating, setCreating] = useState(false)
+  // A2: on each step transition, reset scroll to the top and move focus to the new step's heading
+  // so the primary controls (not the bottom Next button) are what the player lands on.
+  const contentRef = useRef<HTMLDivElement>(null)
+  const firstRender = useRef(true)
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
+    const container = contentRef.current
+    if (!container) return
+    if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+      try {
+        window.scrollTo(0, 0)
+      } catch {
+        /* jsdom has no layout; focus below is the accessible signal */
+      }
+    }
+    container.scrollTop = 0
+    const heading = container.querySelector('h2')
+    if (heading instanceof HTMLElement) {
+      heading.setAttribute('tabindex', '-1')
+      heading.focus()
+    }
+  }, [step])
 
   const concepts = selectConcepts(state)
   const concept = draft.conceptId ? findConcept(state, draft.conceptId) : undefined
@@ -339,6 +373,22 @@ export function Assembly({
     onGreenlit(result.next)
   }
 
+  // A1: while creating a Custom Talent mid-assembly, show the existing Talent Creator IN PLACE of
+  // the wizard. Assembly does not unmount, so the film-package draft is preserved; on Created/Back
+  // we return to the exact step the player left, with every selection intact.
+  if (creating) {
+    return (
+      <TalentCreator
+        state={state}
+        onCreated={(next) => {
+          onStateChange?.(next)
+          setCreating(false)
+        }}
+        onBack={() => setCreating(false)}
+      />
+    )
+  }
+
   return (
     <div className="app-shell">
       <div className="topbar">
@@ -362,43 +412,46 @@ export function Assembly({
         ))}
       </div>
 
-      {step === 'concept' && (
-        <ConceptStep concepts={concepts} selected={draft.conceptId} onSelect={(id) => patch({ conceptId: id })} />
-      )}
-      {step === 'shape' && <ShapeStep shape={draft.shape} onChange={(shape) => patch({ shape })} />}
-      {step === 'promise' && concept && (
-        <PromiseStep draft={draft} concept={concept} patch={patch} />
-      )}
-      {step === 'talent' && concept && promiseForSummary && (
-        <TalentStep
-          state={state}
-          draft={draft}
-          concept={concept}
-          promise={promiseForSummary}
-          writers={writers}
-          directors={directors}
-          actors={actors}
-          crew={crew}
-          patch={patch}
-          engaged={engaged}
-          freelancerFees={freelancerFees}
-        />
-      )}
-      {step === 'budget' && concept && (
-        <BudgetStep state={state} draft={draft} concept={concept} pkg={pkg} patch={patch} />
-      )}
-      {step === 'review' && concept && pkg && preview && (
-        <ReviewStep
-          state={state}
-          pkg={pkg}
-          conceptTitle={concept.title}
-          preview={preview}
-          cohesion={cohesion}
-          fit={fit}
-          execution={execution}
-          profit={profit}
-        />
-      )}
+      <div ref={contentRef} data-testid="assembly-step-content">
+        {step === 'concept' && (
+          <ConceptStep concepts={concepts} selected={draft.conceptId} onSelect={(id) => patch({ conceptId: id })} />
+        )}
+        {step === 'shape' && <ShapeStep shape={draft.shape} onChange={(shape) => patch({ shape })} />}
+        {step === 'promise' && concept && (
+          <PromiseStep draft={draft} concept={concept} patch={patch} />
+        )}
+        {step === 'talent' && concept && promiseForSummary && (
+          <TalentStep
+            state={state}
+            draft={draft}
+            concept={concept}
+            promise={promiseForSummary}
+            writers={writers}
+            directors={directors}
+            actors={actors}
+            crew={crew}
+            patch={patch}
+            engaged={engaged}
+            freelancerFees={freelancerFees}
+            onCreateTalent={onStateChange ? () => setCreating(true) : undefined}
+          />
+        )}
+        {step === 'budget' && concept && (
+          <BudgetStep state={state} draft={draft} concept={concept} pkg={pkg} patch={patch} />
+        )}
+        {step === 'review' && concept && pkg && preview && (
+          <ReviewStep
+            state={state}
+            pkg={pkg}
+            conceptTitle={concept.title}
+            preview={preview}
+            cohesion={cohesion}
+            fit={fit}
+            execution={execution}
+            profit={profit}
+          />
+        )}
+      </div>
 
       {/* Change preview — the real computed effect of the latest select/swap. Shown on
           the talent/budget steps once a complete package exists and a slot just changed. */}
@@ -662,6 +715,7 @@ function TalentStep({
   patch,
   engaged,
   freelancerFees,
+  onCreateTalent,
 }: {
   state: GameState
   draft: Draft
@@ -674,6 +728,9 @@ function TalentStep({
   patch: (p: Partial<Draft>) => void
   engaged: boolean
   freelancerFees: Record<string, number>
+  // A1: open the Talent Creator without leaving assembly. Undefined ⇒ the action is unavailable
+  // (e.g. a test rendered <Assembly> without onStateChange); the button is then simply not shown.
+  onCreateTalent?: (() => void) | undefined
 }) {
   const castIds = CAST_SLOTS.map((s) => draft.cast[s]).filter((x): x is string => x !== null)
   const SLOT_TITLES: Record<CastSlot, string> = {
@@ -706,14 +763,30 @@ function TalentStep({
   const craftId = draft.craftIds[0] ?? null
   return (
     <div className="card">
-      <h2>Cast &amp; crew the film</h2>
+      {/* A1: the primary "Create Custom Talent" action sits at the TOP of the Talent step, beside
+          the heading, so it is visible without scrolling past the whole cast. It opens the existing
+          creator and returns here with every selection preserved. */}
+      <div className="spread">
+        <h2 style={{ margin: 0 }}>Cast &amp; crew the film</h2>
+        {onCreateTalent && (
+          <button
+            type="button"
+            className="primary"
+            onClick={onCreateTalent}
+            data-testid="talent-step-create"
+          >
+            + Create Custom Talent
+          </button>
+        )}
+      </div>
       <p className="hint">
         {engaged
           ? 'Staff the film from Your Studio (talent you employ — on payroll, no per-film cost) or from Available Freelancers (a one-film fee, tagged “Freelancer”). Unavailable industry talent is not shown. A Production/Craft Lead is required.'
           : 'Pick a writer, a director, one actor per cast slot, and (optionally) a Crew/Craft lead.'}{' '}
         Candidates are sorted by Project Fit for the assignment — not by fame. Anyone already
         engaged in another production, or already used on this film, is disabled with the reason
-        shown.
+        shown. Need someone who does not exist yet? Use Create Custom Talent above — your film
+        selections are kept.
       </p>
       <div className="grid grid-2">
         <TalentPicker
@@ -811,22 +884,32 @@ function BudgetStep({
 
   const NEG_LABELS = ['Lean (0.75×)', 'Adequate (1.0×)', 'Generous (1.25×)']
   const MKT_LABELS = ['Small campaign', 'Standard campaign', 'Wide campaign']
+  // A5: the same solvency preview + break-even the Review step uses, surfaced HERE so the whole
+  // financial decision is visible in Budget & Forecast — the player never reaches the bottom Next
+  // button without meeting it. commitmentPreview/breakEvenGross are pure adapter reads (no formula).
+  const preview = commitmentPreview(state, committed)
+  const breakEven = breakEvenGross(committed)
+  const forecast = pkg ? previewForecast(state, pkg) : null
 
   return (
-    <div className="grid grid-2">
-      <div className="card stack">
-        <h2>Budget</h2>
+    <div className="stack">
+      <h2 style={{ marginTop: 0 }}>Budget &amp; Forecast</h2>
+
+      {/* ── Your spending decision ── */}
+      <div className="card stack" data-testid="budget-spending">
+        <h3 style={{ marginTop: 0 }}>Your spending decision</h3>
         <div className="fact-block">
-          <Metric label="Required negative (from concept + shape)" small testid="required-negative">
-            <span className="tag fact" style={{ marginRight: 6 }}>
-              Fact
-            </span>
+          <Metric label="Baseline Production Budget (from concept + shape)" small testid="required-negative">
             {money(req)}
           </Metric>
         </div>
+        <p className="hint">
+          Also called the film&rsquo;s negative cost: the money required to produce the completed
+          movie before marketing. Your Production Budget choice scales it.
+        </p>
 
         <div>
-          <h4>Negative budget</h4>
+          <h4>Production Budget</h4>
           <div className="btn-row" data-testid="negative-levels">
             {NEGATIVE_BUDGET_MULTIPLIERS.map((m, i) => (
               <button
@@ -866,7 +949,7 @@ function BudgetStep({
         <div className="sep" />
         <div className="stack fact-block">
           <div className="spread">
-            <span>Production Budget (negative)</span>
+            <span>Production Budget</span>
             <span className="mono">{moneyExact(negative)}</span>
           </div>
           <div className="spread">
@@ -885,24 +968,52 @@ function BudgetStep({
               {moneyExact(committed)}
             </strong>
           </div>
-          <div className="spread">
-            <span>Current cash</span>
-            <span className={`mono ${cash < 0 ? 'money neg' : 'money pos'}`}>{moneyExact(cash)}</span>
-          </div>
         </div>
+      </div>
 
+      {/* ── Studio impact ── */}
+      <div className="card stack" data-testid="budget-impact">
+        <h3 style={{ marginTop: 0 }}>Studio impact</h3>
+        <div className="row" style={{ gap: 24, flexWrap: 'wrap' }}>
+          <Metric label="Current Cash" small>
+            <span className={cash < 0 ? 'money neg' : 'money pos'}>{moneyExact(cash)}</span>
+          </Metric>
+          <Metric label="Cash After Greenlight" small testid="budget-cash-after">
+            <span className={preview.cashAfter < 0 ? 'money neg' : 'money pos'}>
+              {moneyExact(preview.cashAfter)}
+            </span>
+          </Metric>
+          <Metric label="Affordability" small testid="budget-affordability">
+            <span className={preview.affordable ? 'money pos' : 'money neg'}>
+              {preview.affordable ? 'Affordable ✓' : 'Blocked ✗'}
+            </span>
+          </Metric>
+          <Metric label="Post-Greenlight Runway" small testid="budget-runway">
+            {preview.postRunway.infinite ? '—' : `${preview.postRunway.weeks} wk`}
+          </Metric>
+        </div>
         {goesNegative && (
           <Warn>
             This commitment ({moneyExact(committed)}) is more than the studio has on hand
             ({moneyExact(cash)}). A greenlight can’t overdraw the studio (D-12 solvency rule), so
-            lower the negative or marketing budget until the commitment fits your cash.
+            lower the Production Budget or Marketing until the commitment fits your cash.
           </Warn>
         )}
       </div>
 
-      <div className="stack">
-        {pkg ? (
-          <ForecastDisplay forecast={previewForecast(state, pkg)} mode="normal" source="estimate" />
+      {/* ── Commercial outlook ── */}
+      <div className="card stack" data-testid="budget-outlook">
+        <h3 style={{ marginTop: 0 }}>Commercial outlook</h3>
+        <div className="row" style={{ gap: 24, flexWrap: 'wrap' }}>
+          <Metric label="Expected Total Theatrical Gross" small testid="budget-expected-gross">
+            {forecast ? money(forecast.expectedTotal) : '—'}
+          </Metric>
+          <Metric label="Break-even Theatrical Gross" small testid="budget-breakeven">
+            {money(breakEven)}
+          </Metric>
+        </div>
+        {forecast ? (
+          <ForecastDisplay forecast={forecast} mode="normal" source="estimate" />
         ) : (
           <div className="panel">
             <p className="hint">Finish choosing talent to see the forecast.</p>
@@ -950,13 +1061,13 @@ function ReviewStep({
             <strong>{conceptTitle}</strong>
           </div>
           <div className="spread">
-            <span>Commitment now (negative + marketing + salaries)</span>
+            <span>Total immediate commitment (Production Budget + Marketing + Freelancer Fees)</span>
             <strong className="mono" data-testid="release-commitment">
               {moneyExact(committed)}
             </strong>
           </div>
           <div className="spread">
-            <span>Break-even gross</span>
+            <span>Break-even theatrical gross</span>
             <strong className="mono" data-testid="release-breakeven">
               {money(breakEven)}
             </strong>

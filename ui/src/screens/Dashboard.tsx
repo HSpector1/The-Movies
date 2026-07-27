@@ -251,19 +251,19 @@ export function Dashboard({
                 <div className="panel" key={p.id} data-testid={`active-${p.id}`}>
                   <div className="spread">
                     <strong>{concept?.title ?? p.conceptId}</strong>
-                    <span className="tag fact">Fact</span>
+                    <span className="tag fact">In production</span>
                   </div>
                   <div className="row" style={{ marginTop: 8, gap: 24 }}>
                     <Metric label="Weeks left" small testid={`weeks-${p.id}`}>
                       {p.remainingTicks}
                     </Metric>
-                    <Metric label="Forecast total" small>
+                    <Metric label="Expected total theatrical gross" small>
                       <span className="tag estimate" style={{ marginRight: 6 }}>
                         Est
                       </span>
                       {money(p.forecastSnapshot.expectedTotal)}
                     </Metric>
-                    <Metric label="Forecast critic" small>
+                    <Metric label="Expected critic score" small>
                       <span className="tag estimate" style={{ marginRight: 6 }}>
                         Est
                       </span>
