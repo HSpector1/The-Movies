@@ -126,6 +126,10 @@ import {
   breakEvenGross,
   foundingRunwayPreview,
   projectedWeeklyOverhead,
+  // D-12 P2: awareness-conditioned marketing efficiency read model (reuses the engine box-office
+  // pass — no UI-duplicated formula).
+  computeBoxOffice,
+  forecastCenters,
 } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
 import type {
@@ -607,7 +611,9 @@ export function predictedProductionId(state: GameState): string {
 // productions display their STORED forecastSnapshot instead.
 export function previewForecast(state: GameState, pkg: DraftPackage): Forecast {
   const inp = assembleReceptionInputs(state, pkg)
-  // D-12: match applyGreenlight — saturate fame→opening reach when the economy is engaged.
+  // D-12: match applyGreenlight — saturate fame→opening reach AND apply the P2 economy calibration
+  // (routine gross scale + awareness marketing) when the economy is engaged (same signal for both).
+  const engaged = employmentEngaged(state)
   return computeForecast(
     inp,
     {
@@ -617,7 +623,8 @@ export function previewForecast(state: GameState, pkg: DraftPackage): Forecast {
       releasedFilms: state.studio.releasedFilms,
       concepts: state.concepts,
     },
-    employmentEngaged(state),
+    engaged,
+    engaged,
   )
 }
 
@@ -1372,7 +1379,11 @@ export function explainRelease(
   // Call the PUBLIC resolveReception with a throwaway stream — the deterministic
   // fields match the real release; only the sampled critic draw differs (we ignore
   // its criticScore/reviewVariance and use the STORED filmResult values).
-  const r = resolveReception(inp, RngStream.fromSeed(`autopsy::${filmResult.productionId}`))
+  // D-12 P2: reconstruct with the SAME flags the release used (fame saturation + economy
+  // calibration) so the recomputed mechanistic breakdown — awarenessFactor (now marketing-curve
+  // dependent), opening/legs — matches the STORED box office. A session autopsy is always engaged.
+  const engaged = employmentEngaged(preTick)
+  const r = resolveReception(inp, RngStream.fromSeed(`autopsy::${filmResult.productionId}`), engaged, engaged)
 
   const contributions: AutopsyView['contributions'] = {
     writer: { role: 'Writer', vector: r.contributions.writer },
@@ -2553,9 +2564,67 @@ export function assessProfitRange(state: GameState, pkg: DraftPackage): Forecast
     concepts: state.concepts,
     salaries,
     // D-12: same economy gate as the greenlight-locked forecast (actions.ts) and realized
-    // release — the live Commercial-Outlook opening uses the SAME §7 Hill fame path.
+    // release — the live Commercial-Outlook opening uses the SAME §7 Hill fame path AND the P2
+    // economy calibration (routine gross scale + awareness marketing). Both are employmentEngaged.
     saturateFame: employmentEngaged(state),
+    engaged: employmentEngaged(state),
   })
+}
+
+// ── D-12 P2: Marketing efficiency read model ──────────────────────────────────
+// A player-facing, TRUTHFUL account of whether the current Marketing spend sits within the film's
+// awareness-conditioned efficient capacity. Every number comes from the ENGINE box-office pass
+// (computeBoxOffice), not a UI-duplicated formula: preMarketingAwareness (how visible/wanted the
+// film is BEFORE marketing) and marketingCapacity (the spend at which reach half-saturates). The
+// state label is a display band over spend ÷ capacity — it never changes any engine value.
+export type MarketingEfficiencyState =
+  | 'Underexposed'
+  | 'Efficient campaign'
+  | 'Near saturation'
+  | 'Overextended campaign'
+export type MarketingEfficiency = {
+  engaged: boolean
+  preMarketingAwareness: number // 0..1 (studio audience awareness + the film's own opening-appeal reach)
+  capacity: number // efficient marketing capacity (currency) — the half-saturation spend
+  spend: number // this film's Marketing budget
+  ratio: number // spend ÷ capacity
+  state: MarketingEfficiencyState
+}
+export function marketingEfficiency(state: GameState, pkg: DraftPackage): MarketingEfficiency {
+  const engaged = employmentEngaged(state)
+  const inp = assembleFullReceptionInputs(state, pkg)
+  // Reuse the engine forecast appeal (fame-saturated opening when engaged) + the engine box-office
+  // pass so the awareness + capacity are the SAME values the forecast/realized paths use.
+  const centers = forecastCenters(inp, engaged)
+  const box = computeBoxOffice(
+    centers.centers,
+    inp.market.segments,
+    inp.market.baseMarketValue,
+    inp.standing,
+    inp.promise,
+    inp.budget,
+    inp.shapeEffects,
+    centers.centersOpening,
+    engaged,
+  )
+  const spend = pkg.budget.marketing
+  const ratio = box.marketingCapacity > 0 ? spend / box.marketingCapacity : 0
+  const label: MarketingEfficiencyState =
+    ratio < 0.5
+      ? 'Underexposed'
+      : ratio < 1.2
+        ? 'Efficient campaign'
+        : ratio < 2.5
+          ? 'Near saturation'
+          : 'Overextended campaign'
+  return {
+    engaged,
+    preMarketingAwareness: box.preMarketingAwareness,
+    capacity: box.marketingCapacity,
+    spend,
+    ratio,
+    state: label,
+  }
 }
 
 // A `PackageSide` (fit+execution+profit+castStarPower) for one fully-assembled draft —

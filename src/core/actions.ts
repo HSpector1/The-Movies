@@ -384,10 +384,12 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
     releasedFilms: state.studio.releasedFilms,
     concepts: state.concepts,
   }
-  // D-12: the greenlight forecast saturates fame→opening reach with the SAME helper as the
-  // realized release when the economy is engaged (economyEngaged ≡ employmentEngaged), so
-  // forecast and result stay consistent; M0A (not engaged) uses the legacy path (byte-identical).
-  const forecastSnapshot: Forecast = computeForecast(inp, ctx, employmentEngaged(state))
+  // D-12: the greenlight forecast saturates fame→opening reach AND applies the P2 economy
+  // calibration (gross scale + awareness marketing) with the SAME helper as the realized release
+  // when engaged (economyEngaged ≡ employmentEngaged), so forecast and result stay consistent; M0A
+  // (not engaged) uses the legacy path (byte-identical). Both flags are the same production signal.
+  const engaged = employmentEngaged(state)
+  const forecastSnapshot: Forecast = computeForecast(inp, ctx, engaged, engaged)
 
   // ── Ledger + cash (D-1 unchanged when employment NOT engaged; D-11 economics
   // when engaged). Both paths keep the reconciliation invariant

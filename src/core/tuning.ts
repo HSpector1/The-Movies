@@ -325,6 +325,33 @@ export const TUNING = {
   OVERHEAD_BASE: 15_000, // [ICH] fixed weekly studio overhead
   OVERHEAD_PER_EMPLOYEE: 1_500, // [ICH] weekly overhead per contracted employee
   ECONOMY_MODEL_VERSION: 1, // [OWNER] 1 = D-12 blended-share theatrical run (0 = legacy full-gross)
+
+  // ── D-12 owner calibration P2 (2026-07-28) ─────────────────────────────────
+  // All THREE constants apply ONLY when the D-12 economy is engaged (saturateFame),
+  // so the M0A corpus stays byte-identical (the non-engaged box-office path is the
+  // legacy MARKETING_HALF_SATURATION Hill with no gross scale). See
+  // docs/D-12-owner-calibration-contract.md.
+  //
+  // (1) Routine opening/gross scale — the single canonical multiplier on the ENGAGED
+  // opening (and thus total + the conserved weekly schedule), applied once, after
+  // creative/talent/Fame/Marketing determine opening and before the schedule + share.
+  // Selected by the integrated owner-route gates: the highest value in [0.65,0.70] that
+  // keeps money meaningfully constrained (competent 4-film median ~1.0–1.6×).
+  ECONOMY_BOX_OFFICE_SCALE: 0.7, // [ICH; owner range 0.65–0.70] — selected: highest value passing the
+  // four-film gates (competent median ~1.25×, p90 ~2.0–2.1×, ≥1 loss in 4 ≈ 47%, some runs below start).
+  // (2) Awareness-conditioned Marketing efficient capacity. When engaged, the marketing
+  // half-saturation is not a fixed 400k but scales with the film's PRE-marketing awareness
+  // (studio audience awareness + the film's own opening appeal reach): a low-awareness film
+  // saturates cheaply (CAP_MIN), a high-awareness event film absorbs a wide campaign (CAP_MAX).
+  // capacity = CAP_MIN + (CAP_MAX − CAP_MIN) · awareness^EXP; marketingQuality = spend/(spend+capacity).
+  // The EXP > 1 makes low-awareness films saturate their (small) capacity fast, so a maximum campaign
+  // on a not-yet-visible film is wasted — an interior optimum — while a genuinely visible film still
+  // absorbs a wide campaign efficiently. A NEW studio (low audience awareness) is therefore rarely
+  // able to justify a maximum campaign until it has built awareness — the intended shape.
+  MARKETING_CAPACITY_MIN: 25_000, // [ICH] efficient marketing capacity at zero pre-marketing awareness
+  MARKETING_CAPACITY_MAX: 1_800_000, // [ICH] efficient marketing capacity at full pre-marketing awareness
+  MARKETING_AWARENESS_STANDING_WEIGHT: 0.6, // [ICH] blend: studio audience awareness vs film opening-appeal reach
+  MARKETING_AWARENESS_EXP: 2.0, // [ICH] capacity ∝ awareness^EXP (EXP>1 ⇒ low-awareness saturates cheaply)
 } as const
 
 // ── §5.1 cast weighting ──────────────────────────────────────────────────────

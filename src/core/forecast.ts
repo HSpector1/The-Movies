@@ -353,7 +353,10 @@ export type ForecastContext = {
   concepts: FilmConcept[]
 }
 
-export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, saturateFame = false): Forecast {
+// `saturateFame` = §7 fame Hill on opening reach; `engaged` = D-12 economy calibration (P2 gross
+// scale + awareness marketing). Distinct concerns, both true together in engaged play; separated so
+// fame-isolation tests can vary fame without the economy scale. Both default false (M0A byte-identical).
+export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, saturateFame = false, engaged = false): Forecast {
   const centers = forecastCenters(inp, saturateFame)
 
   // Confidence (film-level) — computed BEFORE the offset because sigma depends on it.
@@ -421,6 +424,7 @@ export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, satur
     inp.budget,
     inp.shapeEffects,
     noisyOpening,
+    engaged, // D-12 P2: forecast applies the economy scale + awareness marketing when engaged (matches realized)
   )
 
   return {

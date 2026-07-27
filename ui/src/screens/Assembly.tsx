@@ -29,6 +29,7 @@ import {
   commitmentPreview,
   breakEvenGross,
   previewForecast,
+  marketingEfficiency,
   greenlight,
   findConcept,
   assessCreativeCohesion,
@@ -890,6 +891,7 @@ function BudgetStep({
   const preview = commitmentPreview(state, committed)
   const breakEven = breakEvenGross(committed)
   const forecast = pkg ? previewForecast(state, pkg) : null
+  const mktEff = pkg ? marketingEfficiency(state, pkg) : null // D-12 P2 awareness-conditioned marketing state
 
   return (
     <div className="stack">
@@ -944,6 +946,21 @@ function BudgetStep({
               </button>
             ))}
           </div>
+          {/* D-12 P2: awareness-conditioned Marketing efficiency — is this campaign matched to how
+              visible the film already is? Truthful (engine-derived); never claims marketing buys quality. */}
+          {mktEff && mktEff.engaged && (
+            <p className="hint" data-testid="marketing-efficiency" style={{ marginTop: 6 }}>
+              Campaign status: <strong>{mktEff.state}</strong>.{' '}
+              {mktEff.state === 'Underexposed'
+                ? 'This film can efficiently absorb more marketing than it is getting.'
+                : mktEff.state === 'Efficient campaign'
+                  ? 'The spend is matched to the film’s current awareness.'
+                  : mktEff.state === 'Near saturation'
+                    ? 'Extra marketing is starting to hit strong diminishing returns.'
+                    : 'The film is not yet visible enough to spend this efficiently — most of this campaign is wasted.'}{' '}
+              Marketing widens who shows up; it does not change how good the film is.
+            </p>
+          )}
         </div>
 
         <div className="sep" />

@@ -411,10 +411,155 @@ function sensitivityMatrix(seeds: number) {
   return cells
 }
 
+// ── Stage 3B/3C: diverse-package choice-quality gate ──────────────────────────
+// Marketing/budget optima must depend on the FILM. We build a representative package set — talent
+// quality {best, cheapest} × ambition {contained, ordinary, demanding} — and, per package, sweep
+// Marketing (at negMult 1.0) and Production Budget (at standard marketing) to find each choice's
+// profit-max tier. Reports how often maximum Marketing / a single Budget tier is optimal.
+const ARCH_SHAPES = {
+  contained: { opening: 'slowSetup', midpoint: 'revelation', ending: 'tragic' }, // low demand, high craft, low reach
+  ordinary: { opening: 'mysteryHook', midpoint: 'reversal', ending: 'bittersweet' }, // mid demand
+  demanding: { opening: 'immediateAction', midpoint: 'escalation', ending: 'triumph' }, // high demand + reach, low craft
+} as const
+type ArchKey = keyof typeof ARCH_SHAPES
+const MKT_LEVELS = MARKETING_BUDGET_LEVELS
+const NEG_TIERS = [0.75, 1.0, 1.25]
+
+// One film with an explicit archetype (shape + talent rank), marketing, and negMult, on a fresh
+// founded studio (route-A depth so talent is available). Returns realized Film Contribution.
+function archFilm(seed: string, shapeKey: ArchKey, rank: Rank, marketing: number, negMult: number): number | null {
+  let s = foundFor(seed, { ...ROUTES[0]!, rank })
+  const busy = busyTalentIds(s)
+  const pick = (role: CreativeRole) =>
+    rankTalent(s.contracts.map((c) => s.talent.find((t) => t.id === c.talentId)!).filter((t) => t.role === role && !busy.has(t.id)), role, rank)
+  const w = pick('writer')[0], d = pick('director')[0], a = pick('actor'), c = pick('craft')[0]
+  if (!w || !d || !c || a.length < 3) return null
+  const concept = s.concepts[0]!
+  const shape = ARCH_SHAPES[shapeKey]
+  const negative = Math.round(concept.baseNegativeCost * negMult)
+  if (!canAfford(s, negative + marketing).ok) return null
+  const action = {
+    kind: 'greenlight' as const,
+    production: {
+      conceptId: concept.id,
+      shape,
+      promise: { genre: concept.genre, intendedSegments: ['adult'] as SegmentId[], ranges: { intimacy: [-0.5, 0.5] as [number, number], tonalWeight: [-0.5, 0.5] as [number, number], kineticEnergy: [-0.5, 0.5] as [number, number] } },
+      writerId: w.id, directorId: d.id, cast: { lead: a[0]!.id, antagonist: a[1]!.id, support: a[2]!.id } as Record<CastSlot, string>, craftIds: [c.id],
+      budget: { negative, marketing },
+    },
+  }
+  s = applyActions(s, [action])
+  const id = s.studio.activeProductions[s.studio.activeProductions.length - 1]!.id
+  for (let k = 0; k < TUNING.PRODUCTION_TICKS + TUNING.THEATRICAL_WEEKS + 4; k++) {
+    s = tick(s, { develop: true })
+    const run = s.theatricalRuns.find((r) => r.productionId === id)
+    if (run && run.status !== 'active') break
+  }
+  const run = s.theatricalRuns.find((r) => r.productionId === id)
+  if (!run) return null
+  const gross = run.weeklyGross.reduce((x, y) => x + y, 0)
+  return gross * run.studioShare - (negative + marketing)
+}
+function argmax<T>(items: T[], score: (t: T) => number): T {
+  return items.reduce((best, t) => (score(t) > score(best) ? t : best), items[0]!)
+}
+function diversePackageGate(seeds: number) {
+  const ranks: Rank[] = ['best', 'cheapest']
+  const shapes = Object.keys(ARCH_SHAPES) as ArchKey[]
+  const rows: any[] = []
+  for (const rank of ranks) {
+    for (const shapeKey of shapes) {
+      const medFor = (fn: (seed: string) => number | null) => {
+        const xs: number[] = []
+        for (let i = 0; i < seeds; i++) { const v = fn(`arch-${i}`); if (v !== null) xs.push(v) }
+        return xs.length ? median(xs) : NaN
+      }
+      const mktContribs = MKT_LEVELS.map((mk) => ({ mk, contrib: medFor((seed) => archFilm(seed, shapeKey, rank, mk, 1.0)) }))
+      const negContribs = NEG_TIERS.map((ng) => ({ ng, contrib: medFor((seed) => archFilm(seed, shapeKey, rank, 400_000, ng)) }))
+      rows.push({
+        rank, shape: shapeKey,
+        marketingByLevel: mktContribs.map((x) => ({ marketing: x.mk, contribution: Math.round(x.contrib) })),
+        profitMaxMarketing: argmax(mktContribs, (x) => x.contrib).mk,
+        budgetByTier: negContribs.map((x) => ({ negMult: x.ng, contribution: Math.round(x.contrib) })),
+        profitMaxNegMult: argmax(negContribs, (x) => x.contrib).ng,
+      })
+    }
+  }
+  const n = rows.length
+  const maxMktShare = rows.filter((r) => r.profitMaxMarketing === Math.max(...MKT_LEVELS)).length / n
+  const negCounts: Record<string, number> = {}
+  for (const r of rows) negCounts[r.profitMaxNegMult] = (negCounts[r.profitMaxNegMult] ?? 0) + 1
+  const topNegShare = Math.max(...Object.values(negCounts)) / n
+  const distinctMktOptima = new Set(rows.map((r) => r.profitMaxMarketing)).size
+  const distinctNegOptima = new Set(rows.map((r) => r.profitMaxNegMult)).size
+  return { rows, maxMarketingOptimalShare: r2(maxMktShare), topBudgetTierShare: r2(topNegShare), negOptimaCounts: negCounts, distinctMktOptima, distinctNegOptima }
+}
+
+// ── Stage 3A: ECONOMY_BOX_OFFICE_SCALE selection ──────────────────────────────
+// Run the competent routes (A aggressive, B restrained) + the bargain stress (D) at each candidate
+// scale, on the REAL engine (toggling the tuning constant in-process). Select the HIGHEST value that
+// keeps money meaningfully constrained: competent 4-film median ~1.0–1.6×, p90 ≲ 2.0–2.25×, some runs
+// below start, meaningful loss rate — WITHOUT collapsing the bargain lane into non-viability.
+function scaleSelection(seeds: number) {
+  const candidates = [0.65, 0.67, 0.68, 0.7]
+  const scaleRoutes = [ROUTES[0]!, ROUTES[1]!, ROUTES[3]!] // A, B, D
+  const table: any[] = []
+  for (const scale of candidates) {
+    const row: any = { scale, routes: {} as Record<string, any> }
+    for (const st of scaleRoutes) {
+      const runs = withTuning({ ECONOMY_BOX_OFFICE_SCALE: scale }, () => {
+        const rs: RouteRun[] = []
+        for (let i = 0; i < seeds; i++) rs.push(runFourFilms(`scale-${i}`, st))
+        return rs
+      })
+      const mult = runs.map((r) => r.cashMultiple)
+      const filmLoss = runs.flatMap((r) => r.films.map((f) => f.contribution < 0))
+      row.routes[st.name] = {
+        p10: r2(quantile(mult, 0.1)),
+        median: r2(median(mult)),
+        p90: r2(quantile(mult, 0.9)),
+        lossPerFilm: r2(rate(filmLoss)),
+        endBelowStart: r2(rate(runs.map((r) => r.endBelowStart))),
+        atLeastOneLoss: r2(rate(runs.map((r) => r.films.some((f) => f.contribution < 0)))),
+      }
+    }
+    table.push(row)
+  }
+  return table
+}
+
 // ── run everything ─────────────────────────────────────────────────────────────
 mkdirSync(OUT, { recursive: true })
 // eslint-disable-next-line no-console
 console.log(`# [I] D-12 owner economy calibration study — ${SEEDS} seeds (INITIAL_CASH ${fmtM(INITIAL)}, share ${TUNING.STUDIO_RENTAL_BLENDED}, K ${TUNING.FAME_REACH_HALF_SAT})`)
+
+// Stage 3A: scale selection (runs first so the digest leads with the decision).
+const scaleTable = scaleSelection(Math.min(SEEDS, 100))
+// eslint-disable-next-line no-console
+console.log(`\n## Stage 3A — ECONOMY_BOX_OFFICE_SCALE selection (competent A/B + bargain D, 4-film)`)
+for (const row of scaleTable) {
+  // eslint-disable-next-line no-console
+  console.log(`  scale ${row.scale}:`)
+  for (const [name, m] of Object.entries(row.routes) as [string, any][]) {
+    // eslint-disable-next-line no-console
+    console.log(`    ${name.padEnd(24)} mult p10 ${m.p10}× med ${m.median}× p90 ${m.p90}×  loss/film ${(m.lossPerFilm * 100).toFixed(0)}%  ≥1loss ${(m.atLeastOneLoss * 100).toFixed(0)}%  end<start ${(m.endBelowStart * 100).toFixed(0)}%`)
+  }
+}
+writeFileSync(join(OUT, 'scale-selection.json'), JSON.stringify(scaleTable, null, 2))
+
+// Stage 3B/3C: diverse-package choice-quality gate.
+const gate = diversePackageGate(Math.min(SEEDS, 80))
+// eslint-disable-next-line no-console
+console.log(`\n## Stage 3B/3C — diverse-package choice quality (talent × ambition)`)
+for (const row of gate.rows) {
+  // eslint-disable-next-line no-console
+  console.log(`  ${row.rank.padEnd(8)} ${row.shape.padEnd(10)}  mkt→ ${row.marketingByLevel.map((m: any) => `${(m.marketing / 1e6).toFixed(1)}M:${(m.contribution / 1e6).toFixed(1)}`).join(' ')}  [max@${(row.profitMaxMarketing / 1e6).toFixed(1)}M]   budget→ ${row.budgetByTier.map((b: any) => `${b.negMult}:${(b.contribution / 1e6).toFixed(1)}`).join(' ')}  [max@${row.profitMaxNegMult}]`)
+}
+// eslint-disable-next-line no-console
+console.log(`  max-marketing optimal in ${(gate.maxMarketingOptimalShare * 100).toFixed(0)}% of packages (target ≤35%); distinct marketing optima ${gate.distinctMktOptima}`)
+// eslint-disable-next-line no-console
+console.log(`  top budget tier optimal in ${(gate.topBudgetTierShare * 100).toFixed(0)}% (target ≤70%); budget optima ${JSON.stringify(gate.negOptimaCounts)}; distinct ${gate.distinctNegOptima}`)
+writeFileSync(join(OUT, 'choice-quality-gate.json'), JSON.stringify(gate, null, 2))
 
 const routeAgg: RouteAgg[] = []
 for (const st of ROUTES) {

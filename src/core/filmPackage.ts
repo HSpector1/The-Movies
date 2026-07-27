@@ -486,6 +486,10 @@ export type ForecastProfitContext = ForecastContext & {
   // so the LIVE Commercial-Outlook re-forecast uses the SAME §7 Hill fame opening-reach path as the
   // greenlight-locked forecast and realized release. Defaults false → linear (ungated/M0A) path.
   saturateFame?: boolean
+  // D-12 P2: whether the D-12 economy calibration (routine gross scale + awareness-conditioned
+  // marketing) applies. Equals saturateFame in production, but kept SEPARATE so a fame-only test can
+  // isolate fame. Defaults false → no gross scale, legacy marketing Hill.
+  engaged?: boolean
 }
 
 // Run §5.5 box office on ONE per-segment LEGS appeal map + its matching OPENING appeal map
@@ -496,6 +500,7 @@ function boxTotalFor(
   inp: ForecastProfitInput,
   appealBySegment: Record<SegmentId, number>,
   openingBySegment?: Record<SegmentId, number>,
+  engaged = false,
 ): number {
   return computeBoxOffice(
     appealBySegment,
@@ -506,6 +511,7 @@ function boxTotalFor(
     inp.budget,
     inp.shapeEffects,
     openingBySegment,
+    engaged, // D-12 P2: same engaged gate as greenlight/realized (awareness mkt + gross scale)
   ).total
 }
 
@@ -535,9 +541,10 @@ export function forecastProfitRange(
   }
 
   // Run §5.5 verbatim on each band (legs + matching opening). Box office is monotone in appeal.
-  const revLow = boxTotalFor(inp, lowMap, openLow)
-  const revExpected = boxTotalFor(inp, midMap, openMid)
-  const revHigh = boxTotalFor(inp, highMap, openHigh)
+  const engaged = ctx.engaged ?? false // D-12 P2 economy scale — distinct from the fame flag above
+  const revLow = boxTotalFor(inp, lowMap, openLow, engaged)
+  const revExpected = boxTotalFor(inp, midMap, openMid, engaged)
+  const revHigh = boxTotalFor(inp, highMap, openHigh, engaged)
 
   // D-1 committed cost = negative + marketing + Σ salaries (salaries passed in ctx).
   const committedCost = inp.budget.negative + inp.budget.marketing + ctx.salaries

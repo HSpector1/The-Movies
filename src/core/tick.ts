@@ -185,8 +185,10 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       era: state.era,
     }
 
-    // The single §5.3 critic draw for this release — the ONLY sim-stream advance.
-    const result = resolveReception(inp, rng, engaged) // D-12: saturate fame→opening reach when engaged
+    // The single §5.3 critic draw for this release — the ONLY sim-stream advance. `engaged` drives
+    // BOTH the §7 fame→opening-reach saturation and the D-12 P2 economy calibration (gross scale +
+    // awareness marketing) — in production they are the same signal (economyEngaged).
+    const result = resolveReception(inp, rng, engaged, engaged)
 
     const baseFilmResult = buildFilmResult(result, {
       productionId: prod.id,

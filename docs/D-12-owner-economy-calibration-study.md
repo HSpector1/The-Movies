@@ -242,3 +242,44 @@ After a package lands, the owner should replay the exact route that failed: foun
 ---
 
 *Study produced without changing any production tuning constant, formula, or save schema. Harness, raw outputs, and this report are uncommitted pending the owner's ruling.*
+
+---
+
+# PRODUCTION RESULTS — P2 implemented (owner ruling 2026-07-28) `[P]`
+
+Governed by `docs/D-12-owner-calibration-contract.md`. Implemented on the real engine, economy-engaged only (M0A byte-identical); adversarial review **SOUND**, contract audit **CONFORMS**; 810 tests + 7 Playwright + build green.
+
+## Selected gross multiplier
+`TUNING.ECONOMY_BOX_OFFICE_SCALE = 0.70` — the **highest** value in the owner's 0.65–0.70 range (all candidates keep the competent median in range; 0.70 keeps the most gross while staying constrained, and is the least harsh on the bargain stress lane). Applied once, engaged-gated, in the single canonical `computeBoxOffice`, to the opening (before legs/schedule/share). Invariant proven by test: engaged total = non-engaged total × 0.70; legs untouched; Σ weekly = opening×legs.
+
+## Selected Marketing curve and constants
+Awareness-conditioned capacity replacing the fixed Hill (engaged only): `capacity = MARKETING_CAPACITY_MIN + (MAX − MIN)·awareness^EXP`, `marketingQuality = spend/(spend+capacity)`, where pre-marketing awareness = `0.6·studioAudienceAwareness + 0.4·filmOpeningAppealReach`.
+- `MARKETING_CAPACITY_MIN = 25_000`, `MARKETING_CAPACITY_MAX = 1_800_000`, `MARKETING_AWARENESS_STANDING_WEIGHT = 0.6`, `MARKETING_AWARENESS_EXP = 2.0`.
+- No new critic penalty, RNG, or backlash (the directive's first-implementation constraint).
+
+## Before → after (competent four-film, integrated engine `[I]`, 150 seeds)
+| Route | cash multiple median (p90) — before → **after** | contribution/film %commit before → **after** | loss/film before → **after** | ≥1 loss in 4 before → **after** |
+|---|---|---|---|---|
+| A competent aggressive | 2.45 (3.96) → **1.62 (2.70)** | 117% → **61%** | 8% → **20%** | 19% → **35%** |
+| B competent restrained | 2.35 (3.78) → **1.71 (2.64)** | 164% → **97%** | 3% → **13%** | 8% → **24%** |
+| C star-heavy | 2.46 (4.00) → **1.63 (2.71)** | 114% → **61%** | 9% → **20%** | 20% → **36%** |
+| D bargain (stress) | 1.21 (1.85) → **1.04 (1.55)** | 49% → **21%** | 23% → **35%** | 41% → **53%** |
+
+The dominant defect is corrected: routine films no longer return more than their cost, four ordinary films no longer multiply cash toward 3–4×, and losses are now common. End-below-start is 23–29% (competent), some runs recover from p10 ≈ 0.46–0.67×.
+
+## Marketing optima by awareness
+Marginal contribution per marketing dollar dropped from ~5–15× (pre-P2) to **~1.6× at the top tier** (steeply diminishing), and capacity now rises with awareness (a brand-new studio's film is flagged **Overextended** by a $1M campaign; a warmed studio absorbs it efficiently). The player-facing Budget & Forecast now shows a truthful campaign-status band (Underexposed / Efficient / Near saturation / Overextended), engine-derived.
+
+## Production Budget findings (Stage 3C)
+Lean (0.75×) remains expected-Contribution optimal across all diverse-package types (contained/ordinary/demanding × best/cheapest); higher tiers stay pure downside.
+
+## Remaining limitations (require owner ruling before merge)
+1. **Marketing — maximum campaign not fully dethroned.** Awareness-conditioned reach saturation + full cost (the directive's mandated FIRST implementation) steeply cuts marginal returns and makes marketing awareness-dependent, but **maximum Marketing remains the median-optimal single tier on a fresh studio** (100% in the diverse gate; the thin positive marginal survives because marketing feeds two gross channels — base awareness and the specificity/promise bonus). Per Stage 3B, the second mechanism (a **deterministic over-exposure / expectation effect** — e.g. spending far beyond capacity adds Promise-mismatch/expectation risk that dampens legs or audience response) is **PROPOSED for owner approval, not implemented.** Missing dependency: a bounded, engaged-gated over-exposure penalty.
+2. **Production Budget — still a dominated ("fake") choice; STOP condition invoked.** The existing budget-adequacy channel (`budgetAdequacy` = relative-to-`requiredNegative`, saturating at 1.15×, only 10% of craft) **cannot be corrected by a bounded constant tweak**: (a) it is computed in `computeCraft`, which is **shared with the frozen M0A path** — any change breaks byte-identity; (b) raising its weight/cap globally would flip it to *universal* dominance (max budget always best); (c) making it ambition-conditioned (Lean-for-contained, Generous-for-ambitious) requires the adequacy *knee* to depend on ambition — a structural, engaged-gated change beyond a bounded tweak. **Proposed design:** an engaged-gated budget→realization/reliability channel where under-funding a *demanding* film (high `budgetDemandMultiplier`) materially lowers expected craft/reliability while a *contained* film saturates adequacy cheaply — so Lean is rational for contained films and Adequate/Generous for ambitious ones, without touching M0A. Left UNIMPLEMENTED per the directive's stop condition.
+3. **Balance is at/just above the tightest targets.** Competent median ~1.6–1.7× (target ~1.0–1.6×) and p90 ~2.6–2.7× (soft target ≤2.0–2.25×) — a justified deviation: within the owner-mandated 0.65–0.70 scale range these are the achievable values; the residual overshoot is coupled to items (1)/(2) (efficient-marketing skill play and budget efficiency both currently reward the competent player). The owner's *described* high-marketing route lands ~1.6× (in range); efficient skilled play reaches ~2.0× (skill-reward ceiling, still below the 3–4× breakout).
+
+## Required human re-test
+See §19 above, plus: confirm a $1M campaign on a brand-new studio's first film reads **Overextended** and that stepping down to Standard improves Film Contribution; confirm four ordinary films leave the studio comfortable-but-not-multiplied and at least one film loses money.
+
+## Can D-12 merge?
+The money-is-not-a-constraint **root cause is corrected**. But two owner-approval items remain open: the marketing over-exposure mechanism (proposed) and the budget-choice redesign (stop condition). **D-12 should NOT merge until the owner rules on (1) and (2)** — either approving the follow-on mechanisms or accepting them as documented limitations. This is not a merge; it is the calibration-implemented checkpoint for the owner's human balance re-test.
