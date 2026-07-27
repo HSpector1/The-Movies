@@ -98,7 +98,7 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
   const revenueBefore = ((await page.getByTestId('pkg-profit-revenue').textContent()) ?? '').trim()
   // The two disclosures are surfaced from the start (cohesion is talent-independent).
   await expect(page.getByTestId('pkg-cohesion-disclosure')).toContainText(/talent is assessed separately/i)
-  await expect(page.getByTestId('pkg-profit-disclosure')).toContainText(/no distributor/i)
+  await expect(page.getByTestId('pkg-profit-disclosure')).toContainText(/blended rental share/i)
   await shot(page, 'fp-A1-mismatched-package')
 
   // ── STEP 4 — Replace each mismatch with the strongest assignment-specific candidate. ──

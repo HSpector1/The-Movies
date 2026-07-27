@@ -2480,6 +2480,9 @@ export function assessProfitRange(state: GameState, pkg: DraftPackage): Forecast
     releasedFilms: state.studio.releasedFilms,
     concepts: state.concepts,
     salaries,
+    // D-12: same economy gate as the greenlight-locked forecast (actions.ts) and realized
+    // release — the live Commercial-Outlook opening uses the SAME §7 Hill fame path.
+    saturateFame: employmentEngaged(state),
   })
 }
 

@@ -164,8 +164,10 @@ Owner accepted classification **C** with a **B footnote** (the ~2× throughput s
 **Closure fixes applied (display layer only — no engine change, M0A untouched):**
 - `newspaper.ts` — Studio Revenue + profit now from the film's theatrical run (blended share); disclosure corrected.
 - `filmPackage.ts forecastProfitRange` — studioRevenue/profit scaled by `STUDIO_RENTAL_BLENDED`; break-even = cost/share; `studioRevenueIsFullBoxOffice: false`.
-- Autopsy + FilmPackageSummary + FilmRecord — actual Studio Revenue = blended share; disclosure hints corrected. (Minor disclosed nuance: the live commercial-outlook re-forecast computes openings on the linear fame path; the greenlight-locked forecast and realized release both saturate correctly.)
+- Autopsy + FilmPackageSummary + FilmRecord — actual Studio Revenue = blended share; disclosure hints corrected.
 - Affected truthfulness/UI tests updated to the D-12 share model (#18 now scans for a share-model witness).
+
+**Follow-up (`D-12 closure: align live commercial forecast with fame saturation`):** the live Commercial-Outlook re-forecast now routes through the SAME §7 Hill fame opening-reach path as the greenlight-locked forecast and realized release — `SegmentForecast` exposes the fame-saturated `opening` band, `forecastProfitRange` threads the economy-gated `saturateFame` flag (from `employmentEngaged`) into the single engine helper (no UI/adapter duplication), and `boxTotalFor` applies the saturated opening. Proven by `tests/d12-commercial-outlook-fame.test.ts`: live re-forecast == locked forecast; live and realized openings move under the same transform; fame moves opening not legs; helper applied once; no UI file computes fame reach. Ungated/M0A path byte-identical (opening band === linear band when not engaged).
 
 **Final verification:** 771 core+ui tests green · Playwright economy journey + cycle4 + two-film-autopsy green · repo typecheck + build clean · final balance framework re-confirmed (Family A/B/C hold).
 

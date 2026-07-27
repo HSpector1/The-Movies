@@ -91,6 +91,8 @@ function makeSnapshot(center: number, estimate: number): Forecast {
     confidence: 'medium',
     causalFactors: [],
     uncertaintyFactors: [],
+    // D-12: opening band === linear band for this §8 fixture (fame path irrelevant to broadcast).
+    opening: { center, estimate, low: Math.max(0, estimate - 10), high: Math.min(100, estimate + 10) },
   }))
   return { segments, expectedOpening: 0, expectedTotal: 0, expectedCriticScore: 0 }
 }

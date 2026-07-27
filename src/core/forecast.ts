@@ -385,7 +385,9 @@ export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, satur
     const center = centers.centers[seg.id]
     const estimate = clamp(center + offset, 0, 100)
     noisyEstimates[seg.id] = estimate
-    noisyOpening[seg.id] = clamp(centers.centersOpening[seg.id] + offset, 0, 100)
+    const openingCenter = centers.centersOpening[seg.id]!
+    const openingEstimate = clamp(openingCenter + offset, 0, 100)
+    noisyOpening[seg.id] = openingEstimate
     const low = clamp(estimate - width, 0, 100)
     const high = clamp(estimate + width, 0, 100)
     segments.push({
@@ -398,6 +400,14 @@ export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, satur
       confidence,
       causalFactors: causal,
       uncertaintyFactors: uncertainty,
+      // D-12: the fame-saturated OPENING band (same offset/width as the linear band; === linear
+      // unless engaged). Exposed so a live re-forecast reproduces the greenlight opening exactly.
+      opening: {
+        center: openingCenter,
+        estimate: openingEstimate,
+        low: clamp(openingEstimate - width, 0, 100),
+        high: clamp(openingEstimate + width, 0, 100),
+      },
     })
   }
 

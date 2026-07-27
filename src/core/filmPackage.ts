@@ -363,7 +363,10 @@ export function executionConfidence(
   const bandConfidence = 1 - clamp(meanHalfWidth / TUNING.EXEC_CONF_BAND_REF, 0, 1)
 
   // (b) D-3 film-level forecast confidence tier (unchanged; consumed as given). Read
-  // the tier + factors off the greenlight forecast the engine already produces.
+  // the tier + factors off the greenlight forecast the engine already produces. NOTE: only
+  // confidence / causal / uncertainty are read here — all fame-saturation-INVARIANT (confidence
+  // is predicate-based; causal reads the linear stored starDraw) — so the §7 opening-saturation
+  // flag is intentionally not threaded here (it would not change any consumed value).
   const forecast = computeForecast(inp, ctx)
   const tierConf: Confidence = forecast.segments[0]?.confidence ?? 'low'
   const causal: ForecastFactorKey[] = forecast.segments[0]?.causalFactors ?? []
@@ -479,13 +482,20 @@ export type ForecastProfitContext = ForecastContext & {
   // it passes in `inp` (writer/director/cast/craft); we accept them explicitly so this
   // helper stays a pure function of its inputs (no state traversal).
   salaries: number
+  // D-12: whether the economy is engaged (`employmentEngaged(state)`), threaded from the adapter
+  // so the LIVE Commercial-Outlook re-forecast uses the SAME §7 Hill fame opening-reach path as the
+  // greenlight-locked forecast and realized release. Defaults false → linear (ungated/M0A) path.
+  saturateFame?: boolean
 }
 
-// Run §5.5 box office on ONE per-segment appeal map (verbatim reuse). Factored so we
-// can run it on the low, expected, and high estimate maps identically.
+// Run §5.5 box office on ONE per-segment LEGS appeal map + its matching OPENING appeal map
+// (D-12: legs stay linear, opening is fame-saturated). Factored so we can run it on the low,
+// expected, and high band edges identically. Omitting the opening map reproduces the legacy
+// single-appeal behavior (opening === legs).
 function boxTotalFor(
   inp: ForecastProfitInput,
   appealBySegment: Record<SegmentId, number>,
+  openingBySegment?: Record<SegmentId, number>,
 ): number {
   return computeBoxOffice(
     appealBySegment,
@@ -495,6 +505,7 @@ function boxTotalFor(
     inp.promise,
     inp.budget,
     inp.shapeEffects,
+    openingBySegment,
   ).total
 }
 
@@ -502,23 +513,31 @@ export function forecastProfitRange(
   inp: ForecastProfitInput,
   ctx: ForecastProfitContext,
 ): ForecastProfitRange {
-  const forecast = computeForecast(inp, ctx)
+  // D-12: same canonical fame path as greenlight/realized (single engine helper; no UI duplication).
+  const forecast = computeForecast(inp, ctx, ctx.saturateFame ?? false)
 
-  // Assemble the low / estimate / high per-segment appeal maps from the forecast's
-  // per-segment bands (§7 SegmentForecast.{low,estimate,high}).
+  // Assemble the low / estimate / high per-segment LEGS appeal maps (§7 SegmentForecast.
+  // {low,estimate,high}) AND the matching fame-saturated OPENING maps (SegmentForecast.opening.*),
+  // so the box-office pass reproduces the greenlight/realized opening reach exactly (D-12 §7).
   const lowMap: Record<SegmentId, number> = {} as Record<SegmentId, number>
   const midMap: Record<SegmentId, number> = {} as Record<SegmentId, number>
   const highMap: Record<SegmentId, number> = {} as Record<SegmentId, number>
+  const openLow: Record<SegmentId, number> = {} as Record<SegmentId, number>
+  const openMid: Record<SegmentId, number> = {} as Record<SegmentId, number>
+  const openHigh: Record<SegmentId, number> = {} as Record<SegmentId, number>
   for (const seg of forecast.segments) {
     lowMap[seg.segmentId] = seg.low
     midMap[seg.segmentId] = seg.estimate
     highMap[seg.segmentId] = seg.high
+    openLow[seg.segmentId] = seg.opening.low
+    openMid[seg.segmentId] = seg.opening.estimate
+    openHigh[seg.segmentId] = seg.opening.high
   }
 
-  // Run §5.5 verbatim on each map. Box office is monotone in appeal, so low↦low.
-  const revLow = boxTotalFor(inp, lowMap)
-  const revExpected = boxTotalFor(inp, midMap)
-  const revHigh = boxTotalFor(inp, highMap)
+  // Run §5.5 verbatim on each band (legs + matching opening). Box office is monotone in appeal.
+  const revLow = boxTotalFor(inp, lowMap, openLow)
+  const revExpected = boxTotalFor(inp, midMap, openMid)
+  const revHigh = boxTotalFor(inp, highMap, openHigh)
 
   // D-1 committed cost = negative + marketing + Σ salaries (salaries passed in ctx).
   const committedCost = inp.budget.negative + inp.budget.marketing + ctx.salaries

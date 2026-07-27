@@ -515,6 +515,11 @@ export type SegmentForecast = {
   confidence: Confidence
   causalFactors: ForecastFactorKey[]
   uncertaintyFactors: ForecastFactorKey[]
+  // D-12: the fame-saturated OPENING appeal band (=== the linear {center,estimate,low,high} above
+  // unless the economy is engaged → byte-identical). Feeds ONLY the opening-reach computation; the
+  // linear band above still feeds legs / audience. Lets a live re-forecast reproduce the same
+  // saturated opening the greenlight-locked forecast and realized release use (single fame helper).
+  opening: { center: number; estimate: number; low: number; high: number }
 }
 
 export type Forecast = {
