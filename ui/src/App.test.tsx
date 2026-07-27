@@ -114,6 +114,12 @@ describe('App end-to-end loop', () => {
       if (advance) {
         fireEvent.click(advance)
       }
+      // D-11.C: when a film actually releases, the newspaper front page shows FIRST.
+      // Continue through it to reach the release/development summary with the cards.
+      const newspaperContinue = screen.queryByTestId('newspaper-continue')
+      if (newspaperContinue) {
+        fireEvent.click(newspaperContinue)
+      }
       // On the release screen, look for a release card.
       const list = screen.queryByTestId('release-list')
       if (list) {

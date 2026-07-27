@@ -24,6 +24,7 @@ import type {
   AutopsyView,
   AutopsyCompareView,
   FilmRecordView,
+  NewspaperView,
   Standing,
   ReleaseDevelopment,
 } from './engine/adapter.ts'
@@ -33,6 +34,7 @@ import {
   buildReleaseDevelopment,
   autopsyCompare,
   filmRecordView,
+  releaseNewspaper,
 } from './engine/adapter.ts'
 import { StartScreen } from './screens/StartScreen.tsx'
 import { Dashboard } from './screens/Dashboard.tsx'
@@ -46,6 +48,7 @@ import { FoundingScreen } from './screens/FoundingScreen.tsx'
 import { StudioRoster } from './screens/StudioRoster.tsx'
 import { HiringMarket } from './screens/HiringMarket.tsx'
 import { FilmRecord } from './screens/FilmRecord.tsx'
+import { NewspaperReveal } from './screens/NewspaperReveal.tsx'
 
 type Screen =
   | { kind: 'start' }
@@ -60,6 +63,24 @@ type Screen =
       postTickStanding: Standing
       released: FilmResult[]
       development: ReleaseDevelopment[]
+    }
+  | {
+      // D-11.C PART 2: the newspaper front page shown ONCE at release. `source` records
+      // whether this is the live release reveal (Continue → the release/development
+      // summary) or a re-opened historic clipping (Continue → dashboard). `films` are the
+      // released FilmResults aligned index-for-index with `views`, so "open autopsy" on a
+      // clipping routes to the exact per-film autopsy. `release` carries the post-tick
+      // release payload so the live reveal can hand off to the existing ReleaseResult.
+      kind: 'newspaper'
+      source: 'release' | 'clipping'
+      views: NewspaperView[]
+      films: FilmResult[]
+      release?: {
+        preTick: GameState
+        postTickStanding: Standing
+        released: FilmResult[]
+        development: ReleaseDevelopment[]
+      }
     }
   | { kind: 'autopsy'; view: AutopsyView; compare: AutopsyCompareView | null }
   | { kind: 'filmRecord'; view: FilmRecordView }
@@ -138,6 +159,12 @@ export function App() {
     // talent (pure read of two immutable snapshots — no re-run of development).
     const development = buildReleaseDevelopment(preTick, next, released)
     setState(next)
+    const release = {
+      preTick,
+      postTickStanding: next.studio.standing,
+      released,
+      development,
+    }
     // Record a per-film snapshot so each release keeps an exact autopsy path.
     if (released.length > 0) {
       setSnapshots((prev) => {
@@ -148,13 +175,33 @@ export function App() {
         return merged
       })
     }
-    setScreen({
-      kind: 'release',
-      preTick,
-      postTickStanding: next.studio.standing,
-      released,
-      development,
-    })
+    // D-11.C PART 2: when a film actually reaches audiences this week, the reveal is the
+    // newspaper front page — shown ONCE, here, at release. Continue hands off to the
+    // existing release/development summary (unchanged). A week with no release skips
+    // straight to that summary (nothing to put on a front page).
+    const views = released.map((f) => releaseNewspaper(next, f)).filter((v): v is NewspaperView => v !== null)
+    if (views.length > 0) {
+      setScreen({ kind: 'newspaper', source: 'release', views, films: released, release })
+      return
+    }
+    setScreen({ kind: 'release', ...release })
+  }
+
+  // D-11.C PART 2: re-open a film's newspaper clipping after the fact (dashboard / record).
+  // Reconstructed purely from persisted state (participants + forecast + ledger), so it
+  // survives save/reload. Continue returns to the dashboard; the clipping is not "news"
+  // any more, so there is no release summary to hand back to.
+  function openClippingForFilm(film: FilmResult) {
+    if (!state) return
+    const view = releaseNewspaper(state, film)
+    if (!view) {
+      alert(
+        'This film has no archived front page. A newspaper clipping is kept only for films ' +
+          'released with a full participant record (D-11.A); older films predate that record.',
+      )
+      return
+    }
+    setScreen({ kind: 'newspaper', source: 'clipping', views: [view], films: [film] })
   }
 
   // Open the exact autopsy for a film with a retained snapshot (dashboard path).
@@ -217,6 +264,7 @@ export function App() {
           onOpenHiring={() => setScreen({ kind: 'hiring' })}
           onSaves={() => setScreen({ kind: 'saves' })}
           onOpenAutopsy={openAutopsyForFilm}
+          onOpenClipping={openClippingForFilm}
         />
       )}
 
@@ -258,6 +306,21 @@ export function App() {
             })
           }
           onContinue={goDashboard}
+        />
+      )}
+
+      {screen.kind === 'newspaper' && (
+        <NewspaperReveal
+          views={screen.views}
+          onOpenAutopsy={(index) => {
+            const film = screen.films[index]
+            if (film) openAutopsyForFilm(film)
+          }}
+          onContinue={() =>
+            screen.source === 'release' && screen.release
+              ? setScreen({ kind: 'release', ...screen.release })
+              : goDashboard()
+          }
         />
       )}
 

@@ -25,6 +25,9 @@ import {
   generateWorld,
   applyActions,
   previewCustomTalent,
+  previewBalancedTalent,
+  balancedBoostDiscipline,
+  BALANCED_ARCHETYPES,
   offerForTalent,
   tick,
   // reception (autopsy) + forecast (preview)
@@ -108,6 +111,10 @@ import {
   foundingMinimumsMet,
   foundingGaps,
   FOUNDING_MINIMUMS,
+  // D-11.C newspaper release reveal (pure derivation)
+  buildNewspaper,
+  criticStars,
+  NEWSPAPER_MASTHEAD,
 } from '../../../src/core/index.ts'
 import type {
   GameState,
@@ -128,6 +135,11 @@ import type {
   ReceptionInputs,
   AuthoredTalentInput,
   CustomTalentInput,
+  BalancedTalentInput,
+  ArchetypePreset,
+  NewspaperView,
+  CriticRating,
+  AudienceTier,
   Persona,
   CreativeRole,
   Discipline,
@@ -190,6 +202,12 @@ export type {
   EmploymentStatus,
   FoundingState,
   ContractOffer,
+  // D-11.C creator + newspaper types
+  BalancedTalentInput,
+  ArchetypePreset,
+  NewspaperView,
+  CriticRating,
+  AudienceTier,
   // Film Package assessment types re-exported through the single boundary.
   CreativeCohesion,
   AssignmentFit,
@@ -209,7 +227,7 @@ export type PromiseAxis = (typeof PROMISE_AXES)[number]
 // The four D-9 disciplines, in the core's fixed display order (acting → writing →
 // directing → craft). Re-exported so Hub/profile screens iterate a single source.
 export const DISCIPLINES: readonly Discipline[] = DISCIPLINE_ORDER
-export { GENRE_ORDER, ROLE_TO_DISCIPLINE, SKILL_ORDER }
+export { GENRE_ORDER, ROLE_TO_DISCIPLINE, SKILL_ORDER, balancedBoostDiscipline }
 
 // The discipline a role practises by default (its PRIMARY). Cross-role assignment
 // (D-9.9) lets any talent be *considered* in any discipline; this is only the home.
@@ -581,6 +599,96 @@ export function customTalentPreview(state: GameState, input: CustomTalentInput):
     offerForTalent(state.seed, t, term, state.market.tick),
   )
   return { primaryDiscipline: primary, disciplines, offers }
+}
+
+// ── D-11.C Balanced-Career specialization creation ───────────────────────────
+// The archetype presets (their authoritative baseline profiles) for the creator UI.
+export function balancedArchetypes(): readonly ArchetypePreset[] {
+  return BALANCED_ARCHETYPES
+}
+export const SPECIALIZATION_POINTS = TUNING.BALANCED_CREATOR_SPECIALIZATION_POINTS
+export const BALANCED_SKILL_FLOOR = TUNING.BALANCED_CREATOR_SKILL_FLOOR
+
+export function createBalancedTalent(state: GameState, input: BalancedTalentInput): ActionOutcome {
+  try {
+    const next = applyActions(state, [{ kind: 'createBalancedTalent', talent: input }])
+    return { ok: true, next }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+// Points spent across skills + genre in a Balanced allocation.
+function balancedPointsUsed(input: BalancedTalentInput): number {
+  let used = 0
+  const sk = input.allocation.skills
+  if (sk) for (const d of DISCIPLINE_ORDER) for (const v of sk[d] ?? []) used += Math.max(0, v)
+  const ge = input.allocation.genre
+  if (ge) for (const d of DISCIPLINE_ORDER) {
+    const row = ge[d]
+    if (row) for (const g of GENRE_ORDER) used += Math.max(0, row[g] ?? 0)
+  }
+  return used
+}
+
+// D-11.C (percentile amendment) — a created talent's RELATIVE STANDING within the current
+// world's working-age, signable, matching-primary-profession population (the benchmark the
+// calibration uses). Percentile = fraction of that population with a lower primary OVR.
+export function disciplineOVRPercentile(state: GameState, discipline: Discipline, ovr: number): number {
+  const pop = state.talent
+    .filter((t) => primaryDiscipline(t.role) === discipline)
+    .map((t) => roleOVR(t, discipline))
+  if (pop.length === 0) return 0
+  const below = pop.filter((v) => v < ovr).length
+  return Math.round((below / pop.length) * 100)
+}
+// Plain-language standing tier from a percentile (approximate; a sampled estimate).
+export function standingTier(percentile: number): string {
+  if (percentile < 15) return 'Raw Prospect'
+  if (percentile < 35) return 'Developmental Professional'
+  if (percentile < 55) return 'Capable Working Talent'
+  if (percentile < 75) return 'Solid Professional'
+  if (percentile < 90) return 'Established Professional'
+  if (percentile < 97) return 'Major Talent'
+  return 'Elite Talent'
+}
+
+// Live Balanced preview: derived OVRs (never an input), estimated contract offers, the
+// specialization-point accounting, and the player-facing RELATIVE STANDING (percentile +
+// tier) within the working population. Fit is deliberately absent (film-dependent).
+export type BalancedTalentPreview = {
+  primaryDiscipline: Discipline
+  disciplines: CustomOvrPreview[]
+  offers: ContractOffer[]
+  pointsUsed: number
+  pointsRemaining: number
+  primaryOVR: number
+  primaryPercentile: number
+  standing: string
+}
+export function balancedTalentPreview(state: GameState, input: BalancedTalentInput): BalancedTalentPreview {
+  const t = previewBalancedTalent(input, state.seed)
+  const primary = primaryDiscipline(t.role)
+  const disciplines = DISCIPLINE_ORDER.map((d) => {
+    const ovr = roleOVR(t, d)
+    return { discipline: d, label: DISCIPLINE_LABEL[d], ovr, tier: roleTier(ovr), isPrimary: d === primary }
+  })
+  const offers = TUNING.CONTRACT_TERM_OPTIONS.map((term) =>
+    offerForTalent(state.seed, t, term, state.market.tick),
+  )
+  const pointsUsed = balancedPointsUsed(input)
+  const primaryOVR = roleOVR(t, primary)
+  const primaryPercentile = disciplineOVRPercentile(state, primary, primaryOVR)
+  return {
+    primaryDiscipline: primary,
+    disciplines,
+    offers,
+    pointsUsed,
+    pointsRemaining: SPECIALIZATION_POINTS - pointsUsed,
+    primaryOVR,
+    primaryPercentile,
+    standing: standingTier(primaryPercentile),
+  }
 }
 
 // Contract-disclosed authored starting values (§10 / D-9.14 / §16). Authored talent
@@ -2280,3 +2388,26 @@ export function filmRecordView(state: GameState, film: FilmResult): FilmRecordVi
     profit: film.boxOffice.total - committedCost,
   }
 }
+
+// ── D-11.C newspaper release reveal ──────────────────────────────────────────
+// The film's press clipping, derived ENTIRELY from its persisted record (+ ledger cost
+// + concept title + segment shares). Reconstructs identically after save/reload; tied to
+// the correct film; immutable to later change. Returns null for a legacy film with no
+// participant record. Re-exports the pure core helper `buildNewspaper` via the boundary.
+export function releaseNewspaper(state: GameState, film: FilmResult): NewspaperView | null {
+  if (film.participants === undefined) return null
+  const concept = findConcept(state, film.conceptId)
+  const committedCost = state.ledger
+    .filter((e) => e.productionId === film.productionId && (e.kind === 'production' || e.kind === 'freelancerFee'))
+    .reduce((a, e) => a - e.amount, 0)
+  const segmentShares: Record<SegmentId, number> = {} as Record<SegmentId, number>
+  for (const s of state.market.segments) segmentShares[s.id] = s.share
+  return buildNewspaper({
+    film,
+    conceptTitle: concept?.title ?? film.conceptId,
+    committedCost,
+    segmentShares,
+    week: film.releaseTick,
+  })
+}
+export { criticStars, NEWSPAPER_MASTHEAD }

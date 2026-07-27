@@ -257,6 +257,10 @@ export type FilmResult = {
   // D-11.A — the film's OWN immutable participant record (present iff captured at an
   // engaged greenlight). The autopsy renders from this; absent on M0A/legacy films.
   participants?: FilmParticipants
+  // D-11.C — the LOCKED greenlight forecast, frozen here so the newspaper clipping can
+  // compare actual vs expected and reconstruct after save/reload (captured with
+  // participants; absent on M0A/legacy films). Additive optional field on V3.
+  forecast?: { expectedCriticScore: number; expectedTotal: number; expectedOpening: number }
 }
 
 // §2.5 World and state
@@ -377,7 +381,8 @@ export type Action =
       production: Omit<Production, 'id' | 'startTick' | 'remainingTicks' | 'forecastSnapshot'>
     }
   | { kind: 'cancel'; productionId: string }
-  | { kind: 'createTalent'; talent: AuthoredTalentInput } // §10 (Balanced creator)
+  | { kind: 'createTalent'; talent: AuthoredTalentInput } // §10 (legacy budget creator)
+  | { kind: 'createBalancedTalent'; talent: BalancedTalentInput } // §10 / D-11.C (Balanced specialization)
   | { kind: 'createCustomTalent'; talent: CustomTalentInput } // §10 / D-11.A (Full Custom)
   // ── D-11 employment actions ──
   | { kind: 'foundStudio' } // close the founding draft (minimums must be met)
@@ -416,6 +421,40 @@ export type CustomTalentInput = {
   skills: Record<Discipline, number[]> // 6 per discipline in SKILL_ORDER, each 1..99
   ceilings?: Partial<Record<Discipline, number[]>> // optional per-skill potential ceilings (≥ skill, ≤ 99)
   genreExperience?: Partial<Record<Discipline, Partial<Record<Genre, number>>>> // optional 0..100
+}
+
+// §10 / D-11.C — an archetype preset: the profession-shaped Balanced-Career BASELINE
+// before the player spends specialization points. Populates ONLY authoritative
+// underlying values (no hidden modifiers / permanent bonuses). See BALANCED_ARCHETYPES.
+export type ArchetypePreset = {
+  id: string
+  label: string
+  appliesTo: Discipline | 'any' // profession-specific, or a cross-profession career path
+  primarySkills: number[] // 6 baseline values (SKILL_ORDER) for the primary discipline (OVR ≈ 38–45)
+  secondaryBaseline: number // non-primary skills baseline (secondary OVR ≈ 15–28; ≥ SKILL_FLOOR)
+  secondaryBoost?: { role: CreativeRole; skills: number[] } // multi-hyphenate: one raised secondary
+  genreBaseline: Partial<Record<Genre, number>> // small primary-discipline genre experience
+  defaultPotentialTier: PotentialTier
+  defaultWorkEthic: number
+  fame: number
+}
+
+// §10 / D-11.C — Balanced-Career creation: an archetype baseline + a 40-point allocation
+// + separately-chosen Potential/Work Ethic. Skills start at BALANCED_CREATOR_SKILL_FLOOR;
+// OVR is DERIVED from the resulting skills (never an input). Creation ≠ signing (D-11.A).
+export type BalancedTalentInput = {
+  name: string
+  role: CreativeRole
+  age: number // 18..70
+  actual: Persona
+  presetId: string // an ArchetypePreset id
+  potentialTier: PotentialTier // player-chosen tradeoff — NOT bought with specialization points
+  workEthic: number // player-chosen tradeoff — NOT bought with points
+  allocation: {
+    // the specialization budget (+1 per authoritative point), total ≤ SPECIALIZATION_POINTS
+    skills?: Partial<Record<Discipline, number[]>> // per-skill increments (SKILL_ORDER)
+    genre?: Partial<Record<Discipline, Partial<Record<Genre, number>>>> // per-genre increments
+  }
 }
 
 // ── §7 Forecast types ───────────────────────────────────────────────────────

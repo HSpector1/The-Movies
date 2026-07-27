@@ -158,15 +158,17 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
   await page.getByTestId('autopsy-back').click()
   await expect(page.getByTestId('dash-week')).toBeVisible()
 
-  // ── STEP 10 (done early) — Create a CUSTOM Crew member in the Talent Creator. ──
-  // (Created before assembling Film B so it appears in Film B's Crew picker pool.)
+  // ── STEP 10 (done early) — Create a Crew member in the Talent Creator. ──
+  // (Created before assembling Film B so it appears in Film B's Crew picker pool.) D-11.C:
+  // the Talent Creator now opens in the Balanced Career SPECIALIZATION flow by default
+  // (Identity → Profession & preset → Specialization → Review).
   await page.getByTestId('open-talent-creator').click()
-  await expect(page.getByTestId('authored-disclosure')).toBeVisible()
+  await expect(page.getByTestId('balanced-live-preview')).toBeVisible()
   const CREW_NAME = 'Playtest Cinematographer'
   await page.getByTestId('talent-name').fill(CREW_NAME)
   await page.getByTestId('talent-role').selectOption('craft')
-  // identity → temperament → potential → workEthic → emphasis → review (5 Next clicks).
-  for (let i = 0; i < 5; i++) await page.getByTestId('creator-next').click()
+  // identity → profession → specialization → review (3 Next clicks); defaults are valid.
+  for (let i = 0; i < 3; i++) await page.getByTestId('balanced-next').click()
   await page.getByTestId('create-talent').click()
   // Back on the dashboard after adding to the industry.
   await expect(page.getByTestId('dash-week')).toBeVisible()
@@ -243,6 +245,9 @@ async function advanceToRelease(page: Page): Promise<string> {
   for (let i = 0; i < 20 && !prodId; i++) {
     const advance = page.getByTestId('advance-week')
     if (await advance.isVisible().catch(() => false)) await advance.click()
+    // D-11.C PART 2: continue through the newspaper reveal to reach the release summary.
+    const newspaper = page.getByTestId('newspaper-continue')
+    if (await newspaper.isVisible().catch(() => false)) await newspaper.click()
     const releaseList = page.getByTestId('release-list')
     if (await releaseList.isVisible().catch(() => false)) {
       const cards = releaseList.locator('[data-testid^="release-card-"]')

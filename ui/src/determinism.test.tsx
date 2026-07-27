@@ -80,12 +80,19 @@ function playFixedSequence(seed: string, weeks: number): string {
   for (let i = 0; i < weeks; i++) {
     const advance = screen.queryByTestId('advance-week')
     if (advance) fireEvent.click(advance)
+    // D-11.C: a release shows the newspaper front page first — continue through it.
+    if (screen.queryByTestId('newspaper-continue')) {
+      fireEvent.click(screen.getByTestId('newspaper-continue'))
+    }
     // If we land on the release screen, return to the dashboard to keep advancing.
     if (screen.queryByTestId('release-continue')) {
       fireEvent.click(screen.getByTestId('release-continue'))
     }
   }
-  // Ensure we finish on the dashboard.
+  // Ensure we finish on the dashboard (clear a lingering newspaper/release screen).
+  if (!screen.queryByTestId('dash-week') && screen.queryByTestId('newspaper-continue')) {
+    fireEvent.click(screen.getByTestId('newspaper-continue'))
+  }
   if (!screen.queryByTestId('dash-week') && screen.queryByTestId('release-continue')) {
     fireEvent.click(screen.getByTestId('release-continue'))
   }

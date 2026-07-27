@@ -28,6 +28,7 @@ export function Dashboard({
   onOpenHiring,
   onSaves,
   onOpenAutopsy,
+  onOpenClipping,
 }: {
   state: GameState
   onAssemble: () => void
@@ -38,6 +39,9 @@ export function Dashboard({
   onOpenHiring?: () => void
   onSaves: () => void
   onOpenAutopsy: (film: FilmResult) => void
+  // D-11.C PART 2: reopen a film's newspaper clipping. Optional — the clipping is
+  // reconstructed from persisted state, so it works even for imported saves.
+  onOpenClipping?: (film: FilmResult) => void
 }) {
   const week = selectWeek(state)
   const cash = selectCash(state)
@@ -252,13 +256,24 @@ export function Dashboard({
                     <td className="num">{money(f.boxOffice.total)}</td>
                     <td>week {f.releaseTick}</td>
                     <td>
-                      <button
-                        className="ghost"
-                        onClick={() => onOpenAutopsy(f)}
-                        data-testid={`autopsy-${f.productionId}`}
-                      >
-                        Autopsy
-                      </button>
+                      <div className="btn-row">
+                        {onOpenClipping && (
+                          <button
+                            className="ghost"
+                            onClick={() => onOpenClipping(f)}
+                            data-testid={`clipping-${f.productionId}`}
+                          >
+                            Clipping
+                          </button>
+                        )}
+                        <button
+                          className="ghost"
+                          onClick={() => onOpenAutopsy(f)}
+                          data-testid={`autopsy-${f.productionId}`}
+                        >
+                          Autopsy
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 )

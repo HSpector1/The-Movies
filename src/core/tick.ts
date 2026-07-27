@@ -187,10 +187,19 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       conceptId: prod.conceptId,
       directorId: prod.directorId,
     })
-    // D-11.A — freeze the film's own immutable participant record onto the result (when
-    // captured at an engaged greenlight). Absent on M0A/legacy films → byte-identical.
+    // D-11.A/.C — freeze the film's own immutable participant record + the LOCKED
+    // greenlight forecast onto the result (when captured at an engaged greenlight, i.e.
+    // prod.participants present). Absent on M0A/legacy films → byte-identical.
     const filmResult = prod.participants
-      ? { ...baseFilmResult, participants: prod.participants }
+      ? {
+          ...baseFilmResult,
+          participants: prod.participants,
+          forecast: {
+            expectedCriticScore: prod.forecastSnapshot.expectedCriticScore,
+            expectedTotal: prod.forecastSnapshot.expectedTotal,
+            expectedOpening: prod.forecastSnapshot.expectedOpening,
+          },
+        }
       : baseFilmResult
 
     // Credit the box office total (D-1 ledger; the debit happened at greenlight).

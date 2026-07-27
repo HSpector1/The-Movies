@@ -272,9 +272,23 @@ describe('simulation: NO Broadcast presentation or feed appears anywhere in the 
     fireEvent.click(screen.getByTestId('greenlight'))
 
     // Advance until a release, walking the release screen each week.
+    //
+    // D-11.C PART 2 authorizes an in-world NEWSPAPER release reveal (a fictional front page
+    // with a headline). That is a DIFFERENT feature from the forbidden phase-6 "Broadcast
+    // presentation / rival feed" this test guards against. The reveal is transient and
+    // opt-through; even on it, the anti-broadcast guard must hold (no broadcast/feed/role).
     for (let i = 0; i < 20; i++) {
       const advance = screen.queryByTestId('advance-week')
       if (advance) fireEvent.click(advance)
+      if (screen.queryByTestId('newspaper-reveal')) {
+        const news = document.body.textContent?.toLowerCase() ?? ''
+        expect(news).not.toContain('broadcast')
+        expect(news).not.toContain('news feed')
+        expect(document.querySelector('[data-testid*="broadcast" i]')).toBeNull()
+        expect(document.querySelector('[data-testid*="feed" i]')).toBeNull()
+        expect(document.querySelector('[role="feed"]')).toBeNull()
+        fireEvent.click(screen.getByTestId('newspaper-continue'))
+      }
       const list = screen.queryByTestId('release-list')
       if (list) {
         const cards = within(list).queryAllByTestId(/^release-card-/)
@@ -283,12 +297,14 @@ describe('simulation: NO Broadcast presentation or feed appears anywhere in the 
       }
     }
 
-    // Scan the ENTIRE rendered document for broadcast/feed/headline semantics.
+    // On the NORMAL loop screens (release summary / dashboard — the newspaper reveal has
+    // been dismissed) the full guard holds: no broadcast, no feed, and no broadcast-style
+    // HEADLINE surface leaks into the persistent UI.
     const body = document.body.textContent ?? ''
     expect(body.toLowerCase()).not.toContain('broadcast')
     expect(body.toLowerCase()).not.toContain('headline')
     expect(body.toLowerCase()).not.toContain('news feed')
-    // No element carries a broadcast/feed testid or role.
+    // No element carries a broadcast/feed/headline testid or role.
     expect(document.querySelector('[data-testid*="broadcast" i]')).toBeNull()
     expect(document.querySelector('[data-testid*="feed" i]')).toBeNull()
     expect(document.querySelector('[data-testid*="headline" i]')).toBeNull()

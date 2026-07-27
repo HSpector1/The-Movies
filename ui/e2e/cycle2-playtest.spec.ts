@@ -65,6 +65,10 @@ async function advanceUntilReleases(page: Page, expected: number): Promise<strin
     if (ids.length >= expected) return ids
     const advance = page.getByTestId('advance-week')
     if (await advance.isVisible().catch(() => false)) await advance.click()
+    // D-11.C PART 2: dismiss the newspaper reveal, then the release summary, to get back
+    // to the dashboard where the releases table accumulates.
+    const news = page.getByTestId('newspaper-continue')
+    if (await news.isVisible().catch(() => false)) await news.click()
     const cont = page.getByTestId('release-continue')
     if (await cont.isVisible().catch(() => false)) await cont.click()
   }

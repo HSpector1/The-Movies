@@ -84,7 +84,12 @@ async function advanceUntilReleases(page: Page, expected: number): Promise<strin
     if (await advance.isVisible().catch(() => false)) {
       await advance.click()
     }
-    // A release week shows the weekly release screen; step back to the dashboard.
+    // D-11.C PART 2: a release week shows the newspaper reveal first, then the weekly
+    // release screen; step through both back to the dashboard.
+    const news = page.getByTestId('newspaper-continue')
+    if (await news.isVisible().catch(() => false)) {
+      await news.click()
+    }
     const cont = page.getByTestId('release-continue')
     if (await cont.isVisible().catch(() => false)) {
       await cont.click()

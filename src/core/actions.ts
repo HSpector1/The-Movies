@@ -55,6 +55,7 @@ import {
   AUTHORED_START_OVR,
   AUTHORED_TIER_COST,
   AUTHORED_TIER_RANGE,
+  BALANCED_ARCHETYPES,
   DISCIPLINE_ORDER,
   GENRE_ORDER,
   ROLE_TO_DISCIPLINE,
@@ -64,7 +65,9 @@ import {
 import { expectedPerformance, projectFit, roleOVR } from './talentSummary.js'
 import type {
   Action,
+  ArchetypePreset,
   AuthoredTalentInput,
+  BalancedTalentInput,
   CastSlot,
   Ceilings,
   Contract,
@@ -840,6 +843,218 @@ function applyCreateCustomTalent(state: GameState, action: Action & { kind: 'cre
   return withCreatedTalent(state, talent)
 }
 
+// ── §10 / D-11.C createBalancedTalent (Balanced specialization) ──────────────
+// Baseline: every skill starts at the floor; the archetype preset shapes the primary
+// discipline (OVR ≈ 38–45) + a secondary baseline (+ an adjacent multi-hyphenate boost)
+// + a small primary-genre baseline. The player's 40-point allocation then adds +1 per
+// authoritative skill/genre point (bounds-checked). Ceilings from the chosen tier;
+// workEthic as chosen; fame from the preset. perceived = actual. OVR is DERIVED.
+
+// Adjacent discipline for a multi-hyphenate boost when the boost role's discipline equals
+// the primary (so the boost always lands on a DIFFERENT discipline).
+export const ADJACENT_DISCIPLINE: Record<Discipline, Discipline> = {
+  acting: 'directing',
+  writing: 'directing',
+  directing: 'writing',
+  craft: 'directing',
+}
+
+// The discipline a preset's multi-hyphenate secondary boost actually lands on: the boost
+// role's discipline, remapped to the ADJACENT discipline when it would collide with the
+// primary (so the boost is always a DIFFERENT, genuinely-secondary discipline). Null when
+// the preset has no secondary boost. SINGLE SOURCE OF TRUTH shared by the engine
+// (constructBalancedTalent) and the creator UI baseline display, so the two cannot diverge.
+export function balancedBoostDiscipline(preset: ArchetypePreset, primary: Discipline): Discipline | null {
+  if (!preset.secondaryBoost) return null
+  const d = ROLE_TO_DISCIPLINE[preset.secondaryBoost.role]
+  return d === primary ? ADJACENT_DISCIPLINE[primary] : d
+}
+
+function findArchetype(presetId: string) {
+  const p = BALANCED_ARCHETYPES.find((x) => x.id === presetId)
+  if (p === undefined) throw new Error(`applyActions: createBalancedTalent unknown presetId "${presetId}"`)
+  return p
+}
+
+// Total specialization points requested across skills + genre.
+function balancedAllocationTotal(a: BalancedTalentInput): number {
+  let total = 0
+  const sk = a.allocation.skills
+  if (sk) for (const d of DISCIPLINE_ORDER) for (const v of sk[d] ?? []) total += v
+  const ge = a.allocation.genre
+  if (ge) {
+    for (const d of DISCIPLINE_ORDER) {
+      const row = ge[d]
+      if (row) for (const g of GENRE_ORDER) total += row[g] ?? 0
+    }
+  }
+  return total
+}
+
+function constructBalancedTalent(a: BalancedTalentInput, id: string, seed: string): Talent {
+  const preset = findArchetype(a.presetId)
+  const primary = ROLE_TO_DISCIPLINE[a.role]
+  const s = stream(seed, 'worldgen', `balanced-${id}`)
+  const floor = TUNING.BALANCED_CREATOR_SKILL_FLOOR
+
+  // 1–4. Baseline skill vectors per discipline (floor → preset primary → secondary
+  // baseline → optional adjacent multi-hyphenate boost).
+  const vec: Record<Discipline, number[]> = {
+    acting: new Array(6).fill(floor),
+    writing: new Array(6).fill(floor),
+    directing: new Array(6).fill(floor),
+    craft: new Array(6).fill(floor),
+  }
+  for (const d of DISCIPLINE_ORDER) {
+    if (d === primary) vec[d] = preset.primarySkills.map((v) => Math.max(floor, v))
+    else vec[d] = new Array(6).fill(Math.max(floor, preset.secondaryBaseline))
+  }
+  const boostD = balancedBoostDiscipline(preset, primary)
+  if (boostD && preset.secondaryBoost) {
+    vec[boostD] = preset.secondaryBoost.skills.map((v) => Math.max(floor, v))
+  }
+
+  // 5. Apply the specialization allocation to skills (+1 per point; clamp 1..99).
+  const skAlloc = a.allocation.skills
+  if (skAlloc) {
+    for (const d of DISCIPLINE_ORDER) {
+      const incs = skAlloc[d]
+      if (!incs) continue
+      for (let i = 0; i < 6; i++) vec[d][i] = clamp(vec[d]![i]! + Math.max(0, iround(incs[i] ?? 0)), 1, 99)
+    }
+  }
+
+  // Build SkillProfiles (perceived = actual).
+  const skills = {} as SkillProfiles
+  for (const d of DISCIPLINE_ORDER) {
+    const keys = SKILL_ORDER[d]
+    const ds: DisciplineSkills = {}
+    for (let i = 0; i < keys.length; i++) {
+      const v = clamp(iround(vec[d]![i]!), 1, 99)
+      ds[keys[i]!] = { actual: v, perceived: v }
+    }
+    skills[d] = ds
+  }
+
+  // 6. Genre experience: preset primary baseline + allocation increments (perceived = actual).
+  const genreAlloc = a.allocation.genre
+  const genreExperience = {} as GenreExperience
+  for (const d of DISCIPLINE_ORDER) {
+    const rec = {} as Record<Genre, { actual: number; perceived: number }>
+    for (const g of GENRE_ORDER) {
+      const baseline = d === primary ? preset.genreBaseline[g] ?? 0 : 0
+      const inc = genreAlloc?.[d]?.[g] ?? 0
+      const v = clamp(iround(baseline + Math.max(0, inc)), 0, 100)
+      rec[g] = { actual: v, perceived: v }
+    }
+    genreExperience[d] = rec
+  }
+
+  // 7. Ceilings from the chosen tier (primary from the tier band; others lower), floored
+  //    at the current actual — reuses the authored ceiling curve.
+  const tierRange = AUTHORED_TIER_RANGE[a.potentialTier]
+  const ceilingOVRTarget = s.uniform(tierRange[0], tierRange[1])
+  const ceilings = {} as Ceilings
+  for (const d of DISCIPLINE_ORDER) {
+    const target = d === primary ? ceilingOVRTarget : Math.max(TUNING.GEN_WEAK_MEAN, ceilingOVRTarget - 20)
+    ceilings[d] = buildAuthoredDisciplineCeilings(d, skills[d], target, undefined, s)
+  }
+
+  // 8. Dev rates (deterministic), workEthic (chosen), fame (from preset).
+  const devRate = {} as DevRates
+  for (const d of DISCIPLINE_ORDER) {
+    devRate[d] = clamp(s.uniform(TUNING.DEV_RATE_MIN, TUNING.DEV_RATE_MAX), TUNING.DEV_RATE_MIN, TUNING.DEV_RATE_MAX)
+  }
+  const workHistory = {} as WorkHistory
+  for (const d of DISCIPLINE_ORDER) workHistory[d] = 0
+
+  const t: Talent = {
+    id,
+    name: a.name,
+    role: a.role,
+    age: clamp(iround(a.age), 18, 70),
+    actual: { ...a.actual },
+    perceived: { ...a.actual },
+    fame: clamp(preset.fame, 0, 100),
+    salary: 0,
+    authored: true,
+    skills,
+    ceilings,
+    devRate,
+    workEthic: clamp(iround(a.workEthic), 1, 99),
+    genreExperience,
+    workHistory,
+    skill: 0,
+  }
+  t.skill = roleOVR(t, primary)
+  t.salary = salaryCurve(t)
+  return t
+}
+
+// Preview a Balanced-Career talent WITHOUT mutating state (live OVR/salary/contract).
+export function previewBalancedTalent(input: BalancedTalentInput, seed: string): Talent {
+  return constructBalancedTalent(input, 'authored-preview', seed)
+}
+
+function applyCreateBalancedTalent(state: GameState, action: Action & { kind: 'createBalancedTalent' }): GameState {
+  const a = action.talent
+  if (typeof a.name !== 'string' || a.name.trim() === '') {
+    throw new Error('applyActions: createBalancedTalent requires a non-empty name')
+  }
+  if (!CREATIVE_ROLES.includes(a.role)) {
+    throw new Error(`applyActions: createBalancedTalent role "${a.role}" is not a valid CreativeRole`)
+  }
+  if (!Number.isFinite(a.age) || a.age < 18 || a.age > 70) {
+    throw new Error(`applyActions: createBalancedTalent age ${a.age} out of range [18, 70]`)
+  }
+  if (!Number.isFinite(a.workEthic) || a.workEthic < 1 || a.workEthic > 99) {
+    throw new Error(`applyActions: createBalancedTalent workEthic ${a.workEthic} out of range [1, 99]`)
+  }
+  if (!POTENTIAL_TIERS.includes(a.potentialTier)) {
+    throw new Error(`applyActions: createBalancedTalent potentialTier "${a.potentialTier}" is not valid`)
+  }
+  findArchetype(a.presetId) // throws on unknown preset
+  // Validate the specialization allocation: non-negative finite integers, total ≤ budget.
+  const sk = a.allocation.skills
+  if (sk) {
+    for (const d of DISCIPLINE_ORDER) {
+      const incs = sk[d]
+      if (incs === undefined) continue
+      if (!Array.isArray(incs) || incs.length !== 6) {
+        throw new Error(`applyActions: createBalancedTalent allocation.skills.${d} must be 6 values`)
+      }
+      for (const v of incs) {
+        if (!Number.isFinite(v) || v < 0 || !Number.isInteger(v)) {
+          throw new Error(`applyActions: createBalancedTalent allocation.skills.${d} must be non-negative integers`)
+        }
+      }
+    }
+  }
+  const ge = a.allocation.genre
+  if (ge) {
+    for (const d of DISCIPLINE_ORDER) {
+      const row = ge[d]
+      if (row === undefined) continue
+      for (const g of GENRE_ORDER) {
+        const v = row[g]
+        if (v === undefined) continue
+        if (!Number.isFinite(v) || v < 0 || !Number.isInteger(v)) {
+          throw new Error(`applyActions: createBalancedTalent allocation.genre.${d}.${g} must be a non-negative integer`)
+        }
+      }
+    }
+  }
+  const total = balancedAllocationTotal(a)
+  if (total > TUNING.BALANCED_CREATOR_SPECIALIZATION_POINTS) {
+    throw new Error(
+      `applyActions: createBalancedTalent allocation ${total} exceeds ${TUNING.BALANCED_CREATOR_SPECIALIZATION_POINTS} specialization points`,
+    )
+  }
+  const id = authoredTalentId(state.talent)
+  const talent = constructBalancedTalent(a, id, state.seed)
+  return withCreatedTalent(state, talent)
+}
+
 // ── D-11 foundStudio — close the founding draft ──────────────────────────────
 // Valid only during a founding draft with every required-discipline minimum met.
 function applyFoundStudio(state: GameState, _action: Action & { kind: 'foundStudio' }): GameState {
@@ -1010,6 +1225,9 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'createCustomTalent':
         next = applyCreateCustomTalent(next, action)
+        break
+      case 'createBalancedTalent':
+        next = applyCreateBalancedTalent(next, action)
         break
       case 'foundStudio':
         next = applyFoundStudio(next, action)

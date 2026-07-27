@@ -40,6 +40,8 @@ export type {
   Action,
   AuthoredTalentInput,
   CustomTalentInput,
+  BalancedTalentInput,
+  ArchetypePreset,
   // D-11 employment / contracts / ledger / founding (types.ts)
   EmploymentStatus,
   Contract,
@@ -115,6 +117,8 @@ export {
   AUTHORED_TIER_COST,
   AUTHORED_TIER_RANGE,
   AUTHORED_START_OVR,
+  // D-11.C Balanced Creator archetype presets
+  BALANCED_ARCHETYPES,
 } from './tuning.js'
 
 // §4 shape declarations + resolveShape (phase 2)
@@ -154,8 +158,8 @@ export type { RngPurpose } from './rng.js'
 // §9 world generation (phase 3) + the §10-shared salary curve (B7)
 export { generateWorld, salaryCurve } from './worldgen.js'
 
-// §3 applyActions (phase 3) — greenlight / cancel / createTalent / createCustomTalent
-export { applyActions, previewCustomTalent } from './actions.js'
+// §3 applyActions (phase 3) — greenlight / cancel / createTalent / createCustomTalent / createBalancedTalent
+export { applyActions, previewCustomTalent, previewBalancedTalent, balancedBoostDiscipline } from './actions.js'
 
 // §6 standing (phase 3) — the three-channel updateStanding (B12 context param)
 export { updateStanding } from './standing.js'
@@ -191,6 +195,16 @@ export type { PerformanceBand, DisciplineStanding, CareerIdentity } from './tale
 // ── D-9.8 development (tick step 6 core) — pure per-release skill growth ───────
 export { developTalent } from './development.js'
 export type { DevelopmentContext } from './development.js'
+
+// ── D-11.C newspaper release reveal (newspaper.ts) — pure deterministic derivation ─
+export {
+  buildNewspaper,
+  criticStars,
+  audienceTier,
+  aggregateAudienceScore,
+  NEWSPAPER_MASTHEAD,
+} from './newspaper.js'
+export type { NewspaperView, NewspaperInput, CriticRating, AudienceTier } from './newspaper.js'
 
 // ── D-11 employment / contracts / roster / freelancer market (employment.ts) ──
 // Pure, deterministic, read-only helpers (status/offers/markets/payroll/founding).

@@ -1934,3 +1934,125 @@ their profile; these never overwrite (3).
 *Record: D-11.A cycle-2 corrections authorized by the owner 2026-07-26, implemented as the
 Phase 5.2A cycle-2 correction on `phase-5.2-studio-roster` (above `0f9d23d`). Normative
 alongside D-11; where they differ, D-11.A wins.*
+
+## D-11.C — Cycle-3 owner corrections: creator specialization + newspaper release (amendment, 2026-07-27)
+
+Owner-approved cycle-3 amendment. Refines D-11/D-11.A without reopening unrelated
+provisions. Where it differs from earlier text it says so and wins. **The cycle-3
+"40 specialization points + skill-floor + archetype-baseline" ruling supersedes an
+earlier same-cycle "15 points / flat weak start" draft.**
+
+**C1 — Balanced Creator: professional floor + archetype baseline (supersedes any flat
+near-zero start).** Creating a person is like editing a rookie in Madden/NBA-2K: a raw
+prospect / entry-level pro / specialist / high-upside developmental talent — capable of
+participating, far below established stars, never zero-skill. In **Balanced Career Mode**:
+(a) every one of the 24 professional skills starts at **≥ `TUNING.BALANCED_CREATOR_SKILL_FLOOR
+= 15`** (basic transferable competence — not role usefulness); (b) the selected
+profession + **archetype preset** then shapes the six PRIMARY-discipline skills to a
+credible baseline of **primary-discipline OVR ≈ 38–45** (a target range validated with the
+AUTHORITATIVE `roleOVR`, NOT a creator-only formula; archetypes distribute the six skills
+DIFFERENTLY so two same-OVR people feel mechanically distinct); (c) a single-profession
+person's SECONDARY-discipline OVRs generally sit ≈ **15–28** (never auto-usable, i.e. < 60);
+a **multi-hyphenate** archetype begins ≈ primary 35–42 / secondary 28–35 (divided early
+development — not a focused specialist plus a free strong second profession). **Full Custom
+Mode stays UNRESTRICTED** and may set any skill 0–99 (including below the floor / an
+immediate 85+ star). Presets populate only authoritative underlying values (no hidden
+modifiers / permanent archetype bonuses).
+
+**C2 — Balanced Creator: 40 Specialization Points (supersedes "15").** After the baseline,
+Balanced Mode grants **`TUNING.BALANCED_CREATOR_SPECIALIZATION_POINTS = 40`**. Each point
+raises exactly one authoritative professional skill OR one discipline-specific genre-
+experience value by exactly one, subject to the 0–99 / 0–100 bounds. The player may
+concentrate all 40 on one attribute, spread them, improve genre experience, remove and
+reassign before confirming, or (if the UI clearly allows) leave some unspent. **No
+per-attribute cap beyond the authoritative maximum.** Forbidden: negative / fractional /
+NaN / Infinity / duplicate spending / spending > 40 / allocation surviving a preset or mode
+switch. After 40 points a normal Balanced person remains a **prospect** (target ≈ primary
+OVR 42–50; one or two standout skills 55–75; immediate 60+ rare, **immediate 70+ effectively
+absent, immediate 85 impossible in Balanced**). Reaching 85 later requires high true
+Potential + Work Ethic + successful experience + long development (+ the future Acting
+School) — a credible path to greatness, not a completed one. **Potential and Work Ethic are
+NOT bought with specialization points** — they remain the Balanced creator's separate
+tradeoff attributes; a **High-Upside Prospect** preset/path offers high Potential + high
+Work Ethic + low current OVR/Star-Power/weaknesses as a real creation tradeoff (never a
+direct current-performance bonus). **Global `roleOVR` and development formulas are NOT
+retuned to hit these targets — only the Balanced creator's baseline profiles are tuned.**
+
+**C3 — Player-facing skill + genre language (unchanged authority; clearer surface).** The
+creator edits the AUTHORITATIVE engine skill set (24 skills in `SKILL_ORDER`) and the
+AUTHORITATIVE discipline-specific genre experience (per `GENRE_ORDER`), never a duplicate
+diverging list and never a flattened universal genre rating. Player-facing genre reads
+naturally ("Acting — Comedy Experience") and shows both the understandable bucket and the
+point increase ("Comedy Experience: Familiar (+4)"). OVR stays DERIVED from the six
+authoritative skills (never an input); Project Fit is never a stored creator attribute
+(film/assignment-dependent). Live Madden/2K-style feedback shows current→proposed per
+attribute, remaining points, all four derived OVRs, strengths/specialty, salary/contract
+estimate. Balanced default IA: Identity → Profession & preset → Specialization (primary-
+discipline skills + that discipline's genres first) → Review; an **Advanced** expansion
+exposes other disciplines / multi-hyphenate / the full attribute set. Creation ≠ signing
+(created talent still enter the applicant pool / free-agent market and must be signed —
+D-11.A A2 unchanged). Deterministic construction + existing save behavior preserved.
+
+**C4 — Newspaper release reveal (the emotional headline layer).** On a film's release the
+first player-facing moment is an original fictional entertainment-newspaper front page — the
+headline layer; **the detailed autopsy remains the authoritative analytical view** (never
+deleted/weakened). The reveal appears **exactly once** per release event (never re-opens on
+navigation, never duplicates after save/reload, never shows the wrong film / another film's
+participants, never blocks the full record). It shows: masthead + game-week/date, film
+title, an outcome-based headline, a subheadline, a **critic star rating** = `clamp(round-
+to-nearest-half(criticScore / 20), 0, 5)` (shown beside the 0–100 score; underlying score
+never mutated), an **audience reaction tier** mapped from the authoritative segment results
+(no invented audience score; aggregate in the reveal, segment detail in the autopsy), box
+office / Studio Revenue / production cost / profit-or-loss with a result label, two–three
+**truthful callouts drawn from the recorded locked+resolved mechanics** (cohesion / Fit /
+standout or weak participant / critic-audience divergence / promise / forecast delta / craft
+/ reach — reusing the existing reasons/autopsy layer, never generative causal prose
+disconnected from evidence), key cast/creator names, and buttons to open the full autopsy
+and to continue. Headlines are chosen from **deterministic templates keyed to actual
+recorded outcome thresholds** and must never contradict the numbers. The disclosed economy
+limitation stands (Studio Revenue = full box office). The clipping is **deterministically
+reconstructable from the film's persisted record** (participants + scores + financials +
+locked forecast on the V3 `FilmResult`, cost from the ledger) so it reopens correctly after
+save/reload, tied to the correct film, immutable to later talent/studio change — **no new
+save version** (additive optional fields on V3).
+
+**C5 — Approved FUTURE requirements (documented, NOT implemented; no scaffolding).**
+(i) **Lead Writer + Co-Writer** on a persistent screenplay: a Co-Writer must be contracted/
+hired, available, assigned during script development, contribute real writing skills + genre
+experience, receive development, consume time + compensation, and may complement or conflict
+with the Lead Writer — **no automatic unconditional quality bonus**, and **no Co-Writer slot
+in the current instant film-assembly flow**. Belongs to the persistent-script milestone
+(Phase 5.2B). (ii) **In-house Acting School** letting idle actors train over time — requires
+the living tycoon clock, idle/assigned status, training assignment, facility capacity,
+operating cost, skill/genre curriculum, diminishing returns, Potential ceilings, dev
+summaries, and the opportunity cost of training vs working. **Not before automatic time +
+facilities are authorized.** Neither is scaffolded now.
+
+**C6 — Percentile calibration is the CONTROLLING creator target (supersedes the raw-OVR
+targets in C1/C2).** The "38–45 pre / 42–50 post" numbers in C1/C2 are calibration
+hypotheses only. The Balanced creator is calibrated by **relative standing within the
+Project:Studio population**, not by copying sports-game raw OVR (60 OVR here is ~top-decile,
+not entry-level). The **primary benchmark population** is *working-age, signable,
+primary-profession talent in the relevant discipline*; the full world is reported for
+context. Controlling targets (validated against the actual generated distribution — see
+`run-creator-baseline-study.ts`, `out/creator-baseline/`): a focused prospect **pre-spec
+≈ 30–50th percentile**, **post-spec ≈ 40–60th**; **High-Upside 20–45th**; **Polished
+50–65th**; **multi-hyphenate primary 30–50th / secondary 25–45th**. Balanced creation must
+**not** commonly produce top-10% talent and must **effectively never** produce top-5% —
+Full Custom remains the only reliable path to an immediate star. Only the **Balanced
+creator baseline profiles** are tuned to hit these percentiles — never the global roleOVR,
+the generated distribution, D-6, development, or market-generation rules. The creator shows
+plain-language standing (Raw Prospect → Developmental Professional → Capable Working Talent
+→ Solid Professional → Established Professional → Major Talent → Elite Talent) plus an
+approximate percentile. **Measured (150 worlds):** population primary-OVR medians ≈ 43 per
+discipline (p75 ≈ 59–60, p90 ≈ 73–75, p95 ≈ 80–83); the tuned focused presets land pre-spec
+**37–42nd percentile** (raw OVR ≈ 36–42) and post-spec **51–61st** (raw OVR ≈ 44–51); no
+Balanced outcome reaches the top 10%. A high-Potential/high-Work-Ethic prospect has a
+credible path to elite standing over a long career (development study: reaches 70 by y1–3,
+85 by y5–8) — never guaranteed.
+
+*Record: D-11.C cycle-3 corrections authorized by the owner 2026-07-27 (with the
+superseding 40-point/floor/baseline ruling AND the percentile-calibration amendment C6 as
+the controlling Balanced-creator authority), implemented as the Phase 5.2A cycle-3
+correction on `phase-5.2-studio-roster` (above `6b51497`). Normative alongside
+D-11/D-11.A; where they differ, D-11.C wins.*

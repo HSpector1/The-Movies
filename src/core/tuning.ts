@@ -9,6 +9,7 @@
 // named exports below — the contract declares them outside §16.
 
 import type {
+  ArchetypePreset,
   CastSlot,
   CulturalForce,
   Discipline,
@@ -302,6 +303,14 @@ export const TUNING = {
 
   // Market rotation (D-11.14). Both markets rotate on this cadence, epoch-derived.
   HIRING_MARKET_ROTATION_WEEKS: 13,
+
+  // ── D-11.C Balanced Creator specialization (cycle 3) ─────────────────────────
+  // Every Balanced-Career professional skill starts at ≥ this floor (basic transferable
+  // competence); the archetype preset then shapes the primary discipline to OVR ≈ 38–45.
+  // Full Custom is UNRESTRICTED (may go below the floor). The player then allocates the
+  // specialization budget (+1 per authoritative skill/genre point). See BALANCED_ARCHETYPES.
+  BALANCED_CREATOR_SKILL_FLOOR: 15,
+  BALANCED_CREATOR_SPECIALIZATION_POINTS: 40,
 } as const
 
 // ── §5.1 cast weighting ──────────────────────────────────────────────────────
@@ -619,3 +628,81 @@ export const AUTHORED_TIER_RANGE = {
 // Authored talent's starting primary-discipline skill center (D-9.14, keeps the
 // spirit of AUTHORED_START_SKILL = 35).
 export const AUTHORED_START_OVR = 35
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// D-11.C — Balanced Creator archetype presets (cycle 3)
+// ═══════════════════════════════════════════════════════════════════════════════
+// The profession-shaped BASELINE profile before the player spends the 40 specialization
+// points. `primarySkills` are 6 absolute values in SKILL_ORDER for the primary discipline,
+// tuned (validated with the authoritative roleOVR, NOT a creator formula — see the
+// creator-baseline calibration study) so the pre-specialization primary OVR lands ≈ 38–45
+// for focused prospects (High-Upside intentionally lower current OVR; Polished near the top).
+// Archetypes distribute the six skills DIFFERENTLY so same-OVR people feel distinct.
+// `secondaryBaseline` sets all non-primary skills (secondary OVR ≈ 15–28; ≥ the floor).
+// A multi-hyphenate raises ONE adjacent secondary via `secondaryBoost`. `genreBaseline` is
+// a small primary-discipline genre-experience start. Presets set ONLY authoritative values.
+// PERCENTILE-CALIBRATED (owner amendment 2026-07-27): baselines tuned so a focused
+// prospect lands ≈ 30–50th percentile pre-spec and ≈ 40–60th post-spec within the
+// working-age/signable/matching-profession population (median primary OVR ≈ 43). Raw OVR
+// is a consequence of the percentile target, not the target itself. See the calibration
+// study (run-creator-baseline-study.ts). ONLY these baselines were tuned — never the
+// global roleOVR / generated distribution / development / D-6 / market rules.
+export const BALANCED_ARCHETYPES: readonly ArchetypePreset[] = [
+  // ── Acting ──
+  { id: 'balancedActingProspect', label: 'Balanced Acting Prospect', appliesTo: 'acting',
+    primarySkills: [56, 56, 56, 56, 56, 56], secondaryBaseline: 42, genreBaseline: { drama: 15 },
+    defaultPotentialTier: 'Steady', defaultWorkEthic: 60, fame: 8 },
+  { id: 'comedyProspect', label: 'Comedy Prospect', appliesTo: 'acting',
+    primarySkills: [54, 49, 60, 66, 53, 57], secondaryBaseline: 42, genreBaseline: { comedy: 30, drama: 12 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 60, fame: 10 },
+  { id: 'dramaticProspect', label: 'Dramatic Prospect', appliesTo: 'acting',
+    primarySkills: [58, 64, 57, 45, 52, 59], secondaryBaseline: 42, genreBaseline: { drama: 30, romance: 12 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 62, fame: 9 },
+  { id: 'physicalPerformer', label: 'Physical Performer', appliesTo: 'acting',
+    primarySkills: [55, 49, 51, 51, 69, 60], secondaryBaseline: 42, genreBaseline: { adventure: 25, crime: 12 },
+    defaultPotentialTier: 'Steady', defaultWorkEthic: 58, fame: 9 },
+  // ── Writing ──
+  { id: 'balancedWritingProspect', label: 'Balanced Writing Prospect', appliesTo: 'writing',
+    primarySkills: [56, 56, 56, 56, 56, 56], secondaryBaseline: 42, genreBaseline: { drama: 15 },
+    defaultPotentialTier: 'Steady', defaultWorkEthic: 62, fame: 5 },
+  { id: 'dialogueSpecialist', label: 'Dialogue Specialist', appliesTo: 'writing',
+    primarySkills: [52, 54, 68, 54, 53, 55], secondaryBaseline: 42, genreBaseline: { comedy: 22, drama: 15 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 62, fame: 5 },
+  { id: 'storyArchitect', label: 'Story Architect', appliesTo: 'writing',
+    primarySkills: [68, 54, 52, 55, 55, 53], secondaryBaseline: 42, genreBaseline: { crime: 22, drama: 12 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 64, fame: 5 },
+  { id: 'originalVoice', label: 'Original Voice', appliesTo: 'writing',
+    primarySkills: [53, 53, 55, 68, 53, 52], secondaryBaseline: 42, genreBaseline: { horror: 20 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 60, fame: 6 },
+  // ── Directing ──
+  { id: 'balancedDirectingProspect', label: 'Balanced Directing Prospect', appliesTo: 'directing',
+    primarySkills: [56, 56, 56, 56, 56, 56], secondaryBaseline: 42, genreBaseline: { drama: 15 },
+    defaultPotentialTier: 'Steady', defaultWorkEthic: 62, fame: 6 },
+  { id: 'visualDirector', label: 'Visual Director', appliesTo: 'directing',
+    primarySkills: [68, 51, 55, 55, 54, 53], secondaryBaseline: 42, genreBaseline: { adventure: 22 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 62, fame: 7 },
+  { id: 'performanceDirector', label: 'Performance Director', appliesTo: 'directing',
+    primarySkills: [53, 68, 56, 52, 53, 55], secondaryBaseline: 42, genreBaseline: { drama: 22 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 63, fame: 7 },
+  // ── Craft ──
+  { id: 'balancedCraftProspect', label: 'Balanced Craft Prospect', appliesTo: 'craft',
+    primarySkills: [56, 56, 56, 56, 56, 56], secondaryBaseline: 42, genreBaseline: { drama: 15 },
+    defaultPotentialTier: 'Steady', defaultWorkEthic: 60, fame: 4 },
+  { id: 'cinematographyProspect', label: 'Cinematography Prospect', appliesTo: 'craft',
+    primarySkills: [68, 53, 55, 52, 52, 55], secondaryBaseline: 42, genreBaseline: { adventure: 18 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 60, fame: 4 },
+  { id: 'effectsSpecialist', label: 'Effects Specialist', appliesTo: 'craft',
+    primarySkills: [52, 52, 53, 53, 68, 55], secondaryBaseline: 42, genreBaseline: { horror: 20, adventure: 15 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 60, fame: 4 },
+  // ── Career path (any profession) ──
+  { id: 'highUpsideProspect', label: 'High-Upside Prospect', appliesTo: 'any',
+    primarySkills: [52, 52, 52, 52, 52, 52], secondaryBaseline: 38, genreBaseline: {},
+    defaultPotentialTier: 'HighUpside', defaultWorkEthic: 85, fame: 4 },
+  { id: 'polishedLowCeiling', label: 'Polished Low-Ceiling Professional', appliesTo: 'any',
+    primarySkills: [60, 60, 60, 60, 60, 60], secondaryBaseline: 44, genreBaseline: { drama: 18 },
+    defaultPotentialTier: 'Limited', defaultWorkEthic: 55, fame: 12 },
+  { id: 'multiHyphenateProspect', label: 'Multi-Hyphenate Prospect', appliesTo: 'any',
+    primarySkills: [54, 54, 54, 54, 54, 54], secondaryBaseline: 42,
+    secondaryBoost: { role: 'director', skills: [52, 52, 52, 52, 52, 52] }, genreBaseline: {},
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 68, fame: 6 },
+] as const satisfies readonly ArchetypePreset[]
