@@ -26,3 +26,16 @@ export const E_VIEWS: Record<string, { pos: Vec3; tgt: Vec3 }> = {
   'Roof and Utilities': { pos: [19, 16, 19], tgt: [0, 11, -3] },
   'Human Scale': { pos: [1.5, 1.75, 16], tgt: [-3, 1.5, 8] },
 }
+
+// Named Scene-F (refined studio lot) camera presets. Entrance gate at Z+38, stage row at Z-20,
+// admin west, backlot east, water tower NW. A ~150 m lot — camera framings are high/far.
+export const F_VIEWS: Record<string, { pos: Vec3; tgt: Vec3 }> = {
+  Overview: { pos: [90, 46, 96], tgt: [-4, 7, -10] },
+  Entrance: { pos: [0, 9, 58], tgt: [0, 6, 6] },
+  'Stage Row': { pos: [54, 27, 24], tgt: [2, 9, -20] },
+  Avenue: { pos: [58, 9, 13], tgt: [-38, 4, -2] },
+  Backlot: { pos: [54, 15, 6], tgt: [40, 4, -14] },
+  Commissary: { pos: [42, 13, 34], tgt: [22, 4, 12] },
+  'Water Tower': { pos: [-14, 17, 8], tgt: [-42, 9, -16] },
+  'Human Scale': { pos: [9, 1.75, 22], tgt: [0, 1.5, 10] },
+}

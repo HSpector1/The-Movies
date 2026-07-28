@@ -2,15 +2,15 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import { useLab } from '../lab/LabContext'
 import { latestStats } from '../lab/stats'
-import { applyView, D_VIEWS, E_VIEWS } from '../lab/cameraBridge'
+import { applyView, D_VIEWS, E_VIEWS, F_VIEWS } from '../lab/cameraBridge'
 import type { RuntimeManifest, Provenance, SceneKey } from '../types'
 
 const PROV_COLOR: Record<Provenance, string> = {
   'CC0': '#22c55e', 'ATTRIBUTION-REQUIRED': '#3b82f6', 'PROTOTYPE-ONLY': '#f59e0b',
   'LICENSE-UNCLEAR': '#f59e0b', 'DO-NOT-USE': '#ef4444',
 }
-const SCENE_LABEL: Record<SceneKey, string> = { A: 'A · Lab01 lot', B: 'B · Furnished', C: 'C · Animation', D: 'D · Studio greybox', E: 'E · Hero stage' }
-const SCENE_PACK: Record<SceneKey, string> = { A: 'downtown', B: 'props', C: 'animation', D: 'downtown', E: 'animation' }
+const SCENE_LABEL: Record<SceneKey, string> = { A: 'A · Lab01 lot', B: 'B · Furnished', C: 'C · Animation', D: 'D · Studio greybox', E: 'E · Hero stage', F: 'F · Refined lot' }
+const SCENE_PACK: Record<SceneKey, string> = { A: 'downtown', B: 'props', C: 'animation', D: 'downtown', E: 'animation', F: 'downtown' }
 
 const panel: CSSProperties = {
   position: 'fixed', top: 0, left: 0, width: 340, maxHeight: '100vh', overflowY: 'auto',
@@ -68,17 +68,17 @@ export function DevPanel({ manifest }: { manifest: RuntimeManifest | null }): JS
       <div style={{ fontSize: 14, fontWeight: 700, color: '#eaf2fa' }}>Project: Studio — Asset Lab</div>
       <div style={{ color: '#6f7b88', fontSize: 10.5 }}>isolated intake · conversion · visual proof — owns no sim truth</div>
 
-      <div style={h}>Scene — D⇄E = greybox vs hero soundstage (Lab 03)</div>
-      <div style={row}>{(['A', 'B', 'C', 'D', 'E'] as SceneKey[]).map((k) =>
+      <div style={h}>Scene — D⇄F = greybox vs refined lot (Lab 04)</div>
+      <div style={row}>{(['A', 'B', 'C', 'D', 'E', 'F'] as SceneKey[]).map((k) =>
         <Btn key={k} on={state.scene === k} onClick={() => set('scene', k)}>{SCENE_LABEL[k]}</Btn>)}</div>
 
       <div style={h}>Camera (§7)</div>
-      {state.scene === 'D' || state.scene === 'E' ? (
+      {state.scene === 'D' || state.scene === 'E' || state.scene === 'F' ? (
         <div style={row}>
-          {Object.keys(state.scene === 'E' ? E_VIEWS : D_VIEWS).map((name) => {
-            const v = (state.scene === 'E' ? E_VIEWS : D_VIEWS)[name]
-            return <Btn key={name} onClick={() => applyView(v.pos, v.tgt)}>{name}</Btn>
-          })}
+          {(() => {
+            const vmap = state.scene === 'E' ? E_VIEWS : state.scene === 'F' ? F_VIEWS : D_VIEWS
+            return Object.keys(vmap).map((name) => <Btn key={name} onClick={() => applyView(vmap[name].pos, vmap[name].tgt)}>{name}</Btn>)
+          })()}
           <Btn onClick={resetCamera}>Reset</Btn>
         </div>
       ) : (
@@ -119,6 +119,24 @@ export function DevPanel({ manifest }: { manifest: RuntimeManifest | null }): JS
         </>
       )}
 
+      {state.scene === 'F' && (
+        <>
+          <div style={h}>Refined lot — layers (Lab 04)</div>
+          <div style={{ ...row, flexDirection: 'column', alignItems: 'flex-start' }}>
+            <Toggle label="Crew (CC0)" on={state.showCharacters} onChange={(v) => set('showCharacters', v)} />
+            <Toggle label="Landscaping (palms/trees/hedges)" on={state.showLandscaping} onChange={(v) => set('showLandscaping', v)} />
+            <Toggle label="Production dressing" on={state.showDressing} onChange={(v) => set('showDressing', v)} />
+            <Toggle label="Shadows (key light)" on={state.showShadows} onChange={(v) => set('showShadows', v)} />
+            <Toggle label="Soft shadows (PCSS · live GPU)" on={state.softShadows} onChange={(v) => set('softShadows', v)} />
+            <Toggle label="Post FX (bloom/AO · live GPU)" on={state.postFx} onChange={(v) => set('postFx', v)} />
+            <Toggle label="Atmosphere (sky + fog)" on={state.atmosphere} onChange={(v) => set('atmosphere', v)} />
+          </div>
+          <div style={{ color: '#8a94a0', fontSize: 10, margin: '5px 0 0', lineHeight: 1.4 }}>
+            Switch <b>D ⇄ F</b> to compare the Lab 02 greybox lot against the refined, less-boxy lot. The improvement lives in geometry (roof-form + massing variety) — toggle <b>Wireframe</b> below to confirm.
+          </div>
+        </>
+      )}
+
       <div style={h}>Display (§8)</div>
       <div style={{ ...row, flexDirection: 'column', alignItems: 'flex-start' }}>
         <Toggle label="Wireframe" on={state.wireframe} onChange={(v) => set('wireframe', v)} />
@@ -131,9 +149,9 @@ export function DevPanel({ manifest }: { manifest: RuntimeManifest | null }): JS
       <div style={h}>Lights (§8)</div>
       <Slider label="Key" value={state.keyLight} min={0} max={6} step={0.1} onChange={(v) => set('keyLight', v)} />
       <Slider label="Ambient" value={state.ambientLight} min={0} max={2} step={0.05} onChange={(v) => set('ambientLight', v)} />
-      {(state.scene === 'D' || state.scene === 'E') && (
+      {(state.scene === 'D' || state.scene === 'E' || state.scene === 'F') && (
         <div style={{ color: '#8a94a0', fontSize: 10, marginTop: 2, lineHeight: 1.35 }}>
-          Key/Ambient control the directional key + ambient fill only. The warm hero rig also lights the scene via procedural Sky + IBL{state.scene === 'E' ? ' + ACES exposure' : ''}, so it stays illuminated even at Key/Ambient 0 — these sliders do not fully control the hero lighting.
+          Key/Ambient control the directional key + ambient fill only. The warm hero rig also lights the scene via procedural Sky + IBL{state.scene === 'E' || state.scene === 'F' ? ' + ACES exposure' : ''}, so it stays illuminated even at Key/Ambient 0 — these sliders do not fully control the hero lighting.
         </div>
       )}
 

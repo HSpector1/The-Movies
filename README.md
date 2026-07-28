@@ -116,6 +116,20 @@ composition (`proof/lab03/iteration-01..04/`). Evidence in `proof/lab03/`. See
 `docs/ASSET-LAB-03-BRIEF.md`, `HERO-SOUNDSTAGE-FINDINGS.md`, `ASSET-LAB-03-OWNER-REVIEW-GUIDE.md`,
 `ASSET-LAB-03-INTEGRATION-RECOMMENDATION.md`, `ASSET-LAB-03-REFINEMENT-LOOP.md`.
 
+## Asset Lab 04 — Refined Studio Lot (branch `asset-lab-04-studio-lot`)
+
+A bounded architectural-art-direction milestone: **Scene F** takes the Lab 02 studio-greybox concept
+and makes it substantially **less boxy, more architecturally believable, and visually varied** — a
+whole studio campus with many distinct roof languages (barrel+monitor stages, sawtooth mill, Deco
+admin, gable warehouses, hipped booth/bungalow, monopitch motor-pool, streamline commissary, marquee
+theater), massing variety, and function-coded materials (procedural brick/wood/stucco/tile), all under
+one warm golden-hour palette. The "less boxy" win lives in **geometry** (verify with Wireframe). The
+whole lot's bespoke architecture is only ~6,250 tris. **Scenes A–E are left untouched** — toggle
+**D ⇄ F** for the boxy-vs-refined comparison. Zero new downloaded assets; reuses the warm rig, ACES,
+signage, and the iconic water tower. Evidence in `proof/lab04/`. See `docs/ASSET-LAB-04-BRIEF.md`,
+`ASSET-LAB-04-FINDINGS.md`, `ASSET-LAB-04-OWNER-REVIEW-GUIDE.md`,
+`ASSET-LAB-04-INTEGRATION-RECOMMENDATION.md`.
+
 ## Documents
 
 - [`docs/ASSET-INVENTORY.md`](docs/ASSET-INVENTORY.md)

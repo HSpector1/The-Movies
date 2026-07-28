@@ -13,6 +13,7 @@ const PRESETS: Record<SceneKey, Record<CameraMode, Preset>> = {
   C: { overview: { pos: [3.0, 1.9, 3.4], tgt: [0, 1.0, 0] }, inspection: { pos: [1.5, 1.45, 1.9], tgt: [0, 1.15, 0] } },
   D: { overview: { pos: [42, 34, 48], tgt: [2, 2, -1] }, inspection: { pos: [-3.5, 1.75, 11], tgt: [3, 1.4, 2] } },
   E: { overview: { pos: [34, 20, 42], tgt: [-2, 5, -1] }, inspection: { pos: [23, 9, 27], tgt: [-2, 6, 3] } },
+  F: { overview: { pos: [72, 48, 78], tgt: [0, 4, -6] }, inspection: { pos: [46, 22, 8], tgt: [2, 8, -22] } },
 }
 
 export function CameraController(): null {

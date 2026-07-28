@@ -69,7 +69,7 @@ export function HeroSoftShadows(): JSX.Element | null {
  *  OFF (postFx default false) because multi-pass post is slow/fragile in software. */
 export function HeroComposer(): JSX.Element | null {
   const { state } = useLab()
-  if (!(state.scene === 'E' && state.postFx)) return null
+  if (!((state.scene === 'E' || state.scene === 'F') && state.postFx)) return null
   return (
     <EffectComposer multisampling={4}>
       <N8AO halfRes color="#1a1206" aoRadius={1.4} intensity={2.4} distanceFalloff={1} quality="performance" />

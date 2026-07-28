@@ -1,0 +1,65 @@
+{
+  "tool": "capture-lab04",
+  "note": "Diagnostic only — headless SwiftShader software rendering, NOT target-hardware acceptance. Post FX/PCSS off for the deterministic core-look shots.",
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+  "isSoftware": true,
+  "viewport": {
+    "width": 1600,
+    "height": 1000,
+    "dpr": 2
+  },
+  "initialLoadMs": 14859,
+  "samples": [
+    {
+      "label": "F/overview-all",
+      "fps": 2,
+      "drawCalls": 972,
+      "triangles": 236556,
+      "sceneTriangles": 119818,
+      "sceneMeshes": 598,
+      "geometries": 618,
+      "textures": 184,
+      "programs": 28,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "isSoftware": true,
+      "postFx": false,
+      "loadedAssets": 17,
+      "totalAssets": 17,
+      "loading": false
+    },
+    {
+      "label": "F/no-crew",
+      "fps": 3,
+      "drawCalls": 940,
+      "triangles": 16652,
+      "sceneTriangles": 9866,
+      "sceneMeshes": 582,
+      "geometries": 618,
+      "textures": 184,
+      "programs": 28,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "isSoftware": true,
+      "postFx": false,
+      "loadedAssets": 17,
+      "totalAssets": 17,
+      "loading": false
+    },
+    {
+      "label": "F/architecture-only",
+      "fps": 4,
+      "drawCalls": 607,
+      "triangles": 9786,
+      "sceneTriangles": 6256,
+      "sceneMeshes": 408,
+      "geometries": 444,
+      "textures": 184,
+      "programs": 28,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "isSoftware": true,
+      "postFx": false,
+      "loadedAssets": 17,
+      "totalAssets": 17,
+      "loading": false
+    }
+  ]
+}

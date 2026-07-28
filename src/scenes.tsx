@@ -13,6 +13,7 @@ import {
   BacklotFacade, SceneryFlat, Banner, StagingMark,
 } from './components/greybox'
 import { HeroSoundstage, ProductionApron, GroundDecals, WorldEdge, HeroWorkers, type HeroCrewSpec } from './components/hero'
+import { RefinedLot } from './components/refinedLot'
 import { HM } from './lab/heroMaterials'
 import type { RuntimeManifest, RuntimeAsset } from './types'
 
@@ -265,6 +266,21 @@ export function SceneE(): JSX.Element {
       )}
 
       {state.showScaleRef && <HumanScaleRef position={[1.5, 0, 10]} />}
+    </group>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Scene F — REFINED STUDIO LOT (Asset Lab 04). The Lab 02 greybox lot concept made architecturally
+// believable + varied + less boxy (many roof languages + massing + facade articulation), still
+// stylized. Isolated new module; Scenes D (greybox lot) and E (hero soundstage) stay untouched
+// baselines — D⇄F is the boxy-vs-articulated comparison.
+export function SceneF(): JSX.Element {
+  const { state } = useLab()
+  return (
+    <group>
+      <RefinedLot dressing={state.showDressing} crew={state.showCharacters} landscaping={state.showLandscaping} />
+      {state.showScaleRef && <HumanScaleRef position={[0, 0, 12]} />}
     </group>
   )
 }
