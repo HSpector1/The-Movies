@@ -1,0 +1,48 @@
+{
+  "tool": "capture",
+  "note": "Diagnostic only — SwiftShader headless, NOT target-hardware acceptance (§8).",
+  "viewport": {
+    "width": 1600,
+    "height": 1000,
+    "dpr": 2
+  },
+  "renderer": "ANGLE/SwiftShader (software)",
+  "samples": [
+    {
+      "label": "A/overview",
+      "fps": 4,
+      "drawCalls": 104,
+      "triangles": 97470,
+      "geometries": 95,
+      "textures": 137,
+      "programs": 17,
+      "loadedAssets": 184,
+      "totalAssets": 184,
+      "loading": false
+    },
+    {
+      "label": "B/overview",
+      "fps": 5,
+      "drawCalls": 19,
+      "triangles": 5246,
+      "geometries": 106,
+      "textures": 137,
+      "programs": 17,
+      "loadedAssets": 196,
+      "totalAssets": 196,
+      "loading": false
+    },
+    {
+      "label": "C/walk",
+      "fps": 6,
+      "drawCalls": 8,
+      "triangles": 15268,
+      "geometries": 107,
+      "textures": 138,
+      "programs": 20,
+      "loadedAssets": 196,
+      "totalAssets": 196,
+      "loading": false
+    }
+  ]
+}
