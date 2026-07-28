@@ -92,6 +92,16 @@ extraction, per §2), `public/assets/` (regenerable runtime binaries, some LICEN
 DO-NOT-USE), `node_modules/`, `dist/`. Committed: source, tools, `docs/`, `manifests/`,
 `proof/`.
 
+## Asset Lab 02 — Studio Greybox Target (branch `asset-lab-02-studio-greybox`)
+
+A bounded visual-improvement milestone: **Scene D** turns the Lab 01 asset demo into an
+art-directed movie-studio greybox (entrance gate, water tower, soundstage, office, courtyard,
+backlot + 9 CC0 crew, warm golden-hour lighting + sky). The Lab 01 red-pavement defect is
+fixed at the root (vertex-color shader mask). Boots on Scene D; compare with Scene A. Evidence
+in `proof/lab02/`. See `docs/ASSET-LAB-02-BRIEF.md`, `VISUAL-TARGET-FINDINGS.md`,
+`MATERIAL-CORRECTION.md`, `STUDIO-GREYBOX-INVENTORY.md`, `ASSET-LAB-02-PERFORMANCE.md`,
+`OWNER-REVIEW-GUIDE.md`, `ASSET-LAB-02-INTEGRATION-RECOMMENDATION.md`.
+
 ## Documents
 
 - [`docs/ASSET-INVENTORY.md`](docs/ASSET-INVENTORY.md)
