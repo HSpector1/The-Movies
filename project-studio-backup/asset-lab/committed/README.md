@@ -102,6 +102,20 @@ in `proof/lab02/`. See `docs/ASSET-LAB-02-BRIEF.md`, `VISUAL-TARGET-FINDINGS.md`
 `MATERIAL-CORRECTION.md`, `STUDIO-GREYBOX-INVENTORY.md`, `ASSET-LAB-02-PERFORMANCE.md`,
 `OWNER-REVIEW-GUIDE.md`, `ASSET-LAB-02-INTEGRATION-RECOMMENDATION.md`.
 
+## Asset Lab 03 — Hero Soundstage Art-Direction Proof (branch `asset-lab-03-hero-soundstage`)
+
+A bounded art-direction milestone: **Scene E** takes **one** facility (Stage 1) and its immediate
+production apron from greybox to a convincing **production-fidelity hero** — articulated silhouette
+(recessed elephant doors, parapet/cornice, ridge monitor, loading dock, red-eye), procedural PBR
+(corrugated-metal + weathered-concrete normal/roughness maps), ACES tone mapping, baked contact
+shadows, and an active grip/electric apron with CC0 crew. **Scene D is left untouched** as the
+greybox baseline — toggle **D ⇄ E** for a direct greybox-vs-hero comparison of the same building.
+Boots on Scene E. Adds an optional, default-off `postprocessing` pass (bloom/AO) for real-GPU
+review. A four-iteration refinement loop then improved architecture, signage, ground, crew, and
+composition (`proof/lab03/iteration-01..04/`). Evidence in `proof/lab03/`. See
+`docs/ASSET-LAB-03-BRIEF.md`, `HERO-SOUNDSTAGE-FINDINGS.md`, `ASSET-LAB-03-OWNER-REVIEW-GUIDE.md`,
+`ASSET-LAB-03-INTEGRATION-RECOMMENDATION.md`, `ASSET-LAB-03-REFINEMENT-LOOP.md`.
+
 ## Documents
 
 - [`docs/ASSET-INVENTORY.md`](docs/ASSET-INVENTORY.md)

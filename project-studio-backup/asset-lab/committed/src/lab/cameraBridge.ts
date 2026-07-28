@@ -15,3 +15,14 @@ export const D_VIEWS: Record<string, { pos: Vec3; tgt: Vec3 }> = {
   Courtyard: { pos: [17, 8, 23], tgt: [3, 1.5, 2] },
   'Human Scale': { pos: [-3.5, 1.75, 11], tgt: [3, 1.4, 2] },
 }
+
+// Named Scene-E (hero soundstage) camera presets. Hero building sits at ~[0,0,-3], doors face +z,
+// the production apron spans +z in front of it. The front/left quadrant carries the hero read.
+export const E_VIEWS: Record<string, { pos: Vec3; tgt: Vec3 }> = {
+  Hero: { pos: [23, 9, 27], tgt: [-2, 6, 3] },
+  Overview: { pos: [34, 20, 42], tgt: [-2, 5, -1] },
+  Doors: { pos: [-3.5, 5, 23], tgt: [-3.5, 5, 6] },
+  Apron: { pos: [11, 4, 21], tgt: [-3, 1.5, 9] },
+  Roofline: { pos: [19, 16, 19], tgt: [0, 11, -3] },
+  'Human Scale': { pos: [1.5, 1.75, 16], tgt: [-3, 1.5, 8] },
+}

@@ -41,16 +41,21 @@ merged, or rebased.
 
 ## Asset Lab
 
+Captured twice. The follow-up commit is the current state of this track.
+
 - Path: `/Users/bruce/Project Studio - Asset Lab`
 - Branch: `asset-lab-03-hero-soundstage`
-- HEAD: `1c86dd330ba7c71061e220bc247424061c3c8895`
-- Last commit: `1c86dd3  2026-07-28T11:23:55+02:00  docs(lab02): brief, visual-target findings, material-correction root cause, greybox inventory, performance, owner-review guide, integration recommendation + README pointer`
-- Working tree: **DIRTY** — 10 modified tracked, 0 staged, 52 untracked
-  (10 source/doc/tool files + 42 `proof/lab03/*.png`)
-- Tracked files: 78
-- Remote: **none** (standalone repo)
-- Capture: committed HEAD archived; recoverable WIP code/docs preserved under
-  `asset-lab/wip-recovery/`; 42 proof PNGs (~123 MB) excluded and manifested.
+- **Current capture — HEAD `b6130c81bbfae8f6b6ab743fd24c5287b8d1c1e8`**
+  - Last commit: `b6130c81  2026-07-28T19:13:34+02:00  Asset Lab 03: refine hero soundstage visual target`
+  - Parent: `1c86dd3` (linear advance during the original backup window; no rewrite)
+  - Working tree at re-capture: **clean**
+  - Tracked files at HEAD: 130; committed into backup: **88** (42 tracked `proof/lab03/*.png` pruned)
+- Original capture (preserved in commit `ce4f619` / tag `project-studio-backup-2026-07-28`)
+  - HEAD `1c86dd330ba7c71061e220bc247424061c3c8895`, commit `2026-07-28T11:23:55+02:00`
+  - Working tree was **DIRTY** (10 modified tracked, 52 untracked) → 78 committed + WIP recovery package
+- Remote: **none** (standalone repo). This backup is the only off-machine copy.
+- Note: the Asset Lab was not touched by the backup. It advanced under a separate session
+  from `1c86dd3` to `b6130c81`, committing the Lab03 work the WIP package had captured.
 
 ## Destination repository
 
@@ -58,5 +63,7 @@ merged, or rebased.
 - Default branch (unchanged): `phase-5.1-talent`
 - Pre-existing remote branches: `main`, `phase-5.1-talent`, `phase-5.2-economy`,
   `phase-5.2-studio-roster`, `studio-lot-spike`
-- Backup branch created: `backup/project-studio-consolidated-2026-07-28` (orphan)
-- Pre-existing backup branch/tag with that name: none
+- Backup branch: `backup/project-studio-consolidated-2026-07-28` (orphan)
+- Tags: `project-studio-backup-2026-07-28` → `ce4f619` (original, unchanged) ·
+  `project-studio-backup-2026-07-28-lab03` → follow-up commit (Asset Lab at `b6130c81`)
+- Pre-existing backup branch/tag with those names: none

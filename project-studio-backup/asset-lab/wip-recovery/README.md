@@ -1,8 +1,21 @@
-UNCOMMITTED WORK-IN-PROGRESS RECOVERY
+*** SUPERSEDED BY COMMITTED HEAD b6130c81 ***
+
+As of the 2026-07-28 follow-up commit, this WIP package is HISTORICAL EVIDENCE ONLY.
+The Lab03 hero-soundstage work it captured has since been COMMITTED in the source repo as
+`b6130c81` ("refine hero soundstage visual target") and now lives directly under
+`../committed/`. Restore from `../committed/` (which is at b6130c81), NOT from this package.
+
+Do NOT apply `working-tree.patch` to a tree already at b6130c81 — it was generated against
+the earlier `1c86dd3` and would conflict. This directory is retained only to preserve the
+exact working-tree state that existed at the original backup (2026-07-28T17:09Z).
+
+--------------------------------------------------------------------------
+
+UNCOMMITTED WORK-IN-PROGRESS RECOVERY  (state at original capture; now superseded)
 
 These files and patches were not accepted or committed in the source
-repository. They are preserved only so active work can be recovered.
-They must not be treated as an approved milestone.
+repository AT THE TIME OF THE ORIGINAL CAPTURE. They are preserved only so active
+work can be recovered. They must not be treated as an approved milestone.
 
 --------------------------------------------------------------------------
 

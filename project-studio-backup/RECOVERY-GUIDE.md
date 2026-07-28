@@ -62,33 +62,32 @@ working tree were not backed up; only the committed baseline PNGs are present.
 
 ## 4. Asset Lab
 
+The `committed/` snapshot is now at **`b6130c81`** ("refine hero soundstage visual target").
+The Lab03 hero-soundstage work is already committed inside it, so there is no WIP patch to apply.
+
 ```bash
 mkdir ~/asset-lab-restored
 cp -R asset-lab/committed/. ~/asset-lab-restored/
 cd ~/asset-lab-restored
-git init && git add -A && git commit -m "Restore Asset Lab committed HEAD @ 1c86dd3"
+git init && git add -A && git commit -m "Restore Asset Lab committed HEAD @ b6130c81"
 npm install
-npm run dev          # launch the lab
+npm run dev          # launch the lab (hero soundstage boots on Scene E)
 node tools/build-manifest.mjs   # regenerate manifests if needed
 ```
 
-To restore the uncommitted **Lab03 hero-soundstage** work on top of the committed HEAD:
+**WIP recovery is SUPERSEDED.** `asset-lab/wip-recovery/` is retained only as historical
+evidence of the working-tree state at the original capture (`1c86dd3` era). Do **not** apply
+its `working-tree.patch` on top of `b6130c81` — it was generated against `1c86dd3` and would
+conflict; the work is already present in `committed/`.
 
-```bash
-# 1) inspect before applying — do NOT apply blind
-git --no-pager apply --stat ../project-studio-backup/asset-lab/wip-recovery/working-tree.patch
-git apply --check ../project-studio-backup/asset-lab/wip-recovery/working-tree.patch
+Excluded from the backup: the 42 `proof/lab03/*.png` screenshots (~123 MB). They are **tracked**
+in `b6130c81` but were pruned from the archive to keep it lean. Every path and its source blob
+SHA is in `asset-lab/committed-excluded-lab03-proof.txt`; regenerate the images with
+`tools/capture-lab03.mjs` (and `capture-lab03-iter.mjs`), or fetch them from the live source at
+`b6130c81`.
 
-# 2) apply the modified-file patch
-git apply ../project-studio-backup/asset-lab/wip-recovery/working-tree.patch
-
-# 3) copy the untracked WIP source/docs/tools back into place
-cp -R ../project-studio-backup/asset-lab/wip-recovery/untracked/. .
-```
-
-Excluded from the backup: the 42 `proof/lab03/*.png` screenshots (~123 MB). Their paths
-are in `wip-recovery/excluded-proof-manifest.txt`; regenerate them with
-`tools/capture-lab03.mjs` (and `capture-lab03-iter.mjs`) once the lab runs.
+To recover the exact ORIGINAL snapshot (Asset Lab at `1c86dd3` + live WIP package), check out
+tag `project-studio-backup-2026-07-28` instead of this commit.
 
 **License caution:** the Asset Lab's *committed* runtime assets are limited to CC0/manifest
 data. Any prototype-only, license-unclear inputs (original archives, extracted libraries)

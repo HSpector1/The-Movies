@@ -27,10 +27,13 @@ recoverable code and documentation, not mirroring every byte on disk.
   tree contains no `.fbx` and no winterset/Lionhead meshes)
 - Legacy Lionhead / "wintersets" runtime assets (present only as documentation:
   `docs/WINTERSETS-ARCHAEOLOGY.md`, which is preserved because it is a finding, not an asset)
-- **42 untracked `proof/lab03/*.png` screenshots (~123 MB)** — the Lab03 hero-soundstage
-  proof set. Excluded from the copy per owner instruction; every path is listed in
-  `asset-lab/wip-recovery/excluded-proof-manifest.txt` so they can be regenerated or
-  re-collected from the source machine if needed.
+- **42 `proof/lab03/*.png` screenshots (~123 MB)** — the Lab03 hero-soundstage proof set.
+  At the original capture (`1c86dd3`) these were *untracked*; as of the follow-up capture
+  (`b6130c81`) they are **tracked in the source commit** but were still **pruned** from the
+  archive per owner instruction, to keep the backup lean. Paths + source blob SHAs are in
+  `asset-lab/committed-excluded-lab03-proof.txt` (and the original untracked list remains at
+  `asset-lab/wip-recovery/excluded-proof-manifest.txt`). Regenerate with
+  `tools/capture-lab03.mjs`, or fetch from the live source at `b6130c81`.
 
 ## Governance
 

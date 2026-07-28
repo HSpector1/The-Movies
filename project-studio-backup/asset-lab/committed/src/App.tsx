@@ -6,13 +6,14 @@ import { useRuntimeManifest } from './lab/useRuntimeManifest'
 import { RoomEnv, Lights, WireframeController, StudioSky } from './components/env'
 import { StatsCollector } from './components/StatsCollector'
 import { CameraController } from './camera/CameraController'
-import { SceneA, SceneB, SceneC, SceneD } from './scenes'
+import { ToneMapController, HeroGrounding, HeroSoftShadows, HeroComposer } from './components/HeroFx'
+import { SceneA, SceneB, SceneC, SceneD, SceneE } from './scenes'
 import { DevPanel } from './ui/DevPanel'
 import type { RuntimeManifest } from './types'
 
 function LabScene({ manifest }: { manifest: RuntimeManifest | null }): JSX.Element {
   const { state } = useLab()
-  const warm = state.scene === 'D'
+  const warm = state.scene === 'D' || state.scene === 'E'
   const bg = warm ? (state.atmosphere ? '#dcc9a8' : '#aeb6bd') : '#0e1116'
   return (
     <>
@@ -23,6 +24,9 @@ function LabScene({ manifest }: { manifest: RuntimeManifest | null }): JSX.Eleme
       {warm && state.atmosphere && <StudioSky />}
       <RoomEnv />
       <Lights />
+      {/* Scene-E hero render enhancements (ACES + grounding + optional PCSS), scoped to E so
+          Scene D keeps its plain greybox baseline. */}
+      {state.scene === 'E' && <><ToneMapController /><HeroSoftShadows /><HeroGrounding /><HeroComposer /></>}
       <CameraController />
       <OrbitControls makeDefault enableDamping={false} maxPolarAngle={Math.PI / 2.05} minDistance={1} maxDistance={180} />
       <StatsCollector />
@@ -37,6 +41,7 @@ function LabScene({ manifest }: { manifest: RuntimeManifest | null }): JSX.Eleme
           {state.scene === 'B' && <SceneB manifest={manifest} />}
           {state.scene === 'C' && <SceneC />}
           {state.scene === 'D' && <SceneD manifest={manifest} />}
+          {state.scene === 'E' && <SceneE />}
         </Suspense>
       )}
     </>
