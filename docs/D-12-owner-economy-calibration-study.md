@@ -361,3 +361,28 @@ None blocking. Competent rational play sits at the lower half of the 1.0–1.6×
 
 ## Can D-12 merge?
 All known merge blockers are resolved: forecast truth (autopsy arithmetic reconciles), weak-film downside (weakest legal film ~73% loss), retention sensitivity (legs respond to delivery with a low floor; genuine bombs possible), no hidden floor. Still **not a merge** — pending the owner's final human balance re-test.
+
+---
+
+## WEAK-COMMERCIAL ROUTE CORRECTION (2026-07-28) — owner ruling "CORRECT D-12 ROUTE CLASSIFICATION, NO TUNING"
+
+The route previously labelled "weak-commercial" was mis-classified. It paired the **cheapest** talent with a **demanding / highly-demanding** Shape — execution capability inadequate for the film's Production Demand. That is a **reckless demanding bet**, not a weak-but-commercial film, and its ~87% loss is credible. No production mechanic, tuning constant, forecast width, legs, Marketing, Production Budget, studio share, cash, payroll, overhead, or talent generation was changed. This is a harness/label correction only.
+
+**Route glossary (weak-film diagnostics, §12):**
+
+| Route | Talent | Shape / Demand | Funding | Marketing | Realized loss (n) |
+|---|---|---|---|---|---|
+| `weakest-legal` | cheapest | ordinary | Generous (1.25×) | small (100k) | **73%** (120) |
+| `recklessDemandingPackage` (renamed from "weak-commercial") | lowest-tier | demanding → **Highly Demanding** (×1.38) | Adequate (1.0×) | Standard (400k) | **87%** (120) — preserved, not targeted down |
+| `weakCommerciallyPositioned` (new) | **mid-to-low** (lower-third OVR, not the cheapest) | ordinary → **Standard** (×1.05), +reach, craft-forgiving | Adequate (1.0×) | Standard (400k) | **33%** (200) |
+
+The reckless route's RNG salt (`seedKey`) is preserved from the original so the rename does not re-sample it; it reports the same **87%** as before.
+
+**`weakCommerciallyPositioned` — full diagnostic (200 deterministic seeds):**
+- **Forecast Contribution (locked at greenlight):** downside **−$3.62M** · expected **−$0.44M** · upside **+$3.94M**. The greenlight forecast shows genuine two-sided uncertainty — downside well below zero, expected roughly break-even, real upside — exactly a weak-but-sellable bet.
+- **Realized Contribution:** p10 **−$2.17M** · median **+$1.27M** · p90 **+$4.54M** · **loss rate 33%**.
+- **Craft (median) 60.9** (vs ~70 for a mid-tier competent film — weaker execution) · **audience score (median) 53.6** · **legs (median) 2.35**.
+- **Production Demand: Standard (×1.05)** — manageable, not overreaching.
+- **Cohesion (median) 88; 100% strong tier; commercially coherent 100%.** The package stays commercially coherent — its weakness is the mid-to-low roster and limited execution, not a stacked worst-case.
+
+**Verdict vs the 35–65% band (which applies to this route only):** realized loss **33%** sits just below the 35% floor — **reasonably near** the band. Per the owner ruling (point 7: "within or near → make no production change"), **no production change was made**. The implementation is a single faithful reading of the route spec ("mid-to-low talent, ordinary/accessible Shape, Adequate funding, Standard Marketing, weak execution without stacking worst-case levers"); the loss rate was **reported, not targeted**. If the owner considers 33% outside acceptable tolerance, that is a separate tuning ruling — nothing here anticipates or pre-empts it.

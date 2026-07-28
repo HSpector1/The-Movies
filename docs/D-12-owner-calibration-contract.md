@@ -108,3 +108,16 @@ Owner directive "D-12 SESSION RECOVERY, LIVE FORECAST TRUTH, AND FINAL DECISION-
 - **C4 starting talent — AUDIT, generation UNCHANGED.** Corrected audit of the founding applicant pool (seed `studio-001` + neighbours): **all 24 applicants carry genre experience** (actual 14–16 in genres), **~10/24 have Fame ≥ 40**, OVR spans ~10–92, salaries span to ~$500k — the market already contains working professionals. The owner's "everyone unproven" impression is a **UI-framing artifact** (the founding "unproven" badge = no track record *in your studio* yet) plus a weak-seed tail (studio-001 directors OVR ~10), **not** a generation defect. Because the desired market shape already exists and any seeding change would destabilise the just-validated four-film balance and edge toward the deferred talent-career system, generation is left **unchanged** (directive's escape clause). Four-film balance unaffected (best-route median ~1.16×, ~29 % loss/film — unchanged).
 
 Frozen constants (share 0.52, K 50, salaries, overhead, starting cash, six-week run, LEGS_MIN/MAX, MARKETING_HALF_SATURATION, save schema/migration, production slots, contracts, critic-not-a-multiplier) remain byte-identical. Full suite 848 pass; M0A acceptance corpus + replay + fame-isolation + V3→V4 migration byte-identical; 9 Playwright specs pass; production build clean. **Not merged; next milestone not begun; Gate D not opened** — pending the owner's final human re-test.
+
+---
+
+## WEAK-COMMERCIAL ROUTE CLASSIFICATION CORRECTION (2026-07-28)
+
+Owner ruling "CORRECT D-12 ROUTE CLASSIFICATION, NO TUNING" resolves the flagged finding above. The harness route previously labelled "weak-commercial" (cheapest talent + demanding Shape, ~87% loss) was mis-named: it is a **reckless demanding bet**, not a weak-but-commercial film. Bounded harness/documentation correction only — **no production mechanic or tuning constant changed** (forecast width, legs, Marketing, Production Budget, studio share, cash, payroll, overhead, talent generation all untouched).
+
+**Weak-film diagnostic route glossary (source of truth for these three routes):**
+- **`weakest-legal`** — cheapest talent, ordinary Shape, Generous budget, small Marketing. The weakest LEGAL package. Loss ~73%.
+- **`recklessDemandingPackage`** (renamed from "weak-commercial") — lowest-tier talent + weak execution on a demanding / Highly-Demanding Shape (execution inadequate for the Production Demand), legal funding + Marketing. Loss **~87%, preserved and not targeted down** (its RNG salt is kept stable across the rename).
+- **`weakCommerciallyPositioned`** (new) — mid-to-low talent (lower-third OVR, not the cheapest), commercially accessible ordinary Shape (Standard Demand, positive positioning), Adequate funding, Standard Marketing; weak/uncertain execution without stacking worst-case levers. **The 35–65% loss band applies to THIS route only.**
+
+**Result (200 seeds):** `weakCommerciallyPositioned` realized loss **33%** (forecast Contribution downside −$3.62M / expected −$0.44M / upside +$3.94M; craft 60.9; audience score 53.6; legs 2.35; Standard Demand ×1.05; cohesion 88, 100% strong, commercially coherent). **33% is near the 35–65% floor → no production change** (ruling point 7). Reported, not tuned. Still not merged.

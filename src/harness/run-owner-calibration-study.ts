@@ -28,6 +28,9 @@ import {
   roleOVR,
   ROLE_TO_DISCIPLINE,
   MARKETING_BUDGET_LEVELS,
+  greenlightAssessment,
+  resolveShape,
+  employmentEngaged,
 } from '../core/index.js'
 import type { GameState, CreativeRole, Talent, CastSlot, LedgerKind, SegmentId } from '../core/index.js'
 
@@ -49,7 +52,7 @@ const r2 = (n: number) => Math.round(n * 1000) / 1000
 const fmtM = (n: number) => `$${(n / 1_000_000).toFixed(2)}M`
 
 // ── owner routes (competent unless noted) ─────────────────────────────────────
-type Rank = 'best' | 'cheapest' | 'star' | 'mid'
+type Rank = 'best' | 'cheapest' | 'star' | 'mid' | 'midlow'
 type Route = {
   name: string
   counts: Record<CreativeRole, number>
@@ -76,6 +79,13 @@ function rankTalent(list: Talent[], role: CreativeRole, rank: Rank): Talent[] {
   if (rank === 'best') arr.sort((a, b) => ovr(b) + b.fame - (ovr(a) + a.fame))
   else if (rank === 'cheapest') arr.sort((a, b) => ovr(a) + a.fame - (ovr(b) + b.fame))
   else if (rank === 'star') arr.sort((a, b) => ovr(b) + 2 * b.fame - (ovr(a) + 2 * a.fame)) // fame-weighted
+  else if (rank === 'midlow') {
+    // 'mid-to-low': ordinary-to-weak talent — target the pool's LOWER-third OVR (below the median but
+    // NOT the absolute cheapest). A believable weak-but-professional roster (owner's weak-commercial spec).
+    const sortedOvr = [...arr].map(ovr).sort((a, b) => a - b)
+    const target = sortedOvr[Math.floor(sortedOvr.length * 0.3)] ?? 0
+    arr.sort((a, b) => Math.abs(ovr(a) - target) - Math.abs(ovr(b) - target))
+  }
   else {
     // 'mid': ordinary talent — sort by distance from the pool's median OVR (a typical, not all-star, slate).
     const sortedOvr = [...arr].map(ovr).sort((a, b) => a - b)
@@ -417,15 +427,27 @@ function sensitivityMatrix(seeds: number) {
   return cells
 }
 
-// ── weak-film routes (§12): the weakest LEGAL film + a weak but commercially-positioned film ──
-// The weakest legal package: cheapest talent, a commercially-compatible ordinary concept, GENEROUS
-// budget (owner's Letters case), small marketing. Report the single-film Film Contribution
-// distribution + loss probability. The weak-commercial variant uses a high-reach demanding shape.
-function weakFilmReport(seeds: number, shapeKey: ArchKey, marketing: number, negMult: number, label: string) {
+// ── weak-film diagnostic routes (§12) — route glossary ──────────────────────────────────────────
+// Three DISTINCT weak packages. Report each as a single-film Film Contribution distribution + loss.
+//   • weakest-legal            — cheapest talent, ordinary concept, GENEROUS budget (owner's Letters
+//                                case), small marketing. The weakest LEGAL package.
+//   • recklessDemandingPackage — lowest-tier talent + weak Fit/execution on a demanding / highly-
+//                                demanding Shape (execution capability inadequate for the Production
+//                                Demand), legal funding + Marketing. NOT "weak but commercial": it is a
+//                                reckless demanding bet. Its ~87% loss is credible and is NOT targeted
+//                                downward (owner ruling: correct the label, preserve the behavior).
+//   • weakCommerciallyPositioned — a GENUINE weak-commercial diagnostic: a commercially accessible
+//                                ordinary Shape (Standard Production Demand, positive positioning),
+//                                MID-to-LOW talent (not the absolute cheapest), Adequate funding, sensible
+//                                Standard Marketing. Weak/uncertain execution WITHOUT stacking every
+//                                worst-case lever. The 35–65% loss band applies to THIS route only.
+// seedKey is the RNG salt (kept STABLE so a display-label rename does not re-sample the route and
+// shift its measured loss); label is the human-readable route name only.
+function weakFilmReport(seeds: number, shapeKey: ArchKey, marketing: number, negMult: number, seedKey: string, label: string) {
   const contribs: number[] = []
   const legsList: number[] = []
   for (let i = 0; i < seeds; i++) {
-    const r = archFilmDetailed(`weak-${label}-${i}`, shapeKey, 'cheapest', marketing, negMult, 0)
+    const r = archFilmDetailed(`weak-${seedKey}-${i}`, shapeKey, 'cheapest', marketing, negMult, 0)
     if (r) { contribs.push(r.contribution); legsList.push(r.legs) }
   }
   return {
@@ -434,6 +456,56 @@ function weakFilmReport(seeds: number, shapeKey: ArchKey, marketing: number, neg
     contribution: { p10: Math.round(quantile(contribs, 0.1)), median: Math.round(median(contribs)), p90: Math.round(quantile(contribs, 0.9)) },
     lossProbability: r2(rate(contribs.map((c) => c < 0))),
     legsMedian: r2(median(legsList)),
+  }
+}
+
+// ── weakCommerciallyPositioned — the GENUINE weak-commercial diagnostic (owner ruling) ──────────────
+// Commercially accessible ordinary Shape (Standard Production Demand, positive positioning), MID-tier
+// talent (not the cheapest), Adequate funding (negMult 1.0), sensible Standard Marketing (400k). Weak
+// execution comes from the mid roster + mixed Fit, NOT from stacking every worst-case lever. Reports
+// the LOCKED greenlight forecast band (downside/expected/upside Contribution), realized loss + p10/med/
+// p90 Contribution, Craft, audience score, legs, Production Demand, and whether it stays commercially
+// coherent. The 35–65% loss band applies to THIS route only; nothing is tuned to hit it.
+function demandCategory(d: number): 'Contained' | 'Standard' | 'Demanding' | 'Highly Demanding' {
+  return d < 0.95 ? 'Contained' : d < 1.15 ? 'Standard' : d < 1.35 ? 'Demanding' : 'Highly Demanding'
+}
+function weakCommercialReport(seeds: number) {
+  const contribs: number[] = []
+  const legsList: number[] = []
+  const craftList: number[] = []
+  const wasList: number[] = []
+  const cohesionList: number[] = []
+  const fcLow: number[] = []
+  const fcExp: number[] = []
+  const fcHigh: number[] = []
+  let demandMult = 0
+  let coherentCount = 0
+  const tierCounts: Record<'strong' | 'mixed' | 'weak', number> = { strong: 0, mixed: 0, weak: 0 }
+  for (let i = 0; i < seeds; i++) {
+    // MID-to-LOW talent, ordinary (commercially accessible, Standard demand) Shape, Adequate funding,
+    // Standard Marketing, no awareness warmup — a plain weak-but-sellable film.
+    const r = archFilmDetailed(`weakcommercial-${i}`, 'ordinary', 'midlow', 400_000, 1.0, 0)
+    if (!r) continue
+    contribs.push(r.contribution); legsList.push(r.legs); craftList.push(r.craft); wasList.push(r.was)
+    cohesionList.push(r.cohesion); fcLow.push(r.forecastProfit.low); fcExp.push(r.forecastProfit.expected)
+    fcHigh.push(r.forecastProfit.high); demandMult = r.demandMultiplier; tierCounts[r.cohesionTier]++
+    // Commercially coherent = manageable (≤ Standard) Production Demand AND a not-weak coherence tier.
+    if (demandCategory(r.demandMultiplier) !== 'Highly Demanding' && r.demandMultiplier < 1.15 && r.cohesionTier !== 'weak') coherentCount++
+  }
+  const n = contribs.length
+  return {
+    label: 'weakCommerciallyPositioned (mid-to-low talent, ordinary/accessible shape, adequate budget, standard mkt)',
+    n,
+    forecastContribution: { downside: Math.round(median(fcLow)), expected: Math.round(median(fcExp)), upside: Math.round(median(fcHigh)) },
+    contribution: { p10: Math.round(quantile(contribs, 0.1)), median: Math.round(median(contribs)), p90: Math.round(quantile(contribs, 0.9)) },
+    lossProbability: r2(rate(contribs.map((c) => c < 0))),
+    craftMedian: r2(median(craftList)),
+    audienceScoreMedian: r2(median(wasList)),
+    legsMedian: r2(median(legsList)),
+    productionDemand: { multiplier: r2(demandMult), category: demandCategory(demandMult) },
+    cohesionMedian: r2(median(cohesionList)),
+    cohesionTiers: tierCounts,
+    commerciallyCoherentRate: r2(n > 0 ? coherentCount / n : 0),
   }
 }
 
@@ -533,7 +605,12 @@ function archFilm(seed: string, shapeKey: ArchKey, rank: Rank, marketing: number
   const d = archFilmDetailed(seed, shapeKey, rank, marketing, negMult, warmup)
   return d ? d.contribution : null
 }
-function archFilmDetailed(seed: string, shapeKey: ArchKey, rank: Rank, marketing: number, negMult: number, warmup = 0): { contribution: number; opening: number; total: number; legs: number } | null {
+function archFilmDetailed(seed: string, shapeKey: ArchKey, rank: Rank, marketing: number, negMult: number, warmup = 0): {
+  contribution: number; opening: number; total: number; legs: number
+  // D-12 weak-commercial calibration extras (LOCKED greenlight forecast + realized delivery signals):
+  forecastProfit: { low: number; expected: number; high: number } // Contribution band at greenlight
+  demandMultiplier: number; craft: number; was: number; cohesion: number; cohesionTier: 'strong' | 'mixed' | 'weak'
+} | null {
   let s = foundFor(seed, { ...ROUTES[0]!, rank })
   // Warm the studio's audience awareness by releasing `warmup` films at a standard campaign.
   let wConcept = 0
@@ -578,6 +655,17 @@ function archFilmDetailed(seed: string, shapeKey: ArchKey, rank: Rank, marketing
   }
   s = applyActions(s, [action])
   const id = s.studio.activeProductions[s.studio.activeProductions.length - 1]!.id
+  // Capture the LOCKED greenlight forecast (Contribution band) + coherence + Production Demand NOW,
+  // before any release outcome is known — this is the studio's knowledge at the decision point.
+  const prodForAssess = s.studio.activeProductions.find((p) => p.id === id)!
+  const talentById: Record<string, Talent> = {}
+  for (const t of s.talent) talentById[t.id] = t
+  const assessment = greenlightAssessment(
+    { seed: s.seed, concepts: s.concepts, releasedFilms: s.studio.releasedFilms, talentById, market: s.market, standing: s.studio.standing, era: s.era },
+    prodForAssess,
+    employmentEngaged(s),
+  )
+  const demandMultiplier = resolveShape(shape).budgetDemandMultiplier
   for (let k = 0; k < TUNING.PRODUCTION_TICKS + TUNING.THEATRICAL_WEEKS + 4; k++) {
     s = tick(s, { develop: true })
     const run = s.theatricalRuns.find((r) => r.productionId === id)
@@ -587,7 +675,16 @@ function archFilmDetailed(seed: string, shapeKey: ArchKey, rank: Rank, marketing
   if (!run) return null
   const gross = run.weeklyGross.reduce((x, y) => x + y, 0)
   const opening = run.weeklyGross[0] ?? 0
-  return { contribution: gross * run.studioShare - (negative + marketing), opening, total: gross, legs: opening > 0 ? gross / opening : 0 }
+  // Realized delivery: craft + weighted audience score (Σ segment.share · delivered segment score).
+  const film = s.studio.releasedFilms.find((f) => f.productionId === id)
+  const craft = film ? film.craft : 0
+  const was = film ? s.market.segments.reduce((acc, seg) => acc + seg.share * (film.segmentScores[seg.id] ?? 0), 0) : 0
+  return {
+    contribution: gross * run.studioShare - (negative + marketing),
+    opening, total: gross, legs: opening > 0 ? gross / opening : 0,
+    forecastProfit: { low: assessment.profit.profit.low, expected: assessment.profit.profit.expected, high: assessment.profit.profit.high },
+    demandMultiplier, craft, was, cohesion: assessment.cohesion.score, cohesionTier: assessment.cohesion.tier,
+  }
 }
 function argmax<T>(items: T[], score: (t: T) => number): T {
   return items.reduce((best, t) => (score(t) > score(best) ? t : best), items[0]!)
@@ -705,10 +802,12 @@ for (const r of rational) {
 }
 writeFileSync(join(OUT, 'rational-routes.json'), JSON.stringify(rational, null, 2))
 
-// §12: weak-film routes — the weakest legal package + a weak commercially-positioned package.
+// §12: weak-film routes — the weakest legal package + the reckless demanding package (see glossary).
 const weakFilms = [
-  weakFilmReport(Math.min(SEEDS, 120), 'ordinary', 100_000, 1.25, 'weakest-legal (cheapest, generous budget, small mkt)'),
-  weakFilmReport(Math.min(SEEDS, 120), 'demanding', 400_000, 1.0, 'weak-commercial (cheapest, demanding, standard mkt)'),
+  // seedKey preserved from the original routes so both report their exact accepted loss rates (73% / ~87%)
+  // despite the reckless route's display-label rename (owner ruling: preserve the behavior, correct the name).
+  weakFilmReport(Math.min(SEEDS, 120), 'ordinary', 100_000, 1.25, 'weakest-legal (cheapest, generous budget, small mkt)', 'weakest-legal (cheapest, generous budget, small mkt)'),
+  weakFilmReport(Math.min(SEEDS, 120), 'demanding', 400_000, 1.0, 'weak-commercial (cheapest, demanding, standard mkt)', 'recklessDemandingPackage (lowest-tier talent, demanding shape, standard mkt, legal funding)'),
 ]
 // eslint-disable-next-line no-console
 console.log(`\n## Weak-film routes (§12)`)
@@ -717,6 +816,23 @@ for (const w of weakFilms) {
   console.log(`  ${w.label}:  contribution p10 ${fmtM(w.contribution.p10)} med ${fmtM(w.contribution.median)} p90 ${fmtM(w.contribution.p90)}  LOSS ${(w.lossProbability * 100).toFixed(0)}%  legs(med) ${w.legsMedian}`)
 }
 writeFileSync(join(OUT, 'weak-films.json'), JSON.stringify(weakFilms, null, 2))
+
+// §12 (owner ruling): the GENUINE weak-commercial diagnostic — ≥160 seeds. The 35–65% loss band
+// applies here only; nothing is tuned to hit it.
+const weakCommercial = weakCommercialReport(Math.max(160, Math.min(SEEDS, 200)))
+// eslint-disable-next-line no-console
+console.log(`\n## Weak-commercial diagnostic (owner ruling) — n=${weakCommercial.n}`)
+// eslint-disable-next-line no-console
+console.log(`  ${weakCommercial.label}`)
+// eslint-disable-next-line no-console
+console.log(`  forecast Contribution:  downside ${fmtM(weakCommercial.forecastContribution.downside)}  expected ${fmtM(weakCommercial.forecastContribution.expected)}  upside ${fmtM(weakCommercial.forecastContribution.upside)}`)
+// eslint-disable-next-line no-console
+console.log(`  realized Contribution:  p10 ${fmtM(weakCommercial.contribution.p10)}  med ${fmtM(weakCommercial.contribution.median)}  p90 ${fmtM(weakCommercial.contribution.p90)}  LOSS ${(weakCommercial.lossProbability * 100).toFixed(0)}%`)
+// eslint-disable-next-line no-console
+console.log(`  craft(med) ${weakCommercial.craftMedian}  audienceScore(med) ${weakCommercial.audienceScoreMedian}  legs(med) ${weakCommercial.legsMedian}  demand ${weakCommercial.productionDemand.category} (×${weakCommercial.productionDemand.multiplier})`)
+// eslint-disable-next-line no-console
+console.log(`  cohesion(med) ${weakCommercial.cohesionMedian}  tiers ${JSON.stringify(weakCommercial.cohesionTiers)}  commercially-coherent ${(weakCommercial.commerciallyCoherentRate * 100).toFixed(0)}%`)
+writeFileSync(join(OUT, 'weak-commercial.json'), JSON.stringify(weakCommercial, null, 2))
 
 const routeAgg: RouteAgg[] = []
 for (const st of ROUTES) {
