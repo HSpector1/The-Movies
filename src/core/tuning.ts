@@ -390,6 +390,17 @@ export const TUNING = {
   BUDGET_AMBITION_MIN: 0.15, // [ICH] floor: even a contained film loses a little if severely underfunded
   BUDGET_OVERFUND_COEF: 4, // [ICH] max craft protection from over-funding (small; diminishing)
   BUDGET_OVERFUND_SCALE: 0.3, // [ICH] over-funding diminishing-return scale (ratio units above 1.0)
+
+  // ── D-12 final downside: engaged retention (legs) reshape ───────────────────
+  // The M0A legs curve `LEGS_MIN(1.8) + (LEGS_MAX-LEGS_MIN)·(WAS/100)` has a 1.8× floor — even a
+  // genuine bomb multiplies its opening by ≥1.8×, so weak delivery can never collapse a film. That
+  // floor is FROZEN (M0A byte-identity). This engaged-only reshape gives retention a LOWER floor and a
+  // CONVEX response so delivered audience satisfaction (weighted audience score) actually governs word
+  // of mouth: a poorly-delivered film opens and fades (legs → ~1), a well-delivered film holds (→ LEGS_MAX).
+  // Engaged legs = LEGS_MIN_ENGAGED + (LEGS_MAX − LEGS_MIN_ENGAGED)·(WAS/100)^LEGS_RETENTION_EXP, then the
+  // overexposure penalty applies as before. Not engaged ⇒ the legacy linear curve (byte-identical).
+  LEGS_MIN_ENGAGED: 1.2, // [ICH] engaged retention floor (a true bomb opens and dies)
+  LEGS_RETENTION_EXP: 1.4, // [ICH] convex WAS→legs response (>1 ⇒ weak delivery retains poorly)
 } as const
 
 // ── §5.1 cast weighting ──────────────────────────────────────────────────────

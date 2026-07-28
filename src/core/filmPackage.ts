@@ -624,6 +624,11 @@ function requireTalent(snap: PreTickSnapshot, id: string, label: string): Talent
 export function greenlightAssessment(
   snapshot: PreTickSnapshot,
   production: Production,
+  // D-12: whether the economy was engaged at greenlight. The autopsy reconstructs the LOCKED
+  // greenlight forecast, which used the P2 economy path (0.70 gross scale + awareness marketing +
+  // budget realization). If this is false the recomputed profit range OMITS the scale and reads
+  // ~1/0.70× too high — the autopsy arithmetic bug. A session-autopsied greenlight is always engaged.
+  engaged = false,
 ): GreenlightAssessment {
   const concept = snapshot.concepts.find((c) => c.id === production.conceptId)
   if (concept === undefined) {
@@ -681,7 +686,10 @@ export function greenlightAssessment(
   let salaries = writer.salary + director.salary
   for (const slot of CAST_SLOTS) salaries += cast[slot].salary
   for (const c of craftHires) salaries += c.salary
-  const profit = forecastProfitRange(inp, { ...ctx, salaries })
+  // D-12: recompute the profit range on the SAME economy path the greenlight locked — otherwise the
+  // autopsy's Expected Studio Revenue / profit diverge from the persisted forecast snapshot (which is
+  // scaled). saturateFame + engaged both track the greenlight economy state.
+  const profit = forecastProfitRange(inp, { ...ctx, salaries, saturateFame: engaged, engaged })
 
   // The stored uncertainty factors come off the LOCKED forecast snapshot (D-3).
   const storedUncertaintyFactors =

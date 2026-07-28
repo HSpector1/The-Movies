@@ -417,6 +417,26 @@ function sensitivityMatrix(seeds: number) {
   return cells
 }
 
+// ── weak-film routes (§12): the weakest LEGAL film + a weak but commercially-positioned film ──
+// The weakest legal package: cheapest talent, a commercially-compatible ordinary concept, GENEROUS
+// budget (owner's Letters case), small marketing. Report the single-film Film Contribution
+// distribution + loss probability. The weak-commercial variant uses a high-reach demanding shape.
+function weakFilmReport(seeds: number, shapeKey: ArchKey, marketing: number, negMult: number, label: string) {
+  const contribs: number[] = []
+  const legsList: number[] = []
+  for (let i = 0; i < seeds; i++) {
+    const r = archFilmDetailed(`weak-${label}-${i}`, shapeKey, 'cheapest', marketing, negMult, 0)
+    if (r) { contribs.push(r.contribution); legsList.push(r.legs) }
+  }
+  return {
+    label,
+    n: contribs.length,
+    contribution: { p10: Math.round(quantile(contribs, 0.1)), median: Math.round(median(contribs)), p90: Math.round(quantile(contribs, 0.9)) },
+    lossProbability: r2(rate(contribs.map((c) => c < 0))),
+    legsMedian: r2(median(legsList)),
+  }
+}
+
 // ── §7: rational competent bot — package-specific Marketing + Budget choices ──
 // A competent player who makes RATIONAL, film-specific choices rather than mechanically maximizing
 // marketing / minimizing budget. Across four films it cycles ambition (contained → ordinary →
@@ -510,6 +530,10 @@ const NEG_TIERS = [0.75, 1.0, 1.25]
 // One film with an explicit archetype (shape + talent rank), marketing, and negMult, on a founded
 // studio warmed by `warmup` prior releases (studio awareness rises with warmup). Returns Contribution.
 function archFilm(seed: string, shapeKey: ArchKey, rank: Rank, marketing: number, negMult: number, warmup = 0): number | null {
+  const d = archFilmDetailed(seed, shapeKey, rank, marketing, negMult, warmup)
+  return d ? d.contribution : null
+}
+function archFilmDetailed(seed: string, shapeKey: ArchKey, rank: Rank, marketing: number, negMult: number, warmup = 0): { contribution: number; opening: number; total: number; legs: number } | null {
   let s = foundFor(seed, { ...ROUTES[0]!, rank })
   // Warm the studio's audience awareness by releasing `warmup` films at a standard campaign.
   let wConcept = 0
@@ -562,7 +586,8 @@ function archFilm(seed: string, shapeKey: ArchKey, rank: Rank, marketing: number
   const run = s.theatricalRuns.find((r) => r.productionId === id)
   if (!run) return null
   const gross = run.weeklyGross.reduce((x, y) => x + y, 0)
-  return gross * run.studioShare - (negative + marketing)
+  const opening = run.weeklyGross[0] ?? 0
+  return { contribution: gross * run.studioShare - (negative + marketing), opening, total: gross, legs: opening > 0 ? gross / opening : 0 }
 }
 function argmax<T>(items: T[], score: (t: T) => number): T {
   return items.reduce((best, t) => (score(t) > score(best) ? t : best), items[0]!)
@@ -679,6 +704,19 @@ for (const r of rational) {
   console.log(`     marketing picks ${JSON.stringify(r.marketingTierDist)}  budget picks ${JSON.stringify(r.budgetTierDist)}`)
 }
 writeFileSync(join(OUT, 'rational-routes.json'), JSON.stringify(rational, null, 2))
+
+// §12: weak-film routes — the weakest legal package + a weak commercially-positioned package.
+const weakFilms = [
+  weakFilmReport(Math.min(SEEDS, 120), 'ordinary', 100_000, 1.25, 'weakest-legal (cheapest, generous budget, small mkt)'),
+  weakFilmReport(Math.min(SEEDS, 120), 'demanding', 400_000, 1.0, 'weak-commercial (cheapest, demanding, standard mkt)'),
+]
+// eslint-disable-next-line no-console
+console.log(`\n## Weak-film routes (§12)`)
+for (const w of weakFilms) {
+  // eslint-disable-next-line no-console
+  console.log(`  ${w.label}:  contribution p10 ${fmtM(w.contribution.p10)} med ${fmtM(w.contribution.median)} p90 ${fmtM(w.contribution.p90)}  LOSS ${(w.lossProbability * 100).toFixed(0)}%  legs(med) ${w.legsMedian}`)
+}
+writeFileSync(join(OUT, 'weak-films.json'), JSON.stringify(weakFilms, null, 2))
 
 const routeAgg: RouteAgg[] = []
 for (const st of ROUTES) {

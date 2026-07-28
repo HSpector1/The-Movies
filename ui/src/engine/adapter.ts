@@ -517,6 +517,73 @@ export function requiredNegative(concept: FilmConcept, shape: FilmShape, state: 
   )
 }
 
+// ── D-12 final downside: Production Demand read model (engine-derived) ─────────
+// Answers "how much funding does THIS film need to realize its ambition reliably" — never "how much
+// box office would you like to buy". Production DEMAND = requiredNegative (concept base cost × the
+// shape's ambition multiplier × era). The classification bands + prose are display over real engine
+// values; React never computes them. Under-funding a demanding film threatens realization; over-
+// funding gives diminishing protection; money cannot create audience demand or fix casting/Fit.
+export type ProductionDemandCategory = 'Contained' | 'Standard' | 'Demanding' | 'Highly Demanding'
+export type ProductionFundingStatus =
+  | 'Underfunded'
+  | 'Lean but Viable'
+  | 'Adequately Funded'
+  | 'Well Funded'
+  | 'Excess Spending'
+export type ProductionDemandView = {
+  demand: number // requiredNegative (currency)
+  demandMultiplier: number // shape budgetDemandMultiplier
+  demandCategory: ProductionDemandCategory
+  conceptBaseCost: number
+  negative: number
+  fundingRatio: number // negative ÷ demand
+  fundingStatus: ProductionFundingStatus
+  drivers: string
+  consequence: string
+}
+export function productionDemandView(
+  state: GameState,
+  concept: FilmConcept,
+  shape: FilmShape,
+  negative: number,
+): ProductionDemandView {
+  const mult = resolveShape(shape).budgetDemandMultiplier
+  const demand = requiredNegative(concept, shape, state)
+  const ratio = demand > 0 ? negative / demand : 1
+  const demandCategory: ProductionDemandCategory =
+    mult < 0.95 ? 'Contained' : mult < 1.15 ? 'Standard' : mult < 1.35 ? 'Demanding' : 'Highly Demanding'
+  const fundingStatus: ProductionFundingStatus =
+    ratio < 0.85
+      ? 'Underfunded'
+      : ratio < 0.95
+        ? 'Lean but Viable'
+        : ratio < 1.1
+          ? 'Adequately Funded'
+          : ratio < 1.3
+            ? 'Well Funded'
+            : 'Excess Spending'
+  const drivers = `${demandCategory} production — driven by this ${concept.genre} concept’s base cost and the chosen Shape’s ambition (demand ${mult.toFixed(2)}×). Spectacle-heavy Shapes demand more funding to realize than contained, intimate ones.`
+  const consequence =
+    ratio < 0.85
+      ? 'Underfunded — the film may not fully realize its ambition; execution suffers, and more so for a demanding production.'
+      : ratio < 0.95
+        ? 'Lean but viable — a disciplined budget; execution risk is a little higher for a demanding film.'
+        : ratio < 1.1
+          ? 'Adequately funded — the film can realize its plan; there is no bonus for merely spending more.'
+          : 'Well funded — extra spending gives diminishing execution protection. More Production Budget does NOT create audience demand, and cannot fix weak casting, Fit, or creative disagreement.'
+  return {
+    demand,
+    demandMultiplier: mult,
+    demandCategory,
+    conceptBaseCost: concept.baseNegativeCost,
+    negative,
+    fundingRatio: ratio,
+    fundingStatus,
+    drivers,
+    consequence,
+  }
+}
+
 // Committed TALENT cost of a package at greenlight. Under D-11 (employment engaged),
 // contracted talent cost nothing at greenlight (they are on weekly payroll) and each
 // freelancer costs a one-film fee — so this sums assignmentProjectCost per assigned
@@ -2798,7 +2865,9 @@ export function assessGreenlight(
     standing: preTick.studio.standing,
     era: preTick.era,
   }
-  return greenlightAssessment(snapshot, production)
+  // D-12: the greenlight was locked on the engaged economy path (a session autopsy is always engaged);
+  // pass it so the recomputed Expected Studio Revenue / profit match the persisted (scaled) snapshot.
+  return greenlightAssessment(snapshot, production, employmentEngaged(preTick))
 }
 
 // #6 risksMaterialized — map each stored greenlight uncertainty factor to whether it BIT,

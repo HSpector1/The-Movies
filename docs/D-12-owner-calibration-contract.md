@@ -77,3 +77,14 @@ The calibration closure (owner ruling "COMPLETE D-12 MARKETING AND PRODUCTION-BU
 3. **Production Budget** — a NEW engaged-only realization/reliability craft delta (`budgetRealizationDelta`) added ON TOP of the FROZEN M0A `budgetAdequacy` (unchanged). Contained→Lean, ordinary→Adequate, demanding→Generous; budget affects gross only via craft, never a direct multiplier.
 
 Frozen constants (share 0.52, K 50, salaries, overhead, starting cash, run length, forecast RNG, save schema, production slots, contracts) remain byte-identical. No new RNG; no non-goal entered scope. See the study's "D-12 CALIBRATION CLOSURE" section for the full record. Adversarial review SOUND (one forecast/realized divergence found + fixed + regression-tested); contract audit CONFORMS. **Not merged** — pending the owner's final human balance re-test.
+
+---
+
+## FINAL DOWNSIDE CLOSURE STATUS (2026-07-28)
+
+The final downside/legs/forecast-truth closure fixed three defects from the human playtest, all economy-ENGAGED-gated (M0A byte-identical), within the permitted low-end levers:
+1. **Autopsy forecast truth** — `greenlightAssessment` threads `engaged` into `forecastProfitRange`; Expected Studio Revenue now = Expected Gross × 0.52 and reconciles with the persisted snapshot (was ~1/0.70× too high).
+2. **Legs retention reshape** — engaged-only `LEGS_MIN_ENGAGED(1.2) + (LEGS_MAX−1.2)·(WAS/100)^1.4` replaces the M0A linear curve's 1.8 floor for engaged films; weak delivery now collapses retention (genuine bombs possible). FROZEN `LEGS_MIN`/`LEGS_MAX` unchanged.
+3. **Production Demand read model + UI** — engine-derived category/funding-status/drivers/consequence in Budget & Forecast.
+
+`ECONOMY_BOX_OFFICE_SCALE` retained at 0.70 (the corrections lowered competent profitability, so no scale reduction was warranted). No new RNG; frozen constants byte-identical; critic not a box-office multiplier. Weakest legal film loss ~73%; rational competent median ~1.16×. Adversarial review SOUND; contract audit CONFORMS. **Not merged** — pending the owner's final human balance re-test.

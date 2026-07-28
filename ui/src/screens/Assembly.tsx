@@ -30,6 +30,7 @@ import {
   breakEvenGross,
   previewForecast,
   marketingEfficiency,
+  productionDemandView,
   greenlight,
   findConcept,
   assessCreativeCohesion,
@@ -892,6 +893,7 @@ function BudgetStep({
   const breakEven = breakEvenGross(committed)
   const forecast = pkg ? previewForecast(state, pkg) : null
   const mktEff = pkg ? marketingEfficiency(state, pkg) : null // D-12 P2 awareness-conditioned marketing state
+  const demand = productionDemandView(state, concept, draft.shape, negative) // D-12 production-demand read model
 
   return (
     <div className="stack">
@@ -926,6 +928,28 @@ function BudgetStep({
                 <div className="opt-desc mono">{money(m * req)}</div>
               </button>
             ))}
+          </div>
+          {/* D-12 final downside: engine-derived Production Demand — how much funding THIS film needs
+              to realize its ambition, and whether the selected budget under/adequately/over-funds it.
+              Truthful; updates live as the tier or Shape changes; never claims budget buys box office. */}
+          <div className="panel stack" data-testid="production-demand" style={{ marginTop: 8 }}>
+            <div className="row" style={{ gap: 24, flexWrap: 'wrap' }}>
+              <Metric label="Production Demand" small testid="demand-category">
+                {demand.demandCategory}
+              </Metric>
+              <Metric label="Funding status" small testid="demand-funding-status">
+                {demand.fundingStatus}
+              </Metric>
+              <Metric label="Funding vs demand" small>
+                {Math.round(demand.fundingRatio * 100)}%
+              </Metric>
+            </div>
+            <span className="hint" data-testid="demand-drivers">
+              {demand.drivers}
+            </span>
+            <span className="hint" data-testid="demand-consequence">
+              {demand.consequence}
+            </span>
           </div>
         </div>
 

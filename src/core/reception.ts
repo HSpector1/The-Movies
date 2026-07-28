@@ -586,7 +586,14 @@ export function computeBoxOffice(
     1,
   )
   const legsPenalty = engaged ? TUNING.OVEREXPOSURE_LEGS_COEF * overexposure * deliveryGap : 0
-  const legs = (TUNING.LEGS_MIN + (TUNING.LEGS_MAX - TUNING.LEGS_MIN) * (weightedAudienceScore / 100)) * (1 - legsPenalty)
+  // D-12 final downside: retention (legs) reshape — engaged only (the M0A linear curve is byte-identical
+  // when not engaged). A convex WAS response with a lower floor so weak delivery collapses retention.
+  const legsBase = engaged
+    ? TUNING.LEGS_MIN_ENGAGED +
+      (TUNING.LEGS_MAX - TUNING.LEGS_MIN_ENGAGED) *
+        Math.pow(clamp(weightedAudienceScore / 100, 0, 1), TUNING.LEGS_RETENTION_EXP)
+    : TUNING.LEGS_MIN + (TUNING.LEGS_MAX - TUNING.LEGS_MIN) * (weightedAudienceScore / 100)
+  const legs = legsBase * (1 - legsPenalty)
   const total = opening * legs
 
   return {

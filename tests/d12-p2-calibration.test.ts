@@ -41,21 +41,22 @@ function flatAppeal(inp: ReturnType<typeof makeReceptionInputs>, v: number): Rec
   return m
 }
 
-describe('D-12 P2 gross scale: economy-engaged, applied exactly once, legs untouched', () => {
-  it('engaged opening/total = non-engaged × ECONOMY_BOX_OFFICE_SCALE (marketing=0 isolates the scale)', () => {
+describe('D-12 P2 gross scale: economy-engaged, applied exactly once, on OPENING', () => {
+  it('engaged OPENING = non-engaged × ECONOMY_BOX_OFFICE_SCALE (marketing=0 isolates the scale)', () => {
     const inp = makeReceptionInputs({})
     const appeal = flatAppeal(inp, 55)
     // At marketing=0 the marketingQuality is 0 under BOTH the legacy and awareness capacity models,
-    // so the ONLY difference between engaged/non-engaged is the routine gross scale.
+    // so the ONLY difference between engaged/non-engaged in OPENING is the routine gross scale (the
+    // engaged LEGS RESHAPE — a separate mechanic — changes legs but never opening).
     const off = computeBoxOffice(appeal, ...common(inp, 0), appeal, false)
     const on = computeBoxOffice(appeal, ...common(inp, 0), appeal, true)
-    expect(on.opening).toBeCloseTo(off.opening * SCALE, 3)
-    expect(on.total).toBeCloseTo(off.total * SCALE, 3)
-    // Legs (and its driver) are NEVER scaled — only opening/total move.
-    expect(on.legs).toBe(off.legs)
-    expect(on.weightedAudienceScore).toBe(off.weightedAudienceScore)
-    // Conservation: total is still opening × legs after scaling.
+    expect(on.opening).toBeCloseTo(off.opening * SCALE, 3) // scale applies once, to opening
+    expect(on.weightedAudienceScore).toBe(off.weightedAudienceScore) // WAS unscaled
+    // Conservation holds: total is still opening × the (engaged-reshaped) legs.
     expect(on.total).toBeCloseTo(on.opening * on.legs, 2)
+    // The gross scale does NOT touch legs (only the separate engaged retention reshape does): a
+    // NON-engaged call's legs equals the legacy linear curve, and scaling opening leaves it be.
+    expect(off.legs).toBeCloseTo(TUNING.LEGS_MIN + (TUNING.LEGS_MAX - TUNING.LEGS_MIN) * (off.weightedAudienceScore / 100), 4)
   })
 
   it('the default (engaged omitted) equals the legacy non-engaged path — M0A byte-identical', () => {

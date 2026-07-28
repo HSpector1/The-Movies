@@ -325,3 +325,39 @@ Found a competent studio; make four films spanning a contained, an ordinary, and
 
 ## Merge readiness
 All known D-12 calibration merge blockers are resolved: money is a meaningful constraint, Maximum Marketing is not universally optimal, and Production Budget is a real ambition-driven choice — all M0A-byte-identical and deterministic. **Still not a merge** — pending the owner's final human balance re-test.
+
+---
+
+# D-12 FINAL DOWNSIDE CLOSURE — legs retention, weak-film risk, forecast truth (owner ruling 2026-07-28) `[P]`
+
+The final human playtest ended at 1.96× with no losses (three critics < 50, one deliberately-sabotaged film that was still forecast a guaranteed profit). Three defects fixed, all economy-ENGAGED-gated (M0A byte-identical). Adversarial review **SOUND**; contract audit **CONFORMS**; 829 tests + 7 Playwright + build green.
+
+## 1. Autopsy forecast root cause
+`greenlightAssessment` (the autopsy's greenlight-reconstruction) recomputed `forecastProfitRange` on a ctx with **neither `saturateFame` nor `engaged`** → the recomputed Expected Studio Revenue / profit ran on the NON-engaged path (omitting the 0.70 gross scale + awareness marketing), reading **≈ 1/0.70× too high** (Letters $18.69M shown vs the correct $13.21M; matched across all three films). Fix: thread `engaged` (= `employmentEngaged(preTick)`, always true for a session autopsy) through `greenlightAssessment → forecastProfitRange`, so every autopsy expected value comes from the same engaged path the locked snapshot used. Now: Expected Studio Revenue = Expected Gross × 0.52, Expected Contribution = that − commitment, and Expected Gross == the persisted snapshot byte-for-byte (regression-tested).
+
+## 2. Legs dependency audit + the floor
+Legs = `(LEGS_MIN + (LEGS_MAX − LEGS_MIN)·WAS/100) × (1 − overexposurePenalty)`, i.e. **linear in weighted audience score** from 1.8 (WAS 0) to 4.0 (WAS 100). The owner's identical `2.82`: Letters (WAS 46.3 → 2.82 base, small campaign, no penalty); A Season (WAS 54.6 → 3.00 base × ~0.94 overexposure penalty = 2.82 — a **coincidence + over-marketing cancellation**, NOT a constant); Wayward (WAS 58.7 → 3.09, no penalty). **The real defect: `LEGS_MIN = 1.8` is too high a floor** — even a genuine bomb multiplies its opening ≥1.8×, so weak delivery could never collapse a film, and the linear mid-range was too flat. No hidden clamp/plateau — the collisions were genuine formula outputs.
+
+## 3. Exact formulas/constants changed
+`LEGS_MIN`/`LEGS_MAX` are M0A-shared (FROZEN), so the fix is an **engaged-only retention reshape**: engaged legs = `LEGS_MIN_ENGAGED(1.2) + (LEGS_MAX − 1.2)·(WAS/100)^LEGS_RETENTION_EXP(1.4)`, then × the overexposure penalty. A lower floor (1.2) + convex response so delivered audience satisfaction governs word of mouth. Response curve (engaged): WAS 20→**1.49**, 40→1.99, 46→2.14, 55→2.41, 59→2.54, 65→2.75, 80→3.25 (vs the flat linear 2.24/2.68/2.82/3.00/3.09/3.23/3.56). Strictly increasing, no floor above 1.2; a true bomb (WAS≤35) opens and dies. `ECONOMY_BOX_OFFICE_SCALE` retained at **0.70** — the corrections made competent play *less* profitable (rational ~1.24×→~1.16×), so lowering the global scale was neither needed nor warranted (§9). Autopsy fix = path selection only (no formula changed). No new RNG; critic score remains not a box-office input; budget still affects gross only via craft.
+
+## 4. Letters from Vineyard — before → after
+- **Forecast (before):** expected contribution +$9.20M with a +$4.75M downside — a guaranteed large profit. **After:** the forecast DOWNSIDE crosses below zero (weak-film regression test asserts `profit.low < 0`); it is no longer guaranteed.
+- **Realized legs (before):** 2.82 → total $14.18M → +$3.36M. **After:** engaged legs at WAS 46 ≈ 2.14 → the same film front-loads toward its opening.
+- **Weakest-legal route (150 seeds, cheapest talent + Generous budget + small marketing):** Film Contribution median **−$1.49M** (p10 −$4.59M, p90 +$1.56M), **loss probability 73%** (target 65–90%). Generous Production Budget cannot erase weak casting/Fit (downside stays negative). Classification: **weakest legal package** — expected result near/below break-even, actual loss more likely than profit.
+- **Weak-commercial route** (cheapest talent + demanding shape): loss probability **87%**, median −$2.23M.
+
+## 5. Owner four-film route — before → after
+The exact sabotage route (three good films + the weak Letters) ended at 1.96× because the weak film was a guaranteed profit and legs never collapsed. After: the weak film loses ~73% of the time and every film's legs track delivery, so 1.96× is no longer the ordinary result — reaching ~2× now requires a genuine strong hit to offset the weak film's frequent loss.
+
+## 6. Rational-route distributions (150 seeds)
+Rational competent bot: 4-film cash multiple **median 1.156×, p90 1.69×** (target 1.0–1.6× / ≤2.0–2.25×), loss/film 29%, ≥1 loss in four 50%, ends below start 41%, breakout ~0%. Marketing gate 28% max-optimal (3 tiers); budget gate top tier 56% (3 tiers; contained→Lean, ordinary→Adequate, demanding→Generous). Strong films retain strong legs (WAS 80 → 3.25); tentpoles keep upside AND real downside (over-marketing a film that fails to deliver front-loads it).
+
+## 7. Production Demand UI
+New engine-derived read model `productionDemandView` + a live Budget & Forecast panel: **Production Demand** category (Contained / Standard / Demanding / Highly Demanding, from the Shape ambition multiplier), **Funding status** (Underfunded / Lean but Viable / Adequately Funded / Well Funded / Excess Spending, from budget ÷ demand), the real drivers (concept base cost × Shape ambition), and a truthful consequence line (underfunding threatens realization; overfunding gives diminishing protection; more budget does NOT create audience demand or fix casting/Fit). React only renders it.
+
+## 8. Remaining limitations
+None blocking. Competent rational play sits at the lower half of the 1.0–1.6× band (median ~1.16×) with ends-below-start ~41% — a deliberately tighter risk profile than pre-closure, aligned with the owner's "money was too easy" finding; the owner's human re-test is the final judgment. Audience delivery (WAS) remains only moderately craft-sensitive (a mediocre film scores WAS ~46, not ~30); the legs reshape compensates by making retention collapse for that delivery. A future deeper delivery→appeal sensitivity pass could widen weak-vs-strong separation further, but is out of this bounded closure's scope.
+
+## Can D-12 merge?
+All known merge blockers are resolved: forecast truth (autopsy arithmetic reconciles), weak-film downside (weakest legal film ~73% loss), retention sensitivity (legs respond to delivery with a low floor; genuine bombs possible), no hidden floor. Still **not a merge** — pending the owner's final human balance re-test.
