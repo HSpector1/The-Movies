@@ -12,6 +12,8 @@ import {
   WaterTower, CrateStack, Cart, FilmLight, Bench, ProductionTruck, Tree, Planter,
   BacklotFacade, SceneryFlat, Banner, StagingMark,
 } from './components/greybox'
+import { HeroSoundstage, ProductionApron, GroundDecals, WorldEdge, HeroWorkers, type HeroCrewSpec } from './components/hero'
+import { HM } from './lab/heroMaterials'
 import type { RuntimeManifest, RuntimeAsset } from './types'
 
 const by = (m: RuntimeManifest, id: string): RuntimeAsset | undefined => m.assets.find((a) => a.id === id)
@@ -225,6 +227,44 @@ export function SceneD({ manifest }: { manifest: RuntimeManifest }): JSX.Element
       )}
 
       {state.showScaleRef && <HumanScaleRef position={[-1, 0, 5]} />}
+    </group>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Scene E — HERO SOUNDSTAGE (Asset Lab 03). ONE facility at production fidelity: articulated
+// Stage 1 + its active grip/electric apron. Isolated: new hero materials/geometry only; Scene D
+// stays the untouched greybox baseline for the greybox⇄hero comparison.
+const HERO_CREW: HeroCrewSpec[] = [
+  { pos: [-7.6, 0, 12.2], rotY: -0.6, clip: 'Fixing_Kneeling', role: 'gaffer', startAt: 1.3 },   // gaffer tying in feeder at distro
+  { pos: [6.2, 0, 13.8], rotY: 2.6, clip: 'PickUp_Table', role: 'grip', startAt: 0.5 },          // grip lifting a case off the cart
+  { pos: [7.0, 0, 14.9], rotY: 3.4, clip: 'Idle_Talking_Loop', role: 'camera', startAt: 0.0 },   // DP at video village
+  { pos: [8.7, 0, 15.2], rotY: 3.0, clip: 'Idle_Talking_Loop', role: 'director', startAt: 1.7 }, // director at video village
+  { pos: [-2.2, 0, 11.8], rotY: 3.1, clip: 'Idle_Loop', role: 'electric', startAt: 2.2 },        // electrician standing by a hero light
+  { pos: [2.4, 0, 18.5], rotY: -2.4, clip: 'Walk_Loop', role: 'pa', startAt: 0.9 },              // PA crossing the apron
+]
+
+export function SceneE(): JSX.Element {
+  const { state } = useLab()
+  return (
+    <group>
+      {/* broad procedural-asphalt ground + the concrete production apron slab in front of the doors */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[2, -0.02, 6]} receiveShadow material={HM.asphalt}>
+        <planeGeometry args={[140, 140]} />
+      </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[1, 0.005, 11]} receiveShadow material={HM.concrete}>
+        <planeGeometry args={[44, 32]} />
+      </mesh>
+
+      <HeroSoundstage pos={[0, 0, -3]} number="1" />
+
+      {state.showApron && <><ProductionApron /><GroundDecals /><WorldEdge /></>}
+
+      {state.showCharacters && (
+        <Suspense fallback={null}><HeroWorkers specs={HERO_CREW} /></Suspense>
+      )}
+
+      {state.showScaleRef && <HumanScaleRef position={[1.5, 0, 10]} />}
     </group>
   )
 }

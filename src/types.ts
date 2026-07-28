@@ -34,5 +34,5 @@ export interface RuntimeManifest {
   assets: RuntimeAsset[]
 }
 
-export type SceneKey = 'A' | 'B' | 'C' | 'D'
+export type SceneKey = 'A' | 'B' | 'C' | 'D' | 'E'
 export type CameraMode = 'overview' | 'inspection'

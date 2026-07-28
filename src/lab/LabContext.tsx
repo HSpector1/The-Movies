@@ -24,8 +24,11 @@ export interface LabState {
   showCharacters: boolean
   showLandscaping: boolean
   showDressing: boolean
+  showApron: boolean
   showShadows: boolean
   atmosphere: boolean
+  softShadows: boolean
+  postFx: boolean
   clip: string
   playing: boolean
   loop: boolean
@@ -34,11 +37,12 @@ export interface LabState {
 }
 
 export const INITIAL: LabState = {
-  scene: 'D', cameraMode: 'overview', cameraResetNonce: 0,
+  scene: 'E', cameraMode: 'overview', cameraResetNonce: 0,
   wireframe: false, showBounds: false, showGrid: false, showScaleRef: false, showSkeleton: false,
   keyLight: 3.0, ambientLight: 0.6,
   visibleDowntown: true, visibleProps: true, visibleCharacter: true,
-  showCharacters: true, showLandscaping: true, showDressing: true, showShadows: true, atmosphere: true,
+  showCharacters: true, showLandscaping: true, showDressing: true, showApron: true,
+  showShadows: true, atmosphere: true, softShadows: false, postFx: false,
   clip: 'Idle_Loop', playing: true, loop: true, speed: 1, rootMotion: false,
 }
 

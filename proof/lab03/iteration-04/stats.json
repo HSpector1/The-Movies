@@ -1,0 +1,13 @@
+{
+  "iteration": "04",
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+  "fps": 2,
+  "drawCalls": 168,
+  "triangles": 86540,
+  "geometries": 453,
+  "textures": 48,
+  "programs": 23,
+  "loadedAssets": 4,
+  "totalAssets": 4,
+  "loading": false
+}
