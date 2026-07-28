@@ -563,6 +563,15 @@ export function Autopsy({
       {/* Standing deltas + WHY each channel moved (D-6 inputs) */}
       <div className="card">
         <h3>Standing changes — and why</h3>
+        {/* D-12 P5: when more than one film released this week, the studio-wide delta is SHARED — label it
+            honestly and list the co-releases, so no film's autopsy implies it caused the whole change. */}
+        {view.standingSharedWeek && (
+          <p className="reason" data-testid="autopsy-standing-sharedweek" style={{ marginTop: 0 }}>
+            <strong>Studio standing change for Week {view.releaseWeek}</strong> — includes {view.conceptTitle}
+            {view.sameWeekReleases.map((r) => ` and ${r.title}`).join('')}. These figures are the studio-wide
+            movement for the week, not attributable to this film alone. This film’s own drivers are shown below.
+          </p>
+        )}
         <div className="grid grid-3">
           <div className="stack">
             <div className="spread">

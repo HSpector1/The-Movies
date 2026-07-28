@@ -47,7 +47,13 @@ export function ReleaseResult({
 
       <div className="stack" data-testid="release-list">
         {released.map((f) => {
-          const view = explainRelease(preTick, postTickStanding, f)
+          // D-12 P5: this screen shows every film that released THIS week side by side; the studio-standing
+          // delta is the week's studio-wide movement, shared across them. Pass the co-releases so each card
+          // (and the autopsy opened from it) labels the delta honestly instead of implying this film caused it.
+          const sameWeekReleases = released
+            .filter((o) => o.productionId !== f.productionId)
+            .map((o) => ({ productionId: o.productionId, title: findConcept(preTick, o.conceptId)?.title ?? o.conceptId }))
+          const view = explainRelease(preTick, postTickStanding, f, sameWeekReleases)
           const concept = findConcept(preTick, f.conceptId)
           const profitPositive = view.profit >= 0
           return (
@@ -123,6 +129,13 @@ export function ReleaseResult({
 
               <div className="sep" />
               <h4>Standing changes</h4>
+              {view.standingSharedWeek && (
+                <p className="reason" data-testid={`release-sharedweek-${f.productionId}`} style={{ marginTop: 0 }}>
+                  <strong>Studio standing change for Week {view.releaseWeek}</strong> — includes {concept?.title ?? f.conceptId}
+                  {view.sameWeekReleases.map((r) => ` and ${r.title}`).join('')}. This is the studio-wide movement for
+                  the week, shared across these releases — not attributable to this film alone.
+                </p>
+              )}
               <div className="row" style={{ gap: 28 }}>
                 <div className="metric">
                   <span className="label">Audience Awareness</span>

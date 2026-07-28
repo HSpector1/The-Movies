@@ -33,6 +33,7 @@ import {
   productionDemandView,
   capitalExposure,
   shapeExplainView,
+  teamDirectionPreview,
   greenlight,
   findConcept,
   assessCreativeCohesion,
@@ -756,6 +757,55 @@ function PromiseStep({
 }
 
 // ── Step: Talent ─────────────────────────────────────────────────────────────
+// D-12 Phase 3 — engine-derived Team Direction preview (all vector math in the adapter; this only renders).
+function TeamDirectionPanel({
+  state,
+  sel,
+}: {
+  state: GameState
+  sel: { writerId: string | null; directorId: string | null; cast: Record<CastSlot, string | null>; shape: FilmShape }
+}) {
+  const td = teamDirectionPreview(state, sel)
+  const bandClass = td.band === 'Strong' ? 'money pos' : td.band === 'Weak' ? 'money neg' : 'mono'
+  return (
+    <div className="card stack" data-testid="team-direction">
+      <h3 style={{ marginTop: 0 }}>Team direction</h3>
+      {!td.ready ? (
+        <p className="hint" data-testid="team-direction-summary">
+          {td.summary}
+        </p>
+      ) : (
+        <>
+          <div className="row" style={{ gap: 24, flexWrap: 'wrap' }}>
+            <Metric label="Expected team direction" small testid="team-direction-band">
+              <span className={bandClass}>{td.band}</span>
+            </Metric>
+            {td.mostCompatible && (
+              <Metric label="Most compatible" small testid="team-direction-compatible">
+                {td.mostCompatible.a} &amp; {td.mostCompatible.b}
+              </Metric>
+            )}
+            {td.mostOpposed && (
+              <Metric label="Most opposed" small testid="team-direction-opposed">
+                {td.mostOpposed.a} &amp; {td.mostOpposed.b}
+              </Metric>
+            )}
+            <Metric label="Confidence" small testid="team-direction-confidence">
+              {td.confidence}
+            </Metric>
+          </div>
+          <p className="hint" data-testid="team-direction-summary">
+            {td.summary}
+          </p>
+          <p className="hint" style={{ fontSize: '0.85em', opacity: 0.8 }}>
+            Creative direction is known from the talent you’ve chosen; realized performance still varies.
+          </p>
+        </>
+      )}
+    </div>
+  )
+}
+
 function TalentStep({
   state,
   draft,
@@ -904,6 +954,7 @@ function TalentStep({
           Choose a Production/Craft Lead to continue.
         </p>
       )}
+      <TeamDirectionPanel state={state} sel={{ writerId: draft.writerId, directorId: draft.directorId, cast: draft.cast, shape: draft.shape }} />
     </div>
   )
 }
@@ -1171,6 +1222,8 @@ function ReviewStep({
       {cohesion && fit && execution && profit && (
         <FilmReadiness cohesion={cohesion} fit={fit} execution={execution} profit={profit} />
       )}
+      {/* D-12 Phase 3 — the SAME team-direction the autopsy later explains, shown before greenlight. */}
+      <TeamDirectionPanel state={state} sel={{ writerId: pkg.writerId, directorId: pkg.directorId, cast: pkg.cast, shape: pkg.shape }} />
 
       <div className="grid grid-2">
         <div className="card stack">

@@ -37,6 +37,7 @@ import {
   buildReleaseDevelopment,
   autopsyCompare,
   filmRecordView,
+  findConcept,
   releaseNewspaper,
 } from './engine/adapter.ts'
 import { StartScreen } from './screens/StartScreen.tsx'
@@ -327,7 +328,13 @@ export function App() {
       )
       return
     }
-    const view = explainRelease(snap.preTick, snap.postTickStanding, film)
+    // D-12 P5: films that released the SAME week (studio standing moves once per week, shared across them).
+    const sameWeekReleases = state
+      ? state.studio.releasedFilms
+          .filter((rf) => rf.releaseTick === film.releaseTick && rf.productionId !== film.productionId)
+          .map((rf) => ({ productionId: rf.productionId, title: findConcept(state, rf.conceptId)?.title ?? rf.conceptId }))
+      : []
+    const view = explainRelease(snap.preTick, snap.postTickStanding, film, sameWeekReleases)
     // Locked greenlight expectation vs actual (the compare panel). Uses the same retained
     // pre-tick snapshot; null only if the production is not in the pre-tick active list.
     const compare = autopsyCompare(snap.preTick, film)

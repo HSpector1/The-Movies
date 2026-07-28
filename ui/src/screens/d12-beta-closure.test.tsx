@@ -23,6 +23,11 @@ import {
   explainRelease,
   autopsyCompare,
   accessibleAutopsy,
+  theatricalRuns,
+  runProjection,
+  releaseScorecard,
+  selectReleasedFilms,
+  filmCommittedCost,
   assemblyAvailability,
   advanceWeek,
   newGame,
@@ -280,5 +285,84 @@ describe('D-12 beta P1: Review forecast == persisted greenlight snapshot (same-w
     const reloaded = (round as { ok: true; state: GameState }).state
     const after = selectActiveProductions(reloaded).map((p) => [p.id, p.forecastSnapshot.expectedTotal] as const).sort()
     expect(after).toEqual(before)
+  })
+})
+
+// ── D-12 Phase 7 — commercial strengths in "What worked" ──────────────────────────────────────────
+// A profitable film must never show "Nothing stood out as a clear strength." — when it earned a positive
+// Contribution for a COMMERCIAL reason (low break-even, audience positioning, cost discipline), the autopsy
+// must name that reason, without inventing creative merit.
+// ── D-12 Phase 5 — same-week standing attribution honesty ──────────────────────────────────────────
+describe('D-12 P5: the studio-wide standing delta is labeled honestly when films share a release week', () => {
+  it('a single-release week is not shared; a co-release is flagged and listed without changing the delta', () => {
+    let s = newFoundedGame('p5-attr')
+    s = (greenlight(s, pkgFrom(s, { writer: 0, director: 0, actors: [0, 1, 2], craft: 0 })) as { ok: true; next: GameState }).next
+    const rel = advanceToNextEvent(s)
+    const film = rel.released[0]!
+    // Single release → the delta is attributable to this film's week alone.
+    const solo = explainRelease(rel.preTick, rel.next.studio.standing, film)
+    expect(solo.standingSharedWeek).toBe(false)
+    expect(solo.sameWeekReleases).toEqual([])
+    expect(solo.releaseWeek).toBe(film.releaseTick)
+    // The SAME week with a co-release → flagged as shared and the co-release is listed, but the studio-wide
+    // delta itself is unchanged (it was always the week's studio-wide movement — we only label it honestly).
+    const shared = explainRelease(rel.preTick, rel.next.studio.standing, film, [{ productionId: 'other-1', title: 'Another Film' }])
+    expect(shared.standingSharedWeek).toBe(true)
+    expect(shared.sameWeekReleases.map((r) => r.title)).toContain('Another Film')
+    expect(shared.standingDeltas).toEqual(solo.standingDeltas) // same studio-wide number, honestly framed
+  })
+})
+
+// ── D-12 Phase 6 — commercial result visibility (in-theaters projection + release scorecard) ────────
+describe('D-12 P6: active-run projection and released-film scorecard are engine-derived and consistent', () => {
+  it('an active run projects Contribution = full-run Studio Revenue − direct commitment, with a signed label', () => {
+    let s = newFoundedGame('p6-run')
+    s = (greenlight(s, pkgFrom(s, { writer: 0, director: 0, actors: [0, 1, 2], craft: 0 })) as { ok: true; next: GameState }).next
+    s = advanceToNextEvent(s).next // to the release → a run opens
+    const runs = theatricalRuns(s)
+    expect(runs.length).toBeGreaterThan(0)
+    const run = runs[0]!
+    const proj = runProjection(s, run)
+    expect(proj.commitment).toBeCloseTo(filmCommittedCost(s, run.productionId), 4)
+    expect(proj.projectedContribution).toBeCloseTo(run.totalStudioRevenue - proj.commitment, 4)
+    expect(proj.label).toBe(proj.projectedContribution > 0 ? 'Projected profit' : proj.projectedContribution < 0 ? 'Projected loss' : 'Projected break-even')
+  })
+
+  it('a released film scorecard keeps profit, critics and audiences as separate, consistent truths', () => {
+    let s = newFoundedGame('p6-card')
+    s = (greenlight(s, pkgFrom(s, { writer: 0, director: 0, actors: [0, 1, 2], craft: 0 })) as { ok: true; next: GameState }).next
+    for (let k = 0; k < 40 && selectReleasedFilms(s).length === 0; k++) s = advanceWeek(s).next
+    const film = selectReleasedFilms(s)[0]!
+    const card = releaseScorecard(s, film)
+    expect(card.critic).toBe(film.criticScore) // critics unchanged
+    expect(card.gross).toBe(film.boxOffice.total)
+    expect(card.studioRevenue).toBeCloseTo(card.gross * 0.52, 2) // studio share applied once
+    expect(card.contribution).toBeCloseTo(card.studioRevenue - filmCommittedCost(s, film.productionId), 2)
+    expect(card.audience).toBeGreaterThanOrEqual(0)
+    expect(card.audience).toBeLessThanOrEqual(100)
+    expect(card.resultLabel).toBe(card.contribution > 0 ? 'Profit' : card.contribution < 0 ? 'Loss' : 'Break-even')
+  })
+})
+
+describe('D-12 P7: profitable films always get an engine-derived commercial strength', () => {
+  it('a profitable release lists at least one commercial strength (never "Nothing stood out")', () => {
+    let found = 0
+    for (let i = 0; i < 30 && found < 3; i++) {
+      let s = newFoundedGame(`p7-commercial-${i}`)
+      s = (greenlight(s, pkgFrom(s, { writer: 0, director: 0, actors: [0, 1, 2], craft: 0 })) as { ok: true; next: GameState }).next
+      const rel = advanceToNextEvent(s)
+      const film = rel.released[0]
+      if (!film) continue
+      const view = explainRelease(rel.preTick, rel.next.studio.standing, film)
+      const simple = accessibleAutopsy(view, autopsyCompare(rel.preTick, film))
+      if (view.profit >= 0) {
+        found++
+        expect(simple.whatWorked.length).toBeGreaterThan(0) // never empty for a profitable film
+        const prose = simple.whatWorked.join(' ').toLowerCase()
+        // At least one COMMERCIAL reason (break-even / audience positioning / spending discipline / profit).
+        expect(prose).toMatch(/break-even|audience|positioning|spending|profit|opening/)
+      }
+    }
+    expect(found).toBeGreaterThan(0) // the scan actually exercised profitable films
   })
 })

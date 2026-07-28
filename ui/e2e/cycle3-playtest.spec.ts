@@ -93,9 +93,11 @@ test('cycle-3: Balanced specialization creator + newspaper release reveal', asyn
   // The DERIVED OVR + player-facing standing update live (never an input).
   const derivedOVR = await leadingInt(page, 'balanced-ovr-acting')
   expect(derivedOVR).toBeGreaterThan(0)
-  await expect(page.getByTestId('balanced-standing')).toContainText('%ile')
+  // D-12 P8: Current Standing is now four separate labeled facts (OVR / experience / percentile / tier).
+  await expect(page.getByTestId('balanced-standing-percentile')).toContainText('percentile')
+  await expect(page.getByTestId('balanced-standing-tier')).toBeVisible()
   // A Balanced prospect is lower-middle — well below the top decile.
-  expect(await leadingInt(page, 'balanced-standing')).toBeLessThan(90)
+  expect(await leadingInt(page, 'balanced-standing-percentile')).toBeLessThan(90)
   await page.getByTestId('balanced-live-preview').scrollIntoViewIfNeeded()
   await shot(page, 'c3-4-derived-ovr-and-standing')
 

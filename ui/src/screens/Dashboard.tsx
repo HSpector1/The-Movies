@@ -16,7 +16,8 @@ import {
   findConcept,
   financeCard,
   theatricalRuns,
-  studioRevenueForFilm,
+  runProjection,
+  releaseScorecard,
 } from '../engine/adapter.ts'
 import { money, score } from '../format.ts'
 import { Metric, StandingBar } from '../components/common.tsx'
@@ -229,6 +230,7 @@ export function Dashboard({
                 key={r.productionId}
                 run={r}
                 title={findConcept(state, r.conceptId)?.title ?? r.conceptId}
+                projection={runProjection(state, r)}
               />
             ))}
           </div>
@@ -291,9 +293,12 @@ export function Dashboard({
               <tr>
                 <th>Film</th>
                 <th className="num">Critic</th>
-                <th className="num">Opening</th>
+                <th className="num">Audience</th>
                 <th className="num">Gross</th>
                 <th className="num">Studio Rev</th>
+                <th className="num">Contribution</th>
+                <th className="num">ROI</th>
+                <th>Result</th>
                 <th>Released</th>
                 <th></th>
               </tr>
@@ -301,16 +306,27 @@ export function Dashboard({
             <tbody>
               {recent.map((f) => {
                 const concept = findConcept(state, f.conceptId)
-                const studioRev = studioRevenueForFilm(state, f.productionId)
+                // D-12 P6: compact multi-axis scorecard — profit, critics and audiences as SEPARATE truths.
+                // Studio Rev, Contribution and ROI all come from the SAME scorecard basis so a completed run
+                // (dropped from theatricalRuns) never shows a real Contribution beside a "—" Studio Rev.
+                const card = releaseScorecard(state, f)
+                const profit = card.contribution >= 0
                 return (
                   <tr key={f.productionId} data-testid={`release-${f.productionId}`}>
                     <td>{concept?.title ?? f.conceptId}</td>
                     <td className="num">{score(f.criticScore)}</td>
-                    <td className="num">{money(f.boxOffice.opening)}</td>
+                    <td className="num" data-testid={`release-${f.productionId}-audience`}>{score(card.audience)}</td>
                     <td className="num">{money(f.boxOffice.total)}</td>
                     <td className="num" data-testid={`release-${f.productionId}-studiorev`}>
-                      {studioRev === null ? '—' : money(studioRev)}
+                      {money(card.studioRevenue)}
                     </td>
+                    <td className={`num ${profit ? 'money pos' : 'money neg'}`} data-testid={`release-${f.productionId}-contribution`}>
+                      {money(card.contribution)}
+                    </td>
+                    <td className={`num ${profit ? 'money pos' : 'money neg'}`} data-testid={`release-${f.productionId}-roi`}>
+                      {Math.round(card.roi * 100)}%
+                    </td>
+                    <td data-testid={`release-${f.productionId}-result`}>{card.resultLabel}</td>
                     <td>week {f.releaseTick}</td>
                     <td>
                       <div className="btn-row">
@@ -351,7 +367,16 @@ export function Dashboard({
 
 // One active theatrical run. Labels are unambiguous about state (P-secondary off-by-one fix):
 // weekIndex = Studio-Revenue payments ALREADY received; nextWeekRevenue = the NEXT scheduled payment.
-function TheatricalRunPanel({ run, title }: { run: RunView; title: string }) {
+function TheatricalRunPanel({
+  run,
+  title,
+  projection,
+}: {
+  run: RunView
+  title: string
+  projection: import('../engine/adapter.ts').RunProjection
+}) {
+  const profit = projection.projectedContribution >= 0
   return (
     <div className="panel" data-testid={`run-${run.productionId}`}>
       <div className="spread">
@@ -375,6 +400,18 @@ function TheatricalRunPanel({ run, title }: { run: RunView; title: string }) {
         </Metric>
         <Metric label="Total Studio Revenue" small testid={`run-${run.productionId}-total`}>
           {money(run.totalStudioRevenue)}
+        </Metric>
+      </div>
+      {/* D-12 P6: is this run currently projected to repay its cost? — visible without opening an autopsy. */}
+      <div className="row" style={{ marginTop: 8, gap: 24, flexWrap: 'wrap' }}>
+        <Metric label="Direct commitment" small testid={`run-${run.productionId}-commitment`}>
+          {money(projection.commitment)}
+        </Metric>
+        <Metric label={projection.label} small testid={`run-${run.productionId}-projected`}>
+          <span className={profit ? 'money pos' : 'money neg'}>{money(projection.projectedContribution)}</span>
+        </Metric>
+        <Metric label="Projected ROI" small testid={`run-${run.productionId}-roi`}>
+          <span className={profit ? 'money pos' : 'money neg'}>{Math.round(projection.projectedRoi * 100)}%</span>
         </Metric>
       </div>
     </div>

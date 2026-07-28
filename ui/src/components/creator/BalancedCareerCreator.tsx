@@ -123,7 +123,7 @@ function clampInt(raw: number, lo: number, hi: number, fallback: number): number
   if (n > hi) return hi
   return n
 }
-const clampAge = (raw: number) => clampInt(raw, 18, 70, 35)
+const clampAge = (raw: number) => clampInt(raw, 18, 70, 18)
 
 // The per-discipline skill BASELINE from a preset: floor 15 → the preset's primarySkills
 // vector for the primary discipline; secondaryBaseline for others; a raised secondary is
@@ -196,7 +196,7 @@ function initialDraft(): Draft {
   return {
     name: '',
     role,
-    age: 35,
+    age: 18, // D-12 P8: default age 18
     actual: { warmth: 0, gravity: 0, physicality: 0 },
     presetId: preset.id,
     potentialTier: preset.defaultPotentialTier,
@@ -932,15 +932,38 @@ export function BalancedCareerCreator({
             is not +20 OVR.
           </p>
           <OvrTable disciplines={preview.disciplines} />
-          <div className="spread">
-            <span>Current standing</span>
-            <span className="mono" data-testid="balanced-standing">
-              ~{preview.primaryPercentile}th %ile — {preview.standing}
-            </span>
+          {/* D-12 P8: Current Standing split into FOUR separate facts, not one confusing statement. */}
+          <div className="stack" data-testid="balanced-standing" style={{ gap: 4 }}>
+            <div className="spread">
+              <span>Primary ability</span>
+              <span className="mono" data-testid="balanced-standing-ovr">
+                {DISCIPLINE_LABEL[primary]} OVR {preview.primaryOVR}
+              </span>
+            </div>
+            <div className="spread">
+              <span>Experience status</span>
+              <span className="mono" data-testid="balanced-standing-experience">
+                Unproven — no credits yet
+              </span>
+            </div>
+            <div className="spread">
+              <span>Market percentile</span>
+              <span className="mono" data-testid="balanced-standing-percentile">
+                ~{preview.primaryPercentile}th percentile among working {DISCIPLINE_LABEL[primary]} talent
+              </span>
+            </div>
+            <div className="spread">
+              <span>Career tier</span>
+              <span className="mono" data-testid="balanced-standing-tier">
+                {preview.standing}
+              </span>
+            </div>
           </div>
           <p className="hint" style={{ fontSize: 11 }}>
-            Standing is this person&rsquo;s primary-profession OVR versus working {DISCIPLINE_LABEL[primary]}
-            {' '}talent in the world (approximate). A Balanced prospect is lower-middle with upside — not a star.
+            Four separate facts: current ability (OVR), whether the person has a track record yet
+            (experience), where that ability ranks among working {DISCIPLINE_LABEL[primary]} talent
+            (percentile), and the career tier that ability implies. A Balanced prospect is lower-middle with
+            upside — not a star.
           </p>
           <TopStrengths draft={draft} skillBaseline={skillBaseline} />
           <div className="spread">

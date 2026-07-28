@@ -52,6 +52,12 @@ import {
   GENRE_ORDER,
   SKILL_ORDER,
   personaToExpression,
+  castContribution,
+  clamp,
+  lerp,
+  mean,
+  magnitude,
+  ROLE_WEIGHT,
   // D-9.14 authored creation-budget data (costs + ceiling bands + start OVR). These
   // are read-only constant tables from the frozen core; the UI reads them to PREVIEW
   // budget spend and tier bands. The engine remains the sole validator (createTalent).
@@ -1449,6 +1455,13 @@ export type AutopsyView = {
     prestige: string
     confidence: string
   }
+  // D-12 P5: the standing delta is the studio-wide change across the RELEASE WEEK, computed from the
+  // week's before/after studio standing (sequential, clamped D-6 updates that are NOT per-film additive).
+  // When more than one film released this week, the delta cannot be attributed to THIS film alone; these
+  // fields let the UI say so honestly and list the co-releases, while still showing this film's own drivers.
+  releaseWeek: number
+  sameWeekReleases: { productionId: string; title: string }[] // OTHER films released the same week
+  standingSharedWeek: boolean // true ⇒ the delta covers this film AND the co-releases
 }
 
 export type ContributionView = {
@@ -1498,6 +1511,9 @@ export function explainRelease(
   preTick: GameState,
   postTickStanding: Standing,
   filmResult: FilmResult,
+  // D-12 P5: OTHER films that released the same week (from the post-tick state), so the autopsy can say
+  // honestly that the studio-wide standing delta is shared. Defaults to none (single-release week).
+  sameWeekReleases: { productionId: string; title: string }[] = [],
 ): AutopsyView {
   // The production is in preTick.studio.activeProductions (removed at RELEASE).
   const prod = preTick.studio.activeProductions.find((p) => p.id === filmResult.productionId)
@@ -1596,6 +1612,9 @@ export function explainRelease(
     standingAfter: postTickStanding,
     standingDeltas,
     standingWhy,
+    releaseWeek: filmResult.releaseTick,
+    sameWeekReleases,
+    standingSharedWeek: sameWeekReleases.length > 0,
   }
 }
 
@@ -1629,6 +1648,53 @@ function productionCommittedCost(state: GameState, prod: Production): number {
     .reduce((a, e) => a - e.amount, 0)
   if (fromLedger > 0) return fromLedger
   return prod.budget.negative + prod.budget.marketing + salarySumForProduction(state, prod)
+}
+
+// ── D-12 Phase 6 — commercial result visibility ───────────────────────────────────────────────────
+// The player should not have to open an autopsy to know whether an active run will repay its cost, or to
+// see a released film's multi-axis result. Direct commitment is the film's own ledger entries (Production
+// Budget + Marketing + Freelancer Fees) — the SAME basis the autopsy/newspaper use — read by productionId,
+// so it works for a running or completed film without the live Production object.
+export function filmCommittedCost(state: GameState, productionId: string): number {
+  return state.ledger
+    .filter((e) => e.productionId === productionId && (e.kind === 'production' || e.kind === 'freelancerFee'))
+    .reduce((a, e) => a - e.amount, 0)
+}
+function filmAudienceScore(state: GameState, film: FilmResult): number {
+  let was = 0
+  for (const seg of state.market.segments) was += seg.share * (film.segmentScores[seg.id] ?? 0)
+  return was
+}
+export type RunProjection = {
+  commitment: number
+  projectedContribution: number // projected FULL-RUN Studio Revenue − direct commitment (NOT realized)
+  projectedRoi: number
+  label: 'Projected profit' | 'Projected loss' | 'Projected break-even'
+}
+export function runProjection(state: GameState, run: RunView): RunProjection {
+  const commitment = filmCommittedCost(state, run.productionId)
+  const projectedContribution = run.totalStudioRevenue - commitment
+  const projectedRoi = commitment > 0 ? projectedContribution / commitment : 0
+  const label = projectedContribution > 0 ? 'Projected profit' : projectedContribution < 0 ? 'Projected loss' : 'Projected break-even'
+  return { commitment, projectedContribution, projectedRoi, label }
+}
+export type ReleaseScorecard = {
+  critic: number
+  audience: number // weighted audience score (share-weighted segment response)
+  gross: number
+  studioRevenue: number
+  contribution: number
+  roi: number
+  resultLabel: 'Profit' | 'Loss' | 'Break-even'
+}
+export function releaseScorecard(state: GameState, film: FilmResult): ReleaseScorecard {
+  const gross = film.boxOffice.total
+  const studioRevenue = gross * TUNING.STUDIO_RENTAL_BLENDED
+  const commitment = filmCommittedCost(state, film.productionId)
+  const contribution = studioRevenue - commitment
+  const roi = commitment > 0 ? contribution / commitment : 0
+  const resultLabel = contribution > 0 ? 'Profit' : contribution < 0 ? 'Loss' : 'Break-even'
+  return { critic: film.criticScore, audience: filmAudienceScore(state, film), gross, studioRevenue, contribution, roi, resultLabel }
 }
 
 // Remaining weeks of an active production, for the dashboard.
@@ -3035,6 +3101,22 @@ export function accessibleAutopsy(view: AutopsyView, compare: AutopsyCompare | n
     worked.push(`${strongest.talentName} was an excellent fit as ${assignmentText(strongest)}.`)
   if (total > expTotal * 1.1) worked.push('It outperformed its box-office forecast.')
   if (profitable && profit >= 3_000_000) worked.push(`It turned a healthy profit of ${money(profit)}.`)
+  // P7: engine-derived COMMERCIAL strengths — a profitable film ALWAYS has a commercial reason, even
+  // when nothing creative stood out (the owner's Letters case earned a positive Contribution on a low
+  // break-even + audience positioning + cost discipline, yet showed "Nothing stood out"). Never claim
+  // creative merit that wasn't there; these are cost/positioning facts, not quality judgements.
+  const breakEven = breakEvenGross(view.committedCost)
+  const roi = view.committedCost > 0 ? profit / view.committedCost : 0
+  if (profitable) {
+    if (view.boxOffice.opening >= breakEven)
+      worked.push(`The opening alone (${money(view.boxOffice.opening)}) cleared the ${money(breakEven)} break-even.`)
+    else worked.push(`A low break-even protected the investment — it only needed ${money(breakEven)} to clear its cost.`)
+    if (!filmStrong && view.weightedAudienceScore >= 45)
+      worked.push('Strong audience positioning compensated for weak execution.')
+    else if (view.weightedAudienceScore >= 60)
+      worked.push(`The concept connected with its intended audience (audience score ${round0(view.weightedAudienceScore)}/100).`)
+    if (roi >= 0.3) worked.push('Disciplined direct spending limited the downside.')
+  }
   // P4 (beta closure): the accessible What Worked / What Hurt describe REALIZED outcomes only. The
   // greenlight-PLANNED assessment strengths / uncertainty factors are NOT dumped here — they raise
   // internal detail (e.g. "realized cohesion 0.45") and can contradict the realized narrative
@@ -3164,6 +3246,128 @@ export function deliveredAlignmentReport(view: AutopsyView): DeliveredAlignmentR
   const distinction =
     'Creative Brief Coherence rated whether the plan — concept, shape and promise — fit together at greenlight. Delivered Talent Alignment measures whether the people you cast actually pulled in the same direction during execution. A coherent plan can still be pulled apart by mismatched talent.'
   return { score, band, summary, distinction, mostAligned, mostOpposed, pairs }
+}
+
+// ── D-12 Phase 3 — Team Direction Preview (pre-greenlight) ────────────────────────────────────────
+// The owner chose individually high-Fit talent for Whispers of Aviator but had no way to know that
+// Writer and Antagonist would pull the film in nearly opposite creative directions — the game only
+// explained that AFTER the failure, in the autopsy's Delivered Talent Alignment. This preview shows the
+// SAME thing BEFORE greenlight. The creative VECTORS are fully known at greenlight (deterministic from
+// each contributor's actual persona via the SAME core helpers the reception pipeline uses — no RNG), so
+// the planned directional compatibility is displayed HONESTLY as fact. What remains uncertain (realized
+// contribution weights + performance) is surfaced as a confidence qualifier, never as fact. All vector
+// math lives here in the adapter; React only renders the returned strings/labels.
+export type TeamDirectionPair = { a: string; b: string; agreement: number }
+export type TeamDirectionPreview = {
+  ready: boolean // ≥ 2 contributors have a known creative direction
+  filledRoles: number
+  band: 'Weak' | 'Mixed' | 'Strong' | null
+  score: number | null // 0..100 directional agreement among the chosen contributors
+  mostCompatible: TeamDirectionPair | null
+  mostOpposed: TeamDirectionPair | null
+  axisConflicts: string[] // axes the most-opposed pair pull against each other on (plain English)
+  confidence: 'high' | 'medium' | 'low'
+  summary: string
+}
+const TEAM_ROLE_LABEL: Record<'writer' | 'director' | 'lead' | 'antagonist' | 'support', string> = {
+  writer: 'Writer', director: 'Director', lead: 'Lead', antagonist: 'Antagonist', support: 'Support',
+}
+const TEAM_AXIS_LABEL: Record<'intimacy' | 'tonalWeight' | 'kineticEnergy', string> = {
+  intimacy: 'intimacy', tonalWeight: 'tonal weight', kineticEnergy: 'kinetic energy',
+}
+export function teamDirectionPreview(
+  state: GameState,
+  sel: { writerId: string | null; directorId: string | null; cast: Record<CastSlot, string | null>; shape: FilmShape },
+): TeamDirectionPreview {
+  const byId = (id: string | null): Talent | null => (id ? state.talent.find((t) => t.id === id) ?? null : null)
+  // Per-contributor delivered vectors — the SAME helpers the reception/autopsy pipeline uses.
+  const contribs: { role: 'writer' | 'director' | 'lead' | 'antagonist' | 'support'; vec: AlignmentVec }[] = []
+  const writer = byId(sel.writerId)
+  if (writer) contribs.push({ role: 'writer', vec: personaToExpression(writer.actual) })
+  const director = byId(sel.directorId)
+  if (director) contribs.push({ role: 'director', vec: personaToExpression(director.actual) })
+  for (const slot of ['lead', 'antagonist', 'support'] as CastSlot[]) {
+    const t = byId(sel.cast[slot])
+    if (t) contribs.push({ role: slot, vec: castContribution(t.actual, slot) })
+  }
+  if (contribs.length < 2) {
+    return {
+      ready: false, filledRoles: contribs.length, band: null, score: null, mostCompatible: null,
+      mostOpposed: null, axisConflicts: [], confidence: 'low',
+      summary: 'Choose at least a Writer and Director to preview the team’s creative direction.',
+    }
+  }
+  // All pairwise directional agreements (cosine of delivered vectors; −1 opposed … +1 aligned).
+  const pairs: TeamDirectionPair[] = []
+  for (let i = 0; i < contribs.length; i++) {
+    for (let j = i + 1; j < contribs.length; j++) {
+      pairs.push({ a: TEAM_ROLE_LABEL[contribs[i]!.role], b: TEAM_ROLE_LABEL[contribs[j]!.role], agreement: alignCosine(contribs[i]!.vec, contribs[j]!.vec) })
+    }
+  }
+  const sorted = [...pairs].sort((x, y) => y.agreement - x.agreement)
+  const mostCompatible = sorted[0] ?? null
+  const mostOpposed = sorted.length > 0 ? sorted[sorted.length - 1]! : null
+  // Match the autopsy's Delivered Talent Alignment EXACTLY (adapter.deliveredAlignmentReport ← core
+  // computeContributions): a ROLE_WEIGHT-weighted centroid INCLUDING the shape contribution, then
+  // cohesion = clamp(directionalAgreement,0,1) × lerp(EXPRESSION_FLOOR,1,expressiveStrength). Every input
+  // (personas, shape, weights) is known/locked at greenlight, so for a full team the band shown here is the
+  // SAME band the autopsy later reports for the identical deterministic inputs. A partial team is an honest
+  // partial estimate over the contributors chosen so far (+ the known shape).
+  const weighted: { key: keyof typeof ROLE_WEIGHT; vec: AlignmentVec }[] = contribs.map((c) => ({ key: c.role, vec: c.vec }))
+  weighted.push({ key: 'shape', vec: resolveShape(sel.shape).expression })
+  let wsum = 0
+  const centroid: AlignmentVec = { intimacy: 0, tonalWeight: 0, kineticEnergy: 0 }
+  for (const w of weighted) {
+    const rw = ROLE_WEIGHT[w.key]
+    centroid.intimacy += rw * w.vec.intimacy
+    centroid.tonalWeight += rw * w.vec.tonalWeight
+    centroid.kineticEnergy += rw * w.vec.kineticEnergy
+    wsum += rw
+  }
+  centroid.intimacy /= wsum; centroid.tonalWeight /= wsum; centroid.kineticEnergy /= wsum
+  let directionalAgreement = 0
+  if (magnitude(centroid) >= TUNING.CENTROID_MIN_MAGNITUDE) {
+    let an = 0, ad = 0
+    for (const w of weighted) { const rw = ROLE_WEIGHT[w.key]; an += rw * alignCosine(w.vec, centroid); ad += rw }
+    directionalAgreement = an / ad
+  }
+  const expressiveStrength = clamp(mean(weighted.map((w) => magnitude(w.vec))) / TUNING.EXPECTED_EXPRESSION, 0, 1)
+  const cohesion = clamp(directionalAgreement, 0, 1) * lerp(TUNING.EXPRESSION_FLOOR, 1.0, expressiveStrength)
+  const score = Math.round(cohesion * 100)
+  const band: TeamDirectionPreview['band'] = cohesion < 0.4 ? 'Weak' : cohesion > 0.7 ? 'Strong' : 'Mixed'
+  // Axes the most-opposed pair genuinely pull against each other on (opposite sign, both meaningful).
+  const axisConflicts: string[] = []
+  if (mostOpposed && mostOpposed.agreement < 0.4) {
+    const findVec = (label: string) => contribs.find((c) => TEAM_ROLE_LABEL[c.role] === label)!.vec
+    const va = findVec(mostOpposed.a), vb = findVec(mostOpposed.b)
+    for (const axis of ['intimacy', 'tonalWeight', 'kineticEnergy'] as const) {
+      if (va[axis] * vb[axis] < 0 && Math.abs(va[axis]) > 0.15 && Math.abs(vb[axis]) > 0.15) axisConflicts.push(TEAM_AXIS_LABEL[axis])
+    }
+  }
+  // Confidence: the DIRECTION is known (deterministic) once contributors are chosen; the more of the core
+  // team (writer/director/lead) is set, the more complete the picture. Realized performance still varies.
+  const coreFilled = [writer, director, byId(sel.cast.lead)].filter(Boolean).length
+  const confidence: TeamDirectionPreview['confidence'] = contribs.length >= 5 ? 'high' : coreFilled >= 3 ? 'medium' : 'low'
+  let summary: string
+  if (band === 'Strong') {
+    summary = mostCompatible
+      ? `The team points in a consistent creative direction — ${mostCompatible.a} and ${mostCompatible.b} are especially compatible. Individually strong Fits should reinforce each other here.`
+      : 'The team points in a consistent creative direction.'
+  } else if (band === 'Weak') {
+    summary = mostOpposed
+      ? `${mostOpposed.a} and ${mostOpposed.b} appear strongly opposed${axisConflicts.length ? ` on ${listWords(axisConflicts)}` : ''} — even high individual Fits can form an incoherent team. Consider changing one assignment.`
+      : 'Key contributors point in different creative directions — even high individual Fits can form an incoherent team.'
+  } else {
+    summary = mostOpposed && mostOpposed.agreement < 0.4
+      ? `The team mostly agrees, but ${mostOpposed.a} and ${mostOpposed.b} pull against the grain${axisConflicts.length ? ` on ${listWords(axisConflicts)}` : ''}.`
+      : 'The team mostly agrees on the film’s creative direction.'
+  }
+  return { ready: true, filledRoles: contribs.length, band, score, mostCompatible, mostOpposed, axisConflicts, confidence, summary }
+}
+function listWords(xs: string[]): string {
+  if (xs.length <= 1) return xs[0] ?? ''
+  if (xs.length === 2) return `${xs[0]} and ${xs[1]}`
+  return `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`
 }
 
 // ── D-11.A post-reload film record ────────────────────────────────────────────

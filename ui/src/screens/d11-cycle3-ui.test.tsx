@@ -95,16 +95,16 @@ function toSpecialization(name: string) {
 
 // ═══ PART 1 — Balanced Creator SPECIALIZATION ═══════════════════════════════
 
-describe('D-11.C PART 1: Balanced creator shows a player-facing STANDING (percentile + tier)', () => {
-  it('the live panel reports "~Nth %ile — <tier>" for the derived primary OVR', () => {
+describe('D-11.C PART 1: Balanced creator shows a player-facing STANDING (four separate facts)', () => {
+  it('reports OVR, experience status, market percentile and career tier as four labeled rows (D-12 P8)', () => {
     render(<TalentCreator state={newGame('c3-standing')} onCreated={() => {}} onBack={() => {}} />)
-    const standing = screen.getByTestId('balanced-standing')
-    const text = standing.textContent ?? ''
-    // Percentile is shown, and a named standing tier follows it.
-    expect(text).toMatch(/\d+(st|nd|rd|th)?\s*%ile/i)
-    expect(text).toMatch(/[A-Za-z]/)
+    // Four distinct facts, no longer one confusing statement.
+    expect(screen.getByTestId('balanced-standing-ovr').textContent).toMatch(/OVR\s*\d+/i)
+    expect(screen.getByTestId('balanced-standing-experience').textContent).toMatch(/unproven/i)
+    expect(screen.getByTestId('balanced-standing-percentile').textContent).toMatch(/percentile/i)
+    expect(screen.getByTestId('balanced-standing-tier').textContent).toMatch(/[A-Za-z]/)
     // A Balanced default is a prospect — well under the top decile.
-    expect(leadingInt('balanced-standing')).toBeLessThan(90)
+    expect(leadingInt('balanced-standing-percentile')).toBeLessThan(90)
   })
 })
 

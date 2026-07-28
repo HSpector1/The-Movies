@@ -108,7 +108,7 @@ function clampInt(raw: number, lo: number, hi: number, fallback: number): number
 const clampSkill = (raw: number) => clampInt(raw, 1, 99, 1)
 const clampFame = (raw: number) => clampInt(raw, 0, 100, 0)
 const clampWorkEthic = (raw: number) => clampInt(raw, 1, 99, 50)
-const clampAge = (raw: number) => clampInt(raw, 18, 70, 35)
+const clampAge = (raw: number) => clampInt(raw, 18, 70, 18)
 
 // ── the persistent draft (mirrors CustomTalentInput; always well-formed) ──────
 
@@ -148,7 +148,7 @@ function initialDraft(): Draft {
   return {
     name: '',
     role: 'actor',
-    age: 35,
+    age: 18, // D-12 P8: default age 18
     actual: { warmth: 0, gravity: 0, physicality: 0 },
     workEthic: 50,
     fame: 0,
