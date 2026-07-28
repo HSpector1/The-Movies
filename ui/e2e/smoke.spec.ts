@@ -200,6 +200,8 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
 
   // Start a NEW game (different seed), then import the exported save.
   await page.getByTestId('open-saves').click()
+  // "New Studio" is now a confirmed destructive action (D-12 A5) — a real user accepts the prompt.
+  page.once('dialog', (dialog) => dialog.accept())
   await page.getByTestId('restart-game').click()
   await expect(page.getByTestId('new-game')).toBeVisible()
   await page.getByTestId('seed-input').fill('a-totally-different-seed')

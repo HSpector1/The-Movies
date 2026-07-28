@@ -401,7 +401,12 @@ export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, satur
     const openingCenter = centers.centersOpening[seg.id]!
     const openingEstimate = clamp(openingCenter + offset, 0, 100)
     noisyOpening[seg.id] = openingEstimate
-    const low = clamp(estimate - width, 0, 100)
+    // D-12 final downside: widen the LOW band ONLY (asymmetric) for low-confidence / unproven / low-Fit
+    // packages when engaged — the studio does not know future delivery at greenlight, so the downside
+    // must be honest. The estimate and high are unchanged (a favorable seed can still profit). Not
+    // engaged ⇒ downsideWiden = 0 (M0A byte-identical).
+    const downsideWiden = engaged ? TUNING.FORECAST_DOWNSIDE_WIDEN[confidence] : 0
+    const low = clamp(estimate - width - downsideWiden, 0, 100)
     const high = clamp(estimate + width, 0, 100)
     segments.push({
       segmentId: seg.id,

@@ -31,6 +31,8 @@ import {
   previewForecast,
   marketingEfficiency,
   productionDemandView,
+  capitalExposure,
+  shapeExplainView,
   greenlight,
   findConcept,
   assessCreativeCohesion,
@@ -521,21 +523,58 @@ function ConceptStep({
   selected: string | null
   onSelect: (id: string) => void
 }) {
+  // C3: bounded script browsing over the EXISTING concept data — sort by base cost, filter by genre,
+  // search by title. The current selection is preserved as the sort/filter changes (only the display
+  // order/subset changes; onSelect is not touched). No new script-development system.
+  type Sort = 'default' | 'costAsc' | 'costDesc'
+  const [sort, setSort] = useState<Sort>('default')
+  const [genre, setGenre] = useState<string>('all')
+  const [query, setQuery] = useState('')
+  const genres = Array.from(new Set(concepts.map((c) => c.genre))).sort()
+  const shown = concepts
+    .filter((c) => (genre === 'all' || c.genre === genre) && (query === '' || c.title.toLowerCase().includes(query.toLowerCase())))
+    .sort((a, b) =>
+      sort === 'costAsc' ? a.baseNegativeCost - b.baseNegativeCost : sort === 'costDesc' ? b.baseNegativeCost - a.baseNegativeCost : 0,
+    )
   return (
     <div className="card">
       <h2>Choose a concept</h2>
       <p className="hint">Only the studio-visible details are shown: title, genre, base needs, roles.</p>
-      <div className="grid grid-3" data-testid="concept-grid">
-        {concepts.map((c) => (
-          <ConceptCard
-            key={c.id}
-            concept={c}
-            mode="normal"
-            selected={selected === c.id}
-            onSelect={onSelect}
-          />
-        ))}
+      <div className="row" style={{ gap: 12, alignItems: 'center', flexWrap: 'wrap', marginBottom: 8 }} data-testid="concept-browse">
+        <label className="hint" htmlFor="concept-sort">Sort by base cost</label>
+        <select id="concept-sort" value={sort} onChange={(e) => setSort(e.target.value as Sort)} data-testid="concept-sort">
+          <option value="default">Default</option>
+          <option value="costAsc">Cost: low to high</option>
+          <option value="costDesc">Cost: high to low</option>
+        </select>
+        <label className="hint" htmlFor="concept-genre">Genre</label>
+        <select id="concept-genre" value={genre} onChange={(e) => setGenre(e.target.value)} data-testid="concept-genre">
+          <option value="all">All genres</option>
+          {genres.map((g) => (
+            <option key={g} value={g}>
+              {genreLabel(g as Genre)}
+            </option>
+          ))}
+        </select>
+        <input
+          type="search"
+          placeholder="Search title…"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          data-testid="concept-search"
+          aria-label="Search concepts by title"
+        />
+        <span className="hint mono" data-testid="concept-count">{shown.length} of {concepts.length}</span>
       </div>
+      {shown.length === 0 ? (
+        <div className="empty" data-testid="concept-none">No concepts match. Clear the search or genre filter.</div>
+      ) : (
+        <div className="grid grid-3" data-testid="concept-grid">
+          {shown.map((c) => (
+            <ConceptCard key={c.id} concept={c} mode="normal" selected={selected === c.id} onSelect={onSelect} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -547,6 +586,7 @@ function ShapeStep({ shape, onChange }: { shape: FilmShape; onChange: (s: FilmSh
     { key: 'midpoint', label: 'Midpoint', options: MIDPOINT_OPTIONS },
     { key: 'ending', label: 'Ending', options: ENDING_OPTIONS },
   ]
+  const explain = shapeExplainView(shape)
   return (
     <div className="card">
       <h2>Shape the story</h2>
@@ -554,6 +594,17 @@ function ShapeStep({ shape, onChange }: { shape: FilmShape; onChange: (s: FilmSh
         Three structural choices. Each has a creative meaning; the studio does not tell you which is
         “best”.
       </p>
+      {/* C2: plain-English, engine-derived summary of what the CURRENT shape does — updates live and
+          is shown alongside the actual reach/craft/demand deltas below. */}
+      <div className="panel stack" data-testid="shape-explanation">
+        <strong>{explain.summary}</strong>
+        <span className="hint mono">
+          opening reach {explain.openingReachMod > 0 ? '+' : ''}
+          {explain.openingReachMod} · craft {explain.craftMod > 0 ? '+' : ''}
+          {explain.craftMod} · Production Demand {explain.budgetDemandMultiplier.toFixed(2)}× (
+          {explain.demandCategory})
+        </span>
+      </div>
       <div className="grid grid-3">
         {groups.map((g) => (
           <div className="stack" key={g.key} data-testid={`shape-group-${g.key}`}>
@@ -894,6 +945,7 @@ function BudgetStep({
   const forecast = pkg ? previewForecast(state, pkg) : null
   const mktEff = pkg ? marketingEfficiency(state, pkg) : null // D-12 P2 awareness-conditioned marketing state
   const demand = productionDemandView(state, concept, draft.shape, negative) // D-12 production-demand read model
+  const exposure = capitalExposure(state, committed) // C1: capital exposure (separate from solvency)
 
   return (
     <div className="stack">
@@ -1012,10 +1064,33 @@ function BudgetStep({
         </div>
       </div>
 
-      {/* ── Studio impact ── */}
+      {/* ── Studio impact — C1: solvency and EXPOSURE are separate; a solvent-but-aggressive
+          commitment is not reassured with a single green tick. ── */}
       <div className="card stack" data-testid="budget-impact">
         <h3 style={{ marginTop: 0 }}>Studio impact</h3>
         <div className="row" style={{ gap: 24, flexWrap: 'wrap' }}>
+          <Metric label="Solvency" small testid="budget-solvency">
+            <span className={preview.affordable ? 'money pos' : 'money neg'}>
+              {preview.affordable ? 'Pass' : 'Blocked'}
+            </span>
+          </Metric>
+          <Metric label="Capital committed" small testid="budget-capital-committed">
+            {moneyExact(committed)} · {Math.round(exposure.pctOfCash * 100)}% of current cash
+          </Metric>
+          <Metric label="Exposure" small testid="budget-exposure">
+            {/* NOT green for High/Extreme — passing solvency does not make an aggressive bet safe. */}
+            <span
+              className={
+                exposure.exposure === 'Low'
+                  ? 'money pos'
+                  : exposure.exposure === 'Extreme'
+                    ? 'money neg'
+                    : 'mono'
+              }
+            >
+              {exposure.exposure}
+            </span>
+          </Metric>
           <Metric label="Current Cash" small>
             <span className={cash < 0 ? 'money neg' : 'money pos'}>{moneyExact(cash)}</span>
           </Metric>
@@ -1024,15 +1099,17 @@ function BudgetStep({
               {moneyExact(preview.cashAfter)}
             </span>
           </Metric>
-          <Metric label="Affordability" small testid="budget-affordability">
-            <span className={preview.affordable ? 'money pos' : 'money neg'}>
-              {preview.affordable ? 'Affordable ✓' : 'Blocked ✗'}
-            </span>
-          </Metric>
           <Metric label="Post-Greenlight Runway" small testid="budget-runway">
             {preview.postRunway.infinite ? '—' : `${preview.postRunway.weeks} wk`}
           </Metric>
         </div>
+        {(exposure.exposure === 'High' || exposure.exposure === 'Extreme') && preview.affordable && (
+          <p className="hint" data-testid="budget-exposure-note">
+            This greenlight is solvent, but it commits {Math.round(exposure.pctOfCash * 100)}% of your
+            current cash — a {exposure.exposure.toLowerCase()}-exposure bet. One weak result could leave
+            the studio thin. Consider a smaller Production Budget or Marketing.
+          </p>
+        )}
         {goesNegative && (
           <Warn>
             This commitment ({moneyExact(committed)}) is more than the studio has on hand
@@ -1087,6 +1164,7 @@ function ReviewStep({
 }) {
   const committed = totalCommittedCost(state, pkg)
   const breakEven = breakEvenGross(committed)
+  const exposure = capitalExposure(state, committed) // C1: solvency and exposure are separate
   return (
     <div className="stack">
       {/* Film Readiness — assembled from the four real dimensions, not a hidden score */}
@@ -1131,7 +1209,22 @@ function ReviewStep({
           <div className="spread" data-testid="release-gate">
             <span>Solvency gate</span>
             <strong className={preview.affordable ? 'money pos' : 'money neg'}>
-              {preview.affordable ? 'Affordable ✓' : 'Blocked ✗'}
+              {preview.affordable ? 'Pass ✓' : 'Blocked ✗'}
+            </strong>
+          </div>
+          <div className="spread" data-testid="release-exposure">
+            <span>Capital exposure ({Math.round(exposure.pctOfCash * 100)}% of cash)</span>
+            {/* Passing solvency does not make an aggressive bet safe — not green for High/Extreme. */}
+            <strong
+              className={
+                exposure.exposure === 'Low'
+                  ? 'money pos'
+                  : exposure.exposure === 'Extreme'
+                    ? 'money neg'
+                    : 'mono'
+              }
+            >
+              {exposure.exposure}
             </strong>
           </div>
           {!preview.affordable && <Warn>{preview.reason}</Warn>}

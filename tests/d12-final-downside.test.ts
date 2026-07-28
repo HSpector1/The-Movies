@@ -97,6 +97,30 @@ describe('D-12 final downside — the weakest legal package carries real downsid
     expect(lean.profit.low).toBeLessThan(0)
   })
 
+  it("Letters-from-Vineyard profile (mixed OVR/Fit, unproven) — forecast downside crosses zero", () => {
+    // The owner's exact weak legal package: low, mixed OVR across roles, unproven, Generous budget, small
+    // marketing. At greenlight the studio does not know future delivery, so the DOWNSIDE must be negative
+    // (it must not appear guaranteed profitable) even though a favorable seed can still profit.
+    const t = (role: 'writer' | 'director' | 'actor', skill: number) => makeTalent({ role, skill, fame: 4 })
+    const se = makeShapeEffects({ budgetDemandMultiplier: 1.0 })
+    const base = makeReceptionInputs({ shapeEffects: se })
+    const req = base.concept.baseNegativeCost * se.budgetDemandMultiplier * base.era.costScale
+    const inp = makeReceptionInputs({
+      shapeEffects: se,
+      writer: t('writer', 17),
+      director: t('director', 34),
+      cast: { lead: t('actor', 27), antagonist: t('actor', 36), support: t('actor', 44) },
+      budget: makeBudget(Math.round(req * 1.25), 100_000), // Generous budget, Small marketing
+    })
+    const range = forecastProfitRange(inp, {
+      seed: 'letters', productionId: 'p', directorId: inp.director.id, releasedFilms: [], concepts: [inp.concept],
+      salaries: 0, saturateFame: true, engaged: true,
+    })
+    expect(range.profit.low).toBeLessThan(0) // downside is genuinely negative — NOT a guaranteed profit
+    // Generous funding did not erase the talent/Fit risk: the downside is a meaningful loss.
+    expect(range.profit.low).toBeLessThan(-0.1 * range.committedCost)
+  })
+
   it('a STRONGER package (same concept, competent talent) has materially better economics', () => {
     const strongTalent = (role: 'writer' | 'director' | 'actor') => makeTalent({ role, skill: 70, fame: 25 })
     const se = makeShapeEffects({ budgetDemandMultiplier: 1.05 })

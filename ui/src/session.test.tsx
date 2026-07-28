@@ -5,8 +5,8 @@
 // fails safely on a corrupt payload, cannot collide with another app's storage key, and is cleared
 // only by an explicit New Studio.
 
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
-import { render, screen, cleanup } from '@testing-library/react'
+import { describe, it, expect, beforeEach, afterEach } from 'vitest'
+import { render, screen, cleanup, fireEvent } from '@testing-library/react'
 import {
   greenlight,
   advanceToNextEvent,
@@ -161,5 +161,50 @@ describe('D-12 active-session recovery — App startup', () => {
     localStorage.setItem(ACTIVE_SESSION_KEY, 'garbage')
     render(<App />)
     expect(screen.getByTestId('recovery-notice').textContent).toMatch(/Could not recover/i)
+  })
+})
+
+// New Studio is a confirmed destructive action (D-12 A5). The prompt must fire on the LIVE studio,
+// not on whether persistence happened to succeed — otherwise private-mode/storage-disabled sessions
+// would be wiped silently. These tests drive the real Saves → New Studio button.
+describe('D-12 New Studio — confirmed destructive action', () => {
+  function openNewStudio(): number {
+    fireEvent.click(screen.getByTestId('open-saves'))
+    fireEvent.click(screen.getByTestId('restart-game'))
+    return 0
+  }
+
+  it('asks for confirmation and PRESERVES the studio when the player declines', () => {
+    saveActiveSession(newFoundedGame('confirm-decline'))
+    render(<App />)
+    expect(screen.getByTestId('dash-week')).toBeInTheDocument()
+    let asked = 0
+    const orig = window.confirm
+    window.confirm = () => {
+      asked++
+      return false // the player cancels
+    }
+    try {
+      openNewStudio()
+    } finally {
+      window.confirm = orig
+    }
+    expect(asked).toBeGreaterThan(0) // the guard fired on the in-memory studio
+    expect(screen.queryByTestId('new-game')).toBeNull() // did NOT drop to the Start screen
+    expect(hasActiveSession()).toBe(true) // studio preserved — the autosave is intact
+  })
+
+  it('wipes to the Start screen and clears the autosave when the player confirms', () => {
+    saveActiveSession(newFoundedGame('confirm-accept'))
+    render(<App />)
+    const orig = window.confirm
+    window.confirm = () => true
+    try {
+      openNewStudio()
+    } finally {
+      window.confirm = orig
+    }
+    expect(screen.getByTestId('new-game')).toBeInTheDocument() // dropped to the Start screen
+    expect(hasActiveSession()).toBe(false) // autosave cleared so a refresh won't resurrect it
   })
 })

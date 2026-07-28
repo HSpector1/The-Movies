@@ -53,12 +53,7 @@ import { HiringMarket } from './screens/HiringMarket.tsx'
 import { FilmRecord } from './screens/FilmRecord.tsx'
 import { NewspaperReveal } from './screens/NewspaperReveal.tsx'
 import { WeeklySummary } from './screens/WeeklySummary.tsx'
-import {
-  saveActiveSession,
-  loadActiveSession,
-  hasActiveSession,
-  clearActiveSession,
-} from './engine/session.ts'
+import { saveActiveSession, loadActiveSession, clearActiveSession } from './engine/session.ts'
 
 type Screen =
   | { kind: 'start' }
@@ -192,14 +187,16 @@ export function App() {
     setScreen(next.founding !== null ? { kind: 'founding' } : { kind: 'dashboard' })
   }
 
-  // A destructive "new studio" — confirmed when an active session exists, then the autosave is
-  // cleared so a subsequent refresh does not resurrect the abandoned studio.
+  // A destructive "new studio" — confirmed whenever a live studio exists, then the autosave is
+  // cleared so a subsequent refresh does not resurrect the abandoned studio. The prompt is gated on
+  // the in-memory studio (`state`), NOT on whether persistence succeeded: in private/incognito mode
+  // hasActiveSession() is false, but there is still a live studio to lose, so it must still confirm.
   function requestNewGame() {
     if (
-      hasActiveSession() &&
+      state !== null &&
       typeof window !== 'undefined' &&
       typeof window.confirm === 'function' &&
-      !window.confirm('Start a new studio? This will replace the current recovered session.')
+      !window.confirm('Start a new studio? This will replace your current studio.')
     ) {
       return
     }

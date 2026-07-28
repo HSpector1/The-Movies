@@ -96,6 +96,12 @@ export const TUNING = {
   // moved into TUNING per B17, at B17-revised values
   FORECAST_SIGMA: { high: 5, medium: 10, low: 16 },
   CONFIDENCE_INTERVAL_WIDTH: { high: 7, medium: 11, low: 14 },
+  // D-12 final downside: ENGAGED-only ASYMMETRIC downside widening (extra appeal points on the LOW
+  // forecast band only — the expected value and upside are unchanged). At greenlight the studio does
+  // not know future delivery, so an unproven / low-Fit / low-confidence package must show a genuinely
+  // negative downside; a well-assembled, confident package keeps a tight band. Not engaged ⇒ 0 (M0A
+  // byte-identical). Keyed by the film-level confidence tier.
+  FORECAST_DOWNSIDE_WIDEN: { high: 0, medium: 7, low: 16 },
 
   // per D-5 — twelve numbers the tuning loop may adjust (intimacy, tonalWeight, kineticEnergy)
   SEGMENT_TASTES: {

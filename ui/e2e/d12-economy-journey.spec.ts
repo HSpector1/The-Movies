@@ -58,10 +58,12 @@ test('D-12: finances card, release-strategy gate, sim-to-event, theatrical run +
   }
   await page.getByTestId('assembly-next').click() // → budget
   await page.getByTestId('assembly-next').click() // → review
-  // Release Strategy panel: break-even gross, cash-after, solvency gate = affordable.
+  // Release Strategy panel: break-even gross, cash-after, solvency gate = Pass (D-12 C1: the gate
+  // reads Pass/Blocked, with capital exposure surfaced separately rather than a single "Affordable" tick).
   await expect(page.getByTestId('release-breakeven')).toBeVisible()
   await expect(page.getByTestId('release-cash-after')).toBeVisible()
-  await expect(page.getByTestId('release-gate')).toContainText('Affordable')
+  await expect(page.getByTestId('release-gate')).toContainText('Pass')
+  await expect(page.getByTestId('release-exposure')).toBeVisible()
   await shot(page, 'd12-2-release-strategy')
   await expect(page.getByTestId('greenlight')).toBeEnabled()
   await page.getByTestId('greenlight').click()

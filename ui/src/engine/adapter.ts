@@ -517,6 +517,33 @@ export function requiredNegative(concept: FilmConcept, shape: FilmShape, state: 
   )
 }
 
+// ── D-12 owner UX (C1): capital exposure read model ───────────────────────────
+// Solvency (does the greenlight overdraw the studio) is SEPARATE from exposure (how aggressive the
+// commitment is relative to current cash). A solvent-but-aggressive decision must not be reassured
+// with a single green "Affordable ✓". Thresholds are centralized here; adjust only with reasoning.
+export type ExposureLevel = 'Low' | 'Moderate' | 'High' | 'Extreme'
+export type CapitalExposureView = {
+  committed: number
+  cash: number
+  pctOfCash: number // committed ÷ current cash (0..1+)
+  exposure: ExposureLevel
+}
+// Diagnostic thresholds (fraction of current cash): Low <25%, Moderate 25–40%, High 40–60%, Extreme >60%.
+export const EXPOSURE_THRESHOLDS = { moderate: 0.25, high: 0.4, extreme: 0.6 } as const
+export function capitalExposure(state: GameState, committed: number): CapitalExposureView {
+  const cash = selectCash(state)
+  const pct = cash > 0 ? committed / cash : committed > 0 ? 1 : 0
+  const exposure: ExposureLevel =
+    pct < EXPOSURE_THRESHOLDS.moderate
+      ? 'Low'
+      : pct < EXPOSURE_THRESHOLDS.high
+        ? 'Moderate'
+        : pct < EXPOSURE_THRESHOLDS.extreme
+          ? 'High'
+          : 'Extreme'
+  return { committed, cash, pctOfCash: pct, exposure }
+}
+
 // ── D-12 final downside: Production Demand read model (engine-derived) ─────────
 // Answers "how much funding does THIS film need to realize its ambition reliably" — never "how much
 // box office would you like to buy". Production DEMAND = requiredNegative (concept base cost × the
@@ -541,6 +568,43 @@ export type ProductionDemandView = {
   drivers: string
   consequence: string
 }
+// ── D-12 owner UX (C2): Shape explanation (engine-derived prose) ──────────────
+// The owner saw abstract Reach/Craft numbers but could not tell what a Shape did. This turns the
+// COMBINED shape effects (resolveShape) into plain English: creative direction, opening-reach vs
+// writing/performance emphasis, Production Demand, and the execution tradeoff. The prose is derived
+// from the real deltas (never hard-coded to contradict them) and shown ALONGSIDE the actual numbers.
+export type ShapeExplainView = {
+  openingReachMod: number
+  craftMod: number
+  budgetDemandMultiplier: number
+  demandCategory: ProductionDemandCategory
+  summary: string
+}
+export function shapeExplainView(shape: FilmShape): ShapeExplainView {
+  const se = resolveShape(shape)
+  const reach = se.openingReachMod
+  const craft = se.craftMod
+  const demand = se.budgetDemandMultiplier
+  const demandCategory: ProductionDemandCategory =
+    demand < 0.95 ? 'Contained' : demand < 1.15 ? 'Standard' : demand < 1.35 ? 'Demanding' : 'Highly Demanding'
+  const direction =
+    reach > 6 ? 'Kinetic and accessible' : reach < -6 ? 'Contained and intimate' : 'Balanced'
+  const reachClause =
+    reach > 6
+      ? 'broader opening reach'
+      : reach < -6
+        ? 'less opening reach, leaning on writing and performance'
+        : 'moderate opening reach'
+  const craftClause =
+    craft > 4
+      ? 'and more room to deliver strong craft'
+      : craft < -4
+        ? 'and higher execution risk (craft is harder to land)'
+        : 'with moderate execution demands'
+  const summary = `${direction}: ${reachClause}, ${demandCategory.toLowerCase()} Production Demand, ${craftClause}.`
+  return { openingReachMod: reach, craftMod: craft, budgetDemandMultiplier: demand, demandCategory, summary }
+}
+
 export function productionDemandView(
   state: GameState,
   concept: FilmConcept,

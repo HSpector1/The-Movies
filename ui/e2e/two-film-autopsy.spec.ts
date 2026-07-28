@@ -195,6 +195,8 @@ test('two different films keep DISTINCT autopsy participants, preserved across s
   await page.getByTestId('open-saves').click()
   const saveJson = await page.getByTestId('export-text').inputValue()
   expect(saveJson.length).toBeGreaterThan(100)
+  // "New Studio" is now a confirmed destructive action (D-12 A5) — a real user accepts the prompt.
+  page.once('dialog', (dialog) => dialog.accept())
   await page.getByTestId('restart-game').click()
   await expect(page.getByTestId('new-game')).toBeVisible()
   await page.getByTestId('seed-input').fill('two-film-reload-throwaway')

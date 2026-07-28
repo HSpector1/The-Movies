@@ -161,8 +161,10 @@ describe('A3: the budget step uses Production Budget, with the negative-cost hel
     expect(screen.getByText('Your spending decision')).toBeInTheDocument()
     expect(screen.getByText('Studio impact')).toBeInTheDocument()
     expect(screen.getByText('Commercial outlook')).toBeInTheDocument()
-    // Studio impact surfaces affordability + runway here, not only at Review.
-    expect(screen.getByTestId('budget-affordability')).toBeInTheDocument()
+    // Studio impact surfaces solvency, capital exposure, and runway here (C1), not only at Review.
+    // (The single reassuring "Affordable ✓" tick was replaced by separate Solvency + Exposure.)
+    expect(screen.getByTestId('budget-solvency')).toBeInTheDocument()
+    expect(screen.getByTestId('budget-exposure')).toBeInTheDocument()
     expect(screen.getByTestId('budget-runway')).toBeInTheDocument()
     expect(screen.getByText('Break-even Theatrical Gross')).toBeInTheDocument()
   })
