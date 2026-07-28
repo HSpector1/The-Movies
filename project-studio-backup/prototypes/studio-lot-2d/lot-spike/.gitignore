@@ -1,0 +1,13 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+
+# The repo-root .gitignore globally ignores `tools/` and `README.md` (they were
+# archive-scoped up there). This spike legitimately ships both — re-include them.
+!README.md
+!tools/
+!tools/**
+
+# pass-4 asset pipeline scratch
+.asset-tmp/

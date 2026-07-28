@@ -1,0 +1,349 @@
+diff --git a/README.md b/README.md
+index daa7efa..2981082 100644
+--- a/README.md
++++ b/README.md
+@@ -102,6 +102,20 @@ in `proof/lab02/`. See `docs/ASSET-LAB-02-BRIEF.md`, `VISUAL-TARGET-FINDINGS.md`
+ `MATERIAL-CORRECTION.md`, `STUDIO-GREYBOX-INVENTORY.md`, `ASSET-LAB-02-PERFORMANCE.md`,
+ `OWNER-REVIEW-GUIDE.md`, `ASSET-LAB-02-INTEGRATION-RECOMMENDATION.md`.
+ 
++## Asset Lab 03 — Hero Soundstage Art-Direction Proof (branch `asset-lab-03-hero-soundstage`)
++
++A bounded art-direction milestone: **Scene E** takes **one** facility (Stage 1) and its immediate
++production apron from greybox to a convincing **production-fidelity hero** — articulated silhouette
++(recessed elephant doors, parapet/cornice, ridge monitor, loading dock, red-eye), procedural PBR
++(corrugated-metal + weathered-concrete normal/roughness maps), ACES tone mapping, baked contact
++shadows, and an active grip/electric apron with CC0 crew. **Scene D is left untouched** as the
++greybox baseline — toggle **D ⇄ E** for a direct greybox-vs-hero comparison of the same building.
++Boots on Scene E. Adds an optional, default-off `postprocessing` pass (bloom/AO) for real-GPU
++review. A four-iteration refinement loop then improved architecture, signage, ground, crew, and
++composition (`proof/lab03/iteration-01..04/`). Evidence in `proof/lab03/`. See
++`docs/ASSET-LAB-03-BRIEF.md`, `HERO-SOUNDSTAGE-FINDINGS.md`, `ASSET-LAB-03-OWNER-REVIEW-GUIDE.md`,
++`ASSET-LAB-03-INTEGRATION-RECOMMENDATION.md`, `ASSET-LAB-03-REFINEMENT-LOOP.md`.
++
+ ## Documents
+ 
+ - [`docs/ASSET-INVENTORY.md`](docs/ASSET-INVENTORY.md)
+diff --git a/package-lock.json b/package-lock.json
+index 87cc3a8..9524333 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -10,6 +10,8 @@
+       "dependencies": {
+         "@react-three/drei": "^9.109.2",
+         "@react-three/fiber": "^8.16.8",
++        "@react-three/postprocessing": "2.19.1",
++        "postprocessing": "6.35.5",
+         "react": "^18.3.1",
+         "react-dom": "^18.3.1",
+         "three": "^0.161.0"
+@@ -1639,6 +1641,44 @@
+         }
+       }
+     },
++    "node_modules/@react-three/postprocessing": {
++      "version": "2.19.1",
++      "resolved": "https://registry.npmjs.org/@react-three/postprocessing/-/postprocessing-2.19.1.tgz",
++      "integrity": "sha512-7P25LOSToH/I6b3UipNK17IIFlX4FDUmWcaomfwu82+CzhXTOz8Fcc1ZXEZ7vFA/5Fr/2peNlXgXZJvoa+aCdA==",
++      "license": "MIT",
++      "dependencies": {
++        "buffer": "^6.0.3",
++        "maath": "^0.6.0",
++        "n8ao": "^1.6.6",
++        "postprocessing": "^6.32.1",
++        "three-stdlib": "^2.23.4"
++      },
++      "peerDependencies": {
++        "@react-three/fiber": "^8.0",
++        "react": "^18.0",
++        "three": ">= 0.138.0"
++      }
++    },
++    "node_modules/@react-three/postprocessing/node_modules/maath": {
++      "version": "0.6.0",
++      "resolved": "https://registry.npmjs.org/maath/-/maath-0.6.0.tgz",
++      "integrity": "sha512-dSb2xQuP7vDnaYqfoKzlApeRcR2xtN8/f7WV/TMAkBC8552TwTLtOO0JTcSygkYMjNDPoo6V01jTw/aPi4JrMw==",
++      "license": "MIT",
++      "peerDependencies": {
++        "@types/three": ">=0.144.0",
++        "three": ">=0.144.0"
++      }
++    },
++    "node_modules/@react-three/postprocessing/node_modules/n8ao": {
++      "version": "1.10.3",
++      "resolved": "https://registry.npmjs.org/n8ao/-/n8ao-1.10.3.tgz",
++      "integrity": "sha512-JFRk4WgUAUWO2KdJTqmBT02dP9kG7rE2oQbBy64E9+YwQ3d96KB9QBanqNy/NnYUfUTYU6Z/5OS5t/yLey7+6Q==",
++      "license": "ISC",
++      "peerDependencies": {
++        "postprocessing": ">=6.30.0",
++        "three": ">=0.137"
++      }
++    },
+     "node_modules/@rolldown/pluginutils": {
+       "version": "1.0.0-beta.27",
+       "resolved": "https://registry.npmjs.org/@rolldown/pluginutils/-/pluginutils-1.0.0-beta.27.tgz",
+@@ -3931,6 +3971,18 @@
+         "node": "^10 || ^12 || >=14"
+       }
+     },
++    "node_modules/postprocessing": {
++      "version": "6.35.5",
++      "resolved": "https://registry.npmjs.org/postprocessing/-/postprocessing-6.35.5.tgz",
++      "integrity": "sha512-nO8pxbiQT7+u3qv/q4LL1x6tstZWuduDlkOLFWQm3vFFKHzAsRMxqwsGAktkHKMSGXVEwTBvT3TKPklNALQheg==",
++      "license": "Zlib",
++      "engines": {
++        "node": ">= 0.13.2"
++      },
++      "peerDependencies": {
++        "three": ">= 0.152.0 < 0.166.0"
++      }
++    },
+     "node_modules/potpack": {
+       "version": "1.0.2",
+       "resolved": "https://registry.npmjs.org/potpack/-/potpack-1.0.2.tgz",
+diff --git a/package.json b/package.json
+index 97b0edb..169f0fa 100644
+--- a/package.json
++++ b/package.json
+@@ -21,6 +21,8 @@
+   "dependencies": {
+     "@react-three/drei": "^9.109.2",
+     "@react-three/fiber": "^8.16.8",
++    "@react-three/postprocessing": "2.19.1",
++    "postprocessing": "6.35.5",
+     "react": "^18.3.1",
+     "react-dom": "^18.3.1",
+     "three": "^0.161.0"
+diff --git a/src/App.tsx b/src/App.tsx
+index 562af17..11c82a9 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -6,13 +6,14 @@ import { useRuntimeManifest } from './lab/useRuntimeManifest'
+ import { RoomEnv, Lights, WireframeController, StudioSky } from './components/env'
+ import { StatsCollector } from './components/StatsCollector'
+ import { CameraController } from './camera/CameraController'
+-import { SceneA, SceneB, SceneC, SceneD } from './scenes'
++import { ToneMapController, HeroGrounding, HeroSoftShadows, HeroComposer } from './components/HeroFx'
++import { SceneA, SceneB, SceneC, SceneD, SceneE } from './scenes'
+ import { DevPanel } from './ui/DevPanel'
+ import type { RuntimeManifest } from './types'
+ 
+ function LabScene({ manifest }: { manifest: RuntimeManifest | null }): JSX.Element {
+   const { state } = useLab()
+-  const warm = state.scene === 'D'
++  const warm = state.scene === 'D' || state.scene === 'E'
+   const bg = warm ? (state.atmosphere ? '#dcc9a8' : '#aeb6bd') : '#0e1116'
+   return (
+     <>
+@@ -23,6 +24,9 @@ function LabScene({ manifest }: { manifest: RuntimeManifest | null }): JSX.Eleme
+       {warm && state.atmosphere && <StudioSky />}
+       <RoomEnv />
+       <Lights />
++      {/* Scene-E hero render enhancements (ACES + grounding + optional PCSS), scoped to E so
++          Scene D keeps its plain greybox baseline. */}
++      {state.scene === 'E' && <><ToneMapController /><HeroSoftShadows /><HeroGrounding /><HeroComposer /></>}
+       <CameraController />
+       <OrbitControls makeDefault enableDamping={false} maxPolarAngle={Math.PI / 2.05} minDistance={1} maxDistance={180} />
+       <StatsCollector />
+@@ -37,6 +41,7 @@ function LabScene({ manifest }: { manifest: RuntimeManifest | null }): JSX.Eleme
+           {state.scene === 'B' && <SceneB manifest={manifest} />}
+           {state.scene === 'C' && <SceneC />}
+           {state.scene === 'D' && <SceneD manifest={manifest} />}
++          {state.scene === 'E' && <SceneE />}
+         </Suspense>
+       )}
+     </>
+diff --git a/src/camera/CameraController.tsx b/src/camera/CameraController.tsx
+index aa38ac0..9106f73 100644
+--- a/src/camera/CameraController.tsx
++++ b/src/camera/CameraController.tsx
+@@ -12,6 +12,7 @@ const PRESETS: Record<SceneKey, Record<CameraMode, Preset>> = {
+   B: { overview: { pos: [6.8, 5.2, 7.8], tgt: [0, 1, 0] }, inspection: { pos: [2.9, 1.7, 3.3], tgt: [0, 1, -1] } },
+   C: { overview: { pos: [3.0, 1.9, 3.4], tgt: [0, 1.0, 0] }, inspection: { pos: [1.5, 1.45, 1.9], tgt: [0, 1.15, 0] } },
+   D: { overview: { pos: [42, 34, 48], tgt: [2, 2, -1] }, inspection: { pos: [-3.5, 1.75, 11], tgt: [3, 1.4, 2] } },
++  E: { overview: { pos: [34, 20, 42], tgt: [-2, 5, -1] }, inspection: { pos: [23, 9, 27], tgt: [-2, 6, 3] } },
+ }
+ 
+ export function CameraController(): null {
+diff --git a/src/lab/LabContext.tsx b/src/lab/LabContext.tsx
+index f330b1b..5316305 100644
+--- a/src/lab/LabContext.tsx
++++ b/src/lab/LabContext.tsx
+@@ -24,8 +24,11 @@ export interface LabState {
+   showCharacters: boolean
+   showLandscaping: boolean
+   showDressing: boolean
++  showApron: boolean
+   showShadows: boolean
+   atmosphere: boolean
++  softShadows: boolean
++  postFx: boolean
+   clip: string
+   playing: boolean
+   loop: boolean
+@@ -34,11 +37,12 @@ export interface LabState {
+ }
+ 
+ export const INITIAL: LabState = {
+-  scene: 'D', cameraMode: 'overview', cameraResetNonce: 0,
++  scene: 'E', cameraMode: 'overview', cameraResetNonce: 0,
+   wireframe: false, showBounds: false, showGrid: false, showScaleRef: false, showSkeleton: false,
+   keyLight: 3.0, ambientLight: 0.6,
+   visibleDowntown: true, visibleProps: true, visibleCharacter: true,
+-  showCharacters: true, showLandscaping: true, showDressing: true, showShadows: true, atmosphere: true,
++  showCharacters: true, showLandscaping: true, showDressing: true, showApron: true,
++  showShadows: true, atmosphere: true, softShadows: false, postFx: false,
+   clip: 'Idle_Loop', playing: true, loop: true, speed: 1, rootMotion: false,
+ }
+ 
+diff --git a/src/lab/cameraBridge.ts b/src/lab/cameraBridge.ts
+index 11be3a7..b5c1d0c 100644
+--- a/src/lab/cameraBridge.ts
++++ b/src/lab/cameraBridge.ts
+@@ -15,3 +15,14 @@ export const D_VIEWS: Record<string, { pos: Vec3; tgt: Vec3 }> = {
+   Courtyard: { pos: [17, 8, 23], tgt: [3, 1.5, 2] },
+   'Human Scale': { pos: [-3.5, 1.75, 11], tgt: [3, 1.4, 2] },
+ }
++
++// Named Scene-E (hero soundstage) camera presets. Hero building sits at ~[0,0,-3], doors face +z,
++// the production apron spans +z in front of it. The front/left quadrant carries the hero read.
++export const E_VIEWS: Record<string, { pos: Vec3; tgt: Vec3 }> = {
++  Hero: { pos: [23, 9, 27], tgt: [-2, 6, 3] },
++  Overview: { pos: [34, 20, 42], tgt: [-2, 5, -1] },
++  Doors: { pos: [-3.5, 5, 23], tgt: [-3.5, 5, 6] },
++  Apron: { pos: [11, 4, 21], tgt: [-3, 1.5, 9] },
++  Roofline: { pos: [19, 16, 19], tgt: [0, 11, -3] },
++  'Human Scale': { pos: [1.5, 1.75, 16], tgt: [-3, 1.5, 8] },
++}
+diff --git a/src/scenes.tsx b/src/scenes.tsx
+index 77d7b1f..8a387c2 100644
+--- a/src/scenes.tsx
++++ b/src/scenes.tsx
+@@ -12,6 +12,8 @@ import {
+   WaterTower, CrateStack, Cart, FilmLight, Bench, ProductionTruck, Tree, Planter,
+   BacklotFacade, SceneryFlat, Banner, StagingMark,
+ } from './components/greybox'
++import { HeroSoundstage, ProductionApron, GroundDecals, WorldEdge, HeroWorkers, type HeroCrewSpec } from './components/hero'
++import { HM } from './lab/heroMaterials'
+ import type { RuntimeManifest, RuntimeAsset } from './types'
+ 
+ const by = (m: RuntimeManifest, id: string): RuntimeAsset | undefined => m.assets.find((a) => a.id === id)
+@@ -228,3 +230,41 @@ export function SceneD({ manifest }: { manifest: RuntimeManifest }): JSX.Element
+     </group>
+   )
+ }
++
++// ---------------------------------------------------------------------------
++// Scene E — HERO SOUNDSTAGE (Asset Lab 03). ONE facility at production fidelity: articulated
++// Stage 1 + its active grip/electric apron. Isolated: new hero materials/geometry only; Scene D
++// stays the untouched greybox baseline for the greybox⇄hero comparison.
++const HERO_CREW: HeroCrewSpec[] = [
++  { pos: [-7.6, 0, 12.2], rotY: -0.6, clip: 'Fixing_Kneeling', role: 'gaffer', startAt: 1.3 },   // gaffer tying in feeder at distro
++  { pos: [6.2, 0, 13.8], rotY: 2.6, clip: 'PickUp_Table', role: 'grip', startAt: 0.5 },          // grip lifting a case off the cart
++  { pos: [7.0, 0, 14.9], rotY: 3.4, clip: 'Idle_Talking_Loop', role: 'camera', startAt: 0.0 },   // DP at video village
++  { pos: [8.7, 0, 15.2], rotY: 3.0, clip: 'Idle_Talking_Loop', role: 'director', startAt: 1.7 }, // director at video village
++  { pos: [-2.2, 0, 11.8], rotY: 3.1, clip: 'Idle_Loop', role: 'electric', startAt: 2.2 },        // electrician standing by a hero light
++  { pos: [2.4, 0, 18.5], rotY: -2.4, clip: 'Walk_Loop', role: 'pa', startAt: 0.9 },              // PA crossing the apron
++]
++
++export function SceneE(): JSX.Element {
++  const { state } = useLab()
++  return (
++    <group>
++      {/* broad procedural-asphalt ground + the concrete production apron slab in front of the doors */}
++      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[2, -0.02, 6]} receiveShadow material={HM.asphalt}>
++        <planeGeometry args={[140, 140]} />
++      </mesh>
++      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[1, 0.005, 11]} receiveShadow material={HM.concrete}>
++        <planeGeometry args={[44, 32]} />
++      </mesh>
++
++      <HeroSoundstage pos={[0, 0, -3]} number="1" />
++
++      {state.showApron && <><ProductionApron /><GroundDecals /><WorldEdge /></>}
++
++      {state.showCharacters && (
++        <Suspense fallback={null}><HeroWorkers specs={HERO_CREW} /></Suspense>
++      )}
++
++      {state.showScaleRef && <HumanScaleRef position={[1.5, 0, 10]} />}
++    </group>
++  )
++}
+diff --git a/src/types.ts b/src/types.ts
+index 32ed47b..cd7fb22 100644
+--- a/src/types.ts
++++ b/src/types.ts
+@@ -34,5 +34,5 @@ export interface RuntimeManifest {
+   assets: RuntimeAsset[]
+ }
+ 
+-export type SceneKey = 'A' | 'B' | 'C' | 'D'
++export type SceneKey = 'A' | 'B' | 'C' | 'D' | 'E'
+ export type CameraMode = 'overview' | 'inspection'
+diff --git a/src/ui/DevPanel.tsx b/src/ui/DevPanel.tsx
+index eebd332..ae92cb5 100644
+--- a/src/ui/DevPanel.tsx
++++ b/src/ui/DevPanel.tsx
+@@ -2,15 +2,15 @@
+ import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
+ import { useLab } from '../lab/LabContext'
+ import { latestStats } from '../lab/stats'
+-import { applyView, D_VIEWS } from '../lab/cameraBridge'
++import { applyView, D_VIEWS, E_VIEWS } from '../lab/cameraBridge'
+ import type { RuntimeManifest, Provenance, SceneKey } from '../types'
+ 
+ const PROV_COLOR: Record<Provenance, string> = {
+   'CC0': '#22c55e', 'ATTRIBUTION-REQUIRED': '#3b82f6', 'PROTOTYPE-ONLY': '#f59e0b',
+   'LICENSE-UNCLEAR': '#f59e0b', 'DO-NOT-USE': '#ef4444',
+ }
+-const SCENE_LABEL: Record<SceneKey, string> = { A: 'A · Lab01 lot', B: 'B · Furnished', C: 'C · Animation', D: 'D · Studio greybox' }
+-const SCENE_PACK: Record<SceneKey, string> = { A: 'downtown', B: 'props', C: 'animation', D: 'downtown' }
++const SCENE_LABEL: Record<SceneKey, string> = { A: 'A · Lab01 lot', B: 'B · Furnished', C: 'C · Animation', D: 'D · Studio greybox', E: 'E · Hero stage' }
++const SCENE_PACK: Record<SceneKey, string> = { A: 'downtown', B: 'props', C: 'animation', D: 'downtown', E: 'animation' }
+ 
+ const panel: CSSProperties = {
+   position: 'fixed', top: 0, left: 0, width: 340, maxHeight: '100vh', overflowY: 'auto',
+@@ -68,15 +68,17 @@ export function DevPanel({ manifest }: { manifest: RuntimeManifest | null }): JS
+       <div style={{ fontSize: 14, fontWeight: 700, color: '#eaf2fa' }}>Project: Studio — Asset Lab</div>
+       <div style={{ color: '#6f7b88', fontSize: 10.5 }}>isolated intake · conversion · visual proof — owns no sim truth</div>
+ 
+-      <div style={h}>Scene — switch A⇄D to compare Lab 01 vs 02 (§8)</div>
+-      <div style={row}>{(['A', 'B', 'C', 'D'] as SceneKey[]).map((k) =>
++      <div style={h}>Scene — D⇄E = greybox vs hero soundstage (Lab 03)</div>
++      <div style={row}>{(['A', 'B', 'C', 'D', 'E'] as SceneKey[]).map((k) =>
+         <Btn key={k} on={state.scene === k} onClick={() => set('scene', k)}>{SCENE_LABEL[k]}</Btn>)}</div>
+ 
+       <div style={h}>Camera (§7)</div>
+-      {state.scene === 'D' ? (
++      {state.scene === 'D' || state.scene === 'E' ? (
+         <div style={row}>
+-          {Object.keys(D_VIEWS).map((name) =>
+-            <Btn key={name} onClick={() => applyView(D_VIEWS[name].pos, D_VIEWS[name].tgt)}>{name}</Btn>)}
++          {Object.keys(state.scene === 'E' ? E_VIEWS : D_VIEWS).map((name) => {
++            const v = (state.scene === 'E' ? E_VIEWS : D_VIEWS)[name]
++            return <Btn key={name} onClick={() => applyView(v.pos, v.tgt)}>{name}</Btn>
++          })}
+           <Btn onClick={resetCamera}>Reset</Btn>
+         </div>
+       ) : (
+@@ -100,6 +102,20 @@ export function DevPanel({ manifest }: { manifest: RuntimeManifest | null }): JS
+         </>
+       )}
+ 
++      {state.scene === 'E' && (
++        <>
++          <div style={h}>Hero soundstage — fidelity layers (Lab 03)</div>
++          <div style={{ ...row, flexDirection: 'column', alignItems: 'flex-start' }}>
++            <Toggle label="Crew (CC0)" on={state.showCharacters} onChange={(v) => set('showCharacters', v)} />
++            <Toggle label="Production apron (grip/electric)" on={state.showApron} onChange={(v) => set('showApron', v)} />
++            <Toggle label="Shadows (key light)" on={state.showShadows} onChange={(v) => set('showShadows', v)} />
++            <Toggle label="Soft shadows (PCSS · live GPU)" on={state.softShadows} onChange={(v) => set('softShadows', v)} />
++            <Toggle label="Post FX (bloom/AO · live GPU)" on={state.postFx} onChange={(v) => set('postFx', v)} />
++            <Toggle label="Atmosphere (sky + fog)" on={state.atmosphere} onChange={(v) => set('atmosphere', v)} />
++          </div>
++        </>
++      )}
++
+       <div style={h}>Display (§8)</div>
+       <div style={{ ...row, flexDirection: 'column', alignItems: 'flex-start' }}>
+         <Toggle label="Wireframe" on={state.wireframe} onChange={(v) => set('wireframe', v)} />

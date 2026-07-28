@@ -1,0 +1,267 @@
+{
+  "tool": "curate",
+  "scale": {
+    "unit": "meter",
+    "adultHeight": 1.8
+  },
+  "downtown": [
+    {
+      "name": "Building_Small_1",
+      "role": "building",
+      "note": "assembled hero building",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Building_Small_1.gltf"
+    },
+    {
+      "name": "Building_Medium_2_001",
+      "role": "building",
+      "note": "assembled building",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Building_Medium_2_001.gltf"
+    },
+    {
+      "name": "Building_Large_2",
+      "role": "building",
+      "note": "assembled building",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Building_Large_2.gltf"
+    },
+    {
+      "name": "Brick_Plain_1",
+      "role": "modular",
+      "note": "wall",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Brick_Plain_1.gltf"
+    },
+    {
+      "name": "Brick_Window_Square_Single",
+      "role": "modular",
+      "note": "wall+window",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Brick_Window_Square_Single.gltf"
+    },
+    {
+      "name": "Brick_CornerColumn_Center",
+      "role": "modular",
+      "note": "corner",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Brick_CornerColumn_Center.gltf"
+    },
+    {
+      "name": "Brick_TopTrim",
+      "role": "modular",
+      "note": "top trim",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Brick_TopTrim.gltf"
+    },
+    {
+      "name": "Cornice_Brick_Center",
+      "role": "modular",
+      "note": "cornice",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf"
+    },
+    {
+      "name": "Trim_FirstFloor_Wall",
+      "role": "modular",
+      "note": "ground floor",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Trim_FirstFloor_Wall.gltf"
+    },
+    {
+      "name": "Trim_FirstFloor_Window_001",
+      "role": "modular",
+      "note": "ground-floor window",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Trim_FirstFloor_Window_001.gltf"
+    },
+    {
+      "name": "Roof_Slate_Center",
+      "role": "modular",
+      "note": "roof",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_Center.gltf"
+    },
+    {
+      "name": "Roof_Slate_Corner",
+      "role": "modular",
+      "note": "roof corner",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_Corner.gltf"
+    },
+    {
+      "name": "Door_1",
+      "role": "modular",
+      "note": "door",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Door_1.gltf"
+    },
+    {
+      "name": "DoorFrame_Wooden",
+      "role": "modular",
+      "note": "door frame",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Wooden.gltf"
+    },
+    {
+      "name": "Metal_FullWindow",
+      "role": "modular",
+      "note": "metal facade window",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Metal_FullWindow.gltf"
+    },
+    {
+      "name": "Street_2Lane",
+      "role": "road",
+      "note": "2-lane road",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Street_2Lane.gltf"
+    },
+    {
+      "name": "Street_4Lane",
+      "role": "road",
+      "note": "4-lane road",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Street_4Lane.gltf"
+    },
+    {
+      "name": "Street_4WayIntersection",
+      "role": "road",
+      "note": "intersection",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Street_4WayIntersection.gltf"
+    },
+    {
+      "name": "Street_Curve_2Lane",
+      "role": "road",
+      "note": "curved road",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Street_Curve_2Lane.gltf"
+    },
+    {
+      "name": "Sidewalk_Straight_3m",
+      "role": "sidewalk",
+      "note": "sidewalk",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Sidewalk_Straight_3m.gltf"
+    },
+    {
+      "name": "Sidewalk_Corner_Round_3m",
+      "role": "sidewalk",
+      "note": "sidewalk corner",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Sidewalk_Corner_Round_3m.gltf"
+    },
+    {
+      "name": "Sidewalk_Straight_3m_Stripe",
+      "role": "sidewalk",
+      "note": "sidewalk striped",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Sidewalk_Straight_3m_Stripe.gltf"
+    },
+    {
+      "name": "Decal_Crosswalk",
+      "role": "decal",
+      "note": "crosswalk",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Decal_Crosswalk.gltf"
+    },
+    {
+      "name": "Decal_DoubleYellow_Straight",
+      "role": "decal",
+      "note": "lane line",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Decal_DoubleYellow_Straight.gltf"
+    },
+    {
+      "name": "Prop_ACUnit",
+      "role": "streetprop",
+      "note": "AC unit",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf"
+    },
+    {
+      "name": "Prop_Bollard",
+      "role": "streetprop",
+      "note": "bollard",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Prop_Bollard.gltf"
+    },
+    {
+      "name": "Prop_ManholeCover",
+      "role": "streetprop",
+      "note": "manhole",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Prop_ManholeCover.gltf"
+    },
+    {
+      "name": "Prop_Planter_Single",
+      "role": "streetprop",
+      "note": "planter",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Prop_Planter_Single.gltf"
+    },
+    {
+      "name": "Prop_Drain",
+      "role": "streetprop",
+      "note": "drain",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Prop_Drain.gltf"
+    },
+    {
+      "name": "Door_2",
+      "role": "door",
+      "note": "door variant",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Door_2.gltf"
+    },
+    {
+      "name": "Metal_Window",
+      "role": "window",
+      "note": "window variant",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window.gltf"
+    }
+  ],
+  "props": [
+    {
+      "name": "Couch_Medium1",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/fbx-props/FBX/Couch_Medium1.fbx"
+    },
+    {
+      "name": "Chair_1",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/fbx-props/FBX/Chair_1.fbx"
+    },
+    {
+      "name": "Table_RoundSmall",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/fbx-props/FBX/Table_RoundSmall.fbx"
+    },
+    {
+      "name": "Bookshelf",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/fbx-props/FBX/Bookshelf.fbx"
+    },
+    {
+      "name": "Shelf_1",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/fbx-props/FBX/Shelf_1.fbx"
+    },
+    {
+      "name": "Houseplant_3",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/fbx-props/FBX/Houseplant_3.fbx"
+    },
+    {
+      "name": "Light_Floor1",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/fbx-props/FBX/Light_Floor1.fbx"
+    },
+    {
+      "name": "Light_Desk",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/fbx-props/FBX/Light_Desk.fbx"
+    },
+    {
+      "name": "Carpet_1",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/fbx-props/FBX/Carpet_1.fbx"
+    },
+    {
+      "name": "NightStand_1",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/fbx-props/FBX/NightStand_1.fbx"
+    },
+    {
+      "name": "Fireplace",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/fbx-props/FBX/Fireplace.fbx"
+    },
+    {
+      "name": "Bathroom_Mirror1",
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/fbx-props/FBX/Bathroom_Mirror1.fbx"
+    }
+  ],
+  "animation": [
+    {
+      "name": "UAL1_Standard",
+      "file": "UAL1_Standard.glb",
+      "rootMotion": false,
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/universal-animation-library/Universal Animation Library[Standard]/Unreal-Godot/UAL1_Standard.glb"
+    },
+    {
+      "name": "UAL1_Standard_RM",
+      "file": "UAL1_Standard_RM.glb",
+      "rootMotion": true,
+      "src": "/Users/bruce/Project Studio - Asset Lab/sources/extracted/universal-animation-library/Universal Animation Library[Standard]/Unreal-Godot/UAL1_Standard_RM.glb"
+    }
+  ],
+  "roleClipMap": {
+    "idle": "Idle_Loop",
+    "walk": "Walk_Loop",
+    "talkingIdle": "Idle_Talking_Loop",
+    "seated": "Sitting_Idle_Loop",
+    "interaction": "PickUp_Table",
+    "repair": "Fixing_Kneeling"
+  }
+}
