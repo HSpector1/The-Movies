@@ -6,7 +6,7 @@
 // greybox baseline for side-by-side comparison. Same "STAGE 1 / MERIDIAN / SOUND STAGE"
 // identity, same warm golden-hour rig; the delta is silhouette articulation + procedural PBR +
 // grounded contact shadows + an active grip/electric apron. All deterministic — no Math.random.
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
@@ -131,13 +131,21 @@ export function HeroSoundstage({ pos = [0, 0, 0], rotY = 0, w = 22, d = 18, h = 
       <Decal size={[openW + 0.6, 2.2]} pos={[doorCx, 0.02, zf + 0.6]} color={'#4c463c'} opacity={0.7} />
 
       {/* ---------- signage ---------- */}
-      {/* big painted stage number high on the parapet, front-left */}
-      <mesh position={[doorCx, h + 0.5, zf + 0.32]} material={bigNum}><boxGeometry args={[3.4, 3.4, 0.06]} /></mesh>
-      {/* MERIDIAN PICTURES (studio identity — top of the hierarchy) over SOUND STAGE (facility) */}
-      <mesh position={[7, 9.5, zf + 0.12]} material={meridian} castShadow><boxGeometry args={[10, 1.7, 0.14]} /></mesh>
-      <mesh position={[7, 7.75, zf + 0.12]} material={nameSign} castShadow><boxGeometry args={[7.2, 1.05, 0.12]} /></mesh>
-      {/* STAGE 1 plaque — LEFT of the door to balance the right-side SOUND STAGE / MERIDIAN block */}
-      <mesh position={[-9, 4.3, zf + 0.12]} material={stageSign} castShadow><boxGeometry args={[2.7, 1.35, 0.14]} /></mesh>
+      {/* big painted stage number high on the parapet, front-left (flush to the parapet face) */}
+      <mesh position={[doorCx, h + 0.5, zf + 0.23]} material={bigNum}><boxGeometry args={[3.4, 3.4, 0.06]} /></mesh>
+      {/* MERIDIAN PICTURES — dominant studio-identity plaque, MOUNTED on the wall with a backing
+          frame flush to the wall + standoff brackets, so it belongs to the building (no float,
+          intentional mounting depth) and stays readable + dominant in Hero/Doors/Human Scale. */}
+      <group position={[7, 9.5, zf]}>
+        <B size={[10.5, 2.15, 0.1]} pos={[0, 0, 0.05]} mat={HM.darkMetal} />
+        {[[-4.4, 0.85], [4.4, 0.85], [-4.4, -0.85], [4.4, -0.85]].map(([x, y], i) =>
+          <Cyl key={i} r={0.05} h={0.06} pos={[x, y, 0.12]} mat={HM.galv} rot={[Math.PI / 2, 0, 0]} seg={8} cast={false} />)}
+        <mesh position={[0, 0, 0.16]} material={meridian} castShadow><boxGeometry args={[10, 1.7, 0.08]} /></mesh>
+      </group>
+      {/* SOUND STAGE (facility identity — subordinate), flush-mounted to the wall */}
+      <mesh position={[7, 7.75, zf + 0.06]} material={nameSign} castShadow><boxGeometry args={[7.2, 1.05, 0.12]} /></mesh>
+      {/* STAGE 1 plaque — LEFT of the door to balance the right-side block, flush-mounted */}
+      <mesh position={[-9, 4.3, zf + 0.07]} material={stageSign} castShadow><boxGeometry args={[2.7, 1.35, 0.14]} /></mesh>
 
       {/* ---------- red-eye stage warning light ---------- */}
       <group position={[doorCx + openW / 2 + 1.1, 3.4, zf + 0.15]}>
@@ -189,8 +197,8 @@ export function HeroSoundstage({ pos = [0, 0, 0], rotY = 0, w = 22, d = 18, h = 
         </group>
       ))}
 
-      {/* operational LOADING sign over the dock bay (hierarchy level 3) */}
-      <mesh position={[8.5, 5.6, zf + 0.12]} material={loading} castShadow><boxGeometry args={[3.8, 0.8, 0.12]} /></mesh>
+      {/* operational LOADING sign over the dock bay (hierarchy level 3), flush-mounted */}
+      <mesh position={[8.5, 5.6, zf + 0.06]} material={loading} castShadow><boxGeometry args={[3.8, 0.8, 0.12]} /></mesh>
 
       {/* ---------- loading dock offset to the right of the elephant door ---------- */}
       <group position={[8, 0, zf + 1.6]}>
@@ -581,10 +589,9 @@ export function WorldEdge(): JSX.Element {
 export interface HeroCrewSpec { pos: V3; rotY: number; clip: string; role: string; startAt: number }
 const CHAR_URL = '/assets/animation/UAL1_Standard.glb'
 useGLTF.preload(CHAR_URL)
-const TMP_V = new THREE.Vector3()
 // Every role gets headwear (hard hat for site crew, soft cap for DP/director) so the crew read
-// consistently. The rig's "Head" bone tilts, so the hat is NOT parented to it (that caused the
-// float/tilt defect); instead it tracks the head's WORLD position each frame and stays upright.
+// consistently. The hat is parented to the rig's unit-scale "Head" bone at a small crown offset, so
+// it follows the head's position AND rotation across all clips (standing/walking/kneeling/pickup).
 const ROLE: Record<string, { tint: string; hat: string; brim: boolean }> = {
   gaffer: { tint: '#b7975a', hat: '#e2c04a', brim: true },
   grip: { tint: '#4a4c54', hat: '#d1622a', brim: true },
@@ -597,9 +604,9 @@ const ROLE: Record<string, { tint: string; hat: string; brim: boolean }> = {
 function makeHat(color: string, brim: boolean): THREE.Group {
   const g = new THREE.Group()
   const mat = new THREE.MeshStandardMaterial({ color, roughness: 0.5, metalness: 0.1 })
-  const dome = new THREE.Mesh(new THREE.SphereGeometry(0.105, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), mat)
+  const dome = new THREE.Mesh(new THREE.SphereGeometry(0.115, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), mat)
   dome.castShadow = true; g.add(dome)
-  if (brim) { const b = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.02, 14), mat); b.position.y = 0.006; g.add(b) }
+  if (brim) { const b = new THREE.Mesh(new THREE.CylinderGeometry(0.145, 0.145, 0.02, 14), mat); b.position.y = 0.012; g.add(b) }
   return g
 }
 
@@ -607,9 +614,6 @@ function HeroWorker({ spec, index }: { spec: HeroCrewSpec; index: number }): JSX
   const { scene, animations } = useGLTF(CHAR_URL)
   const role = ROLE[spec.role] ?? ROLE.grip
   const height = 0.94 + ((index * 37) % 13) / 100        // deterministic 0.94..1.06
-  const group = useRef<THREE.Group>(null)
-  const headRef = useRef<THREE.Object3D | null>(null)
-  const hatRef = useRef<THREE.Group>(null)
   const obj = useMemo(() => {
     const c = skeletonClone(scene)
     let head: THREE.Object3D | null = null
@@ -624,10 +628,16 @@ function HeroWorker({ spec, index }: { spec: HeroCrewSpec; index: number }): JSX
       }
       if ((o as THREE.Bone).isBone && /head/i.test(o.name) && !head) head = o
     })
-    headRef.current = head
+    // Seat the hat as a CHILD of the Head bone (measured rest world scale = 1; crown ~0.15 m above the
+    // bone origin). It then follows the head's position AND rotation in every clip, so it never floats
+    // or detaches and needs no per-frame tracking. Height variation scales the whole worker uniformly.
+    if (head) {
+      const hat = makeHat(role.hat, role.brim)
+      hat.position.set(0, 0.11, 0.01)
+      ;(head as THREE.Object3D).add(hat)
+    }
     return c
-  }, [scene, spec.role, role.tint])
-  const hat = useMemo(() => makeHat(role.hat, role.brim), [role.hat, role.brim])
+  }, [scene, spec.role, role.hat, role.brim, role.tint])
   const mixer = useMemo(() => new THREE.AnimationMixer(obj), [obj])
   useEffect(() => {
     const clip = animations.find((a) => a.name === spec.clip) ?? animations[0]
@@ -636,20 +646,10 @@ function HeroWorker({ spec, index }: { spec: HeroCrewSpec; index: number }): JSX
     action.time = spec.startAt % (clip.duration || 1)
     return () => { mixer.stopAllAction() }
   }, [mixer, animations, spec.clip, spec.startAt])
-  useFrame((_, dt) => {
-    mixer.update(dt)
-    const h = headRef.current, ht = hatRef.current, gr = group.current
-    if (h && ht && gr) {
-      h.updateWorldMatrix(true, false)
-      h.getWorldPosition(TMP_V)
-      gr.worldToLocal(TMP_V)
-      ht.position.set(TMP_V.x, TMP_V.y + 0.17, TMP_V.z)     // seat on the crown, always upright
-    }
-  })
+  useFrame((_, dt) => mixer.update(dt))
   return (
-    <group ref={group} position={spec.pos} rotation={[0, spec.rotY, 0]} scale={height}>
+    <group position={spec.pos} rotation={[0, spec.rotY, 0]} scale={height}>
       <primitive object={obj} />
-      <primitive ref={hatRef} object={hat} />
     </group>
   )
 }

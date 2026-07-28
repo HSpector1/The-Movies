@@ -113,6 +113,9 @@ export function DevPanel({ manifest }: { manifest: RuntimeManifest | null }): JS
             <Toggle label="Post FX (bloom/AO · live GPU)" on={state.postFx} onChange={(v) => set('postFx', v)} />
             <Toggle label="Atmosphere (sky + fog)" on={state.atmosphere} onChange={(v) => set('atmosphere', v)} />
           </div>
+          <div style={{ color: '#8a94a0', fontSize: 10, margin: '5px 0 0', lineHeight: 1.4 }}>
+            Crew variation (roles, hard hats, heights) is part of the Scene E crew presentation — the <b>Crew</b> checkbox enables/disables those workers. There is no separate "Loading Bay", "Crew Variation", or "Performance" control: use the <b>Loading Bay</b> camera button for the dock, and read live performance in <b>Renderer stats</b> below.
+          </div>
         </>
       )}
 
@@ -128,6 +131,11 @@ export function DevPanel({ manifest }: { manifest: RuntimeManifest | null }): JS
       <div style={h}>Lights (§8)</div>
       <Slider label="Key" value={state.keyLight} min={0} max={6} step={0.1} onChange={(v) => set('keyLight', v)} />
       <Slider label="Ambient" value={state.ambientLight} min={0} max={2} step={0.05} onChange={(v) => set('ambientLight', v)} />
+      {(state.scene === 'D' || state.scene === 'E') && (
+        <div style={{ color: '#8a94a0', fontSize: 10, marginTop: 2, lineHeight: 1.35 }}>
+          Key/Ambient control the directional key + ambient fill only. The warm hero rig also lights the scene via procedural Sky + IBL{state.scene === 'E' ? ' + ACES exposure' : ''}, so it stays illuminated even at Key/Ambient 0 — these sliders do not fully control the hero lighting.
+        </div>
+      )}
 
       <div style={h}>Asset visibility (§8)</div>
       <div style={{ ...row, flexDirection: 'column', alignItems: 'flex-start' }}>
@@ -162,15 +170,24 @@ export function DevPanel({ manifest }: { manifest: RuntimeManifest | null }): JS
       )}
 
       <div style={h}>Renderer stats (§8 · diagnostic only)</div>
+      <div style={{ color: '#8a94a0', fontSize: 10, marginBottom: 4, lineHeight: 1.35 }}>
+        GPU: <b style={{ color: s.isSoftware ? '#f0a860' : '#a8c0d0' }}>{s.renderer || 'unknown'}</b>
+        {s.isSoftware && <span style={{ color: '#f0a860' }}> — SOFTWARE raster (SwiftShader); diagnostic only, not target-hardware</span>}
+      </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px 10px' }}>
-        <span>FPS: <b style={{ color: '#7ee787' }}>{s.fps}</b></span>
-        <span>Draw calls: <b>{s.drawCalls}</b></span>
-        <span>Triangles: <b>{s.triangles.toLocaleString()}</b></span>
-        <span>Geometries: <b>{s.geometries}</b></span>
-        <span>Textures: <b>{s.textures}</b></span>
+        <span>FPS: <b style={{ color: s.loading ? '#f0a860' : '#7ee787' }}>{s.loading ? '— (loading)' : s.fps}</b></span>
+        <span>Post FX: <b>{s.postFx ? 'ON' : 'off'}</b></span>
+        <span>Draw calls/frame: <b>{s.drawCalls.toLocaleString()}</b></span>
+        <span>Triangles/frame: <b>{s.triangles.toLocaleString()}</b></span>
+        <span>Scene tris (inventory): <b>{s.sceneTriangles.toLocaleString()}</b></span>
+        <span>Scene meshes: <b>{s.sceneMeshes}</b></span>
+        <span>Geometries (loaded): <b>{s.geometries}</b></span>
+        <span>Textures (loaded): <b>{s.textures}</b></span>
         <span>Programs: <b>{s.programs}</b></span>
         <span>Loaded: <b>{s.loadedAssets}/{s.totalAssets || '?'}</b></span>
-        <span>{s.loading ? 'loading…' : 'ready'}</span>
+      </div>
+      <div style={{ color: '#8a94a0', fontSize: 10, marginTop: 3, lineHeight: 1.35 }}>
+        Frame values = current frame, all passes{s.postFx ? ' (incl. Post FX)' : ''}. Scene tris = deterministic inventory of visible meshes (reproducible). FPS measured live; loading-period FPS is not steady-state.
       </div>
 
       <div style={h}>Material info (§8 · manifest)</div>
