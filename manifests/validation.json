@@ -1,0 +1,277 @@
+{
+  "tool": "validate-assets",
+  "pass": 45,
+  "fail": 0,
+  "rows": [
+    {
+      "id": "downtown/Building_Small_1",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Building_Medium_2_001",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Building_Large_2",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Brick_Plain_1",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Brick_Window_Square_Single",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Brick_CornerColumn_Center",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Brick_TopTrim",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Cornice_Brick_Center",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Trim_FirstFloor_Wall",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Trim_FirstFloor_Window_001",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Roof_Slate_Center",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Roof_Slate_Corner",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Door_1",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/DoorFrame_Wooden",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Metal_FullWindow",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Street_2Lane",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Street_4Lane",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Street_4WayIntersection",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Street_Curve_2Lane",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Sidewalk_Straight_3m",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Sidewalk_Corner_Round_3m",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Sidewalk_Straight_3m_Stripe",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Decal_Crosswalk",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Decal_DoubleYellow_Straight",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Prop_ACUnit",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Prop_Bollard",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Prop_ManholeCover",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Prop_Planter_Single",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Prop_Drain",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Door_2",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "downtown/Metal_Window",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "props/Couch_Medium1",
+      "kind": "fbx",
+      "ok": true,
+      "detail": "valid FBX binary"
+    },
+    {
+      "id": "props/Chair_1",
+      "kind": "fbx",
+      "ok": true,
+      "detail": "valid FBX binary"
+    },
+    {
+      "id": "props/Table_RoundSmall",
+      "kind": "fbx",
+      "ok": true,
+      "detail": "valid FBX binary"
+    },
+    {
+      "id": "props/Bookshelf",
+      "kind": "fbx",
+      "ok": true,
+      "detail": "valid FBX binary"
+    },
+    {
+      "id": "props/Shelf_1",
+      "kind": "fbx",
+      "ok": true,
+      "detail": "valid FBX binary"
+    },
+    {
+      "id": "props/Houseplant_3",
+      "kind": "fbx",
+      "ok": true,
+      "detail": "valid FBX binary"
+    },
+    {
+      "id": "props/Light_Floor1",
+      "kind": "fbx",
+      "ok": true,
+      "detail": "valid FBX binary"
+    },
+    {
+      "id": "props/Light_Desk",
+      "kind": "fbx",
+      "ok": true,
+      "detail": "valid FBX binary"
+    },
+    {
+      "id": "props/Carpet_1",
+      "kind": "fbx",
+      "ok": true,
+      "detail": "valid FBX binary"
+    },
+    {
+      "id": "props/NightStand_1",
+      "kind": "fbx",
+      "ok": true,
+      "detail": "valid FBX binary"
+    },
+    {
+      "id": "props/Fireplace",
+      "kind": "fbx",
+      "ok": true,
+      "detail": "valid FBX binary"
+    },
+    {
+      "id": "props/Bathroom_Mirror1",
+      "kind": "fbx",
+      "ok": true,
+      "detail": "valid FBX binary"
+    },
+    {
+      "id": "animation/UAL1_Standard",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    },
+    {
+      "id": "animation/UAL1_Standard_RM",
+      "kind": "glb",
+      "ok": true,
+      "detail": "1 mesh(es)"
+    }
+  ]
+}

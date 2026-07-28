@@ -1,0 +1,33 @@
+{
+  "tool": "hash-archives",
+  "archives": [
+    {
+      "name": "Downtown City MegaKit[Standard].zip",
+      "bytes": 234753092,
+      "sha256": "5b1a945576d54cdbb4ccc9c3d52711e6d530da74c74c586407ecc28b165335da",
+      "downloadsOriginalPresent": true,
+      "downloadsOriginalMatches": true
+    },
+    {
+      "name": "FBX-20260727T232629Z-1-001.zip",
+      "bytes": 1467539,
+      "sha256": "410695b84e3cc87b8d9b5f6fc47813fb0c2af600c87adbdecf8041b92ac07f94",
+      "downloadsOriginalPresent": true,
+      "downloadsOriginalMatches": true
+    },
+    {
+      "name": "Universal Animation Library[Standard].zip",
+      "bytes": 15904933,
+      "sha256": "cc73fc4e495b82958207316596317a3f40b9fa38065bde1027937452da537724",
+      "downloadsOriginalPresent": true,
+      "downloadsOriginalMatches": true
+    },
+    {
+      "name": "wintersets.zip",
+      "bytes": 17487044,
+      "sha256": "167ecc34f454d2f4829ae593052e07939786ad2c8a5580898331b6315db3cdfa",
+      "downloadsOriginalPresent": true,
+      "downloadsOriginalMatches": true
+    }
+  ]
+}

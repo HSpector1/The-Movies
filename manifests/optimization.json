@@ -1,0 +1,231 @@
+{
+  "tool": "optimize-gltf",
+  "pipeline": [
+    "dedup",
+    "weld",
+    "prune",
+    "textureCompress(webp, max 1024px, sharp)"
+  ],
+  "engine": "@gltf-transform + sharp (local, no Blender, no native archive binaries)",
+  "converted": 31,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Building_Small_1",
+      "role": "building",
+      "ok": true,
+      "srcBytesGltfBin": 1583535,
+      "glbBytes": 1800284
+    },
+    {
+      "name": "Building_Medium_2_001",
+      "role": "building",
+      "ok": true,
+      "srcBytesGltfBin": 2468532,
+      "glbBytes": 2341100
+    },
+    {
+      "name": "Building_Large_2",
+      "role": "building",
+      "ok": true,
+      "srcBytesGltfBin": 3368108,
+      "glbBytes": 3377880
+    },
+    {
+      "name": "Brick_Plain_1",
+      "role": "modular",
+      "ok": true,
+      "srcBytesGltfBin": 5016,
+      "glbBytes": 258164
+    },
+    {
+      "name": "Brick_Window_Square_Single",
+      "role": "modular",
+      "ok": true,
+      "srcBytesGltfBin": 27932,
+      "glbBytes": 356332
+    },
+    {
+      "name": "Brick_CornerColumn_Center",
+      "role": "modular",
+      "ok": true,
+      "srcBytesGltfBin": 6296,
+      "glbBytes": 259752
+    },
+    {
+      "name": "Brick_TopTrim",
+      "role": "modular",
+      "ok": true,
+      "srcBytesGltfBin": 8254,
+      "glbBytes": 343432
+    },
+    {
+      "name": "Cornice_Brick_Center",
+      "role": "modular",
+      "ok": true,
+      "srcBytesGltfBin": 3379,
+      "glbBytes": 257672
+    },
+    {
+      "name": "Trim_FirstFloor_Wall",
+      "role": "modular",
+      "ok": true,
+      "srcBytesGltfBin": 9276,
+      "glbBytes": 344844
+    },
+    {
+      "name": "Trim_FirstFloor_Window_001",
+      "role": "modular",
+      "ok": true,
+      "srcBytesGltfBin": 19627,
+      "glbBytes": 353308
+    },
+    {
+      "name": "Roof_Slate_Center",
+      "role": "modular",
+      "ok": true,
+      "srcBytesGltfBin": 4553,
+      "glbBytes": 234368
+    },
+    {
+      "name": "Roof_Slate_Corner",
+      "role": "modular",
+      "ok": true,
+      "srcBytesGltfBin": 5449,
+      "glbBytes": 102668
+    },
+    {
+      "name": "Door_1",
+      "role": "modular",
+      "ok": true,
+      "srcBytesGltfBin": 45628,
+      "glbBytes": 169916
+    },
+    {
+      "name": "DoorFrame_Wooden",
+      "role": "modular",
+      "ok": true,
+      "srcBytesGltfBin": 37558,
+      "glbBytes": 113136
+    },
+    {
+      "name": "Metal_FullWindow",
+      "role": "modular",
+      "ok": true,
+      "srcBytesGltfBin": 22599,
+      "glbBytes": 147632
+    },
+    {
+      "name": "Street_2Lane",
+      "role": "road",
+      "ok": true,
+      "srcBytesGltfBin": 22276,
+      "glbBytes": 762680
+    },
+    {
+      "name": "Street_4Lane",
+      "role": "road",
+      "ok": true,
+      "srcBytesGltfBin": 24331,
+      "glbBytes": 764424
+    },
+    {
+      "name": "Street_4WayIntersection",
+      "role": "road",
+      "ok": true,
+      "srcBytesGltfBin": 60792,
+      "glbBytes": 795432
+    },
+    {
+      "name": "Street_Curve_2Lane",
+      "role": "road",
+      "ok": true,
+      "srcBytesGltfBin": 32653,
+      "glbBytes": 771616
+    },
+    {
+      "name": "Sidewalk_Straight_3m",
+      "role": "sidewalk",
+      "ok": true,
+      "srcBytesGltfBin": 6882,
+      "glbBytes": 138248
+    },
+    {
+      "name": "Sidewalk_Corner_Round_3m",
+      "role": "sidewalk",
+      "ok": true,
+      "srcBytesGltfBin": 11620,
+      "glbBytes": 142312
+    },
+    {
+      "name": "Sidewalk_Straight_3m_Stripe",
+      "role": "sidewalk",
+      "ok": true,
+      "srcBytesGltfBin": 1996,
+      "glbBytes": 537608
+    },
+    {
+      "name": "Decal_Crosswalk",
+      "role": "decal",
+      "ok": true,
+      "srcBytesGltfBin": 2003,
+      "glbBytes": 537628
+    },
+    {
+      "name": "Decal_DoubleYellow_Straight",
+      "role": "decal",
+      "ok": true,
+      "srcBytesGltfBin": 1996,
+      "glbBytes": 537608
+    },
+    {
+      "name": "Prop_ACUnit",
+      "role": "streetprop",
+      "ok": true,
+      "srcBytesGltfBin": 8632,
+      "glbBytes": 277868
+    },
+    {
+      "name": "Prop_Bollard",
+      "role": "streetprop",
+      "ok": true,
+      "srcBytesGltfBin": 12534,
+      "glbBytes": 142864
+    },
+    {
+      "name": "Prop_ManholeCover",
+      "role": "streetprop",
+      "ok": true,
+      "srcBytesGltfBin": 6746,
+      "glbBytes": 277256
+    },
+    {
+      "name": "Prop_Planter_Single",
+      "role": "streetprop",
+      "ok": true,
+      "srcBytesGltfBin": 13560,
+      "glbBytes": 411344
+    },
+    {
+      "name": "Prop_Drain",
+      "role": "streetprop",
+      "ok": true,
+      "srcBytesGltfBin": 2849,
+      "glbBytes": 273368
+    },
+    {
+      "name": "Door_2",
+      "role": "door",
+      "ok": true,
+      "srcBytesGltfBin": 19982,
+      "glbBytes": 146368
+    },
+    {
+      "name": "Metal_Window",
+      "role": "window",
+      "ok": true,
+      "srcBytesGltfBin": 53602,
+      "glbBytes": 423268
+    }
+  ]
+}

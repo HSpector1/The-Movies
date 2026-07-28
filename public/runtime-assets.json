@@ -1,0 +1,997 @@
+{
+  "tool": "build-manifest",
+  "scale": {
+    "unit": "meter",
+    "adultHeight": 1.8,
+    "note": "Downtown + character authored at 1 unit = 1 m (validated)."
+  },
+  "roleClipMap": {
+    "idle": "Idle_Loop",
+    "walk": "Walk_Loop",
+    "talkingIdle": "Idle_Talking_Loop",
+    "seated": "Sitting_Idle_Loop",
+    "interaction": "PickUp_Table",
+    "repair": "Fixing_Kneeling"
+  },
+  "clips": [
+    {
+      "name": "A_TPose",
+      "duration": 2.5
+    },
+    {
+      "name": "Crouch_Fwd_Loop",
+      "duration": 2
+    },
+    {
+      "name": "Crouch_Idle_Loop",
+      "duration": 2.933
+    },
+    {
+      "name": "Dance_Loop",
+      "duration": 1
+    },
+    {
+      "name": "Death01",
+      "duration": 2.4
+    },
+    {
+      "name": "Driving_Loop",
+      "duration": 1.667
+    },
+    {
+      "name": "Fixing_Kneeling",
+      "duration": 5.2
+    },
+    {
+      "name": "Hit_Chest",
+      "duration": 0.333
+    },
+    {
+      "name": "Hit_Head",
+      "duration": 0.433
+    },
+    {
+      "name": "Idle_Loop",
+      "duration": 2.5
+    },
+    {
+      "name": "Idle_Talking_Loop",
+      "duration": 2.933
+    },
+    {
+      "name": "Idle_Torch_Loop",
+      "duration": 1.267
+    },
+    {
+      "name": "Interact",
+      "duration": 2
+    },
+    {
+      "name": "Jog_Fwd_Loop",
+      "duration": 0.933
+    },
+    {
+      "name": "Jump_Land",
+      "duration": 1.267
+    },
+    {
+      "name": "Jump_Loop",
+      "duration": 2.5
+    },
+    {
+      "name": "Jump_Start",
+      "duration": 1.333
+    },
+    {
+      "name": "PickUp_Table",
+      "duration": 0.833
+    },
+    {
+      "name": "Pistol_Aim_Down",
+      "duration": 0.167
+    },
+    {
+      "name": "Pistol_Aim_Neutral",
+      "duration": 0.167
+    },
+    {
+      "name": "Pistol_Aim_Up",
+      "duration": 0.167
+    },
+    {
+      "name": "Pistol_Idle_Loop",
+      "duration": 1.667
+    },
+    {
+      "name": "Pistol_Reload",
+      "duration": 1.667
+    },
+    {
+      "name": "Pistol_Shoot",
+      "duration": 0.633
+    },
+    {
+      "name": "Punch_Cross",
+      "duration": 1
+    },
+    {
+      "name": "Punch_Jab",
+      "duration": 0.867
+    },
+    {
+      "name": "Push_Loop",
+      "duration": 2.667
+    },
+    {
+      "name": "Roll",
+      "duration": 1.467
+    },
+    {
+      "name": "Sitting_Enter",
+      "duration": 1.3
+    },
+    {
+      "name": "Sitting_Exit",
+      "duration": 1.033
+    },
+    {
+      "name": "Sitting_Idle_Loop",
+      "duration": 1.667
+    },
+    {
+      "name": "Sitting_Talking_Loop",
+      "duration": 2.933
+    },
+    {
+      "name": "Spell_Simple_Enter",
+      "duration": 0.533
+    },
+    {
+      "name": "Spell_Simple_Exit",
+      "duration": 0.433
+    },
+    {
+      "name": "Spell_Simple_Idle_Loop",
+      "duration": 2.1
+    },
+    {
+      "name": "Spell_Simple_Shoot",
+      "duration": 0.5
+    },
+    {
+      "name": "Sprint_Loop",
+      "duration": 0.667
+    },
+    {
+      "name": "Swim_Fwd_Loop",
+      "duration": 1.333
+    },
+    {
+      "name": "Swim_Idle_Loop",
+      "duration": 3.333
+    },
+    {
+      "name": "Sword_Attack",
+      "duration": 1.533
+    },
+    {
+      "name": "Sword_Idle",
+      "duration": 1.667
+    },
+    {
+      "name": "Walk_Formal_Loop",
+      "duration": 1.333
+    },
+    {
+      "name": "Walk_Loop",
+      "duration": 1.333
+    }
+  ],
+  "counts": {
+    "total": 45,
+    "reusable": 33,
+    "prototypeOnly": 12,
+    "present": 45
+  },
+  "provenanceExcluded": [
+    {
+      "pack": "wintersets",
+      "provenance": "DO-NOT-USE",
+      "reason": "legacy Lionhead The Movies IP; redistribution restricted; kept for archaeology only, never loaded at runtime."
+    }
+  ],
+  "assets": [
+    {
+      "id": "downtown/Building_Small_1",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Building_Small_1.glb",
+      "role": "building",
+      "note": "assembled hero building",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        12.46,
+        17.026,
+        14.536
+      ],
+      "triangles": 18344,
+      "materials": 13,
+      "present": true,
+      "fileKB": 1758.1
+    },
+    {
+      "id": "downtown/Building_Medium_2_001",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Building_Medium_2_001.glb",
+      "role": "building",
+      "note": "assembled building",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        15.056,
+        25.009,
+        13.056
+      ],
+      "triangles": 25612,
+      "materials": 12,
+      "present": true,
+      "fileKB": 2286.2
+    },
+    {
+      "id": "downtown/Building_Large_2",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Building_Large_2.glb",
+      "role": "building",
+      "note": "assembled building",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        20.644,
+        28,
+        16.645
+      ],
+      "triangles": 45122,
+      "materials": 12,
+      "present": true,
+      "fileKB": 3298.7
+    },
+    {
+      "id": "downtown/Brick_Plain_1",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Brick_Plain_1.glb",
+      "role": "modular",
+      "note": "wall",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        2,
+        1,
+        0.2
+      ],
+      "triangles": 4,
+      "materials": 2,
+      "present": true,
+      "fileKB": 252.1
+    },
+    {
+      "id": "downtown/Brick_Window_Square_Single",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Brick_Window_Square_Single.glb",
+      "role": "modular",
+      "note": "wall+window",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        2,
+        3,
+        0.271
+      ],
+      "triangles": 190,
+      "materials": 5,
+      "present": true,
+      "fileKB": 348
+    },
+    {
+      "id": "downtown/Brick_CornerColumn_Center",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Brick_CornerColumn_Center.glb",
+      "role": "modular",
+      "note": "corner",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        1.14,
+        3,
+        1.14
+      ],
+      "triangles": 32,
+      "materials": 1,
+      "present": true,
+      "fileKB": 253.7
+    },
+    {
+      "id": "downtown/Brick_TopTrim",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Brick_TopTrim.glb",
+      "role": "modular",
+      "note": "top trim",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        2,
+        3,
+        0.2
+      ],
+      "triangles": 16,
+      "materials": 3,
+      "present": true,
+      "fileKB": 335.4
+    },
+    {
+      "id": "downtown/Cornice_Brick_Center",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Cornice_Brick_Center.glb",
+      "role": "modular",
+      "note": "cornice",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        2,
+        1,
+        0.4
+      ],
+      "triangles": 6,
+      "materials": 1,
+      "present": true,
+      "fileKB": 251.6
+    },
+    {
+      "id": "downtown/Trim_FirstFloor_Wall",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Trim_FirstFloor_Wall.glb",
+      "role": "modular",
+      "note": "ground floor",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        2,
+        3,
+        0.248
+      ],
+      "triangles": 50,
+      "materials": 2,
+      "present": true,
+      "fileKB": 336.8
+    },
+    {
+      "id": "downtown/Trim_FirstFloor_Window_001",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Trim_FirstFloor_Window_001.glb",
+      "role": "modular",
+      "note": "ground-floor window",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        2,
+        3.01,
+        0.215
+      ],
+      "triangles": 160,
+      "materials": 4,
+      "present": true,
+      "fileKB": 345
+    },
+    {
+      "id": "downtown/Roof_Slate_Center",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Roof_Slate_Center.glb",
+      "role": "modular",
+      "note": "roof",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        2,
+        3,
+        2
+      ],
+      "triangles": 6,
+      "materials": 2,
+      "present": true,
+      "fileKB": 228.9
+    },
+    {
+      "id": "downtown/Roof_Slate_Corner",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Roof_Slate_Corner.glb",
+      "role": "modular",
+      "note": "roof corner",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        2.023,
+        3.028,
+        2.035
+      ],
+      "triangles": 44,
+      "materials": 1,
+      "present": true,
+      "fileKB": 100.3
+    },
+    {
+      "id": "downtown/Door_1",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Door_1.glb",
+      "role": "modular",
+      "note": "door",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        1,
+        2.2,
+        0.26
+      ],
+      "triangles": 676,
+      "materials": 1,
+      "present": true,
+      "fileKB": 165.9
+    },
+    {
+      "id": "downtown/DoorFrame_Wooden",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/DoorFrame_Wooden.glb",
+      "role": "modular",
+      "note": "door frame",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        2.304,
+        3,
+        0.478
+      ],
+      "triangles": 438,
+      "materials": 2,
+      "present": true,
+      "fileKB": 110.5
+    },
+    {
+      "id": "downtown/Metal_FullWindow",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Metal_FullWindow.glb",
+      "role": "modular",
+      "note": "metal facade window",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        2,
+        3,
+        0.231
+      ],
+      "triangles": 210,
+      "materials": 3,
+      "present": true,
+      "fileKB": 144.2
+    },
+    {
+      "id": "downtown/Street_2Lane",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Street_2Lane.glb",
+      "role": "road",
+      "note": "2-lane road",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        6,
+        0.15,
+        12
+      ],
+      "triangles": 220,
+      "materials": 3,
+      "present": true,
+      "fileKB": 744.8
+    },
+    {
+      "id": "downtown/Street_4Lane",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Street_4Lane.glb",
+      "role": "road",
+      "note": "4-lane road",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        6,
+        0.15,
+        18
+      ],
+      "triangles": 252,
+      "materials": 3,
+      "present": true,
+      "fileKB": 746.5
+    },
+    {
+      "id": "downtown/Street_4WayIntersection",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Street_4WayIntersection.glb",
+      "role": "road",
+      "note": "intersection",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        24.666,
+        0.15,
+        24.666
+      ],
+      "triangles": 892,
+      "materials": 3,
+      "present": true,
+      "fileKB": 776.8
+    },
+    {
+      "id": "downtown/Street_Curve_2Lane",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Street_Curve_2Lane.glb",
+      "role": "road",
+      "note": "curved road",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        12,
+        0.15,
+        12
+      ],
+      "triangles": 505,
+      "materials": 3,
+      "present": true,
+      "fileKB": 753.5
+    },
+    {
+      "id": "downtown/Sidewalk_Straight_3m",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Sidewalk_Straight_3m.glb",
+      "role": "sidewalk",
+      "note": "sidewalk",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        3,
+        0.15,
+        3.01
+      ],
+      "triangles": 60,
+      "materials": 1,
+      "present": true,
+      "fileKB": 135
+    },
+    {
+      "id": "downtown/Sidewalk_Corner_Round_3m",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Sidewalk_Corner_Round_3m.glb",
+      "role": "sidewalk",
+      "note": "sidewalk corner",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        3.01,
+        0.15,
+        3.01
+      ],
+      "triangles": 177,
+      "materials": 1,
+      "present": true,
+      "fileKB": 139
+    },
+    {
+      "id": "downtown/Sidewalk_Straight_3m_Stripe",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Sidewalk_Straight_3m_Stripe.glb",
+      "role": "sidewalk",
+      "note": "sidewalk striped",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        3,
+        0,
+        0.2
+      ],
+      "triangles": 2,
+      "materials": 1,
+      "present": true,
+      "fileKB": 525
+    },
+    {
+      "id": "downtown/Decal_Crosswalk",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Decal_Crosswalk.glb",
+      "role": "decal",
+      "note": "crosswalk",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        4.538,
+        0,
+        5.426
+      ],
+      "triangles": 2,
+      "materials": 1,
+      "present": true,
+      "fileKB": 525
+    },
+    {
+      "id": "downtown/Decal_DoubleYellow_Straight",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Decal_DoubleYellow_Straight.glb",
+      "role": "decal",
+      "note": "lane line",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        6,
+        0,
+        0.394
+      ],
+      "triangles": 2,
+      "materials": 1,
+      "present": true,
+      "fileKB": 525
+    },
+    {
+      "id": "downtown/Prop_ACUnit",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Prop_ACUnit.glb",
+      "role": "streetprop",
+      "note": "AC unit",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        0.893,
+        0.6,
+        0.347
+      ],
+      "triangles": 136,
+      "materials": 1,
+      "present": true,
+      "fileKB": 271.4
+    },
+    {
+      "id": "downtown/Prop_Bollard",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Prop_Bollard.glb",
+      "role": "streetprop",
+      "note": "bollard",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        0.216,
+        0.892,
+        0.227
+      ],
+      "triangles": 190,
+      "materials": 1,
+      "present": true,
+      "fileKB": 139.5
+    },
+    {
+      "id": "downtown/Prop_ManholeCover",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Prop_ManholeCover.glb",
+      "role": "streetprop",
+      "note": "manhole",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        0.925,
+        0.033,
+        0.925
+      ],
+      "triangles": 118,
+      "materials": 1,
+      "present": true,
+      "fileKB": 270.8
+    },
+    {
+      "id": "downtown/Prop_Planter_Single",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Prop_Planter_Single.glb",
+      "role": "streetprop",
+      "note": "planter",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        2,
+        0.6,
+        2
+      ],
+      "triangles": 118,
+      "materials": 2,
+      "present": true,
+      "fileKB": 401.7
+    },
+    {
+      "id": "downtown/Prop_Drain",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Prop_Drain.glb",
+      "role": "streetprop",
+      "note": "drain",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        0.585,
+        0.04,
+        0.585
+      ],
+      "triangles": 10,
+      "materials": 1,
+      "present": true,
+      "fileKB": 267
+    },
+    {
+      "id": "downtown/Door_2",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Door_2.glb",
+      "role": "door",
+      "note": "door variant",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        1,
+        2.2,
+        0.21
+      ],
+      "triangles": 186,
+      "materials": 2,
+      "present": true,
+      "fileKB": 142.9
+    },
+    {
+      "id": "downtown/Metal_Window",
+      "pack": "downtown",
+      "kind": "glb",
+      "url": "/assets/downtown/Metal_Window.glb",
+      "role": "window",
+      "note": "window variant",
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "sizeMeters": [
+        4,
+        3.001,
+        0.224
+      ],
+      "triangles": 578,
+      "materials": 5,
+      "present": true,
+      "fileKB": 413.3
+    },
+    {
+      "id": "props/Couch_Medium1",
+      "pack": "props",
+      "kind": "fbx",
+      "url": "/assets/props/Couch_Medium1.fbx",
+      "role": "furniture",
+      "provenance": "LICENSE-UNCLEAR",
+      "author": "unknown",
+      "reuse": "prototype-only",
+      "present": true,
+      "fileKB": 34.3
+    },
+    {
+      "id": "props/Chair_1",
+      "pack": "props",
+      "kind": "fbx",
+      "url": "/assets/props/Chair_1.fbx",
+      "role": "furniture",
+      "provenance": "LICENSE-UNCLEAR",
+      "author": "unknown",
+      "reuse": "prototype-only",
+      "present": true,
+      "fileKB": 16.8
+    },
+    {
+      "id": "props/Table_RoundSmall",
+      "pack": "props",
+      "kind": "fbx",
+      "url": "/assets/props/Table_RoundSmall.fbx",
+      "role": "furniture",
+      "provenance": "LICENSE-UNCLEAR",
+      "author": "unknown",
+      "reuse": "prototype-only",
+      "present": true,
+      "fileKB": 24.8
+    },
+    {
+      "id": "props/Bookshelf",
+      "pack": "props",
+      "kind": "fbx",
+      "url": "/assets/props/Bookshelf.fbx",
+      "role": "furniture",
+      "provenance": "LICENSE-UNCLEAR",
+      "author": "unknown",
+      "reuse": "prototype-only",
+      "present": true,
+      "fileKB": 15.3
+    },
+    {
+      "id": "props/Shelf_1",
+      "pack": "props",
+      "kind": "fbx",
+      "url": "/assets/props/Shelf_1.fbx",
+      "role": "furniture",
+      "provenance": "LICENSE-UNCLEAR",
+      "author": "unknown",
+      "reuse": "prototype-only",
+      "present": true,
+      "fileKB": 15.3
+    },
+    {
+      "id": "props/Houseplant_3",
+      "pack": "props",
+      "kind": "fbx",
+      "url": "/assets/props/Houseplant_3.fbx",
+      "role": "furniture",
+      "provenance": "LICENSE-UNCLEAR",
+      "author": "unknown",
+      "reuse": "prototype-only",
+      "present": true,
+      "fileKB": 27.2
+    },
+    {
+      "id": "props/Light_Floor1",
+      "pack": "props",
+      "kind": "fbx",
+      "url": "/assets/props/Light_Floor1.fbx",
+      "role": "furniture",
+      "provenance": "LICENSE-UNCLEAR",
+      "author": "unknown",
+      "reuse": "prototype-only",
+      "present": true,
+      "fileKB": 19.6
+    },
+    {
+      "id": "props/Light_Desk",
+      "pack": "props",
+      "kind": "fbx",
+      "url": "/assets/props/Light_Desk.fbx",
+      "role": "furniture",
+      "provenance": "LICENSE-UNCLEAR",
+      "author": "unknown",
+      "reuse": "prototype-only",
+      "present": true,
+      "fileKB": 23.6
+    },
+    {
+      "id": "props/Carpet_1",
+      "pack": "props",
+      "kind": "fbx",
+      "url": "/assets/props/Carpet_1.fbx",
+      "role": "furniture",
+      "provenance": "LICENSE-UNCLEAR",
+      "author": "unknown",
+      "reuse": "prototype-only",
+      "present": true,
+      "fileKB": 17.6
+    },
+    {
+      "id": "props/NightStand_1",
+      "pack": "props",
+      "kind": "fbx",
+      "url": "/assets/props/NightStand_1.fbx",
+      "role": "furniture",
+      "provenance": "LICENSE-UNCLEAR",
+      "author": "unknown",
+      "reuse": "prototype-only",
+      "present": true,
+      "fileKB": 17.8
+    },
+    {
+      "id": "props/Fireplace",
+      "pack": "props",
+      "kind": "fbx",
+      "url": "/assets/props/Fireplace.fbx",
+      "role": "furniture",
+      "provenance": "LICENSE-UNCLEAR",
+      "author": "unknown",
+      "reuse": "prototype-only",
+      "present": true,
+      "fileKB": 19.5
+    },
+    {
+      "id": "props/Bathroom_Mirror1",
+      "pack": "props",
+      "kind": "fbx",
+      "url": "/assets/props/Bathroom_Mirror1.fbx",
+      "role": "furniture",
+      "provenance": "LICENSE-UNCLEAR",
+      "author": "unknown",
+      "reuse": "prototype-only",
+      "present": true,
+      "fileKB": 15
+    },
+    {
+      "id": "animation/UAL1_Standard",
+      "pack": "animation",
+      "kind": "glb",
+      "url": "/assets/animation/UAL1_Standard.glb",
+      "role": "character",
+      "rootMotion": false,
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "clipCount": 43,
+      "present": true,
+      "fileKB": 7439.9
+    },
+    {
+      "id": "animation/UAL1_Standard_RM",
+      "pack": "animation",
+      "kind": "glb",
+      "url": "/assets/animation/UAL1_Standard_RM.glb",
+      "role": "character",
+      "rootMotion": true,
+      "provenance": "CC0",
+      "author": "Quaternius",
+      "reuse": "reusable",
+      "clipCount": 43,
+      "present": true,
+      "fileKB": 7441.9
+    }
+  ]
+}
