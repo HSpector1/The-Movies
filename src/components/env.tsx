@@ -1,10 +1,15 @@
-// Scene environment: procedural IBL (offline-safe, no CDN), lights, wireframe controller,
-// and the 1.8 m human scale reference (contract §8 "grid and scale reference").
+// Scene environment. Lab 02 upgrades this to a warm golden-hour studio look (contract §6):
+// procedural sky (offline-safe), warm directional key aligned with the visible sun, warm
+// ambient/hemisphere fill, plus procedural IBL. Also the wireframe controller + scale ref.
 import { useEffect } from 'react'
 import { useThree } from '@react-three/fiber'
+import { Sky } from '@react-three/drei'
 import * as THREE from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { useLab } from '../lab/LabContext'
+
+// Shared low, warm sun so cast shadows point away from the sun you can actually see.
+export const SUN: [number, number, number] = [42, 20, 26]
 
 /** PBR image-based lighting from a procedural room — no network fetch (headless-capture safe). */
 export function RoomEnv(): null {
@@ -19,25 +24,37 @@ export function RoomEnv(): null {
   return null
 }
 
+export function StudioSky(): JSX.Element {
+  // distance must be inside the camera far plane (2000). Sky material ignores fog, so the
+  // warm sky stays readable behind the fogged lot.
+  return (
+    <Sky distance={1000} sunPosition={SUN} turbidity={4} rayleigh={3} mieCoefficient={0.005} mieDirectionalG={0.92} />
+  )
+}
+
 export function Lights(): JSX.Element {
   const { state } = useLab()
   return (
     <>
-      <ambientLight intensity={state.ambientLight} />
-      <hemisphereLight intensity={state.ambientLight * 0.6} groundColor={'#20242c'} color={'#cfe0ff'} />
+      <ambientLight intensity={state.ambientLight * 0.6} color={'#ffe9cf'} />
+      <hemisphereLight intensity={state.ambientLight} color={'#ffe3bd'} groundColor={'#4a4034'} />
       <directionalLight
-        castShadow
-        position={[18, 28, 14]}
+        castShadow={state.showShadows}
+        position={SUN}
         intensity={state.keyLight}
+        color={'#ffdca8'}
         shadow-mapSize={[2048, 2048]}
         shadow-camera-near={1}
-        shadow-camera-far={180}
-        shadow-camera-left={-45}
-        shadow-camera-right={45}
-        shadow-camera-top={45}
-        shadow-camera-bottom={-45}
-        shadow-bias={-0.0002}
+        shadow-camera-far={220}
+        shadow-camera-left={-60}
+        shadow-camera-right={60}
+        shadow-camera-top={60}
+        shadow-camera-bottom={-60}
+        shadow-bias={-0.00035}
+        shadow-normalBias={0.02}
       />
+      {/* subtle cool bounce from the opposite side to keep shadows from going muddy */}
+      <directionalLight position={[-30, 14, -20]} intensity={state.keyLight * 0.12} color={'#bcd0ff'} />
     </>
   )
 }

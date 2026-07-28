@@ -67,13 +67,17 @@ export function ModelGLB({ asset, position, rotationY = 0, ground = true, center
       const m = o as THREE.Mesh
       if (!m.isMesh) return
       m.castShadow = true; m.receiveShadow = true
-      // Flat pavement is authored metalness=1 (mirror). Under IBL it reflects the red-brick
-      // buildings — force it matte so ground reads as concrete/asphalt, not a red mirror.
-      if (matte) for (const mm of Array.isArray(m.material) ? m.material : [m.material]) {
+      for (const mm of Array.isArray(m.material) ? m.material : [m.material]) {
         const s = mm as THREE.MeshStandardMaterial
-        // Fully diffuse: metalness 0 + no environment reflection at all — pavement can no
-        // longer mirror the red-brick buildings even at grazing angles.
-        if (s && 'metalness' in s) { s.metalness = 0; s.roughness = 1; s.envMapIntensity = 0; s.needsUpdate = true }
+        if (!s || !('metalness' in s)) continue
+        // ROOT-CAUSE FIX (Lab 02 §6): Quaternius pavement meshes carry a COLOR_0 vertex-color
+        // attribute whose RED channel is a shader mask for their SOURCE-version wear shaders.
+        // three.js auto-enables material.vertexColors for any COLOR_0, so gray asphalt albedo
+        // is multiplied by red -> red pavement. Disabling vertexColors is the smallest fix
+        // (buildings' VC is all-white, so they are unaffected).
+        if (s.vertexColors) { s.vertexColors = false; s.needsUpdate = true }
+        // Pavement is also authored metalness=1 (mirror sheen); make marked ground matte too.
+        if (matte) { s.metalness = 0; s.roughness = 1; s.envMapIntensity = 0.25; s.needsUpdate = true }
       }
     })
   }, [obj, ground, centerXZ, matte])

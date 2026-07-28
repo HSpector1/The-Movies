@@ -2,14 +2,15 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import { useLab } from '../lab/LabContext'
 import { latestStats } from '../lab/stats'
+import { applyView, D_VIEWS } from '../lab/cameraBridge'
 import type { RuntimeManifest, Provenance, SceneKey } from '../types'
 
 const PROV_COLOR: Record<Provenance, string> = {
   'CC0': '#22c55e', 'ATTRIBUTION-REQUIRED': '#3b82f6', 'PROTOTYPE-ONLY': '#f59e0b',
   'LICENSE-UNCLEAR': '#f59e0b', 'DO-NOT-USE': '#ef4444',
 }
-const SCENE_LABEL: Record<SceneKey, string> = { A: 'A · Studio-lot scale', B: 'B · Furnished set', C: 'C · Animation' }
-const SCENE_PACK: Record<SceneKey, string> = { A: 'downtown', B: 'props', C: 'animation' }
+const SCENE_LABEL: Record<SceneKey, string> = { A: 'A · Lab01 lot', B: 'B · Furnished', C: 'C · Animation', D: 'D · Studio greybox' }
+const SCENE_PACK: Record<SceneKey, string> = { A: 'downtown', B: 'props', C: 'animation', D: 'downtown' }
 
 const panel: CSSProperties = {
   position: 'fixed', top: 0, left: 0, width: 340, maxHeight: '100vh', overflowY: 'auto',
@@ -67,16 +68,37 @@ export function DevPanel({ manifest }: { manifest: RuntimeManifest | null }): JS
       <div style={{ fontSize: 14, fontWeight: 700, color: '#eaf2fa' }}>Project: Studio — Asset Lab</div>
       <div style={{ color: '#6f7b88', fontSize: 10.5 }}>isolated intake · conversion · visual proof — owns no sim truth</div>
 
-      <div style={h}>Scene (§7)</div>
-      <div style={row}>{(['A', 'B', 'C'] as SceneKey[]).map((k) =>
+      <div style={h}>Scene — switch A⇄D to compare Lab 01 vs 02 (§8)</div>
+      <div style={row}>{(['A', 'B', 'C', 'D'] as SceneKey[]).map((k) =>
         <Btn key={k} on={state.scene === k} onClick={() => set('scene', k)}>{SCENE_LABEL[k]}</Btn>)}</div>
 
-      <div style={h}>Camera (§8)</div>
-      <div style={row}>
-        <Btn on={state.cameraMode === 'overview'} onClick={() => set('cameraMode', 'overview')}>Overview</Btn>
-        <Btn on={state.cameraMode === 'inspection'} onClick={() => set('cameraMode', 'inspection')}>Inspection</Btn>
-        <Btn onClick={resetCamera}>Reset</Btn>
-      </div>
+      <div style={h}>Camera (§7)</div>
+      {state.scene === 'D' ? (
+        <div style={row}>
+          {Object.keys(D_VIEWS).map((name) =>
+            <Btn key={name} onClick={() => applyView(D_VIEWS[name].pos, D_VIEWS[name].tgt)}>{name}</Btn>)}
+          <Btn onClick={resetCamera}>Reset</Btn>
+        </div>
+      ) : (
+        <div style={row}>
+          <Btn on={state.cameraMode === 'overview'} onClick={() => set('cameraMode', 'overview')}>Overview</Btn>
+          <Btn on={state.cameraMode === 'inspection'} onClick={() => set('cameraMode', 'inspection')}>Inspection</Btn>
+          <Btn onClick={resetCamera}>Reset</Btn>
+        </div>
+      )}
+
+      {state.scene === 'D' && (
+        <>
+          <div style={h}>Studio dressing — presentation vs polygons (§8)</div>
+          <div style={{ ...row, flexDirection: 'column', alignItems: 'flex-start' }}>
+            <Toggle label="Characters (CC0 crew)" on={state.showCharacters} onChange={(v) => set('showCharacters', v)} />
+            <Toggle label="Landscaping" on={state.showLandscaping} onChange={(v) => set('showLandscaping', v)} />
+            <Toggle label="Production dressing" on={state.showDressing} onChange={(v) => set('showDressing', v)} />
+            <Toggle label="Shadows" on={state.showShadows} onChange={(v) => set('showShadows', v)} />
+            <Toggle label="Atmosphere (sky + fog)" on={state.atmosphere} onChange={(v) => set('atmosphere', v)} />
+          </div>
+        </>
+      )}
 
       <div style={h}>Display (§8)</div>
       <div style={{ ...row, flexDirection: 'column', alignItems: 'flex-start' }}>

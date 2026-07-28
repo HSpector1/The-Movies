@@ -6,6 +6,12 @@ import { Suspense } from 'react'
 import { useLab } from './lab/LabContext'
 import { ModelGLB, ModelFBX, Character } from './components/models'
 import { HumanScaleRef } from './components/env'
+import { Workers, type WorkerSpec } from './components/Workers'
+import {
+  LotGround, Paving, Road, Sidewalk, Soundstage, ProductionOffice, EntranceGate, GuardBooth,
+  WaterTower, CrateStack, Cart, FilmLight, Bench, ProductionTruck, Tree, Planter,
+  BacklotFacade, SceneryFlat, Banner, StagingMark,
+} from './components/greybox'
 import type { RuntimeManifest, RuntimeAsset } from './types'
 
 const by = (m: RuntimeManifest, id: string): RuntimeAsset | undefined => m.assets.find((a) => a.id === id)
@@ -128,6 +134,97 @@ export function SceneC(): JSX.Element {
         </Suspense>
       )}
       {state.showScaleRef && <HumanScaleRef position={[1.15, 0, 0]} />}
+    </group>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Scene D — Studio Greybox Target (contract §4-§6). A small, art-directed studio district.
+const WORKERS: WorkerSpec[] = [
+  { pos: [-11, 0, 2], rotY: 1.2, clip: 'Idle_Talking_Loop', tint: '', startAt: 0.0 },   // talking pair, office
+  { pos: [-9.6, 0, 3.3], rotY: -1.9, clip: 'Idle_Talking_Loop', tint: '', startAt: 1.4 },
+  { pos: [-1.6, 0, 11.4], rotY: 0.0, clip: 'Sitting_Idle_Loop', tint: '', startAt: 0.7 },  // sitting, bench
+  { pos: [5.2, 0, -5], rotY: 0.3, clip: 'Fixing_Kneeling', tint: '', startAt: 2.1 },        // repair, soundstage
+  { pos: [5.4, 0, 4.4], rotY: -1.5, clip: 'PickUp_Table', tint: '', startAt: 0.4 },         // carry/interact, cart
+  { pos: [3.6, 0, -4], rotY: 0.1, clip: 'Idle_Loop', tint: '', startAt: 1.1 },              // waiting, stage door
+  { pos: [10, 0, -4.2], rotY: -0.4, clip: 'Idle_Talking_Loop', tint: '', startAt: 1.8 },    // waiting 2
+  { pos: [0.4, 0, 9], rotY: 0.0, clip: 'Walk_Loop', tint: '', startAt: 0.9 },               // walking, drive
+  { pos: [3, 0, 15.5], rotY: -0.5, clip: 'Idle_Loop', tint: '', startAt: 2.6 },             // standing, entrance
+]
+
+export function SceneD({ manifest }: { manifest: RuntimeManifest }): JSX.Element {
+  const { state } = useLab()
+  const cc0 = (id: string) => by(manifest, 'downtown/' + id)
+  const CC = (id: string, pos: [number, number, number], rotY = 0) => {
+    const a = cc0(id)
+    return a ? <ModelGLB key={id + pos.join(',')} asset={a} position={pos} rotationY={rotY} centerXZ matte /> : null
+  }
+  return (
+    <group>
+      {/* ---------- ground, paving, roads, walks ---------- */}
+      <LotGround size={140} />
+      <Paving size={[40, 34]} pos={[2, 0, 2]} />
+      <Road from={[0, 0, 30]} to={[0, 0, 8]} width={7} />
+      <Road from={[-16, 0, -3]} to={[22, 0, -3]} width={6} />
+      <Sidewalk size={[2.4, 22]} pos={[4.4, 0, 16]} />
+      <Sidewalk size={[2.4, 22]} pos={[-4.4, 0, 16]} />
+      <StagingMark pos={[2.5, 0, 1]} />
+
+      {/* ---------- identity structures ---------- */}
+      <EntranceGate pos={[0, 0, 21]} studio="MERIDIAN" sub="PICTURES" />
+      <GuardBooth pos={[6.2, 0, 20]} rotY={-0.15} />
+      <WaterTower pos={[-15, 0, 15]} label="MERIDIAN" />
+      <ProductionOffice pos={[-17.5, 0, 1]} rotY={Math.PI / 2} name="ADMINISTRATION" />
+      <Soundstage pos={[7, 0, -15]} rotY={0} w={22} d={18} h={12} number="1" />
+
+      {/* ---------- backlot suggestion (east) ---------- */}
+      <BacklotFacade pos={[23, 0, -12]} rotY={-Math.PI / 2} />
+      <SceneryFlat pos={[23, 0, -5]} rotY={-Math.PI / 2 + 0.2} />
+      <CrateStack pos={[24, 0, -18]} rotY={0.4} />
+
+      {/* ---------- CC0 pipeline assets (reuse) ---------- */}
+      {CC('Prop_Bollard', [3.3, 0, 24])}
+      {CC('Prop_Bollard', [-3.3, 0, 24])}
+      {CC('Prop_Planter_Single', [-3.6, 0, 17])}
+      {CC('Prop_Planter_Single', [3.6, 0, 17])}
+
+      {/* ---------- production dressing ---------- */}
+      {state.showDressing && (
+        <group>
+          <ProductionTruck pos={[13, 0, 6]} rotY={-2.3} />
+          <Cart pos={[4, 0, 4.4]} rotY={0.5} />
+          <Cart pos={[-2, 0, 7.5]} rotY={-1.0} />
+          <FilmLight pos={[1.5, 0, -1.5]} rotY={0.3} />
+          <FilmLight pos={[7, 0, 0.5]} rotY={-0.8} />
+          <FilmLight pos={[-4.5, 0, 2]} rotY={1.2} />
+          <CrateStack pos={[10.5, 0, -1.5]} rotY={0.4} />
+          <CrateStack pos={[-6.5, 0, 6]} rotY={-0.3} />
+          <Bench pos={[-2, 0, 12]} rotY={0} />
+          <Bench pos={[9, 0, 10]} rotY={-0.5} />
+          <Banner pos={[0, 0, 6]} rotY={0} text="NOW FILMING" />
+          <Banner pos={[6.5, 0, -5.5]} rotY={0.2} text="QUIET  STAGE 1" bg="#3f5c74" />
+        </group>
+      )}
+
+      {/* ---------- landscaping ---------- */}
+      {state.showLandscaping && (
+        <group>
+          <Tree pos={[-14, 0, 9]} s={1.2} />
+          <Tree pos={[17, 0, 11]} s={1.0} />
+          <Tree pos={[-9, 0, 18]} s={0.9} />
+          <Tree pos={[15, 0, -2]} s={1.1} />
+          <Planter pos={[-4.4, 0, 20]} />
+          <Planter pos={[4.4, 0, 20]} />
+          <Planter pos={[-10.5, 0, -2]} />
+        </group>
+      )}
+
+      {/* ---------- visible studio life ---------- */}
+      {state.showCharacters && (
+        <Suspense fallback={null}><Workers specs={WORKERS} /></Suspense>
+      )}
+
+      {state.showScaleRef && <HumanScaleRef position={[-1, 0, 5]} />}
     </group>
   )
 }
