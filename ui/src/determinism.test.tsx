@@ -46,6 +46,9 @@ function foundViaUi() {
 }
 
 function startGame(seed: string) {
+  // Each call starts a genuinely FRESH game: clear the active-session autosave so the second render
+  // in a comparison does not restore the first render's session (D-12 session recovery).
+  localStorage.clear()
   render(<App />)
   fireEvent.change(screen.getByTestId('seed-input'), { target: { value: seed } })
   fireEvent.click(screen.getByTestId('new-game'))

@@ -16,7 +16,7 @@
 // released while playing. Films present only in an imported save (released before
 // this session) have no snapshot; the dashboard explains that plainly.
 
-import { Component, useState } from 'react'
+import { Component, useEffect, useState } from 'react'
 import type { ErrorInfo, ReactNode } from 'react'
 import type {
   GameState,
@@ -53,6 +53,12 @@ import { HiringMarket } from './screens/HiringMarket.tsx'
 import { FilmRecord } from './screens/FilmRecord.tsx'
 import { NewspaperReveal } from './screens/NewspaperReveal.tsx'
 import { WeeklySummary } from './screens/WeeklySummary.tsx'
+import {
+  saveActiveSession,
+  loadActiveSession,
+  hasActiveSession,
+  clearActiveSession,
+} from './engine/session.ts'
 
 type Screen =
   | { kind: 'start' }
@@ -145,17 +151,63 @@ class DevErrorBoundary extends Component<{ children: ReactNode }, { error: Error
 }
 
 export function App() {
-  const [state, setState] = useState<GameState | null>(null)
-  const [screen, setScreen] = useState<Screen>({ kind: 'start' })
-  // productionId → pre-release snapshot, for exact autopsy of session releases.
+  // D-12 session recovery: on FIRST mount, restore the active-session autosave (through the same
+  // validate/migrate path as a manual load) BEFORE offering a new game — so a browser refresh, HMR
+  // reload, or dev-server restart never discards a valid studio. Runs exactly once (lazy initializer).
+  const [restore] = useState(loadActiveSession)
+  const [state, setState] = useState<GameState | null>(restore.ok ? restore.state : null)
+  const [screen, setScreen] = useState<Screen>(
+    restore.ok
+      ? restore.state.founding !== null
+        ? { kind: 'founding' }
+        : { kind: 'dashboard' }
+      : { kind: 'start' },
+  )
+  // A dismissible recovery notice: the recovered week, or a safe "recovery failed" message.
+  const [recovery, setRecovery] = useState<{ kind: 'recovered'; week: number } | { kind: 'corrupt' } | null>(
+    restore.ok
+      ? { kind: 'recovered', week: restore.state.market.tick }
+      : restore.reason === 'corrupt'
+        ? { kind: 'corrupt' }
+        : null,
+  )
+  // productionId → pre-release snapshot, for exact autopsy of session releases. Session-only (never
+  // in the save), so a restored session's pre-restore releases fall back to the persisted FilmRecord.
   const [snapshots, setSnapshots] = useState<Record<string, ReleaseSnapshot>>({})
+
+  // Autosave after EVERY authoritative state transition — every GameState change flows through
+  // setState, so this single effect covers founding, hiring, greenlight, advance, sim, release,
+  // theatrical payments, roster changes, etc. Whole engine states only (no half-applied writes).
+  useEffect(() => {
+    if (state) saveActiveSession(state)
+  }, [state])
 
   function startGame(next: GameState) {
     setState(next)
     setSnapshots({})
+    setRecovery(null)
     // A new PLAYER game opens in the founding draft (D-11.2); a founded game (or a
-    // loaded save past founding) goes straight to the dashboard.
+    // loaded save past founding) goes straight to the dashboard. The new game's first
+    // autosave (via the effect above) replaces any prior/quarantined active session.
     setScreen(next.founding !== null ? { kind: 'founding' } : { kind: 'dashboard' })
+  }
+
+  // A destructive "new studio" — confirmed when an active session exists, then the autosave is
+  // cleared so a subsequent refresh does not resurrect the abandoned studio.
+  function requestNewGame() {
+    if (
+      hasActiveSession() &&
+      typeof window !== 'undefined' &&
+      typeof window.confirm === 'function' &&
+      !window.confirm('Start a new studio? This will replace the current recovered session.')
+    ) {
+      return
+    }
+    clearActiveSession()
+    setState(null)
+    setSnapshots({})
+    setRecovery(null)
+    setScreen({ kind: 'start' })
   }
 
   function goDashboard() {
@@ -285,9 +337,26 @@ export function App() {
     setScreen({ kind: 'autopsy', view, compare })
   }
 
+  // A concise, dismissible recovery notice shown once after a restore (or a safe failure message).
+  const recoveryBanner = recovery && (
+    <div className="card" data-testid="recovery-notice" role="status" style={{ marginBottom: 12 }}>
+      <div className="spread">
+        <span>
+          {recovery.kind === 'recovered'
+            ? `Recovered your studio from Week ${recovery.week}.`
+            : 'Could not recover your last studio (the saved session was unreadable). Your manual saves are unaffected — start a new studio or load a save.'}
+        </span>
+        <button className="ghost" onClick={() => setRecovery(null)} data-testid="recovery-dismiss">
+          Dismiss
+        </button>
+      </div>
+    </div>
+  )
+
   if (!state || screen.kind === 'start') {
     return (
       <DevErrorBoundary>
+        {recoveryBanner}
         <StartScreen onStart={startGame} />
       </DevErrorBoundary>
     )
@@ -295,6 +364,7 @@ export function App() {
 
   return (
     <DevErrorBoundary>
+      {recoveryBanner}
       {screen.kind === 'founding' && (
         <FoundingScreen
           state={state}
@@ -419,11 +489,7 @@ export function App() {
             setSnapshots({})
             setScreen(next.founding !== null ? { kind: 'founding' } : { kind: 'dashboard' })
           }}
-          onNewGame={() => {
-            setState(null)
-            setSnapshots({})
-            setScreen({ kind: 'start' })
-          }}
+          onNewGame={requestNewGame}
           onBack={goDashboard}
         />
       )}
