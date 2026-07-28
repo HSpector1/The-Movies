@@ -1,0 +1,16 @@
+# --- Isolation: never commit the source archives or extracted asset binaries ---
+# sources/ holds the preserved original archives + extraction + scratch (contract §2).
+sources/
+
+# Curated + optimized runtime binaries are regenerable from sources/ via `npm run pipeline`.
+# They also include LICENSE-UNCLEAR / DO-NOT-USE material that must not be redistributed.
+public/assets/
+
+# --- Standard ---
+node_modules/
+dist/
+.vite/
+*.log
+.DS_Store
+
+# Proof PNGs (proof/) and manifests/ ARE committed: they are required deliverables (§11, §12).
