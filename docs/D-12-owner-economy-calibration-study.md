@@ -386,3 +386,21 @@ The reckless route's RNG salt (`seedKey`) is preserved from the original so the 
 - **Cohesion (median) 88; 100% strong tier; commercially coherent 100%.** The package stays commercially coherent — its weakness is the mid-to-low roster and limited execution, not a stacked worst-case.
 
 **Verdict vs the 35–65% band (which applies to this route only):** realized loss **33%** sits just below the 35% floor — **reasonably near** the band. Per the owner ruling (point 7: "within or near → make no production change"), **no production change was made**. The implementation is a single faithful reading of the route spec ("mid-to-low talent, ordinary/accessible Shape, Adequate funding, Standard Marketing, weak execution without stacking worst-case levers"); the loss rate was **reported, not targeted**. If the owner considers 33% outside acceptable tolerance, that is a separate tuning ruling — nothing here anticipates or pre-empts it.
+
+---
+
+## FORECAST CAUSALITY FIX (2026-07-28) — owner directive "D-12 FINAL FORECAST CAUSALITY"
+
+**Owner case (Letters from Vineyard):** greenlight forecast promised expected gross $91.54M / expected profit ~$42M for a film with Craft ~44, expected Fit 36, Weak Execution Confidence (~30), unproven talent, expected critic 29.3. Realized: gross $13.09M, Contribution +$1.6M. The arithmetic reconciled ($91.54M × 0.52 ≈ $47.60M), so this was **not** the gross/share bug — it was a **forecast causality** defect.
+
+**Root cause (proven by decomposition, not inferred from the total):** `computeForecast.expectedTotal` was box office evaluated at a **single noisy appeal sample** — `noisyEstimates = center + one gaussian offset`, offset sigma `FORECAST_SIGMA[confidence]` (16 for low confidence). Box office is **convex** in appeal (opening ∝ appeal^`APPEAL_CURVE_EXP`=1.8; legs ∝ (WAS/100)^`LEGS_RETENTION_EXP`=1.4), so a positive offset draw inflates the "expected" through a double-convex amplification. Measured (weak film, center WAS 47 → $10.8M gross): +1σ → $27.3M, +2σ → $49.3M, +2.5σ → $63.9M. The largest sigma applies to exactly the low-confidence films the studio understands least, and the "expected" was neither mean nor median — it was one optimistic sample. The owner's Letters drew a large positive offset. This also explains the extreme-skewed band the owner saw (expected near the high).
+
+**Fix (targeted, engaged-gated):** in `computeForecast`, the engaged central estimate drops the offset (`offset = engaged ? 0 : rawOffset`) so the expected is the **deterministic center** — the honest model expectation. Forecast uncertainty lives in the band (± `CONFIDENCE_INTERVAL_WIDTH`, unchanged) plus the low-confidence `FORECAST_DOWNSIDE_WIDEN`, and in realized reception RNG — not in a biased central point. The draw is still taken (stream advances identically); the **non-engaged (M0A/headless) path keeps the noisy point → acceptance corpus + replay byte-identical**. No gross scale, share, cash, RNG, or forecast width changed; critic is not a multiplier; the realized seed still profits (its reception is untouched).
+
+**`audienceAlignedWeakExecution` (200 seeds, post-fix):**
+- forecast Contribution: downside **−$6.34M** · expected **−$1.11M** · upside **+$5.73M** (was ~+$42M "guaranteed").
+- forecast opening **$6.16M** ≈ realized opening **$6.10M**; forecast legs **2.28** ≈ realized legs **2.28** — the forecast now reconciles with reality.
+- realized Contribution p10 −$3.94M / med −$0.16M / p90 +$4.51M; **loss 52%**. Craft med 66.6; audience score med 55.
+- All Forecast Acceptance criteria met: negative downside; not guaranteed profitable; expected near break-even; meaningful upside; weak delivery limits expected legs/gross; overextended Wide marketing incurs the overexposure penalty (no free demand).
+
+**Impact on other routes:** realized four-film / competent / tentpole / bargain distributions are **byte-identical** (reception uses a separate stream; only the forecast display changed). Best-route four-film median ~1.16×, competent-aggressive med 0.70–0.75×, bargain loss ~75–79% — all unchanged.

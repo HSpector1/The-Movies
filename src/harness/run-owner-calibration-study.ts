@@ -509,6 +509,43 @@ function weakCommercialReport(seeds: number) {
   }
 }
 
+// ── audienceAlignedWeakExecution — the owner's "Letters from Vineyard" forecast-causality case ──────
+// A commercially accessible film (ordinary shape, positive positioning, Standard demand) with mid-to-low
+// UNPROVEN talent (weak Fit, weak Execution Confidence, mixed coherence), GENEROUS budget and WIDE
+// (overextended) Marketing on a low commitment. Before the forecast-causality fix, a lucky positive
+// forecast offset run through convex box office made the ENGAGED "expected" gross a blockbuster outlier.
+// This route captures the LOCKED greenlight forecast (opening/legs/Contribution band) AND the realized
+// opening/legs/Craft/audience-score/Delivered-Alignment distributions, over ≥200 seeds.
+function audienceAlignedWeakExecutionReport(seeds: number) {
+  const fOpen: number[] = [], fLegs: number[] = [], fLow: number[] = [], fExp: number[] = [], fHigh: number[] = []
+  const aOpen: number[] = [], aLegs: number[] = [], contribs: number[] = []
+  const craftList: number[] = [], wasList: number[] = [], alignList: number[] = []
+  for (let i = 0; i < seeds; i++) {
+    // WIDE marketing (1.5M) + GENEROUS budget (1.25×) + mid-to-low talent on a commercially accessible shape.
+    const r = archFilmDetailed(`aawe-${i}`, 'ordinary', 'midlow', 1_500_000, 1.25, 0)
+    if (!r) continue
+    fOpen.push(r.forecastOpening); fLegs.push(r.forecastLegs)
+    fLow.push(r.forecastProfit.low); fExp.push(r.forecastProfit.expected); fHigh.push(r.forecastProfit.high)
+    aOpen.push(r.opening); aLegs.push(r.legs); contribs.push(r.contribution)
+    craftList.push(r.craft); wasList.push(r.was); alignList.push(r.cohesion) // cohesion = delivered team alignment proxy
+  }
+  const band = (xs: number[]) => ({ p10: Math.round(quantile(xs, 0.1)), median: Math.round(median(xs)), p90: Math.round(quantile(xs, 0.9)) })
+  return {
+    label: 'audienceAlignedWeakExecution (mid-to-low unproven, accessible shape, generous budget, WIDE mkt)',
+    n: contribs.length,
+    forecastContribution: { downside: Math.round(median(fLow)), expected: Math.round(median(fExp)), upside: Math.round(median(fHigh)) },
+    forecastOpeningMedian: Math.round(median(fOpen)),
+    forecastLegsMedian: r2(median(fLegs)),
+    actualOpening: band(aOpen),
+    actualLegs: { p10: r2(quantile(aLegs, 0.1)), median: r2(median(aLegs)), p90: r2(quantile(aLegs, 0.9)) },
+    realizedContribution: band(contribs),
+    lossProbability: r2(rate(contribs.map((c) => c < 0))),
+    craft: { p10: r2(quantile(craftList, 0.1)), median: r2(median(craftList)), p90: r2(quantile(craftList, 0.9)) },
+    audienceScore: { p10: r2(quantile(wasList, 0.1)), median: r2(median(wasList)), p90: r2(quantile(wasList, 0.9)) },
+    deliveredAlignment: { p10: r2(quantile(alignList, 0.1)), median: r2(median(alignList)), p90: r2(quantile(alignList, 0.9)) },
+  }
+}
+
 // ── §7: rational competent bot — package-specific Marketing + Budget choices ──
 // A competent player who makes RATIONAL, film-specific choices rather than mechanically maximizing
 // marketing / minimizing budget. Across four films it cycles ambition (contained → ordinary →
@@ -609,6 +646,7 @@ function archFilmDetailed(seed: string, shapeKey: ArchKey, rank: Rank, marketing
   contribution: number; opening: number; total: number; legs: number
   // D-12 weak-commercial calibration extras (LOCKED greenlight forecast + realized delivery signals):
   forecastProfit: { low: number; expected: number; high: number } // Contribution band at greenlight
+  forecastOpening: number; forecastTotal: number; forecastLegs: number // LOCKED greenlight opening/total/legs
   demandMultiplier: number; craft: number; was: number; cohesion: number; cohesionTier: 'strong' | 'mixed' | 'weak'
 } | null {
   let s = foundFor(seed, { ...ROUTES[0]!, rank })
@@ -679,10 +717,13 @@ function archFilmDetailed(seed: string, shapeKey: ArchKey, rank: Rank, marketing
   const film = s.studio.releasedFilms.find((f) => f.productionId === id)
   const craft = film ? film.craft : 0
   const was = film ? s.market.segments.reduce((acc, seg) => acc + seg.share * (film.segmentScores[seg.id] ?? 0), 0) : 0
+  const fOpening = assessment.forecastSnapshot.expectedOpening
+  const fTotal = assessment.forecastSnapshot.expectedTotal
   return {
     contribution: gross * run.studioShare - (negative + marketing),
     opening, total: gross, legs: opening > 0 ? gross / opening : 0,
     forecastProfit: { low: assessment.profit.profit.low, expected: assessment.profit.profit.expected, high: assessment.profit.profit.high },
+    forecastOpening: fOpening, forecastTotal: fTotal, forecastLegs: fOpening > 0 ? fTotal / fOpening : 0,
     demandMultiplier, craft, was, cohesion: assessment.cohesion.score, cohesionTier: assessment.cohesion.tier,
   }
 }
@@ -833,6 +874,23 @@ console.log(`  craft(med) ${weakCommercial.craftMedian}  audienceScore(med) ${we
 // eslint-disable-next-line no-console
 console.log(`  cohesion(med) ${weakCommercial.cohesionMedian}  tiers ${JSON.stringify(weakCommercial.cohesionTiers)}  commercially-coherent ${(weakCommercial.commerciallyCoherentRate * 100).toFixed(0)}%`)
 writeFileSync(join(OUT, 'weak-commercial.json'), JSON.stringify(weakCommercial, null, 2))
+
+// §Phase-1 (forecast causality): the owner's audience-aligned weak-execution case — ≥200 seeds.
+const aawe = audienceAlignedWeakExecutionReport(Math.max(200, Math.min(SEEDS, 240)))
+const M2 = (x: number) => `$${(x / 1e6).toFixed(2)}M`
+// eslint-disable-next-line no-console
+console.log(`\n## audienceAlignedWeakExecution (forecast causality) — n=${aawe.n}`)
+// eslint-disable-next-line no-console
+console.log(`  forecast Contribution:  downside ${M2(aawe.forecastContribution.downside)}  expected ${M2(aawe.forecastContribution.expected)}  upside ${M2(aawe.forecastContribution.upside)}`)
+// eslint-disable-next-line no-console
+console.log(`  forecast opening(med) ${M2(aawe.forecastOpeningMedian)}  forecast legs(med) ${aawe.forecastLegsMedian}`)
+// eslint-disable-next-line no-console
+console.log(`  actual opening  p10 ${M2(aawe.actualOpening.p10)} med ${M2(aawe.actualOpening.median)} p90 ${M2(aawe.actualOpening.p90)}   actual legs  p10 ${aawe.actualLegs.p10} med ${aawe.actualLegs.median} p90 ${aawe.actualLegs.p90}`)
+// eslint-disable-next-line no-console
+console.log(`  realized Contribution  p10 ${M2(aawe.realizedContribution.p10)} med ${M2(aawe.realizedContribution.median)} p90 ${M2(aawe.realizedContribution.p90)}  LOSS ${(aawe.lossProbability * 100).toFixed(0)}%`)
+// eslint-disable-next-line no-console
+console.log(`  craft  p10 ${aawe.craft.p10} med ${aawe.craft.median} p90 ${aawe.craft.p90}   audienceScore  p10 ${aawe.audienceScore.p10} med ${aawe.audienceScore.median} p90 ${aawe.audienceScore.p90}   deliveredAlignment  p10 ${aawe.deliveredAlignment.p10} med ${aawe.deliveredAlignment.median} p90 ${aawe.deliveredAlignment.p90}`)
+writeFileSync(join(OUT, 'audience-aligned-weak-execution.json'), JSON.stringify(aawe, null, 2))
 
 const routeAgg: RouteAgg[] = []
 for (const st of ROUTES) {

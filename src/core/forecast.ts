@@ -381,7 +381,17 @@ export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, satur
   // ONE film-level gaussian offset from the DERIVED forecast stream (M9) —
   // never the sim stream. sigma = FORECAST_SIGMA[confidence].
   const fstream = stream(ctx.seed, 'forecast', ctx.productionId)
-  const offset = fstream.gaussian(0, TUNING.FORECAST_SIGMA[confidence])
+  const rawOffset = fstream.gaussian(0, TUNING.FORECAST_SIGMA[confidence])
+  // D-12 forecast causality: the single noisy offset, run through the CONVEX box office (opening ∝
+  // appeal^APPEAL_CURVE_EXP, legs ∝ (WAS/100)^LEGS_RETENTION_EXP), turned the ENGAGED "expected" gross
+  // into an optimistic SINGLE-SAMPLE outlier for low-confidence films (sigma is largest exactly when the
+  // studio knows least). A +2σ draw on an unproven weak film inflated a ~$11M film to ~$50M+ "expected".
+  // The honest expected is the DETERMINISTIC CENTER; forecast uncertainty belongs in the band (± width,
+  // plus the low-confidence downside widen) and in the realized reception RNG — NOT in a biased central
+  // point. So the engaged central estimate drops the offset (estimate = center); the band is unchanged in
+  // WIDTH. The draw is still taken (stream advances identically) so nothing downstream shifts, and the
+  // NON-engaged (M0A/headless) path keeps the noisy point → the acceptance corpus stays byte-identical.
+  const offset = engaged ? 0 : rawOffset
   const width = TUNING.CONFIDENCE_INTERVAL_WIDTH[confidence]
 
   const causal = computeCausalFactors(inp, centers)
