@@ -348,10 +348,48 @@ export const TUNING = {
   // on a not-yet-visible film is wasted — an interior optimum — while a genuinely visible film still
   // absorbs a wide campaign efficiently. A NEW studio (low audience awareness) is therefore rarely
   // able to justify a maximum campaign until it has built awareness — the intended shape.
-  MARKETING_CAPACITY_MIN: 25_000, // [ICH] efficient marketing capacity at zero pre-marketing awareness
+  MARKETING_CAPACITY_MIN: 15_000, // [ICH] efficient marketing capacity at zero pre-marketing awareness
   MARKETING_CAPACITY_MAX: 1_800_000, // [ICH] efficient marketing capacity at full pre-marketing awareness
-  MARKETING_AWARENESS_STANDING_WEIGHT: 0.6, // [ICH] blend: studio audience awareness vs film opening-appeal reach
+  MARKETING_AWARENESS_STANDING_WEIGHT: 0.7, // [ICH] blend: studio audience awareness vs film opening-appeal reach (a NEW studio can't push a big campaign until it builds awareness)
   MARKETING_AWARENESS_EXP: 2.0, // [ICH] capacity ∝ awareness^EXP (EXP>1 ⇒ low-awareness saturates cheaply)
+  // Stage A: MAXIMUM effective Marketing reach — the ceiling on how much of a film's opening reach a
+  // campaign can supply, scaled by pre-marketing awareness. A not-yet-visible film converts even a
+  // saturated campaign into only a little reach (so beyond efficient capacity, incremental reach
+  // collapses and a maximum campaign overspends), while a visible film's campaign can carry a large
+  // share of its reach. Replaces the flat 0.4 marketing weight in the ENGAGED path only (the legacy
+  // non-engaged path keeps the fixed 0.4 for M0A byte-identity). Both marketing gross channels (base
+  // awareness + the promise-specificity bonus) consume this single effective-Marketing value.
+  MARKETING_REACH_MIN: 0.1, // [ICH] effective marketing reach ceiling at zero pre-marketing awareness
+  MARKETING_REACH_MAX: 0.55, // [ICH] effective marketing reach ceiling at full pre-marketing awareness
+  // Stage B: deterministic OVEREXPOSURE pressure (engaged only; NO new RNG, NO critic effect). Spending
+  // far beyond a film's efficient marketing capacity raises audience expectations the delivered movie
+  // must satisfy; when it under-delivers (low weighted audience score) those expectations sour and the
+  // film FRONT-LOADS — its LEGS (hold) shrink. A film that delivers keeps its legs, so a genuine
+  // high-awareness event film can still rationally run a maximum campaign; a weak or mismarketed film
+  // that overspends loses money. Opening reach and critic score are untouched.
+  OVEREXPOSURE_THRESHOLD: 1.3, // [ICH] overexposure begins above this spend÷capacity ratio
+  OVEREXPOSURE_RANGE: 2.0, // [ICH] ratio span from threshold to full overexposure
+  OVEREXPOSURE_LEGS_COEF: 0.5, // [ICH] max fractional LEGS reduction at full overexposure × full delivery gap
+  // A film that DELIVERS (weighted audience score ≥ REF) creates no expectation gap — it withstands a
+  // big campaign. The gap opens only as delivery falls below REF, saturating at REF − RANGE.
+  OVEREXPOSURE_DELIVERY_REF: 58, // [ICH] audience score at/above which a big campaign is fully justified
+  OVEREXPOSURE_DELIVERY_RANGE: 28, // [ICH] audience-score span over which the delivery gap opens to full
+
+  // ── D-12 production-budget realization/reliability (engaged only) ───────────
+  // A SEPARATE engaged-only layer ON TOP of the frozen M0A `budgetAdequacy` (which is left unchanged
+  // in computeCraft/computeDeterministicCore). It answers "how much funding does THIS film need to
+  // realize its ambition reliably", using the film's production DEMAND = requiredNegative (concept
+  // base cost × shape budgetDemandMultiplier × era). Under-funding a DEMANDING film (high demand)
+  // materially lowers realized craft; a contained film barely notices. Over-funding has sharply
+  // diminishing craft returns (a little execution protection), and never multiplies box office or
+  // buys critic points on its own. It is a deterministic craft delta — no new RNG, engaged-gated so
+  // M0A stays byte-identical. See docs/D-12-owner-calibration-contract.md.
+  BUDGET_UNDERFUND_COEF: 60, // [ICH] max craft points lost at full shortfall × full ambition
+  BUDGET_AMBITION_REF: 0.8, // [ICH] budgetDemandMultiplier at/below which underfunding sensitivity ≈ 0 (contained)
+  BUDGET_AMBITION_RANGE: 0.38, // [ICH] demand span to full ambition sensitivity (0.95 → 1.40)
+  BUDGET_AMBITION_MIN: 0.15, // [ICH] floor: even a contained film loses a little if severely underfunded
+  BUDGET_OVERFUND_COEF: 4, // [ICH] max craft protection from over-funding (small; diminishing)
+  BUDGET_OVERFUND_SCALE: 0.3, // [ICH] over-funding diminishing-return scale (ratio units above 1.0)
 } as const
 
 // ── §5.1 cast weighting ──────────────────────────────────────────────────────

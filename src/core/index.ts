@@ -135,6 +135,7 @@ export {
   castContribution,
   computeSegmentAppeal,
   computeBoxOffice,
+  budgetRealizationDelta,
 } from './reception.js'
 export type { ReceptionInputs, ReceptionResult } from './reception.js'
 

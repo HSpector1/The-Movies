@@ -65,3 +65,15 @@ Dominant root cause: **base opening/gross scale too high.**
 - **Production Budget:** no single tier expected-Contribution optimal in **> ~70%** of packages; ≥2 tiers rationally optimal in clearly different package types; Generous credibly improves downside/realization for some ambitious films; Lean credible for some contained films; expensive can still waste money when misapplied. **No forced equality.**
 - **Capability:** competent viable; star-heavy viable-but-demanding; bargain a stress lane; highest-OVR not dominant; Fame + Fit remain valuable; tentpoles possible with upside AND downside; no strategy wins through inactivity; no routine package has guaranteed profit; payroll visible without becoming an arbitrary tax.
 - **Accounting/determinism:** six-week gross conservation; share applied exactly once; no duplicate payments; forecast == persisted snapshot; save/reload == continuous play; Sim-to-Next-Event ordering; V3→V4 migration; M0A corpus + replay byte-identical.
+
+---
+
+## CLOSURE STATUS (2026-07-28) — all three levers implemented within contract
+
+The calibration closure (owner ruling "COMPLETE D-12 MARKETING AND PRODUCTION-BUDGET CALIBRATION") implemented all three approved levers, economy-ENGAGED-gated, M0A byte-identical:
+
+1. **Routine gross scale** — `ECONOMY_BOX_OFFICE_SCALE = 0.70` (retained; the repaired Marketing/Budget systems brought the routes into target at 0.70).
+2. **Awareness-conditioned Marketing** — Stage A effective-reach ceiling + Stage B deterministic overexposure (legs-only, delivery-conditioned, no RNG, no critic effect). Maximum Marketing is no longer universally optimal (33% of representative packages; 3 tiers).
+3. **Production Budget** — a NEW engaged-only realization/reliability craft delta (`budgetRealizationDelta`) added ON TOP of the FROZEN M0A `budgetAdequacy` (unchanged). Contained→Lean, ordinary→Adequate, demanding→Generous; budget affects gross only via craft, never a direct multiplier.
+
+Frozen constants (share 0.52, K 50, salaries, overhead, starting cash, run length, forecast RNG, save schema, production slots, contracts) remain byte-identical. No new RNG; no non-goal entered scope. See the study's "D-12 CALIBRATION CLOSURE" section for the full record. Adversarial review SOUND (one forecast/realized divergence found + fixed + regression-tested); contract audit CONFORMS. **Not merged** — pending the owner's final human balance re-test.

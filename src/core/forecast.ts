@@ -18,7 +18,7 @@
 // stream, which is stateless (derived on demand from the run seed) — replays exact.
 
 import { clamp, mean, remap, smoothstep, lerp } from './math.js'
-import { computeSegmentAppeal, type ReceptionInputs, computeBoxOffice } from './reception.js'
+import { computeSegmentAppeal, type ReceptionInputs, computeBoxOffice, budgetRealizationDelta } from './reception.js'
 import { specificity } from './shape.js'
 import { stream } from './rng.js'
 import { CAST_WEIGHT, FORCE_VECTORS, ROLE_WEIGHT, TUNING } from './tuning.js'
@@ -75,7 +75,7 @@ export type DeterministicCore = {
   budgetAdequacy: number
 }
 
-function computeDeterministicCore(inp: ForecastInputs): DeterministicCore {
+function computeDeterministicCore(inp: ForecastInputs, engaged = false): DeterministicCore {
   // §5.1 craft — D-9.5: the identical FOUR reads, but use = 'perceived' (forecast
   // reads perceived; reception reads actual). Structure downstream unchanged.
   // RULING C (2026-07-26): the shape being greenlit (`inp.shape`, the raw FilmShape)
@@ -125,13 +125,23 @@ function computeDeterministicCore(inp: ForecastInputs): DeterministicCore {
   const budgetAdequacy =
     (100 * clamp(inp.budget.negative / Math.max(requiredNegative, 1), 0, 1.15)) / 1.15
 
+  // D-12: engaged-only production-budget realization delta ON TOP of the frozen M0A craft (0 when
+  // not engaged → byte-identical). SAME rule the realized reception path uses, so forecast and result
+  // agree on the budget's effect on realized craft.
+  const realizationDelta = budgetRealizationDelta(
+    inp.budget.negative,
+    requiredNegative,
+    inp.shapeEffects.budgetDemandMultiplier,
+    engaged,
+  )
   const craft = clamp(
     0.3 * scriptStrength +
       0.25 * directorExecution +
       0.2 * castExecution +
       0.15 * technical +
       0.1 * budgetAdequacy +
-      inp.shapeEffects.craftMod,
+      inp.shapeEffects.craftMod +
+      realizationDelta,
     0,
     100,
   )
@@ -236,8 +246,8 @@ export type ForecastCenters = {
   starDraw: number
 }
 
-export function forecastCenters(inp: ForecastInputs, saturateFame = false): ForecastCenters {
-  const core = computeDeterministicCore(inp)
+export function forecastCenters(inp: ForecastInputs, saturateFame = false, engaged = false): ForecastCenters {
+  const core = computeDeterministicCore(inp, engaged)
   const appeal = computeSegmentAppeal(inp, core.delivered, core.craft, core.timelinessContribution, saturateFame)
   return {
     centers: appeal.segmentAppeal,
@@ -357,7 +367,7 @@ export type ForecastContext = {
 // scale + awareness marketing). Distinct concerns, both true together in engaged play; separated so
 // fame-isolation tests can vary fame without the economy scale. Both default false (M0A byte-identical).
 export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, saturateFame = false, engaged = false): Forecast {
-  const centers = forecastCenters(inp, saturateFame)
+  const centers = forecastCenters(inp, saturateFame, engaged)
 
   // Confidence (film-level) — computed BEFORE the offset because sigma depends on it.
   const predicates = computeConfidencePredicates(

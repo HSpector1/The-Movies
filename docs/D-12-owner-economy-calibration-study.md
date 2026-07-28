@@ -283,3 +283,45 @@ See §19 above, plus: confirm a $1M campaign on a brand-new studio's first film 
 
 ## Can D-12 merge?
 The money-is-not-a-constraint **root cause is corrected**. But two owner-approval items remain open: the marketing over-exposure mechanism (proposed) and the budget-choice redesign (stop condition). **D-12 should NOT merge until the owner rules on (1) and (2)** — either approving the follow-on mechanisms or accepting them as documented limitations. This is not a merge; it is the calibration-implemented checkpoint for the owner's human balance re-test.
+
+---
+
+# D-12 CALIBRATION CLOSURE — Marketing & Production Budget made strategic (owner ruling 2026-07-28) `[P]`
+
+Both previously-open items are now resolved on the real engine (all economy-ENGAGED-gated; M0A byte-identical). Adversarial review **SOUND** (one forecast/realized divergence found and fixed + covered by a new regression test); contract audit **CONFORMS**; 819 tests + 7 Playwright + build green.
+
+## Marketing path audit
+Raw `budget.marketing` enters the box office **once** (reception.ts, computing the canonical `marketingQuality`). Both gross channels — base awareness and the promise-specificity bonus — consume a single canonical `effectiveMarketing` value; overexposure reads spend÷capacity for a LEGS-only expectation signal. **No accidental raw-spend double count** (confirmed by review + a single-source test). No path was removed to force a result; the effect was consolidated onto the canonical value.
+
+## Marketing Stage A (saturation + full cost) — necessary but NOT sufficient alone
+Stage A adds an awareness-scaled **effective-marketing-reach ceiling** (`MARKETING_REACH_MIN=0.1`, `MARKETING_REACH_MAX=0.55`) so a not-yet-visible film converts even a saturated campaign into little reach. It cut max-marketing dominance 100%→~42–50% and pulled the four-film balance into target, but could not reach ≤35% because a high-appeal/high-gross film always benefits from a little more reach. **Stage B was required** (per the directive's escalation clause).
+
+## Marketing Stage B (deterministic overexposure) — implemented
+Spend beyond `OVEREXPOSURE_THRESHOLD=1.3 ×` efficient capacity raises audience expectations; a film that **under-delivers** (weighted audience score below `OVEREXPOSURE_DELIVERY_REF=58`, over a `RANGE=28` band) is **front-loaded** — its LEGS shrink by up to `OVEREXPOSURE_LEGS_COEF=0.5 × overexposure × deliveryGap`. Deterministic (no new RNG); **opening reach and critic score are untouched**; a delivering film keeps its legs, so a genuine event film can still run a maximum campaign. Player-facing Budget & Forecast shows the truthful engine-derived campaign band (Underexposed / Efficient / Near saturation / Overextended).
+
+## Production Demand model + realization/reliability rule
+**Production Demand = `requiredNegative` = concept.baseNegativeCost × shape `budgetDemandMultiplier` × era** — the existing engine value that already scales with concept cost AND shape ambition (spectacle shapes demand ~1.4×; contained ~0.85×). A NEW engaged-only craft **realization delta** (`budgetRealizationDelta`, applied identically in the realized `computeCraft` AND the forecast `computeDeterministicCore`, on top of the FROZEN M0A `budgetAdequacy`): under-funding penalty `= −BUDGET_UNDERFUND_COEF(60) × shortfall × ambitionSensitivity` (ambition from `budgetDemandMultiplier` via `BUDGET_AMBITION_REF=0.8`, `RANGE=0.38`, floor `0.15`); over-funding protection `= BUDGET_OVERFUND_COEF(4) × (1 − e^(−over/0.3))` (small, diminishing). Budget affects gross **only via craft** — it never multiplies box office or buys critic points, and the delta is 0 when not engaged.
+
+## Final constants
+`ECONOMY_BOX_OFFICE_SCALE = 0.70` (unchanged — the repaired Marketing/Budget systems brought the routes into target at 0.70, so no reduction was needed). Marketing: capacity 15k–1.8M, awareness weight 0.7, exp 2.0, reach ceiling 0.1–0.55; overexposure 1.3/2.0/0.5, delivery ref 58 / range 28. Budget: underfund 60, ambition 0.8/0.38/0.15, overfund 4/0.3.
+
+## Marketing-tier optima (diverse representative set: best/mid/cheapest × contained/ordinary/demanding × fresh/warmed)
+Maximum Marketing optimal in **33%** of packages (target ≤35%); **3 distinct tiers** optimal; Standard optimal ~61% (≈60% ceiling). Low-awareness/weak films prefer Minimum/Standard; strong high-awareness commercial films rationally prefer Maximum. Marginal contribution per marketing dollar declines steeply (~6.5× → ~1.6× → negative when overextended).
+
+## Production-Budget-tier optima
+Top tier (Lean) optimal in **39–50%** (target ≤70%); **3 distinct tiers**. By ambition: **contained → Lean, ordinary → Adequate, demanding → Generous** — exactly the intended shape. Over-funding a contained film wastes money; under-funding a demanding film materially lowers realized craft.
+
+## Before → after four-film routes (150 seeds)
+Rational competent bot (package-specific choices): 4-film cash multiple **median 1.50×, p90 2.18×**, loss/film **19%**, ≥1 loss in four **35%**, ends below start **25%**, breakout **1%** — budget picks by ambition {Lean 25%, Adequate 50%, Generous 25%}. Fixed routes: A(aggressive) med 1.20×, B(restrained) 1.38×, C(star) 1.23×, D(bargain, stress) 0.89×; competent p90 ~2.17–2.21×. Contribution/film 31–67% of commitment (was 114–164%). All competent gates met.
+
+## Tentpole / high-awareness finding
+A tentpole is not a turn-one move (capital-building precedes it); on a warmed, visible studio a Maximum campaign + Generous budget on a strong demanding film is rational and has real upside, but retains material loss risk (over-marketing a film that fails to deliver still front-loads it). Neither system makes tentpoles guaranteed-quality machines: budget buys realization/reliability (craft), never box office.
+
+## Remaining limitations
+None blocking. Ordinary competent contribution and loss frequency are in the design ranges; the p90 sits at the top of the ≤2.0–2.25× target. Distinctions used by the routes: *ordinary success* < ~$3M contribution, *hit* ~$3–10M, *breakout* ≥ ~$10M (≈1% of films). Rare-tail breakouts remain.
+
+## Required human re-test
+Found a competent studio; make four films spanning a contained, an ordinary, and a demanding concept/shape. Confirm: (a) on your first film a $1M campaign reads **Overextended** and stepping to Standard improves Film Contribution; (b) the **demanding** film's Contribution is better at Generous budget than Lean, while the **contained** film is fine on Lean; (c) four films leave you comfortable-but-not-multiplied (~1.5×) with at least one loss; (d) maximum Marketing is no longer the automatic answer.
+
+## Merge readiness
+All known D-12 calibration merge blockers are resolved: money is a meaningful constraint, Maximum Marketing is not universally optimal, and Production Budget is a real ambition-driven choice — all M0A-byte-identical and deterministic. **Still not a merge** — pending the owner's final human balance re-test.

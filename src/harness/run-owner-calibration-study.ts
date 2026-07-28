@@ -49,7 +49,7 @@ const r2 = (n: number) => Math.round(n * 1000) / 1000
 const fmtM = (n: number) => `$${(n / 1_000_000).toFixed(2)}M`
 
 // ── owner routes (competent unless noted) ─────────────────────────────────────
-type Rank = 'best' | 'cheapest' | 'star'
+type Rank = 'best' | 'cheapest' | 'star' | 'mid'
 type Route = {
   name: string
   counts: Record<CreativeRole, number>
@@ -75,7 +75,13 @@ function rankTalent(list: Talent[], role: CreativeRole, rank: Rank): Talent[] {
   const arr = [...list]
   if (rank === 'best') arr.sort((a, b) => ovr(b) + b.fame - (ovr(a) + a.fame))
   else if (rank === 'cheapest') arr.sort((a, b) => ovr(a) + a.fame - (ovr(b) + b.fame))
-  else arr.sort((a, b) => ovr(b) + 2 * b.fame - (ovr(a) + 2 * a.fame)) // star: fame-weighted
+  else if (rank === 'star') arr.sort((a, b) => ovr(b) + 2 * b.fame - (ovr(a) + 2 * a.fame)) // fame-weighted
+  else {
+    // 'mid': ordinary talent — sort by distance from the pool's median OVR (a typical, not all-star, slate).
+    const sortedOvr = [...arr].map(ovr).sort((a, b) => a - b)
+    const med = sortedOvr[Math.floor(sortedOvr.length / 2)] ?? 0
+    arr.sort((a, b) => Math.abs(ovr(a) - med) - Math.abs(ovr(b) - med))
+  }
   return arr
 }
 
@@ -411,6 +417,82 @@ function sensitivityMatrix(seeds: number) {
   return cells
 }
 
+// ── §7: rational competent bot — package-specific Marketing + Budget choices ──
+// A competent player who makes RATIONAL, film-specific choices rather than mechanically maximizing
+// marketing / minimizing budget. Across four films it cycles ambition (contained → ordinary →
+// demanding → ordinary), picks the Production Budget tier by the film's ambition (contained→Lean,
+// ordinary→Adequate, demanding→Generous), and picks Marketing by how visible the film already is
+// (a big campaign only for a warmed studio's commercial film; a standard campaign otherwise; a small
+// one for a fresh, low-appeal film). Reports the SELECTED tier distributions + four-film outcomes.
+const RATIONAL_SHAPES: { shape: ArchKey; negMult: number }[] = [
+  { shape: 'contained', negMult: 0.75 },
+  { shape: 'ordinary', negMult: 1.0 },
+  { shape: 'demanding', negMult: 1.25 },
+  { shape: 'ordinary', negMult: 1.0 },
+]
+function rationalMarketing(state: GameState, rank: Rank): number {
+  const warmed = state.studio.releasedFilms.length >= 2
+  const aud = state.studio.standing.audienceAwareness
+  if (warmed && aud >= 45 && rank === 'best') return 1_000_000 // a visible studio's commercial film
+  if (aud < 12 && rank !== 'best') return 100_000 // a fresh, low-appeal film: a small campaign
+  return 400_000 // standard
+}
+function runRationalFourFilms(seed: string, rank: Rank) {
+  let s = foundFor(seed, { ...ROUTES[0]!, rank })
+  const committed: Record<string, number> = {}
+  const mktPicks: Record<string, number> = {}
+  const negPicks: Record<string, number> = {}
+  let idx = 0
+  for (let wk = 0; wk < 4 * (TUNING.PRODUCTION_TICKS + TUNING.THEATRICAL_WEEKS) + 40; wk++) {
+    while (s.studio.activeProductions.length < 2 && Object.keys(committed).length < 4) {
+      const busy = busyTalentIds(s)
+      const free = (role: CreativeRole) => rankTalent(s.contracts.map((c) => s.talent.find((t) => t.id === c.talentId)!).filter((t) => t.role === role && !busy.has(t.id)), role, rank)
+      const w = free('writer')[0], d = free('director')[0], a = free('actor'), c = free('craft')[0]
+      if (!w || !d || !c || a.length < 3) break
+      const plan = RATIONAL_SHAPES[idx % RATIONAL_SHAPES.length]!
+      const concept = s.concepts[idx % s.concepts.length]!
+      const negative = Math.round(concept.baseNegativeCost * plan.negMult)
+      const marketing = rationalMarketing(s, rank)
+      if (!canAfford(s, negative + marketing).ok) break
+      s = applyActions(s, [{ kind: 'greenlight', production: {
+        conceptId: concept.id, shape: ARCH_SHAPES[plan.shape],
+        promise: { genre: concept.genre, intendedSegments: ['adult'] as SegmentId[], ranges: { intimacy: [-0.5, 0.5] as [number, number], tonalWeight: [-0.5, 0.5] as [number, number], kineticEnergy: [-0.5, 0.5] as [number, number] } },
+        writerId: w.id, directorId: d.id, cast: { lead: a[0]!.id, antagonist: a[1]!.id, support: a[2]!.id } as Record<CastSlot, string>, craftIds: [c.id],
+        budget: { negative, marketing },
+      } }])
+      const id = s.studio.activeProductions[s.studio.activeProductions.length - 1]!.id
+      committed[id] = negative + marketing; mktPicks[id] = marketing; negPicks[id] = plan.negMult; idx++
+    }
+    s = tick(s, { develop: true })
+    const ids = Object.keys(committed)
+    if (ids.length >= 4 && ids.every((id) => { const r = s.theatricalRuns.find((x) => x.productionId === id); return r && r.status !== 'active' })) break
+  }
+  const contributions = Object.keys(committed).map((id) => {
+    const run = s.theatricalRuns.find((r) => r.productionId === id)!
+    return run.weeklyGross.reduce((x, y) => x + y, 0) * run.studioShare - committed[id]!
+  })
+  return { multiple: s.studio.cash / INITIAL, contributions, mktPicks: Object.values(mktPicks), negPicks: Object.values(negPicks), everNeg: s.studio.cash < 0 }
+}
+function rationalRouteReport(seeds: number, rank: Rank) {
+  const runs = Array.from({ length: seeds }, (_, i) => runRationalFourFilms(`rat-${rank}-${i}`, rank))
+  const mult = runs.map((r) => r.multiple)
+  const films = runs.flatMap((r) => r.contributions)
+  const mktCounts: Record<string, number> = {}, negCounts: Record<string, number> = {}
+  for (const r of runs) { for (const m of r.mktPicks) mktCounts[m] = (mktCounts[m] ?? 0) + 1; for (const n of r.negPicks) negCounts[n] = (negCounts[n] ?? 0) + 1 }
+  const breakouts = films.filter((c) => c >= 10_000_000).length
+  return {
+    rank,
+    cashMultiple: { p10: r2(quantile(mult, 0.1)), median: r2(median(mult)), p90: r2(quantile(mult, 0.9)) },
+    lossRatePerFilm: r2(rate(films.map((c) => c < 0))),
+    atLeastOneLoss: r2(rate(runs.map((r) => r.contributions.some((c) => c < 0)))),
+    endBelowStart: r2(rate(runs.map((r) => r.multiple < 1))),
+    everNegative: r2(rate(runs.map((r) => r.everNeg))),
+    breakoutRate: r2(breakouts / Math.max(films.length, 1)),
+    marketingTierDist: mktCounts,
+    budgetTierDist: negCounts,
+  }
+}
+
 // ── Stage 3B/3C: diverse-package choice-quality gate ──────────────────────────
 // Marketing/budget optima must depend on the FILM. We build a representative package set — talent
 // quality {best, cheapest} × ambition {contained, ordinary, demanding} — and, per package, sweep
@@ -425,10 +507,32 @@ type ArchKey = keyof typeof ARCH_SHAPES
 const MKT_LEVELS = MARKETING_BUDGET_LEVELS
 const NEG_TIERS = [0.75, 1.0, 1.25]
 
-// One film with an explicit archetype (shape + talent rank), marketing, and negMult, on a fresh
-// founded studio (route-A depth so talent is available). Returns realized Film Contribution.
-function archFilm(seed: string, shapeKey: ArchKey, rank: Rank, marketing: number, negMult: number): number | null {
+// One film with an explicit archetype (shape + talent rank), marketing, and negMult, on a founded
+// studio warmed by `warmup` prior releases (studio awareness rises with warmup). Returns Contribution.
+function archFilm(seed: string, shapeKey: ArchKey, rank: Rank, marketing: number, negMult: number, warmup = 0): number | null {
   let s = foundFor(seed, { ...ROUTES[0]!, rank })
+  // Warm the studio's audience awareness by releasing `warmup` films at a standard campaign.
+  let wConcept = 0
+  let launched = 0
+  for (let wk = 0; wk < 200 && s.studio.releasedFilms.length < warmup; wk++) {
+    if (launched < warmup && s.studio.activeProductions.length < 1) {
+      const b0 = busyTalentIds(s)
+      const pk = (role: CreativeRole) => rankTalent(s.contracts.map((c) => s.talent.find((t) => t.id === c.talentId)!).filter((t) => t.role === role && !b0.has(t.id)), role, rank)
+      const w0 = pk('writer')[0], d0 = pk('director')[0], a0 = pk('actor'), c0 = pk('craft')[0]
+      const cc = s.concepts[wConcept % s.concepts.length]!
+      if (w0 && d0 && c0 && a0.length >= 3 && canAfford(s, Math.round(cc.baseNegativeCost) + 400_000).ok) {
+        s = applyActions(s, [{ kind: 'greenlight', production: {
+          conceptId: cc.id, shape: ARCH_SHAPES[shapeKey],
+          promise: { genre: cc.genre, intendedSegments: ['adult'] as SegmentId[], ranges: { intimacy: [-0.5, 0.5] as [number, number], tonalWeight: [-0.5, 0.5] as [number, number], kineticEnergy: [-0.5, 0.5] as [number, number] } },
+          writerId: w0.id, directorId: d0.id, cast: { lead: a0[0]!.id, antagonist: a0[1]!.id, support: a0[2]!.id } as Record<CastSlot, string>, craftIds: [c0.id],
+          budget: { negative: Math.round(cc.baseNegativeCost), marketing: 400_000 },
+        } }])
+        launched++; wConcept++
+      }
+    }
+    s = tick(s, { develop: true })
+  }
+  for (let k = 0; k < TUNING.THEATRICAL_WEEKS + 2; k++) s = tick(s, { develop: true }) // let awareness settle
   const busy = busyTalentIds(s)
   const pick = (role: CreativeRole) =>
     rankTalent(s.contracts.map((c) => s.talent.find((t) => t.id === c.talentId)!).filter((t) => t.role === role && !busy.has(t.id)), role, rank)
@@ -464,25 +568,28 @@ function argmax<T>(items: T[], score: (t: T) => number): T {
   return items.reduce((best, t) => (score(t) > score(best) ? t : best), items[0]!)
 }
 function diversePackageGate(seeds: number) {
-  const ranks: Rank[] = ['best', 'cheapest']
+  const ranks: Rank[] = ['best', 'mid', 'cheapest'] // a representative slate is mostly ordinary, not all-star
   const shapes = Object.keys(ARCH_SHAPES) as ArchKey[]
+  const warmups = [0, 4] // fresh studio vs one that has built audience awareness
   const rows: any[] = []
-  for (const rank of ranks) {
-    for (const shapeKey of shapes) {
-      const medFor = (fn: (seed: string) => number | null) => {
-        const xs: number[] = []
-        for (let i = 0; i < seeds; i++) { const v = fn(`arch-${i}`); if (v !== null) xs.push(v) }
-        return xs.length ? median(xs) : NaN
+  for (const warmup of warmups) {
+    for (const rank of ranks) {
+      for (const shapeKey of shapes) {
+        const medFor = (fn: (seed: string) => number | null) => {
+          const xs: number[] = []
+          for (let i = 0; i < seeds; i++) { const v = fn(`arch-${i}`); if (v !== null) xs.push(v) }
+          return xs.length ? median(xs) : NaN
+        }
+        const mktContribs = MKT_LEVELS.map((mk) => ({ mk, contrib: medFor((seed) => archFilm(seed, shapeKey, rank, mk, 1.0, warmup)) }))
+        const negContribs = NEG_TIERS.map((ng) => ({ ng, contrib: medFor((seed) => archFilm(seed, shapeKey, rank, 400_000, ng, warmup)) }))
+        rows.push({
+          warmup, rank, shape: shapeKey,
+          marketingByLevel: mktContribs.map((x) => ({ marketing: x.mk, contribution: Math.round(x.contrib) })),
+          profitMaxMarketing: argmax(mktContribs, (x) => x.contrib).mk,
+          budgetByTier: negContribs.map((x) => ({ negMult: x.ng, contribution: Math.round(x.contrib) })),
+          profitMaxNegMult: argmax(negContribs, (x) => x.contrib).ng,
+        })
       }
-      const mktContribs = MKT_LEVELS.map((mk) => ({ mk, contrib: medFor((seed) => archFilm(seed, shapeKey, rank, mk, 1.0)) }))
-      const negContribs = NEG_TIERS.map((ng) => ({ ng, contrib: medFor((seed) => archFilm(seed, shapeKey, rank, 400_000, ng)) }))
-      rows.push({
-        rank, shape: shapeKey,
-        marketingByLevel: mktContribs.map((x) => ({ marketing: x.mk, contribution: Math.round(x.contrib) })),
-        profitMaxMarketing: argmax(mktContribs, (x) => x.contrib).mk,
-        budgetByTier: negContribs.map((x) => ({ negMult: x.ng, contribution: Math.round(x.contrib) })),
-        profitMaxNegMult: argmax(negContribs, (x) => x.contrib).ng,
-      })
     }
   }
   const n = rows.length
@@ -553,13 +660,25 @@ const gate = diversePackageGate(Math.min(SEEDS, 80))
 console.log(`\n## Stage 3B/3C — diverse-package choice quality (talent × ambition)`)
 for (const row of gate.rows) {
   // eslint-disable-next-line no-console
-  console.log(`  ${row.rank.padEnd(8)} ${row.shape.padEnd(10)}  mkt→ ${row.marketingByLevel.map((m: any) => `${(m.marketing / 1e6).toFixed(1)}M:${(m.contribution / 1e6).toFixed(1)}`).join(' ')}  [max@${(row.profitMaxMarketing / 1e6).toFixed(1)}M]   budget→ ${row.budgetByTier.map((b: any) => `${b.negMult}:${(b.contribution / 1e6).toFixed(1)}`).join(' ')}  [max@${row.profitMaxNegMult}]`)
+  console.log(`  w${row.warmup} ${row.rank.padEnd(8)} ${row.shape.padEnd(10)}  mkt→ ${row.marketingByLevel.map((m: any) => `${(m.marketing / 1e6).toFixed(1)}M:${(m.contribution / 1e6).toFixed(1)}`).join(' ')}  [max@${(row.profitMaxMarketing / 1e6).toFixed(1)}M]   budget→ ${row.budgetByTier.map((b: any) => `${b.negMult}:${(b.contribution / 1e6).toFixed(1)}`).join(' ')}  [max@${row.profitMaxNegMult}]`)
 }
 // eslint-disable-next-line no-console
 console.log(`  max-marketing optimal in ${(gate.maxMarketingOptimalShare * 100).toFixed(0)}% of packages (target ≤35%); distinct marketing optima ${gate.distinctMktOptima}`)
 // eslint-disable-next-line no-console
 console.log(`  top budget tier optimal in ${(gate.topBudgetTierShare * 100).toFixed(0)}% (target ≤70%); budget optima ${JSON.stringify(gate.negOptimaCounts)}; distinct ${gate.distinctNegOptima}`)
 writeFileSync(join(OUT, 'choice-quality-gate.json'), JSON.stringify(gate, null, 2))
+
+// §7: rational competent bot (best-talent + mid-talent), package-specific tier selection.
+const rational = [rationalRouteReport(Math.min(SEEDS, 150), 'best'), rationalRouteReport(Math.min(SEEDS, 150), 'mid')]
+// eslint-disable-next-line no-console
+console.log(`\n## §7 — rational competent bot (package-specific Marketing + Budget)`)
+for (const r of rational) {
+  // eslint-disable-next-line no-console
+  console.log(`  ${r.rank}: 4-film mult p10 ${r.cashMultiple.p10}× med ${r.cashMultiple.median}× p90 ${r.cashMultiple.p90}×  loss/film ${(r.lossRatePerFilm * 100).toFixed(0)}%  ≥1loss ${(r.atLeastOneLoss * 100).toFixed(0)}%  end<start ${(r.endBelowStart * 100).toFixed(0)}%  breakout ${(r.breakoutRate * 100).toFixed(0)}%`)
+  // eslint-disable-next-line no-console
+  console.log(`     marketing picks ${JSON.stringify(r.marketingTierDist)}  budget picks ${JSON.stringify(r.budgetTierDist)}`)
+}
+writeFileSync(join(OUT, 'rational-routes.json'), JSON.stringify(rational, null, 2))
 
 const routeAgg: RouteAgg[] = []
 for (const st of ROUTES) {

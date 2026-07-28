@@ -83,16 +83,38 @@ describe('D-12 P2 awareness-conditioned marketing', () => {
     expect(high.marketingCapacity).toBeLessThanOrEqual(TUNING.MARKETING_CAPACITY_MAX + 1)
   })
 
-  it('gross is monotonic in marketing but the marginal reach per dollar DECLINES (engaged)', () => {
+  it('OPENING reach is monotone non-decreasing in marketing, with a declining marginal (engaged)', () => {
     const inp = makeReceptionInputs({})
     const appeal = flatAppeal(inp, 55)
-    const box = (m: number) => computeBoxOffice(appeal, ...common(inp, m), appeal, true).total
-    const t0 = box(100_000), t1 = box(400_000), t2 = box(1_000_000)
-    expect(t1).toBeGreaterThan(t0) // more marketing never REDUCES expected gross
-    expect(t2).toBeGreaterThan(t1)
-    const marginalLow = (t1 - t0) / (400_000 - 100_000)
-    const marginalHigh = (t2 - t1) / (1_000_000 - 400_000)
-    expect(marginalHigh).toBeLessThan(marginalLow) // diminishing returns per marketing dollar
+    // Opening reach is the pure marketing-reach channel; Stage B (overexposure) touches only LEGS,
+    // never opening. So opening stays monotone in spend with a declining marginal per dollar.
+    const open = (m: number) => computeBoxOffice(appeal, ...common(inp, m), appeal, true).opening
+    const o0 = open(100_000), o1 = open(400_000), o2 = open(1_000_000)
+    expect(o1).toBeGreaterThan(o0)
+    expect(o2).toBeGreaterThanOrEqual(o1)
+    const marginalLow = (o1 - o0) / (400_000 - 100_000)
+    const marginalHigh = (o2 - o1) / (1_000_000 - 400_000)
+    expect(marginalHigh).toBeLessThan(marginalLow) // diminishing reach per marketing dollar
+  })
+
+  it('Stage B: over-marketing a film that UNDER-delivers front-loads it (legs shrink, total falls)', () => {
+    const inp = makeReceptionInputs({})
+    // A mediocre film (weighted audience score ≈ 45 ⇒ a real delivery gap). A campaign far beyond its
+    // efficient capacity raises expectations it cannot meet, so its LEGS (and thus total) fall.
+    const weak = flatAppeal(inp, 45)
+    const standard = computeBoxOffice(weak, ...common(inp, 400_000), weak, true)
+    const overspent = computeBoxOffice(weak, ...common(inp, 1_000_000), weak, true)
+    expect(overspent.overexposure).toBeGreaterThan(0) // the $1M campaign is past efficient capacity
+    expect(overspent.legs).toBeLessThan(standard.legs) // front-loaded: legs shrink
+    expect(overspent.opening).toBeGreaterThanOrEqual(standard.opening) // opening (reach) is NOT penalized
+    // Delivery-conditioned: a DELIVERING film (high WAS) withstands a big campaign far better — its
+    // relative legs penalty from the same overspend is much smaller than the weak film's.
+    const weakPenalty = (standard.legs - overspent.legs) / standard.legs
+    const strong = flatAppeal(inp, 88)
+    const strongStd = computeBoxOffice(strong, ...common(inp, 400_000), strong, true)
+    const strongMax = computeBoxOffice(strong, ...common(inp, 1_000_000), strong, true)
+    const strongPenalty = (strongStd.legs - strongMax.legs) / strongStd.legs
+    expect(strongPenalty).toBeLessThan(weakPenalty)
   })
 
   it('a low-awareness film is OVEREXTENDED by a maximum campaign; a high-awareness film absorbs it', () => {

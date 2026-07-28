@@ -133,7 +133,36 @@ export function roleFit(t: Talent, req: RoleRequirement): number {
 }
 
 // ── §5.1 Craft ───────────────────────────────────────────────────────────────
-function computeCraft(inp: ReceptionInputs): {
+// ── D-12 production-budget realization/reliability (engaged only) ─────────────
+// A craft DELTA from how well this film's Production Budget funds its production DEMAND
+// (= requiredNegative = concept base cost × shape budgetDemandMultiplier × era). Under-funding a
+// DEMANDING film (high demand) costs realized craft; a contained film barely notices; over-funding
+// gives a small, sharply-diminishing execution protection. Deterministic (no RNG), and returns 0
+// when NOT engaged so the M0A path is byte-identical. This is a SEPARATE layer ON TOP of the frozen
+// M0A `budgetAdequacy` (which is unchanged). It never multiplies box office or buys critic points.
+export function budgetRealizationDelta(
+  negative: number,
+  requiredNegative: number,
+  budgetDemandMultiplier: number,
+  engaged: boolean,
+): number {
+  if (!engaged) return 0
+  const ratio = negative / Math.max(requiredNegative, 1)
+  const ambition = clamp(
+    (budgetDemandMultiplier - TUNING.BUDGET_AMBITION_REF) / TUNING.BUDGET_AMBITION_RANGE,
+    0,
+    1,
+  )
+  if (ratio < 1) {
+    const shortfall = 1 - ratio
+    const sensitivity = TUNING.BUDGET_AMBITION_MIN + (1 - TUNING.BUDGET_AMBITION_MIN) * ambition
+    return -TUNING.BUDGET_UNDERFUND_COEF * shortfall * sensitivity
+  }
+  const over = ratio - 1
+  return TUNING.BUDGET_OVERFUND_COEF * (1 - Math.exp(-over / TUNING.BUDGET_OVERFUND_SCALE))
+}
+
+function computeCraft(inp: ReceptionInputs, engaged = false): {
   scriptStrength: number
   directorExecution: number
   castExecution: number
@@ -195,13 +224,23 @@ function computeCraft(inp: ReceptionInputs): {
   const budgetAdequacy =
     (100 * clamp(inp.budget.negative / Math.max(requiredNegative, 1), 0, 1.15)) / 1.15
 
+  // D-12: engaged-only realization/reliability delta ON TOP of the frozen M0A craft (0 when not
+  // engaged → byte-identical). Under-funding a demanding film lowers realized craft; over-funding
+  // gives small diminishing protection.
+  const realizationDelta = budgetRealizationDelta(
+    inp.budget.negative,
+    requiredNegative,
+    inp.shapeEffects.budgetDemandMultiplier,
+    engaged,
+  )
   const craft = clamp(
     0.3 * scriptStrength +
       0.25 * directorExecution +
       0.2 * castExecution +
       0.15 * technical +
       0.1 * budgetAdequacy +
-      inp.shapeEffects.craftMod,
+      inp.shapeEffects.craftMod +
+      realizationDelta,
     0,
     100,
   )
@@ -458,6 +497,7 @@ export function computeBoxOffice(
   marketingQuality: number
   preMarketingAwareness: number
   marketingCapacity: number
+  overexposure: number
   baseAwareness: number
   awarenessFactor: number
   openingReachMult: number
@@ -489,14 +529,22 @@ export function computeBoxOffice(
         Math.pow(preMarketingAwareness, TUNING.MARKETING_AWARENESS_EXP)
     : TUNING.MARKETING_HALF_SATURATION
   const marketingQuality = budget.marketing / (budget.marketing + marketingCapacity)
+  // Stage A: EFFECTIVE marketing reach — the marketing quality scaled by an awareness-conditioned
+  // ceiling, so a low-awareness film's campaign converts to little reach even when "saturated" (its
+  // incremental reach collapses beyond capacity → a maximum campaign overspends). Engaged only; the
+  // legacy path keeps the flat 0.4 weight so M0A stays byte-identical. Both marketing gross channels
+  // below consume THIS single value (no raw spend re-enters).
+  const marketingReachCeiling =
+    TUNING.MARKETING_REACH_MIN +
+    (TUNING.MARKETING_REACH_MAX - TUNING.MARKETING_REACH_MIN) * preMarketingAwareness
+  const effectiveMarketing = engaged ? marketingReachCeiling * marketingQuality : marketingQuality
   const baseAwareness = clamp(
-    0.6 * (standing.audienceAwareness / 100) + 0.4 * marketingQuality,
+    0.6 * (standing.audienceAwareness / 100) + (engaged ? effectiveMarketing : 0.4 * marketingQuality),
     0,
     1,
   )
   const awarenessFactor = clamp(
-    baseAwareness *
-      (1 + (specificity(promise) * marketingQuality * TUNING.PROMISE_MAX_BONUS) / 100),
+    baseAwareness * (1 + (specificity(promise) * effectiveMarketing * TUNING.PROMISE_MAX_BONUS) / 100),
     0,
     1,
   )
@@ -522,13 +570,30 @@ export function computeBoxOffice(
   // costs/payroll/overhead/the post-share revenue — those stay full-scale.
   const economyScale = engaged ? TUNING.ECONOMY_BOX_OFFICE_SCALE : 1
   const opening = baseMarketValue * reachSum * openingReachMult * competitionFactor * economyScale
-  const legs = TUNING.LEGS_MIN + (TUNING.LEGS_MAX - TUNING.LEGS_MIN) * (weightedAudienceScore / 100)
+  // Stage B overexposure (engaged only): a campaign far beyond efficient capacity raises audience
+  // expectations; a film that UNDER-delivers (low weighted audience score) sours them and front-loads
+  // (its legs shrink). Deterministic — reads only spend÷capacity and the (already-computed) audience
+  // score; opening + critic are untouched, and a delivering film (high WAS) keeps its legs.
+  const overexposureRatio = marketingCapacity > 0 ? budget.marketing / marketingCapacity : 0
+  const overexposure = clamp(
+    (overexposureRatio - TUNING.OVEREXPOSURE_THRESHOLD) / TUNING.OVEREXPOSURE_RANGE,
+    0,
+    1,
+  )
+  const deliveryGap = clamp(
+    (TUNING.OVEREXPOSURE_DELIVERY_REF - weightedAudienceScore) / TUNING.OVEREXPOSURE_DELIVERY_RANGE,
+    0,
+    1,
+  )
+  const legsPenalty = engaged ? TUNING.OVEREXPOSURE_LEGS_COEF * overexposure * deliveryGap : 0
+  const legs = (TUNING.LEGS_MIN + (TUNING.LEGS_MAX - TUNING.LEGS_MIN) * (weightedAudienceScore / 100)) * (1 - legsPenalty)
   const total = opening * legs
 
   return {
     marketingQuality,
     preMarketingAwareness,
     marketingCapacity,
+    overexposure,
     baseAwareness,
     awarenessFactor,
     openingReachMult,
@@ -548,7 +613,7 @@ export function computeBoxOffice(
 // the fame-isolation harness/tests can vary fame WITHOUT triggering the economy scale. Both default
 // false → the M0A/headless path is byte-identical.
 export function resolveReception(inp: ReceptionInputs, rng: RngStream, saturateFame = false, engaged = false): ReceptionResult {
-  const craftBlock = computeCraft(inp)
+  const craftBlock = computeCraft(inp, engaged)
   const contribBlock = computeContributions(inp)
   const delivered = contribBlock.centroid
 

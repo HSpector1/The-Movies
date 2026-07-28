@@ -2595,7 +2595,7 @@ export function marketingEfficiency(state: GameState, pkg: DraftPackage): Market
   const inp = assembleFullReceptionInputs(state, pkg)
   // Reuse the engine forecast appeal (fame-saturated opening when engaged) + the engine box-office
   // pass so the awareness + capacity are the SAME values the forecast/realized paths use.
-  const centers = forecastCenters(inp, engaged)
+  const centers = forecastCenters(inp, engaged, engaged)
   const box = computeBoxOffice(
     centers.centers,
     inp.market.segments,

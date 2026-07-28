@@ -519,8 +519,11 @@ export function forecastProfitRange(
   inp: ForecastProfitInput,
   ctx: ForecastProfitContext,
 ): ForecastProfitRange {
-  // D-12: same canonical fame path as greenlight/realized (single engine helper; no UI duplication).
-  const forecast = computeForecast(inp, ctx, ctx.saturateFame ?? false)
+  // D-12: same canonical fame AND economy-engaged path as greenlight/realized (single engine helper;
+  // no UI duplication). engaged must be threaded so the forecast craft carries the SAME production-
+  // budget realization delta the greenlight-locked forecast + realized release use — otherwise the
+  // live Commercial-Outlook range would omit an under/over-funded film's craft penalty and diverge.
+  const forecast = computeForecast(inp, ctx, ctx.saturateFame ?? false, ctx.engaged ?? false)
 
   // Assemble the low / estimate / high per-segment LEGS appeal maps (§7 SegmentForecast.
   // {low,estimate,high}) AND the matching fame-saturated OPENING maps (SegmentForecast.opening.*),
