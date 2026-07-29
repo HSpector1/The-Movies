@@ -104,6 +104,16 @@ def _blend(a, b, wa=0.5):
     return {a: round(wa, 3), b: round(1 - wa, 3)}
 
 
+def _seed_floats(seed, n):
+    """Deterministic list of n floats in [0,1) from an int seed (NO Math.random — reproducible)."""
+    out = []
+    x = ((int(seed) + 1) * 2654435761) & 0xffffffff
+    for _ in range(n):
+        x = (x * 1103515245 + 12345) & 0x7fffffff
+        out.append(x / 0x7fffffff)
+    return out
+
+
 def build_character2(role, arm, seed=1, overrides=None, tag=None):
     """Author one readable crew character, directly skinned to `arm`. Returns the mesh object.
 
@@ -117,6 +127,20 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     prof = SIZE[cfg["size"]]
     CH, WA, HI, LI, SH = prof["chest"], prof["waist"], prof["hip"], prof["limb"], prof["shoulder"]
     g = (CH + WA + HI) / 3.0   # general girth fallback for misc clothing details
+    # per-instance identity variation (deterministic from seed) — a crowd reads as distinct PEOPLE,
+    # not one recoloured character. Only shapes head/face features; never touches the skeleton.
+    if cfg.get("vary"):
+        r = _seed_floats(seed, 8)
+        v_headw = 0.93 + 0.14 * r[0]     # head width
+        v_headh = 0.97 + 0.08 * r[1]     # head height
+        v_nose = 0.80 + 0.45 * r[2]      # nose size
+        v_mouth = 0.88 + 0.28 * r[3]     # mouth width
+        v_chin = 0.85 + 0.34 * r[4]      # chin size
+        v_eye = -0.0035 + 0.007 * r[5]   # eye-spacing delta
+        v_brow = 0.88 + 0.32 * r[6]      # brow thickness
+    else:
+        v_headw = v_headh = v_nose = v_mouth = v_chin = v_brow = 1.0
+        v_eye = 0.0
     J = rig.rest_points(arm)
 
     def h(n): return J[n]["head"].copy()
@@ -217,16 +241,16 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
            matrix=T(neck.x, neck.y, neck.z + 0.04), mat=skin)
     # head ovoid — slightly narrower in X, deeper/taller, chin dropped forward (-Y)
     sb.uvsphere("Head", 0.108, u=22, v=16,
-                matrix=T(head_c.x, head_c.y - 0.008, head_c.z + 0.02) @ Matrix.Diagonal((0.9, 1.02, 1.16, 1)), mat=skin)
+                matrix=T(head_c.x, head_c.y - 0.008, head_c.z + 0.02) @ Matrix.Diagonal((0.9 * v_headw, 1.02, 1.16 * v_headh, 1)), mat=skin)
 
     # ----- FACE (-Y front): clean, symmetric, FRIENDLY stylized features (05C) -----
     hx, hy, hz = head_c.x, head_c.y, head_c.z + 0.02
     fy = hy - 0.092          # feature front plane
-    ex = 0.0335              # eye separation (half) — brought inward (Loop-6 gate: eyes read wide-set)
+    ex = 0.0335 + v_eye      # eye separation (half) — brought inward (Loop-6 gate) + per-instance vary
     # ----- head SCULPT (05D): SUBTLE cheekbone/chin/brow planes so the head reads sculpted (not egg,
     #       not jowly). Small, restrained forms that blend into the ovoid via shade-smooth. -----
     sb.uvsphere("Head", 1.0, u=10, v=8,
-                matrix=T(hx, hy - 0.052, hz - 0.064) @ Matrix.Diagonal((0.038, 0.042, 0.036, 1)), mat=skin)   # chin (smaller, up+back — not jowly)
+                matrix=T(hx, hy - 0.052, hz - 0.064) @ Matrix.Diagonal((0.038 * v_chin, 0.042 * v_chin, 0.036, 1)), mat=skin)   # chin (varies)
     for sgn in (-1, 1):
         sb.uvsphere("Head", 1.0, u=8, v=6,
                     matrix=T(hx + sgn * 0.050, hy - 0.058, hz + 0.004) @ Matrix.Diagonal((0.028, 0.034, 0.036, 1)), mat=skin)  # cheekbone (subtle, higher)
@@ -246,15 +270,15 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         sb.uvsphere("Head", 1.0, u=8, v=6,
                     matrix=T(hx + sgn * ex, fy + 0.004, hz + 0.001) @ Matrix.Diagonal((0.035, 0.012, 0.006, 1)), mat=skin)      # lower lid
         sb.uvsphere("Head", 1.0, u=10, v=6,
-                    matrix=T(hx + sgn * ex, fy - 0.002, hz + 0.044) @ Matrix.Diagonal((0.033, 0.012, 0.0085, 1)), mat=SLOT["hair"])  # brow
+                    matrix=T(hx + sgn * ex, fy - 0.002, hz + 0.044) @ Matrix.Diagonal((0.033, 0.012 * v_brow, 0.0085 * v_brow, 1)), mat=SLOT["hair"])  # brow (varies)
     # nose = a small soft bump protruding -Y (skin), not a lump wedge
     sb.uvsphere("Head", 1.0, u=10, v=8,
-                matrix=T(hx, fy - 0.008, hz - 0.006) @ Matrix.Diagonal((0.015, 0.021, 0.019, 1)), mat=skin)
+                matrix=T(hx, fy - 0.008, hz - 0.006) @ Matrix.Diagonal((0.015 * v_nose, 0.021 * v_nose, 0.019 * v_nose, 1)), mat=skin)
     # mouth = TWO lit lips (upper + lower, skin) with a thin dark line between + upward corners → a
-    # gentle smile that actually reads (was a single black bar).
-    sb.uvsphere("Head", 1.0, u=10, v=6, matrix=T(hx, fy - 0.004, hz - 0.046) @ Matrix.Diagonal((0.028, 0.013, 0.008, 1)), mat=skin)   # upper lip
-    sb.uvsphere("Head", 1.0, u=10, v=6, matrix=T(hx, fy - 0.004, hz - 0.058) @ Matrix.Diagonal((0.028, 0.014, 0.009, 1)), mat=skin)   # lower lip
-    sb.uvsphere("Head", 1.0, u=12, v=4, matrix=T(hx, fy - 0.002, hz - 0.052) @ Matrix.Diagonal((0.024, 0.010, 0.0035, 1)), mat=dark)  # thin mouth line
+    # gentle smile that actually reads (was a single black bar). Width varies per-instance.
+    sb.uvsphere("Head", 1.0, u=10, v=6, matrix=T(hx, fy - 0.004, hz - 0.046) @ Matrix.Diagonal((0.028 * v_mouth, 0.013, 0.008, 1)), mat=skin)   # upper lip
+    sb.uvsphere("Head", 1.0, u=10, v=6, matrix=T(hx, fy - 0.004, hz - 0.058) @ Matrix.Diagonal((0.028 * v_mouth, 0.014, 0.009, 1)), mat=skin)   # lower lip
+    sb.uvsphere("Head", 1.0, u=12, v=4, matrix=T(hx, fy - 0.002, hz - 0.052) @ Matrix.Diagonal((0.024 * v_mouth, 0.010, 0.0035, 1)), mat=dark)  # thin mouth line
     for sgn in (-1, 1):
         sb.uvsphere("Head", 0.006, u=6, v=6, matrix=T(hx + sgn * 0.024, fy - 0.003, hz - 0.047), mat=dark)  # lifted corner (smile)
     # ears

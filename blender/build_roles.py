@@ -119,4 +119,14 @@ render_lineup(HW, "headwear")
 render_lineup([dict(role="PA", overrides={"hat": None, "hair_style": s}, tag=f"hair_{s}")
                for s in ("short", "sidepart", "bun", "ponytail", "curly", "quiff")], "hairstyles")
 
+# 7) population diversity — same role (PA), distinct PEOPLE via per-instance vary + skin/hair/build
+_TONES = [(0.94, 0.82, 0.70), (0.86, 0.66, 0.53), (0.74, 0.52, 0.40), (0.58, 0.40, 0.29), (0.43, 0.29, 0.21), (0.90, 0.73, 0.60)]
+_HSTY = ["short", "sidepart", "bun", "curly", "quiff", "ponytail"]
+_SIZES = ["standard", "slim", "heavy", "standard", "slim", "heavy"]
+_HAIR = ["hair_brown", "hair_dark", "hair_grey", "hair_brown", "hair_dark", "hair_grey"]
+_FH = [None, "stubble", None, "beard", None, "mustache"]
+render_lineup([dict(role="PA", overrides={"vary": True, "hat": None, "skin": _TONES[i], "hair_style": _HSTY[i],
+                                          "size": _SIZES[i], "hair": _HAIR[i], "facial_hair": _FH[i]}, tag=f"pop{i}")
+               for i in range(6)], "population")
+
 print("ROLES_BUILD_OK")

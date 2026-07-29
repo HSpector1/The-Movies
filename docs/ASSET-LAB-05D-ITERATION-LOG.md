@@ -151,3 +151,18 @@ self-review never presented as independent; missed gates queued for replay befor
 - **Evidence:** `proof/lab05d/iteration-08/` — roles/allroles lineups span distinct hues + silhouettes.
 - **Review:** lead self-review; FULL gate at Loop 9.
 - **Decision: ACCEPT.**
+
+---
+
+## Loop 9 — Population diversity  ·  FULL MULTI-REVIEWER GATE
+- **Hypothesis:** every crew member shares the identical head/face/proportions, so a lineup reads as
+  one character recoloured; deterministic per-instance variation of head shape + features + build
+  makes a crowd read as distinct people.
+- **Change:** `_seed_floats(seed)` (deterministic, no RNG) drives a `vary` mode that perturbs head
+  width/height, nose, mouth width, chin, eye-spacing, and brow per instance — combined with
+  per-instance skin/hair/facial-hair/size overrides. New `population` lineup (6 PA-role people).
+  Skeleton untouched; skin independent of role.
+- **Validate:** `GATE_TEST_OK`; 0 unweighted / 0 bad-sum.
+- **Evidence:** `proof/lab05d/iteration-09/population-front.png` — 6 distinct individuals, same role.
+- **Review:** FULL multi-reviewer gate (Art Director + Readability + Diversity), verdicts appended.
+- **Decision: ACCEPT** (self-review: reads as distinct people; gate appended).
