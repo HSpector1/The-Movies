@@ -28,47 +28,64 @@ from .meshgen import T, S, R
 from .skinning import SkinnedBuilder
 
 # --- material slot order for the single skinned character mesh ---
-# 0 skin | 1 shirt(upper garment) | 2 trousers(lower) | 3 leather(boots/belt) |
-# 4 dark(hair + brows/mouth/pupil) | 5 white(eye) | 6 hat
-SLOT = dict(skin=0, shirt=1, trousers=2, leather=3, dark=4, white=5, hat=6)
+# 0 skin | 1 shirt(upper) | 2 trousers(lower) | 3 leather(boots/belt) | 4 dark(brows/mouth/pupil
+# + accessories, always dark) | 5 white(eye/paper) | 6 hat | 7 hi-vis vest | 8 hair(varies)
+SLOT = dict(skin=0, shirt=1, trousers=2, leather=3, dark=4, white=5, hat=6, hivis=7, hair=8)
 
 FORWARD = Vector((0.0, -1.0, 0.0))   # measured mannequin forward (see probe_orientation)
 
-# role -> costume/palette config (a new role is a row, not a new model)
+# role -> costume/palette config (a new role is a row, not a new model). Role read = silhouette
+# (hat/vest/coat) + palette + accessory, never a tiny label. Skin tone is assigned per-instance
+# (deterministic, NOT tied to job) — the row's `skin` is only the lineup default.
 ROLES = {
     "PA":         dict(size="standard", skin="skin_01", hair="hair_brown", shirt="work_shirt_tan",  trousers="trousers_brown",
-                       hat=None,        belt=False, coat=False),
+                       hat=None,        belt=False, coat=False, clip=True),
     "Grip":       dict(size="standard", skin="skin_02", hair="hair_dark",  shirt="work_shirt_blue", trousers="trousers_grey",
-                       hat="flatcap",   belt=True,  coat=False),
+                       hat="flatcap",   belt=True,  coat=False, radio=True, hat_col=(0.24, 0.24, 0.26)),
     "Electric":   dict(size="heavy",    skin="skin_01", hair="hair_brown", shirt="work_shirt_tan",  trousers="trousers_brown",
-                       hat="hardhat",   belt=True,  coat=False),
-    "Maintenance":dict(size="heavy",    skin="skin_03", hair="hair_grey",  shirt="work_shirt_blue", trousers="trousers_brown",
-                       hat="hardhat",   belt=True,  coat=False),
+                       hat="hardhat",   belt=True,  coat=False, vest=True, radio=True, hat_col=(0.92, 0.56, 0.08)),
+    # Maintenance: slate COVERALLS (same top+bottom) + soft cap — a distinct mechanic silhouette,
+    # deliberately NOT hi-vis/hard-hat so it never reads as the Electric/Grip crew.
+    "Maintenance":dict(size="heavy",    skin="skin_03", hair="hair_grey",  shirt=(0.31, 0.35, 0.41), trousers=(0.31, 0.35, 0.41),
+                       hat="softcap",   belt=True,  coat=False, radio=True, hat_col=(0.20, 0.23, 0.28)),
     "Office":     dict(size="standard", skin="skin_04", hair="hair_grey",  shirt="coat_charcoal",   trousers="trousers_grey",
-                       hat=None,        belt=False, coat=True),
+                       hat=None,        belt=False, coat=True,  clip=True),
     # extra existing roles kept only if they pass the same bar
     "CameraDP":   dict(size="standard", skin="skin_03", hair="hair_dark",  shirt="work_shirt_blue", trousers="trousers_grey",
-                       hat="softcap",   belt=False, coat=False),
+                       hat="softcap",   belt=False, coat=False, hat_col=(0.18, 0.24, 0.34)),
     "Director":   dict(size="standard", skin="skin_04", hair="hair_grey",  shirt="coat_charcoal",   trousers="trousers_grey",
-                       hat="fedora",    belt=False, coat=True),
+                       hat="fedora",    belt=False, coat=True,  hat_col=(0.26, 0.19, 0.14)),
     "Carpenter":  dict(size="heavy",    skin="skin_02", hair="hair_brown", shirt="work_shirt_tan",  trousers="trousers_brown",
-                       hat="softcap",   belt=True,  coat=False),
+                       hat="softcap",   belt=True,  coat=False, radio=True, hat_col=(0.34, 0.27, 0.19)),
 }
 
 SIZE = {"standard": dict(girth=1.00, height=1.00), "heavy": dict(girth=1.16, height=0.99)}
 
 
-def char_materials(cfg):
+def _col(P, v):
+    """Accept either a PALETTE key or a literal RGB tuple (per-instance override)."""
+    return tuple(v) if isinstance(v, (tuple, list)) else P[v]
+
+
+def char_materials(cfg, tag="base"):
+    # UNIQUELY named per character (materials.solid reuses by name; a lineup of characters would
+    # otherwise all share one material and take the last-built colour).
     P = config.PALETTE
-    hair_dark = P.get(cfg["hair"], (0.12, 0.09, 0.07))
+    hair = cfg["hair"]
+    hair_col = tuple(hair) if isinstance(hair, (tuple, list)) else P.get(hair, (0.12, 0.09, 0.07))
+
+    def s(slot, color, **kw):
+        return materials.solid(f"mat2_{slot}_{tag}", color, **kw)
     return [
-        materials.solid("mat2_skin",     P[cfg["skin"]],     roughness=0.72),   # 0
-        materials.solid("mat2_shirt",    P[cfg["shirt"]],    roughness=0.85),   # 1
-        materials.solid("mat2_trousers", P[cfg["trousers"]], roughness=0.85),   # 2
-        materials.solid("mat2_leather",  (0.15, 0.11, 0.10), roughness=0.45),   # 3 boots/belt (dark)
-        materials.solid("mat2_dark",     hair_dark,          roughness=0.8),    # 4 (hair + features)
-        materials.solid("mat2_white",    (0.93, 0.92, 0.90), roughness=0.4),    # 5 (eye white)
-        materials.solid("mat2_hat",      P["felt_grey"],     roughness=0.85),   # 6
+        s("skin",     _col(P, cfg["skin"]),     roughness=0.72),   # 0
+        s("shirt",    _col(P, cfg["shirt"]),    roughness=0.85),   # 1
+        s("trousers", _col(P, cfg["trousers"]), roughness=0.85),   # 2
+        s("leather",  (0.15, 0.11, 0.10),       roughness=0.45),   # 3 boots/belt (dark)
+        s("dark",     (0.09, 0.07, 0.06),       roughness=0.55),   # 4 features + accessory (fixed dark)
+        s("white",    (0.93, 0.92, 0.90),       roughness=0.4),    # 5 (eye white / paper)
+        s("hat",      _col(P, cfg.get("hat_col", "felt_grey")), roughness=0.85),  # 6
+        s("hivis",    (0.96, 0.48, 0.06),       roughness=0.55),   # 7 hi-vis vest
+        s("hair",     hair_col,                 roughness=0.85),   # 8 hair (varies)
     ]
 
 
@@ -76,9 +93,16 @@ def _blend(a, b, wa=0.5):
     return {a: round(wa, 3), b: round(1 - wa, 3)}
 
 
-def build_character2(role, arm, seed=1):
-    """Author one readable crew character, directly skinned to `arm`. Returns the mesh object."""
-    cfg = ROLES[role]
+def build_character2(role, arm, seed=1, overrides=None, tag=None):
+    """Author one readable crew character, directly skinned to `arm`. Returns the mesh object.
+
+    `overrides` merges onto the role row (per-instance skin tone / outfit palette; skin tone is
+    assigned this way so it is NOT tied to job). `tag` uniquely names this character's materials.
+    """
+    cfg = dict(ROLES[role])
+    if overrides:
+        cfg.update(overrides)
+    tag = tag or f"{role}_{seed}"
     g = SIZE[cfg["size"]]["girth"]
     J = rig.rest_points(arm)
 
@@ -122,6 +146,21 @@ def build_character2(role, arm, seed=1):
     if cfg.get("belt"):
         sb.box("pelvis", size=(0.34 * g, 0.24 * g, 0.06), matrix=T(pelvis.x, pelvis.y, pelvis.z + 0.02), mat=leather)
         sb.box("pelvis", size=(0.09, 0.10, 0.10), matrix=T(0.16, -0.11, pelvis.z + 0.0), mat=leather)  # pouch (front -Y)
+    # hi-vis safety vest (electric/maintenance): a bright layer proud of the shirt over chest+waist
+    if cfg.get("vest"):
+        hv = SLOT["hivis"]
+        sb.box("spine_03", size=(0.44 * g, 0.26 * g, 0.19), matrix=T(s3.x, s3.y, s3.z + 0.01), mat=hv)
+        sb.box("spine_02", size=(0.41 * g, 0.25 * g, 0.26), matrix=T(*s2), mat=hv)
+        sb.box("spine_01", size=(0.35 * g, 0.23 * g, 0.10), matrix=T(s1.x, s1.y, s1.z + 0.06), mat=hv)
+    # clipboard clutched to the front (PA / office) — reads at any pose, weighted to the torso
+    if cfg.get("clip"):
+        cz = c("spine_01").z + 0.02
+        sb.box("spine_01", size=(0.17, 0.02, 0.23), matrix=T(0.05, -0.15 * g, cz), mat=SLOT["dark"])
+        sb.box("spine_01", size=(0.15, 0.006, 0.20), matrix=T(0.05, -0.16 * g, cz + 0.005), mat=SLOT["white"])
+    # belt radio: a small snug box on the FRONT-left of the belt (no antenna — a thin cylinder read
+    # as a floating stick in deep crouches). Weighted to pelvis so it stays with the waist.
+    if cfg.get("radio") and cfg.get("belt"):
+        sb.box("pelvis", size=(0.05, 0.045, 0.09), matrix=T(-0.14, -0.115, pelvis.z + 0.04), mat=SLOT["dark"])
 
     # ============================================================ NECK + HEAD (skin)
     sb.cyl(_blend("neck_01", "spine_03", 0.6), 0.055, 0.12, segments=12,
@@ -151,9 +190,8 @@ def build_character2(role, arm, seed=1):
     # ----- hair / headwear -----
     hat = cfg.get("hat")
     if hat != "hardhat":  # hard hat covers hair; otherwise show hair
-        hair_col = SLOT["dark"]
         sb.uvsphere("Head", 0.116, u=18, v=12,
-                    matrix=T(hx, hy + 0.028, hz + 0.03) @ Matrix.Diagonal((1.0, 1.0, 0.98, 1)), mat=hair_col)
+                    matrix=T(hx, hy + 0.028, hz + 0.03) @ Matrix.Diagonal((1.0, 1.0, 0.98, 1)), mat=SLOT["hair"])
     _add_headwear(sb, hat, Vector((hx, hy, hz)))
 
     # ============================================================ ARMS (T-pose along X)
@@ -197,7 +235,7 @@ def build_character2(role, arm, seed=1):
         sb.box(f"ball_{s}", size=(0.09, 0.16, 0.06),
                matrix=T(ft_h.x, ft_h.y - 0.13, heel_z - 0.012), mat=leather)  # toe forward (-Y)
 
-    mats = char_materials(cfg)
+    mats = char_materials(cfg, tag)
     obj = sb.build(f"Char2_{role}", materials=mats, armature=arm, shade_smooth=True)
 
     core.set_custom_props(obj, {

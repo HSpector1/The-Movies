@@ -120,3 +120,47 @@ crew member. Base gate cleared → proceed to role variants.
 Four required roles (Production Assistant, Grip/Electric, Maintenance, Office) via costume/palette
 rows; accessories (hard hat / soft cap / hair / clipboard / radio); 5 skin tones + 5 outfit
 palettes (deterministic, skin NOT tied to job). This is where role read + colour variety land.
+
+---
+
+## Iteration 3 — Role variants, accessories, skin/outfit/headwear variety
+
+- **Starting checkpoint:** `b9a199f` (iteration 2).
+- **Selected work:** role differentiation + appearance variation (the biggest visual payoff).
+
+### Implementation (`character2.py`, `build_roles.py`)
+- Added role-distinguishing features: **hi-vis vest** (electric), **hard hats** (amber/yellow),
+  **coveralls** (maintenance), **long coat** (office/director), **clipboard** (PA/office), **belt
+  radio**, per-role hat colours. Role read = silhouette + palette + headwear + accessory.
+- Per-instance variation via `overrides` (merged onto the role row) → 5 skin tones + 5 outfit
+  palettes, deterministic and **skin NOT tied to job**. Colours accept PALETTE key OR RGB tuple.
+- Split **hair into its own material slot** (features stay fixed-dark, so grey-haired roles keep
+  dark brows/mouth). Materials **uniquely named per character** (`char_materials(cfg, tag)`) so a
+  lineup never shares/overwrites a material (materials.solid reuses by name).
+- New `build_roles.py`: builds N characters in one scene via **armature duplication** (rig imported
+  once), poses them to idle, renders role/skin/palette/headwear proof sheets.
+
+### Validation
+- Blender: ~4,100–4,350 tris/char (8 roles avg 4,231). All build clean; feet grounded; hard hat +
+  hi-vis vest verified attached through the deep-kneel stress pose.
+
+### Evidence: `proof/lab05b/iteration-03/` — roles-front/3q, allroles-front, skintones-front,
+palettes-front, headwear-front, plus single-char detail (Electric, Maintenance) with poses.
+
+### Scores (1–5): front/back 5 · face 4 · anatomy 4 · connectivity 5 · clothing 4 · joint 4 ·
+animation 4 · **accessory 4** · **role differentiation 4** (was —) · mgmt-view 4 · human-scale 4 ·
+performance 5 · honesty 5. (runtime/LOD still pending — iters 5/4.)
+
+### Reviewer (independent, read-only visual QA): **CONCERNS → resolved.** Passed skin tones,
+palettes, headwear variety, and accessory attachment (hat+vest survive the kneel). Two critical
+flags: (1) Electric ≈ Maintenance (interchangeable hi-vis+hard-hat); (2) belt radio read as a
+floating stick in the deep kneel. **Both fixed same iteration:** Maintenance → slate coveralls +
+soft cap (distinct mechanic silhouette, no hi-vis); radio → snug front-belt box, antenna removed.
+Re-render confirms five distinct role silhouettes and no floating accessory.
+
+### Decision: **ACCEPTED.** Four required roles read distinctly; 5 skin tones + 5 palettes +
+headwear/hair variety all work; accessories stay attached in animation.
+
+### Iteration 4 agenda
+LOD0/1/2 per character (validate each preserves face-front, height, skeleton, no reversed normals,
+no detached limbs); front/side/animated LOD comparisons.
