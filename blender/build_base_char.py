@@ -19,15 +19,15 @@ OUT = Path(ARGV[1]) if len(ARGV) > 1 else (config.ROOT / "proof" / "lab05b" / "i
 OUT.mkdir(parents=True, exist_ok=True)
 
 core.reset_scene()
-render.warm_world(strength=0.7)
-render.sun(strength=3.0)
+render.warm_world(strength=0.55)
+render.sun(strength=2.5)
 render.fill(strength=0.6)
 render.ground(size=20)
 scene = bpy.context.scene
 scene.render.engine = "BLENDER_EEVEE"
 scene.render.resolution_x = scene.render.resolution_y = 768
 scene.render.image_settings.file_format = "PNG"
-render.set_look(scene, exposure=0.0)
+render.set_look(scene, exposure=-0.35)   # truer material value (0.0 washed clothing toward skin)
 
 arm = rig.load_canonical_rig(keep_actions=True)
 obj = character2.build_character2(ROLE, arm, seed=1)
@@ -73,6 +73,13 @@ cam.location = head_c + Vector((0, -0.7, 0.05)); cam.rotation_euler = (head_c - 
 scene.render.filepath = str(OUT / "base-face-front.png"); bpy.ops.render.render(write_still=True); print("  shot base-face-front")
 cam.location = head_c + Vector((0, 0.7, 0.05)); cam.rotation_euler = (head_c - cam.location).to_track_quat("-Z", "Y").to_euler()
 scene.render.filepath = str(OUT / "base-face-back.png"); bpy.ops.render.render(write_still=True); print("  shot base-face-back")
+# hand close-up (left hand at T-pose extent) + lower-body close-up (trousers/boots read)
+hand_t = Vector((size.x * 0.5 - 0.05, 0, 1.46))
+cam.location = hand_t + Vector((0.05, -0.42, 0.06)); cam.rotation_euler = (hand_t - cam.location).to_track_quat("-Z", "Y").to_euler()
+scene.render.filepath = str(OUT / "base-hand.png"); bpy.ops.render.render(write_still=True); print("  shot base-hand")
+low_t = Vector((0, 0, 0.5))
+cam.location = low_t + Vector((0, -1.7, 0.15)); cam.rotation_euler = (low_t - cam.location).to_track_quat("-Z", "Y").to_euler()
+scene.render.filepath = str(OUT / "base-lowerbody.png"); bpy.ops.render.render(write_still=True); print("  shot base-lowerbody")
 
 # posed under the SIX required clips — proper framing + feet-grounding numbers
 def pose(action, frame):

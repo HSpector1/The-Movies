@@ -78,3 +78,45 @@ clean deformation). Carry forward to iteration 2.
 2. Close the crotch/inner-thigh gap (pelvis bridge).
 3. Firm up the torso silhouette (less balloon; slight shoulder/chest read).
 4. Add a hand close-up to the evidence.
+
+---
+
+## Iteration 2 — Lower-body clothing, crotch, torso, hands
+
+- **Starting checkpoint:** `151a52c` (iteration 1).
+- **Selected defects (from iter-1 reviewers):** (1) lower body reads as bare skin-tone; (2)
+  crotch/inner-thigh gap notch; (3) puffy torso / no shoulder-chest read (+ paddle hands).
+
+### Implementation (`character2.py`, `build_base_char.py`)
+- Boots/belt material darkened to `(0.15,0.11,0.10)` → clear dark-boot break at the ankle.
+- Added a **trouser-seat block** weighted to `pelvis` bridging both thighs → crotch gap closed;
+  then slimmed it so it reads as trouser-hips, not a diaper block.
+- Tapered the torso (narrower waist → broader chest) + a chest/pectoral mass on `spine_03` so
+  the shoulders read instead of a puffy box.
+- Rebuilt the hand: flattened mitt (fingers) + a **clearly separated thumb** protruding forward
+  (−Y), angled — reads as a hand rather than a paddle.
+- Render harness: exposure 0.0 → −0.35, sun 3.0 → 2.5 (0.0 washed clothing toward skin tone);
+  added `base-hand` + `base-lowerbody` close-ups to the evidence.
+
+### Validation
+- Blender: 4064 tris, height 1.774 m, feet grounded across all six clips; deformation unchanged
+  (same fixed skinning path — no rig/weight logic changed, only added primitives).
+
+### Evidence: `proof/lab05b/iteration-02/` (all base angles + face front/back + **hand** +
+**lowerbody** + six posed clips).
+
+### Scores (1–5): front/back 5 · face 4 · anatomy 4 · connectivity 5 · **clothing 4** (was 3) ·
+joint 4 · animation 4 · accessory 4 · mgmt-view 4 · human-scale 4 · performance 5 · honesty 5.
+(role/runtime/LOD still pending — iters 3/5/4.)
+
+### Reviewer (independent, read-only visual QA): **PASS** — lower-body clothing FIXED, crotch
+notch CLOSED (no diaper), torso improved, deformation clean across walk/sit/kneel, evidence
+honest. Sole carried concern was the hand/thumb → addressed same iteration (thumb rebuild).
+
+### Decision: **ACCEPTED.** Base character is a coherent, clothed, correctly-deforming stylized
+crew member. Base gate cleared → proceed to role variants.
+
+### Iteration 3 agenda
+Four required roles (Production Assistant, Grip/Electric, Maintenance, Office) via costume/palette
+rows; accessories (hard hat / soft cap / hair / clipboard / radio); 5 skin tones + 5 outfit
+palettes (deterministic, skin NOT tied to job). This is where role read + colour variety land.

@@ -65,7 +65,7 @@ def char_materials(cfg):
         materials.solid("mat2_skin",     P[cfg["skin"]],     roughness=0.72),   # 0
         materials.solid("mat2_shirt",    P[cfg["shirt"]],    roughness=0.85),   # 1
         materials.solid("mat2_trousers", P[cfg["trousers"]], roughness=0.85),   # 2
-        materials.solid("mat2_leather",  P["leather_brown"], roughness=0.5),    # 3
+        materials.solid("mat2_leather",  (0.15, 0.11, 0.10), roughness=0.45),   # 3 boots/belt (dark)
         materials.solid("mat2_dark",     hair_dark,          roughness=0.8),    # 4 (hair + features)
         materials.solid("mat2_white",    (0.93, 0.92, 0.90), roughness=0.4),    # 5 (eye white)
         materials.solid("mat2_hat",      P["felt_grey"],     roughness=0.85),   # 6
@@ -98,12 +98,17 @@ def build_character2(role, arm, seed=1):
     pelvis = h("pelvis"); s1 = c("spine_01"); s2 = c("spine_02"); s3 = c("spine_03")
     neck = h("neck_01"); head_c = c("Head")
     # hip block (trousers) — the waistline
-    sb.box(_blend("pelvis", "spine_01", 0.7), size=(0.30 * g, 0.21 * g, 0.16),
-           matrix=T(pelvis.x, pelvis.y, pelvis.z + 0.02), mat=lower)
-    # belly + chest + upper chest (shirt), gently widening to the shoulders
-    sb.box("spine_01", size=(0.32 * g, 0.22 * g, 0.20), matrix=T(*s1), mat=upper)
-    sb.box("spine_02", size=(0.36 * g, 0.23 * g, 0.24), matrix=T(*s2), mat=upper)
-    sb.box("spine_03", size=(0.40 * g, 0.24 * g, 0.18), matrix=T(s3.x, s3.y, s3.z + 0.01), mat=upper)
+    sb.box(_blend("pelvis", "spine_01", 0.7), size=(0.31 * g, 0.21 * g, 0.15),
+           matrix=T(pelvis.x, pelvis.y, pelvis.z + 0.03), mat=lower)
+    # trouser seat bridging BOTH thighs — closes the crotch / inner-thigh gap notch
+    seat_z = (pelvis.z + h("thigh_l").z) * 0.5 - 0.02
+    sb.box("pelvis", size=(0.29 * g, 0.19 * g, 0.15), matrix=T(0, pelvis.y, seat_z - 0.01), mat=lower)
+    # belly + chest + upper chest (shirt): tapered torso (narrower waist -> broader chest)
+    sb.box("spine_01", size=(0.30 * g, 0.20 * g, 0.20), matrix=T(*s1), mat=upper)
+    sb.box("spine_02", size=(0.37 * g, 0.22 * g, 0.24), matrix=T(*s2), mat=upper)
+    sb.box("spine_03", size=(0.41 * g, 0.23 * g, 0.18), matrix=T(s3.x, s3.y, s3.z + 0.01), mat=upper)
+    # chest/pectoral bevel so the torso reads with shoulder mass, not a puffy box
+    sb.box("spine_03", size=(0.30 * g, 0.20 * g, 0.10), matrix=T(0, s3.y - 0.03, s3.z - 0.04), mat=upper)
     # collar ring (shirt) so the neck emerges from a clear neckline
     sb.cyl("spine_03", 0.085 * g, 0.05, segments=14, matrix=T(neck.x, neck.y, neck.z - 0.01), mat=upper)
     # coat: long tapered skirt for office/director read
@@ -165,9 +170,12 @@ def build_character2(role, arm, seed=1):
         sb.segment(f"lowerarm_{s}", la_h, hn_h, 0.046, 0.036, segments=12, mat=skin)
         # wrist + hand mitten (skin)
         sb.uvsphere(_blend(f"lowerarm_{s}", f"hand_{s}"), 0.04, u=8, v=6, matrix=T(*hn_h), mat=skin)
-        hand_end = hn_h + Vector((sgn * 0.085, 0.0, 0.0))
-        sb.box(f"hand_{s}", size=(0.11, 0.085, 0.04),
-               matrix=T((hn_h.x + hand_end.x) * 0.5 + sgn * 0.02, hn_h.y, hn_h.z), mat=skin)
+        # flattened mitt (fingers) + a clearly separated thumb protruding forward (-Y)
+        sb.box(f"hand_{s}", size=(0.12, 0.072, 0.038),
+               matrix=T(hn_h.x + sgn * 0.055, hn_h.y, hn_h.z), mat=skin)
+        sb.box(f"hand_{s}", size=(0.034, 0.06, 0.05),
+               matrix=T(hn_h.x + sgn * 0.03, hn_h.y - 0.058, hn_h.z - 0.004) @ R("Z", sgn * 0.55),
+               mat=skin)   # thumb
 
     # ============================================================ LEGS
     for s in ("l", "r"):
