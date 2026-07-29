@@ -39,7 +39,7 @@ FORWARD = Vector((0.0, -1.0, 0.0))   # measured mannequin forward (see probe_ori
 # (deterministic, NOT tied to job) — the row's `skin` is only the lineup default.
 ROLES = {
     "PA":         dict(size="standard", skin="skin_01", hair="hair_brown", shirt="work_shirt_tan",  trousers="trousers_brown",
-                       hat=None,        belt=False, coat=False, clip=True),
+                       hat=None,        belt=False, coat=False, clip=True, hair_style="sidepart"),
     "Grip":       dict(size="standard", skin="skin_02", hair="hair_dark",  shirt="work_shirt_blue", trousers="trousers_grey",
                        hat="flatcap",   belt=True,  coat=False, radio=True, hat_col=(0.24, 0.24, 0.26)),
     "Electric":   dict(size="heavy",    skin="skin_01", hair="hair_brown", shirt="work_shirt_tan",  trousers="trousers_brown",
@@ -48,8 +48,9 @@ ROLES = {
     # deliberately NOT hi-vis/hard-hat so it never reads as the Electric/Grip crew.
     "Maintenance":dict(size="heavy",    skin="skin_03", hair="hair_grey",  shirt=(0.31, 0.35, 0.41), trousers=(0.31, 0.35, 0.41),
                        hat="softcap",   belt=True,  coat=False, radio=True, hat_col=(0.20, 0.23, 0.28)),
-    "Office":     dict(size="standard", skin="skin_04", hair="hair_grey",  shirt="coat_charcoal",   trousers="trousers_grey",
-                       hat=None,        belt=False, coat=True,  clip=True),
+    # Office: a lightweight dark top (NOT a long coat — that's Director) so it reads as admin, not a smock
+    "Office":     dict(size="standard", skin="skin_04", hair="hair_grey",  shirt=(0.28, 0.30, 0.36), trousers="trousers_grey",
+                       hat=None,        belt=False, coat=False, clip=True, hair_style="bun"),
     # extra existing roles kept only if they pass the same bar
     "CameraDP":   dict(size="standard", skin="skin_03", hair="hair_dark",  shirt="work_shirt_blue", trousers="trousers_grey",
                        hat="softcap",   belt=False, coat=False, hat_col=(0.18, 0.24, 0.34)),
@@ -80,6 +81,9 @@ def char_materials(cfg, tag="base"):
     P = config.PALETTE
     hair = cfg["hair"]
     hair_col = tuple(hair) if isinstance(hair, (tuple, list)) else P.get(hair, (0.12, 0.09, 0.07))
+    # 05C: darken light/grey hair so it reads against pale skin (Office was reading bald)
+    if sum(hair_col) > 1.2:
+        hair_col = tuple(c * 0.68 for c in hair_col)
 
     def s(slot, color, **kw):
         return materials.solid(f"mat2_{slot}_{tag}", color, **kw)
@@ -172,8 +176,9 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     # clipboard clutched to the front (PA / office) — reads at any pose, weighted to the torso
     if cfg.get("clip"):
         cz = c("spine_01").z + 0.02
-        sb.box("spine_01", size=(0.17, 0.02, 0.23), matrix=T(0.05, -0.15 * g, cz), mat=SLOT["dark"])
-        sb.box("spine_01", size=(0.15, 0.006, 0.20), matrix=T(0.05, -0.16 * g, cz + 0.005), mat=SLOT["white"])
+        # held clearly IN FRONT of the torso (pushed -Y past the coat/shirt), tilted top-back
+        sb.box("spine_01", size=(0.16, 0.02, 0.21), matrix=T(0.05, -0.205, cz) @ R("X", -0.28), mat=SLOT["dark"])
+        sb.box("spine_01", size=(0.14, 0.006, 0.18), matrix=T(0.05, -0.214, cz + 0.004) @ R("X", -0.28), mat=SLOT["white"])
     # belt radio: a small snug box on the FRONT-left of the belt (no antenna — a thin cylinder read
     # as a floating stick in deep crouches). Weighted to pelvis so it stays with the waist.
     if cfg.get("radio") and cfg.get("belt"):
@@ -186,30 +191,37 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     sb.uvsphere("Head", 0.108, u=22, v=16,
                 matrix=T(head_c.x, head_c.y - 0.008, head_c.z + 0.02) @ Matrix.Diagonal((0.9, 1.02, 1.16, 1)), mat=skin)
 
-    # ----- FACE on the measured FRONT (-Y). y decreases toward the face. -----
+    # ----- FACE (-Y front): clean, symmetric, FRIENDLY stylized features (05C) -----
     hx, hy, hz = head_c.x, head_c.y, head_c.z + 0.02
-    fy = hy - 0.092          # front surface plane of the head ovoid
-    ex = 0.041               # eye separation (half)
+    fy = hy - 0.092          # feature front plane
+    ex = 0.036               # eye separation (half) — tightened so the face isn't spaced-out
     for sgn in (-1, 1):
-        # eye white + dark pupil (pupil pokes slightly further -Y)
-        sb.uvsphere("Head", 0.024, u=10, v=8, matrix=T(hx + sgn * ex, fy + 0.006, hz + 0.018), mat=white)
-        sb.uvsphere("Head", 0.013, u=8, v=6, matrix=T(hx + sgn * ex, fy - 0.008, hz + 0.016), mat=dark)
-        # eyebrow
-        sb.box("Head", size=(0.05, 0.016, 0.013), matrix=T(hx + sgn * ex, fy - 0.004, hz + 0.052), mat=dark)
-    # nose (skin wedge protruding -Y)
-    sb.box("Head", size=(0.028, 0.05, 0.03), matrix=T(hx, fy - 0.018, hz - 0.004), mat=skin)
-    # mouth (dark)
-    sb.box("Head", size=(0.052, 0.014, 0.016), matrix=T(hx, fy - 0.002, hz - 0.060), mat=dark)
+        # eye = clean dark almond sitting on the face (reads focused, not a googly white ball)
+        sb.uvsphere("Head", 1.0, u=12, v=8,
+                    matrix=T(hx + sgn * ex, fy + 0.002, hz + 0.016) @ Matrix.Diagonal((0.035, 0.014, 0.027, 1)), mat=dark)
+        # white catch-light for life (upper-inner corner)
+        sb.uvsphere("Head", 0.010, u=6, v=6, matrix=T(hx + sgn * ex - sgn * 0.009, fy - 0.014, hz + 0.026), mat=white)
+        # eyebrow = soft rounded bar close above the eye (hair-coloured), gentle
+        sb.uvsphere("Head", 1.0, u=10, v=6,
+                    matrix=T(hx + sgn * ex, fy - 0.002, hz + 0.044) @ Matrix.Diagonal((0.034, 0.012, 0.0085, 1)), mat=SLOT["hair"])
+    # nose = a small soft bump protruding -Y (skin), not a lump wedge
+    sb.uvsphere("Head", 1.0, u=10, v=8,
+                matrix=T(hx, fy - 0.008, hz - 0.006) @ Matrix.Diagonal((0.015, 0.021, 0.019, 1)), mat=skin)
+    # mouth = a gentle closed friendly line (dark), wide + thin, clearly readable
+    sb.uvsphere("Head", 1.0, u=14, v=6,
+                matrix=T(hx, fy - 0.006, hz - 0.049) @ Matrix.Diagonal((0.032, 0.011, 0.013, 1)), mat=dark)
     # ears
     for sgn in (-1, 1):
-        sb.uvsphere("Head", 0.02, u=8, v=6, matrix=T(hx + sgn * 0.098, hy + 0.01, hz) @ Matrix.Diagonal((0.5, 1, 1.2, 1)), mat=skin)
+        sb.uvsphere("Head", 0.021, u=8, v=6, matrix=T(hx + sgn * 0.098, hy + 0.012, hz) @ Matrix.Diagonal((0.5, 1, 1.25, 1)), mat=skin)
 
     # ----- hair / headwear -----
     hat = cfg.get("hat")
-    if hat != "hardhat":  # hard hat covers hair; otherwise show hair
-        sb.uvsphere("Head", 0.116, u=18, v=12,
-                    matrix=T(hx, hy + 0.028, hz + 0.03) @ Matrix.Diagonal((1.0, 1.0, 0.98, 1)), mat=SLOT["hair"])
-    _add_headwear(sb, hat, Vector((hx, hy, hz)))
+    hc = Vector((hx, hy, hz))
+    if hat:                       # a cap/hat: show a fringe so the head is never bald under it
+        _add_hair_fringe(sb, hc, SLOT["hair"])
+    else:                         # bare head: a designed hairstyle
+        _add_hair(sb, cfg.get("hair_style", "short"), hc, SLOT["hair"])
+    _add_headwear(sb, hat, hc)
 
     # ============================================================ ARMS (T-pose along X)
     for s in ("l", "r"):
@@ -266,6 +278,37 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     return obj
 
 
+def _hair_ell(sb, cx, cy, cz, sx, sy, sz, mat, u=16, v=10):
+    sb.uvsphere("Head", 1.0, u=u, v=v, matrix=T(cx, cy, cz) @ Matrix.Diagonal((sx, sy, sz, 1)), mat=mat)
+
+
+def _add_hair(sb, style, hc, mat):
+    """A designed hairstyle for a bare head (weighted Head). Covers top/back/sides; the -Y face
+    stays skin. >=4 distinct silhouettes so heads never read bald or interchangeable."""
+    hx, hy, hz = hc.x, hc.y, hc.z
+    _hair_ell(sb, hx, hy + 0.030, hz + 0.032, 0.120, 0.120, 0.112, mat)          # base cap (all styles)
+    if style == "sidepart":
+        _hair_ell(sb, hx + 0.055, hy - 0.052, hz + 0.078, 0.058, 0.050, 0.034, mat)  # swept front bang
+        _hair_ell(sb, hx - 0.02, hy - 0.060, hz + 0.088, 0.070, 0.045, 0.030, mat)
+    elif style == "bun":
+        _hair_ell(sb, hx, hy + 0.122, hz + 0.060, 0.056, 0.052, 0.052, mat, u=12)     # bun at back-top
+    elif style == "ponytail":
+        _hair_ell(sb, hx, hy + 0.118, hz - 0.030, 0.036, 0.046, 0.078, mat, u=10)     # tail hanging back
+    elif style == "curly":
+        _hair_ell(sb, hx, hy + 0.035, hz + 0.052, 0.130, 0.130, 0.126, mat, u=20, v=14)  # fuller rounded
+    elif style == "quiff":
+        _hair_ell(sb, hx, hy - 0.050, hz + 0.098, 0.070, 0.055, 0.048, mat)           # raised front quiff
+    # "short" = just the base cap
+
+
+def _add_hair_fringe(sb, hc, mat):
+    """A fringe/sideburn band that shows under a hat so a hatted head is never bald."""
+    hx, hy, hz = hc.x, hc.y, hc.z
+    _hair_ell(sb, hx, hy + 0.038, hz - 0.008, 0.114, 0.114, 0.078, mat, u=18)   # lower back/side band
+    for sgn in (-1, 1):                                                          # temple sideburns
+        _hair_ell(sb, hx + sgn * 0.088, hy - 0.018, hz + 0.028, 0.030, 0.055, 0.060, mat, u=8, v=6)
+
+
 def _add_headwear(sb, kind, head_center):
     """Add headwear geometry weighted 100% to Head (follows head translation+rotation)."""
     if not kind:
@@ -273,8 +316,9 @@ def _add_headwear(sb, kind, head_center):
     c = head_center + Vector((0, 0.005, 0.0))
     top = c.z + 0.12
     if kind == "hardhat":
-        sb.uvsphere("Head", 0.132, u=16, v=8, matrix=T(c.x, c.y, top - 0.03) @ Matrix.Diagonal((1, 1, 0.72, 1)), mat=SLOT["hat"])
-        sb.cyl("Head", 0.16, 0.02, segments=18, matrix=T(c.x, c.y - 0.02, top - 0.055), mat=SLOT["hat"])   # brim front -Y
+        # dome hugging the crown (not a bowl balanced high) + a brim RAISED clear of the eyeline
+        sb.uvsphere("Head", 0.124, u=18, v=10, matrix=T(c.x, c.y, c.z + 0.082) @ Matrix.Diagonal((1.0, 1.02, 0.86, 1)), mat=SLOT["hat"])
+        sb.cyl("Head", 0.138, 0.016, segments=20, matrix=T(c.x, c.y - 0.010, c.z + 0.060), mat=SLOT["hat"])   # brim (raised)
     elif kind == "fedora":
         sb.cyl("Head", 0.185, 0.02, segments=22, matrix=T(c.x, c.y, top - 0.02), mat=SLOT["hat"])          # brim
         sb.cone("Head", 0.115, 0.10, 0.12, segments=18, matrix=T(c.x, c.y, top + 0.05), mat=SLOT["hat"])   # crown

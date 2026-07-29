@@ -53,5 +53,44 @@ roles/skin/palette/headwear lineups; six poses).
 ### Iteration 2 agenda (from the appeal reviewer's critical + owner notes)
 Face & head: symmetric focused eyes, cleaner brow/nose/mouth with intentional friendly-neutral
 expression; ≥4 hairstyle silhouettes; headwear that looks worn (not balanced); fix bald/unfinished
-heads. Add a ground plane + tighter face cameras to the proof renders (partial pull-forward of the
-iter-5 presentation fix so grounding/faces are verifiable).
+heads.
+
+---
+
+## Iteration 2 — Face, head, hair, headwear
+
+- **Starting HEAD:** `1e4526c` (iter 1).
+- **Ranked defects:** faces read as unfinished/startled test figures (iter-1 appeal critical);
+  bald-under-hats; heads interchangeable; hats balanced-not-worn.
+
+### Implementation (`character2.py`)
+- **Face reworked:** googly white eyeballs → clean **dark almond eyes + white catch-light** (Two
+  Point idiom); softened nose (bump, not wedge); friendly closed mouth; hair-coloured brows.
+  Tightened eye spacing + shrank nose (was spaced-out). Symmetric by construction.
+- **Hair:** `_add_hair` with ≥4 silhouettes (short/sidepart/bun/ponytail/curly/quiff) for bare
+  heads; `_add_hair_fringe` (band + temple sideburns) under hats so hatted heads are **never bald**.
+  Darkened light/grey hair in `char_materials` so Office no longer reads bald on pale skin.
+- **Headwear:** hard-hat dome hugs the crown with the brim **raised clear of the eyeline** (was a
+  bowl balanced high, shadowing the eyes).
+- **Office:** switched from a boxy long-coat cone to a lightweight dark top (long coat is Director);
+  clipboard pushed clearly in front of the torso (was clipping).
+
+### Validation: `GATE_TEST_OK`; 0 unweighted / 0 bad-sum unchanged; ~8 k tris/char.
+
+### Reviewers (parallel Workflow): **face PASS WITH NOTES** (googly gone, bald-under-hat fixed,
+hats worn, ≥4 hairstyles; notes = closeup eye mirror-symmetry, hairstyle distinctness at distance)
+and **appeal PASS WITH NOTES** (PA/Grip now charming; the Office blank-head holdout → **fixed same
+iteration** via darker hair + dropped boxy coat). Both improved over iter1.
+
+### Scores (moving): face-readability 4 (was 2) · hair/headwear 4 (was 2) · appeal 4 · overall
+human-readability 4. Others carry from iter 1.
+
+### Decision: **CONTINUE (iteration 2 ACCEPTED).** The iter-1 critical (face) is resolved to
+"charming." Evidence: `proof/lab05c/iteration-02/` (hero face close-ups, hairstyles/headwear
+lineups, role lineup).
+
+### Iteration 3 agenda
+Clothing & role silhouettes: real collars/cuffs/hems/waistbands; fully fitted hi-vis vest;
+per-role garments (PA lightweight jacket, Grip/Electric work shirt+vest, Maintenance coveralls,
+Office cardigan/blouse) so roles read by OUTFIT not just colour+headwear; refine the Director long
+coat; give Office's dark top real tailoring.

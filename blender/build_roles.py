@@ -113,4 +113,8 @@ HW = [
 ]
 render_lineup(HW, "headwear")
 
+# 6) hairstyle silhouettes (bare heads)
+render_lineup([dict(role="PA", overrides={"hat": None, "hair_style": s}, tag=f"hair_{s}")
+               for s in ("short", "sidepart", "bun", "ponytail", "curly", "quiff")], "hairstyles")
+
 print("ROLES_BUILD_OK")
