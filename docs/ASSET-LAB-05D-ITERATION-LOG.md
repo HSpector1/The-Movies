@@ -166,3 +166,28 @@ self-review never presented as independent; missed gates queued for replay befor
 - **Evidence:** `proof/lab05d/iteration-09/population-front.png` — 6 distinct individuals, same role.
 - **Review:** FULL multi-reviewer gate (Art Director + Readability + Diversity), verdicts appended.
 - **Decision: ACCEPT** (self-review: reads as distinct people; gate appended).
+
+### Loop-9 FULL GATE verdicts (3 reviewers, API recovered):
+- **Diversity: PASS WITH NOTES, improved.** 6 crew read as distinct people; skin independent of
+  role. Notes (minor): grey-hair correlated with heavier build; facial-hair landed on lighter skin
+  (n=6 coincidence); face-geometry variation subtle at crowd scale. → **Loop 11 decouples these**.
+- **Readability: CONCERNS, improved (palette now varied) — but TWO CRITICAL greyscale collisions:**
+  PA≈Office (both bare-head clipboard) and Grip≈Maintenance (both cap+belt+chest-tool), separable by
+  hue only. Loop 8 was mostly a colour pass. → **Loop 11 fixes with silhouette/prop differentiation
+  (colour last, not first)**.
+- **Art Director: PASS WITH NOTES, improved** (crew reads as a deliberate cohesive cast vs baseline);
+  top weaknesses queued for the Loop-12 holistic pass.
+
+---
+
+## Loop 10 — Rigging & deformation professionalization
+- **Hypothesis:** verify the crew stays appealing IN MOTION across all six required clips (not just
+  the neutral pose) and correct the standing gate's elbow-volume note.
+- **Change/audit:** rendered all six clips for the two hardest cases (Grip, Electric-with-vest). All
+  deform cleanly — no melt/shard/collapse/intersection; hard hat + hi-vis vest stay attached through
+  the deep kneel; feet grounded (min z ≈ 0) in every clip. Corrective: enlarged the **elbow joint**
+  (0.050→0.055·LI) so the elbow keeps volume at deep flex.
+- **Validate:** `GATE_TEST_OK`; 0 unweighted / 0 bad-sum.
+- **Evidence:** `proof/lab05d/iteration-10/` — Electric kneel (vest holds), Grip walk/pickup clean.
+- **Review:** lead self-review (6-clip audit); FULL gate at Loop 12.
+- **Decision: ACCEPT** (deformation is professional-clean in motion; elbow corrected).

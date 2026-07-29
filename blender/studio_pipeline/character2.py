@@ -309,8 +309,8 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         bic = ua_h.lerp(la_h, 0.4)
         sb.uvsphere(f"upperarm_{s}", 1.0, u=10, v=8,
                     matrix=T(bic.x, bic.y - 0.004, bic.z) @ Matrix.Diagonal((0.072, 0.060 * LI, 0.058 * LI, 1)), mat=upper)
-        # elbow joint (blend) — sleeve cuff sits here
-        sb.uvsphere(_blend(f"upperarm_{s}", f"lowerarm_{s}"), 0.050 * LI, u=10, v=8, matrix=T(*la_h), mat=upper)
+        # elbow joint (blend) — enlarged so the elbow keeps volume at deep flex (kneel/pickup)
+        sb.uvsphere(_blend(f"upperarm_{s}", f"lowerarm_{s}"), 0.055 * LI, u=12, v=8, matrix=T(*la_h), mat=upper)
         # rolled-sleeve cuff: a thicker shirt band just before the skin forearm begins
         cuff_p = ua_h.lerp(la_h, 0.86)
         sb.uvsphere(f"upperarm_{s}", 0.057 * LI, u=12, v=8, matrix=T(*cuff_p), mat=upper)
