@@ -52,3 +52,28 @@ self-review never presented as independent; missed gates queued for replay befor
 - **Review:** FULL multi-reviewer gate (Art Director + Anatomy + Readability), covering loops 1-3,
   with 4× outage retry — verdicts recorded below.
 - **Decision: ACCEPT** (self-review: sculpted + expressive; gate verdicts appended).
+
+### Loop-3 FULL GATE verdicts (3 reviewers, API recovered — no outage this gate):
+- **Art Director: PASS WITH NOTES, improved.** Majors: mouth still a black bar (no upper lip / no
+  corner lift); eye an oversized dark void + floating dot (reads hollow); **PA chin jowly**.
+  → **All three addressed in Loop 4** (two-lit-lip smiling mouth; eyeball+iris+lids eye; smaller chin).
+- **Anatomy: CONCERNS, "not improved over baseline."** Pixel-diff shows Loop-1 limb shaping is
+  imperceptible; slim/avg/wide are uniform scaling (identical taper ratios); legs read as straight
+  tubes in FRONT view (calf ≥ thigh width); no waist pinch. → **drives a dedicated anatomy REDO in
+  Loop 5** (per-profile ratio signatures, front-plane leg taper, waist pinch).
+- **Readability:** captured; roles read at distance, main note = strengthen non-colour role cues
+  (→ Loop 8).
+
+---
+
+## Loop 4 — Hair, facial hair, headwear + Loop-3 face fixes
+- **Hypothesis:** no facial hair limits age/character variety; and the Loop-3 gate's face majors
+  (black-bar mouth, void eyes, jowly chin) must be fixed before adding more.
+- **Change:** `_add_facial_hair` (mustache/beard/goatee/stubble, hair-coloured) wired to Grip/
+  Carpenter/Director/Maintenance. **Face rework:** eye rebuilt as lit eyeball + dark iris + upper &
+  lower lids + catch-light (was a dark void); mouth rebuilt as two lit lips + thin line + lifted
+  corners (real smile); chin shrunk + pulled up/back (de-jowled).
+- **Validate:** `GATE_TEST_OK`; 0 unweighted / 0 bad-sum.
+- **Evidence:** `proof/lab05d/iteration-04/` — PA/Grip faces (eyes+smile read), Carpenter beard.
+- **Review:** lead self-review; independent gate at Loop 6.
+- **Decision: ACCEPT.**

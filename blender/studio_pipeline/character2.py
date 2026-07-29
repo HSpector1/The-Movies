@@ -41,13 +41,13 @@ ROLES = {
     "PA":         dict(size="standard", skin="skin_01", hair="hair_brown", shirt="work_shirt_tan",  trousers="trousers_brown",
                        hat=None,        belt=False, coat=False, clip=True, hair_style="sidepart"),
     "Grip":       dict(size="standard", skin="skin_02", hair="hair_dark",  shirt="work_shirt_blue", trousers="trousers_grey",
-                       hat="flatcap",   belt=True,  coat=False, radio=True, hat_col=(0.24, 0.24, 0.26)),
+                       hat="flatcap",   belt=True,  coat=False, radio=True, hat_col=(0.24, 0.24, 0.26), facial_hair="mustache"),
     "Electric":   dict(size="heavy",    skin="skin_01", hair="hair_brown", shirt="work_shirt_tan",  trousers="trousers_brown",
                        hat="hardhat",   belt=True,  coat=False, vest=True, radio=True, hat_col=(0.92, 0.56, 0.08)),
     # Maintenance: slate COVERALLS (same top+bottom) + soft cap — a distinct mechanic silhouette,
     # deliberately NOT hi-vis/hard-hat so it never reads as the Electric/Grip crew.
     "Maintenance":dict(size="heavy",    skin="skin_03", hair="hair_grey",  shirt=(0.31, 0.35, 0.41), trousers=(0.31, 0.35, 0.41),
-                       hat="softcap",   belt=True,  coat=False, radio=True, hat_col=(0.20, 0.23, 0.28)),
+                       hat="softcap",   belt=True,  coat=False, radio=True, hat_col=(0.20, 0.23, 0.28), facial_hair="stubble"),
     # Office: a lightweight dark top (NOT a long coat — that's Director) so it reads as admin, not a smock
     "Office":     dict(size="standard", skin="skin_04", hair="hair_grey",  shirt=(0.28, 0.30, 0.36), trousers="trousers_grey",
                        hat=None,        belt=False, coat=False, clip=True, hair_style="bun"),
@@ -55,9 +55,9 @@ ROLES = {
     "CameraDP":   dict(size="standard", skin="skin_03", hair="hair_dark",  shirt="work_shirt_blue", trousers="trousers_grey",
                        hat="softcap",   belt=False, coat=False, hat_col=(0.18, 0.24, 0.34)),
     "Director":   dict(size="standard", skin="skin_04", hair="hair_grey",  shirt="coat_charcoal",   trousers="trousers_grey",
-                       hat="fedora",    belt=False, coat=True,  hat_col=(0.26, 0.19, 0.14)),
+                       hat="fedora",    belt=False, coat=True,  hat_col=(0.26, 0.19, 0.14), facial_hair="goatee"),
     "Carpenter":  dict(size="heavy",    skin="skin_02", hair="hair_brown", shirt="work_shirt_tan",  trousers="trousers_brown",
-                       hat="softcap",   belt=True,  coat=False, radio=True, hat_col=(0.34, 0.27, 0.19)),
+                       hat="softcap",   belt=True,  coat=False, radio=True, hat_col=(0.34, 0.27, 0.19), facial_hair="beard"),
 }
 
 # Proportion profiles (05C). Girth drives torso/limb width; skeleton height is shared/locked
@@ -211,7 +211,7 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     # ----- head SCULPT (05D): SUBTLE cheekbone/chin/brow planes so the head reads sculpted (not egg,
     #       not jowly). Small, restrained forms that blend into the ovoid via shade-smooth. -----
     sb.uvsphere("Head", 1.0, u=10, v=8,
-                matrix=T(hx, hy - 0.058, hz - 0.070) @ Matrix.Diagonal((0.044, 0.046, 0.040, 1)), mat=skin)   # chin (small)
+                matrix=T(hx, hy - 0.052, hz - 0.064) @ Matrix.Diagonal((0.038, 0.042, 0.036, 1)), mat=skin)   # chin (smaller, up+back — not jowly)
     for sgn in (-1, 1):
         sb.uvsphere("Head", 1.0, u=8, v=6,
                     matrix=T(hx + sgn * 0.050, hy - 0.058, hz + 0.004) @ Matrix.Diagonal((0.028, 0.034, 0.036, 1)), mat=skin)  # cheekbone (subtle, higher)
@@ -220,27 +220,28 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     sb.uvsphere("Head", 1.0, u=8, v=6,
                 matrix=T(hx, hy - 0.090, hz + 0.020) @ Matrix.Diagonal((0.013, 0.024, 0.044, 1)), mat=skin)   # nose bridge (nose->brow)
     for sgn in (-1, 1):
-        # eye = clean dark almond sitting on the face (reads focused, not a googly white ball)
-        sb.uvsphere("Head", 1.0, u=12, v=8,
-                    matrix=T(hx + sgn * ex, fy + 0.002, hz + 0.016) @ Matrix.Diagonal((0.035, 0.014, 0.027, 1)), mat=dark)
-        # white catch-light for life (upper-inner corner)
-        sb.uvsphere("Head", 0.010, u=6, v=6, matrix=T(hx + sgn * ex - sgn * 0.009, fy - 0.014, hz + 0.026), mat=white)
-        # upper-lid line (skin) at the top edge of the eye → defines a relaxed lid without hooding
+        # eye = a lit EYEBALL + dark iris + catch-light, BRACKETED by upper & lower lids (reads as a
+        # shaped eye, not an oversized dark void with a floating dot).
+        sb.uvsphere("Head", 1.0, u=10, v=8,
+                    matrix=T(hx + sgn * ex, fy + 0.006, hz + 0.015) @ Matrix.Diagonal((0.030, 0.013, 0.021, 1)), mat=white)   # eyeball
+        sb.uvsphere("Head", 0.0135, u=8, v=6, matrix=T(hx + sgn * ex, fy - 0.006, hz + 0.014), mat=dark)                        # iris/pupil (forward)
+        sb.uvsphere("Head", 0.0055, u=6, v=6, matrix=T(hx + sgn * ex - sgn * 0.006, fy - 0.012, hz + 0.020), mat=white)         # catch-light
         sb.uvsphere("Head", 1.0, u=8, v=6,
-                    matrix=T(hx + sgn * ex, fy + 0.003, hz + 0.034) @ Matrix.Diagonal((0.037, 0.013, 0.006, 1)), mat=skin)
-        # eyebrow = soft rounded bar close above the eye (hair-coloured), gentle
+                    matrix=T(hx + sgn * ex, fy + 0.003, hz + 0.030) @ Matrix.Diagonal((0.037, 0.013, 0.007, 1)), mat=skin)      # upper lid
+        sb.uvsphere("Head", 1.0, u=8, v=6,
+                    matrix=T(hx + sgn * ex, fy + 0.004, hz + 0.001) @ Matrix.Diagonal((0.035, 0.012, 0.006, 1)), mat=skin)      # lower lid
         sb.uvsphere("Head", 1.0, u=10, v=6,
-                    matrix=T(hx + sgn * ex, fy - 0.002, hz + 0.044) @ Matrix.Diagonal((0.034, 0.012, 0.0085, 1)), mat=SLOT["hair"])
+                    matrix=T(hx + sgn * ex, fy - 0.002, hz + 0.044) @ Matrix.Diagonal((0.033, 0.012, 0.0085, 1)), mat=SLOT["hair"])  # brow
     # nose = a small soft bump protruding -Y (skin), not a lump wedge
     sb.uvsphere("Head", 1.0, u=10, v=8,
                 matrix=T(hx, fy - 0.008, hz - 0.006) @ Matrix.Diagonal((0.015, 0.021, 0.019, 1)), mat=skin)
-    # mouth = a friendly closed line with slightly LIFTED corners (a faint smile) + lip form
-    sb.uvsphere("Head", 1.0, u=14, v=6,
-                matrix=T(hx, fy - 0.006, hz - 0.050) @ Matrix.Diagonal((0.030, 0.011, 0.011, 1)), mat=dark)
+    # mouth = TWO lit lips (upper + lower, skin) with a thin dark line between + upward corners → a
+    # gentle smile that actually reads (was a single black bar).
+    sb.uvsphere("Head", 1.0, u=10, v=6, matrix=T(hx, fy - 0.004, hz - 0.046) @ Matrix.Diagonal((0.028, 0.013, 0.008, 1)), mat=skin)   # upper lip
+    sb.uvsphere("Head", 1.0, u=10, v=6, matrix=T(hx, fy - 0.004, hz - 0.058) @ Matrix.Diagonal((0.028, 0.014, 0.009, 1)), mat=skin)   # lower lip
+    sb.uvsphere("Head", 1.0, u=12, v=4, matrix=T(hx, fy - 0.002, hz - 0.052) @ Matrix.Diagonal((0.024, 0.010, 0.0035, 1)), mat=dark)  # thin mouth line
     for sgn in (-1, 1):
-        sb.uvsphere("Head", 0.008, u=6, v=6, matrix=T(hx + sgn * 0.027, fy - 0.005, hz - 0.043), mat=dark)  # lifted corner
-    sb.uvsphere("Head", 1.0, u=8, v=6,
-                matrix=T(hx, fy - 0.004, hz - 0.059) @ Matrix.Diagonal((0.024, 0.014, 0.008, 1)), mat=skin)  # lower-lip highlight
+        sb.uvsphere("Head", 0.006, u=6, v=6, matrix=T(hx + sgn * 0.024, fy - 0.003, hz - 0.047), mat=dark)  # lifted corner (smile)
     # ears
     for sgn in (-1, 1):
         sb.uvsphere("Head", 0.021, u=8, v=6, matrix=T(hx + sgn * 0.098, hy + 0.012, hz) @ Matrix.Diagonal((0.5, 1, 1.25, 1)), mat=skin)
@@ -253,6 +254,8 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     else:                         # bare head: a designed hairstyle
         _add_hair(sb, cfg.get("hair_style", "short"), hc, SLOT["hair"])
     _add_headwear(sb, hat, hc)
+    if cfg.get("facial_hair"):
+        _add_facial_hair(sb, cfg["facial_hair"], hc, SLOT["hair"])
 
     # ============================================================ ARMS (T-pose along X)
     for s in ("l", "r"):
@@ -356,6 +359,22 @@ def _add_hair_fringe(sb, hc, mat):
     _hair_ell(sb, hx, hy + 0.038, hz - 0.008, 0.114, 0.114, 0.078, mat, u=18)   # lower back/side band
     for sgn in (-1, 1):                                                          # temple sideburns
         _hair_ell(sb, hx + sgn * 0.088, hy - 0.018, hz + 0.028, 0.030, 0.055, 0.060, mat, u=8, v=6)
+
+
+def _add_facial_hair(sb, kind, hc, mat):
+    """Facial hair (weighted Head), hair-coloured. Adds character + age variety."""
+    hx, hy, hz = hc.x, hc.y, hc.z
+    fy = hy - 0.092
+    if kind in ("mustache", "beard", "goatee"):
+        _hair_ell(sb, hx, fy - 0.004, hz - 0.036, 0.028, 0.012, 0.010, mat, u=10, v=6)  # mustache
+    if kind == "beard":
+        _hair_ell(sb, hx, fy + 0.004, hz - 0.072, 0.050, 0.046, 0.044, mat, u=12, v=8)  # chin/jaw mass
+        for sgn in (-1, 1):
+            _hair_ell(sb, hx + sgn * 0.050, fy + 0.028, hz - 0.048, 0.020, 0.044, 0.052, mat, u=8, v=6)  # jawline
+    elif kind == "goatee":
+        _hair_ell(sb, hx, fy - 0.002, hz - 0.070, 0.024, 0.028, 0.026, mat, u=10, v=6)  # chin tuft
+    elif kind == "stubble":
+        _hair_ell(sb, hx, fy + 0.010, hz - 0.058, 0.058, 0.040, 0.030, mat, u=12, v=6)  # low-jaw shadow
 
 
 def _add_headwear(sb, kind, head_center):
