@@ -25,7 +25,13 @@
     "blender:hero": "node tools/blender-run.mjs blender/make_hero_scene.py",
     "blender:validate": "node tools/validate-studio.mjs",
     "blender:factory": "npm run blender:build && npm run blender:hero && npm run blender:library && npm run blender:validate",
-    "shots:lab05": "node tools/capture-lab05.mjs"
+    "shots:lab05": "node tools/capture-lab05.mjs",
+    "shots:lab05b": "node tools/capture-lab05b.mjs",
+    "blender:characters:build": "node tools/blender-run.mjs blender/build_characters05b.py",
+    "blender:characters:export": "node tools/blender-run.mjs blender/build_characters05b.py",
+    "blender:characters:render": "node tools/blender-run.mjs blender/build_roles.py -- proof/lab05b/iteration-03",
+    "blender:characters:validate": "node tools/validate-characters.mjs",
+    "blender:characters:pipeline": "npm run blender:characters:build && npm run blender:characters:validate"
   },
   "dependencies": {
     "@react-three/drei": "^9.109.2",

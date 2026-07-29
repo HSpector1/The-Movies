@@ -292,13 +292,18 @@ export function SceneF(): JSX.Element {
 // and the crew — original characters built to the 65-bone UAL Mannequin, each playing a CC0 clip
 // from the shared 43-clip library. Proves the factory output runs in the real runtime and that
 // the crew retarget the CC0 animation library unchanged. Scenes A-F stay untouched baselines.
+// Asset Lab 05B: corrected crew. Arranged as a review-friendly arc facing the +Z camera side
+// (character front = Blender -Y -> glTF/three +Z, so rotY ~ 0 faces the review camera), showing
+// the four required roles (PA, Grip/Electric, Maintenance, Office) plus extras.
 const STUDIO_CREW: StudioCrewSpec[] = [
-  { role: 'Grip',      pos: [-1.6, 0, 8.0],  rotY: 0.2,  clip: 'Fixing_Kneeling',   startAt: 1.3 },
-  { role: 'Electric',  pos: [-5.4, 0, 10.6], rotY: 0.7,  clip: 'Idle_Loop',         startAt: 2.2 },
-  { role: 'CameraDP',  pos: [3.4, 0, 8.0],   rotY: -0.4, clip: 'Idle_Talking_Loop', startAt: 0.0 },
-  { role: 'Director',  pos: [5.2, 0, 11.6],  rotY: -0.8, clip: 'Idle_Talking_Loop', startAt: 1.7 },
-  { role: 'PA',        pos: [1.2, 0, 13.5],  rotY: 3.0,  clip: 'Walk_Loop',         startAt: 0.9 },
-  { role: 'Carpenter', pos: [-3.6, 0, 12.4], rotY: 1.2,  clip: 'PickUp_Table',      startAt: 0.4 },
+  { role: 'PA',          pos: [-3.2, 0, 10.6], rotY: 0.12,  clip: 'Idle_Talking_Loop', startAt: 0.9 },
+  { role: 'Grip',        pos: [-1.4, 0, 11.0], rotY: -0.08, clip: 'Idle_Loop',         startAt: 1.3 },
+  { role: 'Electric',    pos: [0.5, 0, 10.7],  rotY: 0.06,  clip: 'Idle_Talking_Loop', startAt: 2.2 },
+  { role: 'Maintenance', pos: [2.4, 0, 11.0],  rotY: -0.15, clip: 'Fixing_Kneeling',   startAt: 0.4 },
+  { role: 'Office',      pos: [4.3, 0, 10.6],  rotY: 0.18,  clip: 'Idle_Loop',         startAt: 1.7 },
+  { role: 'CameraDP',    pos: [-4.8, 0, 12.6], rotY: 0.35,  clip: 'Idle_Talking_Loop', startAt: 0.0 },
+  { role: 'Director',    pos: [6.0, 0, 12.2],  rotY: -0.35, clip: 'Idle_Talking_Loop', startAt: 1.1 },
+  { role: 'Carpenter',   pos: [-6.2, 0, 11.7], rotY: 0.45,  clip: 'PickUp_Table',      startAt: 2.6 },
 ]
 
 export function SceneG(): JSX.Element {

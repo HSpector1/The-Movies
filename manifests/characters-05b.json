@@ -1,0 +1,97 @@
+{
+  "tool": "build_characters05b",
+  "milestone": "asset-lab-05b",
+  "note": "corrected crew; validation gate fails on face-on-back/disconnected/floating.",
+  "characters": [
+    {
+      "role": "PA",
+      "file": "assets/studio/characters/Char_PA_Standard.glb",
+      "ok": true,
+      "issues": [],
+      "tris": 4088,
+      "height": 1.774,
+      "islands": 50,
+      "lod1_tris": 2452,
+      "lod2_tris": 1430
+    },
+    {
+      "role": "Grip",
+      "file": "assets/studio/characters/Char_Grip_Standard.glb",
+      "ok": true,
+      "issues": [],
+      "tris": 4336,
+      "height": 1.774,
+      "islands": 53,
+      "lod1_tris": 2600,
+      "lod2_tris": 1516
+    },
+    {
+      "role": "Electric",
+      "file": "assets/studio/characters/Char_Electric_Heavy.glb",
+      "ok": true,
+      "issues": [],
+      "tris": 4032,
+      "height": 1.815,
+      "islands": 55,
+      "lod1_tris": 2418,
+      "lod2_tris": 1410
+    },
+    {
+      "role": "Maintenance",
+      "file": "assets/studio/characters/Char_Maintenance_Heavy.glb",
+      "ok": true,
+      "issues": [],
+      "tris": 4336,
+      "height": 1.774,
+      "islands": 53,
+      "lod1_tris": 2600,
+      "lod2_tris": 1516
+    },
+    {
+      "role": "Office",
+      "file": "assets/studio/characters/Char_Office_Standard.glb",
+      "ok": true,
+      "issues": [],
+      "tris": 4148,
+      "height": 1.774,
+      "islands": 51,
+      "lod1_tris": 2488,
+      "lod2_tris": 1450
+    },
+    {
+      "role": "CameraDP",
+      "file": "assets/studio/characters/Char_CameraDP_Standard.glb",
+      "ok": true,
+      "issues": [],
+      "tris": 4300,
+      "height": 1.774,
+      "islands": 50,
+      "lod1_tris": 2580,
+      "lod2_tris": 1504
+    },
+    {
+      "role": "Director",
+      "file": "assets/studio/characters/Char_Director_Standard.glb",
+      "ok": true,
+      "issues": [],
+      "tris": 4276,
+      "height": 1.86,
+      "islands": 51,
+      "lod1_tris": 2564,
+      "lod2_tris": 1496
+    },
+    {
+      "role": "Carpenter",
+      "file": "assets/studio/characters/Char_Carpenter_Heavy.glb",
+      "ok": true,
+      "issues": [],
+      "tris": 4336,
+      "height": 1.774,
+      "islands": 53,
+      "lod1_tris": 2600,
+      "lod2_tris": 1516
+    }
+  ],
+  "pass": 8,
+  "fail": 0
+}

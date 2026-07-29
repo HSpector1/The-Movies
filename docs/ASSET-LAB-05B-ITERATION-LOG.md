@@ -199,3 +199,53 @@ Export all role GLBs → `public/assets/studio/characters/` (replace the flawed 
 so Scene G loads them; no (0,0,π) hack). Add review cameras + honest SwiftShader runtime capture.
 Add `npm run blender:characters:*` + a character validator that FAILS on face-on-wrong-side or
 disconnected parts. Write the remaining standards docs + owner-review guide. Non-force backup push.
+
+---
+
+## Iteration 5 — Runtime integration, validation, docs (final)
+
+- **Starting checkpoint:** `9e7542f` (iteration 4).
+
+### Implementation
+- `build_characters05b.py`: builds all 8 roles, runs the **hard gate** (`charvalidate.validate`:
+  face-on-front, connectivity, height, grounding), exports LOD0/1/2 + collision to
+  `public/assets/studio/characters/` REPLACING the 6 flawed GLBs (same filenames) + adding
+  Maintenance/Office. Armature exported at identity (mesh-node rot `[0,0,0,1]` — no π hack).
+- Scene G wired to the corrected crew: `studioSlice.tsx` CREW_URL + `scenes.tsx` STUDIO_CREW
+  (4 required roles + extras, arranged facing the +Z review camera). `tsc --noEmit` clean.
+- Automated validation: `charvalidate.py` (shared gate), `test_character_gate.py` (PASS correct /
+  **REJECT face-on-back** — proven), `tools/validate-characters.mjs` (GLB orientation/joints/LOD/
+  height). npm: `blender:characters:{build,export,render,validate,pipeline}` + `shots:lab05b`.
+- Runtime capture `tools/capture-lab05b.mjs` → `proof/lab05b/runtime/` (front/3q/back/human/
+  overview + anim + panel). Docs: mesh-topology, face, clothing, rigging-weights, performance,
+  owner-review, integration.
+
+### Validation
+- Blender gate: **8 pass / 0 fail.** GLB validator: **8 pass / 0 fail** (identity node, 65 joints,
+  LOD skeleton consistency, height 1.77–1.86). Gate test: **GATE_TEST_OK** (rejects face-on-back).
+- Runtime: **console-error-free**; crew load, faces on front in Three.js (proof runtime shots).
+  SwiftShader fps ≈ 3 = software-diagnostic only (real-GPU check is Howard's).
+
+### Evidence: `proof/lab05b/runtime/` (Scene G) + `proof/lab05b/final/` (curated lineups + hero +
+poses). Old vs new: `proof/lab05/thumbnails/Char_*` vs `proof/lab05b/final/base-front.png`.
+
+### Decision: **ACCEPTED.**
+
+---
+
+## Final scores (1–5) & verdict
+
+front/back 5 · facial 4 · anatomy 4 · connectivity 5 · clothing 4 · joint 4 · animation 4 ·
+accessory 4 · role-differentiation 5 · runtime-consistency 5 · LOD 5 · mgmt-view 4 · human-scale 4 ·
+performance 4 · evidence-honesty 5 → **avg ≈ 4.5 / 5.**
+
+**VERDICT: PASS WITH NOTES.** Every rejected defect is fixed and enforced by an automated gate:
+faces on the front, connected clothed anatomy, no floating feet, no fragments, clean deformation
+across all six clips, four distinct roles + skin/palette/headwear variety, validated LODs, correct
+runtime facing, console-error-free. Notes (documented, non-blocking): mitten+thumb hands, bulky
+stylized hi-vis vest, LOD2 face softens at distance, 7–8 material groups/char (atlasable later),
+runtime capture is SwiftShader-diagnostic. **Final acceptance = Howard's real-GPU (M3) review.**
+
+Iteration cadence: visual-score deltas were driven by capability additions (roles→+role, runtime→
++runtime, LOD→+LOD), not polish plateau — the diminishing-returns stop (2 consecutive <0.3) was
+not triggered; the loop stops on PASS-criteria-met, pending owner sign-off.

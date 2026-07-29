@@ -13,11 +13,13 @@ const SET_URL = '/assets/studio/scenes/studio_hero_set.glb'
 const CLIP_URL = '/assets/animation/UAL1_Standard.glb'   // the 43 CC0 clips (Quaternius UAL)
 
 export const CREW_URL: Record<string, string> = {
+  PA: '/assets/studio/characters/Char_PA_Standard.glb',
   Grip: '/assets/studio/characters/Char_Grip_Standard.glb',
   Electric: '/assets/studio/characters/Char_Electric_Heavy.glb',
+  Maintenance: '/assets/studio/characters/Char_Maintenance_Heavy.glb',
+  Office: '/assets/studio/characters/Char_Office_Standard.glb',
   CameraDP: '/assets/studio/characters/Char_CameraDP_Standard.glb',
   Director: '/assets/studio/characters/Char_Director_Standard.glb',
-  PA: '/assets/studio/characters/Char_PA_Standard.glb',
   Carpenter: '/assets/studio/characters/Char_Carpenter_Heavy.glb',
 }
 
