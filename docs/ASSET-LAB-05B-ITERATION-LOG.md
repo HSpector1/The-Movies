@@ -164,3 +164,38 @@ headwear/hair variety all work; accessories stay attached in animation.
 ### Iteration 4 agenda
 LOD0/1/2 per character (validate each preserves face-front, height, skeleton, no reversed normals,
 no detached limbs); front/side/animated LOD comparisons.
+
+---
+
+## Iteration 4 — Character LODs
+
+- **Starting checkpoint:** `2a45d56` (iteration 3).
+- **Work:** generate + validate LOD0/1/2 per character (Decimate collapse, ratios [1.0, 0.6, 0.35]).
+
+### Implementation (`build_char_lods.py`, reusing `lod.generate_lods` + `exporter`)
+Generate the three tiers, validate invariants numerically, export GLBs, render isolated
+front/face/walk comparisons.
+
+### Validation (Electric — hardest case: hard hat + hi-vis vest + face)
+- Tris 4032 / 2418 / 1410. **Height 1.815 m unchanged** across tiers; **22 vertex groups**,
+  **55 islands** and **feature-on-−Y-front** all preserved at every tier (no shrink, no detached
+  limbs, no face migration). glTF: **65 skin joints + 8 primitives preserved** on all three GLBs;
+  no reintroduced orientation hack (mesh/armature nodes identity).
+- LOD2 (1410 tris) walks cleanly — skinning survives decimation. LOD2 face softens but stays a
+  readable front face (invisible degradation at the distance LOD2 is used for).
+
+### Evidence: `proof/lab05b/iteration-04/` — lod{0,1,2}-{front,face,walk}.png + Char_Electric_LOD{0,1,2}.glb.
+
+### Scores (1–5): + **LOD integrity 5** (was —). Others unchanged from iter 3.
+
+### Reviewer: self-verified numerically (height/vgroups/islands/feature-front/skin-joints all
+preserved) + visually (face survives, walk deforms) + structurally (gltf-transform node/skin check).
+A LOD transform with this much invariant coverage did not warrant a separate heavyweight subagent.
+
+### Decision: **ACCEPTED.** LODs preserve face-front, height, skeleton, connectivity, normals.
+
+### Iteration 5 agenda
+Export all role GLBs → `public/assets/studio/characters/` (replace the flawed ones, keep filenames
+so Scene G loads them; no (0,0,π) hack). Add review cameras + honest SwiftShader runtime capture.
+Add `npm run blender:characters:*` + a character validator that FAILS on face-on-wrong-side or
+disconnected parts. Write the remaining standards docs + owner-review guide. Non-force backup push.
