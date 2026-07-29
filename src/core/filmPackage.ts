@@ -363,7 +363,10 @@ export function executionConfidence(
   const bandConfidence = 1 - clamp(meanHalfWidth / TUNING.EXEC_CONF_BAND_REF, 0, 1)
 
   // (b) D-3 film-level forecast confidence tier (unchanged; consumed as given). Read
-  // the tier + factors off the greenlight forecast the engine already produces.
+  // the tier + factors off the greenlight forecast the engine already produces. NOTE: only
+  // confidence / causal / uncertainty are read here — all fame-saturation-INVARIANT (confidence
+  // is predicate-based; causal reads the linear stored starDraw) — so the §7 opening-saturation
+  // flag is intentionally not threaded here (it would not change any consumed value).
   const forecast = computeForecast(inp, ctx)
   const tierConf: Confidence = forecast.segments[0]?.confidence ?? 'low'
   const causal: ForecastFactorKey[] = forecast.segments[0]?.causalFactors ?? []
@@ -442,31 +445,35 @@ function factorLabel(k: ForecastFactorKey): string {
 // #4 forecastProfitRange — a profit RANGE by running computeBoxOffice on the
 // per-segment low/high forecast estimates, plus the D-1 committed-cost identity.
 // ═══════════════════════════════════════════════════════════════════════════════
-// DISCLOSURE (important): studioRevenue = the FULL box-office TOTAL. There is NO
-// distributor / rental split in the D-1 model — release credits `boxOffice.total` in
-// full (tick.ts:187). `studioRevenueIsFullBoxOffice: true` makes that explicit so the
-// UI never implies a split that the engine does not model.
+// D-12 §6/§17: studioRevenue = the blended RENTAL SHARE of box office (STUDIO_RENTAL_BLENDED),
+// NOT the full gross. `studioRevenueIsFullBoxOffice: false` under D-12 (was true pre-D-12, when
+// release credited the full `boxOffice.total`). Distributor/exhibitor economics are abstracted
+// into the single blended share.
 //
 //   committedCost = budget.negative + budget.marketing + Σ salaries (writer +
 //                   director + all cast + all craft) — the D-1 debit identity
 //                   (actions.ts:279-282, agents.ts:128-132, standing/D-1).
-//   breakEven     = committedCost.
-//   studioRevenue.{low,high,expected} = computeBoxOffice(estimates).total on the
+//   breakEven     = committedCost / share — the break-even GROSS box office (studio keeps `share`).
+//   studioRevenue.{low,high,expected} = share × computeBoxOffice(estimates).total on the
 //     per-segment {low, high, estimate} forecast bands (reusing §5.5 verbatim).
 //   profit        = studioRevenue − committedCost, per band edge.
 // Does NOT guarantee profit; a negative `profit.low` is reported honestly.
+// NOTE (minor, disclosed): this LIVE re-forecast computes openings on the linear fame path;
+// the greenlight-LOCKED forecast (actions.ts) and the realized release both apply the §7 fame
+// saturation. The decision-relevant locked forecast is correct; this panel's opening magnitude
+// may differ slightly from the realized opening for very-high-fame casts.
 
 export type MoneyRange = { low: number; high: number; expected: number }
 
 export type ForecastProfitRange = {
   studioRevenue: MoneyRange
   profit: MoneyRange
-  breakEven: number // = committedCost
+  breakEven: number // = committedCost / share (break-even GROSS box office)
   committedCost: number
   confidence: Confidence
   upsideDrivers: string[] // from the §7 causal factors
   downsideRisks: string[] // from the §7 uncertainty factors
-  studioRevenueIsFullBoxOffice: true // DISCLOSURE: no distributor/rental split (D-1)
+  studioRevenueIsFullBoxOffice: boolean // D-12: false (blended rental share); pre-D-12: true
 }
 
 export type ForecastProfitInput = ReceptionInputs
@@ -475,13 +482,25 @@ export type ForecastProfitContext = ForecastContext & {
   // it passes in `inp` (writer/director/cast/craft); we accept them explicitly so this
   // helper stays a pure function of its inputs (no state traversal).
   salaries: number
+  // D-12: whether the economy is engaged (`employmentEngaged(state)`), threaded from the adapter
+  // so the LIVE Commercial-Outlook re-forecast uses the SAME §7 Hill fame opening-reach path as the
+  // greenlight-locked forecast and realized release. Defaults false → linear (ungated/M0A) path.
+  saturateFame?: boolean
+  // D-12 P2: whether the D-12 economy calibration (routine gross scale + awareness-conditioned
+  // marketing) applies. Equals saturateFame in production, but kept SEPARATE so a fame-only test can
+  // isolate fame. Defaults false → no gross scale, legacy marketing Hill.
+  engaged?: boolean
 }
 
-// Run §5.5 box office on ONE per-segment appeal map (verbatim reuse). Factored so we
-// can run it on the low, expected, and high estimate maps identically.
+// Run §5.5 box office on ONE per-segment LEGS appeal map + its matching OPENING appeal map
+// (D-12: legs stay linear, opening is fame-saturated). Factored so we can run it on the low,
+// expected, and high band edges identically. Omitting the opening map reproduces the legacy
+// single-appeal behavior (opening === legs).
 function boxTotalFor(
   inp: ForecastProfitInput,
   appealBySegment: Record<SegmentId, number>,
+  openingBySegment?: Record<SegmentId, number>,
+  engaged = false,
 ): number {
   return computeBoxOffice(
     appealBySegment,
@@ -491,6 +510,8 @@ function boxTotalFor(
     inp.promise,
     inp.budget,
     inp.shapeEffects,
+    openingBySegment,
+    engaged, // D-12 P2: same engaged gate as greenlight/realized (awareness mkt + gross scale)
   ).total
 }
 
@@ -498,32 +519,47 @@ export function forecastProfitRange(
   inp: ForecastProfitInput,
   ctx: ForecastProfitContext,
 ): ForecastProfitRange {
-  const forecast = computeForecast(inp, ctx)
+  // D-12: same canonical fame AND economy-engaged path as greenlight/realized (single engine helper;
+  // no UI duplication). engaged must be threaded so the forecast craft carries the SAME production-
+  // budget realization delta the greenlight-locked forecast + realized release use — otherwise the
+  // live Commercial-Outlook range would omit an under/over-funded film's craft penalty and diverge.
+  const forecast = computeForecast(inp, ctx, ctx.saturateFame ?? false, ctx.engaged ?? false)
 
-  // Assemble the low / estimate / high per-segment appeal maps from the forecast's
-  // per-segment bands (§7 SegmentForecast.{low,estimate,high}).
+  // Assemble the low / estimate / high per-segment LEGS appeal maps (§7 SegmentForecast.
+  // {low,estimate,high}) AND the matching fame-saturated OPENING maps (SegmentForecast.opening.*),
+  // so the box-office pass reproduces the greenlight/realized opening reach exactly (D-12 §7).
   const lowMap: Record<SegmentId, number> = {} as Record<SegmentId, number>
   const midMap: Record<SegmentId, number> = {} as Record<SegmentId, number>
   const highMap: Record<SegmentId, number> = {} as Record<SegmentId, number>
+  const openLow: Record<SegmentId, number> = {} as Record<SegmentId, number>
+  const openMid: Record<SegmentId, number> = {} as Record<SegmentId, number>
+  const openHigh: Record<SegmentId, number> = {} as Record<SegmentId, number>
   for (const seg of forecast.segments) {
     lowMap[seg.segmentId] = seg.low
     midMap[seg.segmentId] = seg.estimate
     highMap[seg.segmentId] = seg.high
+    openLow[seg.segmentId] = seg.opening.low
+    openMid[seg.segmentId] = seg.opening.estimate
+    openHigh[seg.segmentId] = seg.opening.high
   }
 
-  // Run §5.5 verbatim on each map. Box office is monotone in appeal, so low↦low.
-  const revLow = boxTotalFor(inp, lowMap)
-  const revExpected = boxTotalFor(inp, midMap)
-  const revHigh = boxTotalFor(inp, highMap)
+  // Run §5.5 verbatim on each band (legs + matching opening). Box office is monotone in appeal.
+  const engaged = ctx.engaged ?? false // D-12 P2 economy scale — distinct from the fame flag above
+  const revLow = boxTotalFor(inp, lowMap, openLow, engaged)
+  const revExpected = boxTotalFor(inp, midMap, openMid, engaged)
+  const revHigh = boxTotalFor(inp, highMap, openHigh, engaged)
 
   // D-1 committed cost = negative + marketing + Σ salaries (salaries passed in ctx).
   const committedCost = inp.budget.negative + inp.budget.marketing + ctx.salaries
 
-  const studioRevenue: MoneyRange = { low: revLow, high: revHigh, expected: revExpected }
+  // D-12 §6/§17: Studio Revenue is the blended RENTAL SHARE of box office (not the full gross);
+  // break-even GROSS = cost / share. The revLow/expected/high above are GROSS box office; scale.
+  const share = TUNING.STUDIO_RENTAL_BLENDED
+  const studioRevenue: MoneyRange = { low: revLow * share, high: revHigh * share, expected: revExpected * share }
   const profit: MoneyRange = {
-    low: revLow - committedCost,
-    high: revHigh - committedCost,
-    expected: revExpected - committedCost,
+    low: revLow * share - committedCost,
+    high: revHigh * share - committedCost,
+    expected: revExpected * share - committedCost,
   }
 
   const confidence: Confidence = forecast.segments[0]?.confidence ?? 'low'
@@ -533,12 +569,12 @@ export function forecastProfitRange(
   return {
     studioRevenue,
     profit,
-    breakEven: committedCost,
+    breakEven: committedCost / share, // break-even GROSS (studio keeps only `share` of it)
     committedCost,
     confidence,
     upsideDrivers,
     downsideRisks,
-    studioRevenueIsFullBoxOffice: true,
+    studioRevenueIsFullBoxOffice: false,
   }
 }
 
@@ -588,6 +624,11 @@ function requireTalent(snap: PreTickSnapshot, id: string, label: string): Talent
 export function greenlightAssessment(
   snapshot: PreTickSnapshot,
   production: Production,
+  // D-12: whether the economy was engaged at greenlight. The autopsy reconstructs the LOCKED
+  // greenlight forecast, which used the P2 economy path (0.70 gross scale + awareness marketing +
+  // budget realization). If this is false the recomputed profit range OMITS the scale and reads
+  // ~1/0.70× too high — the autopsy arithmetic bug. A session-autopsied greenlight is always engaged.
+  engaged = false,
 ): GreenlightAssessment {
   const concept = snapshot.concepts.find((c) => c.id === production.conceptId)
   if (concept === undefined) {
@@ -645,7 +686,10 @@ export function greenlightAssessment(
   let salaries = writer.salary + director.salary
   for (const slot of CAST_SLOTS) salaries += cast[slot].salary
   for (const c of craftHires) salaries += c.salary
-  const profit = forecastProfitRange(inp, { ...ctx, salaries })
+  // D-12: recompute the profit range on the SAME economy path the greenlight locked — otherwise the
+  // autopsy's Expected Studio Revenue / profit diverge from the persisted forecast snapshot (which is
+  // scaled). saturateFame + engaged both track the greenlight economy state.
+  const profit = forecastProfitRange(inp, { ...ctx, salaries, saturateFame: engaged, engaged })
 
   // The stored uncertainty factors come off the LOCKED forecast snapshot (D-3).
   const storedUncertaintyFactors =

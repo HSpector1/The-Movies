@@ -6,23 +6,35 @@
 // outputs (previewForecast, requiredNegative, salaries) — no invented scores.
 // Greenlight surfaces engine validation errors in plain English before committing.
 
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type {
   GameState,
   FilmConcept,
   FilmShape,
   FilmPromise,
   CastSlot,
+  CreativeRole,
   Genre,
   DraftPackage,
 } from '../engine/adapter.ts'
 import {
   selectConcepts,
   talentByRole,
+  studioPool,
+  freelancerPool,
+  isEmploymentEngaged,
   requiredNegative,
   salarySum,
   totalCommittedCost,
+  commitmentPreview,
+  breakEvenGross,
   previewForecast,
+  marketingEfficiency,
+  productionDemandView,
+  capitalExposure,
+  shapeExplainView,
+  teamDirectionPreview,
+  teamDirectionGuidance,
   greenlight,
   findConcept,
   assessCreativeCohesion,
@@ -48,6 +60,7 @@ import type {
   ExecutionConfidence,
   ForecastProfitRange,
   PackageDelta,
+  CommitmentPreview,
 } from '../engine/adapter.ts'
 import {
   SHAPE_DESCRIPTIONS,
@@ -66,6 +79,7 @@ import { FilmPackageSummary } from '../components/FilmPackageSummary.tsx'
 import { FilmReadiness } from '../components/FilmReadiness.tsx'
 import { ChangePreview } from '../components/ChangePreview.tsx'
 import { ErrorBox, Warn, Metric } from '../components/common.tsx'
+import { TalentCreator } from './TalentCreator.tsx'
 
 type Step = 'concept' | 'shape' | 'promise' | 'talent' | 'budget' | 'review'
 const STEP_ORDER: Step[] = ['concept', 'shape', 'promise', 'talent', 'budget', 'review']
@@ -201,25 +215,75 @@ export function Assembly({
   state,
   onGreenlit,
   onCancel,
+  onStateChange,
 }: {
   state: GameState
   onGreenlit: (next: GameState) => void
   onCancel: () => void
+  // A1: apply an authoritative GameState change (a Custom Talent created mid-assembly) WITHOUT
+  // unmounting Assembly, so the in-progress film-package draft is preserved. Optional so existing
+  // tests that render <Assembly> without it still work (the create action is simply unavailable).
+  onStateChange?: (next: GameState) => void
 }) {
   const [draft, setDraft] = useState<Draft>(makeInitialDraft)
   const [step, setStep] = useState<Step>('concept')
   const [error, setError] = useState<string | null>(null)
+  // A1: when true, the embedded Talent Creator is shown IN PLACE of the wizard. Assembly stays
+  // mounted the whole time, so `draft` (concept/shape/promise/talent picks) survives the round-trip.
+  const [creating, setCreating] = useState(false)
+  // A2: on each step transition, reset scroll to the top and move focus to the new step's heading
+  // so the primary controls (not the bottom Next button) are what the player lands on.
+  const contentRef = useRef<HTMLDivElement>(null)
+  const firstRender = useRef(true)
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
+    const container = contentRef.current
+    if (!container) return
+    if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+      try {
+        window.scrollTo(0, 0)
+      } catch {
+        /* jsdom has no layout; focus below is the accessible signal */
+      }
+    }
+    container.scrollTop = 0
+    const heading = container.querySelector('h2')
+    if (heading instanceof HTMLElement) {
+      heading.setAttribute('tabindex', '-1')
+      heading.focus()
+    }
+  }, [step])
 
   const concepts = selectConcepts(state)
   const concept = draft.conceptId ? findConcept(state, draft.conceptId) : undefined
-  const writers = useMemo(() => talentByRole(state, 'writer'), [state])
-  const directors = useMemo(() => talentByRole(state, 'director'), [state])
-  const actors = useMemo(() => talentByRole(state, 'actor'), [state])
-  const crew = useMemo(() => talentByRole(state, 'craft'), [state])
+  // D-11.11 candidate sources: when employment is engaged, staffing draws from the
+  // studio roster + available freelancers ONLY (unavailable global talent excluded);
+  // a converted legacy save (not engaged) falls back to the open global pool.
+  const engaged = isEmploymentEngaged(state)
+  const buildPool = (role: CreativeRole) =>
+    engaged
+      ? [...studioPool(state, role), ...freelancerPool(state, role).map((f) => f.talent)]
+      : talentByRole(state, role)
+  const writers = useMemo(() => buildPool('writer'), [state])
+  const directors = useMemo(() => buildPool('director'), [state])
+  const actors = useMemo(() => buildPool('actor'), [state])
+  const crew = useMemo(() => buildPool('craft'), [state])
+  // id → one-film freelancer fee, for every available freelancer across all roles.
+  const freelancerFees = useMemo(() => {
+    const m: Record<string, number> = {}
+    if (engaged) {
+      for (const role of ['writer', 'director', 'actor', 'craft'] as CreativeRole[]) {
+        for (const f of freelancerPool(state, role)) m[f.talent.id] = f.fee
+      }
+    }
+    return m
+  }, [state, engaged])
 
   const pkg = useMemo(() => buildPackage(state, draft), [state, draft])
   const partialPkg = useMemo(() => buildPartialPackage(state, draft), [state, draft])
-  const cash = selectCash(state)
 
   // ── Film Package summary — the four real engine dimensions (perceived-only) ──
   // Cohesion is TALENT-INDEPENDENT: it can be shown from the promise step onward.
@@ -233,6 +297,13 @@ export function Assembly({
   const fit: PackageFit | null = partialPkg ? assessPackageFit(state, partialPkg) : null
   const execution: ExecutionConfidence | null = pkg ? assessExecutionConfidence(state, pkg) : null
   const profit: ForecastProfitRange | null = pkg ? assessProfitRange(state, pkg) : null
+  // D-12: the release-strategy financials for the fully-committed package — the immediate
+  // commitment (negative + marketing + salaries), the solvency gate, and post-greenlight cash
+  // and runway. `null` until the package is complete. The greenlight is BLOCKED when the gate
+  // fails (D-12.11) — a voluntary commitment may not overdraw.
+  const commitment = pkg ? totalCommittedCost(state, pkg) : null
+  const preview: CommitmentPreview | null = commitment !== null ? commitmentPreview(state, commitment) : null
+  const blockedByGate = preview !== null && !preview.affordable
 
   // ── Change preview (on select/swap) — real computed packageDelta ────────────
   // A delta needs TWO complete packages. We remember the last complete package the
@@ -283,7 +354,9 @@ export function Assembly({
           draft.directorId !== null &&
           draft.cast.lead !== null &&
           draft.cast.antagonist !== null &&
-          draft.cast.support !== null
+          draft.cast.support !== null &&
+          // D-11.13: a Production/Craft Lead is required once employment is engaged.
+          (!engaged || draft.craftIds.length === 1)
         )
       case 'budget':
         return pkg !== null
@@ -304,6 +377,22 @@ export function Assembly({
       return
     }
     onGreenlit(result.next)
+  }
+
+  // A1: while creating a Custom Talent mid-assembly, show the existing Talent Creator IN PLACE of
+  // the wizard. Assembly does not unmount, so the film-package draft is preserved; on Created/Back
+  // we return to the exact step the player left, with every selection intact.
+  if (creating) {
+    return (
+      <TalentCreator
+        state={state}
+        onCreated={(next) => {
+          onStateChange?.(next)
+          setCreating(false)
+        }}
+        onBack={() => setCreating(false)}
+      />
+    )
   }
 
   return (
@@ -329,41 +418,46 @@ export function Assembly({
         ))}
       </div>
 
-      {step === 'concept' && (
-        <ConceptStep concepts={concepts} selected={draft.conceptId} onSelect={(id) => patch({ conceptId: id })} />
-      )}
-      {step === 'shape' && <ShapeStep shape={draft.shape} onChange={(shape) => patch({ shape })} />}
-      {step === 'promise' && concept && (
-        <PromiseStep draft={draft} concept={concept} patch={patch} />
-      )}
-      {step === 'talent' && concept && promiseForSummary && (
-        <TalentStep
-          state={state}
-          draft={draft}
-          concept={concept}
-          promise={promiseForSummary}
-          writers={writers}
-          directors={directors}
-          actors={actors}
-          crew={crew}
-          patch={patch}
-        />
-      )}
-      {step === 'budget' && concept && (
-        <BudgetStep state={state} draft={draft} concept={concept} pkg={pkg} patch={patch} />
-      )}
-      {step === 'review' && concept && pkg && (
-        <ReviewStep
-          state={state}
-          pkg={pkg}
-          conceptTitle={concept.title}
-          cash={cash}
-          cohesion={cohesion}
-          fit={fit}
-          execution={execution}
-          profit={profit}
-        />
-      )}
+      <div ref={contentRef} data-testid="assembly-step-content">
+        {step === 'concept' && (
+          <ConceptStep concepts={concepts} selected={draft.conceptId} onSelect={(id) => patch({ conceptId: id })} />
+        )}
+        {step === 'shape' && <ShapeStep shape={draft.shape} onChange={(shape) => patch({ shape })} />}
+        {step === 'promise' && concept && (
+          <PromiseStep draft={draft} concept={concept} patch={patch} />
+        )}
+        {step === 'talent' && concept && promiseForSummary && (
+          <TalentStep
+            state={state}
+            draft={draft}
+            concept={concept}
+            promise={promiseForSummary}
+            writers={writers}
+            directors={directors}
+            actors={actors}
+            crew={crew}
+            patch={patch}
+            engaged={engaged}
+            freelancerFees={freelancerFees}
+            onCreateTalent={onStateChange ? () => setCreating(true) : undefined}
+          />
+        )}
+        {step === 'budget' && concept && (
+          <BudgetStep state={state} draft={draft} concept={concept} pkg={pkg} patch={patch} />
+        )}
+        {step === 'review' && concept && pkg && preview && (
+          <ReviewStep
+            state={state}
+            pkg={pkg}
+            conceptTitle={concept.title}
+            preview={preview}
+            cohesion={cohesion}
+            fit={fit}
+            execution={execution}
+            profit={profit}
+          />
+        )}
+      </div>
 
       {/* Change preview — the real computed effect of the latest select/swap. Shown on
           the talent/budget steps once a complete package exists and a slot just changed. */}
@@ -405,13 +499,18 @@ export function Assembly({
           <button
             className="accent"
             onClick={handleGreenlight}
-            disabled={!pkg}
+            disabled={!pkg || blockedByGate}
             data-testid="greenlight"
           >
             Greenlight this film
           </button>
         )}
       </div>
+      {step === 'review' && blockedByGate && preview && (
+        <div style={{ marginTop: 12 }}>
+          <ErrorBox message={preview.reason ?? 'This commitment would overdraw the studio.'} />
+        </div>
+      )}
     </div>
   )
 }
@@ -426,21 +525,58 @@ function ConceptStep({
   selected: string | null
   onSelect: (id: string) => void
 }) {
+  // C3: bounded script browsing over the EXISTING concept data — sort by base cost, filter by genre,
+  // search by title. The current selection is preserved as the sort/filter changes (only the display
+  // order/subset changes; onSelect is not touched). No new script-development system.
+  type Sort = 'default' | 'costAsc' | 'costDesc'
+  const [sort, setSort] = useState<Sort>('default')
+  const [genre, setGenre] = useState<string>('all')
+  const [query, setQuery] = useState('')
+  const genres = Array.from(new Set(concepts.map((c) => c.genre))).sort()
+  const shown = concepts
+    .filter((c) => (genre === 'all' || c.genre === genre) && (query === '' || c.title.toLowerCase().includes(query.toLowerCase())))
+    .sort((a, b) =>
+      sort === 'costAsc' ? a.baseNegativeCost - b.baseNegativeCost : sort === 'costDesc' ? b.baseNegativeCost - a.baseNegativeCost : 0,
+    )
   return (
     <div className="card">
       <h2>Choose a concept</h2>
       <p className="hint">Only the studio-visible details are shown: title, genre, base needs, roles.</p>
-      <div className="grid grid-3" data-testid="concept-grid">
-        {concepts.map((c) => (
-          <ConceptCard
-            key={c.id}
-            concept={c}
-            mode="normal"
-            selected={selected === c.id}
-            onSelect={onSelect}
-          />
-        ))}
+      <div className="row" style={{ gap: 12, alignItems: 'center', flexWrap: 'wrap', marginBottom: 8 }} data-testid="concept-browse">
+        <label className="hint" htmlFor="concept-sort">Sort by base cost</label>
+        <select id="concept-sort" value={sort} onChange={(e) => setSort(e.target.value as Sort)} data-testid="concept-sort">
+          <option value="default">Default</option>
+          <option value="costAsc">Cost: low to high</option>
+          <option value="costDesc">Cost: high to low</option>
+        </select>
+        <label className="hint" htmlFor="concept-genre">Genre</label>
+        <select id="concept-genre" value={genre} onChange={(e) => setGenre(e.target.value)} data-testid="concept-genre">
+          <option value="all">All genres</option>
+          {genres.map((g) => (
+            <option key={g} value={g}>
+              {genreLabel(g as Genre)}
+            </option>
+          ))}
+        </select>
+        <input
+          type="search"
+          placeholder="Search title…"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          data-testid="concept-search"
+          aria-label="Search concepts by title"
+        />
+        <span className="hint mono" data-testid="concept-count">{shown.length} of {concepts.length}</span>
       </div>
+      {shown.length === 0 ? (
+        <div className="empty" data-testid="concept-none">No concepts match. Clear the search or genre filter.</div>
+      ) : (
+        <div className="grid grid-3" data-testid="concept-grid">
+          {shown.map((c) => (
+            <ConceptCard key={c.id} concept={c} mode="normal" selected={selected === c.id} onSelect={onSelect} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -452,6 +588,7 @@ function ShapeStep({ shape, onChange }: { shape: FilmShape; onChange: (s: FilmSh
     { key: 'midpoint', label: 'Midpoint', options: MIDPOINT_OPTIONS },
     { key: 'ending', label: 'Ending', options: ENDING_OPTIONS },
   ]
+  const explain = shapeExplainView(shape)
   return (
     <div className="card">
       <h2>Shape the story</h2>
@@ -459,6 +596,17 @@ function ShapeStep({ shape, onChange }: { shape: FilmShape; onChange: (s: FilmSh
         Three structural choices. Each has a creative meaning; the studio does not tell you which is
         “best”.
       </p>
+      {/* C2: plain-English, engine-derived summary of what the CURRENT shape does — updates live and
+          is shown alongside the actual reach/craft/demand deltas below. */}
+      <div className="panel stack" data-testid="shape-explanation">
+        <strong>{explain.summary}</strong>
+        <span className="hint mono">
+          opening reach {explain.openingReachMod > 0 ? '+' : ''}
+          {explain.openingReachMod} · craft {explain.craftMod > 0 ? '+' : ''}
+          {explain.craftMod} · Production Demand {explain.budgetDemandMultiplier.toFixed(2)}× (
+          {explain.demandCategory})
+        </span>
+      </div>
       <div className="grid grid-3">
         {groups.map((g) => (
           <div className="stack" key={g.key} data-testid={`shape-group-${g.key}`}>
@@ -610,6 +758,86 @@ function PromiseStep({
 }
 
 // ── Step: Talent ─────────────────────────────────────────────────────────────
+// D-12 Phase 3 — engine-derived Team Direction preview (all vector math in the adapter; this only renders).
+function TeamDirectionPanel({
+  state,
+  sel,
+}: {
+  state: GameState
+  sel: { writerId: string | null; directorId: string | null; cast: Record<CastSlot, string | null>; shape: FilmShape }
+}) {
+  const td = teamDirectionPreview(state, sel)
+  const guidance = teamDirectionGuidance(state, sel)
+  const bandClass = td.band === 'Strong' ? 'money pos' : td.band === 'Weak' ? 'money neg' : 'mono'
+  // D-12 P2.2 — change vs the PREVIOUS complete team (this panel instance's last score). Resets when the
+  // panel unmounts (leaving the assembly flow / switching films) — never compared across films.
+  const prevScore = useRef<number | null>(null)
+  const delta = td.ready && prevScore.current !== null && guidance.score !== null ? guidance.score - prevScore.current : null
+  useEffect(() => {
+    if (guidance.score !== null) prevScore.current = guidance.score
+  }, [guidance.score])
+  const roleLabel = (r: string) => r.charAt(0).toUpperCase() + r.slice(1)
+  return (
+    <div className="card stack" data-testid="team-direction">
+      <h3 style={{ marginTop: 0 }}>Team direction</h3>
+      {!td.ready ? (
+        <p className="hint" data-testid="team-direction-summary">
+          {td.summary}
+        </p>
+      ) : (
+        <>
+          <div className="row" style={{ gap: 24, flexWrap: 'wrap' }}>
+            <Metric label="Team direction" small testid="team-direction-score">
+              {/* P2.1 — the exact 0–100 score behind the Weak/Mixed/Strong band. */}
+              <span className={bandClass}>
+                {guidance.score}/100 — {td.band}
+              </span>
+            </Metric>
+            {delta !== null && (
+              <Metric label="Change" small testid="team-direction-delta">
+                {delta === 0 ? 'No meaningful change' : delta > 0 ? `Improved by ${delta}` : `Worsened by ${Math.abs(delta)}`}
+              </Metric>
+            )}
+            {td.mostCompatible && (
+              <Metric label="Most compatible" small testid="team-direction-compatible">
+                {td.mostCompatible.a} &amp; {td.mostCompatible.b}
+              </Metric>
+            )}
+            {td.mostOpposed && (
+              <Metric label="Most opposed" small testid="team-direction-opposed">
+                {td.mostOpposed.a} &amp; {td.mostOpposed.b}
+              </Metric>
+            )}
+            <Metric label="Assessment confidence" small testid="team-direction-confidence">
+              {/* P2.5 — confidence is about certainty of the ASSESSMENT, not team quality. */}
+              <span title="Confidence describes how certain the studio is about this direction assessment. It does not mean the team is good.">
+                {td.confidence}
+              </span>
+            </Metric>
+          </div>
+          {/* P2.6 — what to change: most-opposed + axes + best available role + reachability. */}
+          <p className="hint" data-testid="team-direction-summary">
+            {guidance.advice}
+          </p>
+          {/* P2.4 — best available single substitution across the roster. */}
+          {guidance.best && (
+            <p className="reason" data-testid="team-direction-best" style={{ marginTop: 0 }}>
+              <strong>Best available improvement:</strong>{' '}
+              {guidance.best.delta > 0
+                ? `Replace ${roleLabel(guidance.best.role)} with ${guidance.best.name}: ${guidance.score} → ${guidance.best.toScore}${guidance.best.toBand !== td.band ? ` — ${guidance.best.toBand}` : `, remains ${td.band}`}.`
+                : `No available substitution improves this team (best: ${roleLabel(guidance.best.role)}, ${guidance.best.label}).`}
+              {!guidance.reachesMixed && ' No available single change reaches Mixed with the current roster.'}
+            </p>
+          )}
+          <p className="hint" style={{ fontSize: '0.85em', opacity: 0.8 }}>
+            Creative direction is known from the talent you’ve chosen; realized performance still varies.
+          </p>
+        </>
+      )}
+    </div>
+  )
+}
+
 function TalentStep({
   state,
   draft,
@@ -620,6 +848,9 @@ function TalentStep({
   actors,
   crew,
   patch,
+  engaged,
+  freelancerFees,
+  onCreateTalent,
 }: {
   state: GameState
   draft: Draft
@@ -630,6 +861,11 @@ function TalentStep({
   actors: ReturnType<typeof talentByRole>
   crew: ReturnType<typeof talentByRole>
   patch: (p: Partial<Draft>) => void
+  engaged: boolean
+  freelancerFees: Record<string, number>
+  // A1: open the Talent Creator without leaving assembly. Undefined ⇒ the action is unavailable
+  // (e.g. a test rendered <Assembly> without onStateChange); the button is then simply not shown.
+  onCreateTalent?: (() => void) | undefined
 }) {
   const castIds = CAST_SLOTS.map((s) => draft.cast[s]).filter((x): x is string => x !== null)
   const SLOT_TITLES: Record<CastSlot, string> = {
@@ -662,12 +898,30 @@ function TalentStep({
   const craftId = draft.craftIds[0] ?? null
   return (
     <div className="card">
-      <h2>Cast &amp; crew the film</h2>
+      {/* A1: the primary "Create Custom Talent" action sits at the TOP of the Talent step, beside
+          the heading, so it is visible without scrolling past the whole cast. It opens the existing
+          creator and returns here with every selection preserved. */}
+      <div className="spread">
+        <h2 style={{ margin: 0 }}>Cast &amp; crew the film</h2>
+        {onCreateTalent && (
+          <button
+            type="button"
+            className="primary"
+            onClick={onCreateTalent}
+            data-testid="talent-step-create"
+          >
+            + Create Custom Talent
+          </button>
+        )}
+      </div>
       <p className="hint">
-        Pick a writer, a director, one actor per cast slot, and (optionally) a Crew/Craft lead.
+        {engaged
+          ? 'Staff the film from Your Studio (talent you employ — on payroll, no per-film cost) or from Available Freelancers (a one-film fee, tagged “Freelancer”). Unavailable industry talent is not shown. A Production/Craft Lead is required.'
+          : 'Pick a writer, a director, one actor per cast slot, and (optionally) a Crew/Craft lead.'}{' '}
         Candidates are sorted by Project Fit for the assignment — not by fame. Anyone already
         engaged in another production, or already used on this film, is disabled with the reason
-        shown.
+        shown. Need someone who does not exist yet? Use Create Custom Talent above — your film
+        selections are kept.
       </p>
       <div className="grid grid-2">
         <TalentPicker
@@ -679,6 +933,7 @@ function TalentStep({
           onSelect={(id) => patch({ writerId: id })}
           testid="picker-writer"
           assignment={assignmentFor('writer')}
+          freelancerFees={freelancerFees}
         />
         <TalentPicker
           title="Director"
@@ -689,6 +944,7 @@ function TalentStep({
           onSelect={(id) => patch({ directorId: id })}
           testid="picker-director"
           assignment={assignmentFor('director')}
+          freelancerFees={freelancerFees}
         />
       </div>
       <div className="sep" />
@@ -704,16 +960,17 @@ function TalentStep({
             onSelect={(id) => patch({ cast: { ...draft.cast, [slot]: id } })}
             testid={`picker-${slot}`}
             assignment={castAssignment(slot)}
+            freelancerFees={freelancerFees}
           />
         ))}
       </div>
       <div className="sep" />
-      {/* Crew / Craft — an optional hire. Selecting toggles it into craftIds; the same
-          member sets it back to none. Its Fit/OVR/EP/salary/strengths appear on the card
-          and it flows into the package summary and committed cost like any assignment. */}
+      {/* Production/Craft Lead — REQUIRED once employment is engaged (D-11.13). One hire;
+          selecting toggles it into craftIds. Its Fit/OVR/EP/cost/strengths appear on the
+          card and it flows into the package summary and committed cost like any assignment. */}
       <div className="grid grid-3">
         <TalentPicker
-          title="Crew / Craft (optional)"
+          title={engaged ? 'Production/Craft Lead (required)' : 'Crew / Craft (optional)'}
           pool={crew}
           role="craft"
           selectedId={craftId}
@@ -721,8 +978,15 @@ function TalentStep({
           onSelect={(id) => patch({ craftIds: craftId === id ? [] : [id] })}
           testid="picker-craft"
           assignment={assignmentFor('craft')}
+          freelancerFees={freelancerFees}
         />
       </div>
+      {engaged && craftId === null && (
+        <p className="reason" style={{ color: 'var(--neg)' }}>
+          Choose a Production/Craft Lead to continue.
+        </p>
+      )}
+      <TeamDirectionPanel state={state} sel={{ writerId: draft.writerId, directorId: draft.directorId, cast: draft.cast, shape: draft.shape }} />
     </div>
   )
 }
@@ -756,22 +1020,35 @@ function BudgetStep({
 
   const NEG_LABELS = ['Lean (0.75×)', 'Adequate (1.0×)', 'Generous (1.25×)']
   const MKT_LABELS = ['Small campaign', 'Standard campaign', 'Wide campaign']
+  // A5: the same solvency preview + break-even the Review step uses, surfaced HERE so the whole
+  // financial decision is visible in Budget & Forecast — the player never reaches the bottom Next
+  // button without meeting it. commitmentPreview/breakEvenGross are pure adapter reads (no formula).
+  const preview = commitmentPreview(state, committed)
+  const breakEven = breakEvenGross(committed)
+  const forecast = pkg ? previewForecast(state, pkg) : null
+  const mktEff = pkg ? marketingEfficiency(state, pkg) : null // D-12 P2 awareness-conditioned marketing state
+  const demand = productionDemandView(state, concept, draft.shape, negative) // D-12 production-demand read model
+  const exposure = capitalExposure(state, committed) // C1: capital exposure (separate from solvency)
 
   return (
-    <div className="grid grid-2">
-      <div className="card stack">
-        <h2>Budget</h2>
+    <div className="stack">
+      <h2 style={{ marginTop: 0 }}>Budget &amp; Forecast</h2>
+
+      {/* ── Your spending decision ── */}
+      <div className="card stack" data-testid="budget-spending">
+        <h3 style={{ marginTop: 0 }}>Your spending decision</h3>
         <div className="fact-block">
-          <Metric label="Required negative (from concept + shape)" small testid="required-negative">
-            <span className="tag fact" style={{ marginRight: 6 }}>
-              Fact
-            </span>
+          <Metric label="Baseline Production Budget (from concept + shape)" small testid="required-negative">
             {money(req)}
           </Metric>
         </div>
+        <p className="hint">
+          Also called the film&rsquo;s negative cost: the money required to produce the completed
+          movie before marketing. Your Production Budget choice scales it.
+        </p>
 
         <div>
-          <h4>Negative budget</h4>
+          <h4>Production Budget</h4>
           <div className="btn-row" data-testid="negative-levels">
             {NEGATIVE_BUDGET_MULTIPLIERS.map((m, i) => (
               <button
@@ -786,6 +1063,28 @@ function BudgetStep({
                 <div className="opt-desc mono">{money(m * req)}</div>
               </button>
             ))}
+          </div>
+          {/* D-12 final downside: engine-derived Production Demand — how much funding THIS film needs
+              to realize its ambition, and whether the selected budget under/adequately/over-funds it.
+              Truthful; updates live as the tier or Shape changes; never claims budget buys box office. */}
+          <div className="panel stack" data-testid="production-demand" style={{ marginTop: 8 }}>
+            <div className="row" style={{ gap: 24, flexWrap: 'wrap' }}>
+              <Metric label="Production Demand" small testid="demand-category">
+                {demand.demandCategory}
+              </Metric>
+              <Metric label="Funding status" small testid="demand-funding-status">
+                {demand.fundingStatus}
+              </Metric>
+              <Metric label="Funding vs demand" small>
+                {Math.round(demand.fundingRatio * 100)}%
+              </Metric>
+            </div>
+            <span className="hint" data-testid="demand-drivers">
+              {demand.drivers}
+            </span>
+            <span className="hint" data-testid="demand-consequence">
+              {demand.consequence}
+            </span>
           </div>
         </div>
 
@@ -806,12 +1105,27 @@ function BudgetStep({
               </button>
             ))}
           </div>
+          {/* D-12 P2: awareness-conditioned Marketing efficiency — is this campaign matched to how
+              visible the film already is? Truthful (engine-derived); never claims marketing buys quality. */}
+          {mktEff && mktEff.engaged && (
+            <p className="hint" data-testid="marketing-efficiency" style={{ marginTop: 6 }}>
+              Campaign status: <strong>{mktEff.state}</strong>.{' '}
+              {mktEff.state === 'Underexposed'
+                ? 'This film can efficiently absorb more marketing than it is getting.'
+                : mktEff.state === 'Efficient campaign'
+                  ? 'The spend is matched to the film’s current awareness.'
+                  : mktEff.state === 'Near saturation'
+                    ? 'Extra marketing is starting to hit strong diminishing returns.'
+                    : 'The film is not yet visible enough to spend this efficiently — most of this campaign is wasted.'}{' '}
+              Marketing widens who shows up; it does not change how good the film is.
+            </p>
+          )}
         </div>
 
         <div className="sep" />
         <div className="stack fact-block">
           <div className="spread">
-            <span>Negative</span>
+            <span>Production Budget</span>
             <span className="mono">{moneyExact(negative)}</span>
           </div>
           <div className="spread">
@@ -819,34 +1133,88 @@ function BudgetStep({
             <span className="mono">{moneyExact(marketing)}</span>
           </div>
           <div className="spread">
-            <span>Talent salaries</span>
+            <span>Freelancer Fees (this film)</span>
             <span className="mono" data-testid="salaries">
               {moneyExact(salaries)}
             </span>
           </div>
           <div className="spread">
-            <strong>Total committed cost</strong>
+            <strong>Total Immediate Commitment</strong>
             <strong className="mono" data-testid="committed-cost">
               {moneyExact(committed)}
             </strong>
           </div>
-          <div className="spread">
-            <span>Current cash</span>
-            <span className={`mono ${cash < 0 ? 'money neg' : 'money pos'}`}>{moneyExact(cash)}</span>
-          </div>
         </div>
+      </div>
 
+      {/* ── Studio impact — C1: solvency and EXPOSURE are separate; a solvent-but-aggressive
+          commitment is not reassured with a single green tick. ── */}
+      <div className="card stack" data-testid="budget-impact">
+        <h3 style={{ marginTop: 0 }}>Studio impact</h3>
+        <div className="row" style={{ gap: 24, flexWrap: 'wrap' }}>
+          <Metric label="Solvency" small testid="budget-solvency">
+            <span className={preview.affordable ? 'money pos' : 'money neg'}>
+              {preview.affordable ? 'Pass' : 'Blocked'}
+            </span>
+          </Metric>
+          <Metric label="Capital committed" small testid="budget-capital-committed">
+            {moneyExact(committed)} · {Math.round(exposure.pctOfCash * 100)}% of current cash
+          </Metric>
+          <Metric label="Exposure" small testid="budget-exposure">
+            {/* NOT green for High/Extreme — passing solvency does not make an aggressive bet safe. */}
+            <span
+              className={
+                exposure.exposure === 'Low'
+                  ? 'money pos'
+                  : exposure.exposure === 'Extreme'
+                    ? 'money neg'
+                    : 'mono'
+              }
+            >
+              {exposure.exposure}
+            </span>
+          </Metric>
+          <Metric label="Current Cash" small>
+            <span className={cash < 0 ? 'money neg' : 'money pos'}>{moneyExact(cash)}</span>
+          </Metric>
+          <Metric label="Cash After Greenlight" small testid="budget-cash-after">
+            <span className={preview.cashAfter < 0 ? 'money neg' : 'money pos'}>
+              {moneyExact(preview.cashAfter)}
+            </span>
+          </Metric>
+          <Metric label="Post-Greenlight Runway" small testid="budget-runway">
+            {preview.postRunway.infinite ? '—' : `${preview.postRunway.weeks} wk`}
+          </Metric>
+        </div>
+        {(exposure.exposure === 'High' || exposure.exposure === 'Extreme') && preview.affordable && (
+          <p className="hint" data-testid="budget-exposure-note">
+            This greenlight is solvent, but it commits {Math.round(exposure.pctOfCash * 100)}% of your
+            current cash — a {exposure.exposure.toLowerCase()}-exposure bet. One weak result could leave
+            the studio thin. Consider a smaller Production Budget or Marketing.
+          </p>
+        )}
         {goesNegative && (
           <Warn>
-            Greenlighting this film spends more than you have on hand. Cash will go negative. The
-            studio allows it, but you carry the shortfall.
+            This commitment ({moneyExact(committed)}) is more than the studio has on hand
+            ({moneyExact(cash)}). A greenlight can’t overdraw the studio (D-12 solvency rule), so
+            lower the Production Budget or Marketing until the commitment fits your cash.
           </Warn>
         )}
       </div>
 
-      <div className="stack">
-        {pkg ? (
-          <ForecastDisplay forecast={previewForecast(state, pkg)} mode="normal" source="estimate" />
+      {/* ── Commercial outlook ── */}
+      <div className="card stack" data-testid="budget-outlook">
+        <h3 style={{ marginTop: 0 }}>Commercial outlook</h3>
+        <div className="row" style={{ gap: 24, flexWrap: 'wrap' }}>
+          <Metric label="Expected Total Theatrical Gross" small testid="budget-expected-gross">
+            {forecast ? money(forecast.expectedTotal) : '—'}
+          </Metric>
+          <Metric label="Break-even Theatrical Gross" small testid="budget-breakeven">
+            {money(breakEven)}
+          </Metric>
+        </div>
+        {forecast ? (
+          <ForecastDisplay forecast={forecast} mode="normal" source="estimate" />
         ) : (
           <div className="panel">
             <p className="hint">Finish choosing talent to see the forecast.</p>
@@ -862,7 +1230,7 @@ function ReviewStep({
   state,
   pkg,
   conceptTitle,
-  cash,
+  preview,
   cohesion,
   fit,
   execution,
@@ -871,44 +1239,85 @@ function ReviewStep({
   state: GameState
   pkg: DraftPackage
   conceptTitle: string
-  cash: number
+  preview: CommitmentPreview
   cohesion: CreativeCohesion | null
   fit: PackageFit | null
   execution: ExecutionConfidence | null
   profit: ForecastProfitRange | null
 }) {
   const committed = totalCommittedCost(state, pkg)
-  const goesNegative = cash - committed < 0
+  const breakEven = breakEvenGross(committed)
+  const exposure = capitalExposure(state, committed) // C1: solvency and exposure are separate
   return (
     <div className="stack">
       {/* Film Readiness — assembled from the four real dimensions, not a hidden score */}
       {cohesion && fit && execution && profit && (
         <FilmReadiness cohesion={cohesion} fit={fit} execution={execution} profit={profit} />
       )}
+      {/* D-12 Phase 3 — the SAME team-direction the autopsy later explains, shown before greenlight. */}
+      <TeamDirectionPanel state={state} sel={{ writerId: pkg.writerId, directorId: pkg.directorId, cast: pkg.cast, shape: pkg.shape }} />
 
       <div className="grid grid-2">
         <div className="card stack">
-          <h2>Review &amp; greenlight</h2>
+          <h2>Review &amp; release strategy</h2>
           <div className="spread">
             <span>Film</span>
             <strong>{conceptTitle}</strong>
           </div>
           <div className="spread">
-            <span>Total committed cost</span>
-            <strong className="mono">{moneyExact(committed)}</strong>
+            <span>Total immediate commitment (Production Budget + Marketing + Freelancer Fees)</span>
+            <strong className="mono" data-testid="release-commitment">
+              {moneyExact(committed)}
+            </strong>
+          </div>
+          <div className="spread">
+            <span>Break-even theatrical gross</span>
+            <strong className="mono" data-testid="release-breakeven">
+              {money(breakEven)}
+            </strong>
           </div>
           <div className="spread">
             <span>Cash after greenlight</span>
-            <strong className={`mono ${cash - committed < 0 ? 'money neg' : 'money pos'}`}>
-              {moneyExact(cash - committed)}
+            <strong
+              className={`mono ${preview.cashAfter < 0 ? 'money neg' : 'money pos'}`}
+              data-testid="release-cash-after"
+            >
+              {moneyExact(preview.cashAfter)}
             </strong>
           </div>
-          {goesNegative && (
-            <Warn>This greenlight takes cash negative. Confirm you intend to spend beyond your balance.</Warn>
-          )}
+          <div className="spread">
+            <span>Post-greenlight runway</span>
+            <strong className="mono" data-testid="release-runway">
+              {preview.postRunway.infinite ? '—' : `${preview.postRunway.weeks} wk`}
+            </strong>
+          </div>
+          <div className="spread" data-testid="release-gate">
+            <span>Solvency gate</span>
+            <strong className={preview.affordable ? 'money pos' : 'money neg'}>
+              {preview.affordable ? 'Pass ✓' : 'Blocked ✗'}
+            </strong>
+          </div>
+          <div className="spread" data-testid="release-exposure">
+            <span>Capital exposure ({Math.round(exposure.pctOfCash * 100)}% of cash)</span>
+            {/* Passing solvency does not make an aggressive bet safe — not green for High/Extreme. */}
+            <strong
+              className={
+                exposure.exposure === 'Low'
+                  ? 'money pos'
+                  : exposure.exposure === 'Extreme'
+                    ? 'money neg'
+                    : 'mono'
+              }
+            >
+              {exposure.exposure}
+            </strong>
+          </div>
+          {!preview.affordable && <Warn>{preview.reason}</Warn>}
           <p className="hint">
-            Greenlighting commits the budget and salaries now. The film enters production and
-            releases after it finishes. The forecast is the studio’s prediction — not a guarantee.
+            Greenlighting commits the budget and salaries now. Studio Revenue is your rental share
+            of box office, paid weekly across the film’s theatrical run — so the film must gross
+            about {money(breakEven)} to return its cost. The forecast is a prediction, not a
+            guarantee.
           </p>
         </div>
         <div className="stack">

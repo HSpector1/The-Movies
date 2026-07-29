@@ -745,7 +745,8 @@ describe('#14/#15 the greenlight assessment is locked to the committed productio
     expect(lockedB.execution.score).toBe(lockedA.execution.score)
     // committedCost is the D-1 identity on the LOCKED production budget + salaries.
     expect(lockedA.profit.committedCost).toBe(committedCostOf(preTick, production))
-    expect(lockedA.profit.breakEven).toBe(lockedA.profit.committedCost)
+    // D-12: break-even is the GROSS box office needed to return the cost (studio keeps `share`).
+    expect(lockedA.profit.breakEven).toBeCloseTo(lockedA.profit.committedCost / TUNING.STUDIO_RENTAL_BLENDED, 3)
   })
 
   it('the autopsy assessment (locked) reproduces the SAME greenlight expectation on replay', () => {
@@ -895,51 +896,77 @@ describe('#17 no assessment output leaks hidden actual data pre-release', () => 
 //       one-gaussian forecast uncertainty. (Seed found by a seeded scan.)
 // ═══════════════════════════════════════════════════════════════════════════════
 describe('#18 a strong, expected-to-profit package can still lose money (authorized uncertainty)', () => {
-  it('seed b6-82: strong brief (cohesion≈92.8) + good fit + POSITIVE expected profit, yet a real LOSS', () => {
-    const state = generateWorld('b6-82')
-    const concept = state.concepts[0]!
-    const promise = coherentPromise(concept.genre)
+  it('a strong brief with POSITIVE expected profit can still take a real LOSS (D-12 share; scanned witness)', () => {
+    const share = TUNING.STUDIO_RENTAL_BLENDED
     const shapeEff = resolveShape(COHERENT_SHAPE)
-    // Choose the best-fitting natural talent per role (a package a player would call strong),
-    // deterministic tie-break by fit desc then id, zero marketing (a legal budget choice).
-    const fitOf = (t: Talent, disc: Talent['role'] extends never ? never : Parameters<typeof projectFit>[1], slot?: CastSlot) =>
-      projectFit(t, disc, concept, slot, shapeEff, promise, COHERENT_SHAPE)
-    const bestBy = (role: string, disc: Parameters<typeof projectFit>[1], slot?: CastSlot, exclude: Set<string> = new Set()) =>
-      state.talent
-        .filter((t) => t.role === role && !exclude.has(t.id))
-        .sort((a, b) => fitOf(b, disc, slot) - fitOf(a, disc, slot) || (a.id < b.id ? -1 : 1))[0]!
-    const writer = bestBy('writer', 'writing')
-    const director = bestBy('director', 'directing')
-    const lead = bestBy('actor', 'acting', 'lead')
-    const antagonist = bestBy('actor', 'acting', 'antagonist', new Set([lead.id]))
-    const support = bestBy('actor', 'acting', 'support', new Set([lead.id, antagonist.id]))
-    const pkg: Pkg = {
-      conceptId: concept.id,
-      shape: COHERENT_SHAPE,
-      promise,
-      writerId: writer.id,
-      directorId: director.id,
-      craftIds: [],
-      cast: { lead: lead.id, antagonist: antagonist.id, support: support.id },
-      budget: { negative: requiredNegative(state, concept, COHERENT_SHAPE), marketing: 0 },
+    // The original single-seed witness (b6-82) had borderline marketing-0 economics that the D-12
+    // blended share pushed below break-even in EXPECTATION. The design point — a strong,
+    // expected-to-profit package that still loses within the authorized one-gaussian uncertainty —
+    // is unchanged; we scan for a witness under the share model (a modest marketing budget lifts
+    // the expected GROSS above the share break-even, so the downward miss is the only cause of loss).
+    let witness: {
+      seed: string
+      cohesionTier: string
+      cohesionScore: number
+      fitOverall: number
+      expectedProfit: number
+      lowProfit: number
+      actualProfit: number
+    } | null = null
+    for (let i = 1; i <= 400 && witness === null; i++) {
+      const seed = `b6-${i}`
+      const state = generateWorld(seed)
+      const concept = state.concepts[0]!
+      const promise = coherentPromise(concept.genre)
+      const fitOf = (t: Talent, disc: Talent['role'] extends never ? never : Parameters<typeof projectFit>[1], slot?: CastSlot) =>
+        projectFit(t, disc, concept, slot, shapeEff, promise, COHERENT_SHAPE)
+      const bestBy = (role: string, disc: Parameters<typeof projectFit>[1], slot?: CastSlot, exclude: Set<string> = new Set()) =>
+        state.talent
+          .filter((t) => t.role === role && !exclude.has(t.id))
+          .sort((a, b) => fitOf(b, disc, slot) - fitOf(a, disc, slot) || (a.id < b.id ? -1 : 1))[0]!
+      const writer = bestBy('writer', 'writing')
+      const director = bestBy('director', 'directing')
+      const lead = bestBy('actor', 'acting', 'lead')
+      const antagonist = bestBy('actor', 'acting', 'antagonist', new Set([lead.id]))
+      const support = bestBy('actor', 'acting', 'support', new Set([lead.id, antagonist.id]))
+      const pkg: Pkg = {
+        conceptId: concept.id,
+        shape: COHERENT_SHAPE,
+        promise,
+        writerId: writer.id,
+        directorId: director.id,
+        craftIds: [],
+        cast: { lead: lead.id, antagonist: antagonist.id, support: support.id },
+        budget: { negative: requiredNegative(state, concept, COHERENT_SHAPE), marketing: 3_000_000 },
+      }
+      const { preTick, production, film } = playToRelease(state, pkg)
+      const assessment = greenlightAssessment(snapshotOf(preTick), production)
+      const actualProfit = film.boxOffice.total * share - committedCostOf(preTick, production)
+      if (
+        assessment.cohesion.tier === 'strong' &&
+        assessment.cohesion.score > 70 &&
+        assessment.fit.overall > 55 &&
+        assessment.profit.profit.expected > 0 && // studio EXPECTED to profit (share-based)
+        actualProfit < 0 && // yet the actual studio result LOST money
+        assessment.profit.profit.low < assessment.profit.profit.expected // downside disclosed
+      ) {
+        witness = {
+          seed,
+          cohesionTier: assessment.cohesion.tier,
+          cohesionScore: assessment.cohesion.score,
+          fitOverall: assessment.fit.overall,
+          expectedProfit: assessment.profit.profit.expected,
+          lowProfit: assessment.profit.profit.low,
+          actualProfit,
+        }
+      }
     }
-    const { preTick, production, film } = playToRelease(state, pkg)
-    const assessment = greenlightAssessment(snapshotOf(preTick), production)
-
-    // The package IS strong by the assessment: coherent brief, solid overall fit, and the
-    // studio EXPECTED to profit at greenlight.
-    expect(assessment.cohesion.tier).toBe('strong')
-    expect(assessment.cohesion.score).toBeGreaterThan(70)
-    expect(assessment.fit.overall).toBeGreaterThan(55)
-    expect(assessment.profit.profit.expected).toBeGreaterThan(0)
-
-    // Yet the ACTUAL result lost money — the authorized single gaussian bit downward.
-    const actualProfit = film.boxOffice.total - committedCostOf(preTick, production)
-    expect(actualProfit).toBeLessThan(0)
-
-    // And the loss falls within the disclosed forecast band (not an out-of-band surprise):
-    // the greenlight range's low edge acknowledged a downside.
-    expect(assessment.profit.profit.low).toBeLessThan(assessment.profit.profit.expected)
+    // Such a package MUST exist: the forecast band spans the (share) break-even, so an
+    // expected-to-profit strong film can still miss downward into a real loss.
+    expect(witness, 'a strong, expected-to-profit package that still lost money should exist').not.toBeNull()
+    expect(witness!.expectedProfit).toBeGreaterThan(0)
+    expect(witness!.actualProfit).toBeLessThan(0)
+    expect(witness!.lowProfit).toBeLessThan(witness!.expectedProfit)
   })
 })
 
@@ -970,8 +997,8 @@ describe('#19 a weak-Fit / weak-execution package can still profit (authorized u
 //       profit = studioRevenue − committedCost; committedCost = negative + marketing +
 //       Σ salaries; studioRevenue = FULL box-office total; break-even = committedCost.
 // ═══════════════════════════════════════════════════════════════════════════════
-describe('#20 forecastProfitRange uses studio revenue (full box office) and the D-1 committed cost', () => {
-  it('committedCost = negative + marketing + salaries; breakEven = committedCost; profit = revenue − cost', () => {
+describe('#20 forecastProfitRange uses studio revenue (blended rental share) and the D-1 committed cost', () => {
+  it('committedCost = negative + marketing + salaries; breakEven = cost/share; profit = share×gross − cost', () => {
     const negative = 5_000_000
     const marketing = 800_000
     const writer = makeTalent({ role: 'writer', skill: 60, salary: 300_000 })
@@ -1004,11 +1031,12 @@ describe('#20 forecastProfitRange uses studio revenue (full box office) and the 
 
     const expectedCommitted = negative + marketing + salaries
     expect(pr.committedCost).toBe(expectedCommitted)
-    expect(pr.breakEven).toBe(expectedCommitted)
-    expect(pr.studioRevenueIsFullBoxOffice).toBe(true)
+    // D-12: break-even is the GROSS box office needed to return the cost (studio keeps `share`).
+    expect(pr.breakEven).toBeCloseTo(expectedCommitted / TUNING.STUDIO_RENTAL_BLENDED, 3)
+    expect(pr.studioRevenueIsFullBoxOffice).toBe(false)
 
-    // studioRevenue = the FULL box-office total on the forecast's per-segment estimate maps
-    // (no distributor split). Recompute the expected-map box office and confirm equality.
+    // D-12: studioRevenue = share × the FULL box-office total on the forecast's per-segment
+    // estimate maps. Recompute the expected-map gross and confirm equality after the share.
     const forecast = computeForecast(inp, ctx)
     const midMap: Record<string, number> = {}
     for (const seg of forecast.segments) midMap[seg.segmentId] = seg.estimate
@@ -1021,7 +1049,7 @@ describe('#20 forecastProfitRange uses studio revenue (full box office) and the 
       inp.budget,
       inp.shapeEffects,
     ).total
-    expect(pr.studioRevenue.expected).toBeCloseTo(boxExpected, 3)
+    expect(pr.studioRevenue.expected).toBeCloseTo(boxExpected * TUNING.STUDIO_RENTAL_BLENDED, 3)
 
     // profit (each edge) = studioRevenue − committedCost.
     expect(pr.profit.expected).toBeCloseTo(pr.studioRevenue.expected - expectedCommitted, 3)

@@ -633,5 +633,15 @@ export function generateWorld(seed: string): GameState {
     concepts: generateConcepts(seed),
     broadcastItems: [],
     coverageContexts: [],
+    // ── D-11 employment surface — EMPTY here (D-11.0: generateWorld stays
+    // employment-free so the headless M0A corpus never engages the gate and stays
+    // byte-identical). A PLAYER game opens the founding draft via beginFounding().
+    founding: null,
+    contracts: [],
+    ledger: [],
+    freeAgents: [],
+    // ── D-12 economy — EMPTY here (gated the same way; the headless corpus never
+    // opens a theatrical run, so it stays byte-identical on the single-lump path).
+    theatricalRuns: [],
   }
 }

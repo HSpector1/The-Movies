@@ -197,6 +197,30 @@ export type Promise = {
 
 export type Budget = { negative: number; marketing: number }
 
+// ── D-11.A film-specific immutable participant history ────────────────────────
+// Captured at the LOCKED greenlight (perceived values); frozen onto the released
+// FilmResult so the autopsy renders each film's OWN participants — immune to later
+// talent development / Star-Power / contract / availability changes. Optional +
+// captured ONLY when employment is engaged, so old V3 saves and the M0A corpus
+// (employment-free) are unaffected (autopsy falls back to the session snapshot).
+export type FilmParticipantRole = 'writer' | 'director' | 'lead' | 'antagonist' | 'support' | 'craft'
+export type FilmParticipant = {
+  talentId: string
+  name: string // displayed name AT GREENLIGHT (frozen; the person may rename/leave later)
+  role: FilmParticipantRole
+  discipline: Discipline // the ASSIGNED discipline (D-11.12 relevant discipline)
+  greenlightOVR: number // perceived role OVR at greenlight
+  greenlightFit: number // Project Fit for this exact assignment at greenlight
+  greenlightEP: { low: number; high: number; expected: number } // Expected Performance band
+  freelancer: boolean // engaged as a freelancer (true) vs studio-contracted (false)
+}
+export type FilmParticipants = {
+  writer: FilmParticipant
+  director: FilmParticipant
+  cast: Record<CastSlot, FilmParticipant>
+  craft: FilmParticipant[] // the Production/Craft Lead(s)
+}
+
 // §2.4 Production and result
 export type Production = {
   id: string
@@ -211,6 +235,7 @@ export type Production = {
   startTick: number
   remainingTicks: number
   forecastSnapshot: Forecast
+  participants?: FilmParticipants // D-11.A — locked at greenlight (engaged games only)
 }
 
 export type FilmResult = {
@@ -229,6 +254,13 @@ export type FilmResult = {
   // is gone (D-3's director-genre predicate needs them).
   conceptId: string
   directorId: string
+  // D-11.A — the film's OWN immutable participant record (present iff captured at an
+  // engaged greenlight). The autopsy renders from this; absent on M0A/legacy films.
+  participants?: FilmParticipants
+  // D-11.C — the LOCKED greenlight forecast, frozen here so the newspaper clipping can
+  // compare actual vs expected and reconstruct after save/reload (captured with
+  // participants; absent on M0A/legacy films). Additive optional field on V3.
+  forecast?: { expectedCriticScore: number; expectedTotal: number; expectedOpening: number }
 }
 
 // §2.5 World and state
@@ -263,7 +295,88 @@ export type Studio = {
   releasedFilms: FilmResult[]
 }
 
-export type GameState = {
+// ── D-12 theatrical runs ──────────────────────────────────────────────────────
+// A film's multi-week theatrical run, LOCKED at release from already-resolved reception
+// outputs (opening, legs) + TUNING. Kept as a HISTORY (never deleted); `status` filters
+// active vs completed. `legacyCompleted` = a migrated V3 release (full-gross, paid once,
+// never repaid). Additive; empty on M0A/legacy → byte-identical.
+export type TheatricalRunStatus = 'active' | 'completed' | 'legacyCompleted'
+export type TheatricalRun = {
+  productionId: string
+  conceptId: string
+  releaseTick: number
+  totalWeeks: number
+  weekIndex: number // weeks credited so far (0-based); === totalWeeks when finished
+  weeklyGross: number[] // locked; Σ = opening×legs (= FilmResult.boxOffice.total for D-12 runs)
+  studioShare: number // locked blended rental share (1.0 for legacyCompleted)
+  cumulativeGrossPaid: number
+  cumulativeStudioRevenuePaid: number // Studio Revenue ACTUALLY credited to cash
+  economyModelVersion: number // 1 = D-12 blended; 0 = legacy full-gross (migrated V3)
+  status: TheatricalRunStatus
+}
+
+// ── D-11 Studio Employment, Contracts, Roster, Freelancer Market ──────────────
+// Employment/contract/ledger/founding state lives on GameState (studio-relative),
+// NOT on Talent (the person). Talent stays the shared "industry" population; the
+// studio's relationship to each person is derived (employmentStatus) or recorded
+// here (contracts / freeAgents / founding). See docs/rev4-open-questions.md D-11.
+
+// Five explicit employment statuses (D-11.1). Derived, never stored per talent.
+// The identifier space is deliberately extensible for future rival ownership; NO
+// rival behavior is simulated this milestone.
+export type EmploymentStatus =
+  | 'contracted'
+  | 'engagedFreelancer'
+  | 'availableFreelancer'
+  | 'freeAgent'
+  | 'unavailable'
+
+// A studio contract (D-11.4). Term stored in WEEKS (displayed in years). A contract
+// is active while startWeek ≤ week < endWeekExclusive.
+export type Contract = {
+  talentId: string
+  annualSalary: number // currency; paid weekly as round(annualSalary / TICKS_PER_YEAR)
+  signingBonus: number // currency; paid ONCE at signing (D-11.5)
+  startWeek: number // market.tick at signing
+  endWeekExclusive: number // startWeek + termWeeks; active while week < this
+  termWeeks: number // 52..208 (1..4 years)
+}
+
+// Financial ledger (D-11.18). Every cash movement is recorded so payroll never
+// "silently disappears into production costs" and cash reconciles:
+//   studio.cash === INITIAL_CASH + Σ ledger.amount
+// (founding recruitment-fund signing bonuses are the one deliberate exception —
+// they draw founding.budget, never cash, and are tracked in founding.spentBonus).
+export type LedgerKind =
+  | 'production' // negative + marketing debited at greenlight
+  | 'boxOffice' // box-office total credited at release (LEGACY/M0A single-lump path only)
+  | 'payroll' // weekly Σ contracted salaries debited at tick
+  | 'signingBonus' // operating-phase contract signing bonus debited at signing
+  | 'termination' // early-release termination cost debited at release
+  | 'freelancerFee' // one-film freelancer fee debited at greenlight
+  | 'studioRevenue' // D-12: weekly Studio Revenue cash receipt (blended share of weekly gross)
+  | 'overhead' // D-12: weekly studio overhead (base + per-employee), engaged only
+
+export type LedgerEntry = {
+  week: number
+  kind: LedgerKind
+  amount: number // SIGNED: outflow negative, inflow positive
+  talentId?: string
+  productionId?: string
+  note: string
+}
+
+// The founding draft (D-11.2). Present only in a new PLAYER game until foundStudio
+// closes it; null in the headless world (generateWorld stays employment-free).
+export type FoundingState = {
+  applicantIds: string[] // the bounded deterministic applicant pool
+  budget: number // the recruitment fund (signing-bonus pool, separate from cash)
+  spentBonus: number // recruitment-fund signing bonus spent so far
+}
+
+// The pre-employment state shape, FROZEN as SaveFileV2's state (D-11.16). Anchoring
+// GameStateV1/V2 to this keeps the added employment fields out of the frozen shapes.
+export type GameStateV2 = {
   seed: string
   rngState: string
   market: MarketState
@@ -275,6 +388,21 @@ export type GameState = {
   coverageContexts: CoverageContext[]
 }
 
+// The D-11 employment surface, FROZEN as SaveFileV3's state (D-12.19). Anchoring
+// SaveFileV3 to GameStateV3 (not the live GameState) keeps the D-12 `theatricalRuns`
+// field out of the frozen V3 shape, exactly as GameStateV1/V2 are anchored.
+export type GameStateV3 = GameStateV2 & {
+  founding: FoundingState | null
+  contracts: Contract[]
+  ledger: LedgerEntry[]
+  freeAgents: string[] // ids immediately signable (former employees; expired/released)
+}
+
+// The live D-12 state: the frozen V3 surface PLUS theatrical runs (empty on M0A/legacy).
+export type GameState = GameStateV3 & {
+  theatricalRuns: TheatricalRun[]
+}
+
 // §2.6 Actions
 export type Action =
   | {
@@ -282,7 +410,14 @@ export type Action =
       production: Omit<Production, 'id' | 'startTick' | 'remainingTicks' | 'forecastSnapshot'>
     }
   | { kind: 'cancel'; productionId: string }
-  | { kind: 'createTalent'; talent: AuthoredTalentInput } // §10
+  | { kind: 'createTalent'; talent: AuthoredTalentInput } // §10 (legacy budget creator)
+  | { kind: 'createBalancedTalent'; talent: BalancedTalentInput } // §10 / D-11.C (Balanced specialization)
+  | { kind: 'createCustomTalent'; talent: CustomTalentInput } // §10 / D-11.A (Full Custom)
+  // ── D-11 employment actions ──
+  | { kind: 'foundStudio' } // close the founding draft (minimums must be met)
+  | { kind: 'signContract'; talentId: string; termWeeks: number } // sign to studio contract
+  | { kind: 'renewContract'; talentId: string; termWeeks: number } // extend during renewal window
+  | { kind: 'releaseTalent'; talentId: string } // early release (financial cost only)
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a
@@ -297,6 +432,58 @@ export type AuthoredTalentInput = {
   workEthic: number // 1..99, player-chosen numerically (D-9.11)
   skillBias?: SkillBias // optional per-discipline emphasis (specialist vs generalist)
   secondaryDiscipline?: CreativeRole // optional; costs budget (D-9.14)
+}
+
+// §10 / D-11.A Full Custom talent — the player edits the AUTHORITATIVE underlying
+// attributes DIRECTLY (no creation budget). perceived = actual at creation. Skills are
+// six values per discipline in SKILL_ORDER (1..99). Ceilings default to the skill value
+// (no hidden upside) unless supplied; genre experience defaults to 0. May deliberately
+// produce a powerful/unbalanced person. OVR is always DERIVED from these skills (never
+// an input); Fit is never stored (it is film/assignment-dependent). See D-11.A (A3).
+export type CustomTalentInput = {
+  name: string
+  role: CreativeRole // primary profession
+  age: number // 18..70
+  actual: Persona // Creative Temperament
+  workEthic: number // 1..99
+  fame: number // 0..100 Star Power
+  skills: Record<Discipline, number[]> // 6 per discipline in SKILL_ORDER, each 1..99
+  ceilings?: Partial<Record<Discipline, number[]>> // optional per-skill potential ceilings (≥ skill, ≤ 99)
+  genreExperience?: Partial<Record<Discipline, Partial<Record<Genre, number>>>> // optional 0..100
+}
+
+// §10 / D-11.C — an archetype preset: the profession-shaped Balanced-Career BASELINE
+// before the player spends specialization points. Populates ONLY authoritative
+// underlying values (no hidden modifiers / permanent bonuses). See BALANCED_ARCHETYPES.
+export type ArchetypePreset = {
+  id: string
+  label: string
+  appliesTo: Discipline | 'any' // profession-specific, or a cross-profession career path
+  primarySkills: number[] // 6 baseline values (SKILL_ORDER) for the primary discipline (OVR ≈ 38–45)
+  secondaryBaseline: number // non-primary skills baseline (secondary OVR ≈ 15–28; ≥ SKILL_FLOOR)
+  secondaryBoost?: { role: CreativeRole; skills: number[] } // multi-hyphenate: one raised secondary
+  genreBaseline: Partial<Record<Genre, number>> // small primary-discipline genre experience
+  defaultPotentialTier: PotentialTier
+  defaultWorkEthic: number
+  fame: number
+}
+
+// §10 / D-11.C — Balanced-Career creation: an archetype baseline + a 40-point allocation
+// + separately-chosen Potential/Work Ethic. Skills start at BALANCED_CREATOR_SKILL_FLOOR;
+// OVR is DERIVED from the resulting skills (never an input). Creation ≠ signing (D-11.A).
+export type BalancedTalentInput = {
+  name: string
+  role: CreativeRole
+  age: number // 18..70
+  actual: Persona
+  presetId: string // an ArchetypePreset id
+  potentialTier: PotentialTier // player-chosen tradeoff — NOT bought with specialization points
+  workEthic: number // player-chosen tradeoff — NOT bought with points
+  allocation: {
+    // the specialization budget (+1 per authoritative point), total ≤ SPECIALIZATION_POINTS
+    skills?: Partial<Record<Discipline, number[]>> // per-skill increments (SKILL_ORDER)
+    genre?: Partial<Record<Discipline, Partial<Record<Genre, number>>>> // per-genre increments
+  }
 }
 
 // ── §7 Forecast types ───────────────────────────────────────────────────────
@@ -328,6 +515,11 @@ export type SegmentForecast = {
   confidence: Confidence
   causalFactors: ForecastFactorKey[]
   uncertaintyFactors: ForecastFactorKey[]
+  // D-12: the fame-saturated OPENING appeal band (=== the linear {center,estimate,low,high} above
+  // unless the economy is engaged → byte-identical). Feeds ONLY the opening-reach computation; the
+  // linear band above still feeds legs / audience. Lets a live re-forecast reproduce the same
+  // saturated opening the greenlight-locked forecast and realized release use (single fame helper).
+  opening: { center: number; estimate: number; low: number; high: number }
 }
 
 export type Forecast = {

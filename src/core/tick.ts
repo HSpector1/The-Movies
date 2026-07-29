@@ -40,6 +40,9 @@
 
 import { evaluateReleaseBroadcast, type ReleaseBroadcastInputs } from './broadcast.js'
 import { developTalent, type DevelopmentContext } from './development.js'
+import { economyEngaged, weeklyPayroll } from './employment.js'
+import { openTheatricalRun } from './economy.js'
+import { TUNING } from './tuning.js'
 import { buildFilmResult, resolveReception, type ReceptionInputs } from './reception.js'
 import { RngStream, stream } from './rng.js'
 import { resolveShape } from './shape.js'
@@ -47,12 +50,15 @@ import { updateStanding, type ReleaseBenchmarks, type StandingContext } from './
 import type {
   BroadcastItem,
   CastSlot,
+  Contract,
   Discipline,
   FilmResult,
   GameState,
+  LedgerEntry,
   Production,
   Standing,
   Talent,
+  TheatricalRun,
 } from './types.js'
 
 // Fixed cast-slot iteration order (determinism: cast resolution and fame capture
@@ -136,6 +142,12 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   const records: ReleaseRecord[] = []
   let cash = state.studio.cash
   const releasedFilms: FilmResult[] = [...state.studio.releasedFilms]
+  // D-11.18 financial ledger — every cash movement is recorded (reconciles with cash).
+  const ledger: LedgerEntry[] = [...state.ledger]
+  // ── D-12 economy (gated) — a shallow copy of the run history so weekly progress can be
+  // recorded without mutating the input. Empty (and untouched) for the M0A corpus.
+  const engaged = economyEngaged(state)
+  const theatricalRuns: TheatricalRun[] = state.theatricalRuns.map((r) => ({ ...r }))
 
   for (const prod of releasing) {
     const concept = state.concepts.find((c) => c.id === prod.conceptId)
@@ -173,19 +185,51 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       era: state.era,
     }
 
-    // The single §5.3 critic draw for this release — the ONLY sim-stream advance.
-    const result = resolveReception(inp, rng)
+    // The single §5.3 critic draw for this release — the ONLY sim-stream advance. `engaged` drives
+    // BOTH the §7 fame→opening-reach saturation and the D-12 P2 economy calibration (gross scale +
+    // awareness marketing) — in production they are the same signal (economyEngaged).
+    const result = resolveReception(inp, rng, engaged, engaged)
 
-    const filmResult = buildFilmResult(result, {
+    const baseFilmResult = buildFilmResult(result, {
       productionId: prod.id,
       releaseTick: currentTick,
       conceptId: prod.conceptId,
       directorId: prod.directorId,
     })
+    // D-11.A/.C — freeze the film's own immutable participant record + the LOCKED
+    // greenlight forecast onto the result (when captured at an engaged greenlight, i.e.
+    // prod.participants present). Absent on M0A/legacy films → byte-identical.
+    const filmResult = prod.participants
+      ? {
+          ...baseFilmResult,
+          participants: prod.participants,
+          forecast: {
+            expectedCriticScore: prod.forecastSnapshot.expectedCriticScore,
+            expectedTotal: prod.forecastSnapshot.expectedTotal,
+            expectedOpening: prod.forecastSnapshot.expectedOpening,
+          },
+        }
+      : baseFilmResult
 
-    // Credit the box office total (D-1 ledger; the debit happened at greenlight).
-    cash += filmResult.boxOffice.total
     releasedFilms.push(filmResult)
+    // D-12: when the economy is engaged, OPEN a multi-week theatrical run instead of the
+    // single-lump credit. Its first week is paid by the WEEKLY THEATRICAL REVENUE step
+    // (3.5) in this same tick — release resolution itself credits NO Studio Revenue. When
+    // NOT engaged (M0A/legacy), keep the D-1 single-lump full-gross credit → byte-identical.
+    if (engaged) {
+      const opening = filmResult.boxOffice.opening
+      const legs = opening > 0 ? filmResult.boxOffice.total / opening : 1
+      theatricalRuns.push(openTheatricalRun(filmResult, opening, legs, currentTick))
+    } else {
+      cash += filmResult.boxOffice.total
+      ledger.push({
+        week: currentTick,
+        kind: 'boxOffice',
+        amount: filmResult.boxOffice.total,
+        productionId: prod.id,
+        note: 'box-office total',
+      })
+    }
 
     // Benchmarks from the production's forecastSnapshot (§6 / B12).
     const benchmarks: ReleaseBenchmarks = {
@@ -258,6 +302,31 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     records.push({ filmResult, benchmarks, ctx, broadcast, develop })
   }
 
+  // ── 3.5 WEEKLY THEATRICAL REVENUE (D-12; gated) ────────────────────────────
+  // Credit each ACTIVE run's current week — INCLUDING any run just opened in step 3 this
+  // tick, so a release is paid exactly ONCE (here, never at resolution). One studioRevenue
+  // ledger entry per active run per week; the gross lives on the run (not the ledger).
+  // No sim stream. Empty (and no ledger entries) when not engaged → byte-identical.
+  if (engaged) {
+    for (const run of theatricalRuns) {
+      if (run.status !== 'active') continue
+      const wg = run.weeklyGross[run.weekIndex] ?? 0
+      const rev = wg * run.studioShare
+      cash += rev
+      run.cumulativeGrossPaid += wg
+      run.cumulativeStudioRevenuePaid += rev
+      run.weekIndex += 1
+      if (run.weekIndex >= run.totalWeeks) run.status = 'completed'
+      ledger.push({
+        week: currentTick,
+        kind: 'studioRevenue',
+        amount: rev,
+        productionId: run.productionId,
+        note: `theatrical week ${run.weekIndex} studio revenue`,
+      })
+    }
+  }
+
   // ── 4. STANDING ────────────────────────────────────────────────────────────
   // Accumulate the three channels sequentially, IN ascending-id order (records is
   // already in release order). Start from start-of-tick standing.
@@ -316,12 +385,54 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     talent = state.talent.map((t) => byId.get(t.id) ?? t)
   }
 
+  // ── 7. PAYROLL (D-11.5) ────────────────────────────────────────────────────
+  // Weekly Σ contracted salaries, debited from cash EXACTLY ONCE per tick and
+  // logged to the ledger. Applied for the week being advanced (currentTick).
+  // Naturally 0 — and no ledger entry — when no contracts exist (the headless M0A
+  // corpus), so M0A/D-6 stay byte-identical. Skipped during a founding draft
+  // (no operations before the studio is founded).
+  if (state.founding === null) {
+    const payroll = weeklyPayroll(state, currentTick)
+    if (payroll > 0) {
+      cash -= payroll
+      ledger.push({ week: currentTick, kind: 'payroll', amount: -payroll, note: 'weekly payroll' })
+    }
+  }
+
+  // ── 7.5 STUDIO OVERHEAD (D-12; gated) ──────────────────────────────────────
+  // Fixed weekly base + per contracted employee, debited once per tick when the economy is
+  // engaged and the studio is founded. Absent for the headless corpus → byte-identical.
+  if (engaged && state.founding === null) {
+    const overhead = TUNING.OVERHEAD_BASE + TUNING.OVERHEAD_PER_EMPLOYEE * state.contracts.length
+    if (overhead > 0) {
+      cash -= overhead
+      ledger.push({ week: currentTick, kind: 'overhead', amount: -overhead, note: 'weekly studio overhead' })
+    }
+  }
+
+  // ── 8. CONTRACT EXPIRATION (D-11.8) ────────────────────────────────────────
+  // Contracts whose term ends at or before the NEW week expire; their talent
+  // become free agents (deterministic order: existing free agents, then expiring
+  // contracts in state order). No cash effect. Payroll above already paid the
+  // final active week (a contract active while week < endWeekExclusive).
+  const newTick = currentTick + 1
+  let contracts: Contract[] = state.contracts
+  let freeAgents: string[] = state.freeAgents
+  const expired = state.contracts.filter((c) => c.endWeekExclusive <= newTick)
+  if (expired.length > 0) {
+    contracts = state.contracts.filter((c) => c.endWeekExclusive > newTick)
+    const fa = [...state.freeAgents]
+    for (const c of expired) if (!fa.includes(c.talentId)) fa.push(c.talentId)
+    freeAgents = fa
+  }
+
   // ── Finalize ───────────────────────────────────────────────────────────────
   // market.tick increments as the LAST step (M1). The sim stream (advanced only by
   // the RECEPTION draws) is re-serialized once into the new rngState. broadcastItems
   // is the accumulated aired list (unchanged when no release aired). coverageContexts
   // stays untouched (declare-only until phase 6). `talent` is unchanged unless the
-  // DEVELOPMENT gate (step 6) is on.
+  // DEVELOPMENT gate (step 6) is on. D-11 employment fields (contracts/ledger/
+  // freeAgents) thread through; founding is unchanged (ticks only run post-founding).
   return {
     ...state,
     rngState: rng.serialize(),
@@ -335,5 +446,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       releasedFilms,
     },
     broadcastItems,
+    contracts,
+    ledger,
+    freeAgents,
+    theatricalRuns,
   }
 }

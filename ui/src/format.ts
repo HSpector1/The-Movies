@@ -17,6 +17,19 @@ export function score(n: number, digits = 1): string {
   return n.toFixed(digits)
 }
 
+// Player-facing Star Power — always a WHOLE number (round). The simulation keeps the
+// authoritative fractional value (sorting/RNG/reception read it); this is presentation
+// only (D-11.A A5). Centralized so no screen re-formats Star Power locally.
+export function starPower(n: number): string {
+  return String(Math.round(n))
+}
+
+// Player-facing age — COMPLETED whole years (floor). Never rounds up before a birthday
+// (D-11.A A5). The simulation keeps the authoritative value. Centralized.
+export function ageYears(n: number): string {
+  return String(Math.floor(n))
+}
+
 export function pct(n: number, digits = 0): string {
   return `${(n * 100).toFixed(digits)}%`
 }

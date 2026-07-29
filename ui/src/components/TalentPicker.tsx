@@ -28,7 +28,7 @@ import type {
   GameState,
 } from '../engine/adapter.ts'
 import { talentEligibility, assignmentCard } from '../engine/adapter.ts'
-import { money, score, axis } from '../format.ts'
+import { money, score, axis, starPower, ageYears } from '../format.ts'
 
 // The assignment context the picker needs to compute per-assignment cards. The parent
 // (Assembly) threads the concept/discipline/slot/promise/shape it already has in hand.
@@ -64,6 +64,7 @@ export function TalentPicker({
   onSelect,
   testid,
   assignment,
+  freelancerFees,
 }: {
   title: string
   pool: PlayerVisibleTalent[]
@@ -75,6 +76,10 @@ export function TalentPicker({
   // When present, cards are the rich per-assignment cards (default-sorted by Fit) with
   // sort + filters. When absent, a minimal player-visible fallback card is shown.
   assignment?: PickerAssignment
+  // D-11.11: id → one-film freelancer fee for pool members who are Available Freelancers
+  // (not studio-contracted). Tags the row "Freelancer" and shows the fee (a direct
+  // project cost) instead of a contract salary. Studio talent are on weekly payroll.
+  freelancerFees?: Record<string, number>
 }) {
   // Compute the rich card for every talent in the pool (perceived-only, via adapter).
   const cards = useMemo(() => {
@@ -122,6 +127,7 @@ export function TalentPicker({
       testid={testid}
       cards={cards}
       genreLabel={assignment.genreLabel}
+      freelancerFees={freelancerFees}
     />
   )
 }
@@ -137,6 +143,7 @@ function RichPicker({
   testid,
   cards,
   genreLabel,
+  freelancerFees,
 }: {
   title: string
   pool: PlayerVisibleTalent[]
@@ -147,6 +154,7 @@ function RichPicker({
   testid: string | undefined
   cards: Map<string, CandidateCard>
   genreLabel: string
+  freelancerFees?: Record<string, number> | undefined
 }) {
   const [sortKey, setSortKey] = useState<SortKey>('fit') // DEFAULT = Project Fit
   const [proven, setProven] = useState<ProvenFilter>('all')
@@ -387,18 +395,31 @@ function RichPicker({
                         Capable but Unproven
                       </span>
                     )}
+                    {freelancerFees?.[t.id] !== undefined && (
+                      <span
+                        className="badge estimate"
+                        style={{ marginLeft: 8 }}
+                        data-testid={`talent-${t.id}-freelancer`}
+                      >
+                        Freelancer
+                      </span>
+                    )}
                   </span>
                   <span className="badge" data-testid={`talent-${t.id}-fit`}>
                     Fit {c.fit.toFixed(0)}
                   </span>
                 </div>
-                {/* Assignment-relevant primary line: role OVR, EP range, star power, salary */}
+                {/* Assignment-relevant primary line: role OVR, EP range, star power, and
+                    per-film cost — a freelancer's one-film fee, or a studio talent's salary. */}
                 <div className="opt-desc mono">
                   {c.ovrTier} · OVR {c.ovr.toFixed(0)} · Expected{' '}
                   <span data-testid={`talent-${t.id}-ep`}>
                     {c.performance.low.toFixed(0)}–{c.performance.high.toFixed(0)}
                   </span>{' '}
-                  · Star {c.starPower.toFixed(0)} · {money(c.salary)}
+                  · Star {starPower(c.starPower)} ·{' '}
+                  {freelancerFees?.[t.id] !== undefined
+                    ? `Freelancer fee ${money(freelancerFees[t.id]!)}`
+                    : money(c.salary)}
                 </div>
                 <div className="opt-desc">
                   Relevant genre experience ({genreLabel}):{' '}
@@ -446,7 +467,7 @@ function RichPicker({
                     {c.bandWidth.toFixed(0)}
                   </div>
                   <div className="opt-desc mono">
-                    Age {t.age.toFixed(0)} · {c.unproven ? 'Unproven' : 'Proven'} in this discipline
+                    Age {ageYears(t.age)} · {c.unproven ? 'Unproven' : 'Proven'} in this discipline
                   </div>
                   {c.strengths.length === 0 && !c.weakness && (
                     <div className="hint">
@@ -507,10 +528,10 @@ function MinimalPicker({
                     </span>
                   )}
                 </span>
-                <span className="badge">Fame {t.fame.toFixed(0)}</span>
+                <span className="badge">Fame {starPower(t.fame)}</span>
               </div>
               <div className="opt-desc">
-                Known ability {t.skill.toFixed(0)} · Salary {money(t.salary)} · Age {t.age.toFixed(0)}
+                Known ability {t.skill.toFixed(0)} · Salary {money(t.salary)} · Age {ageYears(t.age)}
               </div>
               <div className="opt-desc">
                 Believed to be — warmth {axis(t.perceived.warmth)}, gravity{' '}

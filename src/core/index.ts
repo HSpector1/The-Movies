@@ -26,6 +26,12 @@ export type {
   Budget,
   Production,
   FilmResult,
+  TheatricalRun,
+  TheatricalRunStatus,
+  GameStateV3,
+  FilmParticipant,
+  FilmParticipantRole,
+  FilmParticipants,
   Standing,
   Segment,
   CompetingRelease,
@@ -33,8 +39,18 @@ export type {
   EraConfig,
   Studio,
   GameState,
+  GameStateV2,
   Action,
   AuthoredTalentInput,
+  CustomTalentInput,
+  BalancedTalentInput,
+  ArchetypePreset,
+  // D-11 employment / contracts / ledger / founding (types.ts)
+  EmploymentStatus,
+  Contract,
+  LedgerKind,
+  LedgerEntry,
+  FoundingState,
   Confidence,
   ForecastBand,
   ForecastFactorKey,
@@ -104,6 +120,8 @@ export {
   AUTHORED_TIER_COST,
   AUTHORED_TIER_RANGE,
   AUTHORED_START_OVR,
+  // D-11.C Balanced Creator archetype presets
+  BALANCED_ARCHETYPES,
 } from './tuning.js'
 
 // §4 shape declarations + resolveShape (phase 2)
@@ -117,6 +135,7 @@ export {
   castContribution,
   computeSegmentAppeal,
   computeBoxOffice,
+  budgetRealizationDelta,
 } from './reception.js'
 export type { ReceptionInputs, ReceptionResult } from './reception.js'
 
@@ -143,8 +162,8 @@ export type { RngPurpose } from './rng.js'
 // §9 world generation (phase 3) + the §10-shared salary curve (B7)
 export { generateWorld, salaryCurve } from './worldgen.js'
 
-// §3 applyActions (phase 3) — greenlight / cancel / createTalent
-export { applyActions } from './actions.js'
+// §3 applyActions (phase 3) — greenlight / cancel / createTalent / createCustomTalent / createBalancedTalent
+export { applyActions, previewCustomTalent, previewBalancedTalent, balancedBoostDiscipline, predictProductionId } from './actions.js'
 
 // §6 standing (phase 3) — the three-channel updateStanding (B12 context param)
 export { updateStanding } from './standing.js'
@@ -180,6 +199,77 @@ export type { PerformanceBand, DisciplineStanding, CareerIdentity } from './tale
 // ── D-9.8 development (tick step 6 core) — pure per-release skill growth ───────
 export { developTalent } from './development.js'
 export type { DevelopmentContext } from './development.js'
+
+// ── D-11.C newspaper release reveal (newspaper.ts) — pure deterministic derivation ─
+export {
+  buildNewspaper,
+  criticStars,
+  audienceTier,
+  aggregateAudienceScore,
+  NEWSPAPER_MASTHEAD,
+} from './newspaper.js'
+export type { NewspaperView, NewspaperInput, CriticRating, AudienceTier } from './newspaper.js'
+
+// ── D-12 studio economy (economy.ts) — pure theatrical-run + fame-saturation math ─
+export { fameReach, theatricalSchedule, openTheatricalRun, legacyTheatricalRun } from './economy.js'
+
+// ── D-12 financial read models (economyView.ts) — the SINGLE UI money source ────
+// Pure, deterministic, display-only. Mirrors the exact engine math (tick 3.5/7.5,
+// payroll, solvency, runway). The sim never reads these.
+export {
+  weeklyOverhead,
+  projectedWeeklyOverhead,
+  weeklyBurn,
+  foundingRunwayPreview,
+  runNextWeekRevenue,
+  runRemainingRevenue,
+  expectedWeeklyRunRevenue,
+  pipelineRunRevenue,
+  runway,
+  affordability,
+  commitmentPreview,
+  breakEvenGross,
+  runView,
+  activeRunViews,
+  financeTotals,
+  periodSummary,
+  financeView,
+} from './economyView.js'
+export type { Runway, CommitmentPreview, RunView, FinanceTotals, PeriodSummary, FinanceView } from './economyView.js'
+
+// ── D-11 employment / contracts / roster / freelancer market (employment.ts) ──
+// Pure, deterministic, read-only helpers (status/offers/markets/payroll/founding).
+// The engine reads these in actions.ts (sign/renew/release/greenlight legality) and
+// tick.ts (payroll/expiration); the UI reads the display/selector helpers.
+export {
+  employmentEngaged,
+  economyEngaged,
+  canAfford,
+  employmentStatus,
+  activeContract,
+  isContracted,
+  assignableForFilm,
+  busyTalentIds,
+  weeklySalary,
+  guaranteedComp,
+  terminationCost,
+  weeklyPayroll,
+  annualPayroll,
+  renewalWindowOpen,
+  contractOffer,
+  contractOfferOptions,
+  offerForTalent,
+  freelancerFee,
+  freelancerMarketIds,
+  hiringMarketIds,
+  rosterTalent,
+  rosterCoverage,
+  foundingMinimumsMet,
+  foundingGaps,
+  FOUNDING_MINIMUMS,
+  beginFounding,
+} from './employment.js'
+export type { ContractOffer, Affordability } from './employment.js'
 
 // ── Phase 5.1 CYCLE 3 — Film Package assessment helpers (READ-ONLY UI summaries) ─
 // Pure, deterministic, JSON-serializable read-only assessments the UI calls so it
@@ -249,9 +339,13 @@ export {
   validateSave,
   validateSaveV1,
   validateSaveV2,
+  validateSaveV3,
+  validateSaveV4,
   makeSave,
   makeSaveV1,
   makeSaveV2,
+  makeSaveV3,
+  makeSaveV4,
   loadSave,
   exportSave,
   importSave,
@@ -259,5 +353,15 @@ export {
   migrateTalent,
   convertV1ToV2,
   importLegacyV1,
+  // D-11.16 — legacy V2 → NEW V3 (and V1 → V3), deterministic + idempotent.
+  convertV2ToV3,
+  importLegacyV2,
+  importLegacyV1ToV3,
+  // D-12 — legacy V3 → NEW V4 (and V2/V1 → V4) + migrateToV4, deterministic + idempotent.
+  convertV3ToV4,
+  importLegacyV3ToV4,
+  importLegacyV2ToV4,
+  importLegacyV1ToV4,
+  migrateToV4,
 } from './save.js'
-export type { SaveFileV1, SaveFileV2, SaveFile, TalentV1, GameStateV1 } from './save.js'
+export type { SaveFileV1, SaveFileV2, SaveFileV3, SaveFileV4, SaveFile, TalentV1, GameStateV1 } from './save.js'

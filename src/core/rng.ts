@@ -26,7 +26,19 @@
 //   'develop' — the tick DEVELOPMENT step (D-9.8), keyed by productionId + ':' + talentId
 // Both are stateless derived streams, so they never advance state.rngState → §15.7
 // replay-exactness is preserved.
-export type RngPurpose = 'candidates' | 'agent' | 'forecast' | 'worldgen' | 'migrate' | 'develop'
+//
+// D-11 adds one more DERIVED-stream purpose (additive; existing streams unchanged):
+//   'hiring' — the founding applicant draft, deterministic contract offers, and the
+//              freelancer/hiring market rotation (D-11.2/.6/.14). Stateless, so it
+//              never advances state.rngState → replay stays exact.
+export type RngPurpose =
+  | 'candidates'
+  | 'agent'
+  | 'forecast'
+  | 'worldgen'
+  | 'migrate'
+  | 'develop'
+  | 'hiring'
 
 // A 32-bit hash accumulator step (splitmix32 finalizer). Deterministic, avalanche-y.
 function splitmix32(seed: number): { value: number; next: number } {

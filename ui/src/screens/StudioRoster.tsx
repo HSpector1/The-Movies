@@ -1,0 +1,312 @@
+// ── Studio Roster (D-11.3 / .7 / .9 / .19) ───────────────────────────────────
+// Manage the contracted roster: review payroll & runway, renew contracts inside
+// their renewal window, and release talent (with the exact termination cost shown
+// before a confirm). Filters let the player narrow by profession or to contracts in
+// their renewal window. Every value shown comes from the adapter — nothing is
+// recomputed here. Renew/release call the adapter action wrappers; on ok the parent
+// receives the next state via onChange.
+
+import { useState } from 'react'
+import type { GameState, EmploymentCard, CreativeRole } from '../engine/adapter.ts'
+import {
+  rosterCards,
+  payrollSummary,
+  renewContractAction,
+  releaseTalentAction,
+} from '../engine/adapter.ts'
+import { money, starPower } from '../format.ts'
+import { Metric } from '../components/common.tsx'
+
+type ProfessionFilter = 'all' | CreativeRole
+
+const ROLE_LABEL: Record<CreativeRole, string> = {
+  actor: 'Actor',
+  director: 'Director',
+  writer: 'Writer',
+  craft: 'Craft',
+}
+
+const STATUS_LABEL: Record<string, string> = {
+  contracted: 'Contracted',
+  engagedFreelancer: 'Engaged freelancer',
+  availableFreelancer: 'Available freelancer',
+  freeAgent: 'Free agent',
+  unavailable: 'Unavailable',
+}
+
+// The four renewal term options (weeks), used when a renewable contract has no
+// pre-populated offer options. 52 weeks = 1 year.
+const RENEW_TERMS: readonly number[] = [52, 104, 156, 208]
+
+export function StudioRoster({
+  state,
+  onChange,
+  onBack,
+}: {
+  state: GameState
+  onChange: (next: GameState) => void
+  onBack: () => void
+}) {
+  const [profession, setProfession] = useState<ProfessionFilter>('all')
+  const [renewalsOnly, setRenewalsOnly] = useState(false)
+  const [pendingRelease, setPendingRelease] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+
+  const payroll = payrollSummary(state)
+  const all = rosterCards(state)
+  const cards = all.filter((c) => {
+    if (profession !== 'all' && c.profile.role !== profession) return false
+    if (renewalsOnly && !(c.employment.contract?.renewalOpen ?? false)) return false
+    return true
+  })
+
+  function renew(talentId: string, termWeeks: number) {
+    const out = renewContractAction(state, talentId, termWeeks)
+    if (out.ok) {
+      setError(null)
+      onChange(out.next)
+    } else {
+      setError(out.error)
+    }
+  }
+
+  function release(talentId: string) {
+    const out = releaseTalentAction(state, talentId)
+    if (out.ok) {
+      setError(null)
+      setPendingRelease(null)
+      onChange(out.next)
+    } else {
+      setError(out.error)
+    }
+  }
+
+  return (
+    <div className="app-shell">
+      <div className="topbar">
+        <div className="brand">
+          <span className="mark">PROJECT: STUDIO</span>
+          <span className="sub">Studio Roster</span>
+        </div>
+        <div className="row" style={{ gap: 24 }}>
+          <button className="ghost" onClick={onBack} data-testid="roster-back">
+            Back
+          </button>
+        </div>
+      </div>
+
+      <div className="card stack">
+        <h2>Payroll &amp; runway</h2>
+        <div className="row" style={{ gap: 24 }}>
+          <Metric label="Cash" small testid="roster-cash">
+            <span className={payroll.cash < 0 ? 'money neg' : 'money pos'}>{money(payroll.cash)}</span>
+          </Metric>
+          <Metric label="Weekly payroll" small testid="roster-weekly">
+            {money(payroll.weeklyPayroll)}
+          </Metric>
+          <Metric label="Annual payroll" small testid="roster-annual">
+            {money(payroll.annualPayroll)}
+          </Metric>
+          <Metric label="Projected obligations" small testid="roster-obligations">
+            {money(payroll.projectedObligations)}
+          </Metric>
+          <Metric label="Upcoming renewals" small testid="roster-renewals">
+            {payroll.upcomingRenewals}
+          </Metric>
+          <Metric label="Runway" small testid="roster-runway">
+            {payroll.runwayWeeks === null ? '—' : `${payroll.runwayWeeks} wks`}
+          </Metric>
+        </div>
+      </div>
+
+      <div style={{ height: 16 }} />
+
+      <div className="card stack">
+        <div className="spread">
+          <h2>Roster</h2>
+          <div className="row" style={{ gap: 16 }}>
+            <label className="row" style={{ gap: 6 }}>
+              <span className="hint">Profession</span>
+              <select
+                value={profession}
+                onChange={(e) => setProfession(e.target.value as ProfessionFilter)}
+                data-testid="roster-filter-profession"
+              >
+                <option value="all">All</option>
+                <option value="actor">Actors</option>
+                <option value="director">Directors</option>
+                <option value="writer">Writers</option>
+                <option value="craft">Craft</option>
+              </select>
+            </label>
+            <label className="row" style={{ gap: 6 }}>
+              <input
+                type="checkbox"
+                checked={renewalsOnly}
+                onChange={(e) => setRenewalsOnly(e.target.checked)}
+                data-testid="roster-filter-renewals"
+              />
+              <span className="hint">Renewals only</span>
+            </label>
+          </div>
+        </div>
+
+        {error !== null && (
+          <div className="errbox" role="alert" data-testid="error-box">
+            {error}
+          </div>
+        )}
+
+        {cards.length === 0 ? (
+          <div className="empty" data-testid="roster-empty">
+            No employees match the current filter.
+          </div>
+        ) : (
+          <div className="grid grid-2" data-testid="roster-list">
+            {cards.map((card) => (
+              <RosterCard
+                key={card.profile.id}
+                card={card}
+                pendingRelease={pendingRelease === card.profile.id}
+                onAskRelease={() => setPendingRelease(card.profile.id)}
+                onCancelRelease={() => setPendingRelease(null)}
+                onConfirmRelease={() => release(card.profile.id)}
+                onRenew={renew}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// One employee card: identity, all four discipline OVRs, potential, contract terms,
+// termination cost, and renew/release actions.
+function RosterCard({
+  card,
+  pendingRelease,
+  onAskRelease,
+  onCancelRelease,
+  onConfirmRelease,
+  onRenew,
+}: {
+  card: EmploymentCard
+  pendingRelease: boolean
+  onAskRelease: () => void
+  onCancelRelease: () => void
+  onConfirmRelease: () => void
+  onRenew: (talentId: string, termWeeks: number) => void
+}) {
+  const { profile, employment } = card
+  const contract = employment.contract
+  const primary = profile.disciplines.find((d) => d.isPrimary)
+  const id = profile.id
+
+  // Renewal terms: the pre-populated offer options if present, else the four defaults.
+  const renewOffers: { termWeeks: number; signingBonus: number | null }[] =
+    employment.offerOptions.length > 0
+      ? employment.offerOptions.map((o) => ({ termWeeks: o.termWeeks, signingBonus: o.signingBonus }))
+      : RENEW_TERMS.map((termWeeks) => ({ termWeeks, signingBonus: null }))
+
+  return (
+    <div className="panel stack" data-testid={`roster-card-${id}`}>
+      <div className="spread">
+        <strong>{profile.name}</strong>
+        <span className="sub">{ROLE_LABEL[profile.role]}</span>
+      </div>
+
+      <div className="row" style={{ gap: 16 }}>
+        {profile.disciplines.map((d) => (
+          <Metric
+            key={d.discipline}
+            label={d.isPrimary ? `${d.label} ★` : d.label}
+            small
+            testid={`roster-ovr-${id}-${d.discipline}`}
+          >
+            {d.ovr}
+          </Metric>
+        ))}
+      </div>
+
+      <div className="spread">
+        <span className="hint">Star power: {starPower(profile.fame)}</span>
+        <span className="hint">Work ethic: {profile.workEthicLabel}</span>
+      </div>
+      {primary && (
+        <span className="hint">
+          <span className="tag estimate" style={{ marginRight: 6 }}>
+            Est
+          </span>
+          {primary.label} potential {primary.potentialTier} · OVR {primary.potentialLow}–
+          {primary.potentialHigh}
+        </span>
+      )}
+
+      <div className="sep" />
+
+      <div className="spread">
+        <span className="hint">Status</span>
+        <span className="mono">{STATUS_LABEL[employment.status] ?? employment.status}</span>
+      </div>
+
+      {contract === null ? (
+        <p className="hint">No active contract.</p>
+      ) : (
+        <>
+          <div className="row" style={{ gap: 24 }}>
+            <Metric label="Annual salary" small testid={`roster-salary-${id}`}>
+              {money(contract.annualSalary)}
+            </Metric>
+            <Metric label="Contract ends" small testid={`roster-ends-${id}`}>
+              week {contract.endWeekExclusive} · {(contract.remainingWeeks / 52).toFixed(1)} yr left
+            </Metric>
+            <Metric label="Termination cost" small testid={`roster-termcost-${id}`}>
+              {money(contract.terminationCost)}
+            </Metric>
+          </div>
+
+          {contract.renewalOpen && (
+            <div className="stack" data-testid={`roster-renew-${id}`}>
+              <span className="hint">Renewal window open</span>
+              <div className="btn-row">
+                {renewOffers.map((o) => (
+                  <button
+                    key={o.termWeeks}
+                    className="accent"
+                    onClick={() => onRenew(id, o.termWeeks)}
+                    data-testid={`roster-renew-${id}-${o.termWeeks}`}
+                  >
+                    Renew {o.termWeeks / 52} yr
+                    {o.signingBonus !== null ? ` · ${money(o.signingBonus)} bonus` : ''}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
+      <div className="btn-row">
+        {pendingRelease ? (
+          <>
+            <button
+              className="primary"
+              onClick={onConfirmRelease}
+              data-testid={`roster-confirm-release-${id}`}
+            >
+              Confirm release · costs {money(contract?.terminationCost ?? 0)}
+            </button>
+            <button className="ghost" onClick={onCancelRelease} data-testid={`roster-cancel-release-${id}`}>
+              Cancel
+            </button>
+          </>
+        ) : (
+          <button className="ghost" onClick={onAskRelease} data-testid={`roster-release-${id}`}>
+            Release
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}

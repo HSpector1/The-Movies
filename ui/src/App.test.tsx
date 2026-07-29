@@ -7,11 +7,37 @@ import { describe, it, expect } from 'vitest'
 import { render, screen, within, fireEvent } from '@testing-library/react'
 import { App } from './App.tsx'
 
+// D-11.2: a new game now opens the FOUNDING DRAFT — the player hires an initial
+// roster before the studio can staff films. Sign the role minimums (D-11.A: 3 actors,
+// 1 director, 2 writers, 1 craft), with extra actors so a full cast can be chosen,
+// then found the studio to land on the dashboard. Signing draws the recruitment
+// fund, not operating cash. We click the first available sign button in each role
+// group N times (a signed applicant no longer shows a sign button, so re-querying
+// advances to the next applicant).
+function foundViaUi() {
+  const signInGroup = (role: string, n: number) => {
+    fireEvent.click(screen.getByTestId(`founding-tab-${role}`)) // D-11.D: select the profession tab
+    for (let i = 0; i < n; i++) {
+      const group = screen.getByTestId(`founding-group-${role}`)
+      const signBtn = within(group)
+        .getAllByRole('button')
+        .find((b) => (b.getAttribute('data-testid') ?? '').startsWith('founding-sign-'))!
+      fireEvent.click(signBtn)
+    }
+  }
+  signInGroup('actor', 6) // > min 3 (D-11.A); enough distinct actors for a full cast
+  signInGroup('director', 2) // > min 1
+  signInGroup('writer', 2) // = min 2
+  signInGroup('craft', 2) // > min 1; a craft lead is required to cast a film (D-11.13)
+  fireEvent.click(screen.getByTestId('found-studio'))
+}
+
 function startNewGame(seed = 'e2e-seed') {
   render(<App />)
   const seedInput = screen.getByTestId('seed-input') as HTMLInputElement
   fireEvent.change(seedInput, { target: { value: seed } })
   fireEvent.click(screen.getByTestId('new-game'))
+  foundViaUi()
 }
 
 describe('App end-to-end loop', () => {
@@ -64,6 +90,8 @@ describe('App end-to-end loop', () => {
     pickFirstEligible('picker-lead')
     pickFirstEligible('picker-antagonist')
     pickFirstEligible('picker-support')
+    // D-11.13: a Production/Craft Lead is now required to leave the talent step.
+    pickFirstEligible('picker-craft')
 
     fireEvent.click(screen.getByTestId('assembly-next')) // → budget
 
@@ -86,6 +114,12 @@ describe('App end-to-end loop', () => {
       const advance = screen.queryByTestId('advance-week')
       if (advance) {
         fireEvent.click(advance)
+      }
+      // D-11.C: when a film actually releases, the newspaper front page shows FIRST.
+      // Continue through it to reach the release/development summary with the cards.
+      const newspaperContinue = screen.queryByTestId('newspaper-continue')
+      if (newspaperContinue) {
+        fireEvent.click(newspaperContinue)
       }
       // On the release screen, look for a release card.
       const list = screen.queryByTestId('release-list')

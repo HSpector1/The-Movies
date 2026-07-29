@@ -60,6 +60,22 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
   await expect(page.getByTestId('new-game')).toBeVisible()
   await page.getByTestId('seed-input').fill(SEED)
   await page.getByTestId('new-game').click()
+  // D-11: hire a generous initial roster (so the specialist-vs-star comparison below
+  // has variety in the studio pool), then found the studio.
+  await expect(page.getByTestId('found-studio')).toBeVisible()
+  for (const [role, count] of [
+    ['actor', 9],
+    ['director', 3],
+    ['writer', 4],
+    ['craft', 3],
+  ] as Array<[string, number]>) {
+    await page.getByTestId(`founding-tab-${role}`).click() // D-11.D: select the profession tab
+    const group = page.getByTestId(`founding-group-${role}`)
+    for (let i = 0; i < count; i++) {
+      await group.locator('button[data-testid^="founding-sign-"]').first().click()
+    }
+  }
+  await page.getByTestId('found-studio').click()
   await expect(page.getByTestId('dash-week')).toHaveText('0')
 
   // ── STEP 2 — Assemble Film A with obvious mismatches. ───────────────────────
@@ -82,7 +98,7 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
   const revenueBefore = ((await page.getByTestId('pkg-profit-revenue').textContent()) ?? '').trim()
   // The two disclosures are surfaced from the start (cohesion is talent-independent).
   await expect(page.getByTestId('pkg-cohesion-disclosure')).toContainText(/talent is assessed separately/i)
-  await expect(page.getByTestId('pkg-profit-disclosure')).toContainText(/no distributor/i)
+  await expect(page.getByTestId('pkg-profit-disclosure')).toContainText(/blended rental share/i)
   await shot(page, 'fp-A1-mismatched-package')
 
   // ── STEP 4 — Replace each mismatch with the strongest assignment-specific candidate. ──
@@ -112,6 +128,8 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
   await shot(page, 'fp-A2-improved-package')
 
   // ── STEP 6 — Greenlight and release Film A. ─────────────────────────────────
+  // D-11.13: a Production/Craft Lead is required before leaving the talent step.
+  await page.getByTestId('picker-craft').locator('button[aria-pressed]:not([disabled])').first().click()
   await page.getByTestId('assembly-next').click() // → budget/forecast
   await expect(page.getByTestId('forecast-display')).toBeVisible()
   await page.getByTestId('assembly-next').click() // → review
@@ -124,6 +142,8 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
   // ── STEP 7 — Compare the greenlight assessment with the autopsy (locked vs actual). ──
   await page.getByTestId(`open-autopsy-${prodIdA}`).click()
   await expect(page.getByTestId('autopsy')).toBeVisible()
+  // D-11.D: the locked greenlight comparison now lives under Advanced Analysis — expand it.
+  await page.getByTestId('autopsy-advanced-toggle').click()
   // The LOCKED greenlight decision is graded against the ACTUAL result: both are visible.
   const compare = page.getByTestId('autopsy-greenlight-compare')
   await expect(compare).toBeVisible()
@@ -141,19 +161,33 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
   await page.getByTestId('autopsy-back').click()
   await expect(page.getByTestId('dash-week')).toBeVisible()
 
-  // ── STEP 10 (done early) — Create a CUSTOM Crew member in the Talent Creator. ──
-  // (Created before assembling Film B so it appears in Film B's Crew picker pool.)
+  // ── STEP 10 (done early) — Create a Crew member in the Talent Creator. ──
+  // (Created before assembling Film B so it appears in Film B's Crew picker pool.) D-11.C:
+  // the Talent Creator now opens in the Balanced Career SPECIALIZATION flow by default
+  // (Identity → Profession & preset → Specialization → Review).
   await page.getByTestId('open-talent-creator').click()
-  await expect(page.getByTestId('authored-disclosure')).toBeVisible()
+  await expect(page.getByTestId('balanced-live-preview')).toBeVisible()
   const CREW_NAME = 'Playtest Cinematographer'
   await page.getByTestId('talent-name').fill(CREW_NAME)
   await page.getByTestId('talent-role').selectOption('craft')
-  // identity → temperament → potential → workEthic → emphasis → review (5 Next clicks).
-  for (let i = 0; i < 5; i++) await page.getByTestId('creator-next').click()
+  // identity → profession → specialization → review (3 Next clicks); defaults are valid.
+  for (let i = 0; i < 3; i++) await page.getByTestId('balanced-next').click()
   await page.getByTestId('create-talent').click()
-  // Back on the dashboard after adding to the pool.
+  // Back on the dashboard after adding to the industry.
   await expect(page.getByTestId('dash-week')).toBeVisible()
   await shot(page, 'fp-B0-crew-created')
+
+  // D-11: a created talent joins the industry as a FREE AGENT. To staff them on a
+  // film the studio must SIGN them first (assembly draws only from the roster +
+  // freelancers). Sign the created crew via the Hiring Market, then return.
+  await page.getByTestId('open-hiring').click()
+  await expect(page.getByTestId('hiring-list')).toBeVisible()
+  const crewMarketCard = page.locator('[data-testid^="hiring-card-"]').filter({ hasText: CREW_NAME })
+  await expect(crewMarketCard).toHaveCount(1) // the created crew is signable as a free agent
+  await crewMarketCard.locator('button[data-testid^="hiring-sign-"]').first().click()
+  await page.getByTestId('hiring-back').click()
+  await expect(page.getByTestId('dash-week')).toBeVisible()
+  await shot(page, 'fp-B0b-crew-signed')
 
   // ── STEP 8 — Assemble Film B using a lower-OVR SPECIALIST with higher Fit. ───
   await toTalentStep(page)
@@ -195,6 +229,7 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
   // ── STEP 12 — Confirm the result remains uncertain but EXPLAINABLE. ──────────
   await page.getByTestId(`open-autopsy-${prodIdB}`).click()
   await expect(page.getByTestId('autopsy')).toBeVisible()
+  await page.getByTestId('autopsy-advanced-toggle').click() // D-11.D: expand Advanced Analysis
   // The autopsy explicitly frames the locked estimate as never-a-guarantee (uncertain)...
   await expect(page.getByTestId('autopsy-greenlight-compare')).toContainText(
     /could still have gone the other way/i,
@@ -214,6 +249,9 @@ async function advanceToRelease(page: Page): Promise<string> {
   for (let i = 0; i < 20 && !prodId; i++) {
     const advance = page.getByTestId('advance-week')
     if (await advance.isVisible().catch(() => false)) await advance.click()
+    // D-11.C PART 2: continue through the newspaper reveal to reach the release summary.
+    const newspaper = page.getByTestId('newspaper-continue')
+    if (await newspaper.isVisible().catch(() => false)) await newspaper.click()
     const releaseList = page.getByTestId('release-list')
     if (await releaseList.isVisible().catch(() => false)) {
       const cards = releaseList.locator('[data-testid^="release-card-"]')

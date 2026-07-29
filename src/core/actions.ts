@@ -33,6 +33,20 @@
 //   - Actions are processed in array order over an evolving state, so a
 //     createTalent earlier in the list is visible to a later greenlight.
 
+import {
+  activeContract,
+  canAfford,
+  contractOffer,
+  employmentEngaged,
+  foundingGaps,
+  foundingMinimumsMet,
+  freelancerFee,
+  freelancerMarketIds,
+  hiringMarketIds,
+  isContracted,
+  renewalWindowOpen,
+  terminationCost,
+} from './employment.js'
 import { computeForecast, type ForecastContext } from './forecast.js'
 import { clamp } from './math.js'
 import type { ReceptionInputs } from './reception.js'
@@ -42,28 +56,38 @@ import {
   AUTHORED_START_OVR,
   AUTHORED_TIER_COST,
   AUTHORED_TIER_RANGE,
+  BALANCED_ARCHETYPES,
   DISCIPLINE_ORDER,
   GENRE_ORDER,
   ROLE_TO_DISCIPLINE,
   SKILL_ORDER,
   TUNING,
 } from './tuning.js'
-import { roleOVR } from './talentSummary.js'
+import { expectedPerformance, projectFit, roleOVR } from './talentSummary.js'
 import type {
   Action,
+  ArchetypePreset,
   AuthoredTalentInput,
+  BalancedTalentInput,
   CastSlot,
   Ceilings,
+  Contract,
   CreativeRole,
+  CustomTalentInput,
   DevRates,
   Discipline,
   DisciplineSkills,
+  FilmParticipant,
+  FilmParticipants,
   Forecast,
   GameState,
   Genre,
   GenreExperience,
+  LedgerEntry,
   PotentialTier,
   Production,
+  Promise as FilmPromise,
+  ShapeEffects,
   SkillBias,
   SkillProfiles,
   Talent,
@@ -78,12 +102,89 @@ const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support'] as con
 // The valid §2 CreativeRole values (createTalent role validation).
 const CREATIVE_ROLES: readonly CreativeRole[] = ['writer', 'director', 'actor', 'craft'] as const
 
-// Production.id / startTick padding (SETTLED OWNER RULING):
-//   Production.id = `prod-${String(startTick).padStart(4,'0')}`
-// startTick is unique per run (≤1 greenlight/tick), so the id is unique,
-// monotonic, and lexically ordered without a GameState counter.
-function productionId(startTick: number): string {
-  return `prod-${String(startTick).padStart(4, '0')}`
+// Production.id (D-11.A uniqueness fix). Base = `prod-${startTick padded}` — kept so
+// the M0A corpus (≤1 greenlight/tick) is byte-identical. But the 2-concurrent rule
+// (B3) lets a PLAYER greenlight two films at the SAME tick, which under the old scheme
+// produced two `prod-0000` ids — the root cause of the duplicated-autopsy bug. So when
+// the base is already taken (by an active OR a released production), append the smallest
+// free `-k` suffix. Deterministic; base id unchanged whenever it is free (i.e. always,
+// in M0A). `taken` = every active + released production id.
+function productionId(startTick: number, taken: ReadonlySet<string>): string {
+  const base = `prod-${String(startTick).padStart(4, '0')}`
+  if (!taken.has(base)) return base
+  let k = 1
+  while (taken.has(`${base}-${k}`)) k++
+  return `${base}-${k}`
+}
+
+// The production id the NEXT greenlight at the current tick WILL allocate — the SAME
+// collision-safe allocation applyGreenlight uses (currentTick + taken active/released ids).
+// Exposed so the UI can preview a Review/Commercial-Outlook forecast on the SAME forecast
+// stream the greenlight will persist. Without this, a same-week SECOND greenlight previews on
+// the bare `prod-<tick>` stream but the engine persists a forecast drawn from `prod-<tick>-1`
+// → the two diverge (D-12 beta P1). Pure; draws from no stream. Identical to the base id in
+// M0A (≤1 greenlight/tick → no collision) so no headless behavior changes.
+export function predictProductionId(state: GameState): string {
+  const taken = new Set<string>()
+  for (const active of state.studio.activeProductions) taken.add(active.id)
+  for (const f of state.studio.releasedFilms) taken.add(f.productionId)
+  return productionId(state.market.tick, taken)
+}
+
+// D-11.A — capture the film's immutable participant record at the LOCKED greenlight
+// (perceived values). `freelancer` = engaged as a freelancer (not studio-contracted).
+function buildParticipant(
+  state: GameState,
+  talent: Talent,
+  role: FilmParticipant['role'],
+  discipline: Discipline,
+  slot: CastSlot | undefined,
+  concept: FilmConceptLike,
+  shapeEffects: ShapeEffects,
+  promise: FilmPromise,
+  shape: Production['shape'],
+): FilmParticipant {
+  const ep = expectedPerformance(talent, discipline, concept, slot, shapeEffects, promise, shape)
+  return {
+    talentId: talent.id,
+    name: talent.name,
+    role,
+    discipline,
+    greenlightOVR: Math.round(roleOVR(talent, discipline)),
+    greenlightFit: Math.round(projectFit(talent, discipline, concept, slot, shapeEffects, promise, shape)),
+    greenlightEP: { low: ep.low, high: ep.high, expected: ep.expected },
+    freelancer: !isContracted(state, talent.id),
+  }
+}
+
+// The FilmConcept shape the talentSummary helpers need (kept local to avoid a wide import).
+type FilmConceptLike = Parameters<typeof projectFit>[2]
+
+function buildFilmParticipants(
+  state: GameState,
+  parts: {
+    writer: Talent
+    director: Talent
+    cast: Record<CastSlot, Talent>
+    craftHires: Talent[]
+  },
+  concept: FilmConceptLike,
+  shapeEffects: ShapeEffects,
+  promise: FilmPromise,
+  shape: Production['shape'],
+): FilmParticipants {
+  const P = (t: Talent, role: FilmParticipant['role'], d: Discipline, slot: CastSlot | undefined) =>
+    buildParticipant(state, t, role, d, slot, concept, shapeEffects, promise, shape)
+  return {
+    writer: P(parts.writer, 'writer', 'writing', undefined),
+    director: P(parts.director, 'director', 'directing', undefined),
+    cast: {
+      lead: P(parts.cast.lead, 'lead', 'acting', 'lead'),
+      antagonist: P(parts.cast.antagonist, 'antagonist', 'acting', 'antagonist'),
+      support: P(parts.cast.support, 'support', 'acting', 'support'),
+    },
+    craft: parts.craftHires.map((c) => P(c, 'craft', 'craft', undefined)),
+  }
 }
 
 // Authored-talent id scheme (§10). Worldgen ids are `t-<role3>-NN` and `c-NN`;
@@ -139,6 +240,11 @@ function requireRole(t: Talent, role: CreativeRole, label: string): void {
 function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }): GameState {
   const p = prod.production
   const currentTick = state.market.tick
+
+  // D-11.2 — no greenlight during the founding draft (assemble a roster first).
+  if (state.founding !== null) {
+    throw new Error('applyActions: greenlight rejected — the studio is still in its founding draft (D-11)')
+  }
 
   // M16.6 / B3 — concurrency: greenlight valid only while under the cap.
   if (state.studio.activeProductions.length >= TUNING.MAX_CONCURRENT_PRODUCTIONS) {
@@ -241,7 +347,13 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
   }
 
   // ── Apply ──────────────────────────────────────────────────────────────────
-  const id = productionId(currentTick)
+  // Unique id even for same-tick greenlights (D-11.A): base id unless already taken
+  // by an active or released production. In M0A (≤1 greenlight/tick) the base is always
+  // free, so ids are byte-identical to before.
+  const takenIds = new Set<string>()
+  for (const active of state.studio.activeProductions) takenIds.add(active.id)
+  for (const f of state.studio.releasedFilms) takenIds.add(f.productionId)
+  const id = productionId(currentTick, takenIds)
   const startTick = currentTick
   const remainingTicks = TUNING.PRODUCTION_TICKS
 
@@ -272,14 +384,96 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
     releasedFilms: state.studio.releasedFilms,
     concepts: state.concepts,
   }
-  const forecastSnapshot: Forecast = computeForecast(inp, ctx)
+  // D-12: the greenlight forecast saturates fame→opening reach AND applies the P2 economy
+  // calibration (gross scale + awareness marketing) with the SAME helper as the realized release
+  // when engaged (economyEngaged ≡ employmentEngaged), so forecast and result stay consistent; M0A
+  // (not engaged) uses the legacy path (byte-identical). Both flags are the same production signal.
+  const engaged = employmentEngaged(state)
+  const forecastSnapshot: Forecast = computeForecast(inp, ctx, engaged, engaged)
 
-  // D-1 ledger: debit negative + marketing + Σ salaries (writer, director, all
-  // cast, all craft — summed in fixed order). Cash may go negative; no credit here.
-  let salaries = writer.salary + director.salary
-  for (const slot of CAST_SLOTS) salaries += cast[slot].salary
-  for (const c of craftHires) salaries += c.salary
-  const cash = state.studio.cash - (p.budget.negative + p.budget.marketing + salaries)
+  // ── Ledger + cash (D-1 unchanged when employment NOT engaged; D-11 economics
+  // when engaged). Both paths keep the reconciliation invariant
+  //   cash === INITIAL_CASH + Σ ledger.amount
+  // by logging every cash movement. The production entry always covers
+  // negative + marketing; the salary/fee treatment differs by mode.
+  const productionCost = p.budget.negative + p.budget.marketing
+  let cash: number
+  const ledgerAdds: LedgerEntry[] = []
+
+  if (employmentEngaged(state)) {
+    // D-11.13 — every film requires exactly ONE Production/Craft Lead.
+    if (p.craftIds.length !== 1) {
+      throw new Error(
+        `applyActions: greenlight rejected — a film requires exactly one Production/Craft Lead (got ${p.craftIds.length}) (D-11.13)`,
+      )
+    }
+    // D-11.12 — each assigned talent must be Studio-Contracted OR an Available
+    // Freelancer. Contracted talent cost nothing at greenlight (payroll covers
+    // them, D-11.5); each freelancer costs a one-film fee (a direct project cost,
+    // D-11.10), debited and logged separately from payroll.
+    const freelancerMarket = new Set(freelancerMarketIds(state))
+    const assigned: Talent[] = [writer, director, cast.lead, cast.antagonist, cast.support, ...craftHires]
+    let freelancerFees = 0
+    for (const t of assigned) {
+      if (isContracted(state, t.id)) continue // payroll covers contracted talent
+      if (!freelancerMarket.has(t.id)) {
+        throw new Error(
+          `applyActions: greenlight rejected — talent "${t.id}" is neither studio-contracted nor an available freelancer (D-11.12)`,
+        )
+      }
+      const fee = freelancerFee(t)
+      freelancerFees += fee
+      ledgerAdds.push({
+        week: currentTick,
+        kind: 'freelancerFee',
+        amount: -fee,
+        talentId: t.id,
+        productionId: id,
+        note: 'freelancer one-film fee',
+      })
+    }
+    // D-12 solvency gate — a voluntary greenlight (production + marketing + freelancer fees)
+    // may not leave cash below zero. Unavoidable weekly costs may still go negative later.
+    const aff = canAfford(state, productionCost + freelancerFees)
+    if (!aff.ok) {
+      throw new Error(`applyActions: greenlight rejected — ${aff.reason} (D-12 solvency gate)`)
+    }
+    cash = state.studio.cash - productionCost - freelancerFees
+    ledgerAdds.unshift({
+      week: currentTick,
+      kind: 'production',
+      amount: -productionCost,
+      productionId: id,
+      note: 'negative + marketing',
+    })
+  } else {
+    // D-1 (open pool, headless corpus): debit negative + marketing + Σ salaries.
+    let salaries = writer.salary + director.salary
+    for (const slot of CAST_SLOTS) salaries += cast[slot].salary
+    for (const c of craftHires) salaries += c.salary
+    cash = state.studio.cash - (productionCost + salaries)
+    ledgerAdds.push({
+      week: currentTick,
+      kind: 'production',
+      amount: -(productionCost + salaries),
+      productionId: id,
+      note: 'negative + marketing + salaries (D-1)',
+    })
+  }
+
+  // D-11.A — capture the immutable participant record at this LOCKED greenlight, but
+  // ONLY when employment is engaged (so M0A/legacy productions carry no such field and
+  // stay byte-identical). resolveShape(p.shape) matches the ReceptionInputs shapeEffects.
+  const participants: FilmParticipants | undefined = employmentEngaged(state)
+    ? buildFilmParticipants(
+        state,
+        { writer, director, cast, craftHires },
+        concept,
+        resolveShape(p.shape),
+        p.promise,
+        p.shape,
+      )
+    : undefined
 
   const production: Production = {
     id,
@@ -294,6 +488,7 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
     startTick,
     remainingTicks,
     forecastSnapshot,
+    ...(participants ? { participants } : {}),
   }
 
   return {
@@ -303,6 +498,7 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
       cash,
       activeProductions: [...state.studio.activeProductions, production],
     },
+    ledger: [...state.ledger, ...ledgerAdds],
   }
 }
 
@@ -538,10 +734,501 @@ function applyCreateTalent(state: GameState, action: Action & { kind: 'createTal
 
   const id = authoredTalentId(state.talent)
   const talent = constructAuthoredTalent(a, id, state.seed)
+  return withCreatedTalent(state, talent)
+}
 
+// D-11.A — place a freshly-created talent into the industry WITHOUT auto-employing
+// them (owner: "must not automatically become a free employee"). During founding →
+// the founding applicant pool (signable under recruitment-fund rules, countable toward
+// the minimum once signed). During operations → a Free Agent (signable via the Hiring
+// Market). Idempotent (dedupe guard) so repeated confirm/back-nav never duplicates.
+function withCreatedTalent(state: GameState, talent: Talent): GameState {
+  const base: GameState = { ...state, talent: [...state.talent, talent] }
+  if (state.founding !== null) {
+    const applicantIds = state.founding.applicantIds.includes(talent.id)
+      ? state.founding.applicantIds
+      : [...state.founding.applicantIds, talent.id]
+    return { ...base, founding: { ...state.founding, applicantIds } }
+  }
+  const freeAgents = state.freeAgents.includes(talent.id)
+    ? state.freeAgents
+    : [...state.freeAgents, talent.id]
+  return { ...base, freeAgents }
+}
+
+// ── §10 / D-11.A createCustomTalent (Full Custom) ────────────────────────────
+// Build a Talent from the player's DIRECT authoritative edits (no creation budget).
+// perceived = actual (persona AND skills). Every value is clamped to its authoritative
+// bound (defensive; the UI validates too). Ceilings default to the skill value (no
+// hidden upside) unless supplied; genre experience defaults to 0. devRate is a neutral
+// deterministic draw. Legacy `skill` = primary perceived OVR. OVR is NOT an input.
+function constructCustomTalent(a: CustomTalentInput, id: string, seed: string): Talent {
+  const primary = ROLE_TO_DISCIPLINE[a.role]
+  const s = stream(seed, 'worldgen', `custom-${id}`)
+
+  const skills = {} as SkillProfiles
+  const ceilings = {} as Ceilings
+  for (const d of DISCIPLINE_ORDER) {
+    const keys = SKILL_ORDER[d]
+    const skillVals = a.skills[d] ?? []
+    const ceilVals = a.ceilings?.[d]
+    const ds: DisciplineSkills = {}
+    const dc: Record<string, number> = {}
+    for (let i = 0; i < keys.length; i++) {
+      const v = clamp(iround(Number(skillVals[i] ?? 1)), 1, 99)
+      ds[keys[i]!] = { actual: v, perceived: v } // perceived = actual at creation
+      const rawCeil = ceilVals?.[i]
+      const c = rawCeil === undefined ? v : clamp(iround(Number(rawCeil)), v, 99)
+      dc[keys[i]!] = c
+    }
+    skills[d] = ds
+    ceilings[d] = dc
+  }
+
+  // Dev rates: neutral deterministic per-discipline draws (independent of skills).
+  const devRate = {} as DevRates
+  for (const d of DISCIPLINE_ORDER) {
+    devRate[d] = clamp(s.uniform(TUNING.DEV_RATE_MIN, TUNING.DEV_RATE_MAX), TUNING.DEV_RATE_MIN, TUNING.DEV_RATE_MAX)
+  }
+
+  // Genre experience: from the input where supplied (perceived = actual), else 0.
+  const genreExperience = {} as GenreExperience
+  for (const d of DISCIPLINE_ORDER) {
+    const rec = {} as Record<Genre, { actual: number; perceived: number }>
+    const supplied = a.genreExperience?.[d]
+    for (const g of GENRE_ORDER) {
+      const v = clamp(iround(Number(supplied?.[g] ?? 0)), 0, 100)
+      rec[g] = { actual: v, perceived: v }
+    }
+    genreExperience[d] = rec
+  }
+
+  const workHistory = {} as WorkHistory
+  for (const d of DISCIPLINE_ORDER) workHistory[d] = 0
+
+  const t: Talent = {
+    id,
+    name: a.name,
+    role: a.role,
+    age: clamp(iround(a.age), 18, 70),
+    actual: { ...a.actual },
+    perceived: { ...a.actual },
+    fame: clamp(a.fame, 0, 100),
+    salary: 0, // set below
+    authored: true,
+    skills,
+    ceilings,
+    devRate,
+    workEthic: clamp(iround(a.workEthic), 1, 99),
+    genreExperience,
+    workHistory,
+    skill: 0, // set below
+  }
+  t.skill = roleOVR(t, primary)
+  t.salary = salaryCurve(t)
+  return t
+}
+
+// Build a PREVIEW Talent from a Full-Custom input WITHOUT mutating state — for the
+// creator's live OVR / salary / contract-offer preview (D-11.A A3). id is a stable
+// placeholder so the preview offer's per-talent jitter is deterministic.
+export function previewCustomTalent(input: CustomTalentInput, seed: string): Talent {
+  return constructCustomTalent(input, 'authored-preview', seed)
+}
+
+function applyCreateCustomTalent(state: GameState, action: Action & { kind: 'createCustomTalent' }): GameState {
+  const a = action.talent
+  if (typeof a.name !== 'string' || a.name.trim() === '') {
+    throw new Error('applyActions: createCustomTalent requires a non-empty name')
+  }
+  if (!CREATIVE_ROLES.includes(a.role)) {
+    throw new Error(`applyActions: createCustomTalent role "${a.role}" is not a valid CreativeRole`)
+  }
+  if (!Number.isFinite(a.age) || a.age < 18 || a.age > 70) {
+    throw new Error(`applyActions: createCustomTalent age ${a.age} out of range [18, 70]`)
+  }
+  if (!Number.isFinite(a.workEthic) || a.workEthic < 1 || a.workEthic > 99) {
+    throw new Error(`applyActions: createCustomTalent workEthic ${a.workEthic} out of range [1, 99]`)
+  }
+  if (!Number.isFinite(a.fame) || a.fame < 0 || a.fame > 100) {
+    throw new Error(`applyActions: createCustomTalent fame ${a.fame} out of range [0, 100]`)
+  }
+  for (const d of DISCIPLINE_ORDER) {
+    const vals = a.skills[d]
+    if (!Array.isArray(vals) || vals.length !== SKILL_ORDER[d].length) {
+      throw new Error(`applyActions: createCustomTalent skills.${d} must be ${SKILL_ORDER[d].length} values`)
+    }
+    for (const v of vals) {
+      if (!Number.isFinite(v)) {
+        throw new Error(`applyActions: createCustomTalent skills.${d} contains a non-finite value`)
+      }
+    }
+  }
+  const id = authoredTalentId(state.talent)
+  const talent = constructCustomTalent(a, id, state.seed)
+  return withCreatedTalent(state, talent)
+}
+
+// ── §10 / D-11.C createBalancedTalent (Balanced specialization) ──────────────
+// Baseline: every skill starts at the floor; the archetype preset shapes the primary
+// discipline (OVR ≈ 38–45) + a secondary baseline (+ an adjacent multi-hyphenate boost)
+// + a small primary-genre baseline. The player's 40-point allocation then adds +1 per
+// authoritative skill/genre point (bounds-checked). Ceilings from the chosen tier;
+// workEthic as chosen; fame from the preset. perceived = actual. OVR is DERIVED.
+
+// Adjacent discipline for a multi-hyphenate boost when the boost role's discipline equals
+// the primary (so the boost always lands on a DIFFERENT discipline).
+export const ADJACENT_DISCIPLINE: Record<Discipline, Discipline> = {
+  acting: 'directing',
+  writing: 'directing',
+  directing: 'writing',
+  craft: 'directing',
+}
+
+// The discipline a preset's multi-hyphenate secondary boost actually lands on: the boost
+// role's discipline, remapped to the ADJACENT discipline when it would collide with the
+// primary (so the boost is always a DIFFERENT, genuinely-secondary discipline). Null when
+// the preset has no secondary boost. SINGLE SOURCE OF TRUTH shared by the engine
+// (constructBalancedTalent) and the creator UI baseline display, so the two cannot diverge.
+export function balancedBoostDiscipline(preset: ArchetypePreset, primary: Discipline): Discipline | null {
+  if (!preset.secondaryBoost) return null
+  const d = ROLE_TO_DISCIPLINE[preset.secondaryBoost.role]
+  return d === primary ? ADJACENT_DISCIPLINE[primary] : d
+}
+
+function findArchetype(presetId: string) {
+  const p = BALANCED_ARCHETYPES.find((x) => x.id === presetId)
+  if (p === undefined) throw new Error(`applyActions: createBalancedTalent unknown presetId "${presetId}"`)
+  return p
+}
+
+// Total specialization points requested across skills + genre.
+function balancedAllocationTotal(a: BalancedTalentInput): number {
+  let total = 0
+  const sk = a.allocation.skills
+  if (sk) for (const d of DISCIPLINE_ORDER) for (const v of sk[d] ?? []) total += v
+  const ge = a.allocation.genre
+  if (ge) {
+    for (const d of DISCIPLINE_ORDER) {
+      const row = ge[d]
+      if (row) for (const g of GENRE_ORDER) total += row[g] ?? 0
+    }
+  }
+  return total
+}
+
+function constructBalancedTalent(a: BalancedTalentInput, id: string, seed: string): Talent {
+  const preset = findArchetype(a.presetId)
+  const primary = ROLE_TO_DISCIPLINE[a.role]
+  const s = stream(seed, 'worldgen', `balanced-${id}`)
+  const floor = TUNING.BALANCED_CREATOR_SKILL_FLOOR
+
+  // 1–4. Baseline skill vectors per discipline (floor → preset primary → secondary
+  // baseline → optional adjacent multi-hyphenate boost).
+  const vec: Record<Discipline, number[]> = {
+    acting: new Array(6).fill(floor),
+    writing: new Array(6).fill(floor),
+    directing: new Array(6).fill(floor),
+    craft: new Array(6).fill(floor),
+  }
+  for (const d of DISCIPLINE_ORDER) {
+    if (d === primary) vec[d] = preset.primarySkills.map((v) => Math.max(floor, v))
+    else vec[d] = new Array(6).fill(Math.max(floor, preset.secondaryBaseline))
+  }
+  const boostD = balancedBoostDiscipline(preset, primary)
+  if (boostD && preset.secondaryBoost) {
+    vec[boostD] = preset.secondaryBoost.skills.map((v) => Math.max(floor, v))
+  }
+
+  // 5. Apply the specialization allocation to skills (+1 per point; clamp 1..99).
+  const skAlloc = a.allocation.skills
+  if (skAlloc) {
+    for (const d of DISCIPLINE_ORDER) {
+      const incs = skAlloc[d]
+      if (!incs) continue
+      for (let i = 0; i < 6; i++) vec[d][i] = clamp(vec[d]![i]! + Math.max(0, iround(incs[i] ?? 0)), 1, 99)
+    }
+  }
+
+  // Build SkillProfiles (perceived = actual).
+  const skills = {} as SkillProfiles
+  for (const d of DISCIPLINE_ORDER) {
+    const keys = SKILL_ORDER[d]
+    const ds: DisciplineSkills = {}
+    for (let i = 0; i < keys.length; i++) {
+      const v = clamp(iround(vec[d]![i]!), 1, 99)
+      ds[keys[i]!] = { actual: v, perceived: v }
+    }
+    skills[d] = ds
+  }
+
+  // 6. Genre experience: preset primary baseline + allocation increments (perceived = actual).
+  const genreAlloc = a.allocation.genre
+  const genreExperience = {} as GenreExperience
+  for (const d of DISCIPLINE_ORDER) {
+    const rec = {} as Record<Genre, { actual: number; perceived: number }>
+    for (const g of GENRE_ORDER) {
+      const baseline = d === primary ? preset.genreBaseline[g] ?? 0 : 0
+      const inc = genreAlloc?.[d]?.[g] ?? 0
+      const v = clamp(iround(baseline + Math.max(0, inc)), 0, 100)
+      rec[g] = { actual: v, perceived: v }
+    }
+    genreExperience[d] = rec
+  }
+
+  // 7. Ceilings from the chosen tier (primary from the tier band; others lower), floored
+  //    at the current actual — reuses the authored ceiling curve.
+  const tierRange = AUTHORED_TIER_RANGE[a.potentialTier]
+  const ceilingOVRTarget = s.uniform(tierRange[0], tierRange[1])
+  const ceilings = {} as Ceilings
+  for (const d of DISCIPLINE_ORDER) {
+    const target = d === primary ? ceilingOVRTarget : Math.max(TUNING.GEN_WEAK_MEAN, ceilingOVRTarget - 20)
+    ceilings[d] = buildAuthoredDisciplineCeilings(d, skills[d], target, undefined, s)
+  }
+
+  // 8. Dev rates (deterministic), workEthic (chosen), fame (from preset).
+  const devRate = {} as DevRates
+  for (const d of DISCIPLINE_ORDER) {
+    devRate[d] = clamp(s.uniform(TUNING.DEV_RATE_MIN, TUNING.DEV_RATE_MAX), TUNING.DEV_RATE_MIN, TUNING.DEV_RATE_MAX)
+  }
+  const workHistory = {} as WorkHistory
+  for (const d of DISCIPLINE_ORDER) workHistory[d] = 0
+
+  const t: Talent = {
+    id,
+    name: a.name,
+    role: a.role,
+    age: clamp(iround(a.age), 18, 70),
+    actual: { ...a.actual },
+    perceived: { ...a.actual },
+    fame: clamp(preset.fame, 0, 100),
+    salary: 0,
+    authored: true,
+    skills,
+    ceilings,
+    devRate,
+    workEthic: clamp(iround(a.workEthic), 1, 99),
+    genreExperience,
+    workHistory,
+    skill: 0,
+  }
+  t.skill = roleOVR(t, primary)
+  t.salary = salaryCurve(t)
+  return t
+}
+
+// Preview a Balanced-Career talent WITHOUT mutating state (live OVR/salary/contract).
+export function previewBalancedTalent(input: BalancedTalentInput, seed: string): Talent {
+  return constructBalancedTalent(input, 'authored-preview', seed)
+}
+
+function applyCreateBalancedTalent(state: GameState, action: Action & { kind: 'createBalancedTalent' }): GameState {
+  const a = action.talent
+  if (typeof a.name !== 'string' || a.name.trim() === '') {
+    throw new Error('applyActions: createBalancedTalent requires a non-empty name')
+  }
+  if (!CREATIVE_ROLES.includes(a.role)) {
+    throw new Error(`applyActions: createBalancedTalent role "${a.role}" is not a valid CreativeRole`)
+  }
+  if (!Number.isFinite(a.age) || a.age < 18 || a.age > 70) {
+    throw new Error(`applyActions: createBalancedTalent age ${a.age} out of range [18, 70]`)
+  }
+  if (!Number.isFinite(a.workEthic) || a.workEthic < 1 || a.workEthic > 99) {
+    throw new Error(`applyActions: createBalancedTalent workEthic ${a.workEthic} out of range [1, 99]`)
+  }
+  if (!POTENTIAL_TIERS.includes(a.potentialTier)) {
+    throw new Error(`applyActions: createBalancedTalent potentialTier "${a.potentialTier}" is not valid`)
+  }
+  findArchetype(a.presetId) // throws on unknown preset
+  // Validate the specialization allocation: non-negative finite integers, total ≤ budget.
+  const sk = a.allocation.skills
+  if (sk) {
+    for (const d of DISCIPLINE_ORDER) {
+      const incs = sk[d]
+      if (incs === undefined) continue
+      if (!Array.isArray(incs) || incs.length !== 6) {
+        throw new Error(`applyActions: createBalancedTalent allocation.skills.${d} must be 6 values`)
+      }
+      for (const v of incs) {
+        if (!Number.isFinite(v) || v < 0 || !Number.isInteger(v)) {
+          throw new Error(`applyActions: createBalancedTalent allocation.skills.${d} must be non-negative integers`)
+        }
+      }
+    }
+  }
+  const ge = a.allocation.genre
+  if (ge) {
+    for (const d of DISCIPLINE_ORDER) {
+      const row = ge[d]
+      if (row === undefined) continue
+      for (const g of GENRE_ORDER) {
+        const v = row[g]
+        if (v === undefined) continue
+        if (!Number.isFinite(v) || v < 0 || !Number.isInteger(v)) {
+          throw new Error(`applyActions: createBalancedTalent allocation.genre.${d}.${g} must be a non-negative integer`)
+        }
+      }
+    }
+  }
+  const total = balancedAllocationTotal(a)
+  if (total > TUNING.BALANCED_CREATOR_SPECIALIZATION_POINTS) {
+    throw new Error(
+      `applyActions: createBalancedTalent allocation ${total} exceeds ${TUNING.BALANCED_CREATOR_SPECIALIZATION_POINTS} specialization points`,
+    )
+  }
+  const id = authoredTalentId(state.talent)
+  const talent = constructBalancedTalent(a, id, state.seed)
+  return withCreatedTalent(state, talent)
+}
+
+// ── D-11 foundStudio — close the founding draft ──────────────────────────────
+// Valid only during a founding draft with every required-discipline minimum met.
+function applyFoundStudio(state: GameState, _action: Action & { kind: 'foundStudio' }): GameState {
+  if (state.founding === null) {
+    throw new Error('applyActions: foundStudio rejected — no founding draft is open (D-11.2)')
+  }
+  if (!foundingMinimumsMet(state)) {
+    const gaps = foundingGaps(state)
+    throw new Error(
+      `applyActions: foundStudio rejected — required roster incomplete (missing actors:${gaps.actor} directors:${gaps.director} writers:${gaps.writer} craft:${gaps.craft}) (D-11.2)`,
+    )
+  }
+  return { ...state, founding: null }
+}
+
+// ── D-11 signContract — sign a talent to a studio contract (D-11.4/.5/.6) ─────
+// During founding: talent must be in the applicant pool; the signing bonus draws
+// the recruitment fund (NOT cash), tracked in founding.spentBonus. During ops:
+// talent must be signable (free agent / hiring market); the bonus debits cash and
+// is logged. Rejected if already contracted. Terms are the deterministic offer.
+function applySignContract(state: GameState, action: Action & { kind: 'signContract' }): GameState {
+  const { talentId, termWeeks } = action
+  const week = state.market.tick
+  requireTalent(state.talent, talentId, 'signContract talentId')
+  if (isContracted(state, talentId)) {
+    throw new Error(`applyActions: signContract rejected — talent "${talentId}" is already contracted (D-11)`)
+  }
+  const offer = contractOffer(state, talentId, termWeeks, week)
+  const contract: Contract = {
+    talentId,
+    annualSalary: offer.annualSalary,
+    signingBonus: offer.signingBonus,
+    startWeek: offer.startWeek,
+    endWeekExclusive: offer.endWeekExclusive,
+    termWeeks: offer.termWeeks,
+  }
+
+  if (state.founding !== null) {
+    if (!state.founding.applicantIds.includes(talentId)) {
+      throw new Error(
+        `applyActions: signContract rejected — talent "${talentId}" is not in the founding applicant pool (D-11.2)`,
+      )
+    }
+    const remaining = state.founding.budget - state.founding.spentBonus
+    if (offer.signingBonus > remaining) {
+      throw new Error(
+        `applyActions: signContract rejected — signing bonus ${offer.signingBonus} exceeds remaining recruitment fund ${remaining} (D-11.2)`,
+      )
+    }
+    return {
+      ...state,
+      founding: { ...state.founding, spentBonus: state.founding.spentBonus + offer.signingBonus },
+      contracts: [...state.contracts, contract],
+      freeAgents: state.freeAgents.filter((id) => id !== talentId),
+    }
+  }
+
+  // Operating phase: talent must be currently signable (hiring market ∪ free agents).
+  if (!hiringMarketIds(state).includes(talentId)) {
+    throw new Error(
+      `applyActions: signContract rejected — talent "${talentId}" is not currently available to sign (D-11.14)`,
+    )
+  }
+  // D-12 solvency gate — the signing bonus is a voluntary immediate commitment.
+  const aff = canAfford(state, offer.signingBonus)
+  if (!aff.ok) {
+    throw new Error(`applyActions: signContract rejected — ${aff.reason} (D-12 solvency gate)`)
+  }
+  const entry: LedgerEntry = {
+    week,
+    kind: 'signingBonus',
+    amount: -offer.signingBonus,
+    talentId,
+    note: 'contract signing bonus',
+  }
   return {
     ...state,
-    talent: [...state.talent, talent],
+    studio: { ...state.studio, cash: state.studio.cash - offer.signingBonus },
+    contracts: [...state.contracts, contract],
+    ledger: [...state.ledger, entry],
+    freeAgents: state.freeAgents.filter((id) => id !== talentId),
+  }
+}
+
+// ── D-11 renewContract — extend during the renewal window (D-11.7) ────────────
+function applyRenewContract(state: GameState, action: Action & { kind: 'renewContract' }): GameState {
+  const { talentId, termWeeks } = action
+  const week = state.market.tick
+  const contract = activeContract(state, talentId)
+  if (contract === undefined) {
+    throw new Error(`applyActions: renewContract rejected — talent "${talentId}" has no active contract (D-11.7)`)
+  }
+  if (!renewalWindowOpen(contract, week)) {
+    throw new Error(
+      `applyActions: renewContract rejected — talent "${talentId}" is not in its renewal window (D-11.7)`,
+    )
+  }
+  const offer = contractOffer(state, talentId, termWeeks, week)
+  const renewed: Contract = {
+    talentId,
+    annualSalary: offer.annualSalary,
+    signingBonus: offer.signingBonus,
+    startWeek: week,
+    endWeekExclusive: week + offer.termWeeks,
+    termWeeks: offer.termWeeks,
+  }
+  // D-12 solvency gate — the renewal signing bonus is a voluntary immediate commitment.
+  const affRenew = canAfford(state, offer.signingBonus)
+  if (!affRenew.ok) {
+    throw new Error(`applyActions: renewContract rejected — ${affRenew.reason} (D-12 solvency gate)`)
+  }
+  const entry: LedgerEntry = {
+    week,
+    kind: 'signingBonus',
+    amount: -offer.signingBonus,
+    talentId,
+    note: 'renewal signing bonus',
+  }
+  return {
+    ...state,
+    studio: { ...state.studio, cash: state.studio.cash - offer.signingBonus },
+    contracts: state.contracts.map((c) => (c === contract ? renewed : c)),
+    ledger: [...state.ledger, entry],
+  }
+}
+
+// ── D-11 releaseTalent — early release; financial consequence only (D-11.9) ───
+function applyReleaseTalent(state: GameState, action: Action & { kind: 'releaseTalent' }): GameState {
+  const { talentId } = action
+  const week = state.market.tick
+  const contract = activeContract(state, talentId)
+  if (contract === undefined) {
+    throw new Error(`applyActions: releaseTalent rejected — talent "${talentId}" has no active contract (D-11.9)`)
+  }
+  const cost = terminationCost(contract, week)
+  const entry: LedgerEntry = {
+    week,
+    kind: 'termination',
+    amount: -cost,
+    talentId,
+    note: 'early-release termination cost',
+  }
+  return {
+    ...state,
+    studio: { ...state.studio, cash: state.studio.cash - cost },
+    contracts: state.contracts.filter((c) => c !== contract),
+    ledger: [...state.ledger, entry],
+    freeAgents: state.freeAgents.includes(talentId) ? state.freeAgents : [...state.freeAgents, talentId],
   }
 }
 
@@ -571,6 +1258,24 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'createTalent':
         next = applyCreateTalent(next, action)
+        break
+      case 'createCustomTalent':
+        next = applyCreateCustomTalent(next, action)
+        break
+      case 'createBalancedTalent':
+        next = applyCreateBalancedTalent(next, action)
+        break
+      case 'foundStudio':
+        next = applyFoundStudio(next, action)
+        break
+      case 'signContract':
+        next = applySignContract(next, action)
+        break
+      case 'renewContract':
+        next = applyRenewContract(next, action)
+        break
+      case 'releaseTalent':
+        next = applyReleaseTalent(next, action)
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).

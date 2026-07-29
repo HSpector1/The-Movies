@@ -9,6 +9,7 @@
 // named exports below — the contract declares them outside §16.
 
 import type {
+  ArchetypePreset,
   CastSlot,
   CulturalForce,
   Discipline,
@@ -95,6 +96,12 @@ export const TUNING = {
   // moved into TUNING per B17, at B17-revised values
   FORECAST_SIGMA: { high: 5, medium: 10, low: 16 },
   CONFIDENCE_INTERVAL_WIDTH: { high: 7, medium: 11, low: 14 },
+  // D-12 final downside: ENGAGED-only ASYMMETRIC downside widening (extra appeal points on the LOW
+  // forecast band only — the expected value and upside are unchanged). At greenlight the studio does
+  // not know future delivery, so an unproven / low-Fit / low-confidence package must show a genuinely
+  // negative downside; a well-assembled, confident package keeps a tight band. Not engaged ⇒ 0 (M0A
+  // byte-identical). Keyed by the film-level confidence tier.
+  FORECAST_DOWNSIDE_WIDEN: { high: 0, medium: 7, low: 16 },
 
   // per D-5 — twelve numbers the tuning loop may adjust (intimacy, tonalWeight, kineticEnergy)
   SEGMENT_TASTES: {
@@ -259,6 +266,147 @@ export const TUNING = {
 
   // forecastProfitRange (#4) — no new numeric weights; it reuses computeBoxOffice on
   // the per-segment low/high estimates and the D-1 committed-cost identity verbatim.
+
+  // ── D-11 Studio Employment, Contracts, Roster, Freelancer Market ─────────────
+  // All calibration defaults (owner: "not immutable design truth"). The balance
+  // study (run-roster-balance-study.ts) validates the resulting distributions.
+
+  // Founding draft (D-11.2): applicant pool sizes + required starting-roster minimums.
+  HIRING_DRAFT_ACTORS: 11, // applicant pool (owner range 10–12)
+  HIRING_DRAFT_DIRECTORS: 4, // (owner range 3–4)
+  HIRING_DRAFT_WRITERS: 6, // (owner range 5–6)
+  HIRING_DRAFT_CRAFT: 3, // Production/Craft candidates (owner: 3)
+  HIRING_MIN_ACTORS: 3, // required initial hires (owner: 3 as of D-11.A cycle-2; was 5)
+  HIRING_MIN_DIRECTORS: 1, // (owner: 1)
+  HIRING_MIN_WRITERS: 1, // (owner: 1 as of D-11.D cycle-4; was 2 — a second writer has no assignable role until persistent scripts)
+  HIRING_MIN_CRAFT: 1, // (owner: 1 Production/Craft Lead)
+  HIRING_FOUNDING_BUDGET: 6_000_000, // recruitment fund (signing-bonus pool; NOT cash)
+
+  // Contract terms (D-11.4). Term stored in weeks; 1..4 years at TICKS_PER_YEAR = 52.
+  CONTRACT_MIN_WEEKS: 52, // 1 year
+  CONTRACT_MAX_WEEKS: 208, // 4 years
+  CONTRACT_TERM_OPTIONS: [52, 104, 156, 208] as readonly number[], // 1/2/3/4-year offers
+
+  // Contract offer pricing (D-11.6). askAnnualSalary = salaryCurve × ANNUAL_MULT ×
+  // lengthFactor × ageFactor × scarcityJitter. ANNUAL_MULT MUST stay < ~9.75 so a
+  // freelancer stays pricier per single film (FREELANCER_FEE_PREMIUM band, D-11.10).
+  CONTRACT_ANNUAL_MULT: 3.0, // per-production salaryCurve → annual salary
+  CONTRACT_LENGTH_FACTOR: { 52: 1.08, 104: 1.0, 156: 0.95, 208: 0.9 } as Record<number, number>,
+  CONTRACT_AGE_PRIME: 34, // age of peak market demand (bell centered here)
+  CONTRACT_AGE_FACTOR_MIN: 0.85, // youngest/oldest ageFactor floor
+  CONTRACT_AGE_SPREAD: 22, // age half-spread for the ageFactor bell
+  CONTRACT_SCARCITY_JITTER: 0.08, // ± deterministic jitter from the 'hiring' stream
+  CONTRACT_SIGNING_BONUS_FRACTION: 0.18, // signingBonus = round(annualSalary × this)
+
+  // Renewal / termination (D-11.7 / D-11.9).
+  HIRING_RENEWAL_WINDOW_WEEKS: 12, // window opens when 0 < remaining ≤ this (owner 8–12)
+  HIRING_TERMINATION_FRACTION: 0.5, // terminationCost = this × remaining guaranteed salary
+
+  // Freelancers (D-11.10). fee = round(salaryCurve × premium); a one-time project cost.
+  FREELANCER_FEE_PREMIUM: 1.5, // freelancer one-film fee vs base per-production salary
+  HIRING_FREELANCER_MARKET_SIZE: 6, // rotating freelancer listing size
+  HIRING_MARKET_SIZE: 8, // rotating hiring-market (contract) listing size
+
+  // Market rotation (D-11.14). Both markets rotate on this cadence, epoch-derived.
+  HIRING_MARKET_ROTATION_WEEKS: 13,
+
+  // ── D-11.C Balanced Creator specialization (cycle 3) ─────────────────────────
+  // Every Balanced-Career professional skill starts at ≥ this floor (basic transferable
+  // competence); the archetype preset then shapes the primary discipline to OVR ≈ 38–45.
+  // Full Custom is UNRESTRICTED (may go below the floor). The player then allocates the
+  // specialization budget (+1 per authoritative skill/genre point). See BALANCED_ARCHETYPES.
+  BALANCED_CREATOR_SKILL_FLOOR: 15,
+  BALANCED_CREATOR_SPECIALIZATION_POINTS: 40,
+
+  // ── D-12 Studio Economy and Theatrical Runs (all Initial Calibration Hypotheses,
+  // harness-tuned, unless marked owner) ────────────────────────────────────────
+  // Gross is conserved (Σ weekly = opening×legs); only the TIMING and the SHARE change,
+  // and everything is gated on economyEngaged so the M0A corpus is byte-identical.
+  STUDIO_RENTAL_BLENDED: 0.52, // [ICH] fraction of weekly gross the studio keeps (sweep 0.42–0.62)
+  THEATRICAL_WEEKS: 6, // [ICH] N_WEEKS modeled theatrical weeks
+  THEATRICAL_HOLD_BASE: 0.42, // [ICH] geometric hold at LEGS_MIN
+  THEATRICAL_HOLD_LEGS_COEF: 0.09, // [ICH] hold += this × (legs − LEGS_MIN)
+  THEATRICAL_TAIL_FLOOR: 0.05, // [ICH] each modeled week earns ≥ this fraction of gross
+  FAME_REACH_HALF_SAT: 50, // [OWNER surface/form; ICH value] Hill K for fame→opening-reach saturation
+  OVERHEAD_BASE: 15_000, // [ICH] fixed weekly studio overhead
+  OVERHEAD_PER_EMPLOYEE: 1_500, // [ICH] weekly overhead per contracted employee
+  ECONOMY_MODEL_VERSION: 1, // [OWNER] 1 = D-12 blended-share theatrical run (0 = legacy full-gross)
+
+  // ── D-12 owner calibration P2 (2026-07-28) ─────────────────────────────────
+  // All THREE constants apply ONLY when the D-12 economy is engaged (saturateFame),
+  // so the M0A corpus stays byte-identical (the non-engaged box-office path is the
+  // legacy MARKETING_HALF_SATURATION Hill with no gross scale). See
+  // docs/D-12-owner-calibration-contract.md.
+  //
+  // (1) Routine opening/gross scale — the single canonical multiplier on the ENGAGED
+  // opening (and thus total + the conserved weekly schedule), applied once, after
+  // creative/talent/Fame/Marketing determine opening and before the schedule + share.
+  // Selected by the integrated owner-route gates: the highest value in [0.65,0.70] that
+  // keeps money meaningfully constrained (competent 4-film median ~1.0–1.6×).
+  ECONOMY_BOX_OFFICE_SCALE: 0.7, // [ICH; owner range 0.65–0.70] — selected: highest value passing the
+  // four-film gates (competent median ~1.25×, p90 ~2.0–2.1×, ≥1 loss in 4 ≈ 47%, some runs below start).
+  // (2) Awareness-conditioned Marketing efficient capacity. When engaged, the marketing
+  // half-saturation is not a fixed 400k but scales with the film's PRE-marketing awareness
+  // (studio audience awareness + the film's own opening appeal reach): a low-awareness film
+  // saturates cheaply (CAP_MIN), a high-awareness event film absorbs a wide campaign (CAP_MAX).
+  // capacity = CAP_MIN + (CAP_MAX − CAP_MIN) · awareness^EXP; marketingQuality = spend/(spend+capacity).
+  // The EXP > 1 makes low-awareness films saturate their (small) capacity fast, so a maximum campaign
+  // on a not-yet-visible film is wasted — an interior optimum — while a genuinely visible film still
+  // absorbs a wide campaign efficiently. A NEW studio (low audience awareness) is therefore rarely
+  // able to justify a maximum campaign until it has built awareness — the intended shape.
+  MARKETING_CAPACITY_MIN: 15_000, // [ICH] efficient marketing capacity at zero pre-marketing awareness
+  MARKETING_CAPACITY_MAX: 1_800_000, // [ICH] efficient marketing capacity at full pre-marketing awareness
+  MARKETING_AWARENESS_STANDING_WEIGHT: 0.7, // [ICH] blend: studio audience awareness vs film opening-appeal reach (a NEW studio can't push a big campaign until it builds awareness)
+  MARKETING_AWARENESS_EXP: 2.0, // [ICH] capacity ∝ awareness^EXP (EXP>1 ⇒ low-awareness saturates cheaply)
+  // Stage A: MAXIMUM effective Marketing reach — the ceiling on how much of a film's opening reach a
+  // campaign can supply, scaled by pre-marketing awareness. A not-yet-visible film converts even a
+  // saturated campaign into only a little reach (so beyond efficient capacity, incremental reach
+  // collapses and a maximum campaign overspends), while a visible film's campaign can carry a large
+  // share of its reach. Replaces the flat 0.4 marketing weight in the ENGAGED path only (the legacy
+  // non-engaged path keeps the fixed 0.4 for M0A byte-identity). Both marketing gross channels (base
+  // awareness + the promise-specificity bonus) consume this single effective-Marketing value.
+  MARKETING_REACH_MIN: 0.1, // [ICH] effective marketing reach ceiling at zero pre-marketing awareness
+  MARKETING_REACH_MAX: 0.55, // [ICH] effective marketing reach ceiling at full pre-marketing awareness
+  // Stage B: deterministic OVEREXPOSURE pressure (engaged only; NO new RNG, NO critic effect). Spending
+  // far beyond a film's efficient marketing capacity raises audience expectations the delivered movie
+  // must satisfy; when it under-delivers (low weighted audience score) those expectations sour and the
+  // film FRONT-LOADS — its LEGS (hold) shrink. A film that delivers keeps its legs, so a genuine
+  // high-awareness event film can still rationally run a maximum campaign; a weak or mismarketed film
+  // that overspends loses money. Opening reach and critic score are untouched.
+  OVEREXPOSURE_THRESHOLD: 1.3, // [ICH] overexposure begins above this spend÷capacity ratio
+  OVEREXPOSURE_RANGE: 2.0, // [ICH] ratio span from threshold to full overexposure
+  OVEREXPOSURE_LEGS_COEF: 0.5, // [ICH] max fractional LEGS reduction at full overexposure × full delivery gap
+  // A film that DELIVERS (weighted audience score ≥ REF) creates no expectation gap — it withstands a
+  // big campaign. The gap opens only as delivery falls below REF, saturating at REF − RANGE.
+  OVEREXPOSURE_DELIVERY_REF: 58, // [ICH] audience score at/above which a big campaign is fully justified
+  OVEREXPOSURE_DELIVERY_RANGE: 28, // [ICH] audience-score span over which the delivery gap opens to full
+
+  // ── D-12 production-budget realization/reliability (engaged only) ───────────
+  // A SEPARATE engaged-only layer ON TOP of the frozen M0A `budgetAdequacy` (which is left unchanged
+  // in computeCraft/computeDeterministicCore). It answers "how much funding does THIS film need to
+  // realize its ambition reliably", using the film's production DEMAND = requiredNegative (concept
+  // base cost × shape budgetDemandMultiplier × era). Under-funding a DEMANDING film (high demand)
+  // materially lowers realized craft; a contained film barely notices. Over-funding has sharply
+  // diminishing craft returns (a little execution protection), and never multiplies box office or
+  // buys critic points on its own. It is a deterministic craft delta — no new RNG, engaged-gated so
+  // M0A stays byte-identical. See docs/D-12-owner-calibration-contract.md.
+  BUDGET_UNDERFUND_COEF: 60, // [ICH] max craft points lost at full shortfall × full ambition
+  BUDGET_AMBITION_REF: 0.8, // [ICH] budgetDemandMultiplier at/below which underfunding sensitivity ≈ 0 (contained)
+  BUDGET_AMBITION_RANGE: 0.38, // [ICH] demand span to full ambition sensitivity (0.95 → 1.40)
+  BUDGET_AMBITION_MIN: 0.15, // [ICH] floor: even a contained film loses a little if severely underfunded
+  BUDGET_OVERFUND_COEF: 4, // [ICH] max craft protection from over-funding (small; diminishing)
+  BUDGET_OVERFUND_SCALE: 0.3, // [ICH] over-funding diminishing-return scale (ratio units above 1.0)
+
+  // ── D-12 final downside: engaged retention (legs) reshape ───────────────────
+  // The M0A legs curve `LEGS_MIN(1.8) + (LEGS_MAX-LEGS_MIN)·(WAS/100)` has a 1.8× floor — even a
+  // genuine bomb multiplies its opening by ≥1.8×, so weak delivery can never collapse a film. That
+  // floor is FROZEN (M0A byte-identity). This engaged-only reshape gives retention a LOWER floor and a
+  // CONVEX response so delivered audience satisfaction (weighted audience score) actually governs word
+  // of mouth: a poorly-delivered film opens and fades (legs → ~1), a well-delivered film holds (→ LEGS_MAX).
+  // Engaged legs = LEGS_MIN_ENGAGED + (LEGS_MAX − LEGS_MIN_ENGAGED)·(WAS/100)^LEGS_RETENTION_EXP, then the
+  // overexposure penalty applies as before. Not engaged ⇒ the legacy linear curve (byte-identical).
+  LEGS_MIN_ENGAGED: 1.2, // [ICH] engaged retention floor (a true bomb opens and dies)
+  LEGS_RETENTION_EXP: 1.4, // [ICH] convex WAS→legs response (>1 ⇒ weak delivery retains poorly)
 } as const
 
 // ── §5.1 cast weighting ──────────────────────────────────────────────────────
@@ -576,3 +724,84 @@ export const AUTHORED_TIER_RANGE = {
 // Authored talent's starting primary-discipline skill center (D-9.14, keeps the
 // spirit of AUTHORED_START_SKILL = 35).
 export const AUTHORED_START_OVR = 35
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// D-11.C — Balanced Creator archetype presets (cycle 3)
+// ═══════════════════════════════════════════════════════════════════════════════
+// The profession-shaped BASELINE profile before the player spends the 40 specialization
+// points. `primarySkills` are 6 absolute values in SKILL_ORDER for the primary discipline,
+// tuned (validated with the authoritative roleOVR, NOT a creator formula — see the
+// creator-baseline calibration study) so the pre-specialization primary OVR lands ≈ 38–45
+// for focused prospects (High-Upside intentionally lower current OVR; Polished near the top).
+// Archetypes distribute the six skills DIFFERENTLY so same-OVR people feel distinct.
+// `secondaryBaseline` sets all non-primary skills (secondary OVR ≈ 15–28; ≥ the floor).
+// A multi-hyphenate raises ONE adjacent secondary via `secondaryBoost`. `genreBaseline` is
+// a small primary-discipline genre-experience start. Presets set ONLY authoritative values.
+// PERCENTILE-CALIBRATED (owner amendment 2026-07-27): baselines tuned so a focused
+// prospect lands ≈ 30–50th percentile pre-spec and ≈ 40–60th post-spec within the
+// working-age/signable/matching-profession population (median primary OVR ≈ 43). Raw OVR
+// is a consequence of the percentile target, not the target itself. See the calibration
+// study (run-creator-baseline-study.ts). ONLY these baselines were tuned — never the
+// global roleOVR / generated distribution / development / D-6 / market rules.
+export const BALANCED_ARCHETYPES: readonly ArchetypePreset[] = [
+  // ── Acting ──
+  { id: 'balancedActingProspect', label: 'Balanced Acting Prospect', appliesTo: 'acting',
+    primarySkills: [56, 56, 56, 56, 56, 56], secondaryBaseline: 42, genreBaseline: { drama: 15 },
+    defaultPotentialTier: 'Steady', defaultWorkEthic: 60, fame: 8 },
+  { id: 'comedyProspect', label: 'Comedy Prospect', appliesTo: 'acting',
+    primarySkills: [54, 49, 60, 66, 53, 57], secondaryBaseline: 42, genreBaseline: { comedy: 30, drama: 12 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 60, fame: 10 },
+  { id: 'dramaticProspect', label: 'Dramatic Prospect', appliesTo: 'acting',
+    primarySkills: [58, 64, 57, 45, 52, 59], secondaryBaseline: 42, genreBaseline: { drama: 30, romance: 12 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 62, fame: 9 },
+  { id: 'physicalPerformer', label: 'Physical Performer', appliesTo: 'acting',
+    primarySkills: [55, 49, 51, 51, 69, 60], secondaryBaseline: 42, genreBaseline: { adventure: 25, crime: 12 },
+    defaultPotentialTier: 'Steady', defaultWorkEthic: 58, fame: 9 },
+  // ── Writing ──
+  { id: 'balancedWritingProspect', label: 'Balanced Writing Prospect', appliesTo: 'writing',
+    primarySkills: [56, 56, 56, 56, 56, 56], secondaryBaseline: 42, genreBaseline: { drama: 15 },
+    defaultPotentialTier: 'Steady', defaultWorkEthic: 62, fame: 5 },
+  { id: 'dialogueSpecialist', label: 'Dialogue Specialist', appliesTo: 'writing',
+    primarySkills: [52, 54, 68, 54, 53, 55], secondaryBaseline: 42, genreBaseline: { comedy: 22, drama: 15 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 62, fame: 5 },
+  { id: 'storyArchitect', label: 'Story Architect', appliesTo: 'writing',
+    primarySkills: [68, 54, 52, 55, 55, 53], secondaryBaseline: 42, genreBaseline: { crime: 22, drama: 12 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 64, fame: 5 },
+  { id: 'originalVoice', label: 'Original Voice', appliesTo: 'writing',
+    primarySkills: [53, 53, 55, 68, 53, 52], secondaryBaseline: 42, genreBaseline: { horror: 20 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 60, fame: 6 },
+  // ── Directing ──
+  { id: 'balancedDirectingProspect', label: 'Balanced Directing Prospect', appliesTo: 'directing',
+    primarySkills: [56, 56, 56, 56, 56, 56], secondaryBaseline: 42, genreBaseline: { drama: 15 },
+    defaultPotentialTier: 'Steady', defaultWorkEthic: 62, fame: 6 },
+  { id: 'visualDirector', label: 'Visual Director', appliesTo: 'directing',
+    primarySkills: [68, 51, 55, 55, 54, 53], secondaryBaseline: 42, genreBaseline: { adventure: 22 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 62, fame: 7 },
+  { id: 'performanceDirector', label: 'Performance Director', appliesTo: 'directing',
+    primarySkills: [53, 68, 56, 52, 53, 55], secondaryBaseline: 42, genreBaseline: { drama: 22 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 63, fame: 7 },
+  // ── Craft ──
+  { id: 'balancedCraftProspect', label: 'Balanced Craft Prospect', appliesTo: 'craft',
+    primarySkills: [56, 56, 56, 56, 56, 56], secondaryBaseline: 42, genreBaseline: { drama: 15 },
+    defaultPotentialTier: 'Steady', defaultWorkEthic: 60, fame: 4 },
+  { id: 'cinematographyProspect', label: 'Cinematography Prospect', appliesTo: 'craft',
+    primarySkills: [68, 53, 55, 52, 52, 55], secondaryBaseline: 42, genreBaseline: { adventure: 18 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 60, fame: 4 },
+  { id: 'effectsSpecialist', label: 'Effects Specialist', appliesTo: 'craft',
+    primarySkills: [52, 52, 53, 53, 68, 55], secondaryBaseline: 42, genreBaseline: { horror: 20, adventure: 15 },
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 60, fame: 4 },
+  // ── Career path (any profession) ──
+  // D-11.D: labelled "Raw Prospect" (a low-current-ability STARTING SKILL PROFILE), not
+  // "High-Upside" — the upside now lives solely in the separate Career Potential control
+  // (defaultPotentialTier 'HighUpside'), so the two creator dropdowns stop duplicating "upside".
+  { id: 'highUpsideProspect', label: 'Raw Prospect', appliesTo: 'any',
+    primarySkills: [52, 52, 52, 52, 52, 52], secondaryBaseline: 38, genreBaseline: {},
+    defaultPotentialTier: 'HighUpside', defaultWorkEthic: 85, fame: 4 },
+  { id: 'polishedLowCeiling', label: 'Polished Low-Ceiling Professional', appliesTo: 'any',
+    primarySkills: [60, 60, 60, 60, 60, 60], secondaryBaseline: 44, genreBaseline: { drama: 18 },
+    defaultPotentialTier: 'Limited', defaultWorkEthic: 55, fame: 12 },
+  { id: 'multiHyphenateProspect', label: 'Multi-Hyphenate Prospect', appliesTo: 'any',
+    primarySkills: [54, 54, 54, 54, 54, 54], secondaryBaseline: 42,
+    secondaryBoost: { role: 'director', skills: [52, 52, 52, 52, 52, 52] }, genreBaseline: {},
+    defaultPotentialTier: 'Promising', defaultWorkEthic: 68, fame: 6 },
+] as const satisfies readonly ArchetypePreset[]

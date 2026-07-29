@@ -17,6 +17,33 @@ import type {
 import { money, score, confidenceLabel } from '../format.ts'
 import { Metric, Warn } from './common.tsx'
 
+// A4: a plain money figure in a Downside/Expected/Upside triple (Studio Revenue — always ≥ 0).
+function RangeFigure({ label, value, testid }: { label: string; value: number; testid?: string }) {
+  return (
+    <div className="stack" {...(testid ? { 'data-testid': testid } : {})}>
+      <span className="hint">{label}</span>
+      <span className="mono">{money(value)}</span>
+    </div>
+  )
+}
+
+// A4: a Film Contribution figure that never relies on color alone — every figure carries an
+// explicit Profit / Loss / Break-even word, and negative values are marked as a loss (red).
+// A near-zero value (|contribution| < $1K, i.e. it rounds to break-even) reads as neutral.
+function ContribFigure({ label, value, testid }: { label: string; value: number; testid?: string }) {
+  const neutral = Math.abs(value) < 1_000
+  const cls = neutral ? 'mono' : value > 0 ? 'money pos' : 'money neg'
+  const word = neutral ? 'Break-even' : value > 0 ? 'Profit' : 'Loss'
+  return (
+    <div className="stack" {...(testid ? { 'data-testid': testid } : {})}>
+      <span className="hint">{label}</span>
+      <span className={cls}>
+        {money(value)} · {word}
+      </span>
+    </div>
+  )
+}
+
 export function FilmPackageSummary({
   cohesion,
   fit,
@@ -206,21 +233,30 @@ export function FilmPackageSummary({
             <span className="badge">{confidenceLabel(profit.confidence)}</span>
           </div>
 
-          <div className="grid grid-3" style={{ marginTop: 8 }}>
-            <Metric label="Studio Revenue (low–exp–high)" small testid="pkg-profit-revenue">
-              {money(profit.studioRevenue.low)} – {money(profit.studioRevenue.expected)} –{' '}
-              {money(profit.studioRevenue.high)}
-            </Metric>
-            <Metric label="Profit / loss (low–exp–high)" small testid="pkg-profit-profit">
-              {money(profit.profit.low)} –{' '}
-              <span className={profit.profit.expected >= 0 ? 'money pos' : 'money neg'}>
-                {money(profit.profit.expected)}
-              </span>{' '}
-              – {money(profit.profit.high)}
-            </Metric>
-            <Metric label="Break-even" small testid="pkg-profit-breakeven">
+          <div className="stack" style={{ marginTop: 8 }}>
+            <div className="stack" data-testid="pkg-profit-revenue">
+              <span className="opt-title">Studio Revenue</span>
+              <div className="grid grid-3">
+                <RangeFigure label="Downside" value={profit.studioRevenue.low} />
+                <RangeFigure label="Expected" value={profit.studioRevenue.expected} />
+                <RangeFigure label="Upside" value={profit.studioRevenue.high} />
+              </div>
+            </div>
+            <div className="stack" data-testid="pkg-profit-profit">
+              <span className="opt-title">Film Contribution</span>
+              <div className="grid grid-3">
+                <ContribFigure label="Downside" value={profit.profit.low} testid="pkg-profit-contribution-downside" />
+                <ContribFigure label="Expected" value={profit.profit.expected} />
+                <ContribFigure label="Upside" value={profit.profit.high} />
+              </div>
+            </div>
+            <Metric label="Break-even theatrical gross" small testid="pkg-profit-breakeven">
               {money(profit.breakEven)}
             </Metric>
+            <p className="hint" style={{ marginTop: 0 }}>
+              The full box-office gross required for the studio&rsquo;s share to repay this
+              film&rsquo;s direct costs.
+            </p>
           </div>
 
           {profit.profit.low < 0 && (
@@ -258,7 +294,9 @@ export function FilmPackageSummary({
           </div>
 
           <p className="hint" data-testid="pkg-profit-disclosure" style={{ marginTop: 8 }}>
-            Studio Revenue is the full box-office total — the model has no distributor split.
+            Studio Revenue is the studio’s blended rental share of box office (distributor and
+            exhibitor economics are abstracted into that share); break-even is the gross the film
+            must reach to return its cost.
           </p>
         </div>
       )}

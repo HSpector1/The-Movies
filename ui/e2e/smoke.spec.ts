@@ -25,6 +25,31 @@ async function startNewGame(page: Page, seed: string) {
   await page.getByTestId('seed-input').fill(seed)
 }
 
+// D-11: a new game opens the founding draft. Hire the required minimum roster
+// (5 actors, 1 director, 2 writers, 1 craft) by clicking the first sign offer in
+// each role group, then found the studio. Signing a card replaces its offers with a
+// "signed" marker, so `.first()` advances to the next unsigned card each pass.
+async function foundStudioViaUi(page: Page) {
+  await expect(page.getByTestId('found-studio')).toBeVisible()
+  const need: Array<[string, number]> = [
+    ['actor', 3], // D-11.A minimum
+    ['director', 1],
+    ['writer', 2],
+    ['craft', 1],
+  ]
+  for (const [role, count] of need) {
+    await page.getByTestId(`founding-tab-${role}`).click() // D-11.D: select the profession tab
+    const group = page.getByTestId(`founding-group-${role}`)
+    for (let i = 0; i < count; i++) {
+      await group.locator('button[data-testid^="founding-sign-"]').first().click()
+    }
+  }
+  await shot(page, '1b-founding-roster')
+  const found = page.getByTestId('found-studio')
+  await expect(found).toBeEnabled()
+  await found.click()
+}
+
 // Assemble a legal film through the wizard, choosing the first eligible option in
 // each picker so the package is always legal (distinct cast enforced by the UI).
 async function assembleLegalFilm(page: Page) {
@@ -71,6 +96,8 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
   await startNewGame(page, SEED)
   await shot(page, '1-start-new-game')
   await page.getByTestId('new-game').click()
+  // D-11: hire an initial roster and found the studio before the studio can operate.
+  await foundStudioViaUi(page)
   await expect(page.getByTestId('dash-week')).toHaveText('0')
 
   // (2) + (3) Assembly flow + budget/forecast review (screens captured inside).
@@ -83,12 +110,23 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
   await expect(page.getByTestId('active-list')).toBeVisible()
   await shot(page, '4-dashboard-active-production')
 
-  // Advance weeks until a release appears (walk the release screen each week).
+  // Advance weeks until a release appears (walk the newspaper + release screen each week).
   let releaseCardTestId: string | null = null
+  let capturedNewspaper = false
   for (let i = 0; i < 20 && !releaseCardTestId; i++) {
     const advance = page.getByTestId('advance-week')
     if (await advance.isVisible().catch(() => false)) {
       await advance.click()
+    }
+    // D-11.C PART 2: a release shows the NEWSPAPER front page first. Capture it once, then
+    // continue through to the release/development summary.
+    const newspaper = page.getByTestId('newspaper-reveal')
+    if (await newspaper.isVisible().catch(() => false)) {
+      if (!capturedNewspaper) {
+        await shot(page, '9-newspaper-reveal')
+        capturedNewspaper = true
+      }
+      await page.getByTestId('newspaper-continue').click()
     }
     const releaseList = page.getByTestId('release-list')
     if (await releaseList.isVisible().catch(() => false)) {
@@ -102,6 +140,7 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
     }
   }
   expect(releaseCardTestId, 'a film should release within the window').not.toBeNull()
+  expect(capturedNewspaper, 'the newspaper reveal should appear at release').toBe(true)
 
   // (5) Release result screen.
   await shot(page, '5-release-result')
@@ -117,6 +156,8 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
   const prodId = releaseCardTestId!.replace('release-card-', '')
   await page.getByTestId(`open-autopsy-${prodId}`).click()
   await expect(page.getByTestId('autopsy')).toBeVisible()
+  // D-11.D: the technical breakdown now lives under Advanced Analysis — expand it.
+  await page.getByTestId('autopsy-advanced-toggle').click()
   // The sampled review variance is present (never hidden).
   await expect(page.getByTestId('autopsy-reviewvariance')).toBeVisible()
   await expect(page.getByTestId('autopsy-criticmean')).toBeVisible()
@@ -148,15 +189,19 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
   const saveJson = await page.getByTestId('export-text').inputValue()
   expect(saveJson.length).toBeGreaterThan(100)
 
-  // (7) Talent creator screenshot (reachable from the dashboard).
+  // (7) Talent creator screenshot (reachable from the dashboard). D-11.C: the default mode
+  // is the Balanced Career SPECIALIZATION flow, with a live derived-OVR panel and standing.
   await page.getByTestId('saves-back').click()
   await page.getByTestId('open-talent-creator').click()
-  await expect(page.getByTestId('authored-disclosure')).toBeVisible()
+  await expect(page.getByTestId('creator-mode-balanced')).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.getByTestId('balanced-live-preview')).toBeVisible()
   await shot(page, '7-talent-creator')
   await page.getByTestId('talent-creator-back').click()
 
   // Start a NEW game (different seed), then import the exported save.
   await page.getByTestId('open-saves').click()
+  // "New Studio" is now a confirmed destructive action (D-12 A5) — a real user accepts the prompt.
+  page.once('dialog', (dialog) => dialog.accept())
   await page.getByTestId('restart-game').click()
   await expect(page.getByTestId('new-game')).toBeVisible()
   await page.getByTestId('seed-input').fill('a-totally-different-seed')

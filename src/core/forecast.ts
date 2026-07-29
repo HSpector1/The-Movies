@@ -18,7 +18,7 @@
 // stream, which is stateless (derived on demand from the run seed) — replays exact.
 
 import { clamp, mean, remap, smoothstep, lerp } from './math.js'
-import { computeSegmentAppeal, type ReceptionInputs, computeBoxOffice } from './reception.js'
+import { computeSegmentAppeal, type ReceptionInputs, computeBoxOffice, budgetRealizationDelta } from './reception.js'
 import { specificity } from './shape.js'
 import { stream } from './rng.js'
 import { CAST_WEIGHT, FORCE_VECTORS, ROLE_WEIGHT, TUNING } from './tuning.js'
@@ -75,7 +75,7 @@ export type DeterministicCore = {
   budgetAdequacy: number
 }
 
-function computeDeterministicCore(inp: ForecastInputs): DeterministicCore {
+function computeDeterministicCore(inp: ForecastInputs, engaged = false): DeterministicCore {
   // §5.1 craft — D-9.5: the identical FOUR reads, but use = 'perceived' (forecast
   // reads perceived; reception reads actual). Structure downstream unchanged.
   // RULING C (2026-07-26): the shape being greenlit (`inp.shape`, the raw FilmShape)
@@ -125,13 +125,23 @@ function computeDeterministicCore(inp: ForecastInputs): DeterministicCore {
   const budgetAdequacy =
     (100 * clamp(inp.budget.negative / Math.max(requiredNegative, 1), 0, 1.15)) / 1.15
 
+  // D-12: engaged-only production-budget realization delta ON TOP of the frozen M0A craft (0 when
+  // not engaged → byte-identical). SAME rule the realized reception path uses, so forecast and result
+  // agree on the budget's effect on realized craft.
+  const realizationDelta = budgetRealizationDelta(
+    inp.budget.negative,
+    requiredNegative,
+    inp.shapeEffects.budgetDemandMultiplier,
+    engaged,
+  )
   const craft = clamp(
     0.3 * scriptStrength +
       0.25 * directorExecution +
       0.2 * castExecution +
       0.15 * technical +
       0.1 * budgetAdequacy +
-      inp.shapeEffects.craftMod,
+      inp.shapeEffects.craftMod +
+      realizationDelta,
     0,
     100,
   )
@@ -228,6 +238,7 @@ function computeDeterministicCore(inp: ForecastInputs): DeterministicCore {
 // function must NEVER touch the sim stream (it draws nothing at all).
 export type ForecastCenters = {
   centers: Record<SegmentId, number>
+  centersOpening: Record<SegmentId, number> // D-12: fame-saturated opening appeal (=== centers unless engaged)
   criticMean: number
   core: DeterministicCore
   segmentFit: Record<SegmentId, number>
@@ -235,11 +246,12 @@ export type ForecastCenters = {
   starDraw: number
 }
 
-export function forecastCenters(inp: ForecastInputs): ForecastCenters {
-  const core = computeDeterministicCore(inp)
-  const appeal = computeSegmentAppeal(inp, core.delivered, core.craft, core.timelinessContribution)
+export function forecastCenters(inp: ForecastInputs, saturateFame = false, engaged = false): ForecastCenters {
+  const core = computeDeterministicCore(inp, engaged)
+  const appeal = computeSegmentAppeal(inp, core.delivered, core.craft, core.timelinessContribution, saturateFame)
   return {
     centers: appeal.segmentAppeal,
+    centersOpening: appeal.segmentAppealOpening,
     criticMean: core.criticMean,
     core,
     segmentFit: appeal.segmentFit,
@@ -351,8 +363,11 @@ export type ForecastContext = {
   concepts: FilmConcept[]
 }
 
-export function computeForecast(inp: ForecastInputs, ctx: ForecastContext): Forecast {
-  const centers = forecastCenters(inp)
+// `saturateFame` = §7 fame Hill on opening reach; `engaged` = D-12 economy calibration (P2 gross
+// scale + awareness marketing). Distinct concerns, both true together in engaged play; separated so
+// fame-isolation tests can vary fame without the economy scale. Both default false (M0A byte-identical).
+export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, saturateFame = false, engaged = false): Forecast {
+  const centers = forecastCenters(inp, saturateFame, engaged)
 
   // Confidence (film-level) — computed BEFORE the offset because sigma depends on it.
   const predicates = computeConfidencePredicates(
@@ -366,7 +381,17 @@ export function computeForecast(inp: ForecastInputs, ctx: ForecastContext): Fore
   // ONE film-level gaussian offset from the DERIVED forecast stream (M9) —
   // never the sim stream. sigma = FORECAST_SIGMA[confidence].
   const fstream = stream(ctx.seed, 'forecast', ctx.productionId)
-  const offset = fstream.gaussian(0, TUNING.FORECAST_SIGMA[confidence])
+  const rawOffset = fstream.gaussian(0, TUNING.FORECAST_SIGMA[confidence])
+  // D-12 forecast causality: the single noisy offset, run through the CONVEX box office (opening ∝
+  // appeal^APPEAL_CURVE_EXP, legs ∝ (WAS/100)^LEGS_RETENTION_EXP), turned the ENGAGED "expected" gross
+  // into an optimistic SINGLE-SAMPLE outlier for low-confidence films (sigma is largest exactly when the
+  // studio knows least). A +2σ draw on an unproven weak film inflated a ~$11M film to ~$50M+ "expected".
+  // The honest expected is the DETERMINISTIC CENTER; forecast uncertainty belongs in the band (± width,
+  // plus the low-confidence downside widen) and in the realized reception RNG — NOT in a biased central
+  // point. So the engaged central estimate drops the offset (estimate = center); the band is unchanged in
+  // WIDTH. The draw is still taken (stream advances identically) so nothing downstream shifts, and the
+  // NON-engaged (M0A/headless) path keeps the noisy point → the acceptance corpus stays byte-identical.
+  const offset = engaged ? 0 : rawOffset
   const width = TUNING.CONFIDENCE_INTERVAL_WIDTH[confidence]
 
   const causal = computeCausalFactors(inp, centers)
@@ -375,12 +400,23 @@ export function computeForecast(inp: ForecastInputs, ctx: ForecastContext): Fore
   // Per-segment forecasts. The same film-level offset is added to every center
   // (M7); estimate clamped to [0,100] before the box-office pass (B16).
   const noisyEstimates: Record<SegmentId, number> = {} as Record<SegmentId, number>
+  // D-12: the same film-level offset applied to the fame-saturated OPENING centers (=== the
+  // linear centers unless engaged → byte-identical). Feeds only the opening reach.
+  const noisyOpening: Record<SegmentId, number> = {} as Record<SegmentId, number>
   const segments: SegmentForecast[] = []
   for (const seg of inp.market.segments) {
     const center = centers.centers[seg.id]
     const estimate = clamp(center + offset, 0, 100)
     noisyEstimates[seg.id] = estimate
-    const low = clamp(estimate - width, 0, 100)
+    const openingCenter = centers.centersOpening[seg.id]!
+    const openingEstimate = clamp(openingCenter + offset, 0, 100)
+    noisyOpening[seg.id] = openingEstimate
+    // D-12 final downside: widen the LOW band ONLY (asymmetric) for low-confidence / unproven / low-Fit
+    // packages when engaged — the studio does not know future delivery at greenlight, so the downside
+    // must be honest. The estimate and high are unchanged (a favorable seed can still profit). Not
+    // engaged ⇒ downsideWiden = 0 (M0A byte-identical).
+    const downsideWiden = engaged ? TUNING.FORECAST_DOWNSIDE_WIDEN[confidence] : 0
+    const low = clamp(estimate - width - downsideWiden, 0, 100)
     const high = clamp(estimate + width, 0, 100)
     segments.push({
       segmentId: seg.id,
@@ -392,6 +428,14 @@ export function computeForecast(inp: ForecastInputs, ctx: ForecastContext): Fore
       confidence,
       causalFactors: causal,
       uncertaintyFactors: uncertainty,
+      // D-12: the fame-saturated OPENING band (same offset/width as the linear band; === linear
+      // unless engaged). Exposed so a live re-forecast reproduces the greenlight opening exactly.
+      opening: {
+        center: openingCenter,
+        estimate: openingEstimate,
+        low: clamp(openingEstimate - width, 0, 100),
+        high: clamp(openingEstimate + width, 0, 100),
+      },
     })
   }
 
@@ -404,6 +448,8 @@ export function computeForecast(inp: ForecastInputs, ctx: ForecastContext): Fore
     inp.promise,
     inp.budget,
     inp.shapeEffects,
+    noisyOpening,
+    engaged, // D-12 P2: forecast applies the economy scale + awareness marketing when engaged (matches realized)
   )
 
   return {

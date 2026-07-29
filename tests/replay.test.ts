@@ -21,11 +21,12 @@ import { describe, expect, it } from 'vitest'
 import {
   applyActions,
   convertV1ToV2,
+  convertV2ToV3,
+  convertV3ToV4,
   exportSave,
   generateCandidates,
   generateWorld,
   makeSave,
-  makeSaveV2,
   OracleAgent,
   RandomAgent,
   tick,
@@ -206,17 +207,19 @@ describe('§15.7/D-9.15 — a run resumed from a converted V2 replays byte-ident
       const seed = `resume-${name.replace(/\W+/g, '-')}`
       const v1 = legacyResumable(seed)
 
-      // Two INDEPENDENT conversions of the same V1 → two V2 states.
-      const s1 = convertV1ToV2(v1).state
-      const s2 = convertV1ToV2(v1).state
+      // Two INDEPENDENT conversions of the same V1 → V2 → V3 (D-11 legacy resume path;
+      // the live engine runs on the V3 shape). Both conversions are deterministic.
+      // D-12: legacy saves migrate all the way to the live V4 shape before resuming.
+      const s1 = convertV3ToV4(convertV2ToV3(convertV1ToV2(v1))).state
+      const s2 = convertV3ToV4(convertV2ToV3(convertV1ToV2(v1))).state
 
       // The converted starting states are already byte-identical (idempotent migrate).
-      expect(exportSave(makeSaveV2(s1))).toBe(exportSave(makeSaveV2(s2)))
+      expect(exportSave(makeSave(s1))).toBe(exportSave(makeSave(s2)))
 
       // Resume each for several ticks with the same agent + develop flag.
       const r1 = advance(s1, 8, agent, develop)
       const r2 = advance(s2, 8, agent, develop)
-      expect(exportSave(makeSaveV2(r1))).toBe(exportSave(makeSaveV2(r2)))
+      expect(exportSave(makeSave(r1))).toBe(exportSave(makeSave(r2)))
     })
   }
 

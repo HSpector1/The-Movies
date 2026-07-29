@@ -12,6 +12,7 @@
 // This module is pure: no React/DOM/async/IO. The RngStream is threaded in and
 // its single draw mutates only that stream's state (which the harness owns).
 
+import { fameReach } from './economy.js'
 import { clamp, lerp, mean, remap, smoothstep } from './math.js'
 import type { RngStream } from './rng.js'
 import { specificity } from './shape.js'
@@ -132,7 +133,36 @@ export function roleFit(t: Talent, req: RoleRequirement): number {
 }
 
 // ── §5.1 Craft ───────────────────────────────────────────────────────────────
-function computeCraft(inp: ReceptionInputs): {
+// ── D-12 production-budget realization/reliability (engaged only) ─────────────
+// A craft DELTA from how well this film's Production Budget funds its production DEMAND
+// (= requiredNegative = concept base cost × shape budgetDemandMultiplier × era). Under-funding a
+// DEMANDING film (high demand) costs realized craft; a contained film barely notices; over-funding
+// gives a small, sharply-diminishing execution protection. Deterministic (no RNG), and returns 0
+// when NOT engaged so the M0A path is byte-identical. This is a SEPARATE layer ON TOP of the frozen
+// M0A `budgetAdequacy` (which is unchanged). It never multiplies box office or buys critic points.
+export function budgetRealizationDelta(
+  negative: number,
+  requiredNegative: number,
+  budgetDemandMultiplier: number,
+  engaged: boolean,
+): number {
+  if (!engaged) return 0
+  const ratio = negative / Math.max(requiredNegative, 1)
+  const ambition = clamp(
+    (budgetDemandMultiplier - TUNING.BUDGET_AMBITION_REF) / TUNING.BUDGET_AMBITION_RANGE,
+    0,
+    1,
+  )
+  if (ratio < 1) {
+    const shortfall = 1 - ratio
+    const sensitivity = TUNING.BUDGET_AMBITION_MIN + (1 - TUNING.BUDGET_AMBITION_MIN) * ambition
+    return -TUNING.BUDGET_UNDERFUND_COEF * shortfall * sensitivity
+  }
+  const over = ratio - 1
+  return TUNING.BUDGET_OVERFUND_COEF * (1 - Math.exp(-over / TUNING.BUDGET_OVERFUND_SCALE))
+}
+
+function computeCraft(inp: ReceptionInputs, engaged = false): {
   scriptStrength: number
   directorExecution: number
   castExecution: number
@@ -194,13 +224,23 @@ function computeCraft(inp: ReceptionInputs): {
   const budgetAdequacy =
     (100 * clamp(inp.budget.negative / Math.max(requiredNegative, 1), 0, 1.15)) / 1.15
 
+  // D-12: engaged-only realization/reliability delta ON TOP of the frozen M0A craft (0 when not
+  // engaged → byte-identical). Under-funding a demanding film lowers realized craft; over-funding
+  // gives small diminishing protection.
+  const realizationDelta = budgetRealizationDelta(
+    inp.budget.negative,
+    requiredNegative,
+    inp.shapeEffects.budgetDemandMultiplier,
+    engaged,
+  )
   const craft = clamp(
     0.3 * scriptStrength +
       0.25 * directorExecution +
       0.2 * castExecution +
       0.15 * technical +
       0.1 * budgetAdequacy +
-      inp.shapeEffects.craftMod,
+      inp.shapeEffects.craftMod +
+      realizationDelta,
     0,
     100,
   )
@@ -366,12 +406,14 @@ export function computeSegmentAppeal(
   delivered: Expression,
   craft: number,
   timelinessContribution: number,
+  saturateFame = false, // D-12: when engaged, the Fame→OPENING-reach component saturates
 ): {
   promiseMismatch: number
   mismatchPenalty: number
   starDraw: number
   segmentFit: Record<SegmentId, number>
   segmentAppeal: Record<SegmentId, number>
+  segmentAppealOpening: Record<SegmentId, number> // === segmentAppeal unless saturateFame
 } {
   // promiseMismatch = clamp(sqrt(Σ_axis square(distanceOutsideRange)) / sqrt(12), 0, 1)
   let sq = 0
@@ -390,9 +432,17 @@ export function computeSegmentAppeal(
     starDen += CAST_WEIGHT[slot]
   }
   const starDraw = 100 * clamp(starNum / starDen, 0, 1)
+  // D-12 (gated): the Fame-driven component of OPENING reach saturates via the Hill helper
+  // (fameReach substitutes for fame/100), while segment appeal / audience response / legs
+  // keep the LINEAR starDraw. When NOT engaged (M0A), starDrawOpening === starDraw →
+  // segmentAppealOpening === segmentAppeal → byte-identical.
+  let satNum = 0
+  for (const slot of CAST_SLOTS) satNum += CAST_WEIGHT[slot] * fameReach(inp.cast[slot].fame)
+  const starDrawOpening = saturateFame ? 100 * clamp(satNum / starDen, 0, 1) : starDraw
 
   const segmentFit: Record<SegmentId, number> = {} as Record<SegmentId, number>
   const segmentAppeal: Record<SegmentId, number> = {} as Record<SegmentId, number>
+  const segmentAppealOpening: Record<SegmentId, number> = {} as Record<SegmentId, number>
   for (const seg of inp.market.segments) {
     const fit = 100 * (1 - clamp(distance(delivered, seg.taste) / Math.sqrt(12), 0, 1))
     segmentFit[seg.id] = fit
@@ -406,9 +456,22 @@ export function computeSegmentAppeal(
       0,
       100,
     )
+    // Opening-only appeal: the SAME formula with the saturated star term (else identical).
+    segmentAppealOpening[seg.id] = saturateFame
+      ? clamp(
+          0.35 * craft +
+            0.25 * starDrawOpening +
+            0.25 * fit +
+            0.15 * (timelinessContribution * 5) +
+            inp.shapeEffects.segmentAffinity[seg.id] -
+            mismatchPenalty,
+          0,
+          100,
+        )
+      : segmentAppeal[seg.id]
   }
 
-  return { promiseMismatch, mismatchPenalty, starDraw, segmentFit, segmentAppeal }
+  return { promiseMismatch, mismatchPenalty, starDraw, segmentFit, segmentAppeal, segmentAppealOpening }
 }
 
 // ── §5.5 Box office ──────────────────────────────────────────────────────────
@@ -422,8 +485,19 @@ export function computeBoxOffice(
   promise: FilmPromise,
   budget: { negative: number; marketing: number },
   shapeEffects: ShapeEffects,
+  // D-12: the OPENING-reach appeal (fame-saturated when engaged). Defaults to segmentAppeal
+  // so every existing caller is unchanged (opening === legs appeal → byte-identical).
+  openingSegmentAppeal: Record<SegmentId, number> = segmentAppeal,
+  // D-12 P2: whether the D-12 economy is ENGAGED (=== saturateFame === employmentEngaged). When
+  // false (M0A/headless), the legacy fixed-capacity marketing Hill + no gross scale apply, so the
+  // acceptance corpus is byte-identical. When true, awareness-conditioned marketing + the routine
+  // gross scale apply. Default false so every existing/M0A caller is unchanged.
+  engaged = false,
 ): {
   marketingQuality: number
+  preMarketingAwareness: number
+  marketingCapacity: number
+  overexposure: number
   baseAwareness: number
   awarenessFactor: number
   openingReachMult: number
@@ -433,16 +507,44 @@ export function computeBoxOffice(
   legs: number
   total: number
 } {
-  const marketingQuality =
-    budget.marketing / (budget.marketing + TUNING.MARKETING_HALF_SATURATION)
+  // D-12 P2 (owner calibration): pre-marketing awareness = how visible/wanted this film is BEFORE
+  // any marketing spend — a blend of studio audience awareness and the film's OWN opening-appeal
+  // reach (fame-saturated when engaged). It drives the awareness-conditioned marketing capacity so
+  // a low-awareness film cannot efficiently absorb a maximum campaign.
+  let appealReachSum = 0
+  for (const seg of segments) {
+    appealReachSum += seg.share * Math.pow(openingSegmentAppeal[seg.id]! / 100, TUNING.APPEAL_CURVE_EXP)
+  }
+  const preMarketingAwareness = clamp(
+    TUNING.MARKETING_AWARENESS_STANDING_WEIGHT * (standing.audienceAwareness / 100) +
+      (1 - TUNING.MARKETING_AWARENESS_STANDING_WEIGHT) * appealReachSum,
+    0,
+    1,
+  )
+  // Efficient marketing capacity (the marketing spend at which reach half-saturates). Legacy fixed
+  // MARKETING_HALF_SATURATION when NOT engaged (M0A byte-identical); awareness-scaled when engaged.
+  const marketingCapacity = engaged
+    ? TUNING.MARKETING_CAPACITY_MIN +
+      (TUNING.MARKETING_CAPACITY_MAX - TUNING.MARKETING_CAPACITY_MIN) *
+        Math.pow(preMarketingAwareness, TUNING.MARKETING_AWARENESS_EXP)
+    : TUNING.MARKETING_HALF_SATURATION
+  const marketingQuality = budget.marketing / (budget.marketing + marketingCapacity)
+  // Stage A: EFFECTIVE marketing reach — the marketing quality scaled by an awareness-conditioned
+  // ceiling, so a low-awareness film's campaign converts to little reach even when "saturated" (its
+  // incremental reach collapses beyond capacity → a maximum campaign overspends). Engaged only; the
+  // legacy path keeps the flat 0.4 weight so M0A stays byte-identical. Both marketing gross channels
+  // below consume THIS single value (no raw spend re-enters).
+  const marketingReachCeiling =
+    TUNING.MARKETING_REACH_MIN +
+    (TUNING.MARKETING_REACH_MAX - TUNING.MARKETING_REACH_MIN) * preMarketingAwareness
+  const effectiveMarketing = engaged ? marketingReachCeiling * marketingQuality : marketingQuality
   const baseAwareness = clamp(
-    0.6 * (standing.audienceAwareness / 100) + 0.4 * marketingQuality,
+    0.6 * (standing.audienceAwareness / 100) + (engaged ? effectiveMarketing : 0.4 * marketingQuality),
     0,
     1,
   )
   const awarenessFactor = clamp(
-    baseAwareness *
-      (1 + (specificity(promise) * marketingQuality * TUNING.PROMISE_MAX_BONUS) / 100),
+    baseAwareness * (1 + (specificity(promise) * effectiveMarketing * TUNING.PROMISE_MAX_BONUS) / 100),
     0,
     1,
   )
@@ -454,17 +556,51 @@ export function computeBoxOffice(
   let weightedAudienceScore = 0
   for (const seg of segments) {
     const appeal = segmentAppeal[seg.id]
-    const appealCurve = Math.pow(appeal / 100, TUNING.APPEAL_CURVE_EXP)
+    // D-12: OPENING reach uses the (fame-saturated when engaged) opening appeal; LEGS and
+    // the audience score keep the LINEAR appeal → legs is untouched by fame saturation.
+    const appealCurve = Math.pow(openingSegmentAppeal[seg.id] / 100, TUNING.APPEAL_CURVE_EXP)
     reachSum += seg.share * awarenessFactor * appealCurve
     weightedAudienceScore += seg.share * appeal
   }
 
-  const opening = baseMarketValue * reachSum * openingReachMult * competitionFactor
-  const legs = TUNING.LEGS_MIN + (TUNING.LEGS_MAX - TUNING.LEGS_MIN) * (weightedAudienceScore / 100)
+  // D-12 P2 routine gross scale — the single canonical multiplier, applied ONCE here (economy-engaged
+  // only) at the same conceptual point in every path: after creative/talent/Fame/Marketing determine
+  // the opening, and BEFORE the theatrical schedule + the Studio Revenue share. Scaling the opening
+  // scales the total (legs unchanged) and every conserved weekly payment proportionally. Never scales
+  // costs/payroll/overhead/the post-share revenue — those stay full-scale.
+  const economyScale = engaged ? TUNING.ECONOMY_BOX_OFFICE_SCALE : 1
+  const opening = baseMarketValue * reachSum * openingReachMult * competitionFactor * economyScale
+  // Stage B overexposure (engaged only): a campaign far beyond efficient capacity raises audience
+  // expectations; a film that UNDER-delivers (low weighted audience score) sours them and front-loads
+  // (its legs shrink). Deterministic — reads only spend÷capacity and the (already-computed) audience
+  // score; opening + critic are untouched, and a delivering film (high WAS) keeps its legs.
+  const overexposureRatio = marketingCapacity > 0 ? budget.marketing / marketingCapacity : 0
+  const overexposure = clamp(
+    (overexposureRatio - TUNING.OVEREXPOSURE_THRESHOLD) / TUNING.OVEREXPOSURE_RANGE,
+    0,
+    1,
+  )
+  const deliveryGap = clamp(
+    (TUNING.OVEREXPOSURE_DELIVERY_REF - weightedAudienceScore) / TUNING.OVEREXPOSURE_DELIVERY_RANGE,
+    0,
+    1,
+  )
+  const legsPenalty = engaged ? TUNING.OVEREXPOSURE_LEGS_COEF * overexposure * deliveryGap : 0
+  // D-12 final downside: retention (legs) reshape — engaged only (the M0A linear curve is byte-identical
+  // when not engaged). A convex WAS response with a lower floor so weak delivery collapses retention.
+  const legsBase = engaged
+    ? TUNING.LEGS_MIN_ENGAGED +
+      (TUNING.LEGS_MAX - TUNING.LEGS_MIN_ENGAGED) *
+        Math.pow(clamp(weightedAudienceScore / 100, 0, 1), TUNING.LEGS_RETENTION_EXP)
+    : TUNING.LEGS_MIN + (TUNING.LEGS_MAX - TUNING.LEGS_MIN) * (weightedAudienceScore / 100)
+  const legs = legsBase * (1 - legsPenalty)
   const total = opening * legs
 
   return {
     marketingQuality,
+    preMarketingAwareness,
+    marketingCapacity,
+    overexposure,
     baseAwareness,
     awarenessFactor,
     openingReachMult,
@@ -478,8 +614,13 @@ export function computeBoxOffice(
 
 // ── §5 Full pipeline ─────────────────────────────────────────────────────────
 // The single §5.3 critic draw comes from the passed-in sim stream (rng).
-export function resolveReception(inp: ReceptionInputs, rng: RngStream): ReceptionResult {
-  const craftBlock = computeCraft(inp)
+// `saturateFame` = the §7 Fame→opening-reach Hill (a reception modeling choice). `engaged` = the
+// D-12 economy calibration (P2 routine gross scale + awareness-conditioned marketing). Both are true
+// together in engaged production play, but they are DISTINCT concerns and are threaded separately so
+// the fame-isolation harness/tests can vary fame WITHOUT triggering the economy scale. Both default
+// false → the M0A/headless path is byte-identical.
+export function resolveReception(inp: ReceptionInputs, rng: RngStream, saturateFame = false, engaged = false): ReceptionResult {
+  const craftBlock = computeCraft(inp, engaged)
   const contribBlock = computeContributions(inp)
   const delivered = contribBlock.centroid
 
@@ -490,6 +631,7 @@ export function resolveReception(inp: ReceptionInputs, rng: RngStream): Receptio
     delivered,
     craftBlock.craft,
     criticBlock.timelinessContribution,
+    saturateFame,
   )
 
   const boxOffice = computeBoxOffice(
@@ -500,6 +642,8 @@ export function resolveReception(inp: ReceptionInputs, rng: RngStream): Receptio
     inp.promise,
     inp.budget,
     inp.shapeEffects,
+    appealBlock.segmentAppealOpening,
+    engaged, // D-12 P2: economy calibration (routine gross scale + awareness marketing), distinct from fame
   )
 
   return {
