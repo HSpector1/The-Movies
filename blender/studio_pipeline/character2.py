@@ -65,8 +65,8 @@ ROLES = {
 # average = standard, shorter/wider = heavy, taller/leaner = slim.
 SIZE = {
     "standard": dict(girth=1.00, height=1.00),
-    "heavy":    dict(girth=1.15, height=0.99),
-    "slim":     dict(girth=0.90, height=1.00),
+    "heavy":    dict(girth=1.18, height=0.99),   # 05D: wider spread so profiles read distinctly
+    "slim":     dict(girth=0.87, height=1.00),
 }
 
 
@@ -245,6 +245,10 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
                     matrix=T(ua_h.x - sgn * 0.014, ua_h.y, ua_h.z - 0.006) @ Matrix.Diagonal((0.95, 1.05, 1.02, 1)), mat=upper)
         # upper-arm sleeve (shirt), tapering to the elbow
         sb.segment(f"upperarm_{s}", ua_h, la_h, 0.056 * g, 0.05, segments=12, mat=upper)
+        # bicep fullness so the upper arm is not a straight tube
+        bic = ua_h.lerp(la_h, 0.4)
+        sb.uvsphere(f"upperarm_{s}", 1.0, u=10, v=8,
+                    matrix=T(bic.x, bic.y - 0.004, bic.z) @ Matrix.Diagonal((0.070, 0.058 * g, 0.056 * g, 1)), mat=upper)
         # elbow joint (blend) — sleeve cuff sits here
         sb.uvsphere(_blend(f"upperarm_{s}", f"lowerarm_{s}"), 0.052, u=10, v=8, matrix=T(*la_h), mat=upper)
         # rolled-sleeve cuff: a thicker shirt band just before the skin forearm begins
@@ -272,12 +276,16 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         # hip cap (trousers) — rounder, flows into the pelvis mass (no boxy hip)
         sb.uvsphere(_blend("pelvis", f"thigh_{s}", 0.4), 0.078 * g, u=14, v=10,
                     matrix=T(th_h.x, th_h.y, th_h.z + 0.01) @ Matrix.Diagonal((1.05, 1.0, 1.1, 1)), mat=lower)
-        # thigh (trousers)
-        sb.segment(f"thigh_{s}", th_h, ca_h, 0.082 * g, 0.062, segments=12, mat=lower)
+        # thigh (trousers) — fuller at the hip, tapering to the knee (not a straight tube)
+        sb.segment(f"thigh_{s}", th_h, ca_h, 0.086 * g, 0.058, segments=12, mat=lower)
         # knee (blend) — slightly larger so the joint keeps volume in deep kneel/crouch
         sb.uvsphere(_blend(f"thigh_{s}", f"calf_{s}"), 0.064, u=12, v=8, matrix=T(*ca_h), mat=lower)
         # calf (trousers) down to the ankle
-        sb.segment(f"calf_{s}", ca_h, ft_h, 0.06, 0.045, segments=12, mat=lower)
+        sb.segment(f"calf_{s}", ca_h, ft_h, 0.06, 0.044, segments=12, mat=lower)
+        # calf-muscle fullness on the back (+Y) so the lower leg reads shaped
+        cmus = ca_h.lerp(ft_h, 0.32)
+        sb.uvsphere(f"calf_{s}", 1.0, u=10, v=8,
+                    matrix=T(cmus.x, cmus.y + 0.018, cmus.z) @ Matrix.Diagonal((0.052, 0.060, 0.078, 1)), mat=lower)
         # ankle collar (blend) — keeps the trouser->boot join closed
         sb.uvsphere(_blend(f"calf_{s}", f"foot_{s}", 0.4), 0.05, u=8, v=6, matrix=T(*ft_h), mat=leather)
         # SHOE: a rounded work boot — instep/heel + rounded toe + a thin dark sole (not angular boxes)
