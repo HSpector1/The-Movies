@@ -130,6 +130,32 @@ signage, and the iconic water tower. Evidence in `proof/lab04/`. See `docs/ASSET
 `ASSET-LAB-04-FINDINGS.md`, `ASSET-LAB-04-OWNER-REVIEW-GUIDE.md`,
 `ASSET-LAB-04-INTEGRATION-RECOMMENDATION.md`.
 
+## Asset Lab 05 — Blender Production Foundation + Art Vertical Slice (branch `asset-lab-05-blender-pipeline`)
+
+Turns the installed **Blender 5.2 LTS** into a repeatable, headless, deterministic **production-art
+factory** (`blender/studio_pipeline/`, driven by `npm run blender:*`) and proves it with a representative
+**vertical slice**, **Scene G**. Everything is authored procedurally in `bpy` — original stylized crew
+characters (6 roles, skinned to the **65-bone UAL Mannequin** so the existing **43 CC0 clips** play
+unchanged), a modular studio architecture kit (8 modules + an assembled soundstage), production props (9,
+3 hand-attachable), a coherent export-safe PBR material library, **LOD0/1/2** + collision proxies,
+automated GLB export, dual validation (Blender-side + independent Node byte-check), auto-rendered
+thumbnails, and a reusable **Asset Browser** library. Scene G loads the whole Blender-authored set + crew
+(each playing a CC0 clip) in the real runtime — console-error-free, live animation. Boots on Scene G;
+Scenes A–F are untouched. Adversarially self-verified. **NOT merged** — owner review requested.
+
+```bash
+npm run blender:factory     # build all 23 assets + hero set + asset library + validate  (~15 s headless)
+npm run build && npm run preview   # http://localhost:4320  → Scene G
+```
+
+Evidence in `proof/lab05/`. See [`docs/ASSET-LAB-05-BRIEF.md`](docs/ASSET-LAB-05-BRIEF.md),
+[`ASSET-LAB-05-OWNER-REVIEW-GUIDE.md`](docs/ASSET-LAB-05-OWNER-REVIEW-GUIDE.md),
+[`ASSET-LAB-05-PIPELINE.md`](docs/ASSET-LAB-05-PIPELINE.md),
+[`ASSET-LAB-05-CHARACTER-SYSTEM.md`](docs/ASSET-LAB-05-CHARACTER-SYSTEM.md),
+[`ASSET-LAB-05-STANDARDS.md`](docs/ASSET-LAB-05-STANDARDS.md),
+[`ASSET-LAB-05-FINDINGS.md`](docs/ASSET-LAB-05-FINDINGS.md),
+[`ASSET-LAB-05-INTEGRATION-RECOMMENDATION.md`](docs/ASSET-LAB-05-INTEGRATION-RECOMMENDATION.md).
+
 ## Documents
 
 - [`docs/ASSET-INVENTORY.md`](docs/ASSET-INVENTORY.md)

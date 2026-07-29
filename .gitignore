@@ -4,7 +4,16 @@ sources/
 
 # Curated + optimized runtime binaries are regenerable from sources/ via `npm run pipeline`.
 # They also include LICENSE-UNCLEAR / DO-NOT-USE material that must not be redistributed.
-public/assets/
+# (ignore the CONTENTS, not the dir itself, so the studio/ subtree can be re-included below)
+public/assets/*
+# EXCEPTION (Asset Lab 05): the Blender-authored studio assets are 100% ORIGINAL / owner-owned
+# (no third-party license), so committing them lets the Scene G vertical slice run on a fresh
+# checkout without Blender. They regenerate deterministically via `npm run blender:factory`.
+!public/assets/studio/
+
+# --- Blender working files (regenerable). The .blend asset LIBRARY under blender/libraries/ IS committed. ---
+blender/out/
+**/__pycache__/
 
 # --- Standard ---
 node_modules/
@@ -14,3 +23,6 @@ dist/
 .DS_Store
 
 # Proof PNGs (proof/) and manifests/ ARE committed: they are required deliverables (§11, §12).
+
+# Blender auto-backup files
+*.blend1

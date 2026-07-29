@@ -1,0 +1,894 @@
+{
+  "tool": "build_all",
+  "scale": {
+    "unit": "meter",
+    "adultHeight": 1.8
+  },
+  "rig": {
+    "armature": "Armature",
+    "bones": 65,
+    "clips_source": "assets/animation/UAL1_Standard.glb",
+    "clip_count": 43
+  },
+  "families": {
+    "characters": 6,
+    "architecture": 8,
+    "props": 9
+  },
+  "assets": [
+    {
+      "name": "Char_Grip_Standard_LOD0",
+      "class": "character",
+      "tris": 2304,
+      "dims_m": [
+        1.308,
+        0.404,
+        1.8
+      ],
+      "materials": 3,
+      "vgroups": 65,
+      "core_bones_present": true,
+      "missing_core_bones": [],
+      "ok": true,
+      "issues": [],
+      "id": "studio/characters/Char_Grip_Standard",
+      "family": "characters",
+      "role": "Grip",
+      "file": "assets/studio/characters/Char_Grip_Standard.glb",
+      "thumbnail": "proof/lab05/thumbnails/Char_Grip_Standard.png",
+      "lod": {
+        "lod0_tris": 2304,
+        "lod1_tris": 1152,
+        "lod1_file": "assets/studio/characters/Char_Grip_Standard_LOD1.glb",
+        "lod2_tris": 576,
+        "lod2_file": "assets/studio/characters/Char_Grip_Standard_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/characters/Char_Grip_Standard_COL.glb",
+        "tris": 76,
+        "shape": "capsule"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": null
+    },
+    {
+      "name": "Char_Electric_Heavy_LOD0",
+      "class": "character",
+      "tris": 2442,
+      "dims_m": [
+        1.308,
+        0.416,
+        1.83
+      ],
+      "materials": 3,
+      "vgroups": 65,
+      "core_bones_present": true,
+      "missing_core_bones": [],
+      "ok": true,
+      "issues": [],
+      "id": "studio/characters/Char_Electric_Heavy",
+      "family": "characters",
+      "role": "Electric",
+      "file": "assets/studio/characters/Char_Electric_Heavy.glb",
+      "thumbnail": "proof/lab05/thumbnails/Char_Electric_Heavy.png",
+      "lod": {
+        "lod0_tris": 2442,
+        "lod1_tris": 1220,
+        "lod1_file": "assets/studio/characters/Char_Electric_Heavy_LOD1.glb",
+        "lod2_tris": 610,
+        "lod2_file": "assets/studio/characters/Char_Electric_Heavy_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/characters/Char_Electric_Heavy_COL.glb",
+        "tris": 76,
+        "shape": "capsule"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": null
+    },
+    {
+      "name": "Char_CameraDP_Standard_LOD0",
+      "class": "character",
+      "tris": 2102,
+      "dims_m": [
+        1.308,
+        0.404,
+        1.8
+      ],
+      "materials": 3,
+      "vgroups": 65,
+      "core_bones_present": true,
+      "missing_core_bones": [],
+      "ok": true,
+      "issues": [],
+      "id": "studio/characters/Char_CameraDP_Standard",
+      "family": "characters",
+      "role": "CameraDP",
+      "file": "assets/studio/characters/Char_CameraDP_Standard.glb",
+      "thumbnail": "proof/lab05/thumbnails/Char_CameraDP_Standard.png",
+      "lod": {
+        "lod0_tris": 2102,
+        "lod1_tris": 1050,
+        "lod1_file": "assets/studio/characters/Char_CameraDP_Standard_LOD1.glb",
+        "lod2_tris": 524,
+        "lod2_file": "assets/studio/characters/Char_CameraDP_Standard_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/characters/Char_CameraDP_Standard_COL.glb",
+        "tris": 76,
+        "shape": "capsule"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": null
+    },
+    {
+      "name": "Char_Director_Standard_LOD0",
+      "class": "character",
+      "tris": 2476,
+      "dims_m": [
+        1.308,
+        0.653,
+        1.87
+      ],
+      "materials": 3,
+      "vgroups": 65,
+      "core_bones_present": true,
+      "missing_core_bones": [],
+      "ok": true,
+      "issues": [],
+      "id": "studio/characters/Char_Director_Standard",
+      "family": "characters",
+      "role": "Director",
+      "file": "assets/studio/characters/Char_Director_Standard.glb",
+      "thumbnail": "proof/lab05/thumbnails/Char_Director_Standard.png",
+      "lod": {
+        "lod0_tris": 2476,
+        "lod1_tris": 1238,
+        "lod1_file": "assets/studio/characters/Char_Director_Standard_LOD1.glb",
+        "lod2_tris": 618,
+        "lod2_file": "assets/studio/characters/Char_Director_Standard_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/characters/Char_Director_Standard_COL.glb",
+        "tris": 76,
+        "shape": "capsule"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": null
+    },
+    {
+      "name": "Char_PA_Standard_LOD0",
+      "class": "character",
+      "tris": 2022,
+      "dims_m": [
+        1.308,
+        0.38,
+        1.772
+      ],
+      "materials": 2,
+      "vgroups": 65,
+      "core_bones_present": true,
+      "missing_core_bones": [],
+      "ok": true,
+      "issues": [],
+      "id": "studio/characters/Char_PA_Standard",
+      "family": "characters",
+      "role": "PA",
+      "file": "assets/studio/characters/Char_PA_Standard.glb",
+      "thumbnail": "proof/lab05/thumbnails/Char_PA_Standard.png",
+      "lod": {
+        "lod0_tris": 2022,
+        "lod1_tris": 1010,
+        "lod1_file": "assets/studio/characters/Char_PA_Standard_LOD1.glb",
+        "lod2_tris": 504,
+        "lod2_file": "assets/studio/characters/Char_PA_Standard_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/characters/Char_PA_Standard_COL.glb",
+        "tris": 76,
+        "shape": "capsule"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": null
+    },
+    {
+      "name": "Char_Carpenter_Heavy_LOD0",
+      "class": "character",
+      "tris": 2386,
+      "dims_m": [
+        1.308,
+        0.413,
+        1.803
+      ],
+      "materials": 3,
+      "vgroups": 65,
+      "core_bones_present": true,
+      "missing_core_bones": [],
+      "ok": true,
+      "issues": [],
+      "id": "studio/characters/Char_Carpenter_Heavy",
+      "family": "characters",
+      "role": "Carpenter",
+      "file": "assets/studio/characters/Char_Carpenter_Heavy.glb",
+      "thumbnail": "proof/lab05/thumbnails/Char_Carpenter_Heavy.png",
+      "lod": {
+        "lod0_tris": 2386,
+        "lod1_tris": 1192,
+        "lod1_file": "assets/studio/characters/Char_Carpenter_Heavy_LOD1.glb",
+        "lod2_tris": 596,
+        "lod2_file": "assets/studio/characters/Char_Carpenter_Heavy_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/characters/Char_Carpenter_Heavy_COL.glb",
+        "tris": 76,
+        "shape": "capsule"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": null
+    },
+    {
+      "name": "Arch_M01_StageWall_LOD0",
+      "class": "architecture_module",
+      "tris": 36,
+      "dims_m": [
+        2.0,
+        0.24,
+        8.0
+      ],
+      "materials": 2,
+      "ok": true,
+      "issues": [],
+      "id": "studio/architecture/Arch_M01_StageWall",
+      "family": "architecture",
+      "role": "stage_wall",
+      "file": "assets/studio/architecture/Arch_M01_StageWall.glb",
+      "thumbnail": "proof/lab05/thumbnails/Arch_M01_StageWall.png",
+      "lod": {
+        "lod0_tris": 36,
+        "lod1_tris": 18,
+        "lod1_file": "assets/studio/architecture/Arch_M01_StageWall_LOD1.glb",
+        "lod2_tris": 6,
+        "lod2_file": "assets/studio/architecture/Arch_M01_StageWall_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/architecture/Arch_M01_StageWall_COL.glb",
+        "tris": 12,
+        "shape": "box"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      }
+    },
+    {
+      "name": "Arch_M02_ElephantDoor_LOD0",
+      "class": "architecture_module",
+      "tris": 156,
+      "dims_m": [
+        4.0,
+        0.33,
+        8.0
+      ],
+      "materials": 3,
+      "ok": true,
+      "issues": [],
+      "id": "studio/architecture/Arch_M02_ElephantDoor",
+      "family": "architecture",
+      "role": "elephant_door",
+      "file": "assets/studio/architecture/Arch_M02_ElephantDoor.glb",
+      "thumbnail": "proof/lab05/thumbnails/Arch_M02_ElephantDoor.png",
+      "lod": {
+        "lod0_tris": 156,
+        "lod1_tris": 78,
+        "lod1_file": "assets/studio/architecture/Arch_M02_ElephantDoor_LOD1.glb",
+        "lod2_tris": 30,
+        "lod2_file": "assets/studio/architecture/Arch_M02_ElephantDoor_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/architecture/Arch_M02_ElephantDoor_COL.glb",
+        "tris": 12,
+        "shape": "box"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      }
+    },
+    {
+      "name": "Arch_M03_BarrelRoof_LOD0",
+      "class": "architecture_module",
+      "tris": 96,
+      "dims_m": [
+        2.117,
+        2.0,
+        1.812
+      ],
+      "materials": 2,
+      "ok": true,
+      "issues": [],
+      "id": "studio/architecture/Arch_M03_BarrelRoof",
+      "family": "architecture",
+      "role": "barrel_roof",
+      "file": "assets/studio/architecture/Arch_M03_BarrelRoof.glb",
+      "thumbnail": "proof/lab05/thumbnails/Arch_M03_BarrelRoof.png",
+      "lod": {
+        "lod0_tris": 96,
+        "lod1_tris": 48,
+        "lod1_file": "assets/studio/architecture/Arch_M03_BarrelRoof_LOD1.glb",
+        "lod2_tris": 20,
+        "lod2_file": "assets/studio/architecture/Arch_M03_BarrelRoof_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/architecture/Arch_M03_BarrelRoof_COL.glb",
+        "tris": 12,
+        "shape": "box"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      }
+    },
+    {
+      "name": "Arch_M04_StageCorner_LOD0",
+      "class": "architecture_module",
+      "tris": 24,
+      "dims_m": [
+        0.5,
+        0.5,
+        8.4
+      ],
+      "materials": 2,
+      "ok": true,
+      "issues": [],
+      "id": "studio/architecture/Arch_M04_StageCorner",
+      "family": "architecture",
+      "role": "stage_corner",
+      "file": "assets/studio/architecture/Arch_M04_StageCorner.glb",
+      "thumbnail": "proof/lab05/thumbnails/Arch_M04_StageCorner.png",
+      "lod": {
+        "lod0_tris": 24,
+        "lod1_tris": 12,
+        "lod1_file": "assets/studio/architecture/Arch_M04_StageCorner_LOD1.glb",
+        "lod2_tris": 5,
+        "lod2_file": "assets/studio/architecture/Arch_M04_StageCorner_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/architecture/Arch_M04_StageCorner_COL.glb",
+        "tris": 12,
+        "shape": "box"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      }
+    },
+    {
+      "name": "Arch_M14_GroundTile_LOD0",
+      "class": "architecture_ground",
+      "tris": 12,
+      "dims_m": [
+        8.0,
+        8.0,
+        0.08
+      ],
+      "materials": 1,
+      "ok": true,
+      "issues": [],
+      "id": "studio/architecture/Arch_M14_GroundTile",
+      "family": "architecture",
+      "role": "ground_tile",
+      "file": "assets/studio/architecture/Arch_M14_GroundTile.glb",
+      "thumbnail": "proof/lab05/thumbnails/Arch_M14_GroundTile.png",
+      "lod": {
+        "lod0_tris": 12,
+        "lod1_tris": 6,
+        "lod1_file": "assets/studio/architecture/Arch_M14_GroundTile_LOD1.glb",
+        "lod2_tris": 1,
+        "lod2_file": "assets/studio/architecture/Arch_M14_GroundTile_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/architecture/Arch_M14_GroundTile_COL.glb",
+        "tris": 24,
+        "shape": "convex"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      }
+    },
+    {
+      "name": "Arch_M10_BoundaryWall_LOD0",
+      "class": "architecture_module",
+      "tris": 36,
+      "dims_m": [
+        2.5,
+        0.5,
+        3.3
+      ],
+      "materials": 2,
+      "ok": true,
+      "issues": [],
+      "id": "studio/architecture/Arch_M10_BoundaryWall",
+      "family": "architecture",
+      "role": "boundary_wall",
+      "file": "assets/studio/architecture/Arch_M10_BoundaryWall.glb",
+      "thumbnail": "proof/lab05/thumbnails/Arch_M10_BoundaryWall.png",
+      "lod": {
+        "lod0_tris": 36,
+        "lod1_tris": 18,
+        "lod1_file": "assets/studio/architecture/Arch_M10_BoundaryWall_LOD1.glb",
+        "lod2_tris": 6,
+        "lod2_file": "assets/studio/architecture/Arch_M10_BoundaryWall_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/architecture/Arch_M10_BoundaryWall_COL.glb",
+        "tris": 12,
+        "shape": "box"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      }
+    },
+    {
+      "name": "Arch_M11_MarqueeGate_LOD0",
+      "class": "architecture_module",
+      "tris": 72,
+      "dims_m": [
+        10.3,
+        1.4,
+        7.2
+      ],
+      "materials": 4,
+      "ok": true,
+      "issues": [],
+      "id": "studio/architecture/Arch_M11_MarqueeGate",
+      "family": "architecture",
+      "role": "marquee_gate",
+      "file": "assets/studio/architecture/Arch_M11_MarqueeGate.glb",
+      "thumbnail": "proof/lab05/thumbnails/Arch_M11_MarqueeGate.png",
+      "lod": {
+        "lod0_tris": 72,
+        "lod1_tris": 36,
+        "lod1_file": "assets/studio/architecture/Arch_M11_MarqueeGate_LOD1.glb",
+        "lod2_tris": 15,
+        "lod2_file": "assets/studio/architecture/Arch_M11_MarqueeGate_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/architecture/Arch_M11_MarqueeGate_COL.glb",
+        "tris": 12,
+        "shape": "box"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      }
+    },
+    {
+      "name": "Arch_M13_WaterTower_LOD0",
+      "class": "architecture_landmark",
+      "tris": 708,
+      "dims_m": [
+        3.0,
+        3.0,
+        15.309
+      ],
+      "materials": 3,
+      "ok": true,
+      "issues": [],
+      "id": "studio/architecture/Arch_M13_WaterTower",
+      "family": "architecture",
+      "role": "water_tower",
+      "file": "assets/studio/architecture/Arch_M13_WaterTower.glb",
+      "thumbnail": "proof/lab05/thumbnails/Arch_M13_WaterTower.png",
+      "lod": {
+        "lod0_tris": 708,
+        "lod1_tris": 354,
+        "lod1_file": "assets/studio/architecture/Arch_M13_WaterTower_LOD1.glb",
+        "lod2_tris": 176,
+        "lod2_file": "assets/studio/architecture/Arch_M13_WaterTower_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/architecture/Arch_M13_WaterTower_COL.glb",
+        "tris": 226,
+        "shape": "convex"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      }
+    },
+    {
+      "name": "Prop_StudioCamera_LOD0",
+      "class": "prop",
+      "tris": 588,
+      "dims_m": [
+        1.067,
+        1.08,
+        1.95
+      ],
+      "materials": 4,
+      "ok": true,
+      "issues": [],
+      "id": "studio/props/Prop_StudioCamera",
+      "family": "props",
+      "role": "camera",
+      "file": "assets/studio/props/Prop_StudioCamera.glb",
+      "thumbnail": "proof/lab05/thumbnails/Prop_StudioCamera.png",
+      "lod": {
+        "lod0_tris": 588,
+        "lod1_tris": 294,
+        "lod1_file": "assets/studio/props/Prop_StudioCamera_LOD1.glb",
+        "lod2_tris": 146,
+        "lod2_file": "assets/studio/props/Prop_StudioCamera_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/props/Prop_StudioCamera_COL.glb",
+        "tris": 160,
+        "shape": "convex"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": null
+    },
+    {
+      "name": "Prop_Fresnel_LOD0",
+      "class": "prop",
+      "tris": 380,
+      "dims_m": [
+        0.719,
+        0.823,
+        2.114
+      ],
+      "materials": 3,
+      "ok": true,
+      "issues": [],
+      "id": "studio/props/Prop_Fresnel",
+      "family": "props",
+      "role": "light",
+      "file": "assets/studio/props/Prop_Fresnel.glb",
+      "thumbnail": "proof/lab05/thumbnails/Prop_Fresnel.png",
+      "lod": {
+        "lod0_tris": 380,
+        "lod1_tris": 190,
+        "lod1_file": "assets/studio/props/Prop_Fresnel_LOD1.glb",
+        "lod2_tris": 94,
+        "lod2_file": "assets/studio/props/Prop_Fresnel_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/props/Prop_Fresnel_COL.glb",
+        "tris": 148,
+        "shape": "convex"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": null
+    },
+    {
+      "name": "Prop_CStand_LOD0",
+      "class": "prop",
+      "tris": 268,
+      "dims_m": [
+        1.196,
+        0.886,
+        2.42
+      ],
+      "materials": 2,
+      "ok": true,
+      "issues": [],
+      "id": "studio/props/Prop_CStand",
+      "family": "props",
+      "role": "grip",
+      "file": "assets/studio/props/Prop_CStand.glb",
+      "thumbnail": "proof/lab05/thumbnails/Prop_CStand.png",
+      "lod": {
+        "lod0_tris": 268,
+        "lod1_tris": 134,
+        "lod1_file": "assets/studio/props/Prop_CStand_LOD1.glb",
+        "lod2_tris": 66,
+        "lod2_file": "assets/studio/props/Prop_CStand_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/props/Prop_CStand_COL.glb",
+        "tris": 144,
+        "shape": "convex"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": null
+    },
+    {
+      "name": "Prop_AppleBox_Full_LOD0",
+      "class": "prop",
+      "tris": 36,
+      "dims_m": [
+        0.508,
+        0.326,
+        0.203
+      ],
+      "materials": 2,
+      "ok": true,
+      "issues": [],
+      "id": "studio/props/Prop_AppleBox_Full",
+      "family": "props",
+      "role": "grip",
+      "file": "assets/studio/props/Prop_AppleBox_Full.glb",
+      "thumbnail": "proof/lab05/thumbnails/Prop_AppleBox_Full.png",
+      "lod": {
+        "lod0_tris": 36,
+        "lod1_tris": 17,
+        "lod1_file": "assets/studio/props/Prop_AppleBox_Full_LOD1.glb",
+        "lod2_tris": 6,
+        "lod2_file": "assets/studio/props/Prop_AppleBox_Full_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/props/Prop_AppleBox_Full_COL.glb",
+        "tris": 44,
+        "shape": "convex"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": null
+    },
+    {
+      "name": "Prop_DirectorsChair_LOD0",
+      "class": "prop",
+      "tris": 256,
+      "dims_m": [
+        0.524,
+        0.474,
+        0.964
+      ],
+      "materials": 2,
+      "ok": true,
+      "issues": [],
+      "id": "studio/props/Prop_DirectorsChair",
+      "family": "props",
+      "role": "set",
+      "file": "assets/studio/props/Prop_DirectorsChair.glb",
+      "thumbnail": "proof/lab05/thumbnails/Prop_DirectorsChair.png",
+      "lod": {
+        "lod0_tris": 256,
+        "lod1_tris": 128,
+        "lod1_file": "assets/studio/props/Prop_DirectorsChair_LOD1.glb",
+        "lod2_tris": 64,
+        "lod2_file": "assets/studio/props/Prop_DirectorsChair_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/props/Prop_DirectorsChair_COL.glb",
+        "tris": 130,
+        "shape": "convex"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": null
+    },
+    {
+      "name": "Prop_CableReel_LOD0",
+      "class": "prop",
+      "tris": 364,
+      "dims_m": [
+        0.7,
+        0.5,
+        0.7
+      ],
+      "materials": 3,
+      "ok": true,
+      "issues": [],
+      "id": "studio/props/Prop_CableReel",
+      "family": "props",
+      "role": "electric",
+      "file": "assets/studio/props/Prop_CableReel.glb",
+      "thumbnail": "proof/lab05/thumbnails/Prop_CableReel.png",
+      "lod": {
+        "lod0_tris": 364,
+        "lod1_tris": 182,
+        "lod1_file": "assets/studio/props/Prop_CableReel_LOD1.glb",
+        "lod2_tris": 90,
+        "lod2_file": "assets/studio/props/Prop_CableReel_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/props/Prop_CableReel_COL.glb",
+        "tris": 146,
+        "shape": "convex"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": null
+    },
+    {
+      "name": "Prop_Slate_attach_hand_l_LOD0",
+      "class": "prop",
+      "tris": 84,
+      "dims_m": [
+        0.28,
+        0.025,
+        0.315
+      ],
+      "materials": 3,
+      "ok": true,
+      "issues": [],
+      "id": "studio/props/Prop_Slate_attach_hand_l",
+      "family": "props",
+      "role": "camera",
+      "file": "assets/studio/props/Prop_Slate_attach_hand_l.glb",
+      "thumbnail": "proof/lab05/thumbnails/Prop_Slate_attach_hand_l.png",
+      "lod": {
+        "lod0_tris": 84,
+        "lod1_tris": 42,
+        "lod1_file": "assets/studio/props/Prop_Slate_attach_hand_l_LOD1.glb",
+        "lod2_tris": 16,
+        "lod2_file": "assets/studio/props/Prop_Slate_attach_hand_l_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/props/Prop_Slate_attach_hand_l_COL.glb",
+        "tris": 54,
+        "shape": "convex"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": "hand_l"
+    },
+    {
+      "name": "Prop_Boom_attach_hand_r_LOD0",
+      "class": "prop",
+      "tris": 132,
+      "dims_m": [
+        0.1,
+        3.15,
+        0.1
+      ],
+      "materials": 2,
+      "ok": true,
+      "issues": [],
+      "id": "studio/props/Prop_Boom_attach_hand_r",
+      "family": "props",
+      "role": "sound",
+      "file": "assets/studio/props/Prop_Boom_attach_hand_r.glb",
+      "thumbnail": "proof/lab05/thumbnails/Prop_Boom_attach_hand_r.png",
+      "lod": {
+        "lod0_tris": 132,
+        "lod1_tris": 66,
+        "lod1_file": "assets/studio/props/Prop_Boom_attach_hand_r_LOD1.glb",
+        "lod2_tris": 32,
+        "lod2_file": "assets/studio/props/Prop_Boom_attach_hand_r_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/props/Prop_Boom_attach_hand_r_COL.glb",
+        "tris": 202,
+        "shape": "convex"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": "hand_r"
+    },
+    {
+      "name": "Prop_Megaphone_attach_hand_r_LOD0",
+      "class": "prop",
+      "tris": 112,
+      "dims_m": [
+        0.236,
+        0.375,
+        0.24
+      ],
+      "materials": 2,
+      "ok": true,
+      "issues": [],
+      "id": "studio/props/Prop_Megaphone_attach_hand_r",
+      "family": "props",
+      "role": "director",
+      "file": "assets/studio/props/Prop_Megaphone_attach_hand_r.glb",
+      "thumbnail": "proof/lab05/thumbnails/Prop_Megaphone_attach_hand_r.png",
+      "lod": {
+        "lod0_tris": 112,
+        "lod1_tris": 56,
+        "lod1_file": "assets/studio/props/Prop_Megaphone_attach_hand_r_LOD1.glb",
+        "lod2_tris": 28,
+        "lod2_file": "assets/studio/props/Prop_Megaphone_attach_hand_r_LOD2.glb"
+      },
+      "collision": {
+        "file": "assets/studio/props/Prop_Megaphone_attach_hand_r_COL.glb",
+        "tris": 88,
+        "shape": "convex"
+      },
+      "provenance": {
+        "author": "Project Studio Asset Lab",
+        "license": "original-CC0-equivalent",
+        "pipeline": "blender-studio_pipeline",
+        "milestone": "asset-lab-05"
+      },
+      "attach": "hand_r"
+    }
+  ],
+  "validation": {
+    "pass": 23,
+    "fail": 0
+  },
+  "counts": {
+    "assets": 23,
+    "reusable": 23,
+    "families": {
+      "characters": 6,
+      "architecture": 8,
+      "props": 9
+    }
+  }
+}

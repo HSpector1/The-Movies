@@ -9,8 +9,8 @@ const PROV_COLOR: Record<Provenance, string> = {
   'CC0': '#22c55e', 'ATTRIBUTION-REQUIRED': '#3b82f6', 'PROTOTYPE-ONLY': '#f59e0b',
   'LICENSE-UNCLEAR': '#f59e0b', 'DO-NOT-USE': '#ef4444',
 }
-const SCENE_LABEL: Record<SceneKey, string> = { A: 'A · Lab01 lot', B: 'B · Furnished', C: 'C · Animation', D: 'D · Studio greybox', E: 'E · Hero stage', F: 'F · Refined lot' }
-const SCENE_PACK: Record<SceneKey, string> = { A: 'downtown', B: 'props', C: 'animation', D: 'downtown', E: 'animation', F: 'downtown' }
+const SCENE_LABEL: Record<SceneKey, string> = { A: 'A · Lab01 lot', B: 'B · Furnished', C: 'C · Animation', D: 'D · Studio greybox', E: 'E · Hero stage', F: 'F · Refined lot', G: 'G · Blender art (Lab05)' }
+const SCENE_PACK: Record<SceneKey, string> = { A: 'downtown', B: 'props', C: 'animation', D: 'downtown', E: 'animation', F: 'downtown', G: 'studio' }
 
 const panel: CSSProperties = {
   position: 'fixed', top: 0, left: 0, width: 340, maxHeight: '100vh', overflowY: 'auto',
@@ -54,12 +54,14 @@ export function DevPanel({ manifest }: { manifest: RuntimeManifest | null }): JS
   const { state, set, resetCamera } = useLab()
   const [, tick] = useState(0)
   useEffect(() => { const id = setInterval(() => tick((n) => n + 1), 250); return () => clearInterval(id) }, [])
+  if (!state.showHud) return <></>          // hidden for clean hero captures (window.__lab.set)
   const s = latestStats
 
   const clipDuration = manifest?.clips.find((c) => c.name === state.clip)?.duration
   const activePack = SCENE_PACK[state.scene]
   const packAssets = manifest?.assets.filter((a) => a.pack === activePack) ?? []
-  const packProv = (packAssets[0]?.provenance ?? 'LICENSE-UNCLEAR') as Provenance
+  // Scene G assets are the Blender-authored studio set (studio-assets.json), original & owner-owned.
+  const packProv = (activePack === 'studio' ? 'CC0' : (packAssets[0]?.provenance ?? 'LICENSE-UNCLEAR')) as Provenance
   const packTris = packAssets.reduce((n, a) => n + (a.triangles ?? 0), 0)
   const packMats = packAssets.reduce((n, a) => n + (a.materials ?? 0), 0)
 
@@ -69,7 +71,7 @@ export function DevPanel({ manifest }: { manifest: RuntimeManifest | null }): JS
       <div style={{ color: '#6f7b88', fontSize: 10.5 }}>isolated intake · conversion · visual proof — owns no sim truth</div>
 
       <div style={h}>Scene — D⇄F = greybox vs refined lot (Lab 04)</div>
-      <div style={row}>{(['A', 'B', 'C', 'D', 'E', 'F'] as SceneKey[]).map((k) =>
+      <div style={row}>{(['A', 'B', 'C', 'D', 'E', 'F', 'G'] as SceneKey[]).map((k) =>
         <Btn key={k} on={state.scene === k} onClick={() => set('scene', k)}>{SCENE_LABEL[k]}</Btn>)}</div>
 
       <div style={h}>Camera (§7)</div>
@@ -210,7 +212,9 @@ export function DevPanel({ manifest }: { manifest: RuntimeManifest | null }): JS
 
       <div style={h}>Material info (§8 · manifest)</div>
       <div style={{ color: '#9fb0c0' }}>
-        {activePack}: {packAssets.length} assets · {packMats} materials · {packTris.toLocaleString()} tris
+        {activePack === 'studio'
+          ? 'studio: Blender-authored assets — see manifests/studio-assets.json (23 assets, original/owner-owned)'
+          : `${activePack}: ${packAssets.length} assets · ${packMats} materials · ${packTris.toLocaleString()} tris`}
       </div>
 
       <div style={h}>Provenance status (§12)</div>

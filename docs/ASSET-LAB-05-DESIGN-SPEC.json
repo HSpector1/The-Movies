@@ -1,0 +1,342 @@
+{
+  "chosen_character_approach": "HYBRID",
+  "chosen_rationale": "Ground truth verified on disk: public/assets/animation/UAL1_Standard.glb is a real Khronos glTF export with exactly 65 skin joints (names verbatim: root, pelvis, spine_01/02/03, neck_01, Head, clavicle/upperarm/lowerarm/hand_[lr] + full 5-finger chains incl. *_04_leaf, thigh/calf/foot/ball/ball_leaf_[lr]) and exactly 43 clips (incl. the stress set Fixing_Kneeling, PickUp_Table, Push_Loop, Driving_Loop, Sitting_Enter/Idle/Exit/Talking, Crouch_Fwd/Idle_Loop, Jog_Fwd_Loop, Interact, Idle_Talking_Loop, plus A_TPose as the rest reference). The current crew (src/components/Workers.tsx) is literally this raw ~7.6MB mannequin GLB, SkeletonUtils-cloned and per-instance color-tinted — the exact tint-only stopgap all three concepts target. A DECISIVE FACT drove the hybrid: I parsed the bind pose and the bones carry large baked LOCAL rotations (upperarm_l 93.7deg, clavicle_l 102.8deg, thigh_l 165.9deg, pelvis 104.5deg quaternion angles). Rest is NOT a clean T-pose and bone ROLL — not just joint position — governs how mesh must be oriented at each bone. This means the ONLY safe build path is to append the armature unchanged and generate geometry from each bone's EVALUATED world matrix in the bind pose, never from a hand-authored joint-position list. Judging the three concepts against (1) buildability, (2) animation-safety across all 43 clips, (3) house-style fit, (4) role readability: Concept B (5-head, 6.5k tris) risks the childish/cartoon read against the mid-century premium tone (its own risk #3) and is 3x the tri budget the labs proved unnecessary — fidelity is technique, not geometry. Concept C is the safest to bind but its rigid faceted 'wooden artist mannequin' read fights the warm believable studio look and interpenetrates at deep flexion (Sitting_*, Crouch_*, Fixing_Kneeling, Driving_Loop). Concept A has the correct identity (grounded ~7-head, ~2k tris, warm palette, silhouette-first role encoding, painted-ovoid face) but a fully continuous single-skin body is exactly where low-poly skins candy-wrapper and tear at extreme flexion — the non-negotiable risk. The lock is therefore Concept A's IDENTITY (proportions, palette, costume-and-silhouette role read, painted face, ~2k budget) wearing Concept C's DEFORMATION ARCHITECTURE (one mesh island per major bone joined into a single skin, with narrow 1.5-2cm overlapping capsule blend-bands at each joint and fused-paddle hands weighted to hand_[lr] only). That combination delivers the grounded believable crew the milestone wants at the affordable budget, while making first-pass clean binding across all 43 clips near-certain by construction rather than by hope. The architecture kit (13 modules, 3,830 tris unique) and props spec (12 entries, 5,170 tris) are accepted as-authored with minor refinements folded in below; both are already correctly anchored to the real src/lab/materials.ts PALETTE/M and src/lab/heroMaterials.ts HERO/HM/heightToNormal/markTexture/hazardTexture/practical pipeline verified in-repo.",
+  "character_bible": "LOCKED CHARACTER: \"Grounded Studio Crew v1\" — grounded-stylized ~7-head adult film-crew figures, procedurally built in bpy as segment-island shells fitted to the appended 65-bone UAL1 Mannequin in its evaluated bind pose, joined into ONE skinned mesh, role authored into silhouette + costume + prop (tint is the WEAKEST signal), rendered under the existing warm/ACES/RoomEnvironment rig with the function-coded procedural-PBR family. Target ~2.0-2.2k tris LOD0. This REPLACES the raw-mannequin+tint crew in Workers.tsx.\n\n=== NON-NEGOTIABLE RIG PROTOCOL (build order) ===\n1. APPEND the armature from UAL1_Standard.glb UNCHANGED. Do NOT add, rename, reparent, re-roll, re-pose, or re-scale any of the 65 bones. Verify on export: skin reports exactly 65 joints, identical names, identical hierarchy. This is the byte-shared guarantee that all 43 clips retarget 1:1.\n2. Read every joint's world transform from the EVALUATED bind pose (bpy: armature.pose bind / bone.matrix_world), NEVER from a hand-authored coordinate table. Bones carry baked local rotations (measured: upperarm_l 93.7deg, clavicle_l 102.8deg, thigh_l 165.9deg, pelvis 104.5deg) — mesh orientation must follow the actual bone roll, so all geometry is generated in bone-local space and transformed by the bone's world matrix.\n3. Model IN the rest/bind pose (the A-pose implied by those rotations — arms angled down, wrists twisted). Never model in a T-pose then hope it binds.\n\n=== PROPORTIONS (anchored to the measured rig) ===\n- Overall height 1.80 m standing; 1 Blender unit = 1 m; +Y up on glTF export. Head unit ~0.255 m => ~7.05 heads (grounded, adult, NOT caricature).\n- Anchor heights (world, foot sole = 0.0): pelvis/crotch ~0.92 m, sternum/spine_03 ~1.32 m, clavicle line ~1.40 m, neck base ~1.46 m, chin ~1.55 m, crown ~1.80 m.\n- Widths: shoulder ~0.44 m (clavicle x-offset doubled + deltoid flesh), hip ~0.34 m, chest depth ~1.25x hip depth (subtle adult wedge, NOT heroic exaggeration).\n- Limb diameters, tapered (NOT sticks): upperarm 0.10 -> wrist 0.055; thigh 0.17 -> ankle 0.075; forearm 0.08; calf 0.12; neck ~0.11.\n- Two body sizes ONLY, both from root-scale + a girth multiplier on segment RADII — bone LOCAL translations stay frozen so retarget is 1:1: \"standard\" 1.80 m girth 1.00; \"heavy/older\" 1.74 m (root scale 0.967) girth 1.12 on torso/upperarm/thigh radii. No new bones, no moved joints, ever.\n\n=== DEFORMATION ARCHITECTURE (the hybrid safety layer — from Concept C) ===\n- Body = ONE mesh island per MAJOR deforming bone, generated at that bone's bind-pose world matrix, then Joined into a single object. Islands (16 major, fingers NOT individually meshed):\n  pelvis (hex/box hips spanning pelvis->spine_01), spine as 3 barrel ring-segments split at spine_01/02/03 so bend distributes, neck_01 (short cylinder), Head (ovoid), clavicle_[lr] (short shoulder wedge/deltoid cap), upperarm/lowerarm/hand_[lr] (tapered capsules; hand = one rounded mitten paddle + separate thumb nub), thigh/calf/foot+ball_[lr] (tapered capsules + wedge shoe with a toe break at the ball joint).\n- Adjacent islands OVERLAP by ~1.5-2.0 cm at every joint. The overlap is the deformation strategy: a joint rotation rotates a near-rigid chunk about a joint its geometry already surrounds, so no gap can open and no candy-wrapper pinch forms.\n- Weights are near-binary: each island ~100% its own bone, with only a 1.5-2 cm blend band across each joint carrying a smooth 2-bone gradient. Max 4 influences, normalized (glTF/Unreal limit). No orphan verts.\n- FINGERS: the 20 finger bones REMAIN in the skeleton (bone count stays 65, clips stay valid) but drive a single fused paddle; the mitten + thumb nub are weighted to hand_[lr] and the first knuckle ONLY (index_01/middle_01) — NEVER the leaf bones — so PickUp_Table / Interact / Push_Loop don't splay the mitt.\n- NO shape keys, NO correctives, NO cloth sim. Rigid-chunk read at extreme flexion is the accepted stylized signature (management-orbit distance, not close-up).\n\n=== FACE METHOD (Concept A, buildable) ===\n- Head = a smooth low-poly ovoid (icosphere-derived, flattened back and a slightly flattened front facet for clean projection), ~4-5 rings, weighted 100% to Head (one rigid island — can never deform-crack).\n- Features = ONE procedurally-drawn 512x512 face texture, planar-projected onto the front facet, authored with the EXACT repo pipeline (canvas 2D raster -> albedo, optional heightToNormal for the faintest brow/nose relief; NO Math.random, seeded mulberry32 from src/lab/heroMaterials.ts). Draw: warm skin base, soft brow shadow, eye almonds with a highlight dot (painted, NO eyeball geometry, NO lids), nose shadow + a tiny optional geo nose wedge, mouth line, hairline block, optional painted mustache/stubble (period cue).\n- 5-8 seeded texture variants (brow/eye/skin/hair combos) give crowd variety at ZERO extra geometry. Per-instance skin/hair tone via vertex color, deterministic (seeded).\n- Additive geo tabs only for silhouette items that must catch light: hair-shell cap, optional glasses ring — 1-3 tiny tabs max. Facial hair is painted, not modeled.\n- Realism deliberately capped at \"stylized believable\" per the house line; cameras stay at crew distance.\n\n=== COSTUME (additive, weighted to EXISTING bones only) ===\nCostume is additive geometry snapped to the same joints — NO new bones. Coat/jacket shell = offset torso + upperarm loft weighted to spine + upperarm (same bones as the limb it overlays). Trouser cuffs = offset lower-leg ring. Shoe/boot wedges over foot+ball. Belt ring at pelvis. Tool-belt / holster / apron block weighted to pelvis (apron blends pelvis+spine_01). Rolled-sleeve rings at lowerarm. Headwear parented to Head. Shoulder cable coil weighted to clavicle_l + spine_03. Keep shells SNUG and weighted to the SAME bones as the underlying limb so they never float and clip minimally. Everything low-poly cylinders/boxes/lofts, triangulated on export, no booleans that leave n-gons.\n\n=== VERIFICATION GATE (must pass before sign-off) ===\nHeadless playback (reuse the lab's capture-*.mjs + window.__lab pattern) of the full 43-clip set, with a mandatory STRESS subset captured per role: Idle_Loop, Walk_Loop, Jog_Fwd_Loop, Fixing_Kneeling, PickUp_Table, Push_Loop, Sitting_Enter, Sitting_Idle_Loop, Sitting_Exit, Crouch_Idle_Loop, Driving_Loop, Idle_Talking_Loop, Interact. Assert: (a) no vertex separates / no NaN, (b) no gap or candy-wrapper pinch at shoulder/elbow/hip/knee/spine, (c) no hat/prop/cable float, (d) acceptable (not gross) self-intersection at deep sit/kneel/crouch, (e) exported glTF still reports exactly 65 bones, unchanged names/hierarchy. Capture proof PNGs per role per stress clip.\n\n=== ISOLATION ===\nVisual assets + rig only. No game mechanics, chemistry, aging, career, schedules, economy, LLM. R&D proof, not merge. All deterministic (seeded mulberry32), no Math.random, +Y up, 1u=1m.",
+  "crew_roles": [
+    {
+      "role": "Grip",
+      "distinguishing_features": "Silhouette bulked at the waist by a heavy tool belt; work shirt with rolled-sleeve forearm rings; flat cap or amber hard hat; gloves (slightly larger hand paddle). Reads as the muscle of the crew; carries/pushes clips look natural.",
+      "palette": "Work shirt charcoal-slate PALETTE.darkMetal-family #4a4c54 desaturated; canvas trousers; amber hard-hat accent HERO.hazard #d8b14a; leather belt HERO.trunk #584635.",
+      "attached_props": "Tool belt block weighted to pelvis; optional wrench/C-stand knuckle. Hard hat parented to Head at crown offset (reuse Lab 03 head-bone hat technique)."
+    },
+    {
+      "role": "Electric / Gaffer",
+      "distinguishing_features": "Utility vest with pouch blocks; a coil of cable geo looped over one shoulder (rides Idle/Walk); gloves; cap or hard hat. Cable coil is the instant department tell.",
+      "palette": "Denim-blue vest PALETTE.tarpBlue-family #43618a desaturated; amber hard hat #e2c04a/#d8b14a; black rubber gloves HERO.rubber #1b1a18.",
+      "attached_props": "Shoulder cable coil weighted to clavicle_l + spine_03 (existing bones, animates free). Stinger/plug on belt (pelvis)."
+    },
+    {
+      "role": "Camera / DP",
+      "distinguishing_features": "Trim clean silhouette, no bulk; sleeves rolled (forearm rings); soft flat cap, no hard hat; light-meter / lens pouch on the hip. Reads as the precise, uncluttered technician.",
+      "palette": "Warm-taupe shirt PALETTE.wallWarm-family #b7975a desaturated; grey-green vest option; brass meter accent PALETTE.brass #bb8a3f.",
+      "attached_props": "Light-meter/lens pouch weighted to pelvis. Optional clapperboard (Prop_Slate) or nothing in hand for Idle_Talking."
+    },
+    {
+      "role": "Director",
+      "distinguishing_features": "Distinct TALL silhouette via a long coat shell (the 'not-crew' read); fedora / soft snap-brim hat, near-black; hands-free so Idle_Talking_Loop reads as directing. The one figure that breaks the work-crew silhouette.",
+      "palette": "Oxblood/tobacco long coat PALETTE.accentTerracotta-shifted #7a5040; near-black hat #3a2a20; Meridian gold accent PALETTE.signGold #c9a24a on hatband only.",
+      "attached_props": "Megaphone (Prop_Megaphone_attach_hand_r) for Idle_Talking/Interact; director's chair (0.45m seat) for Sitting_* clips."
+    },
+    {
+      "role": "PA / Runner",
+      "distinguishing_features": "Lightest, leanest silhouette; satchel across the chest; clipboard held in hand_r. Reads as the youngest, most mobile crew — pairs with Walk/Jog clips.",
+      "palette": "Olive-khaki shirt PALETTE.foliage-shifted muted; tan satchel PALETTE.crate #9a6b3e; warm-neutral trousers.",
+      "attached_props": "Clipboard slab weighted/parented to hand_r; satchel strap weighted to spine + clavicle."
+    },
+    {
+      "role": "Carpenter / Set",
+      "distinguishing_features": "Apron shell (chest-to-thigh, blends pelvis + spine_01 so it swings believably); hammer loop on belt; rolled sleeves; flat cap. Sawdust-tan palette separates the mill trades from the stage crew.",
+      "palette": "Tan canvas apron HERO.canvasTan #6f6653 / #cfc4ad; work shirt muted warm; leather belt #584635; brass hammer-head accent.",
+      "attached_props": "Apron block (pelvis+spine_01 blend); hammer loop on belt; optional wrench/tool in hand_r."
+    }
+  ],
+  "architecture_kit": {
+    "summary": "ACCEPTED AS AUTHORED with one added connective piece and one clarified convention. An original modular mid-century film-STUDIO kit-of-parts (14 grid-snapping modules): soundstage shell (corrugated wall, elephant-door bay, barrel-vault + ridge-monitor roof, corner+parapet cap), mill/workshop (sawtooth north-light, low brick wall), admin (stucco two-story bay), commissary (streamline curved-corner pavilion), backlot false-front street flat, boundary wall + pier, marquee entrance gate, loading dock + canopy, water-tower landmark, PLUS a new plain-lot ground-tile module for the apron/street plane. Grid: primary snap module M = 2 m (all wall-family pieces 2 m wide, 0.20 m thick, origin lower-left-back corner on the ground plane); coarse structural BAY = 8 m (4 M) governs stage shell + elephant door so stages come out at 16/24/32 m footprints. Course lines fixed at 3 m (story), 4 m (low shed), 6 m (two-story), 8 m (stage). Low-poly stylized (full soundstage shell ~1,000-1,400 tris; whole unique-kit geometry ~3,910 tris, well under the ~6,250-tri Lab 04 lot norm since instances are free). Function-coded procedural PBR only, warm golden-hour, +Y up, 1u=1m. Architecture carries NO skeleton — the 65-bone Mannequin constraint applies only to crew.",
+    "items": [
+      {
+        "name": "M-01 Soundstage Wall Panel (corrugated bay)",
+        "description": "Workhorse blank exterior stage panel: flat 2 m-wide x 8 m-tall x 0.20 m-thick, vertical corrugated steel via HM.wall (corrugated height->normal, ribs=46). Shallow rivet band + base flashing as thin extruded strips (silhouette, not decal). Single-quad dark interior back-face (HM.darkMetal) so cut-open interiors aren't hollow. Origin lower-left-back on ground; edge-snaps on 2 m grid; four = one 8 m bay. Leanest piece, repeated most.",
+        "approx_dims_m": "2.0 W x 0.20 D x 8.0 H",
+        "tri_budget": 120
+      },
+      {
+        "name": "M-02 Elephant-Door Bay",
+        "description": "Signature 8 m (4 M) structural bay with the giant sliding scenery door: 0.3 m recessed reveal, two overlapping horizontally-ribbed leaves via HM.doorLeaf (large ribs, ribs=10, distinct from wall), top guide rail + bottom floor track as thin strips, a painted STAGE __ number field (signMaterial). A human-scale personnel door cut into the left leaf sells the 8 m scale. Two 8 m corner pilasters flank, aligned to M-01 edges. Door clear 6 m W x 6 m H.",
+        "approx_dims_m": "8.0 W x 0.4 D x 8.0 H",
+        "tri_budget": 420
+      },
+      {
+        "name": "M-03 Barrel-Vault Roof + Ridge Monitor (per bay)",
+        "description": "Classic soundstage roof, authored per 8 m bay: shallow barrel vault (HM.roof, ribs=70 lifted-black metal) capped by a raised clerestory ridge-monitor with slatted louver fins (thin extrusions) and a flat felt top (M.roofFelt). End-cap tympanum quad option closes end bays. Sits on the 8 m top course; repeats for 2/3/4-bay continuous vault. Keeps a repeated stage from reading as a flat box.",
+        "approx_dims_m": "8.0 span x 8.0 length x 2.2 rise (monitor +1.2)",
+        "tri_budget": 480
+      },
+      {
+        "name": "M-04 Stage Corner + Parapet Cap",
+        "description": "Clean 90deg vertical corner (2x2 m L pilaster, slightly proud, warm accent M.accent) tying two wall runs + a thin 2 m parapet coping (M.concrete) that snaps end-to-end and turns corners. Includes a small low-poly rooftop HVAC/vent box + stub exhaust placed by the assembler. Without this a repeated wall run can't honestly turn a corner.",
+        "approx_dims_m": "2.0 x 2.0 x 8.0 (cap 2.0 x 0.3 x 0.4)",
+        "tri_budget": 180
+      },
+      {
+        "name": "M-05 Sawtooth Mill/Workshop Roof Bay (north-light)",
+        "description": "Scenery-shop serrated north-light sawtooth: one asymmetric tooth per 2 m module, a slanted solid roof plane (M.roofFelt) + a glazed clerestory (M.glass, thin mullion strips) on the vertical north side. Runs on 2 m over M-06 low walls to make a mill of any length; faces one direction so glazing catches sky. Strongest 'working studio not office park' cue after the stages.",
+        "approx_dims_m": "2.0 tooth x (run) x 1.6 rise",
+        "tri_budget": 150
+      },
+      {
+        "name": "M-06 Low Shop Wall Panel (brick + clerestory)",
+        "description": "General industrial low wall for mill/warehouse/service: 2 m W x 4 m H x 0.20 m, brick (M.brick) with an optional high clerestory window band (M.glass + thin frame) above reach. Two variants share one footprint (solid brick / brick+clerestory). Snaps to M-01/M-04 on 2 m; carries M-05 sawtooth or a monopitch. 4 m height gives honest variety against 8 m stages.",
+        "approx_dims_m": "2.0 W x 0.20 D x 4.0 H",
+        "tri_budget": 110
+      },
+      {
+        "name": "M-07 Admin/Office Wall Bay (stucco, two-story)",
+        "description": "Public civic front: 2 m W x 6 m H (two 3 m stories), warm stucco (M.wallCream / M.wallWarm), a recessed steel-frame window per story (M.glass + mullions + sill + drip lintel), slender pilaster reveals at edges for a rhythmic Deco/streamline facade. Stepped-parapet coping variant caps the top. A ground-floor ENTRANCE variant (double door + canopy stub + STUDIO NAME signMaterial field) anchors the run.",
+        "approx_dims_m": "2.0 W x 0.20 D x 6.0 H",
+        "tri_budget": 260
+      },
+      {
+        "name": "M-08 Commissary Corner Pavilion (streamline, curved end)",
+        "description": "Distinct landmark shell (not a wall family): 4 m streamline-moderne pavilion, one rounded curved-plan corner bay (8-segment low-poly arc), a continuous ribbon window (M.glass band wrapping the curve), flat parapet with a raised COMMISSARY name band (signMaterial), small flat entry canopy. Smooth stucco + terracotta base course (M.accent). Footprint 8x6 m on the 2 m grid; the one deliberate break in the orthogonal rhythm.",
+        "approx_dims_m": "8.0 x 6.0 x 4.0",
+        "tri_budget": 340
+      },
+      {
+        "name": "M-09 Backlot False-Front Facade Flat",
+        "description": "The 'movies are faked here' piece: 2 m W x ~5 m period street elevation (shop window+door, upper windows, cornice via signMaterial/painted-wall), with NOTHING behind but exposed diagonal wood bracing + a catwalk stub (M.trunk/M.crate) so the back honestly reads as a standing set. Variants share the 2 m footprint (shopfront/townhouse/saloon); alternate heights 4.5/5/5.5 m for a non-flat roofline. Near-flat front keeps it very cheap.",
+        "approx_dims_m": "2.0 W x 0.15 D front + 0.8 D bracing x 4.5-5.5 H",
+        "tri_budget": 160
+      },
+      {
+        "name": "M-10 Boundary Wall Section + Pier",
+        "description": "Studio boundary/property-line wall: 2 m L x 3 m H solid (stucco M.wallWarm, concrete cap M.concrete) with a slightly-proud square pier every module for a rhythmic buttressed shadow. Snaps end-to-end on 2 m; corner-pier variant turns 90deg. One variant carries a painted MERIDIAN PICTURES crest band beside the gate. Leanest run-piece so it wraps the whole perimeter cheaply.",
+        "approx_dims_m": "2.0 W x 0.3 D x 3.0 H (pier 0.5 x 0.5)",
+        "tri_budget": 70
+      },
+      {
+        "name": "M-11 Marquee Entrance Gate (2-bay hero)",
+        "description": "Signature arrival landmark: two tall stucco piers flanking a 6 m vehicle opening (grid-aligned), joined by a horizontal marquee beam carrying an EMISSIVE MERIDIAN PICTURES sign band (practical() emissive) + a Deco crest, plus a pedestrian gate leaf + a lowerable boom-barrier stub. Piers snap flush to M-10 runs as the one grand break in the perimeter. The piece a viewer photographs; justifies its budget.",
+        "approx_dims_m": "10.0 W (6.0 opening) x 1.0 D x 6.0 H",
+        "tri_budget": 520
+      },
+      {
+        "name": "M-12 Loading Dock + Canopy Attachment",
+        "description": "Connective 'active building' piece: raised concrete dock platform (1.2 m truck-bed height, M.concrete) with a stepped end, short stairs, bollards/curb, and a cantilevered monopitch canopy on slim posts (HM.roof corrugated, matching M-01). Sits flush against one 8 m bay (under M-02 or M-06) on the 2 m grid; also freestanding. Human-scale steps sell the 8 m doors above.",
+        "approx_dims_m": "8.0 W x 3.0 D x 3.4 H (platform 1.2)",
+        "tri_budget": 220
+      },
+      {
+        "name": "M-13 Water Tower (standalone landmark)",
+        "description": "The most recognizable studio silhouette: four splayed steel legs + thin cross-bracing struts on a 4x4 m base, a low-poly 10-12-segment cylindrical tank with a name band (signMaterial), shallow conical roof + finial. ~14 m to tank top so it reads over the stage roofline. Placed once as the campus focal point; the tall thin profile a wide establishing shot resolves to first.",
+        "approx_dims_m": "4.0 x 4.0 x 14.0",
+        "tri_budget": 380
+      },
+      {
+        "name": "M-14 Lot Ground Tile (apron / street / plaza) [ADDED]",
+        "description": "ADDED so the assembly has an honest ground plane instead of assuming a scene floor: a flat 8x8 m (4 M x 4 M) ground module in three material presets on one mesh slot (SWAP not remodel) — apron concrete (HM.concrete board-formed w/ expansion joints), lot asphalt (HM.asphalt tiled dark), and plaza paving. Optional hazard-hatch / keep-clear decal quad (hazardTexture) and chalk marks (markTexture) as separate thin overlay quads. Tiles on the 2 m grid; the surface the crew, props, and dolly track sit on. Keeps the kit self-contained for the vertical slice.",
+        "approx_dims_m": "8.0 x 8.0 x 0.0 (decal overlays +0.01)",
+        "tri_budget": 24
+      }
+    ],
+    "materials_used": [
+      "corrugated-metal HM.wall/HM.roof/HM.doorLeaf (heightToNormal(corrugatedHeight) — stage walls fine ribs, door leaves large ribs, roof fine ribs; canvas + height->normal, no downloaded texture)",
+      "brick M.brick (low shop/warehouse/mill walls M-06)",
+      "stucco / warm painted wall M.wallCream + M.wallWarm (admin M-07, commissary M-08, boundary M-10, gate piers M-11)",
+      "concrete M.concrete + HM.concrete (dock M-12, parapet/caps M-04/M-10, ground tile M-14, base plinth)",
+      "wood / board M.trunk + M.crate (false-front bracing + catwalks M-09, mill trim)",
+      "roof tile / felt M.roofFelt (barrel-vault + monitor tops M-03, sawtooth solid planes M-05, flat parapet roofs)",
+      "glass M.glass (steel-frame windows M-07, clerestories M-05/M-06, ribbon window M-08, false-front shop glass M-09)",
+      "brass / painted-steel accent M.brass + M.accent (corner pilasters M-04, canopy posts, gate details, dock bollards)",
+      "emissive sign band via practical() + signMaterial/makeSignTexture (marquee M-11 name band, stage-number fields M-02, admin name field M-07, water-tower band M-13)",
+      "asphalt HM.asphalt + hazardTexture/markTexture overlays (lot ground M-14) — ground provided BY the kit now (M-14), so the slice is self-contained"
+    ],
+    "tri_budget_total": 3910,
+    "notes": "REFINEMENTS vs the submitted spec: (1) ADDED M-14 Lot Ground Tile (+24 tris, +1 module) so the vertical slice does not depend on an external scene floor — the kit is now self-contained and the crew/props/dolly-track have an authored surface. New unique-geometry total 3,910 tris (was 3,830), still far under the ~6,250 Lab 04 whole-lot norm because filling a lot uses free instances. (2) CLARIFIED every material name maps to a REAL export in src/lab/materials.ts (M.*) and src/lab/heroMaterials.ts (HM.*, practical, signMaterial, hazardTexture, markTexture) verified in-repo — no new material family is invented. GRID/SNAP spec unchanged: M=2 m wall family, BAY=8 m stage shell, course lines 3/4/6/8 m, origin lower-left-back on ground, roof/cap pieces snap to top course. SNAP SETS: {M-01,M-02,M-04}=stage walls (+M-03 caps); {M-06,M-05,M-12}=mill/shop; {M-07}=admin run; {M-09}=false-front street; {M-10,M-11}=perimeter; standalones {M-08,M-13}; {M-14} ground under all. MINIMUM BELIEVABLE ASSEMBLY (proves the kit): one 24x16 m Stage 1 (M-01 perimeter + 2x M-04 corners + 1x M-02 front + 3x M-03 roof + 1x M-12 dock), a short mill (M-06 under 6x M-05 teeth), a 3-bay M-07 admin front w/ entrance, a 5-module M-09 false-front street, M-08 commissary, M-10 perimeter w/ M-11 gate, M-13 water tower, all on an M-14 ground field. RIG NOTE: none of these 14 modules is a character; they carry no skeleton and need none — the 65-bone Mannequin constraint is crew-only, flagged here to confirm it was considered and is out of scope. STYLE: silhouette survives materials-stripped (the 'less boxy' geometry win); function-coded procedural PBR; warm golden-hour; human-scaled details (M-02 personnel door, M-12 steps, M-09 shopfronts) sell the 8 m stage doors. ORIGINALITY: film-studio vocabulary (elephant doors, ridge monitors, sawtooth mill, marquee gate, false-fronts w/ exposed bracing, water tower) — NOT a generic downtown kit. ISOLATION: architecture only; no crew/props/mechanics. Design spec; no bpy code written per task."
+  },
+  "props": {
+    "summary": "ACCEPTED AS AUTHORED. A 12-entry set (10 single props + 2 kits, ~5,170 tris) for a working soundstage: studio camera on tripod/dolly, fresnel spotlight on stand, C-stand w/ grip arm, apple-box+sandbag kit, cable reel + coil, director's chair (0.45 m seat for Sitting_* clips), flag/scrim/silk frame kit, boom mic, clapperboard, megaphone, straight dolly-track module. Every item buildable in bpy from primitives (bevelled boxes, 6-12-sided cylinders/cones, tapered prisms, low-subdiv icospheres, flat quads, one torus for the cable coil); no sculpt, no booleans (hand-holes/hinges faked with inset dark faces + texture to stay manifold); fine detail is texture not geometry. All materials map to the real repo family. Total 5,170 tris sits under the ~6,250 whole-lot norm. The three required hand props (clapperboard, boom, megaphone) are pivoted at the natural hand-grip and attach-tagged to ride the verified hand_l / hand_r bones of the 65-bone Mannequin with the 43-clip library unchanged.",
+    "items": [
+      {
+        "name": "Studio Camera on Tripod + Dolly",
+        "description": "Hero centerpiece: stylized mid-century 35mm studio camera (Mitchell BNC / Technicolor-blimp read). THREE separately-parented sub-objects — (A) camera body, (B) tripod OR crab-dolly base, (C) optional operator seat — so they pose independently. Body = rounded/bevelled box blimp ~0.55x0.35x0.65 m + stubby 8-10-sided lens barrel (0.14 dia x 0.20) + a 10-sided film-magazine drum (0.30 dia) top-rear + a viewfinder box + two 6-sided focus knobs. Tripod = 3 tapered wooden legs (spread ~0.9 m), triangular spreader, bowl/head cylinder; lens axis ~1.5 m. Dolly = flat steel deck 1.0x0.7x0.08 + center column + 4 low caster cylinders (non-rolling) + swept push-bar. A tiny red-eye emissive quad reads 'recording'.",
+        "approx_dims_m": "Body 0.55W x 0.65D x 0.40H; tripod ~0.9 dia, lens axis ~1.5H; dolly deck 1.0 x 0.7 x 0.08 (push-bar ~1.05H)",
+        "tri_budget": 900
+      },
+      {
+        "name": "Fresnel Spotlight on Stand (Junior/Baby)",
+        "description": "Signature lighting unit + primary golden-hour source, instanced widely. Posable lamp head + rolling stand. Head = 8-10-sided cylindrical/conical housing (0.30 dia x 0.35) + a shallow bezel holding the stepped fresnel lens (flat disc, 2-3 concentric ring loop cuts, ridges faked in texture); 4 barn-door quad flaps hinged at the bezel, posed slightly open; a 2-arm yoke cradling the head to tilt; focus knob + cable gland. Stand = 6-sided telescoping pole (2 diameter steps), cast collar, 3 folding legs on caster cylinders. Head center 1.6-2.0 m. Warm EMISSIVE lens via practical() glows amber when hot; on/off is a material swap, no geometry change.",
+        "approx_dims_m": "Head 0.30 dia x 0.35 deep; stand ~0.7 dia; head center 1.6-2.0H",
+        "tri_budget": 650
+      },
+      {
+        "name": "C-Stand (Century Stand) with Grip Arm",
+        "description": "Grip workhorse background dressing (appears in quantity, kept lean): heavy 3-rising-leg base (one leg longer so stands nest — the real C-stand tell) meeting a central hub; rubber-foot cylinders at leg ends. Riser = 2-3 stacked thin 6-sided cylinders of decreasing dia with 2 low-poly icosphere knuckle balls. Grip arm = one thin 6-sided cylinder (~0.6 m) + a gobo-head knuckle. Posable 1.0-3.0 m. Effectively one material (darkMetal) + brass knuckle knobs; cheap to instance.",
+        "approx_dims_m": "Base ~0.9 dia; column 1.0-3.0H; grip arm ~0.6 long",
+        "tri_budget": 420
+      },
+      {
+        "name": "Apple Box Set (full/half/quarter/pancake) + Sandbag",
+        "description": "Most-duplicated small prop; KIT of 5 meshes at standardized sizes for scatter dressing. Each apple box = bevelled wooden box with the two classic hand-holes faked as recessed dark inset faces + texture (NO boolean, stays manifold). Sizes: full 0.508x0.305x0.203 (20x12x8 in), half 0.102 tall, quarter 0.051, pancake 0.025. Sandbag = a saddle of two low-poly rounded-box lobes joined by a pinched center strap, drape via a couple loop cuts (~0.45x0.20x0.12). Budget is the whole kit. Faint MERIDIAN/number stencil via markTexture.",
+        "approx_dims_m": "Full box 0.508 x 0.305 x 0.203; sandbag ~0.45 x 0.20 x 0.12",
+        "tri_budget": 320
+      },
+      {
+        "name": "Cable Reel (Stinger) + Coiled Cable Loop",
+        "description": "Electric-department floor dressing: reel + a separate loose figure-8 coil. Reel = 2 flat 16-sided disc flanges (0.7 dia x 0.03) on a 12-sided drum barrel (0.35 dia x 0.45); wound cable = a fat torus band between flanges (texture the wraps, don't model). Loose coil = a flattened low-poly torus (12 major x 6 minor) or shallow swept helix + one connector-plug box w/ 3 tiny prong cylinders. Reel lies flat or stands on rim. Flanges wood OR steel (material swap); drum/cable matte-black rubber. Cheap, mostly cylinders.",
+        "approx_dims_m": "Reel 0.7 dia x 0.51 wide; loose coil ~0.7 dia x 0.12 tall",
+        "tri_budget": 360
+      },
+      {
+        "name": "Director's Chair (folding canvas)",
+        "description": "Iconic folding wood-and-canvas chair; SEAT PLANE AT 0.45 m so a character uses the Sitting_* clips with it. Two variants (plain crew / DIRECTOR-stenciled back) via material+name swap. Classic scissor X-frame in wood: 4 crossing leg rails, 2 seat rails, 2 armrest rails, 2 back uprights (thin straight prisms). Canvas seat = one slightly-sagging quad (one center loop) between front/back top rails; canvas back = a quad between uprights. Charm is the silhouette. Frame warm varnished wood; canvas canvasTan; DIRECTOR stencil via markTexture.",
+        "approx_dims_m": "Footprint ~0.55 x 0.50; seat 0.45H; back top ~0.90H",
+        "tri_budget": 480
+      },
+      {
+        "name": "Flag / Scrim / Silk Frame (grip cutter set)",
+        "description": "Rectangular grip frames that mount on the C-stand grip arm to shape light; KIT of sizes sharing one design. Frame = 4 thin mitered boxes + a short 6-sided mounting pin (~0.15) to seat in the C-stand knuckle. Fabric = one flat double-sided quad (one optional center loop for a wind pose). Sizes: 0.46x0.61, 0.61x0.91, 1.22x1.22 m. THREE fabric presets on the same slot (swap, not remodel): FLAG opaque black (signDark), SCRIM semi-transparent dotted-net alpha (~0.5 opacity, transparent path like glass), SILK warm-white translucent diffusion (wallCream, ~0.6). The net/double-net grip vocabulary lives here.",
+        "approx_dims_m": "Frames 0.46x0.61 up to 1.22x1.22; pin ~0.15 long",
+        "tri_budget": 260
+      },
+      {
+        "name": "Boom Microphone on Fishpole (HAND-ATTACHABLE)",
+        "description": "Overhead boom built to attach to a hand bone so the boom operator plays Idle_Loop/Walk_Loop with the pole overhead. CRITICAL: model at rest with the pole axis along the grip and the ORIGIN/PIVOT at the natural hand-grip (~0.6 m from the butt end) so parenting to hand_l/hand_r with an identity offset lands it; pole extends forward/up from that grip. Pole = one long tapered 6-sided cylinder (0.03->0.02 dia, 2.5-3.0 m, 2 diameter steps = telescoping). Mic end = a shock-mount basket (2-3 thin struts or a ring+spokes, NOT a full cage) holding an 8-sided windscreen zeppelin capsule (~0.35x0.09) + a short XLR box + optional thin cable helix. ATTACH TAG in name: Prop_Boom_attach_hand_l.",
+        "approx_dims_m": "Pole 2.5-3.0 long; zeppelin 0.35 x 0.09; grip pivot ~0.6 from butt",
+        "tri_budget": 340
+      },
+      {
+        "name": "Clapperboard / Slate (HAND-ATTACHABLE)",
+        "description": "Required hand prop: two-part hinged mesh (slate body + hinged clap-stick) so a character plays Interact/PickUp holding it and can 'clap'. Pivot at the natural one-hand grip on the slate lower edge for clean hand_l/hand_r parenting. Slate = thin flat bevelled box ~0.28x0.24x0.015 with PROD/DIRECTOR/SCENE/TAKE/ROLL rows faked in texture (markTexture-style baked albedo). Clap-stick = a separate thin bar ~0.28x0.045x0.015 parented at a tiny 6-sided hinge pin along the top edge, modeled ~12deg OPEN at rest. Diagonal clapper stripes = texture, not geometry. ATTACH TAG: Prop_Slate_attach_hand_l.",
+        "approx_dims_m": "Slate 0.28 x 0.24 x 0.015; clap-stick 0.28 x 0.045; grip lower edge",
+        "tri_budget": 220
+      },
+      {
+        "name": "Megaphone (HAND-ATTACHABLE)",
+        "description": "Director's bullhorn that attaches to a hand bone so a character plays Idle_Talking_Loop/Interact 'directing'. Vintage 1930s-50s tapered cone + a modern pistol-grip variant via material+name swap. Pivot at the grip for hand_l/hand_r parenting, bell facing forward. Cone = one truncated 10-12-sided cone (mouth 0.06 dia flaring to bell 0.24 over ~0.35), a thin flared lip ring (one extra loop), a mouthpiece cap cylinder, and either a curved carry-handle strap (vintage) or a short pistol grip + trigger box (modern). Vintage two-tone accentTerracotta/wallCream + darkMetal rim; small MERIDIAN decal via markTexture. ATTACH TAG: Prop_Megaphone_attach_hand_r.",
+        "approx_dims_m": "Cone ~0.35 long, bell 0.24 dia, mouth 0.06 dia; grip under bell",
+        "tri_budget": 200
+      },
+      {
+        "name": "Straight Dolly Track Section (modular)",
+        "description": "Modular track (2 parallel steel rails on wooden cross-ties) tiling end-to-end for a camera path; the crab dolly (Prop 1) rides it. ONE straight module snapped in series; low per-tile budget. Ends butt seamlessly (rails meet at the module boundary). 2 rails = 2 long 6-8-sided cylinders (~0.05 dia), gauge ~0.62 m; 4-5 cross-ties = thin bevelled wooden boxes (~0.75x0.10x0.04) under the rails; small tie-plate blocks where rails cross ties; optional fishplate boxes at ends. Module 1.5-2.0 m. Rails polished steel (catches golden-hour highlight); ties weathered wood.",
+        "approx_dims_m": "Module 1.5-2.0 long; gauge ~0.62; tie ~0.75 wide",
+        "tri_budget": 300
+      }
+    ],
+    "materials_used": [
+      "darkMetal (M.darkMetal / HM.darkMetal, #40434a rough0.45 metal0.7) — camera/light/grip bodies, rails, black-painted steel",
+      "brass (M.brass / HM.brass, #bb8a3f rough0.4 metal0.7) — knobs, lens rings, tension handles",
+      "trunk + crate wood (M.trunk #584635 / M.crate #9a6b3e, wood-grain albedo path) — tripod legs, apple boxes, cross-ties, chair frames",
+      "glass (M.glass #8fb0bd rough0.15 transparent) + driveable warm EMISSIVE via practical() — fresnel lens hot/cold, red-eye camera tally",
+      "canvasTan (HM.canvasTan #6f6653 rough1.0) — sandbags, boom windscreen foam, canvas seats",
+      "signDark (M.signDark #241f1a) / signCream (#efe4cc) — slate chalkboard + write area, flag opaque cloth, hand-hole recesses",
+      "wallCream (M.wallCream #e7d7bb translucent) — diffusion silk on flag frames",
+      "accentTerracotta (M.accent #b45f3c) — vintage megaphone two-tone body",
+      "rubber / steel-gray dielectric (HM.rubber #1b1a18 rough0.95 metal0) — cable, sandbag-gray, mic foam alt",
+      "markTexture / hazardTexture / signMaterial baked-canvas path (heroMaterials.ts) — slate fields + clapper stripes, MERIDIAN stencils, box numbers, scrim net alpha"
+    ],
+    "tri_budget_total": 5170,
+    "notes": "ACCEPTED with no geometry changes. Every material name is confirmed against real exports: src/lab/materials.ts (M.darkMetal, M.brass, M.trunk, M.crate, M.glass, M.signDark, M.wallCream, M.accent, signMaterial/makeSignTexture) and src/lab/heroMaterials.ts (HM.*, HERO.*, practical(), markTexture, hazardTexture, mulberry32, heightToNormal). HAND-ATTACHABLE PROPS: clapperboard, boom, megaphone are pivoted at the natural hand-grip and attach-tagged (Prop_<name>_attach_hand_[lr]) so each parents to hand_l / hand_r of the VERIFIED 65-bone Mannequin with an identity offset and rides Interact / PickUp_Table / Idle_Talking_Loop / Idle_Loop / Walk_Loop unchanged; the director's chair seat at 0.45 m supports Sitting_Enter/Idle/Exit. BUILDABILITY: primitives only, no sculpt, no booleans (hand-holes/hinges faked with inset dark faces + texture to stay manifold), all fine detail (fresnel steps, clapper stripes, slate fields, net scrims, stencils, wood grain) is TEXTURE not geometry. SWAP-NOT-REMODEL variants (crew vs DIRECTOR chair; flag/scrim/silk; vintage vs modern megaphone; on/off fresnel + camera tally; wood vs steel reel) are material/name swaps on a shared mesh slot. SCALE real-world metric 1u=1m, +Y up. ISOLATION: design spec only, R&D asset-lab proposal, no mechanics/economy; no bpy code written per task."
+  },
+  "material_library": [
+    {
+      "name": "skin",
+      "type": "MeshStandardMaterial (procedural albedo + vertex-color tint)",
+      "look": "Warm mid-value skin held under golden key + ACES; deterministic set ~#c99a74 / #b07d54 / #8a5a3c / #e0b48f, never pink/cool. roughness ~0.85, metalness 0. Per-instance tone via seeded vertex color (mulberry32). Face features are the painted 512 face texture, not this base."
+    },
+    {
+      "name": "cloth_work (function-coded per department)",
+      "type": "MeshStandardMaterial (canvas albedo + optional heightToNormal weave)",
+      "look": "Muted, desaturated, pulled to the warm family. Grip charcoal-slate #4a4c54; electric denim-blue #43618a; camera warm-taupe #b7975a; director oxblood/tobacco #7a5040; PA olive-khaki (M.foliage-shifted); carpenter tan canvas #cfc4ad / HM.canvasTan #6f6653. roughness ~0.9-1.0, metalness 0. Faint twill/denim weave via heightToNormal, no downloaded texture."
+    },
+    {
+      "name": "leather (belts, boots, gloves, straps)",
+      "type": "MeshStandardMaterial (canvas albedo + subtle normal)",
+      "look": "Warm brown M.trunk #584635 / HM.trunk; roughness ~0.75, metalness 0. Slight grain via heightToNormal; belt buckles use brass."
+    },
+    {
+      "name": "headwear_felt_wool (fedora, flat cap, watch cap)",
+      "type": "MeshStandardMaterial",
+      "look": "Matte felt/wool; near-black hat #3a2a20 for director, muted warm caps for crew. roughness ~0.95, metalness 0."
+    },
+    {
+      "name": "hardhat_amber",
+      "type": "MeshStandardMaterial",
+      "look": "Safety amber HERO.hazard #d8b14a / #e2c04a accent; roughness ~0.6, metalness 0.05. The one saturated pop on the electric/grip silhouette."
+    },
+    {
+      "name": "face_albedo (per-character painted)",
+      "type": "CanvasTexture (mulberry32-seeded) planar-projected on head front facet",
+      "look": "512x512 warm skin base + soft brow shadow, painted eye almonds + highlight dot, nose shadow, mouth line, hairline block, optional painted mustache/stubble. 5-8 seeded variants. Optional heightToNormal for faintest brow/nose relief. NO eyeball geometry."
+    },
+    {
+      "name": "darkMetal (M.darkMetal / HM.darkMetal)",
+      "type": "MeshStandardMaterial",
+      "look": "#40434a rough0.45 metal0.7 — camera/light/grip prop bodies, rails, black-painted steel, corner pilasters."
+    },
+    {
+      "name": "brass (M.brass / HM.brass)",
+      "type": "MeshStandardMaterial",
+      "look": "#bb8a3f rough0.4 metal0.7 — knobs, lens rings, buckles, hatband accents, prop hardware."
+    },
+    {
+      "name": "corrugated-metal (HM.wall / HM.roof / HM.doorLeaf)",
+      "type": "MeshStandardMaterial (heightToNormal(corrugatedHeight) + roughnessMap)",
+      "look": "Painted galvanized stage cladding; fine vertical ribs (walls, 46), large horizontal ribs (door leaves, 10), fine roof ribs (70). Warm HERO.wall #8f8a7c, roughness ~0.62, metalness ~0.28, envMapIntensity 1.2. The surface that most sells 'clad metal stage'."
+    },
+    {
+      "name": "brick (M.brick)",
+      "type": "MeshStandardMaterial (procedural masonry)",
+      "look": "#9c5a44 warm brick, roughness ~0.85, metalness 0 — mill/warehouse/service low walls."
+    },
+    {
+      "name": "stucco / painted-wall (M.wallCream / M.wallWarm)",
+      "type": "MeshStandardMaterial",
+      "look": "Warm cream #e7d7bb / warm #d9b98f, roughness ~0.8 — admin, commissary, boundary wall, gate piers."
+    },
+    {
+      "name": "concrete (M.concrete / HM.concrete)",
+      "type": "MeshStandardMaterial (board-formed albedo + roughnessMap)",
+      "look": "Warm-neutral #b8b2a6 / #6f675b with expansion joints, mottling, oil stains; roughness ~0.9, metalness 0 — apron, dock, caps, ground tile, base plinth. Corrects the Lab 01 red-pavement issue at the root."
+    },
+    {
+      "name": "wood / board (M.trunk / M.crate)",
+      "type": "MeshStandardMaterial (wood-grain albedo)",
+      "look": "#584635 / #9a6b3e — false-front bracing + catwalks, mill trim, apple boxes, tripod legs, cross-ties, chair frames."
+    },
+    {
+      "name": "roof tile / felt (M.roofFelt)",
+      "type": "MeshStandardMaterial",
+      "look": "#3c3a37 dark felt, roughness ~0.95 — barrel-vault + monitor tops, sawtooth solid planes, flat parapet roofs."
+    },
+    {
+      "name": "glass (M.glass / HM.glassDark)",
+      "type": "MeshStandardMaterial (transparent)",
+      "look": "#8fb0bd rough0.15 metal0.1 opacity0.5 envMapIntensity0.8 — windows, clerestories, ribbon windows, shopfronts, fresnel lens body; thin modeled mullions, not textured."
+    },
+    {
+      "name": "canvasTan (HM.canvasTan)",
+      "type": "MeshStandardMaterial",
+      "look": "#6f6653 rough1.0 — sandbags, boom windscreen foam, director's-chair canvas."
+    },
+    {
+      "name": "signDark / signCream / signGold",
+      "type": "MeshStandardMaterial + CanvasTexture (signMaterial/makeSignTexture)",
+      "look": "#241f1a / #efe4cc / #c9a24a — slate chalkboard + write area, flag opaque cloth, painted stage numbers, admin/marquee/water-tower name bands."
+    },
+    {
+      "name": "emissive_practical (practical())",
+      "type": "MeshStandardMaterial (emissive, driveable, on/off software-safe)",
+      "look": "Warm amber fresnel lens when hot, red-eye camera tally #ff2a1a, illuminated MERIDIAN marquee band. on=false -> dark, no geometry change."
+    },
+    {
+      "name": "decal_ground (hazardTexture / markTexture)",
+      "type": "CanvasTexture on transparent overlay quad",
+      "look": "Yellow hazard-hatch keep-clear/fire-lane paint (#d8b14a) and faint chalk/tape crew marks; deterministic (mulberry32), worn edges. Separate thin overlay quads on the ground tile."
+    }
+  ],
+  "vertical_slice": "\"Stage 1, Golden Hour — Setup for a Take\": a single ~24x16 m soundstage (M-01 corrugated perimeter + 2x M-04 corners + 1x M-02 elephant-door front with a painted STAGE 1 field + 3x M-03 barrel-vault/ridge-monitor roof bays + 1x M-12 loading dock) sitting on an M-14 concrete apron tile, with the M-13 water tower behind it catching the low warm key over the stage roofline, and a slice of M-10 boundary wall with the M-11 marquee gate reading in the mid-ground for studio identity. On the apron in front of the open elephant door: the hero Studio Camera on its crab dolly riding a 2-module run of Straight Dolly Track, a Fresnel Spotlight (emissive lens ON, warm) and a C-Stand carrying a 24x36 SILK frame flagging the key, an Apple Box stack + Sandbag weighing the stand, a Cable Reel with a loose coil snaking to the light, and a Director's Chair (DIRECTOR back) at the apron edge. CREW (the locked Grounded Studio Crew, ~2k tris each, replacing the tinted raw mannequin): a Director in the chair playing Sitting_Idle_Loop holding the Megaphone (attach_hand_r); a Camera/DP at the eyepiece; a Grip playing Push_Loop on the dolly; an Electric/Gaffer walking cable (Walk_Loop, shoulder coil); a PA playing Idle_Talking_Loop with a clipboard; a Carpenter kneeling at a set piece (Fixing_Kneeling); a Boom operator holding the fishpole overhead (Idle_Loop, boom attach_hand_l); a second crew member entering (Sitting_Enter at a second chair). The slice's PURPOSE is to prove, in one frame under the existing ACES + RoomEnvironment golden-hour rig: (1) crew read as a working film crew by SILHOUETTE + costume, not tint, at management-orbit distance; (2) all six roles are distinguishable; (3) the stress clips (Sitting_*, Fixing_Kneeling, Push_Loop, Walk_Loop, Idle_Talking_Loop) play with clean deformation and no prop/hat/cable float on the hybrid rig; (4) hand-attached props ride correctly; (5) crew + kit + props all sit in ONE warm palette so an inhabited backlot reads as one authored world and stays draw-call-cheap via shared materials. Capture proof PNGs of this frame per role per stress clip (capture-*.mjs + window.__lab).\"",
+  "naming_conventions": "\"MESHES: <Kind>_<Name>[_<Variant>] PascalCase. Architecture modules keep their kit IDs: Arch_M01_StageWall, Arch_M02_ElephantDoor, Arch_M03_BarrelRoof, ... Arch_M14_GroundTile (+ variant suffix, e.g. Arch_M06_ShopWall_Clerestory, Arch_M07_AdminBay_Entrance, Arch_M09_FalseFront_Saloon). Props: Prop_<Name>[_<Variant>], e.g. Prop_StudioCamera, Prop_Fresnel, Prop_CStand, Prop_AppleBox_Full/_Half/_Quarter/_Pancake, Prop_Sandbag, Prop_CableReel, Prop_DirectorsChair / Prop_DirectorsChair_Director, Prop_GripFrame_18x24 (+ fabric preset in material, not name), Prop_DollyTrack_Straight.\\n\\nHAND-ATTACHABLE PROPS carry an explicit attach tag naming the target bone: Prop_<Name>_attach_<bone>, e.g. Prop_Slate_attach_hand_l, Prop_Boom_attach_hand_l, Prop_Megaphone_attach_hand_r. The tag means: pivot/origin is at the natural grip so parenting to that exact 65-bone Mannequin bone with an identity offset lands correctly.\\n\\nCHARACTERS: Char_<Role>[_<BuildSize>], e.g. Char_Grip_Standard, Char_Director_Heavy, Char_CameraDP_Standard, Char_Electric_Standard, Char_PA_Standard, Char_Carpenter_Standard. Roles are DATA (a role-config table -> {coat/vest/apron shell, headwear, belt kit, shoulder prop, palette swatch}); a new role is a row, not a new model.\\n\\nBONES / VERTEX GROUPS: NEVER renamed — every vertex group matches a real Mannequin bone name EXACTLY (root, pelvis, spine_01/02/03, neck_01, Head, clavicle/upperarm/lowerarm/hand_[lr], the 5 finger chains incl. *_04_leaf, thigh/calf/foot/ball/ball_leaf_[lr]). Costume/prop weights reference only these existing names.\\n\\nMATERIALS: reference the real repo exports by their code name in comments/manifests — M.* (materials.ts) and HM.* / HERO.* / practical / signMaterial / markTexture / hazardTexture (heroMaterials.ts). No new material family invented; character-specific slots are named skin, cloth_work_<dept>, leather, headwear_felt, hardhat_amber, face_albedo.\\n\\nLOD SUFFIX: _LOD0 / _LOD1 / _LOD2 appended to the mesh name; all LODs of one asset share the identical bone-named vertex groups so one animation instance drives any LOD.\\n\\nGENERAL: 1 unit = 1 m; +Y up on glTF export; triangulated; single skin per character; deterministic seeds only (mulberry32), no Math.random.\"",
+  "lod_collision_standard": "\"LOD (three tiers, ALL sharing the same 65-bone armature + identical vertex-group names so one animation instance drives any LOD and clips are never re-authored):\\n\\nCHARACTERS — LOD0 (hero/mid-shot, ~2.0-2.2k tris): full segment-island body + costume shell + headwear + painted-face ovoid + mitt hands + signature prop. LOD1 (mid-ground, ~900-1,100 tris): merge costume into the body silhouette (fewer loops), hands to a plain mitt, shoulder-cable/clipboard to a single slab, keep role silhouette + hat + face texture. LOD2 (background crowd, ~350-500 tris): single fused body+costume shell, head a 3-ring ovoid still carrying the face texture, hat a 6-gon disc, no separate hands/props — role still readable by silhouette + palette. LOD swap NEVER touches animation.\\n\\nARCHITECTURE — LOD0 = as authored (silhouette detail: rivet bands, louver fins, mullions, monitor). LOD1 (~50-60%): drop thin extruded strips, mullions become texture, louvers a single slab. LOD2 (~25-35%): building reduced to its box+roof silhouette with materials only. Instances are free — the whole lot stays under the ~6,250-tri Lab 04 norm by instancing, not unique meshes.\\n\\nPROPS — LOD0 as authored; LOD1 drop cylinder sides (8->6), grooves/steps become texture; LOD2 minimal capped boxes/cones, single-material, no fine geo. Hand-attached props keep LOD0 near-camera (they're held close), LOD1/2 only in crowd/far.\\n\\nDRAW-CALL DISCIPLINE (the labs' proven lever): share ONE material set across all crew and all instances of a kit/prop so a populated backlot stays draw-call-bound-affordable on the software renderer; per-instance variation is vertex color / material tint, not a new material.\\n\\nCOLLISION (R&D-lab convention, presentation-only — no game physics implied): each asset ships with a SEPARATE low-poly convex collision proxy named <MeshName>_col, NOT the render mesh. Characters: a single upright capsule ~0.44 m wide x 1.80 m tall (no per-limb collision — animation-visual only). Architecture: an axis-aligned box or a few boxes matching the footprint + wall planes on the 2 m grid (stage = one box shell with the elephant-door opening as a gap; boundary wall = thin box run). Props: one convex box/cylinder per prop matching the bounding footprint (dolly track = a thin flat box the dolly rides; C-stand/light = a base-footprint cylinder + a thin column box). Ground tiles: a flat thin box. Hand-attached props carry NO collision (they inherit the character). All collision proxies are convex, low-poly (<50 tris), and separate from render + LOD meshes so they never affect the tri budget. This is a spec convention for downstream use; no collision/physics is BUILT in this lab (isolation).\"",
+  "open_risks": [
+    "A-pose authoring is mandatory and unforgiving: the appended rig carries large baked LOCAL bone rotations (measured upperarm_l 93.7deg, clavicle_l 102.8deg, thigh_l 165.9deg, pelvis 104.5deg). All geometry MUST be generated from each bone's evaluated bind-pose WORLD matrix (bone.matrix_world), never from a hand-authored joint-position table — bone ROLL, not just position, governs mesh orientation. Any island built in a naive T-pose or at raw joint coordinates will bind twisted or pinch at the shoulder. This is the single highest-risk step and the reason the build order in the character bible is non-negotiable.",
+    "Rigid-segment interpenetration at deep flexion: the hybrid's near-rigid islands (adopted for bind safety) can cosmetically self-intersect thigh/calf/torso at Sitting_Enter/Exit, deep Fixing_Kneeling, Crouch_Idle_Loop, and Driving_Loop. Accepted as the stylized signature at management-orbit distance, but MUST be verified against the actual clips (the stress subset), not assumed. Size the 1.5-2 cm joint overlap for the worst-case clip angle.",
+    "Additive costume shells (long coat, shoulder cable coil, apron) can clip the body or float during extreme clips. Mitigate by weighting each shell to the SAME bones as the limb it overlays and keeping it snug; the 43-clip playback (esp. Sitting_*, Fixing_Kneeling, Driving_Loop) is the gate. Worst case a role uses only shells proven safe for its clip set.",
+    "Hand mitts must weight to hand_[lr] (+ first knuckle) ONLY, never the *_04_leaf finger bones which carry 90deg twists — otherwise PickUp_Table / Interact / Push_Loop splay the paddle. Verify in the stress set.",
+    "Painted-ovoid face can look flat at extreme close range — accepted per the house 'stylized believable, not photoreal' line; cameras stay at crew distance in this lab. If a true hero close-up is ever needed that is a separate concept, out of scope.",
+    "Un-meshed finger bones are a bet that no REQUIRED crew clip needs visible finger articulation. TRUE for the crew set (idle/walk/carry/fix/push/sit/drive/talk) per the verified 43-clip roster, but the bet must be re-checked, not assumed, if the role/clip set expands.",
+    "Draw-call blow-up with many instances — mitigate by sharing one material/atlas across all crew + kit + props (the labs' proven discipline) and by LOD2 for crowds; verify on the software renderer.",
+    "No bpy code exists yet — this is a DESIGN SPEC only per the task. The armature-append + world-matrix build path, the segment-island + overlap-blend skinning, and the full 43-clip verification gate are specified but UNPROVEN until the generator is written and run headless. The verification gate (capture PNGs per role per stress clip, assert 65 bones unchanged) is the thing that turns this spec from plausible to proven; treat sign-off as blocked until that gate passes.",
+    "Scope/isolation: character bible, kit, and props are visual R&D assets only. Any pull toward chemistry, aging, career visuals, schedules, economy, or LLM features is a HARD non-goal — stop and report rather than build. This spec opens no Gate and touches no protected branch/spike; it is not a merge."
+  ]
+}

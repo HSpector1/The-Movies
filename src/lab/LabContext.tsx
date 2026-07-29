@@ -34,16 +34,18 @@ export interface LabState {
   loop: boolean
   speed: number
   rootMotion: boolean
+  showHud: boolean
 }
 
 export const INITIAL: LabState = {
-  scene: 'E', cameraMode: 'overview', cameraResetNonce: 0,
+  scene: 'G', cameraMode: 'overview', cameraResetNonce: 0,
   wireframe: false, showBounds: false, showGrid: false, showScaleRef: false, showSkeleton: false,
   keyLight: 3.0, ambientLight: 0.6,
   visibleDowntown: true, visibleProps: true, visibleCharacter: true,
   showCharacters: true, showLandscaping: true, showDressing: true, showApron: true,
   showShadows: true, atmosphere: true, softShadows: false, postFx: false,
   clip: 'Idle_Loop', playing: true, loop: true, speed: 1, rootMotion: false,
+  showHud: true,
 }
 
 let state: LabState = INITIAL

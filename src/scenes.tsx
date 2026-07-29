@@ -14,6 +14,7 @@ import {
 } from './components/greybox'
 import { HeroSoundstage, ProductionApron, GroundDecals, WorldEdge, HeroWorkers, type HeroCrewSpec } from './components/hero'
 import { RefinedLot } from './components/refinedLot'
+import { StudioSet, StudioCrew, type StudioCrewSpec } from './components/studioSlice'
 import { HM } from './lab/heroMaterials'
 import type { RuntimeManifest, RuntimeAsset } from './types'
 
@@ -281,6 +282,37 @@ export function SceneF(): JSX.Element {
     <group>
       <RefinedLot dressing={state.showDressing} crew={state.showCharacters} landscaping={state.showLandscaping} />
       {state.showScaleRef && <HumanScaleRef position={[0, 0, 12]} />}
+    </group>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Scene G — BLENDER ART VERTICAL SLICE (Asset Lab 05). Everything visible here is authored by
+// the Blender production factory: the hero SET (soundstage from the modular kit + apron + props)
+// and the crew — original characters built to the 65-bone UAL Mannequin, each playing a CC0 clip
+// from the shared 43-clip library. Proves the factory output runs in the real runtime and that
+// the crew retarget the CC0 animation library unchanged. Scenes A-F stay untouched baselines.
+const STUDIO_CREW: StudioCrewSpec[] = [
+  { role: 'Grip',      pos: [-1.6, 0, 8.0],  rotY: 0.2,  clip: 'Fixing_Kneeling',   startAt: 1.3 },
+  { role: 'Electric',  pos: [-5.4, 0, 10.6], rotY: 0.7,  clip: 'Idle_Loop',         startAt: 2.2 },
+  { role: 'CameraDP',  pos: [3.4, 0, 8.0],   rotY: -0.4, clip: 'Idle_Talking_Loop', startAt: 0.0 },
+  { role: 'Director',  pos: [5.2, 0, 11.6],  rotY: -0.8, clip: 'Idle_Talking_Loop', startAt: 1.7 },
+  { role: 'PA',        pos: [1.2, 0, 13.5],  rotY: 3.0,  clip: 'Walk_Loop',         startAt: 0.9 },
+  { role: 'Carpenter', pos: [-3.6, 0, 12.4], rotY: 1.2,  clip: 'PickUp_Table',      startAt: 0.4 },
+]
+
+export function SceneG(): JSX.Element {
+  const { state } = useLab()
+  return (
+    <group>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.03, 4]} receiveShadow material={HM.asphalt}>
+        <planeGeometry args={[160, 160]} />
+      </mesh>
+      <Suspense fallback={null}><StudioSet /></Suspense>
+      {state.showCharacters && (
+        <Suspense fallback={null}><StudioCrew specs={STUDIO_CREW} /></Suspense>
+      )}
+      {state.showScaleRef && <HumanScaleRef position={[0, 0, 9]} />}
     </group>
   )
 }

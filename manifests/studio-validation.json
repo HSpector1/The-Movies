@@ -1,0 +1,151 @@
+{
+  "tool": "validate-studio",
+  "pass": 23,
+  "fail": 0,
+  "rows": [
+    {
+      "id": "studio/characters/Char_Grip_Standard",
+      "ok": true,
+      "issues": [],
+      "joints": 65,
+      "tris": 2304
+    },
+    {
+      "id": "studio/characters/Char_Electric_Heavy",
+      "ok": true,
+      "issues": [],
+      "joints": 65,
+      "tris": 2442
+    },
+    {
+      "id": "studio/characters/Char_CameraDP_Standard",
+      "ok": true,
+      "issues": [],
+      "joints": 65,
+      "tris": 2102
+    },
+    {
+      "id": "studio/characters/Char_Director_Standard",
+      "ok": true,
+      "issues": [],
+      "joints": 65,
+      "tris": 2476
+    },
+    {
+      "id": "studio/characters/Char_PA_Standard",
+      "ok": true,
+      "issues": [],
+      "joints": 65,
+      "tris": 2022
+    },
+    {
+      "id": "studio/characters/Char_Carpenter_Heavy",
+      "ok": true,
+      "issues": [],
+      "joints": 65,
+      "tris": 2386
+    },
+    {
+      "id": "studio/architecture/Arch_M01_StageWall",
+      "ok": true,
+      "issues": [],
+      "tris": 36
+    },
+    {
+      "id": "studio/architecture/Arch_M02_ElephantDoor",
+      "ok": true,
+      "issues": [],
+      "tris": 156
+    },
+    {
+      "id": "studio/architecture/Arch_M03_BarrelRoof",
+      "ok": true,
+      "issues": [],
+      "tris": 96
+    },
+    {
+      "id": "studio/architecture/Arch_M04_StageCorner",
+      "ok": true,
+      "issues": [],
+      "tris": 24
+    },
+    {
+      "id": "studio/architecture/Arch_M14_GroundTile",
+      "ok": true,
+      "issues": [],
+      "tris": 12
+    },
+    {
+      "id": "studio/architecture/Arch_M10_BoundaryWall",
+      "ok": true,
+      "issues": [],
+      "tris": 36
+    },
+    {
+      "id": "studio/architecture/Arch_M11_MarqueeGate",
+      "ok": true,
+      "issues": [],
+      "tris": 72
+    },
+    {
+      "id": "studio/architecture/Arch_M13_WaterTower",
+      "ok": true,
+      "issues": [],
+      "tris": 708
+    },
+    {
+      "id": "studio/props/Prop_StudioCamera",
+      "ok": true,
+      "issues": [],
+      "tris": 588
+    },
+    {
+      "id": "studio/props/Prop_Fresnel",
+      "ok": true,
+      "issues": [],
+      "tris": 380
+    },
+    {
+      "id": "studio/props/Prop_CStand",
+      "ok": true,
+      "issues": [],
+      "tris": 268
+    },
+    {
+      "id": "studio/props/Prop_AppleBox_Full",
+      "ok": true,
+      "issues": [],
+      "tris": 36
+    },
+    {
+      "id": "studio/props/Prop_DirectorsChair",
+      "ok": true,
+      "issues": [],
+      "tris": 256
+    },
+    {
+      "id": "studio/props/Prop_CableReel",
+      "ok": true,
+      "issues": [],
+      "tris": 364
+    },
+    {
+      "id": "studio/props/Prop_Slate_attach_hand_l",
+      "ok": true,
+      "issues": [],
+      "tris": 84
+    },
+    {
+      "id": "studio/props/Prop_Boom_attach_hand_r",
+      "ok": true,
+      "issues": [],
+      "tris": 132
+    },
+    {
+      "id": "studio/props/Prop_Megaphone_attach_hand_r",
+      "ok": true,
+      "issues": [],
+      "tris": 112
+    }
+  ]
+}

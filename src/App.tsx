@@ -7,13 +7,13 @@ import { RoomEnv, Lights, WireframeController, StudioSky } from './components/en
 import { StatsCollector } from './components/StatsCollector'
 import { CameraController } from './camera/CameraController'
 import { ToneMapController, HeroGrounding, HeroSoftShadows, HeroComposer } from './components/HeroFx'
-import { SceneA, SceneB, SceneC, SceneD, SceneE, SceneF } from './scenes'
+import { SceneA, SceneB, SceneC, SceneD, SceneE, SceneF, SceneG } from './scenes'
 import { DevPanel } from './ui/DevPanel'
 import type { RuntimeManifest } from './types'
 
 function LabScene({ manifest }: { manifest: RuntimeManifest | null }): JSX.Element {
   const { state } = useLab()
-  const warm = state.scene === 'D' || state.scene === 'E' || state.scene === 'F'
+  const warm = state.scene === 'D' || state.scene === 'E' || state.scene === 'F' || state.scene === 'G'
   const bg = warm ? (state.atmosphere ? '#dcc9a8' : '#aeb6bd') : '#0e1116'
   return (
     <>
@@ -28,6 +28,7 @@ function LabScene({ manifest }: { manifest: RuntimeManifest | null }): JSX.Eleme
           refined scenes so Scenes A-D keep their plain baseline. */}
       {state.scene === 'E' && <><ToneMapController /><HeroSoftShadows /><HeroGrounding /><HeroComposer /></>}
       {state.scene === 'F' && <><ToneMapController /><HeroSoftShadows /><HeroComposer /></>}
+      {state.scene === 'G' && <><ToneMapController /><HeroSoftShadows /></>}
       <CameraController />
       <OrbitControls makeDefault enableDamping={false} maxPolarAngle={Math.PI / 2.05} minDistance={1} maxDistance={180} />
       <StatsCollector />
@@ -44,6 +45,7 @@ function LabScene({ manifest }: { manifest: RuntimeManifest | null }): JSX.Eleme
           {state.scene === 'D' && <SceneD manifest={manifest} />}
           {state.scene === 'E' && <SceneE />}
           {state.scene === 'F' && <SceneF />}
+          {state.scene === 'G' && <SceneG />}
         </Suspense>
       )}
     </>

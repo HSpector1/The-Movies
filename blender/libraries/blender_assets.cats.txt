@@ -1,0 +1,5 @@
+# Anonymous catalog definitions for Project: Studio Asset Lab 05
+VERSION 1
+a5f0c0c0-0000-4000-8000-000000000001:Characters:Characters
+a5f0c0c0-0000-4000-8000-000000000002:Architecture:Architecture
+a5f0c0c0-0000-4000-8000-000000000003:Props:Props
