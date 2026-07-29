@@ -208,6 +208,17 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     hx, hy, hz = head_c.x, head_c.y, head_c.z + 0.02
     fy = hy - 0.092          # feature front plane
     ex = 0.036               # eye separation (half) — tightened so the face isn't spaced-out
+    # ----- head SCULPT (05D): SUBTLE cheekbone/chin/brow planes so the head reads sculpted (not egg,
+    #       not jowly). Small, restrained forms that blend into the ovoid via shade-smooth. -----
+    sb.uvsphere("Head", 1.0, u=10, v=8,
+                matrix=T(hx, hy - 0.058, hz - 0.070) @ Matrix.Diagonal((0.044, 0.046, 0.040, 1)), mat=skin)   # chin (small)
+    for sgn in (-1, 1):
+        sb.uvsphere("Head", 1.0, u=8, v=6,
+                    matrix=T(hx + sgn * 0.050, hy - 0.058, hz + 0.004) @ Matrix.Diagonal((0.028, 0.034, 0.036, 1)), mat=skin)  # cheekbone (subtle, higher)
+    sb.uvsphere("Head", 1.0, u=12, v=6,
+                matrix=T(hx, hy - 0.088, hz + 0.050) @ Matrix.Diagonal((0.084, 0.026, 0.016, 1)), mat=skin)   # brow ridge
+    sb.uvsphere("Head", 1.0, u=8, v=6,
+                matrix=T(hx, hy - 0.090, hz + 0.020) @ Matrix.Diagonal((0.013, 0.024, 0.044, 1)), mat=skin)   # nose bridge (nose->brow)
     for sgn in (-1, 1):
         # eye = clean dark almond sitting on the face (reads focused, not a googly white ball)
         sb.uvsphere("Head", 1.0, u=12, v=8,

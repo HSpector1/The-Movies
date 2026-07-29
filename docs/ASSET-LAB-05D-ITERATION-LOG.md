@@ -22,3 +22,19 @@ self-review never presented as independent; missed gates queued for replay befor
 - **Review:** lead self-review — profiles now distinct, limbs shaped (subtle but real). Independent
   gate deferred to the Loop 3 full multi-reviewer gate (per cadence).
 - **Decision: ACCEPT.**
+
+---
+
+## Loop 2 — Head construction & facial planes
+- **Hypothesis:** the head is a plain egg ovoid with features stuck on the front (reads
+  "assembled"); adding subtle cheekbone / chin / brow-ridge / nose-bridge planes makes it read
+  sculpted.
+- **Change:** added skin-weighted facial planes (chin, cheekbones, brow ridge, nose bridge) that
+  blend into the ovoid via shade-smooth. First pass overshot (jowly) → dialed the cheeks into
+  subtle higher cheekbones and shrank the chin.
+- **Validate:** `GATE_TEST_OK`; 0 unweighted / 0 bad-sum.
+- **Evidence:** `proof/lab05d/iteration-02/Grip/base-face-front.png` — brow plane over the eyes,
+  cheekbone structure, chin/jawline, integrated nose bridge (vs the 05C egg).
+- **Review:** lead self-review — head reads sculpted; slight residual lower-face heaviness noted for
+  Loop 3. Independent gate at Loop 3.
+- **Decision: ACCEPT.**
