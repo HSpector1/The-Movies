@@ -281,17 +281,23 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         sb.segment(f"lowerarm_{s}", la_h, hn_h, 0.046 * LI, 0.034, segments=12, mat=skin)
         # wrist + hand mitten (skin)
         sb.uvsphere(_blend(f"lowerarm_{s}", f"hand_{s}"), 0.04, u=8, v=6, matrix=T(*hn_h), mat=skin)
-        # HAND: rounded flattened palm + a grouped-finger paddle + a thumb (stylized, not a cube mitt)
-        palm = hn_h + Vector((sgn * 0.042, 0, 0))
+        # HAND: flattened palm + FOUR individual fingers + a thumb (professional stylized hand, not
+        # a paddle). Weighted rigidly to hand_{s}, so the extra geometry is deformation-safe.
+        palm = hn_h + Vector((sgn * 0.038, 0, 0))
         sb.uvsphere(f"hand_{s}", 1.0, u=10, v=8,
-                    matrix=T(palm.x, palm.y, palm.z) @ Matrix.Diagonal((0.050, 0.042, 0.021, 1)), mat=skin)      # palm
-        fing = hn_h + Vector((sgn * 0.098, 0, 0))
-        sb.uvsphere(f"hand_{s}", 1.0, u=10, v=8,
-                    matrix=T(fing.x, fing.y, fing.z) @ Matrix.Diagonal((0.046, 0.038, 0.018, 1)), mat=skin)      # grouped fingers
-        # a shallow crease hint between fingers (thin skin groove split, front -Y)
-        sb.uvsphere(f"hand_{s}", 0.030, u=8, v=6,
-                    matrix=T(hn_h.x + sgn * 0.028, hn_h.y - 0.040, hn_h.z - 0.004) @ R("Z", sgn * 0.5) @ Matrix.Diagonal((0.55, 1.0, 0.75, 1)),
-                    mat=skin)   # thumb (rounded, forward -Y)
+                    matrix=T(palm.x, palm.y, palm.z) @ Matrix.Diagonal((0.045, 0.046, 0.024, 1)), mat=skin)   # palm
+        fbaseX = hn_h.x + sgn * 0.064
+        ftipX = hn_h.x + sgn * 0.108
+        # (y-offset across the palm, extra tip length) — middle finger longest, pinky shortest.
+        # Fingers packed close so they read as a hand, not a splayed claw.
+        for fy_off, flen in ((-0.022, 0.004), (-0.0075, 0.011), (0.0075, 0.003), (0.022, -0.008)):
+            p0 = Vector((fbaseX, hn_h.y + fy_off, hn_h.z + 0.002))
+            p1 = Vector((ftipX + sgn * flen, hn_h.y + fy_off * 1.1, hn_h.z - 0.004))
+            sb.segment(f"hand_{s}", p0, p1, 0.0145, 0.0105, segments=6, mat=skin)
+        # thumb: off the front-inner edge of the palm, angled forward (-Y)
+        tp0 = Vector((hn_h.x + sgn * 0.044, hn_h.y - 0.020, hn_h.z))
+        tp1 = Vector((hn_h.x + sgn * 0.058, hn_h.y - 0.062, hn_h.z - 0.004))
+        sb.segment(f"hand_{s}", tp0, tp1, 0.015, 0.011, segments=6, mat=skin)
 
     # ============================================================ LEGS
     for s in ("l", "r"):

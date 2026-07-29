@@ -97,3 +97,18 @@ self-review never presented as independent; missed gates queued for replay befor
 - **Review:** lead self-review (directly targets the measured gate failures); re-measured at the
   Loop-6 full gate.
 - **Decision: ACCEPT.**
+
+---
+
+## Loop 6 — Hand reconstruction (individual fingers) + feet  ·  FULL MULTI-REVIEWER GATE
+- **Hypothesis:** the grouped-paddle hand is the biggest remaining "procedural" tell; four
+  individual fingers + a thumb (weighted rigidly to the hand bone, so deformation-safe) make it
+  read as a hand at medium distance.
+- **Change:** replaced the grouped-finger ellipsoid with a flattened palm + **4 individual finger
+  capsules** (middle longest, pinky shortest, packed close) + an angled thumb. Feet retained the
+  05C rounded-boot + sole (validated grounded).
+- **Validate:** `GATE_TEST_OK`; 0 unweighted / 0 bad-sum; ~11.5 k tris LOD0.
+- **Evidence:** `proof/lab05d/iteration-06/` — hand close-up (palm+fingers+thumb), pickup pose holds.
+- **Review:** FULL multi-reviewer gate (Anatomy re-check + Technical + Art Director), covering loops
+  5-6, verdicts appended.
+- **Decision: ACCEPT** (self-review: hands read; gate appended).
