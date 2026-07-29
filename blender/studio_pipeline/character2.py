@@ -47,10 +47,10 @@ ROLES = {
     # Maintenance: slate COVERALLS (same top+bottom) + soft cap — a distinct mechanic silhouette,
     # deliberately NOT hi-vis/hard-hat so it never reads as the Electric/Grip crew.
     "Maintenance":dict(size="heavy",    skin="skin_03", hair="hair_grey",  shirt=(0.33, 0.36, 0.23), trousers=(0.33, 0.36, 0.23),
-                       hat="softcap",   belt=True,  coat=False, radio=True, hat_col=(0.22, 0.24, 0.16), facial_hair="stubble"),
+                       hat="beanie",    belt=True,  coat=False, coveralls=True, hat_col=(0.22, 0.24, 0.16), facial_hair="stubble"),
     # Office: a lightweight dark top (NOT a long coat — that's Director) so it reads as admin, not a smock
     "Office":     dict(size="standard", skin="skin_04", hair="hair_grey",  shirt=(0.44, 0.21, 0.24), trousers="trousers_grey",
-                       hat=None,        belt=False, coat=False, clip=True, hair_style="bun"),
+                       hat=None,        belt=False, coat=False, satchel=True, hair_style="bun"),
     # extra existing roles kept only if they pass the same bar
     "CameraDP":   dict(size="standard", skin="skin_03", hair="hair_dark",  shirt=(0.24, 0.34, 0.29), trousers="trousers_grey",
                        hat="softcap",   belt=False, coat=False, hat_col=(0.18, 0.24, 0.34)),
@@ -173,8 +173,9 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     # The belly/waist tuck BACK (+Y) relative to the chest so the FRONT profile is vertical/athletic
     # (no paunch overhanging the belt); the chest is the front-most point.
     ell(_blend("spine_01", "pelvis", 0.6), 0, s1.y + 0.022, pelvis.z + 0.125, 0.140 * WA, 0.088 * WA, 0.098, upper)  # shirt hem
-    sb.cyl(_blend("spine_01", "pelvis", 0.6), 0.143 * WA, 0.022, segments=18,
-           matrix=T(0, s1.y + 0.02, pelvis.z + 0.052) @ Matrix.Diagonal((1.0, 0.76, 1.0, 1)), mat=upper)  # shirt-hem edge (constructed bottom)
+    if not cfg.get("coveralls"):   # coveralls are one-piece — NO waist break (greyscale-distinct silhouette)
+        sb.cyl(_blend("spine_01", "pelvis", 0.6), 0.143 * WA, 0.022, segments=18,
+               matrix=T(0, s1.y + 0.02, pelvis.z + 0.052) @ Matrix.Diagonal((1.0, 0.76, 1.0, 1)), mat=upper)  # shirt-hem edge
     ell("spine_01", s1.x, s1.y + 0.016, s1.z, 0.138 * WA, 0.088 * WA, 0.135, upper)   # waist (PINCHED via WA)
     ell("spine_02", s2.x, s2.y, s2.z + 0.005, 0.172 * CH, 0.102 * CH, 0.148, upper)   # chest (BROAD via CH → real waist above the belt)
     ell("spine_03", s3.x, s3.y - 0.004, s3.z + 0.015, 0.186 * SH, 0.099 * SH, 0.100, upper)  # shoulder yoke (SH)
@@ -225,6 +226,17 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         for k in range(3):
             sb.cyl(_blend("spine_03", "clavicle_l", 0.5), 0.085, 0.024, segments=12,
                    matrix=T(cl.x + 0.02, cl.y + 0.03, cl.z - k * 0.03) @ R("X", 1.25), mat=leather)
+    # office satchel — diagonal shoulder strap + hip bag (distinct greyscale silhouette vs the PA clipboard)
+    if cfg.get("satchel"):
+        sb.segment(_blend("spine_03", "spine_01", 0.5), Vector((0.09, s2.y - 0.09 * g, s3.z)),
+                   Vector((-0.16, pelvis.y - 0.03, pelvis.z + 0.14)), 0.018, 0.016, segments=8, mat=leather)  # strap
+        sb.box("pelvis", size=(0.15, 0.11, 0.15), matrix=T(-0.17, -0.03, pelvis.z + 0.10), mat=leather)        # bag on hip
+    # maintenance coverall bib + shoulder straps (one-piece chest silhouette vs a shirt+belt = greyscale-distinct)
+    if cfg.get("coveralls"):
+        sb.box("spine_02", size=(0.19, 0.02, 0.22), matrix=T(0, s2.y - 0.104 * g, s2.z - 0.015), mat=lower)   # chest bib panel
+        for sgn in (-1, 1):
+            sb.segment("spine_03", Vector((sgn * 0.085, s3.y - 0.07, s3.z + 0.05)),
+                       Vector((sgn * 0.065, s1.y - 0.088, s1.z)), 0.015, 0.015, segments=6, mat=lower)         # bib strap
     # clipboard clutched to the front (PA / office) — reads at any pose, weighted to the torso
     if cfg.get("clip"):
         cz = c("spine_01").z + 0.02
@@ -444,3 +456,6 @@ def _add_headwear(sb, kind, head_center):
     elif kind == "softcap":
         sb.uvsphere("Head", 0.126, u=16, v=8, matrix=T(c.x, c.y + 0.005, top - 0.045) @ Matrix.Diagonal((1, 1.05, 0.55, 1)), mat=SLOT["hat"])
         sb.box("Head", size=(0.14, 0.11, 0.014), matrix=T(c.x, c.y - 0.14, top - 0.05), mat=SLOT["hat"])   # peak front -Y
+    elif kind == "beanie":   # rounded knit cap, NO bill — a distinct head silhouette vs the flat/soft caps
+        sb.uvsphere("Head", 0.134, u=16, v=10, matrix=T(c.x, c.y, top - 0.055) @ Matrix.Diagonal((1.0, 1.0, 0.72, 1)), mat=SLOT["hat"])
+        sb.cyl("Head", 0.132, 0.03, segments=18, matrix=T(c.x, c.y, top - 0.085), mat=SLOT["hat"])         # folded brim band

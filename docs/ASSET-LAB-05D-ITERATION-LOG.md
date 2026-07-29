@@ -191,3 +191,20 @@ self-review never presented as independent; missed gates queued for replay befor
 - **Evidence:** `proof/lab05d/iteration-10/` — Electric kneel (vest holds), Grip walk/pickup clean.
 - **Review:** lead self-review (6-clip audit); FULL gate at Loop 12.
 - **Decision: ACCEPT** (deformation is professional-clean in motion; elbow corrected).
+
+---
+
+## Loop 11 — Greyscale role differentiation + population decoupling (fixes Loop-9 CRITICALS)
+- **Hypothesis:** the Loop-9 gate proved two greyscale collisions (PA≈Office both clipboard;
+  Grip≈Maintenance both cap+belt) separable by colour only; distinct silhouettes/props fix it.
+- **Change:** **Office** → **satchel** (diagonal strap + hip bag) + bun, dropped the clipboard →
+  no longer shares PA's prop. **Maintenance** → **beanie** (rounded, no bill) + **one-piece coverall
+  bib + shoulder straps** with the waist shirt-hem break suppressed → structurally distinct from
+  Grip's flat-cap + shirt + belt. **Population** axes decoupled: grey hair no longer tied to heavy
+  build; facial hair (beard/goatee) sampled onto dark-skinned instances too.
+- **Validate:** `GATE_TEST_OK`; 0 unweighted / 0 bad-sum. Tris ~12 k LOD0 (heavy+coverall roles at
+  the budget ceiling; LOD1/2 + export ratios bring it down — noted in the performance doc).
+- **Evidence:** `proof/lab05d/iteration-11/roles-front.png` — PA(clipboard) vs Office(satchel+bun);
+  Grip(flatcap+shirt+belt) vs Maintenance(beanie+coverall-bib): distinct in silhouette, not hue.
+- **Review:** lead self-review (directly targets the Loop-9 critical collisions); FULL gate Loop 12.
+- **Decision: ACCEPT.**
