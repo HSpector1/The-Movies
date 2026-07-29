@@ -59,7 +59,14 @@ ROLES = {
                        hat="softcap",   belt=True,  coat=False, radio=True, hat_col=(0.34, 0.27, 0.19)),
 }
 
-SIZE = {"standard": dict(girth=1.00, height=1.00), "heavy": dict(girth=1.16, height=0.99)}
+# Proportion profiles (05C). Girth drives torso/limb width; skeleton height is shared/locked
+# (the 65-bone rig is a locked 05B correction), so body-type variation reads through build width.
+# average = standard, shorter/wider = heavy, taller/leaner = slim.
+SIZE = {
+    "standard": dict(girth=1.00, height=1.00),
+    "heavy":    dict(girth=1.15, height=0.99),
+    "slim":     dict(girth=0.90, height=1.00),
+}
 
 
 def _col(P, v):
@@ -121,20 +128,28 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     # ============================================================ TORSO (garment)
     pelvis = h("pelvis"); s1 = c("spine_01"); s2 = c("spine_02"); s3 = c("spine_03")
     neck = h("neck_01"); head_c = c("Head")
-    # hip block (trousers) — the waistline
-    sb.box(_blend("pelvis", "spine_01", 0.7), size=(0.31 * g, 0.21 * g, 0.15),
-           matrix=T(pelvis.x, pelvis.y, pelvis.z + 0.03), mat=lower)
-    # trouser seat bridging BOTH thighs — closes the crotch / inner-thigh gap notch
-    seat_z = (pelvis.z + h("thigh_l").z) * 0.5 - 0.02
-    sb.box("pelvis", size=(0.29 * g, 0.19 * g, 0.15), matrix=T(0, pelvis.y, seat_z - 0.01), mat=lower)
-    # belly + chest + upper chest (shirt): tapered torso (narrower waist -> broader chest)
-    sb.box("spine_01", size=(0.30 * g, 0.20 * g, 0.20), matrix=T(*s1), mat=upper)
-    sb.box("spine_02", size=(0.37 * g, 0.22 * g, 0.24), matrix=T(*s2), mat=upper)
-    sb.box("spine_03", size=(0.41 * g, 0.23 * g, 0.18), matrix=T(s3.x, s3.y, s3.z + 0.01), mat=upper)
-    # chest/pectoral bevel so the torso reads with shoulder mass, not a puffy box
-    sb.box("spine_03", size=(0.30 * g, 0.20 * g, 0.10), matrix=T(0, s3.y - 0.03, s3.z - 0.04), mat=upper)
-    # collar ring (shirt) so the neck emerges from a clear neckline
-    sb.cyl("spine_03", 0.085 * g, 0.05, segments=14, matrix=T(neck.x, neck.y, neck.z - 0.01), mat=upper)
+
+    def ell(w, cx, cy, cz, hxx, hyy, hzz, mat, u=20, v=14):
+        """A rounded ellipsoid (half-extents hxx,hyy,hzz) — the organic building block that
+        replaces the Lab-05B stacked boxes so the torso/hips read as a body, not armor."""
+        sb.uvsphere(w, 1.0, u=u, v=v, matrix=T(cx, cy, cz) @ Matrix.Diagonal((hxx, hyy, hzz, 1)), mat=mat)
+
+    # --- pelvis / hips (trousers): rounded mass + a seat that closes the crotch gap ---
+    ell("pelvis", pelvis.x, pelvis.y + 0.006, pelvis.z + 0.05, 0.150 * g, 0.115 * g, 0.120, lower, u=18, v=12)
+    seat_z = (pelvis.z + h("thigh_l").z) * 0.5 - 0.01
+    ell("pelvis", 0, pelvis.y, seat_z, 0.158 * g, 0.120 * g, 0.105, lower, u=16, v=10)
+    # --- torso (shirt): rounded, FLATTENED (front-back) ellipsoids waist -> chest -> yoke; a low
+    #     shirt hem overlaps the waistband so there is NO gap between shirt and trousers ---
+    # The belly/waist tuck BACK (+Y) relative to the chest so the FRONT profile is vertical/athletic
+    # (no paunch overhanging the belt); the chest is the front-most point.
+    ell(_blend("spine_01", "pelvis", 0.6), 0, s1.y + 0.022, pelvis.z + 0.125, 0.146 * g, 0.088 * g, 0.098, upper)  # shirt hem (tucked back)
+    ell("spine_01", s1.x, s1.y + 0.016, s1.z, 0.150 * g, 0.090 * g, 0.135, upper)   # waist (tucked back)
+    ell("spine_02", s2.x, s2.y, s2.z + 0.005, 0.164 * g, 0.100 * g, 0.145, upper)   # chest (front-most, less barrel)
+    ell("spine_03", s3.x, s3.y - 0.004, s3.z + 0.015, 0.184 * g, 0.099 * g, 0.100, upper)  # yoke
+    # trapezius: soften the neck -> shoulder transition (no square corner)
+    ell(_blend("spine_03", "neck_01", 0.7), neck.x, neck.y + 0.012, neck.z - 0.045, 0.115 * g, 0.095 * g, 0.058, upper, u=14, v=10)
+    # collar ring so the neck emerges from a clear neckline
+    sb.cyl("spine_03", 0.076 * g, 0.05, segments=14, matrix=T(neck.x, neck.y, neck.z - 0.01), mat=upper)
     # coat: long tapered skirt for office/director read
     if cfg.get("coat"):
         top = s3.z
@@ -142,16 +157,18 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         depth = top - skirt_z
         sb.cone("spine_01", 0.24 * g, 0.30 * g, depth, segments=16,
                 matrix=T(0, 0.01, (top + skirt_z) * 0.5), mat=upper)
-    # tool belt
+    # tool belt — a rounded band (flattened disc) hugging the waist, not a boxy slab
     if cfg.get("belt"):
-        sb.box("pelvis", size=(0.34 * g, 0.24 * g, 0.06), matrix=T(pelvis.x, pelvis.y, pelvis.z + 0.02), mat=leather)
-        sb.box("pelvis", size=(0.09, 0.10, 0.10), matrix=T(0.16, -0.11, pelvis.z + 0.0), mat=leather)  # pouch (front -Y)
-    # hi-vis safety vest (electric/maintenance): a bright layer proud of the shirt over chest+waist
+        sb.cyl("pelvis", 0.152 * g, 0.052, segments=20,
+               matrix=T(pelvis.x, pelvis.y, pelvis.z + 0.02) @ Matrix.Diagonal((1.0, 0.82, 1.0, 1)), mat=leather)
+        sb.box("pelvis", size=(0.08, 0.09, 0.09), matrix=T(0.15, -0.115, pelvis.z + 0.0), mat=leather)  # pouch (front -Y)
+    # hi-vis safety vest (electric/maintenance): a FITTED rounded shell hugging the chest ~2cm proud
+    # of the shirt (was a bulky floating box). Full straps/opening refinement is iteration 3.
     if cfg.get("vest"):
         hv = SLOT["hivis"]
-        sb.box("spine_03", size=(0.44 * g, 0.26 * g, 0.19), matrix=T(s3.x, s3.y, s3.z + 0.01), mat=hv)
-        sb.box("spine_02", size=(0.41 * g, 0.25 * g, 0.26), matrix=T(*s2), mat=hv)
-        sb.box("spine_01", size=(0.35 * g, 0.23 * g, 0.10), matrix=T(s1.x, s1.y, s1.z + 0.06), mat=hv)
+        ell("spine_02", s2.x, s2.y, s2.z + 0.005, 0.190 * g, 0.112 * g, 0.140, hv)          # chest
+        ell("spine_03", s3.x, s3.y - 0.006, s3.z + 0.012, 0.200 * g, 0.108 * g, 0.098, hv)  # upper chest
+        ell("spine_01", s1.x, s1.y + 0.002, s1.z + 0.02, 0.156 * g, 0.108 * g, 0.085, hv)   # lower hem
     # clipboard clutched to the front (PA / office) — reads at any pose, weighted to the torso
     if cfg.get("clip"):
         cz = c("spine_01").z + 0.02
@@ -198,8 +215,9 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     for s in ("l", "r"):
         sgn = 1 if s == "l" else -1
         ua_h, la_h, hn_h = h(f"upperarm_{s}"), h(f"lowerarm_{s}"), h(f"hand_{s}")
-        # shoulder cap (shirt)
-        sb.uvsphere(_blend(f"clavicle_{s}", f"upperarm_{s}", 0.4), 0.072 * g, u=12, v=10, matrix=T(*ua_h), mat=upper)
+        # shoulder cap (shirt) — round deltoid pulled in + sloping into the arm (no flat plateau)
+        sb.uvsphere(_blend(f"clavicle_{s}", f"upperarm_{s}", 0.45), 0.062 * g, u=14, v=10,
+                    matrix=T(ua_h.x - sgn * 0.014, ua_h.y, ua_h.z - 0.006) @ Matrix.Diagonal((0.95, 1.05, 1.02, 1)), mat=upper)
         # upper-arm sleeve (shirt), tapering to the elbow
         sb.segment(f"upperarm_{s}", ua_h, la_h, 0.056 * g, 0.05, segments=12, mat=upper)
         # elbow joint (blend) — sleeve cuff sits here
@@ -218,8 +236,9 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     # ============================================================ LEGS
     for s in ("l", "r"):
         th_h, ca_h, ft_h, bl_t = h(f"thigh_{s}"), h(f"calf_{s}"), h(f"foot_{s}"), t(f"ball_{s}")
-        # hip cap (trousers)
-        sb.uvsphere(_blend("pelvis", f"thigh_{s}", 0.4), 0.088 * g, u=12, v=10, matrix=T(*th_h), mat=lower)
+        # hip cap (trousers) — rounder, flows into the pelvis mass (no boxy hip)
+        sb.uvsphere(_blend("pelvis", f"thigh_{s}", 0.4), 0.078 * g, u=14, v=10,
+                    matrix=T(th_h.x, th_h.y, th_h.z + 0.01) @ Matrix.Diagonal((1.05, 1.0, 1.1, 1)), mat=lower)
         # thigh (trousers)
         sb.segment(f"thigh_{s}", th_h, ca_h, 0.082 * g, 0.062, segments=12, mat=lower)
         # knee (blend)

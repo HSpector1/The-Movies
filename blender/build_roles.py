@@ -75,6 +75,10 @@ def render_lineup(items, stem, pose_action="Idle_Loop", pose_frame=22, threeq=Fa
     print(f"  [{stem}] {n} chars, {tris} tris total ({tris // n} avg)")
 
 
+# 0) proportion profiles (same role, three body types) — slim / average / wide
+render_lineup([dict(role="Grip", overrides={"size": s}, tag=f"prop_{s}") for s in ("slim", "standard", "heavy")],
+              "proportions", threeq=True)
+
 # 1) required + extra role lineup (PA, Grip, Electric, Maintenance, Office)
 render_lineup([dict(role=r) for r in ("PA", "Grip", "Electric", "Maintenance", "Office")],
               "roles", threeq=True)
