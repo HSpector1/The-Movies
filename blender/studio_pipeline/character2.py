@@ -149,6 +149,8 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     # The belly/waist tuck BACK (+Y) relative to the chest so the FRONT profile is vertical/athletic
     # (no paunch overhanging the belt); the chest is the front-most point.
     ell(_blend("spine_01", "pelvis", 0.6), 0, s1.y + 0.022, pelvis.z + 0.125, 0.140 * WA, 0.088 * WA, 0.098, upper)  # shirt hem
+    sb.cyl(_blend("spine_01", "pelvis", 0.6), 0.143 * WA, 0.022, segments=18,
+           matrix=T(0, s1.y + 0.02, pelvis.z + 0.052) @ Matrix.Diagonal((1.0, 0.76, 1.0, 1)), mat=upper)  # shirt-hem edge (constructed bottom)
     ell("spine_01", s1.x, s1.y + 0.016, s1.z, 0.138 * WA, 0.088 * WA, 0.135, upper)   # waist (PINCHED via WA)
     ell("spine_02", s2.x, s2.y, s2.z + 0.005, 0.172 * CH, 0.102 * CH, 0.148, upper)   # chest (BROAD via CH → real waist above the belt)
     ell("spine_03", s3.x, s3.y - 0.004, s3.z + 0.015, 0.186 * SH, 0.099 * SH, 0.100, upper)  # shoulder yoke (SH)
@@ -209,7 +211,7 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     # ----- FACE (-Y front): clean, symmetric, FRIENDLY stylized features (05C) -----
     hx, hy, hz = head_c.x, head_c.y, head_c.z + 0.02
     fy = hy - 0.092          # feature front plane
-    ex = 0.036               # eye separation (half) — tightened so the face isn't spaced-out
+    ex = 0.0335              # eye separation (half) — brought inward (Loop-6 gate: eyes read wide-set)
     # ----- head SCULPT (05D): SUBTLE cheekbone/chin/brow planes so the head reads sculpted (not egg,
     #       not jowly). Small, restrained forms that blend into the ovoid via shade-smooth. -----
     sb.uvsphere("Head", 1.0, u=10, v=8,
@@ -227,7 +229,7 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         sb.uvsphere("Head", 1.0, u=10, v=8,
                     matrix=T(hx + sgn * ex, fy + 0.006, hz + 0.015) @ Matrix.Diagonal((0.030, 0.013, 0.021, 1)), mat=white)   # eyeball
         sb.uvsphere("Head", 0.0135, u=8, v=6, matrix=T(hx + sgn * ex, fy - 0.006, hz + 0.014), mat=dark)                        # iris/pupil (forward)
-        sb.uvsphere("Head", 0.0055, u=6, v=6, matrix=T(hx + sgn * ex - sgn * 0.006, fy - 0.012, hz + 0.020), mat=white)         # catch-light
+        sb.uvsphere("Head", 0.0055, u=6, v=6, matrix=T(hx + sgn * ex - sgn * 0.004, fy - 0.012, hz + 0.013), mat=white)         # catch-light (lowered onto the iris — relaxed gaze)
         sb.uvsphere("Head", 1.0, u=8, v=6,
                     matrix=T(hx + sgn * ex, fy + 0.003, hz + 0.030) @ Matrix.Diagonal((0.037, 0.013, 0.007, 1)), mat=skin)      # upper lid
         sb.uvsphere("Head", 1.0, u=8, v=6,
@@ -315,6 +317,9 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         cmus = ca_h.lerp(ft_h, 0.32)
         sb.uvsphere(f"calf_{s}", 1.0, u=10, v=8,
                     matrix=T(cmus.x, cmus.y + 0.020, cmus.z) @ Matrix.Diagonal((0.044, 0.058, 0.078, 1)), mat=lower)
+        # trouser break — the trouser leg folds slightly over the boot top (constructed, not plugged in)
+        sb.uvsphere(f"calf_{s}", 1.0, u=10, v=8,
+                    matrix=T(ft_h.x, ft_h.y + 0.004, ft_h.z + 0.028) @ Matrix.Diagonal((0.058, 0.062, 0.030, 1)), mat=lower)
         # ankle collar (blend) — keeps the trouser->boot join closed
         sb.uvsphere(_blend(f"calf_{s}", f"foot_{s}", 0.4), 0.05, u=8, v=6, matrix=T(*ft_h), mat=leather)
         # SHOE: a rounded work boot — instep/heel + rounded toe + a thin dark sole (not angular boxes)

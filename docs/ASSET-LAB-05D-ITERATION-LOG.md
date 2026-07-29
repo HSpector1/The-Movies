@@ -112,3 +112,28 @@ self-review never presented as independent; missed gates queued for replay befor
 - **Review:** FULL multi-reviewer gate (Anatomy re-check + Technical + Art Director), covering loops
   5-6, verdicts appended.
 - **Decision: ACCEPT** (self-review: hands read; gate appended).
+
+### Loop-6 FULL GATE verdicts (3 reviewers, API recovered):
+- **Anatomy: PASS WITH NOTES — `concernResolved=TRUE`.** All 3 Loop-3 CONCERNS resolved (distinct
+  ratio-based builds; front leg taper thigh>knee>calf>ankle; chest>waist S-curve). Notes (minor):
+  limb-mass differentiation still torso-weighted; calf lacks belly-swell; wide-build S-curve flat.
+- **Technical: PASS WITH NOTES — `concernResolved=TRUE`.** Hand no longer a paddle; stable in poses.
+  Notes (minor): extended finger lacks knuckle/rounded tip; palm-finger seam crease; LOD0 ~11.5k
+  (top of budget).
+- **Art Director: PASS WITH NOTES, improved.** Majors: (a) eyes wide-set + high catchlight → faintly
+  startled; (b) hands fuse to a mitten at distance. Minors: palette monotone (blue-grey tops);
+  boots/belt fidelity below the faces. → **eye major fixed in Loop 7**; palette → Loop 8; distance
+  finger-fuse accepted (fingers read up close, fuse only at management distance, which is fine).
+
+---
+
+## Loop 7 — Clothing construction + eye fix
+- **Hypothesis:** legs plug straight into boots and the shirt has no bottom edge (reads unconstructed);
+  and the Loop-6 gate's eye major (wide-set/startled) needs fixing.
+- **Change:** **trouser break** (trouser leg folds over the boot top) + **shirt-hem edge** band;
+  eyes brought inward (ex 0.036→0.0335) + catchlight lowered onto the iris (relaxed gaze).
+- **Validate:** `GATE_TEST_OK`; 0 unweighted / 0 bad-sum.
+- **Evidence:** `proof/lab05d/iteration-07/` — Grip face (relaxed gaze), lowerbody (trouser break).
+- **Review:** lead self-review (addresses the Loop-6 eye major + adds construction); independent
+  gate at Loop 9.
+- **Decision: ACCEPT.**
