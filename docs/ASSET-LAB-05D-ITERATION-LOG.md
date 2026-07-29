@@ -38,3 +38,17 @@ self-review never presented as independent; missed gates queued for replay befor
 - **Review:** lead self-review — head reads sculpted; slight residual lower-face heaviness noted for
   Loop 3. Independent gate at Loop 3.
 - **Decision: ACCEPT.**
+
+---
+
+## Loop 3 — Eye/brow/mouth expression appeal  ·  FULL MULTI-REVIEWER GATE
+- **Hypothesis:** the neutral face is friendly but blank/wide (no eyelids, flat mouth); adding a
+  relaxed upper-lid line + a faint smile (lifted corners + lower-lip form) makes it read alive.
+- **Change:** upper-lid line (skin) at the top edge of each eye (first pass hooded/sleepy → raised
+  to the lid edge); mouth given lifted corners + a lower-lip highlight (subtle smile). Static
+  geometry only — NOT a facial-animation system.
+- **Validate:** `GATE_TEST_OK`; 0 unweighted / 0 bad-sum.
+- **Evidence:** `proof/lab05d/iteration-03/` (Grip + PA faces read friendly/alive; roles lineup).
+- **Review:** FULL multi-reviewer gate (Art Director + Anatomy + Readability), covering loops 1-3,
+  with 4× outage retry — verdicts recorded below.
+- **Decision: ACCEPT** (self-review: sculpted + expressive; gate verdicts appended).

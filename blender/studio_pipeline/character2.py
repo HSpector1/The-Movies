@@ -225,15 +225,22 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
                     matrix=T(hx + sgn * ex, fy + 0.002, hz + 0.016) @ Matrix.Diagonal((0.035, 0.014, 0.027, 1)), mat=dark)
         # white catch-light for life (upper-inner corner)
         sb.uvsphere("Head", 0.010, u=6, v=6, matrix=T(hx + sgn * ex - sgn * 0.009, fy - 0.014, hz + 0.026), mat=white)
+        # upper-lid line (skin) at the top edge of the eye → defines a relaxed lid without hooding
+        sb.uvsphere("Head", 1.0, u=8, v=6,
+                    matrix=T(hx + sgn * ex, fy + 0.003, hz + 0.034) @ Matrix.Diagonal((0.037, 0.013, 0.006, 1)), mat=skin)
         # eyebrow = soft rounded bar close above the eye (hair-coloured), gentle
         sb.uvsphere("Head", 1.0, u=10, v=6,
                     matrix=T(hx + sgn * ex, fy - 0.002, hz + 0.044) @ Matrix.Diagonal((0.034, 0.012, 0.0085, 1)), mat=SLOT["hair"])
     # nose = a small soft bump protruding -Y (skin), not a lump wedge
     sb.uvsphere("Head", 1.0, u=10, v=8,
                 matrix=T(hx, fy - 0.008, hz - 0.006) @ Matrix.Diagonal((0.015, 0.021, 0.019, 1)), mat=skin)
-    # mouth = a gentle closed friendly line (dark), wide + thin, clearly readable
+    # mouth = a friendly closed line with slightly LIFTED corners (a faint smile) + lip form
     sb.uvsphere("Head", 1.0, u=14, v=6,
-                matrix=T(hx, fy - 0.006, hz - 0.049) @ Matrix.Diagonal((0.032, 0.011, 0.013, 1)), mat=dark)
+                matrix=T(hx, fy - 0.006, hz - 0.050) @ Matrix.Diagonal((0.030, 0.011, 0.011, 1)), mat=dark)
+    for sgn in (-1, 1):
+        sb.uvsphere("Head", 0.008, u=6, v=6, matrix=T(hx + sgn * 0.027, fy - 0.005, hz - 0.043), mat=dark)  # lifted corner
+    sb.uvsphere("Head", 1.0, u=8, v=6,
+                matrix=T(hx, fy - 0.004, hz - 0.059) @ Matrix.Diagonal((0.024, 0.014, 0.008, 1)), mat=skin)  # lower-lip highlight
     # ears
     for sgn in (-1, 1):
         sb.uvsphere("Head", 0.021, u=8, v=6, matrix=T(hx + sgn * 0.098, hy + 0.012, hz) @ Matrix.Diagonal((0.5, 1, 1.25, 1)), mat=skin)
