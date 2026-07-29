@@ -22,7 +22,7 @@ core.reset_scene()
 render.warm_world(strength=0.55)
 render.sun(strength=2.5)
 render.fill(strength=0.6)
-render.ground(size=20)
+render.ground(size=40, color=(0.46, 0.46, 0.49))   # visible neutral floor so foot grounding reads
 scene = bpy.context.scene
 scene.render.engine = "BLENDER_EEVEE"
 scene.render.resolution_x = scene.render.resolution_y = 768

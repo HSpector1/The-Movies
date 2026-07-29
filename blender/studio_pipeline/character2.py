@@ -254,12 +254,17 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         sb.segment(f"lowerarm_{s}", la_h, hn_h, 0.046, 0.036, segments=12, mat=skin)
         # wrist + hand mitten (skin)
         sb.uvsphere(_blend(f"lowerarm_{s}", f"hand_{s}"), 0.04, u=8, v=6, matrix=T(*hn_h), mat=skin)
-        # flattened mitt (fingers) + a clearly separated thumb protruding forward (-Y)
-        sb.box(f"hand_{s}", size=(0.12, 0.072, 0.038),
-               matrix=T(hn_h.x + sgn * 0.055, hn_h.y, hn_h.z), mat=skin)
-        sb.box(f"hand_{s}", size=(0.034, 0.06, 0.05),
-               matrix=T(hn_h.x + sgn * 0.03, hn_h.y - 0.058, hn_h.z - 0.004) @ R("Z", sgn * 0.55),
-               mat=skin)   # thumb
+        # HAND: rounded flattened palm + a grouped-finger paddle + a thumb (stylized, not a cube mitt)
+        palm = hn_h + Vector((sgn * 0.042, 0, 0))
+        sb.uvsphere(f"hand_{s}", 1.0, u=10, v=8,
+                    matrix=T(palm.x, palm.y, palm.z) @ Matrix.Diagonal((0.050, 0.042, 0.021, 1)), mat=skin)      # palm
+        fing = hn_h + Vector((sgn * 0.098, 0, 0))
+        sb.uvsphere(f"hand_{s}", 1.0, u=10, v=8,
+                    matrix=T(fing.x, fing.y, fing.z) @ Matrix.Diagonal((0.046, 0.038, 0.018, 1)), mat=skin)      # grouped fingers
+        # a shallow crease hint between fingers (thin skin groove split, front -Y)
+        sb.uvsphere(f"hand_{s}", 0.030, u=8, v=6,
+                    matrix=T(hn_h.x + sgn * 0.028, hn_h.y - 0.040, hn_h.z - 0.004) @ R("Z", sgn * 0.5) @ Matrix.Diagonal((0.55, 1.0, 0.75, 1)),
+                    mat=skin)   # thumb (rounded, forward -Y)
 
     # ============================================================ LEGS
     for s in ("l", "r"):
@@ -269,18 +274,20 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
                     matrix=T(th_h.x, th_h.y, th_h.z + 0.01) @ Matrix.Diagonal((1.05, 1.0, 1.1, 1)), mat=lower)
         # thigh (trousers)
         sb.segment(f"thigh_{s}", th_h, ca_h, 0.082 * g, 0.062, segments=12, mat=lower)
-        # knee (blend)
-        sb.uvsphere(_blend(f"thigh_{s}", f"calf_{s}"), 0.06, u=10, v=8, matrix=T(*ca_h), mat=lower)
+        # knee (blend) — slightly larger so the joint keeps volume in deep kneel/crouch
+        sb.uvsphere(_blend(f"thigh_{s}", f"calf_{s}"), 0.064, u=12, v=8, matrix=T(*ca_h), mat=lower)
         # calf (trousers) down to the ankle
         sb.segment(f"calf_{s}", ca_h, ft_h, 0.06, 0.045, segments=12, mat=lower)
         # ankle collar (blend) — keeps the trouser->boot join closed
         sb.uvsphere(_blend(f"calf_{s}", f"foot_{s}", 0.4), 0.05, u=8, v=6, matrix=T(*ft_h), mat=leather)
-        # boot: heel block at the ankle + toe box forward (-Y), on the ground
-        heel_z = 0.045
-        sb.box(_blend(f"foot_{s}", f"ball_{s}", 0.7), size=(0.095, 0.13, 0.09),
-               matrix=T(ft_h.x, ft_h.y - 0.02, heel_z), mat=leather)
-        sb.box(f"ball_{s}", size=(0.09, 0.16, 0.06),
-               matrix=T(ft_h.x, ft_h.y - 0.13, heel_z - 0.012), mat=leather)  # toe forward (-Y)
+        # SHOE: a rounded work boot — instep/heel + rounded toe + a thin dark sole (not angular boxes)
+        heel_z = 0.048
+        sb.uvsphere(_blend(f"foot_{s}", f"ball_{s}", 0.7), 1.0, u=10, v=8,
+                    matrix=T(ft_h.x, ft_h.y - 0.012, heel_z) @ Matrix.Diagonal((0.050, 0.072, 0.052, 1)), mat=leather)   # instep/heel
+        sb.uvsphere(f"ball_{s}", 1.0, u=12, v=8,
+                    matrix=T(ft_h.x, ft_h.y - 0.115, heel_z - 0.006) @ Matrix.Diagonal((0.047, 0.090, 0.044, 1)), mat=leather)  # rounded toe
+        sb.box(_blend(f"foot_{s}", f"ball_{s}", 0.5), size=(0.094, 0.265, 0.024),
+               matrix=T(ft_h.x, ft_h.y - 0.058, 0.013), mat=SLOT["dark"])   # sole (dark, grounds the shoe)
 
     mats = char_materials(cfg, tag)
     obj = sb.build(f"Char2_{role}", materials=mats, armature=arm, shade_smooth=True)

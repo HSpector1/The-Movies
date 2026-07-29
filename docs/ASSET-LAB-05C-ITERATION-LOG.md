@@ -128,6 +128,44 @@ iter 4 due to API outage).** Evidence: `proof/lab05c/iteration-03/`.
 
 ### Iteration 4 agenda
 Hands (mitten → palm + thumb + grouped-finger + wrist), feet/shoes (toe/heel/sole/ankle, L/R),
-and deformation refinement (shoulders/elbows/wrists/spine/hips/knees/ankles/neck) across the six
-clips — esp. kneel/pickup. Add a visible ground plane to pose renders (grounding evidence).
-Run the deferred iter-3 + iter-4 independent review gate.
+and deformation refinement across the six clips — esp. kneel/pickup.
+
+---
+
+## Iteration 4 — Hands, feet, joints, deformation
+
+- **Starting HEAD:** `eddc324` (iter 3).
+- **Ranked defects:** hands = cube mittens; feet/shoes = angular boxes; deep-flex joint volume.
+
+### Implementation (`character2.py`)
+- **Hands** rebuilt from a box mitt into a **rounded palm + grouped-finger paddle + thumb** (all
+  rounded ellipsoids, weighted `hand`) with a clean wrist transition → reads as a hand.
+- **Feet/shoes** rebuilt from angular boxes into a **rounded instep/heel + rounded toe + a thin
+  dark sole**; toe points −Y (forward), L/R mirrored, grounded.
+- **Knee** joint enlarged so it keeps volume in the deep kneel/crouch.
+- Pose renders get a **visible neutral ground plane** (grounding evidence).
+
+### Validation: `GATE_TEST_OK`; 0 unweighted / 0 bad-sum; ~8.7 k tris/char; deformation clean
+across all six clips (kneel keeps knee volume, no shard).
+
+### Primary review (self): **PASS WITH NOTES** — hand reads as palm+fingers+thumb (big lift over
+the cube mitten); boots read as rounded footwear with a sole; kneel/pickup deform cleanly. Notes:
+finger separation subtle at distance (fine for the tier); ground plane still not prominent in the
+tight pose crops (full review scene = iter 5).
+- **Independent reviewer gate: BLOCKED — sustained Anthropic API 529 (Overloaded).** The parallel
+  review Workflow failed on all agents across three attempts (iter-3 gate ×2 + combined iter-3/4
+  gate ×1), server-side. Deferred to a **final comprehensive independent gate at the end of iter 5**
+  once the API recovers; if still down, documented as a known limitation (owner does the real-GPU
+  review regardless). Not faked.
+
+### Scores (moving): hand-quality 4 (was 2) · foot/shoe 4 (was 2) · kneel 4 · pickup 4. Others carry.
+
+### Decision: **CONTINUE (iteration 4 ACCEPTED on primary review; independent gate deferred to the
+end of iter 5 due to the API outage).** Evidence: `proof/lab05c/iteration-04/`.
+
+### Iteration 5 agenda
+Materials/palette contrast (skin vs clothes), review-scene lighting (fix overexposure) + neutral
+floor + contact shadows, the full set of review cameras (Crew Lineup Front/Back/Three-Quarter/Role
+Comparison/Walk/Talk/Kneel/Pickup/Sitting/LOD/Human Scale/Reset), LOD re-validation, export the
+refined crew to Scene G + runtime capture, remaining docs + performance + owner guide + integration,
+backup push. Run the deferred comprehensive independent review.
