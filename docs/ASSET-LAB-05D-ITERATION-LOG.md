@@ -77,3 +77,23 @@ self-review never presented as independent; missed gates queued for replay befor
 - **Evidence:** `proof/lab05d/iteration-04/` — PA/Grip faces (eyes+smile read), Carpenter beard.
 - **Review:** lead self-review; independent gate at Loop 6.
 - **Decision: ACCEPT.**
+
+---
+
+## Loop 5 — Anatomy REDO (addresses the Loop-3 Anatomy CONCERNS)
+- **Hypothesis:** the Anatomy gate proved profiles were uniform-scaled (identical taper ratios),
+  legs read as front-view tubes (calf ≥ thigh), and there was no waist. Giving each profile its own
+  ratio SIGNATURE + a real front leg taper + a chest>waist S-curve fixes it.
+- **Change (`character2.py`):** replaced the single `girth` with per-region factors
+  **chest / waist / hip / limb / shoulder**; profiles now: slim = pinched waist (0.78) + lean limbs
+  (0.83), wide = full waist (1.24) + broad ribcage (1.14). Torso: broad chest (CH) over a **pinched
+  waist** (WA). Legs: thigh WIDEST (0.094·LI) → knee (0.058) → calf (0.056·LI) → hard ankle taper
+  (0.036); calf muscle moved to back-only (small X) so it shapes the side, not the front width.
+  Arms/shoulders use LI/SH.
+- **Validate:** `GATE_TEST_OK`; 0 unweighted / 0 bad-sum; ~11.7 k tris (wide profile at budget edge;
+  LOD1/2 bring it down).
+- **Evidence:** `proof/lab05d/iteration-05/` — proportions read as distinct builds; Grip front shows
+  thigh>knee>calf taper.
+- **Review:** lead self-review (directly targets the measured gate failures); re-measured at the
+  Loop-6 full gate.
+- **Decision: ACCEPT.**
