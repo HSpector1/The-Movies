@@ -69,6 +69,48 @@ def fill(strength=0.8):
     return o
 
 
+# --- 05C neutral review presentation (fixes the overexposed warm-sky review look) ---
+def neutral_world(strength=0.65, color=(0.52, 0.55, 0.60)):
+    """Flat mid-grey studio world — no bright warm sky that washes out skin/clothes."""
+    world = bpy.data.worlds.new("ReviewWorld")
+    bpy.context.scene.world = world
+    world.use_nodes = True
+    nt = world.node_tree
+    nt.nodes.clear()
+    out = nt.nodes.new("ShaderNodeOutputWorld")
+    bg = nt.nodes.new("ShaderNodeBackground")
+    bg.inputs["Strength"].default_value = strength
+    bg.inputs["Color"].default_value = (*color, 1)
+    nt.links.new(bg.outputs["Background"], out.inputs["Surface"])
+    return world
+
+
+def rim(strength=1.4, angle_deg=(-38, 0, 205), color=(0.82, 0.87, 1.0)):
+    """Back-rim sun to separate the silhouette from the backdrop."""
+    d = bpy.data.lights.new("Rim", "SUN")
+    d.energy = strength
+    d.color = color
+    o = bpy.data.objects.new("Rim", d)
+    o.rotation_euler = tuple(math.radians(a) for a in angle_deg)
+    bpy.context.scene.collection.objects.link(o)
+    return o
+
+
+def backdrop(color=(0.34, 0.36, 0.40), at=(0, 9.0, 4.0), size=44):
+    """A large neutral studio wall behind the subject (+Y, camera side is -Y)."""
+    from .meshgen import MeshBuilder, T
+    mb = MeshBuilder()
+    mb.add_box(size=(size, 0.3, size), matrix=T(*at))
+    mat = bpy.data.materials.new("mat_review_backdrop")
+    mat.use_nodes = True
+    bsdf = mat.node_tree.nodes.get("Principled BSDF")
+    bsdf.inputs["Base Color"].default_value = (*color, 1)
+    bsdf.inputs["Roughness"].default_value = 1.0
+    obj = mb.finish("Backdrop", materials=[mat])
+    bpy.context.scene.collection.objects.link(obj)
+    return obj
+
+
 def ground(size=40, color=(0.34, 0.32, 0.29)):
     me = bpy.data.meshes.new("Ground")
     from .meshgen import MeshBuilder, T

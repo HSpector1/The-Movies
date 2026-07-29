@@ -19,15 +19,17 @@ OUT = Path(ARGV[1]) if len(ARGV) > 1 else (config.ROOT / "proof" / "lab05b" / "i
 OUT.mkdir(parents=True, exist_ok=True)
 
 core.reset_scene()
-render.warm_world(strength=0.55)
-render.sun(strength=2.5)
-render.fill(strength=0.6)
-render.ground(size=40, color=(0.46, 0.46, 0.49))   # visible neutral floor so foot grounding reads
+render.neutral_world(strength=0.6)          # 05C: neutral studio, not the overexposed warm sky
+render.sun(strength=2.1)
+render.fill(strength=0.5)
+render.rim(strength=1.3)
+render.backdrop()
+render.ground(size=40, color=(0.42, 0.43, 0.46))   # visible neutral floor so foot grounding reads
 scene = bpy.context.scene
 scene.render.engine = "BLENDER_EEVEE"
 scene.render.resolution_x = scene.render.resolution_y = 768
 scene.render.image_settings.file_format = "PNG"
-render.set_look(scene, exposure=-0.35)   # truer material value (0.0 washed clothing toward skin)
+render.set_look(scene, exposure=-0.55)   # not overexposed; skin/clothes separate
 
 arm = rig.load_canonical_rig(keep_actions=True)
 obj = character2.build_character2(ROLE, arm, seed=1)

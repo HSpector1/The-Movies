@@ -1,0 +1,31 @@
+{
+  "tool": "capture-lab05b",
+  "note": "DIAGNOSTIC ONLY — headless SwiftShader software rendering, NOT target-hardware acceptance.",
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+  "consoleErrorFree": true,
+  "viewport": {
+    "width": 1600,
+    "height": 1000,
+    "dpr": 2
+  },
+  "initialLoadMs": 11188,
+  "samples": [
+    {
+      "label": "G/overview",
+      "fps": 4,
+      "drawCalls": 282,
+      "triangles": 168846,
+      "sceneTriangles": 84430,
+      "sceneMeshes": 142,
+      "geometries": 154,
+      "textures": 69,
+      "programs": 13,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "isSoftware": true,
+      "postFx": false,
+      "loadedAssets": 24,
+      "totalAssets": 24,
+      "loading": false
+    }
+  ]
+}

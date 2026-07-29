@@ -23,15 +23,17 @@ SPACING = 0.98
 
 def setup_scene():
     core.reset_scene()
-    render.warm_world(strength=0.55)
-    render.sun(strength=2.6)
-    render.fill(strength=0.6)
-    render.ground(size=40)
+    render.neutral_world(strength=0.6)          # 05C: neutral studio (fix overexposure)
+    render.sun(strength=2.1)
+    render.fill(strength=0.5)
+    render.rim(strength=1.3)
+    render.backdrop(at=(0, 11.0, 4.0), size=60)
+    render.ground(size=60, color=(0.42, 0.43, 0.46))
     sc = bpy.context.scene
     sc.render.engine = "BLENDER_EEVEE"
     sc.render.resolution_x, sc.render.resolution_y = 1680, 760
     sc.render.image_settings.file_format = "PNG"
-    render.set_look(sc, exposure=-0.35)
+    render.set_look(sc, exposure=-0.55)
     return sc
 
 

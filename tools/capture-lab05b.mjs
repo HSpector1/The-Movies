@@ -7,7 +7,7 @@ import { mkdirSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 const TARGET = process.env.LAB_URL ?? 'http://localhost:4321/'
-const OUT = fileURLToPath(new URL('../proof/lab05b/runtime/', import.meta.url))
+const OUT = process.env.OUT_DIR ?? fileURLToPath(new URL('../proof/lab05b/runtime/', import.meta.url))
 const CHROME = process.env.CHROME_PATH ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 mkdirSync(OUT, { recursive: true })
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))

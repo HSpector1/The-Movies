@@ -34,7 +34,7 @@ for role in ROLES:
     ok, issues, stats = validate(obj)
     size_name = character2.ROLES[role]["size"].capitalize()
     stem = f"Char_{role}_{size_name}"
-    lods = lod.generate_lods(obj, ratios=[1.0, 0.6, 0.35])
+    lods = lod.generate_lods(obj, ratios=[1.0, 0.55, 0.30])
     col = lod.collision_proxy(lods[0], "character")
     exporter.export_glb(OUT / f"{stem}.glb", [arm, lods[0]], with_animations=False)
     exporter.export_glb(OUT / f"{stem}_LOD1.glb", [arm, lods[1]], with_animations=False)
