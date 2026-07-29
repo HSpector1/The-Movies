@@ -22,15 +22,27 @@ def bind(obj, armature):
 class SkinnedBuilder:
     def __init__(self):
         self.mb = MeshBuilder()
-        self.records = []  # (verts, {bone: weight})
+        # deform layer created up-front on the empty bmesh; every vert added later inherits it.
+        self.mb.bm.verts.layers.deform.verify()
+        self.gi = {}      # bone name -> group index (assignment order)
+        self.order = []   # bones in group-index order
 
     def add(self, verts, weights):
         if isinstance(weights, str):
             weights = {weights: 1.0}
-        # capture indices NOW (verts are live and create-ops only append, so indices are
-        # stable and survive to_mesh); avoids holding fragile BMVert refs until build().
-        self.mb.bm.verts.index_update()
-        self.records.append(([v.index for v in verts], weights))
+        # Assign weights on the deform layer NOW, while these BMVerts are freshly created and
+        # valid. Holding refs OR raw indices across later create-ops is unsafe (refs get
+        # invalidated; indices drift) -> the deform layer + real verts, set immediately, is the
+        # only robust path. group indices are stable (order tracked here, groups made in build()).
+        for bone in weights:
+            if bone not in self.gi:
+                self.gi[bone] = len(self.order)
+                self.order.append(bone)
+        dl = self.mb.bm.verts.layers.deform.active
+        for v in verts:
+            dv = v[dl]
+            for bone, w in weights.items():
+                dv[self.gi[bone]] = float(w)
         return verts
 
     # convenience primitives that immediately weight to a bone (or weight map)
@@ -55,27 +67,20 @@ class SkinnedBuilder:
     def build(self, name, materials, armature, shade_smooth=False):
         bm = self.mb.bm
         self.mb.recalc_normals()
-        bm.verts.index_update()
         bm.normal_update()
         me = bpy.data.meshes.new(name)
-        bm.to_mesh(me)
-        bm.free()
-        # bone -> {weight: [vidx]} so we can batch vertex_groups.add by identical weight
-        by_bone = {}
-        for idxs, weights in self.records:
-            for vidx in idxs:
-                for bone, w in weights.items():
-                    by_bone.setdefault(bone, {}).setdefault(round(w, 4), []).append(vidx)
         obj = bpy.data.objects.new(name, me)
         for m in (materials or []):
             me.materials.append(m)
+        # create vertex groups in the SAME order as the deform-layer indices assigned in add(),
+        # so group index N is bone self.order[N]. to_mesh then carries the deform weights across.
+        for bone in self.order:
+            obj.vertex_groups.new(name=bone)
+        bm.to_mesh(me)
+        bm.free()
         if shade_smooth:
             for p in me.polygons:
                 p.use_smooth = True
-        for bone, wmap in by_bone.items():
-            vg = obj.vertex_groups.new(name=bone)
-            for w, idxs in wmap.items():
-                vg.add(idxs, w, "REPLACE")
         bpy.context.scene.collection.objects.link(obj)   # into the view layer
         bind(obj, armature)
         return obj
