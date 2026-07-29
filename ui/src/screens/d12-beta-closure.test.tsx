@@ -145,36 +145,36 @@ describe('D-12 beta P1: Review forecast == persisted greenlight snapshot (same-w
     expect(a.forecastSnapshot.expectedTotal).not.toBe(persistedB.expectedTotal)
   })
 
-  it('P2: Sim to Next Event does NOT stop for a routine theatrical-run completion', () => {
-    // Found → greenlight → sim to the release (stops on the release, opening a run).
+  // D-12 Phase 1 (owner directive): Sim to Next Event MUST stop when a theatrical run ends — the prior
+  // "beta P2" behavior (treat run completion as routine, keep simming) was the overshoot bug (Week 22→131).
+  it('P1: Sim to Next Event STOPS when a single theatrical run ends, applying the final payment once', () => {
     let s = newFoundedGame('beta-sim-runcomplete')
     s = (greenlight(s, pkgFrom(s, { writer: 0, director: 0, actors: [0, 1, 2], craft: 0 })) as { ok: true; next: GameState }).next
     const toRelease = advanceToNextEvent(s)
     expect(toRelease.stopReason).toBe('release')
     s = toRelease.next
-    expect(selectActiveProductions(s).length).toBe(0) // nothing new in production
+    expect(selectActiveProductions(s).length).toBe(0) // nothing in production
     const run = s.theatricalRuns.find((r) => r.status === 'active')!
     expect(run).toBeTruthy()
 
-    // Sim again: the run (5 more weeks) WILL complete during this segment — but completion is
-    // routine and must NOT be the stop reason.
+    // Sim again: the run finishes its remaining weeks — the sim now STOPS at the completion tick.
     const seg = advanceToNextEvent(s)
-    expect(seg.stopReason).not.toBe('runCompleted')
-    // The completion happened and is reported in the aggregate summary…
-    expect(seg.summary.completedRuns).toBeGreaterThanOrEqual(1)
-    // …and the sim advanced PAST the completion week (didn't halt at it).
-    const completionWeek = run.releaseTick + run.totalWeeks - 1
-    expect(seg.toWeek).toBeGreaterThan(completionWeek)
+    expect(seg.stopReason).toBe('runCompleted')
+    expect(seg.completedRuns.map((r) => r.productionId)).toContain(run.productionId)
+    expect(seg.stopMessage).toMatch(/completed its theatrical run/)
+    // Stopped PROMPTLY at the completion — did NOT overshoot into empty weeks (the Week 22→131 bug). The
+    // run is detected even though it now sits in the collection with status 'completed' (not removed).
+    expect(seg.weeks).toBeLessThanOrEqual(run.totalWeeks) // at most the run's remaining weeks, never ~100
+    expect(seg.toWeek).toBeLessThan(run.releaseTick + run.totalWeeks + 2)
+    expect(seg.guardHit).toBe(false)
 
-    // No payment skipped or duplicated: the run paid its full share exactly once per week.
+    // Conservation: final payment applied exactly once; one Studio-Revenue ledger entry per run week.
     const finalRun = seg.next.theatricalRuns.find((r) => r.productionId === run.productionId)!
     expect(finalRun.status).toBe('completed')
     const totalGross = finalRun.weeklyGross.reduce((a, b) => a + b, 0)
     expect(finalRun.cumulativeStudioRevenuePaid).toBeCloseTo(totalGross * finalRun.studioShare, 4)
-    const srEntries = seg.next.ledger.filter(
-      (e) => e.kind === 'studioRevenue' && e.productionId === run.productionId,
-    )
-    expect(srEntries.length).toBe(finalRun.totalWeeks) // exactly one payment per week
+    const srEntries = seg.next.ledger.filter((e) => e.kind === 'studioRevenue' && e.productionId === run.productionId)
+    expect(srEntries.length).toBe(finalRun.totalWeeks) // exactly one payment per week — none skipped/duplicated
   })
 
   it('P3: opening newspaper separates PAID-this-week from PROJECTED full-run totals', () => {

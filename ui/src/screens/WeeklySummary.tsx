@@ -8,28 +8,24 @@ import type { PeriodSummary, SimStopReason } from '../engine/adapter.ts'
 import { money } from '../format.ts'
 import { Metric } from '../components/common.tsx'
 
-const STOP_TEXT: Record<SimStopReason, string> = {
-  release: 'A film is releasing.',
-  runCompleted: 'A film finished its theatrical run.',
-  contractExpired: 'A contract expired.',
-  renewalWindow: 'A contract entered its renewal window.',
-  cashNegative: 'Cash went negative — unavoidable payroll and overhead ran the studio into the red.',
-  limit: 'Reached the simulation limit.',
-}
-
 export function WeeklySummary({
   summary,
   stopReason,
+  stopMessage,
   weeks,
   cashNow,
   onContinue,
 }: {
   summary: PeriodSummary
   stopReason: SimStopReason
+  // D-12 P1.3: the engine-derived stop explanation (e.g. "Stopped at Week 14: … completed their theatrical
+  // runs."). Displayed verbatim — React never re-derives the reason from the resulting state.
+  stopMessage: string
   weeks: number
   cashNow: number
   onContinue: () => void
 }) {
+  const alert = stopReason === 'cashNegative' || stopReason === 'limit'
   return (
     <div className="app-shell">
       <div className="topbar">
@@ -44,8 +40,8 @@ export function WeeklySummary({
           {weeks === 1 ? 'Week' : `Weeks ${summary.fromWeek} – ${summary.toWeekInclusive}`} ·{' '}
           {weeks} {weeks === 1 ? 'week' : 'weeks'} advanced
         </h2>
-        <p className="hint" data-testid="stop-reason">
-          Stopped: {STOP_TEXT[stopReason]}
+        <p className={alert ? 'reason' : 'hint'} data-testid="stop-reason">
+          {stopMessage}
         </p>
 
         <div className="row" style={{ gap: 24, flexWrap: 'wrap', marginTop: 8 }}>

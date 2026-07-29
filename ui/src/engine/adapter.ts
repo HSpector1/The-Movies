@@ -1178,51 +1178,80 @@ export type SimResult = {
   preTick: GameState // state immediately BEFORE the stopping tick (release autopsy/development)
   next: GameState // final state after the sim
   released: FilmResult[] // films released on the stopping tick (empty unless stopReason==='release')
+  completedRuns: { productionId: string; title: string }[] // runs that ENDED on the stopping tick (runCompleted)
   fromWeek: number
   toWeek: number
   weeks: number
   stopReason: SimStopReason
+  // D-12 Phase 1: the engine-derived stop explanation the UI must display verbatim. React must NOT infer
+  // the reason from current state (a completed run leaves no active-run trace to read after the fact).
+  stopMessage: string
+  guardHit: boolean // true only if the safety cap was reached without a governed event (diagnostic)
   summary: PeriodSummary
 }
-const SIM_CAP = 260 // backstop; a studio with a production always releases well before this
+const SIM_CAP = 520 // safety guard (~10 years). A governed event (release / run end / contract / cash<0)
+// always fires far sooner; this only backstops an accidental infinite loop. Documented in D-12 Phase 1.4.
 
 export function advanceToNextEvent(state: GameState): SimResult {
   const fromWeek = state.market.tick
   let cur = state
   let preStop = state
   let released: FilmResult[] = []
+  let completedRuns: { productionId: string; title: string }[] = []
   let stopReason: SimStopReason = 'limit'
+  let guardHit = true // stays true only if the loop exhausts without a governed stop
   for (let i = 0; i < SIM_CAP; i++) {
     const before = cur
     const beforeReleases = before.studio.releasedFilms.length
     const beforeContracts = before.contracts.length
     const beforeRenewals = before.contracts.filter((c) => renewalWindowOpen(c, before.market.tick)).length
+    // Runs that are ACTIVE going into this tick — so we can detect which ones END during it.
+    const activeRunsBefore = before.theatricalRuns.filter((r) => r.status === 'active')
     const after = tick(before, { develop: true })
     cur = after
-    // Stop-condition checks on the post-tick state (the FIRST that fires wins).
+    // Stop-condition checks on the COMPLETED post-tick state (the FIRST that fires wins). The tick has
+    // already applied this week's theatrical payment(s), payroll/overhead, and completed/removed runs in
+    // the canonical order (tick.ts) — we only DETECT and stop; we never re-order or re-apply anything.
     const newReleases = after.studio.releasedFilms.slice(beforeReleases)
     if (newReleases.length > 0) {
       stopReason = 'release'
       released = newReleases
       preStop = before
+      guardHit = false
+      break
+    }
+    // D-12 Phase 1 FIX: a theatrical run ENDING is a player-facing event and MUST stop the sim (the UI
+    // has always promised "stops for a run ending"). Detect by diffing active→now: a run that was active
+    // before the tick and is no longer active after it (status 'completed' OR removed) ended this tick.
+    // This is detected even though the completed run stays in the collection with status 'completed'.
+    const afterRunById = new Map(after.theatricalRuns.map((r) => [r.productionId, r]))
+    const endedRuns = activeRunsBefore.filter((r) => {
+      const a = afterRunById.get(r.productionId)
+      return !a || a.status !== 'active'
+    })
+    if (endedRuns.length > 0) {
+      stopReason = 'runCompleted'
+      completedRuns = endedRuns.map((r) => ({ productionId: r.productionId, title: findConcept(after, r.conceptId)?.title ?? r.conceptId }))
+      preStop = before
+      guardHit = false
       break
     }
     if (after.studio.cash < 0 && before.studio.cash >= 0) {
       stopReason = 'cashNegative'
       preStop = before
+      guardHit = false
       break
     }
-    // D-12 beta P2: a theatrical run COMPLETING is routine financial activity (like weekly
-    // Studio Revenue, payroll, overhead) — it must NOT stop the sim. It is reported in the
-    // aggregate period summary (`completedRuns`), never as the stop reason.
     if (after.contracts.length < beforeContracts) {
       stopReason = 'contractExpired'
       preStop = before
+      guardHit = false
       break
     }
     if (after.contracts.filter((c) => renewalWindowOpen(c, after.market.tick)).length > beforeRenewals) {
       stopReason = 'renewalWindow'
       preStop = before
+      guardHit = false
       break
     }
   }
@@ -1230,7 +1259,38 @@ export function advanceToNextEvent(state: GameState): SimResult {
   // Ledger entries + releaseTick are stamped with the PRE-increment week, so the ticks
   // processed span weeks [fromWeek, toWeek − 1] (tick.ts:114/437).
   const summary = corePeriodSummary(cur, fromWeek, Math.max(fromWeek, toWeek - 1))
-  return { preTick: preStop, next: cur, released, fromWeek, toWeek, weeks: toWeek - fromWeek, stopReason, summary }
+  const stopMessage = simStopMessage(stopReason, toWeek, { released, completedRuns, guardHit })
+  return { preTick: preStop, next: cur, released, completedRuns, fromWeek, toWeek, weeks: toWeek - fromWeek, stopReason, stopMessage, guardHit, summary }
+}
+
+// D-12 Phase 1.3 — the single engine-derived stop explanation. Built here (never inferred by React), so
+// the reason survives even though a completed run leaves no active-run trace in the resulting state.
+function simStopMessage(
+  reason: SimStopReason,
+  toWeek: number,
+  ctx: { released: FilmResult[]; completedRuns: { productionId: string; title: string }[]; guardHit: boolean },
+): string {
+  const at = `Stopped at Week ${toWeek}`
+  const list = (xs: string[]) => (xs.length <= 1 ? xs[0] ?? '' : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`)
+  switch (reason) {
+    case 'release': {
+      const titles = ctx.released.map((f) => f.conceptId) // titles resolved by the caller's concept lookup where shown
+      return `${at}: ${titles.length > 1 ? 'films' : 'a film'} released.`
+    }
+    case 'runCompleted': {
+      const titles = ctx.completedRuns.map((r) => r.title)
+      return `${at}: ${list(titles)} completed ${titles.length > 1 ? 'their theatrical runs' : 'its theatrical run'}.`
+    }
+    case 'cashNegative':
+      return `${at}: Studio cash crossed below $0.`
+    case 'contractExpired':
+      return `${at}: a talent contract ended.`
+    case 'renewalWindow':
+      return `${at}: a contract renewal window opened.`
+    case 'limit':
+    default:
+      return `${at}: reached the ${SIM_CAP}-week simulation safety guard with no event detected. State preserved; please review the studio.`
+  }
 }
 
 // ── RULING A — Per-release development summary (built by DIFFING before→after) ──

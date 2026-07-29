@@ -96,6 +96,7 @@ type Screen =
       kind: 'periodSummary'
       summary: PeriodSummary
       stopReason: SimStopReason
+      stopMessage: string
       weeks: number
       cashNow: number
     }
@@ -286,6 +287,7 @@ export function App() {
       kind: 'periodSummary',
       summary: result.summary,
       stopReason: result.stopReason,
+      stopMessage: result.stopMessage, // D-12 P1.3: engine-derived; the UI never infers the reason
       weeks: result.weeks,
       cashNow: result.next.studio.cash,
     })
@@ -466,6 +468,7 @@ export function App() {
         <WeeklySummary
           summary={screen.summary}
           stopReason={screen.stopReason}
+          stopMessage={screen.stopMessage}
           weeks={screen.weeks}
           cashNow={screen.cashNow}
           onContinue={goDashboard}
