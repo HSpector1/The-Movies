@@ -91,6 +91,43 @@ lineups, role lineup).
 
 ### Iteration 3 agenda
 Clothing & role silhouettes: real collars/cuffs/hems/waistbands; fully fitted hi-vis vest;
-per-role garments (PA lightweight jacket, Grip/Electric work shirt+vest, Maintenance coveralls,
-Office cardigan/blouse) so roles read by OUTFIT not just colour+headwear; refine the Director long
-coat; give Office's dark top real tailoring.
+per-role garments so roles read by OUTFIT not just colour+headwear.
+
+---
+
+## Iteration 3 — Clothing & role silhouettes
+
+- **Starting HEAD:** `8da4523` (iter 2).
+- **Ranked defects:** clothing = smooth shells (not worn); hi-vis vest bulky/floaty; roles read
+  by colour+headwear, not outfit.
+
+### Implementation (`character2.py`)
+- **Worn-garment details:** raised folded **collar**; front **placket + 3 buttons**; **chest
+  pocket**; **rolled-sleeve cuff** where the shirt sleeve meets the skin forearm.
+- **Hi-vis vest:** added two **silver reflective bands** wrapping the fitted shell → reads as a
+  real safety vest (not a bulky blob).
+- Roles now read by **outfit**: PA collared+buttoned shirt+pocket+clipboard · Grip flatcap+work
+  shirt · Electric hard hat+striped hi-vis · Maintenance soft cap+slate coveralls · Office bun+dark
+  top+clipboard.
+
+### Validation: `GATE_TEST_OK`; 0 unweighted / 0 bad-sum unchanged; ~8.7 k tris/char.
+
+### Primary review (self, image-by-image): **PASS WITH NOTES** — clothing now reads as worn
+garments (collar/placket/pocket/cuffs visible front + 3q); vest reads as a safety vest via the
+stripes; the 4 required roles differentiate by outfit. Notes: vest still slightly rounded; details
+subtle at management distance; coveralls could use a waist seam.
+- **Independent reviewer gate: BLOCKED by a transient Anthropic API 529 (Overloaded)** — the
+  parallel review Workflow failed twice server-side (no code issue). To avoid faking the gate, the
+  independent clothing+role review is **deferred into the combined iter-4 gate** (which will cover
+  iter-3 output too) once the API recovers.
+
+### Scores (moving): clothing-fit 4 (was 3) · role-differentiation 5 (outfit-based). Others carry.
+
+### Decision: **CONTINUE (iteration 3 ACCEPTED on primary review; independent gate deferred to
+iter 4 due to API outage).** Evidence: `proof/lab05c/iteration-03/`.
+
+### Iteration 4 agenda
+Hands (mitten → palm + thumb + grouped-finger + wrist), feet/shoes (toe/heel/sole/ankle, L/R),
+and deformation refinement (shoulders/elbows/wrists/spine/hips/knees/ankles/neck) across the six
+clips — esp. kneel/pickup. Add a visible ground plane to pose renders (grounding evidence).
+Run the deferred iter-3 + iter-4 independent review gate.

@@ -152,8 +152,17 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     ell("spine_03", s3.x, s3.y - 0.004, s3.z + 0.015, 0.184 * g, 0.099 * g, 0.100, upper)  # yoke
     # trapezius: soften the neck -> shoulder transition (no square corner)
     ell(_blend("spine_03", "neck_01", 0.7), neck.x, neck.y + 0.012, neck.z - 0.045, 0.115 * g, 0.095 * g, 0.058, upper, u=14, v=10)
-    # collar ring so the neck emerges from a clear neckline
-    sb.cyl("spine_03", 0.076 * g, 0.05, segments=14, matrix=T(neck.x, neck.y, neck.z - 0.01), mat=upper)
+    # collar: a raised folded band at the neckline (a real shirt collar, not just a ring)
+    sb.cyl("spine_03", 0.082 * g, 0.045, segments=18,
+           matrix=T(neck.x, neck.y, neck.z + 0.006) @ Matrix.Diagonal((1.0, 0.92, 1.0, 1)), mat=upper)
+    # front placket + buttons down the chest (shirt roles — reads as a worn buttoned shirt)
+    if not cfg.get("coat") and not cfg.get("vest"):
+        pz0, pz1 = s2.z + 0.04, s1.z - 0.02
+        sb.box("spine_02", size=(0.026, 0.02, pz0 - pz1), matrix=T(0, s2.y - 0.099 * g, (pz0 + pz1) * 0.5), mat=SLOT["dark"])
+        for i in range(3):
+            sb.uvsphere("spine_02", 0.009, u=6, v=6, matrix=T(0, s2.y - 0.106 * g, pz0 - 0.03 - i * 0.075), mat=SLOT["dark"])
+        # chest pocket (work shirt / coveralls)
+        sb.box("spine_02", size=(0.058, 0.016, 0.058), matrix=T(0.075, s2.y - 0.098 * g, s2.z - 0.015), mat=upper)
     # coat: long tapered skirt for office/director read
     if cfg.get("coat"):
         top = s3.z
@@ -173,6 +182,10 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         ell("spine_02", s2.x, s2.y, s2.z + 0.005, 0.190 * g, 0.112 * g, 0.140, hv)          # chest
         ell("spine_03", s3.x, s3.y - 0.006, s3.z + 0.012, 0.200 * g, 0.108 * g, 0.098, hv)  # upper chest
         ell("spine_01", s1.x, s1.y + 0.002, s1.z + 0.02, 0.156 * g, 0.108 * g, 0.085, hv)   # lower hem
+        # reflective bands (silver) wrapping the vest — the classic hi-vis read
+        for bz in (s2.z + 0.055, s2.z - 0.045):
+            sb.cyl("spine_02", 0.198 * g, 0.020, segments=22,
+                   matrix=T(s2.x, s2.y, bz) @ Matrix.Diagonal((1.0, 0.60, 1.0, 1)), mat=SLOT["white"])
     # clipboard clutched to the front (PA / office) — reads at any pose, weighted to the torso
     if cfg.get("clip"):
         cz = c("spine_01").z + 0.02
@@ -234,6 +247,9 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         sb.segment(f"upperarm_{s}", ua_h, la_h, 0.056 * g, 0.05, segments=12, mat=upper)
         # elbow joint (blend) — sleeve cuff sits here
         sb.uvsphere(_blend(f"upperarm_{s}", f"lowerarm_{s}"), 0.052, u=10, v=8, matrix=T(*la_h), mat=upper)
+        # rolled-sleeve cuff: a thicker shirt band just before the skin forearm begins
+        cuff_p = ua_h.lerp(la_h, 0.86)
+        sb.uvsphere(f"upperarm_{s}", 0.057 * g, u=12, v=8, matrix=T(*cuff_p), mat=upper)
         # forearm (skin, rolled sleeve)
         sb.segment(f"lowerarm_{s}", la_h, hn_h, 0.046, 0.036, segments=12, mat=skin)
         # wrist + hand mitten (skin)
