@@ -40,7 +40,7 @@ export function WeeklySummary({
           {weeks === 1 ? 'Week' : `Weeks ${summary.fromWeek} – ${summary.toWeekInclusive}`} ·{' '}
           {weeks} {weeks === 1 ? 'week' : 'weeks'} advanced
         </h2>
-        <p className={alert ? 'reason' : 'hint'} data-testid="stop-reason">
+        <p className="hint" data-testid="stop-reason" style={alert ? { color: 'var(--neg)' } : undefined}>
           {stopMessage}
         </p>
 

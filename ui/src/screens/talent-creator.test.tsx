@@ -56,6 +56,43 @@ function leadingInt(testid: string): number {
   return Number(m![0])
 }
 
+// ── D-12 Phase 3 — accessible age dropdown ────────────────────────────────────────────────────────
+describe('D-12 P3: age is an accessible integer dropdown (18–70), default 18, preserved to Review', () => {
+  function renderCreator() {
+    render(<TalentCreator state={newGame('p3-age')} onCreated={() => {}} onBack={() => {}} />)
+  }
+  it('defaults to 18 and is a <select> bounded strictly to 18–70', () => {
+    renderCreator()
+    const el = screen.getByTestId('custom-age') as HTMLSelectElement
+    expect(el.tagName).toBe('SELECT') // a dropdown, not a spinner
+    expect(el.value).toBe('18')
+    const values = Array.from(el.options).map((o) => Number(o.value))
+    expect(Math.min(...values)).toBe(18)
+    expect(Math.max(...values)).toBe(70)
+    expect(values.length).toBe(70 - 18 + 1) // every integer, no out-of-range option
+  })
+
+  it('selects 33 directly and preserves it across steps to Review & Contract', () => {
+    renderCreator()
+    fireEvent.change(screen.getByTestId('talent-name'), { target: { value: 'Older Pro' } })
+    fireEvent.change(screen.getByTestId('custom-age'), { target: { value: '33' } })
+    expect((screen.getByTestId('custom-age') as HTMLSelectElement).value).toBe('33')
+    advanceToReview()
+    expect(screen.getByTestId('balanced-review-age').textContent).toBe('33') // shown correctly on Review
+  })
+
+  it('the engine boundary still rejects ages outside [18, 70]', () => {
+    const state = newGame('p3-age-engine')
+    const base = {
+      name: 'Age Test', role: 'actor' as const, actual: { warmth: 0, gravity: 0, physicality: 0 },
+      presetId: 'balancedActingProspect', potentialTier: 'Promising' as const, workEthic: 60, allocation: {},
+    }
+    expect(createBalancedTalent(state, { ...base, age: 33 }).ok).toBe(true)
+    expect(createBalancedTalent(state, { ...base, age: 17 }).ok).toBe(false)
+    expect(createBalancedTalent(state, { ...base, age: 71 }).ok).toBe(false)
+  })
+})
+
 describe('talent creator: valid talent appears in the correct pool (D-11.C Balanced flow)', () => {
   it('creating an actor adds exactly one authored actor to the actor pool', () => {
     const state = newGame('tc-valid-1')

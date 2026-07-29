@@ -601,16 +601,19 @@ export function BalancedCareerCreator({
               ))}
             </select>
             <label htmlFor="custom-age">Age (18–70)</label>
-            <input
+            {/* D-12 P3: accessible integer dropdown (keyboard nav + type-to-select) instead of a spinner. */}
+            <select
               id="custom-age"
-              type="number"
-              min={18}
-              max={70}
-              step={1}
               value={draft.age}
               onChange={(e) => patch({ age: clampAge(Number(e.target.value)) })}
               data-testid="custom-age"
-            />
+            >
+              {Array.from({ length: 70 - 18 + 1 }, (_, i) => 18 + i).map((a) => (
+                <option key={a} value={a}>
+                  {a}
+                </option>
+              ))}
+            </select>
             <p className="hint" style={{ fontSize: 11 }}>
               Younger talent gets more development runway toward its ceiling (age affects growth, not
               current ability).
@@ -861,7 +864,7 @@ export function BalancedCareerCreator({
               </div>
               <div className="spread">
                 <span>Age</span>
-                <span className="mono">{clampAge(draft.age)}</span>
+                <span className="mono" data-testid="balanced-review-age">{clampAge(draft.age)}</span>
               </div>
               <div className="spread">
                 <span>Potential</span>

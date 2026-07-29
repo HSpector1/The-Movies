@@ -6,11 +6,13 @@
 import { describe, it, expect } from 'vitest'
 import {
   teamDirectionPreview,
+  teamDirectionGuidance,
   greenlight,
   advanceToNextEvent,
   explainRelease,
   deliveredAlignmentReport,
   requiredNegative,
+  exportSaveJson,
 } from '../engine/adapter.ts'
 import { personaToExpression, castContribution, safeCosine } from '../../../src/core/index.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
@@ -86,6 +88,100 @@ describe('D-12 Team Direction Preview', () => {
     const view = explainRelease(rel.preTick, rel.next.studio.standing, film)
     const autopsyBand = deliveredAlignmentReport(view).band // 'Weak' | 'Mixed' | 'Strong'
     expect(preview.band).toBe(autopsyBand) // identical deterministic inputs → identical band
+  })
+
+  // ── D-12 Phase 2 — actionable guidance (teamDirectionGuidance) ──────────────────────────────────
+  describe('actionable guidance', () => {
+    it('(1) the visible 0–100 score matches the band thresholds — across many teams, not one lucky seed', () => {
+      // The band derives from the DISPLAYED integer score, so score and band can never contradict (a
+      // "70/100 — Strong" would be a boundary bug). Scan a broad seed/cast space to catch the 40/70 edges.
+      let checked = 0
+      for (let i = 0; i < 40; i++) {
+        const state = newFoundedGame(`g-score-${i}`)
+        for (const cast of [[0, 1, 2], [0, 2, 1], [1, 0, 2]] as [number, number, number][]) {
+          const g = teamDirectionGuidance(state, sel(state, cast))
+          if (!g.ready) continue
+          checked++
+          expect(g.score).toBeGreaterThanOrEqual(0)
+          expect(g.score).toBeLessThanOrEqual(100)
+          const expectedBand = g.score! < 40 ? 'Weak' : g.score! > 70 ? 'Strong' : 'Mixed'
+          expect(g.band).toBe(expectedBand) // must hold for EVERY team, including boundary scores 40 / 70
+        }
+      }
+      expect(checked).toBeGreaterThan(50)
+    })
+
+    it('(2,5) best-available improvement is the true maximum over all candidate substitutions, with correct delta', () => {
+      const state = newFoundedGame('g-best')
+      const g = teamDirectionGuidance(state, sel(state, [0, 1, 2]))
+      if (!g.best) return
+      // best is the max over every per-role best…
+      const perRoleMax = Math.max(...Object.values(g.perRoleBest).map((s) => s!.toScore))
+      expect(g.best.toScore).toBe(perRoleMax)
+      // …and its delta is exactly toScore − current score.
+      expect(g.best.delta).toBe(g.best.toScore - g.score!)
+    })
+
+    it('(3) evaluating candidate impacts mutates NO state', () => {
+      const state = newFoundedGame('g-nomutate')
+      const before = exportSaveJson(state)
+      teamDirectionGuidance(state, sel(state, [0, 1, 2]))
+      expect(exportSaveJson(state)).toBe(before)
+    })
+
+    it('(4) candidate impact uses the same engine source — applying the best swap reproduces its predicted score', () => {
+      const state = newFoundedGame('g-source')
+      const base = sel(state, [0, 1, 2])
+      const g = teamDirectionGuidance(state, base)
+      if (!g.best) return
+      // Build the swapped selection the guidance predicted, then run the SAME preview the autopsy mirrors.
+      const swapped =
+        g.best.role === 'writer' ? { ...base, writerId: g.best.talentId }
+          : g.best.role === 'director' ? { ...base, directorId: g.best.talentId }
+            : { ...base, cast: { ...base.cast, [g.best.role]: g.best.talentId } }
+      expect(teamDirectionPreview(state, swapped).score).toBe(g.best.toScore)
+    })
+
+    it('(6,7) reachability is truthful — reachesMixed iff some candidate substitution reaches Mixed or better', () => {
+      const state = newFoundedGame('g-reach')
+      const g = teamDirectionGuidance(state, sel(state, [0, 1, 2]))
+      const anyMixed = Object.values(g.perRoleBest).some((s) => s!.toBand === 'Mixed' || s!.toBand === 'Strong')
+      // If the current band is already ≥ Mixed OR any swap reaches it, reachesMixed must be true; else false.
+      expect(g.reachesMixed).toBe(g.band !== 'Weak' || anyMixed)
+    })
+
+    it('(8) high assessment confidence coexists with a Weak band — confidence is not team quality', () => {
+      // Scan for a full team that is Weak yet High-confidence (the owner's exact confusing case).
+      let found = false
+      for (let i = 0; i < 20 && !found; i++) {
+        const state = newFoundedGame(`g-conf-${i}`)
+        const s = sel(state, [0, 1, 2])
+        const td = teamDirectionPreview(state, s)
+        if (td.band === 'Weak' && td.confidence === 'high') found = true
+      }
+      expect(found).toBe(true) // proves the two are independent (Weak team, High confidence)
+    })
+
+    it('(9) direction guidance is deterministic — no future performance RNG', () => {
+      const state = newFoundedGame('g-det')
+      const s = sel(state, [0, 1, 2])
+      const a = teamDirectionGuidance(state, s)
+      const b = teamDirectionGuidance(state, s)
+      expect(a.score).toBe(b.score)
+      expect(a.best?.talentId).toBe(b.best?.talentId)
+      expect(a.best?.toScore).toBe(b.best?.toScore)
+    })
+
+    it('(10) guidance is pure per (state, sel) — film A cannot leak into film B', () => {
+      const state = newFoundedGame('g-leak')
+      const selA = sel(state, [0, 1, 2])
+      const selB = sel(state, [3, 4, 5], 1, 1) // a different film's package
+      const bFresh = teamDirectionGuidance(state, selB)
+      teamDirectionGuidance(state, selA) // evaluate A in between
+      const bAfterA = teamDirectionGuidance(state, selB)
+      expect(bAfterA.score).toBe(bFresh.score) // B unchanged by any A evaluation
+      expect(bAfterA.best?.toScore).toBe(bFresh.best?.toScore)
+    })
   })
 
   it('is not ready with fewer than two contributors, and never presents realized performance as fact', () => {

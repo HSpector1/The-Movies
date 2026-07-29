@@ -34,6 +34,7 @@ import {
   capitalExposure,
   shapeExplainView,
   teamDirectionPreview,
+  teamDirectionGuidance,
   greenlight,
   findConcept,
   assessCreativeCohesion,
@@ -766,7 +767,16 @@ function TeamDirectionPanel({
   sel: { writerId: string | null; directorId: string | null; cast: Record<CastSlot, string | null>; shape: FilmShape }
 }) {
   const td = teamDirectionPreview(state, sel)
+  const guidance = teamDirectionGuidance(state, sel)
   const bandClass = td.band === 'Strong' ? 'money pos' : td.band === 'Weak' ? 'money neg' : 'mono'
+  // D-12 P2.2 — change vs the PREVIOUS complete team (this panel instance's last score). Resets when the
+  // panel unmounts (leaving the assembly flow / switching films) — never compared across films.
+  const prevScore = useRef<number | null>(null)
+  const delta = td.ready && prevScore.current !== null && guidance.score !== null ? guidance.score - prevScore.current : null
+  useEffect(() => {
+    if (guidance.score !== null) prevScore.current = guidance.score
+  }, [guidance.score])
+  const roleLabel = (r: string) => r.charAt(0).toUpperCase() + r.slice(1)
   return (
     <div className="card stack" data-testid="team-direction">
       <h3 style={{ marginTop: 0 }}>Team direction</h3>
@@ -777,9 +787,17 @@ function TeamDirectionPanel({
       ) : (
         <>
           <div className="row" style={{ gap: 24, flexWrap: 'wrap' }}>
-            <Metric label="Expected team direction" small testid="team-direction-band">
-              <span className={bandClass}>{td.band}</span>
+            <Metric label="Team direction" small testid="team-direction-score">
+              {/* P2.1 — the exact 0–100 score behind the Weak/Mixed/Strong band. */}
+              <span className={bandClass}>
+                {guidance.score}/100 — {td.band}
+              </span>
             </Metric>
+            {delta !== null && (
+              <Metric label="Change" small testid="team-direction-delta">
+                {delta === 0 ? 'No meaningful change' : delta > 0 ? `Improved by ${delta}` : `Worsened by ${Math.abs(delta)}`}
+              </Metric>
+            )}
             {td.mostCompatible && (
               <Metric label="Most compatible" small testid="team-direction-compatible">
                 {td.mostCompatible.a} &amp; {td.mostCompatible.b}
@@ -790,13 +808,27 @@ function TeamDirectionPanel({
                 {td.mostOpposed.a} &amp; {td.mostOpposed.b}
               </Metric>
             )}
-            <Metric label="Confidence" small testid="team-direction-confidence">
-              {td.confidence}
+            <Metric label="Assessment confidence" small testid="team-direction-confidence">
+              {/* P2.5 — confidence is about certainty of the ASSESSMENT, not team quality. */}
+              <span title="Confidence describes how certain the studio is about this direction assessment. It does not mean the team is good.">
+                {td.confidence}
+              </span>
             </Metric>
           </div>
+          {/* P2.6 — what to change: most-opposed + axes + best available role + reachability. */}
           <p className="hint" data-testid="team-direction-summary">
-            {td.summary}
+            {guidance.advice}
           </p>
+          {/* P2.4 — best available single substitution across the roster. */}
+          {guidance.best && (
+            <p className="reason" data-testid="team-direction-best" style={{ marginTop: 0 }}>
+              <strong>Best available improvement:</strong>{' '}
+              {guidance.best.delta > 0
+                ? `Replace ${roleLabel(guidance.best.role)} with ${guidance.best.name}: ${guidance.score} → ${guidance.best.toScore}${guidance.best.toBand !== td.band ? ` — ${guidance.best.toBand}` : `, remains ${td.band}`}.`
+                : `No available substitution improves this team (best: ${roleLabel(guidance.best.role)}, ${guidance.best.label}).`}
+              {!guidance.reachesMixed && ' No available single change reaches Mixed with the current roster.'}
+            </p>
+          )}
           <p className="hint" style={{ fontSize: '0.85em', opacity: 0.8 }}>
             Creative direction is known from the talent you’ve chosen; realized performance still varies.
           </p>

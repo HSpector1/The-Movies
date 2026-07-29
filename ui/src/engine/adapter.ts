@@ -3276,8 +3276,9 @@ function alignCosine(a: AlignmentVec, b: AlignmentVec): number {
 }
 export function deliveredAlignmentReport(view: AutopsyView): DeliveredAlignmentReport {
   const score = Math.round(view.cohesion * 100)
-  const band: DeliveredAlignmentReport['band'] =
-    view.cohesion < 0.4 ? 'Weak' : view.cohesion > 0.7 ? 'Strong' : 'Mixed'
+  // Band derives from the DISPLAYED integer score (not the raw float) so a shown "70/100" can never read
+  // "Strong" while a "69/100" reads "Mixed" — score and band are always consistent on screen.
+  const band: DeliveredAlignmentReport['band'] = score < 40 ? 'Weak' : score > 70 ? 'Strong' : 'Mixed'
   const pairs: AlignmentPair[] = []
   for (let i = 0; i < ALIGNMENT_ROLES.length; i++) {
     for (let j = i + 1; j < ALIGNMENT_ROLES.length; j++) {
@@ -3394,7 +3395,9 @@ export function teamDirectionPreview(
   const expressiveStrength = clamp(mean(weighted.map((w) => magnitude(w.vec))) / TUNING.EXPECTED_EXPRESSION, 0, 1)
   const cohesion = clamp(directionalAgreement, 0, 1) * lerp(TUNING.EXPRESSION_FLOOR, 1.0, expressiveStrength)
   const score = Math.round(cohesion * 100)
-  const band: TeamDirectionPreview['band'] = cohesion < 0.4 ? 'Weak' : cohesion > 0.7 ? 'Strong' : 'Mixed'
+  // Band derives from the DISPLAYED integer score (see deliveredAlignmentReport) so the shown score and
+  // band never contradict at the 40/70 boundaries — and both read model + autopsy stay consistent.
+  const band: TeamDirectionPreview['band'] = score < 40 ? 'Weak' : score > 70 ? 'Strong' : 'Mixed'
   // Axes the most-opposed pair genuinely pull against each other on (opposite sign, both meaningful).
   const axisConflicts: string[] = []
   if (mostOpposed && mostOpposed.agreement < 0.4) {
@@ -3428,6 +3431,95 @@ function listWords(xs: string[]): string {
   if (xs.length <= 1) return xs[0] ?? ''
   if (xs.length === 2) return `${xs[0]} and ${xs[1]}`
   return `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`
+}
+
+// ── D-12 Phase 2 — actionable Team Direction guidance ─────────────────────────────────────────────
+// The owner could see the team was Weak and which pair was opposed, but not whether ANY substitution would
+// help, or whether a Mixed team was even reachable with the market. This evaluates hypothetical single-role
+// swaps against the SAME engine source as teamDirectionPreview/the autopsy — preserving every other current
+// assignment, using no future RNG, and mutating nothing (each trial is a fresh teamDirectionPreview call).
+// Candidate pools are the studio's assignable roster (contracts), by discipline.
+export type TeamRole = 'writer' | 'director' | 'lead' | 'antagonist' | 'support'
+export type DirectionSwap = {
+  role: TeamRole
+  talentId: string
+  name: string
+  toScore: number
+  toBand: 'Weak' | 'Mixed' | 'Strong'
+  delta: number // toScore − current score
+  label: string // e.g. "Improves to 61 — Mixed", "Improves +7, remains Weak", "No change", "Worsens −9"
+}
+export type TeamDirectionGuidance = {
+  ready: boolean
+  score: number | null
+  band: 'Weak' | 'Mixed' | 'Strong' | null
+  perRoleBest: Partial<Record<TeamRole, DirectionSwap>> // the best available candidate for each role
+  best: DirectionSwap | null // the single best available swap across all roles
+  reachesMixed: boolean // does any single swap reach at least Mixed?
+  reachesStrong: boolean
+  advice: string // plain-English "what to change" (most-opposed + axes + best role + reachability)
+}
+const TEAM_ROLES: TeamRole[] = ['writer', 'director', 'lead', 'antagonist', 'support']
+function swapLabel(delta: number, toBand: 'Weak' | 'Mixed' | 'Strong', baseBand: 'Weak' | 'Mixed' | 'Strong', toScore: number): string {
+  if (delta === 0) return 'No change'
+  if (delta < 0) return `Worsens −${Math.abs(delta)}`
+  if (toBand !== baseBand) return `Improves to ${toScore} — ${toBand}`
+  return `Improves +${delta}, remains ${toBand}`
+}
+export function teamDirectionGuidance(
+  state: GameState,
+  sel: { writerId: string | null; directorId: string | null; cast: Record<CastSlot, string | null>; shape: FilmShape },
+): TeamDirectionGuidance {
+  const base = teamDirectionPreview(state, sel)
+  if (!base.ready || base.score === null || base.band === null) {
+    return { ready: false, score: base.score, band: base.band, perRoleBest: {}, best: null, reachesMixed: false, reachesStrong: false, advice: base.summary }
+  }
+  const baseScore = base.score
+  const baseBand = base.band
+  const rostered = (role: 'writer' | 'director' | 'actor') =>
+    state.contracts.map((c) => state.talent.find((t) => t.id === c.talentId)).filter((t): t is Talent => !!t && t.role === role).map((t) => t.id)
+  const disciplineOf = (role: TeamRole): 'writer' | 'director' | 'actor' => (role === 'writer' ? 'writer' : role === 'director' ? 'director' : 'actor')
+  const currentOf = (role: TeamRole): string | null => (role === 'writer' ? sel.writerId : role === 'director' ? sel.directorId : sel.cast[role])
+  const withRole = (role: TeamRole, id: string) =>
+    role === 'writer' ? { ...sel, writerId: id }
+      : role === 'director' ? { ...sel, directorId: id }
+        : { ...sel, cast: { ...sel.cast, [role]: id } }
+  const nameOf = (id: string) => state.talent.find((t) => t.id === id)?.name ?? id
+  const perRoleBest: Partial<Record<TeamRole, DirectionSwap>> = {}
+  let best: DirectionSwap | null = null
+  let reachesMixed = baseBand !== 'Weak'
+  let reachesStrong = baseBand === 'Strong'
+  for (const role of TEAM_ROLES) {
+    const cur = currentOf(role)
+    // Talent already assigned to a DIFFERENT role can't also fill this one.
+    const usedElsewhere = new Set([sel.writerId, sel.directorId, sel.cast.lead, sel.cast.antagonist, sel.cast.support].filter((x): x is string => !!x && x !== cur))
+    let roleBest: DirectionSwap | null = null
+    for (const id of rostered(disciplineOf(role))) {
+      if (id === cur || usedElsewhere.has(id)) continue
+      const p = teamDirectionPreview(state, withRole(role, id))
+      if (p.score === null || p.band === null) continue
+      if (p.band === 'Mixed' || p.band === 'Strong') reachesMixed = true
+      if (p.band === 'Strong') reachesStrong = true
+      const delta = p.score - baseScore
+      const swap: DirectionSwap = { role, talentId: id, name: nameOf(id), toScore: p.score, toBand: p.band, delta, label: swapLabel(delta, p.band, baseBand, p.score) }
+      if (!roleBest || swap.toScore > roleBest.toScore) roleBest = swap
+      if (!best || swap.toScore > best.toScore) best = swap
+    }
+    if (roleBest) perRoleBest[role] = roleBest
+  }
+  // 2.6 — what to change: most-opposed + axes + best role + reachability, in plain English.
+  let advice = base.summary
+  if (best && best.delta > 0) {
+    const reach = reachesStrong
+      ? ' A Strong team is reachable with the current roster.'
+      : reachesMixed
+        ? ' A Mixed team is reachable with the current roster.'
+        : ` No available swap raises this team above ${baseBand}.`
+    advice = `${base.mostOpposed ? `${base.mostOpposed.a} and ${base.mostOpposed.b} are the most opposed${base.axisConflicts.length ? ` on ${listWords(base.axisConflicts)}` : ''}. ` : ''}Replacing the ${TEAM_ROLE_LABEL[best.role]} offers the largest available improvement (${best.label}).${reach}`
+  } else if (best) {
+    advice = `${base.summary} No available single substitution improves this team; the strongest option is ${TEAM_ROLE_LABEL[best.role]} (${best.label}).`
+  }
+  return { ready: true, score: baseScore, band: baseBand, perRoleBest, best, reachesMixed, reachesStrong, advice }
 }
 
 // ── D-11.A post-reload film record ────────────────────────────────────────────
