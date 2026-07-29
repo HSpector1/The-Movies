@@ -43,21 +43,21 @@ ROLES = {
     "Grip":       dict(size="standard", skin="skin_02", hair="hair_dark",  shirt="work_shirt_blue", trousers="trousers_grey",
                        hat="flatcap",   belt=True,  coat=False, radio=True, hat_col=(0.24, 0.24, 0.26), facial_hair="mustache"),
     "Electric":   dict(size="heavy",    skin="skin_01", hair="hair_brown", shirt="work_shirt_tan",  trousers="trousers_brown",
-                       hat="hardhat",   belt=True,  coat=False, vest=True, radio=True, hat_col=(0.92, 0.56, 0.08)),
+                       hat="hardhat",   belt=True,  coat=False, vest=True, radio=True, hat_col=(0.92, 0.56, 0.08), coil=True),
     # Maintenance: slate COVERALLS (same top+bottom) + soft cap — a distinct mechanic silhouette,
     # deliberately NOT hi-vis/hard-hat so it never reads as the Electric/Grip crew.
-    "Maintenance":dict(size="heavy",    skin="skin_03", hair="hair_grey",  shirt=(0.31, 0.35, 0.41), trousers=(0.31, 0.35, 0.41),
-                       hat="softcap",   belt=True,  coat=False, radio=True, hat_col=(0.20, 0.23, 0.28), facial_hair="stubble"),
+    "Maintenance":dict(size="heavy",    skin="skin_03", hair="hair_grey",  shirt=(0.33, 0.36, 0.23), trousers=(0.33, 0.36, 0.23),
+                       hat="softcap",   belt=True,  coat=False, radio=True, hat_col=(0.22, 0.24, 0.16), facial_hair="stubble"),
     # Office: a lightweight dark top (NOT a long coat — that's Director) so it reads as admin, not a smock
-    "Office":     dict(size="standard", skin="skin_04", hair="hair_grey",  shirt=(0.28, 0.30, 0.36), trousers="trousers_grey",
+    "Office":     dict(size="standard", skin="skin_04", hair="hair_grey",  shirt=(0.44, 0.21, 0.24), trousers="trousers_grey",
                        hat=None,        belt=False, coat=False, clip=True, hair_style="bun"),
     # extra existing roles kept only if they pass the same bar
-    "CameraDP":   dict(size="standard", skin="skin_03", hair="hair_dark",  shirt="work_shirt_blue", trousers="trousers_grey",
+    "CameraDP":   dict(size="standard", skin="skin_03", hair="hair_dark",  shirt=(0.24, 0.34, 0.29), trousers="trousers_grey",
                        hat="softcap",   belt=False, coat=False, hat_col=(0.18, 0.24, 0.34)),
     "Director":   dict(size="standard", skin="skin_04", hair="hair_grey",  shirt="coat_charcoal",   trousers="trousers_grey",
                        hat="fedora",    belt=False, coat=True,  hat_col=(0.26, 0.19, 0.14), facial_hair="goatee"),
     "Carpenter":  dict(size="heavy",    skin="skin_02", hair="hair_brown", shirt="work_shirt_tan",  trousers="trousers_brown",
-                       hat="softcap",   belt=True,  coat=False, radio=True, hat_col=(0.34, 0.27, 0.19), facial_hair="beard"),
+                       hat="softcap",   belt=True,  coat=False, hat_col=(0.34, 0.27, 0.19), facial_hair="beard", apron=True),
 }
 
 # Proportion profiles (05D redo). Each profile has its OWN ratio SIGNATURE (chest / waist / hip /
@@ -190,6 +190,17 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         for bz in (s2.z + 0.055, s2.z - 0.045):
             sb.cyl("spine_02", 0.198 * g, 0.020, segments=22,
                    matrix=T(s2.x, s2.y, bz) @ Matrix.Diagonal((1.0, 0.60, 1.0, 1)), mat=SLOT["white"])
+    # carpenter's apron — a flat canvas front panel chest→thigh (distinct role silhouette in greyscale)
+    if cfg.get("apron"):
+        ax_z = (s2.z + h("thigh_l").z) * 0.5
+        sb.box("spine_01", size=(0.30, 0.028, 0.44), matrix=T(0, s2.y - 0.104 * g, ax_z), mat=leather)
+        sb.box("pelvis", size=(0.12, 0.05, 0.10), matrix=T(0.0, -0.12, ax_z - 0.10), mat=leather)  # tool pouch on the apron
+    # cable coil over the left shoulder (electric) — distinct utility prop
+    if cfg.get("coil"):
+        cl = h("clavicle_l") if "clavicle_l" in J else h("upperarm_l")
+        for k in range(3):
+            sb.cyl(_blend("spine_03", "clavicle_l", 0.5), 0.085, 0.024, segments=12,
+                   matrix=T(cl.x + 0.02, cl.y + 0.03, cl.z - k * 0.03) @ R("X", 1.25), mat=leather)
     # clipboard clutched to the front (PA / office) — reads at any pose, weighted to the torso
     if cfg.get("clip"):
         cz = c("spine_01").z + 0.02

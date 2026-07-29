@@ -137,3 +137,17 @@ self-review never presented as independent; missed gates queued for replay befor
 - **Review:** lead self-review (addresses the Loop-6 eye major + adds construction); independent
   gate at Loop 9.
 - **Decision: ACCEPT.**
+
+---
+
+## Loop 8 — Role identity & palette diversity (addresses the Loop-6 monotone note)
+- **Hypothesis:** crew tops are near-monotone blue-grey, so roles lean on headwear alone and read
+  weakly in greyscale; distinct per-role hues+values + a couple of silhouette props fix it.
+- **Change:** diversified palettes — PA tan · Grip blue · Electric hi-vis-orange · **Maintenance
+  OLIVE coveralls** · **Office MAROON top** · CameraDP green · Director charcoal · Carpenter tan.
+  Added a **carpenter apron** (canvas front panel + tool pouch) and an **electric cable coil**
+  (shoulder) for greyscale silhouette distinction.
+- **Validate:** `GATE_TEST_OK`; 0 unweighted / 0 bad-sum.
+- **Evidence:** `proof/lab05d/iteration-08/` — roles/allroles lineups span distinct hues + silhouettes.
+- **Review:** lead self-review; FULL gate at Loop 9.
+- **Decision: ACCEPT.**
