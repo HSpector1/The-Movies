@@ -140,6 +140,7 @@ export class LotScene extends Phaser.Scene {
   private marker: Phaser.GameObjects.Container | null = null
   private filmingHush = false
   private characterActive = false
+  private reducedMotion = false
 
   private dragging = false
   private dragMoved = false
@@ -176,6 +177,12 @@ export class LotScene extends Phaser.Scene {
 
     this.applySnapshot(this.snapshot)
     this.resetCamera()
+
+    // Keep the whole lot framed when the viewport changes: fit-to-lot on resize so
+    // every core destination stays visible at every supported viewport (Phase 7).
+    const onResize = () => this.resetCamera()
+    this.scale.on('resize', onResize)
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.scale.off('resize', onResize))
 
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.director?.destroy())
     this.events.once(Phaser.Scenes.Events.DESTROY, () => this.director?.destroy())
@@ -838,6 +845,18 @@ export class LotScene extends Phaser.Scene {
     this.director?.setPaused(p)
   }
 
+  /**
+   * Reduced-motion mode (Gate D1 / directive Phase 10). Freezes all non-essential
+   * ambient motion — crew movement, pulsing lights, marker bob, vignettes — while
+   * keeping every building, label, state and navigation fully readable and operable.
+   * The per-frame motion multiplier in update() does the freezing; the vignette
+   * director is paused here.
+   */
+  setReducedMotion(on: boolean): void {
+    this.reducedMotion = on
+    this.director?.setPaused(on)
+  }
+
   seekVignette(t: number): void {
     this.director?.seek(t)
   }
@@ -1234,6 +1253,9 @@ export class LotScene extends Phaser.Scene {
     const dt = Math.min(delta / 1000, 0.05)
     const t = this.time.now / 1000
     const cam = this.cameras.main
+    // Reduced-motion: multiply every time-based ambient delta by 0 → the lot renders
+    // static but fully readable. Navigation (keyboard pan below) is unaffected.
+    const motion = this.reducedMotion ? 0 : 1
 
     // keyboard panning
     let mx = 0
@@ -1268,7 +1290,7 @@ export class LotScene extends Phaser.Scene {
         const len = this.segLen(a.route, a.seg)
         // during a filming take, nearby life goes quiet
         const hush = this.filmingHush && a.kind === 'worker' ? 0.12 : 1
-        a.pos += a.speed * hush * dt
+        a.pos += a.speed * hush * dt * motion
         if (a.pos >= len) {
           a.pos -= len
           a.seg = (a.seg + 1) % a.route.length
@@ -1283,7 +1305,7 @@ export class LotScene extends Phaser.Scene {
       const gx = from.gx + (to.gx - from.gx) * t01
       const gy = from.gy + (to.gy - from.gy) * t01
       const s = gridToScreen(gx, gy)
-      const bob = a.kind === 'worker' && a.dwellLeft <= 0 ? Math.sin(t * 6 + a.bob) * 1.4 : 0
+      const bob = a.kind === 'worker' && a.dwellLeft <= 0 ? Math.sin(t * 6 + a.bob) * 1.4 * motion : 0
       a.sprite.setPosition(s.x, s.y + bob)
       a.sprite.setDepth(depthFor(gx, gy, LAYER.prop + 1))
     }
@@ -1292,7 +1314,7 @@ export class LotScene extends Phaser.Scene {
     for (const view of this.views.values()) {
       if (!view.recLight) continue
       view.recLight.setAlpha(
-        view.recLight.getData('on') ? 0.55 + 0.45 * (0.5 + 0.5 * Math.sin(t * 4)) : 0.4,
+        view.recLight.getData('on') ? 0.55 + 0.45 * (0.5 + 0.5 * Math.sin(t * 4) * motion) : 0.4,
       )
     }
 
@@ -1309,10 +1331,10 @@ export class LotScene extends Phaser.Scene {
     }
 
     // vignette director + marker bob
-    this.director?.update(dt)
+    this.director?.update(dt * motion)
     if (this.marker?.visible) {
       const base = (this.marker.getData('baseY') as number) ?? this.marker.y
-      this.marker.setY(base + Math.sin(t * 3) * 2)
+      this.marker.setY(base + Math.sin(t * 3) * 2 * motion)
     }
   }
 

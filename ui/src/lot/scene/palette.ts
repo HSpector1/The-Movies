@@ -1,37 +1,43 @@
 // ── Palette ───────────────────────────────────────────────────────────────────
-// A restrained, warm, classic-Hollywood identity: golden-hour light, cream stucco,
-// terracotta, sage lawns, warm asphalt, brass accents. Deliberately NOT saturated
-// primaries and NOT developer gray. Numbers are 0xRRGGBB for Phaser.
+// Gate D1 art-direction revision (owner ruling B): the approved spike composition
+// and procedural flat-shaded look are preserved, but the palette is retuned to belong
+// to the *dark* Project: Studio product. The sky/ground move to a restrained dusk
+// (matching the product --bg backdrop), the "this one / attention" accents are tied to
+// the product brass (--accent #c9a24a), and the on-canvas label chrome uses the product
+// panel/text tokens. The warm stucco building faces are kept (a magic-hour studio lot
+// reads correctly against a dark sky) so silhouettes stay recognizable.
+// Numbers are 0xRRGGBB for Phaser.
 
 export const COLORS = {
-  skyTop: 0xf5e6c8,
-  skyBottom: 0xe6c79c,
-  ground: 0x9aa877,
+  // Dusk sky, aligned to the product --bg backdrop (the mount-element CSS gradient).
+  skyTop: 0x20242f,
+  skyBottom: 0x14161c,
+  ground: 0x6f7d55,
 
-  // lawn tile
-  lawn: 0x93a86c,
-  lawnAlt: 0x8a9f63,
-  lawnEdge: 0x74894f,
+  // lawn tile (dimmed sage under dusk)
+  lawn: 0x6d7f4f,
+  lawnAlt: 0x647648,
+  lawnEdge: 0x54653b,
 
   // walkway tile
-  path: 0xdac9a6,
-  pathEdge: 0xc4b184,
+  path: 0xb3a888,
+  pathEdge: 0x9a8f70,
 
   // road tile
-  road: 0x6f6a63,
-  roadEdge: 0x585249,
-  roadLine: 0xe9dcbf,
+  road: 0x565049,
+  roadEdge: 0x413c35,
+  roadLine: 0xcdbf9a,
 
   // plaza / courtyard tile
-  plaza: 0xe4d7bc,
-  plazaEdge: 0xcbbd9c,
-  plazaSeam: 0xd3c4a2,
+  plaza: 0xbfb290,
+  plazaEdge: 0xa89b7a,
+  plazaSeam: 0xb0a380,
 
   // dirt / expansion pad
-  dirt: 0xb39a74,
-  dirtEdge: 0x9c8460,
+  dirt: 0x8a7a5e,
+  dirtEdge: 0x6f6249,
 
-  // stucco building (cream)
+  // stucco building (cream) — warm faces, kept recognizable
   cream: 0xefe3c6,
   creamRight: 0xe1d2ad,
   creamLeft: 0xc9b78e,
@@ -40,8 +46,8 @@ export const COLORS = {
   taupe: 0xcdbb9a,
   taupeRight: 0xbea886,
   taupeLeft: 0xa48f6c,
-  brass: 0xcaa25a,
-  brassDark: 0xa9863f,
+  brass: 0xc9a24a, // product --accent
+  brassDark: 0x8a7233, // product --accent-dim
 
   // soundstage (buff hangar)
   buff: 0xdcc9a0,
@@ -89,25 +95,25 @@ export const COLORS = {
   worker: 0x3d4a63, // muted figures
   workerAlt: 0x6a4b4b,
   banner: 0xb8484a,
-  bannerGold: 0xcaa25a,
+  bannerGold: 0xc9a24a, // product brass
 
-  // on-canvas ui
-  labelBg: 0x241a12,
-  labelText: 0xf5ecd8,
-  selection: 0xf7d774,
-  hover: 0xffffff,
-  shadow: 0x2a2016,
+  // on-canvas ui — aligned to the product panel/text tokens so labels read as cards
+  labelBg: 0x1c1f28, // product --bg-panel
+  labelText: 0xe8eaf0, // product --text
+  selection: 0xdcbb63, // brass selection ring (the product's "this one" signal)
+  hover: 0xf0e6c8,
+  shadow: 0x0b0d12, // deep dusk shadow
 
   // ── pass-2 additions ──────────────────────────────────────────────────────
   // grounding & terrain
   plinth: 0xd7c6a6, // building foundation slab
   plinthEdge: 0xbda983,
-  curb: 0xd9cbac,
+  curb: 0xcabf9f,
   wallStucco: 0xe3d4b4, // perimeter wall
   wallStuccoR: 0xd3c19c,
   wallStuccoL: 0xbba982,
   wallCoping: 0xb56a4a, // terracotta coping cap
-  tarmacApron: 0x7c766d, // stage apron paving
+  tarmacApron: 0x6c675f, // stage apron paving (cooler under dusk)
 
   // production activity
   stageInterior: 0xf6e6b0, // warm light spilling from an open stage
@@ -137,7 +143,7 @@ export const COLORS = {
   rolePhotog: 0x4b4640, // photographer: grey
   cameraBox: 0x1c1712,
   takeFlash: 0xfff4d0, // brief "take" light cue
-  activityMark: 0xf7d774,
+  activityMark: 0xc9a24a, // product brass — ties the activity/attention cue to the UI
 
   // vehicles
   vanBody: 0x4a5a52,
@@ -146,7 +152,7 @@ export const COLORS = {
   cartFrame: 0x6d6459,
 
   // dressing / signage / flags
-  pennantWarm: 0xcaa25a,
+  pennantWarm: 0xc9a24a, // product brass
   pennantRed: 0xb8484a,
   flagCloth: 0xb8484a,
   flagPole: 0x6d6459,

@@ -90,7 +90,7 @@ export function placedBuildings(): PlacedBuilding[] {
       gx: 3,
       gy: 3,
       ...fp('writers'),
-      label: "Writers' Building",
+      label: 'Development',
       blurb: 'Where pictures begin. Develop and assemble a new film.',
     },
     {
@@ -99,7 +99,7 @@ export function placedBuildings(): PlacedBuilding[] {
       gx: 3,
       gy: 9,
       ...fp('casting'),
-      label: 'Casting Office',
+      label: 'Casting / Talent',
       blurb: 'Browse and sign the talent who will carry your pictures.',
     },
     {
@@ -108,7 +108,7 @@ export function placedBuildings(): PlacedBuilding[] {
       gx: 15,
       gy: 2,
       ...fp('stage'),
-      label: 'Soundstage A',
+      label: 'Stage A',
       blurb: 'A working soundstage. Whatever is shooting here, shoots here.',
     },
     {
@@ -117,7 +117,7 @@ export function placedBuildings(): PlacedBuilding[] {
       gx: 15,
       gy: 9,
       ...fp('stage'),
-      label: 'Soundstage B',
+      label: 'Stage B',
       blurb: 'The second stage. Dark until a second picture is greenlit.',
     },
     {
@@ -126,7 +126,7 @@ export function placedBuildings(): PlacedBuilding[] {
       gx: 16,
       gy: 16,
       ...fp('post'),
-      label: 'Post-Production',
+      label: 'Production / Post',
       blurb: 'Cutting, scoring, and finishing. Review pictures in the pipeline.',
     },
     {
@@ -135,7 +135,7 @@ export function placedBuildings(): PlacedBuilding[] {
       gx: 3,
       gy: 15,
       ...fp('theater'),
-      label: 'Screening Theater',
+      label: 'Theater',
       blurb: 'The house lights dim. View recently released films.',
     },
     {
@@ -155,8 +155,8 @@ export function placedBuildings(): PlacedBuilding[] {
       gy: 15,
       fw: 4,
       fd: 3,
-      label: 'Open Lot',
-      blurb: 'Graded and empty. Room for the studio you have not built yet.',
+      label: 'Future Expansion',
+      blurb: 'Reserved for future studio growth. Not available in D1.',
     },
   ]
 }

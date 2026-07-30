@@ -174,6 +174,11 @@ export class StudioLotView {
     this.scene?.setDirectorPaused(p)
   }
 
+  /** Reduced-motion mode — freeze non-essential ambient motion; readability intact. */
+  setReducedMotion(on: boolean): void {
+    this.scene?.setReducedMotion(on)
+  }
+
   /** Debug/testing: screen position of the first visible inspectable character. */
   firstInspectableScreen(): { x: number; y: number; role: string } | null {
     return this.scene?.firstInspectableScreen() ?? null

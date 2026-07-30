@@ -67,7 +67,7 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   const [expansionOpen, setExpansionOpen] = useState(false)
   const [canvasReady, setCanvasReady] = useState(false)
   const [canvasFailed, setCanvasFailed] = useState(false)
-  const [reducedMotion] = useState(prefersReducedMotion)
+  const [reducedMotion, setReducedMotionState] = useState(prefersReducedMotion)
 
   const snapshot = studioLotSnapshot(state)
 
@@ -107,7 +107,7 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
             if (cancelled) return
             setCanvasReady(true)
             if (sessionSelectedBuilding) view?.select(sessionSelectedBuilding)
-            if (reducedMotion) view?.pauseVignettes(true)
+            if (reducedMotion) view?.setReducedMotion(true)
           },
         })
         viewRef.current = view
@@ -147,6 +147,19 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
     document.addEventListener('visibilitychange', onVisibility)
     return () => document.removeEventListener('visibilitychange', onVisibility)
   }, [])
+
+  // Honour a live change to the OS reduced-motion preference.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const onChange = () => setReducedMotionState(mq.matches)
+    mq.addEventListener?.('change', onChange)
+    return () => mq.removeEventListener?.('change', onChange)
+  }, [])
+
+  useEffect(() => {
+    if (canvasReady) viewRef.current?.setReducedMotion(reducedMotion)
+  }, [reducedMotion, canvasReady])
 
   // Companion-nav activation: select the building AND route to its destination.
   const activate = useCallback(
