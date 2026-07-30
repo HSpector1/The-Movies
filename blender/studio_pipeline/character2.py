@@ -168,30 +168,58 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     ell("pelvis", pelvis.x, pelvis.y + 0.006, pelvis.z + 0.05, 0.150 * HI, 0.115 * HI, 0.120, lower, u=18, v=12)
     seat_z = (pelvis.z + h("thigh_l").z) * 0.5 - 0.01
     ell("pelvis", 0, pelvis.y, seat_z, 0.156 * HI, 0.120 * HI, 0.105, lower, u=16, v=10)
-    # --- torso (shirt): rounded, FLATTENED (front-back) ellipsoids waist -> chest -> yoke; a low
-    #     shirt hem overlaps the waistband so there is NO gap between shirt and trousers ---
-    # The belly/waist tuck BACK (+Y) relative to the chest so the FRONT profile is vertical/athletic
-    # (no paunch overhanging the belt); the chest is the front-most point.
-    ell(_blend("spine_01", "pelvis", 0.6), 0, s1.y + 0.022, pelvis.z + 0.125, 0.140 * WA, 0.088 * WA, 0.098, upper)  # shirt hem
-    if not cfg.get("coveralls"):   # coveralls are one-piece — NO waist break (greyscale-distinct silhouette)
-        sb.cyl(_blend("spine_01", "pelvis", 0.6), 0.143 * WA, 0.022, segments=18,
-               matrix=T(0, s1.y + 0.02, pelvis.z + 0.052) @ Matrix.Diagonal((1.0, 0.76, 1.0, 1)), mat=upper)  # shirt-hem edge
-    ell("spine_01", s1.x, s1.y + 0.016, s1.z, 0.138 * WA, 0.088 * WA, 0.135, upper)   # waist (PINCHED via WA)
-    ell("spine_02", s2.x, s2.y, s2.z + 0.005, 0.172 * CH, 0.102 * CH, 0.148, upper)   # chest (BROAD via CH → real waist above the belt)
-    ell("spine_03", s3.x, s3.y - 0.004, s3.z + 0.015, 0.186 * SH, 0.099 * SH, 0.100, upper)  # shoulder yoke (SH)
-    # trapezius: soften the neck -> shoulder transition (no square corner)
-    ell(_blend("spine_03", "neck_01", 0.7), neck.x, neck.y + 0.012, neck.z - 0.045, 0.115 * SH, 0.095 * SH, 0.058, upper, u=14, v=10)
+    # --- torso (shirt): ONE lofted, continuously-skinned shell (05E) — NOT a stack of ellipsoids.
+    #     A single surface reads as a fitted garment; a pile of overlapping spheres creased at every
+    #     boundary and read "musclebound / assembled". Rings run hem -> pinched waist -> broad chest
+    #     -> shoulder yoke -> neck taper; the chest ring is proud in -Y (front) and the waist tucks
+    #     back (+Y) so the FRONT profile is athletic, without a hard pec/belly boundary. Each ring is
+    #     weighted along the spine (_spine_w) so the whole torso deforms as one under every clip. ---
+    _spine_cp = sorted([(pelvis.z, "pelvis"), (s1.z, "spine_01"), (s2.z, "spine_02"),
+                        (s3.z, "spine_03"), (neck.z, "neck_01")])
+
+    def _spine_w(z):
+        if z <= _spine_cp[0][0]:
+            return {_spine_cp[0][1]: 1.0}
+        if z >= _spine_cp[-1][0]:
+            return {_spine_cp[-1][1]: 1.0}
+        for k in range(len(_spine_cp) - 1):
+            z0, b0 = _spine_cp[k]; z1, b1 = _spine_cp[k + 1]
+            if z0 <= z <= z1:
+                t = (z - z0) / max(z1 - z0, 1e-6)
+                return {b0: round(1 - t, 3), b1: round(t, 3)}
+        return {_spine_cp[-1][1]: 1.0}
+
+    yb = s2.y   # torso front-back centre baseline (spine is ~vertical, so s1/s2/s3 y are ~equal)
+    # (z, cy, rx, ry): a smooth S-curve silhouette. rx uses WA/CH/SH per profile; ry is the flatter
+    # front-back depth. cy nudges the belly back (+Y) and the chest forward (-Y) for an athletic front.
+    torso_rings = [
+        (pelvis.z + 0.100, yb + 0.014, 0.138 * WA, 0.092 * WA),   # low shirt hem (overlaps waistband)
+        (s1.z - 0.010,     yb + 0.014, 0.132 * WA, 0.086 * WA),   # pinched waist (WA)
+        (s1.z + 0.040,     yb + 0.006, 0.146 * WA, 0.094 * WA),   # rising ribcage
+        ((s1.z + s2.z) * 0.5, yb - 0.004, 0.166 * CH, 0.104 * CH),  # lower chest
+        (s2.z + 0.010,     yb - 0.008, 0.178 * CH, 0.110 * CH),   # chest (broadest + proud front)
+        ((s2.z + s3.z) * 0.5 + 0.005, yb - 0.004, 0.186 * SH, 0.100 * SH),  # upper chest
+        (s3.z + 0.015,     yb - 0.002, 0.188 * SH, 0.092 * SH),   # shoulder yoke (SH)
+        (neck.z - 0.010,   yb + 0.004, 0.116 * SH, 0.088 * SH),   # neck taper (into the collar)
+    ]
+    sb.loft([(_spine_w(z), 0.0, cy, z, rx, ry) for (z, cy, rx, ry) in torso_rings],
+            segments=24, mat=upper)
+    # trapezius: a small fill softening the neck -> shoulder run (no square corner at the yoke top)
+    ell(_blend("spine_03", "neck_01", 0.7), neck.x, neck.y + 0.014, neck.z - 0.050, 0.100 * SH, 0.088 * SH, 0.050, upper, u=14, v=8)
     # collar: a raised folded band at the neckline (a real shirt collar, not just a ring)
     sb.cyl("spine_03", 0.082 * g, 0.045, segments=18,
            matrix=T(neck.x, neck.y, neck.z + 0.006) @ Matrix.Diagonal((1.0, 0.92, 1.0, 1)), mat=upper)
-    # front placket + buttons down the chest (shirt roles — reads as a worn buttoned shirt)
+    # front placket + buttons (shirt roles). 05E: the placket is a THIN RAISED SEAM in the SHIRT
+    # colour (reads via a soft shading line, like real fabric) — NOT the old near-black box that read
+    # as a painted-on stripe. Only the small buttons stay dark, as buttons should.
     if not cfg.get("coat") and not cfg.get("vest"):
-        pz0, pz1 = s2.z + 0.04, s1.z - 0.02
-        sb.box("spine_02", size=(0.026, 0.02, pz0 - pz1), matrix=T(0, s2.y - 0.099 * g, (pz0 + pz1) * 0.5), mat=SLOT["dark"])
-        for i in range(3):
-            sb.uvsphere("spine_02", 0.009, u=6, v=6, matrix=T(0, s2.y - 0.106 * g, pz0 - 0.03 - i * 0.075), mat=SLOT["dark"])
-        # chest pocket (work shirt / coveralls)
-        sb.box("spine_02", size=(0.058, 0.016, 0.058), matrix=T(0.075, s2.y - 0.098 * g, s2.z - 0.015), mat=upper)
+        pz0, pz1 = s2.z + 0.045, s1.z - 0.010
+        front_y = yb - 0.108 * CH   # sit the seam just proud of the lofted chest front
+        sb.box("spine_02", size=(0.020, 0.014, pz0 - pz1), matrix=T(0, front_y, (pz0 + pz1) * 0.5), mat=upper)   # raised placket seam (shirt)
+        for i in range(4):
+            sb.uvsphere("spine_02", 0.0075, u=6, v=6, matrix=T(0, front_y - 0.006, pz0 - 0.028 - i * 0.058), mat=SLOT["dark"])  # small buttons
+        # chest pocket (work shirt / coveralls) — a subtle fabric panel, shirt-coloured
+        sb.box("spine_02", size=(0.056, 0.012, 0.052), matrix=T(0.078, yb - 0.104 * CH, s2.z - 0.010), mat=upper)
     # coat: long tapered skirt for office/director read
     if cfg.get("coat"):
         top = s3.z

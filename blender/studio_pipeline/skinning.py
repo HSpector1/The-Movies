@@ -64,6 +64,21 @@ class SkinnedBuilder:
     def cone(self, weights, r1, r2, depth, segments=16, matrix=None, mat=0, cap=True):
         return self.add(self.mb.add_cone(r1, r2, depth, segments, matrix, mat, cap), weights)
 
+    def loft(self, rings, segments=20, mat=0, cap_start=True, cap_end=True):
+        """A single lofted tube skinned progressively along its rings.
+
+        `rings` = list of (weights, cx, cy, cz, rx, ry); each ring's verts are weighted to that
+        ring's own `weights` map, so a torso loft follows the spine (and a limb loft its bones)
+        with proper linear-blend skinning — one continuous fitted surface that still deforms
+        cleanly under every clip.
+        """
+        geo = [(cx, cy, cz, rx, ry) for (_w, cx, cy, cz, rx, ry) in rings]
+        ring_verts = self.mb.add_loft(geo, segments=segments, mat=mat,
+                                      cap_start=cap_start, cap_end=cap_end)
+        for (wmap, *_), vs in zip(rings, ring_verts):
+            self.add(vs, wmap)
+        return ring_verts
+
     def build(self, name, materials, armature, shade_smooth=False):
         bm = self.mb.bm
         self.mb.recalc_normals()

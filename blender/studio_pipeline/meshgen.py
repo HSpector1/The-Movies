@@ -3,6 +3,7 @@ matrix and tagged with a material-slot index) into one bmesh, then bakes an obje
 
 Uses bmesh.ops exclusively — deterministic and identical headless or in-UI. No randomness.
 """
+import math
 import bmesh
 from mathutils import Matrix, Vector
 
@@ -86,6 +87,40 @@ class MeshBuilder:
         res = bmesh.ops.create_cone(self.bm, cap_ends=cap, cap_tris=False, segments=segments,
                                     radius1=radius, radius2=r2, depth=1.0, matrix=m)
         return self._tag(res["verts"], mat)
+
+    def add_loft(self, rings, segments=20, mat=0, cap_start=True, cap_end=True):
+        """Bridge a stack of elliptical rings into ONE continuous, manifold tube surface.
+
+        This is the organic-body primitive: unlike a stack of overlapping ellipsoids (which
+        crease and read "assembled" where two surfaces interpenetrate), a loft is a single
+        surface, so a torso/limb reads as one continuous, fitted form.
+
+        `rings` = list of (cx, cy, cz, rx, ry) — each an axis-aligned ellipse (half-width rx in
+        X, half-depth ry in Y) centred at (cx,cy,cz). Rings are bridged bottom->top with quads.
+        Returns a list (one entry per ring) of that ring's BMVerts, so a caller can weight each
+        ring to its own bone/blend (progressive skinning along the spine or a limb).
+        """
+        bm = self.bm
+        ring_verts = []
+        for (cx, cy, cz, rx, ry) in rings:
+            vs = []
+            for i in range(segments):
+                a = 2.0 * math.pi * i / segments
+                vs.append(bm.verts.new((cx + rx * math.cos(a), cy + ry * math.sin(a), cz)))
+            ring_verts.append(vs)
+        faces = []
+        for r in range(len(ring_verts) - 1):
+            a_ring, b_ring = ring_verts[r], ring_verts[r + 1]
+            for i in range(segments):
+                j = (i + 1) % segments
+                faces.append(bm.faces.new((a_ring[i], a_ring[j], b_ring[j], b_ring[i])))
+        if cap_start and len(ring_verts) > 0:
+            faces.append(bm.faces.new(list(reversed(ring_verts[0]))))
+        if cap_end and len(ring_verts) > 0:
+            faces.append(bm.faces.new(ring_verts[-1]))
+        for f in faces:
+            f.material_index = mat
+        return ring_verts
 
     def add_box_between(self, p0, p1, w, h, mat=0):
         """A rectangular beam spanning p0->p1 with cross-section w (x) by h (y)."""
