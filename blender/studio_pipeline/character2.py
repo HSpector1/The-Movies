@@ -91,7 +91,7 @@ def char_materials(cfg, tag="base"):
         s("skin",     _col(P, cfg["skin"]),     roughness=0.72),   # 0
         s("shirt",    _col(P, cfg["shirt"]),    roughness=0.85),   # 1
         s("trousers", _col(P, cfg["trousers"]), roughness=0.85),   # 2
-        s("leather",  (0.15, 0.11, 0.10),       roughness=0.45),   # 3 boots/belt (dark)
+        s("leather",  (0.21, 0.15, 0.12),       roughness=0.5),    # 3 boots/belt (mid-brown; form reads vs the dark sole)
         s("dark",     (0.09, 0.07, 0.06),       roughness=0.55),   # 4 features + accessory (fixed dark)
         s("white",    (0.93, 0.92, 0.90),       roughness=0.4),    # 5 (eye white / paper)
         s("hat",      _col(P, cfg.get("hat_col", "felt_grey")), roughness=0.85),  # 6
@@ -211,7 +211,7 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     ell(_blend("spine_03", "neck_01", 0.7), neck.x, neck.y + 0.014, neck.z - 0.050, 0.100 * SH, 0.088 * SH, 0.050, upper, u=14, v=8)
     # collar: a raised folded band at the neckline (a real shirt collar, not just a ring)
     sb.cyl("spine_03", 0.082 * g, 0.045, segments=18,
-           matrix=T(neck.x, neck.y, neck.z + 0.006) @ Matrix.Diagonal((1.0, 0.92, 1.0, 1)), mat=upper)
+           matrix=T(neck.x, neck.y, neck.z - 0.006) @ Matrix.Diagonal((1.0, 0.92, 1.0, 1)), mat=upper)  # 05E: dropped to reveal neck
     # front placket + buttons (shirt roles). 05E: the placket is a THIN RAISED SEAM in the SHIRT
     # colour (reads via a soft shading line, like real fabric) — NOT the old near-black box that read
     # as a painted-on stripe. Only the small buttons stay dark, as buttons should.
@@ -282,8 +282,8 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         sb.box("pelvis", size=(0.05, 0.045, 0.09), matrix=T(-0.14, -0.115, pelvis.z + 0.04), mat=SLOT["dark"])
 
     # ============================================================ NECK + HEAD (skin)
-    sb.cyl(_blend("neck_01", "spine_03", 0.6), 0.055, 0.12, segments=12,
-           matrix=T(neck.x, neck.y, neck.z + 0.04), mat=skin)
+    sb.cyl(_blend("neck_01", "spine_03", 0.6), 0.051, 0.125, segments=12,
+           matrix=T(neck.x, neck.y, neck.z + 0.045), mat=skin)   # 05E: slightly slimmer/taller (was a stump)
     # head ovoid — slightly narrower in X, deeper/taller, chin dropped forward (-Y)
     sb.uvsphere("Head", 0.108, u=18, v=14,
                 matrix=T(head_c.x, head_c.y - 0.008, head_c.z + 0.02) @ Matrix.Diagonal((0.9 * v_headw, 1.02, 1.16 * v_headh, 1)), mat=skin)
@@ -404,16 +404,22 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         # trouser hem — a SLIM fold where the trouser meets the boot (was a bulbous leg-warmer cuff)
         sb.uvsphere(f"calf_{s}", 1.0, u=10, v=8,
                     matrix=T(ft_h.x, ft_h.y + 0.002, ft_h.z + 0.022) @ Matrix.Diagonal((0.047, 0.050, 0.024, 1)), mat=lower)
-        # ankle collar (blend) — small, keeps the trouser->boot join closed
-        sb.uvsphere(_blend(f"calf_{s}", f"foot_{s}", 0.4), 0.043, u=8, v=6, matrix=T(*ft_h), mat=leather)
-        # SHOE: a rounded work boot — instep/heel + rounded toe + a thin dark sole (not angular boxes)
-        heel_z = 0.048
-        sb.uvsphere(_blend(f"foot_{s}", f"ball_{s}", 0.7), 1.0, u=10, v=8,
-                    matrix=T(ft_h.x, ft_h.y - 0.012, heel_z) @ Matrix.Diagonal((0.050, 0.072, 0.052, 1)), mat=leather)   # instep/heel
+        # SHOE (05E): a PROPER stylized work boot — a bigger, better-read boot with a defined ankle
+        # cuff (the boot opening the trouser tucks into), a fuller instep/heel, a work-boot toe box,
+        # and a dark sole that gives the boot a value break (was a small near-black rounded lump).
+        heel_z = 0.052
+        # boot cuff / ankle (blend calf->foot, leather) — reads as the boot top + closes the join
+        sb.uvsphere(_blend(f"calf_{s}", f"foot_{s}", 0.4), 1.0, u=10, v=8,
+                    matrix=T(ft_h.x, ft_h.y + 0.006, ft_h.z + 0.002) @ Matrix.Diagonal((0.050, 0.052, 0.056, 1)), mat=leather)
+        # instep / heel mass (fuller)
+        sb.uvsphere(_blend(f"foot_{s}", f"ball_{s}", 0.6), 1.0, u=10, v=8,
+                    matrix=T(ft_h.x, ft_h.y - 0.022, heel_z) @ Matrix.Diagonal((0.058, 0.084, 0.062, 1)), mat=leather)
+        # toe box (rounded work-boot toe) — bigger + forward
         sb.uvsphere(f"ball_{s}", 1.0, u=12, v=8,
-                    matrix=T(ft_h.x, ft_h.y - 0.115, heel_z - 0.006) @ Matrix.Diagonal((0.047, 0.090, 0.044, 1)), mat=leather)  # rounded toe
-        sb.box(_blend(f"foot_{s}", f"ball_{s}", 0.5), size=(0.094, 0.265, 0.024),
-               matrix=T(ft_h.x, ft_h.y - 0.058, 0.013), mat=SLOT["dark"])   # sole (dark, grounds the shoe)
+                    matrix=T(ft_h.x, ft_h.y - 0.122, heel_z - 0.010) @ Matrix.Diagonal((0.055, 0.102, 0.050, 1)), mat=leather)
+        # sole (dark) — grounds the shoe + a clear value break under the leather upper
+        sb.box(_blend(f"foot_{s}", f"ball_{s}", 0.5), size=(0.106, 0.284, 0.032),
+               matrix=T(ft_h.x, ft_h.y - 0.060, 0.015), mat=SLOT["dark"])
 
     mats = char_materials(cfg, tag)
     obj = sb.build(f"Char2_{role}", materials=mats, armature=arm, shade_smooth=True)

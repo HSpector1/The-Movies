@@ -75,3 +75,22 @@ light polish only).
   four distinct fingers, a readable thumb. pickup-3q — hands read in a working pose; deformation
   clean (hand geometry is rigid to hand_{s}, so it rides the wrist without shear).
 - **Decision: ACCEPT.** Next = P4 feet + P5 neck/shoulders.
+
+---
+
+## Loop 4 — Feet (P4) + a light neck touch (P5)
+- **Named weakness:** boots were small near-black rounded lumps with no readable form (leather
+  upper and dark sole were the same value); the neck read as a short stump under a high collar.
+  (Shoulders already read acceptably after the Loop-1 lofted yoke, so this was a light touch.)
+- **Change:** rebuilt the boot bigger — a defined **ankle cuff** (boot opening the trouser tucks
+  into), a fuller instep/heel, a **work-boot toe box**, and a larger dark sole; **lightened the
+  leather** material (0.15→0.21 mid-brown) so the boot upper reads against the dark sole (belt/
+  pouch also read better). Neck: slimmed 0.055→0.051 + taller, dropped the collar 12 mm to reveal
+  a bit more neck.
+- **Rebuild/validate:** 8/8 build gate; 8/8 validator (feet still grounded, min-z in range); 0
+  unweighted / 0 bad-sum.
+- **Look (`proof/lab05e/iteration-04/`):** base-lowerbody — boots read as work boots (toe/instep/
+  sole). base-face-front — head seats more naturally with a visible neck. roles-front — separation
+  preserved, crew reads more polished. **Deformation:** kneel plants the boot ball, walk lifts it —
+  clean, no clip/float.
+- **Decision: ACCEPT.** P1–P5 addressed. → mid-point adversarial review gate before final polish.
