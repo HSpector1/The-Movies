@@ -105,3 +105,32 @@ E thin hands · F block boots · G flat face · H bent poses expose modeling.
   full deformation pass.
 - **Decision: ACCEPT — CONTINUE.** Defects D + E materially fixed + independently confirmed; the two
   hand must_fix items resolved. Next = Iteration 4 work boots + lower-leg integration.
+
+---
+
+## Iteration 4 — Work boots & lower-leg integration (defect F)
+- **Ranked top defect:** F — the 05E boots = rounded lumps on a flat rectangular sole slab (no toe box,
+  weak heel/vamp, ragged trouser break, no L/R read).
+- **Correction cluster (boots):** rebuilt the boot as a single smooth leather UPPER (ankle→instep→arch)
+  + a WIDE ankle collar the trouser tucks INTO (a clean break, hides the cuff) + a DEFINED rounded toe
+  cap with a slight outward splay (left/right read) + a dark SOLE plate + a dark HEEL block raising the
+  back (a heel, not a flat slab). Iterated twice: first pass mixed hard boxes (too CAD-blocky) and
+  stacked ellipsoids (lumpy) → settled on one upper mass + toe cap + dark sole/heel for clean contrast.
+- **Files:** `character_hero.py` (boots stage on). character2.py + 05E untouched.
+- **Blender result:** 9,828 tris; height 1.821 m; feet grounded (z-min ≈ −0.00 idle, −0.04 kneel).
+- **Specialist review (Garment Artist + Rigging):** both **PASS WITH NOTES** (Garment 4/5, Rigging
+  3.5/5). Garment (no must_fix): "Defect F substantially fixed… believable stylized work boot… every
+  named component present… the lump is gone." Rigging: "clear win… idle/sit/walk ground cleanly, boot-
+  to-leg join solid in every pose." One must_fix (Rigging): the KNEEL down-foot toe doesn't register a
+  toe-drag on the floor. → **Assessed: this is CLIP-INHERENT, not a hero regression** — the kneel min-z
+  (−0.044) is identical for the 05E Electric and the hero (same accepted `Fixing_Kneeling` clip + rig),
+  and `cmp-kneel-3q` shows both in the identical pose. A per-pose toe-plant needs an IK/animation change,
+  which is OUTSIDE the locked foundation (no clip/rig changes) — documented as a remaining limitation,
+  not fixed. The convergent minor (sole overhang / pillowy upper) WAS addressed this loop: tucked the
+  sole footprint in + de-pillowed the upper + a slightly squarer toe.
+- **Scores (1–5):** boots 4 · toe-box 4 · sole/heel 4 · ankle/trouser-break 4 · grounded-idle 5 ·
+  walk-contact 4 · kneel-contact 3 (clip-limited).
+- **Evidence:** `proof/lab05f/iteration-04/`. **Tris 9,828.**
+- **Decision: ACCEPT — CONTINUE.** Defect F materially fixed + confirmed; the one must_fix is a
+  clip-inherent limitation (documented, not a regression). Next = Iteration 5 six-clip deformation pass
+  (incl. the carried pickup crotch-notch note).

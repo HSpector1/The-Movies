@@ -33,7 +33,7 @@ HERO_STAGE = {
     "vest":   True,    # Iteration 2
     "arms":   True,    # Iteration 3
     "hands":  True,    # Iteration 3
-    "boots":  False,   # Iteration 4
+    "boots":  True,    # Iteration 4
     "face":   False,   # Iteration 6
 }
 
@@ -284,8 +284,27 @@ def build_hero(arm, tag="ElectricHero", seed=1):
             (_blend(f"calf_{s}", f"foot_{s}", 0.4), ft_h.copy(), (0.045, 0.047)),
         ]
         sb.tube(leg_rings, up=(0, 1, 0), segments=18, mat=lower)
-        # BOOTS (05E copy — rebuilt Iteration 4)
-        if not HERO_STAGE["boots"]:
+        # WORK BOOT (HERO): a defined stylized work boot — ankle collar (boot opening, trouser tucks in) +
+        # shaped vamp/instep + a boxy toe cap with a top plane + a raised heel block + a soled base with a
+        # heel lift. The toe splays slightly outward for a left/right read. Replaces the 05E rounded-lump-
+        # on-a-flat-slab shoe.
+        if HERO_STAGE["boots"]:
+            toe_out = sgn * 0.008
+            # boot UPPER (leather) — ONE smooth shaped mass covering ankle→instep→arch (the foot body),
+            # so the boot reads as a single form, not a pile of lumps. Slightly de-pillowed to follow the sole.
+            sb.uvsphere(_blend(f"foot_{s}", f"ball_{s}", 0.35), 1.0, u=16, v=12,
+                        matrix=T(ft_h.x, ft_h.y - 0.030, 0.054) @ Matrix.Diagonal((0.054, 0.114, 0.054, 1)), mat=leather)
+            # boot collar (leather) at the ankle — the opening the trouser tucks INTO (wide → hides the cuff)
+            sb.uvsphere(_blend(f"calf_{s}", f"foot_{s}", 0.4), 1.0, u=14, v=8,
+                        matrix=T(ft_h.x, ft_h.y + 0.004, ft_h.z + 0.010) @ Matrix.Diagonal((0.061, 0.061, 0.066, 1)), mat=leather)
+            # toe cap (leather) — a DEFINED, slightly squarer/flatter toe box (slight outward splay = L/R read)
+            sb.uvsphere(f"ball_{s}", 1.0, u=14, v=10,
+                        matrix=T(ft_h.x + toe_out, ft_h.y - 0.134, 0.043) @ Matrix.Diagonal((0.050, 0.056, 0.042, 1)), mat=leather)
+            # sole plate (dark) — pulled IN toward the upper footprint (was overhanging as a slab)
+            sb.box(_blend(f"foot_{s}", f"ball_{s}", 0.5), size=(0.092, 0.278, 0.026), matrix=T(ft_h.x, ft_h.y - 0.056, 0.013), mat=SLOT["dark"])
+            # heel (dark) — a heel block under the back, raising the boot (a heel, not a flat slab)
+            sb.box(f"foot_{s}", size=(0.082, 0.070, 0.034), matrix=T(ft_h.x, ft_h.y + 0.026, 0.030), mat=SLOT["dark"])
+        else:
             heel_z = 0.050
             sb.uvsphere(_blend(f"calf_{s}", f"foot_{s}", 0.4), 1.0, u=10, v=8,
                         matrix=T(ft_h.x, ft_h.y + 0.006, ft_h.z + 0.006) @ Matrix.Diagonal((0.052, 0.052, 0.062, 1)), mat=leather)
