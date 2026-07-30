@@ -589,8 +589,24 @@ export function forecastProfitRange(
     if (funding < 0.95 && inp.shapeEffects.budgetDemandMultiplier > TUNING.BUDGET_AMBITION_REF) {
       downsideRisks.push("Production funding is insufficient to realize the script's potential.")
     }
-    if (smallMarketing && avgFame < TUNING.AUTHORED_START_FAME * 4 && awareness < 45) {
-      downsideRisks.push('Small marketing and limited star draw create a meaningful discoverability risk.')
+    // D-13 conditional discoverability: when the package lacks reach support (low awareness + marketing
+    // + star), the opening carries wide governed uncertainty. Communicate the risk AND the sleeper
+    // counterpoint (never promise it), and WIDEN the forecast LOW band to reflect the discovery-obscurity
+    // scenario — display-only, deterministic, mirroring the realized spread; it never reveals the
+    // realized z (drawn only at release from the isolated 'discovery-v1' stream).
+    const mktBump = smallMarketing ? 0 : largeMarketing ? 0.15 : 0.08
+    const fcReachSupport = clamp(
+      TUNING.DISC_SUPPORT_AWARENESS * clamp(awareness / 100 + mktBump, 0, 1) + TUNING.DISC_SUPPORT_STAR * clamp(avgFame / 100, 0, 1),
+      0,
+      1,
+    )
+    const discShortfall = clamp((TUNING.DISC_SUPPORT_THRESHOLD - fcReachSupport) / TUNING.DISC_SUPPORT_THRESHOLD, 0, 1)
+    if (discShortfall > 0) {
+      const discSpread = TUNING.DISC_SPREAD * Math.pow(discShortfall, TUNING.DISC_SUPPORT_EXP)
+      downsideRisks.push('Limited marketing and low star draw create substantial discoverability risk.')
+      upsideDrivers.push('A weak opening could still develop into a sleeper if audiences respond.')
+      const discLowMult = Math.max(TUNING.DISC_FLOOR, Math.exp(-discSpread * TUNING.DISC_FORECAST_LOW_Z))
+      profit.low = Math.min(profit.low, revExpected * share * discLowMult - committedCost)
     }
     if (largeMarketing) {
       if (strength >= TUNING.SCRIPT_POTENTIAL_REF && funding >= 0.95) {
