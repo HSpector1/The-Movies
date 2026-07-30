@@ -39,3 +39,23 @@ light polish only).
   the spine (no inter-segment gap, no melt/collapse/tear); cleaner in motion than the old stack.
 - **Decision: ACCEPT.** P1 materially fixed. Next-visible now = P2 hip/belt shelf + crotch, then
   hands/feet/neck.
+
+---
+
+## Loop 2 — Hips / crotch / lower body (fixes P2)
+- **Named weakness:** a dark crotch V-gap (inner thighs never met under the pelvis), saddlebag hip
+  caps, a knobby knee seam-band, bulbous "leg-warmer" trouser cuffs at the boot tops, and a boxy
+  tool pouch jutting off the hip.
+- **Change:** added a narrow **crotch bridge** fill (weighted pelvis) between the thigh tops and
+  tucked the hip mass back → V closed, no paunch. Pulled the **hip caps** inward + down (0.078→0.070·
+  HI, −X) → no saddlebag. Rebuilt the **knee** as a rounded thigh→calf bridge instead of a pinched
+  band. **Slimmed the trouser hem** (0.058→0.047) + shrank the ankle collar → a fold, not a warmer.
+  Re-seated the **tool pouch** as a small flat belt bag (tried a sphere first — read as a jutting
+  orb; a flat box reads as a bag).
+- **Rebuild/validate:** 8/8 build gate; 8/8 validator; 0 unweighted / 0 bad-sum; tris flat (~10.3k).
+- **Look (`proof/lab05e/iteration-02/`):** base-lowerbody — crotch closed, cuffs slim, hips tucked,
+  pouch reads as a bag. roles-front — separation preserved. **Deformation:** kneel-3q clean (leg
+  bends, pouch rides the pelvis, no collapse).
+- **Residual (noted, not blocking):** a faint horizontal crease remains at the knee (thigh/calf
+  segment boundary) — candidate for a lofted leg if the review gate flags it.
+- **Decision: ACCEPT.** Next = P3 hands.

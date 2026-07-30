@@ -164,10 +164,13 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         replaces the Lab-05B stacked boxes so the torso/hips read as a body, not armor."""
         sb.uvsphere(w, 1.0, u=u, v=v, matrix=T(cx, cy, cz) @ Matrix.Diagonal((hxx, hyy, hzz, 1)), mat=mat)
 
-    # --- pelvis / hips (trousers): rounded mass + a seat that closes the crotch gap ---
-    ell("pelvis", pelvis.x, pelvis.y + 0.006, pelvis.z + 0.05, 0.150 * HI, 0.115 * HI, 0.120, lower, u=18, v=12)
+    # --- pelvis / hips (trousers): a rounded seat that flows into the thighs — 05E closes the dark
+    #     crotch V with a central bridge fill, and tucks the hip mass so it does not read as a paunch. ---
+    ell("pelvis", pelvis.x, pelvis.y + 0.004, pelvis.z + 0.05, 0.146 * HI, 0.110 * HI, 0.118, lower, u=18, v=12)  # hip mass (tucked)
     seat_z = (pelvis.z + h("thigh_l").z) * 0.5 - 0.01
-    ell("pelvis", 0, pelvis.y, seat_z, 0.156 * HI, 0.120 * HI, 0.105, lower, u=16, v=10)
+    ell("pelvis", 0, pelvis.y + 0.006, seat_z, 0.150 * HI, 0.116 * HI, 0.100, lower, u=16, v=10)                  # seat
+    # crotch bridge — a narrow fill between the thigh tops so the inner-thigh join reads CLOSED (no dark V)
+    ell("pelvis", 0, pelvis.y - 0.006, h("thigh_l").z - 0.002, 0.052 * HI, 0.066 * HI, 0.066, lower, u=12, v=8)
     # --- torso (shirt): ONE lofted, continuously-skinned shell (05E) — NOT a stack of ellipsoids.
     #     A single surface reads as a fitted garment; a pile of overlapping spheres creased at every
     #     boundary and read "musclebound / assembled". Rings run hem -> pinched waist -> broad chest
@@ -231,7 +234,9 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     if cfg.get("belt"):
         sb.cyl("pelvis", 0.152 * g, 0.052, segments=20,
                matrix=T(pelvis.x, pelvis.y, pelvis.z + 0.02) @ Matrix.Diagonal((1.0, 0.82, 1.0, 1)), mat=leather)
-        sb.box("pelvis", size=(0.08, 0.09, 0.09), matrix=T(0.15, -0.115, pelvis.z + 0.0), mat=leather)  # pouch (front -Y)
+        # tool pouch — a small FLAT bag seated on the belt + hanging on the hip (a box reads as a bag;
+        # a sphere read as a ball jutting off the hip). Kept snug (front -Y, low) so it never floats.
+        sb.box("pelvis", size=(0.070, 0.052, 0.088), matrix=T(0.118, -0.074, pelvis.z - 0.030), mat=leather)
     # hi-vis safety vest (electric/maintenance): a FITTED rounded shell hugging the chest ~2cm proud
     # of the shirt (was a bulky floating box). Full straps/opening refinement is iteration 3.
     if cfg.get("vest"):
@@ -381,24 +386,25 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     # ============================================================ LEGS
     for s in ("l", "r"):
         th_h, ca_h, ft_h, bl_t = h(f"thigh_{s}"), h(f"calf_{s}"), h(f"foot_{s}"), t(f"ball_{s}")
-        # hip cap (trousers) — rounder, flows into the pelvis mass (no boxy hip)
-        sb.uvsphere(_blend("pelvis", f"thigh_{s}", 0.4), 0.078 * HI, u=14, v=10,
-                    matrix=T(th_h.x, th_h.y, th_h.z + 0.01) @ Matrix.Diagonal((1.05, 1.0, 1.1, 1)), mat=lower)
+        # hip cap (trousers) — pulled INWARD + down so it flows into the thigh (no saddlebag jut)
+        sb.uvsphere(_blend("pelvis", f"thigh_{s}", 0.45), 0.070 * HI, u=14, v=10,
+                    matrix=T(th_h.x - sgn * 0.006, th_h.y, th_h.z + 0.006) @ Matrix.Diagonal((0.96, 1.0, 1.08, 1)), mat=lower)
         # thigh (trousers) — WIDEST at the hip, tapering firmly to the knee (front taper: thigh>knee)
         sb.segment(f"thigh_{s}", th_h, ca_h, 0.094 * LI, 0.060, segments=12, mat=lower)
-        # knee (blend) — narrower than the thigh so the front silhouette reads thigh>knee>calf
-        sb.uvsphere(_blend(f"thigh_{s}", f"calf_{s}"), 0.058, u=12, v=8, matrix=T(*ca_h), mat=lower)
+        # knee (blend) — bridges the thigh->calf taper as ONE rounded form (not a pinched band)
+        sb.uvsphere(_blend(f"thigh_{s}", f"calf_{s}"), 1.0, u=12, v=8,
+                    matrix=T(ca_h.x, ca_h.y - 0.004, ca_h.z) @ Matrix.Diagonal((0.060, 0.062, 0.052, 1)), mat=lower)
         # calf (trousers) — NARROWER than the thigh, tapering hard to the ankle
         sb.segment(f"calf_{s}", ca_h, ft_h, 0.056 * LI, 0.036, segments=12, mat=lower)
         # calf-muscle fullness on the BACK only (+Y, small X) so it shapes the side, not the front width
         cmus = ca_h.lerp(ft_h, 0.32)
         sb.uvsphere(f"calf_{s}", 1.0, u=10, v=8,
                     matrix=T(cmus.x, cmus.y + 0.020, cmus.z) @ Matrix.Diagonal((0.044, 0.058, 0.078, 1)), mat=lower)
-        # trouser break — the trouser leg folds slightly over the boot top (constructed, not plugged in)
+        # trouser hem — a SLIM fold where the trouser meets the boot (was a bulbous leg-warmer cuff)
         sb.uvsphere(f"calf_{s}", 1.0, u=10, v=8,
-                    matrix=T(ft_h.x, ft_h.y + 0.004, ft_h.z + 0.028) @ Matrix.Diagonal((0.058, 0.062, 0.030, 1)), mat=lower)
-        # ankle collar (blend) — keeps the trouser->boot join closed
-        sb.uvsphere(_blend(f"calf_{s}", f"foot_{s}", 0.4), 0.05, u=8, v=6, matrix=T(*ft_h), mat=leather)
+                    matrix=T(ft_h.x, ft_h.y + 0.002, ft_h.z + 0.022) @ Matrix.Diagonal((0.047, 0.050, 0.024, 1)), mat=lower)
+        # ankle collar (blend) — small, keeps the trouser->boot join closed
+        sb.uvsphere(_blend(f"calf_{s}", f"foot_{s}", 0.4), 0.043, u=8, v=6, matrix=T(*ft_h), mat=leather)
         # SHOE: a rounded work boot — instep/heel + rounded toe + a thin dark sole (not angular boxes)
         heel_z = 0.048
         sb.uvsphere(_blend(f"foot_{s}", f"ball_{s}", 0.7), 1.0, u=10, v=8,
