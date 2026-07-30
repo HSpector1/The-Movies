@@ -8,88 +8,88 @@
       "file": "assets/studio/characters/Char_PA_Standard.glb",
       "ok": true,
       "issues": [],
-      "tris": 9968,
+      "tris": 11388,
       "height": 1.778,
-      "islands": 64,
-      "lod1_tris": 5482,
-      "lod2_tris": 2990
+      "islands": 100,
+      "lod1_tris": 6262,
+      "lod2_tris": 3416
     },
     {
       "role": "Grip",
       "file": "assets/studio/characters/Char_Grip_Standard.glb",
       "ok": true,
       "issues": [],
-      "tris": 9900,
+      "tris": 11420,
       "height": 1.778,
-      "islands": 67,
-      "lod1_tris": 5444,
-      "lod2_tris": 2970
+      "islands": 104,
+      "lod1_tris": 6280,
+      "lod2_tris": 3425
     },
     {
       "role": "Electric",
       "file": "assets/studio/characters/Char_Electric_Heavy.glb",
       "ok": true,
       "issues": [],
-      "tris": 11588,
+      "tris": 12636,
       "height": 1.823,
-      "islands": 67,
-      "lod1_tris": 6372,
-      "lod2_tris": 3476
+      "islands": 106,
+      "lod1_tris": 6948,
+      "lod2_tris": 3788
     },
     {
       "role": "Maintenance",
       "file": "assets/studio/characters/Char_Maintenance_Heavy.glb",
       "ok": true,
       "issues": [],
-      "tris": 9900,
-      "height": 1.778,
-      "islands": 67,
-      "lod1_tris": 5444,
-      "lod2_tris": 2970
+      "tris": 11532,
+      "height": 1.795,
+      "islands": 105,
+      "lod1_tris": 6342,
+      "lod2_tris": 3456
     },
     {
       "role": "Office",
       "file": "assets/studio/characters/Char_Office_Standard.glb",
       "ok": true,
       "issues": [],
-      "tris": 9608,
+      "tris": 11044,
       "height": 1.778,
-      "islands": 63,
-      "lod1_tris": 5284,
-      "lod2_tris": 2882
+      "islands": 99,
+      "lod1_tris": 6074,
+      "lod2_tris": 3312
     },
     {
       "role": "CameraDP",
       "file": "assets/studio/characters/Char_CameraDP_Standard.glb",
       "ok": true,
       "issues": [],
-      "tris": 9800,
+      "tris": 11220,
       "height": 1.778,
-      "islands": 64,
-      "lod1_tris": 5390,
-      "lod2_tris": 2940
+      "islands": 100,
+      "lod1_tris": 6170,
+      "lod2_tris": 3366
     },
     {
       "role": "Director",
       "file": "assets/studio/characters/Char_Director_Standard.glb",
       "ok": true,
       "issues": [],
-      "tris": 9572,
+      "tris": 11192,
       "height": 1.864,
-      "islands": 60,
-      "lod1_tris": 5264,
-      "lod2_tris": 2870
+      "islands": 98,
+      "lod1_tris": 6154,
+      "lod2_tris": 3355
     },
     {
       "role": "Carpenter",
       "file": "assets/studio/characters/Char_Carpenter_Heavy.glb",
       "ok": true,
       "issues": [],
-      "tris": 9900,
+      "tris": 11760,
       "height": 1.778,
-      "islands": 67,
-      "lod1_tris": 5444,
-      "lod2_tris": 2970
+      "islands": 108,
+      "lod1_tris": 6468,
+      "lod2_tris": 3526
     }
   ],
   "pass": 8,

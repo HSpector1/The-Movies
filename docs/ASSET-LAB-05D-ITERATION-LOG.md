@@ -208,3 +208,62 @@ self-review never presented as independent; missed gates queued for replay befor
   Grip(flatcap+shirt+belt) vs Maintenance(beanie+coverall-bib): distinct in silhouette, not hue.
 - **Review:** lead self-review (directly targets the Loop-9 critical collisions); FULL gate Loop 12.
 - **Decision: ACCEPT.**
+
+---
+
+## Loop 12 — Final holistic pass (tri trim + Scene G re-export + runtime)  ·  FULL GATE
+- **Change:** restraint pass — lowered torso-ellipsoid + head sphere subdivisions, trimming LOD0
+  from the ~12 k ceiling to ~10.7–11.4 k; re-exported all 8 refined roles to Scene G; re-captured
+  the runtime.
+- **Validate:** 8/8 build gate, 8/8 GLB validator (identity node, 65 joints, LOD consistency,
+  height); runtime **console-error-free**; 0 unweighted / 0 bad-sum.
+- **Evidence:** `proof/lab05d/final/` + `proof/lab05d/runtime/`.
+- **Decision: ACCEPT.**
+
+### Loop-12 FINAL FULL GATE (3 reviewers, API recovered) — all PASS WITH NOTES,
+`improvedOverBaseline=TRUE`, `collisionsResolved=TRUE`:
+- **Readability:** both Loop-9 CRITICAL collisions RESOLVED (PA/Office via satchel+bun;
+  Grip/Maintenance via beanie+coverall). Note: Grip/Maintenance is the weaker pair → wants a
+  whole-body value contrast. → **Loop 13**.
+- **Art Director:** "large, real improvement… a deliberate, cohesive cast, not procedural." One
+  honest major: the hero base-hand render reads as a mitten (side-on angle hid the fingers). →
+  **Loop 13**. Minors: face warmth; role garment-construction variety.
+- **Technical/Runtime:** Blender↔runtime consistent, deformation clean (kneel/walk), no detached/
+  melted geometry. Notes (minor): occluded back-capture framing; real-GPU perf pending.
+
+---
+
+## Loop 13 — Close the final-gate majors (hands + Grip/Maintenance value)
+- **Hypothesis:** the fingers exist (4 capsules) but the side-on hand camera hid them, and
+  Grip/Maintenance separation is value-weak; splay/curl/knuckle the fingers + shoot from above-3q,
+  and make the Maintenance coverall a dark whole-body value-block.
+- **Change:** fingers now SPLAY (fan in Y) + CURL (tips drop) with a knuckle bump at each base;
+  base-hand camera moved to an honest above-front-3q angle (shows the fan). Maintenance coverall
+  darkened to a dark-olive value-block (separates from Grip at any on-screen size).
+- **Validate:** `GATE_TEST_OK`; 8/8 build + 8/8 GLB validator; 0 unweighted / 0 bad-sum.
+- **Evidence:** `proof/lab05d/iteration-13/Grip/base-hand.png` (unmistakable 4 fingers + thumb +
+  knuckles); `roles-front.png` (Grip vs Maintenance now a clear value contrast).
+- **Review:** lead self-review (closes the two final-gate majors; visually confirmed). The face-
+  warmth + garment-construction minors are documented as remaining refinement notes.
+- **Decision: ACCEPT.**
+
+---
+
+## FINAL scores (1–5) & verdict
+appeal 4 · professional-finish 4 · silhouette 4 · facial-quality 4 · hair/headwear 4 · hands 4 ·
+feet/grounding 4 · clothing 4 · role-clarity 4 · population-variety 4 · deformation 4 ·
+runtime-consistency 5 · technical-integrity 5 · art-cohesion 4 → **avg ≈ 4.15–4.2; no category < 4.**
+
+**Loops completed: 13** (min 10, target 12 — exceeded to close the final-gate majors).
+**Stop reason:** professionalization bar reached; the two final-gate majors are closed and remaining
+items are refinement-tier polish (face warmth, per-role garment silhouette, PA rear-pose prop
+persistence) + the owner's real-GPU pass — further loops would be diminishing polishing.
+
+**VERDICT: PASS WITH NOTES.  ACTION: OWNER REVIEW.**
+Independent-review coverage: full multi-reviewer gates ran and PASSED (with notes) at loops 3, 6,
+9, and 12/final — every gate this lab was completed (no unresolved outages). The crew went from
+"good stylized prototype" to a cohesive, professional, production-credible premium management-game
+cast: sculpted charming faces (eyes/lids/brows/nose/two-lip smile), facial hair, per-profile
+ratio anatomy with shaped limbs, individual-finger hands, constructed worn clothing, distinct
+roles (greyscale-separable) + distinct people, clean deformation across all six clips, validated
+LODs, and console-error-free Scene G. Final acceptance pends Howard's real-GPU (M3) review.

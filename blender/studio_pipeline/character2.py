@@ -46,8 +46,8 @@ ROLES = {
                        hat="hardhat",   belt=True,  coat=False, vest=True, radio=True, hat_col=(0.92, 0.56, 0.08), coil=True),
     # Maintenance: slate COVERALLS (same top+bottom) + soft cap — a distinct mechanic silhouette,
     # deliberately NOT hi-vis/hard-hat so it never reads as the Electric/Grip crew.
-    "Maintenance":dict(size="heavy",    skin="skin_03", hair="hair_grey",  shirt=(0.33, 0.36, 0.23), trousers=(0.33, 0.36, 0.23),
-                       hat="beanie",    belt=True,  coat=False, coveralls=True, hat_col=(0.22, 0.24, 0.16), facial_hair="stubble"),
+    "Maintenance":dict(size="heavy",    skin="skin_03", hair="hair_grey",  shirt=(0.20, 0.22, 0.13), trousers=(0.20, 0.22, 0.13),
+                       hat="beanie",    belt=True,  coat=False, coveralls=True, hat_col=(0.16, 0.18, 0.11), facial_hair="stubble"),
     # Office: a lightweight dark top (NOT a long coat — that's Director) so it reads as admin, not a smock
     "Office":     dict(size="standard", skin="skin_04", hair="hair_grey",  shirt=(0.44, 0.21, 0.24), trousers="trousers_grey",
                        hat=None,        belt=False, coat=False, satchel=True, hair_style="bun"),
@@ -159,7 +159,7 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     pelvis = h("pelvis"); s1 = c("spine_01"); s2 = c("spine_02"); s3 = c("spine_03")
     neck = h("neck_01"); head_c = c("Head")
 
-    def ell(w, cx, cy, cz, hxx, hyy, hzz, mat, u=20, v=14):
+    def ell(w, cx, cy, cz, hxx, hyy, hzz, mat, u=16, v=12):   # 05D: leaner default subdiv (tri budget)
         """A rounded ellipsoid (half-extents hxx,hyy,hzz) — the organic building block that
         replaces the Lab-05B stacked boxes so the torso/hips read as a body, not armor."""
         sb.uvsphere(w, 1.0, u=u, v=v, matrix=T(cx, cy, cz) @ Matrix.Diagonal((hxx, hyy, hzz, 1)), mat=mat)
@@ -252,7 +252,7 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     sb.cyl(_blend("neck_01", "spine_03", 0.6), 0.055, 0.12, segments=12,
            matrix=T(neck.x, neck.y, neck.z + 0.04), mat=skin)
     # head ovoid — slightly narrower in X, deeper/taller, chin dropped forward (-Y)
-    sb.uvsphere("Head", 0.108, u=22, v=16,
+    sb.uvsphere("Head", 0.108, u=18, v=14,
                 matrix=T(head_c.x, head_c.y - 0.008, head_c.z + 0.02) @ Matrix.Diagonal((0.9 * v_headw, 1.02, 1.16 * v_headh, 1)), mat=skin)
 
     # ----- FACE (-Y front): clean, symmetric, FRIENDLY stylized features (05C) -----
@@ -335,14 +335,16 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         palm = hn_h + Vector((sgn * 0.038, 0, 0))
         sb.uvsphere(f"hand_{s}", 1.0, u=10, v=8,
                     matrix=T(palm.x, palm.y, palm.z) @ Matrix.Diagonal((0.045, 0.046, 0.024, 1)), mat=skin)   # palm
-        fbaseX = hn_h.x + sgn * 0.064
-        ftipX = hn_h.x + sgn * 0.108
-        # (y-offset across the palm, extra tip length) — middle finger longest, pinky shortest.
-        # Fingers packed close so they read as a hand, not a splayed claw.
-        for fy_off, flen in ((-0.022, 0.004), (-0.0075, 0.011), (0.0075, 0.003), (0.022, -0.008)):
-            p0 = Vector((fbaseX, hn_h.y + fy_off, hn_h.z + 0.002))
-            p1 = Vector((ftipX + sgn * flen, hn_h.y + fy_off * 1.1, hn_h.z - 0.004))
-            sb.segment(f"hand_{s}", p0, p1, 0.0145, 0.0105, segments=6, mat=skin)
+        fbaseX = hn_h.x + sgn * 0.060
+        ftipX = hn_h.x + sgn * 0.100
+        # (y-offset across the palm, extra tip length) — middle longest, pinky shortest. Fingers
+        # SPLAY (tips fan out in Y) and CURL (tips drop in Z), with a knuckle bump at each base, so
+        # they read as distinct digits from side + 3q angles (not a fused paddle).
+        for fy_off, flen in ((-0.026, 0.004), (-0.009, 0.012), (0.009, 0.004), (0.026, -0.008)):
+            base = Vector((fbaseX, hn_h.y + fy_off, hn_h.z + 0.004))
+            tip = Vector((ftipX + sgn * flen, hn_h.y + fy_off * 1.55, hn_h.z - 0.015))
+            sb.segment(f"hand_{s}", base, tip, 0.0125, 0.0092, segments=6, mat=skin)
+            sb.uvsphere(f"hand_{s}", 0.012, u=6, v=5, matrix=T(base.x, base.y, base.z + 0.001), mat=skin)  # knuckle
         # thumb: off the front-inner edge of the palm, angled forward (-Y)
         tp0 = Vector((hn_h.x + sgn * 0.044, hn_h.y - 0.020, hn_h.z))
         tp1 = Vector((hn_h.x + sgn * 0.058, hn_h.y - 0.062, hn_h.z - 0.004))
