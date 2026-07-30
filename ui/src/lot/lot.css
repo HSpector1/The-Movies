@@ -96,15 +96,16 @@
   flex-shrink: 0;
   border-left: 1px solid var(--border);
   background: var(--bg-panel);
-  padding: 16px;
+  padding: 12px 14px;
   overflow-y: auto;
 }
 .lot-companion-title {
   margin: 0 0 2px;
-  font-size: 16px;
+  font-size: 15px;
 }
 .lot-companion-hint {
-  margin: 0 0 12px;
+  margin: 0 0 8px;
+  font-size: 12px;
 }
 .lot-nav-list {
   list-style: none;
@@ -112,16 +113,18 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 5px;
 }
+/* Rows are intentionally compact so all nine destinations fit without scrolling
+   at the supported viewports (1366×768 and shorter). */
 .lot-nav-item {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 3px;
+  gap: 1px;
   text-align: left;
-  padding: 10px 12px 10px 14px;
+  padding: 6px 10px 6px 11px;
   background: var(--bg-panel-2);
   border: 1px solid var(--border);
   border-left: 3px solid var(--border-strong);
@@ -133,11 +136,13 @@
 }
 .lot-nav-name {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
+  line-height: 1.25;
   color: var(--text);
 }
 .lot-nav-state {
-  font-size: 12px;
+  font-size: 11px;
+  line-height: 1.25;
   color: var(--text-dim);
   display: inline-flex;
   align-items: center;

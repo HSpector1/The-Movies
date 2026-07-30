@@ -952,11 +952,14 @@ export class LotScene extends Phaser.Scene {
     const cam = this.cameras.main
     const corners = this.lotCorners()
     const minX = Math.min(...corners.map((c) => c.x))
-    const minY = Math.min(...corners.map((c) => c.y)) - 170
+    // Headroom above the ground diamond for building tops/labels; footroom below.
+    // Tightened for D1 so the overview fills the frame (less dead sky) while still
+    // clearing the tallest back-row building.
+    const minY = Math.min(...corners.map((c) => c.y)) - 150
     const maxX = Math.max(...corners.map((c) => c.x))
-    const maxY = Math.max(...corners.map((c) => c.y)) + 120
+    const maxY = Math.max(...corners.map((c) => c.y)) + 100
     const fit = Phaser.Math.Clamp(
-      Math.min(this.scale.width / (maxX - minX), this.scale.height / (maxY - minY)) * 0.98,
+      Math.min(this.scale.width / (maxX - minX), this.scale.height / (maxY - minY)),
       ZOOM_MIN,
       ZOOM_MAX,
     )

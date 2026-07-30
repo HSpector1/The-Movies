@@ -217,3 +217,38 @@ test('E2. reduced-motion mode', async ({ page }) => {
   // Companion navigation + states remain fully readable under reduced motion.
   await expect(page.locator('[data-testid^="lot-nav-"][data-attention]')).toHaveCount(9)
 })
+
+// ── Real-DOM lifecycle: repeated open/close leaves exactly one live <canvas> ───
+// (Complements the mocked component test: this asserts the REAL Phaser teardown.)
+test('L. repeated lot open/close leaves no orphaned canvas', async ({ page }) => {
+  await seed(page, 'empty')
+  for (let i = 0; i < 3; i++) {
+    await page.getByTestId('open-studio-lot').click()
+    await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
+    await page.waitForTimeout(700) // Phaser boots + attaches its canvas
+    expect(await page.locator('canvas').count()).toBe(1)
+    await page.getByTestId('lot-return-dashboard').click()
+    await expect(page.getByTestId('dash-week')).toBeVisible()
+    await page.waitForTimeout(300)
+    expect(await page.locator('canvas').count()).toBe(0) // destroyed on unmount
+  }
+})
+
+// ── All nine destinations fit without scrolling at the required short viewports ─
+test('R. all nine destinations are visible by default at 1366x768 and 1280x720', async ({ page }) => {
+  await seed(page, 'empty')
+  await openLot(page)
+  const ids = ['gate', 'admin', 'casting', 'writers', 'stage-a', 'stage-b', 'post', 'theater', 'expansion']
+  for (const [label, w, h] of [['1366x768', 1366, 768], ['1280x720', 1280, 720]] as const) {
+    await page.setViewportSize({ width: w, height: h })
+    await page.waitForTimeout(300)
+    for (const id of ids) {
+      // in-viewport, not merely in-DOM: the item's box must sit within the viewport height.
+      const box = await page.getByTestId(`lot-nav-${id}`).boundingBox()
+      expect(box, `${id} @ ${label} has a box`).not.toBeNull()
+      expect(box!.y + box!.height, `${id} bottom within ${label}`).toBeLessThanOrEqual(h + 1)
+      expect(box!.y, `${id} top within ${label}`).toBeGreaterThanOrEqual(0)
+    }
+    await shot(page, `nav-fit-${label}`)
+  }
+})
