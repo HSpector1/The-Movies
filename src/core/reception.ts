@@ -401,6 +401,23 @@ function distanceOutsideRange(v: number, r: [number, number]): number {
 // Exposed so forecast (§7) reuses the identical deterministic segment-appeal
 // computation. Uses no sampled terms — timelinessContribution and craft are
 // deterministic (the §5.3 critic DRAW never feeds segmentAppeal).
+// D-12 script potential → audience CEILING (capital-frontier fix, engaged only). A high-potential
+// script (baselineStrength above the ordinary reference) can reach a larger audience — but ONLY in
+// proportion to how well the film is DELIVERED (craft). An underfunded / poorly-made premium script
+// realizes ~none of it (an expensive flop); a limited script has a lower ordinary ceiling. Additive
+// inside the segment-appeal clamp — never a gross multiplier, never reads baseNegativeCost or
+// criticScore. `engaged` is the engaged-economy flag (== saturateFame as received here); 0 when not
+// engaged, so M0A appeal is byte-identical. Distinct channel from craft's 0.35 weight (production
+// quality): this is realized AUDIENCE demand, delivery-gated — not a second application of quality.
+export function scriptPotentialAppealDelta(baselineStrength: number, craft: number, engaged: boolean): number {
+  if (!engaged) return 0
+  // Upside-only: a below-reference (limited) script gets 0 here — its lower ceiling comes from the
+  // cost↔strength correlation (lower craft), not from an appeal penalty, so cheap films stay viable.
+  const potential = clamp((baselineStrength - TUNING.SCRIPT_POTENTIAL_REF) / 40, 0, 1)
+  const delivery = clamp(craft / 100, 0, 1)
+  return TUNING.SCRIPT_POTENTIAL_APPEAL_COEF * potential * delivery
+}
+
 export function computeSegmentAppeal(
   inp: ReceptionInputs,
   delivered: Expression,
@@ -439,6 +456,9 @@ export function computeSegmentAppeal(
   let satNum = 0
   for (const slot of CAST_SLOTS) satNum += CAST_WEIGHT[slot] * fameReach(inp.cast[slot].fame)
   const starDrawOpening = saturateFame ? 100 * clamp(satNum / starDen, 0, 1) : starDraw
+  // D-12: high-potential material lifts the audience ceiling in proportion to delivery (craft).
+  // Gated on the engaged flag (saturateFame here) → 0 in M0A, so appeal stays byte-identical.
+  const potentialDelta = scriptPotentialAppealDelta(inp.concept.baselineStrength, craft, saturateFame)
 
   const segmentFit: Record<SegmentId, number> = {} as Record<SegmentId, number>
   const segmentAppeal: Record<SegmentId, number> = {} as Record<SegmentId, number>
@@ -452,7 +472,8 @@ export function computeSegmentAppeal(
         0.25 * fit +
         0.15 * (timelinessContribution * 5) +
         inp.shapeEffects.segmentAffinity[seg.id] -
-        mismatchPenalty,
+        mismatchPenalty +
+        potentialDelta,
       0,
       100,
     )
@@ -464,7 +485,8 @@ export function computeSegmentAppeal(
             0.25 * fit +
             0.15 * (timelinessContribution * 5) +
             inp.shapeEffects.segmentAffinity[seg.id] -
-            mismatchPenalty,
+            mismatchPenalty +
+            potentialDelta,
           0,
           100,
         )
@@ -539,7 +561,8 @@ export function computeBoxOffice(
     (TUNING.MARKETING_REACH_MAX - TUNING.MARKETING_REACH_MIN) * preMarketingAwareness
   const effectiveMarketing = engaged ? marketingReachCeiling * marketingQuality : marketingQuality
   const baseAwareness = clamp(
-    0.6 * (standing.audienceAwareness / 100) + (engaged ? effectiveMarketing : 0.4 * marketingQuality),
+    (engaged ? TUNING.ORGANIC_AWARENESS_FLOOR_WEIGHT : 0.6) * (standing.audienceAwareness / 100) +
+      (engaged ? effectiveMarketing : 0.4 * marketingQuality),
     0,
     1,
   )
