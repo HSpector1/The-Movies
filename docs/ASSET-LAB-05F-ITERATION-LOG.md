@@ -186,5 +186,17 @@ E thin hands · F block boots · G flat face · H bent poses expose modeling.
   white reflective bands retained from the fitted-vest rebuild.
 - **Evidence:** `proof/lab05f/iteration-06/` + `proof/lab05f/final/` (Blender 05E↔05F cmp set) +
   `proof/lab05f/runtime/` (23 in-engine comparison PNGs + performance.json).
+- **Final holistic gate (Art Director + Runtime QA, 05E↔05F):** both **PASS WITH NOTES, EXCEEDS** —
+  "clearly exceeds the 05E Electric at human scale; six of seven rejected regions genuinely resolved"
+  (vest FIXED, boots FIXED, crotch FIXED); Runtime QA confirmed Blender↔GLB↔runtime consistency + LOD
+  integrity (9 materials + 65 joints at every level). Two convergent notes → **addressed:** (1) the vest
+  yoke straps read as angular shoulder WEDGES (a defect-D regression, Runtime QA "WORSE") → flattened the
+  straps down onto the deltoid + lowered the vest top → shoulders now read rounded. (2) A faint rear-waist
+  seam → tried belt segments/proudness, vest hem raise/segments, and leg-top forward-tuck; it is the
+  INHERENT leg-tube↔hip-loft-seat interpenetration of the non-bifurcated pants approach (hidden at the
+  bottom junction, faint at the rear-top) — **documented as a remaining minor**, not fully removed
+  (fully removing it needs a single bifurcating-pants manifold). Re-exported GLBs + re-captured runtime.
 - **Decision: STOP-PASS.** All six iterations complete; every owner defect (A–G) rebuilt + independently
-  confirmed; deformation certified; additive delivery + in-engine A/B harness shipped. → final report.
+  confirmed; deformation certified (Rigging PASS); final gate EXCEEDS; additive delivery + in-engine A/B
+  harness shipped. **VERDICT: PASS WITH NOTES → OWNER M3 REVIEW.** No propagation without separate owner
+  authorization.

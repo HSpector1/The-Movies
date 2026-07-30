@@ -129,10 +129,11 @@ def build_hero(arm, tag="ElectricHero", seed=1):
 
     # ============================================================ ACCESSORIES (belt/radio/coil — reused)
     if cfg.get("belt"):
-        # a CLEAN leather belt band sitting at the natural waist, clearly proud of the trousers + matching
-        # the hip loft's 18 segments (a 22-seg band beat against the 18-seg loft and read as crenellation).
-        sb.cyl("pelvis", 0.160 * g, 0.046, segments=18,
-               matrix=T(pelvis.x, pelvis.y, pelvis.z + 0.048) @ Matrix.Diagonal((1.0, 0.80, 1.0, 1)), mat=leather)
+        # a CLEAN leather belt band at the natural waist — clearly PROUD of the hip loft (so only the belt
+        # shows, no radius-match beat) + a smooth 24-seg edge (final-gate: the 18-seg edge read faceted/
+        # scalloped at human scale against the smooth-shaded hip loft).
+        sb.cyl("pelvis", 0.168 * g, 0.044, segments=18,
+               matrix=T(pelvis.x, pelvis.y, pelvis.z + 0.046) @ Matrix.Diagonal((1.0, 0.82, 1.0, 1)), mat=leather)
         # hero: FLAT hip pouch hugging the trouser (was a proud floating cube) — thin front-back, sits on the hip
         sb.box("pelvis", size=(0.058, 0.024, 0.072), matrix=T(0.140, -0.058, pelvis.z - 0.030), mat=leather)
     if cfg.get("radio") and cfg.get("belt"):
@@ -154,13 +155,13 @@ def build_hero(arm, tag="ElectricHero", seed=1):
         w_up = {"spine_02": 0.36, "spine_03": 0.5, "clavicle_l": 0.07, "clavicle_r": 0.07}
         w_top = {"spine_03": 0.72, "clavicle_l": 0.14, "clavicle_r": 0.14}
         vest_rings = [
-            ("spine_01",                          0.0, yb + 0.012, s1.z + 0.006, 0.150 * WA, 0.105 * WA),  # hem (proud for clearance)
+            ("spine_01",                          0.0, yb + 0.012, s1.z + 0.030, 0.144 * WA, 0.100 * WA),  # hem raised to the waist (above the seat) + hugging
             (_blend("spine_01", "spine_02", 0.5), 0.0, yb - 0.004, (s1.z + s2.z) * 0.5, 0.181 * CH, 0.112 * CH),  # lower chest
             ("spine_02",                          0.0, yb - 0.010, s2.z + 0.010, 0.192 * CH, 0.116 * CH),  # chest (proud front)
             (w_up,                                0.0, yb - 0.004, (s2.z + s3.z) * 0.5 + 0.005, 0.196 * SH, 0.107 * SH),  # upper chest
-            (w_top,                               0.0, yb - 0.002, s3.z - 0.006, 0.188 * SH, 0.099 * SH),  # top (below the shoulder yoke)
+            (w_top,                               0.0, yb - 0.002, s3.z - 0.018, 0.186 * SH, 0.098 * SH),  # top (lowered so it does not pile up at the shoulder)
         ]
-        sb.arc_loft([(w, cx, cy, cz, rx, ry) for (w, cx, cy, cz, rx, ry) in vest_rings], a0, a1, segments=22, mat=hv)
+        sb.arc_loft([(w, cx, cy, cz, rx, ry) for (w, cx, cy, cz, rx, ry) in vest_rings], a0, a1, segments=28, mat=hv)
         # OVER-SHOULDER YOKE STRAPS (iter-2 must_fix): a hi-vis strap over each trapezius connecting the
         # front panel to the back panel, weighted to the clavicle so the vest reads as SHOULDER-HUNG (not
         # a chest wrap) and the armhole edge follows the shoulder. This is what makes it unmistakably a vest.
@@ -170,14 +171,16 @@ def build_hero(arm, tag="ElectricHero", seed=1):
             # start/end ON the vest front-top + back-top corners (rx≈0.188*SH, ry≈0.099*SH at the top
             # ring) so the strap is a continuous bridge, NOT a floating segment with a detached front cap
             # (iter-5: that gap read as a stray orange shard near the neck).
-            p_front = Vector((sgn * 0.082, yb - 0.104, s3.z - 0.006))
-            p_back = Vector((sgn * 0.082, yb + 0.092, s3.z + 0.002))
-            sb.segment(wstrap, p_front, p_back, 0.033, 0.031, segments=8, mat=hv, cap=False)
+            # LOWERED onto the shoulder slope + THINNER so the yoke reads as a flat strap hugging the
+            # deltoid, not a raised angular wedge peaking above the shoulder (final-gate defect-D note).
+            p_front = Vector((sgn * 0.088, yb - 0.100, s3.z - 0.026))
+            p_back = Vector((sgn * 0.088, yb + 0.090, s3.z - 0.018))
+            sb.segment(wstrap, p_front, p_back, 0.025, 0.023, segments=8, mat=hv, cap=False)
         # restrained reflective bands: two THIN white arc-strips wrapping the vest sides/back, sat just
         # proud of the shell (was the two rigid full-ring rails). Each band = a 2-ring arc-loft.
         for bz, brx, bry in ((s2.z + 0.050, 0.194 * CH, 0.118 * CH), (s2.z - 0.030, 0.190 * CH, 0.116 * CH)):
             band = [("spine_02", 0.0, yb - 0.008, bz + dz, brx + 0.004, bry + 0.004) for dz in (0.012, -0.012)]
-            sb.arc_loft([(w, cx, cy, cz, rx, ry) for (w, cx, cy, cz, rx, ry) in band], a0, a1, segments=22, mat=white)
+            sb.arc_loft([(w, cx, cy, cz, rx, ry) for (w, cx, cy, cz, rx, ry) in band], a0, a1, segments=28, mat=white)
     if cfg.get("coil"):
         cl = h("clavicle_l") if "clavicle_l" in J else h("upperarm_l")
         for k in range(3):
@@ -282,7 +285,7 @@ def build_hero(arm, tag="ElectricHero", seed=1):
         # trouser leg tube, top ring tucked UP into the hip loft (overlaps it) so the leg emerges from
         # the seat as one continuous garment — no gap, no separate "leg shell".
         leg_rings = [
-            (_blend("pelvis", f"thigh_{s}", 0.4), Vector((th_h.x - sgn * 0.006, th_h.y + 0.006, th_h.z + 0.075)), (0.106 * HI, 0.106 * HI)),  # wide+high: covers the hip loft's lower edge (hides the junction)
+            (_blend("pelvis", f"thigh_{s}", 0.4), Vector((th_h.x - sgn * 0.006, th_h.y - 0.014, th_h.z + 0.075)), (0.100 * HI, 0.104 * HI)),  # tucked FORWARD + narrower so the rear seat fully covers the leg top (hides the rear seam)
             (f"thigh_{s}", Vector((th_h.x, th_h.y + 0.004, th_h.z)), (0.096 * LI, 0.098 * LI)),
             (f"thigh_{s}", th_h.lerp(ca_h, 0.5), (0.078 * LI, 0.082 * LI)),
             (_blend(f"thigh_{s}", f"calf_{s}"), Vector((ca_h.x, ca_h.y - 0.004, ca_h.z)), (0.066, 0.070)),
