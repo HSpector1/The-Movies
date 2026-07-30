@@ -150,3 +150,22 @@ hands/boot refinements · 8 holistic (Scene G re-export + runtime + full 6-clip 
   hi-vis vest (the review's one praised garment) left intact. **Deformation:** Electric kneel clean
   (thick limbs bend as continuous surfaces, vest+hat stay attached, feet grounded).
 - **Decision: ACCEPT.** Next = refinement batch (belt seating, face warmth, hands, boot/ankle).
+
+---
+
+## Loop 7 — Refinement batch (belt seating · face warmth · hands · boot/ankle)
+- **Named weaknesses (from the mid-point gate's remaining notes):** belt/pouch read proud/floating;
+  mouth slightly glum + cap crowds the brow; fingers too uniform + thumb read as an underside spur;
+  boots slightly oversized vs a thin ankle.
+- **Change:** (belt) narrowed the band to the hip width + lowered it so the shirt hem overlaps, and
+  hung the pouch off a short strap connector → reads worn, not stuck on. (face) lifted the flat cap
+  off the brow + a thin peak; lifted the mouth corners higher and made them skin-toned → a warmer,
+  friendlier neutral-smile (not a dark dot). (hands) pushed finger-length variation (middle longest,
+  pinky shortest+thinnest) with tapered tips; re-rooted the thumb on the RADIAL side angled toward
+  the fingers with a thenar-web wedge; flattened the back-of-hand. (boot) trimmed instep/toe ~8% +
+  a taller ankle cuff stepping down from the calf so the boot relates to the leg.
+- **Rebuild/validate:** 8/8 build gate; 8/8 validator; 0 unweighted / 0 bad-sum; tris ~8.3k.
+- **Look (`proof/lab05e/iteration-07/`):** base-face — cap off the brow, warmer mouth; base-hand —
+  clear finger-length variation + an opposable thumb; base-lowerbody — pouch hangs on a strap, boot
+  balanced; roles-front — cohesive premium crew. **Deformation:** pickup clean (bent sleeves + stride).
+- **Decision: ACCEPT.** → holistic loop 8 (Scene G re-export + runtime + full validation + final gate).

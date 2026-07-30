@@ -236,13 +236,15 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         depth = top - skirt_z
         sb.cone("spine_01", 0.24 * g, 0.30 * g, depth, segments=16,
                 matrix=T(0, 0.01, (top + skirt_z) * 0.5), mat=upper)
-    # tool belt — a rounded band (flattened disc) hugging the waist, not a boxy slab
+    # tool belt — a rounded band INSET into the waist (05E: narrowed to the hip width + lowered so the
+    # shirt hem overlaps its top edge → it reads cinched/worn, not a floating band proud of the body).
     if cfg.get("belt"):
-        sb.cyl("pelvis", 0.152 * g, 0.052, segments=20,
-               matrix=T(pelvis.x, pelvis.y, pelvis.z + 0.02) @ Matrix.Diagonal((1.0, 0.82, 1.0, 1)), mat=leather)
-        # tool pouch — a small FLAT bag seated on the belt + hanging on the hip (a box reads as a bag;
-        # a sphere read as a ball jutting off the hip). Kept snug (front -Y, low) so it never floats.
-        sb.box("pelvis", size=(0.070, 0.052, 0.088), matrix=T(0.118, -0.074, pelvis.z - 0.030), mat=leather)
+        sb.cyl("pelvis", 0.146 * g, 0.050, segments=20,
+               matrix=T(pelvis.x, pelvis.y, pelvis.z + 0.010) @ Matrix.Diagonal((1.0, 0.80, 1.0, 1)), mat=leather)
+        # tool pouch — a small FLAT bag HUNG off the belt by a short strap (was reading as a floating
+        # block on the hip). Strap ties the pouch to the belt so it reads worn, not stuck on.
+        sb.box("pelvis", size=(0.030, 0.030, 0.040), matrix=T(0.116, -0.086, pelvis.z - 0.004), mat=leather)   # strap connector
+        sb.box("pelvis", size=(0.070, 0.050, 0.086), matrix=T(0.116, -0.078, pelvis.z - 0.036), mat=leather)   # pouch bag
     # hi-vis safety vest (electric/maintenance): a FITTED rounded shell hugging the chest ~2cm proud
     # of the shirt (was a bulky floating box). Full straps/opening refinement is iteration 3.
     if cfg.get("vest"):
@@ -331,7 +333,7 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     sb.uvsphere("Head", 1.0, u=10, v=6, matrix=T(hx, fy - 0.004, hz - 0.058) @ Matrix.Diagonal((0.028 * v_mouth, 0.014, 0.009, 1)), mat=skin)   # lower lip
     sb.uvsphere("Head", 1.0, u=12, v=4, matrix=T(hx, fy - 0.002, hz - 0.052) @ Matrix.Diagonal((0.024 * v_mouth, 0.010, 0.0035, 1)), mat=dark)  # thin mouth line
     for sgn in (-1, 1):
-        sb.uvsphere("Head", 0.006, u=6, v=6, matrix=T(hx + sgn * 0.024, fy - 0.003, hz - 0.047), mat=dark)  # lifted corner (smile)
+        sb.uvsphere("Head", 0.006, u=6, v=6, matrix=T(hx + sgn * 0.026, fy - 0.003, hz - 0.043), mat=skin)  # 05E: corners lifted higher + skin-toned = a warmer, friendlier smile (not a dark dot)
     # ears
     for sgn in (-1, 1):
         sb.uvsphere("Head", 0.021, u=8, v=6, matrix=T(hx + sgn * 0.098, hy + 0.012, hz) @ Matrix.Diagonal((0.5, 1, 1.25, 1)), mat=skin)
@@ -375,22 +377,25 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         # hand — not a paddle, not a claw). Rigid to hand_{s}, so the extra geometry is deform-safe.
         palm = hn_h + Vector((sgn * 0.040, 0, 0))
         sb.uvsphere(f"hand_{s}", 1.0, u=10, v=8,
-                    matrix=T(palm.x, palm.y, palm.z) @ Matrix.Diagonal((0.050, 0.052, 0.021, 1)), mat=skin)   # palm (flatter)
+                    matrix=T(palm.x, palm.y, palm.z) @ Matrix.Diagonal((0.052, 0.050, 0.018, 1)), mat=skin)   # palm (flatter back-of-hand)
         fbaseX = hn_h.x + sgn * 0.062
-        ftipX = hn_h.x + sgn * 0.116   # LONGER fingers (were stubby)
-        # (y-offset across the palm, extra tip length, tip radius) — middle longest, pinky shortest.
-        # Fingers sit CLOSE (relaxed, gentle splay ~±0.02) with a soft downward curl; a knuckle bump
-        # at each base — so they read as distinct digits from front/3q without becoming a spread claw.
-        for fy_off, flen, rtip in ((-0.021, 0.004, 0.0080), (-0.007, 0.014, 0.0090),
-                                   (0.007, 0.006, 0.0088), (0.021, -0.010, 0.0078)):
+        ftipX = hn_h.x + sgn * 0.114
+        # 05E: PUSH the finger-length variation (middle clearly longest, pinky clearly shortest +
+        # thinnest) and taper each tip, so they read as jointed digits, not four equal rods.
+        # (y-offset across the palm, extra tip length, base radius, tip radius)
+        for fy_off, flen, rbase, rtip in ((-0.022, 0.002, 0.0116, 0.0082), (-0.007, 0.020, 0.0122, 0.0090),
+                                          (0.008, 0.010, 0.0118, 0.0086), (0.022, -0.016, 0.0104, 0.0072)):
             base = Vector((fbaseX, hn_h.y + fy_off, hn_h.z + 0.002))
             tip = Vector((ftipX + sgn * flen, hn_h.y + fy_off * 1.22, hn_h.z - 0.014))
-            sb.segment(f"hand_{s}", base, tip, 0.0118, rtip, segments=6, mat=skin)
-            sb.uvsphere(f"hand_{s}", 0.011, u=6, v=5, matrix=T(base.x, base.y, base.z), mat=skin)  # knuckle
-        # thumb: off the front-inner edge of the palm, angled forward (-Y) + slightly up
-        tp0 = Vector((hn_h.x + sgn * 0.046, hn_h.y - 0.022, hn_h.z + 0.004))
-        tp1 = Vector((hn_h.x + sgn * 0.064, hn_h.y - 0.066, hn_h.z + 0.002))
-        sb.segment(f"hand_{s}", tp0, tp1, 0.0145, 0.0100, segments=6, mat=skin)
+            sb.segment(f"hand_{s}", base, tip, rbase, rtip, segments=6, mat=skin)
+            sb.uvsphere(f"hand_{s}", 0.010, u=6, v=5, matrix=T(base.x, base.y, base.z), mat=skin)  # knuckle
+        # thumb (05E): rooted on the RADIAL side of the palm and angled toward the fingers (opposable
+        # read), with a small thenar web wedge tying it to the index base — not a spur off the underside.
+        sb.uvsphere(f"hand_{s}", 1.0, u=8, v=6,
+                    matrix=T(hn_h.x + sgn * 0.040, hn_h.y - 0.024, hn_h.z + 0.006) @ Matrix.Diagonal((0.017, 0.020, 0.016, 1)), mat=skin)  # thenar web/base
+        tp0 = Vector((hn_h.x + sgn * 0.044, hn_h.y - 0.028, hn_h.z + 0.008))
+        tp1 = Vector((hn_h.x + sgn * 0.076, hn_h.y - 0.058, hn_h.z + 0.006))
+        sb.segment(f"hand_{s}", tp0, tp1, 0.0140, 0.0092, segments=6, mat=skin)
 
     # ============================================================ LEGS
     for s in ("l", "r"):
@@ -412,19 +417,20 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         # SHOE (05E): a PROPER stylized work boot — a bigger, better-read boot with a defined ankle
         # cuff (the boot opening the trouser tucks into), a fuller instep/heel, a work-boot toe box,
         # and a dark sole that gives the boot a value break (was a small near-black rounded lump).
-        heel_z = 0.052
-        # boot cuff / ankle (blend calf->foot, leather) — reads as the boot top + closes the join
+        heel_z = 0.050
+        # boot cuff / ankle (blend calf->foot, leather) — 05E: taller cuff that steps down FROM the
+        # calf so the ankle transition is not a thin stick jammed into a wide boot
         sb.uvsphere(_blend(f"calf_{s}", f"foot_{s}", 0.4), 1.0, u=10, v=8,
-                    matrix=T(ft_h.x, ft_h.y + 0.006, ft_h.z + 0.002) @ Matrix.Diagonal((0.050, 0.052, 0.056, 1)), mat=leather)
-        # instep / heel mass (fuller)
+                    matrix=T(ft_h.x, ft_h.y + 0.006, ft_h.z + 0.006) @ Matrix.Diagonal((0.052, 0.052, 0.062, 1)), mat=leather)
+        # instep / heel mass (05E: trimmed ~8% so boot mass relates to the leg above it, not clownish)
         sb.uvsphere(_blend(f"foot_{s}", f"ball_{s}", 0.6), 1.0, u=10, v=8,
-                    matrix=T(ft_h.x, ft_h.y - 0.022, heel_z) @ Matrix.Diagonal((0.058, 0.084, 0.062, 1)), mat=leather)
-        # toe box (rounded work-boot toe) — bigger + forward
+                    matrix=T(ft_h.x, ft_h.y - 0.020, heel_z) @ Matrix.Diagonal((0.054, 0.078, 0.058, 1)), mat=leather)
+        # toe box (rounded work-boot toe) — trimmed length + width
         sb.uvsphere(f"ball_{s}", 1.0, u=12, v=8,
-                    matrix=T(ft_h.x, ft_h.y - 0.122, heel_z - 0.010) @ Matrix.Diagonal((0.055, 0.102, 0.050, 1)), mat=leather)
+                    matrix=T(ft_h.x, ft_h.y - 0.114, heel_z - 0.010) @ Matrix.Diagonal((0.051, 0.092, 0.047, 1)), mat=leather)
         # sole (dark) — grounds the shoe + a clear value break under the leather upper
-        sb.box(_blend(f"foot_{s}", f"ball_{s}", 0.5), size=(0.106, 0.284, 0.032),
-               matrix=T(ft_h.x, ft_h.y - 0.060, 0.015), mat=SLOT["dark"])
+        sb.box(_blend(f"foot_{s}", f"ball_{s}", 0.5), size=(0.098, 0.262, 0.030),
+               matrix=T(ft_h.x, ft_h.y - 0.056, 0.014), mat=SLOT["dark"])
 
     mats = char_materials(cfg, tag)
     obj = sb.build(f"Char2_{role}", materials=mats, armature=arm, shade_smooth=True)
@@ -499,8 +505,9 @@ def _add_headwear(sb, kind, head_center):
         sb.cyl("Head", 0.185, 0.02, segments=22, matrix=T(c.x, c.y, top - 0.02), mat=SLOT["hat"])          # brim
         sb.cone("Head", 0.115, 0.10, 0.12, segments=18, matrix=T(c.x, c.y, top + 0.05), mat=SLOT["hat"])   # crown
     elif kind == "flatcap":
-        sb.uvsphere("Head", 0.128, u=16, v=8, matrix=T(c.x, c.y, top - 0.04) @ Matrix.Diagonal((1, 1.08, 0.5, 1)), mat=SLOT["hat"])
-        sb.box("Head", size=(0.15, 0.10, 0.014), matrix=T(c.x, c.y - 0.135, top - 0.03), mat=SLOT["hat"])  # bill front -Y
+        # 05E: raised slightly + a thin peak so the cap sits ON the head, not crowding the brow/eyeline
+        sb.uvsphere("Head", 0.128, u=16, v=8, matrix=T(c.x, c.y, top - 0.028) @ Matrix.Diagonal((1, 1.08, 0.5, 1)), mat=SLOT["hat"])
+        sb.box("Head", size=(0.15, 0.10, 0.014), matrix=T(c.x, c.y - 0.135, top - 0.018), mat=SLOT["hat"])  # bill front -Y
     elif kind == "softcap":
         sb.uvsphere("Head", 0.126, u=16, v=8, matrix=T(c.x, c.y + 0.005, top - 0.045) @ Matrix.Diagonal((1, 1.05, 0.55, 1)), mat=SLOT["hat"])
         sb.box("Head", size=(0.14, 0.11, 0.014), matrix=T(c.x, c.y - 0.14, top - 0.05), mat=SLOT["hat"])   # peak front -Y
