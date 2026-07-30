@@ -152,6 +152,7 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   useEffect(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (!mq) return
     const onChange = () => setReducedMotionState(mq.matches)
     mq.addEventListener?.('change', onChange)
     return () => mq.removeEventListener?.('change', onChange)

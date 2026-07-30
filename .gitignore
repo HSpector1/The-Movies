@@ -5,6 +5,7 @@ out/
 tools/
 test-results/
 playwright-report/
+ui/e2e/fixtures/
 .last-run.json
 *.log
 .DS_Store
