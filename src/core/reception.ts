@@ -515,6 +515,11 @@ export function computeBoxOffice(
   // acceptance corpus is byte-identical. When true, awareness-conditioned marketing + the routine
   // gross scale apply. Default false so every existing/M0A caller is unchanged.
   engaged = false,
+  // D-13 conditional discoverability: a governed N(0,1) draw from the isolated engaged-only
+  // stream(seed,'discovery-v1',prodId) (0 in M0A + forecast center → multiplier exactly 1), and the
+  // opening star draw (0..100) used for reach support. Defaults keep every existing caller unchanged.
+  discoverabilityZ = 0,
+  openingStarDraw = 0,
 ): {
   marketingQuality: number
   preMarketingAwareness: number
@@ -617,7 +622,30 @@ export function computeBoxOffice(
         Math.pow(clamp(weightedAudienceScore / 100, 0, 1), TUNING.LEGS_RETENTION_EXP)
     : TUNING.LEGS_MIN + (TUNING.LEGS_MAX - TUNING.LEGS_MIN) * (weightedAudienceScore / 100)
   const legs = legsBase * (1 - legsPenalty)
-  const total = opening * legs
+
+  // D-13 CONDITIONAL discoverability (engaged only): a governed opening-reach multiplier whose SPREAD
+  // widens as reach support falls — reachSupport blends awarenessFactor (studio awareness + paid
+  // marketing) and the opening star draw. Applies to OPENING (week-1 turnout) and thus TOTAL; LEGS,
+  // weightedAudienceScore, and the §5.3 critic draw are UNTOUCHED — so a strong film that opens weak
+  // can still leg out (a sleeper) while a weak film disappears. Depends only on awareness/marketing/
+  // star — never price, budget label, cheap-film class, critic, or eventual audience score. z=0 (M0A /
+  // forecast center) ⇒ multiplier exactly 1 ⇒ byte-identical; median (z=0) preserved, tails widen.
+  const reachSupport = clamp(
+    TUNING.DISC_SUPPORT_AWARENESS * awarenessFactor + TUNING.DISC_SUPPORT_STAR * clamp(openingStarDraw / 100, 0, 1),
+    0,
+    1,
+  )
+  // Threshold gate: discovery risk is ZERO once reachSupport reaches DISC_SUPPORT_THRESHOLD (a real
+  // cast / Standard-Large marketing / established awareness), and ramps up (convex) only below it —
+  // so the variance concentrates on the genuinely unsupported corner and leaves supported films reliable.
+  const discSupportShortfall = clamp((TUNING.DISC_SUPPORT_THRESHOLD - reachSupport) / TUNING.DISC_SUPPORT_THRESHOLD, 0, 1)
+  const discoverabilitySpread = engaged ? TUNING.DISC_SPREAD * Math.pow(discSupportShortfall, TUNING.DISC_SUPPORT_EXP) : 0
+  const discoverability =
+    discoverabilitySpread > 0
+      ? clamp(Math.exp(discoverabilitySpread * discoverabilityZ), TUNING.DISC_FLOOR, TUNING.DISC_CEIL)
+      : 1
+  const openingDiscovered = opening * discoverability
+  const total = openingDiscovered * legs
 
   return {
     marketingQuality,
@@ -629,7 +657,7 @@ export function computeBoxOffice(
     openingReachMult,
     competitionFactor,
     weightedAudienceScore,
-    opening,
+    opening: openingDiscovered,
     legs,
     total,
   }
@@ -642,7 +670,15 @@ export function computeBoxOffice(
 // together in engaged production play, but they are DISTINCT concerns and are threaded separately so
 // the fame-isolation harness/tests can vary fame WITHOUT triggering the economy scale. Both default
 // false → the M0A/headless path is byte-identical.
-export function resolveReception(inp: ReceptionInputs, rng: RngStream, saturateFame = false, engaged = false): ReceptionResult {
+export function resolveReception(
+  inp: ReceptionInputs,
+  rng: RngStream,
+  saturateFame = false,
+  engaged = false,
+  // D-13: governed discoverability draw (0 keeps existing callers/M0A byte-identical). The realized
+  // release path (tick) passes an N(0,1) draw from the isolated 'discovery' derived stream.
+  discoverabilityZ = 0,
+): ReceptionResult {
   const craftBlock = computeCraft(inp, engaged)
   const contribBlock = computeContributions(inp)
   const delivered = contribBlock.centroid
@@ -667,6 +703,8 @@ export function resolveReception(inp: ReceptionInputs, rng: RngStream, saturateF
     inp.shapeEffects,
     appealBlock.segmentAppealOpening,
     engaged, // D-12 P2: economy calibration (routine gross scale + awareness marketing), distinct from fame
+    discoverabilityZ, // D-13: governed opening-reach uncertainty (0 for forecast/M0A)
+    appealBlock.starDraw, // D-13: star support for reachSupport (fame, not quality)
   )
 
   return {

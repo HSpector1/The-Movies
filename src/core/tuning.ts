@@ -374,6 +374,25 @@ export const TUNING = {
   // find an audience — while established Awareness, Star Power, and paid Marketing still drive reach,
   // and a strong film can still build word of mouth (legs) after a weak opening. M0A keeps 0.6.
   ORGANIC_AWARENESS_FLOOR_WEIGHT: 0.52, // [ICH] engaged weight on studio audience awareness in baseAwareness (M0A literal 0.6) — a gentle cut: enough obscurity risk for unknown+small films without crushing established/marketed reach
+  // ── D-13 CONDITIONAL discoverability uncertainty (engaged only) ──────────────
+  // The organic-floor cut above is a global reach lever; it could not deliver a real obscurity TAIL
+  // without crushing all films (owner rejected a deeper cut). This adds a governed, CONDITIONAL
+  // opening-reach multiplier whose SPREAD widens only when the package lacks reach support — low
+  // reachSupport = low awarenessFactor (studio awareness + paid marketing) and low star draw. A single
+  // N(0,1) draw z comes from an ISOLATED engaged-only derived stream stream(seed,'discovery-v1',prodId)
+  // (never state.rngState → deterministic replay + M0A byte-identity), applied to OPENING (week-1
+  // turnout) and thus TOTAL; LEGS/WAS/critic are untouched (a strong film that opens weak can still leg
+  // out → sleeper; a weak one disappears). Depends ONLY on awareness/marketing/star — never script
+  // price, budget label, cheap-film class, critic, or eventual audience score. z=0 ⇒ multiplier 1
+  // (M0A + forecast center = deterministic). Median (z=0) is preserved; the tails widen for low support.
+  DISC_SUPPORT_AWARENESS: 0.55, // [ICH] weight of awarenessFactor (awareness + marketing) in reachSupport
+  DISC_SUPPORT_STAR: 0.45, // [ICH] weight of opening star draw / 100 in reachSupport
+  DISC_SUPPORT_THRESHOLD: 0.45, // [ICH] reach-support level at/above which discovery risk is ZERO — a real cast, Standard/Large marketing, or established awareness makes a film reliable; only genuinely unsupported (unknown+Small+low-awareness) packages get variance
+  DISC_SPREAD: 3.5, // [ICH] max lognormal spread of the opening multiplier at zero reach support
+  DISC_SUPPORT_EXP: 1.5, // [ICH] convexity of the (threshold−support) ramp (>1 ⇒ risk concentrates at the very-low-support corner)
+  DISC_FLOOR: 0.2, // [ICH] floor on the opening multiplier (a positive tail always remains)
+  DISC_CEIL: 1.8, // [ICH] ceiling on the opening multiplier (bounded discovery upside; the sleeper comes from legs/word of mouth, not a huge opening)
+  DISC_FORECAST_LOW_Z: 1.28, // [ICH] |z| used to widen the forecast LOW opening band (≈10th pct) — DISPLAY only, no realized draw
   // Stage B: deterministic OVEREXPOSURE pressure (engaged only; NO new RNG, NO critic effect). Spending
   // far beyond a film's efficient marketing capacity raises audience expectations the delivered movie
   // must satisfy; when it under-delivers (low weighted audience score) those expectations sour and the
