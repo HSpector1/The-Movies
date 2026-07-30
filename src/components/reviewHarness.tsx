@@ -177,8 +177,11 @@ export function ReviewArea({ view }: { view: string }): JSX.Element | null {
   const v = G_REVIEW[view]
   if (!v || v.kind === 'production') return null
   if (v.kind === 'lod') return <ReviewLOD />
-  const anim = v.kind === 'anim'
-  return <ReviewLineup clip={anim ? (v.clip ?? 'Idle_Loop') : 'Idle_Loop'} frozen={!anim} />
+  // Lineups animate Idle_Loop LIVE (so the sixth required clip, Idle_Loop, is shown performing —
+  // the 26-camera list has no separate Idle camera). Close-ups freeze the idle for clean anatomy
+  // inspection; animation views play their clip live.
+  if (v.kind === 'anim') return <ReviewLineup clip={v.clip ?? 'Idle_Loop'} frozen={false} />
+  return <ReviewLineup clip="Idle_Loop" frozen={v.kind === 'closeup'} />
 }
 
 // preload the LOD variants used by the comparison so switching to it doesn't stall
