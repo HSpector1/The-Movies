@@ -11,7 +11,10 @@ import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 import { clone as skeletonClone } from 'three/examples/jsm/utils/SkeletonUtils.js'
 import { CREW_URL } from './studioSlice'
-import { G_REVIEW, G_REVIEW_LOD_ROLE } from '../lab/cameraBridge'
+import { getReviewView, G_REVIEW_LOD_ROLE } from '../lab/cameraBridge'
+
+const HERO_URL = '/assets/studio/characters/electric_hero_05f.glb'
+const heroLodUrl = (n: 0 | 1 | 2): string => (n === 0 ? HERO_URL : HERO_URL.replace('.glb', `_LOD${n}.glb`))
 
 const CLIP_URL = '/assets/animation/UAL1_Standard.glb'
 const ROLES = ['PA', 'Grip', 'Electric', 'Maintenance', 'Office', 'CameraDP', 'Director', 'Carpenter'] as const
@@ -172,11 +175,65 @@ function ReviewLOD(): JSX.Element {
   )
 }
 
+// ===== Asset Lab 05F — 05E Electric ↔ 05F hero comparison (accepted 05E on the LEFT, hero on RIGHT) =====
+function HeroCompare({ clip, frozen }: { clip: string; frozen: boolean }): JSX.Element {
+  return (
+    <group>
+      <ReviewEnv />
+      <ReviewChar url={CREW_URL.Electric} clip={clip} frozen={frozen} pos={[-0.55, 0, 0]} rotY={0} />
+      <ReviewChar url={HERO_URL} clip={clip} frozen={frozen} pos={[0.55, 0, 0]} rotY={0} />
+      <Label lines={['05E Electric']} position={[-0.55, 2.05, 0]} lineWorld={0.10} />
+      <Label lines={['05F Hero']} position={[0.55, 2.05, 0]} lineWorld={0.10} />
+    </group>
+  )
+}
+
+function HeroLODChar({ lod, pos }: { lod: 0 | 1 | 2; pos: [number, number, number] }): JSX.Element {
+  const { scene } = useGLTF(heroLodUrl(lod))
+  const { animations } = useGLTF(CLIP_URL)
+  const obj = useMemo(() => {
+    const c = skeletonClone(scene)
+    c.traverse((o) => { const m = o as THREE.Mesh; if (m.isMesh) { m.castShadow = true; m.frustumCulled = false } })
+    return c
+  }, [scene])
+  const stats = useMemo(() => meshStats(obj), [obj])
+  const mixer = useMemo(() => new THREE.AnimationMixer(obj), [obj])
+  useEffect(() => {
+    const c = animations.find((a) => a.name === 'Idle_Loop') ?? animations[0]
+    const action = mixer.clipAction(c); action.reset().play(); action.time = IDLE_FREEZE_T; mixer.update(0)
+    return () => { mixer.stopAllAction() }
+  }, [mixer, animations])
+  return (
+    <group position={pos}>
+      <primitive object={obj} />
+      <Label lines={[`05F Hero · LOD${lod}`, `${stats.tris.toLocaleString()} tris`, `${stats.materials} materials`, `${stats.joints} joints`]}
+        position={[0, 2.16, 0]} lineWorld={0.085} />
+    </group>
+  )
+}
+
+function HeroLOD(): JSX.Element {
+  return (
+    <group>
+      <ReviewEnv />
+      <HeroLODChar lod={0} pos={[-1.95, 0, 0]} />
+      <HeroLODChar lod={1} pos={[0, 0, 0]} />
+      <HeroLODChar lod={2} pos={[1.95, 0, 0]} />
+      <Label lines={['05F Hero LOD comparison — same pose, scale & lighting']} position={[0, 2.62, 0]} lineWorld={0.1} />
+    </group>
+  )
+}
+
 // ----- dispatch on the active review view's kind -----
 export function ReviewArea({ view }: { view: string }): JSX.Element | null {
-  const v = G_REVIEW[view]
+  const v = getReviewView(view)
   if (!v || v.kind === 'production') return null
   if (v.kind === 'lod') return <ReviewLOD />
+  if (v.kind === 'herolod') return <HeroLOD />
+  // 05F comparison views: both characters, same clip/time/scale/lighting. Static (frozen idle) for the
+  // structural/region views; live for the animation-comparison views (those carry a `clip`).
+  if (v.kind === 'herocompare' || v.kind === 'herosingle')
+    return <HeroCompare clip={v.clip ?? 'Idle_Loop'} frozen={!v.clip} />
   // Lineups animate Idle_Loop LIVE (so the sixth required clip, Idle_Loop, is shown performing —
   // the 26-camera list has no separate Idle camera). Close-ups freeze the idle for clean anatomy
   // inspection; animation views play their clip live.
@@ -184,5 +241,7 @@ export function ReviewArea({ view }: { view: string }): JSX.Element | null {
   return <ReviewLineup clip="Idle_Loop" frozen={v.kind === 'closeup'} />
 }
 
-// preload the LOD variants used by the comparison so switching to it doesn't stall
+// preload the LOD variants + the hero so switching views doesn't stall
 ;[1, 2].forEach((n) => useGLTF.preload(lodUrl(G_REVIEW_LOD_ROLE, n as 1 | 2)))
+useGLTF.preload(HERO_URL);
+[1, 2].forEach((n) => useGLTF.preload(heroLodUrl(n as 1 | 2)))

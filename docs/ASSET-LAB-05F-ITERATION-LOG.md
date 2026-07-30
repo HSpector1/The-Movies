@@ -161,3 +161,30 @@ E thin hands · F block boots · G flat face · H bent poses expose modeling.
 - **Evidence:** `proof/lab05f/iteration-05/`. **Tris 9,804.**
 - **Decision: ACCEPT — CONTINUE.** Deformation certified across all six clips (Rigging PASS); the one
   must_fix (yoke shard) resolved. Next = Iteration 6 face + materials + LOD export + review harness + final.
+
+---
+
+## Iteration 6 — Face, materials, LODs & final cohesion (defect G + delivery)
+- **Face (light — owner said not first priority):** warmed the skin (0.89/0.69/0.55, no washed-out),
+  firmer chin/jaw, fuller cheekbones, a stronger brow ridge; the hardhat fits. Reads friendly + intentional.
+- **LOD export (`build_hero_export.py`):** built the hero + LOD0/1/2 + a convex collision proxy, exported
+  to `public/assets/studio/characters/electric_hero_05f{,_LOD1,_LOD2,_COL}.glb` — DISTINCT filenames so
+  the 05E `Char_Electric_Heavy*.glb` are never overwritten. Blender charvalidate gate PASS (face −Y, 65
+  joints, height 1.819, grounded, no stray island). **LOD0/1/2 = 9,804 / 5,391 / 2,940 tris** (65 joints
+  preserved across all LODs, verified live in-engine).
+- **Review harness (additive 05F group):** added an "05F Hero" comparison group to the existing Scene-G
+  harness — **22 cameras** (05E/05F individual front+back, side-by-side front/back/3q, pelvis/vest/
+  shoulder/hand/boot region comparisons, walk/talk/kneel/pickup/sit animation comparisons, 05F LOD
+  comparison, management-distance, human-scale, wireframe) + Reset. Renders the accepted 05E Electric
+  (left) and the 05F hero (right) at IDENTICAL pose/anim-time/scale/lighting/angle, labelled, in the
+  neutral review area. New cameraBridge `G_HERO` map + `getReviewView`; `reviewHarness` `HeroCompare` /
+  `HeroLOD`; DevPanel "05F Hero" group + hero-aware status panel. tsc + vite build clean; runtime capture
+  **console-error-free**.
+- **Validator (`validate-hero.mjs`):** regression guard — hero GLBs exist, manifest OK, LOD budgets in
+  range + monotonic, 05E Electric GLBs intact, all 22 review cameras wired, evidence present → OK.
+- **Materials:** kept the matte cohesive 05E palette (reviewers passed it); warmed skin; restrained
+  white reflective bands retained from the fitted-vest rebuild.
+- **Evidence:** `proof/lab05f/iteration-06/` + `proof/lab05f/final/` (Blender 05E↔05F cmp set) +
+  `proof/lab05f/runtime/` (23 in-engine comparison PNGs + performance.json).
+- **Decision: STOP-PASS.** All six iterations complete; every owner defect (A–G) rebuilt + independently
+  confirmed; deformation certified; additive delivery + in-engine A/B harness shipped. → final report.

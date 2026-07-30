@@ -2,7 +2,7 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import { useLab } from '../lab/LabContext'
 import { latestStats } from '../lab/stats'
-import { applyView, D_VIEWS, E_VIEWS, F_VIEWS, G_REVIEW, G_REVIEW_ORDER, G_REVIEW_DEFAULT, gReviewKind } from '../lab/cameraBridge'
+import { applyView, D_VIEWS, E_VIEWS, F_VIEWS, G_REVIEW, G_REVIEW_ORDER, G_REVIEW_DEFAULT, G_HERO_ORDER, getReviewView, gReviewKind } from '../lab/cameraBridge'
 import { getErrorCount, getLastError } from '../lab/errors'
 import type { RuntimeManifest, Provenance, SceneKey } from '../types'
 
@@ -68,6 +68,14 @@ function GReviewControls(): JSX.Element {
           </div>
         </div>
       ))}
+      <div style={{ marginBottom: 6 }}>
+        <div style={{ fontSize: 10, color: '#f0a860', letterSpacing: 0.5, margin: '6px 0 3px' }}>05F Hero — 05E Electric ↔ 05F hero A/B</div>
+        <div style={row}>
+          {G_HERO_ORDER.map((n) => (
+            <Btn key={n} on={state.gReview === n} onClick={() => set('gReview', n)}>{n}</Btn>
+          ))}
+        </div>
+      </div>
       <div style={{ ...row, marginTop: 4 }}>
         <Btn on={state.gReview === G_REVIEW_DEFAULT} onClick={() => { set('gReview', G_REVIEW_DEFAULT); resetCamera() }}>Reset</Btn>
       </div>
@@ -78,22 +86,23 @@ function GReviewControls(): JSX.Element {
 function GReviewStatus(): JSX.Element {
   const { state } = useLab()
   const s = latestStats
-  const v = G_REVIEW[state.gReview]
+  const v = getReviewView(state.gReview)
   const kind = gReviewKind(state.gReview)
-  const chars = kind === 'lod' ? 3 : 8
-  const anim = kind === 'anim' ? (v?.clip ?? '—') : kind === 'production' ? 'per-role (production)' : 'Idle (static)'
-  const lod = kind === 'lod' ? 'LOD0 / LOD1 / LOD2' : 'LOD0 (as authored)'
+  const hero = kind === 'herocompare' || kind === 'herosingle' || kind === 'herolod'
+  const chars = kind === 'lod' || kind === 'herolod' ? 3 : (kind === 'herocompare' || kind === 'herosingle') ? 2 : 8
+  const anim = v?.clip ?? (kind === 'anim' ? '—' : kind === 'production' ? 'per-role (production)' : 'Idle (static)')
+  const lod = kind === 'lod' || kind === 'herolod' ? 'LOD0 / LOD1 / LOD2' : 'LOD0 (as authored)'
   const errs = getErrorCount()
   const cell: CSSProperties = { display: 'flex', justifyContent: 'space-between', gap: 8 }
   return (
     <div style={{ border: '1px solid #24303a', background: 'rgba(18,30,42,0.5)', borderRadius: 8, padding: '8px 10px', margin: '8px 0 4px' }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: '#cdeafd', marginBottom: 5 }}>Review status</div>
       <div style={{ display: 'grid', gap: '2px 0' }}>
-        <div style={cell}><span style={{ color: '#8a94a0' }}>milestone</span><b>Asset Lab 05E</b></div>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>milestone</span><b>{hero ? 'Asset Lab 05F (hero)' : 'Asset Lab 05E'}</b></div>
         <div style={cell}><span style={{ color: '#8a94a0' }}>active camera</span><b style={{ color: '#7ee787' }}>{state.gReview}</b></div>
         <div style={cell}><span style={{ color: '#8a94a0' }}>animation</span><b>{anim}</b></div>
         <div style={cell}><span style={{ color: '#8a94a0' }}>LOD</span><b>{lod}</b></div>
-        <div style={cell}><span style={{ color: '#8a94a0' }}>characters / roles</span><b>{chars} / 8</b></div>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>characters{hero ? '' : ' / roles'}</span><b>{hero ? `${chars} (05E vs 05F)` : `${chars} / 8`}</b></div>
         <div style={cell}><span style={{ color: '#8a94a0' }}>FPS</span><b style={{ color: s.loading ? '#f0a860' : '#7ee787' }}>{s.loading ? '— (loading)' : s.fps}</b></div>
         <div style={cell}><span style={{ color: '#8a94a0' }}>draw calls / frame</span><b>{s.drawCalls.toLocaleString()}</b></div>
         <div style={cell}><span style={{ color: '#8a94a0' }}>triangles / frame</span><b>{s.triangles.toLocaleString()}</b></div>

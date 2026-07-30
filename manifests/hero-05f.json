@@ -1,0 +1,20 @@
+{
+  "tool": "build_hero_export",
+  "milestone": "asset-lab-05f",
+  "role": "ElectricHero",
+  "note": "additive hero proof; 05E Electric GLBs untouched.",
+  "ok": true,
+  "issues": [],
+  "tris": 9804,
+  "height": 1.819,
+  "islands": 94,
+  "lod0_tris": 9804,
+  "lod1_tris": 5391,
+  "lod2_tris": 2940,
+  "files": [
+    "assets/studio/characters/electric_hero_05f.glb",
+    "assets/studio/characters/electric_hero_05f_LOD1.glb",
+    "assets/studio/characters/electric_hero_05f_LOD2.glb",
+    "assets/studio/characters/electric_hero_05f_COL.glb"
+  ]
+}

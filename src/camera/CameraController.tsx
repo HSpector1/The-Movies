@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useLab } from '../lab/LabContext'
-import { registerApplyView, G_REVIEW, G_REVIEW_DEFAULT } from '../lab/cameraBridge'
+import { registerApplyView, G_REVIEW, G_REVIEW_DEFAULT, getReviewView } from '../lab/cameraBridge'
 import type { SceneKey, CameraMode } from '../types'
 
 // Overview + inspection camera presets per scene, with reset (contract §8).
@@ -35,7 +35,7 @@ export function CameraController(): null {
     // Scene G (Lab 05E) is driven by the character-review view set; every other scene keeps the
     // original overview/inspection presets.
     const p = state.scene === 'G'
-      ? (G_REVIEW[state.gReview] ?? G_REVIEW[G_REVIEW_DEFAULT])
+      ? (getReviewView(state.gReview) ?? G_REVIEW[G_REVIEW_DEFAULT])
       : PRESETS[state.scene][state.cameraMode]
     camera.position.set(...p.pos)
     if (controls) { controls.target.set(...p.tgt); controls.update() }

@@ -50,7 +50,7 @@ export const F_VIEWS: Record<string, { pos: Vec3; tgt: Vec3 }> = {
 //   lod        → three copies of ONE role at LOD0/1/2, same pose/scale/lighting, with live counts
 // The neutral review area is spatially separate presentation, shown only for non-production views,
 // so the production Scene G composition is never altered.
-export type GReviewKind = 'production' | 'lineup' | 'closeup' | 'anim' | 'lod'
+export type GReviewKind = 'production' | 'lineup' | 'closeup' | 'anim' | 'lod' | 'herocompare' | 'herosingle' | 'herolod'
 export interface GReviewView { group: string; kind: GReviewKind; pos: Vec3; tgt: Vec3; clip?: string; lodFocus?: 0 | 1 | 2 }
 
 // The review lineup stands centred on origin, facing +Z (character front = Blender −Y → three +Z),
@@ -100,4 +100,47 @@ export const G_REVIEW_ORDER: string[] = [
   'Management Distance', 'Human Scale', 'Refined Lot Scale Reference', 'Full Scene Overview',
 ]
 export const G_REVIEW_DEFAULT = 'Full Scene Overview'
-export const gReviewKind = (name: string): GReviewKind => G_REVIEW[name]?.kind ?? 'production'
+
+// -----------------------------------------------------------------------------
+// Asset Lab 05F — 05E-Electric ↔ 05F-HERO comparison group (additive to the Scene-G harness).
+// The neutral review area renders the accepted 05E Electric on the LEFT (x<0) and the 05F hero on the
+// RIGHT (x>0) at IDENTICAL pose / animation-time / scale / lighting / camera. `kind`:
+//   herocompare → both characters framed together;  herosingle (focus '05e'|'05f') → one framed alone;
+//   herolod     → the 05F hero at LOD0/1/2 side by side.  `clip` plays a clip live (else a static idle).
+export interface GHeroView extends GReviewView { focus?: '05e' | '05f' }
+export const G_HERO: Record<string, GHeroView> = {
+  '05E Electric — Front':       { group: '05F Hero', kind: 'herosingle', focus: '05e', pos: [-0.55, 1.30, 2.5], tgt: [-0.55, 0.98, 0] },
+  '05F Hero — Front':           { group: '05F Hero', kind: 'herosingle', focus: '05f', pos: [0.55, 1.30, 2.5],  tgt: [0.55, 0.98, 0] },
+  '05E Electric — Back':        { group: '05F Hero', kind: 'herosingle', focus: '05e', pos: [-0.55, 1.30, -2.5], tgt: [-0.55, 0.98, 0] },
+  '05F Hero — Back':            { group: '05F Hero', kind: 'herosingle', focus: '05f', pos: [0.55, 1.30, -2.5],  tgt: [0.55, 0.98, 0] },
+  'Side-by-Side Front':         { group: '05F Hero', kind: 'herocompare', pos: [0, 1.35, 5.2],  tgt: [0, 0.95, 0] },
+  'Side-by-Side Back':          { group: '05F Hero', kind: 'herocompare', pos: [0, 1.35, -5.2], tgt: [0, 0.95, 0] },
+  'Side-by-Side Three-Quarter': { group: '05F Hero', kind: 'herocompare', pos: [4.6, 2.1, 5.0], tgt: [0, 0.95, 0] },
+  'Pelvis Front Comparison':    { group: '05F Hero', kind: 'herocompare', pos: [0, 0.74, 3.0],  tgt: [0, 0.62, 0] },
+  'Pelvis Back Comparison':     { group: '05F Hero', kind: 'herocompare', pos: [0, 0.74, -3.0], tgt: [0, 0.62, 0] },
+  'Vest Comparison':            { group: '05F Hero', kind: 'herocompare', pos: [0, 1.36, 2.9],  tgt: [0, 1.28, 0] },
+  'Shoulder Comparison':        { group: '05F Hero', kind: 'herocompare', pos: [0, 1.52, 2.7],  tgt: [0, 1.44, 0] },
+  'Hand Comparison':            { group: '05F Hero', kind: 'herocompare', pos: [0, 0.96, 2.7],  tgt: [0, 0.86, 0] },
+  'Boot Comparison':            { group: '05F Hero', kind: 'herocompare', pos: [0, 0.40, 2.7],  tgt: [0, 0.08, 0] },
+  'Walk Comparison':            { group: '05F Hero', kind: 'herocompare', clip: 'Walk_Loop',         pos: [4.4, 1.8, 5.2], tgt: [-0.1, 0.95, 0] },
+  'Talk Comparison':           { group: '05F Hero', kind: 'herocompare', clip: 'Idle_Talking_Loop', pos: [4.4, 1.8, 5.2], tgt: [-0.1, 0.95, 0] },
+  'Kneeling Comparison':        { group: '05F Hero', kind: 'herocompare', clip: 'Fixing_Kneeling',   pos: [4.2, 1.4, 4.6], tgt: [-0.1, 0.65, 0] },
+  'Pickup Comparison':          { group: '05F Hero', kind: 'herocompare', clip: 'PickUp_Table',      pos: [4.2, 1.6, 4.8], tgt: [-0.1, 0.9, 0] },
+  'Sitting Comparison':         { group: '05F Hero', kind: 'herocompare', clip: 'Sitting_Idle_Loop', pos: [4.2, 1.4, 4.8], tgt: [-0.1, 0.8, 0] },
+  '05F LOD Comparison':         { group: '05F Hero', kind: 'herolod', pos: [0, 1.45, 6.0], tgt: [0, 0.95, 0] },
+  'Management Distance Comparison': { group: '05F Hero', kind: 'herocompare', pos: [0, 1.7, 11], tgt: [0, 0.95, 0] },
+  'Human Scale Comparison':     { group: '05F Hero', kind: 'herocompare', pos: [0, 1.5, 3.6], tgt: [0, 1.0, 0] },
+  'Wireframe Comparison':       { group: '05F Hero', kind: 'herocompare', pos: [0, 1.35, 5.2], tgt: [0, 0.95, 0] },
+}
+export const G_HERO_ORDER: string[] = [
+  '05E Electric — Front', '05F Hero — Front', '05E Electric — Back', '05F Hero — Back',
+  'Side-by-Side Front', 'Side-by-Side Back', 'Side-by-Side Three-Quarter',
+  'Pelvis Front Comparison', 'Pelvis Back Comparison', 'Vest Comparison', 'Shoulder Comparison',
+  'Hand Comparison', 'Boot Comparison', 'Walk Comparison', 'Talk Comparison', 'Kneeling Comparison',
+  'Pickup Comparison', 'Sitting Comparison', '05F LOD Comparison', 'Management Distance Comparison',
+  'Human Scale Comparison', 'Wireframe Comparison',
+]
+
+// combined accessor + kind (Scene-G views live in either G_REVIEW or the 05F G_HERO map)
+export const getReviewView = (name: string): GReviewView | undefined => G_REVIEW[name] ?? G_HERO[name]
+export const gReviewKind = (name: string): GReviewKind => getReviewView(name)?.kind ?? 'production'

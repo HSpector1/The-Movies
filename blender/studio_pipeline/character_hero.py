@@ -34,13 +34,15 @@ HERO_STAGE = {
     "arms":   True,    # Iteration 3
     "hands":  True,    # Iteration 3
     "boots":  True,    # Iteration 4
-    "face":   False,   # Iteration 6
+    "face":   True,    # Iteration 6
 }
 
 
 def build_hero(arm, tag="ElectricHero", seed=1):
     """Author the hero Electric character, directly skinned to `arm`. Returns the mesh object."""
     cfg = dict(ROLES["Electric"])
+    if HERO_STAGE["face"]:
+        cfg["skin"] = (0.89, 0.69, 0.55)   # 05F: a touch warmer/richer skin (owner: no washed-out skin)
     prof = SIZE[cfg["size"]]
     CH, WA, HI, LI, SH = prof["chest"], prof["waist"], prof["hip"], prof["limb"], prof["shoulder"]
     NK = prof.get("neck", 1.0)
@@ -190,10 +192,10 @@ def build_hero(arm, tag="ElectricHero", seed=1):
     hx, hy, hz = head_c.x, head_c.y, head_c.z + 0.02
     fy = hy - 0.092
     ex = 0.0335 + v_eye
-    sb.uvsphere("Head", 1.0, u=10, v=8, matrix=T(hx, hy - 0.052, hz - 0.064) @ Matrix.Diagonal((0.038 * v_chin, 0.042 * v_chin, 0.036, 1)), mat=skin)
+    sb.uvsphere("Head", 1.0, u=10, v=8, matrix=T(hx, hy - 0.052, hz - 0.064) @ Matrix.Diagonal((0.040 * v_chin, 0.044 * v_chin, 0.038, 1)), mat=skin)  # 05F: slightly firmer chin/jaw
     for sgn in (-1, 1):
-        sb.uvsphere("Head", 1.0, u=8, v=6, matrix=T(hx + sgn * 0.050, hy - 0.058, hz + 0.004) @ Matrix.Diagonal((0.028, 0.034, 0.036, 1)), mat=skin)
-    sb.uvsphere("Head", 1.0, u=12, v=6, matrix=T(hx, hy - 0.088, hz + 0.050) @ Matrix.Diagonal((0.084, 0.026, 0.016, 1)), mat=skin)
+        sb.uvsphere("Head", 1.0, u=8, v=6, matrix=T(hx + sgn * 0.051, hy - 0.058, hz + 0.005) @ Matrix.Diagonal((0.030, 0.036, 0.038, 1)), mat=skin)  # 05F: fuller cheekbone
+    sb.uvsphere("Head", 1.0, u=12, v=6, matrix=T(hx, hy - 0.088, hz + 0.050) @ Matrix.Diagonal((0.088, 0.030, 0.020, 1)), mat=skin)  # 05F: stronger brow ridge
     sb.uvsphere("Head", 1.0, u=8, v=6, matrix=T(hx, hy - 0.090, hz + 0.020) @ Matrix.Diagonal((0.013, 0.024, 0.044, 1)), mat=skin)
     for sgn in (-1, 1):
         sb.uvsphere("Head", 1.0, u=10, v=8, matrix=T(hx + sgn * ex, fy + 0.006, hz + 0.015) @ Matrix.Diagonal((0.030, 0.013, 0.021, 1)), mat=white)
