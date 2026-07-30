@@ -169,3 +169,43 @@ hands/boot refinements · 8 holistic (Scene G re-export + runtime + full 6-clip 
   clear finger-length variation + an opposable thumb; base-lowerbody — pouch hangs on a strap, boot
   balanced; roles-front — cohesive premium crew. **Deformation:** pickup clean (bent sleeves + stride).
 - **Decision: ACCEPT.** → holistic loop 8 (Scene G re-export + runtime + full validation + final gate).
+
+---
+
+## Loop 8 — Holistic finalization (Scene G re-export · runtime · full validation · final gate)
+- **Change:** no new geometry — re-exported all 8 roles + LOD0/1/2 + collision into Scene G (same
+  filenames, so `studioSlice.tsx` loads them unchanged), re-captured the runtime, rendered the full
+  final proof set, and ran the final adversarial before/after gate.
+- **Validate:** 8/8 build gate; 8/8 validator; 0 unweighted / 0 bad-sum. LOD0 **8.0–9.6k** (05D was
+  10.6–11.8k → ~20–25% leaner), LOD1 4.4–5.3k, LOD2 2.4–2.9k. Runtime Scene G **console-error-free =
+  true** (SwiftShader diagnostic; real-GPU pass is the owner's M3). Six-clip deformation clean (verified
+  each loop; final z-ranges healthy, feet grounded).
+- **Look (`proof/lab05e/final/` + `/runtime/`):** the crew reads as a cohesive, continuous, fitted
+  premium-stylized cast in BOTH neutral Blender renders and the actual three.js engine (01-crew-front,
+  04-human-scale) — a clear step up from the 05D "assembled primitives" runtime.
+
+### Final before/after gate (Workflow, 5 lenses, 05D baseline vs 05E final) — all READY_WITH_NOTES:
+- **Anatomy/continuity: MAJOR_IMPROVEMENT (4).** The #1 prior defect (butt-jointed limb seams) is
+  directly fixed; limbs continuous; builds still distinct. No substantive regression (builds read a
+  touch closer than 05D only because heavy is now believably stocky, not a balloon — an intended trade).
+- **Fitted clothing: IMPROVED (4).** Balloon torso → fitted; black sternum stripe gone; belt seated.
+- **Hands/feet: MAJOR_IMPROVEMENT (4), no regressions.** Mitten→individuated fingers + opposable thumb;
+  boot rebalanced to the ankle.
+- **Face: IMPROVED (4), no regressions.** Cap off the brow; glum line → friendly neutral-smile.
+- **Art Director incl. runtime: IMPROVED (3).** "From recoloured mannequin toward a well-dressed cast —
+  closer, not yet final." One honest MAJOR: all roles share one body mesh/face (differentiation = palette
+  + headwear + props). **This is a DESIGN-SCOPE owner decision (shared 65-bone skeleton + costume rows),
+  not a cleanup defect** — per-role unique bodies/faces/pose-variety is a larger authoring change and
+  brushes section-11 non-goals; recorded for the owner, not silently built.
+
+## FINAL scores (1–5) & verdict
+continuous-anatomy 4 · fitted-clothing 4 · faces 4 · hands 4 · feet 4 · deformation 5 ·
+role-identity 4 · build-variety 4 · runtime-consistency 5 · technical-integrity 5 · overall/AD 3 →
+**no targeted category < 4 except the design-scope AD "shared-mesh" note.**
+
+**Loops completed: 8** (the stated maximum). **Stop reason:** every targeted visible defect from the
+owner's CONDITIONAL PASS + the mid-point gate is materially fixed and independently confirmed
+(2 MAJOR + 3 IMPROVED, zero substantive regressions); the only remaining major is a design-scope
+decision for the owner; remaining minors are management-distance diminishing-returns polish.
+
+**VERDICT: PASS WITH NOTES. ACTION: OWNER REVIEW (real M3).** Not integrated; Gate D not started.
