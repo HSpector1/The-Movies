@@ -43,3 +43,35 @@ E thin hands · F block boots · G flat face · H bent poses expose modeling.
 - **Decision: ACCEPT — CONTINUE.** The top rejection issue (B) and defect C are materially fixed and
   independently confirmed. Next = Iteration 2 fitted safety vest (retires the vest-ring construction +
   the residual vest-hem crenellation).
+
+---
+
+## Iteration 2 — Fitted safety vest (defect A)
+- **Ranked top defect:** A — the 05E hi-vis vest = three inflated ellipsoid rings + two rigid white
+  rail cylinders sitting well proud of the torso (flotation/armor read, no opening, no armhole fit).
+- **Correction cluster (vest only):** new open-arc-loft garment primitive (`meshgen.add_arc_loft` +
+  `skinning.arc_loft`) — an OPEN, uncapped lofted shell. Rebuilt the vest as a FITTED arc-loft shell
+  following the torso rings ~1.5 cm proud, spine-weighted: an OPEN FRONT (a ~40° zip gap so the shirt
+  shows between two front panels), ending below the shoulder yoke (natural armholes) and below the neck
+  (natural neck opening). The reflective bands are now two THIN white arc-strips wrapping the sides/back
+  (restrained), not rigid full-ring rails.
+- **Files:** `character_hero.py` (vest stage flipped on + new vest), `meshgen.py`, `skinning.py` (new
+  primitive). character2.py + 05E assets untouched.
+- **Blender result:** **8,116 tris** (leaner than the ellipsoid-ring vest); height 1.827 m.
+- **Deformation:** vest is spine-weighted and bends with the torso — pickup/kneel/walk/talk/sit show no
+  torso piercing, no detachment, no armhole/arm intersection. The iteration-1 residual vest-hem
+  crenellation is gone (the fitted hem is clean).
+- **Specialist review (Garment Artist + Rigging + Art Director):** all three **PASS WITH NOTES**, vest
+  fit 4/5. Garment Artist (no must_fix): "resolves every reason the owner rejected 05E… a constructed
+  shoulder-anchored safety vest." Two convergent must_fix items, both in the SHOULDER region: Rigging —
+  the armhole edge delaminates off the deltoid on shoulder abduction (under-weighted to clavicle);
+  Art Director — add an over-shoulder yoke so it reads shoulder-hung, "the one change from believable to
+  unmistakable." → **addressed this loop with one change:** added hi-vis **over-shoulder yoke straps**
+  (clavicle-weighted) connecting the front panels to the back across each trapezius, + blended a little
+  clavicle into the two upper vest rings, + a proud hem for lumbar clearance + a wider front gap.
+  Re-render: sit/kneel-rear now show the armhole tracking the shoulder with no floating flap; the vest
+  reads as a shoulder-hung safety vest.
+- **Scores (1–5):** vest-fit 4 · open-front 4 · shoulder-fit 4 · reflective-restraint 4 · vest-deform 4.
+- **Evidence:** `proof/lab05f/iteration-02/`. **Tris 8,172** (leaner than the 05E ring vest).
+- **Decision: ACCEPT — CONTINUE.** Defect A materially fixed + independently confirmed; both must_fix
+  items resolved. Next = Iteration 3 shoulders + arms + hands.

@@ -79,6 +79,15 @@ class SkinnedBuilder:
             self.add(vs, wmap)
         return ring_verts
 
+    def arc_loft(self, rings, a0, a1, segments=12, mat=0):
+        """An OPEN lofted shell (a fitted vest / jacket) skinned per-ring. `rings` = (weights,cx,cy,cz,
+        rx,ry); each ring's arc verts are weighted to that ring's own bone/blend."""
+        geo = [(cx, cy, cz, rx, ry) for (_w, cx, cy, cz, rx, ry) in rings]
+        ring_verts = self.mb.add_arc_loft(geo, a0, a1, segments=segments, mat=mat)
+        for (wmap, *_), vs in zip(rings, ring_verts):
+            self.add(vs, wmap)
+        return ring_verts
+
     def tube(self, rings, up=(0, 0, 1), segments=16, mat=0, cap_start=True, cap_end=True):
         """A single swept tube skinned progressively along its rings — a continuous LIMB.
 

@@ -177,6 +177,29 @@ class MeshBuilder:
             f.material_index = mat
         return ring_verts
 
+    def add_arc_loft(self, rings, a0, a1, segments=12, mat=0):
+        """Loft a stack of elliptical-ARC rings into an OPEN shell (an unclosed, uncapped surface) —
+        the fitted-garment primitive: a safety vest / open jacket that wraps the back + sides but is
+        OPEN at the front, with natural armhole/neck edges. `rings` = (cx,cy,cz,rx,ry); each ring is
+        an arc from angle a0 to a1 (radians; front of the body is at 3*pi/2). Returns per-ring BMVert
+        lists so each ring can be weighted to its own bone.
+        """
+        ring_verts = []
+        for (cx, cy, cz, rx, ry) in rings:
+            vs = []
+            for i in range(segments + 1):
+                a = a0 + (a1 - a0) * i / segments
+                vs.append(self.bm.verts.new((cx + rx * math.cos(a), cy + ry * math.sin(a), cz)))
+            ring_verts.append(vs)
+        faces = []
+        for r in range(len(ring_verts) - 1):
+            A, B = ring_verts[r], ring_verts[r + 1]
+            for i in range(segments):
+                faces.append(self.bm.faces.new((A[i], A[i + 1], B[i + 1], B[i])))
+        for f in faces:
+            f.material_index = mat
+        return ring_verts
+
     def add_box_between(self, p0, p1, w, h, mat=0):
         """A rectangular beam spanning p0->p1 with cross-section w (x) by h (y)."""
         p0, p1 = Vector(p0), Vector(p1)

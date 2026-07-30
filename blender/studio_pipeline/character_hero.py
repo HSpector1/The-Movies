@@ -16,6 +16,7 @@ is NOT touched. The strong 05E constructs (lofted torso, tube arms, face) are re
 rejected regions are rebuilt. Helpers are imported from character2 so nothing is duplicated that
 could drift.
 """
+import math
 import bpy
 from mathutils import Vector, Matrix
 from . import config, core, rig, materials
@@ -29,7 +30,7 @@ from .character2 import (
 # which regions are the rebuilt HERO versions vs still copied from 05E (advances each iteration)
 HERO_STAGE = {
     "pelvis": True,    # Iteration 1
-    "vest":   False,   # Iteration 2
+    "vest":   True,    # Iteration 2
     "arms":   False,   # Iteration 3
     "hands":  False,   # Iteration 3
     "boots":  False,   # Iteration 4
@@ -134,15 +135,42 @@ def build_hero(arm, tag="ElectricHero", seed=1):
         # flat radio clipped to the belt (thin front-back, hugs the hip)
         sb.box("pelvis", size=(0.044, 0.026, 0.072), matrix=T(-0.146, -0.086, pelvis.z + 0.010), mat=SLOT["dark"])
 
-    # ============================================================ VEST (05E copy — rebuilt Iteration 2)
-    if cfg.get("vest") and not HERO_STAGE["vest"]:
+    # ============================================================ VEST (HERO: fitted open-front shell)
+    if cfg.get("vest") and HERO_STAGE["vest"]:
+        # A FITTED safety-vest SHELL that follows the torso loft ~1.5 cm proud — an OPEN-FRONT arc (the
+        # shirt shows between the two front panels), ending below the shoulders (natural armholes) and
+        # below the neck (natural neck opening). Replaces the 05E three-inflated-ring + rigid-rail vest.
         hv = SLOT["hivis"]
-        ell("spine_02", s2.x, s2.y, s2.z + 0.005, 0.190 * g, 0.112 * g, 0.140, hv)
-        ell("spine_03", s3.x, s3.y - 0.006, s3.z + 0.012, 0.200 * g, 0.108 * g, 0.098, hv)
-        ell("spine_01", s1.x, s1.y + 0.002, s1.z + 0.02, 0.156 * g, 0.108 * g, 0.085, hv)
-        for bz in (s2.z + 0.055, s2.z - 0.045):
-            sb.cyl("spine_02", 0.198 * g, 0.020, segments=22,
-                   matrix=T(s2.x, s2.y, bz) @ Matrix.Diagonal((1.0, 0.60, 1.0, 1)), mat=white)
+        front = 1.5 * math.pi           # -Y front
+        gap = 0.38                      # half-gap (radians) at the front-centre → the open zip line
+        a0, a1 = front + gap, front + 2 * math.pi - gap
+        # The two upper rings blend a little CLAVICLE so the armhole edge tracks the deltoid on shoulder
+        # abduction instead of delaminating into a floating flap (iter-2 rigging major). Symmetric so the
+        # ring does not shear sideways. The hem ring stands ~0.6 cm proud for lumbar clearance in deep flex.
+        w_up = {"spine_02": 0.36, "spine_03": 0.5, "clavicle_l": 0.07, "clavicle_r": 0.07}
+        w_top = {"spine_03": 0.72, "clavicle_l": 0.14, "clavicle_r": 0.14}
+        vest_rings = [
+            ("spine_01",                          0.0, yb + 0.012, s1.z + 0.006, 0.150 * WA, 0.105 * WA),  # hem (proud for clearance)
+            (_blend("spine_01", "spine_02", 0.5), 0.0, yb - 0.004, (s1.z + s2.z) * 0.5, 0.181 * CH, 0.112 * CH),  # lower chest
+            ("spine_02",                          0.0, yb - 0.010, s2.z + 0.010, 0.192 * CH, 0.116 * CH),  # chest (proud front)
+            (w_up,                                0.0, yb - 0.004, (s2.z + s3.z) * 0.5 + 0.005, 0.196 * SH, 0.107 * SH),  # upper chest
+            (w_top,                               0.0, yb - 0.002, s3.z - 0.006, 0.188 * SH, 0.099 * SH),  # top (below the shoulder yoke)
+        ]
+        sb.arc_loft([(w, cx, cy, cz, rx, ry) for (w, cx, cy, cz, rx, ry) in vest_rings], a0, a1, segments=22, mat=hv)
+        # OVER-SHOULDER YOKE STRAPS (iter-2 must_fix): a hi-vis strap over each trapezius connecting the
+        # front panel to the back panel, weighted to the clavicle so the vest reads as SHOULDER-HUNG (not
+        # a chest wrap) and the armhole edge follows the shoulder. This is what makes it unmistakably a vest.
+        for s in ("l", "r"):
+            sgn = 1 if s == "l" else -1
+            wstrap = _blend(f"clavicle_{s}", "spine_03", 0.6)
+            p_front = Vector((sgn * 0.090, yb - 0.088, s3.z + 0.006))
+            p_back = Vector((sgn * 0.090, yb + 0.084, s3.z + 0.010))
+            sb.segment(wstrap, p_front, p_back, 0.030, 0.028, segments=8, mat=hv)
+        # restrained reflective bands: two THIN white arc-strips wrapping the vest sides/back, sat just
+        # proud of the shell (was the two rigid full-ring rails). Each band = a 2-ring arc-loft.
+        for bz, brx, bry in ((s2.z + 0.050, 0.194 * CH, 0.118 * CH), (s2.z - 0.030, 0.190 * CH, 0.116 * CH)):
+            band = [("spine_02", 0.0, yb - 0.008, bz + dz, brx + 0.004, bry + 0.004) for dz in (0.012, -0.012)]
+            sb.arc_loft([(w, cx, cy, cz, rx, ry) for (w, cx, cy, cz, rx, ry) in band], a0, a1, segments=22, mat=white)
     if cfg.get("coil"):
         cl = h("clavicle_l") if "clavicle_l" in J else h("upperarm_l")
         for k in range(3):
