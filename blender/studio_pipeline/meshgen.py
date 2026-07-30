@@ -122,6 +122,61 @@ class MeshBuilder:
             f.material_index = mat
         return ring_verts
 
+    def add_tube(self, centers, radii, up=(0.0, 0.0, 1.0), segments=16, mat=0,
+                 cap_start=True, cap_end=True):
+        """Sweep oriented elliptical rings along a path into ONE continuous tube — the organic LIMB
+        primitive. Unlike a chain of `segment` cones (which butt at each joint and crease/ring at the
+        boundary), a tube is a single surface, so an arm/leg reads and deforms as one continuous form.
+
+        centers: list of ring-centre Vectors along the limb axis. radii: one per centre, each a scalar
+        r or an (rx, ry) pair (rx along the frame U axis, ry along V). up: a reference up not parallel
+        to the limb (Z for an arm along X; Y for a leg along Z) — stabilises the ring frame so it does
+        not twist. Returns per-ring BMVert lists so the caller can weight each ring to its own bone.
+        """
+        pts = [Vector(c) for c in centers]
+        n = len(pts)
+        up = Vector(up).normalized()
+        tans = []
+        for i in range(n):
+            if i == 0:
+                t = pts[1] - pts[0]
+            elif i == n - 1:
+                t = pts[-1] - pts[-2]
+            else:
+                t = pts[i + 1] - pts[i - 1]
+            tans.append(t.normalized() if t.length > 1e-9 else Vector((0, 0, 1)))
+        ring_verts = []
+        for i in range(n):
+            T = tans[i]
+            ref = up
+            if abs(ref.dot(T)) > 0.95:
+                ref = Vector((1, 0, 0))
+            if abs(ref.dot(T)) > 0.95:
+                ref = Vector((0, 1, 0))
+            U = ref.cross(T).normalized()
+            Vv = T.cross(U).normalized()
+            r = radii[i]
+            rx, ry = (r, r) if isinstance(r, (int, float)) else (r[0], r[1])
+            vs = []
+            for k in range(segments):
+                a = 2.0 * math.pi * k / segments
+                p = pts[i] + U * (rx * math.cos(a)) + Vv * (ry * math.sin(a))
+                vs.append(self.bm.verts.new((p.x, p.y, p.z)))
+            ring_verts.append(vs)
+        faces = []
+        for r in range(n - 1):
+            A, B = ring_verts[r], ring_verts[r + 1]
+            for k in range(segments):
+                j = (k + 1) % segments
+                faces.append(self.bm.faces.new((A[k], A[j], B[j], B[k])))
+        if cap_start and n:
+            faces.append(self.bm.faces.new(list(reversed(ring_verts[0]))))
+        if cap_end and n:
+            faces.append(self.bm.faces.new(ring_verts[-1]))
+        for f in faces:
+            f.material_index = mat
+        return ring_verts
+
     def add_box_between(self, p0, p1, w, h, mat=0):
         """A rectangular beam spanning p0->p1 with cross-section w (x) by h (y)."""
         p0, p1 = Vector(p0), Vector(p1)

@@ -345,24 +345,26 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     for s in ("l", "r"):
         sgn = 1 if s == "l" else -1
         ua_h, la_h, hn_h = h(f"upperarm_{s}"), h(f"lowerarm_{s}"), h(f"hand_{s}")
-        # shoulder cap (shirt) — round deltoid pulled in + sloping into the arm (no flat plateau)
-        sb.uvsphere(_blend(f"clavicle_{s}", f"upperarm_{s}", 0.45), 0.062 * SH, u=14, v=10,
-                    matrix=T(ua_h.x - sgn * 0.014, ua_h.y, ua_h.z - 0.006) @ Matrix.Diagonal((0.95, 1.05, 1.02, 1)), mat=upper)
-        # upper-arm sleeve (shirt), tapering to the elbow
-        sb.segment(f"upperarm_{s}", ua_h, la_h, 0.056 * LI, 0.05 * LI, segments=12, mat=upper)
-        # bicep fullness so the upper arm is not a straight tube
-        bic = ua_h.lerp(la_h, 0.4)
-        sb.uvsphere(f"upperarm_{s}", 1.0, u=10, v=8,
-                    matrix=T(bic.x, bic.y - 0.004, bic.z) @ Matrix.Diagonal((0.072, 0.060 * LI, 0.058 * LI, 1)), mat=upper)
-        # elbow joint (blend) — enlarged so the elbow keeps volume at deep flex (kneel/pickup)
-        sb.uvsphere(_blend(f"upperarm_{s}", f"lowerarm_{s}"), 0.055 * LI, u=12, v=8, matrix=T(*la_h), mat=upper)
-        # rolled-sleeve cuff: a thicker shirt band just before the skin forearm begins
-        cuff_p = ua_h.lerp(la_h, 0.86)
-        sb.uvsphere(f"upperarm_{s}", 0.057 * LI, u=12, v=8, matrix=T(*cuff_p), mat=upper)
-        # forearm (skin) tapering firmly to a slim wrist
-        sb.segment(f"lowerarm_{s}", la_h, hn_h, 0.046 * LI, 0.033, segments=12, mat=skin)
-        # wrist — a SMALL smooth blend closing the forearm->palm seam (was a knot bulging at the wrist)
-        sb.uvsphere(_blend(f"lowerarm_{s}", f"hand_{s}", 0.35), 0.032, u=8, v=6, matrix=T(*hn_h), mat=skin)
+        # SLEEVE (05E): ONE continuous shirt tube — deltoid -> bicep -> elbow -> rolled cuff. The
+        # deltoid ring is wide enough to MEET the torso yoke (arm flows out of the shoulder, no plug),
+        # and the elbow bends as one surface (no butt-jointed segment ring / crease).
+        sleeve_rings = [
+            (_blend(f"clavicle_{s}", f"upperarm_{s}", 0.4), Vector((ua_h.x - sgn * 0.012, ua_h.y, ua_h.z - 0.004)), (0.066 * SH, 0.064 * SH)),  # deltoid (meets yoke)
+            (f"upperarm_{s}",                               ua_h.lerp(la_h, 0.40),                                  (0.058 * LI, 0.056 * LI)),   # bicep
+            (f"upperarm_{s}",                               ua_h.lerp(la_h, 0.80),                                  (0.052 * LI, 0.050 * LI)),   # lower upper-arm
+            (_blend(f"upperarm_{s}", f"lowerarm_{s}"),      la_h.copy(),                                            (0.050 * LI, 0.049 * LI)),   # elbow (keeps volume)
+            (f"lowerarm_{s}",                               la_h.lerp(hn_h, 0.30),                                  (0.051, 0.050)),              # rolled sleeve cuff (proud lip)
+        ]
+        sb.tube(sleeve_rings, up=(0, 0, 1), segments=16, mat=upper)
+        # FOREARM (skin): a second tube from under the sleeve cuff to a slim wrist (overlaps the cuff
+        # at ~0.26 so there is no gap; the sleeve/skin boundary reads as the rolled cuff, away from the
+        # elbow joint so the bend stays clean).
+        fore_rings = [
+            (f"lowerarm_{s}",                            la_h.lerp(hn_h, 0.26), (0.045, 0.044)),
+            (f"lowerarm_{s}",                            la_h.lerp(hn_h, 0.62), (0.040, 0.039)),
+            (_blend(f"lowerarm_{s}", f"hand_{s}", 0.4),  hn_h.copy(),           (0.032, 0.031)),   # slim wrist
+        ]
+        sb.tube(fore_rings, up=(0, 0, 1), segments=16, mat=skin)
         # HAND: a flatter, slightly larger palm + FOUR relaxed fingers + a thumb (a competent stylized
         # hand — not a paddle, not a claw). Rigid to hand_{s}, so the extra geometry is deform-safe.
         palm = hn_h + Vector((sgn * 0.040, 0, 0))
@@ -387,23 +389,20 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     # ============================================================ LEGS
     for s in ("l", "r"):
         th_h, ca_h, ft_h, bl_t = h(f"thigh_{s}"), h(f"calf_{s}"), h(f"foot_{s}"), t(f"ball_{s}")
-        # hip cap (trousers) — pulled INWARD + down so it flows into the thigh (no saddlebag jut)
-        sb.uvsphere(_blend("pelvis", f"thigh_{s}", 0.45), 0.070 * HI, u=14, v=10,
-                    matrix=T(th_h.x - sgn * 0.006, th_h.y, th_h.z + 0.006) @ Matrix.Diagonal((0.96, 1.0, 1.08, 1)), mat=lower)
-        # thigh (trousers) — WIDEST at the hip, tapering firmly to the knee (front taper: thigh>knee)
-        sb.segment(f"thigh_{s}", th_h, ca_h, 0.094 * LI, 0.060, segments=12, mat=lower)
-        # knee (blend) — bridges the thigh->calf taper as ONE rounded form (not a pinched band)
-        sb.uvsphere(_blend(f"thigh_{s}", f"calf_{s}"), 1.0, u=12, v=8,
-                    matrix=T(ca_h.x, ca_h.y - 0.004, ca_h.z) @ Matrix.Diagonal((0.060, 0.062, 0.052, 1)), mat=lower)
-        # calf (trousers) — NARROWER than the thigh, tapering hard to the ankle
-        sb.segment(f"calf_{s}", ca_h, ft_h, 0.056 * LI, 0.036, segments=12, mat=lower)
-        # calf-muscle fullness on the BACK only (+Y, small X) so it shapes the side, not the front width
-        cmus = ca_h.lerp(ft_h, 0.32)
-        sb.uvsphere(f"calf_{s}", 1.0, u=10, v=8,
-                    matrix=T(cmus.x, cmus.y + 0.020, cmus.z) @ Matrix.Diagonal((0.044, 0.058, 0.078, 1)), mat=lower)
-        # trouser hem — a SLIM fold where the trouser meets the boot (was a bulbous leg-warmer cuff)
-        sb.uvsphere(f"calf_{s}", 1.0, u=10, v=8,
-                    matrix=T(ft_h.x, ft_h.y + 0.002, ft_h.z + 0.022) @ Matrix.Diagonal((0.047, 0.050, 0.024, 1)), mat=lower)
+        # TROUSER LEG (05E): ONE continuous swept tube hip -> thigh -> knee -> calf -> ankle, each
+        # ring weighted along the thigh/calf/foot chain (no butt-jointed segment cones, so NO knee
+        # seam-band and no hip gap). Front taper thigh>knee>calf reads via the rx fall-off; a fuller
+        # calf via the ry bump + a small back nudge. The trouser ends at the ankle, tucked into the boot.
+        leg_rings = [
+            (_blend("pelvis", f"thigh_{s}", 0.5), Vector((th_h.x - sgn * 0.004, th_h.y + 0.004, th_h.z + 0.030)), (0.090 * HI, 0.094 * HI)),
+            (f"thigh_{s}",                        Vector((th_h.x, th_h.y + 0.004, th_h.z)),                       (0.094 * LI, 0.096 * LI)),
+            (f"thigh_{s}",                        th_h.lerp(ca_h, 0.5),                                           (0.078 * LI, 0.082 * LI)),
+            (_blend(f"thigh_{s}", f"calf_{s}"),   Vector((ca_h.x, ca_h.y - 0.004, ca_h.z)),                       (0.066, 0.070)),
+            (f"calf_{s}",                         ca_h.lerp(ft_h, 0.34) + Vector((0, 0.010, 0)),                  (0.058 * LI, 0.070 * LI)),
+            (f"calf_{s}",                         ca_h.lerp(ft_h, 0.74),                                          (0.048, 0.050)),
+            (_blend(f"calf_{s}", f"foot_{s}", 0.4), ft_h.copy(),                                                  (0.045, 0.047)),
+        ]
+        sb.tube(leg_rings, up=(0, 1, 0), segments=18, mat=lower)
         # SHOE (05E): a PROPER stylized work boot — a bigger, better-read boot with a defined ankle
         # cuff (the boot opening the trouser tucks into), a fuller instep/heel, a work-boot toe box,
         # and a dark sole that gives the boot a value break (was a small near-black rounded lump).

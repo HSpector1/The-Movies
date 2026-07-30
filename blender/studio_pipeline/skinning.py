@@ -79,6 +79,21 @@ class SkinnedBuilder:
             self.add(vs, wmap)
         return ring_verts
 
+    def tube(self, rings, up=(0, 0, 1), segments=16, mat=0, cap_start=True, cap_end=True):
+        """A single swept tube skinned progressively along its rings — a continuous LIMB.
+
+        `rings` = list of (weights, center, radius); center is a Vector, radius is r or (rx, ry).
+        Each ring's verts are weighted to that ring's own bone/blend, so the limb bends at its
+        joints as one surface (no butt-jointed segment rings).
+        """
+        centers = [c for (_w, c, _r) in rings]
+        radii = [r for (_w, _c, r) in rings]
+        ring_verts = self.mb.add_tube(centers, radii, up=up, segments=segments, mat=mat,
+                                      cap_start=cap_start, cap_end=cap_end)
+        for (wmap, *_), vs in zip(rings, ring_verts):
+            self.add(vs, wmap)
+        return ring_verts
+
     def build(self, name, materials, armature, shade_smooth=False):
         bm = self.mb.bm
         self.mb.recalc_normals()

@@ -94,3 +94,40 @@ light polish only).
   preserved, crew reads more polished. **Deformation:** kneel plants the boot ball, walk lifts it —
   clean, no clip/float.
 - **Decision: ACCEPT.** P1–P5 addressed. → mid-point adversarial review gate before final polish.
+
+---
+
+## Mid-point adversarial review gate (Workflow, 5 independent critical lenses on iteration-04)
+Verdicts CONCERNS across the board (Art Director 2.5, Anatomy 2, Fitted-clothing 2, Hands/Feet 2,
+Face/Silhouette 2). Triaged against the actual renders (fable-judge: some claims were **image-scale
+artifacts** — reviewers given full-body renders called the face a "featureless blob" and the hands a
+"mitten", but the close-render reviewers confirmed the features exist and need *refinement*, not a
+rebuild; "director coat missing" = that reviewer wasn't shown the coat). **Real, convergent findings:**
+(1) limbs are still butt-jointed segment tubes → visible seams/creases at knee/elbow/shoulder/wrist/
+hip (flagged by 4/5 lenses) — the dominant remaining "assembled" tell; (2) heavy build reads as a
+featureless balloon + slim/std/heavy too similar; (3) belt/pouches still read proud; (4) thin per-role
+garment construction; (5) refinements: face warmth/eye-read/nose-bridge/mouth-curve/cap-hair split,
+hand finger-length variation + thumb + palm-back, boot slightly oversized vs thin ankle.
+Plan for the remaining loops: 5 loft the limbs · 6 build profiles + torso taper · 7 belt/garment/face/
+hands/boot refinements · 8 holistic (Scene G re-export + runtime + full 6-clip validation + final gate).
+
+---
+
+## Loop 5 — Loft ALL limbs (fixes the #1 review finding: joint seams)
+- **Named weakness:** arms and legs were chains of `segment` cones + joint spheres that butt-joined
+  at each joint, ringing/creasing at knee, elbow, shoulder, wrist and hip — the dominant "assembled
+  from primitives" tell, same class of defect the torso had before Loop 1.
+- **Change:** added an oriented-sweep `tube` primitive (`meshgen.add_tube` + `skinning.tube`) that
+  sweeps elliptical rings along a limb axis into ONE continuous surface, each ring weighted along the
+  bone chain. Rebuilt: **legs** as one trouser tube (hip→thigh→knee→calf→ankle, front taper via rx
+  fall-off, fuller calf via ry); **arms** as a sleeve tube (deltoid→bicep→elbow→rolled cuff, the
+  deltoid ring wide enough to MEET the torso yoke) + a skin forearm tube (cuff→slim wrist). Hand
+  unchanged. The sleeve/skin boundary sits at the rolled cuff, away from the elbow, so the bend stays
+  clean.
+- **Rebuild/validate:** 8/8 build gate; 8/8 validator; 0 unweighted / 0 bad-sum. **Tris dropped again**
+  (Grip 10 328 → 8 240; all roles ≤ 9.4k) — tubes are far leaner than segment+sphere stacks.
+- **Look (`proof/lab05e/iteration-05/`):** base-front / base-3q — legs and arms are continuous; knee
+  seam-band GONE, elbow crease GONE, shoulder flows out of the yoke (no plug). roles-3q — the whole
+  crew reads cohesive. **Deformation (all six clips, z-ranges healthy, feet grounded):** kneel & pickup
+  bend the knee/elbow as ONE surface — cleaner than the segmented version, no melt/gap/collapse.
+- **Decision: ACCEPT.** The dominant finding is resolved. Next = build profiles (fix heavy=balloon).
