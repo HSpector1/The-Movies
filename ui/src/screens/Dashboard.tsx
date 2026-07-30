@@ -31,6 +31,7 @@ export function Dashboard({
   onOpenHub,
   onOpenRoster,
   onOpenHiring,
+  onOpenLot,
   onSaves,
   onOpenAutopsy,
   onOpenClipping,
@@ -43,6 +44,9 @@ export function Dashboard({
   onOpenHub?: () => void
   onOpenRoster?: () => void
   onOpenHiring?: () => void
+  // Gate D1: open the Studio Lot overview. Optional — present only when the
+  // studioLotOverview feature flag is on (default off), so the flag-off app is unchanged.
+  onOpenLot?: (() => void) | undefined
   onSaves: () => void
   onOpenAutopsy: (film: FilmResult) => void
   // D-11.C PART 2: reopen a film's newspaper clipping. Optional — the clipping is
@@ -161,6 +165,11 @@ export function Dashboard({
             >
               Talent Hub
             </button>
+            {onOpenLot && (
+              <button className="ghost" onClick={onOpenLot} data-testid="open-studio-lot">
+                Studio Lot
+              </button>
+            )}
             <button className="ghost" onClick={onCreateTalent} data-testid="open-talent-creator">
               Create talent
             </button>
