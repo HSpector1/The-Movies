@@ -15,6 +15,8 @@ import {
 import { HeroSoundstage, ProductionApron, GroundDecals, WorldEdge, HeroWorkers, type HeroCrewSpec } from './components/hero'
 import { RefinedLot } from './components/refinedLot'
 import { StudioSet, StudioCrew, type StudioCrewSpec } from './components/studioSlice'
+import { ReviewArea } from './components/reviewHarness'
+import { gReviewKind } from './lab/cameraBridge'
 import { HM } from './lab/heroMaterials'
 import type { RuntimeManifest, RuntimeAsset } from './types'
 
@@ -308,6 +310,18 @@ const STUDIO_CREW: StudioCrewSpec[] = [
 
 export function SceneG(): JSX.Element {
   const { state } = useLab()
+  // Lab 05E owner review: production composition is shown ONLY for the context ('production') views
+  // and is otherwise byte-identical to before. Every other review view renders the neutral, additive
+  // review area instead — the production set/crew are simply not mounted while reviewing, never altered.
+  const reviewing = gReviewKind(state.gReview) !== 'production'
+  if (reviewing) {
+    return (
+      <group>
+        <Suspense fallback={null}><ReviewArea view={state.gReview} /></Suspense>
+        {state.showScaleRef && <HumanScaleRef position={[3.6, 0, 0]} />}
+      </group>
+    )
+  }
   return (
     <group>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.03, 4]} receiveShadow material={HM.asphalt}>

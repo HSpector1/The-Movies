@@ -1,0 +1,63 @@
+{
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+  "isSoftware": true,
+  "note": "SwiftShader software raster — FPS is DIAGNOSTIC ONLY, not Apple M3 acceptance. draw calls / triangles are hardware-independent.",
+  "views": {
+    "Full Scene Overview": {
+      "samples": 80,
+      "seconds": 20,
+      "min": 2,
+      "max": 3,
+      "median": 3,
+      "steadyState": 3,
+      "drawCalls": 282,
+      "triangles": 144430,
+      "sceneTriangles": 72222,
+      "sceneMeshes": 142,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "isSoftware": true
+    },
+    "Crew Lineup Front": {
+      "samples": 80,
+      "seconds": 20,
+      "min": 1,
+      "max": 6,
+      "median": 6,
+      "steadyState": 5,
+      "drawCalls": 135,
+      "triangles": 136074,
+      "sceneTriangles": 68030,
+      "sceneMeshes": 64,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "isSoftware": true
+    },
+    "Walk": {
+      "samples": 80,
+      "seconds": 20,
+      "min": 3,
+      "max": 6,
+      "median": 5,
+      "steadyState": 5,
+      "drawCalls": 135,
+      "triangles": 136074,
+      "sceneTriangles": 68030,
+      "sceneMeshes": 64,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "isSoftware": true
+    },
+    "LOD0 Comparison": {
+      "samples": 80,
+      "seconds": 20,
+      "min": 6,
+      "max": 7,
+      "median": 6,
+      "steadyState": 6,
+      "drawCalls": 53,
+      "triangles": 31130,
+      "sceneTriangles": 15562,
+      "sceneMeshes": 25,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "isSoftware": true
+    }
+  }
+}

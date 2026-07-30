@@ -39,3 +39,65 @@ export const F_VIEWS: Record<string, { pos: Vec3; tgt: Vec3 }> = {
   'Water Tower': { pos: [-14, 17, 8], tgt: [-42, 9, -16] },
   'Human Scale': { pos: [9, 1.75, 22], tgt: [0, 1.5, 10] },
 }
+
+// -----------------------------------------------------------------------------
+// Asset Lab 05E — Scene-G CHARACTER REVIEW HARNESS (owner-review correction).
+// A complete, additive owner-review camera set. `kind` selects what Scene G renders:
+//   production → the real Scene G set + crew (composition UNCHANGED — context views only)
+//   lineup     → the neutral review area, the 8 roles in a straight labelled row (static idle)
+//   closeup    → the same neutral row, camera framed on a body region (owner pans along the row)
+//   anim       → the same neutral row, every role performing ONE clip (front three-quarter)
+//   lod        → three copies of ONE role at LOD0/1/2, same pose/scale/lighting, with live counts
+// The neutral review area is spatially separate presentation, shown only for non-production views,
+// so the production Scene G composition is never altered.
+export type GReviewKind = 'production' | 'lineup' | 'closeup' | 'anim' | 'lod'
+export interface GReviewView { group: string; kind: GReviewKind; pos: Vec3; tgt: Vec3; clip?: string; lodFocus?: 0 | 1 | 2 }
+
+// The review lineup stands centred on origin, facing +Z (character front = Blender −Y → three +Z),
+// spread along X. The LOD trio uses one representative role at three detail tiers.
+export const G_REVIEW_LOD_ROLE = 'Grip'
+
+export const G_REVIEW: Record<string, GReviewView> = {
+  // ---- Lineups (whole crew, static idle) ----
+  'Crew Lineup Front':        { group: 'Lineups', kind: 'lineup', pos: [0, 1.62, 9.6],  tgt: [0, 0.98, 0] },
+  'Crew Lineup Back':         { group: 'Lineups', kind: 'lineup', pos: [0, 1.62, -9.6], tgt: [0, 0.98, 0] },
+  'Crew Lineup Left':         { group: 'Lineups', kind: 'lineup', pos: [-9.6, 1.62, 0], tgt: [0, 0.98, 0] },
+  'Crew Lineup Right':        { group: 'Lineups', kind: 'lineup', pos: [9.6, 1.62, 0],  tgt: [0, 0.98, 0] },
+  'Crew Three-Quarter Front': { group: 'Lineups', kind: 'lineup', pos: [6.9, 2.6, 8.4], tgt: [0, 0.98, 0] },
+  'Crew Three-Quarter Back':  { group: 'Lineups', kind: 'lineup', pos: [-6.9, 2.6, -8.4], tgt: [0, 0.98, 0] },
+  'Role Comparison':          { group: 'Lineups', kind: 'lineup', pos: [0, 2.05, 11.6], tgt: [0, 1.02, 0] },
+  // ---- Close review (centred on the vest/shirt roles; owner pans along the row) ----
+  'Faces and Hair':           { group: 'Close Review', kind: 'closeup', pos: [-1.7, 1.62, 1.55], tgt: [-1.7, 1.57, 0] },
+  'Hands':                    { group: 'Close Review', kind: 'closeup', pos: [-1.7, 0.94, 1.5],  tgt: [-1.7, 0.86, 0] },
+  'Feet and Shoes':           { group: 'Close Review', kind: 'closeup', pos: [-1.7, 0.40, 1.55], tgt: [-1.7, 0.07, 0] },
+  'Torso and Vest':           { group: 'Close Review', kind: 'closeup', pos: [-1.7, 1.30, 1.6],  tgt: [-1.7, 1.24, 0] },
+  'Pelvis and Hips — Front':  { group: 'Close Review', kind: 'closeup', pos: [-1.7, 1.00, 1.5],  tgt: [-1.7, 0.93, 0] },
+  'Pelvis and Hips — Back':   { group: 'Close Review', kind: 'closeup', pos: [-1.7, 1.00, -1.5], tgt: [-1.7, 0.93, 0] },
+  // ---- Animation review (every role performs the same clip; front three-quarter) ----
+  'Walk':                     { group: 'Animation', kind: 'anim', clip: 'Walk_Loop',         pos: [5.4, 1.9, 7.4], tgt: [-0.3, 1.0, 0] },
+  'Idle Talking':             { group: 'Animation', kind: 'anim', clip: 'Idle_Talking_Loop', pos: [5.4, 1.9, 7.4], tgt: [-0.3, 1.0, 0] },
+  'Kneeling':                 { group: 'Animation', kind: 'anim', clip: 'Fixing_Kneeling',   pos: [5.0, 1.5, 6.4], tgt: [-0.3, 0.65, 0] },
+  'Pickup':                   { group: 'Animation', kind: 'anim', clip: 'PickUp_Table',      pos: [5.0, 1.7, 6.6], tgt: [-0.3, 0.85, 0] },
+  'Sitting':                  { group: 'Animation', kind: 'anim', clip: 'Sitting_Idle_Loop', pos: [5.0, 1.5, 6.6], tgt: [-0.3, 0.75, 0] },
+  // ---- LOD comparison (same role, same pose/scale/lighting; all three always present) ----
+  'LOD0 Comparison':          { group: 'LOD', kind: 'lod', lodFocus: 0, pos: [0, 1.45, 6.2],  tgt: [0, 0.95, 0] },
+  'LOD1 Comparison':          { group: 'LOD', kind: 'lod', lodFocus: 1, pos: [0.0, 1.35, 4.3], tgt: [0, 0.95, 0] },
+  'LOD2 Comparison':          { group: 'LOD', kind: 'lod', lodFocus: 2, pos: [1.95, 1.30, 4.1], tgt: [1.95, 0.95, 0] },
+  // ---- Context (the REAL Scene G production composition — unchanged) ----
+  'Management Distance':      { group: 'Context', kind: 'production', pos: [12, 7, 26],  tgt: [0, 1.6, 11] },
+  'Human Scale':             { group: 'Context', kind: 'production', pos: [-2.5, 1.75, 17], tgt: [0, 1.5, 11] },
+  'Refined Lot Scale Reference': { group: 'Context', kind: 'production', pos: [42, 24, 58], tgt: [0, 2, 10] },
+  'Full Scene Overview':      { group: 'Context', kind: 'production', pos: [18, 12, 34], tgt: [0, 2.5, 10] },
+}
+
+// Button order for the HUD (grouped). "Reset" is rendered separately and maps to Full Scene Overview.
+export const G_REVIEW_ORDER: string[] = [
+  'Crew Lineup Front', 'Crew Lineup Back', 'Crew Lineup Left', 'Crew Lineup Right',
+  'Crew Three-Quarter Front', 'Crew Three-Quarter Back', 'Role Comparison',
+  'Faces and Hair', 'Hands', 'Feet and Shoes', 'Torso and Vest', 'Pelvis and Hips — Front', 'Pelvis and Hips — Back',
+  'Walk', 'Idle Talking', 'Kneeling', 'Pickup', 'Sitting',
+  'LOD0 Comparison', 'LOD1 Comparison', 'LOD2 Comparison',
+  'Management Distance', 'Human Scale', 'Refined Lot Scale Reference', 'Full Scene Overview',
+]
+export const G_REVIEW_DEFAULT = 'Full Scene Overview'
+export const gReviewKind = (name: string): GReviewKind => G_REVIEW[name]?.kind ?? 'production'

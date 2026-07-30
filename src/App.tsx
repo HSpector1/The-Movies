@@ -9,26 +9,32 @@ import { CameraController } from './camera/CameraController'
 import { ToneMapController, HeroGrounding, HeroSoftShadows, HeroComposer } from './components/HeroFx'
 import { SceneA, SceneB, SceneC, SceneD, SceneE, SceneF, SceneG } from './scenes'
 import { DevPanel } from './ui/DevPanel'
+import { gReviewKind } from './lab/cameraBridge'
 import type { RuntimeManifest } from './types'
 
 function LabScene({ manifest }: { manifest: RuntimeManifest | null }): JSX.Element {
   const { state } = useLab()
-  const warm = state.scene === 'D' || state.scene === 'E' || state.scene === 'F' || state.scene === 'G'
-  const bg = warm ? (state.atmosphere ? '#dcc9a8' : '#aeb6bd') : '#0e1116'
+  // Lab 05E: Scene-G character-review (non-production) views use a controlled NEUTRAL presentation
+  // (mid-grey bg, no warm sky/fog/ACES, neutral lights supplied by the review area) so anatomy /
+  // clothing / hands / faces / poses / LODs read honestly, without overexposure or warm tint.
+  const gNeutral = state.scene === 'G' && gReviewKind(state.gReview) !== 'production'
+  const warm = !gNeutral && (state.scene === 'D' || state.scene === 'E' || state.scene === 'F' || state.scene === 'G')
+  const bg = gNeutral ? '#4b5058' : (warm ? (state.atmosphere ? '#dcc9a8' : '#aeb6bd') : '#0e1116')
   return (
     <>
       <color attach="background" args={[bg]} />
-      {warm
+      {!gNeutral && (warm
         ? (state.atmosphere && <fog attach="fog" args={['#e6d2ac', 70, 340]} />)
-        : <fog attach="fog" args={['#0e1116', 60, 180]} />}
+        : <fog attach="fog" args={['#0e1116', 60, 180]} />)}
       {warm && state.atmosphere && <StudioSky />}
       <RoomEnv />
-      <Lights />
+      {/* neutral review supplies its own lights inside the review area; suppress the warm global rig */}
+      {!gNeutral && <Lights />}
       {/* Modern render enhancements (ACES + optional PCSS/post + E-apron grounding), scoped to the
-          refined scenes so Scenes A-D keep their plain baseline. */}
+          refined scenes so Scenes A-D keep their plain baseline. Skipped for the neutral G review. */}
       {state.scene === 'E' && <><ToneMapController /><HeroSoftShadows /><HeroGrounding /><HeroComposer /></>}
       {state.scene === 'F' && <><ToneMapController /><HeroSoftShadows /><HeroComposer /></>}
-      {state.scene === 'G' && <><ToneMapController /><HeroSoftShadows /></>}
+      {state.scene === 'G' && !gNeutral && <><ToneMapController /><HeroSoftShadows /></>}
       <CameraController />
       <OrbitControls makeDefault enableDamping={false} maxPolarAngle={Math.PI / 2.05} minDistance={1} maxDistance={180} />
       <StatsCollector />

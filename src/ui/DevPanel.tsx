@@ -2,14 +2,15 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import { useLab } from '../lab/LabContext'
 import { latestStats } from '../lab/stats'
-import { applyView, D_VIEWS, E_VIEWS, F_VIEWS } from '../lab/cameraBridge'
+import { applyView, D_VIEWS, E_VIEWS, F_VIEWS, G_REVIEW, G_REVIEW_ORDER, G_REVIEW_DEFAULT, gReviewKind } from '../lab/cameraBridge'
+import { getErrorCount, getLastError } from '../lab/errors'
 import type { RuntimeManifest, Provenance, SceneKey } from '../types'
 
 const PROV_COLOR: Record<Provenance, string> = {
   'CC0': '#22c55e', 'ATTRIBUTION-REQUIRED': '#3b82f6', 'PROTOTYPE-ONLY': '#f59e0b',
   'LICENSE-UNCLEAR': '#f59e0b', 'DO-NOT-USE': '#ef4444',
 }
-const SCENE_LABEL: Record<SceneKey, string> = { A: 'A · Lab01 lot', B: 'B · Furnished', C: 'C · Animation', D: 'D · Studio greybox', E: 'E · Hero stage', F: 'F · Refined lot', G: 'G · Blender art (Lab05)' }
+const SCENE_LABEL: Record<SceneKey, string> = { A: 'A · Lab01 lot', B: 'B · Furnished', C: 'C · Animation', D: 'D · Studio greybox', E: 'E · Hero stage', F: 'F · Refined lot', G: 'G · Character Art Review (Lab05E)' }
 const SCENE_PACK: Record<SceneKey, string> = { A: 'downtown', B: 'props', C: 'animation', D: 'downtown', E: 'animation', F: 'downtown', G: 'studio' }
 
 const panel: CSSProperties = {
@@ -50,6 +51,66 @@ function Badge({ p }: { p: Provenance }): JSX.Element {
   return <span style={{ background: PROV_COLOR[p], color: '#07110a', padding: '1px 6px', borderRadius: 4, fontWeight: 700, fontSize: 10 }}>{p}</span>
 }
 
+// ---- Lab 05E: Scene-G owner character-review controls + status panel ----
+const REVIEW_GROUPS = ['Lineups', 'Close Review', 'Animation', 'LOD', 'Context'] as const
+
+function GReviewControls(): JSX.Element {
+  const { state, set, resetCamera } = useLab()
+  return (
+    <div>
+      {REVIEW_GROUPS.map((grp) => (
+        <div key={grp} style={{ marginBottom: 6 }}>
+          <div style={{ fontSize: 10, color: '#7d8896', letterSpacing: 0.5, margin: '4px 0 3px' }}>{grp}</div>
+          <div style={row}>
+            {G_REVIEW_ORDER.filter((n) => G_REVIEW[n].group === grp).map((n) => (
+              <Btn key={n} on={state.gReview === n} onClick={() => set('gReview', n)}>{n}</Btn>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div style={{ ...row, marginTop: 4 }}>
+        <Btn on={state.gReview === G_REVIEW_DEFAULT} onClick={() => { set('gReview', G_REVIEW_DEFAULT); resetCamera() }}>Reset</Btn>
+      </div>
+    </div>
+  )
+}
+
+function GReviewStatus(): JSX.Element {
+  const { state } = useLab()
+  const s = latestStats
+  const v = G_REVIEW[state.gReview]
+  const kind = gReviewKind(state.gReview)
+  const chars = kind === 'lod' ? 3 : 8
+  const anim = kind === 'anim' ? (v?.clip ?? '—') : kind === 'production' ? 'per-role (production)' : 'Idle (static)'
+  const lod = kind === 'lod' ? 'LOD0 / LOD1 / LOD2' : 'LOD0 (as authored)'
+  const errs = getErrorCount()
+  const cell: CSSProperties = { display: 'flex', justifyContent: 'space-between', gap: 8 }
+  return (
+    <div style={{ border: '1px solid #24303a', background: 'rgba(18,30,42,0.5)', borderRadius: 8, padding: '8px 10px', margin: '8px 0 4px' }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#cdeafd', marginBottom: 5 }}>Review status</div>
+      <div style={{ display: 'grid', gap: '2px 0' }}>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>milestone</span><b>Asset Lab 05E</b></div>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>active camera</span><b style={{ color: '#7ee787' }}>{state.gReview}</b></div>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>animation</span><b>{anim}</b></div>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>LOD</span><b>{lod}</b></div>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>characters / roles</span><b>{chars} / 8</b></div>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>FPS</span><b style={{ color: s.loading ? '#f0a860' : '#7ee787' }}>{s.loading ? '— (loading)' : s.fps}</b></div>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>draw calls / frame</span><b>{s.drawCalls.toLocaleString()}</b></div>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>triangles / frame</span><b>{s.triangles.toLocaleString()}</b></div>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>scene tris (inventory)</span><b>{s.sceneTriangles.toLocaleString()}</b></div>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>loaded assets</span><b>{s.loadedAssets}/{s.totalAssets || '?'}</b></div>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>console errors</span><b style={{ color: errs ? '#ef4444' : '#7ee787' }}>{errs ? `⚠ ${errs}` : '✓ none'}</b></div>
+      </div>
+      <div style={{ color: '#8a94a0', fontSize: 9.5, marginTop: 5, lineHeight: 1.35 }}>
+        Roles: PA · Grip · Electric · Maintenance · Office · Camera/DP · Director · Carpenter (8).
+        GPU: <b style={{ color: s.isSoftware ? '#f0a860' : '#a8c0d0' }}>{s.renderer || 'unknown'}</b>
+        {s.isSoftware && ' — SOFTWARE (diagnostic only, not M3)'}
+        {errs > 0 && <div style={{ color: '#f0a860' }}>last: {getLastError()}</div>}
+      </div>
+    </div>
+  )
+}
+
 export function DevPanel({ manifest }: { manifest: RuntimeManifest | null }): JSX.Element {
   const { state, set, resetCamera } = useLab()
   const [, tick] = useState(0)
@@ -74,8 +135,12 @@ export function DevPanel({ manifest }: { manifest: RuntimeManifest | null }): JS
       <div style={row}>{(['A', 'B', 'C', 'D', 'E', 'F', 'G'] as SceneKey[]).map((k) =>
         <Btn key={k} on={state.scene === k} onClick={() => set('scene', k)}>{SCENE_LABEL[k]}</Btn>)}</div>
 
-      <div style={h}>Camera (§7)</div>
-      {state.scene === 'D' || state.scene === 'E' || state.scene === 'F' ? (
+      {state.scene === 'G' && <GReviewStatus />}
+
+      <div style={h}>{state.scene === 'G' ? 'Character review cameras (Lab 05E)' : 'Camera (§7)'}</div>
+      {state.scene === 'G' ? (
+        <GReviewControls />
+      ) : state.scene === 'D' || state.scene === 'E' || state.scene === 'F' ? (
         <div style={row}>
           {(() => {
             const vmap = state.scene === 'E' ? E_VIEWS : state.scene === 'F' ? F_VIEWS : D_VIEWS
