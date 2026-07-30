@@ -134,3 +134,30 @@ E thin hands · F block boots · G flat face · H bent poses expose modeling.
 - **Decision: ACCEPT — CONTINUE.** Defect F materially fixed + confirmed; the one must_fix is a
   clip-inherent limitation (documented, not a regression). Next = Iteration 5 six-clip deformation pass
   (incl. the carried pickup crotch-notch note).
+
+---
+
+## Iteration 5 — Six-clip deformation pass (defect H)
+- **Ranked target:** certify all rebuilt regions across the six accepted clips + close the carried
+  pickup crotch-notch note (iter-3).
+- **Correction cluster (deformation):** re-weighted the crotch inseam gusset from 100% pelvis to
+  {pelvis 0.5, thigh_l 0.25, thigh_r 0.25} + widened it slightly, so it STRETCHES with a wide stance
+  (no inseam notch on the pickup pose) instead of staying central while the legs spread. (The prior
+  loops' weight fixes — vest armhole→clavicle, hem lumbar clearance, hand rigid-to-hand — are retained.)
+- **Files:** `character_hero.py`. character2.py + 05E untouched.
+- **Blender result:** 9,828 tris; all six clips feet-grounded (z-min ≈ −0.001; kneel −0.044 = the
+  clip-inherent value, identical to the 05E baseline).
+- **Specialist review (Rigging + Art Director, all six clips):** **Rigging — full PASS (4.5/5, no
+  must_fix):** "the 05F hero survives all six accepted clips with no disqualifying deformation defect;
+  every rebuilt weak region holds" — clean list covers shoulders/elbows/wrists, vest armholes+yoke+hem,
+  pelvis/crotch/seat, trouser-seat, hips/thighs, hands, knees/ankles, boots, and "no mesh shards or
+  garment separation in any of the six clips." Art Director — CONCERNS with ONE must_fix: a detached
+  orange mesh shard near the vest front-left / shoulder-yoke (a prohibited garment-separation stray).
+  → **FIXED this loop:** the shoulder-yoke straps were floating segments whose front end + end-cap read
+  as a stray near the neck; re-anchored them ON the vest front-top / back-top corners and set `cap=False`
+  so they are a continuous bridge with no exposed cap. Re-render (shoulder + pickup): the shard is gone;
+  the straps read as a clean shoulder yoke.
+- **Scores (1–5):** deformation 4.5 · pelvis-deform 5 · vest-deform 4.5 · hand-deform 4.5 · boot-ground 4.
+- **Evidence:** `proof/lab05f/iteration-05/`. **Tris 9,804.**
+- **Decision: ACCEPT — CONTINUE.** Deformation certified across all six clips (Rigging PASS); the one
+  must_fix (yoke shard) resolved. Next = Iteration 6 face + materials + LOD export + review harness + final.

@@ -120,8 +120,10 @@ def build_hero(arm, tag="ElectricHero", seed=1):
         # (The hip loft's own top ring IS the waistband — no separate band cylinder, which previously
         #  crossed the loft at a mismatched segment count and produced the jagged crenellation seam.)
         # crotch inseam gusset — a THIN, RECESSED wedge between the thigh tops (NOT a proud ball). Pushed
-        # back (+Y) + up so it closes the crotch V from behind rather than protruding at the front.
-        ell("pelvis", 0.0, th_l.y + 0.036, crotch_z + 0.002, 0.056 * HI, 0.034 * HI, 0.048, lower, u=12, v=8)
+        # back (+Y) + up so it closes the crotch V from behind rather than protruding at the front. 05F
+        # iter-5: weighted pelvis + BOTH thighs so it STRETCHES with a wide stance (no inseam notch on
+        # the pickup pose) instead of staying central while the legs spread.
+        ell({"pelvis": 0.5, "thigh_l": 0.25, "thigh_r": 0.25}, 0.0, th_l.y + 0.036, crotch_z + 0.002, 0.060 * HI, 0.036 * HI, 0.050, lower, u=12, v=8)
 
     # ============================================================ ACCESSORIES (belt/radio/coil — reused)
     if cfg.get("belt"):
@@ -163,9 +165,12 @@ def build_hero(arm, tag="ElectricHero", seed=1):
         for s in ("l", "r"):
             sgn = 1 if s == "l" else -1
             wstrap = _blend(f"clavicle_{s}", "spine_03", 0.6)
-            p_front = Vector((sgn * 0.090, yb - 0.088, s3.z + 0.006))
-            p_back = Vector((sgn * 0.090, yb + 0.084, s3.z + 0.010))
-            sb.segment(wstrap, p_front, p_back, 0.030, 0.028, segments=8, mat=hv)
+            # start/end ON the vest front-top + back-top corners (rx≈0.188*SH, ry≈0.099*SH at the top
+            # ring) so the strap is a continuous bridge, NOT a floating segment with a detached front cap
+            # (iter-5: that gap read as a stray orange shard near the neck).
+            p_front = Vector((sgn * 0.082, yb - 0.104, s3.z - 0.006))
+            p_back = Vector((sgn * 0.082, yb + 0.092, s3.z + 0.002))
+            sb.segment(wstrap, p_front, p_back, 0.033, 0.031, segments=8, mat=hv, cap=False)
         # restrained reflective bands: two THIN white arc-strips wrapping the vest sides/back, sat just
         # proud of the shell (was the two rigid full-ring rails). Each band = a 2-ring arc-loft.
         for bz, brx, bry in ((s2.z + 0.050, 0.194 * CH, 0.118 * CH), (s2.z - 0.030, 0.190 * CH, 0.116 * CH)):
