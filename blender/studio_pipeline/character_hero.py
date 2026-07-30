@@ -31,8 +31,8 @@ from .character2 import (
 HERO_STAGE = {
     "pelvis": True,    # Iteration 1
     "vest":   True,    # Iteration 2
-    "arms":   False,   # Iteration 3
-    "hands":  False,   # Iteration 3
+    "arms":   True,    # Iteration 3
+    "hands":  True,    # Iteration 3
     "boots":  False,   # Iteration 4
     "face":   False,   # Iteration 6
 }
@@ -229,20 +229,44 @@ def build_hero(arm, tag="ElectricHero", seed=1):
             (_blend(f"lowerarm_{s}", f"hand_{s}", 0.4), hn_h.copy(), (0.032, 0.031)),
         ]
         sb.tube(fore_rings, up=(0, 0, 1), segments=16, mat=skin)
-        palm = hn_h + Vector((sgn * 0.040, 0, 0))
-        sb.uvsphere(f"hand_{s}", 1.0, u=10, v=8, matrix=T(palm.x, palm.y, palm.z) @ Matrix.Diagonal((0.052, 0.050, 0.018, 1)), mat=skin)
-        fbaseX = hn_h.x + sgn * 0.062
-        ftipX = hn_h.x + sgn * 0.114
-        for fy_off, flen, rbase, rtip in ((-0.022, 0.002, 0.0116, 0.0082), (-0.007, 0.020, 0.0122, 0.0090),
-                                          (0.008, 0.010, 0.0118, 0.0086), (0.022, -0.016, 0.0104, 0.0072)):
-            base = Vector((fbaseX, hn_h.y + fy_off, hn_h.z + 0.002))
-            tip = Vector((ftipX + sgn * flen, hn_h.y + fy_off * 1.22, hn_h.z - 0.014))
-            sb.segment(f"hand_{s}", base, tip, rbase, rtip, segments=6, mat=skin)
-            sb.uvsphere(f"hand_{s}", 0.010, u=6, v=5, matrix=T(base.x, base.y, base.z), mat=skin)
-        sb.uvsphere(f"hand_{s}", 1.0, u=8, v=6, matrix=T(hn_h.x + sgn * 0.040, hn_h.y - 0.024, hn_h.z + 0.006) @ Matrix.Diagonal((0.017, 0.020, 0.016, 1)), mat=skin)
-        tp0 = Vector((hn_h.x + sgn * 0.044, hn_h.y - 0.028, hn_h.z + 0.008))
-        tp1 = Vector((hn_h.x + sgn * 0.076, hn_h.y - 0.058, hn_h.z + 0.006))
-        sb.segment(f"hand_{s}", tp0, tp1, 0.0140, 0.0092, segments=6, mat=skin)
+        # armpit fill (HERO arms): closes the sleeve-to-torso-side hollow under the deltoid so the arm
+        # flows out of the body with no weak armpit gap. Weighted upperarm/spine so it deforms with both.
+        if HERO_STAGE["arms"]:
+            ap = Vector((ua_h.x - sgn * 0.052, ua_h.y + 0.008, ua_h.z - 0.055))
+            sb.uvsphere(_blend(f"upperarm_{s}", "spine_03", 0.5), 1.0, u=8, v=6,
+                        matrix=T(ap.x, ap.y, ap.z) @ Matrix.Diagonal((0.050, 0.060, 0.052, 1)), mat=upper)
+        if HERO_STAGE["hands"]:
+            # HERO HAND: a fuller, intentionally-modelled hand — a smooth wrist, a rounded palm with real
+            # THICKNESS, four GROUPED fingers with DEEPER valleys + rounded tapered tips (grouped digits,
+            # not a fused mitten slab), and a full opposable thumb. Rigid to hand_{s}, so deform-safe.
+            sb.uvsphere(_blend(f"lowerarm_{s}", f"hand_{s}", 0.4), 0.036, u=10, v=8, matrix=T(hn_h.x, hn_h.y, hn_h.z), mat=skin)  # smooth wrist (softens the ring)
+            palm = hn_h + Vector((sgn * 0.036, 0, 0))
+            sb.uvsphere(f"hand_{s}", 1.0, u=12, v=10, matrix=T(palm.x, palm.y, palm.z) @ Matrix.Diagonal((0.050, 0.056, 0.030, 1)), mat=skin)  # palm (thick)
+            sb.uvsphere(f"hand_{s}", 1.0, u=12, v=6, matrix=T(hn_h.x + sgn * 0.066, hn_h.y, hn_h.z + 0.006) @ Matrix.Diagonal((0.018, 0.050, 0.026, 1)), mat=skin)  # knuckle ridge
+            fbaseX = hn_h.x + sgn * 0.076
+            ftipX = hn_h.x + sgn * 0.122
+            for fy_off, flen, rr in ((-0.033, -0.004, 0.0118), (-0.011, 0.006, 0.0128), (0.010, 0.002, 0.0124), (0.031, -0.010, 0.0110)):
+                base = Vector((fbaseX, hn_h.y + fy_off, hn_h.z + 0.004))
+                tip = Vector((ftipX + sgn * flen, hn_h.y + fy_off * 1.14, hn_h.z - 0.017))  # wider fan → deeper valleys
+                sb.segment(f"hand_{s}", base, tip, rr, rr * 0.70, segments=6, mat=skin)
+                sb.uvsphere(f"hand_{s}", rr * 0.72, u=6, v=5, matrix=T(tip.x, tip.y, tip.z), mat=skin)  # rounded fingertip
+            sb.uvsphere(f"hand_{s}", 1.0, u=8, v=6, matrix=T(hn_h.x + sgn * 0.038, hn_h.y - 0.028, hn_h.z + 0.008) @ Matrix.Diagonal((0.022, 0.026, 0.020, 1)), mat=skin)  # thenar base
+            tp0 = Vector((hn_h.x + sgn * 0.046, hn_h.y - 0.032, hn_h.z + 0.010))
+            tp1 = Vector((hn_h.x + sgn * 0.080, hn_h.y - 0.056, hn_h.z + 0.004))
+            sb.segment(f"hand_{s}", tp0, tp1, 0.0166, 0.0120, segments=6, mat=skin)  # full thumb
+            sb.uvsphere(f"hand_{s}", 0.011, u=6, v=5, matrix=T(tp1.x, tp1.y, tp1.z), mat=skin)  # rounded thumb tip
+        else:
+            palm = hn_h + Vector((sgn * 0.040, 0, 0))
+            sb.uvsphere(f"hand_{s}", 1.0, u=10, v=8, matrix=T(palm.x, palm.y, palm.z) @ Matrix.Diagonal((0.052, 0.050, 0.018, 1)), mat=skin)
+            fbaseX = hn_h.x + sgn * 0.062; ftipX = hn_h.x + sgn * 0.114
+            for fy_off, flen, rbase, rtip in ((-0.022, 0.002, 0.0116, 0.0082), (-0.007, 0.020, 0.0122, 0.0090),
+                                              (0.008, 0.010, 0.0118, 0.0086), (0.022, -0.016, 0.0104, 0.0072)):
+                base = Vector((fbaseX, hn_h.y + fy_off, hn_h.z + 0.002))
+                tip = Vector((ftipX + sgn * flen, hn_h.y + fy_off * 1.22, hn_h.z - 0.014))
+                sb.segment(f"hand_{s}", base, tip, rbase, rtip, segments=6, mat=skin)
+            sb.uvsphere(f"hand_{s}", 1.0, u=8, v=6, matrix=T(hn_h.x + sgn * 0.040, hn_h.y - 0.024, hn_h.z + 0.006) @ Matrix.Diagonal((0.017, 0.020, 0.016, 1)), mat=skin)
+            tp0 = Vector((hn_h.x + sgn * 0.044, hn_h.y - 0.028, hn_h.z + 0.008)); tp1 = Vector((hn_h.x + sgn * 0.076, hn_h.y - 0.058, hn_h.z + 0.006))
+            sb.segment(f"hand_{s}", tp0, tp1, 0.0140, 0.0092, segments=6, mat=skin)
 
     # ============================================================ LEGS (HERO: emerge from the hip loft)
     for s in ("l", "r"):

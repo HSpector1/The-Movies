@@ -75,3 +75,33 @@ E thin hands · F block boots · G flat face · H bent poses expose modeling.
 - **Evidence:** `proof/lab05f/iteration-02/`. **Tris 8,172** (leaner than the 05E ring vest).
 - **Decision: ACCEPT — CONTINUE.** Defect A materially fixed + independently confirmed; both must_fix
   items resolved. Next = Iteration 3 shoulders + arms + hands.
+
+---
+
+## Iteration 3 — Shoulders, arms & hands (defects D + E)
+- **Ranked top defects:** E thin/flat hands (harsh wrist, weak palm) · D weak armpit / sleeve-to-torso.
+  (The 05E tube arms already gave a mostly continuous shoulder — the deltoid ring meets the yoke — so
+  the shoulder needed a light touch, not a rebuild.)
+- **Correction cluster:** (arms) added an **armpit fill** (upperarm/spine-weighted) closing the hollow
+  under the deltoid so the arm flows out of the body. (hands) rebuilt the hand FULLER + intentional: a
+  thicker palm with real volume (z 0.018→0.030), four GROUPED fuller fingers packed close (little splay,
+  gentle curl) with a knuckle ridge across the base, and a full opposable thumb with a thenar base.
+- **Files:** `character_hero.py` (arms+hands stages on). character2.py + 05E untouched.
+- **Blender result:** 8,340 tris; height 1.827 m.
+- **Deformation:** hand is rigid to hand_{s} (deform-safe); armpit fill weighted upperarm/spine.
+- **Specialist review (Character Modeler + Rigging + Art Director):** all three **PASS WITH NOTES**
+  (Modeler hands 8/shoulders 8.5, Rigging 7.5/8, AD 6/7.5 — on a 1-10 read). Both technical reviewers:
+  **no must_fix** — "both targeted defects materially resolved… hand reads as intentionally modelled…
+  wrist is the biggest win (soft cuff fillet), no broken wrist / no detachment… armpit holds in pickup."
+  Art Director's 2 must_fix (convergent with the Modeler's minor notes): deepen the finger valleys +
+  round the fingertips (was reading fused/mitten-slab); soften the wrist crease ring. → **both addressed
+  this loop:** added a smooth wrist blend sphere, widened the finger fan (deeper valleys) + thinned +
+  rounded/tapered the fingertips, rounded the thumb tip. Re-render: grouped digits read distinctly, tips
+  rounded, wrist organic.
+- **Scores (1–5):** hands 4 · shoulders 4 · armpit 4 · hand-deform 4 · wrist 4.
+- **Evidence:** `proof/lab05f/iteration-03/`. **Tris 9,100.**
+- **Carried note (out of scope, for Iteration 5):** Rigging flagged a dark faceted notch at the crotch/
+  inner-thigh in the wide-stance PICKUP pose — a pelvis-weight/inseam deform artifact to check in the
+  full deformation pass.
+- **Decision: ACCEPT — CONTINUE.** Defects D + E materially fixed + independently confirmed; the two
+  hand must_fix items resolved. Next = Iteration 4 work boots + lower-leg integration.

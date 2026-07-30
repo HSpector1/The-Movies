@@ -81,6 +81,13 @@ shoot("hero-pelvis-back", (0, 1, 0.05), tgt=(0, 0, 0.62), dist=1.7)
 shoot("hero-pelvis-side", (-1, -0.15, 0.05), tgt=(0, 0, 0.62), dist=1.7)
 shoot("hero-lowerbody", (0, -1, 0.12), tgt=(0, 0, 0.5), dist=1.9)
 shoot("hero-face", (0, -1, 0.03), tgt=(0, 0, size.z * 0.92), dist=0.7)
+# shoulder + hand + boot close-ups (T-pose): left arm extends +X, hand near x=size.x/2
+hand_t = (size.x * 0.5 - 0.07, 0.0, 1.46)
+shoot("hero-hand", (0.15, -0.4, 0.35), tgt=hand_t, dist=0.5)
+shoot("hero-hand-back", (0.15, 0.4, 0.35), tgt=hand_t, dist=0.5)
+shoot("hero-shoulder", (-0.55, -1, 0.18), tgt=(0.17, 0, 1.42), dist=0.9)
+shoot("hero-boot", (-0.5, -1, 0.05), tgt=(0.09, 0, 0.09), dist=0.75)
+shoot("hero-boot-side", (-1, -0.1, 0.05), tgt=(0.09, 0, 0.09), dist=0.75)
 
 # posed under the six required clips
 SIX = [("Idle_Loop", 24, "idle"), ("Walk_Loop", 8, "walk"), ("Idle_Talking_Loop", 30, "talk"),
