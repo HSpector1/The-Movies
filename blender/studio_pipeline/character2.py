@@ -360,28 +360,29 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         cuff_p = ua_h.lerp(la_h, 0.86)
         sb.uvsphere(f"upperarm_{s}", 0.057 * LI, u=12, v=8, matrix=T(*cuff_p), mat=upper)
         # forearm (skin) tapering firmly to a slim wrist
-        sb.segment(f"lowerarm_{s}", la_h, hn_h, 0.046 * LI, 0.034, segments=12, mat=skin)
-        # wrist + hand mitten (skin)
-        sb.uvsphere(_blend(f"lowerarm_{s}", f"hand_{s}"), 0.04, u=8, v=6, matrix=T(*hn_h), mat=skin)
-        # HAND: flattened palm + FOUR individual fingers + a thumb (professional stylized hand, not
-        # a paddle). Weighted rigidly to hand_{s}, so the extra geometry is deformation-safe.
-        palm = hn_h + Vector((sgn * 0.038, 0, 0))
+        sb.segment(f"lowerarm_{s}", la_h, hn_h, 0.046 * LI, 0.033, segments=12, mat=skin)
+        # wrist — a SMALL smooth blend closing the forearm->palm seam (was a knot bulging at the wrist)
+        sb.uvsphere(_blend(f"lowerarm_{s}", f"hand_{s}", 0.35), 0.032, u=8, v=6, matrix=T(*hn_h), mat=skin)
+        # HAND: a flatter, slightly larger palm + FOUR relaxed fingers + a thumb (a competent stylized
+        # hand — not a paddle, not a claw). Rigid to hand_{s}, so the extra geometry is deform-safe.
+        palm = hn_h + Vector((sgn * 0.040, 0, 0))
         sb.uvsphere(f"hand_{s}", 1.0, u=10, v=8,
-                    matrix=T(palm.x, palm.y, palm.z) @ Matrix.Diagonal((0.045, 0.046, 0.024, 1)), mat=skin)   # palm
-        fbaseX = hn_h.x + sgn * 0.060
-        ftipX = hn_h.x + sgn * 0.100
-        # (y-offset across the palm, extra tip length) — middle longest, pinky shortest. Fingers
-        # SPLAY (tips fan out in Y) and CURL (tips drop in Z), with a knuckle bump at each base, so
-        # they read as distinct digits from side + 3q angles (not a fused paddle).
-        for fy_off, flen in ((-0.026, 0.004), (-0.009, 0.012), (0.009, 0.004), (0.026, -0.008)):
-            base = Vector((fbaseX, hn_h.y + fy_off, hn_h.z + 0.004))
-            tip = Vector((ftipX + sgn * flen, hn_h.y + fy_off * 1.55, hn_h.z - 0.015))
-            sb.segment(f"hand_{s}", base, tip, 0.0125, 0.0092, segments=6, mat=skin)
-            sb.uvsphere(f"hand_{s}", 0.012, u=6, v=5, matrix=T(base.x, base.y, base.z + 0.001), mat=skin)  # knuckle
-        # thumb: off the front-inner edge of the palm, angled forward (-Y)
-        tp0 = Vector((hn_h.x + sgn * 0.044, hn_h.y - 0.020, hn_h.z))
-        tp1 = Vector((hn_h.x + sgn * 0.058, hn_h.y - 0.062, hn_h.z - 0.004))
-        sb.segment(f"hand_{s}", tp0, tp1, 0.015, 0.011, segments=6, mat=skin)
+                    matrix=T(palm.x, palm.y, palm.z) @ Matrix.Diagonal((0.050, 0.052, 0.021, 1)), mat=skin)   # palm (flatter)
+        fbaseX = hn_h.x + sgn * 0.062
+        ftipX = hn_h.x + sgn * 0.116   # LONGER fingers (were stubby)
+        # (y-offset across the palm, extra tip length, tip radius) — middle longest, pinky shortest.
+        # Fingers sit CLOSE (relaxed, gentle splay ~±0.02) with a soft downward curl; a knuckle bump
+        # at each base — so they read as distinct digits from front/3q without becoming a spread claw.
+        for fy_off, flen, rtip in ((-0.021, 0.004, 0.0080), (-0.007, 0.014, 0.0090),
+                                   (0.007, 0.006, 0.0088), (0.021, -0.010, 0.0078)):
+            base = Vector((fbaseX, hn_h.y + fy_off, hn_h.z + 0.002))
+            tip = Vector((ftipX + sgn * flen, hn_h.y + fy_off * 1.22, hn_h.z - 0.014))
+            sb.segment(f"hand_{s}", base, tip, 0.0118, rtip, segments=6, mat=skin)
+            sb.uvsphere(f"hand_{s}", 0.011, u=6, v=5, matrix=T(base.x, base.y, base.z), mat=skin)  # knuckle
+        # thumb: off the front-inner edge of the palm, angled forward (-Y) + slightly up
+        tp0 = Vector((hn_h.x + sgn * 0.046, hn_h.y - 0.022, hn_h.z + 0.004))
+        tp1 = Vector((hn_h.x + sgn * 0.064, hn_h.y - 0.066, hn_h.z + 0.002))
+        sb.segment(f"hand_{s}", tp0, tp1, 0.0145, 0.0100, segments=6, mat=skin)
 
     # ============================================================ LEGS
     for s in ("l", "r"):

@@ -59,3 +59,19 @@ light polish only).
 - **Residual (noted, not blocking):** a faint horizontal crease remains at the knee (thigh/calf
   segment boundary) — candidate for a lofted leg if the review gate flags it.
 - **Decision: ACCEPT.** Next = P3 hands.
+
+---
+
+## Loop 3 — Hands (fixes P3)
+- **Named weakness:** a lumpy **wrist knot** (an oversized wrist sphere + the sleeve cuff read as
+  two bulges), and stubby fingers thrown into a wide claw-splay.
+- **Change:** shrank the wrist blend (0.040→0.032, biased toward the hand) so the forearm flows
+  into the palm; flattened + slightly enlarged the palm (0.050×0.052×0.021); **lengthened the
+  fingers** (span 0.040→0.054) with a per-finger tip taper; **relaxed the splay** (±0.026→±0.021,
+  tip fan 1.55→1.22) so the fingers sit close as a relaxed hand; thickened the thumb base and
+  lifted it slightly.
+- **Rebuild/validate:** 8/8 build gate; 8/8 validator; 0 unweighted / 0 bad-sum.
+- **Look (`proof/lab05e/iteration-03/`):** base-hand — a competent stylized hand: smooth wrist,
+  four distinct fingers, a readable thumb. pickup-3q — hands read in a working pose; deformation
+  clean (hand geometry is rigid to hand_{s}, so it rides the wrist without shear).
+- **Decision: ACCEPT.** Next = P4 feet + P5 neck/shoulders.
