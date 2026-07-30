@@ -131,3 +131,22 @@ hands/boot refinements · 8 holistic (Scene G re-export + runtime + full 6-clip 
   crew reads cohesive. **Deformation (all six clips, z-ranges healthy, feet grounded):** kneel & pickup
   bend the knee/elbow as ONE surface — cleaner than the segmented version, no melt/gap/collapse.
 - **Decision: ACCEPT.** The dominant finding is resolved. Next = build profiles (fix heavy=balloon).
+
+---
+
+## Loop 6 — Build profiles + fitted torso taper (fixes the balloon + weak differentiation)
+- **Named weakness:** the `heavy` profile had waist (1.24) WIDER than chest (1.14), so the loft made
+  a featureless barrel; and slim/standard/heavy read nearly identical because girth varied only in the
+  torso, not the limbs. The standard torso was also a touch over-inflated front-back.
+- **Change:** reworked SIZE — heavy is now BROAD-STOCKY (chest 1.20 > waist 1.12, thick limbs 1.20,
+  shoulders 1.17, thicker neck 1.14) so it still tapers; slim is leaner (0.91/0.80, limbs 0.79, neck
+  0.90). Added a per-build `neck` factor (limb girth already flows through the tube radii via LI, so
+  the whole silhouette now changes, not just torso width). Trimmed the torso rings' front-back depth
+  ~7% and deepened the waist pinch → a fitted V-taper, not a barrel.
+- **Rebuild/validate:** 8/8 build gate; 8/8 validator; 0 unweighted / 0 bad-sum; tris flat (~8.2k).
+- **Look (`proof/lab05e/iteration-06/`):** proportions-front — slim/standard/heavy now read as THREE
+  distinct bodies (limb thickness + shoulder width + waist differ at a glance). allroles-front — the
+  heavy roles read as stocky, not balloons. Electric (heavy+vest+hardhat) base-front reads solid; the
+  hi-vis vest (the review's one praised garment) left intact. **Deformation:** Electric kneel clean
+  (thick limbs bend as continuous surfaces, vest+hat stay attached, feet grounded).
+- **Decision: ACCEPT.** Next = refinement batch (belt seating, face warmth, hands, boot/ankle).

@@ -64,9 +64,12 @@ ROLES = {
 # limb / shoulder), not a single uniform girth — so slim reads as a pinched-waist lean build and
 # wide as a broad-ribcage stocky build, per the Loop-3 anatomy gate. Skeleton height stays shared.
 SIZE = {
-    "standard": dict(chest=1.00, waist=1.00, hip=1.00, limb=1.00, shoulder=1.00),
-    "heavy":    dict(chest=1.14, waist=1.24, hip=1.16, limb=1.14, shoulder=1.12),  # broad + full waist
-    "slim":     dict(chest=0.94, waist=0.78, hip=0.86, limb=0.83, shoulder=0.98),  # pinched waist, lean limbs
+    "standard": dict(chest=1.00, waist=1.00, hip=1.00, limb=1.00, shoulder=1.00, neck=1.00),
+    # 05E: heavy = a BROAD, STOCKY build — chest > waist so the torso still TAPERS (no balloon), with
+    # thick limbs + a thicker neck + a full (but not dominant) waist. Deltas pushed so it reads distinct.
+    "heavy":    dict(chest=1.20, waist=1.12, hip=1.15, limb=1.20, shoulder=1.17, neck=1.14),
+    # slim = a lean build — narrow shoulders, pinched waist, thin limbs + neck (pushed for a clear read).
+    "slim":     dict(chest=0.91, waist=0.80, hip=0.85, limb=0.79, shoulder=0.93, neck=0.90),
 }
 
 
@@ -126,6 +129,7 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     tag = tag or f"{role}_{seed}"
     prof = SIZE[cfg["size"]]
     CH, WA, HI, LI, SH = prof["chest"], prof["waist"], prof["hip"], prof["limb"], prof["shoulder"]
+    NK = prof.get("neck", 1.0)
     g = (CH + WA + HI) / 3.0   # general girth fallback for misc clothing details
     # per-instance identity variation (deterministic from seed) — a crowd reads as distinct PEOPLE,
     # not one recoloured character. Only shapes head/face features; never touches the skeleton.
@@ -195,15 +199,17 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
     yb = s2.y   # torso front-back centre baseline (spine is ~vertical, so s1/s2/s3 y are ~equal)
     # (z, cy, rx, ry): a smooth S-curve silhouette. rx uses WA/CH/SH per profile; ry is the flatter
     # front-back depth. cy nudges the belly back (+Y) and the chest forward (-Y) for an athletic front.
+    # 05E loop 6: flatter front-back (ry trimmed ~7%) + a deeper waist pinch → reads as a FITTED
+    # shirt with a real V-taper, not an inflated barrel. rx keeps the chest/yoke broad.
     torso_rings = [
-        (pelvis.z + 0.100, yb + 0.014, 0.138 * WA, 0.092 * WA),   # low shirt hem (overlaps waistband)
-        (s1.z - 0.010,     yb + 0.014, 0.132 * WA, 0.086 * WA),   # pinched waist (WA)
-        (s1.z + 0.040,     yb + 0.006, 0.146 * WA, 0.094 * WA),   # rising ribcage
-        ((s1.z + s2.z) * 0.5, yb - 0.004, 0.166 * CH, 0.104 * CH),  # lower chest
-        (s2.z + 0.010,     yb - 0.008, 0.178 * CH, 0.110 * CH),   # chest (broadest + proud front)
-        ((s2.z + s3.z) * 0.5 + 0.005, yb - 0.004, 0.186 * SH, 0.100 * SH),  # upper chest
-        (s3.z + 0.015,     yb - 0.002, 0.188 * SH, 0.092 * SH),   # shoulder yoke (SH)
-        (neck.z - 0.010,   yb + 0.004, 0.116 * SH, 0.088 * SH),   # neck taper (into the collar)
+        (pelvis.z + 0.100, yb + 0.014, 0.134 * WA, 0.086 * WA),   # low shirt hem (overlaps waistband)
+        (s1.z - 0.010,     yb + 0.014, 0.126 * WA, 0.080 * WA),   # pinched waist (WA)
+        (s1.z + 0.040,     yb + 0.006, 0.142 * WA, 0.088 * WA),   # rising ribcage
+        ((s1.z + s2.z) * 0.5, yb - 0.004, 0.165 * CH, 0.098 * CH),  # lower chest
+        (s2.z + 0.010,     yb - 0.008, 0.178 * CH, 0.103 * CH),   # chest (broadest + proud front)
+        ((s2.z + s3.z) * 0.5 + 0.005, yb - 0.004, 0.186 * SH, 0.094 * SH),  # upper chest
+        (s3.z + 0.015,     yb - 0.002, 0.188 * SH, 0.088 * SH),   # shoulder yoke (SH)
+        (neck.z - 0.010,   yb + 0.004, 0.112 * SH, 0.084 * SH),   # neck taper (into the collar)
     ]
     sb.loft([(_spine_w(z), 0.0, cy, z, rx, ry) for (z, cy, rx, ry) in torso_rings],
             segments=24, mat=upper)
@@ -282,8 +288,8 @@ def build_character2(role, arm, seed=1, overrides=None, tag=None):
         sb.box("pelvis", size=(0.05, 0.045, 0.09), matrix=T(-0.14, -0.115, pelvis.z + 0.04), mat=SLOT["dark"])
 
     # ============================================================ NECK + HEAD (skin)
-    sb.cyl(_blend("neck_01", "spine_03", 0.6), 0.051, 0.125, segments=12,
-           matrix=T(neck.x, neck.y, neck.z + 0.045), mat=skin)   # 05E: slightly slimmer/taller (was a stump)
+    sb.cyl(_blend("neck_01", "spine_03", 0.6), 0.051 * NK, 0.125, segments=12,
+           matrix=T(neck.x, neck.y, neck.z + 0.045), mat=skin)   # 05E: slimmer/taller + scales with build (NK)
     # head ovoid — slightly narrower in X, deeper/taller, chin dropped forward (-Y)
     sb.uvsphere("Head", 0.108, u=18, v=14,
                 matrix=T(head_c.x, head_c.y - 0.008, head_c.z + 0.02) @ Matrix.Diagonal((0.9 * v_headw, 1.02, 1.16 * v_headh, 1)), mat=skin)
