@@ -566,6 +566,41 @@ export function forecastProfitRange(
   const upsideDrivers = (forecast.segments[0]?.causalFactors ?? []).map(factorLabel)
   const downsideRisks = (forecast.segments[0]?.uncertaintyFactors ?? []).map(factorLabel)
 
+  // Capital-frontier fix (engaged, DISPLAY-ONLY): narrate the new script-potential, discoverability,
+  // and marketing tradeoffs so players understand the risk. These read only values the forecast band
+  // already reflects (script potential, funding adequacy, star draw, awareness, marketing tier) — they
+  // add no formula, draw no RNG, and reveal no hidden outcome. filmPackage.ts is never read by the sim,
+  // so this cannot perturb M0A byte-identity. Thresholds compare against named constants only.
+  if (engaged) {
+    const strength = inp.concept.baselineStrength
+    const reqNeg = inp.concept.baseNegativeCost * inp.shapeEffects.budgetDemandMultiplier * inp.era.costScale
+    const funding = inp.budget.negative / Math.max(reqNeg, 1)
+    const castFame = Object.values(inp.cast).map((t) => t.fame)
+    const avgFame = castFame.length ? castFame.reduce((a, b) => a + b, 0) / castFame.length : 0
+    const awareness = inp.standing.audienceAwareness
+    const smallMarketing = inp.budget.marketing < TUNING.MARKETING_HALF_SATURATION // < Standard
+    const largeMarketing = inp.budget.marketing >= 2 * TUNING.MARKETING_HALF_SATURATION // ≥ ~Large
+
+    if (strength >= TUNING.SCRIPT_POTENTIAL_REF + 15) {
+      upsideDrivers.push('Strong material gives this film substantial upside if the team delivers.')
+    } else if (strength <= TUNING.SCRIPT_POTENTIAL_REF - 12) {
+      downsideRisks.push('Limited script potential constrains the ordinary commercial ceiling.')
+    }
+    if (funding < 0.95 && inp.shapeEffects.budgetDemandMultiplier > TUNING.BUDGET_AMBITION_REF) {
+      downsideRisks.push("Production funding is insufficient to realize the script's potential.")
+    }
+    if (smallMarketing && avgFame < TUNING.AUTHORED_START_FAME * 4 && awareness < 45) {
+      downsideRisks.push('Small marketing and limited star draw create a meaningful discoverability risk.')
+    }
+    if (largeMarketing) {
+      if (strength >= TUNING.SCRIPT_POTENTIAL_REF && funding >= 0.95) {
+        upsideDrivers.push("This campaign meaningfully expands the film's reach.")
+      } else {
+        downsideRisks.push('Marketing is approaching the available audience ceiling.')
+      }
+    }
+  }
+
   return {
     studioRevenue,
     profit,
