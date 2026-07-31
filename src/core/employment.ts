@@ -17,6 +17,7 @@ import type {
   Contract,
   CreativeRole,
   EmploymentStatus,
+  FilmConcept,
   GameState,
   Talent,
 } from './types.js'
@@ -347,6 +348,31 @@ export function foundingGaps(state: GameState): Record<CreativeRole, number> {
 // bounded, deterministic, varied applicant pool per role from the 'hiring' stream,
 // and seed the recruitment fund. generateWorld itself stays employment-free (D-11.0),
 // so the headless corpus never calls this and never engages the gate.
+// D-12 script potential (capital-frontier fix): make a script's negative-cost a probabilistic
+// MARKET SIGNAL of its baseline potential — higher-potential scripts tend to cost more — via a
+// deterministic rank-blend (NO RNG). The generated cost MULTISET is preserved (a permutation at
+// w=1); only the pairing shifts toward the strength order, and the blend weight (<1) keeps overlap
+// so a cheap script can still be excellent and an expensive one mediocre. Downstream this makes a
+// high-potential script MORE DEMANDING to fund (requiredNegative → budgetAdequacy), so the extra
+// commercial upside is realized only when the film is properly funded, talented, and delivered.
+export function correlateConceptCost(concepts: FilmConcept[]): FilmConcept[] {
+  const n = concepts.length
+  if (n < 2) return concepts
+  const costsAsc = [...concepts.map((c) => c.baseNegativeCost)].sort((a, b) => a - b)
+  const strengthRank = new Array<number>(n)
+  concepts
+    .map((c, i) => ({ i, s: c.baselineStrength }))
+    .sort((a, b) => a.s - b.s || a.i - b.i)
+    .forEach((o, rank) => {
+      strengthRank[o.i] = rank
+    })
+  const w = TUNING.SCRIPT_COST_POTENTIAL_CORRELATION
+  return concepts.map((c, i) => ({
+    ...c,
+    baseNegativeCost: Math.round(c.baseNegativeCost * (1 - w) + costsAsc[strengthRank[i]!]! * w),
+  }))
+}
+
 export function beginFounding(state: GameState): GameState {
   if (state.founding !== null) return state
   const applicantIds: string[] = []
@@ -357,6 +383,9 @@ export function beginFounding(state: GameState): GameState {
   }
   return {
     ...state,
+    // Engaged boundary: correlate script price with potential. M0A never reaches here, so the
+    // non-engaged concept values (and the SaveFileV1 byte-identity corpus) are unchanged.
+    concepts: correlateConceptCost(state.concepts),
     founding: {
       applicantIds,
       budget: TUNING.HIRING_FOUNDING_BUDGET,

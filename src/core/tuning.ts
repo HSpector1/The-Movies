@@ -357,7 +357,7 @@ export const TUNING = {
   MARKETING_CAPACITY_MIN: 15_000, // [ICH] efficient marketing capacity at zero pre-marketing awareness
   MARKETING_CAPACITY_MAX: 1_800_000, // [ICH] efficient marketing capacity at full pre-marketing awareness
   MARKETING_AWARENESS_STANDING_WEIGHT: 0.7, // [ICH] blend: studio audience awareness vs film opening-appeal reach (a NEW studio can't push a big campaign until it builds awareness)
-  MARKETING_AWARENESS_EXP: 2.0, // [ICH] capacity ∝ awareness^EXP (EXP>1 ⇒ low-awareness saturates cheaply)
+  MARKETING_AWARENESS_EXP: 1.3, // [ICH] capacity ∝ awareness^EXP (capital-frontier fix: 2.0→1.3 so a low-awareness studio's capacity is larger → a Large campaign for a high-potential film keeps converting; a limited film still wastes it via low appeal + overexposure)
   // Stage A: MAXIMUM effective Marketing reach — the ceiling on how much of a film's opening reach a
   // campaign can supply, scaled by pre-marketing awareness. A not-yet-visible film converts even a
   // saturated campaign into only a little reach (so beyond efficient capacity, incremental reach
@@ -367,6 +367,32 @@ export const TUNING = {
   // awareness + the promise-specificity bonus) consume this single effective-Marketing value.
   MARKETING_REACH_MIN: 0.1, // [ICH] effective marketing reach ceiling at zero pre-marketing awareness
   MARKETING_REACH_MAX: 0.55, // [ICH] effective marketing reach ceiling at full pre-marketing awareness
+  // ── D-12 discoverability (engaged only): reduce the organic opening FLOOR ─────
+  // Capital-frontier fix. In M0A baseAwareness weights studio audience-awareness at 0.6 — every legal
+  // film gets a large guaranteed reach even with no star draw and Small marketing (no obscurity risk).
+  // Engaged play uses a lower weight so an unknown-cast, small-marketing film can genuinely fail to
+  // find an audience — while established Awareness, Star Power, and paid Marketing still drive reach,
+  // and a strong film can still build word of mouth (legs) after a weak opening. M0A keeps 0.6.
+  ORGANIC_AWARENESS_FLOOR_WEIGHT: 0.52, // [ICH] engaged weight on studio audience awareness in baseAwareness (M0A literal 0.6) — a gentle cut: enough obscurity risk for unknown+small films without crushing established/marketed reach
+  // ── D-13 CONDITIONAL discoverability uncertainty (engaged only) ──────────────
+  // The organic-floor cut above is a global reach lever; it could not deliver a real obscurity TAIL
+  // without crushing all films (owner rejected a deeper cut). This adds a governed, CONDITIONAL
+  // opening-reach multiplier whose SPREAD widens only when the package lacks reach support — low
+  // reachSupport = low awarenessFactor (studio awareness + paid marketing) and low star draw. A single
+  // N(0,1) draw z comes from an ISOLATED engaged-only derived stream stream(seed,'discovery-v1',prodId)
+  // (never state.rngState → deterministic replay + M0A byte-identity), applied to OPENING (week-1
+  // turnout) and thus TOTAL; LEGS/WAS/critic are untouched (a strong film that opens weak can still leg
+  // out → sleeper; a weak one disappears). Depends ONLY on awareness/marketing/star — never script
+  // price, budget label, cheap-film class, critic, or eventual audience score. z=0 ⇒ multiplier 1
+  // (M0A + forecast center = deterministic). Median (z=0) is preserved; the tails widen for low support.
+  DISC_SUPPORT_AWARENESS: 0.55, // [ICH] weight of awarenessFactor (awareness + marketing) in reachSupport
+  DISC_SUPPORT_STAR: 0.45, // [ICH] weight of opening star draw / 100 in reachSupport
+  DISC_SUPPORT_THRESHOLD: 0.45, // [ICH] reach-support level at/above which discovery risk is ZERO — a real cast, Standard/Large marketing, or established awareness makes a film reliable; only genuinely unsupported (unknown+Small+low-awareness) packages get variance
+  DISC_SPREAD: 3.5, // [ICH] max lognormal spread of the opening multiplier at zero reach support
+  DISC_SUPPORT_EXP: 1.5, // [ICH] convexity of the (threshold−support) ramp (>1 ⇒ risk concentrates at the very-low-support corner)
+  DISC_FLOOR: 0.2, // [ICH] floor on the opening multiplier (a positive tail always remains)
+  DISC_CEIL: 1.8, // [ICH] ceiling on the opening multiplier (bounded discovery upside; the sleeper comes from legs/word of mouth, not a huge opening)
+  DISC_FORECAST_LOW_Z: 1.28, // [ICH] |z| used to widen the forecast LOW opening band (≈10th pct) — DISPLAY only, no realized draw
   // Stage B: deterministic OVEREXPOSURE pressure (engaged only; NO new RNG, NO critic effect). Spending
   // far beyond a film's efficient marketing capacity raises audience expectations the delivered movie
   // must satisfy; when it under-delivers (low weighted audience score) those expectations sour and the
@@ -396,6 +422,20 @@ export const TUNING = {
   BUDGET_AMBITION_MIN: 0.15, // [ICH] floor: even a contained film loses a little if severely underfunded
   BUDGET_OVERFUND_COEF: 4, // [ICH] max craft protection from over-funding (small; diminishing)
   BUDGET_OVERFUND_SCALE: 0.3, // [ICH] over-funding diminishing-return scale (ratio units above 1.0)
+
+  // ── D-12 script potential → commercial opportunity (engaged only) ────────────
+  // Capital-frontier fix (owner 2026-07-30, audit verdict D). Two engaged-only levers make a
+  // script's baseline potential matter commercially WITHOUT price ever multiplying box office:
+  //  (1) beginFounding correlates negative-cost with baselineStrength (a rank-blend, no RNG; M0A
+  //      never calls beginFounding, so non-engaged concept values are byte-identical) so price is
+  //      a PROBABILISTIC market signal of potential — overlapping, never deterministic.
+  //  (2) a delivery-GATED segment-appeal term lets high-potential material realize a higher audience
+  //      CEILING only in proportion to how well it is delivered (craft) — so an underfunded premium
+  //      script is an expensive flop, not a guaranteed win. Flows through the existing craft→appeal→
+  //      reach/legs systems; never a price multiplier, never a critic-score multiplier.
+  SCRIPT_COST_POTENTIAL_CORRELATION: 0.4, // [ICH] cost↔baselineStrength rank-blend (0 = independent, 1 = deterministic; <1 keeps overlap)
+  SCRIPT_POTENTIAL_APPEAL_COEF: 22, // [ICH] max segment-appeal points a top-potential script adds WHEN fully delivered (craft=100)
+  SCRIPT_POTENTIAL_REF: 60, // [ICH] baselineStrength reference (mean): appeal delta = coef·clamp((strength−ref)/40,0,1)·(craft/100) — UPSIDE only, so a limited script's lower ceiling comes from correlation (lower craft), not an appeal penalty
 
   // ── D-12 final downside: engaged retention (legs) reshape ───────────────────
   // The M0A legs curve `LEGS_MIN(1.8) + (LEGS_MAX-LEGS_MIN)·(WAS/100)` has a 1.8× floor — even a
