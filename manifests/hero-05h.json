@@ -1,0 +1,22 @@
+{
+  "tool": "build_hero_export_05h",
+  "milestone": "asset-lab-05h",
+  "role": "ElectricHero05H",
+  "workflow": "Path A \u2014 CC0 authored base (Blender Studio Human Base Meshes v1.0.0, CC0 1.0)",
+  "base_asset": "GEO-body_male_stylized",
+  "note": "additive authored-base hero; 05E/05F/05G untouched.",
+  "ok": true,
+  "issues": [],
+  "tris": 25000,
+  "height": 1.75,
+  "lod0_tris": 25000,
+  "lod1_tris": 10000,
+  "lod2_tris": 4500,
+  "bones": 65,
+  "files": [
+    "assets/studio/characters/electric_hero_05h.glb",
+    "assets/studio/characters/electric_hero_05h_LOD1.glb",
+    "assets/studio/characters/electric_hero_05h_LOD2.glb",
+    "assets/studio/characters/electric_hero_05h_COL.glb"
+  ]
+}
