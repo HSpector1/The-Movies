@@ -55,7 +55,19 @@ can never be a detached pod/box/ring (the 05F/05G rejections).
 **Decision: CONTINUE.** Workwear reads and deforms; vest side/back wrap + boot shaping are Iter-3/4
 refinements. No pods/boxes/shelves.
 
-## Iterations 3–4 + runtime — remaining
-Deformation refinement (3) is largely satisfied (garments deform cleanly; the underarm web is
-covered); face/style/LOD tuning (4) and the 05G↔05H runtime harness + evidence are the remaining
-steps. No finished-hero PASS is claimed until the runtime comparison is in hand.
+## Iteration 3 — Deformation (accepted, light)
+All six clips deform cleanly on the dressed hero in Blender and in-engine; garments follow the
+body; no collapse/pierce/tear/float. The inverse-distance skin + offset-shell garments already
+deform well, so only light refinement was needed. **Decision: CONTINUE.**
+
+## Runtime harness (DONE)
+Wired the 27-camera 05G↔05H comparison group into the R3F Scene-G harness (`cameraBridge`
+`G_HERO_05H`, `reviewHarness` `Hero05HCompare`/`Hero05HLOD`, `DevPanel` 05H group + status).
+`validate-hero-05h.mjs` → **PASS** (GLBs, 65 joints, budgets, additive, CC0 provenance, 27
+cameras). `capture-lab05h-review.mjs` captured **28 in-engine views console-error-free
+(errorCount=0)**; `tsc` + `vite build` clean. Evidence `proof/lab05h/runtime/`.
+
+## Iteration 4 — style/face — REMAINING (refinement)
+LODs + workwear materials are done; the base-mesh face reads slightly gaunt at distance, skin
+warmth could be tuned, and there is no hair under the hat. Appeal polish, not a structural
+blocker. **Verdict: PASS WITH NOTES → owner real-GPU review + Iteration-4 authorization.**

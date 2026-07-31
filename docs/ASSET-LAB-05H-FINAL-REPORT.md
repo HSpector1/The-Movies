@@ -1,8 +1,10 @@
 # Asset Lab 05H — Authored Base Character Pipeline Proof — STATUS REPORT
 
 **Branch:** `asset-lab-05h-authored-base-character-proof` (off 05G `ee83d0e`) · backed up to
-`backup` remote. **Verdict: PATH A PROVEN; base body PASS WITH NOTES; full clothed hero IN
-PROGRESS (iterations 2–4 not yet done).** This is an honest checkpoint, not a finished hero.
+`backup` remote. **Verdict: PATH A PROVEN; authored-base hero PASS WITH NOTES.** A complete,
+in-engine-reviewable, console-error-free authored-base Electric hero that clearly exceeds 05G on
+human-scale anatomy. Remaining items are refinement polish (face appeal, skin warmth, hair), not
+blockers to the proof.
 
 ## The question 05H had to answer
 Can Project: Studio build a convincing human-scale character on a professionally authored base
@@ -25,21 +27,33 @@ continuous authored quad topology rather than assembled primitives.
   65 joints, face −Y, grounded, no stray island → **validator PASS**. Six clips deform
   correctly (see `proof/lab05h/iteration-01/base-*.png`).
 
-## What is NOT done (authorized next steps)
-- **Iteration 2 — fitted workwear** (shirt, safety vest, trousers, belt, one radio, boots, hat,
-  hands finishing).
-- **Iteration 3 — skinning & deformation refinement**, including the residual underarm-web fix.
-- **Iteration 4 — style/face/head/hair/hat/materials + final LOD tuning.**
-- **Runtime harness** (05G↔05H comparison group, 30 controls) + `validate-hero-05h.mjs` +
-  `capture-lab05h-review.mjs` + the runtime/final evidence tree.
-- Remaining docs mirror the report; no clothed-hero PASS is claimed.
+- **Iteration 2 — fitted workwear (DONE):** shirt, olive open-front vest + hi-viz bands,
+  trousers, belt, hip radio, boots, hard hat — each a fitted offset-shell of the skinned body,
+  so it deforms with the six clips and can never be a detached pod/box/ring. Reads as a hard-hat
+  worker; the underarm web is now hidden under the sleeve. Dressed export LOD **24,350 / 10,957 /
+  4,869** tris → validator PASS. Evidence `proof/lab05h/iteration-02/`.
+- **Iteration 3 — deformation (DONE, light):** all six clips deform cleanly on the dressed hero
+  in Blender and in-engine (console-error-free); garments follow the body; no collapse/pierce/
+  tear/float. Fine weight-refinement was minimal (the inverse-distance skin + shell garments
+  already deform well).
+- **Runtime harness (DONE):** 27-camera 05G↔05H comparison group wired into the R3F Scene-G
+  harness (`cameraBridge` `G_HERO_05H`, `reviewHarness` `Hero05HCompare`/`Hero05HLOD`, `DevPanel`
+  05H group + status). `validate-hero-05h.mjs` PASS; `capture-lab05h-review.mjs` captured 28
+  in-engine views **console-error-free (errorCount=0)**; `tsc` + `vite build` clean. Evidence
+  `proof/lab05h/runtime/`.
 
-## Honest remaining weaknesses (base body)
-- Residual underarm web at the shoulder→armpit re-pose transition (localized; will sit under
-  the shirt sleeve; a topology/skinning refinement for Iteration 3).
-- Base-mesh fingers tightened toward a mitt but still stylized-rough (Iteration 4 finish).
-- Arms rest slightly below true horizontal (does not affect clip deformation).
-- LOD0 is 25,000 tris (top of the guidance band) — decimate/retopo tuning is an Iteration 4 item.
+## What is NOT done (refinement — authorized next step)
+- **Iteration 4 — face/style polish:** LOD generation and workwear materials are done, but the
+  base-mesh **face reads a little gaunt** at distance, **skin warmth** could be tuned, and there
+  is **no hair** under the hat. These are appeal refinements, not structural blockers.
+
+## Honest remaining weaknesses
+- **Face** reads slightly gaunt/cool at management distance (the CC0 base's realistic sculpt);
+  Iteration-4 softening + skin-warmth + simple hair would lift appeal.
+- Residual underarm web from the arm re-pose — **now hidden under the shirt sleeve**; a
+  topology tidy remains for a nude-base pass.
+- Base-mesh fingers tightened toward a mitt but still stylized-rough.
+- 05H wears a blue work shirt vs 05G's tan — a palette choice, not a defect.
 
 ## Isolation confirmed
 Additive only: `electric_hero_05h*` new; 05E/05F/05G GLBs byte-untouched; Scenes A–F and Scene G
@@ -48,7 +62,9 @@ external rig/clothing/hair/animation imported; no add-on or system dependency in
 push; GitHub default branch untouched.
 
 ## Recommended next decision
-Review the base body (`proof/lab05h/iteration-01/`) on real hardware. If the authored-base
-foundation is accepted, authorize continuation into Iteration 2 (workwear) → 4 + runtime. A
-legitimate alternative remains REQUIRES HUMAN ARTIST for the final human-scale finish, but the
-foundational feasibility question is now answered YES.
+Review the in-engine 05G↔05H comparison on your M3: `npx vite --port 4321 --strictPort`, Scene
+"G · Character Art Review", the **"05H Hero — 05G hero ↔ 05H authored-base A/B"** group (or the
+static shots in `proof/lab05h/runtime/` + `iteration-01/02/`). If the authored-base hero clearly
+exceeds 05G at human scale, either **ACCEPT** it as the go-forward character foundation, or
+authorize a focused **Iteration-4 appeal polish** (face softening, skin warmth, simple hair).
+Role-wide propagation remains prohibited until you authorize it separately.
