@@ -33,7 +33,29 @@ skinning/topology refinement item for Iteration 3); base-mesh fingers tightened 
 but still stylized-rough (Iteration 4 finish); arms rest slightly below true horizontal.
 **Decision: CONTINUE** (base foundation accepted; not yet the finished clothed hero).
 
-## Iterations 2–4 — NOT YET DONE
-Workwear (2), skinning/deformation refinement + underarm-web fix (3), and style/face/LODs (4)
-are the authorized next steps; the 05H runtime comparison harness and its evidence are pending.
-Status is reported honestly in FINAL-REPORT; no PASS is claimed for the finished hero yet.
+## Iteration 2 — Fitted workwear (commit: create fitted workwear)
+Authored each garment as a **fitted offset-shell of the base body** (`authored05h.build_workwear`):
+duplicate the relevant body region by skin weight → push out along normals → trim → re-material.
+Because a garment is derived from the skinned body it deforms identically under the six clips and
+can never be a detached pod/box/ring (the 05F/05G rejections).
+
+- **Shirt** (blue, torso+arms, hem at hip, sleeve to wrist) · **Trousers** (grey, pelvis+legs to
+  ankle) · **Boots** (brown, feet+lower calf) · **Vest** (olive fitted shell, open front, shoulders
+  to below waist) · **Hi-viz bands** (two bright strips wrapping the vest) · **Belt** (slim ring) ·
+  **Radio** (small box, right hip) · **Hard hat** (amber dome + brim).
+- Reads clearly as a hard-hat electric/construction worker; the underarm web is now **hidden under
+  the shirt sleeve** as predicted. All garments deform with the body (Walk/Sit/Kneel/Pickup clean).
+- **Export (dressed):** base+garments joined, LOD0 lightly decimated → LOD **24,350 / 10,957 / 4,869**
+  tris, 65 joints, height 1.77, face −Y, grounded → validator PASS. Evidence `proof/lab05h/iteration-02/`.
+
+| Shirt | Vest fit | Vest thickness | Trousers | Boots | Belt/radio | Hat | Deformation | Reads as worker |
+|---|---|---|---|---|---|---|---|---|
+| 4 | 3–4 | 4 | 4 | 3–4 | 3 | 4 | 4 | 4 |
+
+**Decision: CONTINUE.** Workwear reads and deforms; vest side/back wrap + boot shaping are Iter-3/4
+refinements. No pods/boxes/shelves.
+
+## Iterations 3–4 + runtime — remaining
+Deformation refinement (3) is largely satisfied (garments deform cleanly; the underarm web is
+covered); face/style/LOD tuning (4) and the 05G↔05H runtime harness + evidence are the remaining
+steps. No finished-hero PASS is claimed until the runtime comparison is in hand.

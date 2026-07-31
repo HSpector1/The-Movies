@@ -14,6 +14,7 @@ from studio_pipeline import config, core, rig, authored05h, exporter, lod
 
 argv = sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else []
 RAISE = float(argv[0]) if argv else 86.0
+DRESSED = "--nude" not in sys.argv
 OUT = config.STUDIO_OUT / "characters"; OUT.mkdir(parents=True, exist_ok=True)
 STEM = "electric_hero_05h"
 
@@ -52,10 +53,18 @@ def validate_05h(obj, arm):
 
 core.reset_scene()
 arm = rig.load_canonical_rig(keep_actions=False)
-obj = authored05h.build_authored_base(arm, raise_deg=RAISE)
+base = authored05h.build_authored_base(arm, raise_deg=RAISE)
+if DRESSED:
+    pieces = authored05h.build_workwear(base, arm)
+    obj = core.join_objects([base] + pieces, name="ElectricHero05H")
+else:
+    obj = base
+# dressed hero is ~48k raw (body cage + garment shells); lightly decimate LOD0 toward the
+# guidance band before deriving the tiers (silhouette survives; interior redundancy drops first)
+if DRESSED:
+    lod.decimate_ratio(obj, 0.5)
 ok, issues, stats = validate_05h(obj, arm)
-
-lods = lod.generate_lods(obj, ratios=[1.0, 0.4, 0.18])
+lods = lod.generate_lods(obj, ratios=[1.0, 0.45, 0.20])
 col = lod.collision_proxy(lods[0], "character")
 exporter.export_glb(OUT / f"{STEM}.glb", [arm, lods[0]], with_animations=False)
 exporter.export_glb(OUT / f"{STEM}_LOD1.glb", [arm, lods[1]], with_animations=False)

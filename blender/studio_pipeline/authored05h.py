@@ -145,3 +145,150 @@ def build_authored_base(arm, raise_deg=84.0, tag="ElectricHero05H", neutral_mat=
     core.set_custom_props(base, {"studio_role": tag, "studio_class": "character",
                                  "studio_base": "cc0-blender-studio-human-base-meshes-v1.0.0"})
     return base
+
+
+# ---------------------------------------------------------------------------
+# Iteration 2 — fitted workwear authored as offset shells of the base body.
+# A garment is a duplicate of the relevant body region pushed out along its normals; it
+# inherits the body's skin weights, so it deforms identically under the six clips and can never
+# be a detached pod/box/ring (the 05F/05G rejections). Belt/radio/hat are small authored pieces.
+# ---------------------------------------------------------------------------
+
+def _solid_mat(name, color, rough=0.7, metallic=0.0):
+    m = bpy.data.materials.new(name); m.use_nodes = True
+    b = m.node_tree.nodes["Principled BSDF"]
+    b.inputs["Base Color"].default_value = (*color, 1)
+    b.inputs["Roughness"].default_value = rough
+    b.inputs["Metallic"].default_value = metallic
+    return m
+
+
+def _region_weight(v, gidx):
+    return sum(g.weight for g in v.groups if g.group in gidx)
+
+
+def _garment(base, arm, name, region_bones, thickness, mat, keep=None):
+    """Duplicate the base, keep only `region_bones`-weighted verts, offset along normals,
+    optional `keep(co)->bool` trim. Inherits skin weights; binds to `arm`."""
+    o = base.copy(); o.data = base.data.copy(); o.name = name
+    bpy.context.scene.collection.objects.link(o)
+    gidx = {o.vertex_groups[b].index for b in region_bones if b in o.vertex_groups}
+    me = o.data
+    bm = bmesh.new(); bm.from_mesh(me); bm.verts.ensure_lookup_table()
+    dl = bm.verts.layers.deform.active
+    dead = []
+    for v in bm.verts:
+        w = sum(val for gi, val in v[dl].items() if gi in gidx) if dl else 0.0
+        if w < 0.5 or (keep is not None and not keep(v.co)):
+            dead.append(v)
+    bmesh.ops.delete(bm, geom=dead, context="VERTS")
+    bm.normal_update()
+    for v in bm.verts:
+        v.co = v.co + v.normal * thickness
+    bm.to_mesh(me); bm.free()
+    # strip stray islands the trim may have left, re-shade, material
+    core.remove_small_islands(o, min_verts=8)
+    me.materials.clear(); me.materials.append(mat)
+    for p in me.polygons: p.use_smooth = True
+    for m in list(o.modifiers): o.modifiers.remove(m)
+    am = o.modifiers.new("Armature", "ARMATURE"); am.object = arm; o.parent = arm
+    core.set_custom_props(o, {"studio_class": "garment"})
+    return o
+
+
+def _rigid_piece(mb_obj, arm, bone, mat, name):
+    """Bind a small authored mesh rigidly to one bone."""
+    mb_obj.name = name
+    mb_obj.vertex_groups.new(name=bone)
+    vg = mb_obj.vertex_groups[bone]
+    vg.add([v.index for v in mb_obj.data.vertices], 1.0, "REPLACE")
+    mb_obj.data.materials.clear(); mb_obj.data.materials.append(mat)
+    for p in mb_obj.data.polygons: p.use_smooth = True
+    am = mb_obj.modifiers.new("Armature", "ARMATURE"); am.object = arm; mb_obj.parent = arm
+    core.set_custom_props(mb_obj, {"studio_class": "garment"})
+    return mb_obj
+
+
+def build_workwear(base, arm):
+    """Author the Electric role's fitted workwear over `base`. Returns the list of pieces."""
+    from .meshgen import MeshBuilder, T
+    P = config.PALETTE
+    pieces = []
+    seg = {b.name: (b.head_local.copy(), b.tail_local.copy()) for b in arm.data.bones}
+    waist_z = seg["spine_01"][0].z    # ~1.05
+    hip_z = seg["pelvis"][0].z        # ~0.92
+
+    # SHIRT — torso + arms, hem at the hip, sleeve to wrist
+    shirt = _garment(base, arm, "Hero05H_Shirt",
+                     ["spine_01","spine_02","spine_03","neck_01",
+                      "clavicle_l","clavicle_r","upperarm_l","upperarm_r","lowerarm_l","lowerarm_r"],
+                     0.013, _solid_mat("mat_h_shirt", P["work_shirt_blue"], 0.75),
+                     keep=lambda c: c.z > hip_z - 0.02)
+    pieces.append(shirt)
+
+    # TROUSERS — pelvis + legs, waistband at the hip, to the ankle
+    trousers = _garment(base, arm, "Hero05H_Trousers",
+                        ["pelvis","thigh_l","thigh_r","calf_l","calf_r"],
+                        0.015, _solid_mat("mat_h_trousers", P["trousers_grey"], 0.8),
+                        keep=lambda c: c.z < waist_z + 0.02 and c.z > 0.16)
+    pieces.append(trousers)
+
+    # BOOTS — feet + lower calf
+    boots = _garment(base, arm, "Hero05H_Boots",
+                     ["foot_l","foot_r","ball_l","ball_r","calf_l","calf_r"],
+                     0.02, _solid_mat("mat_h_boots", P["leather_brown"], 0.55),
+                     keep=lambda c: c.z < 0.22)
+    pieces.append(boots)
+
+    # VEST — chest + back shell, fitted (NOT a pod), open front, from shoulders to just below waist
+    vest_top = seg["spine_03"][1].z + 0.04
+    vest = _garment(base, arm, "Hero05H_Vest",
+                    ["spine_01","spine_02","spine_03"], 0.036,
+                    _solid_mat("mat_h_vest", P["vest_olive"], 0.65),
+                    keep=lambda c: c.z < vest_top and c.z > waist_z - 0.10
+                    and not (abs(c.x) < 0.05 and c.y < -0.03))   # open the front centre
+    pieces.append(vest)
+
+    # REFLECTIVE BANDS — two bright hi-viz strips wrapping the vest (follow the surface)
+    hi = _solid_mat("mat_h_hiviz", (0.96, 0.82, 0.16), 0.35)
+    for bz in (seg["spine_02"][0].z + 0.02, seg["spine_02"][0].z - 0.10):
+        band = _garment(base, arm, f"Hero05H_Band_{bz:.2f}", ["spine_01","spine_02","spine_03"], 0.040, hi,
+                        keep=lambda c, z=bz: abs(c.z - z) < 0.032 and not (abs(c.x) < 0.05 and c.y < -0.03))
+        pieces.append(band)
+
+    # BELT — a slim ring of small boxes at the waist
+    import mathutils
+    belt_mb = MeshBuilder()
+    for i in range(28):
+        a = (i/28)*2*math.pi
+        belt_mb.add_box(size=(0.03, 0.03, 0.05),
+                        matrix=mathutils.Matrix.Translation((0.17*math.cos(a), 0.11*math.sin(a), hip_z+0.03)))
+    belt = belt_mb.finish("Hero05H_Belt")
+    bpy.context.scene.collection.objects.link(belt)
+    _rigid_piece(belt, arm, "pelvis", _solid_mat("mat_h_belt", P["leather_brown"], 0.5), "Hero05H_Belt")
+    pieces.append(belt)
+
+    # RADIO — small box on the right hip
+    radio_mb = MeshBuilder()
+    radio_mb.add_box(size=(0.05, 0.035, 0.09),
+                     matrix=mathutils.Matrix.Translation((0.17, 0.02, hip_z + 0.02)))
+    radio = radio_mb.finish("Hero05H_Radio")
+    bpy.context.scene.collection.objects.link(radio)
+    _rigid_piece(radio, arm, "thigh_r", _solid_mat("mat_h_radio", P["steel_dark"], 0.4, 0.6), "Hero05H_Radio")
+    pieces.append(radio)
+
+    # HARD HAT — a dome over the head
+    head_top = seg["Head"][1].z
+    hat_mb = MeshBuilder()
+    hat_mb.add_uvsphere(0.115, u=20, v=10, matrix=T(0, -0.01, head_top - 0.02))
+    hat_mb.add_cylinder(0.135, 0.02, segments=20, matrix=T(0, -0.01, head_top - 0.055))  # brim
+    hat = hat_mb.finish("Hero05H_Hat")
+    bpy.context.scene.collection.objects.link(hat)
+    # keep only the upper hemisphere of the dome
+    hbm = bmesh.new(); hbm.from_mesh(hat.data)
+    bmesh.ops.delete(hbm, geom=[v for v in hbm.verts if v.co.z < head_top - 0.055], context="VERTS")
+    hbm.to_mesh(hat.data); hbm.free()
+    _rigid_piece(hat, arm, "Head", _solid_mat("mat_h_hat", P["hardhat_amber"], 0.4), "Hero05H_Hat")
+    pieces.append(hat)
+
+    return pieces
