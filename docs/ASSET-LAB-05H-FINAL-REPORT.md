@@ -42,16 +42,17 @@ continuous authored quad topology rather than assembled primitives.
   in-engine views **console-error-free (errorCount=0)**; `tsc` + `vite build` clean. Evidence
   `proof/lab05h/runtime/`.
 
-## What is NOT done (refinement — authorized next step)
-- **Iteration 4 — face/style polish:** LOD generation and workwear materials are done, but the
-  base-mesh **face reads a little gaunt** at distance, **skin warmth** could be tuned, and there
-  is **no hair** under the hat. These are appeal refinements, not structural blockers.
+- **Iteration 4 — style/face (DONE):** softened the head sculpt (gentle Laplacian; face no longer
+  gaunt), warmed the skin tone, and added a short **dark hair cap** under the hat. Re-export LOD
+  **24,509 / 11,028 / 4,901** tris, validator PASS; re-captured 28 in-engine views console-error-free.
+
+**All four iterations + the runtime harness are complete.**
 
 ## Honest remaining weaknesses
-- **Face** reads slightly gaunt/cool at management distance (the CC0 base's realistic sculpt);
-  Iteration-4 softening + skin-warmth + simple hair would lift appeal.
-- Residual underarm web from the arm re-pose — **now hidden under the shirt sleeve**; a
-  topology tidy remains for a nude-base pass.
+- The review-env's cool key light casts a **blue tint on upward-facing skin**; the bare feet (lit
+  warmly) confirm the skin material itself is warm. This is harness lighting, not geometry/material.
+- Residual underarm web from the arm re-pose — **hidden under the shirt sleeve**; a topology tidy
+  remains for a nude-base pass.
 - Base-mesh fingers tightened toward a mitt but still stylized-rough.
 - 05H wears a blue work shirt vs 05G's tan — a palette choice, not a defect.
 

@@ -67,7 +67,19 @@ Wired the 27-camera 05G↔05H comparison group into the R3F Scene-G harness (`ca
 cameras). `capture-lab05h-review.mjs` captured **28 in-engine views console-error-free
 (errorCount=0)**; `tsc` + `vite build` clean. Evidence `proof/lab05h/runtime/`.
 
-## Iteration 4 — style/face — REMAINING (refinement)
-LODs + workwear materials are done; the base-mesh face reads slightly gaunt at distance, skin
-warmth could be tuned, and there is no hair under the hat. Appeal polish, not a structural
-blocker. **Verdict: PASS WITH NOTES → owner real-GPU review + Iteration-4 authorization.**
+## Iteration 4 — style/face (DONE)
+Owner authorized "soften + warm + hair." Applied: (1) a gentle Laplacian on the head (z>1.54,
+2× factor 0.32) softens the gaunt sculpt while keeping eyes/nose/mouth readable; (2) a warmer
+stylized skin tone (0.91,0.71,0.56, roughness 0.66); (3) a short **dark hair cap** on the crown/
+back/sides (offset-shell of the head, excluding the front face) that shows below the hat brim.
+Re-exported → LOD **24,509 / 11,028 / 4,901** tris, validator PASS; re-captured 28 in-engine views
+**console-error-free**. Evidence `proof/lab05h/iteration-04/` + `proof/lab05h/runtime/`.
+
+| Face appeal | Skin warmth | Hair | Head silhouette | LOD integrity | Runtime |
+|---|---|---|---|---|---|
+| 3–4 | 3–4 | 3–4 | 4 | 4 | 4 |
+
+**Remaining honest note:** the review-env's cool key light casts a blue tint on upward-facing skin
+(the bare feet, lit warmly, confirm the skin material itself is warm); 05H wears a blue work shirt
+vs 05G's tan (palette choice). Both are lighting/palette, not geometry. **Verdict: PASS WITH NOTES
+→ owner real-GPU review.**

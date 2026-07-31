@@ -134,6 +134,15 @@ def build_authored_base(arm, raise_deg=84.0, tag="ElectricHero05H", neutral_mat=
     m = base.modifiers.new("Armature", "ARMATURE"); m.object = arm
     base.parent = arm
 
+    # Iteration 4 — soften the CC0 base's realistic head sculpt so the face reads friendly, not
+    # gaunt, at management distance (gentle Laplacian on the head; keeps eyes/nose/mouth readable).
+    head = [v.index for v in me.vertices if v.co.z > 1.54]
+    bmh = bmesh.new(); bmh.from_mesh(me); bmh.verts.ensure_lookup_table()
+    hv = [bmh.verts[i] for i in head]
+    for _ in range(2):
+        bmesh.ops.smooth_vert(bmh, verts=hv, factor=0.32, use_axis_x=True, use_axis_y=True, use_axis_z=True)
+    bmh.to_mesh(me); bmh.free(); me.update()
+
     # the CC0 base ships a color attribute that would multiply (tint) the PBR skin in-engine ->
     # strip it so the authored skin material reads true (warm) rather than blue-grey at runtime
     while me.color_attributes:
@@ -142,8 +151,8 @@ def build_authored_base(arm, raise_deg=84.0, tag="ElectricHero05H", neutral_mat=
     if neutral_mat:
         mat = bpy.data.materials.new("mat_authored_skin"); mat.use_nodes = True
         b = mat.node_tree.nodes["Principled BSDF"]
-        b.inputs["Base Color"].default_value = (*config.PALETTE["skin_01"], 1)
-        b.inputs["Roughness"].default_value = 0.72
+        b.inputs["Base Color"].default_value = (0.91, 0.71, 0.56, 1)   # warm stylized skin (Iter 4)
+        b.inputs["Roughness"].default_value = 0.66
         me.materials.clear(); me.materials.append(mat)
         for p in me.polygons:
             p.use_smooth = True
@@ -281,6 +290,13 @@ def build_workwear(base, arm):
     bpy.context.scene.collection.objects.link(radio)
     _rigid_piece(radio, arm, "thigh_r", _solid_mat("mat_h_radio", P["steel_dark"], 0.4, 0.6), "Hero05H_Radio")
     pieces.append(radio)
+
+    # HAIR — a short dark cap on the back/sides/crown of the head (shows below the hat brim).
+    # Excludes the front face (y very negative) so eyes/nose/mouth stay clear.
+    hair = _garment(base, arm, "Hero05H_Hair", ["Head"], 0.012,
+                    _solid_mat("mat_h_hair", P["hair_dark"], 0.85),
+                    keep=lambda c: c.z > 1.56 and c.y > -0.055)
+    pieces.append(hair)
 
     # HARD HAT — a dome over the head
     head_top = seg["Head"][1].z
