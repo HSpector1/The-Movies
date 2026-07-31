@@ -1,0 +1,46 @@
+{
+  "milestone": "asset-lab-05h",
+  "workflow_path": "PATH A — verified CC0 professionally authored base mesh",
+  "audited_by": "Project Studio Asset Lab (lead agent), owner-authorized 2026-07-31",
+  "asset": {
+    "bundle_name": "Human Base Meshes Bundle v1.0.0",
+    "creator": "Blender Studio (Blender Foundation)",
+    "used_object": "GEO-body_male_stylized (stylized male body)",
+    "source_page": "https://archive.org/details/human-base-meshes-bundle-v1.0.0",
+    "canonical_home": "https://www.blender.org/download/demo/asset-bundles/human-base-meshes/",
+    "publication_date": "2023-05-19",
+    "download_date": "2026-07-31"
+  },
+  "license": {
+    "id": "CC0-1.0",
+    "name": "Creative Commons CC0 1.0 Universal (Public Domain Dedication)",
+    "text_file": "CC0-1.0.txt",
+    "embedded_evidence": "10 asset datablocks inside the .blend carry asset_data.license == 'CC0'",
+    "archive_metadata": "archive.org item licenseurl = creativecommons.org/publicdomain/zero/1.0",
+    "commercial_use": true,
+    "modification": true,
+    "redistribution": true,
+    "commit_to_public_github": true,
+    "attribution_required": false,
+    "account_required": false
+  },
+  "hashes": {
+    "source_zip_sha256": "46a912c0524072ac3b78c35d5d2471df7b8df102394a050ca8cd7184e3393648",
+    "source_zip_bytes": 34603008,
+    "source_zip_path": "sources/asset-lab-05h/human-base-meshes-bundle-v1.0.0.zip (gitignored; hash recorded)",
+    "extracted_mesh_sha256": "04c12fe3e6f62b8b41ade08d2a99609d05244f2acae21e0c52cbcc4db03cda03",
+    "extracted_mesh_path": "licenses/asset-lab-05h/human_base_male_stylized_cc0.glb"
+  },
+  "files_imported": [
+    "GEO-body_male_stylized (neutral body geometry ONLY; welded to a 12,502-vertex all-quad cage)"
+  ],
+  "files_rejected": [
+    "all realistic_* meshes (photoreal; off house style)",
+    "all head/hand/foot/eye/skull sub-meshes (not needed; Studio authors these)",
+    "any rig, animation, texture, hair, or clothing (NONE imported — geometry only)"
+  ],
+  "redistribution_assessment": "CC0 permits committing the modified result to this repo and its GitHub backup.",
+  "modification_assessment": "CC0 permits arbitrary modification (re-pose, retopo weld, stylize, skin, LOD).",
+  "provenance_verdict": "PASS — single verified CC0 asset; source, license, hash, and date preserved.",
+  "no_prohibited_source": "Not MakeHuman/MetaHuman/Mixamo; not a ripped game asset; no marketplace/editorial/non-commercial terms; no real-person likeness."
+}
