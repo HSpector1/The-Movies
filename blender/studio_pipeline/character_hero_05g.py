@@ -44,7 +44,7 @@ HERO_STAGE = {
 CORRECT_05G = {
     "shoulder": True,    # Iteration 1 — deltoid cap, sleeve join, armpit
     "vest":     True,    # Iteration 2 — thin fitted shell
-    "pelvis":   False,   # Iteration 3 — trouser silhouette, belt/accessory
+    "pelvis":   True,    # Iteration 3 — trouser silhouette, belt/accessory
 }
 
 
@@ -120,14 +120,29 @@ def build_hero(arm, tag="ElectricHero", seed=1):
         # 6 rings, and the bottom two NARROW + tuck between the legs so the wide leg-tube tops cover the
         # hip loft's lower edge — this hides the seat->thigh junction (the iter-1 jagged seam) instead of
         # letting two mismatched surfaces cross. segments=18 matches the leg tubes so overlapping edges align.
-        hip_rings = [
-            (pelvis.z + 0.086, 0.004, 0.150 * HI, 0.112 * HI),   # waistband (overlaps the shirt hem)
-            (pelvis.z + 0.040, 0.004, 0.153 * HI, 0.117 * HI),   # upper hip
-            (pelvis.z - 0.010, 0.008, 0.159 * HI, 0.123 * HI),   # widest hip
-            (pelvis.z - 0.055, 0.020, 0.154 * HI, 0.132 * HI),   # SEAT (pushed back for the buttock)
-            (pelvis.z - 0.100, 0.014, 0.132 * HI, 0.118 * HI),   # lower seat (seat curve continues down)
-            (crotch_z,         0.008, 0.100 * HI, 0.098 * HI),   # crotch base (narrow, tucked between legs)
-        ]
+        if CORRECT_05G["pelvis"]:
+            # 05G ITER 3 — TROUSER SILHOUETTE. Owner (05F REVISE): the hip block was WIDER than the legs,
+            # leaving a lateral SHELF at each hip and a "diaper" read; the rear had a belt shelf + separate
+            # seat block. Correction here: NARROW the widest-hip + seat + lower rings so the hip TAPERS into
+            # the thigh tops (no side shelf), while keeping the seat's +Y push so the buttock still reads.
+            # The result is one continuous trouser silhouette from waist through seat into the legs.
+            hip_rings = [
+                (pelvis.z + 0.086, 0.004, 0.146 * HI, 0.110 * HI),   # waistband (overlaps the shirt hem)
+                (pelvis.z + 0.040, 0.004, 0.148 * HI, 0.115 * HI),   # upper hip
+                (pelvis.z - 0.010, 0.008, 0.150 * HI, 0.120 * HI),   # widest hip (narrowed 0.159->0.150)
+                (pelvis.z - 0.055, 0.022, 0.145 * HI, 0.128 * HI),   # SEAT (still pushed back for the buttock)
+                (pelvis.z - 0.100, 0.016, 0.120 * HI, 0.112 * HI),   # lower seat (tapers toward the leg width)
+                (crotch_z,         0.008, 0.096 * HI, 0.094 * HI),   # crotch base (narrow, tucked between legs)
+            ]
+        else:
+            hip_rings = [
+                (pelvis.z + 0.086, 0.004, 0.150 * HI, 0.112 * HI),   # waistband (overlaps the shirt hem)
+                (pelvis.z + 0.040, 0.004, 0.153 * HI, 0.117 * HI),   # upper hip
+                (pelvis.z - 0.010, 0.008, 0.159 * HI, 0.123 * HI),   # widest hip
+                (pelvis.z - 0.055, 0.020, 0.154 * HI, 0.132 * HI),   # SEAT (pushed back for the buttock)
+                (pelvis.z - 0.100, 0.014, 0.132 * HI, 0.118 * HI),   # lower seat (seat curve continues down)
+                (crotch_z,         0.008, 0.100 * HI, 0.098 * HI),   # crotch base (narrow, tucked between legs)
+            ]
         sb.loft([("pelvis", 0.0, cy, z, rx, ry) for (z, cy, rx, ry) in hip_rings], segments=18, mat=lower)
         # (The hip loft's own top ring IS the waistband — no separate band cylinder, which previously
         #  crossed the loft at a mismatched segment count and produced the jagged crenellation seam.)
@@ -135,20 +150,39 @@ def build_hero(arm, tag="ElectricHero", seed=1):
         # back (+Y) + up so it closes the crotch V from behind rather than protruding at the front. 05F
         # iter-5: weighted pelvis + BOTH thighs so it STRETCHES with a wide stance (no inseam notch on
         # the pickup pose) instead of staying central while the legs spread.
-        ell({"pelvis": 0.5, "thigh_l": 0.25, "thigh_r": 0.25}, 0.0, th_l.y + 0.036, crotch_z + 0.002, 0.060 * HI, 0.036 * HI, 0.050, lower, u=12, v=8)
+        if CORRECT_05G["pelvis"]:
+            # 05G: SMALLER + pushed further back and UP so it is fully tucked between the thigh tops and
+            # never hangs at the front as a diaper flap (owner: front crotch box / diaper). It only fills
+            # the inner-thigh V from behind; the narrowed hip loft above already reads as clean trousers.
+            ell({"pelvis": 0.5, "thigh_l": 0.25, "thigh_r": 0.25}, 0.0, th_l.y + 0.054, crotch_z + 0.020, 0.046 * HI, 0.030 * HI, 0.040, lower, u=12, v=8)
+        else:
+            ell({"pelvis": 0.5, "thigh_l": 0.25, "thigh_r": 0.25}, 0.0, th_l.y + 0.036, crotch_z + 0.002, 0.060 * HI, 0.036 * HI, 0.050, lower, u=12, v=8)
 
     # ============================================================ ACCESSORIES (belt/radio/coil — reused)
     if cfg.get("belt"):
-        # a CLEAN leather belt band at the natural waist — clearly PROUD of the hip loft (so only the belt
-        # shows, no radius-match beat) + a smooth 24-seg edge (final-gate: the 18-seg edge read faceted/
-        # scalloped at human scale against the smooth-shaded hip loft).
-        sb.cyl("pelvis", 0.168 * g, 0.044, segments=18,
-               matrix=T(pelvis.x, pelvis.y, pelvis.z + 0.046) @ Matrix.Diagonal((1.0, 0.82, 1.0, 1)), mat=leather)
-        # hero: FLAT hip pouch hugging the trouser (was a proud floating cube) — thin front-back, sits on the hip
-        sb.box("pelvis", size=(0.058, 0.024, 0.072), matrix=T(0.140, -0.058, pelvis.z - 0.030), mat=leather)
+        if CORRECT_05G["pelvis"]:
+            # 05G: a SLIM belt band that HUGS the trouser waist (radius pulled in to just proud of the
+            # narrowed hip loft + a shorter z-height + a 24-seg smooth edge). Owner (05F REVISE): the fat
+            # proud belt read as a horizontal SHELF across the rear waist and a box across the front. This
+            # sits as a subtle belt line, not a shelf, so the trouser silhouette stays continuous.
+            sb.cyl("pelvis", 0.150 * g, 0.022, segments=24,
+                   matrix=T(pelvis.x, pelvis.y, pelvis.z + 0.038) @ Matrix.Diagonal((1.0, 0.84, 1.0, 1)), mat=leather)
+        else:
+            # a CLEAN leather belt band at the natural waist — clearly PROUD of the hip loft (so only the belt
+            # shows, no radius-match beat) + a smooth 24-seg edge (final-gate: the 18-seg edge read faceted/
+            # scalloped at human scale against the smooth-shaded hip loft).
+            sb.cyl("pelvis", 0.168 * g, 0.044, segments=18,
+                   matrix=T(pelvis.x, pelvis.y, pelvis.z + 0.046) @ Matrix.Diagonal((1.0, 0.82, 1.0, 1)), mat=leather)
+            # hero: FLAT hip pouch hugging the trouser (was a proud floating cube) — thin front-back, sits on the hip
+            sb.box("pelvis", size=(0.058, 0.024, 0.072), matrix=T(0.140, -0.058, pelvis.z - 0.030), mat=leather)
     if cfg.get("radio") and cfg.get("belt"):
-        # flat radio clipped to the belt (thin front-back, hugs the hip)
-        sb.box("pelvis", size=(0.044, 0.026, 0.072), matrix=T(-0.146, -0.086, pelvis.z + 0.010), mat=SLOT["dark"])
+        if CORRECT_05G["pelvis"]:
+            # 05G: ONE small accessory only (accessory policy) — a compact radio against the SIDE hip, well
+            # clear of the crotch, small enough not to obscure the pelvis silhouette or read as a shelf.
+            sb.box("pelvis", size=(0.036, 0.022, 0.052), matrix=T(-0.140, -0.018, pelvis.z - 0.010), mat=SLOT["dark"])
+        else:
+            # flat radio clipped to the belt (thin front-back, hugs the hip)
+            sb.box("pelvis", size=(0.044, 0.026, 0.072), matrix=T(-0.146, -0.086, pelvis.z + 0.010), mat=SLOT["dark"])
 
     # ============================================================ VEST (HERO: fitted open-front shell)
     if cfg.get("vest") and HERO_STAGE["vest"]:
