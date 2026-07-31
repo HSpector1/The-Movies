@@ -43,7 +43,7 @@ HERO_STAGE = {
 # "before" baseline). Each 05G iteration flips exactly one flag True so the before/after is provable.
 CORRECT_05G = {
     "shoulder": True,    # Iteration 1 — deltoid cap, sleeve join, armpit
-    "vest":     False,   # Iteration 2 — thin fitted shell
+    "vest":     True,    # Iteration 2 — thin fitted shell
     "pelvis":   False,   # Iteration 3 — trouser silhouette, belt/accessory
 }
 
@@ -157,20 +157,43 @@ def build_hero(arm, tag="ElectricHero", seed=1):
         # below the neck (natural neck opening). Replaces the 05E three-inflated-ring + rigid-rail vest.
         hv = SLOT["hivis"]
         front = 1.5 * math.pi           # -Y front
-        gap = 0.38                      # half-gap (radians) at the front-centre → the open zip line
-        a0, a1 = front + gap, front + 2 * math.pi - gap
         # The two upper rings blend a little CLAVICLE so the armhole edge tracks the deltoid on shoulder
         # abduction instead of delaminating into a floating flap (iter-2 rigging major). Symmetric so the
         # ring does not shear sideways. The hem ring stands ~0.6 cm proud for lumbar clearance in deep flex.
         w_up = {"spine_02": 0.36, "spine_03": 0.5, "clavicle_l": 0.07, "clavicle_r": 0.07}
         w_top = {"spine_03": 0.72, "clavicle_l": 0.14, "clavicle_r": 0.14}
-        vest_rings = [
-            ("spine_01",                          0.0, yb + 0.012, s1.z + 0.030, 0.144 * WA, 0.100 * WA),  # hem raised to the waist (above the seat) + hugging
-            (_blend("spine_01", "spine_02", 0.5), 0.0, yb - 0.004, (s1.z + s2.z) * 0.5, 0.181 * CH, 0.112 * CH),  # lower chest
-            ("spine_02",                          0.0, yb - 0.010, s2.z + 0.010, 0.192 * CH, 0.116 * CH),  # chest (proud front)
-            (w_up,                                0.0, yb - 0.004, (s2.z + s3.z) * 0.5 + 0.005, 0.196 * SH, 0.107 * SH),  # upper chest
-            (w_top,                               0.0, yb - 0.002, s3.z - 0.018, 0.186 * SH, 0.098 * SH),  # top (lowered so it does not pile up at the shoulder)
-        ]
+        if CORRECT_05G["vest"]:
+            # 05G ITER 2 — THIN FITTED SHELL. Owner (05F REVISE): the vest read as two padded chest pods —
+            # excessive projection from the rib cage, excessive thickness, a wide centre opening, weak side
+            # wrap, bands reinforcing the block. Corrections: (a) NARROWER opening (gap 0.38 -> 0.22) so the
+            # two front panels read as one zip line, not two pods; (b) rx pulled IN to sit ~0.5-0.7 cm proud
+            # of the torso (was ~1.4 cm) so it hugs the rib cage; (c) ry raised a touch so the cross-section
+            # is ROUNDER (real side wrap around the ribs) instead of a flat frontal slab.
+            gap = 0.22
+            # ry (front-back DEPTH) is the "projection from the rib cage" the owner rejected — the CHEST is
+            # pulled to only ~0.5 cm proud of the torso so it HUGS the ribs (kills the pod look). But the
+            # thinner shell removed the clearance the fat 05F vest had, so the reviewer C caught the hem
+            # EDGE piercing the shirt where the belly folds in the seated/kneel flex. Fix: GRADUATE the fit
+            # — keep the chest fitted, but give the HEM + lower-chest a little more depth (clearance) and
+            # raise the hem above the waist fold line so the panel edge never digs into the compressing
+            # abdomen. Still far thinner than 05F; the extra clearance is only at the belly, not the chest.
+            vest_rings = [
+                ("spine_01",                          0.0, yb + 0.008, s1.z + 0.044, 0.152 * WA, 0.112 * WA),  # hem raised above the waist fold + belly clearance
+                (_blend("spine_01", "spine_02", 0.5), 0.0, yb - 0.004, (s1.z + s2.z) * 0.5, 0.178 * CH, 0.115 * CH),  # lower chest (clearance for the seated fold)
+                ("spine_02",                          0.0, yb - 0.008, s2.z + 0.010, 0.183 * CH, 0.110 * CH),  # chest (~0.5 cm proud, hugging)
+                (w_up,                                0.0, yb - 0.004, (s2.z + s3.z) * 0.5 + 0.005, 0.189 * SH, 0.102 * SH),  # upper chest
+                (w_top,                               0.0, yb - 0.002, s3.z - 0.018, 0.186 * SH, 0.096 * SH),  # top (armhole/neck edge, flush)
+            ]
+        else:
+            gap = 0.38                      # half-gap (radians) at the front-centre → the open zip line
+            vest_rings = [
+                ("spine_01",                          0.0, yb + 0.012, s1.z + 0.030, 0.144 * WA, 0.100 * WA),  # hem raised to the waist (above the seat) + hugging
+                (_blend("spine_01", "spine_02", 0.5), 0.0, yb - 0.004, (s1.z + s2.z) * 0.5, 0.181 * CH, 0.112 * CH),  # lower chest
+                ("spine_02",                          0.0, yb - 0.010, s2.z + 0.010, 0.192 * CH, 0.116 * CH),  # chest (proud front)
+                (w_up,                                0.0, yb - 0.004, (s2.z + s3.z) * 0.5 + 0.005, 0.196 * SH, 0.107 * SH),  # upper chest
+                (w_top,                               0.0, yb - 0.002, s3.z - 0.018, 0.186 * SH, 0.098 * SH),  # top (lowered so it does not pile up at the shoulder)
+            ]
+        a0, a1 = front + gap, front + 2 * math.pi - gap
         sb.arc_loft([(w, cx, cy, cz, rx, ry) for (w, cx, cy, cz, rx, ry) in vest_rings], a0, a1, segments=28, mat=hv)
         # OVER-SHOULDER YOKE STRAPS (iter-2 must_fix): a hi-vis strap over each trapezius connecting the
         # front panel to the back panel, weighted to the clavicle so the vest reads as SHOULDER-HUNG (not
@@ -188,8 +211,17 @@ def build_hero(arm, tag="ElectricHero", seed=1):
             sb.segment(wstrap, p_front, p_back, 0.025, 0.023, segments=8, mat=hv, cap=False)
         # restrained reflective bands: two THIN white arc-strips wrapping the vest sides/back, sat just
         # proud of the shell (was the two rigid full-ring rails). Each band = a 2-ring arc-loft.
-        for bz, brx, bry in ((s2.z + 0.050, 0.194 * CH, 0.118 * CH), (s2.z - 0.030, 0.190 * CH, 0.116 * CH)):
-            band = [("spine_02", 0.0, yb - 0.008, bz + dz, brx + 0.004, bry + 0.004) for dz in (0.012, -0.012)]
+        if CORRECT_05G["vest"]:
+            # 05G: bands FOLLOW the thinner shell — pulled in to match the new chest radius and sat only
+            # ~0.2 cm proud (was ~0.4 cm on a fatter shell), and THINNER in z, so they read as reflective
+            # tape ON the garment surface, not rails reinforcing a block.
+            band_defs = ((s2.z + 0.048, 0.183 * CH, 0.111 * CH), (s2.z - 0.026, 0.181 * CH, 0.110 * CH))
+            band_off, band_dz = 0.002, 0.009
+        else:
+            band_defs = ((s2.z + 0.050, 0.194 * CH, 0.118 * CH), (s2.z - 0.030, 0.190 * CH, 0.116 * CH))
+            band_off, band_dz = 0.004, 0.012
+        for bz, brx, bry in band_defs:
+            band = [("spine_02", 0.0, yb - 0.008, bz + dz, brx + band_off, bry + band_off) for dz in (band_dz, -band_dz)]
             sb.arc_loft([(w, cx, cy, cz, rx, ry) for (w, cx, cy, cz, rx, ry) in band], a0, a1, segments=28, mat=white)
     if cfg.get("coil"):
         cl = h("clavicle_l") if "clavicle_l" in J else h("upperarm_l")
