@@ -52,6 +52,7 @@ export const F_VIEWS: Record<string, { pos: Vec3; tgt: Vec3 }> = {
 // so the production Scene G composition is never altered.
 export type GReviewKind = 'production' | 'lineup' | 'closeup' | 'anim' | 'lod' | 'herocompare' | 'herosingle' | 'herolod'
   | 'hero05gcompare' | 'hero05gsingle' | 'hero05glod'
+  | 'hero05hcompare' | 'hero05hsingle' | 'hero05hlod'
 export interface GReviewView { group: string; kind: GReviewKind; pos: Vec3; tgt: Vec3; clip?: string; lodFocus?: 0 | 1 | 2 }
 
 // The review lineup stands centred on origin, facing +Z (character front = Blender −Y → three +Z),
@@ -186,6 +187,50 @@ export const G_HERO_05G_ORDER: string[] = [
   '05G/LOD', '05G/Management Distance', '05G/Human Scale', '05G/Wireframe',
 ]
 
-// combined accessor + kind (Scene-G views live in G_REVIEW, the 05F G_HERO map, or the 05G G_HERO_05G map)
-export const getReviewView = (name: string): GReviewView | undefined => G_REVIEW[name] ?? G_HERO[name] ?? G_HERO_05G[name]
+// Asset Lab 05H — 05G-HERO ↔ 05H authored-base-hero comparison group (additive). 05G on the LEFT
+// (x<0), the 05H authored-base hero on the RIGHT (x>0), identical pose/time/scale/lighting/camera.
+// Keys namespaced "05H/". hero05hsingle (focus) frames one; hero05hcompare frames both; hero05hlod
+// shows 05H at LOD0/1/2. `clip` plays a clip live (else static idle).
+export interface GHero05HView extends GReviewView { focus?: '05g' | '05h' }
+export const G_HERO_05H: Record<string, GHero05HView> = {
+  '05H/05G Hero — Front':           { group: '05H Hero', kind: 'hero05hsingle', focus: '05g', pos: [-0.55, 1.30, 2.5], tgt: [-0.55, 0.98, 0] },
+  '05H/05H Hero — Front':           { group: '05H Hero', kind: 'hero05hsingle', focus: '05h', pos: [0.55, 1.30, 2.5],  tgt: [0.55, 0.98, 0] },
+  '05H/05G Hero — Back':            { group: '05H Hero', kind: 'hero05hsingle', focus: '05g', pos: [-0.55, 1.30, -2.5], tgt: [-0.55, 0.98, 0] },
+  '05H/05H Hero — Back':            { group: '05H Hero', kind: 'hero05hsingle', focus: '05h', pos: [0.55, 1.30, -2.5],  tgt: [0.55, 0.98, 0] },
+  '05H/Side-by-Side Front':         { group: '05H Hero', kind: 'hero05hcompare', pos: [0, 1.35, 5.2],  tgt: [0, 0.95, 0] },
+  '05H/Side-by-Side Back':          { group: '05H Hero', kind: 'hero05hcompare', pos: [0, 1.35, -5.2], tgt: [0, 0.95, 0] },
+  '05H/Side-by-Side Side':          { group: '05H Hero', kind: 'hero05hcompare', pos: [5.6, 1.35, 0.6], tgt: [0, 0.95, 0] },
+  '05H/Side-by-Side Three-Quarter': { group: '05H Hero', kind: 'hero05hcompare', pos: [4.6, 2.1, 5.0], tgt: [0, 0.95, 0] },
+  '05H/Shoulder Front':             { group: '05H Hero', kind: 'hero05hcompare', pos: [0, 1.52, 2.7],  tgt: [0, 1.44, 0] },
+  '05H/Shoulder Back':              { group: '05H Hero', kind: 'hero05hcompare', pos: [0, 1.52, -2.7], tgt: [0, 1.44, 0] },
+  '05H/Vest Front':                 { group: '05H Hero', kind: 'hero05hcompare', pos: [0, 1.30, 2.7],  tgt: [0, 1.22, 0] },
+  '05H/Vest Back':                  { group: '05H Hero', kind: 'hero05hcompare', pos: [0, 1.30, -2.7], tgt: [0, 1.22, 0] },
+  '05H/Vest Side':                  { group: '05H Hero', kind: 'hero05hcompare', pos: [3.4, 1.30, 0.6], tgt: [0, 1.22, 0] },
+  '05H/Pelvis Front':               { group: '05H Hero', kind: 'hero05hcompare', pos: [0, 0.74, 3.0],  tgt: [0, 0.62, 0] },
+  '05H/Pelvis Back':                { group: '05H Hero', kind: 'hero05hcompare', pos: [0, 0.74, -3.0], tgt: [0, 0.62, 0] },
+  '05H/Pelvis Side':                { group: '05H Hero', kind: 'hero05hcompare', pos: [3.4, 0.74, 0.6], tgt: [0, 0.62, 0] },
+  '05H/Hand':                       { group: '05H Hero', kind: 'hero05hcompare', pos: [3.0, 1.02, 2.2], tgt: [0.55, 0.98, 0] },
+  '05H/Boot':                       { group: '05H Hero', kind: 'hero05hcompare', pos: [2.6, 0.35, 2.6], tgt: [0, 0.16, 0] },
+  '05H/Walk':                       { group: '05H Hero', kind: 'hero05hcompare', clip: 'Walk_Loop',         pos: [4.4, 1.8, 5.2], tgt: [-0.1, 0.95, 0] },
+  '05H/Talk':                       { group: '05H Hero', kind: 'hero05hcompare', clip: 'Idle_Talking_Loop', pos: [4.4, 1.8, 5.2], tgt: [-0.1, 0.95, 0] },
+  '05H/Kneeling':                   { group: '05H Hero', kind: 'hero05hcompare', clip: 'Fixing_Kneeling',   pos: [4.2, 1.4, 4.6], tgt: [-0.1, 0.65, 0] },
+  '05H/Pickup':                     { group: '05H Hero', kind: 'hero05hcompare', clip: 'PickUp_Table',      pos: [4.2, 1.6, 4.8], tgt: [-0.1, 0.9, 0] },
+  '05H/Sitting':                    { group: '05H Hero', kind: 'hero05hcompare', clip: 'Sitting_Idle_Loop', pos: [4.2, 1.4, 4.8], tgt: [-0.1, 0.8, 0] },
+  '05H/LOD':                        { group: '05H Hero', kind: 'hero05hlod', pos: [0, 1.45, 6.0], tgt: [0, 0.95, 0] },
+  '05H/Management Distance':        { group: '05H Hero', kind: 'hero05hcompare', pos: [0, 1.7, 11], tgt: [0, 0.95, 0] },
+  '05H/Human Scale':                { group: '05H Hero', kind: 'hero05hcompare', pos: [0, 1.5, 3.6], tgt: [0, 1.0, 0] },
+  '05H/Wireframe':                  { group: '05H Hero', kind: 'hero05hcompare', pos: [0, 1.35, 5.2], tgt: [0, 0.95, 0] },
+}
+export const G_HERO_05H_ORDER: string[] = [
+  '05H/05G Hero — Front', '05H/05H Hero — Front', '05H/05G Hero — Back', '05H/05H Hero — Back',
+  '05H/Side-by-Side Front', '05H/Side-by-Side Back', '05H/Side-by-Side Side', '05H/Side-by-Side Three-Quarter',
+  '05H/Shoulder Front', '05H/Shoulder Back', '05H/Vest Front', '05H/Vest Back', '05H/Vest Side',
+  '05H/Pelvis Front', '05H/Pelvis Back', '05H/Pelvis Side', '05H/Hand', '05H/Boot',
+  '05H/Walk', '05H/Talk', '05H/Kneeling', '05H/Pickup', '05H/Sitting',
+  '05H/LOD', '05H/Management Distance', '05H/Human Scale', '05H/Wireframe',
+]
+
+// combined accessor + kind (Scene-G views live in G_REVIEW, the 05F G_HERO, 05G, or 05H map)
+export const getReviewView = (name: string): GReviewView | undefined =>
+  G_REVIEW[name] ?? G_HERO[name] ?? G_HERO_05G[name] ?? G_HERO_05H[name]
 export const gReviewKind = (name: string): GReviewKind => getReviewView(name)?.kind ?? 'production'

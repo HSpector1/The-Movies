@@ -19,6 +19,10 @@ const heroLodUrl = (n: 0 | 1 | 2): string => (n === 0 ? HERO_URL : HERO_URL.repl
 const HERO_05G_URL = '/assets/studio/characters/electric_hero_05g.glb'
 const hero05gLodUrl = (n: 0 | 1 | 2): string => (n === 0 ? HERO_05G_URL : HERO_05G_URL.replace('.glb', `_LOD${n}.glb`))
 
+// Asset Lab 05H — the authored-base hero (additive; 05G GLB above is untouched)
+const HERO_05H_URL = '/assets/studio/characters/electric_hero_05h.glb'
+const hero05hLodUrl = (n: 0 | 1 | 2): string => (n === 0 ? HERO_05H_URL : HERO_05H_URL.replace('.glb', `_LOD${n}.glb`))
+
 const CLIP_URL = '/assets/animation/UAL1_Standard.glb'
 const ROLES = ['PA', 'Grip', 'Electric', 'Maintenance', 'Office', 'CameraDP', 'Director', 'Carpenter'] as const
 const ROLE_LABEL: Record<string, string> = {
@@ -276,6 +280,55 @@ function Hero05GLOD(): JSX.Element {
   )
 }
 
+// ===== Asset Lab 05H — 05G hero ↔ 05H authored-base hero comparison (05G LEFT x<0, 05H RIGHT x>0) =====
+function Hero05HCompare({ clip, frozen }: { clip: string; frozen: boolean }): JSX.Element {
+  return (
+    <group>
+      <ReviewEnv />
+      <ReviewChar url={HERO_05G_URL} clip={clip} frozen={frozen} pos={[-0.55, 0, 0]} rotY={0} />
+      <ReviewChar url={HERO_05H_URL} clip={clip} frozen={frozen} pos={[0.55, 0, 0]} rotY={0} />
+      <Label lines={['05G Hero']} position={[-0.55, 2.05, 0]} lineWorld={0.10} />
+      <Label lines={['05H Hero']} position={[0.55, 2.05, 0]} lineWorld={0.10} />
+    </group>
+  )
+}
+
+function Hero05HLODChar({ lod, pos }: { lod: 0 | 1 | 2; pos: [number, number, number] }): JSX.Element {
+  const { scene } = useGLTF(hero05hLodUrl(lod))
+  const { animations } = useGLTF(CLIP_URL)
+  const obj = useMemo(() => {
+    const c = skeletonClone(scene)
+    c.traverse((o) => { const m = o as THREE.Mesh; if (m.isMesh) { m.castShadow = true; m.frustumCulled = false } })
+    return c
+  }, [scene])
+  const stats = useMemo(() => meshStats(obj), [obj])
+  const mixer = useMemo(() => new THREE.AnimationMixer(obj), [obj])
+  useEffect(() => {
+    const c = animations.find((a) => a.name === 'Idle_Loop') ?? animations[0]
+    const action = mixer.clipAction(c); action.reset().play(); action.time = IDLE_FREEZE_T; mixer.update(0)
+    return () => { mixer.stopAllAction() }
+  }, [mixer, animations])
+  return (
+    <group position={pos}>
+      <primitive object={obj} />
+      <Label lines={[`05H Hero · LOD${lod}`, `${stats.tris.toLocaleString()} tris`, `${stats.materials} materials`, `${stats.joints} joints`]}
+        position={[0, 2.16, 0]} lineWorld={0.085} />
+    </group>
+  )
+}
+
+function Hero05HLOD(): JSX.Element {
+  return (
+    <group>
+      <ReviewEnv />
+      <Hero05HLODChar lod={0} pos={[-1.95, 0, 0]} />
+      <Hero05HLODChar lod={1} pos={[0, 0, 0]} />
+      <Hero05HLODChar lod={2} pos={[1.95, 0, 0]} />
+      <Label lines={['05H Hero LOD comparison — same pose, scale & lighting']} position={[0, 2.62, 0]} lineWorld={0.1} />
+    </group>
+  )
+}
+
 // ----- dispatch on the active review view's kind -----
 export function ReviewArea({ view }: { view: string }): JSX.Element | null {
   const v = getReviewView(view)
@@ -283,6 +336,10 @@ export function ReviewArea({ view }: { view: string }): JSX.Element | null {
   if (v.kind === 'lod') return <ReviewLOD />
   if (v.kind === 'herolod') return <HeroLOD />
   if (v.kind === 'hero05glod') return <Hero05GLOD />
+  if (v.kind === 'hero05hlod') return <Hero05HLOD />
+  // 05H comparison views: 05G hero + 05H authored-base hero, same clip/time/scale/lighting.
+  if (v.kind === 'hero05hcompare' || v.kind === 'hero05hsingle')
+    return <Hero05HCompare clip={v.clip ?? 'Idle_Loop'} frozen={!v.clip} />
   // 05G comparison views: 05F hero + 05G hero, same clip/time/scale/lighting. Static (frozen idle) for the
   // structural/region views; live for the animation-comparison views (those carry a `clip`).
   if (v.kind === 'hero05gcompare' || v.kind === 'hero05gsingle')
@@ -304,3 +361,5 @@ useGLTF.preload(HERO_URL);
 [1, 2].forEach((n) => useGLTF.preload(heroLodUrl(n as 1 | 2)))
 useGLTF.preload(HERO_05G_URL);
 [1, 2].forEach((n) => useGLTF.preload(hero05gLodUrl(n as 1 | 2)))
+useGLTF.preload(HERO_05H_URL);
+[1, 2].forEach((n) => useGLTF.preload(hero05hLodUrl(n as 1 | 2)))

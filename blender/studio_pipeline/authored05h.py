@@ -134,6 +134,11 @@ def build_authored_base(arm, raise_deg=84.0, tag="ElectricHero05H", neutral_mat=
     m = base.modifiers.new("Armature", "ARMATURE"); m.object = arm
     base.parent = arm
 
+    # the CC0 base ships a color attribute that would multiply (tint) the PBR skin in-engine ->
+    # strip it so the authored skin material reads true (warm) rather than blue-grey at runtime
+    while me.color_attributes:
+        me.color_attributes.remove(me.color_attributes[0])
+
     if neutral_mat:
         mat = bpy.data.materials.new("mat_authored_skin"); mat.use_nodes = True
         b = mat.node_tree.nodes["Principled BSDF"]
