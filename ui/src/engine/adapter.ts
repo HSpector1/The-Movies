@@ -138,6 +138,22 @@ import {
   forecastCenters,
 } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
+// Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
+// type module (imports nothing, no Phaser); the value import (ALL_BUILDING_IDS) adds
+// no weight and never pulls the renderer into the eager bundle.
+import type {
+  StudioLotSnapshot,
+  BuildingId,
+  BuildingState,
+  ProductionCard,
+  ReleasedCard,
+  CashBand,
+  StandingBand,
+  ReceptionBand,
+  ReleasePresence,
+  AttentionState,
+} from '../lot/snapshot/StudioLotSnapshot.ts'
+import { ALL_BUILDING_IDS } from '../lot/snapshot/StudioLotSnapshot.ts'
 import type {
   GameState,
   Talent,
@@ -3588,3 +3604,224 @@ export function releaseNewspaper(state: GameState, film: FilmResult): NewspaperV
   })
 }
 export { criticStars, NEWSPAPER_MASTHEAD }
+
+// ── Gate D1: Studio Lot presentation snapshot ────────────────────────────────
+// A pure, deterministic read-model that projects the authoritative D-12 GameState
+// into the presentation-only StudioLotSnapshot the Phaser lot renders. It reads only
+// through existing selectors/read-models (financeCard, findConcept, TUNING) — never
+// re-deriving a formula — adds no randomness, and never mutates state.
+//
+// Two presentation-only mappings, necessary because the D-12 engine (phases 1–4) has
+// no such concept, are called out explicitly rather than silently invented:
+//   • Stage A/B assignment is by activeProductions array order (there is no engine
+//     `stage` field). MAX_CONCURRENT_PRODUCTIONS is 2, so [0]→Stage A, [1]→Stage B.
+//   • The studio has no name field in D1, so the gate/top-bar identity is the product
+//     brand (STUDIO_LOT_BRAND).
+// Neither invents a simulation fact; both are display arrangements. Everything else
+// (week, cash, standing channels, production progress, release presence) is read
+// verbatim from the authoritative state / read models.
+
+/** Product brand used as the lot's studio identity (no per-studio name exists in D1). */
+export const STUDIO_LOT_BRAND = 'PROJECT: STUDIO'
+
+/**
+ * Thresholds for the coarse cash-status band — display bands over the authoritative
+ * cash + runway (financeView), NOT an accounting rule. Named per project convention
+ * (like EXPOSURE_THRESHOLDS) so no magic number is inlined.
+ */
+export const LOT_CASH_BAND_THRESHOLDS = {
+  inTheRedAtOrBelow: 0, // cash <= 0 → 'in-the-red'
+  tightRunwayWeeks: 8, // finite runway <= 8 weeks (burning down) → 'tight'
+  flushCashAtOrAbove: 5_000_000, // cash >= $5M and not burning → 'flush'
+} as const
+
+/** Thresholds for the coarse standing band (average of the three 0..100 channels). */
+export const LOT_STANDING_BAND_THRESHOLDS = {
+  strugglingBelow: 35,
+  findingFootingBelow: 50,
+  establishedBelow: 70,
+} as const
+
+/** Recent-release recency window (weeks) for the theater 'recently-completed' cue. */
+const LOT_RECENT_RELEASE_WEEKS = 8
+
+type LotRunway = { weeks: number | null; infinite: boolean; netWeeklyCash: number }
+
+function lotCashBand(cash: number, runway: LotRunway): CashBand {
+  if (cash <= LOT_CASH_BAND_THRESHOLDS.inTheRedAtOrBelow) return 'in-the-red'
+  const burning = runway.weeks !== null && !runway.infinite
+  if (burning && (runway.weeks as number) <= LOT_CASH_BAND_THRESHOLDS.tightRunwayWeeks) return 'tight'
+  if (!burning && cash >= LOT_CASH_BAND_THRESHOLDS.flushCashAtOrAbove) return 'flush'
+  return 'stable'
+}
+
+function lotStandingBand(s: { audienceAwareness: number; industryPrestige: number; commercialConfidence: number }): StandingBand {
+  const avg = (s.audienceAwareness + s.industryPrestige + s.commercialConfidence) / 3
+  if (avg < LOT_STANDING_BAND_THRESHOLDS.strugglingBelow) return 'struggling'
+  if (avg < LOT_STANDING_BAND_THRESHOLDS.findingFootingBelow) return 'finding-footing'
+  if (avg < LOT_STANDING_BAND_THRESHOLDS.establishedBelow) return 'established'
+  return 'prestige'
+}
+
+/** Critical reception band from the authoritative criticScore (0..100) — NOT box office. */
+function lotReceptionBand(criticScore: number): ReceptionBand {
+  if (criticScore < 40) return 'flop'
+  if (criticScore < 60) return 'mixed'
+  if (criticScore < 80) return 'hit'
+  return 'smash'
+}
+
+function titleCaseGenre(g: string): string {
+  return g.length ? g[0]!.toUpperCase() + g.slice(1) : g
+}
+
+/**
+ * Project the authoritative GameState into the lot presentation snapshot. Pure,
+ * deterministic, non-mutating. The single source the Studio Lot renders from.
+ */
+export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
+  const week = state.market.tick
+  const cash = state.studio.cash
+  const standing = state.studio.standing
+  const fin = financeCard(state)
+  const runway = fin.runway
+  const standingBand = lotStandingBand(standing)
+  const underDressed = standingBand === 'struggling'
+
+  // Active productions → stage cards. Presentation-only Stage A/B assignment by array
+  // order (no engine stage field). Progress derived from authoritative remainingTicks.
+  const prods = state.studio.activeProductions
+  const STAGE_IDS: ('stage-a' | 'stage-b')[] = ['stage-a', 'stage-b']
+  const activeProductions: ProductionCard[] = prods.slice(0, STAGE_IDS.length).map((p, i) => {
+    const concept = findConcept(state, p.conceptId)
+    const total = TUNING.PRODUCTION_TICKS
+    const progress01 = Math.max(0, Math.min(1, (total - p.remainingTicks) / total))
+    return {
+      id: p.id,
+      title: concept?.title ?? p.conceptId,
+      genre: titleCaseGenre(concept?.genre ?? p.promise.genre),
+      stageId: STAGE_IDS[i]!,
+      progress01,
+      weeksRemaining: p.remainingTicks,
+      active: true,
+      stageState: 'filming',
+    }
+  })
+  const stageOccupied: Record<'stage-a' | 'stage-b', ProductionCard | undefined> = {
+    'stage-a': activeProductions.find((p) => p.stageId === 'stage-a'),
+    'stage-b': activeProductions.find((p) => p.stageId === 'stage-b'),
+  }
+
+  // Releases → theater presence + marquee. criticScore is authoritative CRITICAL
+  // reception (not box office). Presence never invents payment/revenue data.
+  const released = state.studio.releasedFilms
+  const releasePresence: ReleasePresence =
+    released.length === 0 ? 'none' : fin.activeRuns > 0 ? 'now-showing' : 'released'
+  const sortedByRecency = [...released].sort((a, b) => b.releaseTick - a.releaseTick)
+  const latest = sortedByRecency[0]
+  const latestReleaseTitle = latest ? (findConcept(state, latest.conceptId)?.title ?? latest.conceptId) : null
+  const releasedFilms: ReleasedCard[] = sortedByRecency.slice(0, 4).map((f) => ({
+    id: f.productionId,
+    title: findConcept(state, f.conceptId)?.title ?? f.conceptId,
+    reception: lotReceptionBand(f.criticScore),
+    weeksAgo: Math.max(0, week - f.releaseTick),
+  }))
+  const latestWeeksAgo = latest ? Math.max(0, week - latest.releaseTick) : Number.POSITIVE_INFINITY
+
+  // Financial-pressure warning — the one authoritative attention on Administration.
+  const financialPressure =
+    cash <= 0 || (runway.weeks !== null && !runway.infinite && runway.weeks <= LOT_CASH_BAND_THRESHOLDS.tightRunwayWeeks)
+  const financialReason =
+    cash <= 0
+      ? 'Cash below $0'
+      : runway.weeks !== null && !runway.infinite
+        ? `Runway ${runway.weeks} week${runway.weeks === 1 ? '' : 's'}`
+        : undefined
+
+  const noProductions = prods.length === 0
+
+  function buildingState(id: BuildingId): BuildingState {
+    let attention: AttentionState = 'normal'
+    let reason: string | undefined
+    switch (id) {
+      case 'admin':
+        if (financialPressure) {
+          attention = 'warning'
+          reason = financialReason
+        }
+        break
+      case 'writers': // Development
+        if (noProductions && cash > 0) {
+          attention = 'active'
+          reason = 'Assemble a film to get started.'
+        }
+        break
+      case 'stage-a':
+      case 'stage-b': {
+        const occ = stageOccupied[id]
+        if (occ) {
+          attention = 'active'
+          reason = `${occ.title} — ${occ.weeksRemaining} week${occ.weeksRemaining === 1 ? '' : 's'} left`
+        } else {
+          attention = 'empty'
+          reason = 'Available'
+        }
+        break
+      }
+      case 'post': // Production / Post
+        if (prods.length > 0) {
+          attention = 'active'
+          reason = `${prods.length} in production`
+        }
+        break
+      case 'theater':
+        if (releasePresence === 'now-showing') {
+          attention = 'active'
+          reason = 'Now showing'
+        } else if (releasePresence === 'released' && latestWeeksAgo <= LOT_RECENT_RELEASE_WEEKS) {
+          attention = 'recently-completed'
+          reason = 'Recent release'
+        } else if (releasePresence === 'none') {
+          reason = 'No releases yet'
+        }
+        break
+      case 'expansion':
+        attention = 'future'
+        reason = 'Reserved for future studio growth'
+        break
+      case 'gate':
+      case 'casting':
+      default:
+        attention = 'normal'
+    }
+    return {
+      id,
+      available: true,
+      ...(underDressed ? { underDressed: true } : {}),
+      attention,
+      ...(reason ? { attentionReason: reason } : {}),
+    }
+  }
+
+  const buildings: BuildingState[] = ALL_BUILDING_IDS.map(buildingState)
+
+  return {
+    studioName: STUDIO_LOT_BRAND,
+    week,
+    cash,
+    cashBand: lotCashBand(cash, runway),
+    standing: standingBand,
+    standingValues: {
+      awareness: standing.audienceAwareness,
+      prestige: standing.industryPrestige,
+      confidence: standing.commercialConfidence,
+    },
+    activeProductions,
+    releasedFilms,
+    releasePresence,
+    latestReleaseTitle,
+    buildings,
+    selectedBuildingId: null, // selection is UI session state, applied by the host
+    sceneSeed: state.seed,
+  }
+}

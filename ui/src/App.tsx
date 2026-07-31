@@ -16,7 +16,7 @@
 // released while playing. Films present only in an imported save (released before
 // this session) have no snapshot; the dashboard explains that plainly.
 
-import { Component, useEffect, useState } from 'react'
+import { Component, lazy, Suspense, useEffect, useState } from 'react'
 import type { ErrorInfo, ReactNode } from 'react'
 import type {
   GameState,
@@ -55,6 +55,13 @@ import { FilmRecord } from './screens/FilmRecord.tsx'
 import { NewspaperReveal } from './screens/NewspaperReveal.tsx'
 import { WeeklySummary } from './screens/WeeklySummary.tsx'
 import { saveActiveSession, loadActiveSession, clearActiveSession } from './engine/session.ts'
+import { studioLotOverviewEnabled } from './flags.ts'
+import type { LotRoute } from './lot/navigation.ts'
+
+// Gate D1: the Studio Lot overview is lazily imported so Phaser and the whole lot
+// module stay out of the eager bundle. The factory only runs when <StudioLotScreen/>
+// first renders, which only happens when the feature flag is on and the lot is opened.
+const StudioLotScreen = lazy(() => import('./lot/StudioLotScreen.tsx'))
 
 type Screen =
   | { kind: 'start' }
@@ -103,6 +110,7 @@ type Screen =
   | { kind: 'talent'; returnTo: 'dashboard' | 'founding' | 'hiring' }
   | { kind: 'hub' }
   | { kind: 'saves' }
+  | { kind: 'lot' } // Gate D1: Studio Lot overview (feature-flagged, default off)
 
 // Where the Talent Creator returns after create/back (D-11.A: reachable during founding,
 // from the Hiring Market, and from the Dashboard).
@@ -211,6 +219,38 @@ export function App() {
 
   function goDashboard() {
     setScreen({ kind: 'dashboard' })
+  }
+
+  // Gate D1: is the Studio Lot overview enabled this session? (default off)
+  const lotEnabled = studioLotOverviewEnabled()
+
+  // Translate a lot navigation intent into the existing screen navigation. Every route
+  // targets a screen that already exists outside the lot; `expansion-info` is handled
+  // inside the lot itself and never reaches here.
+  function handleLotNavigate(route: LotRoute) {
+    switch (route.kind) {
+      case 'dashboard':
+        setScreen({ kind: 'dashboard' })
+        break
+      case 'roster':
+        setScreen({ kind: 'roster' })
+        break
+      case 'hiring':
+        setScreen({ kind: 'hiring' })
+        break
+      case 'hub':
+        setScreen({ kind: 'hub' })
+        break
+      case 'assembly':
+        setScreen({ kind: 'assembly' })
+        break
+      case 'saves':
+        setScreen({ kind: 'saves' })
+        break
+      case 'expansion-info':
+        // Bounded informational placeholder shown inside the lot; nothing to route.
+        break
+    }
   }
 
   function handleAdvance() {
@@ -394,6 +434,7 @@ export function App() {
           onOpenRoster={() => setScreen({ kind: 'roster' })}
           onOpenHiring={() => setScreen({ kind: 'hiring' })}
           onSaves={() => setScreen({ kind: 'saves' })}
+          onOpenLot={lotEnabled ? () => setScreen({ kind: 'lot' }) : undefined}
           onOpenAutopsy={openAutopsyForFilm}
           onOpenClipping={openClippingForFilm}
         />
@@ -499,6 +540,18 @@ export function App() {
           onNewGame={requestNewGame}
           onBack={goDashboard}
         />
+      )}
+
+      {screen.kind === 'lot' && (
+        <Suspense
+          fallback={
+            <div className="app-shell">
+              <p className="hint">Opening the Studio Lot…</p>
+            </div>
+          }
+        >
+          <StudioLotScreen state={state} onNavigate={handleLotNavigate} onExit={goDashboard} />
+        </Suspense>
       )}
     </DevErrorBoundary>
   )

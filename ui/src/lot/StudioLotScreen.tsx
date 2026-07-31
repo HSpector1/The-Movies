@@ -1,0 +1,285 @@
+// ── StudioLotScreen — React host for the Studio Lot overview (Gate D1) ─────────
+//
+// The host owns the boundary between the authoritative engine and the Phaser lot:
+//
+//   GameState → studioLotSnapshot(state) → StudioLotView (Phaser) → navigation intents
+//
+// Phaser is loaded ONLY here, via a dynamic import() inside an effect, so it never
+// reaches the eager bundle and is fetched only when the lot is actually opened.
+//
+// The accessible backbone is the React COMPANION NAVIGATION — a semantic list of every
+// destination with its name, current state, and attention, keyboard-operable and
+// screen-reader friendly. The canvas is progressive enhancement: if it cannot load
+// (e.g. no WebGL), every destination is still reachable from the list. The lot never
+// mutates GameState — it only emits navigation intents the host maps to real routes.
+
+import { useCallback, useEffect, useRef, useState } from 'react'
+import type { GameState } from '../engine/adapter.ts'
+import { studioLotSnapshot } from '../engine/adapter.ts'
+import type { AttentionState, BuildingId } from './snapshot/StudioLotSnapshot.ts'
+import { ALL_BUILDING_IDS, BUILDING_ACTION, BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
+import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
+import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
+import './lot.css'
+
+type Props = {
+  state: GameState
+  /** Host maps a lot route to the existing app navigation (setScreen). */
+  onNavigate: (route: LotRoute) => void
+  /** Return to the normal Dashboard. */
+  onExit: () => void
+}
+
+// Session-level selection memory. This is UI session state — NOT GameState, NOT
+// SaveFileV4 (directive Phase 13). It survives lot↔React navigation within one page
+// session and resets on a full reload.
+let sessionSelectedBuilding: BuildingId | null = null
+
+// Attention → icon + word. Every state is communicated with text + shape + colour
+// (addendum §7) — never colour alone. The class drives the colour in lot.css.
+const ATTENTION_META: Record<AttentionState, { icon: string; word: string }> = {
+  normal: { icon: '•', word: 'Open' },
+  active: { icon: '▶', word: 'Active' },
+  positive: { icon: '✓', word: 'Positive' },
+  warning: { icon: '⚠', word: 'Warning' },
+  'decision-required': { icon: '!', word: 'Decision required' },
+  empty: { icon: '○', word: 'Available' },
+  future: { icon: '◇', word: 'Future' },
+  'recently-completed': { icon: '✓', word: 'Recently completed' },
+}
+
+function prefersReducedMotion(): boolean {
+  try {
+    return typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  } catch {
+    return false
+  }
+}
+
+export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
+  const mountRef = useRef<HTMLDivElement | null>(null)
+  const viewRef = useRef<StudioLotViewClass | null>(null)
+  const onNavigateRef = useRef(onNavigate)
+  onNavigateRef.current = onNavigate
+
+  const [selected, setSelected] = useState<BuildingId | null>(sessionSelectedBuilding)
+  const [selectionInfo, setSelectionInfo] = useState<SelectionInfo | null>(null)
+  const [expansionOpen, setExpansionOpen] = useState(false)
+  const [canvasReady, setCanvasReady] = useState(false)
+  const [canvasFailed, setCanvasFailed] = useState(false)
+  const [reducedMotion, setReducedMotionState] = useState(prefersReducedMotion)
+
+  const snapshot = studioLotSnapshot(state)
+
+  const recordSelection = useCallback((id: BuildingId | null) => {
+    sessionSelectedBuilding = id
+    setSelected(id)
+  }, [])
+
+  const dispatchRoute = useCallback((action: LotActionEvent['action']) => {
+    const res = resolveAction(action)
+    if (res.route.kind === 'expansion-info') {
+      setExpansionOpen(true)
+      return
+    }
+    onNavigateRef.current(res.route)
+  }, [])
+
+  // ── Create the Phaser view exactly once, lazily. Destroy on unmount. ─────────
+  useEffect(() => {
+    let cancelled = false
+    let view: StudioLotViewClass | null = null
+    const parent = mountRef.current
+    if (!parent) return
+
+    import('./StudioLotView.ts')
+      .then(({ StudioLotView }) => {
+        if (cancelled || !mountRef.current) return
+        view = new StudioLotView({
+          parent: mountRef.current,
+          snapshot: { ...studioLotSnapshot(state), selectedBuildingId: sessionSelectedBuilding },
+          onSelect: (sel) => {
+            setSelectionInfo(sel)
+            recordSelection(sel?.buildingId ?? null)
+          },
+          onAction: (e) => dispatchRoute(e.action),
+          onReady: () => {
+            if (cancelled) return
+            setCanvasReady(true)
+            if (sessionSelectedBuilding) view?.select(sessionSelectedBuilding)
+            if (reducedMotion) view?.setReducedMotion(true)
+          },
+        })
+        viewRef.current = view
+      })
+      .catch(() => {
+        // Canvas unavailable (no WebGL / jsdom). The companion navigation remains
+        // fully functional — the lot degrades to the accessible list.
+        if (!cancelled) setCanvasFailed(true)
+      })
+
+    return () => {
+      cancelled = true
+      view?.destroy()
+      viewRef.current = null
+    }
+    // Intentionally run once: the view is created a single time and fed new snapshots
+    // by the effect below. state/callbacks are read via refs / fresh selector calls.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // ── Feed the live view new authoritative facts whenever GameState changes. ───
+  useEffect(() => {
+    const v = viewRef.current
+    if (v && canvasReady) {
+      v.setSnapshot({ ...studioLotSnapshot(state), selectedBuildingId: sessionSelectedBuilding })
+    }
+  }, [state, canvasReady])
+
+  // ── Pause when the tab is hidden; resume when visible (no CPU while backgrounded). ─
+  useEffect(() => {
+    function onVisibility() {
+      const v = viewRef.current
+      if (!v) return
+      if (typeof document !== 'undefined' && document.hidden) v.pause()
+      else v.resume()
+    }
+    document.addEventListener('visibilitychange', onVisibility)
+    return () => document.removeEventListener('visibilitychange', onVisibility)
+  }, [])
+
+  // Honour a live change to the OS reduced-motion preference.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (!mq) return
+    const onChange = () => setReducedMotionState(mq.matches)
+    mq.addEventListener?.('change', onChange)
+    return () => mq.removeEventListener?.('change', onChange)
+  }, [])
+
+  useEffect(() => {
+    if (canvasReady) viewRef.current?.setReducedMotion(reducedMotion)
+  }, [reducedMotion, canvasReady])
+
+  // Companion-nav activation: select the building AND route to its destination.
+  const activate = useCallback(
+    (id: BuildingId) => {
+      recordSelection(id)
+      viewRef.current?.select(id)
+      dispatchRoute(BUILDING_ACTION[id])
+    },
+    [dispatchRoute, recordSelection],
+  )
+
+  const rows = ALL_BUILDING_IDS.map((id) => {
+    const b = snapshot.buildings.find((x) => x.id === id)
+    const attention: AttentionState = b?.attention ?? 'normal'
+    const meta = ATTENTION_META[attention]
+    const stateText = b?.attentionReason ?? meta.word
+    return { id, label: BUILDING_LABELS[id], attention, meta, stateText }
+  })
+
+  return (
+    <div
+      className={`lot-screen${reducedMotion ? ' lot-reduced-motion' : ''}`}
+      data-testid="studio-lot-screen"
+    >
+      <header className="lot-topbar">
+        <div className="lot-brand">
+          <span className="mark">{snapshot.studioName}</span>
+          <span className="lot-sub">Studio Lot · Week {snapshot.week}</span>
+        </div>
+        <div className="lot-topbar-actions">
+          <span className="lot-cash" data-testid="lot-cash">
+            {snapshot.cash < 0 ? '-' : ''}${Math.abs(Math.round(snapshot.cash)).toLocaleString('en-US')}
+          </span>
+          <button className="primary" onClick={onExit} data-testid="lot-return-dashboard">
+            Return to Dashboard
+          </button>
+        </div>
+      </header>
+
+      <div className="lot-body">
+        <div className="lot-stage-wrap">
+          {/* The canvas is decorative; the companion navigation is the accessible truth. */}
+          <div ref={mountRef} className="lot-canvas" data-testid="studio-lot-canvas" aria-hidden="true" />
+          {!canvasReady && !canvasFailed && (
+            <div className="lot-canvas-note" role="status">
+              Preparing the lot…
+            </div>
+          )}
+          {canvasFailed && (
+            <div className="lot-canvas-note" role="status" data-testid="lot-canvas-fallback">
+              The visual lot could not load here. Every destination is available in the list.
+            </div>
+          )}
+
+          {selectionInfo && (
+            <div className="lot-selection card" role="dialog" aria-label={`${selectionInfo.label} details`} data-testid="lot-selection-panel">
+              <div className="spread">
+                <h3 style={{ margin: 0 }}>{selectionInfo.label}</h3>
+                <button className="ghost" onClick={() => { setSelectionInfo(null); viewRef.current?.clearSelection(); recordSelection(null) }} aria-label="Close details">
+                  ✕
+                </button>
+              </div>
+              <p className="hint" style={{ marginTop: 8 }}>{selectionInfo.blurb}</p>
+              <button
+                className="accent"
+                data-testid="lot-selection-open"
+                onClick={() => dispatchRoute(selectionInfo.action)}
+              >
+                {resolveAction(selectionInfo.action).navLabel}
+              </button>
+            </div>
+          )}
+
+          {expansionOpen && (
+            <div className="lot-selection card" role="dialog" aria-label="Future studio expansion" data-testid="lot-expansion-info">
+              <div className="spread">
+                <h3 style={{ margin: 0 }}>Future studio expansion</h3>
+                <button className="ghost" onClick={() => setExpansionOpen(false)} aria-label="Close">
+                  ✕
+                </button>
+              </div>
+              <p className="hint" style={{ marginTop: 8 }}>
+                Reserved for future studio growth. Not available in D1.
+              </p>
+            </div>
+          )}
+        </div>
+
+        <nav className="lot-companion" aria-label="Studio lot destinations" data-testid="lot-companion-nav">
+          <h2 className="lot-companion-title">Studio Lot</h2>
+          <p className="hint lot-companion-hint">
+            Every destination is reachable here or by clicking the lot.
+          </p>
+          <ul className="lot-nav-list">
+            {rows.map((row) => (
+              <li key={row.id}>
+                <button
+                  type="button"
+                  className={`lot-nav-item att-${row.attention}${selected === row.id ? ' is-selected' : ''}`}
+                  data-testid={`lot-nav-${row.id}`}
+                  data-attention={row.attention}
+                  aria-current={selected === row.id ? 'true' : undefined}
+                  onClick={() => activate(row.id)}
+                  title={BUILDING_BLURBS[row.id]}
+                >
+                  <span className="lot-nav-name">{row.label}</span>
+                  <span className="lot-nav-state" data-testid={`lot-nav-${row.id}-state`}>
+                    <span className="lot-nav-icon" aria-hidden="true">{row.meta.icon}</span>
+                    <span className="lot-nav-att-word visually-hidden">{row.meta.word}: </span>
+                    {row.stateText}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  )
+}
+
+export default StudioLotScreen
