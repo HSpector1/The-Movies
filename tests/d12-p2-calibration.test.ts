@@ -45,12 +45,17 @@ describe('D-12 P2 gross scale: economy-engaged, applied exactly once, on OPENING
   it('engaged OPENING = non-engaged × ECONOMY_BOX_OFFICE_SCALE (marketing=0 isolates the scale)', () => {
     const inp = makeReceptionInputs({})
     const appeal = flatAppeal(inp, 55)
-    // At marketing=0 the marketingQuality is 0 under BOTH the legacy and awareness capacity models,
-    // so the ONLY difference between engaged/non-engaged in OPENING is the routine gross scale (the
-    // engaged LEGS RESHAPE — a separate mechanic — changes legs but never opening).
+    // At marketing=0 the marketingQuality is 0 under BOTH the legacy and awareness capacity models.
+    // Capital-frontier fix: the engaged OPENING now differs from non-engaged by TWO engaged-only
+    // factors — the routine gross SCALE (ECONOMY_BOX_OFFICE_SCALE) and the reduced organic-awareness
+    // FLOOR weight (ORGANIC_AWARENESS_FLOOR_WEIGHT vs the M0A literal 0.6). Each applies exactly once,
+    // and both act linearly on the unclamped awareness term here. Script potential is 0 (this test
+    // injects a flat appeal, bypassing computeSegmentAppeal). The engaged LEGS reshape changes legs,
+    // never opening.
     const off = computeBoxOffice(appeal, ...common(inp, 0), appeal, false)
     const on = computeBoxOffice(appeal, ...common(inp, 0), appeal, true)
-    expect(on.opening).toBeCloseTo(off.opening * SCALE, 3) // scale applies once, to opening
+    const floorRatio = TUNING.ORGANIC_AWARENESS_FLOOR_WEIGHT / 0.6
+    expect(on.opening).toBeCloseTo(off.opening * SCALE * floorRatio, 3) // scale + floor each apply exactly once
     expect(on.weightedAudienceScore).toBe(off.weightedAudienceScore) // WAS unscaled
     // Conservation holds: total is still opening × the (engaged-reshaped) legs.
     expect(on.total).toBeCloseTo(on.opening * on.legs, 2)

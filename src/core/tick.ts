@@ -188,7 +188,14 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // The single §5.3 critic draw for this release — the ONLY sim-stream advance. `engaged` drives
     // BOTH the §7 fame→opening-reach saturation and the D-12 P2 economy calibration (gross scale +
     // awareness marketing) — in production they are the same signal (economyEngaged).
-    const result = resolveReception(inp, rng, engaged, engaged)
+    // D-13 conditional discoverability: one governed N(0,1) draw from the ISOLATED engaged-only
+    // stream(seed,'discovery-v1',prodId) — like 'develop', it never advances state.rngState, so §15.7
+    // replay stays exact and M0A (never engaged → z=0, no draw) is byte-identical. It only widens the
+    // opening-reach uncertainty for low-reach-support packages; legs/critic/audience score are untouched.
+    const discoverabilityZ = engaged
+      ? stream(state.seed, 'discovery-v1', prod.id).gaussian(0, 1)
+      : 0
+    const result = resolveReception(inp, rng, engaged, engaged, discoverabilityZ)
 
     const baseFilmResult = buildFilmResult(result, {
       productionId: prod.id,

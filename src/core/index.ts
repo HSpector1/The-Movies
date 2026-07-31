@@ -136,6 +136,7 @@ export {
   computeSegmentAppeal,
   computeBoxOffice,
   budgetRealizationDelta,
+  scriptPotentialAppealDelta,
 } from './reception.js'
 export type { ReceptionInputs, ReceptionResult } from './reception.js'
 
@@ -268,6 +269,7 @@ export {
   foundingGaps,
   FOUNDING_MINIMUMS,
   beginFounding,
+  correlateConceptCost,
 } from './employment.js'
 export type { ContractOffer, Affordability } from './employment.js'
 
