@@ -46,8 +46,9 @@ input in v1 (recorded on the event for context only). No new RNG draw is introdu
 ## 5. Lifecycle hook + exactly-once protection (`src/core/tick.ts` step 6)
 
 Applied once per participant **at FilmResult creation** (release), inside the existing
-`develop`-gated block, **engaged-only** (requires the frozen `prod.participants`) so M0A /
-non-engaged is byte-identical. It is applied to the POST-development talent, so it affects
+`develop`-gated block, **engaged-only** (requires the frozen `prod.participants`) so the
+governed M0A / non-engaged path takes no fame update (see the serialization clarification
+below). It is applied to the POST-development talent, so it affects
 **future films only** — the just-resolved film's opening/legs/total (computed in step 3
 from pre-tick fame) are never retroactively changed. Not applied during assignment,
 greenlight, production ticks, weekly theatrical payments, Autopsy rendering, save loading,
@@ -112,6 +113,22 @@ V5; `migrateToV5` is the load-to-play entry. Existing (e.g. Zach) saves begin D-
 current craft + current frozen Star Power preserved and history available from this point
 forward.
 
+### 9a. Byte-identity — precise acceptance definition (owner clarification)
+
+The accurate distinction (do NOT read "byte-identical" as "the entire serialized SaveFile
+is unchanged from pre-D-14"):
+
+- **Governed M0A simulation behavior and the legacy outcome corpus remain byte-identical** —
+  the two-same-seed determinism comparison (`replay.test.ts`) holds, and no existing film,
+  reception, economy, or standing result changes.
+- **SaveFile serialization intentionally changes** through `SaveFileV5`: it adds an empty
+  career-event ledger and advances the version number (4 → 5). This is the same additive
+  kind of change D-12 made when it added `theatricalRuns` and bumped V3 → V4.
+- **No Star Power progression occurs in the governed M0A configuration** (non-engaged / no
+  participants ⇒ zero career events, fame unchanged).
+- We do NOT manufacture literal cross-version save-byte identity by altering mechanics; the
+  version bump + empty ledger are the intended, accepted serialization delta.
+
 ## 10. Autopsy behavior — Phase 2 (NOT built)
 
 A default-visible "Career Impact" section reading the frozen events (name, role, OVR
@@ -142,13 +159,13 @@ future films read updated fame; Lead>Support; more reach ⇒ more; high fame ⇒
 unknown's obscure failure ≈0; an established visible failure < 0; profit/cash/authored not
 inputs; creator == generated resolver; the event matches the state transition; V4→V5
 preserves fame + empty ledger; reload no double-apply; round-trip preserves events;
-determinism; M0A byte-identity; D-13 single-film distributions unchanged; D1 unchanged.
+determinism; M0A SIMULATION byte-identity (two-same-seed determinism; save serialization intentionally advances to V5, see §9a); D-13 single-film distributions unchanged; D1 unchanged.
 
 ## 14. Forecast/casting flow-through (§12)
 
 The updated fame flows through EXISTING consumers only (knownLeadTrackRecord, starDraw,
 opening reach, salary/contract reads) — no second fame bonus is added. Multi-film campaigns
-now reflect this intended progression; single-film D-13 distributions are byte-identical
+now reflect this intended progression; single-film D-13 box-office distributions are byte-identical
 (fame updates post-film).
 
 ## 15. Retained future career watch items
