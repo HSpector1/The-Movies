@@ -12,6 +12,8 @@ import { accessibleAutopsy, deliveredAlignmentReport } from '../engine/adapter.t
 import { money, moneyExact, score, axis, signed, segmentLabel, factorLabel } from '../format.ts'
 import { PROMISE_AXIS_INFO } from '../content.ts'
 import { Metric, Delta } from '../components/common.tsx'
+import { CareerImpact } from '../components/CareerImpact.tsx'
+import type { FilmCareerImpact } from '../engine/careerImpact.ts'
 
 function Vec({ v }: { v: { intimacy: number; tonalWeight: number; kineticEnergy: number } }) {
   return (
@@ -84,12 +86,17 @@ function ParticipantsCard({ participants }: { participants: FilmParticipants }) 
 export function Autopsy({
   view,
   compare,
+  careerImpact,
   onBack,
 }: {
   view: AutopsyView
   compare: AutopsyCompareView | null
+  careerImpact?: FilmCareerImpact
   onBack: () => void
 }) {
+  // Absent prop ⇒ treat as an unrecorded (pre-V5 / legacy) film — the section shows the
+  // honest "not recorded" message rather than inventing history.
+  const impact: FilmCareerImpact = careerImpact ?? { available: false, filmId: view.productionId }
   const [advancedOpen, setAdvancedOpen] = useState(false)
   const simple = accessibleAutopsy(view, compare)
   // A8: plain-English delivered-talent-alignment account, so normal play never needs the
@@ -225,6 +232,13 @@ export function Autopsy({
       {view.participants && <ParticipantsCard participants={view.participants} />}
 
       {view.participants && <div style={{ height: 16 }} />}
+
+      {/* ── D-14 Career Impact: the canonical development + Star Power presentation, read
+          ONLY from this film's frozen TalentCareerEvent records. Placed after the team
+          explanation, before Advanced Analysis. ── */}
+      <CareerImpact impact={impact} />
+
+      <div style={{ height: 16 }} />
 
       {/* ── Advanced Analysis (D-11.D): the full technical report, collapsed by default but
           always MOUNTED (preserved verbatim), so nothing is lost. ── */}

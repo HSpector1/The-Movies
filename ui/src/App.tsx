@@ -40,6 +40,7 @@ import {
   findConcept,
   releaseNewspaper,
 } from './engine/adapter.ts'
+import { filmCareerImpact } from './engine/careerImpact.ts'
 import { StartScreen } from './screens/StartScreen.tsx'
 import { Dashboard } from './screens/Dashboard.tsx'
 import { Assembly } from './screens/Assembly.tsx'
@@ -500,7 +501,12 @@ export function App() {
       )}
 
       {screen.kind === 'autopsy' && (
-        <Autopsy view={screen.view} compare={screen.compare} onBack={goDashboard} />
+        <Autopsy
+          view={screen.view}
+          compare={screen.compare}
+          careerImpact={filmCareerImpact(state, screen.view.productionId)}
+          onBack={goDashboard}
+        />
       )}
 
       {screen.kind === 'filmRecord' && <FilmRecord view={screen.view} onBack={goDashboard} />}
