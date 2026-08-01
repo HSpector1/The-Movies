@@ -447,6 +447,40 @@ export const TUNING = {
   // overexposure penalty applies as before. Not engaged ⇒ the legacy linear curve (byte-identical).
   LEGS_MIN_ENGAGED: 1.2, // [ICH] engaged retention floor (a true bomb opens and dies)
   LEGS_RETENTION_EXP: 1.4, // [ICH] convex WAS→legs response (>1 ⇒ weak delivery retains poorly)
+
+  // ── D-14 Talent Career Impact — Star Power (fame) progression at release ─────
+  // DETERMINISTIC (no new RNG; the realized film outcome is the only "uncertainty").
+  // Applied once per participant at FilmResult creation, ENGAGED-only (requires the
+  // frozen prod.participants) so M0A/non-engaged is byte-identical. Affects FUTURE
+  // films only. All inputs are already-authoritative realized outcomes. See
+  // src/core/starPower.ts. Constants are calibration starting points for §6 targets.
+  STAR_POWER_REACH_HALF: 10_000_000, // total gross ($) at which realized reach01 = 0.5 (saturating)
+  STAR_POWER_AUD_FLOOR: 40, // audience score below which exposure produces no Star Power gain
+  STAR_POWER_AUD_GOOD: 65, // audience score giving the full (1.0) audience gain multiplier
+  STAR_POWER_AUD_MAX: 1.2, // cap on the audience gain multiplier (a rapturous response)
+  STAR_POWER_FC_WEIGHT: 0.3, // SECONDARY weight of forecast over/under-performance on the gain
+  STAR_POWER_FC_MIN: 0.85, // lower bound of the forecast multiplier
+  STAR_POWER_FC_MAX: 1.15, // upper bound of the forecast multiplier
+  STAR_POWER_SAT_EXP: 1.6, // diminishing-returns exponent on remaining headroom ((100-fame)/100)^exp
+  STAR_POWER_BASE_GAIN: 9, // overall gain scale (the primary calibration knob for §6 A–D)
+  STAR_POWER_AUD_POOR: 45, // audience score below which a VISIBLE film can cost draw
+  STAR_POWER_ESTAB_EXP: 1.5, // exponent: only ESTABLISHED stars (high fame) have reputation to lose
+  STAR_POWER_ESTAB_LOSS: 16, // overall visible-failure loss scale (calibrates §6 E)
+  STAR_POWER_MAX_GAIN: 10.0, // per-film delta upper clamp (owner §6)
+  STAR_POWER_MAX_LOSS: 4.0, // per-film delta lower clamp MAGNITUDE (owner §6)
+  STAR_POWER_FC_EXCEED: 1.15, // total/expectedTotal ≥ this ⇒ exceededCommercialExpectations reason
+  STAR_POWER_FC_MISS: 0.85, // total/expectedTotal ≤ this ⇒ missedCommercialExpectations reason
+  STAR_POWER_NEGLIGIBLE: 0.05, // |delta| below this ⇒ noMeaningfulCareerChange reason
+  // Role-visibility weights (§5): from the FROZEN participant assignment, never OVR/fame.
+  // Lead > Antagonist > Director > Support > Writer > craft contributor.
+  STAR_POWER_ROLE_WEIGHTS: {
+    lead: 1.0,
+    antagonist: 0.7,
+    director: 0.55,
+    support: 0.45,
+    writer: 0.35,
+    craft: 0.2,
+  },
 } as const
 
 // ── §5.1 cast weighting ──────────────────────────────────────────────────────

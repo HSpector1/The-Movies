@@ -40,6 +40,9 @@ export type {
   Studio,
   GameState,
   GameStateV2,
+  GameStateV4,
+  TalentCareerEvent,
+  CareerReasonCode,
   Action,
   AuthoredTalentInput,
   CustomTalentInput,
@@ -343,11 +346,13 @@ export {
   validateSaveV2,
   validateSaveV3,
   validateSaveV4,
+  validateSaveV5,
   makeSave,
   makeSaveV1,
   makeSaveV2,
   makeSaveV3,
   makeSaveV4,
+  makeSaveV5,
   loadSave,
   exportSave,
   importSave,
@@ -365,5 +370,18 @@ export {
   importLegacyV2ToV4,
   importLegacyV1ToV4,
   migrateToV4,
+  // D-14 — legacy V4 → NEW V5 + migrateToV5, deterministic + idempotent.
+  convertV4ToV5,
+  migrateToV5,
 } from './save.js'
-export type { SaveFileV1, SaveFileV2, SaveFileV3, SaveFileV4, SaveFile, TalentV1, GameStateV1 } from './save.js'
+export type { SaveFileV1, SaveFileV2, SaveFileV3, SaveFileV4, SaveFileV5, SaveFile, TalentV1, GameStateV1 } from './save.js'
+
+// ── D-14 Talent Career Impact — Star Power progression + frozen career events ──
+export {
+  computeStarPowerDelta,
+  buildTalentCareerEvent,
+  starPowerRoleWeight,
+  roleDiscipline,
+  flattenParticipants,
+} from './starPower.js'
+export type { StarPowerInput, StarPowerResult, CareerEventInput } from './starPower.js'

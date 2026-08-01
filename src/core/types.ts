@@ -398,9 +398,62 @@ export type GameStateV3 = GameStateV2 & {
   freeAgents: string[] // ids immediately signable (former employees; expired/released)
 }
 
-// The live D-12 state: the frozen V3 surface PLUS theatrical runs (empty on M0A/legacy).
-export type GameState = GameStateV3 & {
+// The D-12 V4 surface: the frozen V3 surface PLUS theatrical runs (empty on M0A/legacy).
+// Anchored so SaveFileV4 does NOT carry the D-14 careerEvents field.
+export type GameStateV4 = GameStateV3 & {
   theatricalRuns: TheatricalRun[]
+}
+
+// The live D-14 state: the V4 surface PLUS the append-only frozen career-event ledger
+// (empty on M0A/legacy/non-engaged → byte-identical). New games save as SaveFileV5.
+export type GameState = GameStateV4 & {
+  careerEvents: TalentCareerEvent[]
+}
+
+// ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
+// The ONE canonical persisted record of a participant's outcome on one released film.
+// Autopsy (film-centric) and Talent Profile (talent-centric) BOTH render from this —
+// they never recompute a delta from present-day talent state. eventId is stable so a
+// reload/re-render cannot duplicate it.
+export type CareerReasonCode =
+  | 'substantialLeadExposure' // Lead billing created meaningful exposure
+  | 'supportingRoleVisibility' // a smaller-billing role, proportionally less opportunity
+  | 'limitedAudienceReach' // the film did not reach enough viewers to move recognition
+  | 'strongAudienceResponse' // audiences responded well; exposure was valuable
+  | 'weakAudienceResponse' // poor audience response limited the gain
+  | 'exceededCommercialExpectations' // realized reach materially beat the locked forecast
+  | 'missedCommercialExpectations' // realized reach materially missed the locked forecast
+  | 'establishedStarSaturation' // already near the top; large results are needed to move
+  | 'noMeaningfulCareerChange' // nothing material changed this release
+
+export type TalentCareerEvent = {
+  eventId: string // `${filmId}:${talentId}` — stable + unique per (film, participant)
+  talentId: string
+  filmId: string // productionId of the released film
+  filmTitle: string // concept title, snapshotted at release
+  releaseWeek: number
+  genre: Genre
+  role: FilmParticipantRole
+  billingWeight: number // the role-visibility weight applied (§5)
+  discipline: Discipline // the discipline the participant performed in
+  ovrBefore: number // perceived role OVR in `discipline` before this release's development
+  ovrAfter: number
+  skillsBefore: Record<string, number> // visible (perceived) skills of `discipline` before
+  skillsAfter: Record<string, number>
+  skillDeltas: Record<string, number>
+  genreExpBefore: number // perceived (discipline, genre) experience before
+  genreExpAfter: number
+  workHistoryBefore: number // completed-production counter for `discipline` before
+  workHistoryAfter: number
+  starPowerBefore: number // fame before the update
+  starPowerAfter: number // fame after the update (clamped 0..100)
+  starPowerDelta: number // starPowerAfter − starPowerBefore
+  realizedOpening: number
+  realizedTotal: number
+  audienceScore: number // weightedAudienceScore (0..100)
+  criticScore: number // recorded for context only — NOT a primary Star Power input in v1
+  forecastComparator: number // realizedTotal / locked expectedTotal (1 when no forecast)
+  reasonCodes: CareerReasonCode[]
 }
 
 // §2.6 Actions

@@ -643,5 +643,7 @@ export function generateWorld(seed: string): GameState {
     // ── D-12 economy — EMPTY here (gated the same way; the headless corpus never
     // opens a theatrical run, so it stays byte-identical on the single-lump path).
     theatricalRuns: [],
+    // ── D-14 career events — EMPTY here (engaged-only; non-engaged never appends).
+    careerEvents: [],
   }
 }

@@ -95,7 +95,8 @@ import {
   makeSave,
   exportSave,
   importSave,
-  migrateToV4,
+  migrateToV5,
+  convertV4ToV5,
   importLegacyV2ToV4,
   importLegacyV1ToV4,
   // ── D-11 employment / contracts / roster / freelancer market ──
@@ -1796,10 +1797,11 @@ export type ImportOutcome =
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    // D-12: migrate any known version up to the live V4 shape (adds theatricalRuns; for a
-    // migrated V3, released films become legacyCompleted runs — recorded, never repaid).
-    const converted = save.saveVersion !== 4
-    return { ok: true, state: migrateToV4(save).state, converted }
+    // D-14: migrate any known version up to the live V5 shape (adds careerEvents; V4→V5
+    // seeds an EMPTY ledger, preserving fame + all talent state; a migrated V3 also gets
+    // legacyCompleted theatrical runs — recorded, never repaid).
+    const converted = save.saveVersion !== 5
+    return { ok: true, state: migrateToV5(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -1809,7 +1811,7 @@ export function importSaveJson(json: string): ImportOutcome {
 // deterministically to a V3 GameState. Rejects non-V2 input as DATA. Original untouched.
 export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
-    return { ok: true, state: importLegacyV2ToV4(json).state, converted: true }
+    return { ok: true, state: convertV4ToV5(importLegacyV2ToV4(json)).state, converted: true }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -1819,7 +1821,7 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
 // string deterministically to a V3 GameState (via V2). Rejects non-V1 input as DATA.
 export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
-    return { ok: true, state: importLegacyV1ToV4(json).state, converted: true }
+    return { ok: true, state: convertV4ToV5(importLegacyV1ToV4(json)).state, converted: true }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
