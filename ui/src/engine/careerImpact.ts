@@ -15,6 +15,8 @@ export type CareerImpactRow = {
   eventId: string
   talentId: string
   name: string
+  filmTitle: string // frozen film-title snapshot
+  releaseWeek: number
   role: string // player-facing role label (e.g. "Lead")
   disciplineLabel: string // e.g. "Acting"
   ovrBefore: number
@@ -93,6 +95,8 @@ function toRow(ev: TalentCareerEvent): CareerImpactRow {
     eventId: ev.eventId,
     talentId: ev.talentId,
     name: ev.talentId, // filled by the state-aware selector below
+    filmTitle: ev.filmTitle,
+    releaseWeek: ev.releaseWeek,
     role: ROLE_LABEL[ev.role] ?? ev.role,
     disciplineLabel: DISCIPLINE_LABEL[ev.discipline] ?? ev.discipline,
     ovrBefore: ev.ovrBefore,
@@ -136,6 +140,29 @@ export function talentCareerHistory(state: GameState, talentId: string): CareerI
     .slice()
     .sort((a, b) => b.releaseWeek - a.releaseWeek)
     .map((ev) => ({ ...toRow(ev), name: nameById.get(ev.talentId) ?? ev.talentId }))
+}
+
+/**
+ * Count released films this talent participated in that have NO frozen career event
+ * (i.e. pre-V5 / migrated credits). Used to show the honest "history begins with V5"
+ * notice without inventing any deltas. Reads only authoritative state.
+ */
+export function preV5CreditCount(state: GameState, talentId: string): number {
+  const eventFilmIds = new Set(state.careerEvents.filter((e) => e.talentId === talentId).map((e) => e.filmId))
+  let missing = 0
+  for (const f of state.studio.releasedFilms) {
+    const p = f.participants
+    if (!p) continue
+    const inFilm =
+      p.writer.talentId === talentId ||
+      p.director.talentId === talentId ||
+      p.cast.lead.talentId === talentId ||
+      p.cast.antagonist.talentId === talentId ||
+      p.cast.support.talentId === talentId ||
+      p.craft.some((c) => c.talentId === talentId)
+    if (inFilm && !eventFilmIds.has(f.productionId)) missing++
+  }
+  return missing
 }
 
 /** Accessible signed delta text — never colour-only (§7/§8). */

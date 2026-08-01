@@ -26,23 +26,29 @@ function BeforeAfter({ label, before, after, decimals, testid }: { label: string
   )
 }
 
-export function CareerImpactCard({ row }: { row: CareerImpactRow }) {
+export function CareerImpactCard({ row, heading = 'participant' }: { row: CareerImpactRow; heading?: 'participant' | 'film' }) {
   const [open, setOpen] = useState(false)
+  // 'participant' → Autopsy (per-person on one film); 'film' → Talent Profile history
+  // (per-film for one person). The SAME frozen row powers both (§5).
+  const key = heading === 'film' ? `${row.talentId}-${row.eventId}` : row.talentId
   return (
-    <div className="card ci-card" data-testid={`career-impact-${row.talentId}`}>
+    <div className="card ci-card" data-testid={`career-impact-${key}`}>
       <div className="ci-head">
-        <strong data-testid={`career-impact-name-${row.talentId}`}>{row.name}</strong>
+        <strong data-testid={`career-impact-name-${key}`}>
+          {heading === 'film' ? row.filmTitle : row.name}
+        </strong>
         <span className="hint">
+          {heading === 'film' ? `Week ${row.releaseWeek} · ` : ''}
           {row.role} · {row.disciplineLabel}
         </span>
       </div>
 
-      <BeforeAfter label="OVR" before={row.ovrBefore} after={row.ovrAfter} decimals={0} testid={`career-impact-ovr-${row.talentId}`} />
-      <BeforeAfter label="Star Power" before={row.starPowerBefore} after={row.starPowerAfter} decimals={1} testid={`career-impact-starpower-${row.talentId}`} />
+      <BeforeAfter label="OVR" before={row.ovrBefore} after={row.ovrAfter} decimals={0} testid={`career-impact-ovr-${key}`} />
+      <BeforeAfter label="Star Power" before={row.starPowerBefore} after={row.starPowerAfter} decimals={1} testid={`career-impact-starpower-${key}`} />
 
       {/* Changed visible skills (default view shows only what moved). */}
       {row.changedSkills.map((s) => (
-        <BeforeAfter key={s.name} label={s.name} before={s.before} after={s.after} decimals={0} testid={`career-impact-skill-${row.talentId}-${s.name}`} />
+        <BeforeAfter key={s.name} label={s.name} before={s.before} after={s.after} decimals={0} testid={`career-impact-skill-${key}-${s.name}`} />
       ))}
 
       {row.genreExpChanged && (
@@ -54,7 +60,7 @@ export function CareerImpactCard({ row }: { row: CareerImpactRow }) {
         <span className="ci-label">Why it changed</span>
         <ul>
           {row.reasons.map((r, i) => (
-            <li key={i} data-testid={`career-impact-reason-${row.talentId}`}>
+            <li key={i} data-testid={`career-impact-reason-${key}`}>
               {r}
             </li>
           ))}
@@ -66,12 +72,12 @@ export function CareerImpactCard({ row }: { row: CareerImpactRow }) {
         className="linkish"
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        data-testid={`career-impact-toggle-${row.talentId}`}
+        data-testid={`career-impact-toggle-${key}`}
       >
         {open ? 'Hide exact detail' : 'Show exact detail'}
       </button>
       {open && (
-        <div className="ci-detail" data-testid={`career-impact-detail-${row.talentId}`}>
+        <div className="ci-detail" data-testid={`career-impact-detail-${key}`}>
           <div className="hint">
             Reached {row.realizedTotal >= 1_000_000 ? `$${(row.realizedTotal / 1_000_000).toFixed(1)}M` : `$${Math.round(row.realizedTotal / 1000)}k`} · audience{' '}
             {Math.round(row.audienceScore)} · critic {Math.round(row.criticScore)}

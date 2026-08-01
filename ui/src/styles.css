@@ -437,3 +437,64 @@ th.num {
   max-height: 320px;
   overflow-y: auto;
 }
+
+/* ── D-14 Career Impact + Talent Profile drawer ─────────────────────────────── */
+.linkish {
+  background: none;
+  border: none;
+  color: var(--primary-hover);
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-align: left;
+}
+.linkish:hover { color: var(--primary); }
+.linkish:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+.career-impact { display: flex; flex-direction: column; gap: 10px; }
+.career-impact > h3 { margin: 0 0 4px; color: var(--accent); }
+.ci-card { display: flex; flex-direction: column; gap: 6px; }
+.ci-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.ci-row {
+  display: grid;
+  grid-template-columns: minmax(140px, 1fr) auto auto;
+  gap: 12px;
+  align-items: baseline;
+  padding: 2px 0;
+  border-bottom: 1px solid var(--border);
+}
+.ci-label { color: var(--text-dim); }
+.ci-values { font-variant-numeric: tabular-nums; color: var(--fact); }
+.ci-delta { font-variant-numeric: tabular-nums; color: var(--text-dim); text-align: right; }
+.ci-why { margin-top: 4px; }
+.ci-why ul { margin: 4px 0 0; padding-left: 18px; color: var(--text); }
+.ci-detail { margin-top: 6px; background: var(--bg-inset); border-radius: var(--radius); padding: 8px; }
+.ci-detail table { width: 100%; font-variant-numeric: tabular-nums; }
+
+.drawer-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 50;
+}
+.drawer.talent-profile {
+  width: min(560px, 100%);
+  height: 100%;
+  overflow-y: auto;
+  background: var(--bg-panel);
+  border-left: 1px solid var(--border-strong);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.4);
+}
+.drawer-head { display: flex; justify-content: space-between; align-items: flex-start; }
+.drawer .career-history > h3 { margin: 8px 0 6px; color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer.talent-profile, .drawer-scrim { transition: none !important; animation: none !important; }
+}

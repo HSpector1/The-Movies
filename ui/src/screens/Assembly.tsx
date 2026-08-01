@@ -216,6 +216,7 @@ export function Assembly({
   onGreenlit,
   onCancel,
   onStateChange,
+  onOpenProfile,
 }: {
   state: GameState
   onGreenlit: (next: GameState) => void
@@ -224,6 +225,9 @@ export function Assembly({
   // unmounting Assembly, so the in-progress film-package draft is preserved. Optional so existing
   // tests that render <Assembly> without it still work (the create action is simply unavailable).
   onStateChange?: (next: GameState) => void
+  // D-14: open the shared Talent Profile for a candidate/assigned talent. Optional so existing
+  // tests still work.
+  onOpenProfile?: ((id: string) => void) | undefined
 }) {
   const [draft, setDraft] = useState<Draft>(makeInitialDraft)
   const [step, setStep] = useState<Step>('concept')
@@ -440,6 +444,7 @@ export function Assembly({
             engaged={engaged}
             freelancerFees={freelancerFees}
             onCreateTalent={onStateChange ? () => setCreating(true) : undefined}
+            onOpenProfile={onOpenProfile}
           />
         )}
         {step === 'budget' && concept && (
@@ -851,6 +856,7 @@ function TalentStep({
   engaged,
   freelancerFees,
   onCreateTalent,
+  onOpenProfile,
 }: {
   state: GameState
   draft: Draft
@@ -863,6 +869,7 @@ function TalentStep({
   patch: (p: Partial<Draft>) => void
   engaged: boolean
   freelancerFees: Record<string, number>
+  onOpenProfile?: ((id: string) => void) | undefined
   // A1: open the Talent Creator without leaving assembly. Undefined ⇒ the action is unavailable
   // (e.g. a test rendered <Assembly> without onStateChange); the button is then simply not shown.
   onCreateTalent?: (() => void) | undefined
@@ -925,6 +932,7 @@ function TalentStep({
       </p>
       <div className="grid grid-2">
         <TalentPicker
+          onOpenProfile={onOpenProfile}
           title="Writer"
           pool={writers}
           role="writer"
@@ -936,6 +944,7 @@ function TalentStep({
           freelancerFees={freelancerFees}
         />
         <TalentPicker
+          onOpenProfile={onOpenProfile}
           title="Director"
           pool={directors}
           role="director"
@@ -951,6 +960,7 @@ function TalentStep({
       <div className="grid grid-3">
         {CAST_SLOTS.map((slot) => (
           <TalentPicker
+          onOpenProfile={onOpenProfile}
             key={slot}
             title={SLOT_TITLES[slot]}
             pool={actors}
@@ -970,6 +980,7 @@ function TalentStep({
           card and it flows into the package summary and committed cost like any assignment. */}
       <div className="grid grid-3">
         <TalentPicker
+          onOpenProfile={onOpenProfile}
           title={engaged ? 'Production/Craft Lead (required)' : 'Crew / Craft (optional)'}
           pool={crew}
           role="craft"

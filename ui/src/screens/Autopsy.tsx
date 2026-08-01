@@ -44,7 +44,7 @@ function alignmentBand(cohesion: number): 'Weak' | 'Mixed' | 'Strong' {
   if (cohesion > 0.7) return 'Strong'
   return 'Mixed'
 }
-function ParticipantsCard({ participants }: { participants: FilmParticipants }) {
+function ParticipantsCard({ participants, onOpenProfile }: { participants: FilmParticipants; onOpenProfile?: ((id: string) => void) | undefined }) {
   const rows = flattenParticipants(participants)
   return (
     <div className="card" data-testid="autopsy-participants">
@@ -68,7 +68,15 @@ function ParticipantsCard({ participants }: { participants: FilmParticipants }) 
           {rows.map((r) => (
             <tr key={`${r.role}-${r.talentId}`} data-testid={`autopsy-participant-${r.talentId}`}>
               <td>{PART_ROLE_LABEL[r.role]}</td>
-              <td data-testid={`autopsy-participant-name-${r.role}`}>{r.name}</td>
+              <td data-testid={`autopsy-participant-name-${r.role}`}>
+                {onOpenProfile ? (
+                  <button type="button" className="linkish" data-testid={`autopsy-open-profile-${r.talentId}`} onClick={() => onOpenProfile(r.talentId)}>
+                    {r.name}
+                  </button>
+                ) : (
+                  r.name
+                )}
+              </td>
               <td>{r.freelancer ? 'Freelancer' : 'Studio'}</td>
               <td className="num">{r.greenlightOVR}</td>
               <td className="num">{r.greenlightFit}</td>
@@ -87,11 +95,13 @@ export function Autopsy({
   view,
   compare,
   careerImpact,
+  onOpenProfile,
   onBack,
 }: {
   view: AutopsyView
   compare: AutopsyCompareView | null
   careerImpact?: FilmCareerImpact
+  onOpenProfile?: (id: string) => void
   onBack: () => void
 }) {
   // Absent prop ⇒ treat as an unrecorded (pre-V5 / legacy) film — the section shows the
@@ -229,7 +239,7 @@ export function Autopsy({
 
       {/* D-11.A — this film's OWN immutable cast & crew (frozen at greenlight). Kept in the
           accessible view: this is identity, not deep math. */}
-      {view.participants && <ParticipantsCard participants={view.participants} />}
+      {view.participants && <ParticipantsCard participants={view.participants} onOpenProfile={onOpenProfile} />}
 
       {view.participants && <div style={{ height: 16 }} />}
 

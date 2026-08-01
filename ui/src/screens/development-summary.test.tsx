@@ -41,6 +41,7 @@ import { generateWorld } from '../../../src/core/index.ts'
 import type { Talent as CoreTalent } from '../../../src/core/index.ts'
 import { ReleaseResult } from './ReleaseResult.tsx'
 import { TalentHub } from './TalentHub.tsx'
+import { filmCareerImpact } from '../engine/careerImpact.ts'
 
 afterEach(cleanup)
 
@@ -158,28 +159,27 @@ describe('RULING A: development is on in play and produces a per-participant sum
     expect(JSON.stringify(c)).toBe(JSON.stringify(a))
   })
 
-  it('the ReleaseResult screen renders the development summary section for the film', () => {
-    const { preTick, next, released, development } = advanceToRelease('devsum-A5')
+  it('D-14 §7: the ReleaseResult screen shows the CANONICAL Career Impact (development summary superseded)', () => {
+    const { preTick, next, released } = advanceToRelease('devsum-A5')
     render(
       <ReleaseResult
         preTick={preTick}
         postTickStanding={next.studio.standing}
         released={released}
-        development={development}
+        careerImpactFor={(pid) => filmCareerImpact(next, pid)}
         onOpenAutopsy={() => {}}
         onContinue={() => {}}
       />,
     )
+    // The redundant DevelopmentSummary is gone; Career Impact is the single presentation.
+    expect(screen.queryAllByTestId(/^development-summary-/).length).toBe(0)
+    expect(screen.getAllByTestId('career-impact').length).toBeGreaterThan(0)
+    // OVR before → after is still shown, now from the frozen event.
     const film = released[0]!
-    const section = screen.getByTestId(`development-summary-${film.productionId}`)
-    expect(section).toBeInTheDocument()
-    // Every participant row is present with a role-OVR before → after readout.
-    const rd = development.find((d) => d.productionId === film.productionId)!
-    for (const p of rd.participants) {
-      const row = within(section).getByTestId(`dev-participant-${film.productionId}-${p.talentId}`)
-      expect(within(row).getByTestId(`dev-ovr-${film.productionId}-${p.talentId}`).textContent).toMatch(
-        /\d+ → \d+/,
-      )
+    const impact = filmCareerImpact(next, film.productionId)
+    if (!impact.available) throw new Error('expected frozen events for an engaged release')
+    for (const row of impact.rows) {
+      expect(screen.getByTestId(`career-impact-ovr-${row.talentId}`).textContent).toMatch(/\d+ → \d+/)
     }
   })
 
