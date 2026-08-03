@@ -42,6 +42,13 @@ import { evaluateReleaseBroadcast, type ReleaseBroadcastInputs } from './broadca
 import { developTalent, type DevelopmentContext } from './development.js'
 import { economyEngaged, weeklyPayroll } from './employment.js'
 import { openTheatricalRun } from './economy.js'
+import { clamp } from './math.js'
+import {
+  buildTalentCareerEvent,
+  computeStarPowerDelta,
+  flattenParticipants,
+  roleDiscipline,
+} from './starPower.js'
 import { TUNING } from './tuning.js'
 import { buildFilmResult, resolveReception, type ReceptionInputs } from './reception.js'
 import { RngStream, stream } from './rng.js'
@@ -58,6 +65,7 @@ import type {
   Production,
   Standing,
   Talent,
+  TalentCareerEvent,
   TheatricalRun,
 } from './types.js'
 
@@ -372,12 +380,25 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // validated M0A/D-6 baseline. A single talent working on two same-tick releases
   // develops once per release, in release order, over the evolving talent list.
   let talent: Talent[] = state.talent
+  const newCareerEvents: TalentCareerEvent[] = []
   if (develop && records.length > 0) {
     // Index into the current talent list for O(1) resolution as it evolves.
     const byId = new Map<string, Talent>()
     for (const t of talent) byId.set(t.id, t)
 
     for (const rec of records) {
+      // D-14: snapshot each participant's PRE-development state for the frozen career
+      // event's before→after (engaged films only; participants captured at greenlight).
+      const parts = rec.filmResult.participants
+      const beforeById = new Map<string, Talent>()
+      if (parts !== undefined) {
+        for (const p of flattenParticipants(parts)) {
+          const cur = byId.get(p.talentId)
+          if (cur !== undefined) beforeById.set(p.talentId, cur)
+        }
+      }
+
+      // 1. DEVELOPMENT (D-9.8) — UNCHANGED. Craft grows in the performed discipline.
       for (const performer of rec.develop.performers) {
         const current = byId.get(performer.talentId)
         if (current === undefined) continue // craft with no hire etc. — nothing to develop
@@ -385,12 +406,55 @@ export function tick(state: GameState, options?: TickOptions): GameState {
         const developed = developTalent(current, performer.discipline, rec.develop.ctx, devStream)
         byId.set(performer.talentId, developed)
       }
+
+      // 2. D-14 STAR POWER (fame) — engaged-only (requires frozen participants), so M0A
+      //    is untouched. DETERMINISTIC (no RNG): the delta comes only from realized reach,
+      //    role, audience response, forecast comparison, and current fame. Applied to the
+      //    POST-development talent → affects FUTURE films only; the just-resolved film's
+      //    economics (opening/legs/total, computed in step 3 from pre-tick fame) are
+      //    untouched. One frozen TalentCareerEvent per participant.
+      if (parts !== undefined) {
+        const concept = rec.develop.ctx.concept
+        for (const p of flattenParticipants(parts)) {
+          const before = beforeById.get(p.talentId)
+          const developed = byId.get(p.talentId)
+          if (before === undefined || developed === undefined) continue
+          const sp = computeStarPowerDelta({
+            fameBefore: developed.fame,
+            role: p.role,
+            realizedTotal: rec.filmResult.boxOffice.total,
+            audienceScore: rec.broadcast.weightedAudienceScore,
+            expectedTotal: rec.filmResult.forecast ? rec.filmResult.forecast.expectedTotal : null,
+          })
+          const withFame: Talent = { ...developed, fame: clamp(developed.fame + sp.delta, 0, 100) }
+          byId.set(p.talentId, withFame)
+          newCareerEvents.push(
+            buildTalentCareerEvent({
+              talentBefore: before,
+              talentAfter: withFame,
+              role: p.role,
+              discipline: roleDiscipline(p.role),
+              filmId: rec.develop.productionId,
+              filmTitle: concept.title,
+              releaseWeek: rec.filmResult.releaseTick,
+              genre: concept.genre,
+              realizedOpening: rec.filmResult.boxOffice.opening,
+              realizedTotal: rec.filmResult.boxOffice.total,
+              audienceScore: rec.broadcast.weightedAudienceScore,
+              criticScore: rec.filmResult.criticScore,
+              sp,
+            }),
+          )
+        }
+      }
     }
 
     // Rebuild the array in the ORIGINAL talent order (stable serialization),
     // substituting developed objects; untouched talent shared by reference.
     talent = state.talent.map((t) => byId.get(t.id) ?? t)
   }
+  const careerEvents =
+    newCareerEvents.length > 0 ? [...state.careerEvents, ...newCareerEvents] : state.careerEvents
 
   // ── 7. PAYROLL (D-11.5) ────────────────────────────────────────────────────
   // Weekly Σ contracted salaries, debited from cash EXACTLY ONCE per tick and
@@ -457,5 +521,6 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     ledger,
     freeAgents,
     theatricalRuns,
+    careerEvents,
   }
 }

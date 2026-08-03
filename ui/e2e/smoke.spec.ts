@@ -146,10 +146,10 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
   await shot(page, '5-release-result')
 
   // (5b) RULING A — the per-release development summary is shown on the release screen for
-  // every participating talent (development is ON in normal play). Capture it explicitly.
-  const prodId0 = releaseCardTestId!.replace('release-card-', '')
-  await expect(page.getByTestId(`development-summary-${prodId0}`)).toBeVisible()
-  await page.getByTestId(`development-summary-${prodId0}`).scrollIntoViewIfNeeded()
+  // every participating talent (development is ON in normal play). D-14 §7: the canonical
+  // Career Impact section (OVR + Star Power development) supersedes the old Development Summary.
+  await expect(page.getByTestId('career-impact').first()).toBeVisible()
+  await page.getByTestId('career-impact').first().scrollIntoViewIfNeeded()
   await shot(page, '8-development-summary')
 
   // (6) Open the full autopsy from the release card.

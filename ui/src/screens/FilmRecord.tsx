@@ -6,6 +6,8 @@
 // own frozen record — never current roster/employment/other films.
 
 import type { FilmRecordView, FilmParticipant } from '../engine/adapter.ts'
+import type { FilmCareerImpact } from '../engine/careerImpact.ts'
+import { CareerImpact } from '../components/CareerImpact.tsx'
 import { money, moneyExact, score } from '../format.ts'
 import { Metric } from '../components/common.tsx'
 
@@ -18,7 +20,18 @@ const PART_ROLE_LABEL: Record<FilmParticipant['role'], string> = {
   craft: 'Production/Craft Lead',
 }
 
-export function FilmRecord({ view, onBack }: { view: FilmRecordView; onBack: () => void }) {
+export function FilmRecord({
+  view,
+  careerImpact,
+  onOpenProfile,
+  onBack,
+}: {
+  view: FilmRecordView
+  careerImpact?: FilmCareerImpact
+  onOpenProfile?: ((id: string) => void) | undefined
+  onBack: () => void
+}) {
+  const impact: FilmCareerImpact = careerImpact ?? { available: false, filmId: view.productionId }
   const p = view.participants
   const rows: FilmParticipant[] = [p.writer, p.director, p.cast.lead, p.cast.antagonist, p.cast.support, ...p.craft]
   const profitPositive = view.profit >= 0
@@ -78,7 +91,15 @@ export function FilmRecord({ view, onBack }: { view: FilmRecordView; onBack: () 
             {rows.map((r) => (
               <tr key={`${r.role}-${r.talentId}`} data-testid={`record-participant-${r.talentId}`}>
                 <td>{PART_ROLE_LABEL[r.role]}</td>
-                <td data-testid={`record-participant-name-${r.role}`}>{r.name}</td>
+                <td data-testid={`record-participant-name-${r.role}`}>
+                  {onOpenProfile ? (
+                    <button type="button" className="linkish" data-testid={`autopsy-open-profile-${r.talentId}`} onClick={() => onOpenProfile(r.talentId)}>
+                      {r.name}
+                    </button>
+                  ) : (
+                    r.name
+                  )}
+                </td>
                 <td>{r.freelancer ? 'Freelancer' : 'Studio'}</td>
                 <td className="num">{r.greenlightOVR}</td>
                 <td className="num">{r.greenlightFit}</td>
@@ -90,6 +111,11 @@ export function FilmRecord({ view, onBack }: { view: FilmRecordView; onBack: () 
           </tbody>
         </table>
       </div>
+
+      <div style={{ height: 16 }} />
+
+      {/* D-14: Career Impact survives reload (frozen events), so it appears on the archived record too. */}
+      <CareerImpact impact={impact} />
     </div>
   )
 }

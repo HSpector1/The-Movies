@@ -62,6 +62,7 @@ export function TalentPicker({
   selectedId,
   chosenElsewhere,
   onSelect,
+  onOpenProfile,
   testid,
   assignment,
   freelancerFees,
@@ -72,6 +73,7 @@ export function TalentPicker({
   selectedId: string | null
   chosenElsewhere: string[]
   onSelect: (id: string) => void
+  onOpenProfile?: ((id: string) => void) | undefined
   testid?: string
   // When present, cards are the rich per-assignment cards (default-sorted by Fit) with
   // sort + filters. When absent, a minimal player-visible fallback card is shown.
@@ -124,6 +126,7 @@ export function TalentPicker({
       selectedId={selectedId}
       chosenElsewhere={chosenElsewhere}
       onSelect={onSelect}
+      onOpenProfile={onOpenProfile}
       testid={testid}
       cards={cards}
       genreLabel={assignment.genreLabel}
@@ -140,6 +143,7 @@ function RichPicker({
   selectedId,
   chosenElsewhere,
   onSelect,
+  onOpenProfile,
   testid,
   cards,
   genreLabel,
@@ -151,6 +155,7 @@ function RichPicker({
   selectedId: string | null
   chosenElsewhere: string[]
   onSelect: (id: string) => void
+  onOpenProfile?: ((id: string) => void) | undefined
   testid: string | undefined
   cards: Map<string, CandidateCard>
   genreLabel: string
@@ -370,6 +375,16 @@ function RichPicker({
           const isOpen = expanded === t.id
           return (
             <div key={t.id} className="stack" style={{ gap: 4 }}>
+              {onOpenProfile && (
+                <button
+                  type="button"
+                  className="linkish"
+                  data-testid={`picker-open-profile-${t.id}`}
+                  onClick={() => onOpenProfile(t.id)}
+                >
+                  View profile
+                </button>
+              )}
               <button
                 type="button"
                 className={`option${selected ? ' selected' : ''}${elig.eligible ? '' : ' ineligible'}`}

@@ -12,6 +12,8 @@ import { accessibleAutopsy, deliveredAlignmentReport } from '../engine/adapter.t
 import { money, moneyExact, score, axis, signed, segmentLabel, factorLabel } from '../format.ts'
 import { PROMISE_AXIS_INFO } from '../content.ts'
 import { Metric, Delta } from '../components/common.tsx'
+import { CareerImpact } from '../components/CareerImpact.tsx'
+import type { FilmCareerImpact } from '../engine/careerImpact.ts'
 
 function Vec({ v }: { v: { intimacy: number; tonalWeight: number; kineticEnergy: number } }) {
   return (
@@ -42,7 +44,7 @@ function alignmentBand(cohesion: number): 'Weak' | 'Mixed' | 'Strong' {
   if (cohesion > 0.7) return 'Strong'
   return 'Mixed'
 }
-function ParticipantsCard({ participants }: { participants: FilmParticipants }) {
+function ParticipantsCard({ participants, onOpenProfile }: { participants: FilmParticipants; onOpenProfile?: ((id: string) => void) | undefined }) {
   const rows = flattenParticipants(participants)
   return (
     <div className="card" data-testid="autopsy-participants">
@@ -66,7 +68,15 @@ function ParticipantsCard({ participants }: { participants: FilmParticipants }) 
           {rows.map((r) => (
             <tr key={`${r.role}-${r.talentId}`} data-testid={`autopsy-participant-${r.talentId}`}>
               <td>{PART_ROLE_LABEL[r.role]}</td>
-              <td data-testid={`autopsy-participant-name-${r.role}`}>{r.name}</td>
+              <td data-testid={`autopsy-participant-name-${r.role}`}>
+                {onOpenProfile ? (
+                  <button type="button" className="linkish" data-testid={`autopsy-open-profile-${r.talentId}`} onClick={() => onOpenProfile(r.talentId)}>
+                    {r.name}
+                  </button>
+                ) : (
+                  r.name
+                )}
+              </td>
               <td>{r.freelancer ? 'Freelancer' : 'Studio'}</td>
               <td className="num">{r.greenlightOVR}</td>
               <td className="num">{r.greenlightFit}</td>
@@ -84,12 +94,19 @@ function ParticipantsCard({ participants }: { participants: FilmParticipants }) 
 export function Autopsy({
   view,
   compare,
+  careerImpact,
+  onOpenProfile,
   onBack,
 }: {
   view: AutopsyView
   compare: AutopsyCompareView | null
+  careerImpact?: FilmCareerImpact
+  onOpenProfile?: (id: string) => void
   onBack: () => void
 }) {
+  // Absent prop ⇒ treat as an unrecorded (pre-V5 / legacy) film — the section shows the
+  // honest "not recorded" message rather than inventing history.
+  const impact: FilmCareerImpact = careerImpact ?? { available: false, filmId: view.productionId }
   const [advancedOpen, setAdvancedOpen] = useState(false)
   const simple = accessibleAutopsy(view, compare)
   // A8: plain-English delivered-talent-alignment account, so normal play never needs the
@@ -222,9 +239,16 @@ export function Autopsy({
 
       {/* D-11.A — this film's OWN immutable cast & crew (frozen at greenlight). Kept in the
           accessible view: this is identity, not deep math. */}
-      {view.participants && <ParticipantsCard participants={view.participants} />}
+      {view.participants && <ParticipantsCard participants={view.participants} onOpenProfile={onOpenProfile} />}
 
       {view.participants && <div style={{ height: 16 }} />}
+
+      {/* ── D-14 Career Impact: the canonical development + Star Power presentation, read
+          ONLY from this film's frozen TalentCareerEvent records. Placed after the team
+          explanation, before Advanced Analysis. ── */}
+      <CareerImpact impact={impact} />
+
+      <div style={{ height: 16 }} />
 
       {/* ── Advanced Analysis (D-11.D): the full technical report, collapsed by default but
           always MOUNTED (preserved verbatim), so nothing is lost. ── */}

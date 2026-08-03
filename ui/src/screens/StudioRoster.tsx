@@ -42,10 +42,12 @@ export function StudioRoster({
   state,
   onChange,
   onBack,
+  onOpenProfile,
 }: {
   state: GameState
   onChange: (next: GameState) => void
   onBack: () => void
+  onOpenProfile?: ((id: string) => void) | undefined
 }) {
   const [profession, setProfession] = useState<ProfessionFilter>('all')
   const [renewalsOnly, setRenewalsOnly] = useState(false)
@@ -172,6 +174,7 @@ export function StudioRoster({
                 onCancelRelease={() => setPendingRelease(null)}
                 onConfirmRelease={() => release(card.profile.id)}
                 onRenew={renew}
+                onOpenProfile={onOpenProfile}
               />
             ))}
           </div>
@@ -190,6 +193,7 @@ function RosterCard({
   onCancelRelease,
   onConfirmRelease,
   onRenew,
+  onOpenProfile,
 }: {
   card: EmploymentCard
   pendingRelease: boolean
@@ -197,6 +201,7 @@ function RosterCard({
   onCancelRelease: () => void
   onConfirmRelease: () => void
   onRenew: (talentId: string, termWeeks: number) => void
+  onOpenProfile?: ((id: string) => void) | undefined
 }) {
   const { profile, employment } = card
   const contract = employment.contract
@@ -211,6 +216,16 @@ function RosterCard({
 
   return (
     <div className="panel stack" data-testid={`roster-card-${id}`}>
+      {onOpenProfile && (
+        <button
+          type="button"
+          className="linkish"
+          data-testid={`roster-open-profile-${id}`}
+          onClick={() => onOpenProfile(id)}
+        >
+          View profile
+        </button>
+      )}
       <div className="spread">
         <strong>{profile.name}</strong>
         <span className="sub">{ROLE_LABEL[profile.role]}</span>

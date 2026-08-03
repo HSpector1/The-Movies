@@ -14,6 +14,7 @@ import { describe, expect, it } from 'vitest'
 import {
   applyActions,
   beginFounding,
+  convertV4ToV5,
   canAfford,
   convertV3ToV4,
   economyEngaged,
@@ -220,8 +221,9 @@ describe('D-12: V3→V4 migration records released films as legacyCompleted (no 
     // by tick step 3.5) — so a migrated release can never be paid twice.
     const legacyRev = (st: GameState) =>
       st.ledger.filter((e) => e.kind === 'studioRevenue' && released.some((f) => f.productionId === e.productionId)).length
-    const before = legacyRev(v4.state)
-    const advanced = advance(v4.state, 6)
+    const liveState = convertV4ToV5(v4).state // D-14: run the live V5 shape forward
+    const before = legacyRev(liveState)
+    const advanced = advance(liveState, 6)
     expect(legacyRev(advanced)).toBe(before) // no NEW legacy credit — no double-pay
   })
 })
@@ -238,7 +240,7 @@ describe('D-12: reload equals continuous play with an active run straddling the 
 
     const continuous = advance(midRun, 6)
     const reloaded = importSave(exportSave(makeSave(midRun)))
-    if (reloaded.saveVersion !== 4) throw new Error('expected V4')
+    if (reloaded.saveVersion !== 5) throw new Error('expected V5')
     const split = advance(reloaded.state, 6)
 
     expect(exportSave(makeSave(split))).toBe(exportSave(makeSave(continuous)))

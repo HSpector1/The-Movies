@@ -39,7 +39,10 @@ import {
   filmRecordView,
   findConcept,
   releaseNewspaper,
+  talentProfile,
 } from './engine/adapter.ts'
+import { filmCareerImpact, talentCareerHistory, preV5CreditCount } from './engine/careerImpact.ts'
+import { TalentProfileDrawer } from './components/TalentProfileDrawer.tsx'
 import { StartScreen } from './screens/StartScreen.tsx'
 import { Dashboard } from './screens/Dashboard.tsx'
 import { Assembly } from './screens/Assembly.tsx'
@@ -161,6 +164,9 @@ export function App() {
   // reload, or dev-server restart never discards a valid studio. Runs exactly once (lazy initializer).
   const [restore] = useState(loadActiveSession)
   const [state, setState] = useState<GameState | null>(restore.ok ? restore.state : null)
+  // D-14 Phase 2: the ONE Talent Profile drawer, openable over any screen from the roster,
+  // Assemble a Film, or Autopsy. Null = closed. Focus returns to the opener on close.
+  const [openProfileId, setOpenProfileId] = useState<string | null>(null)
   const [screen, setScreen] = useState<Screen>(
     restore.ok
       ? restore.state.founding !== null
@@ -408,9 +414,19 @@ export function App() {
     )
   }
 
+  const openProfile = openProfileId ? talentProfile(state, openProfileId) : undefined
+
   return (
     <DevErrorBoundary>
       {recoveryBanner}
+      {openProfile && (
+        <TalentProfileDrawer
+          profile={openProfile}
+          history={talentCareerHistory(state, openProfile.id)}
+          preV5Credits={preV5CreditCount(state, openProfile.id)}
+          onClose={() => setOpenProfileId(null)}
+        />
+      )}
       {screen.kind === 'founding' && (
         <FoundingScreen
           state={state}
@@ -441,7 +457,7 @@ export function App() {
       )}
 
       {screen.kind === 'roster' && (
-        <StudioRoster state={state} onChange={setState} onBack={goDashboard} />
+        <StudioRoster state={state} onChange={setState} onBack={goDashboard} onOpenProfile={setOpenProfileId} />
       )}
 
       {screen.kind === 'hiring' && (
@@ -464,6 +480,7 @@ export function App() {
           // A1: a Custom Talent created mid-assembly updates the authoritative GameState here,
           // while Assembly stays mounted so the in-progress film-package draft is preserved.
           onStateChange={setState}
+          onOpenProfile={setOpenProfileId}
         />
       )}
 
@@ -472,7 +489,7 @@ export function App() {
           preTick={screen.preTick}
           postTickStanding={screen.postTickStanding}
           released={screen.released}
-          development={screen.development}
+          careerImpactFor={(pid) => filmCareerImpact(state, pid)}
           onOpenAutopsy={(view, film) =>
             setScreen({
               kind: 'autopsy',
@@ -500,10 +517,23 @@ export function App() {
       )}
 
       {screen.kind === 'autopsy' && (
-        <Autopsy view={screen.view} compare={screen.compare} onBack={goDashboard} />
+        <Autopsy
+          view={screen.view}
+          compare={screen.compare}
+          careerImpact={filmCareerImpact(state, screen.view.productionId)}
+          onOpenProfile={setOpenProfileId}
+          onBack={goDashboard}
+        />
       )}
 
-      {screen.kind === 'filmRecord' && <FilmRecord view={screen.view} onBack={goDashboard} />}
+      {screen.kind === 'filmRecord' && (
+        <FilmRecord
+          view={screen.view}
+          careerImpact={filmCareerImpact(state, screen.view.productionId)}
+          onOpenProfile={setOpenProfileId}
+          onBack={goDashboard}
+        />
+      )}
 
       {screen.kind === 'periodSummary' && (
         <WeeklySummary
