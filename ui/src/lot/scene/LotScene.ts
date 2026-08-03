@@ -39,6 +39,15 @@ import {
   type MomentKind,
   type Inspect,
 } from './vignettes'
+import { manifestFor, type IdentityMode, type StudioIdentityManifest } from '../identity/manifest'
+import { drawEmblem } from '../identity/emblem'
+import {
+  makePlaque,
+  makeGateWordmark,
+  makeMarquee,
+  makeAttentionBadge,
+  type AttentionKind,
+} from '../identity/signage'
 
 const hw = TILE_W / 2
 const hh = TILE_H / 2
@@ -129,6 +138,21 @@ export class LotScene extends Phaser.Scene {
   private establishedProps: Phaser.GameObjects.Sprite[] = []
   private gateLabel: Phaser.GameObjects.Text | null = null
 
+  // ── D1-A studio identity (additive presentation layer) ──────────────────────
+  private identityMode: IdentityMode = 'baseline'
+  private identity: StudioIdentityManifest = manifestFor('concept-a')
+  private identityFailed = false
+  private identityBuilt = false
+  /** all persistent identity display objects (signs/plaques/marquee/emblem), for show/hide */
+  private identityObjects: Phaser.GameObjects.Container[] = []
+  /** the theater marquee bulbs, for the reduced-motion-gated chase */
+  private marqueeBulbs: Phaser.GameObjects.Arc[] = []
+  private marqueeTitle: Phaser.GameObjects.Container | null = null
+  private lastMarqueeTitle: string | null = null
+  private marqueePhase = 0
+  /** per-building attention badge containers (recreated on snapshot) */
+  private attnBadges = new Map<BuildingId, Phaser.GameObjects.Container>()
+
   private selected: BuildingId | null = null
   private hovered: BuildingId | null = null
   private tagZoomBand = -1
@@ -167,6 +191,9 @@ export class LotScene extends Phaser.Scene {
     this.buildGround()
     this.buildBoundary()
     this.buildBuildings()
+    // Identity is built lazily on the first non-baseline setIdentityMode() (D1-A flag).
+    // With the flag off the host never switches mode, so nothing identity-related is
+    // created and the baseline lot is byte-for-byte the shipped D1 scene.
     this.buildLandscaping()
     this.buildEstablishedDressing()
     this.buildAgents()
@@ -417,6 +444,145 @@ export class LotScene extends Phaser.Scene {
       this.gateLabel.setLetterSpacing?.(1)
       gate.container.add(this.gateLabel)
     }
+  }
+
+  // ── D1-A studio identity layer ──────────────────────────────────────────────
+  // Additive, presentation-only. Reads only the snapshot (never GameState), no rng,
+  // no Math.random. Every element is built once and shown/hidden by mode. Any failure
+  // degrades to the untouched base presentation (identityFailed → fallback).
+
+  /** The y just above a building's roof, in its container space (matches the hover label). */
+  private buildingTopY(view: BuildingView): number {
+    const spec = view.spec
+    if (spec.texKey) {
+      const meta = this.texMeta(spec.texKey)
+      return -meta.h * meta.originY - 12
+    }
+    return -30
+  }
+
+  private buildIdentity(): void {
+    if (this.identityBuilt) return
+    this.identityBuilt = true
+    const m = this.identity
+    this.identityFailed = false
+    try {
+      // permanent department / stage / post plaques, above each building
+      const plaqueFor: Partial<Record<BuildingId, string>> = {
+        admin: m.signage.administrationLabel,
+        writers: m.signage.developmentLabel,
+        casting: m.signage.castingLabel,
+        'stage-a': m.signage.stageALabel,
+        'stage-b': m.signage.stageBLabel,
+        post: m.signage.postLabel,
+      }
+      for (const key of Object.keys(plaqueFor) as BuildingId[]) {
+        const view = this.views.get(key)
+        if (!view) continue
+        const isStage = key === 'stage-a' || key === 'stage-b'
+        const plaque = makePlaque(this, m, plaqueFor[key]!, { emphasise: isStage })
+        plaque.setPosition(0, this.buildingTopY(view))
+        plaque.setVisible(false)
+        view.container.add(plaque)
+        this.identityObjects.push(plaque)
+      }
+
+      // gate: emblem + wordmark on the header
+      const gate = this.views.get('gate')
+      if (gate) {
+        const topY = this.buildingTopY(gate)
+        const emblem = drawEmblem(this, m, { radius: 17 })
+        emblem.setPosition(0, topY - 22)
+        emblem.setVisible(false)
+        gate.container.add(emblem)
+        this.identityObjects.push(emblem)
+        const wordmark = makeGateWordmark(this, m)
+        wordmark.setPosition(2, this.gateLabel ? this.gateLabel.y : topY)
+        wordmark.setVisible(false)
+        gate.container.add(wordmark)
+        this.identityObjects.push(wordmark)
+      }
+
+      // theater marquee (title comes from the snapshot's latest release presence)
+      this.refreshMarquee(this.snapshot)
+    } catch {
+      this.identityFailed = true
+      this.hideIdentity()
+    }
+  }
+
+  /** Rebuild the theater marquee when its title changes (release presence). */
+  private refreshMarquee(snap: StudioLotSnapshot): void {
+    const theater = this.views.get('theater')
+    if (!theater) return
+    const title =
+      snap.releasePresence !== 'none'
+        ? snap.latestReleaseTitle ?? this.identity.signage.theaterLabel
+        : this.identity.signage.theaterLabel
+    if (this.marqueeTitle && title === this.lastMarqueeTitle) return
+    this.lastMarqueeTitle = title
+    if (this.marqueeTitle) {
+      this.identityObjects = this.identityObjects.filter((o) => o !== this.marqueeTitle)
+      this.marqueeTitle.destroy()
+    }
+    const marquee = makeMarquee(this, this.identity, title)
+    marquee.setPosition(0, this.buildingTopY(theater))
+    marquee.setVisible(this.identityMode === 'concept-a' && !this.identityFailed)
+    theater.container.add(marquee)
+    this.identityObjects.push(marquee)
+    this.marqueeTitle = marquee
+    this.marqueeBulbs = (marquee.getData('bulbs') as Phaser.GameObjects.Arc[]) ?? []
+  }
+
+  private clearAttentionBadges(): void {
+    for (const b of this.attnBadges.values()) b.destroy()
+    this.attnBadges.clear()
+  }
+
+  /** Render the snapshot's attention states in-canvas (shape + word + colour). No-op unless
+   * Concept A is showing. One badge per building; priority warning > active > positive. */
+  private updateAttentionBadges(snap: StudioLotSnapshot): void {
+    this.clearAttentionBadges()
+    if (this.identityMode !== 'concept-a' || this.identityFailed) return
+    const add = (id: BuildingId, kind: AttentionKind) => {
+      if (this.attnBadges.has(id)) return
+      const view = this.views.get(id)
+      if (!view) return
+      const badge = makeAttentionBadge(this, this.identity, kind)
+      badge.setPosition(0, this.buildingTopY(view) - 16)
+      view.container.add(badge)
+      this.attnBadges.set(id, badge)
+    }
+    for (const b of snap.buildings) if (b.attention === 'warning') add(b.id, 'warning')
+    for (const p of snap.activeProductions) if (p.active) add(p.stageId, 'active')
+    if (snap.releasePresence !== 'none') add('theater', 'positive')
+  }
+
+  private hideIdentity(): void {
+    for (const o of this.identityObjects) o.setVisible(false)
+    this.clearAttentionBadges()
+    if (this.gateLabel) this.gateLabel.setVisible(true)
+  }
+
+  /** Apply a review mode: baseline/fallback show the untouched base; concept-a shows identity. */
+  private applyIdentityMode(mode: IdentityMode): void {
+    this.identityMode = mode
+    // 'fallback' exercises the real degradation path — mark identity failed and hide it, so
+    // the shot proves the base lot (labels, navigation, selection) survives an identity fault.
+    if (mode === 'fallback') this.identityFailed = true
+    else if (mode === 'concept-a') this.identityFailed = false
+    const show = mode === 'concept-a' && !this.identityFailed
+    for (const o of this.identityObjects) o.setVisible(show)
+    if (this.gateLabel) this.gateLabel.setVisible(!show)
+    if (show) this.updateAttentionBadges(this.snapshot)
+    else this.clearAttentionBadges()
+  }
+
+  /** Public entry (via StudioLotView) to switch the review identity mode. Non-baseline
+   * modes build the identity layer on first use; baseline never creates any identity object. */
+  setIdentityMode(mode: IdentityMode): void {
+    if (mode !== 'baseline') this.buildIdentity()
+    this.applyIdentityMode(mode)
   }
 
   private footprintCorners(spec: PlacedBuilding, margin = 0): { x: number; y: number }[] {
@@ -1072,6 +1238,18 @@ export class LotScene extends Phaser.Scene {
     if (this.selected) this.select(this.selected)
     else if (snap.selectedBuildingId) this.select(snap.selectedBuildingId)
 
+    // D1-A identity: refresh marquee title + attention badges. Only when the identity layer
+    // has been built (a non-baseline mode was selected) — baseline stays untouched D1.
+    if (this.identityBuilt) {
+      try {
+        this.refreshMarquee(snap)
+        if (this.identityMode === 'concept-a' && !this.identityFailed) this.updateAttentionBadges(snap)
+      } catch {
+        this.identityFailed = true
+        this.hideIdentity()
+      }
+    }
+
     this.tagZoomBand = -1 // force tag layout refresh under new snapshot
   }
 
@@ -1260,6 +1438,21 @@ export class LotScene extends Phaser.Scene {
     // static but fully readable. Navigation (keyboard pan below) is unaffected.
     const motion = this.reducedMotion ? 0 : 1
 
+    // D1-A marquee bulb chase — decorative only. Under reduced motion (motion === 0) every
+    // bulb sits fully lit (the static equivalent); otherwise a gentle deterministic chase runs.
+    if (this.marqueeBulbs.length && this.identityMode === 'concept-a' && !this.identityFailed) {
+      const primary = this.identity.palette.primary
+      if (motion === 0) {
+        for (const b of this.marqueeBulbs) b.setFillStyle(primary, 1)
+      } else {
+        this.marqueePhase += dt * 3
+        const p = Math.floor(this.marqueePhase)
+        for (let i = 0; i < this.marqueeBulbs.length; i++) {
+          this.marqueeBulbs[i].setFillStyle(primary, (i + p) % 4 === 0 ? 0.4 : 1)
+        }
+      }
+    }
+
     // keyboard panning
     let mx = 0
     let my = 0
@@ -1360,6 +1553,27 @@ export class LotScene extends Phaser.Scene {
       characterActive: this.characterActive,
       poolInUse: this.poolUsed.filter(Boolean).length,
       vignette: this.director?.debug() ?? null,
+    }
+  }
+
+  /** D1-A review: identity + coarse runtime stats for the dev performance panel. */
+  identityDebug(): {
+    mode: IdentityMode
+    failed: boolean
+    identityObjects: number
+    attnBadges: number
+    marqueeBulbs: number
+    displayObjects: number
+    fps: number
+  } {
+    return {
+      mode: this.identityMode,
+      failed: this.identityFailed,
+      identityObjects: this.identityObjects.length,
+      attnBadges: this.attnBadges.size,
+      marqueeBulbs: this.marqueeBulbs.length,
+      displayObjects: this.children.list.length,
+      fps: Math.round(this.game.loop.actualFps),
     }
   }
 }

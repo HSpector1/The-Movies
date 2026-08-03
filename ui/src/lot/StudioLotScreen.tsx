@@ -20,7 +20,27 @@ import type { AttentionState, BuildingId } from './snapshot/StudioLotSnapshot.ts
 import { ALL_BUILDING_IDS, BUILDING_ACTION, BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
 import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
+import { studioLotIdentityProofEnabled } from '../flags.ts'
+import type { IdentityMode } from './identity/manifest.ts'
 import './lot.css'
+
+// ── D1-A studio-identity review modes ────────────────────────────────────────────
+// A dev-only selector, shown ONLY when the identity-proof flag is on. It drives the
+// renderer's identity mode + reduced-motion for owner review. It changes nothing in the
+// simulation and persists nothing — pure presentation. The set is fixed by the directive:
+// { Current D1 baseline, Concept A, Fallback mode, Reduced-motion mode }.
+type ReviewKey = 'baseline' | 'concept-a' | 'fallback' | 'reduced'
+const REVIEW_MODES: ReadonlyArray<{
+  key: ReviewKey
+  label: string
+  identity: IdentityMode
+  reduced: boolean
+}> = [
+  { key: 'baseline', label: 'Current D1 baseline', identity: 'baseline', reduced: false },
+  { key: 'concept-a', label: 'Concept A — Golden Age Deco', identity: 'concept-a', reduced: false },
+  { key: 'fallback', label: 'Fallback mode', identity: 'fallback', reduced: false },
+  { key: 'reduced', label: 'Reduced-motion mode', identity: 'concept-a', reduced: true },
+]
 
 type Props = {
   state: GameState
@@ -68,6 +88,12 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   const [canvasReady, setCanvasReady] = useState(false)
   const [canvasFailed, setCanvasFailed] = useState(false)
   const [reducedMotion, setReducedMotionState] = useState(prefersReducedMotion)
+
+  // D1-A review state (dev-only; inert unless the identity-proof flag is on)
+  const identityProof = studioLotIdentityProofEnabled()
+  const [reviewKey, setReviewKey] = useState<ReviewKey>('concept-a')
+  const [perf, setPerf] = useState<{ fps: number; displayObjects: number; identityObjects: number } | null>(null)
+  const activeReview = REVIEW_MODES.find((m) => m.key === reviewKey) ?? REVIEW_MODES[1]
 
   const snapshot = studioLotSnapshot(state)
 
@@ -159,8 +185,31 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   }, [])
 
   useEffect(() => {
+    // When the identity-proof review selector is active it owns reduced-motion (so its
+    // "Reduced-motion mode" can force it). Otherwise the OS preference drives it as before.
+    if (identityProof) return
     if (canvasReady) viewRef.current?.setReducedMotion(reducedMotion)
-  }, [reducedMotion, canvasReady])
+  }, [reducedMotion, canvasReady, identityProof])
+
+  // ── D1-A: apply the selected review mode (identity + reduced-motion). ────────
+  useEffect(() => {
+    if (!identityProof || !canvasReady) return
+    const v = viewRef.current
+    v?.setIdentityMode(activeReview.identity)
+    v?.setReducedMotion(reducedMotion || activeReview.reduced)
+  }, [identityProof, canvasReady, reviewKey, reducedMotion, activeReview.identity, activeReview.reduced])
+
+  // ── D1-A: poll coarse runtime stats for the dev performance panel. ───────────
+  useEffect(() => {
+    if (!identityProof || !canvasReady) return
+    const tick = () => {
+      const d = viewRef.current?.identityDebug()
+      if (d) setPerf({ fps: d.fps, displayObjects: d.displayObjects, identityObjects: d.identityObjects })
+    }
+    const h = window.setInterval(tick, 500)
+    tick()
+    return () => window.clearInterval(h)
+  }, [identityProof, canvasReady])
 
   // Companion-nav activation: select the building AND route to its destination.
   const activate = useCallback(
@@ -204,6 +253,36 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
         <div className="lot-stage-wrap">
           {/* The canvas is decorative; the companion navigation is the accessible truth. */}
           <div ref={mountRef} className="lot-canvas" data-testid="studio-lot-canvas" aria-hidden="true" />
+
+          {identityProof && (
+            <div
+              className="lot-review-bar"
+              data-testid="lot-review-mode"
+              role="group"
+              aria-label="Studio identity review mode (development only)"
+            >
+              <span className="lot-review-title">Identity review</span>
+              <div className="lot-review-opts">
+                {REVIEW_MODES.map((m) => (
+                  <button
+                    key={m.key}
+                    type="button"
+                    className={`lot-review-opt${reviewKey === m.key ? ' is-active' : ''}`}
+                    data-testid={`lot-review-${m.key}`}
+                    aria-pressed={reviewKey === m.key}
+                    onClick={() => setReviewKey(m.key)}
+                  >
+                    {m.label}
+                  </button>
+                ))}
+              </div>
+              {perf && (
+                <span className="lot-review-perf" data-testid="lot-perf-panel" role="status">
+                  {perf.fps} fps · {perf.displayObjects} objects · {perf.identityObjects} identity
+                </span>
+              )}
+            </div>
+          )}
           {!canvasReady && !canvasFailed && (
             <div className="lot-canvas-note" role="status">
               Preparing the lot…

@@ -219,3 +219,59 @@
   .lot-body { flex-direction: column; }
   .lot-companion { width: auto; border-left: none; border-top: 1px solid var(--border); }
 }
+
+/* ── D1-A studio-identity review bar (dev-only; behind the identity-proof flag) ── */
+.lot-review-bar {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  max-width: calc(100% - 24px);
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(18, 21, 30, 0.86);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  font-size: 12px;
+}
+.lot-review-title {
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+.lot-review-opts {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.lot-review-opt {
+  padding: 4px 9px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  font-size: 12px;
+  cursor: pointer;
+}
+.lot-review-opt:hover { border-color: var(--accent, #c9a24a); }
+.lot-review-opt.is-active {
+  border-color: var(--accent, #c9a24a);
+  background: rgba(201, 162, 74, 0.16);
+  color: #f1e6cc;
+}
+.lot-review-opt:focus-visible {
+  outline: 2px solid var(--accent, #c9a24a);
+  outline-offset: 2px;
+}
+.lot-review-perf {
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+}
