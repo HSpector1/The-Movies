@@ -53,7 +53,9 @@ export const F_VIEWS: Record<string, { pos: Vec3; tgt: Vec3 }> = {
 export type GReviewKind = 'production' | 'lineup' | 'closeup' | 'anim' | 'lod' | 'herocompare' | 'herosingle' | 'herolod'
   | 'hero05gcompare' | 'hero05gsingle' | 'hero05glod'
   | 'hero05hcompare' | 'hero05hsingle' | 'hero05hlod'
-export interface GReviewView { group: string; kind: GReviewKind; pos: Vec3; tgt: Vec3; clip?: string; lodFocus?: 0 | 1 | 2 }
+  | 'mgmt'   // Asset Lab 05H final review: fixed-isometric management-camera vignette (Question B)
+// `zoom` (orthographic) and `mgmt` (vignette scene id) are used only by the 'mgmt' kind.
+export interface GReviewView { group: string; kind: GReviewKind; pos: Vec3; tgt: Vec3; clip?: string; lodFocus?: 0 | 1 | 2; zoom?: number; mgmt?: string }
 
 // The review lineup stands centred on origin, facing +Z (character front = Blender −Y → three +Z),
 // spread along X. The LOD trio uses one representative role at three detail tiers.
@@ -230,7 +232,41 @@ export const G_HERO_05H_ORDER: string[] = [
   '05H/LOD', '05H/Management Distance', '05H/Human Scale', '05H/Wireframe',
 ]
 
-// combined accessor + kind (Scene-G views live in G_REVIEW, the 05F G_HERO, 05G, or 05H map)
+// -----------------------------------------------------------------------------
+// Asset Lab 05H FINAL OWNER REVIEW — FIXED-ISOMETRIC MANAGEMENT-CAMERA group (Question B).
+//
+// IMPORTANT (documented assumption): this repo contains NO "approved D1 fixed-isometric management
+// camera" — there is exactly one PerspectiveCamera (fov 42) app-wide and its params are defined
+// nowhere here. This group is a REPRESENTATIVE orthographic isometric management rig, built from
+// standard management-sim conventions, spanning a RANGE of elevations (30° / 37°≈true-iso / 45°)
+// and framings (the `zoom` here is the default; the capture matrix sweeps it via state.mgmtZoomMul).
+// It exists to answer Question B robustly ACROSS the plausible range, NOT to replicate a specific D1
+// camera. If the real D1 camera differs, the value conclusion must be revisited. `kind: 'mgmt'`.
+//
+// Orthographic camera: pos gives the fixed iso DIRECTION (distance is irrelevant under ortho — only
+// direction + zoom set the picture); the rig does lookAt(tgt); `zoom` sets framing. Vignettes are
+// neutral review geometry (procedural stage-massing box + apron + cart/light props) with the worker
+// source swappable at capture time via state.mgmtWorker ('05g' | '05h' | 'sprite' | 'none'; '' =
+// default 05h) and animation frozen when state.reducedMotion. `mgmt` selects the vignette layout.
+export const G_MGMT: Record<string, GReviewView> = {
+  'Mgmt/One Worker + Stage':     { group: '05H Mgmt', kind: 'mgmt', mgmt: 'one',   zoom: 46, pos: [22.6, 24.9, 21.1], tgt: [0, 0.8, -1.5] },
+  'Mgmt/Two Workers + Cart':     { group: '05H Mgmt', kind: 'mgmt', mgmt: 'two',   zoom: 44, pos: [22.6, 24.8, 22.6], tgt: [0, 0.7, 0] },
+  'Mgmt/Four Workers + Stage':   { group: '05H Mgmt', kind: 'mgmt', mgmt: 'four',  zoom: 34, pos: [22.6, 24.9, 20.6], tgt: [0, 0.8, -2] },
+  'Mgmt/Walking Service Area':   { group: '05H Mgmt', kind: 'mgmt', mgmt: 'walk',  zoom: 40, clip: 'Walk_Loop',       pos: [22.6, 24.8, 22.6], tgt: [0, 0.7, 0] },
+  'Mgmt/Seated Worker':          { group: '05H Mgmt', kind: 'mgmt', mgmt: 'seat',  zoom: 52, clip: 'Sitting_Idle_Loop', pos: [22.6, 24.6, 22.6], tgt: [0, 0.5, 0] },
+  'Mgmt/Kneeling Worker':        { group: '05H Mgmt', kind: 'mgmt', mgmt: 'kneel', zoom: 52, clip: 'Fixing_Kneeling',   pos: [22.6, 24.55, 22.6], tgt: [0, 0.45, 0] },
+  // elevation-range variants on the busiest vignette, so Question B is judged across iso angles
+  'Mgmt/Four Workers (Iso 30°)': { group: '05H Mgmt', kind: 'mgmt', mgmt: 'four',  zoom: 34, pos: [24.5, 20.8, 22.5], tgt: [0, 0.8, -2] },
+  'Mgmt/Four Workers (Iso 45°)': { group: '05H Mgmt', kind: 'mgmt', mgmt: 'four',  zoom: 34, pos: [20.0, 29.1, 18.0], tgt: [0, 0.8, -2] },
+}
+export const G_MGMT_ORDER: string[] = [
+  'Mgmt/One Worker + Stage', 'Mgmt/Two Workers + Cart', 'Mgmt/Four Workers + Stage',
+  'Mgmt/Walking Service Area', 'Mgmt/Seated Worker', 'Mgmt/Kneeling Worker',
+  'Mgmt/Four Workers (Iso 30°)', 'Mgmt/Four Workers (Iso 45°)',
+]
+export const isMgmtView = (name: string): boolean => name in G_MGMT
+
+// combined accessor + kind (Scene-G views live in G_REVIEW, the 05F G_HERO, 05G, 05H, or 05H-mgmt map)
 export const getReviewView = (name: string): GReviewView | undefined =>
-  G_REVIEW[name] ?? G_HERO[name] ?? G_HERO_05G[name] ?? G_HERO_05H[name]
+  G_REVIEW[name] ?? G_HERO[name] ?? G_HERO_05G[name] ?? G_HERO_05H[name] ?? G_MGMT[name]
 export const gReviewKind = (name: string): GReviewKind => getReviewView(name)?.kind ?? 'production'

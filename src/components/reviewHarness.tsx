@@ -5,13 +5,14 @@
 // lineups + a LOD comparison, on a neutral mid-value floor under controlled neutral lighting, with
 // small in-canvas labels (so they appear in screenshots). The production Scene G composition is
 // rendered elsewhere and is never touched by this file.
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { useGLTF } from '@react-three/drei'
+import { useGLTF, OrthographicCamera, Billboard, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 import { clone as skeletonClone } from 'three/examples/jsm/utils/SkeletonUtils.js'
 import { CREW_URL } from './studioSlice'
-import { getReviewView, G_REVIEW_LOD_ROLE } from '../lab/cameraBridge'
+import { getReviewView, G_REVIEW_LOD_ROLE, type GReviewView } from '../lab/cameraBridge'
+import { useLab } from '../lab/LabContext'
 
 const HERO_URL = '/assets/studio/characters/electric_hero_05f.glb'
 const heroLodUrl = (n: 0 | 1 | 2): string => (n === 0 ? HERO_URL : HERO_URL.replace('.glb', `_LOD${n}.glb`))
@@ -329,10 +330,139 @@ function Hero05HLOD(): JSX.Element {
   )
 }
 
+// ===== Asset Lab 05H FINAL REVIEW — FIXED-ISOMETRIC MANAGEMENT-CAMERA VIGNETTES (Question B) =====
+// A representative orthographic isometric management rig (see cameraBridge.G_MGMT for the documented
+// assumption — this repo has no real D1 camera) over NEUTRAL review geometry: a procedural stage-
+// massing box + concrete apron + cart / film-light / crate props, with the worker source swappable
+// at capture time (05g / 05h / pre-rendered sprite / none) and animation frozen under reduced motion.
+// Evidence-only: NOT a D1 import, NOT production, NO GameState. It answers "does live skinned 3D add
+// enough value at the management camera to justify its cost?" across a range of framings & elevations.
+
+// pre-rendered iso card (generated in the review pass). Lives under the committed studio/ subtree so the
+// harness runs on a fresh checkout (public/assets/* is otherwise gitignored except public/assets/studio/).
+const SPRITE_URL = '/assets/studio/review/05h_sprite.png'
+
+// One fixed orthographic isometric camera. `pos` sets the iso DIRECTION only (ortho ignores distance);
+// `zoom` sets framing; the rig looks at `tgt`. Owns the default camera while a mgmt view is active.
+function ManagementCameraRig({ pos, tgt, zoom }: { pos: [number, number, number]; tgt: [number, number, number]; zoom: number }): JSX.Element {
+  const ref = useRef<THREE.OrthographicCamera>(null)
+  useEffect(() => {
+    const cam = ref.current
+    if (!cam) return
+    cam.position.set(pos[0], pos[1], pos[2])
+    cam.zoom = zoom
+    cam.near = 0.1
+    cam.far = 4000
+    cam.up.set(0, 1, 0)
+    cam.lookAt(new THREE.Vector3(tgt[0], tgt[1], tgt[2]))
+    cam.updateProjectionMatrix()
+    cam.updateMatrixWorld()
+  }, [pos[0], pos[1], pos[2], tgt[0], tgt[1], tgt[2], zoom])
+  return <OrthographicCamera ref={ref} makeDefault near={0.1} far={4000} />
+}
+
+// ---- procedural neutral vignette props (boxes only — scale, framing & contrast matter, not art) ----
+function StageMassing(): JSX.Element {
+  return (
+    <group position={[0, 0, -6.2]}>
+      <mesh position={[0, 3.6, 0]} castShadow receiveShadow>
+        <boxGeometry args={[13, 7.2, 6]} /><meshStandardMaterial color={'#4a4f57'} roughness={0.95} metalness={0} />
+      </mesh>
+      {/* roll-up stage door on the camera-facing (+Z) side */}
+      <mesh position={[0, 2.3, 3.02]}><boxGeometry args={[5.2, 4.4, 0.12]} /><meshStandardMaterial color={'#31353c'} roughness={1} /></mesh>
+      {/* open-door warm interior spill — implies an active / occupied stage */}
+      <mesh position={[0, 2.2, 3.09]}><planeGeometry args={[3.4, 3.6]} /><meshBasicMaterial color={'#c79a5a'} toneMapped={false} /></mesh>
+      <pointLight position={[0, 2.4, 2.2]} intensity={6} distance={9} color={'#e7b070'} />
+      <mesh position={[3.9, 5.3, 3.02]}><boxGeometry args={[1.3, 1.0, 0.08]} /><meshStandardMaterial color={'#20242a'} roughness={1} /></mesh>
+    </group>
+  )
+}
+function MgmtCart({ pos }: { pos: [number, number, number] }): JSX.Element {
+  return (
+    <group position={pos}>
+      <mesh position={[0, 0.62, 0]} castShadow><boxGeometry args={[1.3, 0.9, 0.72]} /><meshStandardMaterial color={'#565c65'} roughness={0.85} metalness={0.1} /></mesh>
+      <mesh position={[0, 1.12, 0]} castShadow><boxGeometry args={[1.1, 0.12, 0.6]} /><meshStandardMaterial color={'#3a3f47'} roughness={0.9} /></mesh>
+    </group>
+  )
+}
+function MgmtLight({ pos }: { pos: [number, number, number] }): JSX.Element {
+  return (
+    <group position={pos}>
+      <mesh position={[0, 1.1, 0]} castShadow><cylinderGeometry args={[0.05, 0.07, 2.2, 8]} /><meshStandardMaterial color={'#2e333a'} roughness={0.8} metalness={0.3} /></mesh>
+      <mesh position={[0, 2.2, 0.12]} castShadow><boxGeometry args={[0.5, 0.5, 0.34]} /><meshStandardMaterial color={'#3d424b'} roughness={0.6} metalness={0.2} /></mesh>
+      <mesh position={[0, 2.2, 0.31]}><planeGeometry args={[0.36, 0.36]} /><meshBasicMaterial color={'#d9c38f'} toneMapped={false} /></mesh>
+    </group>
+  )
+}
+function MgmtCrate({ pos, s = 0.8 }: { pos: [number, number, number]; s?: number }): JSX.Element {
+  return <mesh position={[pos[0], s / 2, pos[2]]} castShadow receiveShadow><boxGeometry args={[s, s, s]} /><meshStandardMaterial color={'#6a6253'} roughness={0.95} /></mesh>
+}
+function MgmtApron(): JSX.Element {
+  return (
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, -0.5]} receiveShadow>
+      <planeGeometry args={[18, 16]} /><meshStandardMaterial color={'#565b62'} roughness={0.97} metalness={0} />
+    </mesh>
+  )
+}
+
+// ---- pre-rendered sprite worker: a camera-facing card, the 2.5D alternative to live skinned 3D ----
+function SpriteWorker({ pos }: { pos: [number, number, number] }): JSX.Element {
+  const tex = useTexture(SPRITE_URL)
+  return (
+    <Billboard position={[pos[0], 0.9, pos[2]]}>
+      <mesh><planeGeometry args={[1.15, 1.9]} /><meshBasicMaterial map={tex} transparent alphaTest={0.5} toneMapped={false} /></mesh>
+    </Billboard>
+  )
+}
+
+// ---- per-vignette worker layouts + which neutral props to show ----
+type MgmtWorker = { pos: [number, number, number]; rotY: number; clip?: string }
+const MGMT_LAYOUTS: Record<string, { workers: MgmtWorker[]; props: Array<'stage' | 'apron' | 'cart' | 'light' | 'crate'> }> = {
+  one:   { workers: [{ pos: [0.9, 0, 1.4], rotY: 0.1 }], props: ['apron', 'stage', 'light'] },
+  two:   { workers: [{ pos: [-0.95, 0, 0.7], rotY: 0.7, clip: 'Idle_Talking_Loop' }, { pos: [0.95, 0, 0.5], rotY: -0.6, clip: 'Idle_Talking_Loop' }], props: ['apron', 'cart', 'light'] },
+  four:  { workers: [{ pos: [-2.6, 0, 1.5], rotY: 0.3 }, { pos: [-0.6, 0, 0.3], rotY: -0.2, clip: 'Idle_Talking_Loop' }, { pos: [1.7, 0, 1.1], rotY: 0.5, clip: 'PickUp_Table' }, { pos: [3.0, 0, -0.5], rotY: -0.6 }], props: ['apron', 'stage', 'cart', 'light', 'crate'] },
+  walk:  { workers: [{ pos: [-2.4, 0, 0.5], rotY: 1.3, clip: 'Walk_Loop' }], props: ['apron', 'crate'] },
+  seat:  { workers: [{ pos: [0, 0, 0.3], rotY: 0.05, clip: 'Sitting_Idle_Loop' }], props: ['apron'] },
+  kneel: { workers: [{ pos: [0, 0, 0.5], rotY: 0.1, clip: 'Fixing_Kneeling' }], props: ['apron', 'light'] },
+}
+
+function MgmtWorkerNode({ w, source, frozen, phase }: { w: MgmtWorker; source: string; frozen: boolean; phase: number }): JSX.Element | null {
+  if (source === 'none') return null
+  if (source === 'sprite') return <SpriteWorker pos={w.pos} />
+  const url = source === '05g' ? HERO_05G_URL : HERO_05H_URL
+  return <ReviewChar url={url} clip={w.clip ?? 'Idle_Loop'} frozen={frozen} phase={phase} pos={w.pos} rotY={w.rotY} />
+}
+
+function ManagementScene({ view }: { view: GReviewView }): JSX.Element {
+  const { state } = useLab()
+  const layout = MGMT_LAYOUTS[view.mgmt ?? 'one'] ?? MGMT_LAYOUTS.one
+  const source = state.mgmtWorker || '05h'
+  const frozen = state.reducedMotion
+  const zoom = (view.zoom ?? 40) * (state.mgmtZoomMul || 1)
+  return (
+    <group>
+      <ManagementCameraRig pos={view.pos} tgt={view.tgt} zoom={zoom} />
+      <ReviewEnv />
+      {layout.props.includes('apron') && <MgmtApron />}
+      {layout.props.includes('stage') && <StageMassing />}
+      {layout.props.includes('cart') && <MgmtCart pos={[0, 0, 0]} />}
+      {layout.props.includes('light') && <MgmtLight pos={[-2.2, 0, -1.6]} />}
+      {layout.props.includes('crate') && <><MgmtCrate pos={[2.4, 0, 1.6]} s={0.8} /><MgmtCrate pos={[2.9, 0, 1.9]} s={0.55} /></>}
+      {view.mgmt === 'seat' && (
+        <mesh position={[0, 0.26, 0.28]} castShadow receiveShadow><boxGeometry args={[0.7, 0.5, 0.7]} /><meshStandardMaterial color={'#5a5048'} roughness={0.95} /></mesh>
+      )}
+      {layout.workers.map((w, i) => (
+        <MgmtWorkerNode key={i} w={w} source={source} frozen={frozen} phase={i * 0.53 + 0.2} />
+      ))}
+    </group>
+  )
+}
+
 // ----- dispatch on the active review view's kind -----
 export function ReviewArea({ view }: { view: string }): JSX.Element | null {
   const v = getReviewView(view)
   if (!v || v.kind === 'production') return null
+  if (v.kind === 'mgmt') return <ManagementScene view={v} />
   if (v.kind === 'lod') return <ReviewLOD />
   if (v.kind === 'herolod') return <HeroLOD />
   if (v.kind === 'hero05glod') return <Hero05GLOD />
@@ -363,3 +493,7 @@ useGLTF.preload(HERO_05G_URL);
 [1, 2].forEach((n) => useGLTF.preload(hero05gLodUrl(n as 1 | 2)))
 useGLTF.preload(HERO_05H_URL);
 [1, 2].forEach((n) => useGLTF.preload(hero05hLodUrl(n as 1 | 2)))
+// Preload the mgmt sprite so it is cache-warm before SpriteWorker renders — otherwise the drei loading
+// manager (useProgress in StatsCollector) fires a progress update during SpriteWorker's render (a benign
+// but real React "setState during render" console warning). Warming it here keeps the review console-clean.
+useTexture.preload(SPRITE_URL)

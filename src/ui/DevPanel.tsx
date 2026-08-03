@@ -2,7 +2,7 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import { useLab } from '../lab/LabContext'
 import { latestStats } from '../lab/stats'
-import { applyView, D_VIEWS, E_VIEWS, F_VIEWS, G_REVIEW, G_REVIEW_ORDER, G_REVIEW_DEFAULT, G_HERO_ORDER, G_HERO_05G_ORDER, G_HERO_05H_ORDER, getReviewView, gReviewKind } from '../lab/cameraBridge'
+import { applyView, D_VIEWS, E_VIEWS, F_VIEWS, G_REVIEW, G_REVIEW_ORDER, G_REVIEW_DEFAULT, G_HERO_ORDER, G_HERO_05G_ORDER, G_HERO_05H_ORDER, G_MGMT_ORDER, getReviewView, gReviewKind } from '../lab/cameraBridge'
 import { getErrorCount, getLastError } from '../lab/errors'
 import type { RuntimeManifest, Provenance, SceneKey } from '../types'
 
@@ -91,6 +91,33 @@ function GReviewControls(): JSX.Element {
             <Btn key={n} on={state.gReview === n} onClick={() => set('gReview', n)}>{n}</Btn>
           ))}
         </div>
+      </div>
+      <div style={{ marginBottom: 6 }}>
+        <div style={{ fontSize: 10, color: '#d29bfd', letterSpacing: 0.5, margin: '6px 0 3px' }}>05H Mgmt — fixed-isometric management camera (Question B: value at lot distance)</div>
+        <div style={row}>
+          {G_MGMT_ORDER.map((n) => (
+            <Btn key={n} on={state.gReview === n} onClick={() => set('gReview', n)}>{n}</Btn>
+          ))}
+        </div>
+        {gReviewKind(state.gReview) === 'mgmt' && (
+          <div style={{ marginTop: 6, borderTop: '1px dashed #2b333d', paddingTop: 6 }}>
+            <div style={{ fontSize: 10, color: '#7d8896', margin: '0 0 3px' }}>Worker source (live-3D vs alternatives)</div>
+            <div style={row}>
+              {(['05h', '05g', 'sprite', 'none'] as const).map((w) => (
+                <Btn key={w} on={(state.mgmtWorker || '05h') === w} onClick={() => set('mgmtWorker', w === '05h' ? '' : w)}>{w}</Btn>
+              ))}
+            </div>
+            <div style={{ fontSize: 10, color: '#7d8896', margin: '6px 0 3px' }}>Framing (worker pixel scale)</div>
+            <div style={row}>
+              {([['wide', 0.55], ['default', 1], ['tight', 1.7]] as const).map(([lbl, m]) => (
+                <Btn key={lbl} on={Math.abs((state.mgmtZoomMul || 1) - m) < 0.01} onClick={() => set('mgmtZoomMul', m)}>{lbl}</Btn>
+              ))}
+            </div>
+            <div style={{ ...row, marginTop: 6 }}>
+              <Toggle label="Reduced motion (freeze)" on={state.reducedMotion} onChange={(v) => set('reducedMotion', v)} />
+            </div>
+          </div>
+        )}
       </div>
       <div style={{ ...row, marginTop: 4 }}>
         <Btn on={state.gReview === G_REVIEW_DEFAULT} onClick={() => { set('gReview', G_REVIEW_DEFAULT); resetCamera() }}>Reset</Btn>

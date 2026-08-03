@@ -18,6 +18,9 @@ function LabScene({ manifest }: { manifest: RuntimeManifest | null }): JSX.Eleme
   // (mid-grey bg, no warm sky/fog/ACES, neutral lights supplied by the review area) so anatomy /
   // clothing / hands / faces / poses / LODs read honestly, without overexposure or warm tint.
   const gNeutral = state.scene === 'G' && gReviewKind(state.gReview) !== 'production'
+  // Asset Lab 05H mgmt views use a fixed-isometric OrthographicCamera (mounted inside the review area);
+  // OrbitControls would fight it, so suppress the orbit controls for those fixed-camera vignettes.
+  const gMgmt = state.scene === 'G' && gReviewKind(state.gReview) === 'mgmt'
   const warm = !gNeutral && (state.scene === 'D' || state.scene === 'E' || state.scene === 'F' || state.scene === 'G')
   const bg = gNeutral ? '#4b5058' : (warm ? (state.atmosphere ? '#dcc9a8' : '#aeb6bd') : '#0e1116')
   return (
@@ -36,7 +39,7 @@ function LabScene({ manifest }: { manifest: RuntimeManifest | null }): JSX.Eleme
       {state.scene === 'F' && <><ToneMapController /><HeroSoftShadows /><HeroComposer /></>}
       {state.scene === 'G' && !gNeutral && <><ToneMapController /><HeroSoftShadows /></>}
       <CameraController />
-      <OrbitControls makeDefault enableDamping={false} maxPolarAngle={Math.PI / 2.05} minDistance={1} maxDistance={180} />
+      {!gMgmt && <OrbitControls makeDefault enableDamping={false} maxPolarAngle={Math.PI / 2.05} minDistance={1} maxDistance={180} />}
       <StatsCollector />
       <WireframeController />
       {state.showGrid && (

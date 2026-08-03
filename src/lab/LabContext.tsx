@@ -37,6 +37,10 @@ export interface LabState {
   rootMotion: boolean
   showHud: boolean
   gReview: string        // Lab 05E: active Scene-G character-review view (see cameraBridge.G_REVIEW)
+  // Asset Lab 05H final review — fixed-isometric management-camera vignette controls (Question B):
+  reducedMotion: boolean // freeze worker animation in mgmt vignettes (reduced-motion evidence)
+  mgmtWorker: '' | '05g' | '05h' | 'sprite' | 'none'  // worker source in mgmt vignettes ('' = default 05h)
+  mgmtZoomMul: number    // framing sweep multiplier over the preset's orthographic zoom (1 = default)
 }
 
 export const INITIAL: LabState = {
@@ -49,6 +53,7 @@ export const INITIAL: LabState = {
   clip: 'Idle_Loop', playing: true, loop: true, speed: 1, rootMotion: false,
   showHud: true,
   gReview: 'Full Scene Overview',   // default = the existing production Scene G composition (unchanged)
+  reducedMotion: false, mgmtWorker: '', mgmtZoomMul: 1,   // Lab 05H mgmt-camera review defaults
 }
 
 let state: LabState = INITIAL

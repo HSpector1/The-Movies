@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useLab } from '../lab/LabContext'
-import { registerApplyView, G_REVIEW, G_REVIEW_DEFAULT, getReviewView } from '../lab/cameraBridge'
+import { registerApplyView, G_REVIEW, G_REVIEW_DEFAULT, getReviewView, gReviewKind } from '../lab/cameraBridge'
 import type { SceneKey, CameraMode } from '../types'
 
 // Overview + inspection camera presets per scene, with reset (contract §8).
@@ -32,6 +32,9 @@ export function CameraController(): null {
   }, [camera, controls])
 
   useEffect(() => {
+    // Asset Lab 05H mgmt views own a dedicated fixed-isometric OrthographicCamera (ManagementCameraRig);
+    // leave that camera alone so this perspective controller never stomps the iso framing.
+    if (state.scene === 'G' && gReviewKind(state.gReview) === 'mgmt') return
     // Scene G (Lab 05E) is driven by the character-review view set; every other scene keeps the
     // original overview/inspection presets.
     const p = state.scene === 'G'
