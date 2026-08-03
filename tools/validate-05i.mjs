@@ -56,20 +56,23 @@ try {
   req(/state\.neutralEval/.test(rh), 'neutral eval-light wired (§7)')
 } catch { fails.push('harness source unreadable') }
 
-// 5) evidence
-req(countPng('proof/lab05i/iteration-01/runtime') >= 24, `runtime evidence >= 24 (${countPng('proof/lab05i/iteration-01/runtime')})`)
-req(countPng('proof/lab05i/iteration-01/real-gpu') >= 6, `real-GPU close-ups >= 6 (${countPng('proof/lab05i/iteration-01/real-gpu')})`)
-req(countPng('proof/lab05i/iteration-01') >= 12, `Blender iteration renders present (${countPng('proof/lab05i/iteration-01')})`)
-req(has('proof/lab05i/iteration-01/root-cause/materials.json'), '05I material dump present')
+// 5) evidence — Iteration 1 (preserved) + Iteration 2 (final)
+req(countPng('proof/lab05i/iteration-01/runtime') >= 24, `Iter1 runtime evidence preserved (${countPng('proof/lab05i/iteration-01/runtime')})`)
+req(countPng('proof/lab05i/iteration-02/runtime') >= 24, `Iter2 runtime evidence >= 24 (${countPng('proof/lab05i/iteration-02/runtime')})`)
+req(countPng('proof/lab05i/iteration-02/real-gpu') >= 5, `Iter2 real-GPU close-ups >= 5 (${countPng('proof/lab05i/iteration-02/real-gpu')})`)
+req(countPng('proof/lab05i/iteration-02/blender') >= 10, `Iter2 Blender renders present (${countPng('proof/lab05i/iteration-02/blender')})`)
+req(has('proof/lab05i/iteration-02/root-cause-materials.json'), 'Iter2 material dump present')
 try {
-  const cm = JSON.parse(readFileSync(ROOT + 'proof/lab05i/iteration-01/runtime/capture-meta.json', 'utf8'))
-  req(cm.consoleErrorFree === true, `runtime capture console-error-free (errorCount=${cm.errorCount})`)
-} catch { fails.push('runtime capture-meta.json missing') }
+  const cm = JSON.parse(readFileSync(ROOT + 'proof/lab05i/iteration-02/runtime/capture-meta.json', 'utf8'))
+  req(cm.consoleErrorFree === true, `Iter2 runtime capture console-error-free (errorCount=${cm.errorCount})`)
+} catch { fails.push('Iter2 runtime capture-meta.json missing') }
 
 // 6) docs + index
-for (const d of ['ASSET-LAB-05I-BRIEF.md', 'ASSET-LAB-05I-ITERATION-LOG.md', 'ASSET-LAB-05I-OWNER-REVIEW-GUIDE.md', 'ASSET-LAB-05I-ITERATION-1-REPORT.md'])
+for (const d of ['ASSET-LAB-05I-BRIEF.md', 'ASSET-LAB-05I-ITERATION-LOG.md', 'ASSET-LAB-05I-OWNER-REVIEW-GUIDE.md',
+  'ASSET-LAB-05I-ITERATION-1-REPORT.md', 'ASSET-LAB-05I-ITERATION-2-REPORT.md', 'ASSET-LAB-05I-FINAL-REPORT.md'])
   req(has('docs/' + d), `doc present: ${d}`)
-req(has('proof/lab05i/iteration-01/index.html'), 'owner review index present')
+req(has('proof/lab05i/iteration-01/index.html'), 'Iter1 review index preserved')
+req(has('proof/lab05i/iteration-02/index.html'), 'Iter2 owner review index present')
 
 console.log('\n05I ITERATION-1 VALIDATION')
 for (const m of ok) console.log('  ✓ ' + m)
