@@ -1,0 +1,60 @@
+{
+  "note": "Iter2 final materials. Skin mat_authored_skin warm tan (unchanged). NOTE: the shipped GLB exhibits a base-mesh HAND-skinning collapse when posed+decimated (not a material issue) and the face is not procedurally appealing — see FINAL-REPORT (HUMAN ARTIST REQUIRED).",
+  "primitives": [
+    {
+      "material": "mat_authored_skin",
+      "hex": "#e8b58f",
+      "verts": 6900
+    },
+    {
+      "material": "mat_i_shirt",
+      "hex": "#475c75",
+      "verts": 3111
+    },
+    {
+      "material": "mat_i_trousers",
+      "hex": "#47474d",
+      "verts": 1351
+    },
+    {
+      "material": "mat_i_boots",
+      "hex": "#38261a",
+      "verts": 743
+    },
+    {
+      "material": "mat_i_boots.001",
+      "hex": "#38261a",
+      "verts": 742
+    },
+    {
+      "material": "mat_i_vest",
+      "hex": "#f29e1c",
+      "verts": 152
+    },
+    {
+      "material": "mat_i_hiviz",
+      "hex": "#ededdb",
+      "verts": 76
+    },
+    {
+      "material": "mat_i_hiviz.001",
+      "hex": "#ededdb",
+      "verts": 76
+    },
+    {
+      "material": "mat_i_belt",
+      "hex": "#4d301f",
+      "verts": 224
+    },
+    {
+      "material": "mat_i_radio",
+      "hex": "#2e3036",
+      "verts": 8
+    },
+    {
+      "material": "mat_i_hat",
+      "hex": "#e5941a",
+      "verts": 239
+    }
+  ]
+}

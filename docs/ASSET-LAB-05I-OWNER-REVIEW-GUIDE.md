@@ -35,8 +35,26 @@ In every comparison **05H is LEFT, 05I is RIGHT**. Evidence under `proof/lab05i/
 - The boots read a little blocky; the vest a little puffy.
 - 05I is slightly taller (1.82 vs 1.78 m) due to the boots/hat, and leaner (LOD0 22,456 vs 24,509 tris).
 
-## Your decision
-Pick one: **ACCEPT ITERATION 1** (defects fixed, no blocker remains) · **ITERATION 2 REQUIRED** (good progress, one
-more pass — e.g. face/boot refinement) · **STOP — HUMAN ARTIST REQUIRED** (procedural approach can't reach the bar).
-Iteration 2 is not authorized without your instruction; the total limit is two iterations. Nothing here is
+## Your decision (Iteration 1)
+Pick one: **ACCEPT ITERATION 1** · **ITERATION 2 REQUIRED** · **STOP — HUMAN ARTIST REQUIRED**. *(You chose
+ITERATION 2 REQUIRED.)*
+
+---
+
+## Iteration 2 (final) — where to look
+Evidence: `proof/lab05i/iteration-02/`. Same view names as Iteration 1, so `iteration-01/` vs `iteration-02/` at the
+same framing is the matched Iter-1↔Iter-2 comparison (05H is the shared left-hand reference). Index:
+`proof/lab05i/iteration-02/index.html`. Full return: `ASSET-LAB-05I-ITERATION-2-REPORT.md`; conclusion:
+`ASSET-LAB-05I-FINAL-REPORT.md`.
+
+Iteration 2 corrected four targets — (A) face, (B) proportions, (C) shirt/arm/neck read, (D) boot split:
+- **B, C, D landed:** proportions are clearly slimmer (`real-gpu/side-by-side.png`); short-sleeve shirt gives bare
+  warm-tan forearms so the arms/neck no longer read as blue skin (`runtime/11-shirt-vest-front.png`); the boots are
+  a weight-inheriting offset shell that stays glued to the feet in motion (`real-gpu/walk.png`).
+- **A (face) did not land:** the face is softer/simpler than 05H but remains the weak point — the procedural
+  approach cannot produce an appealing face on this CC0 base (a harder push made it visibly *worse*). See
+  `runtime/09-face.png`, `real-gpu/face.png`.
+
+## Your decision (Iteration 2, final — no further iteration authorized)
+Pick one: **ACCEPT 05I FOR OWNER HUMAN-SCALE APPROVAL** · **REJECT CURRENT 05I — HUMAN ARTIST REQUIRED**. Nothing is
 integrated, propagated, or merged; D1/D1-A/Engine are untouched.

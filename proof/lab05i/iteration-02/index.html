@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asset Lab 05I — Iteration 2 (final) Owner Review</title>
+<style>
+  :root { --bg:#0e1116; --panel:#161b22; --edge:#232a33; --ink:#dfe6ee; --dim:#8a94a0; --accent:#f0a860; --good:#7ee787; --warn:#f0a860; --bad:#ef4444; }
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  header{padding:26px 24px 16px;border-bottom:1px solid var(--edge);background:linear-gradient(180deg,#12161d,#0e1116)} h1{margin:0 0 4px;font-size:21px} .sub{color:var(--dim);font-size:13px}
+  nav{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:6px;padding:10px 24px;background:rgba(14,17,22,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--edge)} nav a{color:var(--ink);text-decoration:none;font-size:12px;padding:4px 9px;border:1px solid var(--edge);border-radius:6px;background:var(--panel)}
+  main{max-width:1180px;margin:0 auto;padding:22px 24px 80px} section{margin:28px 0;scroll-margin-top:56px} h2{font-size:17px;border-left:3px solid var(--accent);padding-left:10px;margin:0 0 6px} .note{color:var(--dim);font-size:13px;margin:2px 0 12px}
+  .banner{border:1px solid var(--edge);border-radius:12px;padding:16px 18px;background:var(--panel);border-left:4px solid var(--bad)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px} figure{margin:0;border:1px solid var(--edge);border-radius:10px;overflow:hidden;background:#0b0e13} figure img{width:100%;display:block;background:#4b5058} figcaption{font-size:11.5px;color:var(--dim);padding:6px 8px}
+  table{border-collapse:collapse;width:100%;font-size:13px} th,td{border:1px solid var(--edge);padding:6px 9px;text-align:left;vertical-align:top} th{color:var(--dim)}
+  .pill{display:inline-block;font-size:11px;padding:1px 8px;border-radius:20px;font-weight:700} .pill.good{background:var(--good);color:#06140a}.pill.warn{background:var(--warn);color:#1a1206}.pill.bad{background:var(--bad);color:#1a0606}
+  ul{margin:6px 0;padding-left:20px}li{margin:3px 0} a.docs{color:var(--accent)} code{background:#0b0e13;border:1px solid var(--edge);border-radius:4px;padding:1px 5px;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Project: Studio — Asset Lab 05I · Iteration 2 (final) Owner Review</h1>
+  <div class="sub">Final authorized corrective iteration. Isolated, additive, not integrated. 05H is LEFT, 05I is RIGHT. Judge at close range.</div>
+</header>
+<nav><a href="#rec">Recommendation</a><a href="#targets">Four targets</a><a href="#body">Body (works)</a><a href="#blockers">Face &amp; hands (blockers)</a><a href="#docs">Docs</a></nav>
+<main>
+  <section id="rec">
+    <div class="banner">
+      <h2 style="border:none;padding:0;margin:0 0 6px">Recommendation: REJECT CURRENT 05I — HUMAN ARTIST REQUIRED</h2>
+      <p style="margin:6px 0">The panel (Character Art + Rigging + Adversarial) is unanimous. The two authorized iterations proved the procedural authored-base pipeline produces a viable worker <b>body</b> (rig, garments, proportions, LODs, materials, runtime — all sound) but <b>cannot finish the face or the hands</b>: the face is not procedurally appealing (a harder push made it worse), and the hands collapse into melting tendrils on the posed/decimated export (a base-mesh skinning limit). Your call: <b>ACCEPT 05I FOR OWNER HUMAN-SCALE APPROVAL</b> or <b>REJECT CURRENT 05I — HUMAN ARTIST REQUIRED</b> (the panel's rec). Full conclusion: <a class="docs" href="../../../docs/ASSET-LAB-05I-FINAL-REPORT.md">FINAL-REPORT.md</a>.</p>
+    </div>
+  </section>
+
+  <section id="targets">
+    <h2>The four Iteration-2 targets</h2>
+    <table>
+      <tr><th>Target</th><th>Result</th><th></th></tr>
+      <tr><td>A · Face appeal</td><td>softer/simpler than 05H but still heavy/lumpy; not procedurally appealing</td><td><span class="pill bad">not reached</span></td></tr>
+      <tr><td>B · Proportions</td><td>slimmer than 05H's bodybuilder build; panel: partly masked</td><td><span class="pill warn">partial</span></td></tr>
+      <tr><td>C · Shirt/arm/neck read</td><td>short sleeves → bare warm-tan forearms + clean collar (at rest)</td><td><span class="pill warn">rest ✓ / motion exposed hands</span></td></tr>
+      <tr><td>D · Boot split/detach</td><td>weight-inheriting offset shell stays attached in motion; residual toe seam</td><td><span class="pill good">attachment ✓</span></td></tr>
+    </table>
+  </section>
+
+  <section id="body">
+    <h2>What works — the worker body / garments / rig</h2>
+    <p class="note">Complete hi-vis vest, closed hard hat, boots covering &amp; attached, tool belt, slimmer proportions, 65-joint rig, all six clips deform, correct warm-tan skin, LODs, console-error-free.</p>
+    <div class="grid">
+      <figure><img src="./real-gpu/side-by-side.png" loading="lazy"><figcaption>Front (real-GPU / Metal)</figcaption></figure>
+      <figure><img src="./runtime/07-front-three-quarter.png" loading="lazy"><figcaption>Front ¾</figcaption></figure>
+      <figure><img src="./runtime/11-shirt-vest-front.png" loading="lazy"><figcaption>Vest &amp; short-sleeve shirt</figcaption></figure>
+      <figure><img src="./runtime/14-boots-feet.png" loading="lazy"><figcaption>Boots (attached)</figcaption></figure>
+      <figure><img src="./runtime/15-hard-hat.png" loading="lazy"><figcaption>Hard hat</figcaption></figure>
+      <figure><img src="./runtime/24-management-distance.png" loading="lazy"><figcaption>Management distance</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="blockers">
+    <h2>The two blockers — face &amp; hands <span class="pill bad">HUMAN ARTIST</span></h2>
+    <p class="note">These are why the character cannot go to human-scale approval. Both appear in the neutral-material renders too, so they are geometry/skin-weights, not lighting.</p>
+    <div class="grid">
+      <figure><img src="./real-gpu/front.png" loading="lazy"><figcaption>Hands melt into tendrils; face heavy/lumpy</figcaption></figure>
+      <figure><img src="./runtime/09-face.png" loading="lazy"><figcaption>Face — not procedurally appealing</figcaption></figure>
+      <figure><img src="./real-gpu/walk.png" loading="lazy"><figcaption>Hand collapse in motion (walk)</figcaption></figure>
+      <figure><img src="./runtime/neutral-side-by-side-front.png" loading="lazy"><figcaption>Neutral light — confirms geometry, not shading</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="docs">
+    <h2>Documents &amp; comparison</h2>
+    <ul>
+      <li><a class="docs" href="../../../docs/ASSET-LAB-05I-FINAL-REPORT.md">FINAL-REPORT.md</a> — the conclusion</li>
+      <li><a class="docs" href="../../../docs/ASSET-LAB-05I-ITERATION-2-REPORT.md">ITERATION-2-REPORT.md</a> — the full return</li>
+      <li><a class="docs" href="../../../docs/ASSET-LAB-05I-ITERATION-LOG.md">ITERATION-LOG.md</a> — honest pass-by-pass log (incl. rejected experiments)</li>
+      <li><a class="docs" href="../iteration-01/index.html">Iteration 1 index</a> — for the Iter1↔Iter2 comparison (same framings)</li>
+    </ul>
+    <p class="note">Live harness: <code>npx vite --port 4321 --strictPort</code> → left panel <b>05I Hero</b> row + <b>Neutral eval light</b> toggle.</p>
+  </section>
+</main>
+</body>
+</html>
