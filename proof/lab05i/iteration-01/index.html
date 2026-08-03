@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asset Lab 05I — Iteration 1 Owner Review</title>
+<style>
+  :root { --bg:#0e1116; --panel:#161b22; --edge:#232a33; --ink:#dfe6ee; --dim:#8a94a0; --accent:#7ee7c7; --good:#7ee787; --warn:#f0a860; --bad:#ef4444; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  header { padding:26px 24px 16px; border-bottom:1px solid var(--edge); background:linear-gradient(180deg,#12161d,#0e1116); }
+  h1 { margin:0 0 4px; font-size:21px; } .sub { color:var(--dim); font-size:13px; }
+  nav { position:sticky; top:0; z-index:5; display:flex; flex-wrap:wrap; gap:6px; padding:10px 24px; background:rgba(14,17,22,.94); backdrop-filter:blur(6px); border-bottom:1px solid var(--edge); }
+  nav a { color:var(--ink); text-decoration:none; font-size:12px; padding:4px 9px; border:1px solid var(--edge); border-radius:6px; background:var(--panel); }
+  main { max-width:1180px; margin:0 auto; padding:22px 24px 80px; }
+  section { margin:28px 0; scroll-margin-top:56px; }
+  h2 { font-size:17px; border-left:3px solid var(--accent); padding-left:10px; margin:0 0 6px; }
+  .note { color:var(--dim); font-size:13px; margin:2px 0 12px; }
+  .banner { border:1px solid var(--edge); border-radius:12px; padding:16px 18px; background:var(--panel); border-left:4px solid var(--warn); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:12px; }
+  figure { margin:0; border:1px solid var(--edge); border-radius:10px; overflow:hidden; background:#0b0e13; }
+  figure img { width:100%; display:block; background:#4b5058; }
+  figcaption { font-size:11.5px; color:var(--dim); padding:6px 8px; }
+  table { border-collapse:collapse; width:100%; font-size:13px; } th,td { border:1px solid var(--edge); padding:6px 9px; text-align:left; vertical-align:top; } th { color:var(--dim); }
+  .pill { display:inline-block; font-size:11px; padding:1px 8px; border-radius:20px; font-weight:700; }
+  .pill.good{background:var(--good);color:#06140a}.pill.warn{background:var(--warn);color:#1a1206}.pill.bad{background:var(--bad);color:#1a0606}
+  code { background:#0b0e13; border:1px solid var(--edge); border-radius:4px; padding:1px 5px; font-size:12px; } ul{margin:6px 0;padding-left:20px}li{margin:3px 0} a.docs{color:var(--accent)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Project: Studio — Asset Lab 05I · Iteration 1 Owner Review</h1>
+  <div class="sub">Corrective character pass over the accepted 05H foundation. Isolated, additive, not integrated. In every pair, <b>05H is LEFT, 05I is RIGHT</b>. Judge at close range, not management distance.</div>
+</header>
+<nav>
+  <a href="#rec">Recommendation</a><a href="#fixes">What changed</a><a href="#static">Static</a>
+  <a href="#anim">Animation</a><a href="#neutral">Neutral light</a><a href="#lod">LOD</a><a href="#issues">Remaining</a><a href="#docs">Docs</a>
+</nav>
+<main>
+  <section id="rec">
+    <div class="banner">
+      <h2 style="border:none;padding:0;margin:0 0 6px">Recommendation: ITERATION 2 REQUIRED</h2>
+      <p style="margin:6px 0">Iteration 1 is a clear, honest step up over 05H — the vest, boots, hard hat, and scalp coverage are fixed, the character reads unambiguously as a utility worker, the 65-joint rig is preserved, and there are <b>no regressions</b>. But the specialist + adversarial panel unanimously flag remaining majors — the heavy face, still-bulky proportions, blue arms/neck reading as skin, and slightly segmenting boots — that warrant one more pass. Your call: <b>ACCEPT ITERATION 1</b> · <b>ITERATION 2 REQUIRED</b> (panel's rec) · <b>STOP — HUMAN ARTIST REQUIRED</b>. Iteration 2 is not authorized without your instruction (2-iteration limit). Details: <a class="docs" href="../../../docs/ASSET-LAB-05I-ITERATION-1-REPORT.md">ITERATION-1-REPORT.md</a>.</p>
+    </div>
+  </section>
+
+  <section id="fixes">
+    <h2>What changed (05H → 05I)</h2>
+    <table>
+      <tr><th>05H defect</th><th>05I</th><th></th></tr>
+      <tr><td>Torn / fragmented hi-vis vest</td><td>complete closed hi-vis vest + reflective bands</td><td><span class="pill good">fixed</span></td></tr>
+      <tr><td>Bare feet (no boots)</td><td>boots fully cover the feet, connected shaft</td><td><span class="pill good">fixed</span></td></tr>
+      <tr><td>Open hat / exposed scalp</td><td>closed hard hat on the head, brim at brow</td><td><span class="pill good">fixed</span></td></tr>
+      <tr><td>Nude blue torso</td><td>vest covers the chest → reads clothed</td><td><span class="pill good">fixed</span></td></tr>
+      <tr><td>Over-muscled proportions</td><td>slimmer, but arms still read bulky</td><td><span class="pill warn">partial</span></td></tr>
+      <tr><td>Heavy / ogre face</td><td>softer, but still heavy in close-up</td><td><span class="pill warn">partial</span></td></tr>
+    </table>
+  </section>
+
+  <section id="static">
+    <h2>Matched static comparison (05H ↔ 05I)</h2>
+    <div class="grid">
+      <figure><img src="./real-gpu/side-by-side.png" loading="lazy"><figcaption>Front (real-GPU / Metal)</figcaption></figure>
+      <figure><img src="./runtime/04-side-by-side-rear.png" loading="lazy"><figcaption>Rear</figcaption></figure>
+      <figure><img src="./runtime/07-front-three-quarter.png" loading="lazy"><figcaption>Front ¾</figcaption></figure>
+      <figure><img src="./runtime/11-shirt-vest-front.png" loading="lazy"><figcaption>Shirt & vest</figcaption></figure>
+      <figure><img src="./runtime/14-boots-feet.png" loading="lazy"><figcaption>Boots & feet</figcaption></figure>
+      <figure><img src="./runtime/15-hard-hat.png" loading="lazy"><figcaption>Hard hat</figcaption></figure>
+      <figure><img src="./runtime/09-face.png" loading="lazy"><figcaption>Face (weakest area)</figcaption></figure>
+      <figure><img src="./runtime/25-wireframe.png" loading="lazy"><figcaption>Wireframe / topology</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="anim">
+    <h2>Six clips — deformation (rig preserved)</h2>
+    <div class="grid">
+      <figure><img src="./runtime/16-walk.png" loading="lazy"><figcaption>Walk</figcaption></figure>
+      <figure><img src="./runtime/18-kneeling.png" loading="lazy"><figcaption>Kneeling</figcaption></figure>
+      <figure><img src="./runtime/19-pickup.png" loading="lazy"><figcaption>Pickup</figcaption></figure>
+      <figure><img src="./runtime/20-sitting.png" loading="lazy"><figcaption>Sitting</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="neutral">
+    <h2>Neutral evaluation light (§7 — honest material)</h2>
+    <p class="note">Strictly neutral-white lighting to judge actual colour vs lighting tint. Material dump: <a class="docs" href="./root-cause/materials.json">materials.json</a> (skin = correct warm tan #e8b58f).</p>
+    <div class="grid">
+      <figure><img src="./runtime/neutral-side-by-side-front.png" loading="lazy"><figcaption>Neutral front</figcaption></figure>
+      <figure><img src="./runtime/neutral-shirt-vest-front.png" loading="lazy"><figcaption>Neutral shirt & vest</figcaption></figure>
+      <figure><img src="./runtime/neutral-face.png" loading="lazy"><figcaption>Neutral face</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="lod">
+    <h2>LOD &amp; distance</h2>
+    <div class="grid">
+      <figure><img src="./runtime/21-lod.png" loading="lazy"><figcaption>LOD0/1/2 (22,772/10,247/4,553 tris)</figcaption></figure>
+      <figure><img src="./runtime/22-human-distance.png" loading="lazy"><figcaption>Human distance</figcaption></figure>
+      <figure><img src="./runtime/24-management-distance.png" loading="lazy"><figcaption>Management distance</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="issues">
+    <h2>Remaining items (panel — all fixable in Iteration 2)</h2>
+    <ul>
+      <li><span class="pill warn">major</span> Face still heavy / ogre-ish — the persistent weak area.</li>
+      <li><span class="pill warn">major</span> Arms and neck (blue shirt) still read as bare blue skin.</li>
+      <li><span class="pill warn">major</span> Proportions slimmer but arms/shoulders still read bulky.</li>
+      <li><span class="pill warn">minor</span> Boots read oversized; segment slightly at the ankle during foot flex; small white ankle gap.</li>
+      <li><span class="pill warn">minor</span> Vest lower hem slightly ragged; hat reads a touch bowler-ish; no explicit "Electric" cue.</li>
+      <li><span class="pill good">preserved</span> 65-joint rig intact; all six clips deform; no regressions vs 05H.</li>
+    </ul>
+  </section>
+
+  <section id="docs">
+    <h2>Documents</h2>
+    <ul>
+      <li><a class="docs" href="../../../docs/ASSET-LAB-05I-ITERATION-1-REPORT.md">ITERATION-1-REPORT.md</a> — the full return</li>
+      <li><a class="docs" href="../../../docs/ASSET-LAB-05I-OWNER-REVIEW-GUIDE.md">OWNER-REVIEW-GUIDE.md</a></li>
+      <li><a class="docs" href="../../../docs/ASSET-LAB-05I-ITERATION-LOG.md">ITERATION-LOG.md</a> — honest pass-by-pass log</li>
+      <li><a class="docs" href="../../../docs/ASSET-LAB-05I-BRIEF.md">BRIEF.md</a> — approved scope</li>
+    </ul>
+    <p class="note">Live harness: <code>npx vite --port 4321 --strictPort</code> → left panel <b>05I Hero</b> row + <b>Neutral eval light</b> toggle.</p>
+  </section>
+</main>
+</body>
+</html>

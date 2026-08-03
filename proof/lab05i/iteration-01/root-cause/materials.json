@@ -1,0 +1,117 @@
+{
+  "note": "05I material assignments. Skin material mat_authored_skin base color is warm tan (unchanged from 05H foundation); garments are distinct materials. Confirms clothed read, correct skin.",
+  "materials": [
+    {
+      "name": "mat_authored_skin",
+      "baseColorHex": "#e8b58f",
+      "verts": 0
+    },
+    {
+      "name": "mat_i_shirt",
+      "baseColorHex": "#475c75",
+      "verts": 0
+    },
+    {
+      "name": "mat_i_trousers",
+      "baseColorHex": "#47474d",
+      "verts": 0
+    },
+    {
+      "name": "mat_i_boots",
+      "baseColorHex": "#38261a",
+      "verts": 0
+    },
+    {
+      "name": "mat_i_boots.001",
+      "baseColorHex": "#38261a",
+      "verts": 0
+    },
+    {
+      "name": "mat_i_vest",
+      "baseColorHex": "#f29e1c",
+      "verts": 0
+    },
+    {
+      "name": "mat_i_hiviz",
+      "baseColorHex": "#ededdb",
+      "verts": 0
+    },
+    {
+      "name": "mat_i_hiviz.001",
+      "baseColorHex": "#ededdb",
+      "verts": 0
+    },
+    {
+      "name": "mat_i_belt",
+      "baseColorHex": "#4d301f",
+      "verts": 0
+    },
+    {
+      "name": "mat_i_radio",
+      "baseColorHex": "#2e3036",
+      "verts": 0
+    },
+    {
+      "name": "mat_i_hat",
+      "baseColorHex": "#e5941a",
+      "verts": 0
+    }
+  ],
+  "primitives": [
+    {
+      "material": "mat_authored_skin",
+      "baseColorHex": "#e8b58f",
+      "verts": 6969
+    },
+    {
+      "material": "mat_i_shirt",
+      "baseColorHex": "#475c75",
+      "verts": 3850
+    },
+    {
+      "material": "mat_i_trousers",
+      "baseColorHex": "#47474d",
+      "verts": 1397
+    },
+    {
+      "material": "mat_i_boots",
+      "baseColorHex": "#38261a",
+      "verts": 32
+    },
+    {
+      "material": "mat_i_boots.001",
+      "baseColorHex": "#38261a",
+      "verts": 32
+    },
+    {
+      "material": "mat_i_vest",
+      "baseColorHex": "#f29e1c",
+      "verts": 152
+    },
+    {
+      "material": "mat_i_hiviz",
+      "baseColorHex": "#ededdb",
+      "verts": 76
+    },
+    {
+      "material": "mat_i_hiviz.001",
+      "baseColorHex": "#ededdb",
+      "verts": 76
+    },
+    {
+      "material": "mat_i_belt",
+      "baseColorHex": "#4d301f",
+      "verts": 224
+    },
+    {
+      "material": "mat_i_radio",
+      "baseColorHex": "#2e3036",
+      "verts": 8
+    },
+    {
+      "material": "mat_i_hat",
+      "baseColorHex": "#e5941a",
+      "verts": 299
+    }
+  ]
+}
