@@ -1,0 +1,7 @@
+{
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+  "isSoftware": true,
+  "note": "Visual/geometry proof under SwiftShader software raster (deterministic). NOT a performance measurement; see performance/ for real-GPU (Apple M3 Max) results.",
+  "consoleErrorFree": true,
+  "errorCount": 0
+}

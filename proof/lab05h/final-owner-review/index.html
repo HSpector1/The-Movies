@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asset Lab 05H — Final Owner Review</title>
+<style>
+  :root { --bg:#0e1116; --panel:#161b22; --edge:#232a33; --ink:#dfe6ee; --dim:#8a94a0; --accent:#58a6ff; --good:#7ee787; --warn:#f0a860; --bad:#ef4444; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  header { padding:28px 24px 18px; border-bottom:1px solid var(--edge); background:linear-gradient(180deg,#12161d,#0e1116); }
+  h1 { margin:0 0 4px; font-size:22px; letter-spacing:.2px; }
+  .sub { color:var(--dim); font-size:13px; }
+  nav { position:sticky; top:0; z-index:5; display:flex; flex-wrap:wrap; gap:6px; padding:10px 24px; background:rgba(14,17,22,.94); backdrop-filter:blur(6px); border-bottom:1px solid var(--edge); }
+  nav a { color:var(--ink); text-decoration:none; font-size:12px; padding:4px 9px; border:1px solid var(--edge); border-radius:6px; background:var(--panel); }
+  nav a:hover { border-color:var(--accent); }
+  main { max-width:1180px; margin:0 auto; padding:22px 24px 80px; }
+  section { margin:30px 0; scroll-margin-top:56px; }
+  h2 { font-size:17px; border-left:3px solid var(--accent); padding-left:10px; margin:0 0 6px; }
+  .note { color:var(--dim); font-size:13px; margin:2px 0 12px; }
+  .banner { border:1px solid var(--edge); border-radius:12px; padding:16px 18px; background:var(--panel); }
+  .rec { border-left:4px solid var(--good); }
+  .warnbox { border-left:4px solid var(--warn); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; }
+  figure { margin:0; border:1px solid var(--edge); border-radius:10px; overflow:hidden; background:#0b0e13; }
+  figure img { width:100%; display:block; background:#4b5058; }
+  figcaption { font-size:11.5px; color:var(--dim); padding:6px 8px; }
+  video { width:100%; border:1px solid var(--edge); border-radius:10px; background:#000; }
+  table { border-collapse:collapse; width:100%; font-size:13px; }
+  th,td { border:1px solid var(--edge); padding:6px 9px; text-align:left; vertical-align:top; }
+  th { color:var(--dim); font-weight:600; }
+  code { background:#0b0e13; border:1px solid var(--edge); border-radius:4px; padding:1px 5px; font-size:12px; }
+  .pill { display:inline-block; font-size:11px; padding:1px 8px; border-radius:20px; font-weight:700; }
+  .pill.bad { background:var(--bad); color:#1a0606; } .pill.warn { background:var(--warn); color:#1a1206; } .pill.good { background:var(--good); color:#06140a; }
+  ul { margin:6px 0; padding-left:20px; } li { margin:3px 0; }
+  a.docs { color:var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Project: Studio — Asset Lab 05H · Final Owner Review</h1>
+  <div class="sub">Isolated proof · not integrated · evidence-only. Two independent questions; one recommendation. All images render the shipped <code>electric_hero_05h.glb</code>. In every pair, <b>05G is LEFT, 05H is RIGHT</b>.</div>
+</header>
+<nav>
+  <a href="#rec">Recommendation</a>
+  <a href="#how">How to read</a>
+  <a href="#matched">Matched 05G↔05H</a>
+  <a href="#human">Human scale</a>
+  <a href="#root">Root cause</a>
+  <a href="#anim">Animation</a>
+  <a href="#lod">LOD</a>
+  <a href="#mgmt">Management camera (Q-B)</a>
+  <a href="#perf">Performance</a>
+  <a href="#issues">Known issues</a>
+  <a href="#live">Live harness</a>
+  <a href="#docs">Documents</a>
+</nav>
+<main>
+
+  <section id="rec">
+    <div class="banner rec">
+      <h2 style="border:none;padding:0;margin:0 0 6px">Recommendation: B — Accept foundation with further Asset-Lab refinement</h2>
+      <p style="margin:6px 0">Keep the authored-base <b>foundation</b> (it is real progress); <b>reject the current 05H build</b> (not shippable, regresses from 05G); require a corrective iteration fixing the garment system, base proportions/face, and harness lighting. Keep 05G as the interim base. Authorizes nothing beyond itself.</p>
+      <p class="note" style="margin:6px 0 0"><b>Question A</b> (human-scale character): fails as shipped. <b>Question B</b> (does live 3D earn its cost at the fixed management camera): not demonstrated — a sprite reads the same at that distance, and the camera hides the character's defects. The two are separate; see below. Full rationale: <a class="docs" href="../../../docs/ASSET-LAB-05H-FINAL-ART-PM-RECOMMENDATION.md">FINAL-ART-PM-RECOMMENDATION.md</a>.</p>
+    </div>
+  </section>
+
+  <section id="how">
+    <h2>How to read this</h2>
+    <p class="note">Click any section above. All evidence is under <code>proof/lab05h/final-owner-review/</code>. Judge the character at <b>close range</b> (Human scale / Root cause), not at the flattering management distance. To reset, click <a href="#rec">Recommendation</a>.</p>
+    <div class="banner warnbox">
+      <b>Documented assumption — no real D1 camera exists in this repo.</b> The management-camera section uses a <i>representative</i> orthographic isometric rig spanning a range of elevations/framings, not the real D1 lot camera (which is defined nowhere here). If the real camera differs, the Question-B conclusion must be revisited. This is the #1 owner-verification item.
+    </div>
+  </section>
+
+  <section id="matched">
+    <h2>§4 · Matched 05G ↔ 05H comparison</h2>
+    <p class="note">Identical camera / lighting / scale / animation frame. 05G left, 05H right.</p>
+    <div class="grid">
+      <figure><img src="./matched-comparison/front.png" loading="lazy"><figcaption>Front</figcaption></figure>
+      <figure><img src="./matched-comparison/rear.png" loading="lazy"><figcaption>Rear</figcaption></figure>
+      <figure><img src="./matched-comparison/left-side.png" loading="lazy"><figcaption>Left side</figcaption></figure>
+      <figure><img src="./matched-comparison/right-side.png" loading="lazy"><figcaption>Right side</figcaption></figure>
+      <figure><img src="./matched-comparison/front-three-quarter.png" loading="lazy"><figcaption>Front ¾</figcaption></figure>
+      <figure><img src="./matched-comparison/rear-three-quarter.png" loading="lazy"><figcaption>Rear ¾</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="human">
+    <h2>§5 · Human-scale close-ups</h2>
+    <p class="note">Where the character must be judged. Broken vest, bare feet, minimal hat, over-muscled/heavy face.</p>
+    <div class="grid">
+      <figure><img src="./human-scale/pose-neutral-idle.png" loading="lazy"><figcaption>Neutral idle (05H)</figcaption></figure>
+      <figure><img src="./human-scale/closeup-vest-front.png" loading="lazy"><figcaption>Vest — fragmented</figcaption></figure>
+      <figure><img src="./human-scale/closeup-boot.png" loading="lazy"><figcaption>Feet — bare, no boots</figcaption></figure>
+      <figure><img src="./human-scale/closeup-shoulder-front.png" loading="lazy"><figcaption>Shoulder</figcaption></figure>
+      <figure><img src="./human-scale/closeup-hand.png" loading="lazy"><figcaption>Hand (articulated fingers)</figcaption></figure>
+      <figure><img src="./human-scale/closeup-pelvis-front.png" loading="lazy"><figcaption>Pelvis</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="root">
+    <h2>Root cause — corrected mid-review <span class="pill warn">honesty</span></h2>
+    <p class="note">An early "blue skin material" reading was <b>retracted</b>. The GLB skin material is correct warm tan (<code>#e8b58f</code>); the blue is a fitted work shirt (<code>mat_h_shirt #475c75</code> on torso/arms) plus harness cool-lighting on the face. Verified on the real M3 Max GPU. Data: <a class="docs" href="./root-cause/materials.json">materials.json</a>.</p>
+    <div class="grid">
+      <figure><img src="./root-cause/front.png" loading="lazy"><figcaption>Real-GPU (Metal) front — shirt vs skin</figcaption></figure>
+      <figure><img src="./root-cause/boot.png" loading="lazy"><figcaption>Real-GPU — bare feet confirmed</figcaption></figure>
+      <figure><img src="./root-cause/vest.png" loading="lazy"><figcaption>Real-GPU — broken vest</figcaption></figure>
+      <figure><img src="./blender-stills/blender-front.png" loading="lazy"><figcaption>Blender (2nd renderer)</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="anim">
+    <h2>§6 · Animation (the part that works)</h2>
+    <p class="note">Clean deformation across six clips; the rig is sound. Short clips loop; contact sheets show the cycle.</p>
+    <div class="grid">
+      <figure><video src="./animation/walk/motion.webm" autoplay loop muted playsinline></video><figcaption>Walk</figcaption></figure>
+      <figure><video src="./animation/kneeling/motion.webm" autoplay loop muted playsinline></video><figcaption>Fixing (kneel)</figcaption></figure>
+      <figure><video src="./animation/pickup/motion.webm" autoplay loop muted playsinline></video><figcaption>Pickup</figcaption></figure>
+      <figure><video src="./animation/sitting/motion.webm" autoplay loop muted playsinline></video><figcaption>Sitting</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="lod">
+    <h2>§7 · LOD at distance</h2>
+    <p class="note">LOD0 24,509 / LOD1 11,028 / LOD2 4,901 tris, 65 joints each. LOD2 is indistinguishable at management distance.</p>
+    <div class="grid">
+      <figure><img src="./lod/lod-human-distance.png" loading="lazy"><figcaption>Human distance</figcaption></figure>
+      <figure><img src="./lod/lod-moderate-distance.png" loading="lazy"><figcaption>Moderate</figcaption></figure>
+      <figure><img src="./lod/lod-management-distance.png" loading="lazy"><figcaption>Management distance</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="mgmt">
+    <h2>§8 · Fixed-isometric management camera — Question B</h2>
+    <p class="note">The decisive renderer-value test. At default framing, 05H≈05G≈sprite; the character's defects wash out (the camera flatters). Value only appears at tight zoom. Full analysis: <a class="docs" href="../../../docs/ASSET-LAB-05H-MANAGEMENT-CAMERA-ASSESSMENT.md">MANAGEMENT-CAMERA-ASSESSMENT.md</a>.</p>
+    <div class="grid">
+      <figure><img src="./management-camera/value/four-workers-stage--05h.png" loading="lazy"><figcaption>Live 3D · 05H</figcaption></figure>
+      <figure><img src="./management-camera/value/four-workers-stage--05g.png" loading="lazy"><figcaption>Live 3D · 05G</figcaption></figure>
+      <figure><img src="./management-camera/value/four-workers-stage--sprite.png" loading="lazy"><figcaption>Pre-rendered sprite <span class="pill warn">framing imperfect</span></figcaption></figure>
+      <figure><img src="./management-camera/value/four-workers-stage--none.png" loading="lazy"><figcaption>No worker (props only)</figcaption></figure>
+      <figure><img src="./management-camera/framing/four-wide.png" loading="lazy"><figcaption>Wide framing</figcaption></figure>
+      <figure><img src="./management-camera/framing/four-tight.png" loading="lazy"><figcaption>Tight framing (defects appear)</figcaption></figure>
+      <figure><img src="./management-camera/reduced-motion/walk-reduced.png" loading="lazy"><figcaption>Reduced motion (freeze)</figcaption></figure>
+      <figure><img src="./management-camera/vignettes/four-workers-iso-45.png" loading="lazy"><figcaption>Elevation 45°</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="perf">
+    <h2>§9 · Real-GPU performance (Apple M3 Max, real Metal)</h2>
+    <p class="note">Renderer: <code>ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Max)</code> — real GPU, not software. Full data + honest labels: <a class="docs" href="../../../docs/ASSET-LAB-05H-REAL-GPU-PERFORMANCE.md">REAL-GPU-PERFORMANCE.md</a>, <a class="docs" href="./performance/realgpu-performance.json">realgpu-performance.json</a>.</p>
+    <table>
+      <tr><th>Scenario</th><th>FPS (steady)</th><th>Draw calls</th><th>Triangles</th></tr>
+      <tr><td>1 worker (LOD0)</td><td>120 (vsync cap)</td><td>32</td><td>49,162</td></tr>
+      <tr><td>2 workers</td><td>120</td><td>51</td><td>98,178</td></tr>
+      <tr><td>4 workers</td><td>120</td><td>100</td><td>196,312</td></tr>
+      <tr><td>2 heroes animated</td><td>120</td><td>41</td><td>70,880</td></tr>
+    </table>
+    <p class="note" style="margin-top:8px">Cheap to render (vsync-capped, so no headroom shown; best-case M3 Max only). <b>Disposal leak:</b> textures climb 227→731 across 6 mount/unmount cycles (~84/cycle, never returns to baseline) — must be fixed before integration. JS heap flat (heap ≠ VRAM; VRAM is an owner-run Chrome Task Manager reading).</p>
+  </section>
+
+  <section id="issues">
+    <h2>Known issues &amp; caveats</h2>
+    <ul>
+      <li><span class="pill bad">blocker</span> Broken hi-vis vest (~510 verts, renders torn).</li>
+      <li><span class="pill bad">blocker</span> Bare feet — boots material present but geometry does not cover the foot.</li>
+      <li><span class="pill warn">major</span> Skin-tight shirt + broken vest read as a bare "blue" torso (garment fit, not a skin-material bug).</li>
+      <li><span class="pill warn">major</span> Minimal hard hat (112 verts, open scalp).</li>
+      <li><span class="pill warn">major</span> Over-muscled proportions + heavy/ogre-ish face (from the CC0 base).</li>
+      <li><span class="pill good">works</span> Rig + deformation + LOD + skin material + pipeline are sound.</li>
+      <li><b>Evidence gaps (honest):</b> sprite value framing imperfect; GPU VRAM not measured (owner step provided); FPS vsync-capped, best-case M3 Max only; real D1 camera unknown.</li>
+    </ul>
+  </section>
+
+  <section id="live">
+    <h2>Drive the live harness (optional)</h2>
+    <p class="note">Start the app and open Scene G to click through cameras yourself (no build tools needed):</p>
+    <ol class="note">
+      <li>In a terminal at the repo root: <code>npx vite --port 4321 --strictPort</code></li>
+      <li>Open <code>http://localhost:4321/</code> — it boots on Scene G.</li>
+      <li>Use the left panel: the <b>05H Hero</b> row (05G↔05H A/B) and the <b>05H Mgmt</b> row (fixed-iso management camera). In the Mgmt row, pick <b>Worker source</b> (05h / 05g / sprite / none), <b>Framing</b> (wide / default / tight), and <b>Reduced motion</b>.</li>
+    </ol>
+  </section>
+
+  <section id="docs">
+    <h2>Documents</h2>
+    <ul>
+      <li><a class="docs" href="../../../docs/ASSET-LAB-05H-FINAL-ART-PM-RECOMMENDATION.md">FINAL-ART-PM-RECOMMENDATION.md</a> — the single A–F recommendation</li>
+      <li><a class="docs" href="../../../docs/ASSET-LAB-05H-FINAL-OWNER-REVIEW.md">FINAL-OWNER-REVIEW.md</a> — Question A, human scale</li>
+      <li><a class="docs" href="../../../docs/ASSET-LAB-05H-MANAGEMENT-CAMERA-ASSESSMENT.md">MANAGEMENT-CAMERA-ASSESSMENT.md</a> — Question B</li>
+      <li><a class="docs" href="../../../docs/ASSET-LAB-05H-REAL-GPU-PERFORMANCE.md">REAL-GPU-PERFORMANCE.md</a> — §9</li>
+      <li><a class="docs" href="../../../docs/ASSET-LAB-05H-FALLBACK-ASSESSMENT.md">FALLBACK-ASSESSMENT.md</a> — §10</li>
+    </ul>
+  </section>
+
+</main>
+</body>
+</html>

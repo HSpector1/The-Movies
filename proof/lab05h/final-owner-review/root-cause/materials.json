@@ -1,0 +1,187 @@
+{
+  "note": "Root-cause of the 05H appearance. The SKIN material (mat_authored_skin) base color is WARM TAN #e8b58f, NOT blue. The blue-grey torso/arms are mat_h_shirt (#475c75), a fitted work shirt. The face reads cool because of the harness fill lighting, not the material. An earlier skin-tint isolation test in this review was flawed (blue-grey world kept) and its material-blue conclusion is retracted.",
+  "materials": [
+    {
+      "name": "mat_authored_skin",
+      "baseColorHex": "#e8b58f",
+      "baseColor": [
+        0.91,
+        0.71,
+        0.56,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.66
+    },
+    {
+      "name": "mat_h_shirt",
+      "baseColorHex": "#475c75",
+      "baseColor": [
+        0.28,
+        0.36,
+        0.46,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.75
+    },
+    {
+      "name": "mat_h_trousers",
+      "baseColorHex": "#47474d",
+      "baseColor": [
+        0.28,
+        0.28,
+        0.3,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.8
+    },
+    {
+      "name": "mat_h_boots",
+      "baseColorHex": "#4d301f",
+      "baseColor": [
+        0.3,
+        0.19,
+        0.12,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.55
+    },
+    {
+      "name": "mat_h_vest",
+      "baseColorHex": "#575c3d",
+      "baseColor": [
+        0.34,
+        0.36,
+        0.24,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.65
+    },
+    {
+      "name": "mat_h_hiviz",
+      "baseColorHex": "#f5d129",
+      "baseColor": [
+        0.96,
+        0.82,
+        0.16,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.35
+    },
+    {
+      "name": "mat_h_belt",
+      "baseColorHex": "#4d301f",
+      "baseColor": [
+        0.3,
+        0.19,
+        0.12,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.5
+    },
+    {
+      "name": "mat_h_radio",
+      "baseColorHex": "#2e3036",
+      "baseColor": [
+        0.18,
+        0.19,
+        0.21,
+        1
+      ],
+      "metallic": 0.6,
+      "roughness": 0.4
+    },
+    {
+      "name": "mat_h_hair",
+      "baseColorHex": "#1f1712",
+      "baseColor": [
+        0.12,
+        0.09,
+        0.07,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.85
+    },
+    {
+      "name": "mat_h_hat",
+      "baseColorHex": "#d98c1f",
+      "baseColor": [
+        0.85,
+        0.55,
+        0.12,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.4
+    }
+  ],
+  "primitives": [
+    {
+      "mesh": "GEO-body_male_stylized",
+      "material": "mat_authored_skin",
+      "baseColorHex": "#e8b58f",
+      "verts": 7298
+    },
+    {
+      "mesh": "GEO-body_male_stylized",
+      "material": "mat_h_shirt",
+      "baseColorHex": "#475c75",
+      "verts": 3540
+    },
+    {
+      "mesh": "GEO-body_male_stylized",
+      "material": "mat_h_trousers",
+      "baseColorHex": "#47474d",
+      "verts": 1403
+    },
+    {
+      "mesh": "GEO-body_male_stylized",
+      "material": "mat_h_boots",
+      "baseColorHex": "#4d301f",
+      "verts": 1492
+    },
+    {
+      "mesh": "GEO-body_male_stylized",
+      "material": "mat_h_vest",
+      "baseColorHex": "#575c3d",
+      "verts": 407
+    },
+    {
+      "mesh": "GEO-body_male_stylized",
+      "material": "mat_h_hiviz",
+      "baseColorHex": "#f5d129",
+      "verts": 103
+    },
+    {
+      "mesh": "GEO-body_male_stylized",
+      "material": "mat_h_belt",
+      "baseColorHex": "#4d301f",
+      "verts": 224
+    },
+    {
+      "mesh": "GEO-body_male_stylized",
+      "material": "mat_h_radio",
+      "baseColorHex": "#2e3036",
+      "verts": 8
+    },
+    {
+      "mesh": "GEO-body_male_stylized",
+      "material": "mat_h_hair",
+      "baseColorHex": "#1f1712",
+      "verts": 158
+    },
+    {
+      "mesh": "GEO-body_male_stylized",
+      "material": "mat_h_hat",
+      "baseColorHex": "#d98c1f",
+      "verts": 112
+    }
+  ]
+}

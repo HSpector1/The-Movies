@@ -1,0 +1,283 @@
+{
+  "machine": {
+    "model": "MacBook Pro (Mac15,9)",
+    "chip": "Apple M3 Max",
+    "cores": "16 (12P/4E)",
+    "memoryGB": 128,
+    "os": "macOS 26.5.1",
+    "metal": "Metal 4",
+    "chrome": "150.0.7871.187"
+  },
+  "launchMode": "headless-new",
+  "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Max, Unspecified Version)",
+  "isSoftwareRenderer": false,
+  "measured": "Builder-measured on the owner's actual Apple M3 Max via browser automation (not a hand-run owner session).",
+  "labels": {
+    "builderMeasured": [
+      "fps (rolling, app rAF)",
+      "drawCalls/frame",
+      "triangles/frame",
+      "three.js geometries/textures/programs counts",
+      "JS heap (performance.memory.usedJSHeapSize)"
+    ],
+    "heapCaveat": "heapMB is JavaScript heap, NOT GPU VRAM. three.js geometries/textures are RESOURCE COUNTS, not bytes.",
+    "ownerRequired": "GPU VRAM in bytes is not observable from JS. OWNER STEP: Chrome menu ⋮ -> More Tools -> Task Manager -> right-click header -> enable \"GPU Memory\"; read the tab's GPU Memory with a mgmt view vs Full Scene Overview.",
+    "unavailable": "Per-frame GPU time / shader-compile stalls require chrome://tracing or the DevTools Performance panel (owner-run); not captured here.",
+    "fpsNote": "headless"
+  },
+  "scenarios": [
+    {
+      "label": "1 worker (LOD0, static idle)",
+      "view": "Mgmt/One Worker + Stage",
+      "fps": {
+        "min": 120,
+        "median": 120,
+        "steadyState": 120,
+        "max": 120,
+        "samples": 32
+      },
+      "drawCalls": 32,
+      "triangles": 49162,
+      "geometries": 172,
+      "textures": 79,
+      "programs": 19,
+      "sceneMeshes": 19,
+      "heapMB_before": 76.3,
+      "heapMB_after": 76.5
+    },
+    {
+      "label": "2 workers (LOD0)",
+      "view": "Mgmt/Two Workers + Cart",
+      "fps": {
+        "min": 120,
+        "median": 120,
+        "steadyState": 120,
+        "max": 120,
+        "samples": 32
+      },
+      "drawCalls": 51,
+      "triangles": 98178,
+      "geometries": 170,
+      "textures": 89,
+      "programs": 21,
+      "sceneMeshes": 27,
+      "heapMB_before": 76.9,
+      "heapMB_after": 76.8
+    },
+    {
+      "label": "4 workers (LOD0)",
+      "view": "Mgmt/Four Workers + Stage",
+      "fps": {
+        "min": 120,
+        "median": 120,
+        "steadyState": 120,
+        "max": 120,
+        "samples": 32
+      },
+      "drawCalls": 100,
+      "triangles": 196312,
+      "geometries": 176,
+      "textures": 109,
+      "programs": 21,
+      "sceneMeshes": 53,
+      "heapMB_before": 77.6,
+      "heapMB_after": 77.5
+    },
+    {
+      "label": "LOD trio (1x LOD0 + 1x LOD1 + 1x LOD2)",
+      "view": "05H/LOD",
+      "fps": {
+        "min": 120,
+        "median": 120,
+        "steadyState": 120,
+        "max": 121,
+        "samples": 32
+      },
+      "drawCalls": 65,
+      "triangles": 80886,
+      "geometries": 185,
+      "textures": 143,
+      "programs": 20,
+      "sceneMeshes": 31,
+      "heapMB_before": 77.7,
+      "heapMB_after": 77.4
+    },
+    {
+      "label": "2 heroes animated — Walk",
+      "view": "05H/Walk",
+      "fps": {
+        "min": 120,
+        "median": 120,
+        "steadyState": 120,
+        "max": 120,
+        "samples": 32
+      },
+      "drawCalls": 41,
+      "triangles": 70880,
+      "geometries": 194,
+      "textures": 164,
+      "programs": 20,
+      "sceneMeshes": 20,
+      "heapMB_before": 77.5,
+      "heapMB_after": 77.2
+    },
+    {
+      "label": "2 heroes animated — Talk",
+      "view": "05H/Talk",
+      "fps": {
+        "min": 120,
+        "median": 120,
+        "steadyState": 120,
+        "max": 120,
+        "samples": 32
+      },
+      "drawCalls": 41,
+      "triangles": 70880,
+      "geometries": 194,
+      "textures": 164,
+      "programs": 20,
+      "sceneMeshes": 20,
+      "heapMB_before": 77.3,
+      "heapMB_after": 77.3
+    },
+    {
+      "label": "2 heroes animated — Kneeling",
+      "view": "05H/Kneeling",
+      "fps": {
+        "min": 120,
+        "median": 120,
+        "steadyState": 120,
+        "max": 120,
+        "samples": 32
+      },
+      "drawCalls": 41,
+      "triangles": 70880,
+      "geometries": 194,
+      "textures": 164,
+      "programs": 20,
+      "sceneMeshes": 20,
+      "heapMB_before": 77.3,
+      "heapMB_after": 77.4
+    },
+    {
+      "label": "2 heroes animated — Pickup",
+      "view": "05H/Pickup",
+      "fps": {
+        "min": 120,
+        "median": 120,
+        "steadyState": 120,
+        "max": 120,
+        "samples": 32
+      },
+      "drawCalls": 41,
+      "triangles": 70880,
+      "geometries": 194,
+      "textures": 164,
+      "programs": 20,
+      "sceneMeshes": 20,
+      "heapMB_before": 77.4,
+      "heapMB_after": 77.4
+    },
+    {
+      "label": "2 heroes animated — Sitting",
+      "view": "05H/Sitting",
+      "fps": {
+        "min": 120,
+        "median": 120,
+        "steadyState": 120,
+        "max": 121,
+        "samples": 32
+      },
+      "drawCalls": 41,
+      "triangles": 70880,
+      "geometries": 194,
+      "textures": 164,
+      "programs": 20,
+      "sceneMeshes": 20,
+      "heapMB_before": 77.5,
+      "heapMB_after": 77.5
+    },
+    {
+      "label": "side-by-side static (2 heroes)",
+      "view": "05H/Side-by-Side Front",
+      "fps": {
+        "min": 120,
+        "median": 120,
+        "steadyState": 120,
+        "max": 120,
+        "samples": 32
+      },
+      "drawCalls": 41,
+      "triangles": 70880,
+      "geometries": 194,
+      "textures": 164,
+      "programs": 20,
+      "sceneMeshes": 20,
+      "heapMB_before": 77.5,
+      "heapMB_after": 77.6
+    }
+  ],
+  "mountUnmountCycles": {
+    "baselineHeapMB": 79.5,
+    "baselineGeometries": 195,
+    "baselineTextures": 227,
+    "cycles": [
+      {
+        "cycle": 1,
+        "mounted_heapMB": 78.1,
+        "mounted_geometries": 195,
+        "mounted_textures": 248,
+        "unmounted_heapMB": 79.6,
+        "unmounted_geometries": 196,
+        "unmounted_textures": 311
+      },
+      {
+        "cycle": 2,
+        "mounted_heapMB": 78.1,
+        "mounted_geometries": 196,
+        "mounted_textures": 332,
+        "unmounted_heapMB": 79.6,
+        "unmounted_geometries": 197,
+        "unmounted_textures": 395
+      },
+      {
+        "cycle": 3,
+        "mounted_heapMB": 78.2,
+        "mounted_geometries": 197,
+        "mounted_textures": 416,
+        "unmounted_heapMB": 79.7,
+        "unmounted_geometries": 198,
+        "unmounted_textures": 479
+      },
+      {
+        "cycle": 4,
+        "mounted_heapMB": 78.3,
+        "mounted_geometries": 198,
+        "mounted_textures": 500,
+        "unmounted_heapMB": 79.8,
+        "unmounted_geometries": 199,
+        "unmounted_textures": 563
+      },
+      {
+        "cycle": 5,
+        "mounted_heapMB": 78.3,
+        "mounted_geometries": 199,
+        "mounted_textures": 584,
+        "unmounted_heapMB": 79.8,
+        "unmounted_geometries": 200,
+        "unmounted_textures": 647
+      },
+      {
+        "cycle": 6,
+        "mounted_heapMB": 78.3,
+        "mounted_geometries": 200,
+        "mounted_textures": 668,
+        "unmounted_heapMB": 79.8,
+        "unmounted_geometries": 201,
+        "unmounted_textures": 731
+      }
+    ]
+  },
+  "consoleErrorFree": true,
+  "errorCount": 0
+}
