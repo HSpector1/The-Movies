@@ -2,7 +2,7 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import { useLab } from '../lab/LabContext'
 import { latestStats } from '../lab/stats'
-import { applyView, D_VIEWS, E_VIEWS, F_VIEWS, G_REVIEW, G_REVIEW_ORDER, G_REVIEW_DEFAULT, G_HERO_ORDER, G_HERO_05G_ORDER, G_HERO_05H_ORDER, G_MGMT_ORDER, getReviewView, gReviewKind } from '../lab/cameraBridge'
+import { applyView, D_VIEWS, E_VIEWS, F_VIEWS, G_REVIEW, G_REVIEW_ORDER, G_REVIEW_DEFAULT, G_HERO_ORDER, G_HERO_05G_ORDER, G_HERO_05H_ORDER, G_HERO_05I_ORDER, G_MGMT_ORDER, getReviewView, gReviewKind } from '../lab/cameraBridge'
 import { getErrorCount, getLastError } from '../lab/errors'
 import type { RuntimeManifest, Provenance, SceneKey } from '../types'
 
@@ -93,6 +93,17 @@ function GReviewControls(): JSX.Element {
         </div>
       </div>
       <div style={{ marginBottom: 6 }}>
+        <div style={{ fontSize: 10, color: '#7ee7c7', letterSpacing: 0.5, margin: '6px 0 3px' }}>05I Hero — 05H hero ↔ 05I corrective pass A/B</div>
+        <div style={row}>
+          {G_HERO_05I_ORDER.map((n) => (
+            <Btn key={n} on={state.gReview === n} onClick={() => set('gReview', n)}>{n}</Btn>
+          ))}
+        </div>
+        <div style={{ ...row, marginTop: 6 }}>
+          <Toggle label="Neutral eval light (§7 material honesty)" on={state.neutralEval} onChange={(v) => set('neutralEval', v)} />
+        </div>
+      </div>
+      <div style={{ marginBottom: 6 }}>
         <div style={{ fontSize: 10, color: '#d29bfd', letterSpacing: 0.5, margin: '6px 0 3px' }}>05H Mgmt — fixed-isometric management camera (Question B: value at lot distance)</div>
         <div style={row}>
           {G_MGMT_ORDER.map((n) => (
@@ -133,8 +144,9 @@ function GReviewStatus(): JSX.Element {
   const kind = gReviewKind(state.gReview)
   const hero05g = kind === 'hero05gcompare' || kind === 'hero05gsingle' || kind === 'hero05glod'
   const hero05h = kind === 'hero05hcompare' || kind === 'hero05hsingle' || kind === 'hero05hlod'
-  const hero = hero05g || hero05h || kind === 'herocompare' || kind === 'herosingle' || kind === 'herolod'
-  const isLodTrio = kind === 'lod' || kind === 'herolod' || kind === 'hero05glod' || kind === 'hero05hlod'
+  const hero05i = kind === 'hero05icompare' || kind === 'hero05isingle' || kind === 'hero05ilod'
+  const hero = hero05g || hero05h || hero05i || kind === 'herocompare' || kind === 'herosingle' || kind === 'herolod'
+  const isLodTrio = kind === 'lod' || kind === 'herolod' || kind === 'hero05glod' || kind === 'hero05hlod' || kind === 'hero05ilod'
   const chars = isLodTrio ? 3 : hero ? 2 : 8
   const anim = v?.clip ?? (kind === 'anim' ? '—' : kind === 'production' ? 'per-role (production)' : 'Idle (static)')
   const lod = isLodTrio ? 'LOD0 / LOD1 / LOD2' : 'LOD0 (as authored)'
@@ -144,11 +156,11 @@ function GReviewStatus(): JSX.Element {
     <div style={{ border: '1px solid #24303a', background: 'rgba(18,30,42,0.5)', borderRadius: 8, padding: '8px 10px', margin: '8px 0 4px' }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: '#cdeafd', marginBottom: 5 }}>Review status</div>
       <div style={{ display: 'grid', gap: '2px 0' }}>
-        <div style={cell}><span style={{ color: '#8a94a0' }}>milestone</span><b>{hero05h ? 'Asset Lab 05H (authored base)' : hero05g ? 'Asset Lab 05G (hero)' : hero ? 'Asset Lab 05F (hero)' : 'Asset Lab 05E'}</b></div>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>milestone</span><b>{hero05i ? 'Asset Lab 05I (corrective pass)' : hero05h ? 'Asset Lab 05H (authored base)' : hero05g ? 'Asset Lab 05G (hero)' : hero ? 'Asset Lab 05F (hero)' : 'Asset Lab 05E'}</b></div>
         <div style={cell}><span style={{ color: '#8a94a0' }}>active camera</span><b style={{ color: '#7ee787' }}>{state.gReview}</b></div>
         <div style={cell}><span style={{ color: '#8a94a0' }}>animation</span><b>{anim}</b></div>
         <div style={cell}><span style={{ color: '#8a94a0' }}>LOD</span><b>{lod}</b></div>
-        <div style={cell}><span style={{ color: '#8a94a0' }}>characters{hero ? '' : ' / roles'}</span><b>{hero ? `${chars} (${hero05h ? '05G vs 05H' : hero05g ? '05F vs 05G' : '05E vs 05F'})` : `${chars} / 8`}</b></div>
+        <div style={cell}><span style={{ color: '#8a94a0' }}>characters{hero ? '' : ' / roles'}</span><b>{hero ? `${chars} (${hero05i ? '05H vs 05I' : hero05h ? '05G vs 05H' : hero05g ? '05F vs 05G' : '05E vs 05F'})` : `${chars} / 8`}</b></div>
         <div style={cell}><span style={{ color: '#8a94a0' }}>FPS</span><b style={{ color: s.loading ? '#f0a860' : '#7ee787' }}>{s.loading ? '— (loading)' : s.fps}</b></div>
         <div style={cell}><span style={{ color: '#8a94a0' }}>draw calls / frame</span><b>{s.drawCalls.toLocaleString()}</b></div>
         <div style={cell}><span style={{ color: '#8a94a0' }}>triangles / frame</span><b>{s.triangles.toLocaleString()}</b></div>

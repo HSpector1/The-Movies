@@ -24,6 +24,10 @@ const hero05gLodUrl = (n: 0 | 1 | 2): string => (n === 0 ? HERO_05G_URL : HERO_0
 const HERO_05H_URL = '/assets/studio/characters/electric_hero_05h.glb'
 const hero05hLodUrl = (n: 0 | 1 | 2): string => (n === 0 ? HERO_05H_URL : HERO_05H_URL.replace('.glb', `_LOD${n}.glb`))
 
+// Asset Lab 05I — the corrective-pass hero (additive; 05H GLB above is untouched)
+const HERO_05I_URL = '/assets/studio/characters/electric_hero_05i.glb'
+const hero05iLodUrl = (n: 0 | 1 | 2): string => (n === 0 ? HERO_05I_URL : HERO_05I_URL.replace('.glb', `_LOD${n}.glb`))
+
 const CLIP_URL = '/assets/animation/UAL1_Standard.glb'
 const ROLES = ['PA', 'Grip', 'Electric', 'Maintenance', 'Office', 'CameraDP', 'Director', 'Carpenter'] as const
 const ROLE_LABEL: Record<string, string> = {
@@ -91,7 +95,27 @@ function ReviewChar({ url, clip, frozen, phase = 0, pos, rotY = 0 }:
 }
 
 // ----- neutral review environment: mid-value floor + controlled neutral lighting (no overexposure) -----
+// Asset Lab 05I §7: when state.neutralEval is set, switch to a strictly NEUTRAL-WHITE, balanced setup
+// (equal-RGB lights + neutral floor) so actual material colour can be judged honestly, without the slight
+// cool tint of the standard review env. Off = the existing review env (unchanged for 05E–05H captures).
 function ReviewEnv(): JSX.Element {
+  const { state } = useLab()
+  if (state.neutralEval) {
+    return (
+      <group>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
+          <planeGeometry args={[60, 60]} />
+          <meshStandardMaterial color={'#4a4a4a'} roughness={0.98} metalness={0} />
+        </mesh>
+        <ambientLight intensity={0.55} color={'#ffffff'} />
+        <hemisphereLight intensity={0.7} color={'#ffffff'} groundColor={'#4a4a4a'} />
+        <directionalLight position={[6, 12, 9]} intensity={1.05} color={'#ffffff'} castShadow
+          shadow-mapSize={[1024, 1024]} shadow-camera-left={-8} shadow-camera-right={8}
+          shadow-camera-top={8} shadow-camera-bottom={-8} shadow-bias={-0.0004} />
+        <directionalLight position={[-8, 7, -6]} intensity={0.4} color={'#ffffff'} />
+      </group>
+    )
+  }
   return (
     <group>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
@@ -330,6 +354,55 @@ function Hero05HLOD(): JSX.Element {
   )
 }
 
+// ===== Asset Lab 05I — 05H hero ↔ 05I corrective pass (05H LEFT x<0, 05I RIGHT x>0) =====
+function Hero05ICompare({ clip, frozen }: { clip: string; frozen: boolean }): JSX.Element {
+  return (
+    <group>
+      <ReviewEnv />
+      <ReviewChar url={HERO_05H_URL} clip={clip} frozen={frozen} pos={[-0.55, 0, 0]} rotY={0} />
+      <ReviewChar url={HERO_05I_URL} clip={clip} frozen={frozen} pos={[0.55, 0, 0]} rotY={0} />
+      <Label lines={['05H Hero']} position={[-0.55, 2.05, 0]} lineWorld={0.10} />
+      <Label lines={['05I Hero']} position={[0.55, 2.05, 0]} lineWorld={0.10} />
+    </group>
+  )
+}
+
+function Hero05ILODChar({ lod, pos }: { lod: 0 | 1 | 2; pos: [number, number, number] }): JSX.Element {
+  const { scene } = useGLTF(hero05iLodUrl(lod))
+  const { animations } = useGLTF(CLIP_URL)
+  const obj = useMemo(() => {
+    const c = skeletonClone(scene)
+    c.traverse((o) => { const m = o as THREE.Mesh; if (m.isMesh) { m.castShadow = true; m.frustumCulled = false } })
+    return c
+  }, [scene])
+  const stats = useMemo(() => meshStats(obj), [obj])
+  const mixer = useMemo(() => new THREE.AnimationMixer(obj), [obj])
+  useEffect(() => {
+    const c = animations.find((a) => a.name === 'Idle_Loop') ?? animations[0]
+    const action = mixer.clipAction(c); action.reset().play(); action.time = IDLE_FREEZE_T; mixer.update(0)
+    return () => { mixer.stopAllAction() }
+  }, [mixer, animations])
+  return (
+    <group position={pos}>
+      <primitive object={obj} />
+      <Label lines={[`05I Hero · LOD${lod}`, `${stats.tris.toLocaleString()} tris`, `${stats.materials} materials`, `${stats.joints} joints`]}
+        position={[0, 2.16, 0]} lineWorld={0.085} />
+    </group>
+  )
+}
+
+function Hero05ILOD(): JSX.Element {
+  return (
+    <group>
+      <ReviewEnv />
+      <Hero05ILODChar lod={0} pos={[-1.95, 0, 0]} />
+      <Hero05ILODChar lod={1} pos={[0, 0, 0]} />
+      <Hero05ILODChar lod={2} pos={[1.95, 0, 0]} />
+      <Label lines={['05I Hero LOD comparison — same pose, scale & lighting']} position={[0, 2.62, 0]} lineWorld={0.1} />
+    </group>
+  )
+}
+
 // ===== Asset Lab 05H FINAL REVIEW — FIXED-ISOMETRIC MANAGEMENT-CAMERA VIGNETTES (Question B) =====
 // A representative orthographic isometric management rig (see cameraBridge.G_MGMT for the documented
 // assumption — this repo has no real D1 camera) over NEUTRAL review geometry: a procedural stage-
@@ -463,6 +536,9 @@ export function ReviewArea({ view }: { view: string }): JSX.Element | null {
   const v = getReviewView(view)
   if (!v || v.kind === 'production') return null
   if (v.kind === 'mgmt') return <ManagementScene view={v} />
+  if (v.kind === 'hero05ilod') return <Hero05ILOD />
+  if (v.kind === 'hero05icompare' || v.kind === 'hero05isingle')
+    return <Hero05ICompare clip={v.clip ?? 'Idle_Loop'} frozen={!v.clip} />
   if (v.kind === 'lod') return <ReviewLOD />
   if (v.kind === 'herolod') return <HeroLOD />
   if (v.kind === 'hero05glod') return <Hero05GLOD />
@@ -493,6 +569,8 @@ useGLTF.preload(HERO_05G_URL);
 [1, 2].forEach((n) => useGLTF.preload(hero05gLodUrl(n as 1 | 2)))
 useGLTF.preload(HERO_05H_URL);
 [1, 2].forEach((n) => useGLTF.preload(hero05hLodUrl(n as 1 | 2)))
+useGLTF.preload(HERO_05I_URL);
+[1, 2].forEach((n) => useGLTF.preload(hero05iLodUrl(n as 1 | 2)))
 // Preload the mgmt sprite so it is cache-warm before SpriteWorker renders — otherwise the drei loading
 // manager (useProgress in StatsCollector) fires a progress update during SpriteWorker's render (a benign
 // but real React "setState during render" console warning). Warming it here keeps the review console-clean.
