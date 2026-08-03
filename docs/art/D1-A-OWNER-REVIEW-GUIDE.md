@@ -3,32 +3,29 @@
 Two ways to review: **look at the captured evidence** (fastest), or **run the live proof** and
 drive the review selector yourself.
 
-## Option 1 — the captured evidence (16 shots)
+## Option 1 — the captured evidence
 
 After running the evidence spec (below), the shots are written to
-`out/d1a-identity-evidence/`. The 16 required views:
+`out/d1a-identity-evidence/`. The required views:
 
 | # | File | What to check |
 |---|---|---|
-| 1 | `overview-1920x1080.png` | Concept A identity reads cohesively at full size |
-| 2 | `overview-1366x768.png` | still legible at a common laptop size |
-| 3 | `overview-1280x720.png` | legible at the short viewport |
-| 4 | `overview-zoom125.png` | holds up at 125% browser zoom |
-| 5 | `gate-selected.png` | gate wordmark + PS emblem + selection ring |
-| 6 | `stage-a-active.png` | Stage A plaque + ACTIVE badge (one production) |
-| 7 | `stage-b-active.png` | Stage B active treatment (within the two-stage state) |
+| 1–4 | `overview-{1920,1366,1280,zoom125}-baseline.png` **vs** `-conceptA.png` | matched pairs, identical state/seed/framing — the revised identity vs the shipped D1 lot at each viewport + 125% zoom |
+| 5 | `gate-overview.png` | PROJECT STUDIO banner + PS emblem read as the primary landmark |
+| 6 | `gate-selected.png` | gate banner + emblem + selection ring |
+| 7 | `stage-ab-comparison.png` | large facade STAGE A vs STAGE B identifiers |
 | 8 | `both-stages-active.png` | both stages lit, independently |
-| 9 | `theater-release.png` | burgundy marquee shows the release title + RELEASE badge |
-| 10 | `warning-state.png` | Administration ATTENTION badge (financial pressure) |
-| 11 | `reduced-motion.png` | Concept A, motion frozen, fully readable |
-| 12 | `identity-fallback.png` | identity hidden, base lot + nav fully intact |
-| 13 | `keyboard-focus.png` | focus-visible ring on a companion-nav item |
-| 14 | `companion-nav.png` | accessible destination list alongside the identity |
+| 9 | `theater-released.png` | marquee canopy shows the release title |
+| 10 | `theater-no-release.png` | static `THEATER` marquee (no-release state) |
+| 11 | `warning-state.png` | Administration ATTENTION badge (financial pressure) |
+| 12 | `reduced-motion.png` | Concept A, motion frozen, fully readable |
+| 13 | `fallback.png` | identity hidden, base lot + nav fully intact |
+| 14 | `clean-overview-hidden.png` | **the production-camera judgment** — review overlay removed |
 | 15 | `performance-panel.png` | fps · objects · identity-object count |
-| 16 | `comparison-baseline.png` + `comparison-concept-a.png` | same state, D1 vs Concept A |
 
-The single most useful pair is **#16**: `comparison-baseline.png` (the shipped D1 lot) next to
-`comparison-concept-a.png` (the same state with the identity on).
+The two most useful views: the **matched overview pair** at #1 (`overview-1920-baseline.png` next
+to `overview-1920-conceptA.png`) and the **clean production view** at #14
+(`clean-overview-hidden.png`).
 
 ## Option 2 — run it live
 
@@ -53,10 +50,11 @@ location.reload()
 
 Open the Studio Lot. A dev-only **Identity review** bar appears over the lot with exactly four
 options — **Current D1 baseline · Concept A — Golden Age Deco · Fallback mode · Reduced-motion
-mode** — plus a small performance readout (fps · objects · identity). Switch between them to
-compare. (For hard-to-reach states like two concurrent productions or a financial-pressure
-warning, the captured evidence uses seeded fixtures; live, you will see whatever your current
-studio is doing.)
+mode** — plus a small performance readout (fps · objects · identity) and a **Hide** button that
+removes the overlay for a clean production-camera view (restore it with the small pill that
+appears top-right). Switch between the modes to compare. (For hard-to-reach states like two
+concurrent productions or a financial-pressure warning, the captured evidence uses seeded
+fixtures; live, you will see whatever your current studio is doing.)
 
 ## What to look for
 

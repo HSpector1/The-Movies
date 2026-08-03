@@ -13,29 +13,51 @@ design language, not an imitation of any studio's marks.
 
 ## The identity elements
 
-### Studio Gate
-The gate carries the studio wordmark (`PROJECT STUDIO`, serif, letter-spaced, framed by twin
-brass rules with burgundy end-caps) and the emblem above it. The provisional name is **review
-content, not final branding** — it is one manifest string away from any name the owner picks.
+### Visual hierarchy (revision)
+Three tiers of world sign make the lot read at the management camera without zooming:
+- **Primary landmarks** (large, building-mounted): Studio Gate banner, Stage A / Stage B facade
+  identifiers, Theater marquee canopy.
+- **Secondary departments** (medium plaques above the building): Administration, Production / Post.
+- **Tertiary orientation** (small plaques above the building): Development, Casting / Talent,
+  Expansion.
+At smaller viewports the primary landmarks hold; tertiary labels become less prominent and the
+semantic companion navigation carries the exact text.
+
+### Studio Gate (primary)
+A large charcoal marquee-board bears the studio wordmark (`PROJECT STUDIO`, serif, letter-spaced)
+in a stepped brass Deco frame with burgundy inlay and corner blocks, with the enlarged `PS`
+emblem crowning it — the biggest wordmark on the lot, integrated into the gate structure. The
+provisional name is **review content, not final branding** — one manifest string from any name.
 
 ### Emblem
 A stepped Deco octagon frame with an inner ring, a horizontal accent bar, restrained spotlight
-rays, and the `PS` monogram in the shared serif with a soft drop for legibility on light
-building faces. Designed to read at the default camera, hold up in grayscale (shape and value,
-not only color — there is a grayscale render path used in the unit tests), and carry no motion.
+rays, and the `PS` monogram in the shared serif with a soft drop for legibility. Enlarged for the
+gate crest; a small-radius render also serves as a medallion. Reads at the default camera, holds
+up in grayscale (shape and value, not only color — a grayscale render path is exercised in the
+unit tests), and carries no motion.
 
-### Department & stage signage
-Every building wears a compact brass double-rule enamel plaque:
-`ADMINISTRATION · DEVELOPMENT · CASTING · STAGE A · STAGE B · PRODUCTION / POST`. Stage plaques
-are emphasized with burgundy corners. Plaques sit **above** each building so they never cover
-the occupied-stage production cards or door dressing. Labels come from the manifest, so a
-rename never touches scene code.
+### Stage A / B facade identifiers (primary)
+Each soundstage wears a large facade-mounted panel: a big serif `A` / `B` under a burgundy `STAGE`
+caption in a brass-framed charcoal plate, attached to the building face (not a floating label).
+Stages are identifiable without the companion navigation. The identifier is **identity only** —
+it never signals availability; occupancy remains driven by snapshot state (sprite tint + the
+`ACTIVE` badge), and the panel sits clear of the production cards.
 
-### Theater marquee
-A burgundy Deco marquee with perimeter bulbs. When a film is present, the marquee shows the
-release title (`latestReleaseTitle` from the snapshot); otherwise it reads `THEATER`. A gentle,
-deterministic bulb chase runs only when motion is allowed; under reduced motion every bulb sits
-fully lit — that static state is the marquee's reduced-motion equivalent.
+### Theater marquee canopy (primary)
+A blade canopy silhouette over a burgundy marquee face carrying `THEATER`. When a film is present
+the marquee adds the release title (`latestReleaseTitle`); with no release it reads `THEATER` only
+(its static no-release state). A gentle, deterministic bulb chase runs only when motion is allowed;
+under reduced motion every bulb sits fully lit — that static state is the reduced-motion equivalent.
+
+### Department plaques (secondary / tertiary)
+Brass double-rule enamel plaques sized by tier, sitting **above** each building so they never
+cover production cards or door dressing. Labels come from the manifest, so a rename never touches
+scene code.
+
+### Shared Deco accents
+Restrained brass-with-burgundy entrance bands sit at the base of the primary buildings, and the
+selection treatment reads gold — spreading the palette (muted gold / burgundy / charcoal / cream)
+onto the architecture without repainting any building or altering functional state colors.
 
 ## State treatments (shape + word + color, never color alone)
 
@@ -74,6 +96,9 @@ keep working. The "Fallback mode" review option exercises this exact path on pur
 
 ## Known cosmetic notes
 
-- Plaques are necessarily small at the fixed fit-to-lot camera; they read clearly at 1920×1080
-  and are legible but tight at 1280×720. This is a management-distance trade, not a bug.
+- Primary landmarks (Gate, Stage A/B, Theater) read clearly at 1920×1080 through 1280×720 and at
+  125% zoom. Tertiary department labels are intentionally small at the fixed fit-to-lot camera;
+  the companion navigation is the exact-text fallback. This is the intended hierarchy, not a bug.
+- Entrance accent bands are deliberately restrained; they read as a thin base trim at the fixed
+  camera.
 - The lot's red plaza pavement is a pre-existing cosmetic from the base scene, unchanged here.

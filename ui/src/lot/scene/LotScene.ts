@@ -43,10 +43,13 @@ import { manifestFor, type IdentityMode, type StudioIdentityManifest } from '../
 import { drawEmblem } from '../identity/emblem'
 import {
   makePlaque,
-  makeGateWordmark,
+  makeGateBanner,
+  makeStageIdentifier,
   makeMarquee,
+  makeAccentBand,
   makeAttentionBadge,
   type AttentionKind,
+  type SignTier,
 } from '../identity/signage'
 
 const hw = TILE_W / 2
@@ -461,49 +464,80 @@ export class LotScene extends Phaser.Scene {
     return -30
   }
 
+  private add2(o: Phaser.GameObjects.Container, view: BuildingView): void {
+    o.setVisible(false)
+    view.container.add(o)
+    this.identityObjects.push(o)
+  }
+
+  /** Top of a building's face for a facade-mounted sign, in container space. */
+  private faceY(view: BuildingView, frac: number): number {
+    const meta = this.texMeta(view.spec.texKey)
+    return -meta.h * meta.originY + meta.h * frac
+  }
+
   private buildIdentity(): void {
     if (this.identityBuilt) return
     this.identityBuilt = true
     const m = this.identity
     this.identityFailed = false
     try {
-      // permanent department / stage / post plaques, above each building
-      const plaqueFor: Partial<Record<BuildingId, string>> = {
+      // ── Secondary / tertiary department orientation plaques (above the building) ──
+      const deptTier: Partial<Record<BuildingId, SignTier>> = {
+        admin: 'secondary',
+        post: 'secondary',
+        writers: 'tertiary',
+        casting: 'tertiary',
+        expansion: 'tertiary',
+      }
+      const deptLabel: Partial<Record<BuildingId, string>> = {
         admin: m.signage.administrationLabel,
+        post: m.signage.postLabel,
         writers: m.signage.developmentLabel,
         casting: m.signage.castingLabel,
-        'stage-a': m.signage.stageALabel,
-        'stage-b': m.signage.stageBLabel,
-        post: m.signage.postLabel,
+        expansion: m.signage.expansionLabel,
       }
-      for (const key of Object.keys(plaqueFor) as BuildingId[]) {
+      for (const key of Object.keys(deptLabel) as BuildingId[]) {
         const view = this.views.get(key)
         if (!view) continue
-        const isStage = key === 'stage-a' || key === 'stage-b'
-        const plaque = makePlaque(this, m, plaqueFor[key]!, { emphasise: isStage })
+        const plaque = makePlaque(this, m, deptLabel[key]!, { tier: deptTier[key] ?? 'tertiary' })
         plaque.setPosition(0, this.buildingTopY(view))
-        plaque.setVisible(false)
-        view.container.add(plaque)
-        this.identityObjects.push(plaque)
+        this.add2(plaque, view)
       }
 
-      // gate: emblem + wordmark on the header
+      // ── PRIMARY landmark: Stage A / B — big facade identifier + base accent band ──
+      for (const [id, letter] of [['stage-a', 'A'], ['stage-b', 'B']] as const) {
+        const view = this.views.get(id)
+        if (!view || !view.spec.texKey) continue
+        const meta = this.texMeta(view.spec.texKey)
+        const sign = makeStageIdentifier(this, m, letter)
+        sign.setPosition(0, this.faceY(view, 0.52))
+        this.add2(sign, view)
+        const band = makeAccentBand(this, m, meta.w * 0.5)
+        band.setPosition(0, meta.h * (1 - meta.originY) - 6)
+        this.add2(band, view)
+      }
+
+      // ── PRIMARY landmark: Studio Gate — banner + enlarged emblem ──
       const gate = this.views.get('gate')
-      if (gate) {
-        const topY = this.buildingTopY(gate)
-        const emblem = drawEmblem(this, m, { radius: 17 })
-        emblem.setPosition(0, topY - 22)
-        emblem.setVisible(false)
-        gate.container.add(emblem)
-        this.identityObjects.push(emblem)
-        const wordmark = makeGateWordmark(this, m)
-        wordmark.setPosition(2, this.gateLabel ? this.gateLabel.y : topY)
-        wordmark.setVisible(false)
-        gate.container.add(wordmark)
-        this.identityObjects.push(wordmark)
+      if (gate && gate.spec.texKey) {
+        const top = -this.texMeta(gate.spec.texKey).h * this.texMeta(gate.spec.texKey).originY
+        const banner = makeGateBanner(this, m)
+        banner.setPosition(2, top + 36)
+        this.add2(banner, gate)
+        const emblem = drawEmblem(this, m, { radius: 26 })
+        emblem.setPosition(2, top - 8)
+        this.add2(emblem, gate)
       }
 
-      // theater marquee (title comes from the snapshot's latest release presence)
+      // ── PRIMARY landmark: Theater — base accent band; marquee built below ──
+      const theater = this.views.get('theater')
+      if (theater && theater.spec.texKey) {
+        const meta = this.texMeta(theater.spec.texKey)
+        const band = makeAccentBand(this, m, meta.w * 0.5)
+        band.setPosition(0, meta.h * (1 - meta.originY) - 6)
+        this.add2(band, theater)
+      }
       this.refreshMarquee(this.snapshot)
     } catch {
       this.identityFailed = true
@@ -511,14 +545,12 @@ export class LotScene extends Phaser.Scene {
     }
   }
 
-  /** Rebuild the theater marquee when its title changes (release presence). */
+  /** Rebuild the theater marquee canopy when its title changes (release presence). Title is
+   * null when nothing is showing → the marquee reads THEATER (its static no-release state). */
   private refreshMarquee(snap: StudioLotSnapshot): void {
     const theater = this.views.get('theater')
-    if (!theater) return
-    const title =
-      snap.releasePresence !== 'none'
-        ? snap.latestReleaseTitle ?? this.identity.signage.theaterLabel
-        : this.identity.signage.theaterLabel
+    if (!theater || !theater.spec.texKey) return
+    const title = snap.releasePresence !== 'none' ? snap.latestReleaseTitle ?? null : null
     if (this.marqueeTitle && title === this.lastMarqueeTitle) return
     this.lastMarqueeTitle = title
     if (this.marqueeTitle) {
@@ -526,7 +558,7 @@ export class LotScene extends Phaser.Scene {
       this.marqueeTitle.destroy()
     }
     const marquee = makeMarquee(this, this.identity, title)
-    marquee.setPosition(0, this.buildingTopY(theater))
+    marquee.setPosition(0, this.faceY(theater, 0.32))
     marquee.setVisible(this.identityMode === 'concept-a' && !this.identityFailed)
     theater.container.add(marquee)
     this.identityObjects.push(marquee)

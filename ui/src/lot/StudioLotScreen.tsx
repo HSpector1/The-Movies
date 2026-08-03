@@ -92,6 +92,7 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   // D1-A review state (dev-only; inert unless the identity-proof flag is on)
   const identityProof = studioLotIdentityProofEnabled()
   const [reviewKey, setReviewKey] = useState<ReviewKey>('concept-a')
+  const [reviewHidden, setReviewHidden] = useState(false)
   const [perf, setPerf] = useState<{ fps: number; displayObjects: number; identityObjects: number } | null>(null)
   const activeReview = REVIEW_MODES.find((m) => m.key === reviewKey) ?? REVIEW_MODES[1]
 
@@ -254,7 +255,7 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
           {/* The canvas is decorative; the companion navigation is the accessible truth. */}
           <div ref={mountRef} className="lot-canvas" data-testid="studio-lot-canvas" aria-hidden="true" />
 
-          {identityProof && (
+          {identityProof && !reviewHidden && (
             <div
               className="lot-review-bar"
               data-testid="lot-review-mode"
@@ -281,7 +282,26 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
                   {perf.fps} fps · {perf.displayObjects} objects · {perf.identityObjects} identity
                 </span>
               )}
+              <button
+                type="button"
+                className="lot-review-hide"
+                data-testid="lot-review-hide"
+                onClick={() => setReviewHidden(true)}
+                aria-label="Hide the identity review overlay for a clean view"
+              >
+                Hide
+              </button>
             </div>
+          )}
+          {identityProof && reviewHidden && (
+            <button
+              type="button"
+              className="lot-review-show"
+              data-testid="lot-review-show"
+              onClick={() => setReviewHidden(false)}
+            >
+              Identity review ▸
+            </button>
           )}
           {!canvasReady && !canvasFailed && (
             <div className="lot-canvas-note" role="status">

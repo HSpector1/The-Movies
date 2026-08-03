@@ -275,3 +275,31 @@
   font-variant-numeric: tabular-nums;
   font-size: 11px;
 }
+.lot-review-hide {
+  margin-left: 4px;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 11px;
+  cursor: pointer;
+}
+.lot-review-hide:hover { color: var(--text); border-color: var(--accent, #c9a24a); }
+.lot-review-hide:focus-visible { outline: 2px solid var(--accent, #c9a24a); outline-offset: 2px; }
+/* When hidden, a tiny restore pill in the TOP-RIGHT (kept out of the upper-left scene). */
+.lot-review-show {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 6;
+  padding: 3px 9px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(18, 21, 30, 0.72);
+  color: var(--text-dim);
+  font-size: 11px;
+  cursor: pointer;
+}
+.lot-review-show:hover { color: var(--text); border-color: var(--accent, #c9a24a); }
+.lot-review-show:focus-visible { outline: 2px solid var(--accent, #c9a24a); outline-offset: 2px; }

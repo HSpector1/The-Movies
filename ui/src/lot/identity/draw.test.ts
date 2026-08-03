@@ -10,7 +10,14 @@ import type Phaser from 'phaser'
 import { describe, expect, it } from 'vitest'
 import { CONCEPT_A_GOLDEN_AGE } from './manifest.ts'
 import { drawEmblem } from './emblem.ts'
-import { makePlaque, makeGateWordmark, makeMarquee, makeAttentionBadge } from './signage.ts'
+import {
+  makePlaque,
+  makeGateBanner,
+  makeStageIdentifier,
+  makeMarquee,
+  makeAccentBand,
+  makeAttentionBadge,
+} from './signage.ts'
 
 type Stub = Record<string, unknown> & { calls: number; list?: unknown[]; _data?: Record<string, unknown> }
 
@@ -49,6 +56,7 @@ function stub(extra: Record<string, unknown> = {}): Stub {
     'strokeRoundedRect',
     'strokeCircle',
     'strokePoints',
+    'fillPoints',
     'beginPath',
     'moveTo',
     'lineTo',
@@ -98,20 +106,30 @@ describe('D1-A emblem', () => {
 })
 
 describe('D1-A signage', () => {
-  it('plaque + gate wordmark render containers', () => {
+  it('renders every primary + department sign container without throwing', () => {
     const { scene } = fakeScene()
-    expect(makePlaque(scene, M, 'STAGE A', { emphasise: true })).toBeTruthy()
-    expect(makeGateWordmark(scene, M)).toBeTruthy()
+    expect(makePlaque(scene, M, 'ADMINISTRATION', { tier: 'secondary' })).toBeTruthy()
+    expect(makePlaque(scene, M, 'DEVELOPMENT', { tier: 'tertiary' })).toBeTruthy()
+    expect(makeGateBanner(scene, M)).toBeTruthy()
+    expect(makeStageIdentifier(scene, M, 'A')).toBeTruthy()
+    expect(makeStageIdentifier(scene, M, 'B')).toBeTruthy()
+    expect(makeAccentBand(scene, M, 60)).toBeTruthy()
   })
 
-  it('marquee exposes 2 × bulbDensity bulbs for the reduced-motion chase', () => {
+  it('marquee exposes an even, non-empty set of bulbs (top+bottom pairs) for the chase', () => {
     const { scene } = fakeScene()
     const marquee = makeMarquee(scene, M, 'THE LAST TAKE') as unknown as {
       getData: (k: string) => unknown[]
     }
     const bulbs = marquee.getData('bulbs')
     expect(Array.isArray(bulbs)).toBe(true)
-    expect(bulbs.length).toBe(2 * Math.max(3, Math.round(M.marquee.bulbDensity)))
+    expect(bulbs.length).toBeGreaterThan(0)
+    expect(bulbs.length % 2).toBe(0)
+  })
+
+  it('marquee renders its static no-release state (null title) without throwing', () => {
+    const { scene } = fakeScene()
+    expect(() => makeMarquee(scene, M, null)).not.toThrow()
   })
 
   it('renders every attention kind (shape + word + colour) without throwing', () => {
