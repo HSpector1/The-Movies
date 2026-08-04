@@ -1,5 +1,14 @@
 # Project: Studio — Engineering Handoff
 
+> ## 📚 Lessons — read before, update after
+>
+> Before starting a substantial milestone, integration, audit, or meaningful bug fix, **read the
+> relevant entries in [`docs/LESSONS-LEARNED.md`](LESSONS-LEARNED.md)**; before closing substantial
+> work, **update it**. The **D1-A Studio Identity Package** is closed in
+> [`docs/art/D1-A-CLOSURE.md`](art/D1-A-CLOSURE.md) — merged and validated, tag
+> `d1a-studio-identity-package`; Concept A remains **default OFF** (ordinary-player enablement is a
+> separate owner decision).
+
 > ## ⏱ 2026-07-26 — Phase 5.2A **cycle 2** correction (D-11.A) — latest
 >
 > On top of the cycle-1 milestone (`0f9d23d`), a cycle-2 correction addressed the first
