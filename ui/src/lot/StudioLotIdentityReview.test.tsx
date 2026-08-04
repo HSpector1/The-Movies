@@ -84,6 +84,21 @@ describe('D1-A identity review selector', () => {
     expect(queryByTestId('lot-review-mode')).toBeNull()
   })
 
+  it('ordinary player use (no flag): NO review control renders and identity stays off', async () => {
+    // Production isolation: with the dev flag off, the lot + companion nav work, but none of the
+    // review controls appear and the renderer is never driven into a non-baseline identity mode.
+    const { queryByTestId, getByTestId } = renderScreen()
+    await waitFor(() => expect(spy.instances.length).toBe(1))
+    expect(queryByTestId('lot-review-mode')).toBeNull()
+    expect(queryByTestId('lot-perf-panel')).toBeNull()
+    expect(queryByTestId('lot-review-hide')).toBeNull()
+    expect(queryByTestId('lot-review-show')).toBeNull()
+    // the lot itself is fully present
+    expect(getByTestId('lot-companion-nav')).toBeInTheDocument()
+    // and the renderer was never asked for a non-baseline identity mode
+    expect(latest().identityModes).toEqual([])
+  })
+
   it('appears with EXACTLY the four directive modes when the flag is on', async () => {
     setStudioLotIdentityOverride(true)
     const { getByTestId, queryByTestId } = renderScreen()
@@ -94,6 +109,17 @@ describe('D1-A identity review selector', () => {
     // no fifth option smuggled in
     expect(queryByTestId('lot-review-concept-b')).toBeNull()
     expect(queryByTestId('lot-review-concept-c')).toBeNull()
+  })
+
+  it('the Hide control removes the overlay; the restore pill brings it back', async () => {
+    setStudioLotIdentityOverride(true)
+    const { getByTestId, queryByTestId } = renderScreen()
+    await waitFor(() => expect(getByTestId('lot-review-mode')).toBeInTheDocument())
+    fireEvent.click(getByTestId('lot-review-hide'))
+    expect(queryByTestId('lot-review-mode')).toBeNull()
+    expect(getByTestId('lot-review-show')).toBeInTheDocument()
+    fireEvent.click(getByTestId('lot-review-show'))
+    expect(getByTestId('lot-review-mode')).toBeInTheDocument()
   })
 
   it('defaults to Concept A and drives the renderer on ready', async () => {

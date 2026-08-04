@@ -1,6 +1,9 @@
 # D1-A — Studio Identity Visual Proof (Brief)
 
-**Status:** Concept A core slice complete. Owner direction review required before Concepts B/C.
+**Status:** Concept A (Golden Age Deco) **APPROVED** as the provisional identity; Concepts B/C
+**cancelled**. Branch prepared as a bounded **merge candidate** for joint Engine/Art/Owner review
+(unmerged). See `D1-A-CORE-SLICE-REPORT.md`, `D1-A-VALIDATION-REPORT.md`, and
+`D1-A-ADOPTION-AND-MERGE-READINESS.md`.
 **Branch:** `art-d1a-studio-identity-visual-proof` (off `main`, additive, unmerged).
 **Feature flag:** `VITE_STUDIO_LOT_IDENTITY_PROOF` / `project-studio.flags.studio-lot-identity-proof` — **default OFF.**
 

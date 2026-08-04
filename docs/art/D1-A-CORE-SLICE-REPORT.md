@@ -4,6 +4,28 @@
 **Branch:** `art-d1a-studio-identity-visual-proof` (additive, off `main`, unmerged)
 **Flag:** `VITE_STUDIO_LOT_IDENTITY_PROOF` — default OFF
 
+## Final owner ruling (adopted)
+
+- **Concept A — Golden Age Deco: APPROVED** as the provisional Project: Studio identity direction.
+- **Concepts B and C: CANCELLED as unnecessary** — not implemented.
+- Responsive management-camera readability: **PASS WITH NOTES** (see non-blocking notes below).
+- Architecture, `StudioLotSnapshot` boundary, determinism, Phaser suitability, accessibility +
+  fallback, performance + disposal: **PASS**.
+
+**Non-blocking notes (recorded):** tertiary department labels remain intentionally subordinate at
+the fixed management camera; the semantic companion navigation remains the exact-text
+accessibility layer; released-film marquee text may be small for exact reading at the smallest
+views (Theater + release presence still clear); `PROJECT STUDIO` / `PS` remain provisional
+data-driven review branding; the existing building architecture remains temporary and is outside
+D1-A.
+
+**No Engine-contract changes.** No `src/core` change, no `StudioLotSnapshot` change, no new engine
+selector. **No external Art intake.** All marks are procedural and original.
+
+This branch is now prepared as a bounded, isolated **merge candidate** (see
+`D1-A-ADOPTION-AND-MERGE-READINESS.md` and `D1-A-VALIDATION-REPORT.md`). It does not merge, open a
+PR, or modify `main`.
+
 ## Revision status
 
 Owner ruled the first core slice **REVISE (Golden Age Deco visual execution)** — the identity read

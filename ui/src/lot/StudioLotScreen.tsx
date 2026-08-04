@@ -89,7 +89,13 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   const [canvasFailed, setCanvasFailed] = useState(false)
   const [reducedMotion, setReducedMotionState] = useState(prefersReducedMotion)
 
-  // D1-A review state (dev-only; inert unless the identity-proof flag is on)
+  // D1-A review state. `identityProof` is the DEV/REVIEW gate (default OFF): it is the ONLY
+  // thing that renders the review controls (mode selector, performance panel, Hide) AND the
+  // only thing that drives the scene into a non-baseline identity mode. In ordinary player use
+  // the flag is off, so the review controls never appear and the lot renders the byte-clean D1
+  // baseline. Production ADOPTION of the identity (showing it to players without the review
+  // controls) is a separate future ruling; the scene already supports it via setIdentityMode(),
+  // so no player-facing identity path is built here — the feature stays default OFF.
   const identityProof = studioLotIdentityProofEnabled()
   const [reviewKey, setReviewKey] = useState<ReviewKey>('concept-a')
   const [reviewHidden, setReviewHidden] = useState(false)
