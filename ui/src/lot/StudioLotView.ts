@@ -18,6 +18,7 @@ import Phaser from 'phaser'
 import { LotScene, type LotEvent, type CameraPreset, type CharacterInfo } from './scene/LotScene'
 import type { MomentKind } from './scene/vignettes'
 import type { StudioLotSnapshot, BuildingId, LotActionKind, ProductionCard } from './snapshot/StudioLotSnapshot'
+import type { IdentityMode } from './identity/manifest'
 
 export type { CameraPreset, CharacterInfo, MomentKind }
 
@@ -179,6 +180,11 @@ export class StudioLotView {
     this.scene?.setReducedMotion(on)
   }
 
+  /** D1-A review: switch the studio-identity mode (baseline | concept-a | fallback). */
+  setIdentityMode(mode: IdentityMode): void {
+    this.scene?.setIdentityMode(mode)
+  }
+
   /** Debug/testing: screen position of the first visible inspectable character. */
   firstInspectableScreen(): { x: number; y: number; role: string } | null {
     return this.scene?.firstInspectableScreen() ?? null
@@ -192,6 +198,11 @@ export class StudioLotView {
   /** Introspection for tests/verification (selection, active tags, object count). */
   getDebugState(): { selected: BuildingId | null; activeTags: number; displayObjects: number } | null {
     return this.scene?.debugState() ?? null
+  }
+
+  /** D1-A review: identity + coarse runtime stats for the dev performance panel. */
+  identityDebug(): ReturnType<LotScene['identityDebug']> | null {
+    return this.scene?.identityDebug() ?? null
   }
 
   /** Tear down and rebuild the game from scratch (leak/teardown check). */

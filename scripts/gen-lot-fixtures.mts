@@ -15,7 +15,7 @@ import {
   TUNING,
 } from '../src/core/index.ts'
 import type { CastSlot, CreativeRole, GameState } from '../src/core/index.ts'
-import { exportSaveJson } from '../ui/src/engine/adapter.ts'
+import { exportSaveJson, studioLotSnapshot } from '../ui/src/engine/adapter.ts'
 
 function sign(s: GameState, counts: Record<CreativeRole, number>): GameState {
   const pool = s.founding!.applicantIds.map((id) => s.talent.find((t) => t.id === id)!)
@@ -70,13 +70,29 @@ let two = found('lot-fx-two', rich)
 two = advance(greenlight(greenlight(two, 0, 0), 1, 1), 2)
 const released = advance(greenlight(found('lot-fx-rel', min), 0, 0), TUNING.PRODUCTION_TICKS + 2)
 
+// D1-A addition — warn: a large roster with no production burns payroll until the runway
+// falls to the short-runway threshold, which is the one authoritative financial-pressure
+// 'warning' the D1 selector emits (Administration). Advance deterministically until it fires.
+// (Note: D1 fills Stage A first, so an isolated "Stage B active" is not an authentic snapshot;
+// Stage B's active identity treatment is evidenced within the two-stage state instead.)
+const adminWarns = (s: GameState): boolean =>
+  studioLotSnapshot(s).buildings.find((b) => b.id === 'admin')?.attention === 'warning'
+let warn = found('lot-fx-warn', { actor: 10, director: 4, writer: 4, craft: 4 })
+for (let i = 0; i < 300 && !adminWarns(warn); i++) warn = tick(warn)
+
 const outDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'ui', 'e2e', 'fixtures')
 mkdirSync(outDir, { recursive: true })
-const fixtures = { empty, one, two, released }
+const fixtures = { empty, one, two, released, warn }
 for (const [name, state] of Object.entries(fixtures)) {
   writeFileSync(join(outDir, `${name}.json`), exportSaveJson(state))
+  const snap = studioLotSnapshot(state)
   const prods = state.studio.activeProductions.length
   const rel = state.studio.releasedFilms.length
+  const activeStages = snap.activeProductions.filter((p) => p.active).map((p) => p.stageId).join('+') || 'none'
+  const adminAtt = snap.buildings.find((b) => b.id === 'admin')?.attention ?? 'normal'
   // eslint-disable-next-line no-console
-  console.log(`${name}: week=${state.market.tick} productions=${prods} releases=${rel}`)
+  console.log(
+    `${name}: week=${state.market.tick} productions=${prods} releases=${rel} ` +
+      `cashBand=${snap.cashBand} activeStages=${activeStages} adminAttention=${adminAtt} presence=${snap.releasePresence}`,
+  )
 }
