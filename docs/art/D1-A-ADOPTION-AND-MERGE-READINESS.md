@@ -28,7 +28,7 @@ flag. With the flag off, the app is byte-for-byte the current product.
   default. With the flag off, no identity object is built and no review control renders.
 - **Review controls are dev-only.** The mode selector, performance panel, and Hide control render
   **only** behind the dev flag and are unit-tested to be absent in ordinary player use.
-- **Additive branch.** 18 files under `docs/art`, `scripts`, `ui/src/lot`, `ui/e2e`, `flags.ts`.
+- **Additive branch.** 21 files (7 documentation files + 14 implementation, test, and evidence-tooling files) under `docs/art`, `scripts`, `ui/src/lot`, `ui/e2e`, `flags.ts`.
 
 ## Provisional branding (replaceable)
 

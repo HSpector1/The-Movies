@@ -59,7 +59,8 @@ Two independent walls:
 - **Emblem:** a `crest` — a stepped Deco octagon frame, restrained spotlight rays, a
   horizontal accent bar, and the `PS` monogram in the shared serif face.
 - **Signage:** brass double-rule enamel plaques; stages emphasized with burgundy corners.
-- **Marquee:** a Deco burgundy marquee with `2 × 7` perimeter bulbs; a static all-lit state is
+- **Marquee:** a Deco burgundy marquee edged with a width-scaled, even, non-empty set of
+  perimeter bulbs (top and bottom rows, deterministic); a static all-lit state is
   the reduced-motion equivalent.
 
 ## Review registry

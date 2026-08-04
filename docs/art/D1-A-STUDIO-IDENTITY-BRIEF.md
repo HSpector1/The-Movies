@@ -20,7 +20,7 @@ and is Concept A ("Golden Age Deco") the right direction to expand?*
 This slice adds **no** simulation behavior, **no** characters/GLBs, **no** Three.js, **no**
 new renderer, **no** change to building architecture, and **no** change to the six existing
 navigation intentions. It does not begin D1-B, does not merge to main, and does not touch the
-Asset Lab character branches. See the contract's Section 34 non-goals.
+Asset Lab character branches. See the contract's §11 (Explicit non-goals).
 
 ## The hard boundaries honored
 

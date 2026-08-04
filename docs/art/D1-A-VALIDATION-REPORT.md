@@ -9,7 +9,7 @@ The full validation matrix re-run for the merge candidate. Branch
 |---|---|
 | Root TypeScript (`tsc --noEmit`) | PASS (clean) |
 | UI TypeScript (`tsc -p ui/tsconfig.json --noEmit`) | PASS (clean) |
-| Production build (`vite build`) | PASS — identity code in the lazy `StudioLotView` chunk; eager bundle unchanged |
+| Production build (`npm run build`) | PASS — identity code in the lazy `StudioLotView` chunk; eager bundle unchanged |
 
 ## Unit + component suite
 
@@ -43,7 +43,7 @@ The full validation matrix re-run for the merge candidate. Branch
 | No `src/core` changes | PASS |
 | No engine adapter / new selector | PASS (`ui/src/engine/adapter.ts` untouched) |
 | No Three.js, no GLB, no characters | PASS |
-| Branch scope (additive only) | PASS — 18 files under `docs/art`, `scripts`, `ui/src/lot`, `ui/e2e`, `flags.ts` |
+| Branch scope (additive only) | PASS — 21 files (7 docs + 14 implementation/test/evidence) under `docs/art`, `scripts`, `ui/src/lot`, `ui/e2e`, `flags.ts` |
 | `main` untouched | PASS (`main` = `ceb271b`) |
 
 ## Determinism

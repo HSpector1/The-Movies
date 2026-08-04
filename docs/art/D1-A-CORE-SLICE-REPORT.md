@@ -64,16 +64,16 @@ Additive wiring (all guarded, all snapshot-only, no `GameState`, no `Math.random
 - **`StudioLotSnapshot.ts` unchanged** — verified; the renderer reads only the snapshot,
   never `GameState`.
 - **TypeScript:** `tsc --noEmit` (root + `ui/tsconfig.json`) — **clean.**
-- **Unit/component tests:** full suite **982 passed / 76 files** (0 regressions). Includes the
+- **Unit/component tests:** full suite **984 passed / 76 files** (0 regressions). Includes the
   shipped D1 lot tests, D-14 tests, the flag test, and the UI no-`Math.random` hygiene scan
   (which covers the new `identity/` files).
-- **New focused tests (20):** `identity/manifest.test.ts` (9 — presentation-only invariant,
-  palette bounds, single-concept, default-OFF flag), `identity/draw.test.ts` (5 — emblem +
-  signage render without throwing, marquee exposes `2 × bulbDensity` bulbs, all attention
-  kinds, deterministic), `StudioLotIdentityReview.test.tsx` (6 — selector present only with the
+- **New focused unit/component tests (23):** `identity/manifest.test.ts` (9 — presentation-only invariant,
+  palette bounds, single-concept, default-OFF flag), `identity/draw.test.ts` (6 — emblem +
+  signage render without throwing, marquee exposes an even, non-empty bulb set, all attention
+  kinds, deterministic), `StudioLotIdentityReview.test.tsx` (8 — selector present only with the
   flag, exactly the four modes, correct `setIdentityMode`/`setReducedMotion` wiring, GameState
   never mutated, nav still routes).
-- **Production build:** `vite build` — **passes.** Identity code lands in the lazy
+- **Production build:** `npm run build` — **passes.** Identity code lands in the lazy
   `StudioLotView` chunk; the eager bundle is unchanged (flag-off path adds nothing).
 - **Evidence spec (real Phaser, seeded states):** `ui/e2e/lot-identity.spec.ts` — **12
   passed**, capturing the required matched baseline-vs-revised pairs + state views, plus a
