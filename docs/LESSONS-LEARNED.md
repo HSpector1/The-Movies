@@ -220,3 +220,78 @@ Related: `docs/art/D1-A-CLOSURE.md`, `docs/art/D1-A-VALIDATION-REPORT.md`,
 - **Pattern:** one canonical, tracked, linked lessons record. **Anti-pattern:** lessons stranded in
   terminal output or scattered per-discipline files. **Related:** `docs/HANDOFF.md`;
   `docs/art/D1-A-CLOSURE.md`.
+
+---
+
+# D-15 — Studio Run Recap (Phase 1) — **DRAFT (pending owner acceptance)**
+
+> These entries are drafted on `phase-5.3-studio-run-recap-v1`. They are NOT closure language;
+> finalize on owner acceptance of the Phase-1 gameplay/explainability review. Related:
+> `docs/D-15-studio-run-recap-phase1.md`, `src/core/studioRunRecap.ts`.
+
+## O. Run-level explainability from authoritative records — **MG, BR**
+
+- **Symptom:** the Week 86 controlled run lost ~$13.8M in film contribution across 5 heavy-loss
+  films, yet the UI showed only per-screen finance metrics — no run-level recap, loss trend,
+  concentration signal, or approaching-lockout warning; the player could not see *why* the studio
+  declined.
+- **Root cause:** individual finance cards answer "this week / this film" but never synthesize the
+  whole run; there was no read-model that composed cash, ledger, films, talent, and contracts into
+  one explanation.
+- **Why safeguards missed it:** every finance number was individually correct and tested; nothing
+  tested whether the *player could understand the run*. Correctness ≠ explainability.
+- **Resolution:** one pure `studioRunRecap(state)` read-model (capital story, film slate, talent
+  development, concentration, current position + recovery classification, inflection points,
+  warnings) reconstructed entirely from `SaveFileV5.state` — no new persistence.
+- **Coverage:** 16 core tests + 6 component tests + 3 Playwright journeys; a Week-86 real-save
+  cross-check (22/22) reproduced every owner figure exactly.
+- **Fastest diagnostic:** load the real save through a read-only harness, run the read-model, diff
+  its outputs against the owner's stated facts.
+- **Pattern:** a single pure run-recap selector fed by frozen records. **Anti-pattern:** scattering
+  run-level insight across per-screen widgets. **Reuse:** MG, BR.
+
+## P. Distinguish "cash positive" from "able to finance the next normal film" — **MG, BR**
+
+- **Symptom:** the fixed-cost Runway read reassuring while a normal-budget film was already
+  unaffordable; the player conflated a positive balance with production capacity.
+- **Root cause:** cash balance and production affordability are different questions; only the former
+  was surfaced prominently.
+- **Resolution:** the recap computes a **cheapest legal** and **typical recent** commitment and runs
+  each through the existing `commitmentPreview`/`canAfford` gate, then states plainly which is
+  affordable and the exact shortfall. Recovery is classified from explicit conditions
+  (healthy / constrained / severe / normal-production-unavailable / incomplete) and never promises
+  success.
+- **Financial-metric distinction (owner-critical):** film contribution (Studio Revenue − committed
+  cost) is separated from payroll and overhead so the recap does NOT imply payroll caused a collapse
+  that film losses drove.
+- **Coverage:** tests assert the cash-positive-but-normal-unaffordable path and the recovery
+  classes; the Week-86 check confirmed cheapest affordable / typical short by ~$1.59M.
+- **Fastest diagnostic:** set cash between the cheapest and typical commitment; assert the
+  distinction + the warning fire.
+- **Pattern:** answer "can I act?" with the affordability gate, not the balance. **Anti-pattern:**
+  a runway/balance number standing in for production capacity. **Reuse:** MG, BR.
+
+## Q. Reconstruct from the signed ledger; do not add persistence — **BR**
+
+- **Lesson:** the D-11/D-12 signed ledger (per-kind, per-`productionId`) plus `theatricalRuns`,
+  `careerEvents`, and `contracts` already hold everything a run recap needs. Starting cash falls out
+  of the reconciliation invariant (`cash − Σledger = INITIAL_CASH`); per-film commitment is a ledger
+  group; per-film contribution reconciles to the total by construction.
+- **Resolution:** proved sufficiency with a field-by-field source matrix before writing code — no new
+  core field, no save-version bump.
+- **Fastest diagnostic:** before adding a field, write the source matrix and try to derive the value
+  from existing records; add persistence only when a value is provably unreconstructable.
+- **Pattern:** derive-don't-store for read-models. **Anti-pattern:** persisting a recap snapshot to
+  avoid ordinary selector cost (measured at ~0.07 ms/derivation — persistence would be pure debt).
+  **Reuse:** BR.
+
+## R. Keep finance rules in the pure core, not the UI — **P, BR**
+
+- **Lesson:** the recap's money math lives in `src/core/studioRunRecap.ts` (pure, node-tested) and
+  reuses `economyView`; the React screen only formats. This preserves the Engine/presentation
+  boundary (the sim never reads the recap) and mirrors the D-14 rule that the UI never computes
+  progression.
+- **Anti-pattern avoided:** a UI-owned recap that duplicates the contribution/runway/affordability
+  formulas and drifts from the engine.
+- **Fastest diagnostic:** grep the screen for any arithmetic beyond formatting; business rules should
+  resolve to a single core selector. **Reuse:** P (Studio boundary), BR (pattern).
