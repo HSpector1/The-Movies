@@ -30,7 +30,7 @@ import type {
 import { TUNING } from './tuning.js'
 import { resolveShape } from './shape.js'
 import { NEGATIVE_BUDGET_MULTIPLIERS, MARKETING_BUDGET_LEVELS } from './grid.js'
-import { weeklyPayroll } from './employment.js'
+import { weeklyPayroll, freelancerFee } from './employment.js'
 import {
   financeTotals,
   weeklyOverhead,
@@ -56,6 +56,11 @@ const RECURRING_TEAM_MIN_FILMS = 3
 const SP_NEGLIGIBLE_BAND = 0.05
 /** "typical recent" film commitment = median of this many most-recent releases. */
 const TYPICAL_RECENT_WINDOW = 3
+/** A "standard-budget film": the assembly's default budget grid + marketing, neutral shape demand.
+ *  Represents "can I make a normal film?" (vs the bare-minimum cheapest greenlightable package). */
+const STANDARD_NEG_MULT = 1.0 // NEGATIVE_BUDGET_MULTIPLIERS[1] — the assembly default
+const STANDARD_DEMAND = 1.0 // neutral story-shape ambition
+const STANDARD_MARKETING = 400_000 // MARKETING_BUDGET_LEVELS[1] — the assembly default
 /** A film loss counted as "heavy" for headlines: worse than this × its commitment. */
 const HEAVY_LOSS_FRACTION = 0.25
 /** How many inflection points to surface by default (bounded, high-value only). */
@@ -143,9 +148,26 @@ export type PositionAffordability = {
   shortfall: number // 0 when affordable; else amount short
 }
 
+/** The mandatory immediate greenlight components (D-12 §3: negative + marketing + engaged
+ *  freelancer fees). There is no separate script-acquisition cost in the current rules. */
+export type PackageBreakdown = {
+  negative: number // production commitment
+  marketing: number // minimum required marketing
+  freelancerFees: number // 0 when a legal all-contracted roster fills the film
+}
+
 export type CurrentPosition = {
   currentCash: number
-  cheapest: PositionAffordability | null // lowest estimated production commitment
+  // The AUTHORITATIVE least-expensive greenlightable package (bare minimum: cheapest available
+  // concept, lowest budget grid, minimum marketing, current contracted roster). Its `affordable`
+  // is the SAME solvency gate the real greenlight action enforces (parity-tested).
+  cheapest: PositionAffordability | null
+  cheapestBreakdown: PackageBreakdown | null
+  contractedRosterCanFieldFilm: boolean // false ⇒ the cheapest assumes hiring freelancers to fill gaps
+  // A STANDARD-budget film of the cheapest concept (default budget + default marketing) — "can I make
+  // a normal film?" For Week 86 this is unaffordable even though the bare minimum is not.
+  standard: PositionAffordability | null
+  standardBreakdown: PackageBreakdown | null
   typicalRecent: PositionAffordability | null // recent typical commitment (median of last 3)
   currentWeeklyPayroll: number
   currentWeeklyOverhead: number
@@ -183,6 +205,7 @@ export type InflectionPoint = {
 }
 
 export type RecapWarningCode =
+  | 'standardFilmUnaffordable'
   | 'cashPositiveButNormalUnaffordable'
   | 'waitingBurnsCash'
   | 'oneMoreFailureNarrowsOptions'
@@ -289,18 +312,79 @@ function filmAudienceScore(state: GameState, film: FilmResult): number {
   return was
 }
 
-/** Lowest estimated production commitment RIGHT NOW: the lowest-cost available concept at the
- *  minimum budget grid (0.75× negative, minimum marketing) and the lowest-demand story shape,
- *  with a fully-contracted roster (talent cost 0). A documented recap convention — there is no
- *  engine budget floor. Returns null if there are no concepts. */
-function cheapestLegalCommitment(state: GameState): number | null {
+/** The cheapest available concept's baseNegativeCost. All concepts are always available
+ *  (selectConcepts === state.concepts), so this is the authoritative cheapest concept. */
+function minConceptBaseNeg(state: GameState): number | null {
   if (!state.concepts.length) return null
-  let minBaseNeg = Infinity
-  for (const c of state.concepts) minBaseNeg = Math.min(minBaseNeg, c.baseNegativeCost)
-  if (!isFinite(minBaseNeg)) return null
-  const minDemand = minBudgetDemandMultiplier()
-  const negative = NEGATIVE_BUDGET_MULTIPLIERS[0]! * minBaseNeg * minDemand * state.era.costScale
-  return Math.round(negative) + MARKETING_BUDGET_LEVELS[0]!
+  let m = Infinity
+  for (const c of state.concepts) m = Math.min(m, c.baseNegativeCost)
+  return isFinite(m) ? m : null
+}
+
+/** Whether the current contracted roster can legally field a film (writer + director + 3 distinct
+ *  actors + 1 craft) — so the cheapest package needs no freelancer fees at greenlight. */
+function contractedRosterCanField(state: GameState): boolean {
+  const roleOf = new Map(state.talent.map((t) => [t.id, t.role]))
+  const roles = state.contracts.map((c) => roleOf.get(c.talentId))
+  const n = (r: string) => roles.filter((x) => x === r).length
+  return n('writer') >= 1 && n('director') >= 1 && n('actor') >= 3 && n('craft') >= 1
+}
+
+/** Minimum freelancer fees to fill the roles the contracted roster cannot cover (cheapest available
+ *  freelancer per missing role). Returns null if a role cannot be filled at all (no such freelancer). */
+function minFreelancerFill(state: GameState): number | null {
+  const roleOf = new Map(state.talent.map((t) => [t.id, t]))
+  const contractedByRole = (r: string) => state.contracts.filter((c) => roleOf.get(c.talentId)?.role === r).length
+  const need: Record<string, number> = {
+    writer: Math.max(0, 1 - contractedByRole('writer')),
+    director: Math.max(0, 1 - contractedByRole('director')),
+    actor: Math.max(0, 3 - contractedByRole('actor')),
+    craft: Math.max(0, 1 - contractedByRole('craft')),
+  }
+  const contractedIds = new Set(state.contracts.map((c) => c.talentId))
+  let total = 0
+  for (const [role, count] of Object.entries(need)) {
+    if (count <= 0) continue
+    const fees = state.talent
+      .filter((t) => t.role === role && !contractedIds.has(t.id))
+      .map((t) => freelancerFee(t))
+      .sort((a, b) => a - b)
+    if (fees.length < count) return null // cannot field this role at all
+    for (let i = 0; i < count; i++) total += fees[i]!
+  }
+  return total
+}
+
+/** AUTHORITATIVE least-expensive greenlightable package = the exact immediate cash the real greenlight
+ *  action charges (D-12 §3: negative + marketing + engaged freelancer fees). Bare minimum: cheapest
+ *  concept, lowest budget grid (0.75×), minimum marketing, min-demand shape, current roster (contracted
+ *  fill is free; otherwise the cheapest freelancer fill). Parity-tested against greenlight(). Returns
+ *  null if no package can be assembled. */
+function cheapestPackage(state: GameState): PackageBreakdown | null {
+  const minBaseNeg = minConceptBaseNeg(state)
+  if (minBaseNeg == null) return null
+  const fees = contractedRosterCanField(state) ? 0 : minFreelancerFill(state)
+  if (fees == null) return null
+  // UNROUNDED and grouped EXACTLY like the action (requiredNegative = base×demand×scale, then ×mult),
+  // so the recap's all-in equals the greenlight action's totalCommittedCost to the bit (parity-tested).
+  const requiredNegative = minBaseNeg * minBudgetDemandMultiplier() * state.era.costScale
+  const negative = NEGATIVE_BUDGET_MULTIPLIERS[0]! * requiredNegative
+  return { negative, marketing: MARKETING_BUDGET_LEVELS[0]!, freelancerFees: fees }
+}
+
+/** A STANDARD-budget film of the cheapest concept: default budget grid (1.0×), neutral shape demand,
+ *  default marketing — "can I make a normal film?" (what the assembly opens with). */
+function standardPackage(state: GameState): PackageBreakdown | null {
+  const minBaseNeg = minConceptBaseNeg(state)
+  if (minBaseNeg == null) return null
+  const fees = contractedRosterCanField(state) ? 0 : minFreelancerFill(state)
+  if (fees == null) return null
+  const negative = Math.round(STANDARD_NEG_MULT * minBaseNeg * STANDARD_DEMAND * state.era.costScale)
+  return { negative, marketing: STANDARD_MARKETING, freelancerFees: fees }
+}
+
+function allIn(b: PackageBreakdown): number {
+  return b.negative + b.marketing + b.freelancerFees
 }
 
 const OPENINGS: FilmShape['opening'][] = ['immediateAction', 'slowSetup', 'mysteryHook']
@@ -624,9 +708,16 @@ function computePosition(
   const netWeeklyCash = activeRunRevenue - curBurn
   const rw = runway(state)
 
-  const cheapestCommit = cheapestLegalCommitment(state)
+  // AUTHORITATIVE bare-minimum greenlightable package (same solvency gate as the greenlight action).
+  const cheapestBreakdown = cheapestPackage(state)
   const cheapest: PositionAffordability | null =
-    cheapestCommit != null ? affordabilityOf(state, cheapestCommit) : null
+    cheapestBreakdown != null ? affordabilityOf(state, allIn(cheapestBreakdown)) : null
+  const contractedRosterCanFieldFilm = contractedRosterCanField(state)
+
+  // A STANDARD (normally-funded) film of the cheapest concept — "can I make a normal film?"
+  const standardBreakdown = standardPackage(state)
+  const standard: PositionAffordability | null =
+    standardBreakdown != null ? affordabilityOf(state, allIn(standardBreakdown)) : null
 
   const recentCommits = [...films]
     .sort((a, b) => b.releaseWeek - a.releaseWeek)
@@ -647,6 +738,7 @@ function computePosition(
   const { recovery, reasons } = classifyRecovery({
     films,
     cheapest,
+    standard,
     typicalRecent,
     hasActiveRevenue,
     netWeeklyCash,
@@ -657,6 +749,14 @@ function computePosition(
   return {
     currentCash: round2(currentCash),
     cheapest,
+    cheapestBreakdown: cheapestBreakdown
+      ? { negative: cheapestBreakdown.negative, marketing: cheapestBreakdown.marketing, freelancerFees: cheapestBreakdown.freelancerFees }
+      : null,
+    contractedRosterCanFieldFilm,
+    standard,
+    standardBreakdown: standardBreakdown
+      ? { negative: standardBreakdown.negative, marketing: standardBreakdown.marketing, freelancerFees: standardBreakdown.freelancerFees }
+      : null,
     typicalRecent,
     currentWeeklyPayroll: round2(curPayroll),
     currentWeeklyOverhead: round2(curOverhead),
@@ -687,6 +787,7 @@ function affordabilityOf(state: GameState, commitment: number): PositionAffordab
 function classifyRecovery(inp: {
   films: RecapFilm[]
   cheapest: PositionAffordability | null
+  standard: PositionAffordability | null
   typicalRecent: PositionAffordability | null
   hasActiveRevenue: boolean
   netWeeklyCash: number
@@ -701,28 +802,32 @@ function classifyRecovery(inp: {
     }
   }
   const cheapestOk = inp.cheapest.affordable
+  const standardOk = inp.standard?.affordable ?? false
   const typicalOk = inp.typicalRecent?.affordable ?? false
   const waitingHelps = inp.netWeeklyCash >= 0
 
+  // No film at all — not even the bare-minimum greenlightable package.
   if (!cheapestOk) {
-    reasons.push('Even the lowest estimated production is not currently affordable — no normal production is available.')
+    reasons.push('No currently available film package is affordable — even the least-expensive greenlightable package exceeds current cash.')
     if (!inp.hasActiveRevenue) reasons.push('No active theatrical run is generating revenue.')
     return { recovery: 'noNormalProduction', reasons }
   }
-  if (typicalOk && waitingHelps) {
-    reasons.push('A film at your recent typical commitment is affordable and cash is not shrinking — the position is healthy.')
+  if (standardOk && typicalOk && waitingHelps) {
+    reasons.push('A normally-funded film and a film at your recent typical commitment are both affordable, and cash is not shrinking — the position is healthy.')
     return { recovery: 'healthy', reasons }
   }
 
-  // Constrained / severe: a legal action exists but a normal film does not.
-  reasons.push('A narrow legal production path remains: the lowest-cost production is affordable, but a film at your recent typical commitment is not.')
+  // A bare-minimum production is affordable, but a normal/typical film is not.
+  reasons.push('Only a bare-minimum production is affordable: the least-expensive greenlightable package (cheapest concept, lowest budget, minimum marketing) fits your cash.')
+  if (!standardOk) reasons.push('A standard-budget film is NOT affordable — a normally-funded production exceeds current cash.')
+  else if (!typicalOk) reasons.push('A film at your recent typical commitment is NOT affordable.')
   if (!waitingHelps) reasons.push('Waiting alone worsens the position — fixed costs reduce cash every week.')
   if (!inp.hasActiveRevenue) reasons.push('No active theatrical run is generating revenue, so nothing offsets that weekly drain.')
   if (inp.contractsOutliveRunway)
     reasons.push('You cannot wait for current contracts to expire: they end after the cash would run out under current fixed costs.')
-  reasons.push('A legal action existing is not the same as a strong recovery path — recovery would require a substantially cheaper film to succeed before fixed costs consume the remaining cash.')
+  reasons.push('A bare-minimum film being possible is not a strong recovery path — recovery would require an underfunded film to succeed before fixed costs consume the remaining cash. No recovery mechanic (loans/financing) exists in the current rules.')
 
-  const severe = !typicalOk && !inp.hasActiveRevenue && !waitingHelps && inp.runwayWeeks != null
+  const severe = !standardOk && !inp.hasActiveRevenue && !waitingHelps && inp.runwayWeeks != null
   return { recovery: severe ? 'severe' : 'constrained', reasons }
 }
 
@@ -785,18 +890,21 @@ function computeWarnings(
   const push = (code: RecapWarningCode, severity: WarningSeverity, priority: number) => w.push({ code, severity, priority })
 
   const cashPositive = position.currentCash > 0
-  const normalUnaffordable = position.typicalRecent ? !position.typicalRecent.affordable : false
+  const standardUnaffordable = position.standard ? !position.standard.affordable : false
+  const typicalUnaffordable = position.typicalRecent ? !position.typicalRecent.affordable : false
   const cheapestOk = position.cheapest?.affordable ?? false
 
-  if (cashPositive && normalUnaffordable) push('cashPositiveButNormalUnaffordable', 'important', 1)
-  if (position.waitingAloneWorsens) push('waitingBurnsCash', 'caution', 2)
-  if (normalUnaffordable && summary.lossFilmCount >= 1) push('oneMoreFailureNarrowsOptions', 'caution', 3)
-  if (position.contractsOutliveRunway) push('contractsOutliveRunway', 'caution', 4)
-  if (!position.hasActiveRevenue) push('noActiveRevenue', 'caution', 5)
-  if (summary.longestLossStreak >= 2) push('repeatedLosses', 'caution', 6)
-  if (cheapestOk && normalUnaffordable) push('optionsBelowTypical', 'observation', 7)
-  if (concentration.topGenre && concentration.topGenre.share >= 0.6) push('highGenreConcentration', 'observation', 8)
-  if (concentration.topLead && concentration.topLead.share >= 0.6) push('highLeadConcentration', 'observation', 9)
+  // The honest headline: a NORMALLY-funded film is out of reach (the bare-minimum package may still fit).
+  if (cashPositive && standardUnaffordable) push('standardFilmUnaffordable', 'important', 1)
+  if (cashPositive && typicalUnaffordable) push('cashPositiveButNormalUnaffordable', 'caution', 2)
+  if (position.waitingAloneWorsens) push('waitingBurnsCash', 'caution', 3)
+  if (typicalUnaffordable && summary.lossFilmCount >= 1) push('oneMoreFailureNarrowsOptions', 'caution', 4)
+  if (position.contractsOutliveRunway) push('contractsOutliveRunway', 'caution', 5)
+  if (!position.hasActiveRevenue) push('noActiveRevenue', 'caution', 6)
+  if (summary.longestLossStreak >= 2) push('repeatedLosses', 'caution', 7)
+  if (cheapestOk && typicalUnaffordable) push('optionsBelowTypical', 'observation', 8)
+  if (concentration.topGenre && concentration.topGenre.share >= 0.6) push('highGenreConcentration', 'observation', 9)
+  if (concentration.topLead && concentration.topLead.share >= 0.6) push('highLeadConcentration', 'observation', 10)
 
   return w.sort((a, b) => a.priority - b.priority)
 }

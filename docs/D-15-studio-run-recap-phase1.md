@@ -164,3 +164,35 @@ important|caution|observation, priority }`; the screen shows the **top 3** and c
   an `overflow-x:auto` container so the page never overflows.
 - **No repository path** appears in the player UI; the methodology explains figures in plain language
   (the doc/formulas live here, not on screen).
+
+## Authoritative affordability & action parity (owner review 4)
+
+**Finding (reproduced on the real Week 86 save via the real `greenlight()` action):** the recap's cheapest
+value ($2,015,391) **is** greenlightable — the action completes it (cash $2,833,923 → $818,532, +1
+production). The recap already matched the authoritative action. The owner's blocker is a **definition**:
+a **bare-minimum** package (cheapest concept, 0.75× budget, $100k marketing) is affordable, but a
+**standard-budget** film ($3,544,173) is **not** (short $710,250). We therefore do **not** claim "no
+package affordable" (the engine disproves it); we distinguish the questions honestly.
+
+**Three affordability questions** (`CurrentPosition`):
+1. **Least expensive available film package** (bare minimum) — computed by the **same rule the action
+   charges**: `negative (0.75 × requiredNegative, grouped bit-identically) + minimum marketing + engaged
+   freelancer fees`. Contracted-roster fill is free; otherwise the cheapest freelancer fill. Its
+   `affordable` is the **same solvency gate** the greenlight action enforces.
+2. **A standard-budget film** — the cheapest concept funded at the default budget grid (1.0×), neutral
+   shape demand, default marketing ($400k). A recap convention representing "a normal film."
+3. **Recent typical commitment** — median of the last three releases (unchanged).
+
+**Action-parity invariant** (`ui/src/engine/recap-parity.test.ts`): for the built package,
+`recap all-in == totalCommittedCost` (to the cent) and `recap.cheapest.affordable == greenlight().ok`,
+including exact-boundary, $1-short, and marketing-shortfall states; the greenlight's cash deduction equals
+the recap all-in. This guarantees the recap can never diverge from the action.
+
+**Recovery/warnings:** the honest top warning is **"No normally-funded film is affordable"**
+(`standardFilmUnaffordable`); recovery stays **severe** (a bare-minimum production is possible but a normal
+one is not; no loans/financing recovery mechanic exists). There is **no** separate script-acquisition cost
+in the current rules (concepts carry `baseNegativeCost`; worldgen starts with an empty library).
+
+**Open owner decision (recommendation C):** whether the headline should treat the bare-minimum package as
+"affordable" (truthful; current) or lead entirely with "no normal film affordable." The recap now presents
+both truthfully; the framing emphasis is the owner's call.

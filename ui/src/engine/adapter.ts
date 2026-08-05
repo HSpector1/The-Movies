@@ -3843,6 +3843,7 @@ export type {
   RecurringMember,
   CurrentPosition,
   PositionAffordability,
+  PackageBreakdown,
   RecoveryPosition,
   FilmContributionClass,
   InflectionPoint,

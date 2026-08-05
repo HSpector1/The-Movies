@@ -449,3 +449,44 @@ Related: `docs/art/D1-A-CLOSURE.md`, `docs/art/D1-A-VALIDATION-REPORT.md`,
   confirm each stays on one line without page overflow.
 - **Anti-pattern:** letting a status token wrap at a hyphen; fixing wrap by widening every column.
   **Reuse:** BR.
+
+### Authoritative-actionability lessons (owner review 4) — still DRAFT
+
+## AC. Actionability claims must use authoritative action rules — **BR**
+
+- **Symptom:** the owner reported the recap said a film was affordable while they could not make one
+  in gameplay.
+- **Investigation (authoritative reproduction on the real Week 86 save):** the recap's cheapest value
+  ($2,015,391) is in fact **greenlightable** — the real `greenlight()` action **completes** it
+  (cash $2,833,923 → $818,532, a production is created). So the recap and the action **already agreed**.
+  The true gap was a *definition* one: the recap headlined a **bare-minimum** package (cheapest concept,
+  lowest budget, minimum marketing) as "affordable," while a **normally-funded** film ($3,544,173) is
+  **not** affordable (short $710,250) — which is what the player experiences.
+- **Root cause:** an actionability claim ("you can make a film") was framed around a theoretical corner
+  (min-everything), not around a realistic action; and the value was computed by a **parallel formula**
+  that *could* have diverged from the action even though it happened not to.
+- **Escaped safeguard:** numeric reconciliation validated the estimate internally but nothing compared
+  it against the **enabled/blocked** state and cost of the real greenlight action.
+- **Correction:** (1) compute the cheapest package by the **same rule** the action charges
+  (`totalCommittedCost` components; grouped bit-identically to `requiredNegative`), so the recap's
+  all-in equals the action's to the cent; (2) add an **action-parity invariant** —
+  `recap affordability == greenlight() affordability` and `recap all-in == the real cash deduction` —
+  tested at exact-boundary, $1-short, and marketing-shortfall states; (3) distinguish three questions:
+  **bare-minimum greenlightable package** (affordable), a **standard-budget film** (unaffordable), and a
+  **recent-typical film** (unaffordable), with an all-in breakdown; (4) honest labels + recovery/warnings
+  that headline "no *normally-funded* film is affordable" — never the false "no package is affordable."
+- **Regression coverage:** `recap-parity.test.ts` (cost + affordability + completion parity); core
+  bare-minimum-vs-standard tests; Week-86 harness (bare-minimum greenlightable, standard short $710k).
+- **Fastest diagnostic:** load the same save, build the recap's claimed package, run the real action on a
+  **clone**, and compare the enabled state, the reason, and the exact deduction.
+- **Anti-pattern:** a plausible estimate labeled as actionable truth; a summary that claims "you can do X"
+  using different rules than the action that performs X. **Reuse:** BR.
+- **Related:** reproduction `out/d15-recap-week86/reproduce.mts`; `src/core/studioRunRecap.ts`
+  (`cheapestPackage`/`standardPackage`); `ui/src/engine/recap-parity.test.ts`.
+
+## Q (amended). Reconstruct authoritative behavior — not a competing approximation
+
+Reconstruction from authoritative records (Lesson **Q**) is appropriate **only when it reconstructs the
+authoritative behavior**. When a reconstructed value drives an **actionability** claim, it must use the
+exact same rules as the action (see **AC**) and be **parity-tested** — a self-consistent approximation
+that merely *looks* right is not sufficient.

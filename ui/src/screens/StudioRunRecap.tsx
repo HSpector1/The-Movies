@@ -8,7 +8,7 @@
 // keyboard-operable, a cash chart with a textual equivalent, prioritised warnings.
 
 import type { ReactNode } from 'react'
-import type { GameState, StudioRunRecap as Recap, RecapFilm, RecapTalent, RecapWarning, InflectionPoint, RecoveryPosition } from '../engine/adapter.ts'
+import type { GameState, StudioRunRecap as Recap, RecapFilm, RecapTalent, RecapWarning, InflectionPoint, RecoveryPosition, PositionAffordability } from '../engine/adapter.ts'
 import { studioRunRecap } from '../engine/adapter.ts'
 import { money, moneyExact, score, pct } from '../format.ts'
 import { Metric, Delta } from '../components/common.tsx'
@@ -47,6 +47,20 @@ function SignedMoney({ value, testid }: { value: number; testid?: string }) {
     </span>
   )
 }
+// "$X — affordable" / "$X — short $Y" (color AND text, never colour alone)
+function AffordLine({ a }: { a: PositionAffordability }) {
+  return (
+    <>
+      {moneyExact(a.commitment)} —{' '}
+      {a.affordable ? (
+        <span className="money pos">affordable</span>
+      ) : (
+        <span className="money neg">short {moneyExact(a.shortfall)}</span>
+      )}
+    </>
+  )
+}
+
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
     <section className="card" aria-labelledby={id} data-testid={`recap-section-${id}`}>
@@ -89,6 +103,12 @@ function warningContent(w: RecapWarning, r: Recap): { title: string; body: strin
   const typical = p.typicalRecent?.commitment ?? 0
   const cheapest = p.cheapest?.commitment ?? 0
   switch (w.code) {
+    case 'standardFilmUnaffordable':
+      return {
+        title: 'No normally-funded film is affordable',
+        body: 'A standard-budget film is out of reach. Only a bare-minimum production — the cheapest concept at the lowest budget and minimum marketing — currently fits your cash.',
+        evidence: `A standard film needs ~${money(p.standard?.commitment ?? 0)} (short ${money(p.standard?.shortfall ?? 0)}); the bare-minimum package is ~${money(cheapest)}; cash ${moneyExact(p.currentCash)}.`,
+      }
     case 'cashPositiveButNormalUnaffordable':
       return {
         title: 'Cash positive, but your usual film is out of reach',
@@ -474,22 +494,22 @@ export function StudioRunRecap({
         <div className="grid grid-2">
           <div className="inset">
             <Metric label="Current cash" small>{moneyExact(position.currentCash)}</Metric>
-            <Metric label="Lowest estimated production commitment" small testid="recap-cheapest">
-              {position.cheapest ? (
-                <>
-                  {moneyExact(position.cheapest.commitment)} —{' '}
-                  {position.cheapest.affordable ? <span className="money pos">affordable</span> : <span className="money neg">short {moneyExact(position.cheapest.shortfall)}</span>}
-                </>
-              ) : '—'}
+            <Metric label="Least expensive available film package" small testid="recap-cheapest">
+              {position.cheapest ? <AffordLine a={position.cheapest} /> : '—'}
             </Metric>
-            <p className="hint" style={{ margin: '0 0 6px' }}>Estimated from currently available production inputs.</p>
+            {position.cheapestBreakdown && (
+              <p className="hint" style={{ margin: '0 0 6px' }} data-testid="recap-cheapest-breakdown">
+                Includes production {money(position.cheapestBreakdown.negative)} + minimum marketing {money(position.cheapestBreakdown.marketing)}
+                {position.cheapestBreakdown.freelancerFees > 0 ? ` + freelancer fees ${money(position.cheapestBreakdown.freelancerFees)}` : ''}. This is a
+                bare-minimum production (cheapest concept, lowest budget, minimum marketing){position.contractedRosterCanFieldFilm ? ', current contracted team' : ', with freelancers to fill roles'}.
+              </p>
+            )}
+            <Metric label="A standard-budget film" small testid="recap-standard">
+              {position.standard ? <AffordLine a={position.standard} /> : '—'}
+            </Metric>
+            <p className="hint" style={{ margin: '0 0 6px' }}>The cheapest concept funded at a normal budget &amp; marketing.</p>
             <Metric label="Recent typical commitment" small testid="recap-typical">
-              {position.typicalRecent ? (
-                <>
-                  {moneyExact(position.typicalRecent.commitment)} —{' '}
-                  {position.typicalRecent.affordable ? <span className="money pos">affordable</span> : <span className="money neg">short {moneyExact(position.typicalRecent.shortfall)}</span>}
-                </>
-              ) : '—'}
+              {position.typicalRecent ? <AffordLine a={position.typicalRecent} /> : '—'}
             </Metric>
             <p className="hint" style={{ margin: 0 }}>Median production commitment of your last three released films.</p>
           </div>

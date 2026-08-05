@@ -247,8 +247,8 @@ describe('studioRunRecap — warnings & inflection points are structured, priori
     for (let i = 1; i < r.warnings.length; i++) {
       expect(r.warnings[i]!.priority).toBeGreaterThanOrEqual(r.warnings[i - 1]!.priority)
     }
-    // the top-priority warning under this broke state is the cash-positive/normal-unaffordable one
-    expect(r.warnings[0]!.code).toBe('cashPositiveButNormalUnaffordable')
+    // the top-priority warning under this broke state is that no NORMALLY-funded film is affordable
+    expect(r.warnings[0]!.code).toBe('standardFilmUnaffordable')
   })
 
   it('inflection points are structured and capped, and open with the opening balance', () => {
@@ -294,5 +294,27 @@ describe('studioRunRecap — capital timeline semantics', () => {
     const r = studioRunRecap(broke)
     expect(typeof r.position.contractsOutliveRunway).toBe('boolean')
     expect(typeof r.position.waitingAloneWorsens).toBe('boolean')
+  })
+})
+
+describe('studioRunRecap — authoritative affordability (bare-minimum vs standard film)', () => {
+  it('exposes a bare-minimum package and a costlier standard film, with a reconciling breakdown', () => {
+    const s = buildRun('recap-afford', 2)
+    const r = studioRunRecap(s)
+    expect(r.position.cheapest).not.toBeNull()
+    expect(r.position.cheapestBreakdown).not.toBeNull()
+    const b = r.position.cheapestBreakdown!
+    // the all-in commitment reconciles to its mandatory components (negative + marketing + fees)
+    expect(r.position.cheapest!.commitment).toBe(Math.round(b.negative + b.marketing + b.freelancerFees))
+    // a standard-budget film is strictly more expensive than the bare minimum
+    expect(r.position.standard!.commitment).toBeGreaterThan(r.position.cheapest!.commitment)
+    expect(typeof r.position.contractedRosterCanFieldFilm).toBe('boolean')
+  })
+
+  it('a contracted roster that fields a film needs no freelancer fees', () => {
+    const s = buildRun('recap-afford-roster', 1)
+    const r = studioRunRecap(s)
+    expect(r.position.contractedRosterCanFieldFilm).toBe(true)
+    expect(r.position.cheapestBreakdown!.freelancerFees).toBe(0)
   })
 })
