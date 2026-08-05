@@ -295,3 +295,91 @@ Related: `docs/art/D1-A-CLOSURE.md`, `docs/art/D1-A-VALIDATION-REPORT.md`,
   formulas and drifts from the engine.
 - **Fastest diagnostic:** grep the screen for any arithmetic beyond formatting; business rules should
   resolve to a single core selector. **Reuse:** P (Studio boundary), BR (pattern).
+
+## S. Break-even is a distinct player category — **MG, BR** (from the bounded revision)
+
+- **Symptom:** a film with +$8,334 contribution on a $10.92M commitment (≈0.076%, ROI rounds to 0%) was
+  labelled **Profit**, which reads as a success during ordinary play.
+- **Root cause:** a strict `>0 / <0` split treats any technically-positive value as profit; economic
+  negligibility was not modelled.
+- **Why safeguards missed it:** the number was correct; nothing checked whether the *label* was
+  meaningful.
+- **Correction:** Break-even band `|contribution| ≤ max($25k, 1% × committed cost)` (documented,
+  exported as `classifyContribution`); Week 86 → 3 profit / 1 break-even / 5 loss. Contribution/ROI
+  values unchanged.
+- **Coverage:** core tests on `classifyContribution` (near-zero, sub-floor, meaningful ±) + the Week 86
+  3/1/5 acceptance.
+- **Fastest diagnostic:** sort the slate by |contribution/commitment| and eyeball the near-zero tail.
+- **Pattern:** classify economic outcomes by materiality, not sign. **Anti-pattern:** framing rounded-0%
+  as success. Extends **P**. **Reuse:** MG, BR.
+
+## T. Timeline semantics must be explicit — **BR** (from the bounded revision)
+
+- **Symptom:** starting cash showed $20M, but the weekly table's "Week 0" row showed ~$9.04M and "Key
+  Moments" claimed cash peaked at Week 0 — three different meanings collided on one label.
+- **Root cause:** the opening balance (pre-commitment) and the end-of-week-0 close (post-ledger) were
+  both rendered as "Week 0".
+- **Correction:** an explicit **Opening balance** point (= `INITIAL_CASH`), end-of-week rows labelled
+  **"End of Week N"**, and a `peakCash` inflection emitted only when a close exceeds the opening balance.
+- **Coverage:** core tests (opening balance distinct from week-0 close; opening is the peak) + Week 86
+  (no false Week-0 peak; Week 54 unaffordability).
+- **Fastest diagnostic:** confirm every cash point answers "as of exactly when?" before labelling it.
+- **Pattern:** name the observation instant (pre-commitment / post-ledger / end-of-week). **Anti-pattern:**
+  an ambiguous shared "Week 0". **Reuse:** BR.
+
+## U. Recaps must synthesize, not dump — **MG, BR** (from the bounded revision)
+
+- **Symptom:** the default view exposed an 86-row weekly cash table — authoritative but spreadsheet-like,
+  producing no management insight.
+- **Root cause:** raw completeness was treated as the deliverable.
+- **Correction:** default to a compact **SVG cash chart** (opening / current / low + accessible text
+  equivalent) and a short **Key Moments** list; the full table is collapsed behind "View weekly cash
+  data".
+- **Coverage:** component + e2e assert the chart renders with an `aria-label`, and the 86-row table's
+  `<details>` is closed by default.
+- **Fastest diagnostic:** count default-visible rows; if a management screen shows dozens, collapse them.
+- **Pattern:** trend + inflections by default, raw detail on demand. **Anti-pattern:** a default data dump.
+  Extends **O**. **Reuse:** MG, BR.
+
+## V. A legal action is not a reasonable recovery path — **MG, BR** (from the bounded revision)
+
+- **Symptom:** copy said "a reasonable path exists but is constrained" while cash drained ~$39K/wk with
+  no active revenue and contracts (122wk) outlasting the runway (72wk) — too optimistic and partly
+  contradictory.
+- **Root cause:** "a cheapest legal film is affordable" was conflated with "recovery is credible".
+- **Correction:** distinguish **available action** vs **credible recovery**; state that waiting alone
+  worsens the position and that contracts cannot be waited out when expiry > runway. New flags
+  `waitingAloneWorsens`, `contractsOutliveRunway`; recovery copy narrowed; never promises success.
+- **Coverage:** Week 86 asserts `contractsOutliveRunway`, `waitingAloneWorsens`, `recovery=severe`, and
+  the reason strings.
+- **Fastest diagnostic:** check whether "recovery" language survives the facts (no revenue, burn > 0,
+  contracts > runway).
+- **Pattern:** separate legality, credibility, and time-horizon. **Anti-pattern:** implying an affordable
+  option is a safe plan. Extends **P**. **Reuse:** MG, BR.
+
+## W. Warning hierarchy — **BR** (from the bounded revision)
+
+- **Symptom:** eight identically-styled warning cards read like a log and buried the one decision that
+  mattered.
+- **Root cause:** no severity/priority; equal visual weight for every observation.
+- **Correction:** `RecapWarning { severity: important|caution|observation, priority }`; the screen shows
+  the **top 3** and collapses the rest under "More strategic observations"; severity shown as text (not
+  colour-only).
+- **Coverage:** core (sorted by priority; top = cash-positive/normal-unaffordable) + component/e2e (≤3
+  primary; secondary collapsed).
+- **Fastest diagnostic:** if everything is a warning, nothing is — cap the primary set.
+- **Pattern:** rank + collapse. **Anti-pattern:** a flat wall of equal alerts. **Reuse:** BR.
+
+## X. Format at the read-model/UI boundary — **BR** (from the bounded revision)
+
+- **Symptom:** raw integers (`4422115`, `-4981667`, `39174`) appeared in Key Moments, warning evidence,
+  and cash labels.
+- **Root cause:** the read-model embedded pre-rounded numbers in prose strings, so the UI could not
+  format them.
+- **Correction:** the read-model returns **structured numbers** (and inflection *kinds* / warning
+  *codes*); the React screen composes every sentence and formats every value with the shared
+  `money()`/`signed()` helpers. Internal precision stays raw.
+- **Coverage:** component test asserts the rendered text contains **no** 7+ digit raw run.
+- **Fastest diagnostic:** grep rendered output for `\d{7,}`; any hit is an unformatted amount.
+- **Pattern:** data in the model, formatting in the view. **Anti-pattern:** prose-with-baked-in-numbers
+  in a read-model. Extends **R**. **Reuse:** BR.

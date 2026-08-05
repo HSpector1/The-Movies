@@ -103,3 +103,50 @@ never "you will fail").
 3. **Legacy/M0A films** fold salaries into a single `production` ledger entry; commitment reconstruction
    differs from engaged mode. The Week 86 save is fully engaged (V5) → unaffected.
 4. **No routing/URL** (App uses a `Screen` union) — the recap is reached from Dashboard, not bookmarkable.
+
+---
+
+## Phase-1 bounded revision (owner gameplay review)
+
+The owner accepted the architecture/data and requested bounded presentation + classification
+corrections. Applied on this branch (no economy/persistence/save change):
+
+### Break-even classification (exact rule)
+
+A film is **Break-even** when `|contribution| ≤ max($25,000, 1% × committed cost)` — a negligible
+return relative to the commitment. Otherwise the sign decides Profit/Loss. Rationale: a rounded-0%-ROI
+film (e.g. **The Wayward Locomotive**, +$8,334 on a $10.92M commitment ≈ 0.076%) is not a meaningful
+success; the next-closest Week 86 film (+$530K ≈ 8.4%) is comfortably outside the band, and no loss
+(all worse than −57%) is misclassified. Week 86 slate → **3 profit / 1 break-even / 5 loss**. Actual
+contribution and ROI values are unchanged; only the label changes. Constants: `BREAKEVEN_ABS = 25_000`,
+`BREAKEVEN_FRACTION = 0.01` in `studioRunRecap.ts`; exported helper `classifyContribution`.
+
+### Cash-timeline convention (explicit)
+
+- **Opening balance** = cash **before any commitments** = `INITIAL_CASH` ($20M) = the run's true peak
+  start. Exposed as `capital.openingBalance` and always the first Key Moment.
+- **End of Week N** = the running cash **after** that week's ledger (`capital.cashTimeline`). So "End of
+  Week 0" (~$9.04M) is post-commitment and correctly below the opening balance — the two are no longer
+  both labelled "Week 0".
+- **Highest cash** surfaces a separate `peakCash` inflection **only if** some end-of-week close exceeded
+  the opening balance; otherwise the opening balance *is* the peak (Week 86: no false "Week 0 peak").
+- `firstTypicalUnaffordable` uses the same end-of-week series (Week 86: Week 54).
+
+### Recovery + affordability language
+
+- Recovery `severe` copy narrowed: a legal path exists but waiting alone worsens the position; when
+  `contractsOutliveRunway` (contract expiry > fixed-cost runway, Week 86: 122wk > 72wk) the studio cannot
+  wait contracts out. New `CurrentPosition` flags: `waitingAloneWorsens`, `contractsOutliveRunway`.
+- Player labels: **"Lowest estimated production commitment"** ("Estimated from currently available
+  production inputs.") and **"Recent typical commitment"** ("Median production commitment of your last
+  three released films."). Formulas stay in this doc, not the default player view.
+
+### Presentation (UI)
+
+Read-model returns **structured numbers**; the screen formats every player-facing value with the shared
+`money()`/`signed()` formatters (no raw integers). Inflection sentences and warning text are composed in
+the UI. Cash-over-time is a compact inline **SVG line chart** (opening reference, current, low point;
+axis labels; `role="img"` + text caption; not colour-only) — the 86-row table is collapsed behind
+**"View weekly cash data"**. Warnings are **prioritised**: `RecapWarning { code, severity:
+important|caution|observation, priority }`; the screen shows the **top 3** and collapses the rest under
+**"More strategic observations"**. Methodology moved to a collapsed **"How these figures are calculated"**.

@@ -68,9 +68,11 @@ describe('StudioRunRecap screen', () => {
     const s = releaseFilms('recap-ui', 2)
     render(<StudioRunRecap state={s} onBack={() => {}} />)
     expect(screen.getByTestId('studio-run-recap')).toBeInTheDocument()
-    for (const id of ['summary', 'capital', 'films', 'talent', 'concentration', 'position', 'limitations']) {
+    for (const id of ['summary', 'capital', 'films', 'talent', 'concentration', 'position']) {
       expect(screen.getByTestId(`recap-section-${id}`)).toBeInTheDocument()
     }
+    // methodology notes moved into a collapsed control (not a default section)
+    expect(screen.getByTestId('recap-methodology')).toBeInTheDocument()
     // level-2 headings for each section (accessible structure)
     expect(screen.getAllByRole('heading', { level: 2 }).length).toBeGreaterThanOrEqual(6)
     // film slate lists each released film
@@ -120,5 +122,46 @@ describe('StudioRunRecap screen', () => {
     const s = foundEngaged('recap-ui-empty')
     render(<StudioRunRecap state={s} onBack={() => {}} />)
     expect(screen.getByTestId('recap-recovery')).toHaveTextContent('State incomplete')
+  })
+
+  it('renders a cash chart with an accessible text equivalent (not the 86-row table by default)', () => {
+    const s = releaseFilms('recap-ui-chart', 2)
+    render(<StudioRunRecap state={s} onBack={() => {}} />)
+    const chart = screen.getByTestId('recap-cash-chart')
+    expect(chart).toBeInTheDocument()
+    // the SVG is an accessible image with a descriptive label + a visible caption
+    expect(within(chart).getByRole('img')).toHaveAttribute('aria-label')
+    expect(screen.getByTestId('recap-cash-chart-summary')).toBeInTheDocument()
+    // the full weekly table is present but its <details> is collapsed by default
+    const details = screen.getByTestId('recap-cash-timeline').closest('details') as HTMLDetailsElement
+    expect(details.open).toBe(false)
+  })
+
+  it('caps default warnings at three and collapses the rest', () => {
+    const s = releaseFilms('recap-ui-warncap', 3)
+    const tight: GameState = { ...s, studio: { ...s.studio, cash: 1_000_000 } }
+    render(<StudioRunRecap state={tight} onBack={() => {}} />)
+    const primary = screen.getByTestId('recap-warnings')
+    expect(within(primary).getAllByRole('listitem').length).toBeLessThanOrEqual(3)
+    // remaining observations sit behind a collapsed control (when there are >3 warnings)
+    const more = screen.queryByTestId('recap-more-observations')
+    if (more) expect(more.closest('details')!.open).toBe(false)
+  })
+
+  it('film result pills read Profit / Break-even / Loss and money is formatted (no raw integers)', () => {
+    const s = releaseFilms('recap-ui-fmt', 3)
+    const { container } = render(<StudioRunRecap state={s} onBack={() => {}} />)
+    const slate = screen.getByTestId('recap-film-slate')
+    const pills = within(slate).getAllByText(/Profit|Break-even|Loss/)
+    expect(pills.length).toBeGreaterThan(0)
+    // no raw 7+ digit run of digits in the visible text — money is always $x.xxM or $x,xxx,xxx
+    expect(container.textContent || '').not.toMatch(/\d{7,}/)
+  })
+
+  it('methodology notes are collapsed by default', () => {
+    const s = releaseFilms('recap-ui-method', 2)
+    render(<StudioRunRecap state={s} onBack={() => {}} />)
+    const methodology = screen.getByTestId('recap-methodology') as HTMLDetailsElement
+    expect(methodology.open).toBe(false)
   })
 })

@@ -3849,4 +3849,5 @@ export type {
   InflectionKind,
   RecapWarning,
   RecapWarningCode,
+  WarningSeverity,
 } from '../../../src/core/index.ts'

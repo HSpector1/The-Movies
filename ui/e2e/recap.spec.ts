@@ -51,19 +51,27 @@ const shot = (page: Page, name: string) => page.screenshot({ path: join(outDir, 
 test('recap: sections render, slate present, current position + warnings, clean console', async ({ page }) => {
   const errors = await seedAndOpen(page)
 
-  // all six sections + notes
-  for (const id of ['summary', 'capital', 'films', 'talent', 'concentration', 'position', 'limitations']) {
+  // all six sections
+  for (const id of ['summary', 'capital', 'films', 'talent', 'concentration', 'position']) {
     await expect(page.getByTestId(`recap-section-${id}`)).toBeVisible()
   }
   // headline facts
   await expect(page.getByTestId('recap-through-week')).toBeVisible()
   await expect(page.getByTestId('recap-total-contribution')).toBeVisible()
   await expect(page.getByTestId('recap-recovery')).toBeVisible()
+  // cash chart (default) with an accessible label; the 86-row table is NOT open by default
+  await expect(page.getByTestId('recap-cash-chart')).toBeVisible()
+  await expect(page.getByTestId('recap-cash-chart').getByRole('img')).toHaveAttribute('aria-label', /Cash over/)
+  await expect(page.getByTestId('recap-cash-timeline')).toBeHidden() // inside a collapsed <details>
   // the film slate has at least one film row
   await expect(page.locator('[data-testid^="recap-film-prod-"]').first()).toBeVisible()
   // current position distinguishes cheapest vs typical affordability
   await expect(page.getByTestId('recap-cheapest')).toBeVisible()
   await expect(page.getByTestId('recap-typical')).toBeVisible()
+  // methodology collapsed; at most three primary warnings
+  await expect(page.getByTestId('recap-methodology')).toBeVisible()
+  const primaryWarnings = page.getByTestId('recap-warnings').locator(':scope > li')
+  expect(await primaryWarnings.count()).toBeLessThanOrEqual(3)
 
   await shot(page, '01-recap-full')
 
@@ -76,7 +84,7 @@ test('recap: laptop resolutions + 125% zoom evidence', async ({ page }) => {
   for (const [w, h] of [
     [1440, 900],
     [1366, 768],
-    [1280, 800],
+    [1280, 720],
   ] as const) {
     await page.setViewportSize({ width: w, height: h })
     await expect(page.getByTestId('recap-section-position')).toBeVisible()

@@ -9,6 +9,7 @@ import { describe, expect, it } from 'vitest'
 import {
   applyActions,
   beginFounding,
+  classifyContribution,
   financeTotals,
   generateWorld,
   studioRunRecap,
@@ -153,9 +154,9 @@ describe('studioRunRecap — film slate', () => {
     for (const f of r.films) {
       if (f.contribution == null) {
         expect(f.classification).toBe('unknown')
-      } else if (f.contribution > 0) expect(f.classification).toBe('positive')
-      else if (f.contribution < 0) expect(f.classification).toBe('loss')
-      else expect(f.classification).toBe('breakEven')
+      } else {
+        expect(f.classification).toBe(classifyContribution(f.contribution, f.committedCost ?? 0))
+      }
     }
     expect(r.summary.profitableFilmCount + r.summary.breakEvenFilmCount + r.summary.lossFilmCount).toBe(r.films.length)
   })
@@ -233,24 +234,65 @@ describe('studioRunRecap — current position & recovery classification', () => 
   })
 })
 
-describe('studioRunRecap — warnings & inflection points are bounded and evidenced', () => {
-  it('every warning carries text + evidence; inflections are capped', () => {
+describe('studioRunRecap — warnings & inflection points are structured, prioritised, bounded', () => {
+  it('warnings carry code/severity/priority and are sorted by priority', () => {
     const s = buildRun('recap-warn', 3)
     const tight: GameState = { ...s, studio: { ...s.studio, cash: 1 } }
     const r = studioRunRecap(tight)
     for (const w of r.warnings) {
-      expect(w.text.length).toBeGreaterThan(0)
-      expect(w.evidence.length).toBeGreaterThan(0)
+      expect(['important', 'caution', 'observation']).toContain(w.severity)
+      expect(w.priority).toBeGreaterThan(0)
     }
-    expect(r.inflectionPoints.length).toBeLessThanOrEqual(6)
-    for (const p of r.inflectionPoints) expect(p.evidence.length).toBeGreaterThan(0)
+    // sorted ascending by priority (highest importance first)
+    for (let i = 1; i < r.warnings.length; i++) {
+      expect(r.warnings[i]!.priority).toBeGreaterThanOrEqual(r.warnings[i - 1]!.priority)
+    }
+    // the top-priority warning under this broke state is the cash-positive/normal-unaffordable one
+    expect(r.warnings[0]!.code).toBe('cashPositiveButNormalUnaffordable')
   })
 
-  it('does not make deterministic claims about future outcomes', () => {
-    const s = buildRun('recap-nofail', 2)
-    const r = studioRunRecap({ ...s, studio: { ...s.studio, cash: 1 } })
-    for (const w of r.warnings) {
-      expect(w.text.toLowerCase()).not.toContain('you will fail')
-    }
+  it('inflection points are structured and capped, and open with the opening balance', () => {
+    const s = buildRun('recap-infl', 3)
+    const r = studioRunRecap(s)
+    expect(r.inflectionPoints.length).toBeLessThanOrEqual(7)
+    expect(r.inflectionPoints[0]!.kind).toBe('openingBalance')
+    expect(Math.round(r.inflectionPoints[0]!.value)).toBe(TUNING.INITIAL_CASH)
+    for (const p of r.inflectionPoints) expect(typeof p.value).toBe('number')
+  })
+})
+
+describe('studioRunRecap — break-even classification', () => {
+  it('classifies a negligible-return film as break-even, not profit', () => {
+    // near-zero: within max($25k, 1% of commitment)
+    expect(classifyContribution(8_000, 10_000_000)).toBe('breakEven') // 0.08% of commit
+    expect(classifyContribution(-500, 30_000)).toBe('breakEven') // under the $25k floor
+    // a meaningful positive/negative is NOT break-even
+    expect(classifyContribution(530_000, 6_300_000)).toBe('positive') // 8.4% of commit
+    expect(classifyContribution(-3_000_000, 4_400_000)).toBe('loss')
+  })
+
+  it('summary profit/break-even/loss counts partition the slate', () => {
+    const s = buildRun('recap-partition', 3)
+    const r = studioRunRecap(s)
+    expect(r.summary.profitableFilmCount + r.summary.breakEvenFilmCount + r.summary.lossFilmCount).toBe(r.films.length)
+  })
+})
+
+describe('studioRunRecap — capital timeline semantics', () => {
+  it('exposes an opening balance distinct from end-of-week closes', () => {
+    const s = buildRun('recap-timeline', 2)
+    const r = studioRunRecap(s)
+    expect(Math.round(r.capital.openingBalance)).toBe(TUNING.INITIAL_CASH)
+    // end-of-week rows are post-ledger; week 0's close is below the opening after commitments
+    const wk0 = r.capital.cashTimeline.find((c) => c.week === 0)
+    if (wk0) expect(wk0.cash).toBeLessThan(r.capital.openingBalance)
+  })
+
+  it('contract-horizon-vs-runway flag is exposed for the current position', () => {
+    const s = buildRun('recap-contract', 3)
+    const broke: GameState = { ...s, studio: { ...s.studio, cash: 2_000_000 } }
+    const r = studioRunRecap(broke)
+    expect(typeof r.position.contractsOutliveRunway).toBe('boolean')
+    expect(typeof r.position.waitingAloneWorsens).toBe('boolean')
   })
 })

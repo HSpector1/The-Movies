@@ -246,7 +246,7 @@ export type { Runway, CommitmentPreview, RunView, FinanceTotals, PeriodSummary, 
 // concentration, current position + recovery, inflections, warnings) from the live
 // GameState. Adds no persistence, mutates nothing, advances no RNG, recomputes no
 // film/career outcome. The sim never reads it.
-export { studioRunRecap } from './studioRunRecap.js'
+export { studioRunRecap, classifyContribution } from './studioRunRecap.js'
 export type {
   StudioRunRecap,
   RunSummary,
@@ -264,6 +264,7 @@ export type {
   InflectionKind,
   RecapWarning,
   RecapWarningCode,
+  WarningSeverity,
 } from './studioRunRecap.js'
 
 // ── D-11 employment / contracts / roster / freelancer market (employment.ts) ──
