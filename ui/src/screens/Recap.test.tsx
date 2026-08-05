@@ -164,4 +164,61 @@ describe('StudioRunRecap screen', () => {
     const methodology = screen.getByTestId('recap-methodology') as HTMLDetailsElement
     expect(methodology.open).toBe(false)
   })
+
+  it('chart annotations stay inside the SVG viewBox (right-aligned, no clipping)', () => {
+    const s = releaseFilms('recap-ui-chartbounds', 3)
+    const { container } = render(<StudioRunRecap state={s} onBack={() => {}} />)
+    const svg = container.querySelector('[data-testid="recap-cash-chart"] svg')!
+    const texts = Array.from(svg.querySelectorAll('text'))
+    expect(texts.length).toBeGreaterThan(0)
+    for (const t of texts) {
+      const x = parseFloat(t.getAttribute('x') || '0')
+      expect(x).toBeGreaterThanOrEqual(0)
+      expect(x).toBeLessThanOrEqual(720) // CHART_W — annotations never exceed the viewBox width
+    }
+    // opening + current labels are right-aligned so their text can't spill past the right edge
+    const rightLabels = texts.filter((t) => /Opening|Now/.test(t.textContent || ''))
+    expect(rightLabels.length).toBe(2)
+    for (const t of rightLabels) expect(t.getAttribute('text-anchor')).toBe('end')
+  })
+
+  it('uses consistent timeline-count wording (closing balances, not elapsed weeks)', () => {
+    const s = releaseFilms('recap-ui-timeline', 3)
+    const { container } = render(<StudioRunRecap state={s} onBack={() => {}} />)
+    const cap = screen.getByTestId('recap-cash-chart-summary').textContent || ''
+    expect(cap).toMatch(/recorded weekly closing balances/)
+    expect(cap).toMatch(/end of Week 0/)
+    expect(screen.getByTestId('recap-weekly-toggle').textContent || '').toMatch(/weekly closing balances/)
+    // axis label uses the "End Wk" convention
+    expect(container.querySelector('[data-testid="recap-cash-chart"] svg')!.textContent || '').toMatch(/End Wk 0/)
+    // no contradictory "N weeks" elapsed-count phrasing in the cash section
+    expect(cap).not.toMatch(/\bover \d+ weeks\b/)
+  })
+
+  it('keeps the BREAK-EVEN (and every) result pill on one line', () => {
+    const s = releaseFilms('recap-ui-be', 3)
+    const { container } = render(<StudioRunRecap state={s} onBack={() => {}} />)
+    const pills = Array.from(container.querySelectorAll('[data-testid="recap-film-slate"] .tag')) as HTMLElement[]
+    expect(pills.length).toBeGreaterThan(0)
+    for (const p of pills) expect(p.style.whiteSpace).toBe('nowrap')
+  })
+
+  it('does not expose repository paths, filenames, or dev references in the player UI', () => {
+    const s = releaseFilms('recap-ui-nopath', 2)
+    const { container } = render(<StudioRunRecap state={s} onBack={() => {}} />)
+    const text = container.textContent || ''
+    expect(text).not.toMatch(/docs\//)
+    expect(text).not.toMatch(/\.md\b/)
+    expect(text).not.toMatch(/studioRunRecap/)
+  })
+
+  it('methodology still explains the figures in plain language', () => {
+    const s = releaseFilms('recap-ui-method2', 2)
+    render(<StudioRunRecap state={s} onBack={() => {}} />)
+    const m = screen.getByTestId('recap-methodology').textContent || ''
+    expect(m).toMatch(/lowest-cost production we can estimate/)
+    expect(m).toMatch(/contracted team/)
+    expect(m).toMatch(/Recent typical commitment/)
+    expect(m).toMatch(/Fixed-cost runway/)
+  })
 })

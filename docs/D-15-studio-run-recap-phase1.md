@@ -150,3 +150,17 @@ axis labels; `role="img"` + text caption; not colour-only) — the 86-row table 
 **"View weekly cash data"**. Warnings are **prioritised**: `RecapWarning { code, severity:
 important|caution|observation, priority }`; the screen shows the **top 3** and collapses the rest under
 **"More strategic observations"**. Methodology moved to a collapsed **"How these figures are calculated"**.
+
+### Final visual polish (owner review 3)
+
+- **Chart annotations** are right-aligned inside a reserved right margin (`text-anchor="end"`), so
+  "Opening $20.00M" / "Now …" / "Low …" never clip at any viewport or 125% zoom (verified by an e2e
+  bounding-box check). Axis endpoints read **"End Wk 0" / "End Wk 85"**.
+- **Timeline wording** is one convention: heading "Cash history through Week 86"; caption "Opening
+  balance was $20.00M … 86 recorded weekly closing balances, from the end of Week 0 through the end of
+  Week 85"; collapsed control "View 86 weekly closing balances". 86 observations are never called "85
+  weeks".
+- **Result pills** use `white-space: nowrap` ("BREAK-EVEN" stays on one line); the film table scrolls in
+  an `overflow-x:auto` container so the page never overflows.
+- **No repository path** appears in the player UI; the methodology explains figures in plain language
+  (the doc/formulas live here, not on screen).

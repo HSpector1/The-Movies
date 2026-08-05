@@ -383,3 +383,69 @@ Related: `docs/art/D1-A-CLOSURE.md`, `docs/art/D1-A-VALIDATION-REPORT.md`,
 - **Fastest diagnostic:** grep rendered output for `\d{7,}`; any hit is an unformatted amount.
 - **Pattern:** data in the model, formatting in the view. **Anti-pattern:** prose-with-baked-in-numbers
   in a read-model. Extends **R**. **Reuse:** BR.
+
+### Final visual-polish lessons (owner review 3) — still DRAFT
+
+## Y. SVG annotations require boundary testing — **BR**
+
+- **Symptom:** a correct "Opening $20.00M" chart label was clipped at the right canvas edge in the
+  owner screenshot.
+- **Root cause:** the annotation position accounted for the data point but **not the rendered text
+  width** (left-anchored text near the right boundary spilled outside the viewBox).
+- **Escaped safeguard:** unit tests checked data, not rendered geometry; the value was right, the pixels
+  were not.
+- **Correction:** reserve right-side padding and **right-align** edge annotations (`text-anchor="end"`
+  ending inside the viewBox); position-aware anchor for the low label. No viewport-specific offsets.
+- **Regression coverage:** component test (every `<text>` x within `[0, CHART_W]`; opening/current
+  end-anchored); e2e bounding-box check that each label sits within the SVG at 1440×900 / 1366×768 /
+  1280×720 / 125% zoom.
+- **Fastest diagnostic:** capture the chart at every target viewport/zoom and inspect annotations at
+  **both** edges; assert label bounding boxes ⊆ the SVG box.
+- **Anti-pattern:** positioning text by its data anchor while ignoring string width; per-viewport hard-
+  coded nudges. **Reuse:** BR. **Related:** `b91b026`→ polish commit, `out/d15-recap-evidence/`.
+
+## Z. Observation count is not elapsed-time count — **BR**
+
+- **Symptom:** the UI called 86 recorded closing balances "85 weeks", contradicting "Week 86" and the
+  86-row detail table.
+- **Root cause:** elapsed intervals (85) and recorded observations (86) are both valid but were not
+  distinguished in player-facing language.
+- **Escaped safeguard:** no test asserted a single consistent temporal convention across chart/caption/
+  table/heading.
+- **Correction:** name the convention explicitly — **Opening balance** (pre-commitment), **End of Week N**
+  (post-ledger close), current **Week 86**; heading "Cash history through Week 86"; caption "86 recorded
+  weekly closing balances, end of Week 0 → end of Week 85"; axis "End Wk 0/85"; control "View 86 weekly
+  closing balances".
+- **Regression coverage:** component (caption wording; no "over N weeks"); Week 86 harness (86 closes;
+  Week 0→85; current Week 86).
+- **Fastest diagnostic:** for every time count on screen, state whether it's an opening state, an
+  end-of-period observation, or the current period — and check they agree.
+- **Anti-pattern:** mixing interval counts and observation counts in one view. **Reuse:** BR.
+
+## AA. Player UI must not expose repository paths — **BR**
+
+- **Symptom:** the runtime methodology disclosure printed `docs/D-15-studio-run-recap-phase1.md`.
+- **Root cause:** a developer cross-reference leaked into player-facing copy.
+- **Escaped safeguard:** no audit for filenames/paths/dev references in owner/player screens.
+- **Correction:** removed the path from the UI (the doc + formulas are unchanged); methodology explains
+  the figures in plain language only.
+- **Regression coverage:** component test asserts the rendered text contains no `docs/`, no `.md`, no
+  source filename.
+- **Fastest diagnostic:** grep rendered player UI for path/filename/commit/dev-command patterns before
+  acceptance.
+- **Anti-pattern:** citing repo paths or source files in gameplay UI. **Reuse:** BR.
+
+## AB. Compact status labels require responsive testing — **BR**
+
+- **Symptom:** the **BREAK-EVEN** result pill wrapped at the hyphen in a narrow table cell despite ample
+  page width.
+- **Root cause:** a hyphenated status label is breakable; the cell was narrow enough to wrap it.
+- **Escaped safeguard:** labels weren't tested as indivisible units at target widths/zoom.
+- **Correction:** `white-space: nowrap` on every result pill; the film table scrolls inside an
+  `overflow-x:auto` container so the page never overflows.
+- **Regression coverage:** component (every result pill `white-space: nowrap`); e2e (no horizontal page
+  overflow at each viewport + 125% zoom).
+- **Fastest diagnostic:** render semantic status labels at the smallest target width and 125% zoom and
+  confirm each stays on one line without page overflow.
+- **Anti-pattern:** letting a status token wrap at a hyphen; fixing wrap by widening every column.
+  **Reuse:** BR.

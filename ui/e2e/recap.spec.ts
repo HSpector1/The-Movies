@@ -61,7 +61,7 @@ test('recap: sections render, slate present, current position + warnings, clean 
   await expect(page.getByTestId('recap-recovery')).toBeVisible()
   // cash chart (default) with an accessible label; the 86-row table is NOT open by default
   await expect(page.getByTestId('recap-cash-chart')).toBeVisible()
-  await expect(page.getByTestId('recap-cash-chart').getByRole('img')).toHaveAttribute('aria-label', /Cash over/)
+  await expect(page.getByTestId('recap-cash-chart').getByRole('img')).toHaveAttribute('aria-label', /Cash history through week/)
   await expect(page.getByTestId('recap-cash-timeline')).toBeHidden() // inside a collapsed <details>
   // the film slate has at least one film row
   await expect(page.locator('[data-testid^="recap-film-prod-"]').first()).toBeVisible()
@@ -79,7 +79,24 @@ test('recap: sections render, slate present, current position + warnings, clean 
   expect(errors, `console errors: ${errors.join(' | ')}`).toEqual([])
 })
 
-test('recap: laptop resolutions + 125% zoom evidence', async ({ page }) => {
+async function assertLayoutSound(page: Page) {
+  // no horizontal PAGE overflow
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
+  expect(overflow, `horizontal overflow ${overflow}px`).toBeLessThanOrEqual(1)
+  // chart annotations stay inside the SVG (no clipped "Opening $20.00M")
+  const svg = page.getByTestId('recap-cash-chart').locator('svg')
+  const svgBox = await svg.boundingBox()
+  for (const label of ['Opening', 'Now']) {
+    const t = svg.locator('text', { hasText: label }).first()
+    const b = await t.boundingBox()
+    if (b && svgBox) {
+      expect(b.x, `${label} label left`).toBeGreaterThanOrEqual(svgBox.x - 1)
+      expect(b.x + b.width, `${label} label right`).toBeLessThanOrEqual(svgBox.x + svgBox.width + 1)
+    }
+  }
+}
+
+test('recap: laptop resolutions + 125% zoom evidence (labels in bounds, no overflow)', async ({ page }) => {
   await seedAndOpen(page)
   for (const [w, h] of [
     [1440, 900],
@@ -88,14 +105,16 @@ test('recap: laptop resolutions + 125% zoom evidence', async ({ page }) => {
   ] as const) {
     await page.setViewportSize({ width: w, height: h })
     await expect(page.getByTestId('recap-section-position')).toBeVisible()
+    await assertLayoutSound(page)
     await shot(page, `02-recap-${w}x${h}`)
   }
   // 125% browser zoom (page-level) — layout must remain usable
-  await page.setViewportSize({ width: 1280, height: 800 })
+  await page.setViewportSize({ width: 1280, height: 720 })
   await page.evaluate(() => {
     ;(document.body.style as unknown as { zoom: string }).zoom = '1.25'
   })
   await expect(page.getByTestId('studio-run-recap')).toBeVisible()
+  await assertLayoutSound(page)
   await shot(page, '03-recap-zoom-125')
 })
 

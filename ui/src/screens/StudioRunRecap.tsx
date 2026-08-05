@@ -147,58 +147,68 @@ function warningContent(w: RecapWarning, r: Recap): { title: string; body: strin
 }
 
 // ── compact cash-over-time line chart (inline SVG; no external dep) ──
+// Annotations are RIGHT-ALIGNED inside the viewBox (reserved right padding + textAnchor
+// "end"), so the full label text can never clip at the canvas boundary at any viewport/zoom.
+const CHART_W = 720
 function CashChart({ recap }: { recap: Recap }) {
   const { openingBalance, cashTimeline, currentCash } = recap.capital
+  const throughWeek = recap.summary.throughWeek
   if (cashTimeline.length === 0) return <p className="empty">No weekly cash history recorded yet.</p>
-  const weeks = cashTimeline.map((p) => p.week)
-  const minWeek = Math.min(0, ...weeks)
-  const maxWeek = Math.max(...weeks, 1)
+  const firstWeek = cashTimeline[0]!.week
+  const lastWeek = cashTimeline[cashTimeline.length - 1]!.week
   const cashes = cashTimeline.map((p) => p.cash)
   const yMax = Math.max(openingBalance, ...cashes)
   const yMin = Math.min(0, ...cashes)
-  const W = 680, H = 240, padL = 72, padR = 88, padT = 16, padB = 30
+  const W = CHART_W, H = 240, padL = 76, padR = 120, padT = 20, padB = 34
   const plotW = W - padL - padR, plotH = H - padT - padB
-  const x = (w: number) => padL + ((w - minWeek) / Math.max(1, maxWeek - minWeek)) * plotW
+  const RIGHT = W - padR // plot right edge; annotations sit in the reserved [RIGHT, W] margin
+  const EDGE = W - 8 // right-aligned annotations end here — always inside the viewBox
+  const x = (w: number) => padL + ((w - firstWeek) / Math.max(1, lastWeek - firstWeek)) * plotW
   const y = (c: number) => padT + (1 - (c - yMin) / Math.max(1, yMax - yMin)) * plotH
   const linePts = cashTimeline.map((p) => `${x(p.week).toFixed(1)},${y(p.cash).toFixed(1)}`).join(' ')
   const low = cashTimeline.reduce((a, b) => (b.cash < a.cash ? b : a))
   const last = cashTimeline[cashTimeline.length - 1]!
   const yOpen = y(openingBalance)
-  const summary =
-    `Cash over ${maxWeek - minWeek} weeks: opened at ${money(openingBalance)} before commitments, ` +
-    `${money(currentCash)} now, low point ${money(low.cash)} at week ${low.week}.`
-  const tick = (c: number) => (
-    <g key={`t${c}`}>
-      <line x1={padL} y1={y(c)} x2={W - padR} y2={y(c)} stroke="var(--border)" strokeWidth="1" opacity="0.4" />
-      <text x={padL - 8} y={y(c) + 4} textAnchor="end" fontSize="11" fill="var(--text-dim)">{money(c)}</text>
-    </g>
-  )
+  const lowX = x(low.week)
+  // choose the low label's anchor by position so it never clips at either edge
+  const lowAnchor: 'start' | 'middle' | 'end' = lowX > RIGHT - 48 ? 'end' : lowX < padL + 48 ? 'start' : 'middle'
+  const caption =
+    `Opening balance was ${money(openingBalance)}. The chart then shows ${cashTimeline.length} recorded weekly ` +
+    `closing balances, from the end of Week ${firstWeek} through the end of Week ${lastWeek}.`
+  const ariaLabel =
+    `Cash history through week ${throughWeek}: opened at ${money(openingBalance)} before commitments, ` +
+    `${money(currentCash)} now, low point ${money(low.cash)} at the end of week ${low.week}.`
   return (
     <figure style={{ margin: 0 }} data-testid="recap-cash-chart">
       <svg
         role="img"
-        aria-label={summary}
+        aria-label={ariaLabel}
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="xMidYMid meet"
         style={{ width: '100%', height: 'auto', maxWidth: W, display: 'block' }}
       >
-        {[yMin, (yMin + yMax) / 2, yMax].map(tick)}
-        {/* opening-balance reference (dashed) */}
-        <line x1={padL} y1={yOpen} x2={W - padR} y2={yOpen} stroke="var(--accent)" strokeDasharray="4 3" strokeWidth="1" />
-        <text x={W - padR + 6} y={yOpen + 4} fontSize="11" fill="var(--accent)">Opening {money(openingBalance)}</text>
+        {[yMin, (yMin + yMax) / 2, yMax].map((c) => (
+          <g key={`t${c}`}>
+            <line x1={padL} y1={y(c)} x2={RIGHT} y2={y(c)} stroke="var(--border)" strokeWidth="1" opacity="0.4" />
+            <text x={padL - 8} y={y(c) + 4} textAnchor="end" fontSize="11" fill="var(--text-dim)">{money(c)}</text>
+          </g>
+        ))}
+        {/* opening-balance reference (dashed) + right-aligned label INSIDE the canvas */}
+        <line x1={padL} y1={yOpen} x2={RIGHT} y2={yOpen} stroke="var(--accent)" strokeDasharray="4 3" strokeWidth="1" />
+        <text x={EDGE} y={yOpen - 6} textAnchor="end" fontSize="11" fill="var(--accent)">Opening {money(openingBalance)}</text>
         {/* cash line (end-of-week closes) */}
         <polyline points={linePts} fill="none" stroke="var(--accent)" strokeWidth="2" />
-        {/* low marker */}
-        <circle cx={x(low.week)} cy={y(low.cash)} r="4" fill="var(--neg)" />
-        <text x={x(low.week)} y={y(low.cash) + 18} textAnchor="middle" fontSize="11" fill="var(--neg)">Low {money(low.cash)}</text>
-        {/* current marker */}
+        {/* current marker + right-aligned label */}
         <circle cx={x(last.week)} cy={y(last.cash)} r="4" fill="var(--text)" />
-        <text x={W - padR + 6} y={y(last.cash) + 4} fontSize="11" fill="var(--text)">Now {money(last.cash)}</text>
+        <text x={EDGE} y={y(last.cash) + 4} textAnchor="end" fontSize="11" fill="var(--text)">Now {money(last.cash)}</text>
+        {/* low marker + position-aware anchored label */}
+        <circle cx={lowX} cy={y(low.cash)} r="4" fill="var(--neg)" />
+        <text x={lowX} y={y(low.cash) + 18} textAnchor={lowAnchor} fontSize="11" fill="var(--neg)">Low {money(low.cash)}</text>
         {/* x-axis endpoints */}
-        <text x={padL} y={H - 8} fontSize="11" fill="var(--text-dim)">Wk {minWeek}</text>
-        <text x={W - padR} y={H - 8} textAnchor="end" fontSize="11" fill="var(--text-dim)">Wk {maxWeek}</text>
+        <text x={padL} y={H - 8} fontSize="11" fill="var(--text-dim)">End Wk {firstWeek}</text>
+        <text x={RIGHT} y={H - 8} textAnchor="end" fontSize="11" fill="var(--text-dim)">End Wk {lastWeek}</text>
       </svg>
-      <figcaption className="hint" data-testid="recap-cash-chart-summary">{summary}</figcaption>
+      <figcaption className="hint" data-testid="recap-cash-chart-summary">{caption}</figcaption>
     </figure>
   )
 }
@@ -286,7 +296,7 @@ export function StudioRunRecap({
         </div>
 
         <div style={{ marginTop: 14 }}>
-          <h3>Cash over time</h3>
+          <h3>Cash history through Week {summary.throughWeek}</h3>
           <CashChart recap={r} />
         </div>
 
@@ -307,18 +317,20 @@ export function StudioRunRecap({
         )}
 
         <details style={{ marginTop: 12 }}>
-          <summary data-testid="recap-weekly-toggle">View weekly cash data ({capital.cashTimeline.length} weeks)</summary>
-          <table className="data" data-testid="recap-cash-timeline" style={{ marginTop: 8 }}>
-            <thead>
-              <tr><th>Cash checkpoint</th><th className="num">Balance</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Opening balance</td><td className="num">{moneyExact(capital.openingBalance)}</td></tr>
-              {capital.cashTimeline.map((c) => (
-                <tr key={c.week}><td>End of Week {c.week}</td><td className="num">{moneyExact(c.cash)}</td></tr>
-              ))}
-            </tbody>
-          </table>
+          <summary data-testid="recap-weekly-toggle">View {capital.cashTimeline.length} weekly closing balances</summary>
+          <div style={{ overflowX: 'auto' }}>
+            <table className="data" data-testid="recap-cash-timeline" style={{ marginTop: 8 }}>
+              <thead>
+                <tr><th>Cash checkpoint</th><th className="num">Balance</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Opening balance</td><td className="num">{moneyExact(capital.openingBalance)}</td></tr>
+                {capital.cashTimeline.map((c) => (
+                  <tr key={c.week}><td>End of Week {c.week}</td><td className="num">{moneyExact(c.cash)}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </details>
       </Section>
 
@@ -329,6 +341,7 @@ export function StudioRunRecap({
         {r.films.length === 0 ? (
           <p className="empty">No films have been released yet.</p>
         ) : (
+          <div style={{ overflowX: 'auto' }}>
           <table className="data" data-testid="recap-film-slate">
             <thead>
               <tr>
@@ -356,7 +369,10 @@ export function StudioRunRecap({
                   </td>
                   <td className="num">{f.roi != null ? pct(f.roi) : '—'}</td>
                   <td>
-                    <span className={`tag ${f.classification === 'loss' ? 'result' : f.classification === 'breakEven' ? 'estimate' : 'fact'}`}>
+                    <span
+                      className={`tag ${f.classification === 'loss' ? 'result' : f.classification === 'breakEven' ? 'estimate' : 'fact'}`}
+                      style={{ whiteSpace: 'nowrap' }}
+                    >
                       {FILM_CLASS_LABEL[f.classification]}
                     </span>
                   </td>
@@ -364,6 +380,7 @@ export function StudioRunRecap({
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </Section>
 
@@ -544,13 +561,12 @@ export function StudioRunRecap({
       <details className="card" data-testid="recap-methodology">
         <summary>How these figures are calculated</summary>
         <ul className="hint" style={{ marginTop: 8 }}>
-          <li><strong>Lowest estimated production commitment</strong> — the cheapest legal film we can estimate from your current concepts and roster (lowest budget inputs, contracted cast).</li>
+          <li><strong>Lowest estimated production commitment</strong> — the lowest-cost production we can estimate from your current concepts and contracted team. It is an estimate, not a guaranteed quote.</li>
           <li><strong>Recent typical commitment</strong> — the median production commitment of your last three released films.</li>
           <li><strong>Film contribution</strong> — a film&rsquo;s Studio Revenue minus its production commitment. Payroll and overhead are studio costs, not charged to any film.</li>
           <li><strong>Fixed-cost runway</strong> — how many weeks current cash lasts under weekly payroll + overhead, minus any active theatrical revenue.</li>
           {r.evidenceLimitations.map((l, i) => (<li key={i}>{l}</li>))}
         </ul>
-        <p className="hint">Full formulas: <code>docs/D-15-studio-run-recap-phase1.md</code>.</p>
       </details>
     </div>
   )
