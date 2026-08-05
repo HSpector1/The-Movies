@@ -6,29 +6,47 @@
 > relevant entries in [`docs/LESSONS-LEARNED.md`](LESSONS-LEARNED.md)**; before closing substantial
 > work, **update it**. The **D1-A Studio Identity Package** is closed in
 > [`docs/art/D1-A-CLOSURE.md`](art/D1-A-CLOSURE.md) — merged and validated, tag
-> `d1a-studio-identity-package`. Concept A's **ordinary-player enablement** was subsequently
-> authorized (Art PM ruling **B**) and implemented on branch `art-d1a-concept-a-player-enablement` —
-> see [`docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md`](art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md);
-> **pending Engine technical merge review** (on `main`, Concept A stays default OFF until that merge).
+> `d1a-studio-identity-package` (that milestone shipped Concept A **default OFF** — correct for its
+> scope, and preserved). Concept A's **ordinary-player enablement** was subsequently authorized
+> (Art PM ruling **B**), reviewed, merged, and **closed** in
+> [`docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT-CLOSURE.md`](art/D1-A-ORDINARY-PLAYER-ENABLEMENT-CLOSURE.md)
+> — tag `d1a-concept-a-player-enablement`. **On `main` today, Concept A is the default
+> player-facing Studio Lot identity (`studioLotIdentityEnabled()` default ON)**, the
+> development-review tooling stays **default OFF** (`studioLotIdentityProofEnabled()`), and an
+> explicit baseline rollback remains available (`VITE_STUDIO_LOT_IDENTITY=0` or localStorage
+> `project-studio.flags.studio-lot-identity` = `'0'`).
 >
 > **D-15 Studio Run Recap and Capital Position Explainability** is merged and **closed** —
 > [`docs/D-15-studio-run-recap-closure.md`](D-15-studio-run-recap-closure.md), tag `d15-studio-run-recap`.
 > A pure read-only `studioRunRecap(state)` explainer: no new persistence, no SaveFileV5 change, no economy
 > retuning, and **no financing/debt/recovery mechanic**. Affordability is authoritative and action-parity
-> tested (bare-minimum greenlight vs standard-budget vs recent-typical). Concept A stays **default OFF**;
-> **D1-B unstarted**; **Asset Lab 05H** separate. **Economy and recovery balance remain a separate owner
-> decision** — D-15 only explains the current rules.
+> tested (bare-minimum greenlight vs standard-budget vs recent-typical). (D-15 shipped while Concept A
+> was still default OFF; Concept A has since been enabled for ordinary players — see above.)
+> **D1-B unstarted**; **Asset Lab 05H** separate and untouched. **Economy and recovery balance remain a
+> separate owner decision** — D-15 only explains the current rules.
 
-> ## 🎬 2026-08-05 — Concept A ordinary-player enablement (branch) — latest
+> ## 🎬 2026-08-05 — Concept A ordinary-player enablement — MERGED and CLOSED — latest
 >
 > Art PM ruling **B** authorized making **Concept A the ordinary-player default** after a bounded
 > **enablement-isolation** correction. Implemented on `art-d1a-concept-a-player-enablement` (from
-> `966ae6e`): the player identity content gate (`studioLotIdentityEnabled()`, **default ON**, no
-> chrome) is now **separate** from the development review tooling (`studioLotIdentityProofEnabled()`,
-> **default OFF**). No visual change; `StudioLotSnapshot` / `GameState` / renderer / navigation
-> untouched. **Next governed step: Engine technical merge review.** Not merged; `main` unchanged.
-> **D1-B unstarted; Asset Lab 05H and characters untouched.** Details:
-> [`docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md`](art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md).
+> `966ae6e`), reviewed, and **merged `cf9758f`** (tag `d1a-concept-a-player-enablement`). The player
+> identity content gate (`studioLotIdentityEnabled()`, **default ON**, no chrome) is now **separate**
+> from the development review tooling (`studioLotIdentityProofEnabled()`, **default OFF** — sole owner
+> of the review bar, mode selector, performance panel, Hide control and restore pill). Turning the dev
+> flag off returns the player to Concept A with no stale review selection. An **explicit baseline
+> rollback** remains available (`VITE_STUDIO_LOT_IDENTITY=0`, or localStorage
+> `project-studio.flags.studio-lot-identity` = `'0'`).
+>
+> Bounded **nine-file** scope (six code/test/spec + three documentation). No visual change;
+> `StudioLotSnapshot` / `GameState` / engine adapter / renderer / navigation all empty-diff; no Engine
+> selector; no SaveFile, persistence, simulation or economy change; no dependency added. The Studio Lot
+> *overview* gate (`studioLotOverviewEnabled()`) is unchanged and still **default OFF**. Post-merge on
+> `main`: 1030 unit / 79 files, 65 Playwright, root+UI TypeScript clean, production build passing.
+> **D1-B unstarted; Asset Lab 05H separate and untouched; no character integration.** Closure:
+> [`docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT-CLOSURE.md`](art/D1-A-ORDINARY-PLAYER-ENABLEMENT-CLOSURE.md);
+> implementation record:
+> [`docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md`](art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md); lessons
+> **AE** + **AF** in [`docs/LESSONS-LEARNED.md`](LESSONS-LEARNED.md).
 
 > ## ⏱ 2026-07-26 — Phase 5.2A **cycle 2** correction (D-11.A)
 >

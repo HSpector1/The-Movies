@@ -521,6 +521,18 @@ that merely *looks* right is not sufficient.
 - **Related:** `docs/D-15-studio-run-recap-closure.md`; `d90c45d`; `ui/src/engine/recap-parity.test.ts`;
   `out/d15-recap-week86-evidence/`.
 
+---
+
+# D1-A — Concept A Ordinary-Player Enablement — FINALIZED (merged, closed)
+
+> Owner-accepted and merged (merge `cf9758f`, tag `d1a-concept-a-player-enablement`), from
+> `main` at `966ae6e`, candidate `0c6ff3d` on branch `art-d1a-concept-a-player-enablement`.
+> Concept A — Golden Age Deco became the **default player-facing identity**; the development-review
+> tooling stayed **default OFF**; approved visuals and every Engine contract were unchanged.
+> Related: `docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT-CLOSURE.md`,
+> `docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md`, `docs/art/D1-A-CLOSURE.md` (the earlier,
+> preserved default-OFF proof closure).
+
 ## AE. Separate content-enablement from review-tooling in a visual proof — **BR, MG, P**
 
 - **Task/defect:** Concept A — Golden Age Deco was visually approved for ordinary players, but the
@@ -538,6 +550,12 @@ that merely *looks* right is not sufficient.
   distinct from the development-review **tooling** gate (`studioLotIdentityProofEnabled()`, default
   OFF). One `effectiveIdentity` derivation drives the scene for both; the chrome render gates stay on
   the dev flag. No `StudioLotSnapshot`/`GameState`/renderer/navigation/visual change.
+- **Proof OFF must restore ordinary play, not a remembered review state:** `effectiveIdentity` is
+  **derived per render from the two flags**, never stored, so a reviewer's temporary `baseline` /
+  `fallback` / `reduced` selection cannot survive turning the dev flag off. Turning review tooling off
+  returns the player to Concept A; nothing about the review session persists to `GameState`,
+  `StudioLotSnapshot`, or `SaveFile`. A review mode kept in persisted state would have reintroduced the
+  same coupling by another route.
 - **Why the original proof was still valuable:** the default-OFF core-slice review protected `main`
   while the visual direction was evaluated and revised (labels → building-mounted landmarks) before any
   player exposure — the enablement was a small, reversible wiring change on a proven concept.
@@ -567,7 +585,63 @@ that merely *looks* right is not sufficient.
   reusable cross-project Art/UI pipeline rule: split content-enablement from review-tooling from day
   one). These are recorded together but are distinct — the P history is the specific fix; the BR/MG
   rule is what future games/projects should carry forward.
-- **Related:** `docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md`; `docs/art/D1-A-CLOSURE.md` (original
-  default-OFF closure, preserved); `ui/src/flags.ts`; `ui/src/lot/StudioLotScreen.tsx`; branch
-  `art-d1a-concept-a-player-enablement`; Lessons **A**, **B**, **D** (this extends D's gate-separation
-  from three *decisions* to two *flags*).
+- **Related:** closure `docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT-CLOSURE.md`; implementation record
+  `docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md`; `docs/art/D1-A-CLOSURE.md` (original default-OFF
+  closure, **preserved unmodified**); implementation commit `33e1568`; documentation-count correction
+  `0c6ff3d`; merge `cf9758f`; tag `d1a-concept-a-player-enablement`; branch
+  `art-d1a-concept-a-player-enablement`; `ui/src/flags.ts`; `ui/src/lot/StudioLotScreen.tsx`; tests
+  `ui/src/flags.test.ts`, `ui/src/lot/StudioLotIdentityReview.test.tsx`,
+  `ui/src/lot/StudioLotScreen.test.tsx`, `ui/e2e/player-enablement.spec.ts`; Lessons **A**, **B**,
+  **D** (this extends D's gate-separation from three *decisions* to two *flags*) and **AF** (the
+  scope-count correction found during this milestone's review).
+
+## AF. Durable scope counts must match Git, not a subset — **BR, MG, P**
+
+Extends Lesson **E** (generate counts from tooling) with the failure mode E did not cover: the count
+*was* generated from real files, but from the **wrong set**. E says "don't type numbers from memory";
+AF says "even a correct subset count is wrong if the prose calls it the total."
+
+- **Task/defect:** the durable Concept A enablement record stated that "only the 6 files above
+  changed," while `git diff --name-only 966ae6e...0c6ff3d` reported **nine**.
+- **Observable symptom:** a merge-review scope claim that disagreed with Git — a reader reconciling
+  the document against the repository would find three unaccounted files.
+- **Root cause:** the document counted the **code/test/spec subset** (the files a technical reviewer
+  cares about) but described it as the **entire commit**. The branch also changed three documentation
+  files, which the prose silently excluded from its own total.
+- **Why safeguards missed it:** the technical scope list itself was accurate and complete for its
+  purpose, and tests/build were green. Nothing distinguishes a *correct subset* from a *claimed
+  total*, and no check compares prose counts to `git diff`. Lesson **E** had already been applied —
+  the number came from files, not memory — so the existing safeguard read as satisfied.
+- **Recurrence:** this is the **second** changed-file count drift on D1-A work. The first was the
+  **18-versus-21** discrepancy corrected at `8e40ebf` (Lesson **E**). Different mechanism, same
+  owner-facing consequence: a durable scope claim that Git contradicts. Two occurrences make this a
+  pattern, not an incident.
+- **Resolution:** state both explicitly and label the subset as a subset — **six code/test/spec
+  files**, **three documentation files**, **nine files total**. Corrected documentation-only in
+  `0c6ff3d`; the six-file technical list was preserved and re-headed as the code subset.
+- **Regression / verification coverage:** at every closure, (1) compare each durable scope claim
+  against `git diff --name-only <base>...<candidate>`; (2) compare the staged file list against the
+  committed file list before committing; (3) count technical and documentation files separately;
+  (4) include the exact full total in closure verification, not only the technically interesting
+  files. Applied here: the merge, closure, and HANDOFF all state nine.
+- **Fastest future diagnostic:**
+
+  ```sh
+  git diff --name-only <base>..<candidate>     # full total
+  git show --name-only --format= <commit>      # per-commit total
+  ```
+
+  Then read every changed-file sentence in the durable docs and check each against that output.
+- **Reusable pattern:** when documenting a subset, **label it as a subset** and state the full Git
+  total separately — "six code/test/spec files and three documentation files; nine total." One
+  sentence carries both the reviewer's view and the repository's view, and they cannot drift apart
+  unnoticed.
+- **Anti-pattern:** using the technically relevant file count as though it were the whole commit —
+  and, more generally, quoting any count whose *scope* is left implicit.
+- **Reuse classification:** **BR** — broadly reusable across repositories, release reviews, audit and
+  compliance documentation, and any record where a stated scope is later checked against a tool ·
+  **MG** — future management games · **P** — the Project: Studio history above.
+- **Related:** Lesson **E** (18→21 drift, `8e40ebf`) and Lesson **J** (documentation-only correction
+  discipline); correction commit `0c6ff3d`; `docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md` §6 and §7;
+  `docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT-CLOSURE.md` §9; `docs/art/D1-A-CLOSURE.md` §7 (the
+  earlier count correction).
