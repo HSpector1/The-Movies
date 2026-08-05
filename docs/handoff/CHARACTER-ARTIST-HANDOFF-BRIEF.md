@@ -7,10 +7,32 @@ preserving the proven procedural pipeline. It is a **finishing correction, not a
 Frozen checkpoint (do not modify): branch `asset-lab-character-human-artist-handoff`, cut from 05I Iteration-2 HEAD
 `8903b1e8bbbc166aa1b74a33167aea964502a1f6` (branch `asset-lab-05i-corrective-character-pass`).
 
+## Owner ruling — the authoritative status of this track
+
+- The **authored-base technical workflow** is accepted as useful **pipeline research**, and the **CC0 provenance
+  is accepted** (`CHARACTER-SOURCE-AND-PROVENANCE.md`).
+- The **05H character build is rejected** as a production character and is **not authorized for Studio Lot
+  integration**. Its blocker-grade defects are already documented in the 05H final owner-review package.
+- **05I** was the one authorized bounded corrective attempt. It did **not** resolve the human-scale **face,
+  proportions, hands, deformation, and surface quality**, and is **rejected as the production character
+  foundation**. Read the "viable worker body" framing below as *what the pipeline demonstrated*, **not** as an
+  approved production foundation.
+- **No further autonomous or procedural character iteration is authorized.** A qualified human **character
+  artist** and a **rigging / weight-paint specialist** are required. This handoff package is the **active**
+  character-track artifact.
+- **Character integration remains unauthorized.** D1-B remains unstarted unless separately authorized. Asset Lab
+  character work remains separate from production `main` — no Asset Lab character commit has ever entered it.
+- **Management-camera evidence does not substitute for human-scale inspection.** The 05H management framing
+  concealed defects that were blocker-grade at close range; judge this asset at human scale (see
+  `CHARACTER-KNOWN-DEFECTS.md`).
+
+Nothing in this package authorizes integration, propagation, merging, or renderer work.
+
 ## The situation in one paragraph
 Two authorized autonomous corrective iterations (05I Iter 1 + Iter 2) proved that the Blender procedural pipeline
 reliably produces a **viable worker body**: a CC0 authored base bound to the shared 65-joint skeleton, complete
-fitted garments (hi-vis vest, hard hat, boots, tool belt, radio), sound proportions, a working 3-step LOD chain,
+fitted garments (hi-vis vest, hard hat, boots, tool belt, radio), proportions slimmed from 05H (only partly
+resolved — see `CHARACTER-KNOWN-DEFECTS.md`), a working 3-step LOD chain,
 correct materials, and a console-error-free runtime that retargets six shared animation clips. It **cannot** finish
 two things: an **appealing face** (vertex-smoothing this realistic CC0 head does not reach an approachable stylized
 read; pushing harder produced a "melting" face) and **coherent hands** (the base-mesh inverse-distance hand skinning
