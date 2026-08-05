@@ -6,8 +6,10 @@
 > relevant entries in [`docs/LESSONS-LEARNED.md`](LESSONS-LEARNED.md)**; before closing substantial
 > work, **update it**. The **D1-A Studio Identity Package** is closed in
 > [`docs/art/D1-A-CLOSURE.md`](art/D1-A-CLOSURE.md) — merged and validated, tag
-> `d1a-studio-identity-package`; Concept A remains **default OFF** (ordinary-player enablement is a
-> separate owner decision).
+> `d1a-studio-identity-package`. Concept A's **ordinary-player enablement** was subsequently
+> authorized (Art PM ruling **B**) and implemented on branch `art-d1a-concept-a-player-enablement` —
+> see [`docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md`](art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md);
+> **pending Engine technical merge review** (on `main`, Concept A stays default OFF until that merge).
 >
 > **D-15 Studio Run Recap and Capital Position Explainability** is merged and **closed** —
 > [`docs/D-15-studio-run-recap-closure.md`](D-15-studio-run-recap-closure.md), tag `d15-studio-run-recap`.
@@ -17,7 +19,18 @@
 > **D1-B unstarted**; **Asset Lab 05H** separate. **Economy and recovery balance remain a separate owner
 > decision** — D-15 only explains the current rules.
 
-> ## ⏱ 2026-07-26 — Phase 5.2A **cycle 2** correction (D-11.A) — latest
+> ## 🎬 2026-08-05 — Concept A ordinary-player enablement (branch) — latest
+>
+> Art PM ruling **B** authorized making **Concept A the ordinary-player default** after a bounded
+> **enablement-isolation** correction. Implemented on `art-d1a-concept-a-player-enablement` (from
+> `966ae6e`): the player identity content gate (`studioLotIdentityEnabled()`, **default ON**, no
+> chrome) is now **separate** from the development review tooling (`studioLotIdentityProofEnabled()`,
+> **default OFF**). No visual change; `StudioLotSnapshot` / `GameState` / renderer / navigation
+> untouched. **Next governed step: Engine technical merge review.** Not merged; `main` unchanged.
+> **D1-B unstarted; Asset Lab 05H and characters untouched.** Details:
+> [`docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md`](art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md).
+
+> ## ⏱ 2026-07-26 — Phase 5.2A **cycle 2** correction (D-11.A)
 >
 > On top of the cycle-1 milestone (`0f9d23d`), a cycle-2 correction addressed the first
 > playtest's findings (see ruling **D-11.A** in `docs/rev4-open-questions.md`):

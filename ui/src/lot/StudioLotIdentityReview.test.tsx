@@ -17,7 +17,7 @@ import {
 import type { CreativeRole, GameState } from '../../../src/core/index.ts'
 import { StudioLotScreen } from './StudioLotScreen.tsx'
 import type { LotRoute } from './navigation.ts'
-import { setStudioLotIdentityOverride } from '../flags.ts'
+import { setStudioLotIdentityOverride, setStudioLotIdentityRollback } from '../flags.ts'
 
 const spy = vi.hoisted(() => {
   const instances: Fake[] = []
@@ -75,6 +75,7 @@ function renderScreen(state: GameState = baseState) {
 afterEach(() => {
   spy.instances.length = 0
   setStudioLotIdentityOverride(false)
+  setStudioLotIdentityRollback(false)
   vi.restoreAllMocks()
 })
 
@@ -84,19 +85,53 @@ describe('D1-A identity review selector', () => {
     expect(queryByTestId('lot-review-mode')).toBeNull()
   })
 
-  it('ordinary player use (no flag): NO review control renders and identity stays off', async () => {
-    // Production isolation: with the dev flag off, the lot + companion nav work, but none of the
-    // review controls appear and the renderer is never driven into a non-baseline identity mode.
+  it('ordinary player (no dev flag): Concept A renders with NO review controls', async () => {
+    // Owner ruling (player enablement): the ordinary player receives the approved Concept A
+    // identity by default, while NONE of the development review controls appear. The identity
+    // content gate and the review-tooling gate are now independent.
     const { queryByTestId, getByTestId } = renderScreen()
     await waitFor(() => expect(spy.instances.length).toBe(1))
+    // no development chrome whatsoever
     expect(queryByTestId('lot-review-mode')).toBeNull()
     expect(queryByTestId('lot-perf-panel')).toBeNull()
     expect(queryByTestId('lot-review-hide')).toBeNull()
     expect(queryByTestId('lot-review-show')).toBeNull()
     // the lot itself is fully present
     expect(getByTestId('lot-companion-nav')).toBeInTheDocument()
-    // and the renderer was never asked for a non-baseline identity mode
-    expect(latest().identityModes).toEqual([])
+    // and the renderer IS driven to the player-facing Concept A identity (no dev chrome)
+    await waitFor(() => expect(latest().identityModes).toContain('concept-a'))
+    expect(latest().identityModes.every((m) => m === 'concept-a')).toBe(true)
+  })
+
+  it('explicit player-identity rollback → baseline, still no review chrome', async () => {
+    // The bounded rollback forces the untouched D1 baseline for a player, and still shows no
+    // development controls; navigation + authoritative status stay intact.
+    setStudioLotIdentityRollback(true)
+    const { queryByTestId, getByTestId } = renderScreen()
+    await waitFor(() => expect(spy.instances.length).toBe(1))
+    expect(queryByTestId('lot-review-mode')).toBeNull()
+    expect(getByTestId('lot-companion-nav')).toBeInTheDocument()
+    // the renderer is never asked for a non-baseline identity mode
+    await waitFor(() => expect(latest().identityModes.at(-1)).toBe('baseline'))
+    expect(latest().identityModes.every((m) => m === 'baseline')).toBe(true)
+  })
+
+  it('dev review flag toggled back OFF leaves no stale review mode — player sees Concept A', async () => {
+    // Review ON: drive the selector to baseline, then unmount. A fresh ordinary-player session
+    // (dev flag OFF) must return to Concept A with no chrome and no leaked review mode.
+    setStudioLotIdentityOverride(true)
+    const first = renderScreen()
+    await waitFor(() => expect(first.getByTestId('lot-review-mode')).toBeInTheDocument())
+    fireEvent.click(first.getByTestId('lot-review-baseline'))
+    await waitFor(() => expect(latest().identityModes.at(-1)).toBe('baseline'))
+    first.unmount()
+
+    setStudioLotIdentityOverride(false)
+    spy.instances.length = 0
+    const second = renderScreen()
+    await waitFor(() => expect(second.getByTestId('lot-companion-nav')).toBeInTheDocument())
+    expect(second.queryByTestId('lot-review-mode')).toBeNull()
+    await waitFor(() => expect(latest().identityModes.at(-1)).toBe('concept-a'))
   })
 
   it('appears with EXACTLY the four directive modes when the flag is on', async () => {
