@@ -3827,3 +3827,28 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
     sceneSeed: state.seed,
   }
 }
+
+// ── D-15 Studio Run Recap ──────────────────────────────────────────────────────
+// Re-exported through the single UI/core boundary. The recap read-model is pure and
+// lives in core (studioRunRecap.ts); the screen imports it only from here.
+export { studioRunRecap } from '../../../src/core/index.ts'
+export type {
+  StudioRunRecap,
+  RunSummary,
+  CapitalStory,
+  RecapFilm,
+  RecapTalent,
+  Concentration,
+  ConcentrationEntry,
+  RecurringMember,
+  CurrentPosition,
+  PositionAffordability,
+  PackageBreakdown,
+  RecoveryPosition,
+  FilmContributionClass,
+  InflectionPoint,
+  InflectionKind,
+  RecapWarning,
+  RecapWarningCode,
+  WarningSeverity,
+} from '../../../src/core/index.ts'

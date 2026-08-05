@@ -241,6 +241,33 @@ export {
 } from './economyView.js'
 export type { Runway, CommitmentPreview, RunView, FinanceTotals, PeriodSummary, FinanceView } from './economyView.js'
 
+// ── D-15 Studio Run Recap (studioRunRecap.ts) — pure read-only run explainer ───
+// Reconstructs the whole-run recap (capital story, film slate, talent development,
+// concentration, current position + recovery, inflections, warnings) from the live
+// GameState. Adds no persistence, mutates nothing, advances no RNG, recomputes no
+// film/career outcome. The sim never reads it.
+export { studioRunRecap, classifyContribution } from './studioRunRecap.js'
+export type {
+  StudioRunRecap,
+  RunSummary,
+  CapitalStory,
+  RecapFilm,
+  RecapTalent,
+  Concentration,
+  ConcentrationEntry,
+  RecurringMember,
+  CurrentPosition,
+  PositionAffordability,
+  PackageBreakdown,
+  RecoveryPosition,
+  FilmContributionClass,
+  InflectionPoint,
+  InflectionKind,
+  RecapWarning,
+  RecapWarningCode,
+  WarningSeverity,
+} from './studioRunRecap.js'
+
 // ── D-11 employment / contracts / roster / freelancer market (employment.ts) ──
 // Pure, deterministic, read-only helpers (status/offers/markets/payroll/founding).
 // The engine reads these in actions.ts (sign/renew/release/greenlight legality) and

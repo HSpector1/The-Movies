@@ -57,6 +57,7 @@ import { HiringMarket } from './screens/HiringMarket.tsx'
 import { FilmRecord } from './screens/FilmRecord.tsx'
 import { NewspaperReveal } from './screens/NewspaperReveal.tsx'
 import { WeeklySummary } from './screens/WeeklySummary.tsx'
+import { StudioRunRecap } from './screens/StudioRunRecap.tsx'
 import { saveActiveSession, loadActiveSession, clearActiveSession } from './engine/session.ts'
 import { studioLotOverviewEnabled } from './flags.ts'
 import type { LotRoute } from './lot/navigation.ts'
@@ -113,6 +114,7 @@ type Screen =
   | { kind: 'talent'; returnTo: 'dashboard' | 'founding' | 'hiring' }
   | { kind: 'hub' }
   | { kind: 'saves' }
+  | { kind: 'recap' } // D-15: read-only Studio Run Recap
   | { kind: 'lot' } // Gate D1: Studio Lot overview (feature-flagged, default off)
 
 // Where the Talent Creator returns after create/back (D-11.A: reachable during founding,
@@ -450,6 +452,7 @@ export function App() {
           onOpenRoster={() => setScreen({ kind: 'roster' })}
           onOpenHiring={() => setScreen({ kind: 'hiring' })}
           onSaves={() => setScreen({ kind: 'saves' })}
+          onOpenRecap={() => setScreen({ kind: 'recap' })}
           onOpenLot={lotEnabled ? () => setScreen({ kind: 'lot' }) : undefined}
           onOpenAutopsy={openAutopsyForFilm}
           onOpenClipping={openClippingForFilm}
@@ -558,6 +561,10 @@ export function App() {
       )}
 
       {screen.kind === 'hub' && <TalentHub state={state} onBack={goDashboard} />}
+
+      {screen.kind === 'recap' && (
+        <StudioRunRecap state={state} onBack={goDashboard} onOpenProfile={setOpenProfileId} />
+      )}
 
       {screen.kind === 'saves' && (
         <Saves
