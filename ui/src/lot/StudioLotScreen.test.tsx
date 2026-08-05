@@ -36,6 +36,7 @@ const spy = vi.hoisted(() => {
     paused = 0
     resumed = 0
     reduced: boolean[] = []
+    identityModes: string[] = []
     selected: string[] = []
     constructor(opts: Opts) {
       this.opts = opts
@@ -51,6 +52,7 @@ const spy = vi.hoisted(() => {
     resume() { this.resumed++ }
     pauseVignettes() {}
     setReducedMotion(on: boolean) { this.reduced.push(on) }
+    setIdentityMode(mode: string) { this.identityModes.push(mode) }
     destroy() { this.destroyed = true }
   }
   return { instances, FakeInstance }

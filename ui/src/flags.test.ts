@@ -7,6 +7,10 @@ import {
   setStudioLotOverviewOverride,
   studioLotOverviewEnabled,
   STUDIO_LOT_OVERVIEW_LS_KEY,
+  studioLotIdentityEnabled,
+  setStudioLotIdentityRollback,
+  STUDIO_LOT_IDENTITY_PLAYER_LS_KEY,
+  STUDIO_LOT_IDENTITY_LS_KEY,
 } from './flags.ts'
 
 describe('studioLotOverview feature flag', () => {
@@ -21,5 +25,26 @@ describe('studioLotOverview feature flag', () => {
     setStudioLotOverviewOverride(false)
     expect(localStorage.getItem(STUDIO_LOT_OVERVIEW_LS_KEY)).toBeNull()
     expect(studioLotOverviewEnabled()).toBe(false)
+  })
+})
+
+describe('studioLotIdentity — ordinary-player identity (content gate)', () => {
+  it('is ON by default (fresh session, no rollback) — Concept A for players', () => {
+    expect(studioLotIdentityEnabled()).toBe(true)
+  })
+
+  it('the explicit rollback forces baseline (key = 0) and clears back to ON', () => {
+    setStudioLotIdentityRollback(true)
+    expect(localStorage.getItem(STUDIO_LOT_IDENTITY_PLAYER_LS_KEY)).toBe('0')
+    expect(studioLotIdentityEnabled()).toBe(false)
+    setStudioLotIdentityRollback(false)
+    expect(localStorage.getItem(STUDIO_LOT_IDENTITY_PLAYER_LS_KEY)).toBeNull()
+    expect(studioLotIdentityEnabled()).toBe(true)
+  })
+
+  it('is a DIFFERENT flag from the development identity-proof review flag', () => {
+    // The player content gate and the dev review-tooling gate must not share a key.
+    expect(STUDIO_LOT_IDENTITY_PLAYER_LS_KEY).not.toBe(STUDIO_LOT_IDENTITY_LS_KEY)
+    expect(STUDIO_LOT_IDENTITY_LS_KEY).toBe('project-studio.flags.studio-lot-identity-proof')
   })
 })

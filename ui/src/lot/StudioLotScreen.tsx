@@ -20,7 +20,7 @@ import type { AttentionState, BuildingId } from './snapshot/StudioLotSnapshot.ts
 import { ALL_BUILDING_IDS, BUILDING_ACTION, BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
 import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
-import { studioLotIdentityProofEnabled } from '../flags.ts'
+import { studioLotIdentityEnabled, studioLotIdentityProofEnabled } from '../flags.ts'
 import type { IdentityMode } from './identity/manifest.ts'
 import './lot.css'
 
@@ -89,18 +89,30 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   const [canvasFailed, setCanvasFailed] = useState(false)
   const [reducedMotion, setReducedMotionState] = useState(prefersReducedMotion)
 
-  // D1-A review state. `identityProof` is the DEV/REVIEW gate (default OFF): it is the ONLY
-  // thing that renders the review controls (mode selector, performance panel, Hide) AND the
-  // only thing that drives the scene into a non-baseline identity mode. In ordinary player use
-  // the flag is off, so the review controls never appear and the lot renders the byte-clean D1
-  // baseline. Production ADOPTION of the identity (showing it to players without the review
-  // controls) is a separate future ruling; the scene already supports it via setIdentityMode(),
-  // so no player-facing identity path is built here — the feature stays default OFF.
+  // ── Identity gating: two INDEPENDENT capabilities (owner ruling: player enablement) ──────
+  // `playerIdentity` is the ORDINARY-PLAYER content gate (default ON): it shows the approved
+  // Concept A identity to normal players and renders NO development chrome. `identityProof` is the
+  // separate DEV-ONLY review gate (default OFF): it alone renders the review controls (mode
+  // selector, performance panel, Hide/restore) and lets a reviewer temporarily select
+  // baseline / fallback / reduced modes. They come from different flags and switch independently;
+  // the scene supports both through the same setIdentityMode(). See ../flags.ts.
   const identityProof = studioLotIdentityProofEnabled()
+  const playerIdentity = studioLotIdentityEnabled()
   const [reviewKey, setReviewKey] = useState<ReviewKey>('concept-a')
   const [reviewHidden, setReviewHidden] = useState(false)
   const [perf, setPerf] = useState<{ fps: number; displayObjects: number; identityObjects: number } | null>(null)
   const activeReview = REVIEW_MODES.find((m) => m.key === reviewKey) ?? REVIEW_MODES[1]
+
+  // The identity actually rendered, and whether motion is reduced:
+  //  • dev review ON  → the reviewer's selected mode drives it;
+  //  • dev review OFF → ordinary player: Concept A by default, or the untouched baseline when the
+  //                     explicit player-identity rollback is set. No review chrome either way.
+  const effectiveIdentity: IdentityMode = identityProof
+    ? activeReview.identity
+    : playerIdentity
+      ? 'concept-a'
+      : 'baseline'
+  const effectiveReduced = identityProof ? reducedMotion || activeReview.reduced : reducedMotion
 
   const snapshot = studioLotSnapshot(state)
 
@@ -191,20 +203,15 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
     return () => mq.removeEventListener?.('change', onChange)
   }, [])
 
+  // ── Drive the scene's identity + reduced-motion from the effective values above. ─────────
+  // One path for BOTH capabilities: the ordinary player gets Concept A (or the rollback baseline)
+  // with no chrome, and when the dev review flag is on the selector drives the mode instead.
   useEffect(() => {
-    // When the identity-proof review selector is active it owns reduced-motion (so its
-    // "Reduced-motion mode" can force it). Otherwise the OS preference drives it as before.
-    if (identityProof) return
-    if (canvasReady) viewRef.current?.setReducedMotion(reducedMotion)
-  }, [reducedMotion, canvasReady, identityProof])
-
-  // ── D1-A: apply the selected review mode (identity + reduced-motion). ────────
-  useEffect(() => {
-    if (!identityProof || !canvasReady) return
+    if (!canvasReady) return
     const v = viewRef.current
-    v?.setIdentityMode(activeReview.identity)
-    v?.setReducedMotion(reducedMotion || activeReview.reduced)
-  }, [identityProof, canvasReady, reviewKey, reducedMotion, activeReview.identity, activeReview.reduced])
+    v?.setIdentityMode(effectiveIdentity)
+    v?.setReducedMotion(effectiveReduced)
+  }, [canvasReady, effectiveIdentity, effectiveReduced])
 
   // ── D1-A: poll coarse runtime stats for the dev performance panel. ───────────
   useEffect(() => {

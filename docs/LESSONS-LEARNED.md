@@ -520,3 +520,54 @@ that merely *looks* right is not sufficient.
   transactional applications.
 - **Related:** `docs/D-15-studio-run-recap-closure.md`; `d90c45d`; `ui/src/engine/recap-parity.test.ts`;
   `out/d15-recap-week86-evidence/`.
+
+## AE. Separate content-enablement from review-tooling in a visual proof — **BR, MG, P**
+
+- **Task/defect:** Concept A — Golden Age Deco was visually approved for ordinary players, but the
+  approved presentation could not be shown to a player without also enabling the development review
+  interface (mode selector, performance panel, Hide/restore pill).
+- **Problem:** the approved visual concept was **coupled to its development-review flag**.
+- **Root cause:** proof rendering and review chrome shared **one boolean branch point** — a single
+  `studioLotIdentityProofEnabled()` in `StudioLotScreen.tsx` gated *both* whether the scene rendered
+  Concept A (`setIdentityMode`) *and* whether the review controls rendered.
+- **Why earlier safeguards missed it:** the D1-A default-OFF core-slice review deliberately deferred
+  ordinary-player enablement, so nobody had exercised a *player* path — every capture used the review
+  harness. The one flag correctly protected `main`; it just wore two hats.
+- **Successful correction:** split into two independent capabilities — a player-facing identity
+  **content** gate (`studioLotIdentityEnabled()`, default ON, no chrome, env/LS rollback to baseline)
+  distinct from the development-review **tooling** gate (`studioLotIdentityProofEnabled()`, default
+  OFF). One `effectiveIdentity` derivation drives the scene for both; the chrome render gates stay on
+  the dev flag. No `StudioLotSnapshot`/`GameState`/renderer/navigation/visual change.
+- **Why the original proof was still valuable:** the default-OFF core-slice review protected `main`
+  while the visual direction was evaluated and revised (labels → building-mounted landmarks) before any
+  player exposure — the enablement was a small, reversible wiring change on a proven concept.
+- **What failed:** treating the proof flag as **both** the content gate and the review-interface gate.
+- **Evidence:** the ordinary-player review proved Concept A visually ready but identified the structural
+  chrome leak; the enablement branch's `player-enablement.spec.ts` captures now show Concept A with zero
+  review chrome (and a hidden-overlay proof that still leaked an `Identity review ▸` restore pill is
+  what a genuine player-clean view must NOT contain).
+- **Regression/verification coverage:** `ui/src/flags.test.ts` (player default ON, rollback, key
+  separation); `StudioLotIdentityReview.test.tsx` (player Concept A + no chrome, rollback → baseline,
+  dev-flag toggle-back leaves no stale mode); `ui/e2e/player-enablement.spec.ts` (14 player-clean
+  captures + dev-review-on/off). Full: 1030 unit / 65 Playwright / build / clean console / disposal.
+- **Fastest future diagnostic:** for any "show the approved art to players" ask, grep for the flag that
+  gates the *content* and confirm it is NOT the same boolean that gates the *review UI*.
+- **Management-camera result:** the primary hierarchy (Gate, Stage A/B, Theater) remained legible from
+  1920×1080 through 1280×720 and at 125% zoom in ordinary play — the accepted hierarchy held.
+- **Most decision-useful evidence:** clean **matched baseline-vs-Concept-A** captures per viewport, and
+  the **1280×720 Theater-release** case (smallest-viewport marquee legibility limit).
+- **Pattern (reusable rule — BR, MG):** any visual proof intended for later production adoption must
+  have **separate content-enablement and review-tooling controls from the start**; keep a default-OFF
+  proof gate during experimentation, but design the approved presentation so it can graduate into
+  ordinary play **without carrying development chrome**. A hidden review bar that still leaves a restore
+  pill is **not** a genuine player-clean view.
+- **Anti-pattern:** welding player-facing content to debug selectors, performance panels, fixture
+  controls, or review overlays (one flag driving both content and chrome).
+- **Reuse classification:** **P** (Project: Studio implementation history above) · **BR / MG** (the
+  reusable cross-project Art/UI pipeline rule: split content-enablement from review-tooling from day
+  one). These are recorded together but are distinct — the P history is the specific fix; the BR/MG
+  rule is what future games/projects should carry forward.
+- **Related:** `docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md`; `docs/art/D1-A-CLOSURE.md` (original
+  default-OFF closure, preserved); `ui/src/flags.ts`; `ui/src/lot/StudioLotScreen.tsx`; branch
+  `art-d1a-concept-a-player-enablement`; Lessons **A**, **B**, **D** (this extends D's gate-separation
+  from three *decisions* to two *flags*).
