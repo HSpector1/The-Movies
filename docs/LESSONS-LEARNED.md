@@ -645,3 +645,178 @@ AF says "even a correct subset count is wrong if the prose calls it the total."
   discipline); correction commit `0c6ff3d`; `docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md` §6 and §7;
   `docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT-CLOSURE.md` §9; `docs/art/D1-A-CLOSURE.md` §7 (the
   earlier count correction).
+
+---
+
+# Asset Lab character track — 05H / 05I — CLOSED (builds rejected; human-artist handoff active)
+
+Context: the Asset Lab character work lives in a **separate repository**
+(`/Users/bruce/Project Studio - Asset Lab`, remote `backup`) and has **never** entered production `main`.
+Owner ruling: the **authored-base technical workflow and its CC0 provenance are accepted** as pipeline
+research; the **05H character build is rejected** as a production character; **05I**, the one authorized
+bounded corrective attempt, did not resolve the human-scale face, proportions, hands, deformation, and
+surface quality and is **rejected as the production character foundation**; **no further autonomous or
+procedural character iteration is authorized**; a human character artist plus a rigging / weight-paint
+specialist are required. Verified checkpoints, all at local/remote parity in one linear chain:
+`asset-lab-05h-authored-base-character-proof` @ `9e3c5d7bda39f069b7dac04624584c4fea645332` →
+`asset-lab-05h-final-owner-review-package` @ `ddfd69fbc22be313f9dbb548c2b16032c9802daa` →
+`asset-lab-05i-corrective-character-pass` @ `8903b1e8bbbc166aa1b74a33167aea964502a1f6` →
+`asset-lab-character-human-artist-handoff` @ `c9445ce55b5d83cc29def9928aec75fa4edd50ed`.
+Related (Asset Lab repo): `docs/ASSET-LAB-05H-FINAL-OWNER-REVIEW.md`,
+`docs/ASSET-LAB-05H-FINAL-ART-PM-RECOMMENDATION.md`, `docs/ASSET-LAB-05H-MANAGEMENT-CAMERA-ASSESSMENT.md`,
+`docs/ASSET-LAB-05I-FINAL-REPORT.md`, `docs/handoff/*`, `licenses/asset-lab-05h/PROVENANCE.json`.
+
+## AG. A proof branch preserves history, not a runnable review environment — **P, BR**
+
+- **Task/defect:** an authorized 05H owner visual + real-GPU review was **closed without review setup**.
+- **Symptom:** the proof branch tip was exactly the expected candidate and the tree was clean, yet the
+  proof could not be inspected — **no worktree was checked out to it**, and the repository's single
+  worktree held a later milestone (05I) that the review was forbidden to displace.
+- **Root cause:** milestone closure recorded the *commit*, never the *environment*. A SHA proves what the
+  artifact was; it does not make the artifact runnable.
+- **Why safeguards missed it:** branch-tip, parity, cleanliness and ancestry checks all passed. Nothing
+  asserts that an inspectable checkout exists.
+- **Resolution / coverage:** at every visual-proof closure, record **the exact review worktree path** or a
+  **reproducible worktree-creation command**, and state whether creating one is pre-authorized.
+- **Fastest diagnostic:** `git worktree list --porcelain` **before** promising a review; confirm a worktree
+  is attached to the branch under review.
+- **Pattern:** close a visual proof with branch + SHA **+ how to stand it up**. **Anti-pattern:** treating a
+  preserved branch tip as a preserved review environment. **Reuse:** P, BR.
+
+## AH. A later "owner-review package" must be diff-verified — it may carry runtime code — **P, BR**
+
+Extends Lesson **J** (documentation-only correction discipline) to the case J did not cover: a follow-on
+labelled as a review package that is **not** documentation-only.
+
+- **Symptom:** the commits after the 05H technical candidate were expected to be documentation. `ed97e78`
+  is code — it adds the **fixed-isometric management camera and review tooling**
+  (`src/App.tsx`, `src/camera/CameraController.tsx`, `src/components/reviewHarness.tsx`,
+  `src/lab/LabContext.tsx`, `src/lab/cameraBridge.ts`, `src/ui/DevPanel.tsx`, plus capture/perf/validate
+  tools and a sprite asset). `0acb471` is evidence; only `ddfd69f` is docs-only.
+- **Consequence:** the named "technical-completion candidate" **cannot produce** the management-camera review
+  state the review itself requires — two defensible review bases exist where the record names one.
+- **Fastest diagnostic:** `git show --name-status --format= <commit>` on every commit between the named
+  candidate and the package tip; assert docs-only before accepting the label.
+- **Pattern:** verify the docs-only claim by delta, per commit. **Anti-pattern:** trusting "review package"
+  to mean prose. **Related:** Lesson **J**. **Reuse:** P, BR.
+
+## AI. The management camera concealed defects that were blocker-grade at human scale — **P, MG**
+
+The counterpart to Lesson **B**. B says judge Studio Lot visuals **at** the management camera; AI says the
+management camera must not be the **only** distance a character is judged at.
+
+- **Symptom:** at default management framing 05H and 05G were **imperceptibly different** — 05G's brighter
+  hats actually read *better* — while human-scale inspection found blocker-grade failures: a ~510-vertex
+  hi-vis vest rendering as torn scraps, boots whose geometry did not cover the foot (the worker rendered
+  barefoot), a skin-tight shirt reading as a nude torso, and a 112-vertex open-scalp hard hat.
+- **Root cause:** the framing that made the crew "read" is exactly the framing that hides close-range defects.
+- **Fastest diagnostic:** for any character asset, capture **both** management distance and human-scale
+  close-ups before any verdict; if the two disagree, the close range governs the asset verdict.
+- **Pattern:** distance-paired character evidence. **Anti-pattern:** letting a flattering camera stand in for
+  a human-scale ruling. **Related:** Lesson **B**, **AL**. **Reuse:** P, MG.
+
+## AJ. Repeated autonomous procedural correction was not an efficient path — **P, MG**
+
+- **Evidence:** 05I ran two authorized corrective iterations. It **did** land garments, hard hat, boots,
+  proportional slimming, LODs, materials and a console-error-free runtime — but every procedural push at the
+  **face** either left it heavy and lumpy or, pushed harder, produced a melting-fold result *worse* than 05H
+  (recorded and reverted), and the **hands/wrists/forearms** collapsed into "wax-drip" tendrils across all six
+  clips because deterministic inverse-distance skinning cannot hold finger and wrist volume under animation —
+  independent of the muscularity settings, and aggravated by decimation.
+- **Root cause:** face appeal, anatomy, garment fit, hand topology and deformation are **judgment** problems,
+  not parameter-search problems. Iterating a generator cannot converge on them.
+- **Fastest diagnostic:** if two bounded corrective passes leave the same defect class, the defect is a
+  specialist problem, not a tuning problem.
+- **Pattern:** cap procedural correction at a stated iteration budget and reclassify on failure.
+  **Anti-pattern:** a third autonomous pass at a defect the first two could not move. **Reuse:** P, MG.
+
+## AK. The human-artist handoff supersedes further autonomous iteration — **P**
+
+- **Resolution:** `asset-lab-character-human-artist-handoff` @ `c9445ce` is the **active** character-track
+  artifact — 8 documents, **0** non-documentation files: artist brief, technical contract (65-joint skeleton,
+  bone names, orientation, scale, ground, six clips, GLB/LOD/material conventions), annotated known defects
+  with exact evidence paths, acceptance tests, scope of work with non-goals, source and CC0 provenance chain,
+  export/runtime guide, evidence index.
+- **Standing status:** character integration is **not** authorized; role-wide propagation is **not**
+  authorized; D1-B remains unstarted; Asset Lab character work remains separate from production `main`.
+- **Fastest diagnostic:** before any character work, read this handoff package and the 05I final report first.
+- **Anti-pattern:** resuming generator iteration while a specialist handoff is the open artifact. **Reuse:** P.
+
+## AL. Preserve both management-distance and human-scale character evidence — **BR, MG**
+
+- **Lesson:** a character proof needs **both** distances captured and retained; neither substitutes for the
+  other. Management distance answers "does this read as a crew?"; human scale answers "is this asset
+  acceptable?" A pass at one is not a pass at the other.
+- **Fastest diagnostic:** if an evidence package has only close-ups or only management shots, it cannot
+  support a verdict — collect the missing distance before ruling.
+- **Pattern:** distance-paired evidence as a deliverable. **Anti-pattern:** a single-distance package.
+  **Related:** **AI**. **Reuse:** BR, MG.
+
+## AM. Verify material data before concluding a colour defect is a material defect — **BR**
+
+- **Symptom:** 05H's torso, arms and face all read blue; the review initially concluded "blue skin material
+  bug" and a review panel relied on it.
+- **Root cause of the misdiagnosis:** rendered impression was treated as evidence about the material. The GLB
+  material dump is authoritative: `mat_authored_skin` = **#e8b58f warm tan** (correct); the blue torso/arms
+  are `mat_h_shirt` **#475c75** on 3,540 vertices — a fitted work shirt; the face's cool cast is the harness's
+  cool fill light on tan skin.
+- **Resolution:** the finding was **retracted mid-review** and the retraction kept visible in the record.
+- **Fastest diagnostic:** dump the GLB/glTF material assignments and read the base colours before attributing
+  a perceived colour defect to a material.
+- **Pattern:** authoritative asset data over rendered impression. **Anti-pattern:** diagnosing a material from
+  a screenshot. **Reuse:** BR.
+
+## AN. An isolation test must remove every known confound — **BR**
+
+- **Symptom:** the skin-tint isolation test (`blender-stills/skin-tint-A-blue-fill` / `-B-white-fill`) changed
+  the **fill light** but left a **blue-grey world** in place, so it never isolated the material. Its
+  "material is blue" conclusion was withdrawn.
+- **Root cause:** one variable was controlled; the remaining confound (world/environment colour) was not.
+- **Fastest diagnostic:** list every input that could produce the observed effect — material, light, world,
+  post-processing, tone mapping — and neutralise **all but one**.
+- **Pattern:** enumerate confounds before designing the test. **Anti-pattern:** a one-variable test in a
+  multi-variable environment, and citing its result as proof. **Related:** **AM**. **Reuse:** BR.
+
+## AO. Owner-review guides must be versioned or updated when superseded — **BR**
+
+- **Symptom:** the owner-review guide at the 05H technical candidate describes **Iteration 1 only** and asks
+  for a decision that three later commits had already overtaken. A reviewer opening the branch tip reads
+  instructions for a state that no longer exists.
+- **Fastest diagnostic:** check the guide's date/iteration against the branch tip's; if they disagree, the
+  guide is stale.
+- **Pattern:** stamp a review guide with the iteration it describes and update it at each closure.
+  **Anti-pattern:** a review guide left at a branch tip that documents an earlier state. **Reuse:** BR.
+
+## AP. Do not reopen a superseded proof without reading its final ruling and successors — **BR**
+
+- **Symptom:** an 05H owner review was commissioned for `9e3c5d7` after 05H had already received a five-lane
+  Art review returning **"accept the foundation, reject this build"**, after a full corrective milestone (05I)
+  had completed, and after the human-artist handoff had been cut. Setting the review up would have presented
+  an already-rejected build and displaced the successor's checkout.
+- **Fastest diagnostic:** before reopening any proof, list every branch that **contains** its tip
+  (`git branch -a --contains <sha>`) and read the newest one's final report first.
+- **Pattern:** ruling-then-successors before re-review. **Anti-pattern:** re-reviewing a superseded artifact
+  because its SHA is the one on file. **Reuse:** BR.
+
+## AQ. A technically reproducible asset is not necessarily a viable production foundation — **BR, MG**
+
+- **Evidence:** 05H passed its validator (65 joints, correct orientation, height, grounded, no stray island),
+  exported a clean 3-step LOD chain, ran console-error-free, and was fully deterministic and reproducible from
+  committed source — and was still rejected as a production character on visual grounds.
+- **Root cause it addresses:** technical gates measure conformance, not appeal, anatomy, or craft.
+- **Fastest diagnostic:** ask what the validator **cannot** see; route that to a human reviewer.
+- **Pattern:** separate the technical gate from the art gate and require both. **Anti-pattern:** reading
+  "validator PASS" as "production ready" — a validator pass is not acceptance. **Reuse:** BR, MG.
+
+## AR. Stop autonomous iteration when the remaining defects need specialist judgment — **BR, MG**
+
+- **Lesson:** when the open defects require **sculpting, topology, rigging, or weight-paint** judgment, further
+  autonomous iteration spends budget without converging. Stop, scope the specialist work precisely, and hand
+  off with a technical contract, annotated defects, acceptance tests, and a provenance chain.
+- **Evidence:** the 05I final report is unanimous — face and hands are "beyond what the procedural pipeline can
+  reach on this CC0 base" — and the handoff package exists precisely so a specialist can execute without
+  reverse-engineering the repository.
+- **Fastest diagnostic:** name the discipline the fix belongs to. If no automated process owns that discipline,
+  hand off.
+- **Pattern:** classify the remaining work by discipline before authorising another pass. **Anti-pattern:**
+  another generator iteration against a judgment problem. **Related:** **AJ**, **AK**. **Reuse:** BR, MG.
