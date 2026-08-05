@@ -223,11 +223,11 @@ Related: `docs/art/D1-A-CLOSURE.md`, `docs/art/D1-A-VALIDATION-REPORT.md`,
 
 ---
 
-# D-15 — Studio Run Recap (Phase 1) — **DRAFT (pending owner acceptance)**
+# D-15 — Studio Run Recap and Capital Position Explainability — FINALIZED (merged, closed)
 
-> These entries are drafted on `phase-5.3-studio-run-recap-v1`. They are NOT closure language;
-> finalize on owner acceptance of the Phase-1 gameplay/explainability review. Related:
-> `docs/D-15-studio-run-recap-phase1.md`, `src/core/studioRunRecap.ts`.
+> Owner-accepted and merged (merge `152acec`, tag `d15-studio-run-recap`). Related:
+> `docs/D-15-studio-run-recap-closure.md`, `docs/D-15-studio-run-recap-phase1.md`,
+> `src/core/studioRunRecap.ts`, `ui/src/engine/recap-parity.test.ts`.
 
 ## O. Run-level explainability from authoritative records — **MG, BR**
 
@@ -384,7 +384,7 @@ Related: `docs/art/D1-A-CLOSURE.md`, `docs/art/D1-A-VALIDATION-REPORT.md`,
 - **Pattern:** data in the model, formatting in the view. **Anti-pattern:** prose-with-baked-in-numbers
   in a read-model. Extends **R**. **Reuse:** BR.
 
-### Final visual-polish lessons (owner review 3) — still DRAFT
+### Final visual-polish lessons (owner review 3)
 
 ## Y. SVG annotations require boundary testing — **BR**
 
@@ -450,7 +450,7 @@ Related: `docs/art/D1-A-CLOSURE.md`, `docs/art/D1-A-VALIDATION-REPORT.md`,
 - **Anti-pattern:** letting a status token wrap at a hyphen; fixing wrap by widening every column.
   **Reuse:** BR.
 
-### Authoritative-actionability lessons (owner review 4) — still DRAFT
+### Authoritative-actionability lessons (owner review 4)
 
 ## AC. Actionability claims must use authoritative action rules — **BR**
 
@@ -490,3 +490,33 @@ Reconstruction from authoritative records (Lesson **Q**) is appropriate **only w
 authoritative behavior**. When a reconstructed value drives an **actionability** claim, it must use the
 exact same rules as the action (see **AC**) and be **parity-tested** — a self-consistent approximation
 that merely *looks* right is not sufficient.
+
+## AD. Base need, minimum package, and normal budget are different values — **MG, BR**
+
+- **Task/defect:** owner-facing reconciliation of several valid-but-differently-scoped production costs.
+- **Symptom:** the player saw a concept card showing a **$3.14M base production need** while the recap
+  said a ~**$2.02M** package was affordable — creating the impression the recap was wrong.
+- **Root cause:** the UI exposed several valid but differently-scoped financial values without making
+  their relationship obvious: concept **base production need**; **minimum configured** production
+  commitment (0.75× of demand); **minimum marketing**; the **final all-in** greenlight package;
+  the **standard-budget** package; the **recent-typical** package.
+- **Why earlier safeguards missed it:** action parity verified the final all-in package, but the
+  owner-facing relationship between the concept-card number and the recap number had not been tested
+  through an actual **human gameplay path**.
+- **Resolution:** the authoritative greenlight action *and* the owner's own gameplay confirmed the
+  bare-minimum package was affordable (greenlight succeeded, cash $2.83M → $818K). The recap distinguishes
+  **bare-minimum**, **standard-budget**, and **recent-typical** affordability, with a component breakdown
+  (production + minimum marketing + fees) in Current Position.
+- **Regression/verification coverage:** action-parity tests (`recap-parity.test.ts`); the real Week 86
+  SaveFile harness (`out/d15-recap-week86/check.mts`, 38/38); the reproduction
+  (`out/d15-recap-week86/reproduce.mts`); the actual owner greenlight confirmation; the Current-Position
+  component breakdown.
+- **Fastest future diagnostic:** (1) load the same save; (2) note the concept-card base need; (3)
+  configure the minimum valid package; (4) inspect production/marketing/fee components; (5) compare the
+  action preview with the recap; (6) execute the action on a **cloned** state or an owner-approved run.
+- **Reusable pattern:** every displayed cost must state its **scope and lifecycle stage**.
+- **Anti-pattern:** displaying multiple valid costs as though they answer the same question.
+- **Reuse classification:** reusable for future management games; broadly reusable across simulations and
+  transactional applications.
+- **Related:** `docs/D-15-studio-run-recap-closure.md`; `d90c45d`; `ui/src/engine/recap-parity.test.ts`;
+  `out/d15-recap-week86-evidence/`.

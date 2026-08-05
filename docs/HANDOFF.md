@@ -8,6 +8,14 @@
 > [`docs/art/D1-A-CLOSURE.md`](art/D1-A-CLOSURE.md) — merged and validated, tag
 > `d1a-studio-identity-package`; Concept A remains **default OFF** (ordinary-player enablement is a
 > separate owner decision).
+>
+> **D-15 Studio Run Recap and Capital Position Explainability** is merged and **closed** —
+> [`docs/D-15-studio-run-recap-closure.md`](D-15-studio-run-recap-closure.md), tag `d15-studio-run-recap`.
+> A pure read-only `studioRunRecap(state)` explainer: no new persistence, no SaveFileV5 change, no economy
+> retuning, and **no financing/debt/recovery mechanic**. Affordability is authoritative and action-parity
+> tested (bare-minimum greenlight vs standard-budget vs recent-typical). Concept A stays **default OFF**;
+> **D1-B unstarted**; **Asset Lab 05H** separate. **Economy and recovery balance remain a separate owner
+> decision** — D-15 only explains the current rules.
 
 > ## ⏱ 2026-07-26 — Phase 5.2A **cycle 2** correction (D-11.A) — latest
 >
