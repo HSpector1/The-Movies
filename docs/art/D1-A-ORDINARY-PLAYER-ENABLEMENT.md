@@ -67,6 +67,10 @@ unchanged** (identity manifest/emblem/signage/scene untouched).
 
 ## 6. Changed files (this branch)
 
+**Nine files changed in total: six code/test/spec files and three documentation files.**
+
+**Code / tests / specs (6)** — the technical scope of the change:
+
 - `ui/src/flags.ts` — add `studioLotIdentityEnabled()` (player content gate, default ON, env/LS
   rollback) + `setStudioLotIdentityRollback()` + key `STUDIO_LOT_IDENTITY_PLAYER_LS_KEY`.
 - `ui/src/lot/StudioLotScreen.tsx` — compute `effectiveIdentity`/`effectiveReduced`; one effect drives
@@ -75,6 +79,12 @@ unchanged** (identity manifest/emblem/signage/scene untouched).
   `ui/src/lot/StudioLotIdentityReview.test.tsx` — updated to the new contract + rollback / toggle-back
   coverage.
 - `ui/e2e/player-enablement.spec.ts` — **new** player-clean evidence spec (14 captures).
+
+**Documentation (3)** — durable records, no runtime effect:
+
+- `docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md` — this record.
+- `docs/HANDOFF.md` — current-state header + latest entry for this branch.
+- `docs/LESSONS-LEARNED.md` — lesson **AE** (separate content-enablement from review-tooling).
 
 ## 7. Validation
 
@@ -89,8 +99,9 @@ unchanged** (identity manifest/emblem/signage/scene untouched).
   covered by the unit tests above **and** the player-clean evidence spec.
 - Determinism, clean-console, and repeated mount/unmount disposal: covered by the existing
   determinism/hygiene tests and the identity Playwright specs (unchanged, still green).
-- `StudioLotSnapshot`/`GameState` comparison vs `966ae6e`: **empty diff**. Branch isolation: only the
-  6 files above changed; `main` untouched.
+- `StudioLotSnapshot`/`GameState` comparison vs `966ae6e`: **empty diff**. Branch isolation: nine files
+  changed in total — the six code/test/spec files above plus three documentation files; `main`
+  untouched.
 
 ## 8. Evidence
 
