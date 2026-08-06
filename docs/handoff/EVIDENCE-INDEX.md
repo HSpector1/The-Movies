@@ -54,11 +54,33 @@ the repo; open the paths directly. Paths are relative to the repo root.
 - 05I per-clip runtime stills: `proof/lab05i/iteration-0{1,2}/runtime/16-walk.png`…`20-sitting.png`.
 
 ## Documentation
-- Handoff docs: `docs/handoff/*` (this package).
-- 05I history: `docs/ASSET-LAB-05I-{BRIEF,ITERATION-LOG,ITERATION-1-REPORT,ITERATION-2-REPORT,FINAL-REPORT,OWNER-REVIEW-GUIDE}.md`.
-- 05H history: `docs/ASSET-LAB-05H-{FINAL-OWNER-REVIEW,FINAL-ART-PM-RECOMMENDATION,MANAGEMENT-CAMERA-ASSESSMENT,REAL-GPU-PERFORMANCE,FALLBACK-ASSESSMENT}.md` and the pre-existing `ASSET-LAB-05H-*` standards.
-- Character standards (pre-existing, useful reference): `docs/CHARACTER-*.md`, `docs/HERO-CHARACTER-*.md`,
-  `docs/AUTHORED-*-STANDARD.md`.
+
+**This package (8 documents, `docs/handoff/`):** `CHARACTER-ARTIST-HANDOFF-BRIEF.md` ·
+`CHARACTER-HUMAN-ARTIST-SCOPE-OF-WORK.md` · `CHARACTER-TECHNICAL-CONTRACT.md` · `CHARACTER-KNOWN-DEFECTS.md` ·
+`CHARACTER-ACCEPTANCE-TESTS.md` · `CHARACTER-SOURCE-AND-PROVENANCE.md` · `CHARACTER-EXPORT-AND-RUNTIME-GUIDE.md` ·
+`EVIDENCE-INDEX.md` (this file).
+
+**05I history — all 6 reports** (`docs/`, preserved, superseded on status):
+`ASSET-LAB-05I-BRIEF.md` · `ASSET-LAB-05I-ITERATION-LOG.md` · `ASSET-LAB-05I-ITERATION-1-REPORT.md` ·
+`ASSET-LAB-05I-ITERATION-2-REPORT.md` · `ASSET-LAB-05I-FINAL-REPORT.md` · `ASSET-LAB-05I-OWNER-REVIEW-GUIDE.md`.
+
+**05H history — all 14 reports** (`docs/`, preserved, superseded on status):
+`ASSET-LAB-05H-BRIEF.md` · `ASSET-LAB-05H-ITERATION-LOG.md` · `ASSET-LAB-05H-VISUAL-BASELINE.md` ·
+`ASSET-LAB-05H-FINAL-REPORT.md` · `ASSET-LAB-05H-FINAL-OWNER-REVIEW.md` ·
+`ASSET-LAB-05H-FINAL-ART-PM-RECOMMENDATION.md` · `ASSET-LAB-05H-MANAGEMENT-CAMERA-ASSESSMENT.md` ·
+`ASSET-LAB-05H-OWNER-REVIEW-GUIDE.md` · `ASSET-LAB-05H-PERFORMANCE.md` ·
+`ASSET-LAB-05H-REAL-GPU-PERFORMANCE.md` · `ASSET-LAB-05H-PROVENANCE-AUDIT.md` ·
+`ASSET-LAB-05H-FALLBACK-ASSESSMENT.md` · `ASSET-LAB-05H-INTEGRATION-RECOMMENDATION.md` ·
+`ASSET-LAB-05H-WORKFLOW-DECISION.md`.
+
+> All 05H and 05I reports above are governed by the status notice at the top of this file. Where any of them
+> conflicts with the current ruling on status, readiness or integration, **the ruling governs.**
+
+**Character standards** (pre-existing, useful reference, not part of this ruling):
+`docs/AUTHORED-{BASE-CHARACTER,CHARACTER-RIGGING,CHARACTER-TOPOLOGY,WORKWEAR}-STANDARD.md` ·
+`docs/CHARACTER-{CLOTHING-ART,CLOTHING,COORDINATE,FACE-AND-HAIR,FACE,HANDS-AND-FEET,LOD,MATERIAL-AND-PALETTE,MESH-AND-TOPOLOGY,PROPORTION-AND-SILHOUETTE}-STANDARD.md` ·
+`docs/CHARACTER-{DEFORMATION-REFINEMENT,RIGGING-AND-WEIGHTS,ROLE-VARIANTS}.md` ·
+`docs/HERO-CHARACTER-{DEFORMATION,FITTED-VEST,PELVIS-AND-TROUSER,SHOULDER-AND-HAND,WORK-BOOT}-STANDARD.md`.
 
 ## Provenance
 - `licenses/asset-lab-05h/PROVENANCE.json`, `CC0-1.0.txt`, `human_base_male_stylized_cc0.glb`,

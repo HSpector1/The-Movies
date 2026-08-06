@@ -40,8 +40,10 @@ and topology failure** — general animation execution and garment anchoring are
 - `proof/lab05i/iteration-02/real-gpu/front.png` and `.../real-gpu/walk.png`
 - `proof/lab05i/iteration-02/runtime/16-walk.png` … `20-sitting.png`
 - `proof/lab05i/iteration-02/runtime/neutral-side-by-side-front.png`
-- **Needs:** hand/wrist/forearm retopo (topology and edge flow) and/or **manual weight-paint**; validate volume
-  across all six clips with joint-by-joint reporting.
+- **Needs:** hand/wrist/forearm retopology (topology and edge flow) **and** a **manual weight-paint pass** — **both
+  are required**; validate volume across all six clips with joint-by-joint reporting. Note that the exporter
+  truncates source influences above four (`CHARACTER-TECHNICAL-CONTRACT.md`), so the **exported** weights must be
+  inspected, not only the Blender-side weights.
 - **Accepted when:** palm, thumb, grouped fingers, wrist and forearm hold volume across all six clips at human
   scale under neutral and runtime light, with no melting/stretching/tendrils/collapse/joint-pinch.
 

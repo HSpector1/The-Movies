@@ -39,9 +39,12 @@ finishing.
    **cheek and jaw mass**, **cranial / skull proportion**, **crown height**, **back-of-head volume**, **silhouette
    beneath the hard hat**, the **neck-to-head transition**, and the **side and rear head silhouette**; softer
    brow/jaw/nose/cheeks/ears/neck; no ogre/superhero/mannequin/photoreal read.
-2. **Hands, wrists, forearms** — correct **topology and edge flow** and/or weighting; preserve
-   palm/thumb/grouped-fingers/wrist/forearm volume; eliminate melting/stretching/tendrils/collapse/joint-pinch;
-   validate across all six clips.
+2. **Hands, wrists, forearms — topology correction *and* manual weight painting (both required).** Correct
+   **topology and edge flow** (retopology where needed) **and** perform a **manual weight-paint pass** on the
+   `lowerarm_*` → `hand_*` → finger chain. The committed evidence supports requiring **both disciplines**; neither
+   is optional, and neither alone has resolved this failure. Preserve palm/thumb/grouped-fingers/wrist/forearm
+   volume; eliminate melting/stretching/tendrils/collapse/joint-pinch; validate across all six clips. *The
+   specialist proposes the exact implementation — but must price and deliver both disciplines.*
 3. **Body mass and human-scale proportions** — the body remains **too bulky** for the intended ordinary
    working-adult result. The 05I slimming was **partial**, and the hi-vis vest masks part of the underlying body
    mass. Reduce **upper-body and shoulder mass** meaningfully at human scale. This is **more than a minor
@@ -50,14 +53,17 @@ finishing.
    retopology invalidates, to the requirements in `CHARACTER-TECHNICAL-CONTRACT.md`; report joint-by-joint results.
 5. **Garment construction and refit** — refit garments where the sculpt or retopology moves the body beneath them;
    keep garments and accessories anchored; resolve garment/body clipping introduced by manual corrections.
-6. **Close-range surface defects** — residual boot toe seam; close-range neck fold; close-range facial lumpiness;
-   any visible garment seam. Severities, evidence paths and owning disciplines are in `CHARACTER-KNOWN-DEFECTS.md`.
+6. **Close-range surface defects** — the **residual boot toe seam**, the **close-range neck fold**, the
+   **close-range facial lumpiness**, and the **vest V-opening**. These are the individually evidenced close-range
+   defects; each is graded, evidenced and assigned a discipline in `CHARACTER-KNOWN-DEFECTS.md`. **No further
+   garment seam is claimed** — if the specialist's own corrections introduce one, it is handled under item 5
+   (garment/body clipping introduced by manual corrections).
 
 ## Required deliverables (the specialist must return)
 - Corrected **source Blender file** (`.blend`) with the working scene.
 - Corrected **LOD0**, **LOD1**, **LOD2** meshes.
 - **Preserved 65-joint skeleton compatibility** (bone names/hierarchy/orientation/scale/ground unchanged).
-- Corrected **face and cranial form**; corrected **hand/wrist/forearm** topology and/or weighting; **reduced body
+- Corrected **face and cranial form**; corrected **hand/wrist/forearm** topology **and** weighting; **reduced body
   mass**.
 - **Stable six-clip deformation** (Idle/Walk/Talk/Kneeling/Pickup/Sitting) with **joint-by-joint reporting**.
 - **Complete material assignments**; **no exposed body geometry through clothing**; **no new accessory instability**.

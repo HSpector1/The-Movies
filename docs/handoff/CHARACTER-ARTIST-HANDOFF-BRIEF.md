@@ -70,9 +70,11 @@ What the autonomous procedural effort **did not finish**:
 - **The skin-weighting chain that drives hand and forearm deformation** — a base-mesh skinning limit, not a tuning
   problem (reverting the muscularity settings did not fix it).
 
-The **deepest specialist tasks** are the **face and cranial sculpt**, the **hand / wrist / forearm topology**, and
-the **manual rigging and weight-paint pass**. General animation execution is **not** a failure: all six clips run
-and garments stay anchored — see the do-not-regress list above.
+The **deepest specialist tasks** are the **face and cranial sculpt**, the **body-mass and silhouette correction**,
+the **hand / wrist / forearm topology**, and the **manual weight painting of the hand chain**. **Body mass is major
+and blocking, not a secondary adjustment** — it requires a real human-scale reduction in upper-body and shoulder
+mass, not a proportional nudge (`CHARACTER-KNOWN-DEFECTS.md` BLOCKER 3). General animation execution is **not** a
+failure: all six clips run and garments stay anchored — see the do-not-regress list above.
 
 ## What we are asking the specialist to do (primary work)
 1. **Face and cranial sculpt** → approachable stylized management-game worker. Address **forehead and brow
@@ -90,8 +92,9 @@ and garments stay anchored — see the do-not-regress list above.
    retopology invalidates, to `CHARACTER-TECHNICAL-CONTRACT.md`; report joint-by-joint results across all six clips.
 5. **Garment construction and refit** → refit garments where the sculpt or retopology moves the body beneath them;
    resolve garment/body clipping introduced by manual corrections; keep garments anchored.
-6. **Close-range surface defects** → residual boot toe seam; close-range neck fold; close-range facial lumpiness;
-   any visible garment seam. Each is graded, evidenced and assigned in `CHARACTER-KNOWN-DEFECTS.md`.
+6. **Close-range surface defects** → the **residual boot toe seam**, the **close-range neck fold**, the
+   **close-range facial lumpiness**, and the **vest V-opening**. Each is graded, evidenced and assigned in
+   `CHARACTER-KNOWN-DEFECTS.md`. **No further garment seam is claimed.**
 
 This is **not** a new character concept and **not** a replacement base mesh. It **is** substantial specialist
 correction — not a polish pass — on a model currently **rejected as a production foundation**.

@@ -47,6 +47,38 @@ For **every** gate:
 - **Performance and multi-character claims require separately authorized measured evidence** — they are not
   established by any gate above.
 
+### Gate 1 — Art direction and proportion target: required evidence
+
+This gate sets the target the later body work is judged against. It is approved **before** sculpting begins.
+
+- The **approved proportion target** itself, stated explicitly (not implied by a render).
+- Target views: **front · three-quarter · profile · rear**.
+- The **ordinary working-adult silhouette standard** the target is measured against — explicitly **not** a
+  bodybuilder, superhero, ogre or mannequin build.
+- The **head-to-body ratio** and the **shoulder-mass target**, stated as figures or as an annotated reference.
+- A **direct comparison against the current rejected body** (05I Iteration 2), at matched camera and scale, showing
+  what changes.
+- A recorded **Owner and Art PM ruling** on the target.
+
+**Approval of gate 1 approves a target, not a sculpt.** No later gate may treat the target as evidence that the
+delivered body meets it.
+
+### Gate 4 — Topology and edge flow: required evidence
+
+- **Topology views / wireframes** at the corrected areas.
+- **Face and cranial edge flow.**
+- **Shoulder, elbow, wrist, hand and finger topology.**
+- **Deformation-sensitive loop placement** at each of those joints.
+- **Garment interface areas** — where offset-shell garments derive from the body (mechanism 1 in
+  `CHARACTER-TECHNICAL-CONTRACT.md`), since body topology order propagates into them.
+- Evidence that the topology **supports the existing 65-joint rig** — no bone added, removed, renamed or
+  reoriented, and the binding still valid.
+- **Technical review before proceeding to final weighting** — gate 4 is reviewed by Rigging and Technical Art, and
+  must pass before gate 9 (manual weight painting) begins.
+
+**Approval of the sculpt does not automatically approve topology.** Gates 2 and 3 judge form; gate 4 judges the mesh
+that has to deform. A sculpt may be approved and its topology still rejected, requiring rework before weighting.
+
 ## Visual acceptance tests (each must read correctly)
 Static, neutral pose + neutral light AND runtime light:
 - **Face and cranial form:** front · three-quarter · **profile** · **rear / back-of-head** — approachable stylized
@@ -62,7 +94,9 @@ Static, neutral pose + neutral light AND runtime light:
 - **Shoulders** — natural width; no collapse, no detached sleeve, no underarm sail.
 - **Arms · wrists · palms · thumbs · grouped fingers** — correct volume; **no melting/stretching/tendrils/collapse**.
 - **Boots · hard hat · hair · vest · shirt** — complete, fitted, no exposed body through clothing, no gaps/seams
-  (including the residual boot toe seam and the vest V-opening).
+  (including the residual boot toe seam and the vest V-opening). **Hair does not ship in 05I** — it is authored but
+  culled before export (`CHARACTER-TECHNICAL-CONTRACT.md`); this test applies only if hair is present in the
+  delivered asset, and whether it should be is an **owner decision**.
 
 Animation — inspect the SAME items above under every clip:
 - **Idle · Walk · Talk · Kneeling · Pickup · Sitting** — stable face/head; clean neck/shoulder/arm/wrist/hand
