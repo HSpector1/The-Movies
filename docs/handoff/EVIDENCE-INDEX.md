@@ -39,11 +39,19 @@ the repo; open the paths directly. Paths are relative to the repo root.
 - **What is sound:** `proof/lab05i/iteration-02/runtime/{15-hard-hat,12-vest-side-wrap,21-lod,25-wireframe,24-management-distance}.png`.
 
 ## Matched comparison sets (same camera framings)
-- 05I Iter 1: `proof/lab05i/iteration-01/{runtime,real-gpu,blender}/`
+- 05I Iter 1 — **note the layout differs from Iter 2: there is no `iteration-01/blender/` directory.**
+  - `proof/lab05i/iteration-01/runtime/`
+  - `proof/lab05i/iteration-01/real-gpu/`
+  - the twelve Blender fast-iteration renders are stored **directly under** `proof/lab05i/iteration-01/`:
+    `3q.png` · `back.png` · `boots.png` · `face.png` · `front.png` · `hat.png` · `kneel.png` · `pickup.png` ·
+    `side.png` · `sit.png` · `vest.png` · `walk.png`
+  - `proof/lab05i/iteration-01/root-cause/` (`materials.json`, `materials.mjs`) where relevant
 - 05I Iter 2: `proof/lab05i/iteration-02/{runtime,real-gpu,blender}/` (runtime = 24 views + wireframe + 3 neutral;
-  real-gpu = Metal close-ups; blender = fast iteration renders)
+  real-gpu = Metal close-ups; blender = fast iteration renders — the same twelve filenames as the Iter-1 set above,
+  nested one level down)
 - Same filenames across `iteration-01/` and `iteration-02/` at the same framing = the Iter-1↔Iter-2 before/after
-  (05H is the shared left-hand reference in every pair).
+  (05H is the shared left-hand reference in every pair). `runtime/` and `real-gpu/` pair directory-to-directory;
+  the Blender set pairs `iteration-01/<name>.png` against `iteration-02/blender/<name>.png`.
 
 ## Material root-cause dumps
 - `proof/lab05i/iteration-02/root-cause-materials.json` (05I), `proof/lab05h/final-owner-review/root-cause/materials.json`

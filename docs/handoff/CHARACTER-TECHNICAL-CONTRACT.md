@@ -15,12 +15,15 @@ Where an implementation choice remains open below, the rule is:
 ## Skeleton (hard contract)
 - **65 joints exactly.** `blender/studio_pipeline/config.py` → `RIG_BONE_COUNT = 65`; validators assert it.
 - Source skeleton = the Quaternius **UAL Mannequin** rig imported from `public/assets/animation/UAL1_Standard.glb`
-  (`config.RIG_SOURCE_GLB`). The character is skinned to THIS skeleton by bone name.
+  (`config.RIG_SOURCE_GLB`) — a **locally provisioned dependency, not delivered by this repository**; see *Rig and
+  clip-library delivery status* below. The character is skinned to THIS skeleton by bone name.
 - **Bone names, hierarchy, orientation, scale, and rest pose must not change.** The 22 primary deform bones are:
   `pelvis, spine_01, spine_02, spine_03, neck_01, Head, clavicle_l/r, upperarm_l/r, lowerarm_l/r, hand_l/r,
   thigh_l/r, calf_l/r, foot_l/r, ball_l/r`. Clips retarget **by bone name** — renaming or reorienting a bone breaks
   all six clips.
-- **Exact 65-joint accounting** — verified against the committed rig `public/assets/animation/UAL1_Standard.glb`:
+- **Exact 65-joint accounting** — verified against the UAL reference rig at
+  `public/assets/animation/UAL1_Standard.glb` (**not repository-delivered** — see *Rig and clip-library delivery
+  status* below), and **independently re-derivable from the committed character GLBs**:
 
   | Group | Count | Names |
   |---|---:|---|
@@ -32,7 +35,62 @@ Where an implementation choice remains open below, the rule is:
 
 - **The rig contains NO forearm twist bones, NO upper-arm twist bones, and NO articulated toe chain.** `ball_leaf_l/r`
   are terminal leaf joints following `ball_l/r`; they are not an articulated toe chain. **Do not evaluate, preserve,
-  or report against joints that do not exist in the committed rig.**
+  or report against joints that do not exist in this 65-joint skeleton** (verifiable in the committed character GLBs
+  listed below).
+
+### Rig and clip-library delivery status (read before estimating rig or animation work)
+
+**`public/assets/animation/UAL1_Standard.glb` is gitignored and is NOT delivered by this repository.** `.gitignore`
+ignores `public/assets/*` and re-includes only `public/assets/studio/`, so the `public/assets/animation/` directory
+**does not exist in a clean checkout**. **The six-clip animation library is therefore also unavailable from a clean
+repository checkout** — it lives inside that same file.
+
+**What IS committed, and what it establishes.** The 65-joint skeleton is embedded in the shipped character GLBs and
+can be **independently re-derived** from these exact committed paths, with no external dependency:
+
+- `public/assets/studio/characters/electric_hero_05i.glb`
+- `public/assets/studio/characters/electric_hero_05i_LOD1.glb`
+- `public/assets/studio/characters/electric_hero_05i_LOD2.glb`
+
+Each carries the full 65-joint skeleton with identical bone names and hierarchy. **The embedded character skeleton
+establishes the committed joint structure**; the accounting table above reproduces from any of the three.
+**Absence of the UAL package is a setup dependency — it is not evidence that the accepted skeleton accounting is
+invalid.**
+
+**What must be locally provisioned.** `UAL1_Standard.glb` supplies the **required animation-test motions** (the six
+clips). It is a **locally provisioned dependency**, not a committed production asset. Recorded identity, from the
+repository's own provenance records — **do not substitute anything else**:
+
+| Field | Value | Record |
+|---|---|---|
+| Package | Quaternius **Universal Animation Library** (UAL) | `docs/PROVENANCE-REGISTER.md` §2 |
+| Source archive | `Universal Animation Library[Standard].zip` | `docs/ASSET-INVENTORY.md` |
+| Archive size | 15,904,933 bytes | `manifests/source-archives.json` |
+| Archive SHA-256 | `cc73fc4e495b82958207316596317a3f40b9fa38065bde1027937452da537724` | `manifests/source-archives.json` |
+| License | **CC0 1.0** — in-archive `License.txt` + `README.txt`, *"Models by @Quaternius."* | `docs/PROVENANCE-REGISTER.md` §2 |
+| Variant used | `UAL1_Standard.glb` (root motion **off**, in-place). `UAL1_Standard_RM.glb` (baked root motion) is **not** the pipeline source | `docs/ASSET-INVENTORY.md` |
+| Expected local path | `public/assets/animation/UAL1_Standard.glb` (`config.RIG_SOURCE_GLB`, `blender/studio_pipeline/config.py:24`) | `docs/ASSET-LAB-05-PIPELINE.md` → *Requirements* |
+| Expected file shape | 1 skinned mesh · 1 skin · 2 materials · ~13,744 tris · **43 clips** · height 1.829 m · **65 joints** | `docs/ASSET-INVENTORY.md` |
+
+**Provisioning route.** The **Owner or an authorized Asset Lab operator must provide** the previously approved
+licensed UAL source package, or the derived local `UAL1_Standard.glb`. It is **not included in this repository** and
+the repository documents **no download or redistribution procedure** for it; the archive is staged under the
+gitignored `sources/original-archives/` and hash-verified by `tools/hash-archives.mjs`. The file is expected at
+`public/assets/animation/UAL1_Standard.glb` **only after authorized local provisioning**.
+
+**Specialist obligations for this dependency**
+
+- **Do not independently substitute a different rig or animation package**, and do not swap in the `_RM` variant.
+- **Do not download or redistribute any asset without confirmed license and provenance.**
+- **Confirm provenance before use** — record the **SHA-256 of the locally provisioned file** (or the recorded
+  archive hash above) alongside the rig/animation validation evidence, using the repository's existing
+  hash-provenance convention (`manifests/source-archives.json`, `tools/hash-archives.mjs`).
+- **Local provisioning must not modify, or imply, a new committed production asset.** Do not commit the licensed or
+  gitignored source file.
+- **Both must be validated together**: the committed character skeleton and the locally provisioned clip library,
+  after the library is provisioned.
+- **No rigging or animation acceptance gate may be marked complete until the approved package has been provisioned
+  and verified** (gates 8 and 11 in `CHARACTER-ACCEPTANCE-TESTS.md`).
 
 ## Orientation, scale, ground (hard contract)
 - **1 unit = 1 metre.** Character height ≈ 1.75–1.85 m (validator range [1.70, 1.95]).
@@ -43,6 +101,9 @@ Where an implementation choice remains open below, the rule is:
 ## Animation (hard contract)
 - Six accepted clips, retargeted from the shared library `public/assets/animation/UAL1_Standard.glb`:
   `Idle_Loop, Walk_Loop, Idle_Talking_Loop, Fixing_Kneeling, PickUp_Table, Sitting_Idle_Loop`.
+  **That library is the same locally provisioned dependency as the rig — it is gitignored and not available from a
+  clean checkout.** No six-clip deformation evidence can be produced, and no rigging or animation gate can be marked
+  complete, until it has been provisioned and its provenance confirmed (see *Rig and clip-library delivery status*).
 - Clips are **not** embedded in the character GLB (the hero exports rest-pose only, `export_animations=False`); the
   runtime binds the character mesh + the clip library by bone name via a `THREE.AnimationMixer`.
 - **Do not introduce new clips or a new animation library.** The corrected mesh must deform correctly under these six.
