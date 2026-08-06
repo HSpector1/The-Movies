@@ -652,19 +652,35 @@ AF says "even a correct subset count is wrong if the prose calls it the total."
 
 Context: the Asset Lab character work lives in a **separate repository**
 (`/Users/bruce/Project Studio - Asset Lab`, remote `backup`) and has **never** entered production `main`.
-Owner ruling: the **authored-base technical workflow and its CC0 provenance are accepted** as pipeline
-research; the **05H character build is rejected** as a production character; **05I**, the one authorized
-bounded corrective attempt, did not resolve the human-scale face, proportions, hands, deformation, and
-surface quality and is **rejected as the production character foundation**; **no further autonomous or
-procedural character iteration is authorized**; a human character artist plus a rigging / weight-paint
-specialist are required. Verified checkpoints, all at local/remote parity in one linear chain:
+Owner ruling: the **05H provenance and the authored-base workflow are accepted** as technical and pipeline
+research (accepted provenance and accepted technical workflow are **not** visual approval); the **05H visual
+character build is rejected** as a production character; **05I** was the **one authorized bounded corrective
+milestone**, containing **two owner-reviewed iterations** (Iteration 1 and Iteration 2) — the limit set by the
+05I brief — and is **rejected as a production character foundation**. The unresolved major work is the
+**human-scale face and cranial form**, **body mass and proportions**, **hand / wrist / forearm topology**, **the
+skin-weighting chain that drives their deformation**, and the **concrete close-range defects already enumerated
+in the handoff** (residual boot toe seam, close-range neck fold, close-range facial lumpiness, vest V-opening).
+The failure is **localized**: the rig as a whole and the animation system as a whole are **not written off** —
+though the **hand-chain weighting is itself a blocking defect**, and rig compatibility and manual weight
+painting remain live gates. **No further autonomous or procedural character iteration is authorized**, and
+autonomous procedural correction has stopped; a qualified human **character artist** and a **rigging /
+weight-paint specialist** are required; **character production and Studio Lot integration remain
+unauthorized**; **D1-B remains unstarted and separately governed**.
+
+Current governing authority — the handoff packet, **merged and published** on its Asset Lab branch
+(fast-forward; remote `backup`, local/remote parity) and **not** merged into production `main`:
+`asset-lab-character-human-artist-handoff` @ `e5a4931b856c38cc5104be35aade4b40eb140116`.
+Historical checkpoints, all at local/remote parity in one linear chain:
 `asset-lab-05h-authored-base-character-proof` @ `9e3c5d7bda39f069b7dac04624584c4fea645332` →
 `asset-lab-05h-final-owner-review-package` @ `ddfd69fbc22be313f9dbb548c2b16032c9802daa` →
 `asset-lab-05i-corrective-character-pass` @ `8903b1e8bbbc166aa1b74a33167aea964502a1f6` →
-`asset-lab-character-human-artist-handoff` @ `c9445ce55b5d83cc29def9928aec75fa4edd50ed`.
-Related (Asset Lab repo): `docs/ASSET-LAB-05H-FINAL-OWNER-REVIEW.md`,
+`c9445ce55b5d83cc29def9928aec75fa4edd50ed` — the **pre-ruling checkpoint** on that branch, superseded on
+current commissioning and production status → **`asset-lab-character-human-artist-handoff` @ `e5a4931`**
+(current branch tip). Related (Asset Lab repo): `docs/ASSET-LAB-05H-FINAL-OWNER-REVIEW.md`,
 `docs/ASSET-LAB-05H-FINAL-ART-PM-RECOMMENDATION.md`, `docs/ASSET-LAB-05H-MANAGEMENT-CAMERA-ASSESSMENT.md`,
-`docs/ASSET-LAB-05I-FINAL-REPORT.md`, `docs/handoff/*`, `licenses/asset-lab-05h/PROVENANCE.json`.
+`docs/ASSET-LAB-05I-FINAL-REPORT.md` (**preserved; its readiness language is superseded**),
+`docs/handoff/*` **@ `e5a4931`** (the packet lives on the handoff branch — it is **not** present in the 05I
+checkout), `licenses/asset-lab-05h/PROVENANCE.json`.
 
 ## AG. A proof branch preserves history, not a runnable review environment — **P, BR**
 
@@ -732,15 +748,23 @@ management camera must not be the **only** distance a character is judged at.
 
 ## AK. The human-artist handoff supersedes further autonomous iteration — **P**
 
-- **Resolution:** `asset-lab-character-human-artist-handoff` @ `c9445ce` is the **active** character-track
-  artifact — 8 documents, **0** non-documentation files: artist brief, technical contract (65-joint skeleton,
-  bone names, orientation, scale, ground, six clips, GLB/LOD/material conventions), annotated known defects
-  with exact evidence paths, acceptance tests, scope of work with non-goals, source and CC0 provenance chain,
-  export/runtime guide, evidence index.
+- **Resolution:** `asset-lab-character-human-artist-handoff` @ `e5a4931` is the character-track artifact — 8
+  documents, **0** non-documentation files: artist brief, technical contract (65-joint skeleton, bone names,
+  orientation, scale, ground, the six accepted clips — supplied by a **locally provisioned, gitignored** rig
+  library, not by the repository — and GLB/LOD/material conventions), annotated known defects with exact
+  evidence paths, acceptance tests structured as **fourteen staged gates**, scope of work with non-goals,
+  source and CC0 provenance chain, export/runtime guide, evidence index.
+- **Which packet governs:** the `c9445ce` package is the **pre-ruling checkpoint**. It is **superseded on
+  current commissioning and production status** by `asset-lab-character-human-artist-handoff` @
+  `e5a4931b856c38cc5104be35aade4b40eb140116`, which **governs**. See Lesson **AS** for the rule on propagation
+  and supersession.
 - **Standing status:** character integration is **not** authorized; role-wide propagation is **not**
   authorized; D1-B remains unstarted; Asset Lab character work remains separate from production `main`.
-- **Fastest diagnostic:** before any character work, read this handoff package and the 05I final report first.
-- **Anti-pattern:** resuming generator iteration while a specialist handoff is the open artifact. **Reuse:** P.
+- **Fastest diagnostic:** before any character work, read the **active handoff packet at `e5a4931`** and the
+  preserved 05I final report (`docs/ASSET-LAB-05I-FINAL-REPORT.md`) first — the latter is retained as history,
+  but its readiness language is superseded, as the packet's evidence index records.
+- **Anti-pattern:** resuming generator iteration while a specialist handoff is the open artifact; reading the
+  pre-ruling `c9445ce` package for current commissioning or production status. **Reuse:** P.
 
 ## AL. Preserve both management-distance and human-scale character evidence — **BR, MG**
 
@@ -847,16 +871,60 @@ written into.
   the same brief still said the pipeline *"cannot finish two things"*, and the acceptance model was still a
   single end-of-job review.
 - **Resolution:** the ruling was reconciled through the scope of work, the known-defects record, the acceptance
-  tests, the technical contract and the evidence index — branch
-  `docs/character-handoff-owner-ruling`, final candidate
-  `1dcb263dfaf0398db75fa9cb80ce7e2d948e101c` (Asset Lab repo, remote `backup`; not merged), eight documentation
-  files, **0** non-documentation files. Historical 05H/05I reports were **not** rewritten; the evidence index
-  now states that their status language is superseded.
+  tests, the technical contract and the evidence index. The reconciliation is **merged and published** as
+  `asset-lab-character-human-artist-handoff` @ `e5a4931b856c38cc5104be35aade4b40eb140116` (Asset Lab repo,
+  remote `backup`; a fast-forward on that branch — **not** merged into production `main`) — **five linear
+  documentation-only commits** over the complete range `c9445ce..e5a4931` (`074bb80`, `1dcb263`, `b9f57a0`,
+  `2967c1c`, `e5a4931`; `1dcb263` is the **second intermediate commit** of that chain, not a final candidate),
+  **eight** `docs/handoff/*.md` files changed, **0** non-documentation files. **No historical 05H or 05I report
+  was rewritten** and **no character asset or production code changed**; the evidence index now states that the
+  historical reports' status language is superseded.
+- **Acceptance restructured — Project: Studio.** The single end-of-job review became **fourteen total staged
+  gates**, of which **thirteen are ordinarily required**: art direction and proportion target · face and
+  cranial sculpt · body sculpt and silhouette · topology and edge-flow correction · hands, wrists and forearms ·
+  garment construction and refit · hair and headwear · rig compatibility · manual weight painting · materials
+  and lighting response · animation and deformation · human-scale final review · management-camera final
+  review. The **fourteenth — multi-character scalability proof — runs only when separately authorized**, and
+  passing the gates does not itself authorize integration. **No fixed loop count is promised or capped**; the
+  Owner's planning expectation is that **ten or more total review loops may reasonably occur**, with fewer or
+  more depending on the evidence — that is *iteration capacity*, **not** an estimate and **not** a guarantee of
+  acceptance after any number of rounds.
+
+These two sub-findings surfaced in the same propagation pass. They are not themselves ruling-propagation
+failures — they teach the adjacent rule that **a documentation claim must be verified against the repository**,
+and they are recorded here because the same pass and the same packet produced them.
+
+**Supporting example 1 — a gitignored dependency described as committed — Project: Studio.** The hard technical
+contract called `public/assets/animation/UAL1_Standard.glb` **"the committed rig"**. It is not committed:
+`.gitignore` ignores `public/assets/*` and re-includes only `public/assets/studio/`, so that file — and with it
+the **43-clip UAL library** it supplies, of which this character uses **six** — is **absent from a clean
+checkout**. The **65-joint accounting itself was correct**, and is independently re-derivable from the **three
+committed 05I character LOD GLBs** (LOD0/LOD1/LOD2; a fourth tracked file, `_COL.glb`, is a collision proxy and
+carries no skeleton); only the **delivery claim attached to it** was false. A sibling packet document
+(`CHARACTER-EXPORT-AND-RUNTIME-GUIDE.md`) had **already** described that gitignore behaviour — reviewing each
+document *only in isolation*, with no cross-document reconciliation of the same asset's delivery status, is
+what allowed the contradiction to survive between them. The correction now distinguishes the **committed
+character GLBs and their embedded skeleton** from the **locally provisioned UAL rig and clip library**, and
+requires **authorized provisioning and provenance verification** before the rigging and animation gates (8 and
+11) may be **marked complete**. The absence gates *acceptance* and blocks all **six-clip deformation
+evidence**; it does not block the sculpt, topology and weighting work, because the skeleton re-derives from the
+committed GLBs.
+
+**Supporting example 2 — evidence stored at the parent path — Project: Studio.** `EVIDENCE-INDEX.md` pointed at
+`proof/lab05i/iteration-01/blender/`. **That directory did not exist** — and never has, on any ref. All
+**twelve** Iteration-1 Blender renders **did** exist, tracked **directly under** `proof/lab05i/iteration-01/`.
+Iteration 2 stores the **same twelve filenames** one level down, in a nested `blender/`. The incorrect pointer
+was created by **assuming the two iterations shared the same directory structure** — it was written as a brace
+expansion, `{runtime,real-gpu,blender}/`, of which two thirds resolved correctly, which is why it read as
+plausible. The corrected index now distinguishes `runtime/`, `real-gpu/`, the **twelve root-level Iteration-1
+renders**, and `root-cause/` where relevant. **No evidence file needed to move.**
 
 **Reusable rule (cross-project).** When a ruling changes an asset's **production status, severity, or scope**,
 propagate it through **every independently distributable document in the same governed change**. Reconcile:
 ledes · status blocks · verbs · defect counts · severity grades · scope estimates · acceptance tests · technical
-contracts · review gates · evidence indexes · supersession notices · integration restrictions.
+contracts · review gates · evidence indexes · supersession notices · dependency status · integration
+restrictions · tracked-versus-gitignored status · clean-checkout availability · provisioning responsibility ·
+provenance requirements · dependency gating · exact evidence-path resolution.
 
 - Review a handoff as a **packet of standalone documents**, not only as an ordered reading experience — assume
   each page is the only page its reader receives.
@@ -866,17 +934,27 @@ contracts · review gates · evidence indexes · supersession notices · integra
   commission as **repeatable gated review**, not one-shot delivery: separate gates for art direction, face and
   cranial sculpt, body sculpt, topology, hands, garments, headwear, rig compatibility, weight painting,
   materials, animation, human-scale review and management-camera review, each able to approve, reject, or
-  require rework, and each able to repeat.
-- **No fixed loop count should be promised or capped.** For this character the **Owner's planning expectation is
-  that ten or more review loops may reasonably occur** — that is *iteration capacity*, **not** a guaranteed
-  iteration estimate, and not a promise of acceptance after any number of rounds. Each gate repeats on the
-  evidence.
+  require rework, and each able to repeat. Gate any scalability or performance proof **separately**, and do not
+  let a full set of passed gates stand in for integration authorization.
+- **No fixed loop count should be promised or capped**, and no single pass or fixed iteration count guarantees
+  approval. State any loop expectation as *capacity*, never as an estimate.
+- **A technical handoff must distinguish tracked artifacts, gitignored local dependencies, externally
+  provisioned packages, and generated derivatives.** Never call an asset **committed** or
+  **repository-delivered** merely because a standard local path exists. State **who provisions it**, **how
+  provenance is verified**, **whether it exists in a clean checkout**, and **which acceptance work is blocked
+  until it is available**.
+- **An evidence index must validate the exact path, not merely the presumed directory pattern.** A broken
+  pointer does **not** prove the evidence is absent — inspect the **parent and sibling** structures before
+  concluding anything is missing. Record the **real** location, and do **not** move historical evidence merely
+  to make two iterations look symmetrical.
 - A commissioned artist must be able to **estimate the real work from any standalone scope of work**, without
   relying on undocumented context.
 - **Fastest diagnostic:** after any status ruling, grep the whole packet for the superseded framing
   (`finishing correction`, `polish pass`, `minor`, `production-ready`, `viable`, `all viable`) and for the
   **old defect count**; then read each commissioning-facing document **in isolation** and ask whether it alone
-  would produce a correct estimate.
+  would produce a correct estimate. For every asset the packet calls *committed*, confirm it with
+  `git ls-tree` against a clean checkout rather than a local path; for every evidence pointer, resolve the
+  **exact** path, not the pattern.
 - **Pattern:** ruling propagation as part of the ruling commit — every standalone document either carries the
   ruling or prominently references it. **Anti-pattern:** appending a ruling to one lead document while leaving
   contradictory commissioning assumptions elsewhere; leaving "nearly ready", "finishing correction" or "polish
