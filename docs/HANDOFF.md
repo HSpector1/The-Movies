@@ -23,38 +23,78 @@
 > tested (bare-minimum greenlight vs standard-budget vs recent-typical). (D-15 shipped while Concept A
 > was still default OFF; Concept A has since been enabled for ordinary players — see above.)
 > **D1-B unstarted**; the **Asset Lab character track (05H / 05I) is closed and rejected** — a human
-> character artist is required, the human-artist handoff is the active artifact, and nothing is integrated
+> character artist and a rigging / weight-paint specialist are required, and the remaining work is
+> **substantial specialist correction, not a polish pass**. The active handoff packet is
+> **`asset-lab-character-human-artist-handoff` @ `e5a4931`** — a status and commissioning record, **not**
+> an authorization: **character production is not authorized, Studio Lot character integration is not
+> authorized**, and nothing is integrated
 > (see the character-track entry below). **Economy and recovery balance remain a separate owner decision**
 > — D-15 only explains the current rules.
 
 > ## 🎭 2026-08-05 — Asset Lab character track (05H / 05I) — CLOSED and rejected; human-artist handoff active — latest
 >
-> **Owner ruling.** The **authored-base technical workflow** and its **CC0 provenance** are accepted as
-> useful pipeline research. The **05H character build is rejected** as a production character — its final
-> owner-review package already documented blocker-grade visual defects — and 05H is **not authorized for
-> Studio Lot integration**. **05I**, the one authorized bounded corrective attempt, did **not** resolve the
-> human-scale face, proportions, hands, deformation, and surface quality, and is **rejected as the production
-> character foundation**. **No further autonomous or procedural character iteration is authorized.** A
-> qualified human **character artist** and a **rigging / weight-paint specialist** are required; the
-> **human-artist handoff package is the active character-track artifact**.
+> **Owner ruling.** The **Blender Studio authored-base source, its provenance record, the generator
+> approach and the export workflow** are accepted as **research and pipeline evidence** — that acceptance
+> is **not visual approval of the character**. The **05H visual character build is rejected** as a
+> production character — its final owner-review package already documented blocker-grade visual defects —
+> and 05H is **not authorized for Studio Lot integration**. **05I** was **one authorized bounded corrective
+> milestone containing two owner-reviewed iterations** (Iteration 1 and Iteration 2), and is **rejected as a
+> production character foundation**. The **blocking** specialist work is the **human-scale face and cranial
+> form**, **body mass and proportions** (more than a minor proportional nudge), and **hand / wrist / forearm
+> topology** together with **the skin-weighting chain that drives their deformation** — the hands need
+> retopology **and** a manual weight-paint pass, neither optional. **Garment refit** is required where the
+> sculpt moves the body beneath the garments. The **close-range defects listed in the active handoff** are
+> the close-range **neck fold** and **facial lumpiness** (inside the face/cranial blocker) plus the residual
+> **boot toe seam** and the **vest V-opening**, both graded **minor and non-blocking, but must not regress**.
+> The remaining work is **substantial specialist correction, not a polish pass**, and it runs through
+> **staged, repeatable review gates**: **no fixed number of correction loops is promised or capped**, and the
+> Owner's planning expectation is that **ten or more review loops may reasonably occur**.
+> The **rig as a whole and the animation system as a whole were not written off** — the failure is
+> localized — but the **hand-chain weighting and its deformation result remain blocking**, and **rig
+> compatibility and manual weight painting remain live gates**. **No further autonomous or procedural
+> character iteration is authorized**, and autonomous procedural correction has stopped. A qualified human
+> **character artist** and a **rigging / weight-paint specialist** are required **before the character can be
+> reconsidered**. **Character production is not authorized; Studio Lot character integration is not
+> authorized.**
+>
+> **Governing packet.** `asset-lab-character-human-artist-handoff` @
+> `e5a4931b856c38cc5104be35aade4b40eb140116` — the **merged and published** Asset Lab handoff packet and the
+> **active governing commissioning and character-status record**. It was published by a **five-commit linear
+> fast-forward** on the Asset Lab handoff branch (`c9445ce..e5a4931`; **no merge commit**), is
+> **documentation-only** — eight `docs/handoff/*.md` files, **0** non-documentation files — and is at
+> local/remote parity on remote `backup`. It is **not merged into production `main`**, and it is **not
+> authorization to execute the commission or to integrate the character**. (The ruling above is dated
+> 2026-08-05; the packet finished reconciling 2026-08-06.)
 >
 > Verified checkpoints — Asset Lab repository `/Users/bruce/Project Studio - Asset Lab` (remote `backup`);
-> all four at local/remote parity, in one linear ancestry chain:
+> the **four named branches** all at local/remote parity, in one linear ancestry chain:
 > `asset-lab-05h-authored-base-character-proof` @ `9e3c5d7bda39f069b7dac04624584c4fea645332` →
 > `asset-lab-05h-final-owner-review-package` @ `ddfd69fbc22be313f9dbb548c2b16032c9802daa` →
 > `asset-lab-05i-corrective-character-pass` @ `8903b1e8bbbc166aa1b74a33167aea964502a1f6` →
-> `asset-lab-character-human-artist-handoff` @ `c9445ce55b5d83cc29def9928aec75fa4edd50ed`
-> (documentation-only — 8 files under `docs/handoff/`, 0 non-documentation files).
+> `c9445ce55b5d83cc29def9928aec75fa4edd50ed` — the **pre-ruling handoff checkpoint**, a historical branch
+> state now carrying no branch of its own, **superseded on current commissioning and production status** →
+> **`asset-lab-character-human-artist-handoff` @ `e5a4931`** (current branch tip).
 >
-> **None of the four is an ancestor of production `main`.** Production `main` carries **0** GLB/glTF/FBX
+> **None of these is an ancestor of production `main`.** Production `main` carries **0** GLB/glTF/FBX
 > files and no Three.js (the renderer dependency is `phaser`). **No character integration occurred; D1-B
-> remains unstarted; Concept A, `GameState`, and `StudioLotSnapshot` are unchanged.** Asset Lab character
-> work stays separate from production `main`.
+> remains unstarted and separately governed; Concept A, `GameState`, and `StudioLotSnapshot` are
+> unchanged.** Asset Lab character work stays separate from production `main`.
 >
 > An 05H owner visual + real-GPU review was attempted and **closed without review setup**: no 05H worktree
 > existed, and the later "owner-review package" proved **not** documentation-only — `ed97e78` adds the
-> fixed-isometric management camera and review tooling across `src/`. Lessons **AG–AR** in
-> [`docs/LESSONS-LEARNED.md`](LESSONS-LEARNED.md).
+> fixed-isometric management camera and review tooling across `src/`. Lessons **AG–AS** in
+> [`docs/LESSONS-LEARNED.md`](LESSONS-LEARNED.md) — especially Lesson **AS**, *"A status ruling must be
+> propagated, not appended"*.
+>
+> **Before any character work, read in this order:** (1) the **active handoff packet at `e5a4931`**
+> (Asset Lab repo, `docs/handoff/*` on `asset-lab-character-human-artist-handoff` — it is **not** present in
+> the 05I checkout). It governs **character status and commissioning only**; its statement that *D1-A
+> remains unstarted* is **stale** — **D1-A is merged and closed** (tag `d1a-studio-identity-package`, see the
+> Lessons block above), and the production record governs D1-A status. Its D1-B statement is correct.
+> (2) the **preserved 05I final report** — Asset Lab repo, `docs/ASSET-LAB-05I-FINAL-REPORT.md` **@
+> `e5a4931`** (retained as history, but its readiness language is **superseded** — see the packet's
+> `EVIDENCE-INDEX.md`); (3) Lessons **AG–AS**, especially **AS**. Do
+> **not** use the pre-ruling `c9445ce` packet for current commissioning or production status.
 
 > ## 🎬 2026-08-05 — Concept A ordinary-player enablement — MERGED and CLOSED
 >
@@ -73,7 +113,8 @@
 > selector; no SaveFile, persistence, simulation or economy change; no dependency added. The Studio Lot
 > *overview* gate (`studioLotOverviewEnabled()`) is unchanged and still **default OFF**. Post-merge on
 > `main`: 1030 unit / 79 files, 65 Playwright, root+UI TypeScript clean, production build passing.
-> **D1-B unstarted; Asset Lab 05H separate and untouched; no character integration.** Closure:
+> **D1-B unstarted; Asset Lab 05H separate and untouched** (since **rejected** — see the character-track
+> entry above)**; no character integration.** Closure:
 > [`docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT-CLOSURE.md`](art/D1-A-ORDINARY-PLAYER-ENABLEMENT-CLOSURE.md);
 > implementation record:
 > [`docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md`](art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md); lessons
