@@ -16,7 +16,15 @@ Everything indexed below is a **preserved historical record**. These reports **p
 - Any **implication of visual approval** in a historical report is **superseded**. The 05I model is **rejected as a
   production character foundation**.
 - **No historical report authorizes production integration.** No production or Studio Lot integration is
-  authorized; D1-A and any subsequent D1-B Studio Lot character phase remain unstarted and separately governed.
+  authorized. **D1-A is a completed, merged, closed and tagged studio-identity milestone — not unstarted**; its
+  record is in the **production** repository on `main` (`docs/art/D1-A-CLOSURE.md`, merged as `af7c238`, closed
+  and tagged at `e87c34f`), not in this handoff branch. It did **not** integrate this character and does
+  **not** authorize character production, human-artist commissioning, or integration. Historical statements
+  that **D1-A was not started, not designed, or not scaffolded** — for example in
+  `docs/ASSET-LAB-05H-FINAL-ART-PM-RECOMMENDATION.md` — are **superseded**. **D1-B is unstarted and is not
+  authorized**; it is separately governed, is not assumed to include characters, and any character integration
+  proposed under it requires separate authorization and acceptance evidence. This index is a historical pointer
+  set, not permission to execute the commission.
 
 Where a historical report and the current ruling conflict, **the ruling governs**.
 

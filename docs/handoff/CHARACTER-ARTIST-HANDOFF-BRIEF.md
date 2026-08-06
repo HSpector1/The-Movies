@@ -33,11 +33,19 @@ Frozen checkpoint (do not modify): branch `asset-lab-character-human-artist-hand
 - **No further autonomous or procedural character iteration is authorized.** A qualified human **character
   artist** and a **rigging / weight-paint specialist** are required. This handoff package is the **active**
   character-track artifact.
-- **Character integration remains unauthorized.** **D1-A and any subsequent D1-B Studio Lot character phase remain
-  unstarted and separately governed.** D1-B is not authorized, is not assumed to include characters, and does not
-  begin automatically after this handoff; acceptance of a specialist deliverable does **not** authorize production
-  integration. Asset Lab character work remains separate from production `main` — no Asset Lab character commit
-  has ever entered it.
+- **Character integration remains unauthorized.** Acceptance of a specialist deliverable does **not** authorize
+  production integration. Asset Lab character work remains separate from production `main` — no Asset Lab
+  character commit has ever entered it.
+- **D1-A / D1-B status.** **D1-A is a completed, merged, closed and tagged studio-identity milestone — it is
+  not unstarted.** Its record lives in the **production** repository on `main`, not in this branch's history:
+  `docs/art/D1-A-CLOSURE.md`, merged as `af7c238`, closed and tagged at `e87c34f` (annotated tag
+  `d1a-studio-identity-package`), with a later ordinary-player enablement phase closed at `9303560` (tag
+  `d1a-concept-a-player-enablement`). D1-A **did not integrate this character**, and it does **not** authorize
+  human-artist commissioning, character production, or Studio Lot character integration. **D1-B is unstarted
+  and is not authorized.** It is separately governed, is not assumed to include characters, and does not begin
+  automatically after this handoff; any character integration proposed under it requires **separate
+  authorization and acceptance evidence**. This package **specifies** a commission that has **not** been
+  authorized — it is not permission to begin work.
 - **Management-camera evidence does not substitute for human-scale inspection.** The 05H management framing
   concealed defects that were blocker-grade at close range; judge this asset at human scale (see
   `CHARACTER-KNOWN-DEFECTS.md`). The converse also holds — **human-scale approval does not waive management-camera

@@ -15,8 +15,15 @@ governing status.
 - **Further autonomous procedural correction is stopped.**
 - **A qualified human character artist is required.**
 - **A qualified rigging and weight-paint specialist is required.**
-- **No production or Studio Lot integration is authorized.** D1-A and any subsequent D1-B Studio Lot character
-  phase remain unstarted and separately governed.
+- **No production or Studio Lot integration is authorized.** **D1-A** — a completed, closed internal art
+  milestone that shipped the studio's visual identity, with no characters — **is merged, closed and tagged and
+  is not unstarted**; its record is in the **production** repository on `main` (`docs/art/D1-A-CLOSURE.md`,
+  merged as `af7c238`, closed and tagged at `e87c34f`), not in this handoff branch. It did **not** integrate
+  this character and does **not** authorize character production, human-artist commissioning, or integration.
+  **D1-B** — a possible later Studio Lot phase — **is unstarted and is not authorized**; it is separately
+  governed, is not assumed to include characters, and any character integration proposed under it requires
+  separate authorization and acceptance evidence. This document **specifies** a commission that has **not**
+  been authorized — it is not permission to begin work.
 - The work runs through **staged, repeatable review gates** (`CHARACTER-ACCEPTANCE-TESTS.md`). **No fixed number
   of correction loops is promised or capped, and no single contract pass is guaranteed to reach production
   approval.**
