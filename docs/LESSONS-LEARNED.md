@@ -820,3 +820,67 @@ management camera must not be the **only** distance a character is judged at.
   hand off.
 - **Pattern:** classify the remaining work by discipline before authorising another pass. **Anti-pattern:**
   another generator iteration against a judgment problem. **Related:** **AJ**, **AK**. **Reuse:** BR, MG.
+
+## AS. A status ruling must be propagated, not appended — **BR, MG, P**
+
+Extends Lesson **AK** (the handoff supersedes further autonomous iteration) to the failure AK did not cover:
+the handoff package itself can carry the *pre-ruling* premise in every document except the one the ruling was
+written into.
+
+- **Task/defect — Project: Studio.** The final Owner ruling on the character track was initially added **only**
+  to the lead `docs/handoff/CHARACTER-ARTIST-HANDOFF-BRIEF.md` in the Asset Lab repository. The other seven
+  independently distributable handoff documents kept the earlier **"finishing correction, not a redesign"** and
+  polish-pass premise.
+- **Symptom:** the standalone `CHARACTER-HUMAN-ARTIST-SCOPE-OF-WORK.md` — the document a producer or artist is
+  most likely to receive **on its own** — still promised to *"return a production-ready character"* through
+  *"a finishing correction"*, and filed body proportions under **"Minor finishing"**. An artist pricing from
+  that page would have quoted **minor face-and-hand polish** against a character already **rejected as a
+  production foundation**, whose real scope is a face and cranium sculpt, hand/forearm retopology, a manual
+  weight-paint pass, garment refitting and a genuine reduction in body mass.
+- **Root cause:** a status block protects **only the document containing it**. The ruling was appended to a
+  reading order, not propagated through a packet.
+- **Why safeguards missed it:** the diff was correct, documentation-only, one file, and factually accurate on
+  its own terms. Branch, SHA, parity, ancestry and scope checks all passed. Nothing compared the *new status*
+  against the *surrounding commissioning assumptions*.
+- **Consequence in the record:** proportion severity, the count of unfinished areas, deformation language and
+  review-gate structure were left inconsistent across the package — the ruling named five unresolved areas while
+  the same brief still said the pipeline *"cannot finish two things"*, and the acceptance model was still a
+  single end-of-job review.
+- **Resolution:** the ruling was reconciled through the scope of work, the known-defects record, the acceptance
+  tests, the technical contract and the evidence index — branch
+  `docs/character-handoff-owner-ruling`, final candidate
+  `1dcb263dfaf0398db75fa9cb80ce7e2d948e101c` (Asset Lab repo, remote `backup`; not merged), eight documentation
+  files, **0** non-documentation files. Historical 05H/05I reports were **not** rewritten; the evidence index
+  now states that their status language is superseded.
+
+**Reusable rule (cross-project).** When a ruling changes an asset's **production status, severity, or scope**,
+propagate it through **every independently distributable document in the same governed change**. Reconcile:
+ledes · status blocks · verbs · defect counts · severity grades · scope estimates · acceptance tests · technical
+contracts · review gates · evidence indexes · supersession notices · integration restrictions.
+
+- Review a handoff as a **packet of standalone documents**, not only as an ordered reading experience — assume
+  each page is the only page its reader receives.
+- Keep **historical reports preserved**, but make current commissioning documents state **when historical
+  readiness language is superseded**.
+- When substantial **sculpting, topology, rigging, weight-painting or deformation** work remains, structure the
+  commission as **repeatable gated review**, not one-shot delivery: separate gates for art direction, face and
+  cranial sculpt, body sculpt, topology, hands, garments, headwear, rig compatibility, weight painting,
+  materials, animation, human-scale review and management-camera review, each able to approve, reject, or
+  require rework, and each able to repeat.
+- **No fixed loop count should be promised or capped.** For this character the **Owner's planning expectation is
+  that ten or more review loops may reasonably occur** — that is *iteration capacity*, **not** a guaranteed
+  iteration estimate, and not a promise of acceptance after any number of rounds. Each gate repeats on the
+  evidence.
+- A commissioned artist must be able to **estimate the real work from any standalone scope of work**, without
+  relying on undocumented context.
+- **Fastest diagnostic:** after any status ruling, grep the whole packet for the superseded framing
+  (`finishing correction`, `polish pass`, `minor`, `production-ready`, `viable`, `all viable`) and for the
+  **old defect count**; then read each commissioning-facing document **in isolation** and ask whether it alone
+  would produce a correct estimate.
+- **Pattern:** ruling propagation as part of the ruling commit — every standalone document either carries the
+  ruling or prominently references it. **Anti-pattern:** appending a ruling to one lead document while leaving
+  contradictory commissioning assumptions elsewhere; leaving "nearly ready", "finishing correction" or "polish
+  pass" language in standalone documents after the asset has been rejected; relying on a producer or artist
+  reading the packet in a specific order; collapsing sculpt, topology, garments, rigging, weight painting,
+  materials, animation, human-scale review and management-camera review into one final gate; promising
+  production readiness after one pass. **Related:** **AK**, **AO**, **AQ**, **AR**. **Reuse:** BR, MG, P.
