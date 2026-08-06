@@ -1,5 +1,27 @@
 # Project: Studio — Character Evidence Index
 
+## ⚠️ STATUS NOTICE — historical records are superseded on status
+
+Everything indexed below is a **preserved historical record**. These reports **predate the final Owner ruling** in
+[`CHARACTER-ARTIST-HANDOFF-BRIEF.md`](./CHARACTER-ARTIST-HANDOFF-BRIEF.md)
+(repo-root path: `docs/handoff/CHARACTER-ARTIST-HANDOFF-BRIEF.md`).
+
+- **Historical records must not be rewritten.** They are the audit trail of how the track reached its current state.
+- **Their provenance and technical findings remain valid** unless specifically retracted inside the record itself.
+- **Commissioning and production status are controlled by the current Owner ruling — not by any report below.**
+- Historical **"all viable"**, **"production-directionally sound"**, **"finishing correction"**, **"adopt the
+  authored-base BODY pipeline"** and other polish-only or near-ready framing is **superseded**. In particular,
+  `docs/ASSET-LAB-05I-FINAL-REPORT.md` lists proportions among items it calls "all viable"; the current ruling
+  records **body mass and proportions as unresolved and blocking** (`CHARACTER-KNOWN-DEFECTS.md`, BLOCKER 3).
+- Any **implication of visual approval** in a historical report is **superseded**. The 05I model is **rejected as a
+  production character foundation**.
+- **No historical report authorizes production integration.** No production or Studio Lot integration is
+  authorized; D1-A and any subsequent D1-B Studio Lot character phase remain unstarted and separately governed.
+
+Where a historical report and the current ruling conflict, **the ruling governs**.
+
+---
+
 Pointers to the existing 05H and 05I proof. **No large binaries are duplicated** — everything below already lives in
 the repo; open the paths directly. Paths are relative to the repo root.
 

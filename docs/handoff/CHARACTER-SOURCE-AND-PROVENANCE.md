@@ -1,5 +1,11 @@
 # Project: Studio — Character Source & Provenance
 
+> **Status:** the **CC0 provenance below is accepted**. The **05I character build it produced is rejected as a
+> production character foundation**, the commission is **substantial specialist correction, not a polish pass**,
+> and **no production or Studio Lot integration is authorized**. Accepted provenance and accepted technical
+> workflow do **not** constitute visual approval. Governing ruling:
+> [`CHARACTER-ARTIST-HANDOFF-BRIEF.md`](./CHARACTER-ARTIST-HANDOFF-BRIEF.md).
+
 Exact source assets, the procedural generator, and the CC0 provenance chain. All paths relative to the repo root
 (`/Users/bruce/Project Studio - Asset Lab`).
 

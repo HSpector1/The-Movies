@@ -1,5 +1,11 @@
 # Project: Studio — Character Export & Runtime Guide
 
+> **Status:** the 05I model is **rejected as a production character foundation**; the commission is **substantial
+> specialist correction, not a polish pass**; **no production or Studio Lot integration is authorized**. A clean
+> export and a passing validator are **technical reproducibility, not visual approval** — acceptance runs through
+> the staged gates in `CHARACTER-ACCEPTANCE-TESTS.md`. Governing ruling:
+> [`CHARACTER-ARTIST-HANDOFF-BRIEF.md`](./CHARACTER-ARTIST-HANDOFF-BRIEF.md).
+
 How to (re)build, validate, and review the character. Run from the repo root
 (`/Users/bruce/Project Studio - Asset Lab`). Blender 5.2 LTS at `/Applications/Blender.app/Contents/MacOS/Blender`
 (override with `BLENDER=`); Node in the repo (`node_modules` present); Google Chrome for the runtime capture.
