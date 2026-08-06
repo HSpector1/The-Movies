@@ -1,5 +1,22 @@
 # Project: Studio — Human Artist Scope of Work
 
+> **Governing packet identity**
+>
+> - Packet: **Project: Studio Human-Artist Character Handoff**
+> - Version: **CHH-2026-08-06-R1**
+> - Revision date: **2026-08-06**
+> - Governing branch: `asset-lab-character-human-artist-handoff`
+> - Supersedes Git tip: `9c0466d7678ad0b42bf2f91cefec2d8b9da32250`
+> - Packet content SHA-256: `013b5b050d9f70698b74ec54e6c181818994c98729cdeb725e54686e9aa2a614`
+>
+> A copied page is current only when its packet name, version, revision date, governing branch, and
+> packet-content SHA-256 match the other seven packet documents at the governing branch tip. The Git commit
+> cannot safely embed its own future SHA, so the packet-content SHA-256 is the in-document immutable identity;
+> verify the live governing Git tip separately.
+>
+> This packet is a commissioning specification only. It is not permission to begin work, produce a character,
+> integrate a character, or begin D1-B.
+
 ## Owner ruling — status of this asset (read before estimating)
 
 This document is written to be accurate **on its own**. If you received only this page, the following is the
@@ -29,6 +46,57 @@ governing status.
   approval.**
 
 Full ruling and context: `CHARACTER-ARTIST-HANDOFF-BRIEF.md`.
+
+## Client-furnished dependency (read before pricing — this is not a specialist deliverable)
+
+`public/assets/animation/UAL1_Standard.glb` — the Quaternius **Universal Animation Library** (CC0 1.0), carrying the
+approved **65-joint rig** and the **43-clip** library from which this track's **six** clips come — **is not delivered
+by this repository.** It is **intentionally gitignored** (`.gitignore` ignores `public/assets/*`, re-including only
+`public/assets/studio/`), so **`public/assets/animation/` does not exist in a clean checkout**. It is a
+**client-furnished, Owner-provisioned local dependency**.
+
+**Client / Owner responsibility**
+- **Provision** the approved, provenance-verified UAL package — or the derived approved local runtime file — at
+  `public/assets/animation/UAL1_Standard.glb`.
+- **Do so before the dependent validation and acceptance gates can complete.** Until then those gates are blocked.
+- **Retain responsibility for the package's provenance identity and authorization.** The repository records that
+  identity (`docs/PROVENANCE-REGISTER.md` §2, `manifests/source-archives.json`) and documents no download or
+  redistribution procedure.
+
+**Specialist responsibility**
+- **Do not independently download, procure or substitute another rig or animation library**, and do not swap in the
+  `_RM` root-motion variant.
+- **Do not commit or redistribute the provisioned local file.**
+- **Identify this dependency explicitly in your schedule and bid assumptions**, including its effect on the gates
+  and deliverables named below.
+- **Perform only authorized work before provisioning** — as far as the technical contract and the staged gates
+  allow, and no further.
+- **Execute the dependent rigging, weighting, deformation, animation, evidence and acceptance work once the
+  approved dependency is present.**
+
+**Effect on gates and deliverables** (staged review gates per `CHARACTER-ACCEPTANCE-TESTS.md`)
+- **Blocked from passing/completion:** **gate 5** (hands, wrists, forearms), **gate 8** (rig compatibility),
+  **gate 9** (manual weight painting), **gate 11** (animation and deformation).
+- **Blocked from closure**, though preparable and provisionally reviewable: **gates 6 and 7** (garment refit; hair
+  and headwear — both owe six-clip anchoring evidence) and **gates 10, 12 and 13** (materials and lighting
+  response; human-scale final review; management-camera final review — their in-repo runtime views are captured
+  through the review harness, which loads the clip library unconditionally). Conditional **gate 14** is separately
+  authorized and is not authorized now.
+- **Not blocked — may proceed on Blender-side evidence:** **gates 1–4**. The 65-joint skeleton is embedded in the
+  committed character GLBs and is independently re-derivable from them.
+- **Deliverables that cannot be produced until provisioning:** the **stable six-clip deformation** evidence and its
+  **joint-by-joint reporting**, the **animated deformation evidence**, and any **matched before/after** pair drawn
+  from a runtime capture.
+
+**A missing client-furnished dependency may require schedule adjustment. It does not silently transfer provisioning
+responsibility to the specialist, and it is not a character-quality failure by the specialist.** Report an affected
+gate as **`BLOCKED — OWNER-PROVISIONED UAL DEPENDENCY NOT AVAILABLE`**; it may not be satisfied by substitution.
+Nothing here reduces the sculpt, retopology, manual weight-painting, garment-refit, repeated-gated-review or
+no-iteration-cap requirements below.
+
+**No integration authorization follows automatically** once the dependency is supplied or the blocked gates pass.
+Passing every gate does **not** authorize Studio Lot character integration — that requires **both** final
+human-scale (gate 12) and final management-camera (gate 13) approval **and** a **separate** owner authorization.
 
 ## Assignment
 Bring the character to production quality through **substantial specialist correction**, **preserving the technical

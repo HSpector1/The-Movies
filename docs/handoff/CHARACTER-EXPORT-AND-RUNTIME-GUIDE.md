@@ -1,5 +1,22 @@
 # Project: Studio — Character Export & Runtime Guide
 
+> **Governing packet identity**
+>
+> - Packet: **Project: Studio Human-Artist Character Handoff**
+> - Version: **CHH-2026-08-06-R1**
+> - Revision date: **2026-08-06**
+> - Governing branch: `asset-lab-character-human-artist-handoff`
+> - Supersedes Git tip: `9c0466d7678ad0b42bf2f91cefec2d8b9da32250`
+> - Packet content SHA-256: `013b5b050d9f70698b74ec54e6c181818994c98729cdeb725e54686e9aa2a614`
+>
+> A copied page is current only when its packet name, version, revision date, governing branch, and
+> packet-content SHA-256 match the other seven packet documents at the governing branch tip. The Git commit
+> cannot safely embed its own future SHA, so the packet-content SHA-256 is the in-document immutable identity;
+> verify the live governing Git tip separately.
+>
+> This packet is a commissioning specification only. It is not permission to begin work, produce a character,
+> integrate a character, or begin D1-B.
+
 > **Status:** the 05I model is **rejected as a production character foundation**; the commission is **substantial
 > specialist correction, not a polish pass**; **no production or Studio Lot integration is authorized**. A clean
 > export and a passing validator are **technical reproducibility, not visual approval** — acceptance runs through

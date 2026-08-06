@@ -1,5 +1,22 @@
 # Project: Studio — Character Acceptance Tests
 
+> **Governing packet identity**
+>
+> - Packet: **Project: Studio Human-Artist Character Handoff**
+> - Version: **CHH-2026-08-06-R1**
+> - Revision date: **2026-08-06**
+> - Governing branch: `asset-lab-character-human-artist-handoff`
+> - Supersedes Git tip: `9c0466d7678ad0b42bf2f91cefec2d8b9da32250`
+> - Packet content SHA-256: `013b5b050d9f70698b74ec54e6c181818994c98729cdeb725e54686e9aa2a614`
+>
+> A copied page is current only when its packet name, version, revision date, governing branch, and
+> packet-content SHA-256 match the other seven packet documents at the governing branch tip. The Git commit
+> cannot safely embed its own future SHA, so the packet-content SHA-256 is the in-document immutable identity;
+> verify the live governing Git tip separately.
+>
+> This packet is a commissioning specification only. It is not permission to begin work, produce a character,
+> integrate a character, or begin D1-B.
+
 > **Status:** the 05I model is **rejected as a production character foundation**; the commission is **substantial
 > specialist correction, not a polish pass**; **no production or Studio Lot integration is authorized** until the
 > final gates below have passed. Governing ruling: `CHARACTER-ARTIST-HANDOFF-BRIEF.md`.
@@ -46,6 +63,64 @@ For **every** gate:
   approval (gate 13) have passed.**
 - **Performance and multi-character claims require separately authorized measured evidence** — they are not
   established by any gate above.
+
+### PRECONDITION — the Owner-provisioned UAL dependency, and the blocked-gate rule
+
+**`public/assets/animation/UAL1_Standard.glb` is not delivered by this repository.** It is **intentionally
+gitignored** (`.gitignore` ignores `public/assets/*` and re-includes only `public/assets/studio/`), so
+**`public/assets/animation/` does not exist in a clean checkout**. It is a **client-furnished, Owner-provisioned**
+local dependency supplied by the **Owner or an authorized Asset Lab operator** from the previously approved,
+provenance-verified Quaternius **Universal Animation Library** (CC0 1.0) — the **65-joint rig** plus the **43-clip**
+library that contains **the six clips every test below names**. The specialist **must not** substitute another rig or
+animation library, and **must not** commit or redistribute the provisioned file
+(`CHARACTER-TECHNICAL-CONTRACT.md` → *Rig and clip-library delivery status*).
+
+**Gates that may be prepared and reviewed before provisioning**
+
+- **Gate 1 (art direction and proportion target)**, **gate 2 (face and cranial sculpt)**, **gate 3 (body sculpt and
+  silhouette)** and **gate 4 (topology and edge flow)** may proceed on Blender-side evidence. The **65-joint
+  skeleton is embedded in the committed character GLBs** (`electric_hero_05i{,_LOD1,_LOD2}.glb`) and is
+  independently re-derivable from them, so gate 4's "topology supports the existing 65-joint rig" check needs no
+  external dependency. **Absence of the UAL package is a setup dependency — it is not evidence that the accepted
+  skeleton accounting is invalid.**
+
+**Gates that cannot pass or be marked complete before provisioning**
+
+- **Gate 5 — Hands, wrists, and forearms.** Its evidence is per-clip volume across **all six clips**.
+- **Gate 8 — Rig compatibility.** Clips retarget by bone name; the committed character skeleton and the provisioned
+  clip library must be **validated together**.
+- **Gate 9 — Manual weight painting.** Weights must be validated **on the exported asset across all six clips**,
+  with joint-by-joint pass/fail per joint per clip.
+- **Gate 11 — Animation and deformation.** The gate *is* the six clips.
+
+**Gates that may be prepared but cannot be closed before provisioning**
+
+- **Gate 6 (garment construction and refit)** and **gate 7 (hair and headwear)** — every garment and accessory owes
+  "**stays anchored through all six clips**" evidence.
+- **Gate 10 (materials and lighting response)**, **gate 12 (human-scale final review)** and **gate 13
+  (management-camera final review)** — their required in-repo runtime views are captured through the review harness,
+  whose 05I hero component loads the clip library unconditionally, so **the static runtime views are unavailable
+  too**, not only the animated ones.
+- Conditional **gate 14** is separately authorized and is **not** authorized now.
+
+**Evidence that cannot be produced or validated at all before provisioning:** the **six-clip deformation
+validation** (Idle · Walk · Talk · Kneeling · Pickup · Sitting), the **joint-by-joint per-clip reporting**, the
+**animated deformation evidence**, any **matched before/after pair drawn from a runtime capture**, and the
+**console-error-free runtime capture** in the hard technical gates below. The **static, Blender-side** hard gates —
+65-joint count, bone names/hierarchy/orientation/scale/ground, LOD tri budgets, monotonic LODs, height, face on −Y,
+feet grounded, 05G/05H byte-unchanged, `tsc --noEmit`, `vite build`, `node tools/validate-05i.mjs` — **do not**
+depend on it.
+
+**The blocked-state rule**
+
+- **A gate blocked this way is NOT a character-quality failure by the specialist.** It is a missing client input.
+- Report the gate as: **`BLOCKED — OWNER-PROVISIONED UAL DEPENDENCY NOT AVAILABLE`**
+- **The specialist may not satisfy the block by substituting another rig or animation library**, by swapping in the
+  `_RM` root-motion variant, or by downloading a replacement. Doing so does not clear the gate.
+- **Provisioning is a client-side schedule dependency**, not an unpriced specialist deliverable; it may justify a
+  schedule adjustment.
+- **No integration authorization follows automatically** once the dependency is supplied or the gates pass.
+  Integration still requires **both** gate 12 and gate 13 approval **and** separate authorization.
 
 ### Gate 1 — Art direction and proportion target: required evidence
 
