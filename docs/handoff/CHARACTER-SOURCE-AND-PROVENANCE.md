@@ -20,14 +20,26 @@ blender/build_hero_export_05i.py` (see `CHARACTER-EXPORT-AND-RUNTIME-GUIDE.md`).
 | Asset | Path | Notes |
 |---|---|---|
 | CC0 authored base body | `licenses/asset-lab-05h/human_base_male_stylized_cc0.glb` | `GEO-body_male_stylized`, welded ~12,502-vert all-quad cage |
-| Shared skeleton + clip library | `public/assets/animation/UAL1_Standard.glb` | Quaternius UAL Mannequin, 65-bone rig + 43 CC0 clips (6 used) |
+| Shared skeleton + clip library **(⚠ locally provisioned — not repository-delivered; see the note below)** | `public/assets/animation/UAL1_Standard.glb` | Quaternius UAL Mannequin, 65-bone rig + 43 CC0 clips (6 used) |
 | Generator (base + body/face corrections) | `blender/studio_pipeline/authored05i.py` | thin layer over `authored05h.py` |
 | Generator (accepted 05H foundation) | `blender/studio_pipeline/authored05h.py` | base import, re-pose, skin, garment helpers |
 | Export driver | `blender/build_hero_export_05i.py` | build → join → decimate → LODs → GLBs → manifest |
 | Iteration render driver | `blender/build_hero_05i_render.py` | fast review renders (no export) |
 | Pipeline modules | `blender/studio_pipeline/{config,core,rig,lod,exporter,meshgen,render}.py` | rig load, LOD, export, mesh toolkit |
 
-## Current shipped character GLBs (05I Iteration 2, frozen)
+> **⚠ Delivery status — `public/assets/animation/UAL1_Standard.glb` is a locally provisioned, gitignored
+> dependency. It is NOT delivered by this repository** and does not exist in a clean checkout (`public/assets/*` is
+> gitignored; only `public/assets/studio/` is re-included). **The six animation-test clips live inside that same
+> file, so they cannot be validated until it is provisioned.** The **Owner or an authorized Asset Lab operator must
+> provide** the previously approved, provenance-verified UAL package or the derived local file; the path above is
+> expected **only after authorized local provisioning**. Its approved source identity, license and hash remain
+> governed by the existing provenance records (`docs/PROVENANCE-REGISTER.md` §2, `docs/ASSET-INVENTORY.md`,
+> `manifests/source-archives.json`) — **do not independently substitute a different rig or animation library**, and
+> do not commit or redistribute the local file. Every other row in this table, and every GLB in the next section,
+> **is** committed and repository-delivered. Full terms:
+> [`CHARACTER-TECHNICAL-CONTRACT.md`](./CHARACTER-TECHNICAL-CONTRACT.md) → *Rig and clip-library delivery status*.
+
+## Current shipped character GLBs (05I Iteration 2, frozen — committed and repository-delivered)
 - `public/assets/studio/characters/electric_hero_05i.glb` — LOD0, 22,856 tris, 65 joints (~878 KB)
 - `public/assets/studio/characters/electric_hero_05i_LOD1.glb` — 10,285 tris (~444 KB)
 - `public/assets/studio/characters/electric_hero_05i_LOD2.glb` — 4,570 tris (~239 KB)
