@@ -22,10 +22,10 @@
 > retuning, and **no financing/debt/recovery mechanic**. Affordability is authoritative and action-parity
 > tested (bare-minimum greenlight vs standard-budget vs recent-typical). (D-15 shipped while Concept A
 > was still default OFF; Concept A has since been enabled for ordinary players — see above.)
-> **D1-B unstarted**; the **Asset Lab character track (05H / 05I) is closed and rejected** — a human
-> character artist and a rigging / weight-paint specialist are required, and the remaining work is
+> **D1-B unstarted and unauthorized**; the **Asset Lab character track (05H / 05I) is closed and rejected** — a
+> human character artist and a rigging / weight-paint specialist are required, and the remaining work is
 > **substantial specialist correction, not a polish pass**. The active handoff packet is
-> **`asset-lab-character-human-artist-handoff` @ `e5a4931`** — a status and commissioning record, **not**
+> **`asset-lab-character-human-artist-handoff` @ `9c0466d`** — a status and commissioning record, **not**
 > an authorization: **character production is not authorized, Studio Lot character integration is not
 > authorized**, and nothing is integrated
 > (see the character-track entry below). **Economy and recovery balance remain a separate owner decision**
@@ -58,13 +58,23 @@
 > authorized.**
 >
 > **Governing packet.** `asset-lab-character-human-artist-handoff` @
-> `e5a4931b856c38cc5104be35aade4b40eb140116` — the **merged and published** Asset Lab handoff packet and the
-> **active governing commissioning and character-status record**. It was published by a **five-commit linear
-> fast-forward** on the Asset Lab handoff branch (`c9445ce..e5a4931`; **no merge commit**), is
+> `9c0466d7678ad0b42bf2f91cefec2d8b9da32250` — the **merged and published** Asset Lab handoff packet and the
+> **active governing commissioning and character-status record**. It was published by a **six-commit linear
+> fast-forward** on the Asset Lab handoff branch (`c9445ce..9c0466d`; **no merge commit**), is
 > **documentation-only** — eight `docs/handoff/*.md` files, **0** non-documentation files — and is at
 > local/remote parity on remote `backup`. It is **not merged into production `main`**, and it is **not
 > authorization to execute the commission or to integrate the character**. (The ruling above is dated
 > 2026-08-05; the packet finished reconciling 2026-08-06.)
+>
+> **D1-A / D1-B — the packet and the production record now agree.** **D1-A is completed, merged, closed and
+> tagged**: `docs/art/D1-A-CLOSURE.md`, merged as `af7c238`, closed and tagged at `e87c34f` (annotated tag
+> `d1a-studio-identity-package`), with the later ordinary-player enablement phase closed at `9303560`
+> (tag `d1a-concept-a-player-enablement`). **D1-A did not integrate the rejected character** — its merge added
+> **0** character/GLB/glTF/FBX files — and it authorized **no** human-artist commissioning, **no** character
+> production and **no** Studio Lot character integration. **D1-B is unstarted and unauthorized**, separately
+> governed, and **not assumed to include characters**; **any future character integration requires separate
+> Owner authorization and acceptance evidence**. The packet's earlier claim that D1-A *remained unstarted* was
+> corrected in the sixth commit, `9c0466d`.
 >
 > Verified checkpoints — Asset Lab repository `/Users/bruce/Project Studio - Asset Lab` (remote `backup`);
 > the **four named branches** all at local/remote parity, in one linear ancestry chain:
@@ -73,7 +83,9 @@
 > `asset-lab-05i-corrective-character-pass` @ `8903b1e8bbbc166aa1b74a33167aea964502a1f6` →
 > `c9445ce55b5d83cc29def9928aec75fa4edd50ed` — the **pre-ruling handoff checkpoint**, a historical branch
 > state now carrying no branch of its own, **superseded on current commissioning and production status** →
-> **`asset-lab-character-human-artist-handoff` @ `e5a4931`** (current branch tip).
+> `e5a4931` — the **fifth** commit of the reconciliation chain, a historical intermediate state, itself
+> superseded as the branch tip →
+> **`asset-lab-character-human-artist-handoff` @ `9c0466d`** (current branch tip).
 >
 > **None of these is an ancestor of production `main`.** Production `main` carries **0** GLB/glTF/FBX
 > files and no Three.js (the renderer dependency is `phaser`). **No character integration occurred; D1-B
@@ -86,15 +98,16 @@
 > [`docs/LESSONS-LEARNED.md`](LESSONS-LEARNED.md) — especially Lesson **AS**, *"A status ruling must be
 > propagated, not appended"*.
 >
-> **Before any character work, read in this order:** (1) the **active handoff packet at `e5a4931`**
+> **Before any character work, read in this order:** (1) the **active handoff packet at `9c0466d`**
 > (Asset Lab repo, `docs/handoff/*` on `asset-lab-character-human-artist-handoff` — it is **not** present in
-> the 05I checkout). It governs **character status and commissioning only**; its statement that *D1-A
-> remains unstarted* is **stale** — **D1-A is merged and closed** (tag `d1a-studio-identity-package`, see the
-> Lessons block above), and the production record governs D1-A status. Its D1-B statement is correct.
-> (2) the **preserved 05I final report** — Asset Lab repo, `docs/ASSET-LAB-05I-FINAL-REPORT.md` **@
-> `e5a4931`** (retained as history, but its readiness language is **superseded** — see the packet's
-> `EVIDENCE-INDEX.md`); (3) Lessons **AG–AS**, especially **AS**. Do
-> **not** use the pre-ruling `c9445ce` packet for current commissioning or production status.
+> the 05I checkout). It governs **character status and commissioning only**; its **D1-A and D1-B statements
+> are now correct** — the earlier stale claim that *D1-A remained unstarted* was corrected in `9c0466d`, and
+> the **production record still governs D1-A status** (tag `d1a-studio-identity-package`, see the Lessons
+> block above). (2) the **preserved 05I final report** — Asset Lab repo,
+> `docs/ASSET-LAB-05I-FINAL-REPORT.md` **@ `9c0466d`** (retained as history, but its readiness language is
+> **superseded** — see the packet's `EVIDENCE-INDEX.md`); (3) Lessons **AG–AS**, especially **AS**. Do
+> **not** use the pre-ruling `c9445ce` packet, nor the superseded `e5a4931` tip, for current commissioning or
+> production status.
 
 > ## 🎬 2026-08-05 — Concept A ordinary-player enablement — MERGED and CLOSED
 >

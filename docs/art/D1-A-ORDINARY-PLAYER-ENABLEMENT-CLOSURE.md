@@ -258,5 +258,20 @@ occurred.**
 - Published branch: `art-d1a-concept-a-player-enablement` @ `0c6ff3d`.
 - Annotated tag: `d1a-concept-a-player-enablement` (points at final `main` after merge + closure).
 
-**Next owner decision required:** whether to authorize **D1-B**, and separately whether to authorize
-**Asset Lab 05H** / character integration. Both remain unstarted and out of scope here.
+**Next Owner decisions, each separate:** whether to authorize **D1-B**; whether to **commission** work under
+the active human-artist handoff; and, **only after that commission's required gates pass**, whether to
+authorize **character integration**. All three are **out of scope here** — this milestone's record above is
+unchanged, and **D1-A remains closed**.
+
+- **D1-B remains unstarted, unauthorized and separately governed**, and is **not assumed to include
+  characters**.
+- **Asset Lab 05H and 05I are completed, rejected character-build milestones — not unstarted future options.**
+  05H was built and its **visual character build was rejected** as a production character; **05I** followed as
+  **one bounded corrective milestone containing two owner-reviewed iterations** and was itself **rejected as
+  the production character foundation**. The open question is therefore **not** whether to "start 05H".
+- The **active character authority** is the merged and published handoff
+  `asset-lab-character-human-artist-handoff` @ `9c0466d` (Asset Lab repository, remote `backup`;
+  **not** merged into production `main`). It is a **commissioning specification — not permission to begin
+  work, and not permission to integrate a character**.
+- Any future **character production** or **Studio Lot character integration** requires **separate Owner
+  authorization and acceptance evidence**.

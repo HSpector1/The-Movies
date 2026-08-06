@@ -669,17 +669,18 @@ unauthorized**; **D1-B remains unstarted and separately governed**.
 
 Current governing authority — the handoff packet, **merged and published** on its Asset Lab branch
 (fast-forward; remote `backup`, local/remote parity) and **not** merged into production `main`:
-`asset-lab-character-human-artist-handoff` @ `e5a4931b856c38cc5104be35aade4b40eb140116`.
+`asset-lab-character-human-artist-handoff` @ `9c0466d7678ad0b42bf2f91cefec2d8b9da32250`.
 Historical checkpoints, all at local/remote parity in one linear chain:
 `asset-lab-05h-authored-base-character-proof` @ `9e3c5d7bda39f069b7dac04624584c4fea645332` →
 `asset-lab-05h-final-owner-review-package` @ `ddfd69fbc22be313f9dbb548c2b16032c9802daa` →
 `asset-lab-05i-corrective-character-pass` @ `8903b1e8bbbc166aa1b74a33167aea964502a1f6` →
 `c9445ce55b5d83cc29def9928aec75fa4edd50ed` — the **pre-ruling checkpoint** on that branch, superseded on
-current commissioning and production status → **`asset-lab-character-human-artist-handoff` @ `e5a4931`**
+current commissioning and production status → `e5a4931` — the **fifth** commit of the reconciliation chain, a
+historical intermediate state → **`asset-lab-character-human-artist-handoff` @ `9c0466d`**
 (current branch tip). Related (Asset Lab repo): `docs/ASSET-LAB-05H-FINAL-OWNER-REVIEW.md`,
 `docs/ASSET-LAB-05H-FINAL-ART-PM-RECOMMENDATION.md`, `docs/ASSET-LAB-05H-MANAGEMENT-CAMERA-ASSESSMENT.md`,
 `docs/ASSET-LAB-05I-FINAL-REPORT.md` (**preserved; its readiness language is superseded**),
-`docs/handoff/*` **@ `e5a4931`** (the packet lives on the handoff branch — it is **not** present in the 05I
+`docs/handoff/*` **@ `9c0466d`** (the packet lives on the handoff branch — it is **not** present in the 05I
 checkout), `licenses/asset-lab-05h/PROVENANCE.json`.
 
 ## AG. A proof branch preserves history, not a runnable review environment — **P, BR**
@@ -748,7 +749,7 @@ management camera must not be the **only** distance a character is judged at.
 
 ## AK. The human-artist handoff supersedes further autonomous iteration — **P**
 
-- **Resolution:** `asset-lab-character-human-artist-handoff` @ `e5a4931` is the character-track artifact — 8
+- **Resolution:** `asset-lab-character-human-artist-handoff` @ `9c0466d` is the character-track artifact — 8
   documents, **0** non-documentation files: artist brief, technical contract (65-joint skeleton, bone names,
   orientation, scale, ground, the six accepted clips — supplied by a **locally provisioned, gitignored** rig
   library, not by the repository — and GLB/LOD/material conventions), annotated known defects with exact
@@ -756,11 +757,11 @@ management camera must not be the **only** distance a character is judged at.
   source and CC0 provenance chain, export/runtime guide, evidence index.
 - **Which packet governs:** the `c9445ce` package is the **pre-ruling checkpoint**. It is **superseded on
   current commissioning and production status** by `asset-lab-character-human-artist-handoff` @
-  `e5a4931b856c38cc5104be35aade4b40eb140116`, which **governs**. See Lesson **AS** for the rule on propagation
+  `9c0466d7678ad0b42bf2f91cefec2d8b9da32250`, which **governs**. See Lesson **AS** for the rule on propagation
   and supersession.
 - **Standing status:** character integration is **not** authorized; role-wide propagation is **not**
   authorized; D1-B remains unstarted; Asset Lab character work remains separate from production `main`.
-- **Fastest diagnostic:** before any character work, read the **active handoff packet at `e5a4931`** and the
+- **Fastest diagnostic:** before any character work, read the **active handoff packet at `9c0466d`** and the
   preserved 05I final report (`docs/ASSET-LAB-05I-FINAL-REPORT.md`) first — the latter is retained as history,
   but its readiness language is superseded, as the packet's evidence index records.
 - **Anti-pattern:** resuming generator iteration while a specialist handoff is the open artifact; reading the
@@ -872,13 +873,19 @@ written into.
   single end-of-job review.
 - **Resolution:** the ruling was reconciled through the scope of work, the known-defects record, the acceptance
   tests, the technical contract and the evidence index. The reconciliation is **merged and published** as
-  `asset-lab-character-human-artist-handoff` @ `e5a4931b856c38cc5104be35aade4b40eb140116` (Asset Lab repo,
-  remote `backup`; a fast-forward on that branch — **not** merged into production `main`) — **five linear
-  documentation-only commits** over the complete range `c9445ce..e5a4931` (`074bb80`, `1dcb263`, `b9f57a0`,
-  `2967c1c`, `e5a4931`; `1dcb263` is the **second intermediate commit** of that chain, not a final candidate),
-  **eight** `docs/handoff/*.md` files changed, **0** non-documentation files. **No historical 05H or 05I report
-  was rewritten** and **no character asset or production code changed**; the evidence index now states that the
-  historical reports' status language is superseded.
+  `asset-lab-character-human-artist-handoff` @ `9c0466d7678ad0b42bf2f91cefec2d8b9da32250` (Asset Lab repo,
+  remote `backup`; a fast-forward on that branch — **not** merged into production `main`) — **six linear
+  documentation-only commits** over the complete range `c9445ce..9c0466d` (`074bb80`, `1dcb263`, `b9f57a0`,
+  `2967c1c`, `e5a4931`, `9c0466d`; `1dcb263` is the **second intermediate commit** of that chain and `e5a4931`
+  the **fifth**, neither a final candidate — `e5a4931` was superseded as the branch tip by `9c0466d`). The
+  **sixth and final commit is `9c0466d` — *docs(handoff): correct D1-A and D1-B status*** (supporting
+  example 3). Across the whole range **eight** `docs/handoff/*.md` files changed and **0** non-documentation
+  files; the D1-A/D1-B correction itself touched **three** of those eight — the brief, the scope of work and
+  the evidence index — each an independently distributable document. **No historical 05H or 05I report was
+  rewritten** and **no character asset or production code changed**; the evidence index now states that the
+  historical reports' status language is superseded. The packet was **published through a linear
+  fast-forward**, is **not merged into production `main`**, and **does not authorize execution of the
+  commission**.
 - **Acceptance restructured — Project: Studio.** The single end-of-job review became **fourteen total staged
   gates**, of which **thirteen are ordinarily required**: art direction and proportion target · face and
   cranial sculpt · body sculpt and silhouette · topology and edge-flow correction · hands, wrists and forearms ·
@@ -919,6 +926,28 @@ expansion, `{runtime,real-gpu,blender}/`, of which two thirds resolved correctly
 plausible. The corrected index now distinguishes `runtime/`, `real-gpu/`, the **twelve root-level Iteration-1
 renders**, and `root-cause/` where relevant. **No evidence file needed to move.**
 
+**Supporting example 3 — a stale status claim about another repository's milestone — Project: Studio.** The
+central 05H/05I rejection ruling **had** been propagated correctly through all eight documents. What survived
+was a stale **adjacent-milestone** assertion: three packet documents — `CHARACTER-ARTIST-HANDOFF-BRIEF.md`,
+`CHARACTER-HUMAN-ARTIST-SCOPE-OF-WORK.md` and `EVIDENCE-INDEX.md` — still said *"D1-A and any subsequent D1-B
+Studio Lot character phase remain unstarted and separately governed"*, a single grammatical subject that swept
+**D1-A** into **D1-B's** status. **D1-A is owned by the production repository, not by the Asset Lab handoff
+branch, and it was already merged, closed and tagged**: `docs/art/D1-A-CLOSURE.md`, merged as `af7c238`,
+closed and tagged at `e87c34f` (annotated tag `d1a-studio-identity-package`), with the later ordinary-player
+enablement phase closed at `9303560` (tag `d1a-concept-a-player-enablement`). The packet was therefore
+**internally consistent and still wrong about an external repository's milestone** — every check that compared
+the packet against itself passed, because the claim's referent lived somewhere the packet never looked. The
+correction (`9c0466d`) states D1-A as **completed, merged, closed and tagged**, locates its record in the
+**production** repository rather than in the handoff branch's history, records that **D1-A did not integrate
+this character** and authorized **no** human-artist commissioning, **no** character production and **no**
+Studio Lot character integration, and restates D1-B with a **bare subject** — *"D1-B is unstarted and is not
+authorized"* — separately governed, not assumed to include characters, with any character integration proposed
+under it requiring **separate authorization and acceptance evidence**. **D1-B, by contrast, is genuinely
+unstarted and unauthorized**: no D1-B branch, tag or implementation exists in either repository. The
+historical reports carrying the old claim — for example `docs/ASSET-LAB-05H-FINAL-ART-PM-RECOMMENDATION.md`,
+which reads *"D1-A was not started, not designed, not scaffolded"* — were **superseded by notice, not
+rewritten**.
+
 **Reusable rule (cross-project).** When a ruling changes an asset's **production status, severity, or scope**,
 propagate it through **every independently distributable document in the same governed change**. Reconcile:
 ledes · status blocks · verbs · defect counts · severity grades · scope estimates · acceptance tests · technical
@@ -928,6 +957,13 @@ provenance requirements · dependency gating · exact evidence-path resolution.
 
 - Review a handoff as a **packet of standalone documents**, not only as an ordered reading experience — assume
   each page is the only page its reader receives.
+- **Propagation review must validate adjacent milestone and dependency claims, not only the central ruling.**
+  A packet can be **internally consistent and still be wrong about another repository**. **Cross-repository
+  status claims must be checked against the repository that owns the branch, tag, closure record, or
+  implementation** — never against the packet's own history, and never against a sibling document that
+  inherited the same assumption. Write such claims with a **bare subject per milestone** ("X is closed",
+  "Y is unstarted"), never as one predicate shared across two milestones, and **name the repository that owns
+  each record** so a standalone reader can verify it.
 - Keep **historical reports preserved**, but make current commissioning documents state **when historical
   readiness language is superseded**.
 - When substantial **sculpting, topology, rigging, weight-painting or deformation** work remains, structure the
@@ -954,7 +990,8 @@ provenance requirements · dependency gating · exact evidence-path resolution.
   **old defect count**; then read each commissioning-facing document **in isolation** and ask whether it alone
   would produce a correct estimate. For every asset the packet calls *committed*, confirm it with
   `git ls-tree` against a clean checkout rather than a local path; for every evidence pointer, resolve the
-  **exact** path, not the pattern.
+  **exact** path, not the pattern; and for every claim about an **adjacent milestone in another repository**,
+  resolve the branch, tag or closure record **in that repository** before accepting it.
 - **Pattern:** ruling propagation as part of the ruling commit — every standalone document either carries the
   ruling or prominently references it. **Anti-pattern:** appending a ruling to one lead document while leaving
   contradictory commissioning assumptions elsewhere; leaving "nearly ready", "finishing correction" or "polish
