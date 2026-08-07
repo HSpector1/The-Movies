@@ -3,16 +3,23 @@
 > **Governing packet identity**
 >
 > - Packet: **Project: Studio Human-Artist Character Handoff**
-> - Version: **CHH-2026-08-06-R1**
-> - Revision date: **2026-08-06**
+> - Version: **CHH-2026-08-07-R2**
+> - Revision date: **2026-08-07**
 > - Governing branch: `asset-lab-character-human-artist-handoff`
-> - Supersedes Git tip: `9c0466d7678ad0b42bf2f91cefec2d8b9da32250`
-> - Packet content SHA-256: `013b5b050d9f70698b74ec54e6c181818994c98729cdeb725e54686e9aa2a614`
+> - Supersedes Git tip: `7603b2f234dfdb11ad6a0691315942c4b16cffac`
+> - Packet content SHA-256: `dbe7c8c31d80ae1218c8a01fe6326a37eb20511274d2e42eb32bd70d2fd9869e`
 >
 > A copied page is current only when its packet name, version, revision date, governing branch, and
 > packet-content SHA-256 match the other seven packet documents at the governing branch tip. The Git commit
 > cannot safely embed its own future SHA, so the packet-content SHA-256 is the in-document immutable identity;
-> verify the live governing Git tip separately.
+> the **live governing Git tip is a separate check** and must be verified against the remote, not against this page.
+>
+> **Verify mechanically — do not trust a pasted digest.** The digest method is governed repository content, and a
+> committed validator reproduces it: `npm run handoff:verify` (`node tools/validate-handoff-packet.mjs`) re-derives
+> the digest from all eight pages and exits non-zero on any mismatch, mixed version or missing page. After any packet
+> edit, regenerate with `npm run handoff:update`. **Hand-editing a digest without regenerating is prohibited**, and a
+> packet with mixed versions or mixed digests is **invalid**. Method: `CHARACTER-TECHNICAL-CONTRACT.md` →
+> *Packet identity and the packet-content digest*. Validator: `tools/validate-handoff-packet.mjs`.
 >
 > This packet is a commissioning specification only. It is not permission to begin work, produce a character,
 > integrate a character, or begin D1-B.
@@ -111,6 +118,14 @@ gitignored `sources/original-archives/` and hash-verified by `tools/hash-archive
   prepared but not closed without it (six-clip garment/accessory anchoring; runtime-harness views). See that
   document's *PRECONDITION — the Owner-provisioned UAL dependency, and the blocked-gate rule* for the full
   partition and the required blocked-state wording.
+
+**Recording the result — BLOCKED is not FAILED.** A gate whose required evidence cannot be completed **solely**
+because the approved Owner-provisioned UAL dependency is unavailable **MUST** be recorded as
+**`BLOCKED — OWNER-PROVISIONED UAL DEPENDENCY NOT AVAILABLE`** — **not FAILED**. **FAILED** means the required work
+or evidence **was actually available for evaluation** and did not satisfy the applicable requirement; **PASSED**
+means it was available and affirmatively satisfied it. Provisioning the dependency **removes the block only** — it
+produces no evidence, marks nothing PASSED, and authorizes no integration. Governing definitions:
+`CHARACTER-ACCEPTANCE-TESTS.md` → *Gate result states — BLOCKED vs FAILED vs PASSED*.
 
 ## Orientation, scale, ground (hard contract)
 - **1 unit = 1 metre.** Character height ≈ 1.75–1.85 m (validator range [1.70, 1.95]).
@@ -278,3 +293,78 @@ reuse is permitted only where the specialist has judged it sound and said so.
 - The CC0 provenance chain (Blender Studio Human Base Meshes, CC0-1.0) must be preserved; see
   `CHARACTER-SOURCE-AND-PROVENANCE.md`. If the artist introduces new geometry, its license/provenance must be
   documented and must be commit-safe (CC0 or owner-owned).
+
+## Packet identity and the packet-content digest (governing method)
+
+This section governs the **packet's own identity**, not the character. It is the authoritative description of the
+packet-content SHA-256 that every page's identity block carries. Other packet pages link here rather than repeating
+the algorithm.
+
+**What the digest covers.** Exactly **eight** files — the whole packet, nothing else. No proof, no evidence, no
+historical report, no asset, no source code:
+
+```
+docs/handoff/CHARACTER-ACCEPTANCE-TESTS.md
+docs/handoff/CHARACTER-ARTIST-HANDOFF-BRIEF.md
+docs/handoff/CHARACTER-EXPORT-AND-RUNTIME-GUIDE.md
+docs/handoff/CHARACTER-HUMAN-ARTIST-SCOPE-OF-WORK.md
+docs/handoff/CHARACTER-KNOWN-DEFECTS.md
+docs/handoff/CHARACTER-SOURCE-AND-PROVENANCE.md
+docs/handoff/CHARACTER-TECHNICAL-CONTRACT.md
+docs/handoff/EVIDENCE-INDEX.md
+```
+
+**The digest field is normalized before hashing.** All eight pages embed the *same* value, so hashing them as-is
+would be self-referential and could never converge. Before hashing, each page's single
+`> - Packet content SHA-256:` line has its value replaced by the fixed literal token
+`<NORMALIZED-PACKET-DIGEST>`. The digest therefore does not depend on whatever value is currently embedded.
+
+**Canonical algorithm** (implemented by `tools/validate-handoff-packet.mjs`):
+
+1. Read each of the eight files as **UTF-8**.
+2. Normalize line endings: **CRLF → LF**, **lone CR → LF**.
+3. Require **exactly one** packet-content SHA-256 identity line per file — zero, or two or more, is an error.
+4. Replace that line's value with the literal token `<NORMALIZED-PACKET-DIGEST>` (the line becomes its
+   `> - Packet content SHA-256:` prefix, one space, then the bare token).
+5. Order the files **lexicographically by repository-relative path**, and for each append these UTF-8 bytes:
+   `===== FILE: <repository-relative-path> =====\n`, then the normalized contents, then `\n`.
+6. **SHA-256** the concatenated byte stream.
+7. Encode as **lowercase 64-character hexadecimal**.
+8. Embed that identical value in **all eight** pages.
+9. **Recompute and require exact equality.**
+
+The digest depends on nothing else: **no timestamps, no absolute paths, no filesystem metadata, no locale-dependent
+ordering, no Git SHA, and no per-page digest variants.**
+
+**The packet digest is NOT the Git commit SHA.** They answer different questions and neither substitutes for the
+other. A Git commit cannot embed its own future SHA, so the packet-content digest is the **in-document immutable
+identity** — it travels with a page that has been copied, pasted or emailed out of the repository. The **live
+governing Git tip is verified separately**, against the remote for
+`asset-lab-character-human-artist-handoff` — never against a claim printed inside a packet page.
+
+**Verify** (read-only; exits non-zero on any failure):
+
+```
+npm run handoff:verify                    # = node tools/validate-handoff-packet.mjs
+node tools/validate-handoff-packet.mjs --root <dir>     # validate a copy or export
+```
+
+It checks that all eight files are present, that all eight identity blocks exist, that the packet name, version,
+revision date, governing branch and superseded tip **agree across all eight pages**, that each page carries exactly
+one well-formed lowercase digest field, and that the recomputed digest equals the embedded one. It reports **missing
+packet files**, **mixed packet versions**, **mixed digests**, and **duplicate or missing digest fields** by name.
+
+**Update** (regenerate after any packet edit; rewrites only the digest line, then immediately re-verifies):
+
+```
+npm run handoff:update                    # = node tools/validate-handoff-packet.mjs --update
+```
+
+**Rules.**
+
+- **A packet with mixed versions, mixed revision dates, or mixed digests across its eight pages is INVALID** and
+  must not be issued, quoted or relied on. Re-derive it from the governing branch tip.
+- **Manually editing a digest without regenerating it is prohibited.** A hand-typed digest is not evidence of
+  anything; the only valid digest is one `handoff:update` produced and `handoff:verify` confirms.
+- **Any substantive edit to any of the eight pages invalidates the digest** and requires a regeneration, a version
+  bump, and a new revision date.

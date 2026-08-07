@@ -3,16 +3,23 @@
 > **Governing packet identity**
 >
 > - Packet: **Project: Studio Human-Artist Character Handoff**
-> - Version: **CHH-2026-08-06-R1**
-> - Revision date: **2026-08-06**
+> - Version: **CHH-2026-08-07-R2**
+> - Revision date: **2026-08-07**
 > - Governing branch: `asset-lab-character-human-artist-handoff`
-> - Supersedes Git tip: `9c0466d7678ad0b42bf2f91cefec2d8b9da32250`
-> - Packet content SHA-256: `013b5b050d9f70698b74ec54e6c181818994c98729cdeb725e54686e9aa2a614`
+> - Supersedes Git tip: `7603b2f234dfdb11ad6a0691315942c4b16cffac`
+> - Packet content SHA-256: `dbe7c8c31d80ae1218c8a01fe6326a37eb20511274d2e42eb32bd70d2fd9869e`
 >
 > A copied page is current only when its packet name, version, revision date, governing branch, and
 > packet-content SHA-256 match the other seven packet documents at the governing branch tip. The Git commit
 > cannot safely embed its own future SHA, so the packet-content SHA-256 is the in-document immutable identity;
-> verify the live governing Git tip separately.
+> the **live governing Git tip is a separate check** and must be verified against the remote, not against this page.
+>
+> **Verify mechanically — do not trust a pasted digest.** The digest method is governed repository content, and a
+> committed validator reproduces it: `npm run handoff:verify` (`node tools/validate-handoff-packet.mjs`) re-derives
+> the digest from all eight pages and exits non-zero on any mismatch, mixed version or missing page. After any packet
+> edit, regenerate with `npm run handoff:update`. **Hand-editing a digest without regenerating is prohibited**, and a
+> packet with mixed versions or mixed digests is **invalid**. Method: `CHARACTER-TECHNICAL-CONTRACT.md` →
+> *Packet identity and the packet-content digest*. Validator: `tools/validate-handoff-packet.mjs`.
 >
 > This packet is a commissioning specification only. It is not permission to begin work, produce a character,
 > integrate a character, or begin D1-B.
@@ -111,16 +118,47 @@ validation** (Idle · Walk · Talk · Kneeling · Pickup · Sitting), the **join
 feet grounded, 05G/05H byte-unchanged, `tsc --noEmit`, `vite build`, `node tools/validate-05i.mjs` — **do not**
 depend on it.
 
-**The blocked-state rule**
+### Gate result states — BLOCKED vs FAILED vs PASSED (governing definitions)
 
-- **A gate blocked this way is NOT a character-quality failure by the specialist.** It is a missing client input.
-- Report the gate as: **`BLOCKED — OWNER-PROVISIONED UAL DEPENDENCY NOT AVAILABLE`**
-- **The specialist may not satisfy the block by substituting another rig or animation library**, by swapping in the
-  `_RM` root-motion variant, or by downloading a replacement. Doing so does not clear the gate.
+Every gate is recorded in exactly one of three states. **These are not interchangeable**, and recording a
+dependency block as a failure misstates the specialist's workmanship. This is the governing definition for the whole
+packet.
+
+| State | Means | Required condition |
+|---|---|---|
+| **`BLOCKED — OWNER-PROVISIONED UAL DEPENDENCY NOT AVAILABLE`** | The gate's required evidence **could not be produced or evaluated at all**, solely because the approved Owner-provisioned UAL dependency was unavailable. | The evidence was **never available for evaluation**, and the *only* reason is the absent dependency. |
+| **`FAILED`** | The required specialist work or evidence **was actually available for evaluation** and **did not satisfy** the applicable acceptance requirement. | The evidence **existed and was judged**, and it fell short. |
+| **`PASSED`** | The required evidence **was available** and **affirmatively satisfied** the acceptance requirement. | The evidence **existed, was judged, and met the bar**. |
+
+- **BLOCKED is not FAILED.** A gate whose required evidence cannot be completed **solely** because the approved
+  Owner-provisioned UAL dependency is unavailable **MUST** be recorded as
+  **`BLOCKED — OWNER-PROVISIONED UAL DEPENDENCY NOT AVAILABLE`**. It **must NOT** be recorded as FAILED merely
+  because the dependency is absent. A blocked gate is a **missing client input**, not a character-quality failure by
+  the specialist.
+- **FAILED requires an actual evaluation.** Do not record FAILED unless the work or evidence was genuinely in hand
+  and was measured against the requirement. If a gate's evidence was partly producible and the producible part was
+  evaluated and fell short, record **FAILED** for what was evaluated and **BLOCKED** for what could not be produced —
+  say which is which.
+- **PASSED requires evidence, not intent.** A gate is never PASSED by assertion, by a validator run alone, or by the
+  absence of a complaint.
+- **Provisioning the dependency is not itself a result.** Supplying `UAL1_Standard.glb`:
+  - **removes the dependency block**;
+  - **does not itself produce evidence**;
+  - **does not itself mark any gate PASSED**;
+  - **does not itself authorize integration**.
+
+  After provisioning, a previously BLOCKED gate returns to **not yet evaluated** — the evidence still has to be
+  produced, submitted and reviewed, and it may then be recorded PASSED or FAILED on its merits.
+- **The block may not be cleared by substitution.** The specialist may not satisfy it by substituting another rig or
+  animation library, by swapping in the `_RM` root-motion variant, or by downloading a replacement. Doing so does
+  not clear the gate and does not convert BLOCKED into PASSED.
 - **Provisioning is a client-side schedule dependency**, not an unpriced specialist deliverable; it may justify a
   schedule adjustment.
 - **No integration authorization follows automatically** once the dependency is supplied or the gates pass.
   Integration still requires **both** gate 12 and gate 13 approval **and** separate authorization.
+
+No additional acceptance states are defined. Where a gate is legitimately partial, report it against these three
+states plus the specific evidence — do not invent a fourth label.
 
 ### Gate 1 — Art direction and proportion target: required evidence
 

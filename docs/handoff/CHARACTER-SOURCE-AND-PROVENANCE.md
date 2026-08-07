@@ -3,16 +3,23 @@
 > **Governing packet identity**
 >
 > - Packet: **Project: Studio Human-Artist Character Handoff**
-> - Version: **CHH-2026-08-06-R1**
-> - Revision date: **2026-08-06**
+> - Version: **CHH-2026-08-07-R2**
+> - Revision date: **2026-08-07**
 > - Governing branch: `asset-lab-character-human-artist-handoff`
-> - Supersedes Git tip: `9c0466d7678ad0b42bf2f91cefec2d8b9da32250`
-> - Packet content SHA-256: `013b5b050d9f70698b74ec54e6c181818994c98729cdeb725e54686e9aa2a614`
+> - Supersedes Git tip: `7603b2f234dfdb11ad6a0691315942c4b16cffac`
+> - Packet content SHA-256: `dbe7c8c31d80ae1218c8a01fe6326a37eb20511274d2e42eb32bd70d2fd9869e`
 >
 > A copied page is current only when its packet name, version, revision date, governing branch, and
 > packet-content SHA-256 match the other seven packet documents at the governing branch tip. The Git commit
 > cannot safely embed its own future SHA, so the packet-content SHA-256 is the in-document immutable identity;
-> verify the live governing Git tip separately.
+> the **live governing Git tip is a separate check** and must be verified against the remote, not against this page.
+>
+> **Verify mechanically — do not trust a pasted digest.** The digest method is governed repository content, and a
+> committed validator reproduces it: `npm run handoff:verify` (`node tools/validate-handoff-packet.mjs`) re-derives
+> the digest from all eight pages and exits non-zero on any mismatch, mixed version or missing page. After any packet
+> edit, regenerate with `npm run handoff:update`. **Hand-editing a digest without regenerating is prohibited**, and a
+> packet with mixed versions or mixed digests is **invalid**. Method: `CHARACTER-TECHNICAL-CONTRACT.md` →
+> *Packet identity and the packet-content digest*. Validator: `tools/validate-handoff-packet.mjs`.
 >
 > This packet is a commissioning specification only. It is not permission to begin work, produce a character,
 > integrate a character, or begin D1-B.

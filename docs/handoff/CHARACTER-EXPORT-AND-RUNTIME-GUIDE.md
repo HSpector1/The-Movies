@@ -3,16 +3,23 @@
 > **Governing packet identity**
 >
 > - Packet: **Project: Studio Human-Artist Character Handoff**
-> - Version: **CHH-2026-08-06-R1**
-> - Revision date: **2026-08-06**
+> - Version: **CHH-2026-08-07-R2**
+> - Revision date: **2026-08-07**
 > - Governing branch: `asset-lab-character-human-artist-handoff`
-> - Supersedes Git tip: `9c0466d7678ad0b42bf2f91cefec2d8b9da32250`
-> - Packet content SHA-256: `013b5b050d9f70698b74ec54e6c181818994c98729cdeb725e54686e9aa2a614`
+> - Supersedes Git tip: `7603b2f234dfdb11ad6a0691315942c4b16cffac`
+> - Packet content SHA-256: `dbe7c8c31d80ae1218c8a01fe6326a37eb20511274d2e42eb32bd70d2fd9869e`
 >
 > A copied page is current only when its packet name, version, revision date, governing branch, and
 > packet-content SHA-256 match the other seven packet documents at the governing branch tip. The Git commit
 > cannot safely embed its own future SHA, so the packet-content SHA-256 is the in-document immutable identity;
-> verify the live governing Git tip separately.
+> the **live governing Git tip is a separate check** and must be verified against the remote, not against this page.
+>
+> **Verify mechanically — do not trust a pasted digest.** The digest method is governed repository content, and a
+> committed validator reproduces it: `npm run handoff:verify` (`node tools/validate-handoff-packet.mjs`) re-derives
+> the digest from all eight pages and exits non-zero on any mismatch, mixed version or missing page. After any packet
+> edit, regenerate with `npm run handoff:update`. **Hand-editing a digest without regenerating is prohibited**, and a
+> packet with mixed versions or mixed digests is **invalid**. Method: `CHARACTER-TECHNICAL-CONTRACT.md` →
+> *Packet identity and the packet-content digest*. Validator: `tools/validate-handoff-packet.mjs`.
 >
 > This packet is a commissioning specification only. It is not permission to begin work, produce a character,
 > integrate a character, or begin D1-B.
@@ -26,6 +33,40 @@
 How to (re)build, validate, and review the character. Run from the repo root
 (`/Users/bruce/Project Studio - Asset Lab`). Blender 5.2 LTS at `/Applications/Blender.app/Contents/MacOS/Blender`
 (override with `BLENDER=`); Node in the repo (`node_modules` present); Google Chrome for the runtime capture.
+
+## ⚠ Required local dependency before any runtime step
+
+**`public/assets/animation/UAL1_Standard.glb` is NOT delivered by this repository.** It is **intentionally
+gitignored** (`.gitignore` ignores `public/assets/*` and re-includes only `public/assets/studio/`), so
+**`public/assets/animation/` does not exist in a clean checkout**. It carries the approved 65-joint rig and the
+43-clip library holding the **six clips** every review and capture step below uses.
+
+- **Expected local path:** `public/assets/animation/UAL1_Standard.glb` (`config.RIG_SOURCE_GLB`).
+- **Who provides it:** the **Owner or an authorized Asset Lab operator**, from the previously approved,
+  provenance-verified Quaternius UAL package. The repository documents **no download or redistribution procedure**.
+- **Do not substitute** another rig or animation library, and do not swap in the `_RM` root-motion variant.
+- **Do not commit or redistribute** the provisioned file. It is a local dependency, never a committed asset.
+
+**What still works without it:** `npx tsc --noEmit`, `npm run build`, `node tools/validate-05i.mjs` and
+`node tools/validate-hero-05h.mjs` — these read the **committed** character GLBs, not the clip library. They are the
+static, Blender-side checks `CHARACTER-ACCEPTANCE-TESTS.md` lists as independent of this dependency.
+
+**What it blocks:**
+
+- **The procedural rebuild and the fast review renders below.** Both load the canonical rig out of this same file —
+  `blender/studio_pipeline/rig.py` → `load_canonical_rig()` raises `FileNotFoundError: rig source missing` when
+  `config.RIG_SOURCE_GLB` is absent — so **neither command below runs without it.** Do not read the rebuild section
+  as dependency-free.
+- **The review harness, and therefore the capture step.** The 05I hero component loads the clip library
+  unconditionally, so **the static runtime views are unavailable too**, not only the animated ones — no six-clip
+  deformation evidence, no joint-by-joint per-clip reporting, and no console-error-free runtime capture.
+
+**If it is absent, record the affected gate as
+`BLOCKED — OWNER-PROVISIONED UAL DEPENDENCY NOT AVAILABLE`.** A harness that will not boot for want of this file is
+a **missing client input** — it is **not** a runtime failure and **not** a character defect, and it must not be
+reported as one. Full terms: [`CHARACTER-TECHNICAL-CONTRACT.md`](./CHARACTER-TECHNICAL-CONTRACT.md) → *Rig and
+clip-library delivery status*. Gate partition and the governing BLOCKED / FAILED / PASSED definitions:
+[`CHARACTER-ACCEPTANCE-TESTS.md`](./CHARACTER-ACCEPTANCE-TESTS.md).
 
 ## Regenerate the procedural character (reference only — the human artist works from the GLB, not this)
 ```

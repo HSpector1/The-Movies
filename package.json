@@ -31,7 +31,9 @@
     "blender:characters:export": "node tools/blender-run.mjs blender/build_characters05b.py",
     "blender:characters:render": "node tools/blender-run.mjs blender/build_roles.py -- proof/lab05b/iteration-03",
     "blender:characters:validate": "node tools/validate-characters.mjs",
-    "blender:characters:pipeline": "npm run blender:characters:build && npm run blender:characters:validate"
+    "blender:characters:pipeline": "npm run blender:characters:build && npm run blender:characters:validate",
+    "handoff:verify": "node tools/validate-handoff-packet.mjs",
+    "handoff:update": "node tools/validate-handoff-packet.mjs --update"
   },
   "dependencies": {
     "@react-three/drei": "^9.109.2",
