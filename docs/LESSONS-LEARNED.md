@@ -669,18 +669,21 @@ unauthorized**; **D1-B remains unstarted and separately governed**.
 
 Current governing authority — the handoff packet, **merged and published** on its Asset Lab branch
 (fast-forward; remote `backup`, local/remote parity) and **not** merged into production `main`:
-`asset-lab-character-human-artist-handoff` @ `9c0466d7678ad0b42bf2f91cefec2d8b9da32250`.
+`asset-lab-character-human-artist-handoff` @ `7603b2f234dfdb11ad6a0691315942c4b16cffac`
+(packet **CHH-2026-08-06-R1**, revision date **2026-08-06**, packet-content SHA-256
+`013b5b050d9f70698b74ec54e6c181818994c98729cdeb725e54686e9aa2a614`).
 Historical checkpoints, all at local/remote parity in one linear chain:
 `asset-lab-05h-authored-base-character-proof` @ `9e3c5d7bda39f069b7dac04624584c4fea645332` →
 `asset-lab-05h-final-owner-review-package` @ `ddfd69fbc22be313f9dbb548c2b16032c9802daa` →
 `asset-lab-05i-corrective-character-pass` @ `8903b1e8bbbc166aa1b74a33167aea964502a1f6` →
 `c9445ce55b5d83cc29def9928aec75fa4edd50ed` — the **pre-ruling checkpoint** on that branch, superseded on
 current commissioning and production status → `e5a4931` — the **fifth** commit of the reconciliation chain, a
-historical intermediate state → **`asset-lab-character-human-artist-handoff` @ `9c0466d`**
+historical intermediate state → `9c0466d` — the **sixth** commit and the **previous branch tip**, now
+**historical and superseded** → **`asset-lab-character-human-artist-handoff` @ `7603b2f`**
 (current branch tip). Related (Asset Lab repo): `docs/ASSET-LAB-05H-FINAL-OWNER-REVIEW.md`,
 `docs/ASSET-LAB-05H-FINAL-ART-PM-RECOMMENDATION.md`, `docs/ASSET-LAB-05H-MANAGEMENT-CAMERA-ASSESSMENT.md`,
 `docs/ASSET-LAB-05I-FINAL-REPORT.md` (**preserved; its readiness language is superseded**),
-`docs/handoff/*` **@ `9c0466d`** (the packet lives on the handoff branch — it is **not** present in the 05I
+`docs/handoff/*` **@ `7603b2f`** (the packet lives on the handoff branch — it is **not** present in the 05I
 checkout), `licenses/asset-lab-05h/PROVENANCE.json`.
 
 ## AG. A proof branch preserves history, not a runnable review environment — **P, BR**
@@ -749,23 +752,24 @@ management camera must not be the **only** distance a character is judged at.
 
 ## AK. The human-artist handoff supersedes further autonomous iteration — **P**
 
-- **Resolution:** `asset-lab-character-human-artist-handoff` @ `9c0466d` is the character-track artifact — 8
+- **Resolution:** `asset-lab-character-human-artist-handoff` @ `7603b2f` is the character-track artifact — 8
   documents, **0** non-documentation files: artist brief, technical contract (65-joint skeleton, bone names,
   orientation, scale, ground, the six accepted clips — supplied by a **locally provisioned, gitignored** rig
   library, not by the repository — and GLB/LOD/material conventions), annotated known defects with exact
   evidence paths, acceptance tests structured as **fourteen staged gates**, scope of work with non-goals,
   source and CC0 provenance chain, export/runtime guide, evidence index.
-- **Which packet governs:** the `c9445ce` package is the **pre-ruling checkpoint**. It is **superseded on
-  current commissioning and production status** by `asset-lab-character-human-artist-handoff` @
-  `9c0466d7678ad0b42bf2f91cefec2d8b9da32250`, which **governs**. See Lesson **AS** for the rule on propagation
-  and supersession.
+- **Which packet governs:** the `c9445ce` package is the **pre-ruling checkpoint**, and `9c0466d` is the
+  **superseded previous branch tip**. Both are **superseded on current commissioning and production status**
+  by `asset-lab-character-human-artist-handoff` @ `7603b2f234dfdb11ad6a0691315942c4b16cffac` (packet
+  **CHH-2026-08-06-R1**), which **governs**. See Lesson **AS** for the rule on propagation and supersession.
 - **Standing status:** character integration is **not** authorized; role-wide propagation is **not**
   authorized; D1-B remains unstarted; Asset Lab character work remains separate from production `main`.
-- **Fastest diagnostic:** before any character work, read the **active handoff packet at `9c0466d`** and the
+- **Fastest diagnostic:** before any character work, read the **active handoff packet at `7603b2f`** and the
   preserved 05I final report (`docs/ASSET-LAB-05I-FINAL-REPORT.md`) first — the latter is retained as history,
   but its readiness language is superseded, as the packet's evidence index records.
 - **Anti-pattern:** resuming generator iteration while a specialist handoff is the open artifact; reading the
-  pre-ruling `c9445ce` package for current commissioning or production status. **Reuse:** P.
+  pre-ruling `c9445ce` package, or the superseded `e5a4931` or `9c0466d` tips, for current commissioning or
+  production status. **Reuse:** P.
 
 ## AL. Preserve both management-distance and human-scale character evidence — **BR, MG**
 
@@ -873,13 +877,17 @@ written into.
   single end-of-job review.
 - **Resolution:** the ruling was reconciled through the scope of work, the known-defects record, the acceptance
   tests, the technical contract and the evidence index. The reconciliation is **merged and published** as
-  `asset-lab-character-human-artist-handoff` @ `9c0466d7678ad0b42bf2f91cefec2d8b9da32250` (Asset Lab repo,
-  remote `backup`; a fast-forward on that branch — **not** merged into production `main`) — **six linear
-  documentation-only commits** over the complete range `c9445ce..9c0466d` (`074bb80`, `1dcb263`, `b9f57a0`,
-  `2967c1c`, `e5a4931`, `9c0466d`; `1dcb263` is the **second intermediate commit** of that chain and `e5a4931`
-  the **fifth**, neither a final candidate — `e5a4931` was superseded as the branch tip by `9c0466d`). The
-  **sixth and final commit is `9c0466d` — *docs(handoff): correct D1-A and D1-B status*** (supporting
-  example 3). Across the whole range **eight** `docs/handoff/*.md` files changed and **0** non-documentation
+  `asset-lab-character-human-artist-handoff` @ `7603b2f234dfdb11ad6a0691315942c4b16cffac` (Asset Lab repo,
+  remote `backup`; a fast-forward on that branch — **not** merged into production `main`) — **seven linear
+  documentation-only commits** over the complete range `c9445ce..7603b2f` (`074bb80`, `1dcb263`, `b9f57a0`,
+  `2967c1c`, `e5a4931`, `9c0466d`, `7603b2f`; `1dcb263` is the **second intermediate commit** of that chain and
+  `e5a4931` the **fifth**, neither a final candidate — `e5a4931` was superseded as the branch tip by `9c0466d`,
+  which was in turn superseded as the branch tip by `7603b2f`). The **sixth commit is `9c0466d` —
+  *docs(handoff): correct D1-A and D1-B status*** (supporting example 3), now **historical**; the **seventh and
+  current governing commit is `7603b2f` — *docs(handoff): disclose UAL dependency and stamp packet identity***
+  (supporting example 4). The published packet is **CHH-2026-08-06-R1** (revision date **2026-08-06**),
+  packet-content SHA-256 `013b5b050d9f70698b74ec54e6c181818994c98729cdeb725e54686e9aa2a614`.
+  Across the whole range **eight** `docs/handoff/*.md` files changed and **0** non-documentation
   files; the D1-A/D1-B correction itself touched **three** of those eight — the brief, the scope of work and
   the evidence index — each an independently distributable document. **No historical 05H or 05I report was
   rewritten** and **no character asset or production code changed**; the evidence index now states that the
@@ -897,9 +905,12 @@ written into.
   more depending on the evidence — that is *iteration capacity*, **not** an estimate and **not** a guarantee of
   acceptance after any number of rounds.
 
-These two sub-findings surfaced in the same propagation pass. They are not themselves ruling-propagation
-failures — they teach the adjacent rule that **a documentation claim must be verified against the repository**,
-and they are recorded here because the same pass and the same packet produced them.
+Of the supporting examples below, the **first two** surfaced in the same propagation pass. They are not
+themselves ruling-propagation failures — they teach the adjacent rule that **a documentation claim must be
+verified against the repository**, and they are recorded here because the same pass and the same packet
+produced them. The **third and fourth came from later passes** (`9c0466d` and `7603b2f` respectively) and are
+**not** covered by that disclaimer: the fourth in particular is **the same failure mode as this lesson's
+lede**.
 
 **Supporting example 1 — a gitignored dependency described as committed — Project: Studio.** The hard technical
 contract called `public/assets/animation/UAL1_Standard.glb` **"the committed rig"**. It is not committed:
@@ -912,10 +923,12 @@ carries no skeleton); only the **delivery claim attached to it** was false. A si
 document *only in isolation*, with no cross-document reconciliation of the same asset's delivery status, is
 what allowed the contradiction to survive between them. The correction now distinguishes the **committed
 character GLBs and their embedded skeleton** from the **locally provisioned UAL rig and clip library**, and
-requires **authorized provisioning and provenance verification** before the rigging and animation gates (8 and
-11) may be **marked complete**. The absence gates *acceptance* and blocks all **six-clip deformation
-evidence**; it does not block the sculpt, topology and weighting work, because the skeleton re-derives from the
-committed GLBs.
+requires **authorized provisioning and provenance verification** before the rigging and animation gates (as
+this correction then stated them, **8 and 11**) may be **marked complete**. The absence gates *acceptance* and
+blocks all **six-clip deformation evidence**; it does not block the sculpt, topology and weighting work,
+because the skeleton re-derives from the committed GLBs. **That "8 and 11" enumeration under-counted the
+affected set and is superseded** — supporting example 4 records the re-derived partition (**5, 8, 9, 11**
+cannot pass; **6, 7, 10, 12, 13** cannot close; **1–4** may proceed; **14** conditional).
 
 **Supporting example 2 — evidence stored at the parent path — Project: Studio.** `EVIDENCE-INDEX.md` pointed at
 `proof/lab05i/iteration-01/blender/`. **That directory did not exist** — and never has, on any ref. All
@@ -948,6 +961,62 @@ historical reports carrying the old claim — for example `docs/ASSET-LAB-05H-FI
 which reads *"D1-A was not started, not designed, not scaffolded"* — were **superseded by notice, not
 rewritten**.
 
+**Supporting example 4 — a priced dependency disclosed only in the technical annex, and a packet with no
+revision identity — Project: Studio.** The seventh commit, `7603b2f` (*docs(handoff): disclose UAL dependency
+and stamp packet identity*), publishes packet **CHH-2026-08-06-R1**.
+
+*The disclosure defect.* The specialist-facing `CHARACTER-ARTIST-HANDOFF-BRIEF.md`,
+`CHARACTER-HUMAN-ARTIST-SCOPE-OF-WORK.md` and `CHARACTER-ACCEPTANCE-TESTS.md` all **required UAL-dependent
+work, evidence or acceptance**, but none of them stated clearly enough that the approved dependency —
+`public/assets/animation/UAL1_Standard.glb` (Quaternius **Universal Animation Library**, CC0 1.0; the
+**65-joint** rig contract and a **43-clip** library of which this track uses **six**) — is **gitignored**,
+**absent from a clean checkout**, **not repository-delivered**, and **Owner / authorized-operator
+provisioned**. The **technical annexes already carried the correct dependency facts**; the documents a bidder
+actually prices from did not. That is a real **schedule and deliverability underbidding risk**, and it is the
+same failure mode as the lede of this lesson — a fact correct *somewhere* in the packet is not a fact
+disclosed *where it is acted on*.
+
+*The gate-scope defect found by the same pass.* The dependency affects **more gates than the previous
+"gates 8 and 11" summary stated**. Re-derived from the actual execution and evidence paths — not copied
+forward — and confirmed by primary review:
+
+- **Gates 5, 8, 9, 11 — cannot pass or be marked complete** without approved UAL.
+- **Gates 6, 7, 10, 12, 13 — may be prepared and provisionally reviewed, but cannot close** without it
+  (six-clip garment and accessory anchoring; and the review harness loads the clip library unconditionally,
+  so even the static runtime views cannot be captured).
+- **Gates 1–4 — may proceed on Blender-side evidence**: the 65-joint skeleton is embedded in the committed
+  character GLBs and independently re-derivable from them.
+- **Gate 14 — conditional, separately authorized, and not authorized now.**
+
+R1 also requires a blocked gate to be reported as **`BLOCKED — OWNER-PROVISIONED UAL DEPENDENCY NOT
+AVAILABLE`**, so a **client-input block is distinguishable from a specialist failure**. Substitution of a
+different rig or animation library is forbidden, as is committing or redistributing the provisioned file.
+
+*The packet-identity defect.* The packet carried **no in-document revision identity**, so a **copied stale
+packet was difficult to distinguish from the governing packet**. R1 stamps all eight documents with an
+identical block: **packet name · version (`CHH-2026-08-06-R1`) · revision date (`2026-08-06`) · governing
+branch · superseded-tip field (`9c0466d`, correct as R1's origin — *not* a statement that `9c0466d` still
+governs) · a packet-content digest intended as a reproducible content identity
+(`013b5b050d9f70698b74ec54e6c181818994c98729cdeb725e54686e9aa2a614`) · a standalone-currentness warning · an
+execution-authorization warning**.
+
+*Deferred — do not read as fixed.* The R1 digest is **stable and identical across all eight documents**, but
+the **canonical generation/validation method is not published in governing packet content**, and **no
+committed generator or validator currently enforces it** — a **maintainability defect deferred to R2-1**, not
+a solved problem. (A reader given only the packet cannot today re-derive the digest, because the
+normalization rule is unstated.) Carried forward and likewise **not** claimed fixed: blocked gates are **not
+yet explicitly forbidden** from being labelled **FAILED** solely because Owner-provisioned UAL is missing, and
+**providing the UAL is not yet stated everywhere as insufficient by itself to mark a gate PASSED** (**R2-2**);
+UAL disclosure coverage in `CHARACTER-EXPORT-AND-RUNTIME-GUIDE.md` and `CHARACTER-KNOWN-DEFECTS.md` **remains
+an R2 review item** (**R2-3**). **R2 is deferred and unstarted.** When R2 is finalized, this lesson is to be
+updated again with whatever generalized guidance changes as a result (**R2-4**).
+
+*Unchanged by R1.* No ruling, gate structure, scope or authorization moved: 05H technical/provenance research
+remains **useful**, the 05H **visual build remains rejected**, 05I remains **one bounded corrective milestone**
+of **two Owner-reviewed iterations** and remains **rejected as a production foundation** requiring
+**substantial specialist correction, not polish**; **D1-A is completed**; **D1-B is unstarted and
+unauthorized**; **commissioning, character production and integration all remain unauthorized**.
+
 **Reusable rule (cross-project).** When a ruling changes an asset's **production status, severity, or scope**,
 propagate it through **every independently distributable document in the same governed change**. Reconcile:
 ledes · status blocks · verbs · defect counts · severity grades · scope estimates · acceptance tests · technical
@@ -979,6 +1048,23 @@ provenance requirements · dependency gating · exact evidence-path resolution.
   **repository-delivered** merely because a standard local path exists. State **who provisions it**, **how
   provenance is verified**, **whether it exists in a clean checkout**, and **which acceptance work is blocked
   until it is available**.
+- **Disclose a client-furnished dependency where it is acted on, not only where it is specified.** Every
+  client-furnished or locally provisioned dependency that affects what a reader can **price, schedule,
+  execute, review, evidence, or accept** must be disclosed **in each independently distributable document
+  whose reader can act on it**. **Do not rely on a technical annex being available somewhere else** — the
+  annex protects only the reader who happens to hold it.
+- **Keep three states distinguishable: blocked, failed, and passed.** A **blocked client dependency** must be
+  reportable as a **client-input block** that is neither **failed specialist work** nor **passed acceptance**.
+  Give the blocked state an explicit label, and state that **supplying the dependency removes the block but
+  passes nothing by itself**.
+- **A multi-document governed packet should expose its own identity.** Publish, in every document:
+  **packet/version identity**, **revision date**, **governing authority**, and a **reproducible content
+  identity** — and keep **live Git-tip verification separate** from it, since a commit cannot embed its own
+  future SHA. A content digest is only as useful as its **published, enforced** derivation method; ship the
+  generator and validator with it, or record their absence as an open defect.
+- **Re-derive affected gate and dependency lists from the actual execution and evidence paths** — never copy a
+  prior list forward. A summary list that was right when written is the most plausible-looking way for an
+  under-counted scope to survive review.
 - **An evidence index must validate the exact path, not merely the presumed directory pattern.** A broken
   pointer does **not** prove the evidence is absent — inspect the **parent and sibling** structures before
   concluding anything is missing. Record the **real** location, and do **not** move historical evidence merely

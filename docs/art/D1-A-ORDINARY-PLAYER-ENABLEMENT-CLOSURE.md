@@ -270,8 +270,14 @@ unchanged, and **D1-A remains closed**.
   **one bounded corrective milestone containing two owner-reviewed iterations** and was itself **rejected as
   the production character foundation**. The open question is therefore **not** whether to "start 05H".
 - The **active character authority** is the merged and published handoff
-  `asset-lab-character-human-artist-handoff` @ `9c0466d` (Asset Lab repository, remote `backup`;
-  **not** merged into production `main`). It is a **commissioning specification — not permission to begin
-  work, and not permission to integrate a character**.
+  `asset-lab-character-human-artist-handoff` @ `7603b2f234dfdb11ad6a0691315942c4b16cffac` (Asset Lab
+  repository, remote `backup`; **not** merged into production `main`) — packet **CHH-2026-08-06-R1**,
+  published by a **seven-commit** linear documentation-only fast-forward over `c9445ce..7603b2f`. The packet
+  now **directly exposes the Owner-provisioned `UAL1_Standard.glb` dependency** (gitignored, absent from a
+  clean checkout, not repository-delivered) and **its acceptance impact on the staged gates** — including, as
+  of R1, in the specialist-facing documents a bidder actually prices from. It remains a
+  **commissioning specification — not permission to begin work, and not permission to integrate a
+  character**: **the commission is not authorized, integration is not authorized, and D1-B remains unstarted
+  and unauthorized.**
 - Any future **character production** or **Studio Lot character integration** requires **separate Owner
   authorization and acceptance evidence**.
