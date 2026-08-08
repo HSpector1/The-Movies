@@ -12,10 +12,12 @@
 //            --root DIR   operate on a copy of the repo instead of this checkout
 //
 // Exits non-zero on any failure. Update mode rewrites ONLY the packet-digest line, and only
-// after a complete read-only preflight: if any page is missing, is missing its identity block,
-// carries a governed identity field the wrong number of times, or disagrees with its siblings on
-// packet name / version / revision date / governing branch / superseded Git tip, the run fails
-// having written ZERO files. Update repairs digest VALUES; it never reconciles governed metadata.
+// after a complete read-only preflight: if any page is missing, cannot be read, is missing its
+// identity block, carries a governed identity field the wrong number of times, or disagrees with
+// its siblings on packet name / version / revision date / governing branch / superseded Git tip,
+// the run fails having written ZERO files. Update repairs digest VALUES -- a malformed, stale or
+// disagreeing digest value is repairable data, and the sanctioned repair path for it, because the
+// packet prohibits hand-editing a digest. It never reconciles governed identity metadata.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { createHash } from 'node:crypto'
@@ -23,6 +25,12 @@ import { ROOT as REPO_ROOT } from './lib.mjs'
 
 // ---------------------------------------------------------------------------
 // Canonical packet definition. Ordering is lexicographic by repo-relative path.
+//
+// SCOPE: this validates THIS fixed eight-document packet. It is not an allowlist for
+// docs/handoff/. What it enforces is the presence and cross-page agreement of exactly these eight
+// canonical paths, and it defines the digest over exactly these eight and nothing else. An
+// unrelated extra file elsewhere in docs/handoff/ is outside the packet: it is not hashed, not
+// verified, and not touched by update mode.
 // ---------------------------------------------------------------------------
 export const PACKET_FILES = [
   'docs/handoff/CHARACTER-ACCEPTANCE-TESTS.md',
@@ -101,26 +109,73 @@ export function computePacketDigest(root) {
 // Read + analyze — pure inspection, never writes
 // ---------------------------------------------------------------------------
 
-/** Read every canonical page. Returns the missing paths, the raw bytes, and LF-normalized bodies. */
-function readPacket(root) {
-  const missing = PACKET_FILES.filter((rel) => !existsSync(join(root, rel)))
-  const raw = new Map()
-  const texts = new Map()
-  for (const rel of PACKET_FILES) {
-    if (missing.includes(rel)) continue
-    const original = readFileSync(join(root, rel), 'utf8')
-    raw.set(rel, original)
-    texts.set(rel, toLF(original))
+/**
+ * Deterministic, human-readable description of a filesystem read failure. Whatever the runtime
+ * reported is preserved -- the errno code for OS-level failures (EISDIR, EACCES, ENOENT, ENOTDIR),
+ * the plain message for anything else -- and nothing is keyed off a fixed list of codes, so any
+ * read failure lands here rather than escaping as an uncaught exception.
+ */
+function describeReadFailure(err) {
+  let detail = String(err?.message ?? err)
+  // Node appends the offending absolute path to some messages (EACCES, ENOENT, ENOTDIR) and not to
+  // others (EISDIR). Strip it EXACTLY, using the path the error object itself carries: the caller
+  // already names the canonical repo-relative path, and a machine-specific absolute path would
+  // make the diagnostic vary with where the packet root happens to live. Matching the carried path
+  // rather than pattern-matching a quoted suffix keeps this correct even when the root's own name
+  // contains a quote.
+  for (const p of [err?.path, err?.dest]) {
+    if (typeof p === 'string' && p) detail = detail.split(` '${p}'`).join('')
   }
-  return { missing, raw, texts }
+  detail = detail.trim()
+  if (detail) return detail
+  const code = err?.code ?? 'EUNKNOWN'
+  return err?.syscall ? `${code}: ${err.syscall} failed` : `${code}: read failed`
 }
 
 /**
+ * Read every canonical page. Returns the missing paths, the paths that exist but could not be
+ * read (a directory in the way, a permission denial, a page unlinked mid-run), the raw bytes, and
+ * the LF-normalized bodies.
+ *
+ * An unreadable canonical page is a hard failure reported against its repo-relative path. It is
+ * never repairable, never silently skipped, and never recreated: the packet cannot be hashed
+ * without it, so both modes stop and update mode writes nothing.
+ */
+function readPacket(root) {
+  const missing = []
+  const unreadable = []
+  const raw = new Map()
+  const texts = new Map()
+  for (const rel of PACKET_FILES) {
+    if (!existsSync(join(root, rel))) { missing.push(rel); continue }
+    let original
+    try {
+      original = readFileSync(join(root, rel), 'utf8')
+    } catch (err) {
+      unreadable.push({ rel, detail: describeReadFailure(err) })
+      continue
+    }
+    raw.set(rel, original)
+    texts.set(rel, toLF(original))
+  }
+  return { missing, unreadable, raw, texts }
+}
+
+/** The missing/unreadable diagnostics, in canonical path order, missing first. */
+const inputErrors = ({ missing, unreadable }) => [
+  ...missing.map((rel) => `MISSING PACKET FILE: ${rel}`),
+  ...unreadable.map(({ rel, detail }) => `UNREADABLE PACKET FILE: ${rel} (${detail})`),
+]
+
+/**
  * Structural and cross-page identity analysis over already-read pages. Every finding is tagged:
- *   'identity' — governed metadata or packet structure. Update mode may NOT repair it, so it
- *                blocks writes: versions, dates, governing branches, superseded tips, missing
- *                identity blocks, and malformed packet membership are the Owner's to reconcile.
+ *   'identity' — governed metadata, or the canonical structure a page needs before it can be
+ *                stamped at all. Update mode may NOT repair it, so it blocks writes: versions,
+ *                dates, governing branches, superseded tips, missing identity blocks, and a page
+ *                carrying no or duplicate digest FIELD are the Owner's to reconcile.
  *   'digest'   — a digest VALUE problem, which is precisely what update mode exists to repair.
+ *                A malformed, non-lowercase, stale or disagreeing value is repairable data, not
+ *                a governed-identity defect, and never blocks a write on its own.
  * Errors are emitted in the order VERIFY has always reported them.
  */
 function analyzeIdentity(texts) {
@@ -186,10 +241,12 @@ function analyzeIdentity(texts) {
 function verify(root) {
   const notes = []
 
-  // --- missing packet files -------------------------------------------------
-  const { missing, texts } = readPacket(root)
-  if (missing.length) {
-    report(root, missing.map((rel) => `MISSING PACKET FILE: ${rel}`), notes, null, null)
+  // --- missing or unreadable packet files -----------------------------------
+  const read = readPacket(root)
+  const { texts } = read
+  const inputProblems = inputErrors(read)
+  if (inputProblems.length) {
+    report(root, inputProblems, notes, null, null)
     return 1
   }
 
@@ -246,10 +303,14 @@ function report(root, errors, notes, computed, distinctEmbedded) {
 
 function update(root) {
   // ===== PHASE 1 — READ / VALIDATE. No filesystem write happens anywhere in this phase. =====
-  const { missing, raw, texts } = readPacket(root)
-  if (missing.length) {
-    console.error('** cannot update: packet files missing — NO FILES WRITTEN **')
-    for (const rel of missing) console.error('  MISSING PACKET FILE: ' + rel)
+  const read = readPacket(root)
+  const { raw, texts } = read
+  const inputProblems = inputErrors(read)
+  if (inputProblems.length) {
+    console.error('** cannot update: packet files missing or unreadable — NO FILES WRITTEN **')
+    for (const e of inputProblems) console.error('  ' + e)
+    console.error('\nEvery one of the eight canonical pages must be readable before a digest can be built.')
+    console.error('An unreadable page is not repaired, skipped or recreated here — fix it by hand.')
     return 1
   }
 
@@ -259,10 +320,11 @@ function update(root) {
   if (blocking.length) {
     console.error('** cannot update: packet identity is inconsistent — NO FILES WRITTEN **')
     for (const e of blocking) console.error('  ' + e.message)
-    console.error('\nUpdate mode repairs the packet-content DIGEST ONLY. It will not reconcile packet names,')
-    console.error('versions, revision dates, governing branches, superseded Git tips, missing identity blocks')
-    console.error('or malformed packet membership — those are governed metadata and must be corrected by hand,')
-    console.error('deliberately, before the digest can be restamped.')
+    console.error('\nUpdate mode repairs the packet-content DIGEST VALUE ONLY. It will not reconcile packet')
+    console.error('names, versions, revision dates, governing branches, superseded Git tips, missing identity')
+    console.error('blocks, or a page carrying no or duplicate digest field — that is governed metadata and')
+    console.error('canonical page structure, and must be corrected by hand, deliberately, before the digest')
+    console.error('can be restamped. A malformed digest VALUE alone does not land here: it is repairable.')
     return 1
   }
 
