@@ -72,7 +72,14 @@ function fp(id: keyof typeof BUILDING_TEX): { fw: number; fd: number } {
   return { fw: t.fw, fd: t.fd }
 }
 
-/** The nine addressable buildings, placed. Stage A/B share the stage texture. */
+/**
+ * The nine addressable buildings, placed.
+ *
+ * Stage A/B read their texture from the `stageA`/`stageB` registry entries. With the D1-B
+ * soundstage content flag OFF both entries are the one shared `b-stage` texture (the
+ * pre-spike lot); with it ON each stage carries its own composed texture. Placement,
+ * footprint and every other building are untouched either way.
+ */
 export function placedBuildings(): PlacedBuilding[] {
   return [
     {
@@ -104,19 +111,19 @@ export function placedBuildings(): PlacedBuilding[] {
     },
     {
       id: 'stage-a',
-      texKey: BUILDING_TEX.stage.key,
+      texKey: BUILDING_TEX.stageA.key,
       gx: 15,
       gy: 2,
-      ...fp('stage'),
+      ...fp('stageA'),
       label: 'Stage A',
       blurb: 'A working soundstage. Whatever is shooting here, shoots here.',
     },
     {
       id: 'stage-b',
-      texKey: BUILDING_TEX.stage.key,
+      texKey: BUILDING_TEX.stageB.key,
       gx: 15,
       gy: 9,
-      ...fp('stage'),
+      ...fp('stageB'),
       label: 'Stage B',
       blurb: 'The second stage. Dark until a second picture is greenlit.',
     },

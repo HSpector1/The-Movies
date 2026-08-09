@@ -47,6 +47,11 @@ export type StudioLotViewOptions = {
   onActivity?: (text: string | null) => void
   /** The lot finished first paint. */
   onReady?: () => void
+  /**
+   * D1-B soundstage content gate, resolved by the host from ../flags.ts. Consumed once at
+   * scene init (textures bake in create()), so it is not switchable on a live view.
+   */
+  distinctStages?: boolean
 }
 
 export class StudioLotView {
@@ -76,6 +81,7 @@ export class StudioLotView {
       game.scene.add('lot', LotScene, true, {
         snapshot: this.pendingSnapshot ?? this.opts.snapshot,
         onEvent: (e: LotEvent) => this.handleEvent(e),
+        distinctStages: this.opts.distinctStages === true,
       })
     })
     return game

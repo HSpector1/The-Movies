@@ -6,14 +6,40 @@
 //
 // Textures are baked once into the texture manager; the scene places sprites.
 
-import Phaser from 'phaser'
+import type Phaser from 'phaser'
 import { TILE_W, TILE_H } from './iso'
 import { COLORS as K } from './palette'
+import { LEGACY_STAGE, STAGE_A, STAGE_B, type StageSpec } from './stageSpec'
 
 const hw = TILE_W / 2
 const hh = TILE_H / 2
 
 type Pt = { x: number; y: number }
+
+/**
+ * Linear RGB interpolation, `index` steps along a ramp of `length`.
+ *
+ * This replaces the one runtime Phaser call this module used to make
+ * (`Phaser.Display.Color.Interpolate.ColorWithColor` + `GetColor`) and is bit-identical
+ * to it: Phaser's `Linear(p0,p1,t) = (p1-p0)*t+p0` and `GetColor(r,g,b) = r<<16|g<<8|b`,
+ * with the same un-rounded channel values fed straight into the bitwise pack. Dropping the
+ * value-import is what makes the whole baking layer unit-testable — Phaser cannot be
+ * imported under jsdom (it touches a real canvas at module load), which is why every other
+ * lot module uses `import type`.
+ */
+function lerpColor(from: number, to: number, length: number, index: number): number {
+  const t = index / length
+  const r0 = (from >> 16) & 0xff
+  const g0 = (from >> 8) & 0xff
+  const b0 = from & 0xff
+  const r1 = (to >> 16) & 0xff
+  const g1 = (to >> 8) & 0xff
+  const b1 = to & 0xff
+  const r = (r1 - r0) * t + r0
+  const g = (g1 - g0) * t + g0
+  const b = (b1 - b0) * t + b0
+  return (r << 16) | (g << 8) | b
+}
 
 /** Metadata for a baked building/prop: texture key + normalized origin. */
 export type BakedSprite = {
@@ -187,10 +213,23 @@ function gableRoof(
   }
 }
 
-/** Vaulted "barrel" roof for a soundstage: stacked domed rhombi. */
-function barrelRoof(b: Builder, fw: number, fd: number, H: number, rise: number): void {
+/**
+ * Vaulted "barrel" roof for a soundstage: stacked domed rhombi.
+ * Band count and the colour ramp come from the stage's spec/palette; the geometry is
+ * unchanged from the original hard-coded version.
+ */
+function barrelRoof(
+  b: Builder,
+  fw: number,
+  fd: number,
+  H: number,
+  rise: number,
+  bands: number,
+  base: number,
+  shadeFrom: number,
+  shadeTo: number,
+): void {
   const { g, p } = b
-  const bands = 5
   const cx = fw / 2
   const cy = fd / 2
   for (let i = 0; i <= bands; i++) {
@@ -199,13 +238,7 @@ function barrelRoof(b: Builder, fw: number, fd: number, H: number, rise: number)
     // shrinking rhombus centered on the roof fakes a vaulted profile
     const rw = (1 - t) * (fw / 2)
     const rd = (1 - t) * (fd / 2)
-    const shade = Phaser.Display.Color.Interpolate.ColorWithColor(
-      Phaser.Display.Color.ValueToColor(K.buffLeft),
-      Phaser.Display.Color.ValueToColor(0xf3e6c6),
-      bands,
-      i,
-    )
-    const col = i === 0 ? K.buff : Phaser.Display.Color.GetColor(shade.r, shade.g, shade.b)
+    const col = i === 0 ? base : lerpColor(shadeFrom, shadeTo, bands, i)
     poly(
       g,
       [
@@ -293,27 +326,67 @@ function bakeCasting(scene: Phaser.Scene): void {
   finalize(b, 'b-casting')
 }
 
-function bakeStage(scene: Phaser.Scene): void {
-  const fw = 4,
-    fd = 4,
-    H = 78,
-    rise = 34
-  const b = beginBuilding(scene, fw, fd, H, rise)
+// ── soundstage composer (D1-B) ────────────────────────────────────────────────
+// One function composes ANY soundstage from a StageSpec. It draws exactly what the
+// previous hard-coded bakeStage() drew when handed LEGACY_STAGE — same helpers, same
+// order, same numbers — so re-expressing the shipped stage through the composer is a
+// provable no-op. Distinct stages are new spec literals, not new code paths.
+
+/**
+ * Compose one soundstage into a baked texture and return its sprite metadata.
+ * Pure presentation: a spec describes how a stage LOOKS, never what it can do.
+ */
+export function bakeStageFromSpec(scene: Phaser.Scene, spec: StageSpec): BakedSprite {
+  const { fw, fd } = spec.bays
+  const H = spec.wallH
+  const pal = spec.palette
+  // The roof's rise is also the texture headroom above the eave (topExtra).
+  const topExtra = spec.roof.rise
+  const b = beginBuilding(scene, fw, fd, H, topExtra)
   const { g, p } = b
-  drawWalls(b, fw, fd, H, K.buffRight, K.buffLeft)
-  barrelRoof(b, fw, fd, H, rise)
-  // big elephant doors on the front-right face
-  poly(
-    g,
-    [p(0.7, fd, 0), p(fw - 0.7, fd, 0), p(fw - 0.7, fd, H * 0.72), p(0.7, fd, H * 0.72)],
-    K.stageDoor,
-  )
-  for (let i = 1; i < 5; i++) {
-    const t = i / 5
-    stroke(g, [p(0.7 + t * (fw - 1.4), fd, 0), p(0.7 + t * (fw - 1.4), fd, H * 0.72)], K.stageDoorSeam, 1.5)
+
+  drawWalls(b, fw, fd, H, pal.wallRight, pal.wallLeft)
+  barrelRoof(b, fw, fd, H, spec.roof.rise, spec.roof.bands, pal.roofBase, pal.roofShadeFrom, pal.roofShadeTo)
+
+  // big elephant doors on the front-left (+gy) face
+  const { inset, heightFrac, leaves } = spec.doors
+  const doorH = H * heightFrac
+  const span = fw - inset * 2
+  poly(g, [p(inset, fd, 0), p(fw - inset, fd, 0), p(fw - inset, fd, doorH), p(inset, fd, doorH)], pal.doorFill)
+  for (let i = 1; i < leaves; i++) {
+    const t = i / leaves
+    stroke(g, [p(inset + t * span, fd, 0), p(inset + t * span, fd, doorH)], pal.doorSeam, 1.5)
   }
-  BUILDING_TEX.stage = { key: 'b-stage', originX: 0.5, originY: b.originY, fw, fd }
-  finalize(b, 'b-stage')
+
+  const baked: BakedSprite = { key: spec.key, originX: 0.5, originY: b.originY, fw, fd }
+  finalize(b, spec.key)
+  return baked
+}
+
+/**
+ * Bake the lot's soundstages.
+ *
+ * `distinct === false` (the default, content flag OFF) bakes the single shared `b-stage`
+ * texture from LEGACY_STAGE and points both stages at it — exactly the pre-D1-B lot.
+ * `distinct === true` bakes a texture per stage from STAGE_A / STAGE_B.
+ *
+ * Either way this costs ZERO top-level display objects: `scene.make.graphics()` is never
+ * added to the display list, and the result is a texture the scene places as one sprite.
+ */
+function bakeStages(scene: Phaser.Scene, distinct: boolean): void {
+  if (!distinct) {
+    const shared = bakeStageFromSpec(scene, LEGACY_STAGE)
+    BUILDING_TEX.stage = shared
+    BUILDING_TEX.stageA = shared
+    BUILDING_TEX.stageB = shared
+    return
+  }
+  const a = bakeStageFromSpec(scene, STAGE_A)
+  BUILDING_TEX.stageA = a
+  BUILDING_TEX.stageB = bakeStageFromSpec(scene, STAGE_B)
+  // `stage` stays a valid alias (nothing renders it once the stages are distinct); the
+  // shared legacy texture is not baked in this mode because nothing would place it.
+  BUILDING_TEX.stage = a
 }
 
 function bakePost(scene: Phaser.Scene): void {
@@ -824,13 +897,22 @@ function bakeTiles(scene: Phaser.Scene): void {
   })
 }
 
+/** Options for a bake pass. Presentation only — no simulation input reaches here. */
+export type BakeOptions = {
+  /**
+   * D1-B soundstage content gate. OFF (the default) bakes the single shared stage
+   * texture: the pre-spike lot, unchanged. ON bakes a texture per stage.
+   */
+  distinctStages?: boolean
+}
+
 /** Generate every texture once. Call from Scene.create before building the lot. */
-export function bakeAllTextures(scene: Phaser.Scene): void {
+export function bakeAllTextures(scene: Phaser.Scene, opts: BakeOptions = {}): void {
   bakeTiles(scene)
   bakeAdmin(scene)
   bakeWriters(scene)
   bakeCasting(scene)
-  bakeStage(scene)
+  bakeStages(scene, opts.distinctStages === true)
   bakePost(scene)
   bakeTheater(scene)
   bakeProps(scene)

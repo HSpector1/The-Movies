@@ -92,6 +92,12 @@ export type CameraPreset = 'overview' | 'production' | 'wide' | 'entrance' | 'th
 export type LotSceneData = {
   snapshot: StudioLotSnapshot
   onEvent: (e: LotEvent) => void
+  /**
+   * D1-B soundstage content gate, resolved by the React host (the scene never reads flags
+   * itself). Textures are baked in create(), before any setter could run, so this has to
+   * arrive with the scene's init data. Absent/false ⇒ the pre-spike shared stage texture.
+   */
+  distinctStages?: boolean
 }
 
 type ProdTag = {
@@ -176,6 +182,8 @@ export class LotScene extends Phaser.Scene {
 
   private wasd!: Record<'up' | 'down' | 'left' | 'right', Phaser.Input.Keyboard.Key>
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
+  /** D1-B content gate, supplied by the host at init(). Default OFF. */
+  private distinctStages = false
 
   constructor() {
     super('lot')
@@ -184,10 +192,11 @@ export class LotScene extends Phaser.Scene {
   init(data: LotSceneData): void {
     this.snapshot = data.snapshot
     this.emitEvent = data.onEvent
+    this.distinctStages = data.distinctStages === true
   }
 
   create(): void {
-    bakeAllTextures(this)
+    bakeAllTextures(this, { distinctStages: this.distinctStages })
     for (const t of Object.values(BUILDING_TEX)) this.originByKey.set(t.key, t.originY)
     for (const t of Object.values(PROP_TEX)) this.originByKey.set(t.key, t.originY)
 
