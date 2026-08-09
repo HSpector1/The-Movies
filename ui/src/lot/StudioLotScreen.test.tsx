@@ -53,6 +53,8 @@ const spy = vi.hoisted(() => {
     pauseVignettes() {}
     setReducedMotion(on: boolean) { this.reduced.push(on) }
     setIdentityMode(mode: string) { this.identityModes.push(mode) }
+    setSignageMasked() {}
+    camera() {}
     destroy() { this.destroyed = true }
   }
   return { instances, FakeInstance }

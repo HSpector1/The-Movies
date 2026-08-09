@@ -240,6 +240,14 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   font-size: 12px;
 }
+/* D1-B soundstage proof tools (development only). Parked bottom-left so they never overlap
+   the D1-A identity review bar, which wraps to two rows at narrow viewports. */
+.lot-review-bar-d1b {
+  top: auto;
+  bottom: 12px;
+  left: 12px;
+  transform: none;
+}
 .lot-review-title {
   color: var(--text-dim);
   letter-spacing: 0.04em;

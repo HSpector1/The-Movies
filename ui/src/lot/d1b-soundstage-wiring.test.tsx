@@ -31,6 +31,8 @@ const spy = vi.hoisted(() => {
     resume() {}
     setReducedMotion() {}
     setIdentityMode() {}
+    setSignageMasked() {}
+    camera() {}
     destroy() {}
   }
   return { instances, FakeInstance }

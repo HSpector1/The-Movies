@@ -10,7 +10,7 @@ import Phaser from 'phaser'
 import { TILE_W, TILE_H, gridToScreen, depthFor, LAYER } from './iso'
 import { COLORS as K } from './palette'
 import { Rng } from './rng'
-import { bakeAllTextures, BUILDING_TEX, PROP_TEX } from './assets'
+import { bakeAllTextures, BUILDING_TEX, PROP_TEX, underDressedKey } from './assets'
 import {
   LOT_W,
   LOT_D,
@@ -154,6 +154,10 @@ export class LotScene extends Phaser.Scene {
   private identityBuilt = false
   /** all persistent identity display objects (signs/plaques/marquee/emblem), for show/hide */
   private identityObjects: Phaser.GameObjects.Container[] = []
+  /** The Stage A / Stage B facade letters — the subset the review signage mask hides. */
+  private stageSignObjects: Phaser.GameObjects.Container[] = []
+  /** Review-only: hide every cue that names a stage, so distinctiveness is judged on art. */
+  private signageMasked = false
   /** the theater marquee bulbs, for the reduced-motion-gated chase */
   private marqueeBulbs: Phaser.GameObjects.Arc[] = []
   private marqueeTitle: Phaser.GameObjects.Container | null = null
@@ -184,6 +188,8 @@ export class LotScene extends Phaser.Scene {
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
   /** D1-B content gate, supplied by the host at init(). Default OFF. */
   private distinctStages = false
+  /** The framing currently applied, so a resize re-fits it instead of forcing overview. */
+  private cameraPreset: CameraPreset = 'overview'
 
   constructor() {
     super('lot')
@@ -219,7 +225,7 @@ export class LotScene extends Phaser.Scene {
 
     // Keep the whole lot framed when the viewport changes: fit-to-lot on resize so
     // every core destination stays visible at every supported viewport (Phase 7).
-    const onResize = () => this.resetCamera()
+    const onResize = () => this.refitCamera()
     this.scale.on('resize', onResize)
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.scale.off('resize', onResize))
 
@@ -522,6 +528,9 @@ export class LotScene extends Phaser.Scene {
         const sign = makeStageIdentifier(this, m, letter)
         sign.setPosition(0, this.faceY(view, 0.52))
         this.add2(sign, view)
+        // tracked separately so the review signage mask can hide the stage LETTER without
+        // touching the rest of the identity (accent bands, plaques, gate, marquee)
+        this.stageSignObjects.push(sign)
         const band = makeAccentBand(this, m, meta.w * 0.5)
         band.setPosition(0, meta.h * (1 - meta.originY) - 6)
         this.add2(band, view)
@@ -617,6 +626,27 @@ export class LotScene extends Phaser.Scene {
     if (this.gateLabel) this.gateLabel.setVisible(!show)
     if (show) this.updateAttentionBadges(this.snapshot)
     else this.clearAttentionBadges()
+    this.applySignageMask() // a mode change must not un-mask a review capture
+  }
+
+  /**
+   * D1-B review tooling, default OFF, reachable only behind the soundstage proof gate.
+   * Hides every in-canvas cue that NAMES a stage — the facade letter and the hover label —
+   * so the Stage A/B distinctiveness gate is judged on architecture alone. It deliberately
+   * hides nothing else: accent bands, plaques, the gate, the marquee and all production
+   * dressing stay, so the buildings are still shown in their real context.
+   */
+  setSignageMasked(on: boolean): void {
+    this.signageMasked = on
+    this.applySignageMask()
+  }
+
+  private applySignageMask(): void {
+    if (this.signageMasked) for (const o of this.stageSignObjects) o.setVisible(false)
+    for (const id of ['stage-a', 'stage-b'] as const) {
+      const view = this.views.get(id)
+      if (view && this.signageMasked) view.label.setVisible(false)
+    }
   }
 
   /** Public entry (via StudioLotView) to switch the review identity mode. Non-baseline
@@ -906,9 +936,9 @@ export class LotScene extends Phaser.Scene {
       setActor: (i, tex, gx, gy, opts) => this.setPoolActor(i, tex, gx, gy, opts),
       emphasizeStage: (id, on) => this.emphasizeStage(id, on),
       takeFlash: (gx, gy) => this.takeFlash(gx, gy),
-      marker: (gx, gy, text) => this.showMarker(gx, gy, text),
+      marker: (gx, gy, text) => this.showMarker(gx, gy, this.maskStageText(text)),
       clearMarker: () => this.hideMarker(),
-      toast: (text) => this.emitEvent({ type: 'activity', text }),
+      toast: (text) => this.emitEvent({ type: 'activity', text: text === null ? null : this.maskStageText(text) }),
       setFilmingHush: (on) => {
         this.filmingHush = on
       },
@@ -916,9 +946,22 @@ export class LotScene extends Phaser.Scene {
     this.director = new VignetteDirector(host, this.snapshot.sceneSeed)
   }
 
+  /**
+   * Review signage mask: drop the letter from any presentation string that names a stage.
+   * Vignette markers, activity toasts and character cards all print "Soundstage A/B", which
+   * would hand the reviewer the answer the mask exists to withhold. Masking them here — at
+   * the one place each crosses into presentation — leaves the vignette logic untouched.
+   */
+  private maskStageText(text: string): string {
+    if (!this.signageMasked) return text
+    return text.replace(/\b(Sound)?[Ss]tage [AB]\b/g, (m) => (m.startsWith('Sound') ? 'Soundstage' : 'Stage'))
+  }
+
   private ambientInspect(a: Agent): Inspect {
     const key = a.sprite.texture.key
-    const stage = a.stageGate ? (a.stageGate === 'stage-a' ? 'Soundstage A' : 'Soundstage B') : undefined
+    const stage = a.stageGate
+      ? this.maskStageText(a.stageGate === 'stage-a' ? 'Soundstage A' : 'Soundstage B')
+      : undefined
     const base: Record<string, Inspect> = {
       'p-crew': { role: 'Production Crew', activity: 'On the lot', description: 'Moving between departments.' },
       'p-office': { role: 'Office Staff', activity: 'Crossing the lot', description: 'Carrying the day’s paperwork.' },
@@ -1155,7 +1198,22 @@ export class LotScene extends Phaser.Scene {
     this.applyCameraPreset('overview')
   }
 
+  /**
+   * Re-fit the CURRENT framing after a viewport change.
+   *
+   * Phaser's RESIZE scale mode polls the parent and emits `resize` whenever it believes the
+   * size changed, so a handler that called resetCamera() unconditionally snapped the camera
+   * back to 'overview' within half a second. That was invisible while 'overview' was the
+   * only framing ever applied — the other four presets had no caller — and it silently
+   * defeated the first one that did. Re-fitting the active preset keeps a review framing
+   * stable while still re-fitting properly when the window really does change size.
+   */
+  private refitCamera(): void {
+    this.applyCameraPreset(this.cameraPreset)
+  }
+
   applyCameraPreset(preset: CameraPreset): void {
+    this.cameraPreset = preset
     const cam = this.cameras.main
     const corners = this.lotCorners()
     const minX = Math.min(...corners.map((c) => c.x))
@@ -1234,7 +1292,9 @@ export class LotScene extends Phaser.Scene {
       const show = isSel || isHov
       view.outline.setVisible(show)
       if (show) this.drawFootprint(view.outline, view.spec, isSel ? K.selection : K.hover, false, 0.05)
-      view.label.setVisible(show)
+      // the review signage mask keeps a stage's name hidden even on hover/selection
+      const named = this.signageMasked && (id === 'stage-a' || id === 'stage-b')
+      view.label.setVisible(show && !named)
       if (view.sprite) view.sprite.setY(isHov && !isSel ? -3 : 0)
     }
   }
@@ -1262,7 +1322,9 @@ export class LotScene extends Phaser.Scene {
     // stage production grammar
     for (const stageId of ['stage-a', 'stage-b'] as const) {
       const view = this.views.get(stageId)
-      if (view) this.dressStage(view, snap.activeProductions.find((p) => p.stageId === stageId) ?? null)
+      if (!view) continue
+      this.applyStageFinish(view, snap)
+      this.dressStage(view, snap.activeProductions.find((p) => p.stageId === stageId) ?? null)
     }
 
     // established dressing + marquee
@@ -1292,6 +1354,19 @@ export class LotScene extends Phaser.Scene {
     }
 
     this.tagZoomBand = -1 // force tag layout refresh under new snapshot
+  }
+
+  /**
+   * Swap a stage to its under-dressed finish when the snapshot says the studio is
+   * struggling. Both finishes are baked textures of the SAME building — same massing, roof
+   * and doors — so this changes polish, never architecture, and costs no display object.
+   * Only meaningful with the D1-B content gate on; the baseline lot has no worn variant.
+   */
+  private applyStageFinish(view: BuildingView, snap: StudioLotSnapshot): void {
+    if (!this.distinctStages || !view.sprite || !view.spec.texKey) return
+    const worn = snap.buildings.find((b) => b.id === view.spec.id)?.underDressed === true
+    const key = worn ? underDressedKey(view.spec.texKey) : view.spec.texKey
+    if (this.textures.exists(key) && view.sprite.texture.key !== key) view.sprite.setTexture(key)
   }
 
   private stageState(view: BuildingView, prod: ProductionCard | null): 'active' | 'idle' | 'closed' {

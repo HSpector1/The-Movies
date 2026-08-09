@@ -154,6 +154,14 @@ export class StudioLotView {
   }
 
   /**
+   * D1-B review tooling: hide the in-canvas cues that name a stage. Default OFF and only
+   * ever called by the host behind the soundstage proof gate.
+   */
+  setSignageMasked(on: boolean): void {
+    this.scene?.setSignageMasked(on)
+  }
+
+  /**
    * Pause the whole renderer when the lot is hidden (React unmount-to-background,
    * tab hidden). Stops the RAF loop entirely so a backgrounded lot costs no CPU,
    * and freezes the scene + ambient scheduler. Idempotent.

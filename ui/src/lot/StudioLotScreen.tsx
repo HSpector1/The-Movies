@@ -25,6 +25,7 @@ import {
   studioLotIdentityEnabled,
   studioLotIdentityProofEnabled,
   studioLotSoundstagesEnabled,
+  studioLotSoundstageProofEnabled,
 } from '../flags.ts'
 import type { IdentityMode } from './identity/manifest.ts'
 import './lot.css'
@@ -59,6 +60,14 @@ type Props = {
 // SaveFileV4 (directive Phase 13). It survives lot↔React navigation within one page
 // session and resets on a full reload.
 let sessionSelectedBuilding: BuildingId | null = null
+
+// Session-level stage assignment memory, for the same reason and with the same lifetime as
+// the selection above: UI session state, NOT GameState and NOT SaveFileV4. It MUST outlive
+// the lot screen, because the way a player advances a week is to leave the lot, tick, and
+// come back — a per-mount instance would forget every held stage on the way out and the
+// migration defect would reappear on re-entry. A full reload resets it, and a cold start
+// deterministically reproduces snapshot order.
+const sessionStageAssignment = new StageAssignment()
 
 // Attention → icon + word. Every state is communicated with text + shape + colour
 // (addendum §7) — never colour alone. The class drives the colour in lot.css.
@@ -125,11 +134,15 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   // held behind the same content gate as the distinct stage art: with the gate off this
   // screen behaves exactly as the pre-spike lot, including its array-order arrangement.
   const soundstages = studioLotSoundstagesEnabled()
-  const assignmentRef = useRef(new StageAssignment())
+  // D1-B review tooling, default OFF and independent of the content gate. It adds only
+  // capture affordances for the evidence harness — no game content, never a player default.
+  const soundstageProof = studioLotSoundstageProofEnabled()
+  const [signageMasked, setSignageMasked] = useState(false)
+  const [closerCamera, setCloserCamera] = useState(false)
   const readSnapshot = useCallback(
     (s: GameState): StudioLotSnapshot => {
       const snap = studioLotSnapshot(s)
-      return soundstages ? assignmentRef.current.resolve(snap) : snap
+      return soundstages ? sessionStageAssignment.resolve(snap) : snap
     },
     [soundstages],
   )
@@ -234,6 +247,21 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
     v?.setReducedMotion(effectiveReduced)
   }, [canvasReady, effectiveIdentity, effectiveReduced])
 
+  // ── D1-B review tooling: signage mask + closer framing. Both no-ops unless the
+  // soundstage proof gate is on, so nothing here can reach an ordinary player. The camera
+  // call reuses the existing 'production' preset — no new camera system.
+  useEffect(() => {
+    // With the proof gate off this must not touch the view at all — review tooling is
+    // inert, not merely passing `false`.
+    if (!canvasReady || !soundstageProof) return
+    viewRef.current?.setSignageMasked(signageMasked)
+  }, [canvasReady, soundstageProof, signageMasked])
+
+  useEffect(() => {
+    if (!canvasReady || !soundstageProof) return
+    viewRef.current?.camera(closerCamera ? 'production' : 'overview')
+  }, [canvasReady, soundstageProof, closerCamera])
+
   // ── D1-A: poll coarse runtime stats for the dev performance panel. ───────────
   useEffect(() => {
     if (!identityProof || !canvasReady) return
@@ -256,12 +284,23 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
     [dispatchRoute, recordSelection],
   )
 
+  // With the review signage mask on, the companion list must not print the answer the
+  // canvas is being masked to hide. Only the stage NAME is neutralised — attention state
+  // and the production reason stay, so the list still shows the lot in its real context.
+  const maskNames = soundstageProof && signageMasked
+  /** Drop the letter from any string that names a stage, while the review mask is on. */
+  const maskStageText = (text: string): string =>
+    maskNames
+      ? text.replace(/\b(Sound)?[Ss]tage [AB]\b/g, (m) => (m.startsWith('Sound') ? 'Soundstage' : 'Stage'))
+      : text
   const rows = ALL_BUILDING_IDS.map((id) => {
     const b = snapshot.buildings.find((x) => x.id === id)
     const attention: AttentionState = b?.attention ?? 'normal'
     const meta = ATTENTION_META[attention]
     const stateText = b?.attentionReason ?? meta.word
-    return { id, label: BUILDING_LABELS[id], attention, meta, stateText }
+    const isStage = id === 'stage-a' || id === 'stage-b'
+    const label = maskNames && isStage ? 'Soundstage' : BUILDING_LABELS[id]
+    return { id, label, attention, meta, stateText }
   })
 
   return (
@@ -327,6 +366,36 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
               </button>
             </div>
           )}
+          {soundstageProof && !reviewHidden && (
+            <div
+              className="lot-review-bar lot-review-bar-d1b"
+              data-testid="lot-soundstage-review"
+              role="group"
+              aria-label="Soundstage proof review tools (development only)"
+            >
+              <span className="lot-review-title">Soundstage proof</span>
+              <div className="lot-review-opts">
+                <button
+                  type="button"
+                  className={`lot-review-opt${signageMasked ? ' is-active' : ''}`}
+                  data-testid="lot-review-mask-signage"
+                  aria-pressed={signageMasked}
+                  onClick={() => setSignageMasked((v) => !v)}
+                >
+                  Mask stage signage
+                </button>
+                <button
+                  type="button"
+                  className={`lot-review-opt${closerCamera ? ' is-active' : ''}`}
+                  data-testid="lot-review-closer"
+                  aria-pressed={closerCamera}
+                  onClick={() => setCloserCamera((v) => !v)}
+                >
+                  Closer framing
+                </button>
+              </div>
+            </div>
+          )}
           {identityProof && reviewHidden && (
             <button
               type="button"
@@ -351,12 +420,12 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
           {selectionInfo && (
             <div className="lot-selection card" role="dialog" aria-label={`${selectionInfo.label} details`} data-testid="lot-selection-panel">
               <div className="spread">
-                <h3 style={{ margin: 0 }}>{selectionInfo.label}</h3>
+                <h3 style={{ margin: 0 }}>{maskStageText(selectionInfo.label)}</h3>
                 <button className="ghost" onClick={() => { setSelectionInfo(null); viewRef.current?.clearSelection(); recordSelection(null) }} aria-label="Close details">
                   ✕
                 </button>
               </div>
-              <p className="hint" style={{ marginTop: 8 }}>{selectionInfo.blurb}</p>
+              <p className="hint" style={{ marginTop: 8 }}>{maskStageText(selectionInfo.blurb)}</p>
               <button
                 className="accent"
                 data-testid="lot-selection-open"

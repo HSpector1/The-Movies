@@ -39,6 +39,8 @@ const spy = vi.hoisted(() => {
     resume() {}
     setReducedMotion(on: boolean) { this.reduced.push(on) }
     setIdentityMode(mode: string) { this.identityModes.push(mode) }
+    setSignageMasked() {}
+    camera() {}
     identityDebug() { return { mode: 'concept-a', failed: false, identityObjects: 8, attnBadges: 0, marqueeBulbs: 14, displayObjects: 120, fps: 60 } }
     destroy() {}
   }
