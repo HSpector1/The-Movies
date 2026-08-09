@@ -888,8 +888,8 @@ written into.
   the same brief still said the pipeline *"cannot finish two things"*, and the acceptance model was still a
   single end-of-job review.
 - **Resolution:** the ruling was reconciled through the scope of work, the known-defects record, the acceptance
-  tests, the technical contract and the evidence index. The reconciliation is **merged and published** as
-  `asset-lab-character-human-artist-handoff` @ `7603b2f234dfdb11ad6a0691315942c4b16cffac` (Asset Lab repo,
+  tests, the technical contract and the evidence index. At R1, the reconciliation **was merged and published**
+  on `asset-lab-character-human-artist-handoff` at `7603b2f234dfdb11ad6a0691315942c4b16cffac` (Asset Lab repo,
   remote `backup`; a fast-forward on that branch — **not** merged into production `main`) — **seven linear
   documentation-only commits** over the complete range `c9445ce..7603b2f` (`074bb80`, `1dcb263`, `b9f57a0`,
   `2967c1c`, `e5a4931`, `9c0466d`, `7603b2f`; `1dcb263` is the **second intermediate commit** of that chain and
@@ -902,7 +902,7 @@ written into.
   `013b5b050d9f70698b74ec54e6c181818994c98729cdeb725e54686e9aa2a614`. **The current governing commit is
   `66b44b2` and the current packet is CHH-2026-08-07-R2** — see *supporting example 5*, which records the R2
   propagation and the production amendment it forced.
-  Across the whole range **eight** `docs/handoff/*.md` files changed and **0** non-documentation
+  Across the R1 range (`c9445ce..7603b2f`) **eight** `docs/handoff/*.md` files changed and **0** non-documentation
   files; the D1-A/D1-B correction itself touched **three** of those eight — the brief, the scope of work and
   the evidence index — each an independently distributable document. **No historical 05H or 05I report was
   rewritten** and **no character asset or production code changed**; the evidence index now states that the
@@ -1047,11 +1047,11 @@ D1-A closure's character-authority pointer. **Production status documentation th
 everywhere that encoded the former current ruling**, in one governed change, while **historical** references
 to `7603b2f`, `9c0466d`, `e5a4931` and `c9445ce` stayed historical.
 
-*What R2 actually closed.*
+*R2 outcomes and remaining boundaries.*
 
 - **M1 — RESOLVED.** The final validator architecture draws the line that the earlier design blurred:
   **governed identity metadata** (packet name, version, revision date, governing branch, superseded Git tip,
-  the presence and uniqueness of the identity block and digest field) **must pass a complete read-only
+  the presence of the required identity block and the uniqueness of the digest field) **must pass a complete read-only
   preflight before any update-mode write**, and **repairable derived data** (the digest value itself) may be
   repaired through the sanctioned update path. Canonically: **"Digest values are repairable data; governed
   identity metadata is not."** And: **"Update mode must preflight packet identity before any write, but a
@@ -1068,9 +1068,8 @@ to `7603b2f`, `9c0466d`, `e5a4931` and `c9445ce` stayed historical.
   paths and defines the digest over exactly those eight and nothing else. It is explicitly **not** an
   allowlist for `docs/handoff/`: an unrelated extra file there is not hashed, not verified and not touched.
 - **UAL disclosure.** **R2 closed the two identified direct UAL dependency disclosure gaps in the
-  Export/Runtime Guide and Known Defects.** Other packet pages route or reference the governing dependency
-  terms without duplicating the full direct disclosure — this is **not** a claim that all eight pages
-  directly disclose UAL.
+  Export/Runtime Guide and Known Defects.** That closure covers **exactly those two pages**; no claim is made
+  here about direct UAL disclosure on any other packet page.
 - **Gate states.** The packet now carries the governing **PASSED / FAILED / BLOCKED** definitions, with the
   canonical blocked wording **`BLOCKED — OWNER-PROVISIONED UAL DEPENDENCY NOT AVAILABLE`**. **There is no
   fourth state**, and provisioning the UAL removes the block, produces no evidence by itself, marks nothing

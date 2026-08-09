@@ -141,8 +141,8 @@
 > dependency disclosure gaps in the Export/Runtime Guide and Known Defects** — the Export/Runtime Guide now
 > opens with a required-local-dependency section stating what still runs without the file and what it blocks,
 > and Known Defects now states that an absent dependency is a client-input block that **must not** be entered
-> in the defect register. Other packet pages route or reference the governing dependency terms without
-> duplicating the full direct disclosure.
+> in the defect register. That closure covers **exactly those two pages**; no claim is made here about direct
+> UAL disclosure on any other packet page.
 >
 > **Confirmed gate partition under a missing UAL** (the staged gates in `CHARACTER-ACCEPTANCE-TESTS.md`):
 >
@@ -180,7 +180,7 @@
 > corrected in the sixth commit, `9c0466d`.
 >
 > Verified checkpoints — Asset Lab repository `/Users/bruce/Project Studio - Asset Lab` (remote `backup`);
-> the **four named branches** all at local/remote parity, in one linear ancestry chain:
+> the **named branches** all at local/remote parity, in one linear ancestry chain:
 > `asset-lab-05h-authored-base-character-proof` @ `9e3c5d7bda39f069b7dac04624584c4fea645332` →
 > `asset-lab-05h-final-owner-review-package` @ `ddfd69fbc22be313f9dbb548c2b16032c9802daa` →
 > `asset-lab-05i-corrective-character-pass` @ `8903b1e8bbbc166aa1b74a33167aea964502a1f6` →
