@@ -665,7 +665,11 @@ though the **hand-chain weighting is itself a blocking defect**, and rig compati
 painting remain live gates. **No further autonomous or procedural character iteration is authorized**, and
 autonomous procedural correction has stopped; a qualified human **character artist** and a **rigging /
 weight-paint specialist** are required; **character production and Studio Lot integration remain
-unauthorized**; **D1-B remains unstarted and separately governed**.
+unauthorized**; **D1-B remains unstarted and separately governed**. *(**SUPERSEDED CURRENT-STATUS NOTE** —
+at the time of this entry D1-B was unstarted. Current status is governed by the D1-B status banner in
+[`docs/HANDOFF.md`](HANDOFF.md) and by Lesson **AT**: D1-B has since started **only** through the bounded
+Soundstage Composer Proof, and broader D1-B remains unauthorized. Nothing else in this entry changes —
+D1-B still does **not** include characters.)*
 
 Current governing authority — the handoff packet, **merged and published** on its Asset Lab branch
 (fast-forward; remote `backup`, local/remote parity) and **not** merged into production `main`:
@@ -775,7 +779,12 @@ management camera must not be the **only** distance a character is judged at.
   character integration is **not** authorized; role-wide propagation is **not** authorized; **Gate 14 is
   conditional, separately authorized, and not authorized**; D1-B remains unstarted and unauthorized; Asset Lab
   character work remains separate from production `main`. **R2 completed the packet's governance hardening —
-  it changed no ruling and authorized nothing.**
+  it changed no ruling and authorized nothing.** *(**SUPERSEDED CURRENT-STATUS NOTE**, D1-B clause only — at
+  the time of this entry D1-B was unstarted. Current status is governed by the D1-B status banner in
+  [`docs/HANDOFF.md`](HANDOFF.md) and by Lesson **AT**: D1-B has since started **only** through the bounded
+  Soundstage Composer Proof, and broader D1-B remains unauthorized. Every other clause in this bullet —
+  commissioning, character production, character integration, role-wide propagation and Gate 14 — is
+  **unchanged and still current**.)*
 - **Fastest diagnostic:** before any character work, read the **active handoff packet at `66b44b2`** and the
   preserved 05I final report (`docs/ASSET-LAB-05I-FINAL-REPORT.md`) first — the latter is retained as history,
   but its readiness language is superseded, as the packet's evidence index records.
@@ -1245,10 +1254,11 @@ success because the artefact next to it looked good.
 - **A bounded corrective pass prevented creep.** Exactly one pass was authorized, scoped to one
   defect: Stage B's sawtooth fascia reading as a black void. It turned out to be a
   **lighting-convention error, not a taste call** — the fascia sits on the elevation `drawWalls`
-  treats as lit but was painted with a shadow tone, making it the darkest element on that face. Two
-  colour constants and a renamed field fixed it; blind re-review confirmed *"not one dark pixel on
-  the roof itself"*. Pass #2 was neither authorized nor taken, and the remaining minor Stage B notes
-  were carried as known non-blocking observations.
+  treats as lit but was painted with a shadow tone, making it the darkest element on that face. One
+  colour value moved to a lit lot-palette tone, and the field was renamed rather than added to, so the
+  roof union gained no vocabulary; blind re-review confirmed *"not one dark pixel on the roof itself"*.
+  Pass #2 was neither authorized nor taken, and the remaining minor Stage B notes were carried as
+  known non-blocking observations.
 - **The failed hypothesis still produced adoptable components,** each judged on its own merit: a
   stable presentation-only stage assignment (a real correctness fix), the StageSpec composer (clearer
   representation and testable baking, adopted explicitly *not* for productivity), the Stage B art,
@@ -1259,6 +1269,18 @@ success because the artefact next to it looked good.
   existing signal**: computed by the adapter, spread onto all nine buildings, consumed nowhere, and
   unreachable from any existing fixture. Distinct art exposed the first; wiring the second cost
   almost nothing.
+- **And one defect the independent review found in the fix itself — presentation memory that outlived
+  its game.** The stable stage-assignment resolver correctly survived Lot unmount and re-entry, which
+  is exactly what it was built for; but its initial module-level lifetime was too broad and it also
+  survived **New Game** and **Load Save**. Because production ids are `prod-<tick>` and repeat across
+  games, a slot held by a departed studio's film could be inherited by an unrelated new studio's film
+  greenlit in the same week. Closed by ending the presentation session at the authoritative
+  GameState-replacement boundaries — not by changing the resolver.
+- **Reusable rule — scope presentation memory to the state it decorates.** Persistent presentation
+  memory must be scoped to the identity and lifecycle of the *authoritative state it decorates*.
+  "Session scoped" does not merely mean *survives component unmount*: it must also define when the
+  session **ends**. Where ids can repeat across authoritative sessions, a presentation cache or
+  resolver must reset at the replacement boundary, or be keyed to an authoritative session identity.
 - **Fastest diagnostic:** before starting, write down each hypothesis and its own pass/fail criterion
   **and its own measurement**; at closure, score them independently and refuse to publish a single
   blended verdict. If a metric fails, record the failure and stop — do not re-baseline, do not
@@ -1266,11 +1288,13 @@ success because the artefact next to it looked good.
 - **Pattern:** two-column verdicts (`VISUAL: PASS` / `ECONOMIC: FAIL`); an explicit "no productivity
   multiplier is claimed" statement in the closure; component-by-component adoption rulings; a control
   path retained so pre-existing defects stay attributable; blind independent review of the artefact
-  with the identifying labels removed; bounded corrective passes with a hard stop.
+  with the identifying labels removed; bounded corrective passes with a hard stop; presentation caches
+  whose reset is wired to the authoritative state-replacement boundary and asserted by test.
   **Anti-pattern:** collapsing multiple hypotheses into one PASS/FAIL; letting a visual win imply a
   tooling win; moving the goalposts after a metric fails; extrapolating an untested future unit cost;
   adding a third instance purely to improve amortization; building the abstraction before inspecting
   what already exists; allowing labels or signage to carry a test that is supposed to be about form;
   opportunistically fixing pre-existing defects inside a controlled experiment; declaring components
-  worth shipping *because* their parent experiment needs to be called a success.
+  worth shipping *because* their parent experiment needs to be called a success; defining a cache's
+  lifetime only by what it must **outlive**, without defining what **ends** it.
   **Related:** **AQ**, **AR**, **AS**. **Reuse:** BR, MG, P.

@@ -21,7 +21,8 @@ export const STUDIO_LOT_IDENTITY_LS_KEY = 'project-studio.flags.studio-lot-ident
  *  set this key to '0' to force the untouched D1 baseline for a player. */
 export const STUDIO_LOT_IDENTITY_PLAYER_LS_KEY = 'project-studio.flags.studio-lot-identity'
 
-/** localStorage key for the D1-B distinct-soundstage CONTENT gate (default OFF). */
+/** localStorage key for the D1-B distinct-soundstage CONTENT gate. Content is default ON; set
+ *  this key to '0' to force the pre-D1-B shared stage texture. */
 export const STUDIO_LOT_SOUNDSTAGES_LS_KEY = 'project-studio.flags.studio-lot-soundstages'
 
 /** localStorage key for the D1-B soundstage REVIEW/PROOF tooling (default OFF). */
@@ -108,8 +109,8 @@ export function studioLotIdentityEnabled(): boolean {
 /**
  * D1-B CONTENT gate: are the soundstages composed as two distinct buildings? DEFAULT ON.
  *
- * The Soundstage Composer Proof was adopted, so the distinct Stage A / Stage B presentation
- * is ordinary player content and needs no env var or localStorage key. It follows the same
+ * The accepted soundstage presentation defaults on: the distinct Stage A / Stage B buildings
+ * are ordinary player content and need no env var or localStorage key. It follows the same
  * shape as the D1-A player identity gate: an explicit ROLLBACK forces the pre-D1-B shared
  * stage texture — env `VITE_STUDIO_LOT_SOUNDSTAGES=0`, or the localStorage key set to '0'.
  * That rollback is deliberately retained as an A/B regression-comparison path.

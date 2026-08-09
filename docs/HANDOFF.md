@@ -212,7 +212,10 @@
 > **None of these is an ancestor of production `main`.** Production `main` carries **0** GLB/glTF/FBX
 > files and no Three.js (the renderer dependency is `phaser`). **No character integration occurred; D1-B
 > remains unstarted and separately governed; Concept A, `GameState`, and `StudioLotSnapshot` are
-> unchanged.** Asset Lab character work stays separate from production `main`.
+> unchanged.** *(**SUPERSEDED CURRENT-STATUS NOTE** — at the time of this entry D1-B was unstarted.
+> Current status is governed by the D1-B status banner at the top of this file: D1-B has since started
+> **only** through the bounded Soundstage Composer Proof. The rest of this sentence still holds, and D1-B
+> still does **not** include characters.)* Asset Lab character work stays separate from production `main`.
 >
 > An 05H owner visual + real-GPU review was attempted and **closed without review setup**: no 05H worktree
 > existed, and the later "owner-review package" proved **not** documentation-only — `ed97e78` adds the
