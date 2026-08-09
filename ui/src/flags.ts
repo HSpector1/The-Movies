@@ -21,10 +21,18 @@ export const STUDIO_LOT_IDENTITY_LS_KEY = 'project-studio.flags.studio-lot-ident
  *  set this key to '0' to force the untouched D1 baseline for a player. */
 export const STUDIO_LOT_IDENTITY_PLAYER_LS_KEY = 'project-studio.flags.studio-lot-identity'
 
+/** localStorage key for the D1-B distinct-soundstage CONTENT gate (default OFF). */
+export const STUDIO_LOT_SOUNDSTAGES_LS_KEY = 'project-studio.flags.studio-lot-soundstages'
+
+/** localStorage key for the D1-B soundstage REVIEW/PROOF tooling (default OFF). */
+export const STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY = 'project-studio.flags.studio-lot-soundstage-proof'
+
 type ViteEnv = {
   VITE_STUDIO_LOT_OVERVIEW?: string
   VITE_STUDIO_LOT_IDENTITY_PROOF?: string
   VITE_STUDIO_LOT_IDENTITY?: string
+  VITE_STUDIO_LOT_SOUNDSTAGES?: string
+  VITE_STUDIO_LOT_SOUNDSTAGE_PROOF?: string
 }
 
 function envValue(pick: (e: ViteEnv) => string | undefined): boolean {
@@ -95,6 +103,37 @@ export function studioLotIdentityEnabled(): boolean {
     /* storage unavailable (private mode / sandbox) — stay on the default (identity ON) */
   }
   return true
+}
+
+/**
+ * D1-B CONTENT gate: are the soundstages composed as two distinct buildings? DEFAULT OFF.
+ *
+ * This is the spike's content switch, and it is default-OFF on purpose: with it off the lot
+ * bakes the one shared stage texture and applies the pre-spike stage arrangement, so the
+ * baseline Studio Lot is functionally and visually the lot that shipped. It is independent
+ * of the review gate below — the proof content can be judged with no review chrome present.
+ */
+export function studioLotSoundstagesEnabled(): boolean {
+  return envValue((e) => e.VITE_STUDIO_LOT_SOUNDSTAGES) || lsFlag(STUDIO_LOT_SOUNDSTAGES_LS_KEY)
+}
+
+/** Dev/test helper: flip the D1-B soundstage content override. Reload to apply. */
+export function setStudioLotSoundstagesOverride(on: boolean): void {
+  setLsFlag(STUDIO_LOT_SOUNDSTAGES_LS_KEY, on)
+}
+
+/**
+ * D1-B REVIEW/PROOF gate: is the soundstage review tooling available? DEFAULT OFF.
+ * Review tooling is never player-default; it only ever adds capture affordances (closer
+ * camera framing, signage masking) for the evidence harness. It renders no game content.
+ */
+export function studioLotSoundstageProofEnabled(): boolean {
+  return envValue((e) => e.VITE_STUDIO_LOT_SOUNDSTAGE_PROOF) || lsFlag(STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY)
+}
+
+/** Dev/test helper: flip the D1-B soundstage review/proof override. Reload to apply. */
+export function setStudioLotSoundstageProofOverride(on: boolean): void {
+  setLsFlag(STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY, on)
 }
 
 /** Dev/test helper: force the ordinary-player identity rollback ON (baseline) or OFF (Concept A).
