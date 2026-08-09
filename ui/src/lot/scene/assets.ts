@@ -226,7 +226,7 @@ function sawtoothRoof(
   rise: number,
   teeth: number,
   solid: number,
-  solidDark: number,
+  fascia: number,
   glazing: number,
 ): void {
   const { g, p } = b
@@ -238,8 +238,8 @@ function sawtoothRoof(
     poly(g, [p(x0, 0, H), p(x1, 0, H + rise), p(x1, fd, H + rise), p(x0, fd, H)], solid)
     // the vertical north-light glazing closing the tooth
     poly(g, [p(x1, 0, H + rise), p(x1, fd, H + rise), p(x1, fd, H), p(x1, 0, H)], glazing)
-    // fascia on the lit wall plane, so the profile reads solid rather than hollow
-    poly(g, [p(x0, fd, H), p(x1, fd, H + rise), p(x1, fd, H)], solidDark)
+    // fascia on the LIT wall plane — a lit roof edge, not a shadow face
+    poly(g, [p(x0, fd, H), p(x1, fd, H + rise), p(x1, fd, H)], fascia)
     // a thin shadow line under each ridge to separate the teeth at distance
     stroke(g, [p(x1, 0, H + rise), p(x1, fd, H + rise)], 0x000000, 1, 0.14)
   }
@@ -438,7 +438,7 @@ export function bakeStageFromSpec(
   if (roof.kind === 'barrel') {
     barrelRoof(b, fw, fd, H, roof.rise, roof.bands, D(roof.base), D(roof.shadeFrom), D(roof.shadeTo))
   } else {
-    sawtoothRoof(b, fw, fd, H, roof.rise, roof.teeth, D(roof.solid), D(roof.solidDark), G(roof.glazing))
+    sawtoothRoof(b, fw, fd, H, roof.rise, roof.teeth, D(roof.solid), D(roof.fascia), G(roof.glazing))
   }
 
   // big elephant doors on the front-left (+gy) face

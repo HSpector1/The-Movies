@@ -58,8 +58,16 @@ export type StageRoofSpec =
       teeth: number
       /** the sloping roof planes */
       solid: number
-      /** the fascia closing each tooth against the lit wall plane */
-      solidDark: number
+      /**
+       * The fascia closing each tooth against the lit wall plane.
+       *
+       * This face sits on the +gy elevation, which drawWalls treats as the LIT side, so it
+       * must carry a lit tone. The first pass used a shadow tone here and it became the
+       * darkest element on the whole elevation — 63 luma below the wall it meets, and below
+       * both the slope and the glazing — which read as an unresolved black opening rather
+       * than a roof edge.
+       */
+      fascia: number
       /** the vertical north-light glazing between teeth */
       glazing: number
     }
@@ -170,7 +178,9 @@ export const STAGE_B: StageSpec = {
     rise: 26,
     teeth: 3,
     solid: K.roofFlat,
-    solidDark: K.roofFlatDark,
+    // A lit roof edge: 25 luma above the slope it caps and 16 below the wall it meets, so
+    // it separates cleanly from both without becoming a void or merging into the stucco.
+    fascia: K.wallStuccoR,
     glazing: K.glass,
   },
   doors: {
