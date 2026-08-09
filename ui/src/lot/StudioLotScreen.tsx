@@ -16,11 +16,16 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { GameState } from '../engine/adapter.ts'
 import { studioLotSnapshot } from '../engine/adapter.ts'
-import type { AttentionState, BuildingId } from './snapshot/StudioLotSnapshot.ts'
+import type { AttentionState, BuildingId, StudioLotSnapshot } from './snapshot/StudioLotSnapshot.ts'
 import { ALL_BUILDING_IDS, BUILDING_ACTION, BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
+import { StageAssignment } from './snapshot/stageAssignment.ts'
 import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
-import { studioLotIdentityEnabled, studioLotIdentityProofEnabled } from '../flags.ts'
+import {
+  studioLotIdentityEnabled,
+  studioLotIdentityProofEnabled,
+  studioLotSoundstagesEnabled,
+} from '../flags.ts'
 import type { IdentityMode } from './identity/manifest.ts'
 import './lot.css'
 
@@ -114,7 +119,22 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
       : 'baseline'
   const effectiveReduced = identityProof ? reducedMotion || activeReview.reduced : reducedMotion
 
-  const snapshot = studioLotSnapshot(state)
+  // ── D1-B soundstages: content gate + stable stage assignment ────────────────────────
+  // The stage-assignment correction lives HERE, above both the Phaser scene and the DOM
+  // companion navigation, so the two can never disagree about which stage is busy. It is
+  // held behind the same content gate as the distinct stage art: with the gate off this
+  // screen behaves exactly as the pre-spike lot, including its array-order arrangement.
+  const soundstages = studioLotSoundstagesEnabled()
+  const assignmentRef = useRef(new StageAssignment())
+  const readSnapshot = useCallback(
+    (s: GameState): StudioLotSnapshot => {
+      const snap = studioLotSnapshot(s)
+      return soundstages ? assignmentRef.current.resolve(snap) : snap
+    },
+    [soundstages],
+  )
+
+  const snapshot = readSnapshot(state)
 
   const recordSelection = useCallback((id: BuildingId | null) => {
     sessionSelectedBuilding = id
@@ -142,7 +162,8 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
         if (cancelled || !mountRef.current) return
         view = new StudioLotView({
           parent: mountRef.current,
-          snapshot: { ...studioLotSnapshot(state), selectedBuildingId: sessionSelectedBuilding },
+          distinctStages: soundstages,
+          snapshot: { ...readSnapshot(state), selectedBuildingId: sessionSelectedBuilding },
           onSelect: (sel) => {
             setSelectionInfo(sel)
             recordSelection(sel?.buildingId ?? null)
@@ -177,9 +198,9 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   useEffect(() => {
     const v = viewRef.current
     if (v && canvasReady) {
-      v.setSnapshot({ ...studioLotSnapshot(state), selectedBuildingId: sessionSelectedBuilding })
+      v.setSnapshot({ ...readSnapshot(state), selectedBuildingId: sessionSelectedBuilding })
     }
-  }, [state, canvasReady])
+  }, [state, canvasReady, readSnapshot])
 
   // ── Pause when the tab is hidden; resume when visible (no CPU while backgrounded). ─
   useEffect(() => {
