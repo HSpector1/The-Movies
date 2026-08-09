@@ -23,9 +23,10 @@ const ACTIVE_SESSION_KEY = 'project-studio.active-session.v4'
 const OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
 const IDENTITY_FLAG = 'project-studio.flags.studio-lot-identity-proof'
 const SOUNDSTAGES_FLAG = 'project-studio.flags.studio-lot-soundstages'
+const SOUNDSTAGE_PROOF_FLAG = 'project-studio.flags.studio-lot-soundstage-proof'
 
 test.beforeAll(() => {
-  const names = ['empty', 'one', 'two', 'released', 'warn']
+  const names = ['empty', 'one', 'two', 'released', 'warn', 'dressed', 'undressed']
   if (!names.every((n) => existsSync(join(fixturesDir, `${n}.json`)))) {
     execSync('npx vite-node scripts/gen-lot-fixtures.mts', { cwd: repoRoot, stdio: 'inherit' })
   }
@@ -37,21 +38,42 @@ const fixture = (name: string) => readFileSync(join(fixturesDir, `${name}.json`)
 async function seed(page: Page, fixtureName: string, soundstages: boolean) {
   const save = fixture(fixtureName)
   await page.addInitScript(
-    ([key, json, f1, f2, f3, on]) => {
+    ([key, json, f1, f2, f3, f4, on]) => {
       try {
         localStorage.setItem(key as string, json as string)
         localStorage.setItem(f1 as string, '1')
         localStorage.setItem(f2 as string, '1')
+        localStorage.setItem(f4 as string, '1') // D1-B review tooling (capture affordances)
         if (on) localStorage.setItem(f3 as string, '1')
         else localStorage.removeItem(f3 as string)
       } catch {
         /* ignore */
       }
     },
-    [ACTIVE_SESSION_KEY, save, OVERVIEW_FLAG, IDENTITY_FLAG, SOUNDSTAGES_FLAG, soundstages] as const,
+    [
+      ACTIVE_SESSION_KEY,
+      save,
+      OVERVIEW_FLAG,
+      IDENTITY_FLAG,
+      SOUNDSTAGES_FLAG,
+      SOUNDSTAGE_PROOF_FLAG,
+      soundstages,
+    ] as const,
   )
   await page.goto('/')
   await expect(page.getByTestId('dash-week')).toBeVisible()
+}
+
+/** Toggle the review-only stage signage mask (proof gate). */
+async function maskSignage(page: Page) {
+  await page.getByTestId('lot-review-mask-signage').click()
+  await page.waitForTimeout(400)
+}
+
+/** Toggle the review-only closer framing, which calls the existing 'production' preset. */
+async function closerFraming(page: Page) {
+  await page.getByTestId('lot-review-closer').click()
+  await page.waitForTimeout(600)
 }
 
 async function openLot(page: Page) {
@@ -72,7 +94,19 @@ async function hideOverlay(page: Page) {
   await page.waitForTimeout(350)
 }
 
-const shot = (page: Page, name: string) => page.screenshot({ path: join(outDir, `${name}.png`) })
+/**
+ * Capture a clean frame. Clicking review controls that sit over the canvas can leave a
+ * building selection panel open; it is dev-tooling noise, not part of the lot being judged,
+ * so it is dismissed before the shutter.
+ */
+async function shot(page: Page, name: string) {
+  const close = page.getByRole('button', { name: 'Close details' })
+  if (await close.isVisible().catch(() => false)) {
+    await close.click()
+    await page.waitForTimeout(250)
+  }
+  await page.screenshot({ path: join(outDir, `${name}.png`) })
+}
 
 /** Read `displayObjects` out of the dev performance panel ("60 fps · 143 objects · 8 identity"). */
 async function readDisplayObjects(page: Page): Promise<number> {
@@ -131,6 +165,135 @@ test('baseline vs proof at the management camera (matched state)', async ({ page
   await capture(false, 'A1-management-gate-off')
   await capture(true, 'A2-management-gate-on')
 })
+
+// ── B/C. the decisive gates: signage-masked, and closer review ────────────────
+test('Stage A/B — normal, signage-masked, and closer review', async ({ page }) => {
+  await seed(page, 'two', true)
+  await openLot(page)
+  await setMode(page, 'concept-a')
+
+  // B1: normal presentation, management camera
+  await hideOverlay(page)
+  await shot(page, 'B1-stages-normal')
+
+  // B2: the SAME framing with every stage-naming cue hidden — the decisive test
+  await page.getByTestId('lot-review-show').click()
+  await maskSignage(page)
+  await hideOverlay(page)
+  await shot(page, 'B2-stages-signage-masked')
+
+  // C1: closer review, signage still masked (architecture only)
+  await page.getByTestId('lot-review-show').click()
+  await closerFraming(page)
+  await hideOverlay(page)
+  await shot(page, 'C1-stages-closer-masked')
+
+  // C2: closer review with signage restored, for defect inspection in context
+  await page.getByTestId('lot-review-show').click()
+  await maskSignage(page)
+  await hideOverlay(page)
+  await shot(page, 'C2-stages-closer-normal')
+})
+
+// ── D. underDressed OFF / ON, matched week + seed ─────────────────────────────
+test('underDressed OFF vs ON (matched fixtures)', async ({ page }) => {
+  for (const [name, fx] of [
+    ['D1-underdressed-off', 'dressed'],
+    ['D2-underdressed-on', 'undressed'],
+  ] as const) {
+    await seed(page, fx, true)
+    await openLot(page)
+    await setMode(page, 'concept-a')
+    await hideOverlay(page)
+    await shot(page, name)
+  }
+})
+
+// ── E. stable stage assignment across a release, with distinct art ────────────
+// Driven the way a player actually would: leave the lot, advance weeks on the dashboard,
+// come back. That round trip is exactly what makes this worth proving — the lot screen
+// unmounts each time, so the assignment memory has to outlive it.
+async function stageStates(page: Page): Promise<{ a: string | null; b: string | null }> {
+  return {
+    a: await page.getByTestId('lot-nav-stage-a').getAttribute('data-attention'),
+    b: await page.getByTestId('lot-nav-stage-b').getAttribute('data-attention'),
+  }
+}
+
+async function advanceWeeks(page: Page, n: number) {
+  await page.getByTestId('lot-return-dashboard').click()
+  await expect(page.getByTestId('dash-week')).toBeVisible()
+  for (let i = 0; i < n; i++) {
+    await page.getByTestId('advance-week').click()
+    await page.waitForTimeout(150)
+    // Every tick routes through the weekly-releases interstitial ("THE WEEK'S RELEASES"),
+    // even on a week when nothing released. Dismiss it to get back to the dashboard.
+    // A tick can route through one or more interstitials (the weekly releases screen, and
+    // after a release the autopsy). Dismiss whatever is in the way until the dashboard,
+    // and its Advance control, is back.
+    for (let guard = 0; guard < 6; guard++) {
+      if (await page.getByTestId('advance-week').isVisible().catch(() => false)) break
+      let clicked = false
+      for (const id of ['newspaper-continue', 'release-continue', 'autopsy-close', 'autopsy-back', 'recovery-dismiss']) {
+        const el = page.getByTestId(id)
+        if (await el.isVisible().catch(() => false)) {
+          await el.click()
+          await page.waitForTimeout(150)
+          clicked = true
+          break
+        }
+      }
+      if (!clicked) {
+        const ids = await page.evaluate(() =>
+          Array.from(document.querySelectorAll('[data-testid]')).map((e) => e.getAttribute('data-testid')),
+        )
+        throw new Error(`stuck after advancing week ${i + 1}; no known dismiss control. testids=${JSON.stringify(ids)}`)
+      }
+    }
+    await expect(page.getByTestId('advance-week')).toBeVisible()
+  }
+  await page.getByTestId('open-studio-lot').click()
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
+  await page.waitForTimeout(1300)
+}
+
+for (const gate of [true, false] as const) {
+  const tag = gate ? 'content-ON' : 'content-OFF'
+  test(`stable assignment across a release — ${tag}`, async ({ page }) => {
+    // ticking the engine through the real dashboard is slow; this journey needs the room
+    test.setTimeout(180_000)
+    await seed(page, 'stagger', gate)
+    await openLot(page)
+    await setMode(page, 'concept-a')
+
+    const before = await stageStates(page)
+    expect(before).toEqual({ a: 'active', b: 'active' })
+    await hideOverlay(page)
+    await shot(page, `E1-${tag}-both-stages-active`)
+
+    // The Stage A film has 5 weeks left and the Stage B film 7, so six weeks releases the
+    // first and leaves the second shooting alone — the array compaction that used to move
+    // the survivor onto Stage A.
+    await advanceWeeks(page, 6)
+    const after = await stageStates(page)
+    // eslint-disable-next-line no-console
+    console.log(`[D1-B] ${tag}: before=${JSON.stringify(before)} after=${JSON.stringify(after)}`)
+    await page.getByTestId('lot-review-hide').click().catch(() => {})
+    await page.waitForTimeout(350)
+    await shot(page, `E2-${tag}-after-one-release`)
+
+    const survivors = [after.a, after.b].filter((s) => s === 'active').length
+    expect(survivors, 'exactly one production should still be shooting').toBe(1)
+
+    if (gate) {
+      // THE FIX: the survivor stayed on Stage B and did not migrate to Stage A.
+      expect(after).toEqual({ a: 'empty', b: 'active' })
+    } else {
+      // THE PRE-SPIKE BEHAVIOUR, deliberately preserved on the baseline path.
+      expect(after).toEqual({ a: 'active', b: 'empty' })
+    }
+  })
+}
 
 // ── F/G. the established viewport classes + 125% zoom, content gate ON ────────
 test('proof across the established viewport classes and 125% zoom', async ({ page }) => {
