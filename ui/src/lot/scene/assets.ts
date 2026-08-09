@@ -214,6 +214,59 @@ function gableRoof(
 }
 
 /**
+ * North-light sawtooth roof: each tooth is a solid plane sloping up along +gx, closed by a
+ * vertical glazed face that drops back to the eave. Drawn back-to-front (increasing gx =
+ * nearer the camera) so the teeth overlap correctly inside the baked texture.
+ */
+function sawtoothRoof(
+  b: Builder,
+  fw: number,
+  fd: number,
+  H: number,
+  rise: number,
+  teeth: number,
+  solid: number,
+  solidDark: number,
+  glazing: number,
+): void {
+  const { g, p } = b
+  const w = fw / teeth
+  for (let i = 0; i < teeth; i++) {
+    const x0 = i * w
+    const x1 = (i + 1) * w
+    // the sloping roof plane, low at x0, high at x1
+    poly(g, [p(x0, 0, H), p(x1, 0, H + rise), p(x1, fd, H + rise), p(x0, fd, H)], solid)
+    // the vertical north-light glazing closing the tooth
+    poly(g, [p(x1, 0, H + rise), p(x1, fd, H + rise), p(x1, fd, H), p(x1, 0, H)], glazing)
+    // fascia on the lit wall plane, so the profile reads solid rather than hollow
+    poly(g, [p(x0, fd, H), p(x1, fd, H + rise), p(x1, fd, H)], solidDark)
+    // a thin shadow line under each ridge to separate the teeth at distance
+    stroke(g, [p(x1, 0, H + rise), p(x1, fd, H + rise)], 0x000000, 1, 0.14)
+  }
+}
+
+/** Vertical buttress strips on the lit (+gy) face — the facade rhythm. */
+function pilasters(
+  b: Builder,
+  fw: number,
+  fd: number,
+  H: number,
+  count: number,
+  width: number,
+  color: number,
+): void {
+  const { g, p } = b
+  for (let i = 1; i <= count; i++) {
+    const cx = (i / (count + 1)) * fw
+    poly(
+      g,
+      [p(cx - width / 2, fd, 0), p(cx + width / 2, fd, 0), p(cx + width / 2, fd, H), p(cx - width / 2, fd, H)],
+      color,
+    )
+  }
+}
+
+/**
  * Vaulted "barrel" roof for a soundstage: stacked domed rhombi.
  * Band count and the colour ramp come from the stage's spec/palette; the geometry is
  * unchanged from the original hard-coded version.
@@ -333,35 +386,92 @@ function bakeCasting(scene: Phaser.Scene): void {
 // provable no-op. Distinct stages are new spec literals, not new code paths.
 
 /**
+ * The under-dressed finish: blend a colour toward the lot's dusk shadow.
+ *
+ * This is a FINISH change, never an architectural one — a struggling studio has a plainer,
+ * less freshly-painted stage, not a damaged or closed one. Massing, roof form, doors and
+ * facade rhythm are identical in both variants; only the polish differs.
+ */
+function dull(color: number, amount: number): number {
+  return lerpColor(color, K.shadow, 1, amount)
+}
+
+/** Presentation-only bake modifiers. */
+export type StageBakeOptions = {
+  /**
+   * Render the plainer finish for the snapshot's existing `underDressed` signal:
+   * duller large fields, no decorative trim. Baked as its own texture, so switching
+   * costs zero display objects.
+   */
+  underDressed?: boolean
+}
+
+/**
  * Compose one soundstage into a baked texture and return its sprite metadata.
  * Pure presentation: a spec describes how a stage LOOKS, never what it can do.
  */
-export function bakeStageFromSpec(scene: Phaser.Scene, spec: StageSpec): BakedSprite {
+export function bakeStageFromSpec(
+  scene: Phaser.Scene,
+  spec: StageSpec,
+  opts: StageBakeOptions = {},
+): BakedSprite {
   const { fw, fd } = spec.bays
   const H = spec.wallH
   const pal = spec.palette
+  const worn = opts.underDressed === true
+  // Large fields lose a little life; glazing loses its sky. Trim is dropped entirely.
+  const D = (c: number) => (worn ? dull(c, 0.18) : c)
+  const G = (c: number) => (worn ? dull(c, 0.3) : c)
   // The roof's rise is also the texture headroom above the eave (topExtra).
   const topExtra = spec.roof.rise
   const b = beginBuilding(scene, fw, fd, H, topExtra)
   const { g, p } = b
 
-  drawWalls(b, fw, fd, H, pal.wallRight, pal.wallLeft)
-  barrelRoof(b, fw, fd, H, spec.roof.rise, spec.roof.bands, pal.roofBase, pal.roofShadeFrom, pal.roofShadeTo)
+  drawWalls(b, fw, fd, H, D(pal.wallRight), D(pal.wallLeft))
+
+  // facade rhythm, before the doors so an opening always sits on top of a buttress
+  if (spec.facade) {
+    pilasters(b, fw, fd, H, spec.facade.pilasters, spec.facade.width, D(spec.facade.color))
+  }
+
+  const roof = spec.roof
+  if (roof.kind === 'barrel') {
+    barrelRoof(b, fw, fd, H, roof.rise, roof.bands, D(roof.base), D(roof.shadeFrom), D(roof.shadeTo))
+  } else {
+    sawtoothRoof(b, fw, fd, H, roof.rise, roof.teeth, D(roof.solid), D(roof.solidDark), G(roof.glazing))
+  }
 
   // big elephant doors on the front-left (+gy) face
-  const { inset, heightFrac, leaves } = spec.doors
+  const { inset, heightFrac, leaves, lintel } = spec.doors
   const doorH = H * heightFrac
   const span = fw - inset * 2
-  poly(g, [p(inset, fd, 0), p(fw - inset, fd, 0), p(fw - inset, fd, doorH), p(inset, fd, doorH)], pal.doorFill)
+  poly(g, [p(inset, fd, 0), p(fw - inset, fd, 0), p(fw - inset, fd, doorH), p(inset, fd, doorH)], D(pal.doorFill))
   for (let i = 1; i < leaves; i++) {
     const t = i / leaves
-    stroke(g, [p(inset + t * span, fd, 0), p(inset + t * span, fd, doorH)], pal.doorSeam, 1.5)
+    stroke(g, [p(inset + t * span, fd, 0), p(inset + t * span, fd, doorH)], D(pal.doorSeam), 1.5)
+  }
+  // decorative header beam — the first thing a struggling studio stops repainting
+  if (lintel && !worn) {
+    const o = 0.15
+    poly(
+      g,
+      [
+        p(inset - o, fd, doorH),
+        p(fw - inset + o, fd, doorH),
+        p(fw - inset + o, fd, doorH + lintel.depth),
+        p(inset - o, fd, doorH + lintel.depth),
+      ],
+      lintel.color,
+    )
   }
 
   const baked: BakedSprite = { key: spec.key, originX: 0.5, originY: b.originY, fw, fd }
   finalize(b, spec.key)
   return baked
 }
+
+/** Texture key for a spec's under-dressed variant. */
+export const underDressedKey = (key: string): string => `${key}-ud`
 
 /**
  * Bake the lot's soundstages.
@@ -384,6 +494,12 @@ function bakeStages(scene: Phaser.Scene, distinct: boolean): void {
   const a = bakeStageFromSpec(scene, STAGE_A)
   BUILDING_TEX.stageA = a
   BUILDING_TEX.stageB = bakeStageFromSpec(scene, STAGE_B)
+  // Under-dressed finishes are baked alongside so the scene can swap a stage's texture
+  // with no extra display object. They are variants of the SAME buildings — identical
+  // massing, roof and doors — so a stage never changes shape when the studio struggles.
+  for (const spec of [STAGE_A, STAGE_B]) {
+    bakeStageFromSpec(scene, { ...spec, key: underDressedKey(spec.key) }, { underDressed: true })
+  }
   // `stage` stays a valid alias (nothing renders it once the stages are distinct); the
   // shared legacy texture is not baked in this mode because nothing would place it.
   BUILDING_TEX.stage = a

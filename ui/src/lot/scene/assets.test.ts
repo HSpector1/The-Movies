@@ -204,13 +204,13 @@ describe('D1-B content gate — default OFF is the pre-spike lot', () => {
     expect(r.textures.filter((t) => t.key.startsWith('b-stage'))).toHaveLength(1)
   })
 
-  it('8. flag ON bakes one texture per stage, under distinct keys', () => {
+  it('8. flag ON bakes each stage plus its under-dressed finish, under distinct keys', () => {
     const r = recorder()
     bakeAllTextures(r.scene, { distinctStages: true })
     expect(BUILDING_TEX.stageA.key).toBe('b-stage-a')
     expect(BUILDING_TEX.stageB.key).toBe('b-stage-b')
     const stageTex = r.textures.filter((t) => t.key.startsWith('b-stage')).map((t) => t.key)
-    expect(stageTex.sort()).toEqual(['b-stage-a', 'b-stage-b'])
+    expect(stageTex.sort()).toEqual(['b-stage-a', 'b-stage-a-ud', 'b-stage-b', 'b-stage-b-ud'])
   })
 
   it('9. baking costs ZERO top-level display objects in either mode', () => {
@@ -228,4 +228,110 @@ describe('D1-B content gate — default OFF is the pre-spike lot', () => {
       expect(spec.bays).toEqual({ fw: 4, fd: 4 })
     }
   })
+})
+
+// ── Stage B: the authored variant ─────────────────────────────────────────────
+describe('D1-B Stage B — a different building from the same studio', () => {
+  it('11. differs from Stage A in roof form, height and door composition', () => {
+    expect(STAGE_B.roof.kind).toBe('sawtooth')
+    expect(STAGE_A.roof.kind).toBe('barrel')
+    expect(STAGE_B.wallH).toBeGreaterThan(STAGE_A.wallH)
+    expect(STAGE_B.roof.rise).toBeLessThan(STAGE_A.roof.rise)
+    expect(STAGE_B.doors.leaves).not.toBe(STAGE_A.doors.leaves)
+    expect(STAGE_B.doors.inset).toBeGreaterThan(STAGE_A.doors.inset)
+    expect(STAGE_B.facade).toBeTruthy()
+    expect(STAGE_A.facade).toBeUndefined() // Stage A keeps the plain baseline wall
+  })
+
+  it('12. shares the studio vocabulary: same footprint, same door grammar, lot palette', () => {
+    expect(STAGE_B.bays).toEqual(STAGE_A.bays)
+    expect(STAGE_B.palette.doorFill).toBe(STAGE_A.palette.doorFill)
+    expect(STAGE_B.palette.doorSeam).toBe(STAGE_A.palette.doorSeam)
+    // both wall families are lot palette entries, not bespoke one-off colours
+    const lot = new Set<number>(Object.values(K))
+    for (const spec of [STAGE_A, STAGE_B]) {
+      expect(lot.has(spec.palette.wallRight)).toBe(true)
+      expect(lot.has(spec.palette.wallLeft)).toBe(true)
+    }
+  })
+
+  it('13. bakes a sawtooth: one glazed face and one ridge shadow per tooth', () => {
+    const r = recorder()
+    bakeStageFromSpec(r.scene, STAGE_B)
+    const roof = STAGE_B.roof
+    if (roof.kind !== 'sawtooth') throw new Error('expected a sawtooth roof')
+
+    const glazed = styles(r.ops).filter((o) => o.fn === 'fillStyle' && o.args[0] === roof.glazing)
+    expect(glazed).toHaveLength(roof.teeth)
+    const ridges = styles(r.ops).filter((o) => o.fn === 'lineStyle' && o.args[1] === 0x000000 && o.args[2] === 0.14)
+    expect(ridges).toHaveLength(roof.teeth)
+    // and no barrel banding
+    expect(styles(r.ops).some((o) => o.args[0] === 0xf3e6c6)).toBe(false)
+  })
+
+  it('14. draws the facade rhythm, in a tone that is distinct from BOTH wall faces', () => {
+    const r = recorder()
+    bakeStageFromSpec(r.scene, STAGE_B)
+    const f = STAGE_B.facade!
+    const strips = styles(r.ops).filter((o) => o.fn === 'fillStyle' && o.args[0] === f.color)
+    expect(strips).toHaveLength(f.pilasters)
+
+    // The first render made the ribs invisible by painting them in a wall tone. This is the
+    // invariant that stops that coming back: a buttress must carry real value contrast
+    // against the lit face it sits on.
+    const lum = (c: number) => 0.299 * ((c >> 16) & 0xff) + 0.587 * ((c >> 8) & 0xff) + 0.114 * (c & 0xff)
+    expect(f.color).not.toBe(STAGE_B.palette.wallRight)
+    expect(f.color).not.toBe(STAGE_B.palette.wallLeft)
+    expect(Math.abs(lum(f.color) - lum(STAGE_B.palette.wallRight))).toBeGreaterThan(24)
+  })
+
+  it('15. draws the door lintel, and drops it when under-dressed', () => {
+    const dressed = recorder()
+    const worn = recorder()
+    bakeStageFromSpec(dressed.scene, STAGE_B)
+    bakeStageFromSpec(worn.scene, { ...STAGE_B, key: 'b-probe-ud' }, { underDressed: true })
+    const lintel = STAGE_B.doors.lintel!
+    expect(styles(dressed.ops).some((o) => o.args[0] === lintel.color)).toBe(true)
+    expect(styles(worn.ops).some((o) => o.args[0] === lintel.color)).toBe(false)
+  })
+
+  it('16. Stage A and Stage B are genuinely different geometry, not a recolour', () => {
+    const a = recorder()
+    const b = recorder()
+    bakeStageFromSpec(a.scene, STAGE_A)
+    bakeStageFromSpec(b.scene, STAGE_B)
+    const pts = (ops: Op[]) => ops.filter((o) => o.fn === 'moveTo' || o.fn === 'lineTo').map((o) => o.args.join(','))
+    expect(pts(a.ops)).not.toEqual(pts(b.ops))
+    expect(a.textures[0]!.h).not.toBe(b.textures[0]!.h) // different massing ⇒ different texture
+  })
+})
+
+// ── the condition treatment ───────────────────────────────────────────────────
+describe('D1-B underDressed — a finish, never an architectural change', () => {
+  for (const spec of [STAGE_A, STAGE_B]) {
+    it(`17. ${spec.key}: the worn variant has IDENTICAL geometry, only different colour`, () => {
+      const dressed = recorder()
+      const worn = recorder()
+      bakeStageFromSpec(dressed.scene, spec)
+      bakeStageFromSpec(worn.scene, { ...spec, key: `${spec.key}-ud` }, { underDressed: true })
+
+      const geometry = (ops: Op[]) =>
+        ops.filter((o) => o.fn !== 'fillStyle' && o.fn !== 'lineStyle').map((o) => `${o.fn}:${o.args.join(',')}`)
+      // the lintel is decorative trim and is deliberately dropped, so compare the shared body
+      const g1 = geometry(dressed.ops)
+      const g2 = geometry(worn.ops)
+      expect(g2).toEqual(g1.slice(0, g2.length))
+      // same texture size ⇒ the building did not change shape or footprint
+      expect(worn.textures[0]!.w).toBe(dressed.textures[0]!.w)
+      expect(worn.textures[0]!.h).toBe(dressed.textures[0]!.h)
+
+      // every large field is DULLER, never brighter, and never fully desaturated to grey
+      const fills = (ops: Op[]) => ops.filter((o) => o.fn === 'fillStyle').map((o) => o.args[0]!)
+      const lum = (c: number) => 0.299 * ((c >> 16) & 0xff) + 0.587 * ((c >> 8) & 0xff) + 0.114 * (c & 0xff)
+      const d = fills(dressed.ops)
+      const w = fills(worn.ops)
+      for (let i = 0; i < w.length; i++) expect(lum(w[i]!)).toBeLessThanOrEqual(lum(d[i]!))
+      expect(w.some((c) => c !== d[fills(dressed.ops).indexOf(c)])).toBe(true)
+    })
+  }
 })
