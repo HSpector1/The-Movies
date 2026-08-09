@@ -128,24 +128,26 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
       : 'baseline'
   const effectiveReduced = identityProof ? reducedMotion || activeReview.reduced : reducedMotion
 
-  // ── D1-B soundstages: content gate + stable stage assignment ────────────────────────
-  // The stage-assignment correction lives HERE, above both the Phaser scene and the DOM
-  // companion navigation, so the two can never disagree about which stage is busy. It is
-  // held behind the same content gate as the distinct stage art: with the gate off this
-  // screen behaves exactly as the pre-spike lot, including its array-order arrangement.
+  // ── D1-B soundstages: visual content, and stage-assignment correctness ──────────────
+  // TWO INDEPENDENT THINGS, deliberately not tied together:
+  //
+  //  • `soundstages` is the VISUAL CONTENT gate (default ON, explicit rollback available).
+  //  • the stable stage assignment below is a CORRECTNESS fix and is NOT gated at all.
+  //    Which building a production appears on must not depend on which stage art is
+  //    enabled, so the resolver runs on every path — including the rollback path.
+  //
+  // The correction lives HERE, above both the Phaser scene and the DOM companion
+  // navigation, so the two can never disagree about which stage is busy.
   const soundstages = studioLotSoundstagesEnabled()
   // D1-B review tooling, default OFF and independent of the content gate. It adds only
   // capture affordances for the evidence harness — no game content, never a player default.
   const soundstageProof = studioLotSoundstageProofEnabled()
   const [signageMasked, setSignageMasked] = useState(false)
   const [closerCamera, setCloserCamera] = useState(false)
-  const readSnapshot = useCallback(
-    (s: GameState): StudioLotSnapshot => {
-      const snap = studioLotSnapshot(s)
-      return soundstages ? sessionStageAssignment.resolve(snap) : snap
-    },
-    [soundstages],
-  )
+  const readSnapshot = useCallback((s: GameState): StudioLotSnapshot => {
+    // Ungated on purpose — see above.
+    return sessionStageAssignment.resolve(studioLotSnapshot(s))
+  }, [])
 
   const snapshot = readSnapshot(state)
 

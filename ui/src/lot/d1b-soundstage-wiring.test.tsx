@@ -11,7 +11,7 @@ import type { CastSlot, CreativeRole, GameState } from '../../../src/core/index.
 import { studioLotSnapshot } from '../engine/adapter.ts'
 import type { StudioLotSnapshot } from './snapshot/StudioLotSnapshot.ts'
 import { StudioLotScreen } from './StudioLotScreen.tsx'
-import { setStudioLotSoundstagesOverride } from '../flags.ts'
+import { setStudioLotSoundstagesRollback } from '../flags.ts'
 
 const spy = vi.hoisted(() => {
   const instances: Array<{ snapshots: StudioLotSnapshot[]; distinctStages: boolean }> = []
@@ -42,7 +42,7 @@ vi.mock('./StudioLotView.ts', () => ({ StudioLotView: spy.FakeInstance }))
 
 afterEach(() => {
   spy.instances.length = 0
-  setStudioLotSoundstagesOverride(false)
+  setStudioLotSoundstagesRollback(false)
 })
 
 // ── engine fixtures ───────────────────────────────────────────────────────────
@@ -123,9 +123,9 @@ async function runTimeline(states: GameState[]) {
   return { getByTestId, view: spy.instances[0]! }
 }
 
-describe('D1-B wiring — content gate ON', () => {
+describe('D1-B wiring — accepted default (soundstage content ON)', () => {
   it('the corrected assignment reaches the Phaser view AND the companion navigation', async () => {
-    setStudioLotSoundstagesOverride(true)
+    // no flag set: this is what an ordinary player gets after the D1-B adoption ruling
     const { states, filmBId } = timeline('wire-1')
     const { getByTestId, view } = await runTimeline(states)
 
@@ -142,18 +142,22 @@ describe('D1-B wiring — content gate ON', () => {
   })
 })
 
-describe('D1-B wiring — content gate OFF is the pre-spike lot', () => {
-  it('the array-order arrangement is untouched, and the view is told stages are shared', async () => {
+describe('D1-B wiring — the visual rollback path', () => {
+  it('rolls the ART back to the shared stage but KEEPS the assignment correctness fix', async () => {
+    // This is the governed post-adoption behaviour and the reason the two are separate:
+    // the rollback exists for visual A/B regression comparison, and a player using it must
+    // NOT get the migration defect back. Which building a production appears on is
+    // correctness, not art direction.
+    setStudioLotSoundstagesRollback(true)
     const { states, filmBId } = timeline('wire-1')
     const { getByTestId, view } = await runTimeline(states)
 
-    // unchanged pre-existing behaviour: the survivor migrates to Stage A
     const last = view.snapshots[view.snapshots.length - 1]!
+    expect(view.distinctStages).toBe(false) // ART is rolled back...
     expect(last.activeProductions[0]!.id).toBe(filmBId)
-    expect(last.activeProductions[0]!.stageId).toBe('stage-a')
-    expect(view.distinctStages).toBe(false)
+    expect(last.activeProductions[0]!.stageId).toBe('stage-b') // ...but the fix still holds
 
-    expect(getByTestId('lot-nav-stage-a').getAttribute('data-attention')).toBe('active')
-    expect(getByTestId('lot-nav-stage-b').getAttribute('data-attention')).toBe('empty')
+    expect(getByTestId('lot-nav-stage-b').getAttribute('data-attention')).toBe('active')
+    expect(getByTestId('lot-nav-stage-a').getAttribute('data-attention')).toBe('empty')
   })
 })

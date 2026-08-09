@@ -12,7 +12,7 @@ import {
   STUDIO_LOT_IDENTITY_PLAYER_LS_KEY,
   STUDIO_LOT_IDENTITY_LS_KEY,
   studioLotSoundstagesEnabled,
-  setStudioLotSoundstagesOverride,
+  setStudioLotSoundstagesRollback,
   STUDIO_LOT_SOUNDSTAGES_LS_KEY,
   studioLotSoundstageProofEnabled,
   setStudioLotSoundstageProofOverride,
@@ -55,18 +55,23 @@ describe('studioLotIdentity — ordinary-player identity (content gate)', () => 
   })
 })
 
-// ── D1-B: the two soundstage-proof gates ─────────────────────────────────────
-// Both are DEFAULT OFF from the first implementation commit: with the content gate off the
-// lot is the pre-spike lot, and the review gate never becomes a player default.
+// ── D1-B: the adopted soundstage content gate + the dev proof gate ───────────
+// After the D1-B adoption ruling these have DIFFERENT polarities, and that difference is
+// the governed behaviour: accepted stage art is ordinary player content, review tooling
+// never is. (The stable stage assignment is a third state and is gated by NEITHER — that
+// is asserted in d1b-soundstage-wiring.test.tsx, not here.)
 describe('D1-B soundstage gates', () => {
-  it('the CONTENT gate is OFF by default and toggles cleanly', () => {
-    expect(studioLotSoundstagesEnabled()).toBe(false)
-    setStudioLotSoundstagesOverride(true)
-    expect(localStorage.getItem(STUDIO_LOT_SOUNDSTAGES_LS_KEY)).toBe('1')
+  it('the CONTENT gate is ON by default — an ordinary player gets the accepted stages', () => {
     expect(studioLotSoundstagesEnabled()).toBe(true)
-    setStudioLotSoundstagesOverride(false)
-    expect(localStorage.getItem(STUDIO_LOT_SOUNDSTAGES_LS_KEY)).toBeNull()
+  })
+
+  it('the explicit rollback forces the pre-D1-B shared stage (key = 0) and clears back to ON', () => {
+    setStudioLotSoundstagesRollback(true)
+    expect(localStorage.getItem(STUDIO_LOT_SOUNDSTAGES_LS_KEY)).toBe('0')
     expect(studioLotSoundstagesEnabled()).toBe(false)
+    setStudioLotSoundstagesRollback(false)
+    expect(localStorage.getItem(STUDIO_LOT_SOUNDSTAGES_LS_KEY)).toBeNull()
+    expect(studioLotSoundstagesEnabled()).toBe(true)
   })
 
   it('the REVIEW/PROOF gate is OFF by default and toggles cleanly', () => {
@@ -78,12 +83,15 @@ describe('D1-B soundstage gates', () => {
     expect(studioLotSoundstageProofEnabled()).toBe(false)
   })
 
-  it('content and review are INDEPENDENT gates on different keys', () => {
+  it('content and review are INDEPENDENT gates, on different keys and opposite defaults', () => {
     expect(STUDIO_LOT_SOUNDSTAGES_LS_KEY).not.toBe(STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY)
-    setStudioLotSoundstagesOverride(true)
+    // the shipped default pair: content ON, review chrome OFF
     expect(studioLotSoundstagesEnabled()).toBe(true)
-    expect(studioLotSoundstageProofEnabled()).toBe(false) // review stays off
-    setStudioLotSoundstagesOverride(false)
+    expect(studioLotSoundstageProofEnabled()).toBe(false)
+    // rolling content back must not switch review tooling on
+    setStudioLotSoundstagesRollback(true)
+    expect(studioLotSoundstageProofEnabled()).toBe(false)
+    setStudioLotSoundstagesRollback(false)
   })
 
   it('follows the established key namespace', () => {

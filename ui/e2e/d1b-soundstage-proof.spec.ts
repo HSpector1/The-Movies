@@ -34,7 +34,14 @@ test.beforeAll(() => {
 
 const fixture = (name: string) => readFileSync(join(fixturesDir, `${name}.json`), 'utf8')
 
-/** Seed a save + the flags. `soundstages` drives the D1-B content gate. */
+/**
+ * Seed a save + the flags.
+ *
+ * `soundstages` selects the D1-B VISUAL CONTENT path. Post-adoption the content gate is
+ * default ON, so `true` clears the key and `false` writes the explicit '0' rollback that
+ * restores the pre-D1-B shared stage texture. The stage-assignment correctness fix is NOT
+ * controlled by this and stays active on both paths.
+ */
 async function seed(page: Page, fixtureName: string, soundstages: boolean) {
   const save = fixture(fixtureName)
   await page.addInitScript(
@@ -44,8 +51,8 @@ async function seed(page: Page, fixtureName: string, soundstages: boolean) {
         localStorage.setItem(f1 as string, '1')
         localStorage.setItem(f2 as string, '1')
         localStorage.setItem(f4 as string, '1') // D1-B review tooling (capture affordances)
-        if (on) localStorage.setItem(f3 as string, '1')
-        else localStorage.removeItem(f3 as string)
+        if (on) localStorage.removeItem(f3 as string) // default ON
+        else localStorage.setItem(f3 as string, '0') // explicit visual rollback
       } catch {
         /* ignore */
       }
@@ -119,7 +126,7 @@ async function readDisplayObjects(page: Page): Promise<number> {
 }
 
 // ── H. before/after displayObjects (the §22 performance gate) ─────────────────
-test('displayObjects: content gate OFF vs ON, identical state', async ({ page }) => {
+test('displayObjects: visual rollback vs accepted default, identical state', async ({ page }) => {
   const measure = async (soundstages: boolean) => {
     await seed(page, 'two', soundstages)
     await openLot(page)
@@ -161,9 +168,9 @@ test('baseline vs proof at the management camera (matched state)', async ({ page
   // A0 is a CONTROL: a second gate-OFF capture. The lot has ambient agents walking, so two
   // captures of the same configuration never match exactly. A0-vs-A1 is the noise floor that
   // A1-vs-A2 has to be read against — without it, "the images differ" means nothing.
-  await capture(false, 'A0-management-gate-off-control')
-  await capture(false, 'A1-management-gate-off')
-  await capture(true, 'A2-management-gate-on')
+  await capture(false, 'A0-management-rollback-control')
+  await capture(false, 'A1-management-rollback')
+  await capture(true, 'A2-management-default')
 })
 
 // ── B/C. the decisive gates: signage-masked, and closer review ────────────────
@@ -258,7 +265,7 @@ async function advanceWeeks(page: Page, n: number) {
 }
 
 for (const gate of [true, false] as const) {
-  const tag = gate ? 'content-ON' : 'content-OFF'
+  const tag = gate ? 'content-default-ON' : 'content-rolled-back'
   test(`stable assignment across a release — ${tag}`, async ({ page }) => {
     // ticking the engine through the real dashboard is slow; this journey needs the room
     test.setTimeout(180_000)
@@ -285,13 +292,10 @@ for (const gate of [true, false] as const) {
     const survivors = [after.a, after.b].filter((s) => s === 'active').length
     expect(survivors, 'exactly one production should still be shooting').toBe(1)
 
-    if (gate) {
-      // THE FIX: the survivor stayed on Stage B and did not migrate to Stage A.
-      expect(after).toEqual({ a: 'empty', b: 'active' })
-    } else {
-      // THE PRE-SPIKE BEHAVIOUR, deliberately preserved on the baseline path.
-      expect(after).toEqual({ a: 'active', b: 'empty' })
-    }
+    // THE FIX, on BOTH paths. After the D1-B adoption ruling the stable assignment is
+    // ordinary presentation correctness and is not tied to the visual content gate, so the
+    // survivor stays on Stage B even when the stage ART has been rolled back.
+    expect(after).toEqual({ a: 'empty', b: 'active' })
   })
 }
 

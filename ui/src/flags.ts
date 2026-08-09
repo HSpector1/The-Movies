@@ -106,20 +106,39 @@ export function studioLotIdentityEnabled(): boolean {
 }
 
 /**
- * D1-B CONTENT gate: are the soundstages composed as two distinct buildings? DEFAULT OFF.
+ * D1-B CONTENT gate: are the soundstages composed as two distinct buildings? DEFAULT ON.
  *
- * This is the spike's content switch, and it is default-OFF on purpose: with it off the lot
- * bakes the one shared stage texture and applies the pre-spike stage arrangement, so the
- * baseline Studio Lot is functionally and visually the lot that shipped. It is independent
- * of the review gate below — the proof content can be judged with no review chrome present.
+ * The Soundstage Composer Proof was adopted, so the distinct Stage A / Stage B presentation
+ * is ordinary player content and needs no env var or localStorage key. It follows the same
+ * shape as the D1-A player identity gate: an explicit ROLLBACK forces the pre-D1-B shared
+ * stage texture — env `VITE_STUDIO_LOT_SOUNDSTAGES=0`, or the localStorage key set to '0'.
+ * That rollback is deliberately retained as an A/B regression-comparison path.
+ *
+ * NOTE: this gate controls VISUAL CONTENT ONLY. The stable Stage A/B assignment is a
+ * correctness fix and is NOT gated by it — presentation correctness must not depend on
+ * whether the newer stage art is enabled. See StudioLotScreen.
  */
 export function studioLotSoundstagesEnabled(): boolean {
-  return envValue((e) => e.VITE_STUDIO_LOT_SOUNDSTAGES) || lsFlag(STUDIO_LOT_SOUNDSTAGES_LS_KEY)
+  // Explicit rollback wins (env first, then the localStorage override); otherwise ON.
+  const env = (import.meta as unknown as { env?: ViteEnv }).env
+  const rollbackEnv = env ? env.VITE_STUDIO_LOT_SOUNDSTAGES : undefined
+  if (rollbackEnv === '0' || rollbackEnv === 'false') return false
+  try {
+    if (localStorage.getItem(STUDIO_LOT_SOUNDSTAGES_LS_KEY) === '0') return false
+  } catch {
+    /* storage unavailable (private mode / sandbox) — stay on the default (soundstages ON) */
+  }
+  return true
 }
 
-/** Dev/test helper: flip the D1-B soundstage content override. Reload to apply. */
-export function setStudioLotSoundstagesOverride(on: boolean): void {
-  setLsFlag(STUDIO_LOT_SOUNDSTAGES_LS_KEY, on)
+/** Dev/test helper: force the pre-D1-B shared-stage rollback ON or OFF. Reload to apply. */
+export function setStudioLotSoundstagesRollback(rollback: boolean): void {
+  try {
+    if (rollback) localStorage.setItem(STUDIO_LOT_SOUNDSTAGES_LS_KEY, '0')
+    else localStorage.removeItem(STUDIO_LOT_SOUNDSTAGES_LS_KEY)
+  } catch {
+    /* storage unavailable — no-op */
+  }
 }
 
 /**
