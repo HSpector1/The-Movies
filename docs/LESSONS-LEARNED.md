@@ -1196,3 +1196,81 @@ provenance requirements · dependency gating · exact evidence-path resolution.
   reading the packet in a specific order; collapsing sculpt, topology, garments, rigging, weight painting,
   materials, animation, human-scale review and management-camera review into one final gate; promising
   production readiness after one pass. **Related:** **AK**, **AO**, **AQ**, **AR**. **Reuse:** BR, MG, P.
+
+## AT. Separate visual success from economic success — **BR, MG, P**
+
+An experiment can test two hypotheses at once and get two different answers. If they are not scored
+separately, the loud one rewrites the quiet one, and a failed business case gets laundered into a
+success because the artefact next to it looked good.
+
+- **Task — Project: Studio.** The **D1-B Soundstage Composer Proof**
+  (`docs/art/D1-B-SOUNDSTAGE-COMPOSER-PROOF-CLOSURE.md`, branch
+  `art-d1b-soundstage-composer-proof`, base `aadbd63d`, candidate `a7e4847`) asked whether the
+  existing procedural Phaser building system could produce two coherent but genuinely distinct
+  soundstages, **and** whether the second one would be materially cheaper to author once a composer
+  existed. The visual hypothesis **passed**; the economic hypothesis **failed**.
+- **The framing was too large before inspection.** The work was proposed as an "Art Factory" — a
+  generalized asset-authoring system with Lot Stamp serialization, a runtime asset pipeline and
+  placement tooling. Direct inspection of the production architecture showed most of the supposed
+  tooling **already existed**: an iso projection framework, `beginBuilding`/`drawWalls`, three roof
+  primitives, stage aprons, `dressStage()`, relative placement, vignette structures, a
+  `displayObjects` instrument and a working evidence harness. The authorization was narrowed to a
+  parameterized composer over that existing modularity, and **no** new abstraction was built.
+- **Measured cost, unrepaired.** Composer parameterization ≈ **7 min**; Stage A re-expression ≈ **0
+  incremental** (it reproduced existing art, which is exactly why the foundation looked cheap); Stage
+  B initial incremental authoring ≈ **14 min** — roughly **2×** the foundation, against a target of
+  *clearly less than half*. The later corrective pass (≈3 min active) was recorded **separately** and
+  not used to move either side. These are agent wall-clock with overlapping segments, not human
+  labour; they were not aggregated into a precision metric and no project-wide productivity
+  percentage was derived.
+- **Why the foundation looked cheap:** it only ever encoded one roof form and a plain wall, because
+  that is all Stage A needed. Stage B had to author the vocabulary it used. A third stage reusing
+  that vocabulary would plausibly be a spec literal — **but that was not tested, and the closure
+  refuses to extrapolate it.** Adding a Stage C purely to obtain a friendlier amortization number was
+  explicitly forbidden and not done.
+- **Signage-masked review was load-bearing.** Each soundstage wears a large `STAGE A` / `STAGE B`
+  facade plate. With signage visible, "can you tell them apart?" is not an architectural question at
+  all. Masking it also proved the mask had to reach further than the plates — `Soundstage A/B` is
+  additionally printed by vignette markers, activity toasts, character cards, the hover label, the
+  selection panel and the companion navigation. An independent blind reviewer then returned
+  *"genuinely different buildings, ~98%"* and *"same game, ~97%"* on architecture alone.
+- **A control path separated pre-existing defects from introduced ones.** Closer review found Stage A's
+  barrel roof reading as a flat "bullseye" decal rather than a vault. The content-rollback capture
+  showed the identical artifact in the **pre-D1-B baseline**, so it was recorded as
+  **PRE-EXISTING** and deliberately **not** folded into the experiment — fixing it would have
+  contaminated the controlled comparison and added unrelated authoring cost. The same control
+  distinguished "the images differ" from ambient noise: a second capture of the *same* configuration
+  differed by more pixels (663) than rollback-vs-default did (353), which is the only reason the
+  baseline-equivalence claim meant anything.
+- **A bounded corrective pass prevented creep.** Exactly one pass was authorized, scoped to one
+  defect: Stage B's sawtooth fascia reading as a black void. It turned out to be a
+  **lighting-convention error, not a taste call** — the fascia sits on the elevation `drawWalls`
+  treats as lit but was painted with a shadow tone, making it the darkest element on that face. Two
+  colour constants and a renamed field fixed it; blind re-review confirmed *"not one dark pixel on
+  the roof itself"*. Pass #2 was neither authorized nor taken, and the remaining minor Stage B notes
+  were carried as known non-blocking observations.
+- **The failed hypothesis still produced adoptable components,** each judged on its own merit: a
+  stable presentation-only stage assignment (a real correctness fix), the StageSpec composer (clearer
+  representation and testable baking, adopted explicitly *not* for productivity), the Stage B art,
+  the `underDressed` treatment, and an independent camera resize-refit bug fix.
+- **Two defects were only visible because of the experiment.** The **stage-assignment defect** — a
+  surviving production visually migrating from Stage B to Stage A when the array compacted after a
+  release — had been **hidden by the two stages looking identical**. And `underDressed` was a **dead
+  existing signal**: computed by the adapter, spread onto all nine buildings, consumed nowhere, and
+  unreachable from any existing fixture. Distinct art exposed the first; wiring the second cost
+  almost nothing.
+- **Fastest diagnostic:** before starting, write down each hypothesis and its own pass/fail criterion
+  **and its own measurement**; at closure, score them independently and refuse to publish a single
+  blended verdict. If a metric fails, record the failure and stop — do not re-baseline, do not
+  re-scope the comparison, do not add another data point chosen because it will look better.
+- **Pattern:** two-column verdicts (`VISUAL: PASS` / `ECONOMIC: FAIL`); an explicit "no productivity
+  multiplier is claimed" statement in the closure; component-by-component adoption rulings; a control
+  path retained so pre-existing defects stay attributable; blind independent review of the artefact
+  with the identifying labels removed; bounded corrective passes with a hard stop.
+  **Anti-pattern:** collapsing multiple hypotheses into one PASS/FAIL; letting a visual win imply a
+  tooling win; moving the goalposts after a metric fails; extrapolating an untested future unit cost;
+  adding a third instance purely to improve amortization; building the abstraction before inspecting
+  what already exists; allowing labels or signage to carry a test that is supposed to be about form;
+  opportunistically fixing pre-existing defects inside a controlled experiment; declaring components
+  worth shipping *because* their parent experiment needs to be called a success.
+  **Related:** **AQ**, **AR**, **AS**. **Reuse:** BR, MG, P.

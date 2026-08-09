@@ -22,7 +22,20 @@
 > retuning, and **no financing/debt/recovery mechanic**. Affordability is authoritative and action-parity
 > tested (bare-minimum greenlight vs standard-budget vs recent-typical). (D-15 shipped while Concept A
 > was still default OFF; Concept A has since been enabled for ordinary players — see above.)
-> **D1-B unstarted and unauthorized**; the **Asset Lab character track (05H / 05I) is closed and rejected** — a
+> **D1-B has started ONLY through the bounded Soundstage Composer Proof, which is COMPLETE**; its
+> **selective production adoption is PREPARED / UNDER REVIEW** on branch
+> `art-d1b-soundstage-composer-proof` (candidate `a7e4847`, base `aadbd63d`) and is **not merged** —
+> [`docs/art/D1-B-SOUNDSTAGE-COMPOSER-PROOF-CLOSURE.md`](art/D1-B-SOUNDSTAGE-COMPOSER-PROOF-CLOSURE.md).
+> **Broader D1-B work remains unauthorized.** The proof scored **two independent hypotheses
+> separately: VISUAL — PASS, ECONOMIC — FAIL.** The composer enabled useful architectural variation,
+> but Stage #2 did **not** demonstrate reduced marginal authoring cost, and **no productivity
+> multiplier is claimed**; this is **not** a generalized "Art Factory", and that framing was rejected
+> after architecture inspection. Adoption is **selective and component-by-component** — a stable
+> presentation-only stage assignment (a correctness fix, ungated), the StageSpec composer, the Stage B
+> art, the `underDressed` treatment and a camera resize-refit fix; review/proof tooling stays
+> **dev-only, default OFF**. **No Stage C**, no parts kit, no Lot Stamp serialization, no JSON content,
+> no editor tooling, and no `src/core` / adapter / `StudioLotSnapshot` / SaveFile change. See also
+> Lesson **AT**. The **Asset Lab character track (05H / 05I) is closed and rejected** — a
 > human character artist and a rigging / weight-paint specialist are required, and the remaining work is
 > **substantial specialist correction, not a polish pass**. The active handoff packet is
 > **`asset-lab-character-human-artist-handoff` @ `66b44b2`** (packet **CHH-2026-08-07-R2**) — a status and
@@ -175,7 +188,9 @@
 > (tag `d1a-concept-a-player-enablement`). **D1-A did not integrate the rejected character** — its merge added
 > **0** character/GLB/glTF/FBX files — and it authorized **no** human-artist commissioning, **no** character
 > production and **no** Studio Lot character integration. **D1-B is unstarted and unauthorized**, separately
-> governed, and **not assumed to include characters**; **any future character integration requires separate
+> governed, and **not assumed to include characters** *(D1-B status here is as of this entry and is now
+> **superseded** — the bounded Soundstage Composer Proof has since run; see the status banner at the top
+> of this file. It remains true that D1-B does **not** include characters.)*; **any future character integration requires separate
 > Owner authorization and acceptance evidence**. The packet's earlier claim that D1-A *remained unstarted* was
 > corrected in the sixth commit, `9c0466d`.
 >
@@ -235,7 +250,8 @@
 > *overview* gate (`studioLotOverviewEnabled()`) is unchanged and still **default OFF**. Post-merge on
 > `main`: 1030 unit / 79 files, 65 Playwright, root+UI TypeScript clean, production build passing.
 > **D1-B unstarted; Asset Lab 05H separate and untouched** (since **rejected** — see the character-track
-> entry above)**; no character integration.** Closure:
+> entry above)**; no character integration.** *(D1-B status accurate for this merge; **superseded** —
+> see the status banner at the top of this file.)* Closure:
 > [`docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT-CLOSURE.md`](art/D1-A-ORDINARY-PLAYER-ENABLEMENT-CLOSURE.md);
 > implementation record:
 > [`docs/art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md`](art/D1-A-ORDINARY-PLAYER-ENABLEMENT.md); lessons
