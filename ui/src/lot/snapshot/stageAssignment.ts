@@ -23,9 +23,9 @@
 //   • Same sequence of snapshots ⇒ same assignment, always. No RNG, no clock.
 //   • A production keeps its slot for its whole presentation lifetime; a slot is only freed
 //     when its production leaves the snapshot.
-//   • On a fresh resolver (first mount, reload) with no memory, assignment falls back to
-//     snapshot order — i.e. exactly the adapter's arrangement — so a cold start is stable
-//     and reproduces the documented "[0] → Stage A" behaviour.
+//   • On a resolver with no memory — a cold start, or one that has just been reset at a game
+//     boundary — assignment falls back to snapshot order, i.e. exactly the adapter's
+//     arrangement, reproducing the documented "[0] → Stage A" behaviour.
 
 import type { BuildingState, ProductionCard, StudioLotSnapshot } from './StudioLotSnapshot'
 
@@ -99,6 +99,40 @@ export class StageAssignment {
       buildings: remapStageBuildings(snap.buildings, snap.activeProductions, plan),
     }
   }
+}
+
+// ── The lot's assignment memory, and where its lifetime ends ──────────────────
+//
+// ONE instance, shared by every mount of the lot screen. It has to outlive the screen,
+// because the way a player advances a week is to leave the lot, tick, and come back — a
+// per-mount instance would forget every held stage on the way out and the migration defect
+// would reappear on re-entry.
+//
+// But "outlives the component" is not the same as "lives forever", and getting that wrong
+// was a real defect. The memory is keyed by production id, and core allocates production ids
+// as `prod-<tick>` (actions.ts), which are unique WITHIN a game and collide freely ACROSS
+// games. The app replaces GameState in place — "Start a new studio" and loading a save never
+// reload the page — so without an explicit end to the session, a slot held by a departed
+// studio's film could be inherited by an unrelated new studio's film that happened to be
+// greenlit in the same week, and the new studio's first picture would open on Stage B with
+// Stage A dark.
+//
+// So the lifetime is the LOADED GAME, not the JS realm: `resetLotStageAssignment()` is
+// called at the authoritative GameState-replacement boundaries in App.tsx (new studio,
+// loaded save) — and nowhere else. Never on unmount, never on a tick, never on a failed
+// load. This stays presentation-only: no GameState field, no save data, no engine identity.
+export const lotStageAssignment = new StageAssignment()
+
+/**
+ * End the current presentation session and start a fresh one.
+ *
+ * Call ONLY where the authoritative GameState is genuinely replaced — a new studio, or a
+ * successfully loaded save. Do NOT call it when the lot unmounts (the player is mid-game and
+ * must keep their stages), nor during ordinary week progression, nor on a rejected load
+ * where the previous studio is still live.
+ */
+export function resetLotStageAssignment(): void {
+  lotStageAssignment.reset()
 }
 
 /**

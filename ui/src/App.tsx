@@ -61,6 +61,10 @@ import { StudioRunRecap } from './screens/StudioRunRecap.tsx'
 import { saveActiveSession, loadActiveSession, clearActiveSession } from './engine/session.ts'
 import { studioLotOverviewEnabled } from './flags.ts'
 import type { LotRoute } from './lot/navigation.ts'
+// Presentation-only, and deliberately NOT part of the lazy lot chunk: this module imports
+// nothing but types, so App can end the lot's presentation session without pulling Phaser
+// or the lot screen into the eager bundle.
+import { resetLotStageAssignment } from './lot/snapshot/stageAssignment.ts'
 
 // Gate D1: the Studio Lot overview is lazily imported so Phaser and the whole lot
 // module stay out of the eager bundle. The factory only runs when <StudioLotScreen/>
@@ -199,6 +203,11 @@ export function App() {
     setState(next)
     setSnapshots({})
     setRecovery(null)
+    // AUTHORITATIVE STATE REPLACEMENT: a brand-new studio, or a save imported at the start
+    // screen. Presentation memory keyed by production id must not cross this line — ids are
+    // `prod-<tick>` and repeat across games, so a slot held by the previous studio would be
+    // inherited by an unrelated film. Only reached with a valid `next`.
+    resetLotStageAssignment()
     // A new PLAYER game opens in the founding draft (D-11.2); a founded game (or a
     // loaded save past founding) goes straight to the dashboard. The new game's first
     // autosave (via the effect above) replaces any prior/quarantined active session.
@@ -222,6 +231,8 @@ export function App() {
     setState(null)
     setSnapshots({})
     setRecovery(null)
+    // The old studio ends HERE, past the confirm — so its presentation memory ends here too.
+    resetLotStageAssignment()
     setScreen({ kind: 'start' })
   }
 
@@ -572,6 +583,10 @@ export function App() {
           onLoad={(next) => {
             setState(next)
             setSnapshots({})
+            // AUTHORITATIVE STATE REPLACEMENT: Saves only calls this once a save has been
+            // accepted, so a REJECTED import never reaches here and the live studio keeps
+            // its stages. See startGame() for why the reset is required.
+            resetLotStageAssignment()
             setScreen(next.founding !== null ? { kind: 'founding' } : { kind: 'dashboard' })
           }}
           onNewGame={requestNewGame}

@@ -18,7 +18,7 @@ import type { GameState } from '../engine/adapter.ts'
 import { studioLotSnapshot } from '../engine/adapter.ts'
 import type { AttentionState, BuildingId, StudioLotSnapshot } from './snapshot/StudioLotSnapshot.ts'
 import { ALL_BUILDING_IDS, BUILDING_ACTION, BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
-import { StageAssignment } from './snapshot/stageAssignment.ts'
+import { lotStageAssignment } from './snapshot/stageAssignment.ts'
 import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
 import {
@@ -61,13 +61,13 @@ type Props = {
 // session and resets on a full reload.
 let sessionSelectedBuilding: BuildingId | null = null
 
-// Session-level stage assignment memory, for the same reason and with the same lifetime as
-// the selection above: UI session state, NOT GameState and NOT SaveFileV4. It MUST outlive
-// the lot screen, because the way a player advances a week is to leave the lot, tick, and
-// come back — a per-mount instance would forget every held stage on the way out and the
-// migration defect would reappear on re-entry. A full reload resets it, and a cold start
-// deterministically reproduces snapshot order.
-const sessionStageAssignment = new StageAssignment()
+// Stage assignment memory. Same kind of UI session state as the selection above — NOT
+// GameState, NOT SaveFileV4 — and it MUST outlive this screen, because the way a player
+// advances a week is to leave the lot, tick, and come back; a per-mount instance would
+// forget every held stage on the way out and the migration defect would reappear on
+// re-entry. It is owned by the module that defines it, so that its lifetime can END with
+// the loaded game rather than with the page: App.tsx calls resetLotStageAssignment() at the
+// new-studio and loaded-save boundaries. See snapshot/stageAssignment.ts.
 
 // Attention → icon + word. Every state is communicated with text + shape + colour
 // (addendum §7) — never colour alone. The class drives the colour in lot.css.
@@ -146,7 +146,7 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   const [closerCamera, setCloserCamera] = useState(false)
   const readSnapshot = useCallback((s: GameState): StudioLotSnapshot => {
     // Ungated on purpose — see above.
-    return sessionStageAssignment.resolve(studioLotSnapshot(s))
+    return lotStageAssignment.resolve(studioLotSnapshot(s))
   }, [])
 
   const snapshot = readSnapshot(state)
