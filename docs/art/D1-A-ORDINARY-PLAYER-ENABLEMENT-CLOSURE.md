@@ -270,14 +270,22 @@ unchanged, and **D1-A remains closed**.
   **one bounded corrective milestone containing two owner-reviewed iterations** and was itself **rejected as
   the production character foundation**. The open question is therefore **not** whether to "start 05H".
 - The **active character authority** is the merged and published handoff
-  `asset-lab-character-human-artist-handoff` @ `7603b2f234dfdb11ad6a0691315942c4b16cffac` (Asset Lab
-  repository, remote `backup`; **not** merged into production `main`) — packet **CHH-2026-08-06-R1**,
-  published by a **seven-commit** linear documentation-only fast-forward over `c9445ce..7603b2f`. The packet
-  now **directly exposes the Owner-provisioned `UAL1_Standard.glb` dependency** (gitignored, absent from a
-  clean checkout, not repository-delivered) and **its acceptance impact on the staged gates** — including, as
-  of R1, in the specialist-facing documents a bidder actually prices from. It remains a
+  `asset-lab-character-human-artist-handoff` @ `66b44b28d04b2fe0a1cf81abd8153ad0d2c3b1a8` (Asset Lab
+  repository, remote `backup`; **not** merged into production `main`) — packet **CHH-2026-08-07-R2**,
+  revision date **2026-08-07**, packet-content SHA-256
+  `dbe7c8c31d80ae1218c8a01fe6326a37eb20511274d2e42eb32bd70d2fd9869e`. **R2 is complete, independently
+  reviewed, and merged by fast-forward into that governing branch** — it is not deferred, pending or
+  unmerged. R1 (packet **CHH-2026-08-06-R1** @ `7603b2f`, published by a **seven-commit** linear
+  documentation-only fast-forward over `c9445ce..7603b2f`) is now **historical**; `7603b2f` survives inside
+  the R2 packet only as its *"Supersedes Git tip"* field, which is **not** the current governing branch tip.
+  The packet **directly exposes the Owner-provisioned `UAL1_Standard.glb` dependency** (gitignored, absent
+  from a clean checkout, not repository-delivered) and **its acceptance impact on the staged gates** — in the
+  specialist-facing documents a bidder actually prices from since R1, and, since R2, in the Export/Runtime
+  Guide and Known Defects as well. It remains a
   **commissioning specification — not permission to begin work, and not permission to integrate a
-  character**: **the commission is not authorized, integration is not authorized, and D1-B remains unstarted
-  and unauthorized.**
+  character**: **the commission is not authorized, character production is not authorized, integration is not
+  authorized, Gate 14 is conditional, separately authorized and not authorized, and D1-B remains unstarted
+  and unauthorized.** **R2's completion does not start D1-B**, and it does not reopen **D1-A** or
+  **Concept A** — both remain **closed**.
 - Any future **character production** or **Studio Lot character integration** requires **separate Owner
   authorization and acceptance evidence**.

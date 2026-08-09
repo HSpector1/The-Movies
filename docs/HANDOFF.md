@@ -25,7 +25,7 @@
 > **D1-B unstarted and unauthorized**; the **Asset Lab character track (05H / 05I) is closed and rejected** — a
 > human character artist and a rigging / weight-paint specialist are required, and the remaining work is
 > **substantial specialist correction, not a polish pass**. The active handoff packet is
-> **`asset-lab-character-human-artist-handoff` @ `7603b2f`** (packet **CHH-2026-08-06-R1**) — a status and
+> **`asset-lab-character-human-artist-handoff` @ `66b44b2`** (packet **CHH-2026-08-07-R2**) — a status and
 > commissioning record, **not**
 > an authorization: **character production is not authorized, Studio Lot character integration is not
 > authorized**, and nothing is integrated
@@ -59,28 +59,40 @@
 > authorized.**
 >
 > **Governing packet.** `asset-lab-character-human-artist-handoff` @
-> `7603b2f234dfdb11ad6a0691315942c4b16cffac` — the **merged and published** Asset Lab handoff packet and the
-> **active governing commissioning and character-status record**. It was published by a **seven-commit linear
-> fast-forward** on the Asset Lab handoff branch (`c9445ce..7603b2f`; **no merge commit**), is
-> **documentation-only** — eight `docs/handoff/*.md` files, **0** non-documentation files — and is at
-> local/remote parity on remote `backup`. It is **not merged into production `main`**, and it is **not
-> authorization to execute the commission or to integrate the character**. (The ruling above is dated
-> 2026-08-05; the packet finished reconciling 2026-08-06.)
+> `66b44b28d04b2fe0a1cf81abd8153ad0d2c3b1a8` — the **merged and published** Asset Lab handoff packet and the
+> **active governing commissioning and character-status record**. **R2 is complete, independently reviewed,
+> and merged by fast-forward into that governing branch** — it is **not** pending, deferred, candidate,
+> unmerged or awaiting final review. The branch is at local/remote parity on remote `backup`. It is **not
+> merged into production `main`**, and it is **not authorization to execute the commission or to integrate the
+> character**. (The ruling above is dated 2026-08-05; R1 finished reconciling 2026-08-06; R2 was published
+> 2026-08-07 and its final validator hardening landed 2026-08-08.)
 >
-> The seven commits, oldest first: `074bb80` *record the owner ruling on 05H/05I status* · `1dcb263` *reconcile
-> specialist scope and staged review gates* · `b9f57a0` *correct rig contract and final review gaps* ·
-> `2967c1c` *correct local rig dependency and evidence path* · `e5a4931` *clarify local UAL dependency in
-> provenance* · `9c0466d` *correct D1-A and D1-B status* (the **sixth** commit and the **previous branch
-> tip**, now historical and superseded) · **`7603b2f` — *docs(handoff): disclose UAL dependency and stamp
-> packet identity*** (the **seventh** commit and the **sole current governing tip**).
+> **How the branch reached this tip.** R1 was published by a **seven-commit linear documentation-only
+> fast-forward** (`c9445ce..7603b2f`; **no merge commit**) — eight `docs/handoff/*.md` files, **0**
+> non-documentation files. R2 extended the same branch by a further **three-commit linear fast-forward**
+> (`7603b2f..66b44b2`; **no merge commit**): `1f32e3b` *enforce packet identity and UAL blocked states* ·
+> `95bf578` *preflight packet identity before digest update* · **`66b44b2` — *harden validator diagnostics and
+> repair semantics*** (the **sole current governing tip**). **R2 is not documentation-only:** alongside the
+> eight packet pages it adds the committed governance validator `tools/validate-handoff-packet.mjs` and two
+> `package.json` scripts (`handoff:verify`, `handoff:update`). That tooling lives on the **Asset Lab** handoff
+> branch — **production `main` does not contain it**, and this record documents it rather than copying it here.
+> Asset Lab and production remain **separate workstream histories**; no Asset Lab commit is cherry-picked or
+> merged into production.
 >
-> **Packet identity — CHH-2026-08-06-R1.**
+> The R1 chain, oldest first, now **historical**: `074bb80` *record the owner ruling on 05H/05I status* ·
+> `1dcb263` *reconcile specialist scope and staged review gates* · `b9f57a0` *correct rig contract and final
+> review gaps* · `2967c1c` *correct local rig dependency and evidence path* · `e5a4931` *clarify local UAL
+> dependency in provenance* · `9c0466d` *correct D1-A and D1-B status* · `7603b2f` *disclose UAL dependency and
+> stamp packet identity* (the **R1 tip**, now **historical and superseded** as the governing tip — and still
+> correctly recorded **inside** the R2 packet as its *"Supersedes Git tip"* field).
+>
+> **Packet identity — CHH-2026-08-07-R2.**
 >
 > | | |
 > |---|---|
-> | Packet version | **CHH-2026-08-06-R1** |
-> | Revision date | **2026-08-06** |
-> | Packet-content SHA-256 | `013b5b050d9f70698b74ec54e6c181818994c98729cdeb725e54686e9aa2a614` |
+> | Packet version | **CHH-2026-08-07-R2** |
+> | Revision date | **2026-08-07** |
+> | Packet-content SHA-256 | `dbe7c8c31d80ae1218c8a01fe6326a37eb20511274d2e42eb32bd70d2fd9869e` |
 >
 > All **eight** packet documents carry this identical block, so a copied standalone page can be told apart
 > from the governing packet. Read it precisely:
@@ -88,13 +100,34 @@
 > - The digest identifies the **eight-document packet content**. It is **not** a Git SHA and does **not**
 >   substitute for one — **the live governing Git tip must still be verified separately** against
 >   `asset-lab-character-human-artist-handoff` on remote `backup`.
-> - The packet's in-document **"Supersedes Git tip" field correctly records `9c0466d`**, because R1 was
->   created *from* that tip. **This does not mean `9c0466d` remains governing.** It does not.
-> - **The current live governing Git tip is `7603b2f`.**
-> - The digest is **stable and identical across all eight documents**, but the **canonical method for
->   generating and validating it is not yet published in governing packet content**, and **no committed
->   generator or validator enforces it**. Publishing and enforcing that method is **deferred to R2** and is
->   **not complete**.
+> - The packet's in-document **"Supersedes Git tip" field correctly records `7603b2f`**, because R2 was
+>   created *from* the R1 tip. **This does not mean `7603b2f` remains governing.** It does not. **Do not
+>   confuse the packet's historical "Supersedes Git tip" with the current governing branch tip** — both facts
+>   are true at once: the packet supersedes `7603b2f`, and the live governing branch now points at `66b44b2`.
+> - **The current live governing Git tip is `66b44b2`.** R1's identity — packet **CHH-2026-08-06-R1**,
+>   revision date **2026-08-06**, packet-content SHA-256
+>   `013b5b050d9f70698b74ec54e6c181818994c98729cdeb725e54686e9aa2a614`, tip `7603b2f` — is retained here
+>   **only as historical record**.
+> - **The digest method is now published and mechanically enforced.** R2 commits the validator
+>   `tools/validate-handoff-packet.mjs` (`npm run handoff:verify` / `npm run handoff:update`) **on the Asset
+>   Lab handoff branch**: it re-derives the digest from all eight pages and exits non-zero on any mismatch,
+>   mixed version or missing page, and **hand-editing a digest without regenerating is prohibited**. The
+>   validator claims only its **canonical eight-file enforcement boundary** — it verifies exactly those eight
+>   paths and defines the digest over exactly those eight and nothing else; it is **not** an allowlist for
+>   `docs/handoff/`, and an unrelated extra file there is neither hashed nor verified. There is **no committed
+>   validator test suite**; **the R2 review exercised intentional negative tests against the committed
+>   validator.**
+> - **M1 — RESOLVED.** The final validator architecture separates **governed identity metadata**, which must
+>   pass a complete read-only preflight before any update-mode write, from **repairable derived data**:
+>   *digest values are repairable data; governed identity metadata is not.* **Update mode must preflight
+>   packet identity before any write, but a malformed digest alone must remain repairable through the
+>   sanctioned update path.** A failed preflight writes **zero** files, and failure-safe governance tooling
+>   now provides **deterministic filesystem-read diagnostics** for the corrected path — a missing or
+>   unreadable canonical page is reported against its repo-relative path, identically wherever the packet
+>   root happens to live.
+> - **M2 — non-blocking note, accepted safe under-claiming.** The Export/Runtime Guide's *"what still works
+>   without UAL"* list does not enumerate the committed Owner-review index and PNG evidence. That
+>   under-claims in the **safe direction**, authorizes no unsafe workflow, and is **not** an R2 blocker.
 >
 > **Client-furnished UAL dependency — the delivery model.** `public/assets/animation/UAL1_Standard.glb`
 > (Quaternius **Universal Animation Library**, CC0 1.0) is an **Owner / authorized-operator-provisioned local
@@ -104,7 +137,12 @@
 > which **six** clips are the ones this character track uses and every acceptance test names. **A gate blocked
 > for want of this file is a client-input block — it is not evidence that the character failed.** R1 moved this
 > disclosure into the specialist-facing **BRIEF**, **SCOPE-OF-WORK** and **ACCEPTANCE-TESTS** directly, so it no
-> longer depends on a reader also holding the technical annex.
+> longer depends on a reader also holding the technical annex. **R2 closed the two identified direct UAL
+> dependency disclosure gaps in the Export/Runtime Guide and Known Defects** — the Export/Runtime Guide now
+> opens with a required-local-dependency section stating what still runs without the file and what it blocks,
+> and Known Defects now states that an absent dependency is a client-input block that **must not** be entered
+> in the defect register. Other packet pages route or reference the governing dependency terms without
+> duplicating the full direct disclosure.
 >
 > **Confirmed gate partition under a missing UAL** (the staged gates in `CHARACTER-ACCEPTANCE-TESTS.md`):
 >
@@ -115,11 +153,21 @@
 > - **Gate 14** is **conditional**, **requires separate authorization**, and is **not authorized now**.
 >
 > **Provisioning the UAL passes no gate by itself** — it removes a block, it supplies no acceptance evidence,
-> and nothing above authorizes any gate work to begin. That is the **production record's** statement of the
-> rule. The packet's gate evidence implies it — gates 5, 9 and 11 *are* the six-clip validation — but the
-> packet does **not** yet state it **everywhere**, and does **not** yet forbid a blocked gate from being
-> labelled **FAILED** merely because the Owner-provisioned file is missing. Both are **deferred to R2-2** and
-> are **not complete**.
+> it marks nothing **PASSED**, and it authorizes no integration. **R2 published this as governing packet
+> content.** `CHARACTER-ACCEPTANCE-TESTS.md` now carries the governing three-state definition, and **there is
+> no fourth state**:
+>
+> - **PASSED** — the required evidence **was available** and **affirmatively satisfied** the requirement.
+> - **FAILED** — the required work or evidence **was available and evaluated**, and **did not satisfy** the
+>   requirement.
+> - **BLOCKED** — the required evidence **cannot be evaluated solely because the Owner-provisioned UAL
+>   dependency is unavailable**. Canonical wording:
+>   **`BLOCKED — OWNER-PROVISIONED UAL DEPENDENCY NOT AVAILABLE`**.
+>
+> **BLOCKED is not FAILED**, and a blocked gate **must not** be labelled FAILED merely because the
+> Owner-provisioned file is missing. Provisioning the UAL **removes the dependency block, produces no evidence
+> by itself, marks nothing PASSED, and authorizes no integration** — a previously BLOCKED gate returns to
+> *not yet evaluated*, and its evidence must still be produced, submitted and reviewed.
 >
 > **D1-A / D1-B — the packet and the production record now agree.** **D1-A is completed, merged, closed and
 > tagged**: `docs/art/D1-A-CLOSURE.md`, merged as `af7c238`, closed and tagged at `e87c34f` (annotated tag
@@ -140,8 +188,11 @@
 > state now carrying no branch of its own, **superseded on current commissioning and production status** →
 > `e5a4931` — the **fifth** commit of the reconciliation chain, a historical intermediate state, itself
 > superseded as the branch tip →
-> `9c0466d` — the **sixth** commit and the **previous branch tip**, now **historical and superseded** →
-> **`asset-lab-character-human-artist-handoff` @ `7603b2f`** (current branch tip).
+> `9c0466d` — the **sixth** commit of that chain and a former branch tip, now **historical and superseded** →
+> `7603b2f` — the **R1 tip**, now **historical and superseded** as the governing tip (and correctly recorded
+> as the R2 packet's *"Supersedes Git tip"*) →
+> **`asset-lab-character-human-artist-handoff` @ `66b44b2`** (current branch tip; the R2 source branch
+> `docs/character-handoff-packet-r2` points at the same commit and is likewise at local/remote parity).
 >
 > **None of these is an ancestor of production `main`.** Production `main` carries **0** GLB/glTF/FBX
 > files and no Three.js (the renderer dependency is `phaser`). **No character integration occurred; D1-B
@@ -154,16 +205,16 @@
 > [`docs/LESSONS-LEARNED.md`](LESSONS-LEARNED.md) — especially Lesson **AS**, *"A status ruling must be
 > propagated, not appended"*.
 >
-> **Before any character work, read in this order:** (1) the **active handoff packet at `7603b2f`**
-> (packet **CHH-2026-08-06-R1**; Asset Lab repo, `docs/handoff/*` on
+> **Before any character work, read in this order:** (1) the **active handoff packet at `66b44b2`**
+> (packet **CHH-2026-08-07-R2**, packet-content SHA-256 `dbe7c8c3…`; Asset Lab repo, `docs/handoff/*` on
 > `asset-lab-character-human-artist-handoff` — it is **not** present in
 > the 05I checkout). It governs **character status and commissioning only**; its **D1-A and D1-B statements
 > are now correct** — the earlier stale claim that *D1-A remained unstarted* was corrected in `9c0466d`, and
 > the **production record still governs D1-A status** (tag `d1a-studio-identity-package`, see the Lessons
 > block above). (2) the **preserved 05I final report** — Asset Lab repo,
-> `docs/ASSET-LAB-05I-FINAL-REPORT.md` **@ `7603b2f`** (retained as history, but its readiness language is
+> `docs/ASSET-LAB-05I-FINAL-REPORT.md` **@ `66b44b2`** (retained as history, but its readiness language is
 > **superseded** — see the packet's `EVIDENCE-INDEX.md`); (3) Lessons **AG–AS**, especially **AS**. Do
-> **not** use the pre-ruling `c9445ce` packet, the superseded `e5a4931` tip, or the superseded `9c0466d` tip,
+> **not** use the pre-ruling `c9445ce` packet, or the superseded `e5a4931`, `9c0466d` or `7603b2f` tips,
 > for current commissioning or production status.
 
 > ## 🎬 2026-08-05 — Concept A ordinary-player enablement — MERGED and CLOSED
