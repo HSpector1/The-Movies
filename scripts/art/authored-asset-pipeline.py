@@ -379,10 +379,267 @@ def verify(normal_src: str, worn_src: str, stem: str, expect: dict, runs: int) -
     }
 
 
+# ── rgba-export — THE CURRENT PRODUCTION AUTHORED-ART EXPORT ─────────────────
+#
+# Recovered from the adoption pack that produced the shipped Stage B pair at `fdfdfea`,
+# and re-proven byte-identical against the committed production objects. This is the
+# FORWARD path for authored environment art. The PNG-8 `quantize` above is retained for
+# diagnostics, measurement and historical reproduction only.
+#
+# The shape of it: cluster the RGB channel of the OPAQUE-ish pixels to K colours, write
+# the result back into a TRUECOLOUR RGBA PNG (colour type 6), and never touch alpha.
+# Because the image is not indexed, alpha is not forced through a shared palette, so it
+# survives byte-exactly — which is the whole reason production moved here. True PNG-8
+# has to encode RGB and alpha jointly in one 256-entry table, and that is what averaged
+# the 1-px silhouette rim and posterised tonal ramps.
+#
+# Each finish is exported INDEPENDENTLY. The finishes do not share a palette, and they do
+# not need to: alpha is carried losslessly, so the pair's hit area cannot drift apart the
+# way the PNG-8 pair's did.
+RGBA_COLORS = 128            # target unique RGB values among alpha>0 pixels
+RGBA_KMEANS_SEED = 7         # fixed — the k-means++ seeding draw is what makes this deterministic
+RGBA_KMEANS_ITERS = 60
+RGBA_COMPRESS_LEVEL = 9
+RGBA_OPTIMIZE = True
+RGBA_PROTECT_MINPX = 250     # a field must cover this many px to be protectable
+RGBA_PROTECT_TOL = 3.0       # ...and land within this of an authored target tone
+RGBA_REPAIR_ROUNDS = 4
+RGBA_SOOT = (13, 12, 11)     # the worn pass blends toward this
+RGBA_DULL_STEPS = (0.18, 0.30)  # large fields / glazing, mirroring assets.ts D() and G()
+
+
+def _rgba_load(path: str):
+    return np.array(Image.open(path).convert("RGBA")).astype(int)
+
+
+def _dull_toward_soot(rgb, amount: float):
+    return [int(round(v + (s - v) * amount)) for v, s in zip(rgb, RGBA_SOOT)]
+
+
+def _protected_colours(cols, counts, protect_hex: list[str]):
+    """Rendered colours that ARE an authored field rather than an anti-aliased blend.
+
+    Two authored fields merging into one entry is a VISIBLE defect; a blend pixel
+    drifting is not. Both finishes are covered, because a worn field is its normal
+    colour dulled toward soot. Returns an empty (0,3) array when nothing qualifies.
+    """
+    if not protect_hex:
+        return np.zeros((0, 3))
+    tgt = []
+    for h in protect_hex:
+        v = int(h.lstrip("#"), 16)
+        c = [(v >> 16) & 255, (v >> 8) & 255, v & 255]
+        tgt.append(c)
+        tgt += [_dull_toward_soot(c, d) for d in RGBA_DULL_STEPS]
+    tgt = np.array(tgt, float)
+    keep: list = []
+    for i in np.argsort(-counts):
+        if counts[i] < RGBA_PROTECT_MINPX:
+            break
+        c = cols[i].astype(float)
+        if np.abs(c - tgt).max(1).min() > RGBA_PROTECT_TOL:
+            continue
+        if any(np.abs(c - k).max() <= 2 for k in keep):
+            continue
+        keep.append(c)
+    return np.array(keep, float).reshape(-1, 3)
+
+
+def _kmeans(colours, counts, k: int):
+    """Count-weighted k-means with k-means++ seeding on a FIXED rng draw."""
+    rng = np.random.default_rng(RGBA_KMEANS_SEED)
+    n = len(colours)
+    if k >= n:
+        return colours.copy(), np.arange(n)
+    cent = [colours[int(np.argmax(counts))]]
+    d2 = ((colours - cent[0]) ** 2).sum(1)
+    for _ in range(k - 1):
+        p = d2 * counts
+        s = p.sum()
+        cent.append(colours[int(rng.integers(n))] if s <= 0 else
+                    colours[int(np.searchsorted(np.cumsum(p / s), rng.random()))])
+        d2 = np.minimum(d2, ((colours - cent[-1]) ** 2).sum(1))
+    cent = np.array(cent, float)
+    for _ in range(RGBA_KMEANS_ITERS):
+        lab = ((colours[:, None, :] - cent[None]) ** 2).sum(2).argmin(1)
+        new = cent.copy()
+        for j in range(k):
+            mk = lab == j
+            if counts[mk].sum() > 0:
+                new[j] = (colours[mk] * counts[mk, None]).sum(0) / counts[mk].sum()
+        if np.allclose(new, cent):
+            cent = new
+            break
+        cent = new
+    cent = np.round(cent)
+    return cent, ((colours[:, None, :] - cent[None]) ** 2).sum(2).argmin(1)
+
+
+def _fit(cols, counts, pin, k: int):
+    p = len(pin)
+    if p == 0:
+        return _kmeans(cols, counts, k)
+    free, _ = _kmeans(cols, counts, k - p)
+    cent = np.vstack([pin, free])
+    for _ in range(RGBA_KMEANS_ITERS):
+        lab = ((cols[:, None, :] - cent[None]) ** 2).sum(2).argmin(1)
+        new = cent.copy()
+        for j in range(p, k):
+            m = lab == j
+            if counts[m].sum() > 0:
+                new[j] = (cols[m] * counts[m, None]).sum(0) / counts[m].sum()
+        if np.allclose(new, cent):
+            break
+        cent = new
+    cent = np.round(cent)
+    return cent, ((cols[:, None, :] - cent[None]) ** 2).sum(2).argmin(1)
+
+
+def _palette_for(cols, counts, k: int, protect_hex: list[str]):
+    """Adaptive repair, not blanket pinning.
+
+    Fit normally, then pin ONLY the authored fields that are actually damaged — displaced
+    beyond tolerance, or two distinct fields collapsed onto one entry — and refit. Blanket
+    pinning every named field spends the budget and makes everything else noisier.
+    """
+    prot = _protected_colours(cols, counts, protect_hex)
+    pin = np.zeros((0, 3))
+    for _ in range(RGBA_REPAIR_ROUNDS):
+        cent, lab = _fit(cols, counts, pin, k)
+        if len(prot) == 0:
+            return cent, lab, 0
+        pl = ((prot[:, None, :] - cent[None]) ** 2).sum(2).argmin(1)
+        err = np.sqrt(((prot - cent[pl]) ** 2).sum(1))
+        bad = set(np.where(err > RGBA_PROTECT_TOL)[0].tolist())
+        for e in set(pl.tolist()):
+            grp = np.where(pl == e)[0]
+            if len(grp) > 1:
+                spread = np.sqrt(((prot[grp][:, None, :] - prot[grp][None]) ** 2).sum(2)).max()
+                if spread > RGBA_PROTECT_TOL:
+                    bad |= set(grp.tolist()[1:])
+        want = sorted(bad)
+        if not want or len(want) + len(pin) > k // 2:
+            return cent, lab, len(pin)
+        pin = np.unique(np.vstack([pin, prot[want]]), axis=0)
+    return cent, lab, len(pin)
+
+
+def rgba_export_one(src: str, dst: str, colours: int, protect_hex: list[str]) -> dict:
+    """Truecolour RGBA (colour type 6), RGB reduced to `colours`, alpha untouched."""
+    im = _rgba_load(src)
+    a, rgb = im[..., 3], im[..., :3]
+    m = a > 0
+    cols, counts = np.unique(rgb[m].reshape(-1, 3), axis=0, return_counts=True)
+    cent, lab, pins = _palette_for(cols.astype(float), counts.astype(float), colours, protect_hex)
+    cent = np.clip(cent, 0, 255).astype(np.uint8)
+    lut = {tuple(c): int(l) for c, l in zip(cols.tolist(), lab.tolist())}
+    out = im.astype(np.uint8).copy()
+    out[..., :3][~m] = 0          # transparent RGB normalised, so it cannot cost palette entries
+    out[..., :3][m] = cent[np.array([lut[tuple(c)] for c in rgb[m].tolist()])]
+    Image.fromarray(out, "RGBA").save(dst, "PNG", optimize=RGBA_OPTIMIZE,
+                                      compress_level=RGBA_COMPRESS_LEVEL)
+    back = np.array(Image.open(dst).convert("RGBA")).astype(int)
+    err = np.sqrt(((back[..., :3] - rgb) ** 2).sum(2))[a == 255]
+    d = _describe(dst)
+    d.update({
+        "source_sha256": _sha256(src),
+        "colours_requested": colours,
+        "distinct_rgb_alpha_gt_0": int(len(np.unique(back[..., :3][m].reshape(-1, 3), axis=0))),
+        "alpha_bit_exact_vs_source": bool((back[..., 3] == a).all()),
+        "protected_fields_found": int(len(_protected_colours(
+            cols.astype(float), counts.astype(float), protect_hex))),
+        "pins_applied": int(pins),
+        "colour_err_mean": round(float(err.mean()), 3) if err.size else 0.0,
+        "colour_err_max": round(float(err.max()), 2) if err.size else 0.0,
+    })
+    return d
+
+
+def rgba_export(normal_src: str, worn_src: str, out_dir: str, stem: str,
+                colours: int, protect_hex: list[str]) -> dict:
+    """Export a finish pair. Each finish is reduced INDEPENDENTLY — see the note above."""
+    os.makedirs(out_dir, exist_ok=True)
+    n = rgba_export_one(normal_src, os.path.join(out_dir, f"{stem}.png"), colours, protect_hex)
+    w = rgba_export_one(worn_src, os.path.join(out_dir, f"{stem}-ud.png"), colours, protect_hex)
+    an = np.array(Image.open(os.path.join(out_dir, f"{stem}.png")).convert("RGBA"))[..., 3]
+    aw = np.array(Image.open(os.path.join(out_dir, f"{stem}-ud.png")).convert("RGBA"))[..., 3]
+    clickable = int((((an > 0) != (aw > 0)).sum()))
+    return {
+        "tool": "scripts/art/authored-asset-pipeline.py rgba-export",
+        "contract": {
+            "png_colour_type": "6 (truecolour RGBA) — NOT indexed, no PLTE, no tRNS",
+            "rgb_reduction": f"count-weighted k-means to {colours} colours, k-means++ seeding, "
+                             f"fixed seed {RGBA_KMEANS_SEED}, {RGBA_KMEANS_ITERS} iterations, "
+                             "centroids rounded",
+            "rgb_space": "8-bit ENCODED sRGB — clustering is done on stored byte values",
+            "clustered_pixels": "alpha > 0 only",
+            "transparent_rgb": "normalised to 0",
+            "pair_processing": "INDEPENDENT — the finishes do not share a palette",
+            "alpha": "UNTOUCHED — never clustered, thresholded, remapped or averaged",
+            "dither": "none",
+            "optimize": RGBA_OPTIMIZE,
+            "compress_level": RGBA_COMPRESS_LEVEL,
+            "protected_fields": "adaptive repair only; pins authored tones that the fit "
+                                "displaced or collapsed. Inert when nothing is damaged.",
+        },
+        "outputs": {"normal": n, "worn": w},
+        "pair": {
+            "alpha_value_delta_px": int((an.astype(int) != aw.astype(int)).sum()),
+            "clickable_mask_delta_px": clickable,
+            "clickable_rule": "alpha > 0 — exactly what setInteractive alphaTolerance:1 selects",
+        },
+        "environment": _env(),
+    }
+
+
+def rgba_verify(normal_src: str, worn_src: str, stem: str, expect: dict,
+                runs: int, colours: int, protect_hex: list[str]) -> dict:
+    """Repeat the export into clean temp dirs. Writes nothing under version control."""
+    seen: dict[str, list] = {"normal": [], "worn": []}
+    for _ in range(max(1, runs)):
+        tmp = tempfile.mkdtemp(prefix="rgba-export-verify-")
+        try:
+            rep = rgba_export(normal_src, worn_src, tmp, stem, colours, protect_hex)
+            for key in ("normal", "worn"):
+                o = rep["outputs"][key]
+                seen[key].append((o["sha256"], o["bytes"], tuple(o["size"]),
+                                  o["alpha_bit_exact_vs_source"]))
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+    checks, ok = {}, True
+    for key in ("normal", "worn"):
+        uniq = sorted(set(seen[key]))
+        identical = len(uniq) == 1
+        want = expect.get(key)
+        matches = None if not want else uniq[0][0] == want
+        ok = ok and identical and (matches is not False) and uniq[0][3]
+        checks[key] = {
+            "runs": len(seen[key]),
+            "sha256": sorted({s for s, _, _, _ in seen[key]}),
+            "run_to_run_identical": identical,
+            "bytes": sorted({b for _, b, _, _ in seen[key]}),
+            "dimensions": [list(d) for d in sorted({d for _, _, d, _ in seen[key]})],
+            "alpha_bit_exact_vs_source": all(x[3] for x in seen[key]),
+            "expected_sha256": want,
+            "matches_production": matches,
+        }
+    return {
+        "tool": "scripts/art/authored-asset-pipeline.py rgba-verify",
+        "sources": {"normal": normal_src, "worn": worn_src},
+        "checks": checks,
+        "environment": _env(),
+        "result": "PASS" if ok else "FAIL",
+    }
+
+
 # ── cli ──────────────────────────────────────────────────────────────────────
 def _pair(text: str) -> tuple[int, int]:
     a, b = text.split(",")
     return int(a), int(b)
+
+
+def _protect_list(text: str | None) -> list[str]:
+    return [t.strip() for t in text.split(",") if t.strip()] if text else []
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -406,6 +663,28 @@ def main(argv: list[str] | None = None) -> int:
     v.add_argument("--expect-worn", help="sha256 the worn finish must reproduce")
     v.add_argument("--runs", type=int, default=2)
 
+    r = sub.add_parser(
+        "rgba-export",
+        help="CURRENT production path: truecolour RGBA, RGB reduced, alpha lossless",
+    )
+    r.add_argument("--normal", required=True, help="raw RGBA render, normal finish")
+    r.add_argument("--worn", required=True, help="raw RGBA render, worn finish")
+    r.add_argument("--out-dir", required=True)
+    r.add_argument("--stem", required=True, help="output stem (worn becomes <stem>-ud)")
+    r.add_argument("--colours", type=int, default=RGBA_COLORS)
+    r.add_argument("--protect", help="comma-separated authored tones, e.g. e1d2ad,d3c19c — "
+                                     "adaptive repair only; inert unless a field is damaged")
+
+    rv = sub.add_parser("rgba-verify", help="prove rgba-export determinism and byte identity")
+    rv.add_argument("--normal", required=True)
+    rv.add_argument("--worn", required=True)
+    rv.add_argument("--stem", required=True)
+    rv.add_argument("--expect-normal", help="sha256 the normal finish must reproduce")
+    rv.add_argument("--expect-worn", help="sha256 the worn finish must reproduce")
+    rv.add_argument("--runs", type=int, default=3)
+    rv.add_argument("--colours", type=int, default=RGBA_COLORS)
+    rv.add_argument("--protect")
+
     m = sub.add_parser("measure", help="canonical displayed-luma measurement of a final asset")
     m.add_argument("png", help="the FINAL optimized / quantised asset")
     m.add_argument("--lit-x", type=_pair, default=(0, 232), help="x0,x1 of the lit wall band")
@@ -426,6 +705,18 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "verify":
         expect = {"normal": args.expect_normal, "worn": args.expect_worn}
         report = verify(args.normal, args.worn, args.stem, expect, args.runs)
+        print(json.dumps(report, indent=2))
+        return 0 if report["result"] == "PASS" else 1
+
+    if args.cmd == "rgba-export":
+        print(json.dumps(rgba_export(args.normal, args.worn, args.out_dir, args.stem,
+                                     args.colours, _protect_list(args.protect)), indent=2))
+        return 0
+
+    if args.cmd == "rgba-verify":
+        expect = {"normal": args.expect_normal, "worn": args.expect_worn}
+        report = rgba_verify(args.normal, args.worn, args.stem, expect, args.runs,
+                             args.colours, _protect_list(args.protect))
         print(json.dumps(report, indent=2))
         return 0 if report["result"] == "PASS" else 1
 

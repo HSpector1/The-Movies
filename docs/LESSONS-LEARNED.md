@@ -1382,6 +1382,24 @@ it — and a global bound will certify the artefact as fixed while a reviewer st
   alpha handling, dithering, optimization, compression level, and the library versions. Recovered,
   written down and re-proven byte-identical here. **Rule: an accepted binary asset is only as
   governed as the command that can regenerate it; record the command, not the format.**
+- **The rule was re-broken by the very next building, because the METHOD moved and the tooling
+  did not (RGBA export-hardening amendment).** Stage B's PNG-8 export was recovered, written
+  down and proven — and then Option D (`fdfdfea`) replaced the export method entirely with a
+  truecolour RGBA path developed *outside the application repository*. It shipped with exact
+  SHA-256 digests in the commit message and **no runnable in-repo command**, which is precisely
+  the state this lesson had just finished condemning. The repo's own instrument still described
+  only the superseded path, so the standard silently documented an export production no longer
+  used. Recovered here and re-proven: three clean runs of `rgba-export` reproduce both committed
+  Stage B objects byte-identically, alpha bit-exact against source.
+  *Reusable rule:* **when the export METHOD changes, the tooling that performs it moves into the
+  application repository in the SAME commit as the bytes it produced.** A recorded hash plus an
+  out-of-repo script is not a smaller version of reproducibility — it is the same gap wearing a
+  digest. Adding a path also means *labelling the old one*: leaving `quantize` undifferentiated
+  next to a new path is how the next author picks the wrong one.
+  *Corroborating measurement, worth keeping because it is why the method changed at all:* on one
+  source, indexed PNG-8 altered **98,854** alpha bytes (2,862 of them anti-aliased rim pixels)
+  and displaced **29.4 %** of opaque pixels by more than 8, against **0** and **0.057 %** for the
+  truecolour path. Indexing must encode RGB and alpha in one table; truecolour need not.
 - **Fastest future diagnostic:** sample the element and the surface it sits on in the same render and
   compare, rather than comparing either to a global floor; and confirm which space the governing
   number lives in before using it as an input anywhere.

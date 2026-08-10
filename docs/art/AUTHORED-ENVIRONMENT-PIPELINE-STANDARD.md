@@ -181,10 +181,104 @@ tolerance and is the single largest contributor to it.
 
 ---
 
-## 3. Deterministic final-output quantisation
+## 3. Deterministic final-output export
 
-> **The shipped PNG-8 pair is produced by one recorded, runnable command, and the accepted
-> production bytes must be reproducible from the pre-quantisation renders byte-for-byte.**
+> **The shipped pair is produced by one recorded, runnable command, and the accepted
+> production bytes must be reproducible from the pre-export renders byte-for-byte.**
+
+There are **two** export paths in this repository and they are not interchangeable.
+**§3A is the forward production path. §3B is history and diagnostics.** Read §3A first.
+
+### The order of operations, which is the rule the paths exist to serve
+
+```
+AUTHOR THE BEST ART
+   → VALIDATE IT IN THE GAME
+      → APPLY RGB REDUCTION ONLY IF IT IS VISUALLY LOSSLESS
+         → PRESERVE ALPHA
+            → REJECT ANY OPTIMIZATION THE PLAYER CAN SEE
+```
+
+Delivery is optimised *after* the art is won, never designed around. Do not author to
+survive an export constraint — that is backwards, and it is how the authored Stage A
+Concept C candidate lost its governed corner separation to a palette merge. Lesson **AY**.
+
+---
+
+### 3A. CURRENT PRODUCTION EXPORT — truecolour RGBA, alpha lossless
+
+**This is the path for all new authored environment art.** It produced the shipped Stage B
+pair at `fdfdfea`, and `scripts/art/authored-asset-pipeline.py rgba-export` reproduces both
+files **byte-identically** from the adoption-pack renders, over three clean runs.
+
+| | |
+|---|---|
+| Container | PNG colour type **6** (truecolour RGBA), bit depth 8, non-interlaced |
+| Chunks | `IHDR IDAT IEND` only — **no `PLTE`, no `tRNS`** |
+| RGB reduction | count-weighted **k-means**, k-means++ seeding on a **fixed rng seed (7)**, 60 Lloyd iterations, centroids rounded |
+| Target | **128** unique RGB values among `alpha > 0` pixels |
+| Clustering space | 8-bit **encoded sRGB** — the stored byte values, never linearised |
+| Pixels clustered | `alpha > 0` only |
+| Transparent RGB | normalised to `0`, so fully transparent pixels cannot spend colour budget |
+| Pair processing | **INDEPENDENT.** The finishes do **not** share a palette and do not need to |
+| **Alpha** | **UNTOUCHED.** Never clustered, thresholded, remapped, premultiplied or averaged |
+| Protected fields | adaptive repair only — pins an authored tone the fit displaced past 3.0, or two distinct authored tones collapsed onto one entry, then refits. **Inert unless a field is actually damaged** |
+| Dithering | none |
+| Optimization / compression | `optimize=True` / `compress_level=9` |
+
+**Why alpha survives here and could not survive §3B.** Indexing has to encode RGB *and*
+alpha jointly in one table. Truecolour does not, so the alpha plane passes through
+untouched. That is the entire reason production moved, and it is measurable — same source,
+both paths:
+
+| | RGBA (§3A) | PNG-8 (§3B) |
+|---|---|---|
+| bytes | 54,659 | 10,791 |
+| alpha bytes altered | **0** | **98,854** |
+| …of which anti-aliased rim pixels | **0** | **2,862** |
+| distinct RGB kept | **128** | 94 |
+| opaque-pixel colour error, mean | **0.743** | 5.867 |
+| opaque pixels displaced by > 8 | **0.057 %** | **29.412 %** |
+
+The rim figure is the "rim averaging" that was rejected; the 29 % figure is the tonal
+posterisation. The payload difference is real and was **accepted deliberately, in writing** —
+byte count is not a quality metric.
+
+```bash
+# export a finish pair (each finish reduced independently)
+python3 scripts/art/authored-asset-pipeline.py rgba-export \
+  --normal <render>.png --worn <render>-ud.png --out-dir <dir> --stem <key>
+
+# prove determinism and byte identity (writes nothing under version control)
+python3 scripts/art/authored-asset-pipeline.py rgba-verify \
+  --normal <render>.png --worn <render>-ud.png --stem <key> --runs 3 \
+  --expect-normal <sha256> --expect-worn <sha256>
+```
+
+**Recorded reproduction of the accepted Stage B pair.** Sources
+`adoption-pack/mgmt-374.png` (`c363b51f…`) and `mgmt-374-worn.png` (`3c3b8cce…`), which live
+outside this repository. Three clean runs each reproduced
+`aa375a00076d7a192ba8ad65592effafabcf94814a8f917898116c7db1e47e7b` (54,659 B) and
+`1d6ac5e59d832a8cfe45c5579487a250a9aa6418894dd3e8b04d45360a3c795d` (61,392 B) — identical to
+the committed production objects, with alpha bit-exact against source. The production files
+were **read for comparison only and not written to**.
+
+**Alpha invariants an authored pair must hold** (checked by `ui/src/lot/authored-rgba-export.test.ts`):
+raw geometry identical · **clickable mask identical** (`alpha > 0`, exactly what
+`setInteractive({ pixelPerfect: true, alphaTolerance: 1 })` selects) · silhouette identical.
+Full byte-identical alpha between finishes is *preferred* and is what current Stage B
+achieves; §3A makes it easy, where §3B made it nearly impossible. It matters because
+`LotScene` swaps the under-dressed texture without re-running `setInteractive`, so a
+differing alpha map silently reshapes the hit area — the superseded PNG-8 pair differed in
+8,652 alpha pixels and did exactly that.
+
+---
+
+### 3B. HISTORICAL PNG-8 EXPORT — diagnostics, measurement, and reproducing the superseded pair
+
+**Not the production path since `fdfdfea`.** Retained because it reproduces the superseded
+Stage B bytes exactly, and because its `measure` sibling is still the canonical instrument.
+**Do not export new authored art with it.**
 
 "PNG-8" and "use a shared palette" are **not** a sufficient record. The full contract:
 
@@ -252,11 +346,29 @@ the floor by inspecting the target family's own tones, and record it beside the 
 ## 5. The instrument
 
 `scripts/art/authored-asset-pipeline.py` — narrow by design: deterministic final-output
-quantisation and canonical measurement, nothing else. It does not model, render, bake,
-generate or batch.
+export and canonical measurement, nothing else. It does not model, render, bake, generate,
+batch, discover files, or manage repositories. It is **not** an Art Factory.
+
+Four subcommands, in two clearly separated families:
+
+| subcommand | family | status |
+|---|---|---|
+| `rgba-export` | **§3A — current production** | **forward path for all new authored art** |
+| `rgba-verify` | **§3A — current production** | determinism + byte identity |
+| `quantize` | §3B — historical PNG-8 | diagnostics / reproducing the superseded pair |
+| `verify` | §3B — historical PNG-8 | as above |
+| `measure` | §1 — canonical measurement | **production, for both paths** |
 
 ```bash
-# export the shipped pair from a pre-quantisation render pair
+# CURRENT PRODUCTION export (see §3A)
+python3 scripts/art/authored-asset-pipeline.py rgba-export \
+  --normal <render>.png --worn <render>-ud.png --out-dir <dir> --stem <key>
+
+python3 scripts/art/authored-asset-pipeline.py rgba-verify \
+  --normal <render>.png --worn <render>-ud.png --stem <key> --runs 3 \
+  --expect-normal <sha256> --expect-worn <sha256>
+
+# HISTORICAL PNG-8 export (see §3B) — not for new art
 python3 scripts/art/authored-asset-pipeline.py quantize \
   --normal <render>.png --worn <render>-ud.png --out-dir <dir> --stem <key>
 
@@ -281,12 +393,19 @@ never again be quoted without the definition that produced it (see Part 2 §B).
 1. Camera, scale, axis mapping and anchor per `CAMERA-CONTRACT.json`. View transform
    `Standard`; no tonemap.
 2. Target ratio derived from the building's **own** family (§2), never inherited.
-3. Rig input solved *per finish*, then confirmed by measuring the **shipped PNG** (§1).
-4. Export via §3, with the exact command recorded in the building's provenance file.
-5. `verify --runs 3` passes: run-to-run identical and matching the committed bytes.
-6. `measure` inside ±0.015 for both finishes; window inputs recorded (§4).
+3. Rig input solved *per finish*, then confirmed by measuring the **shipped asset** (§1).
+4. Export via **§3A**, with the exact command recorded in the building's provenance file.
+   Do **not** author around the export; §3B is not an option for new art.
+5. `rgba-verify --runs 3` passes: run-to-run identical, and alpha bit-exact against source.
+6. `measure` inside ±0.015 for both finishes, **on the §3A output**; window inputs recorded (§4).
 7. Distinct-colour and soft-edge figures quoted **with** their definitions.
-8. Reviewed at the management camera first (lesson **AV**: detail must collapse cleanly).
+8. Alpha invariants hold: raw geometry identical, **clickable mask identical**, silhouette
+   identical (§3A). Byte-identical alpha between finishes preferred.
+9. Registration declared and measured — inset, lowest opaque row, centroid — not left to
+   default. Filling the footprint diamond edge-to-edge is a decision, not an accident.
+10. Reviewed at the management camera first (lesson **AV**: detail must collapse cleanly),
+    with signage masked, and asked *what kind of building is this?* before any comparison
+    (lesson **AX**: architecture must communicate class before signage explains it).
 
 ---
 
