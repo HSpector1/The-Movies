@@ -25,17 +25,23 @@ useful result is a *selective soundstage/presentation improvement*.
 | Checkpoint A (assignment fix + composer foundation) | `d851ad6` |
 | Checkpoint B (first Stage A/B visual proof) | `e8c3574` |
 | Checkpoint C (corrective pass #1) | `ed2bdf7` |
-| Adoption promotion commit | `a7e4847` |
+| Adoption promotion commit (historical) | `a7e4847` |
 | Initial closure / status commit | `9c4d060` |
-| Production `main` | unchanged at `aadbd63d` — **not merged** |
+| Review correction — session-lifecycle reset | `35ace76` |
+| Final reviewed / merged production tip | `00dfbe036a622d582f365ce0ce2218ce490e61ab` |
+| Production `main` | **MERGED / PRODUCTION** at `00dfbe0` (fast-forward from `aadbd63d`) |
 
 **Eleven** linear commits from the base through the initial closure commit — no merges, no
 amends to reviewed checkpoints, no tag, no PR. Independent focused review of that eleven-commit
 candidate returned **REVISE** with 0 BLOCKERs and 2 MAJORs; a **bounded review correction**
 (session-lifecycle reset + status propagation + the truth-only wording fixes recorded here)
-follows those eleven as further linear commits on the same branch. The milestone SHAs above are
-immutable; the branch tip is not quoted here, because a document cannot name the commit that
-contains it without going stale the moment it is committed. Read the tip from the branch.
+followed those eleven as further linear commits on the same branch: `9c4d060` → `35ace76` →
+`00dfbe0`. That corrected branch was **independently reviewed and merged to production `main` by
+fast-forward at `00dfbe0`** — still no merge commit, no tag and no PR. `00dfbe0` is the production
+authority a future operator should read; `a7e4847` promoted the adoption *before* the review
+correction and is **not** the candidate to review or cherry-pick. The milestone SHAs above are
+immutable. Production `main` had already reached `00dfbe0` before the later docs-only governance
+cleanup that finalized this wording.
 
 ## Visual result — PASS
 

@@ -1214,7 +1214,8 @@ success because the artefact next to it looked good.
 
 - **Task — Project: Studio.** The **D1-B Soundstage Composer Proof**
   (`docs/art/D1-B-SOUNDSTAGE-COMPOSER-PROOF-CLOSURE.md`, branch
-  `art-d1b-soundstage-composer-proof`, base `aadbd63d`, candidate `a7e4847`) asked whether the
+  `art-d1b-soundstage-composer-proof`, base `aadbd63d`, adoption **promotion** commit `a7e4847`,
+  merged to production `main` at `00dfbe0`) asked whether the
   existing procedural Phaser building system could produce two coherent but genuinely distinct
   soundstages, **and** whether the second one would be materially cheaper to author once a composer
   existed. The visual hypothesis **passed**; the economic hypothesis **failed**.

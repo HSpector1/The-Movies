@@ -23,8 +23,12 @@
 > tested (bare-minimum greenlight vs standard-budget vs recent-typical). (D-15 shipped while Concept A
 > was still default OFF; Concept A has since been enabled for ordinary players — see above.)
 > **D1-B has started ONLY through the bounded Soundstage Composer Proof, which is COMPLETE**; its
-> **selective production adoption is PREPARED / UNDER REVIEW** on branch
-> `art-d1b-soundstage-composer-proof` (candidate `a7e4847`, base `aadbd63d`) and is **not merged** —
+> **selective production adoption is MERGED / PRODUCTION**. It was built on branch
+> `art-d1b-soundstage-composer-proof` (base `aadbd63d`, adoption **promotion** commit `a7e4847`); that
+> adoption was then corrected, independently reviewed, and **merged to production `main` at
+> `00dfbe036a622d582f365ce0ce2218ce490e61ab`** — the current production authority. `a7e4847` is a
+> historical promotion commit only: it predates the review correction and is **not** a candidate to
+> review or cherry-pick —
 > [`docs/art/D1-B-SOUNDSTAGE-COMPOSER-PROOF-CLOSURE.md`](art/D1-B-SOUNDSTAGE-COMPOSER-PROOF-CLOSURE.md).
 > **Broader D1-B work remains unauthorized.** The proof scored **two independent hypotheses
 > separately: VISUAL — PASS, ECONOMIC — FAIL.** The composer enabled useful architectural variation,
