@@ -109,3 +109,13 @@ Administration concept: blocked on the same bytes. Dekogon/Fab: DEFERRED (bot wa
 - **Park**: any generalized pipeline/tooling (spritesheet renderers, batch converters) until a
   THIRD building shows repetition worth automating.
 - **Reject**: donor building shells as a default strategy; slicing infrastructure.
+
+## Final production outcome (added after closure)
+
+The Director approved **Option D — selective combination**: Candidate A's art was adopted onto
+PRODUCTION's authored-stage integration path (not this branch's mechanism), with a
+strike-team-authored worn variant preserving the lot's authoritative underDressed semantics and
+four regression guards (anchor invariant, IHDR guard, real negative alpha hit-test,
+registration lock). Merged to production `main` as `fdfdfea` (ff-only) with Owner
+authorization. **This experimental branch itself was never merged** and remains frozen as
+evidence. Durable lessons: `docs/LESSONS-LEARNED.md` §AW–BB (production docs lineage).
