@@ -4,8 +4,8 @@ Scope: the two runtime images added by this proof branch.
 
 | | |
 |---|---|
-| `ui/public/lot/b-stage-b.png` | 10,242 B · `sha256 d4d8b1ebaec6603d76b8f273670c46c00c7617db4e5d45bdb2bec0070b7d715a` |
-| `ui/public/lot/b-stage-b-ud.png` | 8,576 B · `sha256 770d05edb602f13af0164e85d199582473fa74cdadf7c104a6b2dbd0299cc479` |
+| `ui/public/lot/b-stage-b.png` | 10,254 B · `sha256 adf413c8f88fb9aa040bcc5cdbdcdf83451d25ca74b183272b47d8064c2daa35` |
+| `ui/public/lot/b-stage-b-ud.png` | 9,032 B · `sha256 3f3dc5544f6cf4cfbe40097fa28c107d66d7739807399015988f67e09bdf4347` |
 
 Both are 512 × 374 RGBA PNG-8, quantised against a **shared** palette so the two finishes cannot
 differ by a stray alpha pixel. Release-closure revision: the three roof units, one of the twin header pinstripes and the two
@@ -13,6 +13,13 @@ flat wall panels were removed after runtime review found them illegible at the m
 Production punch list: the header band now dies into proud entrance piers instead of ending in
 mid-wall, and the existing personnel door and canopy were relocated to the shadowed elevation so
 that face carries one readable architectural reason rather than reading accidentally blank.
+Standards compliance: the header band now runs pier-to-pier so neither end dies in open wall,
+and the front-to-shadow face ratio was corrected from 0.949 to 0.869 — inside the governed
+0.859-0.876 band — after the governed ratio was found to have been applied as linear
+irradiance rather than as the displayed sRGB relationship it actually describes. Both finishes
+are inside the band: normal 0.8687, worn 0.8614, against a procedural control at 0.8737/0.8746
+and Stage A at 0.8589. Each finish needed its own linear fill value because the worn pass
+compresses the encoded gap; both were solved by measuring the shipped PNG.
 Authored offline in Blender 5.2.0 LTS; the `.blend` source, render
 intermediates and all acquired source archives stay outside this repository.
 

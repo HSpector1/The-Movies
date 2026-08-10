@@ -1336,8 +1336,20 @@ it — and a global bound will certify the artefact as fixed while a reviewer st
 - **Resolution.** Reclassified as a known release-blocking Art defect and carried into Checkpoint C
   as an explicit runtime watch item, deliberately **not** fixed during integration so the runtime
   proof observed the frozen candidate.
+- **AND MEASURE IT IN THE REPRESENTATION SPACE THE STANDARD WAS DEFINED IN (release-closure
+  amendment).** The same proof then failed the same way a second time, on a governed relationship
+  rather than an ad-hoc one. D1-B's front-to-side coherence figure (0.859-0.876) is a **displayed
+  sRGB luma ratio**. It was applied in the authoring rig as a **linear irradiance** ratio, and sRGB
+  encoding compressed it: the shipped asset measured **0.949** against a procedural control at
+  0.8737 and Stage A at 0.8589 — roughly half the intended corner separation, present since the
+  first authored render. Every check passed it, because they asserted palette *membership* (the
+  shadow tone sat within tolerance of a governed constant) and never the *ratio between the two
+  faces*. **Rule: never transfer a numeric threshold between linear light, encoded colour, source
+  material values and the final quantised asset without re-validating in the final representation
+  — and measure the governed relationship on the shipped file, not on the authoring parameter.**
 - **Fastest future diagnostic:** sample the element and the surface it sits on in the same render and
-  compare, rather than comparing either to a global floor.
+  compare, rather than comparing either to a global floor; and confirm which space the governing
+  number lives in before using it as an input anywhere.
 - **Pattern:** assert the *relation* — element vs the plane it shares an orientation with, or vs its
   immediate neighbour — whenever the complaint is about how something reads in context.
   **Anti-pattern:** closing a visual defect on a threshold the defect was never going to violate;
