@@ -4,11 +4,13 @@ Scope: the two runtime images added by this proof branch.
 
 | | |
 |---|---|
-| `ui/public/lot/b-stage-b.png` | 10,698 B · `sha256 1af7f85224a36fd9f1d481f556fa5bafd14285d7195f69d99160dee547fdeb7c` |
-| `ui/public/lot/b-stage-b-ud.png` | 9,355 B · `sha256 7b2454223e737e0241780a0dfd70e3845915dbc36c681165e5b0323032227187` |
+| `ui/public/lot/b-stage-b.png` | 10,161 B · `sha256 d539af1da5c140f7142d4b859ecabad602c504c60a6e91d9aa2bab8bf47bf349` |
+| `ui/public/lot/b-stage-b-ud.png` | 8,535 B · `sha256 f04e47dfbe02655ae67c92731c0d977fe131f5806177a87c81e7ec98c7fefbae` |
 
 Both are 512 × 374 RGBA PNG-8, quantised against a **shared** palette so the two finishes cannot
-differ by a stray alpha pixel. Authored offline in Blender 5.2.0 LTS; the `.blend` source, render
+differ by a stray alpha pixel. Release-closure revision: the three roof units, one of the twin header pinstripes and the two
+flat wall panels were removed after runtime review found them illegible at the management camera.
+Authored offline in Blender 5.2.0 LTS; the `.blend` source, render
 intermediates and all acquired source archives stay outside this repository.
 
 ## What is actually in these files

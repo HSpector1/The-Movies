@@ -1367,7 +1367,19 @@ rather than a physical one.
   acquired, hashed — and then **not used**, because it contributes nothing resolvable at that size
   and its material noise is precisely the failure mode above. Hero identity was authored; commodity
   reuse turned out to be optional rather than necessary.
+- **Detail must COLLAPSE cleanly, not merely exist (release-closure amendment).** Runtime review of
+  the integrated asset found the opposite failure to **AI**: not defects hidden by the management
+  camera, but detail that is correct close up and becomes *noise* at the camera players actually use.
+  Three roof units (~10x8 px at management scale) read as smudges, twin ~1px diagonal pinstripes
+  aliased into a beaded chain, and two flat single-tone wall panels read as stains. All three were
+  **removed**, not reinforced. The resulting rule, adopted as Art direction: a detail that only exists
+  at close zoom must not damage the building at the primary management camera — it may resolve away,
+  but it may not become dots, stains, smudges or broken diagonals. Note the pairing: **AI** says the
+  management camera can *hide* a blocker, this says it can *manufacture* one. Both are reasons to
+  review at both distances and to let the primary camera arbitrate.
 - **Pattern:** constrain the offline render to the destination's shading convention and palette, and
-  judge it on colour count and edge softness against the art it replaces, not on render realism.
+  judge it on colour count and edge softness against the art it replaces, not on render realism; set
+  the detail budget at the primary camera and delete anything that cannot survive it.
   **Anti-pattern:** assuming a 3D render must be softened *toward* the 2D target; treating "cleared
-  for use" as "should be used". **Related:** **AT**, **AU**. **Reuse:** MG, BR.
+  for use" as "should be used"; keeping detail because effort went into it.
+  **Related:** **AI** (its mirror image), **AT**, **AU**. **Reuse:** MG, BR.

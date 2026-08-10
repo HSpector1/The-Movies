@@ -34,30 +34,40 @@ test.beforeAll(() => {
 
 const fixture = (name: string) => readFileSync(join(fixturesDir, `${name}.json`), 'utf8')
 
-async function seed(page: Page, fixtureName: string, authored: boolean) {
+/**
+ * `chrome` seeds the dev review tooling (perf panel + closer-camera toolbar). Comparison
+ * frames are captured with it OFF so no developer UI can leak which implementation is
+ * active into an image a blind reviewer will see.
+ */
+async function seed(page: Page, fixtureName: string, authored: boolean, chrome = true) {
   await page.addInitScript(
-    ([key, json, f1, f2, f3, f4, on]) => {
+    ([key, json, f1, f2, f3, f4, on, dev]) => {
       try {
         localStorage.setItem(key as string, json as string)
         localStorage.setItem(f1 as string, '1') // lot overview
-        localStorage.setItem(f2 as string, '1') // identity proof -> dev perf panel
-        localStorage.setItem(f3 as string, '1') // soundstage review tooling (closer camera)
+        if (dev) {
+          localStorage.setItem(f2 as string, '1') // identity proof -> dev perf panel
+          localStorage.setItem(f3 as string, '1') // soundstage review tooling
+        } else {
+          localStorage.removeItem(f2 as string)
+          localStorage.removeItem(f3 as string)
+        }
         if (on) localStorage.setItem(f4 as string, '1')
         else localStorage.removeItem(f4 as string)
       } catch {
         /* ignore */
       }
     },
-    [ACTIVE_SESSION_KEY, fixture(fixtureName), OVERVIEW_FLAG, IDENTITY_FLAG, SOUNDSTAGE_PROOF_FLAG, AUTHORED_FLAG, authored] as const,
+    [ACTIVE_SESSION_KEY, fixture(fixtureName), OVERVIEW_FLAG, IDENTITY_FLAG, SOUNDSTAGE_PROOF_FLAG, AUTHORED_FLAG, authored, chrome] as const,
   )
   await page.goto('/')
   await expect(page.getByTestId('dash-week')).toBeVisible()
 }
 
-async function openLot(page: Page) {
+async function openLot(page: Page, chrome = true) {
   await page.getByTestId('open-studio-lot').click()
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
-  await expect(page.getByTestId('lot-perf-panel')).toBeVisible()
+  if (chrome) await expect(page.getByTestId('lot-perf-panel')).toBeVisible()
   await page.waitForTimeout(1400)
 }
 
@@ -135,9 +145,11 @@ test('flag ON but asset unavailable: falls back to procedural, lot still works',
  * for the swap: opaque building pixels must select, transparent ones must not.
  */
 test('authored Stage B is selectable, and its transparent margin is not', async ({ page }) => {
-  await seed(page, 'two', true)
-  await openLot(page)
-  expect((await stageB(page)).authored).toBe(true)
+  // No dev chrome: this frame is shown to blind reviewers, so nothing in it may
+  // reveal which implementation is active. The authored texture is asserted by the
+  // dedicated flag-ON test above.
+  await seed(page, 'two', true, false)
+  await openLot(page, false)
   const canvas = page.getByTestId('studio-lot-canvas')
   const box = (await canvas.boundingBox())!
   const panel = page.getByTestId('lot-selection-panel')
@@ -208,11 +220,8 @@ test('displayObjects: authored vs procedural, identical state', async ({ page })
 
 for (const [leg, authored] of [['old', false], ['new', true]] as const) {
   test(`evidence ${leg}: management, active production, closer, worn`, async ({ page }) => {
-    await seed(page, 'two', authored)
-    await openLot(page)
-    const s = await stageB(page)
-    expect(s.texture).toBe(authored ? AUTHORED_KEY : PROCEDURAL_KEY)
-    await hideOverlay(page)
+    await seed(page, 'two', authored, false)
+    await openLot(page, false)
     await shot(page, `${leg === 'old' ? 'A' : 'B'}-management-active-${leg}`)
     await page.waitForTimeout(2500) // let crew/vehicles move — character movement near Stage B
     await shot(page, `H-character-movement-${leg}`)
@@ -230,16 +239,14 @@ for (const [leg, authored] of [['old', false], ['new', true]] as const) {
   })
 
   test(`evidence ${leg}: underDressed`, async ({ page }) => {
-    await seed(page, 'undressed', authored)
-    await openLot(page)
-    await hideOverlay(page)
+    await seed(page, 'undressed', authored, false)
+    await openLot(page, false)
     await shot(page, `${leg === 'old' ? 'F' : 'E'}-underdressed-${leg}`)
   })
 
   test(`evidence ${leg}: whole frame with Stage A`, async ({ page }) => {
-    await seed(page, 'two', authored)
-    await openLot(page)
-    await hideOverlay(page)
+    await seed(page, 'two', authored, false)
+    await openLot(page, false)
     await shot(page, `L-whole-frame-${leg}`)
   })
 }
@@ -254,10 +261,12 @@ for (const [leg, authored] of [['old', false], ['new', true]] as const) {
   test(`evidence ${leg}: occlusion burst around Stage B`, async ({ page }) => {
     await seed(page, 'two', authored)
     await openLot(page)
+    await page.getByTestId('lot-review-closer').click()
+    await page.waitForTimeout(900)
     await hideOverlay(page)
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 14; i++) {
       await shot(page, `M-occlusion-burst-${leg}-${String(i).padStart(2, '0')}`)
-      await page.waitForTimeout(1500)
+      await page.waitForTimeout(1200)
     }
   })
 }
