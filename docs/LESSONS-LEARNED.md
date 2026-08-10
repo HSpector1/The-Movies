@@ -1545,6 +1545,25 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   asset reads as unfinished rather than restrained — so **peer finish parity is a moving gate
   too**, and deliberate sparseness must be re-justified whenever the peer is re-authored.
   *Anti-pattern:* treating a frozen production SHA as though it froze production.
+- **Differentiate a same-class peer by EMPHASIS, not by vocabulary (Stage A H2 amendment).**
+  Concept C tried to differ from its neighbour by owning a *different roof*, and when the
+  neighbour was re-authored with a curved roof the concept had nothing left; worse, it had spent
+  nothing anywhere else, so it read as the neighbour stripped. Its successor changed axis instead
+  of vocabulary: production Stage B is **roof-led** (glazed vault, clerestory monitor, compound
+  skyline) and Stage A H2 is **front-led** (calm parapet roof, all investment in a monumental
+  frontispiece, pylons, and an elephant door with a human door beside it for scale). Same palette,
+  same projection, same Deco restraint, opposite emphasis. Blind reviewers, unprimed: Concept C
+  drew *"a greybox proxy… next to a finished asset"*; H2 drew *"a sound stage"* at 80 % against
+  the procedural control's *"warehouse / storage shed"* at 35 %, and *"plainer, but correctly
+  plainer."*
+  *Reusable rule:* **two buildings of one class read as peers when each carries comparable
+  authored investment in a DIFFERENT place — not when one has a louder version of the same
+  feature, and not when one simply has less.** "Calmer" survives review only if the calm is
+  purchased somewhere else on the same building. Ask of any same-class pair: *what does each one
+  spend its budget on, and are those the same slot?* If yes, one of them will read as the other's
+  cheaper draft.
+  *Anti-pattern:* differentiating on a single feature the peer might later adopt; treating
+  restraint as a substitute for investment.
 - **Pattern:** compare-mock composites into the live frame before integration spend; half-size
   silhouette checks; reviewer questions phrased about the frame, not the model.
   **Anti-pattern:** approving art from renders on checkerboards; polishing an accepted asset
