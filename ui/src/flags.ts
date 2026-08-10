@@ -28,7 +28,8 @@ export const STUDIO_LOT_SOUNDSTAGES_LS_KEY = 'project-studio.flags.studio-lot-so
 /** localStorage key for the D1-B soundstage REVIEW/PROOF tooling (default OFF). */
 export const STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY = 'project-studio.flags.studio-lot-soundstage-proof'
 
-/** localStorage key for the AUTHORED (offline-rendered) Stage B proof (default OFF). */
+/** localStorage key for the AUTHORED Stage B ROLLBACK. Authored art is default ON;
+ *  set this key to '0' to force the procedural Stage B. */
 export const STUDIO_LOT_AUTHORED_STAGE_LS_KEY = 'project-studio.flags.studio-lot-authored-stage'
 
 type ViteEnv = {
@@ -161,22 +162,41 @@ export function setStudioLotSoundstageProofOverride(on: boolean): void {
 }
 
 /**
- * AUTHORED STAGE B proof gate: does Stage B render from the offline-authored PNG pair
- * instead of the procedural bake? DEFAULT OFF.
+ * AUTHORED STAGE B content gate: does Stage B render from the offline-authored PNG pair
+ * instead of the procedural bake? DEFAULT ON.
  *
- * This is a development proof switch, not player content and not a rollback — with it off
- * the lot is byte-for-byte the production lot, no image is fetched, and the procedural
- * Stage B is the only Stage B. With it on, the scene preloads two PNGs and uses them ONLY
- * if they actually arrive; a failed load falls back to the procedural texture, so the lot
- * can never end up without a Stage B.
+ * Adopted into production after the Authored Soundstage Pipeline Proof. It follows the same
+ * shape as the D1-B soundstage gate above: the authored art is ordinary player content and
+ * needs no env var or localStorage key, while an explicit ROLLBACK forces the procedural
+ * Stage B — env `VITE_STUDIO_LOT_AUTHORED_STAGE=0`, or the localStorage key set to '0'.
+ * That rollback is deliberately retained as an A/B regression-comparison path.
+ *
+ * The procedural bake is NOT removed and is not merely a rollback: it is also the failure
+ * fallback. The scene uses the authored textures only if both actually arrive, so a missing
+ * or unreachable asset leaves the procedural Stage B in place and the lot can never end up
+ * without a Stage B.
  */
 export function studioLotAuthoredStageEnabled(): boolean {
-  return envValue((e) => e.VITE_STUDIO_LOT_AUTHORED_STAGE) || lsFlag(STUDIO_LOT_AUTHORED_STAGE_LS_KEY)
+  // Explicit rollback wins (env first, then the localStorage override); otherwise ON.
+  const env = (import.meta as unknown as { env?: ViteEnv }).env
+  const rollbackEnv = env ? env.VITE_STUDIO_LOT_AUTHORED_STAGE : undefined
+  if (rollbackEnv === '0' || rollbackEnv === 'false') return false
+  try {
+    if (localStorage.getItem(STUDIO_LOT_AUTHORED_STAGE_LS_KEY) === '0') return false
+  } catch {
+    /* storage unavailable (private mode / sandbox) — stay on the default (authored ON) */
+  }
+  return true
 }
 
-/** Dev/test helper: flip the authored-Stage-B proof override. Reload to apply. */
-export function setStudioLotAuthoredStageOverride(on: boolean): void {
-  setLsFlag(STUDIO_LOT_AUTHORED_STAGE_LS_KEY, on)
+/** Dev/test helper: force the procedural Stage B rollback ON or OFF. Reload to apply. */
+export function setStudioLotAuthoredStageRollback(rollback: boolean): void {
+  try {
+    if (rollback) localStorage.setItem(STUDIO_LOT_AUTHORED_STAGE_LS_KEY, '0')
+    else localStorage.removeItem(STUDIO_LOT_AUTHORED_STAGE_LS_KEY)
+  } catch {
+    /* storage unavailable — no-op */
+  }
 }
 
 /** Dev/test helper: force the ordinary-player identity rollback ON (baseline) or OFF (Concept A).

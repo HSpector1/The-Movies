@@ -1,5 +1,11 @@
 # Authored Soundstage Pipeline Proof — runtime-art provenance
 
+**Status: PRODUCTION ADOPTED.** Final accepted proof authority
+`81497b4229fe42d5362241c129eec33b2ef982c7`; closure in
+[`AUTHORED-SOUNDSTAGE-PIPELINE-PROOF-CLOSURE.md`](AUTHORED-SOUNDSTAGE-PIPELINE-PROOF-CLOSURE.md).
+The images below are the shipped production assets and are frozen — they were not re-rendered,
+re-quantised or re-exported for adoption.
+
 Scope: the two runtime images added by this proof branch.
 
 | | |

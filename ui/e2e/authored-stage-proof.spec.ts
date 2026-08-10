@@ -52,8 +52,10 @@ async function seed(page: Page, fixtureName: string, authored: boolean, chrome =
           localStorage.removeItem(f2 as string)
           localStorage.removeItem(f3 as string)
         }
-        if (on) localStorage.setItem(f4 as string, '1')
-        else localStorage.removeItem(f4 as string)
+        // authored Stage B is the production DEFAULT: absence of the key means ON,
+        // and the explicit '0' rollback is what selects the procedural build.
+        if (on) localStorage.removeItem(f4 as string)
+        else localStorage.setItem(f4 as string, '0')
       } catch {
         /* ignore */
       }
@@ -98,7 +100,7 @@ async function shot(page: Page, name: string, keepPanel = false) {
 
 // ── 1. the gate ───────────────────────────────────────────────────────────────
 
-test('flag OFF: Stage B is the procedural build and no authored asset is fetched', async ({ page }) => {
+test('rollback: Stage B is the procedural build and no authored asset is fetched', async ({ page }) => {
   const requested: string[] = []
   page.on('request', (r) => { if (r.url().includes('/lot/b-stage-b')) requested.push(r.url()) })
   await seed(page, 'two', false)
@@ -106,13 +108,13 @@ test('flag OFF: Stage B is the procedural build and no authored asset is fetched
   const s = await stageB(page)
   expect(s.texture).toBe(PROCEDURAL_KEY)
   expect(s.authored).toBe(false)
-  expect(requested, 'flag OFF must not fetch the proof assets').toEqual([])
+  expect(requested, 'the rollback path must not fetch the authored assets').toEqual([])
   await hideOverlay(page)
   await shot(page, 'K-flag-off-production-control')
   writeFileSync(join(outDir, 'flag-off.json'), JSON.stringify(s, null, 2))
 })
 
-test('flag ON: Stage B renders from the authored texture', async ({ page }) => {
+test('default (no override): Stage B renders from the authored texture', async ({ page }) => {
   await seed(page, 'two', true)
   await openLot(page)
   const s = await stageB(page)
@@ -121,7 +123,7 @@ test('flag ON: Stage B renders from the authored texture', async ({ page }) => {
   writeFileSync(join(outDir, 'flag-on.json'), JSON.stringify(s, null, 2))
 })
 
-test('flag ON but asset unavailable: falls back to procedural, lot still works', async ({ page }) => {
+test('default but asset unavailable: falls back to procedural, lot still works', async ({ page }) => {
   await page.route('**/lot/b-stage-b*.png', (route) => route.abort())
   await seed(page, 'two', true)
   await openLot(page)
@@ -135,6 +137,15 @@ test('flag ON but asset unavailable: falls back to procedural, lot still works',
   await page.getByTestId('lot-nav-stage-b').click()
   await expect(page.getByTestId('studio-lot-screen')).toHaveCount(0)
   writeFileSync(join(outDir, 'load-failure.json'), JSON.stringify(s, null, 2))
+})
+
+test('explicit enable also yields the authored texture', async ({ page }) => {
+  await seed(page, 'two', true)
+  await page.addInitScript((k) => localStorage.setItem(k as string, '1'), AUTHORED_FLAG)
+  await page.goto('/')
+  await expect(page.getByTestId('dash-week')).toBeVisible()
+  await openLot(page)
+  expect((await stageB(page)).texture).toBe(AUTHORED_KEY)
 })
 
 // ── 2. same building, same contract ───────────────────────────────────────────
@@ -244,6 +255,12 @@ for (const [leg, authored] of [['old', false], ['new', true]] as const) {
     await shot(page, `${leg === 'old' ? 'F' : 'E'}-underdressed-${leg}`)
   })
 
+  test(`underDressed resolves to the ${leg} worn texture`, async ({ page }) => {
+    await seed(page, 'undressed', authored)
+    await openLot(page)
+    expect((await stageB(page)).texture).toBe(authored ? `${AUTHORED_KEY}-ud` : `${PROCEDURAL_KEY}-ud`)
+  })
+
   test(`evidence ${leg}: whole frame with Stage A`, async ({ page }) => {
     await seed(page, 'two', authored, false)
     await openLot(page, false)
@@ -259,6 +276,8 @@ for (const [leg, authored] of [['old', false], ['new', true]] as const) {
 // frame; the overlap is measured offline from the burst.
 for (const [leg, authored] of [['old', false], ['new', true]] as const) {
   test(`evidence ${leg}: occlusion burst around Stage B`, async ({ page }) => {
+    // 14 frames at ~1.2s plus screenshots sits right on the 30s default and flakes.
+    test.setTimeout(90_000)
     await seed(page, 'two', authored)
     await openLot(page)
     await page.getByTestId('lot-review-closer').click()

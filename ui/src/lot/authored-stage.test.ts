@@ -19,7 +19,7 @@ import { placedBuildings } from './scene/layout'
 import {
   STUDIO_LOT_AUTHORED_STAGE_LS_KEY,
   studioLotAuthoredStageEnabled,
-  setStudioLotAuthoredStageOverride,
+  setStudioLotAuthoredStageRollback,
 } from '../flags'
 
 /** Minimal Graphics recorder — the bake path never touches textures or the loader. */
@@ -41,27 +41,36 @@ function fakeScene(): Phaser.Scene {
 
 const bakeDistinct = () => bakeAllTextures(fakeScene(), { distinctStages: true })
 
-describe('authored Stage B — proof flag', () => {
+describe('authored Stage B — production content gate', () => {
   beforeEach(() => localStorage.clear())
   afterEach(() => localStorage.clear())
 
-  it('1. is DEFAULT OFF, so the production path is untouched', () => {
-    expect(studioLotAuthoredStageEnabled()).toBe(false)
-  })
-
-  it('2. turns on only via its own localStorage key, and back off again', () => {
-    setStudioLotAuthoredStageOverride(true)
-    expect(localStorage.getItem(STUDIO_LOT_AUTHORED_STAGE_LS_KEY)).toBe('1')
+  it('1. is DEFAULT ON — the authored art is ordinary player content', () => {
     expect(studioLotAuthoredStageEnabled()).toBe(true)
-    setStudioLotAuthoredStageOverride(false)
+  })
+
+  it('2. an explicit rollback forces the procedural Stage B, and lifts again', () => {
+    setStudioLotAuthoredStageRollback(true)
+    expect(localStorage.getItem(STUDIO_LOT_AUTHORED_STAGE_LS_KEY)).toBe('0')
+    expect(studioLotAuthoredStageEnabled()).toBe(false)
+    setStudioLotAuthoredStageRollback(false)
+    expect(studioLotAuthoredStageEnabled()).toBe(true)
+  })
+
+  it('3. only the literal rollback value turns it off', () => {
+    for (const v of ['1', 'true', '', 'off', 'no']) {
+      localStorage.setItem(STUDIO_LOT_AUTHORED_STAGE_LS_KEY, v)
+      expect(studioLotAuthoredStageEnabled(), `value ${JSON.stringify(v)}`).toBe(true)
+    }
+    localStorage.setItem(STUDIO_LOT_AUTHORED_STAGE_LS_KEY, '0')
     expect(studioLotAuthoredStageEnabled()).toBe(false)
   })
 
-  it('3. does not respond to the other lot flags', () => {
-    localStorage.setItem('project-studio.flags.studio-lot-soundstages', '1')
+  it('4. is not switched by the other lot flags', () => {
+    localStorage.setItem('project-studio.flags.studio-lot-soundstages', '0')
     localStorage.setItem('project-studio.flags.studio-lot-soundstage-proof', '1')
     localStorage.setItem('project-studio.flags.studio-lot-overview', '1')
-    expect(studioLotAuthoredStageEnabled()).toBe(false)
+    expect(studioLotAuthoredStageEnabled()).toBe(true)
   })
 })
 

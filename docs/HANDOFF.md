@@ -22,6 +22,24 @@
 > retuning, and **no financing/debt/recovery mechanic**. Affordability is authoritative and action-parity
 > tested (bare-minimum greenlight vs standard-budget vs recent-typical). (D-15 shipped while Concept A
 > was still default OFF; Concept A has since been enabled for ordinary players — see above.)
+> **The AUTHORED SOUNDSTAGE PIPELINE PROOF is COMPLETE and its Stage B art is PRODUCTION
+> ADOPTED.** The authored environment runtime pipeline — offline Blender authoring → controlled 2D
+> render → Phaser image load → unchanged building identity/state/interaction → procedural fallback —
+> is **PROVEN VIABLE**. **On `main` today, Stage B renders from the authored PNG pair by default**
+> (`studioLotAuthoredStageEnabled()` default ON); the **procedural Stage B is retained** as both the
+> explicit rollback (`VITE_STUDIO_LOT_AUTHORED_STAGE=0` or localStorage
+> `project-studio.flags.studio-lot-authored-stage` = `'0'`) and the **failure fallback** — a missing
+> or unreachable asset leaves the procedural build in place. Final accepted proof authority
+> `81497b4229fe42d5362241c129eec33b2ef982c7`; closure in
+> [`docs/art/AUTHORED-SOUNDSTAGE-PIPELINE-PROOF-CLOSURE.md`](art/AUTHORED-SOUNDSTAGE-PIPELINE-PROOF-CLOSURE.md).
+> Scope is **one building**: same `BuildingId`, footprint, anchor, canvas and depth key; one sprite,
+> no segmentation; no Engine, GameState, SaveFile or StudioLotSnapshot change; no runtime 3D, no GLB,
+> no generalized asset loader. **No third-party art is in the shipped images.** Recorded honestly:
+> one-sprite occlusion passed with no observed defect, but no legitimate gameplay route produced a
+> true behind-body crossing case. **Stage A is unchanged, and broader authored-building rollout
+> (Stage A, Administration, Gate, Theater, Water Tower, full-lot conversion) requires separate Art
+> Director authorization.**
+>
 > **D1-B has started ONLY through the bounded Soundstage Composer Proof, which is COMPLETE**; its
 > **selective production adoption is MERGED / PRODUCTION**. It was built on branch
 > `art-d1b-soundstage-composer-proof` (base `aadbd63d`, adoption **promotion** commit `a7e4847`); that
