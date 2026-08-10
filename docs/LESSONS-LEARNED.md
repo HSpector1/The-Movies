@@ -1439,3 +1439,176 @@ rather than a physical one.
   **Anti-pattern:** assuming a 3D render must be softened *toward* the 2D target; treating "cleared
   for use" as "should be used"; keeping detail because effort went into it.
   **Related:** **AI** (its mirror image), **AT**, **AU**. **Reuse:** MG, BR.
+
+---
+
+# Fable Authored Environment Strike Team + Option D (merged `fdfdfea`)
+
+Context: a Director-commissioned, fully isolated experiment (branch
+`art-fable-authored-environment-spike` from frozen `9c4d060`, worktree + quarantine at
+`Project Studio - Art Source Quarantine/Fable-Authored-Proof/`) testing whether donor-based,
+Blender-authored, offline-rendered environment art beats the procedural lot art in the real
+game frame. It ran the same day as — and independent of — the production authored-stage lane
+(`032dd16`→`5e75b8e`→`4a3025e`). **The Fable branch itself was never merged.** A reconciliation
+found the Fable art stronger and the production mechanism stronger; **Option D** selectively
+combined them: Candidate A's art + production's integration path + production's worn-state
+semantics + four regression guards, as one surgical commit (`fdfdfea`, ff-only, 4 files).
+Related: `docs/art/FABLE-AUTHORED-ENVIRONMENT-SPIKE.md` (on the spike branch),
+`docs/art/AUTHORED-ENVIRONMENT-PIPELINE-STANDARD.md`, quarantine `reports/` + `pm/DECISIONS.md`.
+
+## AW. Reuse-first Art is component-level — donor building shells rarely survive adaptation — **MG, BR**
+
+The project receives no extra credit for creating commodity art from scratch; that ruling was
+validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
+
+- **Two artists, briefed independently on the same cleared hangar-class donor, both rejected the
+  shell** for the same measured reasons (ground-springing Quonset massing, wrong aspect for the
+  4×4 plot, ~40 ribs/m photoreal steel that aliases at management scale) and rebuilt clean. The
+  winning stage retained one donor canopy and a few solid-silhouette CC0 props, re-materialled
+  flat (the rejected candidate applied the same discipline, decimating its props to ≤500 tris).
+  The CC0 backup shell was rejected outright (texture-baked slab).
+- Reuse should happen at the level that genuinely saves effort — canopy, duct, crate, window
+  family, material, massing *reference* — and a whole building only when it truly survives
+  adaptation. **Do not measure success by percentage of donor geometry retained**; the AV
+  corollary (donor props unnecessary at a 222 px flat target) and this result bracket the same
+  truth: donor value is resolution- and style-dependent, decided per asset by the destination
+  camera, never by acquisition effort.
+- "Reuse-first" does NOT mean "drop premade buildings in unchanged" — Studio silhouette and art
+  direction stay authoritative; the donor is raw material.
+- Provenance worked without becoming bureaucracy: quarantine outside git, per-asset ledger
+  (creator, URL, licence + verbatim load-bearing sentences, SHA-256, acquisition time, tier,
+  intended use, disposition), raw restricted sources never entering the repo, and only rendered
+  derivatives shipping. One acquisition-path judgment call was escalated, disclosed, and
+  Director-ratified rather than buried. Where the Owner knows the creator, one concise
+  dual-rights ask (modify + commercial derivatives) beats weeks of licence archaeology.
+- Tooling stayed parked (spritesheet renderers, batch converters, material-layer systems):
+  repetition had not yet justified automation. D1-B's ruling held again — make things first,
+  automate observed repetition.
+- **Pattern:** audit the donor with a headless inventory dump, decide shell-vs-components
+  honestly, record what was actually used. **Anti-pattern:** donor-shell loyalty; equating
+  "cleared" with "should be used"; provenance theatre after the art is already built.
+
+## AX. Whole-frame, same-conditions, signage-masked judgment — and when a concept competition is worth it — **MG, BR**
+
+- The Soundstage was accepted because the GAME improved, judged as: same state, same camera,
+  same viewport, same surrounding lot, old vs new. Isolated turntable beauty was never the
+  question; "did the frame become more compelling" was.
+- **Signage-masked identity was the decisive discriminator** in the authored-vs-authored
+  reconciliation: with lettering removed, one stage still read as a Golden-Age soundstage
+  through architecture alone (vault + ridge monitor + door hierarchy); the other read as
+  factory/depot. Architecture must communicate function, era and hierarchy before signage
+  explains it. Keep this test for hero buildings.
+- **Two serious competing concepts beat polishing the first idea.** Candidate B was rejected on
+  its own measurements (7.8 points busier than the lot; its stated discriminator failed to set
+  the silhouette) — cheap to learn from a parallel concept, expensive to learn by iterating one
+  mediocre direction. Justified when: hero asset, alternatives are cheap, visual judgment is
+  genuinely uncertain. Do not run competitions for props.
+- A successful replacement **moved the weakest-object title to Stage A** — each major win
+  exposes the next attack target. Raise the visual floor; do not keep polishing winners.
+- **Pattern:** compare-mock composites into the live frame before integration spend; half-size
+  silhouette checks; reviewer questions phrased about the frame, not the model.
+  **Anti-pattern:** approving art from renders on checkerboards; polishing an accepted asset
+  because attention lingers there.
+
+## AY. Author the best art first; optimize delivery second; measure performance instead of fearing it — **MG, BR**
+
+- Order that worked: author → validate visually → optimize delivery → **reject any optimization
+  that visibly damages the win**. True PNG-8 hit production-class bytes (~23 KB pair) but
+  averaged the 1-px silhouette rim and posterised tonal ramps; the alpha-lossless quantised
+  export (~116 KB pair) was indistinguishable from full fidelity and shipped. Byte counts are
+  not a quality metric; a ~100 KB-class hero texture is not a crisis. The +501 % payload was
+  accepted deliberately, in writing.
+- Performance fears were measured, not assumed: displayObjects 143 → 143 (delta 0), FPS
+  unchanged, one decoded texture ≈ 0.74 MB. For pre-rendered buildings the real budget axes are
+  **texture bytes, decoded memory, alpha correctness, anchoring, hit behavior** — not source
+  polygon count (the 10k-poly donor's cost was authoring-side only).
+- **Pattern:** encode-and-compare plates (full vs optimized, 1:1 and 2×, plus a ×-scaled
+  difference map) before choosing an encoding. **Anti-pattern:** letting a byte-size contest or
+  a hypothetical perf ceiling dictate weaker art; optimizing before the art has won.
+
+## AZ. Adopt components, not branches — and authoritative state must survive better art — **P, MG**
+
+- The reconciliation returned different winners per axis: visual (Fable lane) vs engineering
+  (production lane: structurally guaranteed fallback, real-browser e2e, generic worn resolution,
+  smaller delivery). The correct outcome was **not** choosing a branch — it was one surgical
+  commit combining best art + best runtime path + best state behavior + best tests, and
+  explicitly carrying nothing else (no experimental loader/flag, no competition machinery, no
+  quarantine tooling). Branch loyalty is not an adoption criterion.
+- **A prettier asset cannot erase authoritative gameplay communication.** The winning art
+  initially had no worn variant; production's guard (both textures or no swap) correctly refused
+  such art. The worn derivative was authored from the lot's own shipped worn transform — duller
+  fields, desaturation, reduced glazing, trim dropped not darkened — with **no invented
+  condition narrative** (no broken windows, damage, or abandonment the Engine never stated).
+  Engine decides state; Art expresses it, at exactly the established signal strength.
+- Bit-exact alpha between normal and worn means a state change can never alter the hit area —
+  and adopting it fixed a latent 8,652-pixel alpha drift between the previous pair.
+- **Pattern:** reconcile parallel lanes with a measured same-conditions comparison, then adopt
+  per component. **Anti-pattern:** merging an experiment because it won one axis; strengthening
+  or inventing state semantics because the new art could draw them.
+
+## BA. Test the real invariant of an authored asset — measured camera, anchor math, registration, real alpha — **BR**
+
+- **A measured camera contract beat eyeballing**: the Blender↔Phaser rig was proven with
+  self-measuring gates against the game's own projection (px/tile, dimetric ratio, axis mapping
+  via an asymmetric probe, anchor, shift). Renders then entered the game predictably, twice
+  (spike flag-lane and production path). Calibration is DONE when the gates pass — it did not
+  become its own project, and should not.
+- **Depth slicing was tested and not needed**: one sprite, existing container depth, characters
+  already occlude correctly. Build slicing infrastructure only when a real asset fails without
+  it.
+- The inherited test asserted equal `originY` between textures — true only because two assets
+  coincidentally shared a height; a 4 px-taller drop would sink the building 1.37 px with
+  nothing failing. Adopted guards test the *invariant*: anchor sits 128 px above the bottom edge
+  (`texH × (1 − originY) = 128 ± 0.5`); on-disk IHDR must match the metadata the code assumes;
+  and a **registration lock** pins the approved silhouette placement (lowest opaque row, bbox
+  insets, centroid) ±1 px so future drops shift art review, not the building. Every guard was
+  mutation-tested (wrong-size drop fails; 2 px shift fails; `pixelPerfect:false` fails).
+- **Real alpha drives hit behavior**: authored silhouette ≠ texture rectangle. A negative click
+  must land on a transparent pixel *inside* the sprite rect — the inherited outside-the-rect
+  probe passed vacuously, and a bbox-based locator produced a false positive during evidence
+  until replaced. State variants keep identical alpha when geometry doesn't change.
+- **Pattern:** derive test coordinates from the committed asset's alpha programmatically;
+  mutation-test every new guard. **Anti-pattern:** constants that encode an accident of current
+  assets; trusting a claim ("gates pass") measured on a synthetic overlay rather than the art —
+  that mislabel survived two reviews here before an implementer re-measured the actual file.
+
+## BB. One expensive PM, many cheap builders — with single write ownership — **BR**
+
+- The Owner's economics (PM-tier tokens scarce; builder-tier abundant) produced the working
+  model: **one PM** holding judgment, sequencing, acceptance, checkpoint rulings and synthesis;
+  **parallel Opus builders** doing art, integration, evidence, provenance, review and fact
+  extraction. Zero PM-tier subagents, ever. The PM reads results and decides; it does not grind
+  implementation to save a builder call.
+- Parallelism worked because writes never overlapped: artists owned isolated candidate
+  directories, the integration engineer owned the runtime files, provenance owned the ledger,
+  reviewers were read-only, and competing implementations lived in separate locations with the
+  PM choosing a winner. Conflicts are prevented by ownership, not resolved by blending.
+- Builders challenged the PM upward when evidence demanded it (a mislabeled measurement, an
+  escalated acquisition judgment, a premise-changing discovery on main) — and were right each
+  time. A lane exists so its reports can be *corrected*, not just collected.
+- **Pattern:** precise bounded briefs; same-builder continuation when context compounds;
+  independent review only where independence adds information. **Anti-pattern:** PM-tier
+  swarms; two agents editing one file; delegating the acceptance judgment itself.
+
+## How Track A should change Track B (Southeastern) — carried forward before any campus work
+
+1. Audit the ENTIRE family before converting anything; classification per building
+   (keep-restyle / heavily modify / harvest components / recombine / reject) with transformation
+   estimates — expect component harvest, not seven whole-building conversions (AW).
+2. ONE Administration concept first; it is a hero asset, so a bounded concept competition is
+   justified (AX). Accumulated-studio-history reading — historic core legible under later
+   annexes — is the acceptance axis.
+3. Judge offline concepts composited into the live frame at the governed camera before any
+   integration spend (AX); no runtime integration until the art direction passes and the
+   Director authorizes it.
+4. Provenance before significant transformation: the pack ships with no licence, so the
+   prepared one-paragraph dual-rights creator ask precedes creator-derived work
+   (`Fable-Authored-Proof/southeastern-intake/`); creator-source files preferred over anything
+   reverse-extracted (AW).
+5. Authoritative state boundaries unchanged: campus-derived buildings express existing Engine
+   state at existing signal strength; no new condition vocabulary (AZ).
+6. Reuse the measured camera contract and the asset-invariant guard patterns as-is (BA); no new
+   calibration project, no slicing infrastructure, no automation until the second or third
+   building demonstrates actual repetition (AW).
+7. Status at time of writing: **BLOCKED — source bytes not on the machine**; intake directory
+   and permission draft are ready; nothing was faked with substitute geometry.

@@ -215,6 +215,16 @@ zlib runtime **1.2.12**, numpy 2.5.1, macOS arm64. A future Pillow may change `F
 its PNG encoder; if reproduction then fails, that is a **provenance event to record**, not a
 licence to re-export the accepted asset.
 
+> **Supersession note (Option D, `fdfdfea`).** The Stage B pair this section's "shipped pair"
+> language originally described was replaced on `main` by the Option D adoption of the Fable
+> Candidate A art. The **current** production pair is not PNG-8: it is an RGBA colour-quantised,
+> **alpha-lossless** encoding (true PNG-8 was evaluated and rejected for visible rim averaging
+> and tonal posterisation — art fidelity wins), deterministically reproducible from the
+> adoption-pack build scripts recorded in the strike-team quarantine, with as-committed SHA-256
+> digests in the `fdfdfea` commit message. This section remains the standard for future exports
+> produced with this instrument; the instrument's `verify` against-production baseline refers to
+> the superseded pair and re-baselining is a decision for the next authored-building cycle.
+
 ---
 
 ## 4. The measurement window is a per-building input, not a constant
@@ -284,6 +294,12 @@ never again be quoted without the definition that produced it (see Part 2 §B).
 
 **These numbers are evidence about one building. They are not rules.** Stage B is
 production-adopted and closed; nothing in Part 1 re-opens, re-grades or re-gates it.
+
+> **Supersession note (Option D, `fdfdfea`).** Everything below measures the procedural-lane
+> Stage B pair as committed through `4a3025e`. Those files were replaced on `main` at `fdfdfea`
+> by the Option D adoption of the Fable Candidate A art (which passes the Part 1 §2 relational
+> rule at 0.8763/0.8732 against cream's 0.8737 ± 0.015). The measurements below stand unchanged
+> as historical evidence about the superseded files and are not re-graded.
 
 ## A. Stage B's historical band, and its disposition
 
