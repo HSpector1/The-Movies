@@ -195,14 +195,111 @@ test('authored Stage B is selectable, and its transparent margin is not', async 
   await expect(page.getByTestId('lot-nav-stage-b')).toBeVisible()
   await expect(page.getByTestId('lot-nav-stage-a')).toBeVisible()
 
-  // the empty top-left corner is transparent sky: it must NOT select anything.
+  // ── the negative probe: transparent pixels INSIDE the sprite's own rect ──────
+  //
+  // The previous probe clicked canvas (6,6), which is nowhere near Stage B — it lies
+  // outside the sprite's bounding rect entirely, so it passed whether the hit area was
+  // pixel-perfect or a plain rectangle. It asserted nothing about alpha.
+  //
+  // These points are derived from the COMMITTED texture's own alpha channel: a
+  // chamfer distance transform picks transparent pixels that are far from any opaque
+  // one, so the probes follow the art instead of encoding a guess about it.
   // (shot() already dismissed the panel; close it only if something is still open.)
   const close = page.getByRole('button', { name: 'Close details' })
   if (await close.isVisible().catch(() => false)) await close.click()
   await expect(panel).toHaveCount(0)
-  await canvas.click({ position: { x: 6, y: 6 } })
-  await page.waitForTimeout(300)
-  await expect(panel, 'transparent margin must not be clickable').toHaveCount(0)
+
+  const art = await page.evaluate(async (url) => {
+    const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const i = new Image()
+      i.onload = () => resolve(i)
+      i.onerror = () => reject(new Error(`could not load ${url}`))
+      i.src = url
+    })
+    const W = img.width
+    const H = img.height
+    const cv = document.createElement('canvas')
+    cv.width = W
+    cv.height = H
+    const ctx = cv.getContext('2d')!
+    ctx.drawImage(img, 0, 0)
+    const { data } = ctx.getImageData(0, 0, W, H)
+
+    // distance (in px) from each pixel to the nearest opaque one, two-pass chamfer
+    const dist = new Int32Array(W * H)
+    const BIG = 1 << 20
+    for (let i = 0; i < W * H; i++) dist[i] = data[i * 4 + 3] > 0 ? 0 : BIG
+    for (let y = 0; y < H; y++)
+      for (let x = 0; x < W; x++) {
+        const i = y * W + x
+        if (y > 0 && dist[i - W] + 1 < dist[i]) dist[i] = dist[i - W] + 1
+        if (x > 0 && dist[i - 1] + 1 < dist[i]) dist[i] = dist[i - 1] + 1
+      }
+    for (let y = H - 1; y >= 0; y--)
+      for (let x = W - 1; x >= 0; x--) {
+        const i = y * W + x
+        if (y < H - 1 && dist[i + W] + 1 < dist[i]) dist[i] = dist[i + W] + 1
+        if (x < W - 1 && dist[i + 1] + 1 < dist[i]) dist[i] = dist[i + 1] + 1
+      }
+
+    // keep a margin off the texture edge so click rounding cannot fall out of the rect,
+    // and require real depth so sub-pixel zoom cannot land the click on the silhouette
+    const MARGIN = 8
+    const MIN_DEPTH = 24
+    const found: { x: number; y: number; dist: number }[] = []
+    for (let y = MARGIN; y < H - MARGIN; y++)
+      for (let x = MARGIN; x < W - MARGIN; x++) {
+        const i = y * W + x
+        if (data[i * 4 + 3] === 0 && dist[i] >= MIN_DEPTH) found.push({ x, y, dist: dist[i] })
+      }
+    found.sort((a, b) => b.dist - a.dist)
+    const probes: { x: number; y: number; dist: number }[] = []
+    for (const p of found) {
+      if (probes.some((q) => Math.abs(q.x - p.x) < 100 && Math.abs(q.y - p.y) < 100)) continue
+      probes.push(p)
+      if (probes.length >= 4) break
+    }
+    return { W, H, transparent: found.length, probes }
+  }, '/lot/b-stage-b.png')
+
+  expect(art.probes.length, 'the authored art must have transparent pixels inside its own rect').toBeGreaterThan(0)
+  console.log(`[authored] negative-probe candidates: ${art.transparent} px, using ${JSON.stringify(art.probes)}`)
+
+  // the sprite is drawn with origin (0.5, originY) ON the ground anchor, so texture
+  // space maps to canvas space by that offset and the camera zoom.
+  const ORIGIN_Y = 246 / 374
+  const rect = {
+    left: anchorX - (art.W / 2) * zoom,
+    right: anchorX + (art.W / 2) * zoom,
+    top: anchorY - art.H * ORIGIN_Y * zoom,
+    bottom: anchorY + art.H * (1 - ORIGIN_Y) * zoom,
+  }
+
+  let selectedNothing = 0
+  for (const p of art.probes) {
+    const pt = { x: anchorX + (p.x - art.W / 2) * zoom, y: anchorY + (p.y - art.H * ORIGIN_Y) * zoom }
+    const where = `texture (${p.x},${p.y}) -> canvas (${pt.x.toFixed(1)},${pt.y.toFixed(1)})`
+    // the whole point of the change: unlike (6,6), this IS inside the sprite's rect,
+    // so only the alpha channel can be what rejects the click
+    expect(pt.x, `${where} must be inside the sprite rect`).toBeGreaterThan(rect.left)
+    expect(pt.x, `${where} must be inside the sprite rect`).toBeLessThan(rect.right)
+    expect(pt.y, `${where} must be inside the sprite rect`).toBeGreaterThan(rect.top)
+    expect(pt.y, `${where} must be inside the sprite rect`).toBeLessThan(rect.bottom)
+
+    await canvas.click({ position: pt })
+    await page.waitForTimeout(300)
+    if (await panel.isVisible().catch(() => false)) {
+      // a neighbouring building may legitimately own that patch of ground; Stage B
+      // may not, because at that texel Stage B is transparent
+      const heading = (await panel.locator('h3').first().textContent()) ?? ''
+      expect(heading, `${where} is alpha 0 and must not select Stage B`).not.toMatch(/stage b/i)
+      await page.getByRole('button', { name: 'Close details' }).click()
+      await expect(panel).toHaveCount(0)
+    } else {
+      selectedNothing++
+    }
+  }
+  expect(selectedNothing, 'a transparent pixel inside the rect must select nothing at all').toBeGreaterThan(0)
 })
 
 // ── 3. displayObjects guard ───────────────────────────────────────────────────
