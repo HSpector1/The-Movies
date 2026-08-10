@@ -145,9 +145,14 @@ describe('family-derived relational targets', () => {
 })
 
 describe('the bounded tolerance, against the evidence that set it', () => {
-  // Measured on the accepted production PNGs by
-  // scripts/art/authored-asset-pipeline.py measure. Historical record, reproduced.
-  const ACCEPTED_STAGE_B = { normal: 0.8687, worn: 0.8614 }
+  // ADOPTED: the Candidate A pair shipped by Option D (`fdfdfea`) — measured on the
+  // adoption-pack renders with the per-building window of the standard's §4 (strike-team
+  // footprint/value gates; confirmed against the cream target in the adoption review).
+  const ADOPTED_STAGE_B = { normal: 0.8763, worn: 0.8732 }
+  // SUPERSEDED: the pre-Option-D authored pair those files replaced. Measured on the
+  // then-committed production PNGs by scripts/art/authored-asset-pipeline.py measure.
+  // Retained as regression history; NOT a description of current production art.
+  const SUPERSEDED_STAGE_B_PRE_OPTION_D = { normal: 0.8687, worn: 0.8614 }
   const PROCEDURAL_CONTROL = { normal: 0.8737, worn: 0.8746 }
   const CAUGHT_DEFECT = 0.949 // the linear-irradiance mistake, before AU was learned
 
@@ -155,8 +160,10 @@ describe('the bounded tolerance, against the evidence that set it', () => {
     Math.abs(measured - FAMILY_TARGET[family]) <= FAMILY_TOLERANCE
 
   it('7. admits every accepted production measurement against the cream target', () => {
-    expect(within(ACCEPTED_STAGE_B.normal, 'cream')).toBe(true)
-    expect(within(ACCEPTED_STAGE_B.worn, 'cream')).toBe(true)
+    expect(within(ADOPTED_STAGE_B.normal, 'cream')).toBe(true)
+    expect(within(ADOPTED_STAGE_B.worn, 'cream')).toBe(true)
+    expect(within(SUPERSEDED_STAGE_B_PRE_OPTION_D.normal, 'cream')).toBe(true)
+    expect(within(SUPERSEDED_STAGE_B_PRE_OPTION_D.worn, 'cream')).toBe(true)
     expect(within(PROCEDURAL_CONTROL.normal, 'cream')).toBe(true)
     expect(within(PROCEDURAL_CONTROL.worn, 'cream')).toBe(true)
   })
