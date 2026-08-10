@@ -1523,6 +1523,28 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   genuinely uncertain. Do not run competitions for props.
 - A successful replacement **moved the weakest-object title to Stage A** — each major win
   exposes the next attack target. Raise the visual floor; do not keep polishing winners.
+- **The comparison peer is itself a moving authority — re-verify it at the moment of grading
+  (Stage A supersession amendment).** This lesson's "same state, same camera, same viewport,
+  same surrounding lot" conditions silently assume the *neighbour* is fixed. It is not.
+  *Project-specific evidence:* the authored Stage A Concept C was selected, built, measured and
+  blind-reviewed against the sawtooth Stage B, and was passed at 95 % "clearly different
+  buildings" with "no blocker". Production replaced Stage B with the Option D barrel-vault
+  Ridge-Monitor stage **while that work was in flight** — between the proof's authority check
+  and its first render. Re-reviewed against the Stage B that would actually ship beside it, the
+  same frozen asset drew *"a greybox proxy or an unfinished blockout sitting next to a finished
+  asset"*. Nothing about the asset changed; only its neighbour did. The concept's entire
+  selection rationale — "the strongest, most differentiated silhouette against Stage B's
+  sawtooth" — had evaporated before the first polygon existed.
+  *Reusable rule:* **an authored building is graded against the peer that will ship beside it,
+  not the peer that existed when the concept was chosen.** Pin the peer's commit in the concept
+  document, and re-verify that commit is still current before grading, before blind review, and
+  before adoption. A frozen authority protects *your* work from drifting; it does not stop the
+  world you are matching from drifting.
+  *Corollary, which is the more expensive half:* "calmer than its neighbour" is only a design
+  position while the neighbour is comparable in finish. Against a richer peer the identical
+  asset reads as unfinished rather than restrained — so **peer finish parity is a moving gate
+  too**, and deliberate sparseness must be re-justified whenever the peer is re-authored.
+  *Anti-pattern:* treating a frozen production SHA as though it froze production.
 - **Pattern:** compare-mock composites into the live frame before integration spend; half-size
   silhouette checks; reviewer questions phrased about the frame, not the model.
   **Anti-pattern:** approving art from renders on checkerboards; polishing an accepted asset
