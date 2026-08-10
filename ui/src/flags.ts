@@ -28,12 +28,16 @@ export const STUDIO_LOT_SOUNDSTAGES_LS_KEY = 'project-studio.flags.studio-lot-so
 /** localStorage key for the D1-B soundstage REVIEW/PROOF tooling (default OFF). */
 export const STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY = 'project-studio.flags.studio-lot-soundstage-proof'
 
+/** localStorage key for the AUTHORED (offline-rendered) Stage B proof (default OFF). */
+export const STUDIO_LOT_AUTHORED_STAGE_LS_KEY = 'project-studio.flags.studio-lot-authored-stage'
+
 type ViteEnv = {
   VITE_STUDIO_LOT_OVERVIEW?: string
   VITE_STUDIO_LOT_IDENTITY_PROOF?: string
   VITE_STUDIO_LOT_IDENTITY?: string
   VITE_STUDIO_LOT_SOUNDSTAGES?: string
   VITE_STUDIO_LOT_SOUNDSTAGE_PROOF?: string
+  VITE_STUDIO_LOT_AUTHORED_STAGE?: string
 }
 
 function envValue(pick: (e: ViteEnv) => string | undefined): boolean {
@@ -154,6 +158,25 @@ export function studioLotSoundstageProofEnabled(): boolean {
 /** Dev/test helper: flip the D1-B soundstage review/proof override. Reload to apply. */
 export function setStudioLotSoundstageProofOverride(on: boolean): void {
   setLsFlag(STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY, on)
+}
+
+/**
+ * AUTHORED STAGE B proof gate: does Stage B render from the offline-authored PNG pair
+ * instead of the procedural bake? DEFAULT OFF.
+ *
+ * This is a development proof switch, not player content and not a rollback — with it off
+ * the lot is byte-for-byte the production lot, no image is fetched, and the procedural
+ * Stage B is the only Stage B. With it on, the scene preloads two PNGs and uses them ONLY
+ * if they actually arrive; a failed load falls back to the procedural texture, so the lot
+ * can never end up without a Stage B.
+ */
+export function studioLotAuthoredStageEnabled(): boolean {
+  return envValue((e) => e.VITE_STUDIO_LOT_AUTHORED_STAGE) || lsFlag(STUDIO_LOT_AUTHORED_STAGE_LS_KEY)
+}
+
+/** Dev/test helper: flip the authored-Stage-B proof override. Reload to apply. */
+export function setStudioLotAuthoredStageOverride(on: boolean): void {
+  setLsFlag(STUDIO_LOT_AUTHORED_STAGE_LS_KEY, on)
 }
 
 /** Dev/test helper: force the ordinary-player identity rollback ON (baseline) or OFF (Concept A).

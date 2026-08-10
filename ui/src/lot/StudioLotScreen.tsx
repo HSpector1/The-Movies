@@ -26,6 +26,7 @@ import {
   studioLotIdentityProofEnabled,
   studioLotSoundstagesEnabled,
   studioLotSoundstageProofEnabled,
+  studioLotAuthoredStageEnabled,
 } from '../flags.ts'
 import type { IdentityMode } from './identity/manifest.ts'
 import './lot.css'
@@ -114,7 +115,14 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   const playerIdentity = studioLotIdentityEnabled()
   const [reviewKey, setReviewKey] = useState<ReviewKey>('concept-a')
   const [reviewHidden, setReviewHidden] = useState(false)
-  const [perf, setPerf] = useState<{ fps: number; displayObjects: number; identityObjects: number } | null>(null)
+  const [perf, setPerf] = useState<{
+    fps: number
+    displayObjects: number
+    identityObjects: number
+    /** Authored-proof diagnostics — dev panel only, never player-facing. */
+    stageBTexture: string
+    authoredStageActive: boolean
+  } | null>(null)
   const activeReview = REVIEW_MODES.find((m) => m.key === reviewKey) ?? REVIEW_MODES[1]
 
   // The identity actually rendered, and whether motion is reduced:
@@ -142,6 +150,9 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   // D1-B review tooling, default OFF and independent of the content gate. It adds only
   // capture affordances for the evidence harness — no game content, never a player default.
   const soundstageProof = studioLotSoundstageProofEnabled()
+  // Authored Soundstage Pipeline Proof, default OFF. With it off the scene fetches no
+  // image and Stage B is the procedural build exactly as in production.
+  const authoredStage = studioLotAuthoredStageEnabled()
   const [signageMasked, setSignageMasked] = useState(false)
   const [closerCamera, setCloserCamera] = useState(false)
   const readSnapshot = useCallback((s: GameState): StudioLotSnapshot => {
@@ -178,6 +189,7 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
         view = new StudioLotView({
           parent: mountRef.current,
           distinctStages: soundstages,
+          authoredStage,
           snapshot: { ...readSnapshot(state), selectedBuildingId: sessionSelectedBuilding },
           onSelect: (sel) => {
             setSelectionInfo(sel)
@@ -269,7 +281,16 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
     if (!identityProof || !canvasReady) return
     const tick = () => {
       const d = viewRef.current?.identityDebug()
-      if (d) setPerf({ fps: d.fps, displayObjects: d.displayObjects, identityObjects: d.identityObjects })
+      // optional-call: test doubles for the view do not implement the debug accessor
+      const dbg = viewRef.current?.getDebugState?.()
+      if (d)
+        setPerf({
+          fps: d.fps,
+          displayObjects: d.displayObjects,
+          identityObjects: d.identityObjects,
+          stageBTexture: dbg?.stageBTexture ?? '',
+          authoredStageActive: dbg?.authoredStageActive === true,
+        })
     }
     const h = window.setInterval(tick, 500)
     tick()
@@ -353,7 +374,13 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
                 ))}
               </div>
               {perf && (
-                <span className="lot-review-perf" data-testid="lot-perf-panel" role="status">
+                <span
+                  className="lot-review-perf"
+                  data-testid="lot-perf-panel"
+                  role="status"
+                  data-stage-b-texture={perf.stageBTexture}
+                  data-authored-stage={perf.authoredStageActive ? "1" : "0"}
+                >
                   {perf.fps} fps · {perf.displayObjects} objects · {perf.identityObjects} identity
                 </span>
               )}

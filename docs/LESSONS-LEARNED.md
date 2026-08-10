@@ -1299,3 +1299,75 @@ success because the artefact next to it looked good.
   worth shipping *because* their parent experiment needs to be called a success; defining a cache's
   lifetime only by what it must **outlive**, without defining what **ends** it.
   **Related:** **AQ**, **AR**, **AS**. **Reuse:** BR, MG, P.
+
+---
+
+# Authored Soundstage Pipeline Proof — Checkpoint C (proof branch `art-authored-soundstage-pipeline-proof`, base `6d08bb0`, UNMERGED)
+
+Context: an offline-authored (Blender) replacement for one soundstage, rendered to a 2D PNG pair and
+integrated behind a DEFAULT-OFF proof flag. Production `main` unchanged; the procedural Stage B
+remains the control, the rollback and the failure fallback.
+
+## AU. An absolute-value check cannot catch a relational visual defect — **BR, MG, P**
+
+A metric written to answer the *previous* symptom will keep passing while the cause moves. If the
+defect is "this element looks wrong **against what it sits on**", only a relational assertion can see
+it — and a global bound will certify the artefact as fixed while a reviewer still sees the fault.
+
+- **Task — Project: Studio.** The authored Stage B carried three small roof units. A blind reviewer
+  reported them as reading like "flat smudges… a stain or a recess, not a box".
+- **The check passed while the defect stood.** The prior corrective pass had been scoped as "lift the
+  vent into the palette's darkest legitimate range", and it was verified exactly that way: darkest
+  opaque tone **luma 104.3**, **zero** pixels below the scene backdrop (luma 21.7), against a control
+  whose own darkest tone is 107. All true, and the item was reported **closed**. It was not.
+- **Root cause of the miss.** The real defect was never absolute. The unit's *up-facing top* rendered
+  at luma **152.8** against the *up-facing roof deck* it stands on at **175.5** — a **~20-luma
+  inversion between two parallel planes**. The original symptom (a near-black box below the backdrop,
+  luma 14.5) had been a lighting-rig bug — an on-axis key casting a degenerate infinite shadow band —
+  and fixing that cause left a second, different fault in the same object that the same metric could
+  not express.
+- **Two reviewers disagreed, and the disagreement was the signal.** One blind reviewer called the
+  units holes; the next, on the corrected asset, called them "raised boxes with a shadowed face".
+  A split like that is diagnostic of a *relational read* rather than an absolute fact, and it is the
+  cue to go and measure the relation rather than to pick a side.
+- **One physics correction worth keeping.** The claim "two parallel surfaces under one light cannot
+  differ" is only true for identical materials; the measured gap here is **albedo**, not illumination.
+  Getting that right changed the severity classification, not the existence of the defect.
+- **Resolution.** Reclassified as a known release-blocking Art defect and carried into Checkpoint C
+  as an explicit runtime watch item, deliberately **not** fixed during integration so the runtime
+  proof observed the frozen candidate.
+- **Fastest future diagnostic:** sample the element and the surface it sits on in the same render and
+  compare, rather than comparing either to a global floor.
+- **Pattern:** assert the *relation* — element vs the plane it shares an orientation with, or vs its
+  immediate neighbour — whenever the complaint is about how something reads in context.
+  **Anti-pattern:** closing a visual defect on a threshold the defect was never going to violate;
+  reusing the previous symptom's metric as the acceptance test for its successor.
+  **Related:** **AI**, **AM**, **AT**. **Reuse:** BR, MG, P.
+
+## AV. A constrained offline render can be *more* stylised than the procedural art it replaces — **MG, BR**
+
+The pre-registered risk for importing offline-rendered 3D into flat-shaded 2D art is that it arrives
+softer, noisier and more chromatically complex than everything around it. Measured, the opposite
+happened — because the render was constrained to reproduce the target's *own* shading convention
+rather than a physical one.
+
+- **Pre-registered as HIGH RISK** at Checkpoint A: AA gradients, contact shadows and material
+  micro-variation that "literally no other pixel in the frame has".
+- **Measured on the shipped assets:** authored **34 distinct colours** vs the procedural control's
+  **230**; true soft edge (alpha 1–249) **1.71%** vs **2.73%**; 92–96% of the opaque area within
+  ΔRGB 30 of a governed palette constant. The authored sprite is the flatter, harder-edged and more
+  palette-disciplined of the two.
+- **What produced that.** Three white suns aligned to +X/+Y/+Z with zero ambient, at irradiance π so
+  a diffuse face renders its albedo exactly, with the shadow-side sun set to the project's own
+  governed front-to-side luma ratio (0.8735). This reproduces the game's orientation-based shading
+  rule and gives every chamfer, slope and reveal a correct in-between tone for free — the one thing
+  hand-authored 2D polygon art cannot cheaply do. No external texture was used at all.
+- **The corollary that matters for scope:** at the governed management camera the whole building is
+  ~222 px wide and a commodity prop occupies 6–20 px, so the cleared third-party donor geometry was
+  acquired, hashed — and then **not used**, because it contributes nothing resolvable at that size
+  and its material noise is precisely the failure mode above. Hero identity was authored; commodity
+  reuse turned out to be optional rather than necessary.
+- **Pattern:** constrain the offline render to the destination's shading convention and palette, and
+  judge it on colour count and edge softness against the art it replaces, not on render realism.
+  **Anti-pattern:** assuming a 3D render must be softened *toward* the 2D target; treating "cleared
+  for use" as "should be used". **Related:** **AT**, **AU**. **Reuse:** MG, BR.

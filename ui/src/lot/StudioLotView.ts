@@ -52,6 +52,11 @@ export type StudioLotViewOptions = {
    * scene init (textures bake in create()), so it is not switchable on a live view.
    */
   distinctStages?: boolean
+  /**
+   * Authored Soundstage Pipeline Proof gate, resolved by the host from ../flags.ts.
+   * DEFAULT OFF. Consumed once at scene init, like `distinctStages`.
+   */
+  authoredStage?: boolean
 }
 
 export class StudioLotView {
@@ -82,6 +87,7 @@ export class StudioLotView {
         snapshot: this.pendingSnapshot ?? this.opts.snapshot,
         onEvent: (e: LotEvent) => this.handleEvent(e),
         distinctStages: this.opts.distinctStages === true,
+        authoredStage: this.opts.authoredStage === true,
       })
     })
     return game
@@ -210,7 +216,7 @@ export class StudioLotView {
   }
 
   /** Introspection for tests/verification (selection, active tags, object count). */
-  getDebugState(): { selected: BuildingId | null; activeTags: number; displayObjects: number } | null {
+  getDebugState(): ReturnType<LotScene['debugState']> | null {
     return this.scene?.debugState() ?? null
   }
 

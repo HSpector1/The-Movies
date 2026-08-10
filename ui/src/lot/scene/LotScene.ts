@@ -10,7 +10,15 @@ import Phaser from 'phaser'
 import { TILE_W, TILE_H, gridToScreen, depthFor, LAYER } from './iso'
 import { COLORS as K } from './palette'
 import { Rng } from './rng'
-import { bakeAllTextures, BUILDING_TEX, PROP_TEX, underDressedKey } from './assets'
+import {
+  bakeAllTextures,
+  BUILDING_TEX,
+  PROP_TEX,
+  underDressedKey,
+  pointStageBAtAuthored,
+  AUTHORED_STAGE_B_KEY,
+  AUTHORED_STAGE_B_UD_KEY,
+} from './assets'
 import {
   LOT_W,
   LOT_D,
@@ -98,6 +106,11 @@ export type LotSceneData = {
    * arrive with the scene's init data. Absent/false ⇒ the pre-spike shared stage texture.
    */
   distinctStages?: boolean
+  /**
+   * Authored Soundstage Pipeline Proof gate, resolved by the React host from ../flags.ts.
+   * DEFAULT OFF. When off, preload() fetches nothing and the lot is the production lot.
+   */
+  authoredStage?: boolean
 }
 
 type ProdTag = {
@@ -188,6 +201,12 @@ export class LotScene extends Phaser.Scene {
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
   /** D1-B content gate, supplied by the host at init(). Default OFF. */
   private distinctStages = false
+  /** Authored-Stage-B proof gate, supplied by the host at init(). Default OFF. */
+  private authoredStage = false
+  /** True once the authored textures were confirmed present and Stage B was re-pointed. */
+  private authoredStageActive = false
+  /** True if an authored texture failed to load; the procedural fallback then stands. */
+  private authoredStageLoadFailed = false
   /** The framing currently applied, so a resize re-fits it instead of forcing overview. */
   private cameraPreset: CameraPreset = 'overview'
 
@@ -199,12 +218,50 @@ export class LotScene extends Phaser.Scene {
     this.snapshot = data.snapshot
     this.emitEvent = data.onEvent
     this.distinctStages = data.distinctStages === true
+    this.authoredStage = data.authoredStage === true
+  }
+
+  /**
+   * The lot's ONLY image load, and only for the authored-Stage-B proof.
+   *
+   * With the proof flag off this method does nothing at all — no request is made and the
+   * loader stays empty, so the production path is unchanged. With it on, Phaser guarantees
+   * these finish before create(), which is what keeps texMeta()'s dimension read safe.
+   * A failed fetch simply leaves the textures absent; create() checks before using them.
+   */
+  preload(): void {
+    if (!this.authoredStage) return
+    const base = (import.meta as unknown as { env?: { BASE_URL?: string } }).env?.BASE_URL ?? '/'
+    this.load.image(AUTHORED_STAGE_B_KEY, `${base}lot/b-stage-b.png`)
+    this.load.image(AUTHORED_STAGE_B_UD_KEY, `${base}lot/b-stage-b-ud.png`)
+    // Never let a missing proof asset break the lot: swallow the error and fall through
+    // to the procedural texture, which is always baked below.
+    this.load.once(Phaser.Loader.Events.FILE_LOAD_ERROR, () => {
+      this.authoredStageLoadFailed = true
+    })
   }
 
   create(): void {
     bakeAllTextures(this, { distinctStages: this.distinctStages })
+    // Authored-Stage-B proof: re-point the registry ONLY if both textures actually
+    // arrived. Footprint and anchor come from the procedural entry, so placement, depth,
+    // hit area and every overlay position are unchanged by the swap.
+    if (
+      this.authoredStage &&
+      this.distinctStages &&
+      this.textures.exists(AUTHORED_STAGE_B_KEY) &&
+      this.textures.exists(AUTHORED_STAGE_B_UD_KEY)
+    ) {
+      pointStageBAtAuthored(AUTHORED_STAGE_B_KEY)
+      this.authoredStageActive = true
+    }
     for (const t of Object.values(BUILDING_TEX)) this.originByKey.set(t.key, t.originY)
     for (const t of Object.values(PROP_TEX)) this.originByKey.set(t.key, t.originY)
+    // The under-dressed authored texture is not in BUILDING_TEX (nor is the procedural
+    // one), so give it the same anchor its normal finish uses.
+    if (this.authoredStageActive) {
+      this.originByKey.set(AUTHORED_STAGE_B_UD_KEY, BUILDING_TEX.stageB.originY)
+    }
 
     this.buildGround()
     this.buildBoundary()
@@ -1659,6 +1716,10 @@ export class LotScene extends Phaser.Scene {
     characterActive: boolean
     poolInUse: number
     vignette: ReturnType<VignetteDirector['debug']> | null
+    /** Authored-Stage-B proof: which Stage B implementation actually rendered. */
+    stageBTexture: string
+    authoredStageActive: boolean
+    authoredStageLoadFailed: boolean
   } {
     let activeTags = 0
     for (const v of this.views.values()) if (v.prodTag) activeTags++
@@ -1669,6 +1730,9 @@ export class LotScene extends Phaser.Scene {
       characterActive: this.characterActive,
       poolInUse: this.poolUsed.filter(Boolean).length,
       vignette: this.director?.debug() ?? null,
+      stageBTexture: this.views.get('stage-b')?.sprite?.texture.key ?? '',
+      authoredStageActive: this.authoredStageActive,
+      authoredStageLoadFailed: this.authoredStageLoadFailed,
     }
   }
 

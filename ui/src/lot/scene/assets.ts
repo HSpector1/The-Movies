@@ -1,10 +1,17 @@
 // ── Programmatic placeholder assets ───────────────────────────────────────────
-// All artwork is generated at runtime from Phaser Graphics — no image files, no
-// copied assets. Everything is original geometry in the restrained palette. Each
-// building is an isometric massing (roof rhombus + two lit/shadowed wall faces)
+// The lot's artwork is generated at runtime from Phaser Graphics — no image files,
+// no copied assets. Everything here is original geometry in the restrained palette.
+// Each building is an isometric massing (roof rhombus + two lit/shadowed wall faces)
 // with a distinguishing silhouette so the lot reads as a PLACE, not gray boxes.
 //
 // Textures are baked once into the texture manager; the scene places sprites.
+//
+// ONE NARROW EXCEPTION EXISTS ON THIS PROOF BRANCH, and only behind a DEFAULT-OFF
+// flag: the Authored Soundstage Pipeline Proof can point Stage B at a pair of
+// offline-rendered PNGs (see `pointStageBAtAuthored` below and LotScene.preload).
+// The procedural bake in this file remains the baseline, the control and the
+// failure fallback — with the proof flag off, nothing here changes and no image is
+// fetched. This file itself stays image-free and Phaser-value-free.
 
 import type Phaser from 'phaser'
 import { TILE_W, TILE_H } from './iso'
@@ -472,6 +479,30 @@ export function bakeStageFromSpec(
 
 /** Texture key for a spec's under-dressed variant. */
 export const underDressedKey = (key: string): string => `${key}-ud`
+
+/**
+ * Authored Soundstage Pipeline Proof — the texture keys for the offline-rendered
+ * Stage B pair. The under-dressed key is deliberately `${key}-ud` so the existing
+ * `underDressedKey()` resolution works on the authored path with no special case.
+ */
+export const AUTHORED_STAGE_B_KEY = 'b-stage-b-authored'
+export const AUTHORED_STAGE_B_UD_KEY = underDressedKey(AUTHORED_STAGE_B_KEY)
+
+/**
+ * Re-point the Stage B registry entry at an already-loaded authored texture.
+ *
+ * Deliberately takes only a key and mutates nothing else: footprint (fw/fd) and the
+ * anchor (originY) are carried over from the procedural bake, so placement, plinth,
+ * depth key, hit polygon and every overlay position stay byte-identical. Call it AFTER
+ * bakeAllTextures and ONLY when the texture actually exists — see LotScene.create.
+ *
+ * Pure registry data, no Phaser: the caller owns the texture-manager check.
+ */
+export function pointStageBAtAuthored(key: string): void {
+  const procedural = BUILDING_TEX.stageB
+  if (!procedural) return
+  BUILDING_TEX.stageB = { ...procedural, key }
+}
 
 /**
  * Bake the lot's soundstages.
