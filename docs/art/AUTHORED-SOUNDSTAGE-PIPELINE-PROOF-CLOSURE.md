@@ -60,11 +60,26 @@ glow. A behind-case was not manufactured, and segmentation was not built.
 | front-to-side displayed luma ratio, normal | **0.8687** | 0.8737 | 0.859–0.876 |
 | front-to-side displayed luma ratio, worn | **0.8614** | 0.8746 | 0.859–0.876 |
 | distinct colours | 36 | 230 | — |
-| true soft edge (alpha 1–249) | 1.71% | 2.73% | — |
+| true soft edge (alpha 1–249) | 1.72% | 2.73% | — |
 
 Measurement authority is the **final optimized/quantised PNG**, not a Blender light value. That
 distinction is itself a lesson: the governed ratio was first applied as linear irradiance and the
 shipped asset measured 0.949 for several checkpoints before it was caught. See **AU**.
+
+**The definitions behind those numbers**, added by the pipeline-standard hardening so the figures
+can never again be quoted bare. *Displayed luma* = Rec.601 (`0.299/0.587/0.114`) over 8-bit
+**encoded** sRGB — never linearised. *Ratio* = modal shadow-face tone ÷ modal lit-face tone inside
+the wall band (lit `x 0–232`, shadow `x 280–512`, band `y 280–360`, alpha floor 200, luma floor 140).
+*Distinct colours* = distinct RGB triples over pixels with **alpha > 200**, normal finish.
+*True soft edge* = pixels with alpha 1–249 as a share of **non-zero-alpha** pixels. Every figure in
+this table reproduces from the committed assets via
+`scripts/art/authored-asset-pipeline.py measure`. One correction: the soft-edge figure was recorded
+as 1.71%, which is the value on the immediately-preceding candidate; the asset that shipped measures
+**1.7228% → 1.72%**. The `0.859–0.876` band is Stage B's own historical acceptance band and is **not**
+a universal constant — future authored buildings derive their target from their own colour family per
+[`AUTHORED-ENVIRONMENT-PIPELINE-STANDARD.md`](AUTHORED-ENVIRONMENT-PIPELINE-STANDARD.md). Stage B is
+**not** re-graded: under the now-canonical formula its figures are numerically unchanged, and it
+would also pass the new family-derived rule.
 
 ## Non-blocking notes carried forward
 

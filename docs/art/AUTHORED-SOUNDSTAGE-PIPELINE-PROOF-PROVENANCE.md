@@ -29,6 +29,21 @@ compresses the encoded gap; both were solved by measuring the shipped PNG.
 Authored offline in Blender 5.2.0 LTS; the `.blend` source, render
 intermediates and all acquired source archives stay outside this repository.
 
+## The export is now reproducible, not just recorded
+
+At adoption these two files were declared the measurement authority and hashed, but the
+quantisation that produced those exact bytes existed only as an ad-hoc command — "PNG-8, shared
+palette" is a description, not a runnable process. That gap is closed. The pre-quantisation
+sources were located in the out-of-repo art quarantine (`render/s-stage-b.png` ·
+`sha256 112bb449…`, `render/s-stage-b-ud.png` · `sha256 4bb3e95b…`), the exact export command was
+recovered, and both shipped files now **reproduce byte-for-byte** — verified across three runs into
+clean temporary directories, with identical SHA-256, byte count, dimensions, `PLTE` and `tRNS` each
+time. Nothing was re-rendered and no accepted byte was rewritten. The full contract (quantiser,
+method, shared-palette construction and its input ordering, alpha handling, dithering, optimization,
+compression level, library versions) and the runnable command live in
+[`AUTHORED-ENVIRONMENT-PIPELINE-STANDARD.md`](AUTHORED-ENVIRONMENT-PIPELINE-STANDARD.md) §3 and
+Part 2 §C; the tool is `scripts/art/authored-asset-pipeline.py`.
+
 ## What is actually in these files
 
 **Nothing third-party.** Every pixel derives from original geometry authored for this proof, shaded

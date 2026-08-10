@@ -1302,11 +1302,26 @@ success because the artefact next to it looked good.
 
 ---
 
-# Authored Soundstage Pipeline Proof — Checkpoint C (proof branch `art-authored-soundstage-pipeline-proof`, base `6d08bb0`, UNMERGED)
+# Authored Soundstage Pipeline Proof — Checkpoint C (proof branch `art-authored-soundstage-pipeline-proof`, base `6d08bb0`)
 
 Context: an offline-authored (Blender) replacement for one soundstage, rendered to a 2D PNG pair and
-integrated behind a DEFAULT-OFF proof flag. Production `main` unchanged; the procedural Stage B
-remains the control, the rollback and the failure fallback.
+integrated behind a proof flag that was DEFAULT-OFF while these lessons were being learned. The
+procedural Stage B remains the control, the explicit rollback and the failure fallback.
+
+**Branch and lineage state, stated precisely.** These lessons were written while Checkpoint C was
+open, and originally carried "UNMERGED / production `main` unchanged". That is no longer true of the
+lineage, and the distinction is worth keeping exact:
+
+- The proof **branch** is frozen at its accepted authority `81497b4` and has not moved. It was never
+  merged back into, and has never been advanced by, production.
+- The accepted proof **lineage** was incorporated into production by the authorized **fast-forward**
+  adoption, so `81497b4` **is an ancestor of `main`**. There is no merge commit anywhere in
+  `6d08bb0..main` — the range is linear.
+- `main` then advanced **past** that lineage through the production-adoption governance commit
+  `5e75b8e`, which is what flipped the authored gate to DEFAULT-ON.
+
+So on `main` today the authored Stage B is the default. Closure:
+[`art/AUTHORED-SOUNDSTAGE-PIPELINE-PROOF-CLOSURE.md`](art/AUTHORED-SOUNDSTAGE-PIPELINE-PROOF-CLOSURE.md).
 
 ## AU. An absolute-value check cannot catch a relational visual defect — **BR, MG, P**
 
@@ -1347,6 +1362,26 @@ it — and a global bound will certify the artefact as fixed while a reviewer st
   faces*. **Rule: never transfer a numeric threshold between linear light, encoded colour, source
   material values and the final quantised asset without re-validating in the final representation
   — and measure the governed relationship on the shipped file, not on the authoring parameter.**
+- **A relational number also does not transfer across MATERIALS, not just across spaces
+  (standards-hardening amendment).** The same band survived the space correction and was then
+  found to be non-transferable a *third* way. `0.859-0.876` was never a universal constant: it is
+  the interval spanned by the two soundstages' **own colour families** — buff (Stage A) at 0.8589
+  and cream (Stage B) at 0.8737. Derive the same relationship for the other families the lot
+  actually uses and they do not fit inside it: **taupe 0.8511** (Administration) and **slate 0.8424**
+  (Post-production) both sit *below the entire band*. Holding an authored Administration building to
+  Stage B's band would have required painting it out of family to pass its own coherence check.
+  **Rule: a relational target is derived from the specific material it governs, and is re-derived
+  for each one; only the tolerance around it is shared.** The value contract now lives in
+  [`art/AUTHORED-ENVIRONMENT-PIPELINE-STANDARD.md`](art/AUTHORED-ENVIRONMENT-PIPELINE-STANDARD.md)
+  and is recomputed from `palette.ts` on every test run, so it cannot drift back into prose.
+- **A recorded hash is not a reproducible process (standards-hardening amendment).** The accepted
+  Stage B PNGs were correctly declared the measurement authority and correctly hashed — and the
+  quantisation that produced those exact bytes existed only as an ad-hoc command inside a session
+  transcript. "PNG-8, shared palette" reads like a specification and is not one: reproduction also
+  needs the quantiser and its method, the palette-sharing construction *and its input ordering*,
+  alpha handling, dithering, optimization, compression level, and the library versions. Recovered,
+  written down and re-proven byte-identical here. **Rule: an accepted binary asset is only as
+  governed as the command that can regenerate it; record the command, not the format.**
 - **Fastest future diagnostic:** sample the element and the surface it sits on in the same render and
   compare, rather than comparing either to a global floor; and confirm which space the governing
   number lives in before using it as an input anywhere.
@@ -1365,10 +1400,19 @@ rather than a physical one.
 
 - **Pre-registered as HIGH RISK** at Checkpoint A: AA gradients, contact shadows and material
   micro-variation that "literally no other pixel in the frame has".
-- **Measured on the shipped assets:** authored **34 distinct colours** vs the procedural control's
-  **230**; true soft edge (alpha 1–249) **1.71%** vs **2.73%**; 92–96% of the opaque area within
+- **Measured on the shipped assets:** authored **36 distinct colours** vs the procedural control's
+  **230**; true soft edge (alpha 1–249) **1.72%** vs **2.73%**; 92–96% of the opaque area within
   ΔRGB 30 of a governed palette constant. The authored sprite is the flatter, harder-edged and more
   palette-disciplined of the two.
+  **Both figures carry their definitions now, because their absence caused a contradiction in this
+  very record.** "Distinct colours" = *distinct RGB triples over pixels with alpha > 200, normal
+  finish*; "true soft edge" = *pixels with alpha 1–249 as a share of non-zero-alpha pixels*. This
+  bullet first read **34** and **1.71%**. Those were not a different metric and not an error: they
+  are the same definitions measured on the **pre-release-closure candidate**, before the release
+  punch list removed the three roof units, one header pinstripe and the two flat wall panels. On the
+  asset that actually shipped the same measurements return **36** and **1.72%** — reproducible with
+  `scripts/art/authored-asset-pipeline.py measure`. The lesson inside the lesson: a bare count
+  quoted without its threshold *and* its asset revision will be read back as a contradiction later.
 - **What produced that.** Three white suns aligned to +X/+Y/+Z with zero ambient, at irradiance π so
   a diffuse face renders its albedo exactly, with the shadow-side sun set to the project's own
   governed front-to-side luma ratio (0.8735). This reproduces the game's orientation-based shading
