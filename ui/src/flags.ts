@@ -27,12 +27,16 @@ export const STUDIO_LOT_SOUNDSTAGES_LS_KEY = 'project-studio.flags.studio-lot-so
 /** localStorage key for the D1-B soundstage REVIEW/PROOF tooling (default OFF). */
 export const STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY = 'project-studio.flags.studio-lot-soundstage-proof'
 
+/** localStorage key for the AUTHORED-STAGE (offline render) experiment (default OFF). */
+export const STUDIO_LOT_AUTHORED_STAGE_LS_KEY = 'project-studio.flags.studio-lot-authored-stage-proof'
+
 type ViteEnv = {
   VITE_STUDIO_LOT_OVERVIEW?: string
   VITE_STUDIO_LOT_IDENTITY_PROOF?: string
   VITE_STUDIO_LOT_IDENTITY?: string
   VITE_STUDIO_LOT_SOUNDSTAGES?: string
   VITE_STUDIO_LOT_SOUNDSTAGE_PROOF?: string
+  VITE_STUDIO_LOT_AUTHORED_STAGE_PROOF?: string
 }
 
 function envValue(pick: (e: ViteEnv) => string | undefined): boolean {
@@ -153,6 +157,35 @@ export function studioLotSoundstageProofEnabled(): boolean {
 /** Dev/test helper: flip the D1-B soundstage review/proof override. Reload to apply. */
 export function setStudioLotSoundstageProofOverride(on: boolean): void {
   setLsFlag(STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY, on)
+}
+
+/**
+ * AUTHORED-STAGE EXPERIMENT gate: is ONE soundstage drawn from a pre-rendered PNG instead
+ * of its runtime-composed texture? DEFAULT OFF, developer only, explicit '1' opt-in.
+ *
+ * It mirrors the D1-B REVIEW/PROOF gate's mechanics exactly (env var checked first, then
+ * the localStorage key, both '1'-means-on) rather than the adopted-content gate's '0'
+ * rollback shape — this is an unadopted experiment, so OFF has to be the thing you get
+ * without asking, and OFF is the shipped presentation byte for byte: with it off the lot
+ * loads no asset at all and every texture is generated at runtime as before.
+ *
+ *   • Build/dev:  VITE_STUDIO_LOT_AUTHORED_STAGE_PROOF=1 npm run dev
+ *   • Runtime:    localStorage.setItem('project-studio.flags.studio-lot-authored-stage-proof', '1')
+ *
+ * It is INDEPENDENT of the soundstage content gate: this swaps the art on one designated
+ * stage whatever composed the texture underneath, and it changes no other stage.
+ * See ui/src/lot/scene/authoredStage.ts.
+ */
+export function studioLotAuthoredStageProofEnabled(): boolean {
+  return (
+    envValue((e) => e.VITE_STUDIO_LOT_AUTHORED_STAGE_PROOF) ||
+    lsFlag(STUDIO_LOT_AUTHORED_STAGE_LS_KEY)
+  )
+}
+
+/** Dev/test helper: flip the authored-stage experiment override. Reload to apply. */
+export function setStudioLotAuthoredStageProofOverride(on: boolean): void {
+  setLsFlag(STUDIO_LOT_AUTHORED_STAGE_LS_KEY, on)
 }
 
 /** Dev/test helper: force the ordinary-player identity rollback ON (baseline) or OFF (Concept A).

@@ -52,6 +52,13 @@ export type StudioLotViewOptions = {
    * scene init (textures bake in create()), so it is not switchable on a live view.
    */
   distinctStages?: boolean
+  /**
+   * Authored-stage experiment gate (default OFF), resolved by the host from ../flags.ts.
+   * ON loads one pre-rendered soundstage PNG and substitutes it for that stage's baked
+   * texture. Consumed once at scene init (preload + create), so it is not switchable on a
+   * live view — the host reloads to change it, like every other lot gate.
+   */
+  authoredStage?: boolean
 }
 
 export class StudioLotView {
@@ -82,6 +89,7 @@ export class StudioLotView {
         snapshot: this.pendingSnapshot ?? this.opts.snapshot,
         onEvent: (e: LotEvent) => this.handleEvent(e),
         distinctStages: this.opts.distinctStages === true,
+        authoredStage: this.opts.authoredStage === true,
       })
     })
     return game

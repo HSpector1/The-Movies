@@ -12,6 +12,12 @@ import { COLORS as K } from './palette'
 import { Rng } from './rng'
 import { bakeAllTextures, BUILDING_TEX, PROP_TEX, underDressedKey } from './assets'
 import {
+  applyAuthoredStage,
+  queueAuthoredStage,
+  isAuthoredStageTexture,
+  type AuthoredStageOutcome,
+} from './authoredStage'
+import {
   LOT_W,
   LOT_D,
   ROADS,
@@ -98,6 +104,12 @@ export type LotSceneData = {
    * arrive with the scene's init data. Absent/false ⇒ the pre-spike shared stage texture.
    */
   distinctStages?: boolean
+  /**
+   * Authored-stage experiment gate, likewise resolved by the React host. The PNG is queued
+   * in preload() and substituted in create(), so this too has to arrive with init data.
+   * Absent/false ⇒ no asset is loaded and every texture is generated at runtime.
+   */
+  authoredStage?: boolean
 }
 
 type ProdTag = {
@@ -188,6 +200,10 @@ export class LotScene extends Phaser.Scene {
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
   /** D1-B content gate, supplied by the host at init(). Default OFF. */
   private distinctStages = false
+  /** Authored-stage experiment gate, supplied by the host at init(). Default OFF. */
+  private authoredStage = false
+  /** Whether the authored render actually replaced a stage, and why not if it did not. */
+  private authoredStageOutcome: AuthoredStageOutcome = { applied: false, reason: 'flag-off' }
   /** The framing currently applied, so a resize re-fits it instead of forcing overview. */
   private cameraPreset: CameraPreset = 'overview'
 
@@ -199,10 +215,24 @@ export class LotScene extends Phaser.Scene {
     this.snapshot = data.snapshot
     this.emitEvent = data.onEvent
     this.distinctStages = data.distinctStages === true
+    this.authoredStage = data.authoredStage === true
+  }
+
+  /**
+   * The lot's only asset load, and only when the authored-stage experiment is on. With the
+   * flag off nothing is queued and Phaser completes an empty loader synchronously, so
+   * create() runs in the same tick it always has.
+   */
+  preload(): void {
+    queueAuthoredStage(this, this.authoredStage)
   }
 
   create(): void {
     bakeAllTextures(this, { distinctStages: this.distinctStages })
+    // Substitute the authored render for one stage BEFORE anything reads the registry:
+    // origins below, placedBuildings() footprints, and the sprite whose pixel-perfect hit
+    // area is armed against whichever texture is chosen here.
+    this.authoredStageOutcome = applyAuthoredStage(this, this.authoredStage)
     for (const t of Object.values(BUILDING_TEX)) this.originByKey.set(t.key, t.originY)
     for (const t of Object.values(PROP_TEX)) this.originByKey.set(t.key, t.originY)
 
@@ -1361,9 +1391,14 @@ export class LotScene extends Phaser.Scene {
    * struggling. Both finishes are baked textures of the SAME building — same massing, roof
    * and doors — so this changes polish, never architecture, and costs no display object.
    * Only meaningful with the D1-B content gate on; the baseline lot has no worn variant.
+   *
+   * A stage running the authored render is skipped explicitly: there is no authored worn
+   * variant, and this is the one place a live setTexture() could pull the loaded art back
+   * out from under an already-armed pixel-perfect hit area.
    */
   private applyStageFinish(view: BuildingView, snap: StudioLotSnapshot): void {
     if (!this.distinctStages || !view.sprite || !view.spec.texKey) return
+    if (isAuthoredStageTexture(view.spec.texKey)) return
     const worn = snap.buildings.find((b) => b.id === view.spec.id)?.underDressed === true
     const key = worn ? underDressedKey(view.spec.texKey) : view.spec.texKey
     if (this.textures.exists(key) && view.sprite.texture.key !== key) view.sprite.setTexture(key)
@@ -1681,6 +1716,7 @@ export class LotScene extends Phaser.Scene {
     marqueeBulbs: number
     displayObjects: number
     fps: number
+    authoredStage: AuthoredStageOutcome
   } {
     return {
       mode: this.identityMode,
@@ -1690,6 +1726,7 @@ export class LotScene extends Phaser.Scene {
       marqueeBulbs: this.marqueeBulbs.length,
       displayObjects: this.children.list.length,
       fps: Math.round(this.game.loop.actualFps),
+      authoredStage: this.authoredStageOutcome,
     }
   }
 }

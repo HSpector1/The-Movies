@@ -17,6 +17,9 @@ import {
   studioLotSoundstageProofEnabled,
   setStudioLotSoundstageProofOverride,
   STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY,
+  studioLotAuthoredStageProofEnabled,
+  setStudioLotAuthoredStageProofOverride,
+  STUDIO_LOT_AUTHORED_STAGE_LS_KEY,
 } from './flags.ts'
 
 describe('studioLotOverview feature flag', () => {
@@ -98,6 +101,46 @@ describe('D1-B soundstage gates', () => {
     expect(STUDIO_LOT_SOUNDSTAGES_LS_KEY).toBe('project-studio.flags.studio-lot-soundstages')
     expect(STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY).toBe(
       'project-studio.flags.studio-lot-soundstage-proof',
+    )
+  })
+})
+
+// ── The authored-stage experiment (offline-rendered soundstage art) ──────────
+// An UNADOPTED experiment, so it takes the review/proof gate's shape, not the adopted
+// content gate's: default OFF, explicit '1' opt-in, developer only. Off is the shipped
+// lot — no asset is loaded at all and every texture is generated at runtime.
+describe('authored-stage experiment gate', () => {
+  it('is OFF by default (fresh session, no override)', () => {
+    expect(studioLotAuthoredStageProofEnabled()).toBe(false)
+  })
+
+  it('turns ON only for an explicit "1", and off again when cleared', () => {
+    setStudioLotAuthoredStageProofOverride(true)
+    expect(localStorage.getItem(STUDIO_LOT_AUTHORED_STAGE_LS_KEY)).toBe('1')
+    expect(studioLotAuthoredStageProofEnabled()).toBe(true)
+    setStudioLotAuthoredStageProofOverride(false)
+    expect(localStorage.getItem(STUDIO_LOT_AUTHORED_STAGE_LS_KEY)).toBeNull()
+    expect(studioLotAuthoredStageProofEnabled()).toBe(false)
+  })
+
+  it('does not respond to the D1-B rollback value "0"', () => {
+    localStorage.setItem(STUDIO_LOT_AUTHORED_STAGE_LS_KEY, '0')
+    expect(studioLotAuthoredStageProofEnabled()).toBe(false)
+  })
+
+  it('is a FOURTH independent key, and no lot gate turns it on for you', () => {
+    for (const other of [
+      STUDIO_LOT_SOUNDSTAGES_LS_KEY,
+      STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY,
+      STUDIO_LOT_OVERVIEW_LS_KEY,
+      STUDIO_LOT_IDENTITY_LS_KEY,
+    ]) {
+      expect(STUDIO_LOT_AUTHORED_STAGE_LS_KEY).not.toBe(other)
+      localStorage.setItem(other, '1')
+    }
+    expect(studioLotAuthoredStageProofEnabled()).toBe(false)
+    expect(STUDIO_LOT_AUTHORED_STAGE_LS_KEY).toBe(
+      'project-studio.flags.studio-lot-authored-stage-proof',
     )
   })
 })

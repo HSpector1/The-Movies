@@ -26,6 +26,7 @@ import {
   studioLotIdentityProofEnabled,
   studioLotSoundstagesEnabled,
   studioLotSoundstageProofEnabled,
+  studioLotAuthoredStageProofEnabled,
 } from '../flags.ts'
 import type { IdentityMode } from './identity/manifest.ts'
 import './lot.css'
@@ -142,6 +143,10 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   // D1-B review tooling, default OFF and independent of the content gate. It adds only
   // capture affordances for the evidence harness — no game content, never a player default.
   const soundstageProof = studioLotSoundstageProofEnabled()
+  // Authored-stage EXPERIMENT (default OFF, developer only): draws ONE soundstage from a
+  // pre-rendered PNG instead of its composed texture. Independent of both gates above —
+  // it replaces art on one designated stage and nothing else. Off ⇒ no asset is loaded.
+  const authoredStage = studioLotAuthoredStageProofEnabled()
   const [signageMasked, setSignageMasked] = useState(false)
   const [closerCamera, setCloserCamera] = useState(false)
   const readSnapshot = useCallback((s: GameState): StudioLotSnapshot => {
@@ -178,6 +183,7 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
         view = new StudioLotView({
           parent: mountRef.current,
           distinctStages: soundstages,
+          authoredStage,
           snapshot: { ...readSnapshot(state), selectedBuildingId: sessionSelectedBuilding },
           onSelect: (sel) => {
             setSelectionInfo(sel)
