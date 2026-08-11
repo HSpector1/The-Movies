@@ -19,8 +19,8 @@ import {
   AUTHORED_STAGE_B_KEY,
   AUTHORED_STAGE_B_UD_KEY,
   pointStageAAtAuthored,
-  STAGE_A_H2_KEY,
-  STAGE_A_H2_UD_KEY,
+  AUTHORED_STAGE_A_KEY,
+  AUTHORED_STAGE_A_UD_KEY,
 } from './assets'
 import {
   LOT_W,
@@ -115,11 +115,11 @@ export type LotSceneData = {
    */
   authoredStage?: boolean
   /**
-   * Authored Stage A H2 "Stage Front" proof gate, resolved by the React host from
-   * ../flags.ts. DEFAULT OFF. When off, preload() fetches no H2 image and Stage A is the
-   * procedural build exactly as in production.
+   * Authored Stage A content gate, resolved by the React host from ../flags.ts.
+   * DEFAULT ON. When rolled back, preload() fetches no authored Stage A image and Stage A
+   * is the procedural build.
    */
-  stageAH2?: boolean
+  authoredStageA?: boolean
 }
 
 type ProdTag = {
@@ -216,10 +216,12 @@ export class LotScene extends Phaser.Scene {
   private authoredStageActive = false
   /** True if an authored texture failed to load; the procedural fallback then stands. */
   private authoredStageLoadFailed = false
-  /** Stage A H2 proof gate, supplied by the host at init(). Default OFF. */
-  private stageAH2 = false
-  /** True once the H2 textures were confirmed present and Stage A was re-pointed. */
-  private stageAH2Active = false
+  /** Authored Stage A content gate, supplied by the host at init(). Default ON. */
+  private authoredStageA = false
+  /** True once the authored textures were confirmed present and Stage A was re-pointed. */
+  private authoredStageAActive = false
+  /** True if an authored Stage A texture failed to load; the procedural fallback stands. */
+  private authoredStageALoadFailed = false
   /** The framing currently applied, so a resize re-fits it instead of forcing overview. */
   private cameraPreset: CameraPreset = 'overview'
 
@@ -232,7 +234,7 @@ export class LotScene extends Phaser.Scene {
     this.emitEvent = data.onEvent
     this.distinctStages = data.distinctStages === true
     this.authoredStage = data.authoredStage === true
-    this.stageAH2 = data.stageAH2 === true
+    this.authoredStageA = data.authoredStageA === true
   }
 
   /**
@@ -244,20 +246,29 @@ export class LotScene extends Phaser.Scene {
    * A failed fetch simply leaves the textures absent; create() checks before using them.
    */
   preload(): void {
-    if (!this.authoredStage && !this.stageAH2) return
+    if (!this.authoredStage && !this.authoredStageA) return
     const base = (import.meta as unknown as { env?: { BASE_URL?: string } }).env?.BASE_URL ?? '/'
     if (this.authoredStage) {
       this.load.image(AUTHORED_STAGE_B_KEY, `${base}lot/b-stage-b.png`)
       this.load.image(AUTHORED_STAGE_B_UD_KEY, `${base}lot/b-stage-b-ud.png`)
     }
-    if (this.stageAH2) {
-      this.load.image(STAGE_A_H2_KEY, `${base}lot/b-stage-a-h2.png`)
-      this.load.image(STAGE_A_H2_UD_KEY, `${base}lot/b-stage-a-h2-ud.png`)
+    if (this.authoredStageA) {
+      this.load.image(AUTHORED_STAGE_A_KEY, `${base}lot/b-stage-a-h2.png`)
+      this.load.image(AUTHORED_STAGE_A_UD_KEY, `${base}lot/b-stage-a-h2-ud.png`)
     }
-    // Never let a missing proof asset break the lot: swallow the error and fall through
-    // to the procedural texture, which is always baked below.
-    this.load.once(Phaser.Loader.Events.FILE_LOAD_ERROR, () => {
-      this.authoredStageLoadFailed = true
+    // Never let a missing authored asset break the lot: swallow the error and fall through
+    // to the procedural texture, which is always baked below. A rolled-back building never
+    // reaches here, so it cannot fail. Attributed PER BUILDING — with two authored
+    // buildings now shipping by default, one shared flag would report a Stage A failure as
+    // a Stage B failure. Diagnostics only; the fallback itself is driven by
+    // `textures.exists()` in create(), never by these fields.
+    this.load.on(Phaser.Loader.Events.FILE_LOAD_ERROR, (file: { key?: string }) => {
+      const key = file?.key ?? ''
+      if (key === AUTHORED_STAGE_A_KEY || key === AUTHORED_STAGE_A_UD_KEY) {
+        this.authoredStageALoadFailed = true
+      } else {
+        this.authoredStageLoadFailed = true
+      }
     })
   }
 
@@ -278,13 +289,13 @@ export class LotScene extends Phaser.Scene {
     // Stage A H2 proof: identical shape, identical guard. Presentation only — BuildingId,
     // footprint, origin, depth, hit area and every overlay position are untouched.
     if (
-      this.stageAH2 &&
+      this.authoredStageA &&
       this.distinctStages &&
-      this.textures.exists(STAGE_A_H2_KEY) &&
-      this.textures.exists(STAGE_A_H2_UD_KEY)
+      this.textures.exists(AUTHORED_STAGE_A_KEY) &&
+      this.textures.exists(AUTHORED_STAGE_A_UD_KEY)
     ) {
-      pointStageAAtAuthored(STAGE_A_H2_KEY)
-      this.stageAH2Active = true
+      pointStageAAtAuthored(AUTHORED_STAGE_A_KEY)
+      this.authoredStageAActive = true
     }
     for (const t of Object.values(BUILDING_TEX)) this.originByKey.set(t.key, t.originY)
     for (const t of Object.values(PROP_TEX)) this.originByKey.set(t.key, t.originY)
@@ -293,8 +304,8 @@ export class LotScene extends Phaser.Scene {
     if (this.authoredStageActive) {
       this.originByKey.set(AUTHORED_STAGE_B_UD_KEY, BUILDING_TEX.stageB.originY)
     }
-    if (this.stageAH2Active) {
-      this.originByKey.set(STAGE_A_H2_UD_KEY, BUILDING_TEX.stageA.originY)
+    if (this.authoredStageAActive) {
+      this.originByKey.set(AUTHORED_STAGE_A_UD_KEY, BUILDING_TEX.stageA.originY)
     }
 
     this.buildGround()
@@ -1750,13 +1761,14 @@ export class LotScene extends Phaser.Scene {
     characterActive: boolean
     poolInUse: number
     vignette: ReturnType<VignetteDirector['debug']> | null
-    /** Authored-Stage-B proof: which Stage B implementation actually rendered. */
+    /** Authored Stage B: which Stage B implementation actually rendered. */
     stageBTexture: string
     authoredStageActive: boolean
     authoredStageLoadFailed: boolean
-    /** Stage A H2 proof: which Stage A implementation actually rendered. */
+    /** Authored Stage A: which Stage A implementation actually rendered. */
     stageATexture: string
-    stageAH2Active: boolean
+    authoredStageAActive: boolean
+    authoredStageALoadFailed: boolean
   } {
     let activeTags = 0
     for (const v of this.views.values()) if (v.prodTag) activeTags++
@@ -1771,7 +1783,8 @@ export class LotScene extends Phaser.Scene {
       authoredStageActive: this.authoredStageActive,
       authoredStageLoadFailed: this.authoredStageLoadFailed,
       stageATexture: this.views.get('stage-a')?.sprite?.texture.key ?? '',
-      stageAH2Active: this.stageAH2Active,
+      authoredStageAActive: this.authoredStageAActive,
+      authoredStageALoadFailed: this.authoredStageALoadFailed,
     }
   }
 

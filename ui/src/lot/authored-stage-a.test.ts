@@ -1,6 +1,8 @@
-// ── Authored Stage A H2 "Stage Front" proof — the runtime seam ────────────────
+// ── Authored Stage A "Stage Front" — the adopted runtime seam ────────────────
 //
-// Covers what this proof actually ships: a DEFAULT-OFF flag, the registry re-point that
+// Covers what production actually ships: a DEFAULT-ON content gate with an explicit
+// developer rollback (the same polarity Stage B has shipped since its adoption), the
+// registry re-point that
 // swaps Stage A's texture WITHOUT moving the building, and the CURRENT production export
 // contract (standard §3A) on the committed files. Scene-level behaviour that needs a real
 // renderer (preload, load failure, pixel-perfect hit testing against an image-backed
@@ -19,21 +21,23 @@ import {
   BUILDING_TEX,
   underDressedKey,
   pointStageAAtAuthored,
-  STAGE_A_H2_KEY,
-  STAGE_A_H2_UD_KEY,
+  AUTHORED_STAGE_A_KEY,
+  AUTHORED_STAGE_A_UD_KEY,
 } from './scene/assets'
 import { placedBuildings } from './scene/layout'
 import {
-  STUDIO_LOT_STAGE_A_H2_LS_KEY,
-  studioLotStageAH2Enabled,
-  setStudioLotStageAH2Override,
+  STUDIO_LOT_AUTHORED_STAGE_A_LS_KEY,
+  studioLotAuthoredStageAEnabled,
+  setStudioLotAuthoredStageARollback,
 } from '../flags'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const LOT = join(here, '..', '..', 'public', 'lot')
 const H2 = { normal: join(LOT, 'b-stage-a-h2.png'), worn: join(LOT, 'b-stage-a-h2-ud.png') }
 
-// Accepted H2 bytes — stage-a-h2-stage-front/MANIFEST.json @ source 3e7e4f7
+// Accepted Stage A bytes — stage-a-h2-stage-front/MANIFEST.json @ source 3e7e4f7,
+// the ADOPTED production art. Not regenerated during adoption: these are the exact
+// accepted bytes carried through from the runtime proof at 1fba98e.
 // (Bounded Correction 1. Candidate 1 was c0b6306 / eefad8ad… / cdfe7911… — superseded
 // because its front did not read as a stage at the management camera. The values BELOW
 // this line are the only thing the correction moved: every tolerance, threshold and
@@ -78,7 +82,7 @@ function fakeScene(): Phaser.Scene {
 }
 const bake = () => bakeAllTextures(fakeScene(), { distinctStages: true })
 
-describe('Stage A H2 — the committed assets satisfy the CURRENT production export contract', () => {
+describe('Stage A — the committed assets satisfy the CURRENT production export contract', () => {
   it('1. both are exactly the accepted H2 bytes from the frozen source', () => {
     for (const k of ['normal', 'worn'] as const) {
       const buf = readFileSync(H2[k])
@@ -149,38 +153,51 @@ describe('Stage A H2 — the committed assets satisfy the CURRENT production exp
   })
 })
 
-describe('Stage A H2 — the proof gate', () => {
+describe('Stage A — the adopted content gate', () => {
   beforeEach(() => localStorage.clear())
   afterEach(() => localStorage.clear())
 
-  it('8. is DEFAULT OFF — a proof is not player content', () => {
-    expect(studioLotStageAH2Enabled()).toBe(false)
+  it('8. is DEFAULT ON — the authored Stage A is adopted player content', () => {
+    expect(studioLotAuthoredStageAEnabled()).toBe(true)
   })
 
-  it('9. an explicit override turns it on, and clears again', () => {
-    setStudioLotStageAH2Override(true)
-    expect(localStorage.getItem(STUDIO_LOT_STAGE_A_H2_LS_KEY)).toBe('1')
-    expect(studioLotStageAH2Enabled()).toBe(true)
-    setStudioLotStageAH2Override(false)
-    expect(studioLotStageAH2Enabled()).toBe(false)
+  it('9. an explicit rollback forces the procedural Stage A, and clears again', () => {
+    setStudioLotAuthoredStageARollback(true)
+    expect(localStorage.getItem(STUDIO_LOT_AUTHORED_STAGE_A_LS_KEY)).toBe('0')
+    expect(studioLotAuthoredStageAEnabled()).toBe(false)
+    setStudioLotAuthoredStageARollback(false)
+    expect(studioLotAuthoredStageAEnabled()).toBe(true)
   })
 
-  it('10. only the literal "1" turns it on', () => {
-    for (const v of ['0', 'true', 'yes', '']) {
-      localStorage.setItem(STUDIO_LOT_STAGE_A_H2_LS_KEY, v)
-      expect(studioLotStageAH2Enabled(), `value ${JSON.stringify(v)}`).toBe(false)
+  it('10. only the literal "0" rolls back — anything else stays authored', () => {
+    for (const v of ['1', 'true', 'yes', '', 'false']) {
+      localStorage.setItem(STUDIO_LOT_AUTHORED_STAGE_A_LS_KEY, v)
+      expect(studioLotAuthoredStageAEnabled(), `value ${JSON.stringify(v)}`).toBe(true)
+    }
+  })
+
+  it('11. storage being unavailable cannot silently roll a player back', () => {
+    const real = Object.getOwnPropertyDescriptor(globalThis, 'localStorage')
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      get() { throw new Error('storage unavailable (private mode)') },
+    })
+    try {
+      expect(studioLotAuthoredStageAEnabled()).toBe(true)
+    } finally {
+      if (real) Object.defineProperty(globalThis, 'localStorage', real)
     }
   })
 })
 
-describe('Stage A H2 — the registry re-point', () => {
+describe('Stage A — the registry re-point', () => {
   beforeEach(() => bake())
 
   it('11. swaps ONLY the texture key — footprint and anchor are carried over', () => {
     const before = { ...BUILDING_TEX.stageA }
-    pointStageAAtAuthored(STAGE_A_H2_KEY)
+    pointStageAAtAuthored(AUTHORED_STAGE_A_KEY)
     const after = BUILDING_TEX.stageA
-    expect(after.key).toBe(STAGE_A_H2_KEY)
+    expect(after.key).toBe(AUTHORED_STAGE_A_KEY)
     // Everything else in the registry entry is carried over verbatim — footprint drives
     // placement and depth, origin drives the anchor. Asserted field-by-field rather than
     // by object equality so a NEW field added later cannot slip through unchecked.
@@ -192,20 +209,20 @@ describe('Stage A H2 — the registry re-point', () => {
   })
 
   it('12. the worn key resolves with no special case', () => {
-    expect(STAGE_A_H2_UD_KEY).toBe(underDressedKey(STAGE_A_H2_KEY))
-    expect(STAGE_A_H2_UD_KEY).toBe('b-stage-a-h2-ud')
+    expect(AUTHORED_STAGE_A_UD_KEY).toBe(underDressedKey(AUTHORED_STAGE_A_KEY))
+    expect(AUTHORED_STAGE_A_UD_KEY).toBe('b-stage-a-h2-ud')
   })
 
   it('13. leaves Stage B completely alone', () => {
     const before = { ...BUILDING_TEX.stageB }
-    pointStageAAtAuthored(STAGE_A_H2_KEY)
+    pointStageAAtAuthored(AUTHORED_STAGE_A_KEY)
     expect(BUILDING_TEX.stageB).toEqual(before)
   })
 
   it('14. keeps BuildingId, grid position and footprint — it is the SAME building', () => {
     const before = placedBuildings().find((b) => b.id === 'stage-a')!
     expect(before.texKey).toBe('b-stage-a')
-    pointStageAAtAuthored(STAGE_A_H2_KEY)
+    pointStageAAtAuthored(AUTHORED_STAGE_A_KEY)
     const after = placedBuildings().find((b) => b.id === 'stage-a')!
     // Identity and placement are the invariant. `texKey` is read LIVE from the registry,
     // so it MUST move — that is precisely the presentation swap, and asserting it
@@ -213,12 +230,12 @@ describe('Stage A H2 — the registry re-point', () => {
     expect(after.id).toBe('stage-a')
     expect({ gx: after.gx, gy: after.gy }).toEqual({ gx: before.gx, gy: before.gy })
     expect({ fw: after.fw, fd: after.fd }).toEqual({ fw: before.fw, fd: before.fd })
-    expect(after.texKey).toBe(STAGE_A_H2_KEY)
+    expect(after.texKey).toBe(AUTHORED_STAGE_A_KEY)
   })
 
   it('15. a fresh bake restores the procedural Stage A — the fallback is always there', () => {
-    pointStageAAtAuthored(STAGE_A_H2_KEY)
-    expect(BUILDING_TEX.stageA.key).toBe(STAGE_A_H2_KEY)
+    pointStageAAtAuthored(AUTHORED_STAGE_A_KEY)
+    expect(BUILDING_TEX.stageA.key).toBe(AUTHORED_STAGE_A_KEY)
     bake()
     expect(BUILDING_TEX.stageA.key).toBe('b-stage-a')
   })
@@ -227,7 +244,7 @@ describe('Stage A H2 — the registry re-point', () => {
     const saved = BUILDING_TEX.stageA
     // @ts-expect-error deliberately exercising the guard
     BUILDING_TEX.stageA = undefined
-    expect(() => pointStageAAtAuthored(STAGE_A_H2_KEY)).not.toThrow()
+    expect(() => pointStageAAtAuthored(AUTHORED_STAGE_A_KEY)).not.toThrow()
     BUILDING_TEX.stageA = saved
   })
 })

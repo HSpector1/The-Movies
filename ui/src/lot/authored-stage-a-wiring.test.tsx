@@ -1,4 +1,4 @@
-// ── Stage A H2 proof flag — the wiring between the two proved endpoints ───────
+// ── Adopted Stage A content gate — the wiring between the two proved endpoints ─
 //
 // stage-a-h2.test.ts proves the ENDPOINTS: the flag is default-OFF and only a literal
 // '1' turns it on, and the registry re-point swaps the texture without moving the
@@ -56,11 +56,11 @@ vi.mock('phaser', () => ({ default: phaser.P, ...phaser.P }))
 
 import { StudioLotScreen } from './StudioLotScreen.tsx'
 import { LotScene, type LotSceneData } from './scene/LotScene.ts'
-import { setStudioLotStageAH2Override } from '../flags.ts'
+import { setStudioLotAuthoredStageARollback } from '../flags.ts'
 
 afterEach(() => {
   phaser.sceneAdds.length = 0
-  setStudioLotStageAH2Override(false)
+  setStudioLotAuthoredStageARollback(false)
 })
 
 /** Minimum viable studio: the lot only needs to exist, not to be busy. */
@@ -88,50 +88,54 @@ function imagesRequested(data: LotSceneData): string[] {
   const scene = new LotScene()
   const urls: string[] = []
   Object.assign(scene, {
-    load: { image: (_key: string, url: string) => urls.push(url), once: () => {} },
+    // Mirrors exactly the loader surface preload() uses: queue images, register the
+    // per-building failure handler. Nothing else is stubbed, so a new loader call in
+    // production code surfaces here as a failure rather than being silently absorbed.
+    load: { image: (_key: string, url: string) => urls.push(url), on: () => {}, once: () => {} },
   })
   scene.init(data)
   scene.preload()
   return urls
 }
 
-const H2_NORMAL = '/lot/b-stage-a-h2.png'
-const H2_WORN = '/lot/b-stage-a-h2-ud.png'
+const A_NORMAL = '/lot/b-stage-a-h2.png'
+const A_WORN = '/lot/b-stage-a-h2-ud.png'
 
-describe('Stage A H2 — the flag reaches the scene', () => {
-  it('1. FLAG OFF (the default): the scene is configured procedural and fetches no H2 image', async () => {
+describe('Stage A — the adopted gate reaches the scene', () => {
+  it('1. DEFAULT (no override): the scene is configured AUTHORED and fetches exactly the pair', async () => {
     const data = await sceneConfig()
-    expect(data.stageAH2).toBe(false)
+    expect(data.authoredStageA).toBe(true)
 
     const urls = imagesRequested(data)
-    expect(urls).not.toContain(H2_NORMAL)
-    expect(urls).not.toContain(H2_WORN)
-    expect(urls.some((u) => u.includes('b-stage-a-h2')), `fetched ${JSON.stringify(urls)}`).toBe(false)
-  })
-
-  it('2. FLAG ON: the scene is configured authored and fetches exactly the H2 pair', async () => {
-    setStudioLotStageAH2Override(true)
-    const data = await sceneConfig()
-    expect(data.stageAH2).toBe(true)
-
-    const urls = imagesRequested(data)
-    expect(urls).toContain(H2_NORMAL)
-    expect(urls).toContain(H2_WORN)
+    expect(urls).toContain(A_NORMAL)
+    expect(urls).toContain(A_WORN)
     expect(urls.filter((u) => u.includes('b-stage-a-h2'))).toHaveLength(2)
   })
 
-  it('3. the flag is the ONLY thing that moves — Stage B is fetched identically either way', async () => {
-    const off = imagesRequested(await sceneConfig())
+  it('2. EXPLICIT ROLLBACK: the scene is configured procedural and fetches no authored Stage A', async () => {
+    setStudioLotAuthoredStageARollback(true)
+    const data = await sceneConfig()
+    expect(data.authoredStageA).toBe(false)
+
+    const urls = imagesRequested(data)
+    expect(urls).not.toContain(A_NORMAL)
+    expect(urls).not.toContain(A_WORN)
+    // A rolled-back building must cost nothing: it never reaches the loader at all.
+    expect(urls.some((u) => u.includes('b-stage-a-h2')), `fetched ${JSON.stringify(urls)}`).toBe(false)
+  })
+
+  it('3. the rollback is the ONLY thing that moves — Stage B is fetched identically either way', async () => {
+    const dflt = imagesRequested(await sceneConfig())
     phaser.sceneAdds.length = 0
-    setStudioLotStageAH2Override(true)
-    const on = imagesRequested(await sceneConfig())
+    setStudioLotAuthoredStageARollback(true)
+    const rolledBack = imagesRequested(await sceneConfig())
 
     // Stage B's authored pair is production content and default ON. It must appear in
-    // both legs, unchanged, or the H2 proof has disturbed adopted art.
+    // both legs, unchanged, or rolling Stage A back has disturbed adopted Stage B art.
     const stageB = (urls: string[]) => urls.filter((u) => u.includes('b-stage-b'))
-    expect(stageB(off)).toHaveLength(2)
-    expect(stageB(on)).toEqual(stageB(off))
-    // ...and the H2 pair is the entire difference between the two configurations.
-    expect(on.filter((u) => !off.includes(u))).toEqual([H2_NORMAL, H2_WORN])
+    expect(stageB(dflt)).toHaveLength(2)
+    expect(stageB(rolledBack)).toEqual(stageB(dflt))
+    // ...and the Stage A pair is the entire difference between the two configurations.
+    expect(dflt.filter((u) => !rolledBack.includes(u))).toEqual([A_NORMAL, A_WORN])
   })
 })

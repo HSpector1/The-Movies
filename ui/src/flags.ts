@@ -32,9 +32,9 @@ export const STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY = 'project-studio.flags.studio-l
  *  set this key to '0' to force the procedural Stage B. */
 export const STUDIO_LOT_AUTHORED_STAGE_LS_KEY = 'project-studio.flags.studio-lot-authored-stage'
 
-/** localStorage key for the AUTHORED Stage A H2 "Stage Front" PROOF. DEFAULT OFF —
- *  this is a proof, not adopted content, so absence means the procedural Stage A. */
-export const STUDIO_LOT_STAGE_A_H2_LS_KEY = 'project-studio.flags.studio-lot-stage-a-h2'
+/** localStorage key for the AUTHORED Stage A ROLLBACK. Authored art is default ON;
+ *  set this key to '0' to force the procedural Stage A. Mirrors the Stage B key above. */
+export const STUDIO_LOT_AUTHORED_STAGE_A_LS_KEY = 'project-studio.flags.studio-lot-authored-stage-a'
 
 type ViteEnv = {
   VITE_STUDIO_LOT_OVERVIEW?: string
@@ -43,7 +43,7 @@ type ViteEnv = {
   VITE_STUDIO_LOT_SOUNDSTAGES?: string
   VITE_STUDIO_LOT_SOUNDSTAGE_PROOF?: string
   VITE_STUDIO_LOT_AUTHORED_STAGE?: string
-  VITE_STUDIO_LOT_STAGE_A_H2?: string
+  VITE_STUDIO_LOT_AUTHORED_STAGE_A?: string
 }
 
 function envValue(pick: (e: ViteEnv) => string | undefined): boolean {
@@ -194,25 +194,41 @@ export function studioLotAuthoredStageEnabled(): boolean {
   return true
 }
 
-/** Dev/test helper: force the procedural Stage B rollback ON or OFF. Reload to apply. */
 /**
- * AUTHORED STAGE A H2 proof gate: does Stage A render from the offline-authored
- * "Stage Front" RGBA pair instead of the procedural bake? **DEFAULT OFF.**
+ * AUTHORED STAGE A content gate: does Stage A render from the authored "Stage Front"
+ * RGBA pair instead of the procedural bake? **DEFAULT ON — this is adopted player art.**
  *
- * Deliberately the opposite polarity to the adopted Stage B gate above. Stage B's authored
- * art is player content, so absence means ON and an explicit '0' rolls back. H2 is a PROOF,
- * so absence means OFF and an explicit '1' turns it on — no player can reach it by accident,
- * and with it off the scene fetches no H2 image at all.
+ * Identical polarity and shape to `studioLotAuthoredStageEnabled()` above, deliberately:
+ * both authored buildings are now production content, so absence means ON and an explicit
+ * '0' rolls back to the procedural build. (During the H2 proof this was the opposite —
+ * a default-OFF `studio-lot-stage-a-h2` proof switch. The proof is accepted, so the flag
+ * was replaced rather than re-polarised: a flag whose name says "proof enabled" while its
+ * absence also loads the art is exactly the ambiguity this project does not keep.)
  */
-export function studioLotStageAH2Enabled(): boolean {
-  return envValue((e) => e.VITE_STUDIO_LOT_STAGE_A_H2) || lsFlag(STUDIO_LOT_STAGE_A_H2_LS_KEY)
+export function studioLotAuthoredStageAEnabled(): boolean {
+  // Explicit rollback wins (env first, then the localStorage override); otherwise ON.
+  const env = (import.meta as unknown as { env?: ViteEnv }).env
+  const rollbackEnv = env ? env.VITE_STUDIO_LOT_AUTHORED_STAGE_A : undefined
+  if (rollbackEnv === '0' || rollbackEnv === 'false') return false
+  try {
+    if (localStorage.getItem(STUDIO_LOT_AUTHORED_STAGE_A_LS_KEY) === '0') return false
+  } catch {
+    /* storage unavailable (private mode / sandbox) — stay on the default (authored ON) */
+  }
+  return true
 }
 
-/** Dev/test helper: flip the Stage A H2 proof override. Reload to apply. */
-export function setStudioLotStageAH2Override(on: boolean): void {
-  setLsFlag(STUDIO_LOT_STAGE_A_H2_LS_KEY, on)
+/** Dev/test helper: force the procedural Stage A rollback ON or OFF. Reload to apply. */
+export function setStudioLotAuthoredStageARollback(rollback: boolean): void {
+  try {
+    if (rollback) localStorage.setItem(STUDIO_LOT_AUTHORED_STAGE_A_LS_KEY, '0')
+    else localStorage.removeItem(STUDIO_LOT_AUTHORED_STAGE_A_LS_KEY)
+  } catch {
+    /* storage unavailable — no-op */
+  }
 }
 
+/** Dev/test helper: force the procedural Stage B rollback ON or OFF. Reload to apply. */
 export function setStudioLotAuthoredStageRollback(rollback: boolean): void {
   try {
     if (rollback) localStorage.setItem(STUDIO_LOT_AUTHORED_STAGE_LS_KEY, '0')

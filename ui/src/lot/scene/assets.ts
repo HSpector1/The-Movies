@@ -505,12 +505,14 @@ export function pointStageBAtAuthored(key: string): void {
 }
 
 /**
- * Authored Stage A H2 "Stage Front" PROOF — texture keys for the offline-rendered pair.
- * Same `${key}-ud` convention, so `underDressedKey()` resolves the worn finish with no
- * special case, exactly as the Stage B path does.
+ * Authored Stage A — texture keys for the offline-rendered "Stage Front" pair, adopted
+ * as production content. Same `${key}-ud` convention, so `underDressedKey()` resolves the
+ * worn finish with no special case, exactly as the Stage B path does. The `-h2` stem is
+ * kept deliberately: it records WHICH authored concept shipped, and the bytes behind it
+ * are the accepted source authority.
  */
-export const STAGE_A_H2_KEY = 'b-stage-a-h2'
-export const STAGE_A_H2_UD_KEY = underDressedKey(STAGE_A_H2_KEY)
+export const AUTHORED_STAGE_A_KEY = 'b-stage-a-h2'
+export const AUTHORED_STAGE_A_UD_KEY = underDressedKey(AUTHORED_STAGE_A_KEY)
 
 /**
  * Re-point the Stage A registry entry at an already-loaded authored H2 texture.
@@ -518,7 +520,7 @@ export const STAGE_A_H2_UD_KEY = underDressedKey(STAGE_A_H2_KEY)
  * Mirrors `pointStageBAtAuthored` exactly and for the same reason: it takes only a key and
  * mutates nothing else, so footprint (fw/fd) and anchor (originY) carry over from the
  * procedural bake and placement, plinth, depth key, hit polygon and every overlay position
- * stay byte-identical. H2 is a PRESENTATION swap — `BuildingId` is still `stage-a`.
+ * stay byte-identical. This is a PRESENTATION swap — `BuildingId` is still `stage-a`.
  *
  * Pure registry data, no Phaser: the caller owns the texture-manager check.
  */

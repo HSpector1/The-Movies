@@ -171,6 +171,47 @@ computed from *the building's own* `StagePalette`, so cream's number is never th
 buff building is held to. Both facts are pinned by tests 6 and 9 of
 `authoredValueStandard.test.ts`.
 
+### Second-authored-building review — the bound is CONFIRMED, and no longer conditional
+
+`±0.015` was set from a single authored building and was to be re-judged once a **second**
+authored building was accepted. Authored Stage A (H2 "Stage Front", source `3e7e4f7`) is that
+building, and this is the promised review. **Disposition: KEEP ±0.015.** Not widened — two
+buildings is not a licence to relax a bound — and not tightened, for the reasons below.
+
+All four accepted finishes now in production, each measured against its **own** family target
+(never compared across families), on the shipped §3A assets:
+
+| building | family | target | measured | deviation |
+|---|---|---|---|---|
+| Stage B, normal (Option D, `fdfdfea`) | cream | 0.8737 | 0.8763 | **0.0026** |
+| Stage B, worn | cream | 0.8737 | 0.8732 | **0.0005** |
+| Stage A, normal (H2, adopted) | buff | 0.8589 | 0.8655 | **0.0066** |
+| Stage A, worn | buff | 0.8589 | 0.8638 | **0.0049** |
+
+Worst current-path deviation: **0.0066** — 44 % of the bound, so 56 % of the window is unused.
+
+**Why not tighten**, given that headroom:
+
+1. **The bound is not binding.** Nothing has come close to failing it, so there is no
+   demonstrated problem for a tighter number to solve.
+2. **Tightening below 0.0123 would retroactively invalidate the standard's own derivation.**
+   The `0.0123` datapoint above (authored Stage B worn) is real accepted evidence and is
+   pinned by test 7. A bound under it would declare an already-accepted asset out of family
+   after the fact — the standard does not re-grade closed work.
+3. **No player-visible consequence.** ±0.015 on a ~0.86 ratio is ≈2.8 luma units out of 185,
+   about 1.5 %. Management-camera quality is protected by the blind class-legibility review
+   (§6.10), not by decimal places here.
+4. **The sample is two soundstages in adjacent warm families.** Taupe (0.8511) and slate
+   (0.8424) — the families §2 identifies as materially different — have no authored building
+   yet. The tolerance absorbs *authoring* drift, and no unusual-family authoring drift has
+   been observed because none has been attempted.
+
+**Concrete re-review trigger, so this does not stay open forever:** revisit at the **first
+authored building outside the buff/cream soundstage pair**. If that building and one more both
+land at deviation ≤ 0.008 on the §3A path, tightening to **±0.010** becomes evidence-supported
+(it would still clear the caught defect by 7.5× and keep 2 × tolerance above the 0.0148
+buff–cream separation, so test 9's stated property survives). Until then, `0.015` stands.
+
 ### The worn / under-dressed finish
 
 The same family target and the same tolerance. `underDressed` is a *finish*, never an
@@ -385,6 +426,47 @@ python3 scripts/art/authored-asset-pipeline.py measure <final>.png \
 
 `measure` prints the distinct-colour census at **every** alpha threshold, so that figure can
 never again be quoted without the definition that produced it (see Part 2 §B).
+
+---
+
+## 5A. Where authored source lives — CANONICAL from Stage A onward
+
+> **An authored hero building's source belongs in the private Art Source repository, not in
+> the application repository and not only in the artist's working directory.**
+
+`HSpector1/project-studio-art-source` (**private**), one directory per building, containing:
+
+| artifact | why it is required |
+|---|---|
+| the **deterministic generator** (`blend/<building>.py`) | the primary artifact — it, not the PNG, is the thing that can be corrected |
+| the `.blend` | the canonical scene |
+| the **raw renders** (normal + worn) | the pre-export inputs the shipped bytes must reproduce from |
+| `calib/CAMERA-CONTRACT.json` | the rig the renders were measured against |
+| `MANIFEST.json` | hashes, byte counts, measured values, the exact reproduce commands |
+| `PROVENANCE.md` | authorship, external-art disposition, review history |
+| a **source commit** on a per-building branch, pushed to the private remote | freezes an authority the application can name |
+
+**The evidence that decided this.** Stage B is production-adopted and has **no durable
+authored source anywhere** — not in this repository, not in the Art Source repository. Its art
+cannot be re-derived, re-measured or corrected; a change would mean re-authoring it. Stage A
+does have one, and it was not hypothetical: when the runtime blind review failed Stage A's
+management-camera class read, the correction was a re-run of a frozen deterministic generator
+against a named source commit, landing as a **6-file additive source commit** with the buff
+value contract coming back **bit-identical** — because the wall family was never touched and
+the generator proved it. That is the whole return on the convention, and it only exists if the
+generator is durable *before* anyone needs it.
+
+**Deliberately narrow.** This is a rule about **authored hero buildings** (the offline-rendered
+ones). It does not apply to procedural art, props, characters or UI. **Stage B is not migrated
+retroactively** — that would be re-opening closed work for no product benefit; it is recorded
+here as the counter-example instead.
+
+**One refinement carried in from Stage A's own failure:** a MANIFEST figure computed from
+*generator constants* is not a measurement of the art. Stage A's `personnel_door_px` was
+reported from the generator's own numbers through four gates while the door **never rendered**
+— it was occluded by the pylon it was set into. Any feature the provenance names as
+load-bearing must be asserted **present in the shipped pixels** (a region census over its
+predicted screen rectangle is enough). See lesson **BA**.
 
 ---
 

@@ -598,6 +598,27 @@ that merely *looks* right is not sufficient.
   in product code — hiding dev chrome must not become a reason to change what players see; the
   7 frames were re-captured and the originals preserved as
   `out/stage-a-h2-evidence-superseded-review-chrome/` rather than silently overwritten.
+- **Adoption completes the split: a proof flag that becomes production content must be
+  REPLACED, not re-polarised** (Stage A adoption, Aug 2026). AE's rule is "separate
+  content-enablement from review-tooling **from the start**". Adoption is where that debt comes
+  due, because the polarity inverts: a proof is default-OFF and opt-in; adopted content is
+  default-ON with an opt-out rollback. Flipping the *meaning* of
+  `studioLotStageAH2Enabled()` while keeping the *name* would have left a flag reading "H2 proof
+  enabled" whose **absence also loads H2** — the reader has no way to know which era they are
+  in. It was replaced wholesale with `studioLotAuthoredStageAEnabled()`, key, env var and setter
+  together, character-for-character matching the sibling Stage B function that had already
+  solved the same problem. **Rule:** when a proof graduates, rename the flag in the same commit
+  that inverts it, and copy the shape of the building that shipped before you rather than
+  inventing a second convention. **Anti-pattern:** two authored buildings with two different
+  flag idioms; a "generalised authored-building framework" invented at n = 2 to avoid the
+  duplication — two sibling functions are cheaper to read than one abstraction.
+- **Third instance of the capture boundary, and the cheapest one to miss.** The adoption
+  "selected" frame was captured by a helper that closes the details panel first — and closing it
+  also calls `clearSelection()`, so the reviewer was handed an ordinary frame *labelled*
+  "selected". It was a reviewer, not a test, who caught it. **Rule:** an evidence frame whose
+  name asserts a STATE must be diffed against the same frame without that state before it is
+  shown to anyone; if the delta is ~0, the capture is lying. Cheap to automate, and it would
+  also have caught the review-chrome leak above.
 - **Reuse classification:** **P** (Project: Studio implementation history above) · **BR / MG** (the
   reusable cross-project Art/UI pipeline rule: split content-enablement from review-tooling from day
   one). These are recorded together but are distinct — the P history is the specific fix; the BR/MG
