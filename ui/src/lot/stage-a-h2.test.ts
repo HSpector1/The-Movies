@@ -33,10 +33,14 @@ const here = dirname(fileURLToPath(import.meta.url))
 const LOT = join(here, '..', '..', 'public', 'lot')
 const H2 = { normal: join(LOT, 'b-stage-a-h2.png'), worn: join(LOT, 'b-stage-a-h2-ud.png') }
 
-// Accepted H2 bytes — stage-a-h2-stage-front/MANIFEST.json @ source c0b6306
+// Accepted H2 bytes — stage-a-h2-stage-front/MANIFEST.json @ source 3e7e4f7
+// (Bounded Correction 1. Candidate 1 was c0b6306 / eefad8ad… / cdfe7911… — superseded
+// because its front did not read as a stage at the management camera. The values BELOW
+// this line are the only thing the correction moved: every tolerance, threshold and
+// registration figure in this file is unchanged and still passes on its own terms.)
 const ACCEPTED = {
-  normal: { sha256: 'eefad8ad5239c663c55c61c0ae8ac64485476188957be75bacbed37beeeaae5c', bytes: 72415 },
-  worn: { sha256: 'cdfe79115b51cd21f568da13af23eec26acc784ef8d9edf185f2fac7a9ea6aba', bytes: 72264 },
+  normal: { sha256: '98d4191c04a6a08fb3b252f508215e88649b4c7693e8a9375174a2f1d47ca0b9', bytes: 73067 },
+  worn: { sha256: '2ed088351b6a60c0a06f6b86cd4100e339e33a8df3d6c8172dc3fca03a85f5d4', bytes: 69326 },
 }
 
 function chunks(file: string) {

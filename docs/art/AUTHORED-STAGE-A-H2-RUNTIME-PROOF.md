@@ -1,7 +1,20 @@
 # Authored Stage A — H2 "Stage Front" — runtime integration proof
 
-**Status: RUNTIME PIPELINE PASSES. MATERIAL ART DEFECT FOUND — BOUNDED CORRECTION REQUIRED.
-NOT ADOPTED. ART DIRECTOR DECISION REQUIRED.**
+**Status: BOUNDED CORRECTION 1 APPLIED AND PASSED. NOT ADOPTED.
+ART DIRECTOR PRODUCTION-ADOPTION REVIEW REQUIRED.**
+
+> **Reading order.** §1–§11 below are the **Candidate 1** record and are preserved
+> unedited: runtime pipeline PASS, glazing FAIL, management class-legibility weakness.
+> **§12 is the Bounded Correction 1 checkpoint** and supersedes §9's watch-item rulings
+> and §11's recommendation. Candidate 1 is not rewritten as though it never failed —
+> it failed, the failure was the point, and the correction is a separate, later gate.
+
+---
+
+## Candidate 1 — the record, preserved
+
+**Status at the time: RUNTIME PIPELINE PASSES. MATERIAL ART DEFECT FOUND — BOUNDED
+CORRECTION REQUIRED. NOT ADOPTED.**
 
 This document records the **runtime-integration** checkpoint. It is a *separate gate* from the
 offline-art checkpoint recorded in
@@ -307,3 +320,207 @@ and it beats the procedural Stage A on peer finish and architectural family. The
 sound. The execution needs one bounded correction and one legibility decision.
 
 **No production merge, PR, tag or push was performed. `main` is untouched at `5e19b25`.**
+
+---
+
+# 12. BOUNDED CORRECTION 1 — the runtime read
+
+**Status: PASSES. Ready for production-adoption review.**
+
+Authorised scope: facade/presentation only, to close the two demonstrated defects —
+the shadow-side glazing slot (FAIL) and management-camera class legibility. Roof
+explicitly **NOTE only, not authorised for redesign or prop dressing**.
+
+| Authority | Value |
+|---|---|
+| Production peer | `5e19b25eb67e5c689ca60248dc7cf5efbda95f6d` — re-verified local = tracking = live remote, clean |
+| Candidate 1 application proof | `7758cb9df25163f00eb7fba354750dd0120c18ab` — **preserved, not amended** |
+| Candidate 1 source | `c0b630622b5cabb4310e6058836e8cb5cab21e0f` — **preserved, not rewritten** |
+| **Corrected source** | **`3e7e4f7e772398312b3262689bf2f97eb1623334`** on `stage-a-h2-stage-front`, pushed to the private remote |
+
+## 12.1 The corrected assets
+
+| Asset | SHA-256 | Bytes |
+|---|---|---|
+| NORMAL `b-stage-a-h2.png` | `98d4191c04a6a08fb3b252f508215e88649b4c7693e8a9375174a2f1d47ca0b9` | 73,067 |
+| WORN `b-stage-a-h2-ud.png` | `2ed088351b6a60c0a06f6b86cd4100e339e33a8df3d6c8172dc3fca03a85f5d4` | 69,326 |
+
+Exported through the current production RGBA path. Deterministic over 3 runs, alpha
+bit-exact vs source, 128 distinct RGB, colour type 6, no PLTE/tRNS. Superseded pair:
+`eefad8ad…` / `cdfe7911…`.
+
+## 12.2 What changed — and what provably did not
+
+| Measure | Candidate 1 | Corrected |
+|---|---|---|
+| Elephant door | 197 × 80 px | **253 × 89 px** (+43 % area) |
+| Door field vs lit wall | 0.67 — a shaded panel | **0.392** — a void |
+| Door jamb vs lit wall | — | **0.292** |
+| Door seams | 4 | 2 |
+| Personnel door | **never rendered** | **28 × 27 px, visible** |
+| Buff ratio normal / worn | 0.8655 / 0.8638 | **0.8655 / 0.8638 — identical, both PASS** |
+| Registration lock | 15 / 15 / 358 | **15 / 15 / 358 — unchanged** |
+| Raw normal↔worn geometry delta | 0 px | **0 px** |
+| Final alpha delta / clickable mask | 0 / 0 | **0 / 0** |
+| Alpha islands | 1 | **1** |
+
+The buff contract is identical **by construction**: the door and glazing corrections are
+finish depths on the `stageDoor` / `stageDoorSeam` / glass vocabulary applied with the
+lot's own `dull()`, so the buff wall family was never touched. The pylons narrowed
+**inward** specifically so their outer faces stayed fixed — `PA0 = 0.70` pins the lit
+measurement window at screen x 20–52, `PB1 = 3.40` keeps clear of the runtime sign zone —
+and the glazing was kept clear of screen x ≥ 470 so the shadow window samples the same
+bare wall. Every move is inside the mass, which is why the registration lock, footprint,
+anchor, placement and depth are provably untouched and the registration guard passed
+**unrewritten**.
+
+**Runtime code: unchanged.** No new flag, no changed flag semantics, no fallback
+redesign, no `BuildingId`/grid/footprint/origin/depth/navigation/accessibility change, no
+Engine/`SaveFile`/`StudioLotSnapshot` change. Asset bytes plus two hash assertions plus
+documentation. The built JS and CSS bundles are byte-identical to Candidate 1's.
+
+## 12.3 A latent defect found while correcting
+
+**The personnel door never rendered — not in Candidate 1, not before it.** Its leaf front
+face sat at `PY_FACE - 0.002`, i.e. 0.002 BU *behind* the pylon it is set into, and +X is
+toward the camera, so the pylon occluded it completely. Verified on the shipped Candidate
+1 asset: pylon B's front panel is unbroken buff, and the panel's dark-pixel count trebles
+after the fix.
+
+This is more consequential than its 28 × 27 px suggests. The concept names the **scale
+contrast between the two doors** as its class signal, and `MANIFEST.json` reported
+`personnel_door_px` all along — computed from *generator parameters*, never measured on
+the rendered output. The human-scale half of the class signal was absent from every frame
+either blind reviewer was ever shown. Fixed by bringing it 0.006 BU proud; nothing else
+changed.
+
+**This is a second structural change beyond the two named defects.** It is reported
+rather than folded in silently: it was fixed because shipping a correction whose stated
+class signal is invisible would be knowingly delivering a defect, but the decision to
+accept it is the Director's.
+
+## 12.4 Blind runtime review — fresh reviewer, corrected frames
+
+New reviewer, no prior context, no knowledge of Candidate 1, sequential so the
+building-type answer could not be primed, management camera first, A/B assignment derived
+from the frames' own SHA-256. Version A = procedural control, Version B = corrected H2.
+
+**The same unprompted question, three times:**
+
+| | authored H2 | procedural control |
+|---|---|---|
+| Offline (on the render) | "a sound stage" — 80 % | "warehouse / scenery shed" — 35 % |
+| Runtime, **Candidate 1** | "warehouse / office block" — **38 %** | "sound stage" — 72 % |
+| Runtime, **corrected** | **"sound stage / production stage" — 75 %** | "warehouse / storage or utility shed" — 35 % |
+
+| # | Question | Answer |
+|---|---|---|
+| 1–2 | Building type / confidence | **"Sound stage / production stage (or aircraft-hangar type)" — 75 %** |
+| 3 | Strongest class signal | **"the tall dark recessed opening flanked by the two projecting pilasters… it reads specifically as an oversized vehicle/set door"** — the production-scale opening itself |
+| 4 | More production-ready | **corrected H2, decisively** — "three separated values (light parapet, mid wall, near-black opening) plus one accent, so it reads instantly" |
+| 5 | Same class/family as Stage B | **YES** — "the same vocabulary and the same palette as the centre building… the plainer working-shed cousin, which is correct" |
+| 6 | Calmer vs less finished | **intentionally calmer** — "Fewer beats than the centre hero, but each one is detailed… Deliberate" |
+| 7 | Shadow-side slot | **"the long blue band reads as a clerestory window strip"** |
+| 8 | Flat roof | **"intentional"** — "the parapet lip is drawn as a separate lighter plane and the piers pierce it, which only makes sense as a deliberate flat-roof detail" |
+| 9 | Clipping / float / sort | **none in either**; both seat correctly on their apron |
+| 10 | Advance it | **"Yes — keep and ship B."** |
+
+The procedural control, judged in the same frame, was rated *not* the same family as
+Stage B — "a placeholder block borrowed from another game" — and "materially less
+finished". The class-legibility result is therefore a genuine reversal, not a scoring
+drift: the two buildings swapped places on every axis.
+
+## 12.5 Watch-item rulings — from the corrected runtime evidence only
+
+### Shadow-side glazing slot — **PASS**
+
+- **Management read:** "one long narrow pale-blue horizontal window band high under the
+  eave"; volunteered as a positive class cue — "the ribbon window on the flank confirms
+  an occupied working building rather than a storage hulk."
+- **Close read:** "reads as a clerestory window strip."
+- **Ruling: PASS.** The §22 FAIL language is gone entirely — no "stray highlight", no
+  "sprite bleed", no "not a designed feature". It is now named as architectural glazing,
+  which is the PASS definition.
+- **Observation, not a defect:** the reviewer noted it "is painted flat onto the wall
+  with no reveal or sill, so it sits slightly *on* rather than *in* the surface, and it
+  is the most saturated hue on the building." Recorded for the Director; **not
+  corrected** — the first-pass stop rule was observed.
+
+### Flat roof — **PASS** (was NOTE)
+
+- **Management read:** "single flat dark-olive roof plane with a defined lighter parapet
+  lip"; neutral-positive, no complaint.
+- **Close read:** **"intentional"**, with the reason given: the parapet lip is a separate
+  lighter plane and the piers pierce it.
+- **Ruling: PASS.** **The roof geometry is byte-identical to Candidate 1** — not one
+  vertex changed, and no vents, HVAC, skylights or rooftop props were added. The improved
+  read is contextual: against a near-black opening and narrower piers that break the
+  roofline, the same parapet now reads as a deliberate detail rather than an empty field.
+  A different reviewer is also a variable, and is stated as one.
+- **Standing wish-list item, unchanged:** this reviewer again asked for two or three roof
+  props, noting the centre building has a rooftop antenna and lamp. Per the standing rule
+  a roof-clutter request alongside an acceptable peer-finish verdict is not a FAIL, and
+  roof dressing was not authorised. Untouched.
+
+## 12.6 One-sprite / depth — **PASS WITH OBSERVATIONAL LIMITATION**
+
+Unchanged from §10 and re-confirmed: no clipping, floating or sort defect in either
+version; both seat correctly on their apron. The same limitation still stands and is not
+overclaimed — Stage A's ambient routes are authored in front of the building, so no true
+behind-body occlusion crossing exists to exercise, and none was manufactured.
+
+## 12.7 Validation — corrected run
+
+| Gate | Result |
+|---|---|
+| Focused H2 tests | **16 / 16 PASS** — registration, alpha bit-identity and the 128-colour contract all passed **unchanged**; only the two hashes moved |
+| Flag → scene wiring test | **3 / 3 PASS** |
+| RGBA export tests | **8 / 8 PASS** |
+| Value-standard tests | **PASS** |
+| Full unit suite | **1124 / 1124 PASS**, 88 files |
+| Core + UI typecheck | **PASS** (exit 0) |
+| Production build | **PASS** (exit 0) |
+| Full Playwright / e2e | **105 passed, 0 failed, 0 flaky**, 7.8m |
+| `git diff --check` | clean |
+| `rgba-verify` | **PASS** — 3 runs identical, alpha bit-exact |
+| Buff family | **PASS** both finishes — 0.8655 / 0.8638, deviation 0.0066 / 0.0049 |
+
+**No test was weakened.** Every tolerance, threshold, registration figure and colour
+contract is unchanged; the only edited assertion is the two accepted hashes, which is the
+assertion whose whole purpose is to move when the art is deliberately re-cut.
+
+## 12.8 Performance — an art correction, and it costs nothing
+
+| Metric | Candidate 1 | Corrected |
+|---|---|---|
+| Payload | 144,679 B | **142,393 B** (−2,286 B) |
+| Texture count / memory delta | +2 / +1.44 MiB | **+2 / +1.44 MiB** |
+| `displayObjects` | 143 → 143, delta 0 | **143 → 143, delta 0** |
+| FPS @ 1280 / 1440 / 1920 | 57 / 55 / 49 | **57 / 55 / 49** (procedural 57 / 54 / 49) |
+| Scene-ready median | 840 / 835 ms | **827 ms procedural vs 827 ms H2** |
+| Fetch OFF / ON | `[]` / exactly the pair | **`[]` / exactly the pair** |
+| Build output | — | **JS and CSS byte-identical to Candidate 1** |
+
+## 12.9 Evidence
+
+`out/stage-a-h2-evidence/` — 29 artifacts (24 PNG + 5 JSON), matched procedural/H2 legs,
+**0 contaminated frames** (corner-crop stddev uniform at the clean baseline). Candidate 1's
+package is preserved unmodified as `out/stage-a-h2-evidence-candidate-1/`, and the
+first-pass chrome-contaminated frames remain at
+`out/stage-a-h2-evidence-superseded-review-chrome/`.
+
+## 12.10 Recommendation
+
+**H2 BOUNDED CORRECTION PASSES — Stage A H2 is ready for production-adoption review.**
+
+Class legibility moved from 38 % "warehouse / office block" to **75 % "sound stage /
+production stage"**, with the production-scale opening named as the signal — the criterion
+the standard sets. The glazing is PASS. Peer finish, same-class cohesion and Stage B
+differentiation all hold, and the front-led / roof-led contrast with Stage B is intact —
+the correction put its investment into the opening, not the skyline. Every technical gate
+passes, no test was weakened, and the correction is byte-free at runtime.
+
+Two items are recorded for the Director rather than actioned: the glazing band sits *on*
+rather than *in* the wall, and the roof remains undressed by standing policy. Neither is a
+defect against the current standard. **Production adoption remains unauthorised and is
+the Director's call.**

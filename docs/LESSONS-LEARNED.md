@@ -783,6 +783,20 @@ management camera must not be the **only** distance a character is judged at.
   the same frame* — the control is what turns "38%" from a soft number into a regression.
   **Anti-pattern:** carrying an offline legibility PASS forward as if the runtime gate had asked it.
   **Related:** **B**, **AX**, **AL**. **Reuse:** MG, BR.
+- **And the rule is ACTIONABLE, not just diagnostic — the same measurement closed it.** One bounded
+  correction aimed squarely at the management camera reversed the result: authored H2 went from
+  38 % "warehouse / office block" to **75 % "sound stage / production stage"**, with a fresh
+  reviewer naming the production-scale opening itself as the class signal, while the procedural
+  control fell from 72 % to 35 % — the two buildings swapped places on every axis, which is what
+  distinguishes a real reversal from scoring drift. The correction was **form, scale and value, not
+  detail**: the door became a void at 0.392 of the lit wall inside a 0.292 jamb (it had been a
+  *shaded panel* at 0.67), grew +43 % in area, and three stacked horizontal bars merged into one
+  lintel. Nothing was added; contrast and hierarchy were. **Rule:** when a class signal dies at the
+  management camera, fix the VALUE HIERARCHY and the SIZE of the primary form before adding any
+  detail — detail is what died first. **Corollary for the buff/value contract:** door and glazing
+  corrections rode entirely on the `stageDoor`/glass vocabulary via the lot's own `dull()`, so the
+  wall family and both measurement windows were untouched and the governed ratios came back
+  **bit-identical** (0.8655 / 0.8638). Contrast work does not have to cost a value contract.
 
 ## AJ. Repeated autonomous procedural correction was not an efficient path — **P, MG**
 
@@ -1664,6 +1678,23 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   must land on a transparent pixel *inside* the sprite rect — the inherited outside-the-rect
   probe passed vacuously, and a bbox-based locator produced a false positive during evidence
   until replaced. State variants keep identical alpha when geometry doesn't change.
+- **A manifest figure computed from GENERATOR PARAMETERS is not a measurement of the art** (added
+  by the Stage A H2 bounded correction, Aug 2026). H2's personnel door — the element the concept
+  names as its class signal, the human half of the two-door scale contrast — **never rendered**.
+  Its leaf front face sat 0.002 BU *behind* the pylon it is set into, and +X is toward the camera,
+  so the pylon occluded it completely. It survived an offline art gate, a blind offline review, a
+  full runtime integration proof and a second blind review, because `MANIFEST.json` reported
+  `personnel_door_px` all along — derived from the generator's own constants, never sampled from
+  the output. The number was true about the *model* and false about the *image*. This is the same
+  failure family as the mislabel this lesson already records (a claim measured on a synthetic
+  overlay rather than the art), one level earlier: here nothing was measured at all.
+  **Pattern:** for every feature a design document names as load-bearing, assert it is PRESENT IN
+  THE SHIPPED PIXELS — a cheap region census (opaque count, dark-pixel count, distinct tones inside
+  its bounding box) is enough, and it is what caught this. **Anti-pattern:** letting the generator
+  self-report geometry into the provenance record; treating "the code places it there" as evidence
+  that it draws. **Fastest diagnostic:** crop the feature's predicted screen rectangle out of the
+  final asset and look at it — the occlusion was obvious in one 70×90 px crop after four gates had
+  missed it.
 - **Two green endpoint suites can bracket an untested span** (added by the Stage A H2 runtime
   proof, Aug 2026). The H2 unit suite proved the *flag* (default-OFF, only a literal `'1'` enables)
   and the *registry re-point* (BuildingId, grid, footprint, origin all preserved) — both endpoints,
