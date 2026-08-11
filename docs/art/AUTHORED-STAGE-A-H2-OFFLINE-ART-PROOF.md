@@ -7,8 +7,16 @@ Branch `art-authored-stage-a-h2-offline-proof`, base `56eae12`, cut from product
 Governed by [`AUTHORED-ENVIRONMENT-PIPELINE-STANDARD.md`](AUTHORED-ENVIRONMENT-PIPELINE-STANDARD.md)
 (**§3A** is the export path) and [`STAGE-A-AUTHORED-PREFLIGHT-REFRESH.md`](STAGE-A-AUTHORED-PREFLIGHT-REFRESH.md).
 
-**No runtime integration.** No PNG in `ui/public/lot/`, no flag, no preload, no `BUILDING_TEX`
-change, no runtime module touched. `git diff` against the base is documentation only.
+**No runtime integration — at this checkpoint.** No PNG in `ui/public/lot/`, no flag, no preload,
+no `BUILDING_TEX` change, no runtime module touched. `git diff` against the base is documentation
+only.
+
+> **Temporal note.** This document records the **offline-art** checkpoint state at `b5bcdfc`, and
+> the sentence above was true of that commit. The later runtime-proof work — which does add the
+> authored pair to `ui/public/lot/`, a default-OFF flag and a preload — is a **separate, later**
+> checkpoint documented in [`AUTHORED-STAGE-A-H2-RUNTIME-PROOF.md`](AUTHORED-STAGE-A-H2-RUNTIME-PROOF.md).
+> It changes no conclusion below: offline **art acceptance** and runtime **integration acceptance**
+> are distinct gates, and this one is unamended.
 
 **Source authority:** `HSpector1/project-studio-art-source` (**private**), branch
 `stage-a-h2-stage-front`, commit `c0b6306`, directory `stage-a-h2-stage-front/`. Concept C stays

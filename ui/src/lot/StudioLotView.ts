@@ -57,6 +57,11 @@ export type StudioLotViewOptions = {
    * DEFAULT OFF. Consumed once at scene init, like `distinctStages`.
    */
   authoredStage?: boolean
+  /**
+   * Authored Stage A H2 "Stage Front" proof gate, resolved by the host from ../flags.ts.
+   * DEFAULT OFF. Consumed once at scene init, like the others.
+   */
+  stageAH2?: boolean
 }
 
 export class StudioLotView {
@@ -88,6 +93,7 @@ export class StudioLotView {
         onEvent: (e: LotEvent) => this.handleEvent(e),
         distinctStages: this.opts.distinctStages === true,
         authoredStage: this.opts.authoredStage === true,
+        stageAH2: this.opts.stageAH2 === true,
       })
     })
     return game

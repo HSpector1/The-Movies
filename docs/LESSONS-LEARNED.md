@@ -581,6 +581,23 @@ that merely *looks* right is not sufficient.
   pill is **not** a genuine player-clean view.
 - **Anti-pattern:** welding player-facing content to debug selectors, performance panels, fixture
   controls, or review overlays (one flag driving both content and chrome).
+- **Recurrence — Stage A H2 runtime proof (Aug 2026), a NEW surface for the same rule.** The
+  doctrine above ("a hidden review bar that still leaves a restore pill is **not** a genuine
+  player-clean view") was written about *player enablement*. It recurred in **evidence capture**:
+  7 of 24 Stage A H2 runtime frames — including **all four masked frames whose only purpose is to
+  be shown to a blind reviewer** — carried the `Identity review ▸` pill, because `.lot-review-show`
+  is `position:absolute` **over** the canvas and a Playwright element screenshot of `.lot-canvas`
+  captures whatever is painted on top of it. Clicking `lot-review-hide` hides the *bar* and creates
+  the *pill*, so the very act of cleaning the frame contaminated it. **The generalisation:** the
+  content/chrome split must also hold at the *capture* boundary — "no chrome in the DOM subtree I
+  screenshotted" is not the same claim as "no chrome in the pixels I captured", and only the second
+  one matters to a reviewer. **Fastest diagnostic:** sample a fixed corner crop of every frame in a
+  package and compare stddev across the set — contaminated frames separated cleanly here (≈13.55 vs
+  ≈0.5), which is faster and more reliable than eyeballing 24 images. **Correction:** suppressed in
+  the capture harness only (`openLot()` injects `.lot-review-show{display:none!important}`), never
+  in product code — hiding dev chrome must not become a reason to change what players see; the
+  7 frames were re-captured and the originals preserved as
+  `out/stage-a-h2-evidence-superseded-review-chrome/` rather than silently overwritten.
 - **Reuse classification:** **P** (Project: Studio implementation history above) · **BR / MG** (the
   reusable cross-project Art/UI pipeline rule: split content-enablement from review-tooling from day
   one). These are recorded together but are distinct — the P history is the specific fix; the BR/MG
@@ -745,6 +762,27 @@ management camera must not be the **only** distance a character is judged at.
   close-ups before any verdict; if the two disagree, the close range governs the asset verdict.
 - **Pattern:** distance-paired character evidence. **Anti-pattern:** letting a flattering camera stand in for
   a human-scale ruling. **Related:** Lesson **B**, **AL**. **Reuse:** P, MG.
+- **The converse, measured — an OFFLINE class-legibility PASS does not predict a RUNTIME one**
+  (Stage A H2, Aug 2026). AI above is "the flattering camera hid a defect." This is the opposite
+  direction: **the isolated render flattered, and the management camera exposed it.** The same blind
+  question — *what kind of building is this?* — was asked twice, on the same pixels, with the answers
+  near-mirrored:
+
+  | Blind review | Authored H2 | Procedural control |
+  |---|---|---|
+  | Offline, judged on the 512×368 render | **"a sound stage" — 80%** | "warehouse / scenery shed" — 35% |
+  | Runtime, judged in the lot at management distance | "warehouse / office block" — **38%** | **"sound stage" — 72%** |
+
+  The variable was not the art; it was the **viewing condition**. Offline, the reviewer named the
+  recessed elephant-door bay as the class signal. At management distance that bay reduces to a few
+  pixels of shadow and stops carrying, leaving a flat-parapet box that reads as generic utility —
+  while the procedural building's single oversized bright door survives the distance and keeps
+  saying "stage". **Rule:** class legibility must be re-asked at the *runtime* camera before an
+  authored building is treated as class-legible; an offline gate settles the art, not the read.
+  **Fastest diagnostic:** ask the unprompted building-type question with a *procedural control in
+  the same frame* — the control is what turns "38%" from a soft number into a regression.
+  **Anti-pattern:** carrying an offline legibility PASS forward as if the runtime gate had asked it.
+  **Related:** **B**, **AX**, **AL**. **Reuse:** MG, BR.
 
 ## AJ. Repeated autonomous procedural correction was not an efficient path — **P, MG**
 
@@ -1626,6 +1664,19 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   must land on a transparent pixel *inside* the sprite rect — the inherited outside-the-rect
   probe passed vacuously, and a bbox-based locator produced a false positive during evidence
   until replaced. State variants keep identical alpha when geometry doesn't change.
+- **Two green endpoint suites can bracket an untested span** (added by the Stage A H2 runtime
+  proof, Aug 2026). The H2 unit suite proved the *flag* (default-OFF, only a literal `'1'` enables)
+  and the *registry re-point* (BuildingId, grid, footprint, origin all preserved) — both endpoints,
+  both green — while the four plain assignments **between** them (`flags` → `StudioLotScreen` →
+  `StudioLotView` → `LotScene.init` → `preload`) had no unit coverage at all. A dropped or renamed
+  prop anywhere in that span leaves every endpoint test passing while the feature silently does
+  nothing in the real product; only the browser proof would have caught it, and only if someone
+  looked at the right attribute. **Pattern:** when a feature is a chain of pass-throughs, test the
+  *span* end-to-end and take the assertion as **behaviour at the far end** (here: which image URLs
+  the real scene actually requests) rather than as a private field, and stub only the third-party
+  boundary (Phaser) so every project module in the chain runs for real. **Then mutation-test the
+  span, not just the guard**: deleting the prop at the view hop failed 3/3 and at the host hop
+  2/3 — without that check the new test could itself have been vacuous.
 - **Pattern:** derive test coordinates from the committed asset's alpha programmatically;
   mutation-test every new guard. **Anti-pattern:** constants that encode an accident of current
   assets; trusting a claim ("gates pass") measured on a synthetic overlay rather than the art —

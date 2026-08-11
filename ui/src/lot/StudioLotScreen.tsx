@@ -27,6 +27,7 @@ import {
   studioLotSoundstagesEnabled,
   studioLotSoundstageProofEnabled,
   studioLotAuthoredStageEnabled,
+  studioLotStageAH2Enabled,
 } from '../flags.ts'
 import type { IdentityMode } from './identity/manifest.ts'
 import './lot.css'
@@ -122,6 +123,9 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
     /** Authored-proof diagnostics — dev panel only, never player-facing. */
     stageBTexture: string
     authoredStageActive: boolean
+    /** Stage A H2 proof diagnostics — dev panel only, never player-facing. */
+    stageATexture: string
+    stageAH2Active: boolean
   } | null>(null)
   const activeReview = REVIEW_MODES.find((m) => m.key === reviewKey) ?? REVIEW_MODES[1]
 
@@ -153,6 +157,9 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   // Authored Soundstage Pipeline Proof, default OFF. With it off the scene fetches no
   // image and Stage B is the procedural build exactly as in production.
   const authoredStage = studioLotAuthoredStageEnabled()
+  // Authored Stage A H2 proof, default OFF. With it off the scene fetches no H2 image and
+  // Stage A is the procedural build exactly as in production.
+  const stageAH2 = studioLotStageAH2Enabled()
   const [signageMasked, setSignageMasked] = useState(false)
   const [closerCamera, setCloserCamera] = useState(false)
   const readSnapshot = useCallback((s: GameState): StudioLotSnapshot => {
@@ -190,6 +197,7 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
           parent: mountRef.current,
           distinctStages: soundstages,
           authoredStage,
+          stageAH2,
           snapshot: { ...readSnapshot(state), selectedBuildingId: sessionSelectedBuilding },
           onSelect: (sel) => {
             setSelectionInfo(sel)
@@ -290,6 +298,8 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
           identityObjects: d.identityObjects,
           stageBTexture: dbg?.stageBTexture ?? '',
           authoredStageActive: dbg?.authoredStageActive === true,
+          stageATexture: dbg?.stageATexture ?? '',
+          stageAH2Active: dbg?.stageAH2Active === true,
         })
     }
     const h = window.setInterval(tick, 500)
@@ -380,6 +390,8 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
                   role="status"
                   data-stage-b-texture={perf.stageBTexture}
                   data-authored-stage={perf.authoredStageActive ? "1" : "0"}
+                  data-stage-a-texture={perf.stageATexture}
+                  data-stage-a-h2={perf.stageAH2Active ? "1" : "0"}
                 >
                   {perf.fps} fps · {perf.displayObjects} objects · {perf.identityObjects} identity
                 </span>

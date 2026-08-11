@@ -505,6 +505,30 @@ export function pointStageBAtAuthored(key: string): void {
 }
 
 /**
+ * Authored Stage A H2 "Stage Front" PROOF — texture keys for the offline-rendered pair.
+ * Same `${key}-ud` convention, so `underDressedKey()` resolves the worn finish with no
+ * special case, exactly as the Stage B path does.
+ */
+export const STAGE_A_H2_KEY = 'b-stage-a-h2'
+export const STAGE_A_H2_UD_KEY = underDressedKey(STAGE_A_H2_KEY)
+
+/**
+ * Re-point the Stage A registry entry at an already-loaded authored H2 texture.
+ *
+ * Mirrors `pointStageBAtAuthored` exactly and for the same reason: it takes only a key and
+ * mutates nothing else, so footprint (fw/fd) and anchor (originY) carry over from the
+ * procedural bake and placement, plinth, depth key, hit polygon and every overlay position
+ * stay byte-identical. H2 is a PRESENTATION swap — `BuildingId` is still `stage-a`.
+ *
+ * Pure registry data, no Phaser: the caller owns the texture-manager check.
+ */
+export function pointStageAAtAuthored(key: string): void {
+  const procedural = BUILDING_TEX.stageA
+  if (!procedural) return
+  BUILDING_TEX.stageA = { ...procedural, key }
+}
+
+/**
  * Bake the lot's soundstages.
  *
  * `distinct === false` (the default, content flag OFF) bakes the single shared `b-stage`
