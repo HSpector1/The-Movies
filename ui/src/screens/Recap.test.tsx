@@ -6,9 +6,10 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
-import { applyActions, beginFounding, generateWorld, tick, TUNING } from '../../../src/core/index.ts'
+import { applyActions, beginFounding, generateWorld, studioRunRecap, tick, TUNING } from '../../../src/core/index.ts'
 import type { CastSlot, CreativeRole, GameState } from '../../../src/core/index.ts'
 import { StudioRunRecap } from './StudioRunRecap.tsx'
+import { money, moneyExact } from '../format.ts'
 
 function foundEngaged(seed: string): GameState {
   let s = beginFounding(generateWorld(seed))
@@ -220,5 +221,87 @@ describe('StudioRunRecap screen', () => {
     expect(m).toMatch(/contracted team/)
     expect(m).toMatch(/Recent typical commitment/)
     expect(m).toMatch(/Fixed-cost runway/)
+  })
+})
+
+// ── D-17A/T13 — the recap's labelled studio-economic layer ────────────────────
+// Phase E added the additive read-model fields; this pins the SCREEN: the three-line
+// per-film block, the studio-level reconciliation identity, and the glossary that names
+// the allocation as a managerial convention rather than a charge.
+describe('D-17A/T13 — studio-economic layer on the recap screen', () => {
+  it('renders three labelled lines per film, from the recap read-model', () => {
+    const s = releaseFilms('d17a-recap-1', 2)
+    const r = studioRunRecap(s)
+    render(<StudioRunRecap state={s} onBack={() => {}} />)
+
+    expect(r.films.length).toBeGreaterThan(0)
+    for (const f of r.films) {
+      const block = screen.getByTestId(`recap-studio-economic-${f.productionId}`)
+      expect(block.textContent).toContain(f.title)
+      // 1. the DIRECT figure, named as such
+      expect(block.textContent).toMatch(/Film contribution \(direct costs only\)/)
+      // 2. the allocation, with the weeks it covers
+      const alloc = within(block).getByTestId(`recap-studio-economic-${f.productionId}-allocated`)
+      expect(alloc.textContent).toContain(moneyExact(f.allocatedFixedCost))
+      expect(alloc.textContent).toContain(`${f.allocatedWeeks} wk`)
+      // 3. the studio-economic result === contribution − allocation, exactly
+      const result = within(block).getByTestId(`recap-studio-economic-${f.productionId}-result`)
+      expect(f.studioEconomicResult).toBeCloseTo(f.contribution! - f.allocatedFixedCost, 2)
+      expect(result.textContent).toContain(money(Math.abs(f.studioEconomicResult!)))
+    }
+    // The even-split convention is disclosed, in words, beside the numbers.
+    expect(screen.getByTestId('recap-studio-economic-basis').textContent).toMatch(
+      /split evenly between the films occupying it that week/i,
+    )
+    expect(screen.getByTestId('recap-studio-economic-basis').textContent).toMatch(
+      /a convention, not a measurement/i,
+    )
+  })
+
+  it('shows the reconciliation identity: allocated + idle === payroll+overhead paid', () => {
+    const s = releaseFilms('d17a-recap-2', 2)
+    const c = studioRunRecap(s).capital
+    render(<StudioRunRecap state={s} onBack={() => {}} />)
+
+    // The invariant itself, on the read-model…
+    expect(c.totalAllocatedFixedCost + c.idleFixedCost).toBe(c.totalLedgerFixedCost)
+    // …and it is exactly the run's payroll + overhead (both reported positive = spent).
+    expect(c.totalLedgerFixedCost).toBeCloseTo(c.totalPayroll + c.totalOverhead, 2)
+
+    // …and on the screen, as three lines plus the written identity.
+    const block = screen.getByTestId('recap-fixedcost-reconciliation')
+    expect(within(block).getByTestId('recap-fixedcost-total').textContent).toBe(moneyExact(c.totalLedgerFixedCost))
+    expect(within(block).getByTestId('recap-fixedcost-allocated').textContent).toBe(moneyExact(c.totalAllocatedFixedCost))
+    expect(within(block).getByTestId('recap-fixedcost-idle').textContent).toBe(moneyExact(c.idleFixedCost))
+    const identity = within(block).getByTestId('recap-fixedcost-identity').textContent ?? ''
+    expect(identity).toContain(moneyExact(c.totalAllocatedFixedCost))
+    expect(identity).toContain(moneyExact(c.idleFixedCost))
+    expect(identity).toContain(moneyExact(c.totalLedgerFixedCost))
+    // It must NOT be presented as a films-only sum (in-flight productions are included).
+    expect(identity).toMatch(/includes films still in production/i)
+  })
+
+  it('the existing Contribution and ROI columns are untouched, on the direct basis', () => {
+    const s = releaseFilms('d17a-recap-3', 2)
+    const r = studioRunRecap(s)
+    render(<StudioRunRecap state={s} onBack={() => {}} />)
+    const head = within(screen.getByTestId('recap-film-slate')).getAllByRole('columnheader').map((h) => h.textContent)
+    expect(head).toContain('Contribution')
+    expect(head).toContain('ROI')
+    for (const f of r.films) {
+      const cell = screen.getByTestId(`recap-film-${f.productionId}-contribution`)
+      expect(cell.textContent).toContain(money(Math.abs(f.contribution!)))
+    }
+  })
+
+  it('the glossary names the allocation a labelled convention, not a charge', () => {
+    const s = releaseFilms('d17a-recap-4', 1)
+    render(<StudioRunRecap state={s} onBack={() => {}} />)
+    const glossary = screen.getByTestId('recap-methodology').textContent ?? ''
+    expect(glossary).toMatch(/Payroll and overhead are studio costs, not charged to any film/i)
+    expect(glossary).toMatch(/labelled managerial convention/i)
+    expect(glossary).toMatch(/not.*a charge against the film/i)
+    expect(glossary).toMatch(/Studio-economic result/)
+    expect(glossary).toMatch(/Idle studio weeks/)
   })
 })

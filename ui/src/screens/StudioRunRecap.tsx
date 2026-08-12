@@ -315,6 +315,35 @@ export function StudioRunRecap({
           </div>
         </div>
 
+        {/* ── D-17A/T13 (Owner ruling R7 safeguard) — where the studio's FIXED cost went ──
+            Every dollar of ledger payroll + overhead is accounted for exactly once: attributed
+            to the films that occupied the studio that week, or reported as idle. This identity
+            is the whole point of the attribution, so it is shown, not assumed. NOTE the sum is
+            over ALL productions including films still in flight, which is why it is written
+            against `totalAllocatedFixedCost` and never re-derived from the released-film rows. */}
+        <div className="inset" style={{ marginTop: 14 }} data-testid="recap-fixedcost-reconciliation">
+          <h3 style={{ marginTop: 0 }}>Where the studio&rsquo;s fixed costs went</h3>
+          <div className="spread">
+            <span>Payroll + overhead paid (run)</span>
+            <span className="mono" data-testid="recap-fixedcost-total">{moneyExact(capital.totalLedgerFixedCost)}</span>
+          </div>
+          <div className="spread">
+            <span>&rarr; Allocated to films (production + release weeks)</span>
+            <span className="mono" data-testid="recap-fixedcost-allocated">{moneyExact(capital.totalAllocatedFixedCost)}</span>
+          </div>
+          <div className="spread">
+            <span>&rarr; Idle studio weeks (nothing in production, nothing in release)</span>
+            <span className="mono" data-testid="recap-fixedcost-idle">{moneyExact(capital.idleFixedCost)}</span>
+          </div>
+          <p className="hint" style={{ margin: '6px 0 0' }} data-testid="recap-fixedcost-identity">
+            {moneyExact(capital.totalAllocatedFixedCost)} allocated + {moneyExact(capital.idleFixedCost)} idle
+            = {moneyExact(capital.totalLedgerFixedCost)} paid. Allocation includes films still in
+            production, so it is not the sum of the released films below. Payroll and overhead
+            remain studio costs; attributing them to films is a labelled managerial convention
+            (per-week pro-rata over the signed ledger), never a charge against a film.
+          </p>
+        </div>
+
         <div style={{ marginTop: 14 }}>
           <h3>Cash history through Week {summary.throughWeek}</h3>
           <CashChart recap={r} />
@@ -400,6 +429,46 @@ export function StudioRunRecap({
               ))}
             </tbody>
           </table>
+          </div>
+        )}
+        {/* ── D-17A/T13 — the studio-economic layer, per film, in three labelled lines ──
+            The table above is untouched: its Contribution and ROI columns are the DIRECT-cost
+            figures D-12 §3/§8 defines. This block adds the managerial view beside them, always
+            naming the basis, so neither reading can be mistaken for the other. */}
+        {r.films.length > 0 && (
+          <div className="stack" style={{ marginTop: 14 }} data-testid="recap-studio-economic">
+            <h3 style={{ margin: 0 }}>Each film against the studio weeks it occupied</h3>
+            <p className="hint" style={{ margin: 0 }} data-testid="recap-studio-economic-basis">
+              The studio&rsquo;s payroll and overhead for a given week are split evenly between the
+              films occupying it that week (production or release); weeks with no film carry their
+              cost as idle, above. An even split is a convention, not a measurement &mdash; a film
+              does not cause a fixed cost.
+            </p>
+            <div className="grid grid-2">
+              {r.films.map((f) => (
+                <div className="inset" key={f.productionId} data-testid={`recap-studio-economic-${f.productionId}`}>
+                  <strong>{f.title}</strong>
+                  <div className="spread">
+                    <span className="hint">Film contribution (direct costs only)</span>
+                    <span className="mono" data-testid={`recap-studio-economic-${f.productionId}-contribution`}>
+                      {f.contribution != null ? <SignedMoney value={f.contribution} /> : '—'}
+                    </span>
+                  </div>
+                  <div className="spread">
+                    <span className="hint">Share of studio fixed costs (allocated)</span>
+                    <span className="mono" data-testid={`recap-studio-economic-${f.productionId}-allocated`}>
+                      −{moneyExact(f.allocatedFixedCost)} over {f.allocatedWeeks} wk
+                    </span>
+                  </div>
+                  <div className="spread">
+                    <strong>Studio-economic result</strong>
+                    <strong className="mono" data-testid={`recap-studio-economic-${f.productionId}-result`}>
+                      {f.studioEconomicResult != null ? <SignedMoney value={f.studioEconomicResult} /> : '—'}
+                    </strong>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </Section>
@@ -584,6 +653,9 @@ export function StudioRunRecap({
           <li><strong>Lowest estimated production commitment</strong> — the lowest-cost production we can estimate from your current concepts and contracted team. It is an estimate, not a guaranteed quote.</li>
           <li><strong>Recent typical commitment</strong> — the median production commitment of your last three released films.</li>
           <li><strong>Film contribution</strong> — a film&rsquo;s Studio Revenue minus its production commitment. Payroll and overhead are studio costs, not charged to any film.</li>
+          <li><strong>Share of studio fixed costs (allocated)</strong> — the studio&rsquo;s ACTUAL weekly payroll + overhead, split evenly between the films occupying the studio that week (its production window and its theatrical run), from the signed ledger. It is a labelled managerial convention for reading a film against the weeks it took up &mdash; <em>not</em> a charge against the film, and it does not change Film contribution.</li>
+          <li><strong>Studio-economic result</strong> — Film contribution minus that allocated share. Negative means the studio was behind on that film once the weeks it occupied are counted.</li>
+          <li><strong>Idle studio weeks</strong> — payroll and overhead paid in weeks with nothing in production and nothing in release. Reported on its own, never spread over unrelated films.</li>
           <li><strong>Fixed-cost runway</strong> — how many weeks current cash lasts under weekly payroll + overhead, minus any active theatrical revenue.</li>
           {r.evidenceLimitations.map((l, i) => (<li key={i}>{l}</li>))}
         </ul>
