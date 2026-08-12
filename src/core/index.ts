@@ -253,6 +253,25 @@ export type {
   FinanceView,
 } from './economyView.js'
 
+// ── D-17A/T3 retrospective fixed-cost allocation (fixedCostAllocation.ts) ──────
+// Pure managerial attribution of ACTUAL ledger payroll+overhead across the films that
+// occupied the studio each week, with unallocated idle burn reported separately. Reconciles
+// to the ledger over any window (R7 safeguard). The sim never reads it.
+export {
+  allocateFixedCosts,
+  allocateFixedCostSeries,
+  fixedCostOccupancy,
+  filmOccupancyWindows,
+  ledgerFixedCostByWeek,
+  partitionWeeklyFixedCost,
+} from './fixedCostAllocation.js'
+export type {
+  AllocationWindow,
+  FixedCostAllocation,
+  FilmFixedCostAllocation,
+  WeeklyOccupancy,
+} from './fixedCostAllocation.js'
+
 // ── D-15 Studio Run Recap (studioRunRecap.ts) — pure read-only run explainer ───
 // Reconstructs the whole-run recap (capital story, film slate, talent development,
 // concentration, current position + recovery, inflections, warnings) from the live
