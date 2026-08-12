@@ -1,9 +1,15 @@
 // ── Active-session autosave (D-12 session recovery) ───────────────────────────
 // The authoritative GameState lives in App's React memory, so any reload / HMR / dev-server
 // restart / remount used to discard the whole studio. This module persists the ACTIVE session to
-// browser-local storage using the authoritative SaveFileV4 serialization (exportSaveJson) — never a
-// UI reconstruction of engine state — and restores it through the existing validate/migrate path
-// (importSaveJson). It is SEPARATE from the manual save slots (those are the player's own files).
+// browser-local storage using the authoritative current save serialization (exportSaveJson, D-17A
+// SaveFileV6) — never a UI reconstruction of engine state — and restores it through the existing
+// validate/migrate path (importSaveJson). It is SEPARATE from the manual save slots (those are the
+// player's own files).
+//
+// The storage KEY is deliberately NOT bumped when the save version is: a payload written by an
+// older build is a valid older envelope, and importSaveJson migrates it forward (D-17A: a stored
+// V5 session reconstructs its engagement fact on restore). Bumping the key would discard a live
+// session for no reason.
 //
 // The key is namespaced to Project: Studio so it cannot collide with another localhost app's storage.
 
