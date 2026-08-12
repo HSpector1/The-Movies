@@ -102,6 +102,16 @@ import {
   importLegacyV1ToV4,
   // ── D-11 employment / contracts / roster / freelancer market ──
   beginFounding,
+  // D-17A/R2: TWO regime facts, deliberately distinct.
+  //   • `economyEngaged`  — the PERSISTED, monotonic "this studio runs the money economy"
+  //     fact (set at founding / first signing, never cleared). Every ECONOMIC read-model must
+  //     use it, or the UI would silently disagree with the core after the engagement cliff
+  //     (a studio whose last contract expired still pays overhead and still banks a rental
+  //     share — `actions.ts` and `studioRunRecap.ts` were repointed in Phase E).
+  //   • `employmentEngaged` — "there is employment RIGHT NOW" (founding open ∨ a live
+  //     contract). It stays on the ROSTER/ASSIGNMENT surfaces only, where it is the correct
+  //     question: which pools staff a film, and does an assignment cost a freelancer fee.
+  economyEngaged,
   employmentEngaged,
   employmentStatus,
   isContracted,
@@ -768,7 +778,9 @@ export function previewForecast(state: GameState, pkg: DraftPackage): Forecast {
   const inp = assembleReceptionInputs(state, pkg)
   // D-12: match applyGreenlight — saturate fame→opening reach AND apply the P2 economy calibration
   // (routine gross scale + awareness marketing) when the economy is engaged (same signal for both).
-  const engaged = employmentEngaged(state)
+  // D-17A/T10: the SAME signal the greenlight itself now reads (`actions.ts` economy regime) is the
+  // PERSISTED `economyEngaged`, so a preview cannot diverge from the forecast that gets locked.
+  const engaged = economyEngaged(state)
   return computeForecast(
     inp,
     {
@@ -1606,8 +1618,11 @@ export function explainRelease(
   // its criticScore/reviewVariance and use the STORED filmResult values).
   // D-12 P2: reconstruct with the SAME flags the release used (fame saturation + economy
   // calibration) so the recomputed mechanistic breakdown — awarenessFactor (now marketing-curve
-  // dependent), opening/legs — matches the STORED box office. A session autopsy is always engaged.
-  const engaged = employmentEngaged(preTick)
+  // dependent), opening/legs — matches the STORED box office.
+  // D-17A/T10: the persisted regime fact, not "is anyone employed right now" — a film released
+  // after the last contract expired was still made on the engaged economy path, and the old
+  // reads reconstructed it on the wrong path (the engagement-cliff defect, R2).
+  const engaged = economyEngaged(preTick)
   const r = resolveReception(inp, RngStream.fromSeed(`autopsy::${filmResult.productionId}`), engaged, engaged)
 
   const contributions: AutopsyView['contributions'] = {
@@ -2843,9 +2858,10 @@ export function assessProfitRange(state: GameState, pkg: DraftPackage): Forecast
     salaries,
     // D-12: same economy gate as the greenlight-locked forecast (actions.ts) and realized
     // release — the live Commercial-Outlook opening uses the SAME §7 Hill fame path AND the P2
-    // economy calibration (routine gross scale + awareness marketing). Both are employmentEngaged.
-    saturateFame: employmentEngaged(state),
-    engaged: employmentEngaged(state),
+    // economy calibration (routine gross scale + awareness marketing). D-17A/T10: both read the
+    // PERSISTED regime fact, so the live Commercial Outlook cannot drift off the greenlight path.
+    saturateFame: economyEngaged(state),
+    engaged: economyEngaged(state),
   })
 }
 
@@ -2869,7 +2885,8 @@ export type MarketingEfficiency = {
   state: MarketingEfficiencyState
 }
 export function marketingEfficiency(state: GameState, pkg: DraftPackage): MarketingEfficiency {
-  const engaged = employmentEngaged(state)
+  // D-17A/T10: the persisted economy regime — the same one the forecast/realized paths use.
+  const engaged = economyEngaged(state)
   const inp = assembleFullReceptionInputs(state, pkg)
   // Reuse the engine forecast appeal (fame-saturated opening when engaged) + the engine box-office
   // pass so the awareness + capacity are the SAME values the forecast/realized paths use.
@@ -3076,9 +3093,10 @@ export function assessGreenlight(
     standing: preTick.studio.standing,
     era: preTick.era,
   }
-  // D-12: the greenlight was locked on the engaged economy path (a session autopsy is always engaged);
-  // pass it so the recomputed Expected Studio Revenue / profit match the persisted (scaled) snapshot.
-  return greenlightAssessment(snapshot, production, employmentEngaged(preTick))
+  // D-12: the greenlight was locked on the engaged economy path; pass it so the recomputed Expected
+  // Studio Revenue / profit match the persisted (scaled) snapshot. D-17A/T10: the PERSISTED fact —
+  // `employmentEngaged` would flip false once the roster emptied and silently rescale the autopsy.
+  return greenlightAssessment(snapshot, production, economyEngaged(preTick))
 }
 
 // #6 risksMaterialized — map each stored greenlight uncertainty factor to whether it BIT,
