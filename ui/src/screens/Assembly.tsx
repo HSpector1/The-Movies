@@ -27,8 +27,9 @@ import {
   salarySum,
   totalCommittedCost,
   commitmentPreview,
-  breakEvenGross,
+  cycleInclusiveBreakEvenGross,
   previewForecast,
+  TUNING,
   marketingEfficiency,
   productionDemandView,
   capitalExposure,
@@ -1002,6 +1003,51 @@ function TalentStep({
   )
 }
 
+// ── D-17A/T2 (Owner ruling R7) — the ONE break-even headline ──────────────────
+// There must not be two competing player-facing meanings of "break even". The HEADLINE is
+// STUDIO-ECONOMIC: the theatrical gross this film has to reach for the studio's rental share
+// to repay the film's own direct commitment AND the fixed cost the studio pays across the
+// film's 14-week make-and-release cycle. The direct-cost figure is not deleted — it stays,
+// explicitly labelled, as the D-12 §3/§8 detail it always was (payroll and overhead are never
+// silently folded into a film's Contribution).
+//
+// The headline assumes SOLE OCCUPANCY (concurrency 1) and says so: conservative, and
+// conservative exactly when the studio is poorest. Shared occupancy is a NAMED second line at
+// concurrency 2 — never blended into the headline, never an "expected concurrency 1.4".
+// Every figure comes from `cycleInclusiveBreakEvenGross`; this component does no arithmetic.
+function BreakEvenBlock({
+  state,
+  committed,
+  prefix,
+}: {
+  state: GameState
+  committed: number
+  prefix: 'budget' | 'release'
+}) {
+  const be = cycleInclusiveBreakEvenGross(state, committed)
+  const shared = cycleInclusiveBreakEvenGross(state, committed, { concurrency: 2 })
+  const fc = be.fixedCost
+  return (
+    <div className="stack" data-testid={`${prefix}-breakeven-block`} style={{ gap: 4 }}>
+      <Metric label="Break-even theatrical gross" small testid={`${prefix}-breakeven`}>
+        {money(be.cycleInclusive)}
+      </Metric>
+      <span className="hint" data-testid={`${prefix}-breakeven-direct`}>
+        {money(be.direct)} against this film&rsquo;s direct costs only.
+      </span>
+      <span className="hint" data-testid={`${prefix}-breakeven-shared`}>
+        {money(shared.cycleInclusive)} if a second film shares those {fc.weeks} weeks.
+      </span>
+      <span className="hint" data-testid={`${prefix}-breakeven-assumption`}>
+        The headline assumes this film alone carries all {fc.weeks} weeks of studio fixed costs
+        &mdash; {TUNING.PRODUCTION_TICKS} weeks in production plus {TUNING.THEATRICAL_WEEKS} weeks
+        in release &mdash; at today&rsquo;s {money(fc.weeklyBurn)} per week of payroll and
+        overhead, which is {money(fc.amount)}.
+      </span>
+    </div>
+  )
+}
+
 // ── Step: Budget & Forecast ──────────────────────────────────────────────────
 function BudgetStep({
   state,
@@ -1033,9 +1079,9 @@ function BudgetStep({
   const MKT_LABELS = ['Small campaign', 'Standard campaign', 'Wide campaign']
   // A5: the same solvency preview + break-even the Review step uses, surfaced HERE so the whole
   // financial decision is visible in Budget & Forecast — the player never reaches the bottom Next
-  // button without meeting it. commitmentPreview/breakEvenGross are pure adapter reads (no formula).
+  // button without meeting it. commitmentPreview is a pure adapter read (no formula); the
+  // break-even block reads `cycleInclusiveBreakEvenGross` itself (D-17A/T2).
   const preview = commitmentPreview(state, committed)
-  const breakEven = breakEvenGross(committed)
   const forecast = pkg ? previewForecast(state, pkg) : null
   const mktEff = pkg ? marketingEfficiency(state, pkg) : null // D-12 P2 awareness-conditioned marketing state
   const demand = productionDemandView(state, concept, draft.shape, negative) // D-12 production-demand read model
@@ -1216,13 +1262,11 @@ function BudgetStep({
       {/* ── Commercial outlook ── */}
       <div className="card stack" data-testid="budget-outlook">
         <h3 style={{ marginTop: 0 }}>Commercial outlook</h3>
-        <div className="row" style={{ gap: 24, flexWrap: 'wrap' }}>
+        <div className="row" style={{ gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
           <Metric label="Expected Total Theatrical Gross" small testid="budget-expected-gross">
             {forecast ? money(forecast.expectedTotal) : '—'}
           </Metric>
-          <Metric label="Break-even Theatrical Gross" small testid="budget-breakeven">
-            {money(breakEven)}
-          </Metric>
+          <BreakEvenBlock state={state} committed={committed} prefix="budget" />
         </div>
         {forecast ? (
           <ForecastDisplay forecast={forecast} mode="normal" source="estimate" />
@@ -1257,8 +1301,9 @@ function ReviewStep({
   profit: ForecastProfitRange | null
 }) {
   const committed = totalCommittedCost(state, pkg)
-  const breakEven = breakEvenGross(committed)
   const exposure = capitalExposure(state, committed) // C1: solvency and exposure are separate
+  // D-17A/T2: the same cycle-inclusive headline the Budget step shows, for the closing hint.
+  const be = cycleInclusiveBreakEvenGross(state, committed)
   return (
     <div className="stack">
       {/* Film Readiness — assembled from the four real dimensions, not a hidden score */}
@@ -1281,12 +1326,9 @@ function ReviewStep({
               {moneyExact(committed)}
             </strong>
           </div>
-          <div className="spread">
-            <span>Break-even theatrical gross</span>
-            <strong className="mono" data-testid="release-breakeven">
-              {money(breakEven)}
-            </strong>
-          </div>
+          {/* D-17A/T2: the studio-economic headline, with the direct figure kept as labelled
+              detail and shared occupancy as a NAMED second line. */}
+          <BreakEvenBlock state={state} committed={committed} prefix="release" />
           <div className="spread">
             <span>Cash after greenlight</span>
             <strong
@@ -1327,7 +1369,8 @@ function ReviewStep({
           <p className="hint">
             Greenlighting commits the budget and salaries now. Studio Revenue is your rental share
             of box office, paid weekly across the film’s theatrical run — so the film must gross
-            about {money(breakEven)} to return its cost. The forecast is a prediction, not a
+            about {money(be.cycleInclusive)} to return its own costs and the {be.fixedCost.weeks}{' '}
+            weeks of studio payroll and overhead it occupies. The forecast is a prediction, not a
             guarantee.
           </p>
         </div>

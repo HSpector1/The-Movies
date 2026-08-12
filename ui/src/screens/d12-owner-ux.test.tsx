@@ -166,7 +166,10 @@ describe('A3: the budget step uses Production Budget, with the negative-cost hel
     expect(screen.getByTestId('budget-solvency')).toBeInTheDocument()
     expect(screen.getByTestId('budget-exposure')).toBeInTheDocument()
     expect(screen.getByTestId('budget-runway')).toBeInTheDocument()
-    expect(screen.getByText('Break-even Theatrical Gross')).toBeInTheDocument()
+    // D-17A/T2: the break-even label is now sentence case and the headline is CYCLE-INCLUSIVE
+    // (the direct-cost figure survives as labelled detail beneath it) — assert the displayed truth.
+    expect(screen.getByText('Break-even theatrical gross')).toBeInTheDocument()
+    expect(screen.getByTestId('budget-breakeven-direct')).toBeInTheDocument()
   })
 })
 
@@ -197,7 +200,9 @@ describe('A4: forecast range reads Downside / Expected / Upside with explicit Pr
     expect(screen.getAllByText('Downside').length).toBeGreaterThanOrEqual(2)
     expect(screen.getAllByText('Expected').length).toBeGreaterThanOrEqual(2)
     expect(screen.getAllByText('Upside').length).toBeGreaterThanOrEqual(2)
-    expect(screen.getByText('Break-even theatrical gross')).toBeInTheDocument()
+    // D-17A/T2: the package panel's break-even is explicitly the DIRECT-cost figure now, so it
+    // cannot be confused with Assembly's cycle-inclusive headline.
+    expect(screen.getByText('Break-even theatrical gross (direct costs only)')).toBeInTheDocument()
   })
 
   it('a negative downside contribution is marked as a Loss (red), never color-only', () => {

@@ -146,6 +146,12 @@ import {
   breakEvenGross,
   foundingRunwayPreview,
   projectedWeeklyOverhead,
+  // D-17A/T2+T3 (Owner ruling R7) — the CYCLE-INCLUSIVE break-even family and the
+  // T4/T5 prospective-truth selectors. All pure core read-models; the UI only renders them.
+  prospectiveCycleFixedCost,
+  cycleInclusiveBreakEvenGross,
+  affordabilityScopes,
+  allocateFixedCosts,
   // D-12 P2: awareness-conditioned marketing efficiency read model (reuses the engine box-office
   // pass — no UI-duplicated formula).
   computeBoxOffice,
@@ -224,6 +230,12 @@ import type {
   CommitmentPreview,
   PeriodSummary,
   Runway,
+  // ── D-17A prospective-truth read-model types ──
+  CycleFixedCost,
+  CycleInclusiveBreakEven,
+  AffordabilityScopes,
+  OfferObligation,
+  PostSigningRunway,
 } from '../../../src/core/index.ts'
 
 // Re-export the core types the UI needs, so components import types from the
@@ -281,6 +293,12 @@ export type {
   CommitmentPreview,
   PeriodSummary,
   Runway,
+  // D-17A prospective-truth read-model types, through the same single boundary.
+  CycleFixedCost,
+  CycleInclusiveBreakEven,
+  AffordabilityScopes,
+  OfferObligation,
+  PostSigningRunway,
 }
 
 export const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support']
@@ -1194,6 +1212,28 @@ export function commitmentPreview(state: GameState, amount: number): CommitmentP
 }
 // Break-even theatrical gross for a committed cost (Studio Revenue = share × gross).
 export { breakEvenGross }
+
+// ── D-17A/T2 + T3 — the CYCLE-INCLUSIVE break-even family (Owner ruling R7) ────
+// R7: the player-facing HEADLINE break-even is STUDIO-ECONOMIC. A film must cover its own
+// direct commitment AND the fixed cost the studio pays while it is being made and released
+// (PRODUCTION_TICKS + THEATRICAL_WEEKS = 14 weeks at the current weekly burn). The direct
+// figure survives as labelled DETAIL — D-12 §3/§8's Film Contribution is not redefined.
+//
+// The default assumption is SOLE OCCUPANCY (concurrency 1): conservative, and conservative
+// exactly when the studio is poorest. `concurrency: 2` is the ONLY other value any surface
+// may pass, and it must be rendered as a NAMED second line — never blended into the headline,
+// never an "expected concurrency" scalar. Both are pure passthroughs; no UI arithmetic.
+export { prospectiveCycleFixedCost, cycleInclusiveBreakEvenGross }
+
+// ── D-17A/T4 — affordability scopes, promoted out of the D-15 recap ───────────
+// "What can I actually make right now?" answered by the RECAP's own builders and the
+// engine's own solvency gate, so the Dashboard, Assembly and the recap cannot disagree.
+export { affordabilityScopes }
+
+// ── D-17A/T3 — the retrospective (managerial) fixed-cost allocation ────────────
+// Per-week pro-rata partition of ACTUAL ledger payroll+overhead across the films occupying
+// the studio, with idle burn reported separately. Reconciles to the ledger over any window.
+export { allocateFixedCosts }
 // D-12 beta secondary: shared runway definition projected to the post-founding state (payroll +
 // the overhead the proposed roster will incur), + the projected overhead itself, for the founding UI.
 export { foundingRunwayPreview, projectedWeeklyOverhead }

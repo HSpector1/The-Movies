@@ -250,12 +250,17 @@ export function FilmPackageSummary({
                 <ContribFigure label="Upside" value={profit.profit.high} />
               </div>
             </div>
-            <Metric label="Break-even theatrical gross" small testid="pkg-profit-breakeven">
+            {/* D-17A/T2: this panel's break-even is the DIRECT-cost figure, and its label now
+                says so. The studio-economic (cycle-inclusive) headline lives at Assembly, where
+                the studio's weekly burn is in scope; two identically-labelled break-evens with
+                different values on one screen was exactly the competing-headline defect R7 closes. */}
+            <Metric label="Break-even theatrical gross (direct costs only)" small testid="pkg-profit-breakeven">
               {money(profit.breakEven)}
             </Metric>
             <p className="hint" style={{ marginTop: 0 }}>
               The full box-office gross required for the studio&rsquo;s share to repay this
-              film&rsquo;s direct costs.
+              film&rsquo;s direct costs. It does not include the studio payroll and overhead paid
+              while the film is made and released &mdash; Assembly&rsquo;s break-even headline does.
             </p>
           </div>
 
