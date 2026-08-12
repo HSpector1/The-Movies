@@ -282,3 +282,41 @@ describe('autopsy: greenlight expectation vs actual compare (locked assessment)'
     }
   })
 })
+
+// ── D-17A fix-pass — ONE figure, ONE label ────────────────────────────────────
+// `view.profit` (the full-run contribution reconstructed at release) was labelled three
+// incompatible ways on this single screen: "Projected Film Contribution (full run)" at the
+// top, "Film Contribution (result)" / "Profit" in the hidden detail, and "Actual profit /
+// loss" in the greenlight-compare block. The bare "Projected" was also wrong in the other
+// direction: the autopsy is reachable from the Dashboard for any film with a session snapshot,
+// so it is routinely opened weeks after the run completed and the cash HAS banked. Dating the
+// figure — "(projected at release)" — is truthful at any later time and needs no live state.
+describe('D-17A fix-pass — the autopsy dates its one contribution figure, consistently', () => {
+  it('all three renderings of view.profit use the projected-at-release basis', () => {
+    const { view, compare } = playToRelease('autopsy-basis-1')
+    render(<Autopsy view={view} compare={compare} onBack={() => {}} />)
+
+    const headline = screen.getByTestId('autopsy-result-profit').parentElement!
+    expect(headline.textContent).toContain('projected at release')
+    expect(headline.textContent).toContain(moneyExact(view.profit))
+
+    const detail = screen.getByTestId('autopsy-profit').parentElement!
+    expect(detail.textContent).toMatch(/projected at release/)
+    expect(detail.textContent).not.toMatch(/\(result\)/)
+    expect(detail.textContent).toContain(moneyExact(view.profit))
+
+    const actual = screen.getByTestId('autopsy-actual-profit').parentElement!
+    expect(actual.textContent).toMatch(/projected at release/)
+    expect(actual.textContent).not.toMatch(/Actual profit/)
+    expect(actual.textContent).toContain(moneyExact(view.profit))
+  })
+
+  it('no surviving surface claims the contribution is BANKED', () => {
+    const { view, compare } = playToRelease('autopsy-basis-2')
+    render(<Autopsy view={view} compare={compare} onBack={() => {}} />)
+    for (const id of ['autopsy-result-profit', 'autopsy-profit', 'autopsy-actual-profit']) {
+      const text = screen.getByTestId(id).parentElement!.textContent ?? ''
+      expect(text, id).not.toMatch(/Actual profit|Film Contribution \(result\)/)
+    }
+  })
+})

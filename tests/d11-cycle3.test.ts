@@ -434,3 +434,55 @@ describe('D-11.C PART 2: every headline branch is reachable and never contradict
     expect(v.callouts.length).toBeLessThanOrEqual(3)
   })
 })
+
+// ── D-17A fix-pass — the SUBHEADLINE is projection-consistent too ──────────────
+// `profitable` is the full-run PROJECTION made at release; only the opening week is banked.
+// T2 relabelled `makeCallouts`, which fires only when fewer than three callouts exist — while
+// the subheadline ALWAYS renders (`NewspaperReveal.tsx:160`) and still asserted settled
+// results ("turned a profit", "the studio profited", "stayed in the black", "came out ahead",
+// "took a loss", "finished in the red", "lost money") beside a callout that said "is projected
+// to finish in profit". Triggers and thresholds are unchanged; only the wording moved.
+describe('D-17A fix-pass: no headline branch asserts a SETTLED financial result', () => {
+  // One case per branch of makeHeadline, in its own priority order.
+  const CASES: { name: string; over: Over; cost: number }[] = [
+    { name: '1 critics adore / audiences away (projected profit)', over: { criticScore: 82, audience: 20, total: 20_000_000 }, cost: 4_000_000 },
+    { name: '1 critics adore / audiences away (projected loss)', over: { criticScore: 82, audience: 20, total: 2_000_000 }, cost: 9_000_000 },
+    { name: '2 critics pan / crowds turn out (projected profit)', over: { criticScore: 20, audience: 82, total: 20_000_000 }, cost: 4_000_000 },
+    { name: '2 critics pan / crowds turn out (projected loss)', over: { criticScore: 20, audience: 82, total: 3_000_000 }, cost: 9_000_000 },
+    { name: '3 surprise hit', over: { criticScore: 50, audience: 50, total: 30_000_000, expectedTotal: 10_000_000 }, cost: 5_000_000 },
+    { name: '4 smash', over: { criticScore: 82, audience: 82, total: 20_000_000, expectedTotal: 20_000_000 }, cost: 5_000_000 },
+    { name: '5 expensive flop', over: { criticScore: 20, audience: 20, total: 2_000_000, expectedTotal: 2_000_000 }, cost: 10_000_000 },
+    { name: '6 below expectations (projected profit)', over: { criticScore: 50, audience: 50, total: 8_000_000, expectedTotal: 20_000_000 }, cost: 3_000_000 },
+    { name: '6 below expectations (projected loss)', over: { criticScore: 50, audience: 50, total: 5_000_000, expectedTotal: 20_000_000 }, cost: 9_000_000 },
+    { name: '7 warm reception', over: { criticScore: 78, audience: 50, total: 12_000_000, expectedTotal: 12_000_000 }, cost: 5_000_000 },
+    { name: '8 fallback mixed (projected profit)', over: { criticScore: 50, audience: 50, total: 10_000_000, expectedTotal: 10_000_000 }, cost: 8_000_000 },
+    { name: '8 fallback mixed (projected loss)', over: { criticScore: 50, audience: 50, total: 10_000_000, expectedTotal: 10_000_000 }, cost: 12_000_000 },
+  ]
+  // Past-tense settled-result claims about the studio's money. Anything matching these is a
+  // claim that the run has already paid out.
+  const SETTLED =
+    /turned a profit|the studio profited|stayed in the black|came out ahead|took a loss|finished in the red|lost money|could not cover its costs/i
+
+  it.each(CASES)('$name', ({ over, cost }) => {
+    const v = view(over, cost)
+    expect(v.subheadline).not.toMatch(SETTLED)
+  })
+
+  it('the branches are all reachable — the cases above hit every headline template', () => {
+    const heads = new Set(CASES.map(({ over, cost }) => view(over, cost).headline.replace(/“.*?”/g, 'T')))
+    expect(heads.size).toBe(8)
+  })
+
+  it('the financial DIRECTION each subheadline states still matches `profitable`', () => {
+    for (const { over, cost } of CASES) {
+      const v = view(over, cost)
+      const positive = v.financial.projectedContribution >= 0
+      if (/profit|black|ahead|payday|dependable earner/i.test(v.subheadline)) {
+        // a positive-sounding branch may only fire on a positive projection…
+        if (!/not projected|projected to lose|lose money|finish in the red|take a loss/i.test(v.subheadline)) {
+          expect(positive, v.subheadline).toBe(true)
+        }
+      }
+    }
+  })
+})

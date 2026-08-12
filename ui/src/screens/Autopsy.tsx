@@ -146,12 +146,19 @@ export function Autopsy({
             {money(simple.revenue)}
           </Metric>
           {/* D-17A/T2: this is the FULL-RUN contribution reconstructed at the moment of
-              release — Studio Revenue is credited weekly across the run, so at this point it
-              is money projected, not money banked. The label says so. */}
-          <Metric label="Projected Film Contribution (full run)" small testid="autopsy-result-profit">
+              release — Studio Revenue is credited weekly across the run, so at that point it
+              was money projected, not money banked. The label says so.
+
+              D-17A FIX-PASS: "(projected at release)", not a bare "Projected". The autopsy is
+              reachable from the Dashboard for ANY film with a session snapshot (`App.tsx:373`,
+              snapshots live for the whole session), so it is routinely opened long after the
+              6-week run has completed and the cash HAS banked. The figure is genuinely a
+              release-time projection either way — dating it is truthful at any later time and
+              needs no live state to decide. */}
+          <Metric label="Film Contribution (full run, projected at release)" small testid="autopsy-result-profit">
             <span className={simple.profitable ? 'money pos' : 'money neg'}>
-              {simple.profitable ? 'Projected profit ' : 'Projected loss '}
-              {moneyExact(simple.profit)}
+              {simple.profitable ? 'Profit ' : 'Loss '}
+              {moneyExact(simple.profit)} (projected at release)
             </span>
           </Metric>
         </div>
@@ -300,7 +307,11 @@ export function Autopsy({
             </Metric>
           </div>
           <div>
-            <Metric label="Film Contribution (result)" small testid="autopsy-profit">
+            {/* D-17A FIX-PASS: the SAME `view.profit` was labelled three incompatible ways on
+                this one screen — "Projected" above, "(result)" here, "Actual" further down.
+                It is one figure with one basis: the full-run contribution as projected at
+                release. All three now say that. */}
+            <Metric label="Film Contribution (projected at release)" small testid="autopsy-profit">
               <span className={profitPositive ? 'money pos' : 'money neg'}>
                 {profitPositive ? 'Profit ' : 'Loss '}
                 {moneyExact(view.profit)}
@@ -711,7 +722,10 @@ function GreenlightCompare({
               </span>
             </div>
             <div className="spread">
-              <span>Actual profit / loss</span>
+              {/* D-17A FIX-PASS: "Actual" asserted banked money for a figure that is the
+                  full-run contribution as PROJECTED AT RELEASE — the same value the two
+                  metrics above show, on the same basis. One figure, one label. */}
+              <span>Profit / loss (projected at release)</span>
               <span
                 className={`mono ${actualProfit >= 0 ? 'money pos' : 'money neg'}`}
                 data-testid="autopsy-actual-profit"

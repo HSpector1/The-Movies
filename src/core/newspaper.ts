@@ -139,6 +139,15 @@ type Dims = {
 
 // Deterministic, priority-ordered headline rules. First match wins; each condition is a
 // real threshold on the recorded numbers, so a chosen headline never contradicts them.
+//
+// D-17A FIX-PASS — LABEL TRUTHFULNESS, second half. `d.profitable` is the FULL-RUN PROJECTION
+// made at release (projected total Studio Revenue − committed cost); at this moment only the
+// opening week has been credited. The callouts below were relabelled in T2 ("is projected to
+// finish in profit"), but `makeCallouts` only fires when fewer than three callouts exist,
+// while the SUBHEADLINE always renders (`NewspaperReveal.tsx:160`) — and it still asserted
+// settled results: "turned a profit", "the studio profited", "stayed in the black", "came out
+// ahead", "took a loss", "finished in the red", "lost money". Wording only: every trigger,
+// every threshold and every branch below is unchanged, and the templates stay deterministic.
 function makeHeadline(d: DimsWithCost): { headline: string; subheadline: string } {
   const t = upper(`“${d.title}”`)
   const stars = criticStars(d.critic)
@@ -151,55 +160,55 @@ function makeHeadline(d: DimsWithCost): { headline: string; subheadline: string 
   if (criticHigh && audLow) {
     return {
       headline: `CRITICS ADORE ${t} — BUT AUDIENCES STAY AWAY`,
-      subheadline: `A ${stars}/5 critical darling that could not find a crowd${d.profitable ? ', though it still turned a profit.' : ' and lost money.'}`,
+      subheadline: `A ${stars}/5 critical darling that could not find a crowd${d.profitable ? ', though it is still on course to turn a profit.' : ' and is on course to lose money.'}`,
     }
   }
   // 2. Critics pan it but audiences show up.
   if (criticLow && audHigh) {
     return {
       headline: `CRITICS PAN ${t} — AUDIENCES PACK THEATERS`,
-      subheadline: `Reviewers were unkind (${stars}/5), yet crowds turned out${d.profitable ? ' and the studio profited.' : ', though it still lost money.'}`,
+      subheadline: `Reviewers were unkind (${stars}/5), yet crowds turned out${d.profitable ? ' and the studio is projected to profit.' : ', though it is still projected to lose money.'}`,
     }
   }
   // 3. Surprise hit: profitable AND beat the box-office forecast.
   if (d.profitable && d.boxDelta === 'better' && d.profit >= 5_000_000) {
     return {
       headline: `STUDIO SCORES A SURPRISE HIT WITH ${t}`,
-      subheadline: `${t} outran its forecast, drawing ${criticHigh ? 'strong reviews' : 'a mixed critical response'} and a healthy profit.`,
+      subheadline: `${t} outran its forecast, drawing ${criticHigh ? 'strong reviews' : 'a mixed critical response'} and a projected healthy profit.`,
     }
   }
   // 4. Big smash: strong critics + strong audience + big profit.
   if (criticHigh && audHigh && d.profit >= 8_000_000) {
     return {
       headline: `${t} IS A SMASH — CRITICS AND CROWDS AGREE`,
-      subheadline: `A ${stars}/5 crowd-pleaser and a major payday for the studio.`,
+      subheadline: `A ${stars}/5 crowd-pleaser and a projected major payday for the studio.`,
     }
   }
   // 5. Expensive flop: lost money with a poor reception.
   if (!d.profitable && (criticLow || audLow) && d.boxOffice < d.committedCostRef) {
     return {
       headline: `EXPENSIVE ${t} FAILS TO FIND ITS AUDIENCE`,
-      subheadline: `${t} could not cover its costs and drew a ${stars}/5 critical response.`,
+      subheadline: `${t} is not projected to cover its costs, and drew a ${stars}/5 critical response.`,
     }
   }
   // 6. Underperformed the forecast.
   if (d.boxDelta === 'worse') {
     return {
       headline: `${t} OPENS BELOW EXPECTATIONS`,
-      subheadline: `The studio's latest fell short of its forecast${d.profitable ? ' but stayed in the black.' : ' and finished in the red.'}`,
+      subheadline: `The studio's latest fell short of its forecast${d.profitable ? ' but is projected to stay in the black.' : ' and is projected to finish in the red.'}`,
     }
   }
   // 7. Solid, profitable, well-liked.
   if (d.profitable && (criticHigh || audHigh)) {
     return {
       headline: `${t} OPENS TO A WARM RECEPTION`,
-      subheadline: `A ${stars}/5 review and a solid opening give the studio a dependable earner.`,
+      subheadline: `A ${stars}/5 review and a solid opening point to a dependable earner for the studio.`,
     }
   }
   // 8. Fallback — mixed/unremarkable.
   return {
     headline: `${t} OPENS TO A MIXED RECEPTION`,
-    subheadline: `Critics landed at ${stars}/5 and ${AUDIENCE_LABEL[d.audTier].toLowerCase()}; the studio ${d.profitable ? 'came out ahead.' : 'took a loss.'}`,
+    subheadline: `Critics landed at ${stars}/5 and ${AUDIENCE_LABEL[d.audTier].toLowerCase()}; the studio ${d.profitable ? 'is on course to come out ahead.' : 'is on course to take a loss.'}`,
   }
 }
 
