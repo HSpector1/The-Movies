@@ -21,7 +21,10 @@
 //                          ONLY: absolute critical achievement (realized criticScore
 //                          vs a REACHABLE neutral benchmark). NOT box office, profit,
 //                          fame, or surprise. An acclaimed flop still gains prestige.
-//   Commercial Confidence = how strongly financiers trust the studio with money.
+//   Commercial Confidence = the studio's reputation for making money with money.
+//                          (D-17A/T8: NOT "how strongly financiers trust the studio" — there
+//                          are no financiers in this game, and this channel has no mechanical
+//                          effect on funding. Formulas below are byte-identical.)
 //                          PRIMARY: realized PROFITABILITY (ROI on committed cost) and
 //                          BUDGET DISCIPLINE. NOT absolute reach; does NOT reuse the
 //                          awareness/commercial-surprise signal. A huge-grossing

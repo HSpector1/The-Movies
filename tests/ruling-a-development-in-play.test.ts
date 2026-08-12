@@ -395,7 +395,7 @@ describe('RULING A — development survives save round-trips without duplication
   it('load → advance-with-no-release → the loaded talent is unchanged (no phantom development)', () => {
     const released = runOneFilm('A-save-3', true).released
     const reloaded = importSave(exportSave(makeSave(released)))
-    // The reloaded state is a SaveFileV5 (D-14 default); drive it forward, no greenlights.
+    // The reloaded state is a SaveFileV6 (D-17A default); drive it forward, no greenlights.
     if (reloaded.saveVersion !== 6) throw new Error('expected V6 save')
     const advanced = advanceDev(reloaded.state, 5)
     expect(advanced.talent).toEqual(reloaded.state.talent)

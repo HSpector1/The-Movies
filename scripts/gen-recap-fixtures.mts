@@ -1,5 +1,5 @@
 // ── D-15 Studio Run Recap — Playwright fixture generator (real engine, seeded) ─
-// Produces a SaveFileV5 session fixture: an engaged studio that released several films
+// Produces a SaveFileV6 session fixture: an engaged studio that released several films
 // with ONE recurring lead and ONE genre (a concentrated slate, like the Week 86 run),
 // across a spread of budgets so the recap shows a profit/loss mix, concentration, talent
 // development, and a constrained current position.

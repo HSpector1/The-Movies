@@ -1,5 +1,5 @@
 // ── D-14 Phase 2 — Playwright fixture generator (real engine, seeded) ─────────
-// Produces SaveFileV5 JSON fixtures for the career-UI journeys:
+// Produces SaveFileV6 JSON fixtures for the career-UI journeys:
 //   career-v5.json       — an engaged studio with TWO released films → real career events
 //   career-migrated.json — the same, but the FIRST film's career events are removed to
 //                          simulate a pre-V5 credit (honest "not recorded" + profile notice)

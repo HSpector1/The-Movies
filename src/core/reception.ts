@@ -510,7 +510,8 @@ export function computeBoxOffice(
   // D-12: the OPENING-reach appeal (fame-saturated when engaged). Defaults to segmentAppeal
   // so every existing caller is unchanged (opening === legs appeal → byte-identical).
   openingSegmentAppeal: Record<SegmentId, number> = segmentAppeal,
-  // D-12 P2: whether the D-12 economy is ENGAGED (=== saturateFame === employmentEngaged). When
+  // D-12 P2: whether the D-12 economy is ENGAGED (=== saturateFame === economyEngaged, the
+  // PERSISTED regime fact since D-17A/R2 — NOT `employmentEngaged`, which the cliff broke). When
   // false (M0A/headless), the legacy fixed-capacity marketing Hill + no gross scale apply, so the
   // acceptance corpus is byte-identical. When true, awareness-conditioned marketing + the routine
   // gross scale apply. Default false so every existing/M0A caller is unchanged.

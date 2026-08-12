@@ -841,7 +841,7 @@ export function importLegacyV1ToV4(json: string): SaveFileV4 {
 }
 
 // migrateToV4 — bring ANY known save version up to V4. V4 passes through; V1/V2/V3
-// migrate deterministically. Idempotent. (Retained; the live entry is now migrateToV5.)
+// migrate deterministically. Idempotent. (Retained; the live entry is now migrateToV6.)
 export function migrateToV4(save: SaveFileV1 | SaveFileV2 | SaveFileV3 | SaveFileV4): SaveFileV4 {
   if (save.saveVersion === 4) return save
   if (save.saveVersion === 3) return convertV3ToV4(save)

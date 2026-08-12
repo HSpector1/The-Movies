@@ -521,7 +521,7 @@ describe('D-11.5 — economy pressure', () => {
 
 // ── D-11.16/.17 determinism & saves ───────────────────────────────────────────
 describe('D-11 — determinism & saves (V4)', () => {
-  it('new games save as V4 and round-trip byte-identically', () => {
+  it('new games save as V6 and round-trip byte-identically', () => {
     const s = foundStudio('save-v4')
     const save = makeSave(s)
     expect(save.saveVersion).toBe(6) // D-17A: new games save as V6

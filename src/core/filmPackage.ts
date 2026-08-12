@@ -485,7 +485,8 @@ export type ForecastProfitContext = ForecastContext & {
   // it passes in `inp` (writer/director/cast/craft); we accept them explicitly so this
   // helper stays a pure function of its inputs (no state traversal).
   salaries: number
-  // D-12: whether the economy is engaged (`employmentEngaged(state)`), threaded from the adapter
+  // D-12: whether the economy is engaged (`economyEngaged(state)` — the PERSISTED regime fact
+  // since D-17A/R2; the adapter threads it at `adapter.ts:3070-3071`), threaded from the adapter
   // so the LIVE Commercial-Outlook re-forecast uses the SAME §7 Hill fame opening-reach path as the
   // greenlight-locked forecast and realized release. Defaults false → linear (ungated/M0A) path.
   saturateFame?: boolean
