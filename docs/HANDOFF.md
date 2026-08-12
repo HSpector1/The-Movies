@@ -64,10 +64,43 @@
 > commissioning record, **not**
 > an authorization: **character production is not authorized, Studio Lot character integration is not
 > authorized**, and nothing is integrated
-> (see the character-track entry below). **Economy and recovery balance remain a separate owner decision**
-> — D-15 only explains the current rules.
+> (see the character-track entry below). **The economy & recovery owner decision has now been made:
+> D-16 is CLOSED (recommendation D accepted) — see the D-16 entry below and
+> [`docs/D-16-OWNER-RULINGS.md`](D-16-OWNER-RULINGS.md). D-17A (decision truth & defect closure) is
+> authorized; D-17B (awareness cycle) is directionally approved but not yet authorized.** D-15 still
+> only explains the pre-D-17 rules.
 
-> ## 🎭 2026-08-05 — Asset Lab character track (05H / 05I) — CLOSED and rejected; human-artist handoff active — latest
+> ## 💰 2026-08-12 — D-16 Economy & Recovery Decision Lab — CLOSED; D-17A authorized — latest
+>
+> **D-16 (the analysis-only economy & recovery decision lab) is CLOSED by Owner ruling** —
+> recommendation **D** accepted (balance AND player-agency/recovery changes both required; no
+> fundamental redesign). Branch `audit-d16-economy-recovery-decision-lab` (analysis base =
+> `main @ 33eb33ae`; **not merged to `main`**; authorized for publication to `hspector-github`
+> under Owner ruling R11 and pushed at closure; raw evidence `out/d16-economy-lab/` stays
+> untracked/reproducible). All 12 consolidated Owner
+> decisions are resolved in [`docs/D-16-OWNER-RULINGS.md`](D-16-OWNER-RULINGS.md) — the
+> authoritative ruling record. Highlights: G1–G12 accepted as the **working** D-17 evaluation
+> framework (G12 prospective; not yet permanent law); engagement-cliff closure = **persist at
+> founding** (SaveFileV6 authorized if the migration is proven sound); `releaseTalent` stays
+> **ungated** with the D-12.11 text to be amended; a **narrow D-6 lift** is granted for
+> `AWARENESS_REACH_NEUTRAL` plus an authorized awareness counter-flow (channel meanings stay
+> protected); the D-13 shape family (`DISC_FLOOR` / `DISC_SUPPORT_EXP` / `DISC_SUPPORT_THRESHOLD` /
+> `DISC_SPREAD`) is reopened for joint D-17B recalibration; marketing-grid **replacement is
+> authorized** (truth/copy in D-17A; constants selected by D-17B evidence); the player-facing
+> headline break-even becomes **cycle-inclusive / studio-economic** (Film Contribution retained as
+> labelled direct-cost detail); standing copy is relabelled honestly (no financier fiction); **all
+> financing and failure-ladder implementation is deferred** (standing philosophy: *keep the studio,
+> lose control*). **Next program: D-17 — Economy Truth & Equilibrium Foundation** — two slices, one
+> governed program: **D-17A is AUTHORIZED for implementation; D-17B is NOT yet authorized.** D-17
+> develops on `d17-economy-truth-equilibrium`, created from the final D-16 HEAD so the d16 harness
+> (standing strategic regression infrastructure — Lesson BC) travels with it, and reconciles with
+> current `main` at its governed integration gate. Lessons **BC/BD/BF/BG/BH/BI finalized**; **BE,
+> BJ held DRAFT** (named holds); **BK added DRAFT**. (Canonical D1-B wording per ruling R12: a
+> bounded D1-B-related Soundstage Composer Proof completed and its selective adoption reached
+> production; the **broader D1-B production program remains unauthorized and unstarted** — nothing
+> in this Engine milestone changes that.)
+
+> ## 🎭 2026-08-05 — Asset Lab character track (05H / 05I) — CLOSED and rejected; human-artist handoff active
 >
 > **Owner ruling.** The **Blender Studio authored-base source, its provenance record, the generator
 > approach and the export workflow** are accepted as **research and pipeline evidence** — that acceptance

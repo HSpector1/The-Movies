@@ -2,6 +2,9 @@
 
 **Status:** MERGED, VALIDATED, and CLOSED. Read-only explainability milestone; **no economy,
 persistence, or SaveFile change**. Economy/recovery balance remains a separate owner decision.
+*(**SUPERSEDED CURRENT-STATUS NOTE** — that separate owner decision has since been made: D-16 is
+closed with recommendation D accepted; see [`docs/D-16-OWNER-RULINGS.md`](D-16-OWNER-RULINGS.md).
+D-15's own scope statements remain accurate as a historical record.)*
 
 > Before beginning a substantial milestone, integration, audit, or meaningful bug fix, read the
 > relevant entries in [`docs/LESSONS-LEARNED.md`](LESSONS-LEARNED.md); update it before closing
@@ -148,6 +151,8 @@ OFF; D1-A untouched; D1-B unstarted; Asset Lab 05H untouched; no characters/GLBs
 
 - **Economy & recovery balance** — whether the microbudget-loss/discoverability economics or a recovery
   path should change is a separate owner ruling; D-15 only *explains* the current rules.
+  *(**SUPERSEDED CURRENT-STATUS NOTE** — ruled in D-16, 2026-08-12:
+  [`docs/D-16-OWNER-RULINGS.md`](D-16-OWNER-RULINGS.md).)*
 - **Recap headline framing** — the recap truthfully presents bare-minimum-affordable + standard/typical
   unaffordable; any future emphasis change is the owner's call.
 
@@ -160,3 +165,6 @@ OFF; D1-A untouched; D1-B unstarted; Asset Lab 05H untouched; no characters/GLBs
 
 **Next owner decision required:** economy and recovery mechanics (balance, or whether to add a recovery
 path) — a separate milestone/ruling. D-15 itself is closed.
+*(**SUPERSEDED CURRENT-STATUS NOTE** — that decision has been made: D-16 closed 2026-08-12 with
+recommendation D accepted, D-17A authorized; see
+[`docs/D-16-OWNER-RULINGS.md`](D-16-OWNER-RULINGS.md).)*
