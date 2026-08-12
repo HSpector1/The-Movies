@@ -24,6 +24,8 @@ import { foundStudioFor, runOne } from './driver.js'
 import { exploitDisengage, standardCadence } from './policies.js'
 import {
   DEFAULT_PACKAGE_OPTIONS,
+  activeMarketingGrid,
+  awarenessConditionedCapacity,
   bareMinimumPackage,
   evaluatePackage,
   generatePackages,
@@ -33,11 +35,13 @@ import {
   perceivedExpectedContribution,
   receptionInputsFor,
   shapeFor,
+  shippedMarketingGrid,
   standardPackage,
   studioShareFor,
   toGreenlightAction,
+  withMarketingGrid,
 } from './packages.js'
-import type { D16Package } from './packages.js'
+import type { D16Package, MarketingGrid } from './packages.js'
 
 const FOUNDED: GameState = foundStudioFor('d16-pkg-fixture', standardCadence).state
 
@@ -311,5 +315,56 @@ describe('d16/packages — the ORACLE reads hidden information', () => {
     const b = oracleExpectedContribution(FOUNDED, pkg)
     expect(a).toBe(b)
     expect(FOUNDED.rngState).toBe(before)
+  })
+})
+
+// ── D-17B · the marketing-grid override (A4 §5) ──────────────────────────────
+describe('d17b/packages — the ACTIVE marketing grid is resolved at generation time', () => {
+  it('the default resolves to the shipped triple and reproduces today’s package ids exactly', () => {
+    expect(activeMarketingGrid()).toEqual(shippedMarketingGrid())
+    expect([...activeMarketingGrid()]).toEqual([...DEFAULT_PACKAGE_OPTIONS.marketingLevels])
+    const ids = generatePackages(FOUNDED).packages.map((p) => p.id)
+    const inScope = withMarketingGrid(shippedMarketingGrid(), () => generatePackages(FOUNDED).packages.map((p) => p.id))
+    expect(inScope).toEqual(ids)
+    // the shipped menu really is on every id (the assertion above is not vacuous)
+    for (const rung of shippedMarketingGrid()) expect(ids.some((id) => id.endsWith(`|m${String(rung)}`))).toBe(true)
+  })
+
+  it('a swept grid moves the enumerated menu, the bare minimum and the standard package', () => {
+    const swept: MarketingGrid = [200_000, 700_000, 2_000_000]
+    const bareBefore = bareMinimumPackage(FOUNDED)!.budget.marketing
+    const stdBefore = standardPackage(FOUNDED)!.budget.marketing
+    withMarketingGrid(swept, () => {
+      const menu = new Set(generatePackages(FOUNDED).packages.map((p) => p.budget.marketing))
+      expect([...menu].sort((a, b) => a - b)).toEqual([...swept])
+      expect(bareMinimumPackage(FOUNDED)!.budget.marketing).toBe(swept[0])
+      expect(standardPackage(FOUNDED)!.budget.marketing).toBe(swept[1])
+    })
+    // …and restores
+    expect(bareMinimumPackage(FOUNDED)!.budget.marketing).toBe(bareBefore)
+    expect(standardPackage(FOUNDED)!.budget.marketing).toBe(stdBefore)
+  })
+
+  it('an EXPLICIT caller option still wins (that is how the controlled marketing probes pin a rung)', () => {
+    withMarketingGrid([200_000, 700_000, 2_000_000], () => {
+      const pinned = generatePackages(FOUNDED, { marketingLevels: [400_000] }).packages
+      expect(new Set(pinned.map((p) => p.budget.marketing))).toEqual(new Set([400_000]))
+      expect(standardPackage(FOUNDED, { marketingLevels: [123_456] })!.budget.marketing).toBe(123_456)
+    })
+  })
+
+  it('the capacity hint is positive, grid-INDEPENDENT, and is the box-office marketingCapacity', () => {
+    const pkg = standardPackage(FOUNDED, { ignoreBusy: true })!
+    const base = awarenessConditionedCapacity(FOUNDED, pkg)
+    expect(base).toBeGreaterThan(0)
+    // capacity is a function of pre-marketing awareness only, so it cannot depend on the menu
+    // (that is what makes a capacity-anchored menu non-circular)
+    const swept = withMarketingGrid([200_000, 700_000, 2_000_000], () =>
+      awarenessConditionedCapacity(FOUNDED, standardPackage(FOUNDED, { ignoreBusy: true })!),
+    )
+    expect(swept).toBe(base)
+    // it sits inside the engine's own capacity band
+    expect(base).toBeGreaterThanOrEqual(TUNING.MARKETING_CAPACITY_MIN)
+    expect(base).toBeLessThanOrEqual(TUNING.MARKETING_CAPACITY_MAX)
   })
 })

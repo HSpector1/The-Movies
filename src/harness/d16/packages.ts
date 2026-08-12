@@ -32,6 +32,7 @@ import {
   commitmentPreview,
   computeBoxOffice,
   computeForecast,
+  economyEngaged,
   employmentEngaged,
   forecastCenters,
   forecastProfitRange,
@@ -123,7 +124,82 @@ export type PackageOptions = {
   maxPackages?: number
 }
 
-/** The default decision profile: 3 concepts × 3 shapes × 1 promise × 2 casts × 3 neg × 3 mkt = 162. */
+// ── D-17B · the MARKETING GRID override (A4 §5) ──────────────────────────────
+// `MARKETING_BUDGET_LEVELS` (grid.ts:9) is NOT validated by the greenlight action
+// (`actions.ts:380-451` reads `p.budget.marketing` as a free number), so the lab can sweep
+// arbitrary triples without touching a production file. THE TRAP A4 §5 measured: this module
+// used to snapshot the array at MODULE LOAD in three places (`DEFAULT_PACKAGE_OPTIONS`,
+// `BARE_MINIMUM_DEFAULTS`, `STANDARD_DEFAULTS`), so mutating `grid.ts` in-process would have
+// been a silent no-op sweep. The fix is an explicit ACTIVE grid resolved at GENERATION time.
+//
+// NEUTRAL-ARM RULE: `ACTIVE_GRID` starts as the shipped triple, so with no `withMarketingGrid`
+// scope open every package id, cost and enumeration order is byte-identical to D-17A.
+export type MarketingGrid = readonly [number, number, number]
+
+const SHIPPED_GRID: MarketingGrid = [
+  MARKETING_BUDGET_LEVELS[0]!,
+  MARKETING_BUDGET_LEVELS[1]!,
+  MARKETING_BUDGET_LEVELS[2]!,
+]
+let ACTIVE_GRID: MarketingGrid = SHIPPED_GRID
+
+/** The triple `grid.ts` ships — the value the neutral arm must always resolve to. */
+export function shippedMarketingGrid(): MarketingGrid {
+  return SHIPPED_GRID
+}
+
+/** The triple package generation resolves RIGHT NOW. Read at call time, never snapshotted. */
+export function activeMarketingGrid(): MarketingGrid {
+  return ACTIVE_GRID
+}
+
+/** Reject a menu that could not be a menu: 3 finite, strictly ascending, non-negative rungs. */
+export function validateMarketingGrid(g: MarketingGrid): void {
+  if (g.length !== 3) throw new Error(`d16/packages: a marketing grid needs exactly 3 rungs, got ${g.length}`)
+  for (const v of g) {
+    if (!Number.isFinite(v) || v < 0) {
+      throw new Error(`d16/packages: marketing grid rung ${String(v)} is not a finite non-negative number`)
+    }
+  }
+  if (!(g[0] < g[1] && g[1] < g[2])) {
+    throw new Error(`d16/packages: marketing grid rungs must be strictly ascending, got [${g.join(',')}]`)
+  }
+}
+
+/** Stable, sorted-free artifact stamp for a grid: '200000,700000,2000000'. */
+export function marketingGridKey(g: MarketingGrid): string {
+  return g.join(',')
+}
+
+/**
+ * Run `fn` with `g` as the active marketing menu, then restore — the `withTuningOverrides`
+ * idiom. SINGLE PROCESS ONLY (module-global, exactly like the TUNING scope).
+ */
+export function withMarketingGrid<T>(g: MarketingGrid, fn: () => T): T {
+  validateMarketingGrid(g)
+  const saved = ACTIVE_GRID
+  ACTIVE_GRID = g
+  try {
+    return fn()
+  } finally {
+    ACTIVE_GRID = saved
+  }
+}
+
+/** Restoration canary, mirroring `assertTuningPristine`. */
+export function assertMarketingGridPristine(label = ''): void {
+  if (ACTIVE_GRID !== SHIPPED_GRID) {
+    throw new Error(
+      `d16/packages: the marketing grid was not restored${label ? ` (${label})` : ''}: active [${ACTIVE_GRID.join(',')}] !== shipped [${SHIPPED_GRID.join(',')}]`,
+    )
+  }
+}
+
+/**
+ * The default decision profile: 3 concepts × 3 shapes × 1 promise × 2 casts × 3 neg × 3 mkt = 162.
+ * `marketingLevels` here is the SHIPPED grid snapshot, kept for shape stability; every
+ * generation path below re-resolves it from `activeMarketingGrid()` at CALL time (A4 §5).
+ */
 export const DEFAULT_PACKAGE_OPTIONS: Required<PackageOptions> = {
   conceptCount: 3,
   shapeKeys: ['minDemand', 'neutralDemand', 'highDemand'],
@@ -367,7 +443,15 @@ export type GenerationResult = {
 }
 
 export function generatePackages(state: GameState, options: PackageOptions = {}): GenerationResult {
-  const opts: Required<PackageOptions> = { ...DEFAULT_PACKAGE_OPTIONS, ...options }
+  // A4 §5: the marketing menu is resolved HERE, at generation time, from the active grid —
+  // never from a module-load snapshot. An explicit caller option still wins (that is how the
+  // controlled marketing probes P4/P7/P12/P13 pin their single rung).
+  const opts: Required<PackageOptions> = {
+    ...DEFAULT_PACKAGE_OPTIONS,
+    marketingLevels: activeMarketingGrid(),
+    ...options,
+  }
+  if (options.marketingLevels === undefined) opts.marketingLevels = activeMarketingGrid()
   const engaged = employmentEngaged(state)
   const pools = buildPools(state, opts, engaged)
   const unstaffable: CreativeRole[] = []
@@ -510,9 +594,17 @@ export const BARE_MINIMUM_DEFAULTS: PackageOptions = {
   marketingLevels: [MARKETING_BUDGET_LEVELS[0]!],
 }
 
-/** The bare-minimum GENERATION, so a caller can see `unstaffable` as well as the package. */
+/**
+ * The bare-minimum GENERATION, so a caller can see `unstaffable` as well as the package.
+ * A4 §5: the `[0]` rung comes from the ACTIVE grid at call time, so a swept menu moves the
+ * classifier's cheapest reference film with it.
+ */
 export function bareMinimumGeneration(state: GameState, options: PackageOptions = {}): GenerationResult {
-  return generatePackages(state, { ...BARE_MINIMUM_DEFAULTS, ...options })
+  return generatePackages(state, {
+    ...BARE_MINIMUM_DEFAULTS,
+    marketingLevels: [activeMarketingGrid()[0]],
+    ...options,
+  })
 }
 
 export function bareMinimumPackage(state: GameState, options: PackageOptions = {}): D16Package | null {
@@ -534,7 +626,11 @@ export const STANDARD_DEFAULTS: PackageOptions = {
 
 /** The standard GENERATION, so a caller can see `unstaffable` as well as the package. */
 export function standardGeneration(state: GameState, options: PackageOptions = {}): GenerationResult {
-  return generatePackages(state, { ...STANDARD_DEFAULTS, ...options })
+  return generatePackages(state, {
+    ...STANDARD_DEFAULTS,
+    marketingLevels: [activeMarketingGrid()[1]],
+    ...options,
+  })
 }
 
 export function standardPackage(state: GameState, options: PackageOptions = {}): D16Package | null {
@@ -734,6 +830,38 @@ export function perceivedExpectedContribution(state: GameState, pkg: D16Package)
   const c = forecastCenters(inp, engaged, engaged)
   const box = computeBoxOfficeCore(inp, c.centers, c.centersOpening, engaged)
   return box.total * studioShareFor(engaged) - pkg.committedCost
+}
+
+/**
+ * THE AWARENESS-CONDITIONED MARKETING CAPACITY of one package — the spend at which reach
+ * half-saturates (`reception.ts:553-559`).
+ *
+ * THIS IS THE SAME NUMBER THE SHIPPED READ-MODEL SHOWS. `marketingEfficiency`
+ * (`ui/src/engine/adapter.ts:3136-3176`) computes `forecastCenters(inp, engaged, engaged)` and
+ * then `computeBoxOffice(...)`, and reports `box.marketingCapacity` as `capacity`; this is that
+ * pair, on the harness's own `receptionInputsFor`. `engaged` is the PERSISTED regime
+ * (`economyEngaged`), exactly as the read-model reads it — not `employmentEngaged`.
+ *
+ * It does NOT depend on `budget.marketing`: capacity is a function of pre-marketing awareness
+ * (studio standing + the film's own opening appeal), so it is well defined for a state
+ * REGARDLESS of which marketing grid is active. That is what makes a capacity-anchored menu
+ * resolvable without a chicken-and-egg on the grid it is choosing.
+ */
+export function awarenessConditionedCapacity(state: GameState, pkg: D16Package): number {
+  const engaged = economyEngaged(state)
+  const inp = receptionInputsFor(state, pkg)
+  const c = forecastCenters(inp, engaged, engaged)
+  return computeBoxOffice(
+    c.centers,
+    inp.market.segments,
+    inp.market.baseMarketValue,
+    inp.standing,
+    inp.promise,
+    inp.budget,
+    inp.shapeEffects,
+    c.centersOpening,
+    engaged,
+  ).marketingCapacity
 }
 
 /** The engine's own §5.5 box-office pass over a supplied appeal/opening pair. */

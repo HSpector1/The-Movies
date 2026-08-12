@@ -148,6 +148,150 @@ export const TUNING_ALLOWLIST: readonly AllowlistEntry[] = [
     readAt: 'actions.ts:250-254 (greenlight cap)',
     note: 'Read at each greenlight. Safe mid-run.',
   },
+
+  // ── D-17B extension (A4 §4; Phase-A gate ruling 1) ─────────────────────────
+  // 20 DISC_*/MARKETING_*/OVEREXPOSURE_* keys + the 3 awareness-delta keys. Read timing was
+  // MEASURED, not assumed: each key was mutated before `generateWorld` and the generated world
+  // compared by `stableStringify` — ZERO keys are worldgen-baked — then mutated at use time and
+  // 14 observables diffed. `assertTuningPristine` restored cleanly for all 23 (`restoreOk=true`).
+  {
+    key: 'MARKETING_HALF_SATURATION',
+    timing: 'use',
+    readAt: 'reception.ts:553-559 (LEGACY fixed-capacity Hill, disengaged path only)',
+    note: 'INERT IN EVERY ENGAGED D-17B CORPUS (A4 §4 / risk 3): it moved only legacyOpening/legacyTotal and never an engaged observable, because the engaged path uses the awareness-conditioned capacity instead. Allowlisted so a sweep that includes it is legal, but a sweep that includes it MEASURES NOTHING post-R2 — say so in the artifact.',
+  },
+  {
+    key: 'MARKETING_CAPACITY_MIN',
+    timing: 'use',
+    readAt: 'tuning.ts:357, read at reception.ts:553-559 (engaged box-office capacity)',
+    note: 'Measured: moved 12/14 observables. Read per reception/forecast. Safe mid-run.',
+  },
+  {
+    key: 'MARKETING_CAPACITY_MAX',
+    timing: 'use',
+    readAt: 'tuning.ts:358, read at reception.ts:553-559',
+    note: 'Measured: moved 12/14 observables. Safe mid-run.',
+  },
+  {
+    key: 'MARKETING_AWARENESS_STANDING_WEIGHT',
+    timing: 'use',
+    readAt: 'tuning.ts:359, read at reception.ts:547-551 (pre-marketing awareness blend)',
+    note: 'Measured: moved 12/14 observables. Safe mid-run.',
+  },
+  {
+    key: 'MARKETING_AWARENESS_EXP',
+    timing: 'use',
+    readAt: 'tuning.ts:360, read at reception.ts:553-559',
+    note: 'Measured: moved 12/14 observables. Safe mid-run.',
+  },
+  {
+    key: 'MARKETING_REACH_MIN',
+    timing: 'use',
+    readAt: 'tuning.ts:368, read at reception.ts:565-567 (marketing reach ceiling)',
+    note: 'Measured: moved 12/14 observables. Safe mid-run.',
+  },
+  {
+    key: 'MARKETING_REACH_MAX',
+    timing: 'use',
+    readAt: 'tuning.ts:369, read at reception.ts:565-567',
+    note: 'Measured: moved 12/14 observables. Safe mid-run.',
+  },
+  {
+    key: 'OVEREXPOSURE_THRESHOLD',
+    timing: 'use',
+    readAt: 'reception.ts:608 (overexposure onset)',
+    note: 'Binds ONLY at intermediate campaigns: inert at $400k and at >= $2M, −2.18%…−2.51% of total at $700k–$1.5M. A sweep at the shipped grid’s outer rungs measures nothing.',
+  },
+  {
+    key: 'OVEREXPOSURE_RANGE',
+    timing: 'use',
+    readAt: 'reception.ts:608',
+    note: 'Same window as OVEREXPOSURE_THRESHOLD: inert at $400k/$2M+, −0.17%…−3.32% at $700k–$1.5M.',
+  },
+  {
+    key: 'OVEREXPOSURE_LEGS_COEF',
+    timing: 'use',
+    readAt: 'tuning.ts:404, read in the legs channel of reception.ts §5.5',
+    note: 'Monotone from $700k (+0.13%) to saturation (+4.00% at >= $2M).',
+  },
+  {
+    key: 'OVEREXPOSURE_DELIVERY_REF',
+    timing: 'use',
+    readAt: 'tuning.ts:407, read in the delivery term of reception.ts §5.5',
+    note: 'Measured: moved engagedTotal and forecast.expectedTotal at a $5M campaign.',
+  },
+  {
+    key: 'OVEREXPOSURE_DELIVERY_RANGE',
+    timing: 'use',
+    readAt: 'tuning.ts:408',
+    note: 'Same read site and same measured effect as OVEREXPOSURE_DELIVERY_REF.',
+  },
+  {
+    key: 'DISC_SUPPORT_AWARENESS',
+    timing: 'use',
+    readAt: 'reception.ts §5.6 discoverability support / filmPackage.ts:604',
+    note: 'D-13 shape family. Measured: moved openingN2. THRESHOLD-family keys must be calibrated against the POST-repair awareness distribution (A2), never the current one.',
+  },
+  {
+    key: 'DISC_SUPPORT_STAR',
+    timing: 'use',
+    readAt: 'reception.ts §5.6 / filmPackage.ts:604',
+    note: 'D-13 shape family. Measured: moved openingN2.',
+  },
+  {
+    key: 'DISC_SUPPORT_THRESHOLD',
+    timing: 'use',
+    readAt: 'reception.ts §5.6 / filmPackage.ts:604',
+    note: 'D-13 shape family. Measured: moved openingP2, N2 and N9 — the widest-binding DISC key.',
+  },
+  {
+    key: 'DISC_SPREAD',
+    timing: 'use',
+    readAt: 'reception.ts §5.6 / filmPackage.ts:604',
+    note: 'D-13 shape family. Measured: moved openingN2. KEEP the discovery-v1 stream key for the whole constant family; bump it only for a functional-form change (A2).',
+  },
+  {
+    key: 'DISC_SUPPORT_EXP',
+    timing: 'use',
+    readAt: 'reception.ts §5.6 / filmPackage.ts:604',
+    note: 'D-13 shape family. Measured: moved openingN2.',
+  },
+  {
+    key: 'DISC_FLOOR',
+    timing: 'use',
+    readAt: 'reception.ts:645-647 (the discoverability clip)',
+    note: 'Measured: moved openingN9 ONLY — it is the lower clip. A2 measures a floor raise as ~96% inert for survivability; useful for loss truncation, not for recovery.',
+  },
+  {
+    key: 'DISC_CEIL',
+    timing: 'use',
+    readAt: 'reception.ts:645-647',
+    note: 'Measured: moved openingP2 and P9 — the upper clip.',
+  },
+  {
+    key: 'DISC_FORECAST_LOW_Z',
+    timing: 'use',
+    readAt: 'filmPackage.ts:613, filmPackage.ts:793 (read inside the call)',
+    note: 'DISPLAY-ONLY, verified by read-site inspection rather than by a moved observable: no package on seed d16-0001 at week 0 is discovery-`exposed` (shortfall 0 even at the bare-minimum $100k/0.75x), so the probe could not make it bind (A4 F11). A sweep must state that it moves the player-facing low band, not the realized draw.',
+  },
+  {
+    key: 'AWARENESS_REACH_WEIGHT',
+    timing: 'use',
+    readAt: 'standing.ts:106-111 (per-release awareness delta)',
+    note: 'LAB SWEEPS ONLY — production change NOT authorized by R4. Same function body as the two measured awareness keys (derived read-timing). Family F’s re-derivation and any gain-side calibration need it; changing it in the game would need an Owner extension.',
+  },
+  {
+    key: 'AWARENESS_STAR_WEIGHT',
+    timing: 'use',
+    readAt: 'standing.ts:106-111',
+    note: 'LAB SWEEPS ONLY — production change NOT authorized by R4. Secondary (star-attention) coefficient of the same delta.',
+  },
+  {
+    key: 'AWARENESS_DELTA_CAP',
+    timing: 'use',
+    readAt: 'standing.ts:106-111',
+    note: 'LAB SWEEPS ONLY — production change NOT authorized by R4. A1 measured that the ±6 cap NEVER binds in real play (raw delta range [−4.06, +4.14]), so a sweep of it is expected to be inert until the reach term itself moves.',
+  },
 ]
 
 const ALLOWED = new Map(TUNING_ALLOWLIST.map((e) => [e.key as string, e]))
@@ -224,28 +368,79 @@ export function withTuningOverrides<T>(
 
 export type ArtifactMode = 'CURRENT' | 'COUNTERFACTUAL'
 
-export type Tag = {
+/**
+ * D-17B lab levers that are NOT TUNING overrides but ARE counterfactual changes to the
+ * simulated world. Each is a stable, human-readable key; ABSENT (never `null`) when its
+ * lever is off, so the neutral arm's stamp is byte-identical to D-17A's.
+ */
+export type LabLevers = {
+  /** e.g. 'C:auth=candidate;kappa=0.02;baseline=30;revertMode=pullDownOnly'. */
+  counterFlowKey?: string
+  /** e.g. 'whisper=60000/1.5/exp1/dur0/cd4;…;gcd=2'. */
+  publicityKey?: string
+  /** e.g. '200000,700000,2000000' or 'capacity:1.3,2,2.5'. */
+  marketingGridKey?: string
+}
+
+export type Tag = LabLevers & {
   mode: ArtifactMode
   overrides: TuningOverrides
   /** stable, sorted, human-readable key: '' for CURRENT, 'K=v;K2=v2' otherwise. */
   overrideKey: string
+  /**
+   * D-16 §13.4 DEFECT FIX. The lab used to stamp a prose note reading 'CURRENT' onto files
+   * whose `mode` was correctly `COUNTERFACTUAL`; a reader who trusted the note read a
+   * counterfactual arm as shipped behaviour. The note is now DERIVED from the same lever set
+   * `mode` is derived from, so it cannot contradict it, and it is ABSENT on a CURRENT artifact
+   * (there is nothing to warn about, and an absent field keeps the neutral arm byte-identical).
+   */
+  tagNote?: string
 }
 
-export function makeTag(overrides: TuningOverrides = {}): Tag {
+/**
+ * Build the artifact tag. `mode` is `COUNTERFACTUAL` when there is ANY override **or any lab
+ * lever** — a counter-flow / publicity / marketing-grid arm can no longer be emitted as
+ * `CURRENT` just because its TUNING override set happens to be empty.
+ */
+export function makeTag(overrides: TuningOverrides = {}, levers: LabLevers = {}): Tag {
   const keys = Object.keys(overrides).sort()
-  const mode: ArtifactMode = keys.length === 0 ? 'CURRENT' : 'COUNTERFACTUAL'
+  const leverEntries = (['counterFlowKey', 'publicityKey', 'marketingGridKey'] as const).filter(
+    (k) => levers[k] !== undefined,
+  )
+  const mode: ArtifactMode = keys.length === 0 && leverEntries.length === 0 ? 'CURRENT' : 'COUNTERFACTUAL'
   const overrideKey = keys.map((k) => `${k}=${String((overrides as Record<string, number>)[k])}`).join(';')
   const copy: TuningOverrides = {}
   for (const k of keys) (copy as Record<string, number>)[k] = (overrides as Record<string, number>)[k]!
-  return { mode, overrides: copy, overrideKey }
+
+  const tag: Tag = { mode, overrides: copy, overrideKey }
+  for (const k of leverEntries) {
+    const v = levers[k]
+    if (v !== undefined) tag[k] = v
+  }
+  if (mode === 'COUNTERFACTUAL') {
+    const what: string[] = []
+    if (overrideKey !== '') what.push(`TUNING overrides {${overrideKey}}`)
+    for (const k of leverEntries) what.push(`${k.replace(/Key$/, '')} ${levers[k]!}`)
+    tag.tagNote = `COUNTERFACTUAL — not shipped behaviour. Levers: ${what.join(' + ')}.`
+  }
+  return tag
 }
 
 /**
  * The ONLY sanctioned way to build an emittable object. Every artifact row and every
  * summary passes through here, so a number can never reach a file untagged.
+ *
+ * The optional lever stamps are copied ONLY when present: `stableJson` drops `undefined`, but
+ * an explicitly-emitted `null` would change every byte of `rows.jsonl` and break the
+ * neutral-arm invariant — the single easiest way to fail that gate (A4 §1.5 rule 1).
  */
 export function tagArtifact<T extends object>(payload: T, tag: Tag): T & Tag {
-  return { ...payload, mode: tag.mode, overrides: tag.overrides, overrideKey: tag.overrideKey }
+  const out = { ...payload, mode: tag.mode, overrides: tag.overrides, overrideKey: tag.overrideKey } as T & Tag
+  if (tag.counterFlowKey !== undefined) out.counterFlowKey = tag.counterFlowKey
+  if (tag.publicityKey !== undefined) out.publicityKey = tag.publicityKey
+  if (tag.marketingGridKey !== undefined) out.marketingGridKey = tag.marketingGridKey
+  if (tag.tagNote !== undefined) out.tagNote = tag.tagNote
+  return out
 }
 
 /** The read-timing table, for the build report / an artifact header. */

@@ -171,6 +171,78 @@ export function runawayCash(openingCash: number = TUNING.INITIAL_CASH): number {
   return RUNAWAY_MULTIPLE * openingCash
 }
 
+// ── D-17B · DURABLE recovery (A5 §4.2; Phase-A gate ruling 1) ────────────────
+//
+// WHY THIS EXISTS. `EpisodeSummary.recovered` is TRANSIENT: one healthy week after distress
+// entry sets it, and A5 measured that 62–99 % of transiently-"recovered" runs still terminally
+// decline. Quoting it as "recovery rate" would inherit exactly the number D-17B must not
+// inherit. G8's threshold (≥ 25 %) is a DURABLE claim, so the lab computes the durable form.
+//
+// G8 FORM  — ∃ a healthy week `w` after distress entry whose first sample at ≥ `w + N` is
+//            ALSO healthy (it survived N weeks; it may have dipped in between).
+// STRICT   — healthy at EVERY sample in `[w, w + N]` (it never dipped at all).
+//
+// Evaluated on the WEEKLY state series (`driver.ts` already keeps one). A5's granularity check
+// found 4-week checkpoints agree with the weekly series on 99.64 % of runs and under-report by
+// 0.36 pp at N = 103 — weekly evaluation is free inside the driver, so the lab uses it.
+export type DurableRecovery = {
+  /** G8 form at +26 weeks. */
+  at26: boolean
+  /** G8 form at +52 weeks. */
+  at52: boolean
+  /** G8 form at +103 weeks — THE reported recovery metric (G8's ≥ 25 % bar). */
+  at103: boolean
+  /** strict form at +103 weeks: healthy at every sample in the whole window. */
+  at103Strict: boolean
+}
+
+/** The two forms at one horizon. Series must be week-ascending (the driver's always is). */
+export function durableRecoveryAt(
+  series: readonly StateSeriesPoint[],
+  entryWeek: number | null,
+  n: number,
+): { g8: boolean; strict: boolean } {
+  if (entryWeek === null || series.length === 0) return { g8: false, strict: false }
+  // prefix count of NON-healthy samples, so "no dip inside the window" is an O(1) test
+  const notHealthy: number[] = new Array<number>(series.length + 1)
+  notHealthy[0] = 0
+  for (let i = 0; i < series.length; i++) {
+    notHealthy[i + 1] = notHealthy[i]! + (series[i]!.state === 'healthy' ? 0 : 1)
+  }
+  let g8 = false
+  let strict = false
+  let j = 0
+  for (let i = 0; i < series.length; i++) {
+    const p = series[i]!
+    if (p.week <= entryWeek || p.state !== 'healthy') continue
+    if (j < i) j = i
+    while (j < series.length && series[j]!.week < p.week + n) j += 1
+    // horizon too short to judge THIS week — and every later week is shorter still.
+    if (j >= series.length) break
+    if (series[j]!.state !== 'healthy') continue
+    g8 = true
+    if (notHealthy[j + 1]! - notHealthy[i]! === 0) {
+      strict = true
+      break
+    }
+  }
+  return { g8, strict }
+}
+
+/** The four reported forms. `null` when the run never entered distress (nothing to judge). */
+export function durableRecoveryOf(
+  series: readonly StateSeriesPoint[],
+  entryWeek: number | null,
+): DurableRecovery | null {
+  if (entryWeek === null) return null
+  return {
+    at26: durableRecoveryAt(series, entryWeek, 26).g8,
+    at52: durableRecoveryAt(series, entryWeek, 52).g8,
+    at103: durableRecoveryAt(series, entryWeek, 103).g8,
+    at103Strict: durableRecoveryAt(series, entryWeek, 103).strict,
+  }
+}
+
 export type EpisodeOptions = {
   /** cash threshold for `runawaySuccess`. Defaults to `runawayCash()` read at CALL time. */
   runawayCash?: number
