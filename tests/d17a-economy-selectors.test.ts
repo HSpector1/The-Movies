@@ -18,11 +18,13 @@ import {
   commitmentPreview,
   contractOffer,
   cycleInclusiveBreakEvenGross,
+  economyEngaged,
   expectedWeeklyRunRevenue,
   financeView,
   foundingRunwayPreview,
   generateWorld,
   guaranteedComp,
+  hiringMarketIds,
   offerObligation,
   postSigningRunway,
   projectedWeeklyOverhead,
@@ -341,6 +343,54 @@ describe('D-17A/T5 — postSigningRunway', () => {
         weeklySalary(offer.annualSalary) -
         weeklySalary(existing.annualSalary) +
         TUNING.OVERHEAD_PER_EMPLOYEE,
+    )
+  })
+
+  // D-17A FIX-PASS — the ENGAGEMENT step. Signing is also the site that flips the persisted
+  // regime (`actions.ts:1170`), and `weeklyOverhead` is gated on it: a NEVER-ENGAGED studio
+  // pays 0 overhead, and the moment its first ops-phase signature lands it starts paying
+  // OVERHEAD_BASE too. The selector omitted that base, understating the burn by exactly
+  // $15,000/wk on the one screen whose purpose is runway truth at signing.
+  it('a NEVER-ENGAGED studio’s first signing pays OVERHEAD_BASE too, and the tick agrees', () => {
+    const s = generateWorld('d17a-t5-engage')
+    expect(economyEngaged(s)).toBe(false)
+    expect(s.founding).toBeNull() // the converted-legacy save class, reachable via importSaveJson
+    expect(weeklyBurn(s)).toBe(0)
+
+    const talentId = hiringMarketIds(s)[0]!
+    const offer = contractOffer(s, talentId, 104)
+    const r = postSigningRunway(s, offer)
+
+    // The prediction includes the base, which the flip turns on.
+    expect(r.burnAfter).toBe(
+      weeklySalary(offer.annualSalary) + TUNING.OVERHEAD_PER_EMPLOYEE + TUNING.OVERHEAD_BASE,
+    )
+
+    // GROUND TRUTH: the real signed state, and the amount the NEXT tick actually charges.
+    const signed = applyActions(s, [{ kind: 'signContract', talentId, termWeeks: 104 }])
+    expect(economyEngaged(signed)).toBe(true)
+    expect(r.burnAfter).toBe(weeklyBurn(signed))
+    expect(r.after).toEqual(runway(signed))
+
+    const week = signed.market.tick
+    const stepped = tick(signed)
+    const charged = stepped.ledger
+      .filter((e) => (e.kind === 'payroll' || e.kind === 'overhead') && e.week === week)
+      .reduce((a, e) => a - e.amount, 0)
+    expect(charged).toBe(r.burnAfter)
+
+    // TEETH: the retired prediction was short by exactly OVERHEAD_BASE.
+    expect(r.burnAfter - TUNING.OVERHEAD_BASE).toBeLessThan(charged)
+  })
+
+  it('an ALREADY-ENGAGED studio is unchanged: no second OVERHEAD_BASE is ever added', () => {
+    const founded = foundStudio('d17a-t5-engaged-nostep')
+    expect(economyEngaged(founded)).toBe(true)
+    const free = founded.talent.find((t) => !founded.contracts.some((c) => c.talentId === t.id))!
+    const offer = contractOffer(founded, free.id, 104)
+    const r = postSigningRunway(founded, offer)
+    expect(r.burnAfter).toBe(
+      weeklyBurn(founded) + weeklySalary(offer.annualSalary) + TUNING.OVERHEAD_PER_EMPLOYEE,
     )
   })
 

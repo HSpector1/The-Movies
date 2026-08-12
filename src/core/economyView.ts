@@ -344,9 +344,17 @@ export function postSigningRunway(
 ): PostSigningRunway {
   const replaced = opts?.replacesContract
   const burn = weeklyBurn(state)
+  // D-17A FIX-PASS — the ENGAGEMENT step. Signing is also the site that flips the persisted
+  // regime from false to true (`actions.ts:1170`), and `weeklyOverhead` is gated on it: a
+  // studio that has NEVER engaged pays 0 overhead, and the moment this signature lands it
+  // starts paying OVERHEAD_BASE as well as the per-employee amount. Omitting the base
+  // understated the burn by exactly $15,000/wk on a never-engaged studio's first ops-phase
+  // signing (predicted 3,101 vs an actual 18,101 — a runway of 6,444 wk against a real 1,104),
+  // rendered verbatim by the T5 line whose whole purpose is runway truth at signing.
+  const overheadStep = economyEngaged(state) ? 0 : TUNING.OVERHEAD_BASE
   const salaryDelta =
     replaced === undefined
-      ? weeklySalary(offer.annualSalary) + TUNING.OVERHEAD_PER_EMPLOYEE // a new seat costs overhead too
+      ? weeklySalary(offer.annualSalary) + TUNING.OVERHEAD_PER_EMPLOYEE + overheadStep // a new seat costs overhead too
       : weeklySalary(offer.annualSalary) - weeklySalary(replaced.annualSalary)
   // During a founding draft the tick charges nothing at all, so the ACTUAL burn stays 0 (the
   // founding screen's projection is `foundingRunwayPreview`). Post-founding the delta applies.
