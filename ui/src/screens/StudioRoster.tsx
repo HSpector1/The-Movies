@@ -12,9 +12,10 @@ import {
   rosterCards,
   payrollSummary,
   renewContractAction,
+  renewOfferTruths,
   releaseTalentAction,
 } from '../engine/adapter.ts'
-import { money, starPower } from '../format.ts'
+import { money, moneyExact, starPower } from '../format.ts'
 import { Metric } from '../components/common.tsx'
 
 type ProfessionFilter = 'all' | CreativeRole
@@ -34,9 +35,6 @@ const STATUS_LABEL: Record<string, string> = {
   unavailable: 'Unavailable',
 }
 
-// The four renewal term options (weeks), used when a renewable contract has no
-// pre-populated offer options. 52 weeks = 1 year.
-const RENEW_TERMS: readonly number[] = [52, 104, 156, 208]
 
 export function StudioRoster({
   state,
@@ -176,6 +174,7 @@ export function StudioRoster({
               <RosterCard
                 key={card.profile.id}
                 card={card}
+                state={state}
                 pendingRelease={pendingRelease === card.profile.id}
                 onAskRelease={() => setPendingRelease(card.profile.id)}
                 onCancelRelease={() => setPendingRelease(null)}
@@ -195,6 +194,7 @@ export function StudioRoster({
 // termination cost, and renew/release actions.
 function RosterCard({
   card,
+  state,
   pendingRelease,
   onAskRelease,
   onCancelRelease,
@@ -203,6 +203,7 @@ function RosterCard({
   onOpenProfile,
 }: {
   card: EmploymentCard
+  state: GameState
   pendingRelease: boolean
   onAskRelease: () => void
   onCancelRelease: () => void
@@ -215,11 +216,11 @@ function RosterCard({
   const primary = profile.disciplines.find((d) => d.isPrimary)
   const id = profile.id
 
-  // Renewal terms: the pre-populated offer options if present, else the four defaults.
-  const renewOffers: { termWeeks: number; signingBonus: number | null }[] =
-    employment.offerOptions.length > 0
-      ? employment.offerOptions.map((o) => ({ termWeeks: o.termWeeks, signingBonus: o.signingBonus }))
-      : RENEW_TERMS.map((termWeeks) => ({ termWeeks, signingBonus: null }))
+  // D-17A/T5: renewal terms come from `renewOfferTruths`, which prices each term with the
+  // SAME `contractOffer` the renew action itself calls — so the salary, the bonus, the whole
+  // guaranteed obligation and its runway consequence are the real ones, not a placeholder set
+  // of term lengths with an unknown price (which is what this screen used to offer).
+  const renewOffers = renewOfferTruths(state, id)
 
   return (
     <div className="panel stack" data-testid={`roster-card-${id}`}>
@@ -291,19 +292,32 @@ function RosterCard({
           {contract.renewalOpen && (
             <div className="stack" data-testid={`roster-renew-${id}`}>
               <span className="hint">Renewal window open</span>
-              <div className="btn-row">
-                {renewOffers.map((o) => (
-                  <button
-                    key={o.termWeeks}
-                    className="accent"
-                    onClick={() => onRenew(id, o.termWeeks)}
-                    data-testid={`roster-renew-${id}-${o.termWeeks}`}
-                  >
-                    Renew {o.termWeeks / 52} yr
-                    {o.signingBonus !== null ? ` · ${money(o.signingBonus)} bonus` : ''}
-                  </button>
-                ))}
-              </div>
+              {renewOffers.map((t) => {
+                const wk = (r: { infinite: boolean; weeks: number | null }) =>
+                  r.infinite ? '—' : `${r.weeks} wk`
+                return (
+                  <div className="stack" key={t.termWeeks} style={{ gap: 2 }}>
+                    <button
+                      className="accent"
+                      onClick={() => onRenew(id, t.termWeeks)}
+                      data-testid={`roster-renew-${id}-${t.termWeeks}`}
+                    >
+                      Renew {t.termWeeks / 52} yr · {money(t.annualSalary)}/yr ·{' '}
+                      {money(t.obligation.signingBonus)} bonus
+                    </button>
+                    <span className="hint" data-testid={`offer-obligation-${id}-${t.termWeeks}`}>
+                      Commits <strong>{moneyExact(t.obligation.total)}</strong> over {t.termWeeks}{' '}
+                      weeks &mdash; {moneyExact(t.obligation.guaranteedComp)} guaranteed salary (
+                      {money(t.obligation.weeklySalary)}/wk) plus{' '}
+                      {moneyExact(t.obligation.signingBonus)} paid now.
+                    </span>
+                    <span className="hint" data-testid={`offer-runway-${id}-${t.termWeeks}`}>
+                      Runway {wk(t.runway.before)} &rarr; {wk(t.runway.after)}
+                      {t.bonusAffordable ? '' : ' · the renewal bonus alone exceeds current cash'}
+                    </span>
+                  </div>
+                )
+              })}
             </div>
           )}
         </>

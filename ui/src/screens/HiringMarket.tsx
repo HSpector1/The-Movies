@@ -7,14 +7,15 @@
 // no salary/fee/OVR is computed here.
 
 import { useState } from 'react'
-import type { GameState, EmploymentCard, CreativeRole } from '../engine/adapter.ts'
+import type { GameState, EmploymentCard, ContractOffer, CreativeRole } from '../engine/adapter.ts'
 import {
   hiringMarketCards,
   freelancerMarketCards,
   signContractAction,
+  signOfferTruth,
   selectCash,
 } from '../engine/adapter.ts'
-import { money, starPower, ageYears } from '../format.ts'
+import { money, moneyExact, starPower, ageYears } from '../format.ts'
 import { Metric } from '../components/common.tsx'
 
 // D-11.19: sortable by OVR, salary, Star Power, Potential, Work Ethic, contract
@@ -173,7 +174,7 @@ export function HiringMarket({
         ) : (
           <div className="grid grid-2" data-testid="hiring-list">
             {contractCards.map((card) => (
-              <HiringCard key={card.profile.id} card={card} onSign={sign} />
+              <HiringCard key={card.profile.id} card={card} state={state} onSign={sign} />
             ))}
           </div>
         )}
@@ -207,9 +208,11 @@ export function HiringMarket({
 // One signable contract card: identity + primary read + potential + sign offers.
 function HiringCard({
   card,
+  state,
   onSign,
 }: {
   card: EmploymentCard
+  state: GameState
   onSign: (talentId: string, termWeeks: number) => void
 }) {
   const { profile, employment } = card
@@ -252,20 +255,56 @@ function HiringCard({
       {employment.offerOptions.length === 0 ? (
         <p className="hint">No offers available.</p>
       ) : (
-        <div className="btn-row">
+        <div className="stack" data-testid={`hiring-offers-${id}`}>
           {employment.offerOptions.map((offer) => (
-            <button
-              key={offer.termWeeks}
-              className="primary"
-              onClick={() => onSign(id, offer.termWeeks)}
-              data-testid={`hiring-sign-${id}-${offer.termWeeks}`}
-            >
-              Sign {offer.termWeeks / 52} yr · {money(offer.annualSalary)}/yr ·{' '}
-              {money(offer.signingBonus)} bonus
-            </button>
+            <OfferRow key={offer.termWeeks} id={id} offer={offer} state={state} onSign={onSign} />
           ))}
         </div>
       )}
+    </div>
+  )
+}
+
+// ── D-17A/T5 — one offer, with what it actually commits the studio to ─────────
+// Signing is the largest recurring commitment in the game and the screen used to price it
+// with two of its three numbers (annual salary, signing bonus) and none of its consequences.
+// Every figure below comes from `signOfferTruth` — the engine's own `offerObligation` and
+// the ONE runway rule — evaluated against the exact offer the sign action will use.
+function OfferRow({
+  id,
+  offer,
+  state,
+  onSign,
+}: {
+  id: string
+  offer: ContractOffer
+  state: GameState
+  onSign: (talentId: string, termWeeks: number) => void
+}) {
+  const truth = signOfferTruth(state, offer)
+  const o = truth.obligation
+  const before = truth.runway.before
+  const after = truth.runway.after
+  const wk = (r: { infinite: boolean; weeks: number | null }) => (r.infinite ? '—' : `${r.weeks} wk`)
+  return (
+    <div className="stack" style={{ gap: 2 }}>
+      <button
+        className="primary"
+        onClick={() => onSign(id, offer.termWeeks)}
+        data-testid={`hiring-sign-${id}-${offer.termWeeks}`}
+      >
+        Sign {offer.termWeeks / 52} yr · {money(offer.annualSalary)}/yr ·{' '}
+        {money(offer.signingBonus)} bonus
+      </button>
+      <span className="hint" data-testid={`offer-obligation-${id}-${offer.termWeeks}`}>
+        Commits <strong>{moneyExact(o.total)}</strong> over {offer.termWeeks} weeks &mdash;{' '}
+        {moneyExact(o.guaranteedComp)} guaranteed salary ({money(o.weeklySalary)}/wk) plus{' '}
+        {moneyExact(o.signingBonus)} paid now.
+      </span>
+      <span className="hint" data-testid={`offer-runway-${id}-${offer.termWeeks}`}>
+        Runway {wk(before)} &rarr; {wk(after)}
+        {truth.bonusAffordable ? '' : ' · the signing bonus alone exceeds current cash'}
+      </span>
     </div>
   )
 }

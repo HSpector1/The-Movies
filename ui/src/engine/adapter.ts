@@ -117,6 +117,7 @@ import {
   isContracted,
   busyTalentIds,
   activeContract,
+  contractOffer,
   contractOfferOptions,
   freelancerFee,
   freelancerMarketIds,
@@ -151,6 +152,8 @@ import {
   prospectiveCycleFixedCost,
   cycleInclusiveBreakEvenGross,
   affordabilityScopes,
+  offerObligation,
+  postSigningRunway,
   allocateFixedCosts,
   // D-12 P2: awareness-conditioned marketing efficiency read model (reuses the engine box-office
   // pass — no UI-duplicated formula).
@@ -2000,6 +2003,59 @@ export function employmentInfo(state: GameState, talentId: string): EmploymentIn
   const offerOptions = signable ? contractOfferOptions(state, talentId) : []
   const fee = status === 'availableFreelancer' && t ? freelancerFee(t) : null
   return { status, contract, offerOptions, freelancerFee: fee }
+}
+
+// ── D-17A/T5 — contract-obligation truth at signing / renewal ─────────────────
+// D-16 item 8: the offer screen showed a weekly-ish salary and a signing bonus, and nothing
+// else. Signing a 4-year contract commits the studio to the WHOLE guaranteed term — the
+// single largest recurring commitment in the game — and neither the total nor its runway
+// consequence was ever stated. The player was asked to price a decision from one of its two
+// operands.
+//
+// `offerObligation` and `postSigningRunway` are the ENGINE's own helpers (the same weekly
+// salary payroll debits, and the ONE runway rule from T1). These selectors only pair them
+// with the exact offer the ACTION will use, so what is shown and what is charged cannot
+// diverge:
+//   • signing  — `contractOfferOptions` (what the hiring market already renders), priced as
+//                a NEW SEAT, so the runway also carries OVERHEAD_PER_EMPLOYEE;
+//   • renewing — `contractOffer(state, talentId, term)`, byte-identical to the offer
+//                `applyRenewContract` builds, priced as a REPLACEMENT (no new seat, so only
+//                the weekly-salary delta moves the burn).
+// Read-model only: nothing here enforces a gate. `bonusAffordable` reports the engine's own
+// solvency verdict on the immediate bonus, which is the only part the gate applies to.
+export type OfferTruth = {
+  termWeeks: number
+  annualSalary: number
+  obligation: OfferObligation
+  runway: PostSigningRunway
+  bonusAffordable: boolean
+}
+
+function offerTruthOf(state: GameState, offer: ContractOffer, replaces?: Contract): OfferTruth {
+  return {
+    termWeeks: offer.termWeeks,
+    annualSalary: offer.annualSalary,
+    obligation: offerObligation(offer),
+    runway: postSigningRunway(state, offer, replaces ? { replacesContract: replaces } : {}),
+    bonusAffordable: coreCommitmentPreview(state, offer.signingBonus).affordable,
+  }
+}
+
+/** The full truth of ONE hiring-market / founding offer (a NEW seat). */
+export function signOfferTruth(state: GameState, offer: ContractOffer): OfferTruth {
+  return offerTruthOf(state, offer)
+}
+
+/**
+ * The full truth of every renewal term available for a contracted talent, using the SAME
+ * `contractOffer` the renew action itself calls. Empty when there is no active contract.
+ */
+export function renewOfferTruths(state: GameState, talentId: string): OfferTruth[] {
+  const current = activeContract(state, talentId)
+  if (current === undefined) return []
+  return TUNING.CONTRACT_TERM_OPTIONS.map((term) =>
+    offerTruthOf(state, contractOffer(state, talentId, term), current),
+  )
 }
 
 // ── employment cards (a rich TalentProfile + employment info) ──
