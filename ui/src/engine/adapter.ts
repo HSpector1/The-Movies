@@ -138,6 +138,8 @@ import {
   NEWSPAPER_MASTHEAD,
   // D-12 financial read models (the SINGLE money source; pure, mirrors the engine)
   financeView,
+  // D-17A/T1 — THE one runway rule. Every player-facing "runway" resolves to this call.
+  runway,
   activeRunViews,
   commitmentPreview as coreCommitmentPreview,
   periodSummary as corePeriodSummary,
@@ -221,6 +223,7 @@ import type {
   RunView,
   CommitmentPreview,
   PeriodSummary,
+  Runway,
 } from '../../../src/core/index.ts'
 
 // Re-export the core types the UI needs, so components import types from the
@@ -277,6 +280,7 @@ export type {
   RunView,
   CommitmentPreview,
   PeriodSummary,
+  Runway,
 }
 
 export const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support']
@@ -2197,14 +2201,22 @@ export function nextIncompleteProfession(state: GameState): CreativeRole | null 
 }
 
 // ── payroll & runway summary (D-11.19) ──
+//
+// D-17A/T1 — ONE RUNWAY. This summary used to publish its OWN runway, `⌊cash ÷ weeklyPayroll⌋`:
+// payroll-only, blind to overhead and blind to active theatrical revenue. On the same state the
+// Roster screen and the Dashboard therefore printed two different "Runway" numbers (the visible
+// 186-wk-vs-72-wk contradiction from the D-16 lab). There is now exactly ONE runway definition in
+// the product — `economyView.runway(state)`, the D-12.16 current-commitments rule — and this
+// summary reports THAT. Weekly and annual payroll remain, as what they always were: COST LINES.
 export type PayrollSummary = {
   cash: number
-  weeklyPayroll: number
-  annualPayroll: number
+  weeklyPayroll: number // a cost line, NOT a runway basis
+  annualPayroll: number // a cost line, NOT a runway basis
   signingBonusesPaid: number // recruitment fund + operating bonuses, informational
   projectedObligations: number // Σ remaining guaranteed salary across active contracts
   upcomingRenewals: number // contracts currently in their renewal window
-  runwayWeeks: number | null // cash / weeklyPayroll (null = no payroll → unbounded)
+  /** THE authoritative runway — identical to the Dashboard's `fin-runway`, by construction. */
+  runway: Runway
   contractCount: number
 }
 export function payrollSummary(state: GameState): PayrollSummary {
@@ -2227,7 +2239,7 @@ export function payrollSummary(state: GameState): PayrollSummary {
     signingBonusesPaid: operatingBonuses + foundingBonuses,
     projectedObligations: projected,
     upcomingRenewals: renewals,
-    runwayWeeks: weekly > 0 ? Math.floor(state.studio.cash / weekly) : null,
+    runway: runway(state), // D-17A/T1: the ONE rule, not a payroll-only near-copy
     contractCount: state.contracts.length,
   }
 }

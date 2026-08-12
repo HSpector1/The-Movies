@@ -191,7 +191,8 @@ export function FoundingScreen({
               {money(projectedWeeklyOverhead(state))}
             </Metric>
             <Metric label="Runway" small testid="founding-runway">
-              {foundingRunway.infinite ? '—' : `${foundingRunway.weeks} wks`}
+              {/* D-17A/T1: one runway UNIT string across the product ("wk"). */}
+              {foundingRunway.infinite ? '—' : `${foundingRunway.weeks} wk`}
             </Metric>
           </div>
         </div>

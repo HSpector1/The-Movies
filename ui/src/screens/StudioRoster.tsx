@@ -115,10 +115,17 @@ export function StudioRoster({
           <Metric label="Upcoming renewals" small testid="roster-renewals">
             {payroll.upcomingRenewals}
           </Metric>
+          {/* D-17A/T1: THE studio runway — the identical figure the Dashboard shows. Payroll
+              alone is a cost line above, never a second, longer-looking "runway". */}
           <Metric label="Runway" small testid="roster-runway">
-            {payroll.runwayWeeks === null ? '—' : `${payroll.runwayWeeks} wks`}
+            {payroll.runway.infinite ? '—' : `${payroll.runway.weeks} wk`}
           </Metric>
         </div>
+        <p className="hint" style={{ marginTop: 0 }}>
+          Runway is the studio-wide figure shown on the Dashboard: how many weeks current cash
+          lasts against weekly payroll <em>and</em> overhead, less any revenue from films already
+          in theaters. Weekly and annual payroll above are cost lines, not a runway of their own.
+        </p>
       </div>
 
       <div style={{ height: 16 }} />
