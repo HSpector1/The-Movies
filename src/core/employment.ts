@@ -48,14 +48,16 @@ export function employmentEngaged(state: GameStateV3): boolean {
   return state.founding !== null || state.contracts.length > 0
 }
 
-// ── D-12 economy gate (D-12.21) ──────────────────────────────────────────────
-// The theatrical-run economy engages iff the studio is a real PLAYER studio; for this
-// milestone that coincides with employment engagement, so the headless M0A corpus (never
-// engaged) keeps the D-1 single-lump credit and stays byte-identical. Derived from real
-// state — NOT a §11 SimulationFlags object; separate name leaves room for future
-// economy-without-employment cases without touching M0A.
-export function economyEngaged(state: GameStateV3): boolean {
-  return employmentEngaged(state)
+// ── D-12 economy gate (D-12.21, corrected by D-17A/R2) ───────────────────────
+// The theatrical-run economy engages iff the studio is a real PLAYER studio. That is a
+// PERSISTED, MONOTONIC fact (`economyEngagedEver`), not a re-derivation from the current
+// collections: a studio that let every contract expire — or fired everyone — is still a
+// player studio, and used to silently fall back to the headless D-1 regime (the D-16
+// engagement cliff: overhead stopped, the solvency gate lapsed, an active run's weekly
+// Studio Revenue stopped being paid). The headless M0A corpus never sets the flag, so it
+// keeps the D-1 single-lump credit and stays byte-identical.
+export function economyEngaged(state: GameState): boolean {
+  return state.economyEngagedEver
 }
 
 // ── D-12 solvency gate (D-12.11) ─────────────────────────────────────────────
@@ -391,5 +393,8 @@ export function beginFounding(state: GameState): GameState {
       budget: TUNING.HIRING_FOUNDING_BUDGET,
       spentBonus: 0,
     },
+    // D-17A/R2 — opening the founding draft is the moment this becomes a player studio.
+    // Monotonic: nothing ever sets this back to false.
+    economyEngagedEver: true,
   }
 }

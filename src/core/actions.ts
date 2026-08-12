@@ -37,7 +37,7 @@ import {
   activeContract,
   canAfford,
   contractOffer,
-  employmentEngaged,
+  economyEngaged,
   foundingGaps,
   foundingMinimumsMet,
   freelancerFee,
@@ -386,9 +386,11 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
   }
   // D-12: the greenlight forecast saturates fame→opening reach AND applies the P2 economy
   // calibration (gross scale + awareness marketing) with the SAME helper as the realized release
-  // when engaged (economyEngaged ≡ employmentEngaged), so forecast and result stay consistent; M0A
-  // (not engaged) uses the legacy path (byte-identical). Both flags are the same production signal.
-  const engaged = employmentEngaged(state)
+  // when engaged, so forecast and result stay consistent; M0A (not engaged) uses the legacy path
+  // (byte-identical). Both flags are the same production signal. D-17A/R2: the regime is the
+  // PERSISTED fact, so a studio between contracts still forecasts on the engaged model — the
+  // cliff must not survive at greenlight.
+  const engaged = economyEngaged(state)
   const forecastSnapshot: Forecast = computeForecast(inp, ctx, engaged, engaged)
 
   // ── Ledger + cash (D-1 unchanged when employment NOT engaged; D-11 economics
@@ -400,7 +402,7 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
   let cash: number
   const ledgerAdds: LedgerEntry[] = []
 
-  if (employmentEngaged(state)) {
+  if (economyEngaged(state)) {
     // D-11.13 — every film requires exactly ONE Production/Craft Lead.
     if (p.craftIds.length !== 1) {
       throw new Error(
@@ -464,7 +466,7 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
   // D-11.A — capture the immutable participant record at this LOCKED greenlight, but
   // ONLY when employment is engaged (so M0A/legacy productions carry no such field and
   // stay byte-identical). resolveShape(p.shape) matches the ReceptionInputs shapeEffects.
-  const participants: FilmParticipants | undefined = employmentEngaged(state)
+  const participants: FilmParticipants | undefined = economyEngaged(state)
     ? buildFilmParticipants(
         state,
         { writer, director, cast, craftHires },
@@ -1135,6 +1137,8 @@ function applySignContract(state: GameState, action: Action & { kind: 'signContr
       founding: { ...state.founding, spentBonus: state.founding.spentBonus + offer.signingBonus },
       contracts: [...state.contracts, contract],
       freeAgents: state.freeAgents.filter((id) => id !== talentId),
+      // D-17A/R2 — a signing is engagement; monotonic, never cleared.
+      economyEngagedEver: true,
     }
   }
 
@@ -1162,6 +1166,8 @@ function applySignContract(state: GameState, action: Action & { kind: 'signContr
     contracts: [...state.contracts, contract],
     ledger: [...state.ledger, entry],
     freeAgents: state.freeAgents.filter((id) => id !== talentId),
+    // D-17A/R2 — a signing is engagement; monotonic, never cleared.
+    economyEngagedEver: true,
   }
 }
 

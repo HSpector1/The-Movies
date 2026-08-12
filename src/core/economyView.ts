@@ -16,7 +16,10 @@ const EPS = 1e-9
 
 // Weekly overhead the engine debits at tick step 7.5 — mirrors tick.ts:403-404 EXACTLY
 // (base + per-contract; gated on engaged && founded). Zero pre-founding / when not engaged.
-export function weeklyOverhead(state: GameStateV3): number {
+// D-17A/R2: the parameter widened GameStateV3 → GameState because the regime fact it
+// consults (`economyEngaged`) is now a persisted field on the live state. TYPE-ONLY —
+// every existing caller already passes a full GameState; the body is unchanged.
+export function weeklyOverhead(state: GameState): number {
   if (!economyEngaged(state) || state.founding !== null) return 0
   return TUNING.OVERHEAD_BASE + TUNING.OVERHEAD_PER_EMPLOYEE * state.contracts.length
 }
@@ -32,7 +35,8 @@ export function weeklyBurn(state: GameState): number {
 // founding === null). This is the weekly overhead that WILL apply once the studio is founded with
 // the proposed roster — so the founding preview can show the same current-commitments runway the
 // Dashboard will show, just projected past the founding gate (no formula duplicated in the UI).
-export function projectedWeeklyOverhead(state: GameStateV3): number {
+// D-17A/R2: same TYPE-ONLY widening as weeklyOverhead (GameStateV3 → GameState).
+export function projectedWeeklyOverhead(state: GameState): number {
   if (!economyEngaged(state)) return 0
   return TUNING.OVERHEAD_BASE + TUNING.OVERHEAD_PER_EMPLOYEE * state.contracts.length
 }

@@ -30,7 +30,7 @@ import type {
 import { TUNING } from './tuning.js'
 import { resolveShape } from './shape.js'
 import { NEGATIVE_BUDGET_MULTIPLIERS, MARKETING_BUDGET_LEVELS } from './grid.js'
-import { weeklyPayroll, freelancerFee } from './employment.js'
+import { weeklyPayroll, freelancerFee, economyEngaged } from './employment.js'
 import {
   financeTotals,
   weeklyOverhead,
@@ -609,7 +609,10 @@ export function studioRunRecap(state: GameState): StudioRunRecap {
     )
 
   return {
-    engaged: state.contracts.length > 0 || state.theatricalRuns.length > 0 || films.length > 0,
+    // D-17A/R2 — the ONE authoritative regime fact (persisted, monotonic). The former
+    // ad-hoc predicate (contracts ∨ runs ∨ films) went false for a founded studio that
+    // had not yet released and had let its contracts lapse.
+    engaged: economyEngaged(state),
     summary,
     capital,
     films,
