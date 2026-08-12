@@ -125,3 +125,56 @@ Phase 0 audits (finance-source, migration proof, accounting design) → PM gate 
 reviews (adversarial, UX/information-integrity, accounting, save/migration, governance) →
 regression + corpus invariance → Owner evidence package → lessons → closure recommendation.
 D-17A ends there. No D-17B work of any kind.
+
+## 6. Phase-0 gate decisions (PM, 2026-08-12 — audits complete, no STOP triggered)
+
+**Migration (T10) — proof HOLDS; converter cleared.** Field `economyEngagedEver: boolean` on
+`GameState`; `SaveFileV5` re-anchored to a new frozen `GameStateV5` alias (house precedent);
+predicate = `founding !== null ∨ contracts.length > 0 ∨ ledger has any engaged-only kind
+{payroll, overhead, signingBonus, termination, freelancerFee, studioRevenue} ∨ any theatricalRun
+with economyModelVersion ≥ 1` (proven exact for all five save classes; `boxOffice` and
+`production` kinds excluded by proof). Setters at exactly the three false→true flip sites
+(`beginFounding`, founding-phase sign, ops-phase sign); `generateWorld` seeds `false`;
+`economyEngaged()` returns the persisted fact; `employmentEngaged()` unchanged (roster surfaces).
+Core regime reads repointed: `actions.ts:391/:403/:467`, `studioRunRecap.ts:612`; adapter regime
+reads repointed in Phase U (`:770, :1609, :2844-2845, :2869, :3078`). `validateSaveV6` carries ONE
+documented field check (`economyEngagedEver` must be boolean — a missing value would silently
+disengage a real studio, the exact R2 failure). `TUNING.ECONOMY_MODEL_VERSION ≥ 1` invariant test.
+Session-autosave key NOT bumped; `adapter.ts:1803/:1804` + legacy import chains updated.
+**Declined:** optional `FilmResult.startTick` hardening (derivation proven exact; cadence changes
+are forbidden anyway; keep V6 minimal). **The d16 harness is NOT touched** (including
+`view.ts:409`) — it is the invariance instrument and must stay byte-identical.
+
+**Accounting (T3) — design satisfies R7.** Prospective basis = the contract-literal
+`14 × currentWeeklyBurn` on a founding-guarded basis (the contract-expiry-aware forward sum is
+REJECTED: it smuggles a "renew nobody" assumption). Headline = sole-occupancy; shared-occupancy
+(÷2) shown as a named second line; no blended-occupancy scalar ever. Retrospective allocation =
+per-week pro-rata partition of ACTUAL ledger `payroll`+`overhead` (never recomputed from
+contracts — C1), equal split, largest-remainder with ascending-`productionId` plain-`<` order,
+integer dollars end-to-end (C2), window convention `[releaseTick−8, releaseTick−1] ∪
+[releaseTick, releaseTick+totalWeeks−1]`; idle burn reported separately and rendered.
+`contribution`/`classifyContribution`/existing recap fields untouched (C3); recap gains additive
+`allocatedFixedCost / allocatedWeeks / studioEconomicResult / allocationBasis:'ledgerProRata'` +
+studio-level `totalAllocatedFixedCost / idleFixedCost / totalLedgerFixedCost` with a visible
+reconciliation line.
+
+**Finance inventory corrections adopted:** T1 covers SIX burn/runway sites (adds `financeView`'s
+inline burn and the adapter `payrollSummary` roster runway — the visible 186/72 contradiction);
+T2 covers FOUR profit definitions (adds `adapter.ts:1625-1626` `explainRelease` with its
+`productionCommittedCost` fallback basis); T6's same-rule operands are `computeBoxOffice(...)
+.awarenessFactor` + `forecastCenters(...).starDraw` (LINEAR draw, not `starDrawOpening`),
+recomputed display-side with `TUNING.DISC_*` — no core signature change; the flawed proxy at
+`filmPackage.ts:592-610` is replaced by the same-rule computation (widening magnitude logic
+retained, driven by the correct shortfall); `filmPackage.ts:615`'s ceiling copy re-gated on
+capacity, not absolute spend. The D-16 "14.5%" and "186wk/72wk" figures are NOT citable at this
+HEAD (analysis dir absent) — the evidence package re-derives current-HEAD equivalents.
+
+**Agreed core API surface (binding for builders and the independent test author):**
+`economyView`: founding-guarded `weeklyBurn`; `runway`; `prospectiveCycleFixedCost(state, opts?)
+→ {weeks, weeklyBurn, concurrency, amount}`; `cycleInclusiveBreakEvenGross(state, committedCost,
+opts?) → {direct, cycleInclusive, fixedCost}`; `affordabilityScopes(state) → {cheapest, standard,
+recentTypical}` (each `{commitment, affordable, shortfall}`, action-parity); `offerObligation` +
+`postSigningRunway` selector family. New `src/core/fixedCostAllocation.ts`:
+`allocateFixedCosts(state, window?) → {perFilm, idle, total}` (per-week partition invariant).
+`filmPackage`: exported `discoveryExposure(...)` same-rule read-model → `{reachSupport, exposed,
+shortfall, floor, ceil}`.
