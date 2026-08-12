@@ -538,6 +538,17 @@ function boxTotalFor(
 // the only thing extracted is the deterministic support level the player could compute from
 // values already on screen. `resolveReception` and every constant are untouched.
 
+// Compact money for the DISPLAY-ONLY narrative strings below. Mirrors `ui/src/format.ts`
+// `money()` exactly, so a figure quoted inside a risk sentence reads the same as the same
+// figure quoted in a Metric two panels away. Presentation only — nothing here is simulated.
+function moneyShort(n: number): string {
+  const abs = Math.abs(n)
+  const sign = n < 0 ? '-' : ''
+  if (abs >= 1_000_000) return `${sign}$${(abs / 1_000_000).toFixed(2)}M`
+  if (abs >= 1_000) return `${sign}$${(abs / 1_000).toFixed(0)}K`
+  return `${sign}$${abs.toFixed(0)}`
+}
+
 export type DiscoveryExposure = {
   /** blended reach support ∈ [0,1] — DISC_SUPPORT_AWARENESS·awareness + DISC_SUPPORT_STAR·star. */
   reachSupport: number
@@ -705,16 +716,32 @@ export function forecastProfitRange(
       const discLowMult = Math.max(TUNING.DISC_FLOOR, Math.exp(-discSpread * TUNING.DISC_FORECAST_LOW_Z))
       profit.low = Math.min(profit.low, revExpected * share * discLowMult - committedCost)
     }
-    // D-17A/T6: the audience-ceiling line is now gated on MEASURED capacity — this campaign's spend
-    // against the awareness-conditioned `marketingCapacity` the same box-office pass computed —
-    // rather than on an absolute spend threshold. Above OVEREXPOSURE_THRESHOLD the engine itself
-    // begins treating the campaign as overexposure (reception.ts:605-611); below it, calling a large
-    // campaign "at the ceiling" was simply untrue.
+    // D-17A/T6: the capacity line is gated on MEASURED capacity — this campaign's spend against
+    // the awareness-conditioned `marketingCapacity` the same box-office pass computed — rather
+    // than on an absolute spend threshold.
+    //
+    // D-17A FIX-PASS (R6 again). What stood here still asserted that "spend beyond that converts
+    // to little additional turnout". That is a claim about MARGINAL RETURN, and the engine does
+    // not compute one: sweeping the real marketing grid, the measured marginal return at this
+    // gate is frequently above 1 studio dollar per marketing dollar, and the NEXT grid rung is
+    // often net-positive. The same line also called a ratio of SPEND ("$400K ÷ $267K of measured
+    // capacity") "1.6x the AUDIENCE this film can efficiently reach", which the Assembly screen
+    // states correctly two panels away.
+    //
+    // The rule now: report only what is measured, on the basis it is measured on. The entry
+    // fires exactly when the engine's OWN `overexposure` value is above zero — the same gate
+    // Assembly's overexposure line uses — and it names the consequence the engine actually
+    // applies, which is a LEGS penalty conditional on under-delivery (`reception.ts:601-616`),
+    // not wasted turnout. No steering, no marginal-return claim.
     const capacityRatio =
       centerBox.marketingCapacity > 0 ? inp.budget.marketing / centerBox.marketingCapacity : 0
-    if (capacityRatio >= TUNING.OVEREXPOSURE_THRESHOLD) {
+    if (centerBox.overexposure > 0) {
       downsideRisks.push(
-        `This campaign is at ${(Math.round(capacityRatio * 10) / 10).toFixed(1)}x the audience this film can efficiently reach; spend beyond that converts to little additional turnout.`,
+        `Marketing of ${moneyShort(inp.budget.marketing)} against a measured efficient capacity of ` +
+          `${moneyShort(centerBox.marketingCapacity)} — ${Math.round(capacityRatio * 100)}% of capacity — ` +
+          `counts as overexposure at ${Math.round(centerBox.overexposure * 100)}% of the full effect. ` +
+          `What that costs is measured on the film's legs, not its opening: a campaign this far past ` +
+          `capacity raises expectations, and if the film underdelivers on them word of mouth shortens its run.`,
       )
     } else if (largeMarketing && strength >= TUNING.SCRIPT_POTENTIAL_REF && funding >= 0.95) {
       upsideDrivers.push("This campaign meaningfully expands the film's reach.")

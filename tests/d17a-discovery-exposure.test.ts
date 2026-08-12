@@ -21,7 +21,9 @@ import {
   RngStream,
   TUNING,
   clamp,
+  computeBoxOffice,
   discoveryExposure,
+  forecastCenters,
   forecastProfitRange,
   resolveReception,
 } from '../src/core/index.js'
@@ -212,19 +214,62 @@ describe('D-17A/T6 — forecastProfitRange is driven by the same rule', () => {
     expect(range.upsideDrivers.some((u) => u.includes('sleeper'))).toBe(false)
   })
 
-  it('the audience-ceiling line is gated on MEASURED capacity, not absolute spend', () => {
+  // D-17A FIX-PASS (R6 again): the capacity line is gated on the engine's OWN `overexposure`
+  // value and reports only what the engine measures. It no longer claims anything about
+  // marginal return (measured marginal return at this gate is frequently > 1), and it no
+  // longer calls a ratio of SPEND a ratio of AUDIENCE.
+  it('the capacity line fires on the engine’s measured overexposure, not absolute spend', () => {
     // Low awareness ⇒ small efficient capacity ⇒ even a modest campaign is genuinely past it.
     const overspent = inputs({ fame: 0, awareness: 10, marketing: 1_000_000 })
     const over = forecastProfitRange(overspent, profitCtx(overspent))
-    const ceiling = over.downsideRisks.find((r) => r.includes('efficiently reach'))
+    const ceiling = over.downsideRisks.find((r) => r.includes('measured efficient capacity'))
     expect(ceiling).toBeDefined()
-    expect(ceiling).toMatch(/at \d+\.\dx the audience/)
 
-    // High awareness ⇒ large efficient capacity: the SAME large spend is no longer "at the
-    // ceiling", and the old absolute-spend gate would have claimed it was.
+    // It states the DOLLAR basis (spend vs capacity) and the % of capacity — the same framing
+    // the Assembly screen uses for the identical value.
+    expect(ceiling).toMatch(/Marketing of \$[\d.]+[KM] against a measured efficient capacity of \$[\d.]+[KM]/)
+    expect(ceiling).toMatch(/\d+% of capacity/)
+    // It names the MEASURED consequence — a legs penalty conditional on under-delivery.
+    expect(ceiling).toContain('legs')
+    expect(ceiling).toContain('overexposure')
+    // …and makes NO claim about marginal return, which the engine does not compute.
+    expect(ceiling).not.toMatch(/wasted|little additional|converts to little/)
+    // …and never restates a spend ratio as an audience ratio.
+    expect(ceiling).not.toMatch(/x the audience/)
+
+    // High awareness ⇒ large efficient capacity: the SAME large spend is not overexposure, and
+    // the old absolute-spend gate would have claimed it was.
     const absorbed = inputs({ fame: 80, awareness: 98, marketing: 1_000_000 })
     expect(absorbed.budget.marketing).toBeGreaterThanOrEqual(2 * TUNING.MARKETING_HALF_SATURATION)
     const ok = forecastProfitRange(absorbed, profitCtx(absorbed))
-    expect(ok.downsideRisks.some((r) => r.includes('efficiently reach'))).toBe(false)
+    expect(ok.downsideRisks.some((r) => r.includes('measured efficient capacity'))).toBe(false)
+  })
+
+  it('the capacity line fires EXACTLY when the engine’s own overexposure value is above zero', () => {
+    for (const spec of [
+      { fame: 0, awareness: 10, marketing: 100_000 },
+      { fame: 0, awareness: 10, marketing: 1_000_000 },
+      { fame: 40, awareness: 45, marketing: 400_000 },
+      { fame: 80, awareness: 98, marketing: 1_000_000 },
+      { fame: 20, awareness: 15, marketing: 400_000 },
+    ]) {
+      const inp = inputs(spec)
+      // The engine's OWN measured value, off the same box-office pass — not a re-derivation.
+      const fc = forecastCenters(inp, true, true)
+      const box = computeBoxOffice(
+        fc.centers,
+        inp.market.segments,
+        inp.market.baseMarketValue,
+        inp.standing,
+        inp.promise,
+        inp.budget,
+        inp.shapeEffects,
+        fc.centersOpening,
+        true,
+      )
+      const range = forecastProfitRange(inp, profitCtx(inp))
+      const fired = range.downsideRisks.some((r) => r.includes('measured efficient capacity'))
+      expect(fired, JSON.stringify(spec)).toBe(box.overexposure > 0)
+    }
   })
 })
