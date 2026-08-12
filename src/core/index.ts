@@ -314,6 +314,7 @@ export type {
   RecapWarning,
   RecapWarningCode,
   WarningSeverity,
+  FixedCostAllocationBasis,
 } from './studioRunRecap.js'
 
 // ── D-11 employment / contracts / roster / freelancer market (employment.ts) ──

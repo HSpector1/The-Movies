@@ -31,6 +31,7 @@ import { TUNING } from './tuning.js'
 import { resolveShape } from './shape.js'
 import { NEGATIVE_BUDGET_MULTIPLIERS, MARKETING_BUDGET_LEVELS } from './grid.js'
 import { weeklyPayroll, freelancerFee, economyEngaged } from './employment.js'
+import { allocateFixedCosts } from './fixedCostAllocation.js'
 import {
   financeTotals,
   weeklyOverhead,
@@ -101,7 +102,24 @@ export type RecapFilm = {
   runStatus: TheatricalRun['status'] | 'none'
   classification: FilmContributionClass | 'unknown'
   heavyLoss: boolean
+  // ── D-17A/T13 — ADDITIVE studio-economic view (Owner ruling R7) ──────────────
+  // `contribution` above is unchanged and remains the DIRECT-cost figure (D-12 §3/§8:
+  // Studio Revenue − committed cost; payroll and overhead are never folded into it). The
+  // three fields below are the labelled MANAGERIAL layer R7 asks for, and they never
+  // silently replace it.
+  /** whole dollars of ACTUAL ledger payroll+overhead attributed to this film's occupancy. */
+  allocatedFixedCost: number
+  /** weeks of the run so far in which this film occupied the studio (production + run). */
+  allocatedWeeks: number
+  /** contribution − allocatedFixedCost. null exactly when contribution is null. */
+  studioEconomicResult: number | null
+  /** how the fixed cost was attributed — per-week pro-rata over the signed ledger. */
+  allocationBasis: FixedCostAllocationBasis
 }
+
+/** The ONE attribution convention in use (see fixedCostAllocation.ts). Named so a screen can
+ *  state its assumption, and so a future convention cannot arrive unlabelled. */
+export type FixedCostAllocationBasis = 'ledgerProRata'
 
 export type RecapTalent = {
   talentId: string
@@ -256,6 +274,15 @@ export type CapitalStory = {
   currentWeeklyPayroll: number
   currentWeeklyOverhead: number
   currentWeeklyBurn: number
+  // ── D-17A/T13 — the fixed-cost attribution's own reconciliation (R7 safeguard) ──
+  // These three ALWAYS satisfy totalAllocatedFixedCost + idleFixedCost === totalLedgerFixedCost,
+  // and the screen shows the identity as a visible line. `totalAllocatedFixedCost` covers every
+  // production the studio has occupied the lot with, including films still in flight — so it can
+  // exceed the sum over `films` (which lists released titles only).
+  totalAllocatedFixedCost: number
+  idleFixedCost: number // weeks with nothing in production and nothing in release
+  totalLedgerFixedCost: number // === totalPayroll + totalOverhead
+  fixedCostAllocationBasis: FixedCostAllocationBasis
   // END-OF-WEEK cash (running balance AFTER each week's ledger). The opening balance above
   // is the pre-commitment start; these are post-ledger week closes.
   cashTimeline: { week: number; cash: number }[]
@@ -439,6 +466,10 @@ export function studioRunRecap(state: GameState): StudioRunRecap {
   const conceptById = new Map(state.concepts.map((c) => [c.id, c]))
   const talentById = new Map(state.talent.map((t) => [t.id, t]))
 
+  // D-17A/T13 — the managerial fixed-cost attribution over the whole run so far. It reconciles
+  // to the ledger by construction (fixedCostAllocation.ts); the recap simply reports it.
+  const allocation = allocateFixedCosts(state)
+
   // ── C. film slate (chronological) ──
   const releasedSorted = [...state.studio.releasedFilms].sort((a, b) => a.releaseTick - b.releaseTick)
   const films: RecapFilm[] = releasedSorted.map((f) => {
@@ -454,6 +485,7 @@ export function studioRunRecap(state: GameState): StudioRunRecap {
     const forecastTotal = f.forecast?.expectedTotal ?? null
     const cls: FilmContributionClass | 'unknown' =
       contribution == null ? 'unknown' : classifyContribution(contribution, commit)
+    const alloc = allocation.perFilm[f.productionId] ?? { allocated: 0, allocatedWeeks: 0 }
     return {
       productionId: f.productionId,
       title: concept?.title ?? f.conceptId,
@@ -474,6 +506,10 @@ export function studioRunRecap(state: GameState): StudioRunRecap {
       runStatus: run ? run.status : 'none',
       classification: cls,
       heavyLoss: contribution != null && commit > 0 && contribution < -HEAVY_LOSS_FRACTION * commit,
+      allocatedFixedCost: alloc.allocated,
+      allocatedWeeks: alloc.allocatedWeeks,
+      studioEconomicResult: contribution != null ? round2(contribution - alloc.allocated) : null,
+      allocationBasis: 'ledgerProRata',
     }
   })
 
@@ -549,6 +585,10 @@ export function studioRunRecap(state: GameState): StudioRunRecap {
     currentWeeklyPayroll: round2(curPayroll),
     currentWeeklyOverhead: round2(curOverhead),
     currentWeeklyBurn: round2(curBurn),
+    totalAllocatedFixedCost: Object.values(allocation.perFilm).reduce((s, f) => s + f.allocated, 0),
+    idleFixedCost: allocation.idle,
+    totalLedgerFixedCost: allocation.total,
+    fixedCostAllocationBasis: 'ledgerProRata',
     cashTimeline,
   }
 
