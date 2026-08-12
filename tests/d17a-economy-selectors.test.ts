@@ -11,24 +11,31 @@ import { describe, expect, it } from 'vitest'
 import {
   FOUNDING_MINIMUMS,
   TUNING,
+  affordabilityScopes,
   applyActions,
   beginFounding,
   breakEvenGross,
   commitmentPreview,
+  contractOffer,
   cycleInclusiveBreakEvenGross,
   expectedWeeklyRunRevenue,
   financeView,
   foundingRunwayPreview,
   generateWorld,
+  guaranteedComp,
+  offerObligation,
+  postSigningRunway,
   projectedWeeklyOverhead,
   prospectiveCycleFixedCost,
   runway,
+  studioRunRecap,
   tick,
   weeklyBurn,
   weeklyOverhead,
   weeklyPayroll,
+  weeklySalary,
 } from '../src/core/index.js'
-import type { CreativeRole, GameState } from '../src/core/index.js'
+import type { CastSlot, CreativeRole, GameState } from '../src/core/index.js'
 
 // ── fixtures (same construction the D-12 economy suite uses) ───────────────────
 function openFounding(seed: string): GameState {
@@ -47,6 +54,37 @@ function openFounding(seed: string): GameState {
 function foundStudio(seed: string): GameState {
   return applyActions(openFounding(seed), [{ kind: 'foundStudio' }])
 }
+function rosterIds(s: GameState, role: CreativeRole): string[] {
+  return s.contracts
+    .map((c) => s.talent.find((t) => t.id === c.talentId)!)
+    .filter((t) => t.role === role)
+    .map((t) => t.id)
+}
+function greenlightOneFilm(s: GameState, marketing = 100_000): GameState {
+  const concept = s.concepts[0]!
+  const actors = rosterIds(s, 'actor')
+  const cast = { lead: actors[0]!, antagonist: actors[1]!, support: actors[2]! } as Record<CastSlot, string>
+  return applyActions(s, [
+    {
+      kind: 'greenlight',
+      production: {
+        conceptId: concept.id,
+        shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+        promise: {
+          genre: concept.genre,
+          intendedSegments: ['adult'],
+          ranges: { intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] },
+        },
+        writerId: rosterIds(s, 'writer')[0]!,
+        directorId: rosterIds(s, 'director')[0]!,
+        cast,
+        craftIds: [rosterIds(s, 'craft')[0]!],
+        budget: { negative: concept.baseNegativeCost, marketing },
+      },
+    },
+  ])
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // T1 — ONE runway / ONE burn
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -194,5 +232,125 @@ describe('D-17A/T3 — cycleInclusiveBreakEvenGross', () => {
     expect(shared.fixedCost.concurrency).toBe(2)
     expect(shared.cycleInclusive).toBe(breakEvenGross(3_000_000 + shared.fixedCost.amount))
     expect(shared.cycleInclusive).toBeLessThan(cycleInclusiveBreakEvenGross(founded, 3_000_000).cycleInclusive)
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// T4 — affordability scopes (recap parity)
+// ═══════════════════════════════════════════════════════════════════════════════
+describe('D-17A/T4 — affordabilityScopes', () => {
+  it('is BIT-IDENTICAL to the recap position it was extracted from (engaged fixture)', () => {
+    let s = foundStudio('d17a-t4-a')
+    s = greenlightOneFilm(s)
+    for (let i = 0; i < 20; i++) s = tick(s)
+    const recap = studioRunRecap(s)
+    const scopes = affordabilityScopes(s)
+    expect(recap.summary.releasedFilmCount).toBeGreaterThan(0) // the fixture really is engaged
+    expect(scopes.cheapest).toEqual(recap.position.cheapest)
+    expect(scopes.standard).toEqual(recap.position.standard)
+    expect(scopes.recentTypical).toEqual(recap.position.typicalRecent)
+    expect(scopes.cheapestBreakdown).toEqual(recap.position.cheapestBreakdown)
+    expect(scopes.standardBreakdown).toEqual(recap.position.standardBreakdown)
+    expect(scopes.contractedRosterCanFieldFilm).toBe(recap.position.contractedRosterCanFieldFilm)
+  })
+
+  it('uses the ENGINE solvency gate: affordable ⟺ commitmentPreview says so, and shortfall reconciles', () => {
+    const founded = foundStudio('d17a-t4-b')
+    const scopes = affordabilityScopes(founded)
+    for (const scope of [scopes.cheapest, scopes.standard, scopes.recentTypical]) {
+      if (scope == null) continue
+      const p = commitmentPreview(founded, scope.commitment)
+      expect(scope.affordable).toBe(p.affordable)
+      expect(scope.shortfall).toBe(p.affordable ? 0 : Math.round(Math.max(0, -p.cashAfter)))
+      expect(scope.shortfall).toBeGreaterThanOrEqual(0)
+    }
+  })
+
+  it('recentTypical is null before any film has released; cheapest ≤ standard', () => {
+    const founded = foundStudio('d17a-t4-c')
+    const scopes = affordabilityScopes(founded)
+    expect(scopes.recentTypical).toBeNull()
+    expect(scopes.cheapest!.commitment).toBeLessThanOrEqual(scopes.standard!.commitment)
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// T5 — contract-obligation truth at signing
+// ═══════════════════════════════════════════════════════════════════════════════
+describe('D-17A/T5 — offerObligation', () => {
+  it('is weeklySalary x term + signing bonus, from the engine helper', () => {
+    const founded = foundStudio('d17a-t5-a')
+    const free = founded.talent.find((t) => !founded.contracts.some((c) => c.talentId === t.id))!
+    const offer = contractOffer(founded, free.id, 104)
+    const ob = offerObligation(offer)
+    expect(ob.weeklySalary).toBe(weeklySalary(offer.annualSalary))
+    expect(ob.guaranteedComp).toBe(ob.weeklySalary * offer.termWeeks)
+    expect(ob.signingBonus).toBe(offer.signingBonus)
+    expect(ob.total).toBe(ob.guaranteedComp + ob.signingBonus)
+    expect(ob.total).toBeGreaterThan(ob.signingBonus)
+    // it IS the engine's own guaranteedComp, evaluated at the offer's start week
+    expect(ob.guaranteedComp).toBe(
+      guaranteedComp(
+        {
+          talentId: offer.talentId,
+          annualSalary: offer.annualSalary,
+          signingBonus: offer.signingBonus,
+          startWeek: offer.startWeek,
+          endWeekExclusive: offer.endWeekExclusive,
+          termWeeks: offer.termWeeks,
+        },
+        offer.startWeek,
+      ),
+    )
+  })
+
+  it('scales linearly in the term (the same weekly salary, more weeks)', () => {
+    const founded = foundStudio('d17a-t5-b')
+    const free = founded.talent.find((t) => !founded.contracts.some((c) => c.talentId === t.id))!
+    const short = offerObligation({ ...contractOffer(founded, free.id, 52), termWeeks: 52 })
+    const long = offerObligation({ ...contractOffer(founded, free.id, 52), termWeeks: 104 })
+    expect(long.guaranteedComp).toBe(short.guaranteedComp * 2)
+  })
+})
+
+describe('D-17A/T5 — postSigningRunway', () => {
+  it('adds the weekly salary + per-employee overhead to burn and takes the bonus out of cash', () => {
+    const founded = foundStudio('d17a-t5-c')
+    const free = founded.talent.find((t) => !founded.contracts.some((c) => c.talentId === t.id))!
+    const offer = contractOffer(founded, free.id, 104)
+    const r = postSigningRunway(founded, offer)
+    expect(r.before).toEqual(runway(founded))
+    expect(r.burnAfter).toBe(weeklyBurn(founded) + weeklySalary(offer.annualSalary) + TUNING.OVERHEAD_PER_EMPLOYEE)
+    expect(r.cashAfter).toBe(founded.studio.cash - offer.signingBonus)
+    const net = r.burnAfter - expectedWeeklyRunRevenue(founded)
+    expect(r.after.weeks).toBe(Math.floor(Math.max(0, r.cashAfter) / net))
+    expect(r.after.weeks!).toBeLessThan(r.before.weeks!) // signing shortens the runway
+  })
+
+  it('a RENEWAL prices only the DELTA in weekly salary (the seat already exists)', () => {
+    const founded = foundStudio('d17a-t5-d')
+    const existing = founded.contracts[0]!
+    const offer = contractOffer(founded, existing.talentId, 104)
+    const r = postSigningRunway(founded, offer, { replacesContract: existing })
+    expect(r.burnAfter).toBe(
+      weeklyBurn(founded) + weeklySalary(offer.annualSalary) - weeklySalary(existing.annualSalary),
+    )
+    // no new seat ⇒ no additional per-employee overhead
+    expect(r.burnAfter).not.toBe(
+      weeklyBurn(founded) +
+        weeklySalary(offer.annualSalary) -
+        weeklySalary(existing.annualSalary) +
+        TUNING.OVERHEAD_PER_EMPLOYEE,
+    )
+  })
+
+  it('never reports negative weeks, and reports infinite when revenue covers the new burn', () => {
+    let s = foundStudio('d17a-t5-e')
+    s = greenlightOneFilm(s, 1_000_000)
+    for (let i = 0; i < 9; i++) s = tick(s)
+    const free = s.talent.find((t) => !s.contracts.some((c) => c.talentId === t.id))!
+    const r = postSigningRunway(s, contractOffer(s, free.id, 52))
+    if (r.after.weeks != null) expect(r.after.weeks).toBeGreaterThanOrEqual(0)
+    else expect(r.after.infinite).toBe(true)
   })
 })

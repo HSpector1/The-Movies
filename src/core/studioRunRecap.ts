@@ -323,7 +323,7 @@ function minConceptBaseNeg(state: GameState): number | null {
 
 /** Whether the current contracted roster can legally field a film (writer + director + 3 distinct
  *  actors + 1 craft) — so the cheapest package needs no freelancer fees at greenlight. */
-function contractedRosterCanField(state: GameState): boolean {
+export function contractedRosterCanField(state: GameState): boolean {
   const roleOf = new Map(state.talent.map((t) => [t.id, t.role]))
   const roles = state.contracts.map((c) => roleOf.get(c.talentId))
   const n = (r: string) => roles.filter((x) => x === r).length
@@ -360,7 +360,9 @@ function minFreelancerFill(state: GameState): number | null {
  *  concept, lowest budget grid (0.75×), minimum marketing, min-demand shape, current roster (contracted
  *  fill is free; otherwise the cheapest freelancer fill). Parity-tested against greenlight(). Returns
  *  null if no package can be assembled. */
-function cheapestPackage(state: GameState): PackageBreakdown | null {
+// D-17A/T4: EXPORTED (math untouched) so `economyView.affordabilityScopes` can promote the same
+// package to the Dashboard and Assembly instead of re-deriving it. One builder, one answer.
+export function cheapestPackage(state: GameState): PackageBreakdown | null {
   const minBaseNeg = minConceptBaseNeg(state)
   if (minBaseNeg == null) return null
   const fees = contractedRosterCanField(state) ? 0 : minFreelancerFill(state)
@@ -374,7 +376,7 @@ function cheapestPackage(state: GameState): PackageBreakdown | null {
 
 /** A STANDARD-budget film of the cheapest concept: default budget grid (1.0×), neutral shape demand,
  *  default marketing — "can I make a normal film?" (what the assembly opens with). */
-function standardPackage(state: GameState): PackageBreakdown | null {
+export function standardPackage(state: GameState): PackageBreakdown | null {
   const minBaseNeg = minConceptBaseNeg(state)
   if (minBaseNeg == null) return null
   const fees = contractedRosterCanField(state) ? 0 : minFreelancerFill(state)
@@ -383,8 +385,22 @@ function standardPackage(state: GameState): PackageBreakdown | null {
   return { negative, marketing: STANDARD_MARKETING, freelancerFees: fees }
 }
 
-function allIn(b: PackageBreakdown): number {
+/** The exact immediate cash a greenlight charges for a package (D-12 §3). D-17A/T4: exported. */
+export function packageAllIn(b: PackageBreakdown): number {
   return b.negative + b.marketing + b.freelancerFees
+}
+
+/** The "recent typical" commitment: median committed cost of the last TYPICAL_RECENT_WINDOW
+ *  releases (newest first, positive only); null before anything has released. D-17A/T4: extracted
+ *  so the recap position and `economyView.affordabilityScopes` share ONE derivation rather than
+ *  two that agree by coincidence. Value-identical to the previous inline computation. */
+export function recentTypicalCommitment(state: GameState): number | null {
+  const recent = [...state.studio.releasedFilms]
+    .sort((a, b) => b.releaseTick - a.releaseTick)
+    .map((f) => round2(filmCommittedCost(state, f.productionId)))
+    .filter((c) => c > 0)
+    .slice(0, TYPICAL_RECENT_WINDOW)
+  return median(recent)
 }
 
 const OPENINGS: FilmShape['opening'][] = ['immediateAction', 'slowSetup', 'mysteryHook']
@@ -714,20 +730,16 @@ function computePosition(
   // AUTHORITATIVE bare-minimum greenlightable package (same solvency gate as the greenlight action).
   const cheapestBreakdown = cheapestPackage(state)
   const cheapest: PositionAffordability | null =
-    cheapestBreakdown != null ? affordabilityOf(state, allIn(cheapestBreakdown)) : null
+    cheapestBreakdown != null ? affordabilityOf(state, packageAllIn(cheapestBreakdown)) : null
   const contractedRosterCanFieldFilm = contractedRosterCanField(state)
 
   // A STANDARD (normally-funded) film of the cheapest concept — "can I make a normal film?"
   const standardBreakdown = standardPackage(state)
   const standard: PositionAffordability | null =
-    standardBreakdown != null ? affordabilityOf(state, allIn(standardBreakdown)) : null
+    standardBreakdown != null ? affordabilityOf(state, packageAllIn(standardBreakdown)) : null
 
-  const recentCommits = [...films]
-    .sort((a, b) => b.releaseWeek - a.releaseWeek)
-    .map((f) => f.committedCost)
-    .filter((c): c is number => c != null && c > 0)
-    .slice(0, TYPICAL_RECENT_WINDOW)
-  const typicalCommit = median(recentCommits)
+  // D-17A/T4: the shared derivation (value-identical to the previous inline one).
+  const typicalCommit = recentTypicalCommitment(state)
   const typicalRecent: PositionAffordability | null =
     typicalCommit != null ? affordabilityOf(state, typicalCommit) : null
 
@@ -778,7 +790,9 @@ function computePosition(
   }
 }
 
-function affordabilityOf(state: GameState, commitment: number): PositionAffordability {
+// D-17A/T4: EXPORTED (math untouched) — the one place a "can I commit this much?" answer is
+// derived, always through the engine's own gate via `commitmentPreview`.
+export function affordabilityOf(state: GameState, commitment: number): PositionAffordability {
   const preview = commitmentPreview(state, commitment)
   return {
     commitment: Math.round(commitment),

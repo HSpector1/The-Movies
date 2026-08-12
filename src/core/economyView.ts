@@ -6,9 +6,30 @@
 // NEVER reinvents a formula. Unit = whole dollars (the engine's unit). The sim never
 // reads any of these; they are display-only, exactly like talentSummary / filmPackage.
 
-import type { GameState, GameStateV3, TheatricalRun, LedgerKind } from './types.js'
+import type { Contract, GameState, GameStateV3, TheatricalRun, LedgerKind } from './types.js'
 import { TUNING } from './tuning.js'
-import { economyEngaged, weeklyPayroll, canAfford, type Affordability } from './employment.js'
+import {
+  economyEngaged,
+  weeklyPayroll,
+  weeklySalary,
+  canAfford,
+  type Affordability,
+} from './employment.js'
+// D-17A/T4 — the affordability scopes reuse the RECAP's own package builders and its own
+// affordability helper, so "can I make a film?" is the same number on the Dashboard, at
+// Assembly, and in the recap, and the existing recap-parity tests transfer unchanged.
+// (studioRunRecap imports this module in turn; the cycle is inert — every reference on both
+// sides lives inside a function body, and neither module reads the other at evaluation time.)
+import {
+  affordabilityOf,
+  cheapestPackage,
+  contractedRosterCanField,
+  packageAllIn,
+  recentTypicalCommitment,
+  standardPackage,
+  type PackageBreakdown,
+  type PositionAffordability,
+} from './studioRunRecap.js'
 
 const EPS = 1e-9
 
@@ -220,6 +241,112 @@ export function cycleInclusiveBreakEvenGross(
     direct: breakEvenGross(committedCost),
     cycleInclusive: breakEvenGross(committedCost + fixedCost.amount),
     fixedCost,
+  }
+}
+
+// ── D-17A/T4 — affordability scopes (promoted out of the recap) ────────────────
+// "What can I actually make right now?", at three scopes, from player-visible values only:
+//   cheapest      — the AUTHORITATIVE least-expensive greenlightable package (cheapest concept,
+//                   lowest budget grid, minimum marketing, min-demand shape, current roster);
+//   standard      — a normally-funded film of that concept (the assembly's own defaults);
+//   recentTypical — the median committed cost of the studio's three most recent releases
+//                   (null until something has released).
+// Each carries the ENGINE's solvency verdict (D-12.11 via `commitmentPreview`), not a
+// re-implementation of it. D-17A promotes these to Dashboard + Assembly; they were previously
+// reachable only through the D-15 recap, which is why the same builders are reused verbatim.
+
+export type AffordabilityScopes = {
+  cheapest: PositionAffordability | null
+  cheapestBreakdown: PackageBreakdown | null
+  standard: PositionAffordability | null
+  standardBreakdown: PackageBreakdown | null
+  recentTypical: PositionAffordability | null
+  /** false ⇒ the packages above assume hiring freelancers to fill the roles the roster cannot. */
+  contractedRosterCanFieldFilm: boolean
+}
+
+export function affordabilityScopes(state: GameState): AffordabilityScopes {
+  const cheapestBreakdown = cheapestPackage(state)
+  const standardBreakdown = standardPackage(state)
+  const typical = recentTypicalCommitment(state)
+  return {
+    cheapest: cheapestBreakdown != null ? affordabilityOf(state, packageAllIn(cheapestBreakdown)) : null,
+    cheapestBreakdown,
+    standard: standardBreakdown != null ? affordabilityOf(state, packageAllIn(standardBreakdown)) : null,
+    standardBreakdown,
+    recentTypical: typical != null ? affordabilityOf(state, typical) : null,
+    contractedRosterCanFieldFilm: contractedRosterCanField(state),
+  }
+}
+
+// ── D-17A/T5 — contract-obligation truth at signing ────────────────────────────
+// D-16 item 8: the offer screen showed the weekly salary and the signing bonus, never the FULL
+// remaining guaranteed obligation the studio is committing to. These two selectors state it,
+// from the same employment helpers the tick charges against.
+
+export type OfferObligation = {
+  weeklySalary: number // round(annualSalary / TICKS_PER_YEAR) — exactly what payroll debits
+  guaranteedComp: number // weeklySalary × termWeeks (== `guaranteedComp(contract, startWeek)`)
+  signingBonus: number // paid once, immediately (from the recruitment fund during founding)
+  total: number // guaranteedComp + signingBonus — the whole commitment
+}
+
+/** The full obligation of an offer/renewal, from its own terms. Pure arithmetic, no state. */
+export function offerObligation(offer: {
+  annualSalary: number
+  signingBonus: number
+  termWeeks: number
+}): OfferObligation {
+  const weekly = weeklySalary(offer.annualSalary)
+  const guaranteed = weekly * offer.termWeeks
+  return {
+    weeklySalary: weekly,
+    guaranteedComp: guaranteed,
+    signingBonus: offer.signingBonus,
+    total: guaranteed + offer.signingBonus,
+  }
+}
+
+export type PostSigningRunway = {
+  before: Runway // the R1 runway as it stands now
+  after: Runway // the same rule, with the signing's burn and cash consequences applied
+  burnAfter: number // weekly burn once this contract is on the books
+  cashAfter: number // cash once the signing bonus is paid
+}
+
+/**
+ * What signing (or renewing) this offer does to the runway — the SAME runway rule, with:
+ *   burn' = burn + weeklySalary(offer)                       (+ OVERHEAD_PER_EMPLOYEE for a NEW
+ *                                                             seat; a renewal adds no seat, so it
+ *                                                             prices only the weekly-salary DELTA)
+ *   cash' = cash − signingBonus                              (ops phase; during a founding draft
+ *                                                             the bonus draws the RECRUITMENT FUND,
+ *                                                             not cash — actions.ts:1129-1142 — so
+ *                                                             cash is unchanged there)
+ * Read-model only: it changes no action and enforces no gate (the solvency gate on the bonus
+ * itself is `affordability(state, offer.signingBonus)`).
+ */
+export function postSigningRunway(
+  state: GameState,
+  offer: { annualSalary: number; signingBonus: number },
+  opts?: { replacesContract?: Contract },
+): PostSigningRunway {
+  const replaced = opts?.replacesContract
+  const burn = weeklyBurn(state)
+  const salaryDelta =
+    replaced === undefined
+      ? weeklySalary(offer.annualSalary) + TUNING.OVERHEAD_PER_EMPLOYEE // a new seat costs overhead too
+      : weeklySalary(offer.annualSalary) - weeklySalary(replaced.annualSalary)
+  // During a founding draft the tick charges nothing at all, so the ACTUAL burn stays 0 (the
+  // founding screen's projection is `foundingRunwayPreview`). Post-founding the delta applies.
+  const burnAfter = state.founding !== null ? burn : burn + salaryDelta
+  const cashAfter = state.founding !== null ? state.studio.cash : state.studio.cash - offer.signingBonus
+  const rev = expectedWeeklyRunRevenue(state)
+  return {
+    before: runway(state),
+    after: runwayOf(Math.max(0, cashAfter), burnAfter, rev),
+    burnAfter,
+    cashAfter,
   }
 }
 

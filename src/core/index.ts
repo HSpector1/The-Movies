@@ -236,6 +236,9 @@ export {
   breakEvenGross,
   prospectiveCycleFixedCost,
   cycleInclusiveBreakEvenGross,
+  affordabilityScopes,
+  offerObligation,
+  postSigningRunway,
   runView,
   activeRunViews,
   financeTotals,
@@ -247,6 +250,9 @@ export type {
   CommitmentPreview,
   CycleFixedCost,
   CycleInclusiveBreakEven,
+  AffordabilityScopes,
+  OfferObligation,
+  PostSigningRunway,
   RunView,
   FinanceTotals,
   PeriodSummary,
@@ -277,7 +283,18 @@ export type {
 // concentration, current position + recovery, inflections, warnings) from the live
 // GameState. Adds no persistence, mutates nothing, advances no RNG, recomputes no
 // film/career outcome. The sim never reads it.
-export { studioRunRecap, classifyContribution } from './studioRunRecap.js'
+export {
+  studioRunRecap,
+  classifyContribution,
+  // D-17A/T4 — the recap's own package/affordability builders, promoted (math untouched) so
+  // every surface answers "can I make a film?" with the same number.
+  cheapestPackage,
+  standardPackage,
+  packageAllIn,
+  contractedRosterCanField,
+  recentTypicalCommitment,
+  affordabilityOf,
+} from './studioRunRecap.js'
 export type {
   StudioRunRecap,
   RunSummary,
