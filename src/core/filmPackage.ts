@@ -682,8 +682,15 @@ export function forecastProfitRange(
     const disc = discoveryExposureFrom(centerBox.awarenessFactor, fcCenters.starDraw)
     if (disc.exposed) {
       const discSpread = TUNING.DISC_SPREAD * Math.pow(disc.shortfall, TUNING.DISC_SUPPORT_EXP)
+      // D-17A/T6 (final copy — WORDING ONLY, values and logic unchanged): the last
+      // unquantified word here was "substantial", an intensity claim the read-model can
+      // actually measure. The sentence now states the measured support against the threshold
+      // it misses, and the clip band the engine enforces. Nothing beyond that is claimed —
+      // no probability, no realized draw, no promise of a sleeper.
       downsideRisks.push(
-        `Limited reach support creates substantial discoverability risk: this film's opening turnout can land anywhere from ${disc.floor}x to ${disc.ceil}x its expected level.`,
+        `Limited reach support (${Math.round(disc.reachSupport * 100)}% of the ${Math.round(
+          TUNING.DISC_SUPPORT_THRESHOLD * 100,
+        )}% this film needs to open reliably) creates discoverability risk: this film's opening turnout can land anywhere from ${disc.floor}x to ${disc.ceil}x its expected level.`,
       )
       upsideDrivers.push('A weak opening could still develop into a sleeper if audiences respond.')
       const discLowMult = Math.max(TUNING.DISC_FLOOR, Math.exp(-discSpread * TUNING.DISC_FORECAST_LOW_Z))

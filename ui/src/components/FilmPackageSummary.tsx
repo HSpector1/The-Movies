@@ -14,9 +14,11 @@ import type {
   ExecutionConfidence,
   ForecastProfitRange,
   CycleFixedCost,
+  DiscoveryExposureView,
 } from '../engine/adapter.ts'
 import { money, score, confidenceLabel } from '../format.ts'
 import { Metric, Warn } from './common.tsx'
+import { DiscoveryExposureLine } from './DiscoveryExposure.tsx'
 
 // A4: a plain money figure in a Downside/Expected/Upside triple (Studio Revenue — always ≥ 0).
 function RangeFigure({ label, value, testid }: { label: string; value: number; testid?: string }) {
@@ -97,6 +99,7 @@ export function FilmPackageSummary({
   execution,
   profit,
   cycleFixedCost,
+  discovery,
 }: {
   cohesion: CreativeCohesion
   fit?: PackageFit
@@ -106,6 +109,8 @@ export function FilmPackageSummary({
   // Absent ⇒ the studio's weekly burn is not in scope for this render and the panel behaves
   // exactly as before (studio-economic === contribution). Never invented here.
   cycleFixedCost?: CycleFixedCost
+  // D-17A/T6: the engine's own discoverability-exposure read-model, for the risk section.
+  discovery?: DiscoveryExposureView
 }) {
   const fixedCost = cycleFixedCost?.amount ?? 0
   return (
@@ -366,6 +371,12 @@ export function FilmPackageSummary({
                 </ul>
               ) : (
                 <span className="hint">No specific downside risks.</span>
+              )}
+              {/* D-17A/T6 — the discoverability band, quantified, inside the risk section. */}
+              {discovery !== undefined && (
+                <div style={{ marginTop: 8 }}>
+                  <DiscoveryExposureLine exposure={discovery} testid="pkg-discovery-exposure" />
+                </div>
               )}
             </div>
           </div>

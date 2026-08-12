@@ -10,15 +10,19 @@ import { StudioRoster } from './StudioRoster.tsx'
 import { Assembly } from './Assembly.tsx'
 import { FilmPackageSummary } from '../components/FilmPackageSummary.tsx'
 import { FilmReadiness } from '../components/FilmReadiness.tsx'
+import { DiscoveryExposureLine } from '../components/DiscoveryExposure.tsx'
 import {
   affordabilityScopes,
+  assessDiscoveryExposure,
   cycleInclusiveBreakEvenGross,
   prospectiveCycleFixedCost,
+  requiredNegative,
   financeCard,
   payrollSummary,
   TUNING,
 } from '../engine/adapter.ts'
 import type {
+  DraftPackage,
   CreativeCohesion,
   CycleFixedCost,
   ExecutionConfidence,
@@ -27,7 +31,29 @@ import type {
   PackageFit,
 } from '../engine/adapter.ts'
 import { money, moneyExact, pct } from '../format.ts'
-import { newFoundedGame } from '../test/founding.ts'
+import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
+
+// The cheapest legal package from the contracted roster — used to build a deliberately
+// UNSUPPORTED film (unknown cast, minimum marketing) for the exposed branch.
+function cheapestVisiblePackage(state: GameState): DraftPackage {
+  const concept = [...state.concepts].sort((a, b) => a.baseNegativeCost - b.baseNegativeCost)[0]!
+  const shape = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' } as const
+  const actors = foundedRosterIds(state, 'actor')
+  return {
+    conceptId: concept.id,
+    shape,
+    promise: {
+      genre: concept.genre,
+      intendedSegments: ['adult'],
+      ranges: { intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] },
+    },
+    writerId: foundedRosterIds(state, 'writer')[0]!,
+    directorId: foundedRosterIds(state, 'director')[0]!,
+    craftIds: [foundedRosterIds(state, 'craft')[0]!],
+    cast: { lead: actors[0]!, antagonist: actors[1]!, support: actors[2]! },
+    budget: { negative: requiredNegative(concept, shape, state), marketing: 100_000 },
+  }
+}
 
 afterEach(cleanup)
 
@@ -449,5 +475,69 @@ describe('D-17A/T4 — Assembly shows the same three scopes as the Dashboard', (
     expect(screen.getByTestId('budget-affordability-disclosure').textContent).toMatch(
       /not a guaranteed quote/i,
     )
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// T6 — discoverability exposure, with the numbers the engine actually enforces.
+// ═══════════════════════════════════════════════════════════════════════════════
+describe('D-17A/T6 — the discoverability band is quantified, never hardcoded', () => {
+  it('states support vs threshold and the engine’s own clip bounds beside the forecast', () => {
+    openWizard('d17a-disc-band', 'budget')
+    const line = screen.getByTestId('budget-discovery-exposure')
+    const text = line.textContent ?? ''
+
+    // The bounds shown are the TUNING constants the engine clips with — if D-17B
+    // recalibrates DISC_FLOOR/DISC_CEIL this copy moves with them.
+    if (text.includes('Discoverability exposure')) {
+      expect(text).toContain(`${TUNING.DISC_FLOOR}×`)
+      expect(text).toContain(`${TUNING.DISC_CEIL}×`)
+      expect(text).toContain(pct(TUNING.DISC_SUPPORT_THRESHOLD))
+      expect(text).toMatch(/worst case .*best case/)
+    } else {
+      // Not exposed ⇒ a quiet, positive statement — still with the threshold named.
+      expect(text).toMatch(/Reach-supported/)
+      expect(text).toContain(pct(TUNING.DISC_SUPPORT_THRESHOLD))
+    }
+  })
+
+  it('renders the exposed branch with real dollars, from the selector’s own floor/ceil', () => {
+    // A deliberately unsupported package: unknown cast, minimum marketing, low awareness.
+    const base = newFoundedGame('d17a-disc-exposed')
+    const dim: GameState = {
+      ...base,
+      studio: { ...base.studio, standing: { ...base.studio.standing, audienceAwareness: 5 } },
+    }
+    const pkg = cheapestVisiblePackage(dim)
+    const exposure = assessDiscoveryExposure(dim, pkg)
+    expect(exposure.exposed).toBe(true)
+
+    const opening = 4_000_000
+    render(
+      <DiscoveryExposureLine exposure={exposure} expectedOpening={opening} testid="disc-unit" />,
+    )
+    const text = screen.getByTestId('disc-unit').textContent ?? ''
+    expect(text).toContain(money(opening * exposure.floor))
+    expect(text).toContain(money(opening * exposure.ceil))
+    expect(text).toContain(pct(exposure.reachSupport))
+    expect(text).toContain(pct(exposure.threshold))
+    // No probability language beyond the clip band the engine enforces.
+    expect(text).not.toMatch(/likely|probably|chance of|odds/i)
+  })
+
+  it('a reach-supported package gets a quiet line, not a warning', () => {
+    const exposure = {
+      reachSupport: 0.9,
+      shortfall: 0,
+      exposed: false,
+      floor: TUNING.DISC_FLOOR,
+      ceil: TUNING.DISC_CEIL,
+      threshold: TUNING.DISC_SUPPORT_THRESHOLD,
+    }
+    render(<DiscoveryExposureLine exposure={exposure} testid="disc-ok" />)
+    const el = screen.getByTestId('disc-ok')
+    expect(el.textContent).toMatch(/Reach-supported/)
+    expect(el.textContent).toMatch(/no discoverability variance/)
+    expect(el.className).toContain('hint') // quiet, not the 'reason' warning styling
   })
 })

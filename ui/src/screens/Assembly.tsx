@@ -30,6 +30,7 @@ import {
   cycleInclusiveBreakEvenGross,
   prospectiveCycleFixedCost,
   affordabilityScopes,
+  assessDiscoveryExposure,
   previewForecast,
   TUNING,
   marketingEfficiency,
@@ -65,6 +66,7 @@ import type {
   PackageDelta,
   CommitmentPreview,
   CycleFixedCost,
+  DiscoveryExposureView,
 } from '../engine/adapter.ts'
 import {
   SHAPE_DESCRIPTIONS,
@@ -82,6 +84,7 @@ import type { PickerAssignment } from '../components/TalentPicker.tsx'
 import { FilmPackageSummary } from '../components/FilmPackageSummary.tsx'
 import { FilmReadiness } from '../components/FilmReadiness.tsx'
 import { AffordabilityScopesCard } from '../components/AffordabilityScopes.tsx'
+import { DiscoveryExposureLine } from '../components/DiscoveryExposure.tsx'
 import { ChangePreview } from '../components/ChangePreview.tsx'
 import { ErrorBox, Warn, Metric } from '../components/common.tsx'
 import { TalentCreator } from './TalentCreator.tsx'
@@ -317,6 +320,8 @@ export function Assembly({
   // the conservative, named default). Passed to every panel that reports a profit sign, so no
   // surface can show a green "Profit" whose studio-economic branch is negative.
   const cycleFixedCost = prospectiveCycleFixedCost(state)
+  // D-17A/T6: the engine's own reach-support verdict for the fully-assembled package.
+  const discovery = pkg ? assessDiscoveryExposure(state, pkg) : null
 
   // ── Change preview (on select/swap) — real computed packageDelta ────────────
   // A delta needs TWO complete packages. We remember the last complete package the
@@ -457,7 +462,14 @@ export function Assembly({
           />
         )}
         {step === 'budget' && concept && (
-          <BudgetStep state={state} draft={draft} concept={concept} pkg={pkg} patch={patch} />
+          <BudgetStep
+            state={state}
+            draft={draft}
+            concept={concept}
+            pkg={pkg}
+            patch={patch}
+            discovery={discovery}
+          />
         )}
         {step === 'review' && concept && pkg && preview && (
           <ReviewStep
@@ -470,6 +482,7 @@ export function Assembly({
             execution={execution}
             profit={profit}
             cycleFixedCost={cycleFixedCost}
+            discovery={discovery}
           />
         )}
       </div>
@@ -493,6 +506,7 @@ export function Assembly({
             {...(execution ? { execution } : {})}
             {...(profit ? { profit } : {})}
             cycleFixedCost={cycleFixedCost}
+            {...(discovery ? { discovery } : {})}
           />
         </div>
       )}
@@ -1118,12 +1132,14 @@ function BudgetStep({
   concept,
   pkg,
   patch,
+  discovery,
 }: {
   state: GameState
   draft: Draft
   concept: FilmConcept
   pkg: DraftPackage | null
   patch: (p: Partial<Draft>) => void
+  discovery: DiscoveryExposureView | null
 }) {
   const req = requiredNegative(concept, draft.shape, state)
   const negative = NEGATIVE_BUDGET_MULTIPLIERS[draft.negativeLevelIdx]! * req
@@ -1350,6 +1366,16 @@ function BudgetStep({
             <p className="hint">Finish choosing talent to see the forecast.</p>
           </div>
         )}
+        {/* D-17A/T6 — the discoverability band, with real numbers, beside the forecast. */}
+        {discovery && forecast && (
+          <div className="panel">
+            <DiscoveryExposureLine
+              exposure={discovery}
+              expectedOpening={forecast.expectedOpening}
+              testid="budget-discovery-exposure"
+            />
+          </div>
+        )}
       </div>
     </div>
   )
@@ -1366,6 +1392,7 @@ function ReviewStep({
   execution,
   profit,
   cycleFixedCost,
+  discovery,
 }: {
   state: GameState
   pkg: DraftPackage
@@ -1376,6 +1403,7 @@ function ReviewStep({
   execution: ExecutionConfidence | null
   profit: ForecastProfitRange | null
   cycleFixedCost: CycleFixedCost
+  discovery: DiscoveryExposureView | null
 }) {
   const committed = totalCommittedCost(state, pkg)
   const exposure = capitalExposure(state, committed) // C1: solvency and exposure are separate
@@ -1458,6 +1486,16 @@ function ReviewStep({
         </div>
         <div className="stack">
           <ForecastDisplay forecast={forecast} mode="normal" source="estimate" />
+          {/* D-17A/T6 — the discoverability band, beside the forecast it widens. */}
+          {discovery && (
+            <div className="panel">
+              <DiscoveryExposureLine
+                exposure={discovery}
+                expectedOpening={forecast.expectedOpening}
+                testid="release-discovery-exposure"
+              />
+            </div>
+          )}
         </div>
       </div>
 
@@ -1469,6 +1507,7 @@ function ReviewStep({
           {...(execution ? { execution } : {})}
           {...(profit ? { profit } : {})}
           cycleFixedCost={cycleFixedCost}
+          {...(discovery ? { discovery } : {})}
         />
       )}
     </div>

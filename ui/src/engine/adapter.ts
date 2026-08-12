@@ -88,6 +88,7 @@ import {
   packageFit,
   executionConfidence,
   forecastProfitRange,
+  discoveryExposure,
   greenlightAssessment,
   risksMaterialized,
   packageDelta,
@@ -227,6 +228,7 @@ import type {
   RisksMaterialized,
   PackageDelta,
   PackageSide,
+  DiscoveryExposure,
   // ── D-12 financial read-model types ──
   FinanceView,
   RunView,
@@ -290,6 +292,7 @@ export type {
   GreenlightAssessment,
   RisksMaterialized,
   PackageDelta,
+  DiscoveryExposure,
   // D-12 financial read-model types re-exported through the single boundary.
   FinanceView,
   RunView,
@@ -2971,6 +2974,29 @@ export function assessProfitRange(state: GameState, pkg: DraftPackage): Forecast
     saturateFame: economyEngaged(state),
     engaged: economyEngaged(state),
   })
+}
+
+// ── D-17A/T6 — quantified discoverability exposure ────────────────────────────
+// D-16 item 9: the D-13 discoverability mechanic can multiply a film's OPENING by anywhere
+// between DISC_FLOOR and DISC_CEIL when the package lacks reach support, and the player was
+// warned about it in prose with no numbers at all. `discoveryExposure` is the ENGINE'S OWN
+// RULE (the one `resolveReception` applies) evaluated on its own operands; this selector only
+// pairs it with the threshold the rule compares against, so the UI can state the gap.
+//
+// INFORMATION DISCIPLINE: the underlying pass runs at z = 0, so nothing here touches the
+// realized discoverability draw (drawn at release from the isolated 'discovery-v1' stream).
+// Every operand — studio awareness, marketing spend, cast fame — is already on the screen.
+export type DiscoveryExposureView = DiscoveryExposure & {
+  /** DISC_SUPPORT_THRESHOLD — the support level at/above which discovery variance is ZERO. */
+  threshold: number
+}
+export function assessDiscoveryExposure(state: GameState, pkg: DraftPackage): DiscoveryExposureView {
+  const inp = assembleFullReceptionInputs(state, pkg)
+  const engaged = economyEngaged(state)
+  return {
+    ...discoveryExposure(inp, { saturateFame: engaged, engaged }),
+    threshold: TUNING.DISC_SUPPORT_THRESHOLD,
+  }
 }
 
 // ── D-12 P2: Marketing efficiency read model ──────────────────────────────────
