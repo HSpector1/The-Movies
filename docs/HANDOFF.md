@@ -94,7 +94,14 @@
 > governed program: **D-17A is AUTHORIZED for implementation; D-17B is NOT yet authorized.** D-17
 > develops on `d17-economy-truth-equilibrium`, created from the final D-16 HEAD so the d16 harness
 > (standing strategic regression infrastructure — Lesson BC) travels with it, and reconciles with
-> current `main` at its governed integration gate. Lessons **BC/BD/BF/BG/BH/BI finalized**; **BE,
+> current `main` at its governed integration gate. **UPDATE 2026-08-12: D-17A is ACCEPTED**
+> (Owner ruling; accepted state `79a9ab3`, tag `d17a-decision-truth`, branch + tag published) —
+> closure: [`docs/D-17A-CLOSURE.md`](D-17A-CLOSURE.md), evidence:
+> [`docs/D-17A-OWNER-EVIDENCE.md`](D-17A-OWNER-EVIDENCE.md). **D-17B (Awareness Business Cycle &
+> Reach Repair) is AUTHORIZED by the same ruling and in progress on this branch** — authorized
+> surface: awareness counter-flow, one Publicity action (mechanic, NOT a facility),
+> `AWARENESS_REACH_NEUTRAL`, the D-13 shape family, the marketing grid, required UI/read-models,
+> minimal publicity save state, and d16-harness lab extensions. Still not merged to `main`. Lessons **BC/BD/BF/BG/BH/BI finalized**; **BE,
 > BJ held DRAFT** (named holds); **BK added DRAFT**. (Canonical D1-B wording per ruling R12: a
 > bounded D1-B-related Soundstage Composer Proof completed and its selective adoption reached
 > production; the **broader D1-B production program remains unauthorized and unstarted** — nothing

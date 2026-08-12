@@ -1,6 +1,11 @@
 # D-17A — Decision Truth & Defect Closure — Closure Recommendation
 
-**Status:** CANDIDATE COMPLETE — Owner / Engine PM review required.
+**Status:** ACCEPTED — Owner / Engine PM ruling, 2026-08-12. Accepted state:
+`79a9ab3bb9e31ed7d32c571a56d9cc07792ed72f`, annotated tag `d17a-decision-truth`; branch and tag
+published to `hspector-github`. D-17B (Awareness Business Cycle & Reach Repair) authorized by the
+same ruling. The findings and recommendation below are preserved exactly as recorded at candidate
+completion.
+*(Superseded line at acceptance: "CANDIDATE COMPLETE — Owner / Engine PM review required.")*
 **Branch:** `d17-economy-truth-equilibrium` (this closure commit's parent: `08ee63d`; program base
 `c679f88` = final D-16 HEAD; `main @ 33eb33ae` unchanged throughout). **Not merged to `main`. Not
 pushed** (D-17 branch publication was not ruled; only the D-16 branch was published under R11).
