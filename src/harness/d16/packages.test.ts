@@ -12,6 +12,7 @@ import {
   applyActions,
   canAfford,
   commitmentPreview,
+  economyEngaged,
   employmentEngaged,
   forecastCenters,
   resolveReception,
@@ -245,23 +246,29 @@ describe('d16/packages — player-visible evaluation', () => {
     expect(e.breakEvenGross).toBeCloseTo(pkg.committedCost, 6)
   })
 
-  it('an exploit run reports a forecast centre in the same universe as its realized money', () => {
+  // D-17A / Owner ruling R2 — THE CLIFF THIS TEST DOCUMENTED IS CLOSED; re-specified
+  // 2026-08-12. This test used to compare the exploit's forecast centre against money it
+  // realized on the legacy 100 %-of-gross path. That path is no longer reachable: with
+  // `economyEngaged` a PERSISTED, monotonic fact, shedding every contract leaves the studio
+  // ENGAGED, so the engaged greenlight path (and with it D-11.12) still applies and refuses
+  // the exploit's open-pool casting. It releases nothing, so there is no forecast-vs-realized
+  // universe left to compare — what must be proven now is that the regime did not revert.
+  it('an exploit run can no longer reach the 100 %-of-gross path at all (D-17A/R2)', () => {
     const rec = runOne({ seed: 'd16-0001', policy: exploitDisengage, horizonWeeks: 104 })
-    const released = rec.films.filter((f) => f.studioRevenue !== null && f.contribution !== null)
-    expect(released.length).toBeGreaterThan(3)
-    for (const f of released) {
-      expect(f.greenlitEngaged).toBe(false)
-      // the disengaged path credits the FULL gross as a single lump (tick.ts:238-247)
-      expect(f.studioRevenue).toBeCloseTo(f.realizedGross!, 3)
-    }
-    // Pre-fix, `forecastCenterProfit` was priced at 0.52 against a 1.0 realization — the
-    // median realized/forecast ratio ran ~19×. It is now the same order of magnitude.
-    const ratios = released
-      .filter((f) => Math.abs(f.forecastCenterProfit) > 1000)
-      .map((f) => f.contribution! / f.forecastCenterProfit)
-    expect(ratios.length).toBeGreaterThan(3)
-    const med = [...ratios].sort((a, b) => a - b)[Math.floor(ratios.length / 2)]!
-    expect(Math.abs(med)).toBeLessThan(5)
+    expect(rec.filmsGreenlit).toBe(0)
+    expect(rec.filmsReleased).toBe(0)
+    expect(rec.films).toHaveLength(0)
+    expect(rec.rejectedActions).toBeGreaterThan(0)
+    expect(rec.rejections[0]!.kind).toBe('greenlight')
+    expect(rec.rejections[0]!.reason).toContain('neither studio-contracted nor an available freelancer')
+    // the persisted regime survives losing every contract…
+    const shed: GameState = { ...FOUNDED, founding: null, contracts: [] }
+    expect(employmentEngaged(shed)).toBe(false)
+    expect(economyEngaged(shed)).toBe(true)
+    // …so the engine kept charging overhead and never credited a legacy full-gross lump.
+    expect(rec.ledgerTotals['overhead']).toBeLessThan(0)
+    expect(rec.ledgerTotals['boxOffice']).toBeUndefined()
+    expect(rec.ledgerTotals['studioRevenue']).toBeUndefined()
   })
 })
 

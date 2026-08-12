@@ -11,7 +11,14 @@ import { describe, it, expect } from 'vitest'
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { dirname, join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { TUNING, applyActions, stableStringify } from '../../core/index.js'
+import {
+  TUNING,
+  applyActions,
+  economyEngaged,
+  employmentEngaged,
+  stableStringify,
+  weeklyOverhead,
+} from '../../core/index.js'
 import { runOne, foundStudioFor } from './driver.js'
 import { standardPackage, toGreenlightAction } from './packages.js'
 import { standardCadence, premiumAmbitious, cheapestViable, forecastProfitMax, ALL_POLICIES } from './policies.js'
@@ -243,13 +250,40 @@ describe('D-16 · policy registry', () => {
     expect(broke.engagedWeekFraction).toBeLessThan(1)
   })
 
-  it('the exploit policy DOES disengage, and is labelled as an exploit', () => {
+  // D-17A / Owner ruling R2 — THE CLIFF THIS TEST DOCUMENTED IS CLOSED; re-specified
+  // 2026-08-12. `economyEngaged` is now the PERSISTED, monotonic regime fact
+  // (`state.economyEngagedEver`), so shedding every contract no longer switches the D-12
+  // economy back off. P15 is unchanged and still sheds — its EMPLOYMENT fraction (what this
+  // harness measures, D-11.0) still collapses — but the studio stays in the engaged regime:
+  // overhead keeps being charged, the engaged greenlight path applies (so D-11.12 refuses its
+  // open-pool casting), and nothing is ever credited on the legacy 100 %-of-gross path.
+  // The policy, driver and harness are byte-identical; only the truth they observe changed.
+  it('the exploit policy sheds every contract but STAYS in the engaged economy (D-17A/R2)', () => {
     const exploit = ALL_POLICIES.find((p) => p.kind === 'exploit')!
     const rec = runOne({ seed: 'd16-0003', policy: exploit, horizonWeeks: 60 })
     expect(rec.policyKind).toBe('exploit')
     expect(rec.disengagementIntended).toBe(true)
-    // it sheds every contract, so its films run on the legacy 100%-of-gross path
-    expect(rec.filmsReleased).toBeGreaterThan(0)
+    // EMPLOYMENT still disengages — the shed is real.
     expect(rec.engagedWeekFraction).toBeLessThan(0.2)
+    // …but the ECONOMY regime is persisted and monotonic: a contract-less founded studio
+    // is still a player studio, and still carries the fixed overhead.
+    let shed = foundStudioFor('d16-0003', exploit).state
+    for (const c of [...shed.contracts])
+      shed = applyActions(shed, [{ kind: 'releaseTalent', talentId: c.talentId }])
+    expect(shed.contracts).toHaveLength(0)
+    expect(employmentEngaged(shed)).toBe(false)
+    expect(economyEngaged(shed)).toBe(true)
+    expect(weeklyOverhead(shed)).toBe(TUNING.OVERHEAD_BASE)
+    // Because the engaged greenlight path stays in force, D-11.12 refuses every open-pool
+    // package the exploit assembles — it greenlights and releases NOTHING.
+    expect(rec.filmsGreenlit).toBe(0)
+    expect(rec.filmsReleased).toBe(0)
+    expect(rec.rejectedActions).toBeGreaterThan(0)
+    expect(rec.rejections[0]!.kind).toBe('greenlight')
+    expect(rec.rejections[0]!.reason).toContain('neither studio-contracted nor an available freelancer')
+    // The economy did NOT revert to 100 %-of-gross: overhead kept being debited and the
+    // legacy single-lump `boxOffice` credit never appears.
+    expect(rec.ledgerTotals['overhead']).toBeLessThan(0)
+    expect(rec.ledgerTotals['boxOffice']).toBeUndefined()
   })
 })
