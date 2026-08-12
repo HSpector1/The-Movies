@@ -109,9 +109,15 @@ import {
   //     use it, or the UI would silently disagree with the core after the engagement cliff
   //     (a studio whose last contract expired still pays overhead and still banks a rental
   //     share — `actions.ts` and `studioRunRecap.ts` were repointed in Phase E).
+  //     D-17A FIX-PASS: the STAFFING/PRICING surfaces are on it too. `applyGreenlight`
+  //     (`actions.ts:405`) branches on the persisted fact, so the D-11.12 roster/freelancer
+  //     rule, the D-11.13 craft rule and the freelancer fee are in force the moment the
+  //     studio is engaged — regardless of whether anyone is employed right now. A pool or a
+  //     price quoted on the retired D-1 open-pool basis would offer packages the engine then
+  //     refuses (action-parity violation) at a cost it will not charge.
   //   • `employmentEngaged` — "there is employment RIGHT NOW" (founding open ∨ a live
-  //     contract). It stays on the ROSTER/ASSIGNMENT surfaces only, where it is the correct
-  //     question: which pools staff a film, and does an assignment cost a freelancer fee.
+  //     contract). It survives only on the purely ROSTER-INFORMATIONAL surfaces, which ask
+  //     that different question honestly ("does this studio employ anybody at the moment?").
   economyEngaged,
   employmentEngaged,
   employmentStatus,
@@ -536,9 +542,13 @@ const TEAM_NEED: Record<CreativeRole, number> = { writer: 1, director: 1, actor:
 export type AssemblyAvailability = { canAssemble: boolean; missingRoles: CreativeRole[]; reason?: string }
 
 export function assemblyAvailability(state: GameState): AssemblyAvailability {
-  // Pre-employment (founding not closed / no contracts): the original open-talent-pool path
-  // staffs from state.talent directly — no roster gate applies.
-  if (!employmentEngaged(state)) return { canAssemble: true, missingRoles: [] }
+  // NEVER-ENGAGED (a converted legacy save that never founded/signed): the original
+  // open-talent-pool path staffs from state.talent directly — no roster gate applies, and
+  // `applyGreenlight` takes the same D-1 branch. D-17A FIX-PASS: this is the PERSISTED
+  // economic regime, not "is anyone employed right now". A studio that fired everyone is
+  // still engaged, so D-11.12 still applies and the honest answer may be canAssemble:false —
+  // the alternative was a green gate followed by a raw engine rejection.
+  if (!economyEngaged(state)) return { canAssemble: true, missingRoles: [] }
   const busy = busyTalentIds(state)
   const market = new Set(freelancerMarketIds(state))
   const availableOf = (role: CreativeRole): number => {
@@ -1998,8 +2008,16 @@ export function releaseTalentAction(state: GameState, talentId: string): ActionO
 }
 
 // ── engagement / founding selectors ──
+// Roster-informational ONLY: "does this studio employ anybody right now?". Do NOT use it to
+// decide how a film is staffed or priced — that is the persisted economic regime below.
 export function isEmploymentEngaged(state: GameState): boolean {
   return employmentEngaged(state)
+}
+// D-17A FIX-PASS: the persisted, monotonic economic regime — the same fact `applyGreenlight`
+// branches on. Staffing rules (D-11.12 roster/freelancer, D-11.13 one craft lead) and
+// freelancer pricing follow THIS, so the wizard offers exactly what the engine will accept.
+export function isEconomyEngaged(state: GameState): boolean {
+  return economyEngaged(state)
 }
 export function selectFounding(state: GameState): FoundingState | null {
   return state.founding
@@ -2410,19 +2428,22 @@ export function payrollSummary(state: GameState): PayrollSummary {
 }
 
 // ── assembly candidate sources (D-11.11) ──
-// When employment is engaged, film assembly draws from the studio roster first and
-// available freelancers second; unavailable global talent is excluded. When NOT
-// engaged (a converted legacy save that never signed), fall back to the global pool.
+// When the economy is engaged, film assembly draws from the studio roster first and
+// available freelancers second; unavailable global talent is excluded. When NEVER
+// engaged (a converted legacy save that never founded/signed), fall back to the global pool.
+// D-17A FIX-PASS: the predicate is the PERSISTED `economyEngaged`, matching the branch
+// `applyGreenlight` takes (`actions.ts:405`). Reading "is anyone employed right now" here
+// offered the whole world to a fired-everyone studio and the engine refused it (D-11.12).
 export type FreelancerCandidate = { talent: PlayerVisibleTalent; fee: number }
 export function studioPool(state: GameState, role: CreativeRole): PlayerVisibleTalent[] {
-  if (!employmentEngaged(state)) return talentByRole(state, role)
+  if (!economyEngaged(state)) return talentByRole(state, role)
   const engaged = engagedTalentIds(state)
   return rosterTalent(state)
     .filter((t) => t.role === role)
     .map((t) => toPlayerVisible(t, engaged))
 }
 export function freelancerPool(state: GameState, role: CreativeRole): FreelancerCandidate[] {
-  if (!employmentEngaged(state)) return []
+  if (!economyEngaged(state)) return []
   const engaged = engagedTalentIds(state)
   return freelancerMarketIds(state)
     .map((id) => findTalent(state, id)!)
@@ -2431,8 +2452,11 @@ export function freelancerPool(state: GameState, role: CreativeRole): Freelancer
 }
 // The per-assignment cost of a chosen talent: 0 if contracted (payroll), else the
 // freelancer fee (a direct project cost). Used by the Budget step to show real cost.
+// D-17A FIX-PASS: gated on the PERSISTED regime, so the quote equals what
+// `applyGreenlight` debits (`actions.ts:427-431`) — a post-cliff studio was being quoted
+// the retired D-1 salary while the engine charged the 1.5× freelancer fee.
 export function assignmentProjectCost(state: GameState, talentId: string): number {
-  if (!employmentEngaged(state)) {
+  if (!economyEngaged(state)) {
     const t = findTalent(state, talentId)
     return t ? t.salary : 0 // legacy open-pool: salary is the per-production cost (D-1)
   }

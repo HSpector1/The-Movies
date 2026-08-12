@@ -22,7 +22,7 @@ import {
   talentByRole,
   studioPool,
   freelancerPool,
-  isEmploymentEngaged,
+  isEconomyEngaged,
   requiredNegative,
   salarySum,
   totalCommittedCost,
@@ -271,10 +271,13 @@ export function Assembly({
 
   const concepts = selectConcepts(state)
   const concept = draft.conceptId ? findConcept(state, draft.conceptId) : undefined
-  // D-11.11 candidate sources: when employment is engaged, staffing draws from the
+  // D-11.11 candidate sources: when the economy is engaged, staffing draws from the
   // studio roster + available freelancers ONLY (unavailable global talent excluded);
-  // a converted legacy save (not engaged) falls back to the open global pool.
-  const engaged = isEmploymentEngaged(state)
+  // a converted legacy save (never engaged) falls back to the open global pool.
+  // D-17A FIX-PASS: the PERSISTED regime, so the wizard's pools, its required-craft gate
+  // and its freelancer fees are the same rules `applyGreenlight` enforces. Reading
+  // "employed right now" let a fired-everyone studio build packages the engine refused.
+  const engaged = isEconomyEngaged(state)
   const buildPool = (role: CreativeRole) =>
     engaged
       ? [...studioPool(state, role), ...freelancerPool(state, role).map((f) => f.talent)]
