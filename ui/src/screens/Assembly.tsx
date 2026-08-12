@@ -29,6 +29,7 @@ import {
   commitmentPreview,
   cycleInclusiveBreakEvenGross,
   prospectiveCycleFixedCost,
+  affordabilityScopes,
   previewForecast,
   TUNING,
   marketingEfficiency,
@@ -80,6 +81,7 @@ import { TalentPicker } from '../components/TalentPicker.tsx'
 import type { PickerAssignment } from '../components/TalentPicker.tsx'
 import { FilmPackageSummary } from '../components/FilmPackageSummary.tsx'
 import { FilmReadiness } from '../components/FilmReadiness.tsx'
+import { AffordabilityScopesCard } from '../components/AffordabilityScopes.tsx'
 import { ChangePreview } from '../components/ChangePreview.tsx'
 import { ErrorBox, Warn, Metric } from '../components/common.tsx'
 import { TalentCreator } from './TalentCreator.tsx'
@@ -1147,6 +1149,9 @@ function BudgetStep({
   const mktEff = pkg ? marketingEfficiency(state, pkg) : null // D-12 P2 awareness-conditioned marketing state
   const demand = productionDemandView(state, concept, draft.shape, negative) // D-12 production-demand read model
   const exposure = capitalExposure(state, committed) // C1: capital exposure (separate from solvency)
+  // D-17A/T4: the same three affordability scopes the Dashboard and the recap show, beside
+  // the budget picker — so "what can I afford" is answered where the money is being chosen.
+  const scopes = affordabilityScopes(state)
 
   return (
     <div className="stack">
@@ -1164,6 +1169,11 @@ function BudgetStep({
           Also called the film&rsquo;s negative cost: the money required to produce the completed
           movie before marketing. Your Production Budget choice scales it.
         </p>
+
+        {/* D-17A/T4 — what the studio can currently field, before you pick a tier. */}
+        <div className="panel stack" data-testid="budget-affordability-panel">
+          <AffordabilityScopesCard scopes={scopes} testid="budget-affordability" />
+        </div>
 
         <div>
           <h4>Production Budget</h4>

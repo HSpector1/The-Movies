@@ -18,9 +18,11 @@ import {
   theatricalRuns,
   runProjection,
   releaseScorecard,
+  affordabilityScopes,
 } from '../engine/adapter.ts'
 import { money, score } from '../format.ts'
 import { Metric, StandingBar } from '../components/common.tsx'
+import { AffordabilityScopesCard } from '../components/AffordabilityScopes.tsx'
 
 export function Dashboard({
   state,
@@ -65,6 +67,9 @@ export function Dashboard({
   const availability = assemblyAvailability(state) // P5: block Assemble early if no legal team can form
   const fin = financeCard(state)
   const runs = theatricalRuns(state)
+  // D-17A/T4: "what can I actually make right now?" — from the FIRST week of a run, not
+  // gated behind the retrospective recap.
+  const scopes = affordabilityScopes(state)
 
   // Recent releases: most recent first.
   const recent = [...released].reverse().slice(0, 6)
@@ -233,6 +238,15 @@ export function Dashboard({
           (about {Math.round((runs[0]?.studioShare ?? 0.52) * 100)}%) of box office, paid weekly
           across a film’s theatrical run — not the full gross.
         </p>
+      </div>
+
+      <div style={{ height: 16 }} />
+
+      {/* D-17A/T4 — the three affordability scopes, the same numbers the recap reports and
+          the same gate the greenlight action enforces. */}
+      <div className="card">
+        <h2>What you can make right now</h2>
+        <AffordabilityScopesCard scopes={scopes} testid="dash-affordability" />
       </div>
 
       <div style={{ height: 16 }} />

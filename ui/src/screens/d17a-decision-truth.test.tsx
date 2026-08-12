@@ -11,6 +11,7 @@ import { Assembly } from './Assembly.tsx'
 import { FilmPackageSummary } from '../components/FilmPackageSummary.tsx'
 import { FilmReadiness } from '../components/FilmReadiness.tsx'
 import {
+  affordabilityScopes,
   cycleInclusiveBreakEvenGross,
   prospectiveCycleFixedCost,
   financeCard,
@@ -25,7 +26,7 @@ import type {
   GameState,
   PackageFit,
 } from '../engine/adapter.ts'
-import { money, pct } from '../format.ts'
+import { money, moneyExact, pct } from '../format.ts'
 import { newFoundedGame } from '../test/founding.ts'
 
 afterEach(cleanup)
@@ -204,13 +205,30 @@ const COHESION: CreativeCohesion = {
 const FIT: PackageFit = {
   overall: 70,
   perAssignment: [],
-  strongest: { role: 'Writer', talentId: 'w', talentName: 'W', fit: 80, unproven: false },
-  weakest: { role: 'Lead', slot: 'lead', talentId: 'l', talentName: 'L', fit: 60, unproven: false },
+  strongest: {
+    role: 'writer',
+    talentId: 'w',
+    talentName: 'W',
+    discipline: 'writing',
+    fit: 80,
+    expected: { low: 60, high: 80, expected: 70 },
+    unproven: false,
+  },
+  weakest: {
+    role: 'lead',
+    slot: 'lead',
+    talentId: 'l',
+    talentName: 'L',
+    discipline: 'acting',
+    fit: 60,
+    expected: { low: 50, high: 70, expected: 60 },
+    unproven: false,
+  },
   unfilled: [],
 }
 const EXECUTION: ExecutionConfidence = {
   score: 60,
-  tier: 'moderate',
+  tier: 'mixed',
   explanation: '',
   confidenceSources: [],
   uncertaintySources: [],
@@ -403,5 +421,33 @@ describe('D-17A/T9 — the forecast-positive discipline is named at the decision
     expect(text).toMatch(/does not rank your packages or choose one for you/i)
     expect(text).toMatch(/centre of a forecast is not a promise/i)
     expect(text).not.toMatch(/best package|optimal|you should|we recommend|recommended/i)
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// T4 — affordability scopes at Assembly, beside the budget picker.
+// ═══════════════════════════════════════════════════════════════════════════════
+describe('D-17A/T4 — Assembly shows the same three scopes as the Dashboard', () => {
+  it('renders the promoted read-model beside the budget picker, in D-15’s vocabulary', () => {
+    const state = openWizard('d17a-scopes-1', 'budget')
+    const scopes = affordabilityScopes(state)
+
+    const panel = screen.getByTestId('budget-affordability')
+    expect(panel).toBeInTheDocument()
+    expect(screen.getByTestId('budget-affordability-cheapest').textContent).toContain(
+      moneyExact(scopes.cheapest!.commitment),
+    )
+    expect(screen.getByTestId('budget-affordability-standard').textContent).toContain(
+      moneyExact(scopes.standard!.commitment),
+    )
+    // No releases yet on a fresh studio ⇒ no recent-typical figure, stated as "—", not invented.
+    expect(scopes.recentTypical).toBeNull()
+    expect(screen.getByTestId('budget-affordability-typical').textContent).toBe('—')
+
+    expect(screen.getByText('Lowest estimated production commitment')).toBeInTheDocument()
+    expect(screen.getByText('Recent typical commitment')).toBeInTheDocument()
+    expect(screen.getByTestId('budget-affordability-disclosure').textContent).toMatch(
+      /not a guaranteed quote/i,
+    )
   })
 })

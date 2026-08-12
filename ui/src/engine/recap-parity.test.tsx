@@ -6,8 +6,11 @@
 // States are built by the real engine; the owner save is never touched.
 
 import { describe, expect, it } from 'vitest'
+import { render, screen, cleanup } from '@testing-library/react'
 import { applyActions, beginFounding, generateWorld, resolveShape, studioRunRecap } from '../../../src/core/index.ts'
-import { greenlight, totalCommittedCost, requiredNegative } from './adapter.ts'
+import { affordabilityScopes, greenlight, totalCommittedCost, requiredNegative } from './adapter.ts'
+import { Dashboard } from '../screens/Dashboard.tsx'
+import { moneyExact } from '../format.ts'
 import type { CastSlot, CreativeRole, FilmShape, GameState } from '../../../src/core/index.ts'
 
 function foundEngaged(seed: string): GameState {
@@ -96,5 +99,92 @@ describe('recap affordability — action parity', () => {
     const s = foundEngaged('parity-4')
     const empty: GameState = { ...s, concepts: [] }
     expect(studioRunRecap(empty).position.cheapest).toBeNull()
+  })
+})
+
+// ── D-17A/T4 — the SAME affordability answer on every surface ──────────────────
+// The three scopes were promoted out of the recap to the Dashboard and to Assembly. The
+// promotion is only safe if it did not fork the number: this extends the parity invariant
+// above from "recap == action" to "Dashboard card == recap == action", on one state, through
+// the REAL rendered screen.
+describe('D-17A/T4 — Dashboard affordability card == recap == greenlight action', () => {
+  it('the rendered cheapest figure is the recap’s own, and its verdict is the action’s verdict', () => {
+    const s = foundEngaged('scopes-1')
+    const recap = studioRunRecap(s)
+    const scopes = affordabilityScopes(s)
+
+    // 1. The promoted read-model IS the recap's value (same builders, same gate).
+    expect(scopes.cheapest).toEqual(recap.position.cheapest)
+    expect(scopes.standard).toEqual(recap.position.standard)
+    expect(scopes.recentTypical).toEqual(recap.position.typicalRecent)
+
+    // 2. The Dashboard renders exactly that, from the first week — no recap gating.
+    render(
+      <Dashboard
+        state={s}
+        onAssemble={() => {}}
+        onAdvance={() => {}}
+        onSimToEvent={() => {}}
+        onCreateTalent={() => {}}
+        onSaves={() => {}}
+        onOpenAutopsy={() => {}}
+      />,
+    )
+    const cheapestCell = screen.getByTestId('dash-affordability-cheapest')
+    expect(cheapestCell.textContent).toContain(moneyExact(recap.position.cheapest!.commitment))
+    expect(cheapestCell.textContent).toContain(
+      recap.position.cheapest!.affordable ? 'affordable' : 'short',
+    )
+
+    // 3. ACTION PARITY: the same package the figure represents really is greenlightable.
+    const pkg = cheapestPkg(s)
+    expect(Math.round(totalCommittedCost(s, pkg))).toBe(scopes.cheapest!.commitment)
+    expect(greenlight(s, pkg).ok).toBe(scopes.cheapest!.affordable)
+    cleanup()
+  })
+
+  it('when cash cannot cover the cheapest package, the card says short and the action refuses', () => {
+    const s = foundEngaged('scopes-2')
+    const pkg = cheapestPkg(s)
+    const allIn = totalCommittedCost(s, pkg)
+    const broke: GameState = { ...s, studio: { ...s.studio, cash: allIn - 1 } }
+
+    const scopes = affordabilityScopes(broke)
+    expect(scopes.cheapest!.affordable).toBe(false)
+    expect(greenlight(broke, pkg).ok).toBe(false)
+
+    render(
+      <Dashboard
+        state={broke}
+        onAssemble={() => {}}
+        onAdvance={() => {}}
+        onSimToEvent={() => {}}
+        onCreateTalent={() => {}}
+        onSaves={() => {}}
+        onOpenAutopsy={() => {}}
+      />,
+    )
+    const cell = screen.getByTestId('dash-affordability-cheapest')
+    expect(cell.textContent).toMatch(/short/)
+    expect(cell.textContent).toContain(moneyExact(scopes.cheapest!.shortfall))
+    cleanup()
+  })
+
+  it('uses D-15’s own vocabulary, so one number is never described two ways', () => {
+    const s = foundEngaged('scopes-3')
+    render(
+      <Dashboard
+        state={s}
+        onAssemble={() => {}}
+        onAdvance={() => {}}
+        onSimToEvent={() => {}}
+        onCreateTalent={() => {}}
+        onSaves={() => {}}
+        onOpenAutopsy={() => {}}
+      />,
+    )
+    expect(screen.getByText('Lowest estimated production commitment')).toBeInTheDocument()
+    expect(screen.getByText('Recent typical commitment')).toBeInTheDocument()
+    cleanup()
   })
 })
