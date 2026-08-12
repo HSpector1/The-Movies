@@ -397,7 +397,11 @@ export function StudioRunRecap({
                 <th>Wk</th><th>Title</th><th>Genre</th><th>Lead</th>
                 <th className="num">Commitment</th><th className="num">Forecast</th><th className="num">Actual</th>
                 <th className="num">vs F/C</th><th className="num">Critic</th><th className="num">Studio rev.</th>
-                <th className="num">Contribution</th><th className="num">ROI</th><th>Result</th>
+                {/* D-17A FIX-PASS: Contribution, ROI and the Result tag are all the DIRECT-cost
+                    basis (D-12 §3/§8). The studio-economic layer for these same films sits in
+                    the labelled block below — so this column must name which of the two it is. */}
+                <th className="num">Contribution</th><th className="num">ROI</th>
+                <th data-testid="recap-slate-result-header">Result (direct costs)</th>
               </tr>
             </thead>
             <tbody>

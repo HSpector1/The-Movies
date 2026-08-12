@@ -3446,7 +3446,14 @@ export function accessibleAutopsy(view: AutopsyView, compare: AutopsyCompare | n
   if (strongest && strongest.fit >= 65)
     worked.push(`${strongest.talentName} was an excellent fit as ${assignmentText(strongest)}.`)
   if (total > expTotal * 1.1) worked.push('It outperformed its box-office forecast.')
-  if (profitable && profit >= 3_000_000) worked.push(`It turned a healthy profit of ${money(profit)}.`)
+  // D-17A FIX-PASS (R7): every retrospective profit/break-even word here names its BASIS.
+  // `view.profit` is Studio Revenue − the film's DIRECT committed cost, and `breakEven` below
+  // is the direct-cost break-even gross — while the greenlight screen headlines the
+  // CYCLE-INCLUSIVE break-even for the same film. A player who refused a package at $6.1M and
+  // one who greenlit it were being told, in the same vocabulary, that the bar was $6.1M and
+  // $2.31M. No number changed; the sentences now say which bar they mean.
+  if (profitable && profit >= 3_000_000)
+    worked.push(`It turned a healthy direct profit of ${money(profit)}, before studio fixed costs.`)
   // P7: engine-derived COMMERCIAL strengths — a profitable film ALWAYS has a commercial reason, even
   // when nothing creative stood out (the owner's Letters case earned a positive Contribution on a low
   // break-even + audience positioning + cost discipline, yet showed "Nothing stood out"). Never claim
@@ -3455,8 +3462,13 @@ export function accessibleAutopsy(view: AutopsyView, compare: AutopsyCompare | n
   const roi = view.committedCost > 0 ? profit / view.committedCost : 0
   if (profitable) {
     if (view.boxOffice.opening >= breakEven)
-      worked.push(`The opening alone (${money(view.boxOffice.opening)}) cleared the ${money(breakEven)} break-even.`)
-    else worked.push(`A low break-even protected the investment — it only needed ${money(breakEven)} to clear its cost.`)
+      worked.push(
+        `The opening alone (${money(view.boxOffice.opening)}) cleared the ${money(breakEven)} direct-cost break-even — before studio fixed costs.`,
+      )
+    else
+      worked.push(
+        `A low direct-cost break-even protected the investment — it only needed ${money(breakEven)} to clear its direct cost, before studio fixed costs.`,
+      )
     if (!filmStrong && view.weightedAudienceScore >= 45)
       worked.push('Strong audience positioning compensated for weak execution.')
     else if (view.weightedAudienceScore >= 60)

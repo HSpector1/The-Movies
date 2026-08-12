@@ -61,8 +61,17 @@ export function FilmRecord({
           <Metric label="Committed cost" small>
             {moneyExact(view.committedCost)}
           </Metric>
+          {/* D-17A FIX-PASS (R7): this figure is Studio Revenue − the film's DIRECT committed
+              cost (D-12 §3/§8); payroll and overhead are never allocated into it, and this
+              screen shows no studio-economic counterpart. The label names the basis so the word
+              "Profit" here cannot be read as the studio-economic "Profit" on the greenlight
+              screen. */}
           <Metric
-            label={view.projected ? 'Projected profit / loss (full run)' : 'Profit / loss'}
+            label={
+              view.projected
+                ? 'Projected direct profit / loss (full run, before studio fixed costs)'
+                : 'Direct profit / loss (before studio fixed costs)'
+            }
             small
             testid="record-profit"
           >

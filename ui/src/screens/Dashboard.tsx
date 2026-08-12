@@ -332,7 +332,12 @@ export function Dashboard({
                 <th className="num">Studio Rev</th>
                 <th className="num">Contribution</th>
                 <th className="num">ROI</th>
-                <th>Result</th>
+                {/* D-17A FIX-PASS (R7 "no competing headline meanings of profit"): the bare word
+                    "Profit" in this column is the DIRECT-cost basis (Studio Revenue − committed
+                    cost, D-12 §3/§8 — payroll and overhead are never folded in), while the
+                    greenlight screen's "Profit" is studio-economic. Same word, two bases,
+                    indistinguishable labels. The column now names its basis. */}
+                <th data-testid="releases-result-header">Result (direct costs)</th>
                 <th>Released</th>
                 <th></th>
               </tr>

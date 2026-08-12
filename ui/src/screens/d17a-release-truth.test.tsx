@@ -10,7 +10,9 @@ import { render, screen, cleanup } from '@testing-library/react'
 import { FilmRecord } from './FilmRecord.tsx'
 import { Dashboard } from './Dashboard.tsx'
 import {
+  accessibleAutopsy,
   advanceWeek,
+  explainRelease,
   filmCommittedCost,
   filmRecordView,
   greenlight,
@@ -113,6 +115,74 @@ describe('D-17A/T2 — a live run’s full-run figure is labelled Projected', ()
     expect(settledView.projected).toBe(false)
     render(<FilmRecord view={settledView} onBack={noop} />)
     expect(screen.getByTestId('record-profit').textContent).not.toMatch(/Projected/)
+  })
+})
+
+// ── D-17A fix-pass — every retrospective profit/break-even word names its BASIS ─────
+// R7 forbids competing headline meanings of "profit". Retrospectively the word meant
+// direct-cost-positive; prospectively (the greenlight screen) it means studio-economic-positive.
+// Same word, two bases, indistinguishable labels — and on the Dashboard and the Film Record
+// there is no studio-economic counterpart anywhere on the screen. Same defect on "break-even":
+// the greenlight screen headlines the CYCLE-INCLUSIVE figure while the autopsy narrated the
+// DIRECT one, unqualified. No numbers changed here — only what the labels say they are.
+describe('D-17A fix-pass — retrospective profit/break-even labels name their basis', () => {
+  it('the Dashboard release table names the direct-cost basis in its Result column', () => {
+    const s = atRelease('d17a-basis-label-1')
+    render(
+      <Dashboard
+        state={s}
+        onAssemble={noop}
+        onAdvance={noop}
+        onSimToEvent={noop}
+        onCreateTalent={noop}
+        onSaves={noop}
+        onOpenAutopsy={noop}
+      />,
+    )
+    expect(screen.getByTestId('releases-result-header').textContent).toBe('Result (direct costs)')
+  })
+
+  it('the Film Record labels its profit metric as direct, before studio fixed costs', () => {
+    const s = atRelease('d17a-basis-label-2')
+    const film = selectReleasedFilms(s)[0]!
+    const view = filmRecordView(s, film)!
+    render(<FilmRecord view={view} onBack={noop} />)
+    const metric = screen.getByTestId('record-profit').parentElement!
+    expect(metric.textContent).toMatch(/[Dd]irect profit \/ loss/)
+    expect(metric.textContent).toMatch(/before studio fixed costs/)
+  })
+
+  it('the autopsy narrative never says "profit" or "break-even" without naming the basis', () => {
+    // Drive several seeds so both the profitable and the low-break-even branches are exercised.
+    let sawProfit = false
+    let sawBreakEven = false
+    for (const seed of ['d17a-basis-nar-1', 'd17a-basis-nar-2', 'd17a-basis-nar-3', 'd17a-basis-nar-4']) {
+      const live = atRelease(seed)
+      const film = selectReleasedFilms(live)[0]!
+      // explainRelease needs the PRE-tick state; re-drive one week short of release.
+      const g = greenlight(newFoundedGame(seed), pkgOf(newFoundedGame(seed)))
+      if (!g.ok) throw new Error(g.error)
+      let s = g.next
+      let preTick = s
+      for (let k = 0; k < 40 && selectReleasedFilms(s).length === 0; k++) {
+        preTick = s
+        s = advanceWeek(s).next
+      }
+      const view = explainRelease(preTick, s.studio.standing, film)
+      const acc = accessibleAutopsy(view, null)
+      for (const line of [...acc.whatWorked, ...acc.whatHurt]) {
+        if (/profit/i.test(line)) {
+          sawProfit = true
+          expect(line, line).toMatch(/direct profit/i)
+        }
+        if (/break-even/i.test(line)) {
+          sawBreakEven = true
+          expect(line, line).toMatch(/direct[- ]cost break-even/i)
+          expect(line, line).toMatch(/before studio fixed costs/i)
+        }
+      }
+    }
+    expect(sawProfit || sawBreakEven).toBe(true)
   })
 })
 
