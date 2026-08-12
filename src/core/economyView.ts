@@ -164,6 +164,65 @@ export function breakEvenGross(committedCost: number, studioShare: number = TUNI
   return committedCost / Math.max(EPS, studioShare)
 }
 
+// ── D-17A/T3 — PROSPECTIVE cycle-inclusive break-even (Owner ruling R7) ─────────
+// R7 makes the player-facing HEADLINE break-even STUDIO-ECONOMIC: a film must also carry
+// the fixed cost the studio pays while it is being made and released, not only its direct
+// commitment. The prospective attribution is the contract-literal
+//   (PRODUCTION_TICKS + THEATRICAL_WEEKS) × current weekly burn ÷ expected concurrency.
+// The contract-expiry-aware forward sum was REJECTED at the Phase-0 gate: it smuggles a
+// "renew nobody" assumption into a headline number. Film Contribution (Studio Revenue −
+// direct commitment) is untouched and remains the labelled direct-cost DETAIL (D-12 §3/§8):
+// payroll and overhead are never silently folded into it.
+
+export type CycleFixedCost = {
+  weeks: number // PRODUCTION_TICKS + THEATRICAL_WEEKS — the full make-and-release cycle
+  weeklyBurn: number // the basis used (founding-aware; see below)
+  concurrency: number // the NAMED assumption: how many films share the cycle's fixed cost
+  amount: number // round(weeks × weeklyBurn ÷ concurrency), whole dollars
+}
+
+// The fixed cost one candidate package is asked to carry over its own cycle.
+//
+// DEFAULT = SOLE OCCUPANCY (`concurrency: 1`) — the conservative assumption, and deliberately
+// conservative exactly when the studio is poorest (the D-16 failure case): a studio with one
+// film in flight really does pay the whole cycle's burn against that film. `concurrency: 2` is
+// the only other value the UI passes, shown as a NAMED second line, never blended.
+//
+// BASIS: during a founding draft the engine charges nothing (weeklyBurn === 0), but the cycle
+// being priced is paid AFTER founding — so the basis is the projected post-founding burn there,
+// and the live actual-charge burn everywhere else. Never zero-rates a real cycle.
+export function prospectiveCycleFixedCost(
+  state: GameState,
+  opts?: { concurrency?: number },
+): CycleFixedCost {
+  const weeks = TUNING.PRODUCTION_TICKS + TUNING.THEATRICAL_WEEKS
+  const basis =
+    state.founding !== null ? weeklyPayroll(state) + projectedWeeklyOverhead(state) : weeklyBurn(state)
+  const concurrency = Math.max(1, opts?.concurrency ?? 1)
+  return { weeks, weeklyBurn: basis, concurrency, amount: Math.round((weeks * basis) / concurrency) }
+}
+
+export type CycleInclusiveBreakEven = {
+  direct: number // break-even GROSS against the DIRECT commitment only (D-12 detail figure)
+  cycleInclusive: number // break-even GROSS against commitment + cycle fixed cost (R7 HEADLINE)
+  fixedCost: CycleFixedCost // the attribution, with its assumption named
+}
+
+// The two break-even grosses side by side, so a surface can never show the direct figure
+// without the studio-economic one. Both use the same `breakEvenGross` helper (cost ÷ share).
+export function cycleInclusiveBreakEvenGross(
+  state: GameState,
+  committedCost: number,
+  opts?: { concurrency?: number },
+): CycleInclusiveBreakEven {
+  const fixedCost = prospectiveCycleFixedCost(state, opts)
+  return {
+    direct: breakEvenGross(committedCost),
+    cycleInclusive: breakEvenGross(committedCost + fixedCost.amount),
+    fixedCost,
+  }
+}
+
 // ── per-run financial view ──────────────────────────────────────────────────────
 
 export type RunView = {

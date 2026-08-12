@@ -10,14 +10,18 @@
 import { describe, expect, it } from 'vitest'
 import {
   FOUNDING_MINIMUMS,
+  TUNING,
   applyActions,
   beginFounding,
+  breakEvenGross,
   commitmentPreview,
+  cycleInclusiveBreakEvenGross,
   expectedWeeklyRunRevenue,
   financeView,
   foundingRunwayPreview,
   generateWorld,
   projectedWeeklyOverhead,
+  prospectiveCycleFixedCost,
   runway,
   tick,
   weeklyBurn,
@@ -128,5 +132,67 @@ describe('D-17A/T1 — weeklyBurn is the actual-charge basis', () => {
     expect(huge.affordable).toBe(false)
     expect(huge.cashAfter).toBeLessThan(0)
     expect(huge.postRunway.weeks).toBe(0)
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// T3 — prospective cycle-inclusive break-even
+// ═══════════════════════════════════════════════════════════════════════════════
+describe('D-17A/T3 — prospectiveCycleFixedCost', () => {
+  it('is (PRODUCTION_TICKS + THEATRICAL_WEEKS) x current burn at sole occupancy', () => {
+    const founded = foundStudio('d17a-t3-a')
+    const f = prospectiveCycleFixedCost(founded)
+    expect(f.weeks).toBe(TUNING.PRODUCTION_TICKS + TUNING.THEATRICAL_WEEKS)
+    expect(f.concurrency).toBe(1)
+    expect(f.weeklyBurn).toBe(weeklyBurn(founded))
+    expect(f.amount).toBe(Math.round(f.weeks * f.weeklyBurn))
+    expect(Number.isInteger(f.amount)).toBe(true)
+    expect(f.amount).toBeGreaterThan(0)
+  })
+
+  it('shared occupancy halves the attributed amount and names its assumption', () => {
+    const founded = foundStudio('d17a-t3-b')
+    const sole = prospectiveCycleFixedCost(founded)
+    const shared = prospectiveCycleFixedCost(founded, { concurrency: 2 })
+    expect(shared.concurrency).toBe(2)
+    expect(shared.amount).toBe(Math.round((sole.weeks * sole.weeklyBurn) / 2))
+    expect(shared.amount).toBeLessThan(sole.amount)
+  })
+
+  it('during founding it uses the PROJECTED basis (the cycle will be paid post-founding)', () => {
+    const drafting = openFounding('d17a-t3-c')
+    const f = prospectiveCycleFixedCost(drafting)
+    expect(weeklyBurn(drafting)).toBe(0)
+    expect(f.weeklyBurn).toBe(weeklyPayroll(drafting) + projectedWeeklyOverhead(drafting))
+    expect(f.amount).toBeGreaterThan(0)
+  })
+
+  it('a concurrency below 1 is clamped to sole occupancy (never divides by 0)', () => {
+    const founded = foundStudio('d17a-t3-d')
+    expect(prospectiveCycleFixedCost(founded, { concurrency: 0 }).amount).toBe(
+      prospectiveCycleFixedCost(founded).amount,
+    )
+  })
+})
+
+describe('D-17A/T3 — cycleInclusiveBreakEvenGross', () => {
+  it('direct is the unchanged helper; cycle-inclusive adds the fixed cost, then divides by share', () => {
+    const founded = foundStudio('d17a-t3-e')
+    const committed = 3_000_000
+    const be = cycleInclusiveBreakEvenGross(founded, committed)
+    expect(be.direct).toBe(breakEvenGross(committed))
+    expect(be.fixedCost).toEqual(prospectiveCycleFixedCost(founded))
+    expect(be.cycleInclusive).toBe(breakEvenGross(committed + be.fixedCost.amount))
+    expect(be.cycleInclusive).toBeGreaterThan(be.direct)
+    // the gap IS the fixed cost, grossed up by the rental share
+    expect(be.cycleInclusive - be.direct).toBeCloseTo(be.fixedCost.amount / TUNING.STUDIO_RENTAL_BLENDED, 6)
+  })
+
+  it('honours the concurrency option end to end', () => {
+    const founded = foundStudio('d17a-t3-f')
+    const shared = cycleInclusiveBreakEvenGross(founded, 3_000_000, { concurrency: 2 })
+    expect(shared.fixedCost.concurrency).toBe(2)
+    expect(shared.cycleInclusive).toBe(breakEvenGross(3_000_000 + shared.fixedCost.amount))
+    expect(shared.cycleInclusive).toBeLessThan(cycleInclusiveBreakEvenGross(founded, 3_000_000).cycleInclusive)
   })
 })

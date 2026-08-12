@@ -234,13 +234,24 @@ export {
   affordability,
   commitmentPreview,
   breakEvenGross,
+  prospectiveCycleFixedCost,
+  cycleInclusiveBreakEvenGross,
   runView,
   activeRunViews,
   financeTotals,
   periodSummary,
   financeView,
 } from './economyView.js'
-export type { Runway, CommitmentPreview, RunView, FinanceTotals, PeriodSummary, FinanceView } from './economyView.js'
+export type {
+  Runway,
+  CommitmentPreview,
+  CycleFixedCost,
+  CycleInclusiveBreakEven,
+  RunView,
+  FinanceTotals,
+  PeriodSummary,
+  FinanceView,
+} from './economyView.js'
 
 // ── D-15 Studio Run Recap (studioRunRecap.ts) — pure read-only run explainer ───
 // Reconstructs the whole-run recap (capital story, film slate, talent development,
