@@ -18,6 +18,10 @@ import {
   marketingEfficiency,
   prospectiveCycleFixedCost,
   requiredNegative,
+  standingChannels,
+  greenlight,
+  advanceToNextEvent,
+  explainRelease,
   MARKETING_BUDGET_LEVELS,
   financeCard,
   payrollSummary,
@@ -613,5 +617,63 @@ describe('D-17A/T7 — marketing truth', () => {
     MARKETING_BUDGET_LEVELS.forEach((level, i) => {
       expect(rungs[i]!.textContent).toContain(money(level))
     })
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// T8 / R8 — honest standing copy: no financier fiction, no invented mechanics.
+// ═══════════════════════════════════════════════════════════════════════════════
+describe('D-17A/T8 — the standing channels describe what they actually are', () => {
+  it('removes the financier fiction and discloses which channel is commercially connected', () => {
+    const state = newFoundedGame('d17a-standing-1')
+    const channels = standingChannels(state)
+    const by = (k: string) => channels.find((c) => c.key === k)!
+
+    // The fiction is gone — nothing lends this studio money.
+    for (const c of channels) {
+      expect(c.meaning).not.toMatch(/financier/i)
+      expect(c.meaning).not.toMatch(/trust the studio with money/i)
+    }
+    // Exactly one channel is described as commercially connected.
+    expect(by('audienceAwareness').meaning).toMatch(/only channel that affects box office/i)
+    expect(by('industryPrestige').meaning).toMatch(/no commercial effect today/i)
+    expect(by('commercialConfidence').meaning).toMatch(/no mechanical effect today/i)
+    expect(by('commercialConfidence').meaning).toMatch(/full-gross returns/i)
+  })
+
+  it('the Dashboard renders the new meanings, structurally unchanged', () => {
+    const state = newFoundedGame('d17a-standing-2')
+    renderDashboard(state)
+    for (const c of standingChannels(state)) {
+      const bar = screen.getByTestId(`standing-${c.key}`)
+      expect(bar.textContent).toContain(c.label)
+      expect(bar.textContent).toContain(c.meaning)
+    }
+  })
+})
+
+describe('D-17A/T8 — the autopsy narrates the confidence channel on its REAL basis', () => {
+  it('reports the FULL-GROSS return that moved the channel, not the studio-revenue one', () => {
+    let s = newFoundedGame('d17a-standing-why')
+    const g = greenlight(s, cheapestVisiblePackage(s))
+    expect(g.ok).toBe(true)
+    if (!g.ok) throw new Error(g.error)
+    s = g.next
+    let rel = advanceToNextEvent(s)
+    for (let i = 0; i < 30 && rel.released.length === 0; i++) rel = advanceToNextEvent(rel.next)
+    const film = rel.released[0]!
+    const view = explainRelease(rel.preTick, rel.next.studio.standing, film)
+
+    // standing.ts:126 computes the confidence signal on the FULL GROSS against committed cost.
+    const engineRoi =
+      (film.boxOffice.total - view.committedCost) /
+      Math.max(view.committedCost, TUNING.CONFIDENCE_COST_FLOOR)
+    expect(view.standingWhy.confidence).toContain(`${(engineRoi * 100).toFixed(0)}%`)
+    expect(view.standingWhy.confidence).toContain(money(film.boxOffice.total))
+
+    // …and it stops implying financiers or cash.
+    expect(view.standingWhy.confidence).not.toMatch(/financier/i)
+    expect(view.standingWhy.confidence).toMatch(/reputation signal computed on GROSS/)
+    expect(view.standingWhy.confidence).toMatch(/no mechanical effect today/i)
   })
 })

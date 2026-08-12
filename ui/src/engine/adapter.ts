@@ -384,25 +384,36 @@ export type StandingChannel = {
   meaning: string
   value: number
 }
+// D-17A/T8 (Owner ruling R8) — HONEST STANDING COPY. "How much financiers trust the studio
+// with money" described a mechanic that does not exist: there are no financiers in this game,
+// nothing lends the studio money, and Commercial Confidence buys nothing. R8: relabel now, do
+// not give prestige or confidence mechanical teeth during D-17.
+//
+// The truthful D-6 meanings, and the commercial disclosure R8 asks for — only awareness is
+// connected to box office (it feeds `preMarketingAwareness` → reach); prestige and confidence
+// are reputation channels that record what the studio has done and change nothing today.
 export function standingChannels(state: GameState): StandingChannel[] {
   const s = state.studio.standing
   return [
     {
       key: 'audienceAwareness',
       label: 'Audience Awareness',
-      meaning: 'How visible and culturally noticeable the studio is (driven by reach).',
+      meaning:
+        'How visible the studio is to audiences (driven by box-office reach and star attention). The only channel that affects box office.',
       value: s.audienceAwareness,
     },
     {
       key: 'industryPrestige',
       label: 'Industry Prestige',
-      meaning: 'How critically respected the studio is (driven by critic scores).',
+      meaning:
+        'The studio’s critical reputation (driven by critic scores alone). It has no commercial effect today.',
       value: s.industryPrestige,
     },
     {
       key: 'commercialConfidence',
       label: 'Commercial Confidence',
-      meaning: 'How much financiers trust the studio with money (driven by ROI).',
+      meaning:
+        'An industry reputation signal tracking full-gross returns against committed cost, plus budget discipline. It is not money and has no mechanical effect today.',
       value: s.commercialConfidence,
     },
   ]
@@ -1701,11 +1712,20 @@ export function explainRelease(
   // WHY each channel moved (the D-6 inputs, described — engine values, not formulas
   // re-run in the UI).
   const reach = filmResult.boxOffice.total / Math.max(preTick.market.baseMarketValue, 1)
-  const roi = profit / Math.max(committedCost, TUNING.CONFIDENCE_COST_FLOOR)
+  // D-17A/T8 (R8): the confidence narration used to report the STUDIO-REVENUE ROI and then
+  // call it "profitability", which was wrong twice over. `standing.ts:126` computes the
+  // confidence signal on the FULL BOX-OFFICE GROSS against committed cost —
+  //   roi = (boxOffice.total − committedCost) / max(committedCost, CONFIDENCE_COST_FLOOR)
+  // — so the number shown was not the number that moved the channel. This mirrors the engine's
+  // own line, and the sentence now says what the channel is: a reputation signal computed on
+  // gross, not the studio's cash (the studio banks only its rental share), with no mechanical
+  // effect today. No financiers: nothing in this game lends the studio money.
+  const confidenceRoi =
+    (filmResult.boxOffice.total - committedCost) / Math.max(committedCost, TUNING.CONFIDENCE_COST_FLOOR)
   const standingWhy = {
     awareness: `Reach was ${(reach * 100).toFixed(0)}% of the available market; awareness follows box-office reach, plus star attention.`,
     prestige: `Critic score ${filmResult.criticScore.toFixed(1)} vs the reachable benchmark of ${TUNING.PRESTIGE_CRITIC_BENCHMARK}; prestige follows critical achievement only.`,
-    confidence: `ROI was ${(roi * 100).toFixed(0)}% on the committed cost; confidence follows profitability and budget discipline.`,
+    confidence: `The full box office returned ${(confidenceRoi * 100).toFixed(0)}% on the committed cost (${money(filmResult.boxOffice.total)} against ${money(committedCost)}), and budget discipline is weighed alongside it. This is an industry reputation signal computed on GROSS — not the studio's cash, which is only its rental share — and it has no mechanical effect today.`,
   }
 
   return {
