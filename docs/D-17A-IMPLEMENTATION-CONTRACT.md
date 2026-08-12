@@ -142,8 +142,15 @@ documented field check (`economyEngagedEver` must be boolean — a missing value
 disengage a real studio, the exact R2 failure). `TUNING.ECONOMY_MODEL_VERSION ≥ 1` invariant test.
 Session-autosave key NOT bumped; `adapter.ts:1803/:1804` + legacy import chains updated.
 **Declined:** optional `FilmResult.startTick` hardening (derivation proven exact; cadence changes
-are forbidden anyway; keep V6 minimal). **The d16 harness is NOT touched** (including
-`view.ts:409`) — it is the invariance instrument and must stay byte-identical.
+are forbidden anyway; keep V6 minimal). **The d16 harness INSTRUMENT is not touched** — every
+instrument file (`driver.ts`, `view.ts` including `:409`, `policies.ts`, `packages.ts`,
+`run-d16-corpus.ts`, `states.ts`, `stats.ts`, `experiment.ts`, `luck.ts`) stays byte-identical,
+because it is what makes corpus results comparable. *Narrowed by Owner ruling R2 (commit
+`acbf449`):* the two EXPLOIT-ASSERTION test files — `isolation.test.ts` and `packages.test.ts` —
+were re-specified to the closed-cliff truth. Those tests asserted that shedding every contract
+reverted a studio to the legacy 100%-of-gross path; R2 makes `economyEngaged` persisted and
+monotonic, so that path is unreachable and the assertions were documenting a defect. Assertions
+only, no instrument change: the corpus comparability instrument is unchanged.
 
 **Accounting (T3) — design satisfies R7.** Prospective basis = the contract-literal
 `14 × currentWeeklyBurn` on a founding-guarded basis (the contract-expiry-aware forward sum is
@@ -178,3 +185,89 @@ recentTypical}` (each `{commitment, affordable, shortfall}`, action-parity); `of
 `allocateFixedCosts(state, window?) → {perFilm, idle, total}` (per-week partition invariant).
 `filmPackage`: exported `discoveryExposure(...)` same-rule read-model → `{reachSupport, exposed,
 shortfall, floor, ceil}`.
+
+### 6a. Fix-pass adjudications (post-review, 2026-08-12)
+
+A five-lens adversarial review (correctness, UX/information-integrity, accounting,
+save/migration, governance) returned 1 BLOCKER, 5 MAJOR and 5 MINOR against the T1–T13 build.
+The fix pass closed all eleven. These rulings amend §6; where one reverses an earlier §6
+decision, it says so.
+
+1. **Roster/assignment selectors REPOINTED — reverses the Phase-U decision to leave them.**
+   §6 above records five adapter regime reads repointed and "the 5 roster/assignment reads
+   correctly left". That was wrong: `applyGreenlight` branches on the PERSISTED
+   `economyEngaged`, so after the engagement cliff the wizard staffed and priced from the
+   retired D-1 open pool while the engine enforced D-11.12 — `canAssemble: true` for a state in
+   which no package the screen could build was greenlightable (action-parity violation,
+   Quality Requirement A), quoted at the D-1 salary instead of the 1.5× freelancer fee.
+   `assemblyAvailability`, `studioPool`, `freelancerPool`, `assignmentProjectCost` and the
+   Assembly wizard's staffing/craft gate now read `economyEngaged` (`isEconomyEngaged`).
+   `isEmploymentEngaged` survives ONLY on purely roster-informational surfaces. A studio that
+   genuinely cannot field a crew now reports `canAssemble: false` with named missing roles —
+   that is the true state, and rendering it is the point.
+
+2. **Regime share = 1.0 on the never-engaged path.** T2's "one revenue basis" was delivered for
+   the engaged economy only. The D-1 path opens no theatrical run and credits the FULL gross in
+   one lump (`tick.ts:238-247`), yet `explainRelease`, `forecastProfitRange`,
+   `cycleInclusiveBreakEvenGross`, `GreenlightDiscipline` and the recap's no-run fallback all
+   applied `STUDIO_RENTAL_BLENDED` there. Measured on a never-engaged imported save: the
+   Dashboard read $30,101,628 and the Release/Autopsy screens $15,652,846 for the same film,
+   and a $1,000,000 package headlined a $1,923,077 break-even against a true $1,000,000. The
+   share is now stated once (`economyView.regimeStudioShare`) and threaded, and
+   `ForecastProfitRange.studioRevenueIsFullBoxOffice` REPORTS the basis instead of asserting a
+   constant one. The engaged path is byte-unchanged, and the d16 corpus carries 415 film rows
+   of which **none** is priced on the disengaged path, so corpus comparability is untouched.
+   `explainRelease`'s earlier justification for hardcoding 0.52 ("reachable ONLY on the engaged
+   economy") was false — reachability is gated on `preTick.studio.activeProductions`.
+
+3. **Discovery band = shortfall-derived, regime-gated.** `discoveryExposure` reported
+   `exposed: true` regardless of regime, but `reception.ts:643` zeroes the spread when not
+   engaged, so the multiplier is identically 1 there; `exposed` is now `engaged && shortfall > 0`
+   and `DiscoveryExposure.tsx` renders nothing on the disengaged path (mirroring the marketing
+   block's gating). The displayed band is now derived rather than clipped-by-default:
+   `spread = DISC_SPREAD · shortfall^DISC_SUPPORT_EXP`,
+   `bandLow = max(DISC_FLOOR, exp(−spread·z))`, `bandHigh = min(DISC_CEIL, exp(+spread·z))`
+   with `z = DISC_FORECAST_LOW_Z = 1.28` (the engine's own forecast-band z, the same one the
+   ForecastDisplay's low edge uses). The hard 0.2×/1.8× clips are named only when the band
+   reaches them. Measured bands: 2% shortfall → [0.99×, 1.01×]; 11% → [0.85×, 1.18×]; 22% →
+   [0.63×, 1.60×]. Support and threshold render at enough precision that "45% is below 45%"
+   cannot occur, and a shortfall too small to move the opening by 1% says so instead of quoting
+   a band. `reachSupport`/`shortfall` are byte-identical — the adversarial same-rule suite still
+   pins them against the engine's own operands.
+
+4. **Retrospective profit/break-even labels name their basis.** R7's safeguard held; its mandate
+   ("no competing headline meanings of profit") did not. Retrospectively "Profit" meant
+   direct-cost-positive while the greenlight screen's "Profit" is studio-economic — on the
+   review's own fixture a film read Contribution +$879,243 and studio-economic −$541,597 and was
+   labelled "Profit" on the Dashboard, the Film Record and the recap slate, with no
+   studio-economic figure on two of those three screens. Both release tables now head that
+   column **"Result (direct costs)"**; the Film Record's metric is **"Direct profit / loss
+   (before studio fixed costs)"**; the autopsy's profit sentence and both break-even sentences
+   name the direct basis (the same film headlined $6.12M cycle-inclusive at greenlight and
+   $2.31M in its autopsy). No number changed anywhere — labels only.
+
+5. **T5 reaches the founding draft.** §6 scoped T5 to "contract offer/renewal time" and the
+   build delivered the hiring market and the roster but not founding — the one moment a studio
+   signs five or six contracts at once. Each founding offer now renders its term obligation
+   (`offerObligation`) and the weekly payroll it adds to the projected post-founding burn
+   (testids `founding-obligation-*`). NO per-offer runway pair: `postSigningRunway` legitimately
+   short-circuits while a founding draft is open, so both edges would print the same number;
+   the aggregate `founding-runway` preview remains that screen's runway surface. Separately,
+   `postSigningRunway` now adds `TUNING.OVERHEAD_BASE` when the studio is not yet engaged,
+   because the signing itself flips the regime and switches overhead on — the omission
+   understated a never-engaged studio's first signing by exactly $15,000/wk.
+
+6. **ACCEPTED AS DESIGNED — the save validator's ledger-integer gap** (accounting finding #4).
+   A hand-edited or corrupted V6 import carrying a fractional `payroll`/`overhead` ledger amount
+   passes `validateSaveV6` and then throws out of `fixedCostAllocation` when the recap is
+   opened. This is the intended failure mode and is not being changed: the allocator throws
+   LOUDLY rather than leaking a float into an integer partition, `DevErrorBoundary`
+   (`ui/src/App.tsx:136-146`) contains it as an error screen rather than a white screen, and the
+   engine cannot emit such a ledger (`weeklySalary` rounds; overhead is `15000 + 1500n`). Adding
+   a whole-ledger scan to the validator would trade a loud, contained, unreachable-in-practice
+   failure for a slower load on every real save.
+
+7. **Instrument comment left stale, deliberately.** `src/harness/d16/policies.ts:684` still says
+   "`economyEngaged` flips false", which R2 made impossible. It is NOT corrected: instrument
+   byte-identity governs, and a comment edit would break the corpus-comparability guarantee for
+   no behavioural gain. Recorded here instead.
