@@ -27,7 +27,6 @@ import type {
   FilmShape,
   Talent,
 } from './types.js'
-import { TUNING } from './tuning.js'
 import { resolveShape } from './shape.js'
 import { NEGATIVE_BUDGET_MULTIPLIERS, MARKETING_BUDGET_LEVELS } from './grid.js'
 import { weeklyPayroll, freelancerFee, economyEngaged } from './employment.js'
@@ -39,6 +38,7 @@ import {
   runway,
   expectedWeeklyRunRevenue,
   commitmentPreview,
+  regimeStudioShare,
 } from './economyView.js'
 
 // ── documented recap conventions (not engine invariants) ───────────────────────
@@ -477,9 +477,13 @@ export function studioRunRecap(state: GameState): StudioRunRecap {
     const commit = filmCommittedCost(state, f.productionId)
     const run = runByProd.get(f.productionId)
     const studioRevenue = run ? run.cumulativeStudioRevenuePaid : null
+    // D-17A FIX-PASS: with no run record the share is the REGIME's, not a constant. On the
+    // never-engaged (D-1) path no run is ever opened and release credits the FULL gross, so
+    // 0.52 reported barely half of it — and disagreed with `releaseScorecard`, which already
+    // falls back to the full gross for the same film. Identical (0.52) for an engaged studio.
     const projected = run
       ? run.weeklyGross.reduce((a, b) => a + b, 0) * run.studioShare
-      : f.boxOffice.total * TUNING.STUDIO_RENTAL_BLENDED
+      : f.boxOffice.total * regimeStudioShare(state)
     const contribution = studioRevenue != null ? studioRevenue - commit : null
     const roi = contribution != null && commit > 0 ? contribution / commit : null
     const forecastTotal = f.forecast?.expectedTotal ?? null

@@ -41,6 +41,13 @@ function ctxFor(inp: ReturnType<typeof highFameInputs>, saturateFame: boolean) {
   }
 }
 
+// D-17A fix-pass: `forecastProfitRange` scales gross by the REGIME's share — blended 0.52 when
+// engaged, 1 on the never-engaged D-1 path (release credits the whole gross in one lump). These
+// ctxs carry no `engaged` flag, so the implied-gross assertions divide by the share the function
+// actually used. Dividing unconditionally by 0.52 asserted a basis this regime never had.
+const impliedGross = (studioRevenue: number, engaged: boolean): number =>
+  studioRevenue / (engaged ? TUNING.STUDIO_RENTAL_BLENDED : 1)
+
 describe('D-12: live Commercial Outlook forecast == greenlight-locked forecast (same fame path)', () => {
   it('the live re-forecast expected box office equals the locked forecast expectedTotal', () => {
     const inp = highFameInputs(90)
@@ -51,7 +58,15 @@ describe('D-12: live Commercial Outlook forecast == greenlight-locked forecast (
     const live = forecastProfitRange(inp, ctx)
     // studioRevenue = share × gross ⇒ the implied gross must equal the locked expectedTotal exactly
     // (same noise draw, same saturated opening band) — proving no divergent fame path.
-    expect(live.studioRevenue.expected / TUNING.STUDIO_RENTAL_BLENDED).toBeCloseTo(locked.expectedTotal, 2)
+    expect(impliedGross(live.studioRevenue.expected, false)).toBeCloseTo(locked.expectedTotal, 2)
+
+    // The SAME identity on the ENGAGED regime, where the share is the blended 0.52.
+    const lockedEngaged = computeForecast(inp, ctx, true, true)
+    const liveEngaged = forecastProfitRange(inp, { ...ctx, engaged: true })
+    expect(impliedGross(liveEngaged.studioRevenue.expected, true)).toBeCloseTo(
+      lockedEngaged.expectedTotal,
+      2,
+    )
   })
 
   it('the ungated (linear) live re-forecast likewise matches the linear locked forecast', () => {
@@ -59,7 +74,7 @@ describe('D-12: live Commercial Outlook forecast == greenlight-locked forecast (
     const ctx = ctxFor(inp, false)
     const lockedLinear = computeForecast(inp, ctx, false)
     const liveLinear = forecastProfitRange(inp, ctx)
-    expect(liveLinear.studioRevenue.expected / TUNING.STUDIO_RENTAL_BLENDED).toBeCloseTo(lockedLinear.expectedTotal, 2)
+    expect(impliedGross(liveLinear.studioRevenue.expected, false)).toBeCloseTo(lockedLinear.expectedTotal, 2)
   })
 })
 

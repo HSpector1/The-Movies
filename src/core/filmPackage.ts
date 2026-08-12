@@ -445,10 +445,12 @@ function factorLabel(k: ForecastFactorKey): string {
 // #4 forecastProfitRange — a profit RANGE by running computeBoxOffice on the
 // per-segment low/high forecast estimates, plus the D-1 committed-cost identity.
 // ═══════════════════════════════════════════════════════════════════════════════
-// D-12 §6/§17: studioRevenue = the blended RENTAL SHARE of box office (STUDIO_RENTAL_BLENDED),
-// NOT the full gross. `studioRevenueIsFullBoxOffice: false` under D-12 (was true pre-D-12, when
-// release credited the full `boxOffice.total`). Distributor/exhibitor economics are abstracted
-// into the single blended share.
+// D-12 §6/§17: when the economy is ENGAGED, studioRevenue = the blended RENTAL SHARE of box
+// office (STUDIO_RENTAL_BLENDED), NOT the full gross; distributor/exhibitor economics are
+// abstracted into the single blended share. D-17A FIX-PASS: the NEVER-ENGAGED (D-1) path still
+// credits the full `boxOffice.total` in one lump at release, so there the share is 1 and
+// `studioRevenueIsFullBoxOffice` is true — the flag now REPORTS the basis instead of asserting
+// a constant one.
 //
 //   committedCost = budget.negative + budget.marketing + Σ salaries (writer +
 //                   director + all cast + all craft) — the D-1 debit identity
@@ -473,7 +475,8 @@ export type ForecastProfitRange = {
   confidence: Confidence
   upsideDrivers: string[] // from the §7 causal factors
   downsideRisks: string[] // from the §7 uncertainty factors
-  studioRevenueIsFullBoxOffice: boolean // D-12: false (blended rental share); pre-D-12: true
+  // D-12 engaged: false (blended rental share). D-1 / never engaged: true (full gross lump).
+  studioRevenueIsFullBoxOffice: boolean
 }
 
 export type ForecastProfitInput = ReceptionInputs
@@ -632,7 +635,13 @@ export function forecastProfitRange(
 
   // D-12 §6/§17: Studio Revenue is the blended RENTAL SHARE of box office (not the full gross);
   // break-even GROSS = cost / share. The revLow/expected/high above are GROSS box office; scale.
-  const share = TUNING.STUDIO_RENTAL_BLENDED
+  // D-17A FIX-PASS — the share is the REGIME's share, not a constant. ENGAGED: a theatrical run
+  // pays the studio `STUDIO_RENTAL_BLENDED` of each week's gross (`economy.ts:67`). NEVER
+  // ENGAGED (D-1): release credits the FULL gross in one lump (`tick.ts:238-247`), so the share
+  // is 1 and break-even gross IS the direct cost. Applying 0.52 there understated the studio's
+  // own money ~1.92× and put the Assembly break-even and the Dashboard scorecard — which reads
+  // the run — on two different bases for the same question.
+  const share = engaged ? TUNING.STUDIO_RENTAL_BLENDED : 1
   const studioRevenue: MoneyRange = { low: revLow * share, high: revHigh * share, expected: revExpected * share }
   const profit: MoneyRange = {
     low: revLow * share - committedCost,
@@ -720,7 +729,8 @@ export function forecastProfitRange(
     confidence,
     upsideDrivers,
     downsideRisks,
-    studioRevenueIsFullBoxOffice: false,
+    // D-17A FIX-PASS: this field states the basis, so it must follow the regime share above.
+    studioRevenueIsFullBoxOffice: !engaged,
   }
 }
 

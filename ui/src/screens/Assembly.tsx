@@ -29,6 +29,7 @@ import {
   commitmentPreview,
   cycleInclusiveBreakEvenGross,
   prospectiveCycleFixedCost,
+  regimeStudioShare,
   affordabilityScopes,
   assessDiscoveryExposure,
   previewForecast,
@@ -1095,7 +1096,11 @@ function GreenlightDiscipline({
   expectedTotal: number
 }) {
   const fc = prospectiveCycleFixedCost(state)
-  const expectedStudioRevenue = expectedTotal * TUNING.STUDIO_RENTAL_BLENDED
+  // D-17A FIX-PASS: the REGIME's share, not a constant — a never-engaged (D-1) studio banks
+  // 100% of the gross, so pricing its forecast at 0.52 here disagreed with both its own
+  // break-even block and the Dashboard scorecard for the same film.
+  const share = regimeStudioShare(state)
+  const expectedStudioRevenue = expectedTotal * share
   const result = expectedStudioRevenue - (committed + fc.amount)
   const covers = result >= 0
   return (
@@ -1115,9 +1120,19 @@ function GreenlightDiscipline({
         its direct costs and {fc.weeks} weeks of studio fixed costs.
       </span>
       <span className="hint" data-testid="greenlight-discipline-working">
-        Expected gross {money(expectedTotal)} × your {pct(TUNING.STUDIO_RENTAL_BLENDED)} rental
-        share is {money(expectedStudioRevenue)} of Studio Revenue, less {money(committed)}{' '}
-        committed now and {money(fc.amount)} of payroll and overhead across the cycle.
+        {share < 1 ? (
+          <>
+            Expected gross {money(expectedTotal)} × your {pct(share)} rental share is{' '}
+            {money(expectedStudioRevenue)} of Studio Revenue
+          </>
+        ) : (
+          <>
+            Expected gross {money(expectedTotal)} is {money(expectedStudioRevenue)} of Studio
+            Revenue &mdash; with no theatrical run open, the studio keeps all of it
+          </>
+        )}
+        , less {money(committed)} committed now and {money(fc.amount)} of payroll and overhead
+        across the cycle.
       </span>
       <span className="hint">
         The centre of a forecast is not a promise &mdash; the range still applies. This is

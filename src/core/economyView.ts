@@ -229,17 +229,28 @@ export type CycleInclusiveBreakEven = {
   fixedCost: CycleFixedCost // the attribution, with its assumption named
 }
 
+// The REGIME's share of a film's gross — the one place the UI-facing break-even chain asks it.
+// ENGAGED: a theatrical run pays `STUDIO_RENTAL_BLENDED` weekly (`economy.ts:67`). NEVER
+// ENGAGED (D-1): no run opens; release credits the FULL gross in one lump (`tick.ts:238-247`),
+// so the share is 1 and break-even gross IS the direct cost. D-17A FIX-PASS — a never-engaged
+// studio was being told it had to gross 1.92× a cost it actually keeps 100% of.
+export function regimeStudioShare(state: GameState): number {
+  return economyEngaged(state) ? TUNING.STUDIO_RENTAL_BLENDED : 1
+}
+
 // The two break-even grosses side by side, so a surface can never show the direct figure
-// without the studio-economic one. Both use the same `breakEvenGross` helper (cost ÷ share).
+// without the studio-economic one. Both use the same `breakEvenGross` helper (cost ÷ share),
+// at the same regime share.
 export function cycleInclusiveBreakEvenGross(
   state: GameState,
   committedCost: number,
   opts?: { concurrency?: number },
 ): CycleInclusiveBreakEven {
   const fixedCost = prospectiveCycleFixedCost(state, opts)
+  const share = regimeStudioShare(state)
   return {
-    direct: breakEvenGross(committedCost),
-    cycleInclusive: breakEvenGross(committedCost + fixedCost.amount),
+    direct: breakEvenGross(committedCost, share),
+    cycleInclusive: breakEvenGross(committedCost + fixedCost.amount, share),
     fixedCost,
   }
 }

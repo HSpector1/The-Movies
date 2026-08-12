@@ -236,6 +236,7 @@ export {
   breakEvenGross,
   prospectiveCycleFixedCost,
   cycleInclusiveBreakEvenGross,
+  regimeStudioShare,
   affordabilityScopes,
   offerObligation,
   postSigningRunway,

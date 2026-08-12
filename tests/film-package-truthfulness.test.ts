@@ -745,8 +745,21 @@ describe('#14/#15 the greenlight assessment is locked to the committed productio
     expect(lockedB.execution.score).toBe(lockedA.execution.score)
     // committedCost is the D-1 identity on the LOCKED production budget + salaries.
     expect(lockedA.profit.committedCost).toBe(committedCostOf(preTick, production))
-    // D-12: break-even is the GROSS box office needed to return the cost (studio keeps `share`).
-    expect(lockedA.profit.breakEven).toBeCloseTo(lockedA.profit.committedCost / TUNING.STUDIO_RENTAL_BLENDED, 3)
+    // Break-even is the GROSS box office needed to return the cost (studio keeps `share`).
+    // D-17A fix-pass: `share` is the REGIME's share, and this assessment is reconstructed with
+    // `engaged = false` on a `generateWorld` (never-engaged) state — that regime credits the
+    // FULL gross in one lump at release, so the break-even gross IS the committed cost.
+    // Asserting cost/0.52 here pinned a basis this regime never had.
+    expect(lockedA.profit.breakEven).toBeCloseTo(lockedA.profit.committedCost, 3)
+    expect(lockedA.profit.studioRevenueIsFullBoxOffice).toBe(true)
+    // …and the D-12 ENGAGED reconstruction of the SAME locked production keeps the 0.52 basis.
+    const lockedEngaged = greenlightAssessment(snapshotOf(preTick), production, true)
+    expect(lockedEngaged.profit.committedCost).toBe(lockedA.profit.committedCost)
+    expect(lockedEngaged.profit.breakEven).toBeCloseTo(
+      lockedEngaged.profit.committedCost / TUNING.STUDIO_RENTAL_BLENDED,
+      3,
+    )
+    expect(lockedEngaged.profit.studioRevenueIsFullBoxOffice).toBe(false)
   })
 
   it('the autopsy assessment (locked) reproduces the SAME greenlight expectation on replay', () => {
@@ -1032,9 +1045,13 @@ describe('#20 forecastProfitRange uses studio revenue (blended rental share) and
 
     const expectedCommitted = negative + marketing + salaries
     expect(pr.committedCost).toBe(expectedCommitted)
-    // D-12: break-even is the GROSS box office needed to return the cost (studio keeps `share`).
-    expect(pr.breakEven).toBeCloseTo(expectedCommitted / TUNING.STUDIO_RENTAL_BLENDED, 3)
-    expect(pr.studioRevenueIsFullBoxOffice).toBe(false)
+    // Break-even is the GROSS box office needed to return the cost (studio keeps `share`).
+    // D-17A fix-pass: `share` is the REGIME's share. This ctx carries no `engaged` flag, i.e.
+    // the D-1 path, where release credits the FULL gross in one lump — share 1, break-even
+    // gross === committed cost, and `studioRevenueIsFullBoxOffice` reports exactly that.
+    // The ENGAGED (0.52) basis is pinned separately below.
+    expect(pr.breakEven).toBeCloseTo(expectedCommitted, 3)
+    expect(pr.studioRevenueIsFullBoxOffice).toBe(true)
 
     // D-12: studioRevenue = share × the FULL box-office total on the forecast's per-segment
     // estimate maps. Recompute the expected-map gross and confirm equality after the share.
@@ -1050,7 +1067,15 @@ describe('#20 forecastProfitRange uses studio revenue (blended rental share) and
       inp.budget,
       inp.shapeEffects,
     ).total
-    expect(pr.studioRevenue.expected).toBeCloseTo(boxExpected * TUNING.STUDIO_RENTAL_BLENDED, 3)
+    expect(pr.studioRevenue.expected).toBeCloseTo(boxExpected, 3)
+
+    // D-12 / D-17A fix-pass — the ENGAGED regime keeps the blended rental share, on the very
+    // same inputs. Same committed cost, share-scaled revenue, cost/share break-even.
+    const prEngaged = forecastProfitRange(inp, { ...ctx, saturateFame: true, engaged: true })
+    expect(prEngaged.committedCost).toBe(expectedCommitted)
+    expect(prEngaged.studioRevenueIsFullBoxOffice).toBe(false)
+    expect(prEngaged.breakEven).toBeCloseTo(expectedCommitted / TUNING.STUDIO_RENTAL_BLENDED, 3)
+    expect(prEngaged.profit.expected).toBeCloseTo(prEngaged.studioRevenue.expected - expectedCommitted, 3)
 
     // profit (each edge) = studioRevenue − committedCost.
     expect(pr.profit.expected).toBeCloseTo(pr.studioRevenue.expected - expectedCommitted, 3)

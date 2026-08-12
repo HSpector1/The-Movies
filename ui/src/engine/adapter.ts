@@ -158,6 +158,7 @@ import {
   // T4/T5 prospective-truth selectors. All pure core read-models; the UI only renders them.
   prospectiveCycleFixedCost,
   cycleInclusiveBreakEvenGross,
+  regimeStudioShare,
   affordabilityScopes,
   offerObligation,
   postSigningRunway,
@@ -1250,7 +1251,7 @@ export { breakEvenGross }
 // exactly when the studio is poorest. `concurrency: 2` is the ONLY other value any surface
 // may pass, and it must be rendered as a NAMED second line — never blended into the headline,
 // never an "expected concurrency" scalar. Both are pure passthroughs; no UI arithmetic.
-export { prospectiveCycleFixedCost, cycleInclusiveBreakEvenGross }
+export { prospectiveCycleFixedCost, cycleInclusiveBreakEvenGross, regimeStudioShare }
 
 // ── D-17A/T4 — affordability scopes, promoted out of the D-15 recap ───────────
 // "What can I actually make right now?" answered by the RECAP's own builders and the
@@ -1712,13 +1713,18 @@ export function explainRelease(
   const committedCost = productionCommittedCost(preTick, prod)
   // D-17A/T2 — the `studioRevenueForFilm` BASIS (share × total gross), stated explicitly.
   // The run itself does not exist yet at `preTick` (the tick that calls this OPENS it), so the
-  // share cannot be read off the record here. It does not need to be: `openTheatricalRun` locks
-  // `studioShare = STUDIO_RENTAL_BLENDED` for every run this path can produce, and this path is
-  // reachable ONLY for a film whose production was in `preTick.studio.activeProductions` — i.e. a
-  // film released during this session, on the engaged economy. The 1.0-share LEGACY run
-  // (`legacyTheatricalRun`, migrated V3) is unreachable from here, which is exactly why
-  // `releaseScorecard` — which IS reachable for legacy films — reads the run instead.
-  const studioRevenue = filmResult.boxOffice.total * TUNING.STUDIO_RENTAL_BLENDED
+  // share cannot be read off the record here — it is derived from the REGIME instead, which is
+  // the same thing `tick.ts` decides on:
+  //   • ENGAGED  → `openTheatricalRun` locks `studioShare = STUDIO_RENTAL_BLENDED`.
+  //   • NEVER ENGAGED (D-1) → no run is opened at all; release credits the FULL gross in one
+  //     lump (`tick.ts:238-247`), so the share is 1.
+  // D-17A FIX-PASS: the earlier justification for hardcoding 0.52 here ("this path is reachable
+  // only on the engaged economy") was FALSE — reachability is gated on
+  // `preTick.studio.activeProductions`, not on the regime, so a never-engaged studio's release
+  // was reported at 0.52 while the Dashboard scorecard (which reads the run, or its absence)
+  // reported the full gross. Two answers, 1.92× apart, to one question.
+  const studioShare = economyEngaged(preTick) ? TUNING.STUDIO_RENTAL_BLENDED : 1
+  const studioRevenue = filmResult.boxOffice.total * studioShare
   const profit = studioRevenue - committedCost
 
   const standingBefore = preTick.studio.standing
