@@ -60,6 +60,8 @@ import {
   foundingGaps,
   studioRunRecap,
 } from '../../core/index.js'
+import { PUBLICITY_TIERS, cooldownRemaining, publicityAvailable } from './publicity.js'
+import type { PublicityConfig, PublicityMemo, PublicityTier } from './publicity.js'
 import type {
   CastSlot,
   Contract,
@@ -188,6 +190,29 @@ export type FoundingView = {
   applicants: PerceivedTalent[]
 }
 
+// ── D-17B · the publicity panel (A4 §2.4) ────────────────────────────────────
+// All four facts are PLAYER-CAUSED and PLAYER-OBSERVABLE — a real UI would render exactly
+// this panel next to the Dashboard's standing card. Nothing here is derived from
+// `talent.actual`, `concept.baselineStrength`, `rngState` or any future draw, and none of the
+// key names collide with `FORBIDDEN_PLAYER_VIEW_KEYS`, so `assertNoHiddenLeak` keeps passing.
+// `null` when the shim is disabled — which is EVERY D-16 arm, so the 16 shipped policies see
+// exactly the view they saw before.
+export type PublicityTierView = {
+  tier: PublicityTier
+  cost: number
+  available: boolean
+  /** weeks until this tier is buyable again (per-tier and global cooldowns, whichever binds). */
+  cooldownRemaining: number
+}
+
+export type PublicityPanel = {
+  tiers: PublicityTierView[]
+  lastUsedWeek: number | null
+  spendToDate: number
+  /** weeks of campaign lift still to be delivered (0 unless a tier has durationWeeks > 0). */
+  activeLiftRemainingWeeks: number
+}
+
 export type PlayerView = {
   readonly kind: 'player'
   seedLabel: string
@@ -208,6 +233,8 @@ export type PlayerView = {
   releasedFilms: ReleasedFilmView[]
   /** D-15 Studio Run Recap "Current Position" — costly (~2 ms), so sampled, never per-week. */
   position: CurrentPosition | null
+  /** D-17B paid publicity. `null` whenever the shim is disabled (every D-16 arm). */
+  publicity: PublicityPanel | null
 }
 
 export type OracleView = {
@@ -316,6 +343,29 @@ export type PlayerViewOptions = {
   /** include the D-15 recap Current Position (≈2 ms). Sample it; never call per-week. */
   includePosition?: boolean
   seedLabel?: string
+  /** D-17B: render the publicity panel from the run's live config + memo. Absent ⇒ `null`. */
+  publicity?: { cfg: PublicityConfig; memo: PublicityMemo }
+}
+
+/** Build the §2.4 panel from the run's publicity state. Pure; reads no hidden field. */
+function publicityPanelOf(
+  state: GameState,
+  cfg: PublicityConfig,
+  memo: PublicityMemo,
+): PublicityPanel {
+  const week = state.market.tick
+  const cash = state.studio.cash
+  return {
+    tiers: PUBLICITY_TIERS.map((tier) => ({
+      tier,
+      cost: cfg.tiers[tier].cost,
+      available: publicityAvailable(cfg, memo, tier, week, cash).ok,
+      cooldownRemaining: cooldownRemaining(cfg, memo, tier, week),
+    })),
+    lastUsedWeek: memo.lastWeek,
+    spendToDate: memo.spend,
+    activeLiftRemainingWeeks: memo.pending.reduce((m, p) => Math.max(m, p.weeksRemaining), 0),
+  }
 }
 
 /**
@@ -428,6 +478,8 @@ export function buildPlayerView(state: GameState, opts: PlayerViewOptions = {}):
     theatricalRuns: state.theatricalRuns.map(runView),
     releasedFilms,
     position: opts.includePosition === true ? studioRunRecap(state).position : null,
+    publicity:
+      opts.publicity === undefined ? null : publicityPanelOf(state, opts.publicity.cfg, opts.publicity.memo),
   }
 }
 

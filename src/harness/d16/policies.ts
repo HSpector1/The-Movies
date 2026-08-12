@@ -32,6 +32,7 @@ import type {
 } from './packages.js'
 import { HEALTHY_RUNWAY_WEEKS } from './states.js'
 import type { FinancialState } from './states.js'
+import type { PublicityIntent, PublicityTier } from './publicity.js'
 
 // ── contexts ─────────────────────────────────────────────────────────────────
 
@@ -290,9 +291,21 @@ type PolicyCommon = {
   disengagementIntended: boolean
 }
 
+/**
+ * D-17B: the publicity intent rides a SECOND return channel, not the `Action` union —
+ * `Action` is a production type and must not grow a member for a lab experiment. The method
+ * is OPTIONAL, so the sixteen D-16 policies are untouched source-wise (which is what keeps the
+ * neutral arm byte-identical) and "absent ⇒ never publicizes" needs no per-policy declaration.
+ */
 export type PlayerPolicy = PolicyCommon & {
-  kind: 'player' | 'exploit'
+  /**
+   * `adversary` is a D-17B label with the same effect `exploit` already has: the corpus's
+   * player-only headline matrix keys on `kind === 'player'`, so an adversary arm is excluded
+   * from it by construction rather than by a remembered convention (the B1-D9 pattern).
+   */
+  kind: 'player' | 'exploit' | 'adversary'
   decide(view: PlayerView, ctx: PlayerCtx): Action[]
+  publicize?(view: PlayerView, ctx: PlayerCtx): PublicityIntent
 }
 
 export type OraclePolicy = PolicyCommon & {
@@ -757,12 +770,205 @@ export const PLAYER_POLICIES: readonly PlayerPolicy[] = [
 
 export const ORACLE_POLICIES: readonly OraclePolicy[] = [oracleEV]
 
+/**
+ * THE D-16 MENU — exactly the sixteen. `--policies all` resolves to THIS list, so the D-17B
+ * publicity arms below can never silently enter a d17a-comparable corpus (and the neutral-arm
+ * SHA gate cannot be broken by adding an arm).
+ */
 export const ALL_POLICIES: readonly Policy[] = [...PLAYER_POLICIES, ...ORACLE_POLICIES]
 
+// ── D-17B · the eight publicity policies (A4 §3.2) ───────────────────────────
+//
+// Every one is a HOST policy spread + an overridden `publicize`, so the greenlight behaviour
+// is provably identical to its host (Q0 is the control that proves it). Every rule reads only
+// `PlayerView`/`PlayerCtx` — `view.standing.audienceAwareness` is already player-visible
+// (`view.ts` copies the whole `Standing`), and tier availability comes from the §2.4 panel,
+// which is itself built from player-caused facts.
+//
+// THE GATE THIS SET ENFORCES (R9's "must avoid" list, made falsifiable): if Q7 (adversary)
+// beats Q0 (never) on the paired-seed player matrix, or if Q4/Q7's endCash win-share exceeds
+// Q1/Q3's, the mechanic IS upkeep-spam and the candidate constants are rejected. Q6-vs-Q0
+// action count is the "mandatory weekly clicking" metric.
+
+/** Cheapest tier the panel reports as AVAILABLE right now (cost order, deterministic). */
+function cheapestAvailableTier(view: PlayerView): PublicityTier | null {
+  const panel = view.publicity
+  if (panel === null) return null
+  const open = panel.tiers.filter((t) => t.available)
+  if (open.length === 0) return null
+  let best = open[0]!
+  for (const t of open) if (t.cost < best.cost || (t.cost === best.cost && t.tier < best.tier)) best = t
+  return best.tier
+}
+
+/** Most expensive tier the panel reports as AVAILABLE right now. */
+function richestAvailableTier(view: PlayerView): PublicityTier | null {
+  const panel = view.publicity
+  if (panel === null) return null
+  const open = panel.tiers.filter((t) => t.available)
+  if (open.length === 0) return null
+  let best = open[0]!
+  for (const t of open) if (t.cost > best.cost || (t.cost === best.cost && t.tier < best.tier)) best = t
+  return best.tier
+}
+
+/** Is a release within `k` weeks? `remainingTicks` is player-visible (view.ts:371-378). */
+function releaseWithin(view: PlayerView, k: number): boolean {
+  return view.activeProductions.some((p) => p.remainingTicks >= 1 && p.remainingTicks <= k)
+}
+
+const LOW_AWARENESS = 15
+const BAND_LO = 20
+const BAND_HI = 45
+
+/** Q0 — the CONTROL. Never publicizes, so it must reproduce its host P3 exactly. */
+export const neverPublicize: PlayerPolicy = {
+  ...standardCadence,
+  name: 'Q0_neverPublicize',
+  description:
+    'CONTROL. P3 cadence, publicity shim enabled but never used — the arm that proves the publicity plumbing changes nothing when no intent is returned.',
+  publicize() {
+    return null
+  },
+}
+
+/** Q1 — buy the cheapest available tier whenever the stock is low and it is affordable. */
+export const publicizeAtLowAwareness: PlayerPolicy = {
+  ...standardCadence,
+  name: 'Q1_publicizeAtLowAwareness',
+  description:
+    'P3 cadence plus the cheapest AVAILABLE publicity tier whenever audience awareness is below 15. The "top up a collapsing stock" arm.',
+  publicize(view) {
+    if (view.standing.audienceAwareness >= LOW_AWARENESS) return null
+    const tier = cheapestAvailableTier(view)
+    return tier === null ? null : { tier }
+  },
+}
+
+/** Q2 — a campaign timed to the release, not to the calendar. */
+export const publicizeBeforeEveryRelease: PlayerPolicy = {
+  ...standardCadence,
+  name: 'Q2_publicizeBeforeEveryRelease',
+  description:
+    'P3 cadence plus a `push` campaign in the 1–2 weeks before each release (PRODUCTION_TICKS = 8, so remainingTicks in {1,2}). Tests R9’s "strategically timed".',
+  publicize(view) {
+    if (!releaseWithin(view, 2)) return null
+    const panel = view.publicity
+    if (panel === null) return null
+    const push = panel.tiers.find((t) => t.tier === 'push')
+    return push !== undefined && push.available ? { tier: 'push' } : null
+  },
+}
+
+/**
+ * Q3 — the ROI-disciplined arm, on a HONESTLY DOCUMENTED PROXY (Lesson AC).
+ *
+ * The rule we WANTED — "buy iff the player-visible forecast improves by more than the cost" —
+ * is NOT computable from `PlayerCtx`: `ctx.evaluate` reads the LIVE state, so there is no way
+ * to re-evaluate a package at a hypothetical post-publicity awareness without handing the
+ * policy the state. Rather than ship a lookalike, this arm buys only when the spend is
+ * SOLVENCY-SAFE (post-commitment runway on its own best package still clears the classifier's
+ * healthy threshold), USEFUL (awareness is low) and TIMED (a release is ≤ 2 weeks out).
+ */
+export const publicityROIDisciplined: PlayerPolicy = {
+  ...forecastProfitMax,
+  name: 'Q3_publicityROIDisciplined',
+  description:
+    'P5 scan plus publicity bought ONLY when it is solvency-safe (post-commitment runway >= the healthy threshold), useful (awareness < 15) and timed (release <= 2 weeks out). Documented PROXY for the uncomputable forecast-delta rule.',
+  publicize(view, ctx) {
+    if (view.standing.audienceAwareness >= LOW_AWARENESS) return null
+    if (!releaseWithin(view, 2)) return null
+    const gen = ctx.packages()
+    const best = bestAffordable(ctx, gen.packages, (p) => ctx.evaluate(p).centerProfit)
+    if (best === null) return null
+    const post = ctx.preview(best).postRunway
+    if (post.weeks !== null && post.weeks < HEALTHY_RUNWAY_WEEKS) return null
+    const tier = cheapestAvailableTier(view)
+    return tier === null ? null : { tier }
+  },
+}
+
+/** Q4 — the upper bound on spend: the richest available tier, every week it is affordable. */
+export const maximumPublicity: PlayerPolicy = {
+  ...standardCadence,
+  name: 'Q4_maximumPublicity',
+  description:
+    'P3 cadence plus the most expensive AVAILABLE publicity tier whenever it is affordable, regardless of state. The spend upper bound.',
+  publicize(view) {
+    const tier = richestAvailableTier(view)
+    return tier === null ? null : { tier }
+  },
+}
+
+/** Q5 — publicity as a distress lever. Tests R9's "useful but not sufficient in distress". */
+export const emergencyPublicity: PlayerPolicy = {
+  ...standardCadence,
+  name: 'Q5_emergencyPublicity',
+  description:
+    'P3 cadence plus the cheapest AVAILABLE tier ONLY while the financial classifier reports bareMinOnly or noProduction. Tests whether publicity is useful, and not sufficient, in distress.',
+  publicize(view, ctx) {
+    const fs = ctx.financialState()
+    if (fs !== 'bareMinOnly' && fs !== 'noProduction') return null
+    const tier = cheapestAvailableTier(view)
+    return tier === null ? null : { tier }
+  },
+}
+
+/** Q6 — keep the stock inside a band. The direct anti-"mandatory weekly clicking" probe. */
+export const awarenessMaintenance: PlayerPolicy = {
+  ...standardCadence,
+  name: 'Q6_awarenessMaintenance',
+  description:
+    'P3 cadence plus band maintenance: buy the cheapest AVAILABLE tier below awareness 20, never above 45. Its purchase COUNT against Q0 is the "mandatory weekly clicking" metric.',
+  publicize(view) {
+    const a = view.standing.audienceAwareness
+    // THE BAND: top up below `lo`, and never buy above `hi`. `lo < hi`, so the upper guard is
+    // structurally implied — it is written out because it IS the rule R9 must be tested
+    // against, and a future `lo` change must not silently delete it.
+    if (a >= BAND_LO || a > BAND_HI) return null
+    const tier = cheapestAvailableTier(view)
+    return tier === null ? null : { tier }
+  },
+}
+
+/**
+ * Q7 [ADVERSARY] — buy the cheapest tier every single week the cooldown allows, ignoring
+ * state. If this arm WINS, the mechanic is upkeep spam and the constants are rejected.
+ * `kind: 'adversary'` keeps it out of the player headline matrix by construction.
+ */
+export const publicitySpamAdversary: PlayerPolicy = {
+  ...standardCadence,
+  name: 'Q7_publicitySpamAdversary',
+  kind: 'adversary',
+  description:
+    'ADVERSARY. P3 cadence plus the cheapest AVAILABLE tier EVERY week the cooldown allows, ignoring awareness, runway and timing. The upkeep-spam falsification arm — if it wins, the candidate constants are rejected.',
+  publicize(view) {
+    const tier = cheapestAvailableTier(view)
+    return tier === null ? null : { tier }
+  },
+}
+
+/** The eight D-17B publicity arms. NOT part of `ALL_POLICIES` (see the note there). */
+export const PUBLICITY_POLICIES: readonly PlayerPolicy[] = [
+  neverPublicize,
+  publicizeAtLowAwareness,
+  publicizeBeforeEveryRelease,
+  publicityROIDisciplined,
+  maximumPublicity,
+  emergencyPublicity,
+  awarenessMaintenance,
+  publicitySpamAdversary,
+]
+
+/** Every policy `policyByName` can resolve: the D-16 sixteen plus the D-17B eight. */
+export const ALL_KNOWN_POLICIES: readonly Policy[] = [...ALL_POLICIES, ...PUBLICITY_POLICIES]
+
 export function policyByName(name: string): Policy {
-  const found = ALL_POLICIES.find((p) => p.name === name || p.name.split('_')[0] === name)
+  const found = ALL_KNOWN_POLICIES.find((p) => p.name === name || p.name.split('_')[0] === name)
   if (found === undefined) {
-    throw new Error(`d16/policies: unknown policy "${name}". Known: ${ALL_POLICIES.map((p) => p.name).join(', ')}`)
+    throw new Error(
+      `d16/policies: unknown policy "${name}". Known: ${ALL_KNOWN_POLICIES.map((p) => p.name).join(', ')}`,
+    )
   }
   return found
 }

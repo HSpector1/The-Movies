@@ -14,15 +14,67 @@ import { fileURLToPath } from 'node:url'
 import {
   TUNING,
   applyActions,
+  commitmentPreview,
   economyEngaged,
   employmentEngaged,
   stableStringify,
+  tick,
   weeklyOverhead,
 } from '../../core/index.js'
+import type { GameState } from '../../core/index.js'
 import { runOne, foundStudioFor } from './driver.js'
-import { standardPackage, toGreenlightAction } from './packages.js'
-import { standardCadence, premiumAmbitious, cheapestViable, forecastProfitMax, ALL_POLICIES } from './policies.js'
-import { FORBIDDEN_PLAYER_VIEW_KEYS, buildPlayerView, collectKeys, reconciledCash } from './view.js'
+import { toGreenlightAction } from './packages.js'
+import {
+  standardCadence,
+  premiumAmbitious,
+  cheapestViable,
+  forecastProfitMax,
+  ALL_POLICIES,
+  ALL_KNOWN_POLICIES,
+  PUBLICITY_POLICIES,
+  policyByName,
+} from './policies.js'
+import type { PlayerCtx } from './policies.js'
+import {
+  assertNoHiddenLeak,
+  FORBIDDEN_PLAYER_VIEW_KEYS,
+  buildPlayerView,
+  collectKeys,
+  reconciledCash,
+} from './view.js'
+import { DEFAULT_PUBLICITY, PUBLICITY_TIERS, newPublicityMemo } from './publicity.js'
+import {
+  assessPackage,
+  bareMinimumPackage,
+  evaluatePackage,
+  generatePackages,
+  packageAffordable,
+  packagePreview,
+  standardPackage,
+  STATE_PACKAGE_OPTIONS,
+} from './packages.js'
+import { assessFinancialState } from './states.js'
+
+/** The same player context `driver.ts` builds, for a direct `publicize()` probe. */
+function playerCtxForTest(s: GameState): PlayerCtx {
+  return {
+    week: s.market.tick,
+    maxConcurrent: TUNING.MAX_CONCURRENT_PRODUCTIONS,
+    packages: (o) => generatePackages(s, o),
+    bareMinimum: (o) => bareMinimumPackage(s, o),
+    standard: (o) => standardPackage(s, o),
+    evaluate: (p) => evaluatePackage(s, p),
+    assess: (p) => assessPackage(s, p),
+    affordable: (p) => packageAffordable(s, p),
+    preview: (p) => packagePreview(s, p),
+    previewAmount: (a) => commitmentPreview(s, a),
+    financialState: () =>
+      assessFinancialState(s, {
+        bareMinimum: bareMinimumPackage(s, STATE_PACKAGE_OPTIONS),
+        standard: standardPackage(s, STATE_PACKAGE_OPTIONS),
+      }).state,
+  }
+}
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(here, '..', '..', '..')
@@ -230,24 +282,41 @@ describe('D-16 · policy registry', () => {
     }
   })
 
-  // B2-C3. Founding contracts are CONTRACT_MAX_WEEKS = 208 from week 0 and the cliff check
-  // runs at the TOP of each week loop, so a 208-week horizon can NEVER observe a cliff: the
-  // last check is at w=207 and tick.ts:490-494 prunes the expired contracts on the final
-  // advance, after it. "0 % cliff rate" at 208 weeks was an artifact of the horizon, not a
-  // property of the policies. Past the wall the behaviour must be real, measured, and
-  // attributable — never silently pooled.
-  it('past the 208-week contract wall a cliff is possible, flagged, and carries its week', () => {
+  // B2-C3. Founding contracts are CONTRACT_MAX_WEEKS = 208 from week 0 and the check runs at
+  // the TOP of each week loop, so a 208-week horizon can never observe the wall: the last check
+  // is at w=207 and tick.ts:490-494 prunes the expired contracts on the final advance, after it.
+  // Past the wall the behaviour must be real, measured, and attributable — never silently pooled.
+  //
+  // D-17B INSTRUMENT SPLIT (re-specified 2026-08-12, Phase-A gate ruling 1). This test used to
+  // assert that the insolvent studio "falls off the engagement cliff". Post-R2 that is false:
+  // `economyEngaged` is persisted and monotonic, so the regime never changes — the studio hits
+  // the WEEK-208 ROSTER WALL (A5 Finding 0), a different failure with a different meaning, and
+  // one that must NOT be excluded from the distributions the way a cliff run is. Both facts are
+  // asserted here now.
+  it('past the 208-week contract wall the ROSTER WALL is possible, flagged, and carries its week', () => {
     const solvent = runOne({ seed: 'd16-0003', policy: forecastProfitMax, horizonWeeks: 260 })
     // a solvent studio renews inside the 12-week window and survives the wall
     expect(solvent.engagementCliffHit).toBe(false)
+    expect(solvent.rosterWallHit).toBeUndefined()
     expect(solvent.engagedWeekFraction).toBe(1)
 
     // an insolvent one cannot pay the renewal bonus — faithful, and it says so
     const broke = runOne({ seed: 'd16-0003', policy: cheapestViable, horizonWeeks: 260 })
-    expect(broke.engagementCliffHit).toBe(true)
-    expect(broke.engagementCliffWeek).toBeGreaterThanOrEqual(TUNING.CONTRACT_MAX_WEEKS)
-    expect(broke.engagementCliffCash).not.toBeNull()
+    expect(broke.engagementCliffHit).toBe(false)
+    expect(broke.rosterWallHit).toBe(true)
+    expect(broke.rosterWallWeek).toBeGreaterThanOrEqual(TUNING.CONTRACT_MAX_WEEKS)
     expect(broke.engagedWeekFraction).toBeLessThan(1)
+  })
+
+  // The other half of the split: the cliff instrument now reads the PERSISTED regime, which is
+  // structurally unreachable for a founded studio — so no player policy can be excluded from a
+  // headline distribution by an instrument that is measuring employment rather than the economy.
+  it('no policy loses the ENGAGED ECONOMY over 260 weeks (the cliff is structurally closed post-R2)', () => {
+    for (const p of ALL_POLICIES) {
+      const rec = runOne({ seed: 'd16-0003', policy: p, horizonWeeks: 260 })
+      expect(rec.engagementCliffHit, `${p.name} reported an economy cliff`).toBe(false)
+      expect(rec.engagementCliffWeek).toBeNull()
+    }
   })
 
   // D-17A / Owner ruling R2 — THE CLIFF THIS TEST DOCUMENTED IS CLOSED; re-specified
@@ -285,5 +354,101 @@ describe('D-16 · policy registry', () => {
     // legacy single-lump `boxOffice` credit never appears.
     expect(rec.ledgerTotals['overhead']).toBeLessThan(0)
     expect(rec.ledgerTotals['boxOffice']).toBeUndefined()
+  })
+})
+
+// ── D-17B · the eight publicity arms ─────────────────────────────────────────
+describe('D-17B · publicity policy registry', () => {
+  it('the D-16 menu is STILL exactly sixteen — a Q arm can never enter an `all` corpus', () => {
+    expect(ALL_POLICIES).toHaveLength(16)
+    expect(ALL_POLICIES.some((p) => p.name.startsWith('Q'))).toBe(false)
+    expect(PUBLICITY_POLICIES).toHaveLength(8)
+    expect(ALL_KNOWN_POLICIES).toHaveLength(24)
+    expect(new Set(ALL_KNOWN_POLICIES.map((p) => p.name)).size).toBe(24)
+    // …and every Q arm is still reachable BY NAME and by prefix
+    for (const p of PUBLICITY_POLICIES) {
+      expect(policyByName(p.name)).toBe(p)
+      expect(policyByName(p.name.split('_')[0]!)).toBe(p)
+    }
+  })
+
+  it('every Q arm keeps its host’s greenlight behaviour (only `publicize` differs)', () => {
+    const hosts: Record<string, { name: string }> = {
+      Q0_neverPublicize: standardCadence,
+      Q1_publicizeAtLowAwareness: standardCadence,
+      Q2_publicizeBeforeEveryRelease: standardCadence,
+      Q3_publicityROIDisciplined: forecastProfitMax,
+      Q4_maximumPublicity: standardCadence,
+      Q5_emergencyPublicity: standardCadence,
+      Q6_awarenessMaintenance: standardCadence,
+      Q7_publicitySpamAdversary: standardCadence,
+    }
+    for (const p of PUBLICITY_POLICIES) {
+      const host = hosts[p.name] as unknown as { decide: unknown; roster: unknown; founding: unknown }
+      expect(p.decide, `${p.name} must reuse its host's decide`).toBe(host.decide)
+      expect(p.roster).toBe(host.roster)
+      expect(p.founding).toBe(host.founding)
+    }
+    // …and with no publicity shim configured, a Q arm IS its host, run for run
+    const q = runOne({ seed: 'd16-0003', policy: PUBLICITY_POLICIES[3]!, horizonWeeks: 104 })
+    const p5 = runOne({ seed: 'd16-0003', policy: forecastProfitMax, horizonWeeks: 104 })
+    expect(JSON.stringify({ ...q, policy: '' })).toBe(JSON.stringify({ ...p5, policy: '' }))
+  })
+
+  it('no Q arm disengages unintentionally over 104 weeks WITH the shim live', () => {
+    for (const p of PUBLICITY_POLICIES) {
+      const rec = runOne({ seed: 'd16-0003', policy: p, horizonWeeks: 104, publicity: DEFAULT_PUBLICITY })
+      expect(p.disengagementIntended).toBe(false)
+      expect(rec.engagementCliffHit, `${p.name} reported an economy cliff`).toBe(false)
+      expect(rec.engagedWeekFraction, `${p.name} engagedWeekFraction`).toBe(1)
+      expect(rec.reconciliationOk).toBe(true)
+    }
+  })
+
+  it('the ADVERSARY is excluded from the player headline matrix by construction (B1-D9 pattern)', () => {
+    const adversaries = PUBLICITY_POLICIES.filter((p) => p.kind === 'adversary')
+    expect(adversaries).toHaveLength(1)
+    expect(adversaries[0]!.name).toBe('Q7_publicitySpamAdversary')
+    // the corpus's player matrix is `kind === 'player'`; the adversary is not in it
+    const playerMenu = [...ALL_POLICIES, ...PUBLICITY_POLICIES].filter((p) => p.kind === 'player')
+    expect(playerMenu.some((p) => p.name === 'Q7_publicitySpamAdversary')).toBe(false)
+    expect(playerMenu.some((p) => p.name === 'Q0_neverPublicize')).toBe(true)
+  })
+
+  it('every publicize() intent is derived ONLY from the visible view (never a hidden field)', () => {
+    let s = foundStudioFor('d16-0003', standardCadence).state
+    for (let w = 0; w < 30; w++) s = tick(s, { develop: true })
+    const memo = newPublicityMemo()
+    const view = buildPlayerView(s, { publicity: { cfg: DEFAULT_PUBLICITY, memo } })
+    assertNoHiddenLeak(view)
+    const ctx = playerCtxForTest(s)
+    for (const p of PUBLICITY_POLICIES) {
+      const intent = p.publicize!(view, ctx)
+      expect(intent === null || PUBLICITY_TIERS.includes(intent.tier)).toBe(true)
+      // an intent is only ever for a tier the PANEL reported as available
+      if (intent !== null) {
+        expect(view.publicity!.tiers.find((t) => t.tier === intent.tier)!.available).toBe(true)
+      }
+    }
+  })
+
+  it('a Q arm’s publicity spend is visible in the ledger under the note prefix, and nowhere else', () => {
+    const rec = runOne({
+      seed: 'd16-0003',
+      policy: PUBLICITY_POLICIES[7]!,
+      horizonWeeks: 104,
+      publicity: DEFAULT_PUBLICITY,
+    })
+    expect(rec.publicity!.spend).toBeGreaterThan(0)
+    expect(rec.ledgerTotals['termination']).toBe(-rec.publicity!.spend)
+    // the money never touches the film-cost channels
+    expect(rec.ledgerTotals['production']).toBeLessThan(0)
+    const q0 = runOne({
+      seed: 'd16-0003',
+      policy: PUBLICITY_POLICIES[0]!,
+      horizonWeeks: 104,
+      publicity: DEFAULT_PUBLICITY,
+    })
+    expect(q0.ledgerTotals['production']).toBe(rec.ledgerTotals['production'])
   })
 })
