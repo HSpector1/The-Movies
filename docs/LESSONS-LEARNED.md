@@ -1852,7 +1852,7 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   win-share gates phrased pairwise, not as N-way argmax; quantile definition pinned (type 7)
   repo-wide (the old fleet had two incompatible definitions that disagree exactly at the tails).
 
-## BJ (DRAFT). Deriving economic law from unrelated state is an anti-pattern (the engagement cliff) — **BR, MG**
+## BJ. Deriving economic law from unrelated state is an anti-pattern (the engagement cliff) — **BR, MG**
 
 - **Symptom:** `economyEngaged ≡ (founding || contracts.length > 0)` couples the WHOLE D-12/D-13
   economy to roster size: firing everyone reverts the studio to the legacy 100%-of-gross
@@ -1861,8 +1861,26 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
 - **Lesson:** regime membership must be an explicit, persisted, monotonic fact (set at
   founding, never derived from a fluctuating collection). Any gate that switches LAW (not just
   features) off a mutable count is a defect candidate on sight.
-- **Status:** DRAFT by Owner ruling (2026-08-12) — R2 selected persist-at-founding; finalize
-  when the D-17A implementation proves the correction.
+- **Status:** FINALIZED at D-17A closure (2026-08-12) — R2's persist-at-founding correction is
+  implemented (`economyEngagedEver`, SaveFileV6) and proven: cliff-monotonicity tests on both
+  the natural-expiry and fire-everyone paths, migration proof over all five save classes, and
+  the 300×208 d16 corpus float-identical for every player policy while the P15 exploit
+  collapsed ($146.22M median → $16.03M, 44 films → 0).
+
+## BL. A regime-predicate split must be carried through every consumer that feeds an action — **BR, MG**
+
+- **Symptom:** D-17A split the old single predicate into `economyEngaged` (persisted regime) and
+  `employmentEngaged` (current roster). The engine's greenlight was repointed; four UI selectors
+  that staff and price that same greenlight (`assemblyAvailability`, `studioPool`,
+  `freelancerPool`, `assignmentProjectCost`) were "deliberately left" on the old predicate — so
+  a post-cliff studio was offered the whole world's talent at retired D-1 prices while the
+  engine refused every buildable package with a raw D-11.12 error (adversarial review, BLOCKER).
+- **Lesson:** when one predicate becomes two, enumerate EVERY consumer and assign each to its
+  predicate deliberately, by the rule "which predicate does the ACTION this surface feeds
+  actually branch on?" — a consumer feeding an action must use the action's predicate.
+  "Deliberately unchanged" without that per-consumer proof is the anti-pattern; the split point
+  is exactly where action parity breaks silently. Extends **AC** (actionability from the
+  authoritative action rules) and **BJ** (regime as an explicit fact).
 
 ## BK (DRAFT). A one-tail fix on a shared unstable stock is not a complete repair — **BR, MG**
 
