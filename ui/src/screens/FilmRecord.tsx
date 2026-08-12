@@ -35,6 +35,9 @@ export function FilmRecord({
   const p = view.participants
   const rows: FilmParticipant[] = [p.writer, p.director, p.cast.lead, p.cast.antagonist, p.cast.support, ...p.craft]
   const profitPositive = view.profit >= 0
+  // D-17A/T2: while the run is still paying out, this is a FULL-RUN figure the studio has not
+  // banked. The label says so rather than presenting unreceived money as a result.
+  const word = `${view.projected ? 'Projected ' : ''}${profitPositive ? 'Profit' : 'Loss'}`
   return (
     <div className="app-shell" data-testid="film-record">
       <div className="topbar">
@@ -58,10 +61,13 @@ export function FilmRecord({
           <Metric label="Committed cost" small>
             {moneyExact(view.committedCost)}
           </Metric>
-          <Metric label="Profit / loss" small testid="record-profit">
+          <Metric
+            label={view.projected ? 'Projected profit / loss (full run)' : 'Profit / loss'}
+            small
+            testid="record-profit"
+          >
             <span className={profitPositive ? 'money pos' : 'money neg'}>
-              {profitPositive ? 'Profit ' : 'Loss '}
-              {moneyExact(view.profit)}
+              {word} {moneyExact(view.profit)}
             </span>
           </Metric>
         </div>

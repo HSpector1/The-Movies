@@ -51,6 +51,8 @@ export function ReleaseResult({
           const view = explainRelease(preTick, postTickStanding, f, sameWeekReleases)
           const concept = findConcept(preTick, f.conceptId)
           const profitPositive = view.profit >= 0
+          // D-17A/T2: the run OPENS this week — this is the full-run figure, of which only the
+          // opening week has been credited. It is a projection of banked cash, not a result.
           return (
             <div className="card" key={f.productionId} data-testid={`release-card-${f.productionId}`}>
               <div className="spread">
@@ -68,9 +70,13 @@ export function ReleaseResult({
                 <Metric label="Total box office" small>
                   {money(f.boxOffice.total)}
                 </Metric>
-                <Metric label="Profit / loss" small testid={`res-profit-${f.productionId}`}>
+                <Metric
+                  label="Projected film contribution (full run)"
+                  small
+                  testid={`res-profit-${f.productionId}`}
+                >
                   <span className={profitPositive ? 'money pos' : 'money neg'}>
-                    {profitPositive ? 'Profit ' : 'Loss '}
+                    {profitPositive ? 'Projected profit ' : 'Projected loss '}
                     {moneyExact(view.profit)}
                   </span>
                 </Metric>

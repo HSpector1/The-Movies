@@ -145,17 +145,21 @@ export function Autopsy({
           <Metric label="Total Theatrical Gross" small testid="autopsy-result-revenue">
             {money(simple.revenue)}
           </Metric>
-          <Metric label="Film Contribution" small testid="autopsy-result-profit">
+          {/* D-17A/T2: this is the FULL-RUN contribution reconstructed at the moment of
+              release — Studio Revenue is credited weekly across the run, so at this point it
+              is money projected, not money banked. The label says so. */}
+          <Metric label="Projected Film Contribution (full run)" small testid="autopsy-result-profit">
             <span className={simple.profitable ? 'money pos' : 'money neg'}>
-              {simple.profitable ? 'Profit ' : 'Loss '}
+              {simple.profitable ? 'Projected profit ' : 'Projected loss '}
               {moneyExact(simple.profit)}
             </span>
           </Metric>
         </div>
         <span className="hint" data-testid="autopsy-result-forecast">
           Forecast at greenlight: {score(simple.expectedCritic)} critic · {money(simple.expectedTotal)} total
-          gross. Studio Revenue (the studio’s blended rental share of gross, paid weekly across the run) was{' '}
-          {money(simple.studioRevenue)}; Film Contribution is that minus direct film costs.
+          gross. Studio Revenue (the studio’s blended rental share of gross, paid weekly across the run) totals{' '}
+          {money(simple.studioRevenue)} over the whole run; Film Contribution is that minus direct film
+          costs, and it is credited week by week — not banked at release.
         </span>
       </div>
 

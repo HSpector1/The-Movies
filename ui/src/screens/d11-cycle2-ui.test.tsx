@@ -221,6 +221,9 @@ describe('D-11.A — autopsy / record render the film\'s OWN participants', () =
       committedCost: 2_000_000,
       studioRevenue: 5_000_000,
       profit: 3_000_000,
+      // D-17A/T2: FilmRecordView now carries whether the run is still paying out. This
+      // fixture is an ARCHIVED record, so its run is finished — the figure is realized.
+      projected: false,
     }
   }
 

@@ -1695,10 +1695,19 @@ export function explainRelease(
     shape: { role: 'Shape', vector: r.contributions.shape },
   }
 
+  // D-17A/T2: the ledger-based helper, not a second copy of the same filter (see
+  // `productionCommittedCost`, which now delegates to `filmCommittedCost` and keeps the
+  // budget+salaries FALLBACK only for a production carried in from a converted legacy save,
+  // which has no ledger entries of its own).
   const committedCost = productionCommittedCost(preTick, prod)
-  // D-12: the studio banks its blended rental SHARE of the gross (a UI session release is always
-  // the engaged path, so run.totalStudioRevenue === gross × STUDIO_RENTAL_BLENDED). Profit and ROI
-  // are on Studio Revenue, not the full box office.
+  // D-17A/T2 — the `studioRevenueForFilm` BASIS (share × total gross), stated explicitly.
+  // The run itself does not exist yet at `preTick` (the tick that calls this OPENS it), so the
+  // share cannot be read off the record here. It does not need to be: `openTheatricalRun` locks
+  // `studioShare = STUDIO_RENTAL_BLENDED` for every run this path can produce, and this path is
+  // reachable ONLY for a film whose production was in `preTick.studio.activeProductions` — i.e. a
+  // film released during this session, on the engaged economy. The 1.0-share LEGACY run
+  // (`legacyTheatricalRun`, migrated V3) is unreachable from here, which is exactly why
+  // `releaseScorecard` — which IS reachable for legacy films — reads the run instead.
   const studioRevenue = filmResult.boxOffice.total * TUNING.STUDIO_RENTAL_BLENDED
   const profit = studioRevenue - committedCost
 
@@ -1806,9 +1815,12 @@ function salarySumForProduction(state: GameState, prod: Production): number {
 // marketing + salaries in one production entry). Falls back to budget + salaries for a
 // pre-existing production carried in from a converted legacy save (no ledger entries).
 function productionCommittedCost(state: GameState, prod: Production): number {
-  const fromLedger = state.ledger
-    .filter((e) => e.productionId === prod.id && (e.kind === 'production' || e.kind === 'freelancerFee'))
-    .reduce((a, e) => a - e.amount, 0)
+  // D-17A/T2: ONE ledger reader. This used to inline the same filter `filmCommittedCost` runs;
+  // two copies of a cost basis is how two costs appear. The FALLBACK stays, and is not dead
+  // code: a production carried in from a converted legacy save has no ledger entries at all
+  // (D-1 charged nothing per-production), so its committed cost must be reconstructed from the
+  // budget + salaries it was greenlit with.
+  const fromLedger = filmCommittedCost(state, prod.id)
   if (fromLedger > 0) return fromLedger
   return prod.budget.negative + prod.budget.marketing + salarySumForProduction(state, prod)
 }
@@ -1848,16 +1860,50 @@ export type ReleaseScorecard = {
   studioRevenue: number
   contribution: number
   roi: number
-  resultLabel: 'Profit' | 'Loss' | 'Break-even'
+  /** true while the film's run is still ACTIVE — the full-run figures are not yet banked. */
+  projected: boolean
+  resultLabel:
+    | 'Profit'
+    | 'Loss'
+    | 'Break-even'
+    | 'Projected profit'
+    | 'Projected loss'
+    | 'Projected break-even'
+}
+/** Is this film's theatrical run still paying out? (No run record ⇒ nothing outstanding.) */
+function runIsLive(state: GameState, productionId: string): boolean {
+  return state.theatricalRuns.some((r) => r.productionId === productionId && r.status === 'active')
 }
 export function releaseScorecard(state: GameState, film: FilmResult): ReleaseScorecard {
   const gross = film.boxOffice.total
-  const studioRevenue = gross * TUNING.STUDIO_RENTAL_BLENDED
+  // D-17A/T2: RUN-AWARE. This multiplied every film's gross by STUDIO_RENTAL_BLENDED, including
+  // MIGRATED V3 films, whose `legacyTheatricalRun` locks `studioShare: 1.0` because they already
+  // received the FULL gross under the old model. That halved a legacy film's reported revenue,
+  // contribution and ROI. `studioRevenueForFilm` reads the run's own locked share; the fallback
+  // (no run record at all) is the pre-D-12 full-gross truth, as in `filmRecordView`.
+  const studioRevenue = studioRevenueForFilm(state, film.productionId) ?? gross
   const commitment = filmCommittedCost(state, film.productionId)
   const contribution = studioRevenue - commitment
   const roi = commitment > 0 ? contribution / commitment : 0
-  const resultLabel = contribution > 0 ? 'Profit' : contribution < 0 ? 'Loss' : 'Break-even'
-  return { critic: film.criticScore, audience: filmAudienceScore(state, film), gross, studioRevenue, contribution, roi, resultLabel }
+  // D-17A/T2: while the run is live these are FULL-RUN figures the studio has not banked yet.
+  // Calling that "Profit" was the same overclaim the newspaper already avoided.
+  const projected = runIsLive(state, film.productionId)
+  const word = contribution > 0 ? 'profit' : contribution < 0 ? 'loss' : 'break-even'
+  const resultLabel = (
+    projected
+      ? `Projected ${word}`
+      : `${word.charAt(0).toUpperCase()}${word.slice(1)}`
+  ) as ReleaseScorecard['resultLabel']
+  return {
+    critic: film.criticScore,
+    audience: filmAudienceScore(state, film),
+    gross,
+    studioRevenue,
+    contribution,
+    roi,
+    projected,
+    resultLabel,
+  }
 }
 
 // Remaining weeks of an active production, for the dashboard.
@@ -3748,6 +3794,8 @@ export type FilmRecordView = {
   committedCost: number
   studioRevenue: number // D-12: blended rental share of gross (from the run); full gross for legacy
   profit: number
+  /** D-17A/T2: true while the run is still ACTIVE — `profit` is a full-run figure, not banked. */
+  projected: boolean
 }
 export function filmRecordView(state: GameState, film: FilmResult): FilmRecordView | null {
   if (!film.participants) return null
@@ -3767,6 +3815,7 @@ export function filmRecordView(state: GameState, film: FilmResult): FilmRecordVi
     committedCost,
     studioRevenue,
     profit: studioRevenue - committedCost,
+    projected: runIsLive(state, film.productionId),
   }
 }
 

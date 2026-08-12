@@ -249,7 +249,16 @@ function makeCallouts(d: Dims, film: FilmResult): string[] {
     else if (d.boxDelta === 'worse') out.push('The film came in under its box-office forecast.')
   }
   if (out.length < 3) {
-    out.push(d.profitable ? 'The release finished comfortably in profit.' : 'The release finished at a loss.')
+    // D-17A/T2 — LABEL TRUTHFULNESS. `profitable` is the FULL-RUN projection made at release
+    // (projected total Studio Revenue − committed cost); at this moment only the opening week
+    // has been credited, so "finished" claimed a settled result the studio has not banked.
+    // The clipping already labels the figure itself "Projected film contribution"; this line
+    // now agrees with it. Value and trigger unchanged.
+    out.push(
+      d.profitable
+        ? 'Across its full run the release is projected to finish in profit.'
+        : 'Across its full run the release is projected to finish at a loss.',
+    )
   }
   return out.slice(0, 3)
 }

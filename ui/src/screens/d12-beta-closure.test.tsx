@@ -340,7 +340,22 @@ describe('D-12 P6: active-run projection and released-film scorecard are engine-
     expect(card.contribution).toBeCloseTo(card.studioRevenue - filmCommittedCost(s, film.productionId), 2)
     expect(card.audience).toBeGreaterThanOrEqual(0)
     expect(card.audience).toBeLessThanOrEqual(100)
-    expect(card.resultLabel).toBe(card.contribution > 0 ? 'Profit' : card.contribution < 0 ? 'Loss' : 'Break-even')
+    // D-17A/T2: the scorecard now says whether the full-run figure has actually been banked.
+    // The film released moments ago, so its run is still ACTIVE and the label carries
+    // "Projected" — the sign logic is unchanged.
+    expect(card.projected).toBe(true)
+    expect(card.resultLabel).toBe(
+      card.contribution > 0 ? 'Projected profit' : card.contribution < 0 ? 'Projected loss' : 'Projected break-even',
+    )
+    // Once the run finishes paying, the same figure is realized and drops the qualifier.
+    let done = s
+    for (let k = 0; k < 20 && releaseScorecard(done, film).projected; k++) done = advanceWeek(done).next
+    const finished = releaseScorecard(done, film)
+    expect(finished.projected).toBe(false)
+    expect(finished.contribution).toBeCloseTo(card.contribution, 2)
+    expect(finished.resultLabel).toBe(
+      finished.contribution > 0 ? 'Profit' : finished.contribution < 0 ? 'Loss' : 'Break-even',
+    )
   })
 })
 
