@@ -24,6 +24,15 @@ import {
   ACTIVE_SESSION_KEY,
   ACTIVE_SESSION_CORRUPT_KEY,
 } from './engine/session.ts'
+import {
+  OracleAgent,
+  applyActions,
+  economyEngaged,
+  exportSave,
+  generateWorld,
+  makeSaveV5,
+  tick,
+} from '../../src/core/index.ts'
 import { newFoundedGame, foundedRosterIds } from './test/founding.ts'
 import { App } from './App.tsx'
 
@@ -206,5 +215,67 @@ describe('D-12 New Studio — confirmed destructive action', () => {
     }
     expect(screen.getByTestId('new-game')).toBeInTheDocument() // dropped to the Start screen
     expect(hasActiveSession()).toBe(false) // autosave cleared so a refresh won't resurrect it
+  })
+})
+
+// ── D-17A fix-pass — a LITERAL V5 envelope through loadActiveSession ───────────
+// Contract §4.E names `loadActiveSession` as the migration path a stored legacy autosave takes,
+// and nothing drove one: this file only ever round-tripped V6 payloads written by
+// `saveActiveSession`, and the V5→V6 coverage stopped at `importSaveJson`. The behaviour was
+// already correct — the gap was the regression guard.
+describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
+  it('an ENGAGED V5 session restores with the flag true and the converted banner', () => {
+    const engaged = newFoundedGame('sess-v5-engaged')
+    // A LITERAL V5 envelope: the frozen V5 state shape (no `economyEngagedEver`) + saveVersion 5.
+    const { economyEngagedEver: _dropped, ...v5State } = engaged
+    const v5 = exportSave(makeSaveV5(v5State as never))
+    expect(JSON.parse(v5).saveVersion).toBe(5)
+    expect('economyEngagedEver' in JSON.parse(v5).state).toBe(false)
+
+    localStorage.setItem(ACTIVE_SESSION_KEY, v5)
+    const loaded = loadActiveSession()
+    expect(loaded.ok).toBe(true)
+    if (!loaded.ok) return
+    expect(loaded.converted).toBe(true) // ⇒ the UI shows the "converted" banner
+    expect(loaded.state.economyEngagedEver).toBe(true)
+    expect(economyEngaged(loaded.state)).toBe(true)
+
+    // …and re-saving it writes a V6 envelope that loads back UNCONVERTED.
+    saveActiveSession(loaded.state)
+    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(6)
+    const again = loadActiveSession()
+    expect(again.ok).toBe(true)
+    if (!again.ok) return
+    expect(again.converted).toBe(false)
+    expect(again.state.economyEngagedEver).toBe(true)
+  })
+
+  it('a NEVER-ENGAGED headless V5 session restores with the flag false', () => {
+    // 30 weeks of headless play: films release, but no contract, no run, no overhead — the
+    // save class the 4-disjunct predicate has to answer `false` for.
+    let s = generateWorld('sess-v5-headless')
+    for (let i = 0; i < 30; i++) {
+      s = applyActions(s, OracleAgent.chooseActions(s))
+      s = tick(s)
+    }
+    expect(economyEngaged(s)).toBe(false)
+    const { economyEngagedEver: _dropped, ...v5State } = s
+    localStorage.setItem(ACTIVE_SESSION_KEY, exportSave(makeSaveV5(v5State as never)))
+
+    const loaded = loadActiveSession()
+    expect(loaded.ok).toBe(true)
+    if (!loaded.ok) return
+    expect(loaded.converted).toBe(true)
+    expect(loaded.state.economyEngagedEver).toBe(false)
+    expect(economyEngaged(loaded.state)).toBe(false)
+
+    // Round-trip: saved as V6, reloaded unconverted, still not engaged.
+    saveActiveSession(loaded.state)
+    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(6)
+    const again = loadActiveSession()
+    expect(again.ok).toBe(true)
+    if (!again.ok) return
+    expect(again.converted).toBe(false)
+    expect(again.state.economyEngagedEver).toBe(false)
   })
 })
