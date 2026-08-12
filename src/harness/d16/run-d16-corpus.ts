@@ -6,16 +6,32 @@
 //
 //   seeds          integer, default 25          → seeds are `d16-0001` … zero-padded
 //   horizonWeeks   integer, default 208         → slices at 52 / 104 / 208 come from ONE run
-//   policyFilter   comma-separated policy names or prefixes ('P1,P3,P14'), default 'all'
+//   policyFilter   'all' (the D-16 sixteen), 'publicity' (the D-17B eight), 'all+publicity',
+//                  or a comma-separated list of names/prefixes ('P1,P3,Q1'). Default 'all'.
 //   flags          --overrides '{"OVERHEAD_BASE":10000}'   typed counterfactual sweep
 //                  --run-name NAME                          output subdirectory
 //                  --exemplars N                            full weekly series for the first N seeds (default 25)
 //                  --checkpoint-every N                     downsample stride for the JSONL (default 4)
 //                  --regenerates-worlds                     permit worldgen-time overrides
+//                  --slice-weeks '52,104,208,260,312'       slice columns (default '52,104,208')
+//                  --counter-flow '{"family":"C",…}'        D-17B awareness counter-flow arm
+//                  --publicity default | '{…}'              D-17B paid-publicity menu
+//                  --marketing-grid '[2e5,7e5,2e6]'         fixed menu, OR
+//                  --marketing-grid 'capacity:1.3,2,2.5'    capacity-anchored menu
+//                  --awareness-stats                        emit the awareness block on neutral rows
+//                  --emit-durable                           emit durableRecovery on the rows too
 //
 // OUTPUT: out/d16-economy-lab/corpus/<runName>/{rows.jsonl, summary.json, summary.md}
-//   Every row and the summary carry { mode, overrides, overrideKey } (experiment.ts).
+//   Every row and the summary carry { mode, overrides, overrideKey } (experiment.ts) plus any
+//   D-17B lever stamp that is ON — absent, never null, when it is off.
 //   Stable sorted-key JSON, trailing newline. NO wall clock in any file — timing to stderr.
+//
+// THE NEUTRAL-ARM INVARIANT (the lab's acceptance gate, D-17B Phase-A gate ruling 4).
+//   `run-d16-corpus.ts 300 208 all` must produce a rows.jsonl whose SHA-256 is
+//   6692662642906b91ab00e83046be9b5462eb1f43db44fafc4f943235fc4bc45c (= d17a-final-300x208),
+//   and a summary.json equal to d17a-final's on every PRE-EXISTING field. Consequences that
+//   this file must honour: no new ROW field may be emitted without an explicit flag, and no
+//   optional field may ever be written as `null`/`false` rather than omitted.
 
 import { mkdirSync, writeFileSync, appendFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
@@ -23,12 +39,18 @@ import { fileURLToPath } from 'node:url'
 import { TUNING } from '../../core/index.js'
 import { runOne } from './driver.js'
 import type { RunRecord } from './driver.js'
-import { ALL_POLICIES, policyByName } from './policies.js'
+import { ALL_POLICIES, PUBLICITY_POLICIES, policyByName } from './policies.js'
 import type { Policy } from './policies.js'
 import { makeTag, readTimingTable, tagArtifact, withTuningOverrides, assertTuningPristine } from './experiment.js'
-import type { TuningOverrides } from './experiment.js'
+import type { LabLevers, TuningOverrides } from './experiment.js'
 import { comparableSeedCount, rateOf, summarize, winShares } from './stats.js'
 import type { Summary } from './stats.js'
+import { counterFlowKey, validateCounterFlow } from './counterflow.js'
+import type { CounterFlowConfig } from './counterflow.js'
+import { DEFAULT_PUBLICITY, publicityKey, validatePublicity } from './publicity.js'
+import type { PublicityConfig } from './publicity.js'
+import { assertMarketingGridPristine, marketingGridKey, validateMarketingGrid } from './packages.js'
+import type { MarketingGrid } from './packages.js'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(here, '..', '..', '..')
@@ -55,12 +77,90 @@ const REGENERATES_WORLDS = has('regenerates-worlds')
 
 const overridesRaw = flag('overrides')
 const OVERRIDES: TuningOverrides = overridesRaw === null || overridesRaw === '' ? {} : (JSON.parse(overridesRaw) as TuningOverrides)
-const TAG = makeTag(OVERRIDES)
+
+// ── D-17B levers ─────────────────────────────────────────────────────────────
+// F10 FIX: the slice columns are a FLAG now. They used to be the hard-coded triple, and they
+// were never passed into `runOne` at all — so a 260/312-week corpus silently had no 260/312
+// column. Both halves are threaded below.
+const SLICE_WEEKS: number[] = (flag('slice-weeks') ?? '52,104,208')
+  .split(',')
+  .map((s) => Number(s.trim()))
+  .filter((n) => Number.isFinite(n) && n > 0)
+
+const counterFlowRaw = flag('counter-flow')
+const COUNTER_FLOW: CounterFlowConfig | undefined =
+  counterFlowRaw === null || counterFlowRaw === '' ? undefined : (JSON.parse(counterFlowRaw) as CounterFlowConfig)
+if (COUNTER_FLOW !== undefined) validateCounterFlow(COUNTER_FLOW)
+
+const publicityRaw = flag('publicity')
+const PUBLICITY: PublicityConfig | undefined =
+  publicityRaw === null || publicityRaw === ''
+    ? undefined
+    : publicityRaw === 'default'
+      ? DEFAULT_PUBLICITY
+      : (JSON.parse(publicityRaw) as PublicityConfig)
+if (PUBLICITY !== undefined) validatePublicity(PUBLICITY)
+
+/**
+ * `--marketing-grid '[200000,700000,2000000]'` — a fixed menu, or
+ * `--marketing-grid 'capacity:1.3,2,2.5'` — a CAPACITY-ANCHORED menu whose three rungs are
+ * `multiplier × the awareness-conditioned capacity of the state at decision time` (A3: the
+ * optimal spend tracks 1.3–2.5× that capacity, and the capacity itself swings 8.3×, so no
+ * fixed dollar triple can pass the ≤ 35 % max-optimal gate). Rungs are rounded to whole
+ * dollars, then forced strictly ascending, so a package id stays readable.
+ */
+const gridRaw = flag('marketing-grid')
+let MARKETING_GRID: MarketingGrid | ((capacityHint: number) => MarketingGrid) | undefined
+let MARKETING_GRID_KEY: string | undefined
+if (gridRaw !== null && gridRaw !== '') {
+  if (gridRaw.startsWith('capacity:')) {
+    const mults = gridRaw.slice('capacity:'.length).split(',').map((s) => Number(s.trim()))
+    if (mults.length !== 3 || mults.some((m) => !Number.isFinite(m) || m <= 0)) {
+      throw new Error(`--marketing-grid capacity spec needs 3 positive multipliers, got "${gridRaw}"`)
+    }
+    if (!(mults[0]! < mults[1]! && mults[1]! < mults[2]!)) {
+      throw new Error(`--marketing-grid capacity multipliers must be strictly ascending, got "${gridRaw}"`)
+    }
+    MARKETING_GRID = (capacity: number): MarketingGrid => {
+      const a = Math.max(1, Math.round(mults[0]! * capacity))
+      const b = Math.max(a + 1, Math.round(mults[1]! * capacity))
+      const c = Math.max(b + 1, Math.round(mults[2]! * capacity))
+      return [a, b, c]
+    }
+    MARKETING_GRID_KEY = `capacity:${mults.join(',')}`
+  } else {
+    const parsed = JSON.parse(gridRaw) as number[]
+    if (parsed.length !== 3) throw new Error(`--marketing-grid needs exactly 3 rungs, got "${gridRaw}"`)
+    const triple: MarketingGrid = [parsed[0]!, parsed[1]!, parsed[2]!]
+    validateMarketingGrid(triple)
+    MARKETING_GRID = triple
+    MARKETING_GRID_KEY = marketingGridKey(triple)
+  }
+}
+
+const AWARENESS_STATS = has('awareness-stats')
+const EMIT_DURABLE = has('emit-durable')
+
+const LEVERS: LabLevers = {}
+{
+  const cf = counterFlowKey(COUNTER_FLOW)
+  if (cf !== undefined) LEVERS.counterFlowKey = cf
+  const pk = publicityKey(PUBLICITY)
+  if (pk !== undefined) LEVERS.publicityKey = pk
+  if (MARKETING_GRID_KEY !== undefined) LEVERS.marketingGridKey = MARKETING_GRID_KEY
+}
+// A counter-flow / publicity / grid arm can never be stamped CURRENT, even with an empty
+// override set (the §13.4 defect).
+const TAG = makeTag(OVERRIDES, LEVERS)
 
 const policies: Policy[] =
   POLICY_FILTER === 'all'
     ? [...ALL_POLICIES]
-    : POLICY_FILTER.split(',').map((n) => policyByName(n.trim()))
+    : POLICY_FILTER === 'publicity'
+      ? [...PUBLICITY_POLICIES]
+      : POLICY_FILTER === 'all+publicity'
+        ? [...ALL_POLICIES, ...PUBLICITY_POLICIES]
+        : POLICY_FILTER.split(',').map((n) => policyByName(n.trim()))
 
 const RUN_NAME =
   flag('run-name') ??
@@ -128,6 +228,23 @@ type PolicyAgg = {
   runs: number
   /** every run seen, clean or cliff. */
   runsSeen: number
+
+  // ── D-17B ────────────────────────────────────────────────────────────────
+  /** the week-208 roster wall. NOT an exclusion — these runs stay in every distribution. */
+  rosterWallHits: number
+  rosterWallWeeks: number[]
+  /** durable recovery, counted over runs that ENTERED distress (the honest denominator). */
+  durableAt26: number
+  durableAt52: number
+  durableAt103: number
+  durableAt103Strict: number
+  awarenessFinal: number[]
+  awarenessMin: number[]
+  awarenessMax: number[]
+  weeksAtFloor: number[]
+  publicityCount: number[]
+  publicitySpend: number[]
+  publicityLift: number[]
 }
 
 function newAgg(p: Policy): PolicyAgg {
@@ -159,6 +276,19 @@ function newAgg(p: Policy): PolicyAgg {
     marketingChoices: {},
     runs: 0,
     runsSeen: 0,
+    rosterWallHits: 0,
+    rosterWallWeeks: [],
+    durableAt26: 0,
+    durableAt52: 0,
+    durableAt103: 0,
+    durableAt103Strict: 0,
+    awarenessFinal: [],
+    awarenessMin: [],
+    awarenessMax: [],
+    weeksAtFloor: [],
+    publicityCount: [],
+    publicitySpend: [],
+    publicityLift: [],
   }
 }
 
@@ -179,6 +309,14 @@ function absorb(agg: PolicyAgg, r: RunRecord): void {
     const k = rejectionKey(rej.kind, rej.reason)
     agg.rejectionReasons[k] = (agg.rejectionReasons[k] ?? 0) + 1
   }
+  // D-17B (A5 Finding 0): the ROSTER WALL is counted for EVERY run and excludes NOTHING. It is
+  // a real (terrible) outcome of the economy under study — a studio whose contracts all lapsed
+  // because it could not pay the renewal bonus — not a run that left the economy under study.
+  // The ONLY exclusion in this file remains `engagementCliffHit`, immediately below.
+  if (r.rosterWallHit === true) {
+    agg.rosterWallHits += 1
+    if (r.rosterWallWeek !== undefined) agg.rosterWallWeeks.push(r.rosterWallWeek)
+  }
   if (r.engagementCliffHit) {
     // CONTAMINATED — reported on its own, never pooled.
     agg.engagementCliffHits += 1
@@ -187,6 +325,23 @@ function absorb(agg: PolicyAgg, r: RunRecord): void {
     return
   }
   agg.runs += 1
+  if (r.durableRecovery !== undefined) {
+    if (r.durableRecovery.at26) agg.durableAt26 += 1
+    if (r.durableRecovery.at52) agg.durableAt52 += 1
+    if (r.durableRecovery.at103) agg.durableAt103 += 1
+    if (r.durableRecovery.at103Strict) agg.durableAt103Strict += 1
+  }
+  if (r.awareness !== undefined) {
+    agg.awarenessFinal.push(r.awareness.final)
+    agg.awarenessMin.push(r.awareness.min)
+    agg.awarenessMax.push(r.awareness.max)
+    agg.weeksAtFloor.push(r.awareness.weeksAtFloor)
+  }
+  if (r.publicity !== undefined) {
+    agg.publicityCount.push(r.publicity.count)
+    agg.publicitySpend.push(r.publicity.spend)
+    agg.publicityLift.push(r.publicity.liftDelivered)
+  }
   agg.endCash.push(r.endCash)
   agg.filmsReleased.push(r.filmsReleased)
   agg.filmsGreenlit.push(r.filmsGreenlit)
@@ -257,6 +412,30 @@ type PolicySummary = {
   /** the INFORMATION gap, separated from luck: perceived ÷ actual deterministic opening. */
   perceivedVsActualOpening: Summary
   marketingChoices: Record<string, number>
+
+  // ── D-17B ────────────────────────────────────────────────────────────────
+  /** runs that hit the week-208 roster wall. INCLUDED in every distribution above. */
+  rosterWallRuns: number
+  rosterWallRate: number
+  rosterWallFirstWeek: Summary
+  /**
+   * DURABLE recovery given distress entry — G8 form at +26/+52/+103 weeks and the strict form
+   * at +103. THIS is the recovery number to quote: `recoveryRateGivenDistress` above is the
+   * TRANSIENT one (a single healthy week), and A5 measured that 62–99 % of transiently
+   * "recovered" runs still terminally decline. G8's bar is ≥ 25 % at +103.
+   */
+  durableRecoveryGivenDistress: { at26: number; at52: number; at103: number; at103Strict: number }
+  awarenessFinal: Summary
+  awarenessMin: Summary
+  awarenessMax: Summary
+  awarenessWeeksAtFloor: Summary
+  /** runs ENDING at awareness 0 — one of the two tails Lesson BK requires to be gated jointly. */
+  floorAbsorptionRate: number
+  /** runs ENDING at awareness 100 — the other tail. */
+  ceilingAbsorptionRate: number
+  publicityCount: Summary
+  publicitySpend: Summary
+  publicityLiftDelivered: Summary
 }
 
 function finalize(agg: PolicyAgg): PolicySummary {
@@ -296,7 +475,44 @@ function finalize(agg: PolicyAgg): PolicySummary {
     discoveryMultiplier: summarize(agg.discoveryMultipliers),
     perceivedVsActualOpening: summarize(agg.perceivedVsActualOpening),
     marketingChoices: agg.marketingChoices,
+    rosterWallRuns: agg.rosterWallHits,
+    rosterWallRate: agg.runsSeen === 0 ? NaN : agg.rosterWallHits / agg.runsSeen,
+    rosterWallFirstWeek: summarize(agg.rosterWallWeeks),
+    durableRecoveryGivenDistress: {
+      at26: agg.distressEntries === 0 ? NaN : agg.durableAt26 / agg.distressEntries,
+      at52: agg.distressEntries === 0 ? NaN : agg.durableAt52 / agg.distressEntries,
+      at103: agg.distressEntries === 0 ? NaN : agg.durableAt103 / agg.distressEntries,
+      at103Strict: agg.distressEntries === 0 ? NaN : agg.durableAt103Strict / agg.distressEntries,
+    },
+    awarenessFinal: summarize(agg.awarenessFinal),
+    awarenessMin: summarize(agg.awarenessMin),
+    awarenessMax: summarize(agg.awarenessMax),
+    awarenessWeeksAtFloor: summarize(agg.weeksAtFloor),
+    floorAbsorptionRate: rateOf(agg.awarenessFinal, (a) => a <= 0),
+    ceilingAbsorptionRate: rateOf(agg.awarenessFinal, (a) => a >= 100),
+    publicityCount: summarize(agg.publicityCount),
+    publicitySpend: summarize(agg.publicitySpend),
+    publicityLiftDelivered: summarize(agg.publicityLift),
   }
+}
+
+/**
+ * THE ROW PROJECTION — and the one place the frozen row schema is enforced.
+ *
+ * `durableRecovery` is computed for EVERY run and is ALWAYS aggregated into `summary.json`
+ * (`durableRecoveryGivenDistress`), but it is written onto the ROWS only under `--emit-durable`:
+ * a new row field present on ~66 % of runs changes every byte of `rows.jsonl` and would break
+ * the neutral-arm SHA gate, which outranks the convenience of having it inline. Nothing is
+ * hidden — the number is in the summary either way, and this comment is the disclosure.
+ *
+ * `captures` is never serialized at all: it holds whole `GameState`s for the Stage-5 harvest
+ * and belongs in the continuation runner's side-files, not in a corpus row.
+ */
+function rowForEmission(rec: RunRecord): Record<string, unknown> {
+  const out = { ...(rec as unknown as Record<string, unknown>) }
+  if (!EMIT_DURABLE) delete out['durableRecovery']
+  delete out['captures']
+  return out
 }
 
 // ── execute ──────────────────────────────────────────────────────────────────
@@ -322,13 +538,18 @@ function main(): void {
         horizonWeeks: HORIZON,
         checkpointEvery: CHECKPOINT_EVERY,
         keepFullSeries: i < EXEMPLARS,
+        sliceWeeks: SLICE_WEEKS,
+        ...(COUNTER_FLOW === undefined ? {} : { counterFlow: COUNTER_FLOW }),
+        ...(PUBLICITY === undefined ? {} : { publicity: PUBLICITY }),
+        ...(MARKETING_GRID === undefined ? {} : { marketingGrid: MARKETING_GRID }),
+        ...(AWARENESS_STATS ? { awarenessStats: true } : {}),
       })
       absorb(aggs.get(policy.name)!, rec)
       // B2-C3: a cliff run never enters a win-share column. `winShares` compares only seeds
       // present in EVERY column, so omitting one drops that seed from the comparison rather
-      // than handing the arm a free loss.
+      // than handing the arm a free loss. A ROSTER-WALL run is NOT excluded (A5 Finding 0).
       if (!rec.engagementCliffHit) cashColumns.get(policy.name)!.set(seed, rec.endCash)
-      buffer += `${stableJson(tagArtifact(rec as unknown as Record<string, unknown>, TAG))}\n`
+      buffer += `${stableJson(tagArtifact(rowForEmission(rec), TAG))}\n`
       if (buffer.length > 2_000_000) {
         appendFileSync(rowsPath, buffer)
         buffer = ''
@@ -361,7 +582,9 @@ function main(): void {
       runName: RUN_NAME,
       seeds: SEEDS,
       horizonWeeks: HORIZON,
-      sliceWeeks: [52, 104, 208].filter((w) => w <= HORIZON),
+      // F10 FIX: the slice list is the FLAG's, clipped to the horizon — and the identical list
+      // is passed into `runOne`, so the column and the run can no longer disagree.
+      sliceWeeks: SLICE_WEEKS.filter((w) => w <= HORIZON),
       checkpointEvery: CHECKPOINT_EVERY,
       exemplarSeeds: Math.min(EXEMPLARS, SEEDS),
       engineConstants: {
@@ -383,6 +606,18 @@ function main(): void {
       winShareComparableSeeds: { player: playerSeedCoverage, allArms: allArmSeedCoverage },
       winShareNote:
         'endCashWinSharesPlayer is the headline (kind === "player" only, per B1 D9: never pool the exploit with the player policies). endCashWinSharesAllArms includes P14_oracleEV and P15_exploitDisengage and is meaningful only when the sentence says so. Engagement-cliff runs are excluded from BOTH matrices and reported per policy as cliffRuns.',
+      // ── D-17B additive fields ──
+      d17b: {
+        counterFlow: COUNTER_FLOW ?? null,
+        publicity: PUBLICITY ?? null,
+        marketingGrid: MARKETING_GRID_KEY ?? null,
+        awarenessStatsEmitted: AWARENESS_STATS || LEVERS.counterFlowKey !== undefined || LEVERS.publicityKey !== undefined || MARKETING_GRID_KEY !== undefined,
+        durableOnRows: EMIT_DURABLE,
+        recoveryNote:
+          'recoveryRateGivenDistress is TRANSIENT (one healthy week after entry) and must not be quoted as a recovery rate: A5 measured 62–99% of transiently-recovered runs still terminally decline. durableRecoveryGivenDistress.at103 is the G8-form number (bar: >= 25%); at103Strict never dips inside the window. Both are computed on the WEEKLY state series.',
+        rosterWallNote:
+          'rosterWallRuns counts runs whose LAST contract lapsed while cash was negative (A5 Finding 0, the week-208 wall). These runs are INCLUDED in every distribution and win-share matrix — the only exclusion in this corpus is engagementCliffHit, which post-R2 is structurally impossible for a founded studio.',
+      },
     },
     TAG,
   )
@@ -431,17 +666,29 @@ function renderMarkdown(
       'was comparable, which is a coverage statement, not a tie.',
   )
   lines.push('')
-  lines.push('| policy | kind | runs | median end cash | p10 | p90 | films | end+ | distress | recov\\|distress | cliff | engaged wk | winShare |')
-  lines.push('|---|---|---|---|---|---|---|---|---|---|---|---|---|')
+  lines.push('| policy | kind | runs | median end cash | p10 | p90 | films | end+ | distress | transient recov\\|distress | **durable@103** | rosterWall | cliff | engaged wk | winShare |')
+  lines.push('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|')
   for (const s of summaries) {
     const share = s.kind === 'player' ? pct(winsPlayer[s.policy] ?? NaN) : 'n/a'
     lines.push(
       `| ${s.policy} | ${s.kind} | ${s.runs}/${s.runsSeen} | ${money(s.endCash.median)} | ${money(s.endCash.p10)} | ${money(s.endCash.p90)} | ` +
         `${Number.isFinite(s.filmsReleased.median) ? s.filmsReleased.median.toFixed(0) : 'n/a'} | ${pct(s.endPositiveRate)} | ` +
-        `${pct(s.distressRate)} | ${pct(s.recoveryRateGivenDistress)} | ${pct(s.engagementCliffRate)} | ` +
+        `${pct(s.distressRate)} | ${pct(s.recoveryRateGivenDistress)} | ${pct(s.durableRecoveryGivenDistress.at103)} | ` +
+        `${s.rosterWallRuns} | ${pct(s.engagementCliffRate)} | ` +
         `${pct(s.engagedWeekFraction.median)} | ${share} |`,
     )
   }
+  lines.push('')
+  lines.push(
+    '**`transient recov|distress` vs `durable@103`.** The transient column is ONE healthy week ' +
+      'after distress entry — A5 measured that 62–99 % of runs it counts still terminally decline, ' +
+      'so it must never be quoted as "the recovery rate". `durable@103` is the G8 form (a healthy ' +
+      'week that is still healthy 103 weeks later; G8’s bar is 25 %), computed on the weekly state ' +
+      'series. The strict variant (no dip anywhere in the window) is in `summary.json`. ' +
+      '**`rosterWall`** counts runs whose last contract lapsed while cash was negative (the ' +
+      'week-208 wall, A5 Finding 0); those runs are INCLUDED in every distribution here — the only ' +
+      'exclusion is `cliff`, which post-R2 is structurally impossible for a founded studio.',
+  )
   lines.push('')
   lines.push('## Excluded: engagement-cliff runs')
   lines.push('')
@@ -452,6 +699,62 @@ function renderMarkdown(
       `| ${s.policy} | ${s.disengagementIntended ? 'yes' : 'no'} | ${s.cliffRuns} | ` +
         `${Number.isFinite(s.cliffFirstWeek.median) ? s.cliffFirstWeek.median.toFixed(0) : 'n/a'} | ` +
         `${money(s.cliffEndCash.median)} |`,
+    )
+  }
+  lines.push('')
+  lines.push('## Durable recovery (G8 form) and the week-208 roster wall')
+  lines.push('')
+  lines.push(
+    'Denominator for every durable column is the run’s own **distress entries**, not all runs. ' +
+      '`n/a` means no run in that arm ever entered distress.',
+  )
+  lines.push('')
+  lines.push('| policy | distress entries | durable@26 | durable@52 | durable@103 | durable@103 strict | rosterWall runs | first wall week (median) |')
+  lines.push('|---|---|---|---|---|---|---|---|')
+  for (const s of summaries) {
+    const d = s.durableRecoveryGivenDistress
+    const entries = Number.isFinite(s.distressRate) ? Math.round(s.distressRate * s.runs) : 0
+    lines.push(
+      `| ${s.policy} | ${entries} | ${pct(d.at26)} | ${pct(d.at52)} | ${pct(d.at103)} | ${pct(d.at103Strict)} | ` +
+        `${s.rosterWallRuns} | ${Number.isFinite(s.rosterWallFirstWeek.median) ? s.rosterWallFirstWeek.median.toFixed(0) : 'n/a'} |`,
+    )
+  }
+  if (summaries.some((s) => s.awarenessFinal.n > 0)) {
+    lines.push('')
+    lines.push('## Audience awareness (the stock under repair) — BOTH tails, gated jointly (Lesson BK)')
+    lines.push('')
+    lines.push('| policy | final median | final p10 | final p90 | min median | max median | weeks at floor (median) | floor absorption | ceiling absorption |')
+    lines.push('|---|---|---|---|---|---|---|---|---|')
+    const n1 = (x: number): string => (Number.isFinite(x) ? x.toFixed(2) : 'n/a')
+    for (const s of summaries) {
+      lines.push(
+        `| ${s.policy} | ${n1(s.awarenessFinal.median)} | ${n1(s.awarenessFinal.p10)} | ${n1(s.awarenessFinal.p90)} | ` +
+          `${n1(s.awarenessMin.median)} | ${n1(s.awarenessMax.median)} | ${n1(s.awarenessWeeksAtFloor.median)} | ` +
+          `${pct(s.floorAbsorptionRate)} | ${pct(s.ceilingAbsorptionRate)} |`,
+      )
+    }
+  }
+  if (summaries.some((s) => s.publicityCount.n > 0)) {
+    lines.push('')
+    lines.push('## Paid publicity')
+    lines.push('')
+    lines.push('| policy | kind | purchases (median) | spend (median) | spend p90 | awareness pts delivered (median) | $ per point |')
+    lines.push('|---|---|---|---|---|---|---|')
+    for (const s of summaries) {
+      const lift = s.publicityLiftDelivered.median
+      const spend = s.publicitySpend.median
+      const perPoint = Number.isFinite(lift) && lift > 0 ? `$${Math.round(spend / lift).toLocaleString('en-US')}` : 'n/a'
+      lines.push(
+        `| ${s.policy} | ${s.kind} | ${Number.isFinite(s.publicityCount.median) ? s.publicityCount.median.toFixed(0) : 'n/a'} | ` +
+          `${money(spend)} | ${money(s.publicitySpend.p90)} | ${Number.isFinite(lift) ? lift.toFixed(2) : 'n/a'} | ${perPoint} |`,
+      )
+    }
+    lines.push('')
+    lines.push(
+      '**The falsification gate (R9).** If `Q7_publicitySpamAdversary` beats `Q0_neverPublicize` on ' +
+        'the paired-seed player matrix, or if Q4/Q7’s end-cash win share exceeds Q1/Q3’s, the mechanic ' +
+        'IS upkeep spam and the candidate constants are rejected. Q7 is `kind: "adversary"`, so it is ' +
+        'excluded from the player headline matrix by construction — read its share in the all-arms table.',
     )
   }
   lines.push('')
@@ -521,6 +824,8 @@ if (Object.keys(OVERRIDES).length === 0) {
 } else {
   withTuningOverrides(OVERRIDES, main, { regeneratesWorlds: REGENERATES_WORLDS })
 }
-// The canary runs AFTER the override scope closes — inside it, TUNING is legitimately
-// mutated, so checking there would always (and wrongly) fire.
+// The canaries run AFTER the override scope closes — inside it, TUNING is legitimately
+// mutated, so checking there would always (and wrongly) fire. The marketing grid gets the same
+// treatment: every `withMarketingGrid` scope is opened and closed inside `runOne`.
 assertTuningPristine('post-run')
+assertMarketingGridPristine('post-run')
