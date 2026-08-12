@@ -14,8 +14,9 @@ const EPS = 1e-9
 
 // ── weekly cost side ──────────────────────────────────────────────────────────
 
-// Weekly overhead the engine debits at tick step 7.5 — mirrors tick.ts:403-404 EXACTLY
+// Weekly overhead the engine debits at tick step 7.5 — mirrors tick.ts:476-481 EXACTLY
 // (base + per-contract; gated on engaged && founded). Zero pre-founding / when not engaged.
+// D-17A/T1: the old citation (tick.ts:403-404) had rotted — the step-7.5 block has moved.
 // D-17A/R2: the parameter widened GameStateV3 → GameState because the regime fact it
 // consults (`economyEngaged`) is now a persisted field on the live state. TYPE-ONLY —
 // every existing caller already passes a full GameState; the body is unchanged.
@@ -27,7 +28,16 @@ export function weeklyOverhead(state: GameState): number {
 // Current weekly burn under EXISTING commitments ONLY: payroll + overhead. A production's
 // negative + marketing are ONE-TIME debits paid at greenlight (already reflected in cash),
 // never a recurring weekly cost — so they are deliberately NOT in weekly burn (D-12.16).
+//
+// D-17A/T1 — this is the ACTUAL-CHARGE basis, and it is the ONE authoritative burn every
+// player-facing surface reads. During a founding draft the engine charges NOTHING: payroll is
+// skipped at tick.ts:465 (`if (state.founding === null)`) and overhead at tick.ts:476 (`if
+// (engaged && state.founding === null)`). The unguarded `weeklyPayroll` here was the §5.10
+// divergence — the founding screen's runway was computed against a payroll no tick would debit
+// for as long as the draft stayed open. `foundingRunwayPreview` below is the deliberate
+// PROJECTION past that gate and is unchanged.
 export function weeklyBurn(state: GameState): number {
+  if (state.founding !== null) return 0
   return weeklyPayroll(state) + weeklyOverhead(state)
 }
 
@@ -44,7 +54,8 @@ export function projectedWeeklyOverhead(state: GameState): number {
 // ── active-run revenue side ────────────────────────────────────────────────────
 
 // Studio Revenue an ACTIVE run pays NEXT tick (current weekIndex's gross × locked share).
-// Mirrors tick.ts:311-312. Zero for completed / legacy runs.
+// Mirrors tick.ts:328-330 (step 3.5). Zero for completed / legacy runs.
+// D-17A/T1: the old citation (tick.ts:311-312) had rotted — the step-3.5 block has moved.
 export function runNextWeekRevenue(run: TheatricalRun): number {
   if (run.status !== 'active') return 0
   return (run.weeklyGross[run.weekIndex] ?? 0) * run.studioShare
@@ -76,16 +87,22 @@ export type Runway = {
   infinite: boolean
 }
 
+// D-17A/T1 — THE ONE runway rule, applied to an arbitrary (cash, burn, revenue) triple, so
+// no surface may re-derive it. weeks = ⌊cash / (burn − rev)⌋; net-cash-positive → infinite.
+// Callers decide which cash to hand it (the live balance, or a post-commitment balance
+// floored at 0); the rule itself is stated exactly once.
+function runwayOf(cash: number, burn: number, rev: number): Runway {
+  const net = burn - rev
+  const netWeeklyCash = rev - burn
+  if (net <= EPS) return { netWeeklyCash, weeks: null, infinite: true }
+  return { netWeeklyCash, weeks: Math.floor(cash / net), infinite: false }
+}
+
 // "How long can the studio survive under its CURRENT commitments?" NEVER reserves cash
 // for a hypothetical future greenlight. weeks = ⌊cash / max(ε, burn − activeRunRevenue)⌋.
 // Net-cash-positive (revenue ≥ burn) → infinite (weeks null; UI shows "—").
 export function runway(state: GameState): Runway {
-  const burn = weeklyBurn(state)
-  const rev = expectedWeeklyRunRevenue(state)
-  const net = burn - rev
-  const netWeeklyCash = rev - burn
-  if (net <= EPS) return { netWeeklyCash, weeks: null, infinite: true }
-  return { netWeeklyCash, weeks: Math.floor(state.studio.cash / net), infinite: false }
+  return runwayOf(state.studio.cash, weeklyBurn(state), expectedWeeklyRunRevenue(state))
 }
 
 // The SAME current-commitments runway definition, PROJECTED to the post-founding state: payroll +
@@ -123,11 +140,10 @@ export function commitmentPreview(state: GameState, amount: number): CommitmentP
   const cashAfter = state.studio.cash - amount
   const burn = weeklyBurn(state)
   const rev = expectedWeeklyRunRevenue(state)
-  const net = burn - rev
-  const postRunway: Runway =
-    net <= EPS
-      ? { netWeeklyCash: rev - burn, weeks: null, infinite: true }
-      : { netWeeklyCash: rev - burn, weeks: Math.floor(Math.max(0, cashAfter) / net), infinite: false }
+  // D-17A/T1: the SHARED runway rule, not a fourth near-copy. Semantics preserved exactly —
+  // the post-commitment balance is floored at 0 (a blocked commitment is still previewed, and
+  // a negative balance would otherwise report negative weeks).
+  const postRunway: Runway = runwayOf(Math.max(0, cashAfter), burn, rev)
   return {
     amount,
     cashBefore: state.studio.cash,
@@ -307,8 +323,10 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
 
 export type FinanceView = {
   cash: number
-  weeklyPayroll: number
-  weeklyOverhead: number
+  weeklyPayroll: number // contracted payroll COMPONENT (not charged during a founding draft)
+  weeklyOverhead: number // overhead COMPONENT (already 0 during a founding draft)
+  // D-17A/T1: the ACTUAL weekly charge — `weeklyBurn(state)`. Equals payroll + overhead once
+  // the studio is founded; 0 while a founding draft is open, when the tick charges neither.
   weeklyBurn: number
   expectedWeeklyRunRevenue: number
   netWeeklyCash: number // activeRunRevenue − burn
@@ -321,7 +339,10 @@ export type FinanceView = {
 export function financeView(state: GameState): FinanceView {
   const payroll = weeklyPayroll(state)
   const overhead = weeklyOverhead(state)
-  const burn = payroll + overhead
+  // D-17A/T1: the ONE authoritative burn (founding-guarded), not an inline re-add. Post-founding
+  // this is identical to payroll + overhead; during a founding draft the engine charges neither,
+  // so burn is 0 while the payroll/overhead COMPONENTS still report the contracted amounts.
+  const burn = weeklyBurn(state)
   const rev = expectedWeeklyRunRevenue(state)
   return {
     cash: state.studio.cash,
