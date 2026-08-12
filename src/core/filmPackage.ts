@@ -515,6 +515,84 @@ function boxTotalFor(
   ).total
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// D-17A/T6 — QUANTIFIED DISCOVERABILITY EXPOSURE (Owner ruling; D-16 item 9)
+// ═══════════════════════════════════════════════════════════════════════════════
+// The D-13 discoverability mechanic widens a film's OPENING when the package lacks reach
+// support. The player was warned about it in prose only, and the warning was decided by a
+// PARALLEL APPROXIMATION of the engine's rule (raw awareness/100 + a flat marketing bump +
+// an UNWEIGHTED mean of cast fame), which disagreed with the engine and silently missed
+// exposed packages. Lesson AC: same rule, not a similar one.
+//
+// This is the SAME rule `resolveReception` applies (reception.ts:633-642), evaluated on the
+// AUTHORITATIVE operands rather than proxies for them:
+//   • awarenessFactor  — from `computeBoxOffice(...)` at the forecast centers, i.e. the very
+//     box-office pass that produces the displayed expected gross;
+//   • starDraw         — from `forecastCenters(...)`: the LINEAR, CAST_WEIGHT-weighted draw
+//     (NOT `starDrawOpening`), exactly what reception.ts:707 feeds the rule.
+// INFORMATION DISCIPLINE: nothing here reveals the realized discoverability draw. The
+// box-office pass runs at z = 0 (the default), so the multiplier it applies is exactly 1 and
+// the only thing extracted is the deterministic support level the player could compute from
+// values already on screen. `resolveReception` and every constant are untouched.
+
+export type DiscoveryExposure = {
+  /** blended reach support ∈ [0,1] — DISC_SUPPORT_AWARENESS·awareness + DISC_SUPPORT_STAR·star. */
+  reachSupport: number
+  /** how far below DISC_SUPPORT_THRESHOLD the support falls, as a fraction ∈ [0,1]. 0 = safe. */
+  shortfall: number
+  /** true iff the package carries discoverability risk at all (shortfall > 0). */
+  exposed: boolean
+  /** the governed clip bounds on the opening multiplier — the numeric band to display. */
+  floor: number
+  ceil: number
+}
+
+/** The rule itself, on its two authoritative operands. Mirrors reception.ts:633-642. */
+function discoveryExposureFrom(awarenessFactor: number, starDraw: number): DiscoveryExposure {
+  const reachSupport = clamp(
+    TUNING.DISC_SUPPORT_AWARENESS * awarenessFactor + TUNING.DISC_SUPPORT_STAR * clamp(starDraw / 100, 0, 1),
+    0,
+    1,
+  )
+  const shortfall = clamp((TUNING.DISC_SUPPORT_THRESHOLD - reachSupport) / TUNING.DISC_SUPPORT_THRESHOLD, 0, 1)
+  return { reachSupport, shortfall, exposed: shortfall > 0, floor: TUNING.DISC_FLOOR, ceil: TUNING.DISC_CEIL }
+}
+
+/** The forecast-centre box office + its centres — ONE pass, shared by the range and the exposure. */
+function centerBoxOffice(
+  inp: ForecastProfitInput,
+  saturateFame: boolean,
+  engaged: boolean,
+): { centers: ReturnType<typeof forecastCenters>; box: ReturnType<typeof computeBoxOffice> } {
+  const centers = forecastCenters(inp, saturateFame, engaged)
+  const box = computeBoxOffice(
+    centers.centers,
+    inp.market.segments,
+    inp.market.baseMarketValue,
+    inp.standing,
+    inp.promise,
+    inp.budget,
+    inp.shapeEffects,
+    centers.centersOpening,
+    engaged,
+    // discoverabilityZ + openingStarDraw deliberately left at their defaults: the multiplier is
+    // exactly 1 at z = 0, and awarenessFactor does not depend on the star draw.
+  )
+  return { centers, box }
+}
+
+/**
+ * Is this package exposed to discoverability risk, and by how much? Player-visible information
+ * only (studio awareness, marketing spend, cast fame — all on screen at Assembly).
+ */
+export function discoveryExposure(
+  inp: ForecastProfitInput,
+  opts?: { saturateFame?: boolean; engaged?: boolean },
+): DiscoveryExposure {
+  const { centers, box } = centerBoxOffice(inp, opts?.saturateFame ?? false, opts?.engaged ?? false)
+  return discoveryExposureFrom(box.awarenessFactor, centers.starDraw)
+}
+
 export function forecastProfitRange(
   inp: ForecastProfitInput,
   ctx: ForecastProfitContext,
@@ -575,11 +653,11 @@ export function forecastProfitRange(
     const strength = inp.concept.baselineStrength
     const reqNeg = inp.concept.baseNegativeCost * inp.shapeEffects.budgetDemandMultiplier * inp.era.costScale
     const funding = inp.budget.negative / Math.max(reqNeg, 1)
-    const castFame = Object.values(inp.cast).map((t) => t.fame)
-    const avgFame = castFame.length ? castFame.reduce((a, b) => a + b, 0) / castFame.length : 0
-    const awareness = inp.standing.audienceAwareness
-    const smallMarketing = inp.budget.marketing < TUNING.MARKETING_HALF_SATURATION // < Standard
     const largeMarketing = inp.budget.marketing >= 2 * TUNING.MARKETING_HALF_SATURATION // ≥ ~Large
+    // D-17A/T6: ONE forecast-centre box-office pass, reused by the discoverability exposure and
+    // by the marketing-capacity copy below. `engaged` ⇒ the forecast offset is 0, so these
+    // centres ARE the `midMap`/`openMid` maps that produced `revExpected` above.
+    const { centers: fcCenters, box: centerBox } = centerBoxOffice(inp, ctx.saturateFame ?? false, engaged)
 
     if (strength >= TUNING.SCRIPT_POTENTIAL_REF + 15) {
       upsideDrivers.push('Strong material gives this film substantial upside if the team delivers.')
@@ -589,31 +667,41 @@ export function forecastProfitRange(
     if (funding < 0.95 && inp.shapeEffects.budgetDemandMultiplier > TUNING.BUDGET_AMBITION_REF) {
       downsideRisks.push("Production funding is insufficient to realize the script's potential.")
     }
-    // D-13 conditional discoverability: when the package lacks reach support (low awareness + marketing
-    // + star), the opening carries wide governed uncertainty. Communicate the risk AND the sleeper
-    // counterpoint (never promise it), and WIDEN the forecast LOW band to reflect the discovery-obscurity
-    // scenario — display-only, deterministic, mirroring the realized spread; it never reveals the
-    // realized z (drawn only at release from the isolated 'discovery-v1' stream).
-    const mktBump = smallMarketing ? 0 : largeMarketing ? 0.15 : 0.08
-    const fcReachSupport = clamp(
-      TUNING.DISC_SUPPORT_AWARENESS * clamp(awareness / 100 + mktBump, 0, 1) + TUNING.DISC_SUPPORT_STAR * clamp(avgFame / 100, 0, 1),
-      0,
-      1,
-    )
-    const discShortfall = clamp((TUNING.DISC_SUPPORT_THRESHOLD - fcReachSupport) / TUNING.DISC_SUPPORT_THRESHOLD, 0, 1)
-    if (discShortfall > 0) {
-      const discSpread = TUNING.DISC_SPREAD * Math.pow(discShortfall, TUNING.DISC_SUPPORT_EXP)
-      downsideRisks.push('Limited marketing and low star draw create substantial discoverability risk.')
+    // D-13 conditional discoverability: when the package lacks reach support (low awareness +
+    // marketing + star), the opening carries wide governed uncertainty. Communicate the risk WITH
+    // ITS NUMERIC BAND and the sleeper counterpoint (never promise it), and WIDEN the forecast LOW
+    // band to reflect the discovery-obscurity scenario — display-only, deterministic, mirroring the
+    // realized spread; it never reveals the realized z (drawn only at release from the isolated
+    // 'discovery-v1' stream).
+    //
+    // D-17A/T6: the exposure is now decided by the ENGINE'S OWN RULE on its own operands
+    // (`discoveryExposureFrom` over this pass's awarenessFactor + the linear starDraw). The old
+    // proxy — raw awareness/100 plus a flat marketing bump plus an unweighted cast-fame mean —
+    // disagreed with the engine and silently missed exposed packages. The widening MAGNITUDE logic
+    // below is unchanged; it is simply driven by the correct shortfall now.
+    const disc = discoveryExposureFrom(centerBox.awarenessFactor, fcCenters.starDraw)
+    if (disc.exposed) {
+      const discSpread = TUNING.DISC_SPREAD * Math.pow(disc.shortfall, TUNING.DISC_SUPPORT_EXP)
+      downsideRisks.push(
+        `Limited reach support creates substantial discoverability risk: this film's opening turnout can land anywhere from ${disc.floor}x to ${disc.ceil}x its expected level.`,
+      )
       upsideDrivers.push('A weak opening could still develop into a sleeper if audiences respond.')
       const discLowMult = Math.max(TUNING.DISC_FLOOR, Math.exp(-discSpread * TUNING.DISC_FORECAST_LOW_Z))
       profit.low = Math.min(profit.low, revExpected * share * discLowMult - committedCost)
     }
-    if (largeMarketing) {
-      if (strength >= TUNING.SCRIPT_POTENTIAL_REF && funding >= 0.95) {
-        upsideDrivers.push("This campaign meaningfully expands the film's reach.")
-      } else {
-        downsideRisks.push('Marketing is approaching the available audience ceiling.')
-      }
+    // D-17A/T6: the audience-ceiling line is now gated on MEASURED capacity — this campaign's spend
+    // against the awareness-conditioned `marketingCapacity` the same box-office pass computed —
+    // rather than on an absolute spend threshold. Above OVEREXPOSURE_THRESHOLD the engine itself
+    // begins treating the campaign as overexposure (reception.ts:605-611); below it, calling a large
+    // campaign "at the ceiling" was simply untrue.
+    const capacityRatio =
+      centerBox.marketingCapacity > 0 ? inp.budget.marketing / centerBox.marketingCapacity : 0
+    if (capacityRatio >= TUNING.OVEREXPOSURE_THRESHOLD) {
+      downsideRisks.push(
+        `This campaign is at ${(Math.round(capacityRatio * 10) / 10).toFixed(1)}x the audience this film can efficiently reach; spend beyond that converts to little additional turnout.`,
+      )
+    } else if (largeMarketing && strength >= TUNING.SCRIPT_POTENTIAL_REF && funding >= 0.95) {
+      upsideDrivers.push("This campaign meaningfully expands the film's reach.")
     }
   }
 

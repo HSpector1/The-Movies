@@ -363,6 +363,9 @@ export {
   greenlightAssessment,
   risksMaterialized,
   packageDelta,
+  // D-17A/T6 — same-rule discoverability exposure (mirrors reception.ts:633-642);
+  // player-visible operands only, no realized draw.
+  discoveryExposure,
 } from './filmPackage.js'
 export type {
   CreativeCohesion,
@@ -383,6 +386,7 @@ export type {
   AssignmentDelta,
   PackageDelta,
   PackageSide,
+  DiscoveryExposure,
 } from './filmPackage.js'
 
 // §8 broadcast (phase 4) — the minimal deterministic broadcast core (B22/B23/B24/M10).
