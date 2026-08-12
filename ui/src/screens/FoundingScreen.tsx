@@ -27,11 +27,12 @@ import {
   signContractAction,
   payrollSummary,
   foundingRunwayPreview,
+  offerObligation,
   projectedWeeklyOverhead,
   selectCash,
   authoredTierTable,
 } from '../engine/adapter.ts'
-import { money, starPower, ageYears } from '../format.ts'
+import { money, moneyExact, starPower, ageYears } from '../format.ts'
 import { Metric } from '../components/common.tsx'
 
 // Profession tab order + labels.
@@ -489,17 +490,43 @@ function ApplicantCard({
       ) : offers.length === 0 ? (
         <p className="hint">No offers available.</p>
       ) : (
-        <div className="btn-row">
-          {offers.map((offer) => (
-            <button
-              key={offer.termWeeks}
-              className="primary"
-              onClick={() => onSign(row.id, offer.termWeeks)}
-              data-testid={`founding-sign-${row.id}-${offer.termWeeks}`}
-            >
-              {offer.termWeeks / 52} yr · {money(offer.annualSalary)}/yr · {money(offer.signingBonus)} bonus
-            </button>
-          ))}
+        <div className="stack" style={{ gap: 6 }}>
+          {offers.map((offer) => {
+            // ── D-17A FIX-PASS (T5 at the founding draft) ────────────────────────────
+            // The founding draft is the ONE moment a studio signs five or six contracts at
+            // once, and it was the only offer surface with no obligation figure at all —
+            // the player could commit ~$4M of guaranteed salary having been shown a per-year
+            // ask and a bonus. `offerObligation` is the ENGINE's own helper (same weekly
+            // salary payroll debits), so what is shown is what will be charged.
+            //
+            // Deliberately NO before/after runway pair here: `postSigningRunway`
+            // short-circuits during a founding draft (the tick charges nothing while it is
+            // open, `economyView.ts:352-354`), so both edges would read the same. The
+            // aggregate `founding-runway` Metric above remains the runway surface, and the
+            // per-offer line states the PAYROLL delta it will add to it once founded.
+            const o = offerObligation(offer)
+            return (
+              <div className="stack" key={offer.termWeeks} style={{ gap: 2 }}>
+                <button
+                  className="primary"
+                  onClick={() => onSign(row.id, offer.termWeeks)}
+                  data-testid={`founding-sign-${row.id}-${offer.termWeeks}`}
+                >
+                  {offer.termWeeks / 52} yr · {money(offer.annualSalary)}/yr ·{' '}
+                  {money(offer.signingBonus)} bonus
+                </button>
+                <span
+                  className="hint"
+                  data-testid={`founding-obligation-${row.id}-${offer.termWeeks}`}
+                >
+                  Commits <strong>{moneyExact(o.total)}</strong> over {offer.termWeeks} weeks
+                  &mdash; {moneyExact(o.guaranteedComp)} guaranteed salary plus{' '}
+                  {moneyExact(o.signingBonus)} from the recruitment fund. Adds{' '}
+                  {money(o.weeklySalary)}/wk to projected payroll.
+                </span>
+              </div>
+            )
+          })}
         </div>
       )}
     </div>

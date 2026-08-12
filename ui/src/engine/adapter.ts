@@ -1265,6 +1265,12 @@ export { allocateFixedCosts }
 // D-12 beta secondary: shared runway definition projected to the post-founding state (payroll +
 // the overhead the proposed roster will incur), + the projected overhead itself, for the founding UI.
 export { foundingRunwayPreview, projectedWeeklyOverhead }
+// D-17A FIX-PASS (T5 at the founding draft): the engine's own term-obligation helper, so the
+// founding offer rows can state the total a signature commits with the same weekly salary
+// payroll will debit. `postSigningRunway` is deliberately NOT used there — it short-circuits
+// while a founding draft is open, so a per-offer runway pair would be a pair of identical
+// numbers; `founding-runway` (the aggregate projection) stays the runway surface.
+export { offerObligation }
 
 // ── D-12 Sim to Next Event (contract §18) ──────────────────────────────────────
 // Advance week-by-week through the REAL engine (never editing the week number), stopping

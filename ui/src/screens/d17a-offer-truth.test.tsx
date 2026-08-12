@@ -8,8 +8,12 @@ import { describe, it, expect, afterEach } from 'vitest'
 import { render, screen, cleanup, fireEvent } from '@testing-library/react'
 import { HiringMarket } from './HiringMarket.tsx'
 import { StudioRoster } from './StudioRoster.tsx'
+import { FoundingScreen } from './FoundingScreen.tsx'
 import {
+  foundingApplicantCards,
   hiringMarketCards,
+  newGame,
+  offerObligation,
   renewOfferTruths,
   rosterCards,
   signContractAction,
@@ -19,6 +23,7 @@ import {
 } from '../engine/adapter.ts'
 import type { GameState } from '../engine/adapter.ts'
 import { money, moneyExact } from '../format.ts'
+import { postSigningRunway } from '../../../src/core/index.ts'
 import { newFoundedGame } from '../test/founding.ts'
 
 afterEach(cleanup)
@@ -153,5 +158,76 @@ describe('D-17A/T5 — the release confirm still shows the termination cost', ()
     fireEvent.click(screen.getByTestId(`roster-release-${card.profile.id}`))
     const confirm = screen.getByTestId(`roster-confirm-release-${card.profile.id}`)
     expect(confirm.textContent).toContain(money(card.employment.contract!.terminationCost))
+  })
+})
+
+// ── D-17A fix-pass — T5 at the FOUNDING DRAFT ────────────────────────────────
+// The founding draft is the one moment a studio signs five or six contracts at once, and it
+// was the only offer surface with no obligation figure at all: the buttons read
+// "{term}yr · {salary}/yr · {bonus} bonus" and nothing else, while the hiring market and the
+// roster both got the T5 treatment. A player could commit ~$4M of guaranteed salary across
+// five 4-year contracts having never been shown a total.
+//
+// Deliberately NO per-offer runway pair: `postSigningRunway` short-circuits while a founding
+// draft is open (`economyView.ts:352-354` — the tick charges nothing until the studio is
+// founded), so both edges would print the same number. The aggregate `founding-runway`
+// projection remains the runway surface; the per-offer line states the PAYROLL delta instead.
+describe('D-17A fix-pass — the founding draft states each offer’s obligation', () => {
+  function foundingState(seed: string): GameState {
+    const s = newGame(seed)
+    expect(s.founding).not.toBeNull()
+    return s
+  }
+
+  it('every founding offer shows term total = guaranteed comp + bonus, from the engine helper', () => {
+    const state = foundingState('d17a-found-1')
+    const cards = foundingApplicantCards(state)
+    const card = cards.find((c) => c.employment.offerOptions.length > 0)!
+    expect(card).toBeDefined()
+    expect(card.employment.offerOptions.length).toBe(TUNING.CONTRACT_TERM_OPTIONS.length)
+
+    render(<FoundingScreen state={state} onChange={noop} onCreate={noop} onFounded={noop} />)
+    const id = card.profile.id
+
+    for (const offer of card.employment.offerOptions) {
+      const o = offerObligation(offer)
+      expect(o.total).toBe(o.guaranteedComp + o.signingBonus)
+      expect(o.guaranteedComp).toBe(o.weeklySalary * offer.termWeeks)
+
+      const line = screen.getByTestId(`founding-obligation-${id}-${offer.termWeeks}`)
+      expect(line.textContent).toContain(moneyExact(o.total))
+      expect(line.textContent).toContain(moneyExact(o.guaranteedComp))
+      expect(line.textContent).toContain(moneyExact(o.signingBonus))
+      // the weekly-payroll delta this offer adds to the projected post-founding burn
+      expect(line.textContent).toContain(money(o.weeklySalary))
+      expect(line.textContent).toMatch(/projected payroll/)
+      // …and the bonus is named as drawing the RECRUITMENT FUND, not operating cash.
+      expect(line.textContent).toMatch(/recruitment fund/)
+    }
+  })
+
+  it('renders NO per-offer runway pair — that selector is a no-op during a founding draft', () => {
+    const state = foundingState('d17a-found-2')
+    const card = foundingApplicantCards(state).find((c) => c.employment.offerOptions.length > 0)!
+    const offer = card.employment.offerOptions[0]!
+    // The reason, asserted rather than assumed: the selector short-circuits during a founding
+    // draft, so a rendered before/after pair would be two copies of the same number.
+    const r = postSigningRunway(state, offer)
+    expect(r.after).toEqual(r.before)
+    expect(r.burnAfter).toBe(0)
+    expect(r.cashAfter).toBe(state.studio.cash)
+
+    render(<FoundingScreen state={state} onChange={noop} onCreate={noop} onFounded={noop} />)
+    expect(screen.queryByTestId(`offer-runway-${card.profile.id}-${offer.termWeeks}`)).toBeNull()
+    // The aggregate projection is still the runway surface on this screen.
+    expect(screen.getByTestId('founding-runway')).toBeInTheDocument()
+  })
+
+  it('the obligation line survives sorting and filtering (it hangs off the offer, not the row)', () => {
+    const state = foundingState('d17a-found-3')
+    render(<FoundingScreen state={state} onChange={noop} onCreate={noop} onFounded={noop} />)
+    const lines = screen.getAllByTestId(/^founding-obligation-/)
+    expect(lines.length).toBeGreaterThan(0)
+    for (const l of lines) expect(l.textContent).toMatch(/Commits \$/)
   })
 })
