@@ -8,16 +8,19 @@ import { describe, it, expect } from 'vitest'
 import { TUNING, applyActions, employmentEngaged, tick } from '../../core/index.js'
 import type { GameState } from '../../core/index.js'
 import { foundStudioFor, runOne } from './driver.js'
-import { standardPackage, toGreenlightAction } from './packages.js'
+import { assertMarketingGridPristine, standardPackage, toGreenlightAction } from './packages.js'
 import {
   cheapestViable,
   doNothing,
   exploitDisengage,
   forecastProfitMax,
   freelancerLean,
+  publicitySpamAdversary,
   standardCadence,
   standardMinMkt,
 } from './policies.js'
+import { DEFAULT_PUBLICITY } from './publicity.js'
+import { classifyFinancialState } from './states.js'
 
 const SEEDS = ['d16-0001', 'd16-0002', 'd16-0003', 'd16-0004', 'd16-0005']
 
@@ -106,15 +109,39 @@ describe('d16/driver — the engagement cliff is declared, measured and attribut
     expect(rec.engagedWeekFraction).toBeLessThan(0.15)
   })
 
-  it('a real cliff carries the week AND the cash it happened at', () => {
+  // D-17B INSTRUMENT SPLIT — re-specified 2026-08-12 under Phase-A gate ruling 1, in the same
+  // form D-17A/R2 re-specified the exploit test below it. THE CLAIM THIS TEST USED TO MAKE was
+  // that P1's unpayable renewal is an "engagement cliff". It is not: post-R2 `economyEngaged`
+  // is the persisted, monotonic regime and NEVER goes false, so nothing about the economy under
+  // study changed — what happened is the WEEK-208 ROSTER WALL (A5 Finding 0). Reading the
+  // retired `employmentEngaged` predicate here made the runner EXCLUDE 43.1 % of 312-week runs
+  // from every distribution as "contaminated" when they were simply failing. The two facts are
+  // now measured separately, and BOTH are asserted here: no cliff, a real wall, and the
+  // employment collapse still visible in `engagedWeekFraction`.
+  it('an unpayable renewal is a ROSTER WALL, not an engagement cliff — and it carries its week', () => {
     // P1 ends deeply negative, so past the 208-week contract wall it genuinely cannot pay a
     // renewal bonus. That is a faithful consequence — and it must be visible, not pooled.
     const rec = runOne({ seed: 'd16-0001', policy: cheapestViable, horizonWeeks: 260 })
     expect(rec.disengagementIntended).toBe(false)
-    expect(rec.engagementCliffHit).toBe(true)
-    expect(rec.engagementCliffWeek).toBeGreaterThanOrEqual(TUNING.CONTRACT_MAX_WEEKS)
-    expect(rec.engagementCliffCash).not.toBeNull()
+    // the ECONOMY never disengaged: no cliff, and the cliff fields stay null
+    expect(rec.engagementCliffHit).toBe(false)
+    expect(rec.engagementCliffWeek).toBeNull()
+    expect(rec.engagementCliffCash).toBeNull()
+    // …but the WALL is real, is stamped, and is stamped past the contract wall
+    expect(rec.rosterWallHit).toBe(true)
+    expect(rec.rosterWallWeek).toBeGreaterThanOrEqual(TUNING.CONTRACT_MAX_WEEKS)
+    // …and it happened with negative cash, which is what makes it a wall and not a choice
+    const wall = rec.checkpoints.find((c) => c.week >= rec.rosterWallWeek!)
+    expect(wall === undefined || wall.cash < 0).toBe(true)
+    // the EMPLOYMENT signal — the thing the old flag actually measured — is undamaged
     expect(rec.engagedWeekFraction).toBeLessThan(1)
+  })
+
+  it('the roster-wall stamp is ABSENT (not false) on a run that never hits the wall', () => {
+    const rec = runOne({ seed: 'd16-0001', policy: standardCadence, horizonWeeks: 104 })
+    expect(rec.rosterWallHit).toBeUndefined()
+    expect(rec.rosterWallWeek).toBeUndefined()
+    expect(Object.prototype.hasOwnProperty.call(rec, 'rosterWallHit')).toBe(false)
   })
 
   it('renewal at the FULL 12-week window keeps the healthy cadence policies engaged to 260 wk', () => {
@@ -234,5 +261,116 @@ describe('d16/driver — a RESUMED run is accounted to itself (B2-C10)', () => {
     expect(rec.filmsReleasedAtStart).toBe(0)
     expect(rec.episodes.runawayThreshold).toBe(3 * TUNING.INITIAL_CASH)
     for (const [k, s] of Object.entries(rec.slices)) expect(s.week).toBe(Number(k))
+  })
+})
+
+// ── D-17B ────────────────────────────────────────────────────────────────────
+// Every new row field must be ABSENT (not null, not false) when its instrument did not fire,
+// or the 300×208 neutral corpus stops hashing to the d17a-final SHA.
+describe('d17b/driver — the frozen row schema', () => {
+  it('emits NONE of the new blocks on a neutral run', () => {
+    const rec = runOne({ seed: 'd16-0001', policy: standardCadence, horizonWeeks: 104 })
+    for (const k of ['awareness', 'publicity', 'counterFlow', 'rosterWallHit', 'rosterWallWeek', 'captures']) {
+      expect(Object.prototype.hasOwnProperty.call(rec, k), `${k} must be absent`).toBe(false)
+    }
+    // …and nothing new sneaks into the serialized form either
+    const keys = Object.keys(JSON.parse(JSON.stringify(rec)) as Record<string, unknown>)
+    expect(keys).not.toContain('awareness')
+    expect(keys).not.toContain('rosterWallHit')
+  })
+
+  it('awareness.timeInBand sums to EXACTLY horizonWeeks, and the bands partition the stock', () => {
+    for (const horizon of [52, 104]) {
+      const rec = runOne({ seed: 'd16-0001', policy: standardCadence, horizonWeeks: horizon, awarenessStats: true })
+      const a = rec.awareness!
+      const total = Object.values(a.timeInBand).reduce((x, y) => x + y, 0)
+      expect(total).toBe(horizon)
+      expect(a.weeksAtFloor).toBe(a.timeInBand['0'])
+      expect(a.min).toBeLessThanOrEqual(a.max)
+      expect(a.positiveWeeks + a.negativeWeeks).toBeLessThanOrEqual(horizon)
+    }
+  })
+
+  it('durableRecovery is present exactly when the run entered distress', () => {
+    const calm = runOne({ seed: 'd16-0001', policy: doNothing, horizonWeeks: 104 })
+    expect(calm.episodes.distressEntryWeek).toBeNull()
+    expect(calm.durableRecovery).toBeUndefined()
+    const rough = runOne({ seed: 'd16-0001', policy: cheapestViable, horizonWeeks: 260 })
+    expect(rough.episodes.distressEntryWeek).not.toBeNull()
+    expect(rough.durableRecovery).toBeDefined()
+    // the strict form can never be true where the G8 form is false
+    expect(rough.durableRecovery!.at103Strict && !rough.durableRecovery!.at103).toBe(false)
+  })
+
+  it('the publicity note-sum equals the shim tally on a real run (the driver’s own assert)', () => {
+    const rec = runOne({
+      seed: 'd16-0001',
+      policy: publicitySpamAdversary,
+      horizonWeeks: 156,
+      publicity: DEFAULT_PUBLICITY,
+    })
+    expect(rec.publicity!.count).toBeGreaterThan(0)
+    // the driver throws if these disagree, so reaching here IS the assertion; check the
+    // arithmetic anyway, from the ledger totals the row carries
+    expect(rec.ledgerTotals['termination']).toBe(-rec.publicity!.spend)
+    expect(rec.publicity!.spend).toBe(
+      rec.publicity!.spendByTier.whisper + rec.publicity!.spendByTier.push + rec.publicity!.spendByTier.blitz,
+    )
+  })
+
+  it('captureAt harvests states whose classifier label is the one that was asked for', () => {
+    const rec = runOne({
+      seed: 'd16-0001',
+      policy: cheapestViable,
+      horizonWeeks: 260,
+      captureAt: { states: ['bareMinOnly', 'noProduction'], firstOnly: true, maxPerRun: 4 },
+    })
+    expect(rec.captures!.length).toBeGreaterThan(0)
+    expect(rec.captures!.length).toBeLessThanOrEqual(4)
+    for (const c of rec.captures!) {
+      expect(['bareMinOnly', 'noProduction']).toContain(c.state)
+      // the captured GameState really is at that week, and re-classifies the same way
+      expect(c.gameState.market.tick).toBe(c.week)
+      expect(classifyFinancialState(c.gameState)).toBe(c.state)
+    }
+    // firstOnly means one capture per class at most
+    expect(new Set(rec.captures!.map((c) => c.state)).size).toBe(rec.captures!.length)
+  })
+
+  it('--slice-weeks style custom slices are honoured, and stay RELATIVE to the run’s start', () => {
+    const rec = runOne({
+      seed: 'd16-0001',
+      policy: standardCadence,
+      horizonWeeks: 260,
+      sliceWeeks: [52, 104, 208, 260, 312],
+    })
+    expect(Object.keys(rec.slices).sort((a, b) => Number(a) - Number(b))).toEqual(['52', '104', '208', '260'])
+    expect(rec.slices['260']!.week).toBe(260)
+    expect(rec.slices['260']!.weeksElapsed).toBe(260)
+    // 312 is past the horizon, so it is clipped rather than emitted empty
+    expect(rec.slices['312']).toBeUndefined()
+  })
+
+  it('a CAPACITY-ANCHORED grid re-resolves every week and moves what the policy commits', () => {
+    const fixed = runOne({ seed: 'd16-0001', policy: standardCadence, horizonWeeks: 104 })
+    const anchored = runOne({
+      seed: 'd16-0001',
+      policy: standardCadence,
+      horizonWeeks: 104,
+      marketingGrid: (capacity: number) => [
+        Math.max(1, Math.round(1.3 * capacity)),
+        Math.max(2, Math.round(2.0 * capacity)),
+        Math.max(3, Math.round(2.5 * capacity)),
+      ],
+    })
+    const fixedMkt = new Set(fixed.films.map((f) => f.marketing))
+    const anchoredMkt = new Set(anchored.films.map((f) => f.marketing))
+    expect(fixedMkt).toEqual(new Set([400_000]))
+    expect(anchoredMkt.has(400_000)).toBe(false)
+    // the rungs really did MOVE between weeks (that is the whole point of anchoring)
+    expect(anchoredMkt.size).toBeGreaterThan(1)
+    expect(anchored.reconciliationOk).toBe(true)
+    // and the process-global grid is restored afterwards
+    assertMarketingGridPristine('after capacity-anchored run')
   })
 })

@@ -41,6 +41,7 @@ import {
   beginFounding,
   commitmentPreview,
   computeBoxOffice,
+  economyEngaged,
   employmentEngaged,
   forecastCenters,
   forecastProfitRange,
@@ -54,9 +55,11 @@ import {
 } from '../../core/index.js'
 import type { Action, CastSlot, CreativeRole, GameState, ReceptionInputs, Talent } from '../../core/index.js'
 import { assertNoHiddenLeak, buildFoundingView, buildOracleView, buildPlayerView, reconciledCash } from './view.js'
-import type { PlayerView } from './view.js'
+import type { PlayerView, PlayerViewOptions } from './view.js'
 import {
+  awarenessConditionedCapacity,
   bareMinimumGeneration,
+  bareMinimumPackage,
   centerRevenueFor,
   evaluatePackage,
   assessPackage,
@@ -65,14 +68,31 @@ import {
   packageAffordable,
   packagePreview,
   shapeFor,
+  standardPackage,
   STATE_PACKAGE_OPTIONS,
   standardGeneration,
+  withMarketingGrid,
 } from './packages.js'
-import type { D16Package, PackageOptions } from './packages.js'
-import { assessFinancialState, runawayCash, summarizeEpisodes } from './states.js'
-import type { EpisodeSummary, FinancialState, StateSeriesPoint } from './states.js'
+import type { D16Package, MarketingGrid, PackageOptions } from './packages.js'
+import { assessFinancialState, durableRecoveryOf, runawayCash, summarizeEpisodes } from './states.js'
+import type { DurableRecovery, EpisodeSummary, FinancialState, StateSeriesPoint } from './states.js'
 import { planFoundingHires } from './policies.js'
 import type { OracleCtx, PlayerCtx, Policy } from './policies.js'
+import {
+  COUNTER_FLOW_OFF,
+  applyCounterFlow,
+  newCounterFlowMemo,
+  validateCounterFlow,
+} from './counterflow.js'
+import type { CounterFlowConfig, CounterFlowRelease } from './counterflow.js'
+import {
+  PUBLICITY_NOTE_PREFIX,
+  applyPublicity,
+  newPublicityMemo,
+  publicitySpendFromLedger,
+  validatePublicity,
+} from './publicity.js'
+import type { PublicityConfig, PublicityMemo, PublicityTier } from './publicity.js'
 
 const EPS = 1e-6
 const RECONCILE_EVERY = 26
@@ -175,7 +195,21 @@ export type RunRecord = {
   /** films already in `releasedFilms` when the run opened (0 for a fresh run). */
   filmsReleasedAtStart: number
   filmsGreenlit: number
-  /** defect flag: a policy that did NOT declare `disengagementIntended` lost the engaged economy. */
+  /**
+   * DEFECT FLAG — a policy that did NOT declare `disengagementIntended` lost the ENGAGED
+   * ECONOMY, i.e. `economyEngaged(state)` (the PERSISTED, monotonic regime fact, D-17A/R2)
+   * went false. Post-R2 that is STRUCTURALLY IMPOSSIBLE for a founded studio, so this flag is
+   * now permanently `false` — which is exactly what it already was at a 208-week horizon, so
+   * the row schema and every emitted byte are unchanged.
+   *
+   * D-17B instrument split (A5 Finding 0, Phase-A gate ruling 1). It used to read the RETIRED
+   * `employmentEngaged` predicate, which flips whenever the last contract lapses. At 312 weeks
+   * that flagged — and the runner then EXCLUDED — 43.1 % of runs that were not off any cliff
+   * but had hit the week-208 ROSTER WALL. The wall is a different failure mode with a
+   * different meaning, so it now has its own stamp (`rosterWallHit`) and is NOT excluded from
+   * anything. The employment signal itself was never lost: it is `engagedWeekFraction`, which
+   * still reads `employmentEngaged` and is emitted for every run.
+   */
   engagementCliffHit: boolean
   engagementCliffWeek: number | null
   /** cash at the moment of the cliff — the only part of a cliff run's money that is clean. */
@@ -202,6 +236,90 @@ export type RunRecord = {
   /** full weekly series — populated only for exemplar seeds. */
   series: WeekPoint[] | null
   ledgerTotals: Record<string, number>
+
+  // ── D-17B additions ────────────────────────────────────────────────────────
+  // EVERY field below is OPTIONAL and ABSENT (never `null`, never `false`) when its
+  // instrument did not fire or its shim is off. `stableJson` drops `undefined`, so an absent
+  // field is byte-invisible and the neutral corpus still hashes to the d17a-final SHA. A field
+  // emitted as `null` here is the single easiest way to fail that gate (A4 §1.5 rule 1).
+
+  /**
+   * THE WEEK-208 ROSTER WALL (A5 Finding 0). Present and `true` — never emitted as `false` —
+   * on the first observed week where the studio's LAST contract has lapsed (not been
+   * voluntarily released) while cash is negative: all founding contracts expire together, an
+   * insolvent studio cannot pay a renewal bonus, and the studio then bleeds `OVERHEAD_BASE`
+   * forever with zero decision surface. 1380/1380 measured wall events had negative cash.
+   *
+   * A roster-wall run is NOT excluded from any distribution or win-share matrix — it is a
+   * legitimate (terrible) outcome of the economy under study, not a contaminated arm.
+   * Recorded as a structural defect for the final return (§34); its repair (staggered terms /
+   * renewal mechanics) is OUTSIDE the authorized lever family.
+   */
+  rosterWallHit?: true
+  rosterWallWeek?: number
+  /**
+   * DURABLE recovery (G8 form + strict), computed on the WEEKLY state series. ABSENT when the
+   * run never entered distress — there is nothing to judge, and a `false` there would read as
+   * "failed to recover". See `states.ts` for the two definitions.
+   *
+   * NOTE: the corpus runner does NOT write this onto rows by default (the row schema is frozen
+   * by the neutral-arm SHA); it is always aggregated into `summary.json`, and `--emit-durable`
+   * puts it on the rows too.
+   */
+  durableRecovery?: DurableRecovery
+  /** run-level awareness reductions (A4 §6). Present when a lab lever is on, or on request. */
+  awareness?: AwarenessRecord
+  /** publicity totals. Present only when the publicity shim is configured. */
+  publicity?: PublicityRecord
+  /** counter-flow totals. Present only when the shim is on. */
+  counterFlow?: { family: string; appliedWeeks: number; netFlow: number; pivotEma: number; releases: number }
+  /** captured states (`captureAt`). In memory only — the corpus runner never sets `captureAt`. */
+  captures?: RunCapture[]
+}
+
+/** A harvested entry state, for the Stage-5 continuation corpora (A4 §7). */
+export type RunCapture = { week: number; state: FinancialState; cash: number; gameState: GameState }
+
+/**
+ * Run-level awareness reductions, computed on the FULL weekly loop (never the downsample).
+ * `WeekPoint.audienceAwareness` already carries the trajectory at checkpoint resolution, so
+ * this adds only what a trajectory cannot answer cheaply: absorption at the two ends and the
+ * sign asymmetry A4 F6 measured (1472/1472 non-zero P3 steps negative).
+ *
+ * THE SERIES. One sample per simulated week, taken at the TOP of the week (the same instant
+ * `checkpoints` and the state series sample), so `timeInBand` sums to exactly `horizonWeeks`.
+ * `final` is the post-loop value; `min`/`max` span the samples AND `final`.
+ */
+export type AwarenessRecord = {
+  final: number
+  min: number
+  max: number
+  /** weeks spent in each band. Half-open [lo, hi) except the top band, which includes 100. */
+  timeInBand: Record<'0' | '0-10' | '10-25' | '25-50' | '50-75' | '75-100', number>
+  weeksAtFloor: number
+  weeksAtCeiling: number
+  /** does the stock become TWO-WAY at all, or is 0 absorbing (A4 F5: 68 % of P3 runs)? */
+  entriesToFloor: number
+  exitsFromFloor: number
+  meanAbsWeeklyDelta: number
+  positiveWeeks: number
+  negativeWeeks: number
+}
+
+export type PublicityRecord = {
+  count: number
+  spend: number
+  byTier: Record<PublicityTier, number>
+  spendByTier: Record<PublicityTier, number>
+  firstWeek: number | null
+  lastWeek: number | null
+  /** weeks since the last release at each purchase — R9's "strategically timed" evidence. */
+  weeksSinceReleaseAtBuy: number[]
+  blockedByCooldown: number
+  blockedByCash: number
+  blockedByCap: number
+  /** awareness points actually delivered (post-clamp) — the honest denominator for $/point. */
+  liftDelivered: number
 }
 
 export type SliceRecord = {
@@ -216,6 +334,8 @@ export type SliceRecord = {
   audienceAwareness: number
   weeklyBurn: number
   engaged: boolean
+  /** D-17B: publicity dollars spent by this run up to this slice. ABSENT when the shim is off. */
+  publicitySpendToSlice?: number
 }
 
 export type RunOptions = {
@@ -233,6 +353,35 @@ export type RunOptions = {
   keepFullSeries?: boolean
   /** start from an existing state instead of generateWorld (e.g. the Week-86 save). */
   initialState?: GameState
+
+  // ── D-17B levers. OMITTING EVERY ONE OF THESE MUST BE INDISTINGUISHABLE FROM D-17A. ──
+  /** the awareness counter-flow shim. Absent (or `family: 'off'`) ⇒ object-identity no-op. */
+  counterFlow?: CounterFlowConfig
+  /** paid publicity. Absent ⇒ the policy's `publicize` is never called and no view panel. */
+  publicity?: PublicityConfig
+  /**
+   * The marketing menu for THIS run.
+   *  • a triple  ⇒ the whole run is executed inside one `withMarketingGrid` scope;
+   *  • a function ⇒ a CAPACITY-ANCHORED menu: the three rungs are re-resolved EVERY week from
+   *    the awareness-conditioned capacity of the state at decision time, because A3 measured
+   *    that the optimal spend tracks 1.3–2.5× that capacity and the capacity itself swings 8.3×
+   *    (so no fixed dollar triple can pass the ≤ 35 % max-optimal gate).
+   *
+   * THE CAPACITY, EXACTLY: `awarenessConditionedCapacity(state, standard reference package)` —
+   * the `computeBoxOffice(...).marketingCapacity` the shipped `marketingEfficiency` read-model
+   * reports as `capacity`, on the classifier's own `ignoreBusy` standard package (falling back
+   * to the bare-minimum package, then to `MARKETING_CAPACITY_MIN` when the roster cannot field
+   * a film at all). It is computed OUTSIDE the week's grid scope and does not depend on the
+   * marketing budget, so it cannot be circular.
+   */
+  marketingGrid?: MarketingGrid | ((capacityHint: number) => MarketingGrid)
+  /**
+   * Emit `RunRecord.awareness` even with no lever on. Auto-enabled whenever a lever IS on.
+   * Default false, because a new row field breaks the neutral-arm byte identity.
+   */
+  awarenessStats?: boolean
+  /** harvest entry states for the Stage-5 continuation corpora (A4 §7). */
+  captureAt?: { states: FinancialState[]; firstOnly: boolean; maxPerRun: number }
 }
 
 /** Build the player-facing decision context. Holds `state` in a closure; never exposes it. */
@@ -412,10 +561,42 @@ export function foundStudioFor(seed: string, policy: Policy, initial?: GameState
   return { state: s, hires: signed }
 }
 
+/**
+ * ONE RUN. A STATIC marketing grid is applied around the whole run (one save/restore); a
+ * CAPACITY-ANCHORED one is re-resolved per week inside the core.
+ */
 export function runOne(opts: RunOptions): RunRecord {
+  const g = opts.marketingGrid
+  if (g !== undefined && typeof g !== 'function') return withMarketingGrid(g, () => runOneCore(opts))
+  return runOneCore(opts)
+}
+
+/**
+ * The awareness-conditioned marketing capacity of a state, for a capacity-anchored menu.
+ * UNCACHED on purpose: it is evaluated OUTSIDE the week's `withMarketingGrid` scope, and
+ * routing it through `PkgCache` would seed that week's memo with packages built under the
+ * previous grid.
+ */
+function capacityHint(state: GameState): number {
+  const pkg = standardPackage(state, STATE_PACKAGE_OPTIONS) ?? bareMinimumPackage(state, STATE_PACKAGE_OPTIONS)
+  if (pkg === null) return TUNING.MARKETING_CAPACITY_MIN
+  return awarenessConditionedCapacity(state, pkg)
+}
+
+function runOneCore(opts: RunOptions): RunRecord {
   const { seed, policy, horizonWeeks } = opts
   const checkpointEvery = opts.checkpointEvery ?? 4
   const sliceWeeks = (opts.sliceWeeks ?? [52, 104, 208]).filter((w) => w <= horizonWeeks)
+
+  // ── D-17B levers ──
+  const cfCfg: CounterFlowConfig = opts.counterFlow ?? COUNTER_FLOW_OFF
+  if (cfCfg.family !== 'off') validateCounterFlow(cfCfg)
+  const pubCfg = opts.publicity
+  if (pubCfg !== undefined) validatePublicity(pubCfg)
+  const gridFn = typeof opts.marketingGrid === 'function' ? opts.marketingGrid : null
+  const leverOn = cfCfg.family !== 'off' || pubCfg !== undefined || opts.marketingGrid !== undefined
+  const wantAwareness = opts.awarenessStats === true || leverOn
+  const captureCfg = opts.captureAt
 
   const founded = foundStudioFor(seed, policy, opts.initialState)
   let state = founded.state
@@ -442,14 +623,29 @@ export function runOne(opts: RunOptions): RunRecord {
   let engagedWeeks = 0
   let reconciliationOk = true
 
+  // ── D-17B run state ──
+  let cfMemo = newCounterFlowMemo(startWeek, cfCfg)
+  let pubMemo: PublicityMemo = newPublicityMemo()
+  let lastReleaseWeek = startWeek
+  let rosterWallWeek: number | null = null
+  let prevContracts: number | null = null
+  let releasedTalentLastWeek = false
+  const awarenessSeries: number[] = []
+  const captures: RunCapture[] = []
+  const capturedStates = new Set<FinancialState>()
+
   // B2-C3/C8: P15 (exploit) AND P16 (doNothing, `renewAtWeeksRemaining: 0`) disengage BY
   // DESIGN. Flagging them as a defect prints "cliff 0 %" against the two policies whose
   // whole point is the cliff, and flagging P16 would fire the moment its founding contracts
   // expire. The declaration lives on the policy, not on a `kind` heuristic.
   const disengagementIntended = policy.disengagementIntended
 
-  for (let w = 0; w < horizonWeeks; w++) {
-    const view = buildPlayerView(state, { seedLabel: seed })
+  /** Build the view options for THIS week (never passes an explicit `undefined` — exactOptional). */
+  const viewOpts = (): PlayerViewOptions =>
+    pubCfg === undefined ? { seedLabel: seed } : { seedLabel: seed, publicity: { cfg: pubCfg, memo: pubMemo } }
+
+  const runWeek = (w: number): void => {
+    const view = buildPlayerView(state, viewOpts())
     // L12: the information-discipline canary is WIRED, not merely available. It costs a
     // JSON round-trip of the whole view, so it runs on the run's first week only — enough
     // to catch a structural leak, cheap enough to leave on in the corpus.
@@ -460,9 +656,44 @@ export function runOne(opts: RunOptions): RunRecord {
     }).state
     const engaged = employmentEngaged(state)
     if (engaged) engagedWeeks += 1
-    if (!engaged && !disengagementIntended && engagementCliffWeek === null) {
+    // B2-C3 + D-17B instrument split: the CLIFF is the loss of the ENGAGED ECONOMY, which is
+    // the persisted regime fact — not the employment predicate, which merely tracks whether
+    // anyone is under contract this week (that is `engagedWeekFraction`, counted above).
+    if (!economyEngaged(state) && !disengagementIntended && engagementCliffWeek === null) {
       engagementCliffWeek = state.market.tick
       engagementCliffCash = state.studio.cash
+    }
+
+    // ── the WEEK-208 ROSTER WALL (A5 Finding 0) ──
+    // The last contract has gone AND cash is negative AND the studio did not choose it: the
+    // renewal it could not afford simply lapsed. Observed on the same weekly cadence as the
+    // cliff check, so a run whose contracts expire exactly at the horizon does not report a
+    // wall it never lived through.
+    const contractsNow = state.contracts.length
+    if (
+      rosterWallWeek === null &&
+      prevContracts !== null &&
+      prevContracts > 0 &&
+      contractsNow === 0 &&
+      !releasedTalentLastWeek &&
+      state.studio.cash < 0
+    ) {
+      rosterWallWeek = state.market.tick
+    }
+    prevContracts = contractsNow
+    releasedTalentLastWeek = false
+
+    if (wantAwareness) awarenessSeries.push(state.studio.standing.audienceAwareness)
+
+    // ── Stage-5 capture hook (A4 §7) ──
+    if (
+      captureCfg !== undefined &&
+      captures.length < captureCfg.maxPerRun &&
+      captureCfg.states.includes(fs) &&
+      !(captureCfg.firstOnly && capturedStates.has(fs))
+    ) {
+      capturedStates.add(fs)
+      captures.push({ week: state.market.tick, state: fs, cash: state.studio.cash, gameState: state })
     }
 
     const pt = weekPoint(state, view, fs)
@@ -507,6 +738,8 @@ export function runOne(opts: RunOptions): RunRecord {
         state = before
         continue
       }
+      // A voluntary shed is not a roster wall — the wall is a renewal the studio could not pay.
+      if (action.kind === 'releaseTalent') releasedTalentLastWeek = true
       if (action.kind === 'greenlight') {
         const prod = state.studio.activeProductions[state.studio.activeProductions.length - 1]
         if (prod !== undefined) {
@@ -553,13 +786,31 @@ export function runOne(opts: RunOptions): RunRecord {
       }
     }
 
+    // ── D-17B publicity: AFTER the engine actions, BEFORE the tick ──
+    // So a publicity spend competes for exactly the cash the greenlight gate already saw, and
+    // the awareness it buys is in force for THIS tick's reception.
+    if (pubCfg !== undefined) {
+      const intent =
+        policy.kind === 'oracle' || policy.publicize === undefined
+          ? null
+          : policy.publicize(buildPlayerView(state, viewOpts()), makePlayerCtx(state, cache))
+      const step = applyPublicity(state, intent, pubCfg, pubMemo, {
+        week: state.market.tick,
+        weeksSinceRelease: state.market.tick - lastReleaseWeek,
+      })
+      state = step.state
+      pubMemo = step.memo
+    }
+
     // ── advance ──
     const preTick = state
     const releasedBefore = state.studio.releasedFilms.length
     state = tick(state, { develop: true })
+    const releases: CounterFlowRelease[] = []
     if (state.studio.releasedFilms.length > releasedBefore) {
       for (let i = releasedBefore; i < state.studio.releasedFilms.length; i++) {
         const f = state.studio.releasedFilms[i]!
+        if (cfCfg.family !== 'off') releases.push(observeRelease(preTick, f.productionId, f.boxOffice.total))
         const rec = films.get(f.productionId)
         if (rec === undefined) continue
         rec.releaseWeek = f.releaseTick
@@ -571,6 +822,23 @@ export function runOne(opts: RunOptions): RunRecord {
         rec.discoveryZ = disc.z
         rec.perceivedVsActualOpeningRatio = disc.perceivedVsActual
       }
+      lastReleaseWeek = state.market.tick
+    }
+
+    // ── D-17B counter-flow: after the tick and the release backfill, BEFORE the
+    // reconciliation assert (so an illegal cash touch is caught in the same iteration) and
+    // BEFORE slice capture (so the slice records the post-shim stock). OFF ⇒ object identity.
+    if (cfCfg.family !== 'off') {
+      const cf = applyCounterFlow(state, cfMemo, cfCfg, {
+        seed,
+        week: state.market.tick,
+        aPre: preTick.studio.standing.audienceAwareness,
+        aPost: state.studio.standing.audienceAwareness,
+        releases,
+        weeksSinceRelease: state.market.tick - lastReleaseWeek,
+      })
+      state = cf.state
+      cfMemo = cf.memo
     }
 
     if ((w + 1) % RECONCILE_EVERY === 0) {
@@ -585,8 +853,8 @@ export function runOne(opts: RunOptions): RunRecord {
     // still produces its 52/104/208 slices (the absolute test never fired for a resume).
     for (const sw of sliceWeeks) {
       if (state.market.tick === startWeek + sw && slices[String(sw)] === undefined) {
-        const sview = buildPlayerView(state, { seedLabel: seed })
-        slices[String(sw)] = {
+        const sview = buildPlayerView(state, viewOpts())
+        const slice: SliceRecord = {
           weeksElapsed: sw,
           week: state.market.tick,
           cash: state.studio.cash,
@@ -599,11 +867,39 @@ export function runOne(opts: RunOptions): RunRecord {
           weeklyBurn: sview.economyView.weeklyBurn,
           engaged: employmentEngaged(state),
         }
+        if (pubCfg !== undefined) slice.publicitySpendToSlice = pubMemo.spend
+        slices[String(sw)] = slice
       }
     }
   }
 
+  for (let w = 0; w < horizonWeeks; w++) {
+    if (gridFn === null) {
+      runWeek(w)
+      continue
+    }
+    // CAPACITY-ANCHORED menu: resolve the three rungs from THIS state's capacity, then run the
+    // whole week (decide, act, publicity, tick, shim) inside that scope, so the classifier, the
+    // policy and the package generator all see one menu.
+    withMarketingGrid(gridFn(capacityHint(state)), () => {
+      runWeek(w)
+    })
+  }
+
   assertReconciled(state, seed, policy.name)
+
+  // The publicity self-check (A4 §2.3): the shim's own tally must equal Σ of the ledger rows
+  // carrying the note prefix. A mismatch means a cash move and its entry were not paired,
+  // which is exactly what corrupts `studioRunRecap`'s ledger-reconstructed cash timeline.
+  if (pubCfg !== undefined) {
+    const fromLedger = publicitySpendFromLedger(state)
+    if (Math.abs(fromLedger - pubMemo.spend) > EPS) {
+      throw new Error(
+        `d17b/driver: publicity ledger mismatch (seed ${seed}, policy ${policy.name}): ` +
+          `Σ "${PUBLICITY_NOTE_PREFIX}" rows ${fromLedger} !== shim tally ${pubMemo.spend}. Run HALTED.`,
+      )
+    }
+  }
 
   // Final money attribution, from the AUTHORITATIVE run records + ledger.
   const runById = new Map(state.theatricalRuns.map((r) => [r.productionId, r]))
@@ -635,7 +931,10 @@ export function runOne(opts: RunOptions): RunRecord {
     unstaffableRoleWeeks[role] = cache.unstaffableRoleWeeks.get(role)!.size
   }
 
-  return {
+  const episodes = summarizeEpisodes(stateSeries, { runawayCash: runawayThreshold })
+  const durable = durableRecoveryOf(stateSeries, episodes.distressEntryWeek)
+
+  const record: RunRecord = {
     seed,
     policy: policy.name,
     policyKind: policy.kind,
@@ -664,11 +963,137 @@ export function runOne(opts: RunOptions): RunRecord {
     // B2-M6/C10: the runaway threshold is 3× the run's OWN opening cash, evaluated at call
     // time — so an INITIAL_CASH counterfactual binds, and a resumed run is not measured
     // against a $60M bar it opened $2.8M below.
-    episodes: summarizeEpisodes(stateSeries, { runawayCash: runawayThreshold }),
+    episodes,
     films: filmList,
     checkpoints,
     series: opts.keepFullSeries === true ? series : null,
     ledgerTotals: ledgerTotals(state),
+  }
+
+  // ── D-17B optional stamps: assigned ONLY when they fired (never `null`, never `false`) ──
+  if (rosterWallWeek !== null) {
+    record.rosterWallHit = true
+    record.rosterWallWeek = rosterWallWeek
+  }
+  if (durable !== null) record.durableRecovery = durable
+  if (wantAwareness) {
+    record.awareness = summarizeAwareness(awarenessSeries, state.studio.standing.audienceAwareness)
+  }
+  if (pubCfg !== undefined) {
+    record.publicity = {
+      count: pubMemo.count,
+      spend: pubMemo.spend,
+      byTier: pubMemo.byTier,
+      spendByTier: pubMemo.spendByTier,
+      firstWeek: pubMemo.firstWeek,
+      lastWeek: pubMemo.lastWeek,
+      weeksSinceReleaseAtBuy: pubMemo.weeksSinceReleaseAtBuy,
+      blockedByCooldown: pubMemo.blockedByCooldown,
+      blockedByCash: pubMemo.blockedByCash,
+      blockedByCap: pubMemo.blockedByCap,
+      liftDelivered: pubMemo.liftDelivered,
+    }
+  }
+  if (cfCfg.family !== 'off') {
+    record.counterFlow = {
+      family: cfCfg.family,
+      appliedWeeks: cfMemo.appliedWeeks,
+      netFlow: cfMemo.netFlow,
+      pivotEma: cfMemo.pivotEma,
+      releases: cfMemo.releases,
+    }
+  }
+  if (captureCfg !== undefined && captures.length > 0) record.captures = captures
+  return record
+}
+
+/**
+ * The release facts the counter-flow shim may read, derived from the PRE-TICK state — the
+ * exact values `tick.ts`'s step-3 release context is built from (`tick.ts:263-274` reads
+ * start-of-tick `state.market.baseMarketValue` and start-of-tick talent, which is why
+ * `reconstructDiscovery` reproduces the engine's own opening from the same source).
+ */
+function observeRelease(preTick: GameState, productionId: string, boxOfficeTotal: number): CounterFlowRelease {
+  const clamp = (x: number, lo: number, hi: number): number => (x < lo ? lo : x > hi ? hi : x)
+  const reach = clamp(
+    boxOfficeTotal / Math.max(preTick.market.baseMarketValue, 1) / TUNING.AWARENESS_REACH_SCALE,
+    0,
+    1,
+  )
+  const prod = preTick.studio.activeProductions.find((p) => p.id === productionId)
+  let starAttention = 0
+  if (prod !== undefined) {
+    const byId = new Map(preTick.talent.map((t) => [t.id, t]))
+    let acc = 0
+    let n = 0
+    for (const slot of ['lead', 'antagonist', 'support'] as const) {
+      const t = byId.get(prod.cast[slot])
+      if (t !== undefined) {
+        acc += t.fame
+        n += 1
+      }
+    }
+    starAttention = n === 0 ? 0 : clamp(acc / n / 100, 0, 1)
+  }
+  return { productionId, reach, starAttention }
+}
+
+/** The A4 §6 run-level awareness reductions. `series` is one sample per simulated week. */
+function summarizeAwareness(series: readonly number[], final: number): AwarenessRecord {
+  const timeInBand: AwarenessRecord['timeInBand'] = {
+    '0': 0,
+    '0-10': 0,
+    '10-25': 0,
+    '25-50': 0,
+    '50-75': 0,
+    '75-100': 0,
+  }
+  let min = final
+  let max = final
+  let weeksAtFloor = 0
+  let weeksAtCeiling = 0
+  let entriesToFloor = 0
+  let exitsFromFloor = 0
+  let positiveWeeks = 0
+  let negativeWeeks = 0
+  let absDeltaSum = 0
+  let deltas = 0
+  let prev: number | null = null
+  for (const a of series) {
+    if (a < min) min = a
+    if (a > max) max = a
+    if (a <= 0) {
+      timeInBand['0'] += 1
+      weeksAtFloor += 1
+    } else if (a < 10) timeInBand['0-10'] += 1
+    else if (a < 25) timeInBand['10-25'] += 1
+    else if (a < 50) timeInBand['25-50'] += 1
+    else if (a < 75) timeInBand['50-75'] += 1
+    else timeInBand['75-100'] += 1
+    if (a >= 100) weeksAtCeiling += 1
+    if (prev !== null) {
+      const d = a - prev
+      absDeltaSum += Math.abs(d)
+      deltas += 1
+      if (d > 0) positiveWeeks += 1
+      else if (d < 0) negativeWeeks += 1
+      if (prev > 0 && a <= 0) entriesToFloor += 1
+      if (prev <= 0 && a > 0) exitsFromFloor += 1
+    }
+    prev = a
+  }
+  return {
+    final,
+    min,
+    max,
+    timeInBand,
+    weeksAtFloor,
+    weeksAtCeiling,
+    entriesToFloor,
+    exitsFromFloor,
+    meanAbsWeeklyDelta: deltas === 0 ? 0 : absDeltaSum / deltas,
+    positiveWeeks,
+    negativeWeeks,
   }
 }
 
