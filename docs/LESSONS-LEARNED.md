@@ -1774,3 +1774,84 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
    building demonstrates actual repetition (AW).
 7. Status at time of writing: **BLOCKED — source bytes not on the machine**; intake directory
    and permission draft are ready; nothing was faked with substitute geometry.
+
+---
+
+# D-16 — Economy & Recovery Decision Lab — DRAFT (not finalized until Owner accepts D-16)
+
+> Source: `docs/D-16-ECONOMY-RECOVERY-DECISION-LAB.md` + gitignored evidence under
+> `out/d16-economy-lab/`. These entries become final only with the D-16 Owner ruling.
+
+## BC (DRAFT). Balance certifications go stale silently — re-run the gates at HEAD — **BR, MG**
+
+- **Symptom:** the D-12 integrated balance gates, recorded as PASS with p10 cash of $137M+,
+  FAIL at today's HEAD (Y3 median cash negative for all seven strategies) — undetected across
+  three merged milestones (D-12-P2, D-13, D-14).
+- **Root cause:** gate results were recorded as documents, not as a re-runnable acceptance
+  check; later engine-touching milestones re-ran their own tests but never the economy corpus.
+- **Resolution/pattern:** a standing one-command gate corpus (`src/harness/d16/run-d16-corpus.ts`)
+  re-run at every engine-touching milestone close; the numbers live in the closure, the CHECK
+  lives in the repo. **Anti-pattern:** "certified in D-N" treated as a permanent property.
+
+## BD (DRAFT). A condition satisfied by almost everyone is not a condition — **MG, BR**
+
+- **Symptom:** D-13's discoverability was designed as *conditional* variance ("only unsupported
+  packages"), but 90.4% of legal packages at real decision points are exposed and 77.8% of real
+  states contain no immune option at any price.
+- **Lesson:** a conditional lever must be validated against the REAL distribution of player
+  states (decision-point corpus), not against the intended corner. Check the exposure RATE
+  before accepting a "conditional" mechanic as conditional.
+
+## BE (DRAFT). Feedback stocks need equilibria designed in, not tuned in — **MG, BR**
+
+- **Symptom:** `audienceAwareness` feeds the gross that sets its own direction, has no decay,
+  and therefore has NO tunable neutral point: every `AWARENESS_REACH_NEUTRAL` setting trades
+  death-spiral rate directly against runaway rate (monotone frontier, measured over 5 arms ×
+  1000 seeds).
+- **Lesson:** any self-reinforcing stock needs a designed counter-flow (decay, asymmetric
+  gain/loss, or a second input) from day one; a one-way ratchet cannot be balanced by moving
+  its pivot. Extends **P** (cash-positive vs financeable) into dynamics.
+
+## BF (DRAFT). Survival and recovery are separate metrics from profitability — **BR, MG**
+
+- **Symptom:** the corpus "recovered" flag (leaving distress) is a 6-week theatrical-run blip:
+  94% of "recovered" runs still end in terminal decline. Meanwhile an ORACLE finds 7.5–10.8%
+  durable recovery where every player-information arm finds 0%.
+- **Lesson:** measure recovery as DURABLE state at +N weeks, report player-information and
+  oracle recovery separately (unfindable ≠ impossible), and never quote profitability as
+  evidence of survivability. Quantifies and extends Lesson **V**.
+
+## BG (DRAFT). Strategy agents must be information-disciplined by construction — **BR**
+
+- **Pattern proven in D-16:** a whitelist `PlayerView` type consumed by `decide(view, ctx)`
+  makes oracle leakage a compile error, not a review finding; oracle/exploit arms are labelled
+  in the artifact schema and excluded from player headlines by construction; a leak spec
+  (asserting hidden keys absent from the serialized view) guards regressions.
+- **Anti-pattern:** "the policy only uses fair inputs, we checked" (the D-12-era harnesses had
+  hand-copied oracle re-implementations nobody caught).
+
+## BH (DRAFT). Counterfactual numbers must be unemittable without a mode tag — **BR**
+
+- **Pattern proven in D-16:** every artifact row carries `{mode: CURRENT|COUNTERFACTUAL,
+  overrides}` stamped by the experiment layer itself (`experiment.ts` tagArtifact +
+  assertTuningPristine canary after every override scope); a pristine-TUNING canary runs after
+  each arm. Zero mixing incidents across ~200 corpora and 78 counterfactual arms.
+
+## BI (DRAFT). Tail-first statistics for economy corpora — **BR**
+
+- The D-16 statistical review's binding rules: per-run medians, never pooled per-film tables
+  (pooling sign-flipped a policy's film economics); variance shares only on a
+  magnitude-stabilized transform (asinh) — raw-$ shares are hostage to ~0.7% of cells; every
+  "0%" claim carries a cluster-robust (per-world) upper bound and states its true denominator;
+  win-share gates phrased pairwise, not as N-way argmax; quantile definition pinned (type 7)
+  repo-wide (the old fleet had two incompatible definitions that disagree exactly at the tails).
+
+## BJ (DRAFT). Deriving economic law from unrelated state is an anti-pattern (the engagement cliff) — **BR, MG**
+
+- **Symptom:** `economyEngaged ≡ (founding || contracts.length > 0)` couples the WHOLE D-12/D-13
+  economy to roster size: firing everyone reverts the studio to the legacy 100%-of-gross
+  economy, freezing active runs and voiding the solvency gate — a strictly dominant labelled
+  exploit worth a $6.79M swing per film on the real Week-86 save.
+- **Lesson:** regime membership must be an explicit, persisted, monotonic fact (set at
+  founding, never derived from a fluctuating collection). Any gate that switches LAW (not just
+  features) off a mutable count is a defect candidate on sight.
