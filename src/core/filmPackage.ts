@@ -549,27 +549,85 @@ function moneyShort(n: number): string {
   return `${sign}$${abs.toFixed(0)}`
 }
 
+/** An opening MULTIPLIER for display: two decimals, trailing zeros trimmed (0.85x, 1.8x, 1x). */
+function mult(m: number): string {
+  return `${Number(m.toFixed(2))}x`
+}
+
 export type DiscoveryExposure = {
   /** blended reach support ∈ [0,1] — DISC_SUPPORT_AWARENESS·awareness + DISC_SUPPORT_STAR·star. */
   reachSupport: number
   /** how far below DISC_SUPPORT_THRESHOLD the support falls, as a fraction ∈ [0,1]. 0 = safe. */
   shortfall: number
-  /** true iff the package carries discoverability risk at all (shortfall > 0). */
+  /**
+   * true iff the engine will actually apply a discovery multiplier: the economy is ENGAGED
+   * **and** the support falls short. D-17A FIX-PASS — `reception.ts:643` gates the spread on
+   * `engaged` (`discoverabilitySpread = engaged ? … : 0`), so on the never-engaged path the
+   * multiplier is identically 1 and there is nothing to warn about. `exposed` used to ignore
+   * the regime, so a disengaged package was told its opening could swing 0.2×–1.8× when the
+   * engine could not move it at all.
+   */
   exposed: boolean
-  /** the governed clip bounds on the opening multiplier — the numeric band to display. */
+  /** the regime this verdict was computed under. false ⇒ the multiplier is identically 1. */
+  engaged: boolean
+  /** the lognormal spread the engine applies: DISC_SPREAD · shortfall^DISC_SUPPORT_EXP. */
+  spread: number
+  /** |z| the band below is quoted at — DISC_FORECAST_LOW_Z, the engine's own forecast-band z. */
+  bandZ: number
+  /**
+   * The band the engine can ACTUALLY produce at ±bandZ, after the hard clips:
+   *   bandLow  = max(DISC_FLOOR, exp(−spread·z)),  bandHigh = min(DISC_CEIL, exp(+spread·z)).
+   * D-17A FIX-PASS: the display used to quote the hard clips (0.2×/1.8×) for EVERY exposed
+   * package. At a 2% shortfall the real band is [0.99×, 1.01×] — the clips were unreachable,
+   * and the quoted "worst case" dollar figure was one the engine would never produce.
+   */
+  bandLow: number
+  bandHigh: number
+  /** true when the band actually reaches the hard clip — only then is naming it truthful. */
+  clippedLow: boolean
+  clippedHigh: boolean
+  /** the governed clip bounds on the opening multiplier. */
   floor: number
   ceil: number
 }
 
-/** The rule itself, on its two authoritative operands. Mirrors reception.ts:633-642. */
-function discoveryExposureFrom(awarenessFactor: number, starDraw: number): DiscoveryExposure {
+/**
+ * The rule itself, on its two authoritative operands. Mirrors reception.ts:633-642.
+ * `reachSupport` and `shortfall` are BYTE-IDENTICAL to the pre-fix-pass computation — the
+ * adversarial suite pins them against the engine's own operands.
+ */
+function discoveryExposureFrom(
+  awarenessFactor: number,
+  starDraw: number,
+  engaged: boolean,
+): DiscoveryExposure {
   const reachSupport = clamp(
     TUNING.DISC_SUPPORT_AWARENESS * awarenessFactor + TUNING.DISC_SUPPORT_STAR * clamp(starDraw / 100, 0, 1),
     0,
     1,
   )
   const shortfall = clamp((TUNING.DISC_SUPPORT_THRESHOLD - reachSupport) / TUNING.DISC_SUPPORT_THRESHOLD, 0, 1)
-  return { reachSupport, shortfall, exposed: shortfall > 0, floor: TUNING.DISC_FLOOR, ceil: TUNING.DISC_CEIL }
+  const exposed = engaged && shortfall > 0
+  const spread = engaged ? TUNING.DISC_SPREAD * Math.pow(shortfall, TUNING.DISC_SUPPORT_EXP) : 0
+  const z = TUNING.DISC_FORECAST_LOW_Z
+  const rawLow = Math.exp(-spread * z)
+  const rawHigh = Math.exp(spread * z)
+  const bandLow = Math.max(TUNING.DISC_FLOOR, rawLow)
+  const bandHigh = Math.min(TUNING.DISC_CEIL, rawHigh)
+  return {
+    reachSupport,
+    shortfall,
+    exposed,
+    engaged,
+    spread,
+    bandZ: z,
+    bandLow,
+    bandHigh,
+    clippedLow: rawLow <= TUNING.DISC_FLOOR,
+    clippedHigh: rawHigh >= TUNING.DISC_CEIL,
+    floor: TUNING.DISC_FLOOR,
+    ceil: TUNING.DISC_CEIL,
+  }
 }
 
 /** The forecast-centre box office + its centres — ONE pass, shared by the range and the exposure. */
@@ -603,8 +661,12 @@ export function discoveryExposure(
   inp: ForecastProfitInput,
   opts?: { saturateFame?: boolean; engaged?: boolean },
 ): DiscoveryExposure {
-  const { centers, box } = centerBoxOffice(inp, opts?.saturateFame ?? false, opts?.engaged ?? false)
-  return discoveryExposureFrom(box.awarenessFactor, centers.starDraw)
+  // D-17A FIX-PASS: the default is the DISENGAGED regime, and it is now honoured rather than
+  // silently assumed-yet-exposed — a caller who omits the flag gets `exposed: false`, which is
+  // the truth on that path (`reception.ts:643` zeroes the spread when not engaged).
+  const engaged = opts?.engaged ?? false
+  const { centers, box } = centerBoxOffice(inp, opts?.saturateFame ?? false, engaged)
+  return discoveryExposureFrom(box.awarenessFactor, centers.starDraw, engaged)
 }
 
 export function forecastProfitRange(
@@ -699,18 +761,32 @@ export function forecastProfitRange(
     // proxy — raw awareness/100 plus a flat marketing bump plus an unweighted cast-fame mean —
     // disagreed with the engine and silently missed exposed packages. The widening MAGNITUDE logic
     // below is unchanged; it is simply driven by the correct shortfall now.
-    const disc = discoveryExposureFrom(centerBox.awarenessFactor, fcCenters.starDraw)
+    const disc = discoveryExposureFrom(centerBox.awarenessFactor, fcCenters.starDraw, engaged)
     if (disc.exposed) {
-      const discSpread = TUNING.DISC_SPREAD * Math.pow(disc.shortfall, TUNING.DISC_SUPPORT_EXP)
+      const discSpread = disc.spread
       // D-17A/T6 (final copy — WORDING ONLY, values and logic unchanged): the last
       // unquantified word here was "substantial", an intensity claim the read-model can
       // actually measure. The sentence now states the measured support against the threshold
-      // it misses, and the clip band the engine enforces. Nothing beyond that is claimed —
-      // no probability, no realized draw, no promise of a sleeper.
+      // it misses. Nothing beyond that is claimed — no probability, no realized draw, no
+      // promise of a sleeper.
+      //
+      // D-17A FIX-PASS: the band is the SHORTFALL-DERIVED one the engine can actually produce
+      // at ±DISC_FORECAST_LOW_Z, not the hard clips. Quoting 0.2×–1.8× for every exposed
+      // package overclaimed by orders of magnitude at small shortfalls (a 2% shortfall's real
+      // band is [0.99×, 1.01×]) and contradicted the forecast band on the same panel, whose
+      // low edge is already `exp(−spread·z)`. The clips are named only when reached.
+      const clipNote =
+        disc.clippedLow || disc.clippedHigh
+          ? ` The engine clips the multiplier at ${disc.floor}x and ${disc.ceil}x, and this band reaches ${
+              disc.clippedLow && disc.clippedHigh ? 'both' : disc.clippedLow ? 'the floor' : 'the ceiling'
+            }.`
+          : ''
       downsideRisks.push(
         `Limited reach support (${Math.round(disc.reachSupport * 100)}% of the ${Math.round(
           TUNING.DISC_SUPPORT_THRESHOLD * 100,
-        )}% this film needs to open reliably) creates discoverability risk: this film's opening turnout can land anywhere from ${disc.floor}x to ${disc.ceil}x its expected level.`,
+        )}% this film needs to open reliably) creates discoverability risk: this film's opening turnout can land anywhere from ${mult(
+          disc.bandLow,
+        )} to ${mult(disc.bandHigh)} its expected level.${clipNote}`,
       )
       upsideDrivers.push('A weak opening could still develop into a sleeper if audiences respond.')
       const discLowMult = Math.max(TUNING.DISC_FLOOR, Math.exp(-discSpread * TUNING.DISC_FORECAST_LOW_Z))

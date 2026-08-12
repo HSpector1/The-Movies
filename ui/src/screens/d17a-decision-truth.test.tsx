@@ -487,17 +487,26 @@ describe('D-17A/T4 — Assembly shows the same three scopes as the Dashboard', (
 // ═══════════════════════════════════════════════════════════════════════════════
 // T6 — discoverability exposure, with the numbers the engine actually enforces.
 // ═══════════════════════════════════════════════════════════════════════════════
+// D-17A FIX-PASS: the band rendered is the SHORTFALL-DERIVED one the engine can actually
+// produce at its own forecast z (DISC_FORECAST_LOW_Z = 1.28), not the hard 0.2×/1.8× clips —
+// those are named only when the band reaches them. And the whole block is gated on the REGIME,
+// because `reception.ts:643` zeroes the spread when the economy is not engaged.
+const derivedBand = (shortfall: number): { low: number; high: number } => {
+  const spread = TUNING.DISC_SPREAD * Math.pow(shortfall, TUNING.DISC_SUPPORT_EXP)
+  return {
+    low: Math.max(TUNING.DISC_FLOOR, Math.exp(-spread * TUNING.DISC_FORECAST_LOW_Z)),
+    high: Math.min(TUNING.DISC_CEIL, Math.exp(spread * TUNING.DISC_FORECAST_LOW_Z)),
+  }
+}
+const mult = (m: number): string => `${Number(m.toFixed(2))}×`
+
 describe('D-17A/T6 — the discoverability band is quantified, never hardcoded', () => {
-  it('states support vs threshold and the engine’s own clip bounds beside the forecast', () => {
+  it('states support vs threshold and the band the engine can actually produce', () => {
     openWizard('d17a-disc-band', 'budget')
     const line = screen.getByTestId('budget-discovery-exposure')
     const text = line.textContent ?? ''
 
-    // The bounds shown are the TUNING constants the engine clips with — if D-17B
-    // recalibrates DISC_FLOOR/DISC_CEIL this copy moves with them.
     if (text.includes('Discoverability exposure')) {
-      expect(text).toContain(`${TUNING.DISC_FLOOR}×`)
-      expect(text).toContain(`${TUNING.DISC_CEIL}×`)
       expect(text).toContain(pct(TUNING.DISC_SUPPORT_THRESHOLD))
       expect(text).toMatch(/worst case .*best case/)
     } else {
@@ -507,7 +516,7 @@ describe('D-17A/T6 — the discoverability band is quantified, never hardcoded',
     }
   })
 
-  it('renders the exposed branch with real dollars, from the selector’s own floor/ceil', () => {
+  it('renders the exposed branch with real dollars, from the SHORTFALL-DERIVED band', () => {
     // A deliberately unsupported package: unknown cast, minimum marketing, low awareness.
     const base = newFoundedGame('d17a-disc-exposed')
     const dim: GameState = {
@@ -517,18 +526,124 @@ describe('D-17A/T6 — the discoverability band is quantified, never hardcoded',
     const pkg = cheapestVisiblePackage(dim)
     const exposure = assessDiscoveryExposure(dim, pkg)
     expect(exposure.exposed).toBe(true)
+    expect(exposure.engaged).toBe(true)
+
+    // The selector's band IS the engine's rule, restated independently here.
+    const band = derivedBand(exposure.shortfall)
+    expect(exposure.bandLow).toBeCloseTo(band.low, 12)
+    expect(exposure.bandHigh).toBeCloseTo(band.high, 12)
+    expect(exposure.bandZ).toBe(TUNING.DISC_FORECAST_LOW_Z)
 
     const opening = 4_000_000
     render(
       <DiscoveryExposureLine exposure={exposure} expectedOpening={opening} testid="disc-unit" />,
     )
     const text = screen.getByTestId('disc-unit').textContent ?? ''
-    expect(text).toContain(money(opening * exposure.floor))
-    expect(text).toContain(money(opening * exposure.ceil))
-    expect(text).toContain(pct(exposure.reachSupport))
-    expect(text).toContain(pct(exposure.threshold))
-    // No probability language beyond the clip band the engine enforces.
+    expect(text).toContain(money(opening * exposure.bandLow))
+    expect(text).toContain(money(opening * exposure.bandHigh))
+    expect(text).toContain(mult(exposure.bandLow))
+    expect(text).toContain(mult(exposure.bandHigh))
+    // TEETH: the hard clips are quoted ONLY when the band actually reaches them.
+    if (!exposure.clippedLow) expect(text).not.toContain(money(opening * TUNING.DISC_FLOOR))
+    if (!exposure.clippedHigh) expect(text).not.toContain(money(opening * TUNING.DISC_CEIL))
+    // No probability language beyond the band the engine enforces.
     expect(text).not.toMatch(/likely|probably|chance of|odds/i)
+  })
+
+  it('the band NEVER claims a level the engine cannot reach, across the support range', () => {
+    // A small shortfall's true band is a hair either side of 1× — the retired copy claimed
+    // 0.2×–1.8× for every exposed package, a range the engine could not produce.
+    for (const shortfall of [0.02, 0.11, 0.22, 0.5, 0.9]) {
+      const band = derivedBand(shortfall)
+      const exposure = {
+        reachSupport: TUNING.DISC_SUPPORT_THRESHOLD * (1 - shortfall),
+        shortfall,
+        exposed: true,
+        engaged: true,
+        spread: TUNING.DISC_SPREAD * Math.pow(shortfall, TUNING.DISC_SUPPORT_EXP),
+        bandZ: TUNING.DISC_FORECAST_LOW_Z,
+        bandLow: band.low,
+        bandHigh: band.high,
+        clippedLow: Math.exp(-TUNING.DISC_SPREAD * Math.pow(shortfall, TUNING.DISC_SUPPORT_EXP) * TUNING.DISC_FORECAST_LOW_Z) <= TUNING.DISC_FLOOR,
+        clippedHigh: Math.exp(TUNING.DISC_SPREAD * Math.pow(shortfall, TUNING.DISC_SUPPORT_EXP) * TUNING.DISC_FORECAST_LOW_Z) >= TUNING.DISC_CEIL,
+        floor: TUNING.DISC_FLOOR,
+        ceil: TUNING.DISC_CEIL,
+        threshold: TUNING.DISC_SUPPORT_THRESHOLD,
+      }
+      render(<DiscoveryExposureLine exposure={exposure} testid={`disc-${shortfall}`} />)
+      const text = screen.getByTestId(`disc-${shortfall}`).textContent ?? ''
+      expect(text).toContain(mult(band.low))
+      expect(text).toContain(mult(band.high))
+      if (!exposure.clippedLow && !exposure.clippedHigh) {
+        expect(text).not.toContain('hard 0.2×/1.8× clip')
+      }
+      cleanup()
+    }
+  })
+
+  it('the BOUNDARY case cannot render "45% is below 45%"', () => {
+    const threshold = TUNING.DISC_SUPPORT_THRESHOLD
+    const support = threshold - 0.0001 // 44.99% — rounds to 45% at zero decimals
+    const shortfall = (threshold - support) / threshold
+    const band = derivedBand(shortfall)
+    const exposure = {
+      reachSupport: support,
+      shortfall,
+      exposed: true,
+      engaged: true,
+      spread: TUNING.DISC_SPREAD * Math.pow(shortfall, TUNING.DISC_SUPPORT_EXP),
+      bandZ: TUNING.DISC_FORECAST_LOW_Z,
+      bandLow: band.low,
+      bandHigh: band.high,
+      clippedLow: false,
+      clippedHigh: false,
+      floor: TUNING.DISC_FLOOR,
+      ceil: TUNING.DISC_CEIL,
+      threshold,
+    }
+    render(<DiscoveryExposureLine exposure={exposure} testid="disc-boundary" />)
+    const text = screen.getByTestId('disc-boundary').textContent ?? ''
+    // Enough precision that the two figures cannot render equal — "45% is below 45%" is
+    // unreachable, at any rounding.
+    expect(text).toMatch(/Reach support is 44\.99% against the 45\.00%/)
+    // …and a shortfall this small quotes no band at all, let alone the hard clips.
+    expect(text).not.toContain('0.2×')
+    expect(text).not.toContain('1.8×')
+    expect(text).toMatch(/within 1% of its expected level/)
+  })
+
+  it('no support/threshold pair can ever render as the SAME percentage', () => {
+    for (const eps of [0.0001, 0.001, 0.004, 0.009, 0.02, 0.1]) {
+      const threshold = TUNING.DISC_SUPPORT_THRESHOLD
+      const support = threshold - eps
+      const shortfall = eps / threshold
+      const band = derivedBand(shortfall)
+      render(
+        <DiscoveryExposureLine
+          exposure={{
+            reachSupport: support,
+            shortfall,
+            exposed: true,
+            engaged: true,
+            spread: TUNING.DISC_SPREAD * Math.pow(shortfall, TUNING.DISC_SUPPORT_EXP),
+            bandZ: TUNING.DISC_FORECAST_LOW_Z,
+            bandLow: band.low,
+            bandHigh: band.high,
+            clippedLow: false,
+            clippedHigh: false,
+            floor: TUNING.DISC_FLOOR,
+            ceil: TUNING.DISC_CEIL,
+            threshold,
+          }}
+          testid={`disc-eps-${eps}`}
+        />,
+      )
+      const text = screen.getByTestId(`disc-eps-${eps}`).textContent ?? ''
+      const m = text.match(/Reach support is ([\d.]+%) against the ([\d.]+%)/)
+      expect(m, `eps ${eps}: ${text}`).not.toBeNull()
+      expect(m![1], `eps ${eps}`).not.toBe(m![2])
+      cleanup()
+    }
   })
 
   it('a reach-supported package gets a quiet line, not a warning', () => {
@@ -536,6 +651,13 @@ describe('D-17A/T6 — the discoverability band is quantified, never hardcoded',
       reachSupport: 0.9,
       shortfall: 0,
       exposed: false,
+      engaged: true,
+      spread: 0,
+      bandZ: TUNING.DISC_FORECAST_LOW_Z,
+      bandLow: 1,
+      bandHigh: 1,
+      clippedLow: false,
+      clippedHigh: false,
       floor: TUNING.DISC_FLOOR,
       ceil: TUNING.DISC_CEIL,
       threshold: TUNING.DISC_SUPPORT_THRESHOLD,
@@ -545,6 +667,26 @@ describe('D-17A/T6 — the discoverability band is quantified, never hardcoded',
     expect(el.textContent).toMatch(/Reach-supported/)
     expect(el.textContent).toMatch(/no discoverability variance/)
     expect(el.className).toContain('hint') // quiet, not the 'reason' warning styling
+  })
+
+  it('a DISENGAGED regime renders nothing — the engine applies a multiplier of exactly 1', () => {
+    const exposure = {
+      reachSupport: 0.1,
+      shortfall: 0.78,
+      exposed: false, // the selector's own verdict: not engaged ⇒ not exposed
+      engaged: false,
+      spread: 0,
+      bandZ: TUNING.DISC_FORECAST_LOW_Z,
+      bandLow: 1,
+      bandHigh: 1,
+      clippedLow: false,
+      clippedHigh: false,
+      floor: TUNING.DISC_FLOOR,
+      ceil: TUNING.DISC_CEIL,
+      threshold: TUNING.DISC_SUPPORT_THRESHOLD,
+    }
+    render(<DiscoveryExposureLine exposure={exposure} testid="disc-off" />)
+    expect(screen.queryByTestId('disc-off')).toBeNull()
   })
 })
 

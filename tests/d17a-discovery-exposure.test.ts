@@ -172,27 +172,110 @@ describe('D-17A/T6 — discoveryExposure agrees with resolveReception, by rule',
     const a = discoveryExposure(inp, ENGAGED)
     const b = discoveryExposure(inp, ENGAGED)
     expect(a).toEqual(b)
-    // it reports only the deterministic support level; the realized z lives in reception alone
-    expect(Object.keys(a).sort()).toEqual(['ceil', 'exposed', 'floor', 'reachSupport', 'shortfall'])
+    // it reports only the deterministic support level; the realized z lives in reception alone.
+    // D-17A FIX-PASS adds the regime flag and the shortfall-DERIVED band (all deterministic
+    // functions of the same two operands) — still no draw, still no future information.
+    expect(Object.keys(a).sort()).toEqual([
+      'bandHigh',
+      'bandLow',
+      'bandZ',
+      'ceil',
+      'clippedHigh',
+      'clippedLow',
+      'engaged',
+      'exposed',
+      'floor',
+      'reachSupport',
+      'shortfall',
+      'spread',
+    ])
   })
 
   it('defaults to the NOT-engaged path, matching every other display helper', () => {
     const inp = inputs({ fame: 30, awareness: 50, marketing: 400_000 })
     expect(discoveryExposure(inp)).toEqual(discoveryExposure(inp, { saturateFame: false, engaged: false }))
   })
+
+  // D-17A FIX-PASS — the regime gate. `reception.ts:643` computes the spread as
+  // `engaged ? DISC_SPREAD·shortfall^EXP : 0`, so on the never-engaged path the multiplier is
+  // identically 1 no matter how short the reach support falls. The selector used to report
+  // `exposed: true` there, and the component rendered a 0.2×–1.8× swing the engine could not
+  // produce. Proven against the engine, not restated.
+  it('a NEVER-ENGAGED package is not exposed, and the engine agrees (opening invariant to z)', () => {
+    const inp = inputs({ fame: 0, awareness: 5, marketing: 100_000 })
+    const off = discoveryExposure(inp, { saturateFame: false, engaged: false })
+    expect(off.engaged).toBe(false)
+    expect(off.shortfall).toBeGreaterThan(0) // the support really is short…
+    expect(off.exposed).toBe(false) // …and it still does not matter in this regime
+    expect(off.spread).toBe(0)
+    expect(off.bandLow).toBe(1)
+    expect(off.bandHigh).toBe(1)
+    // The engine: the opening does not move with the draw at all when not engaged.
+    const o0 = resolveReception(inp, RngStream.fromSeed('off'), false, false, 0).opening
+    const oz = resolveReception(inp, RngStream.fromSeed('off'), false, false, -3).opening
+    expect(oz).toBe(o0)
+
+    // Same package, ENGAGED: now it IS exposed, and the band is the shortfall-derived one.
+    const on = discoveryExposure(inp, ENGAGED)
+    expect(on.exposed).toBe(true)
+    expect(on.reachSupport).toBeGreaterThan(0)
+  })
+
+  it('the reported band is the one the engine can actually produce at its own forecast z', () => {
+    for (const spec of [
+      { fame: 40, awareness: 44, marketing: 400_000 }, // tiny shortfall
+      { fame: 20, awareness: 30, marketing: 200_000 },
+      { fame: 0, awareness: 5, marketing: 100_000 }, // large shortfall
+    ]) {
+      const de = discoveryExposure(inputs(spec), ENGAGED)
+      if (!de.exposed) continue
+      const spread = TUNING.DISC_SPREAD * Math.pow(de.shortfall, TUNING.DISC_SUPPORT_EXP)
+      expect(de.spread).toBeCloseTo(spread, 12)
+      expect(de.bandZ).toBe(TUNING.DISC_FORECAST_LOW_Z)
+      expect(de.bandLow).toBeCloseTo(
+        Math.max(TUNING.DISC_FLOOR, Math.exp(-spread * TUNING.DISC_FORECAST_LOW_Z)),
+        12,
+      )
+      expect(de.bandHigh).toBeCloseTo(
+        Math.min(TUNING.DISC_CEIL, Math.exp(spread * TUNING.DISC_FORECAST_LOW_Z)),
+        12,
+      )
+      // The band never escapes the hard clip, and the clip flags report contact honestly.
+      expect(de.bandLow).toBeGreaterThanOrEqual(TUNING.DISC_FLOOR)
+      expect(de.bandHigh).toBeLessThanOrEqual(TUNING.DISC_CEIL)
+      expect(de.clippedLow).toBe(de.bandLow <= TUNING.DISC_FLOOR)
+      expect(de.clippedHigh).toBe(de.bandHigh >= TUNING.DISC_CEIL)
+    }
+  })
+
+  it('TEETH: at a small shortfall the retired 0.2x–1.8x claim is wildly wider than the truth', () => {
+    // Support just under the threshold: the engine can barely move the opening at all.
+    const de = discoveryExposure(inputs({ fame: 40, awareness: 44, marketing: 400_000 }), ENGAGED)
+    expect(de.exposed).toBe(true)
+    expect(de.shortfall).toBeLessThan(0.2)
+    expect(de.bandLow).toBeGreaterThan(TUNING.DISC_FLOOR * 2)
+    expect(de.bandHigh).toBeLessThan(TUNING.DISC_CEIL * 0.9)
+    expect(de.clippedLow).toBe(false)
+    expect(de.clippedHigh).toBe(false)
+  })
 })
 
 // ══════════════════════════════════════════════════════════════════════════════
 describe('D-17A/T6 — forecastProfitRange is driven by the same rule', () => {
-  it('an EXPOSED package widens the low band and states the numeric 0.2x–1.8x clip band', () => {
+  // D-17A FIX-PASS: the narrative quotes the SHORTFALL-DERIVED band, and names the hard clips
+  // only when the band actually reaches them.
+  it('an EXPOSED package widens the low band and states the band the engine can produce', () => {
     const inp = inputs({ fame: 0, awareness: 15, marketing: 100_000 })
     const de = discoveryExposure(inp, ENGAGED)
     expect(de.exposed).toBe(true)
     const range = forecastProfitRange(inp, profitCtx(inp))
     const risk = range.downsideRisks.find((r) => r.includes('discoverability risk'))
     expect(risk).toBeDefined()
-    expect(risk).toContain(`${TUNING.DISC_FLOOR}x`)
-    expect(risk).toContain(`${TUNING.DISC_CEIL}x`)
+    const fmt = (m: number) => `${Number(m.toFixed(2))}x`
+    expect(risk).toContain(fmt(de.bandLow))
+    expect(risk).toContain(fmt(de.bandHigh))
+    // The clip sentence appears iff the band touches a clip.
+    expect(risk!.includes('clips the multiplier')).toBe(de.clippedLow || de.clippedHigh)
     expect(range.upsideDrivers.some((u) => u.includes('sleeper'))).toBe(true)
 
     // the widened LOW is exactly the documented discovery-obscurity scenario
