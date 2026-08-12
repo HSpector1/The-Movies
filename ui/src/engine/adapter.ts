@@ -3017,6 +3017,19 @@ export type MarketingEfficiency = {
   spend: number // this film's Marketing budget
   ratio: number // spend ÷ capacity
   state: MarketingEfficiencyState
+  // ── D-17A/T7 (Owner ruling R6, D-17A half) — three MEASURED values, all of them existing
+  // `computeBoxOffice` return values. Nothing is recomputed here: the old copy asserted that a
+  // large campaign on a low-awareness film was mostly "wasted", which is a claim about marginal
+  // return that the engine's own numbers do not support (the Hill curve's marginal return stays
+  // positive everywhere). These let the UI report what is measured instead of editorialising.
+  /** `marketingQuality` — spend ÷ (spend + capacity): the fraction of buyable reach this campaign converts. */
+  quality: number
+  /** `awarenessFactor` — the film's resulting total opening-reach factor (0..1). */
+  awarenessFactor: number
+  /** `overexposure` (0..1) — the engine's OWN overexposure magnitude. 0 ⇒ no overexposure AT ALL. */
+  overexposure: number
+  /** OVEREXPOSURE_THRESHOLD — the spend÷capacity ratio above which overexposure begins. */
+  overexposureThreshold: number
 }
 export function marketingEfficiency(state: GameState, pkg: DraftPackage): MarketingEfficiency {
   // D-17A/T10: the persisted economy regime — the same one the forecast/realized paths use.
@@ -3053,6 +3066,10 @@ export function marketingEfficiency(state: GameState, pkg: DraftPackage): Market
     spend,
     ratio,
     state: label,
+    quality: box.marketingQuality,
+    awarenessFactor: box.awarenessFactor,
+    overexposure: box.overexposure,
+    overexposureThreshold: TUNING.OVEREXPOSURE_THRESHOLD,
   }
 }
 

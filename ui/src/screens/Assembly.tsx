@@ -1249,20 +1249,47 @@ function BudgetStep({
               </button>
             ))}
           </div>
-          {/* D-12 P2: awareness-conditioned Marketing efficiency — is this campaign matched to how
-              visible the film already is? Truthful (engine-derived); never claims marketing buys quality. */}
+          {/* D-17A/T7 (Owner ruling R6, D-17A half) — MARKETING TRUTH. The rungs and every
+              marketing constant are untouched; only the account of them changed.
+
+              What was here before told the player that a large campaign on a low-awareness
+              film meant "most of this campaign is wasted". That is a claim about marginal
+              return, and it is not what the engine computes: the marketing Hill curve's
+              marginal return is positive everywhere — it diminishes, it does not vanish —
+              and the reach ceiling is set by the film's visibility, not by a wastage rule.
+              Steering the player away from spend whose marginal return is positive is the
+              exact defect R6 names.
+
+              Every figure below is a MEASURED `computeBoxOffice` value read through
+              `marketingEfficiency`. Overexposure is mentioned if and ONLY if the engine's own
+              `overexposure` value is above zero — never inferred from the size of the spend. */}
           {mktEff && mktEff.engaged && (
-            <p className="hint" data-testid="marketing-efficiency" style={{ marginTop: 6 }}>
-              Campaign status: <strong>{mktEff.state}</strong>.{' '}
-              {mktEff.state === 'Underexposed'
-                ? 'This film can efficiently absorb more marketing than it is getting.'
-                : mktEff.state === 'Efficient campaign'
-                  ? 'The spend is matched to the film’s current awareness.'
-                  : mktEff.state === 'Near saturation'
-                    ? 'Extra marketing is starting to hit strong diminishing returns.'
-                    : 'The film is not yet visible enough to spend this efficiently — most of this campaign is wasted.'}{' '}
-              Marketing widens who shows up; it does not change how good the film is.
-            </p>
+            <div className="stack" data-testid="marketing-efficiency" style={{ marginTop: 6, gap: 4 }}>
+              <span className="hint">
+                Campaign status: <strong>{mktEff.state}</strong>.
+              </span>
+              <span className="hint" data-testid="marketing-capacity">
+                {money(mktEff.spend)} against a measured efficient capacity of{' '}
+                {money(mktEff.capacity)} &mdash; {Math.round(mktEff.ratio * 100)}% of capacity.
+              </span>
+              <span className="hint" data-testid="marketing-reach">
+                At this film&rsquo;s current visibility ({pct(mktEff.preMarketingAwareness)}), the
+                campaign converts to {pct(mktEff.quality)} of the reach spending can buy here,
+                for a total opening reach of {pct(mktEff.awarenessFactor)}. Spending more always
+                adds some reach; it adds less per dollar the further past capacity you go.
+              </span>
+              {mktEff.overexposure > 0 && (
+                <span className="hint" data-testid="marketing-overexposure">
+                  Past {mktEff.overexposureThreshold}× capacity the campaign begins to count as
+                  overexposure; this one is at {pct(mktEff.overexposure)} of the full effect,
+                  which costs word of mouth if the film underdelivers on what the campaign
+                  promised.
+                </span>
+              )}
+              <span className="hint">
+                Marketing widens who shows up; it does not change how good the film is.
+              </span>
+            </div>
           )}
         </div>
 

@@ -15,8 +15,10 @@ import {
   affordabilityScopes,
   assessDiscoveryExposure,
   cycleInclusiveBreakEvenGross,
+  marketingEfficiency,
   prospectiveCycleFixedCost,
   requiredNegative,
+  MARKETING_BUDGET_LEVELS,
   financeCard,
   payrollSummary,
   TUNING,
@@ -539,5 +541,77 @@ describe('D-17A/T6 — the discoverability band is quantified, never hardcoded',
     expect(el.textContent).toMatch(/Reach-supported/)
     expect(el.textContent).toMatch(/no discoverability variance/)
     expect(el.className).toContain('hint') // quiet, not the 'reason' warning styling
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// T7 / R6-A — marketing copy reports what is measured, and steers nowhere.
+// ═══════════════════════════════════════════════════════════════════════════════
+describe('D-17A/T7 — marketing truth', () => {
+  it('reports spend against measured capacity, and the reach the campaign converts to', () => {
+    openWizard('d17a-mkt-1', 'budget')
+    expect(screen.getByTestId('marketing-efficiency').textContent).toBeTruthy()
+    expect(screen.getByTestId('marketing-capacity').textContent).toMatch(
+      /measured efficient capacity/,
+    )
+    const reachLine = screen.getByTestId('marketing-reach').textContent ?? ''
+    expect(reachLine).toMatch(/current visibility/)
+    expect(reachLine).toMatch(/total opening reach/)
+  })
+
+  it('DELETES the "most of this campaign is wasted" assertion and all steering language', () => {
+    openWizard('d17a-mkt-2', 'budget')
+    const text = screen.getByTestId('marketing-efficiency').textContent ?? ''
+    expect(text).not.toMatch(/wasted/i)
+    expect(text).not.toMatch(/not yet visible enough to spend this efficiently/i)
+    expect(text).not.toMatch(/consider spending less|spend less|too much marketing/i)
+    // …and it states the honest direction of the marginal return instead of denying it.
+    expect(text).toMatch(/Spending more always adds some reach/)
+    // The honest disclosure line survives.
+    expect(text).toMatch(/Marketing widens who shows up; it does not change how good the film is/)
+  })
+
+  it("mentions overexposure only when the ENGINE's own overexposure value is above zero", () => {
+    const state = newFoundedGame('d17a-mkt-3')
+    const at = (m: number) =>
+      marketingEfficiency(state, { ...cheapestVisiblePackage(state), budget: { ...cheapestVisiblePackage(state).budget, marketing: m } })
+    const small = at(MARKETING_BUDGET_LEVELS[0]!)
+    const huge = at(4_000_000)
+    // The magnitude is the engine's, and it is exactly zero below the threshold.
+    expect(small.ratio).toBeLessThan(small.overexposureThreshold)
+    expect(small.overexposure).toBe(0)
+    expect(huge.ratio).toBeGreaterThan(huge.overexposureThreshold)
+    expect(huge.overexposure).toBeGreaterThan(0)
+  })
+
+  it('on screen the overexposure line appears only above the threshold ratio it names', () => {
+    openWizard('d17a-mkt-4', 'budget')
+    const rungs = within(screen.getByTestId('marketing-levels')).getAllByRole('button')
+    let seen = false
+    for (const rung of rungs) {
+      fireEvent.click(rung)
+      const line = screen.queryByTestId('marketing-overexposure')
+      if (line !== null) {
+        seen = true
+        // Self-consistent: the panel's own capacity line must show a ratio past the threshold.
+        const ratioPct = Number(
+          /(\d+)% of capacity/.exec(screen.getByTestId('marketing-capacity').textContent ?? '')![1],
+        )
+        const threshold = Number(/Past ([0-9.]+)× capacity/.exec(line.textContent ?? '')![1])
+        expect(ratioPct / 100).toBeGreaterThan(threshold)
+      } else {
+        // Monotone: once shown, a LARGER campaign may not silently drop the disclosure.
+        expect(seen).toBe(false)
+      }
+    }
+  })
+
+  it('keeps the rung grid exactly as the engine defines it (NO constant change)', () => {
+    openWizard('d17a-mkt-5', 'budget')
+    const rungs = within(screen.getByTestId('marketing-levels')).getAllByRole('button')
+    expect(rungs.length).toBe(MARKETING_BUDGET_LEVELS.length)
+    MARKETING_BUDGET_LEVELS.forEach((level, i) => {
+      expect(rungs[i]!.textContent).toContain(money(level))
+    })
   })
 })
