@@ -25,7 +25,7 @@ import type {
   GameState,
   PackageFit,
 } from '../engine/adapter.ts'
-import { money } from '../format.ts'
+import { money, pct } from '../format.ts'
 import { newFoundedGame } from '../test/founding.ts'
 
 afterEach(cleanup)
@@ -344,5 +344,64 @@ describe('D-17A/T2 — Assembly wires the real cycle fixed cost into both panels
     expect(fc.amount).toBeGreaterThan(0)
     expect(screen.getByTestId('pkg-studio-economic')).toBeInTheDocument()
     expect(screen.getByTestId('pkg-studio-economic-disclosure').textContent).toContain(money(fc.amount))
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// T9 — greenlight discipline: named, prominent, and NOT a recommendation engine.
+// ═══════════════════════════════════════════════════════════════════════════════
+// Parse a `money()` string back to dollars ($1.63M / $250K / $900). money() rounds millions
+// to two decimals, so comparisons against it carry a rounding tolerance.
+function parseMoney(text: string): number {
+  const m = /(-?)\$([0-9.]+)([MK]?)/.exec(text)
+  if (!m) throw new Error(`no money figure in "${text}"`)
+  const scale = m[3] === 'M' ? 1_000_000 : m[3] === 'K' ? 1_000 : 1
+  return (m[1] === '-' ? -1 : 1) * Number(m[2]) * scale
+}
+const MONEY_TOL = 30_000 // two money() figures can each round by up to $5K
+
+describe('D-17A/T9 — the forecast-positive discipline is named at the decision', () => {
+  for (const step of ['budget', 'review'] as const) {
+    it(`the ${step} step computes expected studio revenue − (commitment + cycle fixed cost)`, () => {
+      const state = openWizard(`d17a-disc-${step}`, step)
+      const committed = committedOnScreen(step === 'budget' ? 'committed-cost' : 'release-commitment')
+      const fc = prospectiveCycleFixedCost(state)
+
+      const working = screen.getByTestId('greenlight-discipline-working').textContent ?? ''
+      // The working names the two costs it subtracts, in the adapter's own figures.
+      expect(working).toContain(money(fc.amount))
+      expect(working).toContain(money(committed))
+      expect(working).toContain(pct(TUNING.STUDIO_RENTAL_BLENDED))
+
+      // …and the displayed arithmetic actually holds:
+      //   revenue = gross × share ;  result = revenue − commitment − cycle fixed cost.
+      const figures = working.match(/-?\$[0-9.]+[MK]?/g) ?? []
+      const [grossTxt, revenueTxt] = figures
+      const gross = parseMoney(grossTxt!)
+      const revenue = parseMoney(revenueTxt!)
+      expect(revenue).toBeCloseTo(gross * TUNING.STUDIO_RENTAL_BLENDED, -Math.log10(MONEY_TOL))
+
+      const value = screen.getByTestId('greenlight-discipline-value')
+      const shown = parseMoney(value.textContent ?? '')
+      expect(Math.abs(shown - (revenue - committed - fc.amount))).toBeLessThan(MONEY_TOL)
+
+      // Signed and coloured, and the verdict word agrees with the sign.
+      const negative = shown < 0
+      expect(value.className).toContain(negative ? 'money neg' : 'money pos')
+      const verdict = screen.getByTestId('greenlight-discipline-verdict').textContent ?? ''
+      expect(verdict).toMatch(negative ? /does not cover/ : /covers/)
+      expect(verdict).toContain(`${fc.weeks} weeks of studio fixed costs`)
+      expect(screen.getByTestId('greenlight-discipline').textContent).toMatch(
+        /Forecast-positive discipline/,
+      )
+    })
+  }
+
+  it('is information, not auto-play: no ranking, no best-package marker, no recommendation', () => {
+    openWizard('d17a-disc-info', 'review')
+    const text = screen.getByTestId('greenlight-discipline').textContent ?? ''
+    expect(text).toMatch(/does not rank your packages or choose one for you/i)
+    expect(text).toMatch(/centre of a forecast is not a promise/i)
+    expect(text).not.toMatch(/best package|optimal|you should|we recommend|recommended/i)
   })
 })

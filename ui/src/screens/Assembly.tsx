@@ -73,7 +73,7 @@ import {
   PROMISE_AXIS_INFO,
   genreLabel,
 } from '../content.ts'
-import { money, moneyExact, axis, segmentLabel } from '../format.ts'
+import { money, moneyExact, axis, pct, segmentLabel } from '../format.ts'
 import { ConceptCard } from '../components/ConceptCard.tsx'
 import { ForecastDisplay } from '../components/ForecastDisplay.tsx'
 import { TalentPicker } from '../components/TalentPicker.tsx'
@@ -1056,6 +1056,59 @@ function BreakEvenBlock({
   )
 }
 
+// ── D-17A/T9 — greenlight discipline, made legible ───────────────────────────
+// D-16 item 13: the skill the economy actually rewards is refusing packages whose CENTRAL
+// forecast does not clear the studio's costs — and nothing on the greenlight screen ever
+// named it. This line does, in one signed number, from values the read-models already
+// produced: expected gross × the blended rental share, less the immediate commitment and
+// less the fixed cost of the 14 weeks the film occupies the studio.
+//
+// INFORMATION DISCIPLINE (binding): this is INFORMATION, not auto-play. It ranks nothing,
+// marks no "best package", recommends no choice, and reveals nothing the player cannot
+// already see on this screen. The centre of a forecast is not a promise, and the copy says so.
+function GreenlightDiscipline({
+  state,
+  committed,
+  expectedTotal,
+}: {
+  state: GameState
+  committed: number
+  expectedTotal: number
+}) {
+  const fc = prospectiveCycleFixedCost(state)
+  const expectedStudioRevenue = expectedTotal * TUNING.STUDIO_RENTAL_BLENDED
+  const result = expectedStudioRevenue - (committed + fc.amount)
+  const covers = result >= 0
+  return (
+    <div className="panel stack" data-testid="greenlight-discipline" style={{ gap: 6 }}>
+      <div className="spread">
+        <strong>Forecast-positive discipline</strong>
+        <strong
+          className={covers ? 'money pos' : 'money neg'}
+          data-testid="greenlight-discipline-value"
+        >
+          {covers ? '+' : ''}
+          {money(result)}
+        </strong>
+      </div>
+      <span data-testid="greenlight-discipline-verdict">
+        This package&rsquo;s central forecast <strong>{covers ? 'covers' : 'does not cover'}</strong>{' '}
+        its direct costs and {fc.weeks} weeks of studio fixed costs.
+      </span>
+      <span className="hint" data-testid="greenlight-discipline-working">
+        Expected gross {money(expectedTotal)} × your {pct(TUNING.STUDIO_RENTAL_BLENDED)} rental
+        share is {money(expectedStudioRevenue)} of Studio Revenue, less {money(committed)}{' '}
+        committed now and {money(fc.amount)} of payroll and overhead across the cycle.
+      </span>
+      <span className="hint">
+        The centre of a forecast is not a promise &mdash; the range still applies. This is
+        information, not a recommendation: the studio does not rank your packages or choose one
+        for you.
+      </span>
+    </div>
+  )
+}
+
 // ── Step: Budget & Forecast ──────────────────────────────────────────────────
 function BudgetStep({
   state,
@@ -1276,6 +1329,10 @@ function BudgetStep({
           </Metric>
           <BreakEvenBlock state={state} committed={committed} prefix="budget" />
         </div>
+        {/* D-17A/T9 — the discipline, named, at the point the spending decision is made. */}
+        {forecast && (
+          <GreenlightDiscipline state={state} committed={committed} expectedTotal={forecast.expectedTotal} />
+        )}
         {forecast ? (
           <ForecastDisplay forecast={forecast} mode="normal" source="estimate" />
         ) : (
@@ -1314,6 +1371,8 @@ function ReviewStep({
   const exposure = capitalExposure(state, committed) // C1: solvency and exposure are separate
   // D-17A/T2: the same cycle-inclusive headline the Budget step shows, for the closing hint.
   const be = cycleInclusiveBreakEvenGross(state, committed)
+  // ONE forecast for this step — the discipline line and the forecast panel read the same object.
+  const forecast = previewForecast(state, pkg)
   return (
     <div className="stack">
       {/* Film Readiness — assembled from the four real dimensions, not a hidden score */}
@@ -1326,6 +1385,9 @@ function ReviewStep({
       <div className="grid grid-2">
         <div className="card stack">
           <h2>Review &amp; release strategy</h2>
+          {/* D-17A/T9 — the named discipline sits at the TOP of the decision card, before the
+              individual figures, because it is the question the decision turns on. */}
+          <GreenlightDiscipline state={state} committed={committed} expectedTotal={forecast.expectedTotal} />
           <div className="spread">
             <span>Film</span>
             <strong>{conceptTitle}</strong>
@@ -1385,7 +1447,7 @@ function ReviewStep({
           </p>
         </div>
         <div className="stack">
-          <ForecastDisplay forecast={previewForecast(state, pkg)} mode="normal" source="estimate" />
+          <ForecastDisplay forecast={forecast} mode="normal" source="estimate" />
         </div>
       </div>
 
