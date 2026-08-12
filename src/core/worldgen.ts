@@ -645,5 +645,9 @@ export function generateWorld(seed: string): GameState {
     theatricalRuns: [],
     // ── D-14 career events — EMPTY here (engaged-only; non-engaged never appends).
     careerEvents: [],
+    // ── D-17A/R2 engagement fact — FALSE here, and this is the ONLY place it is ever
+    // set false. The headless M0A world never engages the economy; a PLAYER game flips
+    // it true (monotonically, forever) at beginFounding / the first signContract.
+    economyEngagedEver: false,
   }
 }

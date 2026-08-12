@@ -404,10 +404,22 @@ export type GameStateV4 = GameStateV3 & {
   theatricalRuns: TheatricalRun[]
 }
 
-// The live D-14 state: the V4 surface PLUS the append-only frozen career-event ledger
-// (empty on M0A/legacy/non-engaged → byte-identical). New games save as SaveFileV5.
-export type GameState = GameStateV4 & {
+// The D-14 V5 surface: the V4 surface PLUS the append-only frozen career-event ledger
+// (empty on M0A/legacy/non-engaged → byte-identical). FROZEN as SaveFileV5's state
+// (D-17A/R2), so the D-17 `economyEngagedEver` field stays out of the frozen V5 shape,
+// exactly as GameStateV1/V2/V3/V4 are anchored.
+export type GameStateV5 = GameStateV4 & {
   careerEvents: TalentCareerEvent[]
+}
+
+// The live D-17A state: the V5 surface PLUS the persisted engagement fact (R2).
+// `economyEngagedEver` is an EXPLICIT, PERSISTED, MONOTONIC regime fact — set true at
+// founding/first signing and never cleared — so enduring regime membership is never
+// re-derived from mutable current collections (the D-16 engagement cliff: letting every
+// contract expire silently switched the D-12 economy back off). New games save as
+// SaveFileV6.
+export type GameState = GameStateV5 & {
+  economyEngagedEver: boolean
 }
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────

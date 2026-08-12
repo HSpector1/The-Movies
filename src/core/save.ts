@@ -47,6 +47,7 @@ import type {
   GameStateV2,
   GameStateV3,
   GameStateV4,
+  GameStateV5,
   Genre,
   GenreExperience,
   Persona,
@@ -113,16 +114,28 @@ export type SaveFileV4 = {
   broadcastCache: BroadcastItem[]
 }
 
-// The D-14 V5 envelope — the live GameState (V4 + careerEvents). New games save as V5.
+// The D-14 V5 envelope — the FROZEN GameStateV5 (V4 + careerEvents). Anchored to
+// GameStateV5 (not the live GameState) so the D-17A `economyEngagedEver` field does NOT
+// leak into the frozen V5 shape, exactly as V3/V4 are anchored. D-17A no longer WRITES
+// V5 (new games save V6), but old V5 saves load and upgrade cleanly.
 export type SaveFileV5 = {
   saveVersion: 5
+  seed: string
+  state: GameStateV5
+  broadcastCache: BroadcastItem[]
+}
+
+// The D-17A V6 envelope — the live GameState (V5 + the persisted engagement fact, R2).
+// New games save as V6.
+export type SaveFileV6 = {
+  saveVersion: 6
   seed: string
   state: GameState
   broadcastCache: BroadcastItem[]
 }
 
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
-export type SaveFile = SaveFileV1 | SaveFileV2 | SaveFileV3 | SaveFileV4 | SaveFileV5
+export type SaveFile = SaveFileV1 | SaveFileV2 | SaveFileV3 | SaveFileV4 | SaveFileV5 | SaveFileV6
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -298,6 +311,33 @@ export function validateSaveV5(save: unknown): SaveFileV5 {
   return save as SaveFileV5
 }
 
+// The D-17A V6 envelope validator (adds economyEngagedEver; same envelope shape check
+// PLUS one field check).
+//
+// THE ONE DELIBERATE EXCEPTION to this module's "the save is plain data, not re-validated
+// field-by-field" rule: `economyEngagedEver` MUST be a boolean. Every other field is
+// descriptive — a missing one degrades a display. This one is a REGIME fact: absent (or
+// non-boolean) it would read as falsy and silently DISENGAGE a real studio's D-12 economy
+// — no overhead, no solvency gate, no weekly Studio Revenue — which is exactly the R2
+// failure this milestone closes. A wrong regime must fail loudly at load, not quietly at
+// play.
+export function validateSaveV6(save: unknown): SaveFileV6 {
+  if (save === null || typeof save !== 'object') {
+    throw new Error('validateSaveV6: save is not an object')
+  }
+  const s = save as Record<string, unknown>
+  if (s.saveVersion !== 6) {
+    throw new Error(`validateSaveV6: expected saveVersion 6, got ${JSON.stringify(s.saveVersion)}`)
+  }
+  const state = checkEnvelope(s, 'validateSaveV6')
+  if (typeof state.economyEngagedEver !== 'boolean') {
+    throw new Error(
+      `validateSaveV6: state.economyEngagedEver is missing or not a boolean (got ${JSON.stringify(state.economyEngagedEver)}) — the persisted engagement fact (R2) must be explicit; a missing value would silently disengage the studio economy`,
+    )
+  }
+  return save as SaveFileV6
+}
+
 // ── Version-dispatching validation (LOUD rejection of unknown versions) ──────
 // Returns the correctly-narrowed envelope for a known version; throws for any
 // other saveVersion. The three versions carry DIFFERENT shapes (V1 legacy scalar
@@ -312,8 +352,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 3) return validateSaveV3(save)
   if (s.saveVersion === 4) return validateSaveV4(save)
   if (s.saveVersion === 5) return validateSaveV5(save)
+  if (s.saveVersion === 6) return validateSaveV6(save)
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1, 2, 3, 4 and 5 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1, 2, 3, 4, 5 and 6 only)`,
   )
 }
 
@@ -367,8 +408,9 @@ export function makeSaveV4(state: GameStateV4): SaveFileV4 {
   return validateSaveV4(save)
 }
 
-// Build a validated V5 envelope from the live (D-14) GameState. This is what new games use.
-export function makeSaveV5(state: GameState): SaveFileV5 {
+// Build a validated V5 envelope from a FROZEN GameStateV5 (pre-D-17A). Kept typed against
+// the frozen shape for the V4→V5 conversion and V5 fixtures. D-17A no longer writes V5.
+export function makeSaveV5(state: GameStateV5): SaveFileV5 {
   const save: SaveFileV5 = {
     saveVersion: 5,
     seed: state.seed,
@@ -378,9 +420,20 @@ export function makeSaveV5(state: GameState): SaveFileV5 {
   return validateSaveV5(save)
 }
 
-// makeSave — the D-14 default. New games save as V5.
-export function makeSave(state: GameState): SaveFileV5 {
-  return makeSaveV5(state)
+// Build a validated V6 envelope from the live (D-17A) GameState. This is what new games use.
+export function makeSaveV6(state: GameState): SaveFileV6 {
+  const save: SaveFileV6 = {
+    saveVersion: 6,
+    seed: state.seed,
+    state,
+    broadcastCache: state.broadcastItems,
+  }
+  return validateSaveV6(save)
+}
+
+// makeSave — the D-17A default. New games save as V6.
+export function makeSave(state: GameState): SaveFileV6 {
+  return makeSaveV6(state)
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -717,11 +770,57 @@ export function convertV3ToV4(v3: SaveFileV3): SaveFileV4 {
 export function convertV4ToV5(v4: SaveFileV4): SaveFileV5 {
   const validated = validateSaveV4(v4) // defensive: never trust an unvalidated input
   const oldState = validated.state
-  const newState: GameState = {
+  // NOTE: this literal is a FROZEN GameStateV5 — it must NOT carry the D-17A
+  // `economyEngagedEver` field. The V5→V6 step reconstructs that fact (convertV5ToV6).
+  const newState: GameStateV5 = {
     ...oldState,
     careerEvents: [], // empty ledger — no invented pre-D-14 history; fame preserved as-is.
   }
   return makeSaveV5(newState)
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// D-17A / R2 — deterministic V5 → V6 conversion (the engagement-cliff closure).
+//   Adds the persisted, monotonic `economyEngagedEver` fact. A V5 save does not carry
+//   it, so it is RECONSTRUCTED from evidence that only an engaged studio can have
+//   produced (proven exact for all five save classes in the Phase-0 migration proof):
+//     • an open founding draft;
+//     • any contract (past or present is not recoverable — a current one is proof);
+//     • any ledger entry of an ENGAGED-ONLY kind (payroll/overhead/signingBonus/
+//       termination/freelancerFee/studioRevenue). `boxOffice` and `production` are
+//       DELIBERATELY EXCLUDED: the headless/M0A path writes both;
+//     • any theatrical run recorded under the D-12 economy model (version ≥ 1) — a
+//       migrated V3 run is `legacyCompleted` at model 0 and proves nothing.
+//   A never-engaged (headless/M0A/legacy) save reconstructs to FALSE and every branch
+//   behaves exactly as before. rngState carried UNCHANGED; input never mutated;
+//   deterministic and idempotent (byte-identical under stableStringify on repeat).
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// The ledger kinds ONLY an engaged studio can write (D-11/D-12 economics). Excludes
+// `production` and `boxOffice`, which the non-engaged D-1 path also writes.
+const ENGAGED_KINDS: ReadonlySet<string> = new Set([
+  'payroll',
+  'overhead',
+  'signingBonus',
+  'termination',
+  'freelancerFee',
+  'studioRevenue',
+])
+
+export function convertV5ToV6(v5: SaveFileV5): SaveFileV6 {
+  const validated = validateSaveV5(v5) // defensive: never trust an unvalidated input
+  const oldState = validated.state
+  const everEngaged =
+    oldState.founding !== null ||
+    oldState.contracts.length > 0 ||
+    oldState.ledger.some((e) => ENGAGED_KINDS.has(e.kind)) ||
+    oldState.theatricalRuns.some((r) => r.economyModelVersion >= 1)
+  const newState: GameState = {
+    ...oldState,
+    economyEngagedEver: everEngaged,
+    // rngState carried through by the spread, UNCHANGED — the resumed run replays identically.
+  }
+  return makeSaveV6(newState)
 }
 
 // importLegacyV{3,2,1}ToV4 — parse a legacy JSON string and return a NEW SaveFileV4.
@@ -750,10 +849,19 @@ export function migrateToV4(save: SaveFileV1 | SaveFileV2 | SaveFileV3 | SaveFil
   return convertV3ToV4(convertV2ToV3(convertV1ToV2(save)))
 }
 
-// migrateToV5 — bring ANY known save version up to the live V5 (the load-to-play entry).
-// V5 passes through; V1–V4 migrate deterministically. Idempotent. The V4→V5 step only
-// adds an empty career ledger (fame + all talent state preserved exactly).
-export function migrateToV5(save: SaveFile): SaveFileV5 {
+// migrateToV5 — bring ANY known pre-V6 save version up to V5. V5 passes through; V1–V4
+// migrate deterministically. Idempotent. The V4→V5 step only adds an empty career ledger
+// (fame + all talent state preserved exactly). (Retained; the live entry is migrateToV6.)
+export function migrateToV5(save: SaveFileV1 | SaveFileV2 | SaveFileV3 | SaveFileV4 | SaveFileV5): SaveFileV5 {
   if (save.saveVersion === 5) return save
   return convertV4ToV5(migrateToV4(save))
+}
+
+// migrateToV6 — bring ANY known save version up to the live V6 (the load-to-play entry).
+// V6 passes through; V1–V5 migrate deterministically. Idempotent. The V5→V6 step
+// reconstructs the persisted engagement fact (R2) — never-engaged saves get `false` and
+// keep behaving byte-identically.
+export function migrateToV6(save: SaveFile): SaveFileV6 {
+  if (save.saveVersion === 6) return save
+  return convertV5ToV6(migrateToV5(save))
 }

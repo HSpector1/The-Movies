@@ -95,8 +95,9 @@ import {
   makeSave,
   exportSave,
   importSave,
-  migrateToV5,
+  migrateToV6,
   convertV4ToV5,
+  convertV5ToV6,
   importLegacyV2ToV4,
   importLegacyV1ToV4,
   // ── D-11 employment / contracts / roster / freelancer market ──
@@ -1780,9 +1781,10 @@ export function remainingWeeks(prod: Production): number {
 }
 
 // ── Saves ────────────────────────────────────────────────────────────────────
-// New games save as the D-11 SaveFileV3 (makeSave === makeSaveV3). The V3 envelope's
-// state carries the employment surface (founding/contracts/ledger/freeAgents). Legacy
-// V2 and V1 imports are converted deterministically to V3 (originals never touched).
+// New games save as the D-17A SaveFileV6 (makeSave === makeSaveV6). The V6 envelope's
+// state carries the employment surface (founding/contracts/ledger/freeAgents), the D-12
+// theatrical runs, the D-14 career events, and the D-17A persisted engagement fact.
+// Legacy V1–V5 imports are converted deterministically to V6 (originals never touched).
 export function exportSaveJson(state: GameState): string {
   return exportSave(makeSave(state))
 }
@@ -1791,37 +1793,38 @@ export type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
   | { ok: false; error: string }
 
-// Import a save. Accepts V3 (current), V2 (→ convertV2ToV3), and V1 (→ V2 → V3), all
-// deterministic. `converted` tells the caller a legacy save was upgraded so the UI can
-// inform the player — their original file is never overwritten (a fresh V3 is returned).
+// Import a save. Accepts V6 (current) and every legacy version V1–V5, all deterministic.
+// `converted` tells the caller a legacy save was upgraded so the UI can inform the player
+// — their original file is never overwritten (a fresh V6 is returned).
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    // D-14: migrate any known version up to the live V5 shape (adds careerEvents; V4→V5
-    // seeds an EMPTY ledger, preserving fame + all talent state; a migrated V3 also gets
-    // legacyCompleted theatrical runs — recorded, never repaid).
-    const converted = save.saveVersion !== 5
-    return { ok: true, state: migrateToV5(save).state, converted }
+    // D-17A: migrate any known version up to the live V6 shape (V4→V5 seeds an EMPTY
+    // career ledger, preserving fame + all talent state; V5→V6 reconstructs the persisted
+    // engagement fact; a migrated V3 also gets legacyCompleted theatrical runs — recorded,
+    // never repaid).
+    const converted = save.saveVersion !== 6
+    return { ok: true, state: migrateToV6(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
 }
 
 // Explicit "Import a legacy V2 save" affordance (D-11.16). Converts a V2 JSON string
-// deterministically to a V3 GameState. Rejects non-V2 input as DATA. Original untouched.
+// deterministically to the live GameState. Rejects non-V2 input as DATA. Original untouched.
 export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
-    return { ok: true, state: convertV4ToV5(importLegacyV2ToV4(json)).state, converted: true }
+    return { ok: true, state: convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json))).state, converted: true }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
 }
 
 // Explicit "Import a legacy V1 save" affordance (D-9.15/D-11.16). Converts a V1 JSON
-// string deterministically to a V3 GameState (via V2). Rejects non-V1 input as DATA.
+// string deterministically to the live GameState (via V2). Rejects non-V1 input as DATA.
 export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
-    return { ok: true, state: convertV4ToV5(importLegacyV1ToV4(json)).state, converted: true }
+    return { ok: true, state: convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json))).state, converted: true }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }

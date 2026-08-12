@@ -24,6 +24,7 @@ import {
   convertV2ToV3,
   convertV3ToV4,
   convertV4ToV5,
+  convertV5ToV6,
   exportSave,
   generateCandidates,
   generateWorld,
@@ -210,9 +211,9 @@ describe('§15.7/D-9.15 — a run resumed from a converted V2 replays byte-ident
 
       // Two INDEPENDENT conversions of the same V1 → V2 → V3 (D-11 legacy resume path;
       // the live engine runs on the V3 shape). Both conversions are deterministic.
-      // D-14: legacy saves migrate all the way to the live V5 shape before resuming.
-      const s1 = convertV4ToV5(convertV3ToV4(convertV2ToV3(convertV1ToV2(v1)))).state
-      const s2 = convertV4ToV5(convertV3ToV4(convertV2ToV3(convertV1ToV2(v1)))).state
+      // D-17A: legacy saves migrate all the way to the live V6 shape before resuming.
+      const s1 = convertV5ToV6(convertV4ToV5(convertV3ToV4(convertV2ToV3(convertV1ToV2(v1))))).state
+      const s2 = convertV5ToV6(convertV4ToV5(convertV3ToV4(convertV2ToV3(convertV1ToV2(v1))))).state
 
       // The converted starting states are already byte-identical (idempotent migrate).
       expect(exportSave(makeSave(s1))).toBe(exportSave(makeSave(s2)))
