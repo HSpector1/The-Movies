@@ -11,13 +11,21 @@ import type {
   PackageFit,
   ExecutionConfidence,
   ForecastProfitRange,
+  CycleFixedCost,
 } from '../engine/adapter.ts'
 
+// D-17A/T2: "Expected to profit" used to read the DIRECT-cost expected contribution, so a
+// package that clears its own negative and marketing but not the 14 weeks of studio payroll
+// and overhead it occupies was listed under "What looks strong". The strength claim now runs
+// on the STUDIO-ECONOMIC basis; a package that only clears direct costs is stated as exactly
+// that, on the risk side, where it belongs. `fixedCost` is the prospective 14-week studio
+// fixed cost (0 when the caller has no burn in scope ⇒ behaviour unchanged).
 function strongPoints(
   cohesion: CreativeCohesion,
   fit: PackageFit,
   execution: ExecutionConfidence,
   profit: ForecastProfitRange,
+  fixedCost: number,
 ): string[] {
   const out: string[] = []
   if (cohesion.tier === 'strong') out.push('Coherent creative brief')
@@ -26,7 +34,9 @@ function strongPoints(
     out.push(`Strong ${fit.strongest.role} (${fit.strongest.talentName})`)
   }
   for (const s of execution.confidenceSources) out.push(s)
-  if (profit.profit.expected > 0) out.push('Expected to profit')
+  if (profit.profit.expected - fixedCost > 0) {
+    out.push(fixedCost > 0 ? 'Expected to profit after studio fixed costs' : 'Expected to profit')
+  }
   return out
 }
 
@@ -35,6 +45,7 @@ function riskyPoints(
   fit: PackageFit,
   execution: ExecutionConfidence,
   profit: ForecastProfitRange,
+  fixedCost: number,
 ): string[] {
   const out: string[] = []
   for (const c of cohesion.conflicts) out.push(c)
@@ -44,19 +55,34 @@ function riskyPoints(
     out.push(`Weak ${fit.weakest.role} (${fit.weakest.talentName})`)
   }
   for (const s of execution.uncertaintySources) out.push(s)
-  if (profit.profit.low < 0) out.push('Could lose money')
+  // Unchanged trigger (D-17A keeps this driven by the direct-cost low band) — the phrasing
+  // now names the basis so it cannot be read as the whole picture.
+  if (profit.profit.low < 0) {
+    out.push(fixedCost > 0 ? 'Could lose money before studio fixed costs' : 'Could lose money')
+  }
+  // D-17A/T2: the wrong-sign case made explicit — direct costs covered, studio's not.
+  if (fixedCost > 0 && profit.profit.expected > 0 && profit.profit.expected - fixedCost < 0) {
+    out.push('Central forecast covers direct costs but not the studio weeks it occupies')
+  }
   return out
 }
 
-// The one-line judgment: creative word (from cohesion.tier) × commercial word (from
-// the sign of expected profit and whether the low end dips negative). No new score.
-function studioJudgment(cohesion: CreativeCohesion, profit: ForecastProfitRange): string {
+// The one-line judgment: creative word (from cohesion.tier) × commercial word. D-17A/T2: the
+// commercial word is now read off the STUDIO-ECONOMIC band, so "commercially promising" cannot
+// describe a package the studio is expected to lose money on. No new score.
+function studioJudgment(
+  cohesion: CreativeCohesion,
+  profit: ForecastProfitRange,
+  fixedCost: number,
+): string {
   const creativeWord =
     cohesion.tier === 'strong' ? 'strong' : cohesion.tier === 'mixed' ? 'mixed' : 'weak'
+  const expected = profit.profit.expected - fixedCost
+  const low = profit.profit.low - fixedCost
   const commercialWord =
-    profit.profit.expected > 0 && profit.profit.low >= 0
+    expected > 0 && low >= 0
       ? 'commercially promising'
-      : profit.profit.expected > 0
+      : expected > 0
         ? 'commercially promising but uncertain'
         : 'commercially risky'
   return `Creatively ${creativeWord}, ${commercialWord}`
@@ -67,15 +93,19 @@ export function FilmReadiness({
   fit,
   execution,
   profit,
+  cycleFixedCost,
 }: {
   cohesion: CreativeCohesion
   fit: PackageFit
   execution: ExecutionConfidence
   profit: ForecastProfitRange
+  // D-17A/T2: the prospective 14-week studio fixed cost. Absent ⇒ unchanged behaviour.
+  cycleFixedCost?: CycleFixedCost
 }) {
-  const strong = strongPoints(cohesion, fit, execution, profit)
-  const risky = riskyPoints(cohesion, fit, execution, profit)
-  const judgment = studioJudgment(cohesion, profit)
+  const fixedCost = cycleFixedCost?.amount ?? 0
+  const strong = strongPoints(cohesion, fit, execution, profit, fixedCost)
+  const risky = riskyPoints(cohesion, fit, execution, profit, fixedCost)
+  const judgment = studioJudgment(cohesion, profit, fixedCost)
 
   return (
     <div className="card" data-testid="film-readiness">

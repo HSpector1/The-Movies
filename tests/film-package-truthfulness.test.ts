@@ -809,7 +809,8 @@ describe('#16 risksMaterialized maps only the stored uncertainty factors against
     // sources, or a fit/profit-derived phrase — the union of the real channels.
     const groundedStrengths = new Set<string>([
       'coherent creative brief',
-      'expected to profit',
+      // D-17A/T2: the strength now names its basis (direct costs) — the trigger is unchanged.
+      'expected to profit on its direct costs',
       ...a.cohesion.strengths,
       ...a.execution.confidenceSources,
       `strong ${a.fit.strongest.role}`,

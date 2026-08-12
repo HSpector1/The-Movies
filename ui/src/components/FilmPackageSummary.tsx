@@ -13,6 +13,7 @@ import type {
   PackageFit,
   ExecutionConfidence,
   ForecastProfitRange,
+  CycleFixedCost,
 } from '../engine/adapter.ts'
 import { money, score, confidenceLabel } from '../format.ts'
 import { Metric, Warn } from './common.tsx'
@@ -28,9 +29,55 @@ function RangeFigure({ label, value, testid }: { label: string; value: number; t
 }
 
 // A4: a Film Contribution figure that never relies on color alone — every figure carries an
-// explicit Profit / Loss / Break-even word, and negative values are marked as a loss (red).
-// A near-zero value (|contribution| < $1K, i.e. it rounds to break-even) reads as neutral.
-function ContribFigure({ label, value, testid }: { label: string; value: number; testid?: string }) {
+// explicit word, and negative values are marked as a loss (red). A near-zero value
+// (|contribution| < $1K, i.e. it rounds to break-even) reads as neutral.
+//
+// D-17A/T2 (WRONG-SIGN DEFECT): a package could show a green "Profit" here while the studio
+// LOST money on it, because Film Contribution is the DIRECT-cost basis (D-12 §3/§8 — payroll
+// and overhead are never folded into it). That basis stays; what changes is that the word
+// "Profit" and the green class may render ONLY when the corresponding STUDIO-ECONOMIC value
+// (contribution − the film's 14-week share of studio fixed costs) is also ≥ 0. When the film
+// clears its direct costs but not the studio's, it says exactly that — "Covers direct costs",
+// neutral — and shows the negative studio-economic figure beside it. No surface may show a
+// green profit band whose studio-economic branch is negative without showing that truth.
+function ContribFigure({
+  label,
+  value,
+  fixedCost,
+  testid,
+}: {
+  label: string
+  value: number
+  fixedCost: number
+  testid?: string
+}) {
+  const studioEconomic = value - fixedCost
+  const neutral = Math.abs(value) < 1_000
+  const coversStudio = studioEconomic >= 0
+  const cls = neutral ? 'mono' : value > 0 ? (coversStudio ? 'money pos' : 'mono') : 'money neg'
+  const word = neutral
+    ? 'Break-even'
+    : value > 0
+      ? coversStudio
+        ? 'Profit'
+        : 'Covers direct costs'
+      : 'Loss'
+  return (
+    <div className="stack" {...(testid ? { 'data-testid': testid } : {})}>
+      <span className="hint">{label}</span>
+      <span className={cls}>
+        {money(value)} · {word}
+      </span>
+      {value > 0 && !coversStudio && fixedCost > 0 && (
+        <span className="money neg">{money(studioEconomic)} after studio fixed costs</span>
+      )}
+    </div>
+  )
+}
+
+// D-17A/T2: the studio-economic triple. Positive here means the studio is genuinely ahead on
+// this film once the fixed cost of its cycle is counted, so the Profit/Loss words are unqualified.
+function StudioEconomicFigure({ label, value, testid }: { label: string; value: number; testid?: string }) {
   const neutral = Math.abs(value) < 1_000
   const cls = neutral ? 'mono' : value > 0 ? 'money pos' : 'money neg'
   const word = neutral ? 'Break-even' : value > 0 ? 'Profit' : 'Loss'
@@ -49,12 +96,18 @@ export function FilmPackageSummary({
   fit,
   execution,
   profit,
+  cycleFixedCost,
 }: {
   cohesion: CreativeCohesion
   fit?: PackageFit
   execution?: ExecutionConfidence
   profit?: ForecastProfitRange
+  // D-17A/T2: the prospective 14-week studio fixed cost from `prospectiveCycleFixedCost`.
+  // Absent ⇒ the studio's weekly burn is not in scope for this render and the panel behaves
+  // exactly as before (studio-economic === contribution). Never invented here.
+  cycleFixedCost?: CycleFixedCost
 }) {
+  const fixedCost = cycleFixedCost?.amount ?? 0
   return (
     <div className="stack" data-testid="film-package-summary">
       {/* 1 ── Creative Cohesion — always shown, talent-independent ────────── */}
@@ -245,11 +298,30 @@ export function FilmPackageSummary({
             <div className="stack" data-testid="pkg-profit-profit">
               <span className="opt-title">Film Contribution</span>
               <div className="grid grid-3">
-                <ContribFigure label="Downside" value={profit.profit.low} testid="pkg-profit-contribution-downside" />
-                <ContribFigure label="Expected" value={profit.profit.expected} />
-                <ContribFigure label="Upside" value={profit.profit.high} />
+                <ContribFigure label="Downside" value={profit.profit.low} fixedCost={fixedCost} testid="pkg-profit-contribution-downside" />
+                <ContribFigure label="Expected" value={profit.profit.expected} fixedCost={fixedCost} testid="pkg-profit-contribution-expected" />
+                <ContribFigure label="Upside" value={profit.profit.high} fixedCost={fixedCost} testid="pkg-profit-contribution-upside" />
               </div>
             </div>
+            {/* D-17A/T2: the studio-economic branch, always beside the direct one. */}
+            {cycleFixedCost !== undefined && (
+              <div className="stack" data-testid="pkg-studio-economic">
+                <span className="opt-title">Studio-economic result</span>
+                <div className="grid grid-3">
+                  <StudioEconomicFigure label="Downside" value={profit.profit.low - fixedCost} testid="pkg-studio-economic-downside" />
+                  <StudioEconomicFigure label="Expected" value={profit.profit.expected - fixedCost} testid="pkg-studio-economic-expected" />
+                  <StudioEconomicFigure label="Upside" value={profit.profit.high - fixedCost} testid="pkg-studio-economic-upside" />
+                </div>
+                <p className="hint" style={{ marginTop: 0 }} data-testid="pkg-studio-economic-disclosure">
+                  Film Contribution is Studio Revenue minus this film&rsquo;s own direct costs.
+                  The studio-economic result also subtracts {money(fixedCost)} &mdash; the payroll
+                  and overhead the studio pays across the {cycleFixedCost.weeks} weeks this film
+                  occupies it, at today&rsquo;s {money(cycleFixedCost.weeklyBurn)} per week.
+                  Payroll and overhead remain studio costs; this is a labelled managerial measure,
+                  not a charge against the film.
+                </p>
+              </div>
+            )}
             {/* D-17A/T2: this panel's break-even is the DIRECT-cost figure, and its label now
                 says so. The studio-economic (cycle-inclusive) headline lives at Assembly, where
                 the studio's weekly burn is in scope; two identically-labelled break-evens with

@@ -840,7 +840,13 @@ export function greenlightAssessment(
   strengths.push(...cohesion.strengths)
   if (fit.strongest.fit >= 70) strengths.push(`strong ${fit.strongest.role}`)
   strengths.push(...execution.confidenceSources)
-  if (profit.profit.expected > 0) strengths.push('expected to profit')
+  // D-17A/T2: WORDING ONLY — the trigger and the value are untouched. `profit.profit` is the
+  // DIRECT-cost band (Studio Revenue − the film's own commitment); this assessment has no
+  // studio state and therefore cannot know the fixed cost of the cycle, so an unqualified
+  // "expected to profit" asserted a profitability that can be false studio-economically. The
+  // claim now names the basis it is actually making. R7's headline lives at Assembly, which
+  // does have the burn in scope.
+  if (profit.profit.expected > 0) strengths.push('expected to profit on its direct costs')
 
   const risks: string[] = []
   risks.push(...cohesion.conflicts)

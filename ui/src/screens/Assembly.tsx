@@ -28,6 +28,7 @@ import {
   totalCommittedCost,
   commitmentPreview,
   cycleInclusiveBreakEvenGross,
+  prospectiveCycleFixedCost,
   previewForecast,
   TUNING,
   marketingEfficiency,
@@ -62,6 +63,7 @@ import type {
   ForecastProfitRange,
   PackageDelta,
   CommitmentPreview,
+  CycleFixedCost,
 } from '../engine/adapter.ts'
 import {
   SHAPE_DESCRIPTIONS,
@@ -309,6 +311,10 @@ export function Assembly({
   const commitment = pkg ? totalCommittedCost(state, pkg) : null
   const preview: CommitmentPreview | null = commitment !== null ? commitmentPreview(state, commitment) : null
   const blockedByGate = preview !== null && !preview.affordable
+  // D-17A/T2: the 14-week studio fixed cost this package is asked to carry (sole occupancy —
+  // the conservative, named default). Passed to every panel that reports a profit sign, so no
+  // surface can show a green "Profit" whose studio-economic branch is negative.
+  const cycleFixedCost = prospectiveCycleFixedCost(state)
 
   // ── Change preview (on select/swap) — real computed packageDelta ────────────
   // A delta needs TWO complete packages. We remember the last complete package the
@@ -461,6 +467,7 @@ export function Assembly({
             fit={fit}
             execution={execution}
             profit={profit}
+            cycleFixedCost={cycleFixedCost}
           />
         )}
       </div>
@@ -483,6 +490,7 @@ export function Assembly({
             {...(fit ? { fit } : {})}
             {...(execution ? { execution } : {})}
             {...(profit ? { profit } : {})}
+            cycleFixedCost={cycleFixedCost}
           />
         </div>
       )}
@@ -1290,6 +1298,7 @@ function ReviewStep({
   fit,
   execution,
   profit,
+  cycleFixedCost,
 }: {
   state: GameState
   pkg: DraftPackage
@@ -1299,6 +1308,7 @@ function ReviewStep({
   fit: PackageFit | null
   execution: ExecutionConfidence | null
   profit: ForecastProfitRange | null
+  cycleFixedCost: CycleFixedCost
 }) {
   const committed = totalCommittedCost(state, pkg)
   const exposure = capitalExposure(state, committed) // C1: solvency and exposure are separate
@@ -1308,7 +1318,7 @@ function ReviewStep({
     <div className="stack">
       {/* Film Readiness — assembled from the four real dimensions, not a hidden score */}
       {cohesion && fit && execution && profit && (
-        <FilmReadiness cohesion={cohesion} fit={fit} execution={execution} profit={profit} />
+        <FilmReadiness cohesion={cohesion} fit={fit} execution={execution} profit={profit} cycleFixedCost={cycleFixedCost} />
       )}
       {/* D-12 Phase 3 — the SAME team-direction the autopsy later explains, shown before greenlight. */}
       <TeamDirectionPanel state={state} sel={{ writerId: pkg.writerId, directorId: pkg.directorId, cast: pkg.cast, shape: pkg.shape }} />
@@ -1386,6 +1396,7 @@ function ReviewStep({
           {...(fit ? { fit } : {})}
           {...(execution ? { execution } : {})}
           {...(profit ? { profit } : {})}
+          cycleFixedCost={cycleFixedCost}
         />
       )}
     </div>

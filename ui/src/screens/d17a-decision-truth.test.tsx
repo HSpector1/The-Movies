@@ -8,13 +8,23 @@ import { render, screen, within, cleanup, fireEvent } from '@testing-library/rea
 import { Dashboard } from './Dashboard.tsx'
 import { StudioRoster } from './StudioRoster.tsx'
 import { Assembly } from './Assembly.tsx'
+import { FilmPackageSummary } from '../components/FilmPackageSummary.tsx'
+import { FilmReadiness } from '../components/FilmReadiness.tsx'
 import {
   cycleInclusiveBreakEvenGross,
+  prospectiveCycleFixedCost,
   financeCard,
   payrollSummary,
   TUNING,
 } from '../engine/adapter.ts'
-import type { GameState } from '../engine/adapter.ts'
+import type {
+  CreativeCohesion,
+  CycleFixedCost,
+  ExecutionConfidence,
+  ForecastProfitRange,
+  GameState,
+  PackageFit,
+} from '../engine/adapter.ts'
 import { money } from '../format.ts'
 import { newFoundedGame } from '../test/founding.ts'
 
@@ -177,5 +187,162 @@ describe('D-17A/T2 — the break-even headline is cycle-inclusive', () => {
     expect(screen.getByTestId('release-breakeven-direct').textContent).toContain(money(be.direct))
     expect(screen.getByTestId('release-breakeven-shared')).toBeInTheDocument()
     expect(screen.getByTestId('release-breakeven-assumption')).toBeInTheDocument()
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// T2 — the WRONG-SIGN defect: a green "Profit" whose studio-economic branch is negative.
+// ═══════════════════════════════════════════════════════════════════════════════
+const COHESION: CreativeCohesion = {
+  score: 60,
+  tier: 'mixed',
+  strengths: [],
+  conflicts: [],
+  explanation: '',
+  talentIndependent: true,
+}
+const FIT: PackageFit = {
+  overall: 70,
+  perAssignment: [],
+  strongest: { role: 'Writer', talentId: 'w', talentName: 'W', fit: 80, unproven: false },
+  weakest: { role: 'Lead', slot: 'lead', talentId: 'l', talentName: 'L', fit: 60, unproven: false },
+  unfilled: [],
+}
+const EXECUTION: ExecutionConfidence = {
+  score: 60,
+  tier: 'moderate',
+  explanation: '',
+  confidenceSources: [],
+  uncertaintySources: [],
+}
+// A package that CLEARS its direct costs at every band, but not the studio's 14 weeks.
+const CLEARS_DIRECT_ONLY: ForecastProfitRange = {
+  studioRevenue: { low: 5_000_000, expected: 6_000_000, high: 7_000_000 },
+  profit: { low: 1_000_000, expected: 2_000_000, high: 3_000_000 },
+  breakEven: 7_000_000,
+  committedCost: 4_000_000,
+  confidence: 'medium',
+  upsideDrivers: [],
+  downsideRisks: [],
+  studioRevenueIsFullBoxOffice: false,
+}
+const FIXED_4M: CycleFixedCost = { weeks: 14, weeklyBurn: 285_714, concurrency: 1, amount: 4_000_000 }
+
+describe('D-17A/T2 — no green Profit while the studio-economic branch is negative', () => {
+  it('a contribution that covers direct costs but not the studio weeks is neutral and says so', () => {
+    render(<FilmPackageSummary cohesion={COHESION} profit={CLEARS_DIRECT_ONLY} cycleFixedCost={FIXED_4M} />)
+    for (const band of ['downside', 'expected', 'upside']) {
+      const fig = screen.getByTestId(`pkg-profit-contribution-${band}`)
+      expect(fig.textContent).toMatch(/Covers direct costs/)
+      expect(fig.textContent).not.toMatch(/·\s*Profit/)
+      expect(within(fig).getByText(/Covers direct costs/).className).not.toContain('money pos')
+      // …and the negative studio-economic figure is shown right beside it.
+      expect(fig.textContent).toMatch(/after studio fixed costs/)
+    }
+  })
+
+  it('renders the studio-economic triple as contribution minus the cycle fixed cost', () => {
+    render(<FilmPackageSummary cohesion={COHESION} profit={CLEARS_DIRECT_ONLY} cycleFixedCost={FIXED_4M} />)
+    const bands = [
+      ['downside', CLEARS_DIRECT_ONLY.profit.low],
+      ['expected', CLEARS_DIRECT_ONLY.profit.expected],
+      ['upside', CLEARS_DIRECT_ONLY.profit.high],
+    ] as const
+    for (const [band, value] of bands) {
+      const fig = screen.getByTestId(`pkg-studio-economic-${band}`)
+      expect(fig.textContent).toContain(money(value - FIXED_4M.amount))
+      expect(fig.textContent).toMatch(/·\s*Loss/)
+    }
+    expect(screen.getByTestId('pkg-studio-economic-disclosure').textContent).toMatch(
+      /labelled managerial measure, not a charge against the film/i,
+    )
+  })
+
+  it('a genuinely studio-positive package still reads Profit, in green', () => {
+    const clearsBoth: ForecastProfitRange = {
+      ...CLEARS_DIRECT_ONLY,
+      profit: { low: 5_000_000, expected: 6_000_000, high: 7_000_000 },
+    }
+    render(<FilmPackageSummary cohesion={COHESION} profit={clearsBoth} cycleFixedCost={FIXED_4M} />)
+    const fig = screen.getByTestId('pkg-profit-contribution-expected')
+    expect(within(fig).getByText(/·\s*Profit/).className).toContain('money pos')
+    expect(fig.textContent).not.toMatch(/after studio fixed costs/)
+  })
+
+  it('the section is still Film Contribution on the DIRECT basis (D-12 §3/§8 preserved)', () => {
+    render(<FilmPackageSummary cohesion={COHESION} profit={CLEARS_DIRECT_ONLY} cycleFixedCost={FIXED_4M} />)
+    expect(screen.getByText('Film Contribution')).toBeInTheDocument()
+    // The DIRECT number itself is untouched — only the WORD beside it is now gated.
+    expect(screen.getByTestId('pkg-profit-contribution-expected').textContent).toContain(
+      money(CLEARS_DIRECT_ONLY.profit.expected),
+    )
+  })
+})
+
+describe('D-17A/T2 — Readiness reads the studio-economic basis', () => {
+  it('does not call a direct-costs-only package "Expected to profit"', () => {
+    render(
+      <FilmReadiness
+        cohesion={COHESION}
+        fit={FIT}
+        execution={EXECUTION}
+        profit={CLEARS_DIRECT_ONLY}
+        cycleFixedCost={FIXED_4M}
+      />,
+    )
+    const strong = screen.getByTestId('readiness-strong').textContent ?? ''
+    const risky = screen.getByTestId('readiness-risky').textContent ?? ''
+    expect(strong).not.toMatch(/Expected to profit/)
+    expect(risky).toMatch(/covers direct costs but not the studio weeks it occupies/i)
+    expect(screen.getByTestId('readiness-judgment').textContent).toMatch(/commercially risky/)
+  })
+
+  it('a studio-positive package IS called expected to profit, naming the basis', () => {
+    const clearsBoth: ForecastProfitRange = {
+      ...CLEARS_DIRECT_ONLY,
+      profit: { low: 5_000_000, expected: 6_000_000, high: 7_000_000 },
+    }
+    render(
+      <FilmReadiness
+        cohesion={COHESION}
+        fit={FIT}
+        execution={EXECUTION}
+        profit={clearsBoth}
+        cycleFixedCost={FIXED_4M}
+      />,
+    )
+    expect(screen.getByTestId('readiness-strong').textContent).toMatch(
+      /Expected to profit after studio fixed costs/,
+    )
+    expect(screen.getByTestId('readiness-judgment').textContent).toMatch(/commercially promising/)
+  })
+
+  it('“Could lose money” is still driven by the DIRECT low band, with the basis named', () => {
+    const negLow: ForecastProfitRange = {
+      ...CLEARS_DIRECT_ONLY,
+      profit: { low: -2_000_000, expected: 6_000_000, high: 9_000_000 },
+    }
+    render(
+      <FilmReadiness
+        cohesion={COHESION}
+        fit={FIT}
+        execution={EXECUTION}
+        profit={negLow}
+        cycleFixedCost={FIXED_4M}
+      />,
+    )
+    expect(screen.getByTestId('readiness-risky').textContent).toMatch(
+      /Could lose money before studio fixed costs/,
+    )
+  })
+})
+
+describe('D-17A/T2 — Assembly wires the real cycle fixed cost into both panels', () => {
+  it('the Review step shows a studio-economic triple built from prospectiveCycleFixedCost', () => {
+    const state = openWizard('d17a-sign-1', 'review')
+    const fc = prospectiveCycleFixedCost(state)
+    expect(fc.amount).toBeGreaterThan(0)
+    expect(screen.getByTestId('pkg-studio-economic')).toBeInTheDocument()
+    expect(screen.getByTestId('pkg-studio-economic-disclosure').textContent).toContain(money(fc.amount))
   })
 })
