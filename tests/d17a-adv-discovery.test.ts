@@ -108,7 +108,16 @@ const TOP_HEAVY_SUPPORT = { awareness: 55, marketing: 400_000, fames: [2, 2, 99]
 // (ii) a low-awareness studio buying a MAXIMUM campaign: the proxy's flat +0.15 bump says
 //     the spend bought reach; the engine's awareness-conditioned capacity says most of it
 //     never converts.
-const CAPACITY_COLLAPSED = { awareness: 45, marketing: 2_000_000, fames: [30, 30, 30] } as const
+//
+// D-17B §3 (M6 re-measurement, contract line: "`tests/d17a-adv-discovery.test.ts` needs a new
+// adversarial fixture below the 0.375 threshold"). The ORIGINAL fixture was
+// `{ awareness: 45, marketing: 2_000_000, fames: [30,30,30] }`, engine reachSupport 0.38376 —
+// exposed under the OLD `DISC_SUPPORT_THRESHOLD` 0.45, but reach-SUPPORTED under the selected
+// tuple (ii) threshold 0.375. The package below re-establishes the SAME adversarial precondition
+// under the new constant (engine 0.32392 < 0.375 ⇒ exposed; retired proxy 0.38750 ≥ 0.375 ⇒ it
+// still silently calls the package supported). The test's claim is unchanged; only the state that
+// exhibits it moved with the threshold.
+const CAPACITY_COLLAPSED = { awareness: 35, marketing: 2_000_000, fames: [25, 25, 25] } as const
 
 // ═════════════════════════════════════════════════════════════════════════════
 describe('D-17A/E — discoveryExposure agrees with the engine RULE, not an approximation', () => {

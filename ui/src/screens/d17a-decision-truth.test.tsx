@@ -605,10 +605,20 @@ describe('D-17A/T6 — the discoverability band is quantified, never hardcoded',
     const text = screen.getByTestId('disc-boundary').textContent ?? ''
     // Enough precision that the two figures cannot render equal — "45% is below 45%" is
     // unreachable, at any rounding.
-    expect(text).toMatch(/Reach support is 44\.99% against the 45\.00%/)
+    // D-17B §3 (M6 re-measurement): the literal "44.99% / 45.00%" pair was a hardcoding of the
+    // OLD DISC_SUPPORT_THRESHOLD 0.45. Under the selected tuple (ii) the threshold is 0.375, and
+    // the component's adaptive precision resolves 37.49% vs 37.50% at ZERO decimals ("37%" vs
+    // "38%"). The claim under test is unchanged and is now derived from TUNING instead of frozen
+    // to one constant: the two figures render DIFFERENTLY, and each is a faithful rounding of its
+    // true value. (The "no pair can ever render the same" sweep below is the general form.)
+    const rendered = text.match(/Reach support is ([\d.]+)% against the ([\d.]+)%/)
+    expect(rendered, text).not.toBeNull()
+    expect(rendered![1]).not.toBe(rendered![2])
+    expect(Math.abs(Number(rendered![1]) - support * 100)).toBeLessThanOrEqual(0.5)
+    expect(Math.abs(Number(rendered![2]) - threshold * 100)).toBeLessThanOrEqual(0.5)
     // …and a shortfall this small quotes no band at all, let alone the hard clips.
-    expect(text).not.toContain('0.2×')
-    expect(text).not.toContain('1.8×')
+    expect(text).not.toContain(mult(TUNING.DISC_FLOOR))
+    expect(text).not.toContain(mult(TUNING.DISC_CEIL))
     expect(text).toMatch(/within 1% of its expected level/)
   })
 

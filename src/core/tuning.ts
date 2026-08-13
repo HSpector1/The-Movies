@@ -387,10 +387,17 @@ export const TUNING = {
   // (M0A + forecast center = deterministic). Median (z=0) is preserved; the tails widen for low support.
   DISC_SUPPORT_AWARENESS: 0.55, // [ICH] weight of awarenessFactor (awareness + marketing) in reachSupport
   DISC_SUPPORT_STAR: 0.45, // [ICH] weight of opening star draw / 100 in reachSupport
-  DISC_SUPPORT_THRESHOLD: 0.45, // [ICH] reach-support level at/above which discovery risk is ZERO — a real cast, Standard/Large marketing, or established awareness makes a film reliable; only genuinely unsupported (unknown+Small+low-awareness) packages get variance
-  DISC_SPREAD: 3.5, // [ICH] max lognormal spread of the opening multiplier at zero reach support
+  // D-17B §3 (tuple (ii) BALANCED — the selected D-13 shape family, R5). THRESHOLD .45→.375,
+  // SPREAD 3.5→4.0, FLOOR .2→.30; EXP stays 1.5 and CEIL stays 1.8. Constants ONLY — the
+  // functional form is untouched, so the `discovery-v1` stream is NOT re-keyed (§3 RNG ruling /
+  // authorization §11). Engaged-gated by construction at reception.ts:643 (`engaged ? … : 0`),
+  // so the M0A/headless path still draws no z and applies multiplier exactly 1 → byte-identical.
+  // Measured (§3): harvest breakouts 5.2% / disasters 4.1% / sign-flips 7.5% (baseline 11.4/9.5/17.1);
+  // corpus 3.3 / 2.6 / 5.6%; G4 cost-deciles 0/10 >40%; cost-quartile sd ratio 0.313.
+  DISC_SUPPORT_THRESHOLD: 0.375, // [ICH; D-17B §3] reach-support level at/above which discovery risk is ZERO — a real cast, Standard/Large marketing, or established awareness makes a film reliable; only genuinely unsupported (unknown+Small+low-awareness) packages get variance
+  DISC_SPREAD: 4.0, // [ICH; D-17B §3] max lognormal spread of the opening multiplier at zero reach support
   DISC_SUPPORT_EXP: 1.5, // [ICH] convexity of the (threshold−support) ramp (>1 ⇒ risk concentrates at the very-low-support corner)
-  DISC_FLOOR: 0.2, // [ICH] floor on the opening multiplier (a positive tail always remains)
+  DISC_FLOOR: 0.3, // [ICH; D-17B §3] floor on the opening multiplier (a positive tail always remains; worst-case truncation only — ~96% inert for survivability)
   DISC_CEIL: 1.8, // [ICH] ceiling on the opening multiplier (bounded discovery upside; the sleeper comes from legs/word of mouth, not a huge opening)
   DISC_FORECAST_LOW_Z: 1.28, // [ICH] |z| used to widen the forecast LOW opening band (≈10th pct) — DISPLAY only, no realized draw
   // Stage B: deterministic OVEREXPOSURE pressure (engaged only; NO new RNG, NO critic effect). Spending
