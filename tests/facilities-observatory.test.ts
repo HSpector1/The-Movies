@@ -39,6 +39,13 @@ describe('Facilities & Construction research observatory', () => {
 
     expect(stableStringify(first)).toBe(stableStringify(second))
     expect(first.schemaVersion).toBe(FACILITIES_OBSERVER_SCHEMA_VERSION)
+    expect(first.schemaVersion).toBe('facilities-observer-v2')
+    expect(first.armConfiguration).toEqual({
+      id: 'current-capacity',
+      evidenceMode: 'current',
+      capacityDelta: 0,
+      availableWeek: null,
+    })
     expect(first.rows).toHaveLength(17)
     expect(first.summary.observedWeeks).toBe(16)
     expect(first.summary.arrivalWeekObserved).toBe(true)
@@ -68,9 +75,19 @@ describe('Facilities & Construction research observatory', () => {
       horizonWeeks: 20,
       source: SOURCE,
     })
+    const explicitDefault = runFacilitiesArm({
+      seed: 'facilities-observer-shadow',
+      policyId: 'development-casting',
+      mode: 'counterfactual',
+      horizonWeeks: 20,
+      capacityDelta: 1,
+      availableWeek: 0,
+      source: SOURCE,
+    })
 
     expect(current.rows.every((row) => row.mode === 'current')).toBe(true)
     expect(counterfactual.rows.every((row) => row.mode === 'counterfactual')).toBe(true)
+    expect(stableStringify(counterfactual)).toBe(stableStringify(explicitDefault))
     expect(counterfactual.facilityManifest).toHaveLength(6)
     expect(
       counterfactual.facilityManifest.find(
@@ -81,6 +98,263 @@ describe('Facilities & Construction research observatory', () => {
     expect(current.shadows.length).toBeGreaterThan(0)
     expect(current.shadows.every((shadow) => shadow.mode === 'one-boundary-shadow')).toBe(true)
     expect(current.shadows.every((shadow) => !shadow.configurationConsumedRng)).toBe(true)
+    for (const shadow of current.shadows) {
+      expect(shadow).not.toHaveProperty('armConfiguration')
+      expect(shadow.sourceArmConfiguration).toEqual({
+        id: 'current-capacity',
+        evidenceMode: 'current',
+        capacityDelta: 0,
+        availableWeek: null,
+      })
+      expect(shadow.evaluatedShadowConfiguration).toMatchObject({
+        id: `one-boundary-${shadow.capability}-plus-one`,
+        evidenceMode: 'one-boundary-shadow',
+        capability: shadow.capability,
+        capacityDelta: 1,
+        availableWeek: shadow.week,
+      })
+      expect(
+        shadow.facilityManifest.find(
+          (facility) =>
+            facility.id === shadow.evaluatedShadowConfiguration.facilityId,
+        ),
+      ).toMatchObject({
+        capability: shadow.capability,
+        capacity: shadow.evaluatedShadowConfiguration.capacityDelta,
+      })
+    }
+  })
+
+  it('activates delayed capacity at the exact start-of-week boundary with exact raw manifests', () => {
+    const current = runFacilitiesArm({
+      seed: 'facilities-delayed-activation',
+      policyId: 'development-casting',
+      mode: 'current',
+      horizonWeeks: 6,
+      source: SOURCE,
+    })
+    const delayed = runFacilitiesArm({
+      seed: 'facilities-delayed-activation',
+      policyId: 'development-casting',
+      mode: 'counterfactual',
+      horizonWeeks: 6,
+      capacityDelta: 1,
+      availableWeek: 3,
+      source: SOURCE,
+    })
+    const hasResearchFacility = (week: number) =>
+      delayed.rows[week]!.facilityManifest.some((facility) =>
+        facility.id.startsWith('research-'),
+      )
+
+    expect([0, 1, 2].map(hasResearchFacility)).toEqual([false, false, false])
+    expect([3, 4, 5, 6].map(hasResearchFacility)).toEqual([true, true, true, true])
+    expect(
+      delayed.rows.slice(0, 3).map((row) => row.facilityManifestId),
+    ).toEqual(current.rows.slice(0, 3).map((row) => row.facilityManifestId))
+    expect(delayed.rows[3]!.facilityManifest).toContainEqual(
+      expect.objectContaining({
+        id: 'research-development-casting-plus-one',
+        capacity: 1,
+      }),
+    )
+
+    const arrivalOnly = runFacilitiesArm({
+      seed: 'facilities-arrival-only-activation',
+      policyId: 'direct-package',
+      mode: 'counterfactual',
+      horizonWeeks: 4,
+      capacityDelta: 1,
+      availableWeek: 4,
+      source: SOURCE,
+    })
+    const arrivalOnlyCurrent = runFacilitiesArm({
+      seed: 'facilities-arrival-only-activation',
+      policyId: 'direct-package',
+      mode: 'current',
+      horizonWeeks: 4,
+      source: SOURCE,
+    })
+    expect(arrivalOnly.rows.slice(0, 4).every((row) => row.facilityManifest.length === 5)).toBe(
+      true,
+    )
+    expect(arrivalOnly.rows[4]!.facilityManifest).toHaveLength(6)
+    expect(arrivalOnly.rows[4]).toMatchObject({
+      cash: arrivalOnlyCurrent.rows[4]!.cash,
+      ledgerTotal: arrivalOnlyCurrent.rows[4]!.ledgerTotal,
+      rngState: arrivalOnlyCurrent.rows[4]!.rngState,
+    })
+  })
+
+  it('splits D&C rejections at availability and counts the boundary week as post-availability', () => {
+    const result = runFacilitiesCorpus({
+      seeds: ['facilities-delayed-activation'],
+      policyIds: ['development-casting'],
+      horizonWeeks: 6,
+      capacityDelta: 1,
+      availableWeek: 3,
+      source: SOURCE,
+    })
+    const current = result.runs.find((run) => run.mode === 'current')!
+    const counterfactual = result.runs.find((run) => run.mode === 'counterfactual')!
+    const rejectionWeeks = (run: typeof current) =>
+      run.intents
+        .filter(
+          (intent) =>
+            intent.capacityBound &&
+            intent.capability === 'development-casting' &&
+            intent.intentKind !== 'production-transition',
+        )
+        .map((intent) => intent.week)
+    const expectedExposure = (run: typeof current) => {
+      const weeks = rejectionWeeks(run)
+      return {
+        availabilityWeek: 3,
+        fullHorizon: weeks.length,
+        beforeAvailability: weeks.filter((week) => week < 3).length,
+        fromAvailabilityInclusive: weeks.filter((week) => week >= 3).length,
+      }
+    }
+
+    expect(rejectionWeeks(current)).toContain(3)
+    expect(current.summary.developmentCastingRejectionExposure).toEqual(
+      expectedExposure(current),
+    )
+    expect(counterfactual.summary.developmentCastingRejectionExposure).toEqual(
+      expectedExposure(counterfactual),
+    )
+    expect(result.aggregate.policies[0]!.developmentCastingRejectionsByAvailability).toEqual({
+      availabilityWeek: 3,
+      current: {
+        fullHorizon: expectedExposure(current).fullHorizon,
+        beforeAvailability: expectedExposure(current).beforeAvailability,
+        fromAvailabilityInclusive: expectedExposure(current).fromAvailabilityInclusive,
+      },
+      counterfactual: {
+        fullHorizon: expectedExposure(counterfactual).fullHorizon,
+        beforeAvailability: expectedExposure(counterfactual).beforeAvailability,
+        fromAvailabilityInclusive: expectedExposure(counterfactual).fromAvailabilityInclusive,
+      },
+    })
+  })
+
+  it('uses one distinct capacity-two research facility while current shadows stay one-slot', () => {
+    const result = runFacilitiesCorpus({
+      seeds: ['facilities-plus-two'],
+      policyIds: ['development-casting'],
+      horizonWeeks: 20,
+      capacityDelta: 2,
+      availableWeek: 5,
+      source: SOURCE,
+    })
+    const current = result.runs[0]!
+    const counterfactual = result.runs[1]!
+    const plusOne = result.runs[2]!
+    const researchFacilities = counterfactual.facilityManifest.filter((facility) =>
+      facility.id.startsWith('research-'),
+    )
+
+    expect(researchFacilities).toEqual([
+      {
+        id: 'research-development-casting-plus-two',
+        name: 'Research-only Development & Casting +2',
+        capability: 'development-casting',
+        capacity: 2,
+      },
+    ])
+    expect(result.runs.map((run) => run.armConfiguration.id)).toEqual([
+      'current-capacity',
+      'development-casting-plus-two',
+      'development-casting-plus-one',
+    ])
+    expect(plusOne.facilityManifest).toContainEqual(
+      expect.objectContaining({
+        id: 'research-development-casting-plus-one',
+        capacity: 1,
+      }),
+    )
+    expect(
+      result.runs.every((run) =>
+        [...run.rows, ...run.intents, ...run.staffingRows].every(
+          (row) => row.armConfiguration.id === run.armConfiguration.id,
+        ),
+      ),
+    ).toBe(true)
+    expect(
+      counterfactual.rows[5]!.facilities.find(
+        (facility) => facility.id === 'research-development-casting-plus-two',
+      ),
+    ).toMatchObject({ capacity: 2 })
+    expect(result.provenance.counterfactualDelta).toEqual({
+      facilityId: 'research-development-casting-plus-two',
+      capability: 'development-casting',
+      capacityDelta: 2,
+      availableWeek: 5,
+    })
+    expect(result.fourthSlotMarginals).toHaveLength(1)
+    expect(result.fourthSlotMarginals[0]).toMatchObject({
+      seed: 'facilities-plus-two',
+      policyId: 'development-casting',
+      interpretation: 'descriptive-after-policy-feedback',
+      causal: false,
+      fromArmConfiguration: {
+        id: 'development-casting-plus-one',
+        capacityDelta: 1,
+        availableWeek: 5,
+      },
+      toArmConfiguration: {
+        id: 'development-casting-plus-two',
+        capacityDelta: 2,
+        availableWeek: 5,
+      },
+      fromManifestId: plusOne.facilityManifestId,
+      toManifestId: counterfactual.facilityManifestId,
+      delta: {
+        interpretation: 'descriptive-after-policy-feedback',
+        causal: false,
+      },
+    })
+    expect(result.aggregate.fourthSlotMarginal).toMatchObject({
+      interpretation: 'descriptive-after-policy-feedback',
+      causal: false,
+      fromCapacityDelta: 1,
+      toCapacityDelta: 2,
+      availableWeek: 5,
+      pairCount: 1,
+      policies: [
+        {
+          policyId: 'development-casting',
+          pairCount: 1,
+        },
+      ],
+    })
+    expect(current.shadows.length).toBeGreaterThan(0)
+    expect(
+      current.shadows.every((shadow) =>
+        shadow.facilityManifest.some(
+          (facility) =>
+            facility.id.endsWith('plus-one') && facility.capacity === 1,
+        ),
+      ),
+    ).toBe(true)
+  })
+
+  it('validates the counterfactual delta and availability against the horizon', () => {
+    const base = {
+      seeds: ['facilities-invalid-config'],
+      policyIds: ['direct-package'] as const,
+      horizonWeeks: 4,
+      source: SOURCE,
+    }
+    expect(() => runFacilitiesCorpus({ ...base, capacityDelta: 3 as 1 })).toThrow(
+      /capacityDelta must be exactly 1 or 2/,
+    )
+    expect(() => runFacilitiesCorpus({ ...base, availableWeek: -1 })).toThrow(
+      /availableWeek must be an integer/,
+    )
+    expect(() => runFacilitiesCorpus({ ...base, availableWeek: 5 })).toThrow(
+      /availableWeek must be an integer/,
+    )
   })
 
   it('counts simultaneous production holds separately but charges studio exposure once', () => {
@@ -88,6 +362,12 @@ describe('Facilities & Construction research observatory', () => {
       schemaVersion: FACILITIES_OBSERVER_SCHEMA_VERSION,
       recordType: 'intent',
       mode: 'current',
+      armConfiguration: {
+        id: 'current-capacity',
+        evidenceMode: 'current',
+        capacityDelta: 0,
+        availableWeek: null,
+      },
       seed: 'facilities-simultaneous-hold-fixture',
       policyId: 'scaled-two-team',
       horizonWeeks: 20,
@@ -195,6 +475,22 @@ describe('Facilities & Construction research observatory', () => {
       productionTicks: 8,
     })
     expect(result.aggregate).toMatchObject({ runCount: 8, pairCount: 4 })
+    expect(result.fourthSlotMarginals).toEqual([])
+    expect(result.aggregate.fourthSlotMarginal).toBeNull()
+    expect(
+      result.runs.every(
+        (run) =>
+          run.armConfiguration.id === 'current-capacity' ||
+          run.armConfiguration.id === 'development-casting-plus-one',
+      ),
+    ).toBe(true)
+    expect(
+      result.pairs.every(
+        (pair) =>
+          pair.currentArmConfiguration.id === 'current-capacity' &&
+          pair.counterfactualArmConfiguration.id === 'development-casting-plus-one',
+      ),
+    ).toBe(true)
     expect(
       result.pairs.every(
         (pair) => pair.delta.interpretation === 'descriptive-after-policy-feedback' && !pair.delta.causal,

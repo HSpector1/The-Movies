@@ -57,6 +57,27 @@ describe('Facilities observatory artifact runner', () => {
       seeds: ['facilities-0001', 'facilities-0002', 'facilities-0003'],
       horizonWeeks: 260,
       policyIds: ['direct-package', 'scaled-two-team'],
+      capacityDelta: 1,
+      availableWeek: 0,
+    })
+
+    expect(
+      parseFacilitiesArgs([
+        '--run-name',
+        'plus-two-delayed',
+        '--seeds',
+        '1',
+        '--horizon',
+        '12',
+        '--capacity-delta',
+        '2',
+        '--available-week',
+        '7',
+      ]),
+    ).toMatchObject({
+      horizonWeeks: 12,
+      capacityDelta: 2,
+      availableWeek: 7,
     })
 
     expect(() => parseFacilitiesArgs(['--run-name', '../escape', '--seeds', '1'])).toThrow(
@@ -69,6 +90,38 @@ describe('Facilities observatory artifact runner', () => {
       /duplicate flag/,
     )
     expect(() => parseFacilitiesArgs(['--run-name', 'safe'])).toThrow(/--seeds is required/)
+    expect(() =>
+      parseFacilitiesArgs([
+        '--run-name',
+        'safe',
+        '--seeds',
+        '1',
+        '--capacity-delta',
+        '3',
+      ]),
+    ).toThrow(/capacity-delta must be exactly 1 or 2/)
+    expect(() =>
+      parseFacilitiesArgs([
+        '--run-name',
+        'safe',
+        '--seeds',
+        '1',
+        '--available-week',
+        '-1',
+      ]),
+    ).toThrow(/available-week must be a non-negative integer/)
+    expect(() =>
+      parseFacilitiesArgs([
+        '--run-name',
+        'safe',
+        '--seeds',
+        '1',
+        '--horizon',
+        '12',
+        '--available-week',
+        '13',
+      ]),
+    ).toThrow(/available-week must be no greater than --horizon/)
   })
 
   it('builds byte-identical timestamp-free artifacts with every evidence mode explicit', () => {
@@ -76,12 +129,16 @@ describe('Facilities observatory artifact runner', () => {
       seeds: ['facilities-artifact'],
       policyIds: ['development-casting'],
       horizonWeeks: 208,
+      capacityDelta: 2,
+      availableWeek: 40,
       source: SOURCE,
     })
     const secondResult = runFacilitiesCorpus({
       seeds: ['facilities-artifact'],
       policyIds: ['development-casting'],
       horizonWeeks: 208,
+      capacityDelta: 2,
+      availableWeek: 40,
       source: SOURCE,
     })
     const first = buildFacilitiesArtifacts(firstResult)
@@ -94,22 +151,113 @@ describe('Facilities observatory artifact runner', () => {
     const rows = first.rowsJsonl
       .trimEnd()
       .split('\n')
-      .map((line) => JSON.parse(line) as { mode: string; recordType: string })
+      .map(
+        (line) =>
+          JSON.parse(line) as
+            | {
+                mode: string
+                recordType: 'weekly' | 'staffing' | 'intent'
+                armConfiguration: { id: string }
+              }
+            | {
+                mode: string
+                recordType: 'shadow'
+                sourceArmConfiguration: { id: string; capacityDelta: number }
+                evaluatedShadowConfiguration: {
+                  capability: string
+                  capacityDelta: number
+                  facilityId: string
+                }
+                facilityManifest: {
+                  id: string
+                  capability: string
+                  capacity: number
+                }[]
+              },
+      )
     expect(new Set(rows.map((row) => row.mode))).toEqual(
       new Set(['current', 'counterfactual', 'one-boundary-shadow']),
     )
     expect(new Set(rows.map((row) => row.recordType))).toEqual(
       new Set(['weekly', 'staffing', 'intent', 'shadow']),
     )
+    const nonShadowRows = rows.filter((row) => row.recordType !== 'shadow')
+    const shadowRows = rows.filter((row) => row.recordType === 'shadow')
+    expect(new Set(nonShadowRows.map((row) => row.armConfiguration.id))).toEqual(
+      new Set([
+        'current-capacity',
+        'development-casting-plus-one',
+        'development-casting-plus-two',
+      ]),
+    )
+    expect(shadowRows.length).toBeGreaterThan(0)
+    expect(
+      shadowRows.every(
+        (row) =>
+          !('armConfiguration' in row) &&
+          row.sourceArmConfiguration.id === 'current-capacity' &&
+          row.sourceArmConfiguration.capacityDelta === 0 &&
+          row.evaluatedShadowConfiguration.capacityDelta === 1 &&
+          row.facilityManifest.some(
+            (facility) =>
+              facility.id === row.evaluatedShadowConfiguration.facilityId &&
+              facility.capability === row.evaluatedShadowConfiguration.capability &&
+              facility.capacity === row.evaluatedShadowConfiguration.capacityDelta,
+          ),
+      ),
+    ).toBe(true)
     expect(
       rows.every(
         (row) =>
           (row as { sourceCommit?: string }).sourceCommit === SOURCE.sourceCommit,
       ),
     ).toBe(true)
-    const summary = JSON.parse(first.summaryJson) as Record<string, unknown>
+    const summary = JSON.parse(first.summaryJson) as {
+      fourthSlotMarginals: unknown[]
+      aggregate: {
+        fourthSlotMarginal: {
+          interpretation: string
+          causal: boolean
+          pairCount: number
+        }
+      }
+    }
     expect(hasWallClockKey(summary)).toBe(false)
+    expect(summary.fourthSlotMarginals).toHaveLength(1)
+    expect(summary.aggregate.fourthSlotMarginal).toMatchObject({
+      interpretation: 'descriptive-after-policy-feedback',
+      causal: false,
+      pairCount: 1,
+    })
     expect(first.summaryMarkdown).toMatch(/research-only/i)
+    expect(first.summaryMarkdown).toContain(
+      'Counterfactual: +2 Development & Casting capacity, operational at the start of Week 40.',
+    )
+    expect(first.summaryMarkdown).toContain('Current D&C rejections (full horizon)')
+    expect(first.summaryMarkdown).toContain(
+      'Counterfactual-arm D&C rejections (full horizon)',
+    )
+    expect(first.summaryMarkdown).toContain('+2 capacity from Week 40 (inclusive)')
+    expect(first.summaryMarkdown).toContain(
+      'A rejection recorded in Week 40 belongs to the inclusive post-availability exposure.',
+    )
+    expect(first.summaryMarkdown).toContain(
+      '## Current → requested (+2) boundary shadows and descriptive outcomes',
+    )
+    expect(first.summaryMarkdown).toContain('## +1 → +2 fourth-slot marginal')
+    expect(first.summaryMarkdown).toContain(
+      'This comparison is descriptive and noncausal after policy feedback.',
+    )
+    expect(first.summaryMarkdown).toContain('+1 D&C rejections (full horizon)')
+    expect(first.summaryMarkdown).toContain('+2 D&C rejections (full horizon)')
+    expect(first.summaryMarkdown).toContain(
+      'Release Δ signs (negative / zero / positive)',
+    )
+    expect(first.summaryMarkdown).toContain(
+      'Final-cash Δ signs (negative / zero / positive)',
+    )
+    expect(first.summaryMarkdown).not.toContain('Fourth-slot marginal: not measured')
+    expect(first.summaryMarkdown).toContain('Admitted one-slot D&C boundary shadows')
     expect(first.summaryMarkdown).toMatch(/Utilization alone is not bottleneck evidence/i)
     expect(first.summaryMarkdown).toMatch(/D-17B macroeconomy residuals remain open/i)
     for (const residual of [
@@ -139,6 +287,13 @@ describe('Facilities observatory artifact runner', () => {
     const bundle = buildFacilitiesArtifacts(result)
     const paths = writeFacilitiesArtifacts(repoRoot, 'writer-law', bundle)
 
+    expect(bundle.summaryMarkdown).toContain(
+      '## Current → requested (+1) boundary shadows and descriptive outcomes',
+    )
+    expect(bundle.summaryMarkdown).toContain(
+      'Fourth-slot marginal: not measured; this corpus requested +1 capacity only.',
+    )
+    expect(bundle.summaryMarkdown).not.toContain('## +1 → +2 fourth-slot marginal')
     expect(readdirSync(paths.directory).sort()).toEqual([
       'rows.jsonl',
       'summary.json',

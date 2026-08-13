@@ -21,6 +21,7 @@ import {
 } from './facilities/index.js'
 import type {
   FacilitiesArmResult,
+  FacilitiesCapacityDelta,
   FacilitiesCorpusResult,
   FacilitiesIntentRow,
   FacilitiesPolicyId,
@@ -60,6 +61,8 @@ export type FacilitiesCliOptions = {
   seeds: string[]
   horizonWeeks: number
   policyIds: FacilitiesPolicyId[]
+  capacityDelta: FacilitiesCapacityDelta
+  availableWeek: number
 }
 
 type ArtifactRunSummary = Omit<
@@ -134,6 +137,25 @@ function parsePositiveInteger(raw: string, flag: string): number {
   return value
 }
 
+function parseNonNegativeInteger(raw: string, flag: string): number {
+  if (!/^\d+$/.test(raw)) {
+    throw new Error(`run-facilities-observatory: ${flag} must be a non-negative integer`)
+  }
+  const value = Number(raw)
+  if (!Number.isSafeInteger(value)) {
+    throw new Error(`run-facilities-observatory: ${flag} must be a non-negative safe integer`)
+  }
+  return value
+}
+
+function parseCapacityDelta(raw: string): FacilitiesCapacityDelta {
+  const value = parsePositiveInteger(raw, '--capacity-delta')
+  if (value !== 1 && value !== 2) {
+    throw new Error('run-facilities-observatory: --capacity-delta must be exactly 1 or 2')
+  }
+  return value
+}
+
 export function validateFacilitiesRunName(runName: string): string {
   if (
     runName === '.' ||
@@ -189,7 +211,14 @@ function parsePolicies(raw: string): FacilitiesPolicyId[] {
 /** Strict flag parser. Unknown, positional, repeated, or valueless arguments fail loudly. */
 export function parseFacilitiesArgs(argv: readonly string[]): FacilitiesCliOptions {
   const values = new Map<string, string>()
-  const allowed = new Set(['--run-name', '--seeds', '--horizon', '--policies'])
+  const allowed = new Set([
+    '--run-name',
+    '--seeds',
+    '--horizon',
+    '--policies',
+    '--capacity-delta',
+    '--available-week',
+  ])
   for (let index = 0; index < argv.length; index++) {
     const flag = argv[index]!
     if (!flag.startsWith('--')) {
@@ -212,17 +241,29 @@ export function parseFacilitiesArgs(argv: readonly string[]): FacilitiesCliOptio
   if (seedsRaw === undefined) {
     throw new Error('run-facilities-observatory: --seeds is required')
   }
+  const horizonWeeks = parsePositiveInteger(
+    values.get('--horizon') ?? String(DEFAULT_FACILITIES_HORIZON_WEEKS),
+    '--horizon',
+  )
+  const availableWeek = parseNonNegativeInteger(
+    values.get('--available-week') ?? '0',
+    '--available-week',
+  )
+  if (availableWeek > horizonWeeks) {
+    throw new Error(
+      'run-facilities-observatory: --available-week must be no greater than --horizon',
+    )
+  }
   return {
     runName: validateFacilitiesRunName(runName),
     seeds: parseSeeds(seedsRaw),
-    horizonWeeks: parsePositiveInteger(
-      values.get('--horizon') ?? String(DEFAULT_FACILITIES_HORIZON_WEEKS),
-      '--horizon',
-    ),
+    horizonWeeks,
     policyIds:
       values.get('--policies') === undefined
         ? [...FACILITIES_POLICY_IDS]
         : parsePolicies(values.get('--policies')!),
+    capacityDelta: parseCapacityDelta(values.get('--capacity-delta') ?? '1'),
+    availableWeek,
   }
 }
 
@@ -282,6 +323,7 @@ function dollars(value: number): string {
 
 /** Render only measured totals and the governing limits; it makes no implementation choice. */
 export function renderFacilitiesSummaryMarkdown(summary: FacilitiesArtifactSummary): string {
+  const { capacityDelta, availableWeek } = summary.provenance.counterfactualDelta
   const lines = [
     '# Facilities & Construction Observatory',
     '',
@@ -293,19 +335,64 @@ export function renderFacilitiesSummaryMarkdown(summary: FacilitiesArtifactSumma
     '',
     `Seeds: ${String(summary.provenance.seeds.length)}; horizon: Week ${String(summary.provenance.horizonWeeks)}; paired runs: ${String(summary.aggregate.pairCount)}.`,
     '',
-    '| Policy | Pairs | Current D&C rejections | +1 D&C rejections | Admitted D&C boundary shadows | Descriptive release Δ median [min, max] | Descriptive final-cash Δ median [min, max] |',
-    '| --- | ---: | ---: | ---: | ---: | ---: | ---: |',
+    `Counterfactual: +${String(capacityDelta)} Development & Casting capacity, operational at the start of Week ${String(availableWeek)}.`,
+    '',
+    '## Development & Casting rejection exposure',
+    '',
+    `| Policy | Pairs | Current D&C rejections (full horizon) | Counterfactual-arm D&C rejections (full horizon) | Current before Week ${String(availableWeek)} | Counterfactual arm before Week ${String(availableWeek)} | Current from Week ${String(availableWeek)} (inclusive) | +${String(capacityDelta)} capacity from Week ${String(availableWeek)} (inclusive) |`,
+    '| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |',
   ]
   for (const policy of summary.aggregate.policies) {
+    const exposure = policy.developmentCastingRejectionsByAvailability
     lines.push(
-      `| ${policy.policyId} | ${String(policy.pairCount)} | ${String(policy.currentDevelopmentCastingRejectedIntents)} | ${String(policy.counterfactualDevelopmentCastingRejectedIntents)} | ${String(policy.admittedDevelopmentCastingBoundaryShadows)} | ${String(policy.descriptivePairDeltas.releases.median)} [${String(policy.descriptivePairDeltas.releases.min)}, ${String(policy.descriptivePairDeltas.releases.max)}] | ${dollars(policy.descriptivePairDeltas.finalCash.median)} [${dollars(policy.descriptivePairDeltas.finalCash.min)}, ${dollars(policy.descriptivePairDeltas.finalCash.max)}] |`,
+      `| ${policy.policyId} | ${String(policy.pairCount)} | ${String(exposure.current.fullHorizon)} | ${String(exposure.counterfactual.fullHorizon)} | ${String(exposure.current.beforeAvailability)} | ${String(exposure.counterfactual.beforeAvailability)} | ${String(exposure.current.fromAvailabilityInclusive)} | ${String(exposure.counterfactual.fromAvailabilityInclusive)} |`,
     )
+  }
+  lines.push(
+    '',
+    `The configured capacity is absent before Week ${String(availableWeek)}. A rejection recorded in Week ${String(availableWeek)} belongs to the inclusive post-availability exposure. Full-horizon counterfactual-arm totals include both periods.`,
+    '',
+    `## Current → requested (+${String(capacityDelta)}) boundary shadows and descriptive outcomes`,
+    '',
+    `The deltas in this section compare current capacity → the requested +${String(capacityDelta)} arm. They are descriptive after policy feedback, not causal estimates.`,
+    '',
+    '| Policy | Pairs | Admitted one-slot D&C boundary shadows | Descriptive current → requested release Δ median [min, max] | Descriptive current → requested final-cash Δ median [min, max] |',
+    '| --- | ---: | ---: | ---: | ---: |',
+  )
+  for (const policy of summary.aggregate.policies) {
+    lines.push(
+      `| ${policy.policyId} | ${String(policy.pairCount)} | ${String(policy.admittedDevelopmentCastingBoundaryShadows)} | ${String(policy.descriptivePairDeltas.releases.median)} [${String(policy.descriptivePairDeltas.releases.min)}, ${String(policy.descriptivePairDeltas.releases.max)}] | ${dollars(policy.descriptivePairDeltas.finalCash.median)} [${dollars(policy.descriptivePairDeltas.finalCash.min)}, ${dollars(policy.descriptivePairDeltas.finalCash.max)}] |`,
+    )
+  }
+  const fourthSlotMarginal = summary.aggregate.fourthSlotMarginal
+  if (fourthSlotMarginal === null) {
+    lines.push(
+      '',
+      'Fourth-slot marginal: not measured; this corpus requested +1 capacity only.',
+    )
+  } else {
+    lines.push(
+      '',
+      '## +1 → +2 fourth-slot marginal',
+      '',
+      'This comparison is descriptive and noncausal after policy feedback. It is not a clean marginal-capacity estimate.',
+      '',
+      '| Policy | Pairs | +1 D&C rejections (full horizon) | +2 D&C rejections (full horizon) | Descriptive +1 → +2 release Δ median [min, max] | Release Δ signs (negative / zero / positive) | Descriptive +1 → +2 final-cash Δ median [min, max] | Final-cash Δ signs (negative / zero / positive) |',
+      '| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |',
+    )
+    for (const policy of fourthSlotMarginal.policies) {
+      const releases = policy.descriptiveFourthSlotDeltas.releases
+      const finalCash = policy.descriptiveFourthSlotDeltas.finalCash
+      lines.push(
+        `| ${policy.policyId} | ${String(policy.pairCount)} | ${String(policy.plusOneDevelopmentCastingRejectedIntents)} | ${String(policy.plusTwoDevelopmentCastingRejectedIntents)} | ${String(releases.median)} [${String(releases.min)}, ${String(releases.max)}] | ${String(releases.negativePairs)} / ${String(releases.zeroPairs)} / ${String(releases.positivePairs)} | ${dollars(finalCash.median)} [${dollars(finalCash.min)}, ${dollars(finalCash.max)}] | ${String(finalCash.negativePairs)} / ${String(finalCash.zeroPairs)} / ${String(finalCash.positivePairs)} |`,
+      )
+    }
   }
   lines.push(
     '',
     '## Governing interpretation boundary',
     '',
-    '- The additional Development & Casting slot is research-only configured capacity, not a shipped building.',
+    `- The +${String(capacityDelta)} Development & Casting facility is research-only configured capacity, operational at the start of Week ${String(availableWeek)}; it is not a shipped building.`,
     '- Utilization alone is not bottleneck evidence; rejected intents, held transitions, and admitted one-boundary shadows carry the capacity claim.',
     '- These artifacts authorize no construction price, build duration, save change, action, UI, production behavior, or broad economy certification.',
     '- Paired long-run cash and RNG deltas are outcomes, not clean marginal-capacity estimates; the one-boundary shadows isolate the exact admission question.',
@@ -387,6 +474,8 @@ export function runFacilitiesCli(
     seeds: options.seeds,
     policyIds: options.policyIds,
     horizonWeeks: options.horizonWeeks,
+    capacityDelta: options.capacityDelta,
+    availableWeek: options.availableWeek,
     source,
   })
   return writeFacilitiesArtifacts(

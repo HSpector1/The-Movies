@@ -53,7 +53,7 @@ import type {
   Talent,
 } from '../../core/index.js'
 
-export const FACILITIES_OBSERVER_SCHEMA_VERSION = 'facilities-observer-v1' as const
+export const FACILITIES_OBSERVER_SCHEMA_VERSION = 'facilities-observer-v2' as const
 export const DEFAULT_FACILITIES_HORIZON_WEEKS = 260
 export const FACILITIES_POLICY_IDS = [
   'direct-package',
@@ -63,6 +63,27 @@ export const FACILITIES_POLICY_IDS = [
 
 export type FacilitiesPolicyId = (typeof FACILITIES_POLICY_IDS)[number]
 export type FacilitiesEvidenceMode = 'current' | 'counterfactual' | 'one-boundary-shadow'
+export type FacilitiesCapacityDelta = 1 | 2
+export type FacilitiesArmConfigurationId =
+  | 'current-capacity'
+  | 'development-casting-plus-one'
+  | 'development-casting-plus-two'
+
+export type FacilitiesArmConfiguration = {
+  id: FacilitiesArmConfigurationId
+  evidenceMode: 'current' | 'counterfactual'
+  capacityDelta: 0 | FacilitiesCapacityDelta
+  availableWeek: number | null
+}
+
+export type FacilitiesEvaluatedShadowConfiguration = {
+  id: `one-boundary-${FacilityCapability}-plus-one`
+  evidenceMode: 'one-boundary-shadow'
+  capability: FacilityCapability
+  capacityDelta: 1
+  availableWeek: number
+  facilityId: string
+}
 
 export type FacilitiesSourceProvenance = {
   sourceCommit: string
@@ -82,6 +103,7 @@ type EvidenceBase = {
   schemaVersion: typeof FACILITIES_OBSERVER_SCHEMA_VERSION
   recordType: 'weekly' | 'intent' | 'shadow' | 'staffing'
   mode: FacilitiesEvidenceMode
+  armConfiguration: FacilitiesArmConfiguration
   seed: string
   policyId: FacilitiesPolicyId
   horizonWeeks: number
@@ -189,7 +211,12 @@ export type FacilitiesHeldWorkflow = Omit<ProductionWorkflow, 'blocker'> & {
   blocker: Extract<ProductionBlocker, { kind: 'facility-capacity' }>
 }
 
-export type FacilitiesShadowRow = EvidenceBase & {
+type FacilitiesShadowEvidenceBase = Omit<EvidenceBase, 'armConfiguration'> & {
+  sourceArmConfiguration: FacilitiesArmConfiguration
+  evaluatedShadowConfiguration: FacilitiesEvaluatedShadowConfiguration
+}
+
+export type FacilitiesShadowRow = FacilitiesShadowEvidenceBase & {
   recordType: 'shadow'
   mode: 'one-boundary-shadow'
   shadowId: string
@@ -337,6 +364,17 @@ export type FacilitiesStaffingWindow = {
   developmentCasting: FacilitiesCapabilitySummary
 }
 
+export type FacilitiesRejectionExposureCounts = {
+  fullHorizon: number
+  beforeAvailability: number
+  fromAvailabilityInclusive: number
+}
+
+export type FacilitiesAvailabilityRejectionExposure =
+  FacilitiesRejectionExposureCounts & {
+    availabilityWeek: number
+  }
+
 export type FacilitiesArmSummary = {
   observedWeeks: number
   arrivalWeekObserved: boolean
@@ -356,6 +394,7 @@ export type FacilitiesArmSummary = {
   rejectedIntents: number
   capacityRejectedIntents: number
   capacityRejectedIntentsByCapability: Record<FacilityCapability, number>
+  developmentCastingRejectionExposure: FacilitiesAvailabilityRejectionExposure
   productionHoldWeeks: number
   productionHoldWeeksByCapability: Record<FacilityCapability, number>
   uniqueHeldStudioWeeks: number
@@ -375,6 +414,7 @@ export type FacilitiesArmResult = {
   seed: string
   policyId: FacilitiesPolicyId
   mode: 'current' | 'counterfactual'
+  armConfiguration: FacilitiesArmConfiguration
   horizonWeeks: number
   facilityManifestId: string
   facilityManifest: FacilitiesManifestEntry[]
@@ -387,25 +427,44 @@ export type FacilitiesArmResult = {
   summary: FacilitiesArmSummary
 }
 
+export type FacilitiesDescriptiveOutcomeDelta = {
+  interpretation: 'descriptive-after-policy-feedback'
+  causal: false
+  capacityRejectedIntents: number
+  productionHoldWeeks: number
+  releases: number
+  scriptProjects: number
+  castingSessions: number
+  finalCash: number
+  developmentCastingOccupiedSlotWeeks: number
+}
+
 export type FacilitiesPairResult = {
   seed: string
   policyId: FacilitiesPolicyId
+  currentArmConfiguration: FacilitiesArmConfiguration
+  counterfactualArmConfiguration: FacilitiesArmConfiguration
   currentManifestId: string
   counterfactualManifestId: string
   firstRngDivergenceWeek: number | null
   firstBehaviorDivergenceWeek: number | null
   firstIntentDivergenceWeek: number | null
-  delta: {
-    interpretation: 'descriptive-after-policy-feedback'
-    causal: false
-    capacityRejectedIntents: number
-    productionHoldWeeks: number
-    releases: number
-    scriptProjects: number
-    castingSessions: number
-    finalCash: number
-    developmentCastingOccupiedSlotWeeks: number
-  }
+  delta: FacilitiesDescriptiveOutcomeDelta
+}
+
+export type FacilitiesFourthSlotMarginalResult = {
+  seed: string
+  policyId: FacilitiesPolicyId
+  interpretation: 'descriptive-after-policy-feedback'
+  causal: false
+  fromArmConfiguration: FacilitiesArmConfiguration & { capacityDelta: 1 }
+  toArmConfiguration: FacilitiesArmConfiguration & { capacityDelta: 2 }
+  fromManifestId: string
+  toManifestId: string
+  firstRngDivergenceWeek: number | null
+  firstBehaviorDivergenceWeek: number | null
+  firstIntentDivergenceWeek: number | null
+  delta: FacilitiesDescriptiveOutcomeDelta
 }
 
 export type FacilitiesAggregatePolicy = {
@@ -413,6 +472,11 @@ export type FacilitiesAggregatePolicy = {
   pairCount: number
   currentDevelopmentCastingRejectedIntents: number
   counterfactualDevelopmentCastingRejectedIntents: number
+  developmentCastingRejectionsByAvailability: {
+    availabilityWeek: number
+    current: FacilitiesRejectionExposureCounts
+    counterfactual: FacilitiesRejectionExposureCounts
+  }
   admittedDevelopmentCastingBoundaryShadows: number
   currentOtherCapabilityRejectedIntents: number
   counterfactualOtherCapabilityRejectedIntents: number
@@ -423,6 +487,30 @@ export type FacilitiesAggregatePolicy = {
     finalCash: FacilitiesDeltaDistribution
     developmentCastingOccupiedSlotWeeks: FacilitiesDeltaDistribution
   }
+}
+
+export type FacilitiesFourthSlotAggregatePolicy = {
+  policyId: FacilitiesPolicyId
+  pairCount: number
+  plusOneDevelopmentCastingRejectedIntents: number
+  plusTwoDevelopmentCastingRejectedIntents: number
+  plusOneProductionHoldWeeks: number
+  plusTwoProductionHoldWeeks: number
+  descriptiveFourthSlotDeltas: {
+    releases: FacilitiesDeltaDistribution
+    finalCash: FacilitiesDeltaDistribution
+    developmentCastingOccupiedSlotWeeks: FacilitiesDeltaDistribution
+  }
+}
+
+export type FacilitiesFourthSlotMarginalAggregate = {
+  interpretation: 'descriptive-after-policy-feedback'
+  causal: false
+  fromCapacityDelta: 1
+  toCapacityDelta: 2
+  availableWeek: number
+  pairCount: number
+  policies: FacilitiesFourthSlotAggregatePolicy[]
 }
 
 export type FacilitiesDeltaDistribution = {
@@ -450,20 +538,24 @@ export type FacilitiesCorpusResult = {
     productionTicks: number
     productionPhaseIdentity: { remainingTicks: number; phase: string }[]
     productionAllocationIdentity: string
+    armConfigurations: FacilitiesArmConfiguration[]
     currentFacilityManifest: FacilitiesManifestEntry[]
     counterfactualFacilityManifest: FacilitiesManifestEntry[]
     counterfactualDelta: {
       facilityId: string
       capability: 'development-casting'
-      capacityDelta: 1
+      capacityDelta: FacilitiesCapacityDelta
+      availableWeek: number
     }
   }
   runs: FacilitiesArmResult[]
   pairs: FacilitiesPairResult[]
+  fourthSlotMarginals: FacilitiesFourthSlotMarginalResult[]
   aggregate: {
     runCount: number
     pairCount: number
     policies: FacilitiesAggregatePolicy[]
+    fourthSlotMarginal: FacilitiesFourthSlotMarginalAggregate | null
     boundaryStatement: string
   }
 }
@@ -473,6 +565,8 @@ export type RunFacilitiesArmInput = {
   policyId: FacilitiesPolicyId
   mode: 'current' | 'counterfactual'
   horizonWeeks?: number
+  capacityDelta?: FacilitiesCapacityDelta
+  availableWeek?: number
   source: FacilitiesSourceProvenance
 }
 
@@ -480,6 +574,8 @@ export type RunFacilitiesCorpusInput = {
   seeds: readonly string[]
   policyIds?: readonly FacilitiesPolicyId[]
   horizonWeeks?: number
+  capacityDelta?: FacilitiesCapacityDelta
+  availableWeek?: number
   source: FacilitiesSourceProvenance
 }
 
@@ -570,12 +666,58 @@ function manifestId(manifest: readonly FacilitiesManifestEntry[]): string {
   return `facilities-${sha256(stableStringify(manifest)).slice(0, 16)}`
 }
 
-function researchFacility(capability: FacilityCapability): StudioFacility {
+function researchFacility(
+  capability: FacilityCapability,
+  capacityDelta: FacilitiesCapacityDelta = 1,
+): StudioFacility {
+  const suffix = capacityDelta === 1 ? 'one' : 'two'
   return {
-    id: `research-${capability}-plus-one`,
-    name: FACILITY_NAME[capability],
+    id: `research-${capability}-plus-${suffix}`,
+    name:
+      capacityDelta === 1
+        ? FACILITY_NAME[capability]
+        : FACILITY_NAME[capability].replace(/\+1$/, '+2'),
     capability,
-    capacity: 1,
+    capacity: capacityDelta,
+  }
+}
+
+function armConfiguration(
+  mode: 'current' | 'counterfactual',
+  capacityDelta: FacilitiesCapacityDelta,
+  availableWeek: number,
+): FacilitiesArmConfiguration {
+  if (mode === 'current') {
+    return {
+      id: 'current-capacity',
+      evidenceMode: 'current',
+      capacityDelta: 0,
+      availableWeek: null,
+    }
+  }
+  return {
+    id:
+      capacityDelta === 1
+        ? 'development-casting-plus-one'
+        : 'development-casting-plus-two',
+    evidenceMode: 'counterfactual',
+    capacityDelta,
+    availableWeek,
+  }
+}
+
+function evaluatedShadowConfiguration(
+  capability: FacilityCapability,
+  availableWeek: number,
+): FacilitiesEvaluatedShadowConfiguration {
+  const facility = researchFacility(capability)
+  return {
+    id: `one-boundary-${capability}-plus-one`,
+    evidenceMode: 'one-boundary-shadow',
+    capability,
+    capacityDelta: 1,
+    availableWeek,
+    facilityId: facility.id,
   }
 }
 
@@ -586,8 +728,10 @@ function researchFacility(capability: FacilityCapability): StudioFacility {
 export function withResearchCapacity(
   state: GameState,
   capability: FacilityCapability,
+  capacityDelta: FacilitiesCapacityDelta = 1,
 ): GameState {
-  const facility = researchFacility(capability)
+  const validatedDelta = assertCapacityDelta(capacityDelta)
+  const facility = researchFacility(capability, validatedDelta)
   if (state.operations.mode !== 'managed') {
     throw new Error('facilities observatory: research capacity requires managed operations')
   }
@@ -601,6 +745,22 @@ export function withResearchCapacity(
       facilities: [...state.operations.facilities, facility],
     },
   }
+}
+
+function assertCapacityDelta(value: number): FacilitiesCapacityDelta {
+  if (value !== 1 && value !== 2) {
+    throw new Error('facilities observatory: capacityDelta must be exactly 1 or 2')
+  }
+  return value
+}
+
+function assertAvailableWeek(value: number, horizonWeeks: number): number {
+  if (!Number.isInteger(value) || value < 0 || value > horizonWeeks) {
+    throw new Error(
+      'facilities observatory: availableWeek must be an integer from 0 through horizonWeeks',
+    )
+  }
+  return value
 }
 
 function assertHorizon(value: number): number {
@@ -719,12 +879,16 @@ type Milestone = {
 type ArmRuntime = {
   state: GameState
   mode: 'current' | 'counterfactual'
+  armConfiguration: FacilitiesArmConfiguration
   seed: string
   policy: PolicyDefinition
   horizonWeeks: number
   initialSaveHash: string
   manifest: FacilitiesManifestEntry[]
   manifestId: string
+  counterfactualCapacityDelta: FacilitiesCapacityDelta
+  counterfactualAvailableWeek: number
+  counterfactualActivated: boolean
   source: FacilitiesSourceProvenance
   captureEvidence: boolean
   initialCohort: {
@@ -753,6 +917,7 @@ function evidenceBase(
     schemaVersion: FACILITIES_OBSERVER_SCHEMA_VERSION,
     recordType,
     mode,
+    armConfiguration: { ...runtime.armConfiguration },
     seed: runtime.seed,
     policyId: runtime.policy.id,
     horizonWeeks: runtime.horizonWeeks,
@@ -764,6 +929,26 @@ function evidenceBase(
     sourceTree: runtime.source.sourceTree,
     worktreeDirty: runtime.source.worktreeDirty,
     runtime: runtime.source.runtime,
+  }
+}
+
+function shadowEvidenceBase(
+  runtime: ArmRuntime,
+  capability: FacilityCapability,
+  manifest: FacilitiesManifestEntry[],
+  week: number = runtime.state.market.tick,
+): FacilitiesShadowEvidenceBase {
+  const { armConfiguration: sourceArmConfiguration, ...base } = evidenceBase(
+    runtime,
+    'shadow',
+    'one-boundary-shadow',
+    manifest,
+    week,
+  )
+  return {
+    ...base,
+    sourceArmConfiguration,
+    evaluatedShadowConfiguration: evaluatedShadowConfiguration(capability, week),
   }
 }
 
@@ -819,7 +1004,7 @@ function shadowActionRejection(
   }
   const manifest = manifestOf(configured)
   return {
-    ...evidenceBase(runtime, 'shadow', 'one-boundary-shadow', manifest),
+    ...shadowEvidenceBase(runtime, capability, manifest),
     recordType: 'shadow',
     mode: 'one-boundary-shadow',
     shadowId,
@@ -846,7 +1031,7 @@ function attemptAction(
   ownerId: string,
   action: Action,
 ): AttemptResult {
-  const intentId = `${runtime.seed}:${runtime.policy.id}:${runtime.mode}:${String(runtime.state.market.tick)}:intent-${String(runtime.intents.length).padStart(5, '0')}`
+  const intentId = `${runtime.seed}:${runtime.policy.id}:${runtime.armConfiguration.id}:${String(runtime.state.market.tick)}:intent-${String(runtime.intents.length).padStart(5, '0')}`
   const before = runtime.state
   let accepted = false
   let reason: string | null = null
@@ -899,7 +1084,7 @@ function recordUnavailableIntent(
   reason: string,
 ): void {
   if (!runtime.captureEvidence) return
-  const intentId = `${runtime.seed}:${runtime.policy.id}:${runtime.mode}:${String(runtime.state.market.tick)}:intent-${String(runtime.intents.length).padStart(5, '0')}`
+  const intentId = `${runtime.seed}:${runtime.policy.id}:${runtime.armConfiguration.id}:${String(runtime.state.market.tick)}:intent-${String(runtime.intents.length).padStart(5, '0')}`
   runtime.intents.push({
     ...evidenceBase(runtime, 'intent'),
     recordType: 'intent',
@@ -1623,13 +1808,7 @@ function recordProductionHolds(
       }
       const shadowManifest = manifestOf(configured)
       runtime.shadows.push({
-        ...evidenceBase(
-          runtime,
-          'shadow',
-          'one-boundary-shadow',
-          shadowManifest,
-          holdWeek,
-        ),
+        ...shadowEvidenceBase(runtime, blocker.capability, shadowManifest, holdWeek),
         recordType: 'shadow',
         mode: 'one-boundary-shadow',
         shadowId,
@@ -1672,7 +1851,7 @@ export function createFacilitiesProductionHoldIntent(input: {
   const { base, workflow, shadowId, delayExposure } = input
   return {
     ...base,
-    intentId: `${base.seed}:${base.policyId}:${base.mode}:${String(base.week)}:transition:${workflow.productionId}`,
+    intentId: `${base.seed}:${base.policyId}:${base.armConfiguration.id}:${String(base.week)}:transition:${workflow.productionId}`,
     intentKind: 'production-transition',
     ownerId: workflow.productionId,
     action: null,
@@ -2022,6 +2201,24 @@ function buildArmSummary(
   for (const shadow of runtime.shadows) {
     if (shadow.admitted) shadowsAdmittedByCapability[shadow.capability]++
   }
+  const developmentCastingRejectionWeeks = runtime.intents
+    .filter(
+      (intent) =>
+        intent.capacityBound &&
+        intent.capability === 'development-casting' &&
+        intent.intentKind !== 'production-transition',
+    )
+    .map((intent) => intent.week)
+  const developmentCastingRejectionExposure: FacilitiesAvailabilityRejectionExposure = {
+    availabilityWeek: runtime.counterfactualAvailableWeek,
+    fullHorizon: developmentCastingRejectionWeeks.length,
+    beforeAvailability: developmentCastingRejectionWeeks.filter(
+      (week) => week < runtime.counterfactualAvailableWeek,
+    ).length,
+    fromAvailabilityInclusive: developmentCastingRejectionWeeks.filter(
+      (week) => week >= runtime.counterfactualAvailableWeek,
+    ).length,
+  }
   return {
     observedWeeks: runtime.rows.filter((row) => row.sampleKind === 'interval-start').length,
     arrivalWeekObserved: runtime.rows.some(
@@ -2047,6 +2244,7 @@ function buildArmSummary(
       (intent) => intent.capacityBound && intent.intentKind !== 'production-transition',
     ).length,
     capacityRejectedIntentsByCapability,
+    developmentCastingRejectionExposure,
     productionHoldWeeks: productionHolds.productionHoldWeeks,
     productionHoldWeeksByCapability: productionHolds.productionHoldWeeksByCapability,
     uniqueHeldStudioWeeks: productionHolds.uniqueHeldStudioWeeks,
@@ -2121,25 +2319,35 @@ function initializeArm(
 ): InitializedArm {
   assertPolicyId(input.policyId)
   const horizonWeeks = assertHorizon(input.horizonWeeks ?? DEFAULT_FACILITIES_HORIZON_WEEKS)
+  const counterfactualCapacityDelta = assertCapacityDelta(input.capacityDelta ?? 1)
+  const counterfactualAvailableWeek = assertAvailableWeek(
+    input.availableWeek ?? 0,
+    horizonWeeks,
+  )
   const policy = POLICY[input.policyId]
   const base = foundManagedStudio(input.seed, policy)
   const initialSaveHash = sha256(stableStringify(makeSave(structuredClone(base))))
   const initialStateHash = stateHash(base)
   const initialCalendar = studioCalendar(base)
-  const state =
-    input.mode === 'counterfactual'
-      ? withResearchCapacity(base, 'development-casting')
-      : base
+  const state = base
   const manifest = manifestOf(state)
   const runtime: ArmRuntime = {
     state,
     mode: input.mode,
+    armConfiguration: armConfiguration(
+      input.mode,
+      counterfactualCapacityDelta,
+      counterfactualAvailableWeek,
+    ),
     seed: input.seed,
     policy,
     horizonWeeks,
     initialSaveHash,
     manifest,
     manifestId: manifestId(manifest),
+    counterfactualCapacityDelta,
+    counterfactualAvailableWeek,
+    counterfactualActivated: false,
     source: input.source,
     captureEvidence,
     initialCohort: base.contracts.map((contract) => ({
@@ -2167,12 +2375,47 @@ function initializeArm(
   }
 }
 
+function activateCounterfactualCapacityIfDue(runtime: ArmRuntime): void {
+  if (
+    runtime.mode !== 'counterfactual' ||
+    runtime.counterfactualActivated ||
+    runtime.state.market.tick !== runtime.counterfactualAvailableWeek
+  ) {
+    return
+  }
+  const cashBefore = runtime.state.studio.cash
+  const ledgerBefore = stableStringify(runtime.state.ledger)
+  const rngBefore = runtime.state.rngState
+  const initialSaveHashBefore = runtime.initialSaveHash
+  runtime.state = withResearchCapacity(
+    runtime.state,
+    'development-casting',
+    runtime.counterfactualCapacityDelta,
+  )
+  if (
+    runtime.state.studio.cash !== cashBefore ||
+    stableStringify(runtime.state.ledger) !== ledgerBefore ||
+    runtime.state.rngState !== rngBefore ||
+    runtime.initialSaveHash !== initialSaveHashBefore
+  ) {
+    throw new Error(
+      'facilities observatory: research capacity activation mutated cash, ledger, save identity, or RNG',
+    )
+  }
+  runtime.manifest = manifestOf(runtime.state)
+  runtime.manifestId = manifestId(runtime.manifest)
+  runtime.counterfactualActivated = true
+}
+
 function executeArm(runtime: ArmRuntime): void {
   const horizonWeeks = runtime.horizonWeeks
   for (let week = 0; week < horizonWeeks; week++) {
     if (runtime.state.market.tick !== week) {
       throw new Error('facilities observatory: weekly controller clock diverged from market.tick')
     }
+    // Availability is a start-of-week research configuration boundary. It is
+    // installed before any policy action, including at Week 0.
+    activateCounterfactualCapacityIfDue(runtime)
     driveWeek(runtime)
     if (runtime.captureEvidence) observeWeek(runtime, 'interval-start')
     const staffingWeeks = staffingBoundaryWeeks(runtime)
@@ -2195,6 +2438,9 @@ function executeArm(runtime: ArmRuntime): void {
   if (runtime.state.market.tick !== horizonWeeks) {
     throw new Error('facilities observatory: horizon arrival disagrees with market.tick')
   }
+  // Week == horizon is a valid arrival-only sensitivity: expose the configured
+  // manifest without granting a controller action or tick after activation.
+  activateCounterfactualCapacityIfDue(runtime)
   if (runtime.captureEvidence) observeWeek(runtime, 'horizon-arrival')
 }
 
@@ -2209,6 +2455,7 @@ export function runFacilitiesArm(input: RunFacilitiesArmInput): FacilitiesArmRes
     seed: input.seed,
     policyId: input.policyId,
     mode: input.mode,
+    armConfiguration: { ...runtime.armConfiguration },
     horizonWeeks: runtime.horizonWeeks,
     facilityManifestId: runtime.manifestId,
     facilityManifest: runtime.manifest.map((facility) => ({ ...facility })),
@@ -2320,6 +2567,27 @@ function firstIntentDivergence(
   return null
 }
 
+function descriptiveOutcomeDelta(
+  from: FacilitiesArmResult,
+  to: FacilitiesArmResult,
+): FacilitiesDescriptiveOutcomeDelta {
+  return {
+    interpretation: 'descriptive-after-policy-feedback',
+    causal: false,
+    capacityRejectedIntents:
+      to.summary.capacityRejectedIntents - from.summary.capacityRejectedIntents,
+    productionHoldWeeks:
+      to.summary.productionHoldWeeks - from.summary.productionHoldWeeks,
+    releases: to.summary.releases - from.summary.releases,
+    scriptProjects: to.summary.scriptProjects - from.summary.scriptProjects,
+    castingSessions: to.summary.castingSessions - from.summary.castingSessions,
+    finalCash: to.summary.finalCash - from.summary.finalCash,
+    developmentCastingOccupiedSlotWeeks:
+      to.summary.capability['development-casting'].occupiedSlotWeeks -
+      from.summary.capability['development-casting'].occupiedSlotWeeks,
+  }
+}
+
 function pairOf(
   current: FacilitiesArmResult,
   counterfactual: FacilitiesArmResult,
@@ -2330,29 +2598,77 @@ function pairOf(
   return {
     seed: current.seed,
     policyId: current.policyId,
+    currentArmConfiguration: { ...current.armConfiguration },
+    counterfactualArmConfiguration: { ...counterfactual.armConfiguration },
     currentManifestId: current.facilityManifestId,
     counterfactualManifestId: counterfactual.facilityManifestId,
     firstRngDivergenceWeek: firstRngDivergence(current, counterfactual),
     firstBehaviorDivergenceWeek: firstBehaviorDivergence(current, counterfactual),
     firstIntentDivergenceWeek: firstIntentDivergence(current, counterfactual),
-    delta: {
-      interpretation: 'descriptive-after-policy-feedback',
-      causal: false,
-      capacityRejectedIntents:
-        counterfactual.summary.capacityRejectedIntents -
-        current.summary.capacityRejectedIntents,
-      productionHoldWeeks:
-        counterfactual.summary.productionHoldWeeks - current.summary.productionHoldWeeks,
-      releases: counterfactual.summary.releases - current.summary.releases,
-      scriptProjects:
-        counterfactual.summary.scriptProjects - current.summary.scriptProjects,
-      castingSessions:
-        counterfactual.summary.castingSessions - current.summary.castingSessions,
-      finalCash: counterfactual.summary.finalCash - current.summary.finalCash,
-      developmentCastingOccupiedSlotWeeks:
-        counterfactual.summary.capability['development-casting'].occupiedSlotWeeks -
-        current.summary.capability['development-casting'].occupiedSlotWeeks,
+    delta: descriptiveOutcomeDelta(current, counterfactual),
+  }
+}
+
+function fourthSlotMarginalOf(
+  plusOne: FacilitiesArmResult,
+  plusTwo: FacilitiesArmResult,
+): FacilitiesFourthSlotMarginalResult {
+  if (plusOne.seed !== plusTwo.seed || plusOne.policyId !== plusTwo.policyId) {
+    throw new Error('facilities observatory: cannot compare fourth-slot arms across seed/policy')
+  }
+  if (
+    plusOne.armConfiguration.capacityDelta !== 1 ||
+    plusTwo.armConfiguration.capacityDelta !== 2 ||
+    plusOne.armConfiguration.availableWeek !== plusTwo.armConfiguration.availableWeek
+  ) {
+    throw new Error(
+      'facilities observatory: fourth-slot marginal requires same-week configured +1 and +2 arms',
+    )
+  }
+  return {
+    seed: plusOne.seed,
+    policyId: plusOne.policyId,
+    interpretation: 'descriptive-after-policy-feedback',
+    causal: false,
+    fromArmConfiguration: {
+      ...plusOne.armConfiguration,
+      capacityDelta: 1,
     },
+    toArmConfiguration: {
+      ...plusTwo.armConfiguration,
+      capacityDelta: 2,
+    },
+    fromManifestId: plusOne.facilityManifestId,
+    toManifestId: plusTwo.facilityManifestId,
+    firstRngDivergenceWeek: firstRngDivergence(plusOne, plusTwo),
+    firstBehaviorDivergenceWeek: firstBehaviorDivergence(plusOne, plusTwo),
+    firstIntentDivergenceWeek: firstIntentDivergence(plusOne, plusTwo),
+    delta: descriptiveOutcomeDelta(plusOne, plusTwo),
+  }
+}
+
+function deltaDistribution(values: readonly number[]): FacilitiesDeltaDistribution {
+  const ordered = [...values].sort((a, b) => a - b)
+  if (ordered.length === 0) {
+    throw new Error('facilities observatory: descriptive delta distribution is empty')
+  }
+  const middle = Math.floor(ordered.length / 2)
+  const median =
+    ordered.length % 2 === 1
+      ? ordered[middle]!
+      : (ordered[middle - 1]! + ordered[middle]!) / 2
+  const total = ordered.reduce((value, next) => value + next, 0)
+  return {
+    interpretation: 'descriptive-after-policy-feedback',
+    pairCount: ordered.length,
+    total,
+    mean: total / ordered.length,
+    median,
+    min: ordered[0]!,
+    max: ordered[ordered.length - 1]!,
+    negativePairs: ordered.filter((value) => value < 0).length,
+    zeroPairs: ordered.filter((value) => value === 0).length,
+    positivePairs: ordered.filter((value) => value > 0).length,
   }
 }
 
@@ -2360,38 +2676,47 @@ function aggregatePolicy(
   policyId: FacilitiesPolicyId,
   pairs: readonly FacilitiesPairResult[],
   runs: readonly FacilitiesArmResult[],
+  availableWeek: number,
+  capacityDelta: FacilitiesCapacityDelta,
 ): FacilitiesAggregatePolicy {
   const selectedPairs = pairs.filter((pair) => pair.policyId === policyId)
   const current = runs.filter((run) => run.policyId === policyId && run.mode === 'current')
   const counterfactual = runs.filter(
-    (run) => run.policyId === policyId && run.mode === 'counterfactual',
+    (run) =>
+      run.policyId === policyId &&
+      run.mode === 'counterfactual' &&
+      run.armConfiguration.capacityDelta === capacityDelta,
   )
   const sum = <T>(values: readonly T[], select: (value: T) => number): number =>
     values.reduce((total, value) => total + select(value), 0)
-  const distribution = (values: readonly number[]): FacilitiesDeltaDistribution => {
-    const ordered = [...values].sort((a, b) => a - b)
-    if (ordered.length === 0) {
-      throw new Error('facilities observatory: descriptive delta distribution is empty')
+  const aggregateRejectionExposure = (
+    selectedRuns: readonly FacilitiesArmResult[],
+  ): FacilitiesRejectionExposureCounts => {
+    if (
+      selectedRuns.some(
+        (run) =>
+          run.summary.developmentCastingRejectionExposure.availabilityWeek !== availableWeek,
+      )
+    ) {
+      throw new Error('facilities observatory: rejection exposure availability boundary diverged')
     }
-    const middle = Math.floor(ordered.length / 2)
-    const median =
-      ordered.length % 2 === 1
-        ? ordered[middle]!
-        : (ordered[middle - 1]! + ordered[middle]!) / 2
-    const total = ordered.reduce((value, next) => value + next, 0)
     return {
-      interpretation: 'descriptive-after-policy-feedback',
-      pairCount: ordered.length,
-      total,
-      mean: total / ordered.length,
-      median,
-      min: ordered[0]!,
-      max: ordered[ordered.length - 1]!,
-      negativePairs: ordered.filter((value) => value < 0).length,
-      zeroPairs: ordered.filter((value) => value === 0).length,
-      positivePairs: ordered.filter((value) => value > 0).length,
+      fullHorizon: sum(
+        selectedRuns,
+        (run) => run.summary.developmentCastingRejectionExposure.fullHorizon,
+      ),
+      beforeAvailability: sum(
+        selectedRuns,
+        (run) => run.summary.developmentCastingRejectionExposure.beforeAvailability,
+      ),
+      fromAvailabilityInclusive: sum(
+        selectedRuns,
+        (run) => run.summary.developmentCastingRejectionExposure.fromAvailabilityInclusive,
+      ),
     }
   }
+  const currentRejectionExposure = aggregateRejectionExposure(current)
+  const counterfactualRejectionExposure = aggregateRejectionExposure(counterfactual)
   return {
     policyId,
     pairCount: selectedPairs.length,
@@ -2403,6 +2728,11 @@ function aggregatePolicy(
       counterfactual,
       (run) => run.summary.capacityRejectedIntentsByCapability['development-casting'],
     ),
+    developmentCastingRejectionsByAvailability: {
+      availabilityWeek: availableWeek,
+      current: currentRejectionExposure,
+      counterfactual: counterfactualRejectionExposure,
+    },
     admittedDevelopmentCastingBoundaryShadows: sum(
       current,
       (run) => run.summary.shadowsAdmittedByCapability['development-casting'],
@@ -2425,18 +2755,57 @@ function aggregatePolicy(
       (run) => run.summary.productionHoldWeeks,
     ),
     descriptivePairDeltas: {
-      releases: distribution(selectedPairs.map((pair) => pair.delta.releases)),
-      finalCash: distribution(selectedPairs.map((pair) => pair.delta.finalCash)),
-      developmentCastingOccupiedSlotWeeks: distribution(
+      releases: deltaDistribution(selectedPairs.map((pair) => pair.delta.releases)),
+      finalCash: deltaDistribution(selectedPairs.map((pair) => pair.delta.finalCash)),
+      developmentCastingOccupiedSlotWeeks: deltaDistribution(
         selectedPairs.map((pair) => pair.delta.developmentCastingOccupiedSlotWeeks),
       ),
     },
   }
 }
 
-/** Run seed-major, policy-major paired current/+1 Development & Casting evidence. */
+function aggregateFourthSlotPolicy(
+  policyId: FacilitiesPolicyId,
+  marginals: readonly FacilitiesFourthSlotMarginalResult[],
+  runs: readonly FacilitiesArmResult[],
+): FacilitiesFourthSlotAggregatePolicy {
+  const selected = marginals.filter((marginal) => marginal.policyId === policyId)
+  const plusOne = runs.filter(
+    (run) => run.policyId === policyId && run.armConfiguration.capacityDelta === 1,
+  )
+  const plusTwo = runs.filter(
+    (run) => run.policyId === policyId && run.armConfiguration.capacityDelta === 2,
+  )
+  const sum = <T>(values: readonly T[], select: (value: T) => number): number =>
+    values.reduce((total, value) => total + select(value), 0)
+  return {
+    policyId,
+    pairCount: selected.length,
+    plusOneDevelopmentCastingRejectedIntents: sum(
+      plusOne,
+      (run) => run.summary.capacityRejectedIntentsByCapability['development-casting'],
+    ),
+    plusTwoDevelopmentCastingRejectedIntents: sum(
+      plusTwo,
+      (run) => run.summary.capacityRejectedIntentsByCapability['development-casting'],
+    ),
+    plusOneProductionHoldWeeks: sum(plusOne, (run) => run.summary.productionHoldWeeks),
+    plusTwoProductionHoldWeeks: sum(plusTwo, (run) => run.summary.productionHoldWeeks),
+    descriptiveFourthSlotDeltas: {
+      releases: deltaDistribution(selected.map((marginal) => marginal.delta.releases)),
+      finalCash: deltaDistribution(selected.map((marginal) => marginal.delta.finalCash)),
+      developmentCastingOccupiedSlotWeeks: deltaDistribution(
+        selected.map((marginal) => marginal.delta.developmentCastingOccupiedSlotWeeks),
+      ),
+    },
+  }
+}
+
+/** Run seed-major, policy-major paired current/configured Development & Casting evidence. */
 export function runFacilitiesCorpus(input: RunFacilitiesCorpusInput): FacilitiesCorpusResult {
   const horizonWeeks = assertHorizon(input.horizonWeeks ?? DEFAULT_FACILITIES_HORIZON_WEEKS)
+  const capacityDelta = assertCapacityDelta(input.capacityDelta ?? 1)
+  const availableWeek = assertAvailableWeek(input.availableWeek ?? 0, horizonWeeks)
   if (input.seeds.length === 0) {
     throw new Error('facilities observatory: at least one seed is required')
   }
@@ -2452,6 +2821,7 @@ export function runFacilitiesCorpus(input: RunFacilitiesCorpusInput): Facilities
 
   const runs: FacilitiesArmResult[] = []
   const pairs: FacilitiesPairResult[] = []
+  const fourthSlotMarginals: FacilitiesFourthSlotMarginalResult[] = []
   for (const seed of seeds) {
     for (const policyId of policyIds) {
       const current = runFacilitiesArm({
@@ -2459,6 +2829,8 @@ export function runFacilitiesCorpus(input: RunFacilitiesCorpusInput): Facilities
         policyId,
         mode: 'current',
         horizonWeeks,
+        capacityDelta,
+        availableWeek,
         source: input.source,
       })
       const counterfactual = runFacilitiesArm({
@@ -2466,16 +2838,31 @@ export function runFacilitiesCorpus(input: RunFacilitiesCorpusInput): Facilities
         policyId,
         mode: 'counterfactual',
         horizonWeeks,
+        capacityDelta,
+        availableWeek,
         source: input.source,
       })
       runs.push(current, counterfactual)
       pairs.push(pairOf(current, counterfactual))
+      if (capacityDelta === 2) {
+        const plusOne = runFacilitiesArm({
+          seed,
+          policyId,
+          mode: 'counterfactual',
+          horizonWeeks,
+          capacityDelta: 1,
+          availableWeek,
+          source: input.source,
+        })
+        runs.push(plusOne)
+        fourthSlotMarginals.push(fourthSlotMarginalOf(plusOne, counterfactual))
+      }
     }
   }
   const currentFacilityManifest = initialManifest()
   const counterfactualFacilityManifest = [
     ...initialManifest(),
-    { ...researchFacility('development-casting') },
+    { ...researchFacility('development-casting', capacityDelta) },
   ].sort((a, b) => compareId(a.id, b.id))
   return {
     schemaVersion: FACILITIES_OBSERVER_SCHEMA_VERSION,
@@ -2500,22 +2887,47 @@ export function runFacilitiesCorpus(input: RunFacilitiesCorpusInput): Facilities
       ),
       productionAllocationIdentity:
         'operations-v1: ascending production ID; retained soundstage on rehearsal-to-shooting; script and casting completions release shared slots before production allocation; blocked transitions retry on tick',
+      armConfigurations: [
+        armConfiguration('current', capacityDelta, availableWeek),
+        armConfiguration('counterfactual', capacityDelta, availableWeek),
+        ...(capacityDelta === 2
+          ? [armConfiguration('counterfactual', 1, availableWeek)]
+          : []),
+      ],
       currentFacilityManifest,
       counterfactualFacilityManifest,
       counterfactualDelta: {
-        facilityId: researchFacility('development-casting').id,
+        facilityId: researchFacility('development-casting', capacityDelta).id,
         capability: 'development-casting',
-        capacityDelta: 1,
+        capacityDelta,
+        availableWeek,
       },
     },
     runs,
     pairs,
+    fourthSlotMarginals,
     aggregate: {
       runCount: runs.length,
       pairCount: pairs.length,
-      policies: policyIds.map((policyId) => aggregatePolicy(policyId, pairs, runs)),
+      policies: policyIds.map((policyId) =>
+        aggregatePolicy(policyId, pairs, runs, availableWeek, capacityDelta),
+      ),
+      fourthSlotMarginal:
+        capacityDelta === 2
+          ? {
+              interpretation: 'descriptive-after-policy-feedback',
+              causal: false,
+              fromCapacityDelta: 1,
+              toCapacityDelta: 2,
+              availableWeek,
+              pairCount: fourthSlotMarginals.length,
+              policies: policyIds.map((policyId) =>
+                aggregateFourthSlotPolicy(policyId, fourthSlotMarginals, runs),
+              ),
+            }
+          : null,
       boundaryStatement:
-        'Research-only configured capacity. No construction price, duration, save, action, UI, production behavior, or macroeconomy certification is authorized; D-17B residuals remain open.',
+        `Research-only configured +${String(capacityDelta)} Development & Casting capacity, operational at the start of Week ${String(availableWeek)}. No construction price, duration, save, action, UI, production behavior, or macroeconomy certification is authorized; D-17B residuals remain open.`,
     },
   }
 }
