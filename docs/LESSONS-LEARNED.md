@@ -2025,3 +2025,69 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   its sentence must still be historically true.
 - **Pattern:** align prose tense with state-transition cadence. **Anti-pattern:** present-tense
   claims derived from a past failed attempt.
+
+---
+
+# Script Projects V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Contract `e1a97a5`, due-week correction `2a90c20`, implementation `5e3aadf`. Related:
+> `docs/SCRIPT-PROJECTS-V1-CONTRACT.md` and `docs/SCRIPT-PROJECTS-V1-CLOSURE.md`.
+
+## BV. Delayed decisions need a persisted due boundary — **BR, MG**
+
+- **Risk:** deriving completion from status plus the original commission week works for a first
+  draft and silently fails for a rewrite requested later.
+- **Resolution:** persist the exact due week only while work is active, validate its lifecycle
+  correlation, and clear it atomically when the decision arrives.
+- **Coverage / fastest diagnostic:** request the same rewrite at two different calendar weeks,
+  save/reload both, and prove each completes on its own promised week without consuming RNG.
+- **Pattern:** persist behaviorally material time. **Anti-pattern:** reconstructing delayed timing
+  from an earlier event that no longer defines it.
+
+## BW. A new authoritative value must reach every parallel consumer — **BR, MG**
+
+- **Symptom:** persisted screenplay strength governed the headline forecast while profit,
+  discoverability, marketing capacity, efficiency, or autopsy could still recompute the old
+  writer/concept blend.
+- **Resolution:** enumerate every selector and action that consumes script quality and pass the
+  project identity or explicit strength override through all of them. Perceived strength feeds
+  decisions; actual strength feeds realization.
+- **Coverage / fastest diagnostic:** hold perceived strength fixed while changing actual strength,
+  then invert the experiment. Every pre-greenlight dollar/forecast surface must move only with the
+  former and release only with the latter.
+- **Pattern:** one authority, all consumers. **Anti-pattern:** repairing only the most visible panel.
+
+## BX. Historical identifiers outlive live entities — **BR**
+
+- **Symptom:** allocating a production ID from active and released films alone allowed a
+  same-week cancellation and re-greenlight to reuse the old ID while ledger and career history still
+  retained it, merging two films' accounting identities.
+- **Resolution:** allocation reserves every ID present in any durable historical or operational
+  trace: films, runs, ledger, careers, broadcasts, workflows, tasks, reservations, and script links.
+- **Coverage / fastest diagnostic:** greenlight, cancel, greenlight again without advancing time;
+  require distinct IDs and disjoint ledger groups.
+- **Pattern:** identity follows the longest-lived reference. **Anti-pattern:** allocating only from
+  the current live collection.
+
+## BY. Frozen save writers need positive projection, not negative stripping — **BR**
+
+- **Risk:** spreading current state and deleting today's newest field lets tomorrow's unknown root
+  leak into a historical schema.
+- **Resolution:** each frozen save builder explicitly enumerates the exact roots its version owns;
+  current-version validation remains strict while historical migration alone performs known repair.
+- **Coverage / fastest diagnostic:** add an unknown root to a live object and prove every older save
+  projection omits it, then mutate the newest schema and require rejection.
+- **Pattern:** versioned positive allowlists. **Anti-pattern:** clone-all-then-delete-known-new-fields.
+
+## BZ. Workflow availability must subtract already-locked credits — **MG, BR**
+
+- **Symptom:** the Writers Room could claim a Ready package was openable because one Director was
+  available, even when that same person was the locked screenplay writer and within-film uniqueness
+  made Assembly reject them as Director.
+- **Resolution:** project-aware staffability uses the exact roster, freelancer rotation, busy set,
+  role pools, team counts, and locked-credit exclusions of the destination workflow before offering
+  navigation.
+- **Coverage / fastest diagnostic:** commission a cross-discipline writer who is the only member of
+  another required primary-role pool; require a named shortage and no dead-end action.
+- **Pattern:** availability means a complete disjoint assignment exists. **Anti-pattern:** counting
+  candidates without subtracting resources the workflow has already consumed.

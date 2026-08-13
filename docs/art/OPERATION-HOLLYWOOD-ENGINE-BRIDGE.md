@@ -147,5 +147,18 @@ TypeScript, the visual-state and era promises are both proven. Then replace the 
 textures with an offline-rendered 4-direction role atlas while retaining the same managed-person
 and activity contracts.
 
-The next engine-owned marathon slice is Script Projects V1. That work is separate from this visual
-recommendation and must preserve the snapshot boundary established here.
+## Script Projects V1 bridge update
+
+Script Projects V1 is delivered at `5e3aadf323c8a3d0caf43676f9bccfcc6f111db5` and preserves this
+bridge's truth boundary. The Development & Casting lot destination now routes managed studios to the
+Writers Room, whose core read model owns exact shared occupancy, screenplay attention, and legal
+decisions. The lot snapshot receives only the narrow attention projection; raw ScriptProject state,
+actual screenplay strength, hidden talent skill, and mutable GameState do not cross into Phaser.
+
+No screenplay animation or second clock was added. Draft/rewrite completion remains a weekly core
+transition, while the district may only acknowledge the resulting occupancy and attention state.
+SaveFileV9 retains both screenplay and operations identity, so reload can repaint the correct
+building/production state without replaying a cosmetic sequence.
+
+The next engine-owned marathon slice is Casting Sessions V1. It remains separate from the visual
+recommendation above and must preserve the same snapshot and animation-authority boundaries.
