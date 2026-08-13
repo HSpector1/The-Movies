@@ -200,3 +200,38 @@ animation behavior-neutral. No calendar row moves a person, changes a building, 
 advances time, or persists presentation state. A later construction slice must freeze its own
 facility lifecycle and bridge contract before any authored construction or upgrade state becomes
 engine behavior.
+
+## Development & Casting Annex V1 bridge update
+
+Development & Casting Annex V1 is delivered at
+`babfb874076055f5e8bb545eb1a96296e8accb76`. It is the first engine-owned construction lifecycle
+to cross the district bridge, while preserving the same narrow `StudioLotSnapshot` boundary.
+
+The snapshot receives only the parcel's canonical presentation state (`vacant`, `building`, or
+`operational`), exact progress/status copy, and current Development & Casting capacity. Raw project
+records, ledger rows, affordability internals, clocks, mutable `GameState`, and the construction
+action do not cross into Phaser. Studio Development remains the sole React owner of the command.
+
+Both lot implementations project the same engine state:
+
+- the procedural lot paints the fixed parcel as vacant, under construction, or operational;
+- the Hollywood manifest owns one disjoint central-asphalt expansion polygon and anchor;
+- the semantic destination reports the exact live status and shared slot count; and
+- clicking the physical Hollywood parcel routes to Studio Development, whose current core read
+  model owns legality and whose focused heading provides the non-canvas handoff.
+
+The Hollywood parcel does not complete construction, spend money, allocate work, or run a second
+clock. It may paint workers/reveal acknowledgement, but weekly core state alone changes Building to
+Operational. Completion after the thirteenth advance adds the canonical facility only after that
+advance's screenplay, casting, and production allocation; neither the district nor its animation
+can trigger a hidden retry.
+
+Live Chromium acceptance built at Week 0, recovered the exact Week-13 SaveFileV11 result, showed
+`Annex operational · 3 shared slots`, and opened Studio Development from the physical parcel. The
+district and owner screen had no horizontal document overflow across 1280×720, 1366×768,
+1440×900, 1920×1080, or the 125%-equivalent compact viewport; console warnings/errors were empty.
+
+No authored facility building was invented for this slice. The fixed asphalt parcel and lifecycle
+overlay are an honest V1 representation until a separately contracted district-art state earns its
+own evidence. Future construction catalogues, placement, upgrades, era variants, and facility
+economics remain outside this bridge update.

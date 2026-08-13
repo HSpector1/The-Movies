@@ -2241,3 +2241,94 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   prove no future requirement appears in the occupancy union.
 - **Pattern:** current ledger beside conditional outlook. **Anti-pattern:** a Gantt chart backed by
   no reservation state.
+
+---
+
+# Development & Casting Annex V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Research/contract `8712b79` + clarification `035e3c4`; implementation and hardening `babfb87`.
+> Related: `docs/DEVELOPMENT-CASTING-ANNEX-V1-CONTRACT.md` and
+> `docs/DEVELOPMENT-CASTING-ANNEX-V1-CLOSURE.md`.
+
+## CL. Cross-domain IDs must collide with the longest-lived identity authority — **BR**
+
+- **Symptom:** a valid historical film identity could be renamed to the future construction project
+  ID; the Annex start then created a second owner of the same canonical string in another domain.
+- **Resolution:** reserve all three Annex IDs against the complete persisted production-identity set,
+  including canceled-film ledger rows and every later operational/history consumer. Vacant migration
+  remains readable; start and authoritative project saves reject the collision.
+- **Coverage / fastest diagnostic:** parameterize all reserved IDs over a live production, then leave
+  only a canceled film's durable debit and require the same immutable rejection.
+- **Pattern:** identity uniqueness spans every durable consumer. **Anti-pattern:** checking only the
+  collection the new feature is about to append.
+
+## CM. Temporal authorization needs an immutable event witness — **BR**
+
+- **Symptom:** checking only `startTick >= facilityCompletedWeek` let a forged save move both a
+  reservation and its mutable start clock forward. The skip-first production week made a zero-
+  progress forgery especially easy to launder.
+- **Resolution:** an Annex reservation reconciles the production countdown/start clock to exactly one
+  authoritative production debit at the same greenlight week, and that event must not predate Annex
+  availability.
+- **Coverage / fastest diagnostic:** forge both a progressed pre-completion production and a Week-12
+  greenlight skipped into Week 13; change reservation + start clock and require core/save rejection.
+- **Pattern:** state transition time is proved by its immutable event record. **Anti-pattern:** treating
+  one editable timestamp as causality.
+
+## CN. Capacity completion order must say whether allocation reruns — **MG, BR**
+
+- **Risk:** “opens in Week 13” is ambiguous about actions before the advance, allocations during the
+  advance, and player actions after the returned state. A hidden retry would silently manufacture
+  throughput.
+- **Resolution:** script, casting, and production allocation use the opening facility set; construction
+  completes afterward; no allocation reruns; visible Week-13 player actions may use the new slot.
+- **Coverage / fastest diagnostic:** hold both base slots through `S + 12 → S + 13`, require identical
+  reservations after completion, then allocate new ordinary work to the Annex in the returned state.
+- **Pattern:** define ordered boundary semantics. **Anti-pattern:** a due-date label standing in for a
+  transition pipeline.
+
+## CO. Frozen compatibility can live in exact runtime projection when an old shared type is broad — **BR**
+
+- **Risk:** retroactively narrowing a historical `StudioOperations` type would break a committed
+  research instrument, while leaving historical save boundaries implicit could leak the new Annex.
+- **Resolution:** frozen state aliases exclude new construction/ledger authority statically; exact
+  historical validators and positive-projection builders exclude the Annex facility at runtime.
+- **Coverage / fastest diagnostic:** project live legacy/vacant state through every old builder,
+  reject Building/Completed downgrades, and inject unknown future roots to prove they never leak.
+- **Pattern:** preserve the real old contract and tighten the versioned envelope. **Anti-pattern:**
+  rewriting history for a cosmetically narrower type.
+
+## CP. Co-events are orthogonal payloads, not competing stop reasons — **MG, BR**
+
+- **Risk:** construction completion on a release or other higher-priority week can be lost if only one
+  enum owns the result, or duplicated if every continuation surface recomputes it.
+- **Resolution:** carry one typed completion payload beside the existing stop reason, render it on the
+  first post-tick owner surface, and strip it before continuation.
+- **Coverage / fastest diagnostic:** combine completion with weekly summary, release, and newspaper
+  paths; assert the notice appears once, keeps higher-priority navigation, and never returns.
+- **Pattern:** priority controls navigation; orthogonal facts survive alongside it. **Anti-pattern:**
+  squeezing simultaneous events into one mutually exclusive reason.
+
+## CQ. Capital investment needs its own exhaustive accounting home and sign convention — **MG, BR**
+
+- **Symptom:** the signed construction debit was initially rendered as negative “spend,” while a
+  catch-all classifier could silently turn a new ledger kind into film or miscellaneous economics.
+- **Resolution:** every compile-guarded ledger classifier names construction explicitly. Cash views
+  retain −$780,000 movement; “money spent” surfaces display its positive magnitude; film,
+  fixed-cost, recurring-burn, publicity, and `otherCash` totals exclude it.
+- **Coverage / fastest diagnostic:** reconcile one capital row through cash, Finance, period summary,
+  and recap, then require exhaustive classifier compilation when a future kind is added.
+- **Pattern:** one economic fact, context-specific sign presentation, exhaustive ownership.
+  **Anti-pattern:** deriving accounting class from note text or visual sign.
+
+## CR. Authored-world interaction geometry is production law — **MG, BR**
+
+- **Risk:** a plausible painted parcel can overlap another semantic hotspot, put its anchor outside
+  its owner, or exist only in a canvas, making clicks ambiguous and keyboard/non-renderer paths dead.
+- **Resolution:** manifest hotspots are pairwise disjoint, every anchor lies inside its polygon, the
+  parcel has one fixed identity, and both canvas intent and semantic navigation route to the same
+  owner screen.
+- **Coverage / fastest diagnostic:** test every polygon pair and contained anchor, then click the
+  physical parcel in a live build and require the focused non-canvas destination.
+- **Pattern:** visual place + unambiguous hit geometry + semantic fallback. **Anti-pattern:** treating
+  interaction bounds as decorative art metadata.
