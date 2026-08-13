@@ -45,6 +45,7 @@ import { developTalent, type DevelopmentContext } from './development.js'
 import { economyEngaged, weeklyPayroll } from './employment.js'
 import { openTheatricalRun } from './economy.js'
 import { clamp } from './math.js'
+import { advanceManagedProductions } from './operations.js'
 import {
   buildTalentCareerEvent,
   computeStarPowerDelta,
@@ -130,9 +131,13 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // Advance every active production with startTick < currentTick (M1 skip-first-
   // tick: a film greenlit at t does NOT advance during tick t). Immutable: build a
   // fresh Production for advanced ones, share the untouched ones by reference.
-  const advanced: Production[] = state.studio.activeProductions.map((p) =>
-    p.startTick < currentTick ? { ...p, remainingTicks: p.remainingTicks - 1 } : p,
+  const productionAdvance = advanceManagedProductions(
+    state.operations,
+    state.studio.activeProductions,
+    currentTick,
   )
+  const advanced: Production[] = productionAdvance.productions
+  const operations = productionAdvance.operations
 
   // ── 2. RELEASE ─────────────────────────────────────────────────────────────
   // Collect productions at remainingTicks === 0 after step 1; the rest stay
@@ -563,5 +568,6 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     freeAgents,
     theatricalRuns,
     careerEvents,
+    operations,
   }
 }

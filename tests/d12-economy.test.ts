@@ -17,6 +17,7 @@ import {
   convertV4ToV5,
   convertV5ToV6,
   convertV6ToV7,
+  convertV7ToV8,
   canAfford,
   convertV3ToV4,
   economyEngaged,
@@ -223,8 +224,8 @@ describe('D-12: V3→V4 migration records released films as legacyCompleted (no 
     // by tick step 3.5) — so a migrated release can never be paid twice.
     const legacyRev = (st: GameState) =>
       st.ledger.filter((e) => e.kind === 'studioRevenue' && released.some((f) => f.productionId === e.productionId)).length
-    // D-17B/E4: the live shape is now V7 — chain the V6→V7 step (it only seeds empty publicity).
-    const liveState = convertV6ToV7(convertV5ToV6(convertV4ToV5(v4))).state
+    // Production Operations V1: the live shape is V8; migrated history stays legacy.
+    const liveState = convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(v4)))).state
     const before = legacyRev(liveState)
     const advanced = advance(liveState, 6)
     expect(legacyRev(advanced)).toBe(before) // no NEW legacy credit — no double-pay
@@ -243,7 +244,7 @@ describe('D-12: reload equals continuous play with an active run straddling the 
 
     const continuous = advance(midRun, 6)
     const reloaded = importSave(exportSave(makeSave(midRun)))
-    if (reloaded.saveVersion !== 7) throw new Error('expected V7') // D-17B/E4: new games save as SaveFileV7 (V6 + the publicity cooldown state).
+    if (reloaded.saveVersion !== 8) throw new Error('expected V8') // Production Operations V1.
     const split = advance(reloaded.state, 6)
 
     expect(exportSave(makeSave(split))).toBe(exportSave(makeSave(continuous)))

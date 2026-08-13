@@ -43,8 +43,19 @@ export type {
   GameStateV4,
   GameStateV5,
   GameStateV6,
+  GameStateV7,
   PublicityTier,
   PublicityState,
+  StudioOperationsMode,
+  FacilityCapability,
+  StudioFacility,
+  ProductionPhase,
+  FacilityReservation,
+  ShootingTaskStatus,
+  ShootingTask,
+  ProductionBlocker,
+  ProductionWorkflow,
+  StudioOperations,
   TalentCareerEvent,
   CareerReasonCode,
   Action,
@@ -190,6 +201,15 @@ export { generateWorld, salaryCurve } from './worldgen.js'
 
 // §3 applyActions (phase 3) — greenlight / cancel / createTalent / createCustomTalent / createBalancedTalent
 export { applyActions, previewCustomTalent, previewBalancedTalent, balancedBoostDiscipline, predictProductionId } from './actions.js'
+
+// Production Operations V1 — authoritative phase/facility/task helpers.
+export {
+  INITIAL_STUDIO_FACILITIES,
+  emptyStudioOperations,
+  initialManagedStudioOperations,
+  productionPhaseForRemainingTicks,
+  assertStudioOperationsInvariants,
+} from './operations.js'
 
 // §6 standing (phase 3) — the three-channel updateStanding (B12 context param)
 export { updateStanding } from './standing.js'
@@ -440,9 +460,9 @@ export type { CandidatePackage } from './candidates.js'
 export { RandomAgent, OracleAgent } from './agents.js'
 export type { Agent } from './agents.js'
 
-// §17 save — V1 (frozen, legacy shape) + V2 (D-9) + deterministic V1→V2 conversion.
+// §17 save — frozen V1–V7 envelopes plus live Production Operations V1 V8.
 // stableStringify/deepEqual are unchanged. validateSave dispatches on version and
-// loudly rejects unknown versions. New games save as V2 (makeSave === makeSaveV2).
+// loudly rejects unknown versions. New games save as V8.
 export {
   stableStringify,
   deepEqual,
@@ -454,6 +474,7 @@ export {
   validateSaveV5,
   validateSaveV6,
   validateSaveV7,
+  validateSaveV8,
   makeSave,
   makeSaveV1,
   makeSaveV2,
@@ -462,6 +483,7 @@ export {
   makeSaveV5,
   makeSaveV6,
   makeSaveV7,
+  makeSaveV8,
   loadSave,
   exportSave,
   importSave,
@@ -491,6 +513,10 @@ export {
   convertV6ToV7,
   migrateToV7,
   emptyPublicityState,
+  // Production Operations V1 — legacy V7 → V8 seeds explicit legacy/empty state.
+  emptyLegacyOperations,
+  convertV7ToV8,
+  migrateToV8,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -500,6 +526,7 @@ export type {
   SaveFileV5,
   SaveFileV6,
   SaveFileV7,
+  SaveFileV8,
   SaveFile,
   TalentV1,
   GameStateV1,

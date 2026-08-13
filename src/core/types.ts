@@ -445,10 +445,81 @@ export type PublicityState = {
   byTier: { whisper: number | null; push: number | null; blitz: number | null }
 }
 
-// The live D-17B state: the frozen V6 surface PLUS publicity cooldown state. New games save
-// as SaveFileV7.
-export type GameState = GameStateV6 & {
+// The frozen D-17B V7 surface: V6 plus publicity cooldown state. SaveFileV7 remains
+// anchored here when managed studio operations add the next live-state field.
+export type GameStateV7 = GameStateV6 & {
   publicity: PublicityState
+}
+
+// ── Production Operations V1 (SaveFileV8) ────────────────────────────────────
+export type StudioOperationsMode = 'legacy' | 'managed'
+export type FacilityCapability =
+  | 'development-casting'
+  | 'soundstage'
+  | 'set-scenery'
+  | 'post'
+
+export type StudioFacility = {
+  id: string
+  name: string
+  capability: FacilityCapability
+  capacity: number
+}
+
+export type ProductionPhase =
+  | 'development'
+  | 'preProduction'
+  | 'rehearsal'
+  | 'shooting'
+  | 'postProduction'
+  | 'releaseReady'
+
+export type FacilityReservation = {
+  productionId: string
+  facilityId: string
+  capability: FacilityCapability
+  slot: number
+  phase: ProductionPhase
+}
+
+export type ShootingTaskStatus = 'unassigned' | 'blocked' | 'ready' | 'scheduled' | 'completed'
+export type ShootingTask = {
+  id: string
+  productionId: string
+  directorId: string
+  soundstageFacilityId: string
+  status: ShootingTaskStatus
+}
+
+export type ProductionBlocker =
+  | {
+      kind: 'facility-capacity'
+      capability: FacilityCapability
+      targetPhase: ProductionPhase
+    }
+  | {
+      kind: 'scenery-load-in'
+      taskId: string
+    }
+
+export type ProductionWorkflow = {
+  productionId: string
+  phase: ProductionPhase
+  reservations: FacilityReservation[]
+  shootingTask: ShootingTask | null
+  blocker: ProductionBlocker | null
+}
+
+export type StudioOperations = {
+  mode: StudioOperationsMode
+  facilities: StudioFacility[]
+  workflows: ProductionWorkflow[]
+}
+
+// The live V8 state. Legacy worlds carry an explicit empty operations surface;
+// managed mode is activated only by the dedicated action after founding.
+export type GameState = GameStateV7 & {
+  operations: StudioOperations
 }
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
@@ -514,6 +585,11 @@ export type Action =
   | { kind: 'releaseTalent'; talentId: string } // early release (financial cost only)
   // ── D-17B §2 publicity action (the ONE authorized paid awareness lever) ──
   | { kind: 'publicity'; tier: PublicityTier }
+  // ── Production Operations V1 ──
+  | { kind: 'activateStudioOperations' }
+  | { kind: 'assignShootingDirector'; productionId: string; directorId: string }
+  | { kind: 'clearSceneryLoadIn'; productionId: string }
+  | { kind: 'scheduleShootingTake'; productionId: string }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

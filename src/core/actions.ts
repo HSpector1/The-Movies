@@ -49,6 +49,14 @@ import {
 } from './employment.js'
 import { computeForecast, type ForecastContext } from './forecast.js'
 import { clamp } from './math.js'
+import {
+  addManagedProductionWorkflow,
+  assignShootingDirector,
+  clearSceneryLoadIn,
+  initialManagedStudioOperations,
+  removeManagedProductionWorkflow,
+  scheduleShootingTake,
+} from './operations.js'
 import { publicityLiftAt } from './publicity.js'
 import type { ReceptionInputs } from './reception.js'
 import { stream, type RngStream } from './rng.js'
@@ -494,7 +502,7 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
     ...(participants ? { participants } : {}),
   }
 
-  return {
+  const next: GameState = {
     ...state,
     studio: {
       ...state.studio,
@@ -503,6 +511,9 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
     },
     ledger: [...state.ledger, ...ledgerAdds],
   }
+  return state.operations.mode === 'managed'
+    ? { ...next, operations: addManagedProductionWorkflow(state.operations, production) }
+    : next
 }
 
 // ── cancel (M15) ─────────────────────────────────────────────────────────────
@@ -523,6 +534,7 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
         (pr) => pr.id !== action.productionId,
       ),
     },
+    operations: removeManagedProductionWorkflow(state.operations, action.productionId),
   }
 }
 
@@ -1099,6 +1111,88 @@ function applyFoundStudio(state: GameState, _action: Action & { kind: 'foundStud
   return { ...state, founding: null }
 }
 
+// ── Production Operations V1 actions ────────────────────────────────────────
+function applyActivateStudioOperations(
+  state: GameState,
+  _action: Action & { kind: 'activateStudioOperations' },
+): GameState {
+  if (state.operations.mode !== 'legacy') {
+    throw new Error('applyActions: activateStudioOperations rejected — studio operations are already managed')
+  }
+  if (state.operations.facilities.length !== 0 || state.operations.workflows.length !== 0) {
+    throw new Error(
+      'applyActions: activateStudioOperations rejected — legacy operations state is not an empty slate',
+    )
+  }
+  if (!economyEngaged(state)) {
+    throw new Error(
+      'applyActions: activateStudioOperations rejected — the studio economy is not engaged',
+    )
+  }
+  if (state.founding !== null) {
+    throw new Error(
+      'applyActions: activateStudioOperations rejected — the studio is still in its founding draft',
+    )
+  }
+  if (state.studio.activeProductions.length !== 0) {
+    throw new Error(
+      'applyActions: activateStudioOperations rejected — the active production slate is not empty',
+    )
+  }
+  return { ...state, operations: initialManagedStudioOperations() }
+}
+
+function requireActiveProductionForOperations(
+  state: GameState,
+  productionId: string,
+  actionName: string,
+): Production {
+  const production = state.studio.activeProductions.find((candidate) => candidate.id === productionId)
+  if (production === undefined) {
+    throw new Error(
+      `applyActions: ${actionName} references productionId "${productionId}" not in activeProductions`,
+    )
+  }
+  return production
+}
+
+function applyAssignShootingDirector(
+  state: GameState,
+  action: Action & { kind: 'assignShootingDirector' },
+): GameState {
+  const production = requireActiveProductionForOperations(
+    state,
+    action.productionId,
+    'assignShootingDirector',
+  )
+  return {
+    ...state,
+    operations: assignShootingDirector(state.operations, production, action.directorId),
+  }
+}
+
+function applyClearSceneryLoadIn(
+  state: GameState,
+  action: Action & { kind: 'clearSceneryLoadIn' },
+): GameState {
+  requireActiveProductionForOperations(state, action.productionId, 'clearSceneryLoadIn')
+  return {
+    ...state,
+    operations: clearSceneryLoadIn(state.operations, action.productionId),
+  }
+}
+
+function applyScheduleShootingTake(
+  state: GameState,
+  action: Action & { kind: 'scheduleShootingTake' },
+): GameState {
+  requireActiveProductionForOperations(state, action.productionId, 'scheduleShootingTake')
+  return {
+    ...state,
+    operations: scheduleShootingTake(state.operations, action.productionId),
+  }
+}
+
 // ── D-11 signContract — sign a talent to a studio contract (D-11.4/.5/.6) ─────
 // During founding: talent must be in the applicant pool; the signing bonus draws
 // the recruitment fund (NOT cash), tracked in founding.spentBonus. During ops:
@@ -1394,6 +1488,18 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'publicity':
         next = applyPublicity(next, action)
+        break
+      case 'activateStudioOperations':
+        next = applyActivateStudioOperations(next, action)
+        break
+      case 'assignShootingDirector':
+        next = applyAssignShootingDirector(next, action)
+        break
+      case 'clearSceneryLoadIn':
+        next = applyClearSceneryLoadIn(next, action)
+        break
+      case 'scheduleShootingTake':
+        next = applyScheduleShootingTake(next, action)
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).

@@ -25,6 +25,7 @@ import {
   makeSave,
   makeSaveV5,
   makeSaveV6,
+  makeSaveV7,
   migrateToV6,
   migrateToV7,
   OracleAgent,
@@ -33,12 +34,14 @@ import {
   tick,
   validateSave,
   validateSaveV7,
+  convertV7ToV8,
 } from '../src/core/index.js'
 import type {
   CreativeRole,
   GameState,
   GameStateV5,
   GameStateV6,
+  GameStateV7,
   LedgerEntry,
   LedgerKind,
 } from '../src/core/index.js'
@@ -47,11 +50,19 @@ import type {
 // Typed so an omission is a COMPILE error: a fixture that already carried `publicity`
 // would make every migration assertion below vacuous.
 function toV6(s: GameState): GameStateV6 {
+  const { publicity: _publicity, operations: _operations, ...v6 } = s
+  return v6
+}
+function toV7(s: GameState): GameStateV7 {
+  const { operations: _operations, ...v7 } = s
+  return v7
+}
+function frozenV7ToV6(s: GameStateV7): GameStateV6 {
   const { publicity: _publicity, ...v6 } = s
   return v6
 }
 function toV5(s: GameState): GameStateV5 {
-  const { publicity: _publicity, economyEngagedEver: _flag, ...v5 } = s
+  const { publicity: _publicity, operations: _operations, economyEngagedEver: _flag, ...v5 } = s
   return v5
 }
 
@@ -104,29 +115,30 @@ describe('D-17B/E4 — the empty publicity state is the seeded default everywher
   })
 })
 
-describe('D-17B/E4 — makeSave writes V7, and the envelope validates', () => {
-  it('new games save as SaveFileV7', () => {
-    const save = makeSave(foundStudio('d17b-v7-new'))
+describe('D-17B/E4 — the frozen V7 envelope remains valid and isolated', () => {
+  it('makeSaveV7 writes a real SaveFileV7 with no V8 operations field', () => {
+    const save = makeSaveV7(toV7(foundStudio('d17b-v7-new')))
     expect(save.saveVersion).toBe(7)
     expect(save.state.publicity).toEqual(EMPTY)
+    expect('operations' in save.state).toBe(false)
     expect(validateSave(save)).toBe(save)
     expect(validateSaveV7(save)).toBe(save)
   })
 
   it('validateSaveV7 rejects a non-7 envelope loudly', () => {
-    const save = makeSave(foundStudio('d17b-v7-badver'))
+    const save = makeSaveV7(toV7(foundStudio('d17b-v7-badver')))
     expect(() => validateSaveV7({ ...save, saveVersion: 6 })).toThrow(/expected saveVersion 7/)
   })
 
-  it('the unknown-version boundary has MOVED to 8 (7 is now known)', () => {
-    const save = makeSave(foundStudio('d17b-v7-boundary'))
-    expect(() => validateSave({ ...save, saveVersion: 8 })).toThrow(/unknown saveVersion 8/)
-    expect(() => validateSave({ ...save, saveVersion: 8 })).toThrow(/1, 2, 3, 4, 5, 6 and 7 only/)
+  it('V7 and V8 are known, so the unknown-version boundary is now 9', () => {
+    const save = makeSaveV7(toV7(foundStudio('d17b-v7-boundary')))
+    expect(() => validateSave({ ...save, saveVersion: 9 })).toThrow(/unknown saveVersion 9/)
+    expect(() => validateSave({ ...save, saveVersion: 9 })).toThrow(/1, 2, 3, 4, 5, 6, 7 and 8 only/)
   })
 
   it('rejects a V7 whose inherited regime fact or publicity clocks are missing/corrupt', () => {
-    const save = makeSave(foundStudio('d17b-v7-missing'))
-    const stripped = { ...save, state: toV6(save.state) }
+    const save = makeSaveV7(toV7(foundStudio('d17b-v7-missing')))
+    const stripped = { ...save, state: frozenV7ToV6(save.state) }
     expect(() => validateSaveV7(stripped)).toThrow(/state\.publicity is missing/)
     expect(() =>
       validateSaveV7({ ...save, state: { ...save.state, economyEngagedEver: undefined } }),
@@ -202,16 +214,18 @@ describe('D-17B/E4 — migrateToV7 lifts every known version, and the chain stil
   })
 
   it('export → import → migrate round-trips byte-identically', () => {
-    const json = exportSave(makeSave(live))
-    expect(exportSave(migrateToV7(importSave(json)))).toBe(json)
+    const json = exportSave(makeSaveV7(toV7(live)))
+    const imported = importSave(json)
+    if (imported.saveVersion !== 7) throw new Error('expected V7')
+    expect(exportSave(migrateToV7(imported))).toBe(json)
   })
 
   it('a V7 save reloads and continues identically to an uninterrupted run', () => {
     let a = foundStudio('d17b-v7-replay')
     for (let i = 0; i < 6; i++) a = tick(a)
-    const reloaded = importSave(exportSave(makeSave(a)))
+    const reloaded = importSave(exportSave(makeSaveV7(toV7(a))))
     if (reloaded.saveVersion !== 7) throw new Error('expected V7')
-    let split = reloaded.state
+    let split = convertV7ToV8(reloaded).state
     let continuous = a
     for (let i = 0; i < 6; i++) {
       split = tick(split)

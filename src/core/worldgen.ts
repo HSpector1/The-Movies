@@ -49,6 +49,7 @@
 // Ids are unique by construction; names/titles may collide harmlessly (id is key).
 
 import { clamp } from './math.js'
+import { emptyStudioOperations } from './operations.js'
 import { stream } from './rng.js'
 import { RngStream } from './rng.js'
 import {
@@ -654,5 +655,8 @@ export function generateWorld(seed: string): GameState {
     // V6→V7 migration seeds; a headless/M0A world can never buy one (the action is
     // engaged-only), so this stays empty for the whole acceptance corpus.
     publicity: emptyPublicityState(),
+    // Production Operations V1: headless and legacy worlds remain on the exact
+    // countdown path until an eligible founded studio explicitly activates it.
+    operations: emptyStudioOperations(),
   }
 }
