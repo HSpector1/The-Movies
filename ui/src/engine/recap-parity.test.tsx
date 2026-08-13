@@ -7,7 +7,7 @@
 
 import { describe, expect, it } from 'vitest'
 import { render, screen, cleanup } from '@testing-library/react'
-import { applyActions, beginFounding, generateWorld, resolveShape, studioRunRecap } from '../../../src/core/index.ts'
+import { applyActions, beginFounding, generateWorld, marketingLevelsFor, resolveShape, studioRunRecap } from '../../../src/core/index.ts'
 import { affordabilityScopes, greenlight, totalCommittedCost, requiredNegative } from './adapter.ts'
 import { Dashboard } from '../screens/Dashboard.tsx'
 import { moneyExact } from '../format.ts'
@@ -51,7 +51,10 @@ function cheapestPkg(state: GameState) {
     directorId: director.id,
     cast: { lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id } as Record<CastSlot, string>,
     craftIds: [craft.id],
-    budget: { negative: NEGATIVE_MULT_0 * requiredNegative(concept, minShape, state), marketing: 100_000 },
+    budget: {
+      negative: NEGATIVE_MULT_0 * requiredNegative(concept, minShape, state),
+      marketing: marketingLevelsFor(state, null)[0],
+    },
   }
 }
 const NEGATIVE_MULT_0 = 0.75

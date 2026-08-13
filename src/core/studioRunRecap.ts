@@ -28,7 +28,8 @@ import type {
   Talent,
 } from './types.js'
 import { resolveShape } from './shape.js'
-import { NEGATIVE_BUDGET_MULTIPLIERS, MARKETING_BUDGET_LEVELS } from './grid.js'
+import { NEGATIVE_BUDGET_MULTIPLIERS } from './grid.js'
+import { marketingLevelsFor } from './marketingMenu.js'
 import { weeklyPayroll, freelancerFee, economyEngaged } from './employment.js'
 import { allocateFixedCosts } from './fixedCostAllocation.js'
 import {
@@ -61,7 +62,6 @@ const TYPICAL_RECENT_WINDOW = 3
  *  Represents "can I make a normal film?" (vs the bare-minimum cheapest greenlightable package). */
 const STANDARD_NEG_MULT = 1.0 // NEGATIVE_BUDGET_MULTIPLIERS[1] — the assembly default
 const STANDARD_DEMAND = 1.0 // neutral story-shape ambition
-const STANDARD_MARKETING = 400_000 // MARKETING_BUDGET_LEVELS[1] — the assembly default
 /** A film loss counted as "heavy" for headlines: worse than this × its commitment. */
 const HEAVY_LOSS_FRACTION = 0.25
 /** How many inflection points to surface by default (bounded, high-value only). */
@@ -407,7 +407,7 @@ export function cheapestPackage(state: GameState): PackageBreakdown | null {
   // so the recap's all-in equals the greenlight action's totalCommittedCost to the bit (parity-tested).
   const requiredNegative = minBaseNeg * minBudgetDemandMultiplier() * state.era.costScale
   const negative = NEGATIVE_BUDGET_MULTIPLIERS[0]! * requiredNegative
-  return { negative, marketing: MARKETING_BUDGET_LEVELS[0]!, freelancerFees: fees }
+  return { negative, marketing: marketingLevelsFor(state, null)[0], freelancerFees: fees }
 }
 
 /** A STANDARD-budget film of the cheapest concept: default budget grid (1.0×), neutral shape demand,
@@ -418,7 +418,7 @@ export function standardPackage(state: GameState): PackageBreakdown | null {
   const fees = contractedRosterCanField(state) ? 0 : minFreelancerFill(state)
   if (fees == null) return null
   const negative = Math.round(STANDARD_NEG_MULT * minBaseNeg * STANDARD_DEMAND * state.era.costScale)
-  return { negative, marketing: STANDARD_MARKETING, freelancerFees: fees }
+  return { negative, marketing: marketingLevelsFor(state, null)[1], freelancerFees: fees }
 }
 
 /** The exact immediate cash a greenlight charges for a package (D-12 §3). D-17A/T4: exported. */

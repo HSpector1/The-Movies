@@ -496,6 +496,52 @@ export function computeSegmentAppeal(
   return { promiseMismatch, mismatchPenalty, starDraw, segmentFit, segmentAppeal, segmentAppealOpening }
 }
 
+// ── D-17B §4 — the three pure pieces of the marketing-capacity chain ──────────
+// EXTRACTED VERBATIM from `computeBoxOffice` below (which now calls them), so the
+// arithmetic — and therefore every corpus number — is unchanged. They exist so the
+// capacity-anchored marketing menu (`marketingMenu.ts`) can resolve THE SAME capacity the
+// shipped `marketingEfficiency` read-model shows, instead of duplicating the formula.
+// NOTHING about reception's formulas changed here.
+
+/** Σ_s share · (openingAppeal_s/100)^APPEAL_CURVE_EXP — the film's own opening-appeal reach. */
+export function appealReachSum(
+  segments: readonly Segment[],
+  openingSegmentAppeal: Readonly<Record<SegmentId, number>>,
+): number {
+  let sum = 0
+  for (const seg of segments) {
+    sum += seg.share * Math.pow(openingSegmentAppeal[seg.id]! / 100, TUNING.APPEAL_CURVE_EXP)
+  }
+  return sum
+}
+
+/**
+ * How visible/wanted a film is BEFORE any marketing spend: a blend of studio audience
+ * awareness and the film's own opening-appeal reach (D-12 P2). 0..1.
+ */
+export function preMarketingAwarenessOf(audienceAwareness: number, appealReach: number): number {
+  return clamp(
+    TUNING.MARKETING_AWARENESS_STANDING_WEIGHT * (audienceAwareness / 100) +
+      (1 - TUNING.MARKETING_AWARENESS_STANDING_WEIGHT) * appealReach,
+    0,
+    1,
+  )
+}
+
+/**
+ * The EFFICIENT MARKETING CAPACITY — the spend at which reach half-saturates. Legacy fixed
+ * MARKETING_HALF_SATURATION when NOT engaged (M0A byte-identical); awareness-scaled when
+ * engaged. It does NOT read `budget.marketing`, which is what makes a capacity-anchored menu
+ * resolvable without a chicken-and-egg on the grid it is choosing.
+ */
+export function efficientMarketingCapacity(preMarketingAwareness: number, engaged: boolean): number {
+  return engaged
+    ? TUNING.MARKETING_CAPACITY_MIN +
+        (TUNING.MARKETING_CAPACITY_MAX - TUNING.MARKETING_CAPACITY_MIN) *
+          Math.pow(preMarketingAwareness, TUNING.MARKETING_AWARENESS_EXP)
+    : TUNING.MARKETING_HALF_SATURATION
+}
+
 // ── §5.5 Box office ──────────────────────────────────────────────────────────
 // Factored to accept the per-segment appeal scores so §7 can reuse it against
 // noisy estimates (B16). competitionFactor ≡ 1.0 (N11). Pure; no sampling.
@@ -539,23 +585,14 @@ export function computeBoxOffice(
   // any marketing spend — a blend of studio audience awareness and the film's OWN opening-appeal
   // reach (fame-saturated when engaged). It drives the awareness-conditioned marketing capacity so
   // a low-awareness film cannot efficiently absorb a maximum campaign.
-  let appealReachSum = 0
-  for (const seg of segments) {
-    appealReachSum += seg.share * Math.pow(openingSegmentAppeal[seg.id]! / 100, TUNING.APPEAL_CURVE_EXP)
-  }
-  const preMarketingAwareness = clamp(
-    TUNING.MARKETING_AWARENESS_STANDING_WEIGHT * (standing.audienceAwareness / 100) +
-      (1 - TUNING.MARKETING_AWARENESS_STANDING_WEIGHT) * appealReachSum,
-    0,
-    1,
+  // D-17B §4: the same three expressions as before, now named (see the helpers above).
+  const preMarketingAwareness = preMarketingAwarenessOf(
+    standing.audienceAwareness,
+    appealReachSum(segments, openingSegmentAppeal),
   )
   // Efficient marketing capacity (the marketing spend at which reach half-saturates). Legacy fixed
   // MARKETING_HALF_SATURATION when NOT engaged (M0A byte-identical); awareness-scaled when engaged.
-  const marketingCapacity = engaged
-    ? TUNING.MARKETING_CAPACITY_MIN +
-      (TUNING.MARKETING_CAPACITY_MAX - TUNING.MARKETING_CAPACITY_MIN) *
-        Math.pow(preMarketingAwareness, TUNING.MARKETING_AWARENESS_EXP)
-    : TUNING.MARKETING_HALF_SATURATION
+  const marketingCapacity = efficientMarketingCapacity(preMarketingAwareness, engaged)
   const marketingQuality = budget.marketing / (budget.marketing + marketingCapacity)
   // Stage A: EFFECTIVE marketing reach — the marketing quality scaled by an awareness-conditioned
   // ceiling, so a low-awareness film's campaign converts to little reach even when "saturated" (its

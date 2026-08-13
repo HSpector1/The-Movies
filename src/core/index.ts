@@ -163,6 +163,15 @@ export {
   CANDIDATE_CONFIG,
 } from './grid.js'
 
+// D-17B §4 — regime-aware, capacity-anchored marketing menu. The legacy fixed
+// grid above remains public because it is still authoritative for disengaged/M0A play.
+export {
+  marketingCapacityFor,
+  marketingMenuFromCapacity,
+  marketingLevelsFor,
+} from './marketingMenu.js'
+export type { MarketingMenu, MarketingMenuInputs } from './marketingMenu.js'
+
 // seeded RNG (M9)
 export { RngStream, stream } from './rng.js'
 export type { RngPurpose } from './rng.js'
