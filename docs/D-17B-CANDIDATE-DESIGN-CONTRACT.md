@@ -1,4 +1,24 @@
-# D-17B — Candidate Design Contract (rev. 2 — post independent review)
+# D-17B — Candidate Design Contract (rev. 3 — §2/§6 restated on the exact final stack)
+
+**Rev. 3 note (2026-08-13):** the first full-stack reference corpus (`d17b-final-reference`) was
+DEFECTIVE — its publicity config carried `saturation: 1` (a percent scale; lift ≡ 0 for any
+awareness ≥ 1), so its seven buying arms measured pure cash burn. A focused verification
+(SHA-replicated apparatus; pinned pre-Phase-E snapshot) re-measured §2 on the exact final stack at
+the correct `saturation: 100`: **C1(a) PASSES** — the break-even-tuned buying rule (buy below
+A≈30, the menu's own break-even) wins 67.3% [61.8, 72.4] of 300 paired seeds, mean +$11.16M,
+median +$5.40M, 5.18 buys/208wk; the untuned Q6 (floor 20, below break-even) misses ≥50% by one
+seed at 208wk and wins 61.5% [54.6, 68.0] at 312wk (awareness is a durable asset; the 208wk
+knife-edge is horizon-limited). **C1(b) HOLDS on the exact stack:** durable@103 0/180 → Q6 14.5%
+[10.1, 20.4] over 15 worlds / Q1 13.0% / Q5 10.6%; both paired controls and a fresh no-lever
+control 0/180 (UB 1.7%); ends-insolvent 100%→85%; residual failure 100%→41.9%. **C1(c) PASSES
+re-measured:** Q7 vs Q0 38.5% [32.0, 45.4], median −$4.82M, mean +$0.90M. Week-86 story
+unchanged (§21). The §2(a)/(b) figures in the body below were measured on DISC tuple (i) and are
+superseded by these; §6.1's reference corpus is **`d17b-final-reference-sat100`** (the defective
+run's 17 non-buying policies are bit-identical and remain valid; its Q1–Q7 rows are invalid).
+Phase-H lab guards required: `publicityKey` must encode `saturation`; `validatePublicity` rejects
+`saturation < 50` as probable fraction/percent confusion. The publicity panel should surface
+price-per-point and the ~A30 break-even band so the player can locate the profitable-use line
+(§15's honest decision story: buying below ~A30 is profitable, above it is not, spam loses).
 
 **Status:** SURVIVED INDEPENDENT ATTACK WITH AMENDMENTS (all 6 blockers, 9 majors, 9 minors
 incorporated below; reviewer verdict recorded 2026-08-13). Production implementation is authorized
