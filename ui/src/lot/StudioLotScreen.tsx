@@ -15,7 +15,8 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { GameState } from '../engine/adapter.ts'
-import { runPublicityCampaign, studioLotSnapshot } from '../engine/adapter.ts'
+import { publicityDecision, runPublicity, studioLotSnapshot } from '../engine/adapter.ts'
+import { moneyExact } from '../format.ts'
 import type { AttentionState, BuildingId, LotPersonState, StudioLotSnapshot } from './snapshot/StudioLotSnapshot.ts'
 import { ALL_BUILDING_IDS, BUILDING_ACTION, BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
 import { lotStageAssignment } from './snapshot/stageAssignment.ts'
@@ -114,6 +115,7 @@ export function StudioLotScreen({ state, onNavigate, onExit, onStateChange }: Pr
   const [hollywoodTask, setHollywoodTask] = useState<HollywoodTaskState | null>(null)
   const [hollywoodActivity, setHollywoodActivity] = useState('Stage 7 is holding for a director.')
   const [hollywoodPerf, setHollywoodPerf] = useState<HollywoodPerformance | null>(null)
+  const whisperOffer = publicityDecision(state).find((offer) => offer.tier === 'whisper')
 
   // ── Identity gating: two INDEPENDENT capabilities (owner ruling: player enablement) ──────
   // `playerIdentity` is the ORDINARY-PLAYER content gate (default ON): it shows the approved
@@ -345,7 +347,8 @@ export function StudioLotScreen({ state, onNavigate, onExit, onStateChange }: Pr
   }, [hollywoodPerson])
 
   const runHollywoodPublicity = useCallback(() => {
-    const result = runPublicityCampaign(state, 'whisper')
+    if (!whisperOffer) return
+    const result = runPublicity(state, whisperOffer.tier)
     if (!result.ok) {
       const clean = result.error.replace(/^applyActions: publicity rejected — /, '').replace(/ \(D-17B §2\)$/, '')
       setHollywoodActivity(`Publicity blocked: ${clean}`)
@@ -358,7 +361,7 @@ export function StudioLotScreen({ state, onNavigate, onExit, onStateChange }: Pr
     const detail = `Publicity call complete · −$${cashDelta.toLocaleString('en-US')} · awareness +${awarenessDelta.toFixed(1)}`
     setHollywoodActivity(detail)
     viewRef.current?.showHollywoodPublicity(true, detail)
-  }, [onStateChange, state])
+  }, [onStateChange, state, whisperOffer])
 
   // Companion-nav activation: select the building AND route to its destination.
   const activate = useCallback(
@@ -452,7 +455,26 @@ export function StudioLotScreen({ state, onNavigate, onExit, onStateChange }: Pr
                 {hollywoodTask?.status === 'ready' && (
                   <button className="accent hollywood-command" onClick={() => viewRef.current?.callHollywoodTake()}>Call for Take 12</button>
                 )}
-                <button className="hollywood-publicity" onClick={runHollywoodPublicity}>Run publicity whisper · $1.2M</button>
+                {whisperOffer && (
+                  <>
+                    <button
+                      className="hollywood-publicity"
+                      data-testid="hollywood-publicity-whisper"
+                      aria-describedby="hollywood-publicity-whisper-status"
+                      disabled={!whisperOffer.available}
+                      onClick={runHollywoodPublicity}
+                    >
+                      Run publicity · Whisper · {moneyExact(whisperOffer.cost)} · +{whisperOffer.expectedLift.toFixed(2)} awareness
+                    </button>
+                    <small
+                      id="hollywood-publicity-whisper-status"
+                      data-testid="hollywood-publicity-whisper-status"
+                    >
+                      {whisperOffer.available ? 'Available now.' : `Unavailable. ${whisperOffer.reason ?? 'No offer is available.'}`}
+                      {' '}Global cooldown: {whisperOffer.globalCooldownWeeks} weeks · Whisper cooldown: {whisperOffer.cooldownWeeks} weeks
+                    </small>
+                  </>
+                )}
               </section>
 
               <div className="hollywood-people" role="group" aria-label="Named studio people">

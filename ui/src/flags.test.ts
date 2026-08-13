@@ -4,6 +4,9 @@
 // so "off by default" is the fresh-session state.
 import { describe, expect, it } from 'vitest'
 import {
+  operationHollywoodEnabled,
+  OPERATION_HOLLYWOOD_LS_KEY,
+  setOperationHollywoodOverride,
   setStudioLotOverviewOverride,
   studioLotOverviewEnabled,
   STUDIO_LOT_OVERVIEW_LS_KEY,
@@ -18,6 +21,31 @@ import {
   setStudioLotSoundstageProofOverride,
   STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY,
 } from './flags.ts'
+
+describe('Operation Hollywood feature flag', () => {
+  it('is OFF by default and toggles with its own runtime override', () => {
+    expect(operationHollywoodEnabled()).toBe(false)
+    setOperationHollywoodOverride(true)
+    expect(localStorage.getItem(OPERATION_HOLLYWOOD_LS_KEY)).toBe('1')
+    expect(operationHollywoodEnabled()).toBe(true)
+    setOperationHollywoodOverride(false)
+    expect(localStorage.getItem(OPERATION_HOLLYWOOD_LS_KEY)).toBeNull()
+    expect(operationHollywoodEnabled()).toBe(false)
+  })
+
+  it('is independent of the Studio Lot overview gate', () => {
+    expect(OPERATION_HOLLYWOOD_LS_KEY).not.toBe(STUDIO_LOT_OVERVIEW_LS_KEY)
+
+    setStudioLotOverviewOverride(true)
+    expect(studioLotOverviewEnabled()).toBe(true)
+    expect(operationHollywoodEnabled()).toBe(false)
+
+    setOperationHollywoodOverride(true)
+    setStudioLotOverviewOverride(false)
+    expect(studioLotOverviewEnabled()).toBe(false)
+    expect(operationHollywoodEnabled()).toBe(true)
+  })
+})
 
 describe('studioLotOverview feature flag', () => {
   it('is OFF by default (fresh session, no override)', () => {

@@ -878,18 +878,6 @@ export type ActionOutcome =
   | { ok: true; next: GameState }
   | { ok: false; error: string }
 
-/** Execute the real D-17B persisted publicity action through the same engine boundary as greenlight. */
-export function runPublicityCampaign(
-  state: GameState,
-  tier: 'whisper' | 'push' | 'blitz' = 'whisper',
-): ActionOutcome {
-  try {
-    return { ok: true, next: applyActions(state, [{ kind: 'publicity', tier }]) }
-  } catch (e) {
-    return { ok: false, error: (e as Error).message }
-  }
-}
-
 export function greenlight(state: GameState, pkg: DraftPackage): ActionOutcome {
   try {
     const next = applyActions(state, [

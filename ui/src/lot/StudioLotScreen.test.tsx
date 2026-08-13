@@ -15,6 +15,9 @@ import {
   tick,
 } from '../../../src/core/index.ts'
 import type { CreativeRole, GameState } from '../../../src/core/index.ts'
+import { publicityDecision, runPublicity } from '../engine/adapter.ts'
+import { moneyExact } from '../format.ts'
+import { setOperationHollywoodOverride } from '../flags.ts'
 import { StudioLotScreen } from './StudioLotScreen.tsx'
 import type { LotRoute } from './navigation.ts'
 
@@ -38,6 +41,7 @@ const spy = vi.hoisted(() => {
     reduced: boolean[] = []
     identityModes: string[] = []
     selected: string[] = []
+    publicity: Array<{ ok: boolean; detail: string }> = []
     constructor(opts: Opts) {
       this.opts = opts
       this.snapshots.push(opts.snapshot)
@@ -55,6 +59,7 @@ const spy = vi.hoisted(() => {
     setIdentityMode(mode: string) { this.identityModes.push(mode) }
     setSignageMasked() {}
     camera() {}
+    showHollywoodPublicity(ok: boolean, detail: string) { this.publicity.push({ ok, detail }) }
     destroy() { this.destroyed = true }
   }
   return { instances, FakeInstance }
@@ -204,5 +209,105 @@ describe('StudioLotScreen — host lifecycle + accessible companion navigation',
     const { getByTestId, exits } = renderScreen()
     fireEvent.click(getByTestId('lot-return-dashboard'))
     expect(exits()).toBe(1)
+  })
+})
+
+describe('StudioLotScreen — authoritative D-17B publicity offer', () => {
+  it('renders the exact current Whisper offer, availability, and both cooldowns', () => {
+    setOperationHollywoodOverride(true)
+    const state = foundStudio('hollywood-publicity-offer')
+    const offer = publicityDecision(state).find((candidate) => candidate.tier === 'whisper')!
+
+    const { getByTestId } = render(
+      <StudioLotScreen state={state} onNavigate={() => {}} onExit={() => {}} onStateChange={() => {}} />,
+    )
+
+    const button = getByTestId('hollywood-publicity-whisper')
+    const status = getByTestId('hollywood-publicity-whisper-status')
+    expect(button).toHaveTextContent(moneyExact(offer.cost))
+    expect(button).toHaveTextContent(`+${offer.expectedLift.toFixed(2)} awareness`)
+    expect(button).toBeEnabled()
+    expect(status).toHaveTextContent('Available now.')
+    expect(status).toHaveTextContent(`Global cooldown: ${offer.globalCooldownWeeks} weeks`)
+    expect(status).toHaveTextContent(`Whisper cooldown: ${offer.cooldownWeeks} weeks`)
+  })
+
+  it('replaces state only after success and preserves exact cash, awareness, ledger, and cooldown accounting', async () => {
+    setOperationHollywoodOverride(true)
+    const state = foundStudio('hollywood-publicity-success')
+    const before = JSON.stringify(state)
+    const offer = publicityDecision(state).find((candidate) => candidate.tier === 'whisper')!
+    let replacement: GameState | undefined
+
+    const { getByTestId, rerender } = render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onStateChange={(next) => { replacement = next }}
+      />,
+    )
+    fireEvent.click(getByTestId('hollywood-publicity-whisper'))
+
+    expect(replacement).toBeDefined()
+    const next = replacement!
+    expect(next).not.toBe(state)
+    expect(next.studio.cash).toBe(state.studio.cash - offer.cost)
+    expect(next.studio.standing.audienceAwareness).toBeCloseTo(
+      state.studio.standing.audienceAwareness + offer.expectedLift,
+      12,
+    )
+    expect(next.ledger.at(-1)).toEqual({
+      week: state.market.tick,
+      kind: 'publicity',
+      amount: -offer.cost,
+      note: 'publicity: whisper',
+    })
+    expect(next.publicity.lastUsedWeek).toBe(state.market.tick)
+    expect(next.publicity.byTier.whisper).toBe(state.market.tick)
+    expect(JSON.stringify(state)).toBe(before)
+
+    const cooldownOffer = publicityDecision(next).find((candidate) => candidate.tier === 'whisper')!
+    expect(cooldownOffer.available).toBe(false)
+    expect(cooldownOffer.availableWeek).toBe(state.market.tick + offer.cooldownWeeks)
+
+    rerender(
+      <StudioLotScreen
+        state={next}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onStateChange={(updated) => { replacement = updated }}
+      />,
+    )
+    await waitFor(() => expect(getByTestId('hollywood-publicity-whisper')).toBeDisabled())
+    expect(getByTestId('hollywood-publicity-whisper-status')).toHaveTextContent(cooldownOffer.reason!)
+  })
+
+  it('shows an authoritative rejection and cannot replace or mutate state', () => {
+    setOperationHollywoodOverride(true)
+    const founded = foundStudio('hollywood-publicity-rejected')
+    const state: GameState = {
+      ...founded,
+      studio: { ...founded.studio, cash: 0 },
+    }
+    const before = JSON.stringify(state)
+    const offer = publicityDecision(state).find((candidate) => candidate.tier === 'whisper')!
+    const rejected = runPublicity(state, 'whisper')
+    const onStateChange = vi.fn()
+
+    expect(offer.available).toBe(false)
+    expect(offer.reason).toBeTruthy()
+    expect(rejected.ok).toBe(false)
+
+    const { getByTestId } = render(
+      <StudioLotScreen state={state} onNavigate={() => {}} onExit={() => {}} onStateChange={onStateChange} />,
+    )
+    const button = getByTestId('hollywood-publicity-whisper')
+    expect(button).toBeDisabled()
+    expect(getByTestId('hollywood-publicity-whisper-status')).toHaveTextContent(offer.reason!)
+    fireEvent.click(button)
+
+    expect(onStateChange).not.toHaveBeenCalled()
+    expect(JSON.stringify(state)).toBe(before)
   })
 })
