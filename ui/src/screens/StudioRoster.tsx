@@ -6,7 +6,7 @@
 // recomputed here. Renew/release call the adapter action wrappers; on ok the parent
 // receives the next state via onChange.
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { GameState, EmploymentCard, CreativeRole } from '../engine/adapter.ts'
 import {
   rosterCards,
@@ -41,16 +41,22 @@ export function StudioRoster({
   onChange,
   onBack,
   onOpenProfile,
+  focusTalentId,
 }: {
   state: GameState
   onChange: (next: GameState) => void
   onBack: () => void
   onOpenProfile?: ((id: string) => void) | undefined
+  /** Navigation-only handoff from the Studio Calendar. */
+  focusTalentId?: string
 }) {
   const [profession, setProfession] = useState<ProfessionFilter>('all')
   const [renewalsOnly, setRenewalsOnly] = useState(false)
   const [pendingRelease, setPendingRelease] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const cardRefs = useRef(new Map<string, HTMLDivElement>())
+  const headingRef = useRef<HTMLHeadingElement | null>(null)
+  const pendingInitialFocus = useRef(focusTalentId ?? null)
 
   const payroll = payrollSummary(state)
   const all = rosterCards(state)
@@ -59,6 +65,15 @@ export function StudioRoster({
     if (renewalsOnly && !(c.employment.contract?.renewalOpen ?? false)) return false
     return true
   })
+
+  useEffect(() => {
+    const talentId = pendingInitialFocus.current
+    if (talentId === null) return
+    const target = cardRefs.current.get(talentId)
+    if (target) target.focus()
+    else headingRef.current?.focus()
+    pendingInitialFocus.current = null
+  }, [all])
 
   function renew(talentId: string, termWeeks: number) {
     const out = renewContractAction(state, talentId, termWeeks)
@@ -130,7 +145,7 @@ export function StudioRoster({
 
       <div className="card stack">
         <div className="spread">
-          <h2>Roster</h2>
+          <h2 ref={headingRef} tabIndex={-1} data-testid="roster-heading">Roster</h2>
           <div className="row" style={{ gap: 16 }}>
             <label className="row" style={{ gap: 6 }}>
               <span className="hint">Profession</span>
@@ -181,6 +196,10 @@ export function StudioRoster({
                 onConfirmRelease={() => release(card.profile.id)}
                 onRenew={renew}
                 onOpenProfile={onOpenProfile}
+                cardRef={(node) => {
+                  if (node) cardRefs.current.set(card.profile.id, node)
+                  else cardRefs.current.delete(card.profile.id)
+                }}
               />
             ))}
           </div>
@@ -201,6 +220,7 @@ function RosterCard({
   onConfirmRelease,
   onRenew,
   onOpenProfile,
+  cardRef,
 }: {
   card: EmploymentCard
   state: GameState
@@ -210,6 +230,7 @@ function RosterCard({
   onConfirmRelease: () => void
   onRenew: (talentId: string, termWeeks: number) => void
   onOpenProfile?: ((id: string) => void) | undefined
+  cardRef?: (node: HTMLDivElement | null) => void
 }) {
   const { profile, employment } = card
   const contract = employment.contract
@@ -223,7 +244,12 @@ function RosterCard({
   const renewOffers = renewOfferTruths(state, id)
 
   return (
-    <div className="panel stack" data-testid={`roster-card-${id}`}>
+    <div
+      className="panel stack"
+      data-testid={`roster-card-${id}`}
+      ref={cardRef}
+      tabIndex={-1}
+    >
       {onOpenProfile && (
         <button
           type="button"

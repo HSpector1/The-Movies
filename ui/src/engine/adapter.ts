@@ -184,6 +184,8 @@ import {
   linkedScriptStrengthOverride,
   // Casting Sessions V1 — narrow advisory evidence and project workflow.
   castingSessionsReadModel as coreCastingSessionsReadModel,
+  // Studio Calendar V1 — one pure, studio-wide planning projection.
+  studioCalendar as coreStudioCalendar,
 } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
@@ -286,6 +288,18 @@ import type {
   CastingCandidateView,
   AuditionEvidenceView,
   CastingReviewDecisionView,
+  StudioCalendarView,
+  StudioCalendarDecisionView,
+  StudioCalendarFacilityView,
+  StudioCalendarSlotView,
+  StudioCalendarOccupantView,
+  StudioCalendarCommitmentView,
+  StudioCalendarProductionView,
+  StudioCalendarProductionFacilityView,
+  StudioCalendarProductionBlockerView,
+  StudioCalendarContractView,
+  StudioCalendarExpiryClusterView,
+  StudioCalendarSummaryView,
 } from '../../../src/core/index.ts'
 
 // Re-export the core types the UI needs, so components import types from the
@@ -366,6 +380,18 @@ export type {
   CastingCandidateView,
   AuditionEvidenceView,
   CastingReviewDecisionView,
+  StudioCalendarView,
+  StudioCalendarDecisionView,
+  StudioCalendarFacilityView,
+  StudioCalendarSlotView,
+  StudioCalendarOccupantView,
+  StudioCalendarCommitmentView,
+  StudioCalendarProductionView,
+  StudioCalendarProductionFacilityView,
+  StudioCalendarProductionBlockerView,
+  StudioCalendarContractView,
+  StudioCalendarExpiryClusterView,
+  StudioCalendarSummaryView,
 }
 
 export const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support']
@@ -789,6 +815,12 @@ export function scriptProjectsBoard(state: GameState): ScriptProjectsReadModel {
 // only. It sends exact slates back to core; no package choice is inferred here.
 export function castingSessionsBoard(state: GameState): CastingSessionsReadModel {
   return coreCastingSessionsReadModel(state)
+}
+
+// Studio Calendar V1: the adapter preserves the core projection byte-for-byte.
+// React may format values and attach navigation labels, but owns no date or rule.
+export function studioCalendarBoard(state: GameState): StudioCalendarView {
+  return coreStudioCalendar(state)
 }
 
 export function activateCastingSessionsAction(state: GameState): ActionOutcome {

@@ -377,6 +377,7 @@ export function CastingRoom({
   state,
   onChange,
   initialProjectId,
+  focusProjectId,
   onOpenPackage,
   onOpenRoster,
   onBack,
@@ -384,6 +385,8 @@ export function CastingRoom({
   state: GameState
   onChange: (next: GameState) => void
   initialProjectId?: string
+  /** Navigation-only handoff from the Studio Calendar. */
+  focusProjectId?: string
   onOpenPackage: (projectId: string) => void
   onOpenRoster: () => void
   onBack: () => void
@@ -398,18 +401,25 @@ export function CastingRoom({
   const [error, setError] = useState('')
   const [announcement, setAnnouncement] = useState('')
   const pendingFocusProjectId = useRef<string | null>(null)
+  const initialFocusProjectId = useRef<string | null>(focusProjectId ?? null)
   const statusRefs = useRef(new Map<string, HTMLSpanElement>())
+  const headingRef = useRef<HTMLHeadingElement | null>(null)
   const planningProject = board.sections.readyToPlan.find(
     (project) => project.projectId === planningProjectId,
   )
 
   useEffect(() => {
-    const projectId = pendingFocusProjectId.current
+    const projectId = pendingFocusProjectId.current ?? initialFocusProjectId.current
     if (projectId === null) return
     const target = statusRefs.current.get(projectId)
-    if (target === undefined) return
+    if (target === undefined) {
+      headingRef.current?.focus()
+      initialFocusProjectId.current = null
+      return
+    }
     target.focus()
     pendingFocusProjectId.current = null
+    initialFocusProjectId.current = null
   }, [board])
 
   function activate() {
@@ -452,7 +462,7 @@ export function CastingRoom({
       <header className="spread card">
         <div>
           <div className="eyebrow">Talent · Camera tests</div>
-          <h1>Casting Room</h1>
+          <h1 ref={headingRef} tabIndex={-1} data-testid="casting-room-heading">Casting Room</h1>
           <p className="hint">
             Spend one week gathering imperfect role-specific evidence, then make the final cast decision in Package Assembly.
           </p>

@@ -52,6 +52,8 @@ import { Dashboard } from './screens/Dashboard.tsx'
 import { Assembly } from './screens/Assembly.tsx'
 import { WritersRoom } from './screens/WritersRoom.tsx'
 import { CastingRoom } from './screens/CastingRoom.tsx'
+import { StudioCalendar } from './screens/StudioCalendar.tsx'
+import type { StudioCalendarRoute } from './screens/StudioCalendar.tsx'
 import { ReleaseResult } from './screens/ReleaseResult.tsx'
 import { Autopsy } from './screens/Autopsy.tsx'
 import { TalentCreator } from './screens/TalentCreator.tsx'
@@ -80,11 +82,12 @@ const StudioLotScreen = lazy(() => import('./lot/StudioLotScreen.tsx'))
 type Screen =
   | { kind: 'start' }
   | { kind: 'founding' }
-  | { kind: 'dashboard' }
-  | { kind: 'roster' }
+  | { kind: 'dashboard'; focusProductionId?: string; focusRunId?: string }
+  | { kind: 'roster'; focusTalentId?: string }
   | { kind: 'hiring' }
-  | { kind: 'writersRoom' }
-  | { kind: 'castingRoom'; scriptProjectId?: string }
+  | { kind: 'writersRoom'; focusProjectId?: string }
+  | { kind: 'castingRoom'; scriptProjectId?: string; focusProjectId?: string }
+  | { kind: 'calendar' }
   | { kind: 'assembly'; scriptProjectId?: string }
   | {
       kind: 'release'
@@ -252,6 +255,28 @@ export function App() {
 
   function goDashboard() {
     setScreen({ kind: 'dashboard' })
+  }
+
+  // Studio Calendar routes are presentation-only. Every intent lands on the existing
+  // owner surface; that destination's live read model still owns legality and actions.
+  function handleCalendarNavigate(route: StudioCalendarRoute) {
+    switch (route.kind) {
+      case 'script':
+        setScreen({ kind: 'writersRoom', focusProjectId: route.projectId })
+        break
+      case 'casting':
+        setScreen({ kind: 'castingRoom', focusProjectId: route.projectId })
+        break
+      case 'production':
+        setScreen({ kind: 'dashboard', focusProductionId: route.productionId })
+        break
+      case 'theatricalRun':
+        setScreen({ kind: 'dashboard', focusRunId: route.productionId })
+        break
+      case 'contract':
+        setScreen({ kind: 'roster', focusTalentId: route.talentId })
+        break
+    }
   }
 
   // Gate D1: is the Studio Lot overview enabled this session? (default off)
@@ -532,16 +557,25 @@ export function App() {
           onOpenHiring={() => setScreen({ kind: 'hiring' })}
           onSaves={() => setScreen({ kind: 'saves' })}
           onOpenRecap={() => setScreen({ kind: 'recap' })}
+          onOpenCalendar={() => setScreen({ kind: 'calendar' })}
           onOpenLot={lotEnabled ? () => setScreen({ kind: 'lot' }) : undefined}
           onOpenAutopsy={openAutopsyForFilm}
           onOpenClipping={openClippingForFilm}
           onPublicize={handlePublicity}
           onProductionCommand={handleProductionCommand}
+          {...(screen.focusProductionId ? { focusProductionId: screen.focusProductionId } : {})}
+          {...(screen.focusRunId ? { focusRunId: screen.focusRunId } : {})}
         />
       )}
 
       {screen.kind === 'roster' && (
-        <StudioRoster state={state} onChange={setState} onBack={goDashboard} onOpenProfile={setOpenProfileId} />
+        <StudioRoster
+          state={state}
+          onChange={setState}
+          onBack={goDashboard}
+          onOpenProfile={setOpenProfileId}
+          {...(screen.focusTalentId ? { focusTalentId: screen.focusTalentId } : {})}
+        />
       )}
 
       {screen.kind === 'hiring' && (
@@ -564,6 +598,15 @@ export function App() {
             setScreen({ kind: 'castingRoom', scriptProjectId })
           }
           onBack={goDashboard}
+          {...(screen.focusProjectId ? { focusProjectId: screen.focusProjectId } : {})}
+        />
+      )}
+
+      {screen.kind === 'calendar' && (
+        <StudioCalendar
+          state={state}
+          onNavigate={handleCalendarNavigate}
+          onBack={goDashboard}
         />
       )}
 
@@ -577,6 +620,7 @@ export function App() {
           }
           onOpenRoster={() => setScreen({ kind: 'roster' })}
           onBack={goDashboard}
+          {...(screen.focusProjectId ? { focusProjectId: screen.focusProjectId } : {})}
         />
       )}
 

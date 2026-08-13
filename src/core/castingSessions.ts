@@ -85,7 +85,9 @@ export function castingSessionForProject(
 }
 
 export function castingSessionsNeedingReview(casting: CastingSessions): CastingSession[] {
-  return casting.sessions.filter((session) => session.status === 'review')
+  return casting.sessions
+    .filter((session) => session.status === 'review')
+    .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
 }
 
 export function nextCastingSessionNeedingReview(

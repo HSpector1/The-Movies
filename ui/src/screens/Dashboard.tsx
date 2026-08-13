@@ -4,6 +4,7 @@
 // active productions (stored forecast + remaining weeks), recent releases, and the
 // primary actions (Assemble a film, Advance one week) plus Talent creator / Saves.
 
+import { useEffect, useRef } from 'react'
 import type {
   GameState,
   FilmResult,
@@ -34,6 +35,7 @@ import { money, score } from '../format.ts'
 import { Metric, StandingBar } from '../components/common.tsx'
 import { AffordabilityScopesCard } from '../components/AffordabilityScopes.tsx'
 import { ProductionBoard } from '../components/ProductionBoard.tsx'
+import { StudioCalendarPreview } from './StudioCalendar.tsx'
 
 export function Dashboard({
   state,
@@ -47,11 +49,14 @@ export function Dashboard({
   onOpenHiring,
   onOpenLot,
   onOpenRecap,
+  onOpenCalendar,
   onSaves,
   onOpenAutopsy,
   onOpenClipping,
   onPublicize,
   onProductionCommand,
+  focusProductionId,
+  focusRunId,
 }: {
   state: GameState
   onAssemble: () => void
@@ -67,6 +72,7 @@ export function Dashboard({
   onOpenLot?: (() => void) | undefined
   // D-15: open the read-only Studio Run Recap.
   onOpenRecap?: () => void
+  onOpenCalendar?: () => void
   onSaves: () => void
   onOpenAutopsy: (film: FilmResult) => void
   // D-11.C PART 2: reopen a film's newspaper clipping. Optional — the clipping is
@@ -74,6 +80,9 @@ export function Dashboard({
   onOpenClipping?: (film: FilmResult) => void
   onPublicize?: (tier: PublicityTier) => void
   onProductionCommand?: (command: ProductionCommandView) => void
+  /** Navigation-only handoffs from the Studio Calendar. */
+  focusProductionId?: string
+  focusRunId?: string
 }) {
   const week = selectWeek(state)
   const cash = selectCash(state)
@@ -99,6 +108,18 @@ export function Dashboard({
     pendingDecision?.kind === 'productionDecision' ? pendingDecision.decision : null
   const managedScripts = scripts.mode === 'managed'
   const capacityHold = board.cards.find((card) => card.blocker?.kind === 'facility-capacity') ?? null
+  const runRefs = useRef(new Map<string, HTMLElement>())
+  const runsHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const pendingRunFocus = useRef(focusRunId ?? null)
+
+  useEffect(() => {
+    const productionId = pendingRunFocus.current
+    if (productionId === null) return
+    const target = runRefs.current.get(productionId)
+    if (target) target.focus()
+    else runsHeadingRef.current?.focus()
+    pendingRunFocus.current = null
+  }, [runs])
 
   // Recent releases: most recent first.
   const recent = [...released].reverse().slice(0, 6)
@@ -267,6 +288,13 @@ export function Dashboard({
 
       <div style={{ height: 16 }} />
 
+      <StudioCalendarPreview
+        state={state}
+        {...(onOpenCalendar ? { onOpen: onOpenCalendar } : {})}
+      />
+
+      <div style={{ height: 16 }} />
+
       <div className="card stack" data-testid="publicity-panel">
         <div className="spread" style={{ alignItems: 'flex-start', gap: 16 }}>
           <div>
@@ -387,7 +415,7 @@ export function Dashboard({
       <div style={{ height: 16 }} />
 
       <div className="card">
-        <h2>In theaters</h2>
+        <h2 ref={runsHeadingRef} tabIndex={-1} data-testid="theatrical-runs-heading">In theaters</h2>
         {runs.length === 0 ? (
           <div className="empty" data-testid="no-runs">
             No films in theaters. A released film pays Studio Revenue weekly across its run.
@@ -400,6 +428,10 @@ export function Dashboard({
                 run={r}
                 title={findConcept(state, r.conceptId)?.title ?? r.conceptId}
                 projection={runProjection(state, r)}
+                panelRef={(node) => {
+                  if (node) runRefs.current.set(r.productionId, node)
+                  else runRefs.current.delete(r.productionId)
+                }}
               />
             ))}
           </div>
@@ -411,6 +443,7 @@ export function Dashboard({
       <ProductionBoard
         board={board}
         {...(onProductionCommand ? { onCommand: onProductionCommand } : {})}
+        {...(focusProductionId ? { focusProductionId } : {})}
       />
 
       <div style={{ height: 16 }} />
@@ -510,14 +543,21 @@ function TheatricalRunPanel({
   run,
   title,
   projection,
+  panelRef,
 }: {
   run: RunView
   title: string
   projection: import('../engine/adapter.ts').RunProjection
+  panelRef?: (node: HTMLElement | null) => void
 }) {
   const profit = projection.projectedContribution >= 0
   return (
-    <div className="panel" data-testid={`run-${run.productionId}`}>
+    <article
+      className="panel"
+      data-testid={`run-${run.productionId}`}
+      ref={panelRef}
+      tabIndex={-1}
+    >
       <div className="spread">
         <strong>{title ?? run.conceptId}</strong>
         <span className="tag fact">
@@ -553,6 +593,6 @@ function TheatricalRunPanel({
           <span className={profit ? 'money pos' : 'money neg'}>{Math.round(projection.projectedRoi * 100)}%</span>
         </Metric>
       </div>
-    </div>
+    </article>
   )
 }

@@ -371,26 +371,35 @@ export function WritersRoom({
   onOpenPackage,
   onPlanAuditions,
   onBack,
+  focusProjectId,
 }: {
   state: GameState
   onChange: (next: GameState) => void
   onOpenPackage: (projectId: string) => void
   onPlanAuditions?: ((projectId: string) => void) | undefined
   onBack: () => void
+  /** Navigation-only handoff from the Studio Calendar. */
+  focusProjectId?: string
 }) {
   const board = useMemo(() => scriptProjectsBoard(state), [state])
   const [commissioning, setCommissioning] = useState(false)
   const [error, setError] = useState('')
   const pendingFocusProjectId = useRef<string | null>(null)
+  const initialFocusProjectId = useRef<string | null>(focusProjectId ?? null)
   const actionRefs = useRef(new Map<string, HTMLButtonElement>())
   const statusRefs = useRef(new Map<string, HTMLSpanElement>())
+  const headingRef = useRef<HTMLHeadingElement | null>(null)
 
   useEffect(() => {
-    const projectId = pendingFocusProjectId.current
+    const projectId = pendingFocusProjectId.current ?? initialFocusProjectId.current
     if (projectId === null) return
     const cards = SECTION_ORDER.flatMap((section) => board.sections[section.key])
     const card = cards.find((candidate) => candidate.projectId === projectId)
-    if (card === undefined) return
+    if (card === undefined) {
+      headingRef.current?.focus()
+      initialFocusProjectId.current = null
+      return
+    }
     const target =
       card.legalActions.length > 0
         ? actionRefs.current.get(projectId)
@@ -398,6 +407,7 @@ export function WritersRoom({
     if (target === undefined) return
     target.focus()
     pendingFocusProjectId.current = null
+    initialFocusProjectId.current = null
   }, [board])
 
   function runAction(action: ScriptProjectActionView) {
@@ -425,7 +435,7 @@ export function WritersRoom({
       <header className="spread card">
         <div>
           <div className="eyebrow">Development</div>
-          <h1>Writers Room</h1>
+          <h1 ref={headingRef} tabIndex={-1} data-testid="writers-room-heading">Writers Room</h1>
           <p className="hint">
             Develop authoritative screenplays, review each draft, then carry an accepted script into package assembly.
           </p>

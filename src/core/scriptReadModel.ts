@@ -4,7 +4,10 @@
 // actual screenplay strength, or ceiling object crosses the boundary.
 
 import { activeContract, busyTalentIds, freelancerMarketIds } from './employment.js'
-import { castingDevelopmentCastingOccupancy } from './castingSessions.js'
+import {
+  castingDevelopmentCastingOccupancy,
+  nextCastingSessionNeedingReview,
+} from './castingSessions.js'
 import {
   activeScriptWriterAssignments,
   developmentCastingOccupancy,
@@ -1008,9 +1011,7 @@ function nextProductionOperationsDecision(
 export function nextStudioDecision(state: GameState): StudioDecisionView | null {
   const scriptDecision = nextScriptDecision(state)
   if (scriptDecision !== null) return scriptDecision
-  const castingReview = state.castingSessions.sessions.find(
-    (session) => session.status === 'review',
-  )
+  const castingReview = nextCastingSessionNeedingReview(state.castingSessions)
   if (castingReview !== undefined) {
     const project = state.scriptDevelopment.projects.find(
       (candidate) => candidate.id === castingReview.projectId,

@@ -353,6 +353,23 @@ export type {
   ScriptProjectsReadModel,
 } from './scriptReadModel.js'
 
+// Studio Calendar & Capacity Board V1 — pure studio-wide planning projection.
+export { studioCalendar } from './studioCalendar.js'
+export type {
+  StudioCalendarDecisionView,
+  StudioCalendarOccupantView,
+  StudioCalendarSlotView,
+  StudioCalendarFacilityView,
+  StudioCalendarCommitmentView,
+  StudioCalendarProductionFacilityView,
+  StudioCalendarProductionBlockerView,
+  StudioCalendarProductionView,
+  StudioCalendarContractView,
+  StudioCalendarExpiryClusterView,
+  StudioCalendarSummaryView,
+  StudioCalendarView,
+} from './studioCalendar.js'
+
 // §6 standing (phase 3) — the three-channel updateStanding (B12 context param)
 export { updateStanding } from './standing.js'
 export type { ReleaseBenchmarks, StandingContext } from './standing.js'

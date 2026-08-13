@@ -13,35 +13,45 @@ import { Metric } from './common.tsx'
 export function ProductionBoard({
   board,
   onCommand,
+  focusProductionId,
 }: {
   board: ProductionBoardView
   onCommand?: (command: ProductionCommandView) => void
+  /** Navigation-only handoff from the Studio Calendar. */
+  focusProductionId?: string
 }) {
   const pendingFocusProductionId = useRef<string | null>(null)
   const commandRefs = useRef(new Map<string, HTMLButtonElement>())
   const statusRefs = useRef(new Map<string, HTMLSpanElement>())
+  const headingRef = useRef<HTMLHeadingElement | null>(null)
+  const initialFocusProductionId = useRef<string | null>(focusProductionId ?? null)
 
   // A command replaces itself with the next legal command, or with the final
   // scheduled status. Move focus to that authoritative successor so keyboard and
   // screen-reader users never fall back to <body> when React removes the button.
   useEffect(() => {
-    const productionId = pendingFocusProductionId.current
+    const productionId = pendingFocusProductionId.current ?? initialFocusProductionId.current
     if (productionId === null) return
     const card = board.cards.find((candidate) => candidate.productionId === productionId)
-    if (card === undefined) return
+    if (card === undefined) {
+      headingRef.current?.focus()
+      initialFocusProductionId.current = null
+      return
+    }
     const target = card.command
       ? commandRefs.current.get(productionId)
       : statusRefs.current.get(productionId)
     if (target === undefined) return
     target.focus()
     pendingFocusProductionId.current = null
+    initialFocusProductionId.current = null
   }, [board])
 
   return (
     <div className="card production-board" data-testid="production-board">
       <div className="spread production-board-heading">
         <div>
-          <h2>Production Board</h2>
+          <h2 ref={headingRef} tabIndex={-1} data-testid="production-board-heading">Production Board</h2>
           <p className="hint">
             {board.mode === 'managed'
               ? 'Authoritative phases, facility reservations, and shooting calls.'
