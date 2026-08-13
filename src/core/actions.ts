@@ -49,6 +49,7 @@ import {
 } from './employment.js'
 import { computeForecast, type ForecastContext } from './forecast.js'
 import { clamp } from './math.js'
+import { publicityLiftAt } from './publicity.js'
 import type { ReceptionInputs } from './reception.js'
 import { stream, type RngStream } from './rng.js'
 import { resolveShape } from './shape.js'
@@ -1307,7 +1308,7 @@ function applyPublicity(state: GameState, action: Action & { kind: 'publicity' }
   }
 
   const awareness = state.studio.standing.audienceAwareness
-  const lift = spec.maxLift * Math.pow(1 - clamp(awareness / 100, 0, 1), TUNING.PUBLICITY_SHAPE_EXP)
+  const lift = publicityLiftAt(tier, awareness)
 
   // Integer dollars enforced AT THE WRITE SITE (contract §5). The tier costs are integer
   // literals, so this is a guard against a future non-integer tuning edit rather than a

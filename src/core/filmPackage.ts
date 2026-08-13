@@ -736,7 +736,6 @@ export function forecastProfitRange(
     const strength = inp.concept.baselineStrength
     const reqNeg = inp.concept.baseNegativeCost * inp.shapeEffects.budgetDemandMultiplier * inp.era.costScale
     const funding = inp.budget.negative / Math.max(reqNeg, 1)
-    const largeMarketing = inp.budget.marketing >= 2 * TUNING.MARKETING_HALF_SATURATION // ≥ ~Large
     // D-17A/T6: ONE forecast-centre box-office pass, reused by the discoverability exposure and
     // by the marketing-capacity copy below. `engaged` ⇒ the forecast offset is 0, so these
     // centres ARE the `midMap`/`openMid` maps that produced `revExpected` above.
@@ -817,11 +816,11 @@ export function forecastProfitRange(
         `Marketing of ${moneyShort(inp.budget.marketing)} against a measured efficient capacity of ` +
           `${moneyShort(centerBox.marketingCapacity)} — ${Math.round(capacityRatio * 100)}% of capacity — ` +
           `counts as overexposure at ${Math.round(centerBox.overexposure * 100)}% of the full effect. ` +
+          `The active menu begins at 1.3x capacity, extends to 2.4x, and reaches its maximum ` +
+          `campaign at 3.7x. ` +
           `What that costs is measured on the film's legs, not its opening: a campaign this far past ` +
           `capacity raises expectations, and if the film underdelivers on them word of mouth shortens its run.`,
       )
-    } else if (largeMarketing && strength >= TUNING.SCRIPT_POTENTIAL_REF && funding >= 0.95) {
-      upsideDrivers.push("This campaign meaningfully expands the film's reach.")
     }
   }
 

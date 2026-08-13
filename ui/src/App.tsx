@@ -29,6 +29,7 @@ import type {
   ReleaseDevelopment,
   PeriodSummary,
   SimStopReason,
+  PublicityTier,
 } from './engine/adapter.ts'
 import {
   advanceWeek,
@@ -40,6 +41,7 @@ import {
   findConcept,
   releaseNewspaper,
   talentProfile,
+  runPublicity,
 } from './engine/adapter.ts'
 import { filmCareerImpact, talentCareerHistory, preV5CreditCount } from './engine/careerImpact.ts'
 import { TalentProfileDrawer } from './components/TalentProfileDrawer.tsx'
@@ -310,6 +312,16 @@ export function App() {
     setScreen({ kind: 'release', ...release })
   }
 
+  function handlePublicity(tier: PublicityTier) {
+    if (!state) return
+    const result = runPublicity(state, tier)
+    if (result.ok) {
+      setState(result.next)
+    } else {
+      alert(result.error)
+    }
+  }
+
   // D-12.18: Sim to next event — advance many weeks through the engine, stopping before the
   // next blocking event. A release routes to the same newspaper/release flow as Advance (the
   // stop tick is exactly one tick after `preTick`); any other stop shows the weekly summary.
@@ -467,6 +479,7 @@ export function App() {
           onOpenLot={lotEnabled ? () => setScreen({ kind: 'lot' }) : undefined}
           onOpenAutopsy={openAutopsyForFilm}
           onOpenClipping={openClippingForFilm}
+          onPublicize={handlePublicity}
         />
       )}
 

@@ -15,6 +15,7 @@ import type {
   ForecastProfitRange,
   CycleFixedCost,
   DiscoveryExposureView,
+  MarketingMenuView,
 } from '../engine/adapter.ts'
 import { money, score, confidenceLabel } from '../format.ts'
 import { Metric, Warn } from './common.tsx'
@@ -100,6 +101,7 @@ export function FilmPackageSummary({
   profit,
   cycleFixedCost,
   discovery,
+  marketing,
 }: {
   cohesion: CreativeCohesion
   fit?: PackageFit
@@ -111,6 +113,9 @@ export function FilmPackageSummary({
   cycleFixedCost?: CycleFixedCost
   // D-17A/T6: the engine's own discoverability-exposure read-model, for the risk section.
   discovery?: DiscoveryExposureView
+  // D-17B §4: exact engine menu for this package. Shown here as package truth;
+  // the Budget step separately renders it at the pre-greenlight decision.
+  marketing?: MarketingMenuView
 }) {
   const fixedCost = cycleFixedCost?.amount ?? 0
   return (
@@ -279,6 +284,34 @@ export function FilmPackageSummary({
                 <span className="hint">No specific uncertainty flagged.</span>
               )}
             </div>
+          </div>
+        </div>
+      )}
+
+      {marketing?.engaged && marketing.multipliers && (
+        <div className="panel" data-testid="pkg-marketing-capacity">
+          <div className="spread">
+            <h3 style={{ margin: 0 }}>Marketing capacity</h3>
+            <Metric label="Package-specific capacity" small>
+              {money(marketing.capacity)}
+            </Metric>
+          </div>
+          <p className="hint">
+            The campaign menu is anchored to this film&rsquo;s measured efficient capacity. Each
+            amount below is the exact amount the studio would commit; the multiple describes its
+            breadth relative to this package.
+          </p>
+          <div className="grid grid-3" style={{ marginTop: 8 }}>
+            {marketing.levels.map((level, index) => (
+              <Metric
+                key={index}
+                label={`${marketing.multipliers![index]}× capacity`}
+                small
+                testid={`pkg-marketing-rung-${index}`}
+              >
+                {money(level)}
+              </Metric>
+            ))}
           </div>
         </div>
       )}

@@ -4,7 +4,7 @@
 // active productions (stored forecast + remaining weeks), recent releases, and the
 // primary actions (Assemble a film, Advance one week) plus Talent creator / Saves.
 
-import type { GameState, FilmResult, RunView } from '../engine/adapter.ts'
+import type { GameState, FilmResult, RunView, PublicityTier } from '../engine/adapter.ts'
 import {
   selectWeek,
   selectCash,
@@ -19,6 +19,7 @@ import {
   runProjection,
   releaseScorecard,
   affordabilityScopes,
+  publicityDecision,
 } from '../engine/adapter.ts'
 import { money, score } from '../format.ts'
 import { Metric, StandingBar } from '../components/common.tsx'
@@ -38,6 +39,7 @@ export function Dashboard({
   onSaves,
   onOpenAutopsy,
   onOpenClipping,
+  onPublicize,
 }: {
   state: GameState
   onAssemble: () => void
@@ -57,6 +59,7 @@ export function Dashboard({
   // D-11.C PART 2: reopen a film's newspaper clipping. Optional — the clipping is
   // reconstructed from persisted state, so it works even for imported saves.
   onOpenClipping?: (film: FilmResult) => void
+  onPublicize?: (tier: PublicityTier) => void
 }) {
   const week = selectWeek(state)
   const cash = selectCash(state)
@@ -70,6 +73,7 @@ export function Dashboard({
   // D-17A/T4: "what can I actually make right now?" — from the FIRST week of a run, not
   // gated behind the retrospective recap.
   const scopes = affordabilityScopes(state)
+  const publicity = publicityDecision(state)
 
   // Recent releases: most recent first.
   const recent = [...released].reverse().slice(0, 6)
@@ -193,6 +197,67 @@ export function Dashboard({
               Saves
             </button>
           </div>
+        </div>
+      </div>
+
+      <div style={{ height: 16 }} />
+
+      <div className="card stack" data-testid="publicity-panel">
+        <div className="spread" style={{ alignItems: 'flex-start', gap: 16 }}>
+          <div>
+            <h2 style={{ marginTop: 0 }}>Publicity campaigns</h2>
+            <p className="hint" style={{ marginBottom: 0 }}>
+              Buy an immediate Audience Awareness lift. Returns diminish sharply as awareness
+              rises: measured lifetime break-even crosses at roughly 30–32 awareness, so the
+              figures below are decision inputs, not a recommended tier or promised outcome.
+            </p>
+          </div>
+          <Metric label="Awareness now" small testid="publicity-awareness">
+            {channels.find((channel) => channel.key === 'audienceAwareness')?.value.toFixed(2)} / 100
+          </Metric>
+        </div>
+        <p className="hint" data-testid="awareness-practical-band">
+          In measured working studios the practical band was roughly 0–57 of the nominal 0–100.
+          About 90% of awareness decline came from below-neutral releases; the weekly pull-down
+          above 35 accounted for the rest.
+        </p>
+        <div className="grid grid-3" data-testid="publicity-tiers">
+          {publicity.map((offer) => {
+            const label =
+              offer.tier === 'whisper'
+                ? 'Whisper campaign'
+                : offer.tier === 'push'
+                  ? 'Push campaign'
+                  : 'Blitz campaign'
+            return (
+              <div className="inset stack" key={offer.tier} data-testid={`publicity-${offer.tier}`}>
+                <div className="spread">
+                  <strong>{label}</strong>
+                  <span className="mono">{money(offer.cost)}</span>
+                </div>
+                <span className="hint">
+                  Immediate lift now: <strong>+{offer.expectedLift.toFixed(2)}</strong> points
+                </span>
+                <span className="hint">
+                  Price per immediate point:{' '}
+                  <strong>{offer.pricePerPoint === null ? '—' : money(offer.pricePerPoint)}</strong>
+                </span>
+                <span className="hint">
+                  Tier cooldown: {offer.cooldownWeeks} weeks
+                </span>
+                {offer.reason && <span className="hint">{offer.reason}</span>}
+                <button
+                  type="button"
+                  className="primary"
+                  disabled={!offer.available || !onPublicize}
+                  onClick={() => onPublicize?.(offer.tier)}
+                  data-testid={`buy-publicity-${offer.tier}`}
+                >
+                  Run {label.toLowerCase()}
+                </button>
+              </div>
+            )
+          })}
         </div>
       </div>
 

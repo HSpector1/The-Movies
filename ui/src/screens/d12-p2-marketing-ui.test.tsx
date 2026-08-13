@@ -6,7 +6,7 @@
 // flagged as over its efficient range; the same figure the engine used drives the label.
 
 import { describe, it, expect } from 'vitest'
-import { marketingEfficiency, requiredNegative } from '../engine/adapter.ts'
+import { marketingEfficiency, marketingMenu, requiredNegative } from '../engine/adapter.ts'
 import type { DraftPackage, GameState, CreativeRole } from '../engine/adapter.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
 
@@ -36,8 +36,15 @@ describe('D-12 P2: marketing efficiency read model is engine-derived and awarene
     expect(eff.preMarketingAwareness).toBeGreaterThanOrEqual(0)
     expect(eff.preMarketingAwareness).toBeLessThanOrEqual(1)
     expect(eff.ratio).toBeCloseTo(eff.spend / eff.capacity, 6)
+    const levels = marketingMenu(s, pkg(s, 400_000)).levels
     const expected =
-      eff.ratio < 0.5 ? 'Underexposed' : eff.ratio < 1.2 ? 'Efficient campaign' : eff.ratio < 2.5 ? 'Near saturation' : 'Overextended campaign'
+      eff.spend < levels[0]
+        ? 'Below current menu'
+        : eff.spend < levels[1]
+          ? 'Entry campaign'
+          : eff.spend < levels[2]
+            ? 'Extended campaign'
+            : 'Maximum campaign'
     expect(eff.state).toBe(expected)
   })
 

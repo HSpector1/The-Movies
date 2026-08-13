@@ -20,7 +20,9 @@ import {
   totalCommittedCost,
   requiredNegative,
   NEGATIVE_BUDGET_MULTIPLIERS,
-  MARKETING_BUDGET_LEVELS,
+  PROMISE_CENTERS,
+  PROMISE_WIDTHS,
+  rangeFrom,
 } from '../engine/adapter.ts'
 import type { DraftPackage, GameState } from '../engine/adapter.ts'
 import { moneyExact } from '../format.ts'
@@ -180,7 +182,11 @@ describe('assembly legality: an engaged actor cannot be selected and the conflic
       promise: {
         genre: concept.genre,
         intendedSegments: ['adult'],
-        ranges: { intimacy: [-0.4, 0.4], tonalWeight: [-0.4, 0.4], kineticEnergy: [-0.4, 0.4] },
+        ranges: {
+          intimacy: rangeFrom(PROMISE_CENTERS[1], PROMISE_WIDTHS[1]),
+          tonalWeight: rangeFrom(PROMISE_CENTERS[1], PROMISE_WIDTHS[1]),
+          kineticEnergy: rangeFrom(PROMISE_CENTERS[1], PROMISE_WIDTHS[1]),
+        },
       },
       writerId: writers[0]!,
       directorId: directors[0]!,
@@ -320,13 +326,13 @@ describe('assembly legality: review cost arithmetic equals what the adapter send
     const committedShown = (screen.getByTestId('committed-cost').textContent ?? '').trim()
     const salariesShown = (screen.getByTestId('salaries').textContent ?? '').trim()
 
-    // Reconstruct the exact package the wizard has (defaults: 1.0× negative, 400k mkt),
+    // Reconstruct the exact package the wizard has (defaults: 1.0× negative, middle
+    // package-specific marketing rung),
     // using the ACTUAL talent the Fit-sorted pickers selected (read from the DOM). The UI
     // must show engine arithmetic over the real chosen talent, not invented numbers.
     const concept = state.concepts[0]!
     const req = requiredNegative(concept, { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' }, state)
     const negative = NEGATIVE_BUDGET_MULTIPLIERS[1]! * req // default negative level idx 1
-    const marketing = MARKETING_BUDGET_LEVELS[1]! // default marketing level idx 1
     const idsGuess = {
       writerId: idOf(writerBtn),
       directorId: idOf(directorBtn),
@@ -334,16 +340,23 @@ describe('assembly legality: review cost arithmetic equals what the adapter send
       craftIds: [idOf(craftBtn)], // D-11.13 craft lead — its cost is part of the Total
     }
     const salaries = salarySum(state, idsGuess)
-    const committed = negative + marketing + salaries
-    const committedViaHelper = totalCommittedCost(state, {
+    const menuBasis: DraftPackage = {
       conceptId: concept.id,
-      shape: { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' },
+      shape: { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' } as const,
       promise: {
         genre: concept.genre,
         intendedSegments: ['adult'],
         ranges: { intimacy: [-0.4, 0.4], tonalWeight: [-0.4, 0.4], kineticEnergy: [-0.4, 0.4] },
       },
       ...idsGuess,
+      budget: { negative, marketing: 0 },
+    }
+    const marketing = Number(
+      screen.getByTestId('marketing-1').getAttribute('data-marketing-amount'),
+    )
+    const committed = negative + marketing + salaries
+    const committedViaHelper = totalCommittedCost(state, {
+      ...menuBasis,
       budget: { negative, marketing },
     })
 

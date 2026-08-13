@@ -57,6 +57,9 @@ export function WeeklySummary({
           <Metric label="Production spend" small testid="sum-production">
             <span className="money neg">{money(summary.production)}</span>
           </Metric>
+          <Metric label="Publicity" small testid="sum-publicity">
+            <span className="money neg">{money(summary.publicity)}</span>
+          </Metric>
           <Metric label="Net this period" small testid="sum-net">
             <span className={summary.netCash < 0 ? 'money neg' : 'money pos'}>
               {summary.netCash >= 0 ? '+' : ''}

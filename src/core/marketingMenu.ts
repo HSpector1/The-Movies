@@ -20,7 +20,8 @@
 // REGIME SPLIT. ENGAGED play gets the anchored menu; the DISENGAGED / M0A path returns the
 // legacy `MARKETING_BUDGET_LEVELS` array byte-identically, which is what keeps the acceptance
 // corpus unchanged. `grid.ts` KEEPS that array — it is still the menu of record for the
-// legacy regime, and `Assembly.tsx` still reads it today.
+// legacy regime. Phase U routes Assembly through `marketingLevelsFor`, so the fixed array is
+// now visible there only when the state is genuinely disengaged.
 //
 // ESCALATION E2 (contract §0): this is a change of menu KIND (state-dependent rungs) and R6's
 // text names dollar triples, so the Owner must rule that R6 extends to it. The recorded
@@ -28,8 +29,8 @@
 // max-optimal) — in-grant but inferior on distress access and stability. That fallback is a
 // RULING OUTCOME, not code: it is deliberately not implemented here.
 //
-// PHASE BOUNDARY. Assembly / pre-greenlight / campaign-status consumption of this menu is
-// PHASE U, and it is not optional: contract §4's blocking presentation rules require the
+// PHASE U. Assembly / pre-greenlight / campaign-status consumption of this menu is now wired:
+// contract §4's blocking presentation rules require the
 // capacity rendered as a dollar figure on the package AND pre-greenlight surfaces, each rung
 // shown as dollars AND a multiple, and the campaign-status band + overexposure copy
 // RE-DERIVED against the anchored menu (under this menu `OVEREXPOSURE_THRESHOLD` 1.3 equals

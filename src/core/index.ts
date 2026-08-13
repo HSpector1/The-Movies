@@ -172,6 +172,15 @@ export {
 } from './marketingMenu.js'
 export type { MarketingMenu, MarketingMenuInputs } from './marketingMenu.js'
 
+// D-17B §2 — exact publicity decision read model (same lift/cooldown/affordability as action).
+export {
+  PUBLICITY_TIER_ORDER,
+  publicityLiftAt,
+  publicityOffer,
+  publicityOffers,
+} from './publicity.js'
+export type { PublicityOffer } from './publicity.js'
+
 // seeded RNG (M9)
 export { RngStream, stream } from './rng.js'
 export type { RngPurpose } from './rng.js'
