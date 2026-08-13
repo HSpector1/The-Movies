@@ -125,8 +125,12 @@ size-scaling cash sink.
 
 SaveFileV1 through SaveFileV10 remain frozen. SaveFileV11 appends one authoritative construction
 root and is the only format that writes Annex lifecycle state. No earlier validator, save builder,
-envelope, or frozen state type accepts or emits that root, the new ledger kind, or a constructed
-facility.
+or envelope accepts or emits that root, the new ledger kind, or a constructed facility. Frozen
+state types statically exclude the V11 construction root and ledger authority. Their pre-existing
+`StudioOperations` type remains intentionally broad because the committed observatory already used
+configured research facilities before V11; exact historical validators and builders therefore own
+the runtime exclusion of the Annex facility rather than a retroactive narrowing of that frozen
+research-compatible TypeScript shape.
 
 New game state begins with legacy operations and exact legacy-empty construction state. The
 existing governed post-founding activation must atomically activate managed Production Operations,
@@ -429,7 +433,13 @@ remains reachable through Studio Calendar.
   transition; input immutability; no RNG change; and loud repeat/stale/legacy rejection;
 - start at Week 0 and a nonzero Week `S`; no facility through 12 advances; exact completion on the
   thirteenth; completion after that advance's script/casting/production allocation; immediate
-  visible-week action access; and held-production access only on a following advance;
+  visible-week action access; and proof that current productions retain their base Development &
+  Casting reservations without migration or a hidden allocation rerun on the completion advance;
+- explicit evidence that an Annex-relevant held production is unreachable in Production Operations
+  V1: unavailable Development & Casting capacity rejects managed greenlight rather than persisting a
+  workflow, while Development-to-Pre-production retains the production's existing slot. If a future
+  workflow introduces a Development & Casting retry, it may first use a newly completed Annex only
+  on a following advance;
 - strict zero marginal opex before, during, and after completion, with unchanged payroll/base
   overhead and no completion debit;
 - exact configured allocation order, three-owner collision safety, no reservation migration, and
