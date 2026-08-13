@@ -184,6 +184,7 @@ import type {
   ReceptionBand,
   ReleasePresence,
   AttentionState,
+  LotPersonState,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
 import { ALL_BUILDING_IDS } from '../lot/snapshot/StudioLotSnapshot.ts'
 import type {
@@ -850,6 +851,18 @@ export function previewForecast(state: GameState, pkg: DraftPackage): Forecast {
 export type ActionOutcome =
   | { ok: true; next: GameState }
   | { ok: false; error: string }
+
+/** Execute the real D-17B persisted publicity action through the same engine boundary as greenlight. */
+export function runPublicityCampaign(
+  state: GameState,
+  tier: 'whisper' | 'push' | 'blitz' = 'whisper',
+): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'publicity', tier }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
 
 export function greenlight(state: GameState, pkg: DraftPackage): ActionOutcome {
   try {
@@ -4002,6 +4015,66 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
       stageState: 'filming',
     }
   })
+
+  // Named people remain narrow display facts. Active production identities win; if the
+  // studio is between pictures, show one real director and one real actor from the roster/
+  // industry so the physical command prototype remains inspectable without inventing a
+  // simulated production. No skills, hidden values, or Talent objects cross the boundary.
+  const peopleById = new Map<string, LotPersonState>()
+  for (const production of prods.slice(0, STAGE_IDS.length)) {
+    const title = findConcept(state, production.conceptId)?.title ?? production.conceptId
+    const director = state.talent.find((person) => person.id === production.directorId)
+    if (director) {
+      peopleById.set(director.id, {
+        id: director.id,
+        name: director.name,
+        role: 'director',
+        authority: 'active-production',
+        productionId: production.id,
+        productionTitle: title,
+      })
+    }
+    const lead = state.talent.find((person) => person.id === production.cast.lead)
+    if (lead) {
+      peopleById.set(lead.id, {
+        id: lead.id,
+        name: lead.name,
+        role: 'talent',
+        authority: 'active-production',
+        productionId: production.id,
+        productionTitle: title,
+      })
+    }
+  }
+  const contracted = new Set(state.contracts.map((contract) => contract.talentId))
+  const fallbackPeople = [...state.talent].sort((a, b) => {
+    const contractDelta = Number(contracted.has(b.id)) - Number(contracted.has(a.id))
+    return contractDelta || a.id.localeCompare(b.id)
+  })
+  if (![...peopleById.values()].some((person) => person.role === 'director')) {
+    peopleById.set('hollywood:mara-voss', {
+      id: 'hollywood:mara-voss',
+      name: 'Mara Voss',
+      role: 'director',
+      authority: 'district-managed',
+      productionId: null,
+      productionTitle: null,
+    })
+  }
+  for (const [coreRole, lotRole] of [['actor', 'talent']] as const) {
+    if ([...peopleById.values()].some((person) => person.role === lotRole)) continue
+    const person = fallbackPeople.find((candidate) => candidate.role === coreRole)
+    if (person) {
+      peopleById.set(person.id, {
+        id: person.id,
+        name: person.name,
+        role: lotRole,
+        authority: 'studio-roster',
+        productionId: null,
+        productionTitle: null,
+      })
+    }
+  }
   const stageOccupied: Record<'stage-a' | 'stage-b', ProductionCard | undefined> = {
     'stage-a': activeProductions.find((p) => p.stageId === 'stage-a'),
     'stage-b': activeProductions.find((p) => p.stageId === 'stage-b'),
@@ -4115,6 +4188,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
     releasedFilms,
     releasePresence,
     latestReleaseTitle,
+    people: [...peopleById.values()],
     buildings,
     selectedBuildingId: null, // selection is UI session state, applied by the host
     sceneSeed: state.seed,

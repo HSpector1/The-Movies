@@ -36,6 +36,9 @@ export const STUDIO_LOT_AUTHORED_STAGE_LS_KEY = 'project-studio.flags.studio-lot
  *  set this key to '0' to force the procedural Stage A. Mirrors the Stage B key above. */
 export const STUDIO_LOT_AUTHORED_STAGE_A_LS_KEY = 'project-studio.flags.studio-lot-authored-stage-a'
 
+/** Phase II hybrid-district presentation gate. Default OFF until the engine bridge is reviewed. */
+export const OPERATION_HOLLYWOOD_LS_KEY = 'project-studio.flags.operation-hollywood'
+
 type ViteEnv = {
   VITE_STUDIO_LOT_OVERVIEW?: string
   VITE_STUDIO_LOT_IDENTITY_PROOF?: string
@@ -44,6 +47,7 @@ type ViteEnv = {
   VITE_STUDIO_LOT_SOUNDSTAGE_PROOF?: string
   VITE_STUDIO_LOT_AUTHORED_STAGE?: string
   VITE_STUDIO_LOT_AUTHORED_STAGE_A?: string
+  VITE_OPERATION_HOLLYWOOD?: string
 }
 
 function envValue(pick: (e: ViteEnv) => string | undefined): boolean {
@@ -72,6 +76,15 @@ function setLsFlag(key: string, on: boolean): void {
 /** Is the Studio Lot overview enabled this session? Default OFF. */
 export function studioLotOverviewEnabled(): boolean {
   return envValue((e) => e.VITE_STUDIO_LOT_OVERVIEW) || lsFlag(STUDIO_LOT_OVERVIEW_LS_KEY)
+}
+
+/** Is the Operation Hollywood engine bridge enabled? Independent of the D1 lot gate. */
+export function operationHollywoodEnabled(): boolean {
+  return envValue((e) => e.VITE_OPERATION_HOLLYWOOD) || lsFlag(OPERATION_HOLLYWOOD_LS_KEY)
+}
+
+export function setOperationHollywoodOverride(on: boolean): void {
+  setLsFlag(OPERATION_HOLLYWOOD_LS_KEY, on)
 }
 
 /** Dev/test helper: flip the runtime override. Reload to apply. */

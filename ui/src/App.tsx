@@ -602,7 +602,7 @@ export function App() {
             </div>
           }
         >
-          <StudioLotScreen state={state} onNavigate={handleLotNavigate} onExit={goDashboard} />
+          <StudioLotScreen state={state} onNavigate={handleLotNavigate} onExit={goDashboard} onStateChange={setState} />
         </Suspense>
       )}
     </DevErrorBoundary>

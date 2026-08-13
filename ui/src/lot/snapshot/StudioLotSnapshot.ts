@@ -115,6 +115,17 @@ export type ReleasedCard = {
   weeksAgo: number
 }
 
+/** A named person the Hollywood district can stage without exposing a core Talent object. */
+export type LotPersonState = {
+  id: string
+  name: string
+  role: 'director' | 'talent'
+  /** Whether the person is attached to an authoritative active production or merely on the roster. */
+  authority: 'active-production' | 'studio-roster' | 'district-managed'
+  productionId: string | null
+  productionTitle: string | null
+}
+
 /** Coarse theater presence (addendum §1). No payment counts, no revenue — presence only. */
 export type ReleasePresence = 'none' | 'released' | 'now-showing'
 
@@ -156,6 +167,8 @@ export type StudioLotSnapshot = {
   releasePresence: ReleasePresence
   /** Latest relevant release title for the marquee, or null. */
   latestReleaseTitle: string | null
+  /** Presentation-ready named people, projected from real engine talent/production identity. */
+  people: LotPersonState[]
   /** Availability + attention + dressing per building (all nine present). */
   buildings: BuildingState[]
   /** Host-provided selection (UI session state — never GameState), or null. */

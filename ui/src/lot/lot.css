@@ -211,6 +211,160 @@
   animation: none !important;
 }
 
+/* ── Operation Hollywood Phase II: Studio Chronicle production bridge ─────── */
+.lot-hollywood {
+  --chronicle-ink: #10231f;
+  --chronicle-panel: rgba(12, 28, 24, 0.94);
+  --chronicle-brass: #d2ae62;
+  --chronicle-cream: #f2e2bd;
+  background: #08120f;
+}
+.lot-hollywood .lot-topbar {
+  min-height: 56px;
+  padding: 9px 18px;
+  background: linear-gradient(90deg, #0b1f1a 0%, #132e27 58%, #0a1a16 100%);
+  border-bottom-color: #8a703e;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.42);
+  z-index: 20;
+}
+.lot-hollywood .lot-brand .mark {
+  color: var(--chronicle-cream);
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  letter-spacing: 0.12em;
+  font-size: 16px;
+}
+.lot-hollywood .lot-brand .lot-sub { color: #bfae88; letter-spacing: 0.04em; }
+.lot-hollywood .lot-cash { color: var(--chronicle-cream); font-family: Georgia, serif; font-size: 18px; }
+.lot-hollywood .lot-stage-wrap { min-height: 640px; background: #091510; }
+.lot-hollywood .lot-companion,
+.lot-hollywood .lot-selection,
+.lot-hollywood .lot-review-bar,
+.lot-hollywood .lot-review-show { display: none; }
+.lot-hollywood .lot-canvas::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 42%, transparent 50%, rgba(3, 9, 7, 0.28) 100%);
+}
+.hollywood-production,
+.hollywood-inspector {
+  position: absolute;
+  z-index: 12;
+  width: 286px;
+  color: var(--chronicle-cream);
+  background: linear-gradient(150deg, rgba(17, 43, 35, 0.96), rgba(8, 22, 18, 0.94));
+  border: 1px solid rgba(210, 174, 98, 0.68);
+  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.52), inset 0 0 0 1px rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(8px);
+  padding: 15px 16px;
+}
+.hollywood-production { left: 16px; top: 16px; }
+.hollywood-inspector { right: 16px; top: 16px; width: 306px; }
+.hollywood-eyebrow {
+  margin: 0 0 8px;
+  color: #c8a65f;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.hollywood-eyebrow i {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #bc3c2f;
+  box-shadow: 0 0 10px #dc5d44;
+  margin-right: 6px;
+}
+.hollywood-production h2,
+.hollywood-inspector h3 {
+  margin: 0 0 10px;
+  font-family: Georgia, "Iowan Old Style", serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #fff0cd;
+}
+.hollywood-production h2 { font-size: 24px; }
+.hollywood-inspector h3 { font-size: 21px; }
+.hollywood-progress { height: 5px; background: #07100e; border: 1px solid #4d5d4d; margin-bottom: 11px; }
+.hollywood-progress span { display: block; height: 100%; background: linear-gradient(90deg, #9b7134, #e4c575); }
+.hollywood-production dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: 0; }
+.hollywood-production dl div { padding: 7px 6px; background: rgba(0,0,0,.2); border-top: 1px solid rgba(209,177,106,.26); }
+.hollywood-production dt { color: #9eac9d; font-size: 9px; text-transform: uppercase; letter-spacing: .08em; }
+.hollywood-production dd { margin: 3px 0 0; font-size: 11px; color: #ece0c4; }
+.hollywood-production dd.warn { color: #efba68; }
+.hollywood-consequence { display: flex; align-items: flex-start; gap: 9px; margin: 10px 0 0; padding: 9px; background: rgba(104, 48, 23, .44); border-left: 3px solid #c7893d; font-size: 11px; }
+.hollywood-consequence b { width: 20px; height: 20px; border: 1px solid #d4a85a; border-radius: 50%; text-align: center; }
+.hollywood-consequence strong { display: block; color: #f0c67b; }
+.hollywood-inspector > p:not(.hollywood-eyebrow) { margin: 0 0 12px; color: #b7c0b5; font-size: 12px; line-height: 1.45; }
+.hollywood-task-chain { display: flex; align-items: stretch; gap: 4px; margin: 11px 0; }
+.hollywood-task-chain span { flex: 1; min-width: 0; padding: 6px; color: #8f9c91; background: rgba(0,0,0,.2); font-size: 8px; letter-spacing: .06em; }
+.hollywood-task-chain span b { display: block; color: #d4c6a8; font-size: 10px; letter-spacing: 0; margin-top: 3px; }
+.hollywood-task-chain span.done { box-shadow: inset 0 -2px #d2ae62; color: #d2ae62; }
+.hollywood-task-chain i { align-self: center; color: #927c4c; }
+.hollywood-command,
+.hollywood-publicity { width: 100%; margin-top: 7px; min-height: 34px; font-size: 11px; }
+.hollywood-command kbd { float: right; padding: 1px 5px; border: 1px solid rgba(255,255,255,.3); border-radius: 3px; }
+.hollywood-publicity { background: transparent; border-color: #806d44; color: #dac9a3; }
+.hollywood-people {
+  position: absolute;
+  z-index: 12;
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  gap: 6px;
+}
+.hollywood-people button {
+  min-width: 128px;
+  text-align: left;
+  background: rgba(10, 28, 23, .92);
+  border: 1px solid rgba(210, 174, 98, .45);
+  color: #ead9b5;
+  padding: 7px 10px;
+  box-shadow: 0 5px 16px rgba(0,0,0,.35);
+}
+.hollywood-people button.active { border-color: #e1bf70; box-shadow: inset 0 -2px #e1bf70, 0 5px 16px rgba(0,0,0,.35); }
+.hollywood-people span, .hollywood-people small { display: block; }
+.hollywood-people span { font-family: Georgia, serif; font-size: 13px; }
+.hollywood-people small { color: #90a092; text-transform: uppercase; letter-spacing: .08em; font-size: 8px; margin-top: 2px; }
+.hollywood-activity {
+  position: absolute;
+  z-index: 12;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 14px;
+  color: #f0e0bc;
+  font-family: Georgia, serif;
+  font-size: 12px;
+  background: rgba(8, 25, 20, .92);
+  border: 1px solid rgba(211, 179, 103, .53);
+  box-shadow: 0 6px 20px rgba(0,0,0,.4);
+}
+.hollywood-perf {
+  position: absolute;
+  z-index: 12;
+  right: 16px;
+  bottom: 16px;
+  color: #a9b4aa;
+  background: rgba(5, 14, 12, .85);
+  border: 1px solid rgba(132, 143, 129, .35);
+  padding: 5px 8px;
+  font: 9px ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (max-width: 980px) {
+  .hollywood-production { width: 230px; }
+  .hollywood-inspector { width: 250px; }
+  .hollywood-activity { display: none; }
+}
+@media (max-width: 720px) {
+  .lot-hollywood .lot-stage-wrap { min-height: 720px; }
+  .hollywood-production, .hollywood-inspector { position: absolute; top: auto; bottom: 76px; width: calc(50% - 24px); }
+  .hollywood-people { max-width: calc(100% - 32px); overflow-x: auto; }
+  .hollywood-perf { display: none; }
+}
+
 /* ── Responsive baseline (refined further in Gate D1 Commit 3) ── */
 @media (max-width: 1024px) {
   .lot-companion { width: 280px; }

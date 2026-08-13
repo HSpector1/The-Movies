@@ -15,12 +15,13 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { GameState } from '../engine/adapter.ts'
-import { studioLotSnapshot } from '../engine/adapter.ts'
-import type { AttentionState, BuildingId, StudioLotSnapshot } from './snapshot/StudioLotSnapshot.ts'
+import { runPublicityCampaign, studioLotSnapshot } from '../engine/adapter.ts'
+import type { AttentionState, BuildingId, LotPersonState, StudioLotSnapshot } from './snapshot/StudioLotSnapshot.ts'
 import { ALL_BUILDING_IDS, BUILDING_ACTION, BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
 import { lotStageAssignment } from './snapshot/stageAssignment.ts'
 import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
+import type { HollywoodPerformance, HollywoodPlaceSelection, HollywoodTaskState } from './hollywood/HollywoodScene.ts'
 import {
   studioLotIdentityEnabled,
   studioLotIdentityProofEnabled,
@@ -28,6 +29,7 @@ import {
   studioLotSoundstageProofEnabled,
   studioLotAuthoredStageEnabled,
   studioLotAuthoredStageAEnabled,
+  operationHollywoodEnabled,
 } from '../flags.ts'
 import type { IdentityMode } from './identity/manifest.ts'
 import './lot.css'
@@ -56,6 +58,8 @@ type Props = {
   onNavigate: (route: LotRoute) => void
   /** Return to the normal Dashboard. */
   onExit: () => void
+  /** The host replaces the authoritative state only after a successful real engine action. */
+  onStateChange?: (state: GameState) => void
 }
 
 // Session-level selection memory. This is UI session state — NOT GameState, NOT
@@ -92,7 +96,7 @@ function prefersReducedMotion(): boolean {
   }
 }
 
-export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
+export function StudioLotScreen({ state, onNavigate, onExit, onStateChange }: Props) {
   const mountRef = useRef<HTMLDivElement | null>(null)
   const viewRef = useRef<StudioLotViewClass | null>(null)
   const onNavigateRef = useRef(onNavigate)
@@ -104,6 +108,12 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
   const [canvasReady, setCanvasReady] = useState(false)
   const [canvasFailed, setCanvasFailed] = useState(false)
   const [reducedMotion, setReducedMotionState] = useState(prefersReducedMotion)
+  const hollywood = operationHollywoodEnabled()
+  const [hollywoodPerson, setHollywoodPerson] = useState<LotPersonState | null>(null)
+  const [hollywoodPlace, setHollywoodPlace] = useState<HollywoodPlaceSelection | null>(null)
+  const [hollywoodTask, setHollywoodTask] = useState<HollywoodTaskState | null>(null)
+  const [hollywoodActivity, setHollywoodActivity] = useState('Stage 7 is holding for a director.')
+  const [hollywoodPerf, setHollywoodPerf] = useState<HollywoodPerformance | null>(null)
 
   // ── Identity gating: two INDEPENDENT capabilities (owner ruling: player enablement) ──────
   // `playerIdentity` is the ORDINARY-PLAYER content gate (default ON): it shows the approved
@@ -199,12 +209,17 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
           distinctStages: soundstages,
           authoredStage,
           authoredStageA,
+          hollywood,
           snapshot: { ...readSnapshot(state), selectedBuildingId: sessionSelectedBuilding },
           onSelect: (sel) => {
             setSelectionInfo(sel)
             recordSelection(sel?.buildingId ?? null)
           },
           onAction: (e) => dispatchRoute(e.action),
+          onHollywoodPerson: (person) => setHollywoodPerson(person),
+          onHollywoodPlace: (place) => setHollywoodPlace(place),
+          onHollywoodTask: (task) => setHollywoodTask(task),
+          onActivity: (text) => { if (text) setHollywoodActivity(text) },
           onReady: () => {
             if (cancelled) return
             setCanvasReady(true)
@@ -309,6 +324,42 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
     return () => window.clearInterval(h)
   }, [identityProof, canvasReady])
 
+  useEffect(() => {
+    if (!hollywood || !canvasReady) return
+    const h = window.setInterval(() => {
+      const next = viewRef.current?.hollywoodPerformance()
+      if (next) setHollywoodPerf(next)
+    }, 500)
+    return () => window.clearInterval(h)
+  }, [hollywood, canvasReady])
+
+  const selectHollywoodPerson = useCallback((person: LotPersonState) => {
+    setHollywoodPerson(person)
+    viewRef.current?.selectHollywoodPerson(person.id)
+  }, [])
+
+  const assignHollywoodDirector = useCallback(() => {
+    if (!hollywoodPerson) return
+    const accepted = viewRef.current?.assignSelectedToStage7() ?? false
+    if (!accepted) setHollywoodActivity('Stage 7 requires a director. Select Mara or an active-production director first.')
+  }, [hollywoodPerson])
+
+  const runHollywoodPublicity = useCallback(() => {
+    const result = runPublicityCampaign(state, 'whisper')
+    if (!result.ok) {
+      const clean = result.error.replace(/^applyActions: publicity rejected — /, '').replace(/ \(D-17B §2\)$/, '')
+      setHollywoodActivity(`Publicity blocked: ${clean}`)
+      viewRef.current?.showHollywoodPublicity(false, `Publicity blocked: ${clean}`)
+      return
+    }
+    const cashDelta = state.studio.cash - result.next.studio.cash
+    const awarenessDelta = result.next.studio.standing.audienceAwareness - state.studio.standing.audienceAwareness
+    onStateChange?.(result.next)
+    const detail = `Publicity call complete · −$${cashDelta.toLocaleString('en-US')} · awareness +${awarenessDelta.toFixed(1)}`
+    setHollywoodActivity(detail)
+    viewRef.current?.showHollywoodPublicity(true, detail)
+  }, [onStateChange, state])
+
   // Companion-nav activation: select the building AND route to its destination.
   const activate = useCallback(
     (id: BuildingId) => {
@@ -340,13 +391,13 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
 
   return (
     <div
-      className={`lot-screen${reducedMotion ? ' lot-reduced-motion' : ''}`}
+      className={`lot-screen${reducedMotion ? ' lot-reduced-motion' : ''}${hollywood ? ' lot-hollywood' : ''}`}
       data-testid="studio-lot-screen"
     >
       <header className="lot-topbar">
         <div className="lot-brand">
           <span className="mark">{snapshot.studioName}</span>
-          <span className="lot-sub">Studio Lot · Week {snapshot.week}</span>
+          <span className="lot-sub">{hollywood ? 'Studio Chronicle · Hollywood, 1948' : 'Studio Lot'} · Week {snapshot.week}</span>
         </div>
         <div className="lot-topbar-actions">
           <span className="lot-cash" data-testid="lot-cash">
@@ -362,6 +413,63 @@ export function StudioLotScreen({ state, onNavigate, onExit }: Props) {
         <div className="lot-stage-wrap">
           {/* The canvas is decorative; the companion navigation is the accessible truth. */}
           <div ref={mountRef} className="lot-canvas" data-testid="studio-lot-canvas" aria-hidden="true" />
+
+          {hollywood && (
+            <>
+              <section className="hollywood-production" aria-label="Current production">
+                <p className="hollywood-eyebrow"><i /> NOW SHOOTING · STAGE 7</p>
+                <h2>{snapshot.activeProductions[0]?.title ?? 'The Violet Hour'}</h2>
+                <div className="hollywood-progress"><span style={{ width: `${Math.max(14, (snapshot.activeProductions[0]?.progress01 ?? 0.42) * 100)}%` }} /></div>
+                <dl>
+                  <div><dt>Camera</dt><dd>{hollywoodTask?.status === 'working' ? 'Rolling' : hollywoodTask?.status === 'ready' ? 'Ready' : 'Rehearsal'}</dd></div>
+                  <div><dt>Scenery</dt><dd className={hollywoodTask?.status === 'blocked' ? 'warn' : ''}>{hollywoodTask?.status === 'blocked' ? '2 / 2 · blocked' : '1 / 2'}</dd></div>
+                  <div><dt>Director</dt><dd>{hollywoodTask?.personName ?? 'Not called'}</dd></div>
+                </dl>
+                {hollywoodTask?.reason && <p className="hollywood-consequence"><b>!</b><span><strong>Production hold</strong>{hollywoodTask.reason}</span></p>}
+              </section>
+
+              <section className="hollywood-inspector" aria-live="polite">
+                <p className="hollywood-eyebrow">{hollywoodPerson ? 'SELECTED PERSON' : hollywoodPlace ? 'SELECTED PLACE' : 'STUDIO DESK'}</p>
+                <h3>{hollywoodPerson?.name ?? hollywoodPlace?.label ?? 'Dispatch & inspection'}</h3>
+                <p>{hollywoodPerson
+                  ? `${hollywoodPerson.role === 'director' ? 'Director' : 'Talent'} · ${hollywoodPerson.authority === 'active-production' ? `attached to ${hollywoodPerson.productionTitle}` : hollywoodPerson.authority === 'district-managed' ? 'district command roster' : 'studio roster'}`
+                  : hollywoodPlace
+                    ? `Affordances: ${hollywoodPlace.affordances.join(' · ')}`
+                    : 'Select a named person or a place in the district.'}</p>
+                {hollywoodTask && (
+                  <div className="hollywood-task-chain">
+                    <span className="done">INTENT<b>Direct scene</b></span><i>›</i>
+                    <span className={hollywoodTask.status !== 'accepted' ? 'done' : ''}>TASK<b>{hollywoodTask.cue}</b></span><i>›</i>
+                    <span className={hollywoodTask.status === 'completed' ? 'done' : ''}>RESULT<b>{hollywoodTask.status}</b></span>
+                  </div>
+                )}
+                {hollywoodPerson?.role === 'director' && !hollywoodTask && (
+                  <button className="accent hollywood-command" onClick={assignHollywoodDirector}>Assign to Stage 7 <kbd>A</kbd></button>
+                )}
+                {hollywoodTask?.status === 'blocked' && (
+                  <button className="accent hollywood-command" onClick={() => viewRef.current?.resolveHollywoodBottleneck()}>Clear scenery load-in</button>
+                )}
+                {hollywoodTask?.status === 'ready' && (
+                  <button className="accent hollywood-command" onClick={() => viewRef.current?.callHollywoodTake()}>Call for Take 12</button>
+                )}
+                <button className="hollywood-publicity" onClick={runHollywoodPublicity}>Run publicity whisper · $1.2M</button>
+              </section>
+
+              <div className="hollywood-people" role="group" aria-label="Named studio people">
+                {snapshot.people.map((person) => (
+                  <button key={person.id} className={hollywoodPerson?.id === person.id ? 'active' : ''} onClick={() => selectHollywoodPerson(person)}>
+                    <span>{person.name}</span><small>{person.role}</small>
+                  </button>
+                ))}
+              </div>
+              <div className="hollywood-activity" role="status">{hollywoodActivity}</div>
+              {hollywoodPerf && (
+                <div className="hollywood-perf" data-testid="hollywood-performance">
+                  {hollywoodPerf.fps} fps · {hollywoodPerf.displayObjects} objects · {hollywoodPerf.dynamicActors} actors · {hollywoodPerf.textureMemoryMb} MB
+                </div>
+              )}
+            </>
+          )}
 
           {identityProof && !reviewHidden && (
             <div

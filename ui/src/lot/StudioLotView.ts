@@ -19,6 +19,14 @@ import { LotScene, type LotEvent, type CameraPreset, type CharacterInfo } from '
 import type { MomentKind } from './scene/vignettes'
 import type { StudioLotSnapshot, BuildingId, LotActionKind, ProductionCard } from './snapshot/StudioLotSnapshot'
 import type { IdentityMode } from './identity/manifest'
+import {
+  HollywoodScene,
+  type HollywoodEvent,
+  type HollywoodPerformance,
+  type HollywoodPlaceSelection,
+  type HollywoodTaskState,
+} from './hollywood/HollywoodScene'
+import type { LotPersonState } from './snapshot/StudioLotSnapshot'
 
 export type { CameraPreset, CharacterInfo, MomentKind }
 
@@ -45,6 +53,10 @@ export type StudioLotViewOptions = {
   onCharacter?: (info: CharacterInfo | null) => void
   /** A cosmetic activity cue (vignette toast). null = clear. */
   onActivity?: (text: string | null) => void
+  /** Operation Hollywood semantic events, kept presentation-only at this boundary. */
+  onHollywoodPerson?: (person: LotPersonState) => void
+  onHollywoodPlace?: (place: HollywoodPlaceSelection) => void
+  onHollywoodTask?: (task: HollywoodTaskState) => void
   /** The lot finished first paint. */
   onReady?: () => void
   /**
@@ -62,11 +74,14 @@ export type StudioLotViewOptions = {
    * DEFAULT ON. Consumed once at scene init, like the others.
    */
   authoredStageA?: boolean
+  /** Phase II hybrid district presentation. Independent from the legacy D1 renderer. */
+  hollywood?: boolean
 }
 
 export class StudioLotView {
   private game: Phaser.Game
   private scene: LotScene | null = null
+  private hollywoodScene: HollywoodScene | null = null
   private pendingSnapshot: StudioLotSnapshot | null = null
   private readonly opts: StudioLotViewOptions
 
@@ -88,6 +103,13 @@ export class StudioLotView {
       scene: [],
     })
     game.events.once('ready', () => {
+      if (this.opts.hollywood) {
+        game.scene.add('hollywood', HollywoodScene, true, {
+          snapshot: this.pendingSnapshot ?? this.opts.snapshot,
+          onEvent: (e: HollywoodEvent) => this.handleHollywoodEvent(e),
+        })
+        return
+      }
       game.scene.add('lot', LotScene, true, {
         snapshot: this.pendingSnapshot ?? this.opts.snapshot,
         onEvent: (e: LotEvent) => this.handleEvent(e),
@@ -97,6 +119,21 @@ export class StudioLotView {
       })
     })
     return game
+  }
+
+  private handleHollywoodEvent(e: HollywoodEvent): void {
+    if (e.type === 'ready') {
+      this.hollywoodScene = this.game.scene.getScene('hollywood') as HollywoodScene
+      if (this.pendingSnapshot && this.pendingSnapshot !== this.opts.snapshot) {
+        this.hollywoodScene.applySnapshot(this.pendingSnapshot)
+      }
+      this.opts.onReady?.()
+      return
+    }
+    if (e.type === 'person') this.opts.onHollywoodPerson?.(e.person)
+    else if (e.type === 'place') this.opts.onHollywoodPlace?.(e.place)
+    else if (e.type === 'task') this.opts.onHollywoodTask?.(e.task)
+    else if (e.type === 'activity') this.opts.onActivity?.(e.text)
   }
 
   private handleEvent(e: LotEvent): void {
@@ -140,6 +177,7 @@ export class StudioLotView {
   setSnapshot(snapshot: StudioLotSnapshot): void {
     this.pendingSnapshot = snapshot
     this.scene?.applySnapshot(snapshot)
+    this.hollywoodScene?.applySnapshot(snapshot)
   }
 
   /** Programmatically select a building (as if the user clicked it). */
@@ -158,6 +196,7 @@ export class StudioLotView {
 
   resetCamera(): void {
     this.scene?.resetCamera()
+    this.hollywoodScene?.resetCamera()
   }
 
   /** Move the camera to a named framing (overview / production / wide). */
@@ -234,12 +273,37 @@ export class StudioLotView {
   /** Tear down and rebuild the game from scratch (leak/teardown check). */
   recreate(): void {
     this.scene = null
+    this.hollywoodScene = null
     this.game.destroy(true)
     this.game = this.boot()
   }
 
   destroy(): void {
     this.scene = null
+    this.hollywoodScene = null
     this.game.destroy(true)
+  }
+
+  selectHollywoodPerson(id: string): void { this.hollywoodScene?.selectPerson(id) }
+
+  assignSelectedToStage7(): boolean { return this.hollywoodScene?.assignSelectedToStage7() ?? false }
+
+  resolveHollywoodBottleneck(): boolean { return this.hollywoodScene?.resolveBottleneck() ?? false }
+
+  callHollywoodTake(): boolean { return this.hollywoodScene?.callTake() ?? false }
+
+  showHollywoodPublicity(success: boolean, detail: string): void {
+    this.hollywoodScene?.playPublicity(success, detail)
+  }
+
+  focusHollywoodPlace(id: string): void { this.hollywoodScene?.focus(id) }
+
+  hollywoodPerformance(): HollywoodPerformance | null {
+    return this.hollywoodScene?.performanceStats() ?? null
+  }
+
+  /** Debug/evidence seam: the exact Hollywood task state, no GameState access. */
+  hollywoodDebugState(): ReturnType<HollywoodScene['debugState']> | null {
+    return this.hollywoodScene?.debugState() ?? null
   }
 }
