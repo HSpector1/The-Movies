@@ -2736,9 +2736,50 @@ function clonePlainJson<T>(value: T): T {
   return JSON.parse(stableStringify(value)) as T;
 }
 
+function backfillLegacyForecastOpeningBands(state: GameStateV7): GameStateV7 {
+  // SegmentForecast.opening was added as an additive read-model field while V1–V4
+  // remained frozen/readable. A real save written before that addition can therefore
+  // carry an active production whose locked forecast has only the original linear band.
+  // Do not recompute history from today's mutable market/standing/talent: preserve the
+  // persisted band as the deterministic legacy fallback and leave the authoritative
+  // expectedOpening/expectedTotal untouched. Current forecasts that already carry the
+  // opening band pass through byte-for-byte.
+  let stateChanged = false;
+  const activeProductions = state.studio.activeProductions.map((production) => {
+    let productionChanged = false;
+    const segments = production.forecastSnapshot.segments.map((segment) => {
+      if (Object.prototype.hasOwnProperty.call(segment, "opening"))
+        return segment;
+      productionChanged = true;
+      return {
+        ...segment,
+        opening: {
+          center: segment.center,
+          estimate: segment.estimate,
+          low: segment.low,
+          high: segment.high,
+        },
+      };
+    });
+    if (!productionChanged) return production;
+    stateChanged = true;
+    return {
+      ...production,
+      forecastSnapshot: { ...production.forecastSnapshot, segments },
+    };
+  });
+  if (!stateChanged) return state;
+  return {
+    ...state,
+    studio: { ...state.studio, activeProductions },
+  };
+}
+
 export function convertV7ToV8(v7: SaveFileV7): SaveFileV8 {
   const validated = validateSaveV7(v7); // defensive; do not trust extra live-shape fields
-  const oldState = clonePlainJson(validated.state);
+  const oldState = backfillLegacyForecastOpeningBands(
+    clonePlainJson(validated.state),
+  );
   const newState: GameState = {
     ...oldState,
     // Override any hand-added field on the V7 envelope. Version 7 never owned this

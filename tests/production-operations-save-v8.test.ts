@@ -23,6 +23,10 @@ import {
   importSave,
   initialManagedStudioOperations,
   makeSave,
+  makeSaveV1,
+  makeSaveV2,
+  makeSaveV3,
+  makeSaveV4,
   makeSaveV7,
   migrateToV8,
   OracleAgent,
@@ -41,7 +45,11 @@ import type {
   SegmentId,
   Talent,
 } from "../src/core/index.js";
-import { makeLegacyCorpus, makeLegacySaveV1 } from "./_legacyV1Fixtures.js";
+import {
+  makeLegacyCorpus,
+  makeLegacySaveV1,
+  toLegacyTalent,
+} from "./_legacyV1Fixtures.js";
 
 function toV7(state: GameState): GameStateV7 {
   const { operations: _operations, ...v7 } = state;
@@ -120,6 +128,44 @@ function managedShootingState(seed: string): GameState {
   state = tick(state); // Pre-production → Rehearsal
   state = tick(state); // Rehearsal → Shooting
   return state;
+}
+
+function preOpeningBandSaves() {
+  const world = generateWorld("save-v8-pre-opening-band");
+  const greenlit = applyActions(world, OracleAgent.chooseActions(world));
+  const historical = JSON.parse(stableStringify(greenlit)) as GameState;
+  for (const production of historical.studio.activeProductions) {
+    for (const segment of production.forecastSnapshot.segments) {
+      delete (
+        segment as Omit<typeof segment, "opening"> & { opening?: unknown }
+      ).opening;
+    }
+  }
+  const {
+    founding,
+    contracts,
+    ledger,
+    freeAgents,
+    theatricalRuns,
+    careerEvents: _careerEvents,
+    economyEngagedEver: _economyEngagedEver,
+    publicity: _publicity,
+    operations: _operations,
+    ...v2State
+  } = historical;
+  const v3State = {
+    ...v2State,
+    founding,
+    contracts,
+    ledger,
+    freeAgents,
+  };
+  return [
+    makeSaveV1({ ...v2State, talent: historical.talent.map(toLegacyTalent) }),
+    makeSaveV2(v2State),
+    makeSaveV3(v3State),
+    makeSaveV4({ ...v3State, theatricalRuns }),
+  ] as const;
 }
 
 function recordAt(
@@ -315,6 +361,67 @@ describe("Production Operations V1 — frozen V7 to live V8 migration", () => {
       expect(out.state.operations).toEqual(emptyLegacyOperations());
       expect(out.state.rngState).toBe(source.state.rngState);
     }
+  });
+
+  it("backfills the additive opening band in legitimate pre-a104970 V1–V4 active forecasts", () => {
+    for (const source of preOpeningBandSaves()) {
+      const before = stableStringify(source);
+      const lockedBefore =
+        source.state.studio.activeProductions[0]!.forecastSnapshot;
+      const oldSegment = lockedBefore.segments[0]!;
+      expect(Object.prototype.hasOwnProperty.call(oldSegment, "opening")).toBe(
+        false,
+      );
+
+      const migrated = migrateToV8(source);
+      expect(validateSaveV8(migrated)).toBe(migrated);
+      const lockedAfter =
+        migrated.state.studio.activeProductions[0]!.forecastSnapshot;
+      const segment = lockedAfter.segments[0]!;
+      expect(segment.opening).toEqual({
+        center: oldSegment.center,
+        estimate: oldSegment.estimate,
+        low: oldSegment.low,
+        high: oldSegment.high,
+      });
+      expect(lockedAfter.expectedOpening).toBe(lockedBefore.expectedOpening);
+      expect(lockedAfter.expectedTotal).toBe(lockedBefore.expectedTotal);
+      expect(stableStringify(source)).toBe(before);
+    }
+  });
+
+  it("preserves an already-present saturated opening band byte-for-byte", () => {
+    let live = foundedStudio("save-v8-current-opening-band");
+    live = applyActions(live, [
+      { kind: "greenlight", production: productionPayload(live) },
+    ]);
+    const production = live.studio.activeProductions[0]!;
+    expect(
+      production.forecastSnapshot.segments.some(
+        (segment) =>
+          stableStringify(segment.opening) !==
+          stableStringify({
+            center: segment.center,
+            estimate: segment.estimate,
+            low: segment.low,
+            high: segment.high,
+          }),
+      ),
+    ).toBe(true);
+    const v7 = makeSaveV7(toV7(live));
+    const before = stableStringify(
+      v7.state.studio.activeProductions[0]!.forecastSnapshot.segments.map(
+        (segment) => segment.opening,
+      ),
+    );
+    const migrated = convertV7ToV8(v7);
+    expect(
+      stableStringify(
+        migrated.state.studio.activeProductions[0]!.forecastSnapshot.segments.map(
+          (segment) => segment.opening,
+        ),
+      ),
+    ).toBe(before);
   });
 
   it("preserves an active V7 production countdown and continuation exactly", () => {
