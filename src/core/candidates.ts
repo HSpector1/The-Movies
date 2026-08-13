@@ -33,7 +33,9 @@ import {
   PROMISE_WIDTHS,
   rangeFrom,
 } from './grid.js'
+import { economyEngaged } from './employment.js'
 import { forecastCenters, type ForecastInputs } from './forecast.js'
+import { marketingLevelsFor } from './marketingMenu.js'
 import type { ReceptionInputs } from './reception.js'
 import { resolveShape } from './shape.js'
 import type { RngStream } from './rng.js'
@@ -77,9 +79,11 @@ export type CandidatePackage = {
   cast: Record<CastSlot, string> // distinct actor ids across the 3 slots
   shape: FilmShape
   promise: FilmPromise // genre = concept.genre (M4); intendedSegments = [argmax] (B21)
-  budget: Budget // negative = mult × requiredNegative (M3); marketing = level
+  budget: Budget // negative = mult × requiredNegative (M3); marketing = the drawn rung
   negativeLevel: number // index 0..2 into NEGATIVE_BUDGET_MULTIPLIERS (B18 metadata)
-  marketingLevel: number // index 0..2 into MARKETING_BUDGET_LEVELS
+  // index 0..2 into the ACTIVE marketing menu: the capacity-anchored rungs when the economy
+  // is engaged (D-17B §4), the legacy MARKETING_BUDGET_LEVELS otherwise.
+  marketingLevel: number
 }
 
 // Guard the 500-distinct rejection loop. The valid space is ~10^8, so 500 distinct
@@ -152,6 +156,10 @@ function argmaxSegment(centers: Record<SegmentId, number>): SegmentId {
 // ── generateCandidates (B19) ─────────────────────────────────────────────────
 export function generateCandidates(state: GameState, tick: number): CandidatePackage[] {
   const rng = stream(state.seed, 'candidates', tick)
+  // D-17B §4: which marketing MENU this state offers. ENGAGED play resolves the
+  // capacity-anchored rungs per package below; DISENGAGED/M0A keeps the legacy
+  // MARKETING_BUDGET_LEVELS array byte-identically (the acceptance corpus is never engaged).
+  const engaged = economyEngaged(state)
 
   // ── Step 1 — Eligibility (M16). A talent is eligible iff not engaged in ANY
   // active production (as writerId / directorId / any cast slot / any craftId).
@@ -313,6 +321,16 @@ export function generateCandidates(state: GameState, tick: number): CandidatePac
       ranges: triple,
     }
 
+    // D-17B §4 — ENGAGED ONLY: re-resolve the drawn marketing rung against the
+    // capacity-anchored menu. `mktIdx` (the draw) is UNTOUCHED, so the candidate stream's
+    // draw order and the dedupe key are identical in both regimes; only the dollars the
+    // index maps to change. The menu is anchored on THIS package's own capacity, which is a
+    // function of pre-marketing awareness alone — `budget.marketing` never enters it
+    // (reception.ts reads it only inside computeBoxOffice), so `inp` carrying the legacy rung
+    // as a placeholder cannot bias the answer. When not engaged this is `budget.marketing`
+    // unchanged, so the M0A corpus is byte-identical.
+    const marketing = engaged ? marketingLevelsFor(state, inp)[mktIdx]! : budget.marketing
+
     packages.push({
       conceptId: concept.id,
       writerId: writer.id,
@@ -321,7 +339,7 @@ export function generateCandidates(state: GameState, tick: number): CandidatePac
       cast,
       shape,
       promise,
-      budget,
+      budget: { negative: budget.negative, marketing },
       negativeLevel: negIdx,
       marketingLevel: mktIdx,
     })

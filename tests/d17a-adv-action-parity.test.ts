@@ -10,7 +10,7 @@
 //   • the ENGINE's own authoritative rules: `canAfford` (D-12.11 — cash after the
 //     immediate transaction must be ≥ 0, i.e. an INCLUSIVE gate) and `applyGreenlight`
 //     (immediate charge = negative + marketing + freelancer fees);
-//   • the §13 grid constants (NEGATIVE_BUDGET_MULTIPLIERS / MARKETING_BUDGET_LEVELS)
+//   • the §13 negative grid, D-17B's regime-aware active marketing menu,
 //     and `resolveShape`'s 36 legal shapes.
 // Nothing is copied out of economyView.ts / studioRunRecap.ts.
 
@@ -19,11 +19,13 @@ import {
   affordabilityScopes,
   applyActions,
   beginFounding,
+  cheapestPackageQuote,
   commitmentPreview,
   generateWorld,
-  MARKETING_BUDGET_LEVELS,
+  marketingLevelsFor,
   NEGATIVE_BUDGET_MULTIPLIERS,
   resolveShape,
+  standardPackageQuote,
   tick,
 } from '../src/core/index.js'
 import type { CastSlot, CreativeRole, FilmShape, GameState } from '../src/core/index.js'
@@ -225,14 +227,15 @@ describe('D-17A/A — the standard scope is the same action at a MARKETING-heavi
     expect(affordabilityScopes(at).cheapest!.affordable).toBe(true)
 
     // Same package, next marketing rung — nothing else changes.
-    const bumped = cheap.negative + MARKETING_BUDGET_LEVELS[1]
+    const activeMenu = marketingLevelsFor(at, null)
+    const bumped = cheap.negative + activeMenu[1]
     const preview = commitmentPreview(at, bumped)
     expect(preview.affordable).toBe(false)
-    expect(preview.cashAfter).toBe(cheap.marketing - MARKETING_BUDGET_LEVELS[1]) // exactly the rung gap
+    expect(preview.cashAfter).toBeCloseTo(cheap.marketing - activeMenu[1], 6) // exactly the rung gap (FP negative cost is unrounded)
 
     let thrown = ''
     try {
-      greenlight(at, cheapestConceptId(at), 0, cheap.negative, MARKETING_BUDGET_LEVELS[1])
+      greenlight(at, cheapestConceptId(at), 0, cheap.negative, activeMenu[1])
     } catch (e) {
       thrown = (e as Error).message
     }
@@ -242,30 +245,30 @@ describe('D-17A/A — the standard scope is the same action at a MARKETING-heavi
 })
 
 describe('D-17A/A — the reported figures are hand-derivable from the grid and the ledger', () => {
-  it('cheapest = grid[0] × cheapest concept × min shape demand × era scale + marketing rung[0]', () => {
+  it('cheapest = grid[0] × cheapest concept × min shape demand × era scale + active marketing rung[0]', () => {
     const s = foundStudio('adv-a-hand')
     const scopes = affordabilityScopes(s)
+    const quote = cheapestPackageQuote(s)!
     const negative = handCheapestNegative(s)
 
-    expect(scopes.cheapestBreakdown).toEqual({
-      negative,
-      marketing: MARKETING_BUDGET_LEVELS[0],
-      freelancerFees: 0,
-    })
-    expect(scopes.cheapest!.commitment).toBe(Math.round(negative + MARKETING_BUDGET_LEVELS[0]))
+    expect(scopes.cheapestBreakdown!.negative).toBeCloseTo(negative, 8)
+    expect(scopes.cheapestBreakdown!.marketing).toBe(quote.production.budget.marketing)
+    expect(scopes.cheapestBreakdown!.freelancerFees).toBe(0)
+    expect(scopes.cheapest!.commitment).toBe(Math.round(negative + quote.production.budget.marketing))
   })
 
-  it('standard = grid[1] × cheapest concept × neutral demand × era scale + marketing rung[1]', () => {
+  it('standard = grid[1] × cheapest concept × neutral demand × era scale + active marketing rung[1]', () => {
     const s = foundStudio('adv-a-hand')
     const scopes = affordabilityScopes(s)
+    const quote = standardPackageQuote(s)!
     const negative = handStandardNegative(s)
 
     expect(scopes.standardBreakdown).toEqual({
       negative,
-      marketing: MARKETING_BUDGET_LEVELS[1],
+      marketing: quote.production.budget.marketing,
       freelancerFees: 0,
     })
-    expect(scopes.standard!.commitment).toBe(Math.round(negative + MARKETING_BUDGET_LEVELS[1]))
+    expect(scopes.standard!.commitment).toBe(Math.round(negative + quote.production.budget.marketing))
   })
 
   it('recentTypical is the MEDIAN committed cost of the last THREE releases, off the ledger', () => {

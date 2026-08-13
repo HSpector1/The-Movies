@@ -35,6 +35,7 @@ import {
   previewForecast,
   TUNING,
   marketingEfficiency,
+  marketingMenu,
   productionDemandView,
   capitalExposure,
   shapeExplainView,
@@ -119,7 +120,7 @@ type Draft = {
   // player assign one (or none). Empty ⇒ technical defaults (as before).
   craftIds: string[]
   negativeLevelIdx: number // index into NEGATIVE_BUDGET_MULTIPLIERS
-  marketingLevelIdx: number // index into MARKETING_BUDGET_LEVELS
+  marketingLevelIdx: number // index into the active three-rung marketing menu
 }
 
 function makeInitialDraft(): Draft {
@@ -135,7 +136,7 @@ function makeInitialDraft(): Draft {
     cast: { lead: null, antagonist: null, support: null },
     craftIds: [], // no craft hire by default (technical falls back to D-4 default)
     negativeLevelIdx: 1, // 1.0×
-    marketingLevelIdx: 1, // 400k
+    marketingLevelIdx: 1, // middle rung
   }
 }
 
@@ -162,8 +163,7 @@ function buildPackage(state: GameState, draft: Draft): DraftPackage | null {
   if (!concept) return null
   const req = requiredNegative(concept, draft.shape, state)
   const negative = NEGATIVE_BUDGET_MULTIPLIERS[draft.negativeLevelIdx]! * req
-  const marketing = MARKETING_BUDGET_LEVELS[draft.marketingLevelIdx]!
-  return {
+  const withoutMarketing: DraftPackage = {
     conceptId: draft.conceptId,
     shape: draft.shape,
     promise: buildPromise(draft, concept.genre),
@@ -175,8 +175,10 @@ function buildPackage(state: GameState, draft: Draft): DraftPackage | null {
       antagonist: draft.cast.antagonist,
       support: draft.cast.support,
     },
-    budget: { negative, marketing },
+    budget: { negative, marketing: 0 },
   }
+  const marketing = marketingMenu(state, withoutMarketing).levels[draft.marketingLevelIdx]!
+  return { ...withoutMarketing, budget: { negative, marketing } }
 }
 
 // A PARTIAL package for the Film Package summary — buildable as soon as writer+director
@@ -326,6 +328,7 @@ export function Assembly({
   const cycleFixedCost = prospectiveCycleFixedCost(state)
   // D-17A/T6: the engine's own reach-support verdict for the fully-assembled package.
   const discovery = pkg ? assessDiscoveryExposure(state, pkg) : null
+  const activeMarketingMenu = pkg ? marketingMenu(state, pkg) : null
 
   // ── Change preview (on select/swap) — real computed packageDelta ────────────
   // A delta needs TWO complete packages. We remember the last complete package the
@@ -511,6 +514,7 @@ export function Assembly({
             {...(profit ? { profit } : {})}
             cycleFixedCost={cycleFixedCost}
             {...(discovery ? { discovery } : {})}
+            {...(activeMarketingMenu ? { marketing: activeMarketingMenu } : {})}
           />
         </div>
       )}
@@ -1161,7 +1165,9 @@ function BudgetStep({
 }) {
   const req = requiredNegative(concept, draft.shape, state)
   const negative = NEGATIVE_BUDGET_MULTIPLIERS[draft.negativeLevelIdx]! * req
-  const marketing = MARKETING_BUDGET_LEVELS[draft.marketingLevelIdx]!
+  const menu = pkg ? marketingMenu(state, pkg) : null
+  const marketingLevels = menu?.levels ?? MARKETING_BUDGET_LEVELS
+  const marketing = marketingLevels[draft.marketingLevelIdx]!
   const salaries = salarySum(state, {
     writerId: draft.writerId!,
     directorId: draft.directorId!,
@@ -1173,7 +1179,7 @@ function BudgetStep({
   const goesNegative = cash - committed < 0
 
   const NEG_LABELS = ['Lean (0.75×)', 'Adequate (1.0×)', 'Generous (1.25×)']
-  const MKT_LABELS = ['Small campaign', 'Standard campaign', 'Wide campaign']
+  const MKT_LABELS = ['Entry campaign', 'Extended campaign', 'Maximum campaign']
   // A5: the same solvency preview + break-even the Review step uses, surfaced HERE so the whole
   // financial decision is visible in Budget & Forecast — the player never reaches the bottom Next
   // button without meeting it. commitmentPreview is a pure adapter read (no formula); the
@@ -1252,8 +1258,19 @@ function BudgetStep({
 
         <div>
           <h4>Marketing</h4>
+          {menu?.engaged && (
+            <p
+              className="hint"
+              data-testid="marketing-menu-capacity"
+              data-capacity={menu.capacity}
+            >
+              This package&rsquo;s measured efficient marketing capacity is{' '}
+              <strong>{money(menu.capacity)}</strong>. The active menu is anchored to that
+              package-specific dollar figure.
+            </p>
+          )}
           <div className="btn-row" data-testid="marketing-levels">
-            {MARKETING_BUDGET_LEVELS.map((m, i) => (
+            {marketingLevels.map((m, i) => (
               <button
                 key={i}
                 type="button"
@@ -1261,9 +1278,14 @@ function BudgetStep({
                 style={{ width: 'auto' }}
                 onClick={() => patch({ marketingLevelIdx: i })}
                 data-testid={`marketing-${i}`}
+                data-marketing-amount={m}
+                data-capacity-multiple={menu?.multipliers?.[i]}
               >
                 <div className="opt-title">{MKT_LABELS[i]}</div>
                 <div className="opt-desc mono">{money(m)}</div>
+                {menu?.multipliers && (
+                  <div className="opt-desc">{menu.multipliers[i]}× capacity</div>
+                )}
               </button>
             ))}
           </div>
@@ -1296,10 +1318,16 @@ function BudgetStep({
                 for a total opening reach of {pct(mktEff.awarenessFactor)}. Spending more always
                 adds some reach; it adds less per dollar the further past capacity you go.
               </span>
+              <span className="hint" data-testid="marketing-menu-shape">
+                This menu starts at {menu?.multipliers?.[0]}× capacity, extends to{' '}
+                {menu?.multipliers?.[1]}×, and reaches its maximum campaign at{' '}
+                {menu?.multipliers?.[2]}×. These are breadth choices, not an optimizer or a
+                promise of profitable return.
+              </span>
               {mktEff.overexposure > 0 && (
                 <span className="hint" data-testid="marketing-overexposure">
-                  Past {mktEff.overexposureThreshold}× capacity the campaign begins to count as
-                  overexposure; this one is at {pct(mktEff.overexposure)} of the full effect,
+                  At {mktEff.overexposureThreshold}× capacity the active menu begins to count as
+                  overexposure; this selection is at {pct(mktEff.overexposure)} of the full effect,
                   which costs word of mouth if the film underdelivers on what the campaign
                   promised.
                 </span>
@@ -1456,6 +1484,7 @@ function ReviewStep({
   const be = cycleInclusiveBreakEvenGross(state, committed)
   // ONE forecast for this step — the discipline line and the forecast panel read the same object.
   const forecast = previewForecast(state, pkg)
+  const menu = marketingMenu(state, pkg)
   return (
     <div className="stack">
       {/* Film Readiness — assembled from the four real dimensions, not a hidden score */}
@@ -1481,6 +1510,12 @@ function ReviewStep({
               {moneyExact(committed)}
             </strong>
           </div>
+          {menu.engaged && (
+            <div className="spread" data-testid="release-marketing-capacity">
+              <span>Package marketing capacity</span>
+              <strong className="mono">{money(menu.capacity)}</strong>
+            </div>
+          )}
           {/* D-17A/T2: the studio-economic headline, with the direct figure kept as labelled
               detail and shared occupancy as a NAMED second line. */}
           <BreakEvenBlock state={state} committed={committed} prefix="release" />
@@ -1553,6 +1588,7 @@ function ReviewStep({
           {...(profit ? { profit } : {})}
           cycleFixedCost={cycleFixedCost}
           {...(discovery ? { discovery } : {})}
+          marketing={menu}
         />
       )}
     </div>

@@ -359,20 +359,12 @@ export function validateSaveV6(save: unknown): SaveFileV6 {
   return save as SaveFileV6
 }
 
-// The D-17B V7 envelope validator (adds `publicity`; same envelope shape check, and NO field
-// check — see below).
-//
-// WHY THERE IS NO `publicity` FIELD CHECK, when V6 has one for `economyEngagedEver`
-// (D-17B §5/E4, decided and recorded here). The V6 exception exists because
-// `economyEngagedEver` is a REGIME fact: absent, it reads falsy and silently DISENGAGES a
-// real studio's whole D-12 economy — no overhead, no solvency gate, no weekly Studio Revenue
-// — which is a wrong-behaviour-in-silence hazard, so it must fail loudly at load.
-// `publicity` is not that. It is a pair of COOLDOWN CLOCKS whose only meaning is "how recently
-// did you buy a campaign", every field of which is legitimately `null` for a studio that has
-// never bought one. A missing object therefore has an exactly-correct default — the empty
-// state `convertV6ToV7` seeds — and defaulting it costs the player at most one prematurely
-// available campaign, never a change of economic law. So this stays converter-only, and the
-// module's "the save is plain data, not re-validated field-by-field" rule holds.
+// The D-17B V7 envelope validator inherits V6's mandatory regime-fact check and validates the
+// complete publicity clock shape. A live-version file is never migrated/defaulted: migrateToV7
+// passes it through by identity. Accepting either field as missing would therefore not degrade a
+// display — it would silently disengage the economy or crash the first publicity read. Both must
+// fail loudly at the import boundary. Older V1–V6 files still receive deterministic defaults in
+// their explicit converters.
 export function validateSaveV7(save: unknown): SaveFileV7 {
   if (save === null || typeof save !== 'object') {
     throw new Error('validateSaveV7: save is not an object')
@@ -381,7 +373,36 @@ export function validateSaveV7(save: unknown): SaveFileV7 {
   if (s.saveVersion !== 7) {
     throw new Error(`validateSaveV7: expected saveVersion 7, got ${JSON.stringify(s.saveVersion)}`)
   }
-  checkEnvelope(s, 'validateSaveV7')
+  const state = checkEnvelope(s, 'validateSaveV7')
+  if (typeof state.economyEngagedEver !== 'boolean') {
+    throw new Error(
+      `validateSaveV7: state.economyEngagedEver is missing or not a boolean (got ${JSON.stringify(state.economyEngagedEver)}) — the persisted engagement fact (R2) must be explicit; a missing value would silently disengage the studio economy`,
+    )
+  }
+  const publicity = state.publicity
+  if (publicity === null || typeof publicity !== 'object') {
+    throw new Error('validateSaveV7: state.publicity is missing or not an object')
+  }
+  const clocks = publicity as Record<string, unknown>
+  const validClock = (value: unknown): boolean =>
+    value === null || (typeof value === 'number' && Number.isInteger(value) && value >= 0)
+  if (!validClock(clocks.lastUsedWeek)) {
+    throw new Error(
+      `validateSaveV7: state.publicity.lastUsedWeek must be null or a non-negative integer (got ${JSON.stringify(clocks.lastUsedWeek)})`,
+    )
+  }
+  const byTier = clocks.byTier
+  if (byTier === null || typeof byTier !== 'object') {
+    throw new Error('validateSaveV7: state.publicity.byTier is missing or not an object')
+  }
+  const tierClocks = byTier as Record<string, unknown>
+  for (const tier of ['whisper', 'push', 'blitz'] as const) {
+    if (!validClock(tierClocks[tier])) {
+      throw new Error(
+        `validateSaveV7: state.publicity.byTier.${tier} must be null or a non-negative integer (got ${JSON.stringify(tierClocks[tier])})`,
+      )
+    }
+  }
   return save as SaveFileV7
 }
 

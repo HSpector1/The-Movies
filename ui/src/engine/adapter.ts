@@ -168,6 +168,11 @@ import {
   // pass — no UI-duplicated formula).
   computeBoxOffice,
   forecastCenters,
+  // D-17B: exact action/menu read models. React renders these results and never
+  // duplicates publicity legality, lift, cooldown, or capacity-anchored rung arithmetic.
+  publicityOffers as corePublicityOffers,
+  marketingCapacityFor,
+  marketingLevelsFor,
 } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
@@ -250,6 +255,9 @@ import type {
   AffordabilityScopes,
   OfferObligation,
   PostSigningRunway,
+  PublicityTier,
+  PublicityOffer,
+  MarketingMenu,
 } from '../../../src/core/index.ts'
 
 // Re-export the core types the UI needs, so components import types from the
@@ -314,6 +322,9 @@ export type {
   AffordabilityScopes,
   OfferObligation,
   PostSigningRunway,
+  PublicityTier,
+  PublicityOffer,
+  MarketingMenu,
 }
 
 export const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support']
@@ -408,7 +419,7 @@ export function standingChannels(state: GameState): StandingChannel[] {
       key: 'audienceAwareness',
       label: 'Audience Awareness',
       meaning:
-        'How visible the studio is to audiences (driven by box-office reach and star attention). The only channel that affects box office.',
+        'How visible the studio is to audiences. Its practical operating band is roughly 0–57 of the nominal 0–100; about 90% of measured decline for a working studio came from below-neutral releases, with the weekly pull-down above 35 accounting for the rest. It is the only channel that affects box office.',
       value: s.audienceAwareness,
     },
     {
@@ -426,6 +437,21 @@ export function standingChannels(state: GameState): StandingChannel[] {
       value: s.commercialConfidence,
     },
   ]
+}
+
+// ── D-17B: publicity decision/action boundary ────────────────────────────────
+// The offers are the core's exact read model: the same lift, cost, cooldown and
+// affordability gates that applyActions enforces. Components only add labels/copy.
+export function publicityDecision(state: GameState): PublicityOffer[] {
+  return corePublicityOffers(state)
+}
+
+export function runPublicity(state: GameState, tier: PublicityTier): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'publicity', tier }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
 }
 
 // ── Talent pools + information integrity ─────────────────────────────────────
@@ -3125,10 +3151,10 @@ export function assessDiscoveryExposure(state: GameState, pkg: DraftPackage): Di
 // film is BEFORE marketing) and marketingCapacity (the spend at which reach half-saturates). The
 // state label is a display band over spend ÷ capacity — it never changes any engine value.
 export type MarketingEfficiencyState =
-  | 'Underexposed'
-  | 'Efficient campaign'
-  | 'Near saturation'
-  | 'Overextended campaign'
+  | 'Below current menu'
+  | 'Entry campaign'
+  | 'Extended campaign'
+  | 'Maximum campaign'
 export type MarketingEfficiency = {
   engaged: boolean
   preMarketingAwareness: number // 0..1 (studio audience awareness + the film's own opening-appeal reach)
@@ -3170,14 +3196,15 @@ export function marketingEfficiency(state: GameState, pkg: DraftPackage): Market
   )
   const spend = pkg.budget.marketing
   const ratio = box.marketingCapacity > 0 ? spend / box.marketingCapacity : 0
+  const levels = marketingLevelsFor(state, inp)
   const label: MarketingEfficiencyState =
-    ratio < 0.5
-      ? 'Underexposed'
-      : ratio < 1.2
-        ? 'Efficient campaign'
-        : ratio < 2.5
-          ? 'Near saturation'
-          : 'Overextended campaign'
+    spend < levels[0]
+      ? 'Below current menu'
+      : spend < levels[1]
+        ? 'Entry campaign'
+        : spend < levels[2]
+          ? 'Extended campaign'
+          : 'Maximum campaign'
   return {
     engaged,
     preMarketingAwareness: box.preMarketingAwareness,
@@ -3189,6 +3216,25 @@ export function marketingEfficiency(state: GameState, pkg: DraftPackage): Market
     awarenessFactor: box.awarenessFactor,
     overexposure: box.overexposure,
     overexposureThreshold: TUNING.OVEREXPOSURE_THRESHOLD,
+  }
+}
+
+// D-17B §4 — the exact active menu for a complete package. Capacity is the
+// engine's measured dollar anchor; levels use the lab-exact rounding/+1 guards.
+export type MarketingMenuView = {
+  engaged: boolean
+  capacity: number
+  levels: MarketingMenu
+  multipliers: readonly [number, number, number] | null
+}
+export function marketingMenu(state: GameState, pkg: DraftPackage): MarketingMenuView {
+  const inp = assembleFullReceptionInputs(state, pkg)
+  const engaged = economyEngaged(state)
+  return {
+    engaged,
+    capacity: marketingCapacityFor(state, inp),
+    levels: marketingLevelsFor(state, inp),
+    multipliers: engaged ? TUNING.MARKETING_MENU_MULTIPLIERS : null,
   }
 }
 

@@ -1,5 +1,10 @@
 # D-17B — Candidate Design Contract (rev. 3 — §2/§6 restated on the exact final stack)
 
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+> Owner / Engine PM accepted E1–E5, the boundary-sensitive production Q6 result plus the Rev. 3
+> A≈30 verification, and the honest partial G1–G12 outcome on 2026-08-13. This contract remains the
+> frozen design/proof record; `docs/D-17B-OWNER-RULINGS.md` is the final disposition.
+
 **Rev. 3 note (2026-08-13):** the first full-stack reference corpus (`d17b-final-reference`) was
 DEFECTIVE — its publicity config carried `saturation: 1` (a percent scale; lift ≡ 0 for any
 awareness ≥ 1), so its seven buying arms measured pure cash burn. A focused verification
@@ -27,8 +32,10 @@ against THIS revision. Authority: `docs/D-16-OWNER-RULINGS.md` (R4/R5/R6/R9/R10)
 `docs/D-17B-PROGRAM-LOG.md`. Every number traces to the lab record; the independent reviewer
 re-verified 21 load-bearing figures to the digit.
 
-## 0. Escalations — Owner rulings REQUIRED at review (none blocks implementation; each has a
-recorded fallback)
+## 0. Historical escalations — RESOLVED by final Owner ruling
+
+E1–E5 were all accepted on 2026-08-13 exactly as implemented. The pre-ruling cases and fallbacks
+below remain historical design evidence; they are not open choices. See `docs/D-17B-OWNER-RULINGS.md`.
 
 - **E1 (R4 extension):** `AWARENESS_REACH_NEUTRAL` is NOT engaged-gated at HEAD
   (`standing.ts:107`; tick step 4 ungated; the disengaged reception branch reads awareness).
@@ -181,12 +188,19 @@ hazard). Replay determinism mandatory; no new RNG.
 
 ## 6. Acceptance metrics
 
-1. **Implementation-vs-lab agreement against the named reference corpus `d17b-final-reference`**
+1. **Implementation-vs-lab agreement against the named corrected reference corpus
+   `d17b-final-reference-sat100`**
    (300×208×24, the EXACT final stack: drift C κ.04/35 + N 0.45 split + DISC (ii) + CAP
    1.3/2.4/3.7 + publicity R21 — reviewer minor-8: no prior single run held the whole stack).
    Tolerance: policy median end cash within the seed-bootstrap 95% band of the reference; rate
    metrics (floor absorption, distress, runaway, durable@103) within ±2pp or overlapping 95%
    CIs; anti-spam/maintenance gate verdicts identical.
+   The frozen corrected reference still predates durable source provenance and contains three
+   discovered harness defects: its P15 predicate is the retired employment predicate, its
+   serialized marketing dollar values cannot reconstruct logical rung mix, and its stored
+   tournament contains only P1–P3. Production comparison therefore recomputes tournament results
+   from raw rows, marks P15 **NOT COMPARABLE**, and reports logical production rungs separately;
+   none of those defects authorizes tuning production to the reference.
 2. **M0A byte-identity** via the E1 regime split (if E1 declined: re-baseline, gate struck) +
    replay/save determinism + the full D-17A regression list, WITH the M6 re-measurement list.
 3. **Full G1–G12 table** under Stage-8 discipline. Expected honest outcome: G4 PASS; **G5 not

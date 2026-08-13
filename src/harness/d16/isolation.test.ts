@@ -341,7 +341,7 @@ describe('D-16 · policy registry', () => {
     expect(solvent.engagedWeekFraction).toBe(1)
 
     // an insolvent one cannot pay the renewal bonus — faithful, and it says so
-    const broke = runOne({ seed: 'd16-0003', policy: cheapestViable, horizonWeeks: 260 })
+    const broke = runOne({ seed: 'd16-0001', policy: cheapestViable, horizonWeeks: 260 })
     expect(broke.engagementCliffHit).toBe(false)
     expect(broke.rosterWallHit).toBe(true)
     expect(broke.rosterWallWeek).toBeGreaterThanOrEqual(TUNING.CONTRACT_MAX_WEEKS)

@@ -20,6 +20,8 @@
 //                  --marketing-grid 'capacity:1.3,2,2.5'    capacity-anchored menu
 //                  --awareness-stats                        emit the awareness block on neutral rows
 //                  --emit-durable                           emit durableRecovery on the rows too
+//                  --production-d17b                        execute frozen D-17B through production
+//                                                          tick/action/package-menu code (NO shims)
 //
 // OUTPUT: out/d16-economy-lab/corpus/<runName>/{rows.jsonl, summary.json, summary.md}
 //   Every row and the summary carry { mode, overrides, overrideKey } (experiment.ts) plus any
@@ -47,10 +49,12 @@ import { comparableSeedCount, rateOf, summarize, winShares } from './stats.js'
 import type { Summary } from './stats.js'
 import { counterFlowKey, validateCounterFlow } from './counterflow.js'
 import type { CounterFlowConfig } from './counterflow.js'
-import { DEFAULT_PUBLICITY, publicityKey, validatePublicity } from './publicity.js'
+import { DEFAULT_PUBLICITY, PRODUCTION_PUBLICITY, publicityKey, validatePublicity } from './publicity.js'
 import type { PublicityConfig } from './publicity.js'
 import { assertMarketingGridPristine, marketingGridKey, validateMarketingGrid } from './packages.js'
 import type { MarketingGrid } from './packages.js'
+import { productionCandidateKey, productionCounterFlowIdentity } from './productionIdentity.js'
+import { sourceProvenance } from './sourceProvenance.js'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(here, '..', '..', '..')
@@ -74,6 +78,7 @@ const POLICY_FILTER = positional[2] ?? 'all'
 const EXEMPLARS = Number(flag('exemplars') ?? 25)
 const CHECKPOINT_EVERY = Number(flag('checkpoint-every') ?? 4)
 const REGENERATES_WORLDS = has('regenerates-worlds')
+const PRODUCTION_D17B = has('production-d17b')
 
 const overridesRaw = flag('overrides')
 const OVERRIDES: TuningOverrides = overridesRaw === null || overridesRaw === '' ? {} : (JSON.parse(overridesRaw) as TuningOverrides)
@@ -138,11 +143,24 @@ if (gridRaw !== null && gridRaw !== '') {
   }
 }
 
+if (
+  PRODUCTION_D17B &&
+  (COUNTER_FLOW !== undefined || PUBLICITY !== undefined || MARKETING_GRID !== undefined)
+) {
+  throw new Error(
+    '--production-d17b cannot be combined with --counter-flow, --publicity, or --marketing-grid; production execution contains the frozen mechanics already',
+  )
+}
+
 const AWARENESS_STATS = has('awareness-stats')
 const EMIT_DURABLE = has('emit-durable')
 
+const PRODUCTION_CANDIDATE_KEY = productionCandidateKey()
+
 const LEVERS: LabLevers = {}
-{
+if (PRODUCTION_D17B) {
+  LEVERS.productionCandidateKey = PRODUCTION_CANDIDATE_KEY
+} else {
   const cf = counterFlowKey(COUNTER_FLOW)
   if (cf !== undefined) LEVERS.counterFlowKey = cf
   const pk = publicityKey(PUBLICITY)
@@ -542,6 +560,7 @@ function main(): void {
         ...(COUNTER_FLOW === undefined ? {} : { counterFlow: COUNTER_FLOW }),
         ...(PUBLICITY === undefined ? {} : { publicity: PUBLICITY }),
         ...(MARKETING_GRID === undefined ? {} : { marketingGrid: MARKETING_GRID }),
+        ...(PRODUCTION_D17B ? { productionD17b: true } : {}),
         ...(AWARENESS_STATS ? { awarenessStats: true } : {}),
       })
       absorb(aggs.get(policy.name)!, rec)
@@ -580,6 +599,7 @@ function main(): void {
   const summary = tagArtifact(
     {
       runName: RUN_NAME,
+      source: sourceProvenance(),
       seeds: SEEDS,
       horizonWeeks: HORIZON,
       // F10 FIX: the slice list is the FLAG's, clipped to the horizon — and the identical list
@@ -608,10 +628,21 @@ function main(): void {
         'endCashWinSharesPlayer is the headline (kind === "player" only, per B1 D9: never pool the exploit with the player policies). endCashWinSharesAllArms includes P14_oracleEV and P15_exploitDisengage and is meaningful only when the sentence says so. Engagement-cliff runs are excluded from BOTH matrices and reported per policy as cliffRuns.',
       // ── D-17B additive fields ──
       d17b: {
-        counterFlow: COUNTER_FLOW ?? null,
-        publicity: PUBLICITY ?? null,
-        marketingGrid: MARKETING_GRID_KEY ?? null,
-        awarenessStatsEmitted: AWARENESS_STATS || LEVERS.counterFlowKey !== undefined || LEVERS.publicityKey !== undefined || MARKETING_GRID_KEY !== undefined,
+        execution: PRODUCTION_D17B ? 'production' : 'lab',
+        counterFlow: PRODUCTION_D17B
+          ? productionCounterFlowIdentity()
+          : (COUNTER_FLOW ?? null),
+        publicity: PRODUCTION_D17B ? PRODUCTION_PUBLICITY : (PUBLICITY ?? null),
+        marketingGrid: PRODUCTION_D17B
+          ? `production:capacity:${TUNING.MARKETING_MENU_MULTIPLIERS.join(',')}`
+          : (MARKETING_GRID_KEY ?? null),
+        productionCandidateKey: PRODUCTION_D17B ? PRODUCTION_CANDIDATE_KEY : null,
+        awarenessStatsEmitted:
+          PRODUCTION_D17B ||
+          AWARENESS_STATS ||
+          LEVERS.counterFlowKey !== undefined ||
+          LEVERS.publicityKey !== undefined ||
+          MARKETING_GRID_KEY !== undefined,
         durableOnRows: EMIT_DURABLE,
         recoveryNote:
           'recoveryRateGivenDistress is TRANSIENT (one healthy week after entry) and must not be quoted as a recovery rate: A5 measured 62–99% of transiently-recovered runs still terminally decline. durableRecoveryGivenDistress.at103 is the G8-form number (bar: >= 25%); at103Strict never dips inside the window. Both are computed on the WEEKLY state series.',

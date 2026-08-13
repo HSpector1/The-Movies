@@ -25,6 +25,7 @@
 //     --states <dir> [--horizon 156] [--policies Q0,Q1,Q5] [--arms off,C,D,F] \
 //     [--publicity default|'{…}'] [--tail recovery|runaway|both] [--run-name NAME]
 //     [--classes bareMinOnly,noProduction,insolvent] [--limit N] [--marketing-grid …]
+//     [--production-d17b]   frozen production path; cannot combine with lab lever flags
 //
 // OUTPUT: out/d16-economy-lab/d17b/continuation/<runName>/{rows.jsonl, summary.json, summary.md}
 // Every row carries its entry state's id/class/week, and every row and the summary carry the
@@ -43,12 +44,14 @@ import { makeTag, tagArtifact, assertTuningPristine } from './experiment.js'
 import type { LabLevers } from './experiment.js'
 import { COUNTER_FLOW_OFF, counterFlowKey, validateCounterFlow } from './counterflow.js'
 import type { CounterFlowConfig } from './counterflow.js'
-import { DEFAULT_PUBLICITY, publicityKey, validatePublicity } from './publicity.js'
+import { DEFAULT_PUBLICITY, PRODUCTION_PUBLICITY, publicityKey, validatePublicity } from './publicity.js'
 import type { PublicityConfig } from './publicity.js'
 import { assertMarketingGridPristine } from './packages.js'
 import { rateOf, summarize } from './stats.js'
 import type { Summary } from './stats.js'
 import type { FinancialState } from './states.js'
+import { productionCandidateKey, productionCounterFlowIdentity } from './productionIdentity.js'
+import { sourceProvenance } from './sourceProvenance.js'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(here, '..', '..', '..')
@@ -60,6 +63,9 @@ function flag(name: string): string | null {
   const i = argv.indexOf(`--${name}`)
   if (i === -1) return null
   return argv[i + 1] ?? ''
+}
+function has(name: string): boolean {
+  return argv.includes(`--${name}`)
 }
 
 const STATES_DIR = flag('states')
@@ -73,6 +79,7 @@ const RUN_NAME = flag('run-name') ?? `continuation-h${HORIZON}`
 const LIMIT = Number(flag('limit') ?? 0)
 const TAIL = (flag('tail') ?? 'both') as 'recovery' | 'runaway' | 'both'
 const CLASS_FILTER = (flag('classes') ?? '').split(',').map((s) => s.trim()).filter((s) => s !== '')
+const PRODUCTION_D17B = has('production-d17b')
 
 /**
  * The default arm menu (A4 §7): the never-publicize control plus the two publicity arms whose
@@ -82,24 +89,27 @@ const CLASS_FILTER = (flag('classes') ?? '').split(',').map((s) => s.trim()).fil
  */
 const ARM_MENU: Record<string, CounterFlowConfig> = {
   off: COUNTER_FLOW_OFF,
-  // the AUTHORIZED one-sided form (pull-down only) — an implementable candidate
-  C: { family: 'C', authorization: 'candidate', kappa: 0.02, baseline: 30, revertMode: 'pullDownOnly' },
+  // Historical Stage-5 exploratory arm. It is not the frozen REV.3 candidate.
+  C: { family: 'C', authorization: 'reference', kappa: 0.02, baseline: 30, revertMode: 'pullDownOnly' },
   // LABELLED REFERENCE ARMS (gate ruling 2) — reported, never proposed
   C2: { family: 'C', authorization: 'reference', kappa: 0.02, baseline: 30 },
   D: { family: 'D', authorization: 'reference', gainKeep: 1, lossKeep: 0.5, idleDrain: 0.02 },
   F: { family: 'F', authorization: 'reference', pivotHalfLifeReleases: 3 },
 }
 
-const ARM_NAMES = (flag('arms') ?? 'off,C,D,F').split(',').map((s) => s.trim()).filter((s) => s !== '')
+const armsRaw = flag('arms')
+const ARM_NAMES = PRODUCTION_D17B
+  ? ['production']
+  : (armsRaw ?? 'off,C,D,F').split(',').map((s) => s.trim()).filter((s) => s !== '')
 const POLICY_NAMES = (flag('policies') ?? 'Q0,Q1,Q5').split(',').map((s) => s.trim()).filter((s) => s !== '')
 
 const cfOverrideRaw = flag('counter-flow')
-if (cfOverrideRaw !== null && cfOverrideRaw !== '') {
+if (!PRODUCTION_D17B && cfOverrideRaw !== null && cfOverrideRaw !== '') {
   ARM_MENU['custom'] = JSON.parse(cfOverrideRaw) as CounterFlowConfig
   ARM_NAMES.push('custom')
 }
 for (const name of ARM_NAMES) {
-  const cfg = ARM_MENU[name]
+  const cfg = name === 'production' ? COUNTER_FLOW_OFF : ARM_MENU[name]
   if (cfg === undefined) {
     throw new Error(`run-d17b-continuation: unknown arm "${name}". Known: ${Object.keys(ARM_MENU).join(', ')}`)
   }
@@ -107,8 +117,19 @@ for (const name of ARM_NAMES) {
 }
 
 const publicityRaw = flag('publicity')
+const marketingGridRaw = flag('marketing-grid')
+if (
+  PRODUCTION_D17B &&
+  (armsRaw !== null || publicityRaw !== null || cfOverrideRaw !== null || marketingGridRaw !== null)
+) {
+  throw new Error(
+    '--production-d17b cannot be combined with --arms, --publicity, --counter-flow, or --marketing-grid',
+  )
+}
 const PUBLICITY: PublicityConfig | undefined =
-  publicityRaw === null || publicityRaw === ''
+  PRODUCTION_D17B
+    ? PRODUCTION_PUBLICITY
+    : publicityRaw === null || publicityRaw === ''
     ? DEFAULT_PUBLICITY
     : publicityRaw === 'none'
       ? undefined
@@ -333,12 +354,17 @@ function main(): void {
   // entry-major, then arm, then policy — a fixed iteration order (A17 §4.2 rule 7).
   for (const entry of chosen) {
     for (const armName of ARM_NAMES) {
-      const cf = ARM_MENU[armName]!
+      const cf = armName === 'production' ? COUNTER_FLOW_OFF : ARM_MENU[armName]!
       for (const policy of policies) {
         const key = `${armName}|${policy.name}`
         let agg = aggs.get(key)
         if (agg === undefined) {
-          agg = newArm(armName, policy.name, cf.family, cf.family === 'off' ? 'n/a' : cf.authorization)
+          agg = newArm(
+            armName,
+            policy.name,
+            cf.family,
+            PRODUCTION_D17B ? 'production' : cf.family === 'off' ? 'n/a' : cf.authorization,
+          )
           aggs.set(key, agg)
         }
         const rec = runOne({
@@ -347,15 +373,19 @@ function main(): void {
           horizonWeeks: HORIZON,
           initialState: entry.state,
           awarenessStats: true,
-          ...(cf.family === 'off' ? {} : { counterFlow: cf }),
-          ...(PUBLICITY === undefined ? {} : { publicity: PUBLICITY }),
+          ...(PRODUCTION_D17B ? { productionD17b: true } : {}),
+          ...(!PRODUCTION_D17B && cf.family !== 'off' ? { counterFlow: cf } : {}),
+          ...(!PRODUCTION_D17B && PUBLICITY !== undefined ? { publicity: PUBLICITY } : {}),
         })
         absorb(agg, rec)
         const levers: LabLevers = {}
-        const cfk = counterFlowKey(cf)
-        if (cfk !== undefined) levers.counterFlowKey = cfk
-        const pk = publicityKey(PUBLICITY)
-        if (pk !== undefined) levers.publicityKey = pk
+        if (PRODUCTION_D17B) levers.productionCandidateKey = productionCandidateKey()
+        else {
+          const cfk = counterFlowKey(cf)
+          if (cfk !== undefined) levers.counterFlowKey = cfk
+          const pk = publicityKey(PUBLICITY)
+          if (pk !== undefined) levers.publicityKey = pk
+        }
         const row: Record<string, unknown> = {
           ...(rec as unknown as Record<string, unknown>),
           entryId: entry.id,
@@ -365,7 +395,7 @@ function main(): void {
           entryAwareness: entry.audienceAwareness,
           entryPolicy: entry.policy,
           arm: armName,
-          armAuthorization: cf.family === 'off' ? 'n/a' : cf.authorization,
+          armAuthorization: PRODUCTION_D17B ? 'production' : cf.family === 'off' ? 'n/a' : cf.authorization,
         }
         delete row['captures']
         buffer += `${stableJson(tagArtifact(row, makeTag({}, levers)))}\n`
@@ -382,11 +412,15 @@ function main(): void {
 
   const summaries = [...aggs.values()].map(finalize)
   const levers: LabLevers = {}
-  const pk = publicityKey(PUBLICITY)
-  if (pk !== undefined) levers.publicityKey = pk
+  if (PRODUCTION_D17B) levers.productionCandidateKey = productionCandidateKey()
+  else {
+    const pk = publicityKey(PUBLICITY)
+    if (pk !== undefined) levers.publicityKey = pk
+  }
   const summary = tagArtifact(
     {
       runName: RUN_NAME,
+      source: sourceProvenance(),
       statesDir: STATES_DIR,
       entryStates: chosen.length,
       entryClasses: countBy(chosen.map((e) => String(e.class))),
@@ -394,14 +428,14 @@ function main(): void {
       tail: TAIL,
       arms: ARM_NAMES.map((n) => ({
         arm: n,
-        config: ARM_MENU[n]!,
-        counterFlowKey: counterFlowKey(ARM_MENU[n]!) ?? null,
+        config: n === 'production' ? productionCounterFlowIdentity() : ARM_MENU[n]!,
+        counterFlowKey: n === 'production' ? null : counterFlowKey(ARM_MENU[n]!) ?? null,
       })),
       policies: POLICY_NAMES,
       publicity: PUBLICITY ?? null,
       results: summaries,
       authorizationNote:
-        'authorization "candidate" = inside the R9 lever family and implementation-eligible. "reference" = a LABELLED REFERENCE ARM (two-sided mean reversion with a free pull-up, loss-leg damping, or the endogenous EMA pivot), run for honest reporting only under D-17B Phase-A gate ruling 2 — never quotable as a proposal.',
+        'authorization "production" executes the frozen REV.3 mechanics through production code. "reference" = a LABELLED historical or unauthorized arm, run for honest reporting only under D-17B Phase-A gate ruling 2 — never quotable as a proposal.',
       denominatorNote:
         'durableAt* denominators are `durableJudged` — the continuations that ENTERED distress within their own horizon, so the rate is not diluted by runs that were never in trouble. A continuation is accounted to ITSELF (B2-C10): slices, runaway threshold and film counts are all relative to the resumed state.',
       pairingNote:

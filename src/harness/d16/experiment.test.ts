@@ -182,6 +182,13 @@ describe('d17b/experiment — a lab lever can never be stamped CURRENT (the §13
     expect(stamped.marketingGridKey).toBe('1,2,3')
     expect(Object.prototype.hasOwnProperty.call(stamped, 'publicityKey')).toBe(false)
   })
+
+  it('stamps a production candidate identity without mislabelling current production counterfactual', () => {
+    const tag = makeTag({}, { productionCandidateKey: 'D17B:drift=.04/35;publicity=sat100' })
+    expect(tag.mode).toBe('CURRENT')
+    expect(tag.tagNote).toBeUndefined()
+    expect(tagArtifact({ endCash: 5 }, tag).productionCandidateKey).toContain('sat100')
+  })
 })
 
 describe('d17b/experiment — the marketing grid scope restores like a TUNING scope', () => {

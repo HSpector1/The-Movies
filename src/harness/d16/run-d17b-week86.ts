@@ -22,6 +22,7 @@
 //   node_modules/.bin/vite-node src/harness/d16/run-d17b-week86.ts \
 //     [--save <path>] [--horizon 156] [--policies Q0,Q1,Q3,Q5] [--arms off,C,D,F]
 //     [--publicity default|none|'{…}'] [--run-name NAME]
+//     [--production-d17b]   frozen production path; cannot combine with lab arms/publicity
 //
 // The save lives OUTSIDE this worktree by default (D-17A-OWNER-EVIDENCE.md:6-8):
 //   /Users/bruce/The Movies - Economy Recovery Lab/out/d16-economy-lab/week86-owner-save.json
@@ -40,9 +41,11 @@ import { makeTag, tagArtifact, assertTuningPristine } from './experiment.js'
 import type { LabLevers } from './experiment.js'
 import { COUNTER_FLOW_OFF, counterFlowKey, validateCounterFlow } from './counterflow.js'
 import type { CounterFlowConfig } from './counterflow.js'
-import { DEFAULT_PUBLICITY, publicityKey, validatePublicity } from './publicity.js'
+import { DEFAULT_PUBLICITY, PRODUCTION_PUBLICITY, publicityKey, validatePublicity } from './publicity.js'
 import type { PublicityConfig } from './publicity.js'
 import { assertMarketingGridPristine } from './packages.js'
+import { productionCandidateKey, productionCounterFlowIdentity } from './productionIdentity.js'
+import { sourceProvenance } from './sourceProvenance.js'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(here, '..', '..', '..')
@@ -56,21 +59,29 @@ function flag(name: string): string | null {
   if (i === -1) return null
   return argv[i + 1] ?? ''
 }
+function has(name: string): boolean {
+  return argv.includes(`--${name}`)
+}
 
 const SAVE_PATH = flag('save') ?? DEFAULT_SAVE
 const HORIZON = Number(flag('horizon') ?? 156)
 const RUN_NAME = flag('run-name') ?? `week86-h${HORIZON}`
+const PRODUCTION_D17B = has('production-d17b')
 
 const ARM_MENU: Record<string, CounterFlowConfig> = {
   off: COUNTER_FLOW_OFF,
-  C: { family: 'C', authorization: 'candidate', kappa: 0.02, baseline: 30, revertMode: 'pullDownOnly' },
+  // Historical Stage-5 exploratory arm. It is not the frozen REV.3 candidate.
+  C: { family: 'C', authorization: 'reference', kappa: 0.02, baseline: 30, revertMode: 'pullDownOnly' },
   C2: { family: 'C', authorization: 'reference', kappa: 0.02, baseline: 30 },
   D: { family: 'D', authorization: 'reference', gainKeep: 1, lossKeep: 0.5, idleDrain: 0.02 },
   F: { family: 'F', authorization: 'reference', pivotHalfLifeReleases: 3 },
 }
-const ARM_NAMES = (flag('arms') ?? 'off,C,D,F').split(',').map((s) => s.trim()).filter((s) => s !== '')
+const armsRaw = flag('arms')
+const ARM_NAMES = PRODUCTION_D17B
+  ? ['production']
+  : (armsRaw ?? 'off,C,D,F').split(',').map((s) => s.trim()).filter((s) => s !== '')
 for (const n of ARM_NAMES) {
-  const cfg = ARM_MENU[n]
+  const cfg = n === 'production' ? COUNTER_FLOW_OFF : ARM_MENU[n]
   if (cfg === undefined) {
     throw new Error(`run-d17b-week86: unknown arm "${n}". Known: ${Object.keys(ARM_MENU).join(', ')}`)
   }
@@ -81,8 +92,13 @@ const POLICY_NAMES = (flag('policies') ?? 'Q0,Q1,Q3,Q5').split(',').map((s) => s
 const policies: Policy[] = POLICY_NAMES.map((n) => policyByName(n))
 
 const publicityRaw = flag('publicity')
+if (PRODUCTION_D17B && (armsRaw !== null || publicityRaw !== null)) {
+  throw new Error('--production-d17b cannot be combined with --arms or --publicity')
+}
 const PUBLICITY: PublicityConfig | undefined =
-  publicityRaw === 'none'
+  PRODUCTION_D17B
+    ? PRODUCTION_PUBLICITY
+    : publicityRaw === 'none'
     ? undefined
     : publicityRaw === null || publicityRaw === '' || publicityRaw === 'default'
       ? DEFAULT_PUBLICITY
@@ -139,7 +155,7 @@ function main(): void {
   const jsonl: string[] = []
 
   for (const armName of ARM_NAMES) {
-    const cf = ARM_MENU[armName]!
+    const cf = armName === 'production' ? COUNTER_FLOW_OFF : ARM_MENU[armName]!
     for (const policy of policies) {
       const rec = runOne({
         seed: state.seed,
@@ -147,25 +163,29 @@ function main(): void {
         horizonWeeks: HORIZON,
         initialState: state,
         awarenessStats: true,
-        ...(cf.family === 'off' ? {} : { counterFlow: cf }),
-        ...(PUBLICITY === undefined ? {} : { publicity: PUBLICITY }),
+        ...(PRODUCTION_D17B ? { productionD17b: true } : {}),
+        ...(!PRODUCTION_D17B && cf.family !== 'off' ? { counterFlow: cf } : {}),
+        ...(!PRODUCTION_D17B && PUBLICITY !== undefined ? { publicity: PUBLICITY } : {}),
       })
       const levers: LabLevers = {}
-      const cfk = counterFlowKey(cf)
-      if (cfk !== undefined) levers.counterFlowKey = cfk
-      const pk = publicityKey(PUBLICITY)
-      if (pk !== undefined) levers.publicityKey = pk
+      if (PRODUCTION_D17B) levers.productionCandidateKey = productionCandidateKey()
+      else {
+        const cfk = counterFlowKey(cf)
+        if (cfk !== undefined) levers.counterFlowKey = cfk
+        const pk = publicityKey(PUBLICITY)
+        if (pk !== undefined) levers.publicityKey = pk
+      }
       const record: Record<string, unknown> = {
         ...(rec as unknown as Record<string, unknown>),
         arm: armName,
-        armAuthorization: cf.family === 'off' ? 'n/a' : cf.authorization,
+        armAuthorization: PRODUCTION_D17B ? 'production' : cf.family === 'off' ? 'n/a' : cf.authorization,
         savePath: SAVE_PATH,
       }
       delete record['captures']
       jsonl.push(stableJson(tagArtifact(record, makeTag({}, levers))))
       rows.push({
         arm: armName,
-        armAuthorization: cf.family === 'off' ? 'n/a' : cf.authorization,
+        armAuthorization: PRODUCTION_D17B ? 'production' : cf.family === 'off' ? 'n/a' : cf.authorization,
         policy: policy.name,
         endCash: rec.endCash,
         deltaCash: rec.endCash - rec.openingCash,
@@ -186,21 +206,31 @@ function main(): void {
   writeFileSync(join(out, 'rows.jsonl'), `${jsonl.join('\n')}\n`)
 
   const levers: LabLevers = {}
-  const pk = publicityKey(PUBLICITY)
-  if (pk !== undefined) levers.publicityKey = pk
+  if (PRODUCTION_D17B) levers.productionCandidateKey = productionCandidateKey()
+  else {
+    const pk = publicityKey(PUBLICITY)
+    if (pk !== undefined) levers.publicityKey = pk
+  }
   writeFileSync(
     join(out, 'summary.json'),
     `${stableJson(
       tagArtifact(
         {
           runName: RUN_NAME,
+          source: sourceProvenance(),
           savePath: SAVE_PATH,
           openingWeek: state.market.tick,
           openingCash: state.studio.cash,
           openingAwareness: state.studio.standing.audienceAwareness,
           openingContracts: state.contracts.length,
           horizonWeeks: HORIZON,
-          arms: ARM_NAMES.map((n) => ({ arm: n, config: ARM_MENU[n]!, counterFlowKey: counterFlowKey(ARM_MENU[n]!) ?? null })),
+          arms: ARM_NAMES.map((n) => {
+            if (n === 'production') {
+              return { arm: n, config: productionCounterFlowIdentity(), counterFlowKey: null }
+            }
+            const config = ARM_MENU[n]!
+            return { arm: n, config, counterFlowKey: counterFlowKey(config) ?? null }
+          }),
           policies: POLICY_NAMES,
           publicity: PUBLICITY ?? null,
           rows,

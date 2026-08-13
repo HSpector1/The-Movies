@@ -565,7 +565,8 @@ export type DiscoveryExposure = {
    * **and** the support falls short. D-17A FIX-PASS — `reception.ts:643` gates the spread on
    * `engaged` (`discoverabilitySpread = engaged ? … : 0`), so on the never-engaged path the
    * multiplier is identically 1 and there is nothing to warn about. `exposed` used to ignore
-   * the regime, so a disengaged package was told its opening could swing 0.2×–1.8× when the
+   * the regime, so a disengaged package was told its opening could swing across the hard
+   * floor-to-ceiling band when the
    * engine could not move it at all.
    */
   exposed: boolean
@@ -578,7 +579,7 @@ export type DiscoveryExposure = {
   /**
    * The band the engine can ACTUALLY produce at ±bandZ, after the hard clips:
    *   bandLow  = max(DISC_FLOOR, exp(−spread·z)),  bandHigh = min(DISC_CEIL, exp(+spread·z)).
-   * D-17A FIX-PASS: the display used to quote the hard clips (0.2×/1.8×) for EVERY exposed
+   * D-17A FIX-PASS: the display used to quote the hard clips for EVERY exposed
    * package. At a 2% shortfall the real band is [0.99×, 1.01×] — the clips were unreachable,
    * and the quoted "worst case" dollar figure was one the engine would never produce.
    */
@@ -736,7 +737,6 @@ export function forecastProfitRange(
     const strength = inp.concept.baselineStrength
     const reqNeg = inp.concept.baseNegativeCost * inp.shapeEffects.budgetDemandMultiplier * inp.era.costScale
     const funding = inp.budget.negative / Math.max(reqNeg, 1)
-    const largeMarketing = inp.budget.marketing >= 2 * TUNING.MARKETING_HALF_SATURATION // ≥ ~Large
     // D-17A/T6: ONE forecast-centre box-office pass, reused by the discoverability exposure and
     // by the marketing-capacity copy below. `engaged` ⇒ the forecast offset is 0, so these
     // centres ARE the `midMap`/`openMid` maps that produced `revExpected` above.
@@ -772,7 +772,7 @@ export function forecastProfitRange(
       // promise of a sleeper.
       //
       // D-17A FIX-PASS: the band is the SHORTFALL-DERIVED one the engine can actually produce
-      // at ±DISC_FORECAST_LOW_Z, not the hard clips. Quoting 0.2×–1.8× for every exposed
+      // at ±DISC_FORECAST_LOW_Z, not the hard clips. Quoting the floor-to-ceiling band for every exposed
       // package overclaimed by orders of magnitude at small shortfalls (a 2% shortfall's real
       // band is [0.99×, 1.01×]) and contradicted the forecast band on the same panel, whose
       // low edge is already `exp(−spread·z)`. The clips are named only when reached.
@@ -817,11 +817,12 @@ export function forecastProfitRange(
         `Marketing of ${moneyShort(inp.budget.marketing)} against a measured efficient capacity of ` +
           `${moneyShort(centerBox.marketingCapacity)} — ${Math.round(capacityRatio * 100)}% of capacity — ` +
           `counts as overexposure at ${Math.round(centerBox.overexposure * 100)}% of the full effect. ` +
+          `The active menu begins at ${String(TUNING.MARKETING_MENU_MULTIPLIERS[0])}x capacity, ` +
+          `extends to ${String(TUNING.MARKETING_MENU_MULTIPLIERS[1])}x, and reaches its maximum ` +
+          `campaign at ${String(TUNING.MARKETING_MENU_MULTIPLIERS[2])}x. ` +
           `What that costs is measured on the film's legs, not its opening: a campaign this far past ` +
           `capacity raises expectations, and if the film underdelivers on them word of mouth shortens its run.`,
       )
-    } else if (largeMarketing && strength >= TUNING.SCRIPT_POTENTIAL_REF && funding >= 0.95) {
-      upsideDrivers.push("This campaign meaningfully expands the film's reach.")
     }
   }
 

@@ -293,9 +293,9 @@ export function StudioRunRecap({
       {/* ── B. Capital story ── */}
       <Section id="capital" title="Where the money went">
         <p className="hint">
-          Film economics, staffing, and overhead are shown separately. Film contribution is Studio
-          Revenue minus each film&rsquo;s production commitment; payroll and overhead are studio costs,
-          not charged to any single film.
+          Film economics, publicity, staffing, and overhead are shown separately. Film contribution
+          is Studio Revenue minus each film&rsquo;s production commitment; publicity, payroll, and
+          overhead are studio costs, not charged to any single film.
         </p>
         <div className="grid grid-2" style={{ marginTop: 8 }}>
           <div className="inset">
@@ -313,6 +313,16 @@ export function StudioRunRecap({
               Payroll {money(capital.currentWeeklyPayroll)} · Overhead {money(capital.currentWeeklyOverhead)}
             </p>
           </div>
+        </div>
+        <div className="inset" style={{ marginTop: 14 }} data-testid="recap-publicity">
+          <h3 style={{ marginTop: 0 }}>Publicity campaigns</h3>
+          <Metric label="Publicity paid (run)" small testid="recap-total-publicity">
+            {moneyExact(capital.totalPublicity)}
+          </Metric>
+          <p className="hint" style={{ margin: '6px 0 0' }}>
+            Publicity is a studio-level awareness cost. It appears in the cash timeline, but never
+            in a film&rsquo;s commitment, Film Contribution, or studio-economic result.
+          </p>
         </div>
 
         {/* ── D-17A/T13 (Owner ruling R7 safeguard) — where the studio's FIXED cost went ──

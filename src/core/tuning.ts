@@ -122,6 +122,24 @@ export const TUNING = {
   PUBLICITY_SHAPE_EXP: 6, // [D-17B §2] convexity of the diminishing lift (exponents 7-8 fail C1(a))
   PUBLICITY_GLOBAL_COOLDOWN_WEEKS: 6, // [D-17B §2] minimum weeks between ANY two campaigns
 
+  // ── D-17B §4 — the capacity-anchored marketing menu (R6) ────────────────────
+  // The three rungs are MULTIPLES of the film's own efficient marketing capacity, not dollar
+  // literals: `Math.round(multiplier × capacity)` with strictly-ascending +$1 guards, exactly
+  // as the lab measured it (run-d16-corpus.ts:124-129). The capacity swings ~8.3× across
+  // states, which is why NO fixed dollar triple clears the ≤35% max-optimal-share gate;
+  // measured max-optimal share for this menu is 38.7%, zero dead rungs, distressed access 9.4%.
+  //
+  // ESCALATION E2 (contract §0): this is a change of menu KIND (state-dependent rungs), and
+  // R6's text names dollar triples — the Owner must rule that R6 extends to it. Recorded
+  // FALLBACK if declined: the best gate-passing FIXED triple {350k, 775k, 1.525M} (39.8%
+  // max-optimal), in-grant but inferior on distress access and stability. That is a ruling
+  // outcome, NOT code: the anchored menu is what ships here.
+  //
+  // Any display rounding is PRESENTATIONAL only and must never change the charged amount —
+  // a $25k display quantum collides rungs at MARKETING_CAPACITY_MIN and would invalidate
+  // every measurement (reviewer B6).
+  MARKETING_MENU_MULTIPLIERS: [1.3, 2.4, 3.7],
+
   // Prestige (absolute critic achievement). BENCHMARK sits near the pooled
   // criticScore median (46.5) so it is REACHABLE from both sides — the prior fixed
   // 60 was above ~p90, so prestige could only fall. SCALE 1.2 makes a criticScore

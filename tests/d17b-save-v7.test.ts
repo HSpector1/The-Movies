@@ -124,14 +124,22 @@ describe('D-17B/E4 — makeSave writes V7, and the envelope validates', () => {
     expect(() => validateSave({ ...save, saveVersion: 8 })).toThrow(/1, 2, 3, 4, 5, 6 and 7 only/)
   })
 
-  it('a save whose publicity object is MISSING still loads — deliberately, not by omission', () => {
-    // D-17B §5: the V6 `economyEngagedEver` exception exists because a missing regime fact
-    // silently DISENGAGES a studio's whole economy. A missing `publicity` object cannot do
-    // that: it is a pair of cooldown clocks whose every field is legitimately null, so it has
-    // an exactly-correct default. This asserts the DECISION, not an accident.
+  it('rejects a V7 whose inherited regime fact or publicity clocks are missing/corrupt', () => {
     const save = makeSave(foundStudio('d17b-v7-missing'))
     const stripped = { ...save, state: toV6(save.state) }
-    expect(() => validateSaveV7(stripped)).not.toThrow()
+    expect(() => validateSaveV7(stripped)).toThrow(/state\.publicity is missing/)
+    expect(() =>
+      validateSaveV7({ ...save, state: { ...save.state, economyEngagedEver: undefined } }),
+    ).toThrow(/economyEngagedEver is missing/)
+    expect(() =>
+      validateSaveV7({
+        ...save,
+        state: {
+          ...save.state,
+          publicity: { ...save.state.publicity, byTier: { ...save.state.publicity.byTier, push: -1 } },
+        },
+      }),
+    ).toThrow(/byTier\.push must be null or a non-negative integer/)
   })
 })
 

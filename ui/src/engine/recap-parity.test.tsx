@@ -7,11 +7,11 @@
 
 import { describe, expect, it } from 'vitest'
 import { render, screen, cleanup } from '@testing-library/react'
-import { applyActions, beginFounding, generateWorld, resolveShape, studioRunRecap } from '../../../src/core/index.ts'
-import { affordabilityScopes, greenlight, totalCommittedCost, requiredNegative } from './adapter.ts'
+import { applyActions, beginFounding, cheapestPackageQuote, generateWorld, studioRunRecap } from '../../../src/core/index.ts'
+import { affordabilityScopes, greenlight, totalCommittedCost } from './adapter.ts'
 import { Dashboard } from '../screens/Dashboard.tsx'
 import { moneyExact } from '../format.ts'
-import type { CastSlot, CreativeRole, FilmShape, GameState } from '../../../src/core/index.ts'
+import type { CreativeRole, GameState } from '../../../src/core/index.ts'
 
 function foundEngaged(seed: string): GameState {
   let s = beginFounding(generateWorld(seed))
@@ -25,36 +25,10 @@ function foundEngaged(seed: string): GameState {
   return applyActions(s, [{ kind: 'foundStudio' }])
 }
 
-// The exact package the recap's `cheapest` models: cheapest concept, min-demand shape,
-// 0.75× negative, $100k marketing, current contracted roster.
+// The exact concrete package behind the recap's `cheapest` quote.
 function cheapestPkg(state: GameState) {
-  const concept = [...state.concepts].sort((a, b) => a.baseNegativeCost - b.baseNegativeCost)[0]!
-  const OPENINGS: FilmShape['opening'][] = ['immediateAction', 'slowSetup', 'mysteryHook']
-  const MIDS: FilmShape['midpoint'][] = ['reversal', 'escalation', 'revelation']
-  const ENDS: FilmShape['ending'][] = ['triumph', 'bittersweet', 'tragic', 'ambiguous']
-  let minShape: FilmShape = { opening: 'slowSetup', midpoint: 'revelation', ending: 'ambiguous' }
-  let m = Infinity
-  for (const o of OPENINGS) for (const mi of MIDS) for (const e of ENDS) {
-    const d = resolveShape({ opening: o, midpoint: mi, ending: e }).budgetDemandMultiplier
-    if (d < m) { m = d; minShape = { opening: o, midpoint: mi, ending: e } }
-  }
-  const c = state.contracts.map((k) => state.talent.find((t) => t.id === k.talentId)!)
-  const actors = c.filter((t) => t.role === 'actor')
-  const writer = c.find((t) => t.role === 'writer')!
-  const director = c.find((t) => t.role === 'director')!
-  const craft = c.find((t) => t.role === 'craft')!
-  return {
-    conceptId: concept.id,
-    shape: minShape,
-    promise: { genre: concept.genre, intendedSegments: ['adult' as const], ranges: { intimacy: [-0.5, 0.5] as [number, number], tonalWeight: [-0.5, 0.5] as [number, number], kineticEnergy: [-0.5, 0.5] as [number, number] } },
-    writerId: writer.id,
-    directorId: director.id,
-    cast: { lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id } as Record<CastSlot, string>,
-    craftIds: [craft.id],
-    budget: { negative: NEGATIVE_MULT_0 * requiredNegative(concept, minShape, state), marketing: 100_000 },
-  }
+  return cheapestPackageQuote(state)!.production
 }
-const NEGATIVE_MULT_0 = 0.75
 
 describe('recap affordability — action parity', () => {
   it('recap cheapest cost + affordability match the greenlight action, and the greenlight completes', () => {

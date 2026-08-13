@@ -257,8 +257,8 @@ export function cycleInclusiveBreakEvenGross(
 
 // ── D-17A/T4 — affordability scopes (promoted out of the recap) ────────────────
 // "What can I actually make right now?", at three scopes, from player-visible values only:
-//   cheapest      — the AUTHORITATIVE least-expensive greenlightable package (cheapest concept,
-//                   lowest budget grid, minimum marketing, min-demand shape, current roster);
+//   cheapest      — a concrete greenlightable bare-minimum package (cheapest concept,
+//                   lowest budget grid, minimum marketing, min-demand shape, available team);
 //   standard      — a normally-funded film of that concept (the assembly's own defaults);
 //   recentTypical — the median committed cost of the studio's three most recent releases
 //                   (null until something has released).

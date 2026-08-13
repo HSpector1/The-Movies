@@ -14,7 +14,7 @@
 //      `engaged`/`exposed` honestly and this block renders nothing on that path — the same
 //      gating the marketing block already had (`mktEff.engaged`).
 //   2. BAND. The band shown is the one the engine can actually produce at the forecast's own
-//      z (DISC_FORECAST_LOW_Z = 1.28): exp(∓spread·z), clipped. Quoting the hard 0.2x/1.8x
+//      z (DISC_FORECAST_LOW_Z = 1.28): exp(∓spread·z), clipped. Quoting the hard 0.3x/1.8x
 //      clips for every exposed package overclaimed by orders of magnitude — a 2% shortfall's
 //      real band is [0.99x, 1.01x] — and contradicted the ForecastDisplay directly above it,
 //      whose low edge is computed from that same spread. The clips are named only when the

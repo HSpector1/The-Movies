@@ -488,7 +488,7 @@ describe('D-17A/T4 — Assembly shows the same three scopes as the Dashboard', (
 // T6 — discoverability exposure, with the numbers the engine actually enforces.
 // ═══════════════════════════════════════════════════════════════════════════════
 // D-17A FIX-PASS: the band rendered is the SHORTFALL-DERIVED one the engine can actually
-// produce at its own forecast z (DISC_FORECAST_LOW_Z = 1.28), not the hard 0.2×/1.8× clips —
+// produce at its own forecast z (DISC_FORECAST_LOW_Z = 1.28), not the hard 0.3×/1.8× clips —
 // those are named only when the band reaches them. And the whole block is gated on the REGIME,
 // because `reception.ts:643` zeroes the spread when the economy is not engaged.
 const derivedBand = (shortfall: number): { low: number; high: number } => {
@@ -507,12 +507,12 @@ describe('D-17A/T6 — the discoverability band is quantified, never hardcoded',
     const text = line.textContent ?? ''
 
     if (text.includes('Discoverability exposure')) {
-      expect(text).toContain(pct(TUNING.DISC_SUPPORT_THRESHOLD))
+      expect(text).toContain(`${(TUNING.DISC_SUPPORT_THRESHOLD * 100).toFixed(1)}%`)
       expect(text).toMatch(/worst case .*best case/)
     } else {
       // Not exposed ⇒ a quiet, positive statement — still with the threshold named.
       expect(text).toMatch(/Reach-supported/)
-      expect(text).toContain(pct(TUNING.DISC_SUPPORT_THRESHOLD))
+      expect(text).toContain(`${(TUNING.DISC_SUPPORT_THRESHOLD * 100).toFixed(1)}%`)
     }
   })
 
@@ -552,7 +552,7 @@ describe('D-17A/T6 — the discoverability band is quantified, never hardcoded',
 
   it('the band NEVER claims a level the engine cannot reach, across the support range', () => {
     // A small shortfall's true band is a hair either side of 1× — the retired copy claimed
-    // 0.2×–1.8× for every exposed package, a range the engine could not produce.
+    // the hard floor-to-ceiling band for every exposed package, a range the engine could not produce.
     for (const shortfall of [0.02, 0.11, 0.22, 0.5, 0.9]) {
       const band = derivedBand(shortfall)
       const exposure = {
@@ -575,7 +575,9 @@ describe('D-17A/T6 — the discoverability band is quantified, never hardcoded',
       expect(text).toContain(mult(band.low))
       expect(text).toContain(mult(band.high))
       if (!exposure.clippedLow && !exposure.clippedHigh) {
-        expect(text).not.toContain('hard 0.2×/1.8× clip')
+        expect(text).not.toContain(
+          `hard ${mult(TUNING.DISC_FLOOR)}/${mult(TUNING.DISC_CEIL)} clip`,
+        )
       }
       cleanup()
     }
@@ -749,12 +751,13 @@ describe('D-17A/T7 — marketing truth', () => {
       const line = screen.queryByTestId('marketing-overexposure')
       if (line !== null) {
         seen = true
-        // Self-consistent: the panel's own capacity line must show a ratio past the threshold.
+        // Self-consistent: the active menu begins at the named threshold; display rounding
+        // may put the entry rung exactly on it.
         const ratioPct = Number(
           /(\d+)% of capacity/.exec(screen.getByTestId('marketing-capacity').textContent ?? '')![1],
         )
-        const threshold = Number(/Past ([0-9.]+)× capacity/.exec(line.textContent ?? '')![1])
-        expect(ratioPct / 100).toBeGreaterThan(threshold)
+        const threshold = Number(/At ([0-9.]+)× capacity/.exec(line.textContent ?? '')![1])
+        expect(ratioPct / 100).toBeGreaterThanOrEqual(threshold)
       } else {
         // Monotone: once shown, a LARGER campaign may not silently drop the disclosure.
         expect(seen).toBe(false)
@@ -762,13 +765,21 @@ describe('D-17A/T7 — marketing truth', () => {
     }
   })
 
-  it('keeps the rung grid exactly as the engine defines it (NO constant change)', () => {
+  it('renders the active capacity-anchored grid as exact dollars and named multiples', () => {
     openWizard('d17a-mkt-5', 'budget')
     const rungs = within(screen.getByTestId('marketing-levels')).getAllByRole('button')
-    expect(rungs.length).toBe(MARKETING_BUDGET_LEVELS.length)
-    MARKETING_BUDGET_LEVELS.forEach((level, i) => {
-      expect(rungs[i]!.textContent).toContain(money(level))
+    expect(rungs.length).toBe(TUNING.MARKETING_MENU_MULTIPLIERS.length)
+    const amounts = rungs.map((rung) => Number(rung.getAttribute('data-marketing-amount')))
+    TUNING.MARKETING_MENU_MULTIPLIERS.forEach((multiple, i) => {
+      expect(rungs[i]!.textContent).toContain(money(amounts[i]!))
+      expect(rungs[i]!.textContent).toContain(`${multiple}× capacity`)
+      expect(Number(rungs[i]!.getAttribute('data-capacity-multiple'))).toBe(multiple)
+      if (i > 0) expect(amounts[i]).toBeGreaterThan(amounts[i - 1]!)
     })
+    const capacity = Number(screen.getByTestId('marketing-menu-capacity').getAttribute('data-capacity'))
+    expect(amounts[0]! / capacity).toBeCloseTo(TUNING.MARKETING_MENU_MULTIPLIERS[0], 4)
+    expect(amounts[1]! / capacity).toBeCloseTo(TUNING.MARKETING_MENU_MULTIPLIERS[1], 4)
+    expect(amounts[2]! / capacity).toBeCloseTo(TUNING.MARKETING_MENU_MULTIPLIERS[2], 4)
   })
 })
 

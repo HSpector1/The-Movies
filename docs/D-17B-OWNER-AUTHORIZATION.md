@@ -1,5 +1,11 @@
 # D-17B — Owner / Engine PM Authorization Directive (transcribed)
 
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+> This authorization produced the accepted implementation candidate
+> `51ec93e33e261b70a68c0acd20f4da5708930179`. Final E1–E5, Q6, G1–G12 and next-charter rulings
+> are authoritative in `docs/D-17B-OWNER-RULINGS.md`; the directive below remains historical
+> authority and is not rewritten.
+
 Transcription of the Owner/Engine PM directive that accepted D-17A and authorized D-17B
 (received 2026-08-12; recorded 2026-08-13 per the independent contract reviewer's M9 finding
 that cited authority must live in the repo). Section numbers below are the directive's own and

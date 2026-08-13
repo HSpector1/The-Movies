@@ -26,6 +26,9 @@ import {
   importSave,
   makeSave,
   periodSummary,
+  publicityLiftAt,
+  publicityOffer,
+  publicityOffers,
   studioRunRecap,
   tick,
   TUNING,
@@ -89,6 +92,58 @@ describe('D-17B §2 — the tier menu is the contract menu', () => {
       expect(specs[i]!.cost).toBeGreaterThan(specs[i - 1]!.cost)
       expect(specs[i]!.maxLift).toBeGreaterThan(specs[i - 1]!.maxLift)
       expect(specs[i]!.cooldownWeeks).toBeGreaterThan(specs[i - 1]!.cooldownWeeks)
+    }
+  })
+
+  it('the authoritative read model exposes the same exact offer the action will execute', () => {
+    const state = studioAt('pub-offer-parity', { week: 81, awareness: 30 })
+    const offers = publicityOffers(state)
+    expect(offers.map((offer) => offer.tier)).toEqual(TIERS)
+    for (const offer of offers) {
+      const spec = TUNING.PUBLICITY_TIERS[offer.tier]
+      expect(offer.cost).toBe(spec.cost)
+      expect(offer.maxLift).toBe(spec.maxLift)
+      expect(offer.expectedLift).toBeCloseTo(expectedLift(offer.tier, 30), 12)
+      expect(offer.expectedLift).toBe(publicityLiftAt(offer.tier, 30))
+      expect(offer.pricePerPoint).toBeCloseTo(spec.cost / offer.expectedLift, 8)
+      expect(offer.cooldownWeeks).toBe(spec.cooldownWeeks)
+      expect(offer.globalCooldownWeeks).toBe(TUNING.PUBLICITY_GLOBAL_COOLDOWN_WEEKS)
+      expect(offer.available).toBe(true)
+      expect(offer.availableWeek).toBe(81)
+      expect(offer.reason).toBeNull()
+
+      const out = buy(state, offer.tier)
+      expect(awarenessOf(out) - awarenessOf(state)).toBeCloseTo(offer.expectedLift, 12)
+      expect(out.studio.cash).toBe(state.studio.cash - offer.cost)
+    }
+  })
+
+  it('read-model availability agrees with every action rejection gate', () => {
+    const drafting = beginFounding(generateWorld('pub-offer-drafting'))
+    expect(publicityOffers(generateWorld('pub-offer-headless')).every((offer) => !offer.available)).toBe(true)
+    expect(publicityOffers(drafting).every((offer) => !offer.available)).toBe(true)
+
+    const broke = studioAt('pub-offer-broke', {
+      cash: TUNING.PUBLICITY_TIERS.whisper.cost - 1,
+    })
+    for (const tier of TIERS) {
+      const offer = publicityOffer(broke, tier)
+      expect(offer.available).toBe(false)
+      expect(() => buy(broke, tier)).toThrow()
+    }
+
+    const first = buy(studioAt('pub-offer-cooldown', { week: 40 }), 'whisper')
+    const duringGlobal = { ...first, market: { ...first.market, tick: 42 } }
+    for (const tier of TIERS) {
+      const offer = publicityOffer(duringGlobal, tier)
+      expect(offer.available).toBe(false)
+      expect(offer.availableWeek).toBe(
+        Math.max(
+          40 + TUNING.PUBLICITY_GLOBAL_COOLDOWN_WEEKS,
+          tier === 'whisper' ? 40 + TUNING.PUBLICITY_TIERS.whisper.cooldownWeeks : 42,
+        ),
+      )
+      expect(() => buy(duringGlobal, tier)).toThrow()
     }
   })
 })

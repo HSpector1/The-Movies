@@ -163,6 +163,24 @@ export {
   CANDIDATE_CONFIG,
 } from './grid.js'
 
+// D-17B §4 — regime-aware, capacity-anchored marketing menu. The legacy fixed
+// grid above remains public because it is still authoritative for disengaged/M0A play.
+export {
+  marketingCapacityFor,
+  marketingMenuFromCapacity,
+  marketingLevelsFor,
+} from './marketingMenu.js'
+export type { MarketingMenu, MarketingMenuInputs } from './marketingMenu.js'
+
+// D-17B §2 — exact publicity decision read model (same lift/cooldown/affordability as action).
+export {
+  PUBLICITY_TIER_ORDER,
+  publicityLiftAt,
+  publicityOffer,
+  publicityOffers,
+} from './publicity.js'
+export type { PublicityOffer } from './publicity.js'
+
 // seeded RNG (M9)
 export { RngStream, stream } from './rng.js'
 export type { RngPurpose } from './rng.js'
@@ -294,6 +312,8 @@ export {
   // every surface answers "can I make a film?" with the same number.
   cheapestPackage,
   standardPackage,
+  cheapestPackageQuote,
+  standardPackageQuote,
   packageAllIn,
   contractedRosterCanField,
   recentTypicalCommitment,
@@ -311,6 +331,7 @@ export type {
   CurrentPosition,
   PositionAffordability,
   PackageBreakdown,
+  ProspectivePackageQuote,
   RecoveryPosition,
   FilmContributionClass,
   InflectionPoint,

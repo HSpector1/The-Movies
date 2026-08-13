@@ -33,6 +33,7 @@
 //   • REPETITION dependence: a per-tier cooldown plus a global anti-spam cooldown.
 // `durationWeeks > 0` spreads the lift linearly over N weeks (a campaign, not a switch).
 
+import { TUNING, applyActions } from '../../core/index.js'
 import type { GameState, LedgerEntry } from '../../core/index.js'
 
 export const PUBLICITY_NOTE_PREFIX = 'd17b-publicity:'
@@ -65,10 +66,12 @@ export type PublicityConfig = {
 }
 
 /**
- * The lab's default menu. Calibrated against A1's sizing (a `push` at A = 0 delivers 4.0
+ * The historical exploratory lab default — NOT the production candidate. Calibrated against
+ * A1's sizing (a `push` at A = 0 delivers 4.0
  * points, i.e. > 3.2 per 9-week cycle) and A4 F5 (68 % of P3 runs reach the 0 floor, so the
  * cheapest rung must be affordable to a distressed studio: $60k is under one week of overhead).
- * SWEEPABLE — Stage 1/2 select the real constants; these are a starting point, not a ruling.
+ * SWEEPABLE for provenance/research reproduction only. `PRODUCTION_PUBLICITY` below is the
+ * frozen candidate and is the only config accepted by production execution.
  */
 export const DEFAULT_PUBLICITY: PublicityConfig = {
   tiers: {
@@ -77,6 +80,35 @@ export const DEFAULT_PUBLICITY: PublicityConfig = {
     blitz: { cost: 900_000, maxLift: 10, saturation: 100, shapeExp: 1, durationWeeks: 3, cooldownWeeks: 16 },
   },
   globalCooldownWeeks: 2,
+}
+
+/**
+ * The production D-17B candidate, projected into the lab's configuration shape. Keeping the
+ * percent-scale saturation explicit is intentional: it is behaviorally material even though
+ * production fixes the awareness ceiling at 100.
+ */
+export const PRODUCTION_PUBLICITY: PublicityConfig = {
+  tiers: {
+    whisper: {
+      ...TUNING.PUBLICITY_TIERS.whisper,
+      saturation: 100,
+      shapeExp: TUNING.PUBLICITY_SHAPE_EXP,
+      durationWeeks: 0,
+    },
+    push: {
+      ...TUNING.PUBLICITY_TIERS.push,
+      saturation: 100,
+      shapeExp: TUNING.PUBLICITY_SHAPE_EXP,
+      durationWeeks: 0,
+    },
+    blitz: {
+      ...TUNING.PUBLICITY_TIERS.blitz,
+      saturation: 100,
+      shapeExp: TUNING.PUBLICITY_SHAPE_EXP,
+      durationWeeks: 0,
+    },
+  },
+  globalCooldownWeeks: TUNING.PUBLICITY_GLOBAL_COOLDOWN_WEEKS,
 }
 
 /** A pending campaign leg (`durationWeeks > 0`): `weeks` more payments of `perWeek` points. */
@@ -118,6 +150,15 @@ export function newPublicityMemo(): PublicityMemo {
   }
 }
 
+/** Start a production continuation with the persisted cooldown clocks, but zero run-local totals. */
+export function newProductionPublicityMemo(state: GameState): PublicityMemo {
+  return {
+    ...newPublicityMemo(),
+    lastWeek: state.publicity.lastUsedWeek,
+    lastWeekByTier: { ...state.publicity.byTier },
+  }
+}
+
 /** Reject a menu that could not mean what it says. */
 export function validatePublicity(cfg: PublicityConfig): void {
   const problems: string[] = []
@@ -134,6 +175,11 @@ export function validatePublicity(cfg: PublicityConfig): void {
     }
     if (!(t.maxLift >= 0)) problems.push(`${tier}.maxLift must be >= 0`)
     if (!(t.saturation > 0 && t.saturation <= 100)) problems.push(`${tier}.saturation must be in (0,100]`)
+    else if (t.saturation < 50) {
+      problems.push(
+        `${tier}.saturation ${String(t.saturation)} is below 50 on a 0..100 awareness scale; probable fraction-vs-percent confusion`,
+      )
+    }
     if (!(t.shapeExp > 0)) problems.push(`${tier}.shapeExp must be > 0`)
     if (!Number.isInteger(t.durationWeeks) || t.durationWeeks < 0) {
       problems.push(`${tier}.durationWeeks must be a non-negative integer`)
@@ -323,11 +369,95 @@ export function applyPublicity(
   }
 }
 
+/**
+ * Execute one policy intent through the real production action. This function simulates no
+ * mechanic: it only maintains run-local measurement counters around `applyActions` and halts
+ * if the lab configuration ceases to describe the production constants exactly.
+ */
+export function applyProductionPublicity(
+  state: GameState,
+  intent: PublicityIntent,
+  cfg: PublicityConfig,
+  memo: PublicityMemo,
+  ctx: { week: number; weeksSinceRelease: number },
+): PublicityStep {
+  validatePublicity(cfg)
+  if (publicityKey(cfg) !== publicityKey(PRODUCTION_PUBLICITY)) {
+    throw new Error(
+      `d17b/publicity: production execution requires the exact production config; got ${publicityKey(cfg)}`,
+    )
+  }
+  if (intent === null) {
+    return { state, memo, bought: null, entry: null, liftThisWeek: 0 }
+  }
+
+  const tier = intent.tier
+  const avail = publicityAvailable(cfg, memo, tier, ctx.week, state.studio.cash)
+  if (!avail.ok) {
+    return {
+      state,
+      memo: {
+        ...memo,
+        blockedByCooldown: memo.blockedByCooldown + (avail.reason === 'cooldown' ? 1 : 0),
+        blockedByCash: memo.blockedByCash + (avail.reason === 'cash' ? 1 : 0),
+        blockedByCap: memo.blockedByCap + (avail.reason === 'cap' ? 1 : 0),
+      },
+      bought: null,
+      entry: null,
+      liftThisWeek: 0,
+    }
+  }
+
+  const beforeAwareness = state.studio.standing.audienceAwareness
+  const beforeLedger = state.ledger.length
+  let nextState: GameState
+  try {
+    nextState = applyActions(state, [{ kind: 'publicity', tier }])
+  } catch (error) {
+    throw new Error(
+      `d17b/publicity: lab availability said ${tier} was available but production rejected it — ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    )
+  }
+  if (nextState.ledger.length !== beforeLedger + 1) {
+    throw new Error('d17b/publicity: production purchase did not append exactly one ledger entry')
+  }
+  const entry = nextState.ledger[beforeLedger]!
+  const spec = cfg.tiers[tier]
+  const lift = nextState.studio.standing.audienceAwareness - beforeAwareness
+  if (entry.kind !== 'publicity' || entry.amount !== -spec.cost) {
+    throw new Error(
+      `d17b/publicity: production ledger disagreement for ${tier} (kind ${entry.kind}, amount ${String(entry.amount)})`,
+    )
+  }
+
+  return {
+    state: nextState,
+    memo: {
+      ...memo,
+      count: memo.count + 1,
+      spend: memo.spend + spec.cost,
+      byTier: { ...memo.byTier, [tier]: memo.byTier[tier] + 1 },
+      spendByTier: { ...memo.spendByTier, [tier]: memo.spendByTier[tier] + spec.cost },
+      lastWeek: ctx.week,
+      firstWeek: memo.firstWeek ?? ctx.week,
+      lastWeekByTier: { ...memo.lastWeekByTier, [tier]: ctx.week },
+      weeksSinceReleaseAtBuy: [...memo.weeksSinceReleaseAtBuy, ctx.weeksSinceRelease],
+      liftDelivered: memo.liftDelivered + lift,
+    },
+    bought: tier,
+    entry,
+    liftThisWeek: lift,
+  }
+}
+
 /** Σ of every ledger row whose note carries the publicity prefix (the driver's self-check). */
-export function publicitySpendFromLedger(state: GameState): number {
+export function publicitySpendFromLedger(state: GameState, startIndex = 0): number {
   let acc = 0
-  for (const e of state.ledger) {
-    if (e.note.startsWith(PUBLICITY_NOTE_PREFIX)) acc += -e.amount
+  for (let i = startIndex; i < state.ledger.length; i++) {
+    const e = state.ledger[i]!
+    if (e.kind === 'publicity' || e.note.startsWith(PUBLICITY_NOTE_PREFIX)) acc += -e.amount
   }
   return acc
 }
@@ -340,7 +470,7 @@ export function publicityKey(cfg: PublicityConfig | undefined): string | undefin
   if (cfg === undefined) return undefined
   const tiers = PUBLICITY_TIERS.map((t) => {
     const c = cfg.tiers[t]
-    return `${t}=${String(c.cost)}/${String(c.maxLift)}/exp${String(c.shapeExp)}/dur${String(c.durationWeeks)}/cd${String(c.cooldownWeeks)}`
+    return `${t}=${String(c.cost)}/${String(c.maxLift)}/sat${String(c.saturation)}/exp${String(c.shapeExp)}/dur${String(c.durationWeeks)}/cd${String(c.cooldownWeeks)}`
   })
   const cap = cfg.perRunCap === undefined ? '' : `;cap=${String(cfg.perRunCap)}`
   return `${tiers.join(';')};gcd=${String(cfg.globalCooldownWeeks)}${cap}`
