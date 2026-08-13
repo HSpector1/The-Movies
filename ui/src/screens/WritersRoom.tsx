@@ -369,11 +369,13 @@ export function WritersRoom({
   state,
   onChange,
   onOpenPackage,
+  onPlanAuditions,
   onBack,
 }: {
   state: GameState
   onChange: (next: GameState) => void
   onOpenPackage: (projectId: string) => void
+  onPlanAuditions?: ((projectId: string) => void) | undefined
   onBack: () => void
 }) {
   const board = useMemo(() => scriptProjectsBoard(state), [state])
@@ -402,6 +404,10 @@ export function WritersRoom({
     setError('')
     if (action.kind === 'openPackage') {
       onOpenPackage(action.projectId)
+      return
+    }
+    if (action.kind === 'planAuditions') {
+      onPlanAuditions?.(action.projectId)
       return
     }
     pendingFocusProjectId.current = action.projectId
@@ -564,7 +570,10 @@ export function WritersRoom({
                             className={action.kind === 'acceptScript' || action.kind === 'openPackage' ? 'primary' : ''}
                             key={action.kind}
                             ref={(node) => {
-                              if (actionIndex !== 0) return
+                              const packageIndex = card.legalActions.findIndex(
+                                (candidate) => candidate.kind === 'openPackage',
+                              )
+                              if (actionIndex !== (packageIndex >= 0 ? packageIndex : 0)) return
                               if (node) actionRefs.current.set(card.projectId, node)
                               else actionRefs.current.delete(card.projectId)
                             }}

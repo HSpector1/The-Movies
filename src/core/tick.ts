@@ -41,6 +41,10 @@
 //   N10  — §6's "§9 gate" pointer is stale; there is no gate in this pipeline.
 
 import { evaluateReleaseBroadcast, type ReleaseBroadcastInputs } from './broadcast.js'
+import {
+  castingOccupiedFacilitySlots,
+  completeDueCastingSessions,
+} from './castingSessions.js'
 import { developTalent, type DevelopmentContext } from './development.js'
 import { economyEngaged, weeklyPayroll } from './employment.js'
 import { openTheatricalRun } from './economy.js'
@@ -143,6 +147,21 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     { concepts: state.concepts, talent: state.talent },
   )
 
+  // ── 0.6 CASTING SESSIONS ─────────────────────────────────────────────────
+  // Due camera tests resolve after screenplay work and before production
+  // allocation. Their observations use isolated derived streams and release the
+  // shared slot during this same visible week.
+  const castingSessions = completeDueCastingSessions(
+    state.castingSessions,
+    currentTick + 1,
+    {
+      seed: state.seed,
+      concepts: state.concepts,
+      talent: state.talent,
+      scriptDevelopment,
+    },
+  )
+
   // ── 1. PRODUCTION ──────────────────────────────────────────────────────────
   // Advance every active production with startTick < currentTick (M1 skip-first-
   // tick: a film greenlit at t does NOT advance during tick t). Immutable: build a
@@ -151,7 +170,10 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     state.operations,
     state.studio.activeProductions,
     currentTick,
-    scriptOccupiedFacilitySlots(scriptDevelopment),
+    new Set([
+      ...scriptOccupiedFacilitySlots(scriptDevelopment),
+      ...castingOccupiedFacilitySlots(castingSessions),
+    ]),
   )
   const advanced: Production[] = productionAdvance.productions
   const operations = productionAdvance.operations
@@ -612,5 +634,6 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     careerEvents,
     operations,
     scriptDevelopment,
+    castingSessions,
   }
 }

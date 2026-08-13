@@ -96,12 +96,13 @@ import {
   makeSave,
   exportSave,
   importSave,
-  migrateToV9,
+  migrateToV10,
   convertV4ToV5,
   convertV5ToV6,
   convertV6ToV7,
   convertV7ToV8,
   convertV8ToV9,
+  convertV9ToV10,
   importLegacyV2ToV4,
   importLegacyV1ToV4,
   // ── D-11 employment / contracts / roster / freelancer market ──
@@ -181,6 +182,8 @@ import {
   activeScriptWriterAssignments,
   readyScriptPerceivedStrength,
   linkedScriptStrengthOverride,
+  // Casting Sessions V1 — narrow advisory evidence and project workflow.
+  castingSessionsReadModel as coreCastingSessionsReadModel,
 } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
@@ -277,6 +280,12 @@ import type {
   ScriptProjectsReadModel,
   ScriptProjectActionView,
   ReadyScriptPackageView,
+  StartCastingSessionPayload,
+  CastingSessionsReadModel,
+  CastingProjectView,
+  CastingCandidateView,
+  AuditionEvidenceView,
+  CastingReviewDecisionView,
 } from '../../../src/core/index.ts'
 
 // Re-export the core types the UI needs, so components import types from the
@@ -351,6 +360,12 @@ export type {
   ScriptProjectsReadModel,
   ScriptProjectActionView,
   ReadyScriptPackageView,
+  StartCastingSessionPayload,
+  CastingSessionsReadModel,
+  CastingProjectView,
+  CastingCandidateView,
+  AuditionEvidenceView,
+  CastingReviewDecisionView,
 }
 
 export const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support']
@@ -734,6 +749,7 @@ export function productionDecision(state: GameState): ProductionBoardCardView | 
 
 export type PlayerStudioDecision =
   | { kind: 'scriptReview'; decision: NonNullable<ScriptProjectsReadModel['nextDecision']> }
+  | { kind: 'castingReview'; decision: CastingReviewDecisionView }
   | { kind: 'productionDecision'; decision: ProductionBoardCardView }
 
 /**
@@ -746,6 +762,9 @@ export function studioDecision(state: GameState): PlayerStudioDecision | null {
   if (decision === null) return null
   if (decision.kind === 'scriptReview') {
     return { kind: 'scriptReview', decision }
+  }
+  if (decision.kind === 'castingReview') {
+    return { kind: 'castingReview', decision }
   }
   const card = productionBoard(state).cards.find(
     (candidate) => candidate.productionId === decision.productionId,
@@ -763,6 +782,46 @@ export function studioDecision(state: GameState): PlayerStudioDecision | null {
 // exact commands. It never inspects ScriptDevelopment or reconstructs legality.
 export function scriptProjectsBoard(state: GameState): ScriptProjectsReadModel {
   return coreScriptProjectsReadModel(state)
+}
+
+// ── Casting Sessions V1: player read/actions boundary ───────────────────────
+// The UI receives persisted Est. evidence and public current Fit/availability
+// only. It sends exact slates back to core; no package choice is inferred here.
+export function castingSessionsBoard(state: GameState): CastingSessionsReadModel {
+  return coreCastingSessionsReadModel(state)
+}
+
+export function activateCastingSessionsAction(state: GameState): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'activateCastingSessions' }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+export function startCastingSessionAction(
+  state: GameState,
+  session: StartCastingSessionPayload,
+): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'startCastingSession', session }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+export function acknowledgeCastingSessionAction(
+  state: GameState,
+  sessionId: string,
+): ActionOutcome {
+  try {
+    return {
+      ok: true,
+      next: applyActions(state, [{ kind: 'acknowledgeCastingSession', sessionId }]),
+    }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
 }
 
 export function commissionScriptAction(
@@ -798,6 +857,11 @@ export function runScriptProjectAction(
         return {
           ok: false,
           error: 'Opening a Ready screenplay is navigation, not a state-changing script command.',
+        }
+      case 'planAuditions':
+        return {
+          ok: false,
+          error: 'Planning auditions is Casting Room navigation, not a state-changing script command.',
         }
     }
   } catch (e) {
@@ -1745,6 +1809,7 @@ export { offerObligation }
 export type SimStopReason =
   | 'release'
   | 'scriptReview'
+  | 'castingReview'
   | 'productionDecision'
   | 'runCompleted'
   | 'contractExpired'
@@ -1762,6 +1827,7 @@ export type SimResult = {
   stopReason: SimStopReason
   productionDecision: ProductionBoardCardView | null
   scriptDecision: ScriptProjectsReadModel['nextDecision']
+  castingDecision: CastingReviewDecisionView | null
   // D-12 Phase 1: the engine-derived stop explanation the UI must display verbatim. React must NOT infer
   // the reason from current state (a completed run leaves no active-run trace to read after the fact).
   stopMessage: string
@@ -1789,12 +1855,40 @@ export function advanceToNextEvent(state: GameState): SimResult {
       stopReason: 'scriptReview',
       productionDecision: null,
       scriptDecision: existingScriptDecision,
+      castingDecision: null,
       stopMessage: simStopMessage('scriptReview', fromWeek, {
         released: [],
         completedRuns: [],
         guardHit: false,
         productionDecision: null,
         scriptDecision: existingScriptDecision,
+        castingDecision: null,
+      }),
+      guardHit: false,
+      summary: corePeriodSummary(state, fromWeek, fromWeek - 1),
+    }
+  }
+  if (existingStudioDecision?.kind === 'castingReview') {
+    const existingCastingDecision = existingStudioDecision.decision
+    return {
+      preTick: state,
+      next: state,
+      released: [],
+      completedRuns: [],
+      fromWeek,
+      toWeek: fromWeek,
+      weeks: 0,
+      stopReason: 'castingReview',
+      productionDecision: null,
+      scriptDecision: null,
+      castingDecision: existingCastingDecision,
+      stopMessage: simStopMessage('castingReview', fromWeek, {
+        released: [],
+        completedRuns: [],
+        guardHit: false,
+        productionDecision: null,
+        scriptDecision: null,
+        castingDecision: existingCastingDecision,
       }),
       guardHit: false,
       summary: corePeriodSummary(state, fromWeek, fromWeek - 1),
@@ -1816,12 +1910,14 @@ export function advanceToNextEvent(state: GameState): SimResult {
       stopReason: 'productionDecision',
       productionDecision: existingDecision,
       scriptDecision: null,
+      castingDecision: null,
       stopMessage: simStopMessage('productionDecision', fromWeek, {
         released: [],
         completedRuns: [],
         guardHit: false,
         productionDecision: existingDecision,
         scriptDecision: null,
+        castingDecision: null,
       }),
       guardHit: false,
       summary: corePeriodSummary(state, fromWeek, fromWeek - 1),
@@ -1834,6 +1930,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
   let stopReason: SimStopReason = 'limit'
   let stoppedProductionDecision: ProductionBoardCardView | null = null
   let stoppedScriptDecision: ScriptProjectsReadModel['nextDecision'] = null
+  let stoppedCastingDecision: CastingReviewDecisionView | null = null
   let guardHit = true // stays true only if the loop exhausts without a governed stop
   for (let i = 0; i < SIM_CAP; i++) {
     const before = cur
@@ -1859,6 +1956,13 @@ export function advanceToNextEvent(state: GameState): SimResult {
     if (nextStudioDecision?.kind === 'scriptReview') {
       stopReason = 'scriptReview'
       stoppedScriptDecision = nextStudioDecision.decision
+      preStop = before
+      guardHit = false
+      break
+    }
+    if (nextStudioDecision?.kind === 'castingReview') {
+      stopReason = 'castingReview'
+      stoppedCastingDecision = nextStudioDecision.decision
       preStop = before
       guardHit = false
       break
@@ -1920,6 +2024,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
     guardHit,
     productionDecision: stoppedProductionDecision,
     scriptDecision: stoppedScriptDecision,
+    castingDecision: stoppedCastingDecision,
   })
   return {
     preTick: preStop,
@@ -1932,6 +2037,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
     stopReason,
     productionDecision: stoppedProductionDecision,
     scriptDecision: stoppedScriptDecision,
+    castingDecision: stoppedCastingDecision,
     stopMessage,
     guardHit,
     summary,
@@ -1949,6 +2055,7 @@ function simStopMessage(
     guardHit: boolean
     productionDecision: ProductionBoardCardView | null
     scriptDecision: ScriptProjectsReadModel['nextDecision']
+    castingDecision: CastingReviewDecisionView | null
   },
 ): string {
   const at = `Stopped at Week ${toWeek}`
@@ -1969,6 +2076,12 @@ function simStopMessage(
       return decision === null
         ? `${at}: a screenplay needs studio review.`
         : `${at}: ${decision.title} needs screenplay review in the Writers’ Room.`
+    }
+    case 'castingReview': {
+      const decision = ctx.castingDecision
+      return decision === null
+        ? `${at}: audition results need studio review.`
+        : `${at}: ${decision.title} has audition results waiting in the Casting Room.`
     }
     case 'runCompleted': {
       const titles = ctx.completedRuns.map((r) => r.title)
@@ -2527,9 +2640,9 @@ export function remainingWeeks(prod: Production): number {
 }
 
 // ── Saves ────────────────────────────────────────────────────────────────────
-// New games save as SaveFileV9. V9 adds authoritative screenplay development to the
-// frozen V8 production-operations state. Older envelopes migrate deterministically to
-// explicit legacy modes without inventing workflows or screenplay history.
+// New games save as SaveFileV10. V10 adds authoritative casting-session history to the
+// frozen V9 screenplay state. Older envelopes migrate deterministically to explicit
+// legacy modes without inventing workflows, screenplays, or auditions.
 export function exportSaveJson(state: GameState): string {
   return exportSave(makeSave(state))
 }
@@ -2538,14 +2651,14 @@ export type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
   | { ok: false; error: string }
 
-// Import a save. Accepts V9 (current) and every legacy version V1–V8, all deterministic.
+// Import a save. Accepts V10 (current) and every legacy version V1–V9, all deterministic.
 // `converted` tells the caller a legacy save was upgraded so the UI can inform the player
-// — their original file is never overwritten (a fresh V9 is returned).
+// — their original file is never overwritten (a fresh V10 is returned).
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    const converted = save.saveVersion !== 9
-    return { ok: true, state: migrateToV9(save).state, converted }
+    const converted = save.saveVersion !== 10
+    return { ok: true, state: migrateToV10(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -2557,7 +2670,7 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))).state,
+      state: convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -2571,7 +2684,7 @@ export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))).state,
+      state: convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -2595,7 +2708,7 @@ export function foundStudioAction(state: GameState): ActionOutcome {
 }
 
 /**
- * Real player founding boundary. The three ordered actions are one pure applyActions
+ * Real player founding boundary. The four ordered actions are one pure applyActions
  * call: if either managed-system activation rejects, the caller keeps the untouched
  * founding state. The legacy wrapper above deliberately remains unchanged for the
  * frozen corpus and test setup that must retain the original direct-greenlight path.
@@ -2608,6 +2721,7 @@ export function foundManagedStudioAction(state: GameState): ActionOutcome {
         { kind: 'foundStudio' },
         { kind: 'activateStudioOperations' },
         { kind: 'activateScriptDevelopment' },
+        { kind: 'activateCastingSessions' },
       ]),
     }
   } catch (e) {
@@ -4763,6 +4877,38 @@ function managedScriptLotCue(
   }
 }
 
+function managedCastingLotCue(
+  state: GameState,
+): { attention: AttentionState; reason: string } | null {
+  if (state.castingSessions.mode !== 'managed') return null
+  const board = castingSessionsBoard(state)
+  const review = board.sections.needsReview[0]
+  if (review !== undefined) {
+    return { attention: 'decision-required', reason: `${review.title} — audition review required` }
+  }
+  const active = board.sections.auditioning[0]
+  if (active !== undefined) {
+    return { attention: 'active', reason: `${active.title} — camera tests underway` }
+  }
+  const readyWithLegalPlan = board.sections.readyToPlan.find((project) =>
+    project.legalActions.some((action) => action.kind === 'planAuditions'),
+  )
+  if (readyWithLegalPlan !== undefined) {
+    return { attention: 'positive', reason: `${readyWithLegalPlan.title} — auditions optional` }
+  }
+  const ready = board.sections.readyToPlan[0]
+  if (ready !== undefined && board.capacity.available === 0) {
+    return {
+      attention: 'warning',
+      reason: 'Development & Casting is full — auditions are waiting for a slot',
+    }
+  }
+  // A Ready screenplay without a legal plan action (for example, fewer than
+  // three currently eligible primary Actors) is not positive Casting activity.
+  // Yield so a real pre-production operation at this building remains visible.
+  return null
+}
+
 /**
  * Project the authoritative GameState into the lot presentation snapshot. Pure,
  * deterministic, non-mutating. The single source the Studio Lot renders from.
@@ -4983,6 +5129,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
 
   const noProductions = prods.length === 0
   const scriptCue = managedScriptLotCue(state)
+  const castingCue = managedCastingLotCue(state)
 
   function managedOperationCue(id: BuildingId): { attention: AttentionState; reason: string } | null {
     if (state.operations.mode !== 'managed') return null
@@ -5042,10 +5189,13 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
         }
         break
       case 'casting': {
-        const cue = managedOperationCue(id)
+        const cue = castingCue ?? managedOperationCue(id)
         if (cue !== null) {
           attention = cue.attention
           reason = cue.reason
+        } else if (state.castingSessions.mode === 'managed') {
+          attention = 'empty'
+          reason = 'No casting session needs attention'
         }
         break
       }

@@ -158,19 +158,26 @@ export function developmentCastingOccupancy(
 export function availableDevelopmentCastingSlots(
   operations: StudioOperations,
   development: ScriptDevelopment,
+  externallyOccupiedSlots: ReadonlySet<string>,
 ): number {
   const capacity = operations.facilities
     .filter((facility) => facility.capability === 'development-casting')
     .reduce((sum, facility) => sum + facility.capacity, 0)
-  return Math.max(0, capacity - developmentCastingOccupancy(operations, development).length)
+  const occupied = new Set(externallyOccupiedSlots)
+  for (const entry of developmentCastingOccupancy(operations, development)) {
+    occupied.add(facilitySlotKey(entry.facilityId, entry.slot))
+  }
+  return Math.max(0, capacity - occupied.size)
 }
 
 export function allocateScriptReservation(
   operations: StudioOperations,
   development: ScriptDevelopment,
   projectId: string,
+  externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
 ): ScriptReservation | null {
-  const occupied = productionOccupiedFacilitySlots(operations)
+  const occupied = new Set(externallyOccupiedSlots)
+  for (const key of productionOccupiedFacilitySlots(operations)) occupied.add(key)
   for (const key of scriptOccupiedFacilitySlots(development, projectId)) occupied.add(key)
 
   const facilities = operations.facilities
@@ -227,6 +234,7 @@ export function commissionScriptProject(
   operations: StudioOperations,
   payload: CommissionScriptPayload,
   commissionedWeek: number,
+  externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
 ): ScriptDevelopment {
   requireManaged(development, 'commission')
   if (operations.mode !== 'managed') {
@@ -253,7 +261,12 @@ export function commissionScriptProject(
   }
 
   const id = nextScriptProjectId(development)
-  const reservation = allocateScriptReservation(operations, development, id)
+  const reservation = allocateScriptReservation(
+    operations,
+    development,
+    id,
+    externallyOccupiedSlots,
+  )
   if (reservation === null) {
     throw new Error(
       'script development: commission rejected — no Development & Casting slot is available',
@@ -399,6 +412,7 @@ export function requestScriptRewrite(
   operations: StudioOperations,
   projectId: string,
   currentWeek: number,
+  externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
 ): ScriptDevelopment {
   requireManaged(development, 'rewrite')
   if (operations.mode !== 'managed') {
@@ -427,7 +441,12 @@ export function requestScriptRewrite(
       `script development: rewrite rejected — writer "${project.writerId}" already has an active screenplay task`,
     )
   }
-  const reservation = allocateScriptReservation(operations, development, project.id)
+  const reservation = allocateScriptReservation(
+    operations,
+    development,
+    project.id,
+    externallyOccupiedSlots,
+  )
   if (reservation === null) {
     throw new Error(
       'script development: rewrite rejected — no Development & Casting slot is available',

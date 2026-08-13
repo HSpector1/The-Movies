@@ -602,9 +602,9 @@ export type DevelopmentCastingOccupancy = {
   facilityId: string
   facilityName: string
   slot: number
-  owner: 'production' | 'script'
+  owner: 'production' | 'script' | 'casting'
   ownerId: string
-  activity: 'production-development' | 'drafting' | 'rewriting'
+  activity: 'production-development' | 'drafting' | 'rewriting' | 'auditioning'
 }
 
 // The live V9 state. Legacy worlds carry an explicit empty screenplay surface;
@@ -613,7 +613,57 @@ export type GameStateV9 = GameStateV8 & {
   scriptDevelopment: ScriptDevelopment
 }
 
-export type GameState = GameStateV9
+// ── Casting Sessions V1 (SaveFileV10) ───────────────────────────────────────
+export type CastingSessionsMode = 'legacy' | 'managed'
+export type CastingSessionStatus = 'auditioning' | 'review' | 'complete'
+
+export type CastingReservation = {
+  sessionId: string
+  facilityId: string
+  capability: 'development-casting'
+  slot: number
+}
+
+export type CastingSlate = Record<CastSlot, [string, string]>
+
+// Persisted camera-test evidence deliberately excludes hidden execution truth,
+// talent attributes, RNG state, and the run seed.
+export type AuditionResult = {
+  talentId: string
+  estimate: number
+  low: number
+  high: number
+}
+
+export type CastingResults = Record<CastSlot, [AuditionResult, AuditionResult]>
+
+export type CastingSession = {
+  id: string
+  projectId: string
+  status: CastingSessionStatus
+  slate: CastingSlate
+  startedWeek: number
+  dueWeek: number | null
+  reservation: CastingReservation | null
+  results: CastingResults | null
+}
+
+export type CastingSessions = {
+  mode: CastingSessionsMode
+  sessions: CastingSession[]
+}
+
+export type StartCastingSessionPayload = {
+  projectId: string
+  slate: CastingSlate
+}
+
+// SaveFileV9 stays recursively frozen above. SaveFileV10 owns the one new root.
+export type GameStateV10 = GameStateV9 & {
+  castingSessions: CastingSessions
+}
+
+export type GameState = GameStateV10
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
@@ -689,6 +739,10 @@ export type Action =
   | { kind: 'requestScriptRewrite'; projectId: string }
   | { kind: 'acceptScript'; projectId: string }
   | { kind: 'greenlightScriptProject'; production: GreenlightScriptProjectPayload }
+  // ── Casting Sessions V1 ──
+  | { kind: 'activateCastingSessions' }
+  | { kind: 'startCastingSession'; session: StartCastingSessionPayload }
+  | { kind: 'acknowledgeCastingSession'; sessionId: string }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

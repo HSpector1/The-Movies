@@ -24,6 +24,7 @@ import {
   exportSaveJson,
   financeCard,
   importSaveJson,
+  castingSessionsBoard,
   selectActiveProductions,
   selectCash,
   selectStanding,
@@ -585,6 +586,77 @@ describe('studioLotSnapshot — Script Projects V1 Writers Room attention', () =
     expect(stage(snap, 'writers')).toMatchObject({
       attention: 'positive',
       attentionReason: cue.headline,
+    })
+  })
+})
+
+describe('studioLotSnapshot — Casting Sessions V1 attention', () => {
+  it('lets an active pre-production operation own Casting when casting has no cue', () => {
+    let state = foundManagedScriptStudio('lot-casting-operation-fallback')
+    state = applyActions(state, [{ kind: 'activateCastingSessions' }])
+    state = commissionScript(state, 0)
+    state = tick(state)
+    state = applyActions(state, [{ kind: 'acceptScript', projectId: 'script-0000' }])
+    state = greenlightReadyScript(state, 'script-0000')
+    state = tick(state) // greenlight tick: skip
+    state = tick(state) // Development → Pre-production at Casting
+
+    const productionId = state.studio.activeProductions[0]!.id
+    const snap = studioLotSnapshot(state)
+    const cue = operation(snap, productionId)
+    expect(cue).toMatchObject({
+      phase: 'preProduction',
+      locationBuildingId: 'casting',
+      attention: 'active',
+    })
+    expect(stage(snap, 'casting')).toMatchObject({
+      attention: 'active',
+      attentionReason: `${cue.title} — ${cue.phaseLabel}`,
+    })
+  })
+
+  it('does not label an actor-blocked Ready screenplay positive over pre-production', () => {
+    let state = foundManagedScriptStudio('lot-casting-actor-blocked', true)
+    state = applyActions(state, [{ kind: 'activateCastingSessions' }])
+    state = commissionScript(state, 0, 0)
+    state = commissionScript(state, 1, 1)
+    state = tick(state)
+    state = applyActions(state, [
+      { kind: 'acceptScript', projectId: 'script-0000' },
+      { kind: 'acceptScript', projectId: 'script-0001' },
+    ])
+    state = greenlightReadyScript(state, 'script-0000')
+    state = tick(state) // greenlight tick: skip
+    state = tick(state) // Development → Pre-production at Casting
+
+    const production = state.studio.activeProductions[0]!
+    const busyActors = new Set(Object.values(production.cast))
+    const keepPrimaryActors = new Set(
+      state.talent
+        .filter((talent) => talent.role === 'actor' && !busyActors.has(talent.id))
+        .slice(0, 2)
+        .map((talent) => talent.id),
+    )
+    state = {
+      ...state,
+      talent: state.talent.map((talent) =>
+        talent.role === 'actor' && !keepPrimaryActors.has(talent.id)
+          ? { ...talent, role: 'director' }
+          : talent,
+      ),
+    }
+
+    const ready = castingSessionsBoard(state).sections.readyToPlan[0]!
+    expect(ready.legalActions.map((action) => action.kind)).not.toContain('planAuditions')
+    expect(ready.blockers).toContainEqual(
+      expect.stringContaining('At least three currently available primary Actors'),
+    )
+    const snap = studioLotSnapshot(state)
+    const cue = operation(snap, production.id)
+    expect(cue).toMatchObject({ phase: 'preProduction', locationBuildingId: 'casting' })
+    expect(stage(snap, 'casting')).toMatchObject({
+      attention: cue.attention,
+      attentionReason: `${cue.title} — ${cue.phaseLabel}`,
     })
   })
 })

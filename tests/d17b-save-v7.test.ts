@@ -36,6 +36,7 @@ import {
   validateSaveV7,
   convertV7ToV8,
   convertV8ToV9,
+  convertV9ToV10,
 } from '../src/core/index.js'
 import type {
   CreativeRole,
@@ -131,10 +132,10 @@ describe('D-17B/E4 — the frozen V7 envelope remains valid and isolated', () =>
     expect(() => validateSaveV7({ ...save, saveVersion: 6 })).toThrow(/expected saveVersion 7/)
   })
 
-  it('V7 through V9 are known, so the unknown-version boundary is now 10', () => {
+  it('V7 through V10 are known, so the unknown-version boundary is now 11', () => {
     const save = makeSaveV7(toV7(foundStudio('d17b-v7-boundary')))
-    expect(() => validateSave({ ...save, saveVersion: 10 })).toThrow(/unknown saveVersion 10/)
-    expect(() => validateSave({ ...save, saveVersion: 10 })).toThrow(/1, 2, 3, 4, 5, 6, 7, 8 and 9 only/)
+    expect(() => validateSave({ ...save, saveVersion: 11 })).toThrow(/unknown saveVersion 11/)
+    expect(() => validateSave({ ...save, saveVersion: 11 })).toThrow(/1, 2, 3, 4, 5, 6, 7, 8, 9 and 10 only/)
   })
 
   it('rejects a V7 whose inherited regime fact or publicity clocks are missing/corrupt', () => {
@@ -226,7 +227,7 @@ describe('D-17B/E4 — migrateToV7 lifts every known version, and the chain stil
     for (let i = 0; i < 6; i++) a = tick(a)
     const reloaded = importSave(exportSave(makeSaveV7(toV7(a))))
     if (reloaded.saveVersion !== 7) throw new Error('expected V7')
-    let split = convertV8ToV9(convertV7ToV8(reloaded)).state
+    let split = convertV9ToV10(convertV8ToV9(convertV7ToV8(reloaded))).state
     let continuous = a
     for (let i = 0; i < 6; i++) {
       split = tick(split)

@@ -49,6 +49,7 @@
 // Ids are unique by construction; names/titles may collide harmlessly (id is key).
 
 import { clamp } from './math.js'
+import { emptyCastingSessions } from './castingSessions.js'
 import { emptyStudioOperations } from './operations.js'
 import { emptyScriptDevelopment } from './scriptDevelopment.js'
 import { stream } from './rng.js'
@@ -662,5 +663,8 @@ export function generateWorld(seed: string): GameState {
     // Script Projects V1: headless and migrated worlds remain on the exact legacy
     // concept-to-greenlight path until a founded player studio explicitly activates it.
     scriptDevelopment: emptyScriptDevelopment(),
+    // Casting Sessions V1: headless worlds carry an explicit legacy-empty surface.
+    // Player activation is governed separately after founding.
+    castingSessions: emptyCastingSessions(),
   }
 }

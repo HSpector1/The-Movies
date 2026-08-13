@@ -4,14 +4,14 @@
 // actual screenplay strength, or ceiling object crosses the boundary.
 
 import { activeContract, busyTalentIds, freelancerMarketIds } from './employment.js'
+import { castingDevelopmentCastingOccupancy } from './castingSessions.js'
 import {
   activeScriptWriterAssignments,
-  availableDevelopmentCastingSlots,
   developmentCastingOccupancy,
   facilitySlotKey,
 } from './scriptDevelopment.js'
 import { roleOVR } from './talentSummary.js'
-import { TUNING } from './tuning.js'
+import { CASTING_MIN_UNIQUE_CANDIDATES, TUNING } from './tuning.js'
 import type {
   Action,
   CreativeRole,
@@ -40,6 +40,7 @@ export type ScriptPlayerBlockerKind =
   | 'writer-assignment'
   | 'production-capacity'
   | 'package-staffing'
+  | 'casting-session'
   | 'no-concepts'
   | 'no-writers'
 
@@ -53,6 +54,7 @@ export type ScriptPlayerBlocker = {
 export type ScriptProjectActionView =
   | { kind: 'acceptScript'; projectId: string; label: string }
   | { kind: 'requestScriptRewrite'; projectId: string; label: string }
+  | { kind: 'planAuditions'; projectId: string; label: string }
   | { kind: 'openPackage'; projectId: string; label: string }
 
 export type EstimatedScriptAssessmentView = {
@@ -90,7 +92,7 @@ export type ScriptProjectCardView = {
 }
 
 export type ScriptCapacityOccupantView = {
-  owner: 'production' | 'script'
+  owner: 'production' | 'script' | 'casting'
   ownerId: string
   activity: DevelopmentCastingOccupancy['activity']
   title: string
@@ -181,6 +183,7 @@ export type ProductionOperationsDecisionView = {
 
 export type StudioDecisionView =
   | ScriptReviewDecisionView
+  | import('./castingReadModel.js').CastingReviewDecisionView
   | ProductionOperationsDecisionView
 
 export type ScriptLotAttentionView = {
@@ -361,7 +364,10 @@ function writerBlockers(
 
 /** Exact, slot-by-slot shared Development & Casting usage. */
 export function scriptCapacityView(state: GameState): ScriptCapacityView {
-  const occupancy = developmentCastingOccupancy(state.operations, state.scriptDevelopment)
+  const occupancy = [
+    ...developmentCastingOccupancy(state.operations, state.scriptDevelopment),
+    ...castingDevelopmentCastingOccupancy(state.operations, state.castingSessions),
+  ]
   const occupancyBySlot = new Map<string, DevelopmentCastingOccupancy>()
   for (const entry of occupancy) {
     const key = facilitySlotKey(entry.facilityId, entry.slot)
@@ -396,7 +402,7 @@ export function scriptCapacityView(state: GameState): ScriptCapacityView {
             title,
             label: `${project.status === 'drafting' ? 'Drafting' : 'Rewriting'} ${title} — ${writer.name}`,
           }
-        } else if (entry !== undefined) {
+        } else if (entry !== undefined && entry.owner === 'production') {
           const production = state.studio.activeProductions.find(
             (candidate) => candidate.id === entry.ownerId,
           )
@@ -410,6 +416,27 @@ export function scriptCapacityView(state: GameState): ScriptCapacityView {
             activity: entry.activity,
             title,
             label: `Production development — ${title}`,
+          }
+        } else if (entry !== undefined) {
+          const session = state.castingSessions.sessions.find(
+            (candidate) => candidate.id === entry.ownerId,
+          )
+          if (session === undefined) {
+            throw new Error(`scriptReadModel: occupancy references unknown casting session "${entry.ownerId}"`)
+          }
+          const project = state.scriptDevelopment.projects.find(
+            (candidate) => candidate.id === session.projectId,
+          )
+          if (project === undefined) {
+            throw new Error(`scriptReadModel: casting session "${session.id}" references unknown project`)
+          }
+          const title = requireConcept(state, project.conceptId).title
+          occupant = {
+            owner: 'casting',
+            ownerId: session.id,
+            activity: 'auditioning',
+            title,
+            label: `Casting session — ${title}`,
           }
         }
         slots.push({ slot, occupant })
@@ -427,10 +454,7 @@ export function scriptCapacityView(state: GameState): ScriptCapacityView {
 
   const capacity = facilities.reduce((sum, facility) => sum + facility.capacity, 0)
   const occupied = facilities.reduce((sum, facility) => sum + facility.occupied, 0)
-  const available = availableDevelopmentCastingSlots(
-    state.operations,
-    state.scriptDevelopment,
-  )
+  const available = Math.max(0, capacity - occupied)
   if (available !== Math.max(0, capacity - occupied)) {
     throw new Error('scriptReadModel: shared capacity totals disagree with authoritative occupancy')
   }
@@ -506,7 +530,7 @@ function commissionAvailability(
     blockers.push({
       kind: 'facility-capacity',
       headline: 'Development & Casting is full',
-      detail: 'Every Development & Casting slot is occupied by screenplay or production work.',
+      detail: 'Every Development & Casting slot is occupied by screenplay, casting, or production work.',
       remedy: 'Wait for a named task to release a slot.',
     })
   }
@@ -602,7 +626,7 @@ function packageAvailability(
       kind: 'facility-capacity',
       headline: 'Development & Casting is full',
       detail: 'Greenlight needs one Development & Casting slot for the production workflow.',
-      remedy: 'Wait for a named screenplay or production task to release a slot.',
+      remedy: 'Wait for a named screenplay, casting, or production task to release a slot.',
     })
   }
   const writerAvailable = !blockers.some(
@@ -652,6 +676,24 @@ function consequenceFor(project: ScriptProject): string {
   }
 }
 
+function canPlanAuditions(
+  state: GameState,
+  project: ScriptProject,
+  capacity: ScriptCapacityView,
+): boolean {
+  if (capacity.available === 0) return false
+  const busy = busyTalentIds(state)
+  const freelancerMarket = new Set(freelancerMarketIds(state))
+  const eligiblePrimaryActors = state.talent.filter(
+    (talent) =>
+      talent.role === 'actor' &&
+      talent.id !== project.writerId &&
+      !busy.has(talent.id) &&
+      (activeContract(state, talent.id) !== undefined || freelancerMarket.has(talent.id)),
+  )
+  return eligiblePrimaryActors.length >= CASTING_MIN_UNIQUE_CANDIDATES
+}
+
 function projectCard(
   state: GameState,
   project: ScriptProject,
@@ -687,12 +729,43 @@ function projectCard(
   } else if (project.status === 'ready') {
     const availability = packageAvailability(state, project, capacity)
     blockers.push(...availability.blockers)
-    if (availability.staffingAvailable) {
+    const castingSession = state.castingSessions.sessions.find(
+      (session) => session.projectId === project.id,
+    )
+    if (
+      state.castingSessions.mode === 'managed' &&
+      castingSession === undefined &&
+      canPlanAuditions(state, project, capacity)
+    ) {
       legalActions.push({
-        kind: 'openPackage',
+        kind: 'planAuditions',
         projectId: project.id,
-        label: 'Open locked package',
+        label: 'Plan auditions',
       })
+    }
+    if (
+      castingSession !== undefined &&
+      (castingSession.status === 'auditioning' || castingSession.status === 'review')
+    ) {
+      blockers.push({
+        kind: 'package-staffing',
+        headline: 'Casting session must be reviewed',
+        detail: `${castingSession.id} is ${castingSession.status === 'auditioning' ? 'still underway' : 'waiting for review'}.`,
+        remedy: 'Open the Casting Room and finish the session before assembling this package.',
+      })
+    }
+    if (availability.staffingAvailable) {
+      if (
+        castingSession === undefined ||
+        castingSession.status === 'complete' ||
+        state.castingSessions.mode === 'legacy'
+      ) {
+        legalActions.push({
+          kind: 'openPackage',
+          projectId: project.id,
+          label: 'Open locked package',
+        })
+      }
     }
   }
 
@@ -726,7 +799,29 @@ function readyPackage(
   if (project.assessment === null || project.status !== 'ready') {
     throw new Error(`scriptReadModel: project "${project.id}" is not a Ready assessed screenplay`)
   }
-  const availability = packageAvailability(state, project, capacity)
+  const baseAvailability = packageAvailability(state, project, capacity)
+  const castingSession = state.castingSessions.sessions.find(
+    (session) => session.projectId === project.id,
+  )
+  const castingClear =
+    state.castingSessions.mode === 'legacy' ||
+    castingSession === undefined ||
+    castingSession.status === 'complete'
+  const availability: ScriptPackageAvailabilityView = castingClear
+    ? baseAvailability
+    : {
+        ...baseAvailability,
+        knownGatesClear: false,
+        blockers: [
+          ...baseAvailability.blockers,
+          {
+            kind: 'casting-session',
+            headline: 'Casting session must be reviewed',
+            detail: `${castingSession!.id} is ${castingSession!.status === 'auditioning' ? 'still underway' : 'waiting for review'}.`,
+            remedy: 'Open the Casting Room and finish the session before assembling this package.',
+          },
+        ],
+      }
   return {
     projectId: project.id,
     concept: { id: concept.id, title: concept.title, genre: concept.genre },
@@ -735,7 +830,7 @@ function readyPackage(
     lockedPromise: clonePromise(project.promise),
     assessment: estimatedScriptAssessment(project.assessment),
     availability,
-    openAction: availability.staffingAvailable
+    openAction: availability.staffingAvailable && castingClear
       ? {
           kind: 'openPackage',
           projectId: project.id,
@@ -911,5 +1006,26 @@ function nextProductionOperationsDecision(
  * have no player command and therefore never become a decision stop.
  */
 export function nextStudioDecision(state: GameState): StudioDecisionView | null {
-  return nextScriptDecision(state) ?? nextProductionOperationsDecision(state)
+  const scriptDecision = nextScriptDecision(state)
+  if (scriptDecision !== null) return scriptDecision
+  const castingReview = state.castingSessions.sessions.find(
+    (session) => session.status === 'review',
+  )
+  if (castingReview !== undefined) {
+    const project = state.scriptDevelopment.projects.find(
+      (candidate) => candidate.id === castingReview.projectId,
+    )
+    if (project === undefined) {
+      throw new Error(
+        `scriptReadModel: casting session "${castingReview.id}" references unknown project`,
+      )
+    }
+    return {
+      kind: 'castingReview',
+      sessionId: castingReview.id,
+      projectId: project.id,
+      title: requireConcept(state, project.conceptId).title,
+    }
+  }
+  return nextProductionOperationsDecision(state)
 }

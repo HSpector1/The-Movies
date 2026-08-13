@@ -12,7 +12,7 @@
 // (D-16 lab §120). It writes to its own artifact directory for exactly that reason.
 //
 // READ-ONLY, THROUGH THE SHIPPED PATH:
-//     readFileSync → importSave (validates) → migrateToV9 (in memory) → .state
+//     readFileSync → importSave (validates) → migrateToV10 (in memory) → .state
 // Nothing is written to the save or to any save file (D-17A precedent). `runOne` handles the
 // resume correctly already: `startWeek`/`openingCash`/`filmsReleasedAtStart`, RELATIVE slices,
 // and `runawayCash(openingCash)` so the studio is not measured against a $60M bar it opened
@@ -32,7 +32,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { importSave, migrateToV9 } from '../../core/index.js'
+import { importSave, migrateToV10 } from '../../core/index.js'
 import type { GameState } from '../../core/index.js'
 import { runOne } from './driver.js'
 import { policyByName } from './policies.js'
@@ -121,7 +121,7 @@ function stableJson(v: unknown, indent = 0): string {
 
 /** Load the owner save READ-ONLY through the shipped import path. */
 function loadOwnerState(path: string): GameState {
-  const save = migrateToV9(importSave(readFileSync(path, 'utf8')))
+  const save = migrateToV10(importSave(readFileSync(path, 'utf8')))
   return save.state
 }
 
@@ -238,7 +238,7 @@ function main(): void {
             'n = 1. This is ONE save, replayed. Nothing here is a rate, nothing here is pooled with the fresh-start corpora, and no number from this file may be quoted as a distribution. It answers the instance; the corpus answers the class.',
           authorizationNote:
             'Arms marked authorization "reference" (two-sided mean reversion with a free pull-up, loss-leg damping, the endogenous EMA pivot) are LABELLED REFERENCE ARMS under D-17B Phase-A gate ruling 2 — reported, never proposed.',
-          readOnlyNote: 'The save is opened read-only through importSave + migrateToV9 (in memory). Nothing is written back.',
+          readOnlyNote: 'The save is opened read-only through importSave + migrateToV10 (in memory). Nothing is written back.',
         },
         makeTag({}, levers),
       ),

@@ -120,7 +120,7 @@ describe('saves: export → import round-trips the EXACT state', () => {
     state = advanceWeek(state).next
 
     const json = exportSaveJson(state)
-    expect(JSON.parse(json).saveVersion).toBe(9)
+    expect(JSON.parse(json).saveVersion).toBe(10)
     const r = importSaveJson(json)
     expect(r.ok).toBe(true)
     if (!r.ok) return
@@ -262,7 +262,7 @@ describe('saves: legacy V1 import (D-9.15) converts and reports the conversion',
 
   it('the legacy affordance rejects a NON-V1 save as data (no crash)', () => {
     const state = newGame('legacy-reject')
-    // A current V9 save is not a V1 save → the legacy path rejects it clearly.
+    // A current V10 save is not a V1 save → the legacy path rejects it clearly.
     const currentJson = exportSaveJson(state)
     let loaded = false
     render(

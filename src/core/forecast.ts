@@ -37,7 +37,7 @@ import type {
 } from './types.js'
 import { magnitude, personaToExpression, safeCosine } from './vector.js'
 import { castContribution, roleFit } from './reception.js'
-import { effectiveSkill } from './talentSummary.js'
+import { castSlotExecution, effectiveSkill } from './talentSummary.js'
 
 const CAST_SLOTS: CastSlot[] = ['lead', 'antagonist', 'support']
 
@@ -114,8 +114,17 @@ function computeDeterministicCore(inp: ForecastInputs, engaged = false): Determi
   for (const slot of CAST_SLOTS) {
     const t = inp.cast[slot]
     const fit = roleFit(t, inp.concept.roleRequirements[slot])
-    const eff = effectiveSkill(t, 'acting', inp.concept, slot, inp.shapeEffects, inp.promise, 'perceived', inp.shape)
-    castNum += CAST_WEIGHT[slot] * (0.6 * eff + 0.4 * 100 * fit)
+    castNum +=
+      CAST_WEIGHT[slot] *
+      castSlotExecution(
+        t,
+        inp.concept,
+        slot,
+        inp.shapeEffects,
+        inp.promise,
+        'perceived',
+        inp.shape,
+      )
     castDen += CAST_WEIGHT[slot]
     fitNum += CAST_WEIGHT[slot] * fit
   }

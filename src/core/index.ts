@@ -46,6 +46,7 @@ export type {
   GameStateV7,
   GameStateV8,
   GameStateV9,
+  GameStateV10,
   PublicityTier,
   PublicityState,
   StudioOperationsMode,
@@ -69,6 +70,15 @@ export type {
   GreenlightScriptProjectPayload,
   ScriptWriterAssignment,
   DevelopmentCastingOccupancy,
+  CastingSessionsMode,
+  CastingSessionStatus,
+  CastingReservation,
+  CastingSlate,
+  AuditionResult,
+  CastingResults,
+  CastingSession,
+  CastingSessions,
+  StartCastingSessionPayload,
   TalentCareerEvent,
   CareerReasonCode,
   Action,
@@ -126,6 +136,11 @@ export { clamp, mean, lerp, smoothstep, remap, weightedMean, sum, product } from
 export {
   TUNING,
   CAST_WEIGHT,
+  CASTING_CANDIDATES_PER_ROLE,
+  CASTING_MIN_UNIQUE_CANDIDATES,
+  CASTING_SESSION_WEEKS,
+  CASTING_OBSERVATION_SIGMA,
+  CASTING_RESULT_HALF_WIDTH,
   SLOT_TRANSFORM,
   ROLE_WEIGHT,
   FORCE_VECTORS,
@@ -261,6 +276,48 @@ export type {
   ScriptDevelopmentInvariantContext,
 } from './scriptDevelopment.js'
 
+// Casting Sessions V1 — optional one-week camera tests and persisted evidence.
+export {
+  emptyCastingSessions,
+  initialManagedCastingSessions,
+  canonicalCastingSessionId,
+  nextCastingSessionId,
+  castingSessionForProject,
+  castingSessionsNeedingReview,
+  nextCastingSessionNeedingReview,
+  castingSlateTalentIds,
+  assertCastingSlateLaw,
+  assertCastingSlateEligibility,
+  castingOccupiedFacilitySlots,
+  castingDevelopmentCastingOccupancy,
+  allocateCastingReservation,
+  startCastingSession,
+  auditionObservation,
+  completeDueCastingSessions,
+  acknowledgeCastingSession,
+  assertCastingSessionsInvariants,
+} from './castingSessions.js'
+export type {
+  CastingStartSources,
+  CastingCompletionSources,
+  CastingSessionsInvariantContext,
+} from './castingSessions.js'
+
+// Casting Sessions V1 — narrow player-facing Casting Room projection.
+export {
+  CASTING_SESSION_CONSEQUENCE,
+  castingSessionsReadModel,
+  nextCastingDecision,
+} from './castingReadModel.js'
+export type {
+  CastingCandidateView,
+  AuditionEvidenceView,
+  CastingProjectActionView,
+  CastingProjectView,
+  CastingReviewDecisionView,
+  CastingSessionsReadModel,
+} from './castingReadModel.js'
+
 // Script Projects V1 — narrow player-facing Writers Room projection. These
 // fresh read models contain perceived estimates and legal commands only.
 export {
@@ -310,6 +367,7 @@ export type { TickOptions } from './tick.js'
 // are display/development inputs (never read by §5/§7). (talentSummary.ts)
 export {
   effectiveSkill,
+  castSlotExecution,
   projectSkillWeights,
   genreExperience,
   workHistoryCount,
@@ -325,7 +383,7 @@ export {
   developmentReport,
   ageRunwayMult,
 } from './talentSummary.js'
-export type { PerformanceBand, DisciplineStanding, CareerIdentity } from './talentSummary.js'
+export type { SkillUse, PerformanceBand, DisciplineStanding, CareerIdentity } from './talentSummary.js'
 
 // ── D-9.8 development (tick step 6 core) — pure per-release skill growth ───────
 export { developTalent } from './development.js'
@@ -545,9 +603,9 @@ export type { CandidatePackage } from './candidates.js'
 export { RandomAgent, OracleAgent } from './agents.js'
 export type { Agent } from './agents.js'
 
-// §17 save — frozen V1–V8 envelopes plus live Script Projects V1 V9.
+// §17 save — frozen V1–V9 envelopes plus live Casting Sessions V1 V10.
 // stableStringify/deepEqual are unchanged. validateSave dispatches on version and
-// loudly rejects unknown versions. New games save as V9.
+// loudly rejects unknown versions. New games save as V10.
 export {
   stableStringify,
   deepEqual,
@@ -561,6 +619,7 @@ export {
   validateSaveV7,
   validateSaveV8,
   validateSaveV9,
+  validateSaveV10,
   makeSave,
   makeSaveV1,
   makeSaveV2,
@@ -571,6 +630,7 @@ export {
   makeSaveV7,
   makeSaveV8,
   makeSaveV9,
+  makeSaveV10,
   loadSave,
   exportSave,
   importSave,
@@ -608,6 +668,9 @@ export {
   emptyLegacyScriptDevelopment,
   convertV8ToV9,
   migrateToV9,
+  // Casting Sessions V1 — legacy V9 → V10 seeds explicit legacy/empty state.
+  convertV9ToV10,
+  migrateToV10,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -619,6 +682,7 @@ export type {
   SaveFileV7,
   SaveFileV8,
   SaveFileV9,
+  SaveFileV10,
   SaveFile,
   TalentV1,
   GameStateV1,

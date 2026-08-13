@@ -277,7 +277,7 @@ describe('Script Projects V1 foundational core', () => {
     expect(project.dueWeek).toBeNull()
     expect(project.reservation).toBeNull()
     expect(nextScriptProjectNeedingReview(reviewed)?.id).toBe(project.id)
-    expect(availableDevelopmentCastingSlots(operations, reviewed)).toBe(2)
+    expect(availableDevelopmentCastingSlots(operations, reviewed, new Set())).toBe(2)
     expect(initial.projects[0]!.status).toBe('drafting')
   })
 
@@ -383,7 +383,7 @@ describe('Script Projects V1 foundational core', () => {
         activity: 'drafting',
       },
     ])
-    expect(availableDevelopmentCastingSlots(operations, development)).toBe(0)
+    expect(availableDevelopmentCastingSlots(operations, development, new Set())).toBe(0)
 
     development = completeDueScriptWork(development, 1, { concepts, talent: roster })
     expect(allocateScriptReservation(operations, development, 'script-0001')?.slot).toBe(1)

@@ -16,7 +16,7 @@ import { fameReach } from './economy.js'
 import { clamp, lerp, mean, remap, smoothstep } from './math.js'
 import type { RngStream } from './rng.js'
 import { specificity } from './shape.js'
-import { effectiveSkill } from './talentSummary.js'
+import { castSlotExecution, effectiveSkill } from './talentSummary.js'
 import { CAST_WEIGHT, FORCE_VECTORS, ROLE_WEIGHT, SLOT_TRANSFORM, TUNING } from './tuning.js'
 import type {
   CastSlot,
@@ -217,10 +217,17 @@ function computeCraft(inp: ReceptionInputs, engaged = false): {
   let castDen = 0
   for (const slot of CAST_SLOTS) {
     const t = inp.cast[slot]
-    const req = inp.concept.roleRequirements[slot]
-    const fit = roleFit(t, req)
-    const eff = effectiveSkill(t, 'acting', inp.concept, slot, inp.shapeEffects, inp.promise, 'actual', inp.shape)
-    castNum += CAST_WEIGHT[slot] * (0.6 * eff + 0.4 * 100 * fit)
+    castNum +=
+      CAST_WEIGHT[slot] *
+      castSlotExecution(
+        t,
+        inp.concept,
+        slot,
+        inp.shapeEffects,
+        inp.promise,
+        'actual',
+        inp.shape,
+      )
     castDen += CAST_WEIGHT[slot]
   }
   const castExecution = castNum / castDen

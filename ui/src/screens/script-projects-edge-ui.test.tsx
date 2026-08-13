@@ -301,7 +301,7 @@ describe('managed screenplay gate truth', () => {
 
     const card = scriptProjectsBoard(state).sections.readyToPackage[0]!
     const blocker = card.blockers.find((candidate) => candidate.kind === 'package-staffing')!
-    expect(card.legalActions).toEqual([])
+    expect(card.legalActions.map((action) => action.kind)).toEqual(['planAuditions'])
 
     render(
       <WritersRoom
@@ -320,5 +320,8 @@ describe('managed screenplay gate truth', () => {
     expect(
       screen.queryByTestId(`script-action-openPackage-${card.projectId}`),
     ).not.toBeInTheDocument()
+    expect(
+      screen.getByTestId(`script-action-planAuditions-${card.projectId}`),
+    ).toBeInTheDocument()
   })
 })

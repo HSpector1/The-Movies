@@ -51,6 +51,13 @@ import {
 import { computeForecast, type ForecastContext } from './forecast.js'
 import { clamp } from './math.js'
 import {
+  acknowledgeCastingSession,
+  assertCastingSessionsInvariants,
+  castingOccupiedFacilitySlots,
+  initialManagedCastingSessions,
+  startCastingSession,
+} from './castingSessions.js'
+import {
   addManagedProductionWorkflow,
   assignShootingDirector,
   clearSceneryLoadIn,
@@ -311,6 +318,18 @@ function applyGreenlight(
     if (!screenplayFactsMatch(scriptProject, p)) {
       throw new Error(
         `applyActions: greenlight rejected — package facts disagree with Ready script project "${scriptProject.id}"`,
+      )
+    }
+    const castingSession = state.castingSessions.sessions.find(
+      (session) => session.projectId === scriptProject.id,
+    )
+    if (
+      state.castingSessions.mode === 'managed' &&
+      castingSession !== undefined &&
+      castingSession.status !== 'complete'
+    ) {
+      throw new Error(
+        `applyActions: greenlightScriptProject rejected — casting session "${castingSession.id}" must be reviewed and acknowledged first`,
       )
     }
   } else if (scriptProjectId !== undefined) {
@@ -597,7 +616,10 @@ function applyGreenlight(
           operations: addManagedProductionWorkflow(
             state.operations,
             production,
-            scriptOccupiedFacilitySlots(state.scriptDevelopment),
+            new Set([
+              ...scriptOccupiedFacilitySlots(state.scriptDevelopment),
+              ...castingOccupiedFacilitySlots(state.castingSessions),
+            ]),
           ),
         }
       : next
@@ -1306,6 +1328,12 @@ function assertCurrentScriptState(state: GameState): GameState {
     activeProductions: state.studio.activeProductions,
     releasedFilms: state.studio.releasedFilms,
   })
+  assertCastingSessionsInvariants(state.castingSessions, {
+    currentWeek: state.market.tick,
+    operations: state.operations,
+    scriptDevelopment: state.scriptDevelopment,
+    talent: state.talent,
+  })
   return state
 }
 
@@ -1372,6 +1400,7 @@ function applyCommissionScript(
       state.operations,
       action.project,
       state.market.tick,
+      castingOccupiedFacilitySlots(state.castingSessions),
     ),
   })
 }
@@ -1405,6 +1434,7 @@ function applyRequestScriptRewrite(
       state.operations,
       action.projectId,
       state.market.tick,
+      castingOccupiedFacilitySlots(state.castingSessions),
     ),
   })
 }
@@ -1467,6 +1497,80 @@ function applyGreenlightScriptProject(
     project.id,
   )
   return assertCurrentScriptState(next)
+}
+
+// ── Casting Sessions V1 actions ─────────────────────────────────────────────
+function applyActivateCastingSessions(
+  state: GameState,
+  _action: Action & { kind: 'activateCastingSessions' },
+): GameState {
+  if (state.castingSessions.mode !== 'legacy') {
+    throw new Error(
+      'applyActions: activateCastingSessions rejected — Casting Sessions are already managed',
+    )
+  }
+  if (state.castingSessions.sessions.length !== 0) {
+    throw new Error(
+      'applyActions: activateCastingSessions rejected — legacy casting state is not empty',
+    )
+  }
+  if (state.operations.mode !== 'managed' || state.scriptDevelopment.mode !== 'managed') {
+    throw new Error(
+      'applyActions: activateCastingSessions rejected — managed Studio Operations and Script Development must be active first',
+    )
+  }
+  if (!economyEngaged(state) || state.founding !== null) {
+    throw new Error(
+      'applyActions: activateCastingSessions rejected — the studio must be founded with its economy engaged',
+    )
+  }
+  return assertCurrentScriptState({
+    ...state,
+    castingSessions: initialManagedCastingSessions(),
+  })
+}
+
+function applyStartCastingSession(
+  state: GameState,
+  action: Action & { kind: 'startCastingSession' },
+): GameState {
+  if (state.founding !== null) {
+    throw new Error(
+      'applyActions: startCastingSession rejected — the studio is still in its founding draft',
+    )
+  }
+  const assignableTalentIds = new Set<string>(freelancerMarketIds(state))
+  for (const person of state.talent) {
+    if (isContracted(state, person.id)) assignableTalentIds.add(person.id)
+  }
+  return assertCurrentScriptState({
+    ...state,
+    castingSessions: startCastingSession(
+      state.castingSessions,
+      state.operations,
+      state.scriptDevelopment,
+      action.session,
+      state.market.tick,
+      {
+        talent: state.talent,
+        assignableTalentIds,
+        busyTalentIds: busyTalentIds(state),
+      },
+    ),
+  })
+}
+
+function applyAcknowledgeCastingSession(
+  state: GameState,
+  action: Action & { kind: 'acknowledgeCastingSession' },
+): GameState {
+  return assertCurrentScriptState({
+    ...state,
+    castingSessions: acknowledgeCastingSession(
+      state.castingSessions,
+      action.sessionId,
+    ),
+  })
 }
 
 // ── D-11 signContract — sign a talent to a studio contract (D-11.4/.5/.6) ─────
@@ -1802,6 +1906,15 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'greenlightScriptProject':
         next = applyGreenlightScriptProject(next, action)
+        break
+      case 'activateCastingSessions':
+        next = applyActivateCastingSessions(next, action)
+        break
+      case 'startCastingSession':
+        next = applyStartCastingSession(next, action)
+        break
+      case 'acknowledgeCastingSession':
+        next = applyAcknowledgeCastingSession(next, action)
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).

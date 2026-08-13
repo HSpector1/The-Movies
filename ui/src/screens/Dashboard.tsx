@@ -43,6 +43,7 @@ export function Dashboard({
   onCreateTalent,
   onOpenHub,
   onOpenRoster,
+  onOpenCasting,
   onOpenHiring,
   onOpenLot,
   onOpenRecap,
@@ -59,6 +60,7 @@ export function Dashboard({
   onCreateTalent: () => void
   onOpenHub?: () => void
   onOpenRoster?: () => void
+  onOpenCasting?: () => void
   onOpenHiring?: () => void
   // Gate D1: open the Studio Lot overview. Optional — present only when the
   // studioLotOverview feature flag is on (default off), so the flag-off app is unchanged.
@@ -91,6 +93,8 @@ export function Dashboard({
   const pendingDecision = studioDecision(state)
   const pendingScriptDecision =
     pendingDecision?.kind === 'scriptReview' ? pendingDecision.decision : null
+  const pendingCastingDecision =
+    pendingDecision?.kind === 'castingReview' ? pendingDecision.decision : null
   const pendingProductionDecision =
     pendingDecision?.kind === 'productionDecision' ? pendingDecision.decision : null
   const managedScripts = scripts.mode === 'managed'
@@ -139,6 +143,8 @@ export function Dashboard({
           <p className="hint">
             {pendingScriptDecision
               ? `${pendingScriptDecision.title} needs screenplay review before unattended simulation can continue.`
+              : pendingCastingDecision
+                ? `${pendingCastingDecision.title} has audition results waiting for review in the Casting Room.`
               : pendingProductionDecision
               ? `${pendingProductionDecision.title} needs a ${pendingProductionDecision.phaseLabel} decision before its countdown can advance.`
               : capacityHold
@@ -150,11 +156,19 @@ export function Dashboard({
           <div className="btn-row">
             <button
               className="accent"
-              onClick={onAssemble}
-              disabled={!managedScripts && (!canGreenlight || !availability.canAssemble)}
+              onClick={pendingCastingDecision ? onOpenCasting : onAssemble}
+              disabled={
+                pendingCastingDecision
+                  ? !onOpenCasting
+                  : !managedScripts && (!canGreenlight || !availability.canAssemble)
+              }
               data-testid="assemble-film"
             >
-              {managedScripts ? 'Open Writers’ Room' : 'Assemble a film'}
+              {pendingCastingDecision
+                ? 'Review casting results'
+                : managedScripts
+                  ? 'Open Writers’ Room'
+                  : 'Assemble a film'}
             </button>
             <button className="primary" onClick={onAdvance} data-testid="advance-week">
               Advance one week
@@ -162,7 +176,11 @@ export function Dashboard({
             <button
               className="primary"
               onClick={onSimToEvent}
-              disabled={pendingScriptDecision !== null || pendingProductionDecision !== null}
+              disabled={
+                pendingScriptDecision !== null ||
+                pendingCastingDecision !== null ||
+                pendingProductionDecision !== null
+              }
               data-testid="sim-to-event"
             >
               Sim to next event
@@ -171,11 +189,13 @@ export function Dashboard({
           <p className="hint">
             {pendingScriptDecision
               ? 'Review the screenplay in the Writers’ Room before unattended simulation. Advancing one week deliberately leaves the review waiting without hidden progress.'
+              : pendingCastingDecision
+                ? 'Review the camera-test evidence before unattended simulation. Acknowledgement is always legal and never selects a winner.'
               : pendingProductionDecision
               ? 'Resolve the command on the Production Board before unattended simulation. You may still advance a week deliberately; the film will hold while studio costs continue.'
               : capacityHold
                 ? 'The Production Board shows the capacity warning. Advance or Sim to retry it while payroll and studio overhead continue.'
-              : 'Sim to next event runs weeks in order — applying payroll, overhead, and theatrical revenue — and stops at a screenplay review, production decision, release, run ending, contract change, or cash going negative.'}
+              : 'Sim to next event runs weeks in order — applying payroll, overhead, and theatrical revenue — and stops at a screenplay review, casting review, production decision, release, run ending, contract change, or cash going negative.'}
           </p>
           {!managedScripts && !canGreenlight && (
             <p className="hint">
@@ -190,6 +210,14 @@ export function Dashboard({
           )}
           <div className="sep" />
           <div className="btn-row">
+            <button
+              className="ghost"
+              onClick={onOpenCasting}
+              disabled={!onOpenCasting}
+              data-testid="open-casting-room"
+            >
+              Casting Room
+            </button>
             <button
               className="ghost"
               onClick={onOpenRoster}

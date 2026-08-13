@@ -354,6 +354,45 @@ describe('Script Projects V1 player read model', () => {
     expect(view.sections.readyToPackage[0]!.legalActions).toEqual([])
   })
 
+  it('offers audition planning only when shared capacity and three primary Actors are legal', () => {
+    let state = foundedManagedStudio('script-read-casting-legality')
+    state = applyActions(state, [{ kind: 'activateCastingSessions' }])
+    const writers = contractedTalent(state)
+    state = applyActions(state, [
+      { kind: 'commissionScript', project: commissionPayload(state, 0, writers[0]!) },
+      { kind: 'commissionScript', project: commissionPayload(state, 1, writers[1]!) },
+    ])
+    state = tick(state)
+    state = applyActions(state, [
+      { kind: 'acceptScript', projectId: 'script-0000' },
+      { kind: 'acceptScript', projectId: 'script-0001' },
+    ])
+
+    const legal = scriptProjectsReadModel(state).sections.readyToPackage[0]!
+    expect(legal.legalActions.map((action) => action.kind)).toContain('planAuditions')
+
+    const primaryActors = state.talent.filter((talent) => talent.role === 'actor')
+    const onlyTwoPrimaryActors: GameState = {
+      ...state,
+      talent: state.talent.map((talent) =>
+        talent.role === 'actor' && !primaryActors.slice(0, 2).some((actor) => actor.id === talent.id)
+          ? { ...talent, role: 'director' }
+          : talent,
+      ),
+    }
+    const actorBlocked = scriptProjectsReadModel(onlyTwoPrimaryActors).sections.readyToPackage[0]!
+    expect(actorBlocked.legalActions.map((action) => action.kind)).not.toContain('planAuditions')
+
+    state = applyActions(state, [
+      { kind: 'commissionScript', project: commissionPayload(state, 2, writers[2]!) },
+      { kind: 'commissionScript', project: commissionPayload(state, 3, writers[3]!) },
+    ])
+    expect(scriptCapacityView(state)).toMatchObject({ occupied: 2, available: 0 })
+    for (const card of scriptProjectsReadModel(state).sections.readyToPackage) {
+      expect(card.legalActions.map((action) => action.kind)).not.toContain('planAuditions')
+    }
+  })
+
   it('keeps active and produced projects in deterministic production history', () => {
     let state = foundedManagedStudio('script-read-history')
     const writers = contractedTalent(state)

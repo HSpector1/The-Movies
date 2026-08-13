@@ -16,6 +16,7 @@ import { BUILDING_ACTION } from './snapshot/StudioLotSnapshot'
 /** Existing app destinations a lot intent can open. */
 export type LotRoute =
   | { kind: 'dashboard' } // overview + finances section + in-production + recent releases
+  | { kind: 'castingRoom' } // Casting Sessions workspace
   | { kind: 'roster' } // Studio Roster
   | { kind: 'hiring' } // Hiring Market
   | { kind: 'hub' } // Talent Hub (read-only browse)
@@ -40,7 +41,7 @@ export type LotActionResolution = {
 export const ACTION_RESOLUTION: Record<LotActionKind, LotActionResolution> = {
   'open-studio-overview': { route: { kind: 'dashboard' }, navLabel: 'Open Dashboard' },
   'assemble-film': { route: { kind: 'assembly' }, navLabel: 'Assemble a Film' },
-  'browse-talent': { route: { kind: 'roster' }, navLabel: 'View Talent' },
+  'browse-talent': { route: { kind: 'castingRoom' }, navLabel: 'Open Casting Room' },
   'review-productions': { route: { kind: 'dashboard' }, navLabel: 'View Production' },
   'view-released-films': { route: { kind: 'dashboard' }, navLabel: 'View Releases' },
   'view-expansion': { route: { kind: 'expansion-info' }, navLabel: 'About future expansion' },
@@ -58,7 +59,7 @@ export function routeForBuilding(id: BuildingId): LotRoute {
 export const BUILDING_BLURBS: Record<BuildingId, string> = {
   gate: 'The studio entrance and overview.',
   admin: 'Studio finances, standing, and the week.',
-  casting: 'Your roster and the talent you can sign.',
+  casting: 'Plan camera tests, review audition evidence, and take a screenplay to package.',
   writers: 'Develop and assemble your next film.',
   'stage-a': 'Soundstage A.',
   'stage-b': 'Soundstage B.',

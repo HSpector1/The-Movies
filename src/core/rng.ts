@@ -43,6 +43,9 @@ export type RngPurpose =
   // productionId. Like 'develop'/'forecast' it never advances state.rngState, so §15.7 deterministic
   // replay + M0A byte-identity hold. Versioned ('-v1') so a future recalibration can re-key cleanly.
   | 'discovery-v1'
+  // Casting Sessions V1: isolated camera-test evidence, keyed by
+  // sessionId:talentId:slot. Derived-only, so completion never advances rngState.
+  | 'casting-v1'
 
 // A 32-bit hash accumulator step (splitmix32 finalizer). Deterministic, avalanche-y.
 function splitmix32(seed: number): { value: number; next: number } {

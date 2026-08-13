@@ -51,6 +51,7 @@ import { StartScreen } from './screens/StartScreen.tsx'
 import { Dashboard } from './screens/Dashboard.tsx'
 import { Assembly } from './screens/Assembly.tsx'
 import { WritersRoom } from './screens/WritersRoom.tsx'
+import { CastingRoom } from './screens/CastingRoom.tsx'
 import { ReleaseResult } from './screens/ReleaseResult.tsx'
 import { Autopsy } from './screens/Autopsy.tsx'
 import { TalentCreator } from './screens/TalentCreator.tsx'
@@ -83,6 +84,7 @@ type Screen =
   | { kind: 'roster' }
   | { kind: 'hiring' }
   | { kind: 'writersRoom' }
+  | { kind: 'castingRoom'; scriptProjectId?: string }
   | { kind: 'assembly'; scriptProjectId?: string }
   | {
       kind: 'release'
@@ -265,6 +267,9 @@ export function App() {
         break
       case 'roster':
         setScreen({ kind: 'roster' })
+        break
+      case 'castingRoom':
+        setScreen({ kind: 'castingRoom' })
         break
       case 'hiring':
         setScreen({ kind: 'hiring' })
@@ -523,6 +528,7 @@ export function App() {
           onCreateTalent={() => setScreen({ kind: 'talent', returnTo: 'dashboard' })}
           onOpenHub={() => setScreen({ kind: 'hub' })}
           onOpenRoster={() => setScreen({ kind: 'roster' })}
+          onOpenCasting={() => setScreen({ kind: 'castingRoom' })}
           onOpenHiring={() => setScreen({ kind: 'hiring' })}
           onSaves={() => setScreen({ kind: 'saves' })}
           onOpenRecap={() => setScreen({ kind: 'recap' })}
@@ -554,6 +560,22 @@ export function App() {
           onOpenPackage={(scriptProjectId) =>
             setScreen({ kind: 'assembly', scriptProjectId })
           }
+          onPlanAuditions={(scriptProjectId) =>
+            setScreen({ kind: 'castingRoom', scriptProjectId })
+          }
+          onBack={goDashboard}
+        />
+      )}
+
+      {screen.kind === 'castingRoom' && (
+        <CastingRoom
+          state={state}
+          onChange={setState}
+          {...(screen.scriptProjectId ? { initialProjectId: screen.scriptProjectId } : {})}
+          onOpenPackage={(scriptProjectId) =>
+            setScreen({ kind: 'assembly', scriptProjectId })
+          }
+          onOpenRoster={() => setScreen({ kind: 'roster' })}
           onBack={goDashboard}
         />
       )}
@@ -635,6 +657,8 @@ export function App() {
           onContinue={() =>
             screen.stopReason === 'scriptReview'
               ? setScreen({ kind: 'writersRoom' })
+              : screen.stopReason === 'castingReview'
+                ? setScreen({ kind: 'castingRoom' })
               : goDashboard()
           }
         />

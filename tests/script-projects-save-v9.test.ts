@@ -17,7 +17,7 @@ import {
   generateWorld,
   importSave,
   initialManagedStudioOperations,
-  makeSave,
+  makeSaveV9,
   makeSaveV8,
   migrateToV8,
   migrateToV9,
@@ -320,7 +320,7 @@ describe("Script Projects V1 — SaveFileV9", () => {
     ];
 
     for (const state of states) {
-      const save = makeSave(state);
+      const save = makeSaveV9(state);
       expect(save.saveVersion).toBe(9);
       expect(validateSave(save)).toBe(save);
       expect(validateSaveV9(save)).toBe(save);
@@ -328,7 +328,7 @@ describe("Script Projects V1 — SaveFileV9", () => {
       expect(exportSave(importSave(json))).toBe(json);
     }
 
-    const longRewrite = makeSave(rewriting);
+    const longRewrite = makeSaveV9(rewriting);
     longRewrite.state.scriptDevelopment.projects[0]!.dueWeek =
       longRewrite.state.market.tick + 4;
     expect(() => validateSaveV9(longRewrite)).toThrow(/rewriting project.*invalid due week/);
@@ -376,24 +376,24 @@ describe("Script Projects V1 — SaveFileV9", () => {
       expect(migrated.state.rngState).toBe(source.state.rngState);
       expect(stableStringify(source)).toBe(before);
     }
-    const current = makeSave(generateWorld("save-v9-identity"));
+    const current = makeSaveV9(generateWorld("save-v9-identity"));
     expect(migrateToV9(current)).toBe(current);
   });
 
-  it("rejects unknown version 10 and refuses to downgrade V9 through migrateToV8", () => {
-    const save = makeSave(generateWorld("save-v9-boundary"));
-    expect(() => validateSave({ ...save, saveVersion: 10 })).toThrow(
-      /unknown saveVersion 10/,
+  it("rejects unknown version 11 and refuses to downgrade V9 through migrateToV8", () => {
+    const save = makeSaveV9(generateWorld("save-v9-boundary"));
+    expect(() => validateSave({ ...save, saveVersion: 11 })).toThrow(
+      /unknown saveVersion 11/,
     );
-    expect(() => validateSave({ ...save, saveVersion: 10 })).toThrow(
-      /1, 2, 3, 4, 5, 6, 7, 8 and 9 only/,
+    expect(() => validateSave({ ...save, saveVersion: 11 })).toThrow(
+      /1, 2, 3, 4, 5, 6, 7, 8, 9 and 10 only/,
     );
     expect(() => migrateToV8(save)).toThrow(/cannot downgrade SaveFileV9/);
   });
 
   it("rejects missing/extra screenplay fields, malformed lifecycle values, and non-finite assessments", () => {
     const base = managedState("save-v9-strict");
-    const save = makeSave(managedState("save-v9-strict", scriptProject(base)));
+    const save = makeSaveV9(managedState("save-v9-strict", scriptProject(base)));
 
     const missing = clone(save) as unknown as Record<string, unknown>;
     const missingState = missing.state as Record<string, unknown>;
@@ -429,7 +429,7 @@ describe("Script Projects V1 — SaveFileV9", () => {
         genre: base.concepts[1]!.genre,
       },
     });
-    const valid = makeSave({
+    const valid = makeSaveV9({
       ...base,
       scriptDevelopment: { mode: "managed", projects: [first, second] },
     });
@@ -469,7 +469,7 @@ describe("Script Projects V1 — SaveFileV9", () => {
 
     const missingSnapshot = clone(valid);
     delete missingSnapshot.studio.activeProductions[0]!.participants;
-    expect(() => makeSave(missingSnapshot)).toThrow(/production participant snapshot/);
+    expect(() => makeSaveV9(missingSnapshot)).toThrow(/production participant snapshot/);
 
     const wrongWriter = clone(valid);
     wrongWriter.studio.activeProductions[0]!.participants!.writer.talentId =
@@ -477,7 +477,7 @@ describe("Script Projects V1 — SaveFileV9", () => {
         (person) =>
           person.id !== wrongWriter.scriptDevelopment.projects[0]!.writerId,
       )!.id;
-    expect(() => makeSave(wrongWriter)).toThrow(/production participant snapshot/);
+    expect(() => makeSaveV9(wrongWriter)).toThrow(/production participant snapshot/);
 
     const releaseReady = clone(valid);
     releaseReady.market.tick = 1;
@@ -491,7 +491,7 @@ describe("Script Projects V1 — SaveFileV9", () => {
     };
     const released = tick(releaseReady);
     expect(released.scriptDevelopment.projects[0]!.status).toBe("produced");
-    expect(() => makeSave(released)).not.toThrow();
+    expect(() => makeSaveV9(released)).not.toThrow();
   });
 
   it("rejects shared Development & Casting slot collisions across scripts and productions", () => {
@@ -536,7 +536,7 @@ describe("Script Projects V1 — SaveFileV9", () => {
       contracts,
       scriptDevelopment: { mode: "managed" as const, projects: [first, second] },
     };
-    expect(() => makeSave(corrupt)).toThrow(/overbooked across scripts\/productions/);
+    expect(() => makeSaveV9(corrupt)).toThrow(/overbooked across scripts\/productions/);
 
     const withProduction = activeProductionState("save-v9-production-slot-collision");
     const production = withProduction.studio.activeProductions[0]!;
@@ -571,7 +571,7 @@ describe("Script Projects V1 — SaveFileV9", () => {
       },
     });
     expect(() =>
-      makeSave({
+      makeSaveV9({
         ...withProduction,
         contracts: [
           {

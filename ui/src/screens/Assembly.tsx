@@ -17,6 +17,7 @@ import type {
   Genre,
   DraftPackage,
   ReadyScriptPackageView,
+  CastingProjectView,
 } from '../engine/adapter.ts'
 import {
   selectConcepts,
@@ -45,6 +46,7 @@ import {
   greenlight,
   greenlightScriptProject,
   scriptProjectsBoard,
+  castingSessionsBoard,
   findConcept,
   assessCreativeCohesion,
   assessPackageFit,
@@ -93,6 +95,7 @@ import { DiscoveryExposureLine } from '../components/DiscoveryExposure.tsx'
 import { ChangePreview } from '../components/ChangePreview.tsx'
 import { ErrorBox, Warn, Metric } from '../components/common.tsx'
 import { TalentCreator } from './TalentCreator.tsx'
+import { CastingEvidence } from './CastingRoom.tsx'
 
 type Step = 'concept' | 'shape' | 'promise' | 'talent' | 'budget' | 'review'
 const STEP_ORDER: Step[] = ['concept', 'shape', 'promise', 'talent', 'budget', 'review']
@@ -268,6 +271,15 @@ export function Assembly({
   const lockedScript = scriptProjectId
     ? screenplayBoard.packages.find((candidate) => candidate.projectId === scriptProjectId)
     : undefined
+  const castingProject = scriptProjectId
+    ? Object.values(castingSessionsBoard(state).sections)
+        .flat()
+        .find((candidate) => candidate.projectId === scriptProjectId)
+    : undefined
+  const castingHandoffAnnouncement =
+    castingProject?.status === 'complete' && castingProject.results !== null
+      ? `${castingProject.title} casting review complete. Blank package opened at Cast & crew. Auditions did not select anyone; choose a currently legal cast.`
+      : null
   const managedRequiresScript = state.scriptDevelopment.mode === 'managed'
   const stepOrder: Step[] = lockedScript ? ['talent', 'budget', 'review'] : STEP_ORDER
   const [draft, setDraft] = useState<Draft>(() => makeInitialDraft(lockedScript))
@@ -281,10 +293,9 @@ export function Assembly({
   const contentRef = useRef<HTMLDivElement>(null)
   const firstRender = useRef(true)
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false
-      return
-    }
+    const isFirstRender = firstRender.current
+    firstRender.current = false
+    if (isFirstRender && castingHandoffAnnouncement === null) return
     const container = contentRef.current
     if (!container) return
     if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
@@ -300,7 +311,7 @@ export function Assembly({
       heading.setAttribute('tabindex', '-1')
       heading.focus()
     }
-  }, [step])
+  }, [step, castingHandoffAnnouncement])
 
   const concepts = selectConcepts(state)
   const concept = draft.conceptId ? findConcept(state, draft.conceptId) : undefined
@@ -490,6 +501,18 @@ export function Assembly({
 
   return (
     <div className="app-shell">
+      {castingHandoffAnnouncement !== null && (
+        <div
+          id="assembly-casting-handoff"
+          className="visually-hidden"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          data-testid="assembly-casting-handoff"
+        >
+          {castingHandoffAnnouncement}
+        </div>
+      )}
       <div className="topbar">
         <div className="brand">
           <span className="mark">{lockedScript ? `PACKAGE ${lockedScript.concept.title}` : 'ASSEMBLE A FILM'}</span>
@@ -533,6 +556,7 @@ export function Assembly({
             engaged={engaged}
             freelancerFees={freelancerFees}
             {...(lockedScript ? { lockedWriter: lockedScript.writer } : {})}
+            {...(castingProject?.results ? { castingProject } : {})}
             onCreateTalent={onStateChange ? () => setCreating(true) : undefined}
             onOpenProfile={onOpenProfile}
           />
@@ -982,6 +1006,7 @@ function TalentStep({
   engaged,
   freelancerFees,
   lockedWriter,
+  castingProject,
   onCreateTalent,
   onOpenProfile,
 }: {
@@ -997,6 +1022,7 @@ function TalentStep({
   engaged: boolean
   freelancerFees: Record<string, number>
   lockedWriter?: ReadyScriptPackageView['writer']
+  castingProject?: CastingProjectView
   onOpenProfile?: ((id: string) => void) | undefined
   // A1: open the Talent Creator without leaving assembly. Undefined ⇒ the action is unavailable
   // (e.g. a test rendered <Assembly> without onStateChange); the button is then simply not shown.
@@ -1044,7 +1070,14 @@ function TalentStep({
           the heading, so it is visible without scrolling past the whole cast. It opens the existing
           creator and returns here with every selection preserved. */}
       <div className="spread">
-        <h2 style={{ margin: 0 }}>Cast &amp; crew the film</h2>
+        <h2
+          style={{ margin: 0 }}
+          tabIndex={-1}
+          aria-describedby={castingProject?.status === 'complete' ? 'assembly-casting-handoff' : undefined}
+          data-testid="assembly-talent-heading"
+        >
+          Cast &amp; crew the film
+        </h2>
         {onCreateTalent && (
           <button
             type="button"
@@ -1065,6 +1098,14 @@ function TalentStep({
         shown. Need someone who does not exist yet? Use Create Custom Talent above — your film
         selections are kept.
       </p>
+      {castingProject && (
+        <div className="panel stack" data-testid="assembly-casting-evidence">
+          <CastingEvidence project={castingProject} />
+          <p className="hint">
+            Auditions did not preselect anyone. Choose a currently legal Lead, Antagonist, and Support below.
+          </p>
+        </div>
+      )}
       <div className="grid grid-2">
         {lockedWriter ? (
           <div className="panel stack" data-testid="locked-script-writer">

@@ -3,6 +3,24 @@
 import '@testing-library/jest-dom/vitest'
 import { beforeEach } from 'vitest'
 
+// Newer Node releases may expose an unusable experimental `localStorage` global
+// unless the process was given a backing file. Even probing that getter emits a
+// process warning, so UI tests install their deterministic browser-storage
+// boundary directly instead of touching the host implementation first.
+const storageValues = new Map<string, string>()
+const memoryStorage: Storage = {
+  get length() { return storageValues.size },
+  clear: () => storageValues.clear(),
+  getItem: (key) => storageValues.get(String(key)) ?? null,
+  key: (index) => [...storageValues.keys()][index] ?? null,
+  removeItem: (key) => { storageValues.delete(String(key)) },
+  setItem: (key, value) => { storageValues.set(String(key), String(value)) },
+}
+Object.defineProperty(globalThis, 'localStorage', {
+  configurable: true,
+  value: memoryStorage,
+})
+
 // D-12 session recovery: the app now autosaves the active session to localStorage, so any test that
 // renders <App> more than once (or after another test) would otherwise RESTORE a prior session instead
 // of starting fresh. Clear browser storage before every test — this restores the pre-persistence

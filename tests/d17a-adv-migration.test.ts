@@ -267,9 +267,9 @@ describe('D-17A/D — validateSave still guards the version boundary loudly', ()
     expect(validateSaveV6(v6)).toBe(v6)
   })
 
-  // Script Projects V1: 9 is now known, so the loud-rejection boundary is 10.
-  it('rejects an unknown version 10 loudly', () => {
-    expect(() => validateSave({ ...v6, saveVersion: 10 })).toThrow(/unknown saveVersion 10/)
+  // Casting Sessions V1: 10 is now known, so the loud-rejection boundary is 11.
+  it('rejects an unknown version 11 loudly', () => {
+    expect(() => validateSave({ ...v6, saveVersion: 11 })).toThrow(/unknown saveVersion 11/)
   })
 
   it('rejects a V6 whose persisted regime fact is missing or not a boolean', () => {

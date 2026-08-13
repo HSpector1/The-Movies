@@ -561,6 +561,15 @@ export const TUNING = {
 // ── §5.1 cast weighting ──────────────────────────────────────────────────────
 export const CAST_WEIGHT: Record<CastSlot, number> = { lead: 1.0, antagonist: 0.6, support: 0.35 }
 
+// ── Casting Sessions V1 ──────────────────────────────────────────────────────────
+// Named constants keep the frozen audition law inspectable without adding a cash
+// tuning surface. V1 is one week, one shared facility slot, and no fee.
+export const CASTING_CANDIDATES_PER_ROLE = 2
+export const CASTING_MIN_UNIQUE_CANDIDATES = 3
+export const CASTING_SESSION_WEEKS = 1
+export const CASTING_OBSERVATION_SIGMA = 3
+export const CASTING_RESULT_HALF_WIDTH = 6
+
 // ── §5.2 expressive contribution weighting ───────────────────────────────────
 // Axis-specific, NOT whole-vector negation. Antagonistic contrast reverses
 // relational warmth; it does not reverse tone or kinetics.

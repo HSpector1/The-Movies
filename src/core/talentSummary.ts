@@ -42,7 +42,7 @@ import type {
 } from './types.js'
 import { personaDistance } from './vector.js'
 
-type SkillUse = 'actual' | 'perceived'
+export type SkillUse = 'actual' | 'perceived'
 
 // ── shared helpers ─────────────────────────────────────────────────────────────
 
@@ -296,6 +296,31 @@ function temperamentMatch(talent: Talent, promise: FilmPromise): number {
 // (Duplicated here to keep talentSummary independent of reception; identical rule.)
 function actorRoleFit(talent: Talent, req: RoleRequirement): number {
   return 1 - clamp(personaDistance(talent.actual, req.target) / req.tolerance, 0, 1)
+}
+
+// Casting Sessions V1 shares this exact role-execution primitive with forecast
+// and reception. Ability follows `use`; role fit deliberately continues to read
+// actual persona in both paths, preserving the established simulation law.
+export function castSlotExecution(
+  talent: Talent,
+  concept: FilmConcept,
+  slot: CastSlot,
+  shapeEffects: ShapeEffects,
+  promise: FilmPromise,
+  use: SkillUse,
+  shape?: FilmShape,
+): number {
+  const ability = effectiveSkill(
+    talent,
+    'acting',
+    concept,
+    slot,
+    shapeEffects,
+    promise,
+    use,
+    shape,
+  )
+  return 0.6 * ability + 0.4 * 100 * actorRoleFit(talent, concept.roleRequirements[slot])
 }
 
 // projectFit(talent, discipline, concept, slot?, shapeEffects, promise): 0..100.
