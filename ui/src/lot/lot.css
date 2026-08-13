@@ -236,10 +236,44 @@
 .lot-hollywood .lot-brand .lot-sub { color: #bfae88; letter-spacing: 0.04em; }
 .lot-hollywood .lot-cash { color: var(--chronicle-cream); font-family: Georgia, serif; font-size: 18px; }
 .lot-hollywood .lot-stage-wrap { min-height: 640px; background: #091510; }
-.lot-hollywood .lot-companion,
 .lot-hollywood .lot-selection,
 .lot-hollywood .lot-review-bar,
 .lot-hollywood .lot-review-show { display: none; }
+/* The canvas is aria-hidden, so the semantic destination list must stay in the
+   accessibility tree. Keep it out of the cinematic composition without using
+   display:none; if the renderer fails, restore the normal visible side panel. */
+.lot-hollywood .lot-companion {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.lot-hollywood .lot-companion:focus-within,
+.lot-hollywood .lot-body:has(.lot-canvas-note[data-testid="lot-canvas-fallback"]) .lot-companion {
+  position: static !important;
+  width: 320px;
+  height: auto;
+  padding: 12px 14px;
+  margin: 0;
+  overflow-y: auto;
+  clip: auto;
+  clip-path: none;
+  white-space: normal;
+  border-left: 1px solid var(--border);
+}
+.lot-hollywood .lot-body:has(.lot-canvas-note[data-testid="lot-canvas-fallback"]) :is(
+  .hollywood-production,
+  .hollywood-inspector,
+  .hollywood-people,
+  .hollywood-activity,
+  .hollywood-perf
+) { display: none; }
 .lot-hollywood .lot-canvas::after {
   content: "";
   position: absolute;
@@ -372,6 +406,12 @@
 @media (max-width: 860px) {
   .lot-body { flex-direction: column; }
   .lot-companion { width: auto; border-left: none; border-top: 1px solid var(--border); }
+  .lot-hollywood .lot-companion:focus-within,
+  .lot-hollywood .lot-body:has(.lot-canvas-note[data-testid="lot-canvas-fallback"]) .lot-companion {
+    width: auto;
+    border-left: 0;
+    border-top: 1px solid var(--border);
+  }
 }
 
 /* ── D1-A studio-identity review bar (dev-only; behind the identity-proof flag) ── */

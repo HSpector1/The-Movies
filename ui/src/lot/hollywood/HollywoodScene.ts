@@ -76,14 +76,15 @@ export type HollywoodPlaceSelection = {
 
 export type HollywoodEvent =
   | { type: 'ready' }
-  | { type: 'person'; person: LotPersonState }
+  | { type: 'person'; person: LotPersonState | null }
   | { type: 'place'; place: HollywoodPlaceSelection }
-  | { type: 'task'; task: HollywoodTaskState }
+  | { type: 'task'; task: HollywoodTaskState | null }
   | { type: 'activity'; text: string | null }
 
 export type HollywoodSceneData = {
   snapshot: StudioLotSnapshot
   onEvent: (event: HollywoodEvent) => void
+  reducedMotion?: boolean
 }
 
 type MovingActor = {
@@ -120,6 +121,8 @@ export class HollywoodScene extends Phaser.Scene {
   private runtimePeople = new Map<string, RuntimePerson>()
   private ambientActors: MovingActor[] = []
   private vehicle: Phaser.GameObjects.Sprite | null = null
+  private vehicleTween: Phaser.Tweens.Tween | null = null
+  private reducedMotion = false
   private selectedPersonId: string | null = null
   private selectedPlaceId: string | null = null
   private task: HollywoodTaskState | null = null
@@ -141,6 +144,7 @@ export class HollywoodScene extends Phaser.Scene {
   init(data: HollywoodSceneData): void {
     this.snapshot = data.snapshot
     this.emitEvent = data.onEvent
+    this.reducedMotion = data.reducedMotion === true
   }
 
   preload(): void {
@@ -162,6 +166,7 @@ export class HollywoodScene extends Phaser.Scene {
     this.buildVehicle()
     this.bindCamera()
     this.applySnapshot(this.snapshot)
+    this.setReducedMotion(this.reducedMotion)
     this.emitEvent({ type: 'ready' })
   }
 
@@ -225,12 +230,60 @@ export class HollywoodScene extends Phaser.Scene {
   }
 
   private buildPeople(): void {
+    this.reconcilePeople(this.snapshot.people)
+  }
+
+  /**
+   * Reconcile the narrow snapshot facts by stable person id. Hollywood owns only the
+   * sprites: additions, changed display facts, and removals all follow the latest
+   * authoritative snapshot without retaining a Talent or Production object.
+   */
+  private reconcilePeople(people: readonly LotPersonState[]): void {
     const positions: Record<'director' | 'talent', Point> = {
       director: { x: 150, y: 806 },
       talent: { x: 1160, y: 489 },
     }
-    for (const person of this.snapshot.people) {
-      if (this.runtimePeople.has(person.id)) continue
+    const nextById = new Map(people.map((person) => [person.id, person]))
+
+    for (const [id, runtime] of this.runtimePeople) {
+      if (nextById.has(id)) continue
+      runtime.sprite.destroy()
+      runtime.label.destroy()
+      this.runtimePeople.delete(id)
+      if (this.selectedPersonId === id) this.clearPersonSelection()
+      if (this.task?.personId === id) this.cancelTask('The assigned person is no longer present in studio authority.')
+    }
+
+    for (const person of people) {
+      const existing = this.runtimePeople.get(person.id)
+      if (existing) {
+        const nameChanged = existing.fact.name !== person.name
+        const authorityChanged = existing.fact.authority !== person.authority
+          || existing.fact.productionId !== person.productionId
+        const roleChanged = existing.fact.role !== person.role
+        const displayChanged = roleChanged
+          || nameChanged
+          || authorityChanged
+          || existing.fact.productionTitle !== person.productionTitle
+
+        existing.fact = person
+        if (existing.label.text !== person.name) existing.label.setText(person.name)
+        if (roleChanged) {
+          const p = positions[person.role]
+          existing.sprite.setTexture(`hollywood-${person.role}`).setPosition(p.x, p.y).setDepth(95)
+        }
+        if (this.task?.personId === person.id && (roleChanged || authorityChanged)) {
+          this.cancelTask('The assigned person’s production authority changed.')
+        } else if (this.task?.personId === person.id && nameChanged) {
+          this.task = { ...this.task, personName: person.name }
+          this.emitTask()
+        }
+        if (displayChanged && this.selectedPersonId === person.id) {
+          this.emitEvent({ type: 'person', person })
+        }
+        continue
+      }
+
       const p = positions[person.role]
       const sprite = this.add.sprite(p.x, p.y, `hollywood-${person.role}`).setOrigin(0.5, 0.92).setDepth(95)
       sprite.setInteractive({ useHandCursor: true })
@@ -275,7 +328,7 @@ export class HollywoodScene extends Phaser.Scene {
 
   private buildVehicle(): void {
     this.vehicle = this.add.sprite(1510, 817, 'hollywood-car').setOrigin(0.5, 0.82).setDepth(96)
-    this.tweens.add({
+    this.vehicleTween = this.tweens.add({
       targets: this.vehicle,
       x: 1050,
       duration: 13000,
@@ -287,6 +340,7 @@ export class HollywoodScene extends Phaser.Scene {
       onYoyo: () => this.vehicle?.setFlipX(true),
       onRepeat: () => this.vehicle?.setFlipX(false),
     })
+    if (this.reducedMotion) this.vehicleTween.pause()
   }
 
   private buildActorTextures(): void {
@@ -377,7 +431,7 @@ export class HollywoodScene extends Phaser.Scene {
 
   applySnapshot(snapshot: StudioLotSnapshot): void {
     this.snapshot = snapshot
-    if (this.scene.isActive()) this.buildPeople()
+    if (this.scene.isActive()) this.reconcilePeople(snapshot.people)
   }
 
   selectPerson(personId: string): void {
@@ -390,6 +444,28 @@ export class HollywoodScene extends Phaser.Scene {
       person.sprite.setTint(selected ? 0xffe6a0 : 0xffffff)
     }
     this.emitEvent({ type: 'person', person: runtime.fact })
+  }
+
+  private clearPersonSelection(): void {
+    if (this.selectedPersonId === null) return
+    this.selectedPersonId = null
+    for (const person of this.runtimePeople.values()) {
+      person.label.setVisible(false)
+      person.sprite.setTint(0xffffff)
+    }
+    this.emitEvent({ type: 'person', person: null })
+  }
+
+  private cancelTask(reason: string): void {
+    if (!this.task) return
+    this.task = null
+    this.taskElapsed = 0
+    this.takeElapsed = 0
+    this.activityGraphics?.clear()
+    this.stageStateText?.setText('STAGE 7 · HOLD')
+    this.stageLamp?.setFillStyle(0x7a160f, 1)
+    this.emitEvent({ type: 'task', task: null })
+    this.emitEvent({ type: 'activity', text: reason })
   }
 
   assignSelectedToStage7(): boolean {
@@ -414,6 +490,7 @@ export class HollywoodScene extends Phaser.Scene {
     this.setShootingVisual('crew-call')
     this.stageStateText?.setText('STAGE 7 · DIRECTOR CALLED')
     this.emitTask()
+    if (this.reducedMotion) this.arriveAtStage(runtime)
     return true
   }
 
@@ -448,6 +525,10 @@ export class HollywoodScene extends Phaser.Scene {
     this.setActivityVisual('publicity', 'flash')
     this.emitEvent({ type: 'activity', text: detail })
     if (this.flash) {
+      if (this.reducedMotion) {
+        this.flash.setAlpha(0)
+        return
+      }
       this.flash.setAlpha(0.72)
       this.tweens.add({ targets: this.flash, alpha: 0, duration: 420, repeat: 2, repeatDelay: 210 })
     }
@@ -459,11 +540,31 @@ export class HollywoodScene extends Phaser.Scene {
     const points = place.selectionPolygon
     const cx = points.reduce((sum, [x]) => sum + x, 0) / points.length
     const cy = points.reduce((sum, [, y]) => sum + y, 0) / points.length
+    const zoom = Math.min(this.fitZoom * 1.35, this.fitZoom * 1.85)
+    if (this.reducedMotion) {
+      this.cameras.main.centerOn(cx, cy)
+      this.cameras.main.setZoom(zoom)
+      return
+    }
     this.cameras.main.pan(cx, cy, 520, 'Sine.easeInOut')
-    this.cameras.main.zoomTo(Math.min(this.fitZoom * 1.35, this.fitZoom * 1.85), 520, 'Sine.easeInOut')
+    this.cameras.main.zoomTo(zoom, 520, 'Sine.easeInOut')
   }
 
   resetCamera(): void { this.fitCamera() }
+
+  /** Freeze Hollywood's ambient/tweened motion while preserving every control and fact. */
+  setReducedMotion(on: boolean): void {
+    this.reducedMotion = on
+    if (on) {
+      this.vehicleTween?.pause()
+      if (this.task && (this.task.status === 'accepted' || this.task.status === 'going')) {
+        const runtime = this.runtimePeople.get(this.task.personId)
+        if (runtime) this.arriveAtStage(runtime)
+      }
+      return
+    }
+    this.vehicleTween?.resume()
+  }
 
   private setShootingVisual(state: string): void { this.setActivityVisual('shooting', state) }
 
@@ -500,13 +601,15 @@ export class HollywoodScene extends Phaser.Scene {
     if (this.frameSamples.length > 240) this.frameSamples.shift()
     this.worstFrameMs = Math.max(this.worstFrameMs, delta)
 
-    for (const actor of this.ambientActors) {
-      actor.phase = (actor.phase + delta * actor.speed) % 1
-      const t = (1 - Math.cos(actor.phase * Math.PI * 2)) / 2
-      actor.sprite.x = Phaser.Math.Linear(actor.a.x, actor.b.x, t)
-      actor.sprite.y = Phaser.Math.Linear(actor.a.y, actor.b.y, t) + Math.sin(actor.phase * Math.PI * 4) * 1.5
-      actor.sprite.setDepth(52 + actor.sprite.y / 28)
-      actor.sprite.setFlipX(actor.phase > 0.5)
+    if (!this.reducedMotion) {
+      for (const actor of this.ambientActors) {
+        actor.phase = (actor.phase + delta * actor.speed) % 1
+        const t = (1 - Math.cos(actor.phase * Math.PI * 2)) / 2
+        actor.sprite.x = Phaser.Math.Linear(actor.a.x, actor.b.x, t)
+        actor.sprite.y = Phaser.Math.Linear(actor.a.y, actor.b.y, t) + Math.sin(actor.phase * Math.PI * 4) * 1.5
+        actor.sprite.setDepth(52 + actor.sprite.y / 28)
+        actor.sprite.setFlipX(actor.phase > 0.5)
+      }
     }
 
     if (this.task && (this.task.status === 'accepted' || this.task.status === 'going')) this.updateTravel(delta)
@@ -550,19 +653,25 @@ export class HollywoodScene extends Phaser.Scene {
       this.emitTask()
     }
     if (rawSegment >= this.route.length - 1) {
-      this.task = {
-        ...this.task,
-        status: 'blocked',
-        cue: 'Waiting at Stage 7',
-        reason: 'Scenery load-in is blocking the camera mark.',
-        progress01: 1,
-      }
-      runtime.sprite.setPosition(b.x, b.y).setDepth(b.actorDepth)
-      this.stageStateText?.setText('STAGE 7 · HOLD FOR SCENERY')
-      this.stageLamp?.setFillStyle(0xc17c22, 1)
-      this.emitTask()
-      this.emitEvent({ type: 'activity', text: 'Mara reached Stage 7. Camera is waiting on scenery load-in.' })
+      this.arriveAtStage(runtime)
     }
+  }
+
+  private arriveAtStage(runtime: RuntimePerson): void {
+    if (!this.task || this.route.length === 0) return
+    const destination = this.route[this.route.length - 1]!
+    this.task = {
+      ...this.task,
+      status: 'blocked',
+      cue: 'Waiting at Stage 7',
+      reason: 'Scenery load-in is blocking the camera mark.',
+      progress01: 1,
+    }
+    runtime.sprite.setPosition(destination.x, destination.y).setDepth(destination.actorDepth)
+    this.stageStateText?.setText('STAGE 7 · HOLD FOR SCENERY')
+    this.stageLamp?.setFillStyle(0xc17c22, 1)
+    this.emitTask()
+    this.emitEvent({ type: 'activity', text: `${runtime.fact.name} reached Stage 7. Camera is waiting on scenery load-in.` })
   }
 
   performanceStats(): HollywoodPerformance {

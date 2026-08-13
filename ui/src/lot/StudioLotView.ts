@@ -54,9 +54,9 @@ export type StudioLotViewOptions = {
   /** A cosmetic activity cue (vignette toast). null = clear. */
   onActivity?: (text: string | null) => void
   /** Operation Hollywood semantic events, kept presentation-only at this boundary. */
-  onHollywoodPerson?: (person: LotPersonState) => void
+  onHollywoodPerson?: (person: LotPersonState | null) => void
   onHollywoodPlace?: (place: HollywoodPlaceSelection) => void
-  onHollywoodTask?: (task: HollywoodTaskState) => void
+  onHollywoodTask?: (task: HollywoodTaskState | null) => void
   /** The lot finished first paint. */
   onReady?: () => void
   /**
@@ -83,6 +83,7 @@ export class StudioLotView {
   private scene: LotScene | null = null
   private hollywoodScene: HollywoodScene | null = null
   private pendingSnapshot: StudioLotSnapshot | null = null
+  private reducedMotion = false
   private readonly opts: StudioLotViewOptions
 
   constructor(opts: StudioLotViewOptions) {
@@ -107,6 +108,7 @@ export class StudioLotView {
         game.scene.add('hollywood', HollywoodScene, true, {
           snapshot: this.pendingSnapshot ?? this.opts.snapshot,
           onEvent: (e: HollywoodEvent) => this.handleHollywoodEvent(e),
+          reducedMotion: this.reducedMotion,
         })
         return
       }
@@ -124,6 +126,7 @@ export class StudioLotView {
   private handleHollywoodEvent(e: HollywoodEvent): void {
     if (e.type === 'ready') {
       this.hollywoodScene = this.game.scene.getScene('hollywood') as HollywoodScene
+      this.hollywoodScene.setReducedMotion(this.reducedMotion)
       if (this.pendingSnapshot && this.pendingSnapshot !== this.opts.snapshot) {
         this.hollywoodScene.applySnapshot(this.pendingSnapshot)
       }
@@ -220,6 +223,7 @@ export class StudioLotView {
   pause(): void {
     this.pauseVignettes(true)
     if (this.game.scene.isActive('lot')) this.game.scene.pause('lot')
+    if (this.game.scene.isActive('hollywood')) this.game.scene.pause('hollywood')
     this.game.loop.sleep()
   }
 
@@ -227,6 +231,7 @@ export class StudioLotView {
   resume(): void {
     this.game.loop.wake()
     if (this.game.scene.isPaused('lot')) this.game.scene.resume('lot')
+    if (this.game.scene.isPaused('hollywood')) this.game.scene.resume('hollywood')
     this.pauseVignettes(false)
   }
 
@@ -242,7 +247,9 @@ export class StudioLotView {
 
   /** Reduced-motion mode — freeze non-essential ambient motion; readability intact. */
   setReducedMotion(on: boolean): void {
+    this.reducedMotion = on
     this.scene?.setReducedMotion(on)
+    this.hollywoodScene?.setReducedMotion(on)
   }
 
   /** D1-A review: switch the studio-identity mode (baseline | concept-a | fallback). */
