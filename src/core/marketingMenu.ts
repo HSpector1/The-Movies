@@ -11,7 +11,7 @@
 //
 // THE ROUNDING IS LAB-EXACT AND LOAD-BEARING. `Math.round(multiplier × capacity)` with
 // strictly-ascending +$1 guards, and a floor of $1 on the bottom rung — the rule at
-// `src/harness/d16/run-d16-corpus.ts:124-129` that produced every measured number. Display
+// the D-17B lab corpus runner's rule that produced every measured number. Display
 // rounding is PRESENTATIONAL and must never change the charged amount: a $25k display quantum
 // collides the rungs at `MARKETING_CAPACITY_MIN` and would invalidate the measurements
 // (reviewer B6). The +$1 guards are what keep the three rungs distinct at the very bottom of

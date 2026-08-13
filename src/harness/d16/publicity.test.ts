@@ -17,9 +17,11 @@ import {
 import type { GameState } from '../../core/index.js'
 import {
   DEFAULT_PUBLICITY,
+  PRODUCTION_PUBLICITY,
   PUBLICITY_NOTE_PREFIX,
   PUBLICITY_TIERS,
   applyPublicity,
+  applyProductionPublicity,
   cooldownRemaining,
   newPublicityMemo,
   publicityAvailable,
@@ -261,6 +263,46 @@ describe('d17b/publicity — availability is a gate, not a suggestion', () => {
     ).toThrow(/INTEGER/)
     expect(() => validatePublicity(DEFAULT_PUBLICITY)).not.toThrow()
   })
+
+  it('rejects probable fraction-vs-percent saturation and identifies saturation in the key', () => {
+    const bad: PublicityConfig = {
+      ...PRODUCTION_PUBLICITY,
+      tiers: {
+        ...PRODUCTION_PUBLICITY.tiers,
+        whisper: { ...PRODUCTION_PUBLICITY.tiers.whisper, saturation: 1 },
+      },
+    }
+    expect(() => validatePublicity(bad)).toThrow(/fraction-vs-percent/)
+    expect(publicityKey(PRODUCTION_PUBLICITY)).toContain('/sat100/')
+  })
+
+  it('the production action agrees exactly with the lab formula at every tier and representative stock', () => {
+    const base = drive(60)
+    for (const tier of PUBLICITY_TIERS) {
+      for (const awareness of [0, 15, 30, 35, 57, 90]) {
+        const state: GameState = {
+          ...base,
+          studio: {
+            ...base.studio,
+            cash: 100_000_000,
+            standing: { ...base.studio.standing, audienceAwareness: awareness },
+          },
+          publicity: { lastUsedWeek: null, byTier: { whisper: null, push: null, blitz: null } },
+        }
+        const memo = newPublicityMemo()
+        const ctx = { week: state.market.tick, weeksSinceRelease: 3 }
+        const lab = applyPublicity(state, { tier }, PRODUCTION_PUBLICITY, memo, ctx)
+        const production = applyProductionPublicity(state, { tier }, PRODUCTION_PUBLICITY, memo, ctx)
+        expect(production.state.studio.cash).toBe(lab.state.studio.cash)
+        expect(production.state.studio.standing.audienceAwareness).toBe(
+          lab.state.studio.standing.audienceAwareness,
+        )
+        expect(production.memo.spend).toBe(lab.memo.spend)
+        expect(production.memo.liftDelivered).toBe(lab.memo.liftDelivered)
+        expect(production.entry?.kind).toBe('publicity')
+      }
+    }
+  })
 })
 
 describe('d17b/publicity — the view panel and the policy channel', () => {
@@ -324,6 +366,7 @@ describe('d17b/publicity — the view panel and the policy channel', () => {
     expect(publicityKey(undefined)).toBeUndefined()
     const k = publicityKey(DEFAULT_PUBLICITY)!
     expect(k).toContain('whisper=')
+    expect(k).toContain('/sat100/')
     expect(k).toContain('gcd=')
   })
 })

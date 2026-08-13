@@ -2,11 +2,17 @@
 //   npx vitest run --config src/harness/d16/vitest.d16.config.ts
 
 import { describe, it, expect } from 'vitest'
-import { TUNING, canAfford, studioRunRecap } from '../../core/index.js'
+import { TUNING, canAfford, marketingLevelsFor, studioRunRecap } from '../../core/index.js'
 import type { GameState } from '../../core/index.js'
 import { foundStudioFor } from './driver.js'
 import { standardCadence } from './policies.js'
-import { STATE_PACKAGE_OPTIONS, bareMinimumPackage, standardPackage } from './packages.js'
+import {
+  STATE_PACKAGE_OPTIONS,
+  bareMinimumPackage,
+  receptionInputsFor,
+  standardPackage,
+  withProductionMarketingMenu,
+} from './packages.js'
 import {
   HEALTHY_RUNWAY_WEEKS,
   RUNAWAY_MULTIPLE,
@@ -123,29 +129,25 @@ describe('d16/states — the ladder is mutually exclusive and correctly ordered'
   })
 })
 
-describe('d16/states — parity with the engine recap', () => {
-  it("the bare-minimum cost reproduces studioRunRecap's parity-tested `cheapest` commitment", () => {
+describe('d16/states — production D-17B menu alignment', () => {
+  it('the bare-minimum package uses its exact core menu while recap retains its documented studio-level floor', () => {
     const recap = studioRunRecap(FOUNDED)
-    const bare = bareMinimumPackage(FOUNDED, STATE_PACKAGE_OPTIONS)
+    const bare = withProductionMarketingMenu(() => bareMinimumPackage(FOUNDED, STATE_PACKAGE_OPTIONS))
     expect(recap.position.cheapest).not.toBeNull()
     expect(bare).not.toBeNull()
-    // Same rule, same grouping: base x minDemand x costScale, then x0.75, plus $100k.
-    // The recap ROUNDS its published `commitment`; D-16 keeps the unrounded value so it
-    // matches the action bit-for-bit, so the two agree to within half a dollar.
-    expect(Math.abs(bare!.committedCost - recap.position.cheapest!.commitment)).toBeLessThanOrEqual(0.5)
-    const b = recap.position.cheapestBreakdown!
-    expect(bare!.committedCost).toBeCloseTo(b.negative + b.marketing + b.freelancerFees, 6)
+    expect(bare!.marketing).toBe(marketingLevelsFor(FOUNDED, receptionInputsFor(FOUNDED, bare!))[0])
+    expect(recap.position.cheapestBreakdown!.marketing).toBe(marketingLevelsFor(FOUNDED, null)[0])
+    expect(bare!.committedCost).toBeGreaterThanOrEqual(recap.position.cheapest!.commitment)
   })
 
-  it("D-16's standard package is BUILDABLE, so it differs slightly from the recap's demand-1.0 model", () => {
+  it('the buildable standard package resolves its own middle rung, not the recap floor or a static grid', () => {
     const recap = studioRunRecap(FOUNDED)
-    const std = standardPackage(FOUNDED, STATE_PACKAGE_OPTIONS)
+    const std = withProductionMarketingMenu(() => standardPackage(FOUNDED, STATE_PACKAGE_OPTIONS))
     expect(std).not.toBeNull()
     expect(recap.position.standard).not.toBeNull()
-    // A2 §7.8: the recap models STANDARD_DEMAND = 1.0, which NO legal shape produces
-    // (closest legal value 0.9975). The gap must therefore be small but non-zero-tolerant.
-    const rel = Math.abs(std!.committedCost - recap.position.standard!.commitment) / recap.position.standard!.commitment
-    expect(rel).toBeLessThan(0.02)
+    expect(std!.marketing).toBe(marketingLevelsFor(FOUNDED, receptionInputsFor(FOUNDED, std!))[1])
+    expect(recap.position.standardBreakdown!.marketing).toBe(marketingLevelsFor(FOUNDED, null)[1])
+    expect(std!.marketing).toBeGreaterThanOrEqual(recap.position.standardBreakdown!.marketing)
   })
 })
 

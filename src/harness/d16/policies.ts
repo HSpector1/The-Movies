@@ -855,7 +855,7 @@ export const neverPublicize: PlayerPolicy = {
   ...standardCadence,
   name: 'Q0_neverPublicize',
   description:
-    'CONTROL. P3 cadence, publicity shim enabled but never used — the arm that proves the publicity plumbing changes nothing when no intent is returned.',
+    'CONTROL. P3 cadence, publicity enabled but never used — the arm that proves the publicity plumbing changes nothing when no intent is returned.',
   publicize() {
     return null
   },

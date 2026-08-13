@@ -40,6 +40,7 @@ import {
   freelancerMarketIds,
   greenlightAssessment,
   isContracted,
+  marketingLevelsFor,
   predictProductionId,
   rangeFrom,
   resolveReception,
@@ -142,6 +143,7 @@ const SHIPPED_GRID: MarketingGrid = [
   MARKETING_BUDGET_LEVELS[2]!,
 ]
 let ACTIVE_GRID: MarketingGrid = SHIPPED_GRID
+let PRODUCTION_MARKETING_MENU = false
 
 /** The triple `grid.ts` ships — the value the neutral arm must always resolve to. */
 export function shippedMarketingGrid(): MarketingGrid {
@@ -151,6 +153,11 @@ export function shippedMarketingGrid(): MarketingGrid {
 /** The triple package generation resolves RIGHT NOW. Read at call time, never snapshotted. */
 export function activeMarketingGrid(): MarketingGrid {
   return ACTIVE_GRID
+}
+
+/** True only while a production-alignment run resolves each package through core D-17B. */
+export function productionMarketingMenuActive(): boolean {
+  return PRODUCTION_MARKETING_MENU
 }
 
 /** Reject a menu that could not be a menu: 3 finite, strictly ascending, non-negative rungs. */
@@ -186,11 +193,32 @@ export function withMarketingGrid<T>(g: MarketingGrid, fn: () => T): T {
   }
 }
 
+/**
+ * Run package generation through the production D-17B menu. The harness still owns its
+ * roster-scoped package enumeration, but each named rung is resolved by the core's
+ * `marketingLevelsFor(state, packageInputs)` for that exact package. Production imports
+ * nothing from the harness; dependency direction remains one-way.
+ */
+export function withProductionMarketingMenu<T>(fn: () => T): T {
+  const saved = PRODUCTION_MARKETING_MENU
+  PRODUCTION_MARKETING_MENU = true
+  try {
+    return fn()
+  } finally {
+    PRODUCTION_MARKETING_MENU = saved
+  }
+}
+
 /** Restoration canary, mirroring `assertTuningPristine`. */
 export function assertMarketingGridPristine(label = ''): void {
   if (ACTIVE_GRID !== SHIPPED_GRID) {
     throw new Error(
       `d16/packages: the marketing grid was not restored${label ? ` (${label})` : ''}: active [${ACTIVE_GRID.join(',')}] !== shipped [${SHIPPED_GRID.join(',')}]`,
+    )
+  }
+  if (PRODUCTION_MARKETING_MENU) {
+    throw new Error(
+      `d16/packages: the production marketing-menu scope was not restored${label ? ` (${label})` : ''}`,
     )
   }
 }
@@ -452,7 +480,9 @@ export function generatePackages(state: GameState, options: PackageOptions = {})
     ...options,
   }
   if (options.marketingLevels === undefined) opts.marketingLevels = activeMarketingGrid()
-  const engaged = employmentEngaged(state)
+  // Historical lab/reference mode preserves its original employment predicate. A production
+  // alignment run follows the action's persisted regime fact exactly (D-17A/R2).
+  const engaged = PRODUCTION_MARKETING_MENU ? economyEngaged(state) : employmentEngaged(state)
   const pools = buildPools(state, opts, engaged)
   const unstaffable: CreativeRole[] = []
   const need: Record<CreativeRole, number> = { writer: 1, director: 1, craft: 1, actor: 3 }
@@ -536,14 +566,41 @@ export function generatePackages(state: GameState, options: PackageOptions = {})
           for (const negIndex of opts.negIndices) {
             const negMult = NEGATIVE_BUDGET_MULTIPLIERS[negIndex]
             if (negMult === undefined) continue
-            for (const marketing of opts.marketingLevels) {
+            // The production capacity depends on the forecast opening, which depends on
+            // Production Budget through realized craft. Resolve the menu INSIDE the negative
+            // loop with this exact package budget; marketing itself remains a harmless zero
+            // placeholder because capacity does not read it.
+            const negative = negMult * requiredNegative
+            const productionMenu = PRODUCTION_MARKETING_MENU
+              ? marketingLevelsFor(state, {
+                  concept,
+                  shape,
+                  shapeEffects: effects,
+                  promise,
+                  budget: { negative, marketing: 0 },
+                  writer: assigned.writer,
+                  director: assigned.director,
+                  cast: assigned.cast,
+                  craftHires: [assigned.craft],
+                  market: state.market,
+                  standing: state.studio.standing,
+                  era: state.era,
+                })
+              : null
+            // Lab policies name rungs by reading ACTIVE_GRID. Recognize those values as
+            // indices in production mode; an explicit off-grid dollar probe stays literal.
+            const marketingChoices = opts.marketingLevels.map((value) => {
+              if (productionMenu === null) return value
+              const rung = ACTIVE_GRID.indexOf(value)
+              return rung < 0 ? value : productionMenu[rung]!
+            })
+            for (const marketing of marketingChoices) {
               if (packages.length >= opts.maxPackages) {
                 truncated = true
                 break outer
               }
               // Grouped EXACTLY like the action: requiredNegative = base × demand × costScale,
               // THEN × multiplier. Unrounded, matching studioRunRecap.cheapestPackage.
-              const negative = negMult * requiredNegative
               const budget: Budget = { negative, marketing }
               packages.push({
                 id: `${concept.id}|${shapeKey}|w${width}|${plan}|n${negIndex}|m${marketing}`,

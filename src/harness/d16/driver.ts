@@ -71,6 +71,7 @@ import {
   standardPackage,
   STATE_PACKAGE_OPTIONS,
   standardGeneration,
+  withProductionMarketingMenu,
   withMarketingGrid,
 } from './packages.js'
 import type { D16Package, MarketingGrid, PackageOptions } from './packages.js'
@@ -86,9 +87,11 @@ import {
 } from './counterflow.js'
 import type { CounterFlowConfig, CounterFlowRelease } from './counterflow.js'
 import {
-  PUBLICITY_NOTE_PREFIX,
   applyPublicity,
+  applyProductionPublicity,
   newPublicityMemo,
+  newProductionPublicityMemo,
+  PRODUCTION_PUBLICITY,
   publicitySpendFromLedger,
   validatePublicity,
 } from './publicity.js'
@@ -269,8 +272,10 @@ export type RunRecord = {
   durableRecovery?: DurableRecovery
   /** run-level awareness reductions (A4 §6). Present when a lab lever is on, or on request. */
   awareness?: AwarenessRecord
-  /** publicity totals. Present only when the publicity shim is configured. */
+  /** publicity totals. Present when lab publicity or production D-17B execution is enabled. */
   publicity?: PublicityRecord
+  /** This row executed the frozen D-17B mechanics through production code, without sim shims. */
+  productionD17b?: true
   /** counter-flow totals. Present only when the shim is on. */
   counterFlow?: { family: string; appliedWeeks: number; netFlow: number; pivotEma: number; releases: number }
   /** captured states (`captureAt`). In memory only — the corpus runner never sets `captureAt`. */
@@ -334,7 +339,7 @@ export type SliceRecord = {
   audienceAwareness: number
   weeklyBurn: number
   engaged: boolean
-  /** D-17B: publicity dollars spent by this run up to this slice. ABSENT when the shim is off. */
+  /** D-17B: publicity dollars spent by this run up to this slice. ABSENT when publicity is off. */
   publicitySpendToSlice?: number
 }
 
@@ -359,6 +364,8 @@ export type RunOptions = {
   counterFlow?: CounterFlowConfig
   /** paid publicity. Absent ⇒ the policy's `publicize` is never called and no view panel. */
   publicity?: PublicityConfig
+  /** Execute the frozen D-17B candidate through production tick/action/menu code, with no sim shims. */
+  productionD17b?: boolean
   /**
    * The marketing menu for THIS run.
    *  • a triple  ⇒ the whole run is executed inside one `withMarketingGrid` scope;
@@ -566,6 +573,14 @@ export function foundStudioFor(seed: string, policy: Policy, initial?: GameState
  * CAPACITY-ANCHORED one is re-resolved per week inside the core.
  */
 export function runOne(opts: RunOptions): RunRecord {
+  if (opts.productionD17b === true) {
+    if (opts.counterFlow !== undefined || opts.publicity !== undefined || opts.marketingGrid !== undefined) {
+      throw new Error(
+        'd17b/driver: productionD17b cannot be combined with counterFlow, publicity, or marketingGrid shims',
+      )
+    }
+    return withProductionMarketingMenu(() => runOneCore(opts))
+  }
   const g = opts.marketingGrid
   if (g !== undefined && typeof g !== 'function') return withMarketingGrid(g, () => runOneCore(opts))
   return runOneCore(opts)
@@ -589,12 +604,13 @@ function runOneCore(opts: RunOptions): RunRecord {
   const sliceWeeks = (opts.sliceWeeks ?? [52, 104, 208]).filter((w) => w <= horizonWeeks)
 
   // ── D-17B levers ──
-  const cfCfg: CounterFlowConfig = opts.counterFlow ?? COUNTER_FLOW_OFF
+  const productionD17b = opts.productionD17b === true
+  const cfCfg: CounterFlowConfig = productionD17b ? COUNTER_FLOW_OFF : (opts.counterFlow ?? COUNTER_FLOW_OFF)
   if (cfCfg.family !== 'off') validateCounterFlow(cfCfg)
-  const pubCfg = opts.publicity
+  const pubCfg = productionD17b ? PRODUCTION_PUBLICITY : opts.publicity
   if (pubCfg !== undefined) validatePublicity(pubCfg)
   const gridFn = typeof opts.marketingGrid === 'function' ? opts.marketingGrid : null
-  const leverOn = cfCfg.family !== 'off' || pubCfg !== undefined || opts.marketingGrid !== undefined
+  const leverOn = productionD17b || cfCfg.family !== 'off' || pubCfg !== undefined || opts.marketingGrid !== undefined
   const wantAwareness = opts.awarenessStats === true || leverOn
   const captureCfg = opts.captureAt
 
@@ -625,7 +641,8 @@ function runOneCore(opts: RunOptions): RunRecord {
 
   // ── D-17B run state ──
   let cfMemo = newCounterFlowMemo(startWeek, cfCfg)
-  let pubMemo: PublicityMemo = newPublicityMemo()
+  let pubMemo: PublicityMemo = productionD17b ? newProductionPublicityMemo(state) : newPublicityMemo()
+  const ledgerLengthAtStart = state.ledger.length
   let lastReleaseWeek = startWeek
   let rosterWallWeek: number | null = null
   let prevContracts: number | null = null
@@ -794,7 +811,7 @@ function runOneCore(opts: RunOptions): RunRecord {
         policy.kind === 'oracle' || policy.publicize === undefined
           ? null
           : policy.publicize(buildPlayerView(state, viewOpts()), makePlayerCtx(state, cache))
-      const step = applyPublicity(state, intent, pubCfg, pubMemo, {
+      const step = (productionD17b ? applyProductionPublicity : applyPublicity)(state, intent, pubCfg, pubMemo, {
         week: state.market.tick,
         weeksSinceRelease: state.market.tick - lastReleaseWeek,
       })
@@ -879,7 +896,7 @@ function runOneCore(opts: RunOptions): RunRecord {
       continue
     }
     // CAPACITY-ANCHORED menu: resolve the three rungs from THIS state's capacity, then run the
-    // whole week (decide, act, publicity, tick, shim) inside that scope, so the classifier, the
+    // whole week (decide, act, publicity, tick, counter-flow) inside that scope, so the classifier, the
     // policy and the package generator all see one menu.
     withMarketingGrid(gridFn(capacityHint(state)), () => {
       runWeek(w)
@@ -888,15 +905,15 @@ function runOneCore(opts: RunOptions): RunRecord {
 
   assertReconciled(state, seed, policy.name)
 
-  // The publicity self-check (A4 §2.3): the shim's own tally must equal Σ of the ledger rows
-  // carrying the note prefix. A mismatch means a cash move and its entry were not paired,
+  // The publicity self-check (A4 §2.3): the run-local tally must equal Σ of the relevant
+  // lab-note or production publicity ledger rows. A mismatch means cash and ledger diverged,
   // which is exactly what corrupts `studioRunRecap`'s ledger-reconstructed cash timeline.
   if (pubCfg !== undefined) {
-    const fromLedger = publicitySpendFromLedger(state)
+    const fromLedger = publicitySpendFromLedger(state, ledgerLengthAtStart)
     if (Math.abs(fromLedger - pubMemo.spend) > EPS) {
       throw new Error(
         `d17b/driver: publicity ledger mismatch (seed ${seed}, policy ${policy.name}): ` +
-          `Σ "${PUBLICITY_NOTE_PREFIX}" rows ${fromLedger} !== shim tally ${pubMemo.spend}. Run HALTED.`,
+          `ledger rows ${fromLedger} !== run tally ${pubMemo.spend}. Run HALTED.`,
       )
     }
   }
@@ -994,6 +1011,7 @@ function runOneCore(opts: RunOptions): RunRecord {
       liftDelivered: pubMemo.liftDelivered,
     }
   }
+  if (productionD17b) record.productionD17b = true
   if (cfCfg.family !== 'off') {
     record.counterFlow = {
       family: cfCfg.family,

@@ -233,7 +233,7 @@ export type PlayerView = {
   releasedFilms: ReleasedFilmView[]
   /** D-15 Studio Run Recap "Current Position" — costly (~2 ms), so sampled, never per-week. */
   position: CurrentPosition | null
-  /** D-17B paid publicity. `null` whenever the shim is disabled (every D-16 arm). */
+  /** D-17B paid publicity. `null` when neither exploratory lab nor production execution enables it. */
   publicity: PublicityPanel | null
 }
 

@@ -380,6 +380,8 @@ export type LabLevers = {
   publicityKey?: string
   /** e.g. '200000,700000,2000000' or 'capacity:1.3,2,2.5'. */
   marketingGridKey?: string
+  /** Exact identity of production mechanics; unlike a lab lever, this does not make CURRENT counterfactual. */
+  productionCandidateKey?: string
 }
 
 export type Tag = LabLevers & {
@@ -417,6 +419,9 @@ export function makeTag(overrides: TuningOverrides = {}, levers: LabLevers = {})
     const v = levers[k]
     if (v !== undefined) tag[k] = v
   }
+  if (levers.productionCandidateKey !== undefined) {
+    tag.productionCandidateKey = levers.productionCandidateKey
+  }
   if (mode === 'COUNTERFACTUAL') {
     const what: string[] = []
     if (overrideKey !== '') what.push(`TUNING overrides {${overrideKey}}`)
@@ -439,6 +444,7 @@ export function tagArtifact<T extends object>(payload: T, tag: Tag): T & Tag {
   if (tag.counterFlowKey !== undefined) out.counterFlowKey = tag.counterFlowKey
   if (tag.publicityKey !== undefined) out.publicityKey = tag.publicityKey
   if (tag.marketingGridKey !== undefined) out.marketingGridKey = tag.marketingGridKey
+  if (tag.productionCandidateKey !== undefined) out.productionCandidateKey = tag.productionCandidateKey
   if (tag.tagNote !== undefined) out.tagNote = tag.tagNote
   return out
 }
