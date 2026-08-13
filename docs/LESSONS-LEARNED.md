@@ -2091,3 +2091,83 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   another required primary-role pool; require a named shortage and no dead-end action.
 - **Pattern:** availability means a complete disjoint assignment exists. **Anti-pattern:** counting
   candidates without subtracting resources the workflow has already consumed.
+
+---
+
+# Casting Sessions V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Contract `efac91f`; implementation and hardening `49d9ae1`. Related:
+> `docs/CASTING-SESSIONS-V1-CONTRACT.md` and
+> `docs/CASTING-SESSIONS-V1-CLOSURE.md`.
+
+## CA. Persisted observations are history, not a live truth query — **MG, BR**
+
+- **Risk:** recomputing an audition, scouting report, or test result when a save loads can rewrite
+  what the player learned after talent, tuning, or availability changes.
+- **Resolution:** compute the noisy observation once from an isolated derived stream and persist
+  only its narrow evidence record. Current legality is projected beside it but never edits it.
+- **Coverage / fastest diagnostic:** complete a session, change the tested person's availability
+  and other truth inputs, save/reload, and require byte-identical estimates/bands plus updated
+  current-status copy.
+- **Pattern:** immutable observation plus live context. **Anti-pattern:** a historical result that
+  is secretly a selector over current state.
+
+## CB. Multi-role candidate counts need an assignment guard — **MG, BR**
+
+- **Risk:** two candidates for each of three roles does not by itself prove that three different
+  people can fill those roles; overlapping pairs can create a slate with no legal cast.
+- **Resolution:** enforce distinct people within each role pair and at least three people across the
+  complete two-by-three slate. For this exact shape, that is the Hall matching guard.
+- **Coverage / fastest diagnostic:** test a two-person slate reused across all roles, legal
+  three-person overlap, duplicate IDs within a role, and every start-time eligibility rejection.
+- **Pattern:** prove a complete disjoint assignment exists. **Anti-pattern:** validating each role
+  pool independently and assuming their union can staff the workflow.
+
+## CC. Shared capacity must be one union at every boundary — **MG, BR**
+
+- **Symptom:** an exported availability helper initially counted screenplay work but not casting,
+  while an empty casting lot cue could hide a real production reservation at the same building.
+- **Resolution:** production, screenplay, and casting owners contribute exact facility-slot keys to
+  one collision set; actions, invariants, ticks, read models, copy, and lot priority all consume it.
+- **Coverage / fastest diagnostic:** occupy the shared facility from each owner direction, attempt
+  every other allocation, and assert both rejection and the same named owner in every surface.
+- **Pattern:** one resource ledger, many projections. **Anti-pattern:** each feature subtracting the
+  owners it happens to know about.
+
+## CD. UI legality is continuous, not true only when a screen opens — **MG, BR**
+
+- **Symptom:** a planner could be legal on entry, retain a selected actor who later became busy,
+  and still present Start as enabled until the core safely rejected it. The lot likewise described
+  auditions as optional for a Ready project that lacked a legal Plan action.
+- **Resolution:** every visible action derives from the current read model, and prepared local state
+  must still be a member of the current legal candidate pools before submission. Presentation cues
+  require the same legal action, not merely the presence of a domain entity.
+- **Coverage / fastest diagnostic:** open a valid workflow, then rerender after capacity, candidate,
+  or staffing changes while alternatives remain. Controls and lot attention must update before a
+  click without discarding harmless preparation.
+- **Pattern:** live legality with atomic core enforcement. **Anti-pattern:** caching permission at
+  navigation time.
+
+## CE. Acknowledgement must release the decision even when the destination closes — **MG, BR**
+
+- **Risk:** if acknowledging evidence also requires a currently staffable package, a market or busy
+  change can trap Sim forever on a review the player cannot clear.
+- **Resolution:** acknowledgement changes only Review to Complete and is always legal. Navigation to
+  Assembly is conditional on the separate package gate; otherwise the same screen names the blocker
+  and focuses the durable completed status.
+- **Coverage / fastest diagnostic:** make a session Review, remove one downstream role pool, then
+  acknowledge. The decision stop must clear with no time/cash/RNG change and package navigation must
+  remain unavailable for the named ordinary reason.
+- **Pattern:** close the information decision independently from the next workflow. **Anti-pattern:**
+  coupling acknowledgement to a volatile downstream gate.
+
+## CF. Lifecycle validation must prove elapsed time, not only field shape — **BR**
+
+- **Symptom:** a structurally tidy V10 Review or Complete session could initially claim the same
+  current week as its start, bypassing the promised one-week consequence.
+- **Resolution:** completed lifecycle classes validate `currentWeek >= startedWeek + duration` in
+  addition to cleared due/reservation fields and complete evidence.
+- **Coverage / fastest diagnostic:** mutate valid Review and Complete saves back to their start week
+  and require strict rejection; the next elapsed week remains valid.
+- **Pattern:** validate temporal causality. **Anti-pattern:** treating null due fields as proof that
+  time passed.

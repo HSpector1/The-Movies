@@ -160,5 +160,24 @@ transition, while the district may only acknowledge the resulting occupancy and 
 SaveFileV9 retains both screenplay and operations identity, so reload can repaint the correct
 building/production state without replaying a cosmetic sequence.
 
-The next engine-owned marathon slice is Casting Sessions V1. It remains separate from the visual
-recommendation above and must preserve the same snapshot and animation-authority boundaries.
+## Casting Sessions V1 bridge update
+
+Casting Sessions V1 is delivered at `49d9ae1dbead2c4f7e8a3db86993d39ad53b44d7` and keeps the
+district on the same narrow truth boundary. The managed Casting / Talent destination now routes to
+the real Casting Room. Its core read model owns the exact screenplay-bound session, role slate,
+shared three-owner facility occupancy, due week, review decision, persisted estimated evidence,
+package blockers, and legal actions.
+
+The Studio Lot snapshot receives only a compact attention reason and authoritative facility
+occupancy. Raw CastingSession objects, hidden actual execution, talent skills and persona, seed,
+RNG state, and mutable GameState do not cross into Phaser. A Ready screenplay paints `auditions
+optional` only when the current core projection actually exposes Plan auditions; otherwise a real
+production operation at that building retains priority.
+
+No audition animation or second clock was added. Camera tests complete only on the weekly core tick,
+and the district may only acknowledge the resulting occupancy or decision state. SaveFileV10
+persists the evidence and lifecycle, so reload repaints Auditioning, Review, or Complete directly
+without replaying a cosmetic sequence or recomputing an observation.
+
+The next engine-owned marathon slice will be named here only after its separate contract is frozen.
+The visual recommendation above remains independent of that governance step.
