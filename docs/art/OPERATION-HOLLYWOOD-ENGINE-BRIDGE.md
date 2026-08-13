@@ -181,3 +181,22 @@ without replaying a cosmetic sequence or recomputing an observation.
 
 The next engine-owned marathon slice will be named here only after its separate contract is frozen.
 The visual recommendation above remains independent of that governance step.
+
+## Studio Calendar & Capacity Board V1 bridge update
+
+Studio Calendar V1 is delivered at `b51df457c5f456baa79894c197dfd7c60a5b481f` and keeps the
+district's existing narrow bridge intact. The Calendar is a React operating surface over one pure
+core projection; it does not send raw `GameState`, future bookings, hidden truth, or a new command
+channel into Phaser.
+
+The exact facility IDs already used by the lot remain authoritative. Development & Casting,
+Soundstage 7, Soundstage 12, Scenery Shop, and Post Building appear in the Calendar from the same
+managed operations state that feeds lot occupancy. Script and casting reservations join production
+reservations in one core collision set, so the Calendar cannot substitute an authored place or
+infer a visually convenient occupant.
+
+Calendar navigation returns production work to the Dashboard Production Board and leaves lot
+animation behavior-neutral. No calendar row moves a person, changes a building, schedules a take,
+advances time, or persists presentation state. A later construction slice must freeze its own
+facility lifecycle and bridge contract before any authored construction or upgrade state becomes
+engine behavior.

@@ -2171,3 +2171,73 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   and require strict rejection; the next elapsed week remains valid.
 - **Pattern:** validate temporal causality. **Anti-pattern:** treating null due fields as proof that
   time passed.
+
+---
+
+# Studio Calendar & Capacity Board V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Contract `9bd2975`; implementation and hardening `b51df45`. Related:
+> `docs/STUDIO-CALENDAR-V1-CONTRACT.md` and
+> `docs/STUDIO-CALENDAR-V1-CLOSURE.md`.
+
+## CG. A planning surface composes authorities; it does not become one — **MG, BR**
+
+- **Risk:** a studio-wide calendar can quietly duplicate decision priority, command legality,
+  resource allocation, or a second clock because it sees every workflow at once.
+- **Resolution:** one pure projection calls the existing `nextStudioDecision`, reads persisted due
+  and accounting facts, and routes by durable identity to the owning screen. It exports no action
+  and persists no UI state.
+- **Coverage / fastest diagnostic:** reverse every source collection and require byte-equal output;
+  then change destination legality before arrival and require the destination's live read model to
+  win.
+- **Pattern:** compose facts and route to owners. **Anti-pattern:** an overview that reimplements
+  the systems it summarizes.
+
+## CH. Dates need both a boundary vocabulary and a certainty class — **MG, BR**
+
+- **Symptom:** `Week N` can mean current accounting label, visible arrival after advance, inclusive
+  work week, exclusive contract end, or a conditional earliest release.
+- **Resolution:** core computes each boundary; copy says what happens on the advance; typed values
+  distinguish committed events from conditional outlook. Contract end is always named exclusive,
+  and a release boundary always names the command/allocation assumption.
+- **Coverage / fastest diagnostic:** replay every projected receipt and due event through the real
+  tick, and advance the final payroll week into contract expiry.
+- **Pattern:** event + boundary + certainty. **Anti-pattern:** a naked calendar number whose meaning
+  changes by row.
+
+## CI. Cross-domain dashboards should reuse complete owning invariants — **BR**
+
+- **Symptom:** a Calendar blocker initially inspected shooting-task status without proving the task
+  still belonged to the production, locked director, soundstage, and blocker that Production
+  Operations requires.
+- **Resolution:** invoke the complete owning operations invariant at the projection boundary, then
+  format the already-valid workflow. Active screenplay and casting reservations likewise reject
+  missing or wrong-capability ownership rather than disappearing.
+- **Coverage / fastest diagnostic:** corrupt one correlation at a time and require failure before a
+  decision or occupancy card is emitted.
+- **Pattern:** validate once with the domain's whole law. **Anti-pattern:** selectively copying the
+  checks needed for today's card.
+
+## CJ. Durable navigation identity still needs a live disappearance path — **MG, BR**
+
+- **Risk:** an item can complete, expire, or become illegal between overview and destination. Focus
+  can fall to `<body>`, or the destination can paint cached permission.
+- **Resolution:** navigation carries only a durable ID. The destination searches its fresh read
+  model, focuses the exact live action/status when present, and otherwise focuses a visible heading
+  above truthful current/empty state. Explicit focus outlines cover every fallback.
+- **Coverage / fastest diagnostic:** route deliberately missing script, casting, production, run,
+  and contract IDs and assert both focus and the destination's live state.
+- **Pattern:** identity handoff plus live lookup plus heading fallback. **Anti-pattern:** passing a
+  cached card or permission object between screens.
+
+## CK. Current occupancy and future outlook must never share visual grammar — **MG, BR**
+
+- **Risk:** painting future production phases like reservations makes a deterministic countdown
+  look like booked capacity and turns a retry assumption into a promise.
+- **Resolution:** slot cards contain only exact current reservations. Production outlook reports
+  present facilities and a textually conditional release boundary, with hold consequences and no
+  future slot bands.
+- **Coverage / fastest diagnostic:** assert exact named facility/slot identity in every phase and
+  prove no future requirement appears in the occupancy union.
+- **Pattern:** current ledger beside conditional outlook. **Anti-pattern:** a Gantt chart backed by
+  no reservation state.
