@@ -20,9 +20,13 @@ import {
 } from '../../../src/core/index.ts'
 import type { GameState, GameStateV5 } from '../../../src/core/index.ts'
 
+// D-17B/E4 (M8 fixture discipline): the live GameState gained `publicity`, so every frozen-shape
+// strip helper below drops it EXPLICITLY. If it were left to leak, the migration tests would go
+// VACUOUS — the "V5" fixture would already carry the field the migration is supposed to add, and
+// a broken converter would still pass. The `Omit<>`-typed returns make an omission a type error.
 // Strip the live state back to the FROZEN GameStateV5 shape a real V5 save carries.
 function toV5(s: GameState): GameStateV5 {
-  const { economyEngagedEver: _dropped, ...v5 } = s
+  const { economyEngagedEver: _dropped, publicity: _publicity, ...v5 } = s
   return v5
 }
 
@@ -66,10 +70,10 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
     expect(r.state.economyEngagedEver).toBe(false)
   })
 
-  it('a V6 save round-trips through the adapter as NOT converted', () => {
+  it('a CURRENT-version save round-trips through the adapter as NOT converted', () => {
     const state = newFoundedGame('d17-adapter-v6')
     const json = exportSaveJson(state)
-    expect(JSON.parse(json).saveVersion).toBe(6)
+    expect(JSON.parse(json).saveVersion).toBe(7) // D-17B/E4: new games save as V7
 
     const r = importSaveJson(json)
     expect(r.ok).toBe(true)

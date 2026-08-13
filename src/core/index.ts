@@ -42,6 +42,9 @@ export type {
   GameStateV2,
   GameStateV4,
   GameStateV5,
+  GameStateV6,
+  PublicityTier,
+  PublicityState,
   TalentCareerEvent,
   CareerReasonCode,
   Action,
@@ -429,6 +432,7 @@ export {
   validateSaveV4,
   validateSaveV5,
   validateSaveV6,
+  validateSaveV7,
   makeSave,
   makeSaveV1,
   makeSaveV2,
@@ -436,6 +440,7 @@ export {
   makeSaveV4,
   makeSaveV5,
   makeSaveV6,
+  makeSaveV7,
   loadSave,
   exportSave,
   importSave,
@@ -460,8 +465,24 @@ export {
   // fact), deterministic + idempotent.
   convertV5ToV6,
   migrateToV6,
+  // D-17B/E4 — legacy V6 → NEW V7 + migrateToV7 (seeds the empty publicity state),
+  // deterministic + idempotent.
+  convertV6ToV7,
+  migrateToV7,
+  emptyPublicityState,
 } from './save.js'
-export type { SaveFileV1, SaveFileV2, SaveFileV3, SaveFileV4, SaveFileV5, SaveFileV6, SaveFile, TalentV1, GameStateV1 } from './save.js'
+export type {
+  SaveFileV1,
+  SaveFileV2,
+  SaveFileV3,
+  SaveFileV4,
+  SaveFileV5,
+  SaveFileV6,
+  SaveFileV7,
+  SaveFile,
+  TalentV1,
+  GameStateV1,
+} from './save.js'
 
 // ── D-14 Talent Career Impact — Star Power progression + frozen career events ──
 export {

@@ -48,7 +48,10 @@ import type {
   GameStateV3,
   GameStateV4,
   GameStateV5,
+  GameStateV6,
   Genre,
+  LedgerKind,
+  PublicityState,
   GenreExperience,
   Persona,
   SkillProfiles,
@@ -125,17 +128,35 @@ export type SaveFileV5 = {
   broadcastCache: BroadcastItem[]
 }
 
-// The D-17A V6 envelope — the live GameState (V5 + the persisted engagement fact, R2).
-// New games save as V6.
+// The D-17A V6 envelope — the FROZEN GameStateV6 (V5 + the persisted engagement fact, R2).
+// Anchored to GameStateV6 (not the live GameState) so the D-17B `publicity` field does NOT
+// leak into the frozen V6 shape, exactly as V3/V4/V5 are anchored. D-17B no longer WRITES
+// V6 (new games save V7), but old V6 saves load and upgrade cleanly.
 export type SaveFileV6 = {
   saveVersion: 6
+  seed: string
+  state: GameStateV6
+  broadcastCache: BroadcastItem[]
+}
+
+// The D-17B V7 envelope — the live GameState (V6 + publicity cooldown state, E4).
+// New games save as V7.
+export type SaveFileV7 = {
+  saveVersion: 7
   seed: string
   state: GameState
   broadcastCache: BroadcastItem[]
 }
 
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
-export type SaveFile = SaveFileV1 | SaveFileV2 | SaveFileV3 | SaveFileV4 | SaveFileV5 | SaveFileV6
+export type SaveFile =
+  | SaveFileV1
+  | SaveFileV2
+  | SaveFileV3
+  | SaveFileV4
+  | SaveFileV5
+  | SaveFileV6
+  | SaveFileV7
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -338,6 +359,32 @@ export function validateSaveV6(save: unknown): SaveFileV6 {
   return save as SaveFileV6
 }
 
+// The D-17B V7 envelope validator (adds `publicity`; same envelope shape check, and NO field
+// check — see below).
+//
+// WHY THERE IS NO `publicity` FIELD CHECK, when V6 has one for `economyEngagedEver`
+// (D-17B §5/E4, decided and recorded here). The V6 exception exists because
+// `economyEngagedEver` is a REGIME fact: absent, it reads falsy and silently DISENGAGES a
+// real studio's whole D-12 economy — no overhead, no solvency gate, no weekly Studio Revenue
+// — which is a wrong-behaviour-in-silence hazard, so it must fail loudly at load.
+// `publicity` is not that. It is a pair of COOLDOWN CLOCKS whose only meaning is "how recently
+// did you buy a campaign", every field of which is legitimately `null` for a studio that has
+// never bought one. A missing object therefore has an exactly-correct default — the empty
+// state `convertV6ToV7` seeds — and defaulting it costs the player at most one prematurely
+// available campaign, never a change of economic law. So this stays converter-only, and the
+// module's "the save is plain data, not re-validated field-by-field" rule holds.
+export function validateSaveV7(save: unknown): SaveFileV7 {
+  if (save === null || typeof save !== 'object') {
+    throw new Error('validateSaveV7: save is not an object')
+  }
+  const s = save as Record<string, unknown>
+  if (s.saveVersion !== 7) {
+    throw new Error(`validateSaveV7: expected saveVersion 7, got ${JSON.stringify(s.saveVersion)}`)
+  }
+  checkEnvelope(s, 'validateSaveV7')
+  return save as SaveFileV7
+}
+
 // ── Version-dispatching validation (LOUD rejection of unknown versions) ──────
 // Returns the correctly-narrowed envelope for a known version; throws for any
 // other saveVersion. The three versions carry DIFFERENT shapes (V1 legacy scalar
@@ -353,8 +400,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 4) return validateSaveV4(save)
   if (s.saveVersion === 5) return validateSaveV5(save)
   if (s.saveVersion === 6) return validateSaveV6(save)
+  if (s.saveVersion === 7) return validateSaveV7(save)
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1, 2, 3, 4, 5 and 6 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1, 2, 3, 4, 5, 6 and 7 only)`,
   )
 }
 
@@ -420,8 +468,9 @@ export function makeSaveV5(state: GameStateV5): SaveFileV5 {
   return validateSaveV5(save)
 }
 
-// Build a validated V6 envelope from the live (D-17A) GameState. This is what new games use.
-export function makeSaveV6(state: GameState): SaveFileV6 {
+// Build a validated V6 envelope from a FROZEN GameStateV6 (pre-D-17B). Kept typed against the
+// frozen shape for the V5→V6 conversion and V6 fixtures. D-17B no longer writes V6.
+export function makeSaveV6(state: GameStateV6): SaveFileV6 {
   const save: SaveFileV6 = {
     saveVersion: 6,
     seed: state.seed,
@@ -431,9 +480,20 @@ export function makeSaveV6(state: GameState): SaveFileV6 {
   return validateSaveV6(save)
 }
 
-// makeSave — the D-17A default. New games save as V6.
-export function makeSave(state: GameState): SaveFileV6 {
-  return makeSaveV6(state)
+// Build a validated V7 envelope from the live (D-17B) GameState. This is what new games use.
+export function makeSaveV7(state: GameState): SaveFileV7 {
+  const save: SaveFileV7 = {
+    saveVersion: 7,
+    seed: state.seed,
+    state,
+    broadcastCache: state.broadcastItems,
+  }
+  return validateSaveV7(save)
+}
+
+// makeSave — the D-17B default. New games save as V7.
+export function makeSave(state: GameState): SaveFileV7 {
+  return makeSaveV7(state)
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -798,13 +858,22 @@ export function convertV4ToV5(v4: SaveFileV4): SaveFileV5 {
 
 // The ledger kinds ONLY an engaged studio can write (D-11/D-12 economics). Excludes
 // `production` and `boxOffice`, which the non-engaged D-1 path also writes.
-const ENGAGED_KINDS: ReadonlySet<string> = new Set([
+//
+// D-17B §5 (binding): typed `ReadonlySet<LedgerKind>` so that adding a LedgerKind makes the
+// membership decision a COMPILE-TIME question rather than a silently-omitted string. Every
+// kind's membership is decided explicitly here, and the reason is the same one D-17A used:
+// could the HEADLESS/M0A path ever write it?
+const ENGAGED_KINDS: ReadonlySet<LedgerKind> = new Set<LedgerKind>([
   'payroll',
   'overhead',
   'signingBonus',
   'termination',
   'freelancerFee',
   'studioRevenue',
+  // D-17B §5: publicity is ENGAGED-ONLY by construction — `applyPublicity` rejects when the
+  // economy is not engaged, so no headless/M0A save can carry this kind. It is therefore
+  // valid evidence of engagement and IS a member.
+  'publicity',
 ])
 
 export function convertV5ToV6(v5: SaveFileV5): SaveFileV6 {
@@ -815,12 +884,42 @@ export function convertV5ToV6(v5: SaveFileV5): SaveFileV6 {
     oldState.contracts.length > 0 ||
     oldState.ledger.some((e) => ENGAGED_KINDS.has(e.kind)) ||
     oldState.theatricalRuns.some((r) => r.economyModelVersion >= 1)
-  const newState: GameState = {
+  // NOTE: this literal is a FROZEN GameStateV6 — it must NOT carry the D-17B `publicity`
+  // field. The V6→V7 step seeds that (convertV6ToV7).
+  const newState: GameStateV6 = {
     ...oldState,
     economyEngagedEver: everEngaged,
     // rngState carried through by the spread, UNCHANGED — the resumed run replays identically.
   }
   return makeSaveV6(newState)
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// D-17B / E4 — deterministic V6 → V7 conversion (the publicity mechanic's save state).
+//   Adds the EMPTY publicity state: `lastUsedWeek: null` and every tier `null`. Nothing is
+//   reconstructed and nothing is guessed — a V6 save predates the mechanic, so it has no
+//   campaign history, and "never used" is the exact truth rather than an approximation
+//   (contrast the V5→V6 step, which had to RECONSTRUCT a regime fact from evidence).
+//   Consequence for the player: a migrated studio may buy its first campaign immediately,
+//   which is correct — it has never bought one.
+//   Deterministic, idempotent (byte-identical under stableStringify on repeat), `rngState`
+//   carried through UNCHANGED, and the V6 input is never mutated.
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/** The empty publicity state — no campaign ever bought. The ONE place it is spelled out. */
+export function emptyPublicityState(): PublicityState {
+  return { lastUsedWeek: null, byTier: { whisper: null, push: null, blitz: null } }
+}
+
+export function convertV6ToV7(v6: SaveFileV6): SaveFileV7 {
+  const validated = validateSaveV6(v6) // defensive: never trust an unvalidated input
+  const oldState = validated.state
+  const newState: GameState = {
+    ...oldState,
+    publicity: emptyPublicityState(),
+    // rngState carried through by the spread, UNCHANGED — the resumed run replays identically.
+  }
+  return makeSaveV7(newState)
 }
 
 // importLegacyV{3,2,1}ToV4 — parse a legacy JSON string and return a NEW SaveFileV4.
@@ -857,11 +956,22 @@ export function migrateToV5(save: SaveFileV1 | SaveFileV2 | SaveFileV3 | SaveFil
   return convertV4ToV5(migrateToV4(save))
 }
 
-// migrateToV6 — bring ANY known save version up to the live V6 (the load-to-play entry).
-// V6 passes through; V1–V5 migrate deterministically. Idempotent. The V5→V6 step
-// reconstructs the persisted engagement fact (R2) — never-engaged saves get `false` and
-// keep behaving byte-identically.
-export function migrateToV6(save: SaveFile): SaveFileV6 {
+// migrateToV6 — bring ANY known pre-V7 save version up to V6. V6 passes through; V1–V5
+// migrate deterministically. Idempotent. The V5→V6 step reconstructs the persisted engagement
+// fact (R2) — never-engaged saves get `false` and keep behaving byte-identically.
+// (Retained; the live entry is now migrateToV7.)
+export function migrateToV6(
+  save: SaveFileV1 | SaveFileV2 | SaveFileV3 | SaveFileV4 | SaveFileV5 | SaveFileV6,
+): SaveFileV6 {
   if (save.saveVersion === 6) return save
   return convertV5ToV6(migrateToV5(save))
+}
+
+// migrateToV7 — bring ANY known save version up to the live V7 (the load-to-play entry).
+// V7 passes through; V1–V6 migrate deterministically. Idempotent. The V6→V7 step only seeds
+// the empty publicity state, so a migrated save behaves exactly as before until the player
+// buys a campaign.
+export function migrateToV7(save: SaveFile): SaveFileV7 {
+  if (save.saveVersion === 7) return save
+  return convertV6ToV7(migrateToV6(save))
 }

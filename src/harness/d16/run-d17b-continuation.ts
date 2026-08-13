@@ -10,7 +10,7 @@
 // THE INPUT. Stage 5's 180 harvested states (`{ meta, save }` JSON files, one per state, written
 // by the A5 harvest). They are real `SaveFileV6` envelopes, so they load through the SHIPPED
 // save path — nothing here reconstructs a state by hand:
-//     readFileSync → JSON.parse → loadSave (validates) → migrateToV6 → .state
+//     readFileSync → JSON.parse → loadSave (validates) → migrateToV7 → .state
 // A run resumed from one of them is accounted to ITSELF: `runOne` reads `startWeek`,
 // `openingCash` and `filmsReleasedAtStart` from the resumed state, slices RELATIVELY, and
 // measures runaway against `runawayCash(openingCash)` (B2-C10 / B2-M6). Nothing is written back
@@ -33,7 +33,7 @@
 import { mkdirSync, readdirSync, readFileSync, writeFileSync, appendFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { loadSave, migrateToV6 } from '../../core/index.js'
+import { loadSave, migrateToV7 } from '../../core/index.js'
 import type { GameState } from '../../core/index.js'
 import { runOne } from './driver.js'
 import type { RunRecord } from './driver.js'
@@ -159,7 +159,7 @@ function loadStates(dir: string): EntryState[] {
       meta: Record<string, unknown>
       save: unknown
     }
-    const save = migrateToV6(loadSave(raw.save))
+    const save = migrateToV7(loadSave(raw.save))
     const state = save.state
     out.push({
       id: String(raw.meta['id'] ?? f.replace(/\.json$/, '')),

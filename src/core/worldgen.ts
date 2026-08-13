@@ -64,6 +64,7 @@ import {
   WORLD_CONFIG,
 } from './tuning.js'
 import { ageRunwayMult, roleOVR } from './talentSummary.js'
+import { emptyPublicityState } from './save.js'
 import type {
   CastSlot,
   Ceilings,
@@ -649,5 +650,9 @@ export function generateWorld(seed: string): GameState {
     // set false. The headless M0A world never engages the economy; a PLAYER game flips
     // it true (monotonically, forever) at beginFounding / the first signContract.
     economyEngagedEver: false,
+    // ── D-17B §2/§6 publicity — the EMPTY state (no campaign ever bought). Same shape a
+    // V6→V7 migration seeds; a headless/M0A world can never buy one (the action is
+    // engaged-only), so this stays empty for the whole acceptance corpus.
+    publicity: emptyPublicityState(),
   }
 }

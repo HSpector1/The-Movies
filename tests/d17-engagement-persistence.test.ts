@@ -45,6 +45,7 @@ import type {
   GameState,
   GameStateV3,
   GameStateV5,
+  GameStateV6,
   LedgerEntry,
 } from '../src/core/index.js'
 
@@ -123,15 +124,25 @@ function headlessRun(seed: string, weeks: number): GameState {
   return s
 }
 
+// D-17B/E4 (M8 fixture discipline): the live GameState gained `publicity`, so every frozen-shape
+// strip helper below drops it EXPLICITLY. If it were left to leak, the migration tests would go
+// VACUOUS — the "V5" fixture would already carry the field the migration is supposed to add, and
+// a broken converter would still pass. The `Omit<>`-typed returns make an omission a type error.
+// Strip the live state back to the FROZEN GameStateV6 shape a real V6 save carries.
+function toV6(s: GameState): GameStateV6 {
+  const { publicity: _publicity, ...v6 } = s
+  return v6
+}
+
 // Strip the live state back to the FROZEN GameStateV5 shape, as a real V5 save carries it.
 function toV5(s: GameState): GameStateV5 {
-  const { economyEngagedEver: _dropped, ...v5 } = s
+  const { economyEngagedEver: _dropped, publicity: _publicity, ...v5 } = s
   return v5
 }
 
 // Strip the live state back to the FROZEN GameStateV3 shape (a legacy D-11 save).
 function toV3(s: GameState): GameStateV3 {
-  const { economyEngagedEver: _a, careerEvents: _b, theatricalRuns: _c, ...v3 } = s
+  const { economyEngagedEver: _a, careerEvents: _b, theatricalRuns: _c, publicity: _d, ...v3 } = s
   return v3
 }
 
@@ -382,6 +393,8 @@ describe('D-17A/R2: convertV5ToV6 is deterministic, idempotent, and non-mutating
     convertV5ToV6(v5)
     expect(stableStringify(v5)).toBe(before)
     expect('economyEngagedEver' in (v5.state as object)).toBe(false)
+    // D-17B/E4 (M8): the fixture must NOT already carry the D-17B field either.
+    expect('publicity' in (v5.state as object)).toBe(false)
   })
 
   it('migrateToV6 passes a V6 through unchanged and is idempotent', () => {
@@ -404,19 +417,20 @@ describe('D-17A/R2: convertV5ToV6 is deterministic, idempotent, and non-mutating
 describe('D-17A/R2: a V6 save without an explicit engagement fact is rejected LOUDLY', () => {
   it('a missing economyEngagedEver throws (it would silently disengage a real studio)', () => {
     const good = makeSave(foundStudio('d17-validate'))
-    const stripped = { ...good, state: toV5(good.state) }
+    const stripped = { ...good, saveVersion: 6, state: toV5(good.state) }
     expect(() => validateSaveV6(stripped)).toThrow(/economyEngagedEver/)
   })
 
   it('a non-boolean economyEngagedEver throws', () => {
     const good = makeSave(foundStudio('d17-validate-2'))
-    const bad = { ...good, state: { ...good.state, economyEngagedEver: 'yes' } }
+    const bad = { ...good, saveVersion: 6, state: { ...toV6(good.state), economyEngagedEver: 'yes' } }
     expect(() => validateSaveV6(bad)).toThrow(/economyEngagedEver/)
   })
 
-  it('new games save as V6 and carry the fact', () => {
+  it('new games save as V7 and carry the fact', () => {
+    // D-17B/E4: makeSave now writes SaveFileV7; the R2 fact is still carried.
     const save = makeSave(foundStudio('d17-newgame'))
-    expect(save.saveVersion).toBe(6)
+    expect(save.saveVersion).toBe(7)
     expect(save.state.economyEngagedEver).toBe(true)
   })
 })

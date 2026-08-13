@@ -356,6 +356,10 @@ export type LedgerKind =
   | 'freelancerFee' // one-film freelancer fee debited at greenlight
   | 'studioRevenue' // D-12: weekly Studio Revenue cash receipt (blended share of weekly gross)
   | 'overhead' // D-12: weekly studio overhead (base + per-employee), engaged only
+  // D-17B §2/§5: a publicity campaign purchase. A STUDIO-LEVEL cost, never a per-film
+  // commitment — it carries no productionId and does NOT enter committed cost, film
+  // contribution, or the fixed-cost allocator. Engaged-only, integer dollars.
+  | 'publicity'
 
 export type LedgerEntry = {
   week: number
@@ -412,14 +416,39 @@ export type GameStateV5 = GameStateV4 & {
   careerEvents: TalentCareerEvent[]
 }
 
-// The live D-17A state: the V5 surface PLUS the persisted engagement fact (R2).
+// The D-17A V6 surface: the V5 surface PLUS the persisted engagement fact (R2).
 // `economyEngagedEver` is an EXPLICIT, PERSISTED, MONOTONIC regime fact — set true at
 // founding/first signing and never cleared — so enduring regime membership is never
 // re-derived from mutable current collections (the D-16 engagement cliff: letting every
-// contract expire silently switched the D-12 economy back off). New games save as
-// SaveFileV6.
-export type GameState = GameStateV5 & {
+// contract expire silently switched the D-12 economy back off).
+//
+// FROZEN as SaveFileV6's state (D-17B/E4), so the D-17B `publicity` field stays out of the
+// frozen V6 shape — exactly as GameStateV1/V2/V3/V4/V5 are anchored. SaveFileV6 is
+// re-anchored to THIS alias by the same house precedent.
+export type GameStateV6 = GameStateV5 & {
   economyEngagedEver: boolean
+}
+
+// ── D-17B §2/§5/§6 — publicity campaign state (SaveFileV7) ────────────────────
+// The three legible tiers of the ONE authorized player Publicity action (contract §2;
+// Owner authorization §4 B / §5 "PUBLICITY CAMPAIGN, not a Publicity Office facility").
+export type PublicityTier = 'whisper' | 'push' | 'blitz'
+
+// The MINIMUM persisted state the mechanic needs (authorization §4 G: "save state strictly
+// required for the Publicity mechanic"). Cooldowns are the only thing publicity remembers:
+// the awareness lift itself lands on `studio.standing.audienceAwareness` and the cash on the
+// ledger, both of which already persist. `null` = never used.
+//   lastUsedWeek — the GLOBAL cooldown clock (PUBLICITY_GLOBAL_COOLDOWN_WEEKS).
+//   byTier       — the per-tier cooldown clocks, one entry per tier, always present.
+export type PublicityState = {
+  lastUsedWeek: number | null
+  byTier: { whisper: number | null; push: number | null; blitz: number | null }
+}
+
+// The live D-17B state: the frozen V6 surface PLUS publicity cooldown state. New games save
+// as SaveFileV7.
+export type GameState = GameStateV6 & {
+  publicity: PublicityState
 }
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────

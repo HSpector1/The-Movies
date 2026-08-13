@@ -206,7 +206,7 @@ describe('D-14 Star Power lifecycle (real engine)', () => {
 
     // Round-trip: export → import. Career events preserved byte-identically.
     const reloaded = importSave(exportSave(makeSave(s)))
-    if (reloaded.saveVersion !== 6) throw new Error('expected V6')
+    if (reloaded.saveVersion !== 7) throw new Error('expected V7') // D-17B/E4: new games save as SaveFileV7 (V6 + the publicity cooldown state).
     expect(reloaded.state.careerEvents).toEqual(s.careerEvents)
 
     // Advancing the reloaded state with NO new release adds NO new events (no re-apply).

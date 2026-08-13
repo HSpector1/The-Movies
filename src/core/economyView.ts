@@ -423,6 +423,7 @@ export type FinanceTotals = {
   signingBonus: number
   freelancerFee: number
   termination: number
+  publicity: number // D-17B §5: Σ publicity campaign purchases, stored negative
   net: number // Σ all ledger amounts (= cash − INITIAL_CASH; reconciliation invariant)
 }
 
@@ -435,9 +436,12 @@ const ZERO_TOTALS = (): FinanceTotals => ({
   signingBonus: 0,
   freelancerFee: 0,
   termination: 0,
+  publicity: 0,
   net: 0,
 })
 
+// COMPILE-GUARDED: `Record<LedgerKind, …>` makes a new LedgerKind a type error here until it
+// is given a home, so no kind can silently fall into someone else's bucket (D-17B §5).
 const KIND_FIELD: Record<LedgerKind, keyof FinanceTotals> = {
   studioRevenue: 'studioRevenue',
   boxOffice: 'boxOfficeLump',
@@ -447,6 +451,7 @@ const KIND_FIELD: Record<LedgerKind, keyof FinanceTotals> = {
   signingBonus: 'signingBonus',
   freelancerFee: 'freelancerFee',
   termination: 'termination',
+  publicity: 'publicity',
 }
 
 // Aggregate the whole signed ledger by kind. `net` is the reconciliation total.
@@ -470,6 +475,7 @@ export type PeriodSummary = {
   studioRevenue: number
   boxOfficeLump: number
   production: number
+  publicity: number // D-17B §5: publicity campaign purchases in the window (negative)
   otherCash: number // signingBonus + freelancerFee + termination
   netCash: number // signed Σ over the window
   releases: number // runs opened in the window
@@ -488,6 +494,7 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
     studioRevenue: 0,
     boxOfficeLump: 0,
     production: 0,
+    publicity: 0,
     otherCash: 0,
     netCash: 0,
     releases: 0,
@@ -512,8 +519,24 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
       case 'production':
         s.production += e.amount
         break
-      default:
+      // D-17B §5 (reviewer M3, binding): publicity gets an EXPLICIT case. This switch's
+      // `default:` is silent — letting a new, player-initiated, studio-level cost fall into
+      // `otherCash` (documented as "signingBonus + freelancerFee + termination") would make
+      // the weekly report quietly wrong about where the money went.
+      case 'publicity':
+        s.publicity += e.amount
+        break
+      case 'signingBonus':
+      case 'freelancerFee':
+      case 'termination':
         s.otherCash += e.amount
+        break
+      default: {
+        // Exhaustiveness guard (the actions.ts:1288 idiom): a new LedgerKind must be given a
+        // home HERE, not absorbed by a catch-all.
+        const _exhaustive: never = e.kind
+        throw new Error(`periodSummary: unhandled ledger kind ${JSON.stringify(_exhaustive)}`)
+      }
     }
   }
   for (const r of state.theatricalRuns) {

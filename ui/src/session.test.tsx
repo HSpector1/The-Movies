@@ -242,7 +242,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
 
     // …and re-saving it writes a V6 envelope that loads back UNCONVERTED.
     saveActiveSession(loaded.state)
-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(6)
+    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(7) // D-17B/E4: new games save as SaveFileV7 (V6 + the publicity cooldown state).
     const again = loadActiveSession()
     expect(again.ok).toBe(true)
     if (!again.ok) return
@@ -271,7 +271,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
 
     // Round-trip: saved as V6, reloaded unconverted, still not engaged.
     saveActiveSession(loaded.state)
-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(6)
+    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(7) // D-17B/E4: new games save as SaveFileV7 (V6 + the publicity cooldown state).
     const again = loadActiveSession()
     expect(again.ok).toBe(true)
     if (!again.ok) return
