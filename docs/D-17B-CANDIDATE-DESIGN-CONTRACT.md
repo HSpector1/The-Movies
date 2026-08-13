@@ -181,12 +181,19 @@ hazard). Replay determinism mandatory; no new RNG.
 
 ## 6. Acceptance metrics
 
-1. **Implementation-vs-lab agreement against the named reference corpus `d17b-final-reference`**
+1. **Implementation-vs-lab agreement against the named corrected reference corpus
+   `d17b-final-reference-sat100`**
    (300×208×24, the EXACT final stack: drift C κ.04/35 + N 0.45 split + DISC (ii) + CAP
    1.3/2.4/3.7 + publicity R21 — reviewer minor-8: no prior single run held the whole stack).
    Tolerance: policy median end cash within the seed-bootstrap 95% band of the reference; rate
    metrics (floor absorption, distress, runaway, durable@103) within ±2pp or overlapping 95%
    CIs; anti-spam/maintenance gate verdicts identical.
+   The frozen corrected reference still predates durable source provenance and contains three
+   discovered harness defects: its P15 predicate is the retired employment predicate, its
+   serialized marketing dollar values cannot reconstruct logical rung mix, and its stored
+   tournament contains only P1–P3. Production comparison therefore recomputes tournament results
+   from raw rows, marks P15 **NOT COMPARABLE**, and reports logical production rungs separately;
+   none of those defects authorizes tuning production to the reference.
 2. **M0A byte-identity** via the E1 regime split (if E1 declined: re-baseline, gate struck) +
    replay/save determinism + the full D-17A regression list, WITH the M6 re-measurement list.
 3. **Full G1–G12 table** under Stage-8 discipline. Expected honest outcome: G4 PASS; **G5 not

@@ -7,6 +7,12 @@ after the fix pass, `ab8f721`, changes `docs/LESSONS-LEARNED.md` only).
 — `saveVersion: 5`, seed `studio-001`. Read with `fs.readFileSync`, migrated **V5 → V6 in memory**
 through `importSave` → `migrateToV6`. **Nothing was written to it, or to any save file.**
 
+> **D-17B remeasurement (2026-08-13):** D-17B deliberately changes discoverability, the engaged
+> marketing menu, and awareness dynamics. The accepted D-17A figures remain below as historical
+> evidence at `ab8f721`; the required current-stack replacements are recorded in §3.4, §4.1 and
+> §7(b), measured at `a48862b` after the independent implementation review. They supersede the
+> corresponding D-17A figures for current product behavior; they do not rewrite D-17A history.
+
 ## How to read this
 
 Every figure below is the output of a probe that was actually executed against this HEAD. The
@@ -278,6 +284,14 @@ greenlight, which the save does not retain.)
 
 ### 3.4 Discovery-exposure band, with its real numbers
 
+**D-17B current-stack remeasurement (`a48862b`; supersedes the historical table below):** on the
+same Week-86 save and cheapest legal package, reach support is `0.12531161103660085` against the
+new `0.375` threshold (`shortfall 0.6658357039023978`). The shipped band is **0.3×–1.8×**, with
+both clips reached: worst opening `$381,865`, best opening `$2,291,193`, expected opening
+`$1,272,885`. The package remains exposed. The production constants are
+`threshold=.375 / spread=4 / exp=1.5 / floor=.30 / ceil=1.8`; RNG key `discovery-v1` is unchanged.
+The following D-17A table is retained only to show the pre-D-17B state:
+
 | Surface | testid | Rendered value |
 |---|---|---|
 | Assembly · Budget | `budget-discovery-exposure` | "**Discoverability exposure.** Reach support is 11% against the 45% this film needs to open reliably. Its opening turnout can land anywhere between 0.2× and 1.8× the expected level — worst case $210K, best case $1.89M against an expected $1.05M. That band runs into the engine's hard 0.2×/1.8× clip. Awareness, marketing and cast draw are what move reach support." |
@@ -316,6 +330,16 @@ greenlit through the **real Assembly wizard** (cheapest concept; shape `immediat
 $400K), then 20 weeks advanced so the film completes production and its whole theatrical run.
 
 ### 4.1 Dashboard, side by side
+
+**D-17B current-stack remeasurement (`a48862b`; supersedes changed values in the historical table
+below):** the distressed Week-86 save remains at week 86, cash `$2,833,923.17`, burn `$39,174/wk`
+and runway `72 wk`; its awareness is `12.306192647411297`. Capacity-anchored affordability is now
+cheapest **`$2,110,606 — affordable`**, standard **`$3,574,271 — short $740,348`**, typical
+**`$4,422,115 — short $1,588,191`**. The reconstructed `healthy-d` state is week 22, cash
+`$22,012,347.52`, burn `$116,782/wk`, runway `188 wk`, awareness `36.692629340252374`; all scopes
+remain affordable: cheapest `$1,968,819`, standard `$3,467,942`, typical `$4,350,803`. The latest
+healthy release has gross `$17,177,605.27`, Studio Revenue `$8,932,354.74`, and Film Contribution
+`+$4,581,551.52`. The historical D-17A table follows for provenance:
 
 | testid | DISTRESSED (Week-86) | HEALTHY (driven, week 22) |
 |---|---|---|
@@ -499,6 +523,19 @@ the **healthy** fixture's *downside* branch (§4.2): `Downside $464K · Covers d
 `-$1.17M after studio fixed costs` — so the rule is symmetric, not a distress-only special case.
 
 ### 7(b) The discovery proxy — the two adversarial shapes
+
+**D-17B current-stack remeasurement (`a48862b`; supersedes the D-17A threshold/bands below):**
+
+| Fixture | Retired proxy | Current engine/read-model | Current result |
+|---|---:|---:|---|
+| top-heavy support cast (A55, $400K, fame 2/2/99) | `0.501` supported | support `0.3081930719371594`; shortfall `0.17815180816757495` | **exposed**, band `0.6804539035751012×–1.4696072647184553×` |
+| old capacity-collapsed fixture (A45, $2M, fame 30/30/30) | `0.465` supported | support `0.38375856532079095`; shortfall `0` | **supported**, band `1×–1×` — it correctly ceased to be adversarial at threshold `.375` |
+| replacement capacity-collapsed fixture (A35, $2M, fame 25/25/25) | `0.3875` supported | support `0.32391883513718117`; shortfall `0.13621643963418353` | **exposed**, band `0.773056314200815×–1.293566822533232×` |
+
+The replacement fixture is committed in `tests/d17a-adv-discovery.test.ts`; it preserves the
+original defect proof under the new production tuple: the retired proxy says supported while the
+authoritative engine and shipped read-model both say exposed, bit-for-bit. The original D-17A
+measurements below remain the accepted historical record at threshold `.45`:
 
 **Measured on:** the two fixtures from `tests/d17a-adv-discovery.test.ts`, reproduced here with the
 retired proxy (`filmPackage.ts` @ base `c679f88`) reimplemented verbatim in the probe and the

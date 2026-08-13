@@ -74,3 +74,84 @@ architecture, A5 long-horizon/distress/runaway baselines), all measured at `52c5
 5. The week-208 roster wall is recorded as a structural defect for the final return (§34); its
    repair (staggered terms / renewal mechanics) is OUTSIDE the authorized lever family and will be
    reported, not smuggled in.
+
+## Candidate contract and provider interruption (2026-08-13)
+
+The lab program produced Candidate Design Contract rev. 1, then an independent contract attack
+produced rev. 2 with all 24 review amendments. The first full-stack publicity corpus was found to
+have `saturation: 1` on a 0–100 awareness scale. Its publicity rows were rejected; the apparatus
+was pinned and re-run with `saturation: 100`; rev. 3 records the corrected candidate and the
+identity/validation requirements created by the incident.
+
+The originating implementation agent then stopped during Phase E with status exactly:
+
+**BLOCKED/INTERRUPTED BY PROVIDER WEEKLY LIMIT**
+
+No failure was disguised as a clean handoff. Codex takeover began at `b3881678fc05eb5f61c7fae3c3b6f908f654e383`.
+The forensic inventory, classification of every partial change, process check, source/evidence
+salvage decision, and Git topology are in `docs/D-17B-RECOVERY-REPORT.md`. No reset, clean, stash,
+rebase, checkout-away, or history rewrite occurred.
+
+## Phase E — production engine core (gate passed 2026-08-13)
+
+Recovered and completed the authorized engine stack:
+
+- engaged reach-neutral split `.45` / disengaged legacy `.58`;
+- engaged pull-down-only counter-flow `κ=.04`, anchor `35`, at tick step 5.5;
+- DISC tuple `.375 / 4 / 1.5 / .30 / 1.8`, retaining `discovery-v1`;
+- engaged capacity-anchored marketing menu `{1.3×,2.4×,3.7×}`, with exact per-package dollars and
+  legacy disengaged menu;
+- publicity action with Whisper `$1.2M/18/8wk`, Push `$3.6M/30/12wk`, Blitz `$8M/42/20wk`,
+  saturation `100`, exponent `6`, global cooldown `6`, affordability and engaged gates;
+- explicit `publicity` ledger kind and SaveFileV7 (`publicity.lastUsedWeek` + per-tier history),
+  deterministic V6→V7 migration.
+
+The recovered pre-interruption commits were preserved. The remaining Phase-E completion landed in
+`f7e81d9`; no valid partial source was rejected.
+
+## Phase H — harness/production convergence (gate passed 2026-08-13)
+
+Commit `393eee0` added production execution modes to the D-16 corpus, continuation and Week-86
+runners; exact production identity; source provenance; logical marketing-rung instrumentation;
+and the production/reference comparator. Independent harness review found five evidence defects:
+the frozen reference's P15 used the retired predicate, its publicity key omitted saturation, its
+stored dollar marketing values could not identify logical rungs, its stored tournament contained
+only P1–P3, and initial runner modes still used lab shims. Commits `bb8b17f`, `d3e7671`, and
+`a48862b` fixed production execution and comparison. Frozen rows were not rewritten and production
+was never tuned to make a defective reference agree.
+
+Final governed artifacts:
+
+- production corpus `out/d16-economy-lab/corpus/d17b-final-production-reviewed` — 300×208×24,
+  `CURRENT`, `execution: production`, exact candidate key, source `bb8b17f`, clean tree;
+- agreement `out/d16-economy-lab/d17b/agreement/d17b-final-production-agreement` — 23/23 comparable
+  policies pass every median/rate tolerance; P15 `NOT_COMPARABLE`; overall `REVIEW_REQUIRED`
+  because Q6's governed 208-week boundary verdict moves from 49.67% FAIL to 50.33% PASS;
+- Week-86 replay `out/d16-economy-lab/d17b/week86/d17b-final-production`;
+- 180-state continuation `out/d16-economy-lab/d17b/continuation/d17b-final-production`.
+
+## Phase U — player truth surfaces (gate passed 2026-08-13)
+
+Commit `37f0683` exposed the action without turning it into an optimizer: current awareness and
+practical band; campaign cost, immediate estimated lift, exact post-action awareness and cash;
+tier/global cooldowns; the below-~30 maintenance boundary; shared cooldown state; capacity-derived
+marketing dollars/multiples; new DISC band; and publicity ledger lines in Dashboard, Assembly,
+Weekly Summary, and Studio Run Recap. Independent UI review found stale D-17A evidence, an omitted
+global-cooldown display, ambiguous Whisper break-even wording, rounded action amounts, and duplicated
+UI constants. The product findings were fixed in `bb8b17f`; D-17A evidence remeasurement is part of
+the closure documentation. `docs/HANDOFF.md` is a NOT-FOR-BUILD document and was deliberately not
+opened or modified during Codex recovery; its pre-takeover D-17B change remains preserved in history.
+
+## Independent final review and gate disposition (2026-08-13)
+
+Three independent reviewers attacked the frozen contract rather than the implementation:
+
+1. engine/save/ledger/action parity and scope;
+2. UI information integrity and D-17A regressions;
+3. harness provenance, statistical agreement and management-game red team.
+
+All implementation blockers/majors were fixed. The unresolved results are design/governance facts,
+not hidden defects: E1–E5 require Owner rulings; the Q6 reference/production 50% knife-edge needs an
+Owner boundary decision; cash runaway worsens although awareness is bounded; G1/G3/G5/G6 and the
+week-208 wall remain structural. The candidate therefore closes as **implementation complete,
+Owner / Engine PM review required**, not as a clean balance certification.

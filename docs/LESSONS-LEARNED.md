@@ -1806,7 +1806,7 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   states (decision-point corpus), not against the intended corner. Check the exposure RATE
   before accepting a "conditional" mechanic as conditional.
 
-## BE (DRAFT). Feedback stocks need equilibria designed in, not tuned in — **MG, BR**
+## BE. Feedback stocks need equilibria designed in, not tuned in — **MG, BR**
 
 - **Symptom:** `audienceAwareness` feeds the gross that sets its own direction, has no decay,
   and therefore has NO tunable neutral point: every `AWARENESS_REACH_NEUTRAL` setting trades
@@ -1815,8 +1815,12 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
 - **Lesson:** any self-reinforcing stock needs a designed counter-flow (decay, asymmetric
   gain/loss, or a second input) from day one; a one-way ratchet cannot be balanced by moving
   its pivot. Extends **P** (cash-positive vs financeable) into dynamics.
-- **Status:** DRAFT through D-17B by Owner ruling (2026-08-12, R9) — the prescribed counter-flow
-  is authorized but not yet empirically validated.
+- **Status:** FINALIZED at D-17B closure (2026-08-13). The production stack adds a pull-down-only
+  counter-flow above A35 plus a paid low-stock inflow. In 300×208×24 production execution,
+  awareness ceiling absorption is 0 across every arm; in the 180-state continuation, publicity
+  changes floor absorption from 85.0% to 30.6–35.6% and creates 10.6–13.0% durable@103 recovery.
+  The equilibrium is partial rather than magical: recovery remains below G8's 25% bar and cash
+  runaway worsens. That separation is the empirical validation of the lesson, not a clean sweep.
 
 ## BF. Survival and recovery are separate metrics from profitability — **BR, MG**
 
@@ -1882,7 +1886,7 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   is exactly where action parity breaks silently. Extends **AC** (actionability from the
   authoritative action rules) and **BJ** (regime as an explicit fact).
 
-## BK (DRAFT). A one-tail fix on a shared unstable stock is not a complete repair — **BR, MG**
+## BK. A one-tail fix on a shared unstable stock is not a complete repair — **BR, MG**
 
 - **Symptom:** the D-16 Tier-1 pair (`AWARENESS_REACH_NEUTRAL` 0.58→0.45 + `DISC_SUPPORT_EXP`
   1.5→2.5) improved the death-spiral tail (recovery|distress 78.4%→91.8%; terminal decline
@@ -1895,3 +1899,24 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   the stock's counter-flow, and gate acceptance on both tails jointly. Extends **BE** (the stock
   needs a designed counter-flow) and **AT** (hypotheses scored separately — the loud metric must
   not rewrite the quiet one).
+- **Status:** FINALIZED as a governing principle at D-17B closure (2026-08-13), not resolved as a
+  product outcome. The counter-flow bounds the awareness ceiling at 0% absorption, while the
+  14-player-arm mean cash-runaway rate rises from 11.1% to 19.6–19.7% and no-runaway worlds fall
+  from 55.0% to 46.7%. “Awareness runaway fixed” is therefore explicitly not “cash runaway
+  fixed”; the remaining cash tail needs a separately authorized size-scaling sink.
+
+## BM. Corpus identity must encode every behaviorally material parameter — **BR, MG**
+
+- **Symptom:** D-17B's first named full-stack reference set publicity `saturation: 1` while the
+  formula expected a 0–100 awareness scale. Lift was effectively zero for awareness ≥1, yet the
+  run could share the same publicity identity as the corrected `saturation: 100` run because the
+  serialized key omitted saturation.
+- **Lesson:** a run name is a label, not provenance. The machine identity must encode every
+  behaviorally material parameter, and artifact validation must reject impossible scale families;
+  otherwise two different mechanics can masquerade as the same experiment. Freeze bad evidence
+  rather than rewriting it, correct the identity, and compare from raw rows.
+- **Fastest diagnostic for fraction-vs-percent failures:** evaluate the formula at a scale sentinel
+  (`awareness = 1` here) and inspect the serialized config/key beside the result. A value that
+  should be near maximum but collapses to zero immediately exposes the unit mismatch; an omitted
+  key field then explains why provenance did not catch it. Production now encodes saturation in
+  `productionCandidateKey` and `publicityKey`, and validation rejects `saturation < 50`.
