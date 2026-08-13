@@ -479,8 +479,9 @@ function applyGreenlight(
   const forecastSnapshot: Forecast = computeForecast(inp, ctx, engaged, engaged)
 
   // ── Ledger + cash (D-1 unchanged when employment NOT engaged; D-11 economics
-  // when engaged). Both paths keep the reconciliation invariant
-  //   cash === INITIAL_CASH + Σ ledger.amount
+  // when engaged). Both paths keep the reconciliation invariant: native games
+  // begin from INITIAL_CASH; migrated pre-ledger games begin from their explicit
+  // V11 cash/ledger checkpoint.
   // by logging every cash movement. The production entry always covers
   // negative + marketing; the salary/fee treatment differs by mode.
   const productionCost = p.budget.negative + p.budget.marketing

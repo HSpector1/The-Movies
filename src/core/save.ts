@@ -94,6 +94,7 @@ import {
   ANNEX_PROJECT_KIND,
   assertStudioConstructionInvariants,
   emptyStudioConstruction,
+  historicalCashLedgerCheckpoint,
   initialManagedStudioConstruction,
 } from "./construction.js";
 
@@ -348,6 +349,11 @@ function rejectV11AuthorityAtHistoricalBoundary(
   if (Object.prototype.hasOwnProperty.call(state, "construction")) {
     throw new Error(
       `${label}: state.construction belongs only to SaveFileV11 and cannot appear at this historical boundary`,
+    );
+  }
+  if (Object.prototype.hasOwnProperty.call(state, "cashLedgerCheckpoint")) {
+    throw new Error(
+      `${label}: state.cashLedgerCheckpoint belongs only to SaveFileV11 and cannot appear at this historical boundary`,
     );
   }
   if (Array.isArray(state.ledger)) {
@@ -2829,6 +2835,7 @@ export function validateSaveV10(save: unknown): SaveFileV10 {
 }
 
 const V11_STATE_KEYS = [...V10_STATE_KEYS, "construction"] as const;
+const V11_OPTIONAL_STATE_KEYS = ["cashLedgerCheckpoint"] as const;
 
 function v11Error(label: string, message: string): never {
   throw new Error(`validateSaveV11: ${label} ${message}`);
@@ -2843,8 +2850,9 @@ function v11ExactKeys(
   value: Record<string, unknown>,
   required: readonly string[],
   label: string,
+  optional: readonly string[] = [],
 ): void {
-  const allowed = new Set(required);
+  const allowed = new Set([...required, ...optional]);
   for (const key of required) {
     if (!Object.prototype.hasOwnProperty.call(value, key)) {
       v11Error(label, `is missing required field ${JSON.stringify(key)}`);
@@ -2854,6 +2862,31 @@ function v11ExactKeys(
     if (!allowed.has(key)) {
       v11Error(label, `has unknown field ${JSON.stringify(key)}`);
     }
+  }
+}
+
+function checkCashLedgerCheckpointShape(
+  value: unknown,
+  ledgerLength: number,
+): void {
+  const checkpoint = v11Record(value, "state.cashLedgerCheckpoint");
+  v11ExactKeys(
+    checkpoint,
+    ["cash", "ledgerLength"],
+    "state.cashLedgerCheckpoint",
+  );
+  if (typeof checkpoint.cash !== "number" || !Number.isFinite(checkpoint.cash)) {
+    v11Error("state.cashLedgerCheckpoint.cash", "must be a finite number");
+  }
+  const length = v11Integer(
+    checkpoint.ledgerLength,
+    "state.cashLedgerCheckpoint.ledgerLength",
+  );
+  if (length > ledgerLength) {
+    v11Error(
+      "state.cashLedgerCheckpoint.ledgerLength",
+      "cannot exceed state.ledger.length",
+    );
   }
 }
 
@@ -2973,9 +3006,22 @@ export function validateSaveV11(save: unknown): SaveFileV11 {
     );
   }
   const state = v11Record(checkEnvelope(save, "validateSaveV11"), "state");
-  v11ExactKeys(state, V11_STATE_KEYS, "state");
+  v11ExactKeys(
+    state,
+    V11_STATE_KEYS,
+    "state",
+    V11_OPTIONAL_STATE_KEYS,
+  );
 
-  const { construction: rawConstruction, ...v10State } = state;
+  const hasCashLedgerCheckpoint = Object.prototype.hasOwnProperty.call(
+    state,
+    "cashLedgerCheckpoint",
+  );
+  const {
+    construction: rawConstruction,
+    cashLedgerCheckpoint: rawCashLedgerCheckpoint,
+    ...v10State
+  } = state;
   try {
     validateSaveV10WithPolicy(
       {
@@ -2993,6 +3039,12 @@ export function validateSaveV11(save: unknown): SaveFileV11 {
   }
 
   checkConstructionShape(rawConstruction);
+  if (hasCashLedgerCheckpoint) {
+    checkCashLedgerCheckpointShape(
+      rawCashLedgerCheckpoint,
+      (state.ledger as unknown[]).length,
+    );
+  }
   try {
     assertStudioConstructionInvariants(state as GameStateV11);
   } catch (error) {
@@ -3186,12 +3238,16 @@ function projectStateV11(state: GameStateV11): GameStateV11 {
     scriptDevelopment: state.scriptDevelopment,
     castingSessions: state.castingSessions,
     construction: state.construction,
+    ...(state.cashLedgerCheckpoint === undefined
+      ? {}
+      : { cashLedgerCheckpoint: state.cashLedgerCheckpoint }),
   };
 }
 
-function assertFrozenBuilderCanOmitConstruction(
+function assertFrozenBuilderCanProjectV11State(
   state: object,
   builder: string,
+  targetVersion: number,
 ): void {
   const candidate = state as Record<string, unknown>;
   if (Object.prototype.hasOwnProperty.call(candidate, "construction")) {
@@ -3204,6 +3260,54 @@ function assertFrozenBuilderCanOmitConstruction(
     if (!isEmptyLegacy && !isVacantManaged) {
       throw new Error(
         `${builder}: cannot downgrade or discard authoritative V11 construction history`,
+      );
+    }
+  }
+
+  if (Object.prototype.hasOwnProperty.call(candidate, "cashLedgerCheckpoint")) {
+    const checkpoint = candidate.cashLedgerCheckpoint;
+    const ledger = Array.isArray(candidate.ledger) ? candidate.ledger : [];
+    if (
+      !isRecord(checkpoint) ||
+      typeof checkpoint.cash !== "number" ||
+      !Number.isFinite(checkpoint.cash) ||
+      typeof checkpoint.ledgerLength !== "number" ||
+      !Number.isInteger(checkpoint.ledgerLength) ||
+      checkpoint.ledgerLength < 0 ||
+      checkpoint.ledgerLength > ledger.length
+    ) {
+      throw new Error(
+        `${builder}: cannot project a malformed V11 cash-ledger checkpoint`,
+      );
+    }
+    if (checkpoint.ledgerLength !== ledger.length) {
+      throw new Error(
+        `${builder}: cannot downgrade or move the authoritative V11 cash-ledger checkpoint after post-checkpoint activity`,
+      );
+    }
+    const studio = isRecord(candidate.studio) ? candidate.studio : null;
+    const prefixCash = ledger.reduce<number>((cash, raw) => {
+      if (!isRecord(raw) || typeof raw.amount !== "number" || !Number.isFinite(raw.amount)) {
+        throw new Error(
+          `${builder}: cannot project a malformed historical ledger owned by the V11 cash-ledger checkpoint`,
+        );
+      }
+      return cash + raw.amount;
+    }, TUNING.INITIAL_CASH);
+    if (
+      studio === null ||
+      typeof studio.cash !== "number" ||
+      !Number.isFinite(studio.cash) ||
+      studio.cash !== checkpoint.cash ||
+      checkpoint.cash === prefixCash
+    ) {
+      throw new Error(
+        `${builder}: cannot downgrade or repair a semantically invalid V11 cash-ledger checkpoint`,
+      );
+    }
+    if (targetVersion < 3 && ledger.length > 0) {
+      throw new Error(
+        `${builder}: cannot discard the historical ledger prefix required by the V11 cash-ledger checkpoint`,
       );
     }
   }
@@ -3238,7 +3342,7 @@ function assertFrozenBuilderCanOmitConstruction(
 // Build a validated V1 envelope from a legacy GameStateV1 (broadcastCache mirrors
 // the state's aired items, per M14). Kept so V1 fixtures/back-compat are typed.
 export function makeSaveV1(state: GameStateV1 | GameState): SaveFileV1 {
-  assertFrozenBuilderCanOmitConstruction(state, "makeSaveV1");
+  assertFrozenBuilderCanProjectV11State(state, "makeSaveV1", 1);
   const frozenState = projectStateV1(state);
   const save: SaveFileV1 = {
     saveVersion: 1,
@@ -3252,7 +3356,7 @@ export function makeSaveV1(state: GameStateV1 | GameState): SaveFileV1 {
 // Build a validated V2 envelope from a FROZEN (pre-employment) GameStateV2. Kept
 // so V2 fixtures / the V1→V2 conversion stay typed against the frozen shape.
 export function makeSaveV2(state: GameStateV2 | GameState): SaveFileV2 {
-  assertFrozenBuilderCanOmitConstruction(state, "makeSaveV2");
+  assertFrozenBuilderCanProjectV11State(state, "makeSaveV2", 2);
   const frozenState = projectStateV2(state);
   const save: SaveFileV2 = {
     saveVersion: 2,
@@ -3268,7 +3372,7 @@ export function makeSaveV2(state: GameStateV2 | GameState): SaveFileV2 {
 export function makeSaveV3(
   state: HistoricalProjectionSource<GameStateV3>,
 ): SaveFileV3 {
-  assertFrozenBuilderCanOmitConstruction(state, "makeSaveV3");
+  assertFrozenBuilderCanProjectV11State(state, "makeSaveV3", 3);
   const frozenState = projectStateV3(state);
   const save: SaveFileV3 = {
     saveVersion: 3,
@@ -3284,7 +3388,7 @@ export function makeSaveV3(
 export function makeSaveV4(
   state: HistoricalProjectionSource<GameStateV4>,
 ): SaveFileV4 {
-  assertFrozenBuilderCanOmitConstruction(state, "makeSaveV4");
+  assertFrozenBuilderCanProjectV11State(state, "makeSaveV4", 4);
   const frozenState = projectStateV4(state);
   const save: SaveFileV4 = {
     saveVersion: 4,
@@ -3300,7 +3404,7 @@ export function makeSaveV4(
 export function makeSaveV5(
   state: HistoricalProjectionSource<GameStateV5>,
 ): SaveFileV5 {
-  assertFrozenBuilderCanOmitConstruction(state, "makeSaveV5");
+  assertFrozenBuilderCanProjectV11State(state, "makeSaveV5", 5);
   const frozenState = projectStateV5(state);
   const save: SaveFileV5 = {
     saveVersion: 5,
@@ -3316,7 +3420,7 @@ export function makeSaveV5(
 export function makeSaveV6(
   state: HistoricalProjectionSource<GameStateV6>,
 ): SaveFileV6 {
-  assertFrozenBuilderCanOmitConstruction(state, "makeSaveV6");
+  assertFrozenBuilderCanProjectV11State(state, "makeSaveV6", 6);
   const frozenState = projectStateV6(state);
   const save: SaveFileV6 = {
     saveVersion: 6,
@@ -3332,7 +3436,7 @@ export function makeSaveV6(
 export function makeSaveV7(
   state: HistoricalProjectionSource<GameStateV7>,
 ): SaveFileV7 {
-  assertFrozenBuilderCanOmitConstruction(state, "makeSaveV7");
+  assertFrozenBuilderCanProjectV11State(state, "makeSaveV7", 7);
   // Structural typing permits present and future live roots where GameStateV7 is
   // expected. Use the same positive allowlist as the other frozen builders so no
   // later field can be mislabeled as V7 or make this builder's output unmigratable.
@@ -3351,7 +3455,7 @@ export function makeSaveV7(
 export function makeSaveV8(
   state: HistoricalProjectionSource<GameStateV8>,
 ): SaveFileV8 {
-  assertFrozenBuilderCanOmitConstruction(state, "makeSaveV8");
+  assertFrozenBuilderCanProjectV11State(state, "makeSaveV8", 8);
   const frozenState = projectStateV8(state);
   const save: SaveFileV8 = {
     saveVersion: 8,
@@ -3367,7 +3471,7 @@ export function makeSaveV8(
 export function makeSaveV9(
   state: HistoricalProjectionSource<GameStateV9>,
 ): SaveFileV9 {
-  assertFrozenBuilderCanOmitConstruction(state, "makeSaveV9");
+  assertFrozenBuilderCanProjectV11State(state, "makeSaveV9", 9);
   const frozenState = projectStateV9(state);
   const save: SaveFileV9 = {
     saveVersion: 9,
@@ -3383,7 +3487,7 @@ export function makeSaveV9(
 export function makeSaveV10(
   state: HistoricalProjectionSource<GameStateV10>,
 ): SaveFileV10 {
-  assertFrozenBuilderCanOmitConstruction(state, "makeSaveV10");
+  assertFrozenBuilderCanProjectV11State(state, "makeSaveV10", 10);
   const frozenState = projectStateV10(state);
   const save: SaveFileV10 = {
     saveVersion: 10,
@@ -4000,9 +4104,14 @@ export function convertV10ToV11(v10: SaveFileV10): SaveFileV11 {
     oldState.operations.mode === "managed"
       ? initialManagedStudioConstruction()
       : emptyStudioConstruction();
+  const cashLedgerCheckpoint = historicalCashLedgerCheckpoint(
+    oldState.studio.cash,
+    oldState.ledger,
+  );
   const newState: GameStateV11 = {
     ...oldState,
     construction,
+    ...(cashLedgerCheckpoint === undefined ? {} : { cashLedgerCheckpoint }),
   };
   return makeSaveV11(newState);
 }

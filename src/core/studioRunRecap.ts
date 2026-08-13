@@ -285,7 +285,7 @@ export type RunSummary = {
 }
 
 export type CapitalStory = {
-  openingBalance: number // cash BEFORE any commitments (= INITIAL_CASH); the run's true peak start
+  openingBalance: number // cash before retained ledger history (native = INITIAL_CASH)
   startingCash: number // == openingBalance (kept for clarity)
   currentCash: number
   totalCommitments: number
@@ -572,7 +572,9 @@ export function standardPackageQuote(state: GameState): ProspectivePackageQuote 
 export function studioRunRecap(state: GameState): StudioRunRecap {
   const throughWeek = state.market.tick
   const totals = financeTotals(state)
-  const startingCash = state.studio.cash - totals.net // reconciliation invariant == INITIAL_CASH
+  // Implied balance before the retained ledger. Native games equal INITIAL_CASH;
+  // a genuine pre-ledger migration retains its exact carried historical basis.
+  const startingCash = state.studio.cash - totals.net
   const currentCash = state.studio.cash
 
   const totalCommitments = -(totals.production + totals.freelancerFee) // §3 committed cost

@@ -13,8 +13,10 @@ import { TUNING } from './tuning.js'
 import { assertScriptDevelopmentInvariants } from './scriptDevelopment.js'
 import { persistedProductionIds } from './productionIdentity.js'
 import type {
+  CashLedgerCheckpoint,
   ConstructionProject,
   GameState,
+  LedgerEntry,
   StudioConstruction,
   StudioOperations,
 } from './types.js'
@@ -58,6 +60,25 @@ export function initialManagedStudioConstruction(): StudioConstruction {
 
 function invariant(condition: boolean, message: string): asserts condition {
   if (!condition) throw new Error(`construction invariant: ${message}`)
+}
+
+/**
+ * Produce the one truthful V11 reconciliation checkpoint only when a frozen
+ * historical state cannot reconcile from INITIAL_CASH. The checkpoint sits at
+ * the end of the validated historical ledger: migration invents no transaction
+ * and all V11-era movements remain exactly provable as an ordered suffix.
+ */
+export function historicalCashLedgerCheckpoint(
+  cash: number,
+  ledger: readonly LedgerEntry[],
+): CashLedgerCheckpoint | undefined {
+  const fullHistoryCash = ledger.reduce<number>(
+    (sum, entry) => sum + entry.amount,
+    TUNING.INITIAL_CASH,
+  )
+  return cash === fullHistoryCash
+    ? undefined
+    : { cash, ledgerLength: ledger.length }
 }
 
 function isExactAnnexFacility(operations: StudioOperations): boolean {
@@ -293,15 +314,55 @@ export function assertStudioConstructionInvariants(
     talent: state.talent,
   })
 
-  // The entire live cash history remains one ordered ledger. Construction does
-  // not create an exception or a second capital-account balance.
-  const ledgerCash = state.ledger.reduce<number>(
-    (sum, entry) => sum + entry.amount,
-    TUNING.INITIAL_CASH,
-  )
+  // Native and already-reconciled histories retain the original full-ledger
+  // identity. A migrated pre-ledger history may carry one exact checkpoint at
+  // the end of its validated historical prefix; every V11-era movement,
+  // especially construction capex, must remain in the reconciled suffix.
+  const checkpoint = state.cashLedgerCheckpoint
+  let ledgerStart = 0
+  let ledgerCash: number = TUNING.INITIAL_CASH
+  if (checkpoint !== undefined) {
+    invariant(
+      checkpoint !== null && typeof checkpoint === 'object',
+      'cash-ledger checkpoint must be an object',
+    )
+    invariant(
+      Number.isFinite(checkpoint.cash),
+      'cash-ledger checkpoint cash must be finite',
+    )
+    invariant(
+      Number.isInteger(checkpoint.ledgerLength) && checkpoint.ledgerLength >= 0,
+      'cash-ledger checkpoint length must be a non-negative integer',
+    )
+    invariant(
+      checkpoint.ledgerLength <= state.ledger.length,
+      'cash-ledger checkpoint cannot extend beyond the ordered ledger',
+    )
+
+    const historicalPrefixCash = state.ledger
+      .slice(0, checkpoint.ledgerLength)
+      .reduce<number>((sum, entry) => sum + entry.amount, TUNING.INITIAL_CASH)
+    invariant(
+      checkpoint.cash !== historicalPrefixCash,
+      'cash-ledger checkpoint must encode a genuine historical reconciliation boundary',
+    )
+    invariant(
+      state.ledger
+        .slice(0, checkpoint.ledgerLength)
+        .every((entry) => entry.kind !== 'constructionCapex'),
+      'construction capex cannot predate the V11 cash-ledger checkpoint',
+    )
+    ledgerStart = checkpoint.ledgerLength
+    ledgerCash = checkpoint.cash
+  }
+  for (let i = ledgerStart; i < state.ledger.length; i++) {
+    ledgerCash += state.ledger[i]!.amount
+  }
   invariant(
     Number.isFinite(state.studio.cash) && state.studio.cash === ledgerCash,
-    'studio cash must equal initial cash plus the ordered ledger',
+    checkpoint === undefined
+      ? 'studio cash must equal initial cash plus the ordered ledger'
+      : 'studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger',
   )
 }
 

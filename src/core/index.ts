@@ -69,6 +69,7 @@ export type {
   ConstructionParcel,
   ConstructionProject,
   StudioConstruction,
+  CashLedgerCheckpoint,
   ScriptDevelopmentMode,
   ScriptProjectStatus,
   ScriptRewriteCount,

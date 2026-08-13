@@ -14,11 +14,13 @@ import {
   applyActions,
   exportSave,
   generateWorld,
+  makeSaveV2,
   makeSaveV5,
   makeSaveV8,
   makeSaveV10,
   OracleAgent,
   tick,
+  validateSaveV2,
 } from '../../../src/core/index.ts'
 import type { GameState, GameStateV5, GameStateV8 } from '../../../src/core/index.ts'
 
@@ -55,6 +57,38 @@ function headless(seed: string, weeks: number): GameState {
   }
   return s
 }
+
+describe('V11: adapter migration preserves an honest pre-ledger cash checkpoint', () => {
+  it('a played literal V2 save preserves its pre-ledger cash checkpoint when upgraded to V11', () => {
+    const before = generateWorld('d17-adapter-v2-played-cash')
+    const actions = OracleAgent.chooseActions(before)
+    expect(actions.some((action) => action.kind === 'greenlight')).toBe(true)
+
+    const played = applyActions(before, actions)
+    expect(played.studio.cash).toBeLessThan(before.studio.cash)
+    expect(played.ledger.length).toBeGreaterThan(0)
+
+    // makeSaveV2 is the authoritative frozen projection: its literal JSON owns the
+    // played cash/RNG, but predates the ledger and therefore cannot carry its rows.
+    const json = exportSave(makeSaveV2(played))
+    const literal = JSON.parse(json)
+    expect(literal.saveVersion).toBe(2)
+    expect('ledger' in literal.state).toBe(false)
+    expect(() => validateSaveV2(literal)).not.toThrow()
+
+    const legacyCash = literal.state.studio.cash
+    const legacyRngState = literal.state.rngState
+    const r = importSaveJson(json)
+    expect(r.ok).toBe(true)
+    if (!r.ok) return
+    expect(r.converted).toBe(true)
+    expect(r.state.studio.cash).toBe(legacyCash)
+    expect(r.state.rngState).toBe(legacyRngState)
+    expect(r.state.ledger).toEqual([])
+    expect(Object.hasOwn(r.state, 'cashLedgerCheckpoint')).toBe(true)
+    expect(r.state.cashLedgerCheckpoint).toEqual({ cash: legacyCash, ledgerLength: 0 })
+  })
+})
 
 describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file', () => {
   it('an ENGAGED V5 save loads into the current state with engagement preserved', () => {

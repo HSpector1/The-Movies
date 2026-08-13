@@ -10,6 +10,41 @@ Contract and its reviewed Week-260 observatory; D-16 Owner rulings; and canonica
 
 Research evidence: [Facilities & Construction Research Evidence](./FACILITIES-CONSTRUCTION-RESEARCH-EVIDENCE.md)
 
+## Post-closure compatibility amendment — historical cash/ledger checkpoint
+
+A whole-diff audit completed after the first closure found one P1 compatibility conflict. Genuine
+played SaveFileV1 and SaveFileV2 files persist the player's current cash but predate the ledger.
+Their frozen V2-to-V3 conversion must preserve that cash and create `ledger: []`. Descendants of
+those files therefore cannot truthfully satisfy a universal `INITIAL_CASH + full ledger` identity:
+the pre-ledger transactions were never persisted, and canceled productions make reconstruction
+impossible.
+
+This amendment supersedes only the incompatible V11 migration/accounting wording below. It changes
+no Annex price, duration, capacity, lifecycle, action, RNG, UI, or economy behavior; it does not
+alter any V1–V10 validator or converter and does not invent a balancing transaction.
+
+SaveFileV11 may own one conditional, migration-only top-level checkpoint:
+
+```text
+cashLedgerCheckpoint
+  cash: finite number
+  ledgerLength: non-negative integer
+```
+
+Omission retains the original native law: cash reconciles from `TUNING.INITIAL_CASH` across the
+entire ordered ledger. `convertV10ToV11` writes the checkpoint only when a validated historical V10
+cannot satisfy that law. It records the exact current cash and exact ledger length at conversion;
+that historical prefix remains intact, and current cash must thereafter equal checkpoint cash plus
+the ordered ledger suffix. Every `constructionCapex` row must occur in that suffix. An explicit
+checkpoint that merely restates the native full-history identity is invalid.
+
+The checkpoint is not a cash movement, ledger kind, opening grant, refund, financing mechanism, or
+permission to repair current saves. V11 validation remains exact-keyed and strict; it rejects a
+malformed, redundant, out-of-range, or internally inconsistent checkpoint, changed cash, changed
+post-checkpoint rows, or construction capex placed before the boundary. Previously valid V11 files
+necessarily satisfied the original full-history invariant, omit the optional field, and remain
+byte-compatible.
+
 ## Purpose and bounded ruling
 
 Add one optional capital project to the studio the player can operate now:
@@ -123,9 +158,11 @@ size-scaling cash sink.
 
 ## Compatibility and activation boundary
 
-SaveFileV1 through SaveFileV10 remain frozen. SaveFileV11 appends one authoritative construction
-root and is the only format that writes Annex lifecycle state. No earlier validator, save builder,
-or envelope accepts or emits that root, the new ledger kind, or a constructed facility. Frozen
+SaveFileV1 through SaveFileV10 remain frozen. SaveFileV11 appends one authoritative gameplay root
+for construction and may retain the conditional migration-only cash/ledger checkpoint defined by
+the compatibility amendment. It is the only format that writes either V11 field or Annex lifecycle
+state. No earlier validator, save builder, or envelope accepts or emits them, the new ledger kind,
+or a constructed facility. Frozen
 state types statically exclude the V11 construction root and ledger authority. Their pre-existing
 `StudioOperations` type remains intentionally broad because the committed observatory already used
 configured research facilities before V11; exact historical validators and builders therefore own
@@ -142,7 +179,9 @@ V10-to-V11 migration is deterministic and depends only on validated V10 operatio
 - legacy operations receive `{ mode: 'legacy', parcels: [], projects: [] }` and remain legacy;
 - managed operations receive managed construction with one vacant `expansion` parcel and no
   projects; and
-- neither path invents a past project, debit, completion date, Annex, reservation, or benefit.
+- neither path invents a past project, debit, completion date, Annex, reservation, or benefit; and
+- only a historical cash/ledger mismatch appends the exact migration checkpoint; reconciling
+  histories retain the original checkpoint-free V11 shape.
 
 A migrated legacy studio that later uses the existing explicit managed-operations activation
 receives the same vacant parcel at that forward-only boundary. Legacy studios never display the
@@ -275,12 +314,22 @@ speed multiplier, or user-completable action affects it.
 
 `constructionCapex` is a new engaged-only `LedgerKind`. Every compile-guarded ledger classifier must
 give it an explicit home, including save validation, engagement evidence, finance totals, period
-summary, weekly summary, cash timeline, and Studio Run Recap. Cash continues to reconcile in ledger
-array order:
+summary, weekly summary, cash timeline, and Studio Run Recap. Native and already-reconciled cash
+continues to reconcile in ledger array order:
 
 ```text
 studio.cash = TUNING.INITIAL_CASH + sum(ledger.amount)
 ```
+
+For the one amended historical case:
+
+```text
+studio.cash = cashLedgerCheckpoint.cash
+            + sum(ledger[cashLedgerCheckpoint.ledgerLength...].amount)
+```
+
+The checkpoint adds no ledger amount and no Finance, recap, period, film, fixed-cost, or recurring-
+burn category. Existing retained ledger totals remain unchanged.
 
 Construction capex is a studio-level capital investment. It must appear as its own positive spend
 total in Finance and in `Where the money went`, and as the exact negative movement in period/cash
@@ -323,8 +372,9 @@ At minimum it enforces:
 
 The matching capex ledger row has `week = startedWeek`, `amount = -780000`, the canonical
 `constructionProjectId`, and neither talent nor production correlation. V11 validation also enforces
-the full cash identity against the ledger in array order; a structurally valid project cannot excuse
-a missing debit or mismatched cash.
+the full native identity or exact post-checkpoint identity in ledger array order. Capex must occur
+after any historical checkpoint; a structurally valid project cannot excuse a missing debit or
+mismatched cash.
 
 The research-only broad `configured` facility policy is not valid SaveFileV11 acceptance. Core adds
 an exact V11 facility policy that accepts only the five canonical initial facilities, plus the one
@@ -332,16 +382,21 @@ canonical Annex if and only if the construction project is Completed. V11 import
 other configured facility, reordered/replaced initial facility, Annex duplicate, or capacity
 mutation.
 
-V11 validation is exact-keyed and rejects unknown modes/statuses/kinds, extra parcels, noncanonical
+V11 validation is exact-keyed and rejects unknown modes/statuses/kinds/roots, extra parcels, noncanonical
 IDs/order, non-integer or future clocks, wrong cost/duration, duplicate or missing capex, impossible
 lifecycle/market-week combinations, a facility before completion, a completed project without its
-facility, reservation/capability mismatch, and any facility-slot collision. It never repairs or
-defaults malformed current-version state.
+facility, reservation/capability mismatch, any facility-slot collision, or a malformed/redundant/
+inconsistent cash-ledger checkpoint. It never repairs or defaults malformed current-version state.
 
 `makeSaveV1` through `makeSaveV10` remain positive projections of their frozen versions and cannot
 leak V11 construction state or `constructionCapex`. `makeSaveV11` writes the current root.
-`convertV10ToV11` deep-clones validated input, adds only the truthful mode-specific default,
-preserves RNG bytes, and leaves its argument untouched. `migrateToV11` passes V11 by identity and
+They may omit a checkpoint only when it is canonical, still sits at the end of the retained ledger,
+and the target format can carry that full historical prefix; V1/V2 cannot carry a nonempty prefix,
+and no frozen builder may move the boundary after post-checkpoint gameplay or launder an invalid
+checkpoint through remigration.
+`convertV10ToV11` deep-clones validated input, adds the truthful mode-specific construction default
+and, only when required, the exact historical cash/ledger checkpoint; it preserves cash, every
+ledger row, RNG bytes, and its untouched input. `migrateToV11` passes V11 by identity and
 migrates V1 through V10 forward. Every historical migration entry point rejects newer versions
 rather than discarding construction state.
 

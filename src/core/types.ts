@@ -342,9 +342,11 @@ export type Contract = {
   termWeeks: number // 52..208 (1..4 years)
 }
 
-// Financial ledger (D-11.18). Every cash movement is recorded so payroll never
-// "silently disappears into production costs" and cash reconciles:
-//   studio.cash === INITIAL_CASH + Σ ledger.amount
+// Financial ledger (D-11.18). Every cash movement recorded after ledger authority
+// began is retained so payroll never "silently disappears into production costs".
+// Native studios reconcile from INITIAL_CASH. A V11 studio migrated from a genuine
+// pre-ledger save may instead carry one explicit cash/ledger checkpoint; that
+// checkpoint preserves opaque V1/V2 history without inventing a transaction.
 // (founding recruitment-fund signing bonuses are the one deliberate exception —
 // they draw founding.budget, never cash, and are tracked in founding.spentBonus).
 export type LedgerKindV10 =
@@ -714,11 +716,23 @@ export type StudioConstruction = {
   projects: ConstructionProject[]
 }
 
-// SaveFileV10 remains recursively frozen above. SaveFileV11 owns the one new
-// construction root and is the live state written by current core code.
+// SaveFileV11 compatibility checkpoint. V1/V2 legitimately persisted cash but no
+// ledger, and the frozen V2→V3 law preserved that cash while seeding an empty
+// ledger. When such history cannot reconcile from INITIAL_CASH, migration records
+// the exact cash and ledger length at the V11 boundary. Every later cash movement
+// must reconcile exactly from this point; no balancing ledger row is fabricated.
+export type CashLedgerCheckpoint = {
+  cash: number
+  ledgerLength: number
+}
+
+// SaveFileV10 remains recursively frozen above. SaveFileV11 owns the construction
+// root and one optional migration-only cash/ledger checkpoint. Native and already-
+// reconciled states omit the checkpoint, preserving the original V11 byte shape.
 export type GameStateV11 = Omit<GameStateV10, 'ledger'> & {
   ledger: LedgerEntry[]
   construction: StudioConstruction
+  cashLedgerCheckpoint?: CashLedgerCheckpoint
 }
 
 export type GameState = GameStateV11

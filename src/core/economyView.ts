@@ -425,7 +425,7 @@ export type FinanceTotals = {
   termination: number
   publicity: number // D-17B §5: Σ publicity campaign purchases, stored negative
   construction: number // Annex V1: Σ studio construction capex, stored negative
-  net: number // Σ all ledger amounts (= cash − INITIAL_CASH; reconciliation invariant)
+  net: number // Σ all retained ledger amounts; migrated pre-ledger cash may use a V11 checkpoint
 }
 
 const ZERO_TOTALS = (): FinanceTotals => ({
