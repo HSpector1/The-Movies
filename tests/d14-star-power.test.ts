@@ -16,7 +16,7 @@ import {
   tick,
   TUNING,
 } from '../src/core/index.js'
-import type { CastSlot, CreativeRole, FilmParticipantRole, GameState, GameStateV4 } from '../src/core/index.js'
+import type { CastSlot, CreativeRole, FilmParticipantRole, GameState } from '../src/core/index.js'
 
 // ── real-engine found → cast → release helper ────────────────────────────────
 function foundEngaged(seed: string): GameState {
@@ -206,7 +206,7 @@ describe('D-14 Star Power lifecycle (real engine)', () => {
 
     // Round-trip: export → import. Career events preserved byte-identically.
     const reloaded = importSave(exportSave(makeSave(s)))
-    if (reloaded.saveVersion !== 8) throw new Error('expected V8') // Production Operations V1.
+    if (reloaded.saveVersion !== 9) throw new Error('expected V9') // Script Projects V1.
     expect(reloaded.state.careerEvents).toEqual(s.careerEvents)
 
     // Advancing the reloaded state with NO new release adds NO new events (no re-apply).
@@ -231,9 +231,16 @@ describe('D-14 SaveFileV5 migration', () => {
     const { s } = releaseOneFilm(s0, actors[0]!.id)
     const famesBefore = s.talent.map((t) => ({ id: t.id, fame: t.fame }))
 
-    // Synthesize a V4 save (drop the D-14 field) to exercise the real migration.
-    const { careerEvents, ...v4State } = s
-    const v4 = makeSaveV4(v4State as GameStateV4)
+    // Synthesize the exact frozen V4 shape: drop D-14 and every later field.
+    const {
+      careerEvents: _careerEvents,
+      economyEngagedEver: _economyEngagedEver,
+      publicity: _publicity,
+      operations: _operations,
+      scriptDevelopment: _scriptDevelopment,
+      ...v4State
+    } = s
+    const v4 = makeSaveV4(v4State)
     expect(v4.saveVersion).toBe(4)
 
     const v5 = convertV4ToV5(v4)

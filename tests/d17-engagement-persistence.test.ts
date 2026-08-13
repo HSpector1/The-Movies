@@ -130,19 +130,27 @@ function headlessRun(seed: string, weeks: number): GameState {
 // a broken converter would still pass. The `Omit<>`-typed returns make an omission a type error.
 // Strip the live state back to the FROZEN GameStateV6 shape a real V6 save carries.
 function toV6(s: GameState): GameStateV6 {
-  const { publicity: _publicity, operations: _operations, ...v6 } = s
+  const { publicity: _publicity, operations: _operations, scriptDevelopment: _scripts, ...v6 } = s
   return v6
 }
 
 // Strip the live state back to the FROZEN GameStateV5 shape, as a real V5 save carries it.
 function toV5(s: GameState): GameStateV5 {
-  const { economyEngagedEver: _dropped, publicity: _publicity, operations: _operations, ...v5 } = s
+  const { economyEngagedEver: _dropped, publicity: _publicity, operations: _operations, scriptDevelopment: _scripts, ...v5 } = s
   return v5
 }
 
 // Strip the live state back to the FROZEN GameStateV3 shape (a legacy D-11 save).
 function toV3(s: GameState): GameStateV3 {
-  const { economyEngagedEver: _a, careerEvents: _b, theatricalRuns: _c, publicity: _d, operations: _e, ...v3 } = s
+  const {
+    economyEngagedEver: _economyEngagedEver,
+    careerEvents: _careerEvents,
+    theatricalRuns: _theatricalRuns,
+    publicity: _publicity,
+    operations: _operations,
+    scriptDevelopment: _scriptDevelopment,
+    ...v3
+  } = s
   return v3
 }
 
@@ -427,10 +435,10 @@ describe('D-17A/R2: a V6 save without an explicit engagement fact is rejected LO
     expect(() => validateSaveV6(bad)).toThrow(/economyEngagedEver/)
   })
 
-  it('new games save as V8 and carry the fact', () => {
-    // Production Operations V1: makeSave writes V8; the R2 fact is still carried.
+  it('new games save as V9 and carry the fact', () => {
+    // Script Projects V1: makeSave writes V9; the R2 fact is still carried.
     const save = makeSave(foundStudio('d17-newgame'))
-    expect(save.saveVersion).toBe(8)
+    expect(save.saveVersion).toBe(9)
     expect(save.state.economyEngagedEver).toBe(true)
   })
 })

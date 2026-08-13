@@ -50,6 +50,7 @@ import { TalentProfileDrawer } from './components/TalentProfileDrawer.tsx'
 import { StartScreen } from './screens/StartScreen.tsx'
 import { Dashboard } from './screens/Dashboard.tsx'
 import { Assembly } from './screens/Assembly.tsx'
+import { WritersRoom } from './screens/WritersRoom.tsx'
 import { ReleaseResult } from './screens/ReleaseResult.tsx'
 import { Autopsy } from './screens/Autopsy.tsx'
 import { TalentCreator } from './screens/TalentCreator.tsx'
@@ -81,7 +82,8 @@ type Screen =
   | { kind: 'dashboard' }
   | { kind: 'roster' }
   | { kind: 'hiring' }
-  | { kind: 'assembly' }
+  | { kind: 'writersRoom' }
+  | { kind: 'assembly'; scriptProjectId?: string }
   | {
       kind: 'release'
       preTick: GameState
@@ -271,7 +273,11 @@ export function App() {
         setScreen({ kind: 'hub' })
         break
       case 'assembly':
-        setScreen({ kind: 'assembly' })
+        setScreen(
+          state?.scriptDevelopment.mode === 'managed'
+            ? { kind: 'writersRoom' }
+            : { kind: 'assembly' },
+        )
         break
       case 'saves':
         setScreen({ kind: 'saves' })
@@ -505,7 +511,13 @@ export function App() {
       {screen.kind === 'dashboard' && (
         <Dashboard
           state={state}
-          onAssemble={() => setScreen({ kind: 'assembly' })}
+          onAssemble={() =>
+            setScreen(
+              state.scriptDevelopment.mode === 'managed'
+                ? { kind: 'writersRoom' }
+                : { kind: 'assembly' },
+            )
+          }
           onAdvance={handleAdvance}
           onSimToEvent={handleSimToEvent}
           onCreateTalent={() => setScreen({ kind: 'talent', returnTo: 'dashboard' })}
@@ -535,9 +547,21 @@ export function App() {
         />
       )}
 
+      {screen.kind === 'writersRoom' && (
+        <WritersRoom
+          state={state}
+          onChange={setState}
+          onOpenPackage={(scriptProjectId) =>
+            setScreen({ kind: 'assembly', scriptProjectId })
+          }
+          onBack={goDashboard}
+        />
+      )}
+
       {screen.kind === 'assembly' && (
         <Assembly
           state={state}
+          {...(screen.scriptProjectId ? { scriptProjectId: screen.scriptProjectId } : {})}
           onGreenlit={(next) => {
             setState(next)
             goDashboard()
@@ -608,7 +632,11 @@ export function App() {
           stopMessage={screen.stopMessage}
           weeks={screen.weeks}
           cashNow={screen.cashNow}
-          onContinue={goDashboard}
+          onContinue={() =>
+            screen.stopReason === 'scriptReview'
+              ? setScreen({ kind: 'writersRoom' })
+              : goDashboard()
+          }
         />
       )}
 

@@ -516,11 +516,104 @@ export type StudioOperations = {
   workflows: ProductionWorkflow[]
 }
 
-// The live V8 state. Legacy worlds carry an explicit empty operations surface;
-// managed mode is activated only by the dedicated action after founding.
-export type GameState = GameStateV7 & {
+// The frozen Production Operations V1 state. SaveFileV8 remains anchored here so
+// Script Projects V1 cannot leak into its recursive state shape.
+export type GameStateV8 = GameStateV7 & {
   operations: StudioOperations
 }
+
+// ── Script Projects V1 (SaveFileV9) ──────────────────────────────────────────
+export type ScriptDevelopmentMode = 'legacy' | 'managed'
+export type ScriptProjectStatus =
+  | 'drafting'
+  | 'review'
+  | 'rewriting'
+  | 'ready'
+  | 'inProduction'
+  | 'produced'
+export type ScriptRewriteCount = 0 | 1
+
+export type ScriptAssessment = {
+  actualStrength: number
+  perceivedStrength: number
+}
+
+// A screenplay task owns one exact slot in Development & Casting. `projectId`
+// makes the reservation independently auditable at save and shared-capacity
+// boundaries; the project status says whether the task is drafting or rewriting.
+export type ScriptReservation = {
+  projectId: string
+  facilityId: string
+  capability: 'development-casting'
+  slot: number
+}
+
+export type ScriptProject = {
+  id: string
+  conceptId: string
+  writerId: string
+  shape: FilmShape
+  promise: Promise
+  status: ScriptProjectStatus
+  rewriteCount: ScriptRewriteCount
+  commissionedWeek: number
+  // Persisted timing authority for the one-week Draft/Rewrite law. Present only
+  // while work is active; cleared when the task enters Review.
+  dueWeek: number | null
+  assessment: ScriptAssessment | null
+  reservation: ScriptReservation | null
+  productionId: string | null
+}
+
+export type ScriptDevelopment = {
+  mode: ScriptDevelopmentMode
+  projects: ScriptProject[]
+}
+
+export type CommissionScriptPayload = {
+  conceptId: string
+  writerId: string
+  shape: FilmShape
+  promise: Promise
+}
+
+// The screenplay owns concept/shape/promise/writer. The package command supplies
+// only the remaining production choices, preventing a UI from substituting facts.
+export type GreenlightScriptProjectPayload = {
+  projectId: string
+  directorId: string
+  craftIds: string[]
+  cast: Record<CastSlot, string>
+  budget: Budget
+}
+
+// Generalized, player-readable screenplay assignment truth. The display label is
+// deliberately resolved by core so roster surfaces never invent a raw-id reason.
+export type ScriptWriterAssignment = {
+  talentId: string
+  projectId: string
+  status: 'drafting' | 'rewriting'
+  title: string
+  label: string
+}
+
+// Exact shared Development & Casting occupancy for read models and diagnostics.
+export type DevelopmentCastingOccupancy = {
+  facilityId: string
+  facilityName: string
+  slot: number
+  owner: 'production' | 'script'
+  ownerId: string
+  activity: 'production-development' | 'drafting' | 'rewriting'
+}
+
+// The live V9 state. Legacy worlds carry an explicit empty screenplay surface;
+// managed mode is activated only at the governed player-studio boundary.
+export type GameStateV9 = GameStateV8 & {
+  scriptDevelopment: ScriptDevelopment
+}
+
+export type GameState = GameStateV9
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
@@ -590,6 +683,12 @@ export type Action =
   | { kind: 'assignShootingDirector'; productionId: string; directorId: string }
   | { kind: 'clearSceneryLoadIn'; productionId: string }
   | { kind: 'scheduleShootingTake'; productionId: string }
+  // ── Script Projects V1 ──
+  | { kind: 'activateScriptDevelopment' }
+  | { kind: 'commissionScript'; project: CommissionScriptPayload }
+  | { kind: 'requestScriptRewrite'; projectId: string }
+  | { kind: 'acceptScript'; projectId: string }
+  | { kind: 'greenlightScriptProject'; production: GreenlightScriptProjectPayload }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

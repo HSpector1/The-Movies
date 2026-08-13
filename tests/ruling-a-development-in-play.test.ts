@@ -380,7 +380,21 @@ describe('RULING A — development survives save round-trips without duplication
       salary: t.salary,
       authored: t.authored,
     }))
-    const v1State: GameStateV1 = { ...gen, talent: v1Talent }
+    const {
+      talent: _liveTalent,
+      founding: _founding,
+      contracts: _contracts,
+      ledger: _ledger,
+      freeAgents: _freeAgents,
+      theatricalRuns: _theatricalRuns,
+      careerEvents: _careerEvents,
+      economyEngagedEver: _economyEngagedEver,
+      publicity: _publicity,
+      operations: _operations,
+      scriptDevelopment: _scriptDevelopment,
+      ...v1Base
+    } = gen
+    const v1State: GameStateV1 = { ...v1Base, talent: v1Talent }
     const v1Save: SaveFileV1 = makeSaveV1(v1State)
 
     const v2a = convertV1ToV2(v1Save)
@@ -395,8 +409,8 @@ describe('RULING A — development survives save round-trips without duplication
   it('load → advance-with-no-release → the loaded talent is unchanged (no phantom development)', () => {
     const released = runOneFilm('A-save-3', true).released
     const reloaded = importSave(exportSave(makeSave(released)))
-    // The reloaded state is the live SaveFileV8; drive it forward, no greenlights.
-    if (reloaded.saveVersion !== 8) throw new Error('expected V8 save')
+    // The reloaded state is the live SaveFileV9; drive it forward, no greenlights.
+    if (reloaded.saveVersion !== 9) throw new Error('expected V9 save')
     const advanced = advanceDev(reloaded.state, 5)
     expect(advanced.talent).toEqual(reloaded.state.talent)
   })

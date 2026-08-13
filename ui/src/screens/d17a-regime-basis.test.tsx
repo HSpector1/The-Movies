@@ -34,17 +34,33 @@ import {
   generateWorld,
   makeSaveV5,
 } from '../../../src/core/index.ts'
-import type { CastSlot, CreativeRole } from '../../../src/core/index.ts'
+import type { CastSlot, CreativeRole, GameStateV5 } from '../../../src/core/index.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
 
 afterEach(cleanup)
 const noop = () => {}
 
-/** A never-engaged studio, persisted as V5 and reloaded exactly as "Load save" does. */
+function toV5(state: GameState): GameStateV5 {
+  const {
+    economyEngagedEver: _economyEngagedEver,
+    publicity: _publicity,
+    operations: _operations,
+    scriptDevelopment: _scriptDevelopment,
+    ...v5
+  } = state
+  return v5
+}
+
+/** A never-engaged studio, persisted as exact historical V5 and loaded into V9. */
 function importedNeverEngaged(seed: string): GameState {
   const world = generateWorld(seed)
   expect(economyEngaged(world)).toBe(false)
-  const outcome = importSaveJson(exportSave(makeSaveV5(world as never)))
+  const save = makeSaveV5(toV5(world))
+  expect('economyEngagedEver' in save.state).toBe(false)
+  expect('publicity' in save.state).toBe(false)
+  expect('operations' in save.state).toBe(false)
+  expect('scriptDevelopment' in save.state).toBe(false)
+  const outcome = importSaveJson(exportSave(save))
   expect(outcome.ok).toBe(true)
   if (!outcome.ok) throw new Error(outcome.error)
   expect(economyEngaged(outcome.state)).toBe(false)

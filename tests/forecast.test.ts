@@ -80,6 +80,16 @@ function ctxWith(over: Partial<ForecastContext>): ForecastContext {
 
 const confidenceOf = (segs: { confidence: Confidence }[]): Confidence => segs[0].confidence
 
+describe('Script Projects V1 forecast authority', () => {
+  it('uses the persisted perceived screenplay strength while reception may retain a different actual', () => {
+    const inputs = {
+      ...inputsWith({ leadFame: 30, promiseWidth: 1.2 }),
+      scriptStrengthOverride: { actual: 15, perceived: 91 },
+    }
+    expect(forecastCenters(inputs).core.scriptStrength).toBe(91)
+  })
+})
+
 // ─────────────────────────────────────────────────────────────────────────────
 // B17 / §7  low/high = estimate ∓ CONFIDENCE_INTERVAL_WIDTH[confidence], clamped [0,100]
 // ─────────────────────────────────────────────────────────────────────────────

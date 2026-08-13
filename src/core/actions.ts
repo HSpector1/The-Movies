@@ -35,6 +35,7 @@
 
 import {
   activeContract,
+  busyTalentIds,
   canAfford,
   contractOffer,
   economyEngaged,
@@ -58,6 +59,18 @@ import {
   scheduleShootingTake,
 } from './operations.js'
 import { publicityLiftAt } from './publicity.js'
+import {
+  acceptScriptProject,
+  activeScriptWriterAssignments,
+  assertScriptDevelopmentInvariants,
+  commissionScriptProject,
+  initialManagedScriptDevelopment,
+  linkScriptProjectToProduction,
+  requestScriptRewrite,
+  returnScriptProjectToReady,
+  screenplayFactsMatch,
+  scriptOccupiedFacilitySlots,
+} from './scriptDevelopment.js'
 import type { ReceptionInputs } from './reception.js'
 import { stream, type RngStream } from './rng.js'
 import { resolveShape } from './shape.js'
@@ -115,9 +128,8 @@ const CREATIVE_ROLES: readonly CreativeRole[] = ['writer', 'director', 'actor', 
 // the M0A corpus (≤1 greenlight/tick) is byte-identical. But the 2-concurrent rule
 // (B3) lets a PLAYER greenlight two films at the SAME tick, which under the old scheme
 // produced two `prod-0000` ids — the root cause of the duplicated-autopsy bug. So when
-// the base is already taken (by an active OR a released production), append the smallest
-// free `-k` suffix. Deterministic; base id unchanged whenever it is free (i.e. always,
-// in M0A). `taken` = every active + released production id.
+// the base is already taken, append the smallest free `-k` suffix. Deterministic; base
+// id unchanged whenever it is free (i.e. always, in M0A).
 function productionId(startTick: number, taken: ReadonlySet<string>): string {
   const base = `prod-${String(startTick).padStart(4, '0')}`
   if (!taken.has(base)) return base
@@ -126,18 +138,50 @@ function productionId(startTick: number, taken: ReadonlySet<string>): string {
   return `${base}-${k}`
 }
 
+// A production identity remains authoritative after the live Production disappears.
+// In particular, cancellation deliberately keeps the sunk greenlight entries in the
+// ledger. Reusing that id would merge two films' accounting, so allocation must collide
+// against EVERY persisted production-id consumer, not just active/released films.
+function persistedProductionIds(state: GameState): Set<string> {
+  const taken = new Set<string>()
+  const add = (id: string | null | undefined): void => {
+    if (id !== null && id !== undefined) taken.add(id)
+  }
+
+  for (const active of state.studio.activeProductions) add(active.id)
+  for (const film of state.studio.releasedFilms) add(film.productionId)
+  for (const run of state.theatricalRuns) add(run.productionId)
+  for (const entry of state.ledger) add(entry.productionId)
+  for (const event of state.careerEvents) add(event.filmId)
+  for (const item of state.broadcastItems) {
+    add(item.facts.filmId)
+    if (item.topic === 'release') {
+      add(item.subjectId)
+      add(item.facts.subjectId)
+    }
+  }
+  // CoverageContext predates the explicit `filmId` fact and retains only its subject.
+  // Reserve it conservatively in case a legacy context's subject is a production id.
+  for (const context of state.coverageContexts) add(context.subjectId)
+  for (const workflow of state.operations.workflows) {
+    add(workflow.productionId)
+    for (const reservation of workflow.reservations) add(reservation.productionId)
+    add(workflow.shootingTask?.productionId)
+  }
+  for (const project of state.scriptDevelopment.projects) add(project.productionId)
+
+  return taken
+}
+
 // The production id the NEXT greenlight at the current tick WILL allocate — the SAME
-// collision-safe allocation applyGreenlight uses (currentTick + taken active/released ids).
+// collision-safe allocation applyGreenlight uses (currentTick + every persisted id).
 // Exposed so the UI can preview a Review/Commercial-Outlook forecast on the SAME forecast
 // stream the greenlight will persist. Without this, a same-week SECOND greenlight previews on
 // the bare `prod-<tick>` stream but the engine persists a forecast drawn from `prod-<tick>-1`
 // → the two diverge (D-12 beta P1). Pure; draws from no stream. Identical to the base id in
 // M0A (≤1 greenlight/tick → no collision) so no headless behavior changes.
 export function predictProductionId(state: GameState): string {
-  const taken = new Set<string>()
-  for (const active of state.studio.activeProductions) taken.add(active.id)
-  for (const f of state.studio.releasedFilms) taken.add(f.productionId)
-  return productionId(state.market.tick, taken)
+  return productionId(state.market.tick, persistedProductionIds(state))
 }
 
 // D-11.A — capture the film's immutable participant record at the LOCKED greenlight
@@ -246,9 +290,34 @@ function requireRole(t: Talent, role: CreativeRole, label: string): void {
 // Validate (throw on any failure per M16 + B3), then apply. `state` is the
 // evolving state (may already reflect earlier actions in this call). Returns the
 // next state; `state.rngState` is carried through unchanged.
-function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }): GameState {
+function applyGreenlight(
+  state: GameState,
+  prod: Action & { kind: 'greenlight' },
+  scriptProjectId?: string,
+): GameState {
   const p = prod.production
   const currentTick = state.market.tick
+
+  const scriptProject =
+    scriptProjectId === undefined
+      ? undefined
+      : state.scriptDevelopment.projects.find((project) => project.id === scriptProjectId)
+  if (state.scriptDevelopment.mode === 'managed') {
+    if (scriptProject === undefined || scriptProject.status !== 'ready' || scriptProject.assessment === null) {
+      throw new Error(
+        'applyActions: greenlight rejected — managed studios must greenlight an authoritative Ready script project',
+      )
+    }
+    if (!screenplayFactsMatch(scriptProject, p)) {
+      throw new Error(
+        `applyActions: greenlight rejected — package facts disagree with Ready script project "${scriptProject.id}"`,
+      )
+    }
+  } else if (scriptProjectId !== undefined) {
+    throw new Error(
+      'applyActions: greenlightScriptProject rejected — screenplay development is not managed',
+    )
+  }
 
   // D-11.2 — no greenlight during the founding draft (assemble a roster first).
   if (state.founding !== null) {
@@ -347,6 +416,12 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
     for (const slot of CAST_SLOTS) busy.add(active.cast[slot])
     for (const cid of active.craftIds) busy.add(cid)
   }
+  for (const assignment of activeScriptWriterAssignments(
+    state.scriptDevelopment,
+    state.concepts,
+  )) {
+    busy.add(assignment.talentId)
+  }
   for (const id of engagedIds) {
     if (busy.has(id)) {
       throw new Error(
@@ -356,13 +431,9 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
   }
 
   // ── Apply ──────────────────────────────────────────────────────────────────
-  // Unique id even for same-tick greenlights (D-11.A): base id unless already taken
-  // by an active or released production. In M0A (≤1 greenlight/tick) the base is always
-  // free, so ids are byte-identical to before.
-  const takenIds = new Set<string>()
-  for (const active of state.studio.activeProductions) takenIds.add(active.id)
-  for (const f of state.studio.releasedFilms) takenIds.add(f.productionId)
-  const id = productionId(currentTick, takenIds)
+  // One allocator serves both preview and apply. Historical persisted ids stay reserved
+  // even after cancellation, so distinct films can never share an accounting identity.
+  const id = predictProductionId(state)
   const startTick = currentTick
   const remainingTicks = TUNING.PRODUCTION_TICKS
 
@@ -381,6 +452,14 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
     market: state.market,
     standing: state.studio.standing,
     era: state.era,
+    ...(scriptProject?.assessment
+      ? {
+          scriptStrengthOverride: {
+            actual: scriptProject.assessment.actualStrength,
+            perceived: scriptProject.assessment.perceivedStrength,
+          },
+        }
+      : {}),
   }
 
   // forecastSnapshot — computed at greenlight (M1). computeForecast draws its ONE
@@ -511,9 +590,27 @@ function applyGreenlight(state: GameState, prod: Action & { kind: 'greenlight' }
     },
     ledger: [...state.ledger, ...ledgerAdds],
   }
-  return state.operations.mode === 'managed'
-    ? { ...next, operations: addManagedProductionWorkflow(state.operations, production) }
-    : next
+  const withOperations =
+    state.operations.mode === 'managed'
+      ? {
+          ...next,
+          operations: addManagedProductionWorkflow(
+            state.operations,
+            production,
+            scriptOccupiedFacilitySlots(state.scriptDevelopment),
+          ),
+        }
+      : next
+  return scriptProject === undefined
+    ? withOperations
+    : {
+        ...withOperations,
+        scriptDevelopment: linkScriptProjectToProduction(
+          state.scriptDevelopment,
+          scriptProject.id,
+          production.id,
+        ),
+      }
 }
 
 // ── cancel (M15) ─────────────────────────────────────────────────────────────
@@ -526,6 +623,10 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
       `applyActions: cancel references productionId "${action.productionId}" not in activeProductions`,
     )
   }
+  const scriptDevelopment =
+    state.scriptDevelopment.mode === 'managed'
+      ? returnScriptProjectToReady(state.scriptDevelopment, action.productionId)
+      : state.scriptDevelopment
   return {
     ...state,
     studio: {
@@ -535,6 +636,7 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
       ),
     },
     operations: removeManagedProductionWorkflow(state.operations, action.productionId),
+    scriptDevelopment,
   }
 }
 
@@ -1193,6 +1295,180 @@ function applyScheduleShootingTake(
   }
 }
 
+// ── Script Projects V1 actions ───────────────────────────────────────────────
+function assertCurrentScriptState(state: GameState): GameState {
+  assertScriptDevelopmentInvariants(state.scriptDevelopment, {
+    currentWeek: state.market.tick,
+    concepts: state.concepts,
+    talent: state.talent,
+    contracts: state.contracts,
+    operations: state.operations,
+    activeProductions: state.studio.activeProductions,
+    releasedFilms: state.studio.releasedFilms,
+  })
+  return state
+}
+
+function applyActivateScriptDevelopment(
+  state: GameState,
+  _action: Action & { kind: 'activateScriptDevelopment' },
+): GameState {
+  if (state.scriptDevelopment.mode !== 'legacy') {
+    throw new Error(
+      'applyActions: activateScriptDevelopment rejected — screenplay development is already managed',
+    )
+  }
+  if (state.scriptDevelopment.projects.length !== 0) {
+    throw new Error(
+      'applyActions: activateScriptDevelopment rejected — legacy screenplay state is not empty',
+    )
+  }
+  if (state.operations.mode !== 'managed') {
+    throw new Error(
+      'applyActions: activateScriptDevelopment rejected — managed Studio Operations must be active first',
+    )
+  }
+  if (!economyEngaged(state) || state.founding !== null) {
+    throw new Error(
+      'applyActions: activateScriptDevelopment rejected — the studio must be founded with its economy engaged',
+    )
+  }
+  if (state.studio.activeProductions.length !== 0) {
+    throw new Error(
+      'applyActions: activateScriptDevelopment rejected — the active production slate is not empty',
+    )
+  }
+  return assertCurrentScriptState({
+    ...state,
+    scriptDevelopment: initialManagedScriptDevelopment(),
+  })
+}
+
+function applyCommissionScript(
+  state: GameState,
+  action: Action & { kind: 'commissionScript' },
+): GameState {
+  if (state.founding !== null) {
+    throw new Error(
+      'applyActions: commissionScript rejected — the studio is still in its founding draft',
+    )
+  }
+  const writer = requireTalent(state.talent, action.project.writerId, 'commissionScript writerId')
+  requireRole(writer, 'writer', 'commissionScript writerId')
+  if (!isContracted(state, writer.id)) {
+    throw new Error(
+      `applyActions: commissionScript rejected — writer "${writer.id}" is not currently studio-contracted`,
+    )
+  }
+  if (busyTalentIds(state).has(writer.id)) {
+    throw new Error(
+      `applyActions: commissionScript rejected — writer "${writer.id}" already has an active assignment`,
+    )
+  }
+  return assertCurrentScriptState({
+    ...state,
+    scriptDevelopment: commissionScriptProject(
+      state.scriptDevelopment,
+      state.operations,
+      action.project,
+      state.market.tick,
+    ),
+  })
+}
+
+function applyRequestScriptRewrite(
+  state: GameState,
+  action: Action & { kind: 'requestScriptRewrite' },
+): GameState {
+  const project = state.scriptDevelopment.projects.find(
+    (candidate) => candidate.id === action.projectId,
+  )
+  if (project === undefined) {
+    throw new Error(
+      `applyActions: requestScriptRewrite references unknown project "${action.projectId}"`,
+    )
+  }
+  if (!isContracted(state, project.writerId)) {
+    throw new Error(
+      `applyActions: requestScriptRewrite rejected — writer "${project.writerId}" is not currently studio-contracted`,
+    )
+  }
+  if (busyTalentIds(state).has(project.writerId)) {
+    throw new Error(
+      `applyActions: requestScriptRewrite rejected — writer "${project.writerId}" already has an active assignment`,
+    )
+  }
+  return assertCurrentScriptState({
+    ...state,
+    scriptDevelopment: requestScriptRewrite(
+      state.scriptDevelopment,
+      state.operations,
+      action.projectId,
+      state.market.tick,
+    ),
+  })
+}
+
+function applyAcceptScript(
+  state: GameState,
+  action: Action & { kind: 'acceptScript' },
+): GameState {
+  return assertCurrentScriptState({
+    ...state,
+    scriptDevelopment: acceptScriptProject(
+      state.scriptDevelopment,
+      action.projectId,
+    ),
+  })
+}
+
+function applyGreenlightScriptProject(
+  state: GameState,
+  action: Action & { kind: 'greenlightScriptProject' },
+): GameState {
+  const project = state.scriptDevelopment.projects.find(
+    (candidate) => candidate.id === action.production.projectId,
+  )
+  if (project === undefined) {
+    throw new Error(
+      `applyActions: greenlightScriptProject references unknown project "${action.production.projectId}"`,
+    )
+  }
+  if (!isContracted(state, project.writerId)) {
+    throw new Error(
+      `applyActions: greenlightScriptProject rejected — writer "${project.writerId}" must be currently studio-contracted`,
+    )
+  }
+  const next = applyGreenlight(
+    state,
+    {
+      kind: 'greenlight',
+      production: {
+        conceptId: project.conceptId,
+        // Copy the screenplay facts into the production. The authoritative
+        // append-only project and the production must never share mutable aliases.
+        shape: { ...project.shape },
+        promise: {
+          genre: project.promise.genre,
+          intendedSegments: [...project.promise.intendedSegments],
+          ranges: {
+            intimacy: [...project.promise.ranges.intimacy],
+            tonalWeight: [...project.promise.ranges.tonalWeight],
+            kineticEnergy: [...project.promise.ranges.kineticEnergy],
+          },
+        },
+        writerId: project.writerId,
+        directorId: action.production.directorId,
+        craftIds: action.production.craftIds,
+        cast: action.production.cast,
+        budget: action.production.budget,
+      },
+    },
+    project.id,
+  )
+  return assertCurrentScriptState(next)
+}
+
 // ── D-11 signContract — sign a talent to a studio contract (D-11.4/.5/.6) ─────
 // During founding: talent must be in the applicant pool; the signing bonus draws
 // the recruitment fund (NOT cash), tracked in founding.spentBonus. During ops:
@@ -1315,6 +1591,15 @@ function applyReleaseTalent(state: GameState, action: Action & { kind: 'releaseT
   const contract = activeContract(state, talentId)
   if (contract === undefined) {
     throw new Error(`applyActions: releaseTalent rejected — talent "${talentId}" has no active contract (D-11.9)`)
+  }
+  const scriptAssignment = activeScriptWriterAssignments(
+    state.scriptDevelopment,
+    state.concepts,
+  ).find((assignment) => assignment.talentId === talentId)
+  if (scriptAssignment !== undefined) {
+    throw new Error(
+      `applyActions: releaseTalent rejected — talent "${talentId}" is ${scriptAssignment.label} and must finish that screenplay task first`,
+    )
   }
   const cost = terminationCost(contract, week)
   const entry: LedgerEntry = {
@@ -1446,7 +1731,9 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
   // B3 — at most one greenlight per call. Reject two loudly (a harness abort).
   let greenlightCount = 0
   for (const action of actions) {
-    if (action.kind === 'greenlight') greenlightCount++
+    if (action.kind === 'greenlight' || action.kind === 'greenlightScriptProject') {
+      greenlightCount++
+    }
   }
   if (greenlightCount > 1) {
     throw new Error(
@@ -1500,6 +1787,21 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'scheduleShootingTake':
         next = applyScheduleShootingTake(next, action)
+        break
+      case 'activateScriptDevelopment':
+        next = applyActivateScriptDevelopment(next, action)
+        break
+      case 'commissionScript':
+        next = applyCommissionScript(next, action)
+        break
+      case 'requestScriptRewrite':
+        next = applyRequestScriptRewrite(next, action)
+        break
+      case 'acceptScript':
+        next = applyAcceptScript(next, action)
+        break
+      case 'greenlightScriptProject':
+        next = applyGreenlightScriptProject(next, action)
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).

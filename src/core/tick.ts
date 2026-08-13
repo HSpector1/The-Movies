@@ -47,6 +47,12 @@ import { openTheatricalRun } from './economy.js'
 import { clamp } from './math.js'
 import { advanceManagedProductions } from './operations.js'
 import {
+  completeDueScriptWork,
+  markScriptProjectProduced,
+  scriptOccupiedFacilitySlots,
+  scriptProjectForProduction,
+} from './scriptDevelopment.js'
+import {
   buildTalentCareerEvent,
   computeStarPowerDelta,
   flattenParticipants,
@@ -127,6 +133,16 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // Deserialize the sim stream ONCE. Its state is re-serialized as the final step.
   const rng = RngStream.deserialize(state.rngState)
 
+  // ── 0.5 SCRIPT DEVELOPMENT ────────────────────────────────────────────────
+  // A commission/rewrite made in week t is due at t+1 and completes during the
+  // single visible advance from t to t+1. Completed work releases its shared
+  // Development & Casting slot before productions allocate their next phase.
+  let scriptDevelopment = completeDueScriptWork(
+    state.scriptDevelopment,
+    currentTick + 1,
+    { concepts: state.concepts, talent: state.talent },
+  )
+
   // ── 1. PRODUCTION ──────────────────────────────────────────────────────────
   // Advance every active production with startTick < currentTick (M1 skip-first-
   // tick: a film greenlit at t does NOT advance during tick t). Immutable: build a
@@ -135,6 +151,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     state.operations,
     state.studio.activeProductions,
     currentTick,
+    scriptOccupiedFacilitySlots(scriptDevelopment),
   )
   const advanced: Production[] = productionAdvance.productions
   const operations = productionAdvance.operations
@@ -198,6 +215,20 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       market: state.market,
       standing: startOfTickStanding,
       era: state.era,
+      ...(() => {
+        const project = scriptProjectForProduction(
+          scriptDevelopment,
+          prod.id,
+        )
+        return project?.assessment
+          ? {
+              scriptStrengthOverride: {
+                actual: project.assessment.actualStrength,
+                perceived: project.assessment.perceivedStrength,
+              },
+            }
+          : {}
+      })(),
     }
 
     // The single §5.3 critic draw for this release — the ONLY sim-stream advance. `engaged` drives
@@ -326,6 +357,17 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     }
 
     records.push({ filmResult, benchmarks, ctx, broadcast, develop })
+  }
+
+  // The film result now exists and the production has left the active slate; keep
+  // the screenplay's exact production link as append-only Produced history.
+  if (scriptDevelopment.mode === 'managed') {
+    for (const production of releasing) {
+      scriptDevelopment = markScriptProjectProduced(
+        scriptDevelopment,
+        production.id,
+      )
+    }
   }
 
   // ── 3.5 WEEKLY THEATRICAL REVENUE (D-12; gated) ────────────────────────────
@@ -569,5 +611,6 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     theatricalRuns,
     careerEvents,
     operations,
+    scriptDevelopment,
   }
 }

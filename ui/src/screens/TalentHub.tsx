@@ -188,7 +188,11 @@ function RosterCard({ t, onOpen }: { t: TalentProfile; onOpen: (id: string) => v
         {primary.potentialLow}–{primary.potentialHigh})
       </div>
       {!t.available && (
-        <div className="reason">Working on {t.engagedIn} — busy until it releases.</div>
+        <div className="reason">
+          {t.assignmentKind === 'script'
+            ? `${t.engagedIn} — busy until the screenplay reaches review.`
+            : `Working on ${t.engagedIn} — busy until it releases.`}
+        </div>
       )}
     </button>
   )
@@ -316,7 +320,10 @@ function ProfileView({
         <div className="opt-desc mono">
           Primary {DISCIPLINE_LABEL[profile.primaryDiscipline]} · Age {ageYears(profile.age)} · Fame{' '}
           {starPower(profile.fame)} · Salary {money(profile.salary)}
-          {!profile.available && ` · Working on ${profile.engagedIn}`}
+          {!profile.available &&
+            (profile.assignmentKind === 'script'
+              ? ` · ${profile.engagedIn}`
+              : ` · Working on ${profile.engagedIn}`)}
         </div>
 
         <div className="fact-block stack">

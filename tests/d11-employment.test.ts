@@ -520,11 +520,11 @@ describe('D-11.5 — economy pressure', () => {
 })
 
 // ── D-11.16/.17 determinism & saves ───────────────────────────────────────────
-describe('D-11 — determinism & saves (V4)', () => {
-  it('new games save as V6 and round-trip byte-identically', () => {
+describe('D-11 — determinism & live saves', () => {
+  it('new games save at the live version and round-trip byte-identically', () => {
     const s = foundStudio('save-v4')
     const save = makeSave(s)
-    expect(save.saveVersion).toBe(8) // Production Operations V1: new games save as V8.
+    expect(save.saveVersion).toBe(9) // Script Projects V1: new games save as V9.
     const a = exportSave(save)
     const b = exportSave(importSave(a))
     expect(b).toBe(a)
@@ -533,10 +533,10 @@ describe('D-11 — determinism & saves (V4)', () => {
   it('no duplicate payroll after reload (reload ≡ continuous run)', () => {
     const s0 = foundStudio('reload-payroll')
     const continuous = advanceWeeks(s0, 6)
-    // Split: advance 3, export/import (V3), advance 3 more.
+    // Split: advance 3, export/import at the live version, advance 3 more.
     const mid = advanceWeeks(s0, 3)
     const reloaded = importSave(exportSave(makeSave(mid)))
-    if (reloaded.saveVersion !== 8) throw new Error('expected V8') // Production Operations V1.
+    if (reloaded.saveVersion !== 9) throw new Error('expected V9') // Script Projects V1.
     const split = advanceWeeks(reloaded.state, 3)
     expect(split.studio.cash).toBe(continuous.studio.cash)
     expect(split.ledger.length).toBe(continuous.ledger.length)
@@ -553,11 +553,19 @@ describe('D-11 — determinism & saves (V4)', () => {
     // A legacy V2 save = a headless world wrapped as V2 (no employment fields).
     const v2state = generateWorld('legacy-v2')
     // Strip to the frozen V2 shape (drop employment fields) to model a real V2 save.
-    const { founding, contracts, ledger, freeAgents, ...v2 } = v2state
-    void founding
-    void contracts
-    void ledger
-    void freeAgents
+    const {
+      founding: _founding,
+      contracts: _contracts,
+      ledger: _ledger,
+      freeAgents: _freeAgents,
+      theatricalRuns: _theatricalRuns,
+      careerEvents: _careerEvents,
+      economyEngagedEver: _economyEngagedEver,
+      publicity: _publicity,
+      operations: _operations,
+      scriptDevelopment: _scriptDevelopment,
+      ...v2
+    } = v2state
     const v2save = makeSaveV2(v2)
     const before = exportSave(v2save)
     const a = convertV2ToV3(v2save)

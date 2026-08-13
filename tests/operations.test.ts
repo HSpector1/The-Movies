@@ -8,6 +8,10 @@ import {
   generateWorld,
   INITIAL_STUDIO_FACILITIES,
   initialManagedStudioOperations,
+  addManagedProductionWorkflow,
+  advanceManagedProductions,
+  computeForecast,
+  resolveShape,
   stableStringify,
   tick,
 } from '../src/core/index.js'
@@ -120,6 +124,76 @@ function tickWithInvariant(
 }
 
 describe('Production Operations V1', () => {
+  it('honors externally occupied slots when allocating or advancing workflows', () => {
+    const world = generateWorld('ops-external-capacity')
+    const operations = initialManagedStudioOperations()
+    const payload = productionPayload(world)
+    const writer = world.talent.find((talent) => talent.id === payload.writerId)!
+    const director = world.talent.find((talent) => talent.id === payload.directorId)!
+    const cast = Object.fromEntries(
+      Object.entries(payload.cast).map(([slot, id]) => [
+        slot,
+        world.talent.find((talent) => talent.id === id)!,
+      ]),
+    ) as Record<CastSlot, Talent>
+    const craftHires = payload.craftIds.map(
+      (id) => world.talent.find((talent) => talent.id === id)!,
+    )
+    const concept = world.concepts.find((candidate) => candidate.id === payload.conceptId)!
+    const production = {
+      ...payload,
+      id: 'prod-external',
+      startTick: 0,
+      remainingTicks: 8,
+      forecastSnapshot: computeForecast(
+        {
+          concept,
+          shape: payload.shape,
+          shapeEffects: resolveShape(payload.shape),
+          promise: payload.promise,
+          budget: payload.budget,
+          writer,
+          director,
+          cast,
+          craftHires,
+          market: world.market,
+          standing: world.studio.standing,
+          era: world.era,
+        },
+        {
+          seed: world.seed,
+          productionId: 'prod-external',
+          directorId: director.id,
+          releasedFilms: [],
+          concepts: world.concepts,
+        },
+      ),
+    }
+    const oneSlotTaken = new Set(['facility-development-casting:0'])
+    const allocated = addManagedProductionWorkflow(operations, production, oneSlotTaken)
+    expect(allocated.workflows[0]!.reservations[0]!.slot).toBe(1)
+
+    expect(() =>
+      addManagedProductionWorkflow(
+        operations,
+        production,
+        new Set([
+          'facility-development-casting:0',
+          'facility-development-casting:1',
+        ]),
+      ),
+    ).toThrow(/no development-casting capacity/)
+
+    const advanced = advanceManagedProductions(
+      allocated,
+      [{ ...production, startTick: -1 }],
+      0,
+      oneSlotTaken,
+    )
+    expect(advanced.productions[0]!.remainingTicks).toBe(7)
+    expect(advanced.operations.workflows[0]!.reservations[0]!.slot).toBe(1)
+  })
+
   it('deep-freezes the exported facility template while activation receives fresh clones', () => {
     expect(Object.isFrozen(INITIAL_STUDIO_FACILITIES)).toBe(true)
     for (const facility of INITIAL_STUDIO_FACILITIES) expect(Object.isFrozen(facility)).toBe(true)

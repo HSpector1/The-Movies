@@ -89,8 +89,9 @@ function compareId<T extends { id: string }>(a: T, b: T): number {
 function occupiedSlots(
   workflows: readonly ProductionWorkflow[],
   excludingProductionId: string,
+  externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
 ): Set<string> {
-  const occupied = new Set<string>()
+  const occupied = new Set<string>(externallyOccupiedSlots)
   for (const workflow of workflows) {
     if (workflow.productionId === excludingProductionId) continue
     for (const reservation of workflow.reservations) {
@@ -108,8 +109,13 @@ function allocateForPhase(
   operations: StudioOperations,
   workflow: ProductionWorkflow,
   targetPhase: ProductionPhase,
+  externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
 ): AllocationResult {
-  const occupied = occupiedSlots(operations.workflows, workflow.productionId)
+  const occupied = occupiedSlots(
+    operations.workflows,
+    workflow.productionId,
+    externallyOccupiedSlots,
+  )
   const reservations: FacilityReservation[] = []
   const facilities = [...operations.facilities].sort(compareId)
 
@@ -172,6 +178,7 @@ function replaceWorkflow(
 export function addManagedProductionWorkflow(
   operations: StudioOperations,
   production: Production,
+  externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
 ): StudioOperations {
   if (operations.mode !== 'managed') return operations
   if (operations.workflows.some((workflow) => workflow.productionId === production.id)) {
@@ -191,7 +198,12 @@ export function addManagedProductionWorkflow(
     ...operations,
     workflows: [...operations.workflows, draft],
   }
-  const allocation = allocateForPhase(withDraft, draft, phase)
+  const allocation = allocateForPhase(
+    withDraft,
+    draft,
+    phase,
+    externallyOccupiedSlots,
+  )
   if (!allocation.ok) {
     throw new Error(
       `applyActions: managed greenlight rejected — no ${allocation.blocker.kind === 'facility-capacity' ? allocation.blocker.capability : 'required facility'} capacity for productionId "${production.id}"`,
@@ -481,8 +493,14 @@ function enterPhase(
   workflow: ProductionWorkflow,
   production: Production,
   targetPhase: ProductionPhase,
+  externallyOccupiedSlots: ReadonlySet<string>,
 ): { operations: StudioOperations; production: Production; advanced: boolean } {
-  const allocation = allocateForPhase(operations, workflow, targetPhase)
+  const allocation = allocateForPhase(
+    operations,
+    workflow,
+    targetPhase,
+    externallyOccupiedSlots,
+  )
   if (!allocation.ok) {
     return {
       operations: replaceWorkflow(operations, { ...workflow, blocker: allocation.blocker }),
@@ -527,6 +545,7 @@ export function advanceManagedProductions(
   operations: StudioOperations,
   productions: readonly Production[],
   currentTick: number,
+  externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
 ): ManagedProductionAdvance {
   if (operations.mode !== 'managed') {
     return {
@@ -589,7 +608,13 @@ export function advanceManagedProductions(
       continue
     }
 
-    const result = enterPhase(nextOperations, workflow, production, targetPhase)
+    const result = enterPhase(
+      nextOperations,
+      workflow,
+      production,
+      targetPhase,
+      externallyOccupiedSlots,
+    )
     nextOperations = result.operations
     if (result.advanced) byId.set(production.id, result.production)
   }

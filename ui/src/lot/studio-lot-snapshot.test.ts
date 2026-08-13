@@ -13,7 +13,13 @@ import {
   tick,
   TUNING,
 } from '../../../src/core/index.ts'
-import type { CastSlot, CreativeRole, GameState } from '../../../src/core/index.ts'
+import type {
+  CastSlot,
+  CommissionScriptPayload,
+  CreativeRole,
+  GameState,
+  GreenlightScriptProjectPayload,
+} from '../../../src/core/index.ts'
 import {
   exportSaveJson,
   financeCard,
@@ -21,6 +27,7 @@ import {
   selectActiveProductions,
   selectCash,
   selectStanding,
+  scriptProjectsBoard,
   studioLotSnapshot,
   STUDIO_LOT_BRAND,
 } from '../engine/adapter.ts'
@@ -52,6 +59,11 @@ function foundStudioRich(seed: string): GameState {
 function foundManagedStudio(seed: string, rich = false): GameState {
   const founded = rich ? foundStudioRich(seed) : foundStudio(seed)
   return applyActions(founded, [{ kind: 'activateStudioOperations' }])
+}
+function foundManagedScriptStudio(seed: string, rich = false): GameState {
+  return applyActions(foundManagedStudio(seed, rich), [
+    { kind: 'activateScriptDevelopment' },
+  ])
 }
 function rosterIds(s: GameState, role: CreativeRole): string[] {
   return s.contracts
@@ -86,6 +98,48 @@ function greenlightFilm(s: GameState, conceptIndex: number, slot = 0): GameState
       },
     },
   ])
+}
+function commissionScript(s: GameState, conceptIndex: number, writerIndex = 0): GameState {
+  const concept = s.concepts[conceptIndex]!
+  const project: CommissionScriptPayload = {
+    conceptId: concept.id,
+    writerId: rosterIds(s, 'writer')[writerIndex]!,
+    shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+    promise: {
+      genre: concept.genre,
+      intendedSegments: ['adult'],
+      ranges: {
+        intimacy: [-0.5, 0.5],
+        tonalWeight: [-0.5, 0.5],
+        kineticEnergy: [-0.5, 0.5],
+      },
+    },
+  }
+  return applyActions(s, [{ kind: 'commissionScript', project }])
+}
+function greenlightReadyScript(s: GameState, projectId: string): GameState {
+  const project = s.scriptDevelopment.projects.find((candidate) => candidate.id === projectId)!
+  const concept = s.concepts.find((candidate) => candidate.id === project.conceptId)!
+  const actors = rosterIds(s, 'actor')
+  const production: GreenlightScriptProjectPayload = {
+    projectId,
+    directorId: rosterIds(s, 'director')[0]!,
+    craftIds: [rosterIds(s, 'craft')[0]!],
+    cast: {
+      lead: actors[0]!,
+      antagonist: actors[1]!,
+      support: actors[2]!,
+    },
+    budget: { negative: concept.baseNegativeCost, marketing: 100_000 },
+  }
+  return applyActions(s, [{ kind: 'greenlightScriptProject', production }])
+}
+function productionAndDraftingScript(seed: string): GameState {
+  let state = commissionScript(foundManagedScriptStudio(seed, true), 0, 0)
+  state = tick(state)
+  state = applyActions(state, [{ kind: 'acceptScript', projectId: 'script-0000' }])
+  state = greenlightReadyScript(state, 'script-0000')
+  return commissionScript(state, 1, 1)
 }
 function advance(s: GameState, n: number): GameState {
   let out = s
@@ -460,5 +514,77 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     })
     expect(snap.activeProductions[0]!.stageId).toBe('stage-a')
     expect(stage(snap, 'stage-a').attention).toBe('active')
+  })
+})
+
+describe('studioLotSnapshot — Script Projects V1 Writers Room attention', () => {
+  it('maps managed idle to empty while preserving the legacy Development cue', () => {
+    const managed = studioLotSnapshot(foundManagedScriptStudio('lot-scripts-idle'))
+    expect(stage(managed, 'writers')).toMatchObject({
+      attention: 'empty',
+      attentionReason: 'Writers Room idle',
+    })
+
+    const legacy = studioLotSnapshot(foundManagedStudio('lot-scripts-legacy'))
+    expect(stage(legacy, 'writers')).toMatchObject({
+      attention: 'active',
+      attentionReason: 'Assemble a film to get started.',
+    })
+  })
+
+  it('maps active drafting to active with the core screenplay headline', () => {
+    const state = commissionScript(foundManagedScriptStudio('lot-scripts-active'), 0)
+    const cue = scriptProjectsBoard(state).lotAttention
+    expect(cue.kind).toBe('active-work')
+
+    expect(stage(studioLotSnapshot(state), 'writers')).toMatchObject({
+      attention: 'active',
+      attentionReason: cue.headline,
+    })
+  })
+
+  it('maps shared-capacity constraint to warning ahead of production Development', () => {
+    const state = productionAndDraftingScript('lot-scripts-capacity')
+    const productionId = state.studio.activeProductions[0]!.id
+    const cue = scriptProjectsBoard(state).lotAttention
+    const snap = studioLotSnapshot(state)
+
+    expect(operation(snap, productionId)).toMatchObject({
+      phase: 'development',
+      locationBuildingId: 'writers',
+      attention: 'active',
+    })
+    expect(cue.kind).toBe('capacity-constraint')
+    expect(stage(snap, 'writers')).toMatchObject({
+      attention: 'warning',
+      attentionReason: cue.headline,
+    })
+  })
+
+  it('maps review then Ready ahead of the same production Development cue', () => {
+    let state = tick(productionAndDraftingScript('lot-scripts-review-ready'))
+    const productionId = state.studio.activeProductions[0]!.id
+    let cue = scriptProjectsBoard(state).lotAttention
+    let snap = studioLotSnapshot(state)
+
+    expect(operation(snap, productionId)).toMatchObject({
+      phase: 'development',
+      locationBuildingId: 'writers',
+      attention: 'active',
+    })
+    expect(cue.kind).toBe('review-required')
+    expect(stage(snap, 'writers')).toMatchObject({
+      attention: 'decision-required',
+      attentionReason: cue.headline,
+    })
+
+    state = applyActions(state, [{ kind: 'acceptScript', projectId: 'script-0001' }])
+    cue = scriptProjectsBoard(state).lotAttention
+    snap = studioLotSnapshot(state)
+    expect(cue.kind).toBe('ready-script')
+    expect(stage(snap, 'writers')).toMatchObject({
+      attention: 'positive',
+      attentionReason: cue.headline,
+    })
   })
 })

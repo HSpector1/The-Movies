@@ -50,6 +50,7 @@
 
 import { clamp } from './math.js'
 import { emptyStudioOperations } from './operations.js'
+import { emptyScriptDevelopment } from './scriptDevelopment.js'
 import { stream } from './rng.js'
 import { RngStream } from './rng.js'
 import {
@@ -658,5 +659,8 @@ export function generateWorld(seed: string): GameState {
     // Production Operations V1: headless and legacy worlds remain on the exact
     // countdown path until an eligible founded studio explicitly activates it.
     operations: emptyStudioOperations(),
+    // Script Projects V1: headless and migrated worlds remain on the exact legacy
+    // concept-to-greenlight path until a founded player studio explicitly activates it.
+    scriptDevelopment: emptyScriptDevelopment(),
   }
 }

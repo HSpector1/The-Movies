@@ -1,7 +1,7 @@
 // ── D-12 active-session recovery ──────────────────────────────────────────────
 // A browser refresh / HMR reload / dev-server restart used to discard the whole studio (the
 // authoritative GameState lived only in React memory). These tests prove the active-session autosave
-// round-trips the EXACT engine state through the SaveFileV4 path, survives mid-production and mid-run,
+// round-trips the EXACT engine state through the current SaveFileV9 path, survives mid-production and mid-run,
 // fails safely on a corrupt payload, cannot collide with another app's storage key, and is cleared
 // only by an explicit New Studio.
 
@@ -31,8 +31,10 @@ import {
   exportSave,
   generateWorld,
   makeSaveV5,
+  makeSaveV8,
   tick,
 } from '../../src/core/index.ts'
+import type { GameStateV5, GameStateV8 } from '../../src/core/index.ts'
 import { newFoundedGame, foundedRosterIds } from './test/founding.ts'
 import { App } from './App.tsx'
 
@@ -71,6 +73,22 @@ function assertExactRestore(original: GameState) {
   if (!loaded.ok) return
   expect(exportSaveJson(loaded.state)).toBe(exportSaveJson(original))
   return loaded.state
+}
+
+function toV5(state: GameState): GameStateV5 {
+  const {
+    economyEngagedEver: _economyEngagedEver,
+    publicity: _publicity,
+    operations: _operations,
+    scriptDevelopment: _scriptDevelopment,
+    ...v5
+  } = state
+  return v5
+}
+
+function toV8(state: GameState): GameStateV8 {
+  const { scriptDevelopment: _scriptDevelopment, ...v8 } = state
+  return v8
 }
 
 describe('D-12 active-session recovery — exact round-trip', () => {
@@ -220,15 +238,13 @@ describe('D-12 New Studio — confirmed destructive action', () => {
 
 // ── D-17A fix-pass — a LITERAL V5 envelope through loadActiveSession ───────────
 // Contract §4.E names `loadActiveSession` as the migration path a stored legacy autosave takes,
-// and nothing drove one: this file only ever round-tripped V6 payloads written by
-// `saveActiveSession`, and the V5→V6 coverage stopped at `importSaveJson`. The behaviour was
-// already correct — the gap was the regression guard.
+// while the earlier coverage only exercised current payloads written by `saveActiveSession`;
+// the literal V5 path needs its own regression guard.
 describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
   it('an ENGAGED V5 session restores with the flag true and the converted banner', () => {
     const engaged = newFoundedGame('sess-v5-engaged')
     // A LITERAL V5 envelope: the frozen V5 state shape (no `economyEngagedEver`) + saveVersion 5.
-    const { economyEngagedEver: _dropped, ...v5State } = engaged
-    const v5 = exportSave(makeSaveV5(v5State as never))
+    const v5 = exportSave(makeSaveV5(toV5(engaged)))
     expect(JSON.parse(v5).saveVersion).toBe(5)
     expect('economyEngagedEver' in JSON.parse(v5).state).toBe(false)
 
@@ -240,9 +256,9 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
     expect(loaded.state.economyEngagedEver).toBe(true)
     expect(economyEngaged(loaded.state)).toBe(true)
 
-    // …and re-saving it writes a V8 envelope that loads back UNCONVERTED.
+    // …and re-saving it writes a V9 envelope that loads back UNCONVERTED.
     saveActiveSession(loaded.state)
-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(8) // Production Operations V1: new games save as SaveFileV8.
+    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(9) // Script Projects V1: new games save as SaveFileV9.
     const again = loadActiveSession()
     expect(again.ok).toBe(true)
     if (!again.ok) return
@@ -259,8 +275,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
       s = tick(s)
     }
     expect(economyEngaged(s)).toBe(false)
-    const { economyEngagedEver: _dropped, ...v5State } = s
-    localStorage.setItem(ACTIVE_SESSION_KEY, exportSave(makeSaveV5(v5State as never)))
+    localStorage.setItem(ACTIVE_SESSION_KEY, exportSave(makeSaveV5(toV5(s))))
 
     const loaded = loadActiveSession()
     expect(loaded.ok).toBe(true)
@@ -269,13 +284,40 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
     expect(loaded.state.economyEngagedEver).toBe(false)
     expect(economyEngaged(loaded.state)).toBe(false)
 
-    // Round-trip: saved as V8, reloaded unconverted, still not engaged.
+    // Round-trip: saved as V9, reloaded unconverted, still not engaged.
     saveActiveSession(loaded.state)
-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(8) // Production Operations V1: new games save as SaveFileV8.
+    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(9) // Script Projects V1: new games save as SaveFileV9.
     const again = loadActiveSession()
     expect(again.ok).toBe(true)
     if (!again.ok) return
     expect(again.converted).toBe(false)
     expect(again.state.economyEngagedEver).toBe(false)
+  })
+})
+
+describe('Script Projects V1 — a stored V8 autosave migrates on load', () => {
+  it('preserves operations, seeds legacy screenplay state, then re-saves as V9', () => {
+    const live = newFoundedGame('sess-v8-script-migration')
+    const v8 = exportSave(makeSaveV8(toV8(live)))
+    const parsedV8 = JSON.parse(v8)
+    expect(parsedV8.saveVersion).toBe(8)
+    expect('scriptDevelopment' in parsedV8.state).toBe(false)
+
+    localStorage.setItem(ACTIVE_SESSION_KEY, v8)
+    const loaded = loadActiveSession()
+    expect(loaded.ok).toBe(true)
+    if (!loaded.ok) return
+    expect(loaded.converted).toBe(true)
+    expect(loaded.state.operations).toEqual(live.operations)
+    expect(loaded.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
+
+    saveActiveSession(loaded.state)
+    const parsedV9 = JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!)
+    expect(parsedV9.saveVersion).toBe(9)
+    expect(parsedV9.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
+    const again = loadActiveSession()
+    expect(again.ok).toBe(true)
+    if (!again.ok) return
+    expect(again.converted).toBe(false)
   })
 })

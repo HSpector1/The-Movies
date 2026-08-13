@@ -24,11 +24,11 @@ import {
   generateWorld,
   exportSave,
   makeSaveV1,
-  makeSaveV7,
+  makeSaveV8,
 } from '../../src/core/index.ts'
 import { newFoundedGame, foundedRosterIds } from './test/founding.ts'
 import type { DraftPackage, GameState } from './engine/adapter.ts'
-import type { GameStateV1, GameStateV7, TalentV1 } from '../../src/core/index.ts'
+import type { GameStateV1, TalentV1 } from '../../src/core/index.ts'
 
 afterEach(cleanup)
 
@@ -49,16 +49,26 @@ function legacyV1SaveJson(seed: string): string {
     salary: t.salary,
     authored: t.authored,
   }))
-  const stateV1: GameStateV1 = { ...world, talent: talentV1 }
+  const stateV1: GameStateV1 = {
+    seed: world.seed,
+    rngState: world.rngState,
+    market: world.market,
+    era: world.era,
+    studio: world.studio,
+    talent: talentV1,
+    concepts: world.concepts,
+    broadcastItems: world.broadcastItems,
+    coverageContexts: world.coverageContexts,
+  }
   return exportSave(makeSaveV1(stateV1))
 }
 
-// V7 is the newest legacy envelope and catches version-specific disclosure drift:
+// V8 is the newest legacy envelope and catches version-specific disclosure drift:
 // an automatic import must say only that an older save was upgraded, never call it V1.
-function legacyV7SaveJson(seed: string): string {
+function legacyV8SaveJson(seed: string): string {
   const live = newFoundedGame(seed)
-  const { operations: _operations, ...stateV7 } = live
-  return exportSave(makeSaveV7(stateV7 as GameStateV7))
+  const { scriptDevelopment: _scriptDevelopment, ...stateV8 } = live
+  return exportSave(makeSaveV8(stateV8))
 }
 
 function openCurrentStudioThroughStart(seed: string): void {
@@ -110,6 +120,7 @@ describe('saves: export → import round-trips the EXACT state', () => {
     state = advanceWeek(state).next
 
     const json = exportSaveJson(state)
+    expect(JSON.parse(json).saveVersion).toBe(9)
     const r = importSaveJson(json)
     expect(r.ok).toBe(true)
     if (!r.ok) return
@@ -213,7 +224,7 @@ describe('saves: malformed / unsupported saves are rejected loudly and understan
 })
 
 describe('saves: legacy V1 import (D-9.15) converts and reports the conversion', () => {
-  it('a legacy V1 save auto-loads, is flagged converted, and yields a playable V2 state', () => {
+  it('a legacy V1 save auto-loads, is flagged converted, and yields a playable current state', () => {
     const json = legacyV1SaveJson('legacy-v1-auto')
     const r = importSaveJson(json)
     expect(r.ok).toBe(true)
@@ -222,6 +233,7 @@ describe('saves: legacy V1 import (D-9.15) converts and reports the conversion',
     // the D-9 `skills` record — the migration marker).
     expect(r.converted).toBe(true)
     expect((r.state.talent[0] as Record<string, unknown>).skills).toBeDefined()
+    expect(r.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
   })
 
   it('the explicit "Import legacy V1 save" affordance converts and shows a conversion notice', () => {
@@ -250,8 +262,8 @@ describe('saves: legacy V1 import (D-9.15) converts and reports the conversion',
 
   it('the legacy affordance rejects a NON-V1 save as data (no crash)', () => {
     const state = newGame('legacy-reject')
-    // A current V2 save is not a V1 save → the legacy path rejects it clearly.
-    const v2Json = exportSaveJson(state)
+    // A current V9 save is not a V1 save → the legacy path rejects it clearly.
+    const currentJson = exportSaveJson(state)
     let loaded = false
     render(
       <Saves
@@ -263,7 +275,7 @@ describe('saves: legacy V1 import (D-9.15) converts and reports the conversion',
         onBack={() => {}}
       />,
     )
-    fireEvent.change(screen.getByTestId('saves-import-text'), { target: { value: v2Json } })
+    fireEvent.change(screen.getByTestId('saves-import-text'), { target: { value: currentJson } })
     fireEvent.click(screen.getByTestId('saves-import-legacy'))
     expect(loaded).toBe(false)
     expect(screen.getByRole('alert').textContent ?? '').toMatch(/legacy V1/i)
@@ -271,12 +283,12 @@ describe('saves: legacy V1 import (D-9.15) converts and reports the conversion',
 })
 
 describe('saves: migration disclosure through real App navigation', () => {
-  it('shows a one-shot, version-neutral notice after an accepted V7 load leaves Saves', () => {
+  it('shows a one-shot, version-neutral notice after an accepted V8 load leaves Saves', () => {
     openCurrentStudioThroughStart('migration-notice-current')
 
     fireEvent.click(screen.getByTestId('open-saves'))
     fireEvent.change(screen.getByTestId('saves-import-text'), {
-      target: { value: legacyV7SaveJson('migration-notice-v7') },
+      target: { value: legacyV8SaveJson('migration-notice-v8') },
     })
     fireEvent.click(screen.getByTestId('saves-import'))
 
@@ -287,7 +299,7 @@ describe('saves: migration disclosure through real App navigation', () => {
     const notice = screen.getByTestId('save-migration-notice')
     expect(notice).toHaveTextContent(/older save was upgraded to the current format/i)
     expect(notice).toHaveTextContent(/export now/i)
-    expect(notice.textContent ?? '').not.toMatch(/\bV[1-7]\b/i)
+    expect(notice.textContent ?? '').not.toMatch(/\bV[1-8]\b/i)
 
     fireEvent.click(screen.getByTestId('save-migration-dismiss'))
     expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheDocument()
@@ -314,17 +326,17 @@ describe('saves: migration disclosure through real App navigation', () => {
     expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheDocument()
   })
 
-  it('carries the same version-neutral notice through a Start-screen V7 import', () => {
+  it('carries the same version-neutral notice through a Start-screen V8 import', () => {
     render(<App />)
     fireEvent.change(screen.getByTestId('import-text'), {
-      target: { value: legacyV7SaveJson('migration-notice-start-v7') },
+      target: { value: legacyV8SaveJson('migration-notice-start-v8') },
     })
     fireEvent.click(screen.getByTestId('import-save'))
 
     expect(screen.getByTestId('dash-week')).toBeInTheDocument()
     const notice = screen.getByTestId('save-migration-notice')
     expect(notice).toHaveTextContent(/older save was upgraded to the current format/i)
-    expect(notice.textContent ?? '').not.toMatch(/\bV[1-7]\b/i)
+    expect(notice.textContent ?? '').not.toMatch(/\bV[1-8]\b/i)
 
     const originalConfirm = window.confirm
     window.confirm = () => true
@@ -342,14 +354,14 @@ describe('saves: migration disclosure through real App navigation', () => {
   })
 
   it('discloses migration when App restores an older active-session envelope', () => {
-    localStorage.setItem(ACTIVE_SESSION_KEY, legacyV7SaveJson('migration-notice-restore-v7'))
+    localStorage.setItem(ACTIVE_SESSION_KEY, legacyV8SaveJson('migration-notice-restore-v8'))
     render(<App />)
 
     expect(screen.getByTestId('dash-week')).toBeInTheDocument()
     expect(screen.getByTestId('recovery-notice')).toHaveTextContent(/Recovered your studio/i)
     const notice = screen.getByTestId('save-migration-notice')
     expect(notice).toHaveTextContent(/older save was upgraded to the current format/i)
-    expect(notice.textContent ?? '').not.toMatch(/\bV[1-7]\b/i)
+    expect(notice.textContent ?? '').not.toMatch(/\bV[1-8]\b/i)
     fireEvent.click(screen.getByTestId('save-migration-dismiss'))
     expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheDocument()
   })

@@ -1,5 +1,5 @@
 // ── §17 Save format + rev. 4 item M14 + D-9 SaveFileV2 (owner ruling) ─────────
-// TWO save envelopes:
+// Historical V1/V2 foundation (the versioned union below now continues through V9):
 //   SaveFileV1 (saveVersion: 1) — FROZEN. Describes the OLD (pre-D-9) world, whose
 //     talent is the legacy scalar shape (TalentV1). Its validation rules are the
 //     ORIGINAL rules, UNCHANGED. There is NO in-place migration of a V1 file: a V1
@@ -19,7 +19,7 @@
 //   yields byte-identical V2 talent under stableStringify) and leaves rngState
 //   untouched (a resumed run replays identically).
 //
-// M14 divergence rules (both versions), all rejected loudly:
+// M14 divergence rules (shared by every version), all rejected loudly:
 //   - unknown saveVersion
 //   - envelope seed !== state.seed
 //   - broadcastCache !== state.broadcastItems (deep equality; aired items only)
@@ -44,6 +44,7 @@ import type {
   Discipline,
   DisciplineSkills,
   GameState,
+  GameStateV8,
   GameStateV2,
   GameStateV3,
   GameStateV4,
@@ -53,6 +54,7 @@ import type {
   Genre,
   LedgerKind,
   PublicityState,
+  ScriptDevelopment,
   StudioOperations,
   GenreExperience,
   Persona,
@@ -66,6 +68,10 @@ import {
   assertStudioOperationsInvariants,
   emptyStudioOperations,
 } from "./operations.js";
+import {
+  assertScriptDevelopmentInvariants,
+  emptyScriptDevelopment,
+} from "./scriptDevelopment.js";
 
 // ── Legacy (pre-D-9) talent + state shapes (SaveFileV1 typed honestly) ─────────
 // The OLD talent scalar shape the frozen SaveFileV1 carries. Named TalentV1 so
@@ -155,10 +161,19 @@ export type SaveFileV7 = {
   broadcastCache: BroadcastItem[];
 };
 
-// Production Operations V1 V8 envelope — the live GameState (V7 + authoritative
-// operations mode/facilities/workflows). New games save as V8.
+// Production Operations V1 V8 envelope — the FROZEN GameStateV8 (V7 + authoritative
+// operations mode/facilities/workflows). Script Projects V1 no longer writes V8.
 export type SaveFileV8 = {
   saveVersion: 8;
+  seed: string;
+  state: GameStateV8;
+  broadcastCache: BroadcastItem[];
+};
+
+// Script Projects V1 V9 envelope — the live GameState (V8 + authoritative
+// screenplay-development state). New games save as V9.
+export type SaveFileV9 = {
+  saveVersion: 9;
   seed: string;
   state: GameState;
   broadcastCache: BroadcastItem[];
@@ -173,7 +188,8 @@ export type SaveFile =
   | SaveFileV5
   | SaveFileV6
   | SaveFileV7
-  | SaveFileV8;
+  | SaveFileV8
+  | SaveFileV9;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -244,7 +260,7 @@ export function deepEqual(a: unknown, b: unknown): boolean {
 }
 
 // ── Shared envelope-shape checks (version-agnostic) ──────────────────────────
-// Enforce the three M14 divergence rules that both versions share. Throws loudly.
+// Enforce the three version-agnostic M14 divergence rules. Throws loudly.
 function checkEnvelope(
   s: Record<string, unknown>,
   label: string,
@@ -801,6 +817,12 @@ function v8Forecast(value: unknown, label: string): void {
     );
     if (seenSegments.has(segmentId)) {
       v8Error(`${segmentLabel}.segmentId`, "is duplicated");
+    }
+    if (segmentId !== SEGMENT_IDS[i]) {
+      v8Error(
+        `${segmentLabel}.segmentId`,
+        `is out of canonical order (expected ${JSON.stringify(SEGMENT_IDS[i])} at index ${i})`,
+      );
     }
     seenSegments.add(segmentId);
     for (const key of ["center", "estimate", "low", "high"] as const) {
@@ -2150,10 +2172,276 @@ export function validateSaveV8(save: unknown): SaveFileV8 {
   return save as SaveFileV8;
 }
 
+const V9_STATE_KEYS = [...V8_STATE_KEYS, "scriptDevelopment"] as const;
+const SCRIPT_PROJECT_STATUSES = [
+  "drafting",
+  "review",
+  "rewriting",
+  "ready",
+  "inProduction",
+  "produced",
+] as const;
+
+function v9Error(label: string, message: string): never {
+  throw new Error(`validateSaveV9: ${label} ${message}`);
+}
+
+function v9Record(value: unknown, label: string): Record<string, unknown> {
+  if (!isRecord(value)) return v9Error(label, "must be a plain object");
+  return value;
+}
+
+function v9ExactKeys(
+  value: Record<string, unknown>,
+  required: readonly string[],
+  label: string,
+): void {
+  const allowed = new Set(required);
+  for (const key of required) {
+    if (!Object.prototype.hasOwnProperty.call(value, key)) {
+      v9Error(label, `is missing required field ${JSON.stringify(key)}`);
+    }
+  }
+  for (const key of Object.keys(value)) {
+    if (!allowed.has(key)) {
+      v9Error(label, `has unknown field ${JSON.stringify(key)}`);
+    }
+  }
+}
+
+function v9String(value: unknown, label: string): string {
+  if (typeof value !== "string" || value.length === 0) {
+    return v9Error(label, "must be a non-empty string");
+  }
+  return value;
+}
+
+function v9Number(
+  value: unknown,
+  label: string,
+  min?: number,
+  max?: number,
+): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    return v9Error(label, "must be a finite number");
+  }
+  if (min !== undefined && value < min)
+    v9Error(label, `must be at least ${String(min)}`);
+  if (max !== undefined && value > max)
+    v9Error(label, `must be at most ${String(max)}`);
+  return value;
+}
+
+function v9Integer(
+  value: unknown,
+  label: string,
+  min?: number,
+  max?: number,
+): number {
+  const number = v9Number(value, label, min, max);
+  if (!Number.isInteger(number)) v9Error(label, "must be an integer");
+  return number;
+}
+
+function v9NullableInteger(
+  value: unknown,
+  label: string,
+): number | null {
+  if (value === null) return null;
+  return v9Integer(value, label, 0);
+}
+
+function v9FilmShape(value: unknown, label: string): void {
+  const shape = v9Record(value, label);
+  v9ExactKeys(shape, ["opening", "midpoint", "ending"], label);
+  if (!(OPENINGS as readonly unknown[]).includes(shape.opening))
+    v9Error(`${label}.opening`, "is invalid");
+  if (!(MIDPOINTS as readonly unknown[]).includes(shape.midpoint))
+    v9Error(`${label}.midpoint`, "is invalid");
+  if (!(ENDINGS as readonly unknown[]).includes(shape.ending))
+    v9Error(`${label}.ending`, "is invalid");
+}
+
+function v9Promise(value: unknown, label: string): void {
+  const promise = v9Record(value, label);
+  v9ExactKeys(promise, ["genre", "intendedSegments", "ranges"], label);
+  if (!(GENRE_ORDER as readonly unknown[]).includes(promise.genre))
+    v9Error(`${label}.genre`, "is invalid");
+  if (!Array.isArray(promise.intendedSegments))
+    v9Error(`${label}.intendedSegments`, "must be an array");
+  for (let i = 0; i < promise.intendedSegments.length; i++) {
+    if (!(SEGMENT_IDS as readonly unknown[]).includes(promise.intendedSegments[i])) {
+      v9Error(`${label}.intendedSegments[${String(i)}]`, "is invalid");
+    }
+  }
+  const ranges = v9Record(promise.ranges, `${label}.ranges`);
+  v9ExactKeys(
+    ranges,
+    ["intimacy", "tonalWeight", "kineticEnergy"],
+    `${label}.ranges`,
+  );
+  for (const key of ["intimacy", "tonalWeight", "kineticEnergy"] as const) {
+    const range = ranges[key];
+    if (!Array.isArray(range) || range.length !== 2) {
+      v9Error(`${label}.ranges.${key}`, "must contain exactly two endpoints");
+    }
+    v9Number(range[0], `${label}.ranges.${key}[0]`);
+    v9Number(range[1], `${label}.ranges.${key}[1]`);
+  }
+}
+
+function checkScriptDevelopmentShape(value: unknown): ScriptDevelopment {
+  const development = v9Record(value, "state.scriptDevelopment");
+  v9ExactKeys(development, ["mode", "projects"], "state.scriptDevelopment");
+  if (development.mode !== "legacy" && development.mode !== "managed") {
+    v9Error(
+      "state.scriptDevelopment.mode",
+      'must be "legacy" or "managed"',
+    );
+  }
+  if (!Array.isArray(development.projects)) {
+    v9Error("state.scriptDevelopment.projects", "must be an array");
+  }
+  for (let i = 0; i < development.projects.length; i++) {
+    const label = `state.scriptDevelopment.projects[${String(i)}]`;
+    const project = v9Record(development.projects[i], label);
+    v9ExactKeys(
+      project,
+      [
+        "id",
+        "conceptId",
+        "writerId",
+        "shape",
+        "promise",
+        "status",
+        "rewriteCount",
+        "commissionedWeek",
+        "dueWeek",
+        "assessment",
+        "reservation",
+        "productionId",
+      ],
+      label,
+    );
+    v9String(project.id, `${label}.id`);
+    v9String(project.conceptId, `${label}.conceptId`);
+    v9String(project.writerId, `${label}.writerId`);
+    v9FilmShape(project.shape, `${label}.shape`);
+    v9Promise(project.promise, `${label}.promise`);
+    if (!(SCRIPT_PROJECT_STATUSES as readonly unknown[]).includes(project.status)) {
+      v9Error(`${label}.status`, "is invalid");
+    }
+    v9Integer(project.rewriteCount, `${label}.rewriteCount`, 0, 1);
+    v9Integer(project.commissionedWeek, `${label}.commissionedWeek`, 0);
+    v9NullableInteger(project.dueWeek, `${label}.dueWeek`);
+
+    if (project.assessment !== null) {
+      const assessment = v9Record(project.assessment, `${label}.assessment`);
+      v9ExactKeys(
+        assessment,
+        ["actualStrength", "perceivedStrength"],
+        `${label}.assessment`,
+      );
+      v9Number(
+        assessment.actualStrength,
+        `${label}.assessment.actualStrength`,
+        0,
+        100,
+      );
+      v9Number(
+        assessment.perceivedStrength,
+        `${label}.assessment.perceivedStrength`,
+        0,
+        100,
+      );
+    }
+
+    if (project.reservation !== null) {
+      const reservation = v9Record(
+        project.reservation,
+        `${label}.reservation`,
+      );
+      v9ExactKeys(
+        reservation,
+        ["projectId", "facilityId", "capability", "slot"],
+        `${label}.reservation`,
+      );
+      v9String(reservation.projectId, `${label}.reservation.projectId`);
+      v9String(reservation.facilityId, `${label}.reservation.facilityId`);
+      if (reservation.capability !== "development-casting") {
+        v9Error(
+          `${label}.reservation.capability`,
+          'must be "development-casting"',
+        );
+      }
+      v9Integer(reservation.slot, `${label}.reservation.slot`, 0);
+    }
+
+    if (project.productionId !== null) {
+      v9String(project.productionId, `${label}.productionId`);
+    }
+  }
+  return development as ScriptDevelopment;
+}
+
+// Script Projects V1 V9 validator. The frozen V8 projection is validated through
+// the exact historical V8 boundary first; the new field then receives exact-key,
+// scalar, lifecycle, reference, package-correlation, and shared-capacity checks.
+export function validateSaveV9(save: unknown): SaveFileV9 {
+  if (!isRecord(save))
+    throw new Error("validateSaveV9: save is not a plain object");
+  v9ExactKeys(
+    save,
+    ["saveVersion", "seed", "state", "broadcastCache"],
+    "save",
+  );
+  if (save.saveVersion !== 9) {
+    throw new Error(
+      `validateSaveV9: expected saveVersion 9, got ${JSON.stringify(save.saveVersion)}`,
+    );
+  }
+  const state = v9Record(
+    checkEnvelope(save, "validateSaveV9"),
+    "state",
+  );
+  v9ExactKeys(state, V9_STATE_KEYS, "state");
+
+  const { scriptDevelopment: rawScriptDevelopment, ...v8State } = state;
+  try {
+    validateSaveV8({
+      saveVersion: 8,
+      seed: save.seed,
+      state: v8State,
+      broadcastCache: save.broadcastCache,
+    });
+  } catch (error) {
+    throw new Error(
+      `validateSaveV9: frozen V8 state is invalid — ${(error as Error).message}`,
+    );
+  }
+
+  const scriptDevelopment = checkScriptDevelopmentShape(rawScriptDevelopment);
+  const typedState = state as GameState;
+  try {
+    assertScriptDevelopmentInvariants(scriptDevelopment, {
+      currentWeek: typedState.market.tick,
+      concepts: typedState.concepts,
+      talent: typedState.talent,
+      contracts: typedState.contracts,
+      operations: typedState.operations,
+      activeProductions: typedState.studio.activeProductions,
+      releasedFilms: typedState.studio.releasedFilms,
+    });
+  } catch (error) {
+    throw new Error(`validateSaveV9: ${(error as Error).message}`);
+  }
+  return save as SaveFileV9;
+}
+
 // ── Version-dispatching validation (LOUD rejection of unknown versions) ──────
 // Returns the correctly-narrowed envelope for a known version; throws for any
-// other saveVersion. The three versions carry DIFFERENT shapes (V1 legacy scalar
-// talent, V2 D-9 talent, V3 D-9 talent + D-11 employment); they are NOT identical.
+// other saveVersion. Every version remains anchored to its own frozen or live
+// state shape; the envelopes are deliberately not interchangeable.
 export function validateSave(save: unknown): SaveFile {
   if (save === null || typeof save !== "object") {
     throw new Error("validateSave: save is not an object");
@@ -2167,21 +2455,95 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 6) return validateSaveV6(save);
   if (s.saveVersion === 7) return validateSaveV7(save);
   if (s.saveVersion === 8) return validateSaveV8(save);
+  if (s.saveVersion === 9) return validateSaveV9(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1, 2, 3, 4, 5, 6, 7 and 8 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1, 2, 3, 4, 5, 6, 7, 8 and 9 only)`,
   );
 }
 
 // ── Build validated envelopes from state ─────────────────────────────────────
 
+// A frozen builder is a projection boundary, not a type assertion. TypeScript's
+// structural assignability permits a later GameState to be passed wherever an
+// earlier state is expected, and V1–V7 validators intentionally retain historical
+// compatibility rather than rejecting every additive root. Constructing each old
+// root from an allowlist prevents present and future fields from being mislabeled
+// under an older saveVersion without changing what old files the validators accept.
+function projectStateV1(state: GameStateV1): GameStateV1 {
+  return {
+    seed: state.seed,
+    rngState: state.rngState,
+    market: state.market,
+    era: state.era,
+    studio: state.studio,
+    talent: state.talent,
+    concepts: state.concepts,
+    broadcastItems: state.broadcastItems,
+    coverageContexts: state.coverageContexts,
+  };
+}
+
+function projectStateV2(state: GameStateV2): GameStateV2 {
+  return {
+    seed: state.seed,
+    rngState: state.rngState,
+    market: state.market,
+    era: state.era,
+    studio: state.studio,
+    talent: state.talent,
+    concepts: state.concepts,
+    broadcastItems: state.broadcastItems,
+    coverageContexts: state.coverageContexts,
+  };
+}
+
+function projectStateV3(state: GameStateV3): GameStateV3 {
+  return {
+    ...projectStateV2(state),
+    founding: state.founding,
+    contracts: state.contracts,
+    ledger: state.ledger,
+    freeAgents: state.freeAgents,
+  };
+}
+
+function projectStateV4(state: GameStateV4): GameStateV4 {
+  return {
+    ...projectStateV3(state),
+    theatricalRuns: state.theatricalRuns,
+  };
+}
+
+function projectStateV5(state: GameStateV5): GameStateV5 {
+  return {
+    ...projectStateV4(state),
+    careerEvents: state.careerEvents,
+  };
+}
+
+function projectStateV6(state: GameStateV6): GameStateV6 {
+  return {
+    ...projectStateV5(state),
+    economyEngagedEver: state.economyEngagedEver,
+  };
+}
+
+function projectStateV7(state: GameStateV7): GameStateV7 {
+  return {
+    ...projectStateV6(state),
+    publicity: state.publicity,
+  };
+}
+
 // Build a validated V1 envelope from a legacy GameStateV1 (broadcastCache mirrors
 // the state's aired items, per M14). Kept so V1 fixtures/back-compat are typed.
 export function makeSaveV1(state: GameStateV1): SaveFileV1 {
+  const frozenState = projectStateV1(state);
   const save: SaveFileV1 = {
     saveVersion: 1,
-    seed: state.seed,
-    state,
-    broadcastCache: state.broadcastItems,
+    seed: frozenState.seed,
+    state: frozenState,
+    broadcastCache: frozenState.broadcastItems,
   };
   return validateSaveV1(save);
 }
@@ -2189,11 +2551,12 @@ export function makeSaveV1(state: GameStateV1): SaveFileV1 {
 // Build a validated V2 envelope from a FROZEN (pre-employment) GameStateV2. Kept
 // so V2 fixtures / the V1→V2 conversion stay typed against the frozen shape.
 export function makeSaveV2(state: GameStateV2): SaveFileV2 {
+  const frozenState = projectStateV2(state);
   const save: SaveFileV2 = {
     saveVersion: 2,
-    seed: state.seed,
-    state,
-    broadcastCache: state.broadcastItems,
+    seed: frozenState.seed,
+    state: frozenState,
+    broadcastCache: frozenState.broadcastItems,
   };
   return validateSaveV2(save);
 }
@@ -2201,11 +2564,12 @@ export function makeSaveV2(state: GameStateV2): SaveFileV2 {
 // Build a validated V3 envelope from a FROZEN GameStateV3 (pre-D-12). Kept typed against
 // the frozen shape for the V2→V3 conversion and V3 fixtures.
 export function makeSaveV3(state: GameStateV3): SaveFileV3 {
+  const frozenState = projectStateV3(state);
   const save: SaveFileV3 = {
     saveVersion: 3,
-    seed: state.seed,
-    state,
-    broadcastCache: state.broadcastItems,
+    seed: frozenState.seed,
+    state: frozenState,
+    broadcastCache: frozenState.broadcastItems,
   };
   return validateSaveV3(save);
 }
@@ -2213,11 +2577,12 @@ export function makeSaveV3(state: GameStateV3): SaveFileV3 {
 // Build a validated V4 envelope from a FROZEN GameStateV4 (pre-D-14). Kept typed against
 // the frozen shape for the V3→V4 conversion and V4 fixtures. D-14 no longer writes V4.
 export function makeSaveV4(state: GameStateV4): SaveFileV4 {
+  const frozenState = projectStateV4(state);
   const save: SaveFileV4 = {
     saveVersion: 4,
-    seed: state.seed,
-    state,
-    broadcastCache: state.broadcastItems,
+    seed: frozenState.seed,
+    state: frozenState,
+    broadcastCache: frozenState.broadcastItems,
   };
   return validateSaveV4(save);
 }
@@ -2225,11 +2590,12 @@ export function makeSaveV4(state: GameStateV4): SaveFileV4 {
 // Build a validated V5 envelope from a FROZEN GameStateV5 (pre-D-17A). Kept typed against
 // the frozen shape for the V4→V5 conversion and V5 fixtures. D-17A no longer writes V5.
 export function makeSaveV5(state: GameStateV5): SaveFileV5 {
+  const frozenState = projectStateV5(state);
   const save: SaveFileV5 = {
     saveVersion: 5,
-    seed: state.seed,
-    state,
-    broadcastCache: state.broadcastItems,
+    seed: frozenState.seed,
+    state: frozenState,
+    broadcastCache: frozenState.broadcastItems,
   };
   return validateSaveV5(save);
 }
@@ -2237,11 +2603,12 @@ export function makeSaveV5(state: GameStateV5): SaveFileV5 {
 // Build a validated V6 envelope from a FROZEN GameStateV6 (pre-D-17B). Kept typed against the
 // frozen shape for the V5→V6 conversion and V6 fixtures. D-17B no longer writes V6.
 export function makeSaveV6(state: GameStateV6): SaveFileV6 {
+  const frozenState = projectStateV6(state);
   const save: SaveFileV6 = {
     saveVersion: 6,
-    seed: state.seed,
-    state,
-    broadcastCache: state.broadcastItems,
+    seed: frozenState.seed,
+    state: frozenState,
+    broadcastCache: frozenState.broadcastItems,
   };
   return validateSaveV6(save);
 }
@@ -2249,12 +2616,10 @@ export function makeSaveV6(state: GameStateV6): SaveFileV6 {
 // Build a validated V7 envelope from the FROZEN D-17B GameStateV7. Kept typed against
 // that frozen shape for V6→V7 conversion and V7 fixtures. V8 no longer writes V7.
 export function makeSaveV7(state: GameStateV7): SaveFileV7 {
-  // Structural typing permits a live GameState (which has the extra `operations`
-  // field) where GameStateV7 is expected. Project explicitly so the frozen V7
-  // builder can never mislabel V8 state or create a migration data-loss trap.
-  const { operations: _operations, ...frozenState } = state as GameStateV7 & {
-    operations?: unknown;
-  };
+  // Structural typing permits present and future live roots where GameStateV7 is
+  // expected. Use the same positive allowlist as the other frozen builders so no
+  // later field can be mislabeled as V7 or make this builder's output unmigratable.
+  const frozenState = projectStateV7(state);
   const save: SaveFileV7 = {
     saveVersion: 7,
     seed: frozenState.seed,
@@ -2264,20 +2629,36 @@ export function makeSaveV7(state: GameStateV7): SaveFileV7 {
   return validateSaveV7(save);
 }
 
-// Build a validated V8 envelope from the live GameState. This is what new games use.
-export function makeSaveV8(state: GameState): SaveFileV8 {
+// Build a validated frozen V8 envelope. Structural typing permits a live V9 state,
+// so explicitly project away `scriptDevelopment`: a V8 export must never masquerade
+// as V9 or silently create a future migration data-loss trap.
+export function makeSaveV8(state: GameStateV8 | GameState): SaveFileV8 {
+  const { scriptDevelopment: _scriptDevelopment, ...frozenState } = state as
+    GameStateV8 & { scriptDevelopment?: unknown };
   const save: SaveFileV8 = {
     saveVersion: 8,
-    seed: state.seed,
-    state,
-    broadcastCache: state.broadcastItems,
+    seed: frozenState.seed,
+    state: frozenState,
+    broadcastCache: frozenState.broadcastItems,
   };
   return validateSaveV8(save);
 }
 
-// makeSave — the Production Operations V1 default. New games save as V8.
-export function makeSave(state: GameState): SaveFileV8 {
-  return makeSaveV8(state);
+// Build a validated V9 envelope from the live GameState.
+export function makeSaveV9(state: GameState): SaveFileV9 {
+  const save: SaveFileV9 = {
+    saveVersion: 9,
+    seed: state.seed,
+    state,
+    broadcastCache: state.broadcastItems,
+  };
+  return validateSaveV9(save);
+}
+
+// makeSave — the Script Projects V1 live boundary. Frozen V8 values must cross
+// convertV8ToV9/migrateToV9 explicitly; the default builder never invents state.
+export function makeSave(state: GameState): SaveFileV9 {
+  return makeSaveV9(state);
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -2795,7 +3176,7 @@ export function convertV7ToV8(v7: SaveFileV7): SaveFileV8 {
   const oldState = backfillLegacyForecastOpeningBands(
     clonePlainJson(validated.state),
   );
-  const newState: GameState = {
+  const newState: GameStateV8 = {
     ...oldState,
     // Override any hand-added field on the V7 envelope. Version 7 never owned this
     // fact, so migration must seed the exact legacy default rather than trust it.
@@ -2803,6 +3184,32 @@ export function convertV7ToV8(v7: SaveFileV7): SaveFileV8 {
     // rngState carried through by the spread, UNCHANGED.
   };
   return makeSaveV8(newState);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// Script Projects V1 — deterministic V8 → V9 conversion.
+//   Adds exactly the EMPTY legacy screenplay state. A V8 save predates managed
+//   screenplay projects, so migration never infers projects from concepts,
+//   operations workflows, active productions, or released films. The entire
+//   validated V8 state is deep-cloned; rngState remains byte-identical and the
+//   caller's envelope is never mutated.
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/** The exact migrated screenplay state. Fresh on every call. */
+export function emptyLegacyScriptDevelopment(): ScriptDevelopment {
+  return emptyScriptDevelopment();
+}
+
+export function convertV8ToV9(v8: SaveFileV8): SaveFileV9 {
+  const validated = validateSaveV8(v8);
+  const oldState = clonePlainJson(validated.state);
+  const newState: GameState = {
+    ...oldState,
+    // Override any hand-added field on a forged V8 value. Version 8 never owned
+    // screenplay state and therefore always migrates to the exact legacy default.
+    scriptDevelopment: emptyLegacyScriptDevelopment(),
+  };
+  return makeSaveV9(newState);
 }
 
 // importLegacyV{3,2,1}ToV4 — parse a legacy JSON string and return a NEW SaveFileV4.
@@ -2825,7 +3232,8 @@ export function importLegacyV1ToV4(json: string): SaveFileV4 {
 }
 
 // migrateToV4 — bring ANY known save version up to V4. V4 passes through; V1/V2/V3
-// migrate deterministically. Idempotent. (Retained; the live entry is now migrateToV6.)
+// migrate deterministically. Idempotent. Retained as a historical boundary; the
+// live load-to-play entry is migrateToV9.
 export function migrateToV4(
   save: SaveFileV1 | SaveFileV2 | SaveFileV3 | SaveFileV4,
 ): SaveFileV4 {
@@ -2837,7 +3245,8 @@ export function migrateToV4(
 
 // migrateToV5 — bring ANY known pre-V6 save version up to V5. V5 passes through; V1–V4
 // migrate deterministically. Idempotent. The V4→V5 step only adds an empty career ledger
-// (fame + all talent state preserved exactly). (Retained; the live entry is migrateToV6.)
+// (fame + all talent state preserved exactly). Retained as a historical boundary;
+// the live load-to-play entry is migrateToV9.
 export function migrateToV5(
   save: SaveFileV1 | SaveFileV2 | SaveFileV3 | SaveFileV4 | SaveFileV5,
 ): SaveFileV5 {
@@ -2848,7 +3257,7 @@ export function migrateToV5(
 // migrateToV6 — bring ANY known pre-V7 save version up to V6. V6 passes through; V1–V5
 // migrate deterministically. Idempotent. The V5→V6 step reconstructs the persisted engagement
 // fact (R2) — never-engaged saves get `false` and keep behaving byte-identically.
-// (Retained; the live entry is now migrateToV7.)
+// Retained as a historical boundary; the live load-to-play entry is migrateToV9.
 export function migrateToV6(
   save:
     SaveFileV1 | SaveFileV2 | SaveFileV3 | SaveFileV4 | SaveFileV5 | SaveFileV6,
@@ -2860,7 +3269,8 @@ export function migrateToV6(
 // migrateToV7 — bring any pre-V8 save version up to the frozen V7 shape.
 // V7 passes through; V1–V6 migrate deterministically. Idempotent. The V6→V7 step only seeds
 // the empty publicity state, so a migrated save behaves exactly as before until the player
-// buys a campaign. Retained as a historical migration boundary; live load uses migrateToV8.
+// buys a campaign. Retained as a historical boundary; the live load-to-play entry
+// is migrateToV9.
 export function migrateToV7(
   save:
     | SaveFileV1
@@ -2875,10 +3285,23 @@ export function migrateToV7(
   return convertV6ToV7(migrateToV6(save));
 }
 
-// migrateToV8 — bring ANY known save version up to the live V8 load-to-play shape.
-// V8 passes through by identity; V1–V7 migrate deterministically. The V7→V8 step
-// records legacy mode and invents no operations history, preserving old countdowns.
+// migrateToV8 — retained historical PRE-V9 boundary. V8 passes through by identity;
+// V1–V7 migrate deterministically. A V9 file is rejected loudly: this function may
+// never silently discard authoritative screenplay state.
 export function migrateToV8(save: SaveFile): SaveFileV8 {
+  if (save.saveVersion === 9) {
+    throw new Error(
+      "migrateToV8: cannot downgrade SaveFileV9 or discard scriptDevelopment",
+    );
+  }
   if (save.saveVersion === 8) return save;
   return convertV7ToV8(migrateToV7(save));
+}
+
+// migrateToV9 — live load-to-play migration. V9 passes through by identity;
+// V1–V8 migrate through every frozen boundary and receive exactly legacy/empty
+// screenplay state at the final step.
+export function migrateToV9(save: SaveFile): SaveFileV9 {
+  if (save.saveVersion === 9) return save;
+  return convertV8ToV9(migrateToV8(save));
 }

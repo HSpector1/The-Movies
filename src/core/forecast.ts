@@ -84,8 +84,19 @@ function computeDeterministicCore(inp: ForecastInputs, engaged = false): Determi
   // projectSkillWeights path. Forecast uses the shape being greenlit; reception uses
   // production.shape (the same locked value once greenlit).
   const scriptStrength =
-    0.6 * inp.concept.baselineStrength +
-    0.4 * effectiveSkill(inp.writer, 'writing', inp.concept, undefined, inp.shapeEffects, inp.promise, 'perceived', inp.shape)
+    inp.scriptStrengthOverride?.perceived ??
+    (0.6 * inp.concept.baselineStrength +
+      0.4 *
+        effectiveSkill(
+          inp.writer,
+          'writing',
+          inp.concept,
+          undefined,
+          inp.shapeEffects,
+          inp.promise,
+          'perceived',
+          inp.shape,
+        ))
   const directorExecution = effectiveSkill(
     inp.director,
     'directing',

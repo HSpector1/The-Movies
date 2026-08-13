@@ -261,15 +261,18 @@ describe('simulation: NO Broadcast presentation or feed appears anywhere in the 
     fireEvent.click(screen.getByTestId('new-game'))
     foundViaUi() // D-11.2: found the studio to reach the dashboard
 
-    // Assemble + greenlight a film via the wizard.
+    // Develop an authoritative screenplay, accept it, then package and greenlight it.
     fireEvent.click(screen.getByTestId('assemble-film'))
-    const grid = screen.getByTestId('concept-grid')
-    fireEvent.click(within(grid).getAllByRole('button')[0]!)
-    fireEvent.click(screen.getByTestId('assembly-next')) // shape
-    fireEvent.click(screen.getByTestId('assembly-next')) // promise
-    fireEvent.click(screen.getByTestId('assembly-next')) // talent
-    // D-11.13: a Production/Craft Lead is now required to leave the talent step.
-    for (const p of ['picker-writer', 'picker-director', 'picker-lead', 'picker-antagonist', 'picker-support', 'picker-craft']) {
+    fireEvent.click(screen.getByTestId('commission-open'))
+    fireEvent.click(screen.getByTestId('commission-submit'))
+    fireEvent.click(screen.getByTestId('writers-room-back'))
+    fireEvent.click(screen.getByTestId('advance-week'))
+    fireEvent.click(screen.getByTestId('release-continue'))
+    fireEvent.click(screen.getByTestId('assemble-film'))
+    fireEvent.click(screen.getAllByTestId(/^script-action-acceptScript-/)[0]!)
+    fireEvent.click(screen.getAllByTestId(/^script-action-openPackage-/)[0]!)
+    // D-11.13: a Production/Craft Lead is required; the accepted writer is locked.
+    for (const p of ['picker-director', 'picker-lead', 'picker-antagonist', 'picker-support', 'picker-craft']) {
       const picker = screen.getByTestId(p)
       // The selectable candidate button carries aria-pressed (redesigned cards also add a
       // "Details" toggle per row, which we must skip). Pick the first ELIGIBLE candidate.

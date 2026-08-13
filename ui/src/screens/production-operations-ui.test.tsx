@@ -59,7 +59,14 @@ function managedGame(
 ): GameState {
   const founded = foundManagedStudioAction(readyToFound(seed, counts))
   if (!founded.ok) throw new Error(founded.error)
-  return founded.next
+  // This Production Operations V1 fixture intentionally exercises the frozen
+  // direct-greenlight path. New-player activation itself is asserted separately
+  // below; migrated studios may legitimately have managed operations with legacy
+  // screenplay development until they explicitly activate it.
+  return {
+    ...founded.next,
+    scriptDevelopment: { mode: 'legacy', projects: [] },
+  }
 }
 
 function legalPackage(state: GameState, slot = 0): DraftPackage {
@@ -171,7 +178,7 @@ describe('Production Operations V1 UI boundary', () => {
     expect(status).toHaveFocus()
   })
 
-  it('keeps legacy founding intact while the real managed wrapper activates facilities atomically', () => {
+  it('keeps legacy founding intact while the real wrapper activates both managed systems atomically', () => {
     const ready = readyToFound('ops-ui-founding')
     const before = JSON.stringify(ready)
 
@@ -182,7 +189,9 @@ describe('Production Operations V1 UI boundary', () => {
     if (!legacy.ok || !managed.ok) return
 
     expect(legacy.next.operations).toEqual({ mode: 'legacy', facilities: [], workflows: [] })
+    expect(legacy.next.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
     expect(managed.next.operations.mode).toBe('managed')
+    expect(managed.next.scriptDevelopment).toEqual({ mode: 'managed', projects: [] })
     expect(managed.next.operations.facilities.map((facility) => facility.name)).toEqual([
       'Development & Casting',
       'Post Building',

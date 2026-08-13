@@ -35,6 +35,7 @@ import {
   validateSave,
   validateSaveV7,
   convertV7ToV8,
+  convertV8ToV9,
 } from '../src/core/index.js'
 import type {
   CreativeRole,
@@ -50,11 +51,11 @@ import type {
 // Typed so an omission is a COMPILE error: a fixture that already carried `publicity`
 // would make every migration assertion below vacuous.
 function toV6(s: GameState): GameStateV6 {
-  const { publicity: _publicity, operations: _operations, ...v6 } = s
+  const { publicity: _publicity, operations: _operations, scriptDevelopment: _scripts, ...v6 } = s
   return v6
 }
 function toV7(s: GameState): GameStateV7 {
-  const { operations: _operations, ...v7 } = s
+  const { operations: _operations, scriptDevelopment: _scripts, ...v7 } = s
   return v7
 }
 function frozenV7ToV6(s: GameStateV7): GameStateV6 {
@@ -62,7 +63,7 @@ function frozenV7ToV6(s: GameStateV7): GameStateV6 {
   return v6
 }
 function toV5(s: GameState): GameStateV5 {
-  const { publicity: _publicity, operations: _operations, economyEngagedEver: _flag, ...v5 } = s
+  const { publicity: _publicity, operations: _operations, scriptDevelopment: _scripts, economyEngagedEver: _flag, ...v5 } = s as GameStateV7 & { operations?: unknown; scriptDevelopment?: unknown }
   return v5
 }
 
@@ -130,10 +131,10 @@ describe('D-17B/E4 — the frozen V7 envelope remains valid and isolated', () =>
     expect(() => validateSaveV7({ ...save, saveVersion: 6 })).toThrow(/expected saveVersion 7/)
   })
 
-  it('V7 and V8 are known, so the unknown-version boundary is now 9', () => {
+  it('V7 through V9 are known, so the unknown-version boundary is now 10', () => {
     const save = makeSaveV7(toV7(foundStudio('d17b-v7-boundary')))
-    expect(() => validateSave({ ...save, saveVersion: 9 })).toThrow(/unknown saveVersion 9/)
-    expect(() => validateSave({ ...save, saveVersion: 9 })).toThrow(/1, 2, 3, 4, 5, 6, 7 and 8 only/)
+    expect(() => validateSave({ ...save, saveVersion: 10 })).toThrow(/unknown saveVersion 10/)
+    expect(() => validateSave({ ...save, saveVersion: 10 })).toThrow(/1, 2, 3, 4, 5, 6, 7, 8 and 9 only/)
   })
 
   it('rejects a V7 whose inherited regime fact or publicity clocks are missing/corrupt', () => {
@@ -225,7 +226,7 @@ describe('D-17B/E4 — migrateToV7 lifts every known version, and the chain stil
     for (let i = 0; i < 6; i++) a = tick(a)
     const reloaded = importSave(exportSave(makeSaveV7(toV7(a))))
     if (reloaded.saveVersion !== 7) throw new Error('expected V7')
-    let split = convertV7ToV8(reloaded).state
+    let split = convertV8ToV9(convertV7ToV8(reloaded)).state
     let continuous = a
     for (let i = 0; i < 6; i++) {
       split = tick(split)

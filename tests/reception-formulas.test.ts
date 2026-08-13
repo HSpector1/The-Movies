@@ -84,6 +84,21 @@ describe('§5.1 technical', () => {
 // §5.1  craft — one fully anchored numeric case
 // ─────────────────────────────────────────────────────────────────────────────
 describe('§5.1 craft — anchored numeric derivation', () => {
+  it('uses a managed screenplay actual-strength override without changing legacy inputs', () => {
+    const base = makeReceptionInputs({
+      concept: makeConcept({ baselineStrength: 10 }),
+      writer: makeTalent({ role: 'writer', skill: 10 }),
+    })
+    const legacy = resolveReception(base, seed())
+    const managed = resolveReception(
+      { ...base, scriptStrengthOverride: { actual: 88, perceived: 22 } },
+      seed(),
+    )
+    expect(legacy.scriptStrength).toBeCloseTo(10, 6)
+    expect(managed.scriptStrength).toBe(88)
+    expect(managed.craft - legacy.craft).toBeCloseTo(0.3 * 78, 6)
+  })
+
   it('craft = 0.30*script + 0.25*dir + 0.20*castExec + 0.15*tech + 0.10*budgetAdq + craftMod', () => {
     // Inputs chosen so every craft input is exactly known:
     //   baselineStrength 50, writer.skill 50 -> scriptStrength = 0.6*50 + 0.4*50 = 50

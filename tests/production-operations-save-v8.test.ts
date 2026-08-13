@@ -16,6 +16,7 @@ import {
   convertV5ToV6,
   convertV6ToV7,
   convertV7ToV8,
+  convertV8ToV9,
   emptyLegacyOperations,
   exportSave,
   FOUNDING_MINIMUMS,
@@ -23,6 +24,7 @@ import {
   importSave,
   initialManagedStudioOperations,
   makeSave,
+  makeSaveV8,
   makeSaveV1,
   makeSaveV2,
   makeSaveV3,
@@ -52,7 +54,7 @@ import {
 } from "./_legacyV1Fixtures.js";
 
 function toV7(state: GameState): GameStateV7 {
-  const { operations: _operations, ...v7 } = state;
+  const { operations: _operations, scriptDevelopment: _scripts, ...v7 } = state;
   return v7;
 }
 
@@ -151,6 +153,7 @@ function preOpeningBandSaves() {
     economyEngagedEver: _economyEngagedEver,
     publicity: _publicity,
     operations: _operations,
+    scriptDevelopment: _scriptDevelopment,
     ...v2State
   } = historical;
   const v3State = {
@@ -190,10 +193,10 @@ function recordAt(
 }
 
 describe("Production Operations V1 — the V8 envelope", () => {
-  it("makeSave writes V8, validates it, and exports/imports byte-identically", () => {
+  it("makeSaveV8 writes frozen V8, validates it, and exports/imports byte-identically", () => {
     const state = generateWorld("save-v8-default");
     expect(state.operations).toEqual(emptyLegacyOperations());
-    const save = makeSave(state);
+    const save = makeSaveV8(state);
     expect(save.saveVersion).toBe(8);
     expect(validateSave(save)).toBe(save);
     expect(validateSaveV8(save)).toBe(save);
@@ -201,18 +204,15 @@ describe("Production Operations V1 — the V8 envelope", () => {
     expect(exportSave(importSave(json))).toBe(json);
   });
 
-  it("moves the loud unknown-version boundary to 9", () => {
-    const save = makeSave(generateWorld("save-v8-boundary"));
-    expect(() => validateSave({ ...save, saveVersion: 9 })).toThrow(
-      /unknown saveVersion 9/,
-    );
-    expect(() => validateSave({ ...save, saveVersion: 9 })).toThrow(
-      /1, 2, 3, 4, 5, 6, 7 and 8 only/,
+  it("the frozen V8 validator rejects a non-V8 envelope", () => {
+    const save = makeSaveV8(generateWorld("save-v8-boundary"));
+    expect(() => validateSaveV8({ ...save, saveVersion: 9 })).toThrow(
+      /expected saveVersion 8/,
     );
   });
 
   it("rejects missing or malformed current-version operations instead of defaulting them", () => {
-    const save = makeSave(generateWorld("save-v8-invalid"));
+    const save = makeSaveV8(generateWorld("save-v8-invalid"));
     const noOperations = { ...save, state: { ...save.state } } as Record<
       string,
       unknown
@@ -246,7 +246,7 @@ describe("Production Operations V1 — the V8 envelope", () => {
   });
 
   it("rejects truncated legacy-mode state and array-shaped object impostors", () => {
-    const save = makeSave(generateWorld("save-v8-strict-live-state"));
+    const save = makeSaveV8(generateWorld("save-v8-strict-live-state"));
     const truncated = JSON.parse(exportSave(save));
     delete truncated.state.studio;
     expect(() => validateSaveV8(truncated)).toThrow(
@@ -265,7 +265,7 @@ describe("Production Operations V1 — the V8 envelope", () => {
   });
 
   it("rejects non-finite runtime numbers and their null JSON equivalent", () => {
-    const save = makeSave(generateWorld("save-v8-finite"));
+    const save = makeSaveV8(generateWorld("save-v8-finite"));
     expect(() =>
       validateSaveV8({
         ...save,
@@ -436,7 +436,7 @@ describe("Production Operations V1 — frozen V7 to live V8 migration", () => {
     expect(migrated.operations).toEqual(emptyLegacyOperations());
 
     let continuous = greenlit;
-    let resumed = migrated;
+    let resumed = convertV8ToV9(makeSaveV8(migrated)).state;
     for (let week = 0; week < 10; week++) {
       continuous = tick(continuous);
       resumed = tick(resumed);
@@ -458,7 +458,7 @@ describe("Production Operations V1 — managed state validation and continuation
         directorId: production.directorId,
       },
     ]);
-    const json = exportSave(makeSave(state));
+    const json = exportSave(makeSaveV8(state));
     const imported = importSave(json);
     if (imported.saveVersion !== 8) throw new Error("expected V8");
     expect(exportSave(imported)).toBe(json);
@@ -470,7 +470,7 @@ describe("Production Operations V1 — managed state validation and continuation
     );
 
     let continuous = state;
-    let resumed = imported.state;
+    let resumed = convertV8ToV9(imported).state;
     const actions = [
       { kind: "clearSceneryLoadIn", productionId: production.id } as const,
       { kind: "scheduleShootingTake", productionId: production.id } as const,
@@ -488,7 +488,7 @@ describe("Production Operations V1 — managed state validation and continuation
 
   it("rejects facility truth drift plus orphaned, missing, and phase-mismatched workflows", () => {
     const state = managedShootingState("save-v8-managed-invalid");
-    const save = makeSave(state);
+    const save = makeSaveV8(state);
     const changedCapacity = JSON.parse(exportSave(save));
     changedCapacity.state.operations.facilities[0].capacity = 99;
     expect(() => validateSaveV8(changedCapacity)).toThrow(
@@ -519,7 +519,7 @@ describe("Production Operations V1 — managed state validation and continuation
   });
 
   it("validates every active production field and authoritative reference", () => {
-    const save = makeSave(managedShootingState("save-v8-production-shape"));
+    const save = makeSaveV8(managedShootingState("save-v8-production-shape"));
 
     const noStart = JSON.parse(exportSave(save));
     delete noStart.state.studio.activeProductions[0].startTick;
@@ -568,11 +568,17 @@ describe("Production Operations V1 — managed state validation and continuation
     expect(() => validateSaveV8(duplicateForecastSegment)).toThrow(
       /segmentId.*duplicated/,
     );
+
+    const reorderedForecastSegments = JSON.parse(exportSave(save));
+    reorderedForecastSegments.state.studio.activeProductions[0].forecastSnapshot.segments.reverse();
+    expect(() => validateSaveV8(reorderedForecastSegments)).toThrow(
+      /segmentId.*canonical order/,
+    );
   });
 
   it("rejects overbooked or out-of-range reservations", () => {
     const state = managedShootingState("save-v8-reservation-invalid");
-    const save = makeSave(state);
+    const save = makeSaveV8(state);
 
     const overbooked = JSON.parse(exportSave(save));
     overbooked.state.operations.workflows[0].reservations.push({
@@ -589,7 +595,7 @@ describe("Production Operations V1 — managed state validation and continuation
 
   it("rejects wrong director, stage, task identity, and blocker lifecycle", () => {
     const state = managedShootingState("save-v8-task-invalid");
-    const save = makeSave(state);
+    const save = makeSaveV8(state);
 
     const wrongDirector = JSON.parse(exportSave(save));
     wrongDirector.state.operations.workflows[0].shootingTask.directorId =
@@ -643,7 +649,7 @@ describe("Production Operations V1 — managed state validation and continuation
         directorId: production.directorId,
       },
     ]);
-    const json = exportSave(makeSave(state));
+    const json = exportSave(makeSaveV8(state));
     const paths: readonly (readonly (string | number)[])[] = [
       ["state", "operations"],
       ["state", "operations", "facilities", 0],
@@ -654,7 +660,7 @@ describe("Production Operations V1 — managed state validation and continuation
     ];
     for (const path of paths) {
       const corrupted = JSON.parse(json);
-      recordAt(corrupted, path).futureField = "must require SaveFileV9";
+      recordAt(corrupted, path).futureField = "must require a future save version";
       expect(() => validateSaveV8(corrupted)).toThrow(
         /unknown field "futureField"/,
       );

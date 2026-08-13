@@ -76,6 +76,13 @@ export type ReceptionInputs = {
   market: MarketState
   standing: Standing
   era: EraConfig
+  // Script Projects V1: managed projects freeze the screenplay assessment before
+  // production. Forecast reads perceived; release reads actual. Legacy callers omit
+  // this and retain the original concept/writer computation byte-for-byte.
+  // Each side is optional so a player-facing forecast can carry only the persisted
+  // perceived assessment. Realized reception supplies `actual`; no caller has to
+  // move the hidden value through a preview/UI boundary merely to satisfy the type.
+  scriptStrengthOverride?: { actual?: number; perceived?: number }
 }
 
 // The rich breakdown §5.6 requires: every intermediate exposed alongside the
@@ -181,8 +188,19 @@ function computeCraft(inp: ReceptionInputs, engaged = false): {
   // skills (use='actual'); the shape is identical to the one §7 forecast weighted,
   // so the only forecast-vs-result difference is perceived-vs-actual skills.
   const scriptStrength =
-    0.6 * inp.concept.baselineStrength +
-    0.4 * effectiveSkill(inp.writer, 'writing', inp.concept, undefined, inp.shapeEffects, inp.promise, 'actual', inp.shape)
+    inp.scriptStrengthOverride?.actual ??
+    (0.6 * inp.concept.baselineStrength +
+      0.4 *
+        effectiveSkill(
+          inp.writer,
+          'writing',
+          inp.concept,
+          undefined,
+          inp.shapeEffects,
+          inp.promise,
+          'actual',
+          inp.shape,
+        ))
   const directorExecution = effectiveSkill(
     inp.director,
     'directing',

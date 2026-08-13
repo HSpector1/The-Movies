@@ -44,6 +44,8 @@ export type {
   GameStateV5,
   GameStateV6,
   GameStateV7,
+  GameStateV8,
+  GameStateV9,
   PublicityTier,
   PublicityState,
   StudioOperationsMode,
@@ -56,6 +58,17 @@ export type {
   ProductionBlocker,
   ProductionWorkflow,
   StudioOperations,
+  ScriptDevelopmentMode,
+  ScriptProjectStatus,
+  ScriptRewriteCount,
+  ScriptAssessment,
+  ScriptReservation,
+  ScriptProject,
+  ScriptDevelopment,
+  CommissionScriptPayload,
+  GreenlightScriptProjectPayload,
+  ScriptWriterAssignment,
+  DevelopmentCastingOccupancy,
   TalentCareerEvent,
   CareerReasonCode,
   Action,
@@ -207,9 +220,81 @@ export {
   INITIAL_STUDIO_FACILITIES,
   emptyStudioOperations,
   initialManagedStudioOperations,
+  addManagedProductionWorkflow,
+  advanceManagedProductions,
   productionPhaseForRemainingTicks,
   assertStudioOperationsInvariants,
 } from './operations.js'
+
+// Script Projects V1 — authoritative screenplay lifecycle and shared capacity.
+export {
+  emptyScriptDevelopment,
+  initialManagedScriptDevelopment,
+  canonicalScriptProjectId,
+  nextScriptProjectId,
+  scriptOccupiedFacilitySlots,
+  developmentCastingOccupancy,
+  availableDevelopmentCastingSlots,
+  allocateScriptReservation,
+  commissionScriptProject,
+  assessFirstDraft,
+  scriptRewriteDelta,
+  rewriteAssessment,
+  completeDueScriptWork,
+  requestScriptRewrite,
+  acceptScriptProject,
+  linkScriptProjectToProduction,
+  returnScriptProjectToReady,
+  markScriptProjectProduced,
+  scriptProjectForProduction,
+  readyScriptPerceivedStrength,
+  linkedScriptStrengthOverride,
+  scriptProjectsNeedingReview,
+  nextScriptProjectNeedingReview,
+  activeScriptWriterAssignments,
+  scriptWriterAssignment,
+  screenplayFactsMatch,
+  assertScriptDevelopmentInvariants,
+} from './scriptDevelopment.js'
+export type {
+  ScriptWorkSources,
+  ScriptDevelopmentInvariantContext,
+} from './scriptDevelopment.js'
+
+// Script Projects V1 — narrow player-facing Writers Room projection. These
+// fresh read models contain perceived estimates and legal commands only.
+export {
+  SCRIPT_DEVELOPMENT_WEEK_CONSEQUENCE,
+  estimatedScriptAssessment,
+  scriptCapacityView,
+  scriptProjectsReadModel,
+  nextScriptDecision,
+  nextStudioDecision,
+} from './scriptReadModel.js'
+export type {
+  ScriptProjectSection,
+  ScriptPlayerBlockerKind,
+  ScriptPlayerBlocker,
+  ScriptProjectActionView,
+  EstimatedScriptAssessmentView,
+  ScriptWriterView,
+  ScriptProjectCardView,
+  ScriptCapacityOccupantView,
+  ScriptCapacitySlotView,
+  ScriptCapacityFacilityView,
+  ScriptCapacityView,
+  CommissionConceptView,
+  CommissionWriterView,
+  ScriptCommissionAvailabilityView,
+  ScriptPackageAvailabilityView,
+  ReadyScriptPackageView,
+  ScriptReviewDecisionView,
+  ProductionOperationsCommand,
+  ProductionOperationsDecisionView,
+  StudioDecisionView,
+  ScriptLotAttentionView,
+  ScriptProjectsReadModel,
+} from './scriptReadModel.js'
 
 // §6 standing (phase 3) — the three-channel updateStanding (B12 context param)
 export { updateStanding } from './standing.js'
@@ -460,9 +545,9 @@ export type { CandidatePackage } from './candidates.js'
 export { RandomAgent, OracleAgent } from './agents.js'
 export type { Agent } from './agents.js'
 
-// §17 save — frozen V1–V7 envelopes plus live Production Operations V1 V8.
+// §17 save — frozen V1–V8 envelopes plus live Script Projects V1 V9.
 // stableStringify/deepEqual are unchanged. validateSave dispatches on version and
-// loudly rejects unknown versions. New games save as V8.
+// loudly rejects unknown versions. New games save as V9.
 export {
   stableStringify,
   deepEqual,
@@ -475,6 +560,7 @@ export {
   validateSaveV6,
   validateSaveV7,
   validateSaveV8,
+  validateSaveV9,
   makeSave,
   makeSaveV1,
   makeSaveV2,
@@ -484,6 +570,7 @@ export {
   makeSaveV6,
   makeSaveV7,
   makeSaveV8,
+  makeSaveV9,
   loadSave,
   exportSave,
   importSave,
@@ -517,6 +604,10 @@ export {
   emptyLegacyOperations,
   convertV7ToV8,
   migrateToV8,
+  // Script Projects V1 — legacy V8 → V9 seeds explicit legacy/empty state.
+  emptyLegacyScriptDevelopment,
+  convertV8ToV9,
+  migrateToV9,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -527,6 +618,7 @@ export type {
   SaveFileV6,
   SaveFileV7,
   SaveFileV8,
+  SaveFileV9,
   SaveFile,
   TalentV1,
   GameStateV1,

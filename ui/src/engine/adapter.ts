@@ -96,11 +96,12 @@ import {
   makeSave,
   exportSave,
   importSave,
-  migrateToV8,
+  migrateToV9,
   convertV4ToV5,
   convertV5ToV6,
   convertV6ToV7,
   convertV7ToV8,
+  convertV8ToV9,
   importLegacyV2ToV4,
   importLegacyV1ToV4,
   // ── D-11 employment / contracts / roster / freelancer market ──
@@ -174,6 +175,12 @@ import {
   publicityOffers as corePublicityOffers,
   marketingCapacityFor,
   marketingLevelsFor,
+  // Script Projects V1 — narrow player read model and generalized assignments.
+  scriptProjectsReadModel as coreScriptProjectsReadModel,
+  nextStudioDecision as coreNextStudioDecision,
+  activeScriptWriterAssignments,
+  readyScriptPerceivedStrength,
+  linkedScriptStrengthOverride,
 } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
@@ -266,6 +273,10 @@ import type {
   ProductionPhase,
   ShootingTaskStatus,
   ProductionWorkflow,
+  CommissionScriptPayload,
+  ScriptProjectsReadModel,
+  ScriptProjectActionView,
+  ReadyScriptPackageView,
 } from '../../../src/core/index.ts'
 
 // Re-export the core types the UI needs, so components import types from the
@@ -336,6 +347,10 @@ export type {
   FacilityCapability,
   ProductionPhase,
   ShootingTaskStatus,
+  CommissionScriptPayload,
+  ScriptProjectsReadModel,
+  ScriptProjectActionView,
+  ReadyScriptPackageView,
 }
 
 export const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support']
@@ -717,6 +732,79 @@ export function productionDecision(state: GameState): ProductionBoardCardView | 
   return productionBoard(state).cards.find((card) => card.command !== null) ?? null
 }
 
+export type PlayerStudioDecision =
+  | { kind: 'scriptReview'; decision: NonNullable<ScriptProjectsReadModel['nextDecision']> }
+  | { kind: 'productionDecision'; decision: ProductionBoardCardView }
+
+/**
+ * Resolve the core's one cross-system decision into the richer UI card it names.
+ * Ordering and actionability belong entirely to `coreNextStudioDecision`; this
+ * boundary only attaches presentation copy to the chosen production command.
+ */
+export function studioDecision(state: GameState): PlayerStudioDecision | null {
+  const decision = coreNextStudioDecision(state)
+  if (decision === null) return null
+  if (decision.kind === 'scriptReview') {
+    return { kind: 'scriptReview', decision }
+  }
+  const card = productionBoard(state).cards.find(
+    (candidate) => candidate.productionId === decision.productionId,
+  )
+  if (card === undefined || card.command === null) {
+    throw new Error(
+      `studioDecision: core selected productionId "${decision.productionId}" without a player command card`,
+    )
+  }
+  return { kind: 'productionDecision', decision: card }
+}
+
+// ── Script Projects V1: player read/actions boundary ─────────────────────────
+// React receives only the core's narrow perceived-only projection and sends back
+// exact commands. It never inspects ScriptDevelopment or reconstructs legality.
+export function scriptProjectsBoard(state: GameState): ScriptProjectsReadModel {
+  return coreScriptProjectsReadModel(state)
+}
+
+export function commissionScriptAction(
+  state: GameState,
+  project: CommissionScriptPayload,
+): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'commissionScript', project }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+export function runScriptProjectAction(
+  state: GameState,
+  command: ScriptProjectActionView,
+): ActionOutcome {
+  try {
+    switch (command.kind) {
+      case 'acceptScript':
+        return {
+          ok: true,
+          next: applyActions(state, [{ kind: 'acceptScript', projectId: command.projectId }]),
+        }
+      case 'requestScriptRewrite':
+        return {
+          ok: true,
+          next: applyActions(state, [
+            { kind: 'requestScriptRewrite', projectId: command.projectId },
+          ]),
+        }
+      case 'openPackage':
+        return {
+          ok: false,
+          error: 'Opening a Ready screenplay is navigation, not a state-changing script command.',
+        }
+    }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
 // ── Talent pools + information integrity ─────────────────────────────────────
 // The player sees `perceived` persona, fame, salary, role, availability, and the
 // contract-public `skill` (a legacy scalar proxy = primary-discipline perceived
@@ -734,27 +822,39 @@ export type PlayerVisibleTalent = {
   fame: number
   salary: number
   authored: boolean
-  available: boolean // not engaged in an active production
-  engagedIn: string | null // film TITLE it is busy on if unavailable, else null (never a raw id)
+  available: boolean
+  engagedIn: string | null // named assignment label, never a raw id
+  assignmentKind: 'production' | 'script' | null
 }
 
-// Map each busy talent id → the player-facing FILM TITLE it is engaged on (never a raw production
-// id — D-12 beta secondary). Value is the title; absence means free.
-function engagedTalentIds(state: GameState): Map<string, string> {
-  const busy = new Map<string, string>()
+export type TalentAssignmentView = {
+  kind: 'production' | 'script'
+  label: string
+}
+
+// One generalized assignment truth for every player talent surface.
+function engagedTalentIds(state: GameState): Map<string, TalentAssignmentView> {
+  const busy = new Map<string, TalentAssignmentView>()
   for (const prod of state.studio.activeProductions) {
     const title = findConcept(state, prod.conceptId)?.title ?? prod.conceptId
-    busy.set(prod.writerId, title)
-    busy.set(prod.directorId, title)
-    for (const slot of CAST_SLOTS) busy.set(prod.cast[slot], title)
-    for (const cid of prod.craftIds) busy.set(cid, title)
+    const assignment: TalentAssignmentView = { kind: 'production', label: title }
+    busy.set(prod.writerId, assignment)
+    busy.set(prod.directorId, assignment)
+    for (const slot of CAST_SLOTS) busy.set(prod.cast[slot], assignment)
+    for (const cid of prod.craftIds) busy.set(cid, assignment)
+  }
+  for (const script of activeScriptWriterAssignments(state.scriptDevelopment, state.concepts)) {
+    busy.set(script.talentId, { kind: 'script', label: script.label })
   }
   return busy
 }
 
 // Project a core Talent to the player-visible shape (perceived only, never actual).
-export function toPlayerVisible(t: Talent, engaged: Map<string, string>): PlayerVisibleTalent {
-  const engagedIn = engaged.get(t.id) ?? null
+export function toPlayerVisible(
+  t: Talent,
+  engaged: Map<string, TalentAssignmentView>,
+): PlayerVisibleTalent {
+  const assignment = engaged.get(t.id) ?? null
   return {
     id: t.id,
     name: t.name,
@@ -765,8 +865,9 @@ export function toPlayerVisible(t: Talent, engaged: Map<string, string>): Player
     fame: t.fame,
     salary: t.salary,
     authored: t.authored,
-    available: engagedIn === null,
-    engagedIn,
+    available: assignment === null,
+    engagedIn: assignment?.label ?? null,
+    assignmentKind: assignment?.kind ?? null,
   }
 }
 
@@ -804,7 +905,10 @@ export function talentEligibility(
   if (!talent.available) {
     return {
       eligible: false,
-      reason: `Already working on ${talent.engagedIn} — busy until it releases.`,
+      reason:
+        talent.assignmentKind === 'script'
+          ? `Already assigned: ${talent.engagedIn} — busy until the screenplay reaches review.`
+          : `Already working on ${talent.engagedIn} — busy until it releases.`,
     }
   }
   if (chosenElsewhere.includes(talent.id)) {
@@ -859,7 +963,20 @@ export function assemblyAvailability(state: GameState): AssemblyAvailability {
   // Name the bottleneck: for the first missing role, if a CONTRACTED member of that role is busy,
   // name them + the film they're on; otherwise the studio simply has too few under contract.
   const first = missingRoles[0]!
-  const busyBlurbFor = (role: CreativeRole): string => {
+  const busyBlurbFor = (role: CreativeRole): { detail: string; remedy: string } => {
+    const label = ASSEMBLE_ROLE_LABEL[role]
+    for (const assignment of activeScriptWriterAssignments(
+      state.scriptDevelopment,
+      state.concepts,
+    )) {
+      const talent = state.talent.find((candidate) => candidate.id === assignment.talentId)
+      if (talent?.role === role && isContracted(state, talent.id)) {
+        return {
+          detail: `${toPlayerVisible(talent, new Map()).name} is ${assignment.label} until the screenplay reaches review`,
+          remedy: `Sign another ${label}, hire an available freelancer, or wait for the screenplay to reach review.`,
+        }
+      }
+    }
     for (const p of state.studio.activeProductions) {
       const ids = [p.writerId, p.directorId, p.cast.lead, p.cast.antagonist, p.cast.support, ...p.craftIds]
       const hitId = ids.find((id) => {
@@ -869,15 +986,21 @@ export function assemblyAvailability(state: GameState): AssemblyAvailability {
       if (hitId) {
         const t = state.talent.find((x) => x.id === hitId)
         const title = findConcept(state, p.conceptId)?.title ?? p.conceptId
-        return `${t ? toPlayerVisible(t, new Map()).name : 'A team member'} is working on ${title} until it releases`
+        return {
+          detail: `${t ? toPlayerVisible(t, new Map()).name : 'A team member'} is working on ${title} until it releases`,
+          remedy: `Sign another ${label}, hire an available freelancer, or wait for the film to finish.`,
+        }
       }
     }
-    return `you have too few ${ASSEMBLE_ROLE_LABEL[role]}s under contract`
+    return {
+      detail: `you have too few ${label}s under contract`,
+      remedy: `Sign another ${label} or hire an available freelancer.`,
+    }
   }
   const label = ASSEMBLE_ROLE_LABEL[first]
+  const bottleneck = busyBlurbFor(first)
   const reason =
-    `No ${label} is currently available — ${busyBlurbFor(first)}. ` +
-    `Sign another ${label}, hire an available freelancer, or wait for the film to finish.` +
+    `No ${label} is currently available — ${bottleneck.detail}. ${bottleneck.remedy}` +
     (missingRoles.length > 1
       ? ` (Also unavailable: ${missingRoles.slice(1).map((r) => ASSEMBLE_ROLE_LABEL[r]).join(', ')}.)`
       : '')
@@ -1066,7 +1189,11 @@ export type DraftPackage = DraftPackageIds & {
 // Assemble the §5 ReceptionInputs a forecast/reception reads, resolving all ids to
 // core Talent + concept from state. Throws a legible error if an id is unresolved
 // (the caller guards, but this keeps the failure loud, not silent).
-function assembleReceptionInputs(state: GameState, pkg: DraftPackage): ReceptionInputs {
+function assembleReceptionInputs(
+  state: GameState,
+  pkg: DraftPackage,
+  scriptProjectId?: string,
+): ReceptionInputs {
   const concept = findConcept(state, pkg.conceptId)
   if (!concept) throw new Error(`Unknown conceptId "${pkg.conceptId}"`)
   const writer = findTalent(state, pkg.writerId)
@@ -1084,6 +1211,18 @@ function assembleReceptionInputs(state: GameState, pkg: DraftPackage): Reception
     if (!t) throw new Error(`Unknown craft id "${id}"`)
     return t
   })
+  // Managed package previews name the Ready project, never its assessment. Core
+  // verifies the lifecycle and returns only the persisted perceived strength;
+  // the hidden actual value never enters this preview boundary.
+  const scriptStrengthOverride =
+    scriptProjectId === undefined
+      ? undefined
+      : {
+          perceived: readyScriptPerceivedStrength(
+            state.scriptDevelopment,
+            scriptProjectId,
+          ),
+        }
   return {
     concept,
     // RULING C (2026-07-26): supply the raw draft FilmShape so the shared engine
@@ -1099,6 +1238,7 @@ function assembleReceptionInputs(state: GameState, pkg: DraftPackage): Reception
     market: state.market,
     standing: state.studio.standing,
     era: state.era,
+    ...(scriptStrengthOverride ? { scriptStrengthOverride } : {}),
   }
 }
 
@@ -1115,8 +1255,12 @@ export function predictedProductionId(state: GameState): string {
 // same predicted id, same derived forecast stream. Uses only greenlight-available
 // info. This is the ONLY freshly-computed forecast the UI shows; active/released
 // productions display their STORED forecastSnapshot instead.
-export function previewForecast(state: GameState, pkg: DraftPackage): Forecast {
-  const inp = assembleReceptionInputs(state, pkg)
+export function previewForecast(
+  state: GameState,
+  pkg: DraftPackage,
+  scriptProjectId?: string,
+): Forecast {
+  const inp = assembleReceptionInputs(state, pkg, scriptProjectId)
   // D-12: match applyGreenlight — saturate fame→opening reach AND apply the P2 economy calibration
   // (routine gross scale + awareness marketing) when the economy is engaged (same signal for both).
   // D-17A/T10: the SAME signal the greenlight itself now reads (`actions.ts` economy regime) is the
@@ -1155,6 +1299,31 @@ export function greenlight(state: GameState, pkg: DraftPackage): ActionOutcome {
           craftIds: pkg.craftIds ?? [],
           cast: pkg.cast,
           budget: pkg.budget,
+        },
+      },
+    ])
+    return { ok: true, next }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+/** Greenlight a Ready screenplay. Core owns and copies concept/shape/promise/writer. */
+export function greenlightScriptProject(
+  state: GameState,
+  projectId: string,
+  pkg: DraftPackage,
+): ActionOutcome {
+  try {
+    const next = applyActions(state, [
+      {
+        kind: 'greenlightScriptProject',
+        production: {
+          projectId,
+          directorId: pkg.directorId,
+          craftIds: [...(pkg.craftIds ?? [])],
+          cast: { ...pkg.cast },
+          budget: { ...pkg.budget },
         },
       },
     ])
@@ -1575,6 +1744,7 @@ export { offerObligation }
 // exactly one tick after `preTick`).
 export type SimStopReason =
   | 'release'
+  | 'scriptReview'
   | 'productionDecision'
   | 'runCompleted'
   | 'contractExpired'
@@ -1591,6 +1761,7 @@ export type SimResult = {
   weeks: number
   stopReason: SimStopReason
   productionDecision: ProductionBoardCardView | null
+  scriptDecision: ScriptProjectsReadModel['nextDecision']
   // D-12 Phase 1: the engine-derived stop explanation the UI must display verbatim. React must NOT infer
   // the reason from current state (a completed run leaves no active-run trace to read after the fact).
   stopMessage: string
@@ -1602,11 +1773,38 @@ const SIM_CAP = 520 // safety guard (~10 years). A governed event (release / run
 
 export function advanceToNextEvent(state: GameState): SimResult {
   const fromWeek = state.market.tick
+  // The core's unified selector owns cross-system priority. Never charge a
+  // hidden week when any actionable studio decision is already waiting.
+  const existingStudioDecision = studioDecision(state)
+  if (existingStudioDecision?.kind === 'scriptReview') {
+    const existingScriptDecision = existingStudioDecision.decision
+    return {
+      preTick: state,
+      next: state,
+      released: [],
+      completedRuns: [],
+      fromWeek,
+      toWeek: fromWeek,
+      weeks: 0,
+      stopReason: 'scriptReview',
+      productionDecision: null,
+      scriptDecision: existingScriptDecision,
+      stopMessage: simStopMessage('scriptReview', fromWeek, {
+        released: [],
+        completedRuns: [],
+        guardHit: false,
+        productionDecision: null,
+        scriptDecision: existingScriptDecision,
+      }),
+      guardHit: false,
+      summary: corePeriodSummary(state, fromWeek, fromWeek - 1),
+    }
+  }
   // A decision that already exists is the next event. Do not charge a hidden week merely
   // because the player asked to find it. `periodSummary` deliberately accepts an empty
   // [from, from-1] interval and returns a zero movement report.
-  const existingDecision = productionDecision(state)
-  if (existingDecision !== null) {
+  if (existingStudioDecision?.kind === 'productionDecision') {
+    const existingDecision = existingStudioDecision.decision
     return {
       preTick: state,
       next: state,
@@ -1617,11 +1815,13 @@ export function advanceToNextEvent(state: GameState): SimResult {
       weeks: 0,
       stopReason: 'productionDecision',
       productionDecision: existingDecision,
+      scriptDecision: null,
       stopMessage: simStopMessage('productionDecision', fromWeek, {
         released: [],
         completedRuns: [],
         guardHit: false,
         productionDecision: existingDecision,
+        scriptDecision: null,
       }),
       guardHit: false,
       summary: corePeriodSummary(state, fromWeek, fromWeek - 1),
@@ -1633,6 +1833,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
   let completedRuns: { productionId: string; title: string }[] = []
   let stopReason: SimStopReason = 'limit'
   let stoppedProductionDecision: ProductionBoardCardView | null = null
+  let stoppedScriptDecision: ScriptProjectsReadModel['nextDecision'] = null
   let guardHit = true // stays true only if the loop exhausts without a governed stop
   for (let i = 0; i < SIM_CAP; i++) {
     const before = cur
@@ -1654,15 +1855,22 @@ export function advanceToNextEvent(state: GameState): SimResult {
       guardHit = false
       break
     }
+    const nextStudioDecision = studioDecision(after)
+    if (nextStudioDecision?.kind === 'scriptReview') {
+      stopReason = 'scriptReview'
+      stoppedScriptDecision = nextStudioDecision.decision
+      preStop = before
+      guardHit = false
+      break
+    }
     // A newly-entered Shooting task with a legal player command is actionable studio work.
     // Capacity holds remain visible warnings but retry through ordinary ticks, so they do
     // not masquerade as decisions or deadlock the next Sim preflight.
     // Release keeps first priority because it owns the reveal/autopsy path; the production
     // decision outranks informational run/contract stops on the same completed tick.
-    const nextProductionDecision = productionDecision(after)
-    if (nextProductionDecision !== null) {
+    if (nextStudioDecision?.kind === 'productionDecision') {
       stopReason = 'productionDecision'
-      stoppedProductionDecision = nextProductionDecision
+      stoppedProductionDecision = nextStudioDecision.decision
       preStop = before
       guardHit = false
       break
@@ -1711,6 +1919,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
     completedRuns,
     guardHit,
     productionDecision: stoppedProductionDecision,
+    scriptDecision: stoppedScriptDecision,
   })
   return {
     preTick: preStop,
@@ -1722,6 +1931,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
     weeks: toWeek - fromWeek,
     stopReason,
     productionDecision: stoppedProductionDecision,
+    scriptDecision: stoppedScriptDecision,
     stopMessage,
     guardHit,
     summary,
@@ -1738,6 +1948,7 @@ function simStopMessage(
     completedRuns: { productionId: string; title: string }[]
     guardHit: boolean
     productionDecision: ProductionBoardCardView | null
+    scriptDecision: ScriptProjectsReadModel['nextDecision']
   },
 ): string {
   const at = `Stopped at Week ${toWeek}`
@@ -1752,6 +1963,12 @@ function simStopMessage(
       if (decision === null) return `${at}: a production decision requires review.`
       const need = decision.command?.label ?? decision.blocker?.headline ?? 'Production review required'
       return `${at}: ${decision.title} needs you in ${decision.phaseLabel} \u2014 ${need}.`
+    }
+    case 'scriptReview': {
+      const decision = ctx.scriptDecision
+      return decision === null
+        ? `${at}: a screenplay needs studio review.`
+        : `${at}: ${decision.title} needs screenplay review in the Writers’ Room.`
     }
     case 'runCompleted': {
       const titles = ctx.completedRuns.map((r) => r.title)
@@ -2025,6 +2242,13 @@ function autopsyReceptionInputs(preTick: GameState, prod: Production): Reception
     if (!t) throw new Error(`autopsy: unknown craft id "${id}"`)
     return t
   })
+  // Production linkage is the authority for a managed screenplay assessment.
+  // This hidden pair is consumed inside the adapter/core reconstruction only;
+  // React receives the derived post-release explanation, not the pair itself.
+  const scriptStrengthOverride = linkedScriptStrengthOverride(
+    preTick.scriptDevelopment,
+    prod.id,
+  )
   return {
     concept,
     // RULING C (2026-07-26): the production's LOCKED shape — the autopsy reconstructs
@@ -2040,6 +2264,7 @@ function autopsyReceptionInputs(preTick: GameState, prod: Production): Reception
     market: preTick.market,
     standing: preTick.studio.standing,
     era: preTick.era,
+    ...(scriptStrengthOverride ? { scriptStrengthOverride } : {}),
   }
 }
 
@@ -2302,9 +2527,9 @@ export function remainingWeeks(prod: Production): number {
 }
 
 // ── Saves ────────────────────────────────────────────────────────────────────
-// New games save as SaveFileV8. V8 adds authoritative production operations to the
-// accepted V7 publicity/economy state. Every older envelope migrates deterministically
-// to explicit `legacy` operations, preserving its countdown without inventing workflow.
+// New games save as SaveFileV9. V9 adds authoritative screenplay development to the
+// frozen V8 production-operations state. Older envelopes migrate deterministically to
+// explicit legacy modes without inventing workflows or screenplay history.
 export function exportSaveJson(state: GameState): string {
   return exportSave(makeSave(state))
 }
@@ -2313,14 +2538,14 @@ export type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
   | { ok: false; error: string }
 
-// Import a save. Accepts V8 (current) and every legacy version V1–V7, all deterministic.
+// Import a save. Accepts V9 (current) and every legacy version V1–V8, all deterministic.
 // `converted` tells the caller a legacy save was upgraded so the UI can inform the player
-// — their original file is never overwritten (a fresh V8 is returned).
+// — their original file is never overwritten (a fresh V9 is returned).
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    const converted = save.saveVersion !== 8
-    return { ok: true, state: migrateToV8(save).state, converted }
+    const converted = save.saveVersion !== 9
+    return { ok: true, state: migrateToV9(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -2332,7 +2557,7 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json))))).state,
+      state: convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))).state,
       converted: true,
     }
   } catch (e) {
@@ -2346,7 +2571,7 @@ export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json))))).state,
+      state: convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))).state,
       converted: true,
     }
   } catch (e) {
@@ -2370,16 +2595,20 @@ export function foundStudioAction(state: GameState): ActionOutcome {
 }
 
 /**
- * Real player founding boundary. The two actions are one pure applyActions call: if
- * operations activation rejects, the caller keeps the untouched founding state. The
- * legacy wrapper above deliberately remains unchanged for the frozen corpus and test
- * setup that must retain the original eight-week countdown.
+ * Real player founding boundary. The three ordered actions are one pure applyActions
+ * call: if either managed-system activation rejects, the caller keeps the untouched
+ * founding state. The legacy wrapper above deliberately remains unchanged for the
+ * frozen corpus and test setup that must retain the original direct-greenlight path.
  */
 export function foundManagedStudioAction(state: GameState): ActionOutcome {
   try {
     return {
       ok: true,
-      next: applyActions(state, [{ kind: 'foundStudio' }, { kind: 'activateStudioOperations' }]),
+      next: applyActions(state, [
+        { kind: 'foundStudio' },
+        { kind: 'activateStudioOperations' },
+        { kind: 'activateScriptDevelopment' },
+      ]),
     }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
@@ -2968,6 +3197,7 @@ export type TalentProfile = {
   authored: boolean
   available: boolean
   engagedIn: string | null
+  assignmentKind: 'production' | 'script' | null
   perceived: Persona // NEVER actual
   temperament: string // temperamentSummary(perceived) — persona, not ability
   workEthic: number // visible 1..99
@@ -3005,9 +3235,13 @@ function disciplineSummary(t: Talent, d: Discipline, seed: string, primary: Disc
 
 // Project a core Talent to the full read-only Hub profile. `engaged` maps a talent id
 // to the production it is busy in (null when free).
-export function toTalentProfile(t: Talent, seed: string, engaged: Map<string, string>): TalentProfile {
+export function toTalentProfile(
+  t: Talent,
+  seed: string,
+  engaged: Map<string, TalentAssignmentView>,
+): TalentProfile {
   const primary = ROLE_TO_DISCIPLINE[t.role]
-  const engagedIn = engaged.get(t.id) ?? null
+  const assignment = engaged.get(t.id) ?? null
   const genreExp = {} as Record<Discipline, GenreExperienceCell[]>
   for (const d of DISCIPLINE_ORDER) {
     genreExp[d] = GENRE_ORDER.map((g) => ({
@@ -3024,8 +3258,9 @@ export function toTalentProfile(t: Talent, seed: string, engaged: Map<string, st
     fame: t.fame,
     salary: t.salary,
     authored: t.authored,
-    available: engagedIn === null,
-    engagedIn,
+    available: assignment === null,
+    engagedIn: assignment?.label ?? null,
+    assignmentKind: assignment?.kind ?? null,
     perceived: t.perceived, // information integrity: perceived, NOT actual
     temperament: temperamentSummary(t.perceived), // persona presentation, not ability
     workEthic: t.workEthic,
@@ -3473,8 +3708,12 @@ export function assessPackageFit(state: GameState, pkg: DraftPackage): PackageFi
 // Assemble the §5 ReceptionInputs the execution/profit helpers read, from a FULLY
 // assembled DraftPackage (all cast slots chosen). Throws (loudly) if a slot is missing —
 // the caller guards with `pkg` completeness. Identical shape to assembleReceptionInputs.
-function assembleFullReceptionInputs(state: GameState, pkg: DraftPackage): ReceptionInputs {
-  return assembleReceptionInputs(state, pkg)
+function assembleFullReceptionInputs(
+  state: GameState,
+  pkg: DraftPackage,
+  scriptProjectId?: string,
+): ReceptionInputs {
+  return assembleReceptionInputs(state, pkg, scriptProjectId)
 }
 
 // #3 Execution Confidence — PERCEIVED-only aggregate. Needs the full ReceptionInputs +
@@ -3482,8 +3721,9 @@ function assembleFullReceptionInputs(state: GameState, pkg: DraftPackage): Recep
 export function assessExecutionConfidence(
   state: GameState,
   pkg: DraftPackage,
+  scriptProjectId?: string,
 ): ExecutionConfidence {
-  const inp = assembleFullReceptionInputs(state, pkg)
+  const inp = assembleFullReceptionInputs(state, pkg, scriptProjectId)
   return executionConfidence(inp, {
     seed: state.seed,
     productionId: predictedProductionId(state),
@@ -3496,8 +3736,12 @@ export function assessExecutionConfidence(
 // #4 Commercial Outlook — studio-revenue + profit RANGE. `studioRevenueIsFullBoxOffice`
 // is surfaced so the UI shows the full-box-office disclosure. Passthrough to core
 // forecastProfitRange; salaries summed from the same resolved talent.
-export function assessProfitRange(state: GameState, pkg: DraftPackage): ForecastProfitRange {
-  const inp = assembleFullReceptionInputs(state, pkg)
+export function assessProfitRange(
+  state: GameState,
+  pkg: DraftPackage,
+  scriptProjectId?: string,
+): ForecastProfitRange {
+  const inp = assembleFullReceptionInputs(state, pkg, scriptProjectId)
   const salaries = salarySum(state, pkg)
   return forecastProfitRange(inp, {
     seed: state.seed,
@@ -3529,8 +3773,12 @@ export type DiscoveryExposureView = DiscoveryExposure & {
   /** DISC_SUPPORT_THRESHOLD — the support level at/above which discovery variance is ZERO. */
   threshold: number
 }
-export function assessDiscoveryExposure(state: GameState, pkg: DraftPackage): DiscoveryExposureView {
-  const inp = assembleFullReceptionInputs(state, pkg)
+export function assessDiscoveryExposure(
+  state: GameState,
+  pkg: DraftPackage,
+  scriptProjectId?: string,
+): DiscoveryExposureView {
+  const inp = assembleFullReceptionInputs(state, pkg, scriptProjectId)
   const engaged = economyEngaged(state)
   return {
     ...discoveryExposure(inp, { saturateFame: engaged, engaged }),
@@ -3570,10 +3818,14 @@ export type MarketingEfficiency = {
   /** OVEREXPOSURE_THRESHOLD — the spend÷capacity ratio above which overexposure begins. */
   overexposureThreshold: number
 }
-export function marketingEfficiency(state: GameState, pkg: DraftPackage): MarketingEfficiency {
+export function marketingEfficiency(
+  state: GameState,
+  pkg: DraftPackage,
+  scriptProjectId?: string,
+): MarketingEfficiency {
   // D-17A/T10: the persisted economy regime — the same one the forecast/realized paths use.
   const engaged = economyEngaged(state)
-  const inp = assembleFullReceptionInputs(state, pkg)
+  const inp = assembleFullReceptionInputs(state, pkg, scriptProjectId)
   // Reuse the engine forecast appeal (fame-saturated opening when engaged) + the engine box-office
   // pass so the awareness + capacity are the SAME values the forecast/realized paths use.
   const centers = forecastCenters(inp, engaged, engaged)
@@ -3621,8 +3873,12 @@ export type MarketingMenuView = {
   levels: MarketingMenu
   multipliers: readonly [number, number, number] | null
 }
-export function marketingMenu(state: GameState, pkg: DraftPackage): MarketingMenuView {
-  const inp = assembleFullReceptionInputs(state, pkg)
+export function marketingMenu(
+  state: GameState,
+  pkg: DraftPackage,
+  scriptProjectId?: string,
+): MarketingMenuView {
+  const inp = assembleFullReceptionInputs(state, pkg, scriptProjectId)
   const engaged = economyEngaged(state)
   return {
     engaged,
@@ -3635,10 +3891,14 @@ export function marketingMenu(state: GameState, pkg: DraftPackage): MarketingMen
 // A `PackageSide` (fit+execution+profit+castStarPower) for one fully-assembled draft —
 // the input to packageDelta. Cast star power = Σ cast fame (0..300). Reads perceived
 // fame only (never actual). Returns null when the draft is not fully assembled.
-function packageSideFor(state: GameState, pkg: DraftPackage): PackageSide {
+function packageSideFor(
+  state: GameState,
+  pkg: DraftPackage,
+  scriptProjectId?: string,
+): PackageSide {
   const fit = assessPackageFit(state, pkg)
-  const execution = assessExecutionConfidence(state, pkg)
-  const profit = assessProfitRange(state, pkg)
+  const execution = assessExecutionConfidence(state, pkg, scriptProjectId)
+  const profit = assessProfitRange(state, pkg, scriptProjectId)
   let castStarPower = 0
   for (const slot of CAST_SLOTS) {
     const t = findTalent(state, pkg.cast[slot])
@@ -3653,8 +3913,12 @@ export function assessPackageDelta(
   state: GameState,
   before: DraftPackage,
   after: DraftPackage,
+  scriptProjectId?: string,
 ): PackageDelta {
-  return packageDelta(packageSideFor(state, before), packageSideFor(state, after))
+  return packageDelta(
+    packageSideFor(state, before, scriptProjectId),
+    packageSideFor(state, after, scriptProjectId),
+  )
 }
 
 // ── Per-assignment candidate card (redesigned TalentPicker) ────────────────────
@@ -3670,6 +3934,7 @@ export type CandidateCard = {
   authored: boolean
   available: boolean
   engagedIn: string | null
+  assignmentKind: 'production' | 'script' | null
   discipline: Discipline
   slot: CastSlot | undefined
   ovr: number // role-specific OVR (perceived) for THIS assignment's discipline
@@ -3750,7 +4015,7 @@ export function assignmentCard(
   const concept = findConcept(state, conceptId)
   if (!concept) throw new Error(`assignmentCard: unknown concept "${conceptId}"`)
   const engaged = engagedTalentIds(state)
-  const engagedIn = engaged.get(talentId) ?? null
+  const assignment = engaged.get(talentId) ?? null
 
   const cross = crossRoleAssessment(state, talentId, discipline, conceptId, slot, promise, shape)
   const reasons = shapeFitReasons(state, talentId, discipline, conceptId, slot, promise, shape)
@@ -3762,8 +4027,9 @@ export function assignmentCard(
     talentId,
     name: t.name,
     authored: t.authored,
-    available: engagedIn === null,
-    engagedIn,
+    available: assignment === null,
+    engagedIn: assignment?.label ?? null,
+    assignmentKind: assignment?.kind ?? null,
     discipline,
     slot,
     ovr: cross.ovr,
@@ -3806,7 +4072,16 @@ export function assessGreenlight(
   // D-12: the greenlight was locked on the engaged economy path; pass it so the recomputed Expected
   // Studio Revenue / profit match the persisted (scaled) snapshot. D-17A/T10: the PERSISTED fact —
   // `employmentEngaged` would flip false once the roster emptied and silently rescale the autopsy.
-  return greenlightAssessment(snapshot, production, economyEngaged(preTick))
+  const scriptStrengthOverride = linkedScriptStrengthOverride(
+    preTick.scriptDevelopment,
+    production.id,
+  )
+  return greenlightAssessment(
+    snapshot,
+    production,
+    economyEngaged(preTick),
+    scriptStrengthOverride,
+  )
 }
 
 // #6 risksMaterialized — map each stored greenlight uncertainty factor to whether it BIT,
@@ -4464,6 +4739,30 @@ function operationsAttention(card: ProductionBoardCardView): AttentionState {
   return 'active'
 }
 
+const SCRIPT_LOT_ATTENTION_STATE: Record<
+  ScriptProjectsReadModel['lotAttention']['kind'],
+  AttentionState
+> = {
+  'review-required': 'decision-required',
+  'capacity-constraint': 'warning',
+  'active-work': 'active',
+  'ready-script': 'positive',
+  idle: 'empty',
+}
+
+function managedScriptLotCue(
+  state: GameState,
+): { attention: AttentionState; reason: string } | null {
+  if (state.scriptDevelopment.mode !== 'managed') return null
+  const cue = scriptProjectsBoard(state).lotAttention
+  return {
+    attention: SCRIPT_LOT_ATTENTION_STATE[cue.kind],
+    // The lot companion needs one concise reason; the Writers Room owns the
+    // longer governed detail and action surface.
+    reason: cue.headline,
+  }
+}
+
 /**
  * Project the authoritative GameState into the lot presentation snapshot. Pure,
  * deterministic, non-mutating. The single source the Studio Lot renders from.
@@ -4683,6 +4982,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
         : undefined
 
   const noProductions = prods.length === 0
+  const scriptCue = managedScriptLotCue(state)
 
   function managedOperationCue(id: BuildingId): { attention: AttentionState; reason: string } | null {
     if (state.operations.mode !== 'managed') return null
@@ -4723,13 +5023,21 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
         break
       case 'writers': // Development
         {
-          const cue = managedOperationCue(id)
-          if (cue !== null) {
-            attention = cue.attention
-            reason = cue.reason
-          } else if (noProductions && cash > 0) {
-            attention = 'active'
-            reason = 'Assemble a film to get started.'
+          // Managed screenplay work owns this destination. Its governed priority
+          // (review → capacity → active → ready → idle) must outrank a production
+          // workflow that also happens to occupy Development & Casting.
+          if (scriptCue !== null) {
+            attention = scriptCue.attention
+            reason = scriptCue.reason
+          } else {
+            const cue = managedOperationCue(id)
+            if (cue !== null) {
+              attention = cue.attention
+              reason = cue.reason
+            } else if (noProductions && cash > 0) {
+              attention = 'active'
+              reason = 'Assemble a film to get started.'
+            }
           }
         }
         break

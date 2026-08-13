@@ -28,7 +28,7 @@ import type {
   FilmConcept,
   Segment,
 } from "../src/core/index.js";
-import type { SaveFileV8 } from "../src/core/save.js";
+import type { SaveFileV9 } from "../src/core/save.js";
 
 // ── Minimal valid fixtures (all values are chosen inputs) ────────────────────
 
@@ -174,12 +174,14 @@ function makeState(broadcastItems: BroadcastItem[]): GameState {
     },
     // Production Operations V1 live persistence. This never-engaged fixture stays legacy.
     operations: { mode: "legacy", facilities: [], workflows: [] },
+    // Script Projects V1 live persistence. This never-engaged fixture stays legacy.
+    scriptDevelopment: { mode: "legacy", projects: [] },
   };
 }
 
 // A well-formed save: envelope seed === state.seed, broadcastCache === broadcastItems.
-// makeSave is the Production Operations V1 default (V8).
-function wellFormedSave(): SaveFileV8 {
+// makeSave is the Script Projects V1 default (V9).
+function wellFormedSave(): SaveFileV9 {
   const items = [broadcastItem];
   const state = makeState(items);
   return makeSave(state);
@@ -205,11 +207,11 @@ describe("§17 / §15.7 — export→import→export round-trips byte-identicall
 });
 
 describe("§17 — loud rejection of an unknown saveVersion", () => {
-  it("throws on an unknown saveVersion (e.g. 9)", () => {
-    // Source: §17 "loud rejection of unknown versions". Versions 1–8 are known;
-    // Production Operations V1 moved the unknown boundary from 8 to 9.
+  it("throws on an unknown saveVersion (e.g. 10)", () => {
+    // Source: §17 "loud rejection of unknown versions". Versions 1–9 are known;
+    // Script Projects V1 moved the unknown boundary from 9 to 10.
     const save = wellFormedSave();
-    const bad = { ...save, saveVersion: 9 } as unknown as SaveFileV8;
+    const bad = { ...save, saveVersion: 10 } as unknown as SaveFileV9;
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -219,7 +221,7 @@ describe("M14 — loud rejection when envelope seed ≠ state.seed", () => {
     // Source: M14 "the envelope seed must equal state.seed; load validation
     // rejects any divergence loudly (same failure mode as an unknown saveVersion)."
     const save = wellFormedSave();
-    const bad: SaveFileV8 = { ...save, seed: "a-different-seed" };
+    const bad: SaveFileV9 = { ...save, seed: "a-different-seed" };
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -233,14 +235,14 @@ describe("M14 — loud rejection when broadcastCache ≠ state.broadcastItems", 
       ...broadcastItem,
       template: "release-worse",
     };
-    const bad: SaveFileV8 = { ...save, broadcastCache: [divergentItem] };
+    const bad: SaveFileV9 = { ...save, broadcastCache: [divergentItem] };
     expect(() => loadSave(bad)).toThrow();
   });
 
   it("throws when broadcastCache differs from state.broadcastItems by length", () => {
     // Source: M14 — any divergence (including cardinality) is rejected.
     const save = wellFormedSave();
-    const bad: SaveFileV8 = { ...save, broadcastCache: [] };
+    const bad: SaveFileV9 = { ...save, broadcastCache: [] };
     expect(() => loadSave(bad)).toThrow();
   });
 });

@@ -1,7 +1,7 @@
 // End-to-end UI smoke test: drive the app through the full playable loop
-// Start → new game → dashboard → assemble → greenlight → advance to release →
-// autopsy, using only rendered controls (data-testids). Confirms the app renders
-// and the loop is wired end to end.
+// Start → new game → dashboard → screenplay → package → greenlight →
+// advance to release → autopsy, using only rendered controls (data-testids).
+// Confirms the managed studio loop is wired end to end.
 
 import { describe, it, expect } from 'vitest'
 import { render, screen, within, fireEvent } from '@testing-library/react'
@@ -50,6 +50,27 @@ function resolveProductionCommands() {
   }
 }
 
+// A managed studio cannot enter package assembly without an accepted screenplay.
+// Exercise that real one-week loop entirely through rendered controls, then open the
+// resulting Ready project. The package starts on Talent because concept/shape/promise
+// and writer are authoritative screenplay facts rather than repeat decisions.
+function developScreenplayAndOpenPackage() {
+  fireEvent.click(screen.getByTestId('assemble-film'))
+  expect(screen.getByTestId('writers-room')).toBeInTheDocument()
+  fireEvent.click(screen.getByTestId('commission-open'))
+  fireEvent.click(screen.getByTestId('commission-submit'))
+  fireEvent.click(screen.getByTestId('writers-room-back'))
+
+  fireEvent.click(screen.getByTestId('advance-week'))
+  fireEvent.click(screen.getByTestId('release-continue'))
+  fireEvent.click(screen.getByTestId('assemble-film'))
+
+  fireEvent.click(screen.getAllByTestId(/^script-action-acceptScript-/)[0]!)
+  fireEvent.click(screen.getAllByTestId(/^script-action-openPackage-/)[0]!)
+  expect(screen.getByTestId('assembly-steps')).toBeInTheDocument()
+  expect(screen.getByTestId('locked-script-writer')).toBeInTheDocument()
+}
+
 describe('App end-to-end loop', () => {
   it('renders the start screen', () => {
     render(<App />)
@@ -67,21 +88,7 @@ describe('App end-to-end loop', () => {
   it('assembles, greenlights, advances to release, and opens the autopsy', () => {
     startNewGame('e2e-loop')
 
-    // Open assembly.
-    fireEvent.click(screen.getByTestId('assemble-film'))
-    expect(screen.getByTestId('assembly-steps')).toBeInTheDocument()
-
-    // Concept step: pick the first concept card.
-    const grid = screen.getByTestId('concept-grid')
-    const firstConcept = within(grid).getAllByRole('button')[0]!
-    fireEvent.click(firstConcept)
-    fireEvent.click(screen.getByTestId('assembly-next')) // → shape
-
-    // Shape step: defaults are valid, advance.
-    fireEvent.click(screen.getByTestId('assembly-next')) // → promise
-
-    // Promise step: default segment (adult) is chosen, advance.
-    fireEvent.click(screen.getByTestId('assembly-next')) // → talent
+    developScreenplayAndOpenPackage()
 
     // Talent step: pick first eligible writer, director, and three distinct actors.
     function pickFirstEligible(pickerTestId: string) {
@@ -93,7 +100,6 @@ describe('App end-to-end loop', () => {
         .find((b) => b.hasAttribute('aria-pressed') && !(b as HTMLButtonElement).disabled)!
       fireEvent.click(btn)
     }
-    pickFirstEligible('picker-writer')
     pickFirstEligible('picker-director')
     // Cast: choose distinct actors per slot. Because choosing one disables it in the
     // others, re-query each time and pick the first still-enabled.

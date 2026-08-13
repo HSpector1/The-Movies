@@ -1,0 +1,383 @@
+import { describe, expect, it } from 'vitest'
+import {
+  applyActions,
+  beginFounding,
+  FOUNDING_MINIMUMS,
+  generateWorld,
+  stableStringify,
+  tick,
+} from '../src/core/index.js'
+import {
+  nextScriptDecision,
+  scriptCapacityView,
+  scriptProjectsReadModel,
+} from '../src/core/scriptReadModel.js'
+import type {
+  CommissionScriptPayload,
+  CreativeRole,
+  GameState,
+  SegmentId,
+  Talent,
+} from '../src/core/types.js'
+
+function applicants(state: GameState): Talent[] {
+  return state.founding!.applicantIds.map(
+    (id) => state.talent.find((talent) => talent.id === id)!,
+  )
+}
+
+function byRole(talent: readonly Talent[], role: CreativeRole): Talent[] {
+  return talent.filter((person) => person.role === role)
+}
+
+function foundedManagedStudio(seed: string): GameState {
+  let state = beginFounding(generateWorld(seed))
+  const pool = applicants(state)
+  const hires = [
+    ...byRole(pool, 'actor').slice(0, FOUNDING_MINIMUMS.actor),
+    ...byRole(pool, 'director').slice(0, FOUNDING_MINIMUMS.director),
+    ...byRole(pool, 'writer').slice(0, FOUNDING_MINIMUMS.writer),
+    ...byRole(pool, 'craft').slice(0, FOUNDING_MINIMUMS.craft),
+  ]
+  for (const hire of hires) {
+    state = applyActions(state, [
+      { kind: 'signContract', talentId: hire.id, termWeeks: 104 },
+    ])
+  }
+  state = applyActions(state, [{ kind: 'foundStudio' }])
+  return applyActions(state, [
+    { kind: 'activateStudioOperations' },
+    { kind: 'activateScriptDevelopment' },
+  ])
+}
+
+function contractedTalent(state: GameState): Talent[] {
+  const ids = new Set(
+    state.contracts
+      .filter(
+        (contract) =>
+          contract.startWeek <= state.market.tick &&
+          state.market.tick < contract.endWeekExclusive,
+      )
+      .map((contract) => contract.talentId),
+  )
+  return state.talent.filter((talent) => ids.has(talent.id))
+}
+
+function commissionPayload(
+  state: GameState,
+  conceptIndex: number,
+  writer: Talent,
+): CommissionScriptPayload {
+  const concept = state.concepts[conceptIndex]!
+  return {
+    conceptId: concept.id,
+    writerId: writer.id,
+    shape: {
+      opening: conceptIndex % 2 === 0 ? 'slowSetup' : 'mysteryHook',
+      midpoint: conceptIndex % 2 === 0 ? 'revelation' : 'escalation',
+      ending: conceptIndex % 2 === 0 ? 'bittersweet' : 'ambiguous',
+    },
+    promise: {
+      genre: concept.genre,
+      intendedSegments: ['adult', 'prestige'] as SegmentId[],
+      ranges: {
+        intimacy: [-0.4, 0.6],
+        tonalWeight: [0, 0.8],
+        kineticEnergy: [-0.7, 0.2],
+      },
+    },
+  }
+}
+
+function allObjectKeys(value: unknown, keys: Set<string> = new Set()): Set<string> {
+  if (value === null || typeof value !== 'object') return keys
+  if (Array.isArray(value)) {
+    for (const item of value) allObjectKeys(item, keys)
+    return keys
+  }
+  for (const [key, child] of Object.entries(value)) {
+    keys.add(key)
+    allObjectKeys(child, keys)
+  }
+  return keys
+}
+
+describe('Script Projects V1 player read model', () => {
+  it('exposes a deterministic commission surface without hidden talent or concept state', () => {
+    const state = foundedManagedStudio('script-read-commission')
+    const view = scriptProjectsReadModel(state)
+
+    expect(view.mode).toBe('managed')
+    expect(view.capacity).toMatchObject({ capacity: 2, occupied: 0, available: 2 })
+    expect(view.capacity.facilities).toHaveLength(1)
+    expect(view.capacity.facilities[0]!.slots).toEqual([
+      { slot: 0, occupant: null },
+      { slot: 1, occupant: null },
+    ])
+    expect(view.commission.canStart).toBe(true)
+    expect(view.commission.concepts.map((concept) => concept.id)).toEqual(
+      [...state.concepts.map((concept) => concept.id)].sort(),
+    )
+    expect(view.commission.writers.map((writer) => writer.id)).toEqual(
+      [...state.contracts.map((contract) => contract.talentId)].sort(),
+    )
+    // Cross-discipline careers: every contracted person with a writing profile is
+    // selectable; primary-role labels do not silently partition the commission list.
+    expect(view.commission.writers.some((writer) => writer.primaryRole !== 'writer')).toBe(true)
+    expect(view.commission.writers.every((writer) => writer.writingEstimate.label === 'Est.')).toBe(true)
+
+    const keys = allObjectKeys(view)
+    for (const forbidden of [
+      'rngState',
+      'actual',
+      'actualStrength',
+      'skills',
+      'ceilings',
+      'baselineStrength',
+      'originalityRaw',
+    ]) {
+      expect(keys.has(forbidden), `read boundary leaked ${forbidden}`).toBe(false)
+    }
+
+    const hiddenChanged = structuredClone(state)
+    for (const person of hiddenChanged.talent) {
+      person.actual = { warmth: -1, gravity: 1, physicality: -1 }
+      for (const profile of Object.values(person.skills)) {
+        for (const pair of Object.values(profile)) pair.actual = pair.actual === 99 ? 1 : 99
+      }
+      for (const profile of Object.values(person.ceilings)) {
+        for (const key of Object.keys(profile)) profile[key] = 99
+      }
+    }
+    expect(scriptProjectsReadModel(hiddenChanged).commission.writers).toEqual(
+      view.commission.writers,
+    )
+  })
+
+  it('sorts reviews by project id and exposes only perceived Est. assessment decisions', () => {
+    let state = foundedManagedStudio('script-read-review-order')
+    const writers = contractedTalent(state)
+    state = applyActions(state, [
+      { kind: 'commissionScript', project: commissionPayload(state, 0, writers[0]!) },
+      { kind: 'commissionScript', project: commissionPayload(state, 1, writers[1]!) },
+    ])
+    state = tick(state)
+
+    // Exercise ordering independently of the authoritative save invariant and make
+    // the hidden-vs-estimated assertion numerically unambiguous.
+    const projected = structuredClone(state)
+    projected.scriptDevelopment.projects[0]!.assessment = {
+      actualStrength: 99,
+      perceivedStrength: 12,
+    }
+    projected.scriptDevelopment.projects.reverse()
+
+    const view = scriptProjectsReadModel(projected)
+    expect(view.sections.needsReview.map((card) => card.projectId)).toEqual([
+      'script-0000',
+      'script-0001',
+    ])
+    const first = view.sections.needsReview[0]!
+    expect(first).toMatchObject({
+      projectId: 'script-0000',
+      title: state.concepts[0]!.title,
+      genre: state.concepts[0]!.genre,
+      lifecycleLabel: 'Needs review',
+      section: 'needsReview',
+    })
+    expect(first.writer).toEqual({
+      id: writers[0]!.id,
+      name: writers[0]!.name,
+      primaryRole: writers[0]!.role,
+    })
+    expect(first.assessment).toMatchObject({ label: 'Est.', score: 12, band: 'Fragile' })
+    expect(first.assessment?.concerns.length).toBeGreaterThan(0)
+    expect(JSON.stringify(first)).not.toContain('99')
+    expect(first.legalActions.map((action) => action.kind)).toEqual([
+      'acceptScript',
+      'requestScriptRewrite',
+    ])
+    expect(first.consequence).toMatch(/one week/i)
+    expect(first.consequence).toMatch(/payroll and studio overhead continue/i)
+    expect(view.nextDecision).toMatchObject({
+      kind: 'scriptReview',
+      projectId: 'script-0000',
+      title: state.concepts[0]!.title,
+    })
+    expect(nextScriptDecision(projected)).toEqual(view.nextDecision)
+    expect(view.lotAttention).toMatchObject({ kind: 'review-required' })
+  })
+
+  it('projects exact shared occupancy and removes an illegal rewrite when capacity is full', () => {
+    let state = foundedManagedStudio('script-read-capacity')
+    const writers = contractedTalent(state)
+    state = applyActions(state, [
+      { kind: 'commissionScript', project: commissionPayload(state, 0, writers[0]!) },
+      { kind: 'commissionScript', project: commissionPayload(state, 1, writers[1]!) },
+    ])
+    state = tick(state)
+    state = applyActions(state, [
+      { kind: 'commissionScript', project: commissionPayload(state, 2, writers[2]!) },
+      { kind: 'commissionScript', project: commissionPayload(state, 3, writers[3]!) },
+    ])
+
+    const capacity = scriptCapacityView(state)
+    expect(capacity).toMatchObject({ capacity: 2, occupied: 2, available: 0 })
+    expect(capacity.facilities[0]!.slots.map((slot) => slot.occupant?.ownerId)).toEqual([
+      'script-0002',
+      'script-0003',
+    ])
+    expect(capacity.facilities[0]!.slots[0]!.occupant).toMatchObject({
+      title: state.concepts[2]!.title,
+      label: expect.stringContaining(writers[2]!.name),
+      activity: 'drafting',
+    })
+
+    const view = scriptProjectsReadModel(state)
+    expect(view.commission.canStart).toBe(false)
+    expect(view.commission.blockers.map((blocker) => blocker.kind)).toContain(
+      'facility-capacity',
+    )
+    expect(view.sections.inDevelopment.map((card) => card.projectId)).toEqual([
+      'script-0002',
+      'script-0003',
+    ])
+    expect(view.sections.needsReview[0]!.legalActions.map((action) => action.kind)).toEqual([
+      'acceptScript',
+    ])
+    expect(view.sections.needsReview[0]!.blockers).toContainEqual(
+      expect.objectContaining({ kind: 'facility-capacity' }),
+    )
+    // Review takes priority over capacity in the governed lot-attention order.
+    expect(view.lotAttention.kind).toBe('review-required')
+
+    const noReviews = structuredClone(state)
+    noReviews.scriptDevelopment.projects = noReviews.scriptDevelopment.projects.filter(
+      (project) => project.status !== 'review',
+    )
+    expect(scriptProjectsReadModel(noReviews).lotAttention.kind).toBe('capacity-constraint')
+  })
+
+  it('names a Ready writer assignment blocker and returns cloned locked package facts', () => {
+    let state = foundedManagedStudio('script-read-package')
+    const writer = contractedTalent(state)[0]!
+    const firstPayload = commissionPayload(state, 0, writer)
+    state = applyActions(state, [{ kind: 'commissionScript', project: firstPayload }])
+    state = tick(state)
+    state = applyActions(state, [{ kind: 'acceptScript', projectId: 'script-0000' }])
+
+    const ready = scriptProjectsReadModel(state)
+    expect(ready.packages).toHaveLength(1)
+    expect(ready.packages[0]!.availability).toMatchObject({
+      knownGatesClear: true,
+      writerAvailable: true,
+      productionSlotAvailable: true,
+      developmentCastingSlotAvailable: true,
+    })
+    expect(ready.sections.readyToPackage[0]!.legalActions).toEqual([
+      { kind: 'openPackage', projectId: 'script-0000', label: 'Open locked package' },
+    ])
+
+    const stateBeforeOutputMutation = stableStringify(state)
+    ready.packages[0]!.lockedShape.opening = 'immediateAction'
+    ready.packages[0]!.lockedPromise.intendedSegments.push('family')
+    ready.packages[0]!.lockedPromise.ranges.intimacy[0] = -1
+    ready.packages[0]!.assessment.strengths.push('consumer mutation')
+    expect(stableStringify(state)).toBe(stateBeforeOutputMutation)
+    expect(scriptProjectsReadModel(state).packages[0]!.lockedShape).toEqual(firstPayload.shape)
+    expect(scriptProjectsReadModel(state).packages[0]!.lockedPromise).toEqual(firstPayload.promise)
+
+    // A Ready screenplay releases its writer, so the same writer can begin another
+    // script. That named active task must then block this package's greenlight gate.
+    state = applyActions(state, [
+      { kind: 'commissionScript', project: commissionPayload(state, 1, writer) },
+    ])
+    const blocked = scriptProjectsReadModel(state)
+    expect(blocked.packages[0]!.availability.knownGatesClear).toBe(false)
+    expect(blocked.packages[0]!.availability.writerAvailable).toBe(false)
+    expect(blocked.packages[0]!.availability.blockers).toContainEqual(
+      expect.objectContaining({
+        kind: 'writer-assignment',
+        detail: expect.stringContaining(`Drafting ${state.concepts[1]!.title}`),
+      }),
+    )
+    // Opening the locked package is navigation and remains legal; the known gate
+    // truth tells Assembly why greenlight itself is not yet legal.
+    expect(blocked.packages[0]!.openAction?.kind).toBe('openPackage')
+  })
+
+  it('blocks a Ready package before Assembly when its locked writer consumes a required role pool', () => {
+    let state = foundedManagedStudio('script-read-cross-discipline-staffing')
+    const directorWriter = contractedTalent(state).find(
+      (talent) => talent.role === 'director',
+    )!
+    state = applyActions(state, [
+      { kind: 'commissionScript', project: commissionPayload(state, 0, directorWriter) },
+    ])
+    state = tick(state)
+    state = applyActions(state, [{ kind: 'acceptScript', projectId: 'script-0000' }])
+
+    // Make the locked screenplay writer the only current primary-role Director.
+    // Assembly excludes that person from every other credit on the film, so the
+    // Writers Room must expose the shortage before offering package navigation.
+    state = {
+      ...state,
+      talent: state.talent.map((talent) =>
+        talent.id !== directorWriter.id && talent.role === 'director'
+          ? { ...talent, role: 'actor' }
+          : talent,
+      ),
+    }
+
+    const view = scriptProjectsReadModel(state)
+    const availability = view.packages[0]!.availability
+    expect(availability).toMatchObject({
+      knownGatesClear: false,
+      writerAvailable: true,
+      staffingAvailable: false,
+      productionSlotAvailable: true,
+      developmentCastingSlotAvailable: true,
+    })
+    expect(availability.blockers).toContainEqual(
+      expect.objectContaining({
+        kind: 'package-staffing',
+        headline: 'The remaining package cannot be staffed',
+        detail: expect.stringContaining(directorWriter.name),
+        remedy: expect.stringContaining('freelancer market'),
+      }),
+    )
+    expect(
+      availability.blockers.find((blocker) => blocker.kind === 'package-staffing')!.detail,
+    ).toContain('Director (0 of 1 available)')
+    expect(view.packages[0]!.openAction).toBeNull()
+    expect(view.sections.readyToPackage[0]!.legalActions).toEqual([])
+  })
+
+  it('keeps active and produced projects in deterministic production history', () => {
+    let state = foundedManagedStudio('script-read-history')
+    const writers = contractedTalent(state)
+    state = applyActions(state, [
+      { kind: 'commissionScript', project: commissionPayload(state, 0, writers[0]!) },
+      { kind: 'commissionScript', project: commissionPayload(state, 1, writers[1]!) },
+    ])
+    state = tick(state)
+    const projected = structuredClone(state)
+    projected.scriptDevelopment.projects[0] = {
+      ...projected.scriptDevelopment.projects[0]!,
+      status: 'inProduction',
+      productionId: 'prod-0001',
+    }
+    projected.scriptDevelopment.projects[1] = {
+      ...projected.scriptDevelopment.projects[1]!,
+      status: 'produced',
+      productionId: 'prod-0000',
+    }
+    projected.scriptDevelopment.projects.reverse()
+
+    const history = scriptProjectsReadModel(projected).sections.productionHistory
+    expect(history.map((card) => card.projectId)).toEqual(['script-0000', 'script-0001'])
+    expect(history.map((card) => card.lifecycleLabel)).toEqual(['In production', 'Produced'])
+    expect(history.every((card) => card.legalActions.length === 0)).toBe(true)
+  })
+})

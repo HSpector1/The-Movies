@@ -27,7 +27,8 @@ import {
   affordabilityScopes,
   publicityDecision,
   productionBoard,
-  productionDecision,
+  studioDecision,
+  scriptProjectsBoard,
 } from '../engine/adapter.ts'
 import { money, score } from '../format.ts'
 import { Metric, StandingBar } from '../components/common.tsx'
@@ -86,7 +87,13 @@ export function Dashboard({
   const scopes = affordabilityScopes(state)
   const publicity = publicityDecision(state)
   const board = productionBoard(state)
-  const pendingProductionDecision = productionDecision(state)
+  const scripts = scriptProjectsBoard(state)
+  const pendingDecision = studioDecision(state)
+  const pendingScriptDecision =
+    pendingDecision?.kind === 'scriptReview' ? pendingDecision.decision : null
+  const pendingProductionDecision =
+    pendingDecision?.kind === 'productionDecision' ? pendingDecision.decision : null
+  const managedScripts = scripts.mode === 'managed'
   const capacityHold = board.cards.find((card) => card.blocker?.kind === 'facility-capacity') ?? null
 
   // Recent releases: most recent first.
@@ -130,20 +137,24 @@ export function Dashboard({
         <div className="card stack">
           <h2>Next decision</h2>
           <p className="hint">
-            {pendingProductionDecision
+            {pendingScriptDecision
+              ? `${pendingScriptDecision.title} needs screenplay review before unattended simulation can continue.`
+              : pendingProductionDecision
               ? `${pendingProductionDecision.title} needs a ${pendingProductionDecision.phaseLabel} decision before its countdown can advance.`
               : capacityHold
                 ? `${capacityHold.title} is held for facility capacity. No player command is required; capacity retries on the next week.`
-              : 'Assemble and greenlight a film, or let a week pass so productions advance and finished films release.'}
+              : managedScripts
+                ? 'Commission, review, and package screenplays in the Writers’ Room, or let a week pass so studio work advances.'
+                : 'Assemble and greenlight a film, or let a week pass so productions advance and finished films release.'}
           </p>
           <div className="btn-row">
             <button
               className="accent"
               onClick={onAssemble}
-              disabled={!canGreenlight || !availability.canAssemble}
+              disabled={!managedScripts && (!canGreenlight || !availability.canAssemble)}
               data-testid="assemble-film"
             >
-              Assemble a film
+              {managedScripts ? 'Open Writers’ Room' : 'Assemble a film'}
             </button>
             <button className="primary" onClick={onAdvance} data-testid="advance-week">
               Advance one week
@@ -151,26 +162,28 @@ export function Dashboard({
             <button
               className="primary"
               onClick={onSimToEvent}
-              disabled={pendingProductionDecision !== null}
+              disabled={pendingScriptDecision !== null || pendingProductionDecision !== null}
               data-testid="sim-to-event"
             >
               Sim to next event
             </button>
           </div>
           <p className="hint">
-            {pendingProductionDecision
+            {pendingScriptDecision
+              ? 'Review the screenplay in the Writers’ Room before unattended simulation. Advancing one week deliberately leaves the review waiting without hidden progress.'
+              : pendingProductionDecision
               ? 'Resolve the command on the Production Board before unattended simulation. You may still advance a week deliberately; the film will hold while studio costs continue.'
               : capacityHold
                 ? 'The Production Board shows the capacity warning. Advance or Sim to retry it while payroll and studio overhead continue.'
-              : 'Sim to next event runs weeks in order — applying payroll, overhead, and theatrical revenue — and stops at a production decision, release, run ending, contract change, or cash going negative.'}
+              : 'Sim to next event runs weeks in order — applying payroll, overhead, and theatrical revenue — and stops at a screenplay review, production decision, release, run ending, contract change, or cash going negative.'}
           </p>
-          {!canGreenlight && (
+          {!managedScripts && !canGreenlight && (
             <p className="hint">
               At the production cap ({active.length}). Advance weeks until a film releases before
               starting another.
             </p>
           )}
-          {canGreenlight && !availability.canAssemble && (
+          {!managedScripts && canGreenlight && !availability.canAssemble && (
             <p className="hint" data-testid="assemble-blocked-reason">
               {availability.reason}
             </p>

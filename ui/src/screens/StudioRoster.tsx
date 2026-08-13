@@ -272,6 +272,13 @@ function RosterCard({
         <span className="hint">Status</span>
         <span className="mono">{STATUS_LABEL[employment.status] ?? employment.status}</span>
       </div>
+      {!profile.available && profile.engagedIn && (
+        <p className="hint" data-testid={`roster-assignment-${id}`}>
+          {profile.assignmentKind === 'script'
+            ? `${profile.engagedIn} — unavailable until the screenplay reaches review.`
+            : `Working on ${profile.engagedIn} — busy until it releases.`}
+        </p>
+      )}
 
       {contract === null ? (
         <p className="hint">No active contract.</p>
@@ -338,7 +345,17 @@ function RosterCard({
             </button>
           </>
         ) : (
-          <button className="ghost" onClick={onAskRelease} data-testid={`roster-release-${id}`}>
+          <button
+            className="ghost"
+            onClick={onAskRelease}
+            disabled={profile.assignmentKind === 'script'}
+            title={
+              profile.assignmentKind === 'script'
+                ? 'This contract cannot be released until the screenplay reaches review.'
+                : undefined
+            }
+            data-testid={`roster-release-${id}`}
+          >
             Release
           </button>
         )}

@@ -63,20 +63,28 @@ function resolveProductionCommands() {
   }
 }
 
-// A fixed, deterministic sequence of UI actions: assemble+greenlight the default
-// film, then advance a fixed number of weeks (walking the release screen). Returns
-// the final visible dashboard snapshot.
+function developScreenplayAndOpenPackage() {
+  fireEvent.click(screen.getByTestId('assemble-film'))
+  fireEvent.click(screen.getByTestId('commission-open'))
+  fireEvent.click(screen.getByTestId('commission-submit'))
+  fireEvent.click(screen.getByTestId('writers-room-back'))
+  fireEvent.click(screen.getByTestId('advance-week'))
+  fireEvent.click(screen.getByTestId('release-continue'))
+  fireEvent.click(screen.getByTestId('assemble-film'))
+  fireEvent.click(screen.getAllByTestId(/^script-action-acceptScript-/)[0]!)
+  fireEvent.click(screen.getAllByTestId(/^script-action-openPackage-/)[0]!)
+}
+
+// A fixed, deterministic sequence of UI actions: develop and accept a screenplay,
+// package and greenlight it, then advance a fixed number of weeks (walking the
+// release screen). Returns the final visible dashboard snapshot.
 function playFixedSequence(seed: string, weeks: number): string {
   startGame(seed)
-  fireEvent.click(screen.getByTestId('assemble-film'))
-  const grid = screen.getByTestId('concept-grid')
-  fireEvent.click(within(grid).getAllByRole('button')[0]!)
-  fireEvent.click(screen.getByTestId('assembly-next')) // shape
-  fireEvent.click(screen.getByTestId('assembly-next')) // promise
-  fireEvent.click(screen.getByTestId('assembly-next')) // talent
+  developScreenplayAndOpenPackage()
   // D-11.13: a Production/Craft Lead is now required to leave the talent step, so the
-  // craft picker is part of the fixed sequence alongside writer/director/cast.
-  for (const p of ['picker-writer', 'picker-director', 'picker-lead', 'picker-antagonist', 'picker-support', 'picker-craft']) {
+  // craft picker is part of the fixed sequence alongside director/cast. The screenplay
+  // writer is already locked and therefore has no picker in package assembly.
+  for (const p of ['picker-director', 'picker-lead', 'picker-antagonist', 'picker-support', 'picker-craft']) {
     const picker = screen.getByTestId(p)
     // The selectable candidate button carries aria-pressed (redesigned cards also add a
     // "Details" toggle per row, which we must skip). Pick the first ELIGIBLE candidate.

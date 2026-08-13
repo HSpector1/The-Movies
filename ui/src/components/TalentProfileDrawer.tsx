@@ -114,7 +114,13 @@ export function TalentProfileDrawer({
               <tr>
                 <td>Status</td>
                 <td colSpan={2} data-testid="talent-profile-status">
-                  {profile.available ? 'Available' : profile.engagedIn ? `Engaged on ${profile.engagedIn}` : 'Under contract'}
+                  {profile.available
+                    ? 'Available'
+                    : profile.engagedIn
+                      ? profile.assignmentKind === 'script'
+                        ? profile.engagedIn
+                        : `Engaged on ${profile.engagedIn}`
+                      : 'Under contract'}
                 </td>
               </tr>
               <tr>

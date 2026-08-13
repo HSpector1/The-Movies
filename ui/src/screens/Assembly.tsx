@@ -16,6 +16,7 @@ import type {
   CreativeRole,
   Genre,
   DraftPackage,
+  ReadyScriptPackageView,
 } from '../engine/adapter.ts'
 import {
   selectConcepts,
@@ -42,6 +43,8 @@ import {
   teamDirectionPreview,
   teamDirectionGuidance,
   greenlight,
+  greenlightScriptProject,
+  scriptProjectsBoard,
   findConcept,
   assessCreativeCohesion,
   assessPackageFit,
@@ -123,15 +126,15 @@ type Draft = {
   marketingLevelIdx: number // index into the active three-rung marketing menu
 }
 
-function makeInitialDraft(): Draft {
+function makeInitialDraft(locked?: ReadyScriptPackageView): Draft {
   return {
-    conceptId: null,
-    shape: DEFAULT_SHAPE,
+    conceptId: locked?.concept.id ?? null,
+    shape: locked?.lockedShape ?? DEFAULT_SHAPE,
     // default centers to 0.25 index (mild), widths to a middle width
     promiseCenterIdx: { intimacy: 1, tonalWeight: 1, kineticEnergy: 1 },
     promiseWidthIdx: { intimacy: 1, tonalWeight: 1, kineticEnergy: 1 },
-    intendedSegments: ['adult'],
-    writerId: null,
+    intendedSegments: locked ? [...locked.lockedPromise.intendedSegments] : ['adult'],
+    writerId: locked?.writer.id ?? null,
     directorId: null,
     cast: { lead: null, antagonist: null, support: null },
     craftIds: [], // no craft hire by default (technical falls back to D-4 default)
@@ -156,18 +159,26 @@ function buildPromise(draft: Draft, genre: Genre): FilmPromise {
 }
 
 // Assemble a full DraftPackage when everything required is chosen (else null).
-function buildPackage(state: GameState, draft: Draft): DraftPackage | null {
-  if (!draft.conceptId || !draft.writerId || !draft.directorId) return null
+function buildPackage(
+  state: GameState,
+  draft: Draft,
+  locked?: ReadyScriptPackageView,
+): DraftPackage | null {
+  const conceptId = locked?.concept.id ?? draft.conceptId
+  const writerId = locked?.writer.id ?? draft.writerId
+  if (!conceptId || !writerId || !draft.directorId) return null
   if (!draft.cast.lead || !draft.cast.antagonist || !draft.cast.support) return null
-  const concept = findConcept(state, draft.conceptId)
+  const concept = findConcept(state, conceptId)
   if (!concept) return null
-  const req = requiredNegative(concept, draft.shape, state)
+  const shape = locked?.lockedShape ?? draft.shape
+  const promise = locked?.lockedPromise ?? buildPromise(draft, concept.genre)
+  const req = requiredNegative(concept, shape, state)
   const negative = NEGATIVE_BUDGET_MULTIPLIERS[draft.negativeLevelIdx]! * req
   const withoutMarketing: DraftPackage = {
-    conceptId: draft.conceptId,
-    shape: draft.shape,
-    promise: buildPromise(draft, concept.genre),
-    writerId: draft.writerId,
+    conceptId,
+    shape,
+    promise,
+    writerId,
     directorId: draft.directorId,
     craftIds: draft.craftIds, // the player-chosen Crew/Craft hires (may be empty)
     cast: {
@@ -177,25 +188,36 @@ function buildPackage(state: GameState, draft: Draft): DraftPackage | null {
     },
     budget: { negative, marketing: 0 },
   }
-  const marketing = marketingMenu(state, withoutMarketing).levels[draft.marketingLevelIdx]!
+  const marketing = marketingMenu(
+    state,
+    withoutMarketing,
+    locked?.projectId,
+  ).levels[draft.marketingLevelIdx]!
   return { ...withoutMarketing, budget: { negative, marketing } }
 }
 
 // A PARTIAL package for the Film Package summary — buildable as soon as writer+director
 // are chosen (cast slots may still be empty; assessPackageFit reports them as unfilled).
 // Returns null until writer+director exist. Craft is included (empty allowed).
-function buildPartialPackage(state: GameState, draft: Draft): DraftPackage | null {
-  if (!draft.conceptId || !draft.writerId || !draft.directorId) return null
-  const concept = findConcept(state, draft.conceptId)
+function buildPartialPackage(
+  state: GameState,
+  draft: Draft,
+  locked?: ReadyScriptPackageView,
+): DraftPackage | null {
+  const conceptId = locked?.concept.id ?? draft.conceptId
+  const writerId = locked?.writer.id ?? draft.writerId
+  if (!conceptId || !writerId || !draft.directorId) return null
+  const concept = findConcept(state, conceptId)
   if (!concept) return null
-  const req = requiredNegative(concept, draft.shape, state)
+  const shape = locked?.lockedShape ?? draft.shape
+  const req = requiredNegative(concept, shape, state)
   const negative = NEGATIVE_BUDGET_MULTIPLIERS[draft.negativeLevelIdx]! * req
   const marketing = MARKETING_BUDGET_LEVELS[draft.marketingLevelIdx]!
   return {
-    conceptId: draft.conceptId,
-    shape: draft.shape,
-    promise: buildPromise(draft, concept.genre),
-    writerId: draft.writerId,
+    conceptId,
+    shape,
+    promise: locked?.lockedPromise ?? buildPromise(draft, concept.genre),
+    writerId,
     directorId: draft.directorId,
     craftIds: draft.craftIds,
     // cast may be partial; assessPackageFit tolerates missing slots (cast lookups guard).
@@ -224,12 +246,14 @@ function samePackageTalent(a: DraftPackage, b: DraftPackage): boolean {
 
 export function Assembly({
   state,
+  scriptProjectId,
   onGreenlit,
   onCancel,
   onStateChange,
   onOpenProfile,
 }: {
   state: GameState
+  scriptProjectId?: string
   onGreenlit: (next: GameState) => void
   onCancel: () => void
   // A1: apply an authoritative GameState change (a Custom Talent created mid-assembly) WITHOUT
@@ -240,8 +264,14 @@ export function Assembly({
   // tests still work.
   onOpenProfile?: ((id: string) => void) | undefined
 }) {
-  const [draft, setDraft] = useState<Draft>(makeInitialDraft)
-  const [step, setStep] = useState<Step>('concept')
+  const screenplayBoard = scriptProjectsBoard(state)
+  const lockedScript = scriptProjectId
+    ? screenplayBoard.packages.find((candidate) => candidate.projectId === scriptProjectId)
+    : undefined
+  const managedRequiresScript = state.scriptDevelopment.mode === 'managed'
+  const stepOrder: Step[] = lockedScript ? ['talent', 'budget', 'review'] : STEP_ORDER
+  const [draft, setDraft] = useState<Draft>(() => makeInitialDraft(lockedScript))
+  const [step, setStep] = useState<Step>(lockedScript ? 'talent' : 'concept')
   const [error, setError] = useState<string | null>(null)
   // A1: when true, the embedded Talent Creator is shown IN PLACE of the wizard. Assembly stays
   // mounted the whole time, so `draft` (concept/shape/promise/talent picks) survives the round-trip.
@@ -300,21 +330,30 @@ export function Assembly({
     return m
   }, [state, engaged])
 
-  const pkg = useMemo(() => buildPackage(state, draft), [state, draft])
-  const partialPkg = useMemo(() => buildPartialPackage(state, draft), [state, draft])
+  const pkg = useMemo(() => buildPackage(state, draft, lockedScript), [state, draft, lockedScript])
+  const partialPkg = useMemo(
+    () => buildPartialPackage(state, draft, lockedScript),
+    [state, draft, lockedScript],
+  )
 
   // ── Film Package summary — the four real engine dimensions (perceived-only) ──
   // Cohesion is TALENT-INDEPENDENT: it can be shown from the promise step onward.
   // Fit needs writer+director (partial cast OK). Execution/Profit need a FULL package
   // (every cast slot chosen) because they run the §5/§7 pipeline over resolved talent.
-  const promiseForSummary = concept ? buildPromise(draft, concept.genre) : null
+  const promiseForSummary = concept
+    ? lockedScript?.lockedPromise ?? buildPromise(draft, concept.genre)
+    : null
   const cohesion: CreativeCohesion | null =
     concept && promiseForSummary
-      ? assessCreativeCohesion(concept, draft.shape, promiseForSummary)
+      ? assessCreativeCohesion(concept, lockedScript?.lockedShape ?? draft.shape, promiseForSummary)
       : null
   const fit: PackageFit | null = partialPkg ? assessPackageFit(state, partialPkg) : null
-  const execution: ExecutionConfidence | null = pkg ? assessExecutionConfidence(state, pkg) : null
-  const profit: ForecastProfitRange | null = pkg ? assessProfitRange(state, pkg) : null
+  const execution: ExecutionConfidence | null = pkg
+    ? assessExecutionConfidence(state, pkg, lockedScript?.projectId)
+    : null
+  const profit: ForecastProfitRange | null = pkg
+    ? assessProfitRange(state, pkg, lockedScript?.projectId)
+    : null
   // D-12: the release-strategy financials for the fully-committed package — the immediate
   // commitment (negative + marketing + salaries), the solvency gate, and post-greenlight cash
   // and runway. `null` until the package is complete. The greenlight is BLOCKED when the gate
@@ -322,13 +361,20 @@ export function Assembly({
   const commitment = pkg ? totalCommittedCost(state, pkg) : null
   const preview: CommitmentPreview | null = commitment !== null ? commitmentPreview(state, commitment) : null
   const blockedByGate = preview !== null && !preview.affordable
+  const scriptAvailabilityBlockers = lockedScript?.availability.blockers ?? []
+  const blockedByScriptAvailability =
+    lockedScript !== undefined && !lockedScript.availability.knownGatesClear
   // D-17A/T2: the 14-week studio fixed cost this package is asked to carry (sole occupancy —
   // the conservative, named default). Passed to every panel that reports a profit sign, so no
   // surface can show a green "Profit" whose studio-economic branch is negative.
   const cycleFixedCost = prospectiveCycleFixedCost(state)
   // D-17A/T6: the engine's own reach-support verdict for the fully-assembled package.
-  const discovery = pkg ? assessDiscoveryExposure(state, pkg) : null
-  const activeMarketingMenu = pkg ? marketingMenu(state, pkg) : null
+  const discovery = pkg
+    ? assessDiscoveryExposure(state, pkg, lockedScript?.projectId)
+    : null
+  const activeMarketingMenu = pkg
+    ? marketingMenu(state, pkg, lockedScript?.projectId)
+    : null
 
   // ── Change preview (on select/swap) — real computed packageDelta ────────────
   // A delta needs TWO complete packages. We remember the last complete package the
@@ -338,7 +384,12 @@ export function Assembly({
   const prevCompletePkg = useRef<DraftPackage | null>(null)
   let changeDelta: PackageDelta | null = null
   if (pkg && prevCompletePkg.current && !samePackageTalent(prevCompletePkg.current, pkg)) {
-    changeDelta = assessPackageDelta(state, prevCompletePkg.current, pkg)
+    changeDelta = assessPackageDelta(
+      state,
+      prevCompletePkg.current,
+      pkg,
+      lockedScript?.projectId,
+    )
   }
   // Remember the current complete package as the baseline for the next change.
   if (pkg) prevCompletePkg.current = pkg
@@ -352,15 +403,15 @@ export function Assembly({
     setStep(next)
   }
   function stepIndex(s: Step): number {
-    return STEP_ORDER.indexOf(s)
+    return stepOrder.indexOf(s)
   }
   function next() {
     const i = stepIndex(step)
-    if (i < STEP_ORDER.length - 1) go(STEP_ORDER[i + 1]!)
+    if (i < stepOrder.length - 1) go(stepOrder[i + 1]!)
   }
   function back() {
     const i = stepIndex(step)
-    if (i > 0) go(STEP_ORDER[i - 1]!)
+    if (i > 0) go(stepOrder[i - 1]!)
     else onCancel()
   }
 
@@ -396,12 +447,29 @@ export function Assembly({
       setError('The film is not fully assembled yet.')
       return
     }
-    const result = greenlight(state, pkg)
+    if (blockedByScriptAvailability) return
+    const result = lockedScript
+      ? greenlightScriptProject(state, lockedScript.projectId, pkg)
+      : greenlight(state, pkg)
     if (!result.ok) {
       setError(result.error)
       return
     }
     onGreenlit(result.next)
+  }
+
+  if (managedRequiresScript && lockedScript === undefined) {
+    return (
+      <div className="app-shell">
+        <div className="topbar">
+          <div className="brand"><span className="mark">PACKAGE A SCREENPLAY</span></div>
+          <button className="ghost" onClick={onCancel}>Back to studio</button>
+        </div>
+        <div className="errbox" role="alert" data-testid="managed-assembly-gate">
+          Managed studios must open package assembly from a Ready screenplay in the Writers’ Room.
+        </div>
+      </div>
+    )
   }
 
   // A1: while creating a Custom Talent mid-assembly, show the existing Talent Creator IN PLACE of
@@ -424,7 +492,7 @@ export function Assembly({
     <div className="app-shell">
       <div className="topbar">
         <div className="brand">
-          <span className="mark">ASSEMBLE A FILM</span>
+          <span className="mark">{lockedScript ? `PACKAGE ${lockedScript.concept.title}` : 'ASSEMBLE A FILM'}</span>
         </div>
         <button className="ghost" onClick={onCancel} data-testid="assembly-back-dashboard">
           Back to studio
@@ -432,7 +500,7 @@ export function Assembly({
       </div>
 
       <div className="steps" data-testid="assembly-steps">
-        {STEP_ORDER.map((s) => (
+        {stepOrder.map((s) => (
           <span
             key={s}
             className={`step${s === step ? ' active' : ''}${stepIndex(s) < stepIndex(step) ? ' done' : ''}`}
@@ -464,6 +532,7 @@ export function Assembly({
             patch={patch}
             engaged={engaged}
             freelancerFees={freelancerFees}
+            {...(lockedScript ? { lockedWriter: lockedScript.writer } : {})}
             onCreateTalent={onStateChange ? () => setCreating(true) : undefined}
             onOpenProfile={onOpenProfile}
           />
@@ -476,6 +545,7 @@ export function Assembly({
             pkg={pkg}
             patch={patch}
             discovery={discovery}
+            {...(lockedScript ? { scriptProjectId: lockedScript.projectId } : {})}
           />
         )}
         {step === 'review' && concept && pkg && preview && (
@@ -490,6 +560,7 @@ export function Assembly({
             profit={profit}
             cycleFixedCost={cycleFixedCost}
             discovery={discovery}
+            {...(lockedScript ? { scriptProjectId: lockedScript.projectId } : {})}
           />
         )}
       </div>
@@ -527,7 +598,7 @@ export function Assembly({
 
       <div className="btn-row" style={{ marginTop: 20 }}>
         <button onClick={back} data-testid="assembly-back">
-          {step === 'concept' ? 'Cancel' : 'Back'}
+          {stepOrder.indexOf(step) === 0 ? 'Cancel' : 'Back'}
         </button>
         {step !== 'review' ? (
           <button className="primary" onClick={next} disabled={!canAdvance()} data-testid="assembly-next">
@@ -537,7 +608,7 @@ export function Assembly({
           <button
             className="accent"
             onClick={handleGreenlight}
-            disabled={!pkg || blockedByGate}
+            disabled={!pkg || blockedByGate || blockedByScriptAvailability}
             data-testid="greenlight"
           >
             Greenlight this film
@@ -547,6 +618,28 @@ export function Assembly({
       {step === 'review' && blockedByGate && preview && (
         <div style={{ marginTop: 12 }}>
           <ErrorBox message={preview.reason ?? 'This commitment would overdraw the studio.'} />
+        </div>
+      )}
+      {step === 'review' && blockedByScriptAvailability && (
+        <div
+          className="errbox stack"
+          role="alert"
+          data-testid="script-package-blockers"
+          style={{ marginTop: 12 }}
+        >
+          <strong>This screenplay cannot be greenlit yet.</strong>
+          {scriptAvailabilityBlockers.map((blocker) => (
+            <div
+              className="stack"
+              key={blocker.kind}
+              data-testid={`script-package-blocker-${blocker.kind}`}
+              style={{ gap: 4 }}
+            >
+              <strong>{blocker.headline}</strong>
+              <span>{blocker.detail}</span>
+              <span className="hint"><strong>Remedy:</strong> {blocker.remedy}</span>
+            </div>
+          ))}
         </div>
       )}
     </div>
@@ -888,6 +981,7 @@ function TalentStep({
   patch,
   engaged,
   freelancerFees,
+  lockedWriter,
   onCreateTalent,
   onOpenProfile,
 }: {
@@ -902,12 +996,20 @@ function TalentStep({
   patch: (p: Partial<Draft>) => void
   engaged: boolean
   freelancerFees: Record<string, number>
+  lockedWriter?: ReadyScriptPackageView['writer']
   onOpenProfile?: ((id: string) => void) | undefined
   // A1: open the Talent Creator without leaving assembly. Undefined ⇒ the action is unavailable
   // (e.g. a test rendered <Assembly> without onStateChange); the button is then simply not shown.
   onCreateTalent?: (() => void) | undefined
 }) {
   const castIds = CAST_SLOTS.map((s) => draft.cast[s]).filter((x): x is string => x !== null)
+  // Participant uniqueness is cross-discipline. A screenplay writer may be a
+  // primary actor/director/craft professional, so every picker must exclude every
+  // other locked or selected credit rather than relying on primary-role pools to
+  // be disjoint. Keep the current pick out of its own exclusion list so it stays
+  // selected and actionable.
+  const otherCredits = (...ids: Array<string | null | undefined>): string[] =>
+    ids.filter((id): id is string => id !== null && id !== undefined)
   const SLOT_TITLES: Record<CastSlot, string> = {
     lead: 'Lead',
     antagonist: 'Antagonist',
@@ -964,25 +1066,41 @@ function TalentStep({
         selections are kept.
       </p>
       <div className="grid grid-2">
-        <TalentPicker
-          onOpenProfile={onOpenProfile}
-          title="Writer"
-          pool={writers}
-          role="writer"
-          selectedId={draft.writerId}
-          chosenElsewhere={[]}
-          onSelect={(id) => patch({ writerId: id })}
-          testid="picker-writer"
-          assignment={assignmentFor('writer')}
-          freelancerFees={freelancerFees}
-        />
+        {lockedWriter ? (
+          <div className="panel stack" data-testid="locked-script-writer">
+            <h4>Screenplay writer · locked</h4>
+            <strong>{lockedWriter.name}</strong>
+            <span className="hint">The accepted screenplay owns this credit. Package assembly cannot replace it.</span>
+          </div>
+        ) : (
+          <TalentPicker
+            onOpenProfile={onOpenProfile}
+            title="Writer"
+            pool={writers}
+            role="writer"
+            selectedId={draft.writerId}
+            chosenElsewhere={otherCredits(
+              draft.directorId,
+              ...castIds,
+              craftId,
+            ).filter((id) => id !== draft.writerId)}
+            onSelect={(id) => patch({ writerId: id })}
+            testid="picker-writer"
+            assignment={assignmentFor('writer')}
+            freelancerFees={freelancerFees}
+          />
+        )}
         <TalentPicker
           onOpenProfile={onOpenProfile}
           title="Director"
           pool={directors}
           role="director"
           selectedId={draft.directorId}
-          chosenElsewhere={[]}
+          chosenElsewhere={otherCredits(
+            draft.writerId,
+            ...castIds,
+            craftId,
+          ).filter((id) => id !== draft.directorId)}
           onSelect={(id) => patch({ directorId: id })}
           testid="picker-director"
           assignment={assignmentFor('director')}
@@ -999,7 +1117,12 @@ function TalentStep({
             pool={actors}
             role="actor"
             selectedId={draft.cast[slot]}
-            chosenElsewhere={castIds.filter((id) => id !== draft.cast[slot])}
+            chosenElsewhere={otherCredits(
+              draft.writerId,
+              draft.directorId,
+              ...castIds,
+              craftId,
+            ).filter((id) => id !== draft.cast[slot])}
             onSelect={(id) => patch({ cast: { ...draft.cast, [slot]: id } })}
             testid={`picker-${slot}`}
             assignment={castAssignment(slot)}
@@ -1018,7 +1141,11 @@ function TalentStep({
           pool={crew}
           role="craft"
           selectedId={craftId}
-          chosenElsewhere={[]}
+          chosenElsewhere={otherCredits(
+            draft.writerId,
+            draft.directorId,
+            ...castIds,
+          ).filter((id) => id !== craftId)}
           onSelect={(id) => patch({ craftIds: craftId === id ? [] : [id] })}
           testid="picker-craft"
           assignment={assignmentFor('craft')}
@@ -1155,6 +1282,7 @@ function BudgetStep({
   pkg,
   patch,
   discovery,
+  scriptProjectId,
 }: {
   state: GameState
   draft: Draft
@@ -1162,10 +1290,11 @@ function BudgetStep({
   pkg: DraftPackage | null
   patch: (p: Partial<Draft>) => void
   discovery: DiscoveryExposureView | null
+  scriptProjectId?: string
 }) {
   const req = requiredNegative(concept, draft.shape, state)
   const negative = NEGATIVE_BUDGET_MULTIPLIERS[draft.negativeLevelIdx]! * req
-  const menu = pkg ? marketingMenu(state, pkg) : null
+  const menu = pkg ? marketingMenu(state, pkg, scriptProjectId) : null
   const marketingLevels = menu?.levels ?? MARKETING_BUDGET_LEVELS
   const marketing = marketingLevels[draft.marketingLevelIdx]!
   const salaries = salarySum(state, {
@@ -1185,8 +1314,10 @@ function BudgetStep({
   // button without meeting it. commitmentPreview is a pure adapter read (no formula); the
   // break-even block reads `cycleInclusiveBreakEvenGross` itself (D-17A/T2).
   const preview = commitmentPreview(state, committed)
-  const forecast = pkg ? previewForecast(state, pkg) : null
-  const mktEff = pkg ? marketingEfficiency(state, pkg) : null // D-12 P2 awareness-conditioned marketing state
+  const forecast = pkg ? previewForecast(state, pkg, scriptProjectId) : null
+  const mktEff = pkg
+    ? marketingEfficiency(state, pkg, scriptProjectId)
+    : null // D-12 P2 awareness-conditioned marketing state
   const demand = productionDemandView(state, concept, draft.shape, negative) // D-12 production-demand read model
   const exposure = capitalExposure(state, committed) // C1: capital exposure (separate from solvency)
   // D-17A/T4: the same three affordability scopes the Dashboard and the recap show, beside
@@ -1466,6 +1597,7 @@ function ReviewStep({
   profit,
   cycleFixedCost,
   discovery,
+  scriptProjectId,
 }: {
   state: GameState
   pkg: DraftPackage
@@ -1477,14 +1609,15 @@ function ReviewStep({
   profit: ForecastProfitRange | null
   cycleFixedCost: CycleFixedCost
   discovery: DiscoveryExposureView | null
+  scriptProjectId?: string
 }) {
   const committed = totalCommittedCost(state, pkg)
   const exposure = capitalExposure(state, committed) // C1: solvency and exposure are separate
   // D-17A/T2: the same cycle-inclusive headline the Budget step shows, for the closing hint.
   const be = cycleInclusiveBreakEvenGross(state, committed)
   // ONE forecast for this step — the discipline line and the forecast panel read the same object.
-  const forecast = previewForecast(state, pkg)
-  const menu = marketingMenu(state, pkg)
+  const forecast = previewForecast(state, pkg, scriptProjectId)
+  const menu = marketingMenu(state, pkg, scriptProjectId)
   return (
     <div className="stack">
       {/* Film Readiness — assembled from the four real dimensions, not a hidden score */}

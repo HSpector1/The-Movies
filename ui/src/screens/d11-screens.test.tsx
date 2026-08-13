@@ -74,6 +74,7 @@ describe('FoundingScreen — hire an initial roster, then found', () => {
     expect(founded!.founding).toBeNull() // studio is founded
     expect(founded!.contracts.length).toBe(9)
     expect(founded!.operations.mode).toBe('managed') // the real FoundingScreen activates operations
+    expect(founded!.scriptDevelopment).toEqual({ mode: 'managed', projects: [] })
   })
 
   it('signing an applicant marks them Signed and does not spend operating cash', () => {

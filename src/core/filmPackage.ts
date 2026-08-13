@@ -890,6 +890,10 @@ export function greenlightAssessment(
   // budget realization). If this is false the recomputed profit range OMITS the scale and reads
   // ~1/0.70× too high — the autopsy arithmetic bug. A session-autopsied greenlight is always engaged.
   engaged = false,
+  // Managed Script Projects freeze their assessment before production. Autopsy
+  // callers resolve this pair from the authoritative production link inside core;
+  // legacy callers omit it and preserve the original concept/writer calculation.
+  scriptStrengthOverride?: ReceptionInputs['scriptStrengthOverride'],
 ): GreenlightAssessment {
   const concept = snapshot.concepts.find((c) => c.id === production.conceptId)
   if (concept === undefined) {
@@ -923,6 +927,7 @@ export function greenlightAssessment(
     market: snapshot.market,
     standing: snapshot.standing,
     era: snapshot.era,
+    ...(scriptStrengthOverride ? { scriptStrengthOverride } : {}),
   }
   const ctx: ForecastContext = {
     seed: snapshot.seed,

@@ -11,6 +11,7 @@
 
 import { clamp } from './math.js'
 import { stream } from './rng.js'
+import { activeScriptWriterAssignments } from './scriptDevelopment.js'
 import { TUNING } from './tuning.js'
 import type {
   GameStateV3,
@@ -94,7 +95,8 @@ export function isContracted(state: GameState, talentId: string, week?: number):
   return activeContract(state, talentId, week) !== undefined
 }
 
-// Ids engaged in ANY active production (writer/director/cast/craft) — "busy".
+// Ids engaged in any active production or active screenplay task — one
+// authoritative availability set for actions, roster, markets, and player UI.
 export function busyTalentIds(state: GameState): Set<string> {
   const busy = new Set<string>()
   for (const p of state.studio.activeProductions) {
@@ -104,6 +106,12 @@ export function busyTalentIds(state: GameState): Set<string> {
     busy.add(p.cast.antagonist)
     busy.add(p.cast.support)
     for (const cid of p.craftIds) busy.add(cid)
+  }
+  for (const assignment of activeScriptWriterAssignments(
+    state.scriptDevelopment,
+    state.concepts,
+  )) {
+    busy.add(assignment.talentId)
   }
   return busy
 }

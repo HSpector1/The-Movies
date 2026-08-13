@@ -367,7 +367,7 @@ describe('D-17B §2/§6 — save round-trip and replay determinism', () => {
     const s = buy(studioAt('pub-roundtrip', { week: 9 }), 'whisper')
     const json = exportSave(makeSave(s))
     const back = importSave(json)
-    if (back.saveVersion !== 8) throw new Error('expected V8')
+    if (back.saveVersion !== 9) throw new Error('expected V9')
     expect(back.state.publicity).toEqual(s.publicity)
     expect(back.state.studio.cash).toBe(s.studio.cash)
     expect(exportSave(makeSave(back.state))).toBe(json)
@@ -395,7 +395,7 @@ describe('D-17B §2/§6 — save round-trip and replay determinism', () => {
     const mid = buy(base, 'push')
 
     const reloaded = importSave(exportSave(makeSave(mid)))
-    if (reloaded.saveVersion !== 8) throw new Error('expected V8')
+    if (reloaded.saveVersion !== 9) throw new Error('expected V9')
     let split = reloaded.state
     let continuous = mid
     for (let w = 0; w < 8; w++) {
@@ -408,7 +408,7 @@ describe('D-17B §2/§6 — save round-trip and replay determinism', () => {
   it('the cooldown clocks survive a reload — a reload cannot buy a second campaign early', () => {
     const s = buy(studioAt('pub-reload-cd', { week: 30 }), 'blitz')
     const back = importSave(exportSave(makeSave(s)))
-    if (back.saveVersion !== 8) throw new Error('expected V8')
+    if (back.saveVersion !== 9) throw new Error('expected V9')
     const soon = { ...back.state, market: { ...back.state.market, tick: 31 } }
     expect(() => buy(soon, 'whisper')).toThrow(/global cooldown/)
     expect(() => buy(soon, 'blitz')).toThrow(/cooldown/)
