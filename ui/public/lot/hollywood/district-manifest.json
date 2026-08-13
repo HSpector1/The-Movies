@@ -1,0 +1,345 @@
+{
+  "schemaVersion": 1,
+  "districtId": "studio-chronicle-1948",
+  "era": 1948,
+  "canvas": {
+    "width": 1586,
+    "height": 992
+  },
+  "tiers": {
+    "baked": [
+      "ground",
+      "architecture",
+      "materials",
+      "landscape",
+      "fixed-clutter",
+      "static-shadows"
+    ],
+    "stateful": [
+      "stage-call",
+      "truck-load-in",
+      "publicity-flash",
+      "selection",
+      "signage"
+    ],
+    "ambient": [
+      "grip",
+      "stagehand",
+      "security",
+      "publicist",
+      "extra"
+    ],
+    "authoritative": [
+      "director",
+      "talent"
+    ]
+  },
+  "places": [
+    {
+      "id": "stage-7",
+      "buildingId": "stage-a",
+      "label": "Stage 7",
+      "selectionPolygon": [
+        [
+          257,
+          77
+        ],
+        [
+          867,
+          0
+        ],
+        [
+          878,
+          418
+        ],
+        [
+          750,
+          554
+        ],
+        [
+          309,
+          489
+        ]
+      ],
+      "anchors": {
+        "entry": [
+          586,
+          383
+        ],
+        "crewCall": [
+          662,
+          472
+        ],
+        "camera": [
+          558,
+          527
+        ],
+        "service": [
+          381,
+          576
+        ]
+      },
+      "affordances": [
+        "enter-stage",
+        "shoot",
+        "load-in"
+      ]
+    },
+    {
+      "id": "publicity",
+      "buildingId": "admin",
+      "label": "Administration & Publicity",
+      "selectionPolygon": [
+        [
+          946,
+          174
+        ],
+        [
+          1586,
+          122
+        ],
+        [
+          1586,
+          542
+        ],
+        [
+          1028,
+          514
+        ],
+        [
+          897,
+          370
+        ]
+      ],
+      "anchors": {
+        "entry": [
+          1338,
+          421
+        ],
+        "photocall": [
+          1120,
+          481
+        ],
+        "queue": [
+          918,
+          338
+        ]
+      },
+      "affordances": [
+        "work",
+        "meeting",
+        "publicity"
+      ]
+    },
+    {
+      "id": "service-yard",
+      "buildingId": "post",
+      "label": "Scenery & Service",
+      "selectionPolygon": [
+        [
+          0,
+          175
+        ],
+        [
+          275,
+          191
+        ],
+        [
+          472,
+          441
+        ],
+        [
+          451,
+          823
+        ],
+        [
+          0,
+          930
+        ]
+      ],
+      "anchors": {
+        "truck": [
+          271,
+          626
+        ],
+        "sceneryRack": [
+          112,
+          404
+        ],
+        "loadIn": [
+          390,
+          584
+        ]
+      },
+      "affordances": [
+        "delivery",
+        "supply-scenery",
+        "load-in"
+      ]
+    },
+    {
+      "id": "studio-gate",
+      "buildingId": "gate",
+      "label": "Studio Gate",
+      "selectionPolygon": [
+        [
+          593,
+          548
+        ],
+        [
+          1586,
+          529
+        ],
+        [
+          1586,
+          992
+        ],
+        [
+          574,
+          992
+        ]
+      ],
+      "anchors": {
+        "guard": [
+          853,
+          720
+        ],
+        "arrival": [
+          1227,
+          844
+        ]
+      },
+      "affordances": [
+        "gate-security",
+        "arrival"
+      ]
+    }
+  ],
+  "routes": {
+    "street-to-stage-7": [
+      {
+        "x": 142,
+        "y": 805,
+        "actorDepth": 30,
+        "cue": "going"
+      },
+      {
+        "x": 244,
+        "y": 682,
+        "actorDepth": 30,
+        "cue": "behind-truck"
+      },
+      {
+        "x": 411,
+        "y": 591,
+        "actorDepth": 50,
+        "cue": "past-truck"
+      },
+      {
+        "x": 514,
+        "y": 535,
+        "actorDepth": 56,
+        "cue": "behind-camera"
+      },
+      {
+        "x": 658,
+        "y": 469,
+        "actorDepth": 78,
+        "cue": "past-camera"
+      },
+      {
+        "x": 586,
+        "y": 383,
+        "actorDepth": 82,
+        "cue": "enter-stage"
+      }
+    ]
+  },
+  "activities": [
+    {
+      "id": "shooting",
+      "label": "Stage 7 shooting",
+      "place": "stage-7",
+      "requiredAffordances": [
+        "enter-stage",
+        "shoot"
+      ],
+      "requiredRoles": [
+        "director",
+        "talent",
+        "grip",
+        "camera-operator"
+      ],
+      "visualStates": [
+        "crew-call",
+        "equipment-staged",
+        "take-in-progress"
+      ]
+    },
+    {
+      "id": "publicity",
+      "label": "Publicity call",
+      "place": "publicity",
+      "requiredAffordances": [
+        "publicity"
+      ],
+      "requiredRoles": [
+        "talent",
+        "publicist",
+        "photographer"
+      ],
+      "visualStates": [
+        "queue-forming",
+        "flash",
+        "press-moving"
+      ]
+    }
+  ],
+  "source": {
+    "file": "moonshot-studio-chronicle-concept.png",
+    "provenance": "Owner-authorized Operation Hollywood Phase I north-star asset"
+  },
+  "layers": [
+    {
+      "id": "district-base",
+      "kind": "baked",
+      "depth": 0,
+      "output": "district-base.png",
+      "x": 0,
+      "y": 0,
+      "width": 1586,
+      "height": 992
+    },
+    {
+      "id": "truck-occluder",
+      "kind": "occluder",
+      "depth": 40,
+      "output": "truck-occluder.png",
+      "x": 55,
+      "y": 414,
+      "width": 412,
+      "height": 376
+    },
+    {
+      "id": "camera-dolly-occluder",
+      "kind": "occluder",
+      "depth": 70,
+      "output": "camera-dolly-occluder.png",
+      "x": 421,
+      "y": 423,
+      "width": 315,
+      "height": 205
+    },
+    {
+      "id": "gate-foreground-occluder",
+      "kind": "occluder",
+      "depth": 90,
+      "output": "gate-foreground-occluder.png",
+      "x": 568,
+      "y": 504,
+      "width": 1019,
+      "height": 489
+    }
+  ],
+  "textureMemoryBytes": 9164360
+}
