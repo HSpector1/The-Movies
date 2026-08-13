@@ -522,7 +522,7 @@ export class LotScene extends Phaser.Scene {
         this.drawFootprint(pad, spec, K.dirtEdge, true)
         pad.setInteractive(this.footprintPolygon(spec), Phaser.Geom.Polygon.Contains)
         container.add(pad)
-        const stake = this.add.text(0, -14, 'FOR EXPANSION', {
+        const stake = this.add.text(0, -14, 'EXPANSION PARCEL', {
           fontFamily: FONT_SANS,
           fontSize: '11px',
           color: '#6b5a3c',
@@ -948,7 +948,6 @@ export class LotScene extends Phaser.Scene {
         { gx: a.door.gx, gy: a.door.gy + 0.4, dwell: 2 },
       ], { stageGate: stageId })
     }
-
     // vehicles on the road network, with a dwell at a stage park
     const mkVehicle = (
       tex: string,
@@ -1436,6 +1435,7 @@ export class LotScene extends Phaser.Scene {
       this.applyStageFinish(view, snap)
       this.dressStage(view, snap.activeProductions.find((p) => p.stageId === stageId) ?? null)
     }
+    this.dressExpansion(snap)
 
     // established dressing + marquee
     for (const spr of this.establishedProps) spr.setVisible(busy)
@@ -1464,6 +1464,84 @@ export class LotScene extends Phaser.Scene {
     }
 
     this.tagZoomBand = -1 // force tag layout refresh under new snapshot
+  }
+
+  /**
+   * Paint the fixed expansion parcel from authoritative snapshot facts. The
+   * decoration owns no clock or transition and is rebuilt on each snapshot, so
+   * save/reload lands directly on Vacant, Building, or Operational.
+   */
+  private dressExpansion(snap: StudioLotSnapshot): void {
+    const view = this.views.get('expansion')
+    if (!view) return
+    for (const object of view.dressing) object.destroy()
+    view.dressing = []
+
+    const fact = snap.buildings.find((building) => building.id === 'expansion')
+    const status = fact?.constructionStatus ?? 'legacy'
+    const progress = Math.max(0, Math.min(1, fact?.constructionProgress01 ?? 0))
+    const group = this.add.container(0, 0)
+    const art = this.add.graphics()
+
+    if (status === 'legacy') {
+      art.lineStyle(2, 0x796e59, 0.65)
+      for (let x = -48; x <= 48; x += 16) art.lineBetween(x, -18, x + 24, 18)
+    } else if (status === 'vacant') {
+      art.lineStyle(2, 0xb99a58, 0.9)
+      art.strokeRect(-54, -24, 108, 48)
+      for (const x of [-54, 54]) {
+        art.fillStyle(0xd4c08d, 1)
+        art.fillRect(x - 2, -32, 4, 60)
+      }
+    } else {
+      // Grounded foundation and a building mass that rises with the persisted
+      // weekly progress. Operational is the same footprint at full height.
+      const height = status === 'operational' ? 72 : 18 + Math.round(progress * 54)
+      art.fillStyle(0x554b3c, 0.95)
+      art.fillRect(-57, 13, 114, 12)
+      art.fillStyle(status === 'operational' ? 0xc8b27e : 0x8e7b59, 1)
+      art.fillRect(-48, 13 - height, 96, height)
+      art.fillStyle(0x324a42, 1)
+      art.fillRect(-42, 7 - height, 84, 7)
+      art.lineStyle(2, 0xe0c47b, 0.9)
+      art.strokeRect(-48, 13 - height, 96, height)
+      if (status === 'building') {
+        // Static scaffold: legible at reduced motion and never implies progress.
+        art.lineStyle(2, 0xb99a58, 0.95)
+        for (const x of [-56, -28, 0, 28, 56]) art.lineBetween(x, -58, x, 23)
+        for (const y of [-52, -30, -8, 14]) art.lineBetween(-58, y, 58, y)
+      } else {
+        art.fillStyle(0x25403a, 1)
+        for (const x of [-31, -10, 11, 32]) art.fillRect(x, -39, 12, 19)
+        art.fillStyle(0x7b2d25, 1)
+        art.fillRect(-8, -23, 16, 36)
+      }
+    }
+    group.add(art)
+
+    const label = this.add.text(
+      0,
+      status === 'operational' ? -72 : -48,
+      status === 'legacy'
+        ? 'UNMANAGED PARCEL'
+        : status === 'vacant'
+          ? 'VACANT PARCEL'
+          : status === 'building'
+            ? `ANNEX · ${fact?.constructionProgressText ?? 'BUILDING'}`
+            : 'DEVELOPMENT & CASTING ANNEX',
+      {
+        fontFamily: FONT_SANS,
+        fontSize: status === 'building' ? '9px' : '10px',
+        fontStyle: 'bold',
+        color: status === 'legacy' ? '#716955' : '#f2ddb0',
+        backgroundColor: '#17221ddd',
+        padding: { x: 7, y: 4 },
+        align: 'center',
+      },
+    ).setOrigin(0.5, 1)
+    group.add(label)
+    view.container.add(group)
+    view.dressing.push(group)
   }
 
   /**

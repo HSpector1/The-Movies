@@ -245,6 +245,21 @@ describe('StudioLotScreen — host lifecycle + accessible companion navigation',
     expect(routes).toContainEqual({ kind: 'assembly' })
   })
 
+  it('routes the Hollywood Annex parcel directly to the same Studio Development owner', async () => {
+    setOperationHollywoodOverride(true)
+    const { routes } = renderScreen(foundManagedStudio('hollywood-annex-route'))
+    await waitFor(() => expect(spy.instances.length).toBe(1))
+    act(() => {
+      latest().opts.onHollywoodPlace?.({
+        id: 'annex-parcel',
+        buildingId: 'expansion',
+        label: 'Development & Casting Annex',
+        affordances: ['develop-studio', 'construct-annex'],
+      })
+    })
+    expect(routes).toContainEqual({ kind: 'studioDevelopment' })
+  })
+
   it('11. restores the selected building when returning to the lot', async () => {
     // Select a building via the companion nav, unmount, then remount: the new view is
     // handed the restored selection (session-level UI state, never GameState).
@@ -660,6 +675,15 @@ describe('StudioLotScreen — authoritative D-17B publicity offer', () => {
     const state: GameState = {
       ...founded,
       studio: { ...founded.studio, cash: 0 },
+      ledger: [
+        ...founded.ledger,
+        {
+          week: founded.market.tick,
+          kind: 'termination',
+          amount: -founded.studio.cash,
+          note: 'test-only cash reconciliation',
+        },
+      ],
     }
     const before = JSON.stringify(state)
     const offer = publicityDecision(state).find((candidate) => candidate.tier === 'whisper')!

@@ -631,6 +631,91 @@ th.num {
   gap: 3px;
 }
 
+/* ── Development & Casting Annex V1 ─────────────────────────────────────── */
+.development-header,
+.development-preview-heading,
+.development-title-row {
+  align-items: flex-start;
+}
+.development-preview-grid,
+.development-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.development-preview-grid > div,
+.development-facts > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-inset);
+}
+.development-facts {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.development-facts span {
+  color: var(--text-dim);
+  font-size: 12px;
+}
+.development-site {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: linear-gradient(145deg, var(--bg-inset), rgba(28, 39, 36, 0.9));
+}
+.development-site p { margin: 5px 0 0; color: var(--text-dim); }
+.development-site:focus,
+.development-owner:focus,
+.development-screen h1:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.development-site-mark {
+  position: relative;
+  height: 80px;
+  overflow: hidden;
+  border: 1px solid #756845;
+  border-radius: 5px;
+  background: repeating-linear-gradient(135deg, #3d382d 0 8px, #494332 8px 16px);
+}
+.development-site-mark span { position: absolute; display: block; }
+.development-site-mark span:nth-child(1) { left: 14px; right: 14px; bottom: 13px; height: 8px; background: #8b7650; }
+.development-site-mark span:nth-child(2) { left: 24px; right: 24px; bottom: 21px; height: 30px; border: 2px solid #c09a4d; }
+.development-site-mark span:nth-child(3) { left: 10px; right: 10px; top: 15px; height: 3px; background: #d0b36d; }
+.development-site-vacant .development-site-mark span:nth-child(2) { height: 0; bottom: 20px; }
+.development-site-vacant .development-site-mark span:nth-child(3) { background: transparent; border-top: 2px dashed #d0b36d; }
+.development-site-operational .development-site-mark span:nth-child(2) { height: 44px; background: #77785f; border-color: #e0c779; }
+.development-site-operational .development-site-mark span:nth-child(3) { top: 10px; height: 8px; background: #314c43; }
+.development-site-legacy { opacity: 0.72; }
+.development-progress {
+  height: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--bg-inset);
+}
+.development-progress > span {
+  display: block;
+  height: 100%;
+  min-width: 0;
+  background: linear-gradient(90deg, #9d7137, #dfbf6d);
+}
+.development-action-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.development-action-row p { margin: 0; }
+
+@media (max-width: 900px) {
+  .development-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 @media (max-width: 900px) {
   .calendar-preview-grid,
   .calendar-facility-grid,
@@ -659,7 +744,9 @@ th.num {
   .calendar-preview-grid,
   .calendar-facility-grid,
   .calendar-contract-grid,
-  .calendar-facts {
+  .calendar-facts,
+  .development-preview-grid,
+  .development-facts {
     grid-template-columns: 1fr;
   }
   .calendar-event {
@@ -668,6 +755,7 @@ th.num {
   .calendar-event button {
     justify-self: start;
   }
+  .development-site { grid-template-columns: 1fr; }
 }
 
 /* D-14 Career Impact + Talent Profile drawer */
@@ -729,4 +817,5 @@ th.num {
 
 @media (prefers-reduced-motion: reduce) {
   .drawer.talent-profile, .drawer-scrim { transition: none !important; animation: none !important; }
+  .development-site-mark *, .development-progress > span { transition: none !important; animation: none !important; }
 }

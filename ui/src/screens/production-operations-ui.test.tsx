@@ -17,6 +17,7 @@ import {
   signContractAction,
 } from '../engine/adapter.ts'
 import type { CreativeRole, DraftPackage, GameState } from '../engine/adapter.ts'
+import { ProductionBoard } from '../components/ProductionBoard.tsx'
 import { Dashboard } from './Dashboard.tsx'
 
 const FOUNDING_COUNTS: Record<CreativeRole, number> = {
@@ -66,6 +67,7 @@ function managedGame(
   return {
     ...founded.next,
     scriptDevelopment: { mode: 'legacy', projects: [] },
+    castingSessions: { mode: 'legacy', sessions: [] },
   }
 }
 
@@ -341,20 +343,15 @@ describe('Production Operations V1 UI boundary', () => {
     expect(simulated.stopReason).toBe('productionDecision')
     expect(simulated.productionDecision?.command).not.toBeNull()
 
-    render(
-      <Dashboard
-        state={held}
-        onAssemble={() => {}}
-        onAdvance={() => {}}
-        onSimToEvent={() => {}}
-        onCreateTalent={() => {}}
-        onSaves={() => {}}
-        onOpenAutopsy={() => {}}
-      />,
+    // This is an intentional configured-capacity research fixture (one canonical
+    // soundstage removed), not a valid V11 player save. Render the narrow board that
+    // owns the warning; the full Dashboard also projects the canonical Annex and
+    // therefore correctly rejects this impossible production configuration.
+    render(<ProductionBoard board={productionBoard(held)} onCommand={() => {}} />)
+    expect(screen.getByTestId(`production-blocker-${warning.productionId}`)).toHaveTextContent(
+      /retry next week/i,
     )
-    expect(screen.getByTestId('sim-to-event')).toBeEnabled()
-    expect(screen.getByText(/No player command is required/i)).toBeInTheDocument()
-    expect(screen.queryByText(/Resolve the command/i)).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /retry/i })).not.toBeInTheDocument()
   })
 
   it('renders the board decision, disables unattended simulation, and emits the exact command', () => {

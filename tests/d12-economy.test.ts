@@ -20,6 +20,7 @@ import {
   convertV7ToV8,
   convertV8ToV9,
   convertV9ToV10,
+  convertV10ToV11,
   canAfford,
   convertV3ToV4,
   economyEngaged,
@@ -234,10 +235,10 @@ describe('D-12: V3→V4 migration records released films as legacyCompleted (no 
     // by tick step 3.5) — so a migrated release can never be paid twice.
     const legacyRev = (st: GameState) =>
       st.ledger.filter((e) => e.kind === 'studioRevenue' && released.some((f) => f.productionId === e.productionId)).length
-    // Casting Sessions V1: cross every frozen boundary into live V10; history stays legacy.
-    const liveState = convertV9ToV10(
+    // Annex V1: cross every frozen boundary into live V11; history stays legacy.
+    const liveState = convertV10ToV11(convertV9ToV10(
       convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(v4))))),
-    ).state
+    )).state
     const before = legacyRev(liveState)
     const advanced = advance(liveState, 6)
     expect(legacyRev(advanced)).toBe(before) // no NEW legacy credit — no double-pay
@@ -256,7 +257,7 @@ describe('D-12: reload equals continuous play with an active run straddling the 
 
     const continuous = advance(midRun, 6)
     const reloaded = importSave(exportSave(makeSave(midRun)))
-    if (reloaded.saveVersion !== 10) throw new Error('expected V10') // Casting Sessions V1.
+    if (reloaded.saveVersion !== 11) throw new Error('expected V11')
     const split = advance(reloaded.state, 6)
 
     expect(exportSave(makeSave(split))).toBe(exportSave(makeSave(continuous)))
@@ -304,7 +305,20 @@ describe('D-12: solvency gate blocks voluntary overdrafts; unavoidable debits ma
 
   it('unavoidable weekly payroll + overhead MAY still push cash below zero (no rejection)', () => {
     const s = foundStudio('d12-afford-neg')
-    const broke: GameState = { ...s, studio: { ...s.studio, cash: 100 } }
+    const cashAdjustment = 100 - s.studio.cash
+    const broke: GameState = {
+      ...s,
+      studio: { ...s.studio, cash: 100 },
+      ledger: [
+        ...s.ledger,
+        {
+          week: s.market.tick,
+          kind: 'overhead',
+          amount: cashAdjustment,
+          note: 'test fixture cash identity adjustment',
+        },
+      ],
+    }
     const stepped = tick(broke) // payroll + overhead exceed 100 → negative, but never rejected
     expect(stepped.studio.cash).toBeLessThan(0)
   })

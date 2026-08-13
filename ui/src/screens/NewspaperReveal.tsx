@@ -6,8 +6,12 @@
 // callouts — NOT a metrics wall. The detailed autopsy is the authoritative analysis and
 // is one click away. Presentation only: no simulation logic, no RNG.
 
-import type { NewspaperView } from '../engine/adapter.ts'
+import type {
+  ConstructionCompletionSummary,
+  NewspaperView,
+} from '../engine/adapter.ts'
 import { money } from '../format.ts'
+import { ConstructionCompletionNotice } from '../components/ConstructionCompletionNotice.tsx'
 
 // ── critic stars as ★ / ½ / ☆ to 5 ────────────────────────────────────────────
 // stars is already in half-steps (criticStars, 0..5). Render filled ★, one optional
@@ -102,10 +106,12 @@ function SecondaryStory({
 
 export function NewspaperReveal({
   views,
+  constructionCompletion,
   onOpenAutopsy,
   onContinue,
 }: {
   views: NewspaperView[]
+  constructionCompletion?: ConstructionCompletionSummary | null
   onOpenAutopsy: (index: number) => void
   onContinue: () => void
 }) {
@@ -132,6 +138,9 @@ export function NewspaperReveal({
 
   return (
     <div className="app-shell">
+      {constructionCompletion && (
+        <ConstructionCompletionNotice completion={constructionCompletion} />
+      )}
       <div className="card stack" data-testid="newspaper-reveal">
         {/* ── Masthead ── */}
         <div

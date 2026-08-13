@@ -24,6 +24,9 @@ import type {
 } from './types.js'
 import { salaryCurve } from './worldgen.js'
 
+type CashState = Pick<GameStateV3, 'studio'>
+type EmploymentState = Pick<GameStateV3, 'founding' | 'contracts'>
+
 const iround = (x: number): number => Math.round(x)
 
 // The fixed founding-draft role order (determinism: applicant ids appended here).
@@ -45,7 +48,7 @@ export const FOUNDING_MINIMUMS: Record<CreativeRole, number> = {
 // ── engagement gate (D-11.0) ─────────────────────────────────────────────────
 // The employment system is engaged iff a founding draft is open OR any contract
 // exists. Derived from real state — NOT a §11 SimulationFlags object.
-export function employmentEngaged(state: GameStateV3): boolean {
+export function employmentEngaged(state: EmploymentState): boolean {
   return state.founding !== null || state.contracts.length > 0
 }
 
@@ -69,7 +72,7 @@ export function economyEngaged(state: GameState): boolean {
 // (payroll/overhead/existing commitments) may still push cash below zero. The engine rejects
 // illegal commitments with this reason; the UI disables + shows the SAME reason.
 export type Affordability = { ok: true } | { ok: false; reason: string }
-export function canAfford(state: GameStateV3, amount: number): Affordability {
+export function canAfford(state: CashState, amount: number): Affordability {
   const after = state.studio.cash - amount
   if (after >= 0) return { ok: true }
   return {

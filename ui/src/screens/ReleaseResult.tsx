@@ -4,17 +4,24 @@
 // profit/loss, standing changes, forecast-vs-result — clearly marked as RESULTS.
 // From here the player can open the full autopsy for any released film.
 
-import type { GameState, FilmResult, AutopsyView } from '../engine/adapter.ts'
+import type {
+  GameState,
+  FilmResult,
+  AutopsyView,
+  ConstructionCompletionSummary,
+} from '../engine/adapter.ts'
 import { explainRelease, findConcept } from '../engine/adapter.ts'
 import type { FilmCareerImpact } from '../engine/careerImpact.ts'
 import { CareerImpact } from '../components/CareerImpact.tsx'
 import { money, moneyExact, score, segmentLabel } from '../format.ts'
 import { Metric, Delta } from '../components/common.tsx'
+import { ConstructionCompletionNotice } from '../components/ConstructionCompletionNotice.tsx'
 
 export function ReleaseResult({
   preTick,
   postTickStanding,
   released,
+  constructionCompletion,
   careerImpactFor,
   onOpenAutopsy,
   onContinue,
@@ -22,6 +29,7 @@ export function ReleaseResult({
   preTick: GameState
   postTickStanding: GameState['studio']['standing']
   released: FilmResult[]
+  constructionCompletion?: ConstructionCompletionSummary | null
   // D-14 §7: the CANONICAL film-development presentation. Career Impact (frozen events)
   // supersedes the old per-release Development Summary so OVR + Star Power development is
   // shown in ONE place, from one authoritative record.
@@ -41,6 +49,9 @@ export function ReleaseResult({
       </div>
 
       <div className="stack" data-testid="release-list">
+        {constructionCompletion && (
+          <ConstructionCompletionNotice completion={constructionCompletion} />
+        )}
         {released.map((f) => {
           // D-12 P5: this screen shows every film that released THIS week side by side; the studio-standing
           // delta is the week's studio-wide movement, shared across them. Pass the co-releases so each card
@@ -182,4 +193,3 @@ export function ReleaseResult({
     </div>
   )
 }
-

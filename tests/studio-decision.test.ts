@@ -4,6 +4,7 @@ import {
   beginFounding,
   FOUNDING_MINIMUMS,
   generateWorld,
+  initialManagedStudioConstruction,
   initialManagedStudioOperations,
   nextStudioDecision,
   stableStringify,
@@ -112,6 +113,7 @@ function twoProductionsAtShooting(seed: string): GameState {
   let state: GameState = {
     ...generateWorld(seed),
     operations: initialManagedStudioOperations(),
+    construction: initialManagedStudioConstruction(),
   }
   state = applyActions(state, [
     { kind: 'greenlight', production: rawProductionPayload(state, 0) },
@@ -282,6 +284,7 @@ describe('Script Projects V1 — unified studio decision ordering', () => {
           (facility) => facility.id !== 'facility-soundstage-12',
         ),
       },
+      construction: initialManagedStudioConstruction(),
     }
     constrained = applyActions(constrained, [
       { kind: 'greenlight', production: rawProductionPayload(constrained, 0) },

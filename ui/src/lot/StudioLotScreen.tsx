@@ -120,7 +120,6 @@ export function StudioLotScreen({
 
   const [selected, setSelected] = useState<BuildingId | null>(sessionSelectedBuilding)
   const [selectionInfo, setSelectionInfo] = useState<SelectionInfo | null>(null)
-  const [expansionOpen, setExpansionOpen] = useState(false)
   const [canvasReady, setCanvasReady] = useState(false)
   const [canvasFailed, setCanvasFailed] = useState(false)
   const [reducedMotion, setReducedMotionState] = useState(prefersReducedMotion)
@@ -199,12 +198,23 @@ export function StudioLotScreen({
   }, [])
 
   const snapshot = readSnapshot(state)
+  const expansionFact = snapshot.buildings.find((building) => building.id === 'expansion')
+  const [operationalAnnouncement, setOperationalAnnouncement] = useState('')
   const hollywoodOperations = snapshot.productionOperations ?? []
   const hollywoodOperation: ProductionOperationsState | null =
     hollywoodOperations.find((operation) => operation.productionId === hollywoodProductionId) ??
     hollywoodOperations.find((operation) => operation.locationBuildingId === 'stage-a') ??
     hollywoodOperations[0] ??
     null
+
+  useEffect(() => {
+    const capacity = expansionFact?.attentionReason?.replace(/^Annex operational · /, '')
+    setOperationalAnnouncement(
+      expansionFact?.constructionStatus === 'operational'
+        ? `Development & Casting Annex is Operational. Development & Casting capacity is now ${capacity ?? 'available with one additional shared slot'}.`
+        : '',
+    )
+  }, [expansionFact?.attentionReason, expansionFact?.constructionStatus])
 
   const recordHollywoodPerson = useCallback((person: LotPersonState | null) => {
     setHollywoodPerson(person)
@@ -227,6 +237,9 @@ export function StudioLotScreen({
     if (place !== null) {
       setHollywoodPerson(null)
       viewRef.current?.clearHollywoodPersonSelection()
+      if (place.buildingId === 'expansion') {
+        onNavigateRef.current(resolveAction('view-expansion').route)
+      }
     }
   }, [])
 
@@ -274,10 +287,6 @@ export function StudioLotScreen({
 
   const dispatchRoute = useCallback((action: LotActionEvent['action']) => {
     const res = resolveAction(action)
-    if (res.route.kind === 'expansion-info') {
-      setExpansionOpen(true)
-      return
-    }
     onNavigateRef.current(res.route)
   }, [])
 
@@ -498,6 +507,15 @@ export function StudioLotScreen({
       className={`lot-screen${reducedMotion ? ' lot-reduced-motion' : ''}${hollywood ? ' lot-hollywood' : ''}`}
       data-testid="studio-lot-screen"
     >
+      <div
+        className="visually-hidden"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        data-testid="lot-annex-operational-announcement"
+      >
+        {operationalAnnouncement}
+      </div>
       <header className="lot-topbar">
         <div className="lot-brand">
           <span className="mark">{snapshot.studioName}</span>
@@ -792,19 +810,6 @@ export function StudioLotScreen({
             </div>
           )}
 
-          {expansionOpen && (
-            <div className="lot-selection card" role="dialog" aria-label="Future studio expansion" data-testid="lot-expansion-info">
-              <div className="spread">
-                <h3 style={{ margin: 0 }}>Future studio expansion</h3>
-                <button className="ghost" onClick={() => setExpansionOpen(false)} aria-label="Close">
-                  ✕
-                </button>
-              </div>
-              <p className="hint" style={{ marginTop: 8 }}>
-                Reserved for future studio growth. Not available in D1.
-              </p>
-            </div>
-          )}
         </div>
 
         <nav className="lot-companion" aria-label="Studio lot destinations" data-testid="lot-companion-nav">

@@ -26,6 +26,7 @@ import {
   makeSaveV5,
   makeSaveV6,
   makeSaveV7,
+  makeSaveV10,
   migrateToV6,
   migrateToV7,
   OracleAgent,
@@ -37,6 +38,7 @@ import {
   convertV7ToV8,
   convertV8ToV9,
   convertV9ToV10,
+  convertV10ToV11,
 } from '../src/core/index.js'
 import type {
   CreativeRole,
@@ -45,18 +47,18 @@ import type {
   GameStateV6,
   GameStateV7,
   LedgerEntry,
-  LedgerKind,
+  LedgerKindV10,
 } from '../src/core/index.js'
 
 // ── frozen-shape strip helpers (M8) ───────────────────────────────────────────
 // Typed so an omission is a COMPILE error: a fixture that already carried `publicity`
 // would make every migration assertion below vacuous.
 function toV6(s: GameState): GameStateV6 {
-  const { publicity: _publicity, operations: _operations, scriptDevelopment: _scripts, ...v6 } = s
+  const { publicity: _publicity, operations: _operations, scriptDevelopment: _scripts, castingSessions: _casting, ...v6 } = makeSaveV10(s).state
   return v6
 }
 function toV7(s: GameState): GameStateV7 {
-  const { operations: _operations, scriptDevelopment: _scripts, ...v7 } = s
+  const { operations: _operations, scriptDevelopment: _scripts, castingSessions: _casting, ...v7 } = makeSaveV10(s).state
   return v7
 }
 function frozenV7ToV6(s: GameStateV7): GameStateV6 {
@@ -64,7 +66,7 @@ function frozenV7ToV6(s: GameStateV7): GameStateV6 {
   return v6
 }
 function toV5(s: GameState): GameStateV5 {
-  const { publicity: _publicity, operations: _operations, scriptDevelopment: _scripts, economyEngagedEver: _flag, ...v5 } = s as GameStateV7 & { operations?: unknown; scriptDevelopment?: unknown }
+  const { publicity: _publicity, operations: _operations, scriptDevelopment: _scripts, castingSessions: _casting, economyEngagedEver: _flag, ...v5 } = makeSaveV10(s).state
   return v5
 }
 
@@ -132,10 +134,10 @@ describe('D-17B/E4 — the frozen V7 envelope remains valid and isolated', () =>
     expect(() => validateSaveV7({ ...save, saveVersion: 6 })).toThrow(/expected saveVersion 7/)
   })
 
-  it('V7 through V10 are known, so the unknown-version boundary is now 11', () => {
+  it('V7 through V11 are known, so the unknown-version boundary is now 12', () => {
     const save = makeSaveV7(toV7(foundStudio('d17b-v7-boundary')))
-    expect(() => validateSave({ ...save, saveVersion: 11 })).toThrow(/unknown saveVersion 11/)
-    expect(() => validateSave({ ...save, saveVersion: 11 })).toThrow(/1, 2, 3, 4, 5, 6, 7, 8, 9 and 10 only/)
+    expect(() => validateSave({ ...save, saveVersion: 12 })).toThrow(/unknown saveVersion 12/)
+    expect(() => validateSave({ ...save, saveVersion: 12 })).toThrow(/versions 1 through 11 only/)
   })
 
   it('rejects a V7 whose inherited regime fact or publicity clocks are missing/corrupt', () => {
@@ -227,7 +229,7 @@ describe('D-17B/E4 — migrateToV7 lifts every known version, and the chain stil
     for (let i = 0; i < 6; i++) a = tick(a)
     const reloaded = importSave(exportSave(makeSaveV7(toV7(a))))
     if (reloaded.saveVersion !== 7) throw new Error('expected V7')
-    let split = convertV9ToV10(convertV8ToV9(convertV7ToV8(reloaded))).state
+    let split = convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(reloaded)))).state
     let continuous = a
     for (let i = 0; i < 6; i++) {
       split = tick(split)
@@ -289,8 +291,8 @@ describe('D-17B §5 — the publicity ledger kind is accounted for explicitly', 
   })
 
   it('is ENGAGED-ONLY evidence: a V5 save carrying it reconstructs economyEngagedEver = true', () => {
-    // save.ts ENGAGED_KINDS is typed ReadonlySet<LedgerKind> and lists `publicity` explicitly —
-    // the action rejects when the economy is not engaged, so no headless save can carry it.
+    // save.ts decides every LedgerKind through a compile-exhaustive Record and marks
+    // `publicity` true — its action gate means no headless save can carry this kind.
     const headlessish = generateWorld('d17b-v7-kindproof')
     const v5 = makeSaveV5({ ...toV5(headlessish), ledger: [pubEntry(1, -1_200_000)] })
     expect(convertV5ToV6(v5).state.economyEngagedEver).toBe(true)
@@ -298,7 +300,7 @@ describe('D-17B §5 — the publicity ledger kind is accounted for explicitly', 
 
   it('a kind the headless path also writes is still NOT evidence (the predicate is unchanged)', () => {
     const headlessish = generateWorld('d17b-v7-kindproof-2')
-    const notEvidence: LedgerKind[] = ['production', 'boxOffice']
+    const notEvidence: LedgerKindV10[] = ['production', 'boxOffice']
     for (const kind of notEvidence) {
       const v5 = makeSaveV5({
         ...toV5(headlessish),

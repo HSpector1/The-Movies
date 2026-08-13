@@ -121,7 +121,24 @@ describe('D-17A/T4 — Dashboard affordability card == recap == greenlight actio
     const s = foundEngaged('scopes-2')
     const pkg = cheapestPkg(s)
     const allIn = totalCommittedCost(s, pkg)
-    const broke: GameState = { ...s, studio: { ...s.studio, cash: allIn - 1 } }
+    // Reconcile this synthetic cash state through the same final ledger addition the
+    // V11 invariant performs. Using `allIn - 1` directly can differ by a floating-point
+    // ulp from `priorCash + adjustment` even though the economic state is identical.
+    const adjustment = -Math.ceil(s.studio.cash - allIn) - 1
+    const brokeCash = s.studio.cash + adjustment
+    const broke: GameState = {
+      ...s,
+      studio: { ...s.studio, cash: brokeCash },
+      ledger: [
+        ...s.ledger,
+        {
+          week: s.market.tick,
+          kind: 'termination',
+          amount: adjustment,
+          note: 'test-only cash reconciliation',
+        },
+      ],
+    }
 
     const scopes = affordabilityScopes(broke)
     expect(scopes.cheapest!.affordable).toBe(false)

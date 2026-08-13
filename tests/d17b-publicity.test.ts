@@ -55,12 +55,26 @@ function foundStudio(seed: string): GameState {
 /** A founded studio placed at a chosen week, awareness and cash — no ticking needed. */
 function studioAt(seed: string, over: { week?: number; awareness?: number; cash?: number } = {}): GameState {
   const s = foundStudio(seed)
+  const cash = over.cash ?? 100_000_000
+  const cashAdjustment = cash - s.studio.cash
   return {
     ...s,
     market: { ...s.market, tick: over.week ?? s.market.tick },
+    ledger:
+      cashAdjustment === 0
+        ? s.ledger
+        : [
+            ...s.ledger,
+            {
+              week: over.week ?? s.market.tick,
+              kind: 'studioRevenue',
+              amount: cashAdjustment,
+              note: 'test fixture cash identity adjustment',
+            },
+          ],
     studio: {
       ...s.studio,
-      cash: over.cash ?? 100_000_000,
+      cash,
       standing: { ...s.studio.standing, audienceAwareness: over.awareness ?? 40 },
     },
   }
@@ -367,7 +381,7 @@ describe('D-17B §2/§6 — save round-trip and replay determinism', () => {
     const s = buy(studioAt('pub-roundtrip', { week: 9 }), 'whisper')
     const json = exportSave(makeSave(s))
     const back = importSave(json)
-    if (back.saveVersion !== 10) throw new Error('expected V10')
+    if (back.saveVersion !== 11) throw new Error('expected V11')
     expect(back.state.publicity).toEqual(s.publicity)
     expect(back.state.studio.cash).toBe(s.studio.cash)
     expect(exportSave(makeSave(back.state))).toBe(json)
@@ -376,7 +390,7 @@ describe('D-17B §2/§6 — save round-trip and replay determinism', () => {
   it('a mixed sequence of ticks and campaigns replays identically from the same seed', () => {
     const run = (): GameState => {
       let s = foundStudio('pub-replay')
-      s = { ...s, studio: { ...s.studio, cash: 100_000_000 } }
+      s = studioAt('pub-replay')
       for (let w = 0; w < 30; w++) {
         if (w === 2) s = buy(s, 'whisper')
         if (w === 12) s = buy(s, 'push')
@@ -390,12 +404,12 @@ describe('D-17B §2/§6 — save round-trip and replay determinism', () => {
 
   it('a reload mid-run continues identically to an uninterrupted run (campaign included)', () => {
     let base = foundStudio('pub-reload')
-    base = { ...base, studio: { ...base.studio, cash: 100_000_000 } }
+    base = studioAt('pub-reload')
     for (let w = 0; w < 5; w++) base = tick(base)
     const mid = buy(base, 'push')
 
     const reloaded = importSave(exportSave(makeSave(mid)))
-    if (reloaded.saveVersion !== 10) throw new Error('expected V10')
+    if (reloaded.saveVersion !== 11) throw new Error('expected V11')
     let split = reloaded.state
     let continuous = mid
     for (let w = 0; w < 8; w++) {
@@ -408,7 +422,7 @@ describe('D-17B §2/§6 — save round-trip and replay determinism', () => {
   it('the cooldown clocks survive a reload — a reload cannot buy a second campaign early', () => {
     const s = buy(studioAt('pub-reload-cd', { week: 30 }), 'blitz')
     const back = importSave(exportSave(makeSave(s)))
-    if (back.saveVersion !== 10) throw new Error('expected V10')
+    if (back.saveVersion !== 11) throw new Error('expected V11')
     const soon = { ...back.state, market: { ...back.state.market, tick: 31 } }
     expect(() => buy(soon, 'whisper')).toThrow(/global cooldown/)
     expect(() => buy(soon, 'blitz')).toThrow(/cooldown/)

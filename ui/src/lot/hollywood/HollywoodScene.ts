@@ -127,6 +127,9 @@ export class HollywoodScene extends Phaser.Scene {
   private flash: Phaser.GameObjects.Rectangle | null = null
   private stageStateText: Phaser.GameObjects.Text | null = null
   private stageLamp: Phaser.GameObjects.Arc | null = null
+  private expansionGraphics: Phaser.GameObjects.Graphics | null = null
+  private expansionLabel: Phaser.GameObjects.Text | null = null
+  private expansionStatus: 'legacy' | 'vacant' | 'building' | 'operational' = 'legacy'
   private dragOrigin: { x: number; y: number; scrollX: number; scrollY: number } | null = null
   private fitZoom = 1
   private frameSamples: number[] = []
@@ -189,6 +192,16 @@ export class HollywoodScene extends Phaser.Scene {
       backgroundColor: '#1b3029dd',
       padding: { x: 9, y: 5 },
     }).setDepth(86)
+    this.expansionGraphics = this.add.graphics().setDepth(87).setName('tier:stateful-expansion')
+    this.expansionLabel = this.add.text(0, 0, '', {
+      fontFamily: FONT_SANS,
+      fontSize: '14px',
+      fontStyle: 'bold',
+      color: '#f5e7c6',
+      backgroundColor: '#142820e8',
+      padding: { x: 9, y: 6 },
+      align: 'center',
+    }).setOrigin(0.5, 1).setDepth(88).setName('tier:stateful-expansion-label')
   }
 
   private buildSemanticHotspots(): void {
@@ -455,6 +468,86 @@ export class HollywoodScene extends Phaser.Scene {
 
     this.syncPeopleToAuthoritativeSnapshot(nextStage7)
     this.paintAuthoritativeStage7(nextStage7)
+    this.paintExpansion(snapshot)
+  }
+
+  /**
+   * Paint the fixed Annex parcel from the same snapshot used by the DOM
+   * companion. This is a decorative projection only: no animation or scene
+   * interaction advances its clock, spends cash, or changes its lifecycle.
+   */
+  private paintExpansion(snapshot: StudioLotSnapshot): void {
+    const fact = snapshot.buildings.find((building) => building.id === 'expansion')
+    this.expansionStatus = fact?.constructionStatus ?? 'legacy'
+    if (!this.expansionGraphics || !this.expansionLabel) return
+    const place = this.manifest.places.find((candidate) => candidate.buildingId === 'expansion')
+    if (!place) {
+      this.expansionGraphics.clear()
+      this.expansionLabel.setVisible(false)
+      return
+    }
+    const points = place.selectionPolygon.map(([x, y]) => new Phaser.Math.Vector2(x, y))
+    const xs = place.selectionPolygon.map(([x]) => x)
+    const ys = place.selectionPolygon.map(([, y]) => y)
+    const left = Math.min(...xs)
+    const right = Math.max(...xs)
+    const top = Math.min(...ys)
+    const bottom = Math.max(...ys)
+    const cx = (left + right) / 2
+    const g = this.expansionGraphics
+    g.clear()
+
+    const status = this.expansionStatus
+    const progress = Math.max(0, Math.min(1, fact?.constructionProgress01 ?? 0))
+    g.fillStyle(status === 'operational' ? 0x263e35 : 0x5a4b31, status === 'legacy' ? 0.12 : 0.26)
+    g.fillPoints(points, true)
+    g.lineStyle(status === 'legacy' ? 2 : 4, status === 'operational' ? 0xe0c77e : 0xc59c55, 0.94)
+    g.strokePoints(points, true)
+
+    if (status === 'vacant' || status === 'legacy') {
+      // Survey stakes make the fixed footprint readable without pretending a
+      // facility already exists.
+      for (const [x, y] of place.selectionPolygon) {
+        g.fillStyle(status === 'legacy' ? 0x756b55 : 0xe0c77e, 0.95)
+        g.fillRect(x - 3, y - 15, 6, 20)
+      }
+    } else {
+      const buildHeight = status === 'operational' ? 104 : 30 + Math.round(progress * 74)
+      const width = Math.min(190, Math.max(110, right - left - 70))
+      const baseY = bottom - 35
+      g.fillStyle(0x3c352b, 0.98).fillRect(cx - width / 2 - 8, baseY, width + 16, 16)
+      g.fillStyle(status === 'operational' ? 0xb8ae91 : 0x807257, 0.98)
+      g.fillRect(cx - width / 2, baseY - buildHeight, width, buildHeight)
+      g.fillStyle(0x2e493e, 1).fillRect(cx - width / 2 - 5, baseY - buildHeight - 10, width + 10, 12)
+      g.lineStyle(3, 0xd6b96e, 0.95).strokeRect(cx - width / 2, baseY - buildHeight, width, buildHeight)
+      if (status === 'building') {
+        // Static scaffold is reduced-motion safe; progress is read from the
+        // persisted integer week count and never from animation time.
+        g.lineStyle(3, 0xd6b96e, 0.9)
+        for (let x = cx - width / 2 - 14; x <= cx + width / 2 + 14; x += 36) {
+          g.lineBetween(x, baseY - 116, x, baseY + 8)
+        }
+        for (let y = baseY - 108; y <= baseY; y += 27) {
+          g.lineBetween(cx - width / 2 - 18, y, cx + width / 2 + 18, y)
+        }
+      } else {
+        g.fillStyle(0x294c45, 1)
+        for (let x = cx - width / 2 + 18; x < cx + width / 2 - 10; x += 35) {
+          g.fillRect(x, baseY - 62, 18, 28)
+        }
+        g.fillStyle(0x7b2c24, 1).fillRect(cx - 14, baseY - 45, 28, 45)
+      }
+    }
+
+    const label =
+      status === 'legacy'
+        ? 'STUDIO DEVELOPMENT · UNMANAGED'
+        : status === 'vacant'
+          ? 'EXPANSION PARCEL · VACANT'
+          : status === 'building'
+            ? `ANNEX BUILDING · ${fact?.constructionProgressText ?? ''}`
+            : 'DEVELOPMENT & CASTING ANNEX · OPERATIONAL'
+    this.expansionLabel.setText(label).setPosition(cx, top - 8).setVisible(true)
   }
 
   /** Exact Soundstage 7 only. Presentation-assigned legacy stages never qualify. */
@@ -766,6 +859,7 @@ export class HollywoodScene extends Phaser.Scene {
     routeProductionId: string | null
     manifestId: string
     routeDepths: number[]
+    expansionStatus: 'legacy' | 'vacant' | 'building' | 'operational'
   } {
     return {
       selectedPersonId: this.selectedPersonId,
@@ -774,6 +868,7 @@ export class HollywoodScene extends Phaser.Scene {
       routeProductionId: this.cosmeticRoute?.productionId ?? null,
       manifestId: this.manifest.districtId,
       routeDepths: this.route.map((point) => point.actorDepth),
+      expansionStatus: this.expansionStatus,
     }
   }
 }

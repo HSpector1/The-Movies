@@ -31,6 +31,7 @@ import type {
   SimStopReason,
   PublicityTier,
   ProductionCommandView,
+  ConstructionCompletionSummary,
 } from './engine/adapter.ts'
 import {
   advanceWeek,
@@ -54,6 +55,7 @@ import { WritersRoom } from './screens/WritersRoom.tsx'
 import { CastingRoom } from './screens/CastingRoom.tsx'
 import { StudioCalendar } from './screens/StudioCalendar.tsx'
 import type { StudioCalendarRoute } from './screens/StudioCalendar.tsx'
+import { StudioDevelopment } from './screens/StudioDevelopment.tsx'
 import { ReleaseResult } from './screens/ReleaseResult.tsx'
 import { Autopsy } from './screens/Autopsy.tsx'
 import { TalentCreator } from './screens/TalentCreator.tsx'
@@ -88,6 +90,7 @@ type Screen =
   | { kind: 'writersRoom'; focusProjectId?: string }
   | { kind: 'castingRoom'; scriptProjectId?: string; focusProjectId?: string }
   | { kind: 'calendar' }
+  | { kind: 'studioDevelopment' }
   | { kind: 'assembly'; scriptProjectId?: string }
   | {
       kind: 'release'
@@ -95,6 +98,7 @@ type Screen =
       postTickStanding: Standing
       released: FilmResult[]
       development: ReleaseDevelopment[]
+      constructionCompletion: ConstructionCompletionSummary | null
     }
   | {
       // D-11.C PART 2: the newspaper front page shown ONCE at release. `source` records
@@ -107,11 +111,13 @@ type Screen =
       source: 'release' | 'clipping'
       views: NewspaperView[]
       films: FilmResult[]
+      constructionCompletion: ConstructionCompletionSummary | null
       release?: {
         preTick: GameState
         postTickStanding: Standing
         released: FilmResult[]
         development: ReleaseDevelopment[]
+        constructionCompletion: ConstructionCompletionSummary | null
       }
     }
   | { kind: 'autopsy'; view: AutopsyView; compare: AutopsyCompareView | null }
@@ -125,6 +131,7 @@ type Screen =
       stopMessage: string
       weeks: number
       cashNow: number
+      constructionCompletion: ConstructionCompletionSummary | null
     }
   | { kind: 'talent'; returnTo: 'dashboard' | 'founding' | 'hiring' }
   | { kind: 'hub' }
@@ -276,6 +283,9 @@ export function App() {
       case 'contract':
         setScreen({ kind: 'roster', focusTalentId: route.talentId })
         break
+      case 'studioDevelopment':
+        setScreen({ kind: 'studioDevelopment' })
+        break
     }
   }
 
@@ -283,8 +293,7 @@ export function App() {
   const lotEnabled = studioLotOverviewEnabled()
 
   // Translate a lot navigation intent into the existing screen navigation. Every route
-  // targets a screen that already exists outside the lot; `expansion-info` is handled
-  // inside the lot itself and never reaches here.
+  // targets a screen that already exists outside the lot.
   function handleLotNavigate(route: LotRoute) {
     switch (route.kind) {
       case 'dashboard':
@@ -312,8 +321,8 @@ export function App() {
       case 'saves':
         setScreen({ kind: 'saves' })
         break
-      case 'expansion-info':
-        // Bounded informational placeholder shown inside the lot; nothing to route.
+      case 'studioDevelopment':
+        setScreen({ kind: 'studioDevelopment' })
         break
     }
   }
@@ -323,7 +332,7 @@ export function App() {
     // RULING A: advanceWeek ticks with development ON. The engine applies development
     // EXACTLY ONCE inside this single tick; we then replace the authoritative GameState
     // with `next` and never re-tick on re-render — so development is never double-applied.
-    const { preTick, next, released } = advanceWeek(state)
+    const { preTick, next, released, constructionCompletion } = advanceWeek(state)
     // Build the per-release development summary by DIFFING the pre-tick vs post-tick
     // talent (pure read of two immutable snapshots — no re-run of development).
     const development = buildReleaseDevelopment(preTick, next, released)
@@ -333,6 +342,7 @@ export function App() {
       postTickStanding: next.studio.standing,
       released,
       development,
+      constructionCompletion,
     }
     // Record a per-film snapshot so each release keeps an exact autopsy path.
     if (released.length > 0) {
@@ -350,7 +360,16 @@ export function App() {
     // straight to that summary (nothing to put on a front page).
     const views = released.map((f) => releaseNewspaper(next, f)).filter((v): v is NewspaperView => v !== null)
     if (views.length > 0) {
-      setScreen({ kind: 'newspaper', source: 'release', views, films: released, release })
+      setScreen({
+        kind: 'newspaper',
+        source: 'release',
+        views,
+        films: released,
+        constructionCompletion,
+        // The first post-tick surface owns the one-time item. Continuing from
+        // the newspaper must not repeat it on ReleaseResult.
+        release: { ...release, constructionCompletion: null },
+      })
       return
     }
     setScreen({ kind: 'release', ...release })
@@ -390,6 +409,7 @@ export function App() {
         postTickStanding: result.next.studio.standing,
         released: result.released,
         development,
+        constructionCompletion: result.constructionCompletion,
       }
       setSnapshots((prev) => {
         const merged = { ...prev }
@@ -402,7 +422,14 @@ export function App() {
         .map((f) => releaseNewspaper(result.next, f))
         .filter((v): v is NewspaperView => v !== null)
       if (views.length > 0) {
-        setScreen({ kind: 'newspaper', source: 'release', views, films: result.released, release })
+        setScreen({
+          kind: 'newspaper',
+          source: 'release',
+          views,
+          films: result.released,
+          constructionCompletion: result.constructionCompletion,
+          release: { ...release, constructionCompletion: null },
+        })
         return
       }
       setScreen({ kind: 'release', ...release })
@@ -415,6 +442,7 @@ export function App() {
       stopMessage: result.stopMessage, // D-12 P1.3: engine-derived; the UI never infers the reason
       weeks: result.weeks,
       cashNow: result.next.studio.cash,
+      constructionCompletion: result.constructionCompletion,
     })
   }
 
@@ -432,7 +460,13 @@ export function App() {
       )
       return
     }
-    setScreen({ kind: 'newspaper', source: 'clipping', views: [view], films: [film] })
+    setScreen({
+      kind: 'newspaper',
+      source: 'clipping',
+      views: [view],
+      films: [film],
+      constructionCompletion: null,
+    })
   }
 
   // Open the exact autopsy for a film with a retained snapshot (dashboard path).
@@ -558,6 +592,7 @@ export function App() {
           onSaves={() => setScreen({ kind: 'saves' })}
           onOpenRecap={() => setScreen({ kind: 'recap' })}
           onOpenCalendar={() => setScreen({ kind: 'calendar' })}
+          onOpenDevelopment={() => setScreen({ kind: 'studioDevelopment' })}
           onOpenLot={lotEnabled ? () => setScreen({ kind: 'lot' }) : undefined}
           onOpenAutopsy={openAutopsyForFilm}
           onOpenClipping={openClippingForFilm}
@@ -610,6 +645,10 @@ export function App() {
         />
       )}
 
+      {screen.kind === 'studioDevelopment' && (
+        <StudioDevelopment state={state} onChange={setState} onBack={goDashboard} />
+      )}
+
       {screen.kind === 'castingRoom' && (
         <CastingRoom
           state={state}
@@ -645,6 +684,7 @@ export function App() {
           preTick={screen.preTick}
           postTickStanding={screen.postTickStanding}
           released={screen.released}
+          constructionCompletion={screen.constructionCompletion}
           careerImpactFor={(pid) => filmCareerImpact(state, pid)}
           onOpenAutopsy={(view, film) =>
             setScreen({
@@ -660,6 +700,7 @@ export function App() {
       {screen.kind === 'newspaper' && (
         <NewspaperReveal
           views={screen.views}
+          constructionCompletion={screen.constructionCompletion}
           onOpenAutopsy={(index) => {
             const film = screen.films[index]
             if (film) openAutopsyForFilm(film)
@@ -698,6 +739,7 @@ export function App() {
           stopMessage={screen.stopMessage}
           weeks={screen.weeks}
           cashNow={screen.cashNow}
+          constructionCompletion={screen.constructionCompletion}
           onContinue={() =>
             screen.stopReason === 'scriptReview'
               ? setScreen({ kind: 'writersRoom' })

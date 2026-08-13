@@ -9,6 +9,8 @@ import {
 } from './operations.js'
 import { nextStudioDecision } from './scriptReadModel.js'
 import type { StudioDecisionView } from './scriptReadModel.js'
+import { studioConstructionView } from './construction.js'
+import type { StudioConstructionView } from './construction.js'
 import { TUNING } from './tuning.js'
 import type {
   FacilityCapability,
@@ -64,6 +66,12 @@ export type StudioCalendarCommitmentView =
       kind: 'castingDue'
       sessionId: string
       projectId: string
+      title: string
+    })
+  | (CommitmentBase & {
+      kind: 'constructionCompletion'
+      projectId: string
+      facilityId: string
       title: string
     })
   | (CommitmentBase & {
@@ -157,6 +165,7 @@ export type StudioCalendarView = {
     contracts: StudioCalendarContractView[]
     busiestExpiry: StudioCalendarExpiryClusterView | null
   }
+  studioDevelopment: StudioConstructionView
   summary: StudioCalendarSummaryView
 }
 
@@ -179,9 +188,10 @@ const CAPABILITY_LABEL: Record<FacilityCapability, string> = {
 const COMMITMENT_KIND_ORDER: Record<StudioCalendarCommitmentView['kind'], number> = {
   scriptDue: 0,
   castingDue: 1,
-  theatricalReceipt: 2,
-  contractRenewal: 3,
-  contractExpiry: 4,
+  constructionCompletion: 2,
+  theatricalReceipt: 3,
+  contractRenewal: 4,
+  contractExpiry: 5,
 }
 
 const CONDITIONAL_RELEASE_ASSUMPTION =
@@ -407,6 +417,23 @@ function commitmentViews(state: GameState): StudioCalendarCommitmentView[] {
       sessionId: session.id,
       projectId: project.id,
       title: requireConceptTitle(state, project.conceptId, `casting session "${session.id}"`),
+    })
+  }
+
+  // Calendar remains the research observatory's public projection surface. The
+  // configured policy preserves that behavior-neutral harness path; live saves
+  // are still constrained to exact Annex V1 by their validator.
+  const construction = studioConstructionView(state, { facilityPolicy: 'configured' })
+  if (construction.status === 'building') {
+    events.push({
+      kind: 'constructionCompletion',
+      certainty: 'committed',
+      week: construction.dueWeek!,
+      ownerId: construction.projectId!,
+      occurrenceIndex: 0,
+      projectId: construction.projectId!,
+      facilityId: construction.facilityId!,
+      title: construction.name,
     })
   }
 
@@ -672,6 +699,7 @@ export function studioCalendar(state: GameState): StudioCalendarView {
   const commitments = commitmentViews(state)
   const productionOutlook = productionViews(state)
   const staffingHorizon = staffingViews(state)
+  const studioDevelopment = studioConstructionView(state, { facilityPolicy: 'configured' })
   const currentWeek = state.market.tick
   const facilityCapacity = facilities.reduce((sum, facility) => sum + facility.capacity, 0)
   const occupiedSlots = facilities.reduce((sum, facility) => sum + facility.occupied, 0)
@@ -684,6 +712,7 @@ export function studioCalendar(state: GameState): StudioCalendarView {
     commitments,
     productionOutlook,
     staffingHorizon,
+    studioDevelopment,
     summary: {
       facilityCapacity,
       occupiedSlots,

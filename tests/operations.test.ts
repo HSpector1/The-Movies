@@ -3,10 +3,12 @@ import {
   applyActions,
   assertStudioOperationsInvariants,
   beginFounding,
+  emptyStudioConstruction,
   emptyStudioOperations,
   FOUNDING_MINIMUMS,
   generateWorld,
   INITIAL_STUDIO_FACILITIES,
+  initialManagedStudioConstruction,
   initialManagedStudioOperations,
   addManagedProductionWorkflow,
   advanceManagedProductions,
@@ -247,7 +249,11 @@ describe('Production Operations V1', () => {
     const withFilm = greenlightManaged(managed)
     expect(() =>
       applyActions(
-        { ...withFilm, operations: emptyStudioOperations() },
+        {
+          ...withFilm,
+          operations: emptyStudioOperations(),
+          construction: emptyStudioConstruction(),
+        },
         [{ kind: 'activateStudioOperations' }],
       ),
     ).toThrow(/active production slate is not empty/)
@@ -255,7 +261,11 @@ describe('Production Operations V1', () => {
 
   it('creates the managed workflow and allocates slots deterministically', () => {
     let state = generateWorld('ops-allocation')
-    state = { ...state, operations: initialManagedStudioOperations() }
+    state = {
+      ...state,
+      operations: initialManagedStudioOperations(),
+      construction: initialManagedStudioConstruction(),
+    }
     state = greenlightManaged(state, 0)
     state = greenlightManaged(state, 1)
 
@@ -271,7 +281,11 @@ describe('Production Operations V1', () => {
 
   it('rejects capacity blocker combinations that the transition allocator cannot produce', () => {
     let state = generateWorld('ops-impossible-blockers')
-    state = { ...state, operations: initialManagedStudioOperations() }
+    state = {
+      ...state,
+      operations: initialManagedStudioOperations(),
+      construction: initialManagedStudioConstruction(),
+    }
     state = greenlightManaged(state)
     const developmentBlocker = {
       ...state.operations,
@@ -309,7 +323,11 @@ describe('Production Operations V1', () => {
 
   it('maps the exact eight-week phases and completes a scheduled take on tick', () => {
     let state = generateWorld('ops-eight-weeks')
-    state = { ...state, operations: initialManagedStudioOperations() }
+    state = {
+      ...state,
+      operations: initialManagedStudioOperations(),
+      construction: initialManagedStudioConstruction(),
+    }
     state = greenlightManaged(state)
     const productionId = state.studio.activeProductions[0]!.id
     const directorId = state.studio.activeProductions[0]!.directorId
@@ -353,7 +371,11 @@ describe('Production Operations V1', () => {
 
   it('holds atomically, then retries after cancellation frees valid positive capacity', () => {
     let state = generateWorld('ops-capacity')
-    state = { ...state, operations: initialManagedStudioOperations() }
+    state = {
+      ...state,
+      operations: initialManagedStudioOperations(),
+      construction: initialManagedStudioConstruction(),
+    }
     state = greenlightManaged(state, 0)
     state = greenlightManaged(state, 1)
     // A structurally valid future configuration: every facility has positive
@@ -405,7 +427,11 @@ describe('Production Operations V1', () => {
   it('releases capacity in-order and defers a lower-id waiter exactly one retry week', () => {
     function releaseBoundary(holderFirst: boolean): GameState {
       let state = generateWorld(`ops-release-order-${String(holderFirst)}`)
-      state = { ...state, operations: initialManagedStudioOperations() }
+      state = {
+        ...state,
+        operations: initialManagedStudioOperations(),
+        construction: initialManagedStudioConstruction(),
+      }
       state = greenlightManaged(state, 0)
       state = greenlightManaged(state, 1)
       state = withOneSoundstage(state)
@@ -509,7 +535,11 @@ describe('Production Operations V1', () => {
 
   it('runs two simultaneous managed pipelines through shooting and release with invariants each tick', () => {
     let state = generateWorld('ops-two-full-pipelines')
-    state = { ...state, operations: initialManagedStudioOperations() }
+    state = {
+      ...state,
+      operations: initialManagedStudioOperations(),
+      construction: initialManagedStudioConstruction(),
+    }
     state = greenlightManaged(state, 0)
     state = greenlightManaged(state, 1)
     assertStudioOperationsInvariants(state.operations, state.studio.activeProductions)
@@ -561,7 +591,11 @@ describe('Production Operations V1', () => {
 
   it('rejects illegal shooting commands loudly and byte-preserves their input', () => {
     let state = generateWorld('ops-actions')
-    state = { ...state, operations: initialManagedStudioOperations() }
+    state = {
+      ...state,
+      operations: initialManagedStudioOperations(),
+      construction: initialManagedStudioConstruction(),
+    }
     state = toShooting(greenlightManaged(state))
     const production = state.studio.activeProductions[0]!
     const before = stableStringify(state)
@@ -586,7 +620,11 @@ describe('Production Operations V1', () => {
 
   it('cancel removes the workflow and every reservation without a refund', () => {
     let state = generateWorld('ops-cancel')
-    state = { ...state, operations: initialManagedStudioOperations() }
+    state = {
+      ...state,
+      operations: initialManagedStudioOperations(),
+      construction: initialManagedStudioConstruction(),
+    }
     state = greenlightManaged(state)
     const productionId = state.studio.activeProductions[0]!.id
     const cash = state.studio.cash

@@ -162,8 +162,8 @@ export function placedBuildings(): PlacedBuilding[] {
       gy: 15,
       fw: 4,
       fd: 3,
-      label: 'Future Expansion',
-      blurb: 'Reserved for future studio growth. Not available in D1.',
+      label: 'Development & Casting Annex',
+      blurb: 'The fixed parcel for the Development & Casting Annex.',
     },
   ]
 }

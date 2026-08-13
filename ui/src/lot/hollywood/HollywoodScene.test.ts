@@ -42,6 +42,8 @@ const fakePhaser = vi.hoisted(() => {
     fillRect() { return this }
     strokeRect() { return this }
     strokeCircle() { return this }
+    fillPoints() { return this }
+    strokePoints() { return this }
   }
 
   class Tween {
@@ -213,6 +215,8 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   stageLamp: InstanceType<typeof fakePhaser.DisplayObject> | null
   activityGraphics: InstanceType<typeof fakePhaser.Graphics> | null
   fitZoom: number
+  expansionGraphics: InstanceType<typeof fakePhaser.Graphics> | null
+  expansionLabel: InstanceType<typeof fakePhaser.DisplayObject> | null
 }
 
 function harness(initial: StudioLotSnapshot, reducedMotion = false) {
@@ -237,6 +241,61 @@ function harness(initial: StudioLotSnapshot, reducedMotion = false) {
 }
 
 describe('HollywoodScene snapshot authority', () => {
+  it('paints and reports the authoritative fixed Annex parcel lifecycle', () => {
+    const initial = snapshot([], [])
+    initial.buildings = [{
+      id: 'expansion',
+      available: true,
+      attention: 'empty',
+      constructionStatus: 'vacant',
+      constructionProgress01: 0,
+      constructionProgressText: 'Vacant expansion parcel',
+    }]
+    const { scene, internals } = harness(initial)
+    internals.manifest.places.push({
+      id: 'annex-parcel',
+      anchors: { site: [640, 790] },
+      selectionPolygon: [[480, 680], [720, 640], [820, 710], [800, 870], [560, 915], [460, 825]],
+      buildingId: 'expansion',
+    } as never)
+    internals.expansionGraphics = new fakePhaser.Graphics()
+    internals.expansionLabel = new fakePhaser.DisplayObject()
+    scene.applySnapshot(initial)
+    expect(scene.debugState().expansionStatus).toBe('vacant')
+    expect(internals.expansionLabel.text).toBe('EXPANSION PARCEL · VACANT')
+
+    const building: StudioLotSnapshot = {
+      ...initial,
+      week: 6,
+      buildings: [{
+        id: 'expansion',
+        available: true,
+        attention: 'active',
+        constructionStatus: 'building',
+        constructionProgress01: 6 / 13,
+        constructionProgressText: '6 of 13 weekly advances complete',
+      }],
+    }
+    scene.applySnapshot(building)
+    expect(scene.debugState().expansionStatus).toBe('building')
+    expect(internals.expansionLabel.text).toContain('6 of 13 weekly advances complete')
+
+    scene.applySnapshot({
+      ...building,
+      week: 13,
+      buildings: [{
+        id: 'expansion',
+        available: true,
+        attention: 'positive',
+        constructionStatus: 'operational',
+        constructionProgress01: 1,
+        constructionProgressText: 'Operational since Week 13',
+      }],
+    })
+    expect(scene.debugState().expansionStatus).toBe('operational')
+    expect(internals.expansionLabel.text).toContain('OPERATIONAL')
+  })
+
   it('gives concurrent same-role people stable, non-overlapping authoritative homes', () => {
     const people = [
       director(),

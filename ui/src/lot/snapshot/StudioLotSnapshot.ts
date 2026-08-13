@@ -197,6 +197,12 @@ export type BuildingState = {
   attention?: AttentionState
   /** One concise reason string when attention warrants it (e.g. "Runway 3 weeks"). */
   attentionReason?: string
+  /** Expansion-only authoritative physical lifecycle; absent on every other place. */
+  constructionStatus?: 'legacy' | 'vacant' | 'building' | 'operational'
+  /** Expansion-only, presentation-ready fraction. Core owns the integer clock. */
+  constructionProgress01?: number
+  /** Expansion-only DOM/canvas-equivalent progress or completion text. */
+  constructionProgressText?: string
 }
 
 /**
@@ -292,5 +298,5 @@ export const BUILDING_LABELS: Record<BuildingId, string> = {
   'stage-b': 'Stage B',
   post: 'Production / Post',
   theater: 'Theater',
-  expansion: 'Future studio expansion',
+  expansion: 'Development & Casting Annex',
 }

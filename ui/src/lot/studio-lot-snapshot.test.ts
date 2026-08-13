@@ -267,14 +267,46 @@ describe('studioLotSnapshot — authoritative, deterministic, invents nothing', 
     expect(snap.cash).toBe(s.studio.cash)
   })
 
-  it('13. the Expansion Pad carries no engine capability or bonus — only a future cue', () => {
+  it('13. a legacy Expansion Pad carries no invented parcel, project, or capability', () => {
     const snap = studioLotSnapshot(foundStudio('lot-13'))
     const exp = stage(snap, 'expansion')
     expect(exp.attention).toBe('future')
-    expect(exp.available).toBe(true)
-    expect(exp.attentionReason?.toLowerCase()).toContain('future')
-    // The building state has no numeric/capability fields (structural — keys are display-only).
-    expect(Object.keys(exp).sort()).toEqual(['attention', 'attentionReason', 'available', 'id'])
+    expect(exp.available).toBe(false)
+    expect(exp.attentionReason).toBe('No managed expansion parcel')
+    expect(exp.constructionStatus).toBe('legacy')
+    expect(exp.constructionProgressText).toBe('No managed expansion parcel')
+    expect(exp.constructionProgress01).toBe(0)
+  })
+
+  it('13b. projects the managed Annex parcel lifecycle without a lot-owned clock', () => {
+    let state = foundManagedStudio('lot-annex-lifecycle')
+    let exp = stage(studioLotSnapshot(state), 'expansion')
+    expect(exp).toMatchObject({
+      available: true,
+      attention: 'empty',
+      constructionStatus: 'vacant',
+      constructionProgress01: 0,
+      constructionProgressText: 'Vacant expansion parcel',
+    })
+
+    state = applyActions(state, [{ kind: 'startDevelopmentCastingAnnex' }])
+    state = advance(state, 5)
+    exp = stage(studioLotSnapshot(state), 'expansion')
+    expect(exp).toMatchObject({
+      attention: 'active',
+      constructionStatus: 'building',
+      constructionProgress01: 5 / 13,
+      constructionProgressText: '5 of 13 weekly advances complete',
+    })
+
+    state = advance(state, 8)
+    exp = stage(studioLotSnapshot(state), 'expansion')
+    expect(exp).toMatchObject({
+      attention: 'positive',
+      constructionStatus: 'operational',
+      constructionProgress01: 1,
+      constructionProgressText: 'Operational since Week 13',
+    })
   })
 
   it('14. release presence does not invent theatrical payment data', () => {

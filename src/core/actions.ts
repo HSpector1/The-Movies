@@ -58,6 +58,18 @@ import {
   startCastingSession,
 } from './castingSessions.js'
 import {
+  ANNEX_CAPEX,
+  ANNEX_DURATION_WEEKS,
+  ANNEX_FACILITY_ID,
+  ANNEX_LEDGER_NOTE,
+  ANNEX_PARCEL_ID,
+  ANNEX_PROJECT_ID,
+  ANNEX_PROJECT_KIND,
+  annexCanonicalProductionIdCollision,
+  assertStudioConstructionInvariants,
+  initialManagedStudioConstruction,
+} from './construction.js'
+import {
   addManagedProductionWorkflow,
   assignShootingDirector,
   clearSceneryLoadIn,
@@ -66,6 +78,7 @@ import {
   scheduleShootingTake,
 } from './operations.js'
 import { publicityLiftAt } from './publicity.js'
+import { persistedProductionIds } from './productionIdentity.js'
 import {
   acceptScriptProject,
   activeScriptWriterAssignments,
@@ -143,41 +156,6 @@ function productionId(startTick: number, taken: ReadonlySet<string>): string {
   let k = 1
   while (taken.has(`${base}-${k}`)) k++
   return `${base}-${k}`
-}
-
-// A production identity remains authoritative after the live Production disappears.
-// In particular, cancellation deliberately keeps the sunk greenlight entries in the
-// ledger. Reusing that id would merge two films' accounting, so allocation must collide
-// against EVERY persisted production-id consumer, not just active/released films.
-function persistedProductionIds(state: GameState): Set<string> {
-  const taken = new Set<string>()
-  const add = (id: string | null | undefined): void => {
-    if (id !== null && id !== undefined) taken.add(id)
-  }
-
-  for (const active of state.studio.activeProductions) add(active.id)
-  for (const film of state.studio.releasedFilms) add(film.productionId)
-  for (const run of state.theatricalRuns) add(run.productionId)
-  for (const entry of state.ledger) add(entry.productionId)
-  for (const event of state.careerEvents) add(event.filmId)
-  for (const item of state.broadcastItems) {
-    add(item.facts.filmId)
-    if (item.topic === 'release') {
-      add(item.subjectId)
-      add(item.facts.subjectId)
-    }
-  }
-  // CoverageContext predates the explicit `filmId` fact and retains only its subject.
-  // Reserve it conservatively in case a legacy context's subject is a production id.
-  for (const context of state.coverageContexts) add(context.subjectId)
-  for (const workflow of state.operations.workflows) {
-    add(workflow.productionId)
-    for (const reservation of workflow.reservations) add(reservation.productionId)
-    add(workflow.shootingTask?.productionId)
-  }
-  for (const project of state.scriptDevelopment.projects) add(project.productionId)
-
-  return taken
 }
 
 // The production id the NEXT greenlight at the current tick WILL allocate — the SAME
@@ -1240,12 +1218,26 @@ function applyActivateStudioOperations(
   state: GameState,
   _action: Action & { kind: 'activateStudioOperations' },
 ): GameState {
+  // Activation changes construction authority from legacy-empty to the one
+  // managed parcel. Validate the complete pre-transition boundary first so a
+  // forged legacy capex row, cash divergence, or malformed sibling workflow
+  // cannot be laundered into an apparently vacant managed state.
+  assertStudioConstructionInvariants(state)
   if (state.operations.mode !== 'legacy') {
     throw new Error('applyActions: activateStudioOperations rejected — studio operations are already managed')
   }
   if (state.operations.facilities.length !== 0 || state.operations.workflows.length !== 0) {
     throw new Error(
       'applyActions: activateStudioOperations rejected — legacy operations state is not an empty slate',
+    )
+  }
+  if (
+    state.construction.mode !== 'legacy' ||
+    state.construction.parcels.length !== 0 ||
+    state.construction.projects.length !== 0
+  ) {
+    throw new Error(
+      'applyActions: activateStudioOperations rejected — legacy construction state is not an empty slate',
     )
   }
   if (!economyEngaged(state)) {
@@ -1263,7 +1255,94 @@ function applyActivateStudioOperations(
       'applyActions: activateStudioOperations rejected — the active production slate is not empty',
     )
   }
-  return { ...state, operations: initialManagedStudioOperations() }
+  return {
+    ...state,
+    operations: initialManagedStudioOperations(),
+    construction: initialManagedStudioConstruction(),
+  }
+}
+
+function applyStartDevelopmentCastingAnnex(
+  state: GameState,
+  _action: Action & { kind: 'startDevelopmentCastingAnnex' },
+): GameState {
+  // Reject malformed/stale state before deriving any transition. The exact V11
+  // policy prevents research-only configured facilities from entering production.
+  assertStudioConstructionInvariants(state)
+  if (state.operations.mode !== 'managed' || state.construction.mode !== 'managed') {
+    throw new Error(
+      'applyActions: startDevelopmentCastingAnnex rejected — studio operations and construction are not managed',
+    )
+  }
+  if (!economyEngaged(state)) {
+    throw new Error(
+      'applyActions: startDevelopmentCastingAnnex rejected — the studio economy is not engaged',
+    )
+  }
+  if (state.founding !== null) {
+    throw new Error(
+      'applyActions: startDevelopmentCastingAnnex rejected — the studio is still in its founding draft',
+    )
+  }
+  const parcel = state.construction.parcels[0]
+  if (parcel?.id !== ANNEX_PARCEL_ID || parcel.projectId !== null) {
+    throw new Error(
+      'applyActions: startDevelopmentCastingAnnex rejected — the expansion parcel is not vacant',
+    )
+  }
+  if (state.construction.projects.length !== 0) {
+    throw new Error(
+      'applyActions: startDevelopmentCastingAnnex rejected — the Annex project already exists',
+    )
+  }
+  if (state.operations.facilities.some((facility) => facility.id === ANNEX_FACILITY_ID)) {
+    throw new Error(
+      'applyActions: startDevelopmentCastingAnnex rejected — the Annex facility id is already in use',
+    )
+  }
+  const identityCollision = annexCanonicalProductionIdCollision(state)
+  if (identityCollision !== null) {
+    throw new Error(
+      `applyActions: startDevelopmentCastingAnnex rejected — canonical Annex id ${JSON.stringify(identityCollision)} is already reserved by persisted production history`,
+    )
+  }
+  const affordability = canAfford(state, ANNEX_CAPEX)
+  if (!affordability.ok) {
+    throw new Error(
+      `applyActions: startDevelopmentCastingAnnex rejected — ${affordability.reason} (D-12 solvency gate)`,
+    )
+  }
+
+  const startedWeek = state.market.tick
+  const project = {
+    id: ANNEX_PROJECT_ID,
+    kind: ANNEX_PROJECT_KIND,
+    parcelId: ANNEX_PARCEL_ID,
+    facilityId: ANNEX_FACILITY_ID,
+    status: 'building' as const,
+    capex: ANNEX_CAPEX,
+    startedWeek,
+    dueWeek: startedWeek + ANNEX_DURATION_WEEKS,
+    completedWeek: null,
+  }
+  const entry: LedgerEntry = {
+    week: startedWeek,
+    kind: 'constructionCapex',
+    amount: -ANNEX_CAPEX,
+    constructionProjectId: ANNEX_PROJECT_ID,
+    note: ANNEX_LEDGER_NOTE,
+  }
+
+  return {
+    ...state,
+    studio: { ...state.studio, cash: state.studio.cash - ANNEX_CAPEX },
+    ledger: [...state.ledger, entry],
+    construction: {
+      mode: 'managed',
+      parcels: [{ id: ANNEX_PARCEL_ID, projectId: ANNEX_PROJECT_ID }],
+      projects: [project],
+    },
+  }
 }
 
 function requireActiveProductionForOperations(
@@ -1915,6 +1994,9 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'acknowledgeCastingSession':
         next = applyAcknowledgeCastingSession(next, action)
+        break
+      case 'startDevelopmentCastingAnnex':
+        next = applyStartDevelopmentCastingAnnex(next, action)
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).

@@ -17,7 +17,6 @@ import {
   convertV9ToV10,
   exportSave,
   importSave,
-  makeSave,
   makeSaveV9,
   makeSaveV10,
   migrateToV8,
@@ -150,7 +149,7 @@ function managedState(
 }
 
 describe("Casting Sessions V1 — SaveFileV10", () => {
-  it("writes V10 by default and round-trips every session lifecycle byte-identically", () => {
+  it("writes frozen V10 explicitly and round-trips every session lifecycle byte-identically", () => {
     const states = [
       generateWorld("save-v10-legacy"),
       managedState("save-v10-auditioning", "auditioning"),
@@ -159,7 +158,7 @@ describe("Casting Sessions V1 — SaveFileV10", () => {
     ];
 
     for (const state of states) {
-      const save = makeSave(state);
+      const save = makeSaveV10(state);
       expect(save.saveVersion).toBe(10);
       expect(validateSave(save)).toBe(save);
       expect(validateSaveV10(save)).toBe(save);

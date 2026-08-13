@@ -160,6 +160,7 @@ function productionDecisionStudio(seed: string): GameState {
   const directGreenlightState: GameState = {
     ...founded,
     scriptDevelopment: { mode: 'legacy', projects: [] },
+    castingSessions: { mode: 'legacy', sessions: [] },
   }
   const greenlit = greenlight(directGreenlightState, directPackage(directGreenlightState))
   if (!greenlit.ok) throw new Error(greenlit.error)
@@ -543,7 +544,7 @@ describe('Studio Calendar V1 — player surface', () => {
     expect(screen.getByTestId('no-runs')).toHaveTextContent('No films in theaters')
   })
 
-  it('keeps SaveFileV10 and autosave bytes unchanged through full App calendar navigation', async () => {
+  it('keeps SaveFileV11 and autosave bytes unchanged through full App calendar navigation', async () => {
     const state = draftingStudio('calendar-byte-neutral-navigation')
     const event = studioCalendarBoard(state).commitments.find(
       (candidate) => candidate.kind === 'scriptDue',

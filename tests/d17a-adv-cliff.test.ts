@@ -122,6 +122,23 @@ function advanceEngaged(s: GameState, n: number): GameState {
 const overheadAt = (s: GameState, week: number) =>
   s.ledger.filter((e) => e.kind === 'overhead' && e.week === week)
 
+function withCashIdentity(state: GameState, cash: number): GameState {
+  const amount = cash - state.studio.cash
+  return {
+    ...state,
+    studio: { ...state.studio, cash },
+    ledger: [
+      ...state.ledger,
+      {
+        week: state.market.tick,
+        kind: amount >= 0 ? ('studioRevenue' as const) : ('overhead' as const),
+        amount,
+        note: 'test fixture cash identity adjustment',
+      },
+    ],
+  }
+}
+
 // ═════════════════════════════════════════════════════════════════════════════
 describe('D-17A/C — path 1: every contract expires NATURALLY', () => {
   // 52-week (CONTRACT_MIN_WEEKS) terms signed at week 0 → all expire entering week 52.
@@ -240,7 +257,7 @@ describe('D-17A/C — path 2: the studio FIRES EVERYONE mid-run', () => {
 
   it('R3: firing everyone is UNGATED and may legally drive cash below zero', () => {
     let s = foundStudio('adv-c-r3', 156)
-    s = { ...s, studio: { ...s.studio, cash: 1_000 } } // termination costs will dwarf this
+    s = withCashIdentity(s, 1_000) // termination costs will dwarf this
     expect(s.contracts.length).toBeGreaterThan(0)
     for (const c of [...s.contracts]) {
       s = applyActions(s, [{ kind: 'releaseTalent', talentId: c.talentId }]) // must NOT throw
@@ -306,19 +323,19 @@ describe('D-17A/C — post-cliff, the ENGAGED greenlight branch is fully live, g
   it('charges the engaged freelancer fees and enforces the D-12 solvency gate at the boundary', () => {
     const { s, commitment, attempt } = postCliffWithLegalFreelancers()
 
-    const ok = attempt({ ...s, studio: { ...s.studio, cash: commitment } })
+    const ok = attempt(withCashIdentity(s, commitment))
     expect(ok.studio.activeProductions.length).toBe(1)
     expect(ok.studio.cash).toBe(0)
     expect(ok.ledger.filter((e) => e.kind === 'freelancerFee').length).toBe(6) // the ENGAGED cost model
 
-    expect(() => attempt({ ...s, studio: { ...s.studio, cash: commitment - 1 } })).toThrow(
+    expect(() => attempt(withCashIdentity(s, commitment - 1))).toThrow(
       /D-12 solvency gate/,
     )
   })
 
   it('and that rosterless film still releases into a D-12 theatrical run, never a lump', () => {
     const { s, commitment, attempt } = postCliffWithLegalFreelancers()
-    const done = advanceEngaged(attempt({ ...s, studio: { ...s.studio, cash: commitment } }), 16)
+    const done = advanceEngaged(attempt(withCashIdentity(s, commitment)), 16)
     const run0 = done.theatricalRuns[0]!
     expect(run0.economyModelVersion).toBe(TUNING.ECONOMY_MODEL_VERSION)
     expect(run0.status).toBe('completed')

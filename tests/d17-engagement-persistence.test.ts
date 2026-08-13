@@ -31,6 +31,7 @@ import {
   makeSave,
   makeSaveV3,
   makeSaveV5,
+  makeSaveV10,
   migrateToV6,
   OracleAgent,
   stableStringify,
@@ -47,6 +48,8 @@ import type {
   GameStateV5,
   GameStateV6,
   LedgerEntry,
+  LedgerEntryV10,
+  LedgerKindV10,
 } from '../src/core/index.js'
 
 // ── helpers ───────────────────────────────────────────────────────────────────
@@ -130,18 +133,19 @@ function headlessRun(seed: string, weeks: number): GameState {
 // a broken converter would still pass. The `Omit<>`-typed returns make an omission a type error.
 // Strip the live state back to the FROZEN GameStateV6 shape a real V6 save carries.
 function toV6(s: GameState): GameStateV6 {
-  const { publicity: _publicity, operations: _operations, scriptDevelopment: _scripts, ...v6 } = s
+  const { publicity: _publicity, operations: _operations, scriptDevelopment: _scripts, castingSessions: _casting, ...v6 } = makeSaveV10(s).state
   return v6
 }
 
 // Strip the live state back to the FROZEN GameStateV5 shape, as a real V5 save carries it.
 function toV5(s: GameState): GameStateV5 {
-  const { economyEngagedEver: _dropped, publicity: _publicity, operations: _operations, scriptDevelopment: _scripts, ...v5 } = s
+  const { economyEngagedEver: _dropped, publicity: _publicity, operations: _operations, scriptDevelopment: _scripts, castingSessions: _casting, ...v5 } = makeSaveV10(s).state
   return v5
 }
 
 // Strip the live state back to the FROZEN GameStateV3 shape (a legacy D-11 save).
 function toV3(s: GameState): GameStateV3 {
+  const frozen = makeSaveV10(s).state
   const {
     economyEngagedEver: _economyEngagedEver,
     careerEvents: _careerEvents,
@@ -149,12 +153,15 @@ function toV3(s: GameState): GameStateV3 {
     publicity: _publicity,
     operations: _operations,
     scriptDevelopment: _scriptDevelopment,
+    castingSessions: _castingSessions,
     ...v3
-  } = s
+  } = frozen
   return v3
 }
 
-const ENGAGED_KINDS = ['payroll', 'overhead', 'signingBonus', 'termination', 'freelancerFee', 'studioRevenue']
+const ENGAGED_KINDS = ['payroll', 'overhead', 'signingBonus', 'termination', 'freelancerFee', 'studioRevenue'] as const satisfies readonly LedgerKindV10[]
+const isEngagedKind = (kind: LedgerEntry['kind']): kind is LedgerKindV10 =>
+  (ENGAGED_KINDS as readonly string[]).includes(kind)
 
 // ══════════════════════════════════════════════════════════════════════════════
 // PART 1 — the fact is set at exactly the intended moments, and never cleared
@@ -311,7 +318,7 @@ describe('D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save
     const s = headlessRun('d17-mig-headless-films', 30)
     expect(s.ledger.some((e) => e.kind === 'production')).toBe(true)
     expect(s.ledger.some((e) => e.kind === 'boxOffice')).toBe(true)
-    expect(s.ledger.some((e) => ENGAGED_KINDS.includes(e.kind))).toBe(false)
+    expect(s.ledger.some((e) => isEngagedKind(e.kind))).toBe(false)
     expect(convertV5ToV6(makeSaveV5(toV5(s))).state.economyEngagedEver).toBe(false)
   })
 
@@ -347,7 +354,7 @@ describe('D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save
       ...s,
       founding: null,
       contracts: [],
-      ledger: s.ledger.filter((e) => !ENGAGED_KINDS.includes(e.kind)),
+      ledger: s.ledger.filter((e) => !isEngagedKind(e.kind)),
     }
     expect(convertV5ToV6(makeSaveV5(toV5(runOnly))).state.economyEngagedEver).toBe(true)
   })
@@ -357,20 +364,20 @@ describe('D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save
     expect(bare.contracts.length).toBe(0)
     // isolate the ledger clause: no founding, no contracts, no theatrical runs
     const ledgerOnly: GameState = { ...bare, founding: null, contracts: [], theatricalRuns: [] }
-    expect(ledgerOnly.ledger.some((e) => ENGAGED_KINDS.includes(e.kind))).toBe(true)
+    expect(ledgerOnly.ledger.some((e) => isEngagedKind(e.kind))).toBe(true)
     expect(convertV5ToV6(makeSaveV5(toV5(ledgerOnly))).state.economyEngagedEver).toBe(true)
   })
 
   it('each engaged-only ledger kind independently proves engagement', () => {
     const base = toV5(generateWorld('d17-mig-kinds'))
     for (const kind of ENGAGED_KINDS) {
-      const entry = { week: 0, kind, amount: -1, note: `${kind} probe` } as LedgerEntry
+      const entry: LedgerEntryV10 = { week: 0, kind, amount: -1, note: `${kind} probe` }
       const withKind: GameStateV5 = { ...base, ledger: [entry] }
       expect(convertV5ToV6(makeSaveV5(withKind)).state.economyEngagedEver).toBe(true)
     }
     // …and the two excluded kinds do NOT
     for (const kind of ['production', 'boxOffice']) {
-      const entry = { week: 0, kind, amount: -1, note: `${kind} probe` } as LedgerEntry
+      const entry: LedgerEntryV10 = { week: 0, kind: kind as LedgerKindV10, amount: -1, note: `${kind} probe` }
       const withKind: GameStateV5 = { ...base, ledger: [entry] }
       expect(convertV5ToV6(makeSaveV5(withKind)).state.economyEngagedEver).toBe(false)
     }
@@ -435,10 +442,10 @@ describe('D-17A/R2: a V6 save without an explicit engagement fact is rejected LO
     expect(() => validateSaveV6(bad)).toThrow(/economyEngagedEver/)
   })
 
-  it('new games save as V10 and carry the fact', () => {
-    // Casting Sessions V1: makeSave writes V10; the R2 fact is still carried.
+  it('new games save as V11 and carry the fact', () => {
+    // Annex V1: makeSave writes V11; the R2 fact is still carried.
     const save = makeSave(foundStudio('d17-newgame'))
-    expect(save.saveVersion).toBe(10)
+    expect(save.saveVersion).toBe(11)
     expect(save.state.economyEngagedEver).toBe(true)
   })
 })

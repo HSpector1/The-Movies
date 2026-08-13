@@ -30,7 +30,7 @@ import type {
   GameStateV3,
   GameStateV4,
   GameStateV5,
-  LedgerEntry,
+  LedgerEntryV10,
   TheatricalRun,
 } from '../src/core/index.js'
 
@@ -77,7 +77,7 @@ const RELEASED_FILM = {
   boxOffice: { opening: 1_000_000, total: 4_000_000 },
 }
 
-const entry = (kind: LedgerEntry['kind'], week: number, amount: number): LedgerEntry => ({
+const entry = (kind: LedgerEntryV10['kind'], week: number, amount: number): LedgerEntryV10 => ({
   week,
   kind,
   amount,
@@ -157,7 +157,7 @@ describe('D-17A/D — the reconstructed engagement fact, one save class at a tim
   })
 
   it('each engaged-only ledger kind ALONE is sufficient evidence; the two shared kinds are not', () => {
-    const engagedOnly: LedgerEntry['kind'][] = [
+    const engagedOnly: LedgerEntryV10['kind'][] = [
       'payroll',
       'overhead',
       'signingBonus',
@@ -169,7 +169,7 @@ describe('D-17A/D — the reconstructed engagement fact, one save class at a tim
       const save = v5({ ledger: [entry(kind, 3, -1)] }, `d-kind-${kind}`)
       expect(migrateToV6(save).state.economyEngagedEver).toBe(true)
     }
-    for (const kind of ['production', 'boxOffice'] as LedgerEntry['kind'][]) {
+    for (const kind of ['production', 'boxOffice'] as LedgerEntryV10['kind'][]) {
       const save = v5({ ledger: [entry(kind, 3, -1)] }, `d-shared-${kind}`)
       expect(migrateToV6(save).state.economyEngagedEver).toBe(false)
     }
@@ -267,9 +267,9 @@ describe('D-17A/D — validateSave still guards the version boundary loudly', ()
     expect(validateSaveV6(v6)).toBe(v6)
   })
 
-  // Casting Sessions V1: 10 is now known, so the loud-rejection boundary is 11.
-  it('rejects an unknown version 11 loudly', () => {
-    expect(() => validateSave({ ...v6, saveVersion: 11 })).toThrow(/unknown saveVersion 11/)
+  // Development & Casting Annex V1: 11 is known, so the loud-rejection boundary is 12.
+  it('rejects an unknown version 12 loudly', () => {
+    expect(() => validateSave({ ...v6, saveVersion: 12 })).toThrow(/unknown saveVersion 12/)
   })
 
   it('rejects a V6 whose persisted regime fact is missing or not a boolean', () => {

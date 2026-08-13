@@ -36,6 +36,7 @@ import { Metric, StandingBar } from '../components/common.tsx'
 import { AffordabilityScopesCard } from '../components/AffordabilityScopes.tsx'
 import { ProductionBoard } from '../components/ProductionBoard.tsx'
 import { StudioCalendarPreview } from './StudioCalendar.tsx'
+import { StudioDevelopmentPreview } from './StudioDevelopment.tsx'
 
 export function Dashboard({
   state,
@@ -50,6 +51,7 @@ export function Dashboard({
   onOpenLot,
   onOpenRecap,
   onOpenCalendar,
+  onOpenDevelopment,
   onSaves,
   onOpenAutopsy,
   onOpenClipping,
@@ -73,6 +75,7 @@ export function Dashboard({
   // D-15: open the read-only Studio Run Recap.
   onOpenRecap?: () => void
   onOpenCalendar?: () => void
+  onOpenDevelopment?: () => void
   onSaves: () => void
   onOpenAutopsy: (film: FilmResult) => void
   // D-11.C PART 2: reopen a film's newspaper clipping. Optional — the clipping is
@@ -295,6 +298,13 @@ export function Dashboard({
 
       <div style={{ height: 16 }} />
 
+      <StudioDevelopmentPreview
+        state={state}
+        {...(onOpenDevelopment ? { onOpen: onOpenDevelopment } : {})}
+      />
+
+      <div style={{ height: 16 }} />
+
       <div className="card stack" data-testid="publicity-panel">
         <div className="spread" style={{ alignItems: 'flex-start', gap: 16 }}>
           <div>
@@ -393,6 +403,9 @@ export function Dashboard({
           </Metric>
           <Metric label="Revenue still to come" small testid="fin-pipeline">
             {money(fin.pipelineRunRevenue)}
+          </Metric>
+          <Metric label="Studio construction" small testid="fin-construction">
+            {money(Math.abs(fin.totals.construction))}
           </Metric>
         </div>
         <p className="hint" style={{ marginTop: 8 }}>

@@ -3,7 +3,7 @@
 // `importSaveJson` is the only way a save reaches the running game, so the R2 closure is
 // only real if a LITERAL historical V5 JSON file comes back with the right regime.
 // These tests take real V5 JSON (not a later state mislabeled as V5) through the
-// adapter and assert the reconstructed fact at the current V10 boundary.
+// adapter and assert the reconstructed fact at the current V11 boundary.
 //
 // Runs under the `ui` vitest project because it imports the adapter.
 
@@ -16,6 +16,7 @@ import {
   generateWorld,
   makeSaveV5,
   makeSaveV8,
+  makeSaveV10,
   OracleAgent,
   tick,
 } from '../../../src/core/index.ts'
@@ -29,13 +30,14 @@ function toV5(s: GameState): GameStateV5 {
     publicity: _publicity,
     operations: _operations,
     scriptDevelopment: _scriptDevelopment,
+    castingSessions: _castingSessions,
     ...v5
-  } = s
+  } = makeSaveV10(s).state
   return v5
 }
 
 function toV8(s: GameState): GameStateV8 {
-  const { scriptDevelopment: _scriptDevelopment, ...v8 } = s
+  const { scriptDevelopment: _scriptDevelopment, castingSessions: _castingSessions, ...v8 } = makeSaveV10(s).state
   return v8
 }
 
@@ -82,7 +84,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
   it('a CURRENT-version save round-trips through the adapter as NOT converted', () => {
     const state = newFoundedGame('d17-adapter-v10')
     const json = exportSaveJson(state)
-    expect(JSON.parse(json).saveVersion).toBe(10) // Casting Sessions V1: new games save as V10
+    expect(JSON.parse(json).saveVersion).toBe(11) // Annex V1: new games save as V11
 
     const r = importSaveJson(json)
     expect(r.ok).toBe(true)
@@ -92,7 +94,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
     expect(exportSaveJson(r.state)).toBe(json)
   })
 
-  it('a literal V8 save upgrades to V10 with legacy screenplay and casting state', () => {
+  it('a literal V8 save upgrades to V11 with legacy screenplay, casting, and construction state', () => {
     const state = newFoundedGame('d17-adapter-v8')
     const json = exportSave(makeSaveV8(toV8(state)))
     const parsed = JSON.parse(json)
@@ -106,7 +108,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
     expect(r.state.operations).toEqual(state.operations)
     expect(r.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
     expect(r.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
-    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(10)
+    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(11)
   })
 
   it('a V5 file with a hand-added economyEngagedEver is still read as V5 (the flag is recomputed)', () => {

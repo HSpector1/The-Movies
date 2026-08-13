@@ -302,6 +302,9 @@ export type CapitalStory = {
   // on its own line, and the cash timeline picks it up automatically because it is a
   // ledger entry like any other.
   totalPublicity: number
+  // Annex V1: studio-level capital investment, positive for display. It is neither
+  // film commitment nor recurring fixed cost and is excluded from both allocations.
+  totalConstruction: number
   currentWeeklyPayroll: number
   currentWeeklyOverhead: number
   currentWeeklyBurn: number
@@ -581,6 +584,7 @@ export function studioRunRecap(state: GameState): StudioRunRecap {
   // Normalised away from -0: a studio that never ran a campaign is the COMMON case here, and
   // `-0` would render as "-$0" on the capital line.
   const totalPublicity = totals.publicity === 0 ? 0 : -totals.publicity
+  const totalConstruction = totals.construction === 0 ? 0 : -totals.construction
 
   const runByProd = new Map(state.theatricalRuns.map((r) => [r.productionId, r]))
   const conceptById = new Map(state.concepts.map((c) => [c.id, c]))
@@ -707,6 +711,7 @@ export function studioRunRecap(state: GameState): StudioRunRecap {
     totalPayroll: round2(totalPayroll),
     totalOverhead: round2(totalOverhead),
     totalPublicity: round2(totalPublicity),
+    totalConstruction: round2(totalConstruction),
     currentWeeklyPayroll: round2(curPayroll),
     currentWeeklyOverhead: round2(curOverhead),
     currentWeeklyBurn: round2(curBurn),

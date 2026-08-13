@@ -4,9 +4,14 @@
 // WHY it stopped. Releases are the exception: they route to the newspaper reveal (their
 // own summary), never here. Pure display over a SimResult; no simulation logic.
 
-import type { PeriodSummary, SimStopReason } from '../engine/adapter.ts'
+import type {
+  ConstructionCompletionSummary,
+  PeriodSummary,
+  SimStopReason,
+} from '../engine/adapter.ts'
 import { money } from '../format.ts'
 import { Metric } from '../components/common.tsx'
+import { ConstructionCompletionNotice } from '../components/ConstructionCompletionNotice.tsx'
 
 export function WeeklySummary({
   summary,
@@ -14,6 +19,7 @@ export function WeeklySummary({
   stopMessage,
   weeks,
   cashNow,
+  constructionCompletion,
   onContinue,
 }: {
   summary: PeriodSummary
@@ -23,6 +29,7 @@ export function WeeklySummary({
   stopMessage: string
   weeks: number
   cashNow: number
+  constructionCompletion?: ConstructionCompletionSummary | null
   onContinue: () => void
 }) {
   const alert = stopReason === 'cashNegative' || stopReason === 'limit'
@@ -60,6 +67,9 @@ export function WeeklySummary({
           <Metric label="Publicity" small testid="sum-publicity">
             <span className="money neg">{money(summary.publicity)}</span>
           </Metric>
+          <Metric label="Studio construction" small testid="sum-construction">
+            <span className="money neg">{money(summary.construction)}</span>
+          </Metric>
           <Metric label="Net this period" small testid="sum-net">
             <span className={summary.netCash < 0 ? 'money neg' : 'money pos'}>
               {summary.netCash >= 0 ? '+' : ''}
@@ -87,6 +97,9 @@ export function WeeklySummary({
           </button>
         </div>
       </div>
+      {constructionCompletion && (
+        <ConstructionCompletionNotice completion={constructionCompletion} />
+      )}
     </div>
   )
 }

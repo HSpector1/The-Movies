@@ -347,7 +347,7 @@ export type Contract = {
 //   studio.cash === INITIAL_CASH + Σ ledger.amount
 // (founding recruitment-fund signing bonuses are the one deliberate exception —
 // they draw founding.budget, never cash, and are tracked in founding.spentBonus).
-export type LedgerKind =
+export type LedgerKindV10 =
   | 'production' // negative + marketing debited at greenlight
   | 'boxOffice' // box-office total credited at release (LEGACY/M0A single-lump path only)
   | 'payroll' // weekly Σ contracted salaries debited at tick
@@ -361,14 +361,34 @@ export type LedgerKind =
   // contribution, or the fixed-cost allocator. Engaged-only, integer dollars.
   | 'publicity'
 
-export type LedgerEntry = {
+// Frozen V3–V10 ledger row. The never-typed correlation makes accidental V11
+// authority a compile-time error even when an object is structurally wider.
+export type LedgerEntryV10 = {
   week: number
-  kind: LedgerKind
+  kind: LedgerKindV10
   amount: number // SIGNED: outflow negative, inflow positive
   talentId?: string
   productionId?: string
+  constructionProjectId?: never
   note: string
 }
+
+export type LedgerKind = LedgerKindV10 | 'constructionCapex'
+
+// Live V11 rows discriminate the one capital event and its exact correlation.
+// Construction capex cannot masquerade as film/talent spend, while historical
+// rows cannot carry constructionProjectId.
+export type LedgerEntry =
+  | LedgerEntryV10
+  | {
+      week: number
+      kind: 'constructionCapex'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId: 'construction-development-casting-annex'
+      note: string
+    }
 
 // The founding draft (D-11.2). Present only in a new PLAYER game until foundStudio
 // closes it; null in the headless world (generateWorld stays employment-free).
@@ -398,7 +418,7 @@ export type GameStateV2 = {
 export type GameStateV3 = GameStateV2 & {
   founding: FoundingState | null
   contracts: Contract[]
-  ledger: LedgerEntry[]
+  ledger: LedgerEntryV10[]
   freeAgents: string[] // ids immediately signable (former employees; expired/released)
 }
 
@@ -663,7 +683,45 @@ export type GameStateV10 = GameStateV9 & {
   castingSessions: CastingSessions
 }
 
-export type GameState = GameStateV10
+// ── Development & Casting Annex V1 (SaveFileV11) ─────────────────────────
+export type ConstructionMode = 'legacy' | 'managed'
+export type ConstructionParcelId = 'expansion'
+export type ConstructionProjectId = 'construction-development-casting-annex'
+export type ConstructionProjectKind = 'development-casting-annex'
+export type ConstructionFacilityId = 'facility-development-casting-annex'
+export type ConstructionProjectStatus = 'building' | 'completed'
+
+export type ConstructionParcel = {
+  id: ConstructionParcelId
+  projectId: ConstructionProjectId | null
+}
+
+export type ConstructionProject = {
+  id: ConstructionProjectId
+  kind: ConstructionProjectKind
+  parcelId: ConstructionParcelId
+  facilityId: ConstructionFacilityId
+  status: ConstructionProjectStatus
+  capex: 780000
+  startedWeek: number
+  dueWeek: number
+  completedWeek: number | null
+}
+
+export type StudioConstruction = {
+  mode: ConstructionMode
+  parcels: ConstructionParcel[]
+  projects: ConstructionProject[]
+}
+
+// SaveFileV10 remains recursively frozen above. SaveFileV11 owns the one new
+// construction root and is the live state written by current core code.
+export type GameStateV11 = Omit<GameStateV10, 'ledger'> & {
+  ledger: LedgerEntry[]
+  construction: StudioConstruction
+}
+
+export type GameState = GameStateV11
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
@@ -743,6 +801,8 @@ export type Action =
   | { kind: 'activateCastingSessions' }
   | { kind: 'startCastingSession'; session: StartCastingSessionPayload }
   | { kind: 'acknowledgeCastingSession'; sessionId: string }
+  // ── Development & Casting Annex V1 ──
+  | { kind: 'startDevelopmentCastingAnnex' }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

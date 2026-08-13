@@ -96,13 +96,14 @@ import {
   makeSave,
   exportSave,
   importSave,
-  migrateToV10,
+  migrateToV11,
   convertV4ToV5,
   convertV5ToV6,
   convertV6ToV7,
   convertV7ToV8,
   convertV8ToV9,
   convertV9ToV10,
+  convertV10ToV11,
   importLegacyV2ToV4,
   importLegacyV1ToV4,
   // ── D-11 employment / contracts / roster / freelancer market ──
@@ -186,6 +187,8 @@ import {
   castingSessionsReadModel as coreCastingSessionsReadModel,
   // Studio Calendar V1 — one pure, studio-wide planning projection.
   studioCalendar as coreStudioCalendar,
+  // Development & Casting Annex V1 — one core-owned lifecycle projection.
+  studioConstructionView as coreStudioConstructionView,
 } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
@@ -300,6 +303,7 @@ import type {
   StudioCalendarContractView,
   StudioCalendarExpiryClusterView,
   StudioCalendarSummaryView,
+  StudioConstructionView,
 } from '../../../src/core/index.ts'
 
 // Re-export the core types the UI needs, so components import types from the
@@ -392,6 +396,7 @@ export type {
   StudioCalendarContractView,
   StudioCalendarExpiryClusterView,
   StudioCalendarSummaryView,
+  StudioConstructionView,
 }
 
 export const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support']
@@ -821,6 +826,21 @@ export function castingSessionsBoard(state: GameState): CastingSessionsReadModel
 // React may format values and attach navigation labels, but owns no date or rule.
 export function studioCalendarBoard(state: GameState): StudioCalendarView {
   return coreStudioCalendar(state)
+}
+
+// Development & Casting Annex V1. React receives the exact core projection and
+// dispatches the one parameter-free action; it never owns price, duration, ids,
+// affordability, progress, or capacity arithmetic.
+export function studioDevelopment(state: GameState): StudioConstructionView {
+  return coreStudioConstructionView(state)
+}
+
+export function startDevelopmentCastingAnnexAction(state: GameState): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'startDevelopmentCastingAnnex' }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
 }
 
 export function activateCastingSessionsAction(state: GameState): ActionOutcome {
@@ -1764,14 +1784,52 @@ export type AdvanceResult = {
   preTick: GameState
   next: GameState
   released: FilmResult[]
+  constructionCompletion: ConstructionCompletionSummary | null
 }
+
+export type ConstructionCompletionSummary = {
+  projectId: NonNullable<StudioConstructionView['projectId']>
+  facilityId: NonNullable<StudioConstructionView['facilityId']>
+  name: StudioConstructionView['name']
+  completedWeek: number
+  message: string
+}
+
+function constructionCompletionBetween(
+  before: GameState,
+  after: GameState,
+): ConstructionCompletionSummary | null {
+  const prior = coreStudioConstructionView(before, { facilityPolicy: 'configured' })
+  const current = coreStudioConstructionView(after, { facilityPolicy: 'configured' })
+  if (prior.status !== 'building' || current.status !== 'operational') return null
+  if (
+    current.projectId === null ||
+    current.facilityId === null ||
+    current.completedWeek === null
+  ) {
+    throw new Error('construction completion has no canonical Annex identity')
+  }
+  return {
+    projectId: current.projectId,
+    facilityId: current.facilityId,
+    name: current.name,
+    completedWeek: current.completedWeek,
+    message: `${current.name} is Operational in Week ${current.completedWeek}. One shared Development & Casting slot is now available.`,
+  }
+}
+
 export function advanceWeek(state: GameState): AdvanceResult {
   const preTick = state // pre-tick snapshot (immutable; tick returns a fresh state)
   const next = tick(state, { develop: true }) // RULING A: development ON in normal play
   // Newly-released films = the entries appended to releasedFilms this tick.
   const before = state.studio.releasedFilms.length
   const released = next.studio.releasedFilms.slice(before)
-  return { preTick, next, released }
+  return {
+    preTick,
+    next,
+    released,
+    constructionCompletion: constructionCompletionBetween(preTick, next),
+  }
 }
 
 // ── D-12 financial read models (thin selectors over the pure core economyView) ─
@@ -1843,6 +1901,7 @@ export type SimStopReason =
   | 'scriptReview'
   | 'castingReview'
   | 'productionDecision'
+  | 'constructionCompleted'
   | 'runCompleted'
   | 'contractExpired'
   | 'renewalWindow'
@@ -1860,6 +1919,11 @@ export type SimResult = {
   productionDecision: ProductionBoardCardView | null
   scriptDecision: ScriptProjectsReadModel['nextDecision']
   castingDecision: CastingReviewDecisionView | null
+  // Orthogonal to the primary stop reason. If Annex completion shares a tick
+  // with a release, decision, run ending, cash crossing, or contract boundary,
+  // that primary event keeps its established priority while the completion is
+  // still carried to the first post-tick player surface exactly once.
+  constructionCompletion: ConstructionCompletionSummary | null
   // D-12 Phase 1: the engine-derived stop explanation the UI must display verbatim. React must NOT infer
   // the reason from current state (a completed run leaves no active-run trace to read after the fact).
   stopMessage: string
@@ -1888,6 +1952,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
       productionDecision: null,
       scriptDecision: existingScriptDecision,
       castingDecision: null,
+      constructionCompletion: null,
       stopMessage: simStopMessage('scriptReview', fromWeek, {
         released: [],
         completedRuns: [],
@@ -1914,6 +1979,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
       productionDecision: null,
       scriptDecision: null,
       castingDecision: existingCastingDecision,
+      constructionCompletion: null,
       stopMessage: simStopMessage('castingReview', fromWeek, {
         released: [],
         completedRuns: [],
@@ -1943,6 +2009,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
       productionDecision: existingDecision,
       scriptDecision: null,
       castingDecision: null,
+      constructionCompletion: null,
       stopMessage: simStopMessage('productionDecision', fromWeek, {
         released: [],
         completedRuns: [],
@@ -1963,6 +2030,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
   let stoppedProductionDecision: ProductionBoardCardView | null = null
   let stoppedScriptDecision: ScriptProjectsReadModel['nextDecision'] = null
   let stoppedCastingDecision: CastingReviewDecisionView | null = null
+  let constructionCompletion: ConstructionCompletionSummary | null = null
   let guardHit = true // stays true only if the loop exhausts without a governed stop
   for (let i = 0; i < SIM_CAP; i++) {
     const before = cur
@@ -1973,6 +2041,10 @@ export function advanceToNextEvent(state: GameState): SimResult {
     const activeRunsBefore = before.theatricalRuns.filter((r) => r.status === 'active')
     const after = tick(before, { develop: true })
     cur = after
+    const completedConstructionThisTick = constructionCompletionBetween(before, after)
+    if (completedConstructionThisTick !== null) {
+      constructionCompletion = completedConstructionThisTick
+    }
     // Stop-condition checks on the COMPLETED post-tick state (the FIRST that fires wins). The tick has
     // already applied this week's theatrical payment(s), payroll/overhead, and completed/removed runs in
     // the canonical order (tick.ts) — we only DETECT and stop; we never re-order or re-apply anything.
@@ -2045,6 +2117,14 @@ export function advanceToNextEvent(state: GameState): SimResult {
       guardHit = false
       break
     }
+    // Construction is a stop boundary when it is the only event on this tick,
+    // but never steals the established primary event priority above.
+    if (completedConstructionThisTick !== null) {
+      stopReason = 'constructionCompleted'
+      preStop = before
+      guardHit = false
+      break
+    }
   }
   const toWeek = cur.market.tick
   // Ledger entries + releaseTick are stamped with the PRE-increment week, so the ticks
@@ -2070,6 +2150,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
     productionDecision: stoppedProductionDecision,
     scriptDecision: stoppedScriptDecision,
     castingDecision: stoppedCastingDecision,
+    constructionCompletion,
     stopMessage,
     guardHit,
     summary,
@@ -2119,6 +2200,8 @@ function simStopMessage(
       const titles = ctx.completedRuns.map((r) => r.title)
       return `${at}: ${list(titles)} completed ${titles.length > 1 ? 'their theatrical runs' : 'its theatrical run'}.`
     }
+    case 'constructionCompleted':
+      return `${at}: committed studio construction reached its completion boundary.`
     case 'cashNegative':
       return `${at}: Studio cash crossed below $0.`
     case 'contractExpired':
@@ -2672,9 +2755,9 @@ export function remainingWeeks(prod: Production): number {
 }
 
 // ── Saves ────────────────────────────────────────────────────────────────────
-// New games save as SaveFileV10. V10 adds authoritative casting-session history to the
-// frozen V9 screenplay state. Older envelopes migrate deterministically to explicit
-// legacy modes without inventing workflows, screenplays, or auditions.
+// New games save as SaveFileV11. V11 appends authoritative construction lifecycle
+// state. Older envelopes migrate deterministically without inventing a project,
+// debit, completion, or facility.
 export function exportSaveJson(state: GameState): string {
   return exportSave(makeSave(state))
 }
@@ -2683,14 +2766,14 @@ export type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
   | { ok: false; error: string }
 
-// Import a save. Accepts V10 (current) and every legacy version V1–V9, all deterministic.
+// Import a save. Accepts V11 (current) and every legacy version V1–V10, all deterministic.
 // `converted` tells the caller a legacy save was upgraded so the UI can inform the player
-// — their original file is never overwritten (a fresh V10 is returned).
+// — their original file is never overwritten (a fresh V11 is returned).
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    const converted = save.saveVersion !== 10
-    return { ok: true, state: migrateToV10(save).state, converted }
+    const converted = save.saveVersion !== 11
+    return { ok: true, state: migrateToV11(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -2702,7 +2785,7 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json))))))).state,
+      state: convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -2716,7 +2799,7 @@ export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json))))))).state,
+      state: convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -4950,6 +5033,10 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
   const cash = state.studio.cash
   const standing = state.studio.standing
   const fin = financeCard(state)
+  // The lot remains usable by the committed configured-capacity research/test
+  // projection. Live V11 saves are exact Annex V1; this option does not broaden
+  // save acceptance or action legality.
+  const construction = coreStudioConstructionView(state, { facilityPolicy: 'configured' })
   const runway = fin.runway
   const standingBand = lotStandingBand(standing)
   const underDressed = standingBand === 'struggling'
@@ -5274,8 +5361,24 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
         break
       }
       case 'expansion':
-        attention = 'future'
-        reason = 'Reserved for future studio growth'
+        switch (construction.status) {
+          case 'legacy':
+            attention = 'future'
+            reason = 'No managed expansion parcel'
+            break
+          case 'vacant':
+            attention = 'empty'
+            reason = 'Vacant expansion parcel · Annex available'
+            break
+          case 'building':
+            attention = 'active'
+            reason = `${construction.completedAdvances} of ${construction.durationWeeks} weekly advances complete`
+            break
+          case 'operational':
+            attention = 'positive'
+            reason = `Annex operational · ${construction.currentDevelopmentCastingCapacity} shared slots`
+            break
+        }
         break
       case 'gate':
       default:
@@ -5283,10 +5386,29 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
     }
     return {
       id,
-      available: true,
+      available: id !== 'expansion' || construction.status !== 'legacy',
       ...(underDressed ? { underDressed: true } : {}),
       attention,
       ...(reason ? { attentionReason: reason } : {}),
+      ...(id === 'expansion'
+        ? {
+            constructionStatus: construction.status,
+            constructionProgress01:
+              construction.status === 'building'
+                ? construction.completedAdvances / construction.durationWeeks
+                : construction.status === 'operational'
+                  ? 1
+                  : 0,
+            constructionProgressText:
+              construction.status === 'building'
+                ? `${construction.completedAdvances} of ${construction.durationWeeks} weekly advances complete`
+                : construction.status === 'operational'
+                  ? `Operational since Week ${String(construction.completedWeek)}`
+                  : construction.status === 'vacant'
+                    ? 'Vacant expansion parcel'
+                    : 'No managed expansion parcel',
+          }
+        : {}),
     }
   }
 

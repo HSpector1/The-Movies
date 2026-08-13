@@ -1,7 +1,7 @@
 // ── D-12 active-session recovery ──────────────────────────────────────────────
 // A browser refresh / HMR reload / dev-server restart used to discard the whole studio (the
 // authoritative GameState lived only in React memory). These tests prove the active-session autosave
-// round-trips the EXACT engine state through the current SaveFileV10 path, survives mid-production and mid-run,
+// round-trips the EXACT engine state through the current SaveFileV11 path, survives mid-production and mid-run,
 // fails safely on a corrupt payload, cannot collide with another app's storage key, and is cleared
 // only by an explicit New Studio.
 
@@ -32,6 +32,7 @@ import {
   generateWorld,
   makeSaveV5,
   makeSaveV8,
+  makeSaveV10,
   tick,
 } from '../../src/core/index.ts'
 import type { GameStateV5, GameStateV8 } from '../../src/core/index.ts'
@@ -81,13 +82,14 @@ function toV5(state: GameState): GameStateV5 {
     publicity: _publicity,
     operations: _operations,
     scriptDevelopment: _scriptDevelopment,
+    castingSessions: _castingSessions,
     ...v5
-  } = state
+  } = makeSaveV10(state).state
   return v5
 }
 
 function toV8(state: GameState): GameStateV8 {
-  const { scriptDevelopment: _scriptDevelopment, ...v8 } = state
+  const { scriptDevelopment: _scriptDevelopment, castingSessions: _castingSessions, ...v8 } = makeSaveV10(state).state
   return v8
 }
 
@@ -256,9 +258,9 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
     expect(loaded.state.economyEngagedEver).toBe(true)
     expect(economyEngaged(loaded.state)).toBe(true)
 
-    // …and re-saving it writes a V10 envelope that loads back UNCONVERTED.
+    // …and re-saving it writes a V11 envelope that loads back UNCONVERTED.
     saveActiveSession(loaded.state)
-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(10) // Casting Sessions V1: new games save as SaveFileV10.
+    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(11) // Annex V1: new games save as SaveFileV11.
     const again = loadActiveSession()
     expect(again.ok).toBe(true)
     if (!again.ok) return
@@ -284,9 +286,9 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
     expect(loaded.state.economyEngagedEver).toBe(false)
     expect(economyEngaged(loaded.state)).toBe(false)
 
-    // Round-trip: saved as V10, reloaded unconverted, still not engaged.
+    // Round-trip: saved as V11, reloaded unconverted, still not engaged.
     saveActiveSession(loaded.state)
-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(10) // Casting Sessions V1: new games save as SaveFileV10.
+    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(11) // Annex V1: new games save as SaveFileV11.
     const again = loadActiveSession()
     expect(again.ok).toBe(true)
     if (!again.ok) return
@@ -296,7 +298,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
 })
 
 describe('Script Projects V1 — a stored V8 autosave migrates on load', () => {
-  it('preserves operations, seeds legacy screenplay and casting state, then re-saves as V10', () => {
+  it('preserves operations, seeds legacy screenplay and casting state, then re-saves as V11', () => {
     const live = newFoundedGame('sess-v8-script-migration')
     const v8 = exportSave(makeSaveV8(toV8(live)))
     const parsedV8 = JSON.parse(v8)
@@ -312,10 +314,11 @@ describe('Script Projects V1 — a stored V8 autosave migrates on load', () => {
     expect(loaded.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
 
     saveActiveSession(loaded.state)
-    const parsedV10 = JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!)
-    expect(parsedV10.saveVersion).toBe(10)
-    expect(parsedV10.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
-    expect(parsedV10.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
+    const parsedV11 = JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!)
+    expect(parsedV11.saveVersion).toBe(11)
+    expect(parsedV11.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
+    expect(parsedV11.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
+    expect(parsedV11.state.construction).toEqual({ mode: 'legacy', parcels: [], projects: [] })
     const again = loadActiveSession()
     expect(again.ok).toBe(true)
     if (!again.ok) return

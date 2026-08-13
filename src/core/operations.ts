@@ -31,6 +31,16 @@ export const INITIAL_STUDIO_FACILITIES: readonly StudioFacility[] = Object.freez
   Object.freeze({ id: 'facility-soundstage-12', name: 'Soundstage 12', capability: 'soundstage', capacity: 1 }),
 ]) as readonly StudioFacility[]
 
+// The one construction-created facility authorized by Development & Casting
+// Annex V1. Keep this canonical object beside the allocation authority so save,
+// construction, and read models cannot drift into lookalike facility records.
+export const DEVELOPMENT_CASTING_ANNEX_FACILITY = Object.freeze({
+  id: 'facility-development-casting-annex',
+  name: 'Development & Casting Annex',
+  capability: 'development-casting',
+  capacity: 1,
+} as const satisfies StudioFacility)
+
 export function emptyStudioOperations(): StudioOperations {
   return { mode: 'legacy', facilities: [], workflows: [] }
 }
@@ -324,7 +334,10 @@ function invariant(condition: boolean, message: string): asserts condition {
 export function assertStudioOperationsInvariants(
   operations: StudioOperations,
   productions: readonly Production[],
-  options?: { facilityPolicy?: 'initial-v1' | 'configured' },
+  options?: {
+    facilityPolicy?: 'initial-v1' | 'configured' | 'annex-v1'
+    annexOperational?: boolean
+  },
 ): void {
   if (operations.mode === 'legacy') {
     invariant(operations.facilities.length === 0, 'legacy mode must have no facilities')
@@ -354,7 +367,8 @@ export function assertStudioOperationsInvariants(
     invariant(facilityCapabilities.has(capability), `managed operations have no ${capability} facility`)
   }
 
-  if ((options?.facilityPolicy ?? 'initial-v1') === 'initial-v1') {
+  const facilityPolicy = options?.facilityPolicy ?? 'initial-v1'
+  if (facilityPolicy === 'initial-v1') {
     invariant(
       operations.facilities.length === INITIAL_STUDIO_FACILITIES.length,
       'managed V1 facility count differs from the initial facility truth',
@@ -368,6 +382,29 @@ export function assertStudioOperationsInvariants(
           actual.capability === expected.capability &&
           actual.capacity === expected.capacity,
         `managed facility at index ${String(i)} differs from ${expected.id}`,
+      )
+    }
+  } else if (facilityPolicy === 'annex-v1') {
+    invariant(
+      typeof options?.annexOperational === 'boolean',
+      'annex-v1 policy requires an exact annexOperational lifecycle fact',
+    )
+    const expected = options.annexOperational
+      ? [...INITIAL_STUDIO_FACILITIES, DEVELOPMENT_CASTING_ANNEX_FACILITY]
+      : INITIAL_STUDIO_FACILITIES
+    invariant(
+      operations.facilities.length === expected.length,
+      'managed Annex V1 facility count disagrees with construction lifecycle',
+    )
+    for (let i = 0; i < expected.length; i++) {
+      const actual = operations.facilities[i]!
+      const canonical = expected[i]!
+      invariant(
+        actual.id === canonical.id &&
+          actual.name === canonical.name &&
+          actual.capability === canonical.capability &&
+          actual.capacity === canonical.capacity,
+        `managed Annex V1 facility at index ${String(i)} differs from ${canonical.id}`,
       )
     }
   }

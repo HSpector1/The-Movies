@@ -138,7 +138,7 @@ export function foundingRunwayPreview(state: GameState): Runway {
 // ── affordability + post-commitment preview (D-12.11 / D-12.16) ────────────────
 
 // One affordability helper the UI reads (delegates to the engine's authoritative gate).
-export function affordability(state: GameStateV3, amount: number): Affordability {
+export function affordability(state: Pick<GameStateV3, 'studio'>, amount: number): Affordability {
   return canAfford(state, amount)
 }
 
@@ -424,6 +424,7 @@ export type FinanceTotals = {
   freelancerFee: number
   termination: number
   publicity: number // D-17B §5: Σ publicity campaign purchases, stored negative
+  construction: number // Annex V1: Σ studio construction capex, stored negative
   net: number // Σ all ledger amounts (= cash − INITIAL_CASH; reconciliation invariant)
 }
 
@@ -437,6 +438,7 @@ const ZERO_TOTALS = (): FinanceTotals => ({
   freelancerFee: 0,
   termination: 0,
   publicity: 0,
+  construction: 0,
   net: 0,
 })
 
@@ -452,6 +454,7 @@ const KIND_FIELD: Record<LedgerKind, keyof FinanceTotals> = {
   freelancerFee: 'freelancerFee',
   termination: 'termination',
   publicity: 'publicity',
+  constructionCapex: 'construction',
 }
 
 // Aggregate the whole signed ledger by kind. `net` is the reconciliation total.
@@ -476,6 +479,7 @@ export type PeriodSummary = {
   boxOfficeLump: number
   production: number
   publicity: number // D-17B §5: publicity campaign purchases in the window (negative)
+  construction: number // Annex V1: studio construction capex in the window (negative)
   otherCash: number // signingBonus + freelancerFee + termination
   netCash: number // signed Σ over the window
   releases: number // runs opened in the window
@@ -495,6 +499,7 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
     boxOfficeLump: 0,
     production: 0,
     publicity: 0,
+    construction: 0,
     otherCash: 0,
     netCash: 0,
     releases: 0,
@@ -503,7 +508,8 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
   for (const e of state.ledger) {
     if (e.week < fromWeek || e.week > toWeekInclusive) continue
     s.netCash += e.amount
-    switch (e.kind) {
+    const kind: LedgerKind = e.kind
+    switch (kind) {
       case 'payroll':
         s.payroll += e.amount
         break
@@ -526,6 +532,9 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
       case 'publicity':
         s.publicity += e.amount
         break
+      case 'constructionCapex':
+        s.construction += e.amount
+        break
       case 'signingBonus':
       case 'freelancerFee':
       case 'termination':
@@ -534,7 +543,7 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
       default: {
         // Exhaustiveness guard (the actions.ts:1288 idiom): a new LedgerKind must be given a
         // home HERE, not absorbed by a catch-all.
-        const _exhaustive: never = e.kind
+        const _exhaustive: never = kind
         throw new Error(`periodSummary: unhandled ledger kind ${JSON.stringify(_exhaustive)}`)
       }
     }

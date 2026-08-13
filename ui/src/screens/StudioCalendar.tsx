@@ -3,7 +3,7 @@
 // occupancy, priority, amounts, and conditional release boundaries are already
 // resolved by core; this screen only formats facts and emits navigation intents.
 
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type {
   GameState,
   StudioCalendarCommitmentView,
@@ -12,6 +12,7 @@ import type {
 } from '../engine/adapter.ts'
 import { studioCalendarBoard } from '../engine/adapter.ts'
 import { moneyExact } from '../format.ts'
+import { StudioDevelopmentPreview } from './StudioDevelopment.tsx'
 
 export type StudioCalendarRoute =
   | { kind: 'script'; projectId: string }
@@ -19,6 +20,7 @@ export type StudioCalendarRoute =
   | { kind: 'production'; productionId: string }
   | { kind: 'theatricalRun'; productionId: string }
   | { kind: 'contract'; talentId: string }
+  | { kind: 'studioDevelopment' }
 
 function decisionCopy(
   decision: StudioCalendarDecisionView | null,
@@ -77,6 +79,8 @@ function commitmentRoute(event: StudioCalendarCommitmentView): StudioCalendarRou
       return { kind: 'script', projectId: event.projectId }
     case 'castingDue':
       return { kind: 'casting', projectId: event.projectId, sessionId: event.sessionId }
+    case 'constructionCompletion':
+      return { kind: 'studioDevelopment' }
     case 'theatricalReceipt':
       return { kind: 'theatricalRun', productionId: event.productionId }
     case 'contractRenewal':
@@ -105,6 +109,13 @@ function commitmentCopy(event: StudioCalendarCommitmentView): {
         detail: `Results arrive on the advance that reaches Week ${event.week}.`,
         action: 'Open Casting Room',
         ariaLabel: `Open ${event.title} in Casting Room`,
+      }
+    case 'constructionCompletion':
+      return {
+        title: `${event.title} · Construction completes`,
+        detail: `Becomes Operational on the advance that reaches Week ${event.week}, after that advance's automatic allocations.`,
+        action: 'Open Studio Development',
+        ariaLabel: `Open ${event.title} in Studio Development`,
       }
     case 'theatricalReceipt':
       return {
@@ -238,13 +249,36 @@ export function StudioCalendar({
   const calendar = useMemo(() => studioCalendarBoard(state), [state])
   const headingRef = useRef<HTMLHeadingElement | null>(null)
   const decision = decisionCopy(calendar.nextDecision, calendar.productionOutlook)
+  const [operationalAnnouncement, setOperationalAnnouncement] = useState('')
 
   useEffect(() => {
     headingRef.current?.focus()
   }, [])
 
+  useEffect(() => {
+    const development = calendar.studioDevelopment
+    setOperationalAnnouncement(
+      development.status === 'operational'
+        ? `${development.name} is Operational. Development & Casting capacity is now ${development.currentDevelopmentCastingCapacity} shared slots.`
+        : '',
+    )
+  }, [
+    calendar.studioDevelopment.currentDevelopmentCastingCapacity,
+    calendar.studioDevelopment.name,
+    calendar.studioDevelopment.status,
+  ])
+
   return (
     <main className="app-shell stack calendar-screen" data-testid="studio-calendar">
+      <div
+        className="visually-hidden"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        data-testid="calendar-annex-operational-announcement"
+      >
+        {operationalAnnouncement}
+      </div>
       <header className="spread card calendar-header">
         <div>
           <div className="eyebrow">Studio operations · Week {calendar.currentWeek}</div>
@@ -340,17 +374,22 @@ export function StudioCalendar({
         )}
       </section>
 
+      <StudioDevelopmentPreview
+        state={state}
+        onOpen={() => onNavigate({ kind: 'studioDevelopment' })}
+      />
+
       <section className="card stack" aria-labelledby="calendar-commitments-heading">
         <div className="spread">
           <div>
             <h2 id="calendar-commitments-heading">Committed schedule</h2>
-            <p className="hint">Persisted due work, locked Studio Revenue receipts, and contract boundaries.</p>
+            <p className="hint">Persisted due work, construction completion, locked Studio Revenue receipts, and contract boundaries.</p>
           </div>
           <span className="tag fact">Committed</span>
         </div>
         {calendar.commitments.length === 0 ? (
           <div className="empty" data-testid="calendar-no-commitments">
-            No future work, receipt, renewal, or expiry boundary is currently committed.
+            No future work, construction, receipt, renewal, or expiry boundary is currently committed.
           </div>
         ) : (
           <ol className="calendar-event-list" data-testid="calendar-commitments">

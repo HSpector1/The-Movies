@@ -50,6 +50,7 @@
 
 import { clamp } from './math.js'
 import { emptyCastingSessions } from './castingSessions.js'
+import { emptyStudioConstruction } from './construction.js'
 import { emptyStudioOperations } from './operations.js'
 import { emptyScriptDevelopment } from './scriptDevelopment.js'
 import { stream } from './rng.js'
@@ -666,5 +667,8 @@ export function generateWorld(seed: string): GameState {
     // Casting Sessions V1: headless worlds carry an explicit legacy-empty surface.
     // Player activation is governed separately after founding.
     castingSessions: emptyCastingSessions(),
+    // Development & Casting Annex V1: headless worlds own no managed parcel,
+    // project history, facility, or capital debit.
+    construction: emptyStudioConstruction(),
   }
 }

@@ -47,6 +47,7 @@ export type {
   GameStateV8,
   GameStateV9,
   GameStateV10,
+  GameStateV11,
   PublicityTier,
   PublicityState,
   StudioOperationsMode,
@@ -59,6 +60,15 @@ export type {
   ProductionBlocker,
   ProductionWorkflow,
   StudioOperations,
+  ConstructionMode,
+  ConstructionParcelId,
+  ConstructionProjectId,
+  ConstructionProjectKind,
+  ConstructionFacilityId,
+  ConstructionProjectStatus,
+  ConstructionParcel,
+  ConstructionProject,
+  StudioConstruction,
   ScriptDevelopmentMode,
   ScriptProjectStatus,
   ScriptRewriteCount,
@@ -91,6 +101,8 @@ export type {
   Contract,
   LedgerKind,
   LedgerEntry,
+  LedgerKindV10,
+  LedgerEntryV10,
   FoundingState,
   Confidence,
   ForecastBand,
@@ -117,6 +129,29 @@ export type {
   PotentialTier,
   SkillBias,
 } from './types.js'
+
+// Development & Casting Annex V1 — exact capital-project lifecycle and view.
+export {
+  ANNEX_PARCEL_ID,
+  ANNEX_PROJECT_ID,
+  ANNEX_PROJECT_KIND,
+  ANNEX_FACILITY_ID,
+  ANNEX_NAME,
+  ANNEX_CAPEX,
+  ANNEX_DURATION_WEEKS,
+  ANNEX_CAPACITY_GAIN,
+  ANNEX_LEDGER_NOTE,
+  emptyStudioConstruction,
+  initialManagedStudioConstruction,
+  assertStudioConstructionInvariants,
+  completeDueConstruction,
+  studioConstructionView,
+} from './construction.js'
+export type {
+  ConstructionInvariantOptions,
+  ConstructionCompletion,
+  StudioConstructionView,
+} from './construction.js'
 
 // §2.1 vector math + EPSILON
 export {
@@ -620,9 +655,9 @@ export type { CandidatePackage } from './candidates.js'
 export { RandomAgent, OracleAgent } from './agents.js'
 export type { Agent } from './agents.js'
 
-// §17 save — frozen V1–V9 envelopes plus live Casting Sessions V1 V10.
+// §17 save — frozen V1–V10 envelopes plus live Annex V1 V11.
 // stableStringify/deepEqual are unchanged. validateSave dispatches on version and
-// loudly rejects unknown versions. New games save as V10.
+// loudly rejects unknown versions. New games save as V11.
 export {
   stableStringify,
   deepEqual,
@@ -637,6 +672,7 @@ export {
   validateSaveV8,
   validateSaveV9,
   validateSaveV10,
+  validateSaveV11,
   makeSave,
   makeSaveV1,
   makeSaveV2,
@@ -648,6 +684,7 @@ export {
   makeSaveV8,
   makeSaveV9,
   makeSaveV10,
+  makeSaveV11,
   loadSave,
   exportSave,
   importSave,
@@ -688,6 +725,9 @@ export {
   // Casting Sessions V1 — legacy V9 → V10 seeds explicit legacy/empty state.
   convertV9ToV10,
   migrateToV10,
+  // Development & Casting Annex V1 — legacy V10 → live V11.
+  convertV10ToV11,
+  migrateToV11,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -700,6 +740,7 @@ export type {
   SaveFileV8,
   SaveFileV9,
   SaveFileV10,
+  SaveFileV11,
   SaveFile,
   TalentV1,
   GameStateV1,

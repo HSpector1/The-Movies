@@ -6,8 +6,7 @@
 // LotRoute and calls the existing screen navigation. No action spends money, advances
 // time, greenlights, hires, or mutates GameState — they are navigation only.
 //
-// Every route (except `expansion-info`, a bounded in-lot informational placeholder)
-// targets a screen that already exists OUTSIDE the lot, so every lot destination
+// Every route targets a screen that exists OUTSIDE the lot, so every lot destination
 // stays reachable without the lot.
 
 import type { BuildingId, LotActionKind } from './snapshot/StudioLotSnapshot'
@@ -22,7 +21,7 @@ export type LotRoute =
   | { kind: 'hub' } // Talent Hub (read-only browse)
   | { kind: 'assembly' } // Assemble a Film wizard
   | { kind: 'saves' } // Saves
-  | { kind: 'expansion-info' } // handled inside the lot; not an engine screen; spends nothing
+  | { kind: 'studioDevelopment' } // sole owner of the Annex construction action
 
 export type LotActionResolution = {
   route: LotRoute
@@ -44,7 +43,7 @@ export const ACTION_RESOLUTION: Record<LotActionKind, LotActionResolution> = {
   'browse-talent': { route: { kind: 'castingRoom' }, navLabel: 'Open Casting Room' },
   'review-productions': { route: { kind: 'dashboard' }, navLabel: 'View Production' },
   'view-released-films': { route: { kind: 'dashboard' }, navLabel: 'View Releases' },
-  'view-expansion': { route: { kind: 'expansion-info' }, navLabel: 'About future expansion' },
+  'view-expansion': { route: { kind: 'studioDevelopment' }, navLabel: 'Open Studio Development' },
 }
 
 export function resolveAction(action: LotActionKind): LotActionResolution {
@@ -65,5 +64,5 @@ export const BUILDING_BLURBS: Record<BuildingId, string> = {
   'stage-b': 'Soundstage B.',
   post: 'Films currently in production.',
   theater: 'Your releases and what is in theaters.',
-  expansion: 'Reserved for future studio growth. Not available in D1.',
+  expansion: 'The fixed parcel for the Development & Casting Annex.',
 }

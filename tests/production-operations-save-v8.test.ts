@@ -18,6 +18,7 @@ import {
   convertV7ToV8,
   convertV8ToV9,
   convertV9ToV10,
+  convertV10ToV11,
   emptyLegacyOperations,
   exportSave,
   FOUNDING_MINIMUMS,
@@ -31,6 +32,7 @@ import {
   makeSaveV3,
   makeSaveV4,
   makeSaveV7,
+  makeSaveV10,
   migrateToV8,
   OracleAgent,
   stableStringify,
@@ -55,7 +57,7 @@ import {
 } from "./_legacyV1Fixtures.js";
 
 function toV7(state: GameState): GameStateV7 {
-  const { operations: _operations, scriptDevelopment: _scripts, ...v7 } = state;
+  const { operations: _operations, scriptDevelopment: _scripts, castingSessions: _casting, ...v7 } = makeSaveV10(state).state;
   return v7;
 }
 
@@ -437,7 +439,7 @@ describe("Production Operations V1 — frozen V7 to live V8 migration", () => {
     expect(migrated.operations).toEqual(emptyLegacyOperations());
 
     let continuous = greenlit;
-    let resumed = convertV9ToV10(convertV8ToV9(makeSaveV8(migrated))).state;
+    let resumed = convertV10ToV11(convertV9ToV10(convertV8ToV9(makeSaveV8(migrated)))).state;
     for (let week = 0; week < 10; week++) {
       continuous = tick(continuous);
       resumed = tick(resumed);
@@ -471,7 +473,7 @@ describe("Production Operations V1 — managed state validation and continuation
     );
 
     let continuous = state;
-    let resumed = convertV9ToV10(convertV8ToV9(imported)).state;
+    let resumed = convertV10ToV11(convertV9ToV10(convertV8ToV9(imported))).state;
     const actions = [
       { kind: "clearSceneryLoadIn", productionId: production.id } as const,
       { kind: "scheduleShootingTake", productionId: production.id } as const,

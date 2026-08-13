@@ -33,6 +33,7 @@ import {
   exportSave,
   generateWorld,
   makeSaveV5,
+  makeSaveV10,
 } from '../../../src/core/index.ts'
 import type { CastSlot, CreativeRole, GameStateV5 } from '../../../src/core/index.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
@@ -46,8 +47,9 @@ function toV5(state: GameState): GameStateV5 {
     publicity: _publicity,
     operations: _operations,
     scriptDevelopment: _scriptDevelopment,
+    castingSessions: _castingSessions,
     ...v5
-  } = state
+  } = makeSaveV10(state).state
   return v5
 }
 

@@ -45,6 +45,10 @@ import {
   castingOccupiedFacilitySlots,
   completeDueCastingSessions,
 } from './castingSessions.js'
+import {
+  assertStudioConstructionInvariants,
+  completeDueConstruction,
+} from './construction.js'
 import { developTalent, type DevelopmentContext } from './development.js'
 import { economyEngaged, weeklyPayroll } from './employment.js'
 import { openTheatricalRun } from './economy.js'
@@ -134,6 +138,16 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   const develop = options?.develop ?? false
   const currentTick = state.market.tick
 
+  // Validate the whole construction/accounting boundary before advancing so a
+  // tick cannot repair malformed empty state, a missing debit, a forged clock,
+  // or a mismatched completed facility. The committed facilities observatory's
+  // project-free counterfactual arms retain their explicit configured-capacity
+  // policy; any real Annex history immediately selects exact Annex V1 truth.
+  assertStudioConstructionInvariants(state, {
+    facilityPolicy:
+      state.construction.projects.length === 0 ? 'configured' : 'annex-v1',
+  })
+
   // Deserialize the sim stream ONCE. Its state is re-serialized as the final step.
   const rng = RngStream.deserialize(state.rngState)
 
@@ -176,7 +190,17 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     ]),
   )
   const advanced: Production[] = productionAdvance.productions
-  const operations = productionAdvance.operations
+
+  // ── 1.5 CONSTRUCTION COMPLETION ─────────────────────────────────────────
+  // A project due on arrival at S+13 becomes physical only AFTER this advance's
+  // script, casting, and production allocation. Do not retry or move any work.
+  const constructionCompletion = completeDueConstruction(
+    state.construction,
+    productionAdvance.operations,
+    currentTick + 1,
+  )
+  const operations = constructionCompletion.operations
+  const construction = constructionCompletion.construction
 
   // ── 2. RELEASE ─────────────────────────────────────────────────────────────
   // Collect productions at remainingTicks === 0 after step 1; the rest stay
@@ -635,5 +659,6 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     operations,
     scriptDevelopment,
     castingSessions,
+    construction,
   }
 }
