@@ -277,12 +277,19 @@ export function applyPublicity(
   const t = cfg.tiers[tier]
   const total = publicityLift(cfg, tier, awareness)
   let pending = next.pending
+  // The INSTANT leg's own contribution, kept apart from `liftThisWeek` (which already carries
+  // this week's pending-campaign deliveries). Folding the running total back into
+  // `liftDelivered` double-counted the campaign leg whenever a duration-bearing purchase
+  // delivered in the same week as an instant one — a metric-only defect, but it flattered
+  // $/point by up to the whole leg (probe: true gain 4.94, reported 7.94).
+  let instantLift = 0
   if (t.durationWeeks > 0) {
     pending = [...pending, { tier, perWeek: total / t.durationWeeks, weeksRemaining: t.durationWeeks }]
   } else {
     const before = awareness
     awareness = clamp(awareness + total, 0, 100)
-    liftThisWeek += awareness - before
+    instantLift = awareness - before
+    liftThisWeek += instantLift
   }
 
   cash -= t.cost
@@ -303,7 +310,7 @@ export function applyPublicity(
     firstWeek: next.firstWeek ?? ctx.week,
     lastWeekByTier: { ...next.lastWeekByTier, [tier]: ctx.week },
     weeksSinceReleaseAtBuy: [...next.weeksSinceReleaseAtBuy, ctx.weeksSinceRelease],
-    liftDelivered: next.liftDelivered + (t.durationWeeks > 0 ? 0 : liftThisWeek),
+    liftDelivered: next.liftDelivered + instantLift,
     pending,
   }
 

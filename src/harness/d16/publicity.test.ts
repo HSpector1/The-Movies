@@ -167,6 +167,35 @@ describe('d17b/publicity — the effect shape R9 requires', () => {
     expect(s.studio.standing.audienceAwareness).toBeGreaterThan(a0)
   })
 
+  it('liftDelivered equals the awareness actually gained when a campaign leg and an instant buy land in the SAME week', () => {
+    // REGRESSION (D-17B stage-3 lab fix). `liftDelivered` used to add the whole running
+    // `liftThisWeek` on an instant purchase, but that total already carried this week's
+    // pending-campaign delivery — so a duration-bearing leg landing on the same week as an
+    // instant buy was counted twice, flattering the $/point denominator.
+    const cfg: PublicityConfig = {
+      tiers: {
+        whisper: { cost: 1_000, maxLift: 2, saturation: 100, shapeExp: 1, durationWeeks: 0, cooldownWeeks: 1 },
+        push: { cost: 2_000, maxLift: 4, saturation: 100, shapeExp: 1, durationWeeks: 0, cooldownWeeks: 1 },
+        blitz: { cost: 3_000, maxLift: 9, saturation: 100, shapeExp: 1, durationWeeks: 3, cooldownWeeks: 1 },
+      },
+      globalCooldownWeeks: 1,
+    }
+    const s0 = drive(60)
+    const zeroed: GameState = {
+      ...s0,
+      studio: { ...s0.studio, cash: 1e9, standing: { ...s0.studio.standing, audienceAwareness: 0 } },
+    }
+    // wk0: a duration-3 blitz — nothing lands this week, one pending leg queued.
+    let step = applyPublicity(zeroed, { tier: 'blitz' }, cfg, newPublicityMemo(), { week: 0, weeksSinceRelease: 9 })
+    expect(step.memo.liftDelivered).toBe(0)
+    expect(step.memo.pending).toHaveLength(1)
+    // wk1: the leg delivers AND an instant whisper is bought in the same week.
+    step = applyPublicity(step.state, { tier: 'whisper' }, cfg, step.memo, { week: 1, weeksSinceRelease: 10 })
+    const gained = step.state.studio.standing.audienceAwareness // started from exactly 0
+    expect(step.liftThisWeek).toBeCloseTo(gained, 10)
+    expect(step.memo.liftDelivered).toBeCloseTo(gained, 10)
+  })
+
   it('never pushes awareness past the engine ceiling of 100', () => {
     const s0 = drive(60)
     const high: GameState = {
