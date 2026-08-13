@@ -274,8 +274,8 @@ async function main(): Promise<void> {
     }
   }
 
-  const refQ6 = pairedWinRate(referenceCash.get('Q6_publicityWhisperMaintenance')!, referenceCash.get('P3_standardCadence')!)
-  const prodQ6 = pairedWinRate(productionCash.get('Q6_publicityWhisperMaintenance')!, productionCash.get('P3_standardCadence')!)
+  const refQ6 = pairedWinRate(referenceCash.get('Q6_awarenessMaintenance')!, referenceCash.get('P3_standardCadence')!)
+  const prodQ6 = pairedWinRate(productionCash.get('Q6_awarenessMaintenance')!, productionCash.get('P3_standardCadence')!)
   const maintenance = {
     referenceStrictWinRate: refQ6,
     productionStrictWinRate: prodQ6,
@@ -287,12 +287,12 @@ async function main(): Promise<void> {
   }
   const antiSpamRef = gatePair(
     referenceCash,
-    'Q7_publicityBlitzSpam',
-    'Q0_publicityNever',
+    'Q7_publicitySpamAdversary',
+    'Q0_neverPublicize',
     (wins, medianDelta) => wins <= 0.4 && medianDelta < 0,
   )
-  const antiSpamProdA = productionCash.get('Q7_publicityBlitzSpam')!
-  const antiSpamProdB = productionCash.get('Q0_publicityNever')!
+  const antiSpamProdA = productionCash.get('Q7_publicitySpamAdversary')!
+  const antiSpamProdB = productionCash.get('Q0_neverPublicize')!
   const antiSpamProdDeltas = pairedDeltas(antiSpamProdA, antiSpamProdB)
   const antiSpamProdWin = pairedWinRate(antiSpamProdA, antiSpamProdB)
   const antiSpam = {
