@@ -65,6 +65,11 @@ export type StandingContext = {
   baseMarketValue: number
   marketing: number
   salaries: number
+  // D-17B §1 (E1): the ECONOMY REGIME at this release — `economyEngaged(state)`, the persisted
+  // monotonic fact (D-17A/R2), captured at RELEASE exactly like every other value above. It is
+  // EPHEMERAL context (B12): built in tick.ts and dropped at tick end; GameState and the save
+  // are untouched. It selects the awareness reach pivot (see the delta below) and NOTHING else.
+  engaged: boolean
 }
 
 // starAttention = clamp(mean(cast fame)/100, 0, 1) — unweighted mean of the three
@@ -103,8 +108,20 @@ export function updateStanding(
     0,
     1,
   )
+  // D-17B §1 (E1) — the REGIME SPLIT on the pivot ONLY. The D-6 formula SHAPE is untouched:
+  // the same two terms, the same weights, the same ±AWARENESS_DELTA_CAP. Engaged play pivots
+  // at AWARENESS_REACH_NEUTRAL_ENGAGED (0.45) — the recovery-side half of the D-17B design,
+  // measured jointly with the step-5.5 drift (corpus floor-week share 18.32% → 2.26%). The
+  // DISENGAGED/M0A branch keeps the legacy AWARENESS_REACH_NEUTRAL (0.58) byte-identically,
+  // which is what makes the M0A acceptance corpus identical BY CONSTRUCTION rather than by
+  // re-baselining. ESCALATION E1 (contract §0): the split needs an explicit R4 extension;
+  // recorded fallback if declined = unconditional 0.45 + re-baselined corpus + the
+  // byte-identity gate struck (a ruling outcome, NOT code — see tuning.ts).
+  const reachNeutral = ctx.engaged
+    ? TUNING.AWARENESS_REACH_NEUTRAL_ENGAGED
+    : TUNING.AWARENESS_REACH_NEUTRAL
   const awarenessDelta = clamp(
-    TUNING.AWARENESS_REACH_WEIGHT * (reach - TUNING.AWARENESS_REACH_NEUTRAL) +
+    TUNING.AWARENESS_REACH_WEIGHT * (reach - reachNeutral) +
       TUNING.AWARENESS_STAR_WEIGHT * starAttention(ctx),
     -TUNING.AWARENESS_DELTA_CAP,
     TUNING.AWARENESS_DELTA_CAP,

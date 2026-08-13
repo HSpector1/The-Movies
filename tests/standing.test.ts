@@ -97,6 +97,11 @@ function ctxOf(
     baseMarketValue?: number
     marketing?: number
     salaries?: number
+    // D-17B §1 (E1): StandingContext gained the ephemeral economy regime. This whole file is
+    // the D-6 baseline suite — the DISENGAGED (M0A) regime — so it defaults to false, which is
+    // the value that keeps `AWARENESS_REACH_NEUTRAL` at its legacy 0.58 and every expectation
+    // below unchanged. The engaged pivot is covered in tests/d17b-awareness-counterflow.test.ts.
+    engaged?: boolean
   } = {},
 ): StandingContext {
   const f = over.fames ?? [0, 0, 0]
@@ -107,6 +112,7 @@ function ctxOf(
     baseMarketValue: over.baseMarketValue ?? 1_000_000,
     marketing: over.marketing ?? 400_000,
     salaries: over.salaries ?? 600_000,
+    engaged: over.engaged ?? false,
   }
 }
 

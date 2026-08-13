@@ -271,6 +271,10 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       baseMarketValue: state.market.baseMarketValue,
       marketing: prod.budget.marketing,
       salaries: writer.salary + director.salary + castSalaries,
+      // D-17B §1 (E1): the economy regime for THIS release — the same `engaged` the reception
+      // and theatrical branches above already consume (`economyEngaged(state)`, the persisted
+      // R2 fact). Ephemeral like the rest of this context (B12): nothing is persisted.
+      engaged,
     }
 
     // §8 broadcast inputs (B23/B24), captured now from the ReceptionResult + the

@@ -68,9 +68,37 @@ export const TUNING = {
   // while a low-reach slate (Random, reach_norm ≈ 0.47) hovers near its start.
   AWARENESS_REACH_SCALE: 0.9, // reach value read as "fully visible" (pooled p90)
   AWARENESS_REACH_NEUTRAL: 0.58, // normalized-reach pivot (0..1); below → negative reach term
+  // ── D-17B §1 (E1) — the ENGAGED normalized-reach pivot ─────────────────────
+  // The D-16 Tier-1 pivot `AWARENESS_REACH_NEUTRAL 0.58 → 0.45` is the recovery-side half of
+  // the selected counter-flow design (the drift below is the anti-runaway half; §1 measured
+  // them JOINTLY — corpus floor-week share 18.32% → 2.26%, awareness ceiling absorption 0.00%
+  // on all 24 policies). It ships as a REGIME SPLIT rather than an unconditional retune:
+  // `AWARENESS_REACH_NEUTRAL` is NOT engaged-gated at HEAD (standing.ts:107; tick step 4 is
+  // ungated and the DISENGAGED reception branch reads awareness), so an unconditional 0.45
+  // would move the M0A/headless corpus. Splitting it preserves M0A byte-identity BY
+  // CONSTRUCTION — the legacy key keeps its exact 0.58 and the disengaged branch keeps
+  // reading it — and preserves every measured number, since every lab arm is engaged.
+  //
+  // ESCALATION E1 (contract §0): a regime split inside a D-6 channel formula changes a
+  // protected channel's APPLICABILITY, which needs an explicit Owner R4 extension. Recorded
+  // FALLBACK if the extension is declined: ship `AWARENESS_REACH_NEUTRAL` unconditionally at
+  // 0.45, re-baseline the M0A corpus, and strike the byte-identity gate. That is a ruling
+  // outcome, not code: do NOT pre-implement it.
+  AWARENESS_REACH_NEUTRAL_ENGAGED: 0.45, // [D-17B §1/E1] the same pivot in the ENGAGED regime
   AWARENESS_REACH_WEIGHT: 7, // primary reach coefficient (delta points per unit)
   AWARENESS_STAR_WEIGHT: 1.2, // secondary star-attention coefficient (delta points per unit)
   AWARENESS_DELTA_CAP: 6, // per-release |ΔaudienceAwareness| cap
+
+  // ── D-17B §1 — the awareness counter-flow (Family C, one-sided) ─────────────
+  // Each ENGAGED week: `awareness' = awareness − κ·max(0, awareness − ANCHOR)`, κ = 0.04,
+  // ANCHOR = 35. Deterministic, weekly, NO RNG, engaged-gated, applied as tick step 5.5
+  // (immediately after BROADCAST, before DEVELOPMENT — the placement the lab measured).
+  // PULL-DOWN ONLY: it acts solely on studios ABOVE the anchor, which is structurally the
+  // opposite of rubber-banding (authorization §18 — "no arbitrary rubber-banding"). Below
+  // the anchor it is exactly inert, so it can never manufacture a death spiral; the recovery
+  // side is the N pivot above. Awareness is valuable but not permanently OWNED (§18).
+  AWARENESS_DRIFT_RATE: 0.04, // [D-17B §1] κ — weekly fraction of the above-anchor excess shed
+  AWARENESS_DRIFT_ANCHOR: 35, // [D-17B §1] the anchor: at/below it the drift is exactly 0
 
   // Prestige (absolute critic achievement). BENCHMARK sits near the pooled
   // criticScore median (46.5) so it is REACHABLE from both sides — the prior fixed

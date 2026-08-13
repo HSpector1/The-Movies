@@ -248,6 +248,10 @@ describe('§6/B12 tick threads updateStanding correctly (cross-check)', () => {
         g.cast.lead.salary +
         g.cast.antagonist.salary +
         g.cast.support.salary,
+      // D-17B §1 (E1): the regime the tick captured for this release. This cross-check runs the
+      // headless M0A world (no founding, no contracts), so `economyEngaged` is false — the same
+      // value tick.ts threads — and the D-6 expectation is unchanged.
+      engaged: false,
     }
 
     const expected = updateStanding(prevStanding, releasedFilm, benchmarks, ctx)
