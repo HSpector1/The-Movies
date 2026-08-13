@@ -26,11 +26,19 @@ import type {
   Genre,
   FilmShape,
   Talent,
+  CastSlot,
 } from './types.js'
 import { resolveShape } from './shape.js'
 import { NEGATIVE_BUDGET_MULTIPLIERS } from './grid.js'
 import { marketingLevelsFor } from './marketingMenu.js'
-import { weeklyPayroll, freelancerFee, economyEngaged } from './employment.js'
+import {
+  weeklyPayroll,
+  freelancerFee,
+  economyEngaged,
+  freelancerMarketIds,
+  isContracted,
+} from './employment.js'
+import type { ReceptionInputs } from './reception.js'
 import { allocateFixedCosts } from './fixedCostAllocation.js'
 import {
   financeTotals,
@@ -174,10 +182,24 @@ export type PackageBreakdown = {
   freelancerFees: number // 0 when a legal all-contracted roster fills the film
 }
 
+export type ProspectivePackageQuote = {
+  breakdown: PackageBreakdown
+  production: {
+    conceptId: string
+    shape: FilmShape
+    promise: ReceptionInputs['promise']
+    writerId: string
+    directorId: string
+    cast: Record<CastSlot, string>
+    craftIds: string[]
+    budget: { negative: number; marketing: number }
+  }
+}
+
 export type CurrentPosition = {
   currentCash: number
-  // The AUTHORITATIVE least-expensive greenlightable package (bare minimum: cheapest available
-  // concept, lowest budget grid, minimum marketing, current contracted roster). Its `affordable`
+  // A concrete greenlightable bare-minimum package (cheapest available concept, lowest budget
+  // grid, exact package menu, deterministic available team). Its `affordable`
   // is the SAME solvency gate the real greenlight action enforces (parity-tested).
   cheapest: PositionAffordability | null
   cheapestBreakdown: PackageBreakdown | null
@@ -348,77 +370,82 @@ function filmAudienceScore(state: GameState, film: FilmResult): number {
   return was
 }
 
-/** The cheapest available concept's baseNegativeCost. All concepts are always available
- *  (selectConcepts === state.concepts), so this is the authoritative cheapest concept. */
-function minConceptBaseNeg(state: GameState): number | null {
-  if (!state.concepts.length) return null
-  let m = Infinity
-  for (const c of state.concepts) m = Math.min(m, c.baseNegativeCost)
-  return isFinite(m) ? m : null
+function minConcept(state: GameState): GameState['concepts'][number] | null {
+  return [...state.concepts].sort(
+    (a, b) => a.baseNegativeCost - b.baseNegativeCost || a.id.localeCompare(b.id),
+  )[0] ?? null
+}
+
+type ReferenceStaff = {
+  writer: Talent
+  director: Talent
+  actors: [Talent, Talent, Talent]
+  craft: Talent
+  freelancerFees: number
+}
+
+/** A deterministic, actually selectable roster/freelancer team for prospective quotes. */
+function referenceStaff(state: GameState): ReferenceStaff | null {
+  const busy = new Set<string>()
+  for (const production of state.studio.activeProductions) {
+    busy.add(production.writerId)
+    busy.add(production.directorId)
+    for (const id of Object.values(production.cast)) busy.add(id)
+    for (const id of production.craftIds) busy.add(id)
+  }
+  const freelancerIds = new Set(freelancerMarketIds(state))
+  const candidates = (role: Talent['role']): Talent[] =>
+    state.talent
+      .filter(
+        (talent) =>
+          talent.role === role &&
+          !busy.has(talent.id) &&
+          (isContracted(state, talent.id) || freelancerIds.has(talent.id)),
+      )
+      .sort((a, b) => {
+        const af = isContracted(state, a.id) ? 0 : freelancerFee(a)
+        const bf = isContracted(state, b.id) ? 0 : freelancerFee(b)
+        return af - bf || a.id.localeCompare(b.id)
+      })
+  const writers = candidates('writer')
+  const directors = candidates('director')
+  const actors = candidates('actor')
+  const crafts = candidates('craft')
+  if (!writers[0] || !directors[0] || actors.length < 3 || !crafts[0]) return null
+  const selected = [writers[0], directors[0], actors[0]!, actors[1]!, actors[2]!, crafts[0]]
+  return {
+    writer: writers[0],
+    director: directors[0],
+    actors: [actors[0]!, actors[1]!, actors[2]!],
+    craft: crafts[0],
+    freelancerFees: selected.reduce(
+      (sum, talent) => sum + (isContracted(state, talent.id) ? 0 : freelancerFee(talent)),
+      0,
+    ),
+  }
 }
 
 /** Whether the current contracted roster can legally field a film (writer + director + 3 distinct
  *  actors + 1 craft) — so the cheapest package needs no freelancer fees at greenlight. */
 export function contractedRosterCanField(state: GameState): boolean {
-  const roleOf = new Map(state.talent.map((t) => [t.id, t.role]))
-  const roles = state.contracts.map((c) => roleOf.get(c.talentId))
-  const n = (r: string) => roles.filter((x) => x === r).length
-  return n('writer') >= 1 && n('director') >= 1 && n('actor') >= 3 && n('craft') >= 1
+  return referenceStaff(state)?.freelancerFees === 0
 }
 
-/** Minimum freelancer fees to fill the roles the contracted roster cannot cover (cheapest available
- *  freelancer per missing role). Returns null if a role cannot be filled at all (no such freelancer). */
-function minFreelancerFill(state: GameState): number | null {
-  const roleOf = new Map(state.talent.map((t) => [t.id, t]))
-  const contractedByRole = (r: string) => state.contracts.filter((c) => roleOf.get(c.talentId)?.role === r).length
-  const need: Record<string, number> = {
-    writer: Math.max(0, 1 - contractedByRole('writer')),
-    director: Math.max(0, 1 - contractedByRole('director')),
-    actor: Math.max(0, 3 - contractedByRole('actor')),
-    craft: Math.max(0, 1 - contractedByRole('craft')),
-  }
-  const contractedIds = new Set(state.contracts.map((c) => c.talentId))
-  let total = 0
-  for (const [role, count] of Object.entries(need)) {
-    if (count <= 0) continue
-    const fees = state.talent
-      .filter((t) => t.role === role && !contractedIds.has(t.id))
-      .map((t) => freelancerFee(t))
-      .sort((a, b) => a - b)
-    if (fees.length < count) return null // cannot field this role at all
-    for (let i = 0; i < count; i++) total += fees[i]!
-  }
-  return total
-}
-
-/** AUTHORITATIVE least-expensive greenlightable package = the exact immediate cash the real greenlight
- *  action charges (D-12 §3: negative + marketing + engaged freelancer fees). Bare minimum: cheapest
- *  concept, lowest budget grid (0.75×), minimum marketing, min-demand shape, current roster (contracted
- *  fill is free; otherwise the cheapest freelancer fill). Parity-tested against greenlight(). Returns
- *  null if no package can be assembled. */
+/** A concrete bare-minimum greenlightable package = the exact immediate cash the real greenlight
+ *  action charges (D-12 §3: negative + marketing + engaged freelancer fees). It uses the cheapest
+ *  concept, lowest budget grid (0.75×), its exact minimum-marketing rung, min-demand shape and a
+ *  deterministic available team. Parity-tested against greenlight(). Returns null if no package
+ *  can be assembled. */
 // D-17A/T4: EXPORTED (math untouched) so `economyView.affordabilityScopes` can promote the same
 // package to the Dashboard and Assembly instead of re-deriving it. One builder, one answer.
 export function cheapestPackage(state: GameState): PackageBreakdown | null {
-  const minBaseNeg = minConceptBaseNeg(state)
-  if (minBaseNeg == null) return null
-  const fees = contractedRosterCanField(state) ? 0 : minFreelancerFill(state)
-  if (fees == null) return null
-  // UNROUNDED and grouped EXACTLY like the action (requiredNegative = base×demand×scale, then ×mult),
-  // so the recap's all-in equals the greenlight action's totalCommittedCost to the bit (parity-tested).
-  const requiredNegative = minBaseNeg * minBudgetDemandMultiplier() * state.era.costScale
-  const negative = NEGATIVE_BUDGET_MULTIPLIERS[0]! * requiredNegative
-  return { negative, marketing: marketingLevelsFor(state, null)[0], freelancerFees: fees }
+  return cheapestPackageQuote(state)?.breakdown ?? null
 }
 
 /** A STANDARD-budget film of the cheapest concept: default budget grid (1.0×), neutral shape demand,
  *  default marketing — "can I make a normal film?" (what the assembly opens with). */
 export function standardPackage(state: GameState): PackageBreakdown | null {
-  const minBaseNeg = minConceptBaseNeg(state)
-  if (minBaseNeg == null) return null
-  const fees = contractedRosterCanField(state) ? 0 : minFreelancerFill(state)
-  if (fees == null) return null
-  const negative = Math.round(STANDARD_NEG_MULT * minBaseNeg * STANDARD_DEMAND * state.era.costScale)
-  return { negative, marketing: marketingLevelsFor(state, null)[1], freelancerFees: fees }
+  return standardPackageQuote(state)?.breakdown ?? null
 }
 
 /** The exact immediate cash a greenlight charges for a package (D-12 §3). D-17A/T4: exported. */
@@ -445,17 +472,97 @@ const ENDINGS: FilmShape['ending'][] = ['triumph', 'bittersweet', 'tragic', 'amb
 
 /** Minimum budgetDemandMultiplier achievable across all 36 legal story shapes (real
  *  resolveShape; shape-only, concept-independent). */
-function minBudgetDemandMultiplier(): number {
-  let min = Infinity
+function minBudgetShape(): FilmShape {
+  let best: FilmShape = { opening: OPENINGS[0]!, midpoint: MIDPOINTS[0]!, ending: ENDINGS[0]! }
+  let min = resolveShape(best).budgetDemandMultiplier
   for (const opening of OPENINGS) {
     for (const midpoint of MIDPOINTS) {
       for (const ending of ENDINGS) {
         const m = resolveShape({ opening, midpoint, ending }).budgetDemandMultiplier
-        if (m < min) min = m
+        if (m < min) {
+          min = m
+          best = { opening, midpoint, ending }
+        }
       }
     }
   }
-  return min
+  return best
+}
+
+function prospectivePackageQuote(
+  state: GameState,
+  kind: 'cheapest' | 'standard',
+): ProspectivePackageQuote | null {
+  const concept = minConcept(state)
+  const staff = referenceStaff(state)
+  if (!concept || !staff) return null
+  const shape = kind === 'cheapest'
+    ? minBudgetShape()
+    : { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' } as const
+  const demand = kind === 'cheapest' ? resolveShape(shape).budgetDemandMultiplier : STANDARD_DEMAND
+  const negativeMult = kind === 'cheapest' ? NEGATIVE_BUDGET_MULTIPLIERS[0]! : STANDARD_NEG_MULT
+  const negative =
+    kind === 'cheapest'
+      ? negativeMult * concept.baseNegativeCost * demand * state.era.costScale
+      : Math.round(negativeMult * concept.baseNegativeCost * demand * state.era.costScale)
+  const promise: ReceptionInputs['promise'] = {
+    genre: concept.genre,
+    intendedSegments: ['adult'],
+    ranges: {
+      intimacy: [-0.65, 0.15],
+      tonalWeight: [-0.65, 0.15],
+      kineticEnergy: [-0.65, 0.15],
+    },
+  }
+  const cast: Record<CastSlot, Talent> = {
+    lead: staff.actors[0],
+    antagonist: staff.actors[1],
+    support: staff.actors[2],
+  }
+  const inp: ReceptionInputs = {
+    concept,
+    shape,
+    shapeEffects: resolveShape(shape),
+    promise,
+    budget: { negative, marketing: 0 },
+    writer: staff.writer,
+    director: staff.director,
+    cast,
+    craftHires: [staff.craft],
+    market: state.market,
+    standing: state.studio.standing,
+    era: state.era,
+  }
+  const marketingLevel = kind === 'cheapest' ? 0 : 1
+  const marketing = marketingLevelsFor(state, inp)[marketingLevel]!
+  const breakdown = { negative, marketing, freelancerFees: staff.freelancerFees }
+  return {
+    breakdown,
+    production: {
+      conceptId: concept.id,
+      shape,
+      promise,
+      writerId: staff.writer.id,
+      directorId: staff.director.id,
+      cast: {
+        lead: staff.actors[0].id,
+        antagonist: staff.actors[1].id,
+        support: staff.actors[2].id,
+      },
+      craftIds: [staff.craft.id],
+      budget: { negative, marketing },
+    },
+  }
+}
+
+/** An exact, concrete package behind the prospective affordability quote. */
+export function cheapestPackageQuote(state: GameState): ProspectivePackageQuote | null {
+  return prospectivePackageQuote(state, 'cheapest')
+}
+
+/** An exact, concrete normally-funded package behind the standard quote. */
+export function standardPackageQuote(state: GameState): ProspectivePackageQuote | null {
+  return prospectivePackageQuote(state, 'standard')
 }
 
 // ── main ──────────────────────────────────────────────────────────────────────
@@ -785,7 +892,7 @@ function computePosition(
   const netWeeklyCash = activeRunRevenue - curBurn
   const rw = runway(state)
 
-  // AUTHORITATIVE bare-minimum greenlightable package (same solvency gate as the greenlight action).
+  // Concrete bare-minimum greenlightable package (same solvency gate as the greenlight action).
   const cheapestBreakdown = cheapestPackage(state)
   const cheapest: PositionAffordability | null =
     cheapestBreakdown != null ? affordabilityOf(state, packageAllIn(cheapestBreakdown)) : null

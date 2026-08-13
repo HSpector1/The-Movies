@@ -55,13 +55,9 @@ export type MarketingMenu = [number, number, number]
 /**
  * The film-side inputs the menu anchors on, or `null` when no film package exists yet.
  *
- * `null` is the STUDIO-LEVEL anchor, used by the recap's affordability builders: they price a
- * hypothetical film of the cheapest concept with no cast chosen, so the film's own
- * opening-appeal term is genuinely unknown. Treating it as 0 leaves the studio's own audience
- * awareness as the sole driver — and because `preMarketingAwarenessOf` is monotone increasing
- * in the appeal term and `efficientMarketingCapacity` is monotone in awareness, that anchor is
- * the LOWEST menu any real package at this state could face. An affordability figure built on
- * it is a floor, which is the honest direction for "can I still make a film?".
+ * `null` is a STUDIO-LEVEL lower-bound anchor for callers that genuinely have no film package
+ * yet. It must not be presented as the exact price of a buildable package. The recap and
+ * affordability surfaces construct concrete legal packages and pass their full inputs here.
  */
 export type MarketingMenuInputs = ReceptionInputs | null
 

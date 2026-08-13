@@ -552,7 +552,7 @@ describe('D-17A/T6 — the discoverability band is quantified, never hardcoded',
 
   it('the band NEVER claims a level the engine cannot reach, across the support range', () => {
     // A small shortfall's true band is a hair either side of 1× — the retired copy claimed
-    // 0.2×–1.8× for every exposed package, a range the engine could not produce.
+    // the hard floor-to-ceiling band for every exposed package, a range the engine could not produce.
     for (const shortfall of [0.02, 0.11, 0.22, 0.5, 0.9]) {
       const band = derivedBand(shortfall)
       const exposure = {
@@ -575,7 +575,9 @@ describe('D-17A/T6 — the discoverability band is quantified, never hardcoded',
       expect(text).toContain(mult(band.low))
       expect(text).toContain(mult(band.high))
       if (!exposure.clippedLow && !exposure.clippedHigh) {
-        expect(text).not.toContain('hard 0.2×/1.8× clip')
+        expect(text).not.toContain(
+          `hard ${mult(TUNING.DISC_FLOOR)}/${mult(TUNING.DISC_CEIL)} clip`,
+        )
       }
       cleanup()
     }

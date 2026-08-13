@@ -312,6 +312,8 @@ export {
   // every surface answers "can I make a film?" with the same number.
   cheapestPackage,
   standardPackage,
+  cheapestPackageQuote,
+  standardPackageQuote,
   packageAllIn,
   contractedRosterCanField,
   recentTypicalCommitment,
@@ -329,6 +331,7 @@ export type {
   CurrentPosition,
   PositionAffordability,
   PackageBreakdown,
+  ProspectivePackageQuote,
   RecoveryPosition,
   FilmContributionClass,
   InflectionPoint,

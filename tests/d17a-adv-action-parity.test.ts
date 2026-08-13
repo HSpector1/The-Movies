@@ -19,11 +19,13 @@ import {
   affordabilityScopes,
   applyActions,
   beginFounding,
+  cheapestPackageQuote,
   commitmentPreview,
   generateWorld,
   marketingLevelsFor,
   NEGATIVE_BUDGET_MULTIPLIERS,
   resolveShape,
+  standardPackageQuote,
   tick,
 } from '../src/core/index.js'
 import type { CastSlot, CreativeRole, FilmShape, GameState } from '../src/core/index.js'
@@ -246,29 +248,27 @@ describe('D-17A/A — the reported figures are hand-derivable from the grid and 
   it('cheapest = grid[0] × cheapest concept × min shape demand × era scale + active marketing rung[0]', () => {
     const s = foundStudio('adv-a-hand')
     const scopes = affordabilityScopes(s)
+    const quote = cheapestPackageQuote(s)!
     const negative = handCheapestNegative(s)
-    const menu = marketingLevelsFor(s, null)
 
-    expect(scopes.cheapestBreakdown).toEqual({
-      negative,
-      marketing: menu[0],
-      freelancerFees: 0,
-    })
-    expect(scopes.cheapest!.commitment).toBe(Math.round(negative + menu[0]))
+    expect(scopes.cheapestBreakdown!.negative).toBeCloseTo(negative, 8)
+    expect(scopes.cheapestBreakdown!.marketing).toBe(quote.production.budget.marketing)
+    expect(scopes.cheapestBreakdown!.freelancerFees).toBe(0)
+    expect(scopes.cheapest!.commitment).toBe(Math.round(negative + quote.production.budget.marketing))
   })
 
   it('standard = grid[1] × cheapest concept × neutral demand × era scale + active marketing rung[1]', () => {
     const s = foundStudio('adv-a-hand')
     const scopes = affordabilityScopes(s)
+    const quote = standardPackageQuote(s)!
     const negative = handStandardNegative(s)
-    const menu = marketingLevelsFor(s, null)
 
     expect(scopes.standardBreakdown).toEqual({
       negative,
-      marketing: menu[1],
+      marketing: quote.production.budget.marketing,
       freelancerFees: 0,
     })
-    expect(scopes.standard!.commitment).toBe(Math.round(negative + menu[1]))
+    expect(scopes.standard!.commitment).toBe(Math.round(negative + quote.production.budget.marketing))
   })
 
   it('recentTypical is the MEDIAN committed cost of the last THREE releases, off the ledger', () => {

@@ -1319,9 +1319,10 @@ function BudgetStep({
                 adds some reach; it adds less per dollar the further past capacity you go.
               </span>
               <span className="hint" data-testid="marketing-menu-shape">
-                This menu starts at 1.3× capacity, extends to 2.4×, and reaches its maximum
-                campaign at 3.7×. These are breadth choices, not an optimizer or a promise of
-                profitable return.
+                This menu starts at {menu?.multipliers?.[0]}× capacity, extends to{' '}
+                {menu?.multipliers?.[1]}×, and reaches its maximum campaign at{' '}
+                {menu?.multipliers?.[2]}×. These are breadth choices, not an optimizer or a
+                promise of profitable return.
               </span>
               {mktEff.overexposure > 0 && (
                 <span className="hint" data-testid="marketing-overexposure">

@@ -53,6 +53,8 @@ import { DEFAULT_PUBLICITY, PRODUCTION_PUBLICITY, publicityKey, validatePublicit
 import type { PublicityConfig } from './publicity.js'
 import { assertMarketingGridPristine, marketingGridKey, validateMarketingGrid } from './packages.js'
 import type { MarketingGrid } from './packages.js'
+import { productionCandidateKey, productionCounterFlowIdentity } from './productionIdentity.js'
+import { sourceProvenance } from './sourceProvenance.js'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(here, '..', '..', '..')
@@ -153,12 +155,7 @@ if (
 const AWARENESS_STATS = has('awareness-stats')
 const EMIT_DURABLE = has('emit-durable')
 
-const PRODUCTION_CANDIDATE_KEY =
-  `D17B:drift=${String(TUNING.AWARENESS_DRIFT_RATE)}/${String(TUNING.AWARENESS_DRIFT_ANCHOR)}` +
-  `;reach=${String(TUNING.AWARENESS_REACH_NEUTRAL_ENGAGED)}/${String(TUNING.AWARENESS_REACH_NEUTRAL)}` +
-  `;disc=${String(TUNING.DISC_SUPPORT_THRESHOLD)}/${String(TUNING.DISC_SPREAD)}/${String(TUNING.DISC_SUPPORT_EXP)}/${String(TUNING.DISC_FLOOR)}/rng=discovery-v1` +
-  `;marketing=capacity:${TUNING.MARKETING_MENU_MULTIPLIERS.join(',')}` +
-  `;publicity=${publicityKey(PRODUCTION_PUBLICITY)!}`
+const PRODUCTION_CANDIDATE_KEY = productionCandidateKey()
 
 const LEVERS: LabLevers = {}
 if (PRODUCTION_D17B) {
@@ -602,6 +599,7 @@ function main(): void {
   const summary = tagArtifact(
     {
       runName: RUN_NAME,
+      source: sourceProvenance(),
       seeds: SEEDS,
       horizonWeeks: HORIZON,
       // F10 FIX: the slice list is the FLAG's, clipped to the horizon — and the identical list
@@ -632,13 +630,7 @@ function main(): void {
       d17b: {
         execution: PRODUCTION_D17B ? 'production' : 'lab',
         counterFlow: PRODUCTION_D17B
-          ? {
-              authorization: 'production',
-              baseline: TUNING.AWARENESS_DRIFT_ANCHOR,
-              family: 'C',
-              kappa: TUNING.AWARENESS_DRIFT_RATE,
-              revertMode: 'pullDownOnly',
-            }
+          ? productionCounterFlowIdentity()
           : (COUNTER_FLOW ?? null),
         publicity: PRODUCTION_D17B ? PRODUCTION_PUBLICITY : (PUBLICITY ?? null),
         marketingGrid: PRODUCTION_D17B

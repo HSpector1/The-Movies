@@ -208,8 +208,9 @@ export function Dashboard({
             <h2 style={{ marginTop: 0 }}>Publicity campaigns</h2>
             <p className="hint" style={{ marginBottom: 0 }}>
               Buy an immediate Audience Awareness lift. Returns diminish sharply as awareness
-              rises: measured lifetime break-even crosses at roughly 30–32 awareness, so the
-              figures below are decision inputs, not a recommended tier or promised outcome.
+              rises: the measured Whisper maintenance rule&rsquo;s lifetime break-even crosses at
+              roughly 30–32 awareness, so the figures below are decision inputs, not a
+              recommended tier or promised outcome.
             </p>
           </div>
           <Metric label="Awareness now" small testid="publicity-awareness">
@@ -220,6 +221,10 @@ export function Dashboard({
           In measured working studios the practical band was roughly 0–57 of the nominal 0–100.
           About 90% of awareness decline came from below-neutral releases; the weekly pull-down
           above 35 accounted for the rest.
+        </p>
+        <p className="hint" data-testid="publicity-global-cooldown">
+          Every purchase starts a shared {publicity[0]?.globalCooldownWeeks}-week cooldown across
+          all campaigns; each tier also has its own longer reuse clock shown below.
         </p>
         <div className="grid grid-3" data-testid="publicity-tiers">
           {publicity.map((offer) => {

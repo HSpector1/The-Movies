@@ -2,7 +2,15 @@
 //   npx vitest run --config src/harness/d16/vitest.d16.config.ts
 
 import { describe, it, expect } from 'vitest'
-import { TUNING, canAfford, marketingLevelsFor, studioRunRecap } from '../../core/index.js'
+import {
+  TUNING,
+  applyActions,
+  canAfford,
+  cheapestPackageQuote,
+  marketingLevelsFor,
+  standardPackageQuote,
+  studioRunRecap,
+} from '../../core/index.js'
 import type { GameState } from '../../core/index.js'
 import { foundStudioFor } from './driver.js'
 import { standardCadence } from './policies.js'
@@ -130,24 +138,30 @@ describe('d16/states — the ladder is mutually exclusive and correctly ordered'
 })
 
 describe('d16/states — production D-17B menu alignment', () => {
-  it('the bare-minimum package uses its exact core menu while recap retains its documented studio-level floor', () => {
+  it('the harness bare minimum and the recap quote each use their own exact package menu', () => {
     const recap = studioRunRecap(FOUNDED)
     const bare = withProductionMarketingMenu(() => bareMinimumPackage(FOUNDED, STATE_PACKAGE_OPTIONS))
+    const quote = cheapestPackageQuote(FOUNDED)!
     expect(recap.position.cheapest).not.toBeNull()
     expect(bare).not.toBeNull()
     expect(bare!.marketing).toBe(marketingLevelsFor(FOUNDED, receptionInputsFor(FOUNDED, bare!))[0])
-    expect(recap.position.cheapestBreakdown!.marketing).toBe(marketingLevelsFor(FOUNDED, null)[0])
-    expect(bare!.committedCost).toBeGreaterThanOrEqual(recap.position.cheapest!.commitment)
+    expect(recap.position.cheapest!.commitment).toBe(Math.round(
+      quote.breakdown.negative + quote.breakdown.marketing + quote.breakdown.freelancerFees,
+    ))
+    const exactCommitment =
+      quote.breakdown.negative + quote.breakdown.marketing + quote.breakdown.freelancerFees
+    const exact = { ...FOUNDED, studio: { ...FOUNDED.studio, cash: exactCommitment } }
+    expect(() => applyActions(exact, [{ kind: 'greenlight', production: quote.production }])).not.toThrow()
   })
 
   it('the buildable standard package resolves its own middle rung, not the recap floor or a static grid', () => {
     const recap = studioRunRecap(FOUNDED)
     const std = withProductionMarketingMenu(() => standardPackage(FOUNDED, STATE_PACKAGE_OPTIONS))
+    const quote = standardPackageQuote(FOUNDED)!
     expect(std).not.toBeNull()
     expect(recap.position.standard).not.toBeNull()
     expect(std!.marketing).toBe(marketingLevelsFor(FOUNDED, receptionInputsFor(FOUNDED, std!))[1])
-    expect(recap.position.standardBreakdown!.marketing).toBe(marketingLevelsFor(FOUNDED, null)[1])
-    expect(std!.marketing).toBeGreaterThanOrEqual(recap.position.standardBreakdown!.marketing)
+    expect(recap.position.standardBreakdown).toEqual(quote.breakdown)
   })
 })
 

@@ -17,7 +17,7 @@ import type {
   DiscoveryExposureView,
   MarketingMenuView,
 } from '../engine/adapter.ts'
-import { money, score, confidenceLabel } from '../format.ts'
+import { money, moneyExact, score, confidenceLabel } from '../format.ts'
 import { Metric, Warn } from './common.tsx'
 import { DiscoveryExposureLine } from './DiscoveryExposure.tsx'
 
@@ -309,7 +309,7 @@ export function FilmPackageSummary({
                 small
                 testid={`pkg-marketing-rung-${index}`}
               >
-                {money(level)}
+                {moneyExact(level)}
               </Metric>
             ))}
           </div>

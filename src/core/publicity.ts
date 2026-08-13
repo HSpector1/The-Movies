@@ -16,6 +16,7 @@ export type PublicityOffer = {
   expectedLift: number
   pricePerPoint: number | null
   cooldownWeeks: number
+  globalCooldownWeeks: number
   available: boolean
   availableWeek: number | null
   reason: string | null
@@ -42,6 +43,7 @@ export function publicityOffer(state: GameState, tier: PublicityTier): Publicity
     expectedLift,
     pricePerPoint: expectedLift > 0 ? spec.cost / expectedLift : null,
     cooldownWeeks: spec.cooldownWeeks,
+    globalCooldownWeeks: TUNING.PUBLICITY_GLOBAL_COOLDOWN_WEEKS,
   }
 
   if (!economyEngaged(state)) {

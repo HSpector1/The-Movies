@@ -721,17 +721,17 @@ export const oracleEV: OraclePolicy = {
 }
 
 /**
- * P15 [EXPLOIT] — deliberately falls off the engagement cliff (A2 §7.2).
- * Releases every contract immediately after founding so `contracts.length === 0` and
- * `economyEngaged` flips false: no overhead, no solvency gate, no 6-week 52 % run — the
- * legacy D-1 single-lump 100 %-of-gross credit instead. LABELLED EXPLOIT everywhere; its
- * numbers measure the cliff, not a playable strategy.
+ * P15 [HISTORICAL EXPLOIT PROBE] — attempts the pre-D-17A engagement cliff (A2 §7.2).
+ * D-17A made the founded economy persistent, so releasing every contract no longer flips
+ * `economyEngaged` false and no longer reaches the legacy D-1 lump-sum economy. The policy stays
+ * registered under its historical name as a regression probe: production-mode evidence must
+ * show that the old exploit is closed, never silently describe it as a live payoff arm.
  */
 export const exploitDisengage: PlayerPolicy = {
   name: 'P15_exploitDisengage',
   kind: 'exploit',
   disengagementIntended: true,
-  description: 'EXPLOIT. Releases every contract after founding so the D-12 economy disengages (100%-of-gross lump, no overhead, no solvency gate). Measures the engagement cliff.',
+  description: 'HISTORICAL EXPLOIT PROBE. Releases every contract after founding; D-17A persistence must keep the founded economy engaged and close the former 100%-of-gross cliff.',
   founding: { counts: MIN_ROSTER, rank: 'cheapest', termWeeks: TUNING.CONTRACT_MIN_WEEKS },
   roster: { ...DEFAULT_ROSTER_OPTIONS, renewAtWeeksRemaining: 0, refillCounts: null },
   decide(view, ctx) {
@@ -754,8 +754,9 @@ export const exploitDisengage: PlayerPolicy = {
       marketingLevels: [midRung()],
     })
     const pick = gen.packages[0] ?? null
-    // No solvency gate exists on the disengaged path; commit unconditionally so the
-    // exploit's true (unbounded) shape is measured rather than a harness-imposed limit.
+    // Commit unconditionally to keep probing the historical exploit boundary. In production
+    // mode the persisted founded regime still applies the real solvency gate, so rejections are
+    // expected evidence that D-17A closed the cliff.
     if (pick === null || !slotFree(view)) return []
     return [{ kind: 'greenlight', production: greenlightBody(pick) }]
   },

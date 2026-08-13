@@ -107,6 +107,7 @@ describe('D-17B §2 — the tier menu is the contract menu', () => {
       expect(offer.expectedLift).toBe(publicityLiftAt(offer.tier, 30))
       expect(offer.pricePerPoint).toBeCloseTo(spec.cost / offer.expectedLift, 8)
       expect(offer.cooldownWeeks).toBe(spec.cooldownWeeks)
+      expect(offer.globalCooldownWeeks).toBe(TUNING.PUBLICITY_GLOBAL_COOLDOWN_WEEKS)
       expect(offer.available).toBe(true)
       expect(offer.availableWeek).toBe(81)
       expect(offer.reason).toBeNull()

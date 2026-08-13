@@ -145,6 +145,12 @@ const SHIPPED_GRID: MarketingGrid = [
 let ACTIVE_GRID: MarketingGrid = SHIPPED_GRID
 let PRODUCTION_MARKETING_MENU = false
 
+/** Production alignment follows the persisted economy regime; historical lab mode preserves
+ * its pre-D-17B employment predicate so frozen artifacts remain interpretable. */
+function packageRegimeEngaged(state: GameState): boolean {
+  return PRODUCTION_MARKETING_MENU ? economyEngaged(state) : employmentEngaged(state)
+}
+
 /** The triple `grid.ts` ships — the value the neutral arm must always resolve to. */
 export function shippedMarketingGrid(): MarketingGrid {
   return SHIPPED_GRID
@@ -482,7 +488,7 @@ export function generatePackages(state: GameState, options: PackageOptions = {})
   if (options.marketingLevels === undefined) opts.marketingLevels = activeMarketingGrid()
   // Historical lab/reference mode preserves its original employment predicate. A production
   // alignment run follows the action's persisted regime fact exactly (D-17A/R2).
-  const engaged = PRODUCTION_MARKETING_MENU ? economyEngaged(state) : employmentEngaged(state)
+  const engaged = packageRegimeEngaged(state)
   const pools = buildPools(state, opts, engaged)
   const unstaffable: CreativeRole[] = []
   const need: Record<CreativeRole, number> = { writer: 1, director: 1, craft: 1, actor: 3 }
@@ -766,7 +772,7 @@ export type PackageEvaluation = {
  * No hidden state is read.
  */
 export function evaluatePackage(state: GameState, pkg: D16Package): PackageEvaluation {
-  const engaged = employmentEngaged(state)
+  const engaged = packageRegimeEngaged(state)
   const inp = receptionInputsFor(state, pkg)
   const salaries = pkg.freelancerFees
   const profit = forecastProfitRange(inp, {
@@ -796,7 +802,7 @@ export function evaluatePackage(state: GameState, pkg: D16Package): PackageEvalu
 
 /** The full player-visible greenlight dossier, priced under the state's OWN engagement mode. */
 export function assessPackage(state: GameState, pkg: D16Package): GreenlightAssessment {
-  const engaged = employmentEngaged(state)
+  const engaged = packageRegimeEngaged(state)
   const inp = receptionInputsFor(state, pkg)
   const id = predictProductionId(state)
   const byId: Record<string, Talent> = {}
@@ -869,7 +875,7 @@ export function assessPackage(state: GameState, pkg: D16Package): GreenlightAsse
  * ORACLE POLICIES ONLY.
  */
 export function oracleExpectedContribution(state: GameState, pkg: D16Package): number {
-  const engaged = employmentEngaged(state)
+  const engaged = packageRegimeEngaged(state)
   const inp = receptionInputsFor(state, pkg)
   const truth = resolveReception(inp, RngStream.deserialize(state.rngState), engaged, engaged, 0)
   return truth.total * studioShareFor(engaged) - pkg.committedCost
@@ -882,7 +888,7 @@ export function oracleExpectedContribution(state: GameState, pkg: D16Package): n
  * instead of inferring it from a contaminated discoverability ratio. NOT for decisions.
  */
 export function perceivedExpectedContribution(state: GameState, pkg: D16Package): number {
-  const engaged = employmentEngaged(state)
+  const engaged = packageRegimeEngaged(state)
   const inp = receptionInputsFor(state, pkg)
   const c = forecastCenters(inp, engaged, engaged)
   const box = computeBoxOfficeCore(inp, c.centers, c.centersOpening, engaged)

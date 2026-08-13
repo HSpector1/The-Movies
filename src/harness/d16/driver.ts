@@ -46,6 +46,7 @@ import {
   forecastCenters,
   forecastProfitRange,
   generateWorld,
+  marketingLevelsFor,
   predictProductionId,
   resolveReception,
   resolveShape,
@@ -125,7 +126,7 @@ export type FilmRecord = {
   negative: number
   marketing: number
   freelancerFees: number
-  /** which of the three MARKETING_BUDGET_LEVELS was chosen. */
+  /** logical active-menu rung index (0 low / 1 middle / 2 high). */
   marketingLevel: number
   negMult: number
   shapeKey: string
@@ -769,7 +770,7 @@ function runOneCore(opts: RunOptions): RunRecord {
             const e = state.ledger[li]!
             if (e.kind === 'freelancerFee' && e.productionId === prod.id) feeLeg += -e.amount
           }
-          const meta = describeGreenlight(before, action, committedCost)
+          const meta = describeGreenlight(before, action, committedCost, productionD17b)
           films.set(prod.id, {
             productionId: prod.id,
             conceptId: prod.conceptId,
@@ -779,7 +780,7 @@ function runOneCore(opts: RunOptions): RunRecord {
             negative: prod.budget.negative,
             marketing: prod.budget.marketing,
             freelancerFees: feeLeg,
-            marketingLevel: prod.budget.marketing,
+            marketingLevel: meta.marketingLevel,
             negMult: meta.negMult,
             shapeKey: meta.shapeKey,
             leadId: prod.cast.lead,
@@ -834,7 +835,7 @@ function runOneCore(opts: RunOptions): RunRecord {
         rec.realizedGross = f.boxOffice.total
         rec.realizedOpening = f.boxOffice.opening
         rec.realizedCritic = f.criticScore
-        const disc = reconstructDiscovery(preTick, f.productionId, f.boxOffice.opening)
+        const disc = reconstructDiscovery(preTick, f.productionId, f.boxOffice.opening, productionD17b)
         rec.discoveryMultiplier = disc.multiplier
         rec.discoveryZ = disc.z
         rec.perceivedVsActualOpeningRatio = disc.perceivedVsActual
@@ -1120,6 +1121,7 @@ function describeGreenlight(
   state: GameState,
   action: Action & { kind: 'greenlight' },
   committedCost: number,
+  productionD17b: boolean,
 ): {
   negMult: number
   shapeKey: string
@@ -1128,8 +1130,9 @@ function describeGreenlight(
   leadOVR: number
   centerProfit: number
   engaged: boolean
+  marketingLevel: number
 } {
-  const engaged = employmentEngaged(state)
+  const engaged = productionD17b ? economyEngaged(state) : employmentEngaged(state)
   const p = action.production
   const concept = state.concepts.find((c) => c.id === p.conceptId)
   const genre = concept?.genre ?? 'unknown'
@@ -1151,6 +1154,7 @@ function describeGreenlight(
   const lead = state.talent.find((t) => t.id === p.cast.lead)
   const byId = new Map(state.talent.map((t) => [t.id, t]))
   let centerProfit = NaN
+  let marketingLevel = -1
   if (concept !== undefined) {
     const cast = {} as Record<CastSlot, Talent>
     let ok = true
@@ -1163,8 +1167,7 @@ function describeGreenlight(
     const director = byId.get(p.directorId)
     const craftHires = p.craftIds.map((id) => byId.get(id)).filter((t): t is Talent => t !== undefined)
     if (ok && writer !== undefined && director !== undefined && craftHires.length === p.craftIds.length) {
-      const range = forecastProfitRange(
-        {
+      const inputs: ReceptionInputs = {
           concept,
           shape: p.shape,
           shapeEffects: effects,
@@ -1177,7 +1180,12 @@ function describeGreenlight(
           market: state.market,
           standing: state.studio.standing,
           era: state.era,
-        },
+        }
+      marketingLevel = marketingLevelsFor(state, inputs).findIndex(
+        (amount) => amount === p.budget.marketing,
+      )
+      const range = forecastProfitRange(
+        inputs,
         {
           seed: state.seed,
           productionId: predictProductionId(state),
@@ -1203,6 +1211,7 @@ function describeGreenlight(
     genre,
     leadFame: lead?.fame ?? NaN,
     leadOVR: lead === undefined ? NaN : roleOVR(lead, 'acting'),
+    marketingLevel,
     centerProfit,
     engaged,
   }
@@ -1239,8 +1248,9 @@ function reconstructDiscovery(
   preTick: GameState,
   productionId: string,
   realizedOpening: number,
+  productionD17b: boolean,
 ): { multiplier: number | null; z: number; perceivedVsActual: number | null } {
-  const engaged = employmentEngaged(preTick)
+  const engaged = productionD17b ? economyEngaged(preTick) : employmentEngaged(preTick)
   // tick.ts:203-205 — the draw exists ONLY on the engaged path; disengaged releases use z = 0.
   const z = engaged ? stream(preTick.seed, 'discovery-v1', productionId).gaussian(0, 1) : 0
   const miss = { multiplier: null, z, perceivedVsActual: null }
