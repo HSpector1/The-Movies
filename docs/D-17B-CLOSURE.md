@@ -125,10 +125,12 @@ require Owner judgment.
 
 ## 2. Verification record
 
-Reviewed implementation result: full suite **112 files / 1476 tests**, D-16/D-17 harness **10 files
-/ 176 tests**, root+UI TypeScript clean, production build clean. The final documentation-close run
-repeats all four commands; its exact result is reported at handoff. Generated evidence is retained
-under `out/d16-economy-lab/` and is not committed.
+Final documentation-close result: full suite **112/112 files, 1476/1476 tests**; D-16/D-17 harness
+**10/10 files, 176/176 tests** using `src/harness/d16/vitest.d16.config.ts`; root+UI TypeScript
+clean; production Vite build clean (114 modules transformed). Generated evidence is retained under
+`out/d16-economy-lab/` and is not committed. An initial final-pass harness command used a glob that
+the default workspace intentionally excludes and found no tests; it was a command-selection error,
+not a code failure, and was replaced immediately by the governed config invocation above.
 
 ## 3. Process and history integrity
 
