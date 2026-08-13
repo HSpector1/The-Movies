@@ -1920,3 +1920,108 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   should be near maximum but collapses to zero immediately exposes the unit mismatch; an omitted
   key field then explains why provenance did not catch it. Production now encodes saturation in
   `productionCandidateKey` and `publicityKey`, and validation rejects `saturation < 50`.
+
+---
+
+# Production Operations V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Contract `1c7a33a`; engine implementation `41333f6`; save corrections `9c9acc3` and
+> `e3944ef`; player delivery `0ba1775`. Related:
+> `docs/PRODUCTION-OPERATIONS-V1-CONTRACT.md`,
+> `docs/PRODUCTION-OPERATIONS-V1-CLOSURE.md`, and
+> `docs/art/OPERATION-HOLLYWOOD-ENGINE-BRIDGE.md`.
+
+## BN. Animation may acknowledge an authoritative command; it must never complete one — **MG, BR**
+
+- **Risk:** a route timer, sprite arrival, or render-loop callback can become a second simulation
+  clock and make a shooting task depend on frame timing, tab visibility, or reload position.
+- **Resolution:** Phaser begins a director route only after the engine snapshot changes to the
+  corresponding state. Coordinates and animation time are disposable presentation state; only a
+  core command and weekly tick can change the task.
+- **Coverage / fastest diagnostic:** load blocked, ready, scheduled, and completed saves directly;
+  confirm each paints correctly without replaying an animation, then let the renderer run and assert
+  the serialized core state remains byte-identical.
+- **Pattern:** animate acknowledged facts. **Anti-pattern:** animation callbacks that advance law.
+
+## BO. Event-stop systems must stop on actionable legality, not merely on bad news — **MG, BR**
+
+- **Symptom:** treating every production blocker as an event would halt Sim repeatedly on a full
+  facility even though the player has no legal command to resolve it.
+- **Resolution:** the read model exposes a stop only when the exact current core command exists and
+  is legal. Capacity holds remain visible and retry on the weekly simulation boundary.
+- **Coverage / fastest diagnostic:** create one command blocker and one capacity blocker; Sim must
+  stop for the former and continue for the latter.
+- **Pattern:** interruption implies agency. **Anti-pattern:** pausing on an unresolvable condition.
+
+## BP. Historical migration repair and current-schema validation are different contracts — **BR**
+
+- **Symptom:** a shared normalization path repaired empty or duplicate forecast segments even in a
+  claimed SaveFileV8, allowing malformed current saves to pass under compatibility logic intended
+  for older schemas.
+- **Resolution:** old versions may be migrated and repaired according to their known history; the
+  current version must already be canonical and rejects missing, empty, duplicate, unordered, or
+  invalid segment collections.
+- **Coverage / fastest diagnostic:** mutate the newest schema directly, not only a legacy fixture,
+  and require rejection while every supported old-version migration remains green.
+- **Pattern:** permissive historical reader, strict current writer contract. **Anti-pattern:** one
+  forgiving parser for every declared version.
+
+## BQ. Facility destination identity must survive every boundary — **MG, BR**
+
+- **Risk:** recomputing “some soundstage” in a UI or renderer can move a production from Stage 12 to
+  the prettier Stage 7 plate, breaking reservations while looking plausible.
+- **Resolution:** facility ID and slot are engine facts, retained across rehearsal and shooting and
+  projected verbatim through the read model. An unauthored destination uses an honest inspector
+  fallback; it is never substituted.
+- **Coverage / fastest diagnostic:** reserve each soundstage in turn and assert Stage 7 alone starts
+  the authored route while Stage 12 remains named and stationary.
+- **Pattern:** explicit destination identity end to end. **Anti-pattern:** presentation choosing a
+  convenient equivalent facility.
+
+## BR. Occupied, decision-required, and recording are separate visual states — **MG**
+
+- **Symptom:** the legacy lot treated any stage with a production reservation as actively filming,
+  showing REC and door glow during rehearsal or while waiting for a player decision.
+- **Resolution:** stage presentation derives a small explicit state: vacant, reserved,
+  decision-required, or recording. Reserved stages retain their dressing and title, but recording
+  effects require the authoritative recording phase.
+- **Coverage / fastest diagnostic:** exercise the real renderer dressing path for all states and
+  inspect REC, glow, equipment, title, and attention badge independently.
+- **Pattern:** model visually meaningful substates. **Anti-pattern:** `occupied === active`.
+
+## BS. Inspector context must be mutually exclusive, not merely layered — **MG, BR**
+
+- **Symptom:** selecting a person, production, then place could leave one panel headed by a place
+  while exposing another production's task or command underneath it.
+- **Root cause:** each selection was added to local state without clearing incompatible selections.
+- **Resolution:** person, production, and place transitions explicitly establish one coherent
+  context and clear every mismatched identity, outline, task, and command.
+- **Coverage / fastest diagnostic:** use at least two active productions and drive every inverse
+  transition (person→place, place→production, production→other person), including callbacks captured
+  before rerender.
+- **Pattern:** one inspector context state machine. **Anti-pattern:** independent nullable fields
+  whose combinations are assumed to be harmless.
+
+## BT. When a command replaces itself, focus belongs to its successor or durable result — **BR**
+
+- **Symptom:** after activation, a command button unmounted and browser focus fell back to the page,
+  so keyboard and screen-reader users lost the result and next action.
+- **Resolution:** each surface records the production whose command was invoked, then focuses the
+  next legal command or the persistent status element after the authoritative snapshot changes. The
+  status is a polite atomic live region and remains focusable without joining normal tab order.
+- **Coverage / fastest diagnostic:** execute the complete command chain in a stateful component test
+  and assert `document.activeElement` after every replacement, including the final scheduled state.
+- **Pattern:** focus follows workflow continuity. **Anti-pattern:** relying on an announcement while
+  focus disappears with the old control.
+
+## BU. Blocker copy must name the time of the failed attempt — **MG, BR**
+
+- **Symptom:** “No slot is available” could remain visible after another production released its
+  slot because retries occur only on the next weekly tick.
+- **Resolution:** persisted blocker copy states that no slot was available *when the production
+  attempted* and tells the player it will retry next week. The copy stays truthful between engine
+  transitions without pretending the UI can retry early.
+- **Coverage / fastest diagnostic:** free the contested slot without advancing the blocked workflow;
+  its sentence must still be historically true.
+- **Pattern:** align prose tense with state-transition cadence. **Anti-pattern:** present-tense
+  claims derived from a past failed attempt.

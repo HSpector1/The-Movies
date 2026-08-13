@@ -3,8 +3,9 @@
 ## Result
 
 The Studio Chronicle district now runs inside the production React + Phaser application on
-`operation-hollywood-engine-bridge`, based on committed integration authority
-`b3881678ea18d3ef101f5bb59c0aa0ea83340f53`.
+`operation-hollywood-autonomous-marathon`. Its integration authority is merge
+`4432a9befef578ac3549896c2796bf0a22950ec0`, which joins the accepted D-17B economy state to the
+Operation Hollywood source without rewriting either history.
 
 Enable both development gates:
 
@@ -12,8 +13,8 @@ Enable both development gates:
 VITE_STUDIO_LOT_OVERVIEW=1 VITE_OPERATION_HOLLYWOOD=1 npm run dev -- --host 127.0.0.1
 ```
 
-The legacy D1 lot remains available when `VITE_OPERATION_HOLLYWOOD` is absent. No existing
-worktree was changed or reset.
+The legacy D1 lot remains available when `VITE_OPERATION_HOLLYWOOD` is absent. The marathon worktree
+is isolated; no protected source worktree was switched, reset, or cleaned.
 
 ## Architecture selected
 
@@ -25,7 +26,7 @@ an object-per-prop reconstruction.
 | 0 baked world | one authored district plate | 1 display object |
 | 1 state/occlusion | tight truck, camera-dolly, and gate masks; activity/selection graphics | 7–9 objects |
 | 2 ambient life | pooled role sprites plus a stateful arrival car | 13 actors |
-| 3 managed people | Mara/active director and a real engine talent identity | 2 actors |
+| 3 managed people | real contracted or active-production identities from the lot snapshot | snapshot-dependent |
 
 The asset source is `art/hollywood/district-manifest.source.json`. The deterministic exporter
 `tools/hollywood/export_district.py` validates the 1586×992 source, emits the Tier-0 plate,
@@ -33,12 +34,12 @@ crops every occluder to tight alpha bounds, and writes the runtime manifest. Tha
 owns places, polygons, anchors, affordances, activity requirements, visual states, routes,
 depth bands, and decoded texture-memory cost.
 
-The existing `StudioLotSnapshot` remains the only truth boundary. It gained narrow named-person
-display facts; raw Talent objects and hidden ability values still never cross into Phaser.
-Active-production directors/leads are projected from real productions. Mara Voss is explicitly
-marked `district-managed`: the current GameState has no physical-task domain, so her spatial task
-is presentation truth. This is the smallest honest interface until physical schedules become
-save-authoritative.
+`StudioLotSnapshot` remains the only truth boundary. Raw Talent objects and hidden ability values
+still never cross into Phaser. Production Operations V1 now projects the authoritative film,
+phase, countdown, facility, director, shooting-task status, blocker, progress, and currently legal
+command. Managed studios expose only people attached to a real active production; the bridge no
+longer fabricates Mara Voss or a picture when the studio is idle. Legacy studios remain explicitly
+labelled and read-only in this surface.
 
 ## Hard depth proof
 
@@ -49,23 +50,26 @@ street 30 -> behind truck 30 -> past truck 50 -> behind camera 56 -> past camera
 ```
 
 The environment is drawn at base `0`, truck `40`, camera dolly `70`, gate foreground `90`.
-Mara is therefore actually occluded and revealed by semantic layer ordering while walking; the
-effect is not a CSS mask or a pre-rendered animation.
+An authoritative production's routed director is therefore actually occluded and revealed by
+semantic layer ordering while walking; the effect is not a CSS mask or a pre-rendered animation.
 
 ## Interaction mapping
 
-### Stage 7 — Shooting activity
+### Soundstage 7 — authoritative shooting activity
 
-1. Select Mara or an active-production director.
-2. `Assign to Stage 7` emits accepted.
-3. Mara travels with named cues: behind truck, behind camera, enter stage.
-4. Stage 7 changes from HOLD to DIRECTOR CALLED.
-5. The scenery bottleneck interrupts her at the camera mark with a named reason.
-6. `Clear scenery load-in` changes the activity to equipment staged / ready.
-7. `Call for Take 12` changes the stage to ROLLING, then TAKE 12 PRINTED.
+The React host renders the exact Production Operations snapshot and dispatches only its
+`currentCommand`. Core accepts or rejects that command; the application replaces and autosaves the
+whole state only after success. The next snapshot then repaints both React and Phaser.
 
-This is the C&C chain: intent → acknowledgement → destination → movement → interruption →
-player correction → visible result.
+An exact engine reservation for Soundstage 7 maps to the authored Stage 7 district. When the
+snapshot changes from `unassigned` to `blocked`, Phaser may animate that production's real director
+along the authored route as visual acknowledgement. Route position and wall-clock time never alter
+the engine task. Blocked, ready, scheduled, and completed saves load directly into their persisted
+visual state, and no render-loop timer can complete a take.
+
+An exact Soundstage 12 reservation remains Soundstage 12 in the production inspector. Because this
+district plate contains only Stage 7, Soundstage 12 uses an honest inspector fallback and never
+starts the Stage 7 route. With no managed production, the scene says the lot is idle.
 
 ### Administration/Publicity — second reusable activity
 
@@ -80,19 +84,19 @@ ledger     + one studio-level publicity entry
 cooldown   publicity.lastUsedWeek / byTier.whisper updated
 ```
 
-Because GameState is replaced by the action result, the cash, standing, ledger, and cooldown are
-saved by the existing session/save system. This is the second unit proving the scene vocabulary
-is not a Stage-7-only anecdote.
+Because GameState is replaced by the action result, cash, standing, ledger, cooldown, and V8
+production operations are saved by the existing session/save system. This is the second unit
+proving the scene vocabulary is not a Stage-7-only anecdote.
 
 ## Performance
 
-Live Chromium/Phaser capture at 1280×720 on 2026-08-13:
+Final live Chromium/Phaser acceptance at 1920×1080 on 2026-08-13:
 
 | Metric | Measured |
 | --- | ---: |
-| FPS | 59–60 |
-| Display objects | 30 |
-| Dynamic actors | 15 |
+| FPS | 106 |
+| Display objects | 26 |
+| Dynamic actors | 13 |
 | Decoded authored texture memory | 8.7 MB |
 | Static authored environment draws | 4 |
 | Target / hard floor | ≥50 / ≥30 |
@@ -112,11 +116,14 @@ Verification:
 
 ```text
 typecheck: clean
-production build: clean (existing large-chunk advisory only)
-lot + adapter regression: 15 files / 155 tests passed
-Hollywood contract: 1 file / 4 tests passed
-live chain: select -> assign -> travel -> blocked -> clear -> ready -> Take 12 -> complete
+production build: clean, 118 modules transformed (existing large-chunk advisory only)
+full repository suite: 120 files / 1,557 tests passed
+UI suite: 61 files / 558 tests passed
+D-16 governed harness: 10 files / 176 tests passed
+authoritative chain: snapshot command -> core action -> successful state replacement -> fresh snapshot
+cosmetic route: exact Soundstage 7 unassigned -> blocked transition only; never advances core
 live publicity: $1.2M paid, awareness +0.8, state replaced
+live production: director called -> scenery cleared -> take scheduled -> SaveFileV8 reload -> release
 ```
 
 ## Five largest remaining parity losses
@@ -132,10 +139,13 @@ live publicity: $1.2M paid, awareness +0.8, state replaced
 5. Lighting is rich because it is baked; time-of-day variants and animated light spill need
    alternate authored plates or overlay maps.
 
-## Next production move
+## Remaining visual move
 
 Author one empty/construction/completed state for the Scenery Annex and one 1950s overlay pack
 (cars, signage, clothes, equipment) through this exporter. If those land without scene-specific
 TypeScript, the visual-state and era promises are both proven. Then replace the generated actor
 textures with an offline-rendered 4-direction role atlas while retaining the same managed-person
 and activity contracts.
+
+The next engine-owned marathon slice is Script Projects V1. That work is separate from this visual
+recommendation and must preserve the snapshot boundary established here.
