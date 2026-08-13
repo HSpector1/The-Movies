@@ -512,6 +512,8 @@ export type Action =
   | { kind: 'signContract'; talentId: string; termWeeks: number } // sign to studio contract
   | { kind: 'renewContract'; talentId: string; termWeeks: number } // extend during renewal window
   | { kind: 'releaseTalent'; talentId: string } // early release (financial cost only)
+  // ── D-17B §2 publicity action (the ONE authorized paid awareness lever) ──
+  | { kind: 'publicity'; tier: PublicityTier }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

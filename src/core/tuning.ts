@@ -100,6 +100,28 @@ export const TUNING = {
   AWARENESS_DRIFT_RATE: 0.04, // [D-17B §1] κ — weekly fraction of the above-anchor excess shed
   AWARENESS_DRIFT_ANCHOR: 35, // [D-17B §1] the anchor: at/below it the drift is exactly 0
 
+  // ── D-17B §2 — the publicity campaign (menu R21) ────────────────────────────
+  // ONE player action, three legible tiers, engaged-only, `canAfford`-gated, integer
+  // dollars, immediate, NO RNG. Lift = maxLift · (1 − awareness/100)^PUBLICITY_SHAPE_EXP,
+  // so the SAME money buys progressively less as the studio becomes visible: price per
+  // point runs $67k at A=0 → $884k at A=35 → $1.43M at A=40, and the lifetime break-even
+  // ($560–700k/pt) crosses at A≈30–32. That convexity is what makes it a DECISION rather
+  // than an upkeep chore (authorization §8): a healthy studio rationally declines, a
+  // distressed one has ONE recovery lever, not a rescue.
+  //
+  // DISCLOSED (contract §2, shown to the Owner before the three-tier shape is accepted):
+  // measured tier usage is whisper 49.0% / push 45.7% / blitz 5.3% of buys; blitz is
+  // bought ONLY by the adversarial maximum arm, and the C1(a)-passing maintenance policy
+  // buys whisper exclusively. For competent play the measured mechanic is effectively one
+  // rung and the ladder is presentational.
+  PUBLICITY_TIERS: {
+    whisper: { cost: 1_200_000, maxLift: 18, cooldownWeeks: 8 },
+    push: { cost: 3_600_000, maxLift: 30, cooldownWeeks: 12 },
+    blitz: { cost: 8_000_000, maxLift: 42, cooldownWeeks: 20 },
+  },
+  PUBLICITY_SHAPE_EXP: 6, // [D-17B §2] convexity of the diminishing lift (exponents 7-8 fail C1(a))
+  PUBLICITY_GLOBAL_COOLDOWN_WEEKS: 6, // [D-17B §2] minimum weeks between ANY two campaigns
+
   // Prestige (absolute critic achievement). BENCHMARK sits near the pooled
   // criticScore median (46.5) so it is REACHABLE from both sides — the prior fixed
   // 60 was above ~p90, so prestige could only fall. SCALE 1.2 makes a criticScore

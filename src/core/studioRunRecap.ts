@@ -271,6 +271,15 @@ export type CapitalStory = {
   totalFilmContribution: number
   totalPayroll: number
   totalOverhead: number
+  // ── D-17B §5 — publicity is a STUDIO-LEVEL cost ──────────────────────────────
+  // Σ publicity campaign spend over the run, POSITIVE (like totalPayroll/totalOverhead).
+  // It is DELIBERATELY absent from `totalCommitments`, `totalFilmContribution` and every
+  // film's `studioEconomicResult`: a campaign buys studio awareness, not a particular
+  // picture, so charging it to a film would invent an attribution the ledger does not
+  // support (the same rule R7 applies to payroll/overhead). The capital story carries it
+  // on its own line, and the cash timeline picks it up automatically because it is a
+  // ledger entry like any other.
+  totalPublicity: number
   currentWeeklyPayroll: number
   currentWeeklyOverhead: number
   currentWeeklyBurn: number
@@ -461,6 +470,10 @@ export function studioRunRecap(state: GameState): StudioRunRecap {
   const totalFilmContribution = totalStudioRevenue - totalCommitments
   const totalPayroll = -totals.payroll
   const totalOverhead = -totals.overhead
+  // D-17B §5: read straight off `financeTotals` — no second derivation to drift from it.
+  // Normalised away from -0: a studio that never ran a campaign is the COMMON case here, and
+  // `-0` would render as "-$0" on the capital line.
+  const totalPublicity = totals.publicity === 0 ? 0 : -totals.publicity
 
   const runByProd = new Map(state.theatricalRuns.map((r) => [r.productionId, r]))
   const conceptById = new Map(state.concepts.map((c) => [c.id, c]))
@@ -586,6 +599,7 @@ export function studioRunRecap(state: GameState): StudioRunRecap {
     totalFilmContribution: round2(totalFilmContribution),
     totalPayroll: round2(totalPayroll),
     totalOverhead: round2(totalOverhead),
+    totalPublicity: round2(totalPublicity),
     currentWeeklyPayroll: round2(curPayroll),
     currentWeeklyOverhead: round2(curOverhead),
     currentWeeklyBurn: round2(curBurn),

@@ -1238,6 +1238,114 @@ function applyReleaseTalent(state: GameState, action: Action & { kind: 'releaseT
   }
 }
 
+// ── D-17B §2 — the publicity campaign action ─────────────────────────────────
+// The ONE authorized player-controlled paid awareness lever (Owner authorization §4 B;
+// §5: it is a PUBLICITY CAMPAIGN, never a "Publicity Office facility"). Deterministic and
+// immediate: no RNG, no scheduling, no persistence beyond the two cooldown clocks.
+//
+// Effect, exactly as measured (contract §2):
+//     lift       = maxLift · (1 − awareness/100)^PUBLICITY_SHAPE_EXP        (round-free)
+//     awareness' = clamp(awareness + lift, 0, 100)
+//     cash      -= cost                                                     (integer)
+// The convex shape is the whole design: the same money buys progressively less as the
+// studio becomes visible, so a healthy studio rationally declines to press the button and
+// a distressed one gets ONE lever rather than a guaranteed rescue (§8). It is NOT a
+// bailout — it costs real cash a distressed studio may not have, and `canAfford` refuses
+// to let it drive cash below zero (the D-12.11 solvency gate, same rule as a greenlight).
+//
+// Every rejection throws with a NAMED reason (house style: loud, specific, quotable by the
+// UI verbatim).
+function applyPublicity(state: GameState, action: Action & { kind: 'publicity' }): GameState {
+  const { tier } = action
+  const week = state.market.tick
+  const spec = TUNING.PUBLICITY_TIERS[tier]
+  if (spec === undefined) {
+    throw new Error(`applyActions: publicity rejected — unknown tier "${String(tier)}"`)
+  }
+
+  // (1) ENGAGED-ONLY. Publicity is D-17B economy law; the headless/M0A regime has no such
+  // action, which is what keeps the acceptance corpus byte-identical and makes a
+  // `publicity` ledger entry valid evidence of engagement (save.ts ENGAGED_KINDS).
+  if (!economyEngaged(state)) {
+    throw new Error(
+      'applyActions: publicity rejected — the studio economy is not engaged; a publicity campaign is only available to a founded studio (D-17B §2)',
+    )
+  }
+
+  // (2) NOT during a founding draft — no operations before the studio exists (the same
+  // posture as greenlight/payroll/overhead).
+  if (state.founding !== null) {
+    throw new Error(
+      'applyActions: publicity rejected — the studio is still in its founding draft (D-17B §2)',
+    )
+  }
+
+  // (3) The GLOBAL cooldown: no two campaigns inside PUBLICITY_GLOBAL_COOLDOWN_WEEKS,
+  // whatever their tiers. This is what stops the ladder being climbed as one long purchase.
+  const last = state.publicity.lastUsedWeek
+  if (last !== null && week - last < TUNING.PUBLICITY_GLOBAL_COOLDOWN_WEEKS) {
+    const readyAt = last + TUNING.PUBLICITY_GLOBAL_COOLDOWN_WEEKS
+    throw new Error(
+      `applyActions: publicity rejected — a campaign ran in week ${String(last)}; the next campaign of any tier is available in week ${String(readyAt)} (global cooldown ${String(TUNING.PUBLICITY_GLOBAL_COOLDOWN_WEEKS)} weeks, D-17B §2)`,
+    )
+  }
+
+  // (4) The PER-TIER cooldown: a bigger campaign is unavailable for longer.
+  const lastTier = state.publicity.byTier[tier]
+  if (lastTier !== null && week - lastTier < spec.cooldownWeeks) {
+    const readyAt = lastTier + spec.cooldownWeeks
+    throw new Error(
+      `applyActions: publicity rejected — a ${tier} campaign ran in week ${String(lastTier)}; the next ${tier} campaign is available in week ${String(readyAt)} (tier cooldown ${String(spec.cooldownWeeks)} weeks, D-17B §2)`,
+    )
+  }
+
+  // (5) The D-12.11 solvency gate — the SAME authoritative check every other voluntary
+  // commitment uses. Publicity may never drive cash below zero.
+  const aff = canAfford(state, spec.cost)
+  if (!aff.ok) {
+    throw new Error(`applyActions: publicity rejected — ${aff.reason} (D-12 solvency gate)`)
+  }
+
+  const awareness = state.studio.standing.audienceAwareness
+  const lift = spec.maxLift * Math.pow(1 - clamp(awareness / 100, 0, 1), TUNING.PUBLICITY_SHAPE_EXP)
+
+  // Integer dollars enforced AT THE WRITE SITE (contract §5). The tier costs are integer
+  // literals, so this is a guard against a future non-integer tuning edit rather than a
+  // rounding step — the allocator's whole-dollar partition never sees this kind, so nothing
+  // downstream would catch it.
+  const cost = spec.cost
+  if (!Number.isInteger(cost)) {
+    throw new Error(
+      `applyActions: publicity rejected — tier "${tier}" cost ${String(cost)} is not a whole dollar amount (D-17B §5)`,
+    )
+  }
+
+  const entry: LedgerEntry = {
+    week,
+    kind: 'publicity',
+    amount: -cost,
+    // NO productionId: publicity is a STUDIO-level cost, never a per-film commitment (§5).
+    note: `publicity: ${tier}`,
+  }
+
+  return {
+    ...state,
+    studio: {
+      ...state.studio,
+      cash: state.studio.cash - cost,
+      standing: {
+        ...state.studio.standing,
+        audienceAwareness: clamp(awareness + lift, 0, 100),
+      },
+    },
+    ledger: [...state.ledger, entry],
+    publicity: {
+      lastUsedWeek: week,
+      byTier: { ...state.publicity.byTier, [tier]: week },
+    },
+  }
+}
+
 // ── §3 applyActions ──────────────────────────────────────────────────────────
 export function applyActions(state: GameState, actions: Action[]): GameState {
   // B3 — at most one greenlight per call. Reject two loudly (a harness abort).
@@ -1282,6 +1390,9 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'releaseTalent':
         next = applyReleaseTalent(next, action)
+        break
+      case 'publicity':
+        next = applyPublicity(next, action)
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).
