@@ -203,8 +203,9 @@ engine behavior.
 
 ## Development & Casting Annex V1 bridge update
 
-Development & Casting Annex V1 is delivered at
-`babfb874076055f5e8bb545eb1a96296e8accb76`. It is the first engine-owned construction lifecycle
+Development & Casting Annex V1 was delivered at
+`babfb874076055f5e8bb545eb1a96296e8accb76`; its final compatibility-hardened lineage ends at
+`8b7e95eb92f6f809522a595b4b458d4f19e26852`. It is the first engine-owned construction lifecycle
 to cross the district bridge, while preserving the same narrow `StudioLotSnapshot` boundary.
 
 The snapshot receives only the parcel's canonical presentation state (`vacant`, `building`, or
@@ -230,6 +231,12 @@ Live Chromium acceptance built at Week 0, recovered the exact Week-13 SaveFileV1
 `Annex operational · 3 shared slots`, and opened Studio Development from the physical parcel. The
 district and owner screen had no horizontal document overflow across 1280×720, 1366×768,
 1440×900, 1920×1080, or the 125%-equivalent compact viewport; console warnings/errors were empty.
+
+A post-closure compatibility repair added only the conditional, migration-only
+`cashLedgerCheckpoint` needed by authentic pre-ledger saves. Checkpoint-free existing V11 files,
+including this accepted Week-13 browser state, retain byte-compatible save behavior. The field does
+not cross `StudioLotSnapshot`, and the repair changes no Annex, economy, player, React, or Hollywood
+district behavior.
 
 No authored facility building was invented for this slice. The fixed asphalt parcel and lifecycle
 overlay are an honest V1 representation until a separately contracted district-art state earns its

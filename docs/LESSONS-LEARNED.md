@@ -2332,3 +2332,21 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   physical parcel in a live build and require the focused non-canvas destination.
 - **Pattern:** visual place + unambiguous hit geometry + semantic fallback. **Anti-pattern:** treating
   interaction bounds as decorative art metadata.
+
+## CS. A stronger current invariant needs an honest historical checkpoint — **BR**
+
+- **Symptom:** SaveFileV11's universal `INITIAL_CASH + Σ ledger` check rejected authentic played
+  V1/V2 saves because those formats persist current cash but predate the ledger; their frozen
+  migration truthfully retains cash and can only begin the ledger later.
+- **Resolution:** persist one optional migration-only `cashLedgerCheckpoint` at the validated
+  historical prefix and reconcile every later movement from it. Do not fabricate a balancing row,
+  weaken suffix/capex identity, rewrite frozen validators, or reconstruct events that were never
+  saved.
+- **Hardening:** historical projections must prove the checkpoint is canonical, still at the ledger
+  end, and representable by the target. Otherwise a builder can launder either post-checkpoint
+  activity or an invalid checkpoint by dropping it and remigrating.
+- **Coverage / fastest diagnostic:** migrate authentic played V1/V2 cash through every V1–V10
+  descendant, then append suffix activity and adversarially alter anchor, cash, boundary, and rows;
+  require exact rejection while checkpoint-free V11 remains byte-identical.
+- **Pattern:** explicit carried-history boundary + strict forward suffix. **Anti-pattern:** invented
+  accounting history or projection as validation bypass.

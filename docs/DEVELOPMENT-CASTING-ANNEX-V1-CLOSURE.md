@@ -1,12 +1,19 @@
 # Development & Casting Annex V1 Closure
 
-Status: **IMPLEMENTED, VALIDATED, AND CLOSED ON THE AUTONOMOUS MARATHON BRANCH**
+Status: **IMPLEMENTED, VALIDATED, AND CLOSED ON THE AUTONOMOUS MARATHON BRANCH; POST-CLOSURE
+COMPATIBILITY REPAIR VALIDATED**
 
-Date: 2026-08-13
+Initial closure: 2026-08-13
+
+Compatibility amendment: 2026-08-14
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Implementation candidate: `babfb874076055f5e8bb545eb1a96296e8accb76`
+Original implementation candidate: `babfb874076055f5e8bb545eb1a96296e8accb76`
+
+Original closure: `5f1fa29ac3c7ed301633cbc3b2c87c7a2083b3d4`
+
+Final compatibility-repaired candidate: `8b7e95eb92f6f809522a595b4b458d4f19e26852`
 
 ## Result
 
@@ -37,12 +44,62 @@ service resource.
 | Annex V1 research closure and initial contract | `8712b7967d862f641ba79b0af5ac719a376516f2` |
 | Contract verification-boundary clarification | `035e3c414aa29de0486d1c0720ca29d1e37408b1` |
 | Engine, SaveFileV11, player UI, lot bridge, and regressions | `babfb874076055f5e8bb545eb1a96296e8accb76` |
+| Original Annex V1 documentation closure | `5f1fa29ac3c7ed301633cbc3b2c87c7a2083b3d4` |
+| Post-closure historical-cash compatibility repair and contract amendment | `8b7e95eb92f6f809522a595b4b458d4f19e26852` |
 
 The implementation follows `docs/DEVELOPMENT-CASTING-ANNEX-V1-CONTRACT.md`. The clarification
 records the already-reviewed compatibility boundary for historical operations types and replaces
 an unreachable held-production acceptance example with the exact Production Operations V1 law.
 It changes no price, duration, capacity, ordering, accounting, or player behavior authorized by the
 initial contract.
+
+## Post-closure compatibility repair
+
+A whole-diff audit completed after the original closure found one P1: an authentic played
+SaveFileV1 or SaveFileV2 may persist current studio cash that differs from opening cash, but those
+formats predate the ledger. Their frozen V2→V3 conversion correctly preserves that cash and creates
+an empty ledger. Descendants of that genuine history therefore cannot satisfy the newly universal
+`INITIAL_CASH + Σ ledger` V11 check. The pre-ledger transactions are not present to replay, and
+canceled productions make an exact reconstruction impossible.
+
+Repair `8b7e95eb92f6f809522a595b4b458d4f19e26852` preserves that history with one optional,
+migration-only `cashLedgerCheckpoint`:
+
+```text
+cashLedgerCheckpoint = {
+  cash: cash at the validated historical conversion boundary,
+  ledgerLength: length of the retained historical ledger prefix
+}
+```
+
+`convertV10ToV11` writes it only when the validated historical V10 state cannot reconcile from
+opening cash. The checkpoint is not a transaction, ledger kind, grant, refund, loan, or balance
+repair. It anchors the carried historical prefix exactly; every later movement, including every
+Annex capex row, must reconcile in array order from the checkpoint and must occur after it. A native
+or already-reconciling history omits the field and retains the original full-ledger identity.
+
+Three tempting alternatives were rejected: fabricating a balancing ledger row would invent an
+event and contaminate Finance/history; weakening the V11 cash invariant would lose suffix and Annex
+capex tamper detection; rewriting frozen V1–V10 validators or attempting to reconstruct events that
+were never persisted would break committed compatibility without producing truthful history.
+
+Independent review then caught and the same repair closed two P2 projection-laundering paths:
+
+1. a frozen builder could otherwise discard the checkpoint after post-checkpoint gameplay and a
+   remigration could move the boundary to the end, absorbing authoritative suffix activity; and
+2. a frozen builder could otherwise drop a malformed or cash-inconsistent checkpoint and remigrate
+   the resulting state into a newly valid-looking boundary.
+
+Every frozen builder now validates the checkpoint before projection, refuses to move it after suffix
+activity, and refuses to discard a nonempty historical ledger prefix into V1/V2. Ledger-owning
+V3–V10 projections are permitted only at the exact still-canonical boundary. Existing valid,
+checkpoint-free V11 bytes remain valid and byte-identical; `migrateToV11` continues to return such a
+V11 envelope by identity.
+
+This repair changed no Annex price, duration, capacity, lifecycle, action legality, tick ordering,
+RNG, operating cost, economy policy, player command, UI, or lot behavior. It changes only the honest
+persistence and accounting boundary for historical saves whose earliest cash movements were never
+ledgered.
 
 ## Engine and construction law delivered
 
@@ -82,25 +139,30 @@ not protect:
    progressed-production forgery and the skip-first Week-12-greenlight/Week-13-completion forgery,
    while leaving non-Annex historical compatibility under its existing law.
 
-The independent final core red-team reported **PASS — no remaining P1–P3 findings** after 67/67
-focused tests, both TypeScript projects, and diff hygiene passed. A separate whole-diff audit is
-recorded below only if it completed before this documentation closure; the closure does not weaken
-or supersede the core result.
+At the original implementation candidate, the independent final core red-team reported **PASS — no
+remaining P1–P3 findings** after 67/67 focused tests, both TypeScript projects, and diff hygiene
+passed. That result remains an accurate record of its corpus, but it did not exercise authentic
+played pre-ledger cash through the complete migration chain. The later whole-diff audit found the P1
+recorded above; the closure was reopened forward, repaired without rewriting history, and subjected
+to the larger post-closure verification corpus below.
 
 ## SaveFileV11 and compatibility
 
-- SaveFileV11 is the only format that writes `state.construction`, `constructionCapex`, or
-  `constructionProjectId`.
+- SaveFileV11 is the only format that writes `state.construction`, the conditional
+  `state.cashLedgerCheckpoint`, `constructionCapex`, or `constructionProjectId`.
 - V1–V10 envelopes, validators, ledger vocabularies, and positive-projection builders remain
   frozen. Historical builders omit current unknown roots rather than spreading live state and
   deleting only known fields.
 - V10→V11 migration deterministically derives only legacy-empty or managed-vacant construction
-  from validated operations mode. It invents no debit, date, project, facility, or benefit.
+  from validated operations mode. When and only when validated historical cash cannot reconcile
+  from opening cash, it also records the exact cash/ledger boundary described above. It invents no
+  debit, date, project, facility, benefit, or historical transaction.
 - Current validation is exact-keyed and rejects malformed modes, parcels, projects, correlations,
   clocks, facility sets, reservations, collisions, cash identity, and unknown future authority. It
   repairs nothing at import.
 - Building and Completed state cannot be downgraded to a historical save. Legacy or managed-vacant
-  current state may be positively projected only when no V11 authority would be lost.
+  current state may be positively projected only when no V11 authority would be lost, including the
+  checkpoint projection rules above.
 - Save/export/import is byte-identical at `S`, `S + 12`, and `S + 13`; one further tick after each
   imported boundary is byte-identical to uninterrupted continuation.
 
@@ -112,7 +174,9 @@ make the new boundary look simpler.
 
 ## Accounting and Calendar delivery
 
-- Cash remains exactly `INITIAL_CASH + Σ ledger.amount` in ordered ledger history.
+- Native and already-reconciling cash remains exactly `INITIAL_CASH + Σ ledger.amount` in ordered
+  ledger history. A migrated pre-ledger history remains exactly
+  `checkpoint.cash + Σ ledger[checkpoint.ledgerLength…].amount`.
 - Construction capex is studio capital investment. Finance and recap surfaces display a positive
   $780,000 spend magnitude; period/cash movement retains the signed −$780,000 debit.
 - Capex is never film commitment, production economics, marketing, publicity, payroll, overhead,
@@ -145,7 +209,7 @@ make the new boundary look simpler.
 - Completion status uses text, shape, and color, an atomic polite live region, and reduced-motion
   safe presentation. The action and permanent status remain reachable without the lot feature.
 
-## Verification at the implementation candidate
+## Verification at the original implementation candidate
 
 | Gate | Result |
 | --- | --- |
@@ -161,6 +225,23 @@ make the new boundary look simpler.
 
 The production build retains the pre-existing large-chunk advisory. It is not a build failure and
 is not classified as an Annex correctness defect.
+
+## Post-closure compatibility verification at the final candidate
+
+| Gate | Result |
+| --- | --- |
+| Full repository suite | **PASS — 1,745/1,745 tests** |
+| Final save/construction red-team corpus | **PASS — 77/77 tests** |
+| Deterministic migration stress | **PASS — 100 seeds × 150 weekly advances** |
+| Independent Annex accounting audit | **PASS — 67/67 tests; no P1–P3** |
+| `npx vitest run --config src/harness/d16/vitest.d16.config.ts --reporter=dot` | **PASS — 176/176 tests** |
+| `npm run typecheck` | **PASS — root and UI TypeScript clean** |
+| `npm run build` | **PASS — 130 modules transformed** |
+| `git diff --check` | **PASS** |
+
+The build retains the same pre-existing large-chunk advisory. The repair introduces no source
+behavior change beyond save compatibility/accounting reconciliation, and no Annex, economy, or
+player behavior changed.
 
 ## Live acceptance
 
@@ -203,12 +284,14 @@ arbitrary cash sink, hard bankruptcy, or failure ladder was introduced.
 
 ## Git and publication boundary
 
-The implementation and this closure live only on `operation-hollywood-autonomous-marathon`. Main,
+The implementation, original closure, and forward repair live only on
+`operation-hollywood-autonomous-marathon`. Main,
 the accepted D-17B branch, the Operation Hollywood integration branch, and their worktrees remain
-untouched. Nothing was pushed. No milestone tag is created: current repository tags mark
+untouched. Neither the closure nor repair was pushed. No milestone tag was created: repository tags mark
 Owner-accepted or merged milestones, and this autonomous branch has not crossed that gate.
 
-The closure commit is documentation-only. Its exact documents are:
+The original closure commit is documentation-only. This forward closure amendment updates the same
+three governing documents:
 
 - `docs/DEVELOPMENT-CASTING-ANNEX-V1-CLOSURE.md`;
 - `docs/LESSONS-LEARNED.md`; and
