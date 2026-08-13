@@ -52,6 +52,7 @@ ScriptProject
   status: drafting | review | rewriting | ready | inProduction | produced
   rewriteCount: 0 | 1
   commissionedWeek
+  dueWeek: null | authoritative completion week
   assessment: null | { actualStrength, perceivedStrength }
   reservation: null | Development & Casting reservation
   productionId: null | authoritative production id
@@ -63,15 +64,19 @@ Legacy concepts retain their existing reusable behavior.
 
 Lifecycle correlations are exact:
 
-| Status | Rewrite count | Assessment | Reservation | Production link |
-| --- | ---: | --- | --- | --- |
-| Drafting | 0 | none | one Development & Casting slot | none |
-| Review (first draft) | 0 | present | none | none |
-| Rewriting | 1 | present | one Development & Casting slot | none |
-| Review (final draft) | 1 | present | none | none |
-| Ready | 0 or 1 | present | none | none |
-| In Production | 0 or 1 | present | none | exact active production |
-| Produced | 0 or 1 | present | none | exact released film |
+| Status | Rewrite count | Due week | Assessment | Reservation | Production link |
+| --- | ---: | --- | --- | --- | --- |
+| Drafting | 0 | commission week + 1 | none | one Development & Casting slot | none |
+| Review (first draft) | 0 | none | present | none | none |
+| Rewriting | 1 | request week + 1 | prior assessment present | one Development & Casting slot | none |
+| Review (final draft) | 1 | none | updated assessment present | none | none |
+| Ready | 0 or 1 | none | present | none | none |
+| In Production | 0 or 1 | none | present | none | exact active production |
+| Produced | 0 or 1 | none | present | none | exact released film |
+
+`dueWeek` is persisted because one calendar week is authoritative state, not an inference from status
+or `commissionedWeek`; rewrite timing begins later and cannot be reconstructed from either. It is
+present only for Drafting/Rewriting and clears atomically when work enters Review.
 
 ## Commission and writer law
 
