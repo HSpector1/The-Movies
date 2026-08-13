@@ -220,7 +220,14 @@ async function main(): Promise<void> {
       const refCi = wilson95(ref.rate, ref.n)
       const prodCi = wilson95(prod.rate, prod.n)
       const deltaPp = (prod.rate - ref.rate) * 100
-      const pass = Math.abs(deltaPp) <= 2 || intervalsOverlap(refCi, prodCi)
+      // No distress in either arm means durable@103 is correctly not applicable in both, not a
+      // disagreement. A one-sided non-finite value remains a loud failure.
+      const bothNotApplicable = !Number.isFinite(ref.rate) && !Number.isFinite(prod.rate)
+      const pass =
+        bothNotApplicable ||
+        (Number.isFinite(ref.rate) &&
+          Number.isFinite(prod.rate) &&
+          (Math.abs(deltaPp) <= 2 || intervalsOverlap(refCi, prodCi)))
       return {
         metric,
         status: knownReferenceDefect ? 'NOT_COMPARABLE' : pass ? 'PASS' : 'FAIL',
