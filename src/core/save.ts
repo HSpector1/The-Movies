@@ -773,6 +773,7 @@ function v8Forecast(value: unknown, label: string): void {
   v8Number(forecast.expectedTotal, `${label}.expectedTotal`);
   v8Number(forecast.expectedCriticScore, `${label}.expectedCriticScore`);
   const segments = v8Array(forecast.segments, `${label}.segments`);
+  const seenSegments = new Set<string>();
   for (let i = 0; i < segments.length; i++) {
     const segmentLabel = `${label}.segments[${i}]`;
     const segment = v8Record(segments[i], segmentLabel);
@@ -793,7 +794,15 @@ function v8Forecast(value: unknown, label: string): void {
       [],
       segmentLabel,
     );
-    v8Enum(segment.segmentId, SEGMENT_IDS, `${segmentLabel}.segmentId`);
+    const segmentId = v8Enum(
+      segment.segmentId,
+      SEGMENT_IDS,
+      `${segmentLabel}.segmentId`,
+    );
+    if (seenSegments.has(segmentId)) {
+      v8Error(`${segmentLabel}.segmentId`, "is duplicated");
+    }
+    seenSegments.add(segmentId);
     for (const key of ["center", "estimate", "low", "high"] as const) {
       v8Number(segment[key], `${segmentLabel}.${key}`);
     }
@@ -813,6 +822,12 @@ function v8Forecast(value: unknown, label: string): void {
       segment.opening,
       ["center", "estimate", "low", "high"],
       `${segmentLabel}.opening`,
+    );
+  }
+  if (seenSegments.size !== SEGMENT_IDS.length) {
+    v8Error(
+      `${label}.segments`,
+      "must contain each canonical segment exactly once",
     );
   }
 }

@@ -552,6 +552,22 @@ describe("Production Operations V1 — managed state validation and continuation
     expect(() => validateSaveV8(nonFiniteBudget)).toThrow(
       /budget\.negative.*finite number/,
     );
+
+    const emptyForecastSegments = JSON.parse(exportSave(save));
+    emptyForecastSegments.state.studio.activeProductions[0].forecastSnapshot.segments =
+      [];
+    expect(() => validateSaveV8(emptyForecastSegments)).toThrow(
+      /segments.*each canonical segment exactly once/,
+    );
+
+    const duplicateForecastSegment = JSON.parse(exportSave(save));
+    const forecastSegments =
+      duplicateForecastSegment.state.studio.activeProductions[0]
+        .forecastSnapshot.segments;
+    forecastSegments[1] = { ...forecastSegments[0] };
+    expect(() => validateSaveV8(duplicateForecastSegment)).toThrow(
+      /segmentId.*duplicated/,
+    );
   });
 
   it("rejects overbooked or out-of-range reservations", () => {
