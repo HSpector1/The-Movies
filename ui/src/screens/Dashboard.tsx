@@ -4,7 +4,13 @@
 // active productions (stored forecast + remaining weeks), recent releases, and the
 // primary actions (Assemble a film, Advance one week) plus Talent creator / Saves.
 
-import type { GameState, FilmResult, RunView, PublicityTier } from '../engine/adapter.ts'
+import type {
+  GameState,
+  FilmResult,
+  RunView,
+  PublicityTier,
+  ProductionCommandView,
+} from '../engine/adapter.ts'
 import {
   selectWeek,
   selectCash,
@@ -20,10 +26,13 @@ import {
   releaseScorecard,
   affordabilityScopes,
   publicityDecision,
+  productionBoard,
+  productionDecision,
 } from '../engine/adapter.ts'
 import { money, score } from '../format.ts'
 import { Metric, StandingBar } from '../components/common.tsx'
 import { AffordabilityScopesCard } from '../components/AffordabilityScopes.tsx'
+import { ProductionBoard } from '../components/ProductionBoard.tsx'
 
 export function Dashboard({
   state,
@@ -40,6 +49,7 @@ export function Dashboard({
   onOpenAutopsy,
   onOpenClipping,
   onPublicize,
+  onProductionCommand,
 }: {
   state: GameState
   onAssemble: () => void
@@ -60,6 +70,7 @@ export function Dashboard({
   // reconstructed from persisted state, so it works even for imported saves.
   onOpenClipping?: (film: FilmResult) => void
   onPublicize?: (tier: PublicityTier) => void
+  onProductionCommand?: (command: ProductionCommandView) => void
 }) {
   const week = selectWeek(state)
   const cash = selectCash(state)
@@ -74,6 +85,9 @@ export function Dashboard({
   // gated behind the retrospective recap.
   const scopes = affordabilityScopes(state)
   const publicity = publicityDecision(state)
+  const board = productionBoard(state)
+  const pendingProductionDecision = productionDecision(state)
+  const capacityHold = board.cards.find((card) => card.blocker?.kind === 'facility-capacity') ?? null
 
   // Recent releases: most recent first.
   const recent = [...released].reverse().slice(0, 6)
@@ -116,8 +130,11 @@ export function Dashboard({
         <div className="card stack">
           <h2>Next decision</h2>
           <p className="hint">
-            Assemble and greenlight a film, or let a week pass so productions advance and finished
-            films release.
+            {pendingProductionDecision
+              ? `${pendingProductionDecision.title} needs a ${pendingProductionDecision.phaseLabel} decision before its countdown can advance.`
+              : capacityHold
+                ? `${capacityHold.title} is held for facility capacity. No player command is required; capacity retries on the next week.`
+              : 'Assemble and greenlight a film, or let a week pass so productions advance and finished films release.'}
           </p>
           <div className="btn-row">
             <button
@@ -131,14 +148,21 @@ export function Dashboard({
             <button className="primary" onClick={onAdvance} data-testid="advance-week">
               Advance one week
             </button>
-            <button className="primary" onClick={onSimToEvent} data-testid="sim-to-event">
+            <button
+              className="primary"
+              onClick={onSimToEvent}
+              disabled={pendingProductionDecision !== null}
+              data-testid="sim-to-event"
+            >
               Sim to next event
             </button>
           </div>
           <p className="hint">
-            Sim to next event runs weeks in order — applying payroll, overhead, and theatrical
-            revenue — and stops before the next thing that needs you: a release, a run ending, a
-            contract change, or cash going negative.
+            {pendingProductionDecision
+              ? 'Resolve the command on the Production Board before unattended simulation. You may still advance a week deliberately; the film will hold while studio costs continue.'
+              : capacityHold
+                ? 'The Production Board shows the capacity warning. Advance or Sim to retry it while payroll and studio overhead continue.'
+              : 'Sim to next event runs weeks in order — applying payroll, overhead, and theatrical revenue — and stops at a production decision, release, run ending, contract change, or cash going negative.'}
           </p>
           {!canGreenlight && (
             <p className="hint">
@@ -343,45 +367,10 @@ export function Dashboard({
 
       <div style={{ height: 16 }} />
 
-      <div className="card">
-        <h2>In production</h2>
-        {active.length === 0 ? (
-          <div className="empty" data-testid="no-active">
-            Nothing in production. Assemble a film to get started.
-          </div>
-        ) : (
-          <div className="grid grid-2" data-testid="active-list">
-            {active.map((p) => {
-              const concept = findConcept(state, p.conceptId)
-              return (
-                <div className="panel" key={p.id} data-testid={`active-${p.id}`}>
-                  <div className="spread">
-                    <strong>{concept?.title ?? p.conceptId}</strong>
-                    <span className="tag fact">In production</span>
-                  </div>
-                  <div className="row" style={{ marginTop: 8, gap: 24 }}>
-                    <Metric label="Weeks left" small testid={`weeks-${p.id}`}>
-                      {p.remainingTicks}
-                    </Metric>
-                    <Metric label="Expected total theatrical gross" small>
-                      <span className="tag estimate" style={{ marginRight: 6 }}>
-                        Est
-                      </span>
-                      {money(p.forecastSnapshot.expectedTotal)}
-                    </Metric>
-                    <Metric label="Expected critic score" small>
-                      <span className="tag estimate" style={{ marginRight: 6 }}>
-                        Est
-                      </span>
-                      {score(p.forecastSnapshot.expectedCriticScore)}
-                    </Metric>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        )}
-      </div>
+      <ProductionBoard
+        board={board}
+        {...(onProductionCommand ? { onCommand: onProductionCommand } : {})}
+      />
 
       <div style={{ height: 16 }} />
 

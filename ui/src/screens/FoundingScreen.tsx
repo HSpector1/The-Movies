@@ -23,7 +23,7 @@ import {
   filterFoundingRows,
   FOUNDING_FILTERS_NONE,
   canFoundStudio,
-  foundStudioAction,
+  foundManagedStudioAction,
   signContractAction,
   payrollSummary,
   foundingRunwayPreview,
@@ -110,7 +110,10 @@ export function FoundingScreen({
     }
   }
   function found() {
-    const out = foundStudioAction(state)
+    // The real player path closes founding and activates authoritative production
+    // operations atomically. The legacy foundStudioAction remains available only to
+    // compatibility harnesses and migrated-countdown setup.
+    const out = foundManagedStudioAction(state)
     if (out.ok) {
       setError(null)
       onFounded(out.next)

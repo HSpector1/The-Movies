@@ -40,6 +40,16 @@ function startNewGame(seed = 'e2e-seed') {
   foundViaUi()
 }
 
+// Managed player studios stop in Shooting for a real three-step decision chain.
+// Drive only commands the rendered Production Board says are currently legal.
+function resolveProductionCommands() {
+  for (let guard = 0; guard < 4; guard++) {
+    const command = screen.queryAllByTestId(/^production-command-/)[0]
+    if (!command) return
+    fireEvent.click(command)
+  }
+}
+
 describe('App end-to-end loop', () => {
   it('renders the start screen', () => {
     render(<App />)
@@ -111,6 +121,7 @@ describe('App end-to-end loop', () => {
     let releasedCard: HTMLElement | null = null
     for (let i = 0; i < 20 && !releasedCard; i++) {
       // We may be on dashboard or release screen; ensure we advance from dashboard.
+      resolveProductionCommands()
       const advance = screen.queryByTestId('advance-week')
       if (advance) {
         fireEvent.click(advance)

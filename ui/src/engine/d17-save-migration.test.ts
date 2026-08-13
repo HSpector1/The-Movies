@@ -73,7 +73,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
   it('a CURRENT-version save round-trips through the adapter as NOT converted', () => {
     const state = newFoundedGame('d17-adapter-v6')
     const json = exportSaveJson(state)
-    expect(JSON.parse(json).saveVersion).toBe(7) // D-17B/E4: new games save as V7
+    expect(JSON.parse(json).saveVersion).toBe(8) // Production Operations V1: new games save as V8
 
     const r = importSaveJson(json)
     expect(r.ok).toBe(true)

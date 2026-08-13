@@ -126,6 +126,63 @@ export type LotPersonState = {
   productionTitle: string | null
 }
 
+/** The production workflow facts the lot may render without seeing GameState. */
+export type LotProductionPhase =
+  | 'legacy'
+  | 'development'
+  | 'preProduction'
+  | 'rehearsal'
+  | 'shooting'
+  | 'postProduction'
+  | 'releaseReady'
+
+export type LotShootingTaskStatus =
+  | 'unassigned'
+  | 'blocked'
+  | 'ready'
+  | 'scheduled'
+  | 'completed'
+
+/** A legal, engine-owned operation the host can dispatch for this production. */
+export type LotProductionCommand =
+  | {
+      kind: 'assignShootingDirector'
+      productionId: string
+      directorId: string
+      label: string
+    }
+  | { kind: 'clearSceneryLoadIn'; productionId: string; label: string }
+  | { kind: 'scheduleShootingTake'; productionId: string; label: string }
+
+/**
+ * One narrow production-operations projection. `locationBuildingId` is already
+ * resolved at the adapter boundary from the authoritative phase/reservation; the
+ * lot must never infer a location from array order.
+ */
+export type ProductionOperationsState = {
+  productionId: string
+  title: string
+  phase: LotProductionPhase
+  phaseLabel: string
+  /** Authoritative production countdown, projected without asking the lot to infer time. */
+  weeksRemaining: number
+  /** Authoritative normalized cycle progress for presentation only. */
+  progress01: number
+  locationBuildingId: BuildingId
+  facilityLabel: string
+  directorId: string
+  directorName: string
+  taskStatus: LotShootingTaskStatus | null
+  statusLabel: string
+  blocker: {
+    kind: 'facility-capacity' | 'director-dispatch' | 'scenery-load-in' | 'take-scheduling'
+    headline: string
+    detail: string
+  } | null
+  attention: AttentionState
+  currentCommand: LotProductionCommand | null
+}
+
 /** Coarse theater presence (addendum §1). No payment counts, no revenue — presence only. */
 export type ReleasePresence = 'none' | 'released' | 'now-showing'
 
@@ -146,7 +203,7 @@ export type BuildingState = {
  * The complete set of facts the visual lot renders. The adapter selector populates
  * it from GameState. Nothing here is a rule — change a field and the lot repaints.
  */
-export type StudioLotSnapshot = {
+type StudioLotSnapshotBase = {
   /** Studio identity for the gate sign / top bar (product brand — no per-studio name exists in D1). */
   studioName: string
   /** Current in-world week (== market.tick). */
@@ -179,6 +236,25 @@ export type StudioLotSnapshot = {
    */
   sceneSeed: string
 }
+
+/**
+ * Operation provenance is explicit on every adapter-created snapshot. The legacy
+ * arm permits omitted fields only for older hand-authored presentation fixtures;
+ * `studioLotSnapshot()` always emits all three fields in both modes.
+ */
+type StudioLotOperationsProjection =
+  | {
+      operationsMode: 'managed'
+      stageAssignmentAuthority: 'engine'
+      productionOperations: ProductionOperationsState[]
+    }
+  | {
+      operationsMode?: 'legacy'
+      stageAssignmentAuthority?: 'presentation'
+      productionOperations?: ProductionOperationsState[]
+    }
+
+export type StudioLotSnapshot = StudioLotSnapshotBase & StudioLotOperationsProjection
 
 /** Every building id, in a stable order — used for defaults and iteration. */
 export const ALL_BUILDING_IDS: readonly BuildingId[] = [

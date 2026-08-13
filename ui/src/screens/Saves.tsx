@@ -1,5 +1,5 @@
 // ── Saves ────────────────────────────────────────────────────────────────────
-// Export the current SaveFileV1 as JSON (textarea + copy + download), import (with
+// Export the current save as JSON (textarea + copy + download), import (with
 // loud, understandable rejection of bad saves), exact restoration + deterministic
 // continuation, and a new/restart game control.
 
@@ -15,14 +15,13 @@ export function Saves({
   onBack,
 }: {
   state: GameState
-  onLoad: (next: GameState) => void
+  onLoad: (next: GameState, details: { converted: boolean }) => void
   onNewGame: () => void
   onBack: () => void
 }) {
   const exported = useMemo(() => exportSaveJson(state), [state])
   const [importText, setImportText] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const [notice, setNotice] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
   function handleDownload() {
@@ -48,20 +47,14 @@ export function Saves({
 
   function handleImport() {
     setError(null)
-    setNotice(null)
     const result = importSaveJson(importText)
     if (!result.ok) {
       setError(`This save was rejected: ${result.error}`)
       return
     }
-    if (result.converted) {
-      // A legacy V1 save was auto-upgraded to the current format on load.
-      setNotice(
-        'This was an older (V1) save. It was converted to the current format on load — your ' +
-          'original file is unchanged. Export again to keep a copy in the new format.',
-      )
-    }
-    onLoad(result.state)
+    // App owns the post-navigation notice. A local notice would unmount in this same
+    // event when the accepted save routes away from this screen.
+    onLoad(result.state, { converted: result.converted })
   }
 
   // Explicit "Import a legacy V1 save" affordance (D-9.15): converts a legacy save to
@@ -69,17 +62,12 @@ export function Saves({
   // file is never overwritten (this produces a fresh converted state to play).
   function handleImportLegacy() {
     setError(null)
-    setNotice(null)
     const result = importLegacyV1SaveJson(importText)
     if (!result.ok) {
       setError(`This is not a valid legacy V1 save: ${result.error}`)
       return
     }
-    setNotice(
-      'Legacy V1 save converted to the current format. Your original file is unchanged — export ' +
-        'again to save a copy in the new format.',
-    )
-    onLoad(result.state)
+    onLoad(result.state, { converted: result.converted })
   }
 
   return (
@@ -144,11 +132,6 @@ export function Saves({
             data-testid="saves-import-text"
           />
           {error && <ErrorBox message={error} />}
-          {notice && (
-            <div className="warn" role="status" data-testid="saves-notice">
-              {notice}
-            </div>
-          )}
           <div className="btn-row">
             <button
               className="primary"
@@ -169,8 +152,8 @@ export function Saves({
             </button>
           </div>
           <p className="hint" style={{ fontSize: 11 }}>
-            Older V1 saves load automatically (and are converted). Use “Import legacy V1 save” to
-            convert one explicitly; your original file is never overwritten.
+            Older saves load automatically and are upgraded to the current format. Use “Import
+            legacy V1 save” for the explicit V1-only path; your original file is never overwritten.
           </p>
         </div>
       </div>

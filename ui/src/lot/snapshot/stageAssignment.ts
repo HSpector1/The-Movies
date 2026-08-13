@@ -1,23 +1,27 @@
 // ── Stable Stage A/B assignment (presentation only) ───────────────────────────
 //
-// THE DEFECT. The engine has no `stage` field, so `studioLotSnapshot()` assigns stages by
-// position in `state.studio.activeProductions` (adapter.ts: `stageId: STAGE_IDS[i]`, and the
-// comment at adapter.ts:3618 that documents the arrangement). When the production in slot 0
+// THE LEGACY DEFECT. Legacy engine state has no `stage` field, so `studioLotSnapshot()`
+// assigns stages by position in `state.studio.activeProductions`. When the production in slot 0
 // releases, core splices it out and the array compacts — so the surviving production, which
 // the player has been watching on Stage B, silently becomes the Stage A production on the
 // next snapshot. Its progress card, apron dressing, crew vignettes and "ACTIVE" badge all
 // migrate to the other building. Identical stage art hides this today; distinct stage art
 // would make it obvious.
 //
-// THE FIX, and its boundaries. This is a presentation-owned selector. It does not touch
-// GameState, the SaveFile, the adapter, or the StudioLotSnapshot schema — it consumes a
+// THE FIX, and its boundaries. In legacy mode this is a presentation-owned selector. It
+// does not touch GameState or the SaveFile — it consumes a
 // snapshot and returns a snapshot of the same type, correcting only which of the two stage
 // slots each production is DISPLAYED on. It invents no simulation fact: a production's stage
 // was never engine truth, so choosing a stable display slot cannot contradict the engine.
 //
 // It works because the snapshot already carries what is needed: `ProductionCard.id` is the
-// authoritative, stable production id (adapter.ts: `id: p.id`). We hold a slot per id for as
+// authoritative, stable production id. We hold a slot per id for as
 // long as that production is on the lot.
+//
+// Managed Production Operations is different: its Soundstage 7/12 reservation is engine
+// truth. `stageAssignmentAuthority: 'engine'` therefore bypasses this resolver and clears
+// any presentation memory. An authoritative assignment is returned byte-for-byte and can
+// never be remapped by an earlier legacy session.
 //
 // Determinism:
 //   • Same sequence of snapshots ⇒ same assignment, always. No RNG, no clock.
@@ -87,6 +91,12 @@ export class StageAssignment {
    * referentially stable for React and for the scene's change handling.
    */
   resolve(snap: StudioLotSnapshot): StudioLotSnapshot {
+    if (snap.stageAssignmentAuthority === 'engine') {
+      // Managed occupancy belongs to the engine. Relinquish every remembered display slot
+      // so neither prior legacy state nor a later mode transition can override it.
+      this.slotOf.clear()
+      return snap
+    }
     const plan = this.plan(snap.activeProductions)
     const moved = snap.activeProductions.some((p) => plan.get(p.id) !== p.stageId)
     if (!moved) return snap
@@ -96,6 +106,16 @@ export class StageAssignment {
         ...p,
         stageId: plan.get(p.id) ?? p.stageId,
       })),
+      ...(snap.productionOperations
+        ? {
+            productionOperations: snap.productionOperations.map((operation) => {
+              const slot = plan.get(operation.productionId)
+              return slot && isStageSlot(operation.locationBuildingId)
+                ? { ...operation, locationBuildingId: slot }
+                : operation
+            }),
+          }
+        : {}),
       buildings: remapStageBuildings(snap.buildings, snap.activeProductions, plan),
     }
   }

@@ -5,7 +5,8 @@
 // emits routes only (never mutating GameState). The companion navigation is asserted
 // as the accessible, keyboard-operable backbone.
 
-import { fireEvent, render, waitFor } from '@testing-library/react'
+import { useState } from 'react'
+import { act, fireEvent, render, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   applyActions,
@@ -15,11 +16,21 @@ import {
   tick,
 } from '../../../src/core/index.ts'
 import type { CreativeRole, GameState } from '../../../src/core/index.ts'
-import { publicityDecision, runPublicity } from '../engine/adapter.ts'
+import {
+  publicityDecision,
+  runProductionCommand,
+  runPublicity,
+  studioLotSnapshot,
+} from '../engine/adapter.ts'
 import { moneyExact } from '../format.ts'
 import { setOperationHollywoodOverride } from '../flags.ts'
 import { StudioLotScreen } from './StudioLotScreen.tsx'
 import type { LotRoute } from './navigation.ts'
+import type {
+  BuildingId,
+  LotPersonState,
+  ProductionOperationsState,
+} from './snapshot/StudioLotSnapshot.ts'
 
 // A spy StudioLotView. Records construction, snapshots, lifecycle calls, and lets a
 // test drive the onAction/onSelect callbacks the real view would emit.
@@ -31,6 +42,14 @@ const spy = vi.hoisted(() => {
     onAction?: (e: { buildingId: string; action: string }) => void
     onSelect?: (sel: unknown) => void
     onReady?: () => void
+    onActivity?: (text: string | null) => void
+    onHollywoodPerson?: (person: unknown) => void
+    onHollywoodPlace?: (place: {
+      id: string
+      buildingId: BuildingId
+      label: string
+      affordances: string[]
+    }) => void
   }
   class FakeInstance {
     opts: Opts
@@ -42,6 +61,9 @@ const spy = vi.hoisted(() => {
     identityModes: string[] = []
     selected: string[] = []
     publicity: Array<{ ok: boolean; detail: string }> = []
+    hollywoodPeopleSelected: string[] = []
+    hollywoodPersonClears = 0
+    hollywoodPlaceClears = 0
     constructor(opts: Opts) {
       this.opts = opts
       this.snapshots.push(opts.snapshot)
@@ -60,6 +82,9 @@ const spy = vi.hoisted(() => {
     setSignageMasked() {}
     camera() {}
     showHollywoodPublicity(ok: boolean, detail: string) { this.publicity.push({ ok, detail }) }
+    selectHollywoodPerson(id: string) { this.hollywoodPeopleSelected.push(id) }
+    clearHollywoodPersonSelection() { this.hollywoodPersonClears++ }
+    clearHollywoodPlaceSelection() { this.hollywoodPlaceClears++ }
     destroy() { this.destroyed = true }
   }
   return { instances, FakeInstance }
@@ -82,6 +107,45 @@ function foundStudio(seed: string): GameState {
   return applyActions(s, [{ kind: 'foundStudio' }])
 }
 
+function foundManagedStudio(seed: string): GameState {
+  return applyActions(foundStudio(seed), [{ kind: 'activateStudioOperations' }])
+}
+
+function rosterIds(state: GameState, role: CreativeRole): string[] {
+  return state.contracts
+    .map((contract) => state.talent.find((talent) => talent.id === contract.talentId)!)
+    .filter((talent) => talent.role === role)
+    .map((talent) => talent.id)
+}
+
+function greenlightFilm(state: GameState): GameState {
+  const concept = state.concepts[0]!
+  const actors = rosterIds(state, 'actor')
+  return applyActions(state, [{
+    kind: 'greenlight',
+    production: {
+      conceptId: concept.id,
+      shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+      promise: {
+        genre: concept.genre,
+        intendedSegments: ['adult'],
+        ranges: { intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] },
+      },
+      writerId: rosterIds(state, 'writer')[0]!,
+      directorId: rosterIds(state, 'director')[0]!,
+      cast: { lead: actors[0]!, antagonist: actors[1]!, support: actors[2]! },
+      craftIds: [rosterIds(state, 'craft')[0]!],
+      budget: { negative: concept.baseNegativeCost, marketing: 100_000 },
+    },
+  }])
+}
+
+function advance(state: GameState, weeks: number): GameState {
+  let next = state
+  for (let i = 0; i < weeks; i++) next = tick(next)
+  return next
+}
+
 const baseState = foundStudio('host-1')
 const nextState = tick(baseState) // week advances → different snapshot
 
@@ -99,6 +163,7 @@ afterEach(() => {
   spy.instances.length = 0
   vi.restoreAllMocks()
   vi.unstubAllGlobals()
+  setOperationHollywoodOverride(false)
 })
 
 describe('StudioLotScreen — host lifecycle + accessible companion navigation', () => {
@@ -209,6 +274,312 @@ describe('StudioLotScreen — host lifecycle + accessible companion navigation',
     const { getByTestId, exits } = renderScreen()
     fireEvent.click(getByTestId('lot-return-dashboard'))
     expect(exits()).toBe(1)
+  })
+})
+
+describe('StudioLotScreen — authoritative Hollywood operations host', () => {
+  it('moves Hollywood keyboard focus to each successor and announces the final take', async () => {
+    setOperationHollywoodOverride(true)
+    const initial = advance(greenlightFilm(foundManagedStudio('hollywood-command-focus')), 4)
+    const productionId = initial.studio.activeProductions[0]!.id
+
+    function Harness() {
+      const [state, setState] = useState(initial)
+      return (
+        <StudioLotScreen
+          state={state}
+          onNavigate={() => {}}
+          onExit={() => {}}
+          onProductionCommand={(command) => {
+            const result = runProductionCommand(state, command)
+            if (!result.ok) throw new Error(result.error)
+            setState(result.next)
+          }}
+        />
+      )
+    }
+
+    const { getByTestId, findByTestId } = render(<Harness />)
+    const assign = getByTestId('hollywood-production-command-assignShootingDirector')
+    assign.focus()
+    fireEvent.click(assign)
+    const clear = await findByTestId('hollywood-production-command-clearSceneryLoadIn')
+    await waitFor(() => expect(clear).toHaveFocus())
+
+    fireEvent.click(clear)
+    const schedule = await findByTestId('hollywood-production-command-scheduleShootingTake')
+    await waitFor(() => expect(schedule).toHaveFocus())
+
+    fireEvent.click(schedule)
+    const status = await findByTestId(`hollywood-task-status-${productionId}`)
+    await waitFor(() => expect(status).toHaveTextContent('scheduled'))
+    expect(status).toHaveAttribute('role', 'status')
+    expect(status).toHaveFocus()
+  })
+
+  it('keeps renderer telemetry out of the ordinary-player Hollywood surface', async () => {
+    setOperationHollywoodOverride(true)
+    const intervalSpy = vi.spyOn(window, 'setInterval')
+    const { queryByTestId } = render(
+      <StudioLotScreen
+        state={foundManagedStudio('hollywood-no-player-telemetry')}
+        onNavigate={() => {}}
+        onExit={() => {}}
+      />,
+    )
+    await waitFor(() => expect(spy.instances).toHaveLength(1))
+    await waitFor(() => expect(latest().snapshots.length).toBeGreaterThan(0))
+    expect(intervalSpy.mock.calls.some(([, delay]) => delay === 500)).toBe(false)
+    expect(queryByTestId('hollywood-performance')).not.toBeInTheDocument()
+  })
+
+  it('shows an honestly idle managed studio without a fabricated film, person, or task', () => {
+    setOperationHollywoodOverride(true)
+    const state = foundManagedStudio('hollywood-managed-idle')
+
+    const { getByTestId, queryByText, queryByRole } = render(
+      <StudioLotScreen state={state} onNavigate={() => {}} onExit={() => {}} />,
+    )
+
+    expect(getByTestId('hollywood-production-idle')).toHaveTextContent('No active production')
+    expect(getByTestId('hollywood-production-idle')).toHaveTextContent('studio lot is idle')
+    expect(queryByText(/Violet Hour/i)).not.toBeInTheDocument()
+    expect(queryByText(/Mara Voss/i)).not.toBeInTheDocument()
+    expect(queryByText(/Take 12/i)).not.toBeInTheDocument()
+    expect(queryByRole('group', { name: 'Named studio people' })).not.toBeInTheDocument()
+  })
+
+  it('renders exact operations facts and dispatches the exact snapshot command', () => {
+    setOperationHollywoodOverride(true)
+    const state = advance(greenlightFilm(foundManagedStudio('hollywood-managed-command')), 4)
+    const snapshot = studioLotSnapshot(state)
+    const operation = snapshot.productionOperations![0]!
+    const onProductionCommand = vi.fn()
+
+    const { getByTestId } = render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onProductionCommand={onProductionCommand}
+      />,
+    )
+
+    const current = getByTestId('hollywood-current-production')
+    expect(current).toHaveTextContent(operation.title)
+    expect(current).toHaveTextContent(operation.phaseLabel)
+    expect(current.textContent).toMatch(new RegExp(operation.facilityLabel.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'))
+    expect(current).toHaveTextContent(operation.directorName)
+    expect(current).toHaveTextContent(String(operation.weeksRemaining))
+    expect(getByTestId('hollywood-production-blocker')).toHaveTextContent(operation.blocker!.headline)
+    expect(getByTestId('hollywood-production-blocker')).toHaveTextContent(operation.blocker!.detail)
+
+    const command = getByTestId(`hollywood-production-command-${operation.currentCommand!.kind}`)
+    expect(command).toHaveTextContent(operation.currentCommand!.label)
+    fireEvent.click(command)
+    expect(onProductionCommand).toHaveBeenCalledOnce()
+    expect(onProductionCommand).toHaveBeenCalledWith(operation.currentCommand)
+  })
+
+  it('keeps a Soundstage 12 operation truthful in the inspector and dispatches no Stage 7 fiction', async () => {
+    setOperationHollywoodOverride(true)
+    const state = foundManagedStudio('hollywood-stage-12')
+    const base = studioLotSnapshot(state)
+    const fakeOperation = {
+      productionId: 'production-stage-12',
+      title: 'Second Unit Picture',
+      phase: 'shooting' as const,
+      phaseLabel: 'Shooting',
+      weeksRemaining: 5,
+      progress01: 3 / 8,
+      locationBuildingId: 'stage-b' as const,
+      facilityLabel: 'Soundstage 12 + Scenery Shop',
+      directorId: 'director-stage-12',
+      directorName: 'Avery Cole',
+      taskStatus: 'ready' as const,
+      statusLabel: 'Decision required',
+      blocker: {
+        kind: 'take-scheduling' as const,
+        headline: 'Take ready to schedule',
+        detail: 'Soundstage 12 is ready.',
+      },
+      attention: 'decision-required' as const,
+      currentCommand: {
+        kind: 'scheduleShootingTake' as const,
+        productionId: 'production-stage-12',
+        label: 'Schedule the shooting take',
+      },
+    }
+    const adapter = await import('../engine/adapter.ts')
+    const snapshotSpy = vi.spyOn(adapter, 'studioLotSnapshot')
+    snapshotSpy.mockReturnValue({
+      ...base,
+      productionOperations: [fakeOperation],
+      people: [],
+    })
+    const onProductionCommand = vi.fn()
+
+    const { getByTestId, queryByText } = render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onProductionCommand={onProductionCommand}
+      />,
+    )
+
+    expect(getByTestId('hollywood-current-production')).toHaveTextContent('Soundstage 12')
+    expect(getByTestId('hollywood-stage-12-fallback')).toHaveTextContent('Soundstage 12 + Scenery Shop is authoritative')
+    expect(queryByText(/Assign to Stage 7/i)).not.toBeInTheDocument()
+    fireEvent.click(getByTestId('hollywood-production-command-scheduleShootingTake'))
+    expect(onProductionCommand).toHaveBeenCalledWith(fakeOperation.currentCommand)
+  })
+
+  it('keeps a selected person and the production command in one two-film inspector context', async () => {
+    setOperationHollywoodOverride(true)
+    const state = foundManagedStudio('hollywood-two-film-selection')
+    const base = studioLotSnapshot(state)
+    const operationA: ProductionOperationsState = {
+      productionId: 'production-a',
+      title: 'Picture A',
+      phase: 'shooting',
+      phaseLabel: 'Shooting',
+      weeksRemaining: 5,
+      progress01: 3 / 8,
+      locationBuildingId: 'stage-a',
+      facilityLabel: 'Soundstage 7 + Scenery Shop',
+      directorId: 'director-a',
+      directorName: 'Director A',
+      taskStatus: 'unassigned',
+      statusLabel: 'Decision required',
+      blocker: {
+        kind: 'director-dispatch',
+        headline: 'Director call required',
+        detail: 'Director A has not been dispatched.',
+      },
+      attention: 'decision-required',
+      currentCommand: {
+        kind: 'assignShootingDirector',
+        productionId: 'production-a',
+        directorId: 'director-a',
+        label: 'Call Director A to Soundstage 7',
+      },
+    }
+    const operationB: ProductionOperationsState = {
+      ...operationA,
+      productionId: 'production-b',
+      title: 'Picture B',
+      locationBuildingId: 'stage-b',
+      facilityLabel: 'Soundstage 12 + Scenery Shop',
+      directorId: 'director-b',
+      directorName: 'Director B',
+      taskStatus: 'ready',
+      blocker: {
+        kind: 'take-scheduling',
+        headline: 'Take ready to schedule',
+        detail: 'Soundstage 12 is ready.',
+      },
+      currentCommand: {
+        kind: 'scheduleShootingTake',
+        productionId: 'production-b',
+        label: 'Schedule Picture B shooting take',
+      },
+    }
+    const people: LotPersonState[] = [
+      {
+        id: 'director-a',
+        name: 'Director A',
+        role: 'director',
+        authority: 'active-production',
+        productionId: 'production-a',
+        productionTitle: 'Picture A',
+      },
+      {
+        id: 'director-b',
+        name: 'Director B',
+        role: 'director',
+        authority: 'active-production',
+        productionId: 'production-b',
+        productionTitle: 'Picture B',
+      },
+    ]
+    const adapter = await import('../engine/adapter.ts')
+    vi.spyOn(adapter, 'studioLotSnapshot').mockReturnValue({
+      ...base,
+      people,
+      productionOperations: [operationA, operationB],
+    })
+    const onProductionCommand = vi.fn()
+    const { getByTestId, queryByText } = render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onProductionCommand={onProductionCommand}
+      />,
+    )
+    await waitFor(() => expect(spy.instances).toHaveLength(1))
+
+    expect(getByTestId('hollywood-current-production')).toHaveTextContent('Picture A')
+    expect(getByTestId('hollywood-select-production-production-a')).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    expect(getByTestId('hollywood-select-production-production-b')).toHaveAttribute(
+      'aria-pressed',
+      'false',
+    )
+    fireEvent.click(getByTestId('hollywood-select-person-director-b'))
+    expect(getByTestId('hollywood-current-production')).toHaveTextContent('Picture B')
+    expect(getByTestId('hollywood-production-command-scheduleShootingTake')).toHaveTextContent(
+      'Schedule Picture B shooting take',
+    )
+    expect(latest().hollywoodPeopleSelected).toContain('director-b')
+    expect(getByTestId('hollywood-select-production-production-b')).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    expect(getByTestId('hollywood-select-person-director-b')).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+
+    act(() => {
+      latest().opts.onHollywoodPlace?.({
+        id: 'stage-7',
+        buildingId: 'stage-a',
+        label: 'Soundstage 7',
+        affordances: ['shooting'],
+      })
+    })
+    expect(queryByText('Soundstage 7')).toBeInTheDocument()
+    expect(queryByText(/Director B · attached to Picture B/i)).not.toBeInTheDocument()
+    expect(queryByText('Schedule Picture B shooting take')).not.toBeInTheDocument()
+    expect(queryByText(/Soundstage 12 .* authoritative/i)).not.toBeInTheDocument()
+    expect(queryByText(/^TASK$/)).not.toBeInTheDocument()
+    expect(getByTestId('hollywood-select-person-director-b')).toHaveAttribute(
+      'aria-pressed',
+      'false',
+    )
+    expect(latest().hollywoodPersonClears).toBe(1)
+
+    fireEvent.click(getByTestId('hollywood-select-production-production-a'))
+    expect(getByTestId('hollywood-current-production')).toHaveTextContent('Picture A')
+    expect(getByTestId('hollywood-production-command-assignShootingDirector')).toHaveTextContent(
+      'Call Director A to Soundstage 7',
+    )
+    expect(queryByText(/Director B · attached to Picture B/i)).not.toBeInTheDocument()
+    expect(queryByText(/^Affordances: shooting$/i)).not.toBeInTheDocument()
+    expect(latest().hollywoodPersonClears).toBe(1)
+    expect(latest().hollywoodPlaceClears).toBeGreaterThan(0)
+    expect(getByTestId('hollywood-select-production-production-a')).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    expect(getByTestId('hollywood-select-person-director-b')).toHaveAttribute(
+      'aria-pressed',
+      'false',
+    )
   })
 })
 

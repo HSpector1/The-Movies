@@ -256,7 +256,7 @@ export function makeAccentBand(
 
 /** A per-building attention badge: SHAPE + WORD + colour (never colour alone). Renders the
  * snapshot attention states the D1 scene currently leaves unpainted in-canvas. */
-export type AttentionKind = 'warning' | 'active' | 'positive'
+export type AttentionKind = 'warning' | 'decision' | 'occupied' | 'active' | 'positive'
 
 export function makeAttentionBadge(
   scene: Phaser.Scene,
@@ -265,6 +265,8 @@ export function makeAttentionBadge(
 ): Phaser.GameObjects.Container {
   const spec: Record<AttentionKind, { color: number; word: string }> = {
     warning: { color: m.palette.warning, word: 'ATTENTION' },
+    decision: { color: m.palette.warning, word: 'DECISION' },
+    occupied: { color: m.palette.primary, word: 'OCCUPIED' },
     active: { color: m.palette.primary, word: 'ACTIVE' },
     positive: { color: m.palette.positive, word: 'RELEASE' },
   }
@@ -283,10 +285,10 @@ export function makeAttentionBadge(
   g.fillRoundedRect(-4, -h / 2, w, h, 3)
   g.lineStyle(1.5, color, 1)
   g.strokeRoundedRect(-4, -h / 2, w, h, 3)
-  if (kind === 'warning') {
+  if (kind === 'warning' || kind === 'decision') {
     g.fillStyle(color, 1)
     g.fillTriangle(1, 4, 5, -4, 9, 4)
-  } else if (kind === 'active') {
+  } else if (kind === 'active' || kind === 'occupied') {
     g.lineStyle(1.5, color, 1)
     g.strokeCircle(5, 0, 3.5)
     g.fillStyle(color, 1)

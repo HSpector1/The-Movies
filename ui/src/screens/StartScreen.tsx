@@ -9,7 +9,11 @@ import { ErrorBox } from '../components/common.tsx'
 
 const DEFAULT_SEED = 'studio-001'
 
-export function StartScreen({ onStart }: { onStart: (state: GameState) => void }) {
+export function StartScreen({
+  onStart,
+}: {
+  onStart: (state: GameState, details: { converted: boolean }) => void
+}) {
   const [seed, setSeed] = useState(DEFAULT_SEED)
   const [importText, setImportText] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -21,7 +25,7 @@ export function StartScreen({ onStart }: { onStart: (state: GameState) => void }
       setError('Enter a seed to start a new studio.')
       return
     }
-    onStart(newGame(trimmed))
+    onStart(newGame(trimmed), { converted: false })
   }
 
   function handleImport() {
@@ -31,7 +35,7 @@ export function StartScreen({ onStart }: { onStart: (state: GameState) => void }
       setError(`Could not load that save: ${result.error}`)
       return
     }
-    onStart(result.state)
+    onStart(result.state, { converted: result.converted })
   }
 
   return (

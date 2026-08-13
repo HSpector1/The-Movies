@@ -25,6 +25,9 @@ function foundStudioRich(seed: string): GameState {
   for (const t of toSign) s = applyActions(s, [{ kind: 'signContract', talentId: t.id, termWeeks: 156 }])
   return applyActions(s, [{ kind: 'foundStudio' }])
 }
+function foundManagedStudioRich(seed: string): GameState {
+  return applyActions(foundStudioRich(seed), [{ kind: 'activateStudioOperations' }])
+}
 function rosterIds(s: GameState, role: CreativeRole): string[] {
   return s.contracts
     .map((c) => s.talent.find((t) => t.id === c.talentId)!)
@@ -117,6 +120,10 @@ describe('D1-B — StageAssignment fixes it, presentation-side only', () => {
     )!
     expect(stageOf(both, filmBId)).toBe('stage-b')
     expect(stageOf(alone, filmBId)).toBe('stage-b') // ← was 'stage-a' before the fix
+    expect(
+      alone.productionOperations?.find((operation) => operation.productionId === filmBId)
+        ?.locationBuildingId,
+    ).toBe('stage-b')
   })
 
   it('3. the buildings follow the corrected assignment (canvas + companion nav agree)', () => {
@@ -209,5 +216,33 @@ describe('D1-B — StageAssignment fixes it, presentation-side only', () => {
       expect(new Set(slots).size).toBe(slots.length) // no two productions on one stage
       expect(r.activeProductions).toHaveLength(s.activeProductions.length)
     }
+  })
+
+  it('10. engine authority bypasses and relinquishes memory, so an exact reservation is never remapped', () => {
+    let managed = greenlightFilm(foundManagedStudioRich('assign-engine'), 0, 0)
+    managed = greenlightFilm(managed, 1, 1)
+    managed = tick(managed)
+    managed = tick(managed)
+    managed = tick(managed) // both productions now occupy their reserved soundstages
+    const authoritative = studioLotSnapshot(managed)
+    expect(authoritative.stageAssignmentAuthority).toBe('engine')
+    const stageB = authoritative.activeProductions.find((production) => production.stageId === 'stage-b')!
+
+    // Seed contradictory legacy memory for the SAME production id. This models stale
+    // module-level presentation memory surviving a loaded-game or mode boundary.
+    const presentationSeed: StudioLotSnapshot = {
+      ...authoritative,
+      operationsMode: 'legacy',
+      stageAssignmentAuthority: 'presentation',
+      activeProductions: [{ ...stageB, stageId: 'stage-a' }],
+    }
+    const assignment = new StageAssignment()
+    assignment.resolve(presentationSeed)
+    expect(assignment.slotFor(stageB.id)).toBe('stage-a')
+
+    const resolved = assignment.resolve(authoritative)
+    expect(resolved).toBe(authoritative)
+    expect(stageOf(resolved, stageB.id)).toBe('stage-b')
+    expect(assignment.slotFor(stageB.id)).toBeUndefined()
   })
 })

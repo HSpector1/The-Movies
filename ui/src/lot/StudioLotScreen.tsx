@@ -17,12 +17,19 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type { GameState } from '../engine/adapter.ts'
 import { publicityDecision, runPublicity, studioLotSnapshot } from '../engine/adapter.ts'
 import { moneyExact } from '../format.ts'
-import type { AttentionState, BuildingId, LotPersonState, StudioLotSnapshot } from './snapshot/StudioLotSnapshot.ts'
+import type {
+  AttentionState,
+  BuildingId,
+  LotPersonState,
+  LotProductionCommand,
+  ProductionOperationsState,
+  StudioLotSnapshot,
+} from './snapshot/StudioLotSnapshot.ts'
 import { ALL_BUILDING_IDS, BUILDING_ACTION, BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
 import { lotStageAssignment } from './snapshot/stageAssignment.ts'
 import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
-import type { HollywoodPerformance, HollywoodPlaceSelection, HollywoodTaskState } from './hollywood/HollywoodScene.ts'
+import type { HollywoodPerformance, HollywoodPlaceSelection } from './hollywood/HollywoodScene.ts'
 import {
   studioLotIdentityEnabled,
   studioLotIdentityProofEnabled,
@@ -61,6 +68,8 @@ type Props = {
   onExit: () => void
   /** The host replaces the authoritative state only after a successful real engine action. */
   onStateChange?: (state: GameState) => void
+  /** Dispatch exactly the command projected by the authoritative operations read model. */
+  onProductionCommand?: (command: LotProductionCommand) => void
 }
 
 // Session-level selection memory. This is UI session state — NOT GameState, NOT
@@ -97,7 +106,13 @@ function prefersReducedMotion(): boolean {
   }
 }
 
-export function StudioLotScreen({ state, onNavigate, onExit, onStateChange }: Props) {
+export function StudioLotScreen({
+  state,
+  onNavigate,
+  onExit,
+  onStateChange,
+  onProductionCommand,
+}: Props) {
   const mountRef = useRef<HTMLDivElement | null>(null)
   const viewRef = useRef<StudioLotViewClass | null>(null)
   const onNavigateRef = useRef(onNavigate)
@@ -112,9 +127,12 @@ export function StudioLotScreen({ state, onNavigate, onExit, onStateChange }: Pr
   const hollywood = operationHollywoodEnabled()
   const [hollywoodPerson, setHollywoodPerson] = useState<LotPersonState | null>(null)
   const [hollywoodPlace, setHollywoodPlace] = useState<HollywoodPlaceSelection | null>(null)
-  const [hollywoodTask, setHollywoodTask] = useState<HollywoodTaskState | null>(null)
-  const [hollywoodActivity, setHollywoodActivity] = useState('Stage 7 is holding for a director.')
+  const [hollywoodProductionId, setHollywoodProductionId] = useState<string | null>(null)
+  const [hollywoodActivity, setHollywoodActivity] = useState<string | null>(null)
   const [hollywoodPerf, setHollywoodPerf] = useState<HollywoodPerformance | null>(null)
+  const hollywoodCommandRef = useRef<HTMLButtonElement | null>(null)
+  const hollywoodTaskStatusRef = useRef<HTMLDivElement | null>(null)
+  const pendingHollywoodFocusProductionId = useRef<string | null>(null)
   const whisperOffer = publicityDecision(state).find((offer) => offer.tier === 'whisper')
 
   // ── Identity gating: two INDEPENDENT capabilities (owner ruling: player enablement) ──────
@@ -181,6 +199,73 @@ export function StudioLotScreen({ state, onNavigate, onExit, onStateChange }: Pr
   }, [])
 
   const snapshot = readSnapshot(state)
+  const hollywoodOperations = snapshot.productionOperations ?? []
+  const hollywoodOperation: ProductionOperationsState | null =
+    hollywoodOperations.find((operation) => operation.productionId === hollywoodProductionId) ??
+    hollywoodOperations.find((operation) => operation.locationBuildingId === 'stage-a') ??
+    hollywoodOperations[0] ??
+    null
+
+  const recordHollywoodPerson = useCallback((person: LotPersonState | null) => {
+    setHollywoodPerson(person)
+    if (person !== null) {
+      setHollywoodPlace(null)
+      viewRef.current?.clearHollywoodPlaceSelection()
+    }
+    if (
+      person?.authority === 'active-production' &&
+      person.productionId !== null
+    ) {
+      // A person and their task chain are one inspector context. Selecting the real
+      // director/lead of Film B must never leave Film A's command underneath their name.
+      setHollywoodProductionId(person.productionId)
+    }
+  }, [])
+
+  const recordHollywoodPlace = useCallback((place: HollywoodPlaceSelection | null) => {
+    setHollywoodPlace(place)
+    if (place !== null) {
+      setHollywoodPerson(null)
+      viewRef.current?.clearHollywoodPersonSelection()
+    }
+  }, [])
+
+  // State replacement/save reload can remove a previously selected person. The current
+  // snapshot, not the old scene event, decides whether that inspection remains valid.
+  useEffect(() => {
+    if (hollywoodPerson === null) return
+    const current = snapshot.people.find((person) => person.id === hollywoodPerson.id)
+    if (current === undefined) {
+      setHollywoodPerson(null)
+      return
+    }
+    if (
+      current.name !== hollywoodPerson.name ||
+      current.role !== hollywoodPerson.role ||
+      current.authority !== hollywoodPerson.authority ||
+      current.productionId !== hollywoodPerson.productionId ||
+      current.productionTitle !== hollywoodPerson.productionTitle
+    ) {
+      recordHollywoodPerson(current)
+    }
+  }, [hollywoodPerson, recordHollywoodPerson, snapshot.people])
+
+  useEffect(() => {
+    const productionId = pendingHollywoodFocusProductionId.current
+    if (
+      productionId === null ||
+      hollywoodPlace !== null ||
+      hollywoodOperation?.productionId !== productionId
+    ) {
+      return
+    }
+    const target = hollywoodOperation.currentCommand
+      ? hollywoodCommandRef.current
+      : hollywoodTaskStatusRef.current
+    if (target === null) return
+    target.focus()
+    pendingHollywoodFocusProductionId.current = null
+  }, [hollywoodOperation, hollywoodPlace])
 
   const recordSelection = useCallback((id: BuildingId | null) => {
     sessionSelectedBuilding = id
@@ -218,9 +303,8 @@ export function StudioLotScreen({ state, onNavigate, onExit, onStateChange }: Pr
             recordSelection(sel?.buildingId ?? null)
           },
           onAction: (e) => dispatchRoute(e.action),
-          onHollywoodPerson: (person) => setHollywoodPerson(person),
-          onHollywoodPlace: (place) => setHollywoodPlace(place),
-          onHollywoodTask: (task) => setHollywoodTask(task),
+          onHollywoodPerson: recordHollywoodPerson,
+          onHollywoodPlace: recordHollywoodPlace,
           onActivity: (text) => { if (text) setHollywoodActivity(text) },
           onReady: () => {
             if (cancelled) return
@@ -327,24 +411,41 @@ export function StudioLotScreen({ state, onNavigate, onExit, onStateChange }: Pr
   }, [identityProof, canvasReady])
 
   useEffect(() => {
-    if (!hollywood || !canvasReady) return
+    // Renderer telemetry is evidence/debug chrome, not part of the player's studio.
+    // Reuse the explicit dev-only identity proof gate that already owns performance UI.
+    if (!hollywood || !identityProof || !canvasReady) return
     const h = window.setInterval(() => {
       const next = viewRef.current?.hollywoodPerformance()
       if (next) setHollywoodPerf(next)
     }, 500)
     return () => window.clearInterval(h)
-  }, [hollywood, canvasReady])
+  }, [hollywood, identityProof, canvasReady])
 
   const selectHollywoodPerson = useCallback((person: LotPersonState) => {
-    setHollywoodPerson(person)
+    recordHollywoodPerson(person)
     viewRef.current?.selectHollywoodPerson(person.id)
-  }, [])
+  }, [recordHollywoodPerson])
 
-  const assignHollywoodDirector = useCallback(() => {
-    if (!hollywoodPerson) return
-    const accepted = viewRef.current?.assignSelectedToStage7() ?? false
-    if (!accepted) setHollywoodActivity('Stage 7 requires a director. Select Mara or an active-production director first.')
+  const selectHollywoodProduction = useCallback((productionId: string) => {
+    setHollywoodProductionId(productionId)
+    setHollywoodPlace(null)
+    viewRef.current?.clearHollywoodPlaceSelection()
+    if (
+      hollywoodPerson?.authority === 'active-production' &&
+      hollywoodPerson.productionId !== productionId
+    ) {
+      setHollywoodPerson(null)
+      viewRef.current?.clearHollywoodPersonSelection()
+    }
   }, [hollywoodPerson])
+
+  const dispatchHollywoodProductionCommand = useCallback((
+    productionId: string,
+    command: LotProductionCommand,
+  ) => {
+    pendingHollywoodFocusProductionId.current = productionId
+    onProductionCommand?.(command)
+  }, [onProductionCommand])
 
   const runHollywoodPublicity = useCallback(() => {
     if (!whisperOffer) return
@@ -419,41 +520,96 @@ export function StudioLotScreen({ state, onNavigate, onExit, onStateChange }: Pr
 
           {hollywood && (
             <>
-              <section className="hollywood-production" aria-label="Current production">
-                <p className="hollywood-eyebrow"><i /> NOW SHOOTING · STAGE 7</p>
-                <h2>{snapshot.activeProductions[0]?.title ?? 'The Violet Hour'}</h2>
-                <div className="hollywood-progress"><span style={{ width: `${Math.max(14, (snapshot.activeProductions[0]?.progress01 ?? 0.42) * 100)}%` }} /></div>
-                <dl>
-                  <div><dt>Camera</dt><dd>{hollywoodTask?.status === 'working' ? 'Rolling' : hollywoodTask?.status === 'ready' ? 'Ready' : 'Rehearsal'}</dd></div>
-                  <div><dt>Scenery</dt><dd className={hollywoodTask?.status === 'blocked' ? 'warn' : ''}>{hollywoodTask?.status === 'blocked' ? '2 / 2 · blocked' : '1 / 2'}</dd></div>
-                  <div><dt>Director</dt><dd>{hollywoodTask?.personName ?? 'Not called'}</dd></div>
-                </dl>
-                {hollywoodTask?.reason && <p className="hollywood-consequence"><b>!</b><span><strong>Production hold</strong>{hollywoodTask.reason}</span></p>}
+              <section
+                className={`hollywood-production${hollywoodOperation ? '' : ' is-idle'}`}
+                aria-label="Current production"
+                data-testid={hollywoodOperation ? 'hollywood-current-production' : 'hollywood-production-idle'}
+              >
+                {hollywoodOperation ? (
+                  <>
+                    <p className="hollywood-eyebrow">
+                      <i /> {hollywoodOperation.phaseLabel} · {hollywoodOperation.facilityLabel}
+                    </p>
+                    <h2>{hollywoodOperation.title}</h2>
+                    <div
+                      className="hollywood-progress"
+                      role="progressbar"
+                      aria-label={`${hollywoodOperation.title} production progress`}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      aria-valuenow={Math.round(hollywoodOperation.progress01 * 100)}
+                    >
+                      <span style={{ width: `${Math.max(0, Math.min(1, hollywoodOperation.progress01)) * 100}%` }} />
+                    </div>
+                    <dl>
+                      <div><dt>Phase</dt><dd>{hollywoodOperation.phaseLabel}</dd></div>
+                      <div><dt>Weeks left</dt><dd>{hollywoodOperation.weeksRemaining}</dd></div>
+                      <div><dt>Director</dt><dd>{hollywoodOperation.directorName}</dd></div>
+                    </dl>
+                    {hollywoodOperation.blocker && (
+                      <p className="hollywood-consequence" data-testid="hollywood-production-blocker">
+                        <b>!</b>
+                        <span>
+                          <strong>{hollywoodOperation.blocker.headline}</strong>
+                          {hollywoodOperation.blocker.detail}
+                        </span>
+                      </p>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <p className="hollywood-eyebrow"><i /> STUDIO OPERATIONS</p>
+                    <h2>No active production</h2>
+                    <p className="hollywood-idle-copy">
+                      The studio lot is idle. Assemble a film to begin production.
+                    </p>
+                  </>
+                )}
               </section>
 
               <section className="hollywood-inspector" aria-live="polite">
                 <p className="hollywood-eyebrow">{hollywoodPerson ? 'SELECTED PERSON' : hollywoodPlace ? 'SELECTED PLACE' : 'STUDIO DESK'}</p>
-                <h3>{hollywoodPerson?.name ?? hollywoodPlace?.label ?? 'Dispatch & inspection'}</h3>
+                <h3>{hollywoodPerson?.name ?? hollywoodPlace?.label ?? hollywoodOperation?.title ?? 'Studio idle'}</h3>
                 <p>{hollywoodPerson
                   ? `${hollywoodPerson.role === 'director' ? 'Director' : 'Talent'} · ${hollywoodPerson.authority === 'active-production' ? `attached to ${hollywoodPerson.productionTitle}` : hollywoodPerson.authority === 'district-managed' ? 'district command roster' : 'studio roster'}`
                   : hollywoodPlace
                     ? `Affordances: ${hollywoodPlace.affordances.join(' · ')}`
-                    : 'Select a named person or a place in the district.'}</p>
-                {hollywoodTask && (
-                  <div className="hollywood-task-chain">
-                    <span className="done">INTENT<b>Direct scene</b></span><i>›</i>
-                    <span className={hollywoodTask.status !== 'accepted' ? 'done' : ''}>TASK<b>{hollywoodTask.cue}</b></span><i>›</i>
-                    <span className={hollywoodTask.status === 'completed' ? 'done' : ''}>RESULT<b>{hollywoodTask.status}</b></span>
+                    : hollywoodOperation
+                      ? `${hollywoodOperation.phaseLabel} · ${hollywoodOperation.facilityLabel}`
+                      : 'No production requires a studio command.'}</p>
+                {hollywoodOperation && hollywoodPlace === null && (
+                  <div
+                    className="hollywood-task-chain"
+                    role="status"
+                    aria-live="polite"
+                    aria-atomic="true"
+                    tabIndex={-1}
+                    ref={hollywoodTaskStatusRef}
+                    data-testid={`hollywood-task-status-${hollywoodOperation.productionId}`}
+                  >
+                    <span className="done">PHASE<b>{hollywoodOperation.phaseLabel}</b></span><i>›</i>
+                    <span className={hollywoodOperation.taskStatus ? 'done' : ''}>TASK<b>{hollywoodOperation.taskStatus ?? 'None'}</b></span><i>›</i>
+                    <span className={hollywoodOperation.currentCommand ? '' : 'done'}>STATUS<b>{hollywoodOperation.statusLabel}</b></span>
                   </div>
                 )}
-                {hollywoodPerson?.role === 'director' && !hollywoodTask && (
-                  <button className="accent hollywood-command" onClick={assignHollywoodDirector}>Assign to Stage 7 <kbd>A</kbd></button>
+                {hollywoodPlace === null && hollywoodOperation?.locationBuildingId === 'stage-b' && (
+                  <p className="hollywood-stage-fallback" data-testid="hollywood-stage-12-fallback">
+                    {hollywoodOperation.facilityLabel} is authoritative. This district view depicts Soundstage 7; manage this production from the inspector.
+                  </p>
                 )}
-                {hollywoodTask?.status === 'blocked' && (
-                  <button className="accent hollywood-command" onClick={() => viewRef.current?.resolveHollywoodBottleneck()}>Clear scenery load-in</button>
-                )}
-                {hollywoodTask?.status === 'ready' && (
-                  <button className="accent hollywood-command" onClick={() => viewRef.current?.callHollywoodTake()}>Call for Take 12</button>
+                {hollywoodPlace === null && hollywoodOperation?.currentCommand && (
+                  <button
+                    className="accent hollywood-command"
+                    disabled={!onProductionCommand}
+                    ref={hollywoodCommandRef}
+                    onClick={() => dispatchHollywoodProductionCommand(
+                      hollywoodOperation.productionId,
+                      hollywoodOperation.currentCommand!,
+                    )}
+                    data-testid={`hollywood-production-command-${hollywoodOperation.currentCommand.kind}`}
+                  >
+                    {hollywoodOperation.currentCommand.label}
+                  </button>
                 )}
                 {whisperOffer && (
                   <>
@@ -477,15 +633,41 @@ export function StudioLotScreen({ state, onNavigate, onExit, onStateChange }: Pr
                 )}
               </section>
 
-              <div className="hollywood-people" role="group" aria-label="Named studio people">
-                {snapshot.people.map((person) => (
-                  <button key={person.id} className={hollywoodPerson?.id === person.id ? 'active' : ''} onClick={() => selectHollywoodPerson(person)}>
-                    <span>{person.name}</span><small>{person.role}</small>
-                  </button>
-                ))}
-              </div>
-              <div className="hollywood-activity" role="status">{hollywoodActivity}</div>
-              {hollywoodPerf && (
+              {hollywoodOperations.length > 1 && (
+                <div className="hollywood-productions" role="group" aria-label="Active productions">
+                  {hollywoodOperations.map((operation) => (
+                    <button
+                      key={operation.productionId}
+                      type="button"
+                      className={hollywoodOperation?.productionId === operation.productionId ? 'active' : ''}
+                      aria-pressed={hollywoodOperation?.productionId === operation.productionId}
+                      onClick={() => selectHollywoodProduction(operation.productionId)}
+                      data-testid={`hollywood-select-production-${operation.productionId}`}
+                    >
+                      <span>{operation.title}</span>
+                      <small>{operation.facilityLabel}</small>
+                    </button>
+                  ))}
+                </div>
+              )}
+              {snapshot.people.length > 0 && (
+                <div className="hollywood-people" role="group" aria-label="Named studio people">
+                  {snapshot.people.map((person) => (
+                    <button
+                      key={person.id}
+                      type="button"
+                      className={hollywoodPerson?.id === person.id ? 'active' : ''}
+                      aria-pressed={hollywoodPerson?.id === person.id}
+                      onClick={() => selectHollywoodPerson(person)}
+                      data-testid={`hollywood-select-person-${person.id}`}
+                    >
+                      <span>{person.name}</span><small>{person.role}</small>
+                    </button>
+                  ))}
+                </div>
+              )}
+              {hollywoodActivity && <div className="hollywood-activity" role="status">{hollywoodActivity}</div>}
+              {identityProof && hollywoodPerf && (
                 <div className="hollywood-perf" data-testid="hollywood-performance">
                   {hollywoodPerf.fps} fps · {hollywoodPerf.displayObjects} objects · {hollywoodPerf.dynamicActors} actors · {hollywoodPerf.textureMemoryMb} MB
                 </div>

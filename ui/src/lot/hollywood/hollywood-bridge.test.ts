@@ -2,7 +2,9 @@ import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { generateWorld } from '../../../../src/core/worldgen.ts'
-import { beginFounding } from '../../../../src/core/employment.ts'
+import { beginFounding, FOUNDING_MINIMUMS } from '../../../../src/core/employment.ts'
+import { applyActions } from '../../../../src/core/actions.ts'
+import type { CreativeRole } from '../../../../src/core/types.ts'
 import { studioLotSnapshot } from '../../engine/adapter.ts'
 
 type RuntimeManifest = {
@@ -50,10 +52,26 @@ describe('Operation Hollywood engine bridge', () => {
     }
   })
 
-  it('projects the named Mara bridge plus a real engine actor without leaking Talent objects', () => {
-    const state = beginFounding(generateWorld('operation-hollywood-test'))
+  it('projects only real contracted or active identities without leaking Talent objects', () => {
+    let state = beginFounding(generateWorld('operation-hollywood-test'))
+    const pool = state.founding!.applicantIds.map((id) => state.talent.find((talent) => talent.id === id)!)
+    const byRole = (role: CreativeRole, count: number) => pool.filter((talent) => talent.role === role).slice(0, count)
+    const foundingRoster = [
+      ...byRole('actor', FOUNDING_MINIMUMS.actor),
+      ...byRole('director', FOUNDING_MINIMUMS.director),
+      ...byRole('writer', FOUNDING_MINIMUMS.writer),
+      ...byRole('craft', FOUNDING_MINIMUMS.craft),
+    ]
+    for (const talent of foundingRoster) {
+      state = applyActions(state, [{ kind: 'signContract', talentId: talent.id, termWeeks: 156 }])
+    }
+    state = applyActions(state, [{ kind: 'foundStudio' }])
     const snapshot = studioLotSnapshot(state)
-    expect(snapshot.people.some((person) => person.name === 'Mara Voss' && person.role === 'director')).toBe(true)
+    const contractedIds = new Set(state.contracts.map((contract) => contract.talentId))
+
+    expect(snapshot.people.some((person) => person.name === 'Mara Voss')).toBe(false)
+    expect(snapshot.people.every((person) => contractedIds.has(person.id))).toBe(true)
+    expect(snapshot.people.some((person) => person.role === 'director' && person.authority === 'studio-roster')).toBe(true)
     expect(snapshot.people.some((person) => person.role === 'talent' && person.authority === 'studio-roster')).toBe(true)
     expect(Object.keys(snapshot.people[0] ?? {}).sort()).toEqual([
       'authority', 'id', 'name', 'productionId', 'productionTitle', 'role',

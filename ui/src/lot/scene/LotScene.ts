@@ -62,6 +62,11 @@ import {
   type AttentionKind,
   type SignTier,
 } from '../identity/signage'
+import {
+  productionStageStatusLabel,
+  productionStageVisualState,
+  type ProductionStageVisualState,
+} from './productionStageState'
 
 const hw = TILE_W / 2
 const hh = TILE_H / 2
@@ -706,7 +711,10 @@ export class LotScene extends Phaser.Scene {
       this.attnBadges.set(id, badge)
     }
     for (const b of snap.buildings) if (b.attention === 'warning') add(b.id, 'warning')
-    for (const p of snap.activeProductions) if (p.active) add(p.stageId, 'active')
+    for (const b of snap.buildings) if (b.attention === 'decision-required') add(b.id, 'decision')
+    for (const p of snap.activeProductions) {
+      add(p.stageId, p.active ? 'active' : 'occupied')
+    }
     if (snap.releasePresence !== 'none') add('theater', 'positive')
   }
 
@@ -1471,9 +1479,8 @@ export class LotScene extends Phaser.Scene {
     if (this.textures.exists(key) && view.sprite.texture.key !== key) view.sprite.setTexture(key)
   }
 
-  private stageState(view: BuildingView, prod: ProductionCard | null): 'active' | 'idle' | 'closed' {
-    if (!this.isAvailable(view.spec.id)) return 'closed'
-    return prod && prod.active ? 'active' : 'idle'
+  private stageState(view: BuildingView, prod: ProductionCard | null): ProductionStageVisualState {
+    return productionStageVisualState(this.isAvailable(view.spec.id), prod)
   }
 
   private dressStage(view: BuildingView, prod: ProductionCard | null): void {
@@ -1499,19 +1506,23 @@ export class LotScene extends Phaser.Scene {
         view.sprite.setTint(0x8f8778)
       } else {
         view.sprite.setAlpha(1)
-        if (state === 'idle') view.sprite.setTint(0xece4d2)
+        if (state === 'vacant') view.sprite.setTint(0xece4d2)
+        if (state === 'decision-required') view.sprite.setTint(0xf3dfb0)
       }
     }
     if (view.recLight) {
-      view.recLight.setData('on', state === 'active')
-      view.recLight.setTint(state === 'active' ? K.recordingOn : K.recordingOff)
+      view.recLight.setData('on', state === 'recording')
+      view.recLight.setTint(state === 'recording' ? K.recordingOn : K.recordingOff)
     }
 
-    if (state !== 'active' || !prod) return
+    if (state === 'closed' || state === 'vacant' || !prod) return
 
-    // ── active: open-door spill, gear cluster, title board, parked van ────────
-    view.doorGlow = this.makeDoorGlow(view)
-    view.container.add(view.doorGlow)
+    // Every authoritative reservation keeps its title board, gear and van visible.
+    // The open-door glow and REC light remain exclusive to an actual scheduled take.
+    if (state === 'recording') {
+      view.doorGlow = this.makeDoorGlow(view)
+      view.container.add(view.doorGlow)
+    }
 
     const a = STAGE_APRONS[view.spec.id as 'stage-a' | 'stage-b']
     const rng = new Rng(this.snapshot.sceneSeed + ':' + prod.id) // deterministic per film
@@ -1545,7 +1556,7 @@ export class LotScene extends Phaser.Scene {
     this.trackDressing(view, this.placeProp('p-van', a.park.gx, a.park.gy, LAYER.prop))
 
     // floating production tag (zoom-responsive)
-    view.prodTag = this.makeProductionTag(view, prod)
+    view.prodTag = this.makeProductionTag(view, prod, state)
   }
 
   private trackDressing(view: BuildingView, obj: Phaser.GameObjects.GameObject): void {
@@ -1580,7 +1591,11 @@ export class LotScene extends Phaser.Scene {
     return g
   }
 
-  private makeProductionTag(view: BuildingView, prod: ProductionCard): ProdTag {
+  private makeProductionTag(
+    view: BuildingView,
+    prod: ProductionCard,
+    state: ProductionStageVisualState,
+  ): ProdTag {
     const meta = this.texMeta(view.spec.texKey)
     const topY = -meta.h * meta.originY - 12
 
@@ -1591,7 +1606,8 @@ export class LotScene extends Phaser.Scene {
     const bg = this.add.graphics()
     bg.fillStyle(K.labelBg, 0.93)
     bg.fillRoundedRect(-w / 2, -h, w, h, 6)
-    bg.lineStyle(1.5, K.recordingOn, 0.9)
+    const accent = state === 'recording' ? K.recordingOn : K.selection
+    bg.lineStyle(1.5, accent, 0.9)
     bg.strokeRoundedRect(-w / 2, -h, w, h, 6)
     bg.fillStyle(K.labelBg, 0.93)
     bg.fillTriangle(-6, -2, 6, -2, 0, 7)
@@ -1600,7 +1616,8 @@ export class LotScene extends Phaser.Scene {
       fontSize: '13px',
       color: '#f5ecd8',
     })
-    const sub = this.add.text(-w / 2 + 12, -h + 28, `${prod.genre}  ·  ${prod.weeksRemaining} wks left`, {
+    const status = productionStageStatusLabel(prod, state)
+    const sub = this.add.text(-w / 2 + 12, -h + 28, `${status}  ·  ${prod.weeksRemaining} wks left`, {
       fontFamily: FONT_SANS,
       fontSize: '10px',
       color: '#c9bfa6',
@@ -1610,7 +1627,7 @@ export class LotScene extends Phaser.Scene {
     const bar = this.add.graphics()
     bar.fillStyle(0x000000, 0.4)
     bar.fillRoundedRect(-w / 2 + 12, by, barW, 6, 3)
-    bar.fillStyle(K.recordingOn, 0.95)
+    bar.fillStyle(accent, 0.95)
     bar.fillRoundedRect(-w / 2 + 12, by, Math.max(4, barW * prod.progress01), 6, 3)
     full.add([bg, title, sub, bar])
 
@@ -1626,7 +1643,7 @@ export class LotScene extends Phaser.Scene {
     const cw = ct.width + 24
     cg.fillStyle(K.labelBg, 0.9)
     cg.fillRoundedRect(-cw / 2 + 8, -16, cw, 20, 10)
-    cg.fillStyle(K.recordingOn, 1)
+    cg.fillStyle(accent, 1)
     cg.fillCircle(-cw / 2 + 18, -6, 3.5)
     ct.setPosition(-cw / 2 + 26, -6)
     compact.add([cg, ct])

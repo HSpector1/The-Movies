@@ -55,6 +55,14 @@ function startGame(seed: string) {
   foundViaUi()
 }
 
+function resolveProductionCommands() {
+  for (let guard = 0; guard < 4; guard++) {
+    const command = screen.queryAllByTestId(/^production-command-/)[0]
+    if (!command) return
+    fireEvent.click(command)
+  }
+}
+
 // A fixed, deterministic sequence of UI actions: assemble+greenlight the default
 // film, then advance a fixed number of weeks (walking the release screen). Returns
 // the final visible dashboard snapshot.
@@ -82,6 +90,7 @@ function playFixedSequence(seed: string, weeks: number): string {
   fireEvent.click(screen.getByTestId('greenlight'))
 
   for (let i = 0; i < weeks; i++) {
+    resolveProductionCommands()
     const advance = screen.queryByTestId('advance-week')
     if (advance) fireEvent.click(advance)
     // D-11.C: a release shows the newspaper front page first — continue through it.

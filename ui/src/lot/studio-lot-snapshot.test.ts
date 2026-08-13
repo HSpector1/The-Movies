@@ -49,6 +49,10 @@ function foundStudioRich(seed: string): GameState {
   for (const t of toSign) s = applyActions(s, [{ kind: 'signContract', talentId: t.id, termWeeks: 156 }])
   return applyActions(s, [{ kind: 'foundStudio' }])
 }
+function foundManagedStudio(seed: string, rich = false): GameState {
+  const founded = rich ? foundStudioRich(seed) : foundStudio(seed)
+  return applyActions(founded, [{ kind: 'activateStudioOperations' }])
+}
 function rosterIds(s: GameState, role: CreativeRole): string[] {
   return s.contracts
     .map((c) => s.talent.find((t) => t.id === c.talentId)!)
@@ -89,6 +93,8 @@ function advance(s: GameState, n: number): GameState {
   return out
 }
 const stage = (snap: ReturnType<typeof studioLotSnapshot>, id: string) => snap.buildings.find((b) => b.id === id)!
+const operation = (snap: ReturnType<typeof studioLotSnapshot>, id: string) =>
+  snap.productionOperations?.find((candidate) => candidate.productionId === id)!
 
 describe('studioLotSnapshot — authoritative, deterministic, invents nothing', () => {
   it('1. a fresh founded studio produces a valid snapshot (all nine buildings)', () => {
@@ -228,5 +234,231 @@ describe('studioLotSnapshot — authoritative, deterministic, invents nothing', 
     // 'now-showing' is grounded in the authoritative active-run count, not invented.
     const nowShowing = financeCard(s).activeRuns > 0
     expect(snap.releasePresence === 'now-showing').toBe(nowShowing)
+  })
+})
+
+describe('studioLotSnapshot — managed Production Operations truth', () => {
+  it('projects every phase to its real lot location and never invents a physical stage', () => {
+    let state = greenlightFilm(foundManagedStudio('lot-managed-phases'), 0)
+    const productionId = state.studio.activeProductions[0]!.id
+    const snapshots = new Map<string, ReturnType<typeof studioLotSnapshot>>()
+    snapshots.set('development', studioLotSnapshot(state))
+    state = tick(state) // greenlight tick: skip
+    state = tick(state) // Development → Pre-production
+    snapshots.set('preProduction', studioLotSnapshot(state))
+    state = tick(state) // Pre-production → Rehearsal
+    snapshots.set('rehearsal', studioLotSnapshot(state))
+    state = tick(state) // Rehearsal → Shooting
+    snapshots.set('shooting', studioLotSnapshot(state))
+
+    state = applyActions(state, [
+      {
+        kind: 'assignShootingDirector',
+        productionId,
+        directorId: state.studio.activeProductions[0]!.directorId,
+      },
+      { kind: 'clearSceneryLoadIn', productionId },
+      { kind: 'scheduleShootingTake', productionId },
+    ])
+    state = tick(state) // scheduled Shooting take completes; still Shooting
+    state = tick(state) // Shooting → Post-production
+    snapshots.set('postProduction', studioLotSnapshot(state))
+    state = tick(state) // second Post-production week
+    state = tick(state) // Post-production → Release Ready
+    snapshots.set('releaseReady', studioLotSnapshot(state))
+
+    const expectedLocation = {
+      development: 'writers',
+      preProduction: 'casting',
+      rehearsal: 'stage-a',
+      shooting: 'stage-a',
+      postProduction: 'post',
+      releaseReady: 'theater',
+    } as const
+
+    for (const [phase, location] of Object.entries(expectedLocation)) {
+      const snap = snapshots.get(phase)!
+      expect(snap.operationsMode).toBe('managed')
+      expect(snap.stageAssignmentAuthority).toBe('engine')
+      expect(operation(snap, productionId).phase).toBe(phase)
+      expect(operation(snap, productionId).locationBuildingId).toBe(location)
+      expect(stage(snap, location).attention).not.toBe('empty')
+      const physical = phase === 'rehearsal' || phase === 'shooting'
+      expect(snap.activeProductions.map((card) => card.id)).toEqual(physical ? [productionId] : [])
+    }
+    expect(snapshots.get('rehearsal')!.activeProductions[0]).toMatchObject({
+      active: false,
+      stageState: 'idle',
+    })
+    expect(snapshots.get('shooting')!.activeProductions[0]).toMatchObject({
+      active: false,
+      stageState: 'decision-required',
+    })
+  })
+
+  it('maps both exact engine soundstage reservations and ignores production-array order', () => {
+    let state = foundManagedStudio('lot-managed-two-stages', true)
+    state = greenlightFilm(state, 0, 0)
+    state = greenlightFilm(state, 1, 1)
+    state = tick(state)
+    state = tick(state)
+    state = tick(state) // both Rehearsal
+
+    const expected = new Map(
+      state.operations.workflows.map((workflow) => {
+        const facilityId = workflow.reservations.find((reservation) => reservation.capability === 'soundstage')!.facilityId
+        return [workflow.productionId, facilityId === 'facility-soundstage-07' ? 'stage-a' : 'stage-b'] as const
+      }),
+    )
+    const reordered: GameState = {
+      ...state,
+      studio: { ...state.studio, activeProductions: [...state.studio.activeProductions].reverse() },
+    }
+    const snap = studioLotSnapshot(reordered)
+    for (const card of snap.activeProductions) expect(card.stageId).toBe(expected.get(card.id))
+    expect(new Set(snap.activeProductions.map((card) => card.stageId))).toEqual(
+      new Set(['stage-a', 'stage-b']),
+    )
+  })
+
+  it('projects the authoritative shooting task, blocker, command, and stage attention', () => {
+    let state = greenlightFilm(foundManagedStudio('lot-managed-blocker'), 0)
+    state = advance(state, 4)
+    const production = state.studio.activeProductions[0]!
+
+    let snap = studioLotSnapshot(state)
+    let op = operation(snap, production.id)
+    expect(op.taskStatus).toBe('unassigned')
+    expect(op.blocker?.kind).toBe('director-dispatch')
+    expect(op.currentCommand).toMatchObject({
+      kind: 'assignShootingDirector',
+      productionId: production.id,
+      directorId: production.directorId,
+    })
+    expect(op.attention).toBe('decision-required')
+    expect(stage(snap, op.locationBuildingId).attention).toBe('decision-required')
+    expect(snap.activeProductions[0]).toMatchObject({
+      active: false,
+      stageState: 'decision-required',
+    })
+
+    state = applyActions(state, [
+      {
+        kind: 'assignShootingDirector',
+        productionId: production.id,
+        directorId: production.directorId,
+      },
+    ])
+    snap = studioLotSnapshot(state)
+    op = operation(snap, production.id)
+    expect(op.taskStatus).toBe('blocked')
+    expect(op.blocker?.kind).toBe('scenery-load-in')
+    expect(op.currentCommand).toMatchObject({
+      kind: 'clearSceneryLoadIn',
+      productionId: production.id,
+    })
+    expect(stage(snap, op.locationBuildingId).attentionReason).toBe(op.blocker?.headline)
+    expect(snap.activeProductions[0]).toMatchObject({
+      active: false,
+      stageState: 'decision-required',
+    })
+
+    state = applyActions(state, [
+      { kind: 'clearSceneryLoadIn', productionId: production.id },
+    ])
+    snap = studioLotSnapshot(state)
+    expect(operation(snap, production.id).taskStatus).toBe('ready')
+    expect(snap.activeProductions[0]).toMatchObject({
+      active: false,
+      stageState: 'decision-required',
+    })
+
+    state = applyActions(state, [
+      { kind: 'scheduleShootingTake', productionId: production.id },
+    ])
+    snap = studioLotSnapshot(state)
+    expect(snap.activeProductions[0]).toMatchObject({ active: true, stageState: 'filming' })
+    state = tick(state)
+    snap = studioLotSnapshot(state)
+    expect(operation(snap, production.id).taskStatus).toBe('completed')
+    expect(snap.activeProductions[0]).toMatchObject({ active: true, stageState: 'filming' })
+  })
+
+  it('keeps REC off when a completed Shooting phase is held for Post capacity', () => {
+    let state = foundManagedStudio('lot-managed-post-capacity', true)
+    state = {
+      ...state,
+      operations: {
+        ...state.operations,
+        facilities: state.operations.facilities.map((facility) =>
+          facility.id === 'facility-post-building' ? { ...facility, capacity: 1 } : facility,
+        ),
+      },
+    }
+    state = greenlightFilm(state, 0, 0)
+    state = greenlightFilm(state, 1, 1)
+    state = advance(state, 4)
+    for (const production of state.studio.activeProductions) {
+      state = applyActions(state, [
+        {
+          kind: 'assignShootingDirector',
+          productionId: production.id,
+          directorId: production.directorId,
+        },
+        { kind: 'clearSceneryLoadIn', productionId: production.id },
+        { kind: 'scheduleShootingTake', productionId: production.id },
+      ])
+    }
+    state = tick(state) // both takes completed; remainingTicks 4
+    state = tick(state) // one enters Post; the other retains its stage with a capacity warning
+
+    const held = state.operations.workflows.find(
+      (workflow) => workflow.blocker?.kind === 'facility-capacity',
+    )!
+    const snap = studioLotSnapshot(state)
+    const op = operation(snap, held.productionId)
+    const card = snap.activeProductions.find((candidate) => candidate.id === held.productionId)!
+    expect(op.blocker?.kind).toBe('facility-capacity')
+    expect(op.attention).toBe('warning')
+    expect(card).toMatchObject({ active: false, stageState: 'idle' })
+    expect(stage(snap, card.stageId).attention).toBe('warning')
+  })
+
+  it('keeps an empty managed studio idle and never fabricates Mara or roster people', () => {
+    const snap = studioLotSnapshot(foundManagedStudio('lot-managed-idle'))
+    expect(snap.operationsMode).toBe('managed')
+    expect(snap.activeProductions).toEqual([])
+    expect(snap.productionOperations).toEqual([])
+    expect(snap.people).toEqual([])
+    expect(snap.people.some((person) => person.name === 'Mara Voss')).toBe(false)
+    expect(stage(snap, 'stage-a').attention).toBe('empty')
+    expect(stage(snap, 'stage-b').attention).toBe('empty')
+  })
+
+  it('shows only the real active production director and lead in managed mode', () => {
+    const state = greenlightFilm(foundManagedStudio('lot-managed-real-people'), 0)
+    const production = state.studio.activeProductions[0]!
+    const snap = studioLotSnapshot(state)
+    expect(new Set(snap.people.map((person) => person.id))).toEqual(
+      new Set([production.directorId, production.cast.lead]),
+    )
+    expect(snap.people.every((person) => person.authority === 'active-production')).toBe(true)
+    expect(snap.people.every((person) => person.productionId === production.id)).toBe(true)
+  })
+
+  it('labels legacy stage assignment while preserving every pre-operations lot field', () => {
+    const snap = studioLotSnapshot(greenlightFilm(foundStudio('lot-legacy-labelled'), 0))
+    expect(snap.operationsMode).toBe('legacy')
+    expect(snap.stageAssignmentAuthority).toBe('presentation')
+    expect(snap.productionOperations?.[0]).toMatchObject({
+      phase: 'legacy',
+      phaseLabel: 'Legacy production schedule',
+      weeksRemaining: 8,
+      progress01: 0,
+      locationBuildingId: 'stage-a',
+      currentCommand: null,
+    })
+    expect(snap.activeProductions[0]!.stageId).toBe('stage-a')
+    expect(stage(snap, 'stage-a').attention).toBe('active')
   })
 })

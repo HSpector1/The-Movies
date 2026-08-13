@@ -261,6 +261,11 @@ button.danger {
   border-color: #2f5a66;
   background: #142a30;
 }
+.tag.warning {
+  color: #f0c879;
+  border-color: #755b2d;
+  background: #302716;
+}
 .estimate-block {
   border-left: 3px solid var(--estimate);
   padding-left: 12px;
@@ -438,7 +443,78 @@ th.num {
   overflow-y: auto;
 }
 
-/* ── D-14 Career Impact + Talent Profile drawer ─────────────────────────────── */
+/* ── Production Operations V1 ───────────────────────────────────────────────── */
+.production-board-heading {
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+.production-board-heading h2,
+.production-board-heading p {
+  margin-bottom: 0;
+}
+.production-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+.production-card-attention {
+  border-color: #755b2d;
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+.production-card-title {
+  align-items: flex-start;
+}
+.production-card-title > div {
+  min-width: 0;
+}
+.production-phase {
+  margin-top: 3px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.025em;
+}
+.production-board-facts,
+.production-forecast {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.production-forecast {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.production-blocker {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 11px 12px;
+  border: 1px solid #755b2d;
+  border-radius: 6px;
+  background: #2a2317;
+}
+.production-blocker strong {
+  color: #f0c879;
+}
+.production-command {
+  align-self: flex-start;
+}
+.production-schedule-assumption {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 760px) {
+  .production-board-facts,
+  .production-forecast {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* D-14 Career Impact + Talent Profile drawer */
 .linkish {
   background: none;
   border: none;

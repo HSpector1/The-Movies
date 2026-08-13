@@ -30,6 +30,7 @@ import type {
   PeriodSummary,
   SimStopReason,
   PublicityTier,
+  ProductionCommandView,
 } from './engine/adapter.ts'
 import {
   advanceWeek,
@@ -42,6 +43,7 @@ import {
   releaseNewspaper,
   talentProfile,
   runPublicity,
+  runProductionCommand,
 } from './engine/adapter.ts'
 import { filmCareerImpact, talentCareerHistory, preV5CreditCount } from './engine/careerImpact.ts'
 import { TalentProfileDrawer } from './components/TalentProfileDrawer.tsx'
@@ -190,6 +192,10 @@ export function App() {
         ? { kind: 'corrupt' }
         : null,
   )
+  // One-session acknowledgement for an accepted older save. Saves reports only whether
+  // migration occurred; App owns this notice because the successful load immediately
+  // navigates away from (and unmounts) the Saves screen.
+  const [saveMigrationNotice, setSaveMigrationNotice] = useState(restore.ok && restore.converted)
   // productionId → pre-release snapshot, for exact autopsy of session releases. Session-only (never
   // in the save), so a restored session's pre-restore releases fall back to the persisted FilmRecord.
   const [snapshots, setSnapshots] = useState<Record<string, ReleaseSnapshot>>({})
@@ -201,10 +207,11 @@ export function App() {
     if (state) saveActiveSession(state)
   }, [state])
 
-  function startGame(next: GameState) {
+  function startGame(next: GameState, details: { converted: boolean }) {
     setState(next)
     setSnapshots({})
     setRecovery(null)
+    setSaveMigrationNotice(details.converted)
     // AUTHORITATIVE STATE REPLACEMENT: a brand-new studio, or a save imported at the start
     // screen. Presentation memory keyed by production id must not cross this line — ids are
     // `prod-<tick>` and repeat across games, so a slot held by the previous studio would be
@@ -233,6 +240,7 @@ export function App() {
     setState(null)
     setSnapshots({})
     setRecovery(null)
+    setSaveMigrationNotice(false)
     // The old studio ends HERE, past the confirm — so its presentation memory ends here too.
     resetLotStageAssignment()
     setScreen({ kind: 'start' })
@@ -315,6 +323,16 @@ export function App() {
   function handlePublicity(tier: PublicityTier) {
     if (!state) return
     const result = runPublicity(state, tier)
+    if (result.ok) {
+      setState(result.next)
+    } else {
+      alert(result.error)
+    }
+  }
+
+  function handleProductionCommand(command: ProductionCommandView) {
+    if (!state) return
+    const result = runProductionCommand(state, command)
     if (result.ok) {
       setState(result.next)
     } else {
@@ -430,10 +448,29 @@ export function App() {
     </div>
   )
 
+  const saveMigrationBanner = saveMigrationNotice && (
+    <div className="card" data-testid="save-migration-notice" role="status" style={{ marginBottom: 12 }}>
+      <div className="spread">
+        <span>
+          An older save was upgraded to the current format. Export now if you want a separate copy
+          in the current format.
+        </span>
+        <button
+          className="ghost"
+          onClick={() => setSaveMigrationNotice(false)}
+          data-testid="save-migration-dismiss"
+        >
+          Dismiss
+        </button>
+      </div>
+    </div>
+  )
+
   if (!state || screen.kind === 'start') {
     return (
       <DevErrorBoundary>
         {recoveryBanner}
+        {saveMigrationBanner}
         <StartScreen onStart={startGame} />
       </DevErrorBoundary>
     )
@@ -444,6 +481,7 @@ export function App() {
   return (
     <DevErrorBoundary>
       {recoveryBanner}
+      {saveMigrationBanner}
       {openProfile && (
         <TalentProfileDrawer
           profile={openProfile}
@@ -480,6 +518,7 @@ export function App() {
           onOpenAutopsy={openAutopsyForFilm}
           onOpenClipping={openClippingForFilm}
           onPublicize={handlePublicity}
+          onProductionCommand={handleProductionCommand}
         />
       )}
 
@@ -593,9 +632,10 @@ export function App() {
       {screen.kind === 'saves' && (
         <Saves
           state={state}
-          onLoad={(next) => {
+          onLoad={(next, details) => {
             setState(next)
             setSnapshots({})
+            setSaveMigrationNotice(details.converted)
             // AUTHORITATIVE STATE REPLACEMENT: Saves only calls this once a save has been
             // accepted, so a REJECTED import never reaches here and the live studio keeps
             // its stages. See startGame() for why the reset is required.
@@ -615,7 +655,13 @@ export function App() {
             </div>
           }
         >
-          <StudioLotScreen state={state} onNavigate={handleLotNavigate} onExit={goDashboard} onStateChange={setState} />
+          <StudioLotScreen
+            state={state}
+            onNavigate={handleLotNavigate}
+            onExit={goDashboard}
+            onStateChange={setState}
+            onProductionCommand={handleProductionCommand}
+          />
         </Suspense>
       )}
     </DevErrorBoundary>

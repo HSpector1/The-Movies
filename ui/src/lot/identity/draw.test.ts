@@ -134,7 +134,7 @@ describe('D1-A signage', () => {
 
   it('renders every attention kind (shape + word + colour) without throwing', () => {
     const { scene } = fakeScene()
-    for (const kind of ['warning', 'active', 'positive'] as const) {
+    for (const kind of ['warning', 'decision', 'occupied', 'active', 'positive'] as const) {
       expect(() => makeAttentionBadge(scene, M, kind)).not.toThrow()
     }
   })

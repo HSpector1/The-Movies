@@ -8,6 +8,7 @@ const fakePhaser = vi.hoisted(() => {
     texture = ''
     destroyed = false
     visible = true
+    fillColor = 0
 
     constructor(x = 0, y = 0, texture = '') {
       this.x = x
@@ -27,7 +28,20 @@ const fakePhaser = vi.hoisted(() => {
     setScale() { return this }
     setAlpha() { return this }
     setText(text: string) { this.text = text; return this }
+    setFillStyle(color: number) { this.fillColor = color; return this }
     destroy() { this.destroyed = true }
+  }
+
+  class Graphics extends DisplayObject {
+    clear() { return this }
+    fillStyle() { return this }
+    fillEllipse() { return this }
+    lineStyle() { return this }
+    lineBetween() { return this }
+    fillCircle() { return this }
+    fillRect() { return this }
+    strokeRect() { return this }
+    strokeCircle() { return this }
   }
 
   class Tween {
@@ -71,7 +85,7 @@ const fakePhaser = vi.hoisted(() => {
     }
   }
 
-  return { DisplayObject, Scene, Tween }
+  return { DisplayObject, Graphics, Scene, Tween }
 })
 
 vi.mock('phaser', () => ({
@@ -88,19 +102,66 @@ vi.mock('phaser', () => ({
 }))
 
 import { HollywoodScene, type HollywoodEvent } from './HollywoodScene.ts'
-import type { LotPersonState, StudioLotSnapshot } from '../snapshot/StudioLotSnapshot.ts'
+import type {
+  LotPersonState,
+  ProductionOperationsState,
+  StudioLotSnapshot,
+} from '../snapshot/StudioLotSnapshot.ts'
 
 const director = (overrides: Partial<LotPersonState> = {}): LotPersonState => ({
   id: 'director-1',
-  name: 'Mara Voss',
+  name: 'June Hart',
   role: 'director',
   authority: 'active-production',
   productionId: 'production-1',
-  productionTitle: 'The Violet Hour',
+  productionTitle: 'Night Crossing',
   ...overrides,
 })
 
-function snapshot(people: LotPersonState[]): StudioLotSnapshot {
+const talent = (overrides: Partial<LotPersonState> = {}): LotPersonState => ({
+  id: 'talent-1',
+  name: 'Alex Vale',
+  role: 'talent',
+  authority: 'active-production',
+  productionId: 'production-1',
+  productionTitle: 'Night Crossing',
+  ...overrides,
+})
+
+const operation = (
+  overrides: Partial<ProductionOperationsState> = {},
+): ProductionOperationsState => ({
+  productionId: 'production-1',
+  title: 'Night Crossing',
+  phase: 'shooting',
+  phaseLabel: 'Shooting',
+  weeksRemaining: 5,
+  progress01: 3 / 8,
+  locationBuildingId: 'stage-a',
+  facilityLabel: 'Soundstage 7 + Scenery Shop',
+  directorId: 'director-1',
+  directorName: 'June Hart',
+  taskStatus: 'unassigned',
+  statusLabel: 'Decision required',
+  blocker: {
+    kind: 'director-dispatch',
+    headline: 'Director call required',
+    detail: 'June Hart has not been dispatched.',
+  },
+  attention: 'decision-required',
+  currentCommand: {
+    kind: 'assignShootingDirector',
+    productionId: 'production-1',
+    directorId: 'director-1',
+    label: 'Call June Hart to Soundstage 7',
+  },
+  ...overrides,
+})
+
+function snapshot(
+  people: LotPersonState[],
+  operations: ProductionOperationsState[] = [],
+): StudioLotSnapshot {
   return {
     studioName: 'Project: Studio',
     week: 1,
@@ -116,16 +177,26 @@ function snapshot(people: LotPersonState[]): StudioLotSnapshot {
     buildings: [],
     selectedBuildingId: null,
     sceneSeed: 'hollywood-scene-test',
+    operationsMode: 'managed',
+    stageAssignmentAuthority: 'engine',
+    productionOperations: operations,
   }
 }
 
 type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
+  runtimePeople: Map<string, {
+    fact: LotPersonState
+    sprite: InstanceType<typeof fakePhaser.DisplayObject>
+    label: InstanceType<typeof fakePhaser.DisplayObject>
+    homeSlot: number
+  }>
   route: Array<{ x: number; y: number; actorDepth: number; cue: string }>
   manifest: {
     districtId: string
-    activities: unknown[]
+    activities: Array<{ id: string; place: string; visualStates: string[] }>
     places: Array<{
       id: string
+      anchors: Record<string, [number, number]>
       selectionPolygon: [number, number][]
     }>
   }
@@ -138,6 +209,9 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   }>
   vehicleTween: InstanceType<typeof fakePhaser.Tween> | null
   flash: InstanceType<typeof fakePhaser.DisplayObject> | null
+  stageStateText: InstanceType<typeof fakePhaser.DisplayObject> | null
+  stageLamp: InstanceType<typeof fakePhaser.DisplayObject> | null
+  activityGraphics: InstanceType<typeof fakePhaser.Graphics> | null
   fitZoom: number
 }
 
@@ -146,42 +220,132 @@ function harness(initial: StudioLotSnapshot, reducedMotion = false) {
   const scene = new HollywoodScene()
   scene.init({ snapshot: initial, reducedMotion, onEvent: (event) => events.push(event) })
   const internals = scene as unknown as SceneHarness
-  internals.manifest = { districtId: 'district', activities: [], places: [] }
+  internals.manifest = {
+    districtId: 'district',
+    activities: [{ id: 'shooting', place: 'stage-7', visualStates: ['crew-call', 'equipment-staged', 'take-in-progress'] }],
+    places: [{ id: 'stage-7', anchors: { crewCall: [50, 60] }, selectionPolygon: [[0, 0], [100, 0], [100, 100], [0, 100]] }],
+  }
   internals.route = [
     { x: 10, y: 20, actorDepth: 30, cue: 'street' },
     { x: 70, y: 80, actorDepth: 82, cue: 'enter-stage' },
   ]
+  internals.stageStateText = new fakePhaser.DisplayObject()
+  internals.stageLamp = new fakePhaser.DisplayObject()
+  internals.activityGraphics = new fakePhaser.Graphics()
   scene.applySnapshot(initial)
   return { scene, internals, events }
 }
 
-describe('HollywoodScene presentation authority', () => {
-  it('reconciles people by id and clears selection/task when that authority disappears', () => {
+describe('HollywoodScene snapshot authority', () => {
+  it('gives concurrent same-role people stable, non-overlapping authoritative homes', () => {
+    const people = [
+      director(),
+      director({ id: 'director-2', name: 'Robin March', productionId: 'production-2' }),
+      talent(),
+      talent({ id: 'talent-2', name: 'Lee North', productionId: 'production-2' }),
+    ]
+    const { scene, internals } = harness(snapshot(people))
+    const position = (id: string) => {
+      const sprite = internals.runtimePeople.get(id)!.sprite
+      return { x: sprite.x, y: sprite.y }
+    }
+    const initial = new Map(people.map((person) => [person.id, position(person.id)]))
+
+    const key = (point: { x: number; y: number }) => JSON.stringify(point)
+    expect(new Set([position('director-1'), position('director-2')].map(key))).toHaveLength(2)
+    expect(new Set([position('talent-1'), position('talent-2')].map(key))).toHaveLength(2)
+
+    // Snapshot ordering is not presentation authority and cannot reshuffle the people.
+    scene.applySnapshot(snapshot([...people].reverse()))
+    for (const person of people) expect(position(person.id)).toEqual(initial.get(person.id))
+
+    // A loaded Stage 7 task moves only its real director; returning to unassigned restores
+    // that director's own stable slot rather than the other director's home.
+    scene.applySnapshot(snapshot(people, [operation({ taskStatus: 'blocked' })]))
+    expect(position('director-1')).toEqual({ x: 70, y: 80 })
+    expect(position('director-2')).toEqual(initial.get('director-2'))
+    scene.applySnapshot(snapshot(people, [operation({ taskStatus: 'unassigned' })]))
+    expect(position('director-1')).toEqual(initial.get('director-1'))
+    expect(position('director-2')).toEqual(initial.get('director-2'))
+  })
+
+  it('reconciles people and clears selection when snapshot authority disappears', () => {
     const first = snapshot([director()])
     const { scene, internals, events } = harness(first)
 
     scene.selectPerson('director-1')
-    expect(scene.assignSelectedToStage7()).toBe(true)
     const originalSprite = internals.sprites[0]!
 
-    scene.applySnapshot(snapshot([director({ name: 'Mara de Voss', productionTitle: 'Violet Hour II' })]))
+    scene.applySnapshot(snapshot([director({ name: 'June de Hart', productionTitle: 'Night Crossing II' })]))
     expect(internals.sprites).toHaveLength(1)
-    expect(internals.texts[0]!.text).toBe('Mara de Voss')
+    expect(internals.texts[0]!.text).toBe('June de Hart')
     expect(events.filter((event) => event.type === 'person').at(-1)).toEqual({
       type: 'person',
-      person: director({ name: 'Mara de Voss', productionTitle: 'Violet Hour II' }),
+      person: director({ name: 'June de Hart', productionTitle: 'Night Crossing II' }),
     })
 
     scene.applySnapshot(snapshot([]))
     expect(originalSprite.destroyed).toBe(true)
     expect(scene.debugState().selectedPersonId).toBeNull()
-    expect(scene.debugState().task).toBeNull()
     expect(events).toContainEqual({ type: 'person', person: null })
-    expect(events).toContainEqual({ type: 'task', task: null })
   })
 
-  it('reduces ambient, camera, route, vehicle, and publicity motion without disabling the flow', () => {
-    const { scene, internals } = harness(snapshot([director()]), true)
+  it('routes only a real unassigned-to-blocked Soundstage 7 transition and never changes task status', () => {
+    const before = snapshot([director()], [operation()])
+    const { scene, internals } = harness(before)
+    const blocked = operation({
+      taskStatus: 'blocked',
+      statusLabel: 'Production hold',
+      blocker: {
+        kind: 'scenery-load-in',
+        headline: 'Scenery load-in blocking camera',
+        detail: 'The camera mark is blocked.',
+      },
+      currentCommand: {
+        kind: 'clearSceneryLoadIn',
+        productionId: 'production-1',
+        label: 'Clear scenery load-in',
+      },
+    })
+
+    scene.applySnapshot(snapshot([director()], [blocked]))
+    expect(scene.debugState().routeProductionId).toBe('production-1')
+    expect(scene.debugState().stage7Operation?.taskStatus).toBe('blocked')
+
+    scene.update(0, 10_000)
+    expect(scene.debugState().routeProductionId).toBeNull()
+    expect(scene.debugState().stage7Operation?.taskStatus).toBe('blocked')
+    expect(internals.stageStateText?.text).toContain('PRODUCTION HOLD')
+    expect(internals.sprites[0]).toMatchObject({ x: 70, y: 80 })
+  })
+
+  it('does not route or paint Stage 7 from an authoritative Soundstage 12 operation', () => {
+    const stage12 = operation({
+      locationBuildingId: 'stage-b',
+      facilityLabel: 'Soundstage 12 + Scenery Shop',
+    })
+    const { scene, internals } = harness(snapshot([director()], [stage12]))
+
+    scene.applySnapshot(snapshot([director()], [{ ...stage12, taskStatus: 'blocked' }]))
+    expect(scene.debugState().routeProductionId).toBeNull()
+    expect(scene.debugState().stage7Operation).toBeNull()
+    expect(internals.stageStateText?.text).toBe('STAGE 7 · AVAILABLE')
+  })
+
+  it('loads blocked/ready/scheduled/completed snapshots directly and cannot auto-complete them', () => {
+    for (const taskStatus of ['blocked', 'ready', 'scheduled', 'completed'] as const) {
+      const exact = operation({ taskStatus, statusLabel: `Exact ${taskStatus}` })
+      const { scene, internals } = harness(snapshot([director()], [exact]))
+      scene.update(0, 60_000)
+      expect(scene.debugState().stage7Operation?.taskStatus).toBe(taskStatus)
+      expect(scene.debugState().routeProductionId).toBeNull()
+      expect(internals.stageStateText?.text).toBe(`STAGE 7 · EXACT ${taskStatus.toUpperCase()}`)
+    }
+  })
+
+  it('reduces ambient, camera, route, vehicle, and publicity motion without changing authority', () => {
+    const before = snapshot([director()], [operation()])
+    const { scene, internals } = harness(before, true)
     const vehicleTween = new fakePhaser.Tween()
     const ambientSprite = new fakePhaser.DisplayObject(0, 0)
     internals.vehicleTween = vehicleTween
@@ -192,10 +356,6 @@ describe('HollywoodScene presentation authority', () => {
       phase: 0.25,
       speed: 0.001,
     }]
-    internals.manifest.places = [{
-      id: 'stage-7',
-      selectionPolygon: [[0, 0], [100, 0], [100, 100], [0, 100]],
-    }]
     internals.fitZoom = 1
     internals.flash = new fakePhaser.DisplayObject()
 
@@ -204,9 +364,9 @@ describe('HollywoodScene presentation authority', () => {
     expect(vehicleTween.paused).toBe(1)
     expect(internals.ambientActors[0]!.phase).toBe(0.25)
 
-    scene.selectPerson('director-1')
-    expect(scene.assignSelectedToStage7()).toBe(true)
-    expect(scene.debugState().task?.status).toBe('blocked')
+    scene.applySnapshot(snapshot([director()], [operation({ taskStatus: 'blocked' })]))
+    expect(scene.debugState().routeProductionId).toBeNull()
+    expect(scene.debugState().stage7Operation?.taskStatus).toBe('blocked')
     expect(internals.sprites[0]).toMatchObject({ x: 70, y: 80 })
 
     scene.focus('stage-7')

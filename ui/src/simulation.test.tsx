@@ -75,6 +75,14 @@ function foundViaUi() {
   fireEvent.click(screen.getByTestId('found-studio'))
 }
 
+function resolveProductionCommands() {
+  for (let guard = 0; guard < 4; guard++) {
+    const command = screen.queryAllByTestId(/^production-command-/)[0]
+    if (!command) return
+    fireEvent.click(command)
+  }
+}
+
 describe('simulation: advancing a week ticks the engine exactly once', () => {
   it('advanceWeek advances market.tick by exactly 1 and equals one core tick()', () => {
     const state = newFoundedGame('sim-tick-1')
@@ -281,6 +289,7 @@ describe('simulation: NO Broadcast presentation or feed appears anywhere in the 
     // presentation / rival feed" this test guards against. The reveal is transient and
     // opt-through; even on it, the anti-broadcast guard must hold (no broadcast/feed/role).
     for (let i = 0; i < 20; i++) {
+      resolveProductionCommands()
       const advance = screen.queryByTestId('advance-week')
       if (advance) fireEvent.click(advance)
       if (screen.queryByTestId('newspaper-reveal')) {

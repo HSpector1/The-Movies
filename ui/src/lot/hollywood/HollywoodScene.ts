@@ -1,5 +1,10 @@
 import Phaser from 'phaser'
-import type { BuildingId, LotPersonState, StudioLotSnapshot } from '../snapshot/StudioLotSnapshot'
+import type {
+  BuildingId,
+  LotPersonState,
+  ProductionOperationsState,
+  StudioLotSnapshot,
+} from '../snapshot/StudioLotSnapshot'
 
 const MANIFEST_URL = '/lot/hollywood/district-manifest.json'
 const DISTRICT_W = 1586
@@ -46,27 +51,6 @@ type DistrictManifest = {
   textureMemoryBytes: number
 }
 
-export type HollywoodTaskStatus =
-  | 'idle'
-  | 'accepted'
-  | 'going'
-  | 'waiting'
-  | 'ready'
-  | 'working'
-  | 'completed'
-  | 'blocked'
-
-export type HollywoodTaskState = {
-  personId: string
-  personName: string
-  task: string
-  destination: string
-  status: HollywoodTaskStatus
-  cue: string
-  reason: string | null
-  progress01: number
-}
-
 export type HollywoodPlaceSelection = {
   id: string
   buildingId: BuildingId
@@ -78,7 +62,6 @@ export type HollywoodEvent =
   | { type: 'ready' }
   | { type: 'person'; person: LotPersonState | null }
   | { type: 'place'; place: HollywoodPlaceSelection }
-  | { type: 'task'; task: HollywoodTaskState | null }
   | { type: 'activity'; text: string | null }
 
 export type HollywoodSceneData = {
@@ -99,6 +82,14 @@ type RuntimePerson = {
   fact: LotPersonState
   sprite: Phaser.GameObjects.Sprite
   label: Phaser.GameObjects.Text
+  /** Stable within this scene lifetime; prevents same-role people occupying one pixel. */
+  homeSlot: number
+}
+
+type CosmeticRoute = {
+  productionId: string
+  personId: string
+  elapsed: number
 }
 
 export type HollywoodPerformance = {
@@ -125,9 +116,11 @@ export class HollywoodScene extends Phaser.Scene {
   private reducedMotion = false
   private selectedPersonId: string | null = null
   private selectedPlaceId: string | null = null
-  private task: HollywoodTaskState | null = null
-  private taskElapsed = 0
-  private takeElapsed = 0
+  /**
+   * A route is visual acknowledgement of an already-accepted engine transition.
+   * It never owns or advances a production/task status.
+   */
+  private cosmeticRoute: CosmeticRoute | null = null
   private route: RoutePoint[] = []
   private activityGraphics: Phaser.GameObjects.Graphics | null = null
   private selectionGraphics: Phaser.GameObjects.Graphics | null = null
@@ -188,7 +181,7 @@ export class HollywoodScene extends Phaser.Scene {
     this.flash = this.add.rectangle(1120, 475, 190, 130, 0xfff7d6, 0).setDepth(160)
     this.stageLamp = this.add.circle(740, 405, 9, 0x7a160f, 1).setDepth(86)
       .setStrokeStyle(3, 0xf2d6a1, 0.75)
-    this.stageStateText = this.add.text(764, 392, 'STAGE 7 · HOLD', {
+    this.stageStateText = this.add.text(764, 392, 'STAGE 7 · AVAILABLE', {
       fontFamily: FONT_SANS,
       fontSize: '16px',
       fontStyle: 'bold',
@@ -229,6 +222,11 @@ export class HollywoodScene extends Phaser.Scene {
     this.selectionGraphics.strokePoints(points, true)
   }
 
+  clearPlaceSelection(): void {
+    this.selectedPlaceId = null
+    this.selectionGraphics?.clear()
+  }
+
   private buildPeople(): void {
     this.reconcilePeople(this.snapshot.people)
   }
@@ -239,10 +237,6 @@ export class HollywoodScene extends Phaser.Scene {
    * authoritative snapshot without retaining a Talent or Production object.
    */
   private reconcilePeople(people: readonly LotPersonState[]): void {
-    const positions: Record<'director' | 'talent', Point> = {
-      director: { x: 150, y: 806 },
-      talent: { x: 1160, y: 489 },
-    }
     const nextById = new Map(people.map((person) => [person.id, person]))
 
     for (const [id, runtime] of this.runtimePeople) {
@@ -251,10 +245,15 @@ export class HollywoodScene extends Phaser.Scene {
       runtime.label.destroy()
       this.runtimePeople.delete(id)
       if (this.selectedPersonId === id) this.clearPersonSelection()
-      if (this.task?.personId === id) this.cancelTask('The assigned person is no longer present in studio authority.')
+      if (this.cosmeticRoute?.personId === id) this.cosmeticRoute = null
     }
 
-    for (const person of people) {
+    // A fresh scene must produce the same slots even if an equivalent snapshot arrives
+    // in a different array order. Existing people retain their slots across updates.
+    const orderedPeople = [...people].sort(
+      (a, b) => a.role.localeCompare(b.role) || a.id.localeCompare(b.id),
+    )
+    for (const person of orderedPeople) {
       const existing = this.runtimePeople.get(person.id)
       if (existing) {
         const nameChanged = existing.fact.name !== person.name
@@ -269,14 +268,13 @@ export class HollywoodScene extends Phaser.Scene {
         existing.fact = person
         if (existing.label.text !== person.name) existing.label.setText(person.name)
         if (roleChanged) {
-          const p = positions[person.role]
-          existing.sprite.setTexture(`hollywood-${person.role}`).setPosition(p.x, p.y).setDepth(95)
+          existing.homeSlot = this.availablePersonHomeSlot(person.role, person.id)
+          const p = this.personHome(person.role, existing.homeSlot)
+          existing.sprite.setTexture(`hollywood-${person.role}`)
+          this.placePerson(existing, p, 95)
         }
-        if (this.task?.personId === person.id && (roleChanged || authorityChanged)) {
-          this.cancelTask('The assigned person’s production authority changed.')
-        } else if (this.task?.personId === person.id && nameChanged) {
-          this.task = { ...this.task, personName: person.name }
-          this.emitTask()
+        if (this.cosmeticRoute?.personId === person.id && (roleChanged || authorityChanged)) {
+          this.cosmeticRoute = null
         }
         if (displayChanged && this.selectedPersonId === person.id) {
           this.emitEvent({ type: 'person', person })
@@ -284,7 +282,8 @@ export class HollywoodScene extends Phaser.Scene {
         continue
       }
 
-      const p = positions[person.role]
+      const homeSlot = this.availablePersonHomeSlot(person.role, person.id)
+      const p = this.personHome(person.role, homeSlot)
       const sprite = this.add.sprite(p.x, p.y, `hollywood-${person.role}`).setOrigin(0.5, 0.92).setDepth(95)
       sprite.setInteractive({ useHandCursor: true })
       sprite.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
@@ -299,7 +298,7 @@ export class HollywoodScene extends Phaser.Scene {
         backgroundColor: '#10241fd9',
         padding: { x: 7, y: 4 },
       }).setOrigin(0.5, 1).setDepth(171).setVisible(false)
-      this.runtimePeople.set(person.id, { fact: person, sprite, label })
+      this.runtimePeople.set(person.id, { fact: person, sprite, label, homeSlot })
     }
   }
 
@@ -430,8 +429,154 @@ export class HollywoodScene extends Phaser.Scene {
   }
 
   applySnapshot(snapshot: StudioLotSnapshot): void {
+    const previousStage7 = this.authoritativeStage7Operation(this.snapshot)
     this.snapshot = snapshot
-    if (this.scene.isActive()) this.reconcilePeople(snapshot.people)
+    if (!this.scene.isActive()) return
+
+    this.reconcilePeople(snapshot.people)
+    const nextStage7 = this.authoritativeStage7Operation(snapshot)
+    if (
+      this.cosmeticRoute !== null &&
+      (nextStage7 === null ||
+        nextStage7.productionId !== this.cosmeticRoute.productionId ||
+        nextStage7.directorId !== this.cosmeticRoute.personId ||
+        nextStage7.taskStatus !== 'blocked')
+    ) {
+      this.cosmeticRoute = null
+    }
+
+    const acceptedDirectorDispatch =
+      previousStage7 !== null &&
+      nextStage7 !== null &&
+      previousStage7.productionId === nextStage7.productionId &&
+      previousStage7.taskStatus === 'unassigned' &&
+      nextStage7.taskStatus === 'blocked'
+    if (acceptedDirectorDispatch) this.beginCosmeticDirectorRoute(nextStage7)
+
+    this.syncPeopleToAuthoritativeSnapshot(nextStage7)
+    this.paintAuthoritativeStage7(nextStage7)
+  }
+
+  /** Exact Soundstage 7 only. Presentation-assigned legacy stages never qualify. */
+  private authoritativeStage7Operation(
+    snapshot: StudioLotSnapshot,
+  ): ProductionOperationsState | null {
+    if (snapshot.operationsMode !== 'managed') return null
+    return snapshot.productionOperations.find(
+      (operation) => operation.locationBuildingId === 'stage-a',
+    ) ?? null
+  }
+
+  private availablePersonHomeSlot(role: LotPersonState['role'], personId: string): number {
+    const used = new Set(
+      [...this.runtimePeople.values()]
+        .filter((runtime) => runtime.fact.id !== personId && runtime.fact.role === role)
+        .map((runtime) => runtime.homeSlot),
+    )
+    let slot = 0
+    while (used.has(slot)) slot++
+    return slot
+  }
+
+  private personHome(role: LotPersonState['role'], slot: number): Point {
+    // Four generous slots fit the authored plate; the arithmetic fallback remains
+    // deterministic if a later operations milestone raises concurrency beyond four.
+    const offsets: readonly Point[] = [
+      { x: 0, y: 0 },
+      { x: 92, y: -46 },
+      { x: 184, y: 0 },
+      { x: 276, y: -46 },
+    ]
+    const base = role === 'director' ? { x: 150, y: 806 } : { x: 1160, y: 535 }
+    const offset = offsets[slot] ?? { x: (slot % 4) * 92, y: -Math.floor(slot / 4) * 82 }
+    return { x: base.x + offset.x, y: base.y + offset.y }
+  }
+
+  private placePerson(runtime: RuntimePerson, point: Point, depth: number): void {
+    runtime.sprite.setPosition(point.x, point.y).setDepth(depth)
+    runtime.label.setPosition(point.x, point.y - 72)
+  }
+
+  /**
+   * A loaded snapshot is sufficient to paint the scene. A saved blocked/ready/
+   * scheduled/completed task appears at the Stage 7 destination immediately; no
+   * transient route has to replay before the visible state becomes truthful.
+   */
+  private syncPeopleToAuthoritativeSnapshot(stage7: ProductionOperationsState | null): void {
+    for (const runtime of this.runtimePeople.values()) {
+      if (runtime.fact.id === this.cosmeticRoute?.personId) continue
+      const home = this.personHome(runtime.fact.role, runtime.homeSlot)
+      this.placePerson(runtime, home, 95)
+    }
+    if (stage7 === null || stage7.taskStatus === null || stage7.taskStatus === 'unassigned') return
+    const director = this.runtimePeople.get(stage7.directorId)
+    const destination = this.route.at(-1)
+    if (director && destination) {
+      this.placePerson(director, destination, destination.actorDepth)
+    }
+  }
+
+  private paintAuthoritativeStage7(stage7: ProductionOperationsState | null): void {
+    this.activityGraphics?.clear()
+    if (stage7 === null) {
+      const legacy = this.snapshot.operationsMode !== 'managed'
+        ? this.snapshot.productionOperations?.find(
+            (operation) => operation.locationBuildingId === 'stage-a',
+          )
+        : undefined
+      this.stageStateText?.setText(
+        legacy ? 'STAGE 7 · LEGACY DISPLAY SCHEDULE' : 'STAGE 7 · AVAILABLE',
+      )
+      this.stageLamp?.setFillStyle(legacy ? 0x655634 : 0x2e754f, 1)
+      return
+    }
+
+    this.stageStateText?.setText(`STAGE 7 · ${stage7.statusLabel.toUpperCase()}`)
+    switch (stage7.taskStatus) {
+      case 'unassigned':
+        this.stageLamp?.setFillStyle(0x7a160f, 1)
+        break
+      case 'blocked':
+        this.stageLamp?.setFillStyle(0xc17c22, 1)
+        this.setShootingVisual('crew-call')
+        break
+      case 'ready':
+        this.stageLamp?.setFillStyle(0xb78b2d, 1)
+        this.setShootingVisual('equipment-staged')
+        break
+      case 'scheduled':
+        this.stageLamp?.setFillStyle(0x9b1f18, 1)
+        this.setShootingVisual('take-in-progress')
+        break
+      case 'completed':
+        this.stageLamp?.setFillStyle(0x2e754f, 1)
+        this.setShootingVisual('equipment-staged')
+        break
+      case null:
+        this.stageLamp?.setFillStyle(0x2e754f, 1)
+        break
+    }
+  }
+
+  private beginCosmeticDirectorRoute(operation: ProductionOperationsState): void {
+    const director = this.runtimePeople.get(operation.directorId)
+    const start = this.route[0]
+    if (!director || director.fact.role !== 'director' || !start || this.route.length < 2) {
+      this.cosmeticRoute = null
+      return
+    }
+    director.sprite.setPosition(start.x, start.y).setDepth(start.actorDepth)
+    director.label.setVisible(false)
+    this.cosmeticRoute = {
+      productionId: operation.productionId,
+      personId: operation.directorId,
+      elapsed: 0,
+    }
+    this.emitEvent({
+      type: 'activity',
+      text: `${operation.directorName} was dispatched to Soundstage 7.`,
+    })
+    if (this.reducedMotion) this.finishCosmeticDirectorRoute()
   }
 
   selectPerson(personId: string): void {
@@ -446,7 +591,7 @@ export class HollywoodScene extends Phaser.Scene {
     this.emitEvent({ type: 'person', person: runtime.fact })
   }
 
-  private clearPersonSelection(): void {
+  clearPersonSelection(): void {
     if (this.selectedPersonId === null) return
     this.selectedPersonId = null
     for (const person of this.runtimePeople.values()) {
@@ -454,67 +599,6 @@ export class HollywoodScene extends Phaser.Scene {
       person.sprite.setTint(0xffffff)
     }
     this.emitEvent({ type: 'person', person: null })
-  }
-
-  private cancelTask(reason: string): void {
-    if (!this.task) return
-    this.task = null
-    this.taskElapsed = 0
-    this.takeElapsed = 0
-    this.activityGraphics?.clear()
-    this.stageStateText?.setText('STAGE 7 · HOLD')
-    this.stageLamp?.setFillStyle(0x7a160f, 1)
-    this.emitEvent({ type: 'task', task: null })
-    this.emitEvent({ type: 'activity', text: reason })
-  }
-
-  assignSelectedToStage7(): boolean {
-    const personId = this.selectedPersonId
-    const runtime = personId ? this.runtimePeople.get(personId) : undefined
-    if (!runtime || runtime.fact.role !== 'director' || this.route.length < 2) return false
-    const start = this.route[0]!
-    runtime.sprite.setPosition(start.x, start.y).setDepth(start.actorDepth)
-    runtime.label.setVisible(false)
-    this.taskElapsed = 0
-    this.takeElapsed = 0
-    this.task = {
-      personId: runtime.fact.id,
-      personName: runtime.fact.name,
-      task: 'Direct the Stage 7 production beat',
-      destination: 'Stage 7 · camera mark',
-      status: 'accepted',
-      cue: 'Assignment acknowledged',
-      reason: null,
-      progress01: 0,
-    }
-    this.setShootingVisual('crew-call')
-    this.stageStateText?.setText('STAGE 7 · DIRECTOR CALLED')
-    this.emitTask()
-    if (this.reducedMotion) this.arriveAtStage(runtime)
-    return true
-  }
-
-  resolveBottleneck(): boolean {
-    if (!this.task || this.task.status !== 'blocked') return false
-    this.task = { ...this.task, status: 'ready', cue: 'Load-in cleared · camera ready', reason: null, progress01: 1 }
-    this.setShootingVisual('equipment-staged')
-    this.stageStateText?.setText('STAGE 7 · READY FOR TAKE')
-    this.stageLamp?.setFillStyle(0xb78b2d, 1)
-    this.emitTask()
-    this.emitEvent({ type: 'activity', text: 'West-wall flat cleared. Camera and electric are standing by.' })
-    return true
-  }
-
-  callTake(): boolean {
-    if (!this.task || this.task.status !== 'ready') return false
-    this.takeElapsed = 0
-    this.task = { ...this.task, status: 'working', cue: 'Take rolling', reason: null }
-    this.setShootingVisual('take-in-progress')
-    this.stageStateText?.setText('STAGE 7 · ROLLING')
-    this.stageLamp?.setFillStyle(0x9b1f18, 1)
-    this.emitTask()
-    this.emitEvent({ type: 'activity', text: 'Stage 7: quiet on the lot — Take 12 is rolling.' })
-    return true
   }
 
   playPublicity(success: boolean, detail: string): void {
@@ -557,10 +641,7 @@ export class HollywoodScene extends Phaser.Scene {
     this.reducedMotion = on
     if (on) {
       this.vehicleTween?.pause()
-      if (this.task && (this.task.status === 'accepted' || this.task.status === 'going')) {
-        const runtime = this.runtimePeople.get(this.task.personId)
-        if (runtime) this.arriveAtStage(runtime)
-      }
+      if (this.cosmeticRoute) this.finishCosmeticDirectorRoute()
       return
     }
     this.vehicleTween?.resume()
@@ -593,8 +674,6 @@ export class HollywoodScene extends Phaser.Scene {
     }
   }
 
-  private emitTask(): void { if (this.task) this.emitEvent({ type: 'task', task: { ...this.task } }) }
-
   update(_time: number, delta: number): void {
     const updateStart = performance.now()
     this.frameSamples.push(delta)
@@ -612,17 +691,7 @@ export class HollywoodScene extends Phaser.Scene {
       }
     }
 
-    if (this.task && (this.task.status === 'accepted' || this.task.status === 'going')) this.updateTravel(delta)
-    if (this.task?.status === 'working') {
-      this.takeElapsed += delta
-      if (this.takeElapsed >= 3600) {
-        this.task = { ...this.task, status: 'completed', cue: 'Take 12 printed', reason: null, progress01: 1 }
-        this.stageStateText?.setText('STAGE 7 · TAKE 12 PRINTED')
-        this.stageLamp?.setFillStyle(0x2e754f, 1)
-        this.emitTask()
-        this.emitEvent({ type: 'activity', text: 'Take 12 printed. Stage 7 is resetting for coverage.' })
-      }
-    }
+    if (this.cosmeticRoute) this.updateCosmeticDirectorRoute(delta)
 
     const updateMs = performance.now() - updateStart
     this.updateSamples.push(updateMs)
@@ -630,13 +699,17 @@ export class HollywoodScene extends Phaser.Scene {
     this.worstUpdateMs = Math.max(this.worstUpdateMs, updateMs)
   }
 
-  private updateTravel(delta: number): void {
-    if (!this.task) return
-    const runtime = this.runtimePeople.get(this.task.personId)
-    if (!runtime) return
+  private updateCosmeticDirectorRoute(delta: number): void {
+    const routeState = this.cosmeticRoute
+    if (!routeState) return
+    const runtime = this.runtimePeople.get(routeState.personId)
+    if (!runtime) {
+      this.cosmeticRoute = null
+      return
+    }
     const segmentDuration = 1300
-    this.taskElapsed += delta
-    const rawSegment = this.taskElapsed / segmentDuration
+    routeState.elapsed += delta
+    const rawSegment = routeState.elapsed / segmentDuration
     const seg = Math.min(this.route.length - 2, Math.floor(rawSegment))
     const local = Phaser.Math.Clamp(rawSegment - seg, 0, 1)
     const a = this.route[seg]!
@@ -645,33 +718,25 @@ export class HollywoodScene extends Phaser.Scene {
     runtime.sprite.setPosition(Phaser.Math.Linear(a.x, b.x, eased), Phaser.Math.Linear(a.y, b.y, eased))
     runtime.sprite.setDepth(local < 0.52 ? a.actorDepth : b.actorDepth)
     runtime.sprite.setFlipX(b.x < a.x)
-    const progress01 = Phaser.Math.Clamp(rawSegment / (this.route.length - 1), 0, 1)
-    const cue = local < 0.5 ? a.cue : b.cue
-    const nextStatus: HollywoodTaskStatus = rawSegment < 0.12 ? 'accepted' : 'going'
-    if (this.task.cue !== cue || Math.abs(this.task.progress01 - progress01) > 0.06 || this.task.status !== nextStatus) {
-      this.task = { ...this.task, status: nextStatus, cue: cue.replaceAll('-', ' '), progress01 }
-      this.emitTask()
-    }
     if (rawSegment >= this.route.length - 1) {
-      this.arriveAtStage(runtime)
+      this.finishCosmeticDirectorRoute()
     }
   }
 
-  private arriveAtStage(runtime: RuntimePerson): void {
-    if (!this.task || this.route.length === 0) return
-    const destination = this.route[this.route.length - 1]!
-    this.task = {
-      ...this.task,
-      status: 'blocked',
-      cue: 'Waiting at Stage 7',
-      reason: 'Scenery load-in is blocking the camera mark.',
-      progress01: 1,
+  private finishCosmeticDirectorRoute(): void {
+    const routeState = this.cosmeticRoute
+    const destination = this.route.at(-1)
+    const runtime = routeState ? this.runtimePeople.get(routeState.personId) : undefined
+    if (!routeState || !destination || !runtime) {
+      this.cosmeticRoute = null
+      return
     }
-    runtime.sprite.setPosition(destination.x, destination.y).setDepth(destination.actorDepth)
-    this.stageStateText?.setText('STAGE 7 · HOLD FOR SCENERY')
-    this.stageLamp?.setFillStyle(0xc17c22, 1)
-    this.emitTask()
-    this.emitEvent({ type: 'activity', text: `${runtime.fact.name} reached Stage 7. Camera is waiting on scenery load-in.` })
+    this.placePerson(runtime, destination, destination.actorDepth)
+    this.cosmeticRoute = null
+    this.emitEvent({
+      type: 'activity',
+      text: `${runtime.fact.name} reached Soundstage 7. The engine-reported production status is unchanged.`,
+    })
   }
 
   performanceStats(): HollywoodPerformance {
@@ -697,14 +762,16 @@ export class HollywoodScene extends Phaser.Scene {
   debugState(): {
     selectedPersonId: string | null
     selectedPlaceId: string | null
-    task: HollywoodTaskState | null
+    stage7Operation: ProductionOperationsState | null
+    routeProductionId: string | null
     manifestId: string
     routeDepths: number[]
   } {
     return {
       selectedPersonId: this.selectedPersonId,
       selectedPlaceId: this.selectedPlaceId,
-      task: this.task ? { ...this.task } : null,
+      stage7Operation: this.authoritativeStage7Operation(this.snapshot),
+      routeProductionId: this.cosmeticRoute?.productionId ?? null,
       manifestId: this.manifest.districtId,
       routeDepths: this.route.map((point) => point.actorDepth),
     }

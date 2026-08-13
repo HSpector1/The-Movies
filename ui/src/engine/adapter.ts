@@ -96,10 +96,11 @@ import {
   makeSave,
   exportSave,
   importSave,
-  migrateToV7,
+  migrateToV8,
   convertV4ToV5,
   convertV5ToV6,
   convertV6ToV7,
+  convertV7ToV8,
   importLegacyV2ToV4,
   importLegacyV1ToV4,
   // ── D-11 employment / contracts / roster / freelancer market ──
@@ -190,6 +191,7 @@ import type {
   ReleasePresence,
   AttentionState,
   LotPersonState,
+  ProductionOperationsState,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
 import { ALL_BUILDING_IDS } from '../lot/snapshot/StudioLotSnapshot.ts'
 import type {
@@ -258,6 +260,12 @@ import type {
   PublicityTier,
   PublicityOffer,
   MarketingMenu,
+  // Production Operations V1 types. Components receive only the read models
+  // declared below; these core types stay inside the adapter boundary.
+  FacilityCapability,
+  ProductionPhase,
+  ShootingTaskStatus,
+  ProductionWorkflow,
 } from '../../../src/core/index.ts'
 
 // Re-export the core types the UI needs, so components import types from the
@@ -325,6 +333,9 @@ export type {
   PublicityTier,
   PublicityOffer,
   MarketingMenu,
+  FacilityCapability,
+  ProductionPhase,
+  ShootingTaskStatus,
 }
 
 export const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support']
@@ -452,6 +463,258 @@ export function runPublicity(state: GameState, tier: PublicityTier): ActionOutco
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
+}
+
+// ── Production Operations V1: player-facing board + decisions ──────────────────
+// The board is a narrow read model over authoritative workflows. React never receives a
+// facility reservation, ShootingTask, or raw operations object and never infers legality.
+// The only command emitted by a card is the action the engine will accept in that exact
+// state. Legacy saves stay explicitly labelled as the frozen countdown they still run.
+
+const PRODUCTION_PHASE_LABEL: Record<ProductionPhase, string> = {
+  development: 'Development',
+  preProduction: 'Pre-production',
+  rehearsal: 'Rehearsal',
+  shooting: 'Shooting',
+  postProduction: 'Post-production',
+  releaseReady: 'Release Ready',
+}
+
+const FACILITY_CAPABILITY_LABEL: Record<FacilityCapability, string> = {
+  'development-casting': 'Development & Casting',
+  soundstage: 'Soundstage',
+  'set-scenery': 'Scenery Shop',
+  post: 'Post Building',
+}
+
+export type ProductionCommandView =
+  | {
+      kind: 'assignShootingDirector'
+      productionId: string
+      directorId: string
+      label: string
+    }
+  | { kind: 'clearSceneryLoadIn'; productionId: string; label: string }
+  | { kind: 'scheduleShootingTake'; productionId: string; label: string }
+
+export type ProductionBoardBlockerView = {
+  kind: 'facility-capacity' | 'director-dispatch' | 'scenery-load-in' | 'take-scheduling'
+  headline: string
+  detail: string
+  consequence: string
+}
+
+export type ProductionBoardCardView = {
+  productionId: string
+  title: string
+  phase: ProductionPhase | 'legacy'
+  phaseLabel: string
+  weeksRemaining: number
+  facilities: string[]
+  currentFacility: string
+  director: {
+    id: string
+    name: string
+    status: 'locked' | 'not-called' | 'called'
+  }
+  shootingTaskStatus: ShootingTaskStatus | null
+  statusLabel: string
+  blocker: ProductionBoardBlockerView | null
+  command: ProductionCommandView | null
+  forecast: {
+    expectedTotal: number
+    expectedCriticScore: number
+  }
+}
+
+export type ProductionBoardView = {
+  mode: 'legacy' | 'managed'
+  cards: ProductionBoardCardView[]
+  scheduleAssumption: string
+}
+
+export const PRODUCTION_ON_SCHEDULE_ASSUMPTION =
+  'Cycle break-even assumes an on-schedule eight-week production. A hold extends payroll and overhead before release; it does not change the film\u2019s locked direct commitment.'
+
+const PRODUCTION_HOLD_CONSEQUENCE =
+  'The production countdown will hold while payroll and studio overhead continue each week.'
+
+function comparePlainId(a: string, b: string): number {
+  return a < b ? -1 : a > b ? 1 : 0
+}
+
+function productionTitle(state: GameState, production: Production): string {
+  return findConcept(state, production.conceptId)?.title ?? production.conceptId
+}
+
+function productionDirector(state: GameState, production: Production): { id: string; name: string } {
+  return {
+    id: production.directorId,
+    name: state.talent.find((candidate) => candidate.id === production.directorId)?.name ?? production.directorId,
+  }
+}
+
+function legacyProductionBoardCard(state: GameState, production: Production): ProductionBoardCardView {
+  const director = productionDirector(state, production)
+  return {
+    productionId: production.id,
+    title: productionTitle(state, production),
+    phase: 'legacy',
+    phaseLabel: 'Legacy production schedule',
+    weeksRemaining: production.remainingTicks,
+    facilities: [],
+    currentFacility: 'Presentation-assigned stage (legacy)',
+    director: { ...director, status: 'locked' },
+    shootingTaskStatus: null,
+    statusLabel: 'In production',
+    blocker: null,
+    command: null,
+    forecast: {
+      expectedTotal: production.forecastSnapshot.expectedTotal,
+      expectedCriticScore: production.forecastSnapshot.expectedCriticScore,
+    },
+  }
+}
+
+function managedProductionBoardCard(state: GameState, production: Production): ProductionBoardCardView {
+  const workflow = state.operations.workflows.find((candidate) => candidate.productionId === production.id)
+  if (workflow === undefined) {
+    throw new Error(`productionBoard: managed productionId "${production.id}" has no authoritative workflow`)
+  }
+
+  const reservedFacilities = workflow.reservations
+    .map((reservation) => {
+      const facility = state.operations.facilities.find((candidate) => candidate.id === reservation.facilityId)
+      if (facility === undefined) {
+        throw new Error(
+          `productionBoard: productionId "${production.id}" reservation references unknown facility "${reservation.facilityId}"`,
+        )
+      }
+      return facility
+    })
+  const facilities = reservedFacilities.map((facility) => facility.name)
+
+  const currentFacility =
+    facilities.length > 0
+      ? facilities.join(' + ')
+      : workflow.phase === 'releaseReady'
+        ? 'Theater / release desk (no facility reservation)'
+        : 'No facility reserved'
+  const director = productionDirector(state, production)
+  const task = workflow.shootingTask
+  const taskSoundstage =
+    task === null
+      ? null
+      : reservedFacilities.find((facility) => facility.id === task.soundstageFacilityId)
+  if (task !== null && taskSoundstage === undefined) {
+    throw new Error(
+      `productionBoard: productionId "${production.id}" shooting task references unreserved soundstage "${task.soundstageFacilityId}"`,
+    )
+  }
+  const taskDestination = taskSoundstage?.name ?? currentFacility
+  let blocker: ProductionBoardBlockerView | null = null
+  let command: ProductionCommandView | null = null
+  let statusLabel = 'On schedule'
+
+  if (workflow.blocker?.kind === 'facility-capacity') {
+    const capability = FACILITY_CAPABILITY_LABEL[workflow.blocker.capability]
+    const target = PRODUCTION_PHASE_LABEL[workflow.blocker.targetPhase]
+    blocker = {
+      kind: 'facility-capacity',
+      headline: `${target} held for ${capability}`,
+      detail: `No ${capability.toLowerCase()} slot was available when the transition to ${target} was attempted. It will retry next week.`,
+      consequence: PRODUCTION_HOLD_CONSEQUENCE,
+    }
+    statusLabel = 'Held for facility capacity'
+  } else if (task?.status === 'unassigned') {
+    blocker = {
+      kind: 'director-dispatch',
+      headline: 'Director call required',
+      detail: `${director.name} is locked to the picture but has not been dispatched to ${taskDestination}.`,
+      consequence: PRODUCTION_HOLD_CONSEQUENCE,
+    }
+    command = {
+      kind: 'assignShootingDirector',
+      productionId: production.id,
+      directorId: director.id,
+      label: `Call ${director.name} to ${taskDestination}`,
+    }
+    statusLabel = 'Decision required'
+  } else if (task?.status === 'blocked' && workflow.blocker?.kind === 'scenery-load-in') {
+    blocker = {
+      kind: 'scenery-load-in',
+      headline: 'Scenery load-in blocking camera',
+      detail: `The camera mark at ${taskDestination} is blocked by scenery load-in.`,
+      consequence: PRODUCTION_HOLD_CONSEQUENCE,
+    }
+    command = {
+      kind: 'clearSceneryLoadIn',
+      productionId: production.id,
+      label: 'Clear scenery load-in',
+    }
+    statusLabel = 'Production hold'
+  } else if (task?.status === 'ready') {
+    blocker = {
+      kind: 'take-scheduling',
+      headline: 'Take ready to schedule',
+      detail: `${taskDestination} is ready, but the shooting take has not been put on the weekly schedule.`,
+      consequence: PRODUCTION_HOLD_CONSEQUENCE,
+    }
+    command = {
+      kind: 'scheduleShootingTake',
+      productionId: production.id,
+      label: 'Schedule the shooting take',
+    }
+    statusLabel = 'Decision required'
+  } else if (task?.status === 'scheduled') {
+    statusLabel = 'Take scheduled'
+  } else if (task?.status === 'completed') {
+    statusLabel = 'Shooting beat completed'
+  }
+
+  return {
+    productionId: production.id,
+    title: productionTitle(state, production),
+    phase: workflow.phase,
+    phaseLabel: PRODUCTION_PHASE_LABEL[workflow.phase],
+    weeksRemaining: production.remainingTicks,
+    facilities,
+    currentFacility,
+    director: {
+      ...director,
+      status: task === null ? 'locked' : task.status === 'unassigned' ? 'not-called' : 'called',
+    },
+    shootingTaskStatus: task?.status ?? null,
+    statusLabel,
+    blocker,
+    command,
+    forecast: {
+      expectedTotal: production.forecastSnapshot.expectedTotal,
+      expectedCriticScore: production.forecastSnapshot.expectedCriticScore,
+    },
+  }
+}
+
+export function productionBoard(state: GameState): ProductionBoardView {
+  const productions = [...state.studio.activeProductions].sort((a, b) => comparePlainId(a.id, b.id))
+  return {
+    mode: state.operations.mode,
+    cards: productions.map((production) =>
+      state.operations.mode === 'managed'
+        ? managedProductionBoardCard(state, production)
+        : legacyProductionBoardCard(state, production),
+    ),
+    scheduleAssumption: PRODUCTION_ON_SCHEDULE_ASSUMPTION,
+  }
+}
+
+/** The first authoritative production command that must stop unattended simulation. */
+export function productionDecision(state: GameState): ProductionBoardCardView | null {
+  if (state.operations.mode !== 'managed') return null
+  // Capacity blockers are truthful warnings, but they have no player command and retry on
+  // a later tick. Treating one as a decision would make Sim preflight return zero weeks
+  // forever while asking the player to resolve an action that does not exist.
+  return productionBoard(state).cards.find((card) => card.command !== null) ?? null
 }
 
 // ── Talent pools + information integrity ─────────────────────────────────────
@@ -1302,14 +1565,22 @@ export { offerObligation }
 
 // ── D-12 Sim to Next Event (contract §18) ──────────────────────────────────────
 // Advance week-by-week through the REAL engine (never editing the week number), stopping
-// AFTER the tick in which a blocking event occurs: a film releases, a theatrical run ends,
-// a contract expires or enters its renewal window, or cash crosses below zero. Ordinary
+// AFTER the tick in which a blocking event occurs: a production needs a command, a film
+// releases, a theatrical run ends, a contract changes, or cash crosses below zero. An
+// already-pending production decision returns immediately without advancing. Ordinary
 // weekly earnings accrue silently and are reported as one aggregate `summary` (periodSummary
 // over the ticks processed). A reloaded skip equals continuous play because every step is a
 // plain `tick`. `preTick` is the state just before the STOPPING tick, so a stop-on-release
 // hands off to the identical autopsy/development path as a single Advance (the stop tick is
 // exactly one tick after `preTick`).
-export type SimStopReason = 'release' | 'runCompleted' | 'contractExpired' | 'renewalWindow' | 'cashNegative' | 'limit'
+export type SimStopReason =
+  | 'release'
+  | 'productionDecision'
+  | 'runCompleted'
+  | 'contractExpired'
+  | 'renewalWindow'
+  | 'cashNegative'
+  | 'limit'
 export type SimResult = {
   preTick: GameState // state immediately BEFORE the stopping tick (release autopsy/development)
   next: GameState // final state after the sim
@@ -1319,6 +1590,7 @@ export type SimResult = {
   toWeek: number
   weeks: number
   stopReason: SimStopReason
+  productionDecision: ProductionBoardCardView | null
   // D-12 Phase 1: the engine-derived stop explanation the UI must display verbatim. React must NOT infer
   // the reason from current state (a completed run leaves no active-run trace to read after the fact).
   stopMessage: string
@@ -1330,11 +1602,37 @@ const SIM_CAP = 520 // safety guard (~10 years). A governed event (release / run
 
 export function advanceToNextEvent(state: GameState): SimResult {
   const fromWeek = state.market.tick
+  // A decision that already exists is the next event. Do not charge a hidden week merely
+  // because the player asked to find it. `periodSummary` deliberately accepts an empty
+  // [from, from-1] interval and returns a zero movement report.
+  const existingDecision = productionDecision(state)
+  if (existingDecision !== null) {
+    return {
+      preTick: state,
+      next: state,
+      released: [],
+      completedRuns: [],
+      fromWeek,
+      toWeek: fromWeek,
+      weeks: 0,
+      stopReason: 'productionDecision',
+      productionDecision: existingDecision,
+      stopMessage: simStopMessage('productionDecision', fromWeek, {
+        released: [],
+        completedRuns: [],
+        guardHit: false,
+        productionDecision: existingDecision,
+      }),
+      guardHit: false,
+      summary: corePeriodSummary(state, fromWeek, fromWeek - 1),
+    }
+  }
   let cur = state
   let preStop = state
   let released: FilmResult[] = []
   let completedRuns: { productionId: string; title: string }[] = []
   let stopReason: SimStopReason = 'limit'
+  let stoppedProductionDecision: ProductionBoardCardView | null = null
   let guardHit = true // stays true only if the loop exhausts without a governed stop
   for (let i = 0; i < SIM_CAP; i++) {
     const before = cur
@@ -1352,6 +1650,19 @@ export function advanceToNextEvent(state: GameState): SimResult {
     if (newReleases.length > 0) {
       stopReason = 'release'
       released = newReleases
+      preStop = before
+      guardHit = false
+      break
+    }
+    // A newly-entered Shooting task with a legal player command is actionable studio work.
+    // Capacity holds remain visible warnings but retry through ordinary ticks, so they do
+    // not masquerade as decisions or deadlock the next Sim preflight.
+    // Release keeps first priority because it owns the reveal/autopsy path; the production
+    // decision outranks informational run/contract stops on the same completed tick.
+    const nextProductionDecision = productionDecision(after)
+    if (nextProductionDecision !== null) {
+      stopReason = 'productionDecision'
+      stoppedProductionDecision = nextProductionDecision
       preStop = before
       guardHit = false
       break
@@ -1394,9 +1705,27 @@ export function advanceToNextEvent(state: GameState): SimResult {
   const toWeek = cur.market.tick
   // Ledger entries + releaseTick are stamped with the PRE-increment week, so the ticks
   // processed span weeks [fromWeek, toWeek − 1] (tick.ts:114/437).
-  const summary = corePeriodSummary(cur, fromWeek, Math.max(fromWeek, toWeek - 1))
-  const stopMessage = simStopMessage(stopReason, toWeek, { released, completedRuns, guardHit })
-  return { preTick: preStop, next: cur, released, completedRuns, fromWeek, toWeek, weeks: toWeek - fromWeek, stopReason, stopMessage, guardHit, summary }
+  const summary = corePeriodSummary(cur, fromWeek, toWeek - 1)
+  const stopMessage = simStopMessage(stopReason, toWeek, {
+    released,
+    completedRuns,
+    guardHit,
+    productionDecision: stoppedProductionDecision,
+  })
+  return {
+    preTick: preStop,
+    next: cur,
+    released,
+    completedRuns,
+    fromWeek,
+    toWeek,
+    weeks: toWeek - fromWeek,
+    stopReason,
+    productionDecision: stoppedProductionDecision,
+    stopMessage,
+    guardHit,
+    summary,
+  }
 }
 
 // D-12 Phase 1.3 — the single engine-derived stop explanation. Built here (never inferred by React), so
@@ -1404,7 +1733,12 @@ export function advanceToNextEvent(state: GameState): SimResult {
 function simStopMessage(
   reason: SimStopReason,
   toWeek: number,
-  ctx: { released: FilmResult[]; completedRuns: { productionId: string; title: string }[]; guardHit: boolean },
+  ctx: {
+    released: FilmResult[]
+    completedRuns: { productionId: string; title: string }[]
+    guardHit: boolean
+    productionDecision: ProductionBoardCardView | null
+  },
 ): string {
   const at = `Stopped at Week ${toWeek}`
   const list = (xs: string[]) => (xs.length <= 1 ? xs[0] ?? '' : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`)
@@ -1412,6 +1746,12 @@ function simStopMessage(
     case 'release': {
       const titles = ctx.released.map((f) => f.conceptId) // titles resolved by the caller's concept lookup where shown
       return `${at}: ${titles.length > 1 ? 'films' : 'a film'} released.`
+    }
+    case 'productionDecision': {
+      const decision = ctx.productionDecision
+      if (decision === null) return `${at}: a production decision requires review.`
+      const need = decision.command?.label ?? decision.blocker?.headline ?? 'Production review required'
+      return `${at}: ${decision.title} needs you in ${decision.phaseLabel} \u2014 ${need}.`
     }
     case 'runCompleted': {
       const titles = ctx.completedRuns.map((r) => r.title)
@@ -1962,11 +2302,9 @@ export function remainingWeeks(prod: Production): number {
 }
 
 // ── Saves ────────────────────────────────────────────────────────────────────
-// New games save as the D-17B SaveFileV7 (makeSave === makeSaveV7). The V7 envelope's
-// state carries the employment surface (founding/contracts/ledger/freeAgents), the D-12
-// theatrical runs, the D-14 career events, the D-17A persisted engagement fact, and the
-// D-17B publicity cooldown state.
-// Legacy V1–V6 imports are converted deterministically to V7 (originals never touched).
+// New games save as SaveFileV8. V8 adds authoritative production operations to the
+// accepted V7 publicity/economy state. Every older envelope migrates deterministically
+// to explicit `legacy` operations, preserving its countdown without inventing workflow.
 export function exportSaveJson(state: GameState): string {
   return exportSave(makeSave(state))
 }
@@ -1975,20 +2313,14 @@ export type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
   | { ok: false; error: string }
 
-// Import a save. Accepts V7 (current) and every legacy version V1–V6, all deterministic.
+// Import a save. Accepts V8 (current) and every legacy version V1–V7, all deterministic.
 // `converted` tells the caller a legacy save was upgraded so the UI can inform the player
-// — their original file is never overwritten (a fresh V7 is returned).
+// — their original file is never overwritten (a fresh V8 is returned).
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    // D-17B/E4: migrate any known version up to the live V7 shape (V4→V5 seeds an EMPTY
-    // career ledger, preserving fame + all talent state; V5→V6 reconstructs the persisted
-    // engagement fact; V6→V7 seeds the EMPTY publicity cooldown state; a migrated V3 also
-    // gets legacyCompleted theatrical runs — recorded, never repaid).
-    // The banner check MUST track the live version: left at `!== 6` it would silently stop
-    // telling the player their save was upgraded (contract §5 / reviewer M8).
-    const converted = save.saveVersion !== 7
-    return { ok: true, state: migrateToV7(save).state, converted }
+    const converted = save.saveVersion !== 8
+    return { ok: true, state: migrateToV8(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -1998,7 +2330,11 @@ export function importSaveJson(json: string): ImportOutcome {
 // deterministically to the live GameState. Rejects non-V2 input as DATA. Original untouched.
 export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
-    return { ok: true, state: convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))).state, converted: true }
+    return {
+      ok: true,
+      state: convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json))))).state,
+      converted: true,
+    }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -2008,7 +2344,11 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
 // string deterministically to the live GameState (via V2). Rejects non-V1 input as DATA.
 export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
-    return { ok: true, state: convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))).state, converted: true }
+    return {
+      ok: true,
+      state: convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json))))).state,
+      converted: true,
+    }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -2026,6 +2366,72 @@ export function foundStudioAction(state: GameState): ActionOutcome {
     return { ok: true, next: applyActions(state, [{ kind: 'foundStudio' }]) }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
+  }
+}
+
+/**
+ * Real player founding boundary. The two actions are one pure applyActions call: if
+ * operations activation rejects, the caller keeps the untouched founding state. The
+ * legacy wrapper above deliberately remains unchanged for the frozen corpus and test
+ * setup that must retain the original eight-week countdown.
+ */
+export function foundManagedStudioAction(state: GameState): ActionOutcome {
+  try {
+    return {
+      ok: true,
+      next: applyActions(state, [{ kind: 'foundStudio' }, { kind: 'activateStudioOperations' }]),
+    }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+export function assignShootingDirectorAction(
+  state: GameState,
+  productionId: string,
+  directorId: string,
+): ActionOutcome {
+  try {
+    return {
+      ok: true,
+      next: applyActions(state, [{ kind: 'assignShootingDirector', productionId, directorId }]),
+    }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+export function clearSceneryLoadInAction(state: GameState, productionId: string): ActionOutcome {
+  try {
+    return {
+      ok: true,
+      next: applyActions(state, [{ kind: 'clearSceneryLoadIn', productionId }]),
+    }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+export function scheduleShootingTakeAction(state: GameState, productionId: string): ActionOutcome {
+  try {
+    return {
+      ok: true,
+      next: applyActions(state, [{ kind: 'scheduleShootingTake', productionId }]),
+    }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+/** Execute exactly the command emitted by productionBoard; legality remains core-owned. */
+export function runProductionCommand(state: GameState, command: ProductionCommandView): ActionOutcome {
+  switch (command.kind) {
+    case 'assignShootingDirector':
+      return assignShootingDirectorAction(state, command.productionId, command.directorId)
+    case 'clearSceneryLoadIn':
+      return clearSceneryLoadInAction(state, command.productionId)
+    case 'scheduleShootingTake':
+      return scheduleShootingTakeAction(state, command.productionId)
   }
 }
 export function signContractAction(state: GameState, talentId: string, termWeeks: number): ActionOutcome {
@@ -3953,10 +4359,10 @@ export { criticStars, NEWSPAPER_MASTHEAD }
 // through existing selectors/read-models (financeCard, findConcept, TUNING) — never
 // re-deriving a formula — adds no randomness, and never mutates state.
 //
-// Two presentation-only mappings, necessary because the D-12 engine (phases 1–4) has
-// no such concept, are called out explicitly rather than silently invented:
-//   • Stage A/B assignment is by activeProductions array order (there is no engine
-//     `stage` field). MAX_CONCURRENT_PRODUCTIONS is 2, so [0]→Stage A, [1]→Stage B.
+// Legacy mode retains one presentation-only mapping, called out explicitly rather than
+// silently invented: Stage A/B assignment is by activeProductions array order. Managed
+// mode never uses that fallback: its physical occupancy comes from core reservations,
+// with Soundstage 7→Stage A and Soundstage 12→Stage B.
 //   • The studio has no name field in D1, so the gate/top-bar identity is the product
 //     brand (STUDIO_LOT_BRAND).
 // Neither invents a simulation fact; both are display arrangements. Everything else
@@ -4017,6 +4423,47 @@ function titleCaseGenre(g: string): string {
   return g.length ? g[0]!.toUpperCase() + g.slice(1) : g
 }
 
+const LOT_STAGE_BY_SOUNDSTAGE_ID = {
+  'facility-soundstage-07': 'stage-a',
+  'facility-soundstage-12': 'stage-b',
+} as const satisfies Record<string, 'stage-a' | 'stage-b'>
+
+function managedWorkflowLocation(workflow: ProductionWorkflow): BuildingId {
+  switch (workflow.phase) {
+    case 'development':
+      return 'writers'
+    case 'preProduction':
+      return 'casting'
+    case 'rehearsal':
+    case 'shooting': {
+      const soundstage = workflow.reservations.find((reservation) => reservation.capability === 'soundstage')
+      if (soundstage === undefined) {
+        throw new Error(
+          `studioLotSnapshot: managed ${workflow.phase} productionId "${workflow.productionId}" has no soundstage reservation`,
+        )
+      }
+      const stage = LOT_STAGE_BY_SOUNDSTAGE_ID[soundstage.facilityId as keyof typeof LOT_STAGE_BY_SOUNDSTAGE_ID]
+      if (stage === undefined) {
+        throw new Error(
+          `studioLotSnapshot: managed productionId "${workflow.productionId}" uses unmapped soundstage "${soundstage.facilityId}"`,
+        )
+      }
+      return stage
+    }
+    case 'postProduction':
+      return 'post'
+    case 'releaseReady':
+      return 'theater'
+  }
+}
+
+function operationsAttention(card: ProductionBoardCardView): AttentionState {
+  if (card.blocker?.kind === 'facility-capacity') return 'warning'
+  if (card.blocker !== null || card.command !== null) return 'decision-required'
+  if (card.phase === 'releaseReady') return 'positive'
+  return 'active'
+}
+
 /**
  * Project the authoritative GameState into the lot presentation snapshot. Pure,
  * deterministic, non-mutating. The single source the Studio Lot renders from.
@@ -4030,11 +4477,15 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
   const standingBand = lotStandingBand(standing)
   const underDressed = standingBand === 'struggling'
 
-  // Active productions → stage cards. Presentation-only Stage A/B assignment by array
-  // order (no engine stage field). Progress derived from authoritative remainingTicks.
+  // Legacy productions retain their labelled presentation assignment. Managed productions
+  // expose physical stage cards only while Rehearsal/Shooting actually reserves a soundstage.
   const prods = state.studio.activeProductions
   const STAGE_IDS: ('stage-a' | 'stage-b')[] = ['stage-a', 'stage-b']
-  const activeProductions: ProductionCard[] = prods.slice(0, STAGE_IDS.length).map((p, i) => {
+  const progressCard = (
+    p: Production,
+    stageId: 'stage-a' | 'stage-b',
+    options?: Pick<ProductionCard, 'active' | 'stageState' | 'attentionReason'>,
+  ): ProductionCard => {
     const concept = findConcept(state, p.conceptId)
     const total = TUNING.PRODUCTION_TICKS
     const progress01 = Math.max(0, Math.min(1, (total - p.remainingTicks) / total))
@@ -4042,20 +4493,115 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
       id: p.id,
       title: concept?.title ?? p.conceptId,
       genre: titleCaseGenre(concept?.genre ?? p.promise.genre),
-      stageId: STAGE_IDS[i]!,
+      stageId,
       progress01,
       weeksRemaining: p.remainingTicks,
-      active: true,
-      stageState: 'filming',
+      active: options?.active ?? true,
+      stageState: options?.stageState ?? 'filming',
+      ...(options?.attentionReason ? { attentionReason: options.attentionReason } : {}),
+    }
+  }
+
+  const board = productionBoard(state)
+  const boardByProductionId = new Map(board.cards.map((card) => [card.productionId, card]))
+  const workflowByProductionId = new Map(
+    state.operations.workflows.map((workflow) => [workflow.productionId, workflow]),
+  )
+
+  const productionOperations: ProductionOperationsState[] = prods.map((production, index) => {
+    const card = boardByProductionId.get(production.id)
+    if (card === undefined) {
+      throw new Error(`studioLotSnapshot: productionId "${production.id}" has no Production Board card`)
+    }
+    const workflow = workflowByProductionId.get(production.id)
+    const locationBuildingId =
+      state.operations.mode === 'managed'
+        ? managedWorkflowLocation(
+            workflow ??
+              (() => {
+                throw new Error(
+                  `studioLotSnapshot: managed productionId "${production.id}" has no authoritative workflow`,
+                )
+              })(),
+          )
+        : STAGE_IDS[index] ?? 'post'
+    const attention = operationsAttention(card)
+    return {
+      productionId: production.id,
+      title: card.title,
+      phase: card.phase,
+      phaseLabel: card.phaseLabel,
+      weeksRemaining: production.remainingTicks,
+      progress01: Math.max(
+        0,
+        Math.min(1, (TUNING.PRODUCTION_TICKS - production.remainingTicks) / TUNING.PRODUCTION_TICKS),
+      ),
+      locationBuildingId,
+      facilityLabel: card.currentFacility,
+      directorId: card.director.id,
+      directorName: card.director.name,
+      taskStatus: card.shootingTaskStatus,
+      statusLabel: card.statusLabel,
+      blocker:
+        card.blocker === null
+          ? null
+          : {
+              kind: card.blocker.kind,
+              headline: card.blocker.headline,
+              detail: card.blocker.detail,
+            },
+      attention,
+      currentCommand: card.command,
     }
   })
 
-  // Named people remain narrow display facts. Active production identities win; if the
-  // studio is between pictures, show one real director and one real actor from the roster/
-  // industry so the physical command prototype remains inspectable without inventing a
-  // simulated production. No skills, hidden values, or Talent objects cross the boundary.
+  const activeProductions: ProductionCard[] =
+    state.operations.mode === 'legacy'
+      ? prods.slice(0, STAGE_IDS.length).map((production, index) =>
+          progressCard(production, STAGE_IDS[index]!),
+        )
+      : prods.flatMap((production) => {
+          const operation = productionOperations.find((candidate) => candidate.productionId === production.id)!
+          if (
+            operation.phase !== 'rehearsal' &&
+            operation.phase !== 'shooting'
+          ) {
+            return []
+          }
+          const stageId = operation.locationBuildingId
+          if (stageId !== 'stage-a' && stageId !== 'stage-b') {
+            throw new Error(
+              `studioLotSnapshot: managed ${operation.phase} productionId "${production.id}" is not located on a soundstage`,
+            )
+          }
+          const decisionRequired = operation.attention === 'decision-required'
+          const recording =
+            operation.phase === 'shooting' &&
+            operation.blocker?.kind !== 'facility-capacity' &&
+            (operation.taskStatus === 'scheduled' || operation.taskStatus === 'completed')
+          return [
+            progressCard(production, stageId, {
+              // `active` drives the existing REC light. Physical occupancy alone is not
+              // recording: Rehearsal, player-action holds, and capacity holds stay dark.
+              active: recording,
+              stageState: decisionRequired
+                ? 'decision-required'
+                : recording
+                  ? 'filming'
+                  : 'idle',
+              ...(operation.blocker?.headline
+                ? { attentionReason: operation.blocker.headline }
+                : {}),
+            }),
+          ]
+        })
+
+  // Managed people are only the real director/lead of an authoritative active production;
+  // an empty studio is honestly empty. Legacy retains its established presentation fallback.
   const peopleById = new Map<string, LotPersonState>()
-  for (const production of prods.slice(0, STAGE_IDS.length)) {
+  const peopleProductions =
+    state.operations.mode === 'managed' ? prods : prods.slice(0, STAGE_IDS.length)
+  for (const production of peopleProductions) {
     const title = findConcept(state, production.conceptId)?.title ?? production.conceptId
     const director = state.talent.find((person) => person.id === production.directorId)
     if (director) {
@@ -4080,33 +4626,29 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
       })
     }
   }
-  const contracted = new Set(state.contracts.map((contract) => contract.talentId))
-  const fallbackPeople = [...state.talent].sort((a, b) => {
-    const contractDelta = Number(contracted.has(b.id)) - Number(contracted.has(a.id))
-    return contractDelta || a.id.localeCompare(b.id)
-  })
-  if (![...peopleById.values()].some((person) => person.role === 'director')) {
-    peopleById.set('hollywood:mara-voss', {
-      id: 'hollywood:mara-voss',
-      name: 'Mara Voss',
-      role: 'director',
-      authority: 'district-managed',
-      productionId: null,
-      productionTitle: null,
-    })
-  }
-  for (const [coreRole, lotRole] of [['actor', 'talent']] as const) {
-    if ([...peopleById.values()].some((person) => person.role === lotRole)) continue
-    const person = fallbackPeople.find((candidate) => candidate.role === coreRole)
-    if (person) {
-      peopleById.set(person.id, {
-        id: person.id,
-        name: person.name,
-        role: lotRole,
-        authority: 'studio-roster',
-        productionId: null,
-        productionTitle: null,
-      })
+  if (state.operations.mode === 'legacy') {
+    const contracted = new Set(state.contracts.map((contract) => contract.talentId))
+    // The legacy renderer may show a real contracted roster fallback, but it must not
+    // fabricate a district employee or relabel a free agent as studio staff.
+    const fallbackPeople = state.talent
+      .filter((person) => contracted.has(person.id))
+      .sort((a, b) => a.id.localeCompare(b.id))
+    for (const [coreRole, lotRole] of [
+      ['director', 'director'],
+      ['actor', 'talent'],
+    ] as const) {
+      if ([...peopleById.values()].some((person) => person.role === lotRole)) continue
+      const person = fallbackPeople.find((candidate) => candidate.role === coreRole)
+      if (person) {
+        peopleById.set(person.id, {
+          id: person.id,
+          name: person.name,
+          role: lotRole,
+          authority: 'studio-roster',
+          productionId: null,
+          productionTitle: null,
+        })
+      }
     }
   }
   const stageOccupied: Record<'stage-a' | 'stage-b', ProductionCard | undefined> = {
@@ -4142,6 +4684,33 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
 
   const noProductions = prods.length === 0
 
+  function managedOperationCue(id: BuildingId): { attention: AttentionState; reason: string } | null {
+    if (state.operations.mode !== 'managed') return null
+    const located = productionOperations.filter((operation) => operation.locationBuildingId === id)
+    if (located.length === 0) return null
+    const priority: Record<AttentionState, number> = {
+      'decision-required': 8,
+      warning: 7,
+      positive: 6,
+      active: 5,
+      'recently-completed': 4,
+      normal: 3,
+      empty: 2,
+      future: 1,
+    }
+    const primary = [...located].sort(
+      (a, b) => priority[b.attention] - priority[a.attention] || comparePlainId(a.productionId, b.productionId),
+    )[0]!
+    return {
+      attention: primary.attention,
+      reason:
+        primary.blocker?.headline ??
+        (located.length === 1
+          ? `${primary.title} — ${primary.phaseLabel}`
+          : `${String(located.length)} productions — ${primary.phaseLabel}`),
+    }
+  }
+
   function buildingState(id: BuildingId): BuildingState {
     let attention: AttentionState = 'normal'
     let reason: string | undefined
@@ -4153,31 +4722,57 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
         }
         break
       case 'writers': // Development
-        if (noProductions && cash > 0) {
-          attention = 'active'
-          reason = 'Assemble a film to get started.'
+        {
+          const cue = managedOperationCue(id)
+          if (cue !== null) {
+            attention = cue.attention
+            reason = cue.reason
+          } else if (noProductions && cash > 0) {
+            attention = 'active'
+            reason = 'Assemble a film to get started.'
+          }
         }
         break
+      case 'casting': {
+        const cue = managedOperationCue(id)
+        if (cue !== null) {
+          attention = cue.attention
+          reason = cue.reason
+        }
+        break
+      }
       case 'stage-a':
       case 'stage-b': {
         const occ = stageOccupied[id]
         if (occ) {
-          attention = 'active'
-          reason = `${occ.title} — ${occ.weeksRemaining} week${occ.weeksRemaining === 1 ? '' : 's'} left`
+          const cue = managedOperationCue(id)
+          attention = cue?.attention ?? 'active'
+          reason =
+            cue?.reason ??
+            `${occ.title} — ${occ.weeksRemaining} week${occ.weeksRemaining === 1 ? '' : 's'} left`
         } else {
           attention = 'empty'
           reason = 'Available'
         }
         break
       }
-      case 'post': // Production / Post
-        if (prods.length > 0) {
+      case 'post': { // Production / Post
+        const cue = managedOperationCue(id)
+        if (cue !== null) {
+          attention = cue.attention
+          reason = cue.reason
+        } else if (state.operations.mode === 'legacy' && prods.length > 0) {
           attention = 'active'
           reason = `${prods.length} in production`
         }
         break
-      case 'theater':
-        if (releasePresence === 'now-showing') {
+      }
+      case 'theater': {
+        const cue = managedOperationCue(id)
+        if (cue !== null) {
+          attention = cue.attention
+          reason = cue.reason
+        } else if (releasePresence === 'now-showing') {
           attention = 'active'
           reason = 'Now showing'
         } else if (releasePresence === 'released' && latestWeeksAgo <= LOT_RECENT_RELEASE_WEEKS) {
@@ -4187,12 +4782,12 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
           reason = 'No releases yet'
         }
         break
+      }
       case 'expansion':
         attention = 'future'
         reason = 'Reserved for future studio growth'
         break
       case 'gate':
-      case 'casting':
       default:
         attention = 'normal'
     }
@@ -4206,6 +4801,19 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
   }
 
   const buildings: BuildingState[] = ALL_BUILDING_IDS.map(buildingState)
+
+  const operationsProjection =
+    state.operations.mode === 'managed'
+      ? {
+          operationsMode: 'managed' as const,
+          stageAssignmentAuthority: 'engine' as const,
+          productionOperations,
+        }
+      : {
+          operationsMode: 'legacy' as const,
+          stageAssignmentAuthority: 'presentation' as const,
+          productionOperations,
+        }
 
   return {
     studioName: STUDIO_LOT_BRAND,
@@ -4226,6 +4834,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
     buildings,
     selectedBuildingId: null, // selection is UI session state, applied by the host
     sceneSeed: state.seed,
+    ...operationsProjection,
   }
 }
 

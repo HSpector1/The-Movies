@@ -9,6 +9,8 @@ import { describe, it, expect, afterEach } from 'vitest'
 import { render, screen, fireEvent, cleanup } from '@testing-library/react'
 import { Saves } from './screens/Saves.tsx'
 import { StartScreen } from './screens/StartScreen.tsx'
+import { App } from './App.tsx'
+import { ACTIVE_SESSION_KEY } from './engine/session.ts'
 import {
   newGame,
   exportSaveJson,
@@ -17,10 +19,16 @@ import {
   advanceWeek,
   requiredNegative,
 } from './engine/adapter.ts'
-import { stableStringify, generateWorld, exportSave, makeSaveV1 } from '../../src/core/index.ts'
+import {
+  stableStringify,
+  generateWorld,
+  exportSave,
+  makeSaveV1,
+  makeSaveV7,
+} from '../../src/core/index.ts'
 import { newFoundedGame, foundedRosterIds } from './test/founding.ts'
 import type { DraftPackage, GameState } from './engine/adapter.ts'
-import type { GameStateV1, TalentV1 } from '../../src/core/index.ts'
+import type { GameStateV1, GameStateV7, TalentV1 } from '../../src/core/index.ts'
 
 afterEach(cleanup)
 
@@ -43,6 +51,24 @@ function legacyV1SaveJson(seed: string): string {
   }))
   const stateV1: GameStateV1 = { ...world, talent: talentV1 }
   return exportSave(makeSaveV1(stateV1))
+}
+
+// V7 is the newest legacy envelope and catches version-specific disclosure drift:
+// an automatic import must say only that an older save was upgraded, never call it V1.
+function legacyV7SaveJson(seed: string): string {
+  const live = newFoundedGame(seed)
+  const { operations: _operations, ...stateV7 } = live
+  return exportSave(makeSaveV7(stateV7 as GameStateV7))
+}
+
+function openCurrentStudioThroughStart(seed: string): void {
+  render(<App />)
+  fireEvent.change(screen.getByTestId('import-text'), {
+    target: { value: exportSaveJson(newFoundedGame(seed)) },
+  })
+  fireEvent.click(screen.getByTestId('import-save'))
+  expect(screen.getByTestId('dash-week')).toBeInTheDocument()
+  expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheDocument()
 }
 
 // Build a legal package from the FOUNDED studio roster. Under D-11.12 film assembly
@@ -186,7 +212,7 @@ describe('saves: malformed / unsupported saves are rejected loudly and understan
   })
 })
 
-describe('saves: legacy V1 import (D-9.15) converts and tells the player', () => {
+describe('saves: legacy V1 import (D-9.15) converts and reports the conversion', () => {
   it('a legacy V1 save auto-loads, is flagged converted, and yields a playable V2 state', () => {
     const json = legacyV1SaveJson('legacy-v1-auto')
     const r = importSaveJson(json)
@@ -202,11 +228,13 @@ describe('saves: legacy V1 import (D-9.15) converts and tells the player', () =>
     const state = newGame('legacy-v1-ui')
     const json = legacyV1SaveJson('legacy-v1-ui-src')
     let loaded: GameState | null = null
+    let converted = false
     render(
       <Saves
         state={state}
-        onLoad={(s) => {
+        onLoad={(s, details) => {
           loaded = s
+          converted = details.converted
         }}
         onNewGame={() => {}}
         onBack={() => {}}
@@ -215,9 +243,9 @@ describe('saves: legacy V1 import (D-9.15) converts and tells the player', () =>
     fireEvent.change(screen.getByTestId('saves-import-text'), { target: { value: json } })
     fireEvent.click(screen.getByTestId('saves-import-legacy'))
     expect(loaded).not.toBeNull()
-    // The player is clearly told the save was converted (V1 original untouched).
-    const notice = screen.getByTestId('saves-notice')
-    expect(notice.textContent ?? '').toMatch(/converted/i)
+    // Saves reports conversion to its owner, which can keep the acknowledgement alive
+    // after this screen unmounts during navigation.
+    expect(converted).toBe(true)
   })
 
   it('the legacy affordance rejects a NON-V1 save as data (no crash)', () => {
@@ -239,5 +267,100 @@ describe('saves: legacy V1 import (D-9.15) converts and tells the player', () =>
     fireEvent.click(screen.getByTestId('saves-import-legacy'))
     expect(loaded).toBe(false)
     expect(screen.getByRole('alert').textContent ?? '').toMatch(/legacy V1/i)
+  })
+})
+
+describe('saves: migration disclosure through real App navigation', () => {
+  it('shows a one-shot, version-neutral notice after an accepted V7 load leaves Saves', () => {
+    openCurrentStudioThroughStart('migration-notice-current')
+
+    fireEvent.click(screen.getByTestId('open-saves'))
+    fireEvent.change(screen.getByTestId('saves-import-text'), {
+      target: { value: legacyV7SaveJson('migration-notice-v7') },
+    })
+    fireEvent.click(screen.getByTestId('saves-import'))
+
+    // The accepted load navigated to the imported founded studio's dashboard. The
+    // acknowledgement belongs to App, so it remains visible after Saves unmounts.
+    expect(screen.getByTestId('dash-week')).toBeInTheDocument()
+    expect(screen.queryByTestId('saves-import')).not.toBeInTheDocument()
+    const notice = screen.getByTestId('save-migration-notice')
+    expect(notice).toHaveTextContent(/older save was upgraded to the current format/i)
+    expect(notice).toHaveTextContent(/export now/i)
+    expect(notice.textContent ?? '').not.toMatch(/\bV[1-7]\b/i)
+
+    fireEvent.click(screen.getByTestId('save-migration-dismiss'))
+    expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheDocument()
+    fireEvent.click(screen.getByTestId('open-saves'))
+    fireEvent.click(screen.getByTestId('saves-back'))
+    expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheDocument()
+  })
+
+  it('keeps the live studio and emits no success notice when App rejects an import', () => {
+    openCurrentStudioThroughStart('migration-reject-current')
+    const weekBefore = screen.getByTestId('dash-week').textContent
+
+    fireEvent.click(screen.getByTestId('open-saves'))
+    const exportBefore = (screen.getByTestId('export-text') as HTMLTextAreaElement).value
+    fireEvent.change(screen.getByTestId('saves-import-text'), { target: { value: '{ broken' } })
+    fireEvent.click(screen.getByTestId('saves-import'))
+
+    expect(screen.getByRole('alert')).toHaveTextContent(/rejected/i)
+    expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheDocument()
+    expect((screen.getByTestId('export-text') as HTMLTextAreaElement).value).toBe(exportBefore)
+
+    fireEvent.click(screen.getByTestId('saves-back'))
+    expect(screen.getByTestId('dash-week')).toHaveTextContent(weekBefore ?? '')
+    expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheDocument()
+  })
+
+  it('carries the same version-neutral notice through a Start-screen V7 import', () => {
+    render(<App />)
+    fireEvent.change(screen.getByTestId('import-text'), {
+      target: { value: legacyV7SaveJson('migration-notice-start-v7') },
+    })
+    fireEvent.click(screen.getByTestId('import-save'))
+
+    expect(screen.getByTestId('dash-week')).toBeInTheDocument()
+    const notice = screen.getByTestId('save-migration-notice')
+    expect(notice).toHaveTextContent(/older save was upgraded to the current format/i)
+    expect(notice.textContent ?? '').not.toMatch(/\bV[1-7]\b/i)
+
+    const originalConfirm = window.confirm
+    window.confirm = () => true
+    try {
+      fireEvent.click(screen.getByTestId('open-saves'))
+      fireEvent.click(screen.getByTestId('restart-game'))
+    } finally {
+      window.confirm = originalConfirm
+    }
+    expect(screen.getByTestId('new-game')).toBeInTheDocument()
+    expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheDocument()
+    fireEvent.click(screen.getByTestId('new-game'))
+    expect(screen.getByTestId('founding-intro')).toBeInTheDocument()
+    expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheDocument()
+  })
+
+  it('discloses migration when App restores an older active-session envelope', () => {
+    localStorage.setItem(ACTIVE_SESSION_KEY, legacyV7SaveJson('migration-notice-restore-v7'))
+    render(<App />)
+
+    expect(screen.getByTestId('dash-week')).toBeInTheDocument()
+    expect(screen.getByTestId('recovery-notice')).toHaveTextContent(/Recovered your studio/i)
+    const notice = screen.getByTestId('save-migration-notice')
+    expect(notice).toHaveTextContent(/older save was upgraded to the current format/i)
+    expect(notice.textContent ?? '').not.toMatch(/\bV[1-7]\b/i)
+    fireEvent.click(screen.getByTestId('save-migration-dismiss'))
+    expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheDocument()
+  })
+
+  it('keeps Start on a rejected import and emits no success notice', () => {
+    render(<App />)
+    fireEvent.change(screen.getByTestId('import-text'), { target: { value: '{ broken' } })
+    fireEvent.click(screen.getByTestId('import-save'))
+
+    expect(screen.getByRole('alert')).toHaveTextContent(/Could not load that save/i)
+    expect(screen.getByTestId('new-game')).toBeInTheDocument()
+    expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheDocument()
   })
 })

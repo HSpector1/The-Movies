@@ -24,7 +24,6 @@ import {
   type HollywoodEvent,
   type HollywoodPerformance,
   type HollywoodPlaceSelection,
-  type HollywoodTaskState,
 } from './hollywood/HollywoodScene'
 import type { LotPersonState } from './snapshot/StudioLotSnapshot'
 
@@ -56,7 +55,6 @@ export type StudioLotViewOptions = {
   /** Operation Hollywood semantic events, kept presentation-only at this boundary. */
   onHollywoodPerson?: (person: LotPersonState | null) => void
   onHollywoodPlace?: (place: HollywoodPlaceSelection) => void
-  onHollywoodTask?: (task: HollywoodTaskState | null) => void
   /** The lot finished first paint. */
   onReady?: () => void
   /**
@@ -135,7 +133,6 @@ export class StudioLotView {
     }
     if (e.type === 'person') this.opts.onHollywoodPerson?.(e.person)
     else if (e.type === 'place') this.opts.onHollywoodPlace?.(e.place)
-    else if (e.type === 'task') this.opts.onHollywoodTask?.(e.task)
     else if (e.type === 'activity') this.opts.onActivity?.(e.text)
   }
 
@@ -292,12 +289,8 @@ export class StudioLotView {
   }
 
   selectHollywoodPerson(id: string): void { this.hollywoodScene?.selectPerson(id) }
-
-  assignSelectedToStage7(): boolean { return this.hollywoodScene?.assignSelectedToStage7() ?? false }
-
-  resolveHollywoodBottleneck(): boolean { return this.hollywoodScene?.resolveBottleneck() ?? false }
-
-  callHollywoodTake(): boolean { return this.hollywoodScene?.callTake() ?? false }
+  clearHollywoodPersonSelection(): void { this.hollywoodScene?.clearPersonSelection() }
+  clearHollywoodPlaceSelection(): void { this.hollywoodScene?.clearPlaceSelection() }
 
   showHollywoodPublicity(success: boolean, detail: string): void {
     this.hollywoodScene?.playPublicity(success, detail)
@@ -309,7 +302,7 @@ export class StudioLotView {
     return this.hollywoodScene?.performanceStats() ?? null
   }
 
-  /** Debug/evidence seam: the exact Hollywood task state, no GameState access. */
+  /** Debug/evidence seam: exact snapshot-derived Hollywood state, no GameState access. */
   hollywoodDebugState(): ReturnType<HollywoodScene['debugState']> | null {
     return this.hollywoodScene?.debugState() ?? null
   }
