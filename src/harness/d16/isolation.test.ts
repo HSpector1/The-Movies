@@ -50,8 +50,10 @@ import {
   generatePackages,
   packageAffordable,
   packagePreview,
+  shippedMarketingGrid,
   standardPackage,
   STATE_PACKAGE_OPTIONS,
+  withMarketingGrid,
 } from './packages.js'
 import { assessFinancialState } from './states.js'
 
@@ -266,6 +268,44 @@ describe('D-16 · policy registry', () => {
     expect(ALL_POLICIES.filter((p) => p.kind === 'oracle')).toHaveLength(1)
     expect(ALL_POLICIES.filter((p) => p.kind === 'exploit')).toHaveLength(1)
     for (const p of ALL_POLICIES) expect(p.description.length).toBeGreaterThan(20)
+  })
+
+  // D-17B lab fix (Stage-8 verdict #15). The marketing level a policy names must be a RUNG of
+  // the ACTIVE grid, resolved at decision time — not a dollar literal that silently ignores a
+  // swept menu. Seven arms were bit-identical across the capacity and fixed grids on all 300
+  // seeds because of those literals, and P12/P13 ("min"/"max" marketing) stopped naming the
+  // menu's extremes. Both halves are asserted: identity under the shipped grid, movement under
+  // a swept one.
+  it('every policy places its films on the ACTIVE marketing grid, resolved per decision', () => {
+    const SWEPT: readonly [number, number, number] = [222_000, 555_000, 1_777_000]
+    const shipped = shippedMarketingGrid()
+    const RUNG_ARMS = ['P4', 'P7', 'P9', 'P11', 'P12', 'P13', 'P15'] as const
+
+    // (a) shipped grid ⇒ the historical dollar levels, unchanged (the neutral-arm half).
+    const base = new Map<string, Set<number>>()
+    for (const name of RUNG_ARMS) {
+      const rec = runOne({ seed: 'd16-0002', policy: policyByName(name), horizonWeeks: 104 })
+      const levels = new Set(rec.films.map((f) => f.marketing))
+      base.set(name, levels)
+      for (const l of levels) expect(shipped, `${name} placed a film off the shipped grid`).toContain(l)
+    }
+
+    // (b) swept grid ⇒ every film moves onto the swept rungs, and NONE stays on a shipped one.
+    withMarketingGrid(SWEPT, () => {
+      for (const name of RUNG_ARMS) {
+        const rec = runOne({ seed: 'd16-0002', policy: policyByName(name), horizonWeeks: 104 })
+        const levels = new Set(rec.films.map((f) => f.marketing))
+        for (const l of levels) expect(SWEPT, `${name} placed a film off the swept grid`).toContain(l)
+        if (base.get(name)!.size > 0) {
+          expect(levels, `${name} is INERT to the marketing grid`).not.toEqual(base.get(name))
+        }
+      }
+      // The two controlled probes must name the swept extremes, or their names are false.
+      const min = runOne({ seed: 'd16-0002', policy: policyByName('P12'), horizonWeeks: 104 })
+      const max = runOne({ seed: 'd16-0002', policy: policyByName('P13'), horizonWeeks: 104 })
+      expect(new Set(min.films.map((f) => f.marketing))).toEqual(new Set([SWEPT[0]]))
+      expect(new Set(max.films.map((f) => f.marketing))).toEqual(new Set([SWEPT[2]]))
+    })
   })
 
   it('exactly the two policies that MEAN to disengage declare it (B2-C3)', () => {

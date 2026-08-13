@@ -23,6 +23,7 @@
 import { FOUNDING_MINIMUMS, TUNING } from '../../core/index.js'
 import type { Action, CommitmentPreview, CreativeRole, GameState, GreenlightAssessment } from '../../core/index.js'
 import type { FoundingView, PerceivedTalent, PlayerView, OracleView, ContractView } from './view.js'
+import { activeMarketingGrid } from './packages.js'
 import type {
   CastPlanKey,
   D16Package,
@@ -373,16 +374,44 @@ function bestAffordable(
   return best
 }
 
-const STANDARD_OPTS: PackageOptions = {
-  conceptCount: 1,
-  shapeKeys: ['neutralDemand'],
-  castPlans: ['bestOVR'],
-  negIndices: [1],
-  marketingLevels: [400_000],
+// ── D-17B lab fix · the marketing rungs a policy names are RUNGS, not dollars ─
+//
+// THE DEFECT (Stage-8 verdict #15). Seven policies wrote their marketing level as a DOLLAR
+// LITERAL — P4/P7/P11/P13 `$1,000,000`, P12 `$100,000`, P9 `[$100k, $400k]`, P15 `$400k`.
+// `generatePackages` honours an explicit `marketingLevels` option over the active grid
+// (packages.ts:448), so under a swept menu those policies kept spending the SHIPPED numbers:
+// bit-identical end cash, marketing levels and awareness on all 300 seeds of both the 208-wk
+// and the 312-wk corpora, i.e. 6 of the 14 player arms were INERT to the treatment and 26.5%
+// of all films were placed off-grid. Worse, the names stopped being true: under
+// `capacity:1.3,2.4,3.7` the rungs can run to $405k/$748k/$1,153k, so "P12_standardMinMkt"
+// at a flat $100k was no longer the minimum rung and "P13_standardMaxMkt" at $1M was not the
+// maximum — the two controlled marketing probes measured a level that was not on the menu.
+//
+// THE FIX. A policy names a RUNG; the dollars come from `activeMarketingGrid()` at DECISION
+// time (the driver opens the week's `withMarketingGrid` scope around `decide`, so a
+// capacity-anchored menu is re-read every week — driver.ts:884).
+//
+// NEUTRAL-ARM IDENTITY. With no scope open the active grid IS the shipped triple
+// [100k, 400k, 1M], so `lowRung()/midRung()/highRung()` return exactly the literals they
+// replaced and every package id, cost and enumeration order is unchanged. Proven by the
+// 300x208 neutral SHA gate, not by inspection.
+const lowRung = (): number => activeMarketingGrid()[0]
+const midRung = (): number => activeMarketingGrid()[1]
+const highRung = (): number => activeMarketingGrid()[2]
+
+/** The standard-package option set. A FUNCTION because the mid rung is resolved per decision. */
+function standardOpts(): PackageOptions {
+  return {
+    conceptCount: 1,
+    shapeKeys: ['neutralDemand'],
+    castPlans: ['bestOVR'],
+    negIndices: [1],
+    marketingLevels: [midRung()],
+  }
 }
 
 function standardWith(marketing: number, castPlan: CastPlanKey = 'bestOVR'): PackageOptions {
-  return { ...STANDARD_OPTS, castPlans: [castPlan], marketingLevels: [marketing] }
+  return { ...standardOpts(), castPlans: [castPlan], marketingLevels: [marketing] }
 }
 
 // ── the sixteen policies ─────────────────────────────────────────────────────
@@ -444,7 +473,7 @@ export const premiumAmbitious: PlayerPolicy = {
   name: 'P4_premiumAmbitious',
   kind: 'player',
   disengagementIntended: false,
-  description: 'Best forecast-profit concept at 1.25x negative and $1M marketing, cast with the highest-fame affordable lead.',
+  description: 'Best forecast-profit concept at 1.25x negative and the TOP marketing rung of the active grid ($1M on the shipped menu), cast with the highest-fame affordable lead.',
   founding: { counts: DEEP_ROSTER, rank: 'bestOVR', termWeeks: TUNING.CONTRACT_MAX_WEEKS },
   roster: roster(DEEP_ROSTER, 'bestOVR'),
   decide(view, ctx) {
@@ -455,7 +484,7 @@ export const premiumAmbitious: PlayerPolicy = {
       conceptCount: 3,
       castPlans: ['highestFame', 'bestOVR'],
       negIndices: [2],
-      marketingLevels: [1_000_000],
+      marketingLevels: [highRung()],
     })
     // Prefer the highest-fame cast plan; fall back to best-OVR when fame is unaffordable.
     const fameFirst = gen.packages.filter((p) => p.castPlan === 'highestFame')
@@ -505,13 +534,13 @@ export const starDriven: PlayerPolicy = {
   name: 'P7_starDriven',
   kind: 'player',
   disengagementIntended: false,
-  description: 'Roster and cast prioritise fame; standard 1.0x negative with $1M marketing.',
+  description: 'Roster and cast prioritise fame; standard 1.0x negative at the TOP marketing rung of the active grid ($1M on the shipped menu).',
   founding: { counts: SMALL_ROSTER, rank: 'highestFame', termWeeks: TUNING.CONTRACT_MAX_WEEKS },
   roster: roster(SMALL_ROSTER, 'highestFame'),
   decide(view, ctx) {
     const maint = maintenanceActions(view, this.roster)
     if (maint.length > 0) return maint
-    return commit(view, ctx, ctx.standard(standardWith(1_000_000, 'highestFame')))
+    return commit(view, ctx, ctx.standard(standardWith(highRung(), 'highestFame')))
   },
 }
 
@@ -574,7 +603,7 @@ export const freelancerLean: PlayerPolicy = {
       shapeKeys: ['minDemand'],
       castPlans: ['cheapest'],
       negIndices: [0, 1],
-      marketingLevels: [100_000, 400_000],
+      marketingLevels: [lowRung(), midRung()],
       allowFreelancers: true,
     })
     return commit(view, ctx, bestAffordable(ctx, gen.packages, (p) => ctx.evaluate(p).centerProfit))
@@ -616,7 +645,7 @@ export const adaptiveBalanced: PlayerPolicy = {
           conceptCount: 2,
           castPlans: ['bestOVR', 'highestFame'],
           negIndices: [1, 2],
-          marketingLevels: [1_000_000],
+          marketingLevels: [highRung()],
         })
         return commit(view, ctx, bestAffordable(ctx, gen.packages, (p) => ctx.evaluate(p).centerProfit))
       }
@@ -631,33 +660,33 @@ export const adaptiveBalanced: PlayerPolicy = {
   },
 }
 
-/** P12 — P3 with minimum marketing (controlled marketing probe). */
+/** P12 — P3 at the LOWEST rung of the active grid (controlled marketing probe). */
 export const standardMinMkt: PlayerPolicy = {
   name: 'P12_standardMinMkt',
   kind: 'player',
   disengagementIntended: false,
-  description: 'P3 cadence with $100k marketing (controlled marketing probe).',
+  description: 'P3 cadence at the LOWEST marketing rung of the active grid ($100k on the shipped menu). Controlled marketing probe — the rung is resolved per decision, so the name stays true under a swept menu.',
   founding: { counts: SMALL_ROSTER, rank: 'bestOVR', termWeeks: TUNING.CONTRACT_MAX_WEEKS },
   roster: roster(SMALL_ROSTER, 'bestOVR'),
   decide(view, ctx) {
     const maint = maintenanceActions(view, this.roster)
     if (maint.length > 0) return maint
-    return commit(view, ctx, ctx.standard(standardWith(100_000)))
+    return commit(view, ctx, ctx.standard(standardWith(lowRung())))
   },
 }
 
-/** P13 — P3 with maximum marketing (controlled marketing probe). */
+/** P13 — P3 at the HIGHEST rung of the active grid (controlled marketing probe). */
 export const standardMaxMkt: PlayerPolicy = {
   name: 'P13_standardMaxMkt',
   kind: 'player',
   disengagementIntended: false,
-  description: 'P3 cadence with $1M marketing (controlled marketing probe).',
+  description: 'P3 cadence at the HIGHEST marketing rung of the active grid ($1M on the shipped menu). Controlled marketing probe — the rung is resolved per decision, so the name stays true under a swept menu.',
   founding: { counts: SMALL_ROSTER, rank: 'bestOVR', termWeeks: TUNING.CONTRACT_MAX_WEEKS },
   roster: roster(SMALL_ROSTER, 'bestOVR'),
   decide(view, ctx) {
     const maint = maintenanceActions(view, this.roster)
     if (maint.length > 0) return maint
-    return commit(view, ctx, ctx.standard(standardWith(1_000_000)))
+    return commit(view, ctx, ctx.standard(standardWith(highRung())))
   },
 }
 
@@ -722,7 +751,7 @@ export const exploitDisengage: PlayerPolicy = {
       shapeKeys: ['minDemand'],
       castPlans: ['cheapest'],
       negIndices: [0],
-      marketingLevels: [400_000],
+      marketingLevels: [midRung()],
     })
     const pick = gen.packages[0] ?? null
     // No solvency gate exists on the disengaged path; commit unconditionally so the
