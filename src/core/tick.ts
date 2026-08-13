@@ -10,6 +10,8 @@
 //   3. RECEPTION   resolve released films (§5)
 //   4. STANDING    update the three channels (§6)
 //   5. BROADCAST   phase-4 surface
+//   5.5 AWARENESS DRIFT — D-17B §1 counter-flow, ENGAGED-ONLY, no RNG (inserted, not reordered;
+//                  D-12 §9 permits insertions — docs/D-12-economy-contract.md:129)
 //   6. DEVELOPMENT D-9.8 talent growth — GATED OFF by default (owner ruling)
 //
 // The ONLY randomness consumed FROM THE SIM STREAM (state.rngState) is in
@@ -371,6 +373,41 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       broadcastItems,
     )
     if (item !== null) broadcastItems.push(item)
+  }
+
+  // ── 5.5 AWARENESS DRIFT (D-17B §1; engaged only) ───────────────────────────
+  // The selected counter-flow: Family C, ONE-SIDED.
+  //     awareness' = awareness − AWARENESS_DRIFT_RATE · max(0, awareness − AWARENESS_DRIFT_ANCHOR)
+  // Pure, weekly, deterministic, NO RNG (this milestone adds none), and PULL-DOWN ONLY — it acts
+  // solely on studios ABOVE the anchor, so it is structurally the opposite of rubber-banding and
+  // is exactly inert at or below the anchor (it can never manufacture a death spiral). The final
+  // clamp is the engine's own 0..100 standing law (standing.ts:139); with a non-negative excess
+  // the subtraction cannot leave [anchor, 100], so the clamp is a guard, not a behaviour.
+  //
+  // PLACEMENT (measured, BINDING — contract §1): a new step 5.5, IMMEDIATELY AFTER BROADCAST and
+  // BEFORE DEVELOPMENT. This is the placement the lab measured: the D-16 driver applied its
+  // counter-flow shim POST-tick (`driver.ts:807-841`), i.e. after the whole pipeline and therefore
+  // after BROADCAST. A step 4.5 would change what BROADCAST observes and is an UNMEASURED variant,
+  // so it is not shipped. Consequently BROADCAST above still reads the post-step-4, PRE-drift
+  // standing, and everything after this point reads the POST-drift stock.
+  //
+  // INSERTION LEGALITY: D-12 §9 permits pipeline INSERTIONS with no reordering
+  // (docs/D-12-economy-contract.md:129) — steps 1-6 keep their order and their meaning.
+  //
+  // Engaged-gated (the same `economyEngaged` fact the rest of this tick uses), so the M0A/headless
+  // corpus never runs it and stays byte-identical.
+  if (engaged) {
+    const excess = Math.max(0, standing.audienceAwareness - TUNING.AWARENESS_DRIFT_ANCHOR)
+    if (excess > 0) {
+      standing = {
+        ...standing,
+        audienceAwareness: clamp(
+          standing.audienceAwareness - TUNING.AWARENESS_DRIFT_RATE * excess,
+          0,
+          100,
+        ),
+      }
+    }
   }
 
   // ── 6. DEVELOPMENT (D-9.8) — GATED OFF by default ──────────────────────────

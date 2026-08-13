@@ -127,10 +127,16 @@ describe('studioRunRecap — capital reconciliation (D-12 §3)', () => {
     const s = buildRun('recap-totals', 2)
     const r = studioRunRecap(s)
     const t = financeTotals(s)
-    expect(Math.round(r.capital.totalCommitments)).toBe(Math.round(-(t.production + t.freelancerFee)))
-    expect(Math.round(r.capital.totalStudioRevenue)).toBe(Math.round(t.studioRevenue))
-    expect(Math.round(r.capital.totalFilmContribution)).toBe(
-      Math.round(r.capital.totalStudioRevenue - r.capital.totalCommitments),
+    // D-17B §1: `capital.*` are `round2`-ed by the recap, so comparing Math.round of a
+    // round2 value against Math.round of the raw ledger total DOUBLE-rounds and can differ by
+    // $1 whenever the raw value sits within 0.005 of a .5 boundary — which the new numbers do.
+    // Comparing to the cent is the same claim, STRICTER (it also pins the 2-decimal
+    // reconciliation the recap actually promises), and not sensitive to that boundary.
+    expect(r.capital.totalCommitments).toBeCloseTo(-(t.production + t.freelancerFee), 2)
+    expect(r.capital.totalStudioRevenue).toBeCloseTo(t.studioRevenue, 2)
+    expect(r.capital.totalFilmContribution).toBeCloseTo(
+      r.capital.totalStudioRevenue - r.capital.totalCommitments,
+      2,
     )
   })
 

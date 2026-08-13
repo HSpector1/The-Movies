@@ -161,3 +161,285 @@ describe('D-17B §1/E1 — M0A byte-identity by construction (headless spot-run)
     }
   })
 })
+
+// ═════════════════════════════════════════════════════════════════════════════
+// The drift (tick step 5.5).
+// ═════════════════════════════════════════════════════════════════════════════
+
+const KAPPA = TUNING.AWARENESS_DRIFT_RATE
+const ANCHOR = TUNING.AWARENESS_DRIFT_ANCHOR
+
+/** The contract's own rule, written out independently of tick.ts. */
+function driftOf(a: number): number {
+  return clamp(a - KAPPA * Math.max(0, a - ANCHOR), 0, 100)
+}
+
+/** An IDLE world (no production, nothing releasing) at a chosen awareness, in a chosen regime. */
+function idleWorld(seed: string, awareness: number, engaged: boolean): GameState {
+  const w = generateWorld(seed)
+  return {
+    ...w,
+    economyEngagedEver: engaged,
+    studio: {
+      ...w.studio,
+      activeProductions: [],
+      standing: { audienceAwareness: awareness, industryPrestige: 40, commercialConfidence: 50 },
+    },
+  }
+}
+
+const AWARENESS_PROBE = [0, 5, 10, 20, 30, 34.9, 35, 35.1, 40, 50, 60, 75, 90, 100] as const
+
+describe('D-17B §1 — the drift is one-sided, anchored, and bounded', () => {
+  it('constants are the contract values (κ = 0.04/week, ANCHOR = 35)', () => {
+    expect(TUNING.AWARENESS_DRIFT_RATE).toBe(0.04)
+    expect(TUNING.AWARENESS_DRIFT_ANCHOR).toBe(35)
+  })
+
+  it('an idle ENGAGED week applies exactly the contract rule, on the whole probe range', () => {
+    for (const a of AWARENESS_PROBE) {
+      const out = tick(idleWorld('d17b-drift', a, true))
+      expect(out.studio.standing.audienceAwareness).toBeCloseTo(driftOf(a), 12)
+    }
+  })
+
+  it('AT and BELOW the anchor it is exactly inert — never a pull-UP, never a death spiral', () => {
+    for (const a of AWARENESS_PROBE.filter((v) => v <= ANCHOR)) {
+      const out = tick(idleWorld('d17b-drift', a, true))
+      expect(out.studio.standing.audienceAwareness).toBe(a)
+    }
+  })
+
+  it('the anchor is a FIXED POINT: repeated engaged weeks converge to it from above, never past it', () => {
+    let s = idleWorld('d17b-drift-fp', 100, true)
+    let previous = s.studio.standing.audienceAwareness
+    for (let w = 0; w < 400; w++) {
+      s = tick(s)
+      const a = s.studio.standing.audienceAwareness
+      expect(a).toBeLessThanOrEqual(previous) // monotone decreasing
+      expect(a).toBeGreaterThanOrEqual(ANCHOR) // never crosses the anchor
+      previous = a
+    }
+    expect(previous).toBeCloseTo(ANCHOR, 4) // and it actually gets there
+  })
+
+  it('the stock stays inside the engine 0..100 law and the weekly step is bounded by κ·(100−ANCHOR)', () => {
+    const maxStep = KAPPA * (100 - ANCHOR)
+    for (const a of AWARENESS_PROBE) {
+      const out = tick(idleWorld('d17b-drift', a, true))
+      const next = out.studio.standing.audienceAwareness
+      expect(next).toBeGreaterThanOrEqual(0)
+      expect(next).toBeLessThanOrEqual(100)
+      expect(a - next).toBeGreaterThanOrEqual(0)
+      expect(a - next).toBeLessThanOrEqual(maxStep + 1e-12)
+    }
+  })
+
+  it('is MONOTONE in the stock: a more-aware studio is still more aware after the week', () => {
+    const outs = AWARENESS_PROBE.map((a) => tick(idleWorld('d17b-drift', a, true)).studio.standing.audienceAwareness)
+    for (let i = 1; i < outs.length; i++) expect(outs[i]!).toBeGreaterThanOrEqual(outs[i - 1]!)
+  })
+
+  it('is ENGAGED-GATED: a disengaged idle week never moves the stock, at any level', () => {
+    for (const a of AWARENESS_PROBE) {
+      const out = tick(idleWorld('d17b-drift', a, false))
+      expect(out.studio.standing.audienceAwareness).toBe(a)
+    }
+  })
+
+  it('touches NOTHING else — no other channel, no cash beyond the existing weekly charges, no RNG', () => {
+    const before = idleWorld('d17b-drift-iso', 90, true)
+    const after = tick(before)
+    expect(after.studio.standing.industryPrestige).toBe(before.studio.standing.industryPrestige)
+    expect(after.studio.standing.commercialConfidence).toBe(before.studio.standing.commercialConfidence)
+    // no release ⇒ the sim stream is not advanced at all; the drift consumes none either
+    expect(after.rngState).toBe(before.rngState)
+    // the only cash movement in an idle engaged week is the D-12 overhead already on the ledger
+    const added = after.ledger.slice(before.ledger.length)
+    expect(added.every((e) => e.kind === 'overhead')).toBe(true)
+  })
+
+  it('is deterministic: the same engaged week from the same state gives the identical stock', () => {
+    const s = idleWorld('d17b-drift-det', 82.3456, true)
+    expect(tick(s).studio.standing.audienceAwareness).toBe(tick(s).studio.standing.audienceAwareness)
+  })
+})
+
+// ── step order ────────────────────────────────────────────────────────────────
+// The contract's placement is BINDING: step 5.5, immediately AFTER BROADCAST and BEFORE
+// DEVELOPMENT. Two halves:
+//
+//  (a) the drift folds the POST-step-4 stock (not the start-of-tick one) — so it runs after
+//      STANDING, and exactly once per week;
+//  (b) BROADCAST reads the PRE-drift stock. That is decidable because `editorialRelevance`
+//      for a release is `mean(audienceAwareness, commercialConfidence)/100`
+//      (broadcast.ts:173) and `air ⇔ rankScore ≥ BROADCAST_THRESHOLD`, with
+//      `rankScore = K · relevance` where K = magnitude·prominence·novelty·cooldown. K is
+//      INDEPENDENT of standing (magnitude compares the weighted audience score — which
+//      `computeSegmentAppeal` derives without reading standing — against the production's
+//      FROZEN greenlight forecast; prominence is lead fame; novelty/cooldown are history),
+//      and `commercialConfidence` reaches NOTHING in the engine except this one term.
+//
+//      K is therefore COMPUTABLE from the tick's own output, with no reference to the drift:
+//        magnitude  = clamp(|Σ share·segmentScores − Σ share·forecastSnapshot.center| / 50, 0, 1)
+//        prominence = clamp(lead fame / 100, 0, 1)
+//        novelty    = cooldown = 1 for a studio's FIRST aired release (window empty)
+//      Bisecting the starting confidence to the air/no-air boundary then discriminates: the
+//      boundary must satisfy K·(a_postStanding + c)/200 = THRESHOLD if BROADCAST saw the
+//      pre-drift stock, and K·(a_final + c)/200 = THRESHOLD if it saw the post-drift stock.
+//      Those two predictions are ~1 confidence point apart and the bisection resolves the
+//      boundary to ~1e-6.
+//
+//  DEVELOPMENT (step 6) reads NO standing channel at all (development.ts takes concept,
+//  shape, promise, requiredNegative and criticScore), so "DEVELOPMENT sees the post-drift
+//  stock" is vacuous for its own arithmetic; what is observable, and asserted below, is that
+//  the state the tick RETURNS carries the post-drift stock.
+
+/** A world one tick before its first release, with the ENGAGED regime armed. */
+function preReleaseWorld(seed: string): GameState {
+  let s: GameState = generateWorld(seed)
+  s = applyActions(s, OracleAgent.chooseActions(s))
+  expect(s.studio.activeProductions.length).toBeGreaterThan(0)
+  for (let guard = 0; guard < 40; guard++) {
+    const p = s.studio.activeProductions[0]
+    if (p !== undefined && p.startTick < s.market.tick && p.remainingTicks === 1) break
+    s = tick(s)
+  }
+  const p = s.studio.activeProductions[0]
+  expect(p).toBeDefined()
+  expect(p!.remainingTicks).toBe(1)
+  expect(s.studio.releasedFilms.length).toBe(0)
+  return s
+}
+
+type ReleaseOutcome = { aired: boolean; aFinal: number; cFinal: number; state: GameState }
+
+function releaseWeek(base: GameState, awareness: number, confidence: number): ReleaseOutcome {
+  const armed: GameState = {
+    ...base,
+    economyEngagedEver: true,
+    studio: {
+      ...base.studio,
+      standing: { audienceAwareness: awareness, industryPrestige: 40, commercialConfidence: confidence },
+    },
+  }
+  const out = tick(armed)
+  expect(out.studio.releasedFilms.length).toBe(1)
+  return {
+    aired: out.broadcastItems.length > base.broadcastItems.length,
+    aFinal: out.studio.standing.audienceAwareness,
+    cFinal: out.studio.standing.commercialConfidence,
+    state: out,
+  }
+}
+
+/**
+ * `K = magnitude · prominence · novelty · cooldown` — the standing-INDEPENDENT half of §8's
+ * rankScore, assembled from the tick's own output. Requires a first release into an empty
+ * broadcast window (novelty = cooldown = 1), which `preReleaseWorld` guarantees.
+ */
+function rankConstant(base: GameState, out: ReleaseOutcome): number {
+  expect(base.broadcastItems.length).toBe(0)
+  const prod = base.studio.activeProductions[0]!
+  const film = out.state.studio.releasedFilms[0]!
+  const centerBySegment = new Map(prod.forecastSnapshot.segments.map((s) => [s.segmentId, s.center]))
+  let was = 0
+  let center = 0
+  for (const seg of base.market.segments) {
+    was += seg.share * film.segmentScores[seg.id]
+    center += seg.share * centerBySegment.get(seg.id)!
+  }
+  const magnitude = clamp(Math.abs(was - center) / 50, 0, 1)
+  const leadFame = base.talent.find((t) => t.id === prod.cast.lead)!.fame
+  const prominence = clamp(leadFame / 100, 0, 1)
+  return magnitude * prominence
+}
+
+/** Bisect the starting confidence to the exact air/no-air boundary. */
+function airBoundary(base: GameState, awareness: number): { c: number; outcome: ReleaseOutcome } | null {
+  let lo = 0
+  let hi = 100
+  if (releaseWeek(base, awareness, hi).aired === releaseWeek(base, awareness, lo).aired) return null
+  for (let i = 0; i < 60; i++) {
+    const mid = (lo + hi) / 2
+    if (releaseWeek(base, awareness, mid).aired) hi = mid
+    else lo = mid
+  }
+  return { c: hi, outcome: releaseWeek(base, awareness, hi) }
+}
+
+/**
+ * The same world, made AIRABLE: a star-led cast (prominence ≈ 1) whose greenlight forecast was
+ * deliberately pessimistic (per-segment centers/estimates zeroed ⇒ magnitude 1 and direction
+ * 'better'). That puts the §8 rank constant K near 1, which is what places the air/no-air
+ * boundary inside the 0..100 confidence range at all — an Oracle film matching its own forecast
+ * has K ≈ 0.03-0.35 and can never air, so the step-order question would be untestable on it.
+ * This edits FIXTURE STATE only; no engine rule is touched.
+ */
+function withAirableRelease(base: GameState): GameState {
+  const prod = base.studio.activeProductions[0]!
+  const castIds = new Set([prod.cast.lead, prod.cast.antagonist, prod.cast.support])
+  return {
+    ...base,
+    talent: base.talent.map((t) => (castIds.has(t.id) ? { ...t, fame: 99 } : t)),
+    studio: {
+      ...base.studio,
+      activeProductions: [
+        {
+          ...prod,
+          forecastSnapshot: {
+            ...prod.forecastSnapshot,
+            segments: prod.forecastSnapshot.segments.map((s) => ({ ...s, center: 0, estimate: 0 })),
+          },
+        },
+      ],
+    },
+  }
+}
+
+describe('D-17B §1 — step 5.5: after STANDING, after BROADCAST, before DEVELOPMENT', () => {
+  it('(a) the drift folds the POST-STANDING stock, exactly once per week', () => {
+    const base = preReleaseWorld('d17b-order-a')
+    // a release moves awareness first (step 4), then the drift takes its cut of THAT value
+    const out = releaseWeek(base, 70, 50)
+    // invert the drift: a_final = a4·(1−κ) + κ·ANCHOR  ⇒  a4 = (a_final − κ·ANCHOR)/(1−κ)
+    const a4 = (out.aFinal - KAPPA * ANCHOR) / (1 - KAPPA)
+    expect(a4).toBeGreaterThan(ANCHOR)
+    expect(driftOf(a4)).toBeCloseTo(out.aFinal, 10)
+    // the release genuinely moved the stock, so this is not the idle case in disguise
+    expect(a4).not.toBeCloseTo(70, 6)
+    // and applying the drift FIRST (a wrong order) would land somewhere else
+    expect(out.aFinal).not.toBeCloseTo(driftOf(70) + (a4 - 70), 6)
+  })
+
+  it('(b) BROADCAST is decided on the PRE-drift stock', () => {
+    const base = withAirableRelease(preReleaseWorld('d17b-order-b'))
+    const boundary = airBoundary(base, 60)
+    expect(boundary, 'no air/no-air boundary in the confidence range').not.toBeNull()
+    const found = boundary!
+    expect(found.c).toBeGreaterThan(1)
+    expect(found.c).toBeLessThan(99)
+    const K = rankConstant(base, found.outcome)
+    expect(K).toBeGreaterThan(0)
+
+    const a4 = (found.outcome.aFinal - KAPPA * ANCHOR) / (1 - KAPPA)
+    expect(a4).toBeGreaterThan(ANCHOR)
+    const drift = a4 - found.outcome.aFinal
+    expect(drift).toBeGreaterThan(0.5) // the two hypotheses are far apart in confidence units
+
+    const scorePre = (K * (a4 + found.outcome.cFinal)) / 200
+    const scorePost = (K * (found.outcome.aFinal + found.outcome.cFinal)) / 200
+
+    // the observed boundary sits on the PRE-drift score…
+    expect(scorePre).toBeCloseTo(TUNING.BROADCAST_THRESHOLD, 4)
+    // …and is decisively NOT the post-drift one
+    expect(scorePost).toBeLessThan(TUNING.BROADCAST_THRESHOLD - 1e-3)
+  })
+
+  it('(c) the RETURNED state carries the post-drift stock', () => {
+    const base = preReleaseWorld('d17b-order-c')
+    const out = releaseWeek(base, 90, 50)
+    const a4 = (out.aFinal - KAPPA * ANCHOR) / (1 - KAPPA)
+    expect(out.aFinal).toBeLessThan(a4) // what the caller sees is post-drift, not post-standing
+  })
+})

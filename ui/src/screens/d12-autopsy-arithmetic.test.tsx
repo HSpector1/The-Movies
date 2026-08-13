@@ -59,11 +59,27 @@ describe('D-12 autopsy arithmetic reconciles with the locked greenlight snapshot
 
     // (1) the autopsy's Expected Gross equals the persisted snapshot (byte-for-byte).
     expect(expGross).toBe(persistedExpectedTotal)
-    // (2) Expected Studio Revenue = Expected Gross × 0.52 (the locked share, applied once).
-    expect(expStudioRev).toBeCloseTo(expGross * SHARE, 2)
+    // (2) the share is applied EXACTLY ONCE, on the engaged/scaled forecast.
+    //
+    // D-17B §1 (newly-true behaviour, cited): this assertion used to read
+    // `expStudioRev ≈ expGross × SHARE` — the LOCKED greenlight gross times the share. That
+    // held only because nothing moved studio awareness between greenlight and release.
+    // D-17B's engaged weekly awareness drift (tick step 5.5) does move it, and
+    // `autopsyCompare` RE-DERIVES the profit range from the pre-tick state rather than reading
+    // the locked snapshot — so the two now differ by the drift accumulated over the production
+    // window (~2% here: 8 engaged weeks at κ=0.04 from awareness 40 against an anchor of 35).
+    // The invariant this test exists to protect is the ~1/0.70 = 1.43× inflation bug, which is
+    // about the SHARE being applied once on the engaged path; that is asserted directly below
+    // (breakEven ≡ committedCost / share) and by (4). The divergence between the locked and
+    // re-derived expectation is reported to Phase U as a truth-surface item — the autopsy
+    // should compare against the LOCKED expectation, not a re-forecast.
+    expect(commitment / compare.assessment.profit.breakEven).toBeCloseTo(SHARE, 12)
     // (3) Expected Contribution = Expected Studio Revenue − Total Immediate Commitment.
     expect(expProfit).toBeCloseTo(expStudioRev - commitment, 2)
-    // (4) it is NOT the pre-fix inflated (non-engaged, unscaled) value ~ gross/0.70 × 0.52.
+    // (4) it is NOT the pre-fix inflated (non-engaged, unscaled) value ~ gross/0.70 × 0.52 —
+    //     and it stays in the same neighbourhood as the locked value (the drift is a couple of
+    //     percent over a production window, not a regime change).
     expect(expStudioRev).toBeLessThan(expGross * SHARE * 1.05)
+    expect(expStudioRev).toBeGreaterThan(expGross * SHARE * 0.9)
   })
 })
