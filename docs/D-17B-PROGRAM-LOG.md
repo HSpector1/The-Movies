@@ -1,5 +1,9 @@
 # D-17B — Awareness Business Cycle & Reach Repair — Program Log
 
+**D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+
+Final Owner / Engine PM ruling: `docs/D-17B-OWNER-RULINGS.md` (2026-08-13).
+
 Running record of phase gates and PM rulings. Authority: `docs/D-16-OWNER-RULINGS.md` + the Owner's
 D-17B authorization (D-17A accepted at tag `d17a-decision-truth` = `79a9ab3`; analysis base
 `52c5f0c`). Research-first: no production formula changes before the D-17B Candidate Design
@@ -150,8 +154,29 @@ Three independent reviewers attacked the frozen contract rather than the impleme
 2. UI information integrity and D-17A regressions;
 3. harness provenance, statistical agreement and management-game red team.
 
-All implementation blockers/majors were fixed. The unresolved results are design/governance facts,
-not hidden defects: E1–E5 require Owner rulings; the Q6 reference/production 50% knife-edge needs an
-Owner boundary decision; cash runaway worsens although awareness is bounded; G1/G3/G5/G6 and the
-week-208 wall remain structural. The candidate therefore closes as **implementation complete,
-Owner / Engine PM review required**, not as a clean balance certification.
+All implementation blockers/majors were fixed. At this pre-ruling checkpoint, the unresolved
+results were design/governance facts rather than hidden defects: E1–E5 required Owner rulings; the
+Q6 reference/production 50% knife-edge needed an Owner boundary decision; cash runaway worsened
+although awareness was bounded; G1/G3/G5/G6 and the week-208 wall remained structural. The
+candidate therefore entered Owner review as **implementation complete, Owner / Engine PM review
+required**, not as a clean balance certification. The final disposition immediately below
+supersedes that checkpoint status.
+
+## Final Owner ruling — accepted bounded closure (2026-08-13)
+
+Owner review accepted E1, E2, E4 and E5 exactly as implemented; accepted E3 specifically as a
+bounded D-17B repair rather than complete macroeconomic certification; accepted the production Q6
+`151/300` result with the Rev. 3 break-even-tuned A≈30 verification as boundary-sensitive
+maintenance evidence; and accepted the honest **2 PASS / 5 PARTIAL or mixed / 5 FAIL** G1–G12
+closure. No tuning to the frozen `149/300` label and no additional D-17B corpus are required.
+
+The following remain explicitly open and may not be concealed or reclassified: cash runaway;
+top-studio economic immortality; week-208 synchronized roster wall; P5 dominance; world-led
+variance; cheap-film purpose; premium-film purpose; remaining menu breadth; formal G12 timing.
+
+Future investigation of the roster wall and a believable size-scaling cash sink is authorized, but
+instrumentation and research come first. No financing, loans, bailouts, restructuring or failure
+ladder may be introduced, and no arbitrary sink may precede understanding of the authoritative
+facility/capacity/construction systems that may naturally supply those capital and operating costs.
+
+Final operative text: `docs/D-17B-OWNER-RULINGS.md`.

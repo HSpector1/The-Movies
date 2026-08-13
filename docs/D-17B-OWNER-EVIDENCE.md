@@ -1,13 +1,18 @@
 # D-17B — Awareness Business Cycle & Reach Repair — Owner Evidence
 
-**Status:** implementation evidence complete; **Owner / Engine PM review required**.  
+**D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+
+**Status:** accepted by Owner / Engine PM ruling, 2026-08-13; this evidence remains the measured
+basis for that bounded acceptance.
+
 **Accepted foundation:** D-17A `79a9ab3bb9e31ed7d32c571a56d9cc07792ed72f`, annotated tag
 `d17a-decision-truth`.  
 **Production implementation measured at:** `a48862b871bc487e6d449891b536a9db616e1373`
 (implementation/evidence source; documentation-only closure follows).  
 **Branch:** `d17-economy-truth-equilibrium`; `main` local and `hspector-github/main` both
 `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; no merge or push.  
-**Authority:** D-16 Owner Rulings + D-17B Owner Authorization + Candidate Design Contract rev. 3.
+**Authority:** D-16 Owner Rulings + D-17B Owner Authorization + Candidate Design Contract rev. 3
++ `docs/D-17B-OWNER-RULINGS.md`.
 
 This package reports production execution, not simulation shims. Generated corpora are intentionally
 Git-ignored; every artifact path, source commit/tree, dirty flag, execution mode, candidate key and
@@ -54,7 +59,7 @@ guarantee a return. Publicity cannot create cash: the ledger debit equals the ti
 | P15 exploit | **NOT_COMPARABLE**: frozen reference used `employmentEngaged` and the abolished pre-D-17A economy; production correctly uses persisted `economyEngaged` |
 | Maintenance Q6 vs P3 | reference `149/300 = 49.67%` FAIL; production `151/300 = 50.33%` PASS; verdict not identical |
 | Anti-spam Q7 vs Q0 | reference 7.00%, production 7.33%; both PASS; production median delta `−$12.128M` |
-| Overall | **REVIEW_REQUIRED**, solely because the governed Q6 208-week verdict crosses the 50% boundary |
+| Overall artifact status | **REVIEW_REQUIRED** at generation because Q6 crossed the 50% boundary; **subsequently ACCEPTED by Owner ruling** with the Rev. 3 A≈30 verification |
 
 The separate rev. 3 break-even-tuned below-A≈30 verification arm passed 67.3%; Q6 is the older
 below-A20 focused arm. The two-seed boundary movement is reported, never tuned away.
@@ -240,26 +245,19 @@ conservative classification above.
   logical-rung instrumentation and raw-row tournament comparison; frozen-reference defects remain
   disclosed rather than laundered.
 
-## 10. Structural residuals and Owner decisions
+## 10. Structural residuals and final Owner disposition
 
 Not repaired: cash-runaway tail; top-decile economic immortality; week-208 synchronized roster wall;
 P5 pairwise dominance; G3 world dominance; cheap/premium purpose; remaining menu breadth; formal G12
 timing. Financing, loans, bailouts, failure ladders, restructuring/acquisition, Art work and broader
 D1-B work were outside scope and were not started.
 
-Owner / Engine PM must rule separately:
+Owner / Engine PM accepted E1–E5, the production Q6 `151/300` result together with the Rev. 3
+below-A≈30 verification, and the honest 2 PASS / 5 PARTIAL or mixed / 5 FAIL G1–G12 result. Q6 is
+boundary-sensitive maintenance evidence, not broad economic certification; production must not be
+tuned to reproduce the frozen reference's `149/300` label, and no additional corpus is required.
 
-1. **E1:** accept engaged `.45` / disengaged `.58` reach-neutral split under R4, or require the
-   contract's unconditional-.45 fallback and M0A rebaseline.
-2. **E2:** accept capacity-anchored menu kind under R6, or choose the measured fixed-triple fallback.
-3. **E3:** accept the awareness repair with disclosed cash-runaway regression, or defer shipment
-   pending a separately authorized size-scaling cash sink.
-4. **E4:** accept SaveFileV7 for publicity state.
-5. **E5:** accept BALANCED DISC `.375/4/1.5/.30`; MAX-REPAIR remains lower-variance and the third
-   option is dominated.
-6. **Maintenance boundary:** accept the production Q6 `151/300` PASS despite the frozen reference
-   `149/300` FAIL and rely on the rev. 3 below-A≈30 verification, or require a new governed
-   production arm/corpus before acceptance. Do not tune the mechanic to force identical labels.
-7. Accept this partial G1–G12 outcome as D-17B closure, and charter the next Engine milestone around
-   the week-208 roster wall plus a researched size-scaling cash sink—without bundling financing or
-   the failure ladder.
+Future investigation is authorized for the week-208 roster wall and a believable size-scaling cash
+sink. It must begin with instrumentation and research, must account for upcoming authoritative
+facility/capacity/construction systems, and must not introduce financing, loans, bailouts,
+restructuring or the failure ladder. Full operative language: `docs/D-17B-OWNER-RULINGS.md`.

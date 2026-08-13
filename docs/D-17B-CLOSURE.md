@@ -1,14 +1,21 @@
-# D-17B — Awareness Business Cycle & Reach Repair — Closure Candidate
+# D-17B — Awareness Business Cycle & Reach Repair — ACCEPTED Closure
 
-**Status:** IMPLEMENTATION COMPLETE — **Owner / Engine PM review required**.  
-**Closure documentation parent:** `80c5a7d28e335902913f4ce33e8049ec07dd1758`.  
+**D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+
+**Owner / Engine PM ruling:** ACCEPTED, 2026-08-13.
+
+**Accepted implementation candidate:** `51ec93e33e261b70a68c0acd20f4da5708930179`.
+
 **Branch:** `d17-economy-truth-equilibrium`; not merged; not pushed.  
+**Owner ruling record:** `docs/D-17B-OWNER-RULINGS.md`.
+
 **Detailed evidence:** `docs/D-17B-OWNER-EVIDENCE.md`.  
 **Recovery record:** `docs/D-17B-RECOVERY-REPORT.md`.
 
-The result is a partial balance success, not a clean G1–G12 certification. Production is complete
-and independently reviewed; E1–E5, the maintenance boundary, and the disclosed residual economy
-require Owner judgment.
+The Owner accepts D-17B as a successful bounded Awareness Business Cycle & Reach Repair: E1–E5,
+the Q6 boundary-sensitive maintenance result, and the honest 2 PASS / 5 PARTIAL or mixed / 5 FAIL
+G1–G12 disposition are accepted. This is **not** complete macroeconomic-balance certification.
+The nine named residuals remain open and must not be concealed or reclassified.
 
 ## 1. Required Owner / Engine PM report (1–60)
 
@@ -26,10 +33,11 @@ require Owner judgment.
    `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; unchanged.
 7. **Roster:** Codex primary recovery/implementation/evidence owner; three independent reviewers:
    engine/save/ledger, UI/D-17A truth, and harness/statistics/management-design/scope.
-8. **Exact changed files:** 83 paths from accepted D-17A through this closure, listed in Appendix A.
-9. **Exact commits:** 25 post-acceptance commits through the documentation parent are listed in
-   Appendix B; the closure-add commit is returned by Git in the final handoff because a commit
-   cannot contain its own hash.
+8. **Exact changed files:** 84 paths from accepted D-17A through Owner acceptance, listed in
+   Appendix A.
+9. **Exact commits:** 27 post-acceptance commits through the accepted implementation candidate are
+   listed in Appendix B; the documentation-only Owner-acceptance commit is returned by Git in the
+   final handoff because a commit cannot contain its own hash.
 10. **Counter-flow:** engaged pull-down-only drift `.04·max(0,A−35)` at tick step 5.5 plus engaged
     reach neutral `.45`; disengaged remains `.58`.
 11. **Awareness equilibrium:** floor-week share `18.32%→2.26%`; ceiling absorption `0%` on all 24
@@ -75,19 +83,16 @@ require Owner judgment.
     `−$5.641M`, A20.49; Q3 makes six films and ends `−$2.374M`, A0. No durable rescue.
 34. **G1–G12:** complete table in Owner Evidence §8: G1 F, G2 P, G3 F, G4 PASS, G5 F, G6 F,
     G7 P/F, G8 P, G9 P, G10 PASS, G11 P/F, G12 P.
-35. **Gate count:** conservative classification 2 PASS, 5 PARTIAL/mixed, 5 FAIL. No clean sweep
-    claimed; production/reference overall is REVIEW_REQUIRED at the Q6 boundary.
+35. **Gate count:** Owner-accepted classification 2 PASS, 5 PARTIAL/mixed, 5 FAIL. No clean sweep
+    is claimed. The artifact's `REVIEW_REQUIRED` Q6 boundary was explicitly adjudicated and accepted.
 36. **Structural residuals:** cash runaway, top economic immortality, week-208 synchronized roster
     wall, P5 dominance, world-led G3, cheap/premium purpose, menu breadth, formal G12 timing.
-37. **E1:** accept engaged `.45` / disengaged `.58` R4 extension, or use unconditional `.45` and
-    rebaseline/strike M0A as rev. 3 specifies.
-38. **E2:** accept the capacity-anchored menu kind under R6, or use the inferior measured fixed
-    triple fallback.
-39. **E3:** awareness is bounded while cash runaway worsens; Owner must accept the disclosed trade
-    or defer pending a separately authorized size-scaling sink.
-40. **E4:** SaveFileV7 is implemented, deterministic and validated; Owner must authorize the bump.
-41. **E5:** BALANCED restores more surprise than MAX-REPAIR at modest extra sign flips; tuple (iii)
-    is dominated. Owner must select/accept BALANCED.
+37. **E1 ACCEPTED:** engaged `.45` / disengaged `.58`, preserving M0A/disengaged compatibility.
+38. **E2 ACCEPTED:** capacity-anchored exact-dollar menu with strict ascent; legacy disengaged menu.
+39. **E3 ACCEPTED AS BOUNDED REPAIR:** awareness is bounded while the cash-runaway tail remains open.
+40. **E4 ACCEPTED:** SaveFileV7 and independently validated publicity persistence/accounting state.
+41. **E5 ACCEPTED:** BALANCED; `discovery-v1` retained; MAX-REPAIR is historical fallback evidence;
+    dominated tuple (iii) rejected.
 42. **D-17A:** all regression tests pass; §3.4/§4.1/§7(b) evidence and Closure T6 are remeasured at
     the current tuple/menu. Accepted historical evidence remains visible and labelled historical.
 43. **D-12:** named engine gates/regressions pass; its old macro balance certification remains stale
@@ -101,7 +106,8 @@ require Owner judgment.
     identity pass; P16 end cash remains exactly `$9,831,504`.
 48. **TypeScript/build:** root + UI typecheck clean; production Vite build clean.
 49. **Production-vs-lab:** 23/23 comparable policy medians/rates pass; P15 NOT_COMPARABLE due frozen
-    predicate defect; Q6 reference 149/300 FAIL vs production 151/300 PASS requires Owner ruling.
+    predicate defect; Q6 production 151/300 plus Rev. 3 A≈30 verification is Owner-accepted as a
+    boundary-sensitive maintenance result. No tuning or additional corpus is required.
 50. **Statistical review:** type-7 quantiles, paired seeds, bootstrap/Wilson tolerance, player-only
     vs all-arm separation and raw-row tournament recomputation retained; provenance is durable.
 51. **Management-game red team:** publicity is an optional costly lever rather than spam/rescue;
@@ -112,16 +118,18 @@ require Owner judgment.
 53. **Lessons:** BE finalized empirically; BK finalized as a governing principle with the cash-tail
     counterexample; BL preserved; BM added for complete experiment identity and fraction/percent
     sentinels.
-54. **Git status:** must be clean after the closure commit and final gate run; final handoff reports
-    exact HEAD/status. No merge or push.
+54. **Git status:** the accepted candidate was clean; the documentation-only acceptance commit is
+    verified clean in the final handoff. No merge or push.
 55. **Financing:** no financing, loans, advances or capital instruments entered.
 56. **Failure ladder:** no bailout, restructuring, acquisition or failure-ladder work entered.
 57. **Art:** no Art source, branch or worktree changed.
 58. **Broader D1-B:** not started.
-59. **Next Engine recommendation:** after rulings, charter a separate research-first milestone for
-    the week-208 roster wall and a size-scaling cash sink; keep financing/failure systems separate.
-60. **Decisions required:** E1, E2, E3, E4, E5; Q6 maintenance-boundary interpretation; acceptance
-    of the partial G1–G12 closure and next-milestone charter. Exact choices are restated in §4.
+59. **Next economic charter AUTHORIZED:** instrument and research the week-208 roster wall and a
+    believable size-scaling cash sink, then re-measure once the richer operating studio exists.
+    Do not introduce financing, loans, bailouts, restructuring or the failure ladder; do not invent
+    an arbitrary sink before authoritative facility/capacity/construction systems are understood.
+60. **Owner decisions resolved:** E1–E5, Q6, the partial G1–G12 closure, and the bounded next
+    investigation charter are accepted exactly as recorded in `docs/D-17B-OWNER-RULINGS.md`.
 
 ## 2. Verification record
 
@@ -140,19 +148,20 @@ tree before continuing. `docs/HANDOFF.md` is marked NOT FOR BUILD; Codex deliber
 or alter it. Its pre-takeover D-17B history remains in the branch and appears in Appendix A. No
 attempt was made to manufacture continuity, erase attribution, or modify frozen evidence.
 
-## 4. Exact Owner rulings requested
+## 4. Exact Owner rulings recorded
 
-| Decision | Accept | Decline/fallback |
-|---|---|---|
-| E1 reach split | authorize engaged `.45`, disengaged `.58` | unconditional `.45`; rebaseline and strike M0A |
-| E2 menu kind | authorize capacity-derived exact dollars | fixed `{350K,775K,1.525M}` fallback |
-| E3 cash tail | accept bounded-awareness / worse-cash trade for D-17B | defer and separately authorize/research size-scaling sink |
-| E4 save | authorize SaveFileV7 | publicity cannot ship in persisted form |
-| E5 DISC | accept BALANCED `.375/4/1.5/.30` | choose MAX-REPAIR; do not choose dominated tuple (iii) |
-| Q6 boundary | accept 151/300 production result plus A≈30 verification | require a new named production A≈30 arm/corpus; do not tune to the old label |
-| Closure | accept honest partial G1–G12 D-17B | return with a precisely bounded correction contract |
+| Decision | Final ruling |
+|---|---|
+| E1 reach split | **ACCEPT** — engaged `.45`, disengaged `.58`; M0A preserved |
+| E2 menu kind | **ACCEPT** — exact capacity-derived dollars with strict ascent |
+| E3 cash tail | **ACCEPT AS BOUNDED D-17B REPAIR** — residual cash tail remains open |
+| E4 save | **ACCEPT** — SaveFileV7 and validated publicity state |
+| E5 DISC | **ACCEPT** — BALANCED; MAX-REPAIR historical; tuple (iii) rejected |
+| Q6 boundary | **ACCEPT** — 151/300 plus A≈30 verification; boundary-sensitive, not broad certification |
+| G1–G12 closure | **ACCEPT** — 2 PASS / 5 PARTIAL or mixed / 5 FAIL |
+| Next charter | **AUTHORIZED FOR INVESTIGATION** — instrument and research before any cash-sink design |
 
-## Appendix A — exact changed files (83, accepted D-17A through this closure)
+## Appendix A — exact changed files (84, accepted D-17A through Owner acceptance)
 
 ```text
 docs/D-17A-CLOSURE.md
@@ -161,6 +170,7 @@ docs/D-17B-CANDIDATE-DESIGN-CONTRACT.md
 docs/D-17B-CLOSURE.md
 docs/D-17B-OWNER-AUTHORIZATION.md
 docs/D-17B-OWNER-EVIDENCE.md
+docs/D-17B-OWNER-RULINGS.md
 docs/D-17B-PROGRAM-LOG.md
 docs/D-17B-RECOVERY-REPORT.md
 docs/HANDOFF.md
@@ -240,7 +250,7 @@ ui/src/screens/d17b-truth-surfaces.test.tsx
 ui/src/session.test.tsx
 ```
 
-## Appendix B — exact post-acceptance commits through the closure-document parent
+## Appendix B — exact post-acceptance commits through the accepted implementation candidate
 
 ```text
 52c5f0c35a12be7d07c2651626ecbf6838d060cc D-17A: record Owner acceptance; authorize D-17B (docs only)
@@ -268,4 +278,6 @@ bb8b17f7438a943ae258c827144a935e79e48d45 D-17B review: repair exact parity and e
 d3e767173c5dc0279539de5adc24c689e7519644 D-17B evidence: correct governed comparator policy ids
 a48862b871bc487e6d449891b536a9db616e1373 D-17B evidence: treat paired N-A recovery rates as agreement
 80c5a7d28e335902913f4ce33e8049ec07dd1758 D-17B evidence: record final production findings
+54f9dbf51efad9ffe330343c51406a959e4cd22b D-17B closure: return candidate for Owner review
+51ec93e33e261b70a68c0acd20f4da5708930179 D-17B closure: stamp final verification gates
 ```

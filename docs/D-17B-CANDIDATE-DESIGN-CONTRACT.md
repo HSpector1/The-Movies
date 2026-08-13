@@ -1,5 +1,10 @@
 # D-17B — Candidate Design Contract (rev. 3 — §2/§6 restated on the exact final stack)
 
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+> Owner / Engine PM accepted E1–E5, the boundary-sensitive production Q6 result plus the Rev. 3
+> A≈30 verification, and the honest partial G1–G12 outcome on 2026-08-13. This contract remains the
+> frozen design/proof record; `docs/D-17B-OWNER-RULINGS.md` is the final disposition.
+
 **Rev. 3 note (2026-08-13):** the first full-stack reference corpus (`d17b-final-reference`) was
 DEFECTIVE — its publicity config carried `saturation: 1` (a percent scale; lift ≡ 0 for any
 awareness ≥ 1), so its seven buying arms measured pure cash burn. A focused verification
@@ -27,8 +32,10 @@ against THIS revision. Authority: `docs/D-16-OWNER-RULINGS.md` (R4/R5/R6/R9/R10)
 `docs/D-17B-PROGRAM-LOG.md`. Every number traces to the lab record; the independent reviewer
 re-verified 21 load-bearing figures to the digit.
 
-## 0. Escalations — Owner rulings REQUIRED at review (none blocks implementation; each has a
-recorded fallback)
+## 0. Historical escalations — RESOLVED by final Owner ruling
+
+E1–E5 were all accepted on 2026-08-13 exactly as implemented. The pre-ruling cases and fallbacks
+below remain historical design evidence; they are not open choices. See `docs/D-17B-OWNER-RULINGS.md`.
 
 - **E1 (R4 extension):** `AWARENESS_REACH_NEUTRAL` is NOT engaged-gated at HEAD
   (`standing.ts:107`; tick step 4 ungated; the disengaged reception branch reads awareness).
