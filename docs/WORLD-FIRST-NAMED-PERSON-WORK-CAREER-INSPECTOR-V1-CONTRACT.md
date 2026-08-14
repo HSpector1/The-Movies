@@ -52,10 +52,12 @@ The repository, not an assumed design, establishes these current facts:
    exact managed facility/location, Director identity, shooting-task status, blocker, and current
    command. These are production facts. The projection does not identify the Lead actor, so an
    exact Lead-to-operation join cannot currently be independently checked at the Lot boundary.
-5. Managed production location is authoritative: Development maps to Development, Pre-production
-   to Casting, Rehearsal/Shooting to the exact reserved soundstage, Post-production to Post, and
-   Release Ready to the Theater/release desk. The production's facility is not automatically a
-   person's current room or destination.
+5. Managed production location is authoritative: Development maps to the Development/Writers
+   building, Pre-production to Casting, Rehearsal/Shooting to the exact reserved soundstage,
+   Post-production to Post, and Release Ready to the Theater/release desk. The production's
+   facility is not automatically a person's current room or destination. The existing Shooting
+   facility label may aggregate the soundstage and Scenery Shop, so it is a facility list rather
+   than one singular location.
 6. Only a managed Shooting Director has a personal task with a soundstage destination. Leads have
    no personal call, reservation, destination, or facility-occupancy record. `remainingTicks` is
    the picture's countdown, not a guaranteed personal completion date.
@@ -108,7 +110,7 @@ Define one pure Lot selector equivalent to `lotPersonWorkContext(snapshot, perso
 It returns one of these bounded states:
 
 - **managed production** — exact person, exact Director/Lead role on the picture, exact production
-  identity, phase, picture facility/location, production status, production weeks remaining, and
+  identity, phase, mapped production building and facility list, production status, production weeks remaining, and
   the existing Director task status where applicable;
 - **legacy production** — exact person/role, production identity, `Legacy production schedule`,
   status, and production weeks remaining, with no authoritative workplace;
@@ -126,6 +128,9 @@ require:
 - Director Lot role joins only the operation Director;
 - Talent Lot role joins only the operation Lead;
 - person production ID/title equal operation production ID/title;
+- production work requires `authority: 'active-production'` with both production fields non-null;
+- roster work requires `authority: 'studio-roster'`, both production fields null, and zero
+  operation-participant matches for that person;
 - managed mode carries `stageAssignmentAuthority: 'engine'`;
 - legacy mode never upgrades a presentation stage into a workplace; and
 - the selected person's role/production does not also occur on another operation.
@@ -146,7 +151,7 @@ For an exact managed production participant, the in-world inspector shows:
 - `Director` or `Lead actor` as the person's role on the picture;
 - the exact picture title;
 - the exact production phase;
-- `Picture location`, using the existing production facility label;
+- `Production facilities`, using the existing production facility label;
 - the exact production status;
 - `N production weeks remaining`, explicitly labelled as a production countdown; and
 - for the Director only, the existing shooting-task status when one exists.
@@ -156,13 +161,22 @@ the picture's facility. For non-shooting phases it must not turn the production'
 individual action verb. For a legacy participant it must say `Legacy production schedule` and
 `Workplace not recorded`; it must not display the presentation-assigned stage as authoritative.
 
-For a roster person, show only exact canonical Talent Profile assignment state: available, engaged
-on a named production, or assigned to a named screenplay. Do not infer employment from Lot
-provenance. When the work join is unavailable, show an explicit unavailable statement and no
-production/facility/task claim.
+Before showing any assignment copy or enabling the canonical profile handoff, use one
+uniqueness-aware assignment gate over every active production role and active screenplay
+assignment for the selected person. Exactly zero assignments means `Available for assignment`.
+Exactly one means engaged on that named production or screenplay. More than one is ambiguous and withholds both
+assignment copy and the drawer handoff; it must never reuse the existing last-write-wins map.
 
-For every selected person whose exact public Talent Profile matches ID, name, and role, show one
-compact career line from the existing public career-identity selector:
+For a roster person, show only that gated assignment state. Do not infer employment from Lot
+provenance. When the work join or assignment gate is unavailable, show an explicit unavailable
+statement and no production/facility/task claim.
+
+For every selected person whose exact public Talent Profile matches unique ID and name and passes
+the unambiguous assignment gate, show one compact career line from the existing public career-
+identity selector. Do not compare the Lot assignment role with the profile's primary profession:
+cross-discipline careers deliberately allow a primary Writer, Actor, Director, or Craft Lead to
+fill another discipline. Exact operation participant fields alone own the person's assigned
+Director/Lead role on this picture; Talent Profile owns their separate career-home truth.
 
 - established credited identity labels when present; or
 - the primary discipline plus `not yet proven` when no credited identity exists.
@@ -170,6 +184,10 @@ compact career line from the existing public career-identity selector:
 Do not recompute credits, OVR, tier, work history, availability, or career identity in React. The
 canonical drawer remains the owner of detailed proficiencies, star power, work ethic, temperament,
 assignment status, and career-history cards.
+
+This is a separate canonical adapter/profile seam. `lotPersonWorkContext` remains snapshot-only;
+it must not absorb `GameState`, reconstruct Talent Profile facts, or recompute career/assignment
+truth.
 
 ## Canonical profile overlay and live-world continuity
 
@@ -196,8 +214,10 @@ down-event families as a defensive DOM boundary.
 
 Close through the drawer button, Escape, or scrim activation. Focus returns to the exact `Open
 talent profile` button that opened the drawer. The person remains selected and the button remains
-in the same inspector. If the authoritative person disappears while open, the existing profile is
-closed or withheld safely; it must never transfer to another person.
+in the same inspector. If the authoritative person disappears while open, close the profile,
+clear its open ID so it cannot auto-reopen if that person later reappears, and move focus to the
+named-people group when it still exists or the Lot heading otherwise. A detached opener is not an
+acceptable focus target, and the profile must never transfer to another person.
 
 ## Semantic, physical, and failure parity
 
@@ -211,7 +231,7 @@ only presentation motion. It does not alter identities, facts, selection, modal 
 profile content.
 
 Stage 12 remains exact even though the current authored district plate depicts Soundstage 7. The
-inspector may report the authoritative picture facility and preserve the existing Stage 12
+inspector may report the authoritative production facilities and preserve the existing Stage 12
 fallback copy, but it must not invent a visible Stage 12 person destination or coordinates.
 
 ## Explicit exclusions
@@ -249,7 +269,9 @@ Tests must prove:
    stale ID/title/name, missing Lead fields, and unknown provenance fail closed;
 6. managed empty, legacy empty/one/two, roster fallback, and omitted legacy-operation compatibility;
 7. legacy workplace remains unavailable even when the presentation stage is stable; and
-8. the public projection contains no hidden actual talent, route, coordinate, workload, need, or
+8. zero/one/multiple whole-studio assignments resolve to available/exact/ambiguous without a
+   last-write-wins label, including production + screenplay conflicts; and
+9. the public projection contains no hidden actual talent, route, coordinate, workload, need, or
    relationship field.
 
 ### React host and modal
@@ -262,15 +284,19 @@ Focused component/App tests must prove:
 4. person, place, production, Scenery, and Annex context ownership still clears only the correct
    prior context;
 5. `Open talent profile` opens the exact canonical profile for the selected ID;
-6. close button, Escape, and scrim close restore focus to that exact opener;
-7. one identical canvas DOM node and one view instance survive open/close, with person selection
+6. duplicate/mismatched ID or name and the uniqueness-aware assignment gate fail closed before
+   career copy or drawer handoff, while a legal cross-discipline primary profession remains valid;
+7. close button, Escape, and scrim close restore focus to that exact opener;
+8. a selected person disappearing while the drawer is open closes it once, clears the open ID,
+   does not auto-reopen on reappearance, and focuses the named-people group or Lot heading;
+9. one identical canvas DOM node and one view instance survive open/close, with person selection
    and camera framing retained;
-8. modal pointer/down families and camera keys cannot select, pan, zoom, command, or advance the
+10. modal pointer/down families and camera keys cannot select, pan, zoom, command, or advance the
    world behind it, including a key held across modal entry;
-9. delayed renderer readiness and document visibility do not defeat input suspension;
-10. full SaveFileV11 export bytes, RNG, ledger, week, cash, production, tasks, and people are
+11. delayed renderer readiness and document visibility do not defeat input suspension;
+12. full SaveFileV11 export bytes, RNG, ledger, week, cash, production, tasks, and people are
     unchanged by select/open/inspect/close; and
-11. renderer failure, reduced motion, direct load, and supported responsive sizes retain the full
+13. renderer failure, reduced motion, direct load, and supported responsive sizes retain the full
     semantic path without horizontal overflow.
 
 ### Browser and live play
