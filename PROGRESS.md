@@ -25,12 +25,16 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 - **World-First Scenery Load-In V1:** CLOSED by this documentation checkpoint; the physical
   Scenery & Service yard now owns an exact same-lot blocked → ready → scheduled interaction while
   the Engine remains the sole task authority.
-- **World-First Studio Home V1:** CLOSED by this documentation checkpoint under contract
-  `8d5f8dd` and implementation `0c4bd9d`; founded, recovered, and loaded operating studios now
-  enter the adopted Hollywood Lot by default while Dashboard remains an explicit supporting root.
-- **Next playable milestone:** World-First Named Person Work & Career Inspector V1 — instrument
-  and freeze the smallest truthful in-world inspection of one named person's existing work and
-  career state without adding a second people simulation or new career law.
+- **World-First Studio Home V1:** CLOSED at `5a20a24` under contract `8d5f8dd` and implementation
+  `0c4bd9d`; founded, recovered, and loaded operating studios enter the adopted Hollywood Lot by
+  default while Dashboard remains an explicit supporting root.
+- **World-First Named Person Work & Career Inspector V1:** CLOSED by this documentation checkpoint
+  under corrected contract `c5c1679` and implementation `04f7d9d`; an exact visible Director or
+  Lead now exposes truthful work, assignment, and career context in the Lot and opens the canonical
+  profile over the same mounted living world.
+- **Immediate next evidence step:** replay the Owner's several-minutes-on-Lot experience against the
+  retained inspector and promote only the observed highest-leverage break. No persistent-shell,
+  queue, parallel-production, or new human-story milestone is pre-authorized by this close.
 
 ## Closed marathon milestones
 
@@ -51,7 +55,8 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Live Week Advance V1 | `3391528` | `621e7e1` | `a9be116` |
 | World-First Annex Construction Interaction V1 | `6cab9c9` | `7a370fd` | `933d074` |
 | World-First Scenery Load-In V1 | `b03bb10` | `3a667e0` | this documentation checkpoint |
-| World-First Studio Home V1 | `8d5f8dd` | `0c4bd9d` | this documentation checkpoint |
+| World-First Studio Home V1 | `8d5f8dd` | `0c4bd9d` | `5a20a24` |
+| World-First Named Person Work & Career Inspector V1 | `c5c1679` (`9bd075b` initial freeze) | `04f7d9d` | this documentation checkpoint |
 
 ## Product result so far
 
@@ -66,13 +71,20 @@ second clock or logistics simulation. Studio Home V1 closes entry ownership: ord
 restored, and loaded studios now open on the Hollywood Lot, and typed supporting routes return to
 their exact Lot or Dashboard root against the same authoritative state.
 
-Deep screens still unmount and later remount the Lot. V1 persists bounded selected-building/focus
-context and authoritative GameState; it does not preserve the same Phaser instance, camera, selected
-person, or other transient world presentation. Final proof passed 165/165 files and 2,069/2,069
-tests, the governed D-16/D-17 10/10 files and 176/176 tests, 114/114 Chromium before the final
-harness-neutrality correction followed by the affected Studio Home paths at 5/5 under hostile
-inherited rollback env, a 134-module production build, and clean final review. The strongest
-observed break is now truthful named-person work and career inspection from the world.
+Named people now have a truthful world-first inspection path. Exact visible Director and Lead
+identity joins through the current operations snapshot to role on picture, phase, facilities,
+status, countdown, assignment, and career identity. Ambiguous or contradictory joins fail closed.
+The canonical Talent Profile opens modally without unmounting, pausing, or replacing the Lot;
+world input is suspended while the renderer remains alive, and closure returns to the exact visible
+person or a stable Lot fallback when identity changes.
+
+Deep non-modal screens still unmount and later remount the Lot. Studio Home persists bounded
+selected-building/focus context and authoritative GameState; it does not preserve the same Phaser
+instance, camera, selected person, or other transient world presentation through those routes.
+Inspector closure proof passed 167/167 repository files and 2,095/2,095 tests, the governed
+D-16/D-17 10/10 files and 176/176 tests, the complete Chromium suite at 117/117, a 135-module
+production build, clean TypeScript/diff gates, and clean independent final review. The next
+priority must come from a fresh several-minutes-on-Lot observation, not feature-list completion.
 
 ## Governing status
 
@@ -80,7 +92,7 @@ observed break is now truthful named-person work and career inspection from the 
 
 Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
 dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
-and formal G12 timing remain open. Studio Home V1 certifies no macroeconomic balance and authorizes
-no financing, bailout, restructuring, failure ladder, or arbitrary cash sink.
+and formal G12 timing remain open. Named Person Inspector V1 certifies no macroeconomic balance and
+authorizes no financing, bailout, restructuring, failure ladder, or arbitrary cash sink.
 
 No merge to main, push, or milestone tag is authorized by autonomous progress alone.

@@ -193,3 +193,35 @@ Owner rulings remain the authority when a summary here conflicts with them.
   RESIDUALS REMAIN OPEN**. Cash runaway, top-studio economic immortality, the week-208 synchronized
   roster wall, P5 dominance, world-led variance, cheap-film purpose, premium-film purpose,
   remaining menu breadth, and formal G12 timing remain open; Studio Home certifies no macro balance.
+
+## 2026-08-14 — World-first named-person work and career inspection closes
+
+- Froze the initial contract at `9bd075b`, corrected its cross-model authority and hostile-state
+  boundaries at `c5c1679`, and delivered implementation `04f7d9d`.
+- Added one pure snapshot work selector that joins an exact visible person to a unique authoritative
+  production operation or honest roster state and rejects contradictory provenance, duplicate
+  operations, stale names/titles/IDs, dual roles, and cross-production reuse.
+- Kept legal cross-discipline work truthful: exact operation membership owns `Director` or
+  `Lead actor`; Talent primary discipline remains separate career-home truth.
+- Added an ambiguity-aware whole-studio production/script assignment gate so career/profile copy
+  never inherits the existing last-write-wins ambiguity of a hostile accepted state.
+- Exposed exact role, picture, phase, facilities/workplace boundary, status, countdown, Director
+  task, assignment, and career identity in the world, with explicit unavailable copy where the
+  current sources cannot prove more.
+- Opened the one canonical Talent Profile as a modal over the same mounted canvas. The world keeps
+  rendering while pointer, wheel, touch, drag, and keyboard input are suspended; scrim gestures
+  cannot scroll the live Lot and drawer scrolling remains available.
+- Hardened raw-ID invalidation, disappearance/name change, duplicate profile, ambiguous assignment,
+  lost participant truth, delayed renderer readiness, hidden-tab mounting, renderer rejection,
+  reduced motion, final Lead-command focus, and no-auto-reopen behavior.
+- Changed no core Engine, GameState, SaveFileV11, schema, migration, production law, career
+  progression, facility, construction, economy, publicity, RNG, ledger, Role Atlas, or pathfinding
+  authority.
+- Closed implementation proof with 167/167 repository files and 2,095/2,095 tests, 10/10 governed
+  D-16/D-17 files and 176/176 tests, 117/117 full Chromium, a 135-module production build, clean
+  TypeScript/diff gates, and independent final review with no P1–P3 findings.
+- Did not invent a successor. The immediate next action is the post-inspector several-minutes-on-Lot
+  audit, which must select the next repair from observed play rather than feature-list completeness.
+- Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
+  RESIDUALS REMAIN OPEN**. Every accepted residual remains open and no financing, bailout,
+  restructuring, failure ladder, or arbitrary cash sink was introduced.

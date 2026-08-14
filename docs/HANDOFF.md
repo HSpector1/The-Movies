@@ -1,27 +1,40 @@
 # Project: Studio — Engineering Handoff
 
-> ## 🎬 2026-08-14 — CURRENT: Studio Home V1 CLOSED; World-First Named Person Work & Career Inspector V1 next
+> ## 🎬 2026-08-14 — CURRENT: World-First Named Person Work & Career Inspector V1 CLOSED
 >
-> Frozen contract [`8d5f8dd`](WORLD-FIRST-STUDIO-HOME-V1-CONTRACT.md) and implementation
-> `0c4bd9dade7ef866900dfd7d4557cb18fb69653f` make the adopted Hollywood Lot the ordinary home for
-> founded, recovered, and loaded operating studios. This documentation checkpoint closes
-> the milestone. Dashboard remains an explicit supporting/root-compatible destination; typed
-> origin carries bounded deep/release/Chronicle returns; explicit overview and Hollywood rollbacks
-> remain supported; and accepted studio replacement clears cross-studio selection memory.
+> Corrected frozen contract [`c5c1679`](WORLD-FIRST-NAMED-PERSON-WORK-CAREER-INSPECTOR-V1-CONTRACT.md)
+> and implementation `04f7d9da01a1f609b54430c4a0265d7cdd637b4a` make visible named Directors
+> and Lead actors operationally understandable from the living Hollywood Lot. The initial contract
+> freeze `9bd075b` is historical; `c5c1679` is the implementation authority. Physical and semantic
+> selection resolve the same exact person and show role on the picture, picture, phase, production
+> facilities, status, production countdown, and the Director's existing task where applicable.
+> Production work is joined by exact ID, name, role, picture identity, operation identity, and
+> provenance; public assignment/career truth comes from a separate uniqueness-aware GameState
+> adapter and the existing canonical Talent Profile. A person's primary discipline remains career
+> truth, not a constraint on a legal cross-discipline picture role.
 >
-> **Continuity is bounded and must not be overstated.** Deep screens unmount `StudioLotScreen` and
-> destroy its Phaser view, then remount one Lot against the current authoritative `GameState`.
-> Selected-building/focus context persists where contracted. The same Phaser instance, camera,
-> selected person, production/place/Scenery/Annex presentation context, and animation do not.
-> Studio Home changed no Engine, SaveFileV11, RNG, economy, production, construction, publicity,
-> facility, or task authority.
+> Duplicate, stale, contradictory, cross-production, dual-role, missing-participant, unknown-
+> provenance, or multiply assigned identity fails closed: work, assignment, career copy, and the
+> profile handoff are withheld rather than guessed or resolved first/last. The existing canonical
+> profile opens as an overlay above the same mounted Lot and same canvas; world pointer, mouse,
+> touch, wheel, and keyboard input is suspended while renderer animation and ambience remain alive.
+> Closing restores the exact opener and world context. Identity loss or drift closes the raw profile
+> ID once, prevents automatic reopening, and focuses the stable named-people group or Lot heading.
+> Renderer rejection retains the full semantic person/profile path, and reduced motion changes only
+> motion—not identity, facts, or actions.
 >
-> Final proof: **165/165 files, 2,069/2,069 tests**; governed D-16/D-17 **10/10 files,
-> 176/176 tests**; Chromium **114/114 before the final harness-neutrality correction, then the
-> affected Studio Home paths 5/5 under hostile inherited rollback env**; production build
-> **134 modules**; TypeScript/diff gates and independent final review clean. Next:
-> **World-First Named Person Work & Career Inspector V1**, beginning with instrumentation and a
-> frozen bounded contract—no new people autonomy, career law, or second simulation.
+> Final proof: **167/167 files, 2,095/2,095 tests**; governed D-16/D-17 **10/10 files,
+> 176/176 tests**; production build **135 modules**; full Chromium **117/117**; TypeScript and
+> independent strict review clean. No Engine/GameState, SaveFileV1–V11, economy, RNG, ledger,
+> production, facility, construction, publicity, career-history, or clock behavior changed.
+> Protected anchors remain untouched: `main` =
+> `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =
+> `35d42687a410a621becf1df35c75986657f8c44e`; Operation Hollywood bridge =
+> `623b8b2a80e9c6b85304eaa2a338b6045e8f6b21`.
+>
+> Next selection is evidence-led, not predeclared: perform the post-inspector several-minutes-on-Lot
+> observation and choose among the already documented world-first gaps. Do not invent a milestone
+> merely to fill the roadmap.
 >
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 >

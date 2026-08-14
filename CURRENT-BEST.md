@@ -4,7 +4,7 @@ Updated: 2026-08-14
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current implementation HEAD: `0c4bd9dade7ef866900dfd7d4557cb18fb69653f`
+Current implementation HEAD: `04f7d9da01a1f609b54430c4a0265d7cdd637b4a`
 
 ## Product doctrine — World First
 
@@ -108,8 +108,40 @@ whether the game remains playable.
   founding, recovery, and accepted load; Dashboard remains an explicit supporting destination and
   typed root context returns bounded deep/release/Chronicle paths to their exact Lot or Dashboard
   owner.
+- World-First Named Person Work & Career Inspector V1 makes an exact visible Director or Lead a
+  truthful world inhabitant: Lot selection exposes existing work, production, assignment, and
+  career identity, then opens the one canonical Talent Profile over the same mounted live renderer.
 
 ## Current world-first checkpoint
+
+World-First Named Person Work & Career Inspector V1 is closed by this documentation checkpoint at
+implementation authority `04f7d9d` under corrected contract `c5c1679` (initial freeze `9bd075b`):
+
+- one snapshot-only selector accepts only unique, internally consistent managed/Engine or
+  legacy/presentation person-to-operation joins and fails contradictory identity/provenance closed;
+- exact operation membership, never Talent primary discipline, owns `Director` or `Lead actor` on
+  the picture, so legal cross-discipline work remains truthful;
+- a separate whole-studio assignment gate withholds assignment, career, and profile handoff on
+  duplicate or ambiguous production/script use instead of leaking last-write-wins copy;
+- the world inspector exposes only existing role, picture, phase, facilities/workplace boundary,
+  status, countdown, Director task where applicable, assignment, and career identity facts;
+- the canonical Talent Profile is a modal sibling over the same mounted Lot/canvas. Renderer
+  animation remains live while Phaser and semantic world input are inert, including delayed-ready,
+  hidden-tab, reduced-motion, and recreation paths;
+- disappearance, changed name, duplicate identity, lost operation membership, ambiguous
+  assignment, or missing profile closes the raw open ID once, prevents automatic reopening, and
+  restores focus to the named-people group or Lot heading;
+- renderer rejection retains the complete semantic person/profile route; accepted commands retain
+  exact Engine ownership and Lead final-command focus returns to the stable person inspector; and
+- final proof passed 167/167 repository files and 2,095/2,095 tests, governed D-16/D-17 10/10 files
+  and 176/176 tests, full Chromium 117/117, a 135-module production build, clean TypeScript/diff
+  gates, and independent review with no P1–P3 findings.
+
+No core Engine, GameState, SaveFileV11, schema, migration, production law, career progression,
+facility, construction, economy, publicity, RNG, ledger, Role Atlas asset, or pathfinding authority
+changed.
+
+## Prior world-first checkpoint — Studio Home V1
 
 World-First Studio Home V1 is closed by this documentation checkpoint at implementation authority
 `0c4bd9d` under frozen contract `8d5f8dd`:
@@ -183,6 +215,8 @@ production and integration remain unauthorized.
 - World-First Scenery Load-In V1 implementation: `3a667e05986579d6474878f238d1c6dbc4a7e362`
 - World-First Studio Home V1 contract: `8d5f8dd95a64a6a863b5612cc44cf1a45cf0f599`
 - World-First Studio Home V1 implementation: `0c4bd9dade7ef866900dfd7d4557cb18fb69653f`
+- Named Person Inspector V1 corrected contract: `c5c1679a1eee3ff82655ac59c80af54c8c6f52e0`
+- Named Person Inspector V1 implementation: `04f7d9da01a1f609b54430c4a0265d7cdd637b4a`
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -191,24 +225,15 @@ roster wall, P5 dominance, world-led variance, cheap-film purpose, premium-film 
 menu breadth, and formal G12 timing. No financing, loans, bailouts, restructuring, failure ladder,
 or arbitrary cash sink is authorized.
 
-## Current highest-leverage gap
+## Current highest-leverage evidence step
 
-The player now enters the Hollywood Lot by default and can select an exact Stage 7 production,
-assign its named Director, watch travel, resolve scenery, schedule the take, advance the Engine
-week, and inspect/build/advance the Annex. The next observed world-first break is
-**World-First Named Person Work & Career Inspector V1**: role-readable inhabitants are visible,
-but selecting one does not yet explain that exact person's existing authoritative work and career
-truth at the point of observation.
-
-Instrument and freeze the person-selection/read-model boundary before implementation. Reuse exact
-Role Atlas identity, production participants, current assignment/availability truth, and the
-existing Talent Profile/career history. The bounded target should expose only facts already owned by
-Engine/GameState or established read models, provide honest unavailable states, keep the accessible
-semantic companion in parity, and retain an explicit route to deeper profile detail when needed.
+Re-run the Owner's several-minutes-on-Lot experience now that an exact named inhabitant's work and
+career can be understood without leaving the world. Observe which continuity break most reduces
+meaningful Lot play: deep-panel remount/context, facility occupancy and queues, parallel-production
+legibility, or an independently authoritative workload/human-story system. Freeze only the smallest
+observed repair; this checkpoint does not pre-authorize any one candidate.
 
 Do not invent worker autonomy, needs, relationships, stress/fatigue, pathfinding authority, new
-career progression, UI-authored work state, or a second people model. Do not claim deep-screen
-camera/person persistence: Studio Home V1 remounts the Lot and retains only its contracted
-selected-building/focus plus authoritative state. Visible queues/occupancy and parallel-production
-legibility remain later observed gaps. Week-208 research remains closed with no current repair
-justified; the underlying roster-wall residual and every other accepted D-17B residual remain open.
+career progression, UI-authored work state, or a second people model. Week-208 research remains
+closed with no current repair justified; the underlying roster-wall residual and every other
+accepted D-17B residual remain open.

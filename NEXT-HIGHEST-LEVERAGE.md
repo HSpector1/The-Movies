@@ -64,34 +64,35 @@ Phaser instance, camera, selected person, production/place context, and presenta
 not. Final proof passed 165/165 files and 2,069/2,069 tests, D-16/D-17 10/10 files and 176/176
 tests, 114 Chromium checks plus 5/5 post-harness checks, a 134-module build, and clean review.
 
-## Next candidate — World-First Named Person Work & Career Inspector V1
+## Closed — World-First Named Person Work & Career Inspector V1
 
-Instrument first, then freeze the smallest world-first inspector for one exact named inhabitant.
-The Lot now owns ordinary entry and contains role-readable people, but it does not yet let the
-player select one inhabitant and understand their existing authoritative work and career truth at
-the point of observation.
+Corrected contract `c5c1679` (historical initial freeze `9bd075b`) and implementation `04f7d9d`
+close the smallest truthful world-first inspector for one exact named inhabitant. Unique Role Atlas
+identity and exact operation membership expose Director/Lead work facts; an ambiguity-aware
+whole-studio gate protects assignment/career/profile copy; and the canonical Talent Profile opens
+over the same mounted live Lot with world input suspended and renderer animation retained.
 
-Expected minimum:
+Hostile identity, provenance, assignment, profile, delayed-readiness, hidden-tab, renderer-failure,
+reduced-motion, and focus paths fail closed. No Engine/GameState/SaveFileV11, production, career,
+facility, economy, RNG, ledger, Role Atlas, autonomy, or pathfinding law changed. Final proof passed
+167/167 repository files and 2,095/2,095 tests, D-16/D-17 176/176, full Chromium 117/117, a
+135-module build, and clean review.
 
-- inventory the current person-selection, Role Atlas, production-participant, Talent Profile, and
-  career-history authorities before choosing an interaction shape;
-- bind the inspector to one exact visible person identity, never sprite order, role label alone, or
-  a presentation guess;
-- show only existing authoritative work/assignment, production involvement, availability, and
-  career facts; show workplace/destination only where an existing source owns it, with honest
-  unavailable states everywhere else;
-- keep world selection and the accessible semantic companion in parity and retain a clear route to
-  the existing deep Talent Profile when more detail is needed;
-- measure the remount boundary honestly rather than claiming camera/person persistence that Studio
-  Home V1 does not provide;
-- preserve Engine/GameState, SaveFileV11, RNG, economy, production, facilities, tasks, career
-  progression, and Role Atlas authority; and
-- add no autonomous needs, relationships, stress/fatigue mechanics, pathfinding authority, new
-  career simulation, duplicate person model, or UI-authored work state.
+## Immediate priority — post-inspector critical-experience audit
 
-The smallest honest result may be a bounded in-world inspector plus an origin-safe handoff to the
-existing profile. A persistent shell or richer person simulation must not be smuggled into this
-slice.
+Replay the several-minutes-on-Lot test against the retained game before naming another slice:
+
+- select a real production and inspect its physical stage;
+- click its real blockage, dispatch the exact named Director, and observe travel;
+- clear scenery and schedule the take without leaving the Lot;
+- inspect the Director and Lead, including the canonical modal profile handoff;
+- inspect or initiate Annex construction and advance the authoritative week; and
+- attempt to follow a second production, facility bottleneck, or human story from the world.
+
+Record the first meaningful continuity break and promote only its smallest authoritative repair.
+Candidate observations remain persistent Lot mounting/context, visible facility occupancy/queues,
+parallel-production legibility, or a separately authorized human workload/story system. No
+candidate is preselected by inspector closure.
 
 ## Closed parallel evidence lane
 
@@ -116,12 +117,10 @@ construction, or operating costs materially change the decision boundary.
 - financing, loans, bailouts, restructuring, hard bankruptcy, or a failure ladder; or
 - revival of rejected 05H/05I character production.
 
-## After the slice
+## After the audit
 
-Re-run the several-minutes-on-lot test after a named inhabitant's current work and career can be
-understood in world. Then choose the next observed break among persistent lot mounting/context,
-visible facility occupancy/queues, parallel production legibility, or a separately authorized
-human workload/story system. Choose from observed play, not menu completeness.
+Freeze the observed authority boundary before implementation. Choose from play evidence, not menu
+completeness, and preserve every prohibition above.
 
 The governing economic classification remains exactly:
 

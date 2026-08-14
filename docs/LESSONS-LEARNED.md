@@ -2729,3 +2729,57 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   read-model outcome rather than a hand-shaped narrative.
 - **Pattern:** regenerate → validate native envelope and invariants → render. **Anti-pattern:** reuse
   unknown local bytes or mutate ledger-reconciled cash to manufacture an evidence state.
+
+---
+
+# World-First Named Person Work & Career Inspector V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Corrected contract `c5c1679` (initial freeze `9bd075b` is historical); implementation `04f7d9d`.
+
+## DR. Cross-model identity joins need exact authority and cardinality — **MG, BR**
+
+- **Risk:** joining a Lot person to an operation or profile by name, title, array order, or the
+  profile's primary discipline can silently transfer work between people or reject a legal
+  cross-discipline assignment. A last-write-wins engagement map has the same failure in hostile
+  multi-assignment state.
+- **Resolution:** keep the pure Lot work join snapshot-only and require one exact person plus one
+  exact operation participant across ID, name, role, picture ID/title, and provenance. Separately
+  scan every GameState production role and active screenplay assignment as a zero/one/many gate,
+  then require unique profile ID/name and exact assignment identity before career copy or handoff.
+  The operation owns role on this picture; Talent Profile owns career-home truth.
+- **Coverage / fastest diagnostic:** duplicate an operation, reuse one ID across two pictures or a
+  screenplay, change one name/title/provenance field, and give a primary Writer the Director slot.
+  Every ambiguous case must withhold detail while the legal cross-discipline case remains exact.
+- **Pattern:** exact per-model authority + explicit cardinality + bounded join. **Anti-pattern:**
+  convenient equality, first/last match, or treating career identity as assignment authority.
+
+## DS. Modal input suspension and renderer liveness are separate concerns — **BR**
+
+- **Risk:** focus trapping alone does not stop Phaser's global pointer, wheel, or camera-key input;
+  destroying or pausing the renderer to solve that leak breaks the promise of one continuously
+  inhabited Lot.
+- **Resolution:** contain pointer/mouse/touch/wheel families at the modal boundary and suspend the
+  existing scene input plugins, clearing held keys and drag latches on both transitions. Preserve
+  the mounted view, game, canvas, animation, and ambience, and carry suspension through delayed
+  renderer readiness and document visibility changes.
+- **Coverage / fastest diagnostic:** attack the covered canvas directly with every input family and
+  a key held across modal entry, then close and compare the canvas node/marker, camera, selection,
+  save bytes, and URL. Repeat with delayed construction and hide/resume.
+- **Pattern:** live renderer + inert controls + defensive DOM containment. **Anti-pattern:** assuming
+  a focus trap blocks world input, or recreating the world for a supporting overlay.
+
+## DT. A profile handoff must fail closed for its entire open lifecycle — **MG, BR**
+
+- **Risk:** a profile that was exact when opened can become stale after a save replacement, person
+  disappearance, name drift, duplicate identity, operation change, or assignment ambiguity. Keeping
+  only a resolvable ID can transfer the overlay to changed identity or auto-reopen it later.
+- **Resolution:** revalidate unique Lot identity, unique profile ID/name, exact work membership, and
+  unambiguous assignment on every render. On any loss, clear the App-owned raw ID once, clear stale
+  person/production context as applicable, and focus the named-people group or Lot heading rather
+  than a detached opener. Renderer rejection still preserves the same semantic handoff; reduced
+  motion changes presentation only.
+- **Coverage / fastest diagnostic:** mutate or remove the selected person while the canonical drawer
+  is open, then restore the old ID. Require one close, no transfer or automatic reopen, stable world
+  focus, and no Engine/GameState/SaveFile/RNG/ledger change.
+- **Pattern:** exact open gate + continuous revalidation + stable fallback focus. **Anti-pattern:**
+  validating only at click time or letting raw ID resolvability define identity.
