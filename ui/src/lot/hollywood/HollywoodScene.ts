@@ -6,6 +6,7 @@ import type {
   StudioLotSnapshot,
 } from '../snapshot/StudioLotSnapshot'
 import { operationalAnnexWorkContext } from '../snapshot/annexWork.ts'
+import { gateHiringCandidateContext } from '../snapshot/gateHiring.ts'
 import { sceneryLoadInContext } from '../snapshot/sceneryLoadIn.ts'
 import { stage7ProductionDetailContext } from '../snapshot/stage7Production.ts'
 import {
@@ -60,6 +61,30 @@ const PUBLICITY_ACTIVITY_LABEL = 'Publicity call'
 const PUBLICITY_ACTIVITY_AFFORDANCES = ['publicity'] as const
 const PUBLICITY_ACTIVITY_ROLES = ['talent', 'publicist', 'photographer'] as const
 const PUBLICITY_ACTIVITY_VISUAL_STATES = ['queue-forming', 'flash', 'press-moving'] as const
+const GATE_PLACE_ID = 'studio-gate'
+const GATE_BUILDING_ID = 'gate'
+const GATE_LABEL = 'Studio Gate'
+const GATE_AFFORDANCES = ['gate-security', 'arrival'] as const
+const GATE_SELECTION_POLYGON = [
+  [930, 570],
+  [1586, 529],
+  [1586, 992],
+  [900, 992],
+  [820, 900],
+  [835, 720],
+] as const
+const GATE_GUARD_ANCHOR = [853, 720] as const
+const GATE_ARRIVAL_ANCHOR = [1227, 844] as const
+const GATE_FOREGROUND_LAYER = {
+  id: 'gate-foreground-occluder',
+  kind: 'occluder',
+  depth: 90,
+  output: 'gate-foreground-occluder.png',
+  x: 568,
+  y: 504,
+  width: 1019,
+  height: 489,
+} as const
 const SCENERY_SWEEP_DURATION_MS = 1_200
 
 type Point = { x: number; y: number }
@@ -119,6 +144,24 @@ export type HollywoodSceneryLoadInSelection = {
   placeId: 'service-yard'
 }
 
+/** Presentation-only Gate visitor. Every field is checked against the latest Lot snapshot. */
+export type HollywoodGateVisitorPresentation = {
+  talentId: string
+  name: string
+  marketRole: 'actor' | 'director' | 'writer' | 'craft'
+  presentationRole: 'director' | 'talent'
+  employmentStatus: 'freeAgent'
+  studioSeed: string
+  marketWeek: number
+  offerTermWeeks: number[]
+  placeId: 'studio-gate'
+}
+
+/** Canvas selection emits identity only; React re-resolves all current candidate facts. */
+export type HollywoodGateVisitorSelection = {
+  talentId: string
+}
+
 export type HollywoodEvent =
   | { type: 'ready' }
   | { type: 'failure'; reason: HollywoodFailureReason }
@@ -126,6 +169,7 @@ export type HollywoodEvent =
   | { type: 'place'; place: HollywoodPlaceSelection }
   | { type: 'production'; production: HollywoodProductionSelection }
   | { type: 'scenery-load-in'; sceneryLoadIn: HollywoodSceneryLoadInSelection }
+  | { type: 'gate-visitor'; visitor: HollywoodGateVisitorSelection }
   | { type: 'activity'; text: string | null }
 
 export type HollywoodFailureReason =
@@ -160,6 +204,11 @@ type RuntimePerson = {
   direction: RoleAtlasDirection
 }
 
+type RuntimeGateVisitor = {
+  presentation: HollywoodGateVisitorPresentation
+  sprite: Phaser.GameObjects.Sprite
+}
+
 type CosmeticRoute = {
   productionId: string
   personId: string
@@ -177,6 +226,8 @@ export type HollywoodPerformance = {
   frameSampleCount: number
   fps: number
   displayObjects: number
+  /** Exact decoded RGBA budget; the MB value below is display-only rounding. */
+  textureMemoryBytes: number
   textureMemoryMb: number
   districtTextureMemoryMb: number
   peopleTextureMemoryMb: number
@@ -199,6 +250,8 @@ export class HollywoodScene extends Phaser.Scene {
   private emitEvent!: (event: HollywoodEvent) => void
   private manifest!: DistrictManifest
   private runtimePeople = new Map<string, RuntimePerson>()
+  private gateVisitor: RuntimeGateVisitor | null = null
+  private requestedGateVisitor: HollywoodGateVisitorPresentation | null = null
   private ambientActors: MovingActor[] = []
   private vehicle: Phaser.GameObjects.Sprite | null = null
   private vehicleTween: Phaser.Tweens.Tween | null = null
@@ -367,6 +420,7 @@ export class HollywoodScene extends Phaser.Scene {
     // only; the successful display-object and draw budgets are untouched.
     this.setInputSuspended(true)
     this.clearPublicityVisual()
+    this.discardGateVisitor()
     this.clearPlaceSelection()
     this.scene.setVisible(false)
     // ScenePlugin queues this operation. During preload/create the manager will
@@ -444,11 +498,15 @@ export class HollywoodScene extends Phaser.Scene {
 
   private buildSemanticHotspots(): void {
     const canonicalPublicity = this.canonicalPublicityPlace()
+    const canonicalGate = this.canonicalGatePlace()
     for (const place of this.manifest.places) {
       // Administration & Publicity is a governed physical action surface, not a
       // generic place. Any record that claims part of that identity must validate
       // as the one complete canonical place/activity pair or receive no zone at all.
       if (this.isPublicityLikePlace(place) && place !== canonicalPublicity) continue
+      // Gate identity includes its exact runtime canvas and foreground occluder. A
+      // stale/source or partially-conflicting Gate record receives no input zone.
+      if (this.isGateLikePlace(place) && place !== canonicalGate) continue
       const shape = new Phaser.Geom.Polygon(place.selectionPolygon.map(([x, y]) => ({ x, y })))
       // Zones render nothing, so keep their input ordering below every managed person.
       // At depth 150 the full-district polygons won Phaser's top-only hit test and
@@ -458,14 +516,19 @@ export class HollywoodScene extends Phaser.Scene {
       if (zone.input) zone.input.cursor = 'pointer'
       zone.on('pointerover', () => {
         if (this.isPublicityLikePlace(place) && place !== this.canonicalPublicityPlace()) return
+        if (this.isGateLikePlace(place) && place !== this.canonicalGatePlace()) return
         this.drawPlaceOutline(place, false)
       })
       zone.on('pointerout', () => {
         const selected = this.selectedPlaceId === PUBLICITY_PLACE_ID
           ? this.canonicalPublicityPlace()
+          : this.selectedPlaceId === GATE_PLACE_ID
+            ? this.canonicalGatePlace()
           : this.manifest.places.find(
               (candidate) =>
-                candidate.id === this.selectedPlaceId && !this.isPublicityLikePlace(candidate),
+                candidate.id === this.selectedPlaceId &&
+                !this.isPublicityLikePlace(candidate) &&
+                !this.isGateLikePlace(candidate),
             )
         if (selected) this.drawPlaceOutline(selected, true)
         else this.selectionGraphics?.clear()
@@ -489,9 +552,115 @@ export class HollywoodScene extends Phaser.Scene {
           if (this.selectPublicitySurface(place)) this.focusPlace(place)
           return
         }
+        if (this.isGateLikePlace(place)) {
+          const gate = this.canonicalGatePlace()
+          if (place === gate) this.selectGateSurface(gate)
+          return
+        }
         this.selectGenericPlaceSurface(place)
       })
     }
+  }
+
+  /**
+   * Exact consumed runtime Gate. The deliberately stale source polygon is never an
+   * alternate authority, and malformed Gate truth fails locally without affecting
+   * any unrelated Hollywood place.
+   */
+  private canonicalGatePlace(): Place | null {
+    const manifest = this.manifest as unknown as {
+      canvas?: unknown
+      layers?: unknown
+      places?: unknown
+    } | null
+    if (manifest === null || typeof manifest !== 'object') return null
+    const canvas = manifest.canvas as { width?: unknown; height?: unknown } | null
+    if (
+      canvas === null ||
+      typeof canvas !== 'object' ||
+      !this.hasExactOwnKeys(canvas, ['width', 'height']) ||
+      canvas.width !== DISTRICT_W ||
+      canvas.height !== DISTRICT_H
+    ) return null
+    if (!Array.isArray(manifest.places) || !Array.isArray(manifest.layers)) return null
+
+    const candidates = manifest.places.filter((candidate) => this.isGateLikePlace(candidate))
+    if (candidates.length !== 1) return null
+    const foregrounds = manifest.layers.filter((candidate) => this.isGateForegroundLikeLayer(candidate))
+    if (foregrounds.length !== 1 || !this.isCanonicalGateForegroundLayer(foregrounds[0])) return null
+
+    const place = candidates[0] as Place
+    return (
+      this.hasExactOwnKeys(place, [
+        'id',
+        'buildingId',
+        'label',
+        'selectionPolygon',
+        'anchors',
+        'affordances',
+      ]) &&
+      place.id === GATE_PLACE_ID &&
+      place.buildingId === GATE_BUILDING_ID &&
+      place.label === GATE_LABEL &&
+      this.sameStrings(place.affordances, GATE_AFFORDANCES) &&
+      this.sameAnchorKeys(place.anchors, ['guard', 'arrival']) &&
+      this.sameAnchor(place.anchors?.guard, GATE_GUARD_ANCHOR) &&
+      this.sameAnchor(place.anchors?.arrival, GATE_ARRIVAL_ANCHOR) &&
+      this.validSelectionPolygon(place.selectionPolygon) &&
+      this.samePolygon(place.selectionPolygon, GATE_SELECTION_POLYGON) &&
+      !this.polygonSelfIntersects(place.selectionPolygon) &&
+      this.pointInPolygon(GATE_ARRIVAL_ANCHOR, place.selectionPolygon)
+    ) ? place : null
+  }
+
+  private isGateLikePlace(candidate: unknown): boolean {
+    if (typeof candidate !== 'object' || candidate === null) return false
+    const place = candidate as {
+      id?: unknown
+      buildingId?: unknown
+      label?: unknown
+      affordances?: unknown
+      anchors?: unknown
+    }
+    const anchorKeys = typeof place.anchors === 'object' && place.anchors !== null && !Array.isArray(place.anchors)
+      ? Object.keys(place.anchors)
+      : []
+    return place.id === GATE_PLACE_ID ||
+      place.buildingId === GATE_BUILDING_ID ||
+      place.label === GATE_LABEL ||
+      (Array.isArray(place.affordances) &&
+        (place.affordances.includes('gate-security') || place.affordances.includes('arrival'))) ||
+      anchorKeys.includes('guard') ||
+      anchorKeys.includes('arrival')
+  }
+
+  private isGateForegroundLikeLayer(candidate: unknown): boolean {
+    if (typeof candidate !== 'object' || candidate === null) return false
+    const layer = candidate as { id?: unknown; output?: unknown }
+    return layer.id === GATE_FOREGROUND_LAYER.id || layer.output === GATE_FOREGROUND_LAYER.output
+  }
+
+  private isCanonicalGateForegroundLayer(candidate: unknown): candidate is RuntimeLayer {
+    if (typeof candidate !== 'object' || candidate === null || Array.isArray(candidate)) return false
+    const layer = candidate as Partial<RuntimeLayer>
+    return this.hasExactOwnKeys(layer, [
+      'id',
+      'kind',
+      'depth',
+      'output',
+      'x',
+      'y',
+      'width',
+      'height',
+    ]) &&
+      layer.id === GATE_FOREGROUND_LAYER.id &&
+      layer.kind === GATE_FOREGROUND_LAYER.kind &&
+      layer.depth === GATE_FOREGROUND_LAYER.depth &&
+      layer.output === GATE_FOREGROUND_LAYER.output &&
+      layer.x === GATE_FOREGROUND_LAYER.x &&
+      layer.y === GATE_FOREGROUND_LAYER.y &&
+      layer.width === GATE_FOREGROUND_LAYER.width &&
+      layer.height === GATE_FOREGROUND_LAYER.height
   }
 
   private canonicalAnnexPlace(): Place | null {
@@ -632,6 +801,11 @@ export class HollywoodScene extends Phaser.Scene {
     return Array.isArray(actual) &&
       actual.length === expected.length &&
       actual.every((value, index) => value === expected[index])
+  }
+
+  private hasExactOwnKeys(actual: object, expected: readonly string[]): boolean {
+    const keys = Object.keys(actual)
+    return keys.length === expected.length && expected.every((key) => Object.hasOwn(actual, key))
   }
 
   private sameAnchorKeys(actual: unknown, expected: readonly string[]): boolean {
@@ -785,6 +959,40 @@ export class HollywoodScene extends Phaser.Scene {
     })
   }
 
+  /** One exact Gate seam shared by the physical polygon and native host companion. */
+  private selectGateSurface(place: Place, emitSelection = true): boolean {
+    if (!this.selectionGraphics || place !== this.canonicalGatePlace()) return false
+    this.selectedProductionId = null
+    this.selectedPlaceId = GATE_PLACE_ID
+    this.drawPlaceOutline(place, true)
+    if (emitSelection) {
+      this.emitEvent({
+        type: 'place',
+        place: {
+          id: GATE_PLACE_ID,
+          buildingId: GATE_BUILDING_ID,
+          label: GATE_LABEL,
+          affordances: [...GATE_AFFORDANCES],
+        },
+      })
+    }
+    return true
+  }
+
+  /** Host/DOM parity: paint only the exact accepted Gate and emit no feedback event. */
+  selectGateFromHost(): boolean {
+    const place = this.canonicalGatePlace()
+    return place === null ? false : this.selectGateSurface(place, false)
+  }
+
+  /** Host/DOM parity: focus only the exact accepted Gate. */
+  focusGateFromHost(): boolean {
+    const place = this.canonicalGatePlace()
+    if (place === null) return false
+    this.focusPlace(place)
+    return true
+  }
+
   /**
    * One exact Administration & Publicity seam shared by the physical polygon and
    * the native host companion. Host parity suppresses only the feedback event;
@@ -918,6 +1126,119 @@ export class HollywoodScene extends Phaser.Scene {
 
   private buildPeople(): void {
     this.reconcilePeople(this.snapshot.people)
+  }
+
+  private copyGateVisitor(
+    visitor: HollywoodGateVisitorPresentation,
+  ): HollywoodGateVisitorPresentation {
+    return { ...visitor, offerTermWeeks: [...visitor.offerTermWeeks] }
+  }
+
+  private sameNumbers(actual: readonly number[], expected: readonly number[]): boolean {
+    return actual.length === expected.length &&
+      actual.every((value, index) => value === expected[index])
+  }
+
+  private gateVisitorMatchesLatest(visitor: HollywoodGateVisitorPresentation): boolean {
+    if (
+      typeof visitor !== 'object' ||
+      visitor === null ||
+      typeof visitor.talentId !== 'string' ||
+      typeof visitor.name !== 'string' ||
+      !['actor', 'director', 'writer', 'craft'].includes(visitor.marketRole) ||
+      !['director', 'talent'].includes(visitor.presentationRole) ||
+      visitor.employmentStatus !== 'freeAgent' ||
+      typeof visitor.studioSeed !== 'string' ||
+      !Number.isSafeInteger(visitor.marketWeek) ||
+      !Array.isArray(visitor.offerTermWeeks) ||
+      visitor.placeId !== GATE_PLACE_ID ||
+      visitor.presentationRole !== (visitor.marketRole === 'director' ? 'director' : 'talent') ||
+      this.canonicalGatePlace() === null
+    ) return false
+
+    const current = gateHiringCandidateContext(this.snapshot, visitor.talentId)
+    if (current === null) return false
+    return current.ownerIntent.talentId === visitor.talentId &&
+      current.ownerIntent.studioSeed === visitor.studioSeed &&
+      current.ownerIntent.name === visitor.name &&
+      current.ownerIntent.creativeRole === visitor.marketRole &&
+      current.marketWeek === visitor.marketWeek &&
+      current.candidate.talentId === visitor.talentId &&
+      current.candidate.name === visitor.name &&
+      current.candidate.creativeRole === visitor.marketRole &&
+      current.candidate.employmentStatus === visitor.employmentStatus &&
+      this.sameNumbers(current.candidate.offerTermWeeks, visitor.offerTermWeeks)
+  }
+
+  private removeGateVisitorSprite(): void {
+    this.gateVisitor?.sprite.destroy()
+    this.gateVisitor = null
+  }
+
+  private discardGateVisitor(): void {
+    this.requestedGateVisitor = null
+    this.removeGateVisitorSprite()
+  }
+
+  private reconcileGateVisitor(): boolean {
+    const requested = this.requestedGateVisitor
+    if (requested === null || !this.gateVisitorMatchesLatest(requested)) {
+      this.discardGateVisitor()
+      return false
+    }
+
+    const presentation = this.copyGateVisitor(requested)
+    if (this.gateVisitor !== null) {
+      this.gateVisitor.presentation = presentation
+      this.gateVisitor.sprite
+        .setPosition(GATE_ARRIVAL_ANCHOR[0], GATE_ARRIVAL_ANCHOR[1])
+        .setOrigin(0.5, 0.92)
+        .setDepth(97)
+        .setScale(this.actorScale(1))
+      this.setActorFacing(
+        this.gateVisitor.sprite,
+        presentation.presentationRole,
+        'south',
+      )
+      return true
+    }
+
+    const sprite = this.add.sprite(
+      GATE_ARRIVAL_ANCHOR[0],
+      GATE_ARRIVAL_ANCHOR[1],
+      `hollywood-${presentation.presentationRole}`,
+    ).setOrigin(0.5, 0.92).setDepth(97)
+    sprite.setScale(this.actorScale(1))
+    this.setActorFacing(sprite, presentation.presentationRole, 'south')
+    sprite.setInteractive({ useHandCursor: true }).on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+      if (!this.isCanvasPointer(pointer)) return
+      if (!this.reconcileGateVisitor() || this.gateVisitor === null) return
+      pointer.event.stopPropagation?.()
+      this.emitEvent({
+        type: 'gate-visitor',
+        visitor: { talentId: this.gateVisitor.presentation.talentId },
+      })
+    })
+    this.gateVisitor = { presentation, sprite }
+    return true
+  }
+
+  /**
+   * Retain only a complete current candidate request. Invalid/stale requests clear
+   * physical state and can never resurrect from a later unrelated snapshot.
+   */
+  setGateVisitor(visitor: HollywoodGateVisitorPresentation | null): boolean {
+    if (visitor === null) {
+      this.discardGateVisitor()
+      return true
+    }
+    if (!this.gateVisitorMatchesLatest(visitor)) {
+      this.discardGateVisitor()
+      return false
+    }
+    const requested = this.copyGateVisitor(visitor)
+    this.requestedGateVisitor = requested
+    return this.reconcileGateVisitor()
   }
 
   /**
@@ -1187,6 +1508,7 @@ export class HollywoodScene extends Phaser.Scene {
     const previousStage7 = this.authoritativeStage7Operation(this.snapshot)
     const previousScenery = sceneryLoadInContext(this.snapshot)
     this.snapshot = snapshot
+    this.reconcileGateVisitor()
     if (!this.scene.isActive()) {
       // A transition received while the renderer is inactive becomes direct-load
       // truth when it resumes; it must not retain or replay an unseen ceremony.
@@ -1632,8 +1954,12 @@ export class HollywoodScene extends Phaser.Scene {
       if (publicity) this.focusPlace(publicity)
       return
     }
+    if (placeId === GATE_PLACE_ID) {
+      this.focusGateFromHost()
+      return
+    }
     const place = this.manifest.places.find((candidate) => candidate.id === placeId)
-    if (!place || this.isPublicityLikePlace(place)) return
+    if (!place || this.isPublicityLikePlace(place) || this.isGateLikePlace(place)) return
     this.focusPlace(place)
   }
 
@@ -1862,6 +2188,7 @@ export class HollywoodScene extends Phaser.Scene {
       frameSampleCount: this.frameSamples.length,
       fps: Math.round(frameMs ? 1000 / frameMs : this.game.loop.actualFps || 0),
       displayObjects: this.children.length,
+      textureMemoryBytes: totalTextureBytes,
       textureMemoryMb: Math.round((totalTextureBytes / 1024 / 1024) * 10) / 10,
       districtTextureMemoryMb: Math.round((this.manifest.textureMemoryBytes / 1024 / 1024) * 10) / 10,
       peopleTextureMemoryMb: Math.round((peopleTextureBytes / 1024 / 1024) * 10) / 10,
@@ -1876,7 +2203,10 @@ export class HollywoodScene extends Phaser.Scene {
       updateMs: Math.round(updateMs * 100) / 100,
       worstUpdateMs: Math.round(this.worstUpdateMs * 100) / 100,
       renderMsEstimate: Math.round(Math.max(0, frameMs - updateMs) * 100) / 100,
-      dynamicActors: this.ambientActors.length + this.runtimePeople.size + (this.vehicle ? 1 : 0),
+      dynamicActors: this.ambientActors.length +
+        this.runtimePeople.size +
+        (this.vehicle ? 1 : 0) +
+        (this.gateVisitor ? 1 : 0),
     }
   }
 
@@ -1894,6 +2224,8 @@ export class HollywoodScene extends Phaser.Scene {
     routeDepths: number[]
     expansionStatus: 'legacy' | 'vacant' | 'building' | 'operational'
     roleAtlasActive: boolean
+    gateVisitorTalentId: string | null
+    gateVisitorPosition: { x: number; y: number; depth: number } | null
   } {
     return {
       selectedPersonId: this.selectedPersonId,
@@ -1908,6 +2240,12 @@ export class HollywoodScene extends Phaser.Scene {
       routeDepths: this.route.map((point) => point.actorDepth),
       expansionStatus: this.expansionStatus,
       roleAtlasActive: this.roleAtlasActive,
+      gateVisitorTalentId: this.gateVisitor?.presentation.talentId ?? null,
+      gateVisitorPosition: this.gateVisitor === null ? null : {
+        x: this.gateVisitor.sprite.x,
+        y: this.gateVisitor.sprite.y,
+        depth: this.gateVisitor.sprite.depth,
+      },
     }
   }
 }

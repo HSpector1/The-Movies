@@ -6,6 +6,18 @@ const runtime = vi.hoisted(() => {
     locationBuildingId: 'stage-a'
   }
   type SceneryLoadInSelection = ProductionSelection & { placeId: 'service-yard' }
+  type GateVisitorSelection = { talentId: string }
+  type GateVisitorPresentation = {
+    talentId: string
+    name: string
+    marketRole: 'actor' | 'director' | 'writer' | 'craft'
+    presentationRole: 'director' | 'talent'
+    employmentStatus: 'freeAgent'
+    studioSeed: string
+    marketWeek: number
+    offerTermWeeks: number[]
+    placeId: 'studio-gate'
+  }
   type Event =
     | { type: 'ready' }
     | {
@@ -19,6 +31,7 @@ const runtime = vi.hoisted(() => {
       }
     | { type: 'production'; production: ProductionSelection }
     | { type: 'scenery-load-in'; sceneryLoadIn: SceneryLoadInSelection }
+    | { type: 'gate-visitor'; visitor: GateVisitorSelection }
 
   class Events {
     handlers = new Map<string, () => void>()
@@ -37,6 +50,11 @@ const runtime = vi.hoisted(() => {
     annexSelectionResult = true
     publicitySelections = 0
     publicitySelectionResult = true
+    gateSelections = 0
+    gateSelectionResult = true
+    gateFocuses = 0
+    gateFocusResult = true
+    gateVisitors: Array<GateVisitorPresentation | null> = []
     telemetryResets = 0
     failClosedCalls = 0
     snapshotsApplied: unknown[] = []
@@ -61,11 +79,28 @@ const runtime = vi.hoisted(() => {
       this.publicitySelections++
       return this.publicitySelectionResult
     }
+    selectGateFromHost() {
+      this.gateSelections++
+      return this.gateSelectionResult
+    }
+    focusGateFromHost() {
+      this.gateFocuses++
+      return this.gateFocusResult
+    }
+    setGateVisitor(visitor: GateVisitorPresentation | null) {
+      this.gateVisitors.push(visitor === null
+        ? null
+        : { ...visitor, offerTermWeeks: [...visitor.offerTermWeeks] })
+      return true
+    }
     emitProduction(production: ProductionSelection) {
       this.data?.onEvent({ type: 'production', production })
     }
     emitSceneryLoadIn(sceneryLoadIn: SceneryLoadInSelection) {
       this.data?.onEvent({ type: 'scenery-load-in', sceneryLoadIn })
+    }
+    emitGateVisitor(visitor: GateVisitorSelection) {
+      this.data?.onEvent({ type: 'gate-visitor', visitor })
     }
     emitFailure(reason: Extract<Event, { type: 'failure' }>['reason']) {
       this.data?.onEvent({ type: 'failure', reason })
@@ -176,6 +211,21 @@ const snapshot: StudioLotSnapshot = {
   selectedBuildingId: null,
   sceneSeed: 'studio-lot-view-hollywood-test',
 }
+
+const visitor = (
+  overrides: Partial<import('./StudioLotView.ts').HollywoodGateVisitorPresentation> = {},
+): import('./StudioLotView.ts').HollywoodGateVisitorPresentation => ({
+  talentId: 'visitor-1',
+  name: 'Mara Voss',
+  marketRole: 'director',
+  presentationRole: 'director',
+  employmentStatus: 'freeAgent',
+  studioSeed: snapshot.sceneSeed,
+  marketWeek: snapshot.week,
+  offerTermWeeks: [26, 52, 104],
+  placeId: 'studio-gate',
+  ...overrides,
+})
 
 describe('StudioLotView Hollywood lifecycle', () => {
   it('forwards one exact scene failure and never promotes that generation to ready', () => {
@@ -431,5 +481,76 @@ describe('StudioLotView Hollywood lifecycle', () => {
 
     view.setInputSuspended(false)
     expect(replacementScene.inputSuspensions).toEqual([true, false])
+  })
+
+  it('retains only the latest complete visitor across delayed readiness and recreation', () => {
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+    })
+    const firstGame = runtime.games.at(-1)!
+    const first = visitor()
+    const latest = visitor({
+      talentId: 'visitor-2',
+      name: 'Eli North',
+      marketRole: 'actor',
+      presentationRole: 'talent',
+      offerTermWeeks: [13, 26],
+    })
+
+    expect(view.setHollywoodGateVisitor(first)).toBe(false)
+    expect(view.setHollywoodGateVisitor(latest)).toBe(false)
+    latest.offerTermWeeks.push(999) // the View must retain an independent copy
+    firstGame.events.emit('ready')
+
+    const firstScene = firstGame.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+    expect(firstScene.gateVisitors).toEqual([visitor({
+      talentId: 'visitor-2',
+      name: 'Eli North',
+      marketRole: 'actor',
+      presentationRole: 'talent',
+      offerTermWeeks: [13, 26],
+    })])
+
+    expect(view.setHollywoodGateVisitor(first)).toBe(true)
+    view.recreate()
+    const replacementGame = runtime.games.at(-1)!
+    replacementGame.events.emit('ready')
+    const replacementScene = replacementGame.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+    expect(replacementScene.gateVisitors).toEqual([first])
+
+    expect(view.setHollywoodGateVisitor(null)).toBe(true)
+    expect(replacementScene.gateVisitors.at(-1)).toBeNull()
+  })
+
+  it('forwards identity-only visitor selection and exposes exact Gate host parity', () => {
+    const onHollywoodGateVisitor = vi.fn()
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+      onHollywoodGateVisitor,
+    })
+    const game = runtime.games.at(-1)!
+
+    expect(view.selectHollywoodGatePlace()).toBe(false)
+    expect(view.focusHollywoodGate()).toBe(false)
+    game.events.emit('ready')
+    const scene = game.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+
+    expect(view.selectHollywoodGatePlace()).toBe(true)
+    expect(view.focusHollywoodGate()).toBe(true)
+    expect(scene.gateSelections).toBe(1)
+    expect(scene.gateFocuses).toBe(1)
+
+    scene.emitGateVisitor({ talentId: 'visitor-1' })
+    expect(onHollywoodGateVisitor).toHaveBeenCalledOnce()
+    expect(onHollywoodGateVisitor).toHaveBeenCalledWith({ talentId: 'visitor-1' })
+
+    scene.gateSelectionResult = false
+    scene.gateFocusResult = false
+    expect(view.selectHollywoodGatePlace()).toBe(false)
+    expect(view.focusHollywoodGate()).toBe(false)
   })
 })

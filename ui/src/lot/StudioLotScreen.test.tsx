@@ -608,10 +608,14 @@ describe('StudioLotScreen — World-First Live Week Advance V1 host boundary', (
     const view = latest()
     expect((view.snapshots[0] as { week: number }).week).toBe(0)
     fireEvent.click(getByTestId('lot-advance-week'))
-    expect(view.snapshots).toHaveLength(1)
+    await waitFor(() => expect((view.snapshots.at(-1) as { week: number }).week).toBe(1))
+    const pendingSnapshots = view.snapshots.length
 
     act(() => view.opts.onReady?.())
     await waitFor(() => expect((view.snapshots.at(-1) as { week: number }).week).toBe(1))
+    expect(view.snapshots.length).toBeGreaterThanOrEqual(pendingSnapshots)
+    expect(view.snapshots.some((snapshot) => (snapshot as { week: number }).week === 0)).toBe(true)
+    expect((view.snapshots.at(-1) as { week: number }).week).toBe(1)
     expect(spy.instances).toHaveLength(1)
     expect(view.destroyed).toBe(false)
   })

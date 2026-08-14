@@ -209,6 +209,7 @@ import type {
   LotPersonState,
   LotAnnexWork,
   LotAnnexWorkOccupant,
+  LotGateHiringMarket,
   ProductionOperationsState,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
 import { ALL_BUILDING_IDS } from '../lot/snapshot/StudioLotSnapshot.ts'
@@ -3135,6 +3136,81 @@ export function foundingApplicantCards(state: GameState): EmploymentCard[] {
 export function hiringMarketCards(state: GameState): EmploymentCard[] {
   return hiringMarketIds(state).map((id) => employmentCard(state, id))
 }
+
+const GATE_HIRING_ROLES = new Set<CreativeRole>([
+  'actor',
+  'director',
+  'writer',
+  'craft',
+])
+
+/**
+ * The one shared Gate/App/Hiring eligibility boundary over the canonical Hiring
+ * cards. Known non-contract rows are omitted; `null` means purportedly eligible
+ * authority was malformed or ambiguous and every consumer must fail closed.
+ */
+export function gateHiringEligibleCards(state: GameState): EmploymentCard[] | null {
+  let market: EmploymentCard[]
+  try {
+    market = hiringMarketCards(state)
+  } catch {
+    return null
+  }
+
+  const eligible: EmploymentCard[] = []
+  const eligibleIds = new Set<string>()
+  for (const card of market) {
+    const employment = card.employment
+    if (
+      employment.status !== 'freeAgent' ||
+      employment.contract !== null ||
+      employment.freelancerFee !== null
+    ) {
+      continue
+    }
+    if (!Array.isArray(employment.offerOptions)) return null
+    if (employment.offerOptions.length === 0) continue
+
+    const id = card.profile.id
+    const identities = state.talent.filter((talent) => talent.id === id)
+    const marketMatches = market.filter((candidate) => candidate.profile.id === id)
+    if (
+      id.trim().length === 0 ||
+      card.profile.name.trim().length === 0 ||
+      !GATE_HIRING_ROLES.has(card.profile.role) ||
+      identities.length !== 1 ||
+      marketMatches.length !== 1 ||
+      eligibleIds.has(id)
+    ) {
+      return null
+    }
+
+    const identity = identities[0]!
+    if (
+      identity.id !== card.profile.id ||
+      identity.name !== card.profile.name ||
+      identity.role !== card.profile.role
+    ) {
+      return null
+    }
+
+    let previousTerm = 0
+    for (const offer of employment.offerOptions) {
+      if (
+        offer.talentId !== id ||
+        !Number.isSafeInteger(offer.termWeeks) ||
+        offer.termWeeks <= previousTerm
+      ) {
+        return null
+      }
+      previousTerm = offer.termWeeks
+    }
+
+    eligibleIds.add(id)
+    eligible.push(card)
+  }
+  return eligible
+}
 // The rotating freelancer market (available freelancers).
 export function freelancerMarketCards(state: GameState): EmploymentCard[] {
   return freelancerMarketIds(state).map((id) => employmentCard(state, id))
@@ -5297,6 +5373,19 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
   const cash = state.studio.cash
   const standing = state.studio.standing
   const fin = financeCard(state)
+  const gateHiringCards = gateHiringEligibleCards(state)
+  if (gateHiringCards === null) {
+    throw new Error('studioLotSnapshot: invalid or ambiguous Gate Hiring authority')
+  }
+  const gateHiringMarket: LotGateHiringMarket = {
+    candidates: gateHiringCards.map((card) => ({
+      talentId: card.profile.id,
+      name: card.profile.name,
+      creativeRole: card.profile.role,
+      employmentStatus: 'freeAgent',
+      offerTermWeeks: card.employment.offerOptions.map((offer) => offer.termWeeks),
+    })),
+  }
   // The lot remains usable by the committed configured-capacity research/test
   // projection. Live V11 saves are exact Annex V1; this option does not broaden
   // save acceptance or action legality.
@@ -5662,7 +5751,15 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
             break
         }
         break
-      case 'gate':
+      case 'gate': {
+        const candidateCount = gateHiringMarket.candidates.length
+        attention = candidateCount === 0 ? 'empty' : 'active'
+        reason =
+          candidateCount === 0
+            ? 'No candidates with current contract terms'
+            : `${String(candidateCount)} candidate${candidateCount === 1 ? '' : 's'} with current contract terms`
+        break
+      }
       default:
         attention = 'normal'
     }
@@ -5728,6 +5825,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
     latestReleaseTitle,
     people: [...peopleById.values()],
     buildings,
+    gateHiringMarket,
     selectedBuildingId: null, // selection is UI session state, applied by the host
     sceneSeed: state.seed,
     ...operationsProjection,

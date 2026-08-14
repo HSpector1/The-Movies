@@ -6,11 +6,12 @@
 // an expensive star against an affordable specialist. Every value comes from the adapter —
 // no salary/fee/OVR is computed here.
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { GameState, EmploymentCard, ContractOffer, CreativeRole } from '../engine/adapter.ts'
 import {
   hiringMarketCards,
   freelancerMarketCards,
+  gateHiringEligibleCards,
   signContractAction,
   signOfferTruth,
   selectCash,
@@ -93,14 +94,22 @@ export function HiringMarket({
   onChange,
   onCreate,
   onBack,
+  focusTalentId,
 }: {
   state: GameState
   onChange: (next: GameState) => void
   onCreate: () => void // D-11.A: open the Talent Creator to add a Custom Talent (free agent)
   onBack: () => void
+  /** World-first Gate handoff: focus one exact current eligible contract card, once. */
+  focusTalentId?: string
 }) {
   const [sortKey, setSortKey] = useState<SortKey>('ovr')
   const [error, setError] = useState<string | null>(null)
+  const contractHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const cardHeadingRefs = useRef(new Map<string, HTMLHeadingElement>())
+  const pendingInitialFocus = useRef(focusTalentId ?? null)
+  const focusedEntryTalentId = useRef<string | null>(null)
+  const pendingAcceptedRemoval = useRef<string | null>(null)
 
   const cash = selectCash(state)
   const contractCards = [...hiringMarketCards(state)].sort(
@@ -108,10 +117,56 @@ export function HiringMarket({
   )
   const freelancerCards = freelancerMarketCards(state)
 
+  // The Gate carries identity only. Resolve that identity independently from the current
+  // canonical Hiring read model, then consume the initial focus request exactly once. The
+  // shared adapter helper owns the complete Gate eligibility predicate; the local count keeps
+  // duplicate rendered cards from turning Map last-write-wins behavior into focus authority.
+  useEffect(() => {
+    const talentId = pendingInitialFocus.current
+    if (talentId === null) return
+
+    const exactCards = contractCards.filter((card) => card.profile.id === talentId)
+    const eligibleCards = gateHiringEligibleCards(state)
+    const exactEligibleCards = eligibleCards?.filter((card) => card.profile.id === talentId) ?? []
+    const exactHeading = eligibleCards !== null &&
+      exactCards.length === 1 &&
+      exactEligibleCards.length === 1
+        ? cardHeadingRefs.current.get(talentId) ?? null
+        : null
+
+    if (exactHeading !== null) {
+      exactHeading.focus({ preventScroll: true })
+      focusedEntryTalentId.current = talentId
+    } else {
+      contractHeadingRef.current?.focus({ preventScroll: true })
+      focusedEntryTalentId.current = null
+    }
+    pendingInitialFocus.current = null
+  }, [contractCards, state])
+
+  // A successful sign first replaces authoritative state. Only after that fresh render has
+  // actually removed the Gate-focused card do we move focus to the stable market heading. No
+  // successor card inherits focus, and an unchanged parent leaves this pending rather than
+  // pretending the accepted successor rendered.
+  useEffect(() => {
+    const talentId = pendingAcceptedRemoval.current
+    if (
+      talentId === null ||
+      contractCards.some((card) => card.profile.id === talentId)
+    ) return
+
+    pendingAcceptedRemoval.current = null
+    focusedEntryTalentId.current = null
+    contractHeadingRef.current?.focus({ preventScroll: true })
+  }, [contractCards])
+
   function sign(talentId: string, termWeeks: number) {
     const out = signContractAction(state, talentId, termWeeks)
     if (out.ok) {
       setError(null)
+      if (focusedEntryTalentId.current === talentId) {
+        pendingAcceptedRemoval.current = talentId
+      }
       onChange(out.next)
     } else {
       setError(out.error)
@@ -146,7 +201,9 @@ export function HiringMarket({
 
       <div className="card stack">
         <div className="spread">
-          <h2>Contract market</h2>
+          <h2 ref={contractHeadingRef} tabIndex={-1} data-testid="hiring-contract-heading">
+            Contract market
+          </h2>
           <label className="row" style={{ gap: 6 }}>
             <span className="hint">Sort by</span>
             <select
@@ -174,7 +231,16 @@ export function HiringMarket({
         ) : (
           <div className="grid grid-2" data-testid="hiring-list">
             {contractCards.map((card) => (
-              <HiringCard key={card.profile.id} card={card} state={state} onSign={sign} />
+              <HiringCard
+                key={card.profile.id}
+                card={card}
+                state={state}
+                onSign={sign}
+                headingRef={(heading) => {
+                  if (heading === null) cardHeadingRefs.current.delete(card.profile.id)
+                  else cardHeadingRefs.current.set(card.profile.id, heading)
+                }}
+              />
             ))}
           </div>
         )}
@@ -210,10 +276,12 @@ function HiringCard({
   card,
   state,
   onSign,
+  headingRef,
 }: {
   card: EmploymentCard
   state: GameState
   onSign: (talentId: string, termWeeks: number) => void
+  headingRef: (heading: HTMLHeadingElement | null) => void
 }) {
   const { profile, employment } = card
   const primary = profile.disciplines.find((d) => d.isPrimary)
@@ -222,7 +290,14 @@ function HiringCard({
   return (
     <div className="panel stack" data-testid={`hiring-card-${id}`}>
       <div className="spread">
-        <strong>{profile.name}</strong>
+        <h3
+          ref={headingRef}
+          tabIndex={-1}
+          data-testid={`hiring-card-heading-${id}`}
+          style={{ fontSize: 'inherit', margin: 0 }}
+        >
+          {profile.name}
+        </h3>
         <span className="sub">{ROLE_LABEL[profile.role]}</span>
       </div>
 

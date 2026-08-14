@@ -46,6 +46,13 @@ import {
   type Stage7ProductionOwnerIntent,
 } from './snapshot/stage7Production.ts'
 import {
+  gateHiringCandidateContext,
+  gateHiringMarketContext,
+  sameGateHiringCandidateContext,
+  type GateCandidateOwnerIntent,
+  type GateHiringCandidateContext,
+} from './snapshot/gateHiring.ts'
+import {
   publicityCampaignContext,
   type LotPublicityResult,
   type LotPublicityTier,
@@ -66,6 +73,8 @@ import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
 import type {
   HollywoodPerformance,
+  HollywoodGateVisitorPresentation,
+  HollywoodGateVisitorSelection,
   HollywoodPlaceSelection,
   HollywoodProductionSelection,
   HollywoodSceneryLoadInSelection,
@@ -90,11 +99,17 @@ const containWorldInput = (event: { stopPropagation(): void }) => {
 
 type SceneryLoadInPresentationState = 'blocked' | 'ready'
 type PublicityPhysicalAvailability = 'pending' | 'available' | 'unavailable'
+type GatePhysicalAvailability = 'pending' | 'available' | 'unavailable'
+type GateCandidateAction = 'profile' | 'hiring'
 
 const PUBLICITY_PLACE_ID = 'publicity'
 const PUBLICITY_BUILDING_ID = 'admin'
 const PUBLICITY_LABEL = 'Administration & Publicity'
 const PUBLICITY_AFFORDANCES = ['work', 'meeting', 'publicity'] as const
+const GATE_PLACE_ID = 'studio-gate'
+const GATE_BUILDING_ID = 'gate'
+const GATE_LABEL = 'Studio Gate'
+const GATE_AFFORDANCES = ['gate-security', 'arrival'] as const
 
 function isExactPublicityPlace(place: HollywoodPlaceSelection): boolean {
   return place.id === PUBLICITY_PLACE_ID &&
@@ -102,6 +117,49 @@ function isExactPublicityPlace(place: HollywoodPlaceSelection): boolean {
     place.label === PUBLICITY_LABEL &&
     place.affordances.length === PUBLICITY_AFFORDANCES.length &&
     place.affordances.every((value, index) => value === PUBLICITY_AFFORDANCES[index])
+}
+
+function isExactGatePlace(place: HollywoodPlaceSelection): boolean {
+  return place.id === GATE_PLACE_ID &&
+    place.buildingId === GATE_BUILDING_ID &&
+    place.label === GATE_LABEL &&
+    place.affordances.length === GATE_AFFORDANCES.length &&
+    place.affordances.every((value, index) => value === GATE_AFFORDANCES[index])
+}
+
+function sameGateOwnerIntent(
+  left: GateCandidateOwnerIntent,
+  right: GateCandidateOwnerIntent,
+): boolean {
+  return left.talentId === right.talentId &&
+    left.studioSeed === right.studioSeed &&
+    left.name === right.name &&
+    left.creativeRole === right.creativeRole
+}
+
+function gateRoleLabel(role: GateCandidateOwnerIntent['creativeRole']): string {
+  switch (role) {
+    case 'actor': return 'Actor'
+    case 'director': return 'Director'
+    case 'writer': return 'Writer'
+    case 'craft': return 'Craft'
+  }
+}
+
+function gateVisitorPresentation(
+  context: GateHiringCandidateContext,
+): HollywoodGateVisitorPresentation {
+  return {
+    talentId: context.candidate.talentId,
+    name: context.candidate.name,
+    marketRole: context.candidate.creativeRole,
+    presentationRole: context.candidate.creativeRole === 'director' ? 'director' : 'talent',
+    employmentStatus: 'freeAgent',
+    studioSeed: context.ownerIntent.studioSeed,
+    marketWeek: context.marketWeek,
+    offerTermWeeks: [...context.candidate.offerTermWeeks],
+    placeId: GATE_PLACE_ID,
+  }
 }
 
 function isFieldExactPublicityOffer(
@@ -194,9 +252,11 @@ type Props = {
     constructionCompletion: ConstructionCompletionSummary | null
   } | null
   /** Exact focus instruction for canonical entry or a bounded deep-surface return. */
-  entryFocus?: 'studio-home' | 'selected-building' | 'advance-week' | 'publicity-campaign' | 'annex-work' | 'stage-7-production'
+  entryFocus?: 'studio-home' | 'selected-building' | 'advance-week' | 'publicity-campaign' | 'annex-work' | 'gate-arrivals' | 'stage-7-production' | 'gate-candidate'
   /** Exact identity required by the transient Stage 7 deep-return arm. */
   entryStage7ProductionId?: string
+  /** Exact transient candidate identity required by the Gate deep-return arm. */
+  entryGateCandidate?: GateCandidateOwnerIntent
   /** Suppress a generic Annex announcement already owned by an exact completion surface. */
   suppressOperationalAnnouncement?: boolean
   /** Open the supporting Dashboard and return to this exact campaign context. */
@@ -211,6 +271,10 @@ type Props = {
   onOpenAnnexWorkDetails?: (intent: LotAnnexWorkOwnerIntent) => boolean
   /** Navigate from an explicitly inspected Stage 7 production to its existing Board card. */
   onOpenStage7ProductionDetails?: (intent: Stage7ProductionOwnerIntent) => boolean
+  /** Open the canonical profile only after independent latest-state Gate validation. */
+  onOpenGateCandidateProfile?: (intent: GateCandidateOwnerIntent) => boolean
+  /** Navigate to the exact current Hiring card after independent latest-state validation. */
+  onOpenGateCandidateHiring?: (intent: GateCandidateOwnerIntent) => boolean
   /** Open the one App-owned canonical Talent Profile over this mounted Lot. */
   onOpenTalentProfile?: (personId: string) => void
   /** Close that profile when its exact selected Lot handoff becomes invalid. */
@@ -381,6 +445,7 @@ export function StudioLotScreen({
   advanceFeedback = null,
   entryFocus,
   entryStage7ProductionId,
+  entryGateCandidate,
   suppressOperationalAnnouncement = false,
   onOpenPublicityDashboard,
   onRunPublicity,
@@ -388,6 +453,8 @@ export function StudioLotScreen({
   onStartDevelopmentCastingAnnex,
   onOpenAnnexWorkDetails,
   onOpenStage7ProductionDetails,
+  onOpenGateCandidateProfile,
+  onOpenGateCandidateHiring,
   onOpenTalentProfile,
   onCloseTalentProfile,
   openTalentProfileId = null,
@@ -414,11 +481,16 @@ export function StudioLotScreen({
   const hollywood = operationHollywoodEnabled()
   const [hollywoodPerson, setHollywoodPerson] = useState<LotPersonState | null>(null)
   const [hollywoodPlace, setHollywoodPlace] = useState<HollywoodPlaceSelection | null>(null)
+  const [gateSelected, setGateSelected] = useState(false)
+  const [gateCandidateIntent, setGateCandidateIntent] =
+    useState<GateCandidateOwnerIntent | null>(null)
+  const [gatePhysicalAvailability, setGatePhysicalAvailability] =
+    useState<GatePhysicalAvailability>('pending')
   // undefined = default desk orientation, null = an explicit empty desk, string =
   // one exact selected production. The distinction lets stale world contexts fail
   // empty instead of silently falling back to whichever film is now first.
   const [hollywoodProductionId, setHollywoodProductionId] = useState<string | null | undefined>(
-    entryFocus === 'stage-7-production' ? null : undefined,
+    entryFocus === 'stage-7-production' || entryFocus === 'gate-candidate' ? null : undefined,
   )
   // Deep-detail provenance is deliberately separate from the production that the
   // Studio Desk happens to orient toward. Only an explicit world inspection or an
@@ -443,6 +515,28 @@ export function StudioLotScreen({
   const hollywoodTaskStatusRef = useRef<HTMLDivElement | null>(null)
   const hollywoodStage7HeadingRef = useRef<HTMLHeadingElement | null>(null)
   const hollywoodPersonStatusRef = useRef<HTMLDivElement | null>(null)
+  const gateHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const gateVisitorHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const gateProfileButtonRef = useRef<HTMLButtonElement | null>(null)
+  const gateSelectedRef = useRef(false)
+  const gateCandidateIntentRef = useRef<GateCandidateOwnerIntent | null>(null)
+  const gatePendingFocusRef = useRef<'gate' | 'visitor' | null>(null)
+  const gateFocusNonceRef = useRef(0)
+  const gateNavigationPendingRef = useRef(false)
+  const gateCandidateHeldKeyRef = useRef<'Enter' | ' ' | null>(null)
+  const gateCandidateSuppressClickRef = useRef<string | null>(null)
+  const gateHeldKeyRef = useRef<'Enter' | ' ' | null>(null)
+  const gateActivationRef = useRef<{
+    action: GateCandidateAction
+    context: GateHiringCandidateContext
+  } | null>(null)
+  const gateSuppressNextClickRef = useRef(false)
+  const gateSuppressKeyboardClickRef = useRef<{
+    action: GateCandidateAction
+    context: GateHiringCandidateContext
+  } | null>(null)
+  const gateProfileReturnFocusRef = useRef(false)
+  const gateInvalidProfileClosedRef = useRef<string | null>(null)
   const pendingHollywoodFocusProductionId = useRef<string | null>(null)
   const pendingHollywoodHeadingFocusProductionId = useRef<string | null>(null)
   const hollywoodStage7DetailProductionIdRef = useRef<string | null>(null)
@@ -476,6 +570,10 @@ export function StudioLotScreen({
   onOpenAnnexWorkDetailsRef.current = onOpenAnnexWorkDetails
   const onOpenStage7ProductionDetailsRef = useRef(onOpenStage7ProductionDetails)
   onOpenStage7ProductionDetailsRef.current = onOpenStage7ProductionDetails
+  const onOpenGateCandidateProfileRef = useRef(onOpenGateCandidateProfile)
+  onOpenGateCandidateProfileRef.current = onOpenGateCandidateProfile
+  const onOpenGateCandidateHiringRef = useRef(onOpenGateCandidateHiring)
+  onOpenGateCandidateHiringRef.current = onOpenGateCandidateHiring
   const publicityHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const publicityStatusRef = useRef<HTMLDivElement | null>(null)
   const publicityButtonRefs = useRef<Partial<Record<LotPublicityTier, HTMLButtonElement | null>>>({})
@@ -563,6 +661,18 @@ export function StudioLotScreen({
   const snapshot = readSnapshot(state)
   const currentPublicityCampaign = publicityCampaignContext(snapshot)
   const currentAnnexWork = operationalAnnexWorkContext(snapshot)
+  const currentGateMarket = gateHiringMarketContext(snapshot)
+  const currentGateCandidate = gateCandidateIntent === null
+    ? null
+    : gateHiringCandidateContext(snapshot, gateCandidateIntent.talentId)
+  const selectedGateCandidateContext =
+    currentGateCandidate !== null &&
+    gateCandidateIntent !== null &&
+    sameGateOwnerIntent(currentGateCandidate.ownerIntent, gateCandidateIntent)
+      ? currentGateCandidate
+      : null
+  gateSelectedRef.current = gateSelected
+  gateCandidateIntentRef.current = gateCandidateIntent
   const annexView = studioDevelopment(state)
   const operationalAnnexCapacity = annexView.status === 'operational'
     ? annexView.currentDevelopmentCastingCapacity
@@ -787,6 +897,71 @@ export function StudioLotScreen({
     setPublicityPending(false)
   }, [])
 
+  const cancelGateCandidateGesture = useCallback((preserveCandidateSelection = false) => {
+    if (gateActivationRef.current !== null) gateSuppressNextClickRef.current = true
+    gateNavigationPendingRef.current = false
+    gateHeldKeyRef.current = null
+    gateActivationRef.current = null
+    gateSuppressKeyboardClickRef.current = null
+    if (!preserveCandidateSelection) {
+      gateCandidateHeldKeyRef.current = null
+      gateCandidateSuppressClickRef.current = null
+    }
+  }, [])
+
+  const clearGateCandidate = useCallback(() => {
+    cancelGateCandidateGesture()
+    gateCandidateIntentRef.current = null
+    gatePendingFocusRef.current = null
+    gateFocusNonceRef.current += 1
+    setGateCandidateIntent(null)
+    viewRef.current?.setHollywoodGateVisitor?.(null)
+  }, [cancelGateCandidateGesture])
+
+  const clearGateContext = useCallback(() => {
+    clearGateCandidate()
+    gateSelectedRef.current = false
+    setGateSelected(false)
+    setGatePhysicalAvailability('pending')
+  }, [clearGateCandidate])
+
+  const focusGateContext = useCallback((target: 'gate' | 'visitor') => {
+    gatePendingFocusRef.current = target
+    const nonce = ++gateFocusNonceRef.current
+    queueMicrotask(() => {
+      if (
+        !gateSelectedRef.current ||
+        worldInputSuspendedRef.current ||
+        gateFocusNonceRef.current !== nonce ||
+        gatePendingFocusRef.current !== target
+      ) return
+      const node = target === 'visitor'
+        ? gateVisitorHeadingRef.current
+        : gateHeadingRef.current
+      if (node === null) return
+      gatePendingFocusRef.current = null
+      node.focus({ preventScroll: true })
+    })
+  }, [])
+
+  // Entry restoration may create the Gate inspector one render after the entry
+  // effect. Preserve the pending exact target until its ref is actually committed.
+  useEffect(() => {
+    const target = gatePendingFocusRef.current
+    if (
+      target === null ||
+      !gateSelected ||
+      worldInputSuspended ||
+      (target === 'visitor' && gateCandidateIntent === null)
+    ) return
+    const node = target === 'visitor'
+      ? gateVisitorHeadingRef.current
+      : gateHeadingRef.current
+    if (node === null) return
+    gatePendingFocusRef.current = null
+    node.focus({ preventScroll: true })
+  }, [gateCandidateIntent, gateSelected, worldInputSuspended])
+
   const focusPublicityContext = useCallback((target: 'first-action' | 'heading' | 'status') => {
     queueMicrotask(() => {
       if (!publicitySelectedRef.current || worldInputSuspendedRef.current) return
@@ -818,6 +993,7 @@ export function StudioLotScreen({
     if (publicityCampaignContext(latestSnapshotRef.current) === null) return false
 
     clearHollywoodStage7DetailContext()
+    clearGateContext()
     if (options.place !== null && isExactPublicityPlace(options.place)) {
       clearHollywoodSceneryLoadInReactContext()
     } else {
@@ -870,6 +1046,7 @@ export function StudioLotScreen({
     canvasFailed,
     canvasReady,
     clearAnnexContext,
+    clearGateContext,
     clearHollywoodSceneryLoadInContext,
     clearHollywoodSceneryLoadInReactContext,
     clearHollywoodStage7DetailContext,
@@ -911,6 +1088,7 @@ export function StudioLotScreen({
     if (!hasExactAnnexProjection(latestSnapshotRef.current, latestAnnexViewRef.current)) return false
 
     clearHollywoodStage7DetailContext()
+    clearGateContext()
     clearPublicityContext()
     clearHollywoodSceneryLoadInContext()
     annexSelectedRef.current = true
@@ -933,6 +1111,7 @@ export function StudioLotScreen({
   }, [
     clearHollywoodSceneryLoadInContext,
     clearHollywoodStage7DetailContext,
+    clearGateContext,
     clearPublicityContext,
     focusSelectedAnnex,
     recordSelection,
@@ -960,6 +1139,7 @@ export function StudioLotScreen({
         selection.productionId
     if (!preservesExactStage7Context) clearHollywoodStage7DetailContext()
 
+    clearGateContext()
     clearPublicityContext()
     hollywoodSceneryLoadInProductionIdRef.current = selection.productionId
     setHollywoodSceneryLoadInProductionId(selection.productionId)
@@ -993,6 +1173,7 @@ export function StudioLotScreen({
     return true
   }, [
     clearAnnexContext,
+    clearGateContext,
     clearHollywoodStage7DetailContext,
     clearPublicityContext,
     hollywood,
@@ -1025,6 +1206,7 @@ export function StudioLotScreen({
     } else {
       clearHollywoodStage7DetailContext()
     }
+    clearGateContext()
     clearPublicityContext()
     clearHollywoodSceneryLoadInContext()
     setHollywoodProductionId(exact.productionId)
@@ -1062,10 +1244,190 @@ export function StudioLotScreen({
     clearAnnexContext,
     clearHollywoodSceneryLoadInContext,
     clearHollywoodStage7DetailContext,
+    clearGateContext,
     clearPublicityContext,
     ownHollywoodStage7DetailContext,
     recordSelection,
   ])
+
+  const enterGateContext = useCallback((options: {
+    place: HollywoodPlaceSelection | null
+    paintHollywoodOutline: boolean
+    candidate: GateCandidateOwnerIntent | null
+    focus: 'gate' | 'visitor' | false
+  }): boolean => {
+    if (worldInputSuspendedRef.current) return false
+    const market = gateHiringMarketContext(latestSnapshotRef.current)
+    if (market === null) return false
+
+    const requested = options.candidate === null
+      ? null
+      : gateHiringCandidateContext(
+          latestSnapshotRef.current,
+          options.candidate.talentId,
+        )
+    const candidate = requested !== null &&
+      options.candidate !== null &&
+      sameGateOwnerIntent(requested.ownerIntent, options.candidate)
+        ? requested
+        : null
+
+    clearHollywoodStage7DetailContext()
+    clearPublicityContext()
+    if (options.place !== null && isExactGatePlace(options.place)) {
+      // The scene has already painted the Gate before emitting its exact place event.
+      // Drop only React's old service-yard ownership so we do not erase that outline.
+      clearHollywoodSceneryLoadInReactContext()
+    } else {
+      clearHollywoodSceneryLoadInContext()
+    }
+    clearAnnexContext()
+    clearGateCandidate()
+    gateSelectedRef.current = true
+    gateCandidateIntentRef.current = candidate?.ownerIntent ?? null
+    setGateSelected(true)
+    setGateCandidateIntent(candidate?.ownerIntent ?? null)
+    setSelectionInfo(null)
+    setHollywoodPerson(null)
+    setHollywoodProductionId(null)
+    setHollywoodPlace(options.place)
+    pendingHollywoodFocusProductionId.current = null
+    viewRef.current?.clearHollywoodPersonSelection?.()
+    recordSelection('gate')
+
+    let physicalAvailable = options.place !== null && isExactGatePlace(options.place)
+    if (options.paintHollywoodOutline) {
+      physicalAvailable = viewRef.current?.selectHollywoodGatePlace?.() === true
+    }
+    const visitorAccepted = viewRef.current?.setHollywoodGateVisitor?.(
+      candidate === null ? null : gateVisitorPresentation(candidate),
+    ) ?? false
+    setGatePhysicalAvailability(
+      physicalAvailable && (candidate === null || visitorAccepted)
+        ? 'available'
+        : canvasReady || canvasFailed
+          ? 'unavailable'
+          : 'pending',
+    )
+    if (physicalAvailable && options.paintHollywoodOutline) {
+      viewRef.current?.focusHollywoodGate?.()
+    }
+    if (options.focus) {
+      focusGateContext(candidate === null ? 'gate' : options.focus)
+    }
+    return true
+  }, [
+    canvasFailed,
+    canvasReady,
+    clearAnnexContext,
+    clearGateCandidate,
+    clearHollywoodSceneryLoadInContext,
+    clearHollywoodSceneryLoadInReactContext,
+    clearHollywoodStage7DetailContext,
+    clearPublicityContext,
+    focusGateContext,
+    recordSelection,
+  ])
+
+  const selectGateCandidate = useCallback((talentId: string): boolean => {
+    if (worldInputSuspendedRef.current || !gateSelectedRef.current) return false
+    const candidate = gateHiringCandidateContext(latestSnapshotRef.current, talentId)
+    if (candidate === null) return false
+
+    cancelGateCandidateGesture(true)
+    gateCandidateIntentRef.current = candidate.ownerIntent
+    setGateCandidateIntent(candidate.ownerIntent)
+    setHollywoodPerson(null)
+    setHollywoodProductionId(null)
+    setSelectionInfo(null)
+    viewRef.current?.clearHollywoodPersonSelection?.()
+    const visitorAccepted = viewRef.current?.setHollywoodGateVisitor?.(
+      gateVisitorPresentation(candidate),
+    ) ?? false
+    const physicalAvailable = !canvasFailed && canvasReady &&
+      viewRef.current?.selectHollywoodGatePlace?.() === true
+    setGatePhysicalAvailability(
+      physicalAvailable && visitorAccepted
+        ? 'available'
+        : canvasReady || canvasFailed
+          ? 'unavailable'
+          : 'pending',
+    )
+    focusGateContext('visitor')
+    return true
+  }, [cancelGateCandidateGesture, canvasFailed, canvasReady, focusGateContext])
+
+  const guardGateCandidateSelectionKeyDown = useCallback((
+    event: {
+      key: string
+      repeat: boolean
+      preventDefault(): void
+      stopPropagation(): void
+    },
+    talentId: string,
+  ) => {
+    containWorldInput(event)
+    if (event.key !== 'Enter' && event.key !== ' ') return
+    event.preventDefault()
+    if (
+      worldInputSuspendedRef.current ||
+      event.repeat ||
+      gateCandidateHeldKeyRef.current !== null
+    ) return
+    cancelGateCandidateGesture()
+    gateCandidateHeldKeyRef.current = event.key
+    gateCandidateSuppressClickRef.current = talentId
+    selectGateCandidate(talentId)
+  }, [cancelGateCandidateGesture, selectGateCandidate])
+
+  const releaseGateCandidateSelectionKey = useCallback((event: {
+    key: string
+    stopPropagation(): void
+  }) => {
+    containWorldInput(event)
+    if (gateCandidateHeldKeyRef.current === event.key) gateCandidateHeldKeyRef.current = null
+  }, [])
+
+  useEffect(() => {
+    // Focus may move from a keyboard-activated chooser/action to the inspector
+    // before keyup. Capture release at the document boundary so held-key tokens
+    // cannot become stranded merely because the world correctly moved focus.
+    const release = (event: KeyboardEvent) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return
+      if (gateCandidateHeldKeyRef.current === event.key) gateCandidateHeldKeyRef.current = null
+      if (gateHeldKeyRef.current === event.key) gateHeldKeyRef.current = null
+    }
+    document.addEventListener('keyup', release, true)
+    return () => document.removeEventListener('keyup', release, true)
+  }, [])
+
+  const clickGateCandidateSelection = useCallback((talentId: string, detail: number) => {
+    const suppressed = gateCandidateSuppressClickRef.current
+    if (detail === 0 && suppressed !== null) {
+      gateCandidateSuppressClickRef.current = null
+      if (suppressed === talentId) return
+    }
+    if (detail > 1) return
+    cancelGateCandidateGesture()
+    selectGateCandidate(talentId)
+  }, [cancelGateCandidateGesture, selectGateCandidate])
+
+  const recordHollywoodGateVisitor = useCallback((
+    visitor: HollywoodGateVisitorSelection,
+  ) => {
+    if (
+      worldInputSuspendedRef.current ||
+      !gateSelectedRef.current ||
+      gateCandidateIntentRef.current?.talentId !== visitor.talentId
+    ) return
+    const current = gateHiringCandidateContext(latestSnapshotRef.current, visitor.talentId)
+    if (
+      current === null ||
+      !sameGateOwnerIntent(current.ownerIntent, gateCandidateIntentRef.current)
+    ) return
+    setGateCandidateIntent(current.ownerIntent)
+    focusGateContext('visitor')
+  }, [focusGateContext])
 
   const recordHollywoodProduction = useCallback((
     production: HollywoodProductionSelection,
@@ -1128,6 +1490,46 @@ export function StudioLotScreen({
       })) return
     }
 
+    if (entryFocus === 'gate-arrivals') {
+      if (enterGateContext({
+        place: null,
+        paintHollywoodOutline: hollywood,
+        candidate: null,
+        focus: 'gate',
+      })) return
+    }
+
+    if (entryFocus === 'gate-candidate') {
+      if (
+        entryGateCandidate !== undefined &&
+        enterGateContext({
+          place: null,
+          paintHollywoodOutline: hollywood,
+          candidate: entryGateCandidate,
+          focus: 'visitor',
+        })
+      ) return
+
+      // Typed return is identity-bearing but never substitutive. If current Gate
+      // truth is still valid, return to its neutral chooser; otherwise leave every
+      // Gate context empty and orient to the stable Studio Lot heading.
+      if (enterGateContext({
+        place: null,
+        paintHollywoodOutline: hollywood,
+        candidate: null,
+        focus: 'gate',
+      })) return
+      clearGateContext()
+      setHollywoodProductionId(null)
+      setHollywoodPerson(null)
+      setHollywoodPlace(null)
+      recordSelection(null)
+      viewRef.current?.clearHollywoodPersonSelection?.()
+      viewRef.current?.clearHollywoodPlaceSelection?.()
+      studioHeadingRef.current?.focus({ preventScroll: true })
+      return
+    }
+
     if (entryFocus === 'stage-7-production') {
       if (
         typeof entryStage7ProductionId === 'string' &&
@@ -1173,13 +1575,14 @@ export function StudioLotScreen({
     // Entry focus is a remount instruction. Ordinary state/feedback changes must leave the
     // existing focused node alone, so this intentionally depends only on the typed entry arm.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entryFocus, entryStage7ProductionId])
+  }, [entryFocus, entryGateCandidate, entryStage7ProductionId])
 
   const recordHollywoodPerson = useCallback((person: LotPersonState | null) => {
     if (worldInputSuspendedRef.current) return
     setHollywoodPerson(person)
     if (person !== null) {
       clearHollywoodStage7DetailContext()
+      clearGateContext()
       clearPublicityContext()
       clearHollywoodSceneryLoadInContext()
       clearAnnexContext()
@@ -1200,6 +1603,7 @@ export function StudioLotScreen({
     }
   }, [
     clearAnnexContext,
+    clearGateContext,
     clearHollywoodSceneryLoadInContext,
     clearHollywoodStage7DetailContext,
     clearPublicityContext,
@@ -1219,6 +1623,15 @@ export function StudioLotScreen({
       enterPublicityContext({ place, paintHollywoodOutline: false, focus: 'first-action' })
       return
     }
+    if (place !== null && isExactGatePlace(place)) {
+      enterGateContext({
+        place,
+        paintHollywoodOutline: false,
+        candidate: null,
+        focus: 'gate',
+      })
+      return
+    }
     if (
       place !== null &&
       place.id === 'annex-parcel' &&
@@ -1230,6 +1643,7 @@ export function StudioLotScreen({
 
     clearPublicityContext()
     clearAnnexContext()
+    clearGateContext()
     setHollywoodPlace(place)
     if (place !== null) {
       setHollywoodPerson(null)
@@ -1239,11 +1653,13 @@ export function StudioLotScreen({
     }
   }, [
     clearAnnexContext,
+    clearGateContext,
     clearHollywoodSceneryLoadInReactContext,
     clearHollywoodStage7DetailContext,
     clearPublicityContext,
     enterPublicityContext,
     enterAnnexContext,
+    enterGateContext,
     recordSelection,
   ])
 
@@ -1290,6 +1706,72 @@ export function StudioLotScreen({
     selectedAssignmentIsExact,
     selectedProfileMatches,
   ])
+
+  // Gate ownership survives only exact current market truth. A state replacement or
+  // market rotation may retain the same person, but it may never substitute a different
+  // candidate. Reconcile the distinct presentation sprite from fresh projection fields.
+  useEffect(() => {
+    if (!gateSelectedRef.current) return
+
+    const market = gateHiringMarketContext(latestSnapshotRef.current)
+    if (market === null) {
+      const staleId = gateCandidateIntentRef.current?.talentId ?? null
+      if (
+        staleId !== null &&
+        openTalentProfileId === staleId &&
+        gateInvalidProfileClosedRef.current !== staleId
+      ) {
+        gateInvalidProfileClosedRef.current = staleId
+        onCloseTalentProfileRef.current?.(staleId)
+      }
+      clearGateContext()
+      setHollywoodPlace(null)
+      recordSelection(null)
+      viewRef.current?.clearHollywoodPlaceSelection?.()
+      announceHollywoodActivity('Current Studio Gate details are unavailable.')
+      if (!worldInputSuspendedRef.current) {
+        queueMicrotask(() => studioHeadingRef.current?.focus({ preventScroll: true }))
+      }
+      return
+    }
+
+    const intent = gateCandidateIntentRef.current
+    if (intent === null) {
+      viewRef.current?.setHollywoodGateVisitor?.(null)
+      return
+    }
+    const current = gateHiringCandidateContext(latestSnapshotRef.current, intent.talentId)
+    if (current === null || !sameGateOwnerIntent(current.ownerIntent, intent)) {
+      if (
+        openTalentProfileId === intent.talentId &&
+        gateInvalidProfileClosedRef.current !== intent.talentId
+      ) {
+        gateInvalidProfileClosedRef.current = intent.talentId
+        onCloseTalentProfileRef.current?.(intent.talentId)
+      }
+      clearGateCandidate()
+      announceHollywoodActivity('Gate visitor details changed. Review the current Gate slate.')
+      if (!worldInputSuspendedRef.current) focusGateContext('gate')
+      return
+    }
+
+    gateInvalidProfileClosedRef.current = null
+    viewRef.current?.setHollywoodGateVisitor?.(gateVisitorPresentation(current))
+  }, [
+    announceHollywoodActivity,
+    clearGateCandidate,
+    clearGateContext,
+    focusGateContext,
+    gateCandidateIntent,
+    gateSelected,
+    openTalentProfileId,
+    recordSelection,
+    state,
+  ])
+
+  useEffect(() => {
+    if (openTalentProfileId === null) gateInvalidProfileClosedRef.current = null
+  }, [openTalentProfileId])
 
   // A selected context is retained only while the latest authoritative lot projection
   // still contains one expansion lifecycle fact matching the latest construction view.
@@ -1556,6 +2038,19 @@ export function StudioLotScreen({
             selectedBuildingId: getLotSelectedBuilding(),
           },
           onSelect: (sel) => {
+            if (hollywood && sel?.buildingId === 'gate') {
+              if (!enterGateContext({
+                place: null,
+                paintHollywoodOutline: true,
+                candidate: null,
+                focus: 'gate',
+              })) {
+                clearGateContext()
+                setSelectionInfo(null)
+                recordSelection(null)
+              }
+              return
+            }
             if (sel?.buildingId === 'expansion') {
               if (!enterAnnexContext({
                 place: null,
@@ -1568,6 +2063,7 @@ export function StudioLotScreen({
               return
             }
             clearHollywoodStage7DetailContext()
+            clearGateContext()
             clearPublicityContext()
             clearHollywoodSceneryLoadInContext()
             clearAnnexContext()
@@ -1575,6 +2071,15 @@ export function StudioLotScreen({
             recordSelection(sel?.buildingId ?? null)
           },
           onAction: (e) => {
+            if (hollywood && e.buildingId === 'gate') {
+              enterGateContext({
+                place: null,
+                paintHollywoodOutline: true,
+                candidate: null,
+                focus: 'gate',
+              })
+              return
+            }
             if (e.buildingId === 'expansion') {
               enterAnnexContext({ place: null, paintHollywoodOutline: false, focus: 'default' })
               return
@@ -1583,6 +2088,7 @@ export function StudioLotScreen({
             // routing instead of assuming an onSelect event happened first.
             recordSelection(e.buildingId)
             clearHollywoodStage7DetailContext()
+            clearGateContext()
             clearPublicityContext()
             clearHollywoodSceneryLoadInContext()
             clearAnnexContext()
@@ -1592,25 +2098,49 @@ export function StudioLotScreen({
           onHollywoodPlace: recordHollywoodPlace,
           onHollywoodProduction: recordHollywoodProduction,
           onHollywoodSceneryLoadIn: recordHollywoodSceneryLoadIn,
+          onHollywoodGateVisitor: recordHollywoodGateVisitor,
           onActivity: (text) => { if (text) recordHollywoodRendererActivity(text) },
           onHollywoodFailure: () => {
             if (cancelled) return
             cancelHollywoodStage7Gesture()
+            cancelGateCandidateGesture()
             setCanvasReady(false)
             setCanvasFailed(true)
             if (publicitySelectedRef.current) {
               setPublicityPhysicalAvailability('unavailable')
             }
+            if (gateSelectedRef.current) setGatePhysicalAvailability('unavailable')
           },
           onReady: () => {
             if (cancelled) return
             // StudioLotView suppresses ready from a failed renderer generation, so
             // any ready reaching React is a validated live or recreated renderer.
             cancelHollywoodStage7Gesture()
+            cancelGateCandidateGesture()
             setCanvasFailed(false)
             setCanvasReady(true)
             const sceneryProductionId = hollywoodSceneryLoadInProductionIdRef.current
-            if (publicitySelectedRef.current) {
+            if (gateSelectedRef.current) {
+              const market = gateHiringMarketContext(latestSnapshotRef.current)
+              const intent = gateCandidateIntentRef.current
+              const current = intent === null
+                ? null
+                : gateHiringCandidateContext(latestSnapshotRef.current, intent.talentId)
+              const exact = current !== null && intent !== null &&
+                sameGateOwnerIntent(current.ownerIntent, intent)
+                  ? current
+                  : null
+              const visitorAccepted = view?.setHollywoodGateVisitor?.(
+                exact === null ? null : gateVisitorPresentation(exact),
+              ) ?? false
+              const physical = market !== null &&
+                hollywood &&
+                view?.selectHollywoodGatePlace?.() === true
+              setGatePhysicalAvailability(
+                physical && (exact === null || visitorAccepted) ? 'available' : 'unavailable',
+              )
+              if (physical) view?.focusHollywoodGate?.()
+            } else if (publicitySelectedRef.current) {
               const physical = hollywood && view?.selectHollywoodPublicityPlace?.() === true
               setPublicityPhysicalAvailability(physical ? 'available' : 'unavailable')
               if (physical) view?.focusHollywoodPlace?.(PUBLICITY_PLACE_ID)
@@ -1644,12 +2174,22 @@ export function StudioLotScreen({
         // fully functional — the lot degrades to the accessible list.
         if (!cancelled) {
           cancelHollywoodStage7Gesture()
+          cancelGateCandidateGesture()
           setCanvasFailed(true)
+          if (gateSelectedRef.current) setGatePhysicalAvailability('unavailable')
         }
       })
 
     return () => {
       cancelled = true
+      gateNavigationPendingRef.current = false
+      gateHeldKeyRef.current = null
+      gateActivationRef.current = null
+      gateSuppressNextClickRef.current = false
+      gateSuppressKeyboardClickRef.current = null
+      gateCandidateHeldKeyRef.current = null
+      gateCandidateSuppressClickRef.current = null
+      view?.setHollywoodGateVisitor?.(null)
       view?.destroy()
       viewRef.current = null
     }
@@ -1673,17 +2213,66 @@ export function StudioLotScreen({
       annexPendingFocusRef.current = null
       annexFocusNonceRef.current += 1
       cancelHollywoodStage7Gesture()
+      cancelGateCandidateGesture()
     }
     viewRef.current?.setInputSuspended?.(worldInputSuspended)
-  }, [cancelHollywoodStage7Gesture, worldInputSuspended])
+  }, [cancelGateCandidateGesture, cancelHollywoodStage7Gesture, worldInputSuspended])
+
+  // App restores a valid profile opener itself. If fresh state invalidated and
+  // unmounted that opener while the drawer was open, own the only safe fallback:
+  // the neutral Gate heading, or the Studio Lot heading when Gate truth also failed.
+  useEffect(() => {
+    if (worldInputSuspended || !gateProfileReturnFocusRef.current) return
+    gateProfileReturnFocusRef.current = false
+    const intent = gateCandidateIntentRef.current
+    const current = intent === null
+      ? null
+      : gateHiringCandidateContext(latestSnapshotRef.current, intent.talentId)
+    if (
+      gateSelectedRef.current &&
+      intent !== null &&
+      current !== null &&
+      sameGateOwnerIntent(current.ownerIntent, intent) &&
+      gateProfileButtonRef.current?.isConnected
+    ) {
+      // The App-owned focus restoration targets the exact connected opener.
+      return
+    }
+    if (gateSelectedRef.current && gateHiringMarketContext(latestSnapshotRef.current) !== null) {
+      focusGateContext('gate')
+    } else {
+      queueMicrotask(() => studioHeadingRef.current?.focus({ preventScroll: true }))
+    }
+  }, [focusGateContext, worldInputSuspended])
 
   // ── Feed the live view new authoritative facts whenever GameState changes. ───
   useEffect(() => {
     const v = viewRef.current
-    if (v && canvasReady) {
+    if (v) {
+      // StudioLotView owns a pending snapshot while Phaser is still preparing. Feed
+      // every accepted host replacement immediately so onReady cannot reconcile a
+      // fresh visitor against stale mount-time scene truth.
       v.setSnapshot({ ...readSnapshot(state), selectedBuildingId: getLotSelectedBuilding() })
+      if (!canvasReady) return
       const sceneryProductionId = hollywoodSceneryLoadInProductionIdRef.current
-      if (!publicitySelectedRef.current && sceneryProductionId !== null) {
+      if (gateSelectedRef.current) {
+        const market = gateHiringMarketContext(latestSnapshotRef.current)
+        const intent = gateCandidateIntentRef.current
+        const current = intent === null
+          ? null
+          : gateHiringCandidateContext(latestSnapshotRef.current, intent.talentId)
+        const exact = current !== null && intent !== null &&
+          sameGateOwnerIntent(current.ownerIntent, intent)
+            ? current
+            : null
+        const visitorAccepted = v.setHollywoodGateVisitor?.(
+          exact === null ? null : gateVisitorPresentation(exact),
+        ) ?? false
+        const physical = market !== null && v.selectHollywoodGatePlace?.() === true
+        setGatePhysicalAvailability(
+          physical && (exact === null || visitorAccepted) ? 'available' : 'unavailable',
+        )
+      } else if (!publicitySelectedRef.current && sceneryProductionId !== null) {
         v.selectHollywoodSceneryLoadIn?.(sceneryProductionId)
       } else if (!publicitySelectedRef.current && annexSelectedRef.current) {
         if (hollywood) v.selectHollywoodAnnexPlace?.()
@@ -1703,7 +2292,10 @@ export function StudioLotScreen({
   useEffect(() => {
     function onVisibility() {
       const hidden = typeof document !== 'undefined' && document.hidden
-      if (hidden) cancelHollywoodStage7Gesture()
+      if (hidden) {
+        cancelHollywoodStage7Gesture()
+        cancelGateCandidateGesture()
+      }
       const v = viewRef.current
       if (!v) return
       if (hidden) v.pause()
@@ -1712,7 +2304,7 @@ export function StudioLotScreen({
     document.addEventListener('visibilitychange', onVisibility)
     onVisibility()
     return () => document.removeEventListener('visibilitychange', onVisibility)
-  }, [cancelHollywoodStage7Gesture])
+  }, [cancelGateCandidateGesture, cancelHollywoodStage7Gesture])
 
   // Honour a live change to the OS reduced-motion preference.
   useEffect(() => {
@@ -1795,6 +2387,17 @@ export function StudioLotScreen({
     if (emptyWindow) setHollywoodPerf(emptyWindow)
     setHollywoodPerfWindow((current) => current + 1)
   }, [hollywood, identityProof, canvasReady, publicitySelected])
+
+  useEffect(() => {
+    // Gate evidence owns a fresh sustained window after the one visitor sprite is
+    // committed. This is dev-only telemetry; ordinary play does not poll or reset it.
+    if (!hollywood || !identityProof || !canvasReady || gateCandidateIntent === null) return
+    const view = viewRef.current
+    view?.resetHollywoodPerformance?.()
+    const emptyWindow = view?.hollywoodPerformance()
+    if (emptyWindow) setHollywoodPerf(emptyWindow)
+    setHollywoodPerfWindow((current) => current + 1)
+  }, [hollywood, identityProof, canvasReady, gateCandidateIntent])
 
   const selectHollywoodPerson = useCallback((person: LotPersonState) => {
     recordHollywoodPerson(person)
@@ -2265,6 +2868,195 @@ export function StudioLotScreen({
     if (publicityHeldKeyRef.current === event.key) publicityHeldKeyRef.current = null
   }, [])
 
+  const rejectGateCandidateHandoff = useCallback((message: string) => {
+    cancelGateCandidateGesture()
+    announceHollywoodActivity(message)
+    if (!gateSelectedRef.current) return
+
+    const market = gateHiringMarketContext(latestSnapshotRef.current)
+    if (market === null) {
+      clearGateContext()
+      setHollywoodPlace(null)
+      recordSelection(null)
+      viewRef.current?.clearHollywoodPlaceSelection?.()
+      queueMicrotask(() => studioHeadingRef.current?.focus({ preventScroll: true }))
+      return
+    }
+
+    const owned = gateCandidateIntentRef.current
+    const current = owned === null
+      ? null
+      : gateHiringCandidateContext(latestSnapshotRef.current, owned.talentId)
+    if (
+      owned !== null &&
+      current !== null &&
+      sameGateOwnerIntent(current.ownerIntent, owned)
+    ) {
+      gateCandidateIntentRef.current = current.ownerIntent
+      setGateCandidateIntent(current.ownerIntent)
+      viewRef.current?.setHollywoodGateVisitor?.(gateVisitorPresentation(current))
+      focusGateContext('visitor')
+      return
+    }
+
+    clearGateCandidate()
+    focusGateContext('gate')
+  }, [
+    announceHollywoodActivity,
+    cancelGateCandidateGesture,
+    clearGateCandidate,
+    clearGateContext,
+    focusGateContext,
+    recordSelection,
+  ])
+
+  const openGateCandidateDestination = useCallback((
+    action: GateCandidateAction,
+    rendered: GateHiringCandidateContext,
+    clickDetail: number,
+  ) => {
+    if (
+      worldInputSuspendedRef.current ||
+      !gateSelectedRef.current ||
+      gateNavigationPendingRef.current ||
+      clickDetail > 1
+    ) return
+
+    const owned = gateCandidateIntentRef.current
+    const latest = gateHiringCandidateContext(
+      latestSnapshotRef.current,
+      rendered.candidate.talentId,
+    )
+    if (
+      owned === null ||
+      !sameGateOwnerIntent(rendered.ownerIntent, owned) ||
+      latest === null ||
+      !sameGateHiringCandidateContext(rendered, latest)
+    ) {
+      rejectGateCandidateHandoff(
+        'Gate visitor details changed. Review the current Gate slate before opening details.',
+      )
+      return
+    }
+
+    const owner = action === 'profile'
+      ? onOpenGateCandidateProfileRef.current
+      : onOpenGateCandidateHiringRef.current
+    if (owner === undefined) return
+
+    gateNavigationPendingRef.current = true
+    let accepted = false
+    try {
+      accepted = owner(latest.ownerIntent)
+    } catch {
+      accepted = false
+    }
+    if (accepted) {
+      if (action === 'profile') gateProfileReturnFocusRef.current = true
+      return
+    }
+
+    gateNavigationPendingRef.current = false
+    gateHeldKeyRef.current = null
+    gateActivationRef.current = null
+    rejectGateCandidateHandoff(
+      `Current Gate details for ${rendered.candidate.name} could not be opened. Review the fresh visitor context.`,
+    )
+  }, [rejectGateCandidateHandoff])
+
+  const latchGateCandidateAction = useCallback((
+    event: { stopPropagation(): void },
+    action: GateCandidateAction,
+    rendered: GateHiringCandidateContext,
+  ) => {
+    containWorldInput(event)
+    if (
+      worldInputSuspendedRef.current ||
+      gateNavigationPendingRef.current ||
+      gateActivationRef.current !== null
+    ) return
+    gateSuppressNextClickRef.current = false
+    gateSuppressKeyboardClickRef.current = null
+    gateActivationRef.current = { action, context: rendered }
+  }, [])
+
+  const guardGateCandidateActionKeyDown = useCallback((
+    event: {
+      key: string
+      repeat: boolean
+      preventDefault(): void
+      stopPropagation(): void
+    },
+    action: GateCandidateAction,
+    rendered: GateHiringCandidateContext,
+  ) => {
+    containWorldInput(event)
+    if (event.key !== 'Enter' && event.key !== ' ') return
+    if (
+      worldInputSuspendedRef.current ||
+      event.repeat ||
+      gateNavigationPendingRef.current ||
+      gateHeldKeyRef.current !== null
+    ) {
+      event.preventDefault()
+      return
+    }
+    event.preventDefault()
+    // A prior key whose compatibility click never arrived has already completed
+    // once its keyup was observed. A later keydown is a fresh boundary.
+    gateSuppressKeyboardClickRef.current = null
+    gateHeldKeyRef.current = event.key
+    gateActivationRef.current = { action, context: rendered }
+    const captured = gateActivationRef.current
+    gateActivationRef.current = null
+    openGateCandidateDestination(captured.action, captured.context, 0)
+    // Rejection reconciliation clears general gesture state; preserve the actual
+    // physical held key until document-level keyup so a second held key cannot enter.
+    gateHeldKeyRef.current = event.key
+    // Native buttons may follow a keyboard activation with a detail-0 click. Keep
+    // the exact rendered token so a rejected owner cannot be invoked a second time,
+    // while a different candidate/action remains a fresh accessibility boundary.
+    gateSuppressKeyboardClickRef.current = captured
+  }, [openGateCandidateDestination])
+
+  const releaseGateCandidateActionKey = useCallback((event: {
+    key: string
+    stopPropagation(): void
+  }) => {
+    containWorldInput(event)
+    if (gateHeldKeyRef.current === event.key) gateHeldKeyRef.current = null
+  }, [])
+
+  const clickGateCandidateAction = useCallback((
+    action: GateCandidateAction,
+    rendered: GateHiringCandidateContext,
+    clickDetail: number,
+  ) => {
+    const keyboardActivation = gateSuppressKeyboardClickRef.current
+    if (clickDetail === 0 && keyboardActivation !== null) {
+      gateSuppressKeyboardClickRef.current = null
+      if (
+        keyboardActivation.action === action &&
+        sameGateHiringCandidateContext(keyboardActivation.context, rendered)
+      ) return
+    }
+    if (gateSuppressNextClickRef.current && clickDetail > 0) {
+      gateSuppressNextClickRef.current = false
+      gateActivationRef.current = null
+      return
+    }
+    const captured = gateActivationRef.current
+    gateActivationRef.current = null
+    if (clickDetail > 1) return
+    if (captured !== null) {
+      if (captured.action !== action) return
+      openGateCandidateDestination(captured.action, captured.context, clickDetail)
+      return
+    }
+    // `detail === 0` is the browser/AT activation path with no pointer-start token.
+    if (clickDetail === 0) openGateCandidateDestination(action, rendered, clickDetail)
+  }, [openGateCandidateDestination])
+
   // Companion-nav activation: select the building AND route to its destination.
   const activate = useCallback(
     (id: BuildingId) => {
@@ -2277,6 +3069,18 @@ export function StudioLotScreen({
         })) return
         clearPublicityContext()
         recordSelection(null)
+        return
+      }
+      if (hollywood && id === 'gate') {
+        if (enterGateContext({
+          place: null,
+          paintHollywoodOutline: true,
+          candidate: null,
+          focus: 'gate',
+        })) return
+        clearGateContext()
+        recordSelection(null)
+        studioHeadingRef.current?.focus({ preventScroll: true })
         return
       }
       if (id === 'expansion') {
@@ -2308,6 +3112,7 @@ export function StudioLotScreen({
         }
       }
       clearHollywoodStage7DetailContext()
+      clearGateContext()
       clearPublicityContext()
       clearHollywoodSceneryLoadInContext()
       clearAnnexContext()
@@ -2317,12 +3122,14 @@ export function StudioLotScreen({
     },
     [
       clearAnnexContext,
+      clearGateContext,
       clearHollywoodSceneryLoadInContext,
       clearHollywoodStage7DetailContext,
       clearPublicityContext,
       dispatchRoute,
       enterAnnexContext,
       enterHollywoodProductionContext,
+      enterGateContext,
       enterPublicityContext,
       hollywood,
       recordSelection,
@@ -2347,6 +3154,212 @@ export function StudioLotScreen({
     const label = maskNames && isStage ? 'Soundstage' : BUILDING_LABELS[id]
     return { id, label, attention, meta, stateText }
   })
+
+  const gateContextContents = !gateSelected
+    ? null
+    : currentGateMarket === null
+      ? (
+          <div
+            role="region"
+            aria-label="Studio Gate unavailable"
+            data-testid="hollywood-gate-context-unavailable"
+          >
+            <p className="hollywood-eyebrow">STUDIO GATE</p>
+            <h3 ref={gateHeadingRef} tabIndex={-1}>Studio Gate</h3>
+            <p>Current Gate visitor details are unavailable. No candidate was selected.</p>
+          </div>
+        )
+      : (
+          <>
+            <p className="hollywood-eyebrow">STUDIO GATE · WEEK {currentGateMarket.marketWeek}</p>
+            <div className="hollywood-gate-heading">
+              <h3
+                ref={gateHeadingRef}
+                tabIndex={-1}
+                data-testid="hollywood-gate-heading"
+              >
+                Studio Gate
+              </h3>
+              <span className="hollywood-gate-tag">
+                {currentGateMarket.candidates.length} CURRENT
+              </span>
+            </div>
+            <p
+              className="hollywood-gate-physical-status"
+              data-testid="hollywood-gate-physical-status"
+            >
+              {gatePhysicalAvailability === 'available'
+                ? 'Selected in the living lot at the Studio Gate.'
+                : gatePhysicalAvailability === 'pending'
+                  ? 'The physical Gate is still preparing. Complete visitor controls remain available here.'
+                  : 'The physical Gate is unavailable in this renderer. Complete visitor controls remain available here.'}
+            </p>
+            {currentGateMarket.candidates.length === 0 ? (
+              <p className="hollywood-gate-empty" data-testid="hollywood-gate-empty">
+                No candidates with current contract terms
+              </p>
+            ) : (
+              <div
+                className="hollywood-gate-candidates"
+                role="group"
+                aria-label={`${currentGateMarket.candidates.length} candidates with current contract terms`}
+                data-testid="hollywood-gate-candidates"
+              >
+                {currentGateMarket.candidates.map((candidate) => {
+                  const selectedCandidate = selectedGateCandidateContext?.candidate.talentId ===
+                    candidate.talentId
+                  return (
+                    <button
+                      key={candidate.talentId}
+                      type="button"
+                      className={selectedCandidate ? 'is-selected' : ''}
+                      aria-pressed={selectedCandidate}
+                      aria-label={`${candidate.name} · ${gateRoleLabel(candidate.creativeRole)}`}
+                      disabled={worldInputSuspended}
+                      onPointerDown={(event) => {
+                        containWorldInput(event)
+                        gateCandidateSuppressClickRef.current = null
+                      }}
+                      onMouseDown={(event) => {
+                        containWorldInput(event)
+                        gateCandidateSuppressClickRef.current = null
+                      }}
+                      onTouchStart={(event) => {
+                        containWorldInput(event)
+                        gateCandidateSuppressClickRef.current = null
+                      }}
+                      onKeyDown={(event) => guardGateCandidateSelectionKeyDown(
+                        event,
+                        candidate.talentId,
+                      )}
+                      onKeyUp={releaseGateCandidateSelectionKey}
+                      onClick={(event) => {
+                        clickGateCandidateSelection(candidate.talentId, event.detail)
+                      }}
+                      data-testid={`hollywood-gate-select-${candidate.talentId}`}
+                    >
+                      <span>{candidate.name}</span>
+                      <small>{gateRoleLabel(candidate.creativeRole)}</small>
+                    </button>
+                  )
+                })}
+              </div>
+            )}
+            {selectedGateCandidateContext !== null && (
+              <section
+                className="hollywood-gate-visitor"
+                aria-labelledby="hollywood-gate-visitor-heading"
+                data-testid="hollywood-gate-visitor"
+              >
+                <p className="hollywood-eyebrow">SELECTED GATE VISITOR</p>
+                <h4
+                  id="hollywood-gate-visitor-heading"
+                  ref={gateVisitorHeadingRef}
+                  tabIndex={-1}
+                  data-testid="hollywood-gate-visitor-heading"
+                >
+                  {selectedGateCandidateContext.candidate.name}
+                </h4>
+                <dl className="hollywood-gate-visitor-facts">
+                  <div>
+                    <dt>Profession</dt>
+                    <dd>{gateRoleLabel(selectedGateCandidateContext.candidate.creativeRole)}</dd>
+                  </div>
+                  <div><dt>Availability</dt><dd>Free agent</dd></div>
+                  <div>
+                    <dt>Current terms</dt>
+                    <dd>
+                      {selectedGateCandidateContext.candidate.offerTermWeeks.length}{' '}
+                      {selectedGateCandidateContext.candidate.offerTermWeeks.length === 1 ? 'term' : 'terms'} ·{' '}
+                      {selectedGateCandidateContext.candidate.offerTermWeeks
+                        .map((term) => `${term} weeks`)
+                        .join(' · ')}
+                    </dd>
+                  </div>
+                </dl>
+                <div className="hollywood-gate-actions">
+                  <button
+                    ref={gateProfileButtonRef}
+                    type="button"
+                    className="accent"
+                    disabled={worldInputSuspended || !onOpenGateCandidateProfile}
+                    onPointerDown={(event) => latchGateCandidateAction(
+                      event,
+                      'profile',
+                      selectedGateCandidateContext,
+                    )}
+                    onMouseDown={(event) => latchGateCandidateAction(
+                      event,
+                      'profile',
+                      selectedGateCandidateContext,
+                    )}
+                    onTouchStart={(event) => latchGateCandidateAction(
+                      event,
+                      'profile',
+                      selectedGateCandidateContext,
+                    )}
+                    onPointerCancel={(event) => {
+                      containWorldInput(event)
+                      cancelGateCandidateGesture()
+                    }}
+                    onKeyDown={(event) => guardGateCandidateActionKeyDown(
+                      event,
+                      'profile',
+                      selectedGateCandidateContext,
+                    )}
+                    onKeyUp={releaseGateCandidateActionKey}
+                    onClick={(event) => clickGateCandidateAction(
+                      'profile',
+                      selectedGateCandidateContext,
+                      event.detail,
+                    )}
+                    data-testid={`hollywood-gate-open-profile-${selectedGateCandidateContext.candidate.talentId}`}
+                  >
+                    Open talent profile
+                  </button>
+                  <button
+                    type="button"
+                    className="ghost"
+                    disabled={worldInputSuspended || !onOpenGateCandidateHiring}
+                    onPointerDown={(event) => latchGateCandidateAction(
+                      event,
+                      'hiring',
+                      selectedGateCandidateContext,
+                    )}
+                    onMouseDown={(event) => latchGateCandidateAction(
+                      event,
+                      'hiring',
+                      selectedGateCandidateContext,
+                    )}
+                    onTouchStart={(event) => latchGateCandidateAction(
+                      event,
+                      'hiring',
+                      selectedGateCandidateContext,
+                    )}
+                    onPointerCancel={(event) => {
+                      containWorldInput(event)
+                      cancelGateCandidateGesture()
+                    }}
+                    onKeyDown={(event) => guardGateCandidateActionKeyDown(
+                      event,
+                      'hiring',
+                      selectedGateCandidateContext,
+                    )}
+                    onKeyUp={releaseGateCandidateActionKey}
+                    onClick={(event) => clickGateCandidateAction(
+                      'hiring',
+                      selectedGateCandidateContext,
+                      event.detail,
+                    )}
+                    data-testid={`hollywood-gate-open-hiring-${selectedGateCandidateContext.candidate.talentId}`}
+                  >
+                    Open Hiring terms · {selectedGateCandidateContext.candidate.name}
+                  </button>
+                </div>
+              </section>
+            )}
+          </>
+        )
 
   const publicityContextContents = !publicitySelected
     ? null
@@ -2841,6 +3854,7 @@ export function StudioLotScreen({
       })()
 
   const isCurrentStage7Inspector =
+    !gateSelected &&
     hollywoodPerson === null &&
     hollywoodPlace === null &&
     selectedSceneryLoadInContext === null &&
@@ -3034,9 +4048,11 @@ export function StudioLotScreen({
               </section>
 
               <section
-                className={`hollywood-inspector${publicitySelected ? ' is-publicity' : ''}${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}${hollywoodPerson ? ' is-person' : ''}`}
+                className={`hollywood-inspector${gateSelected ? ' is-gate' : ''}${publicitySelected ? ' is-publicity' : ''}${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}${hollywoodPerson ? ' is-person' : ''}`}
                 data-testid={
-                  publicitySelected
+                  gateSelected
+                    ? 'hollywood-gate-context'
+                    : publicitySelected
                     ? 'hollywood-publicity-context'
                     : annexSelected
                     ? 'lot-annex-context'
@@ -3048,7 +4064,9 @@ export function StudioLotScreen({
                 onMouseDown={containWorldInput}
                 onTouchStart={containWorldInput}
               >
-                {publicitySelected
+                {gateSelected
+                  ? gateContextContents
+                  : publicitySelected
                   ? publicityContextContents
                   : annexSelected
                   ? annexContextContents
@@ -3226,6 +4244,16 @@ export function StudioLotScreen({
                   data-testid="hollywood-performance"
                   data-frame-samples={hollywoodPerf.frameSampleCount}
                   data-telemetry-window={hollywoodPerfWindow}
+                  data-decoded-bytes={hollywoodPerf.textureMemoryBytes}
+                  data-fps={hollywoodPerf.fps}
+                  data-one-percent-low-fps={hollywoodPerf.onePercentLowFps}
+                  data-display-objects={hollywoodPerf.displayObjects}
+                  data-dynamic-actors={hollywoodPerf.dynamicActors}
+                  data-p99-frame-ms={hollywoodPerf.p99FrameMs}
+                  data-worst-frame-ms={hollywoodPerf.worstFrameMs}
+                  data-average-update-ms={hollywoodPerf.updateMs}
+                  data-worst-update-ms={hollywoodPerf.worstUpdateMs}
+                  data-draw-calls={hollywoodPerf.drawCalls}
                 >
                   {hollywoodPerf.fps} fps · {hollywoodPerf.onePercentLowFps} fps 1% low · {hollywoodPerf.displayObjects} objects · {hollywoodPerf.dynamicActors} actors · {hollywoodPerf.textureMemoryMb} MB decoded · {hollywoodPerf.roleAtlasEncodedKb} KB atlas · {hollywoodPerf.p99FrameMs} ms p99 · {hollywoodPerf.worstFrameMs} ms worst · {hollywoodPerf.updateMs} ms update · {hollywoodPerf.drawCalls} draws
                 </div>
@@ -3356,7 +4384,8 @@ export function StudioLotScreen({
           {canvasFailed && (
             <div className="lot-canvas-note" role="status" data-testid="lot-canvas-fallback">
               The visual lot could not load here. Every destination remains in the list, and exact
-              Stage 7 work remains available through the Studio Desk.
+              Stage 7 work remains available through the Studio Desk. Exact Gate visitor controls
+              also remain available in the Studio Lot.
             </div>
           )}
 

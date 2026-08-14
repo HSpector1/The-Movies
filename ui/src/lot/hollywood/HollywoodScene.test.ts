@@ -15,6 +15,8 @@ const fakePhaser = vi.hoisted(() => {
     visible = true
     fillColor = 0
     alpha = 1
+    originX = 0
+    originY = 0
     interactive = false
     handlers = new Map<string, Array<(...args: unknown[]) => void>>()
 
@@ -24,7 +26,7 @@ const fakePhaser = vi.hoisted(() => {
       this.texture = texture
     }
 
-    setOrigin() { return this }
+    setOrigin(x = 0.5, y = x) { this.originX = x; this.originY = y; return this }
     setDepth(depth: number) { this.depth = depth; return this }
     setInteractive() { this.interactive = true; return this }
     on<TArgs extends unknown[]>(name: string, handler: (...args: TArgs) => void) {
@@ -144,6 +146,13 @@ const fakePhaser = vi.hoisted(() => {
     }
     textures = {
       exists: (key: string) => this.textureSizes.has(key),
+      get: (key: string) => {
+        const size = this.textureSizes.get(key) ?? { width: 0, height: 0 }
+        return {
+          getSourceImage: () => ({ width: size.width, height: size.height }),
+          has: () => false,
+        }
+      },
     }
     make = {
       graphics: () => new Graphics((key, width, height) => {
@@ -230,7 +239,11 @@ vi.mock('phaser', () => ({
   },
 }))
 
-import { HollywoodScene, type HollywoodEvent } from './HollywoodScene.ts'
+import {
+  HollywoodScene,
+  type HollywoodEvent,
+  type HollywoodGateVisitorPresentation,
+} from './HollywoodScene.ts'
 import {
   applyActions,
   beginFounding,
@@ -382,7 +395,7 @@ function snapshot(
     operationsMode: 'managed',
     stageAssignmentAuthority: 'engine',
     productionOperations: operations,
-  }
+  } as StudioLotSnapshot
 }
 
 function annexWork(occupant: LotAnnexWorkOccupant | null = null): LotAnnexWork {
@@ -449,7 +462,7 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
     }>
     places: Array<{
       id: string
-      buildingId: 'admin' | 'stage-a' | 'stage-b' | 'post' | 'expansion'
+      buildingId: 'admin' | 'stage-a' | 'stage-b' | 'post' | 'expansion' | 'gate'
       label: string
       affordances: string[]
       anchors: Record<string, [number, number]>
@@ -464,6 +477,7 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
     speed: number
   }>
   vehicleTween: InstanceType<typeof fakePhaser.Tween> | null
+  vehicle: InstanceType<typeof fakePhaser.DisplayObject> | null
   flash: InstanceType<typeof fakePhaser.DisplayObject> | null
   stageStateText: InstanceType<typeof fakePhaser.DisplayObject> | null
   stageLamp: InstanceType<typeof fakePhaser.DisplayObject> | null
@@ -476,9 +490,15 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   expansionGraphics: InstanceType<typeof fakePhaser.Graphics> | null
   expansionLabel: InstanceType<typeof fakePhaser.DisplayObject> | null
   roleAtlasActive: boolean
+  gateVisitor: {
+    presentation: HollywoodGateVisitorPresentation
+    sprite: InstanceType<typeof fakePhaser.DisplayObject>
+  } | null
+  requestedGateVisitor: HollywoodGateVisitorPresentation | null
   inputSuspended: boolean
   dragOrigin: { x: number; y: number; scrollX: number; scrollY: number } | null
   performanceWarmupFramesRemaining: number
+  drawCallSamples: number[]
   buildWorld: () => void
   buildAmbientLife: () => void
   buildSemanticHotspots: () => void
@@ -613,6 +633,105 @@ function publicityActivity(): SceneHarness['manifest']['activities'][number] {
     requiredAffordances: ['publicity'],
     requiredRoles: ['talent', 'publicist', 'photographer'],
     visualStates: ['queue-forming', 'flash', 'press-moving'],
+  }
+}
+
+function gatePlace(): SceneHarness['manifest']['places'][number] {
+  return {
+    id: 'studio-gate',
+    buildingId: 'gate',
+    label: 'Studio Gate',
+    affordances: ['gate-security', 'arrival'],
+    anchors: {
+      guard: [853, 720],
+      arrival: [1227, 844],
+    },
+    selectionPolygon: [
+      [930, 570],
+      [1586, 529],
+      [1586, 992],
+      [900, 992],
+      [820, 900],
+      [835, 720],
+    ],
+  }
+}
+
+function gateForegroundLayer(): SceneHarness['manifest']['layers'][number] {
+  return {
+    id: 'gate-foreground-occluder',
+    kind: 'occluder',
+    depth: 90,
+    output: 'gate-foreground-occluder.png',
+    x: 568,
+    y: 504,
+    width: 1019,
+    height: 489,
+  }
+}
+
+function installCanonicalGate(internals: SceneHarness): void {
+  internals.manifest.places.push(gatePlace())
+  internals.manifest.layers.push(gateForegroundLayer())
+}
+
+type GateCandidateFixture = {
+  talentId: string
+  name: string
+  creativeRole: 'actor' | 'director' | 'writer' | 'craft'
+  employmentStatus: 'freeAgent'
+  offerTermWeeks: number[]
+}
+
+function gateCandidate(
+  overrides: Partial<GateCandidateFixture> = {},
+): GateCandidateFixture {
+  return {
+    talentId: 'visitor-1',
+    name: 'Mara Voss',
+    creativeRole: 'director',
+    employmentStatus: 'freeAgent',
+    offerTermWeeks: [26, 52, 104],
+    ...overrides,
+  }
+}
+
+function gateSnapshot(
+  candidates: GateCandidateFixture[] = [gateCandidate()],
+  overrides: Partial<StudioLotSnapshot> = {},
+): StudioLotSnapshot {
+  const current = snapshot([])
+  const count = candidates.length
+  return {
+    ...current,
+    buildings: [{
+      id: 'gate',
+      available: true,
+      attention: count === 0 ? 'empty' : 'active',
+      attentionReason: count === 0
+        ? 'No candidates with current contract terms'
+        : `${String(count)} candidate${count === 1 ? '' : 's'} with current contract terms`,
+    }],
+    gateHiringMarket: { candidates },
+    ...overrides,
+  } as StudioLotSnapshot
+}
+
+function gateVisitor(
+  candidate: GateCandidateFixture = gateCandidate(),
+  overrides: Partial<HollywoodGateVisitorPresentation> = {},
+): HollywoodGateVisitorPresentation {
+  return {
+    talentId: candidate.talentId,
+    name: candidate.name,
+    marketRole: candidate.creativeRole,
+    presentationRole: candidate.creativeRole === 'director' ? 'director' : 'talent',
+    employmentStatus: 'freeAgent',
+    studioSeed: 'hollywood-scene-test',
+    marketWeek: 1,
+    offerTermWeeks: [...candidate.offerTermWeeks],
+    placeId: 'studio-gate',
+    ...overrides,
   }
 }
 
@@ -2194,5 +2313,247 @@ describe('HollywoodScene snapshot authority', () => {
     scene.update(0, 100)
     expect(vehicleTween.resumed).toBe(1)
     expect(internals.ambientActors[0]!.phase).not.toBe(0.25)
+  })
+
+  it('reuses one exact canonical Gate zone for physical selection, host paint, and focus', () => {
+    const current = gateSnapshot()
+    const { scene, internals, events } = harness(current)
+    installCanonicalGate(internals)
+    internals.selectionGraphics = new fakePhaser.Graphics()
+
+    internals.buildSemanticHotspots()
+    expect(internals.zones).toHaveLength(2) // existing Stage 7 + canonical Gate
+    const physicalGate = internals.zones.at(-1)!
+    physicalGate.emit('pointerdown', pointer())
+
+    expect(events.filter((event) => event.type === 'place')).toEqual([{
+      type: 'place',
+      place: {
+        id: 'studio-gate',
+        buildingId: 'gate',
+        label: 'Studio Gate',
+        affordances: ['gate-security', 'arrival'],
+      },
+    }])
+    expect(scene.debugState().selectedPlaceId).toBe('studio-gate')
+
+    events.length = 0
+    expect(scene.selectGateFromHost()).toBe(true)
+    expect(events).toEqual([])
+    expect(scene.focusGateFromHost()).toBe(true)
+    expect(internals.cameras.main.pan).toHaveBeenCalledOnce()
+  })
+
+  it.each([
+    ['missing Gate', (internals: SceneHarness) => { internals.manifest.places.pop() }],
+    ['wrong canvas', (internals: SceneHarness) => { internals.manifest.canvas.width = 1585 }],
+    ['unexpected canvas field', (internals: SceneHarness) => {
+      Object.assign(internals.manifest.canvas, { scale: 1 })
+    }],
+    ['missing foreground', (internals: SceneHarness) => { internals.manifest.layers.pop() }],
+    ['wrong foreground depth', (internals: SceneHarness) => {
+      internals.manifest.layers.at(-1)!.depth = 91
+    }],
+    ['wrong foreground output', (internals: SceneHarness) => {
+      internals.manifest.layers.at(-1)!.output = 'other.png'
+    }],
+    ['duplicate foreground', (internals: SceneHarness) => {
+      internals.manifest.layers.push({ ...gateForegroundLayer(), id: 'gate-shadow' })
+    }],
+    ['wrong foreground bounds', (internals: SceneHarness) => {
+      internals.manifest.layers.at(-1)!.x = 569
+    }],
+    ['unexpected foreground field', (internals: SceneHarness) => {
+      Object.assign(internals.manifest.layers.at(-1)!, { opacity: 1 })
+    }],
+    ['wrong identity', (internals: SceneHarness) => {
+      internals.manifest.places.at(-1)!.id = 'other-gate'
+    }],
+    ['unexpected Gate field', (internals: SceneHarness) => {
+      Object.assign(internals.manifest.places.at(-1)!, { destination: 'hiring' })
+    }],
+    ['wrong anchor', (internals: SceneHarness) => {
+      internals.manifest.places.at(-1)!.anchors.arrival = [1228, 844]
+    }],
+    ['unexpected anchor key', (internals: SceneHarness) => {
+      internals.manifest.places.at(-1)!.anchors.queue = [1227, 844]
+    }],
+    ['reordered affordances', (internals: SceneHarness) => {
+      internals.manifest.places.at(-1)!.affordances.reverse()
+    }],
+    ['stale source polygon', (internals: SceneHarness) => {
+      internals.manifest.places.at(-1)!.selectionPolygon = [
+        [593, 548], [1586, 529], [1586, 992], [574, 992],
+      ]
+    }],
+    ['non-finite polygon', (internals: SceneHarness) => {
+      internals.manifest.places.at(-1)!.selectionPolygon[0] = [Number.NaN, 570]
+    }],
+    ['self-intersecting polygon', (internals: SceneHarness) => {
+      internals.manifest.places.at(-1)!.selectionPolygon = [
+        [930, 570], [1586, 992], [1586, 529], [900, 992], [820, 900], [835, 720],
+      ]
+    }],
+    ['Gate-like duplicate', (internals: SceneHarness) => {
+      internals.manifest.places.push({
+        ...gatePlace(),
+        id: 'visitor-entrance',
+        selectionPolygon: [[0, 0], [10, 0], [10, 10]],
+      })
+    }],
+  ])('fails only malformed Gate truth closed: %s', (_label, mutate) => {
+    const current = gateSnapshot()
+    const { scene, internals, events } = harness(current)
+    installCanonicalGate(internals)
+    internals.selectionGraphics = new fakePhaser.Graphics()
+    mutate(internals)
+
+    internals.buildSemanticHotspots()
+    expect(internals.zones).toHaveLength(1) // unrelated Stage 7 remains operational
+    expect(scene.selectGateFromHost()).toBe(false)
+    expect(scene.focusGateFromHost()).toBe(false)
+    expect(scene.setGateVisitor(gateVisitor())).toBe(false)
+    expect(scene.debugState().gateVisitorTalentId).toBeNull()
+    expect(events).toEqual([])
+  })
+
+  it('renders exactly one stationary complete-provenance visitor and emits identity only', () => {
+    const first = gateCandidate()
+    const second = gateCandidate({
+      talentId: 'visitor-2',
+      name: 'Eli North',
+      creativeRole: 'actor',
+      offerTermWeeks: [13, 26],
+    })
+    const current = gateSnapshot([first, second])
+    const { scene, internals, events } = harness(current)
+    installCanonicalGate(internals)
+    const textCount = internals.texts.length
+    const zoneCount = internals.zones.length
+    const tweenCount = internals.tweenAdds.length
+
+    expect(scene.setGateVisitor(gateVisitor(first))).toBe(true)
+    const sprite = internals.gateVisitor!.sprite
+    expect(sprite).toMatchObject({
+      x: 1227,
+      y: 844,
+      originX: 0.5,
+      originY: 0.92,
+      depth: 97,
+      texture: 'hollywood-director',
+      interactive: true,
+    })
+    expect(internals.texts).toHaveLength(textCount)
+    expect(internals.zones).toHaveLength(zoneCount)
+    expect(internals.tweenAdds).toHaveLength(tweenCount)
+    expect(scene.performanceStats().dynamicActors).toBe(1)
+
+    scene.update(0, 10_000)
+    scene.setReducedMotion(true)
+    expect(sprite).toMatchObject({ x: 1227, y: 844, depth: 97 })
+
+    sprite.emit('pointerdown', pointer())
+    expect(events.filter((event) => event.type === 'gate-visitor')).toEqual([{
+      type: 'gate-visitor',
+      visitor: { talentId: first.talentId },
+    }])
+
+    expect(scene.setGateVisitor(gateVisitor(second))).toBe(true)
+    expect(internals.gateVisitor!.sprite).toBe(sprite)
+    expect(internals.gateVisitor).toMatchObject({
+      presentation: { talentId: second.talentId, presentationRole: 'talent' },
+    })
+    expect(sprite.texture).toBe('hollywood-talent')
+    expect(scene.performanceStats().dynamicActors).toBe(1)
+
+    expect(scene.setGateVisitor(null)).toBe(true)
+    expect(sprite.destroyed).toBe(true)
+    expect(scene.debugState().gateVisitorTalentId).toBeNull()
+    expect(scene.performanceStats().dynamicActors).toBe(0)
+  })
+
+  it('holds the frozen one-production structural reference at exactly +1 visitor cost', () => {
+    const current = gateSnapshot(undefined, { people: [director(), talent()] })
+    const { scene, internals } = harness(current)
+    installCanonicalGate(internals)
+
+    // The fake Scene does not maintain Phaser's DisplayList length, so pin the
+    // independently accepted preselection reference and advance it only by the
+    // observed sprite delta from setGateVisitor below.
+    internals.children.length = 34
+    internals.manifest.textureMemoryBytes = 9_164_360
+    internals.textureSizes.set('hollywood-role-atlas-v1', {
+      width: 384,
+      height: 1152,
+      generated: false,
+    })
+    internals.ambientActors.length = 12
+    internals.vehicle = new fakePhaser.DisplayObject()
+    internals.drawCallSamples = [1]
+
+    expect(scene.performanceStats()).toMatchObject({
+      displayObjects: 34,
+      dynamicActors: 15,
+      textureMemoryBytes: 11_096_896,
+      drawCalls: 1,
+    })
+
+    const spriteCount = internals.sprites.length
+    expect(scene.setGateVisitor(gateVisitor())).toBe(true)
+    expect(internals.sprites).toHaveLength(spriteCount + 1)
+    internals.children.length += internals.sprites.length - spriteCount
+
+    expect(scene.performanceStats()).toMatchObject({
+      displayObjects: 35,
+      dynamicActors: 16,
+      textureMemoryBytes: 11_096_896,
+      drawCalls: 1,
+    })
+    expect(internals.texts).toHaveLength(2)
+    expect(internals.zones).toHaveLength(0)
+    expect(internals.tweenAdds).toHaveLength(0)
+  })
+
+  it('rejects stale presentation provenance and never resurrects it from later snapshots', () => {
+    const current = gateSnapshot()
+    const { scene, internals } = harness(current)
+    installCanonicalGate(internals)
+    const exact = gateVisitor()
+
+    for (const hostile of [
+      { ...exact, studioSeed: 'another-studio' },
+      { ...exact, marketWeek: 2 },
+      { ...exact, name: 'Replacement Name' },
+      { ...exact, offerTermWeeks: [26, 104] },
+      { ...exact, presentationRole: 'talent' as const },
+    ]) {
+      expect(scene.setGateVisitor(hostile)).toBe(false)
+      expect(scene.debugState().gateVisitorTalentId).toBeNull()
+    }
+
+    expect(scene.setGateVisitor(exact)).toBe(true)
+    const priorSprite = internals.gateVisitor!.sprite
+    scene.applySnapshot(gateSnapshot(undefined, { week: 2 }))
+    expect(priorSprite.destroyed).toBe(true)
+    expect(internals.requestedGateVisitor).toBeNull()
+
+    scene.applySnapshot(current)
+    expect(scene.debugState().gateVisitorTalentId).toBeNull()
+  })
+
+  it('uses the existing role atlas when active without changing visitor geometry', () => {
+    const current = gateSnapshot()
+    const { scene, internals } = harness(current)
+    installCanonicalGate(internals)
+    internals.roleAtlasActive = true
+
+    expect(scene.setGateVisitor(gateVisitor())).toBe(true)
+    expect(internals.gateVisitor!.sprite).toMatchObject({
+      x: 1227,
+      y: 844,
+      depth: 97,
+      texture: 'hollywood-role-atlas-v1',
+      flipX: false,
+    })
   })
 })

@@ -23,6 +23,8 @@ import {
   HollywoodScene,
   type HollywoodEvent,
   type HollywoodFailureReason,
+  type HollywoodGateVisitorPresentation,
+  type HollywoodGateVisitorSelection,
   type HollywoodPerformance,
   type HollywoodPlaceSelection,
   type HollywoodProductionSelection,
@@ -31,6 +33,7 @@ import {
 import type { LotPersonState } from './snapshot/StudioLotSnapshot'
 
 export type { CameraPreset, CharacterInfo, MomentKind }
+export type { HollywoodGateVisitorPresentation, HollywoodGateVisitorSelection }
 
 export type SelectionInfo = {
   buildingId: BuildingId
@@ -60,6 +63,8 @@ export type StudioLotViewOptions = {
   onHollywoodPlace?: (place: HollywoodPlaceSelection) => void
   onHollywoodProduction?: (production: HollywoodProductionSelection) => void
   onHollywoodSceneryLoadIn?: (selection: HollywoodSceneryLoadInSelection) => void
+  /** One physical Gate visitor identity; the host resolves all current candidate facts. */
+  onHollywoodGateVisitor?: (selection: HollywoodGateVisitorSelection) => void
   /** The lot finished first paint. */
   onReady?: () => void
   /** Hollywood could not establish or retain a usable physical renderer. */
@@ -88,6 +93,8 @@ export class StudioLotView {
   private scene: LotScene | null = null
   private hollywoodScene: HollywoodScene | null = null
   private pendingSnapshot: StudioLotSnapshot | null = null
+  /** Latest transient Gate presentation, retained independently of renderer readiness. */
+  private pendingGateVisitor: HollywoodGateVisitorPresentation | null = null
   private reducedMotion = false
   /** Modal overlays suspend world input without pausing or recreating the renderer. */
   private inputSuspended = false
@@ -161,6 +168,7 @@ export class StudioLotView {
       if (this.pendingSnapshot && this.pendingSnapshot !== this.opts.snapshot) {
         this.hollywoodScene.applySnapshot(this.pendingSnapshot)
       }
+      this.reconcilePendingGateVisitor()
       this.opts.onReady?.()
       return
     }
@@ -168,7 +176,17 @@ export class StudioLotView {
     else if (e.type === 'place') this.opts.onHollywoodPlace?.(e.place)
     else if (e.type === 'production') this.opts.onHollywoodProduction?.(e.production)
     else if (e.type === 'scenery-load-in') this.opts.onHollywoodSceneryLoadIn?.(e.sceneryLoadIn)
+    else if (e.type === 'gate-visitor') this.opts.onHollywoodGateVisitor?.(e.visitor)
     else if (e.type === 'activity') this.opts.onActivity?.(e.text)
+  }
+
+  private reconcilePendingGateVisitor(): boolean {
+    if (this.hollywoodScene === null) return this.pendingGateVisitor === null
+    const accepted = this.hollywoodScene.setGateVisitor(this.pendingGateVisitor)
+    // A live scene has independently rejected this provenance against current
+    // snapshot/manifest truth. Do not retain it for a later accidental resurrection.
+    if (!accepted && this.pendingGateVisitor !== null) this.pendingGateVisitor = null
+    return accepted
   }
 
   private reportHollywoodFailure(reason: HollywoodFailureReason): void {
@@ -233,6 +251,25 @@ export class StudioLotView {
     this.pendingSnapshot = snapshot
     this.scene?.applySnapshot(snapshot)
     this.hollywoodScene?.applySnapshot(snapshot)
+    if (this.hollywoodScene) this.reconcilePendingGateVisitor()
+  }
+
+  /**
+   * Retain the latest complete Gate presentation across lazy readiness/recreation.
+   * The scene independently checks every field against its latest snapshot.
+   */
+  setHollywoodGateVisitor(visitor: HollywoodGateVisitorPresentation | null): boolean {
+    this.pendingGateVisitor = visitor === null
+      ? null
+      : {
+          ...visitor,
+          offerTermWeeks: Array.isArray(visitor.offerTermWeeks)
+            ? [...visitor.offerTermWeeks]
+            : [],
+        }
+    return this.hollywoodScene === null
+      ? visitor === null
+      : this.reconcilePendingGateVisitor()
   }
 
   /** Programmatically select a building (as if the user clicked it). */
@@ -295,6 +332,7 @@ export class StudioLotView {
     this.hollywoodScene?.setInputSuspended(this.inputSuspended)
     if (this.hollywoodScene && this.pendingSnapshot) {
       this.hollywoodScene.applySnapshot(this.pendingSnapshot)
+      this.reconcilePendingGateVisitor()
     }
     this.hollywoodScene?.resetPerformanceTelemetry()
     this.pauseVignettes(false)
@@ -384,6 +422,14 @@ export class StudioLotView {
   /** Select exact Administration & Publicity and report physical availability. */
   selectHollywoodPublicityPlace(): boolean {
     return this.hollywoodScene?.selectPublicityFromHost() ?? false
+  }
+  /** Paint the exact canonical Studio Gate without re-emitting a scene event. */
+  selectHollywoodGatePlace(): boolean {
+    return this.hollywoodScene?.selectGateFromHost() ?? false
+  }
+  /** Focus only the exact canonical Studio Gate and report physical availability. */
+  focusHollywoodGate(): boolean {
+    return this.hollywoodScene?.focusGateFromHost() ?? false
   }
   clearHollywoodPersonSelection(): void { this.hollywoodScene?.clearPersonSelection() }
   clearHollywoodPlaceSelection(): void { this.hollywoodScene?.clearPlaceSelection() }

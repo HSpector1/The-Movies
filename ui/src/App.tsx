@@ -87,6 +87,10 @@ import {
   stage7ProductionDetailContext,
   type Stage7ProductionOwnerIntent,
 } from './lot/snapshot/stage7Production.ts'
+import {
+  gateHiringCandidateContext,
+  type GateCandidateOwnerIntent,
+} from './lot/snapshot/gateHiring.ts'
 
 // Gate D1: the Studio Lot overview is lazily imported so Phaser and the whole lot
 // module stay out of the eager bundle. The factory only runs when <StudioLotScreen/>
@@ -99,6 +103,7 @@ type OrdinaryLotEntryFocus =
   | 'advance-week'
   | 'publicity-campaign'
   | 'annex-work'
+  | 'gate-arrivals'
 
 type StudioReturnContext =
   | { kind: 'dashboard' }
@@ -111,6 +116,12 @@ type StudioReturnContext =
       kind: 'lot'
       focus: 'stage-7-production'
       productionId: string
+      suppressOperationalAnnouncement: boolean
+    }
+  | {
+      kind: 'lot'
+      focus: 'gate-candidate'
+      candidate: GateCandidateOwnerIntent
       suppressOperationalAnnouncement: boolean
     }
 
@@ -129,6 +140,13 @@ function withoutTransientWorldReturnIntent(context: StudioReturnContext): Studio
     return {
       kind: 'lot',
       focus: 'studio-home',
+      suppressOperationalAnnouncement: context.suppressOperationalAnnouncement,
+    }
+  }
+  if (context.focus === 'gate-candidate') {
+    return {
+      kind: 'lot',
+      focus: 'gate-arrivals',
       suppressOperationalAnnouncement: context.suppressOperationalAnnouncement,
     }
   }
@@ -159,7 +177,7 @@ type Screen =
       focusRunId?: string
     }
   | { kind: 'roster'; returnContext: StudioReturnContext; focusTalentId?: string }
-  | { kind: 'hiring'; returnContext: StudioReturnContext }
+  | { kind: 'hiring'; returnContext: StudioReturnContext; focusTalentId?: string }
   | { kind: 'writersRoom'; returnContext: StudioReturnContext; focusProjectId?: string }
   | {
       kind: 'castingRoom'
@@ -233,6 +251,11 @@ type Screen =
       kind: 'lot'
       entryFocus: 'stage-7-production'
       entryStage7ProductionId: string
+    }
+  | {
+      kind: 'lot'
+      entryFocus: 'gate-candidate'
+      entryGateCandidate: GateCandidateOwnerIntent
     } // Studio Home V1: primary world surface
 
 function operatingStudioHome(lotEnabled: boolean): Screen {
@@ -457,6 +480,16 @@ export function App() {
     }
     setLotAdvanceFeedback(null)
     setLotOperationalAnnouncementSuppressed(context.suppressOperationalAnnouncement)
+    if (context.focus === 'gate-candidate') {
+      // Preserve only the exact transient owner identity. The remounted Lot independently
+      // rebuilds current market truth and restores no visitor when that identity drifted.
+      setScreen({
+        kind: 'lot',
+        entryFocus: 'gate-candidate',
+        entryGateCandidate: context.candidate,
+      })
+      return
+    }
     if (context.focus === 'stage-7-production') {
       // Preserve the stale-sensitive identity even when current truth may have changed. The
       // remounted Lot starts explicit-empty and performs the fresh strict selector check; a
@@ -685,17 +718,15 @@ export function App() {
     if (!state) return
     const result = advanceToNextEvent(state)
     setState(result.next)
+    const demotedReturnContext = withoutTransientWorldReturnIntent(returnContext)
     const resolvedReturnContext: StudioReturnContext =
-      returnContext.kind === 'lot'
+      demotedReturnContext.kind === 'lot'
         ? {
-            kind: 'lot',
-            focus: returnContext.focus === 'stage-7-production'
-              ? 'studio-home'
-              : returnContext.focus,
+            ...demotedReturnContext,
             suppressOperationalAnnouncement:
               lotOperationalAnnouncementSuppressed || result.constructionCompletion !== null,
           }
-        : returnContext
+        : demotedReturnContext
     if (resolvedReturnContext.kind === 'lot') {
       setLotAdvanceFeedback(null)
       setLotOperationalAnnouncementSuppressed(
@@ -993,6 +1024,67 @@ export function App() {
     return true
   }
 
+  // World-First Studio Gate Talent Arrival V1: the Lot emits one explicit candidate
+  // identity, but App independently rebuilds the latest eligible market projection before
+  // opening either supporting owner. The content seed is supplementary provenance; accepted
+  // whole-studio replacements already discard this screen/return context in start/load paths.
+  function currentGateCandidate(intent: GateCandidateOwnerIntent) {
+    const current = latestStateRef.current
+    if (current === null) return null
+
+    try {
+      const underlying = current.talent.filter((person) => person.id === intent.talentId)
+      if (
+        underlying.length !== 1 ||
+        underlying[0]!.name !== intent.name ||
+        underlying[0]!.role !== intent.creativeRole
+      ) return null
+
+      const latest = gateHiringCandidateContext(
+        studioLotSnapshot(current),
+        intent.talentId,
+      )
+      if (
+        latest === null ||
+        latest.ownerIntent.talentId !== intent.talentId ||
+        latest.ownerIntent.studioSeed !== intent.studioSeed ||
+        latest.ownerIntent.name !== intent.name ||
+        latest.ownerIntent.creativeRole !== intent.creativeRole
+      ) return null
+      return latest
+    } catch {
+      return null
+    }
+  }
+
+  function handleOpenGateCandidateProfile(intent: GateCandidateOwnerIntent): boolean {
+    if (latestOpenProfileIdRef.current !== null || currentGateCandidate(intent) === null) {
+      return false
+    }
+    openTalentProfile(intent.talentId)
+    return true
+  }
+
+  function handleOpenGateCandidateHiring(intent: GateCandidateOwnerIntent): boolean {
+    if (latestOpenProfileIdRef.current !== null || currentGateCandidate(intent) === null) {
+      return false
+    }
+
+    setLotAdvanceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
+    setScreen({
+      kind: 'hiring',
+      returnContext: {
+        kind: 'lot',
+        focus: 'gate-candidate',
+        candidate: intent,
+        suppressOperationalAnnouncement: false,
+      },
+      focusTalentId: intent.talentId,
+    })
+    return true
+  }
+
   const openProfile = openProfileId ? talentProfile(state, openProfileId) : undefined
   // Keep the world inert for the full lifetime of the App-owned drawer identity,
   // including the single reconciliation render where a hostile/replaced state no
@@ -1109,10 +1201,11 @@ export function App() {
             setScreen({
               kind: 'talent',
               returnTo: 'hiring',
-              returnContext: screen.returnContext,
+              returnContext: withoutTransientWorldReturnIntent(screen.returnContext),
             })
           }
           onBack={() => returnToStudioContext(screen.returnContext)}
+          {...(screen.focusTalentId ? { focusTalentId: screen.focusTalentId } : {})}
         />
       )}
 
@@ -1371,10 +1464,15 @@ export function App() {
             {...(screen.entryFocus === 'stage-7-production'
               ? { entryStage7ProductionId: screen.entryStage7ProductionId }
               : {})}
+            {...(screen.entryFocus === 'gate-candidate'
+              ? { entryGateCandidate: screen.entryGateCandidate }
+              : {})}
             onProductionCommand={handleProductionCommand}
             onStartDevelopmentCastingAnnex={handleStartDevelopmentCastingAnnex}
             onOpenAnnexWorkDetails={handleOpenAnnexWorkDetails}
             onOpenStage7ProductionDetails={handleOpenStage7ProductionDetails}
+            onOpenGateCandidateProfile={handleOpenGateCandidateProfile}
+            onOpenGateCandidateHiring={handleOpenGateCandidateHiring}
             onOpenTalentProfile={openTalentProfile}
             onCloseTalentProfile={closeTalentProfileIfOpen}
             openTalentProfileId={openProfileId}

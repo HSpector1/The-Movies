@@ -290,6 +290,21 @@ export type BuildingState = {
   constructionProgressText?: string
 }
 
+/** One exact, currently signable contract-market visitor the Gate may present. */
+export type LotGateHiringCandidate = {
+  talentId: string
+  name: string
+  creativeRole: 'actor' | 'director' | 'writer' | 'craft'
+  employmentStatus: 'freeAgent'
+  /** Exact current term identities only; complete money truth remains in Hiring. */
+  offerTermWeeks: number[]
+}
+
+/** Narrow Gate projection over the canonical current Hiring market. */
+export type LotGateHiringMarket = {
+  candidates: LotGateHiringCandidate[]
+}
+
 /**
  * The complete set of facts the visual lot renders. The adapter selector populates
  * it from GameState. Nothing here is a rule — change a field and the lot repaints.
@@ -323,6 +338,8 @@ type StudioLotSnapshotBase = {
   people: LotPersonState[]
   /** Availability + attention + dressing per building (all nine present). */
   buildings: BuildingState[]
+  /** Optional only so legacy hand-authored fixtures remain source-compatible. */
+  gateHiringMarket?: LotGateHiringMarket
   /** Host-provided selection (UI session state — never GameState), or null. */
   selectedBuildingId: BuildingId | null
   /**
