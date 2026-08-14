@@ -15,7 +15,7 @@
 // asks for. That is the same question the browser proof asks, one layer down.
 
 import { render, waitFor } from '@testing-library/react'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { applyActions, beginFounding, generateWorld } from '../../../src/core/index.ts'
 import type { CreativeRole, GameState } from '../../../src/core/index.ts'
 
@@ -56,11 +56,22 @@ vi.mock('phaser', () => ({ default: phaser.P, ...phaser.P }))
 
 import { StudioLotScreen } from './StudioLotScreen.tsx'
 import { LotScene, type LotSceneData } from './scene/LotScene.ts'
-import { setStudioLotAuthoredStageARollback } from '../flags.ts'
+import {
+  clearOperationHollywoodOverride,
+  setOperationHollywoodOverride,
+  setStudioLotAuthoredStageARollback,
+} from '../flags.ts'
+
+beforeEach(() => {
+  // This is specifically the legacy LotScene wiring proof. Operation Hollywood is now
+  // adopted by default, so select its explicit rollback without changing that default.
+  setOperationHollywoodOverride(false)
+})
 
 afterEach(() => {
   phaser.sceneAdds.length = 0
   setStudioLotAuthoredStageARollback(false)
+  clearOperationHollywoodOverride()
 })
 
 /** Minimum viable studio: the lot only needs to exist, not to be busy. */

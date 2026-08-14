@@ -24,6 +24,7 @@ const OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
 const IDENTITY_FLAG = 'project-studio.flags.studio-lot-identity-proof'
 const SOUNDSTAGES_FLAG = 'project-studio.flags.studio-lot-soundstages'
 const SOUNDSTAGE_PROOF_FLAG = 'project-studio.flags.studio-lot-soundstage-proof'
+const OPERATION_HOLLYWOOD_FLAG = 'project-studio.flags.operation-hollywood'
 
 test.beforeAll(() => {
   const names = ['empty', 'one', 'two', 'released', 'warn', 'dressed', 'undressed']
@@ -45,12 +46,13 @@ const fixture = (name: string) => readFileSync(join(fixturesDir, `${name}.json`)
 async function seed(page: Page, fixtureName: string, soundstages: boolean) {
   const save = fixture(fixtureName)
   await page.addInitScript(
-    ([key, json, f1, f2, f3, f4, on]) => {
+    ([key, json, f1, f2, f3, f4, hollywoodFlag, on]) => {
       try {
         localStorage.setItem(key as string, json as string)
         localStorage.setItem(f1 as string, '1')
         localStorage.setItem(f2 as string, '1')
         localStorage.setItem(f4 as string, '1') // D1-B review tooling (capture affordances)
+        localStorage.setItem(hollywoodFlag as string, '0') // preserve the procedural proof lot
         if (on) localStorage.removeItem(f3 as string) // default ON
         else localStorage.setItem(f3 as string, '0') // explicit visual rollback
       } catch {
@@ -64,11 +66,12 @@ async function seed(page: Page, fixtureName: string, soundstages: boolean) {
       IDENTITY_FLAG,
       SOUNDSTAGES_FLAG,
       SOUNDSTAGE_PROOF_FLAG,
+      OPERATION_HOLLYWOOD_FLAG,
       soundstages,
     ] as const,
   )
   await page.goto('/')
-  await expect(page.getByTestId('dash-week')).toBeVisible()
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
 }
 
 /** Toggle the review-only stage signage mask (proof gate). */
@@ -84,7 +87,6 @@ async function closerFraming(page: Page) {
 }
 
 async function openLot(page: Page) {
-  await page.getByTestId('open-studio-lot').click()
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await expect(page.getByTestId('lot-review-mode')).toBeVisible()
   await page.waitForTimeout(1300)
@@ -228,18 +230,19 @@ async function stageStates(page: Page): Promise<{ a: string | null; b: string | 
 }
 
 async function advanceWeeks(page: Page, n: number) {
-  await page.getByTestId('lot-return-dashboard').click()
-  await expect(page.getByTestId('dash-week')).toBeVisible()
   for (let i = 0; i < n; i++) {
+    // Dashboard is now a supporting surface rooted in the Studio Lot. Open it only for
+    // its deep simulation control; every completed tick returns to the living world.
+    await page.getByTestId('lot-return-dashboard').click()
+    await expect(page.getByTestId('dash-week')).toBeVisible()
     await page.getByTestId('advance-week').click()
     await page.waitForTimeout(150)
-    // Every tick routes through the weekly-releases interstitial ("THE WEEK'S RELEASES"),
-    // even on a week when nothing released. Dismiss it to get back to the dashboard.
+    // A release can route through one or more interstitials. Dismiss them until the
+    // Studio Lot remounts; no-release advances return there directly.
     // A tick can route through one or more interstitials (the weekly releases screen, and
-    // after a release the autopsy). Dismiss whatever is in the way until the dashboard,
-    // and its Advance control, is back.
+    // after a release the autopsy). Dismiss whatever is in the way until the world is back.
     for (let guard = 0; guard < 6; guard++) {
-      if (await page.getByTestId('advance-week').isVisible().catch(() => false)) break
+      if (await page.getByTestId('studio-lot-screen').isVisible().catch(() => false)) break
       let clicked = false
       for (const id of ['newspaper-continue', 'release-continue', 'autopsy-close', 'autopsy-back', 'recovery-dismiss']) {
         const el = page.getByTestId(id)
@@ -257,10 +260,8 @@ async function advanceWeeks(page: Page, n: number) {
         throw new Error(`stuck after advancing week ${i + 1}; no known dismiss control. testids=${JSON.stringify(ids)}`)
       }
     }
-    await expect(page.getByTestId('advance-week')).toBeVisible()
+    await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   }
-  await page.getByTestId('open-studio-lot').click()
-  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await page.waitForTimeout(1300)
 }
 

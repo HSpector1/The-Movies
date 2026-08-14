@@ -35,6 +35,13 @@ export default defineConfig({
     // an unquoted absolute --config argument).
     command: `npx vite --config vite.config.ts --port ${PORT} --strictPort`,
     cwd: uiDir,
+    // Keep adopted/default-on Studio Home tests independent of rollback variables inherited
+    // from a developer shell without positively enabling either gate. Empty values exercise the
+    // shipped default; explicit localStorage rollbacks in individual specs still win.
+    env: {
+      VITE_STUDIO_LOT_OVERVIEW: '',
+      VITE_OPERATION_HOLLYWOOD: '',
+    },
     url: `http://localhost:${PORT}`,
     reuseExistingServer: false,
     timeout: 120_000,

@@ -24,6 +24,7 @@ import { clearActiveSession, saveActiveSession } from '../engine/session.ts'
 import { Assembly } from './Assembly.tsx'
 import { StudioRoster } from './StudioRoster.tsx'
 import { WritersRoom } from './WritersRoom.tsx'
+import { setStudioLotOverviewOverride } from '../flags.ts'
 
 const activeSession = vi.hoisted(() => ({ state: null as unknown }))
 vi.mock('../engine/session.ts', () => ({
@@ -34,7 +35,10 @@ vi.mock('../engine/session.ts', () => ({
     : { ok: false, reason: 'none' },
 }))
 
-beforeEach(clearActiveSession)
+beforeEach(() => {
+  clearActiveSession()
+  setStudioLotOverviewOverride(false)
+})
 afterEach(() => {
   cleanup()
   clearActiveSession()

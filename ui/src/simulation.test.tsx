@@ -8,7 +8,7 @@
 //     dashboard.
 //   • NO Broadcast presentation / feed appears anywhere in the UI.
 
-import { describe, it, expect, afterEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { render, screen, within, fireEvent, cleanup } from '@testing-library/react'
 import { App } from './App.tsx'
 import { Dashboard } from './screens/Dashboard.tsx'
@@ -24,7 +24,9 @@ import { tick as coreTick } from '../../src/core/index.ts'
 import { newFoundedGame, foundedRosterIds } from './test/founding.ts'
 import type { DraftPackage, GameState, FilmResult } from './engine/adapter.ts'
 import { money } from './format.ts'
+import { setStudioLotOverviewOverride } from './flags.ts'
 
+beforeEach(() => setStudioLotOverviewOverride(false))
 afterEach(cleanup)
 
 // Build a legal package from the FOUNDED studio roster. Under D-11.12 film assembly

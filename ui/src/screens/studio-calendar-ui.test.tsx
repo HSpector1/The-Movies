@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import {
   advanceWeek,
@@ -32,6 +32,7 @@ import { CastingRoom } from './CastingRoom.tsx'
 import { Dashboard } from './Dashboard.tsx'
 import { StudioRoster } from './StudioRoster.tsx'
 import { WritersRoom } from './WritersRoom.tsx'
+import { setStudioLotOverviewOverride } from '../flags.ts'
 
 const activeSession = vi.hoisted(() => ({ state: null as GameState | null, saves: 0 }))
 vi.mock('../engine/session.ts', () => ({
@@ -45,6 +46,7 @@ vi.mock('../engine/session.ts', () => ({
     : { ok: false, reason: 'none' },
 }))
 
+beforeEach(() => setStudioLotOverviewOverride(false))
 afterEach(() => {
   cleanup()
   activeSession.state = null

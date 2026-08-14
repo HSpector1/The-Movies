@@ -26,6 +26,7 @@ const IDENTITY_FLAG = 'project-studio.flags.studio-lot-identity-proof'
 const SOUNDSTAGE_PROOF_FLAG = 'project-studio.flags.studio-lot-soundstage-proof'
 /** Rollback key. Its ABSENCE is the production default, so tests opt IN to procedural. */
 const STAGE_A_ROLLBACK = 'project-studio.flags.studio-lot-authored-stage-a'
+const OPERATION_HOLLYWOOD_FLAG = 'project-studio.flags.operation-hollywood'
 
 const PROCEDURAL_KEY = 'b-stage-a'
 const AUTHORED_KEY = 'b-stage-a-h2'
@@ -42,10 +43,11 @@ const fixture = (name: string) => readFileSync(join(fixturesDir, `${name}.json`)
 /** `chrome` seeds the dev review tooling. Reviewer frames are captured with it OFF. */
 async function seed(page: Page, fixtureName: string, rollback: boolean, chrome = true) {
   await page.addInitScript(
-    ([key, json, f1, f2, f3, f4, back, dev]) => {
+    ([key, json, f1, f2, f3, f4, hollywoodFlag, back, dev]) => {
       try {
         localStorage.setItem(key as string, json as string)
         localStorage.setItem(f1 as string, '1')
+        localStorage.setItem(hollywoodFlag as string, '0') // preserve the procedural proof lot
         if (dev) {
           localStorage.setItem(f2 as string, '1')
           localStorage.setItem(f3 as string, '1')
@@ -60,14 +62,13 @@ async function seed(page: Page, fixtureName: string, rollback: boolean, chrome =
         /* ignore */
       }
     },
-    [ACTIVE_SESSION_KEY, fixture(fixtureName), OVERVIEW_FLAG, IDENTITY_FLAG, SOUNDSTAGE_PROOF_FLAG, STAGE_A_ROLLBACK, rollback, chrome] as const,
+    [ACTIVE_SESSION_KEY, fixture(fixtureName), OVERVIEW_FLAG, IDENTITY_FLAG, SOUNDSTAGE_PROOF_FLAG, STAGE_A_ROLLBACK, OPERATION_HOLLYWOOD_FLAG, rollback, chrome] as const,
   )
   await page.goto('/')
-  await expect(page.getByTestId('dash-week')).toBeVisible()
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
 }
 
 async function openLot(page: Page, chrome = true) {
-  await page.getByTestId('open-studio-lot').click()
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   if (chrome) await expect(page.getByTestId('lot-perf-panel')).toBeVisible()
   // Dev review chrome is absolutely positioned OVER the canvas, so an element screenshot
@@ -296,7 +297,6 @@ test('13. performance: payload, scene-ready and fps at the governed viewports', 
 
   async function measuredOpen(page: Page): Promise<number> {
     const t0 = Date.now()
-    await page.getByTestId('open-studio-lot').click()
     await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
     await expect(page.getByText('Preparing the lot…')).toHaveCount(0, { timeout: 30_000 })
     return Date.now() - t0

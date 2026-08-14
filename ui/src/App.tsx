@@ -4,9 +4,9 @@
 // authoritative. GameState is only ever replaced by an engine action result — never
 // mutated. Screen navigation is plain state (no router, no state-management lib).
 //
-// The full playable loop: Start → Dashboard → Assembly → (greenlight) → Dashboard
-//   → Advance week → Release result → Autopsy → Dashboard. Plus Talent creator and
-//   Saves, reachable from the dashboard.
+// The ordinary playable loop is world-first: Start/Founding → Studio Lot → inspect or
+// act in the world → a deep management surface only when needed → the same Studio Lot.
+// Dashboard, Assembly, release history, Talent, and Saves remain supporting surfaces.
 //
 // Autopsy exactness: the full autopsy needs the PRE-release studio state (the
 // releasing Production — removed from activeProductions at release — plus the
@@ -76,19 +76,24 @@ import type { LotRoute } from './lot/navigation.ts'
 // nothing but types, so App can end the lot's presentation session without pulling Phaser
 // or the lot screen into the eager bundle.
 import { resetLotStageAssignment } from './lot/snapshot/stageAssignment.ts'
+import { resetLotSelectedBuilding } from './lot/snapshot/selectedBuildingSession.ts'
 
 // Gate D1: the Studio Lot overview is lazily imported so Phaser and the whole lot
 // module stay out of the eager bundle. The factory only runs when <StudioLotScreen/>
 // first renders, which only happens when the feature flag is on and the lot is opened.
 const StudioLotScreen = lazy(() => import('./lot/StudioLotScreen.tsx'))
 
+type LotEntryFocus = 'studio-home' | 'selected-building' | 'advance-week'
+
 type StudioReturnContext =
   | { kind: 'dashboard' }
   | {
       kind: 'lot'
-      focus: 'advance-week'
+      focus: LotEntryFocus
       suppressOperationalAnnouncement: boolean
     }
+
+type StudioActionSource = 'mounted-lot' | 'supporting-dashboard'
 
 type LotAdvanceFeedback = {
   week: number
@@ -100,14 +105,24 @@ const DASHBOARD_RETURN_CONTEXT: StudioReturnContext = { kind: 'dashboard' }
 type Screen =
   | { kind: 'start' }
   | { kind: 'founding' }
-  | { kind: 'dashboard'; focusProductionId?: string; focusRunId?: string }
-  | { kind: 'roster'; focusTalentId?: string }
-  | { kind: 'hiring' }
-  | { kind: 'writersRoom'; focusProjectId?: string }
-  | { kind: 'castingRoom'; scriptProjectId?: string; focusProjectId?: string }
-  | { kind: 'calendar' }
-  | { kind: 'studioDevelopment' }
-  | { kind: 'assembly'; scriptProjectId?: string }
+  | {
+      kind: 'dashboard'
+      returnContext: StudioReturnContext
+      focusProductionId?: string
+      focusRunId?: string
+    }
+  | { kind: 'roster'; returnContext: StudioReturnContext; focusTalentId?: string }
+  | { kind: 'hiring'; returnContext: StudioReturnContext }
+  | { kind: 'writersRoom'; returnContext: StudioReturnContext; focusProjectId?: string }
+  | {
+      kind: 'castingRoom'
+      returnContext: StudioReturnContext
+      scriptProjectId?: string
+      focusProjectId?: string
+    }
+  | { kind: 'calendar'; returnContext: StudioReturnContext }
+  | { kind: 'studioDevelopment'; returnContext: StudioReturnContext }
+  | { kind: 'assembly'; returnContext: StudioReturnContext; scriptProjectId?: string }
   | {
       kind: 'release'
       preTick: GameState
@@ -145,7 +160,7 @@ type Screen =
       compare: AutopsyCompareView | null
       returnContext: StudioReturnContext
     }
-  | { kind: 'filmRecord'; view: FilmRecordView }
+  | { kind: 'filmRecord'; view: FilmRecordView; returnContext: StudioReturnContext }
   | {
       // D-12.18: "Sim to next event" stopped on a non-release event. The aggregate cash
       // movement over the weeks advanced + why it stopped. (Releases route to newspaper.)
@@ -156,19 +171,22 @@ type Screen =
       weeks: number
       cashNow: number
       constructionCompletion: ConstructionCompletionSummary | null
+      returnContext: StudioReturnContext
     }
-  | { kind: 'talent'; returnTo: 'dashboard' | 'founding' | 'hiring' }
-  | { kind: 'hub' }
-  | { kind: 'saves' }
-  | { kind: 'recap' } // D-15: read-only Studio Run Recap
-  | { kind: 'lot'; entryFocus?: 'advance-week' } // Gate D1: Studio Lot overview (feature-flagged, default off)
+  | {
+      kind: 'talent'
+      returnTo: 'dashboard' | 'founding' | 'hiring'
+      returnContext: StudioReturnContext
+    }
+  | { kind: 'hub'; returnContext: StudioReturnContext }
+  | { kind: 'saves'; returnContext: StudioReturnContext }
+  | { kind: 'recap'; returnContext: StudioReturnContext } // D-15: read-only Studio Run Recap
+  | { kind: 'lot'; entryFocus: LotEntryFocus } // Studio Home V1: primary world surface
 
-// Where the Talent Creator returns after create/back (D-11.A: reachable during founding,
-// from the Hiring Market, and from the Dashboard).
-function returnScreen(returnTo: 'dashboard' | 'founding' | 'hiring'): Screen {
-  if (returnTo === 'founding') return { kind: 'founding' }
-  if (returnTo === 'hiring') return { kind: 'hiring' }
-  return { kind: 'dashboard' }
+function operatingStudioHome(lotEnabled: boolean): Screen {
+  return lotEnabled
+    ? { kind: 'lot', entryFocus: 'studio-home' }
+    : { kind: 'dashboard', returnContext: DASHBOARD_RETURN_CONTEXT }
 }
 
 // Per-film pre-release snapshot for exact autopsy reconstruction (UI-only).
@@ -211,6 +229,9 @@ export function App() {
   // validate/migrate path as a manual load) BEFORE offering a new game — so a browser refresh, HMR
   // reload, or dev-server restart never discards a valid studio. Runs exactly once (lazy initializer).
   const [restore] = useState(loadActiveSession)
+  // Studio Home V1: freeze the environment/session gate once. A founded ordinary-player
+  // session starts in the living world; an explicit rollback keeps the legacy Dashboard root.
+  const [lotEnabled] = useState(studioLotOverviewEnabled)
   const [state, setState] = useState<GameState | null>(restore.ok ? restore.state : null)
   // D-14 Phase 2: the ONE Talent Profile drawer, openable over any screen from the roster,
   // Assemble a Film, or Autopsy. Null = closed. Focus returns to the opener on close.
@@ -219,7 +240,7 @@ export function App() {
     restore.ok
       ? restore.state.founding !== null
         ? { kind: 'founding' }
-        : { kind: 'dashboard' }
+        : operatingStudioHome(lotEnabled)
       : { kind: 'start' },
   )
   // A dismissible recovery notice: the recovered week, or a safe "recovery failed" message.
@@ -254,6 +275,7 @@ export function App() {
 
   function startGame(next: GameState, details: { converted: boolean }) {
     setState(next)
+    setOpenProfileId(null)
     setSnapshots({})
     setLotAdvanceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
@@ -264,10 +286,11 @@ export function App() {
     // `prod-<tick>` and repeat across games, so a slot held by the previous studio would be
     // inherited by an unrelated film. Only reached with a valid `next`.
     resetLotStageAssignment()
+    resetLotSelectedBuilding()
     // A new PLAYER game opens in the founding draft (D-11.2); a founded game (or a
-    // loaded save past founding) goes straight to the dashboard. The new game's first
+    // loaded save past founding) goes to the ordinary Studio Home. The new game's first
     // autosave (via the effect above) replaces any prior/quarantined active session.
-    setScreen(next.founding !== null ? { kind: 'founding' } : { kind: 'dashboard' })
+    setScreen(next.founding !== null ? { kind: 'founding' } : operatingStudioHome(lotEnabled))
   }
 
   // A destructive "new studio" — confirmed whenever a live studio exists, then the autosave is
@@ -285,6 +308,7 @@ export function App() {
     }
     clearActiveSession()
     setState(null)
+    setOpenProfileId(null)
     setSnapshots({})
     setLotAdvanceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
@@ -292,23 +316,37 @@ export function App() {
     setSaveMigrationNotice(false)
     // The old studio ends HERE, past the confirm — so its presentation memory ends here too.
     resetLotStageAssignment()
+    resetLotSelectedBuilding()
     setScreen({ kind: 'start' })
   }
 
   function goDashboard() {
     setLotAdvanceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
-    setScreen({ kind: 'dashboard' })
+    setScreen({ kind: 'dashboard', returnContext: DASHBOARD_RETURN_CONTEXT })
   }
 
-  function openLot() {
+  function goStudioHome() {
     setLotAdvanceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
-    setScreen({ kind: 'lot' })
+    setScreen(operatingStudioHome(lotEnabled))
+  }
+
+  function openDashboardFromLot(focus: 'studio-home' | 'selected-building') {
+    setLotAdvanceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
+    setScreen({
+      kind: 'dashboard',
+      returnContext: {
+        kind: 'lot',
+        focus,
+        suppressOperationalAnnouncement: false,
+      },
+    })
   }
 
   function returnToStudioContext(context: StudioReturnContext) {
-    if (context.kind === 'dashboard') {
+    if (context.kind === 'dashboard' || !lotEnabled) {
       goDashboard()
       return
     }
@@ -317,33 +355,50 @@ export function App() {
     setScreen({ kind: 'lot', entryFocus: context.focus })
   }
 
+  // Talent Creator has two true nested owners (Founding and Hiring). A creator opened
+  // from Dashboard returns through the same typed root owner as every other deep surface.
+  function returnFromTalent(
+    returnTo: 'dashboard' | 'founding' | 'hiring',
+    returnContext: StudioReturnContext,
+  ) {
+    if (returnTo === 'founding') {
+      setScreen({ kind: 'founding' })
+      return
+    }
+    if (returnTo === 'hiring') {
+      setScreen({ kind: 'hiring', returnContext })
+      return
+    }
+    returnToStudioContext(returnContext)
+  }
+
   // Studio Calendar routes are presentation-only. Every intent lands on the existing
   // owner surface; that destination's live read model still owns legality and actions.
-  function handleCalendarNavigate(route: StudioCalendarRoute) {
+  function handleCalendarNavigate(
+    route: StudioCalendarRoute,
+    returnContext: StudioReturnContext,
+  ) {
     switch (route.kind) {
       case 'script':
-        setScreen({ kind: 'writersRoom', focusProjectId: route.projectId })
+        setScreen({ kind: 'writersRoom', returnContext, focusProjectId: route.projectId })
         break
       case 'casting':
-        setScreen({ kind: 'castingRoom', focusProjectId: route.projectId })
+        setScreen({ kind: 'castingRoom', returnContext, focusProjectId: route.projectId })
         break
       case 'production':
-        setScreen({ kind: 'dashboard', focusProductionId: route.productionId })
+        setScreen({ kind: 'dashboard', returnContext, focusProductionId: route.productionId })
         break
       case 'theatricalRun':
-        setScreen({ kind: 'dashboard', focusRunId: route.productionId })
+        setScreen({ kind: 'dashboard', returnContext, focusRunId: route.productionId })
         break
       case 'contract':
-        setScreen({ kind: 'roster', focusTalentId: route.talentId })
+        setScreen({ kind: 'roster', returnContext, focusTalentId: route.talentId })
         break
       case 'studioDevelopment':
-        setScreen({ kind: 'studioDevelopment' })
+        setScreen({ kind: 'studioDevelopment', returnContext })
         break
     }
   }
-
-  // Gate D1: is the Studio Lot overview enabled this session? (default off)
-  const lotEnabled = studioLotOverviewEnabled()
 
   // Translate a lot navigation intent into the existing screen navigation. Every route
   // targets a screen that already exists outside the lot.
@@ -352,39 +407,47 @@ export function App() {
     // release chain. A later lot entry is fresh and may announce an already-operational Annex.
     setLotAdvanceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
+    const returnContext: StudioReturnContext = {
+      kind: 'lot',
+      focus: 'selected-building',
+      suppressOperationalAnnouncement: false,
+    }
     switch (route.kind) {
       case 'dashboard':
-        setScreen({ kind: 'dashboard' })
+        setScreen({ kind: 'dashboard', returnContext })
         break
       case 'roster':
-        setScreen({ kind: 'roster' })
+        setScreen({ kind: 'roster', returnContext })
         break
       case 'castingRoom':
-        setScreen({ kind: 'castingRoom' })
+        setScreen({ kind: 'castingRoom', returnContext })
         break
       case 'hiring':
-        setScreen({ kind: 'hiring' })
+        setScreen({ kind: 'hiring', returnContext })
         break
       case 'hub':
-        setScreen({ kind: 'hub' })
+        setScreen({ kind: 'hub', returnContext })
         break
       case 'assembly':
         setScreen(
           state?.scriptDevelopment.mode === 'managed'
-            ? { kind: 'writersRoom' }
-            : { kind: 'assembly' },
+            ? { kind: 'writersRoom', returnContext }
+            : { kind: 'assembly', returnContext },
         )
         break
       case 'saves':
-        setScreen({ kind: 'saves' })
+        setScreen({ kind: 'saves', returnContext })
         break
       case 'studioDevelopment':
-        setScreen({ kind: 'studioDevelopment' })
+        setScreen({ kind: 'studioDevelopment', returnContext })
         break
     }
   }
 
-  function handleAdvance(returnContext: StudioReturnContext) {
+  function handleAdvance(
+    returnContext: StudioReturnContext,
+    source: StudioActionSource,
+  ) {
     if (!state) return
     // RULING A: advanceWeek ticks with development ON. The engine applies development
     // EXACTLY ONCE inside this single tick; we then replace the authoritative GameState
@@ -398,6 +461,7 @@ export function App() {
       returnContext.kind === 'lot'
         ? {
             ...returnContext,
+            focus: 'advance-week',
             suppressOperationalAnnouncement:
               lotOperationalAnnouncementSuppressed || constructionCompletion !== null,
           }
@@ -430,6 +494,9 @@ export function App() {
     // retains the mounted host/view and repaints it from the fresh authoritative state.
     if (released.length === 0 && resolvedReturnContext.kind === 'lot') {
       setLotAdvanceFeedback({ week: next.market.tick, constructionCompletion })
+      if (source === 'supporting-dashboard') {
+        setScreen({ kind: 'lot', entryFocus: 'advance-week' })
+      }
       return
     }
     // D-11.C PART 2: when a film actually reaches audiences this week, the reveal is the
@@ -479,10 +546,24 @@ export function App() {
   // D-12.18: Sim to next event — advance many weeks through the engine, stopping before the
   // next blocking event. A release routes to the same newspaper/release flow as Advance (the
   // stop tick is exactly one tick after `preTick`); any other stop shows the weekly summary.
-  function handleSimToEvent() {
+  function handleSimToEvent(returnContext: StudioReturnContext) {
     if (!state) return
     const result = advanceToNextEvent(state)
     setState(result.next)
+    const resolvedReturnContext: StudioReturnContext =
+      returnContext.kind === 'lot'
+        ? {
+            ...returnContext,
+            suppressOperationalAnnouncement:
+              lotOperationalAnnouncementSuppressed || result.constructionCompletion !== null,
+          }
+        : returnContext
+    if (resolvedReturnContext.kind === 'lot') {
+      setLotAdvanceFeedback(null)
+      setLotOperationalAnnouncementSuppressed(
+        resolvedReturnContext.suppressOperationalAnnouncement,
+      )
+    }
     if (result.released.length > 0) {
       const development = buildReleaseDevelopment(result.preTick, result.next, result.released)
       const release = {
@@ -491,7 +572,7 @@ export function App() {
         released: result.released,
         development,
         constructionCompletion: result.constructionCompletion,
-        returnContext: DASHBOARD_RETURN_CONTEXT,
+        returnContext: resolvedReturnContext,
       }
       setSnapshots((prev) => {
         const merged = { ...prev }
@@ -510,7 +591,7 @@ export function App() {
           views: newspaperReleases.map((entry) => entry.view),
           films: newspaperReleases.map((entry) => entry.film),
           constructionCompletion: result.constructionCompletion,
-          returnContext: DASHBOARD_RETURN_CONTEXT,
+          returnContext: resolvedReturnContext,
           release: { ...release, constructionCompletion: null },
         })
         return
@@ -526,14 +607,18 @@ export function App() {
       weeks: result.weeks,
       cashNow: result.next.studio.cash,
       constructionCompletion: result.constructionCompletion,
+      returnContext: resolvedReturnContext,
     })
   }
 
   // D-11.C PART 2: re-open a film's newspaper clipping after the fact (dashboard / record).
   // Reconstructed purely from persisted state (participants + forecast + ledger), so it
-  // survives save/reload. Continue returns to the dashboard; the clipping is not "news"
-  // any more, so there is no release summary to hand back to.
-  function openClippingForFilm(film: FilmResult) {
+  // survives save/reload. Continue returns to the root that opened the clipping; the
+  // clipping is not "news" any more, so there is no release summary to hand back to.
+  function openClippingForFilm(
+    film: FilmResult,
+    returnContext: StudioReturnContext = DASHBOARD_RETURN_CONTEXT,
+  ) {
     if (!state) return
     const view = releaseNewspaper(state, film)
     if (!view) {
@@ -549,17 +634,20 @@ export function App() {
       views: [view],
       films: [film],
       constructionCompletion: null,
-      returnContext: DASHBOARD_RETURN_CONTEXT,
+      returnContext,
     })
   }
 
   // Film Chronicle V1: durable, persisted-data record. This is deliberately a
   // separate action from the exact session-only mathematical autopsy.
-  function openChronicleForFilm(film: FilmResult) {
+  function openChronicleForFilm(
+    film: FilmResult,
+    returnContext: StudioReturnContext = DASHBOARD_RETURN_CONTEXT,
+  ) {
     if (!state) return
     const record = filmRecordView(state, film)
     if (record) {
-      setScreen({ kind: 'filmRecord', view: record })
+      setScreen({ kind: 'filmRecord', view: record, returnContext })
       return
     }
     alert(
@@ -671,10 +759,18 @@ export function App() {
         <FoundingScreen
           state={state}
           onChange={setState}
-          onCreate={() => setScreen({ kind: 'talent', returnTo: 'founding' })}
+          onCreate={() =>
+            setScreen({
+              kind: 'talent',
+              returnTo: 'founding',
+              returnContext: DASHBOARD_RETURN_CONTEXT,
+            })
+          }
           onFounded={(next) => {
             setState(next)
-            goDashboard()
+            setLotAdvanceFeedback(null)
+            setLotOperationalAnnouncementSuppressed(false)
+            setScreen(operatingStudioHome(lotEnabled))
           }}
         />
       )}
@@ -685,26 +781,53 @@ export function App() {
           onAssemble={() =>
             setScreen(
               state.scriptDevelopment.mode === 'managed'
-                ? { kind: 'writersRoom' }
-                : { kind: 'assembly' },
+                ? { kind: 'writersRoom', returnContext: screen.returnContext }
+                : { kind: 'assembly', returnContext: screen.returnContext },
             )
           }
-          onAdvance={() => handleAdvance(DASHBOARD_RETURN_CONTEXT)}
-          onSimToEvent={handleSimToEvent}
-          onCreateTalent={() => setScreen({ kind: 'talent', returnTo: 'dashboard' })}
-          onOpenHub={() => setScreen({ kind: 'hub' })}
-          onOpenRoster={() => setScreen({ kind: 'roster' })}
-          onOpenCasting={() => setScreen({ kind: 'castingRoom' })}
-          onOpenHiring={() => setScreen({ kind: 'hiring' })}
-          onSaves={() => setScreen({ kind: 'saves' })}
-          onOpenRecap={() => setScreen({ kind: 'recap' })}
-          onOpenCalendar={() => setScreen({ kind: 'calendar' })}
-          onOpenDevelopment={() => setScreen({ kind: 'studioDevelopment' })}
-          onOpenLot={lotEnabled ? openLot : undefined}
-          onOpenAutopsy={openAutopsyForFilm}
+          onAdvance={() => handleAdvance(screen.returnContext, 'supporting-dashboard')}
+          onSimToEvent={() => handleSimToEvent(screen.returnContext)}
+          onCreateTalent={() =>
+            setScreen({
+              kind: 'talent',
+              returnTo: 'dashboard',
+              returnContext: screen.returnContext,
+            })
+          }
+          onOpenHub={() => setScreen({ kind: 'hub', returnContext: screen.returnContext })}
+          onOpenRoster={() =>
+            setScreen({ kind: 'roster', returnContext: screen.returnContext })
+          }
+          onOpenCasting={() =>
+            setScreen({ kind: 'castingRoom', returnContext: screen.returnContext })
+          }
+          onOpenHiring={() =>
+            setScreen({ kind: 'hiring', returnContext: screen.returnContext })
+          }
+          onSaves={() => setScreen({ kind: 'saves', returnContext: screen.returnContext })}
+          onOpenRecap={() =>
+            setScreen({ kind: 'recap', returnContext: screen.returnContext })
+          }
+          onOpenCalendar={() =>
+            setScreen({ kind: 'calendar', returnContext: screen.returnContext })
+          }
+          onOpenDevelopment={() =>
+            setScreen({ kind: 'studioDevelopment', returnContext: screen.returnContext })
+          }
+          onOpenLot={
+            lotEnabled && screen.returnContext.kind === 'dashboard'
+              ? goStudioHome
+              : undefined
+          }
+          onReturnToLot={
+            screen.returnContext.kind === 'lot'
+              ? () => returnToStudioContext(screen.returnContext)
+              : undefined
+          }
+          onOpenAutopsy={(film) => openAutopsyForFilm(film, screen.returnContext)}
           canOpenAutopsy={(film) => snapshots[film.productionId] !== undefined}
-          onOpenChronicle={openChronicleForFilm}
-          onOpenClipping={openClippingForFilm}
+          onOpenChronicle={(film) => openChronicleForFilm(film, screen.returnContext)}
+          onOpenClipping={(film) => openClippingForFilm(film, screen.returnContext)}
           onPublicize={handlePublicity}
           onProductionCommand={handleProductionCommand}
           {...(screen.focusProductionId ? { focusProductionId: screen.focusProductionId } : {})}
@@ -716,7 +839,7 @@ export function App() {
         <StudioRoster
           state={state}
           onChange={setState}
-          onBack={goDashboard}
+          onBack={() => returnToStudioContext(screen.returnContext)}
           onOpenProfile={setOpenProfileId}
           {...(screen.focusTalentId ? { focusTalentId: screen.focusTalentId } : {})}
         />
@@ -726,8 +849,14 @@ export function App() {
         <HiringMarket
           state={state}
           onChange={setState}
-          onCreate={() => setScreen({ kind: 'talent', returnTo: 'hiring' })}
-          onBack={goDashboard}
+          onCreate={() =>
+            setScreen({
+              kind: 'talent',
+              returnTo: 'hiring',
+              returnContext: screen.returnContext,
+            })
+          }
+          onBack={() => returnToStudioContext(screen.returnContext)}
         />
       )}
 
@@ -736,12 +865,16 @@ export function App() {
           state={state}
           onChange={setState}
           onOpenPackage={(scriptProjectId) =>
-            setScreen({ kind: 'assembly', scriptProjectId })
+            setScreen({ kind: 'assembly', returnContext: screen.returnContext, scriptProjectId })
           }
           onPlanAuditions={(scriptProjectId) =>
-            setScreen({ kind: 'castingRoom', scriptProjectId })
+            setScreen({
+              kind: 'castingRoom',
+              returnContext: screen.returnContext,
+              scriptProjectId,
+            })
           }
-          onBack={goDashboard}
+          onBack={() => returnToStudioContext(screen.returnContext)}
           {...(screen.focusProjectId ? { focusProjectId: screen.focusProjectId } : {})}
         />
       )}
@@ -749,13 +882,17 @@ export function App() {
       {screen.kind === 'calendar' && (
         <StudioCalendar
           state={state}
-          onNavigate={handleCalendarNavigate}
-          onBack={goDashboard}
+          onNavigate={(route) => handleCalendarNavigate(route, screen.returnContext)}
+          onBack={() => returnToStudioContext(screen.returnContext)}
         />
       )}
 
       {screen.kind === 'studioDevelopment' && (
-        <StudioDevelopment state={state} onChange={setState} onBack={goDashboard} />
+        <StudioDevelopment
+          state={state}
+          onChange={setState}
+          onBack={() => returnToStudioContext(screen.returnContext)}
+        />
       )}
 
       {screen.kind === 'castingRoom' && (
@@ -764,10 +901,12 @@ export function App() {
           onChange={setState}
           {...(screen.scriptProjectId ? { initialProjectId: screen.scriptProjectId } : {})}
           onOpenPackage={(scriptProjectId) =>
-            setScreen({ kind: 'assembly', scriptProjectId })
+            setScreen({ kind: 'assembly', returnContext: screen.returnContext, scriptProjectId })
           }
-          onOpenRoster={() => setScreen({ kind: 'roster' })}
-          onBack={goDashboard}
+          onOpenRoster={() =>
+            setScreen({ kind: 'roster', returnContext: screen.returnContext })
+          }
+          onBack={() => returnToStudioContext(screen.returnContext)}
           {...(screen.focusProjectId ? { focusProjectId: screen.focusProjectId } : {})}
         />
       )}
@@ -778,9 +917,9 @@ export function App() {
           {...(screen.scriptProjectId ? { scriptProjectId: screen.scriptProjectId } : {})}
           onGreenlit={(next) => {
             setState(next)
-            goDashboard()
+            returnToStudioContext(screen.returnContext)
           }}
-          onCancel={goDashboard}
+          onCancel={() => returnToStudioContext(screen.returnContext)}
           // A1: a Custom Talent created mid-assembly updates the authoritative GameState here,
           // while Assembly stays mounted so the in-progress film-package draft is preserved.
           onStateChange={setState}
@@ -820,10 +959,14 @@ export function App() {
             const film = screen.films[index]
             if (film) openAutopsyForFilm(film, screen.returnContext)
           }}
-          onOpenChronicle={(index) => {
-            const film = screen.films[index]
-            if (film) openChronicleForFilm(film)
-          }}
+          {...(screen.source === 'clipping'
+            ? {
+                onOpenChronicle: (index: number) => {
+                  const film = screen.films[index]
+                  if (film) openChronicleForFilm(film, screen.returnContext)
+                },
+              }
+            : {})}
           onContinue={() =>
             screen.source === 'release' && screen.release
               ? setScreen({ kind: 'release', ...screen.release })
@@ -847,7 +990,7 @@ export function App() {
           view={screen.view}
           careerImpact={filmCareerImpact(state, screen.view.productionId)}
           onOpenProfile={setOpenProfileId}
-          onBack={goDashboard}
+          onBack={() => returnToStudioContext(screen.returnContext)}
         />
       )}
 
@@ -861,10 +1004,10 @@ export function App() {
           constructionCompletion={screen.constructionCompletion}
           onContinue={() =>
             screen.stopReason === 'scriptReview'
-              ? setScreen({ kind: 'writersRoom' })
+              ? setScreen({ kind: 'writersRoom', returnContext: screen.returnContext })
               : screen.stopReason === 'castingReview'
-                ? setScreen({ kind: 'castingRoom' })
-              : goDashboard()
+                ? setScreen({ kind: 'castingRoom', returnContext: screen.returnContext })
+                : returnToStudioContext(screen.returnContext)
           }
         />
       )}
@@ -874,16 +1017,25 @@ export function App() {
           state={state}
           onCreated={(next) => {
             setState(next)
-            setScreen(returnScreen(screen.returnTo))
+            returnFromTalent(screen.returnTo, screen.returnContext)
           }}
-          onBack={() => setScreen(returnScreen(screen.returnTo))}
+          onBack={() => returnFromTalent(screen.returnTo, screen.returnContext)}
         />
       )}
 
-      {screen.kind === 'hub' && <TalentHub state={state} onBack={goDashboard} />}
+      {screen.kind === 'hub' && (
+        <TalentHub
+          state={state}
+          onBack={() => returnToStudioContext(screen.returnContext)}
+        />
+      )}
 
       {screen.kind === 'recap' && (
-        <StudioRunRecap state={state} onBack={goDashboard} onOpenProfile={setOpenProfileId} />
+        <StudioRunRecap
+          state={state}
+          onBack={() => returnToStudioContext(screen.returnContext)}
+          onOpenProfile={setOpenProfileId}
+        />
       )}
 
       {screen.kind === 'saves' && (
@@ -891,18 +1043,23 @@ export function App() {
           state={state}
           onLoad={(next, details) => {
             setState(next)
+            setOpenProfileId(null)
             setSnapshots({})
             setLotAdvanceFeedback(null)
             setLotOperationalAnnouncementSuppressed(false)
+            setRecovery(null)
             setSaveMigrationNotice(details.converted)
             // AUTHORITATIVE STATE REPLACEMENT: Saves only calls this once a save has been
             // accepted, so a REJECTED import never reaches here and the live studio keeps
             // its stages. See startGame() for why the reset is required.
             resetLotStageAssignment()
-            setScreen(next.founding !== null ? { kind: 'founding' } : { kind: 'dashboard' })
+            resetLotSelectedBuilding()
+            setScreen(
+              next.founding !== null ? { kind: 'founding' } : operatingStudioHome(lotEnabled),
+            )
           }}
           onNewGame={requestNewGame}
-          onBack={goDashboard}
+          onBack={() => returnToStudioContext(screen.returnContext)}
         />
       )}
 
@@ -910,24 +1067,35 @@ export function App() {
         <Suspense
           fallback={
             <div className="app-shell">
-              <p className="hint">Opening the Studio Lot…</p>
+              <p
+                className="hint"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+                data-testid="studio-lot-lazy-loading"
+              >
+                Opening the Studio Lot…
+              </p>
             </div>
           }
         >
           <StudioLotScreen
             state={state}
             onNavigate={handleLotNavigate}
-            onExit={goDashboard}
+            onExit={() => openDashboardFromLot('studio-home')}
             onAdvance={() =>
-              handleAdvance({
-                kind: 'lot',
-                focus: 'advance-week',
-                suppressOperationalAnnouncement: lotOperationalAnnouncementSuppressed,
-              })
+              handleAdvance(
+                {
+                  kind: 'lot',
+                  focus: 'advance-week',
+                  suppressOperationalAnnouncement: lotOperationalAnnouncementSuppressed,
+                },
+                'mounted-lot',
+              )
             }
             advanceFeedback={lotAdvanceFeedback}
             suppressOperationalAnnouncement={lotOperationalAnnouncementSuppressed}
-            {...(screen.entryFocus ? { entryFocus: screen.entryFocus } : {})}
+            entryFocus={screen.entryFocus}
             onStateChange={setState}
             onProductionCommand={handleProductionCommand}
             onStartDevelopmentCastingAnnex={handleStartDevelopmentCastingAnnex}

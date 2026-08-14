@@ -5,7 +5,7 @@
 //   • Malformed / unsupported saves are rejected LOUDLY and understandably —
 //     surfaced to the UI, never a crash.
 
-import { describe, it, expect, afterEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent, cleanup } from '@testing-library/react'
 import { Saves } from './screens/Saves.tsx'
 import { StartScreen } from './screens/StartScreen.tsx'
@@ -29,7 +29,9 @@ import {
 import { newFoundedGame, foundedRosterIds } from './test/founding.ts'
 import type { DraftPackage, GameState } from './engine/adapter.ts'
 import type { GameStateV1, TalentV1 } from '../../src/core/index.ts'
+import { setStudioLotOverviewOverride } from './flags.ts'
 
+beforeEach(() => setStudioLotOverviewOverride(false))
 afterEach(cleanup)
 
 // Build a valid legacy V1 save JSON by projecting a fresh world's talent down to the

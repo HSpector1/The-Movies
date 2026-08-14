@@ -10,10 +10,19 @@ import { test, expect, type Page } from '@playwright/test'
 import { mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { enterPackageTalentStep, openAuthoritativePackage } from './helpers/managed-production.ts'
 
 const SEED = 'e2e-browser-smoke'
+const STUDIO_LOT_OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
+// Eight production weeks plus the managed allocation/phase-transition boundary margin.
+// This stays deliberately bounded; a held command must be resolved, never waited out.
+const MAX_MANAGED_RELEASE_WEEKS = 24
 const shotsDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'screenshots')
 mkdirSync(shotsDir, { recursive: true })
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript((key) => localStorage.setItem(key, '0'), STUDIO_LOT_OVERVIEW_FLAG)
+})
 
 async function shot(page: Page, name: string) {
   await page.screenshot({ path: join(shotsDir, `${name}.png`), fullPage: true })
@@ -50,24 +59,33 @@ async function foundStudioViaUi(page: Page) {
   await found.click()
 }
 
+async function resolveProductionCommands(page: Page) {
+  for (let guard = 0; guard < 8; guard++) {
+    const command = page.locator('button[data-testid^="production-command-"]:visible').first()
+    if ((await command.count()) === 0) return
+    await expect(command).toBeEnabled()
+    await command.click()
+  }
+  await expect(page.locator('button[data-testid^="production-command-"]:visible')).toHaveCount(0)
+}
+
 // Assemble a legal film through the wizard, choosing the first eligible option in
 // each picker so the package is always legal (distinct cast enforced by the UI).
 async function assembleLegalFilm(page: Page) {
-  await page.getByTestId('assemble-film').click()
-  await expect(page.getByTestId('assembly-steps')).toBeVisible()
-
-  // Concept: first concept card.
-  const conceptGrid = page.getByTestId('concept-grid')
-  await conceptGrid.getByRole('button').first().click()
-  await page.getByTestId('assembly-next').click() // → shape
-
-  await page.getByTestId('assembly-next').click() // → promise (defaults valid)
-  await page.getByTestId('assembly-next').click() // → talent (default segment chosen)
+  const authority = await openAuthoritativePackage(page)
+  await enterPackageTalentStep(page, authority)
 
   // Talent: first ENABLED candidate in each picker. The redesigned cards add a per-row
   // "Details" toggle, so we target the SELECTABLE candidate button (it carries
   // aria-pressed) and take the first enabled one — the first eligible candidate.
-  for (const picker of ['picker-writer', 'picker-director', 'picker-lead', 'picker-antagonist', 'picker-support']) {
+  const pickers = [
+    ...(authority === 'legacy' ? ['picker-writer'] : []),
+    'picker-director',
+    'picker-lead',
+    'picker-antagonist',
+    'picker-support',
+  ]
+  for (const picker of pickers) {
     const enabled = page
       .getByTestId(picker)
       .locator('button[aria-pressed]:not([disabled])')
@@ -113,7 +131,10 @@ test('full playable loop: assemble → greenlight → release → autopsy → sa
   // Advance weeks until a release appears (walk the newspaper + release screen each week).
   let releaseCardTestId: string | null = null
   let capturedNewspaper = false
-  for (let i = 0; i < 20 && !releaseCardTestId; i++) {
+  for (let i = 0; i < MAX_MANAGED_RELEASE_WEEKS && !releaseCardTestId; i++) {
+    // A managed production cannot progress through a visible phase decision by repeatedly
+    // advancing time. Exercise the authoritative command before advancing the next week.
+    await resolveProductionCommands(page)
     const advance = page.getByTestId('advance-week')
     if (await advance.isVisible().catch(() => false)) {
       await advance.click()

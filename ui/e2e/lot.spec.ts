@@ -1,6 +1,6 @@
 // ── Gate D1: Studio Lot Playwright journeys + responsive/state evidence ───────
 // Ten focused journeys through the real app (Phaser boots for real). State is seeded
-// via SaveFileV4 fixtures (the app's session-recovery path) so hard-to-click states
+// via native SaveFileV11 fixtures (the app's session-recovery path) so hard-to-click states
 // (two concurrent productions, a release) are deterministic. Evidence screenshots are
 // written under out/gate-d1-evidence/final/.
 //
@@ -49,20 +49,34 @@ function fixture(name: string): string {
   return readFileSync(join(fixturesDir, `${name}.json`), 'utf8')
 }
 
-/** Seed a studio + (optionally) the flag before the app loads, then go to the app. */
-async function seed(page: Page, fixtureName: string, opts: { flag?: boolean } = { flag: true }) {
+/** Seed a studio and the exact overview/Hollywood presentation gates before app load. */
+async function seed(
+  page: Page,
+  fixtureName: string,
+  opts: { flag?: boolean; hollywood?: boolean } = {},
+) {
   const save = fixture(fixtureName)
   await page.addInitScript(
-    ([key, json, flagKey, flagOn]) => {
+    ([key, json, flagKey, flagOn, hollywoodFlag, hollywoodOn]) => {
       try {
         localStorage.setItem(key as string, json as string)
-        if (flagOn) localStorage.setItem(flagKey as string, '1')
+        localStorage.setItem(flagKey as string, flagOn ? '1' : '0')
+        // Gate-D1 evidence predates Operation Hollywood and must keep its procedural control.
+        localStorage.setItem(hollywoodFlag as string, hollywoodOn ? '1' : '0')
       } catch { /* ignore */ }
     },
-    [ACTIVE_SESSION_KEY, save, FLAG_KEY, opts.flag !== false] as const,
+    [
+      ACTIVE_SESSION_KEY,
+      save,
+      FLAG_KEY,
+      opts.flag !== false,
+      OPERATION_HOLLYWOOD_FLAG_KEY,
+      opts.hollywood === true,
+    ] as const,
   )
   await page.goto('/')
-  await expect(page.getByTestId('dash-week')).toBeVisible()
+  if (opts.flag === false) await expect(page.getByTestId('dash-week')).toBeVisible()
+  else await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
 }
 
 type SceneryLoadInFixture = 'blocked' | 'ready'
@@ -85,18 +99,24 @@ async function seedSceneryLoadIn(page: Page, state: SceneryLoadInFixture) {
   )
   await page.goto('/')
   await expect(page.getByTestId('recovery-notice')).toContainText('Week 30')
-  await expect(page.getByTestId('dash-week')).toHaveText('30')
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
 }
 
 async function openLot(page: Page) {
-  await page.getByTestId('open-studio-lot').click()
+  if (!(await page.getByTestId('studio-lot-screen').isVisible().catch(() => false))) {
+    const back = page.getByTestId('back-to-studio-lot')
+    if (await back.isVisible().catch(() => false)) await back.click()
+    else await page.getByTestId('open-studio-lot').click()
+  }
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await expect(page.getByTestId('lot-companion-nav')).toBeVisible()
   await page.waitForTimeout(1200) // Phaser boot + first paint
 }
 
 async function openSceneryLoadInLot(page: Page) {
-  await page.getByTestId('open-studio-lot').click()
+  // Studio Home is lazy. After a hard reload the recovery notice can paint before the
+  // Lot chunk resolves, so await the authoritative home instead of interpreting that
+  // brief loading interval as a Dashboard-root session.
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await expect(page.getByTestId('hollywood-current-production')).toContainText('Nights of Watchtower')
   await expect(page.getByTestId('studio-lot-canvas').locator('canvas')).toHaveCount(1)
@@ -246,7 +266,7 @@ test('7. returning to the lot restores the previously selected building', async 
   await openLot(page)
   await page.getByTestId('lot-nav-admin').click() // Administration → Dashboard, records selection
   await expect(page.getByTestId('dash-week')).toBeVisible()
-  await page.getByTestId('open-studio-lot').click()
+  await page.getByTestId('back-to-studio-lot').click()
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await expect(page.getByTestId('lot-nav-admin')).toHaveAttribute('aria-current', 'true')
   await page.waitForTimeout(600)
@@ -271,9 +291,8 @@ test('9. a reload restores the authoritative studio', async ({ page }) => {
   const weekText = await page.getByTestId('lot-cash').textContent()
   await page.reload()
   await expect(page.getByTestId('recovery-notice')).toBeVisible()
-  await expect(page.getByTestId('dash-week')).toBeVisible()
-  // The lot re-opens against the same authoritative state.
-  await page.getByTestId('open-studio-lot').click()
+  // Studio Home restores directly against the same authoritative state.
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await expect(page.getByTestId('lot-cash')).toHaveText(weekText ?? '')
 })
 
@@ -316,8 +335,7 @@ test('E2. reduced-motion mode', async ({ page }) => {
 test('L. repeated lot open/close leaves no orphaned canvas', async ({ page }) => {
   await seed(page, 'empty')
   for (let i = 0; i < 3; i++) {
-    await page.getByTestId('open-studio-lot').click()
-    await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
+    await openLot(page)
     await page.waitForTimeout(700) // Phaser boots + attaches its canvas
     expect(await page.locator('canvas').count()).toBe(1)
     await page.getByTestId('lot-return-dashboard').click()
@@ -427,7 +445,6 @@ test('scenery load-in semantic command path survives renderer construction failu
   // Abort only the lazy renderer module. The React companion remains the complete path.
   await page.route('**/src/lot/StudioLotView.ts*', (route) => route.abort())
   await seedSceneryLoadIn(page, 'blocked')
-  await page.getByTestId('open-studio-lot').click()
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await expect(page.getByTestId('lot-canvas-fallback')).toBeVisible()
   await expect(page.getByTestId('studio-lot-canvas').locator('canvas')).toHaveCount(0)
@@ -470,10 +487,7 @@ test('scenery load-in reduced motion acknowledges accepted delivery immediately'
 })
 
 test('generic physical service yard remains inspectable without exact scenery authority', async ({ page }) => {
-  await page.addInitScript(([hollywoodFlag]) => {
-    localStorage.setItem(hollywoodFlag as string, '1')
-  }, [OPERATION_HOLLYWOOD_FLAG_KEY] as const)
-  await seed(page, 'empty')
+  await seed(page, 'empty', { hollywood: true })
   await openLot(page)
 
   await expect(page.getByTestId('lot-nav-service-yard')).toHaveCount(0)

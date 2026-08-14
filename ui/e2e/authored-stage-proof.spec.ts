@@ -21,6 +21,7 @@ const OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
 const IDENTITY_FLAG = 'project-studio.flags.studio-lot-identity-proof'
 const SOUNDSTAGE_PROOF_FLAG = 'project-studio.flags.studio-lot-soundstage-proof'
 const AUTHORED_FLAG = 'project-studio.flags.studio-lot-authored-stage'
+const OPERATION_HOLLYWOOD_FLAG = 'project-studio.flags.operation-hollywood'
 
 const PROCEDURAL_KEY = 'b-stage-b'
 const AUTHORED_KEY = 'b-stage-b-authored'
@@ -41,10 +42,11 @@ const fixture = (name: string) => readFileSync(join(fixturesDir, `${name}.json`)
  */
 async function seed(page: Page, fixtureName: string, authored: boolean, chrome = true) {
   await page.addInitScript(
-    ([key, json, f1, f2, f3, f4, on, dev]) => {
+    ([key, json, f1, f2, f3, f4, hollywoodFlag, on, dev]) => {
       try {
         localStorage.setItem(key as string, json as string)
         localStorage.setItem(f1 as string, '1') // lot overview
+        localStorage.setItem(hollywoodFlag as string, '0') // preserve the procedural proof lot
         if (dev) {
           localStorage.setItem(f2 as string, '1') // identity proof -> dev perf panel
           localStorage.setItem(f3 as string, '1') // soundstage review tooling
@@ -60,14 +62,13 @@ async function seed(page: Page, fixtureName: string, authored: boolean, chrome =
         /* ignore */
       }
     },
-    [ACTIVE_SESSION_KEY, fixture(fixtureName), OVERVIEW_FLAG, IDENTITY_FLAG, SOUNDSTAGE_PROOF_FLAG, AUTHORED_FLAG, authored, chrome] as const,
+    [ACTIVE_SESSION_KEY, fixture(fixtureName), OVERVIEW_FLAG, IDENTITY_FLAG, SOUNDSTAGE_PROOF_FLAG, AUTHORED_FLAG, OPERATION_HOLLYWOOD_FLAG, authored, chrome] as const,
   )
   await page.goto('/')
-  await expect(page.getByTestId('dash-week')).toBeVisible()
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
 }
 
 async function openLot(page: Page, chrome = true) {
-  await page.getByTestId('open-studio-lot').click()
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   if (chrome) await expect(page.getByTestId('lot-perf-panel')).toBeVisible()
   await page.waitForTimeout(1400)
@@ -143,7 +144,7 @@ test('explicit enable also yields the authored texture', async ({ page }) => {
   await seed(page, 'two', true)
   await page.addInitScript((k) => localStorage.setItem(k as string, '1'), AUTHORED_FLAG)
   await page.goto('/')
-  await expect(page.getByTestId('dash-week')).toBeVisible()
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await openLot(page)
   expect((await stageB(page)).texture).toBe(AUTHORED_KEY)
 })

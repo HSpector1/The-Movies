@@ -534,7 +534,6 @@ describe('World-First Annex Construction Interaction V1 — React/App boundary',
     saveActiveSession(state)
 
     render(<App />)
-    fireEvent.click(screen.getByTestId('open-studio-lot'))
     const lot = await screen.findByTestId('studio-lot-screen')
     await waitFor(() => expect(renderer.instances).toHaveLength(1))
     const phaser = latestView()
@@ -624,7 +623,6 @@ describe('World-First Annex Construction Interaction V1 — React/App boundary',
     saveActiveSession(state)
 
     render(<App />)
-    fireEvent.click(screen.getByTestId('open-studio-lot'))
     await waitFor(() => expect(renderer.instances).toHaveLength(1))
     const phaser = latestView()
     expect(screen.getByTestId('hollywood-current-production')).toHaveTextContent(operation.title)
@@ -675,7 +673,6 @@ describe('World-First Annex Construction Interaction V1 — React/App boundary',
     saveActiveSession(state)
 
     render(<App />)
-    fireEvent.click(screen.getByTestId('open-studio-lot'))
     await selectAnnexSemantically()
     const lot = screen.getByTestId('studio-lot-screen')
     const context = screen.getByTestId('lot-annex-context')
@@ -776,7 +773,6 @@ describe('World-First Annex Construction Interaction V1 — React/App boundary',
       if (!expected.ok) throw new Error(expected.error)
       saveActiveSession(state)
       render(<App />)
-      fireEvent.click(screen.getByTestId('open-studio-lot'))
 
       if (mode === 'renderer rejection') {
         await screen.findByTestId('lot-canvas-fallback')

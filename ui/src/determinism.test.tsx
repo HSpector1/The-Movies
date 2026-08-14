@@ -6,10 +6,12 @@
 //
 // We assert on RENDERED output (the dashboard the player sees), not internal state.
 
-import { describe, it, expect, afterEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { render, screen, within, fireEvent, cleanup } from '@testing-library/react'
 import { App } from './App.tsx'
+import { setStudioLotOverviewOverride } from './flags.ts'
 
+beforeEach(() => setStudioLotOverviewOverride(false))
 afterEach(cleanup)
 
 // Capture the visible dashboard snapshot as a stable string of what the player sees.
@@ -49,6 +51,7 @@ function startGame(seed: string) {
   // Each call starts a genuinely FRESH game: clear the active-session autosave so the second render
   // in a comparison does not restore the first render's session (D-12 session recovery).
   localStorage.clear()
+  setStudioLotOverviewOverride(false)
   render(<App />)
   fireEvent.change(screen.getByTestId('seed-input'), { target: { value: seed } })
   fireEvent.click(screen.getByTestId('new-game'))

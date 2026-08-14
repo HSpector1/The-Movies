@@ -7,7 +7,7 @@
 
 import { useState, type ComponentProps } from 'react'
 import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   applyActions,
   beginFounding,
@@ -40,6 +40,11 @@ import type {
   ProductionOperationsState,
   StudioLotSnapshot,
 } from './snapshot/StudioLotSnapshot.ts'
+import {
+  getLotSelectedBuilding,
+  resetLotSelectedBuilding,
+  setLotSelectedBuilding,
+} from './snapshot/selectedBuildingSession.ts'
 import type { HollywoodProductionSelection } from './hollywood/HollywoodScene.ts'
 
 type TestStudioLotScreenProps = Omit<
@@ -271,6 +276,13 @@ function renderScreen(state: GameState = baseState) {
 }
 const latest = () => spy.instances[spy.instances.length - 1]!
 
+beforeEach(() => {
+  setOperationHollywoodOverride(false)
+  setStudioLotIdentityOverride(false)
+  setStudioLotSoundstageProofOverride(false)
+  resetLotSelectedBuilding()
+})
+
 afterEach(() => {
   // Unmount before resetting the deferred dynamic-import spy. Otherwise a view
   // resolved between hooks can be counted as the next test's renderer.
@@ -283,6 +295,7 @@ afterEach(() => {
   setOperationHollywoodOverride(false)
   setStudioLotIdentityOverride(false)
   setStudioLotSoundstageProofOverride(false)
+  resetLotSelectedBuilding()
 })
 
 describe('StudioLotScreen — host lifecycle + accessible companion navigation', () => {
@@ -345,6 +358,7 @@ describe('StudioLotScreen — host lifecycle + accessible companion navigation',
       latest().opts.onAction?.({ buildingId: 'admin', action: 'open-studio-overview' })
     })
     expect(routes).toContainEqual({ kind: 'dashboard' })
+    expect(getLotSelectedBuilding()).toBe('admin')
     expect(JSON.stringify(state)).toBe(before) // GameState untouched
   })
 
@@ -411,8 +425,67 @@ describe('StudioLotScreen — host lifecycle + accessible companion navigation',
 
   it('12b. the return-to-dashboard control is present and calls onExit', async () => {
     const { getByTestId, exits } = renderScreen()
-    fireEvent.click(getByTestId('lot-return-dashboard'))
+    const dashboard = getByTestId('lot-return-dashboard')
+    expect(dashboard).toHaveAccessibleName('Open Dashboard')
+    fireEvent.click(dashboard)
     expect(exits()).toBe(1)
+  })
+
+  it('owns a semantic page heading and obeys canonical and selected-building entry focus', async () => {
+    const canonical = render(
+      <StudioLotScreen
+        state={baseState}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        entryFocus="studio-home"
+      />,
+    )
+    const heading = canonical.getByTestId('lot-studio-heading')
+    expect(heading.tagName).toBe('H1')
+    expect(heading).toHaveAttribute('tabindex', '-1')
+    await waitFor(() => expect(heading).toHaveFocus())
+    canonical.unmount()
+
+    setLotSelectedBuilding('writers')
+    const returned = render(
+      <StudioLotScreen
+        state={baseState}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        entryFocus="selected-building"
+      />,
+    )
+    await waitFor(() => expect(returned.getByTestId('lot-nav-writers')).toHaveFocus())
+  })
+
+  it('fails selected-building entry focus closed to the studio heading', async () => {
+    expect(getLotSelectedBuilding()).toBeNull()
+    const { getByTestId } = render(
+      <StudioLotScreen
+        state={baseState}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        entryFocus="selected-building"
+      />,
+    )
+    await waitFor(() => expect(getByTestId('lot-studio-heading')).toHaveFocus())
+  })
+
+  it('exposes the inner renderer preparation as one explicit polite status', () => {
+    spy.controls.deferReady = true
+    const { getByTestId } = renderScreen()
+    const loading = getByTestId('lot-canvas-loading')
+    expect(loading).toHaveAttribute('role', 'status')
+    expect(loading).toHaveAttribute('aria-live', 'polite')
+    expect(loading).toHaveAttribute('aria-atomic', 'true')
+    expect(loading).toHaveTextContent('Preparing the lot…')
+  })
+
+  it('resets selected-building presentation memory without touching renderer or engine state', () => {
+    setLotSelectedBuilding('theater')
+    expect(getLotSelectedBuilding()).toBe('theater')
+    resetLotSelectedBuilding()
+    expect(getLotSelectedBuilding()).toBeNull()
   })
 })
 
@@ -588,6 +661,7 @@ describe('StudioLotScreen — World-First Live Week Advance V1 host boundary', (
     for (let i = 0; i < 12; i++) state = advanceWeek(state).next
     const completed = advanceWeek(state)
     if (!completed.constructionCompletion) throw new Error('expected Annex completion')
+    setLotSelectedBuilding('writers')
 
     const { getByTestId, queryByTestId, rerender } = render(
       <StudioLotScreen
@@ -599,6 +673,7 @@ describe('StudioLotScreen — World-First Live Week Advance V1 host boundary', (
           week: completed.next.market.tick,
           constructionCompletion: completed.constructionCompletion,
         }}
+        entryFocus="selected-building"
       />,
     )
     const notice = getByTestId('annex-completion-summary')
@@ -617,6 +692,7 @@ describe('StudioLotScreen — World-First Live Week Advance V1 host boundary', (
           week: following.next.market.tick,
           constructionCompletion: following.constructionCompletion,
         }}
+        entryFocus="selected-building"
       />,
     )
     expect(queryByTestId('annex-completion-summary')).not.toBeInTheDocument()

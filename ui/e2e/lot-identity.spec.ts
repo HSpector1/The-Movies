@@ -2,7 +2,7 @@
 // Boots the REAL app (Phaser renders for real) with BOTH the lot-overview and identity-proof
 // flags on, and captures the owner-required evidence using the dev review selector. Matched
 // baseline-vs-revised pairs use identical viewport, fixture (seed) and framing — only the
-// review mode differs. State is seeded via the same engine-built SaveFileV4 fixtures as the
+// review mode differs. State is seeded via the same engine-built native SaveFileV11 fixtures as the
 // Gate D1 suite, so every shown state is authoritative. Also asserts a clean console and no
 // identity-resource leak. Screenshots land in out/d1a-identity-evidence/.
 
@@ -21,6 +21,7 @@ mkdirSync(outDir, { recursive: true })
 const ACTIVE_SESSION_KEY = 'project-studio.active-session.v4'
 const OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
 const IDENTITY_FLAG = 'project-studio.flags.studio-lot-identity-proof'
+const OPERATION_HOLLYWOOD_FLAG = 'project-studio.flags.operation-hollywood'
 
 test.beforeAll(() => {
   const names = ['empty', 'one', 'two', 'released', 'warn']
@@ -36,21 +37,24 @@ function fixture(name: string): string {
 async function seed(page: Page, fixtureName: string) {
   const save = fixture(fixtureName)
   await page.addInitScript(
-    ([key, json, f1, f2]) => {
+    ([key, json, f1, f2, hollywoodFlag]) => {
       try {
         localStorage.setItem(key as string, json as string)
         localStorage.setItem(f1 as string, '1')
         localStorage.setItem(f2 as string, '1')
+        localStorage.setItem(hollywoodFlag as string, '0')
       } catch { /* ignore */ }
     },
-    [ACTIVE_SESSION_KEY, save, OVERVIEW_FLAG, IDENTITY_FLAG] as const,
+    [ACTIVE_SESSION_KEY, save, OVERVIEW_FLAG, IDENTITY_FLAG, OPERATION_HOLLYWOOD_FLAG] as const,
   )
   await page.goto('/')
-  await expect(page.getByTestId('dash-week')).toBeVisible()
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
 }
 
 async function openLot(page: Page) {
-  await page.getByTestId('open-studio-lot').click()
+  if (!(await page.getByTestId('studio-lot-screen').isVisible().catch(() => false))) {
+    await page.getByTestId('back-to-studio-lot').click()
+  }
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await expect(page.getByTestId('lot-review-mode')).toBeVisible()
   await page.waitForTimeout(1300)
@@ -93,7 +97,7 @@ test('gate overview + gate selected (banner + PS emblem, then selection ring)', 
   await shot(page, 'gate-overview')
   await page.getByTestId('lot-nav-gate').click()
   await expect(page.getByTestId('dash-week')).toBeVisible()
-  await page.getByTestId('open-studio-lot').click()
+  await page.getByTestId('back-to-studio-lot').click()
   await expect(page.getByTestId('lot-nav-gate')).toHaveAttribute('aria-current', 'true')
   await page.waitForTimeout(900)
   await shot(page, 'gate-selected')
@@ -188,8 +192,7 @@ test('repeated open/close with identity on leaves no orphaned canvas', async ({ 
   page.on('pageerror', (e) => errors.push(String(e)))
   await seed(page, 'two')
   for (let i = 0; i < 3; i++) {
-    await page.getByTestId('open-studio-lot').click()
-    await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
+    await openLot(page)
     await page.waitForTimeout(800)
     expect(await page.locator('canvas').count()).toBe(1)
     await page.getByTestId('lot-return-dashboard').click()

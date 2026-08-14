@@ -21,9 +21,15 @@ import type { CastSlot, CreativeRole, GameState } from '../../../src/core/index.
 import { exportSaveJson, studioLotSnapshot } from '../engine/adapter.ts'
 import type { StudioLotSnapshot } from './snapshot/StudioLotSnapshot.ts'
 import { lotStageAssignment, resetLotStageAssignment } from './snapshot/stageAssignment.ts'
+import {
+  getLotSelectedBuilding,
+  resetLotSelectedBuilding,
+  setLotSelectedBuilding,
+} from './snapshot/selectedBuildingSession.ts'
 import { StudioLotScreen } from './StudioLotScreen.tsx'
 import { App } from '../App.tsx'
 import { ACTIVE_SESSION_KEY } from '../engine/session.ts'
+import { setStudioLotOverviewOverride } from '../flags.ts'
 
 const spy = vi.hoisted(() => {
   const instances: Array<{ snapshots: StudioLotSnapshot[] }> = []
@@ -53,8 +59,10 @@ vi.mock('./StudioLotView.ts', () => ({ StudioLotView: spy.FakeInstance }))
 beforeEach(() => {
   spy.instances.length = 0
   localStorage.clear()
+  setStudioLotOverviewOverride(false)
   // Each case states its own starting memory explicitly; nothing leaks between them.
   resetLotStageAssignment()
+  resetLotSelectedBuilding()
 })
 
 afterEach(() => {
@@ -198,6 +206,7 @@ describe('CASE B — a new studio does not inherit the previous studio’s stage
     const { states, survivorId } = gameOne('lifecycle-b1')
     const g2 = gameTwoCollidingWith(survivorId, 'lifecycle-b2')
     const utils = await primeFromGameOne(states, survivorId)
+    setLotSelectedBuilding('theater')
     utils.unmount()
 
     // Boot the app into game 1 and take the route a player actually takes: Saves →
@@ -211,6 +220,7 @@ describe('CASE B — a new studio does not inherit the previous studio’s stage
     fireEvent.click(screen.getByTestId('new-game'))
 
     expect(lotStageAssignment.slotFor(survivorId)).toBeUndefined()
+    expect(getLotSelectedBuilding()).toBeNull()
     cleanup()
 
     // The new studio eventually greenlights a film with the SAME id. It must start fresh.
@@ -218,6 +228,23 @@ describe('CASE B — a new studio does not inherit the previous studio’s stage
     expect(shownOn(view, survivorId)).toBe('stage-a')
     expect(fresh.getByTestId('lot-nav-stage-a').getAttribute('data-attention')).toBe('active')
     expect(fresh.getByTestId('lot-nav-stage-b').getAttribute('data-attention')).toBe('empty')
+  })
+
+  it('keeps both presentation memories when New Studio is declined', async () => {
+    const { states, survivorId } = gameOne('lifecycle-b-decline')
+    const utils = await primeFromGameOne(states, survivorId)
+    setLotSelectedBuilding('theater')
+    utils.unmount()
+
+    vi.spyOn(window, 'confirm').mockReturnValue(false)
+    localStorage.setItem(ACTIVE_SESSION_KEY, exportSaveJson(states[states.length - 1]!))
+    render(<App />)
+    fireEvent.click(screen.getByTestId('open-saves'))
+    fireEvent.click(screen.getByTestId('restart-game'))
+
+    expect(screen.getByTestId('saves-import')).toBeInTheDocument()
+    expect(lotStageAssignment.slotFor(survivorId)).toBe('stage-b')
+    expect(getLotSelectedBuilding()).toBe('theater')
   })
 })
 
@@ -227,6 +254,7 @@ describe('CASE C — a loaded save does not inherit the previous studio’s stag
     const { states, survivorId } = gameOne('lifecycle-c1')
     const g2 = gameTwoCollidingWith(survivorId, 'lifecycle-c2')
     const utils = await primeFromGameOne(states, survivorId)
+    setLotSelectedBuilding('theater')
     utils.unmount()
 
     // Boot into game 1, then import game 2 through the real Saves control.
@@ -240,6 +268,7 @@ describe('CASE C — a loaded save does not inherit the previous studio’s stag
     expect(screen.getByTestId('dash-week')).toBeInTheDocument() // the load was accepted
 
     expect(lotStageAssignment.slotFor(survivorId)).toBeUndefined()
+    expect(getLotSelectedBuilding()).toBeNull()
     cleanup()
 
     const { utils: fresh, view } = await openLot(g2)
@@ -251,6 +280,7 @@ describe('CASE C — a loaded save does not inherit the previous studio’s stag
   it('a REJECTED import keeps the live studio’s stages — reset only on success', async () => {
     const { states, survivorId } = gameOne('lifecycle-c1')
     const utils = await primeFromGameOne(states, survivorId)
+    setLotSelectedBuilding('theater')
     utils.unmount()
 
     localStorage.setItem(ACTIVE_SESSION_KEY, exportSaveJson(states[states.length - 1]!))
@@ -264,5 +294,6 @@ describe('CASE C — a loaded save does not inherit the previous studio’s stag
     // The previous studio is still live, so its presentation memory must be untouched.
     expect(screen.getByTestId('saves-import')).toBeInTheDocument() // still on Saves; load refused
     expect(lotStageAssignment.slotFor(survivorId)).toBe('stage-b')
+    expect(getLotSelectedBuilding()).toBe('theater')
   })
 })

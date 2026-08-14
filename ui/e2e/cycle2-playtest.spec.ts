@@ -7,8 +7,8 @@
 //   • found the studio with EXACTLY 3 actors / 1 director / 2 writers / 1 craft
 //   • create a SECOND custom person in the Hiring Market; confirm they are NOT auto-
 //     employed (appear as a signable free agent) and sign them
-//   • assemble + release Film A and Film B with materially DIFFERENT casts (both
-//     greenlit the same week so B's pickers auto-differ)
+//   • assemble + release Film A and Film B with materially DIFFERENT casts (Film A
+//     remains active while Film B is packaged, so B's pickers auto-differ)
 //   • assert each film's autopsy shows the correct + DISTINCT participants
 //   • save/reload and confirm the stored identity is preserved
 //
@@ -18,11 +18,20 @@ import { test, expect, type Page } from '@playwright/test'
 import { mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import {
+  enterPackageTalentStep,
+  openAuthoritativePackage,
+} from './helpers/managed-production.ts'
 
 const SEED = 'e2e-cycle2-playtest'
 const CUSTOM_ACTOR = 'Custom Star Ada'
+const STUDIO_LOT_OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
 const shotsDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'screenshots')
 mkdirSync(shotsDir, { recursive: true })
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript((key) => localStorage.setItem(key, '0'), STUDIO_LOT_OVERVIEW_FLAG)
+})
 
 async function shot(page: Page, name: string) {
   await page.screenshot({ path: join(shotsDir, `${name}.png`), fullPage: true })
@@ -42,13 +51,11 @@ async function signFirstInGroup(page: Page, role: string) {
 // greenlight. Already-engaged talent are disabled, so a second film cast right after the
 // first naturally picks DIFFERENT people. Leaves the app on the dashboard.
 async function assembleAndGreenlight(page: Page) {
-  await page.getByTestId('assemble-film').click()
-  await expect(page.getByTestId('assembly-steps')).toBeVisible()
-  await page.getByTestId('concept-grid').getByRole('button').first().click()
-  await page.getByTestId('assembly-next').click() // → shape
-  await page.getByTestId('assembly-next').click() // → promise
-  await page.getByTestId('assembly-next').click() // → talent
-  for (const picker of ['picker-writer', 'picker-director', 'picker-lead', 'picker-antagonist', 'picker-support', 'picker-craft']) {
+  const authority = await openAuthoritativePackage(page)
+  await enterPackageTalentStep(page, authority)
+  const pickers = ['picker-director', 'picker-lead', 'picker-antagonist', 'picker-support', 'picker-craft']
+  if (authority === 'legacy') pickers.unshift('picker-writer')
+  for (const picker of pickers) {
     await page.getByTestId(picker).locator('button[aria-pressed]:not([disabled])').first().click()
   }
   await page.getByTestId('assembly-next').click() // → budget
@@ -64,6 +71,7 @@ async function advanceUntilReleases(page: Page, expected: number): Promise<strin
   for (let i = 0; i < 40; i++) {
     const ids = await releaseRowIds(page)
     if (ids.length >= expected) return ids
+    await resolveProductionCommands(page)
     const advance = page.getByTestId('advance-week')
     if (await advance.isVisible().catch(() => false)) await advance.click()
     // D-11.C PART 2: dismiss the newspaper reveal, then the release summary, to get back
@@ -91,6 +99,15 @@ async function releaseRowIds(page: Page): Promise<string[]> {
     if (testid) ids.push(testid.replace('release-', ''))
   }
   return ids
+}
+
+async function resolveProductionCommands(page: Page) {
+  for (let guard = 0; guard < 16; guard++) {
+    const command = page.locator('button[data-testid^="production-command-"]:visible').first()
+    if ((await command.count()) === 0) return
+    await command.click()
+  }
+  await expect(page.locator('button[data-testid^="production-command-"]:visible')).toHaveCount(0)
 }
 
 async function captureParticipants(
@@ -171,9 +188,9 @@ test('cycle-2 owner playtest: custom-actor founding → hiring → two distinct 
 
   // ── STEP 7 — Complete the roster with enough depth for TWO CONCURRENT films. ──
   // The founding minimum is 3 actors / 1 director / 1 writer / 1 craft (D-11.D). This test
-  // greenlights Film A and Film B in the SAME week, so it signs enough of each role (6/2/2/2,
-  // the custom actor being 1 of the 6) that both films cast distinctly from the roster —
-  // independent of the applicant SORT order. The 3-actor minimum itself is covered by the
+  // keeps Film A active while Film B passes through screenplay development, so it signs
+  // enough of each role (6/2/2/2, the custom actor being 1 of the 6) that both films cast
+  // distinctly from the roster — independent of the applicant SORT order. The 3-actor minimum itself is covered by the
   // engine/component tests (d11-cycle2, d11-employment, d11-screens).
   for (let i = 0; i < 5; i++) await signFirstInGroup(page, 'actor') // + the custom actor = 6
   for (let i = 0; i < 2; i++) await signFirstInGroup(page, 'director')
@@ -216,8 +233,9 @@ test('cycle-2 owner playtest: custom-actor founding → hiring → two distinct 
   await expect(page.getByTestId('dash-week')).toBeVisible()
 
   // ── STEP 12-15 — Two films with materially different casts. ─────────────────
-  // Greenlight Film A and Film B in the SAME week (Film A's talent are then engaged, so
-  // Film B's first-eligible picks auto-differ), then advance until both release.
+  // Greenlight Film A and Film B through the authoritative package path. Film A's talent
+  // are engaged when Film B is packaged, so its first-eligible picks auto-differ. Then
+  // advance until both release.
   await assembleAndGreenlight(page)
   await assembleAndGreenlight(page)
   const ids = await advanceUntilReleases(page, 2)
@@ -265,9 +283,10 @@ test('cycle-2 owner playtest: custom-actor founding → hiring → two distinct 
   const reloadedIds = await releaseRowIds(page)
   expect(reloadedIds).toContain(idA)
 
-  // Post-reload the dashboard autopsy button opens the archived FilmRecord (no session
-  // snapshot); it renders ONLY from the film's own frozen record.
-  await page.getByTestId(`autopsy-${idA}`).click()
+  // Post-reload the transient Autopsy snapshot is intentionally unavailable. Open the
+  // durable Film Chronicle, which renders only from the film's own frozen record.
+  await expect(page.getByTestId(`autopsy-${idA}`)).toBeDisabled()
+  await page.getByTestId(`chronicle-${idA}`).click()
   const recordA = await captureParticipants(page, 'record-participants', 'record-participant-name')
   await shot(page, 'c2-playtest-reload-filmA')
   await page.getByTestId('film-record-back').click()

@@ -1,11 +1,11 @@
 // ── D-15 Studio Run Recap — Playwright journey + owner evidence ───────────────
-// Loads a real SaveFileV5 fixture (scripts/gen-recap-fixtures.mts) with a concentrated
+// Loads a real native SaveFileV11 fixture (scripts/gen-recap-fixtures.mts) with a concentrated
 // multi-film slate, opens the recap from the Dashboard, verifies the sections + a11y, and
 // captures owner-review screenshots (laptop resolutions + 125% zoom). Clean console.
 
 import { test, expect, type Page } from '@playwright/test'
-import { execSync } from 'node:child_process'
-import { existsSync, mkdirSync, readFileSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
+import { mkdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -15,11 +15,35 @@ const fixturesDir = join(here, 'fixtures')
 const outDir = join(repoRoot, 'out', 'd15-recap-evidence')
 mkdirSync(outDir, { recursive: true })
 const SESSION_KEY = 'project-studio.active-session.v4'
+const STUDIO_LOT_OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
 
 test.beforeAll(() => {
-  if (!existsSync(join(fixturesDir, 'recap-run.json'))) {
-    execSync('npx vite-node scripts/gen-recap-fixtures.mts', { cwd: repoRoot, stdio: 'inherit' })
+  // The fixture is generated and gitignored. Always replace any developer-local copy so
+  // this journey cannot silently exercise stale migrated bytes or the former fabricated cash.
+  execFileSync(
+    join(repoRoot, 'node_modules', '.bin', 'vite-node'),
+    ['scripts/gen-recap-fixtures.mts'],
+    { cwd: repoRoot, stdio: 'inherit' },
+  )
+
+  // Enforce the authority claimed by this suite before a browser imports the fixture.
+  const fixture = JSON.parse(readFileSync(join(fixturesDir, 'recap-run.json'), 'utf8')) as {
+    saveVersion: number
+    state: {
+      cashLedgerCheckpoint?: unknown
+      ledger: Array<{ amount: number }>
+      studio: { cash: number }
+    }
   }
+  expect(fixture.saveVersion).toBe(11)
+  expect(fixture.state.cashLedgerCheckpoint).toBeUndefined()
+  expect(
+    fixture.state.ledger.reduce((cash, entry) => cash + entry.amount, 20_000_000),
+  ).toBe(fixture.state.studio.cash)
+})
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript((key) => localStorage.setItem(key, '0'), STUDIO_LOT_OVERVIEW_FLAG)
 })
 
 async function seedAndOpen(page: Page): Promise<string[]> {
@@ -55,23 +79,60 @@ test('recap: sections render, slate present, current position + warnings, clean 
   for (const id of ['summary', 'capital', 'films', 'talent', 'concentration', 'position']) {
     await expect(page.getByTestId(`recap-section-${id}`)).toBeVisible()
   }
-  // headline facts
-  await expect(page.getByTestId('recap-through-week')).toBeVisible()
-  await expect(page.getByTestId('recap-total-contribution')).toBeVisible()
-  await expect(page.getByTestId('recap-recovery')).toBeVisible()
-  // cash chart (default) with an accessible label; the 86-row table is NOT open by default
+  // Exact native Engine outcome: four loss-making releases through Week 56.
+  await expect(page.getByTestId('recap-through-week')).toHaveText('Week 56')
+  await expect(page.getByTestId('recap-film-count')).toHaveText('4')
+  await expect(page.getByTestId('recap-pbl-count')).toHaveText('0 / 0 / 4')
+  await expect(page.getByTestId('recap-total-contribution')).toHaveText('-$12.00M')
+  // cash chart (default) with an accessible label; the weekly table is NOT open by default
   await expect(page.getByTestId('recap-cash-chart')).toBeVisible()
   await expect(page.getByTestId('recap-cash-chart').getByRole('img')).toHaveAttribute('aria-label', /Cash history through week/)
   await expect(page.getByTestId('recap-cash-timeline')).toBeHidden() // inside a collapsed <details>
   // the film slate has at least one film row
   await expect(page.locator('[data-testid^="recap-film-prod-"]').first()).toBeVisible()
-  // current position distinguishes cheapest vs typical affordability
-  await expect(page.getByTestId('recap-cheapest')).toBeVisible()
-  await expect(page.getByTestId('recap-typical')).toBeVisible()
-  // methodology collapsed; at most three primary warnings
+  // The real ledger lands in a constrained-but-recoverable position: low-cost packages
+  // remain legal, while the recent-normal commitment and waiting strategy do not.
+  await expect(page.getByTestId('recap-recovery')).toHaveText('Constrained but recoverable')
+  await expect(page.getByTestId('recap-current-cash')).toHaveText('$3,699,090')
+  await expect(page.getByTestId('recap-cheapest')).toContainText(
+    '$1,950,004 — affordable',
+  )
+  await expect(page.getByTestId('recap-standard')).toContainText(
+    '$3,413,156 — affordable',
+  )
+  await expect(page.getByTestId('recap-typical')).toContainText(
+    '$5,500,000 — short $1,800,910',
+  )
+  await expect(page.getByTestId('recap-waiting')).toContainText('-$77K / wk')
+
+  // Methodology stays collapsed and the exact read-model warning order is preserved across
+  // the three primary items and the six secondary observations.
   await expect(page.getByTestId('recap-methodology')).toBeVisible()
   const primaryWarnings = page.getByTestId('recap-warnings').locator(':scope > li')
-  expect(await primaryWarnings.count()).toBeLessThanOrEqual(3)
+  const secondaryWarnings = page.getByTestId('recap-secondary-warnings').locator(':scope > li')
+  const warningCodes = [
+    'cashPositiveButNormalUnaffordable',
+    'waitingBurnsCash',
+    'oneMoreFailureNarrowsOptions',
+    'contractsOutliveRunway',
+    'noActiveRevenue',
+    'repeatedLosses',
+    'optionsBelowTypical',
+    'highGenreConcentration',
+    'highLeadConcentration',
+  ] as const
+  await expect(primaryWarnings).toHaveCount(3)
+  await expect(secondaryWarnings).toHaveCount(6)
+  await expect(page.getByTestId('recap-more-observations')).toHaveText(
+    'More strategic observations (6)',
+  )
+  for (const [index, code] of warningCodes.entries()) {
+    const warning = index < 3 ? primaryWarnings.nth(index) : secondaryWarnings.nth(index - 3)
+    await expect(warning).toHaveAttribute(
+      'data-testid',
+      `recap-warning-${code}`,
+    )
+  }
 
   await shot(page, '01-recap-full')
 

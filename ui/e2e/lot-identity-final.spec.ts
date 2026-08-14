@@ -1,7 +1,7 @@
 // ── D1-A: FINAL CLEAN owner evidence (production-adoption package) ────────────────
 // The approved Concept A, captured for the joint merge review with the review overlay HIDDEN
 // (the owner judges the lot at the production camera, no dev chrome), except the one shot that
-// documents the performance panel. Real Phaser, seeded SaveFileV4 fixtures. Output lands in
+// documents the performance panel. Real Phaser, seeded native SaveFileV11 fixtures. Output lands in
 // out/d1a-identity-evidence/final-clean/. Matched baseline-vs-Concept-A use identical state.
 
 import { test, expect, type Page } from '@playwright/test'
@@ -19,6 +19,7 @@ mkdirSync(outDir, { recursive: true })
 const ACTIVE_SESSION_KEY = 'project-studio.active-session.v4'
 const OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
 const IDENTITY_FLAG = 'project-studio.flags.studio-lot-identity-proof'
+const OPERATION_HOLLYWOOD_FLAG = 'project-studio.flags.operation-hollywood'
 
 test.beforeAll(() => {
   const names = ['empty', 'one', 'two', 'released', 'warn']
@@ -32,21 +33,21 @@ const fixture = (name: string) => readFileSync(join(fixturesDir, `${name}.json`)
 async function seed(page: Page, fixtureName: string) {
   const save = fixture(fixtureName)
   await page.addInitScript(
-    ([key, json, f1, f2]) => {
+    ([key, json, f1, f2, hollywoodFlag]) => {
       try {
         localStorage.setItem(key as string, json as string)
         localStorage.setItem(f1 as string, '1')
         localStorage.setItem(f2 as string, '1')
+        localStorage.setItem(hollywoodFlag as string, '0')
       } catch { /* ignore */ }
     },
-    [ACTIVE_SESSION_KEY, save, OVERVIEW_FLAG, IDENTITY_FLAG] as const,
+    [ACTIVE_SESSION_KEY, save, OVERVIEW_FLAG, IDENTITY_FLAG, OPERATION_HOLLYWOOD_FLAG] as const,
   )
   await page.goto('/')
-  await expect(page.getByTestId('dash-week')).toBeVisible()
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
 }
 
 async function openLot(page: Page) {
-  await page.getByTestId('open-studio-lot').click()
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await expect(page.getByTestId('lot-review-mode')).toBeVisible()
   await page.waitForTimeout(1300)
@@ -107,7 +108,7 @@ test('gate, stage A/B, theater (release + no release), selected building — cle
   await page.getByTestId('lot-review-show').click()
   await page.getByTestId('lot-nav-gate').click()
   await expect(page.getByTestId('dash-week')).toBeVisible()
-  await page.getByTestId('open-studio-lot').click()
+  await page.getByTestId('back-to-studio-lot').click()
   await expect(page.getByTestId('lot-nav-gate')).toHaveAttribute('aria-current', 'true')
   await setMode(page, 'concept-a')
   await hideOverlay(page)

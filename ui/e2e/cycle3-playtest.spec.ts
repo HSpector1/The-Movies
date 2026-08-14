@@ -15,10 +15,19 @@ import { test, expect, type Page } from '@playwright/test'
 import { mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import {
+  enterPackageTalentStep,
+  openAuthoritativePackage,
+} from './helpers/managed-production.ts'
 
 const SEED = 'e2e-cycle3-playtest'
+const STUDIO_LOT_OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
 const shotsDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'screenshots')
 mkdirSync(shotsDir, { recursive: true })
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript((key) => localStorage.setItem(key, '0'), STUDIO_LOT_OVERVIEW_FLAG)
+})
 
 async function shot(page: Page, name: string) {
   await page.screenshot({ path: join(shotsDir, `${name}.png`), fullPage: true })
@@ -28,6 +37,15 @@ async function leadingInt(page: Page, testid: string): Promise<number> {
   const txt = (await page.getByTestId(testid).textContent()) ?? ''
   const m = txt.match(/-?\d+/)
   return m ? Number(m[0]) : NaN
+}
+
+async function resolveProductionCommands(page: Page) {
+  for (let guard = 0; guard < 8; guard++) {
+    const command = page.locator('button[data-testid^="production-command-"]:visible').first()
+    if ((await command.count()) === 0) return
+    await command.click()
+  }
+  await expect(page.locator('button[data-testid^="production-command-"]:visible')).toHaveCount(0)
 }
 
 test('cycle-3: Balanced specialization creator + newspaper release reveal', async ({ page }) => {
@@ -112,12 +130,11 @@ test('cycle-3: Balanced specialization creator + newspaper release reveal', asyn
 
   // ══ PART 2 — Newspaper release reveal ═══════════════════════════════════════
   // Assemble + greenlight a film from the founded roster.
-  await page.getByTestId('assemble-film').click()
-  await page.getByTestId('concept-grid').getByRole('button').first().click()
-  await page.getByTestId('assembly-next').click() // → shape
-  await page.getByTestId('assembly-next').click() // → promise
-  await page.getByTestId('assembly-next').click() // → talent
-  for (const picker of ['picker-writer', 'picker-director', 'picker-lead', 'picker-antagonist', 'picker-support', 'picker-craft']) {
+  const authority = await openAuthoritativePackage(page)
+  await enterPackageTalentStep(page, authority)
+  const pickers = ['picker-director', 'picker-lead', 'picker-antagonist', 'picker-support', 'picker-craft']
+  if (authority === 'legacy') pickers.unshift('picker-writer')
+  for (const picker of pickers) {
     await page.getByTestId(picker).locator('button[aria-pressed]:not([disabled])').first().click()
   }
   await page.getByTestId('assembly-next').click() // → budget
@@ -129,6 +146,7 @@ test('cycle-3: Balanced specialization creator + newspaper release reveal', asyn
   let sawNewspaper = false
   let releasedProdId: string | null = null
   for (let i = 0; i < 20 && !releasedProdId; i++) {
+    await resolveProductionCommands(page)
     const advance = page.getByTestId('advance-week')
     if (await advance.isVisible().catch(() => false)) await advance.click()
     const newspaper = page.getByTestId('newspaper-reveal')

@@ -3,9 +3,12 @@
 // advance to release → autopsy, using only rendered controls (data-testids).
 // Confirms the managed studio loop is wired end to end.
 
-import { describe, it, expect } from 'vitest'
+import { beforeEach, describe, it, expect } from 'vitest'
 import { render, screen, within, fireEvent } from '@testing-library/react'
 import { App } from './App.tsx'
+import { setStudioLotOverviewOverride } from './flags.ts'
+
+beforeEach(() => setStudioLotOverviewOverride(false))
 
 // D-11.2: a new game now opens the FOUNDING DRAFT — the player hires an initial
 // roster before the studio can staff films. Sign the role minimums (D-11.A: 3 actors,

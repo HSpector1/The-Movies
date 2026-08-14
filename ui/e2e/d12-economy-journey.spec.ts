@@ -11,10 +11,16 @@ import { test, expect, type Page } from '@playwright/test'
 import { mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { enterPackageTalentStep, openAuthoritativePackage } from './helpers/managed-production.ts'
 
 const SEED = 'e2e-d12-economy'
+const STUDIO_LOT_OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
 const shotsDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'screenshots')
 mkdirSync(shotsDir, { recursive: true })
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript((key) => localStorage.setItem(key, '0'), STUDIO_LOT_OVERVIEW_FLAG)
+})
 async function shot(page: Page, name: string) {
   await page.screenshot({ path: join(shotsDir, `${name}.png`), fullPage: true })
 }
@@ -22,6 +28,16 @@ async function signInTab(page: Page, role: string, n: number) {
   await page.getByTestId(`founding-tab-${role}`).click()
   const group = page.getByTestId(`founding-group-${role}`)
   for (let i = 0; i < n; i++) await group.locator('button[data-testid^="founding-sign-"]').first().click()
+}
+
+async function resolveProductionCommands(page: Page) {
+  for (let guard = 0; guard < 8; guard++) {
+    const command = page.locator('button[data-testid^="production-command-"]:visible').first()
+    if ((await command.count()) === 0) return
+    await expect(command).toBeEnabled()
+    await command.click()
+  }
+  await expect(page.locator('button[data-testid^="production-command-"]:visible')).toHaveCount(0)
 }
 
 test('D-12: finances card, release-strategy gate, sim-to-event, theatrical run + Studio Rev', async ({ page }) => {
@@ -48,12 +64,17 @@ test('D-12: finances card, release-strategy gate, sim-to-event, theatrical run +
   await shot(page, 'd12-1-dashboard-finances')
 
   // ══ Assemble a film → Release Strategy (break-even + solvency gate) ═════════
-  await page.getByTestId('assemble-film').click()
-  await page.getByTestId('concept-grid').getByRole('button').first().click()
-  await page.getByTestId('assembly-next').click() // → shape
-  await page.getByTestId('assembly-next').click() // → promise
-  await page.getByTestId('assembly-next').click() // → talent
-  for (const picker of ['picker-writer', 'picker-director', 'picker-lead', 'picker-antagonist', 'picker-support', 'picker-craft']) {
+  const authority = await openAuthoritativePackage(page)
+  await enterPackageTalentStep(page, authority)
+  const pickers = [
+    ...(authority === 'legacy' ? ['picker-writer'] : []),
+    'picker-director',
+    'picker-lead',
+    'picker-antagonist',
+    'picker-support',
+    'picker-craft',
+  ]
+  for (const picker of pickers) {
     await page.getByTestId(picker).locator('button[aria-pressed]:not([disabled])').first().click()
   }
   await page.getByTestId('assembly-next').click() // → budget
@@ -72,8 +93,12 @@ test('D-12: finances card, release-strategy gate, sim-to-event, theatrical run +
   // ══ Sim to next event → the film releases (newspaper), then to the autopsy ══
   let released = false
   for (let i = 0; i < 8 && !released; i++) {
+    // Managed productions stop unattended simulation at visible player decisions.
+    // Resolve that exact command chain before asking the engine for the next event.
+    await resolveProductionCommands(page)
     const sim = page.getByTestId('sim-to-event')
-    if (await sim.isVisible().catch(() => false)) await sim.click()
+    await expect(sim).toBeEnabled()
+    await sim.click()
     const news = page.getByTestId('newspaper-reveal')
     if (await news.isVisible().catch(() => false)) {
       await shot(page, 'd12-3-release-newspaper')

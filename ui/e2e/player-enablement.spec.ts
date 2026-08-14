@@ -1,9 +1,10 @@
 // ── Concept A ORDINARY-PLAYER enablement — player-clean evidence ──────────────────
 // Owner ruling: Concept A is the default player-facing identity, and the development review
-// tooling is a SEPARATE default-OFF capability. These captures boot the REAL app as an ordinary
-// player would experience it: ONLY the lot-overview flag is set (so the lot is reachable) — the
-// identity-proof/review flag is deliberately NOT set, so Concept A must appear via the player
-// default with NO review chrome. Real Phaser, seeded SaveFileV4 fixtures (authoritative state).
+// tooling is a SEPARATE default-OFF capability. These historical Concept A captures now use the
+// explicit Operation Hollywood rollback so their frozen procedural-lot comparison remains valid;
+// the identity-proof/review flag is deliberately NOT set, so Concept A still appears through its
+// player-facing path with NO review chrome. Real Phaser, seeded native SaveFileV11 fixtures
+// (authoritative state).
 // Screenshots land in out/player-enablement-evidence/.
 
 import { test, expect, type Page } from '@playwright/test'
@@ -22,6 +23,7 @@ const ACTIVE_SESSION_KEY = 'project-studio.active-session.v4'
 const OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
 const IDENTITY_PROOF_FLAG = 'project-studio.flags.studio-lot-identity-proof' // dev review (default OFF)
 const IDENTITY_PLAYER_KEY = 'project-studio.flags.studio-lot-identity' // player rollback ('0' = baseline)
+const OPERATION_HOLLYWOOD_FLAG = 'project-studio.flags.operation-hollywood'
 
 test.beforeAll(() => {
   const names = ['empty', 'one', 'two', 'released', 'warn']
@@ -32,30 +34,31 @@ test.beforeAll(() => {
 
 const fixture = (name: string) => readFileSync(join(fixturesDir, `${name}.json`), 'utf8')
 
-/** Ordinary player: sets ONLY the overview flag (lot reachable). Never sets the proof flag unless
- *  `devReview` is explicitly requested. `rollback` sets the player identity rollback ('0'=baseline). */
+/** Historical player-clean path: enables overview and rolls back only the newer Hollywood renderer.
+ * Never sets the proof flag unless `devReview` is explicitly requested. `rollback` sets the
+ * player identity rollback ('0'=baseline). */
 async function seedPlayer(page: Page, fixtureName: string, opts: { rollback?: boolean; devReview?: boolean } = {}) {
   const save = fixture(fixtureName)
   await page.addInitScript(
-    ([sessionKey, json, overviewFlag, proofFlag, playerKey, rollback, devReview]) => {
+    ([sessionKey, json, overviewFlag, proofFlag, playerKey, hollywoodFlag, rollback, devReview]) => {
       try {
         localStorage.setItem(sessionKey as string, json as string)
         localStorage.setItem(overviewFlag as string, '1')
+        localStorage.setItem(hollywoodFlag as string, '0') // this suite owns the procedural Concept A path
         if (devReview) localStorage.setItem(proofFlag as string, '1')
         else localStorage.removeItem(proofFlag as string)
         if (rollback) localStorage.setItem(playerKey as string, '0')
         else localStorage.removeItem(playerKey as string)
       } catch { /* ignore */ }
     },
-    [ACTIVE_SESSION_KEY, save, OVERVIEW_FLAG, IDENTITY_PROOF_FLAG, IDENTITY_PLAYER_KEY, !!opts.rollback, !!opts.devReview] as const,
+    [ACTIVE_SESSION_KEY, save, OVERVIEW_FLAG, IDENTITY_PROOF_FLAG, IDENTITY_PLAYER_KEY, OPERATION_HOLLYWOOD_FLAG, !!opts.rollback, !!opts.devReview] as const,
   )
   await page.goto('/')
-  await expect(page.getByTestId('dash-week')).toBeVisible()
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
 }
 
 /** Open the lot and assert it is player-clean: NO development chrome of any kind. */
 async function openLotClean(page: Page) {
-  await page.getByTestId('open-studio-lot').click()
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await expect(page.getByTestId('lot-review-mode')).toHaveCount(0)
   await expect(page.getByTestId('lot-perf-panel')).toHaveCount(0)
@@ -113,7 +116,7 @@ test('09 selected building — player-clean', async ({ page }) => {
   await openLotClean(page)
   await page.getByTestId('lot-nav-gate').click() // records selection + routes to dashboard
   await expect(page.getByTestId('dash-week')).toBeVisible()
-  await page.getByTestId('open-studio-lot').click() // reopen; selection restored
+  await page.getByTestId('back-to-studio-lot').click() // return; selection restored
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await expect(page.getByTestId('lot-nav-gate')).toHaveAttribute('aria-current', 'true')
   await expect(page.getByTestId('lot-review-mode')).toHaveCount(0) // still player-clean
@@ -134,7 +137,6 @@ test('11 identity-render fallback — base lot + all nine destinations survive',
   // 'fallback' mode; the captured OUTCOME (base lot + full companion nav, nothing stranded) is
   // exactly what a player sees if Concept A fails to draw. Overlay hidden for the clean view.
   await seedPlayer(page, 'released', { devReview: true })
-  await page.getByTestId('open-studio-lot').click()
   await expect(page.getByTestId('lot-review-mode')).toBeVisible()
   await page.getByTestId('lot-review-fallback').click()
   await page.waitForTimeout(500)
@@ -152,7 +154,6 @@ test('12 explicit player-identity rollback → baseline, no dev chrome', async (
 
 test('13 development-review flag ON — review controls available only in dev mode', async ({ page }) => {
   await seedPlayer(page, 'two', { devReview: true })
-  await page.getByTestId('open-studio-lot').click()
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await expect(page.getByTestId('lot-review-mode')).toBeVisible() // dev tooling present
   await expect(page.getByTestId('lot-perf-panel')).toContainText('fps')

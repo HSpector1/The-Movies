@@ -49,6 +49,7 @@ export function Dashboard({
   onOpenCasting,
   onOpenHiring,
   onOpenLot,
+  onReturnToLot,
   onOpenRecap,
   onOpenCalendar,
   onOpenDevelopment,
@@ -71,9 +72,12 @@ export function Dashboard({
   onOpenRoster?: () => void
   onOpenCasting?: () => void
   onOpenHiring?: () => void
-  // Gate D1: open the Studio Lot overview. Optional — present only when the
-  // studioLotOverview feature flag is on (default off), so the flag-off app is unchanged.
+  // Open the adopted Studio Lot overview from a Dashboard-root compatibility flow.
+  // Optional: overview rollback leaves this absent and keeps Dashboard self-contained.
   onOpenLot?: (() => void) | undefined
+  // Studio Home V1: present only when Dashboard is supporting a Lot-rooted flow.
+  // This return action replaces, rather than duplicates, the ordinary Lot entry action.
+  onReturnToLot?: (() => void) | undefined
   // D-15: open the read-only Studio Run Recap.
   onOpenRecap?: () => void
   onOpenCalendar?: () => void
@@ -280,11 +284,20 @@ export function Dashboard({
             >
               Studio Run Recap
             </button>
-            {onOpenLot && (
+            {onReturnToLot ? (
+              <button
+                type="button"
+                className="ghost"
+                onClick={onReturnToLot}
+                data-testid="back-to-studio-lot"
+              >
+                Back to Studio Lot
+              </button>
+            ) : onOpenLot ? (
               <button className="ghost" onClick={onOpenLot} data-testid="open-studio-lot">
                 Studio Lot
               </button>
-            )}
+            ) : null}
             <button className="ghost" onClick={onCreateTalent} data-testid="open-talent-creator">
               Create talent
             </button>

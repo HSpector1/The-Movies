@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import {
   acknowledgeCastingSessionAction,
@@ -29,6 +29,7 @@ import { CastingRoom } from './CastingRoom.tsx'
 import { WritersRoom } from './WritersRoom.tsx'
 import { App } from '../App.tsx'
 import { resolveAction } from '../lot/navigation.ts'
+import { setStudioLotOverviewOverride } from '../flags.ts'
 
 const activeSession = vi.hoisted(() => ({ state: null as GameState | null }))
 vi.mock('../engine/session.ts', () => ({
@@ -39,6 +40,7 @@ vi.mock('../engine/session.ts', () => ({
     : { ok: false, reason: 'none' },
 }))
 
+beforeEach(() => setStudioLotOverviewOverride(false))
 afterEach(() => {
   cleanup()
   activeSession.state = null

@@ -38,8 +38,12 @@ import {
 import type { GameStateV5, GameStateV8 } from '../../src/core/index.ts'
 import { newFoundedGame, foundedRosterIds } from './test/founding.ts'
 import { App } from './App.tsx'
+import { setStudioLotOverviewOverride } from './flags.ts'
 
-beforeEach(() => localStorage.clear())
+beforeEach(() => {
+  localStorage.clear()
+  setStudioLotOverviewOverride(false)
+})
 afterEach(() => {
   cleanup()
   localStorage.clear()

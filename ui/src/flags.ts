@@ -1,15 +1,16 @@
 // ── Feature flags ──────────────────────────────────────────────────────────────
 //
-// One central, DEFAULT-OFF flag for the Gate D1 Studio Lot overview. This is NOT a
-// user-facing settings system (addendum / directive Phase 5) — it is a development
-// switch. When off, the application behaves exactly as before: no lot entry point,
-// no Phaser fetched, no renderer mounted, no current navigation removed.
+// The Studio Lot overview and Operation Hollywood are adopted ordinary-player content:
+// both default ON, while an explicit `0` / `false` remains a rollback path. These are
+// NOT a user-facing settings system. The overview rollback keeps the screen-first
+// compatibility path (no Lot entry or lazy renderer fetch); the Hollywood rollback
+// keeps the Lot but selects its legacy/procedural presentation.
 //
-// Enable it either way:
-//   • Build/dev time:  VITE_STUDIO_LOT_OVERVIEW=1 npm run dev   (or in .env)
+// Override it either way:
+//   • Build/dev time:  VITE_STUDIO_LOT_OVERVIEW=0 npm run dev   (or in .env)
 //   • Runtime (QA/tests, no rebuild):  in the browser console —
-//       localStorage.setItem('project-studio.flags.studio-lot-overview', '1'); location.reload()
-//     or call setStudioLotOverviewOverride(true) and reload.
+//       localStorage.setItem('project-studio.flags.studio-lot-overview', '0'); location.reload()
+//     or call setStudioLotOverviewOverride(false) and reload.
 
 /** localStorage key for the runtime QA override. Exposed for tests/Playwright. */
 export const STUDIO_LOT_OVERVIEW_LS_KEY = 'project-studio.flags.studio-lot-overview'
@@ -36,7 +37,7 @@ export const STUDIO_LOT_AUTHORED_STAGE_LS_KEY = 'project-studio.flags.studio-lot
  *  set this key to '0' to force the procedural Stage A. Mirrors the Stage B key above. */
 export const STUDIO_LOT_AUTHORED_STAGE_A_LS_KEY = 'project-studio.flags.studio-lot-authored-stage-a'
 
-/** Phase II hybrid-district presentation gate. Default OFF until the engine bridge is reviewed. */
+/** Adopted Phase II hybrid-district presentation gate. Default ON; explicit `0` rolls back. */
 export const OPERATION_HOLLYWOOD_LS_KEY = 'project-studio.flags.operation-hollywood'
 
 type ViteEnv = {
@@ -73,23 +74,90 @@ function setLsFlag(key: string, on: boolean): void {
   }
 }
 
-/** Is the Studio Lot overview enabled this session? Default OFF. */
-export function studioLotOverviewEnabled(): boolean {
-  return envValue((e) => e.VITE_STUDIO_LOT_OVERVIEW) || lsFlag(STUDIO_LOT_OVERVIEW_LS_KEY)
+type AdoptedGateValue = 'rollback' | 'enabled' | 'default'
+
+function adoptedGateValue(value: string | null | undefined): AdoptedGateValue {
+  const normalized = value?.trim().toLowerCase()
+  if (normalized === '0' || normalized === 'false') return 'rollback'
+  if (normalized === '1' || normalized === 'true') return 'enabled'
+  return 'default'
 }
 
-/** Is the Operation Hollywood engine bridge enabled? Independent of the D1 lot gate. */
+/** Pure precedence law shared by the Vite-env and localStorage integration below. */
+export function resolveAdoptedPlayerGate(
+  envValue: string | null | undefined,
+  storageValue: string | null | undefined,
+): boolean {
+  const envSetting = adoptedGateValue(envValue)
+  const storageSetting = adoptedGateValue(storageValue)
+  if (envSetting === 'rollback' || storageSetting === 'rollback') return false
+  return true
+}
+
+/**
+ * Resolve an adopted default-ON player gate from its two independent override sources.
+ * Any explicit rollback wins, including when the other source explicitly enables the gate.
+ * Missing, unreadable, or unrecognised storage stays on the adopted default.
+ */
+function adoptedPlayerGate(
+  pick: (e: ViteEnv) => string | undefined,
+  localStorageKey: string,
+): boolean {
+  const env = (import.meta as unknown as { env?: ViteEnv }).env
+  const selectedEnvValue = env ? pick(env) : undefined
+  let storageValue: string | null | undefined
+  try {
+    storageValue = localStorage.getItem(localStorageKey)
+  } catch {
+    // Storage unavailable (private mode / sandbox): retain the adopted default unless env rolls back.
+  }
+
+  return resolveAdoptedPlayerGate(selectedEnvValue, storageValue)
+}
+
+function setAdoptedGateOverride(key: string, on: boolean): void {
+  try {
+    localStorage.setItem(key, on ? '1' : '0')
+  } catch {
+    /* storage unavailable — no-op */
+  }
+}
+
+function clearLsFlag(key: string): void {
+  try {
+    localStorage.removeItem(key)
+  } catch {
+    /* storage unavailable — no-op */
+  }
+}
+
+/** Is the adopted Studio Lot overview enabled this session? Default ON. */
+export function studioLotOverviewEnabled(): boolean {
+  return adoptedPlayerGate((e) => e.VITE_STUDIO_LOT_OVERVIEW, STUDIO_LOT_OVERVIEW_LS_KEY)
+}
+
+/** Is adopted Operation Hollywood enabled? Default ON and independent of the overview gate. */
 export function operationHollywoodEnabled(): boolean {
-  return envValue((e) => e.VITE_OPERATION_HOLLYWOOD) || lsFlag(OPERATION_HOLLYWOOD_LS_KEY)
+  return adoptedPlayerGate((e) => e.VITE_OPERATION_HOLLYWOOD, OPERATION_HOLLYWOOD_LS_KEY)
 }
 
 export function setOperationHollywoodOverride(on: boolean): void {
-  setLsFlag(OPERATION_HOLLYWOOD_LS_KEY, on)
+  setAdoptedGateOverride(OPERATION_HOLLYWOOD_LS_KEY, on)
 }
 
-/** Dev/test helper: flip the runtime override. Reload to apply. */
+/** Remove the QA override and return Operation Hollywood to its adopted default. */
+export function clearOperationHollywoodOverride(): void {
+  clearLsFlag(OPERATION_HOLLYWOOD_LS_KEY)
+}
+
+/** Dev/test helper: write an explicit runtime enable (`1`) or rollback (`0`). Reload to apply. */
 export function setStudioLotOverviewOverride(on: boolean): void {
-  setLsFlag(STUDIO_LOT_OVERVIEW_LS_KEY, on)
+  setAdoptedGateOverride(STUDIO_LOT_OVERVIEW_LS_KEY, on)
+}
+
+/** Remove the QA override and return the Studio Lot overview to its adopted default. */
+export function clearStudioLotOverviewOverride(): void {
+  clearLsFlag(STUDIO_LOT_OVERVIEW_LS_KEY)
 }
 
 /**

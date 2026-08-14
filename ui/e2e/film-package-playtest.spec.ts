@@ -1,7 +1,8 @@
 // ── Browser playtest: the Film-Package legibility loop end-to-end ─────────────
 // Deterministic seed. Drives the REAL app (no engine mocking) through the CYCLE-3
 // twelve-step playtest from the owner's brief:
-//   A. Start → assemble Film A with obvious (worst-Fit) mismatches → record the package
+//   A. Restore an engine-built direct-package compatibility studio → assemble Film A with
+//      obvious (worst-Fit) mismatches → record the package
 //      summary → replace each mismatch with the strongest assignment-specific candidate →
 //      confirm the metrics + explanations improve → greenlight → release → compare the
 //      LOCKED greenlight assessment against the autopsy (locked vs actual visible).
@@ -19,10 +20,69 @@ import { test, expect, type Page, type Locator } from '@playwright/test'
 import { mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { beginFounding, generateWorld } from '../../src/core/index.ts'
+import type { CreativeRole, GameState } from '../../src/core/index.ts'
+import {
+  exportSaveJson,
+  foundStudioAction,
+  foundingApplicantRows,
+  signContractAction,
+  sortFoundingRows,
+} from '../src/engine/adapter.ts'
 
 const SEED = 'e2e-film-package-playtest'
+const ACTIVE_SESSION_KEY = 'project-studio.active-session.v4'
+const STUDIO_LOT_OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
 const shotsDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'screenshots')
 mkdirSync(shotsDir, { recursive: true })
+
+/**
+ * Preserve this playtest's actual subject: the legacy concept → shape → promise package
+ * editor and its fit/forecast/autopsy loop. Current player-founded studios correctly activate
+ * script development, whose accepted screenplays lock those three steps. The adapter retains
+ * `foundStudioAction` specifically for compatibility harnesses, so this setup builds a real,
+ * deterministic GameState through public engine actions and restores its native SaveFileV11.
+ */
+function directPackageCompatibilitySave(): string {
+  let state: GameState = beginFounding(generateWorld(SEED))
+  const counts: Record<CreativeRole, number> = {
+    actor: 9,
+    director: 3,
+    writer: 4,
+    craft: 3,
+  }
+
+  // Match the old visible founding journey exactly: highest relevant OVR first, with the
+  // first (one-year) offer on each card. This keeps the specialist comparison's rich pool.
+  for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
+    for (let i = 0; i < counts[role]; i += 1) {
+      const row = sortFoundingRows(
+        foundingApplicantRows(state, role).filter((candidate) => !candidate.signed),
+        'ovr',
+      )[0]
+      if (row === undefined) throw new Error(`Missing ${role} applicant ${String(i + 1)}`)
+      const signed = signContractAction(state, row.id, 52)
+      if (!signed.ok) throw new Error(`Could not sign ${row.name}: ${signed.error}`)
+      state = signed.next
+    }
+  }
+
+  const founded = foundStudioAction(state)
+  if (!founded.ok) throw new Error(`Could not found compatibility studio: ${founded.error}`)
+  return exportSaveJson(founded.next)
+}
+
+const DIRECT_PACKAGE_SAVE = directPackageCompatibilitySave()
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(
+    ([sessionKey, save, overviewKey]) => {
+      localStorage.setItem(sessionKey, save)
+      localStorage.setItem(overviewKey, '0')
+    },
+    [ACTIVE_SESSION_KEY, DIRECT_PACKAGE_SAVE, STUDIO_LOT_OVERVIEW_FLAG] as const,
+  )
+})
 
 async function shot(page: Page, name: string) {
   await page.screenshot({ path: join(shotsDir, `${name}.png`), fullPage: true })
@@ -55,27 +115,9 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
 }) => {
   test.setTimeout(120_000)
 
-  // ── STEP 1 — Start a game (deterministic seed). ─────────────────────────────
+  // ── STEP 1 — Restore the explicit direct-package compatibility studio. ────
   await page.goto('/')
-  await expect(page.getByTestId('new-game')).toBeVisible()
-  await page.getByTestId('seed-input').fill(SEED)
-  await page.getByTestId('new-game').click()
-  // D-11: hire a generous initial roster (so the specialist-vs-star comparison below
-  // has variety in the studio pool), then found the studio.
-  await expect(page.getByTestId('found-studio')).toBeVisible()
-  for (const [role, count] of [
-    ['actor', 9],
-    ['director', 3],
-    ['writer', 4],
-    ['craft', 3],
-  ] as Array<[string, number]>) {
-    await page.getByTestId(`founding-tab-${role}`).click() // D-11.D: select the profession tab
-    const group = page.getByTestId(`founding-group-${role}`)
-    for (let i = 0; i < count; i++) {
-      await group.locator('button[data-testid^="founding-sign-"]').first().click()
-    }
-  }
-  await page.getByTestId('found-studio').click()
+  await expect(page.getByTestId('recovery-notice')).toContainText('Recovered your studio from Week 0.')
   await expect(page.getByTestId('dash-week')).toHaveText('0')
 
   // ── STEP 2 — Assemble Film A with obvious mismatches. ───────────────────────

@@ -159,6 +159,19 @@ afterEach(() => {
 })
 
 describe('World-First Live Week Advance V1 — App authority and routing', () => {
+  it('returns a real building-origin deep route to that exact companion focus', async () => {
+    saveActiveSession(newFoundedGame('studio-home-real-selected-building-return'))
+
+    render(<App />)
+    await screen.findByTestId('studio-lot-screen')
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    fireEvent.click(await screen.findByTestId('assembly-back-dashboard'))
+
+    await screen.findByTestId('studio-lot-screen')
+    await waitFor(() => expect(screen.getByTestId('lot-nav-writers')).toHaveFocus())
+    expect(screen.getByTestId('lot-nav-stage-a')).not.toHaveFocus()
+  })
+
   for (const activation of ['pointer', 'keyboard'] as const) {
     it(`${activation} activation records Stage 7 through one exact App-owned tick`, async () => {
       const pre = scheduledStage7State(`live-week-stage7-${activation}`)
@@ -167,7 +180,6 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
       saveActiveSession(pre)
 
       render(<App />)
-      fireEvent.click(screen.getByTestId('open-studio-lot'))
       const lot = await screen.findByTestId('studio-lot-screen')
       await waitFor(() => expect(renderer.instances).toHaveLength(1))
       const view = renderer.instances[0]!
@@ -220,7 +232,6 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
     saveActiveSession(pre)
 
     render(<App />)
-    fireEvent.click(screen.getByTestId('open-studio-lot'))
     const lot = await screen.findByTestId('studio-lot-screen')
     await waitFor(() => expect(renderer.instances).toHaveLength(1))
     const view = renderer.instances[0]!
@@ -270,7 +281,6 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
     saveActiveSession(legacyShape)
 
     render(<App />)
-    fireEvent.click(screen.getByTestId('open-studio-lot'))
     await screen.findByTestId('studio-lot-screen')
     fireEvent.click(screen.getByTestId('lot-advance-week'))
 
@@ -301,7 +311,6 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
     saveActiveSession(pre)
 
     render(<App />)
-    fireEvent.click(screen.getByTestId('open-studio-lot'))
     const lot = await screen.findByTestId('studio-lot-screen')
     await waitFor(() => expect(renderer.instances).toHaveLength(1))
     const view = renderer.instances[0]!
@@ -344,7 +353,6 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
     saveActiveSession(pre)
 
     render(<App />)
-    fireEvent.click(screen.getByTestId('open-studio-lot'))
     const lot = await screen.findByTestId('studio-lot-screen')
     await waitFor(() => expect(renderer.instances).toHaveLength(1))
     const view = renderer.instances[0]!
@@ -376,7 +384,6 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
     renderer.controls.constructError = new Error('isolated renderer failure')
 
     render(<App />)
-    fireEvent.click(screen.getByTestId('open-studio-lot'))
     const lot = await screen.findByTestId('studio-lot-screen')
     await screen.findByTestId('lot-canvas-fallback')
     expect(renderer.instances).toHaveLength(0)
@@ -419,7 +426,6 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
     saveActiveSession(pre)
 
     render(<App />)
-    fireEvent.click(screen.getByTestId('open-studio-lot'))
     await screen.findByTestId('studio-lot-screen')
     fireEvent.click(screen.getByTestId('lot-advance-week'))
     expect(screen.queryByTestId('newspaper-reveal')).not.toBeInTheDocument()

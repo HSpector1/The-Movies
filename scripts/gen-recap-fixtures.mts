@@ -1,8 +1,8 @@
 // ── D-15 Studio Run Recap — Playwright fixture generator (real engine, seeded) ─
-// Produces a SaveFileV6 session fixture: an engaged studio that released several films
+// Produces a native SaveFileV11 session fixture: an engaged studio that released several films
 // with ONE recurring lead and ONE genre (a concentrated slate, like the Week 86 run),
-// across a spread of budgets so the recap shows a profit/loss mix, concentration, talent
-// development, and a constrained current position.
+// across a spread of budgets so the recap shows loss-heavy film economics, concentration,
+// talent development, and a naturally constrained, Engine-reconciled current position.
 // Run: node_modules/.bin/vite-node scripts/gen-recap-fixtures.mts
 
 import { writeFileSync, mkdirSync } from 'node:fs'
@@ -79,10 +79,9 @@ for (const [neg, mkt] of [
     console.warn(`skipped a film (${neg}+${mkt}): ${(e as Error).message.split('—')[0].trim()}`)
   }
 }
-// draw cash down toward a constrained position so the recap's current-position advice is exercised
-const constrained: GameState = { ...s, studio: { ...s.studio, cash: 2_500_000 } }
-
-writeFileSync(join(outDir, 'recap-run.json'), exportSave(makeSave(constrained)))
+// Preserve the real Engine result. SaveFileV11 requires every cent of cash to reconcile with
+// the ordered ledger; a fixture must not fabricate a constrained balance by rewriting cash.
+writeFileSync(join(outDir, 'recap-run.json'), exportSave(makeSave(s)))
 console.log(
-  `wrote recap-run.json (${s.studio.releasedFilms.length} films, ${s.careerEvents.length} career events, week ${constrained.market.tick}, cash ${constrained.studio.cash})`,
+  `wrote recap-run.json (${s.studio.releasedFilms.length} films, ${s.careerEvents.length} career events, week ${s.market.tick}, cash ${s.studio.cash})`,
 )

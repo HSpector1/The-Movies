@@ -6,6 +6,12 @@
 
 import { test, expect, type Page } from '@playwright/test'
 
+const STUDIO_LOT_OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript((key) => localStorage.setItem(key, '0'), STUDIO_LOT_OVERVIEW_FLAG)
+})
+
 async function foundStudioViaUi(page: Page, seed: string) {
   await page.goto('/')
   await expect(page.getByTestId('new-game')).toBeVisible()

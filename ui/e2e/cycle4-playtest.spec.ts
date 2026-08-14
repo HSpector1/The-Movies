@@ -13,10 +13,19 @@ import { test, expect, type Page } from '@playwright/test'
 import { mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import {
+  enterPackageTalentStep,
+  openAuthoritativePackage,
+} from './helpers/managed-production.ts'
 
 const SEED = 'e2e-cycle4-playtest'
+const STUDIO_LOT_OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
 const shotsDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'screenshots')
 mkdirSync(shotsDir, { recursive: true })
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript((key) => localStorage.setItem(key, '0'), STUDIO_LOT_OVERVIEW_FLAG)
+})
 async function shot(page: Page, name: string) {
   await page.screenshot({ path: join(shotsDir, `${name}.png`), fullPage: true })
 }
@@ -26,6 +35,15 @@ async function signInTab(page: Page, role: string, n: number) {
   for (let i = 0; i < n; i++) {
     await group.locator('button[data-testid^="founding-sign-"]').first().click()
   }
+}
+
+async function resolveProductionCommands(page: Page) {
+  for (let guard = 0; guard < 8; guard++) {
+    const command = page.locator('button[data-testid^="production-command-"]:visible').first()
+    if ((await command.count()) === 0) return
+    await command.click()
+  }
+  await expect(page.locator('button[data-testid^="production-command-"]:visible')).toHaveCount(0)
 }
 
 test('cycle-4A: founding tabs + sort/filter + one-writer + accessible autopsy', async ({ page }) => {
@@ -87,12 +105,11 @@ test('cycle-4A: founding tabs + sort/filter + one-writer + accessible autopsy', 
   await expect(page.getByTestId('dash-week')).toBeVisible()
 
   // ══ Make a film, release it, open the ACCESSIBLE autopsy ═══════════════════
-  await page.getByTestId('assemble-film').click()
-  await page.getByTestId('concept-grid').getByRole('button').first().click()
-  await page.getByTestId('assembly-next').click() // → shape
-  await page.getByTestId('assembly-next').click() // → promise
-  await page.getByTestId('assembly-next').click() // → talent
-  for (const picker of ['picker-writer', 'picker-director', 'picker-lead', 'picker-antagonist', 'picker-support', 'picker-craft']) {
+  const authority = await openAuthoritativePackage(page)
+  await enterPackageTalentStep(page, authority)
+  const pickers = ['picker-director', 'picker-lead', 'picker-antagonist', 'picker-support', 'picker-craft']
+  if (authority === 'legacy') pickers.unshift('picker-writer')
+  for (const picker of pickers) {
     await page.getByTestId(picker).locator('button[aria-pressed]:not([disabled])').first().click()
   }
   await page.getByTestId('assembly-next').click() // → budget
@@ -103,6 +120,7 @@ test('cycle-4A: founding tabs + sort/filter + one-writer + accessible autopsy', 
   // Advance until the film releases; dismiss the newspaper, open the autopsy.
   let released = false
   for (let i = 0; i < 20 && !released; i++) {
+    await resolveProductionCommands(page)
     const advance = page.getByTestId('advance-week')
     if (await advance.isVisible().catch(() => false)) await advance.click()
     const news = page.getByTestId('newspaper-reveal')

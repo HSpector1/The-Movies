@@ -7,6 +7,7 @@ import { execSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { enterPackageTalentStep, openAuthoritativePackage } from './helpers/managed-production.ts'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(here, '..', '..')
@@ -14,11 +15,16 @@ const fixturesDir = join(here, 'fixtures')
 const outDir = join(repoRoot, 'out', 'd14-career-evidence')
 mkdirSync(outDir, { recursive: true })
 const SESSION_KEY = 'project-studio.active-session.v4'
+const STUDIO_LOT_OVERVIEW_FLAG = 'project-studio.flags.studio-lot-overview'
 
 test.beforeAll(() => {
   if (!existsSync(join(fixturesDir, 'career-v5.json')) || !existsSync(join(fixturesDir, 'career-migrated.json'))) {
     execSync('npx vite-node scripts/gen-career-fixtures.mts', { cwd: repoRoot, stdio: 'inherit' })
   }
+})
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript((key) => localStorage.setItem(key, '0'), STUDIO_LOT_OVERVIEW_FLAG)
 })
 
 const fixture = (name: string) => readFileSync(join(fixturesDir, `${name}.json`), 'utf8')
@@ -63,11 +69,11 @@ test('1. open the Talent Profile from the Studio Roster; overview + career histo
   await expect(page.getByTestId('roster-list')).toBeVisible()
 })
 
-test('2. + 4. Autopsy Career Impact (positive gain) and open a participant profile', async ({ page }) => {
+test('2. + 4. Chronicle Career Impact (positive gain) and open a participant profile', async ({ page }) => {
   const { state, lead } = firstEvent('career-v5')
   const pid: string = state.careerEvents.find((e: { role: string; filmId: string }) => e.role === 'lead').filmId
   await seed(page, 'career-v5')
-  await page.getByTestId(`autopsy-${pid}`).click()
+  await page.getByTestId(`chronicle-${pid}`).click()
   await expect(page.getByTestId('career-impact')).toBeVisible()
   await page.getByTestId('career-impact').scrollIntoViewIfNeeded()
   await shot(page, '01-career-impact-positive')
@@ -75,10 +81,10 @@ test('2. + 4. Autopsy Career Impact (positive gain) and open a participant profi
   await page.getByTestId(`career-impact-toggle-${lead.talentId}`).click()
   await expect(page.getByTestId(`career-impact-detail-${lead.talentId}`)).toBeVisible()
   await shot(page, '04-career-impact-expanded')
-  // open the participant's profile from the Autopsy
+  // open the participant's profile from the durable Chronicle
   await page.getByTestId(`autopsy-open-profile-${lead.talentId}`).click()
   await expect(page.getByTestId('talent-profile')).toBeVisible()
-  await shot(page, '08-profile-from-autopsy')
+  await shot(page, '08-profile-from-chronicle')
 })
 
 test('3. loss + no-change presentation (synthetic edge fixture, §11) with accessible wording', async ({ page }) => {
@@ -89,7 +95,7 @@ test('3. loss + no-change presentation (synthetic edge fixture, §11) with acces
   const loss = evs.find((e: { starPowerDelta: number }) => e.starPowerDelta < 0)
   const nochange = evs.find((e: { starPowerDelta: number }) => e.starPowerDelta === 0)
   await seed(page, 'career-loss')
-  await page.getByTestId(`autopsy-${film}`).click()
+  await page.getByTestId(`chronicle-${film}`).click()
   await expect(page.getByTestId('career-impact')).toBeVisible()
   // loss: accessible "decrease" wording, not colour alone
   const lossDelta = page.getByTestId(`career-impact-starpower-${loss.talentId}-delta`)
@@ -109,8 +115,9 @@ test('5. + pre-V5: a migrated film shows honest "not recorded"; the profile show
   const droppedFilmId: string = s.state.studio.releasedFilms[0].productionId
   const lead = s.state.careerEvents.find((e: { role: string }) => e.role === 'lead')
   await seed(page, 'career-migrated')
-  // the film whose events were dropped → autopsy shows the honest unavailable message
-  await page.getByTestId(`autopsy-${droppedFilmId}`).click()
+  // The film whose events were dropped retains its durable Chronicle, which shows the
+  // honest unavailable message from the persisted absence of frozen career events.
+  await page.getByTestId(`chronicle-${droppedFilmId}`).click()
   await expect(page.getByTestId('career-impact-unavailable')).toContainText('SaveFileV5')
   await shot(page, '10-preV5-unavailable')
   await page.goto('/')
@@ -123,12 +130,8 @@ test('5. + pre-V5: a migrated film shows honest "not recorded"; the profile show
 
 test('7. open a Talent Profile from Assemble a Film, then return to the casting workflow', async ({ page }) => {
   await seed(page, 'career-v5')
-  await page.getByTestId('assemble-film').click()
-  await expect(page.getByTestId('assembly-steps')).toBeVisible()
-  await page.getByTestId('concept-grid').getByRole('button').first().click()
-  await page.getByTestId('assembly-next').click() // → shape
-  await page.getByTestId('assembly-next').click() // → promise
-  await page.getByTestId('assembly-next').click() // → talent
+  const authority = await openAuthoritativePackage(page)
+  await enterPackageTalentStep(page, authority)
   // open a candidate's profile from the (lead) picker
   const openBtn = page.getByTestId('picker-lead').locator('[data-testid^="picker-open-profile-"]').first()
   await openBtn.click()

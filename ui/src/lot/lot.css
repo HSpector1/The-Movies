@@ -33,6 +33,14 @@
   letter-spacing: 0.04em;
   font-size: 18px;
 }
+.lot-studio-heading {
+  margin: 0;
+}
+.lot-studio-heading:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
 .lot-brand .lot-sub {
   color: var(--text-dim);
   font-size: 13px;

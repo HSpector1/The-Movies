@@ -1,11 +1,13 @@
 // ── Gate D1: feature-flag behaviour ──────────────────────────────────────────
-// The studioLotOverview flag is DEFAULT OFF and only turns on via the env var or the
-// localStorage QA override. localStorage is cleared before each ui test (setup.ts),
-// so "off by default" is the fresh-session state.
-import { describe, expect, it } from 'vitest'
+// Studio Lot overview and Operation Hollywood are adopted default-ON player gates.
+// Explicit `0` / `false` remains rollback, while proof/review gates stay default OFF.
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
+  clearOperationHollywoodOverride,
+  clearStudioLotOverviewOverride,
   operationHollywoodEnabled,
   OPERATION_HOLLYWOOD_LS_KEY,
+  resolveAdoptedPlayerGate,
   setOperationHollywoodOverride,
   setStudioLotOverviewOverride,
   studioLotOverviewEnabled,
@@ -22,43 +24,85 @@ import {
   STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY,
 } from './flags.ts'
 
+afterEach(() => {
+  vi.unstubAllGlobals()
+})
+
 describe('Operation Hollywood feature flag', () => {
-  it('is OFF by default and toggles with its own runtime override', () => {
-    expect(operationHollywoodEnabled()).toBe(false)
+  it('is ON by default and writes explicit enable/rollback values', () => {
+    expect(operationHollywoodEnabled()).toBe(true)
     setOperationHollywoodOverride(true)
     expect(localStorage.getItem(OPERATION_HOLLYWOOD_LS_KEY)).toBe('1')
     expect(operationHollywoodEnabled()).toBe(true)
     setOperationHollywoodOverride(false)
-    expect(localStorage.getItem(OPERATION_HOLLYWOOD_LS_KEY)).toBeNull()
+    expect(localStorage.getItem(OPERATION_HOLLYWOOD_LS_KEY)).toBe('0')
     expect(operationHollywoodEnabled()).toBe(false)
+    clearOperationHollywoodOverride()
+    expect(localStorage.getItem(OPERATION_HOLLYWOOD_LS_KEY)).toBeNull()
+    expect(operationHollywoodEnabled()).toBe(true)
   })
 
   it('is independent of the Studio Lot overview gate', () => {
     expect(OPERATION_HOLLYWOOD_LS_KEY).not.toBe(STUDIO_LOT_OVERVIEW_LS_KEY)
 
-    setStudioLotOverviewOverride(true)
-    expect(studioLotOverviewEnabled()).toBe(true)
-    expect(operationHollywoodEnabled()).toBe(false)
-
-    setOperationHollywoodOverride(true)
     setStudioLotOverviewOverride(false)
     expect(studioLotOverviewEnabled()).toBe(false)
     expect(operationHollywoodEnabled()).toBe(true)
+
+    setOperationHollywoodOverride(false)
+    clearStudioLotOverviewOverride()
+    expect(studioLotOverviewEnabled()).toBe(true)
+    expect(operationHollywoodEnabled()).toBe(false)
+  })
+
+  it('lets any explicit rollback source win over a positive source', () => {
+    expect(resolveAdoptedPlayerGate('false', '1')).toBe(false)
+    expect(resolveAdoptedPlayerGate('true', '0')).toBe(false)
+    expect(resolveAdoptedPlayerGate('0', 'true')).toBe(false)
+    expect(resolveAdoptedPlayerGate('1', 'false')).toBe(false)
   })
 })
 
 describe('studioLotOverview feature flag', () => {
-  it('is OFF by default (fresh session, no override)', () => {
-    expect(studioLotOverviewEnabled()).toBe(false)
+  it('is ON by default (fresh session, no override)', () => {
+    expect(studioLotOverviewEnabled()).toBe(true)
   })
 
-  it('turns ON with the localStorage override and OFF again when cleared', () => {
+  it('writes explicit enable/rollback values and clears back to adopted default', () => {
     setStudioLotOverviewOverride(true)
     expect(localStorage.getItem(STUDIO_LOT_OVERVIEW_LS_KEY)).toBe('1')
     expect(studioLotOverviewEnabled()).toBe(true)
     setStudioLotOverviewOverride(false)
-    expect(localStorage.getItem(STUDIO_LOT_OVERVIEW_LS_KEY)).toBeNull()
+    expect(localStorage.getItem(STUDIO_LOT_OVERVIEW_LS_KEY)).toBe('0')
     expect(studioLotOverviewEnabled()).toBe(false)
+    clearStudioLotOverviewOverride()
+    expect(localStorage.getItem(STUDIO_LOT_OVERVIEW_LS_KEY)).toBeNull()
+    expect(studioLotOverviewEnabled()).toBe(true)
+  })
+
+  it('accepts true/false literals and keeps absence on the adopted default', () => {
+    localStorage.setItem(STUDIO_LOT_OVERVIEW_LS_KEY, 'true')
+    expect(studioLotOverviewEnabled()).toBe(true)
+
+    localStorage.setItem(STUDIO_LOT_OVERVIEW_LS_KEY, 'false')
+    expect(studioLotOverviewEnabled()).toBe(false)
+
+    expect(resolveAdoptedPlayerGate(undefined, undefined)).toBe(true)
+    expect(resolveAdoptedPlayerGate('1', null)).toBe(true)
+    expect(resolveAdoptedPlayerGate('true', undefined)).toBe(true)
+  })
+
+  it('keeps both adopted gates ON when storage is unavailable unless env rolls back', () => {
+    vi.stubGlobal('localStorage', {
+      getItem: () => { throw new Error('storage unavailable') },
+      setItem: () => { throw new Error('storage unavailable') },
+      removeItem: () => { throw new Error('storage unavailable') },
+    })
+
+    expect(studioLotOverviewEnabled()).toBe(true)
+    expect(operationHollywoodEnabled()).toBe(true)
+
+    expect(resolveAdoptedPlayerGate('false', undefined)).toBe(false)
   })
 })
 

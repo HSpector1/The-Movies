@@ -241,6 +241,7 @@ describe('Development & Casting Annex player experience', () => {
     for (let i = 0; i < 12; i++) state = advanceWeek(state).next
     expect(studioDevelopment(state).status).toBe('building')
     saveActiveSession(state)
+    setStudioLotOverviewOverride(false)
 
     render(<App />)
     fireEvent.click(screen.getByTestId('advance-week'))
@@ -273,7 +274,6 @@ describe('Development & Casting Annex player experience', () => {
     setStudioLotOverviewOverride(true)
 
     render(<App />)
-    fireEvent.click(screen.getByTestId('open-studio-lot'))
     const lot = await screen.findByTestId('studio-lot-screen')
     const advance = screen.getByTestId('lot-advance-week')
     fireEvent.click(advance)
@@ -308,7 +308,6 @@ describe('Development & Casting Annex player experience', () => {
     setStudioLotOverviewOverride(true)
 
     render(<App />)
-    fireEvent.click(screen.getByTestId('open-studio-lot'))
     const lot = await screen.findByTestId('studio-lot-screen')
     expect(screen.getByTestId('lot-nav-expansion-state')).toHaveTextContent(
       '5 of 13 weekly advances complete',
@@ -336,6 +335,7 @@ describe('Development & Casting Annex player experience', () => {
     expect(coevent.released).toHaveLength(1)
     expect(coevent.constructionCompletion?.completedWeek).toBe(coevent.toWeek)
     saveActiveSession(state)
+    setStudioLotOverviewOverride(false)
 
     render(<App />)
     fireEvent.click(screen.getByTestId('sim-to-event'))
@@ -353,7 +353,6 @@ describe('Development & Casting Annex player experience', () => {
     setStudioLotOverviewOverride(true)
 
     render(<App />)
-    fireEvent.click(screen.getByTestId('open-studio-lot'))
     await screen.findByTestId('studio-lot-screen')
     fireEvent.click(screen.getByTestId('lot-advance-week'))
 
@@ -373,7 +372,7 @@ describe('Development & Casting Annex player experience', () => {
     expect(screen.getByTestId('lot-annex-operational-announcement')).toHaveTextContent('')
 
     fireEvent.click(screen.getByTestId('lot-return-dashboard'))
-    fireEvent.click(screen.getByTestId('open-studio-lot'))
+    fireEvent.click(screen.getByTestId('back-to-studio-lot'))
     await waitFor(() => expect(screen.getByTestId('lot-annex-operational-announcement')).toHaveTextContent(
       'Development & Casting Annex is Operational.',
     ))
@@ -385,7 +384,6 @@ describe('Development & Casting Annex player experience', () => {
     setStudioLotOverviewOverride(true)
 
     render(<App />)
-    fireEvent.click(screen.getByTestId('open-studio-lot'))
     await screen.findByTestId('studio-lot-screen')
     fireEvent.click(screen.getByTestId('lot-advance-week'))
     fireEvent.click(screen.getByTestId('newspaper-open-autopsy'))
@@ -401,6 +399,7 @@ describe('Development & Casting Annex player experience', () => {
   it('newspaper-to-autopsy bypass still consumes the same-tick completion exactly once', () => {
     const state = releaseConstructionCoevent('annex-ui-newspaper-autopsy')
     saveActiveSession(state)
+    setStudioLotOverviewOverride(false)
 
     render(<App />)
     fireEvent.click(screen.getByTestId('advance-week'))

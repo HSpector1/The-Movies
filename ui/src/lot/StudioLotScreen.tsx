@@ -37,6 +37,10 @@ import type {
 } from './snapshot/StudioLotSnapshot.ts'
 import { ALL_BUILDING_IDS, BUILDING_ACTION, BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
 import { sceneryLoadInContext } from './snapshot/sceneryLoadIn.ts'
+import {
+  getLotSelectedBuilding,
+  setLotSelectedBuilding,
+} from './snapshot/selectedBuildingSession.ts'
 import { lotStageAssignment } from './snapshot/stageAssignment.ts'
 import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
@@ -111,7 +115,7 @@ type Props = {
   state: GameState
   /** Host maps a lot route to the existing app navigation (setScreen). */
   onNavigate: (route: LotRoute) => void
-  /** Return to the normal Dashboard. */
+  /** Open the supporting Dashboard surface. */
   onExit: () => void
   /** Emit one authoritative App-owned weekly-advance intent. */
   onAdvance: () => void
@@ -120,8 +124,8 @@ type Props = {
     week: number
     constructionCompletion: ConstructionCompletionSummary | null
   } | null
-  /** Focus target used only when a tick-generated deep surface returns to a remounted lot. */
-  entryFocus?: 'advance-week'
+  /** Exact focus instruction for canonical entry or a bounded deep-surface return. */
+  entryFocus?: 'studio-home' | 'selected-building' | 'advance-week'
   /** Suppress a generic Annex announcement already owned by an exact completion surface. */
   suppressOperationalAnnouncement?: boolean
   /** The host replaces the authoritative state only after a successful real engine action. */
@@ -132,12 +136,7 @@ type Props = {
   onStartDevelopmentCastingAnnex?: () => ActionOutcome
 }
 
-// Session-level selection memory. This is UI session state — NOT GameState, NOT
-// SaveFileV4 (directive Phase 13). It survives lot↔React navigation within one page
-// session and resets on a full reload.
-let sessionSelectedBuilding: BuildingId | null = null
-
-// Stage assignment memory. Same kind of UI session state as the selection above — NOT
+// Stage assignment memory. Like selected-building memory, it is UI session state — NOT
 // GameState, NOT SaveFileV4 — and it MUST outlive this screen. A release or deliberate deep
 // management route can still unmount the lot between ticks; per-mount memory would then forget
 // every held stage and reintroduce the migration defect on return. It is owned by the module that
@@ -239,11 +238,13 @@ export function StudioLotScreen({
 }: Props) {
   const mountRef = useRef<HTMLDivElement | null>(null)
   const viewRef = useRef<StudioLotViewClass | null>(null)
+  const studioHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const advanceButtonRef = useRef<HTMLButtonElement | null>(null)
+  const companionButtonRefs = useRef<Partial<Record<BuildingId, HTMLButtonElement | null>>>({})
   const onNavigateRef = useRef(onNavigate)
   onNavigateRef.current = onNavigate
 
-  const [selected, setSelected] = useState<BuildingId | null>(sessionSelectedBuilding)
+  const [selected, setSelected] = useState<BuildingId | null>(getLotSelectedBuilding)
   const [selectionInfo, setSelectionInfo] = useState<SelectionInfo | null>(null)
   const [canvasReady, setCanvasReady] = useState(false)
   const [canvasFailed, setCanvasFailed] = useState(false)
@@ -439,7 +440,7 @@ export function StudioLotScreen({
   }, [exactReadySceneryArrival])
 
   const recordSelection = useCallback((id: BuildingId | null) => {
-    sessionSelectedBuilding = id
+    setLotSelectedBuilding(id)
     setSelected(id)
   }, [])
 
@@ -632,9 +633,31 @@ export function StudioLotScreen({
   ])
 
   useEffect(() => {
-    if (entryFocus === 'advance-week' && !advanceFeedback?.constructionCompletion) {
+    // The exact completion item owns first focus on its arrival surface.
+    if (!entryFocus || advanceFeedback?.constructionCompletion) return
+
+    if (entryFocus === 'advance-week') {
       advanceButtonRef.current?.focus()
+      return
     }
+
+    if (entryFocus === 'selected-building') {
+      const selectedBuilding = getLotSelectedBuilding()
+      const exactFactCount = selectedBuilding === null
+        ? 0
+        : latestSnapshotRef.current.buildings.filter(
+            (building) => building.id === selectedBuilding,
+          ).length
+      const target = selectedBuilding === null
+        ? null
+        : companionButtonRefs.current[selectedBuilding]
+      if (exactFactCount === 1 && target && !target.disabled) {
+        target.focus()
+        return
+      }
+    }
+
+    studioHeadingRef.current?.focus()
     // Entry focus is a remount instruction. Ordinary state/feedback changes must leave the
     // existing focused node alone, so this intentionally depends on entryFocus only.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -852,7 +875,7 @@ export function StudioLotScreen({
           // paints a stale week before onReady enables ordinary snapshot delivery.
           snapshot: {
             ...latestSnapshotRef.current,
-            selectedBuildingId: sessionSelectedBuilding,
+            selectedBuildingId: getLotSelectedBuilding(),
           },
           onSelect: (sel) => {
             if (sel?.buildingId === 'expansion') {
@@ -876,6 +899,9 @@ export function StudioLotScreen({
               enterAnnexContext({ place: null, paintHollywoodOutline: false, focus: true })
               return
             }
+            // Renderer actions are independently activatable: record their exact source before
+            // routing instead of assuming an onSelect event happened first.
+            recordSelection(e.buildingId)
             clearHollywoodSceneryLoadInContext()
             clearAnnexContext()
             dispatchRoute(e.action)
@@ -894,8 +920,9 @@ export function StudioLotScreen({
             } else if (annexSelectedRef.current) {
               if (hollywood) view?.selectHollywoodAnnexPlace?.()
               else view?.select('expansion')
-            } else if (sessionSelectedBuilding) {
-              view?.select(sessionSelectedBuilding)
+            } else {
+              const selectedBuilding = getLotSelectedBuilding()
+              if (selectedBuilding) view?.select(selectedBuilding)
             }
             if (reducedMotion) view?.setReducedMotion(true)
           },
@@ -922,7 +949,7 @@ export function StudioLotScreen({
   useEffect(() => {
     const v = viewRef.current
     if (v && canvasReady) {
-      v.setSnapshot({ ...readSnapshot(state), selectedBuildingId: sessionSelectedBuilding })
+      v.setSnapshot({ ...readSnapshot(state), selectedBuildingId: getLotSelectedBuilding() })
       const sceneryProductionId = hollywoodSceneryLoadInProductionIdRef.current
       if (sceneryProductionId !== null) {
         v.selectHollywoodSceneryLoadIn?.(sceneryProductionId)
@@ -1503,7 +1530,14 @@ export function StudioLotScreen({
       </div>
       <header className="lot-topbar">
         <div className="lot-brand">
-          <span className="mark">{snapshot.studioName}</span>
+          <h1
+            ref={studioHeadingRef}
+            className="mark lot-studio-heading"
+            tabIndex={-1}
+            data-testid="lot-studio-heading"
+          >
+            {snapshot.studioName}
+          </h1>
           <span className="lot-sub">{hollywood ? 'Studio Chronicle · Hollywood, 1948' : 'Studio Lot'} · Week {snapshot.week}</span>
         </div>
         <div className="lot-topbar-actions">
@@ -1523,7 +1557,7 @@ export function StudioLotScreen({
             Advance one week
           </button>
           <button className="ghost" onClick={onExit} data-testid="lot-return-dashboard">
-            Return to Dashboard
+            Open Dashboard
           </button>
         </div>
       </header>
@@ -1901,7 +1935,13 @@ export function StudioLotScreen({
             </button>
           )}
           {!canvasReady && !canvasFailed && (
-            <div className="lot-canvas-note" role="status">
+            <div
+              className="lot-canvas-note"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              data-testid="lot-canvas-loading"
+            >
               Preparing the lot…
             </div>
           )}
@@ -1973,6 +2013,9 @@ export function StudioLotScreen({
             {rows.map((row) => (
               <li key={row.id}>
                 <button
+                  ref={(node) => {
+                    companionButtonRefs.current[row.id] = node
+                  }}
                   type="button"
                   className={`lot-nav-item att-${row.attention}${selected === row.id ? ' is-selected' : ''}`}
                   data-testid={`lot-nav-${row.id}`}
