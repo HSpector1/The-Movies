@@ -16,8 +16,10 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   implementation candidate `66f856c` remains the runtime authority.
 - **Week-208 roster-wall research:** CLOSED by this documentation checkpoint after deterministic
   full-corpus and byte-identical comparison; no current repair or behavior change is justified.
-- **Next playable milestone:** bounded in-world production blockage/intervention/resumption slice,
-  subject to a frozen contract after code and authority reconnaissance.
+- **World-First Soundstage Intervention V1:** CLOSED by this documentation checkpoint; physical
+  Stage 7 selection now enters the exact Engine-owned command chain on the same live lot.
+- **Next playable milestone:** World-First Live Week Advance V1 — advance the authoritative clock
+  exactly once from the lot and keep non-release results in the same mounted world.
 
 ## Closed marathon milestones
 
@@ -34,14 +36,15 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | Week-208 observatory / research | `0df5509` | `f16e2e0` | this documentation checkpoint; no repair |
 | Film Chronicle V1 | `4c76216` | `f59b467` | `1b78743` |
 | Dynamic People Role Atlas V1 | `b01edc2`, `0ee129c` | `471c8ef`, `66f856c` | this documentation checkpoint |
+| World-First Soundstage Intervention V1 | `001c692` | `c48f8ac` | this documentation checkpoint |
 
 ## Product result so far
 
 The game now has an engine-owned operating middle, persistent upstream development/casting,
 current studio-wide capacity truth, one evidence-backed physical expansion, a durable released-film
-artifact, and premium role-readable people in the persistent Hollywood district. The strongest
-remaining gap is not another overview screen. It is making those systems continuously playable and
-understandable from the Studio Lot itself.
+artifact, premium role-readable people, and one exact physical blockage-to-resumption interaction
+in the persistent Hollywood district. The strongest remaining gap is continuity of play: scheduled
+work still requires leaving the lot to advance the Engine week that records it.
 
 ## Governing status
 

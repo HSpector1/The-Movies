@@ -341,3 +341,33 @@ Operations slice: expose the real Stage 7 blockage as a visible semantic afforda
 exact production, reuse the existing `runProductionCommand` dispatcher from that selected Stage 7
 or blocker context, acknowledge person travel, and repaint the fresh authoritative state until work
 resumes. The Production Board remains the deeper command surface.
+
+## World-First Soundstage Intervention V1 bridge update
+
+World-First Soundstage Intervention V1 is delivered at
+`c48f8acd95eb7de5ba4114d92c8d8ef1ef1a949d` from frozen contract `001c692`. It closes the next move
+named above without widening `StudioLotSnapshot` into a second simulation boundary.
+
+The physical Stage 7 polygon, its existing lamp/status, the visible blocker control, and semantic
+Stage A companion now resolve one exact production identity. The scene may emit that identity only
+from managed mode, Engine stage authority, and exact `stage-a`; the React host rechecks the latest
+snapshot before entering Studio Desk context. Stage 12, legacy mode, presentation authority, stale
+identity, and absent Stage 7 retain truthful fallback behavior and cannot borrow the route or world
+outline.
+
+The existing App owner remains the only dispatcher. It runs the exact projected
+`assignShootingDirector`, `clearSceneryLoadIn`, or `scheduleShootingTake` command once and returns the
+Engine `ActionOutcome` so rejection can clear pending focus and announce the exact error. Success
+replaces GameState through the existing owner and supplies a fresh snapshot. Route arrival cannot
+gate the successor command, complete a task, tick time, or consume RNG.
+
+Live acceptance played *Nights of Watchtower* through Stage 7 selection, Estelle Delgado dispatch,
+blocked, ready, scheduled, SaveFileV11 reload, and next-week completed truth. The district retained
+one renderer draw, 33 display objects, 15 actors, and the unchanged decoded texture budget. A live
+Phaser/React hit-through defect was repaired by containing native overlay down events and accepting
+scene stage/place/person hits, wheel handling, and drag start only from the actual canvas.
+
+The next bridge move is **World-First Live Week Advance V1**. The lot should emit one semantic
+advance intent to App; App should run the existing Engine tick exactly once; a non-release result
+should repaint the same mounted world. A release may use its existing deep result surface and return
+to the initiating lot. Phaser remains neither a clock nor a GameState owner.

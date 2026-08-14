@@ -20,30 +20,38 @@ select production in world
 → continue managing the same living lot
 ```
 
-## Next candidate — World-First Production Operations V1
+## Closed — World-First Soundstage Intervention V1
 
-Freeze a bounded contract only after exact code reconnaissance. The candidate should reuse the
-already-authoritative Production Operations task chain and existing Hollywood route rather than
-inventing another scheduler or autonomy model.
+Contract `001c692` and implementation `c48f8ac` close the first physical production-intervention
+beat. Stage 7/problem selection, exact film/director context, the existing legal command chain,
+named-director travel, fresh Engine repaint, semantic fallback, and Stage 12 isolation now work
+without leaving the lot or creating a second workflow.
+
+## Next candidate — World-First Live Week Advance V1
+
+Freeze a bounded contract after exact App/route reconnaissance. The next observed continuity break
+is not missing decoration: once a take is scheduled, the player must leave the lot for Dashboard to
+advance the authoritative week that records it.
 
 Expected minimum:
 
-- visible, semantic Stage 7 production and blocker affordances sourced from `StudioLotSnapshot`;
-- selection of the real production, stage, blockage, and assigned director from the world;
-- spatial Stage 7 and blocker anchoring that selects the exact production from the visible world;
-- legal `assignShootingDirector`, `clearSceneryLoadIn`, and `scheduleShootingTake` intent through
-  the existing `runProductionCommand` dispatcher where the core already permits it;
-- named-person travel as acknowledgement, never as task completion authority;
-- immediate fresh snapshot repaint of blocked, ready, scheduled, recording/completed states;
-- camera, zoom, selection, and return context preserved across any deep-panel handoff;
-- DOM-equivalent actions and status for keyboard, screen reader, renderer failure, and reduced
-  motion;
-- no GameState/UI shadow state, no new random draw, and no per-frame authoritative position; and
-- an ordinary-player live pass proving several minutes of meaningful lot play.
+- one semantic **Advance week** control in the live lot, with keyboard and renderer-failure access;
+- intent emitted to App; Phaser must never import or invoke the tick;
+- exactly one existing Engine advance from the exact pre-state;
+- a non-release week retains the same mounted lot, camera, selection, and inspector context while
+  a fresh `StudioLotSnapshot` repaints week, cash, work, facilities, people, and events;
+- scheduled Stage 7 truth visibly becomes completed/next-phase truth only after that Engine result;
+- Annex construction progress and completion repaint from the same existing action/tick authority;
+- a real release may open the existing Chronicle/Gazette deep result flow, with Continue returning
+  to the lot when the lot initiated the week;
+- Dashboard advance behavior remains unchanged;
+- SaveFileV11, RNG, release/autopsy capture, focus/live-region, reduced-motion, and responsive
+  behavior remain exact; and
+- no second clock, UI shadow week, auto-play loop, or renderer-owned simulation.
 
-The contract must decide explicitly whether the world command is a compact lot inspector action or
-a lightweight overlay backed by the same read model. It must not hide complex planning in tiny
-popups or delete the Production Board.
+The contract must decide the origin/return-context shape explicitly and prove exact-one-tick behavior
+before presentation work. This slice is narrower and more playable than changing startup routing:
+the lot should become a viable home before it becomes the mandatory home.
 
 ## Closed parallel evidence lane
 
@@ -64,7 +72,7 @@ construction, or operating costs materially change the decision boundary.
 
 ## After the slice
 
-Re-run the critical several-minutes-on-lot test and identify the next break in continuity: default
-home routing, persistent camera/selection across deep panels, visible facility occupancy/queues,
-another production in parallel, construction interaction, or human workload/story state. Choose
-from observed play, not from menu completeness.
+Re-run the several-minutes-on-lot test and choose the next observed break: scenery/service-yard
+load-in in the world, default home routing, persistent camera/selection across deep panels, visible
+facility occupancy/queues, another production in parallel, construction interaction, or human
+workload/story state. Choose from observed play, not menu completeness.

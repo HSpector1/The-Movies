@@ -2491,3 +2491,38 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   another inhabitant, checking construction, and reacting to an event without leaving the lot.
 - **Pattern:** `WORLD → INSPECT / ACT → DEEP PANEL IF NEEDED → SAME LIVE WORLD`.
   **Anti-pattern:** `MENU → MENU → MENU → OCCASIONAL LOT VIEW`.
+
+---
+
+# World-First Soundstage Intervention V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Contract `001c692`; implementation `c48f8ac`. Related:
+> `docs/WORLD-FIRST-SOUNDSTAGE-INTERVENTION-V1-EVIDENCE.md` and
+> `docs/WORLD-FIRST-SOUNDSTAGE-INTERVENTION-V1-CLOSURE.md`.
+
+## DC. Physical world identity must be exact at both scene and host boundaries — **MG, BR**
+
+- **Risk:** a visible stage can select `operations[0]`, retain a stale film, or let a convenient
+  Stage 12/deep-panel context masquerade as the production physically occupying Stage 7.
+- **Resolution:** derive one identity-only event from the latest managed + Engine-authority + exact
+  `stage-a` snapshot, then independently revalidate that full predicate and production ID in the
+  React host before exposing a command. Explicit selections fail closed when their identity leaves.
+- **Coverage / fastest diagnostic:** reverse two production rows, select Stage 12 first, replace the
+  snapshot, then click physical Stage 7; require only the exact current Stage 7 film or ordinary
+  place behavior when none exists.
+- **Pattern:** latest-snapshot physical selector → identity-only event → latest-host revalidation.
+  **Anti-pattern:** array order, inferred facility identity, or stale inspector fallback.
+
+## DD. Over-canvas UI must contain native input before a global renderer sees it — **BR**
+
+- **Symptom:** a Studio Desk command visually received the click, but Phaser's window-level
+  `mousedown` selected Administration beneath it first and unmounted the command before React's
+  later `click` could dispatch.
+- **Resolution:** every Hollywood over-canvas surface changed by this intervention contains
+  `pointerdown`, `mousedown`, and `touchstart`; every scene hit, drag start, and wheel handler
+  independently accepts only an event whose native target is the actual game canvas.
+- **Coverage / fastest diagnostic:** attach document/window listeners for all three down families,
+  activate the real overlay command, and require no escape; separately send a foreign-target Phaser
+  pointer and require no world event before proving an explicit canvas target still works.
+- **Pattern:** contain at the overlay + fail closed at the renderer. **Anti-pattern:** stopping only
+  React `pointerdown` while the renderer listens to mouse/touch globally.

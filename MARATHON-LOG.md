@@ -58,3 +58,21 @@ Owner rulings remain the authority when a summary here conflicts with them.
   candidates do not establish a broad repair, and staggered terms move rather than resolve burden.
 - Research closes with no current implementation justified. The synchronized roster wall and all
   accepted D-17B macroeconomy residuals remain explicitly open.
+
+## 2026-08-14 — World-first Soundstage 7 intervention closes
+
+- Froze contract `001c692` and delivered implementation `c48f8ac` without changing Engine, save,
+  economy, facility, construction, asset, or RNG authority.
+- Made the physical Stage 7 polygon, lamp/status, visible blocker, and semantic Stage A companion
+  select the exact latest Engine-owned production rather than an array-order or presentation guess.
+- Reused the existing `assignShootingDirector → clearSceneryLoadIn → scheduleShootingTake` chain;
+  named-director travel remains acknowledgement and cannot complete work.
+- Played *Nights of Watchtower* through Week-30 Stage 7 intervention, Estelle Delgado dispatch,
+  scenery clear, scheduled take, SaveFileV11 reload, and Week-31 Engine completion on the live lot.
+- Found and repaired a real Phaser/React boundary defect where window-level mouse/touch handling
+  could select a building underneath a Studio Desk command. React now contains all down-event
+  families and the scene accepts only native canvas targets.
+- Closed with 55/55 focused tests, 1,897/1,897 repository tests, 176/176 governed D-16/D-17 tests,
+  clean TypeScript/build/diff gates, clean final-browser diagnostics, and no P1–P3 findings.
+- Promoted World-First Live Week Advance V1: the next continuity break is leaving the lot to run the
+  Engine week that turns a scheduled take into completed work.

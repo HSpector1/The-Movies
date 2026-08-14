@@ -4,7 +4,7 @@ Updated: 2026-08-14
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current implementation HEAD: `66f856c72f2be033768cc435e556563681679d7e`
+Current implementation HEAD: `c48f8acd95eb7de5ba4114d92c8d8ef1ef1a949d`
 
 ## Product doctrine — World First
 
@@ -85,22 +85,29 @@ whether the game remains playable.
 - Operation Hollywood provides the premium persistent district, real selection and place hotspots,
   authoritative Stage 7 and Annex states, publicity, depth-crossing people, semantic navigation,
   deterministic role-atlas inhabitants, pan/zoom, and accessible DOM companions.
+- World-First Soundstage Intervention V1 makes the physical Stage 7 polygon, lamp/status, visible
+  problem, and semantic Stage A control select the exact real film and reuse its authoritative
+  shooting command chain while the player remains on the live lot.
 
-## Current presentation checkpoint
+## Current world-first checkpoint
 
-Hollywood Dynamic People Role Atlas V1 is accepted at validated implementation candidate
-`66f856c`; closure is recorded by this documentation checkpoint:
+World-First Soundstage Intervention V1 is closed at implementation authority `c48f8ac` under frozen
+contract `001c692`:
 
-- nine roles × four directions, original repository-owned pixels;
-- byte-identical deterministic export;
-- real named people and ambient workers share one atlas mapping;
-- procedural fallback, reduced motion, semantic selection, route/depth law, and save neutrality
-  remain intact; and
-- raw 1920×1080 measurement: 120 average FPS, 108 FPS 1%-low, 9.3 ms p99/worst, one renderer draw,
-  33 display objects, 15 actors, and 10.6 MB decoded textures.
+- physical Stage 7, visible problem, and semantic companion resolve one exact latest-snapshot
+  production identity;
+- the world and Production Board dispatch the same Engine-projected commands and produce
+  byte-identical results;
+- Stage 12, stale identity, legacy/presentation authority, renderer failure, and over-canvas input
+  fail closed;
+- named-director travel remains acknowledgement while fresh Engine snapshots alone change task
+  truth;
+- the complete 1,897-test suite and 176-test D-16/D-17 harness pass; and
+- raw 1920×1080 measurement retains 180 average FPS, 143 FPS 1%-low, 7 ms p99/worst, one renderer
+  draw, 33 display objects, 15 actors, and the unchanged 10.6 MB decoded texture budget.
 
-**2D Hollywood role-atlas presentation accepted; 05H/05I character production and integration
-remain rejected/unauthorized.**
+The accepted 2D Role Atlas remains the people presentation authority. Rejected 05H/05I character
+production and integration remain unauthorized.
 
 ## Protected authority
 
@@ -120,19 +127,19 @@ or arbitrary cash sink is authorized.
 
 ## Current highest-leverage gap
 
-The simulation owns a real production blockage, and the lot's Studio Desk inspector already
-dispatches the exact authoritative command chain through `runProductionCommand`; its first command
-also acknowledges the named director with cosmetic travel. What is missing is spatial anchoring:
-clicking the visible Stage 7 blockage must select the exact production and reveal/reuse that
-existing command path, then fresh Engine truth must visibly change the stage from blocked toward
-active work without making animation authoritative.
+The first physical blockage-to-resumption beat is now playable. The earliest observed break in
+continuous world play occurs immediately afterward: a scheduled take completes only on the next
+authoritative week, but the lot has no week-advance intent. The player must return to Dashboard,
+which unmounts the lot, advance there, then reopen the world to see the result.
 
-This doctrine is authoritative, but the application is not yet fully compliant. It currently opens
-new, restored, and loaded studios on Dashboard; keeps the Hollywood lot behind development gates;
-unmounts the lot for deep screens; describes the canvas as decorative in one accessibility path;
-and routes several physical affordances to standalone owners. Those are explicit forward gaps, not
-a reason to erase the valuable screens or pretend the current lot already passes the full critical
-experience test.
+The next bounded target is **World-First Live Week Advance V1**: one semantic lot control emits
+intent to App, App invokes the existing Engine advance exactly once, and a non-release result
+repaints the same mounted lot. A real release may still open the existing Chronicle/Gazette deep
+surface, but Continue should return to the initiating lot context. This adds no second clock and
+preserves Dashboard behavior.
 
-That bounded world-first operations slice is the next design target. Week-208 research has closed
-independently with no current repair justified; the underlying roster-wall residual remains open.
+The doctrine is still not fully delivered. New, restored, and loaded studios open on Dashboard;
+deep screens unmount the lot; several buildings still route directly to standalone owners; and the
+world does not yet show every queue, workload, construction decision, or production phase. Those
+remain explicit forward gaps. Week-208 research remains closed with no current repair justified;
+the underlying roster-wall residual remains open.
