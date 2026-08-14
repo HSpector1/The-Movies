@@ -16,6 +16,29 @@ VITE_STUDIO_LOT_OVERVIEW=1 VITE_OPERATION_HOLLYWOOD=1 npm run dev -- --host 127.
 The legacy D1 lot remains available when `VITE_OPERATION_HOLLYWOOD` is absent. The marathon worktree
 is isolated; no protected source worktree was switched, reset, or cleaned.
 
+## World-first product doctrine
+
+The Owner has ruled that the Studio Lot is the primary game surface, not a visualization tab beside
+a screen-first management application. Operation Hollywood is the player's persistent home. The
+preferred loop is `WORLD → INSPECT / ACT → DEEP PANEL IF NEEDED → RETURN TO THE SAME LIVE WORLD`.
+
+Dashboard, Assembly, Production Board, Calendar, Roster, Hiring, Finance, Film Autopsy, Chronicle,
+Writers Room, Casting Room, and Studio Development remain valuable deep surfaces. They are not to be
+deleted or compressed into unsuitable tiny popups. Their role is to support decisions whose detail
+does not fit spatial interaction and then return the player to the same live lot context.
+
+The product gate is continuous meaningful lot play: select a real production or person, see a real
+facility state or blockage, act through the authoritative command owner, watch people and places
+acknowledge the fresh state, and continue managing the living institution. Engine/GameState remains
+the only authority. The bridge turns that truth into visible, selectable, accessible play; it never
+turns animation, per-frame position, or the authored plate into a second simulation.
+
+This is a forward ruling, not a retroactive compliance claim. The current host still opens founded,
+restored, and loaded studios on Dashboard, mounts the lot only when explicitly opened and feature-
+enabled, unmounts it for deep screens, and routes several physical affordances to standalone owners.
+The next contracted work must close those gaps incrementally without rewriting the accurate history
+in earlier contracts and closures.
+
 ## Architecture selected
 
 The bridge uses a four-tier hybrid district, not a screenshot with invisible buttons and not
@@ -126,7 +149,11 @@ live publicity: $1.2M paid, awareness +0.8, state replaced
 live production: director called -> scenery cleared -> take scheduled -> SaveFileV8 reload -> release
 ```
 
-## Five largest remaining parity losses
+## Five largest remaining parity losses — historical integration-baseline assessment
+
+The following list records the visual assessment at integration baseline `4432a9b`. It is retained
+as history, not current prioritization. Dynamic People Role Atlas V1 at `66f856c` closes historical
+loss 1 while preserving the bridge boundary; the other four remain open.
 
 1. Dynamic people are readable 54×74 period sprites, but lack the facial/cloth fidelity of the
    north-star’s baked figures at closer zoom.
@@ -139,7 +166,11 @@ live production: director called -> scenery cleared -> take scheduled -> SaveFil
 5. Lighting is rich because it is baked; time-of-day variants and animated light spill need
    alternate authored plates or overlay maps.
 
-## Remaining visual move
+## Remaining visual move — historical integration-baseline recommendation
+
+This recommendation also records the `4432a9b` baseline. Role Atlas V1 at `66f856c` completed the
+later atlas-replacement step. The earlier Scenery Annex/era-overlay suggestion remains unbuilt and
+is not the current world-first priority.
 
 Author one empty/construction/completed state for the Scenery Annex and one 1950s overlay pack
 (cars, signage, clothes, equipment) through this exporter. If those land without scene-specific
@@ -265,3 +296,48 @@ passed the governed desktop viewports at 100% and 125%, plus 200% text/compact c
 level horizontal overflow, unreachable action, console warning, or console error. SaveFileV1-V11,
 engine actions, tick, economy, reception, RNG, and the Hollywood district remain behaviorally
 unchanged.
+
+## Hollywood Dynamic People Role Atlas V1 bridge update
+
+Dynamic People Role Atlas V1 is delivered at `66f856c72f2be033768cc435e556563681679d7e`
+from frozen contract `b01edc2`, Camera normalization amendment `0ee129c`, and asset checkpoint
+`471c8ef`.
+
+One validated `384×1152` atlas now supplies 36 frames: Director, Talent, Grip, Stagehand,
+Electrician, Camera, Security, Publicity, and Extra in South, East, North, and exact mirrored-West
+directions. The scene's existing managed-person IDs, actor pool, home slots, route geometry, depth
+bands, labels, DOM semantics, and snapshot bridge remain stable. Pointer selection was repaired so
+visible named people take precedence over invisible place zones. Direction derives only from
+cosmetic movement; stationary people use the canonical fallback. Ambient actors share the same
+mapping without becoming roster people.
+
+The scene activates the atlas only after complete geometry/manifest validation. Missing or invalid
+assets retain the nine procedural fallbacks, selection, input, route, and reduced-motion behavior.
+The Camera fallback texture no longer collides with the camera-dolly occluder, and invisible place
+hotspots no longer sit above selectable named people.
+
+The exact director route still begins only on the authoritative Soundstage 7
+`unassigned → blocked` transition. Arrival settles South but cannot clear scenery, schedule a take,
+tick time, or otherwise change GameState. Reduced motion resolves or freezes cosmetic movement while
+preserving the same tasks and controls.
+
+The committed sources, prompts, result IDs, rights basis, crop boxes, hashes, and normalization are
+recorded under `art/hollywood/people/`. The deterministic exporter produces the exact runtime PNG
+and JSON without a network or model call. Three independent replays were byte-identical. The atlas
+hash is `2790bf72909f0a8b76d2f6d2ca387f68499776ef7db44d847ed03ff28979712b`; the total decoded district,
+atlas, fallback, and vehicle budget is 11,096,896 bytes.
+
+Raw unsmoothed 1920×1080 acceptance measured 120 average FPS, 108 FPS 1%-low, 9.3 ms p99 and worst
+frame, one renderer draw, 33 display objects, and 15 dynamic actors after the governed warm-up.
+Visual-only lot operations preserved the complete SaveFileV11 and RNG bytes. Full repository,
+D-16/D-17, TypeScript, build, live fallback, reduced-motion, reload, viewport, grayscale, and
+labels-hidden gates passed, and independent reviews ended with no unresolved P1–P3.
+
+**2D Hollywood role-atlas presentation accepted; 05H/05I character production and integration
+remain rejected/unauthorized.**
+
+The next bridge move is not another passive overview. It is a bounded world-first Production
+Operations slice: expose the real Stage 7 blockage as a visible semantic affordance, select its
+exact production, reuse the existing `runProductionCommand` dispatcher from that selected Stage 7
+or blocker context, acknowledge person travel, and repaint the fresh authoritative state until work
+resumes. The Production Board remains the deeper command surface.

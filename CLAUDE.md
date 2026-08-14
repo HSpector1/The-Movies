@@ -1,5 +1,17 @@
 # Project Studio — Agent Instructions
 
+> **CURRENT AUTHORITY OVERRIDE — AUTONOMOUS MARATHON BRANCH**
+>
+> This file records the original M0A agent boundary and is retained as history. It is superseded on
+> `operation-hollywood-autonomous-marathon` by newer committed milestone contracts, accepted D-17B,
+> the marathon launch order, and `CURRENT-BEST.md`. UI, the Studio Lot, accessibility, economy,
+> operations, careers, and visual output now exist by explicit later authority. Do not stop, delete,
+> or roll them back because of the original M0A-only instructions below.
+>
+> Current product law: **THE STUDIO LOT IS THE PRIMARY GAME SURFACE.** Read `CURRENT-BEST.md`,
+> `PROGRESS.md`, `NEXT-HIGHEST-LEVERAGE.md`, `MARATHON-LOG.md`, current contracts/closures, and Git
+> before changing behavior.
+
 ## The one rule
 
 **`docs/build-contract.md` is the source of truth.** Implement it as written.

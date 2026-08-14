@@ -2417,3 +2417,77 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   actions without page-level horizontal overflow.
 - **Pattern:** explicit entry state + co-event focus priority + local overflow containment.
   **Anti-pattern:** assuming a component swap behaves like a browser navigation.
+
+---
+
+# Hollywood Dynamic People Role Atlas V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Contract `b01edc2` + Camera amendment `0ee129c`; assets `471c8ef`; runtime `66f856c`.
+> Related: `docs/HOLLYWOOD-DYNAMIC-PEOPLE-ROLE-ATLAS-V1-CONTRACT.md`,
+> `docs/HOLLYWOOD-DYNAMIC-PEOPLE-ROLE-ATLAS-V1-EVIDENCE.md`, and
+> `docs/HOLLYWOOD-DYNAMIC-PEOPLE-ROLE-ATLAS-V1-CLOSURE.md`.
+
+## CX. Generated source pixels, not the model invocation, are asset authority — **BR**
+
+- **Risk:** treating an image prompt or remote generation result as the compiler makes the build
+  nondeterministic, unverifiable, and dependent on a service that may later change.
+- **Resolution:** commit the final selected source pixels, prompts, result IDs, hashes, crop boxes,
+  rights basis, and transformation rules. The local exporter is deterministic from those pixels and
+  runtime never invokes a model or network.
+- **Coverage / fastest diagnostic:** export three clean outputs and exact-compare PNG/JSON bytes to
+  the committed runtime assets; independently hash every source named by the manifest.
+- **Pattern:** frozen creative source → deterministic local derivative. **Anti-pattern:** prompt →
+  live model call → build artifact.
+
+## CY. Failure fallback assets need a disjoint runtime namespace — **BR**
+
+- **Symptom:** the procedural Camera-person fallback reused the camera-dolly occluder's texture key,
+  so atlas failure could silently produce the wrong image despite valid fallback code.
+- **Resolution:** reserve distinct keys for people, occluders, vehicles, and authored atlas assets;
+  exercise the real absent/invalid-asset scene, not only a pure mapper.
+- **Coverage / fastest diagnostic:** intercept the manifest and PNG independently, then require all
+  nine fallback people, pointer/DOM identity, route, depth, and input to remain intact.
+- **Pattern:** namespace by representation and owner. **Anti-pattern:** relying on English role names
+  to be globally unique across an authored scene.
+
+## CZ. Performance evidence must sample the renderer's raw clock — **BR**
+
+- **Symptom:** Phaser's callback delta is smoothed, so a rolling p99 and worst-frame panel built from
+  it understated the actual frame-time tail while looking statistically complete.
+- **Resolution:** sample `game.loop.rawDelta`, warm the complete live scene, retain a bounded rolling
+  window, reset on boot/resume, and report average, 1%-low, p99, worst, update, draws, objects,
+  actors, and complete decoded texture cost together.
+- **Coverage / fastest diagnostic:** inject a known raw-frame spike while callback delta stays
+  smoothed; require p99/worst to reflect the spike and the window to reset after resume.
+- **Pattern:** raw clock + declared warm-up/window + complete scene counters. **Anti-pattern:** precise
+  percentiles over a smoothed input.
+
+## DA. Pixel validators must name the channel semantics they compare — **BR**
+
+- **Risk:** Pillow's default RGBA `getbbox()` can evaluate alpha alone, allowing two fully opaque
+  directions with different RGB pixels to look identical to a distinction check.
+- **Resolution:** compare full RGBA difference bounds explicitly with `alpha_only=False`, while
+  separately proving alpha, coverage, registration, and exact mirrored-West identity.
+- **Coverage / fastest diagnostic:** create opaque frames with equal alpha and different RGB; the
+  distinction gate must pass, while byte-equal RGB must fail it.
+- **Pattern:** explicit channel semantics per invariant. **Anti-pattern:** assuming an image-library
+  default means all channels.
+
+---
+
+# World-First Product Doctrine — OWNER RULING
+
+## DB. The lot is the game surface; deep UI is supporting infrastructure — **MG, BR**
+
+- **Product failure:** a beautiful district that only visualizes decisions made through menus is
+  still a screen-first management application, not the intended studio tycoon.
+- **Ruling:** ordinary play begins in the persistent Studio Lot. The player selects visible people,
+  productions, buildings, queues, and blockages; acts there when the decision fits; opens a deep
+  panel only for necessary complexity; and returns to the same live camera and context.
+- **Authority:** Engine/GameState still owns results, legality, tasks, reservations, clocks, economy,
+  and RNG. The lot emits intent and renders fresh truth. Animation is evidence of work, not work.
+- **Coverage / fastest diagnostic:** spend several minutes selecting a real production, clicking its
+  blockage, assigning or redirecting a named person, watching travel, seeing work resume, inspecting
+  another inhabitant, checking construction, and reacting to an event without leaving the lot.
+- **Pattern:** `WORLD → INSPECT / ACT → DEEP PANEL IF NEEDED → SAME LIVE WORLD`.
+  **Anti-pattern:** `MENU → MENU → MENU → OCCASIONAL LOT VIEW`.

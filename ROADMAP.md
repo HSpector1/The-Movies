@@ -1,5 +1,12 @@
 # Project: Studio — Roadmap
 
+> **Historical roadmap notice:** this staged M0A-era roadmap is not the current branch plan. Newer
+> Owner rulings and committed closures on `operation-hollywood-autonomous-marathon` supersede its
+> stops and non-goals. See `CURRENT-BEST.md` and `NEXT-HIGHEST-LEVERAGE.md`. Current product law is
+> **THE STUDIO LOT IS THE PRIMARY GAME SURFACE**; do not remove or disable the shipped lot, UI,
+> economy, operations, accessibility, or film-result systems because the historical text below
+> predates their authorization.
+
 ```
 M0A  →  M1A  →  M0B  →  V1
 ```

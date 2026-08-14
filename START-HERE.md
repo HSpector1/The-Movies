@@ -1,5 +1,11 @@
 # Project: Studio — Start Here
 
+> **Current-branch notice:** the setup/status narrative below describes the original M0A launch and
+> is retained for provenance. It is not current authority for
+> `operation-hollywood-autonomous-marathon`. Begin with `CURRENT-BEST.md`, `PROGRESS.md`,
+> `NEXT-HIGHEST-LEVERAGE.md`, `MARATHON-LOG.md`, and current Git. The game is now playable and the
+> Owner has ruled that **THE STUDIO LOT IS THE PRIMARY GAME SURFACE**.
+
 A studio management sim, spiritual successor to *The Movies* (2005). Private project.
 
 ## Two folders
