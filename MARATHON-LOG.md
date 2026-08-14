@@ -76,3 +76,25 @@ Owner rulings remain the authority when a summary here conflicts with them.
   clean TypeScript/build/diff gates, clean final-browser diagnostics, and no P1–P3 findings.
 - Promoted World-First Live Week Advance V1: the next continuity break is leaving the lot to run the
   Engine week that turns a scheduled take into completed work.
+
+## 2026-08-14 — World-first live week advance closes
+
+- Froze contract `3391528` and delivered implementation `621e7e1` without changing core Engine,
+  adapter, save, economy, production, construction, Phaser scene, asset, or RNG authority.
+- Added one native lot week action that invokes the existing App-owned `advanceWeek` exactly once;
+  no-release truth repaints the same mounted world with camera, valid selection, person/production
+  context, and focus intact.
+- Carried explicit Dashboard/lot origin through Newspaper, ReleaseResult, and Autopsy so legitimate
+  release surfaces return to the world that initiated the week without changing historic routes.
+- Hardened Annex progress/completion focus and announcement ownership, including release co-events,
+  immediate-return Operational suppression, and delayed renderer-import freshness.
+- Committed four deterministic public-authority SaveFileV11 fixtures plus a byte-identical generator
+  and manifest for Stage 7, Annex progress/completion, and *House of Cipher* release evidence.
+- Played the exact Stage 7 tick, Annex progress/completion, release/deep-return paths, reduced motion,
+  intentional renderer failure, and governed viewport/zoom matrix. The browser controller's
+  inability to synthesize physical `Enter` is disclosed; automated native-button keyboard parity
+  passes.
+- Closed with 66/66 focused tests, 1,917/1,917 repository tests, 176/176 governed D-16/D-17 tests,
+  clean TypeScript/build/fixture/diff gates, and no P1–P3 findings.
+- Promoted World-First Annex Construction Interaction V1: make the already-authorized physical
+  parcel an exact inspect/build/progress beat without inventing a new facility or economic rule.

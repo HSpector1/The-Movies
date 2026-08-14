@@ -4,7 +4,7 @@ Updated: 2026-08-14
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current implementation HEAD: `c48f8acd95eb7de5ba4114d92c8d8ef1ef1a949d`
+Current implementation HEAD: `621e7e139456ae21dd0dd420bf8fcaf16af1f454`
 
 ## Product doctrine — World First
 
@@ -88,23 +88,31 @@ whether the game remains playable.
 - World-First Soundstage Intervention V1 makes the physical Stage 7 polygon, lamp/status, visible
   problem, and semantic Stage A control select the exact real film and reuse its authoritative
   shooting command chain while the player remains on the live lot.
+- World-First Live Week Advance V1 lets the player invoke one existing App-owned Engine week from
+  the lot, keep no-release truth in the same mounted world, and return there through governed
+  Newspaper, ReleaseResult, and Autopsy chains when a real release requires deeper presentation.
 
 ## Current world-first checkpoint
 
-World-First Soundstage Intervention V1 is closed at implementation authority `c48f8ac` under frozen
-contract `001c692`:
+World-First Live Week Advance V1 is closed at implementation authority `621e7e1` under frozen
+contract `3391528`:
 
-- physical Stage 7, visible problem, and semantic companion resolve one exact latest-snapshot
-  production identity;
-- the world and Production Board dispatch the same Engine-projected commands and produce
-  byte-identical results;
-- Stage 12, stale identity, legacy/presentation authority, renderer failure, and over-canvas input
-  fail closed;
-- named-director travel remains acknowledgement while fresh Engine snapshots alone change task
-  truth;
-- the complete 1,897-test suite and 176-test D-16/D-17 harness pass; and
-- raw 1920×1080 measurement retains 180 average FPS, 143 FPS 1%-low, 7 ms p99/worst, one renderer
-  draw, 33 display objects, 15 actors, and the unchanged 10.6 MB decoded texture budget.
+- one native lot action invokes the existing App/Engine week advance exactly once and produces
+  byte-identical state, RNG, and SaveFileV11 truth;
+- a no-release week keeps the same renderer, camera, valid selection, production/person context,
+  and focused action while one fresh snapshot repaints the world;
+- real releases keep Newspaper/ReleaseResult/Autopsy truth and return to the initiating lot through
+  explicit origin context;
+- Annex progress/completion and release co-events retain exact single focus/announcement ownership;
+- delayed import, renderer failure, and reduced motion retain the same semantic action and Engine
+  authority;
+- the complete 1,917-test suite and 176-test D-16/D-17 harness pass; and
+- live 1920×1080 measurement retains 179 average FPS, 145 FPS 1%-low, 6.9 ms p99, 11.1–11.9 ms
+  worst, one draw, 33 display objects, 15 actors, and the exact 11,096,896-byte texture budget.
+
+The in-app browser controller focused but could not synthesize physical `Enter`; this limitation is
+recorded honestly. The automated native-button `userEvent.keyboard('{Enter}')` one-tick parity gate
+passes.
 
 The accepted 2D Role Atlas remains the people presentation authority. Rejected 05H/05I character
 production and integration remain unauthorized.
@@ -127,16 +135,22 @@ or arbitrary cash sink is authorized.
 
 ## Current highest-leverage gap
 
-The first physical blockage-to-resumption beat is now playable. The earliest observed break in
-continuous world play occurs immediately afterward: a scheduled take completes only on the next
-authoritative week, but the lot has no week-advance intent. The player must return to Dashboard,
-which unmounts the lot, advance there, then reopen the world to see the result.
+The player can now resolve a Stage 7 blockage and record the scheduled take without leaving the lot.
+The next observed world-first break is the Development & Casting Annex parcel. The physical parcel
+already renders exact Vacant, Building/progress, and Operational truth, but both its world hit and
+semantic companion immediately route to standalone Studio Development. The building is still a
+decorative menu entrance at the decision that matters.
 
-The next bounded target is **World-First Live Week Advance V1**: one semantic lot control emits
-intent to App, App invokes the existing Engine advance exactly once, and a non-release result
-repaints the same mounted lot. A real release may still open the existing Chronicle/Gazette deep
-surface, but Continue should return to the initiating lot context. This adds no second clock and
-preserves Dashboard behavior.
+The next bounded target is **World-First Annex Construction Interaction V1**. Physical parcel or
+semantic companion selection should open an exact same-lot construction context. React should
+project the existing `studioDevelopment(state)` facts, and one App-owned action should invoke the
+existing `startDevelopmentCastingAnnexAction` exactly once. An accepted start must repaint cash and
+Vacant → Building in the same mounted lot; the shipped live-week control then carries exact progress
+to completion. Studio Development remains the complete deep fallback.
+
+This slice must supersede only the old Annex presentation rule that reserved start ownership to the
+standalone screen. It may not invent a catalogue, placement, second Annex, fourth slot, cancellation,
+refund, staffing, maintenance, operating cost, worker autonomy, or economy tuning.
 
 The doctrine is still not fully delivered. New, restored, and loaded studios open on Dashboard;
 deep screens unmount the lot; several buildings still route directly to standalone owners; and the

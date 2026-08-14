@@ -27,31 +27,44 @@ beat. Stage 7/problem selection, exact film/director context, the existing legal
 named-director travel, fresh Engine repaint, semantic fallback, and Stage 12 isolation now work
 without leaving the lot or creating a second workflow.
 
-## Next candidate — World-First Live Week Advance V1
+## Closed — World-First Live Week Advance V1
 
-Freeze a bounded contract after exact App/route reconnaissance. The next observed continuity break
-is not missing decoration: once a take is scheduled, the player must leave the lot for Dashboard to
-advance the authoritative week that records it.
+Contract `3391528` and implementation `621e7e1` close the authoritative weekly boundary. One lot
+action produces one existing App/Engine tick; no-release truth repaints the same mounted world;
+releases retain their legitimate deep result and explicit return context. Annex co-events,
+SaveFileV11/RNG parity, reduced motion, renderer failure, responsive layout, and Dashboard
+compatibility are proven without a second clock.
+
+## Next candidate — World-First Annex Construction Interaction V1
+
+Freeze a bounded superseding presentation contract before implementation. The Annex is not a
+speculative facility: existing reviewed evidence supports the non-stackable $780,000, 13-week,
++1-shared-slot project, and Engine/GameState/SaveFileV11 already own its complete lifecycle. The
+current parcel visibly paints truth but immediately routes away before the player can inspect or
+act.
 
 Expected minimum:
 
-- one semantic **Advance week** control in the live lot, with keyboard and renderer-failure access;
-- intent emitted to App; Phaser must never import or invoke the tick;
-- exactly one existing Engine advance from the exact pre-state;
-- a non-release week retains the same mounted lot, camera, selection, and inspector context while
-  a fresh `StudioLotSnapshot` repaints week, cash, work, facilities, people, and events;
-- scheduled Stage 7 truth visibly becomes completed/next-phase truth only after that Engine result;
-- Annex construction progress and completion repaint from the same existing action/tick authority;
-- a real release may open the existing Chronicle/Gazette deep result flow, with Continue returning
-  to the lot when the lot initiated the week;
-- Dashboard advance behavior remains unchanged;
-- SaveFileV11, RNG, release/autopsy capture, focus/live-region, reduced-motion, and responsive
-  behavior remain exact; and
-- no second clock, UI shadow week, auto-play loop, or renderer-owned simulation.
+- physical parcel/label and semantic companion select the same exact `expansion` context without
+  navigation, mutation, or Phaser-owned construction logic;
+- a same-lot inspector projects exact price, duration, cash-after, capacity change, affordability,
+  project status, progress, and due week from the existing `studioDevelopment(state)` owner;
+- Vacant + affordable exposes one native Build Annex action; App invokes the existing parameter-free
+  `startDevelopmentCastingAnnexAction` exactly once;
+- success replaces GameState once, consumes no RNG or week, debits exactly once, writes the existing
+  ledger/project truth, and repaints cash plus Vacant → Building in the same renderer/camera;
+- Building, Operational, legacy, stale, repeat, and unaffordable states are inspect-only or fail
+  closed with the existing exact reason;
+- the shipped live-week control preserves parcel selection through 1–13 progress and the existing
+  exact completion/focus/single-announcement law;
+- Studio Development remains reachable and unchanged as the complete deep-management fallback;
+- renderer failure and reduced motion retain the semantic inspect/build path; and
+- SaveFileV11, Dashboard/Calendar access, productions, reservations, publicity, economy, RNG,
+  responsive behavior, and Hollywood performance remain exact.
 
-The contract must decide the origin/return-context shape explicitly and prove exact-one-tick behavior
-before presentation work. This slice is narrower and more playable than changing startup routing:
-the lot should become a viable home before it becomes the mandatory home.
+The contract must explicitly supersede only the Annex V1 presentation clauses that made Studio
+Development the sole start surface and the lot navigation-only. Every price, timing, capacity,
+accounting, compatibility, and non-stackability law remains binding.
 
 ## Closed parallel evidence lane
 
@@ -66,13 +79,15 @@ construction, or operating costs materially change the decision boundary.
 - decorative building animation without authoritative state and interaction;
 - arbitrary people autonomy, needs, or character control;
 - a second production clock, facility ledger, or UI-owned scheduler;
-- an unmeasured construction catalogue or arbitrary cash sink;
+- an unmeasured construction catalogue, placement system, second Annex, fourth slot, or arbitrary
+  cash sink;
+- invented cancellation, refund, maintenance, staffing, operating-cost, or worker-pathfinding law;
 - financing, loans, bailouts, restructuring, hard bankruptcy, or a failure ladder; or
 - revival of rejected 05H/05I character production.
 
 ## After the slice
 
-Re-run the several-minutes-on-lot test and choose the next observed break: scenery/service-yard
-load-in in the world, default home routing, persistent camera/selection across deep panels, visible
-facility occupancy/queues, another production in parallel, construction interaction, or human
-workload/story state. Choose from observed play, not menu completeness.
+Re-run the several-minutes-on-lot test after the parcel becomes playable. Then choose the next
+observed break among default world-home routing, persistent lot mounting/context across deep panels,
+scenery/service-yard load-in, visible facility occupancy/queues, parallel production legibility, or
+human workload/story state. Choose from observed play, not menu completeness.

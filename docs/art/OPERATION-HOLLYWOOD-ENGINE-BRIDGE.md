@@ -367,7 +367,37 @@ one renderer draw, 33 display objects, 15 actors, and the unchanged decoded text
 Phaser/React hit-through defect was repaired by containing native overlay down events and accepting
 scene stage/place/person hits, wheel handling, and drag start only from the actual canvas.
 
-The next bridge move is **World-First Live Week Advance V1**. The lot should emit one semantic
-advance intent to App; App should run the existing Engine tick exactly once; a non-release result
-should repaint the same mounted world. A release may use its existing deep result surface and return
-to the initiating lot. Phaser remains neither a clock nor a GameState owner.
+That next bridge move is closed by World-First Live Week Advance V1 at `621e7e1`. Phaser remains
+neither a clock nor a GameState owner.
+
+## World-First Live Week Advance V1 bridge update
+
+World-First Live Week Advance V1 is delivered at
+`621e7e139456ae21dd0dd420bf8fcaf16af1f454` from frozen contract `3391528`. The live lot now exposes
+one native semantic `Advance one week` intent. App invokes the existing adapter once, replaces
+GameState once, and supplies the same mounted Hollywood view with one fresh
+`studioLotSnapshot(state)` when no film releases.
+
+No new Phaser hook, clock, snapshot field, save field, task transition, construction rule, or random
+draw exists. A delayed dynamic import constructs from the latest App-owned snapshot, and a complete
+renderer rejection leaves the semantic companion able to advance exact Engine truth. The existing
+camera, valid production/person selection, reduced-motion state, and renderer instance survive an
+ordinary no-release week.
+
+ReleaseResult, Newspaper, and Autopsy now carry explicit Dashboard/lot origin context. A real
+Gazette or non-Gazette release keeps its existing evidence surface, while a lot-origin chain returns
+to the lot and focuses its advance action. Exact Annex completion owns its ceremony once and
+suppresses the generic already-Operational announcement only for the immediate chain/mount.
+
+Live acceptance advanced the committed Week-30 *Nights of Watchtower* Stage 7 fixture to Week 31
+completed truth on the same lot; replayed exact Annex progress/completion and *House of Cipher*
+release co-events; retained reduced-motion and renderer-failure operation; and passed the governed
+viewport/zoom matrix. The scene retained one draw, 33 display objects, 15 actors, and the exact
+11,096,896-byte decoded texture budget.
+
+The next bridge move is **World-First Annex Construction Interaction V1**. The already-visible
+parcel should select an exact same-lot construction context and reuse the existing Engine-owned
+Annex start action. An accepted start should repaint Vacant → Building without unmounting the lot;
+the shipped week action should then carry exact progress to Operational. This may supersede only the
+old presentation ownership that made the lot navigation-only. It must not invent a catalogue,
+placement system, second Annex, operating cost, worker autonomy, or economic tuning.

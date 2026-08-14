@@ -2526,3 +2526,51 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   pointer and require no world event before proving an explicit canvas target still works.
 - **Pattern:** contain at the overlay + fail closed at the renderer. **Anti-pattern:** stopping only
   React `pointerdown` while the renderer listens to mouse/touch globally.
+
+---
+
+# World-First Live Week Advance V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Contract `3391528`; implementation `621e7e1`. Related:
+> `docs/WORLD-FIRST-LIVE-WEEK-ADVANCE-V1-EVIDENCE.md` and
+> `docs/WORLD-FIRST-LIVE-WEEK-ADVANCE-V1-CLOSURE.md`.
+
+## DE. Return origin must be explicit data carried through every deep branch — **MG, BR**
+
+- **Risk:** Dashboard and lot releases share the same Gazette source, so inferring destination from
+  route, current screen, or newspaper presence can return to the wrong home or hide a non-Gazette
+  release.
+- **Resolution:** create one discriminated Dashboard/lot return context at the tick owner and carry
+  it through Newspaper, ReleaseResult, and Autopsy. Test `released.length` before Gazette
+  eligibility; the latter decides presentation order, never whether a release exists.
+- **Coverage / fastest diagnostic:** replay Gazette, non-Gazette, direct-Autopsy, and historic
+  clipping paths from both origins and require their exact final destination and session evidence.
+- **Pattern:** origin at event creation → explicit propagation → one terminal router.
+  **Anti-pattern:** reconstructing intent from whichever screen happens to be mounted.
+
+## DF. A delayed renderer must construct from latest host truth — **BR**
+
+- **Symptom:** the dynamic lot import could begin on Week N, resolve after an App-owned tick, and
+  construct its first scene from the stale mount-time state before normal snapshot delivery became
+  ready.
+- **Resolution:** retain the latest pure snapshot in the React host and use that reference both for
+  late construction and subsequent delivery. Renderer readiness never becomes a clock or event
+  owner.
+- **Coverage / fastest diagnostic:** hold the dynamic import, advance one exact week, then resolve it
+  and require its very first constructed snapshot to be Week N+1 with no stale frame or second tick.
+- **Pattern:** async presentation readiness reads latest owner state. **Anti-pattern:** constructor
+  closure captured before an authoritative transition.
+
+## DG. Completion announcement ownership is an event, not persisted-state inference — **MG, BR**
+
+- **Risk:** an Annex completing during a lot tick or release chain can produce an exact completion
+  notice and then immediately repeat a generic “Operational” announcement derived from persisted
+  building state.
+- **Resolution:** the adapter's exact completion summary owns the event once. Carry a transient,
+  non-serialized suppression bit through the same release chain and mount; allow the generic
+  persisted-state announcement again only on a later ordinary fresh entry.
+- **Coverage / fastest diagnostic:** combine release + completion, traverse every Continue/Autopsy
+  branch, return to lot, advance again, then leave and freshly re-enter. Count focus and live-region
+  ownership at every step.
+- **Pattern:** exact event owns ceremony; persisted state owns later orientation.
+  **Anti-pattern:** deriving a new event every time an already-complete state renders.
