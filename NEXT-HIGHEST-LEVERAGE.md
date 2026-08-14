@@ -45,11 +45,12 @@ The contract must decide explicitly whether the world command is a compact lot i
 a lightweight overlay backed by the same read model. It must not hide complex planning in tiny
 popups or delete the Production Board.
 
-## Parallel evidence lane
+## Closed parallel evidence lane
 
-Close the completed Week-208 roster-wall corpus honestly. If its evidence says no current repair is
-justified, retain the wall as an open macroeconomic residual and move on. Do not tune a fix merely
-because the study exists.
+The complete Week-208 roster-wall corpus closed with no current repair justified. The synchronized
+wall remains an open macroeconomic residual; no production behavior, tuning, or implementation
+contract follows from the study. Revisit only after authoritative studio scale, facilities,
+construction, or operating costs materially change the decision boundary.
 
 ## Not authorized next
 

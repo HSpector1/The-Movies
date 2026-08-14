@@ -134,5 +134,5 @@ and routes several physical affordances to standalone owners. Those are explicit
 a reason to erase the valuable screens or pretend the current lot already passes the full critical
 experience test.
 
-That bounded world-first operations slice is the next design target. Week-208 research closes
-independently and must not force a roster repair if the evidence does not justify one.
+That bounded world-first operations slice is the next design target. Week-208 research has closed
+independently with no current repair justified; the underlying roster-wall residual remains open.

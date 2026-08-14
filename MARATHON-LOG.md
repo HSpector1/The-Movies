@@ -49,3 +49,12 @@ Owner rulings remain the authority when a summary here conflicts with them.
 - The renderer remains non-authoritative; Engine/GameState truth becomes playable and legible in
   the world.
 - Immediate next target: contract and build the smallest real blockage-to-resumption lot slice.
+
+## 2026-08-14 — Week-208 research closes without a forced repair
+
+- Two complete deterministic 225-entry / 1,500-arm corpora reproduced byte-identically from the
+  reviewed behavior-neutral observatory.
+- The dominant rejected-owner substrate is missing legal-window liquidity; ordering and timing
+  candidates do not establish a broad repair, and staggered terms move rather than resolve burden.
+- Research closes with no current implementation justified. The synchronized roster wall and all
+  accepted D-17B macroeconomy residuals remain explicitly open.

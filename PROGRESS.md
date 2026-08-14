@@ -14,8 +14,8 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   screens support it and return to the same live world.
 - **Hollywood Dynamic People Role Atlas V1:** CLOSED by this documentation checkpoint; validated
   implementation candidate `66f856c` remains the runtime authority.
-- **Week-208 roster-wall research:** deterministic full corpus and byte-identical comparison
-  complete; documentation closure in progress; no behavior change authorized by the evidence.
+- **Week-208 roster-wall research:** CLOSED by this documentation checkpoint after deterministic
+  full-corpus and byte-identical comparison; no current repair or behavior change is justified.
 - **Next playable milestone:** bounded in-world production blockage/intervention/resumption slice,
   subject to a frozen contract after code and authority reconnaissance.
 
@@ -31,7 +31,7 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | Studio Calendar V1 | `9bd2975` | `b51df45` | `b7361b6` |
 | Facilities & Construction research | `4b9bd90` | `76ac00a`, `ccb243f` | `8712b79` |
 | Development & Casting Annex V1 | `8712b79`, `035e3c4` | `babfb87`, `8b7e95e` | `5f1fa29`, `7dc042f` |
-| Week-208 observatory | `0df5509` | `f16e2e0` | documentation pending |
+| Week-208 observatory / research | `0df5509` | `f16e2e0` | this documentation checkpoint; no repair |
 | Film Chronicle V1 | `4c76216` | `f59b467` | `1b78743` |
 | Dynamic People Role Atlas V1 | `b01edc2`, `0ee129c` | `471c8ef`, `66f856c` | this documentation checkpoint |
 
