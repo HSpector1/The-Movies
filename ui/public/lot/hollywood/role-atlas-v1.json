@@ -1,0 +1,1188 @@
+{
+  "schemaVersion": 1,
+  "atlasId": "hollywood-role-atlas-v1",
+  "image": "role-atlas-v1.png",
+  "width": 384,
+  "height": 1152,
+  "frameWidth": 96,
+  "frameHeight": 128,
+  "frameCount": 36,
+  "roles": [
+    "director",
+    "talent",
+    "grip",
+    "stagehand",
+    "electrician",
+    "camera",
+    "security",
+    "publicity",
+    "extra"
+  ],
+  "directions": [
+    "south",
+    "east",
+    "north",
+    "west"
+  ],
+  "frames": {
+    "director": {
+      "south": {
+        "index": 0,
+        "x": 0,
+        "y": 0,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "south",
+        "sourceCrop": [
+          0,
+          0,
+          559,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          63,
+          24,
+          461,
+          977
+        ],
+        "figureBounds": [
+          24,
+          6,
+          71,
+          118
+        ],
+        "normalizedSize": [
+          47,
+          112
+        ],
+        "scale": 0.11752361
+      },
+      "east": {
+        "index": 1,
+        "x": 96,
+        "y": 0,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          559,
+          0,
+          970,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          126,
+          31,
+          328,
+          978
+        ],
+        "figureBounds": [
+          36,
+          6,
+          60,
+          118
+        ],
+        "normalizedSize": [
+          24,
+          112
+        ],
+        "scale": 0.11826822
+      },
+      "north": {
+        "index": 2,
+        "x": 192,
+        "y": 0,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "north",
+        "sourceCrop": [
+          970,
+          0,
+          1536,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          85,
+          27,
+          430,
+          978
+        ],
+        "figureBounds": [
+          27,
+          6,
+          68,
+          118
+        ],
+        "normalizedSize": [
+          41,
+          112
+        ],
+        "scale": 0.11777077
+      },
+      "west": {
+        "index": 3,
+        "x": 288,
+        "y": 0,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          559,
+          0,
+          970,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          126,
+          31,
+          328,
+          978
+        ],
+        "figureBounds": [
+          36,
+          6,
+          60,
+          118
+        ],
+        "normalizedSize": [
+          24,
+          112
+        ],
+        "scale": 0.11826822,
+        "derivedFrom": "exact-horizontal-mirror-of-east-frame"
+      }
+    },
+    "talent": {
+      "south": {
+        "index": 4,
+        "x": 0,
+        "y": 128,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "south",
+        "sourceCrop": [
+          0,
+          0,
+          562,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          149,
+          40,
+          469,
+          987
+        ],
+        "figureBounds": [
+          29,
+          6,
+          67,
+          118
+        ],
+        "normalizedSize": [
+          38,
+          112
+        ],
+        "scale": 0.11826822
+      },
+      "east": {
+        "index": 5,
+        "x": 96,
+        "y": 128,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          562,
+          0,
+          1043,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          136,
+          44,
+          415,
+          981
+        ],
+        "figureBounds": [
+          31,
+          6,
+          64,
+          118
+        ],
+        "normalizedSize": [
+          33,
+          112
+        ],
+        "scale": 0.11953042
+      },
+      "north": {
+        "index": 6,
+        "x": 192,
+        "y": 128,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "north",
+        "sourceCrop": [
+          1043,
+          0,
+          1536,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          65,
+          50,
+          366,
+          978
+        ],
+        "figureBounds": [
+          30,
+          6,
+          66,
+          118
+        ],
+        "normalizedSize": [
+          36,
+          112
+        ],
+        "scale": 0.12068966
+      },
+      "west": {
+        "index": 7,
+        "x": 288,
+        "y": 128,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          562,
+          0,
+          1043,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          136,
+          44,
+          415,
+          981
+        ],
+        "figureBounds": [
+          32,
+          6,
+          65,
+          118
+        ],
+        "normalizedSize": [
+          33,
+          112
+        ],
+        "scale": 0.11953042,
+        "derivedFrom": "exact-horizontal-mirror-of-east-frame"
+      }
+    },
+    "grip": {
+      "south": {
+        "index": 8,
+        "x": 0,
+        "y": 256,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "south",
+        "sourceCrop": [
+          0,
+          0,
+          574,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          79,
+          31,
+          492,
+          991
+        ],
+        "figureBounds": [
+          24,
+          6,
+          72,
+          118
+        ],
+        "normalizedSize": [
+          48,
+          112
+        ],
+        "scale": 0.11666667
+      },
+      "east": {
+        "index": 9,
+        "x": 96,
+        "y": 256,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          574,
+          0,
+          972,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          90,
+          33,
+          297,
+          989
+        ],
+        "figureBounds": [
+          36,
+          6,
+          60,
+          118
+        ],
+        "normalizedSize": [
+          24,
+          112
+        ],
+        "scale": 0.11715481
+      },
+      "north": {
+        "index": 10,
+        "x": 192,
+        "y": 256,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "north",
+        "sourceCrop": [
+          972,
+          0,
+          1536,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          95,
+          33,
+          471,
+          986
+        ],
+        "figureBounds": [
+          26,
+          6,
+          70,
+          118
+        ],
+        "normalizedSize": [
+          44,
+          112
+        ],
+        "scale": 0.11752361
+      },
+      "west": {
+        "index": 11,
+        "x": 288,
+        "y": 256,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          574,
+          0,
+          972,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          90,
+          33,
+          297,
+          989
+        ],
+        "figureBounds": [
+          36,
+          6,
+          60,
+          118
+        ],
+        "normalizedSize": [
+          24,
+          112
+        ],
+        "scale": 0.11715481,
+        "derivedFrom": "exact-horizontal-mirror-of-east-frame"
+      }
+    },
+    "stagehand": {
+      "south": {
+        "index": 12,
+        "x": 0,
+        "y": 384,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "south",
+        "sourceCrop": [
+          0,
+          0,
+          555,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          49,
+          15,
+          455,
+          966
+        ],
+        "figureBounds": [
+          24,
+          6,
+          72,
+          118
+        ],
+        "normalizedSize": [
+          48,
+          112
+        ],
+        "scale": 0.11777077
+      },
+      "east": {
+        "index": 13,
+        "x": 96,
+        "y": 384,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          555,
+          0,
+          1006,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          120,
+          18,
+          375,
+          979
+        ],
+        "figureBounds": [
+          33,
+          6,
+          63,
+          118
+        ],
+        "normalizedSize": [
+          30,
+          112
+        ],
+        "scale": 0.11654527
+      },
+      "north": {
+        "index": 14,
+        "x": 192,
+        "y": 384,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "north",
+        "sourceCrop": [
+          1006,
+          0,
+          1536,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          76,
+          20,
+          475,
+          970
+        ],
+        "figureBounds": [
+          24,
+          6,
+          71,
+          118
+        ],
+        "normalizedSize": [
+          47,
+          112
+        ],
+        "scale": 0.11789474
+      },
+      "west": {
+        "index": 15,
+        "x": 288,
+        "y": 384,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          555,
+          0,
+          1006,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          120,
+          18,
+          375,
+          979
+        ],
+        "figureBounds": [
+          33,
+          6,
+          63,
+          118
+        ],
+        "normalizedSize": [
+          30,
+          112
+        ],
+        "scale": 0.11654527,
+        "derivedFrom": "exact-horizontal-mirror-of-east-frame"
+      }
+    },
+    "electrician": {
+      "south": {
+        "index": 16,
+        "x": 0,
+        "y": 512,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "south",
+        "sourceCrop": [
+          0,
+          0,
+          585,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          128,
+          27,
+          513,
+          994
+        ],
+        "figureBounds": [
+          25,
+          6,
+          70,
+          118
+        ],
+        "normalizedSize": [
+          45,
+          112
+        ],
+        "scale": 0.11582213
+      },
+      "east": {
+        "index": 17,
+        "x": 96,
+        "y": 512,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          585,
+          0,
+          966,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          80,
+          27,
+          321,
+          991
+        ],
+        "figureBounds": [
+          34,
+          6,
+          62,
+          118
+        ],
+        "normalizedSize": [
+          28,
+          112
+        ],
+        "scale": 0.11618257
+      },
+      "north": {
+        "index": 18,
+        "x": 192,
+        "y": 512,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "north",
+        "sourceCrop": [
+          966,
+          0,
+          1536,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          55,
+          29,
+          417,
+          989
+        ],
+        "figureBounds": [
+          27,
+          6,
+          69,
+          118
+        ],
+        "normalizedSize": [
+          42,
+          112
+        ],
+        "scale": 0.11666667
+      },
+      "west": {
+        "index": 19,
+        "x": 288,
+        "y": 512,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          585,
+          0,
+          966,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          80,
+          27,
+          321,
+          991
+        ],
+        "figureBounds": [
+          34,
+          6,
+          62,
+          118
+        ],
+        "normalizedSize": [
+          28,
+          112
+        ],
+        "scale": 0.11618257,
+        "derivedFrom": "exact-horizontal-mirror-of-east-frame"
+      }
+    },
+    "camera": {
+      "south": {
+        "index": 20,
+        "x": 0,
+        "y": 640,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "south",
+        "sourceCrop": [
+          0,
+          0,
+          498,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          124,
+          50,
+          461,
+          976
+        ],
+        "figureBounds": [
+          27,
+          6,
+          68,
+          118
+        ],
+        "normalizedSize": [
+          41,
+          112
+        ],
+        "scale": 0.12095032
+      },
+      "east": {
+        "index": 21,
+        "x": 96,
+        "y": 640,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          498,
+          0,
+          978,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          40,
+          54,
+          378,
+          972
+        ],
+        "figureBounds": [
+          27,
+          6,
+          68,
+          118
+        ],
+        "normalizedSize": [
+          41,
+          112
+        ],
+        "scale": 0.12200436
+      },
+      "north": {
+        "index": 22,
+        "x": 192,
+        "y": 640,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "north",
+        "sourceCrop": [
+          978,
+          0,
+          1536,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          98,
+          53,
+          453,
+          971
+        ],
+        "figureBounds": [
+          26,
+          6,
+          69,
+          118
+        ],
+        "normalizedSize": [
+          43,
+          112
+        ],
+        "scale": 0.12200436
+      },
+      "west": {
+        "index": 23,
+        "x": 288,
+        "y": 640,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          498,
+          0,
+          978,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          40,
+          54,
+          378,
+          972
+        ],
+        "figureBounds": [
+          28,
+          6,
+          69,
+          118
+        ],
+        "normalizedSize": [
+          41,
+          112
+        ],
+        "scale": 0.12200436,
+        "derivedFrom": "exact-horizontal-mirror-of-east-frame"
+      }
+    },
+    "security": {
+      "south": {
+        "index": 24,
+        "x": 0,
+        "y": 768,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "south",
+        "sourceCrop": [
+          0,
+          0,
+          574,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          129,
+          37,
+          492,
+          975
+        ],
+        "figureBounds": [
+          26,
+          6,
+          69,
+          118
+        ],
+        "normalizedSize": [
+          43,
+          112
+        ],
+        "scale": 0.11940299
+      },
+      "east": {
+        "index": 25,
+        "x": 96,
+        "y": 768,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          574,
+          0,
+          990,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          109,
+          45,
+          342,
+          977
+        ],
+        "figureBounds": [
+          34,
+          6,
+          62,
+          118
+        ],
+        "normalizedSize": [
+          28,
+          112
+        ],
+        "scale": 0.12017167
+      },
+      "north": {
+        "index": 26,
+        "x": 192,
+        "y": 768,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "north",
+        "sourceCrop": [
+          990,
+          0,
+          1536,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          74,
+          43,
+          422,
+          974
+        ],
+        "figureBounds": [
+          27,
+          6,
+          69,
+          118
+        ],
+        "normalizedSize": [
+          42,
+          112
+        ],
+        "scale": 0.12030075
+      },
+      "west": {
+        "index": 27,
+        "x": 288,
+        "y": 768,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          574,
+          0,
+          990,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          109,
+          45,
+          342,
+          977
+        ],
+        "figureBounds": [
+          34,
+          6,
+          62,
+          118
+        ],
+        "normalizedSize": [
+          28,
+          112
+        ],
+        "scale": 0.12017167,
+        "derivedFrom": "exact-horizontal-mirror-of-east-frame"
+      }
+    },
+    "publicity": {
+      "south": {
+        "index": 28,
+        "x": 0,
+        "y": 896,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "south",
+        "sourceCrop": [
+          0,
+          0,
+          584,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          140,
+          24,
+          533,
+          994
+        ],
+        "figureBounds": [
+          25,
+          6,
+          70,
+          118
+        ],
+        "normalizedSize": [
+          45,
+          112
+        ],
+        "scale": 0.11546392
+      },
+      "east": {
+        "index": 29,
+        "x": 96,
+        "y": 896,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          584,
+          0,
+          956,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          52,
+          23,
+          305,
+          984
+        ],
+        "figureBounds": [
+          33,
+          6,
+          62,
+          118
+        ],
+        "normalizedSize": [
+          29,
+          112
+        ],
+        "scale": 0.11654527
+      },
+      "north": {
+        "index": 30,
+        "x": 192,
+        "y": 896,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "north",
+        "sourceCrop": [
+          956,
+          0,
+          1536,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          69,
+          23,
+          442,
+          979
+        ],
+        "figureBounds": [
+          26,
+          6,
+          70,
+          118
+        ],
+        "normalizedSize": [
+          44,
+          112
+        ],
+        "scale": 0.11715481
+      },
+      "west": {
+        "index": 31,
+        "x": 288,
+        "y": 896,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          584,
+          0,
+          956,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          52,
+          23,
+          305,
+          984
+        ],
+        "figureBounds": [
+          34,
+          6,
+          63,
+          118
+        ],
+        "normalizedSize": [
+          29,
+          112
+        ],
+        "scale": 0.11654527,
+        "derivedFrom": "exact-horizontal-mirror-of-east-frame"
+      }
+    },
+    "extra": {
+      "south": {
+        "index": 32,
+        "x": 0,
+        "y": 1024,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "south",
+        "sourceCrop": [
+          0,
+          0,
+          556,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          140,
+          12,
+          456,
+          997
+        ],
+        "figureBounds": [
+          30,
+          6,
+          66,
+          118
+        ],
+        "normalizedSize": [
+          36,
+          112
+        ],
+        "scale": 0.11370558
+      },
+      "east": {
+        "index": 33,
+        "x": 96,
+        "y": 1024,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          556,
+          0,
+          979,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          121,
+          16,
+          303,
+          995
+        ],
+        "figureBounds": [
+          37,
+          6,
+          58,
+          118
+        ],
+        "normalizedSize": [
+          21,
+          112
+        ],
+        "scale": 0.11440245
+      },
+      "north": {
+        "index": 34,
+        "x": 192,
+        "y": 1024,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "north",
+        "sourceCrop": [
+          979,
+          0,
+          1536,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          100,
+          15,
+          417,
+          995
+        ],
+        "figureBounds": [
+          30,
+          6,
+          66,
+          118
+        ],
+        "normalizedSize": [
+          36,
+          112
+        ],
+        "scale": 0.11428571
+      },
+      "west": {
+        "index": 35,
+        "x": 288,
+        "y": 1024,
+        "width": 96,
+        "height": 128,
+        "sourceDirection": "east",
+        "sourceCrop": [
+          556,
+          0,
+          979,
+          1024
+        ],
+        "sourceOpaqueBounds": [
+          121,
+          16,
+          303,
+          995
+        ],
+        "figureBounds": [
+          38,
+          6,
+          59,
+          118
+        ],
+        "normalizedSize": [
+          21,
+          112
+        ],
+        "scale": 0.11440245,
+        "derivedFrom": "exact-horizontal-mirror-of-east-frame"
+      }
+    }
+  },
+  "sourceHashes": {
+    "director": "977f355fcfd9c00417e59f207303e4cc1ccc9ad3cbbf9e785302ea3a7207d145",
+    "talent": "6d26193b31c5df0e2cfd3796e97f7684bae88c966c17d3cf0d276923b4cd22d0",
+    "grip": "1a001ce96de3cb1899e8a1c8f2058ab5de24d93c8d135d3391382b60da58e694",
+    "stagehand": "22c6359e1fe4956b71fc237add9d0a23edad8077cc681a3758202a235e6ea4be",
+    "electrician": "9b0f9a24555da84cecb27c208b304d30c33b04fcc2f6518cddb774616f28c164",
+    "camera": "b59a14ebf6841cd2e965c792a60635b4ae2af690c95fa17c08c36f88e6a796da",
+    "security": "699233950926b9faa04c7c217c01c995e06d755cf735c547514cb99c55610299",
+    "publicity": "ca9e7d8ed020c001a9bc0c3f6015155d6f1ddd068a8dd06c7bcd349d577bd3a6",
+    "extra": "4cc12a242ba1207fd6759d7aa7436e2b7124208cb5343deec12dc0a1d5e02cc9"
+  },
+  "atlasSha256": "2790bf72909f0a8b76d2f6d2ca387f68499776ef7db44d847ed03ff28979712b",
+  "atlasEncodedBytes": 287917,
+  "atlasDecodedRgbaBytes": 1769472,
+  "exportCommand": "python3 tools/hollywood/export_people_atlas.py --manifest art/hollywood/people/role-atlas.source.json --output ui/public/lot/hollywood",
+  "sourceAuthority": "committed-frozen-generated-pixels"
+}

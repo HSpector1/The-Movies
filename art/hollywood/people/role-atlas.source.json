@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "atlasId": "hollywood-role-atlas-v1",
+  "createdOn": "2026-08-14",
+  "authority": "Hollywood Dynamic People Role Atlas V1 Contract plus its governed Camera source-direction normalization ruling",
+  "generator": {
+    "tool": "OpenAI built-in image_gen.imagegen",
+    "mode": "built-in image generation and built-in referenced-image editing",
+    "sessionId": "019ffa6e-0097-7152-8ce8-61464c63d884",
+    "determinismBoundary": "The committed final pixels are source authority. Image generation is not replayed by export, build, test, or runtime."
+  },
+  "rightsBasis": "Original Project: Studio role art created specifically for this milestone with the built-in image-generation tool. No third-party game art and no rejected Asset Lab 05H/05I source entered any image.",
+  "sourceClassification": "tracked frozen built-in-generated source; deterministic generated derivative begins at local atlas export",
+  "exportEnvironment": {
+    "python": "3.14.6",
+    "pillow": "12.3.0",
+    "platform": "macOS 26.6.1 arm64",
+    "pythonZlibCompile": "1.2.12",
+    "pythonZlibRuntime": "1.2.12",
+    "pillowZlib": "1.3.1.zlib-ng",
+    "pngEncoding": "Pillow RGBA PNG, optimize=false, compress_level=9, no ancillary metadata",
+    "portabilityLaw": "Committed runtime outputs remain build authority; byte-identical replay is certified in this recorded environment and the clean worktree made from it."
+  },
+  "exportCommand": "python3 tools/hollywood/export_people_atlas.py --manifest art/hollywood/people/role-atlas.source.json --output ui/public/lot/hollywood",
+  "frame": {
+    "width": 96,
+    "height": 128,
+    "maxFigureWidth": 88,
+    "maxFigureHeight": 112,
+    "groundLine": 118,
+    "contactEllipse": {
+      "box": [18, 113, 78, 123],
+      "rgba": [22, 18, 16, 70]
+    }
+  },
+  "atlas": {
+    "dimensions": [384, 1152],
+    "image": "role-atlas-v1.png",
+    "manifest": "role-atlas-v1.json",
+    "expectedSha256": "2790bf72909f0a8b76d2f6d2ca387f68499776ef7db44d847ed03ff28979712b",
+    "expectedEncodedBytes": 287917,
+    "decodedRgbaBytes": 1769472
+  },
+  "backgroundRemoval": {
+    "method": "hard-magenta predicate; transparent RGB zeroed; 3px source-edge contraction; no global despill; premultiplied Lanczos reduction",
+    "minimumRedBlue": 35,
+    "minimumMagentaExcess": 5,
+    "edgeContractRadius": 3
+  },
+  "prompts": {
+    "director-generation": "Use case: stylized-concept\nAsset type: source turnaround sheet for a 2D Hollywood management-game role atlas\nPrimary request: Create one original 1948 Hollywood film director, shown three times as the exact same character and outfit: South/front three-quarter view, East/right-facing profile view, and North/back three-quarter view.\nScene/backdrop: perfectly flat solid #ff00ff chroma-key background for later local background removal. The background must be one uniform color with no shadows, gradients, texture, reflections, floor plane, or lighting variation.\nSubject: a capable late-1940s studio director in a charcoal tailored suit, cream shirt, narrow tie, practical dark fedora, holding a folded shooting script and compact period megaphone; realistic human proportions; full body head to toe.\nStyle/medium: premium hand-painted realistic 2D game sprite source, restrained Golden Age Hollywood production art, crisp readable silhouette, detailed enough for close zoom but designed to reduce cleanly to a 70-pixel-tall management-game figure.\nComposition/framing: landscape turnaround sheet with exactly three isolated full-body figures in three equal vertical columns; South/front three-quarter on the left, East/right-facing profile in the center, North/back three-quarter on the right; identical scale and foot baseline; generous spacing and padding; slightly elevated camera angle compatible with a fixed isometric studio-lot view.\nLighting/mood: warm restrained late-afternoon studio light from upper left on the character only; coherent across all three views.\nColor palette: charcoal, tobacco brown, cream, muted burgundy, natural skin; do not use magenta anywhere in the subject.\nMaterials/textures: believable wool suit, felt fedora, paper script, period metal megaphone; controlled detail, no glossy modern materials.\nConstraints: same identity, face, body proportions, outfit, equipment, scale, lighting direction, and ground line in all three views; opaque subject with crisp edges and no loose flyaway hair; no cast shadow, contact shadow, reflection, caption, labels, text, grid, dividers, logos, trademark, watermark, extra person, duplicate limb, cropped body, or background object.",
+    "director-background-edit": "Use case: background-extraction\nAsset type: source turnaround sheet for a 2D game sprite atlas\nInput image: edit target\nPrimary request: Replace only the entire dark brown/black background with perfectly flat solid #ff00ff chroma-key magenta.\nConstraints: preserve all three director figures exactly—their identity, faces, bodies, poses, clothing, hats, scripts, megaphones, scale, spacing, lighting, colors, and edges. Do not redesign, repaint, move, crop, duplicate, or remove any part of the figures. The replacement background must be one uniform #ff00ff color edge to edge, with no shadows, gradients, texture, glow, floor plane, reflection, halo, labels, grid, watermark, or extra object. Do not use #ff00ff within the figures. Crisp clean separation for local background removal.",
+    "talent-generation": "Use case: stylized-concept\nAsset type: source turnaround sheet for a 2D Hollywood management-game role atlas\nScene/backdrop: A perfectly flat, edge-to-edge, solid #ff00ff chroma-key magenta background. Absolutely uniform color: no gradient, vignette, shadow, texture, glow, floor, horizon, reflection, or lighting variation in the background.\nPrimary request: Create one original 1948 Hollywood screen performer, shown exactly three times as the same person and outfit: South/front three-quarter view, East/right-facing profile view, and North/back three-quarter view.\nSubject: a poised gender-neutral studio performer in period-authentic cream high-waisted wide-leg trousers, muted rust knit shirt, tailored tobacco-brown lightweight jacket, polished practical shoes, holding a few marked rehearsal pages; realistic human proportions; full body head to toe; neat short period hair.\nStyle/medium: premium hand-painted realistic 2D game sprite source, restrained Golden Age Hollywood production art, crisp readable silhouette, detailed enough for close zoom but designed to reduce cleanly to a 70-pixel-tall management-game figure.\nComposition/framing: landscape turnaround sheet with exactly three isolated full-body figures in three equal vertical columns; South/front three-quarter on the left, East/right-facing profile in the center, North/back three-quarter on the right; identical scale and foot baseline; generous spacing and padding; slightly elevated camera angle compatible with a fixed isometric studio-lot view.\nLighting/mood: warm restrained late-afternoon studio light from upper left on the character only, coherent across all views.\nConstraints: same identity, face, body proportions, outfit, pages, scale, lighting direction, and ground line in all three views; role is communicated by poised posture and rehearsal pages, not glamour or a color badge; opaque subject with crisp edges and no loose flyaway hair; no cast shadow, contact shadow, reflection, caption, labels, text, grid, dividers, logos, trademark, watermark, extra person, duplicate limb, cropped body, modern clothing, background object, or magenta in the subject.",
+    "grip-generation": "Use case: stylized-concept\nAsset type: source turnaround sheet for a 2D Hollywood management-game role atlas\nPrimary request: Create one original 1948 Hollywood studio grip, shown in the three governed directions.\nSubject: practical film-set grip with realistic human proportions, faded slate-blue chambray work shirt with sleeves rolled to forearms, olive high-waisted work trousers, dark suspenders, worn brown work boots and leather gloves, carrying a compact coil of thick black studio cable and a period metal C-clamp; sturdy working posture. Role must read from silhouette, clothing and equipment.\nScene/backdrop: perfectly flat edge-to-edge solid #ff00ff chroma-key magenta, one uniform color with no gradient, vignette, texture, shadow, glow, floor, horizon, reflection, or lighting variation.\nStyle/medium: premium hand-painted realistic 2D game sprite source, restrained Golden Age Hollywood production art, crisp readable silhouette, controlled detail that reduces cleanly to a 70-pixel-tall management-game figure.\nComposition/framing: landscape turnaround sheet with exactly three isolated full-body views of the exact same person in three equal vertical columns: South/front three-quarter on the left, East/right-facing profile in the center, North/back three-quarter on the right; identical scale and foot baseline, generous spacing, full body head to toe, slightly elevated fixed-isometric management camera.\nLighting/mood: coherent warm restrained late-afternoon light from upper left on the character only.\nConstraints: same identity, face, body, outfit, equipment, scale, lighting, and ground line in all views; no magenta in subject; opaque crisp edges; no cast/contact shadow, reflection, text, caption, label, grid, divider, logo, trademark, watermark, extra person, duplicate limb, crop, modern object, or background object.",
+    "stagehand-generation": "Use case: stylized-concept\nAsset type: source turnaround sheet for a 2D Hollywood management-game role atlas\nPrimary request: Create one original 1948 Hollywood stagehand/carpenter, shown in the three governed directions.\nSubject: lean studio carpenter with realistic human proportions, dark indigo bib overalls over a cream work shirt, sleeves rolled, period soft work cap, scuffed lace-up boots, small leather tool belt, carrying a short wooden carpenter's level and period claw hammer; alert practical posture. Role must read from silhouette, clothing and tools and must not look like the grip.\nScene/backdrop: perfectly flat edge-to-edge solid #ff00ff chroma-key magenta, one uniform color with no gradient, vignette, texture, shadow, glow, floor, horizon, reflection, or lighting variation.\nStyle/medium: premium hand-painted realistic 2D game sprite source, restrained Golden Age Hollywood production art, crisp readable silhouette, controlled detail that reduces cleanly to a 70-pixel-tall management-game figure.\nComposition/framing: landscape turnaround sheet with exactly three isolated full-body views of the exact same person in three equal vertical columns: South/front three-quarter on the left, East/right-facing profile in the center, North/back three-quarter on the right; identical scale and foot baseline, generous spacing, full body head to toe, slightly elevated fixed-isometric management camera.\nLighting/mood: coherent warm restrained late-afternoon light from upper left on the character only.\nConstraints: same identity, face, body, outfit, equipment, scale, lighting, and ground line in all views; no magenta in subject; opaque crisp edges; no cast/contact shadow, reflection, text, caption, label, grid, divider, logo, trademark, watermark, extra person, duplicate limb, crop, modern object, or background object.",
+    "stagehand-background-edit": "Use case: background-extraction\nAsset type: source turnaround sheet for a 2D game sprite atlas\nPrimary request: Replace only the entire dark brown/black background with perfectly flat solid #ff00ff chroma-key magenta.\nConstraints: preserve all three stagehand/carpenter figures exactly—their identity, faces, bodies, poses, clothing, cap, overalls, tools, scale, spacing, lighting, colors, and edges. Do not redesign, repaint, move, crop, duplicate, or remove any part of the figures. Background must be one uniform #ff00ff color edge to edge, no shadows, gradients, texture, glow, floor, reflection, halo, labels, grid, watermark, or extra object. Do not use #ff00ff within the figures.",
+    "electrician-generation": "Use case: stylized-concept\nAsset type: source turnaround sheet for a 2D Hollywood management-game role atlas\nPrimary request: Create one original 1948 Hollywood studio electrician, shown in the three governed directions.\nSubject: experienced studio electrician with realistic human proportions, muted bottle-green utility coveralls over a gray work shirt, sleeves rolled, brown leather work shoes, practical canvas belt, holding a compact coil of heavy period electrical cable and large insulated lineman pliers; no hard hat; calm technical posture. Role must read from cable, pliers and utility clothing and must not look like the grip.\nScene/backdrop: perfectly flat edge-to-edge solid #ff00ff chroma-key magenta, one uniform color with no gradient, vignette, texture, shadow, glow, floor, horizon, reflection, or lighting variation.\nStyle/medium: premium hand-painted realistic 2D game sprite source, restrained Golden Age Hollywood production art, crisp readable silhouette, controlled detail that reduces cleanly to a 70-pixel-tall management-game figure.\nComposition/framing: landscape turnaround sheet with exactly three isolated full-body views of the exact same person in three equal vertical columns: South/front three-quarter on the left, East/right-facing profile in the center, North/back three-quarter on the right; identical scale and foot baseline, generous spacing, full body head to toe, slightly elevated fixed-isometric management camera.\nLighting/mood: coherent warm restrained late-afternoon light from upper left on the character only.\nConstraints: same identity, face, body, outfit, equipment, scale, lighting, and ground line in all views; no magenta in subject; opaque crisp edges; no cast/contact shadow, reflection, text, caption, label, grid, divider, logo, trademark, watermark, extra person, duplicate limb, crop, modern object, or background object.",
+    "camera-generation": "Use case: stylized-concept\nAsset type: source turnaround sheet for a 2D Hollywood management-game role atlas\nPrimary request: Create one original 1948 Hollywood motion-picture camera operator, shown in the three governed directions.\nSubject: focused camera operator with realistic human proportions, dark brown high-waisted trousers, muted khaki work shirt, charcoal sleeveless utility vest, leather shoes, cradling one compact boxy late-1940s 35mm motion-picture camera with round film magazine and small matte box at chest height; no modern still camera and no shoulder video camera. Role must read unmistakably from the period camera silhouette.\nScene/backdrop: perfectly flat edge-to-edge solid #ff00ff chroma-key magenta, one uniform color with no gradient, vignette, texture, shadow, glow, floor, horizon, reflection, or lighting variation.\nStyle/medium: premium hand-painted realistic 2D game sprite source, restrained Golden Age Hollywood production art, crisp readable silhouette, controlled detail that reduces cleanly to a 70-pixel-tall management-game figure.\nComposition/framing: landscape turnaround sheet with exactly three isolated full-body views of the exact same person in three equal vertical columns: South/front three-quarter on the left, East/right-facing profile in the center, North/back three-quarter on the right; identical scale and foot baseline, generous spacing, full body head to toe, slightly elevated fixed-isometric management camera.\nLighting/mood: coherent warm restrained late-afternoon light from upper left on the character only.\nConstraints: same identity, face, body, outfit, equipment, scale, lighting, and ground line in all views; no magenta in subject; opaque crisp edges; no cast/contact shadow, reflection, text, caption, label, grid, divider, logo, trademark, watermark, extra person, duplicate limb, crop, modern object, or background object.",
+    "security-generation": "Create an original premium hand-painted realistic 2D game sprite turnaround sheet for a late-1940s Hollywood studio security guard. Show exactly three full-body views of the same person and identical outfit in three equal vertical columns: left is SOUTH/front view facing the viewer, middle is EAST/side profile facing screen-right, right is NORTH/back view facing away. The guard is a sturdy middle-aged man in a period-correct dark navy studio gate-guard uniform with peaked cap, brass buttons, leather belt, polished black shoes, a small studio security badge, and a compact clipboard held naturally; no firearm, no baton, no modern police gear. Make the role immediately readable through silhouette, clothing, pose, and equipment. Warm cinematic key light from upper left, restrained Golden Age Hollywood palette, crisp painterly edges, realistic anatomy, neutral standing pose, same scale and baseline in every view. Put each isolated figure on a perfectly flat solid #ff00ff chroma-key background extending to every image edge. No floor, no cast shadow, no vignette, no gradient, no texture, no border, no dividers, no text, no labels, no logos, no watermark, no extra objects, no cropped body parts. Wide 3:2 sprite source sheet.",
+    "security-badge-edit": "Edit only the security badge/mark on the three uniform views. Preserve the same guard identity, face, moustache, body, pose, navy uniform, cap, brass buttons, belt, clipboard, lighting, scale, positions, three-view consistency, and perfectly flat edge-to-edge #ff00ff chroma-key background. Completely remove the shield badge and every letter, word, logo, insignia, emblem, symbol, and readable mark from the chest and cap in all three views. Replace the removed chest area with seamless plain navy uniform fabric matching the surrounding jacket. Keep exactly three full-body figures; do not redesign, repaint, move, crop, add, or remove anything else. No text anywhere in the image.",
+    "publicity-generation": "Create an original premium hand-painted realistic 2D game sprite turnaround sheet for a late-1940s Hollywood studio publicity agent. Show exactly three full-body views of the same person and identical outfit in three equal vertical columns: left is SOUTH/front view facing the viewer, middle is EAST/side profile facing screen-right, right is NORTH/back view facing away. The publicity agent is a confident adult woman in a period-correct tailored teal skirt suit and low heels, with a press clipboard tucked under one arm and a compact 1940s press camera with a large circular flash reflector carried at her side; no modern camera, no camera-operator rig. Make the role immediately readable through silhouette, clothing, pose, and equipment, and clearly distinct from a motion-picture camera operator. Warm cinematic key light from upper left, restrained Golden Age Hollywood palette, crisp painterly edges, realistic anatomy, neutral standing pose, same scale and baseline in every view. Put each isolated figure on a perfectly flat solid #ff00ff chroma-key background extending to every image edge. No floor, no cast shadow, no vignette, no gradient, no texture, no border, no dividers, no text, no labels, no logos, no watermark, no extra objects, no cropped body parts. Wide 3:2 sprite source sheet.",
+    "extra-generation": "Create an original premium hand-painted realistic 2D game sprite turnaround sheet for a late-1940s Hollywood studio background performer, an ordinary movie extra waiting between takes. Show exactly three full-body views of the same person and identical outfit in three equal vertical columns: left is SOUTH/front view facing the viewer, middle is EAST/side profile facing screen-right, right is NORTH/back view facing away. The extra is a Black adult man with an approachable everyday presence, wearing a modest period-correct rust checked sport coat over a cream shirt, high-waisted brown trousers, and two-tone shoes, holding only a folded call slip at his side; no role-specific crew tools, no costume caricature. Make him read as an individual civilian performer rather than crew while remaining visually modest at management-game scale. Warm cinematic key light from upper left, restrained Golden Age Hollywood palette, crisp painterly edges, realistic anatomy, neutral standing pose, same scale and baseline in every view. Put each isolated figure on a perfectly flat solid #ff00ff chroma-key background extending to every image edge. No floor, no cast shadow, no vignette, no gradient, no texture, no border, no dividers, no text, no labels, no logos, no watermark, no extra objects, no cropped body parts. Wide 3:2 sprite source sheet.",
+    "shared-background-edit": "Edit only the background. Preserve all three people exactly as they are: same identity, face, hair, clothing, pose, anatomy, props, lighting, scale, position, column spacing, and image dimensions. Replace every background pixel around the isolated figures with one perfectly uniform, flat solid #ff00ff magenta chroma-key field extending to all four image edges. Remove every floor, cast shadow, glow, vignette, gradient, texture, and colored backdrop. Do not add text, dividers, borders, objects, or shadows. Keep exactly the existing three full-body figures and do not crop them."
+  },
+  "roles": [
+    {
+      "id": "director",
+      "row": 0,
+      "source": {"path": "source/director-turnaround-chroma.png", "sha256": "977f355fcfd9c00417e59f207303e4cc1ccc9ad3cbbf9e785302ea3a7207d145", "encodedBytes": 1821499, "decodedRgbaBytes": 6291456, "dimensions": [1536, 1024]},
+      "views": {"south": [0, 0, 559, 1024], "east": [559, 0, 970, 1024], "north": [970, 0, 1536, 1024]},
+      "mirrorSourceForEast": false,
+      "finalPromptId": "director-background-edit",
+      "provenanceSteps": [
+        {"operation": "built-in-generate", "resultId": "exec-d3e80e65-4c2a-4549-a08b-312ea74e4ece", "promptId": "director-generation", "outputSha256": "00bae572a5d581a8147264fd6f94c1b7679e127f3b5e3ac34fe5fb77d7551928", "outputBytes": 2048240},
+        {"operation": "built-in-referenced-image-edit", "resultId": "exec-4c32346d-27d9-481a-9f8f-859fe39c77f4", "promptId": "director-background-edit", "inputSha256": "00bae572a5d581a8147264fd6f94c1b7679e127f3b5e3ac34fe5fb77d7551928", "outputSha256": "977f355fcfd9c00417e59f207303e4cc1ccc9ad3cbbf9e785302ea3a7207d145"}
+      ]
+    },
+    {
+      "id": "talent",
+      "row": 1,
+      "source": {"path": "source/talent-turnaround-chroma.png", "sha256": "6d26193b31c5df0e2cfd3796e97f7684bae88c966c17d3cf0d276923b4cd22d0", "encodedBytes": 1758542, "decodedRgbaBytes": 6291456, "dimensions": [1536, 1024]},
+      "views": {"south": [0, 0, 562, 1024], "east": [562, 0, 1043, 1024], "north": [1043, 0, 1536, 1024]},
+      "mirrorSourceForEast": false,
+      "finalPromptId": "talent-generation",
+      "provenanceSteps": [{"operation": "built-in-generate", "resultId": "exec-620d4471-a4b9-430a-86ee-fd85c7736fc5", "promptId": "talent-generation", "outputSha256": "6d26193b31c5df0e2cfd3796e97f7684bae88c966c17d3cf0d276923b4cd22d0"}]
+    },
+    {
+      "id": "grip",
+      "row": 2,
+      "source": {"path": "source/grip-turnaround-chroma.png", "sha256": "1a001ce96de3cb1899e8a1c8f2058ab5de24d93c8d135d3391382b60da58e694", "encodedBytes": 2238449, "decodedRgbaBytes": 6291456, "dimensions": [1536, 1024]},
+      "views": {"south": [0, 0, 574, 1024], "east": [574, 0, 972, 1024], "north": [972, 0, 1536, 1024]},
+      "mirrorSourceForEast": false,
+      "finalPromptId": "grip-generation",
+      "provenanceSteps": [{"operation": "built-in-generate", "resultId": "exec-bf37e017-b8f7-4963-a671-96676b3ba629", "promptId": "grip-generation", "outputSha256": "1a001ce96de3cb1899e8a1c8f2058ab5de24d93c8d135d3391382b60da58e694"}]
+    },
+    {
+      "id": "stagehand",
+      "row": 3,
+      "source": {"path": "source/stagehand-turnaround-chroma.png", "sha256": "22c6359e1fe4956b71fc237add9d0a23edad8077cc681a3758202a235e6ea4be", "encodedBytes": 2010462, "decodedRgbaBytes": 6291456, "dimensions": [1536, 1024]},
+      "views": {"south": [0, 0, 555, 1024], "east": [555, 0, 1006, 1024], "north": [1006, 0, 1536, 1024]},
+      "mirrorSourceForEast": false,
+      "finalPromptId": "stagehand-background-edit",
+      "provenanceSteps": [
+        {"operation": "built-in-generate", "resultId": "exec-d06f1038-35e7-4f92-ac94-b3b96bb17859", "promptId": "stagehand-generation", "outputSha256": "a59bb1cc9244f23fb53bacc3b86a5a9fa97be7a9ce9d2bfca4c4b267768d6058", "outputBytes": 2308794},
+        {"operation": "built-in-referenced-image-edit", "resultId": "exec-c1db0505-afce-4a0a-96f6-b21c1e8013c3", "promptId": "stagehand-background-edit", "inputSha256": "a59bb1cc9244f23fb53bacc3b86a5a9fa97be7a9ce9d2bfca4c4b267768d6058", "outputSha256": "22c6359e1fe4956b71fc237add9d0a23edad8077cc681a3758202a235e6ea4be"}
+      ]
+    },
+    {
+      "id": "electrician",
+      "row": 4,
+      "source": {"path": "source/electrician-turnaround-chroma.png", "sha256": "9b0f9a24555da84cecb27c208b304d30c33b04fcc2f6518cddb774616f28c164", "encodedBytes": 2118205, "decodedRgbaBytes": 6291456, "dimensions": [1536, 1024]},
+      "views": {"south": [0, 0, 585, 1024], "east": [585, 0, 966, 1024], "north": [966, 0, 1536, 1024]},
+      "mirrorSourceForEast": false,
+      "finalPromptId": "electrician-generation",
+      "provenanceSteps": [{"operation": "built-in-generate", "resultId": "exec-714865aa-2daa-451a-bf01-0b6d0fc8621f", "promptId": "electrician-generation", "outputSha256": "9b0f9a24555da84cecb27c208b304d30c33b04fcc2f6518cddb774616f28c164"}]
+    },
+    {
+      "id": "camera",
+      "row": 5,
+      "source": {"path": "source/camera-turnaround-chroma.png", "sha256": "b59a14ebf6841cd2e965c792a60635b4ae2af690c95fa17c08c36f88e6a796da", "encodedBytes": 1832716, "decodedRgbaBytes": 6291456, "dimensions": [1536, 1024]},
+      "views": {"south": [0, 0, 498, 1024], "east": [498, 0, 978, 1024], "north": [978, 0, 1536, 1024]},
+      "mirrorSourceForEast": true,
+      "finalPromptId": "camera-generation",
+      "provenanceSteps": [{"operation": "built-in-generate", "resultId": "exec-b5bb6062-671b-4bdb-9ec2-ef9062df54de", "promptId": "camera-generation", "outputSha256": "b59a14ebf6841cd2e965c792a60635b4ae2af690c95fa17c08c36f88e6a796da"}]
+    },
+    {
+      "id": "security",
+      "row": 6,
+      "source": {"path": "source/security-turnaround-chroma.png", "sha256": "699233950926b9faa04c7c217c01c995e06d755cf735c547514cb99c55610299", "encodedBytes": 1679921, "decodedRgbaBytes": 6291456, "dimensions": [1536, 1024]},
+      "views": {"south": [0, 0, 574, 1024], "east": [574, 0, 990, 1024], "north": [990, 0, 1536, 1024]},
+      "mirrorSourceForEast": false,
+      "finalPromptId": "security-badge-edit",
+      "provenanceSteps": [
+        {"operation": "built-in-generate", "resultId": "exec-ced2007c-0d17-4b9f-8a02-02d24ee82702", "promptId": "security-generation", "outputSha256": "c065416e6844a240ba86e2d9aca3f5a191be10b0f67d54da250348e1af03f912", "outputBytes": 1735543},
+        {"operation": "built-in-referenced-image-edit", "resultId": "exec-82d976c3-1a60-4c1c-aeb7-b269ddf7fb73", "promptId": "security-badge-edit", "inputSha256": "c065416e6844a240ba86e2d9aca3f5a191be10b0f67d54da250348e1af03f912", "outputSha256": "699233950926b9faa04c7c217c01c995e06d755cf735c547514cb99c55610299"}
+      ]
+    },
+    {
+      "id": "publicity",
+      "row": 7,
+      "source": {"path": "source/publicity-turnaround-chroma.png", "sha256": "ca9e7d8ed020c001a9bc0c3f6015155d6f1ddd068a8dd06c7bcd349d577bd3a6", "encodedBytes": 1748817, "decodedRgbaBytes": 6291456, "dimensions": [1536, 1024]},
+      "views": {"south": [0, 0, 584, 1024], "east": [584, 0, 956, 1024], "north": [956, 0, 1536, 1024]},
+      "mirrorSourceForEast": false,
+      "finalPromptId": "shared-background-edit",
+      "provenanceSteps": [
+        {"operation": "built-in-generate", "resultId": "exec-1cf4b74e-5c44-4bcd-bed2-84d963fadd45", "promptId": "publicity-generation", "outputSha256": "d15158484b48d44f8c00084e67de13d62795b3a71e479ff9208d1f8671c13f5a", "outputBytes": 1955503},
+        {"operation": "built-in-referenced-image-edit", "resultId": "exec-0a6bb333-fa9e-431a-b7b7-a878582fed6f", "promptId": "shared-background-edit", "inputSha256": "d15158484b48d44f8c00084e67de13d62795b3a71e479ff9208d1f8671c13f5a", "outputSha256": "ca9e7d8ed020c001a9bc0c3f6015155d6f1ddd068a8dd06c7bcd349d577bd3a6"}
+      ]
+    },
+    {
+      "id": "extra",
+      "row": 8,
+      "source": {"path": "source/extra-turnaround-chroma.png", "sha256": "4cc12a242ba1207fd6759d7aa7436e2b7124208cb5343deec12dc0a1d5e02cc9", "encodedBytes": 1840254, "decodedRgbaBytes": 6291456, "dimensions": [1536, 1024]},
+      "views": {"south": [0, 0, 556, 1024], "east": [556, 0, 979, 1024], "north": [979, 0, 1536, 1024]},
+      "mirrorSourceForEast": false,
+      "finalPromptId": "shared-background-edit",
+      "provenanceSteps": [
+        {"operation": "built-in-generate", "resultId": "exec-6eca99f0-f4cb-4b7b-a207-bf34690aeb6b", "promptId": "extra-generation", "outputSha256": "f9e20a7d158dbbf9f669ebc0d22d350e4cd900f442f7e9c6ebaa897215affbc5", "outputBytes": 2120490},
+        {"operation": "built-in-referenced-image-edit", "resultId": "exec-12e673c0-e7d9-449b-96ba-01d4b062cf84", "promptId": "shared-background-edit", "inputSha256": "f9e20a7d158dbbf9f669ebc0d22d350e4cd900f442f7e9c6ebaa897215affbc5", "outputSha256": "4cc12a242ba1207fd6759d7aa7436e2b7124208cb5343deec12dc0a1d5e02cc9"}
+      ]
+    }
+  ]
+}
