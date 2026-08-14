@@ -359,9 +359,10 @@ describe('World-First Named Person Work & Career Inspector V1', () => {
     expect(screen.getByTestId(`hollywood-select-person-${director.id}`)).toHaveAttribute('aria-pressed', 'true')
   })
 
-  it('returns final Lead command focus to the stable person inspector', async () => {
+  it('withholds Director dispatch from the selected Lead while retaining exact Director and picture interventions', async () => {
     const initial = crossDisciplineShooting('named-person-lead-command-focus')
-    const lead = selectedPeople(adapter.studioLotSnapshot(initial)).lead
+    const { director, lead } = selectedPeople(adapter.studioLotSnapshot(initial))
+    const dispatched: string[] = []
 
     function Host() {
       const [state, setState] = useState(initial)
@@ -369,6 +370,7 @@ describe('World-First Named Person Work & Career Inspector V1', () => {
         <StudioLotScreen
           {...lotProps(state)}
           onProductionCommand={(command) => {
+            dispatched.push(command.kind)
             const result = adapter.runProductionCommand(state, command)
             if (!result.ok) throw new Error(result.error)
             setState(result.next)
@@ -378,10 +380,21 @@ describe('World-First Named Person Work & Career Inspector V1', () => {
     }
 
     const screen = render(<Host />)
+
+    // The production-level Studio Desk retains the legal operation command.
+    expect(screen.getByTestId('hollywood-production-command-assignShootingDirector')).toBeInTheDocument()
+
     fireEvent.click(screen.getByTestId(`hollywood-select-person-${lead.id}`))
+    expect(screen.queryByTestId('hollywood-production-command-assignShootingDirector')).not.toBeInTheDocument()
+    expect(dispatched).toEqual([])
+
+    fireEvent.click(screen.getByTestId(`hollywood-select-person-${director.id}`))
     fireEvent.click(screen.getByTestId('hollywood-production-command-assignShootingDirector'))
     const clear = await screen.findByTestId('hollywood-production-command-clearSceneryLoadIn')
     await waitFor(() => expect(clear).toHaveFocus())
+
+    // Clear and Schedule belong to the picture, not exclusively to its Director.
+    fireEvent.click(screen.getByTestId(`hollywood-select-person-${lead.id}`))
     fireEvent.click(clear)
     const schedule = await screen.findByTestId('hollywood-production-command-scheduleShootingTake')
     await waitFor(() => expect(schedule).toHaveFocus())
@@ -390,6 +403,11 @@ describe('World-First Named Person Work & Career Inspector V1', () => {
     const personStatus = screen.getByTestId('hollywood-person-inspector-status')
     await waitFor(() => expect(personStatus).toHaveFocus())
     expect(screen.queryByTestId(/^hollywood-task-status-/)).not.toBeInTheDocument()
+    expect(dispatched).toEqual([
+      'assignShootingDirector',
+      'clearSceneryLoadIn',
+      'scheduleShootingTake',
+    ])
   })
 
   it('closes once and moves focus to the surviving named-people group when the open person disappears', async () => {

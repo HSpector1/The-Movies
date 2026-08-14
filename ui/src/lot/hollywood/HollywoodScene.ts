@@ -1864,10 +1864,12 @@ export class HollywoodScene extends Phaser.Scene {
       return
     }
     director.sprite.setPosition(start.x, start.y).setDepth(start.actorDepth)
+    director.label
+      .setPosition(start.x, start.y - 72)
+      .setVisible(this.selectedPersonId === operation.directorId)
     const next = this.route[1]!
     director.direction = directionFromDelta(next.x - start.x, next.y - start.y, director.direction)
     this.setActorFacing(director.sprite, director.fact.role, director.direction)
-    director.label.setVisible(false)
     this.cosmeticRoute = {
       productionId: operation.productionId,
       personId: operation.directorId,
@@ -2086,8 +2088,11 @@ export class HollywoodScene extends Phaser.Scene {
     const a = this.route[seg]!
     const b = this.route[seg + 1]!
     const eased = Phaser.Math.Easing.Sine.InOut(local)
-    runtime.sprite.setPosition(Phaser.Math.Linear(a.x, b.x, eased), Phaser.Math.Linear(a.y, b.y, eased))
+    const x = Phaser.Math.Linear(a.x, b.x, eased)
+    const y = Phaser.Math.Linear(a.y, b.y, eased)
+    runtime.sprite.setPosition(x, y)
     runtime.sprite.setDepth(local < 0.52 ? a.actorDepth : b.actorDepth)
+    runtime.label.setPosition(x, y - 72)
     runtime.direction = directionFromDelta(b.x - a.x, b.y - a.y, runtime.direction)
     this.setActorFacing(runtime.sprite, runtime.fact.role, runtime.direction)
     if (rawSegment >= this.route.length - 1) {

@@ -2021,6 +2021,51 @@ describe('HollywoodScene snapshot authority', () => {
     expect(internals.sprites[0]).toMatchObject({ x: 70, y: 80 })
   })
 
+  it('keeps only the selected Director nameplate attached throughout the cosmetic dispatch route', () => {
+    const before = snapshot([director(), talent()], [operation()])
+    const { scene, internals } = harness(before)
+    const managedDirector = internals.runtimePeople.get('director-1')!
+    const unselectedTalent = internals.runtimePeople.get('talent-1')!
+
+    scene.selectPerson('director-1')
+    scene.applySnapshot(snapshot([director(), talent()], [operation({ taskStatus: 'blocked' })]))
+
+    expect(scene.debugState().routeProductionId).toBe('production-1')
+    expect(managedDirector.sprite).toMatchObject({ x: 70, y: 80 })
+    expect(managedDirector.label).toMatchObject({ x: 70, y: 8, visible: true })
+    scene.update(0, 0)
+    expect(managedDirector.sprite).toMatchObject({ x: 10, y: 20 })
+    expect(managedDirector.label).toMatchObject({ x: 10, y: -52, visible: true })
+    expect(unselectedTalent.label.visible).toBe(false)
+
+    scene.update(0, 650)
+    expect(managedDirector.sprite).toMatchObject({ x: 40, y: 50 })
+    expect(managedDirector.label).toMatchObject({ x: 40, y: -22, visible: true })
+    expect(unselectedTalent.label.visible).toBe(false)
+
+    scene.update(0, 650)
+    expect(scene.debugState().routeProductionId).toBeNull()
+    expect(managedDirector.sprite).toMatchObject({ x: 70, y: 80 })
+    expect(managedDirector.label).toMatchObject({ x: 70, y: 8, visible: true })
+    expect(unselectedTalent.label.visible).toBe(false)
+  })
+
+  it('keeps selected direct-loaded blocked truth at Stage 7 without inventing a route', () => {
+    const blocked = snapshot([director(), talent()], [operation({ taskStatus: 'blocked' })])
+    const { scene, internals } = harness(blocked)
+    const managedDirector = internals.runtimePeople.get('director-1')!
+    const unselectedTalent = internals.runtimePeople.get('talent-1')!
+
+    scene.selectPerson('director-1')
+    scene.applySnapshot(blocked)
+    scene.update(0, 10_000)
+
+    expect(scene.debugState().routeProductionId).toBeNull()
+    expect(managedDirector.sprite).toMatchObject({ x: 70, y: 80 })
+    expect(managedDirector.label).toMatchObject({ x: 70, y: 8, visible: true })
+    expect(unselectedTalent.label.visible).toBe(false)
+  })
+
   it('keeps the exact successor command legal while the cosmetic director route is still moving', () => {
     const unassignedState = advanceEngineState(
       greenlightEngineFilm(foundManagedEngineState('hollywood-route-command-independence')),
@@ -2296,10 +2341,16 @@ describe('HollywoodScene snapshot authority', () => {
     expect(vehicleTween.paused).toBe(1)
     expect(internals.ambientActors[0]!.phase).toBe(0.25)
 
+    scene.selectPerson('director-1')
     scene.applySnapshot(snapshot([director()], [operation({ taskStatus: 'blocked' })]))
     expect(scene.debugState().routeProductionId).toBeNull()
     expect(scene.debugState().stage7Operation?.taskStatus).toBe('blocked')
     expect(internals.sprites[0]).toMatchObject({ x: 70, y: 80 })
+    expect(internals.runtimePeople.get('director-1')!.label).toMatchObject({
+      x: 70,
+      y: 8,
+      visible: true,
+    })
 
     scene.focus('stage-7')
     expect(internals.cameras.main.centerOn).toHaveBeenCalledWith(50, 50)

@@ -783,6 +783,11 @@ export function StudioLotScreen({
           hollywoodOperation?.productionId === selectedProductionWork.productionId
         ? hollywoodOperation
         : null
+  const hollywoodInspectorCommand =
+    hollywoodInspectorOperation?.currentCommand?.kind === 'assignShootingDirector' &&
+    selectedProductionWork?.productionRole === 'lead'
+      ? null
+      : hollywoodInspectorOperation?.currentCommand ?? null
   const showHollywoodInspectorTaskChain =
     hollywoodPerson === null || selectedProductionWork?.productionRole === 'director'
   const selectedStage7DetailContext =
@@ -4113,18 +4118,18 @@ export function StudioLotScreen({
                         {hollywoodInspectorOperation.facilityLabel} is authoritative. This district view depicts Soundstage 7; manage this production from the inspector.
                       </p>
                     )}
-                    {hollywoodPlace === null && hollywoodInspectorOperation?.currentCommand && (
+                    {hollywoodPlace === null && hollywoodInspectorOperation && hollywoodInspectorCommand && (
                       <button
                         className="accent hollywood-command"
                         disabled={!onProductionCommand}
                         ref={hollywoodCommandRef}
                         onClick={() => dispatchHollywoodProductionCommand(
                           hollywoodInspectorOperation.productionId,
-                          hollywoodInspectorOperation.currentCommand!,
+                          hollywoodInspectorCommand,
                         )}
-                        data-testid={`hollywood-production-command-${hollywoodInspectorOperation.currentCommand.kind}`}
+                        data-testid={`hollywood-production-command-${hollywoodInspectorCommand.kind}`}
                       >
-                        {hollywoodInspectorOperation.currentCommand.label}
+                        {hollywoodInspectorCommand.label}
                       </button>
                     )}
                     {stage7DetailActionContext !== null && (
