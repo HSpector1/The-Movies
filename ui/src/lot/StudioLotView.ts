@@ -25,6 +25,7 @@ import {
   type HollywoodPerformance,
   type HollywoodPlaceSelection,
   type HollywoodProductionSelection,
+  type HollywoodSceneryLoadInSelection,
 } from './hollywood/HollywoodScene'
 import type { LotPersonState } from './snapshot/StudioLotSnapshot'
 
@@ -57,6 +58,7 @@ export type StudioLotViewOptions = {
   onHollywoodPerson?: (person: LotPersonState | null) => void
   onHollywoodPlace?: (place: HollywoodPlaceSelection) => void
   onHollywoodProduction?: (production: HollywoodProductionSelection) => void
+  onHollywoodSceneryLoadIn?: (selection: HollywoodSceneryLoadInSelection) => void
   /** The lot finished first paint. */
   onReady?: () => void
   /**
@@ -136,6 +138,7 @@ export class StudioLotView {
     if (e.type === 'person') this.opts.onHollywoodPerson?.(e.person)
     else if (e.type === 'place') this.opts.onHollywoodPlace?.(e.place)
     else if (e.type === 'production') this.opts.onHollywoodProduction?.(e.production)
+    else if (e.type === 'scenery-load-in') this.opts.onHollywoodSceneryLoadIn?.(e.sceneryLoadIn)
     else if (e.type === 'activity') this.opts.onActivity?.(e.text)
   }
 
@@ -232,6 +235,9 @@ export class StudioLotView {
     this.game.loop.wake()
     if (this.game.scene.isPaused('lot')) this.game.scene.resume('lot')
     if (this.game.scene.isPaused('hollywood')) this.game.scene.resume('hollywood')
+    if (this.hollywoodScene && this.pendingSnapshot) {
+      this.hollywoodScene.applySnapshot(this.pendingSnapshot)
+    }
     this.hollywoodScene?.resetPerformanceTelemetry()
     this.pauseVignettes(false)
   }
@@ -295,6 +301,10 @@ export class StudioLotView {
   selectHollywoodPerson(id: string): void { this.hollywoodScene?.selectPerson(id) }
   selectHollywoodProduction(id: string): boolean {
     return this.hollywoodScene?.selectProductionFromHost(id) ?? false
+  }
+  /** Paint exact Scenery & Service work from the host without re-emitting a scene event. */
+  selectHollywoodSceneryLoadIn(id: string): boolean {
+    return this.hollywoodScene?.selectSceneryLoadInFromHost(id) ?? false
   }
   /** Paint the exact canonical Annex place from the host without emitting a scene event. */
   selectHollywoodAnnexPlace(): boolean {

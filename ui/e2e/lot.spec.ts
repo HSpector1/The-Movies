@@ -16,16 +16,32 @@ import { fileURLToPath } from 'node:url'
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(here, '..', '..')
 const fixturesDir = join(here, 'fixtures')
+const sceneryLoadInFixturesDir = join(here, 'world-first-scenery-load-in-v1')
 const outDir = join(repoRoot, 'out', 'gate-d1-evidence', 'final')
 mkdirSync(outDir, { recursive: true })
 
 const ACTIVE_SESSION_KEY = 'project-studio.active-session.v4'
 const FLAG_KEY = 'project-studio.flags.studio-lot-overview'
+const OPERATION_HOLLYWOOD_FLAG_KEY = 'project-studio.flags.operation-hollywood'
+const HOLLYWOOD_DISTRICT_WIDTH = 1586
+const HOLLYWOOD_DISTRICT_HEIGHT = 992
+const HOLLYWOOD_CAMERA_BOUNDS = { x: -120, y: -90, width: 1826, height: 1172 } as const
+const SCENERY_LOAD_IN_WORLD_POINT = { x: 390, y: 584 } as const
 
 test.beforeAll(() => {
   const names = ['empty', 'one', 'two', 'released']
   if (!names.every((n) => existsSync(join(fixturesDir, `${n}.json`)))) {
     execSync('npx vite-node scripts/gen-lot-fixtures.mts', { cwd: repoRoot, stdio: 'inherit' })
+  }
+  const sceneryLoadInNames = [
+    'week-30-nights-of-watchtower-stage-7-blocked.save.json',
+    'week-30-nights-of-watchtower-stage-7-ready.save.json',
+  ]
+  if (!sceneryLoadInNames.every((name) => existsSync(join(sceneryLoadInFixturesDir, name)))) {
+    execSync('npx vite-node scripts/gen-world-first-scenery-load-in-fixtures.mts', {
+      cwd: repoRoot,
+      stdio: 'inherit',
+    })
   }
 })
 
@@ -49,11 +65,84 @@ async function seed(page: Page, fixtureName: string, opts: { flag?: boolean } = 
   await expect(page.getByTestId('dash-week')).toBeVisible()
 }
 
+type SceneryLoadInFixture = 'blocked' | 'ready'
+
+/** Restore one native SaveFileV11 scenery state and enable the player-facing Hollywood lot. */
+async function seedSceneryLoadIn(page: Page, state: SceneryLoadInFixture) {
+  const save = readFileSync(join(
+    sceneryLoadInFixturesDir,
+    `week-30-nights-of-watchtower-stage-7-${state}.save.json`,
+  ), 'utf8')
+  await page.addInitScript(
+    ([sessionKey, json, lotFlag, hollywoodFlag]) => {
+      try {
+        localStorage.setItem(sessionKey as string, json as string)
+        localStorage.setItem(lotFlag as string, '1')
+        localStorage.setItem(hollywoodFlag as string, '1')
+      } catch { /* ignore */ }
+    },
+    [ACTIVE_SESSION_KEY, save, FLAG_KEY, OPERATION_HOLLYWOOD_FLAG_KEY] as const,
+  )
+  await page.goto('/')
+  await expect(page.getByTestId('recovery-notice')).toContainText('Week 30')
+  await expect(page.getByTestId('dash-week')).toHaveText('30')
+}
+
 async function openLot(page: Page) {
   await page.getByTestId('open-studio-lot').click()
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await expect(page.getByTestId('lot-companion-nav')).toBeVisible()
   await page.waitForTimeout(1200) // Phaser boot + first paint
+}
+
+async function openSceneryLoadInLot(page: Page) {
+  await page.getByTestId('open-studio-lot').click()
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
+  await expect(page.getByTestId('hollywood-current-production')).toContainText('Nights of Watchtower')
+  await expect(page.getByTestId('studio-lot-canvas').locator('canvas')).toHaveCount(1)
+  await expect(page.getByText('Preparing the lot…', { exact: true })).toHaveCount(0)
+}
+
+/** Click an authored district coordinate through the real fitted Phaser camera. */
+async function clickHollywoodWorldPoint(page: Page, point: { x: number; y: number }) {
+  const canvas = page.getByTestId('studio-lot-canvas').locator('canvas')
+  const box = await canvas.boundingBox()
+  expect(box, 'the live Hollywood canvas must have a box').not.toBeNull()
+  const zoom = Math.min(
+    box!.width / HOLLYWOOD_DISTRICT_WIDTH,
+    box!.height / HOLLYWOOD_DISTRICT_HEIGHT,
+  )
+  const cameraWidth = box!.width / zoom
+  const cameraHeight = box!.height / zoom
+  const fittedScroll = (
+    desired: number,
+    boundStart: number,
+    boundSize: number,
+    cameraSize: number,
+  ) => cameraSize >= boundSize
+    ? boundStart
+    : Math.max(boundStart, Math.min(boundStart + boundSize - cameraSize, desired))
+  // Phaser constrains the centred overview to its declared world bounds. At the
+  // 1280x720 management viewport the canvas is wider than those bounds, so the
+  // camera is intentionally pinned at x=-120 rather than remaining centred.
+  const scrollX = fittedScroll(
+    HOLLYWOOD_DISTRICT_WIDTH / 2 - cameraWidth / 2,
+    HOLLYWOOD_CAMERA_BOUNDS.x,
+    HOLLYWOOD_CAMERA_BOUNDS.width,
+    cameraWidth,
+  )
+  const scrollY = fittedScroll(
+    HOLLYWOOD_DISTRICT_HEIGHT / 2 - cameraHeight / 2,
+    HOLLYWOOD_CAMERA_BOUNDS.y,
+    HOLLYWOOD_CAMERA_BOUNDS.height,
+    cameraHeight,
+  )
+  await canvas.click({
+    position: {
+      x: (point.x - scrollX) * zoom,
+      y: (point.y - scrollY) * zoom,
+    },
+  })
 }
 
 const shot = (page: Page, name: string) => page.screenshot({ path: join(outDir, `${name}.png`) })
@@ -255,4 +344,244 @@ test('R. all nine destinations are visible by default at 1366x768 and 1280x720',
     }
     await shot(page, `nav-fit-${label}`)
   }
+})
+
+// ── World-First Scenery Load-In V1 ───────────────────────────────────────────
+// These journeys restore the dedicated native SaveFileV11 fixtures. They exercise
+// the ordinary-player Hollywood surface: Engine truth changes; the lot only selects,
+// dispatches the field-exact projected command, and acknowledges accepted outcomes.
+
+test('scenery load-in enters from the physical yard and semantic problem, then clears and schedules in one live lot', async ({ page }) => {
+  await seedSceneryLoadIn(page, 'blocked')
+  await openSceneryLoadInLot(page)
+
+  const originalUrl = page.url()
+  const canvas = page.getByTestId('studio-lot-canvas').locator('canvas')
+  await canvas.evaluate((node) => node.setAttribute('data-scenery-load-in-mount', 'original'))
+
+  // Physical world entry: click the manifest-authoritative service-yard load-in anchor.
+  await expect(page.getByTestId('hollywood-scenery-load-in-context')).toHaveCount(0)
+  await clickHollywoodWorldPoint(page, SCENERY_LOAD_IN_WORLD_POINT)
+  await expect(page.getByTestId('hollywood-scenery-load-in-context')).toContainText('Scenery & Service')
+  await expect(page.getByTestId('hollywood-scenery-load-in-route')).toContainText('Nights of Watchtower')
+  await expect(page.getByTestId('hollywood-scenery-load-in-route')).toContainText('Soundstage 7 + Scenery Shop')
+  await expect(page.getByTestId('hollywood-scenery-load-in-status')).toContainText('blocked')
+  await shot(page, 'scenery-load-in-physical-entry-blocked')
+
+  // Leave that context without leaving the world, then enter through the visible problem.
+  await page.getByTestId('hollywood-select-person-t-dir-01').click()
+  await expect(page.getByTestId('hollywood-scenery-load-in-context')).toHaveCount(0)
+  const problem = page.getByTestId('hollywood-production-blocker')
+  await expect(problem).toHaveAttribute('data-world-problem', 'service-yard')
+  await problem.click()
+  const clear = page.getByTestId('hollywood-production-command-clearSceneryLoadIn')
+  await expect(clear).toBeFocused()
+  const sweepWindowStarted = await page.evaluate(() => performance.now())
+  await clear.click()
+
+  // The authoritative replacement is immediately ready and exposes the next legal action.
+  await expect(page.getByTestId('hollywood-scenery-load-in-status')).toContainText('ready')
+  const schedule = page.getByTestId('hollywood-production-command-scheduleShootingTake')
+  await expect(schedule).toBeEnabled()
+  await expect(schedule).toBeFocused()
+  await expect(canvas).toHaveAttribute('data-scenery-load-in-mount', 'original')
+  await schedule.click()
+  const sweepWindowElapsed = await page.evaluate(
+    (started) => performance.now() - started,
+    sweepWindowStarted,
+  )
+  expect(sweepWindowElapsed, 'Schedule lands during the 1200ms cosmetic sweep').toBeLessThan(1200)
+  await expect(page.getByTestId('hollywood-scenery-load-in-context')).toHaveCount(0)
+  await expect(page.getByTestId('hollywood-task-status-prod-0026')).toContainText('scheduled')
+  await page.waitForTimeout(1250)
+  await expect(page.getByTestId('hollywood-activity-message')).toHaveCount(0)
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
+  await expect(canvas).toHaveAttribute('data-scenery-load-in-mount', 'original')
+  expect(page.url()).toBe(originalUrl)
+  await shot(page, 'scenery-load-in-cleared-and-scheduled')
+})
+
+test('scenery load-in direct ready reload paints ready truth without replaying delivery', async ({ page }) => {
+  await seedSceneryLoadIn(page, 'ready')
+  await openSceneryLoadInLot(page)
+
+  await expect(page.locator('.hollywood-activity')).toHaveCount(0)
+  await clickHollywoodWorldPoint(page, SCENERY_LOAD_IN_WORLD_POINT)
+  await expect(page.getByTestId('hollywood-scenery-load-in-context')).toContainText('Delivered')
+  await expect(page.getByTestId('hollywood-scenery-load-in-status')).toContainText('ready')
+  await expect(page.getByTestId('hollywood-production-command-scheduleShootingTake')).toBeEnabled()
+  await expect(page.locator('.hollywood-activity')).toHaveCount(0)
+
+  // A direct SaveFileV11 reload is authoritative ready state, not a blocked→ready event.
+  await page.reload()
+  await expect(page.getByTestId('recovery-notice')).toContainText('Week 30')
+  await openSceneryLoadInLot(page)
+  await expect(page.locator('.hollywood-activity')).toHaveCount(0)
+  await clickHollywoodWorldPoint(page, SCENERY_LOAD_IN_WORLD_POINT)
+  await expect(page.getByTestId('hollywood-scenery-load-in-context')).toContainText('Delivered')
+  await expect(page.getByTestId('hollywood-production-command-scheduleShootingTake')).toBeFocused()
+  await expect(page.locator('.hollywood-activity')).toHaveCount(0)
+})
+
+test('scenery load-in semantic command path survives renderer construction failure', async ({ page }) => {
+  // Abort only the lazy renderer module. The React companion remains the complete path.
+  await page.route('**/src/lot/StudioLotView.ts*', (route) => route.abort())
+  await seedSceneryLoadIn(page, 'blocked')
+  await page.getByTestId('open-studio-lot').click()
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
+  await expect(page.getByTestId('lot-canvas-fallback')).toBeVisible()
+  await expect(page.getByTestId('studio-lot-canvas').locator('canvas')).toHaveCount(0)
+
+  const serviceYard = page.getByTestId('lot-nav-service-yard')
+  await expect(serviceYard).toBeVisible()
+  await serviceYard.focus()
+  await page.keyboard.press('Enter')
+  await expect(page.getByTestId('hollywood-scenery-load-in-context')).toContainText('Blocked')
+  await expect(page.getByTestId('hollywood-production-command-clearSceneryLoadIn')).toBeFocused()
+  await page.keyboard.press('Space')
+  await expect(page.getByTestId('hollywood-scenery-load-in-context')).toContainText('Delivered')
+  const schedule = page.getByTestId('hollywood-production-command-scheduleShootingTake')
+  await expect(schedule).toBeFocused()
+  await schedule.click()
+  await expect(page.getByTestId('hollywood-scenery-load-in-context')).toHaveCount(0)
+  await expect(page.getByTestId('hollywood-task-status-prod-0026')).toContainText('scheduled')
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
+  await shot(page, 'scenery-load-in-renderer-fallback')
+})
+
+test('scenery load-in reduced motion acknowledges accepted delivery immediately', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await seedSceneryLoadIn(page, 'blocked')
+  await openSceneryLoadInLot(page)
+  await expect(page.getByTestId('studio-lot-screen')).toHaveClass(/lot-reduced-motion/)
+
+  await page.getByTestId('hollywood-production-blocker').click()
+  await page.getByTestId('hollywood-production-command-clearSceneryLoadIn').click()
+  await expect(page.getByTestId('hollywood-scenery-load-in-status')).toContainText('ready')
+  await expect(page.getByTestId('hollywood-production-command-scheduleShootingTake')).toBeEnabled()
+  await expect(page.locator('.hollywood-activity')).toHaveText(
+    'Nights of Watchtower scenery reached Soundstage 7. The shooting take is ready to schedule.',
+  )
+  await page.getByTestId('hollywood-production-command-scheduleShootingTake').click()
+  await expect(page.getByTestId('hollywood-scenery-load-in-context')).toHaveCount(0)
+  await expect(page.getByTestId('hollywood-task-status-prod-0026')).toContainText('scheduled')
+  await expect(page.getByTestId('hollywood-activity-message')).toHaveCount(0)
+  await shot(page, 'scenery-load-in-reduced-motion')
+})
+
+test('generic physical service yard remains inspectable without exact scenery authority', async ({ page }) => {
+  await page.addInitScript(([hollywoodFlag]) => {
+    localStorage.setItem(hollywoodFlag as string, '1')
+  }, [OPERATION_HOLLYWOOD_FLAG_KEY] as const)
+  await seed(page, 'empty')
+  await openLot(page)
+
+  await expect(page.getByTestId('lot-nav-service-yard')).toHaveCount(0)
+  await clickHollywoodWorldPoint(page, SCENERY_LOAD_IN_WORLD_POINT)
+  await expect(page.getByTestId('hollywood-scenery-load-in-context')).toHaveCount(0)
+  await expect(page.getByTestId('hollywood-inspector')).toContainText('SELECTED PLACE')
+  await expect(page.getByTestId('hollywood-inspector')).toContainText('Scenery & Service')
+})
+
+test('scenery load-in remains reachable across governed viewports and maximum world zoom', async ({ page }) => {
+  const productWarnings: string[] = []
+  const productErrors: string[] = []
+  const failedRequests: string[] = []
+  page.on('console', (message) => {
+    const text = message.text()
+    if (message.type() === 'error') productErrors.push(text)
+    if (
+      message.type() === 'warning' &&
+      !/GL Driver Message|GPU stall due to ReadPixels/i.test(text)
+    ) productWarnings.push(text)
+  })
+  page.on('pageerror', (error) => productErrors.push(error.message))
+  page.on('requestfailed', (request) => {
+    failedRequests.push(`${request.method()} ${request.url()} — ${request.failure()?.errorText ?? 'failed'}`)
+  })
+
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await seedSceneryLoadIn(page, 'blocked')
+  await openSceneryLoadInLot(page)
+
+  for (const [label, width, height] of [
+    ['1280x720', 1280, 720],
+    ['1366x768', 1366, 768],
+    ['1440x900', 1440, 900],
+    ['1920x1080', 1920, 1080],
+    ['1536x864', 1536, 864],
+    ['1024x768', 1024, 768],
+    ['960x540', 960, 540],
+  ] as const) {
+    await page.setViewportSize({ width, height })
+    await page.evaluate(() => window.scrollTo(0, 0))
+    const serviceYard = page.getByTestId('lot-nav-service-yard')
+    await serviceYard.focus()
+    await expect(serviceYard).toBeVisible()
+    const serviceBox = await serviceYard.boundingBox()
+    expect(serviceBox, `service-yard @ ${label} has a box`).not.toBeNull()
+    expect(serviceBox!.x, `service-yard left within ${label}`).toBeGreaterThanOrEqual(0)
+    expect(serviceBox!.x + serviceBox!.width, `service-yard right within ${label}`).toBeLessThanOrEqual(width + 1)
+    expect(serviceBox!.y, `service-yard top within ${label}`).toBeGreaterThanOrEqual(0)
+    expect(serviceBox!.y + serviceBox!.height, `service-yard bottom within ${label}`).toBeLessThanOrEqual(height + 1)
+    await page.keyboard.press('Enter')
+
+    const command = page.getByTestId('hollywood-production-command-clearSceneryLoadIn')
+    await expect(command).toBeFocused()
+    await command.scrollIntoViewIfNeeded()
+    await expect(command).toBeVisible()
+    const commandBox = await command.boundingBox()
+    expect(commandBox, `command @ ${label} has a box`).not.toBeNull()
+    expect(commandBox!.x, `command left within ${label}`).toBeGreaterThanOrEqual(0)
+    expect(commandBox!.x + commandBox!.width, `command right within ${label}`).toBeLessThanOrEqual(width + 1)
+    expect(commandBox!.y, `command top within ${label}`).toBeGreaterThanOrEqual(0)
+    expect(commandBox!.y + commandBox!.height, `command bottom within ${label}`).toBeLessThanOrEqual(height + 1)
+
+    const productionBox = await page.getByTestId('hollywood-current-production').boundingBox()
+    const contextBox = await page.getByTestId('hollywood-scenery-load-in-context').boundingBox()
+    expect(productionBox, `production @ ${label} has a box`).not.toBeNull()
+    expect(contextBox, `scenery context @ ${label} has a box`).not.toBeNull()
+    expect(contextBox!.x, `context left within ${label}`).toBeGreaterThanOrEqual(0)
+    expect(contextBox!.x + contextBox!.width, `context right within ${label}`).toBeLessThanOrEqual(width + 1)
+    expect(contextBox!.y, `context top within ${label}`).toBeGreaterThanOrEqual(0)
+    expect(contextBox!.y + contextBox!.height, `context bottom within ${label}`).toBeLessThanOrEqual(height + 1)
+    const overlapWidth = Math.max(
+      0,
+      Math.min(productionBox!.x + productionBox!.width, contextBox!.x + contextBox!.width) -
+        Math.max(productionBox!.x, contextBox!.x),
+    )
+    const overlapHeight = Math.max(
+      0,
+      Math.min(productionBox!.y + productionBox!.height, contextBox!.y + contextBox!.height) -
+        Math.max(productionBox!.y, contextBox!.y),
+    )
+    expect(overlapWidth * overlapHeight, `production/context overlap @ ${label}`).toBe(0)
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth),
+      `page-level horizontal overflow @ ${label}`,
+    ).toBe(false)
+    await shot(page, `scenery-load-in-responsive-${label}`)
+  }
+
+  // Phaser clamps repeated wheel-up input at 1.85× fitted zoom. DOM management
+  // remains reachable while the world itself is at the authored maximum.
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.evaluate(() => window.scrollTo(0, 0))
+  const canvas = page.getByTestId('studio-lot-canvas').locator('canvas')
+  const canvasBox = await canvas.boundingBox()
+  expect(canvasBox).not.toBeNull()
+  await canvas.hover({ position: { x: canvasBox!.width / 2, y: canvasBox!.height / 2 } })
+  for (let step = 0; step < 12; step++) await page.mouse.wheel(0, -600)
+  await expect(page.getByTestId('hollywood-scenery-load-in-context')).toContainText(
+    'Nights of Watchtower',
+  )
+  await expect(page.getByTestId('hollywood-production-command-clearSceneryLoadIn')).toBeVisible()
+  await expect(canvas).toHaveCount(1)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(false)
+  await shot(page, 'scenery-load-in-maximum-world-zoom')
+
+  await page.waitForTimeout(250)
+  expect(productWarnings, 'zero product warnings across governed viewports').toEqual([])
+  expect(productErrors, 'zero product errors across governed viewports').toEqual([])
+  expect(failedRequests, 'zero failed requests across governed viewports').toEqual([])
 })

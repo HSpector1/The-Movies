@@ -5,9 +5,11 @@ const runtime = vi.hoisted(() => {
     productionId: string
     locationBuildingId: 'stage-a'
   }
+  type SceneryLoadInSelection = ProductionSelection & { placeId: 'service-yard' }
   type Event =
     | { type: 'ready' }
     | { type: 'production'; production: ProductionSelection }
+    | { type: 'scenery-load-in'; sceneryLoadIn: SceneryLoadInSelection }
 
   class Events {
     handlers = new Map<string, () => void>()
@@ -19,15 +21,22 @@ const runtime = vi.hoisted(() => {
     data: { reducedMotion?: boolean; onEvent: (event: Event) => void } | null = null
     reduced: boolean[] = []
     productionSelections: string[] = []
+    sceneryLoadInSelections: string[] = []
+    sceneryLoadInSelectionResult = true
     annexSelections = 0
     annexSelectionResult = true
     telemetryResets = 0
+    snapshotsApplied: unknown[] = []
     setReducedMotion(on: boolean) { this.reduced.push(on) }
     resetPerformanceTelemetry() { this.telemetryResets++ }
-    applySnapshot() {}
+    applySnapshot(snapshot: unknown) { this.snapshotsApplied.push(snapshot) }
     selectProductionFromHost(productionId: string) {
       this.productionSelections.push(productionId)
       return true
+    }
+    selectSceneryLoadInFromHost(productionId: string) {
+      this.sceneryLoadInSelections.push(productionId)
+      return this.sceneryLoadInSelectionResult
     }
     selectAnnexFromHost() {
       this.annexSelections++
@@ -35,6 +44,9 @@ const runtime = vi.hoisted(() => {
     }
     emitProduction(production: ProductionSelection) {
       this.data?.onEvent({ type: 'production', production })
+    }
+    emitSceneryLoadIn(sceneryLoadIn: SceneryLoadInSelection) {
+      this.data?.onEvent({ type: 'scenery-load-in', sceneryLoadIn })
     }
   }
 
@@ -144,6 +156,40 @@ describe('StudioLotView Hollywood lifecycle', () => {
     expect(scene.annexSelections).toBe(2)
   })
 
+  it('forwards exact scenery identity and returns truthful host-selection parity', () => {
+    const onHollywoodSceneryLoadIn = vi.fn()
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+      onHollywoodSceneryLoadIn,
+    })
+    const game = runtime.games.at(-1)!
+
+    expect(view.selectHollywoodSceneryLoadIn('production-stage-7')).toBe(false)
+    game.events.emit('ready')
+    const scene = game.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+    const exact = {
+      productionId: 'production-stage-7',
+      locationBuildingId: 'stage-a' as const,
+      placeId: 'service-yard' as const,
+    }
+
+    scene.emitSceneryLoadIn(exact)
+    expect(onHollywoodSceneryLoadIn).toHaveBeenCalledOnce()
+    expect(onHollywoodSceneryLoadIn).toHaveBeenCalledWith(exact)
+
+    onHollywoodSceneryLoadIn.mockClear()
+    expect(view.selectHollywoodSceneryLoadIn(exact.productionId)).toBe(true)
+    expect(scene.sceneryLoadInSelections).toEqual([exact.productionId])
+    expect(onHollywoodSceneryLoadIn).not.toHaveBeenCalled()
+
+    scene.sceneryLoadInSelectionResult = false
+    expect(view.selectHollywoodSceneryLoadIn(exact.productionId)).toBe(false)
+    expect(scene.sceneryLoadInSelections).toEqual([exact.productionId, exact.productionId])
+    expect(onHollywoodSceneryLoadIn).not.toHaveBeenCalled()
+  })
+
   it('retains pre-ready reduced motion, forwards later changes, and pauses the Hollywood scene', () => {
     const view = new StudioLotView({
       parent: document.createElement('div'),
@@ -169,6 +215,7 @@ describe('StudioLotView Hollywood lifecycle', () => {
     view.resume()
     expect(game.scene.isActive('hollywood')).toBe(true)
     expect(game.loop.wake).toHaveBeenCalledOnce()
+    expect(scene.snapshotsApplied).toEqual([snapshot])
     expect(scene.telemetryResets).toBe(1)
   })
 })

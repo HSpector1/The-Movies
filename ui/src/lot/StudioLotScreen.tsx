@@ -36,6 +36,7 @@ import type {
   StudioLotSnapshot,
 } from './snapshot/StudioLotSnapshot.ts'
 import { ALL_BUILDING_IDS, BUILDING_ACTION, BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
+import { sceneryLoadInContext } from './snapshot/sceneryLoadIn.ts'
 import { lotStageAssignment } from './snapshot/stageAssignment.ts'
 import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
@@ -43,6 +44,7 @@ import type {
   HollywoodPerformance,
   HollywoodPlaceSelection,
   HollywoodProductionSelection,
+  HollywoodSceneryLoadInSelection,
 } from './hollywood/HollywoodScene.ts'
 import {
   studioLotIdentityEnabled,
@@ -60,6 +62,30 @@ import type { IdentityMode } from './identity/manifest.ts'
 // building geometrically underneath it and unmount before the later `click`.
 const containWorldInput = (event: { stopPropagation(): void }) => {
   event.stopPropagation()
+}
+
+type SceneryLoadInPresentationState = 'blocked' | 'ready'
+
+// Commands in this slice are flat projection records. Compare their complete own-field
+// sets so an activation rendered from an older projection can never borrow a legal
+// successor command merely because the production identity stayed the same.
+function isFieldExactSceneryCommand(
+  rendered: LotProductionCommand,
+  latest: LotProductionCommand,
+): boolean {
+  if (
+    (rendered.kind !== 'clearSceneryLoadIn' && rendered.kind !== 'scheduleShootingTake') ||
+    (latest.kind !== 'clearSceneryLoadIn' && latest.kind !== 'scheduleShootingTake')
+  ) return false
+
+  const renderedFields = Object.entries(rendered)
+  const latestFields = latest as unknown as Record<string, unknown>
+  return (
+    renderedFields.length === Object.keys(latest).length &&
+    renderedFields.every(([key, value]) => (
+      Object.prototype.hasOwnProperty.call(latest, key) && latestFields[key] === value
+    ))
+  )
 }
 import './lot.css'
 
@@ -174,6 +200,31 @@ function hasExactAnnexProjection(
   return matches.length === 1 && matches[0]?.constructionStatus === view.status
 }
 
+function hasExactScheduledStage7Operation(
+  snapshot: StudioLotSnapshot,
+  productionId: string,
+): boolean {
+  if (
+    snapshot.operationsMode !== 'managed' ||
+    snapshot.stageAssignmentAuthority !== 'engine'
+  ) return false
+  const stage7 = (snapshot.productionOperations ?? []).filter(
+    (operation) => operation.locationBuildingId === 'stage-a',
+  )
+  return (
+    stage7.length === 1 &&
+    stage7[0]?.productionId === productionId &&
+    stage7[0].phase === 'shooting' &&
+    stage7[0].taskStatus === 'scheduled' &&
+    stage7[0].blocker === null &&
+    stage7[0].currentCommand === null
+  )
+}
+
+function sceneryArrivalActivity(title: string): string {
+  return `${title} scenery reached Soundstage 7. The shooting take is ready to schedule.`
+}
+
 export function StudioLotScreen({
   state,
   onNavigate,
@@ -200,8 +251,14 @@ export function StudioLotScreen({
   const hollywood = operationHollywoodEnabled()
   const [hollywoodPerson, setHollywoodPerson] = useState<LotPersonState | null>(null)
   const [hollywoodPlace, setHollywoodPlace] = useState<HollywoodPlaceSelection | null>(null)
-  const [hollywoodProductionId, setHollywoodProductionId] = useState<string | null>(null)
+  // undefined = default desk orientation, null = an explicit empty desk, string =
+  // one exact selected production. The distinction lets stale world contexts fail
+  // empty instead of silently falling back to whichever film is now first.
+  const [hollywoodProductionId, setHollywoodProductionId] = useState<string | null | undefined>(undefined)
+  const [hollywoodSceneryLoadInProductionId, setHollywoodSceneryLoadInProductionId] = useState<string | null>(null)
+  const [hollywoodSceneryCommandPending, setHollywoodSceneryCommandPending] = useState(false)
   const [hollywoodActivity, setHollywoodActivity] = useState<string | null>(null)
+  const [hollywoodActivitySerial, setHollywoodActivitySerial] = useState(0)
   const [hollywoodPerf, setHollywoodPerf] = useState<HollywoodPerformance | null>(null)
   const [annexSelected, setAnnexSelected] = useState(false)
   const [annexPending, setAnnexPending] = useState(false)
@@ -210,6 +267,15 @@ export function StudioLotScreen({
   const hollywoodCommandRef = useRef<HTMLButtonElement | null>(null)
   const hollywoodTaskStatusRef = useRef<HTMLDivElement | null>(null)
   const pendingHollywoodFocusProductionId = useRef<string | null>(null)
+  const hollywoodSceneryLoadInProductionIdRef = useRef<string | null>(null)
+  const pendingHollywoodSceneryFocusProductionId = useRef<string | null>(null)
+  const hollywoodSceneryCommandPendingRef = useRef(false)
+  const hollywoodSceneryCommandHeldKeyRef = useRef<'Enter' | ' ' | null>(null)
+  const hollywoodSceneryArrivalActivityRef = useRef<string | null>(null)
+  const acceptedHollywoodSceneryCommandRef = useRef<{
+    productionId: string
+    kind: 'clearSceneryLoadIn' | 'scheduleShootingTake'
+  } | null>(null)
   const annexBuildRef = useRef<HTMLButtonElement | null>(null)
   const annexStatusRef = useRef<HTMLDivElement | null>(null)
   const annexSelectedRef = useRef(false)
@@ -219,6 +285,13 @@ export function StudioLotScreen({
   const onStartAnnexRef = useRef(onStartDevelopmentCastingAnnex)
   onStartAnnexRef.current = onStartDevelopmentCastingAnnex
   const whisperOffer = publicityDecision(state).find((offer) => offer.tier === 'whisper')
+
+  // Keep one live-region owner while replacing its child for every real event. An
+  // identical second Engine rejection is still a distinct accessibility announcement.
+  const announceHollywoodActivity = useCallback((activity: string) => {
+    setHollywoodActivitySerial((serial) => serial + 1)
+    setHollywoodActivity(activity)
+  }, [])
 
   // ── Identity gating: two INDEPENDENT capabilities (owner ruling: player enablement) ──────
   // `playerIdentity` is the ORDINARY-PLAYER content gate (default ON): it shows the approved
@@ -289,6 +362,16 @@ export function StudioLotScreen({
   const [operationalAnnouncement, setOperationalAnnouncement] = useState('')
   const completionAnnouncementOwnedRef = useRef(suppressOperationalAnnouncement)
   const hollywoodOperations = snapshot.productionOperations ?? []
+  const currentSceneryLoadInContext = sceneryLoadInContext(snapshot)
+  const selectedSceneryLoadInContext =
+    hollywoodSceneryLoadInProductionId !== null &&
+    currentSceneryLoadInContext?.operation.productionId === hollywoodSceneryLoadInProductionId
+      ? currentSceneryLoadInContext
+      : null
+  const exactReadySceneryArrival = currentSceneryLoadInContext?.state === 'ready'
+    ? sceneryArrivalActivity(currentSceneryLoadInContext.operation.title)
+    : null
+  hollywoodSceneryLoadInProductionIdRef.current = hollywoodSceneryLoadInProductionId
   const latestSnapshotRef = useRef(snapshot)
   latestSnapshotRef.current = snapshot
   const latestAnnexViewRef = useRef(annexView)
@@ -299,22 +382,81 @@ export function StudioLotScreen({
     hasManagedEngineOperations
       ? hollywoodOperations.find((operation) => operation.locationBuildingId === 'stage-a') ?? null
       : null
-  const explicitlySelectedHollywoodOperation = hollywoodProductionId === null
+  const explicitlySelectedHollywoodOperation = typeof hollywoodProductionId !== 'string'
     ? null
     : hollywoodOperations.find((operation) => operation.productionId === hollywoodProductionId) ?? null
+  const sceneryContextInvalidated =
+    hollywoodSceneryLoadInProductionId !== null && selectedSceneryLoadInContext === null
+  const locallyAcceptedScenerySchedule =
+    sceneryContextInvalidated &&
+    acceptedHollywoodSceneryCommandRef.current?.kind === 'scheduleShootingTake' &&
+    acceptedHollywoodSceneryCommandRef.current.productionId === hollywoodSceneryLoadInProductionId &&
+    hasExactScheduledStage7Operation(snapshot, hollywoodSceneryLoadInProductionId)
   const hollywoodOperation: ProductionOperationsState | null =
-    hollywoodProductionId === null
+    sceneryContextInvalidated && !locallyAcceptedScenerySchedule
+      ? null
+      : hollywoodProductionId === undefined
       ? hasManagedEngineOperations
         ? hollywoodStage7Operation ?? (hollywoodOperations.length === 1 ? hollywoodOperations[0]! : null)
         : hollywoodOperations[0] ?? null
+      : hollywoodProductionId === null
+        ? null
       : explicitlySelectedHollywoodOperation
   const renderedHollywoodProductionIdRef = useRef<string | null>(hollywoodOperation?.productionId ?? null)
   renderedHollywoodProductionIdRef.current = hollywoodOperation?.productionId ?? null
+
+  const recordHollywoodRendererActivity = useCallback((activity: string) => {
+    const current = latestSnapshotRef.current
+    const stage7 = (current.productionOperations ?? []).filter(
+      (operation) => operation.locationBuildingId === 'stage-a',
+    )
+    const operation = stage7.length === 1 ? stage7[0]! : null
+    // Scheduled Stage 7 truth supersedes a cancelled delivery sweep. Do not show
+    // a contradictory “ready to schedule” toast beside “take scheduled”.
+    if (
+      operation !== null &&
+      hasExactScheduledStage7Operation(current, operation.productionId) &&
+      activity === sceneryArrivalActivity(operation.title)
+    ) return
+    const exact = sceneryLoadInContext(current)
+    if (
+      exact?.state === 'ready' &&
+      activity === sceneryArrivalActivity(exact.operation.title)
+    ) {
+      hollywoodSceneryArrivalActivityRef.current = activity
+    }
+    announceHollywoodActivity(activity)
+  }, [announceHollywoodActivity])
+
+  // Arrival feedback belongs only to exact ready-to-schedule truth. This also
+  // covers the generic Stage 7 inspector path, where no dedicated service-yard
+  // selection is owned when an external or locally dispatched schedule arrives.
+  useEffect(() => {
+    const arrival = hollywoodSceneryArrivalActivityRef.current
+    if (arrival === null || exactReadySceneryArrival === arrival) return
+    setHollywoodActivity((visible) => visible === arrival ? null : visible)
+    hollywoodSceneryArrivalActivityRef.current = null
+  }, [exactReadySceneryArrival])
 
   const recordSelection = useCallback((id: BuildingId | null) => {
     sessionSelectedBuilding = id
     setSelected(id)
   }, [])
+
+  const clearHollywoodSceneryLoadInReactContext = useCallback(() => {
+    hollywoodSceneryLoadInProductionIdRef.current = null
+    pendingHollywoodSceneryFocusProductionId.current = null
+    hollywoodSceneryCommandPendingRef.current = false
+    hollywoodSceneryCommandHeldKeyRef.current = null
+    acceptedHollywoodSceneryCommandRef.current = null
+    setHollywoodSceneryLoadInProductionId(null)
+    setHollywoodSceneryCommandPending(false)
+  }, [])
+
+  const clearHollywoodSceneryLoadInContext = useCallback(() => {
+    clearHollywoodSceneryLoadInReactContext()
+    viewRef.current?.clearHollywoodPlaceSelection?.()
+  }, [clearHollywoodSceneryLoadInReactContext])
 
   const clearAnnexContext = useCallback(() => {
     annexSelectedRef.current = false
@@ -344,6 +486,7 @@ export function StudioLotScreen({
   }): boolean => {
     if (!hasExactAnnexProjection(latestSnapshotRef.current, latestAnnexViewRef.current)) return false
 
+    clearHollywoodSceneryLoadInContext()
     annexSelectedRef.current = true
     annexAcceptedFocusRef.current = false
     setAnnexSelected(true)
@@ -361,7 +504,54 @@ export function StudioLotScreen({
     }
     if (options.focus) focusSelectedAnnex()
     return true
-  }, [focusSelectedAnnex, recordSelection])
+  }, [clearHollywoodSceneryLoadInContext, focusSelectedAnnex, recordSelection])
+
+  const enterHollywoodSceneryLoadInContext = useCallback((
+    selection: HollywoodSceneryLoadInSelection,
+    options: { paintHollywoodOutline: boolean; focus: boolean },
+  ): boolean => {
+    if (
+      !hollywood ||
+      selection.placeId !== 'service-yard' ||
+      selection.locationBuildingId !== 'stage-a'
+    ) return false
+    const exact = sceneryLoadInContext(latestSnapshotRef.current)
+    if (
+      exact === null ||
+      exact.operation.productionId !== selection.productionId
+    ) return false
+
+    hollywoodSceneryLoadInProductionIdRef.current = selection.productionId
+    setHollywoodSceneryLoadInProductionId(selection.productionId)
+    setHollywoodProductionId(selection.productionId)
+    setHollywoodPerson(null)
+    setHollywoodPlace(null)
+    setSelectionInfo(null)
+    clearAnnexContext()
+    recordSelection(null)
+    pendingHollywoodFocusProductionId.current = null
+    viewRef.current?.clearHollywoodPersonSelection?.()
+    viewRef.current?.clearHollywoodPlaceSelection?.()
+    if (options.paintHollywoodOutline) {
+      // A false result means no canonical renderer/manifest is available. The
+      // native context remains complete and does not invent a physical outline.
+      viewRef.current?.selectHollywoodSceneryLoadIn?.(selection.productionId)
+    }
+    if (options.focus) {
+      pendingHollywoodSceneryFocusProductionId.current = selection.productionId
+      queueMicrotask(() => {
+        if (
+          hollywoodSceneryLoadInProductionIdRef.current !== selection.productionId ||
+          pendingHollywoodSceneryFocusProductionId.current !== selection.productionId
+        ) return
+        const target = hollywoodCommandRef.current ?? hollywoodTaskStatusRef.current
+        if (target === null) return
+        target.focus({ preventScroll: true })
+        pendingHollywoodSceneryFocusProductionId.current = null
+      })
+    }
+    return true
+  }, [clearAnnexContext, hollywood, recordSelection])
 
   const enterHollywoodProductionContext = useCallback((
     productionId: string,
@@ -378,6 +568,7 @@ export function StudioLotScreen({
     )
     if (!exact) return false
 
+    clearHollywoodSceneryLoadInContext()
     setHollywoodProductionId(exact.productionId)
     setHollywoodPerson(null)
     setHollywoodPlace(null)
@@ -404,7 +595,7 @@ export function StudioLotScreen({
       })
     }
     return true
-  }, [clearAnnexContext, recordSelection])
+  }, [clearAnnexContext, clearHollywoodSceneryLoadInContext, recordSelection])
 
   const recordHollywoodProduction = useCallback((
     production: HollywoodProductionSelection,
@@ -412,6 +603,15 @@ export function StudioLotScreen({
     if (production.locationBuildingId !== 'stage-a') return
     enterHollywoodProductionContext(production.productionId, { stage7Only: true, focus: true })
   }, [enterHollywoodProductionContext])
+
+  const recordHollywoodSceneryLoadIn = useCallback((
+    selection: HollywoodSceneryLoadInSelection,
+  ) => {
+    enterHollywoodSceneryLoadInContext(selection, {
+      paintHollywoodOutline: true,
+      focus: true,
+    })
+  }, [enterHollywoodSceneryLoadInContext])
 
   useEffect(() => {
     if (suppressOperationalAnnouncement || advanceFeedback?.constructionCompletion) {
@@ -443,6 +643,7 @@ export function StudioLotScreen({
   const recordHollywoodPerson = useCallback((person: LotPersonState | null) => {
     setHollywoodPerson(person)
     if (person !== null) {
+      clearHollywoodSceneryLoadInContext()
       clearAnnexContext()
       setSelectionInfo(null)
       recordSelection(null)
@@ -457,9 +658,13 @@ export function StudioLotScreen({
       // director/lead of Film B must never leave Film A's command underneath their name.
       setHollywoodProductionId(person.productionId)
     }
-  }, [clearAnnexContext, recordSelection])
+  }, [clearAnnexContext, clearHollywoodSceneryLoadInContext, recordSelection])
 
   const recordHollywoodPlace = useCallback((place: HollywoodPlaceSelection | null) => {
+    // The scene has already painted a non-null physical place selection before
+    // emitting this event. Leave that generic outline intact while dropping only
+    // a previously owned React scenery context.
+    if (place !== null) clearHollywoodSceneryLoadInReactContext()
     if (
       place !== null &&
       place.id === 'annex-parcel' &&
@@ -477,7 +682,12 @@ export function StudioLotScreen({
       recordSelection(place.buildingId)
       viewRef.current?.clearHollywoodPersonSelection()
     }
-  }, [clearAnnexContext, enterAnnexContext, recordSelection])
+  }, [
+    clearAnnexContext,
+    clearHollywoodSceneryLoadInReactContext,
+    enterAnnexContext,
+    recordSelection,
+  ])
 
   // State replacement/save reload can remove a previously selected person. The current
   // snapshot, not the old scene event, decides whether that inspection remains valid.
@@ -531,7 +741,7 @@ export function StudioLotScreen({
   // may remove or relocate it; in that case the context stays empty until the player
   // makes a fresh selection and no pending focus can attach to a future command.
   useEffect(() => {
-    if (hollywoodProductionId === null || explicitlySelectedHollywoodOperation !== null) return
+    if (typeof hollywoodProductionId !== 'string' || explicitlySelectedHollywoodOperation !== null) return
     pendingHollywoodFocusProductionId.current = null
   }, [explicitlySelectedHollywoodOperation, hollywoodProductionId])
 
@@ -551,6 +761,70 @@ export function StudioLotScreen({
     target.focus()
     pendingHollywoodFocusProductionId.current = null
   }, [hollywoodOperation, hollywoodPlace])
+
+  useEffect(() => {
+    const productionId = pendingHollywoodSceneryFocusProductionId.current
+    if (
+      productionId === null ||
+      selectedSceneryLoadInContext?.operation.productionId !== productionId
+    ) return
+    const target = selectedSceneryLoadInContext.operation.currentCommand
+      ? hollywoodCommandRef.current
+      : hollywoodTaskStatusRef.current
+    if (target === null) return
+    target.focus({ preventScroll: true })
+    pendingHollywoodSceneryFocusProductionId.current = null
+  }, [selectedSceneryLoadInContext])
+
+  // Dedicated load-in context survives only exact blocked → ready continuity.
+  // Accepted schedule alone transitions the selection back to exact Stage 7;
+  // stale/external disappearance fails empty and never substitutes another film.
+  useEffect(() => {
+    const productionId = hollywoodSceneryLoadInProductionId
+    if (productionId === null) return
+    const accepted = acceptedHollywoodSceneryCommandRef.current
+    if (selectedSceneryLoadInContext?.operation.productionId === productionId) {
+      if (accepted?.kind === 'clearSceneryLoadIn' && selectedSceneryLoadInContext.state === 'ready') {
+        acceptedHollywoodSceneryCommandRef.current = null
+        hollywoodSceneryCommandPendingRef.current = false
+        setHollywoodSceneryCommandPending(false)
+        pendingHollywoodSceneryFocusProductionId.current = productionId
+        setHollywoodActivity((current) =>
+          current?.startsWith('Production command blocked: ') ? null : current,
+        )
+      }
+      return
+    }
+
+    if (
+      accepted?.kind === 'scheduleShootingTake' &&
+      accepted.productionId === productionId &&
+      hasExactScheduledStage7Operation(snapshot, productionId)
+    ) {
+      const arrival = hollywoodSceneryArrivalActivityRef.current
+      setHollywoodActivity((visible) => visible === arrival ? null : visible)
+      hollywoodSceneryArrivalActivityRef.current = null
+      hollywoodSceneryCommandPendingRef.current = false
+      setHollywoodSceneryCommandPending(false)
+      enterHollywoodProductionContext(productionId, { stage7Only: true, focus: true })
+      return
+    }
+
+    // A host-owned scheduled/completed/relocated/absent replacement supersedes a
+    // completed delivery sweep just as decisively as a locally accepted command.
+    // Remove only the matching arrival acknowledgement; unrelated activity stays.
+    const arrival = hollywoodSceneryArrivalActivityRef.current
+    setHollywoodActivity((visible) => visible === arrival ? null : visible)
+    hollywoodSceneryArrivalActivityRef.current = null
+    setHollywoodProductionId(null)
+    clearHollywoodSceneryLoadInContext()
+  }, [
+    clearHollywoodSceneryLoadInContext,
+    enterHollywoodProductionContext,
+    hollywoodSceneryLoadInProductionId,
+    selectedSceneryLoadInContext,
+    snapshot,
+  ])
 
   const dispatchRoute = useCallback((action: LotActionEvent['action']) => {
     const res = resolveAction(action)
@@ -592,6 +866,7 @@ export function StudioLotScreen({
               }
               return
             }
+            clearHollywoodSceneryLoadInContext()
             clearAnnexContext()
             setSelectionInfo(sel)
             recordSelection(sel?.buildingId ?? null)
@@ -601,17 +876,22 @@ export function StudioLotScreen({
               enterAnnexContext({ place: null, paintHollywoodOutline: false, focus: true })
               return
             }
+            clearHollywoodSceneryLoadInContext()
             clearAnnexContext()
             dispatchRoute(e.action)
           },
           onHollywoodPerson: recordHollywoodPerson,
           onHollywoodPlace: recordHollywoodPlace,
           onHollywoodProduction: recordHollywoodProduction,
-          onActivity: (text) => { if (text) setHollywoodActivity(text) },
+          onHollywoodSceneryLoadIn: recordHollywoodSceneryLoadIn,
+          onActivity: (text) => { if (text) recordHollywoodRendererActivity(text) },
           onReady: () => {
             if (cancelled) return
             setCanvasReady(true)
-            if (annexSelectedRef.current) {
+            const sceneryProductionId = hollywoodSceneryLoadInProductionIdRef.current
+            if (sceneryProductionId !== null) {
+              view?.selectHollywoodSceneryLoadIn?.(sceneryProductionId)
+            } else if (annexSelectedRef.current) {
               if (hollywood) view?.selectHollywoodAnnexPlace?.()
               else view?.select('expansion')
             } else if (sessionSelectedBuilding) {
@@ -643,7 +923,10 @@ export function StudioLotScreen({
     const v = viewRef.current
     if (v && canvasReady) {
       v.setSnapshot({ ...readSnapshot(state), selectedBuildingId: sessionSelectedBuilding })
-      if (annexSelectedRef.current) {
+      const sceneryProductionId = hollywoodSceneryLoadInProductionIdRef.current
+      if (sceneryProductionId !== null) {
+        v.selectHollywoodSceneryLoadIn?.(sceneryProductionId)
+      } else if (annexSelectedRef.current) {
         if (hollywood) v.selectHollywoodAnnexPlace?.()
         else v.select('expansion')
       }
@@ -745,6 +1028,17 @@ export function StudioLotScreen({
     enterHollywoodProductionContext(productionId, { stage7Only: true, focus: true })
   }, [enterHollywoodProductionContext])
 
+  const inspectHollywoodSceneryLoadIn = useCallback((productionId: string) => {
+    enterHollywoodSceneryLoadInContext({
+      productionId,
+      locationBuildingId: 'stage-a',
+      placeId: 'service-yard',
+    }, {
+      paintHollywoodOutline: true,
+      focus: true,
+    })
+  }, [enterHollywoodSceneryLoadInContext])
+
   const dispatchHollywoodProductionCommand = useCallback((
     productionId: string,
     command: LotProductionCommand,
@@ -753,13 +1047,116 @@ export function StudioLotScreen({
     const outcome = onProductionCommand?.(command)
     if (outcome && !outcome.ok) {
       pendingHollywoodFocusProductionId.current = null
-      setHollywoodActivity(`Production command blocked: ${outcome.error}`)
+      announceHollywoodActivity(`Production command blocked: ${outcome.error}`)
     } else if (outcome?.ok) {
       setHollywoodActivity((current) =>
         current?.startsWith('Production command blocked: ') ? null : current,
       )
     }
-  }, [onProductionCommand])
+  }, [announceHollywoodActivity, onProductionCommand])
+
+  const dispatchHollywoodSceneryCommand = useCallback((
+    renderedState: SceneryLoadInPresentationState,
+    renderedCommand: LotProductionCommand,
+    clickDetail: number,
+  ) => {
+    // The second click in one native double-click gesture may land after React has
+    // repainted blocked -> ready. It is still the original gesture, not consent to
+    // dispatch the freshly presented Schedule command.
+    if (clickDetail > 1) return
+    if (hollywoodSceneryCommandPendingRef.current || onProductionCommand === undefined) return
+    const current = sceneryLoadInContext(latestSnapshotRef.current)
+    const productionId = renderedCommand.productionId
+    if (
+      current === null ||
+      current.state !== renderedState ||
+      current.operation.productionId !== productionId ||
+      hollywoodSceneryLoadInProductionIdRef.current !== productionId
+    ) return
+    const command = current.operation.currentCommand
+    const expectedKind = renderedState === 'blocked'
+      ? 'clearSceneryLoadIn'
+      : 'scheduleShootingTake'
+    if (
+      command === null ||
+      renderedCommand.kind !== expectedKind ||
+      command.kind !== expectedKind ||
+      command.productionId !== productionId ||
+      !isFieldExactSceneryCommand(renderedCommand, command)
+    ) return
+
+    hollywoodSceneryCommandPendingRef.current = true
+    setHollywoodSceneryCommandPending(true)
+    const outcome = onProductionCommand(command)
+    if (outcome === undefined) {
+      hollywoodSceneryCommandPendingRef.current = false
+      setHollywoodSceneryCommandPending(false)
+      return
+    }
+    if (!outcome.ok) {
+      hollywoodSceneryCommandPendingRef.current = false
+      acceptedHollywoodSceneryCommandRef.current = null
+      setHollywoodSceneryCommandPending(false)
+      announceHollywoodActivity(`Production command blocked: ${outcome.error}`)
+      pendingHollywoodSceneryFocusProductionId.current = productionId
+      queueMicrotask(() => {
+        if (hollywoodSceneryLoadInProductionIdRef.current !== productionId) return
+        hollywoodCommandRef.current?.focus({ preventScroll: true })
+      })
+      return
+    }
+
+    const nextSnapshot = readSnapshot(outcome.next)
+    const accepted = command.kind === 'clearSceneryLoadIn'
+      ? (() => {
+          const next = sceneryLoadInContext(nextSnapshot)
+          return next?.state === 'ready' && next.operation.productionId === productionId
+        })()
+      : hasExactScheduledStage7Operation(nextSnapshot, productionId)
+    if (!accepted) {
+      hollywoodSceneryCommandPendingRef.current = false
+      acceptedHollywoodSceneryCommandRef.current = null
+      setHollywoodSceneryCommandPending(false)
+      announceHollywoodActivity('Production update could not be verified against the latest Studio Lot truth.')
+      return
+    }
+
+    acceptedHollywoodSceneryCommandRef.current = {
+      productionId,
+      kind: command.kind,
+    }
+    setHollywoodActivity((activity) =>
+      activity?.startsWith('Production command blocked: ') ? null : activity,
+    )
+  }, [announceHollywoodActivity, onProductionCommand, readSnapshot])
+
+  const guardHollywoodSceneryCommandKeyDown = useCallback((event: {
+    key: string
+    repeat: boolean
+    preventDefault(): void
+    stopPropagation(): void
+  }) => {
+    containWorldInput(event)
+    if (event.key !== 'Enter' && event.key !== ' ') return
+    if (
+      event.repeat ||
+      hollywoodSceneryCommandHeldKeyRef.current === event.key
+    ) {
+      event.preventDefault()
+      return
+    }
+    hollywoodSceneryCommandHeldKeyRef.current = event.key
+  }, [])
+
+  const releaseHollywoodSceneryCommandKey = useCallback((event: {
+    key: string
+    stopPropagation(): void
+  }) => {
+    containWorldInput(event)
+    if (hollywoodSceneryCommandHeldKeyRef.current === event.key) {
+      hollywoodSceneryCommandHeldKeyRef.current = null
+    }
+  }, [])
 
   const startAnnexConstruction = useCallback(() => {
     if (
@@ -797,7 +1194,7 @@ export function StudioLotScreen({
     const result = runPublicity(state, whisperOffer.tier)
     if (!result.ok) {
       const clean = result.error.replace(/^applyActions: publicity rejected — /, '').replace(/ \(D-17B §2\)$/, '')
-      setHollywoodActivity(`Publicity blocked: ${clean}`)
+      announceHollywoodActivity(`Publicity blocked: ${clean}`)
       viewRef.current?.showHollywoodPublicity(false, `Publicity blocked: ${clean}`)
       return
     }
@@ -805,9 +1202,9 @@ export function StudioLotScreen({
     const awarenessDelta = result.next.studio.standing.audienceAwareness - state.studio.standing.audienceAwareness
     onStateChange?.(result.next)
     const detail = `Publicity call complete · −$${cashDelta.toLocaleString('en-US')} · awareness +${awarenessDelta.toFixed(1)}`
-    setHollywoodActivity(detail)
+    announceHollywoodActivity(detail)
     viewRef.current?.showHollywoodPublicity(true, detail)
-  }, [onStateChange, state, whisperOffer])
+  }, [announceHollywoodActivity, onStateChange, state, whisperOffer])
 
   // Companion-nav activation: select the building AND route to its destination.
   const activate = useCallback(
@@ -843,6 +1240,7 @@ export function StudioLotScreen({
           return
         }
       }
+      clearHollywoodSceneryLoadInContext()
       clearAnnexContext()
       recordSelection(id)
       viewRef.current?.select(id)
@@ -850,6 +1248,7 @@ export function StudioLotScreen({
     },
     [
       clearAnnexContext,
+      clearHollywoodSceneryLoadInContext,
       dispatchRoute,
       enterAnnexContext,
       enterHollywoodProductionContext,
@@ -997,6 +1396,86 @@ export function StudioLotScreen({
     </>
   )
 
+  const sceneryLoadInContextContents = selectedSceneryLoadInContext === null
+    ? null
+    : (() => {
+        const operation = selectedSceneryLoadInContext.operation
+        const command = operation.currentCommand
+        if (operation.blocker === null || command === null) return null
+        return (
+          <>
+            <p className="hollywood-eyebrow">
+              SELECTED LOAD-IN · SOUNDSTAGE 7
+            </p>
+            <div className="hollywood-scenery-heading">
+              <h3>Scenery &amp; Service</h3>
+              <span className={`hollywood-scenery-tag is-${selectedSceneryLoadInContext.state}`}>
+                {selectedSceneryLoadInContext.state === 'blocked' ? 'Blocked' : 'Delivered'}
+              </span>
+            </div>
+            <p className="hollywood-scenery-route" data-testid="hollywood-scenery-load-in-route">
+              <strong>{operation.title}</strong>
+              <span>Scenery &amp; Service</span>
+              <i aria-hidden="true">→</i>
+              <span>{operation.facilityLabel}</span>
+            </p>
+            <dl className="hollywood-scenery-facts">
+              <div><dt>Film</dt><dd>{operation.title}</dd></div>
+              <div><dt>Destination</dt><dd>{operation.facilityLabel}</dd></div>
+              <div><dt>Director</dt><dd>{operation.directorName}</dd></div>
+              <div><dt>Weeks left</dt><dd>{operation.weeksRemaining}</dd></div>
+            </dl>
+            <p className="hollywood-consequence hollywood-scenery-problem">
+              <b>{selectedSceneryLoadInContext.state === 'blocked' ? '!' : '✓'}</b>
+              <span>
+                <strong>{operation.blocker.headline}</strong>
+                {operation.blocker.detail}
+              </span>
+            </p>
+            <div
+              className="hollywood-task-chain"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              tabIndex={-1}
+              ref={hollywoodTaskStatusRef}
+              data-testid="hollywood-scenery-load-in-status"
+            >
+              <span className="done">PHASE<b>{operation.phaseLabel}</b></span><i>›</i>
+              <span className="done">TASK<b>{operation.taskStatus}</b></span><i>›</i>
+              <span>STATUS<b>{operation.statusLabel}</b></span>
+            </div>
+            <button
+              type="button"
+              className="accent hollywood-command hollywood-scenery-command"
+              disabled={hollywoodSceneryCommandPending || !onProductionCommand}
+              ref={hollywoodCommandRef}
+              onPointerDown={containWorldInput}
+              onMouseDown={containWorldInput}
+              onTouchStart={containWorldInput}
+              onKeyDown={guardHollywoodSceneryCommandKeyDown}
+              onKeyUp={releaseHollywoodSceneryCommandKey}
+              onClick={(event) => dispatchHollywoodSceneryCommand(
+                selectedSceneryLoadInContext.state,
+                command,
+                event.detail,
+              )}
+              data-testid={`hollywood-production-command-${command.kind}`}
+            >
+              {hollywoodSceneryCommandPending
+                ? selectedSceneryLoadInContext.state === 'blocked'
+                  ? 'Clearing scenery load-in…'
+                  : 'Scheduling the shooting take…'
+                : command.label}
+            </button>
+            <small className="hollywood-scenery-help">
+              Shooting can resume as soon as load-in is confirmed. The next stage decision is
+              available immediately.
+            </small>
+          </>
+        )
+      })()
+
   return (
     <div
       className={`lot-screen${reducedMotion ? ' lot-reduced-motion' : ''}${hollywood ? ' lot-hollywood' : ''}`}
@@ -1104,9 +1583,28 @@ export function StudioLotScreen({
                           type="button"
                           className="hollywood-consequence"
                           data-testid="hollywood-production-blocker"
-                          data-world-problem="stage-7"
-                          aria-label={`Inspect ${hollywoodOperation.title} problem at Soundstage 7: ${hollywoodOperation.blocker.headline}`}
-                          onClick={() => inspectHollywoodStage7(hollywoodOperation.productionId)}
+                          data-world-problem={
+                            currentSceneryLoadInContext?.state === 'blocked' &&
+                            currentSceneryLoadInContext.operation.productionId === hollywoodOperation.productionId
+                              ? 'service-yard'
+                              : 'stage-7'
+                          }
+                          aria-label={
+                            currentSceneryLoadInContext?.state === 'blocked' &&
+                            currentSceneryLoadInContext.operation.productionId === hollywoodOperation.productionId
+                              ? `Inspect ${hollywoodOperation.title} scenery problem at Scenery & Service: ${hollywoodOperation.blocker.headline}`
+                              : `Inspect ${hollywoodOperation.title} problem at Soundstage 7: ${hollywoodOperation.blocker.headline}`
+                          }
+                          onClick={() => {
+                            if (
+                              currentSceneryLoadInContext?.state === 'blocked' &&
+                              currentSceneryLoadInContext.operation.productionId === hollywoodOperation.productionId
+                            ) {
+                              inspectHollywoodSceneryLoadIn(hollywoodOperation.productionId)
+                            } else {
+                              inspectHollywoodStage7(hollywoodOperation.productionId)
+                            }
+                          }}
                         >
                           <b>!</b>
                           <span>
@@ -1137,13 +1635,23 @@ export function StudioLotScreen({
               </section>
 
               <section
-                className={`hollywood-inspector${annexSelected ? ' is-annex' : ''}`}
-                data-testid={annexSelected ? 'lot-annex-context' : 'hollywood-inspector'}
+                className={`hollywood-inspector${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}`}
+                data-testid={
+                  annexSelected
+                    ? 'lot-annex-context'
+                    : selectedSceneryLoadInContext
+                      ? 'hollywood-scenery-load-in-context'
+                      : 'hollywood-inspector'
+                }
                 onPointerDown={containWorldInput}
                 onMouseDown={containWorldInput}
                 onTouchStart={containWorldInput}
               >
-                {annexSelected ? annexContextContents : (
+                {annexSelected
+                  ? annexContextContents
+                  : selectedSceneryLoadInContext
+                    ? sceneryLoadInContextContents
+                    : (
                   <>
                     <p className="hollywood-eyebrow">{hollywoodPerson ? 'SELECTED PERSON' : hollywoodPlace ? 'SELECTED PLACE' : 'STUDIO DESK'}</p>
                     <h3>{hollywoodPerson?.name ?? hollywoodPlace?.label ?? hollywoodOperation?.title ?? 'Studio idle'}</h3>
@@ -1209,7 +1717,7 @@ export function StudioLotScreen({
                   </>
                     )}
                   </>
-                )}
+                    )}
               </section>
 
               {hollywoodOperations.length > 1 && (
@@ -1259,7 +1767,22 @@ export function StudioLotScreen({
                   ))}
                 </div>
               )}
-              {hollywoodActivity && <div className="hollywood-activity" role="status">{hollywoodActivity}</div>}
+              <div
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+                data-testid="hollywood-activity-announcement"
+              >
+                {hollywoodActivity && (
+                  <span
+                    key={hollywoodActivitySerial}
+                    className="hollywood-activity"
+                    data-testid="hollywood-activity-message"
+                  >
+                    {hollywoodActivity}
+                  </span>
+                )}
+              </div>
               {identityProof && hollywoodPerf && (
                 <div className="hollywood-perf" data-testid="hollywood-performance">
                   {hollywoodPerf.fps} fps · {hollywoodPerf.onePercentLowFps} fps 1% low · {hollywoodPerf.displayObjects} objects · {hollywoodPerf.dynamicActors} actors · {hollywoodPerf.textureMemoryMb} MB decoded · {hollywoodPerf.roleAtlasEncodedKb} KB atlas · {hollywoodPerf.p99FrameMs} ms p99 · {hollywoodPerf.worstFrameMs} ms worst · {hollywoodPerf.updateMs} ms update · {hollywoodPerf.drawCalls} draws
@@ -1416,6 +1939,37 @@ export function StudioLotScreen({
             Every destination is reachable here or by clicking the lot.
           </p>
           <ul className="lot-nav-list">
+            {hollywood && currentSceneryLoadInContext && (
+              <li>
+                <button
+                  type="button"
+                  className={`lot-nav-item att-decision-required lot-nav-service-yard${
+                    selectedSceneryLoadInContext ? ' is-selected' : ''
+                  }`}
+                  data-testid="lot-nav-service-yard"
+                  data-attention="decision-required"
+                  aria-current={selectedSceneryLoadInContext ? 'true' : undefined}
+                  onPointerDown={containWorldInput}
+                  onMouseDown={containWorldInput}
+                  onTouchStart={containWorldInput}
+                  onClick={() => inspectHollywoodSceneryLoadIn(
+                    currentSceneryLoadInContext.operation.productionId,
+                  )}
+                  title={`Manage ${currentSceneryLoadInContext.operation.title} scenery load-in at Soundstage 7`}
+                >
+                  <span className="lot-nav-name">Scenery &amp; Service</span>
+                  <span className="lot-nav-state">
+                    <span className="lot-nav-icon" aria-hidden="true">
+                      {currentSceneryLoadInContext.state === 'blocked' ? '!' : '✓'}
+                    </span>
+                    <span className="lot-nav-att-word visually-hidden">Decision required: </span>
+                    {currentSceneryLoadInContext.state === 'blocked'
+                      ? `${currentSceneryLoadInContext.operation.title} load-in is blocking Soundstage 7`
+                      : `${currentSceneryLoadInContext.operation.title} scenery delivered · take ready to schedule`}
+                  </span>
+                </button>
+              </li>
+            )}
             {rows.map((row) => (
               <li key={row.id}>
                 <button

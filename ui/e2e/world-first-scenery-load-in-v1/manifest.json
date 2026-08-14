@@ -1,0 +1,591 @@
+{
+  "schemaVersion": "world-first-scenery-load-in-fixtures-v1",
+  "generatedBy": "scripts/gen-world-first-scenery-load-in-fixtures.mts",
+  "reproduceCommand": "node_modules/.bin/vite-node scripts/gen-world-first-scenery-load-in-fixtures.mts",
+  "outputDirectory": "ui/e2e/world-first-scenery-load-in-v1",
+  "authority": {
+    "stateConstruction": "public Engine actions and UI adapter action boundaries only",
+    "serialization": "exportSaveJson / importSaveJson live SaveFileV11 boundary",
+    "importMode": "native SaveFileV11; converted === false",
+    "deterministic": true,
+    "generatedFilesAreHandEdited": false,
+    "unassignedAndScheduledAreInMemoryOnly": true
+  },
+  "commonFoundingRecipe": {
+    "applicantSelection": "first N foundingApplicantCards in authoritative draft order for each role",
+    "roleOrder": [
+      "actor",
+      "director",
+      "writer",
+      "craft"
+    ],
+    "counts": {
+      "actor": 8,
+      "director": 2,
+      "writer": 3,
+      "craft": 2
+    },
+    "termWeeks": 104,
+    "managedSystemsActivated": [
+      "Studio Operations"
+    ],
+    "systemsRetainedInLegacyMode": [
+      "Script Projects",
+      "Casting Sessions"
+    ]
+  },
+  "fixtures": [
+    {
+      "id": "week-30-nights-of-watchtower-stage-7-blocked",
+      "file": "week-30-nights-of-watchtower-stage-7-blocked.save.json",
+      "saveVersion": 11,
+      "importMode": "native-v11",
+      "converted": false,
+      "byteLength": 227479,
+      "sha256": "7534518e4db3970bb4ca988b0b0fa78975f5053ee67fd42377f69b80ebe711dc",
+      "seed": "marathon-annex-play",
+      "claim": {
+        "week": 30,
+        "cash": 11160898.29,
+        "rngState": "859994619,1336761036,2793876205,1849893007",
+        "ledgerRows": 62,
+        "productionId": "prod-0026",
+        "title": "Nights of Watchtower",
+        "phase": "shooting",
+        "taskId": "shooting:prod-0026",
+        "locationBuildingId": "stage-a",
+        "authoritativeFacility": "Soundstage 7 + Scenery Shop",
+        "directorId": "t-dir-01",
+        "directorName": "Estelle Delgado",
+        "weeksRemaining": 5,
+        "reservations": [
+          {
+            "facilityId": "facility-soundstage-07",
+            "capability": "soundstage",
+            "slot": 0
+          },
+          {
+            "facilityId": "facility-scenery-shop",
+            "capability": "set-scenery",
+            "slot": 0
+          }
+        ],
+        "taskStatus": "blocked",
+        "blocker": {
+          "kind": "scenery-load-in",
+          "taskId": "shooting:prod-0026"
+        },
+        "projectedCommand": {
+          "kind": "clearSceneryLoadIn",
+          "productionId": "prod-0026",
+          "label": "Clear scenery load-in"
+        }
+      },
+      "publicActionDerivation": [
+        {
+          "action": "newGame",
+          "seed": "marathon-annex-play"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-13",
+              "name": "Vivien Nakamura",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-04",
+              "name": "Nils Winslow",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-16",
+              "name": "Fredric Underwood",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-18",
+              "name": "Nils Halberstam",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-07",
+              "name": "Gary Ashby",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-11",
+              "name": "Rex Vance",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-08",
+              "name": "Gloria Chandra",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-03",
+              "name": "Reginald Delgado",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-07",
+              "name": "Myrna Sable",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-06",
+              "name": "Spencer Novak",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-03",
+              "name": "Edward Lasky",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-06",
+              "name": "Ava Marlowe",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-00",
+              "name": "Fredric Okonkwo",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-01",
+              "name": "Leslie Cortland",
+              "role": "craft",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-02",
+              "name": "Roland Beaumont",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundStudio"
+        },
+        {
+          "action": "activateStudioOperations"
+        },
+        {
+          "action": "advanceWeek",
+          "count": 26,
+          "resultWeek": 26
+        },
+        {
+          "action": "selectAvailableFreelancer",
+          "market": "freelancerMarketCards",
+          "week": 26,
+          "talent": {
+            "id": "t-dir-01",
+            "name": "Estelle Delgado"
+          }
+        },
+        {
+          "action": "greenlight",
+          "package": {
+            "conceptId": "c-01",
+            "conceptTitle": "Nights of Watchtower",
+            "genre": "adventure",
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "reversal",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.4,
+                  0.4
+                ],
+                "tonalWeight": [
+                  -0.4,
+                  0.4
+                ],
+                "kineticEnergy": [
+                  -0.4,
+                  0.4
+                ]
+              }
+            },
+            "assignments": {
+              "writer": {
+                "id": "t-wri-03",
+                "name": "Edward Lasky"
+              },
+              "director": {
+                "id": "t-dir-01",
+                "name": "Estelle Delgado"
+              },
+              "lead": {
+                "id": "t-act-13",
+                "name": "Vivien Nakamura"
+              },
+              "antagonist": {
+                "id": "t-act-04",
+                "name": "Nils Winslow"
+              },
+              "support": {
+                "id": "t-act-16",
+                "name": "Fredric Underwood"
+              },
+              "craft": {
+                "id": "t-cra-01",
+                "name": "Leslie Cortland"
+              }
+            },
+            "budget": {
+              "negative": 2700505.71,
+              "marketing": 400000
+            }
+          },
+          "resultWeek": 26
+        },
+        {
+          "action": "advanceWeek",
+          "count": 4,
+          "resultWeek": 30
+        },
+        {
+          "action": "runProductionCommand",
+          "command": {
+            "kind": "assignShootingDirector",
+            "productionId": "prod-0026",
+            "directorId": "t-dir-01",
+            "label": "Call Estelle Delgado to Soundstage 7"
+          },
+          "consumesWeeks": 0
+        }
+      ]
+    },
+    {
+      "id": "week-30-nights-of-watchtower-stage-7-ready",
+      "file": "week-30-nights-of-watchtower-stage-7-ready.save.json",
+      "saveVersion": 11,
+      "importMode": "native-v11",
+      "converted": false,
+      "byteLength": 227425,
+      "sha256": "6760b72739608e930da84726067685c515d87817cb3793f9d9d37fa9f2063f92",
+      "seed": "marathon-annex-play",
+      "claim": {
+        "week": 30,
+        "cash": 11160898.29,
+        "rngState": "859994619,1336761036,2793876205,1849893007",
+        "ledgerRows": 62,
+        "productionId": "prod-0026",
+        "title": "Nights of Watchtower",
+        "phase": "shooting",
+        "taskId": "shooting:prod-0026",
+        "locationBuildingId": "stage-a",
+        "authoritativeFacility": "Soundstage 7 + Scenery Shop",
+        "directorId": "t-dir-01",
+        "directorName": "Estelle Delgado",
+        "weeksRemaining": 5,
+        "reservations": [
+          {
+            "facilityId": "facility-soundstage-07",
+            "capability": "soundstage",
+            "slot": 0
+          },
+          {
+            "facilityId": "facility-scenery-shop",
+            "capability": "set-scenery",
+            "slot": 0
+          }
+        ],
+        "taskStatus": "ready",
+        "blocker": null,
+        "derivedDecisionBlocker": {
+          "kind": "take-scheduling"
+        },
+        "projectedCommand": {
+          "kind": "scheduleShootingTake",
+          "productionId": "prod-0026",
+          "label": "Schedule the shooting take"
+        }
+      },
+      "publicActionDerivation": [
+        {
+          "action": "newGame",
+          "seed": "marathon-annex-play"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-13",
+              "name": "Vivien Nakamura",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-04",
+              "name": "Nils Winslow",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-16",
+              "name": "Fredric Underwood",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-18",
+              "name": "Nils Halberstam",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-07",
+              "name": "Gary Ashby",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-11",
+              "name": "Rex Vance",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-08",
+              "name": "Gloria Chandra",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-03",
+              "name": "Reginald Delgado",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-07",
+              "name": "Myrna Sable",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-06",
+              "name": "Spencer Novak",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-03",
+              "name": "Edward Lasky",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-06",
+              "name": "Ava Marlowe",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-00",
+              "name": "Fredric Okonkwo",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-01",
+              "name": "Leslie Cortland",
+              "role": "craft",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-02",
+              "name": "Roland Beaumont",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundStudio"
+        },
+        {
+          "action": "activateStudioOperations"
+        },
+        {
+          "action": "advanceWeek",
+          "count": 26,
+          "resultWeek": 26
+        },
+        {
+          "action": "selectAvailableFreelancer",
+          "market": "freelancerMarketCards",
+          "week": 26,
+          "talent": {
+            "id": "t-dir-01",
+            "name": "Estelle Delgado"
+          }
+        },
+        {
+          "action": "greenlight",
+          "package": {
+            "conceptId": "c-01",
+            "conceptTitle": "Nights of Watchtower",
+            "genre": "adventure",
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "reversal",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.4,
+                  0.4
+                ],
+                "tonalWeight": [
+                  -0.4,
+                  0.4
+                ],
+                "kineticEnergy": [
+                  -0.4,
+                  0.4
+                ]
+              }
+            },
+            "assignments": {
+              "writer": {
+                "id": "t-wri-03",
+                "name": "Edward Lasky"
+              },
+              "director": {
+                "id": "t-dir-01",
+                "name": "Estelle Delgado"
+              },
+              "lead": {
+                "id": "t-act-13",
+                "name": "Vivien Nakamura"
+              },
+              "antagonist": {
+                "id": "t-act-04",
+                "name": "Nils Winslow"
+              },
+              "support": {
+                "id": "t-act-16",
+                "name": "Fredric Underwood"
+              },
+              "craft": {
+                "id": "t-cra-01",
+                "name": "Leslie Cortland"
+              }
+            },
+            "budget": {
+              "negative": 2700505.71,
+              "marketing": 400000
+            }
+          },
+          "resultWeek": 26
+        },
+        {
+          "action": "advanceWeek",
+          "count": 4,
+          "resultWeek": 30
+        },
+        {
+          "action": "runProductionCommand",
+          "command": {
+            "kind": "assignShootingDirector",
+            "productionId": "prod-0026",
+            "directorId": "t-dir-01",
+            "label": "Call Estelle Delgado to Soundstage 7"
+          },
+          "consumesWeeks": 0
+        },
+        {
+          "action": "runProductionCommand",
+          "command": {
+            "kind": "clearSceneryLoadIn",
+            "productionId": "prod-0026",
+            "label": "Clear scenery load-in"
+          },
+          "consumesWeeks": 0
+        }
+      ]
+    }
+  ],
+  "inMemoryProofAnchors": {
+    "unassigned": {
+      "saveVersion": 11,
+      "byteLength": 227430,
+      "sha256": "2b352e3ef1be5ab9d5e0ba0abfbeb6c0a717f5334afe7d6a60ff5a81cef584ca",
+      "taskStatus": "unassigned",
+      "projectedCommand": {
+        "kind": "assignShootingDirector",
+        "productionId": "prod-0026",
+        "directorId": "t-dir-01",
+        "label": "Call Estelle Delgado to Soundstage 7"
+      },
+      "written": false
+    },
+    "scheduled": {
+      "saveVersion": 11,
+      "byteLength": 227429,
+      "sha256": "e922f9b7e957388bed7c7674be8c17596245823200e478371dc7ff970458f46b",
+      "taskStatus": "scheduled",
+      "comparedByteForByteTo": "ui/e2e/live-week-advance-v1/week-30-nights-of-watchtower-stage-7-scheduled.save.json",
+      "written": false
+    }
+  }
+}

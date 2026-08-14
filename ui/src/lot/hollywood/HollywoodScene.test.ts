@@ -56,23 +56,25 @@ const fakePhaser = vi.hoisted(() => {
   }
 
   class Graphics extends DisplayObject {
+    calls: Array<{ name: string; args: unknown[] }> = []
     constructor(private readonly onGenerate?: (key: string, width: number, height: number) => void) {
       super()
     }
-    clear() { return this }
-    fillStyle() { return this }
-    fillEllipse() { return this }
-    fillRoundedRect() { return this }
-    fillTriangle() { return this }
-    lineStyle() { return this }
-    lineBetween() { return this }
-    fillCircle() { return this }
-    fillRect() { return this }
-    strokeRect() { return this }
-    strokeCircle() { return this }
-    strokeRoundedRect() { return this }
-    fillPoints() { return this }
-    strokePoints() { return this }
+    private record(name: string, args: unknown[]) { this.calls.push({ name, args }); return this }
+    clear(...args: unknown[]) { return this.record('clear', args) }
+    fillStyle(...args: unknown[]) { return this.record('fillStyle', args) }
+    fillEllipse(...args: unknown[]) { return this.record('fillEllipse', args) }
+    fillRoundedRect(...args: unknown[]) { return this.record('fillRoundedRect', args) }
+    fillTriangle(...args: unknown[]) { return this.record('fillTriangle', args) }
+    lineStyle(...args: unknown[]) { return this.record('lineStyle', args) }
+    lineBetween(...args: unknown[]) { return this.record('lineBetween', args) }
+    fillCircle(...args: unknown[]) { return this.record('fillCircle', args) }
+    fillRect(...args: unknown[]) { return this.record('fillRect', args) }
+    strokeRect(...args: unknown[]) { return this.record('strokeRect', args) }
+    strokeCircle(...args: unknown[]) { return this.record('strokeCircle', args) }
+    strokeRoundedRect(...args: unknown[]) { return this.record('strokeRoundedRect', args) }
+    fillPoints(...args: unknown[]) { return this.record('fillPoints', args) }
+    strokePoints(...args: unknown[]) { return this.record('strokePoints', args) }
     generateTexture(key: string, width: number, height: number) {
       this.onGenerate?.(key, width, height)
       return this
@@ -182,7 +184,13 @@ vi.mock('phaser', () => ({
       Easing: { Sine: { InOut: (value: number) => value } },
       Vector2: class Vector2 { constructor(public x: number, public y: number) {} },
     },
-    Geom: { Polygon: class Polygon {} },
+    Geom: {
+      Polygon: class Polygon {},
+      Circle: class Circle {
+        static Contains() { return true }
+        constructor(public x: number, public y: number, public radius: number) {}
+      },
+    },
   },
 }))
 
@@ -358,7 +366,7 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
     activities: Array<{ id: string; place: string; visualStates: string[] }>
     places: Array<{
       id: string
-      buildingId: 'stage-a' | 'expansion'
+      buildingId: 'stage-a' | 'stage-b' | 'post' | 'expansion'
       label: string
       affordances: string[]
       anchors: Record<string, [number, number]>
@@ -377,6 +385,7 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   stageStateText: InstanceType<typeof fakePhaser.DisplayObject> | null
   stageLamp: InstanceType<typeof fakePhaser.DisplayObject> | null
   activityGraphics: InstanceType<typeof fakePhaser.Graphics> | null
+  sceneryGraphics: InstanceType<typeof fakePhaser.Graphics> | null
   fitZoom: number
   expansionGraphics: InstanceType<typeof fakePhaser.Graphics> | null
   expansionLabel: InstanceType<typeof fakePhaser.DisplayObject> | null
@@ -402,6 +411,8 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
     label: string
     affordances: string[]
   }, emitSelection?: boolean) => boolean
+  selectSceneryLoadInSurface: (place: SceneHarness['manifest']['places'][number], emitSelection?: boolean) => boolean
+  selectServiceYardSurface: (place: SceneHarness['manifest']['places'][number]) => void
 }
 
 function harness(initial: StudioLotSnapshot, reducedMotion = false) {
@@ -419,7 +430,12 @@ function harness(initial: StudioLotSnapshot, reducedMotion = false) {
       buildingId: 'stage-a',
       label: 'Stage 7',
       affordances: ['enter-stage', 'shoot', 'load-in'],
-      anchors: { crewCall: [50, 60] },
+      anchors: {
+        entry: [586, 383],
+        crewCall: [662, 472],
+        camera: [558, 527],
+        service: [500, 500],
+      },
       selectionPolygon: [[0, 0], [100, 0], [100, 100], [0, 100]],
     }],
   }
@@ -430,6 +446,7 @@ function harness(initial: StudioLotSnapshot, reducedMotion = false) {
   internals.stageStateText = new fakePhaser.DisplayObject()
   internals.stageLamp = new fakePhaser.DisplayObject()
   internals.activityGraphics = new fakePhaser.Graphics()
+  internals.sceneryGraphics = new fakePhaser.Graphics()
   scene.applySnapshot(initial)
   return { scene, internals, events }
 }
@@ -445,6 +462,61 @@ function annexPlace(): SceneHarness['manifest']['places'][number] {
   }
 }
 
+function serviceYardPlace(): SceneHarness['manifest']['places'][number] {
+  return {
+    id: 'service-yard',
+    buildingId: 'post',
+    label: 'Scenery & Service',
+    affordances: ['delivery', 'supply-scenery', 'load-in'],
+    anchors: {
+      truck: [271, 626],
+      sceneryRack: [112, 404],
+      loadIn: [390, 584],
+    },
+    selectionPolygon: [[12, 350], [300, 350], [430, 520], [400, 700], [40, 720]],
+  }
+}
+
+function blockedSceneryOperation(
+  overrides: Partial<ProductionOperationsState> = {},
+): ProductionOperationsState {
+  return operation({
+    taskStatus: 'blocked',
+    statusLabel: 'Production hold',
+    blocker: {
+      kind: 'scenery-load-in',
+      headline: 'Scenery load-in blocking camera',
+      detail: 'The camera mark is blocked.',
+    },
+    currentCommand: {
+      kind: 'clearSceneryLoadIn',
+      productionId: 'production-1',
+      label: 'Clear scenery load-in',
+    },
+    ...overrides,
+  })
+}
+
+function readySceneryOperation(
+  overrides: Partial<ProductionOperationsState> = {},
+): ProductionOperationsState {
+  return operation({
+    taskStatus: 'ready',
+    statusLabel: 'Decision required',
+    blocker: {
+      kind: 'take-scheduling',
+      headline: 'Schedule the shooting take',
+      detail: 'Soundstage 7 is ready for the take.',
+    },
+    currentCommand: {
+      kind: 'scheduleShootingTake',
+      productionId: 'production-1',
+      label: 'Schedule the shooting take',
+    },
+    ...overrides,
+  })
+}
+
 describe('HollywoodScene snapshot authority', () => {
   function pointer(target: unknown = fakePhaser.canvas) {
     return { event: { stopPropagation: vi.fn(), target } }
@@ -452,6 +524,10 @@ describe('HollywoodScene snapshot authority', () => {
 
   function productionEvents(events: HollywoodEvent[]) {
     return events.filter((event) => event.type === 'production')
+  }
+
+  function sceneryEvents(events: HollywoodEvent[]) {
+    return events.filter((event) => event.type === 'scenery-load-in')
   }
 
   it('routes the Stage 7 polygon, lamp, and status through one exact identity-only selection seam', () => {
@@ -484,6 +560,226 @@ describe('HollywoodScene snapshot authority', () => {
       if (event.type !== 'production') throw new Error('expected production event')
       expect(Object.keys(event.production).sort()).toEqual(['locationBuildingId', 'productionId'])
     }
+  })
+
+  it('routes the physical service yard through one exact scenery identity seam in blocked and ready states', () => {
+    const blocked = blockedSceneryOperation()
+    const stage12 = blockedSceneryOperation({
+      productionId: 'production-stage-12',
+      locationBuildingId: 'stage-b',
+      currentCommand: {
+        kind: 'clearSceneryLoadIn',
+        productionId: 'production-stage-12',
+        label: 'Clear scenery load-in',
+      },
+    })
+    const initial = snapshot([director()], [stage12, blocked])
+    const { scene, internals, events } = harness(initial)
+    internals.manifest.places.push(serviceYardPlace())
+    internals.buildWorld()
+    scene.applySnapshot(initial)
+    expect(internals.sceneryGraphics!.calls).toContainEqual({
+      name: 'fillRect',
+      args: [348, 566, 46, 32],
+    })
+    expect(internals.sceneryGraphics!.calls).toContainEqual({
+      name: 'fillCircle',
+      args: [378, 560, 13],
+    })
+    const shared = vi.spyOn(internals, 'selectServiceYardSurface')
+    internals.buildSemanticHotspots()
+
+    const serviceZone = internals.zones[1]!
+    serviceZone.emit('pointerdown', pointer())
+    expect(internals.sceneryGraphics!.interactive).toBe(false)
+    expect(shared).toHaveBeenCalledTimes(1)
+    expect(sceneryEvents(events)).toEqual([{
+      type: 'scenery-load-in',
+      sceneryLoadIn: {
+        productionId: blocked.productionId,
+        locationBuildingId: 'stage-a',
+        placeId: 'service-yard',
+      },
+    }])
+    expect(scene.debugState()).toMatchObject({
+      selectedPlaceId: 'service-yard',
+      selectedProductionId: blocked.productionId,
+      sceneryLoadInState: 'blocked',
+    })
+    const exact = sceneryEvents(events)[0]!
+    if (exact.type !== 'scenery-load-in') throw new Error('expected scenery event')
+    expect(Object.keys(exact.sceneryLoadIn).sort()).toEqual([
+      'locationBuildingId',
+      'placeId',
+      'productionId',
+    ])
+
+    scene.applySnapshot(snapshot([director()], [stage12, readySceneryOperation()]))
+    serviceZone.emit('pointerdown', pointer())
+    expect(sceneryEvents(events)).toHaveLength(2)
+    expect(scene.debugState().sceneryLoadInState).toBe('ready')
+
+    // Stage 7 remains its own production selection and never emits the service event.
+    internals.zones[0]!.emit('pointerdown', pointer())
+    expect(sceneryEvents(events)).toHaveLength(2)
+    expect(productionEvents(events)).toHaveLength(1)
+  })
+
+  it('preserves generic service-yard inspection whenever exact scenery authority is absent', () => {
+    const { internals, events } = harness(snapshot([director()], [operation()]))
+    internals.manifest.places.push(serviceYardPlace())
+    internals.buildWorld()
+    internals.buildSemanticHotspots()
+
+    internals.zones[1]!.emit('pointerdown', pointer())
+
+    expect(sceneryEvents(events)).toEqual([])
+    expect(events.filter((event) => event.type === 'place')).toEqual([{
+      type: 'place',
+      place: {
+        id: 'service-yard',
+        buildingId: 'post',
+        label: 'Scenery & Service',
+        affordances: ['delivery', 'supply-scenery', 'load-in'],
+      },
+    }])
+  })
+
+  it('keeps the scenery marker draw-only so a routed named person wins pointer priority', () => {
+    const blocked = blockedSceneryOperation()
+    const { internals } = harness(snapshot([director()], [blocked]))
+    internals.manifest.places.push(serviceYardPlace())
+    internals.route = [
+      { x: 411, y: 591, actorDepth: 50, cue: 'past-truck' },
+      { x: 514, y: 535, actorDepth: 56, cue: 'behind-camera' },
+    ]
+
+    internals.buildWorld()
+    internals.buildSemanticHotspots()
+
+    const routedDirector = internals.runtimePeople.get('director-1')!.sprite
+    routedDirector.setPosition(411, 591).setDepth(50)
+    const serviceZone = internals.zones[1]!
+    expect(internals.sceneryGraphics).toMatchObject({ depth: 80, interactive: false })
+    expect(serviceZone.depth).toBeLessThan(routedDirector.depth)
+    expect(routedDirector.interactive).toBe(true)
+  })
+
+  it('gives the host exact service-yard parity without feedback events or identity substitution', () => {
+    const blocked = blockedSceneryOperation()
+    const { scene, internals, events } = harness(snapshot([director()], [blocked]))
+    const service = serviceYardPlace()
+    internals.manifest.places.push(service)
+    internals.buildWorld()
+    const shared = vi.spyOn(internals, 'selectSceneryLoadInSurface')
+    const eventCount = events.length
+
+    expect(scene.selectSceneryLoadInFromHost(blocked.productionId)).toBe(true)
+    expect(shared).toHaveBeenCalledWith(service, false)
+    expect(scene.debugState()).toMatchObject({
+      selectedPlaceId: 'service-yard',
+      selectedProductionId: blocked.productionId,
+    })
+    expect(events).toHaveLength(eventCount)
+
+    expect(scene.selectSceneryLoadInFromHost('another-production')).toBe(false)
+    expect(events).toHaveLength(eventCount)
+
+    const stage12 = blockedSceneryOperation({
+      productionId: 'production-stage-12',
+      locationBuildingId: 'stage-b',
+      currentCommand: {
+        kind: 'clearSceneryLoadIn',
+        productionId: 'production-stage-12',
+        label: 'Clear scenery load-in',
+      },
+    })
+    scene.applySnapshot(snapshot([director()], [stage12]))
+    expect(scene.selectSceneryLoadInFromHost(stage12.productionId)).toBe(false)
+    expect(scene.debugState().selectedPlaceId).toBeNull()
+  })
+
+  it('fails physical scenery identity closed when the runtime service-yard literals drift', () => {
+    const blocked = blockedSceneryOperation()
+    const { scene, internals, events } = harness(snapshot([director()], [blocked]))
+    const malformed = serviceYardPlace()
+    malformed.anchors.loadIn = [391, 584]
+    internals.manifest.places.push(malformed)
+    internals.buildWorld()
+    internals.buildSemanticHotspots()
+    scene.applySnapshot(snapshot([director()], [blocked]))
+
+    internals.zones[1]!.emit('pointerdown', pointer())
+
+    expect(sceneryEvents(events)).toEqual([])
+    expect(events).toContainEqual({
+      type: 'place',
+      place: {
+        id: 'service-yard',
+        buildingId: 'post',
+        label: 'Scenery & Service',
+        affordances: ['delivery', 'supply-scenery', 'load-in'],
+      },
+    })
+    expect(scene.selectSceneryLoadInFromHost(blocked.productionId)).toBe(false)
+    expect(scene.debugState().sceneryLoadInState).toBe('blocked')
+    expect(internals.sceneryGraphics!.calls.at(-1)).toEqual({ name: 'clear', args: [] })
+  })
+
+  it('fails host scenery selection closed when the initial manifest omits service-yard', () => {
+    const blocked = blockedSceneryOperation()
+    const { scene, internals, events } = harness(snapshot([director()], [blocked]))
+    // The harness manifest contains canonical Stage 7 but no service-yard.
+    scene.applySnapshot(snapshot([director()], [blocked]))
+
+    expect(() => scene.selectSceneryLoadInFromHost(blocked.productionId)).not.toThrow()
+    expect(scene.selectSceneryLoadInFromHost(blocked.productionId)).toBe(false)
+    expect(scene.debugState()).toMatchObject({
+      selectedPlaceId: null,
+      selectedProductionId: null,
+      sceneryLoadInState: 'blocked',
+    })
+    expect(sceneryEvents(events)).toEqual([])
+    expect(internals.sceneryGraphics!.calls.at(-1)).toEqual({ name: 'clear', args: [] })
+  })
+
+  it('fails exact service and destination identity closed for duplicate or malformed runtime records', () => {
+    const blocked = blockedSceneryOperation()
+    const { scene, internals, events } = harness(snapshot([director()], [blocked]))
+    const service = serviceYardPlace()
+    internals.manifest.places.push(service)
+    internals.buildWorld()
+    internals.buildSemanticHotspots()
+
+    const duplicateService = serviceYardPlace()
+    duplicateService.anchors.loadIn = [391, 584]
+    internals.manifest.places.push(duplicateService)
+    expect(() => scene.selectSceneryLoadInFromHost(blocked.productionId)).not.toThrow()
+    expect(scene.selectSceneryLoadInFromHost(blocked.productionId)).toBe(false)
+    expect(sceneryEvents(events)).toEqual([])
+
+    internals.manifest.places.pop()
+    const duplicateStage = {
+      ...internals.manifest.places[0]!,
+      label: 'Stage Seven',
+      anchors: { ...internals.manifest.places[0]!.anchors },
+      affordances: [...internals.manifest.places[0]!.affordances],
+      selectionPolygon: [...internals.manifest.places[0]!.selectionPolygon],
+    }
+    internals.manifest.places.push(duplicateStage)
+    expect(scene.selectSceneryLoadInFromHost(blocked.productionId)).toBe(false)
+    expect(scene.selectProductionFromHost(blocked.productionId)).toBe(false)
+    internals.zones[0]!.emit('pointerdown', pointer())
+    expect(productionEvents(events)).toEqual([])
+
+    internals.manifest.places.pop()
+    service.affordances = undefined as unknown as string[]
+    expect(() => scene.selectSceneryLoadInFromHost(blocked.productionId)).not.toThrow()
+    expect(scene.selectSceneryLoadInFromHost(blocked.productionId)).toBe(false)
+
+    ;(internals.manifest as unknown as { places: unknown }).places = null
+    expect(() => scene.selectSceneryLoadInFromHost(blocked.productionId)).not.toThrow()
+    expect(scene.selectSceneryLoadInFromHost(blocked.productionId)).toBe(false)
   })
 
   it('routes the Annex polygon and visible status label through one exact identity-only selection seam', () => {
@@ -801,6 +1097,23 @@ describe('HollywoodScene snapshot authority', () => {
     )
   })
 
+  it('adds exactly one draw-only scenery object and no texture request', () => {
+    const { scene, internals } = harness(snapshot([], [blockedSceneryOperation()]))
+    internals.manifest.places.push(serviceYardPlace())
+    scene.preload()
+    const textureRequests = [...internals.imageLoads]
+
+    internals.buildWorld()
+
+    // Activity, scenery, selection, and Annex are the complete persistent
+    // Graphics budget. Scenery occupies one object and reuses the district art.
+    expect(internals.graphicsObjects).toHaveLength(4)
+    expect(internals.sceneryGraphics).toBe(internals.graphicsObjects[1])
+    expect(internals.sceneryGraphics!.interactive).toBe(false)
+    expect(internals.imageLoads).toEqual(textureRequests)
+    expect(textureRequests).toHaveLength(4)
+  })
+
   it('keeps the camera-person fallback distinct from the camera-dolly occluder', () => {
     const { scene, internals } = harness(snapshot([]))
     scene.preload()
@@ -1012,6 +1325,201 @@ describe('HollywoodScene snapshot authority', () => {
     scene.applySnapshot(studioLotSnapshot(whileRoute.next))
     expect(scene.debugState().routeProductionId).toBeNull()
     expect(scene.debugState().stage7Operation?.taskStatus).toBe('ready')
+  })
+
+  it('paints direct blocked and ready scenery truth without replaying a sweep or announcement', () => {
+    for (const [state, exact] of [
+      ['blocked', blockedSceneryOperation()],
+      ['ready', readySceneryOperation()],
+    ] as const) {
+      const initial = snapshot([director()], [exact])
+      const { scene, internals, events } = harness(initial)
+      internals.manifest.places.push(serviceYardPlace())
+      internals.sceneryGraphics!.calls = []
+
+      // Applying the same loaded truth is initialization, not a live accepted change.
+      scene.applySnapshot(initial)
+      expect(scene.debugState()).toMatchObject({
+        sceneryLoadInState: state,
+        scenerySweepProductionId: null,
+        scenerySweepElapsedMs: null,
+      })
+      expect(internals.sceneryGraphics!.calls).toContainEqual({
+        name: 'lineBetween',
+        args: [390, 584, 500, 500],
+      })
+      expect(events.filter((event) => event.type === 'activity')).toEqual([])
+      scene.update(0, 60_000)
+      expect(scene.debugState().scenerySweepProductionId).toBeNull()
+      expect(events.filter((event) => event.type === 'activity')).toEqual([])
+    }
+  })
+
+  it('treats an inactive-renderer replacement as direct ready truth when rendering resumes', () => {
+    const blocked = blockedSceneryOperation()
+    const initial = snapshot([director()], [blocked])
+    const { scene, internals, events } = harness(initial)
+    internals.manifest.places.push(serviceYardPlace())
+    scene.applySnapshot(initial)
+    const eventCount = events.length
+    const activityBefore = events.filter((event) => event.type === 'activity').length
+
+    internals.scene.isActive = () => false
+    const ready = snapshot([director()], [readySceneryOperation()])
+    scene.applySnapshot(ready)
+    expect(scene.debugState()).toMatchObject({
+      sceneryLoadInState: 'ready',
+      scenerySweepProductionId: null,
+    })
+
+    internals.scene.isActive = () => true
+    scene.applySnapshot(ready)
+    expect(scene.debugState()).toMatchObject({
+      sceneryLoadInState: 'ready',
+      scenerySweepProductionId: null,
+    })
+    expect(events).toHaveLength(eventCount)
+    expect(events.filter((event) => event.type === 'activity')).toHaveLength(activityBefore)
+  })
+
+  it('runs one bounded presentation-only blocked-to-ready sweep and then announces arrival once', () => {
+    const blocked = blockedSceneryOperation()
+    const initial = snapshot([director()], [blocked])
+    const { scene, internals, events } = harness(initial)
+    internals.manifest.places.push(serviceYardPlace())
+    scene.applySnapshot(initial)
+    const eventCount = events.length
+
+    scene.applySnapshot(snapshot([director()], [readySceneryOperation()]))
+    expect(scene.debugState()).toMatchObject({
+      sceneryLoadInState: 'ready',
+      scenerySweepProductionId: blocked.productionId,
+      scenerySweepElapsedMs: 0,
+    })
+    expect(internals.sceneryGraphics!.calls).toContainEqual({
+      name: 'fillRect',
+      args: [368, 570, 44, 28],
+    })
+    expect(events).toHaveLength(eventCount)
+
+    scene.update(0, 1_199)
+    expect(scene.debugState()).toMatchObject({
+      scenerySweepProductionId: blocked.productionId,
+      scenerySweepElapsedMs: 1_199,
+    })
+    expect(events).toHaveLength(eventCount)
+
+    scene.update(0, 1)
+    expect(scene.debugState()).toMatchObject({
+      sceneryLoadInState: 'ready',
+      scenerySweepProductionId: null,
+      scenerySweepElapsedMs: null,
+    })
+    expect(events.slice(eventCount)).toEqual([{
+      type: 'activity',
+      text: 'Night Crossing scenery reached Soundstage 7. The shooting take is ready to schedule.',
+    }])
+    scene.update(0, 10_000)
+    expect(events.slice(eventCount)).toHaveLength(1)
+  })
+
+  it('snaps an accepted scenery clear under reduced motion with identical ready truth', () => {
+    const blocked = blockedSceneryOperation()
+    const initial = snapshot([director()], [blocked])
+    const { scene, internals, events } = harness(initial, true)
+    internals.manifest.places.push(serviceYardPlace())
+    scene.applySnapshot(initial)
+    const eventCount = events.length
+
+    scene.applySnapshot(snapshot([director()], [readySceneryOperation()]))
+
+    expect(scene.debugState()).toMatchObject({
+      sceneryLoadInState: 'ready',
+      scenerySweepProductionId: null,
+      scenerySweepElapsedMs: null,
+    })
+    expect(events.slice(eventCount)).toEqual([{
+      type: 'activity',
+      text: 'Night Crossing scenery reached Soundstage 7. The shooting take is ready to schedule.',
+    }])
+    expect(internals.sceneryGraphics!.calls).toContainEqual({
+      name: 'lineBetween',
+      args: [484, 500, 495, 512],
+    })
+  })
+
+  it('cancels the scenery sweep immediately when scheduled truth replaces ready authority', () => {
+    const blocked = blockedSceneryOperation()
+    const initial = snapshot([director()], [blocked])
+    const { scene, internals, events } = harness(initial)
+    internals.manifest.places.push(serviceYardPlace())
+    scene.applySnapshot(initial)
+    const eventCount = events.length
+
+    scene.applySnapshot(snapshot([director()], [readySceneryOperation()]))
+    scene.update(0, 300)
+    expect(scene.debugState().scenerySweepProductionId).toBe(blocked.productionId)
+
+    scene.applySnapshot(snapshot([director()], [operation({
+      taskStatus: 'scheduled',
+      statusLabel: 'Take in progress',
+      blocker: null,
+      currentCommand: null,
+    })]))
+    expect(scene.debugState()).toMatchObject({
+      sceneryLoadInState: null,
+      scenerySweepProductionId: null,
+      scenerySweepElapsedMs: null,
+    })
+    expect(internals.sceneryGraphics!.calls.at(-1)).toEqual({ name: 'clear', args: [] })
+    expect(events.slice(eventCount)).toEqual([{
+      type: 'activity',
+      text: 'Night Crossing scenery reached Soundstage 7. The shooting take is ready to schedule.',
+    }])
+    scene.update(0, 10_000)
+    scene.applySnapshot(snapshot([director()], [operation({
+      taskStatus: 'scheduled',
+      statusLabel: 'Take in progress',
+      blocker: null,
+      currentCommand: null,
+    })]))
+    expect(events.slice(eventCount)).toHaveLength(1)
+  })
+
+  it('fails the projection closed for Stage 12-only and duplicate Stage 7 authority', () => {
+    const stage12 = blockedSceneryOperation({
+      productionId: 'production-stage-12',
+      locationBuildingId: 'stage-b',
+      facilityLabel: 'Soundstage 12 + Scenery Shop',
+      currentCommand: {
+        kind: 'clearSceneryLoadIn',
+        productionId: 'production-stage-12',
+        label: 'Clear scenery load-in',
+      },
+    })
+    const stage7 = blockedSceneryOperation()
+    for (const operations of [
+      [stage12],
+      [stage12, stage7, blockedSceneryOperation({ productionId: 'duplicate-stage-7', currentCommand: {
+        kind: 'clearSceneryLoadIn',
+        productionId: 'duplicate-stage-7',
+        label: 'Clear scenery load-in',
+      } })],
+    ]) {
+      const initial = snapshot([director()], operations)
+      const { scene, internals, events } = harness(initial)
+      internals.manifest.places.push(serviceYardPlace())
+      internals.sceneryGraphics!.calls = []
+      scene.applySnapshot(initial)
+
+      expect(scene.debugState()).toMatchObject({
+        sceneryLoadInState: null,
+        scenerySweepProductionId: null,
+      })
+      expect(internals.sceneryGraphics!.calls).toEqual([{ name: 'clear', args: [] }])
+      expect(scene.selectSceneryLoadInFromHost(stage12.productionId)).toBe(false)
+      expect(events.filter((event) => event.type === 'scenery-load-in')).toEqual([])
+    }
   })
 
   it('does not route or paint Stage 7 from an authoritative Soundstage 12 operation', () => {

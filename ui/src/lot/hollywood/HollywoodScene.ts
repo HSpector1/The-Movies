@@ -5,6 +5,7 @@ import type {
   ProductionOperationsState,
   StudioLotSnapshot,
 } from '../snapshot/StudioLotSnapshot'
+import { sceneryLoadInContext } from '../snapshot/sceneryLoadIn.ts'
 import {
   FALLBACK_PEOPLE_DECODED_BYTES,
   GENERATED_VEHICLE_DECODED_BYTES,
@@ -35,6 +36,10 @@ const FONT_SERIF = 'Georgia, "Iowan Old Style", "Times New Roman", serif'
 const FONT_SANS = 'Avenir, "Helvetica Neue", Arial, sans-serif'
 const ANNEX_PLACE_ID = 'annex-parcel'
 const ANNEX_BUILDING_ID = 'expansion'
+const SERVICE_YARD_PLACE_ID = 'service-yard'
+const SERVICE_YARD_BUILDING_ID = 'post'
+const STAGE_7_PLACE_ID = 'stage-7'
+const SCENERY_SWEEP_DURATION_MS = 1_200
 
 type Point = { x: number; y: number }
 type RoutePoint = Point & { actorDepth: number; cue: string }
@@ -87,11 +92,18 @@ export type HollywoodProductionSelection = {
   locationBuildingId: 'stage-a'
 }
 
+export type HollywoodSceneryLoadInSelection = {
+  productionId: string
+  locationBuildingId: 'stage-a'
+  placeId: 'service-yard'
+}
+
 export type HollywoodEvent =
   | { type: 'ready' }
   | { type: 'person'; person: LotPersonState | null }
   | { type: 'place'; place: HollywoodPlaceSelection }
   | { type: 'production'; production: HollywoodProductionSelection }
+  | { type: 'scenery-load-in'; sceneryLoadIn: HollywoodSceneryLoadInSelection }
   | { type: 'activity'; text: string | null }
 
 export type HollywoodSceneData = {
@@ -122,6 +134,12 @@ type RuntimePerson = {
 type CosmeticRoute = {
   productionId: string
   personId: string
+  elapsed: number
+}
+
+type CosmeticSceneryLoadIn = {
+  productionId: string
+  title: string
   elapsed: number
 }
 
@@ -162,8 +180,11 @@ export class HollywoodScene extends Phaser.Scene {
    * It never owns or advances a production/task status.
    */
   private cosmeticRoute: CosmeticRoute | null = null
+  /** Diagrammatic acknowledgement of accepted Engine truth, never delivery authority. */
+  private cosmeticSceneryLoadIn: CosmeticSceneryLoadIn | null = null
   private route: RoutePoint[] = []
   private activityGraphics: Phaser.GameObjects.Graphics | null = null
+  private sceneryGraphics: Phaser.GameObjects.Graphics | null = null
   private selectionGraphics: Phaser.GameObjects.Graphics | null = null
   private flash: Phaser.GameObjects.Rectangle | null = null
   private stageStateText: Phaser.GameObjects.Text | null = null
@@ -236,6 +257,11 @@ export class HollywoodScene extends Phaser.Scene {
     }
 
     this.activityGraphics = this.add.graphics().setDepth(84).setName('tier:stateful-activity')
+    // Above the service truck and stage-camera occluders along these endpoints.
+    // This object is deliberately draw-only: the existing depth-1 service-yard
+    // polygon owns input, so a marker can never win Phaser's top-only hit test
+    // over a named person travelling through the same world coordinate.
+    this.sceneryGraphics = this.add.graphics().setDepth(80).setName('tier:stateful-scenery-load-in')
     this.selectionGraphics = this.add.graphics().setDepth(170).setName('tier:selection')
     this.flash = this.add.rectangle(1120, 475, 190, 130, 0xfff7d6, 0).setDepth(160)
     this.stageLamp = this.add.circle(740, 405, 9, 0x7a160f, 1).setDepth(86)
@@ -285,6 +311,7 @@ export class HollywoodScene extends Phaser.Scene {
       // swallowed genuine pointer selection whenever a person stood over a place.
       const zone = this.add.zone(0, 0, DISTRICT_W, DISTRICT_H).setOrigin(0).setDepth(1)
       zone.setInteractive(shape, Phaser.Geom.Polygon.Contains)
+      if (zone.input) zone.input.cursor = 'pointer'
       zone.on('pointerover', () => this.drawPlaceOutline(place, false))
       zone.on('pointerout', () => {
         const selected = this.manifest.places.find(
@@ -304,13 +331,11 @@ export class HollywoodScene extends Phaser.Scene {
           this.selectAnnexSurface(place)
           return
         }
-        this.selectedProductionId = null
-        this.selectedPlaceId = place.id
-        this.drawPlaceOutline(place, true)
-        this.emitEvent({
-          type: 'place',
-          place: { id: place.id, buildingId: place.buildingId, label: place.label, affordances: place.affordances },
-        })
+        if (place === this.canonicalServiceYardPlace()) {
+          this.selectServiceYardSurface(place)
+          return
+        }
+        this.selectGenericPlaceSurface(place)
       })
     }
   }
@@ -319,6 +344,130 @@ export class HollywoodScene extends Phaser.Scene {
     return this.manifest?.places.find(
       (place) => place.id === ANNEX_PLACE_ID && place.buildingId === ANNEX_BUILDING_ID,
     ) ?? null
+  }
+
+  private canonicalServiceYardPlace(): Place | null {
+    const place = this.uniqueRuntimePlace(SERVICE_YARD_PLACE_ID)
+    if (place === null) return null
+    return (
+      place.buildingId === SERVICE_YARD_BUILDING_ID &&
+      place.label === 'Scenery & Service' &&
+      this.sameAnchor(place.anchors?.truck, [271, 626]) &&
+      this.sameAnchor(place.anchors?.sceneryRack, [112, 404]) &&
+      this.sameAnchor(place.anchors?.loadIn, [390, 584]) &&
+      this.sameStrings(place.affordances, ['delivery', 'supply-scenery', 'load-in']) &&
+      this.validSelectionPolygon(place.selectionPolygon)
+    ) ? place : null
+  }
+
+  private canonicalStage7Place(): Place | null {
+    const place = this.uniqueRuntimePlace(STAGE_7_PLACE_ID)
+    if (place === null) return null
+    return (
+      place.buildingId === 'stage-a' &&
+      place.label === 'Stage 7' &&
+      this.sameAnchor(place.anchors?.entry, [586, 383]) &&
+      this.sameAnchor(place.anchors?.crewCall, [662, 472]) &&
+      this.sameAnchor(place.anchors?.camera, [558, 527]) &&
+      this.sameAnchor(place.anchors?.service, [500, 500]) &&
+      this.sameStrings(place.affordances, ['enter-stage', 'shoot', 'load-in']) &&
+      this.validSelectionPolygon(place.selectionPolygon)
+    ) ? place : null
+  }
+
+  private uniqueRuntimePlace(id: string): Place | null {
+    const places = (this.manifest as unknown as { places?: unknown } | null)?.places
+    if (!Array.isArray(places)) return null
+    const matches = places.filter((candidate) =>
+      typeof candidate === 'object' &&
+      candidate !== null &&
+      (candidate as { id?: unknown }).id === id,
+    )
+    return matches.length === 1 ? matches[0] as Place : null
+  }
+
+  private sameAnchor(
+    actual: unknown,
+    expected: readonly [number, number],
+  ): boolean {
+    return Array.isArray(actual) &&
+      actual.length === 2 &&
+      actual[0] === expected[0] &&
+      actual[1] === expected[1]
+  }
+
+  private sameStrings(actual: unknown, expected: readonly string[]): boolean {
+    return Array.isArray(actual) &&
+      actual.length === expected.length &&
+      actual.every((value, index) => value === expected[index])
+  }
+
+  private validSelectionPolygon(actual: unknown): actual is [number, number][] {
+    return Array.isArray(actual) &&
+      actual.length >= 3 &&
+      actual.every((point) =>
+        Array.isArray(point) &&
+        point.length === 2 &&
+        Number.isFinite(point[0]) &&
+        Number.isFinite(point[1]),
+      )
+  }
+
+  /**
+   * One exact scenery selection seam shared by the physical yard polygon and host.
+   * The snapshot selector is re-run at activation time; scene state is never authority.
+   */
+  private selectSceneryLoadInSurface(place: Place, emitSelection = true): boolean {
+    if (
+      place !== this.canonicalServiceYardPlace() ||
+      this.canonicalStage7Place() === null
+    ) return false
+    const scenery = sceneryLoadInContext(this.snapshot)
+    if (scenery === null) return false
+    this.selectedProductionId = scenery.operation.productionId
+    this.selectedPlaceId = place.id
+    this.drawPlaceOutline(place, true)
+    if (emitSelection) {
+      this.emitEvent({
+        type: 'scenery-load-in',
+        sceneryLoadIn: {
+          productionId: scenery.operation.productionId,
+          locationBuildingId: 'stage-a',
+          placeId: SERVICE_YARD_PLACE_ID,
+        },
+      })
+    }
+    return true
+  }
+
+  /** Marker and polygon share this physical seam, including the generic fallback. */
+  private selectServiceYardSurface(place: Place): void {
+    if (this.selectSceneryLoadInSurface(place)) return
+    this.selectGenericPlaceSurface(place)
+  }
+
+  private selectGenericPlaceSurface(place: Place): void {
+    this.selectedProductionId = null
+    this.selectedPlaceId = place.id
+    this.drawPlaceOutline(place, true)
+    this.emitEvent({
+      type: 'place',
+      place: {
+        id: place.id,
+        buildingId: place.buildingId,
+        label: place.label,
+        affordances: place.affordances,
+      },
+    })
+  }
+
+  /** Host/DOM parity: revalidate and paint exact service work without emitting an event. */
+  selectSceneryLoadInFromHost(productionId: string): boolean {
+    if (!this.selectionGraphics) return false
+    const scenery = sceneryLoadInContext(this.snapshot)
+    if (scenery?.operation.productionId !== productionId) return false
+    const place = this.canonicalServiceYardPlace()
+    return place === null ? false : this.selectSceneryLoadInSurface(place, false)
   }
 
   /**
@@ -357,6 +506,7 @@ export class HollywoodScene extends Phaser.Scene {
    * time and emits identity only; without exact managed authority it remains a place.
    */
   private selectStage7Surface(place: Place): void {
+    if (place !== this.canonicalStage7Place()) return
     this.selectedPlaceId = place.id
     this.drawPlaceOutline(place, true)
     const operation = this.authoritativeStage7Operation(this.snapshot)
@@ -387,8 +537,8 @@ export class HollywoodScene extends Phaser.Scene {
   selectProductionFromHost(productionId: string): boolean {
     const operation = this.authoritativeStage7Operation(this.snapshot)
     if (operation?.productionId !== productionId) return false
-    const place = this.manifest.places.find((candidate) => candidate.buildingId === 'stage-a')
-    if (!place) return false
+    const place = this.canonicalStage7Place()
+    if (place === null) return false
     this.selectedProductionId = operation.productionId
     this.selectedPlaceId = place.id
     this.drawPlaceOutline(place, true)
@@ -679,14 +829,23 @@ export class HollywoodScene extends Phaser.Scene {
 
   applySnapshot(snapshot: StudioLotSnapshot): void {
     const previousStage7 = this.authoritativeStage7Operation(this.snapshot)
+    const previousScenery = sceneryLoadInContext(this.snapshot)
     this.snapshot = snapshot
-    if (!this.scene.isActive()) return
+    if (!this.scene.isActive()) {
+      // A transition received while the renderer is inactive becomes direct-load
+      // truth when it resumes; it must not retain or replay an unseen ceremony.
+      this.cosmeticSceneryLoadIn = null
+      return
+    }
 
     this.reconcilePeople(snapshot.people)
     const nextStage7 = this.authoritativeStage7Operation(snapshot)
+    const nextScenery = sceneryLoadInContext(snapshot)
     if (
       this.selectedProductionId !== null &&
-      nextStage7?.productionId !== this.selectedProductionId
+      (this.selectedPlaceId === SERVICE_YARD_PLACE_ID
+        ? nextScenery?.operation.productionId !== this.selectedProductionId
+        : nextStage7?.productionId !== this.selectedProductionId)
     ) this.clearPlaceSelection()
     if (
       this.cosmeticRoute !== null &&
@@ -697,6 +856,22 @@ export class HollywoodScene extends Phaser.Scene {
     ) {
       this.cosmeticRoute = null
     }
+    if (
+      this.cosmeticSceneryLoadIn !== null &&
+      (nextScenery?.state !== 'ready' ||
+        nextScenery.operation.productionId !== this.cosmeticSceneryLoadIn.productionId)
+    ) {
+      const cancelledSweep = this.cosmeticSceneryLoadIn
+      this.cosmeticSceneryLoadIn = null
+      // Scheduling is allowed while the flat is moving. Authoritative scheduled
+      // truth cancels the drawing immediately, but the already-accepted clear still
+      // receives its single acknowledgement rather than silently disappearing.
+      const exactScheduledStage7 = this.uniqueEngineStage7Operation(snapshot)
+      if (
+        exactScheduledStage7?.productionId === cancelledSweep.productionId &&
+        exactScheduledStage7.taskStatus === 'scheduled'
+      ) this.announceCosmeticSceneryLoadIn(cancelledSweep)
+    }
 
     const acceptedDirectorDispatch =
       previousStage7 !== null &&
@@ -706,9 +881,98 @@ export class HollywoodScene extends Phaser.Scene {
       nextStage7.taskStatus === 'blocked'
     if (acceptedDirectorDispatch) this.beginCosmeticDirectorRoute(nextStage7)
 
+    const acceptedSceneryClear =
+      previousScenery?.state === 'blocked' &&
+      nextScenery?.state === 'ready' &&
+      previousScenery.operation.productionId === nextScenery.operation.productionId
+
     this.syncPeopleToAuthoritativeSnapshot(nextStage7)
     this.paintAuthoritativeStage7(nextStage7)
+    this.paintSceneryLoadIn(nextScenery)
+    if (acceptedSceneryClear) this.beginCosmeticSceneryLoadIn(nextScenery.operation)
     this.paintExpansion(snapshot)
+  }
+
+  private paintSceneryLoadIn(context: ReturnType<typeof sceneryLoadInContext>): void {
+    const g = this.sceneryGraphics
+    if (!g) return
+    g.clear()
+    if (context === null) return
+    const sourcePlace = this.canonicalServiceYardPlace()
+    const destinationPlace = this.canonicalStage7Place()
+    const source = sourcePlace?.anchors.loadIn
+    const destination = destinationPlace?.anchors.service
+    if (!source || !destination) return
+
+    const [sourceX, sourceY] = source
+    const [destinationX, destinationY] = destination
+    const sweep = this.cosmeticSceneryLoadIn?.productionId === context.operation.productionId
+      ? this.cosmeticSceneryLoadIn
+      : null
+
+    if (context.state === 'blocked') {
+      // Amber relationship + paired flats + exclamation. The distinct source shapes
+      // keep the hold readable without relying on colour alone. Keep the visible
+      // source marker fully inside the authored service-yard polygon; the draw-only
+      // graphics and the depth-1 polygon then remain one honest physical affordance.
+      const markerX = sourceX - 12
+      g.lineStyle(5, 0xd28d2d, 0.92).lineBetween(sourceX, sourceY, destinationX, destinationY)
+      g.fillStyle(0x302416, 0.96).fillRect(markerX - 30, sourceY - 18, 46, 32)
+      g.lineStyle(3, 0xf0c36d, 1).strokeRect(markerX - 30, sourceY - 18, 46, 32)
+      g.fillStyle(0x8b4b20, 1).fillCircle(markerX, sourceY - 24, 13)
+      g.lineStyle(4, 0xffefd0, 1).lineBetween(markerX, sourceY - 31, markerX, sourceY - 22)
+      g.fillStyle(0xffefd0, 1).fillCircle(markerX, sourceY - 17, 2)
+      g.lineStyle(3, 0xf0c36d, 0.9).strokeCircle(destinationX, destinationY, 18)
+      return
+    }
+
+    // Ready truth is always painted immediately. The optional sweep only acknowledges
+    // the already-accepted blocked → ready replacement and never gates the command.
+    const markerX = sourceX - 12
+    g.lineStyle(5, 0x61b47a, 0.88).lineBetween(sourceX, sourceY, destinationX, destinationY)
+    g.fillStyle(0x274b35, 1).fillRect(markerX - 12, sourceY - 12, 24, 24)
+    g.lineStyle(3, 0xbfe5ba, 1).strokeRect(markerX - 12, sourceY - 12, 24, 24)
+    g.lineStyle(5, 0xe8f5d8, 1)
+      .lineBetween(destinationX - 16, destinationY, destinationX - 5, destinationY + 12)
+      .lineBetween(destinationX - 5, destinationY + 12, destinationX + 19, destinationY - 15)
+    g.lineStyle(3, 0x61b47a, 0.92).strokeCircle(destinationX, destinationY, 27)
+    if (sweep === null) return
+
+    const progress = Phaser.Math.Clamp(sweep.elapsed / SCENERY_SWEEP_DURATION_MS, 0, 1)
+    const eased = Phaser.Math.Easing.Sine.InOut(progress)
+    const x = Phaser.Math.Linear(sourceX, destinationX, eased)
+    const y = Phaser.Math.Linear(sourceY, destinationY, eased)
+    g.fillStyle(0x382b1d, 1).fillRect(x - 22, y - 14, 44, 28)
+    g.lineStyle(3, 0xf0c36d, 1).strokeRect(x - 22, y - 14, 44, 28)
+    g.lineBetween(x, y - 14, x, y + 14)
+  }
+
+  private beginCosmeticSceneryLoadIn(operation: ProductionOperationsState): void {
+    this.cosmeticSceneryLoadIn = {
+      productionId: operation.productionId,
+      title: operation.title,
+      elapsed: 0,
+    }
+    if (this.reducedMotion) {
+      this.finishCosmeticSceneryLoadIn()
+      return
+    }
+    this.paintSceneryLoadIn(sceneryLoadInContext(this.snapshot))
+  }
+
+  private finishCosmeticSceneryLoadIn(): void {
+    const sweep = this.cosmeticSceneryLoadIn
+    if (!sweep) return
+    this.cosmeticSceneryLoadIn = null
+    this.paintSceneryLoadIn(sceneryLoadInContext(this.snapshot))
+    this.announceCosmeticSceneryLoadIn(sweep)
+  }
+
+  private announceCosmeticSceneryLoadIn(sweep: CosmeticSceneryLoadIn): void {
+    this.emitEvent({
+      type: 'activity',
+      text: `${sweep.title} scenery reached Soundstage 7. The shooting take is ready to schedule.`,
+    })
   }
 
   /**
@@ -801,6 +1065,20 @@ export class HollywoodScene extends Phaser.Scene {
     return snapshot.productionOperations.find(
       (operation) => operation.locationBuildingId === 'stage-a',
     ) ?? null
+  }
+
+  /** Scenery transition acknowledgement fails closed on duplicate Stage 7 facts. */
+  private uniqueEngineStage7Operation(
+    snapshot: StudioLotSnapshot,
+  ): ProductionOperationsState | null {
+    if (
+      snapshot.operationsMode !== 'managed' ||
+      snapshot.stageAssignmentAuthority !== 'engine'
+    ) return null
+    const stage7 = snapshot.productionOperations.filter(
+      (operation) => operation.locationBuildingId === 'stage-a',
+    )
+    return stage7.length === 1 ? stage7[0]! : null
   }
 
   private availablePersonHomeSlot(role: LotPersonState['role'], personId: string): number {
@@ -989,6 +1267,7 @@ export class HollywoodScene extends Phaser.Scene {
         }
       }
       if (this.cosmeticRoute) this.finishCosmeticDirectorRoute()
+      if (this.cosmeticSceneryLoadIn) this.finishCosmeticSceneryLoadIn()
       return
     }
     this.vehicleTween?.resume()
@@ -1057,6 +1336,14 @@ export class HollywoodScene extends Phaser.Scene {
     }
 
     if (this.cosmeticRoute) this.updateCosmeticDirectorRoute(delta)
+    if (this.cosmeticSceneryLoadIn) {
+      this.cosmeticSceneryLoadIn.elapsed += delta
+      if (this.cosmeticSceneryLoadIn.elapsed >= SCENERY_SWEEP_DURATION_MS) {
+        this.finishCosmeticSceneryLoadIn()
+      } else {
+        this.paintSceneryLoadIn(sceneryLoadInContext(this.snapshot))
+      }
+    }
 
     if (this.capturePerformanceFrame) {
       const updateMs = performance.now() - updateStart
@@ -1208,6 +1495,9 @@ export class HollywoodScene extends Phaser.Scene {
     selectedProductionId: string | null
     stage7Operation: ProductionOperationsState | null
     routeProductionId: string | null
+    sceneryLoadInState: 'blocked' | 'ready' | null
+    scenerySweepProductionId: string | null
+    scenerySweepElapsedMs: number | null
     manifestId: string
     routeDepths: number[]
     expansionStatus: 'legacy' | 'vacant' | 'building' | 'operational'
@@ -1219,6 +1509,9 @@ export class HollywoodScene extends Phaser.Scene {
       selectedProductionId: this.selectedProductionId,
       stage7Operation: this.authoritativeStage7Operation(this.snapshot),
       routeProductionId: this.cosmeticRoute?.productionId ?? null,
+      sceneryLoadInState: sceneryLoadInContext(this.snapshot)?.state ?? null,
+      scenerySweepProductionId: this.cosmeticSceneryLoadIn?.productionId ?? null,
+      scenerySweepElapsedMs: this.cosmeticSceneryLoadIn?.elapsed ?? null,
       manifestId: this.manifest.districtId,
       routeDepths: this.route.map((point) => point.actorDepth),
       expansionStatus: this.expansionStatus,
