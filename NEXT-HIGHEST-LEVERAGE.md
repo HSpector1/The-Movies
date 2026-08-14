@@ -50,38 +50,48 @@ same-context continuity, presentation-only load-in acknowledgement, Schedule-dur
 renderer/manifest failure, reduced motion, direct reload, Stage 12 isolation, and generic place
 compatibility are proven without adding simulation law.
 
-## Next candidate — World-First Studio Home V1
+## Closed — World-First Studio Home V1
 
-Instrument first, then freeze the ordinary entry and return contract. The Studio Lot is now capable
-of several minutes of meaningful production, people, weekly, and construction play, but an
-operating studio still defaults to Dashboard after founding, recovery, or load. That contradicts
-the Owner's home-surface ruling even though Dashboard remains a valuable deep management surface.
+Contract `8d5f8dd` and implementation `0c4bd9d` close ordinary operating-studio entry ownership.
+Founded, recovered, and loaded studios enter the adopted Hollywood Lot by default; explicit
+overview rollback retains Dashboard home; Dashboard and deep screens carry typed root context; and
+accepted studio replacement clears cross-studio presentation memory without changing Engine,
+GameState, SaveFileV11, RNG, economy, production, construction, or publicity truth.
+
+This closure is deliberately bounded. Deep screens unmount and later remount the Lot against the
+same authoritative state. Selected-building/focus context persists where contracted; the same
+Phaser instance, camera, selected person, production/place context, and presentation animation do
+not. Final proof passed 165/165 files and 2,069/2,069 tests, D-16/D-17 10/10 files and 176/176
+tests, 114 Chromium checks plus 5/5 post-harness checks, a 134-module build, and clean review.
+
+## Next candidate — World-First Named Person Work & Career Inspector V1
+
+Instrument first, then freeze the smallest world-first inspector for one exact named inhabitant.
+The Lot now owns ordinary entry and contains role-readable people, but it does not yet let the
+player select one inhabitant and understand their existing authoritative work and career truth at
+the point of observation.
 
 Expected minimum:
 
-- enumerate every current entry owner: new founding, current-session startup, recovery notice,
-  accepted Saves import, explicit Dashboard action, deep-screen return, release chain, Autopsy,
-  and lot exit;
-- distinguish onboarding/founding states that still require a non-world decision from an already
-  operating studio that can safely inhabit the lot;
-- route ordinary operating-studio startup/recovery/load to the persistent Studio Lot without
-  fabricating a second session, tick, selection, camera, notice, or save event;
-- retain Dashboard as an explicit supporting destination and preserve all current actions, truth,
-  focus, and tests there;
-- carry exact origin through deep screens and return to the same live-world context wherever the
-  bounded architecture can truthfully retain it;
-- prove reload, older-save conversion acknowledgement, release/Annex co-events, renderer failure,
-  feature rollback, reduced motion, and keyboard navigation;
-- measure whether keeping the lot mounted behind deep panels is justified in this V1 or requires a
-  later shell/navigation contract; do not assume it;
-- preserve Engine/GameState, SaveFileV11, RNG, economy, production, construction, publicity,
-  facility, and task behavior; and
-- add no Phaser-owned navigation, duplicate App tree, hidden automatic decision, or deleted deep
-  management route.
+- inventory the current person-selection, Role Atlas, production-participant, Talent Profile, and
+  career-history authorities before choosing an interaction shape;
+- bind the inspector to one exact visible person identity, never sprite order, role label alone, or
+  a presentation guess;
+- show only existing authoritative work/assignment, production involvement, availability, and
+  career facts; show workplace/destination only where an existing source owns it, with honest
+  unavailable states everywhere else;
+- keep world selection and the accessible semantic companion in parity and retain a clear route to
+  the existing deep Talent Profile when more detail is needed;
+- measure the remount boundary honestly rather than claiming camera/person persistence that Studio
+  Home V1 does not provide;
+- preserve Engine/GameState, SaveFileV11, RNG, economy, production, facilities, tasks, career
+  progression, and Role Atlas authority; and
+- add no autonomous needs, relationships, stress/fatigue mechanics, pathfinding authority, new
+  career simulation, duplicate person model, or UI-authored work state.
 
-The smallest honest result may be default lot entry plus explicit, origin-safe supporting routes.
-Persistent background simulation/presentation across every deep panel is desirable but must not be
-smuggled into the same slice if it requires a new application shell or two mounted owners.
+The smallest honest result may be a bounded in-world inspector plus an origin-safe handoff to the
+existing profile. A persistent shell or richer person simulation must not be smuggled into this
+slice.
 
 ## Closed parallel evidence lane
 
@@ -99,6 +109,7 @@ construction, or operating costs materially change the decision boundary.
 - a renderer-owned scenery task, delivery timer, completion condition, or pathfinding result;
 - an exporter run that can erase accepted runtime manifest places;
 - a duplicate mounted lot/App tree or Phaser-owned navigation state;
+- an uncontracted promise of same-Phaser, camera, or person selection across deep remounts;
 - an unmeasured construction catalogue, placement system, second Annex, fourth slot, or arbitrary
   cash sink;
 - invented cancellation, refund, maintenance, staffing, operating-cost, or worker-pathfinding law;
@@ -107,10 +118,10 @@ construction, or operating costs materially change the decision boundary.
 
 ## After the slice
 
-Re-run the several-minutes-on-lot test after ordinary startup reaches the world. Then choose the
-next observed break among persistent lot mounting/context across deep panels, visible facility
-occupancy/queues, parallel production legibility, or human workload/story state. Choose from
-observed play, not menu completeness.
+Re-run the several-minutes-on-lot test after a named inhabitant's current work and career can be
+understood in world. Then choose the next observed break among persistent lot mounting/context,
+visible facility occupancy/queues, parallel production legibility, or a separately authorized
+human workload/story system. Choose from observed play, not menu completeness.
 
 The governing economic classification remains exactly:
 

@@ -25,9 +25,12 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 - **World-First Scenery Load-In V1:** CLOSED by this documentation checkpoint; the physical
   Scenery & Service yard now owns an exact same-lot blocked → ready → scheduled interaction while
   the Engine remains the sole task authority.
-- **Next playable milestone:** World-First Studio Home V1 — instrument and freeze the ordinary
-  operating-studio entry/return boundary so the persistent lot becomes home while Dashboard and
-  deep management screens remain explicit supporting destinations.
+- **World-First Studio Home V1:** CLOSED by this documentation checkpoint under contract
+  `8d5f8dd` and implementation `0c4bd9d`; founded, recovered, and loaded operating studios now
+  enter the adopted Hollywood Lot by default while Dashboard remains an explicit supporting root.
+- **Next playable milestone:** World-First Named Person Work & Career Inspector V1 — instrument
+  and freeze the smallest truthful in-world inspection of one named person's existing work and
+  career state without adding a second people simulation or new career law.
 
 ## Closed marathon milestones
 
@@ -48,6 +51,7 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Live Week Advance V1 | `3391528` | `621e7e1` | `a9be116` |
 | World-First Annex Construction Interaction V1 | `6cab9c9` | `7a370fd` | `933d074` |
 | World-First Scenery Load-In V1 | `b03bb10` | `3a667e0` | this documentation checkpoint |
+| World-First Studio Home V1 | `8d5f8dd` | `0c4bd9d` | this documentation checkpoint |
 
 ## Product result so far
 
@@ -58,11 +62,25 @@ authoritative week advance on the persistent Hollywood lot. The fixed Annex parc
 same-world choice: inspect exact Vacant truth, commit the existing project, watch Building progress,
 and reach Operational capacity. Scenery & Service now physically joins the exact Stage 7 blocker,
 existing Clear command, bounded load-in acknowledgement, and fresh Schedule decision without a
-second clock or logistics simulation. The strongest observed break is now entry ownership: a
-founded, restored, or loaded operating studio still opens on Dashboard instead of its living lot.
+second clock or logistics simulation. Studio Home V1 closes entry ownership: ordinary founded,
+restored, and loaded studios now open on the Hollywood Lot, and typed supporting routes return to
+their exact Lot or Dashboard root against the same authoritative state.
+
+Deep screens still unmount and later remount the Lot. V1 persists bounded selected-building/focus
+context and authoritative GameState; it does not preserve the same Phaser instance, camera, selected
+person, or other transient world presentation. Final proof passed 165/165 files and 2,069/2,069
+tests, the governed D-16/D-17 10/10 files and 176/176 tests, 114/114 Chromium before the final
+harness-neutrality correction followed by the affected Studio Home paths at 5/5 under hostile
+inherited rollback env, a 134-module production build, and clean final review. The strongest
+observed break is now truthful named-person work and career inspection from the world.
 
 ## Governing status
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+
+Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
+dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
+and formal G12 timing remain open. Studio Home V1 certifies no macroeconomic balance and authorizes
+no financing, bailout, restructuring, failure ladder, or arbitrary cash sink.
 
 No merge to main, push, or milestone tag is authorized by autonomous progress alone.

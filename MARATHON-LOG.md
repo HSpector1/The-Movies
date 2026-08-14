@@ -166,3 +166,30 @@ Owner rulings remain the authority when a summary here conflicts with them.
 - Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
   RESIDUALS REMAIN OPEN**. Every accepted macroeconomic residual remains open; no financing,
   bailout, failure ladder, or arbitrary cash sink was introduced.
+
+## 2026-08-14 — World-first Studio Home V1 closes
+
+- Froze contract `8d5f8dd95a64a6a863b5612cc44cf1a45cf0f599` and delivered implementation
+  `0c4bd9dade7ef866900dfd7d4557cb18fb69653f`; this documentation checkpoint closes the slice.
+- Adopted Studio Lot overview and Operation Hollywood as default-on ordinary-player content with
+  explicit rollback precedence, then centralized one App-owned destination for founded recovery,
+  accepted load, founding completion, and ordinary Studio Home entry.
+- Retained Dashboard as an explicit supporting/root-compatible surface and carried typed Lot or
+  Dashboard origin through bounded deep, release, Clipping, Chronicle, and return paths.
+- Reset selected-building and stage-assignment presentation memory at accepted cross-studio
+  replacement boundaries without changing Engine, GameState, SaveFileV11, RNG, economy,
+  production, construction, publicity, facility, or task behavior.
+- Recorded the continuity limit exactly: deep screens unmount and later remount the Lot against the
+  current authoritative state. Bounded selected-building/focus context persists; the same Phaser
+  instance, camera, selected person, production/place context, and presentation animation do not.
+- Closed with 165/165 repository files and 2,069/2,069 tests, 10/10 governed D-16/D-17 files and
+  176/176 tests, 114/114 Chromium before the final harness-neutrality correction followed by the
+  affected Studio Home paths at 5/5 under hostile inherited rollback env, a 134-module production
+  build, clean TypeScript/diff gates, and clean final review.
+- Promoted **World-First Named Person Work & Career Inspector V1**: instrument and freeze one exact
+  inhabitant's existing work and career truth in world, with no second people model or new career
+  mechanic.
+- Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
+  RESIDUALS REMAIN OPEN**. Cash runaway, top-studio economic immortality, the week-208 synchronized
+  roster wall, P5 dominance, world-led variance, cheap-film purpose, premium-film purpose,
+  remaining menu breadth, and formal G12 timing remain open; Studio Home certifies no macro balance.

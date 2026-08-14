@@ -4,7 +4,7 @@ Updated: 2026-08-14
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current implementation HEAD: `3a667e05986579d6474878f238d1c6dbc4a7e362`
+Current implementation HEAD: `0c4bd9dade7ef866900dfd7d4557cb18fb69653f`
 
 ## Product doctrine — World First
 
@@ -20,12 +20,18 @@ The default interaction grammar is:
 WORLD → INSPECT / ACT → DEEP PANEL IF NEEDED → RETURN TO THE SAME LIVE WORLD
 ```
 
+“Same live world” means the same authoritative studio and explicit Lot root, not permanent renderer
+object identity. Studio Home V1 still unmounts the Lot for deep screens and remounts one Phaser view
+on return. Only bounded selected-building/focus context and current authoritative state persist;
+camera, selected person, production/place context, and presentation animation do not.
+
 Dashboard, Assembly, Production Board, Calendar, Roster, Hiring, Finance, Film Autopsy, Chronicle,
 Writers Room, Casting Room, and Studio Development remain valuable. Do not delete or trivialize
 them. They are deep management surfaces for information and decisions too complex to express
 spatially. They support the world; they do not replace it. Where technically appropriate, the
-studio remains alive behind or around them, and closing them returns to the same camera, selection,
-and current studio context.
+studio may remain alive behind or around them. In the current architecture, closing a deep screen
+returns to the same authoritative Lot root with bounded selected-building/focus restoration, not the
+same Phaser instance, camera, or selected person.
 
 ### Critical experience test
 
@@ -98,8 +104,38 @@ whether the game remains playable.
   blocker, and native semantic control select one exact Stage 7 load-in context; accepted Clear
   produces immediate ready truth plus bounded world acknowledgement, and Schedule remains legal
   while that acknowledgement is moving.
+- World-First Studio Home V1 makes the adopted Hollywood Lot the default operating-studio home after
+  founding, recovery, and accepted load; Dashboard remains an explicit supporting destination and
+  typed root context returns bounded deep/release/Chronicle paths to their exact Lot or Dashboard
+  owner.
 
 ## Current world-first checkpoint
+
+World-First Studio Home V1 is closed by this documentation checkpoint at implementation authority
+`0c4bd9d` under frozen contract `8d5f8dd`:
+
+- Studio Lot overview and Operation Hollywood are adopted default-on ordinary-player gates with
+  independent explicit rollback precedence;
+- one App-owned home decision governs founded recovery, Start/Saves import, founding completion,
+  and ordinary Studio Home entry without making Phaser a router;
+- Dashboard remains complete and explicit, while typed Lot/Dashboard origin survives the bounded
+  deep, release, Clipping, Chronicle, Autopsy, and return matrix;
+- accepted studio replacement resets selected-building and stable stage-assignment memory rather
+  than leaking presentation identity between studios;
+- navigation is neutral to Engine/GameState, SaveFileV11, RNG, week, cash, ledger, economy,
+  productions, people, reservations, construction, publicity, facilities, and tasks;
+- deep screens still destroy and remount the Lot: selected-building/focus and authoritative state
+  persist where contracted, but same-Phaser, camera, person, production/place, and animation
+  persistence are explicitly outside V1; and
+- final proof passed 165/165 files and 2,069/2,069 tests, governed D-16/D-17 10/10 files and
+  176/176 tests, 114/114 Chromium before the final harness-neutrality correction followed by the
+  affected Studio Home paths at 5/5 under hostile inherited rollback env, a 134-module production
+  build, clean TypeScript/diff gates, and clean independent review.
+
+The accepted 2D Role Atlas remains the people presentation authority. Rejected 05H/05I character
+production and integration remain unauthorized.
+
+## Prior world-first checkpoint — Scenery Load-In V1
 
 World-First Scenery Load-In V1 is closed at implementation authority `3a667e0` under frozen
 contract `b03bb10`:
@@ -145,6 +181,8 @@ production and integration remain unauthorized.
 - final Annex compatibility authority: `8b7e95eb92f6f809522a595b4b458d4f19e26852`
 - reviewed Week-208 observatory authority: `f16e2e0b184f6818d373d77556c5c7a1b3df7b94`
 - World-First Scenery Load-In V1 implementation: `3a667e05986579d6474878f238d1c6dbc4a7e362`
+- World-First Studio Home V1 contract: `8d5f8dd95a64a6a863b5612cc44cf1a45cf0f599`
+- World-First Studio Home V1 implementation: `0c4bd9dade7ef866900dfd7d4557cb18fb69653f`
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -155,21 +193,22 @@ or arbitrary cash sink is authorized.
 
 ## Current highest-leverage gap
 
-The player can now select the exact Stage 7 production, assign its named Director, watch travel,
-resolve scenery at its physical source, schedule the take, advance the Engine week, and
-inspect/build/advance the Annex without leaving the lot. The next observed world-first break is
-**World-First Studio Home V1**: new, restored, and loaded operating studios still open on Dashboard
-even though the Owner has ruled that the persistent lot is home.
+The player now enters the Hollywood Lot by default and can select an exact Stage 7 production,
+assign its named Director, watch travel, resolve scenery, schedule the take, advance the Engine
+week, and inspect/build/advance the Annex. The next observed world-first break is
+**World-First Named Person Work & Career Inspector V1**: role-readable inhabitants are visible,
+but selecting one does not yet explain that exact person's existing authoritative work and career
+truth at the point of observation.
 
-Instrument and freeze entry/return behavior before implementation. Identify every founding,
-recovery, save-load, deep-screen, release-result, and explicit Dashboard route. The bounded target
-should make the lot the ordinary operating-studio destination while retaining Dashboard and all
-deep surfaces as intentional supporting destinations with exact return origin, focus, selection,
-camera, and save/reload truth.
+Instrument and freeze the person-selection/read-model boundary before implementation. Reuse exact
+Role Atlas identity, production participants, current assignment/availability truth, and the
+existing Talent Profile/career history. The bounded target should expose only facts already owned by
+Engine/GameState or established read models, provide honest unavailable states, keep the accessible
+semantic companion in parity, and retain an explicit route to deeper profile detail when needed.
 
-Do not delete Dashboard, skip required founding/onboarding decisions, keep duplicate mounted Apps,
-make Phaser own navigation, or infer return origin from the current URL. Deep screens still unmount
-the lot today; whether persistence behind them is part of this bounded slice must be measured rather
-than assumed. Visible queues/occupancy, parallel-production legibility, and richer human workload/
-relationship/stress/fatigue/career stories remain explicit later gaps. Week-208 research remains
-closed with no current repair justified; the underlying roster-wall residual remains open.
+Do not invent worker autonomy, needs, relationships, stress/fatigue, pathfinding authority, new
+career progression, UI-authored work state, or a second people model. Do not claim deep-screen
+camera/person persistence: Studio Home V1 remounts the Lot and retains only its contracted
+selected-building/focus plus authoritative state. Visible queues/occupancy and parallel-production
+legibility remain later observed gaps. Week-208 research remains closed with no current repair
+justified; the underlying roster-wall residual and every other accepted D-17B residual remain open.

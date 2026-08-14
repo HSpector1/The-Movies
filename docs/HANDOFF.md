@@ -1,5 +1,36 @@
 # Project: Studio — Engineering Handoff
 
+> ## 🎬 2026-08-14 — CURRENT: Studio Home V1 CLOSED; World-First Named Person Work & Career Inspector V1 next
+>
+> Frozen contract [`8d5f8dd`](WORLD-FIRST-STUDIO-HOME-V1-CONTRACT.md) and implementation
+> `0c4bd9dade7ef866900dfd7d4557cb18fb69653f` make the adopted Hollywood Lot the ordinary home for
+> founded, recovered, and loaded operating studios. This documentation checkpoint closes
+> the milestone. Dashboard remains an explicit supporting/root-compatible destination; typed
+> origin carries bounded deep/release/Chronicle returns; explicit overview and Hollywood rollbacks
+> remain supported; and accepted studio replacement clears cross-studio selection memory.
+>
+> **Continuity is bounded and must not be overstated.** Deep screens unmount `StudioLotScreen` and
+> destroy its Phaser view, then remount one Lot against the current authoritative `GameState`.
+> Selected-building/focus context persists where contracted. The same Phaser instance, camera,
+> selected person, production/place/Scenery/Annex presentation context, and animation do not.
+> Studio Home changed no Engine, SaveFileV11, RNG, economy, production, construction, publicity,
+> facility, or task authority.
+>
+> Final proof: **165/165 files, 2,069/2,069 tests**; governed D-16/D-17 **10/10 files,
+> 176/176 tests**; Chromium **114/114 before the final harness-neutrality correction, then the
+> affected Studio Home paths 5/5 under hostile inherited rollback env**; production build
+> **134 modules**; TypeScript/diff gates and independent final review clean. Next:
+> **World-First Named Person Work & Career Inspector V1**, beginning with instrumentation and a
+> frozen bounded contract—no new people autonomy, career law, or second simulation.
+>
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+>
+> Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
+> dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
+> and formal G12 timing remain open. This world/navigation closure is not macroeconomic
+> certification and authorizes no financing, bailout, restructuring, failure ladder, or arbitrary
+> cash sink. Legacy history below remains historical; this banner is the current handoff.
+
 > ## 📚 Lessons — read before, update after
 >
 > Before starting a substantial milestone, integration, audit, or meaningful bug fix, **read the

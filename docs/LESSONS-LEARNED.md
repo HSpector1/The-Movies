@@ -2693,3 +2693,39 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   records before allowing the scene seam.
 - **Pattern:** deterministic replay + explicit divergence + no-write boundary. **Anti-pattern:**
   treating reproducibility as proof that an exporter input still owns current product truth.
+
+---
+
+# World-First Studio Home V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Contract `8d5f8dd`; implementation `0c4bd9d`.
+
+## DO. A default-on adoption test must exercise the default, not a positive override — **BR**
+
+- **Risk:** setting a browser harness env flag to `1` makes the test pass even if the shipped
+  default regresses off; inheriting a developer-shell `0` makes the same proof non-hermetic.
+- **Resolution:** scrub hostile inherited env with an absent or neutral value that resolves through
+  the default branch, leave runtime storage absent for ordinary-player proof, and use explicit `0`
+  only for rollback cases.
+- **Pattern:** neutral inputs + default assertion + explicit rollback case. **Anti-pattern:** proving
+  a default by positively enabling it.
+
+## DP. Return origin and world selection are typed transient data with a studio lifetime — **MG, BR**
+
+- **Risk:** reconstructing origin from the mounted screen loses the correct world focus, while
+  module-level selection can leak a prior studio's building into a replacement studio.
+- **Resolution:** carry one discriminated return context through every supporting branch without
+  serializing it into GameState, and reset presentation memory only when a new game or accepted save
+  replaces the authoritative studio. A rejected replacement keeps the live studio's context.
+- **Pattern:** typed transient origin + explicit replacement reset. **Anti-pattern:** route inference,
+  save-schema fields, or presentation memory that outlives its studio.
+
+## DQ. Gitignored fixtures must regenerate and prove native save authority — **BR**
+
+- **Risk:** a developer-local fixture can be stale or can fabricate a desired balance by rewriting
+  cash, violating SaveFileV11 ledger reconciliation while the UI evidence still looks plausible.
+- **Resolution:** regenerate gitignored evidence fixtures from Engine actions at test time, validate
+  the native save version and ledger-derived cash before browser import, and assert the exact
+  read-model outcome rather than a hand-shaped narrative.
+- **Pattern:** regenerate → validate native envelope and invariants → render. **Anti-pattern:** reuse
+  unknown local bytes or mutate ledger-reconciled cash to manufacture an evidence state.
