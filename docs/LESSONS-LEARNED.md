@@ -2350,3 +2350,24 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   require exact rejection while checkpoint-free V11 remains byte-identical.
 - **Pattern:** explicit carried-history boundary + strict forward suffix. **Anti-pattern:** invented
   accounting history or projection as validation bypass.
+
+## CT. Evidence integrity requires semantic joins, not only canonical bytes — **MG, BR**
+
+- **Risk:** a generated corpus can be canonical JSON, hash-complete, deterministic, and still be a
+  convincing counterfeit if variable weekly rows, intents, boundaries, immutable entry saves, and
+  conclusions are never required to agree with one another.
+- **Resolution:** treat accepted evidence as a relational proof backed by deterministic execution.
+  Join every intent ID and signing bonus to its exact week and ledger row; derive entry and warning
+  truth from governed replay; exact-compare every campaign, continuation, player-policy, pair and
+  fixture row; stream-recompute the complete typed summary and Markdown; require exact row counts,
+  chronology, immutable saves and live Git authority before accepting the digest manifest.
+- **Hardening lesson:** optional values need explicit null guards. An expression such as
+  `optional?.delta !== 0` is true when the optional value is absent because `undefined !== 0`; that
+  can falsely reject every ordinary row while looking like a strict invariant.
+- **Coverage / fastest diagnostic:** mutate one internally plausible variable row while rebuilding
+  every file hash, then require semantic verification to reject it. Separately generate a real
+  evidence slice and compare H/D numerators, original-versus-recurrence denominators, selected-term
+  obligations, player identities, and rendered representative facts to the independent source run.
+- **Pattern:** immutable authority + bounded deterministic replay + independent recomputation.
+  **Anti-pattern:** treating a self-consistent checksum envelope or schema-shaped summary as proof
+  of simulation meaning.
