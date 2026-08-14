@@ -251,8 +251,10 @@ or arbitrary cash sink is authorized.
 
 The post-publicity several-minutes-on-Lot audit promotes **World-First Operational Annex Work
 Presence V1** for contract freeze. The existing physical Annex becomes Available or Working from
-the exact Engine/Calendar one-slot occupant, with exact owner/title/activity inspection and a
-targeted supporting deep handoff/return. A status label alone is insufficient.
+exact Engine/Calendar one-slot truth, with exact owner/title/activity inspection and a targeted
+supporting deep handoff/return. Configured-capacity Held truth remains a separately labelled
+robustness boundary, not a claim about reachable native V11 play. A status label alone is
+insufficient.
 
 This slice may correct the current presentation mapping that sends an Annex-reserved production to
 Writers/Casting instead of the physical Annex. It may not invent queue position, worker assignment,

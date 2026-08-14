@@ -36,9 +36,10 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   `f83f27f` and implementation `f2f2e22`; physical Administration & Publicity now owns the exact
   three-tier action, same-Lot successor truth, bounded photocall acknowledgement, and explicit
   Dashboard-details return.
-- **Next promoted slice:** World-First Operational Annex Work Presence V1. Freeze exact idle/occupied
-  slot truth, owner/title/activity inspection, targeted deep-owner return, and the Annex location
-  correction before implementation. Do not invent queue, worker, reroute, or new facility law.
+- **Next promoted slice:** World-First Operational Annex Work Presence V1. Freeze exact
+  Available/Working native slot truth, owner/title/activity inspection, targeted deep-owner return,
+  and the Annex location correction before implementation. Keep configured Held truth explicitly
+  non-native. Do not invent queue, worker, reroute, or new facility law.
 
 ## Closed marathon milestones
 

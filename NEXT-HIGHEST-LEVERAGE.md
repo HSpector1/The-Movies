@@ -102,9 +102,11 @@ idle completed Annex and later ordinary script/production allocation into that e
 Freeze the smallest truthful repair before implementation:
 
 - project only the exact Annex slot leaf into the Lot snapshot;
-- make the existing physical Annex read **AVAILABLE** or **WORKING**;
+- make the existing physical Annex read **AVAILABLE** or **WORKING** in native play;
 - selecting it must show exact `0/1` or `1/1`, owner kind, title, and activity in world;
-- a production may read **held** only when its existing workflow proves that state;
+- configured-capacity robustness may read **PRODUCTION HELD** only from its exact Calendar
+  status/blocker while retaining the occupied Annex reservation; never label that configured state
+  as native V11 play or the facility itself as blocked;
 - provide an exact owner-ID supporting handoff to Writers Room, Casting Room, or focused Production
   Board, with direct return to fresh Annex context; and
 - correct the presentation mapping where an operation reserved in the exact Annex currently points
@@ -114,7 +116,7 @@ A status glow or label alone is display-only and must be killed. No facility-cho
 so V1 must not invent assignment, relocation, freeing, rerouting, cancellation, or queue control.
 There is no authoritative queue position, waiter, ETA, named worker travel, workload, stress, or
 facility-blocked state. `reserved` and `occupied` describe the same current slot claim; do not imply
-a future reservation system.
+a future reservation system. Operational copy must not say “available now” when the slot is 1/1.
 
 Physical Stage 12 remains the largest parallel-production visibility gap but is unavailable under
 its recorded art no-go. Exact selected-production deep handoff is a useful lower-ranked supporting
