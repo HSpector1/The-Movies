@@ -296,6 +296,10 @@ export class StudioLotView {
   selectHollywoodProduction(id: string): boolean {
     return this.hollywoodScene?.selectProductionFromHost(id) ?? false
   }
+  /** Paint the exact canonical Annex place from the host without emitting a scene event. */
+  selectHollywoodAnnexPlace(): boolean {
+    return this.hollywoodScene?.selectAnnexFromHost() ?? false
+  }
   clearHollywoodPersonSelection(): void { this.hollywoodScene?.clearPersonSelection() }
   clearHollywoodPlaceSelection(): void { this.hollywoodScene?.clearPlaceSelection() }
 

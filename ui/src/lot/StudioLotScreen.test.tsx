@@ -118,6 +118,7 @@ const spy = vi.hoisted(() => {
     showHollywoodPublicity(ok: boolean, detail: string) { this.publicity.push({ ok, detail }) }
     selectHollywoodPerson(id: string) { this.hollywoodPeopleSelected.push(id) }
     selectHollywoodProduction(id: string) { this.hollywoodProductionsSelected.push(id) }
+    selectHollywoodAnnexPlace() { return true }
     clearHollywoodPersonSelection() { this.hollywoodPersonClears++ }
     clearHollywoodPlaceSelection() { this.hollywoodPlaceClears++ }
     destroy() { this.destroyed = true }
@@ -340,7 +341,9 @@ describe('StudioLotScreen — host lifecycle + accessible companion navigation',
     render(<StudioLotScreen state={state} onNavigate={(r) => routes.push(r)} onExit={() => {}} />)
     await waitFor(() => expect(spy.instances.length).toBe(1))
     // The view emits a building's navigation intent; the host translates it to a route.
-    latest().opts.onAction?.({ buildingId: 'admin', action: 'open-studio-overview' })
+    act(() => {
+      latest().opts.onAction?.({ buildingId: 'admin', action: 'open-studio-overview' })
+    })
     expect(routes).toContainEqual({ kind: 'dashboard' })
     expect(JSON.stringify(state)).toBe(before) // GameState untouched
   })
@@ -363,7 +366,7 @@ describe('StudioLotScreen — host lifecycle + accessible companion navigation',
     expect(routes).toContainEqual({ kind: 'assembly' })
   })
 
-  it('routes the Hollywood Annex parcel directly to the same Studio Development owner', async () => {
+  it('keeps the Hollywood Annex parcel in the live lot and opens its exact context', async () => {
     setOperationHollywoodOverride(true)
     const { routes } = renderScreen(foundManagedStudio('hollywood-annex-route'))
     await waitFor(() => expect(spy.instances.length).toBe(1))
@@ -375,7 +378,10 @@ describe('StudioLotScreen — host lifecycle + accessible companion navigation',
         affordances: ['develop-studio', 'construct-annex'],
       })
     })
-    expect(routes).toContainEqual({ kind: 'studioDevelopment' })
+    expect(routes).toEqual([])
+    expect(document.querySelector('[data-testid="lot-annex-context"]')).toHaveTextContent(
+      'Development & Casting Annex',
+    )
   })
 
   it('11. restores the selected building when returning to the lot', async () => {

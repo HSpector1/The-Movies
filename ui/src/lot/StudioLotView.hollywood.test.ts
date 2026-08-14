@@ -19,6 +19,8 @@ const runtime = vi.hoisted(() => {
     data: { reducedMotion?: boolean; onEvent: (event: Event) => void } | null = null
     reduced: boolean[] = []
     productionSelections: string[] = []
+    annexSelections = 0
+    annexSelectionResult = true
     telemetryResets = 0
     setReducedMotion(on: boolean) { this.reduced.push(on) }
     resetPerformanceTelemetry() { this.telemetryResets++ }
@@ -26,6 +28,10 @@ const runtime = vi.hoisted(() => {
     selectProductionFromHost(productionId: string) {
       this.productionSelections.push(productionId)
       return true
+    }
+    selectAnnexFromHost() {
+      this.annexSelections++
+      return this.annexSelectionResult
     }
     emitProduction(production: ProductionSelection) {
       this.data?.onEvent({ type: 'production', production })
@@ -116,6 +122,26 @@ describe('StudioLotView Hollywood lifecycle', () => {
     expect(view.selectHollywoodProduction(exact.productionId)).toBe(true)
     expect(scene.productionSelections).toEqual([exact.productionId])
     expect(onHollywoodProduction).not.toHaveBeenCalled()
+  })
+
+  it('selects the exact Annex without an event and returns false while unavailable', () => {
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+    })
+    const game = runtime.games.at(-1)!
+
+    expect(view.selectHollywoodAnnexPlace()).toBe(false)
+    game.events.emit('ready')
+    const scene = game.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+
+    expect(view.selectHollywoodAnnexPlace()).toBe(true)
+    expect(scene.annexSelections).toBe(1)
+
+    scene.annexSelectionResult = false
+    expect(view.selectHollywoodAnnexPlace()).toBe(false)
+    expect(scene.annexSelections).toBe(2)
   })
 
   it('retains pre-ready reduced motion, forwards later changes, and pauses the Hollywood scene', () => {

@@ -45,6 +45,7 @@ import {
   talentProfile,
   runPublicity,
   runProductionCommand,
+  startDevelopmentCastingAnnexAction,
 } from './engine/adapter.ts'
 import { filmCareerImpact, talentCareerHistory, preV5CreditCount } from './engine/careerImpact.ts'
 import { TalentProfileDrawer } from './components/TalentProfileDrawer.tsx'
@@ -637,6 +638,21 @@ export function App() {
     )
   }
 
+  const loadedState = state
+
+  // World-First Annex Construction Interaction V1: App remains the sole state owner.
+  // The lot sends no caller-controlled construction data; this exact current state is
+  // passed to the existing parameter-free adapter action once, and the exact outcome is
+  // returned so the mounted world can own focus and announcement presentation.
+  function handleStartDevelopmentCastingAnnex() {
+    const result = startDevelopmentCastingAnnexAction(loadedState)
+    if (result.ok) {
+      setLotAdvanceFeedback(null)
+      setState(result.next)
+    }
+    return result
+  }
+
   const openProfile = openProfileId ? talentProfile(state, openProfileId) : undefined
 
   return (
@@ -914,6 +930,7 @@ export function App() {
             {...(screen.entryFocus ? { entryFocus: screen.entryFocus } : {})}
             onStateChange={setState}
             onProductionCommand={handleProductionCommand}
+            onStartDevelopmentCastingAnnex={handleStartDevelopmentCastingAnnex}
           />
         </Suspense>
       )}

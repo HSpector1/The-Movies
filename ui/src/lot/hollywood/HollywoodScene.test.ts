@@ -358,7 +358,7 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
     activities: Array<{ id: string; place: string; visualStates: string[] }>
     places: Array<{
       id: string
-      buildingId: 'stage-a'
+      buildingId: 'stage-a' | 'expansion'
       label: string
       affordances: string[]
       anchors: Record<string, [number, number]>
@@ -386,12 +386,22 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   buildAmbientLife: () => void
   buildSemanticHotspots: () => void
   buildActorTextures: () => void
+  drawPlaceOutline: (
+    place: SceneHarness['manifest']['places'][number],
+    selected: boolean,
+  ) => void
   selectStage7Surface: (place: {
     id: string
     buildingId: 'stage-a'
     label: string
     affordances: string[]
   }) => void
+  selectAnnexSurface: (place: {
+    id: string
+    buildingId: 'expansion'
+    label: string
+    affordances: string[]
+  }, emitSelection?: boolean) => boolean
 }
 
 function harness(initial: StudioLotSnapshot, reducedMotion = false) {
@@ -422,6 +432,17 @@ function harness(initial: StudioLotSnapshot, reducedMotion = false) {
   internals.activityGraphics = new fakePhaser.Graphics()
   scene.applySnapshot(initial)
   return { scene, internals, events }
+}
+
+function annexPlace(): SceneHarness['manifest']['places'][number] {
+  return {
+    id: 'annex-parcel',
+    buildingId: 'expansion',
+    label: 'Development & Casting Annex',
+    affordances: ['develop-studio', 'construct-annex'],
+    anchors: { site: [640, 790] },
+    selectionPolygon: [[480, 680], [720, 640], [820, 710], [800, 870], [560, 915], [460, 825]],
+  }
 }
 
 describe('HollywoodScene snapshot authority', () => {
@@ -463,6 +484,57 @@ describe('HollywoodScene snapshot authority', () => {
       if (event.type !== 'production') throw new Error('expected production event')
       expect(Object.keys(event.production).sort()).toEqual(['locationBuildingId', 'productionId'])
     }
+  })
+
+  it('routes the Annex polygon and visible status label through one exact identity-only selection seam', () => {
+    const { scene, internals, events } = harness(snapshot([]))
+    internals.manifest.places.push(annexPlace())
+    const shared = vi.spyOn(internals, 'selectAnnexSurface')
+    internals.buildWorld()
+    internals.buildSemanticHotspots()
+    const objectCounts = {
+      graphics: internals.graphicsObjects.length,
+      texts: internals.texts.length,
+      zones: internals.zones.length,
+    }
+
+    const overlayButton = {}
+    internals.zones.at(-1)!.emit('pointerdown', pointer(overlayButton))
+    internals.expansionLabel!.emit('pointerdown', pointer(overlayButton))
+    expect(shared).not.toHaveBeenCalled()
+    expect(events).toEqual([])
+
+    internals.zones.at(-1)!.emit('pointerdown', pointer())
+    internals.expansionLabel!.emit('pointerdown', pointer())
+
+    expect(shared).toHaveBeenCalledTimes(2)
+    expect(events).toEqual([
+      {
+        type: 'place',
+        place: {
+          id: 'annex-parcel',
+          buildingId: 'expansion',
+          label: 'Development & Casting Annex',
+          affordances: ['develop-studio', 'construct-annex'],
+        },
+      },
+      {
+        type: 'place',
+        place: {
+          id: 'annex-parcel',
+          buildingId: 'expansion',
+          label: 'Development & Casting Annex',
+          affordances: ['develop-studio', 'construct-annex'],
+        },
+      },
+    ])
+    expect(scene.debugState().selectedPlaceId).toBe('annex-parcel')
+    expect(internals.expansionLabel!.interactive).toBe(true)
+    expect({
+      graphics: internals.graphicsObjects.length,
+      texts: internals.texts.length,
+      zones: internals.zones.length,
+    }).toEqual(objectCounts)
   })
 
   it('ignores scene hits whose native event belongs to an over-canvas DOM control', () => {
@@ -570,6 +642,63 @@ describe('HollywoodScene snapshot authority', () => {
       facilityLabel: 'Soundstage 12 + Scenery Shop',
     }]))
     expect(scene.selectProductionFromHost(exact.productionId)).toBe(false)
+    expect(events).toHaveLength(eventCount)
+  })
+
+  it('lets the semantic host highlight only the exact Annex without re-emitting selection', () => {
+    const { scene, internals, events } = harness(snapshot([]))
+    const exact = annexPlace()
+    internals.manifest.places.push(exact)
+
+    expect(scene.selectAnnexFromHost()).toBe(false)
+    internals.buildWorld()
+    const eventCount = events.length
+    const objectCounts = {
+      graphics: internals.graphicsObjects.length,
+      texts: internals.texts.length,
+      zones: internals.zones.length,
+    }
+
+    expect(scene.selectAnnexFromHost()).toBe(true)
+    expect(scene.debugState().selectedPlaceId).toBe('annex-parcel')
+    expect(events).toHaveLength(eventCount)
+    expect({
+      graphics: internals.graphicsObjects.length,
+      texts: internals.texts.length,
+      zones: internals.zones.length,
+    }).toEqual(objectCounts)
+
+    scene.clearPlaceSelection()
+    exact.id = 'not-the-annex'
+    expect(scene.selectAnnexFromHost()).toBe(false)
+    expect(scene.debugState().selectedPlaceId).toBeNull()
+    expect(events).toHaveLength(eventCount)
+
+    exact.id = 'annex-parcel'
+    exact.buildingId = 'stage-a'
+    expect(scene.selectAnnexFromHost()).toBe(false)
+    expect(scene.debugState().selectedPlaceId).toBeNull()
+    expect(events).toHaveLength(eventCount)
+  })
+
+  it('restores the selected Annex outline after another place hover ends without emitting selection', () => {
+    const { scene, internals, events } = harness(snapshot([]))
+    const annex = annexPlace()
+    internals.manifest.places.push(annex)
+    internals.buildWorld()
+    internals.buildSemanticHotspots()
+    const draw = vi.spyOn(internals, 'drawPlaceOutline')
+
+    expect(scene.selectAnnexFromHost()).toBe(true)
+    const eventCount = events.length
+    draw.mockClear()
+
+    internals.zones[0]!.emit('pointerover')
+    expect(draw).toHaveBeenLastCalledWith(internals.manifest.places[0], false)
+    internals.zones[0]!.emit('pointerout')
+
+    expect(draw).toHaveBeenLastCalledWith(annex, true)
+    expect(scene.debugState().selectedPlaceId).toBe('annex-parcel')
     expect(events).toHaveLength(eventCount)
   })
 

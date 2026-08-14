@@ -1,10 +1,11 @@
 // ── Lot navigation contract ───────────────────────────────────────────────────
 //
-// The narrow set of NAVIGATION INTENTIONS the lot can express, and how each maps to
-// an existing app route. This is the whole action surface (Gate D1 addendum §12):
+// The narrow set of deep-management NAVIGATION INTENTIONS the lot can express, and how each maps to
+// an existing app route. World-native interactions may be owned directly by the React host:
 // the Phaser layer emits a LotActionKind; the React host translates it here into a
-// LotRoute and calls the existing screen navigation. No action spends money, advances
-// time, greenlights, hires, or mutates GameState — they are navigation only.
+// LotRoute and calls the existing screen navigation. Resolving one of these route values never
+// spends money, advances time, greenlights, hires, or mutates GameState — these compatibility
+// mappings are navigation only.
 //
 // Every route targets a screen that exists OUTSIDE the lot, so every lot destination
 // stays reachable without the lot.
@@ -21,7 +22,7 @@ export type LotRoute =
   | { kind: 'hub' } // Talent Hub (read-only browse)
   | { kind: 'assembly' } // Assemble a Film wizard
   | { kind: 'saves' } // Saves
-  | { kind: 'studioDevelopment' } // sole owner of the Annex construction action
+  | { kind: 'studioDevelopment' } // complete deep surface; lot also owns a bounded world-native start
 
 export type LotActionResolution = {
   route: LotRoute
@@ -43,6 +44,8 @@ export const ACTION_RESOLUTION: Record<LotActionKind, LotActionResolution> = {
   'browse-talent': { route: { kind: 'castingRoom' }, navLabel: 'Open Casting Room' },
   'review-productions': { route: { kind: 'dashboard' }, navLabel: 'View Production' },
   'view-released-films': { route: { kind: 'dashboard' }, navLabel: 'View Releases' },
+  // Compatibility/deep-management route. Physical parcel and companion activation are intercepted
+  // by StudioLotScreen and remain in the live world under the World-First Annex V1 contract.
   'view-expansion': { route: { kind: 'studioDevelopment' }, navLabel: 'Open Studio Development' },
 }
 

@@ -33,6 +33,7 @@ vi.mock('../lot/StudioLotView.ts', () => ({
     constructor(options: { onReady?: () => void }) { queueMicrotask(() => options.onReady?.()) }
     setSnapshot() {}
     select() {}
+    selectHollywoodAnnexPlace() { return true }
     clearSelection() {}
     clearHollywoodPlaceSelection() {}
     clearHollywoodPersonSelection() {}
@@ -558,7 +559,7 @@ describe('Development & Casting Annex player experience', () => {
     )
   })
 
-  it('routes the lot expansion companion directly to Studio Development with persisted state text', () => {
+  it('opens persisted Annex construction truth in the live lot without routing away', () => {
     let state = managedStudio('annex-ui-lot')
     const started = startDevelopmentCastingAnnexAction(state)
     if (!started.ok) throw new Error(started.error)
@@ -576,7 +577,10 @@ describe('Development & Casting Annex player experience', () => {
     const expansion = screen.getByTestId('lot-nav-expansion')
     expect(expansion).toHaveTextContent('1 of 13 weekly advances complete')
     fireEvent.click(expansion)
-    expect(navigate).toHaveBeenCalledWith({ kind: 'studioDevelopment' })
+    expect(navigate).not.toHaveBeenCalled()
+    expect(screen.getByTestId('lot-annex-context')).toHaveTextContent(
+      '1 of 13 weekly advances complete',
+    )
     expect(screen.queryByTestId('lot-expansion-info')).not.toBeInTheDocument()
   })
 

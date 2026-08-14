@@ -33,6 +33,8 @@ const PERFORMANCE_WARMUP_FRAMES = 120
 const PERFORMANCE_SAMPLE_FRAMES = 240
 const FONT_SERIF = 'Georgia, "Iowan Old Style", "Times New Roman", serif'
 const FONT_SANS = 'Avenir, "Helvetica Neue", Arial, sans-serif'
+const ANNEX_PLACE_ID = 'annex-parcel'
+const ANNEX_BUILDING_ID = 'expansion'
 
 type Point = { x: number; y: number }
 type RoutePoint = Point & { actorDepth: number; cue: string }
@@ -263,7 +265,16 @@ export class HollywoodScene extends Phaser.Scene {
       backgroundColor: '#142820e8',
       padding: { x: 9, y: 6 },
       align: 'center',
-    }).setOrigin(0.5, 1).setDepth(88).setName('tier:stateful-expansion-label')
+    // Status is an actionable world affordance, so keep it above moving actors while
+    // leaving the selected-place outline and person nameplates at their existing priority.
+    }).setOrigin(0.5, 1).setDepth(169).setName('tier:stateful-expansion-label')
+    const selectAnnex = (pointer: Phaser.Input.Pointer) => {
+      if (!this.isCanvasPointer(pointer)) return
+      pointer.event.stopPropagation?.()
+      const place = this.canonicalAnnexPlace()
+      if (place) this.selectAnnexSurface(place)
+    }
+    this.expansionLabel.setInteractive({ useHandCursor: true }).on('pointerdown', selectAnnex)
   }
 
   private buildSemanticHotspots(): void {
@@ -276,13 +287,21 @@ export class HollywoodScene extends Phaser.Scene {
       zone.setInteractive(shape, Phaser.Geom.Polygon.Contains)
       zone.on('pointerover', () => this.drawPlaceOutline(place, false))
       zone.on('pointerout', () => {
-        if (this.selectedPlaceId !== place.id) this.selectionGraphics?.clear()
+        const selected = this.manifest.places.find(
+          (candidate) => candidate.id === this.selectedPlaceId,
+        )
+        if (selected) this.drawPlaceOutline(selected, true)
+        else this.selectionGraphics?.clear()
       })
       zone.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
         if (!this.isCanvasPointer(pointer)) return
         pointer.event.stopPropagation?.()
         if (place.buildingId === 'stage-a') {
           this.selectStage7Surface(place)
+          return
+        }
+        if (place.id === ANNEX_PLACE_ID || place.buildingId === ANNEX_BUILDING_ID) {
+          this.selectAnnexSurface(place)
           return
         }
         this.selectedProductionId = null
@@ -294,6 +313,43 @@ export class HollywoodScene extends Phaser.Scene {
         })
       })
     }
+  }
+
+  private canonicalAnnexPlace(): Place | null {
+    return this.manifest?.places.find(
+      (place) => place.id === ANNEX_PLACE_ID && place.buildingId === ANNEX_BUILDING_ID,
+    ) ?? null
+  }
+
+  /**
+   * One exact physical Annex selection seam shared by the parcel polygon and its
+   * visible lifecycle label. The boolean suppresses only the host-parity event;
+   * identity validation and outline selection remain identical.
+   */
+  private selectAnnexSurface(place: Place, emitSelection = true): boolean {
+    if (place.id !== ANNEX_PLACE_ID || place.buildingId !== ANNEX_BUILDING_ID) return false
+    this.selectedProductionId = null
+    this.selectedPlaceId = place.id
+    this.drawPlaceOutline(place, true)
+    if (emitSelection) {
+      this.emitEvent({
+        type: 'place',
+        place: {
+          id: place.id,
+          buildingId: place.buildingId,
+          label: place.label,
+          affordances: place.affordances,
+        },
+      })
+    }
+    return true
+  }
+
+  /** Host/DOM parity: select only the exact Annex place without re-emitting an event. */
+  selectAnnexFromHost(): boolean {
+    if (!this.selectionGraphics) return false
+    const place = this.canonicalAnnexPlace()
+    return place === null ? false : this.selectAnnexSurface(place, false)
   }
 
   /**

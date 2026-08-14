@@ -1,6 +1,7 @@
 // ── Development & Casting Annex V1 ─────────────────────────────────────────
-// The sole player-owned construction action surface. Every fact and legality
-// comes from the core's studioConstructionView; this component formats only.
+// The complete deep-management construction surface. The Studio Lot also exposes
+// the same bounded parameter-free action in-world; both surfaces read the core's
+// studioConstructionView and this component continues formatting only.
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { GameState, StudioConstructionView } from '../engine/adapter.ts'

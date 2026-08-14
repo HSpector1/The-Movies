@@ -197,16 +197,20 @@ test('10. with the flag off there is no lot entry and the app is unchanged', asy
   await shot(page, 'flag-off-dashboard')
 })
 
-// ── Extra evidence: expansion placeholder + reduced motion ────────────────────
-test('E. expansion placeholder is future-facing with no purchase; reduced-motion static', async ({ page }) => {
+// ── Extra evidence: world-native legacy Annex inspection + reduced motion ─────
+test('E. legacy Annex remains inspect-only in the mounted lot', async ({ page }) => {
   await seed(page, 'empty')
   await openLot(page)
   expect(await attentionOf(page, 'expansion')).toBe('future')
-  await page.getByTestId('lot-nav-expansion').click() // opens the bounded info placeholder
-  await expect(page.getByTestId('lot-expansion-info')).toBeVisible()
-  await expect(page.getByTestId('lot-expansion-info')).toContainText('Not available in D1')
-  await expect(page.getByTestId('lot-expansion-info')).not.toContainText(/buy|price|\$/i)
-  await shot(page, 'expansion-placeholder-1366x768')
+  await page.getByTestId('lot-nav-expansion').click()
+  await expect(page.getByTestId('lot-annex-context')).toBeVisible()
+  await expect(page.getByTestId('lot-annex-status')).toContainText('Unavailable')
+  await expect(page.getByTestId('lot-annex-legacy-copy')).toContainText(
+    'Studio Development becomes available after managed studio operations are activated.',
+  )
+  await expect(page.getByTestId('lot-annex-build')).toHaveCount(0)
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
+  await shot(page, 'annex-legacy-world-context-1366x768')
 })
 
 test('E2. reduced-motion mode', async ({ page }) => {

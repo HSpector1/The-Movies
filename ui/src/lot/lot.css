@@ -361,6 +361,131 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
 .hollywood-command kbd { float: right; padding: 1px 5px; border: 1px solid rgba(255,255,255,.3); border-radius: 3px; }
 .hollywood-publicity { background: transparent; border-color: #806d44; color: #dac9a3; }
 .hollywood-stage-fallback { padding: 8px; border-left: 3px solid #8d7848; background: rgba(0,0,0,.2); }
+.hollywood-inspector.is-annex,
+.lot-annex-fallback-context {
+  box-sizing: border-box;
+  width: 350px;
+  max-height: calc(100% - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: #8d7848 rgba(0, 0, 0, .18);
+}
+.lot-annex-fallback-context {
+  position: absolute;
+  z-index: 12;
+  top: 16px;
+  right: 16px;
+  padding: 15px 16px;
+  color: var(--chronicle-cream);
+  background: linear-gradient(150deg, rgba(17, 43, 35, .97), rgba(8, 22, 18, .95));
+  border: 1px solid rgba(210, 174, 98, .68);
+  box-shadow: 0 12px 38px rgba(0, 0, 0, .52), inset 0 0 0 1px rgba(255, 255, 255, .035);
+  backdrop-filter: blur(8px);
+}
+.hollywood-annex-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.hollywood-annex-heading h3 {
+  margin: 0 0 10px;
+  color: #fff0cd;
+  font-family: Georgia, "Iowan Old Style", serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.12;
+}
+.hollywood-annex-tag {
+  flex: 0 0 auto;
+  padding: 3px 7px;
+  color: #d9e2d8;
+  border: 1px solid rgba(164, 178, 160, .55);
+  border-radius: 999px;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.hollywood-annex-tag.is-building { color: #f1ca7d; border-color: rgba(225, 191, 112, .72); }
+.hollywood-annex-tag.is-operational { color: #aee0bd; border-color: rgba(118, 190, 140, .68); }
+.hollywood-annex-status {
+  margin-bottom: 10px;
+  padding: 9px 10px;
+  background: rgba(0, 0, 0, .23);
+  border: 1px solid rgba(179, 159, 111, .36);
+  border-left: 3px solid #907747;
+}
+.hollywood-annex-status.is-building { border-left-color: #d1a551; }
+.hollywood-annex-status.is-operational { border-left-color: #70ad7e; }
+.hollywood-annex-status:focus {
+  outline: 2px solid #e1bf70;
+  outline-offset: 2px;
+}
+.hollywood-annex-status > strong { color: #f2d69a; font-size: 11px; }
+.hollywood-annex-status > p {
+  margin: 3px 0 0;
+  color: #afbaaf;
+  font-size: 10px;
+  line-height: 1.4;
+}
+.hollywood-annex-section { display: grid; gap: 8px; }
+.hollywood-annex-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  margin: 0;
+}
+.hollywood-annex-facts > div {
+  min-width: 0;
+  padding: 6px 7px;
+  background: rgba(0, 0, 0, .2);
+  border-top: 1px solid rgba(209, 177, 106, .25);
+}
+.hollywood-annex-facts dt {
+  color: #91a095;
+  font-size: 8px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.hollywood-annex-facts dd {
+  margin: 2px 0 0;
+  color: #eadcbc;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.hollywood-annex-consequence,
+.hollywood-annex-help {
+  margin: 0;
+  color: #b7c0b5;
+  font-size: 10px;
+  line-height: 1.45;
+}
+.hollywood-annex-help.is-blocked { color: #efba68; }
+.hollywood-annex-build {
+  width: 100%;
+  min-height: 36px;
+  padding: 7px 9px;
+  font-size: 10px;
+  line-height: 1.25;
+}
+.hollywood-annex-progress {
+  height: 7px;
+  overflow: hidden;
+  background: #07100e;
+  border: 1px solid #4d5d4d;
+  border-radius: 999px;
+}
+.hollywood-annex-progress > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #9b7134, #e4c575);
+}
+.hollywood-annex-progress-text {
+  color: #eed9aa;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
 .hollywood-productions,
 .hollywood-people {
   position: absolute;
@@ -417,6 +542,8 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
 @media (max-width: 980px) {
   .hollywood-production { width: 230px; }
   .hollywood-inspector { width: 250px; }
+  .hollywood-inspector.is-annex,
+  .lot-annex-fallback-context { width: 300px; }
   .hollywood-activity { display: none; }
 }
 /* The exact completion card owns attention, but it must not cover the persistent
@@ -440,6 +567,14 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   .lot-topbar-actions { gap: 8px; }
   .lot-hollywood .lot-stage-wrap { min-height: 720px; }
   .hollywood-production, .hollywood-inspector { position: absolute; top: auto; bottom: 76px; width: calc(50% - 24px); }
+  .hollywood-inspector.is-annex,
+  .lot-annex-fallback-context {
+    top: auto;
+    right: 16px;
+    bottom: 76px;
+    width: calc(50% - 24px);
+    max-height: calc(100% - 92px);
+  }
   .hollywood-productions, .hollywood-people { max-width: calc(100% - 32px); overflow-x: auto; }
   .hollywood-perf { display: none; }
 }
