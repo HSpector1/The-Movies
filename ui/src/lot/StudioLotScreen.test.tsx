@@ -328,6 +328,13 @@ describe('StudioLotScreen — host lifecycle + accessible companion navigation',
     expect(view.resumed).toBeGreaterThan(0)
   })
 
+  it('pauses a lazily created renderer when the tab was already hidden before readiness', async () => {
+    vi.spyOn(document, 'hidden', 'get').mockReturnValue(true)
+    renderScreen()
+    await waitFor(() => expect(spy.instances.length).toBe(1))
+    await waitFor(() => expect(latest().paused).toBeGreaterThan(0))
+  })
+
   it('7. destroys the renderer on unmount', async () => {
     const { unmount } = renderScreen()
     await waitFor(() => expect(spy.instances.length).toBe(1))
@@ -1418,6 +1425,8 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
       facilityLabel: 'Soundstage 7 + Scenery Shop',
       directorId: 'director-a',
       directorName: 'Director A',
+      leadId: 'lead-a',
+      leadName: 'Lead A',
       taskStatus: 'unassigned',
       statusLabel: 'Decision required',
       blocker: {
@@ -1441,6 +1450,8 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
       facilityLabel: 'Soundstage 12 + Scenery Shop',
       directorId: 'director-b',
       directorName: 'Director B',
+      leadId: 'lead-b',
+      leadName: 'Lead B',
       taskStatus: 'ready',
       blocker: {
         kind: 'take-scheduling',

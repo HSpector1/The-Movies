@@ -102,6 +102,14 @@ const fakePhaser = vi.hoisted(() => {
     children = { length: 0 }
     game = { canvas, loop: { rawDelta: 0, actualFps: 60 } }
     scene = { isActive: () => true }
+    input = {
+      enabled: true,
+      resetPointers: vi.fn(),
+      keyboard: {
+        enabled: true,
+        resetKeys: vi.fn(),
+      },
+    }
     load = {
       json: () => {},
       spritesheet: () => {},
@@ -390,6 +398,8 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   expansionGraphics: InstanceType<typeof fakePhaser.Graphics> | null
   expansionLabel: InstanceType<typeof fakePhaser.DisplayObject> | null
   roleAtlasActive: boolean
+  inputSuspended: boolean
+  dragOrigin: { x: number; y: number; scrollX: number; scrollY: number } | null
   performanceWarmupFramesRemaining: number
   buildWorld: () => void
   buildAmbientLife: () => void
@@ -529,6 +539,43 @@ describe('HollywoodScene snapshot authority', () => {
   function sceneryEvents(events: HollywoodEvent[]) {
     return events.filter((event) => event.type === 'scenery-load-in')
   }
+
+  it('suspends world controls without stopping ambience and clears pointer/key/drag state on both edges', () => {
+    const { scene, internals, events } = harness(snapshot([director()], [operation()]))
+    internals.buildSemanticHotspots()
+    internals.buildAmbientLife()
+    const actor = internals.ambientActors[0]!
+    const phaseBefore = actor.phase
+    internals.dragOrigin = { x: 1, y: 2, scrollX: 3, scrollY: 4 }
+
+    scene.setInputSuspended(true)
+
+    expect(internals.inputSuspended).toBe(true)
+    expect(internals.dragOrigin).toBeNull()
+    expect(internals.input.enabled).toBe(false)
+    expect(internals.input.keyboard.enabled).toBe(false)
+    expect(internals.input.resetPointers).toHaveBeenCalledTimes(1)
+    expect(internals.input.keyboard.resetKeys).toHaveBeenCalledTimes(1)
+
+    // Direct emitter invocation bypasses Phaser's disabled plugin in this harness;
+    // the scene guard still refuses the hit, while its ambient update remains live.
+    internals.zones[0]!.emit('pointerdown', pointer())
+    scene.update(0, 16)
+    expect(events).toEqual([])
+    expect(actor.phase).toBeGreaterThan(phaseBefore)
+
+    internals.dragOrigin = { x: 5, y: 6, scrollX: 7, scrollY: 8 }
+    scene.setInputSuspended(false)
+    expect(internals.inputSuspended).toBe(false)
+    expect(internals.dragOrigin).toBeNull()
+    expect(internals.input.enabled).toBe(true)
+    expect(internals.input.keyboard.enabled).toBe(true)
+    expect(internals.input.resetPointers).toHaveBeenCalledTimes(2)
+    expect(internals.input.keyboard.resetKeys).toHaveBeenCalledTimes(2)
+
+    internals.zones[0]!.emit('pointerdown', pointer())
+    expect(productionEvents(events)).toHaveLength(1)
+  })
 
   it('routes the Stage 7 polygon, lamp, and status through one exact identity-only selection seam', () => {
     const exact = operation()

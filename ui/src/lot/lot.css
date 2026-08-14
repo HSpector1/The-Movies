@@ -294,7 +294,6 @@
 .lot-hollywood .lot-body:has(.lot-canvas-note[data-testid="lot-canvas-fallback"]) :is(
   .hollywood-production,
   .hollywood-productions,
-  .hollywood-people,
   .hollywood-perf
 ) { display: none; }
 .lot-hollywood .lot-canvas::after {
@@ -371,6 +370,7 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
 .hollywood-stage-fallback { padding: 8px; border-left: 3px solid #8d7848; background: rgba(0,0,0,.2); }
 .hollywood-inspector.is-annex,
 .hollywood-inspector.is-scenery,
+.hollywood-inspector.is-person,
 .lot-annex-fallback-context {
   box-sizing: border-box;
   width: 350px;
@@ -379,6 +379,45 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   overscroll-behavior: contain;
   scrollbar-color: #8d7848 rgba(0, 0, 0, .18);
 }
+.hollywood-person-facts,
+.hollywood-person-career {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  margin: 0 0 10px;
+}
+.hollywood-person-facts > div,
+.hollywood-person-career > div {
+  display: grid;
+  grid-template-columns: minmax(86px, .8fr) minmax(0, 1.2fr);
+  gap: 8px;
+  padding: 5px 6px;
+  background: rgba(0, 0, 0, .2);
+  border-top: 1px solid rgba(209, 177, 106, .2);
+}
+.hollywood-person-facts dt,
+.hollywood-person-career dt {
+  color: #9eac9d;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+.hollywood-person-facts dd,
+.hollywood-person-career dd {
+  min-width: 0;
+  margin: 0;
+  color: #ece0c4;
+  font-size: 10px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.hollywood-person-work-note {
+  padding: 8px;
+  border-left: 3px solid #8d7848;
+  background: rgba(0, 0, 0, .2);
+}
+.hollywood-person-work-note.is-unavailable { border-left-color: #a76845; }
+.hollywood-profile-command { width: 100%; min-height: 34px; font-size: 11px; }
 .hollywood-scenery-heading {
   display: flex;
   align-items: flex-start;
@@ -632,6 +671,7 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   .hollywood-inspector { width: 250px; }
   .hollywood-inspector.is-annex,
   .hollywood-inspector.is-scenery,
+  .hollywood-inspector.is-person,
   .lot-annex-fallback-context { width: 300px; }
   .hollywood-activity {
     bottom: 8px;
@@ -732,6 +772,7 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   .hollywood-production, .hollywood-inspector { position: absolute; top: auto; bottom: 76px; width: calc(50% - 24px); }
   .hollywood-inspector.is-annex,
   .hollywood-inspector.is-scenery,
+  .hollywood-inspector.is-person,
   .lot-annex-fallback-context {
     top: auto;
     right: 16px;

@@ -20,10 +20,13 @@ import type {
   StudioConstructionView,
 } from '../engine/adapter.ts'
 import {
+  careerIdentityLabel,
   publicityDecision,
   runPublicity,
   studioDevelopment,
   studioLotSnapshot,
+  talentAssignmentContext,
+  talentProfile,
 } from '../engine/adapter.ts'
 import { ConstructionCompletionNotice } from '../components/ConstructionCompletionNotice.tsx'
 import { moneyExact } from '../format.ts'
@@ -37,6 +40,7 @@ import type {
 } from './snapshot/StudioLotSnapshot.ts'
 import { ALL_BUILDING_IDS, BUILDING_ACTION, BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
 import { sceneryLoadInContext } from './snapshot/sceneryLoadIn.ts'
+import { lotPersonWorkContext } from './snapshot/personWork.ts'
 import {
   getLotSelectedBuilding,
   setLotSelectedBuilding,
@@ -134,6 +138,14 @@ type Props = {
   onProductionCommand?: (command: LotProductionCommand) => ActionOutcome | void
   /** Dispatch the existing parameter-free Annex action through the authoritative App owner. */
   onStartDevelopmentCastingAnnex?: () => ActionOutcome
+  /** Open the one App-owned canonical Talent Profile over this mounted Lot. */
+  onOpenTalentProfile?: (personId: string) => void
+  /** Close that profile when its exact selected Lot handoff becomes invalid. */
+  onCloseTalentProfile?: (personId: string) => void
+  /** The exact App-owned profile currently open over this Lot, if any. */
+  openTalentProfileId?: string | null
+  /** Suspend only world input while a modal remains mounted above the living renderer. */
+  worldInputSuspended?: boolean
 }
 
 // Stage assignment memory. Like selected-building memory, it is UI session state — NOT
@@ -235,14 +247,23 @@ export function StudioLotScreen({
   onStateChange,
   onProductionCommand,
   onStartDevelopmentCastingAnnex,
+  onOpenTalentProfile,
+  onCloseTalentProfile,
+  openTalentProfileId = null,
+  worldInputSuspended = false,
 }: Props) {
   const mountRef = useRef<HTMLDivElement | null>(null)
   const viewRef = useRef<StudioLotViewClass | null>(null)
   const studioHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const namedPeopleGroupRef = useRef<HTMLDivElement | null>(null)
   const advanceButtonRef = useRef<HTMLButtonElement | null>(null)
   const companionButtonRefs = useRef<Partial<Record<BuildingId, HTMLButtonElement | null>>>({})
   const onNavigateRef = useRef(onNavigate)
   onNavigateRef.current = onNavigate
+  const onCloseTalentProfileRef = useRef(onCloseTalentProfile)
+  onCloseTalentProfileRef.current = onCloseTalentProfile
+  const worldInputSuspendedRef = useRef(worldInputSuspended)
+  worldInputSuspendedRef.current = worldInputSuspended
 
   const [selected, setSelected] = useState<BuildingId | null>(getLotSelectedBuilding)
   const [selectionInfo, setSelectionInfo] = useState<SelectionInfo | null>(null)
@@ -267,6 +288,7 @@ export function StudioLotScreen({
   const [annexAnnouncementSerial, setAnnexAnnouncementSerial] = useState(0)
   const hollywoodCommandRef = useRef<HTMLButtonElement | null>(null)
   const hollywoodTaskStatusRef = useRef<HTMLDivElement | null>(null)
+  const hollywoodPersonStatusRef = useRef<HTMLDivElement | null>(null)
   const pendingHollywoodFocusProductionId = useRef<string | null>(null)
   const hollywoodSceneryLoadInProductionIdRef = useRef<string | null>(null)
   const pendingHollywoodSceneryFocusProductionId = useRef<string | null>(null)
@@ -377,6 +399,59 @@ export function StudioLotScreen({
   latestSnapshotRef.current = snapshot
   const latestAnnexViewRef = useRef(annexView)
   latestAnnexViewRef.current = annexView
+  const selectedPersonWork = hollywoodPerson === null
+    ? null
+    : lotPersonWorkContext(snapshot, hollywoodPerson.id)
+  const selectedPersonAssignment = hollywoodPerson === null
+    ? null
+    : talentAssignmentContext(state, hollywoodPerson.id)
+  const selectedPersonProfile = hollywoodPerson === null
+    ? undefined
+    : talentProfile(state, hollywoodPerson.id)
+  const selectedLotPersonIdentityCount = hollywoodPerson === null
+    ? 0
+    : snapshot.people.filter((person) => person.id === hollywoodPerson.id).length
+  const selectedProfileIdentityCount = hollywoodPerson === null
+    ? 0
+    : state.talent.filter((person) => person.id === hollywoodPerson.id).length
+  const selectedProfileMatches =
+    hollywoodPerson !== null &&
+    selectedLotPersonIdentityCount === 1 &&
+    selectedProfileIdentityCount === 1 &&
+    selectedPersonProfile !== undefined &&
+    selectedPersonProfile.id === hollywoodPerson.id &&
+    selectedPersonProfile.name === hollywoodPerson.name
+  const selectedProductionWork =
+    selectedPersonWork?.kind === 'managed-production' ||
+    selectedPersonWork?.kind === 'legacy-production'
+      ? selectedPersonWork
+      : null
+  const selectedAssignmentIsExact =
+    selectedPersonAssignment !== null &&
+    selectedPersonAssignment.kind !== 'ambiguous' &&
+    (selectedPersonWork?.kind === 'roster' ||
+      (selectedProductionWork !== null &&
+        selectedPersonAssignment.kind === 'assigned' &&
+        selectedPersonAssignment.assignment.kind === 'production' &&
+        selectedPersonAssignment.assignment.assignmentId === selectedProductionWork.productionId &&
+        selectedPersonAssignment.assignment.label === selectedProductionWork.productionTitle))
+  const selectedCareerLabel =
+    selectedProfileMatches && selectedAssignmentIsExact
+      ? careerIdentityLabel(selectedPersonProfile.careerIdentity) ||
+        `${selectedPersonProfile.disciplines.find((discipline) => discipline.isPrimary)?.label ?? 'Career'} · not yet proven`
+      : null
+  const selectedAssignmentLabel =
+    !selectedAssignmentIsExact || selectedPersonAssignment === null
+      ? 'Assignment details unavailable'
+      : selectedPersonAssignment.kind === 'available'
+        ? 'Available for assignment'
+        : selectedPersonAssignment.assignment.kind === 'script'
+          ? `Assigned to screenplay: ${selectedPersonAssignment.assignment.label}`
+          : `Engaged on ${selectedPersonAssignment.assignment.label}`
+  const canOpenSelectedTalentProfile =
+    selectedProfileMatches &&
+    selectedAssignmentIsExact &&
+    onOpenTalentProfile !== undefined
   const hasManagedEngineOperations =
     snapshot.operationsMode === 'managed' && snapshot.stageAssignmentAuthority === 'engine'
   const hollywoodStage7Operation =
@@ -403,6 +478,15 @@ export function StudioLotScreen({
       : hollywoodProductionId === null
         ? null
       : explicitlySelectedHollywoodOperation
+  const hollywoodInspectorOperation =
+    hollywoodPerson === null
+      ? hollywoodOperation
+      : selectedProductionWork !== null &&
+          hollywoodOperation?.productionId === selectedProductionWork.productionId
+        ? hollywoodOperation
+        : null
+  const showHollywoodInspectorTaskChain =
+    hollywoodPerson === null || selectedProductionWork?.productionRole === 'director'
   const renderedHollywoodProductionIdRef = useRef<string | null>(hollywoodOperation?.productionId ?? null)
   renderedHollywoodProductionIdRef.current = hollywoodOperation?.productionId ?? null
 
@@ -673,13 +757,15 @@ export function StudioLotScreen({
       setHollywoodPlace(null)
       viewRef.current?.clearHollywoodPlaceSelection()
     }
-    if (
-      person?.authority === 'active-production' &&
-      person.productionId !== null
-    ) {
+    if (person !== null) {
+      const work = lotPersonWorkContext(latestSnapshotRef.current, person.id)
       // A person and their task chain are one inspector context. Selecting the real
       // director/lead of Film B must never leave Film A's command underneath their name.
-      setHollywoodProductionId(person.productionId)
+      setHollywoodProductionId(
+        work.kind === 'managed-production' || work.kind === 'legacy-production'
+          ? work.productionId
+          : null,
+      )
     }
   }, [clearAnnexContext, clearHollywoodSceneryLoadInContext, recordSelection])
 
@@ -716,9 +802,11 @@ export function StudioLotScreen({
   // snapshot, not the old scene event, decides whether that inspection remains valid.
   useEffect(() => {
     if (hollywoodPerson === null) return
-    const current = snapshot.people.find((person) => person.id === hollywoodPerson.id)
+    const currentMatches = snapshot.people.filter((person) => person.id === hollywoodPerson.id)
+    const current = currentMatches.length === 1 ? currentMatches[0]! : undefined
     if (current === undefined) {
       setHollywoodPerson(null)
+      setHollywoodProductionId(null)
       return
     }
     if (
@@ -731,6 +819,28 @@ export function StudioLotScreen({
       recordHollywoodPerson(current)
     }
   }, [hollywoodPerson, recordHollywoodPerson, snapshot.people])
+
+  // The canonical profile may remain resolvable by ID after the Lot-to-profile
+  // handoff ceases to be exact (ambiguous assignment, lost operation membership,
+  // duplicate profile, or changed identity). Close the App-owned raw ID on the
+  // first invalid render and move focus to a stable world fallback. This also
+  // prevents a temporarily missing profile from auto-reopening if it reappears.
+  useEffect(() => {
+    if (
+      hollywoodPerson === null ||
+      openTalentProfileId !== hollywoodPerson.id ||
+      (selectedProfileMatches && selectedAssignmentIsExact)
+    ) return
+    onCloseTalentProfileRef.current?.(hollywoodPerson.id)
+    queueMicrotask(() => {
+      ;(namedPeopleGroupRef.current ?? studioHeadingRef.current)?.focus()
+    })
+  }, [
+    hollywoodPerson,
+    openTalentProfileId,
+    selectedAssignmentIsExact,
+    selectedProfileMatches,
+  ])
 
   // A selected context is retained only while the latest authoritative lot projection
   // still contains one expansion lifecycle fact matching the latest construction view.
@@ -779,9 +889,12 @@ export function StudioLotScreen({
     }
     const target = hollywoodOperation.currentCommand
       ? hollywoodCommandRef.current
-      : hollywoodTaskStatusRef.current
-    if (target === null) return
-    target.focus()
+      : hollywoodTaskStatusRef.current ?? hollywoodPersonStatusRef.current
+    if (target === null) {
+      pendingHollywoodFocusProductionId.current = null
+      return
+    }
+    target.focus({ preventScroll: true })
     pendingHollywoodFocusProductionId.current = null
   }, [hollywoodOperation, hollywoodPlace])
 
@@ -925,9 +1038,14 @@ export function StudioLotScreen({
               if (selectedBuilding) view?.select(selectedBuilding)
             }
             if (reducedMotion) view?.setReducedMotion(true)
+            // The tab can become hidden before the dynamic import or Phaser scene
+            // is ready, so no visibility event is guaranteed to reach this view.
+            // Reconcile once at readiness before allowing it to run unattended.
+            if (typeof document !== 'undefined' && document.hidden) view?.pause()
           },
         })
         viewRef.current = view
+        view.setInputSuspended?.(worldInputSuspendedRef.current)
       })
       .catch(() => {
         // Canvas unavailable (no WebGL / jsdom). The companion navigation remains
@@ -944,6 +1062,13 @@ export function StudioLotScreen({
     // by the effect below. state/callbacks are read via refs / fresh selector calls.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // Modal overlays keep this exact view mounted and animated while making the
+  // world inert. The latest ref above also covers a drawer opened before the
+  // lazy renderer constructor resolves.
+  useEffect(() => {
+    viewRef.current?.setInputSuspended?.(worldInputSuspended)
+  }, [worldInputSuspended])
 
   // ── Feed the live view new authoritative facts whenever GameState changes. ───
   useEffect(() => {
@@ -969,6 +1094,7 @@ export function StudioLotScreen({
       else v.resume()
     }
     document.addEventListener('visibilitychange', onVisibility)
+    onVisibility()
     return () => document.removeEventListener('visibilitychange', onVisibility)
   }, [])
 
@@ -1503,6 +1629,76 @@ export function StudioLotScreen({
         )
       })()
 
+  const personInspectorContents = hollywoodPerson === null
+    ? null
+    : (() => {
+        const work = selectedPersonWork
+        const productionWork =
+          work?.kind === 'managed-production' || work?.kind === 'legacy-production'
+            ? work
+            : null
+        return (
+          <div
+            className="hollywood-person-inspector-status"
+            ref={hollywoodPersonStatusRef}
+            tabIndex={-1}
+            data-testid="hollywood-person-inspector-status"
+          >
+            <p className="hollywood-eyebrow">SELECTED PERSON</p>
+            <h3>{hollywoodPerson.name}</h3>
+            {productionWork !== null ? (
+              <dl className="hollywood-person-facts" data-testid="hollywood-person-work-facts">
+                <div>
+                  <dt>Role on picture</dt>
+                  <dd>{productionWork.productionRole === 'director' ? 'Director' : 'Lead actor'}</dd>
+                </div>
+                <div><dt>Picture</dt><dd>{productionWork.productionTitle}</dd></div>
+                <div><dt>Production phase</dt><dd>{productionWork.phaseLabel}</dd></div>
+                <div>
+                  <dt>{productionWork.kind === 'managed-production' ? 'Production facilities' : 'Workplace'}</dt>
+                  <dd>
+                    {productionWork.kind === 'managed-production'
+                      ? productionWork.productionFacilities.facilityLabel
+                      : 'Not recorded · legacy schedule'}
+                  </dd>
+                </div>
+                <div><dt>Production status</dt><dd>{productionWork.productionStatusLabel}</dd></div>
+                <div>
+                  <dt>Production countdown</dt>
+                  <dd>{productionWork.productionWeeksRemaining} production weeks remaining</dd>
+                </div>
+                {productionWork.productionRole === 'director' &&
+                  productionWork.directorTaskStatus !== null && (
+                    <div><dt>Director task</dt><dd>{productionWork.directorTaskStatus}</dd></div>
+                  )}
+              </dl>
+            ) : work?.kind === 'roster' ? (
+              <p className="hollywood-person-work-note" data-testid="hollywood-person-roster-work">
+                No production assignment is represented for this person in the current Lot snapshot.
+              </p>
+            ) : (
+              <p className="hollywood-person-work-note is-unavailable" data-testid="hollywood-person-work-unavailable">
+                Current work details are unavailable from this Lot snapshot.
+              </p>
+            )}
+            <dl className="hollywood-person-career" data-testid="hollywood-person-career-summary">
+              <div><dt>Assignment</dt><dd>{selectedAssignmentLabel}</dd></div>
+              <div><dt>Career</dt><dd>{selectedCareerLabel ?? 'Career details unavailable'}</dd></div>
+            </dl>
+            {canOpenSelectedTalentProfile && (
+              <button
+                type="button"
+                className="accent hollywood-profile-command"
+                data-testid={`hollywood-open-talent-profile-${hollywoodPerson.id}`}
+                onClick={() => onOpenTalentProfile?.(hollywoodPerson.id)}
+              >
+                Open talent profile
+              </button>
+            )}
+          </div>
+        )
+      })()
+
   return (
     <div
       className={`lot-screen${reducedMotion ? ' lot-reduced-motion' : ''}${hollywood ? ' lot-hollywood' : ''}`}
@@ -1669,7 +1865,7 @@ export function StudioLotScreen({
               </section>
 
               <section
-                className={`hollywood-inspector${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}`}
+                className={`hollywood-inspector${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}${hollywoodPerson ? ' is-person' : ''}`}
                 data-testid={
                   annexSelected
                     ? 'lot-annex-context'
@@ -1687,16 +1883,18 @@ export function StudioLotScreen({
                     ? sceneryLoadInContextContents
                     : (
                   <>
-                    <p className="hollywood-eyebrow">{hollywoodPerson ? 'SELECTED PERSON' : hollywoodPlace ? 'SELECTED PLACE' : 'STUDIO DESK'}</p>
-                    <h3>{hollywoodPerson?.name ?? hollywoodPlace?.label ?? hollywoodOperation?.title ?? 'Studio idle'}</h3>
-                    <p>{hollywoodPerson
-                      ? `${hollywoodPerson.role === 'director' ? 'Director' : 'Talent'} · ${hollywoodPerson.authority === 'active-production' ? `attached to ${hollywoodPerson.productionTitle}` : hollywoodPerson.authority === 'district-managed' ? 'district command roster' : 'studio roster'}`
-                      : hollywoodPlace
-                        ? `Affordances: ${hollywoodPlace.affordances.join(' · ')}`
-                        : hollywoodOperation
-                          ? `${hollywoodOperation.phaseLabel} · ${hollywoodOperation.facilityLabel}`
-                          : 'No production requires a studio command.'}</p>
-                    {hollywoodOperation && hollywoodPlace === null && (
+                    {personInspectorContents ?? (
+                      <>
+                        <p className="hollywood-eyebrow">{hollywoodPlace ? 'SELECTED PLACE' : 'STUDIO DESK'}</p>
+                        <h3>{hollywoodPlace?.label ?? hollywoodOperation?.title ?? 'Studio idle'}</h3>
+                        <p>{hollywoodPlace
+                          ? `Affordances: ${hollywoodPlace.affordances.join(' · ')}`
+                          : hollywoodOperation
+                            ? `${hollywoodOperation.phaseLabel} · ${hollywoodOperation.facilityLabel}`
+                            : 'No production requires a studio command.'}</p>
+                      </>
+                    )}
+                    {hollywoodInspectorOperation && hollywoodPlace === null && showHollywoodInspectorTaskChain && (
                   <div
                     className="hollywood-task-chain"
                     role="status"
@@ -1704,30 +1902,30 @@ export function StudioLotScreen({
                     aria-atomic="true"
                     tabIndex={-1}
                     ref={hollywoodTaskStatusRef}
-                    data-testid={`hollywood-task-status-${hollywoodOperation.productionId}`}
+                    data-testid={`hollywood-task-status-${hollywoodInspectorOperation.productionId}`}
                   >
-                    <span className="done">PHASE<b>{hollywoodOperation.phaseLabel}</b></span><i>›</i>
-                    <span className={hollywoodOperation.taskStatus ? 'done' : ''}>TASK<b>{hollywoodOperation.taskStatus ?? 'None'}</b></span><i>›</i>
-                    <span className={hollywoodOperation.currentCommand ? '' : 'done'}>STATUS<b>{hollywoodOperation.statusLabel}</b></span>
+                    <span className="done">PHASE<b>{hollywoodInspectorOperation.phaseLabel}</b></span><i>›</i>
+                    <span className={hollywoodInspectorOperation.taskStatus ? 'done' : ''}>TASK<b>{hollywoodInspectorOperation.taskStatus ?? 'None'}</b></span><i>›</i>
+                    <span className={hollywoodInspectorOperation.currentCommand ? '' : 'done'}>STATUS<b>{hollywoodInspectorOperation.statusLabel}</b></span>
                   </div>
                     )}
-                    {hollywoodPlace === null && hollywoodOperation?.locationBuildingId === 'stage-b' && (
+                    {hollywoodPlace === null && hollywoodInspectorOperation?.locationBuildingId === 'stage-b' && (
                   <p className="hollywood-stage-fallback" data-testid="hollywood-stage-12-fallback">
-                    {hollywoodOperation.facilityLabel} is authoritative. This district view depicts Soundstage 7; manage this production from the inspector.
+                    {hollywoodInspectorOperation.facilityLabel} is authoritative. This district view depicts Soundstage 7; manage this production from the inspector.
                   </p>
                     )}
-                    {hollywoodPlace === null && hollywoodOperation?.currentCommand && (
+                    {hollywoodPlace === null && hollywoodInspectorOperation?.currentCommand && (
                   <button
                     className="accent hollywood-command"
                     disabled={!onProductionCommand}
                     ref={hollywoodCommandRef}
                     onClick={() => dispatchHollywoodProductionCommand(
-                      hollywoodOperation.productionId,
-                      hollywoodOperation.currentCommand!,
+                      hollywoodInspectorOperation.productionId,
+                      hollywoodInspectorOperation.currentCommand!,
                     )}
-                    data-testid={`hollywood-production-command-${hollywoodOperation.currentCommand.kind}`}
+                    data-testid={`hollywood-production-command-${hollywoodInspectorOperation.currentCommand.kind}`}
                   >
-                    {hollywoodOperation.currentCommand.label}
+                    {hollywoodInspectorOperation.currentCommand.label}
                   </button>
                     )}
                     {whisperOffer && (
@@ -1780,9 +1978,11 @@ export function StudioLotScreen({
               )}
               {snapshot.people.length > 0 && (
                 <div
+                  ref={namedPeopleGroupRef}
                   className="hollywood-people"
                   role="group"
                   aria-label="Named studio people"
+                  tabIndex={-1}
                   onPointerDown={containWorldInput}
                   onMouseDown={containWorldInput}
                   onTouchStart={containWorldInput}

@@ -25,8 +25,27 @@ export function TalentProfileDrawer({
   preV5Credits: number
   onClose: () => void
 }) {
+  const scrimRef = useRef<HTMLDivElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
   const openerRef = useRef<Element | null>(null)
+
+  useEffect(() => {
+    const scrim = scrimRef.current
+    if (scrim === null) return
+    const containScrollGesture = (event: Event) => {
+      if (event.target === scrim) event.preventDefault()
+      event.stopPropagation()
+    }
+    // React's delegated wheel listener may be passive in the browser. Own these
+    // two default-scroll boundaries natively so a gesture on the uncovered scrim
+    // cannot move the page, while gestures originating in the drawer stay usable.
+    scrim.addEventListener('wheel', containScrollGesture, { passive: false })
+    scrim.addEventListener('touchmove', containScrollGesture, { passive: false })
+    return () => {
+      scrim.removeEventListener('wheel', containScrollGesture)
+      scrim.removeEventListener('touchmove', containScrollGesture)
+    }
+  }, [])
 
   useEffect(() => {
     openerRef.current = document.activeElement // remember the control that opened us
@@ -65,7 +84,21 @@ export function TalentProfileDrawer({
   const primaryGenres = profile.genreExperience[profile.primaryDiscipline] ?? []
 
   return (
-    <div className="drawer-scrim" data-testid="talent-profile-scrim" onClick={onClose}>
+    <div
+      ref={scrimRef}
+      className="drawer-scrim"
+      data-testid="talent-profile-scrim"
+      onClick={(e) => {
+        e.stopPropagation()
+        onClose()
+      }}
+      onPointerDown={(e) => e.stopPropagation()}
+      onMouseDown={(e) => e.stopPropagation()}
+      onTouchStart={(e) => {
+        if (e.target === e.currentTarget) e.preventDefault()
+        e.stopPropagation()
+      }}
+    >
       <div
         ref={panelRef}
         className="drawer talent-profile"

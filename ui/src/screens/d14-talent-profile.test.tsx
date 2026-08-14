@@ -133,6 +133,58 @@ describe('D-14 Talent Profile drawer', () => {
     opener.remove()
   })
 
+  it('contains modal events, prevents scrim scrolling, and preserves panel scrolling', () => {
+    const { s } = releaseOneFilm(foundEngaged('tp-input-boundary'))
+    const id = leadId(s)
+    const leaked = {
+      pointerdown: vi.fn(),
+      mousedown: vi.fn(),
+      touchstart: vi.fn(),
+      wheel: vi.fn(),
+      click: vi.fn(),
+    }
+    for (const [name, handler] of Object.entries(leaked)) {
+      document.addEventListener(name, handler)
+    }
+    const onClose = vi.fn()
+
+    try {
+      renderProfile(s, id, onClose)
+      const panel = screen.getByTestId('talent-profile')
+      fireEvent.pointerDown(panel)
+      fireEvent.mouseDown(panel)
+      fireEvent.touchStart(panel)
+      fireEvent.wheel(panel)
+      expect(leaked.pointerdown).not.toHaveBeenCalled()
+      expect(leaked.mousedown).not.toHaveBeenCalled()
+      expect(leaked.touchstart).not.toHaveBeenCalled()
+      expect(leaked.wheel).not.toHaveBeenCalled()
+
+      const scrim = screen.getByTestId('talent-profile-scrim')
+      const scrimWheel = new WheelEvent('wheel', { bubbles: true, cancelable: true, deltaY: 100 })
+      scrim.dispatchEvent(scrimWheel)
+      expect(scrimWheel.defaultPrevented).toBe(true)
+      const panelWheel = new WheelEvent('wheel', { bubbles: true, cancelable: true, deltaY: 100 })
+      panel.dispatchEvent(panelWheel)
+      expect(panelWheel.defaultPrevented).toBe(false)
+
+      const scrimTouchMove = new Event('touchmove', { bubbles: true, cancelable: true })
+      scrim.dispatchEvent(scrimTouchMove)
+      expect(scrimTouchMove.defaultPrevented).toBe(true)
+      const panelTouchMove = new Event('touchmove', { bubbles: true, cancelable: true })
+      panel.dispatchEvent(panelTouchMove)
+      expect(panelTouchMove.defaultPrevented).toBe(false)
+
+      fireEvent.click(scrim)
+      expect(onClose).toHaveBeenCalledOnce()
+      expect(leaked.click).not.toHaveBeenCalled()
+    } finally {
+      for (const [name, handler] of Object.entries(leaked)) {
+        document.removeEventListener(name, handler)
+      }
+    }
+  })
+
   it('shows the honest pre-V5 notice only when there are unrecorded credits', () => {
     const { s } = releaseOneFilm(foundEngaged('tp-notice'))
     const id = leadId(s)

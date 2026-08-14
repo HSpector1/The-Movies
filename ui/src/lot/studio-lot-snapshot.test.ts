@@ -531,6 +531,11 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     )
     expect(snap.people.every((person) => person.authority === 'active-production')).toBe(true)
     expect(snap.people.every((person) => person.productionId === production.id)).toBe(true)
+    expect(operation(snap, production.id)).toMatchObject({
+      directorId: production.directorId,
+      leadId: production.cast.lead,
+      leadName: state.talent.find((person) => person.id === production.cast.lead)!.name,
+    })
   })
 
   it('labels legacy stage assignment while preserving every pre-operations lot field', () => {

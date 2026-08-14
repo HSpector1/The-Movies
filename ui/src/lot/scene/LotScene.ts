@@ -205,6 +205,8 @@ export class LotScene extends Phaser.Scene {
   private filmingHush = false
   private characterActive = false
   private reducedMotion = false
+  /** Input-only modal gate. Ambient life and the scene update loop remain live. */
+  private inputSuspended = false
 
   private dragging = false
   private dragMoved = false
@@ -822,11 +824,13 @@ export class LotScene extends Phaser.Scene {
 
   private wireInteractive(target: Phaser.GameObjects.GameObject, id: BuildingId): void {
     target.on('pointerover', () => {
+      if (this.inputSuspended) return
       this.hovered = id
       this.refreshHighlights()
       if (!this.dragging) this.input.setDefaultCursor('pointer')
     })
     target.on('pointerout', () => {
+      if (this.inputSuspended) return
       if (this.hovered === id) {
         this.hovered = null
         this.refreshHighlights()
@@ -834,6 +838,7 @@ export class LotScene extends Phaser.Scene {
       }
     })
     target.on('pointerup', () => {
+      if (this.inputSuspended) return
       if (this.dragMoved) return
       this.select(id)
     })
@@ -1160,15 +1165,18 @@ export class LotScene extends Phaser.Scene {
   private makeInspectable(spr: Phaser.GameObjects.Sprite): void {
     spr.setInteractive({ pixelPerfect: false })
     spr.on('pointerover', () => {
+      if (this.inputSuspended) return
       if (!this.inspectAllowed()) return
       spr.setScale(spr.flipX ? -1.15 : 1.15, 1.15)
       if (!this.dragging) this.input.setDefaultCursor('help')
     })
     spr.on('pointerout', () => {
+      if (this.inputSuspended) return
       spr.setScale(spr.flipX ? -1 : 1, 1)
       if (!this.dragging) this.input.setDefaultCursor(this.hovered ? 'pointer' : 'grab')
     })
     spr.on('pointerup', () => {
+      if (this.inputSuspended) return
       if (this.dragMoved || !this.inspectAllowed()) return
       const info = spr.getData('inspect') as Inspect | null
       if (info) this.selectCharacter(info)
@@ -1216,6 +1224,26 @@ export class LotScene extends Phaser.Scene {
     this.director?.setPaused(on)
   }
 
+  /**
+   * Disable Phaser's world controls while leaving the scene update loop alive.
+   * Reset on both edges: a key or pointer held before modal entry must not remain
+   * latched, and a release hidden by the modal must not leak into resumed input.
+   */
+  setInputSuspended(on: boolean): void {
+    this.inputSuspended = on
+    this.dragging = false
+    this.dragMoved = false
+    this.dragStart = { x: 0, y: 0 }
+    this.scrollStart = { x: 0, y: 0 }
+    this.hovered = null
+    this.input.resetPointers()
+    this.input.keyboard?.resetKeys()
+    this.input.enabled = !on
+    if (this.input.keyboard) this.input.keyboard.enabled = !on
+    this.input.setDefaultCursor(on ? 'default' : 'grab')
+    this.refreshHighlights()
+  }
+
   seekVignette(t: number): void {
     this.director?.seek(t)
   }
@@ -1260,6 +1288,7 @@ export class LotScene extends Phaser.Scene {
     this.input.mouse?.disableContextMenu()
 
     this.input.on('pointerdown', (p: Phaser.Input.Pointer) => {
+      if (this.inputSuspended) return
       this.dragging = true
       this.dragMoved = false
       this.dragStart = { x: p.x, y: p.y }
@@ -1267,6 +1296,7 @@ export class LotScene extends Phaser.Scene {
       this.input.setDefaultCursor('grabbing')
     })
     this.input.on('pointermove', (p: Phaser.Input.Pointer) => {
+      if (this.inputSuspended) return
       if (!this.dragging) return
       const dx = p.x - this.dragStart.x
       const dy = p.y - this.dragStart.y
@@ -1282,6 +1312,7 @@ export class LotScene extends Phaser.Scene {
     this.input.on('pointerupoutside', endDrag)
 
     this.input.on('wheel', (p: Phaser.Input.Pointer, _o: unknown, _dx: number, dy: number) => {
+      if (this.inputSuspended) return
       const cam = this.cameras.main
       const before = cam.getWorldPoint(p.x, p.y)
       const next = Phaser.Math.Clamp(cam.zoom * (dy > 0 ? 0.9 : 1.1), ZOOM_MIN, ZOOM_MAX)
@@ -1299,7 +1330,9 @@ export class LotScene extends Phaser.Scene {
         right: kb.addKey('D'),
       }
       this.cursors = kb.createCursorKeys()
-      kb.addKey('R').on('down', () => this.resetCamera())
+      kb.addKey('R').on('down', () => {
+        if (!this.inputSuspended) this.resetCamera()
+      })
     }
   }
 
@@ -1769,7 +1802,7 @@ export class LotScene extends Phaser.Scene {
     // keyboard panning
     let mx = 0
     let my = 0
-    if (this.wasd) {
+    if (!this.inputSuspended && this.wasd) {
       if (this.wasd.left.isDown || this.cursors.left.isDown) mx -= 1
       if (this.wasd.right.isDown || this.cursors.right.isDown) mx += 1
       if (this.wasd.up.isDown || this.cursors.up.isDown) my -= 1

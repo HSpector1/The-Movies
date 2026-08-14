@@ -20,6 +20,7 @@ const runtime = vi.hoisted(() => {
   class HollywoodScene {
     data: { reducedMotion?: boolean; onEvent: (event: Event) => void } | null = null
     reduced: boolean[] = []
+    inputSuspensions: boolean[] = []
     productionSelections: string[] = []
     sceneryLoadInSelections: string[] = []
     sceneryLoadInSelectionResult = true
@@ -28,6 +29,7 @@ const runtime = vi.hoisted(() => {
     telemetryResets = 0
     snapshotsApplied: unknown[] = []
     setReducedMotion(on: boolean) { this.reduced.push(on) }
+    setInputSuspended(on: boolean) { this.inputSuspensions.push(on) }
     resetPerformanceTelemetry() { this.telemetryResets++ }
     applySnapshot(snapshot: unknown) { this.snapshotsApplied.push(snapshot) }
     selectProductionFromHost(productionId: string) {
@@ -217,5 +219,38 @@ describe('StudioLotView Hollywood lifecycle', () => {
     expect(game.loop.wake).toHaveBeenCalledOnce()
     expect(scene.snapshotsApplied).toEqual([snapshot])
     expect(scene.telemetryResets).toBe(1)
+  })
+
+  it('retains modal input suspension across delayed readiness, visibility resume, and recreation', () => {
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+    })
+    const firstGame = runtime.games.at(-1)!
+
+    // The modal may open before Phaser finishes its lazy boot.
+    view.setInputSuspended(true)
+    firstGame.events.emit('ready')
+    const firstScene = firstGame.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+    expect(firstScene.inputSuspensions).toEqual([true])
+
+    // Visibility lifecycle may sleep and wake the renderer, but it must not clear
+    // the independently retained modal boundary.
+    view.pause()
+    view.resume()
+    expect(firstGame.scene.isActive('hollywood')).toBe(true)
+    expect(firstScene.inputSuspensions).toEqual([true, true])
+
+    // A renderer replacement also receives the retained value only when ready.
+    view.recreate()
+    const replacementGame = runtime.games.at(-1)!
+    expect(replacementGame).not.toBe(firstGame)
+    replacementGame.events.emit('ready')
+    const replacementScene = replacementGame.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+    expect(replacementScene.inputSuspensions).toEqual([true])
+
+    view.setInputSuspended(false)
+    expect(replacementScene.inputSuspensions).toEqual([true, false])
   })
 })

@@ -172,6 +172,8 @@ export class HollywoodScene extends Phaser.Scene {
   private vehicle: Phaser.GameObjects.Sprite | null = null
   private vehicleTween: Phaser.Tweens.Tween | null = null
   private reducedMotion = false
+  /** Input-only modal gate. Ambient actors, routes, and renderer telemetry stay live. */
+  private inputSuspended = false
   private selectedPersonId: string | null = null
   private selectedPlaceId: string | null = null
   private selectedProductionId: string | null = null
@@ -808,6 +810,7 @@ export class HollywoodScene extends Phaser.Scene {
       this.dragOrigin = { x: pointer.x, y: pointer.y, scrollX: this.cameras.main.scrollX, scrollY: this.cameras.main.scrollY }
     })
     this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
+      if (!this.isCanvasPointer(pointer)) return
       if (!pointer.isDown || !this.dragOrigin || pointer.getDistance() < 5) return
       this.cameras.main.scrollX = this.dragOrigin.scrollX - (pointer.x - this.dragOrigin.x) / this.cameras.main.zoom
       this.cameras.main.scrollY = this.dragOrigin.scrollY - (pointer.y - this.dragOrigin.y) / this.cameras.main.zoom
@@ -817,7 +820,7 @@ export class HollywoodScene extends Phaser.Scene {
 
   /** Phaser can observe document-level input even when a React overlay owns the hit. */
   private isCanvasPointer(pointer: Phaser.Input.Pointer): boolean {
-    return pointer.event?.target === this.game.canvas
+    return !this.inputSuspended && pointer.event?.target === this.game.canvas
   }
 
   private fitCamera(): void {
@@ -1254,6 +1257,20 @@ export class HollywoodScene extends Phaser.Scene {
   }
 
   resetCamera(): void { this.fitCamera() }
+
+  /**
+   * Disable only world controls while a modal is open. Both transitions clear
+   * Phaser pointer/key state and the local drag latch so no held gesture survives
+   * the boundary; scene animation intentionally continues.
+   */
+  setInputSuspended(on: boolean): void {
+    this.inputSuspended = on
+    this.dragOrigin = null
+    this.input.resetPointers()
+    this.input.keyboard?.resetKeys()
+    this.input.enabled = !on
+    if (this.input.keyboard) this.input.keyboard.enabled = !on
+  }
 
   /** Freeze Hollywood's ambient/tweened motion while preserving every control and fact. */
   setReducedMotion(on: boolean): void {

@@ -239,7 +239,8 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
     fireEvent.click(personButton)
     expect(personButton).toHaveAttribute('aria-pressed', 'true')
     expect(screen.getByRole('heading', { level: 3, name: person.name })).toBeInTheDocument()
-    expect(screen.getByText(`Director · attached to ${operation.title}`)).toBeInTheDocument()
+    expect(screen.getByTestId('hollywood-person-work-facts')).toHaveTextContent('Role on pictureDirector')
+    expect(screen.getByTestId('hollywood-person-work-facts')).toHaveTextContent(`Picture${operation.title}`)
     expect(view.hollywoodPeopleSelected).toEqual([person.id])
     const advance = screen.getByTestId('lot-advance-week')
 
@@ -253,8 +254,11 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
     expect(personButton).toHaveAttribute('aria-pressed', 'true')
     expect(screen.getByRole('heading', { level: 2, name: operation.title })).toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 3, name: person.name })).toBeInTheDocument()
-    expect(screen.getByText(`Director · attached to ${operation.title}`)).toBeInTheDocument()
-    expect(screen.getByText('Shooting beat completed')).toBeInTheDocument()
+    expect(screen.getByTestId('hollywood-person-work-facts')).toHaveTextContent('Role on pictureDirector')
+    expect(screen.getByTestId('hollywood-person-work-facts')).toHaveTextContent(`Picture${operation.title}`)
+    expect(screen.getByTestId('hollywood-person-work-facts')).toHaveTextContent(
+      'Production statusShooting beat completed',
+    )
     expect(renderer.instances).toEqual([view])
     expect(view.hollywoodPeopleSelected).toEqual([person.id])
     expect(view.hollywoodPersonClears).toBe(0)

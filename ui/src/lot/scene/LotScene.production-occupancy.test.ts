@@ -136,6 +136,15 @@ const phaser = vi.hoisted(() => {
   ): DisplayObject => new DisplayObject(kind, text, children)
 
   class FakeScene {
+    readonly input = {
+      enabled: true,
+      resetPointers: vi.fn(),
+      setDefaultCursor: vi.fn(),
+      keyboard: {
+        enabled: true,
+        resetKeys: vi.fn(),
+      },
+    }
     readonly add = {
       graphics: () => display('graphics'),
       text: (x: number, y: number, text: string) =>
@@ -296,6 +305,47 @@ function badgeWord(badge: Display): string | null {
 }
 
 describe('LotScene managed production occupancy renderer', () => {
+  it('resets legacy camera input latches on both modal-boundary transitions', () => {
+    const scene = new LotScene()
+    const internals = scene as unknown as {
+      dragging: boolean
+      dragMoved: boolean
+      dragStart: { x: number; y: number }
+      scrollStart: { x: number; y: number }
+      inputSuspended: boolean
+    }
+
+    internals.dragging = true
+    internals.dragMoved = true
+    internals.dragStart = { x: 12, y: 34 }
+    internals.scrollStart = { x: 56, y: 78 }
+    scene.setInputSuspended(true)
+
+    expect(internals).toMatchObject({
+      dragging: false,
+      dragMoved: false,
+      dragStart: { x: 0, y: 0 },
+      scrollStart: { x: 0, y: 0 },
+      inputSuspended: true,
+    })
+    expect(scene.input.enabled).toBe(false)
+    expect(scene.input.keyboard!.enabled).toBe(false)
+    expect(scene.input.resetPointers).toHaveBeenCalledTimes(1)
+    expect(scene.input.keyboard!.resetKeys).toHaveBeenCalledTimes(1)
+
+    internals.dragging = true
+    internals.dragMoved = true
+    scene.setInputSuspended(false)
+
+    expect(internals.dragging).toBe(false)
+    expect(internals.dragMoved).toBe(false)
+    expect(internals.inputSuspended).toBe(false)
+    expect(scene.input.enabled).toBe(true)
+    expect(scene.input.keyboard!.enabled).toBe(true)
+    expect(scene.input.resetPointers).toHaveBeenCalledTimes(2)
+    expect(scene.input.keyboard!.resetKeys).toHaveBeenCalledTimes(2)
+  })
+
   it.each([
     ['a rehearsal/capacity reservation', production(), 'OCCUPIED'],
     [

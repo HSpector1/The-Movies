@@ -86,6 +86,8 @@ export class StudioLotView {
   private hollywoodScene: HollywoodScene | null = null
   private pendingSnapshot: StudioLotSnapshot | null = null
   private reducedMotion = false
+  /** Modal overlays suspend world input without pausing or recreating the renderer. */
+  private inputSuspended = false
   private readonly opts: StudioLotViewOptions
 
   constructor(opts: StudioLotViewOptions) {
@@ -129,6 +131,7 @@ export class StudioLotView {
     if (e.type === 'ready') {
       this.hollywoodScene = this.game.scene.getScene('hollywood') as HollywoodScene
       this.hollywoodScene.setReducedMotion(this.reducedMotion)
+      this.hollywoodScene.setInputSuspended(this.inputSuspended)
       if (this.pendingSnapshot && this.pendingSnapshot !== this.opts.snapshot) {
         this.hollywoodScene.applySnapshot(this.pendingSnapshot)
       }
@@ -145,6 +148,7 @@ export class StudioLotView {
   private handleEvent(e: LotEvent): void {
     if (e.type === 'ready') {
       this.scene = this.game.scene.getScene('lot') as LotScene
+      this.scene.setInputSuspended(this.inputSuspended)
       if (this.pendingSnapshot && this.pendingSnapshot !== this.opts.snapshot) {
         this.scene.applySnapshot(this.pendingSnapshot)
       }
@@ -235,6 +239,11 @@ export class StudioLotView {
     this.game.loop.wake()
     if (this.game.scene.isPaused('lot')) this.game.scene.resume('lot')
     if (this.game.scene.isPaused('hollywood')) this.game.scene.resume('hollywood')
+    // Scene visibility and modal input are independent. Reasserting the retained
+    // input state prevents a Phaser lifecycle resume from reviving controls behind
+    // an overlay while leaving the renderer itself free to wake normally.
+    this.scene?.setInputSuspended(this.inputSuspended)
+    this.hollywoodScene?.setInputSuspended(this.inputSuspended)
     if (this.hollywoodScene && this.pendingSnapshot) {
       this.hollywoodScene.applySnapshot(this.pendingSnapshot)
     }
@@ -257,6 +266,17 @@ export class StudioLotView {
     this.reducedMotion = on
     this.scene?.setReducedMotion(on)
     this.hollywoodScene?.setReducedMotion(on)
+  }
+
+  /**
+   * Suspend only world input while a modal owns interaction. The scene remains
+   * mounted and animated; the retained value is applied after lazy readiness and
+   * after `recreate()` builds a replacement scene.
+   */
+  setInputSuspended(on: boolean): void {
+    this.inputSuspended = on
+    this.scene?.setInputSuspended(on)
+    this.hollywoodScene?.setInputSuspended(on)
   }
 
   /** D1-A review: switch the studio-identity mode (baseline | concept-a | fallback). */

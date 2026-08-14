@@ -21,6 +21,7 @@ import {
   AUTHORED_START,
   CAST_SLOTS,
   findTalent,
+  talentAssignmentContext,
 } from './adapter.ts'
 import type { GameState, DraftPackage } from './adapter.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
@@ -120,6 +121,38 @@ describe('adapter: eligibility mirrors engine legality', () => {
     const writerVisible = talentByRole(next, 'writer').find((t) => t.id === pkg.writerId)!
     expect(writerVisible.available).toBe(false)
     expect(talentEligibility(writerVisible, 'writer', []).eligible).toBe(false)
+  })
+
+  it('gates zero, one, and hostile multiple assignments without last-write-wins truth', () => {
+    const state = newFoundedGame('assignment-context-unique')
+    const pkg = makeLegalPackage(state)
+    expect(talentAssignmentContext(state, pkg.directorId)).toEqual({ kind: 'available' })
+
+    const result = greenlight(state, pkg)
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    const title = result.next.concepts.find((concept) => concept.id === pkg.conceptId)!.title
+    expect(talentAssignmentContext(result.next, pkg.directorId)).toEqual({
+      kind: 'assigned',
+      assignment: {
+        kind: 'production',
+        assignmentId: result.next.studio.activeProductions[0]!.id,
+        label: title,
+      },
+    })
+
+    const production = result.next.studio.activeProductions[0]!
+    const hostile: GameState = {
+      ...result.next,
+      studio: {
+        ...result.next.studio,
+        activeProductions: [
+          production,
+          { ...production, id: `${production.id}-hostile-duplicate` },
+        ],
+      },
+    }
+    expect(talentAssignmentContext(hostile, pkg.directorId)).toEqual({ kind: 'ambiguous' })
   })
 })
 

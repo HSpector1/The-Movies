@@ -172,6 +172,9 @@ export type ProductionOperationsState = {
   facilityLabel: string
   directorId: string
   directorName: string
+  /** Exact Lead actor identity for person-to-picture inspection. Older fixtures may omit it. */
+  leadId?: string
+  leadName?: string
   taskStatus: LotShootingTaskStatus | null
   statusLabel: string
   blocker: {

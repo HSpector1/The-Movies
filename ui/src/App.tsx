@@ -742,6 +742,10 @@ export function App() {
   }
 
   const openProfile = openProfileId ? talentProfile(state, openProfileId) : undefined
+  // Keep the world inert for the full lifetime of the App-owned drawer identity,
+  // including the single reconciliation render where a hostile/replaced state no
+  // longer resolves that identity. The Lot clears stale raw IDs fail-closed.
+  const profileDrawerOpen = openProfileId !== null
 
   return (
     <DevErrorBoundary>
@@ -1099,6 +1103,12 @@ export function App() {
             onStateChange={setState}
             onProductionCommand={handleProductionCommand}
             onStartDevelopmentCastingAnnex={handleStartDevelopmentCastingAnnex}
+            onOpenTalentProfile={setOpenProfileId}
+            onCloseTalentProfile={(personId) => {
+              setOpenProfileId((current) => current === personId ? null : current)
+            }}
+            openTalentProfileId={openProfileId}
+            worldInputSuspended={profileDrawerOpen}
           />
         </Suspense>
       )}

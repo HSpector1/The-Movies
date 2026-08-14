@@ -618,6 +618,13 @@ function productionDirector(state: GameState, production: Production): { id: str
   }
 }
 
+function productionLead(state: GameState, production: Production): { id: string; name: string } {
+  return {
+    id: production.cast.lead,
+    name: state.talent.find((candidate) => candidate.id === production.cast.lead)?.name ?? production.cast.lead,
+  }
+}
+
 function legacyProductionBoardCard(state: GameState, production: Production): ProductionBoardCardView {
   const director = productionDirector(state, production)
   return {
@@ -949,6 +956,57 @@ export type PlayerVisibleTalent = {
 export type TalentAssignmentView = {
   kind: 'production' | 'script'
   label: string
+}
+
+export type TalentAssignmentContext =
+  | { kind: 'available' }
+  | {
+      kind: 'assigned'
+      assignment:
+        | { kind: 'production'; assignmentId: string; label: string }
+        | { kind: 'script'; assignmentId: string; label: string }
+    }
+  | { kind: 'ambiguous' }
+
+/**
+ * One uniqueness-aware assignment gate for identity-sensitive presentation.
+ * Unlike the legacy convenience map below, this collects every occupied role so
+ * a hostile accepted save can never choose an arbitrary first/last engagement.
+ */
+export function talentAssignmentContext(
+  state: GameState,
+  talentId: string,
+): TalentAssignmentContext {
+  const assignments: Array<
+    | { kind: 'production'; assignmentId: string; label: string }
+    | { kind: 'script'; assignmentId: string; label: string }
+  > = []
+  for (const production of state.studio.activeProductions) {
+    const title = findConcept(state, production.conceptId)?.title ?? production.conceptId
+    const assignment = {
+      kind: 'production' as const,
+      assignmentId: production.id,
+      label: title,
+    }
+    const participantIds = [
+      production.writerId,
+      production.directorId,
+      ...CAST_SLOTS.map((slot) => production.cast[slot]),
+      ...production.craftIds,
+    ]
+    for (const participantId of participantIds) {
+      if (participantId === talentId) assignments.push(assignment)
+    }
+  }
+  for (const script of activeScriptWriterAssignments(state.scriptDevelopment, state.concepts)) {
+    if (script.talentId === talentId) {
+      assignments.push({ kind: 'script', assignmentId: script.projectId, label: script.label })
+    }
+  }
+
+  if (assignments.length === 0) return { kind: 'available' }
+  if (assignments.length === 1) return { kind: 'assigned', assignment: assignments[0]! }
+  return { kind: 'ambiguous' }
 }
 
 // One generalized assignment truth for every player talent surface.
@@ -5116,6 +5174,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
           )
         : STAGE_IDS[index] ?? 'post'
     const attention = operationsAttention(card)
+    const lead = productionLead(state, production)
     return {
       productionId: production.id,
       title: card.title,
@@ -5130,6 +5189,8 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
       facilityLabel: card.currentFacility,
       directorId: card.director.id,
       directorName: card.director.name,
+      leadId: lead.id,
+      leadName: lead.name,
       taskStatus: card.shootingTaskStatus,
       statusLabel: card.statusLabel,
       blocker:
