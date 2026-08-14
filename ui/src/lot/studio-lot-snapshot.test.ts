@@ -7,6 +7,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   applyActions,
+  advanceManagedProductions,
   beginFounding,
   FOUNDING_MINIMUMS,
   generateWorld,
@@ -32,6 +33,7 @@ import {
   studioLotSnapshot,
   STUDIO_LOT_BRAND,
 } from '../engine/adapter.ts'
+import { operationalAnnexWorkContext } from './snapshot/annexWork.ts'
 
 // ── engine-level fixtures (mirroring tests/d12-economy.test.ts) ───────────────
 function foundStudio(seed: string): GameState {
@@ -65,6 +67,33 @@ function foundManagedScriptStudio(seed: string, rich = false): GameState {
   return applyActions(foundManagedStudio(seed, rich), [
     { kind: 'activateScriptDevelopment' },
   ])
+}
+function foundOperationalAnnexStudio(seed: string): GameState {
+  let state = beginFounding(generateWorld(seed))
+  const pool = state.founding!.applicantIds.map((id) =>
+    state.talent.find((talent) => talent.id === id)!,
+  )
+  const byRole = (role: CreativeRole, count: number) =>
+    pool.filter((talent) => talent.role === role).slice(0, count)
+  const hires = [
+    ...byRole('actor', 6),
+    ...byRole('director', 2),
+    ...byRole('writer', 3),
+    ...byRole('craft', 2),
+  ]
+  for (const hire of hires) {
+    state = applyActions(state, [
+      { kind: 'signContract', talentId: hire.id, termWeeks: 156 },
+    ])
+  }
+  state = applyActions(state, [
+    { kind: 'foundStudio' },
+    { kind: 'activateStudioOperations' },
+    { kind: 'activateScriptDevelopment' },
+    { kind: 'activateCastingSessions' },
+    { kind: 'startDevelopmentCastingAnnex' },
+  ])
+  return advance(state, 13)
 }
 function rosterIds(s: GameState, role: CreativeRole): string[] {
   return s.contracts
@@ -288,6 +317,7 @@ describe('studioLotSnapshot — authoritative, deterministic, invents nothing', 
       constructionProgress01: 0,
       constructionProgressText: 'Vacant expansion parcel',
     })
+    expect(studioLotSnapshot(state).annexWork).toBeNull()
 
     state = applyActions(state, [{ kind: 'startDevelopmentCastingAnnex' }])
     state = advance(state, 5)
@@ -298,14 +328,26 @@ describe('studioLotSnapshot — authoritative, deterministic, invents nothing', 
       constructionProgress01: 5 / 13,
       constructionProgressText: '5 of 13 weekly advances complete',
     })
+    expect(studioLotSnapshot(state).annexWork).toBeNull()
 
     state = advance(state, 8)
     exp = stage(studioLotSnapshot(state), 'expansion')
     expect(exp).toMatchObject({
-      attention: 'positive',
+      attention: 'empty',
+      attentionReason: 'Available · 0 of 1 slot occupied',
       constructionStatus: 'operational',
       constructionProgress01: 1,
       constructionProgressText: 'Operational since Week 13',
+    })
+    expect(studioLotSnapshot(state).annexWork).toEqual({
+      facilityId: 'facility-development-casting-annex',
+      facilityName: 'Development & Casting Annex',
+      capability: 'development-casting',
+      capacity: 1,
+      occupied: 0,
+      available: 1,
+      slot: 0,
+      occupant: null,
     })
   })
 
@@ -325,6 +367,270 @@ describe('studioLotSnapshot — authoritative, deterministic, invents nothing', 
 })
 
 describe('studioLotSnapshot — managed Production Operations truth', () => {
+  it('selects the exact unique Annex row independent of facility order and rejects lookalikes', () => {
+    const state = foundOperationalAnnexStudio('lot-annex-identity')
+    const reordered: GameState = {
+      ...state,
+      operations: {
+        ...state.operations,
+        facilities: [...state.operations.facilities].reverse(),
+      },
+    }
+    expect(studioLotSnapshot(reordered).annexWork).toEqual(studioLotSnapshot(state).annexWork)
+
+    const malformed = [
+      state.operations.facilities.filter(
+        (facility) => facility.id !== 'facility-development-casting-annex',
+      ),
+      [
+        ...state.operations.facilities,
+        { ...state.operations.facilities.at(-1)! },
+      ],
+      state.operations.facilities.map((facility) =>
+        facility.id === 'facility-development-casting-annex'
+          ? { ...facility, name: 'Development Annex Lookalike' }
+          : facility,
+      ),
+      state.operations.facilities.map((facility) =>
+        facility.id === 'facility-development-casting-annex'
+          ? { ...facility, capacity: 2 }
+          : facility,
+      ),
+    ]
+    for (const facilities of malformed) {
+      expect(() =>
+        studioLotSnapshot({
+          ...state,
+          operations: { ...state.operations, facilities },
+        }),
+      ).toThrow()
+    }
+  })
+
+  it('projects exact Annex screenplay and casting occupants from ordinary allocation', () => {
+    let scripts = foundOperationalAnnexStudio('lot-annex-script-work')
+    scripts = commissionScript(scripts, 0, 0)
+    scripts = commissionScript(scripts, 1, 1)
+    scripts = commissionScript(scripts, 2, 2)
+
+    let snap = studioLotSnapshot(scripts)
+    expect(snap.annexWork).toMatchObject({
+      occupied: 1,
+      available: 0,
+      occupant: {
+        owner: 'script',
+        ownerId: 'script-0002',
+        activity: 'drafting',
+        workState: 'working',
+        statusLabel: null,
+        blocker: null,
+      },
+    })
+    expect(stage(snap, 'expansion')).toMatchObject({
+      attention: 'active',
+      attentionReason: `Working · ${snap.annexWork?.occupant?.title}`,
+    })
+    expect(operationalAnnexWorkContext(snap)?.state).toBe('working')
+
+    scripts = tick(scripts)
+    scripts = applyActions(scripts, [
+      { kind: 'requestScriptRewrite', projectId: 'script-0000' },
+      { kind: 'requestScriptRewrite', projectId: 'script-0001' },
+      { kind: 'requestScriptRewrite', projectId: 'script-0002' },
+    ])
+    snap = studioLotSnapshot(scripts)
+    expect(snap.annexWork?.occupant).toMatchObject({
+      owner: 'script',
+      ownerId: 'script-0002',
+      activity: 'rewriting',
+      workState: 'working',
+      statusLabel: null,
+      blocker: null,
+    })
+
+    let casting = foundOperationalAnnexStudio('lot-annex-casting-work')
+    casting = commissionScript(casting, 0, 0)
+    casting = tick(casting)
+    casting = applyActions(casting, [{ kind: 'acceptScript', projectId: 'script-0000' }])
+    casting = commissionScript(casting, 1, 1)
+    casting = commissionScript(casting, 2, 2)
+    const actors = rosterIds(casting, 'actor')
+    casting = applyActions(casting, [
+      {
+        kind: 'startCastingSession',
+        session: {
+          projectId: 'script-0000',
+          slate: {
+            lead: [actors[0]!, actors[1]!],
+            antagonist: [actors[0]!, actors[2]!],
+            support: [actors[1]!, actors[2]!],
+          },
+        },
+      },
+    ])
+    snap = studioLotSnapshot(casting)
+    expect(snap.annexWork?.occupant).toMatchObject({
+      owner: 'casting',
+      ownerId: 'casting-0000',
+      activity: 'auditioning',
+      workState: 'working',
+      statusLabel: null,
+      blocker: null,
+    })
+    expect(operationalAnnexWorkContext(snap)?.ownerIntent).toEqual({
+      owner: 'casting',
+      ownerId: 'casting-0000',
+    })
+  })
+
+  it('maps exact Annex production reservations to expansion and joins Working/Held Calendar truth', () => {
+    let state = foundOperationalAnnexStudio('lot-annex-production-work')
+    state = commissionScript(state, 0, 0)
+    state = commissionScript(state, 1, 1)
+    state = tick(state)
+    state = applyActions(state, [
+      { kind: 'acceptScript', projectId: 'script-0000' },
+      { kind: 'acceptScript', projectId: 'script-0001' },
+    ])
+
+    // First picture takes base slot 0. One live draft takes base slot 1, so the
+    // second picture is allocated to the exact completed Annex by public actions.
+    state = greenlightReadyScript(state, 'script-0000')
+    state = commissionScript(state, 2, 2)
+    const secondProject = state.scriptDevelopment.projects.find(
+      (project) => project.id === 'script-0001',
+    )!
+    const concept = state.concepts.find((candidate) => candidate.id === secondProject.conceptId)!
+    const actors = rosterIds(state, 'actor')
+    state = applyActions(state, [
+      {
+        kind: 'greenlightScriptProject',
+        production: {
+          projectId: secondProject.id,
+          directorId: rosterIds(state, 'director')[1]!,
+          craftIds: [rosterIds(state, 'craft')[1]!],
+          cast: {
+            lead: actors[3]!,
+            antagonist: actors[4]!,
+            support: actors[5]!,
+          },
+          budget: { negative: concept.baseNegativeCost, marketing: 100_000 },
+        },
+      },
+    ])
+
+    const annexProductionId = state.studio.activeProductions[1]!.id
+    let snap = studioLotSnapshot(state)
+    expect(operation(snap, annexProductionId)).toMatchObject({
+      phase: 'development',
+      locationBuildingId: 'expansion',
+      facilityLabel: 'Development & Casting Annex',
+    })
+    expect(snap.annexWork?.occupant).toMatchObject({
+      owner: 'production',
+      ownerId: annexProductionId,
+      activity: 'development',
+      workState: 'working',
+      statusLabel: 'On schedule',
+      blocker: null,
+    })
+    expect(stage(snap, 'expansion')).toMatchObject({
+      attention: 'active',
+      attentionReason: `Working · ${snap.annexWork?.occupant?.title}`,
+    })
+    expect(operationalAnnexWorkContext(snap)?.ownerIntent).toEqual({
+      owner: 'production',
+      ownerId: annexProductionId,
+    })
+
+    // Advance natively into Pre-production, then use the committed configured
+    // capacity seam to place the higher-id picture back in the Annex. This is
+    // read-model robustness evidence, never a native SaveFile fixture.
+    state = tick(state)
+    state = tick(state)
+    state = {
+      ...state,
+      operations: {
+        ...state.operations,
+        facilities: state.operations.facilities.map((facility) =>
+          facility.id === 'facility-development-casting'
+            ? { ...facility, capacity: 1 }
+            : facility,
+        ),
+        workflows: state.operations.workflows.map((workflow) =>
+          workflow.productionId === annexProductionId
+            ? {
+                ...workflow,
+                reservations: workflow.reservations.map((reservation) => ({
+                  ...reservation,
+                  facilityId: 'facility-development-casting-annex',
+                  slot: 0,
+                })),
+              }
+            : workflow,
+        ),
+      },
+    }
+
+    snap = studioLotSnapshot(state)
+    expect(operation(snap, annexProductionId)).toMatchObject({
+      phase: 'preProduction',
+      locationBuildingId: 'expansion',
+      facilityLabel: 'Development & Casting Annex',
+    })
+    expect(snap.annexWork?.occupant).toMatchObject({
+      owner: 'production',
+      ownerId: annexProductionId,
+      activity: 'preProduction',
+      workState: 'working',
+      statusLabel: 'On schedule',
+      blocker: null,
+    })
+
+    const beforeHeld = state.studio.activeProductions.find(
+      (production) => production.id === annexProductionId,
+    )!.remainingTicks
+    const configuredOperations = {
+      ...state.operations,
+      facilities: state.operations.facilities.filter(
+        (facility) => facility.id !== 'facility-soundstage-12',
+      ),
+    }
+    const advanced = advanceManagedProductions(
+      configuredOperations,
+      state.studio.activeProductions,
+      state.market.tick,
+    )
+    state = {
+      ...state,
+      operations: advanced.operations,
+      studio: { ...state.studio, activeProductions: advanced.productions },
+    }
+
+    snap = studioLotSnapshot(state)
+    expect(
+      state.studio.activeProductions.find((production) => production.id === annexProductionId)!
+        .remainingTicks,
+    ).toBe(beforeHeld)
+    expect(operation(snap, annexProductionId).locationBuildingId).toBe('expansion')
+    expect(snap.annexWork?.occupant).toMatchObject({
+      owner: 'production',
+      ownerId: annexProductionId,
+      activity: 'preProduction',
+      workState: 'held',
+      statusLabel: 'Held for facility capacity',
+      blocker: {
+        kind: 'facility-capacity',
+        headline: 'Rehearsal held for Soundstage',
+      },
+    })
+    expect(stage(snap, 'expansion')).toMatchObject({
+      attention: 'warning',
+      attentionReason: `Production held · ${snap.annexWork?.occupant?.title}`,
+    })
+    expect(operationalAnnexWorkContext(snap)?.state).toBe('held')
+  })
+
   it('projects every phase to its real lot location and never invents a physical stage', () => {
     let state = greenlightFilm(foundManagedStudio('lot-managed-phases'), 0)
     const productionId = state.studio.activeProductions[0]!.id

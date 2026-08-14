@@ -241,6 +241,8 @@ import {
 import type { CreativeRole, GameState } from '../../../../src/core/index.ts'
 import { runProductionCommand, studioLotSnapshot } from '../../engine/adapter.ts'
 import type {
+  LotAnnexWork,
+  LotAnnexWorkOccupant,
   LotPersonState,
   ProductionOperationsState,
   StudioLotSnapshot,
@@ -365,6 +367,7 @@ function snapshot(
     standing: 'finding-footing',
     standingValues: { awareness: 20, prestige: 20, confidence: 20 },
     publicityOffers: [],
+    annexWork: null,
     activeProductions: [],
     releasedFilms: [],
     releasePresence: 'none',
@@ -377,6 +380,36 @@ function snapshot(
     stageAssignmentAuthority: 'engine',
     productionOperations: operations,
   }
+}
+
+function annexWork(occupant: LotAnnexWorkOccupant | null = null): LotAnnexWork {
+  return {
+    facilityId: 'facility-development-casting-annex',
+    facilityName: 'Development & Casting Annex',
+    capability: 'development-casting',
+    capacity: 1,
+    occupied: occupant === null ? 0 : 1,
+    available: occupant === null ? 1 : 0,
+    slot: 0,
+    occupant,
+  }
+}
+
+function operationalAnnexSnapshot(
+  occupant: LotAnnexWorkOccupant | null,
+): StudioLotSnapshot {
+  const current = snapshot([], [])
+  current.week = 13
+  current.buildings = [{
+    id: 'expansion',
+    available: true,
+    attention: 'positive',
+    constructionStatus: 'operational',
+    constructionProgress01: 1,
+    constructionProgressText: 'Operational since Week 13',
+  }]
+  current.annexWork = annexWork(occupant)
+  return current
 }
 
 type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
@@ -1634,6 +1667,110 @@ describe('HollywoodScene snapshot authority', () => {
     })
     expect(scene.debugState().expansionStatus).toBe('operational')
     expect(internals.expansionLabel.text).toContain('OPERATIONAL')
+  })
+
+  it('paints exact Available, Working, and Production Held Annex presence without an object-budget delta', () => {
+    const available = operationalAnnexSnapshot(null)
+    const { scene, internals } = harness(available)
+    internals.manifest.places.push(annexPlace())
+    internals.buildWorld()
+    internals.children.length = 34
+    const expansionGraphics = internals.expansionGraphics
+    const expansionLabel = internals.expansionLabel
+    const objectCounts = {
+      graphics: internals.graphicsObjects.length,
+      texts: internals.texts.length,
+      zones: internals.zones.length,
+      circles: internals.circles.length,
+      rectangles: internals.rectangles.length,
+      sprites: internals.sprites.length,
+      images: internals.images.length,
+    }
+    const expectFrozenObjects = () => {
+      expect(internals.expansionGraphics).toBe(expansionGraphics)
+      expect(internals.expansionLabel).toBe(expansionLabel)
+      expect({
+        graphics: internals.graphicsObjects.length,
+        texts: internals.texts.length,
+        zones: internals.zones.length,
+        circles: internals.circles.length,
+        rectangles: internals.rectangles.length,
+        sprites: internals.sprites.length,
+        images: internals.images.length,
+      }).toEqual(objectCounts)
+      expect(scene.performanceStats().displayObjects).toBe(34)
+    }
+
+    expansionGraphics!.calls = []
+    scene.applySnapshot(available)
+    expect(expansionLabel!.text).toBe('DEVELOPMENT & CASTING ANNEX · AVAILABLE')
+    expect(expansionGraphics!.calls).toContainEqual({ name: 'fillStyle', args: [0x294c45, 1] })
+    expect(expansionGraphics!.calls.some((call) => call.name === 'fillCircle')).toBe(false)
+    expectFrozenObjects()
+
+    const working = operationalAnnexSnapshot({
+      owner: 'script',
+      ownerId: 'script-night-crossing',
+      title: 'Night Crossing',
+      activity: 'drafting',
+      workState: 'working',
+      statusLabel: null,
+      blocker: null,
+    })
+    expansionGraphics!.calls = []
+    scene.applySnapshot(working)
+    expect(expansionLabel!.text).toBe('DEVELOPMENT & CASTING ANNEX · WORKING')
+    expect(expansionGraphics!.calls).toContainEqual({ name: 'fillStyle', args: [0xf0c66e, 1] })
+    expect(expansionGraphics!.calls).toContainEqual({ name: 'fillCircle', args: [640, 827, 5] })
+    expectFrozenObjects()
+
+    const held = operationalAnnexSnapshot({
+      owner: 'production',
+      ownerId: 'production-night-crossing',
+      title: 'Night Crossing',
+      activity: 'preProduction',
+      workState: 'held',
+      statusLabel: 'Held for Soundstage capacity',
+      blocker: {
+        kind: 'facility-capacity',
+        headline: 'Soundstage capacity unavailable',
+        detail: 'Night Crossing retains its Annex slot while it waits to move into shooting.',
+      },
+    })
+    expansionGraphics!.calls = []
+    scene.applySnapshot(held)
+    expect(expansionLabel!.text).toBe('DEVELOPMENT & CASTING ANNEX · PRODUCTION HELD')
+    expect(expansionGraphics!.calls).toContainEqual({ name: 'fillStyle', args: [0xd58448, 1] })
+    expect(expansionGraphics!.calls).toContainEqual({ name: 'fillCircle', args: [640, 827, 5] })
+    expectFrozenObjects()
+  })
+
+  it('fails null or malformed Operational Annex work closed to neutral Operational paint', () => {
+    const neutral = operationalAnnexSnapshot(null)
+    neutral.annexWork = null
+    const { scene, internals } = harness(neutral)
+    internals.manifest.places.push(annexPlace())
+    internals.buildWorld()
+
+    internals.expansionGraphics!.calls = []
+    expect(() => scene.applySnapshot(neutral)).not.toThrow()
+    expect(internals.expansionLabel!.text).toBe('DEVELOPMENT & CASTING ANNEX · OPERATIONAL')
+    expect(internals.expansionGraphics!.calls).toContainEqual({
+      name: 'fillStyle',
+      args: [0x294c45, 1],
+    })
+    expect(internals.expansionGraphics!.calls.some((call) => call.name === 'fillCircle')).toBe(false)
+
+    const contradictory = operationalAnnexSnapshot(null)
+    contradictory.annexWork = {
+      ...annexWork(null),
+      occupied: 1,
+      available: 0,
+    } as LotAnnexWork
+    internals.expansionGraphics!.calls = []
+    expect(() => scene.applySnapshot(contradictory)).not.toThrow()
+    expect(internals.expansionLabel!.text).toBe('DEVELOPMENT & CASTING ANNEX · OPERATIONAL')
+    expect(internals.expansionGraphics!.calls.some((call) => call.name === 'fillCircle')).toBe(false)
   })
 
   it('gives concurrent same-role people stable, non-overlapping authoritative homes', () => {

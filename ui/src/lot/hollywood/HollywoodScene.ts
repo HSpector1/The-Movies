@@ -5,6 +5,7 @@ import type {
   ProductionOperationsState,
   StudioLotSnapshot,
 } from '../snapshot/StudioLotSnapshot'
+import { operationalAnnexWorkContext } from '../snapshot/annexWork.ts'
 import { sceneryLoadInContext } from '../snapshot/sceneryLoadIn.ts'
 import {
   FALLBACK_PEOPLE_DECODED_BYTES,
@@ -1356,6 +1357,12 @@ export class HollywoodScene extends Phaser.Scene {
     g.clear()
 
     const status = this.expansionStatus
+    // Work presence is presentation-only and fail-closed. Operational construction
+    // remains visible when its narrow Calendar projection is absent or hostile, but
+    // the scene must not invent Available, Working, or Held in that case.
+    const work = status === 'operational'
+      ? operationalAnnexWorkContext(snapshot)
+      : null
     const progress = Math.max(0, Math.min(1, fact?.constructionProgress01 ?? 0))
     g.fillStyle(status === 'operational' ? 0x263e35 : 0x5a4b31, status === 'legacy' ? 0.12 : 0.26)
     g.fillPoints(points, true)
@@ -1389,11 +1396,23 @@ export class HollywoodScene extends Phaser.Scene {
           g.lineBetween(cx - width / 2 - 18, y, cx + width / 2 + 18, y)
         }
       } else {
-        g.fillStyle(0x294c45, 1)
+        // A static window/work-light treatment makes exact current use readable at
+        // world scale. It reuses this one retained Graphics object: no actor, route,
+        // texture, animation clock, or additional display object is created.
+        const windowColor = work?.state === 'working'
+          ? 0xf0c66e
+          : work?.state === 'held'
+            ? 0xd58448
+            : 0x294c45
+        g.fillStyle(windowColor, 1)
         for (let x = cx - width / 2 + 18; x < cx + width / 2 - 10; x += 35) {
           g.fillRect(x, baseY - 62, 18, 28)
         }
         g.fillStyle(0x7b2c24, 1).fillRect(cx - 14, baseY - 45, 28, 45)
+        if (work?.state === 'working' || work?.state === 'held') {
+          g.fillStyle(work.state === 'working' ? 0xffe6a1 : 0xe4a05d, 1)
+          g.fillCircle(cx, baseY - 53, 5)
+        }
       }
     }
 
@@ -1404,7 +1423,13 @@ export class HollywoodScene extends Phaser.Scene {
           ? 'EXPANSION PARCEL · VACANT'
           : status === 'building'
             ? `ANNEX BUILDING · ${fact?.constructionProgressText ?? ''}`
-            : 'DEVELOPMENT & CASTING ANNEX · OPERATIONAL'
+            : work?.state === 'available'
+              ? 'DEVELOPMENT & CASTING ANNEX · AVAILABLE'
+              : work?.state === 'working'
+                ? 'DEVELOPMENT & CASTING ANNEX · WORKING'
+                : work?.state === 'held'
+                  ? 'DEVELOPMENT & CASTING ANNEX · PRODUCTION HELD'
+                  : 'DEVELOPMENT & CASTING ANNEX · OPERATIONAL'
     this.expansionLabel.setText(label).setPosition(cx, top - 8).setVisible(true)
   }
 

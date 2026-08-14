@@ -16,7 +16,7 @@
 // released while playing. Films present only in an imported save (released before
 // this session) have no snapshot; the dashboard explains that plainly.
 
-import { Component, lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { Component, lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import type { ErrorInfo, ReactNode } from 'react'
 import type {
   GameState,
@@ -46,6 +46,7 @@ import {
   runPublicity,
   runProductionCommand,
   startDevelopmentCastingAnnexAction,
+  studioLotSnapshot,
 } from './engine/adapter.ts'
 import { filmCareerImpact, talentCareerHistory, preV5CreditCount } from './engine/careerImpact.ts'
 import { TalentProfileDrawer } from './components/TalentProfileDrawer.tsx'
@@ -78,6 +79,10 @@ import type { LotRoute } from './lot/navigation.ts'
 import { resetLotStageAssignment } from './lot/snapshot/stageAssignment.ts'
 import { resetLotSelectedBuilding } from './lot/snapshot/selectedBuildingSession.ts'
 import type { LotPublicityResult } from './lot/snapshot/publicityCampaign.ts'
+import {
+  operationalAnnexWorkContext,
+  type LotAnnexWorkOwnerIntent,
+} from './lot/snapshot/annexWork.ts'
 
 // Gate D1: the Studio Lot overview is lazily imported so Phaser and the whole lot
 // module stay out of the eager bundle. The factory only runs when <StudioLotScreen/>
@@ -89,6 +94,7 @@ type LotEntryFocus =
   | 'selected-building'
   | 'advance-week'
   | 'publicity-campaign'
+  | 'annex-work'
 
 type StudioReturnContext =
   | { kind: 'dashboard' }
@@ -107,9 +113,23 @@ type LotAdvanceFeedback = {
 
 const DASHBOARD_RETURN_CONTEXT: StudioReturnContext = { kind: 'dashboard' }
 
-function withoutPublicityReturnIntent(context: StudioReturnContext): StudioReturnContext {
-  return context.kind === 'lot' && context.focus === 'publicity-campaign'
+function withoutTransientWorldReturnIntent(context: StudioReturnContext): StudioReturnContext {
+  return context.kind === 'lot' && (
+    context.focus === 'publicity-campaign' || context.focus === 'annex-work'
+  )
     ? { ...context, focus: 'selected-building' }
+    : context
+}
+
+function annexProjectChildReturnContext(
+  context: StudioReturnContext,
+  focusedProjectId: string | undefined,
+  childProjectId: string,
+): StudioReturnContext {
+  return context.kind === 'lot' &&
+    context.focus === 'annex-work' &&
+    focusedProjectId !== childProjectId
+    ? withoutTransientWorldReturnIntent(context)
     : context
 }
 
@@ -249,6 +269,32 @@ export function App() {
   // D-14 Phase 2: the ONE Talent Profile drawer, openable over any screen from the roster,
   // Assemble a Film, or Autopsy. Null = closed. Focus returns to the opener on close.
   const [openProfileId, setOpenProfileId] = useState<string | null>(null)
+  // The Studio Lot becomes inert while the App-owned drawer is open. Capture its opener
+  // synchronously, before that inert transition can blur the world control, then restore only
+  // after the closing render has made the world interactive again. The drawer retains its own
+  // standalone fallback for non-App consumers.
+  const profileOpenerRef = useRef<HTMLElement | null>(null)
+  const profileWasOpenRef = useRef(false)
+  const profileRestoreEpochRef = useRef(0)
+  const latestOpenProfileIdRef = useRef<string | null>(openProfileId)
+  latestOpenProfileIdRef.current = openProfileId
+  const openTalentProfile = useCallback((personId: string) => {
+    profileRestoreEpochRef.current += 1
+    const active = typeof document === 'undefined' ? null : document.activeElement
+    profileOpenerRef.current = active instanceof HTMLElement ? active : null
+    setOpenProfileId(personId)
+  }, [])
+  const closeTalentProfile = useCallback(() => {
+    setOpenProfileId(null)
+  }, [])
+  const closeTalentProfileIfOpen = useCallback((personId: string) => {
+    setOpenProfileId((current) => current === personId ? null : current)
+  }, [])
+  const clearTalentProfileWithoutFocusRestore = useCallback(() => {
+    profileRestoreEpochRef.current += 1
+    profileOpenerRef.current = null
+    setOpenProfileId(null)
+  }, [])
   const [screen, setScreen] = useState<Screen>(
     restore.ok
       ? restore.state.founding !== null
@@ -286,9 +332,34 @@ export function App() {
     if (state) saveActiveSession(state)
   }, [state])
 
+  useEffect(() => {
+    const profileIsOpen = openProfileId !== null
+    if (profileWasOpenRef.current && !profileIsOpen) {
+      const opener = profileOpenerRef.current
+      profileOpenerRef.current = null
+      const restoreEpoch = ++profileRestoreEpochRef.current
+      const restoreFocus = () => {
+        if (
+          profileRestoreEpochRef.current !== restoreEpoch ||
+          latestOpenProfileIdRef.current !== null ||
+          opener === null ||
+          !opener.isConnected ||
+          opener.closest('[inert]') !== null
+        ) return
+        opener.focus({ preventScroll: true })
+      }
+      if (typeof requestAnimationFrame === 'function') {
+        requestAnimationFrame(restoreFocus)
+      } else {
+        queueMicrotask(restoreFocus)
+      }
+    }
+    profileWasOpenRef.current = profileIsOpen
+  }, [openProfileId])
+
   function startGame(next: GameState, details: { converted: boolean }) {
     setState(next)
-    setOpenProfileId(null)
+    clearTalentProfileWithoutFocusRestore()
     setSnapshots({})
     setLotAdvanceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
@@ -321,7 +392,7 @@ export function App() {
     }
     clearActiveSession()
     setState(null)
-    setOpenProfileId(null)
+    clearTalentProfileWithoutFocusRestore()
     setSnapshots({})
     setLotAdvanceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
@@ -760,7 +831,7 @@ export function App() {
 
   const loadedState = state
   const dashboardDeepReturnContext = screen.kind === 'dashboard'
-    ? withoutPublicityReturnIntent(screen.returnContext)
+    ? withoutTransientWorldReturnIntent(screen.returnContext)
     : DASHBOARD_RETURN_CONTEXT
 
   // World-First Annex Construction Interaction V1: App remains the sole state owner.
@@ -774,6 +845,79 @@ export function App() {
       setState(result.next)
     }
     return result
+  }
+
+  // World-First Operational Annex Work Presence V1: the Lot may offer a deep owner only
+  // after world inspection. Re-read the one canonical Calendar slot at activation time so a
+  // completed/replaced occupant can never route by stale presentation text or array position.
+  // This is navigation only; Calendar remains the read authority and GameState is untouched.
+  function handleOpenAnnexWorkDetails(intent: LotAnnexWorkOwnerIntent): boolean {
+    const current = latestStateRef.current
+    if (current === null) return false
+
+    try {
+      const latest = operationalAnnexWorkContext(studioLotSnapshot(current))
+      if (
+        latest === null ||
+        latest.occupant === null ||
+        latest.ownerIntent === null ||
+        latest.ownerIntent.owner !== intent.owner ||
+        latest.ownerIntent.ownerId !== intent.ownerId
+      ) return false
+
+      const returnContext: StudioReturnContext = {
+        kind: 'lot',
+        focus: 'annex-work',
+        suppressOperationalAnnouncement: false,
+      }
+      const prepareDeepOwner = () => {
+        setLotAdvanceFeedback(null)
+        setLotOperationalAnnouncementSuppressed(false)
+      }
+
+      switch (intent.owner) {
+        case 'production':
+          prepareDeepOwner()
+          setScreen({
+            kind: 'dashboard',
+            returnContext,
+            focusProductionId: intent.ownerId,
+          })
+          return true
+        case 'script':
+          prepareDeepOwner()
+          setScreen({
+            kind: 'writersRoom',
+            returnContext,
+            focusProjectId: intent.ownerId,
+          })
+          return true
+        case 'casting': {
+          const sessions = current.castingSessions.sessions.filter(
+            (session) => session.id === intent.ownerId,
+          )
+          if (sessions.length !== 1) return false
+          const session = sessions[0]!
+          if (
+            session.status !== 'auditioning' ||
+            session.reservation?.facilityId !== latest.annexWork.facilityId ||
+            session.reservation.capability !== latest.annexWork.capability ||
+            session.reservation.slot !== latest.annexWork.slot
+          ) return false
+          prepareDeepOwner()
+          setScreen({
+            kind: 'castingRoom',
+            returnContext,
+            focusProjectId: session.projectId,
+          })
+          return true
+        }
+      }
+    } catch {
+      // A hostile or mid-transition Calendar projection is an unavailable handoff, never a
+      // reason to guess an owner. The mounted Lot keeps the player in the Annex context.
+      return false
+    }
   }
 
   const openProfile = openProfileId ? talentProfile(state, openProfileId) : undefined
@@ -791,7 +935,7 @@ export function App() {
           profile={openProfile}
           history={talentCareerHistory(state, openProfile.id)}
           preV5Credits={preV5CreditCount(state, openProfile.id)}
-          onClose={() => setOpenProfileId(null)}
+          onClose={closeTalentProfile}
         />
       )}
       {screen.kind === 'founding' && (
@@ -879,7 +1023,7 @@ export function App() {
           state={state}
           onChange={setState}
           onBack={() => returnToStudioContext(screen.returnContext)}
-          onOpenProfile={setOpenProfileId}
+          onOpenProfile={openTalentProfile}
           {...(screen.focusTalentId ? { focusTalentId: screen.focusTalentId } : {})}
         />
       )}
@@ -903,16 +1047,22 @@ export function App() {
         <WritersRoom
           state={state}
           onChange={setState}
-          onOpenPackage={(scriptProjectId) =>
-            setScreen({ kind: 'assembly', returnContext: screen.returnContext, scriptProjectId })
-          }
-          onPlanAuditions={(scriptProjectId) =>
-            setScreen({
-              kind: 'castingRoom',
-              returnContext: screen.returnContext,
+          onOpenPackage={(scriptProjectId) => {
+            const returnContext = annexProjectChildReturnContext(
+              screen.returnContext,
+              screen.focusProjectId,
               scriptProjectId,
-            })
-          }
+            )
+            setScreen({ kind: 'assembly', returnContext, scriptProjectId })
+          }}
+          onPlanAuditions={(scriptProjectId) => {
+            const returnContext = annexProjectChildReturnContext(
+              screen.returnContext,
+              screen.focusProjectId,
+              scriptProjectId,
+            )
+            setScreen({ kind: 'castingRoom', returnContext, scriptProjectId })
+          }}
           onBack={() => returnToStudioContext(screen.returnContext)}
           {...(screen.focusProjectId ? { focusProjectId: screen.focusProjectId } : {})}
         />
@@ -939,11 +1089,19 @@ export function App() {
           state={state}
           onChange={setState}
           {...(screen.scriptProjectId ? { initialProjectId: screen.scriptProjectId } : {})}
-          onOpenPackage={(scriptProjectId) =>
-            setScreen({ kind: 'assembly', returnContext: screen.returnContext, scriptProjectId })
-          }
+          onOpenPackage={(scriptProjectId) => {
+            const returnContext = annexProjectChildReturnContext(
+              screen.returnContext,
+              screen.focusProjectId ?? screen.scriptProjectId,
+              scriptProjectId,
+            )
+            setScreen({ kind: 'assembly', returnContext, scriptProjectId })
+          }}
           onOpenRoster={() =>
-            setScreen({ kind: 'roster', returnContext: screen.returnContext })
+            setScreen({
+              kind: 'roster',
+              returnContext: withoutTransientWorldReturnIntent(screen.returnContext),
+            })
           }
           onBack={() => returnToStudioContext(screen.returnContext)}
           {...(screen.focusProjectId ? { focusProjectId: screen.focusProjectId } : {})}
@@ -962,7 +1120,7 @@ export function App() {
           // A1: a Custom Talent created mid-assembly updates the authoritative GameState here,
           // while Assembly stays mounted so the in-progress film-package draft is preserved.
           onStateChange={setState}
-          onOpenProfile={setOpenProfileId}
+          onOpenProfile={openTalentProfile}
         />
       )}
 
@@ -1019,7 +1177,7 @@ export function App() {
           view={screen.view}
           compare={screen.compare}
           careerImpact={filmCareerImpact(state, screen.view.productionId)}
-          onOpenProfile={setOpenProfileId}
+          onOpenProfile={openTalentProfile}
           onBack={() => returnToStudioContext(screen.returnContext)}
         />
       )}
@@ -1028,7 +1186,7 @@ export function App() {
         <FilmRecord
           view={screen.view}
           careerImpact={filmCareerImpact(state, screen.view.productionId)}
-          onOpenProfile={setOpenProfileId}
+          onOpenProfile={openTalentProfile}
           onBack={() => returnToStudioContext(screen.returnContext)}
         />
       )}
@@ -1073,7 +1231,7 @@ export function App() {
         <StudioRunRecap
           state={state}
           onBack={() => returnToStudioContext(screen.returnContext)}
-          onOpenProfile={setOpenProfileId}
+          onOpenProfile={openTalentProfile}
         />
       )}
 
@@ -1082,7 +1240,7 @@ export function App() {
           state={state}
           onLoad={(next, details) => {
             setState(next)
-            setOpenProfileId(null)
+            clearTalentProfileWithoutFocusRestore()
             setSnapshots({})
             setLotAdvanceFeedback(null)
             setLotOperationalAnnouncementSuppressed(false)
@@ -1139,10 +1297,9 @@ export function App() {
             entryFocus={screen.entryFocus}
             onProductionCommand={handleProductionCommand}
             onStartDevelopmentCastingAnnex={handleStartDevelopmentCastingAnnex}
-            onOpenTalentProfile={setOpenProfileId}
-            onCloseTalentProfile={(personId) => {
-              setOpenProfileId((current) => current === personId ? null : current)
-            }}
+            onOpenAnnexWorkDetails={handleOpenAnnexWorkDetails}
+            onOpenTalentProfile={openTalentProfile}
+            onCloseTalentProfile={closeTalentProfileIfOpen}
             openTalentProfileId={openProfileId}
             worldInputSuspended={profileDrawerOpen}
           />

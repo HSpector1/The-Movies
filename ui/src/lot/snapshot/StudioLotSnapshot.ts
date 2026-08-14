@@ -67,6 +67,68 @@ export type LotPublicityOffer = {
   reason: string | null
 }
 
+/** Exact Calendar-owned capacity blocker for an Annex-reserved production. */
+export type LotAnnexWorkBlocker = {
+  kind: 'facility-capacity'
+  headline: string
+  detail: string
+}
+
+/** One exact current occupant of the Development & Casting Annex slot. */
+export type LotAnnexWorkOccupant = {
+  owner: 'production' | 'script' | 'casting'
+  ownerId: string
+  title: string
+  activity: 'development' | 'preProduction' | 'drafting' | 'rewriting' | 'auditioning'
+  workState: 'working' | 'held'
+  statusLabel: string | null
+  blocker: LotAnnexWorkBlocker | null
+}
+
+/** The canonical one-slot Annex row copied from the Engine's Studio Calendar. */
+export type LotAnnexWork = {
+  facilityId: 'facility-development-casting-annex'
+  facilityName: 'Development & Casting Annex'
+  capability: 'development-casting'
+  capacity: 1
+  occupied: 0 | 1
+  available: 0 | 1
+  slot: 0
+  occupant: LotAnnexWorkOccupant | null
+}
+
+/** Identity-only request for the existing deep owner of validated Annex work. */
+export type LotAnnexWorkOwnerIntent =
+  | { owner: 'production'; ownerId: string }
+  | { owner: 'script'; ownerId: string }
+  | { owner: 'casting'; ownerId: string }
+
+/** Fail-closed host context returned by `operationalAnnexWorkContext`. */
+export type LotAnnexWorkContext =
+  | {
+      state: 'available'
+      annexWork: LotAnnexWork
+      occupant: null
+      ownerIntent: null
+    }
+  | {
+      state: 'working'
+      annexWork: LotAnnexWork
+      occupant: LotAnnexWorkOccupant & { workState: 'working' }
+      ownerIntent: LotAnnexWorkOwnerIntent
+    }
+  | {
+      state: 'held'
+      annexWork: LotAnnexWork
+      occupant: LotAnnexWorkOccupant & {
+        owner: 'production'
+        workState: 'held'
+        statusLabel: string
+        blocker: LotAnnexWorkBlocker
+      }
+      ownerIntent: { owner: 'production'; ownerId: string }
+    }
+
 /**
  * Canonical per-destination attention semantics (Gate D1 addendum §7). Every state
  * is paired in the UI with text + an icon/shape as well as colour — never colour
@@ -247,6 +309,8 @@ type StudioLotSnapshotBase = {
   standingValues: { awareness: number; prestige: number; confidence: number }
   /** Exact current Engine publicity offers, copied without Lot-side inference. */
   publicityOffers: LotPublicityOffer[]
+  /** Exact Operational Annex slot truth, or null before the Annex is operational. */
+  annexWork: LotAnnexWork | null
   /** Films shooting now — drives which stages are lit and their progress. */
   activeProductions: ProductionCard[]
   /** Recent releases — drives the theater marquee. */

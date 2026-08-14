@@ -25,7 +25,7 @@ import { foundedRosterIds, newFoundedGame } from '../test/founding.ts'
 const navigationProbe = vi.hoisted(() => ({
   dashboardRenders: 0,
   lotEntries: [] as Array<{
-    focus: 'studio-home' | 'selected-building' | 'advance-week' | 'publicity-campaign' | undefined
+    focus: 'studio-home' | 'selected-building' | 'advance-week' | 'publicity-campaign' | 'annex-work' | undefined
     week: number
   }>,
 }))

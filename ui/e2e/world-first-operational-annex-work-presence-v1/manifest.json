@@ -1,0 +1,461 @@
+{
+  "schemaVersion": "world-first-operational-annex-work-presence-fixtures-v1",
+  "generatedBy": "scripts/gen-world-first-operational-annex-work-presence-fixtures.mts",
+  "reproduceCommand": "node_modules/.bin/vite-node scripts/gen-world-first-operational-annex-work-presence-fixtures.mts",
+  "outputDirectory": "ui/e2e/world-first-operational-annex-work-presence-v1",
+  "authority": {
+    "stateConstruction": "public Engine and UI adapter actions only",
+    "construction": "exact Week-13 authoritative Development & Casting Annex completion",
+    "allocation": "ordinary deterministic shared development-casting allocation",
+    "serialization": "exportSaveJson / importSaveJson native SaveFileV11 boundary",
+    "importMode": "native SaveFileV11; converted === false",
+    "deterministic": true,
+    "generatedFilesAreHandEdited": false,
+    "configuredHeldSave": false
+  },
+  "fixtures": [
+    {
+      "id": "week-13-operational-annex-available",
+      "file": "week-13-operational-annex-available.save.json",
+      "saveVersion": 11,
+      "importMode": "native-v11",
+      "converted": false,
+      "byteLength": 220259,
+      "sha256": "4026c51603afe35605a9d5a71391764cd6dfea3972ef3a8d20ef3b3987dc4652",
+      "seed": "world-first-operational-annex-work",
+      "claim": {
+        "week": 13,
+        "constructionStatus": "operational",
+        "completedWeek": 13,
+        "annex": {
+          "capacity": 1,
+          "occupied": 0,
+          "available": 1,
+          "slot": 0,
+          "occupant": null
+        },
+        "contextState": "available"
+      },
+      "publicActionDerivation": [
+        {
+          "action": "newGame",
+          "seed": "world-first-operational-annex-work"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 3,
+            "director": 1,
+            "writer": 3,
+            "craft": 1
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-25",
+              "name": "Sidney Thorne",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-23",
+              "name": "Marion Ellery",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-14",
+              "name": "Warner Grimaldi",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-09",
+              "name": "Gary Everhart",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-01",
+              "name": "Bette Hartwell",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-09",
+              "name": "Norma Ashby",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-04",
+              "name": "Gary Delacroix",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-09",
+              "name": "Rita Sunderland",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundManagedStudio",
+          "managedSystemsActivated": [
+            "Studio Operations",
+            "Script Projects",
+            "Casting Sessions"
+          ]
+        },
+        {
+          "action": "startDevelopmentCastingAnnex",
+          "resultWeek": 0
+        },
+        {
+          "action": "advanceWeek",
+          "count": 13,
+          "resultWeek": 13
+        }
+      ]
+    },
+    {
+      "id": "week-13-operational-annex-script-working",
+      "file": "week-13-operational-annex-script-working.save.json",
+      "saveVersion": 11,
+      "importMode": "native-v11",
+      "converted": false,
+      "byteLength": 221866,
+      "sha256": "cb49f61ac81d239b14db744fdc7b37b91ccd507e8f0e4a8fda56e802bd96bdc4",
+      "seed": "world-first-operational-annex-work",
+      "claim": {
+        "week": 13,
+        "constructionStatus": "operational",
+        "completedWeek": 13,
+        "annex": {
+          "capacity": 1,
+          "occupied": 1,
+          "available": 0,
+          "slot": 0,
+          "occupant": {
+            "owner": "script",
+            "ownerId": "script-0002",
+            "title": "The Silent Widow",
+            "activity": "drafting",
+            "workState": "working",
+            "statusLabel": null,
+            "blocker": null
+          }
+        },
+        "contextState": "working"
+      },
+      "publicActionDerivation": [
+        {
+          "action": "newGame",
+          "seed": "world-first-operational-annex-work"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 3,
+            "director": 1,
+            "writer": 3,
+            "craft": 1
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-25",
+              "name": "Sidney Thorne",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-23",
+              "name": "Marion Ellery",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-14",
+              "name": "Warner Grimaldi",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-09",
+              "name": "Gary Everhart",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-01",
+              "name": "Bette Hartwell",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-09",
+              "name": "Norma Ashby",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-04",
+              "name": "Gary Delacroix",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-09",
+              "name": "Rita Sunderland",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundManagedStudio",
+          "managedSystemsActivated": [
+            "Studio Operations",
+            "Script Projects",
+            "Casting Sessions"
+          ]
+        },
+        {
+          "action": "startDevelopmentCastingAnnex",
+          "resultWeek": 0
+        },
+        {
+          "action": "advanceWeek",
+          "count": 13,
+          "resultWeek": 13
+        },
+        {
+          "action": "commissionScript",
+          "actionIndex": 0,
+          "conceptId": "c-00",
+          "conceptTitle": "Whispers of Cartel",
+          "writerId": "t-wri-01",
+          "resultProjectId": "script-0000"
+        },
+        {
+          "action": "commissionScript",
+          "actionIndex": 1,
+          "conceptId": "c-01",
+          "conceptTitle": "Empire of Stranger",
+          "writerId": "t-wri-09",
+          "resultProjectId": "script-0001"
+        },
+        {
+          "action": "commissionScript",
+          "actionIndex": 2,
+          "conceptId": "c-02",
+          "conceptTitle": "The Silent Widow",
+          "writerId": "t-wri-04",
+          "resultProjectId": "script-0002"
+        }
+      ]
+    },
+    {
+      "id": "week-14-operational-annex-production-development-working",
+      "file": "week-14-operational-annex-production-development-working.save.json",
+      "saveVersion": 11,
+      "importMode": "native-v11",
+      "converted": false,
+      "byteLength": 230918,
+      "sha256": "d7213ae7c064ad59ac685a777042b0b237d9ce1c367a9af3b9d754cb25b8044e",
+      "seed": "world-first-operational-annex-work",
+      "claim": {
+        "week": 14,
+        "constructionStatus": "operational",
+        "completedWeek": 13,
+        "annex": {
+          "capacity": 1,
+          "occupied": 1,
+          "available": 0,
+          "slot": 0,
+          "occupant": {
+            "owner": "production",
+            "ownerId": "prod-0014-1",
+            "title": "Empire of Stranger",
+            "activity": "development",
+            "workState": "working",
+            "statusLabel": "On schedule",
+            "blocker": null
+          }
+        },
+        "contextState": "working"
+      },
+      "publicActionDerivation": [
+        {
+          "action": "newGame",
+          "seed": "world-first-operational-annex-work"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 6,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-25",
+              "name": "Sidney Thorne",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-23",
+              "name": "Marion Ellery",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-14",
+              "name": "Warner Grimaldi",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-03",
+              "name": "Sidney Reyes",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-07",
+              "name": "Estelle Whitlock",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-18",
+              "name": "Vera Rourke",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-09",
+              "name": "Gary Everhart",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-00",
+              "name": "Genevieve Ferro",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-01",
+              "name": "Bette Hartwell",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-09",
+              "name": "Norma Ashby",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-04",
+              "name": "Gary Delacroix",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-09",
+              "name": "Rita Sunderland",
+              "role": "craft",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-08",
+              "name": "Bette Hollis",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundManagedStudio",
+          "managedSystemsActivated": [
+            "Studio Operations",
+            "Script Projects",
+            "Casting Sessions"
+          ]
+        },
+        {
+          "action": "startDevelopmentCastingAnnex",
+          "resultWeek": 0
+        },
+        {
+          "action": "advanceWeek",
+          "count": 13,
+          "resultWeek": 13
+        },
+        {
+          "action": "commissionScript",
+          "projectIds": [
+            "script-0000",
+            "script-0001"
+          ]
+        },
+        {
+          "action": "advanceWeek",
+          "count": 1,
+          "resultWeek": 14
+        },
+        {
+          "action": "acceptScript",
+          "projectIds": [
+            "script-0000",
+            "script-0001"
+          ]
+        },
+        {
+          "action": "greenlightScriptProject",
+          "projectId": "script-0000",
+          "resultProductionId": "prod-0014"
+        },
+        {
+          "action": "commissionScript",
+          "projectId": "script-0002",
+          "allocationPurpose": "occupy base slot 1"
+        },
+        {
+          "action": "greenlightScriptProject",
+          "projectId": "script-0001",
+          "resultProductionId": "prod-0014-1"
+        }
+      ]
+    }
+  ]
+}

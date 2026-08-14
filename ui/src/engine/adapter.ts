@@ -207,6 +207,8 @@ import type {
   ReleasePresence,
   AttentionState,
   LotPersonState,
+  LotAnnexWork,
+  LotAnnexWorkOccupant,
   ProductionOperationsState,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
 import { ALL_BUILDING_IDS } from '../lot/snapshot/StudioLotSnapshot.ts'
@@ -5016,12 +5018,190 @@ const LOT_STAGE_BY_SOUNDSTAGE_ID = {
   'facility-soundstage-12': 'stage-b',
 } as const satisfies Record<string, 'stage-a' | 'stage-b'>
 
+const LOT_ANNEX_FACILITY_ID = 'facility-development-casting-annex'
+const LOT_ANNEX_FACILITY_NAME = 'Development & Casting Annex'
+
+function annexProjectionError(detail: string): never {
+  throw new Error(`studioLotSnapshot: ${detail}`)
+}
+
+function operationalAnnexOccupant(
+  occupant: StudioCalendarOccupantView,
+  productionOutlook: readonly StudioCalendarProductionView[],
+): LotAnnexWorkOccupant {
+  if (occupant.ownerId.trim().length === 0 || occupant.title.trim().length === 0) {
+    return annexProjectionError('operational Annex occupant has an empty owner identity or title')
+  }
+
+  switch (occupant.owner) {
+    case 'script':
+      if (occupant.activity !== 'drafting' && occupant.activity !== 'rewriting') {
+        return annexProjectionError(
+          `operational Annex screenplay "${occupant.ownerId}" has incompatible activity "${occupant.activity}"`,
+        )
+      }
+      return {
+        owner: 'script',
+        ownerId: occupant.ownerId,
+        title: occupant.title,
+        activity: occupant.activity,
+        workState: 'working',
+        statusLabel: null,
+        blocker: null,
+      }
+    case 'casting':
+      if (occupant.activity !== 'auditioning') {
+        return annexProjectionError(
+          `operational Annex casting session "${occupant.ownerId}" has incompatible activity "${occupant.activity}"`,
+        )
+      }
+      return {
+        owner: 'casting',
+        ownerId: occupant.ownerId,
+        title: occupant.title,
+        activity: 'auditioning',
+        workState: 'working',
+        statusLabel: null,
+        blocker: null,
+      }
+    case 'production': {
+      if (occupant.activity !== 'development' && occupant.activity !== 'preProduction') {
+        return annexProjectionError(
+          `operational Annex production "${occupant.ownerId}" has incompatible activity "${occupant.activity}"`,
+        )
+      }
+      const matches = productionOutlook.filter(
+        (production) => production.productionId === occupant.ownerId,
+      )
+      if (matches.length !== 1) {
+        return annexProjectionError(
+          `operational Annex production "${occupant.ownerId}" has ${String(matches.length)} Calendar outlook rows`,
+        )
+      }
+      const outlook = matches[0]!
+      if (outlook.phase !== occupant.activity) {
+        return annexProjectionError(
+          `operational Annex production "${occupant.ownerId}" activity disagrees with its Calendar outlook`,
+        )
+      }
+      if (outlook.statusLabel.trim().length === 0) {
+        return annexProjectionError(
+          `operational Annex production "${occupant.ownerId}" has an empty Calendar status label`,
+        )
+      }
+      if (outlook.status === 'on-schedule') {
+        if (outlook.blocker !== null) {
+          return annexProjectionError(
+            `operational Annex production "${occupant.ownerId}" is on schedule with a blocker`,
+          )
+        }
+        return {
+          owner: 'production',
+          ownerId: occupant.ownerId,
+          title: occupant.title,
+          activity: occupant.activity,
+          workState: 'working',
+          statusLabel: outlook.statusLabel,
+          blocker: null,
+        }
+      }
+      if (
+        outlook.status === 'held' &&
+        outlook.blocker?.kind === 'facility-capacity' &&
+        outlook.blocker.headline.trim().length > 0 &&
+        outlook.blocker.detail.trim().length > 0
+      ) {
+        return {
+          owner: 'production',
+          ownerId: occupant.ownerId,
+          title: occupant.title,
+          activity: occupant.activity,
+          workState: 'held',
+          statusLabel: outlook.statusLabel,
+          blocker: {
+            kind: 'facility-capacity',
+            headline: outlook.blocker.headline,
+            detail: outlook.blocker.detail,
+          },
+        }
+      }
+      return annexProjectionError(
+        `operational Annex production "${occupant.ownerId}" has contradictory Calendar status "${outlook.status}"`,
+      )
+    }
+  }
+}
+
+function operationalAnnexProjection(calendar: StudioCalendarView): LotAnnexWork | null {
+  if (calendar.studioDevelopment.status !== 'operational') return null
+  if (calendar.mode !== 'managed') {
+    return annexProjectionError('operational Annex exists outside managed operations')
+  }
+
+  const matches = calendar.facilities.filter(
+    (facility) => facility.facilityId === LOT_ANNEX_FACILITY_ID,
+  )
+  if (matches.length !== 1) {
+    return annexProjectionError(
+      `operational Annex has ${String(matches.length)} exact Calendar facility rows`,
+    )
+  }
+  const facility = matches[0]!
+  if (
+    facility.facilityName !== LOT_ANNEX_FACILITY_NAME ||
+    facility.capability !== 'development-casting' ||
+    facility.capacity !== 1 ||
+    (facility.occupied !== 0 && facility.occupied !== 1) ||
+    (facility.available !== 0 && facility.available !== 1) ||
+    facility.occupied + facility.available !== 1 ||
+    facility.slots.length !== 1
+  ) {
+    return annexProjectionError('operational Annex Calendar facility row is malformed')
+  }
+
+  const slot = facility.slots[0]!
+  if (
+    slot.facilityId !== LOT_ANNEX_FACILITY_ID ||
+    slot.facilityName !== LOT_ANNEX_FACILITY_NAME ||
+    slot.capability !== 'development-casting' ||
+    slot.slot !== 0
+  ) {
+    return annexProjectionError('operational Annex Calendar slot identity is malformed')
+  }
+  if ((facility.occupied === 0) !== (slot.occupant === null)) {
+    return annexProjectionError('operational Annex Calendar occupancy contradicts its slot')
+  }
+
+  return {
+    facilityId: LOT_ANNEX_FACILITY_ID,
+    facilityName: LOT_ANNEX_FACILITY_NAME,
+    capability: 'development-casting',
+    capacity: 1,
+    occupied: facility.occupied,
+    available: facility.available,
+    slot: 0,
+    occupant:
+      slot.occupant === null
+        ? null
+        : operationalAnnexOccupant(slot.occupant, calendar.productionOutlook),
+  }
+}
+
 function managedWorkflowLocation(workflow: ProductionWorkflow): BuildingId {
   switch (workflow.phase) {
     case 'development':
-      return 'writers'
-    case 'preProduction':
-      return 'casting'
+    case 'preProduction': {
+      const annexReservations = workflow.reservations.filter(
+        (reservation) => reservation.facilityId === LOT_ANNEX_FACILITY_ID,
+      )
+      if (annexReservations.length > 1) {
+        throw new Error(
+          `studioLotSnapshot: managed productionId "${workflow.productionId}" has duplicate Annex reservations`,
+        )
+      }
+      if (annexReservations.length === 1) return 'expansion'
+      return workflow.phase === 'development' ? 'writers' : 'casting'
+    }
     case 'rehearsal':
     case 'shooting': {
       const soundstage = workflow.reservations.find((reservation) => reservation.capability === 'soundstage')
@@ -5120,7 +5300,11 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
   // The lot remains usable by the committed configured-capacity research/test
   // projection. Live V11 saves are exact Annex V1; this option does not broaden
   // save acceptance or action legality.
-  const construction = coreStudioConstructionView(state, { facilityPolicy: 'configured' })
+  // One Calendar call owns both the configured-capacity construction projection
+  // and the exact Annex facility/occupant/outlook join used below.
+  const calendar = studioCalendarBoard(state)
+  const construction = calendar.studioDevelopment
+  const annexWork = operationalAnnexProjection(calendar)
   const runway = fin.runway
   const standingBand = lotStandingBand(standing)
   const underDressed = standingBand === 'struggling'
@@ -5462,8 +5646,19 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
             reason = `${construction.completedAdvances} of ${construction.durationWeeks} weekly advances complete`
             break
           case 'operational':
-            attention = 'positive'
-            reason = `Annex operational · ${construction.currentDevelopmentCastingCapacity} shared slots`
+            if (annexWork === null) {
+              attention = 'normal'
+              reason = 'Operational'
+            } else if (annexWork.occupant === null) {
+              attention = 'empty'
+              reason = 'Available · 0 of 1 slot occupied'
+            } else if (annexWork.occupant.workState === 'held') {
+              attention = 'warning'
+              reason = `Production held · ${annexWork.occupant.title}`
+            } else {
+              attention = 'active'
+              reason = `Working · ${annexWork.occupant.title}`
+            }
             break
         }
         break
@@ -5526,6 +5721,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
       confidence: standing.commercialConfidence,
     },
     publicityOffers: publicityDecision(state),
+    annexWork,
     activeProductions,
     releasedFilms,
     releasePresence,

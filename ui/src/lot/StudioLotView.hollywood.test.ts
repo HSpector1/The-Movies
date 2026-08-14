@@ -166,6 +166,7 @@ const snapshot: StudioLotSnapshot = {
   standing: 'finding-footing',
   standingValues: { awareness: 20, prestige: 20, confidence: 20 },
   publicityOffers: publicityOffersAtWeek(1),
+  annexWork: null,
   activeProductions: [],
   releasedFilms: [],
   releasePresence: 'none',

@@ -44,6 +44,12 @@ import {
   type LotPublicityResult,
   type LotPublicityTier,
 } from './snapshot/publicityCampaign.ts'
+import {
+  operationalAnnexWorkContext,
+  type LotAnnexWorkContext,
+  type LotAnnexWorkOccupant,
+  type LotAnnexWorkOwnerIntent,
+} from './snapshot/annexWork.ts'
 import { lotPersonWorkContext } from './snapshot/personWork.ts'
 import {
   getLotSelectedBuilding,
@@ -182,7 +188,7 @@ type Props = {
     constructionCompletion: ConstructionCompletionSummary | null
   } | null
   /** Exact focus instruction for canonical entry or a bounded deep-surface return. */
-  entryFocus?: 'studio-home' | 'selected-building' | 'advance-week' | 'publicity-campaign'
+  entryFocus?: 'studio-home' | 'selected-building' | 'advance-week' | 'publicity-campaign' | 'annex-work'
   /** Suppress a generic Annex announcement already owned by an exact completion surface. */
   suppressOperationalAnnouncement?: boolean
   /** Open the supporting Dashboard and return to this exact campaign context. */
@@ -193,6 +199,8 @@ type Props = {
   onProductionCommand?: (command: LotProductionCommand) => ActionOutcome | void
   /** Dispatch the existing parameter-free Annex action through the authoritative App owner. */
   onStartDevelopmentCastingAnnex?: () => ActionOutcome
+  /** Navigate to the exact current Annex occupant's existing deep owner after revalidation. */
+  onOpenAnnexWorkDetails?: (intent: LotAnnexWorkOwnerIntent) => boolean
   /** Open the one App-owned canonical Talent Profile over this mounted Lot. */
   onOpenTalentProfile?: (personId: string) => void
   /** Close that profile when its exact selected Lot handoff becomes invalid. */
@@ -245,7 +253,10 @@ function annexStatusLabel(view: StudioConstructionView): string {
   }
 }
 
-function annexStatusDetail(view: StudioConstructionView): string {
+function annexStatusDetail(
+  view: StudioConstructionView,
+  work: LotAnnexWorkContext | null,
+): string {
   switch (view.status) {
     case 'legacy':
       return 'This legacy studio has no managed expansion parcel. No facility or project history is inferred.'
@@ -254,8 +265,69 @@ function annexStatusDetail(view: StudioConstructionView): string {
     case 'building':
       return `${view.completedAdvances} of ${view.durationWeeks} weekly advances complete · committed for Week ${view.dueWeek}.`
     case 'operational':
-      return `Completed in Week ${view.completedWeek}. The additional shared Development & Casting slot is available now.`
+      return work === null
+        ? `Completed in Week ${view.completedWeek}. Current Annex slot use is unavailable.`
+        : `Completed in Week ${view.completedWeek}. Current Annex slot use: ${work.annexWork.occupied} of 1.`
   }
+}
+
+function annexOwnerKindLabel(owner: LotAnnexWorkOccupant['owner']): string {
+  switch (owner) {
+    case 'production': return 'Production'
+    case 'script': return 'Screenplay'
+    case 'casting': return 'Casting session'
+  }
+}
+
+function annexActivityLabel(activity: LotAnnexWorkOccupant['activity']): string {
+  switch (activity) {
+    case 'development': return 'Development'
+    case 'preProduction': return 'Pre-production'
+    case 'drafting': return 'Drafting'
+    case 'rewriting': return 'Rewriting'
+    case 'auditioning': return 'Auditioning'
+  }
+}
+
+function annexOwnerDestination(owner: LotAnnexWorkOccupant['owner']): string {
+  switch (owner) {
+    case 'production': return 'Production Board'
+    case 'script': return 'Writers Room'
+    case 'casting': return 'Casting Room'
+  }
+}
+
+function isExactAnnexWorkContext(
+  rendered: LotAnnexWorkContext,
+  latest: LotAnnexWorkContext,
+): boolean {
+  if (
+    rendered.state !== latest.state ||
+    rendered.annexWork.facilityId !== latest.annexWork.facilityId ||
+    rendered.annexWork.facilityName !== latest.annexWork.facilityName ||
+    rendered.annexWork.capability !== latest.annexWork.capability ||
+    rendered.annexWork.capacity !== latest.annexWork.capacity ||
+    rendered.annexWork.occupied !== latest.annexWork.occupied ||
+    rendered.annexWork.available !== latest.annexWork.available ||
+    rendered.annexWork.slot !== latest.annexWork.slot
+  ) return false
+
+  const renderedOccupant = rendered.occupant
+  const latestOccupant = latest.occupant
+  if (renderedOccupant === null || latestOccupant === null) {
+    return renderedOccupant === latestOccupant
+  }
+  return (
+    renderedOccupant.owner === latestOccupant.owner &&
+    renderedOccupant.ownerId === latestOccupant.ownerId &&
+    renderedOccupant.title === latestOccupant.title &&
+    renderedOccupant.activity === latestOccupant.activity &&
+    renderedOccupant.workState === latestOccupant.workState &&
+    renderedOccupant.statusLabel === latestOccupant.statusLabel &&
+    renderedOccupant.blocker?.kind === latestOccupant.blocker?.kind &&
+    renderedOccupant.blocker?.headline === latestOccupant.blocker?.headline &&
+    renderedOccupant.blocker?.detail === latestOccupant.blocker?.detail
+  )
 }
 
 function hasExactAnnexProjection(
@@ -303,6 +375,7 @@ export function StudioLotScreen({
   onRunPublicity,
   onProductionCommand,
   onStartDevelopmentCastingAnnex,
+  onOpenAnnexWorkDetails,
   onOpenTalentProfile,
   onCloseTalentProfile,
   openTalentProfileId = null,
@@ -362,12 +435,19 @@ export function StudioLotScreen({
   } | null>(null)
   const annexBuildRef = useRef<HTMLButtonElement | null>(null)
   const annexStatusRef = useRef<HTMLDivElement | null>(null)
+  const annexWorkHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const annexSelectedRef = useRef(false)
   const annexPendingRef = useRef(false)
+  const annexWorkNavigationPendingRef = useRef(false)
+  const annexWorkHeldKeyRef = useRef<'Enter' | ' ' | null>(null)
+  const annexWorkActivationRef = useRef<LotAnnexWorkContext | null>(null)
   const annexFocusNonceRef = useRef(0)
+  const annexPendingFocusRef = useRef<'default' | 'work' | null>(null)
   const annexAcceptedFocusRef = useRef(false)
   const onStartAnnexRef = useRef(onStartDevelopmentCastingAnnex)
   onStartAnnexRef.current = onStartDevelopmentCastingAnnex
+  const onOpenAnnexWorkDetailsRef = useRef(onOpenAnnexWorkDetails)
+  onOpenAnnexWorkDetailsRef.current = onOpenAnnexWorkDetails
   const publicityHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const publicityStatusRef = useRef<HTMLDivElement | null>(null)
   const publicityButtonRefs = useRef<Partial<Record<LotPublicityTier, HTMLButtonElement | null>>>({})
@@ -454,8 +534,11 @@ export function StudioLotScreen({
 
   const snapshot = readSnapshot(state)
   const currentPublicityCampaign = publicityCampaignContext(snapshot)
-  const expansionFact = snapshot.buildings.find((building) => building.id === 'expansion')
+  const currentAnnexWork = operationalAnnexWorkContext(snapshot)
   const annexView = studioDevelopment(state)
+  const operationalAnnexCapacity = annexView.status === 'operational'
+    ? annexView.currentDevelopmentCastingCapacity
+    : null
   const [operationalAnnouncement, setOperationalAnnouncement] = useState('')
   const completionAnnouncementOwnedRef = useRef(suppressOperationalAnnouncement)
   const hollywoodOperations = snapshot.productionOperations ?? []
@@ -471,6 +554,8 @@ export function StudioLotScreen({
   hollywoodSceneryLoadInProductionIdRef.current = hollywoodSceneryLoadInProductionId
   const latestSnapshotRef = useRef(snapshot)
   latestSnapshotRef.current = snapshot
+  const latestAnnexWorkRef = useRef(currentAnnexWork)
+  latestAnnexWorkRef.current = currentAnnexWork
   const latestAnnexViewRef = useRef(annexView)
   latestAnnexViewRef.current = annexView
   const selectedPersonWork = hollywoodPerson === null
@@ -620,6 +705,10 @@ export function StudioLotScreen({
   const clearAnnexContext = useCallback(() => {
     annexSelectedRef.current = false
     annexAcceptedFocusRef.current = false
+    annexWorkNavigationPendingRef.current = false
+    annexWorkHeldKeyRef.current = null
+    annexWorkActivationRef.current = null
+    annexPendingFocusRef.current = null
     annexFocusNonceRef.current += 1
     setAnnexSelected(false)
     setAnnexAnnouncement('')
@@ -723,23 +812,35 @@ export function StudioLotScreen({
     recordSelection,
   ])
 
-  const focusSelectedAnnex = useCallback(() => {
+  const focusSelectedAnnex = useCallback((focus: 'default' | 'work' = 'default') => {
+    annexPendingFocusRef.current = focus
     const nonce = ++annexFocusNonceRef.current
     queueMicrotask(() => {
-      if (!annexSelectedRef.current || annexFocusNonceRef.current !== nonce) return
+      if (
+        !annexSelectedRef.current ||
+        worldInputSuspendedRef.current ||
+        annexFocusNonceRef.current !== nonce ||
+        annexPendingFocusRef.current !== focus
+      ) return
       const current = latestAnnexViewRef.current
       const target =
-        current.status === 'vacant' && current.canStart && onStartAnnexRef.current
+        focus === 'work' && current.status === 'operational'
+          ? annexWorkHeadingRef.current ?? annexStatusRef.current
+          : current.status === 'operational' && latestAnnexWorkRef.current !== null
+            ? annexWorkHeadingRef.current ?? annexStatusRef.current
+            : current.status === 'vacant' && current.canStart && onStartAnnexRef.current
           ? annexBuildRef.current
           : annexStatusRef.current
-      target?.focus()
+      if (target === null) return
+      annexPendingFocusRef.current = null
+      target.focus({ preventScroll: true })
     })
   }, [])
 
   const enterAnnexContext = useCallback((options: {
     place: HollywoodPlaceSelection | null
     paintHollywoodOutline: boolean
-    focus: boolean
+    focus: 'default' | 'work' | false
   }): boolean => {
     if (worldInputSuspendedRef.current) return false
     if (!hasExactAnnexProjection(latestSnapshotRef.current, latestAnnexViewRef.current)) return false
@@ -761,7 +862,7 @@ export function StudioLotScreen({
       // still complete and must remain selected without inventing a physical outline.
       viewRef.current?.selectHollywoodAnnexPlace?.()
     }
-    if (options.focus) focusSelectedAnnex()
+    if (options.focus) focusSelectedAnnex(options.focus)
     return true
   }, [clearHollywoodSceneryLoadInContext, clearPublicityContext, focusSelectedAnnex, recordSelection])
 
@@ -880,17 +981,15 @@ export function StudioLotScreen({
     if (suppressOperationalAnnouncement || advanceFeedback?.constructionCompletion) {
       completionAnnouncementOwnedRef.current = true
     }
-    const capacity = expansionFact?.attentionReason?.replace(/^Annex operational · /, '')
     setOperationalAnnouncement(
-      expansionFact?.constructionStatus === 'operational' &&
+      operationalAnnexCapacity !== null &&
         !completionAnnouncementOwnedRef.current
-        ? `Development & Casting Annex is Operational. Development & Casting capacity is now ${capacity ?? 'available with one additional shared slot'}.`
+        ? `Development & Casting Annex is Operational. Development & Casting capacity is now ${operationalAnnexCapacity} shared slots.`
         : '',
     )
   }, [
     advanceFeedback?.constructionCompletion,
-    expansionFact?.attentionReason,
-    expansionFact?.constructionStatus,
+    operationalAnnexCapacity,
     suppressOperationalAnnouncement,
   ])
 
@@ -908,6 +1007,14 @@ export function StudioLotScreen({
         place: null,
         paintHollywoodOutline: hollywood,
         focus: 'heading',
+      })) return
+    }
+
+    if (entryFocus === 'annex-work') {
+      if (enterAnnexContext({
+        place: null,
+        paintHollywoodOutline: hollywood,
+        focus: 'work',
       })) return
     }
 
@@ -972,7 +1079,7 @@ export function StudioLotScreen({
       place.id === 'annex-parcel' &&
       place.buildingId === 'expansion'
     ) {
-      enterAnnexContext({ place, paintHollywoodOutline: true, focus: true })
+      enterAnnexContext({ place, paintHollywoodOutline: true, focus: 'default' })
       return
     }
 
@@ -1048,6 +1155,16 @@ export function StudioLotScreen({
     setHollywoodPlace(null)
     recordSelection(null)
   }, [annexSelected, annexView.status, clearAnnexContext, recordSelection, snapshot])
+
+  // A deep return remounts the Lot with no Annex inspector in the first render.
+  // The entry effect selects it, then this post-commit pass fulfils the pending
+  // focus after React has mounted the stable Current work/status target. The
+  // microtask fast path still handles already-mounted pointer/keyboard selection.
+  useEffect(() => {
+    const pending = annexPendingFocusRef.current
+    if (!annexSelected || pending === null) return
+    focusSelectedAnnex(pending)
+  }, [annexSelected, annexView.status, currentAnnexWork?.state, focusSelectedAnnex])
 
   useEffect(() => {
     if (!publicitySelected || currentPublicityCampaign !== null) return
@@ -1263,7 +1380,7 @@ export function StudioLotScreen({
               if (!enterAnnexContext({
                 place: null,
                 paintHollywoodOutline: false,
-                focus: true,
+                focus: 'default',
               })) {
                 setSelectionInfo(null)
                 recordSelection(null)
@@ -1278,7 +1395,7 @@ export function StudioLotScreen({
           },
           onAction: (e) => {
             if (e.buildingId === 'expansion') {
-              enterAnnexContext({ place: null, paintHollywoodOutline: false, focus: true })
+              enterAnnexContext({ place: null, paintHollywoodOutline: false, focus: 'default' })
               return
             }
             // Renderer actions are independently activatable: record their exact source before
@@ -1357,6 +1474,11 @@ export function StudioLotScreen({
     if (worldInputSuspended) {
       publicityHeldKeyRef.current = null
       hollywoodSceneryCommandHeldKeyRef.current = null
+      annexWorkHeldKeyRef.current = null
+      annexWorkNavigationPendingRef.current = false
+      annexWorkActivationRef.current = null
+      annexPendingFocusRef.current = null
+      annexFocusNonceRef.current += 1
     }
     viewRef.current?.setInputSuspended?.(worldInputSuspended)
   }, [worldInputSuspended])
@@ -1647,6 +1769,79 @@ export function StudioLotScreen({
     )
   }, [focusSelectedAnnex])
 
+  const openAnnexWorkDetails = useCallback((rendered: LotAnnexWorkContext) => {
+    if (
+      worldInputSuspendedRef.current ||
+      !annexSelectedRef.current ||
+      annexWorkNavigationPendingRef.current ||
+      rendered.occupant === null ||
+      rendered.ownerIntent === null
+    ) return
+
+    // Rebuild from the latest snapshot immediately before crossing the world/deep-panel
+    // boundary. Every displayed occupant field must still agree; title alone is never identity.
+    const latest = operationalAnnexWorkContext(latestSnapshotRef.current)
+    const owner = onOpenAnnexWorkDetailsRef.current
+    if (
+      latest === null ||
+      latest.occupant === null ||
+      latest.ownerIntent === null ||
+      !isExactAnnexWorkContext(rendered, latest) ||
+      owner === undefined
+    ) {
+      setAnnexAnnouncementSerial((serial) => serial + 1)
+      setAnnexAnnouncement('Annex work changed. Review the current Annex work before opening details.')
+      focusSelectedAnnex('work')
+      return
+    }
+
+    annexWorkNavigationPendingRef.current = true
+    let accepted = false
+    try {
+      accepted = owner(latest.ownerIntent)
+    } catch {
+      accepted = false
+    }
+    if (accepted) return
+
+    annexWorkNavigationPendingRef.current = false
+    annexWorkHeldKeyRef.current = null
+    setAnnexAnnouncementSerial((serial) => serial + 1)
+    setAnnexAnnouncement('Annex work changed. Review the current Annex work before opening details.')
+    focusSelectedAnnex('work')
+  }, [focusSelectedAnnex])
+
+  const guardAnnexWorkKeyDown = useCallback((event: {
+    key: string
+    repeat: boolean
+    preventDefault(): void
+    stopPropagation(): void
+  }, rendered: LotAnnexWorkContext) => {
+    containWorldInput(event)
+    if (event.key !== 'Enter' && event.key !== ' ') return
+    if (
+      worldInputSuspendedRef.current ||
+      event.repeat ||
+      annexWorkNavigationPendingRef.current ||
+      annexWorkHeldKeyRef.current === event.key
+    ) {
+      event.preventDefault()
+      return
+    }
+    annexWorkHeldKeyRef.current = event.key
+    annexWorkActivationRef.current = rendered
+  }, [])
+
+  const releaseAnnexWorkKey = useCallback((event: {
+    key: string
+    stopPropagation(): void
+  }) => {
+    containWorldInput(event)
+    if (annexWorkHeldKeyRef.current === event.key) {
+      annexWorkHeldKeyRef.current = null
+    }
+  }, [])
+
   const runHollywoodPublicity = useCallback((renderedOffer: LotPublicityOffer) => {
     if (
       worldInputSuspendedRef.current ||
@@ -1746,7 +1941,7 @@ export function StudioLotScreen({
         if (enterAnnexContext({
           place: null,
           paintHollywoodOutline: hollywood,
-          focus: true,
+          focus: 'default',
         })) {
           return
         }
@@ -1991,7 +2186,7 @@ export function StudioLotScreen({
         data-testid="lot-annex-status"
       >
         <strong>{annexStatusLabel(annexView)}</strong>
-        <p>{annexStatusDetail(annexView)}</p>
+        <p>{annexStatusDetail(annexView, currentAnnexWork)}</p>
       </div>
 
       {annexView.status === 'vacant' && (
@@ -2062,6 +2257,86 @@ export function StudioLotScreen({
             <div><dt>Current shared capacity</dt><dd>{annexView.currentDevelopmentCastingCapacity} slots</dd></div>
           </dl>
           <p className="hollywood-annex-consequence">{annexView.consequence}</p>
+          <section
+            className={`hollywood-annex-work${currentAnnexWork ? ` is-${currentAnnexWork.state}` : ' is-unavailable'}`}
+            aria-labelledby="lot-annex-current-work-heading"
+            data-testid="lot-annex-current-work"
+          >
+            <h4
+              ref={annexWorkHeadingRef}
+              id="lot-annex-current-work-heading"
+              tabIndex={-1}
+              data-testid="lot-annex-current-work-heading"
+            >
+              Current work
+            </h4>
+            {currentAnnexWork === null ? (
+              <p className="hollywood-annex-work-unavailable" data-testid="lot-annex-work-unavailable">
+                Current Annex work is unavailable from this Studio Lot snapshot.
+              </p>
+            ) : currentAnnexWork.state === 'available' ? (
+              <>
+                <dl className="hollywood-annex-facts" data-testid="lot-annex-work-available">
+                  <div><dt>Slot use</dt><dd>0 / 1</dd></div>
+                  <div><dt>Status</dt><dd>Available</dd></div>
+                </dl>
+                <p className="hollywood-annex-work-note">
+                  No current screenplay, casting session, or production occupies the Annex.
+                </p>
+              </>
+            ) : (
+              <>
+                <dl className="hollywood-annex-facts" data-testid="lot-annex-work-occupied">
+                  <div><dt>Slot use</dt><dd>1 / 1</dd></div>
+                  <div><dt>Occupancy</dt><dd>Occupied</dd></div>
+                  <div>
+                    <dt>Work status</dt>
+                    <dd>{currentAnnexWork.state === 'held' ? 'Production held' : 'Working'}</dd>
+                  </div>
+                  <div><dt>Owner kind</dt><dd>{annexOwnerKindLabel(currentAnnexWork.occupant.owner)}</dd></div>
+                  <div><dt>Title</dt><dd>{currentAnnexWork.occupant.title}</dd></div>
+                  <div><dt>Activity</dt><dd>{annexActivityLabel(currentAnnexWork.occupant.activity)}</dd></div>
+                  {currentAnnexWork.occupant.statusLabel !== null && (
+                    <div><dt>Production status</dt><dd>{currentAnnexWork.occupant.statusLabel}</dd></div>
+                  )}
+                </dl>
+                {currentAnnexWork.state === 'held' && (
+                  <p className="hollywood-annex-work-blocker" data-testid="lot-annex-work-blocker">
+                    <strong>{currentAnnexWork.occupant.blocker.headline}</strong>
+                    <span>{currentAnnexWork.occupant.blocker.detail}</span>
+                  </p>
+                )}
+                <button
+                  type="button"
+                  className="accent hollywood-annex-work-open"
+                  disabled={worldInputSuspended || !onOpenAnnexWorkDetails}
+                  onPointerDown={(event) => {
+                    containWorldInput(event)
+                    annexWorkActivationRef.current = currentAnnexWork
+                  }}
+                  onMouseDown={(event) => {
+                    containWorldInput(event)
+                    annexWorkActivationRef.current = currentAnnexWork
+                  }}
+                  onTouchStart={(event) => {
+                    containWorldInput(event)
+                    annexWorkActivationRef.current = currentAnnexWork
+                  }}
+                  onKeyDown={(event) => guardAnnexWorkKeyDown(event, currentAnnexWork)}
+                  onKeyUp={releaseAnnexWorkKey}
+                  onClick={(event) => {
+                    const rendered = annexWorkActivationRef.current ?? currentAnnexWork
+                    annexWorkActivationRef.current = null
+                    if (event.detail > 1) return
+                    openAnnexWorkDetails(rendered)
+                  }}
+                  data-testid="lot-annex-open-work-details"
+                >
+                  Open {annexOwnerDestination(currentAnnexWork.occupant.owner)} · {currentAnnexWork.occupant.title}
+                </button>
+              </>
+            )}
+          </section>
           <p className="hollywood-annex-help">This project is complete and permanent. There is no repeat, upgrade, relocation, or demolition action.</p>
         </div>
       )}

@@ -73,6 +73,7 @@ function snapshot(
     standing: 'established',
     standingValues: { awareness: 50, prestige: 50, confidence: 50 },
     publicityOffers,
+    annexWork: null,
     activeProductions: [],
     releasedFilms: [],
     releasePresence: 'none',

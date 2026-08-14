@@ -286,6 +286,7 @@ function snapshot(
     standing: 'finding-footing',
     standingValues: { awareness: 25, prestige: 20, confidence: 30 },
     publicityOffers: publicityOffersAtWeek(12),
+    annexWork: null,
     activeProductions: [card],
     releasedFilms: [],
     releasePresence: 'none',

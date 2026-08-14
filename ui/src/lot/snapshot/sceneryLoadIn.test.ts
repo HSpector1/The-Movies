@@ -124,6 +124,7 @@ function managedSnapshot(
     standing: 'established',
     standingValues: { awareness: 50, prestige: 50, confidence: 50 },
     publicityOffers: publicityOffersAtWeek(30),
+    annexWork: null,
     activeProductions: [],
     releasedFilms: [],
     releasePresence: 'none',
