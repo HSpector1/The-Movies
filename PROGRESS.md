@@ -47,10 +47,12 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   checkpoint under contract `712c311` and implementation `ca8279c`; the exact physical Gate now
   embodies one explicitly selected current free-agent visitor, supports canonical profile and full
   Hiring terms, and returns to fresh exact or neutral Gate truth without substitution.
-- **Next promoted slice:** World-First Greenlight Production Formation & Fresh Lot Return V1 after
-  proportional repair of the Lead/Director command leak and selected-Director route nameplate.
-  Preserve exact existing greenlight/workflow/person authority; do not invent physical base
-  Development/Casting rooms, personal travel, workload, queues, staffing, save, or art law.
+- **Exact Director call/nameplate maintenance:** CLOSED at `ff0e0fc`; selected Lead no longer owns
+  the Director-only call and the selected Director's existing nameplate follows the governed route.
+- **Next frozen slice:** World-First Greenlight Production Formation & Fresh Lot Return V1 under
+  `docs/WORLD-FIRST-GREENLIGHT-PRODUCTION-FORMATION-FRESH-LOT-RETURN-V1-CONTRACT.md`. Preserve exact
+  existing greenlight/workflow/person authority; do not invent physical base Development/Casting
+  rooms, personal travel, workload, queues, staffing, save, or art law.
 
 ## Closed marathon milestones
 
@@ -76,7 +78,8 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Publicity Campaign V1 | `f83f27f` | `f2f2e22` | `04932d2` |
 | World-First Operational Annex Work Presence V1 | `e2fd6df` | `e14633b` | `72c13e3` |
 | World-First Selected Stage 7 Detail Handoff V1 | `05d2d44` | `6a3f85f` | `9ed7fc8` |
-| World-First Studio Gate Talent Arrival V1 | `712c311` | `ca8279c` | this documentation checkpoint |
+| World-First Studio Gate Talent Arrival V1 | `712c311` | `ca8279c` | `79be27e` |
+| Exact Director call/nameplate maintenance | post-Gate world audit | `ff0e0fc` | proportional repair |
 
 ## Product result so far
 
@@ -124,6 +127,11 @@ facts. Complete salary, bonus, obligations, and runway remain in canonical Hirin
 revalidates the same candidate or lands neutrally. The visitor is deliberately not staff, work,
 queue, pathfinding, or authoritative location truth.
 
+The exact Director call path is now person-truthful. Selecting the Lead withholds the Director-only
+dispatch while retaining picture-level Clear/Schedule actions; selecting the Director retains the
+call. The selected Director's existing nameplate follows the already-governed cosmetic route and
+survives arrival without any new object, actor, texture, route, draw, or Engine claim.
+
 Deep non-modal screens still unmount and later remount the Lot. Studio Home persists bounded
 selected-building/focus context and authoritative GameState; it does not preserve the same Phaser
 instance, camera, selected person, or other transient world presentation through those routes.
@@ -134,13 +142,13 @@ exact 34/15 → 35/16 structural attribution at unchanged texture bytes/one draw
 protected-path/diff gates, and clean independent review. No GPU-only absolute wall-clock pass is
 claimed; no frozen gate was relaxed.
 
-The next audit promotes exact greenlight continuity. Accepted greenlight already creates the
+The frozen next contract promotes exact greenlight continuity. Accepted greenlight already creates the
 picture, managed workflow, Development & Casting reservation, Director, and Lead; the generic
 return currently discards which picture formed, and multiple non-Stage-7 operations can produce a
 false idle desk. The bounded next target returns to fresh exact production/person truth and follows
-it through mounted phase repaint into existing physical Rehearsal presence. It does not invent a
-physical base facility or personal travel where the accepted Hollywood manifest and Engine own
-none.
+it through mounted phase repaint into exact Rehearsal allocation—physical Stage 7 when exact,
+truthful Stage 12 fallback otherwise. It does not invent a physical base facility or personal
+travel where the accepted Hollywood manifest and Engine own none.
 
 ## Governing status
 

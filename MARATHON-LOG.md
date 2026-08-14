@@ -383,3 +383,27 @@ Owner rulings remain the authority when a summary here conflicts with them.
 - Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
   RESIDUALS REMAIN OPEN**. Every accepted residual remains open and no financing, bailout,
   restructuring, failure ladder, arbitrary cash sink, or macroeconomic certification was added.
+
+## 2026-08-14 — Exact Director call identity maintenance and greenlight formation contract freeze
+
+- Closed proportional maintenance at `ff0e0fc36628d248cedbec25fdbbfef01ebe8655`: selected Lead no
+  longer inherits the Director-only `assignShootingDirector` action; production-level and exact
+  selected-Director contexts retain it; picture-level Clear/Schedule actions remain truthful.
+- Kept the selected Director's existing nameplate attached through the already-governed cosmetic
+  route and at arrival while unselected people remain unlabelled. Added zero objects, actors,
+  textures, routes, animations, draws, or task/pathfinding authority.
+- Verified 207 focused regressions, 90/90 UI files and 1,155/1,155 UI tests, both TypeScript
+  projects, named-person Chromium 3/3, soundstage Chromium 7/7, and clean diff/status gates.
+- Froze `docs/WORLD-FIRST-GREENLIGHT-PRODUCTION-FORMATION-FRESH-LOT-RETURN-V1-CONTRACT.md` after
+  strict authority review. The contract requires a pure before/after accepted receipt, independent
+  App/latest-snapshot validation, exact Director/Lead world framing, and exact-or-neutral
+  multi-production behavior.
+- Narrowed the ordinary claim to managed Operations. Seed is not studio identity, legacy has no
+  managed phase/facility claim, and the Hollywood manifest owns no physical base Development or
+  Casting place.
+- Froze the real accepted-week sequence exactly: Development/8 at week `t`, Development/8 at
+  `t+1`, Pre-production/7 at `t+2`, and Rehearsal/6 at `t+3`. Stage 7 becomes physical only when
+  exact allocation uses it; Stage 12 retains the truthful fallback.
+- Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
+  RESIDUALS REMAIN OPEN**. No financing, bailout, restructuring, failure ladder, arbitrary cash
+  sink, facility/art expansion, or macroeconomic certification was added.

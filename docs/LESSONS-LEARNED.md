@@ -3014,3 +3014,36 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   gesture.
 - **Pattern:** gesture-family ownership + rendered identity + latest authority. **Anti-pattern:**
   handling each DOM keyboard/click event as unrelated consent.
+
+---
+
+# Exact Director Call Identity Maintenance — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Maintenance authority `ff0e0fc`; found by the post-Gate world-first audit.
+
+## EI. A picture command is not automatically every participant's personal command — **MG, BR**
+
+- **Symptom:** selecting the Lead joined the correct picture but exposed that picture's
+  `assignShootingDirector` action, letting the Lead issue the Director-only call. The task chain was
+  role-gated while the adjacent command was not.
+- **Resolution:** derive the rendered command from both exact operation and exact selected-person
+  role. Withhold only Director dispatch from the Lead; keep the command at production level and for
+  the exact Director, and retain later picture-level Clear/Schedule interventions.
+- **Coverage / fastest diagnostic:** select Studio Desk, Director, then Lead across unassigned,
+  blocked, and ready truth. Require dispatch only at production/Director contexts and Clear/
+  Schedule at truthful picture contexts.
+- **Pattern:** operation legality + interaction-owner semantics. **Anti-pattern:** assuming an exact
+  production join makes every command personal to every participant.
+
+## EJ. Selection identity must move with an existing presentation route — **MG, BR**
+
+- **Symptom:** Director dispatch hid the selected Director's nameplate and never restored it after
+  arrival, so the player could watch a figure move but lose the named human story they selected.
+- **Resolution:** reuse the existing Text object, show it only when that routed person is selected,
+  update it with the sprite on every route frame, and preserve its visibility at arrival. Unselected
+  people remain unlabelled; direct-loaded and reduced-motion truth never replays the route.
+- **Coverage / fastest diagnostic:** selected and unselected dispatch, mid-route frame, arrival,
+  direct blocked load, reduced motion, and selection changes. Require zero object/actor/texture/
+  route/draw delta.
+- **Pattern:** selected presentation identity follows cosmetic acknowledgement. **Anti-pattern:**
+  moving the sprite while leaving selection/name identity behind or globally showing all labels.

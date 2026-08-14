@@ -4,7 +4,7 @@ Updated: 2026-08-14
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current implementation HEAD: `ca8279cfb91990ef1904e36fa1d92d762811d180`
+Current implementation HEAD: `ff0e0fc36628d248cedbec25fdbbfef01ebe8655`
 
 ## Product doctrine — World First
 
@@ -157,6 +157,22 @@ production/facility/economy/RNG behavior, manifest, exporter, art, authored atla
 queue, autonomy, route, animation, or renderer-draw behavior changed. No GPU-only absolute
 wall-clock pass is claimed; the opt-in test was intentionally skipped and no threshold was
 relaxed.
+
+## Post-Gate proportional person-flow maintenance
+
+Maintenance authority `ff0e0fc` closes two reachable presentation defects found by the fresh
+critical-experience audit:
+
+- a selected Lead no longer inherits the exact Director-only `assignShootingDirector` call;
+  production-level Studio Desk and exact selected Director retain it, while the Lead may still use
+  truthful picture-level Clear/Schedule interventions; and
+- the selected Director's existing nameplate now remains attached throughout the already-governed
+  cosmetic Stage 7 dispatch route and at arrival; unselected people remain unlabelled.
+
+The repair adds zero objects, actors, textures, routes, animations, or draws and changes no task,
+command, destination, pathfinding, or Engine authority. Proof passed 207 focused regressions,
+90/90 UI files and 1,155/1,155 UI tests, both TypeScript projects, named-person Chromium 3/3, and
+soundstage Chromium 7/7.
 
 ## Prior world-first checkpoint — Selected Stage 7 Production Detail Handoff V1
 
@@ -343,6 +359,8 @@ production and integration remain unauthorized.
 - World-First Selected Stage 7 Detail Handoff V1 implementation: `6a3f85f2c991b850f065b4fd81ef60a5974a256a`
 - World-First Studio Gate Talent Arrival V1 contract: `712c31180629396e33107e22826e73fbffffd9c2`
 - World-First Studio Gate Talent Arrival V1 implementation: `ca8279cfb91990ef1904e36fa1d92d762811d180`
+- World-First Studio Gate Talent Arrival V1 closure: `79be27e`
+- exact Director call/nameplate maintenance: `ff0e0fc36628d248cedbec25fdbbfef01ebe8655`
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -354,7 +372,8 @@ or arbitrary cash sink is authorized.
 ## Current highest-leverage evidence step
 
 The post-Gate parallel several-minutes-on-Lot audit promotes **World-First Greenlight Production
-Formation & Fresh Lot Return V1** after two proportional person-flow maintenance repairs.
+Formation & Fresh Lot Return V1** under the frozen contract
+`docs/WORLD-FIRST-GREENLIGHT-PRODUCTION-FORMATION-FRESH-LOT-RETURN-V1-CONTRACT.md`.
 
 Accepted greenlight already creates one exact Production, commitment debit, managed workflow,
 phase, deterministic Development & Casting reservation, Director and Lead. The current App throws
@@ -365,7 +384,8 @@ The named people exist on the Lot, but nothing frames them as the picture that j
 The bounded target is supporting Assembly → accepted exact before/after production receipt → fresh
 Lot → exact Director selected as the new picture's inhabitant → exact title/phase/facility/status/
 countdown/Director/Lead inspection → mounted week advances retain that production identity → fresh
-Pre-production repaint → existing physical soundstage presence at Rehearsal. It must use a strict
+Pre-production repaint → exact Rehearsal allocation, with existing physical Stage 7 presence when
+allocated there and the truthful Stage 12 fallback otherwise. It must use a strict
 accepted-transition selector and exact-or-neutral return; no `.at(-1)`, predicted ID, first
 operation, or substitute production may own continuity.
 
@@ -376,7 +396,7 @@ authority. Stage 12 remains blocked by its art no-go; service-yard identity cann
 Post; queues, workload, alternate staffing, pathfinding, ceremony replay, save fields, or new
 simulation law are not authorized.
 
-Before contract freeze, repair two proven presentation defects without broadening the milestone:
-a selected Lead must not issue the Director-only call, and a selected Director's existing
-nameplate must follow and survive the already-governed cosmetic dispatch route. The existing
-Shooting command, route, and Engine law remain unchanged.
+The two proven presentation defects are closed proportionally at `ff0e0fc`: a selected Lead cannot
+issue the Director-only call, and a selected Director's existing nameplate follows and survives the
+already-governed cosmetic dispatch route. The existing Shooting command, route, and Engine law are
+unchanged.

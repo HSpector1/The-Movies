@@ -29,13 +29,16 @@
 > signing law, production, economy, facility, RNG, manifest, exporter, art, or renderer-draw
 > behavior changed. No GPU-only absolute pass is claimed and no threshold was relaxed.
 >
-> **NEXT:** first land two proportional person-flow repairs: a selected Lead cannot issue the
-> Director-only call, and a selected Director's existing nameplate follows and survives the
-> governed cosmetic dispatch route. Then freeze **World-First Greenlight Production Formation &
-> Fresh Lot Return V1**: strict accepted new-picture receipt → fresh exact Director/Lead world
-> framing → mounted Development/Pre-production repaint → existing soundstage embodiment at
-> Rehearsal. Do not invent physical base Development/Casting rooms, personal travel, queues,
-> workload, staffing, save, art, or simulation law.
+> **MAINTENANCE CLOSED:** `ff0e0fc36628d248cedbec25fdbbfef01ebe8655` removes the selected Lead's
+> false Director-only call and keeps the selected Director's existing nameplate attached through
+> the governed cosmetic route, with zero renderer-structure or Engine delta.
+>
+> **NEXT CONTRACT FROZEN:** `WORLD-FIRST-GREENLIGHT-PRODUCTION-FORMATION-FRESH-LOT-RETURN-V1-
+> CONTRACT.md`. Implement strict accepted new-picture receipt → fresh exact Director/Lead world
+> framing → mounted Development/Pre-production repaint → exact Rehearsal allocation, with physical
+> Stage 7 only when actually allocated and truthful Stage 12 fallback otherwise. Do not invent
+> physical base Development/Casting rooms, personal travel, queues, workload, staffing, save, art,
+> seed-as-studio-identity, legacy phase truth, or simulation law.
 >
 > Protected anchors remain untouched: `main` =
 > `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =

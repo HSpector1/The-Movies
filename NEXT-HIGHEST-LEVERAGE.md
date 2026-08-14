@@ -135,7 +135,7 @@ pathfinding, autonomy, save, manifest, art, or renderer-draw law changed. Final 
 explicit GPU-only skip, byte-identical replay, a 139-module build, and the measured one-object/
 one-actor visitor delta at unchanged texture bytes and one draw.
 
-## Promoted — World-First Greenlight Production Formation & Fresh Lot Return V1
+## Frozen next — World-First Greenlight Production Formation & Fresh Lot Return V1
 
 The fresh post-Gate audit found the largest remaining beginning-of-production break. Accepted
 greenlight already owns the exact new Production, commitment debit, managed workflow, deterministic
@@ -154,7 +154,8 @@ Freeze the smallest truthful continuity loop:
 - expose current title, Development/Pre-production, production-level facility reservation, status,
   countdown, Director, and Lead without claiming personal room occupancy;
 - retain that exact production through mounted week advances so current truth repaints through
-  Pre-production and then uses the existing soundstage embodiment at Rehearsal; and
+  Pre-production and then uses exact Rehearsal allocation—existing physical Stage 7 when allocated
+  there, truthful Stage 12 fallback otherwise; and
 - fall back neutrally on disappearance, release, duplicate/malformed identity, replacement, or
   cross-studio state without selecting another picture.
 
@@ -164,11 +165,15 @@ or a renderer-authored job. A one-shot formed acknowledgement may witness only t
 transition and may not replay after save/reload. No Core, SaveFile, phase, reservation, clock,
 facility, market, economy, or art change is required or authorized.
 
-Two proven existing person-flow defects are proportional maintenance before freeze: a selected
-Lead currently inherits the Director-only call action, and a selected Director's nameplate is
-hidden throughout and after the existing cosmetic dispatch route. Remove the false Lead command
-and keep the selected existing nameplate attached through travel without changing route or task
-authority.
+The contract is frozen at
+`docs/WORLD-FIRST-GREENLIGHT-PRODUCTION-FORMATION-FRESH-LOT-RETURN-V1-CONTRACT.md`. It explicitly
+narrows the ordinary claim to managed Operations, forbids seed-as-studio-identity and legacy phase
+claims, freezes the real Development/Development/Pre-production/Rehearsal week sequence, and
+requires exact-or-neutral multi-production behavior.
+
+The two proven person-flow defects are already closed proportionally at `ff0e0fc`: selected Lead no
+longer inherits the Director-only call, and the selected Director's existing nameplate remains
+attached throughout the governed cosmetic route. No route or task authority changed.
 
 ## Closed parallel evidence lane
 
@@ -195,12 +200,12 @@ construction, or operating costs materially change the decision boundary.
 
 ## Contract boundary
 
-Freeze the exact accepted-greenlight before/after receipt, typed production return, latest-state
-selector, exact Director/Lead framing, mounted phase continuity, neutral fallback, input/lifecycle,
-viewport, and measured performance boundary before implementation. Existing Production,
-workflow/reservation, phase, person, and Lot read models are the only authority. No new core
-mechanic, save field, facility, physical Development/Casting place, art, person destination,
-travel, queue, workload, staffing choice, clock, or pathfinding result is authorized.
+Implement only the frozen exact accepted-greenlight before/after receipt, typed production return,
+latest-state selector, exact Director/Lead framing, mounted phase continuity, neutral fallback,
+input/lifecycle, viewport, and measured performance boundary. Existing Production, workflow/
+reservation, phase, person, and Lot read models are the only authority. No new core mechanic, save
+field, facility, physical Development/Casting place, art, person destination, travel, queue,
+workload, staffing choice, clock, or pathfinding result is authorized.
 
 The governing economic classification remains exactly:
 
