@@ -17,7 +17,7 @@ export function ProductionBoard({
 }: {
   board: ProductionBoardView
   onCommand?: (command: ProductionCommandView) => void
-  /** Navigation-only handoff from the Studio Calendar. */
+  /** Navigation-only handoff from an exact production-owned surface. */
   focusProductionId?: string
 }) {
   const pendingFocusProductionId = useRef<string | null>(null)
@@ -32,12 +32,16 @@ export function ProductionBoard({
   useEffect(() => {
     const productionId = pendingFocusProductionId.current ?? initialFocusProductionId.current
     if (productionId === null) return
-    const card = board.cards.find((candidate) => candidate.productionId === productionId)
-    if (card === undefined) {
+    const matchingCards = board.cards.filter(
+      (candidate) => candidate.productionId === productionId,
+    )
+    if (matchingCards.length !== 1) {
       headingRef.current?.focus()
+      pendingFocusProductionId.current = null
       initialFocusProductionId.current = null
       return
     }
+    const card = matchingCards[0]!
     const target = card.command
       ? commandRefs.current.get(productionId)
       : statusRefs.current.get(productionId)

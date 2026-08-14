@@ -83,13 +83,17 @@ import {
   operationalAnnexWorkContext,
   type LotAnnexWorkOwnerIntent,
 } from './lot/snapshot/annexWork.ts'
+import {
+  stage7ProductionDetailContext,
+  type Stage7ProductionOwnerIntent,
+} from './lot/snapshot/stage7Production.ts'
 
 // Gate D1: the Studio Lot overview is lazily imported so Phaser and the whole lot
 // module stay out of the eager bundle. The factory only runs when <StudioLotScreen/>
 // first renders, which only happens when the feature flag is on and the lot is opened.
 const StudioLotScreen = lazy(() => import('./lot/StudioLotScreen.tsx'))
 
-type LotEntryFocus =
+type OrdinaryLotEntryFocus =
   | 'studio-home'
   | 'selected-building'
   | 'advance-week'
@@ -100,7 +104,13 @@ type StudioReturnContext =
   | { kind: 'dashboard' }
   | {
       kind: 'lot'
-      focus: LotEntryFocus
+      focus: OrdinaryLotEntryFocus
+      suppressOperationalAnnouncement: boolean
+    }
+  | {
+      kind: 'lot'
+      focus: 'stage-7-production'
+      productionId: string
       suppressOperationalAnnouncement: boolean
     }
 
@@ -114,9 +124,15 @@ type LotAdvanceFeedback = {
 const DASHBOARD_RETURN_CONTEXT: StudioReturnContext = { kind: 'dashboard' }
 
 function withoutTransientWorldReturnIntent(context: StudioReturnContext): StudioReturnContext {
-  return context.kind === 'lot' && (
-    context.focus === 'publicity-campaign' || context.focus === 'annex-work'
-  )
+  if (context.kind !== 'lot') return context
+  if (context.focus === 'stage-7-production') {
+    return {
+      kind: 'lot',
+      focus: 'studio-home',
+      suppressOperationalAnnouncement: context.suppressOperationalAnnouncement,
+    }
+  }
+  return context.focus === 'publicity-campaign' || context.focus === 'annex-work'
     ? { ...context, focus: 'selected-building' }
     : context
 }
@@ -212,7 +228,12 @@ type Screen =
   | { kind: 'hub'; returnContext: StudioReturnContext }
   | { kind: 'saves'; returnContext: StudioReturnContext }
   | { kind: 'recap'; returnContext: StudioReturnContext } // D-15: read-only Studio Run Recap
-  | { kind: 'lot'; entryFocus: LotEntryFocus } // Studio Home V1: primary world surface
+  | { kind: 'lot'; entryFocus: OrdinaryLotEntryFocus }
+  | {
+      kind: 'lot'
+      entryFocus: 'stage-7-production'
+      entryStage7ProductionId: string
+    } // Studio Home V1: primary world surface
 
 function operatingStudioHome(lotEnabled: boolean): Screen {
   return lotEnabled
@@ -416,7 +437,7 @@ export function App() {
     setScreen(operatingStudioHome(lotEnabled))
   }
 
-  function openDashboardFromLot(focus: LotEntryFocus) {
+  function openDashboardFromLot(focus: OrdinaryLotEntryFocus) {
     setLotAdvanceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setScreen({
@@ -436,6 +457,17 @@ export function App() {
     }
     setLotAdvanceFeedback(null)
     setLotOperationalAnnouncementSuppressed(context.suppressOperationalAnnouncement)
+    if (context.focus === 'stage-7-production') {
+      // Preserve the stale-sensitive identity even when current truth may have changed. The
+      // remounted Lot starts explicit-empty and performs the fresh strict selector check; a
+      // generic studio-home fallback could briefly orient toward a replacement occupant.
+      setScreen({
+        kind: 'lot',
+        entryFocus: 'stage-7-production',
+        entryStage7ProductionId: context.productionId,
+      })
+      return
+    }
     setScreen({ kind: 'lot', entryFocus: context.focus })
   }
 
@@ -544,7 +576,7 @@ export function App() {
     const resolvedReturnContext: StudioReturnContext =
       returnContext.kind === 'lot'
         ? {
-            ...returnContext,
+            kind: 'lot',
             focus: 'advance-week',
             suppressOperationalAnnouncement:
               lotOperationalAnnouncementSuppressed || constructionCompletion !== null,
@@ -656,7 +688,10 @@ export function App() {
     const resolvedReturnContext: StudioReturnContext =
       returnContext.kind === 'lot'
         ? {
-            ...returnContext,
+            kind: 'lot',
+            focus: returnContext.focus === 'stage-7-production'
+              ? 'studio-home'
+              : returnContext.focus,
             suppressOperationalAnnouncement:
               lotOperationalAnnouncementSuppressed || result.constructionCompletion !== null,
           }
@@ -918,6 +953,44 @@ export function App() {
       // reason to guess an owner. The mounted Lot keeps the player in the Annex context.
       return false
     }
+  }
+
+  // World-First Selected Stage 7 Production Detail Handoff V1: identity arrives from an
+  // explicitly inspected Lot context, but App independently proves that identity against the
+  // latest authoritative state before it owns any navigation. The Board receives no cached Lot
+  // operation, and direct Back carries only the exact production identity for a fresh Lot read.
+  function hasCurrentStage7Production(intent: Stage7ProductionOwnerIntent): boolean {
+    const current = latestStateRef.current
+    if (current === null) return false
+
+    try {
+      const latest = stage7ProductionDetailContext(studioLotSnapshot(current))
+      return latest !== null &&
+        latest.ownerIntent.productionId === intent.productionId &&
+        latest.ownerIntent.locationBuildingId === intent.locationBuildingId
+    } catch {
+      return false
+    }
+  }
+
+  function handleOpenStage7ProductionDetails(
+    intent: Stage7ProductionOwnerIntent,
+  ): boolean {
+    if (!hasCurrentStage7Production(intent)) return false
+
+    setLotAdvanceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
+    setScreen({
+      kind: 'dashboard',
+      returnContext: {
+        kind: 'lot',
+        focus: 'stage-7-production',
+        productionId: intent.productionId,
+        suppressOperationalAnnouncement: false,
+      },
+      focusProductionId: intent.productionId,
+    })
+    return true
   }
 
   const openProfile = openProfileId ? talentProfile(state, openProfileId) : undefined
@@ -1295,9 +1368,13 @@ export function App() {
             advanceFeedback={lotAdvanceFeedback}
             suppressOperationalAnnouncement={lotOperationalAnnouncementSuppressed}
             entryFocus={screen.entryFocus}
+            {...(screen.entryFocus === 'stage-7-production'
+              ? { entryStage7ProductionId: screen.entryStage7ProductionId }
+              : {})}
             onProductionCommand={handleProductionCommand}
             onStartDevelopmentCastingAnnex={handleStartDevelopmentCastingAnnex}
             onOpenAnnexWorkDetails={handleOpenAnnexWorkDetails}
+            onOpenStage7ProductionDetails={handleOpenStage7ProductionDetails}
             onOpenTalentProfile={openTalentProfile}
             onCloseTalentProfile={closeTalentProfileIfOpen}
             openTalentProfileId={openProfileId}

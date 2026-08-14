@@ -327,33 +327,36 @@ const talent = (overrides: Partial<LotPersonState> = {}): LotPersonState => ({
 
 const operation = (
   overrides: Partial<ProductionOperationsState> = {},
-): ProductionOperationsState => ({
-  productionId: 'production-1',
-  title: 'Night Crossing',
-  phase: 'shooting',
-  phaseLabel: 'Shooting',
-  weeksRemaining: 5,
-  progress01: 3 / 8,
-  locationBuildingId: 'stage-a',
-  facilityLabel: 'Soundstage 7 + Scenery Shop',
-  directorId: 'director-1',
-  directorName: 'June Hart',
-  taskStatus: 'unassigned',
-  statusLabel: 'Decision required',
-  blocker: {
-    kind: 'director-dispatch',
-    headline: 'Director call required',
-    detail: 'June Hart has not been dispatched.',
-  },
-  attention: 'decision-required',
-  currentCommand: {
-    kind: 'assignShootingDirector',
-    productionId: 'production-1',
+): ProductionOperationsState => {
+  const productionId = overrides.productionId ?? 'production-1'
+  return {
+    productionId,
+    title: 'Night Crossing',
+    phase: 'shooting',
+    phaseLabel: 'Shooting',
+    weeksRemaining: 5,
+    progress01: 3 / 8,
+    locationBuildingId: 'stage-a',
+    facilityLabel: 'Soundstage 7 + Scenery Shop',
     directorId: 'director-1',
-    label: 'Call June Hart to Soundstage 7',
-  },
-  ...overrides,
-})
+    directorName: 'June Hart',
+    taskStatus: 'unassigned',
+    statusLabel: 'Decision required',
+    blocker: {
+      kind: 'director-dispatch',
+      headline: 'Director call required',
+      detail: 'June Hart has not been dispatched.',
+    },
+    attention: 'decision-required',
+    currentCommand: {
+      kind: 'assignShootingDirector',
+      productionId,
+      directorId: 'director-1',
+      label: 'Call June Hart to Soundstage 7',
+    },
+    ...overrides,
+  }
+}
 
 function snapshot(
   people: LotPersonState[],
@@ -1396,6 +1399,50 @@ describe('HollywoodScene snapshot authority', () => {
     }]))
     expect(scene.selectProductionFromHost(exact.productionId)).toBe(false)
     expect(events).toHaveLength(eventCount)
+  })
+
+  it('fails physical and host Stage 7 selection closed on duplicate or malformed shared authority', () => {
+    const exact = operation({ productionId: 'production-stage-7' })
+    const duplicateStage = operation({ productionId: 'other-stage-7' })
+    const duplicateIdentity = operation({
+      productionId: exact.productionId,
+      locationBuildingId: 'stage-b',
+      facilityLabel: 'Soundstage 12 + Scenery Shop',
+    })
+    const malformedCommand = operation({
+      productionId: exact.productionId,
+      currentCommand: {
+        kind: 'assignShootingDirector',
+        productionId: 'stale-production',
+        directorId: exact.directorId,
+        label: 'Call Director to Soundstage 7',
+      },
+    })
+
+    for (const operations of [
+      [exact, duplicateStage],
+      [exact, duplicateIdentity],
+      [malformedCommand],
+    ]) {
+      const { scene, internals, events } = harness(snapshot([director()], operations))
+      internals.buildWorld()
+      internals.buildSemanticHotspots()
+
+      internals.zones[0]!.emit('pointerdown', pointer())
+
+      expect(productionEvents(events)).toEqual([])
+      expect(events).toContainEqual({
+        type: 'place',
+        place: {
+          id: 'stage-7',
+          buildingId: 'stage-a',
+          label: 'Stage 7',
+          affordances: ['enter-stage', 'shoot', 'load-in'],
+        },
+      })
+      expect(scene.selectProductionFromHost(exact.productionId)).toBe(false)
+      expect(scene.debugState().stage7Operation).toBeNull()
+    }
   })
 
   it('lets the semantic host highlight only the exact Annex without re-emitting selection', () => {

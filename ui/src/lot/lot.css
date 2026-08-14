@@ -365,6 +365,22 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
 .hollywood-task-chain i { align-self: center; color: #927c4c; }
 .hollywood-command { width: 100%; margin-top: 7px; min-height: 34px; font-size: 11px; }
 .hollywood-command kbd { float: right; padding: 1px 5px; border: 1px solid rgba(255,255,255,.3); border-radius: 3px; }
+.hollywood-production-details {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 7px;
+  padding: 8px 10px;
+  color: #e6d4ac;
+  border-color: rgba(210, 174, 98, .58);
+  font-size: 11px;
+  line-height: 1.35;
+}
+.hollywood-production-details:hover { border-color: #d2ae62; color: #fff0cd; }
+.hollywood-production-details:focus-visible,
+.hollywood-inspector h3[data-testid="hollywood-stage7-production-heading"]:focus {
+  outline: 3px solid #f2cf78;
+  outline-offset: 3px;
+}
 .hollywood-stage-fallback { padding: 8px; border-left: 3px solid #8d7848; background: rgba(0,0,0,.2); }
 .hollywood-inspector.is-annex,
 .hollywood-inspector.is-scenery,
@@ -981,6 +997,14 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
 }
 
 @media (forced-colors: active) {
+  .hollywood-production-details {
+    forced-color-adjust: auto;
+    border: 1px solid CanvasText;
+  }
+  .hollywood-production-details:focus-visible,
+  .hollywood-inspector h3[data-testid="hollywood-stage7-production-heading"]:focus {
+    outline: 3px solid Highlight;
+  }
   .hollywood-annex-work,
   .hollywood-annex-work-blocker,
   .hollywood-annex-work-open {

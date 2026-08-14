@@ -131,6 +131,73 @@ function capacityHeldGame(seed: string): GameState {
 }
 
 describe('Production Operations V1 UI boundary', () => {
+  it('falls back to the stable board heading when a requested production is missing', async () => {
+    const board = productionBoard(greenlitManagedGame('ops-ui-missing-production-focus'))
+
+    render(
+      <ProductionBoard
+        board={board}
+        focusProductionId="missing-production"
+      />,
+    )
+
+    expect(screen.getByTestId(`active-${board.cards[0]!.productionId}`)).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByTestId('production-board-heading')).toHaveFocus())
+  })
+
+  it('falls back to the stable board heading when a requested production ID is duplicated', async () => {
+    const board = productionBoard(
+      advanceToNextEvent(greenlitManagedGame('ops-ui-duplicate-production-focus')).next,
+    )
+    const card = board.cards[0]!
+    const duplicateBoard = {
+      ...board,
+      cards: [card, { ...card, title: `${card.title} duplicate identity` }],
+    }
+    // The duplicate identity is deliberately malformed authority. React also
+    // reports its duplicate render key, which is expected for this rejection case.
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+    try {
+      render(
+        <ProductionBoard
+          board={duplicateBoard}
+          focusProductionId={card.productionId}
+        />,
+      )
+
+      expect(screen.getAllByTestId(`active-${card.productionId}`)).toHaveLength(2)
+      await waitFor(() => expect(screen.getByTestId('production-board-heading')).toHaveFocus())
+    } finally {
+      consoleError.mockRestore()
+    }
+  })
+
+  it('focuses exact identity independent of card order when two productions share a title', async () => {
+    const board = productionBoard(greenlitManagedGame('ops-ui-same-title-focus'))
+    const source = board.cards[0]!
+    const targetId = 'same-title-exact-target'
+    const target = {
+      ...source,
+      productionId: targetId,
+      command: null,
+    }
+    const targetTestId = `production-status-${targetId}`
+
+    for (const cards of [[source, target], [target, source]]) {
+      const rendered = render(
+        <ProductionBoard
+          board={{ ...board, cards }}
+          focusProductionId={targetId}
+        />,
+      )
+
+      await waitFor(() => expect(screen.getByTestId(targetTestId)).toHaveFocus())
+      expect(screen.getAllByText(source.title).length).toBeGreaterThanOrEqual(2)
+      rendered.unmount()
+    }
+  })
+
   it('moves keyboard focus through the command chain and announces the final scheduled state', async () => {
     const initial = advanceToNextEvent(greenlitManagedGame('ops-ui-command-focus')).next
     const productionId = initial.studio.activeProductions[0]!.id

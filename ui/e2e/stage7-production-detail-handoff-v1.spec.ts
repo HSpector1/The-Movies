@@ -1,0 +1,332 @@
+import { expect, test, type Page } from '@playwright/test'
+import { createHash } from 'node:crypto'
+import { mkdirSync, readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const here = dirname(fileURLToPath(import.meta.url))
+const repoRoot = join(here, '..', '..')
+const blockedFixture = join(
+  here,
+  'world-first-scenery-load-in-v1',
+  'week-30-nights-of-watchtower-stage-7-blocked.save.json',
+)
+const readyFixture = join(
+  here,
+  'world-first-scenery-load-in-v1',
+  'week-30-nights-of-watchtower-stage-7-ready.save.json',
+)
+const scheduledFixture = join(
+  here,
+  'live-week-advance-v1',
+  'week-30-nights-of-watchtower-stage-7-scheduled.save.json',
+)
+const outDir = join(repoRoot, 'out', 'world-first-stage7-production-detail-handoff-v1')
+
+const ACTIVE_SESSION_KEY = 'project-studio.active-session.v4'
+const LOT_FLAG_KEY = 'project-studio.flags.studio-lot-overview'
+const HOLLYWOOD_FLAG_KEY = 'project-studio.flags.operation-hollywood'
+const BLOCKED_SHA256 = '7534518e4db3970bb4ca988b0b0fa78975f5053ee67fd42377f69b80ebe711dc'
+const READY_SHA256 = '6760b72739608e930da84726067685c515d87817cb3793f9d9d37fa9f2063f92'
+const SCHEDULED_SHA256 = 'e922f9b7e957388bed7c7674be8c17596245823200e478371dc7ff970458f46b'
+const PRODUCTION_ID = 'prod-0026'
+const PRODUCTION_TITLE = 'Nights of Watchtower'
+
+const HOLLYWOOD_DISTRICT_WIDTH = 1586
+const HOLLYWOOD_DISTRICT_HEIGHT = 992
+const HOLLYWOOD_CAMERA_BOUNDS = { x: -120, y: -90, width: 1826, height: 1172 } as const
+const STAGE_7_STATUS_POINT = { x: 740, y: 405 } as const
+
+mkdirSync(outDir, { recursive: true })
+
+test.beforeAll(() => {
+  expect(createHash('sha256').update(readFileSync(blockedFixture)).digest('hex'))
+    .toBe(BLOCKED_SHA256)
+  expect(createHash('sha256').update(readFileSync(readyFixture)).digest('hex'))
+    .toBe(READY_SHA256)
+  expect(createHash('sha256').update(readFileSync(scheduledFixture)).digest('hex'))
+    .toBe(SCHEDULED_SHA256)
+})
+
+function captureRuntimeErrors(page: Page): string[] {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  page.on('console', (message) => {
+    if (message.type() === 'error') errors.push(message.text())
+  })
+  return errors
+}
+
+async function seedStage7Lot(
+  page: Page,
+  state: 'blocked' | 'scheduled',
+  expectCanvas = true,
+) {
+  const save = readFileSync(state === 'blocked' ? blockedFixture : scheduledFixture, 'utf8')
+  await page.addInitScript(
+    ([sessionKey, saveJson, lotFlag, hollywoodFlag]) => {
+      localStorage.setItem(sessionKey as string, saveJson as string)
+      // Absence exercises the shipped ordinary-player world-first defaults.
+      localStorage.removeItem(lotFlag as string)
+      localStorage.removeItem(hollywoodFlag as string)
+    },
+    [ACTIVE_SESSION_KEY, save, LOT_FLAG_KEY, HOLLYWOOD_FLAG_KEY] as const,
+  )
+  await page.goto('/')
+  await expect(page.getByTestId('recovery-notice')).toContainText('Week 30')
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
+  await expect(page.getByTestId('hollywood-current-production')).toContainText(PRODUCTION_TITLE)
+  if (expectCanvas) {
+    await expect(page.getByTestId('studio-lot-canvas').locator('canvas')).toHaveCount(1)
+  }
+  await expect(page.getByText('Preparing the lot…', { exact: true })).toHaveCount(0)
+  await page.getByTestId('recovery-dismiss').click()
+  await page.waitForTimeout(1_200)
+}
+
+async function activeSessionBytes(page: Page): Promise<string> {
+  const value = await page.evaluate((key) => localStorage.getItem(key), ACTIVE_SESSION_KEY)
+  expect(value).not.toBeNull()
+  return value!
+}
+
+async function clickHollywoodWorldPoint(page: Page, point: { x: number; y: number }) {
+  const canvas = page.getByTestId('studio-lot-canvas').locator('canvas')
+  const box = await canvas.boundingBox()
+  expect(box, 'the live Hollywood canvas must have a box').not.toBeNull()
+  const zoom = Math.min(
+    box!.width / HOLLYWOOD_DISTRICT_WIDTH,
+    box!.height / HOLLYWOOD_DISTRICT_HEIGHT,
+  )
+  const cameraWidth = box!.width / zoom
+  const cameraHeight = box!.height / zoom
+  const fittedScroll = (
+    desired: number,
+    boundStart: number,
+    boundSize: number,
+    cameraSize: number,
+  ) => cameraSize >= boundSize
+    ? boundStart
+    : Math.max(boundStart, Math.min(boundStart + boundSize - cameraSize, desired))
+  const scrollX = fittedScroll(
+    HOLLYWOOD_DISTRICT_WIDTH / 2 - cameraWidth / 2,
+    HOLLYWOOD_CAMERA_BOUNDS.x,
+    HOLLYWOOD_CAMERA_BOUNDS.width,
+    cameraWidth,
+  )
+  const scrollY = fittedScroll(
+    HOLLYWOOD_DISTRICT_HEIGHT / 2 - cameraHeight / 2,
+    HOLLYWOOD_CAMERA_BOUNDS.y,
+    HOLLYWOOD_CAMERA_BOUNDS.height,
+    cameraHeight,
+  )
+  await canvas.click({
+    position: {
+      x: (point.x - scrollX) * zoom,
+      y: (point.y - scrollY) * zoom,
+    },
+  })
+}
+
+async function activateSemanticStage7(page: Page) {
+  const stage7 = page.getByTestId('lot-nav-stage-a')
+  await stage7.focus()
+  await expect(stage7).toBeFocused()
+  await stage7.press('Enter')
+}
+
+test('physical Stage 7 opens the exact Board card and returns fresh byte-neutrally', async ({ page }) => {
+  const runtimeErrors = captureRuntimeErrors(page)
+  await page.setViewportSize({ width: 1366, height: 768 })
+  await seedStage7Lot(page, 'blocked')
+  const stableUrl = page.url()
+  const beforeBytes = await activeSessionBytes(page)
+
+  // Studio Desk orientation is informative, not proof of world selection.
+  await expect(page.getByTestId(`hollywood-open-production-details-${PRODUCTION_ID}`))
+    .toHaveCount(0)
+  await clickHollywoodWorldPoint(page, STAGE_7_STATUS_POINT)
+
+  const detail = page.getByTestId(`hollywood-open-production-details-${PRODUCTION_ID}`)
+  await expect(page.getByTestId('hollywood-stage7-production-heading')).toContainText(
+    PRODUCTION_TITLE,
+  )
+  await expect(detail).toHaveAccessibleName(
+    `Open Production Board details · ${PRODUCTION_TITLE}`,
+  )
+  const worldCommand = page.getByTestId('hollywood-production-command-clearSceneryLoadIn')
+  expect(await worldCommand.evaluate((command, detailTestId) => {
+    const deep = document.querySelector(`[data-testid="${detailTestId}"]`)
+    return deep !== null && Boolean(
+      command.compareDocumentPosition(deep) & Node.DOCUMENT_POSITION_FOLLOWING,
+    )
+  }, `hollywood-open-production-details-${PRODUCTION_ID}`)).toBe(true)
+  await page.screenshot({ path: join(outDir, '01-physical-stage7-detail-action-1366x768.png') })
+
+  await detail.click()
+  await expect(page.getByTestId('production-board')).toBeVisible()
+  await expect(page.getByTestId(`active-${PRODUCTION_ID}`)).toContainText(PRODUCTION_TITLE)
+  await expect(page.getByTestId(
+    `production-command-clearSceneryLoadIn-${PRODUCTION_ID}`,
+  )).toBeFocused()
+  expect(page.url()).toBe(stableUrl)
+  expect(await activeSessionBytes(page)).toBe(beforeBytes)
+
+  await page.getByTestId('back-to-studio-lot').click()
+  await expect(page.getByTestId('hollywood-stage7-production-heading')).toBeFocused()
+  await expect(page.getByTestId(`hollywood-open-production-details-${PRODUCTION_ID}`))
+    .toBeVisible()
+  await expect(page.getByTestId('studio-lot-canvas').locator('canvas')).toHaveCount(1)
+  expect(page.url()).toBe(stableUrl)
+  expect(await activeSessionBytes(page)).toBe(beforeBytes)
+  expect(runtimeErrors, runtimeErrors.join('\n')).toEqual([])
+})
+
+test('one existing Board command returns to the fresh ready Stage 7 successor', async ({ page }) => {
+  const runtimeErrors = captureRuntimeErrors(page)
+  await seedStage7Lot(page, 'blocked')
+  await activateSemanticStage7(page)
+  await page.getByTestId(`hollywood-open-production-details-${PRODUCTION_ID}`).click()
+
+  await page.getByTestId(`production-command-clearSceneryLoadIn-${PRODUCTION_ID}`).click()
+  await expect(page.getByTestId(
+    `production-command-scheduleShootingTake-${PRODUCTION_ID}`,
+  )).toBeFocused()
+  const acceptedBytes = await activeSessionBytes(page)
+  expect(acceptedBytes).toBe(readFileSync(readyFixture, 'utf8'))
+
+  await page.getByTestId('back-to-studio-lot').click()
+  await expect(page.getByTestId('hollywood-stage7-production-heading')).toBeFocused()
+  await expect(page.getByTestId(`hollywood-task-status-${PRODUCTION_ID}`)).toContainText('ready')
+  await expect(page.getByTestId('hollywood-production-command-scheduleShootingTake'))
+    .toBeVisible()
+  await expect(page.getByTestId(`hollywood-open-production-details-${PRODUCTION_ID}`))
+    .toBeVisible()
+  expect(await activeSessionBytes(page)).toBe(acceptedBytes)
+  await page.screenshot({ path: join(outDir, '02-board-command-fresh-ready-return.png') })
+  expect(runtimeErrors, runtimeErrors.join('\n')).toEqual([])
+})
+
+test('scheduled Stage 7 focuses Board status and survives semantic keyboard return under renderer rejection', async ({ page }) => {
+  const runtimeErrors = captureRuntimeErrors(page)
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.route('**/src/lot/StudioLotView.ts*', (route) => route.fulfill({
+    status: 200,
+    contentType: 'application/javascript',
+    body: 'export class StudioLotView { constructor() { throw new Error("governed renderer rejection") } }',
+  }))
+  await seedStage7Lot(page, 'scheduled', false)
+  const beforeBytes = await activeSessionBytes(page)
+  await expect(page.getByTestId('lot-canvas-fallback')).toBeVisible()
+  await activateSemanticStage7(page)
+
+  const detail = page.getByTestId(`hollywood-open-production-details-${PRODUCTION_ID}`)
+  await detail.focus()
+  await detail.press('Enter')
+  await expect(page.getByTestId(`production-status-${PRODUCTION_ID}`)).toBeFocused()
+  await expect(page.getByTestId(`production-status-${PRODUCTION_ID}`)).toContainText(
+    'Take scheduled',
+  )
+  await page.getByTestId('back-to-studio-lot').click()
+  await expect(page.getByTestId('hollywood-stage7-production-heading')).toBeFocused()
+  await expect(page.getByTestId('lot-canvas-fallback')).toBeVisible()
+  await expect(page.getByTestId(`hollywood-task-status-${PRODUCTION_ID}`)).toContainText(
+    'scheduled',
+  )
+  expect(await activeSessionBytes(page)).toBe(beforeBytes)
+  await page.screenshot({ path: join(outDir, '03-renderer-rejection-semantic-return.png') })
+  expect(runtimeErrors, runtimeErrors.join('\n')).toEqual([])
+})
+
+test('Stage 7 detail action remains reachable at governed viewports, max world zoom, and CSS magnification', async ({ page }) => {
+  const runtimeErrors = captureRuntimeErrors(page)
+  await seedStage7Lot(page, 'blocked')
+  await activateSemanticStage7(page)
+
+  for (const [label, width, height] of [
+    ['1920x1080', 1920, 1080],
+    ['1366x768', 1366, 768],
+    ['1024x768', 1024, 768],
+    ['960x540', 960, 540],
+  ] as const) {
+    await page.setViewportSize({ width, height })
+    await page.evaluate(() => {
+      document.documentElement.style.zoom = '1'
+      window.scrollTo(0, 0)
+    })
+    const detail = page.getByTestId(`hollywood-open-production-details-${PRODUCTION_ID}`)
+    await detail.scrollIntoViewIfNeeded()
+    await expect(detail).toBeVisible()
+    await expect(page.getByTestId('hollywood-current-production')).toBeVisible()
+    await expect(page.getByTestId('studio-lot-canvas').locator('canvas')).toBeVisible()
+    const box = await detail.boundingBox()
+    expect(box, `detail action @ ${label}`).not.toBeNull()
+    expect(box!.width).toBeGreaterThanOrEqual(44)
+    expect(box!.height).toBeGreaterThanOrEqual(44)
+    expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth))
+      .toBe(false)
+    await page.screenshot({ path: join(outDir, `responsive-${label}.png`) })
+  }
+
+  await page.setViewportSize({ width: 1366, height: 768 })
+  const canvas = page.getByTestId('studio-lot-canvas').locator('canvas')
+  const canvasBox = await canvas.boundingBox()
+  expect(canvasBox).not.toBeNull()
+  await canvas.hover({ position: { x: canvasBox!.width / 2, y: canvasBox!.height / 2 } })
+  for (let step = 0; step < 12; step += 1) await page.mouse.wheel(0, -600)
+  await expect(page.getByTestId(`hollywood-open-production-details-${PRODUCTION_ID}`))
+    .toBeVisible()
+  await page.screenshot({ path: join(outDir, 'responsive-maximum-world-zoom.png') })
+
+  await page.setViewportSize({ width: 960, height: 540 })
+  await page.evaluate(() => {
+    document.documentElement.style.zoom = '2'
+    window.scrollTo(0, 0)
+  })
+  const detail = page.getByTestId(`hollywood-open-production-details-${PRODUCTION_ID}`)
+  await detail.scrollIntoViewIfNeeded()
+  await expect(detail).toBeVisible()
+  await detail.click({ trial: true })
+  await expect(page.getByTestId('hollywood-stage7-production-heading')).toContainText(
+    PRODUCTION_TITLE,
+  )
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth))
+    .toBe(false)
+  await page.screenshot({ path: join(outDir, 'responsive-960x540-css-magnification.png') })
+  await page.evaluate(() => { document.documentElement.style.zoom = '1' })
+  expect(runtimeErrors, runtimeErrors.join('\n')).toEqual([])
+})
+
+test.describe('effective 200% browser-zoom layout proxy', () => {
+  test.use({ viewport: { width: 480, height: 270 }, deviceScaleFactor: 2 })
+
+  test('keeps the world action reachable in the 480 CSS-pixel mobile branch', async ({ page }) => {
+    const runtimeErrors = captureRuntimeErrors(page)
+    await seedStage7Lot(page, 'blocked')
+    await activateSemanticStage7(page)
+
+    expect(await page.evaluate(() => ({
+      innerWidth: window.innerWidth,
+      compactLayout: window.matchMedia('(max-width: 720px)').matches,
+      scrollWidth: document.documentElement.scrollWidth,
+    }))).toEqual({
+      innerWidth: 480,
+      compactLayout: true,
+      scrollWidth: 480,
+    })
+
+    const detail = page.getByTestId(`hollywood-open-production-details-${PRODUCTION_ID}`)
+    await detail.scrollIntoViewIfNeeded()
+    await expect(detail).toBeVisible()
+    const box = await detail.boundingBox()
+    expect(box).not.toBeNull()
+    expect(box!.width).toBeGreaterThanOrEqual(44)
+    expect(box!.height).toBeGreaterThanOrEqual(44)
+    await detail.click({ trial: true })
+    await expect(page.getByTestId('hollywood-stage7-production-heading')).toContainText(
+      PRODUCTION_TITLE,
+    )
+    await page.screenshot({ path: join(outDir, 'responsive-effective-browser-zoom-200.png') })
+    expect(runtimeErrors, runtimeErrors.join('\n')).toEqual([])
+  })
+})

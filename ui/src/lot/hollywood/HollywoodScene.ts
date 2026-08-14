@@ -7,6 +7,7 @@ import type {
 } from '../snapshot/StudioLotSnapshot'
 import { operationalAnnexWorkContext } from '../snapshot/annexWork.ts'
 import { sceneryLoadInContext } from '../snapshot/sceneryLoadIn.ts'
+import { stage7ProductionDetailContext } from '../snapshot/stage7Production.ts'
 import {
   FALLBACK_PEOPLE_DECODED_BYTES,
   GENERATED_VEHICLE_DECODED_BYTES,
@@ -415,7 +416,7 @@ export class HollywoodScene extends Phaser.Scene {
     const selectStage7 = (pointer: Phaser.Input.Pointer) => {
       if (!this.isCanvasPointer(pointer)) return
       pointer.event.stopPropagation?.()
-      const place = this.manifest.places.find((candidate) => candidate.buildingId === 'stage-a')
+      const place = this.canonicalStage7Place()
       if (place) this.selectStage7Surface(place)
     }
     this.stageLamp.setInteractive({ useHandCursor: true }).on('pointerdown', selectStage7)
@@ -1221,7 +1222,7 @@ export class HollywoodScene extends Phaser.Scene {
       // Scheduling is allowed while the flat is moving. Authoritative scheduled
       // truth cancels the drawing immediately, but the already-accepted clear still
       // receives its single acknowledgement rather than silently disappearing.
-      const exactScheduledStage7 = this.uniqueEngineStage7Operation(snapshot)
+      const exactScheduledStage7 = this.authoritativeStage7Operation(snapshot)
       if (
         exactScheduledStage7?.productionId === cancelledSweep.productionId &&
         exactScheduledStage7.taskStatus === 'scheduled'
@@ -1437,27 +1438,7 @@ export class HollywoodScene extends Phaser.Scene {
   private authoritativeStage7Operation(
     snapshot: StudioLotSnapshot,
   ): ProductionOperationsState | null {
-    if (
-      snapshot.operationsMode !== 'managed' ||
-      snapshot.stageAssignmentAuthority !== 'engine'
-    ) return null
-    return snapshot.productionOperations.find(
-      (operation) => operation.locationBuildingId === 'stage-a',
-    ) ?? null
-  }
-
-  /** Scenery transition acknowledgement fails closed on duplicate Stage 7 facts. */
-  private uniqueEngineStage7Operation(
-    snapshot: StudioLotSnapshot,
-  ): ProductionOperationsState | null {
-    if (
-      snapshot.operationsMode !== 'managed' ||
-      snapshot.stageAssignmentAuthority !== 'engine'
-    ) return null
-    const stage7 = snapshot.productionOperations.filter(
-      (operation) => operation.locationBuildingId === 'stage-a',
-    )
-    return stage7.length === 1 ? stage7[0]! : null
+    return stage7ProductionDetailContext(snapshot)?.operation ?? null
   }
 
   private availablePersonHomeSlot(role: LotPersonState['role'], personId: string): number {
@@ -1514,15 +1495,15 @@ export class HollywoodScene extends Phaser.Scene {
   private paintAuthoritativeStage7(stage7: ProductionOperationsState | null): void {
     this.activityGraphics?.clear()
     if (stage7 === null) {
-      const legacy = this.snapshot.operationsMode !== 'managed'
-        ? this.snapshot.productionOperations?.find(
-            (operation) => operation.locationBuildingId === 'stage-a',
-          )
-        : undefined
+      const hasLegacyStage7 = this.snapshot.operationsMode !== 'managed' &&
+        Array.isArray(this.snapshot.productionOperations) &&
+        this.snapshot.productionOperations.some(
+          (operation) => operation?.locationBuildingId === 'stage-a',
+        )
       this.stageStateText?.setText(
-        legacy ? 'STAGE 7 · LEGACY DISPLAY SCHEDULE' : 'STAGE 7 · AVAILABLE',
+        hasLegacyStage7 ? 'STAGE 7 · LEGACY DISPLAY SCHEDULE' : 'STAGE 7 · AVAILABLE',
       )
-      this.stageLamp?.setFillStyle(legacy ? 0x655634 : 0x2e754f, 1)
+      this.stageLamp?.setFillStyle(hasLegacyStage7 ? 0x655634 : 0x2e754f, 1)
       return
     }
 
