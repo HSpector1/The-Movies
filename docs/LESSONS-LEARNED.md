@@ -2574,3 +2574,56 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   ownership at every step.
 - **Pattern:** exact event owns ceremony; persisted state owns later orientation.
   **Anti-pattern:** deriving a new event every time an already-complete state renders.
+
+---
+
+# World-First Annex Construction Interaction V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Contract `6cab9c9`; implementation `7a370fd`. Related:
+> `docs/WORLD-FIRST-ANNEX-CONSTRUCTION-INTERACTION-V1-EVIDENCE.md` and
+> `docs/WORLD-FIRST-ANNEX-CONSTRUCTION-INTERACTION-V1-CLOSURE.md`.
+
+## DH. World intent must fail closed unless one latest visual projection agrees with the owner read model — **MG, BR**
+
+- **Risk:** a canonical scene identity can still be paired with an absent, duplicated, or
+  lifecycle-stale visual projection. Letting that identity open or retain a command can make a
+  Vacant parcel actionable while the authoritative construction view is already Building.
+- **Resolution:** require exactly one latest `expansion` building and require its
+  `constructionStatus` to equal the latest `studioDevelopment(state).status` at entry, retention,
+  and activation. The complete transition stays `world intent → App owner → parameter-free action
+  against latest GameState → one successful replacement → fresh read model/snapshot → same mounted
+  world`; Phaser carries identity only.
+- **Coverage / fastest diagnostic:** test absent, duplicate, wrong-status, delayed-import, and stale
+  post-render projections, then require no route, owner call, mutation, or fallback command. From an
+  identical valid pre-state, require the lot and deep Studio Development surfaces to produce
+  byte-identical GameState, RNG, ledger, and SaveFileV11 output.
+- **Pattern:** exact latest visual witness + fresh owner read + one intent. **Anti-pattern:** treating
+  a once-valid scene event or a conveniently named building as durable command authority.
+
+## DI. A world affordance is not accepted until live depth and zoom prove it remains visible — **BR**
+
+- **Symptom:** automated identity and selection tests passed while the Annex lifecycle label at
+  depth 88 could be occluded by higher-depth world content during ordinary live inspection.
+- **Resolution:** move only that actionable label to depth 169, below the existing selected-place
+  outline and person-nameplate priorities, and verify its physical hit, text, and selection at both
+  management scale and actual maximum camera zoom. Pointer-out also restores the persistent selected
+  outline instead of clearing it after a transient hover.
+- **Coverage / fastest diagnostic:** inspect the governed viewport matrix and actual maximum world
+  zoom in the running scene, click both polygon and visible label, and require the same exact context
+  without a new display object, draw, texture, route, or decoded-byte allocation.
+- **Pattern:** live compositing proof at gameplay zooms. **Anti-pattern:** equating a semantic hit
+  test or isolated layer snapshot with a readable affordance in the composed world.
+
+## DJ. Repeating an identical live-region message requires a new DOM identity — **MG, BR**
+
+- **Symptom:** two legitimate stale-action rejections can return the same exact core error; merely
+  assigning the same string again leaves the live-region DOM unchanged and may suppress the second
+  assistive announcement.
+- **Resolution:** retain one stable polite owner region but replace its keyed child for every
+  rejection or success attempt. The serial is presentation-only, is never saved, and neither
+  changes nor duplicates the authoritative error text.
+- **Coverage / fastest diagnostic:** return the identical rejection twice and require one owner call
+  per activation, a replaced child node, retained Annex selection/focus, and byte-identical
+  GameState, RNG, ledger, save, and renderer snapshot after each rejection.
+- **Pattern:** stable announcement owner + per-event DOM identity. **Anti-pattern:** assuming a state
+  setter can make unchanged text observable as a second accessibility event.

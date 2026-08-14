@@ -4,7 +4,7 @@ Updated: 2026-08-14
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current implementation HEAD: `621e7e139456ae21dd0dd420bf8fcaf16af1f454`
+Current implementation HEAD: `7a370fda50bc6f9065918098de24455195414af8`
 
 ## Product doctrine — World First
 
@@ -91,28 +91,43 @@ whether the game remains playable.
 - World-First Live Week Advance V1 lets the player invoke one existing App-owned Engine week from
   the lot, keep no-release truth in the same mounted world, and return there through governed
   Newspaper, ReleaseResult, and Autopsy chains when a real release requires deeper presentation.
+- World-First Annex Construction Interaction V1 makes the physical Annex parcel and its semantic
+  companion select exact construction truth in the living lot, dispatch the existing App-owned
+  start action, and retain that same selected world context through Building and Operational.
 
 ## Current world-first checkpoint
 
-World-First Live Week Advance V1 is closed at implementation authority `621e7e1` under frozen
-contract `3391528`:
+World-First Annex Construction Interaction V1 is closed at implementation authority `7a370fd`
+under frozen contract `6cab9c9`:
 
-- one native lot action invokes the existing App/Engine week advance exactly once and produces
-  byte-identical state, RNG, and SaveFileV11 truth;
-- a no-release week keeps the same renderer, camera, valid selection, production/person context,
-  and focused action while one fresh snapshot repaints the world;
-- real releases keep Newspaper/ReleaseResult/Autopsy truth and return to the initiating lot through
-  explicit origin context;
-- Annex progress/completion and release co-events retain exact single focus/announcement ownership;
-- delayed import, renderer failure, and reduced motion retain the same semantic action and Engine
-  authority;
-- the complete 1,917-test suite and 176-test D-16/D-17 harness pass; and
-- live 1920×1080 measurement retains 179 average FPS, 145 FPS 1%-low, 6.9 ms p99, 11.1–11.9 ms
-  worst, one draw, 33 display objects, 15 actors, and the exact 11,096,896-byte texture budget.
+- the physical parcel, visible lifecycle label, and native semantic companion enter one exact
+  latest-snapshot Annex context without navigation, mutation, or renderer-owned construction law;
+- the same-lot inspector projects the existing `studioDevelopment(state)` price, clock, cash,
+  capacity, affordability, project, and lifecycle truth;
+- one no-payload lot intent invokes the existing App-owned start action exactly once; acceptance
+  debits $780,000 and repaints Vacant → Building at 0/13 in the same mounted renderer, camera,
+  production, and parcel selection;
+- the shipped live-week action carries the selected context through exact Building progress and
+  Week-13 Operational +1-slot truth with single focus and announcement ownership;
+- standalone Studio Development remains the full deep-management fallback and produces
+  byte-identical GameState, RNG, ledger, and SaveFileV11 output from the same pre-state;
+- stale, malformed, absent, duplicate, legacy, unaffordable, and post-render rejection boundaries
+  fail closed; renderer failure, procedural rollback, delayed import, and reduced motion retain the
+  semantic interaction;
+- focused proof passed 6/6 files and 114/114 tests, the complete repository passed 160/160 files and
+  1,952/1,952 tests, the governed D-16/D-17 harness passed 10/10 files and 176/176 tests, and the
+  Playwright lot suite passed 14/14; and
+- both TypeScript projects, production build, deterministic fixture replay, and diff checks passed.
 
-The in-app browser controller focused but could not synthesize physical `Enter`; this limitation is
-recorded honestly. The automated native-button `userEvent.keyboard('{Enter}')` one-tick parity gate
-passes.
+Live acceptance proved exact Week-30 Vacant → Building cash truth, Week-11 → Week-12 progress,
+Week-13 Operational completion and same-bytes reload, the renderer-failure and reduced-motion
+semantic paths, all governed viewports plus 960×540 stress and actual maximum camera zoom. Final
+1920×1080 measurement retained 180 average FPS, 143 FPS 1%-low, 7 ms p99/worst, one draw, 33 display
+objects, 15 actors, and the exact 11,096,896-byte decoded texture budget.
+
+The in-app browser controller focused but could not synthesize physical `Enter` or `Space`; this
+limitation is recorded honestly and is not relabelled as a live keyboard pass. Automated native
+button `Enter` and `Space` exact-once parity both pass.
 
 The accepted 2D Role Atlas remains the people presentation authority. Rejected 05H/05I character
 production and integration remain unauthorized.
@@ -135,22 +150,25 @@ or arbitrary cash sink is authorized.
 
 ## Current highest-leverage gap
 
-The player can now resolve a Stage 7 blockage and record the scheduled take without leaving the lot.
-The next observed world-first break is the Development & Casting Annex parcel. The physical parcel
-already renders exact Vacant, Building/progress, and Operational truth, but both its world hit and
-semantic companion immediately route to standalone Studio Development. The building is still a
-decorative menu entrance at the decision that matters.
+The player can now resolve a Stage 7 blockage, record a take, advance its authoritative week, and
+inspect/start/advance the Annex without leaving the lot. The next observed world-first break is
+**World-First Scenery Load-In V1**. The Engine already owns the `scenery-load-in` blocker and
+`clearSceneryLoadIn` command, while Hollywood already names the physical `service-yard` as
+Scenery & Service. Today those truths meet only inside the Stage inspector: the player does not yet
+see delivery/load-in as a spatial process joining Scenery & Service to the blocked stage.
 
-The next bounded target is **World-First Annex Construction Interaction V1**. Physical parcel or
-semantic companion selection should open an exact same-lot construction context. React should
-project the existing `studioDevelopment(state)` facts, and one App-owned action should invoke the
-existing `startDevelopmentCastingAnnexAction` exactly once. An accepted start must repaint cash and
-Vacant → Building in the same mounted lot; the shipped live-week control then carries exact progress
-to completion. Studio Development remains the complete deep fallback.
+Instrument and freeze the contract before implementation. The declared authored district source
+currently omits `annex-parcel` while the committed runtime manifest contains it. Any blind exporter
+run could therefore erase accepted Annex identity. First prove provenance and reconcile or safely
+bound that manifest-source drift; then define exact production/place selection and accepted-action
+acknowledgement from current Engine truth.
 
-This slice must supersede only the old Annex presentation rule that reserved start ownership to the
-standalone screen. It may not invent a catalogue, placement, second Annex, fourth slot, cancellation,
-refund, staffing, maintenance, operating cost, worker autonomy, or economy tuning.
+The bounded target should let the player select the visible service-yard/load-in problem, identify
+the exact blocked production and destination, invoke the existing App-owned command once, and watch
+an honest same-lot delivery/load-in acknowledgement before returning attention to the ready stage.
+It may add no core command, second task clock, economy rule, facility rule, worker autonomy, or
+pathfinding authority. The existing Stage inspector and Production Board remain supported deep
+surfaces.
 
 The doctrine is still not fully delivered. New, restored, and loaded studios open on Dashboard;
 deep screens unmount the lot; several buildings still route directly to standalone owners; and the

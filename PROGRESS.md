@@ -18,10 +18,13 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   full-corpus and byte-identical comparison; no current repair or behavior change is justified.
 - **World-First Soundstage Intervention V1:** CLOSED at `6419452`; physical
   Stage 7 selection now enters the exact Engine-owned command chain on the same live lot.
-- **World-First Live Week Advance V1:** CLOSED by this documentation checkpoint; one App-owned
+- **World-First Live Week Advance V1:** CLOSED at `a9be116`; one App-owned
   Engine week now advances from the lot, repaints the same world, and returns there after releases.
-- **Next playable milestone:** World-First Annex Construction Interaction V1 — make the existing
-  evidence-backed physical parcel an exact inspect/build/progress interaction on the live lot.
+- **World-First Annex Construction Interaction V1:** CLOSED by this documentation checkpoint;
+  the physical parcel is now an exact inspect/build/progress interaction on the same live lot.
+- **Next playable milestone:** World-First Scenery Load-In V1 — instrument the physical
+  Scenery & Service → Stage 7 boundary, freeze its authority contract, then make the existing
+  load-in blocker and command spatially legible without new simulation law.
 
 ## Closed marathon milestones
 
@@ -39,16 +42,19 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | Film Chronicle V1 | `4c76216` | `f59b467` | `1b78743` |
 | Dynamic People Role Atlas V1 | `b01edc2`, `0ee129c` | `471c8ef`, `66f856c` | `5146490` |
 | World-First Soundstage Intervention V1 | `001c692` | `c48f8ac` | `6419452` |
-| World-First Live Week Advance V1 | `3391528` | `621e7e1` | this documentation checkpoint |
+| World-First Live Week Advance V1 | `3391528` | `621e7e1` | `a9be116` |
+| World-First Annex Construction Interaction V1 | `6cab9c9` | `7a370fd` | this documentation checkpoint |
 
 ## Product result so far
 
 The game now has an engine-owned operating middle, persistent upstream development/casting,
 current studio-wide capacity truth, one evidence-backed physical expansion, a durable released-film
 artifact, premium role-readable people, one exact physical blockage-to-resumption interaction, and
-one authoritative week advance on the persistent Hollywood lot. The strongest observed break is
-now the Annex parcel: it visibly knows Vacant/Building/Operational truth but leaves the lot before
-the player can inspect or initiate its already-authorized construction.
+one authoritative week advance on the persistent Hollywood lot. The fixed Annex parcel is now a
+complete same-world choice: inspect exact Vacant truth, commit the existing project, watch Building
+progress, and reach Operational capacity while the lot remains the primary surface. The strongest
+observed break is now scenery load-in: the Engine command already exists, but Scenery & Service,
+delivery, and the Stage 7 blockage are not yet one visible spatial process.
 
 ## Governing status
 

@@ -395,9 +395,55 @@ release co-events; retained reduced-motion and renderer-failure operation; and p
 viewport/zoom matrix. The scene retained one draw, 33 display objects, 15 actors, and the exact
 11,096,896-byte decoded texture budget.
 
-The next bridge move is **World-First Annex Construction Interaction V1**. The already-visible
-parcel should select an exact same-lot construction context and reuse the existing Engine-owned
-Annex start action. An accepted start should repaint Vacant → Building without unmounting the lot;
-the shipped week action should then carry exact progress to Operational. This may supersede only the
-old presentation ownership that made the lot navigation-only. It must not invent a catalogue,
-placement system, second Annex, operating cost, worker autonomy, or economic tuning.
+That next bridge move is now closed by World-First Annex Construction Interaction V1 at `7a370fd`.
+The retained implementation follows the proposed boundary: the already-visible parcel selects an
+exact same-lot construction context, reuses the existing Engine-owned Annex start action, repaints
+Vacant → Building without unmounting the lot, and lets the shipped week action carry exact progress
+to Operational. It supersedes only the old presentation ownership that made the lot
+navigation-only; it invents no catalogue, placement system, second Annex, operating cost, worker
+autonomy, or economic tuning.
+
+## World-First Annex Construction Interaction V1 bridge update
+
+World-First Annex Construction Interaction V1 is delivered at
+`7a370fda50bc6f9065918098de24455195414af8` from frozen contract
+`6cab9c90cb185faffad096083f5309796012d287`. It closes the presentation-ownership gap named above
+without widening the simulation or `StudioLotSnapshot` boundary.
+
+The physical Annex polygon, its visible lifecycle label, and the native `expansion` companion now
+select one exact same-lot construction context. React requires the canonical scene identity and
+exactly one latest visual projection whose lifecycle agrees with the current Engine-owned
+`studioDevelopment(state)` read model. Absent, duplicate, malformed, or stale visual truth fails
+closed. Phaser emits identity only; it receives no construction action, GameState, price,
+affordability, clock, project, facility, ledger, or result.
+
+The existing App owner alone accepts the parameter-free start intent against latest GameState,
+replaces state once, and returns one fresh construction read model and lot snapshot to the same
+mounted world. Cash, parcel, lifecycle, progress, capacity, focus, and announcements repaint there
+without a route, renderer rebuild, camera preset, tick, or RNG draw. The standalone Studio
+Development screen remains a fully compatible deep-management surface over the identical action;
+it is no longer the default destination of physical parcel activation. Core construction,
+SaveFileV11, accounting, and economy behavior and schemas are unchanged.
+
+The Hollywood scene added no display object, actor, texture, route, draw, asset, or decoded-byte
+allocation. The actionable lifecycle label moved from depth 88 to 169 after live occlusion proof,
+and pointer-out now restores the selected parcel outline after transient hover. Renderer rejection,
+procedural rollback, delayed import, reduced motion, Vacant/Building/Operational reload, and actual
+maximum camera zoom retain the complete semantic interaction.
+
+Live 1920×1080 acceptance retained one draw, 33 display objects, 15 actors, and exactly 11,096,896
+decoded texture bytes while measuring 180 average FPS, 143–145 FPS 1%-low, and approximately 7 ms
+p99/worst frame. Focused Annex, complete repository, TypeScript, production-build, governed
+D-16/D-17, deterministic-fixture, save/reload, responsive/zoom, renderer-failure, and reduced-motion
+gates passed. Automated native pointer, Enter, and Space parity passed; the live controller focused
+the native action but did not synthesize activation, so no physical-keyboard pass is claimed from
+that controller.
+
+The governing economic status remains exactly:
+
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+
+This world-first interaction neither closes nor reclassifies cash runaway, top-studio economic
+immortality, the week-208 synchronized roster wall, P5 dominance, world-led variance, cheap-film
+purpose, premium-film purpose, remaining menu breadth, or formal G12 timing. It adds no financing,
+loan, bailout, restructuring, failure ladder, arbitrary cash sink, or macroeconomic certification.

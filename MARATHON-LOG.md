@@ -98,3 +98,39 @@ Owner rulings remain the authority when a summary here conflicts with them.
   clean TypeScript/build/fixture/diff gates, and no P1–P3 findings.
 - Promoted World-First Annex Construction Interaction V1: make the already-authorized physical
   parcel an exact inspect/build/progress beat without inventing a new facility or economic rule.
+
+## 2026-08-14 — World-first Annex construction interaction closes
+
+- Froze contract `6cab9c9` and delivered implementation `7a370fd` without changing Engine, save,
+  construction, economy, facility, production, publicity, RNG, asset, or pathfinding authority.
+- Made the physical Annex parcel, visible lifecycle label, and semantic companion select one exact
+  latest `studioDevelopment(state)` context without leaving the living Hollywood lot.
+- Added one no-payload App-owned intent that reuses the accepted Annex start action exactly once;
+  success repaints $780,000 committed, Vacant → Building, 0/13, and due week in the same mounted
+  renderer, camera, parcel selection, and production context.
+- Proved standalone Studio Development parity, authoritative Week-11 → Week-12 progress, Week-13
+  Operational +1-slot completion, SaveFileV11 reload without replayed ceremony, and exact
+  Stage 7/people/reservation/RNG invariance.
+- Hardened stale, absent, malformed, duplicate, legacy, unaffordable, and post-render boundaries;
+  renderer rejection, procedural rollback, delayed import, and reduced motion retain the native DOM
+  inspect/start path.
+- Played the exact Vacant/Building/Operational lifecycle, intentional renderer failure, reduced
+  motion, 960×540 plus all governed viewports, actual maximum camera zoom, and the governed
+  Hollywood performance budget. The browser controller focused but could not synthesize physical
+  `Enter` or `Space`; this is not claimed as a live keyboard pass, while automated native-button
+  exact-once parity passes for both keys.
+- Closed with 114/114 focused tests across 6/6 files, 1,952/1,952 repository tests across 160/160
+  files, 176/176 governed D-16/D-17 tests across 10/10 files, 14/14 Playwright lot tests, and clean
+  TypeScript, production-build, deterministic-fixture, and diff gates.
+- Reaffirmed that the Studio Lot is the primary continuous game surface. Studio Development and
+  other deep management screens remain supported infrastructure for complex decisions, not the
+  primary game loop.
+- Promoted World-First Scenery Load-In V1, beginning with instrumentation and a frozen contract.
+  The runtime Hollywood manifest contains the accepted `annex-parcel` while its declared authored
+  source omits it, so no exporter or scene change may proceed until that provenance drift is safely
+  bounded. The slice may reuse existing blocker/command truth but add no core, economy, facility,
+  clock, worker-autonomy, or pathfinding authority.
+- Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
+  RESIDUALS REMAIN OPEN**. Cash runaway, top-studio economic immortality, the week-208 synchronized
+  roster wall, P5 dominance, world-led variance, cheap-film purpose, premium-film purpose,
+  remaining menu breadth, and formal G12 timing remain open.
