@@ -325,8 +325,10 @@ cards, exact employment/profile facts, multi-term offers, and the signing action
 
 The bounded target is physical/semantic Gate → exact current market slate → explicit named
 candidate selection → visible visitor/person inspection and canonical live-Lot profile → optional
-focused Hiring terms → existing sign-or-leave decision → direct return to fresh exact Gate/candidate
-truth or the neutral Lot. Complex salary, bonus, obligation, and runway comparison stays in Hiring;
+focused Hiring terms → review exact terms and either sign an Engine-accepted offer or return
+without signing → direct return to fresh exact Gate/candidate truth or the neutral Lot. A market
+rotation that retains the same exact eligible candidate does not manufacture a disappearance.
+Complex salary, bonus, obligation, and runway comparison stays in Hiring;
 the world establishes the person and decision.
 
 It may not add market generation/rotation, offer or economy law, an arrival clock, authoritative

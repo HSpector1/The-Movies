@@ -136,9 +136,10 @@ Freeze the smallest supporting loop before implementation:
   role/availability plus the canonical Talent Profile over the live Lot;
 - **Open Hiring terms · <exact name>** revalidates latest identity and focuses one exact unique
   canonical Hiring card where salary, bonus, obligations, and runway remain fully legible;
-- the existing sign-or-leave decision remains App/Engine-owned; direct Back rebuilds fresh Gate and
-  candidate truth, while rotation, disappearance, signing, duplication, or studio replacement
-  returns neutrally without substitution; and
+- the existing exact-terms review remains HiringMarket/adapter/Core-owned; the player may sign an
+  Engine-accepted offer or return without signing, and direct Back rebuilds fresh Gate and
+  candidate truth while a rotation that removes the exact candidate, disappearance, signing,
+  duplication, or studio replacement returns neutrally without substitution; and
 - renderer failure, modal suspension, pointer/keyboard/AT, reduced motion, compact viewports, zoom,
   deterministic replay, and a measured bounded visitor presentation cost remain explicit.
 
