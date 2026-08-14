@@ -120,6 +120,17 @@ existing `.9` scale, and Extra multiplies it by the existing `.82` scale. A meas
 correction may move that common authored ratio only if one value is applied consistently and the
 whole-frame comparison records the reason.
 
+### Source-direction normalization ruling
+
+Source inspection found one bounded generation-direction defect before packing: the Camera
+operator sheet's otherwise accepted center profile faces screen-left. Its source manifest must
+therefore declare `mirrorSourceForEast: true`. The exporter first mirrors that isolated center
+source into the canonical East/right-facing authored frame, then derives West by mirroring the
+complete normalized East frame exactly as required above. No other role may use that exception in
+V1, and the transformation, source crop, original hash, and resulting frame identity remain part
+of deterministic evidence. This is source normalization, not a fourth authored view or a runtime
+direction exception.
+
 Direction selection uses the movement vector only:
 
 - zero vector keeps the supplied fallback direction;
