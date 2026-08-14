@@ -225,3 +225,41 @@ Owner rulings remain the authority when a summary here conflicts with them.
 - Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
   RESIDUALS REMAIN OPEN**. Every accepted residual remains open and no financing, bailout,
   restructuring, failure ladder, or arbitrary cash sink was introduced.
+
+## 2026-08-14 — World-first publicity campaign closes
+
+- Froze contract `f83f27f0d42b16ea177b35f1a39e23236faf6831` and delivered implementation
+  `f2f2e22fe292772ef8aba4f97f42ea38855cbf96` without changing core Engine, GameState,
+  SaveFileV11, publicity/economy tuning, production, facilities, construction, RNG, district
+  manifests, exporter, or art.
+- Made the canonical physical Administration & Publicity building and native semantic companion
+  enter one exact Whisper/Push/Blitz campaign context. Removed the globally exposed Lot shortcut;
+  Dashboard remains the explicit supporting details surface.
+- Reused the App-owned existing publicity action exactly once. Accepted action repaints exact cash,
+  Audience Awareness, ledger, selected/global cooldown clocks, and all-tier availability in the
+  same mounted Lot; stale, rapid, cross-tier, repeated-key, and receipt-mismatch paths fail closed.
+- Isolated the bounded photocall acknowledgement from Stage 7 graphics and hardened renderer
+  rejection, malformed identity, delayed import, hidden tab, reduced motion, modal suspension,
+  context loss, recreation, and failures during Phaser loading/creation.
+- Proved the exact Week-30 native SaveFileV11 Whisper successor at `$9,960,898.29` cash,
+  `37.65280611873517` Awareness, one `-1,200,000` `publicity: whisper` ledger row with no
+  `productionId`, and exact Week-30 clocks; independent Push/Blitz successors and Dashboard parity
+  are automated from identical prestates.
+- Kept the runtime/source manifest divergence and all frozen art hashes unchanged. The accepted
+  scenery fixture remains byte-identical at
+  `7534518e4db3970bb4ca988b0b0fa78975f5053ee67fd42377f69b80ebe711dc`.
+- Closed with 168/168 repository files and 2,171/2,171 tests, 176/176 governed D-16/D-17 tests,
+  131/131 affected lifecycle tests, focused publicity Chromium 5 passed/1 explicit GPU skip, full
+  Lot Chromium 20/20, a 136-module build, clean TypeScript/provenance/diff gates, and independent
+  strict review with no remaining P1–P3.
+- Recorded performance honestly: the accelerated fresh 240-frame 1920×1080 window passed at
+  179 average FPS, 145 FPS 1%-low, 6.9 ms p99, and 11.3 ms worst with exact 34 objects, 15 actors,
+  11,096,896 decoded bytes, and one draw. Default headless absolute evidence remains an explicit
+  compositor-sensitive skip; frozen thresholds were not relaxed.
+- Completed a fresh post-publicity critical-experience audit. Physical Stage 12 remains the largest
+  parallel-production gap but is blocked by its recorded art no-go. Promoted World-First
+  Operational Annex Work Presence V1: exact idle/occupied slot truth, occupant inspection, and a
+  targeted deep-owner return; a decorative status label alone must fail.
+- Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
+  RESIDUALS REMAIN OPEN**. Every accepted residual remains open and no financing, bailout,
+  restructuring, failure ladder, or arbitrary cash sink was introduced.

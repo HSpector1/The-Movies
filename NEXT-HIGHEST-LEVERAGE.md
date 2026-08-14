@@ -78,21 +78,48 @@ facility, economy, RNG, ledger, Role Atlas, autonomy, or pathfinding law changed
 167/167 repository files and 2,095/2,095 tests, D-16/D-17 176/176, full Chromium 117/117, a
 135-module build, and clean review.
 
-## Immediate priority — post-inspector critical-experience audit
+## Closed — World-First Publicity Campaign V1
 
-Replay the several-minutes-on-Lot test against the retained game before naming another slice:
+Contract `f83f27f` and implementation `f2f2e22` close the exact physical Administration campaign
+loop. Canonical world/semantic entry exposes all three current Engine offers; one App-owned action
+repaints exact cash, Awareness, ledger, and cooldown truth in the same mounted Lot; a bounded
+photocall cue cannot erase Stage 7; and Dashboard details return to fresh Administration context.
 
-- select a real production and inspect its physical stage;
-- click its real blockage, dispatch the exact named Director, and observe travel;
-- clear scenery and schedule the take without leaving the Lot;
-- inspect the Director and Lead, including the canonical modal profile handoff;
-- inspect or initiate Annex construction and advance the authoritative week; and
-- attempt to follow a second production, facility bottleneck, or human story from the world.
+Stale offers, rapid/cross-tier input, receipt mismatch, renderer/manifest failure, context loss,
+recreation, modal suspension, and reduced motion fail closed without adding a facility, queue,
+worker, film-specific campaign, core/save/tuning law, manifest mutation, art, or second draw. Final
+proof passed 168/168 files and 2,171/2,171 tests, D-16/D-17 176/176, publicity Chromium 5 passed/1
+explicit GPU skip, full Lot Chromium 20/20, a 136-module build, and clean independent review.
 
-Record the first meaningful continuity break and promote only its smallest authoritative repair.
-Candidate observations remain persistent Lot mounting/context, visible facility occupancy/queues,
-parallel-production legibility, or a separately authorized human workload/story system. No
-candidate is preselected by inspector closure.
+## Promoted — World-First Operational Annex Work Presence V1
+
+The post-publicity critical-experience audit found that the physical Annex stops at
+`OPERATIONAL / +1 capacity` even when its exact one slot is doing real studio work. Existing
+Engine/Calendar truth already identifies the slot as idle or occupied and, when occupied, supplies
+its exact owner kind, owner ID, title, and current activity. Construction tests prove both a truly
+idle completed Annex and later ordinary script/production allocation into that exact facility.
+
+Freeze the smallest truthful repair before implementation:
+
+- project only the exact Annex slot leaf into the Lot snapshot;
+- make the existing physical Annex read **AVAILABLE** or **WORKING**;
+- selecting it must show exact `0/1` or `1/1`, owner kind, title, and activity in world;
+- a production may read **held** only when its existing workflow proves that state;
+- provide an exact owner-ID supporting handoff to Writers Room, Casting Room, or focused Production
+  Board, with direct return to fresh Annex context; and
+- correct the presentation mapping where an operation reserved in the exact Annex currently points
+  to Writers/Casting instead of the physical `expansion` place.
+
+A status glow or label alone is display-only and must be killed. No facility-choice command exists,
+so V1 must not invent assignment, relocation, freeing, rerouting, cancellation, or queue control.
+There is no authoritative queue position, waiter, ETA, named worker travel, workload, stress, or
+facility-blocked state. `reserved` and `occupied` describe the same current slot claim; do not imply
+a future reservation system.
+
+Physical Stage 12 remains the largest parallel-production visibility gap but is unavailable under
+its recorded art no-go. Exact selected-production deep handoff is a useful lower-ranked supporting
+repair, but it adds another Dashboard visit without first making an existing physical workplace
+more alive.
 
 ## Closed parallel evidence lane
 
@@ -117,10 +144,11 @@ construction, or operating costs materially change the decision boundary.
 - financing, loans, bailouts, restructuring, hard bankruptcy, or a failure ladder; or
 - revival of rejected 05H/05I character production.
 
-## After the audit
+## Contract boundary
 
-Freeze the observed authority boundary before implementation. Choose from play evidence, not menu
-completeness, and preserve every prohibition above.
+Freeze the exact selector, hostile-state, deep-return, failure, viewport, and performance boundary
+before implementation. Existing core/Calendar state is read-only authority; no new core mechanic,
+save field, facility, art, place, action, clock, worker model, or pathfinding result is authorized.
 
 The governing economic classification remains exactly:
 

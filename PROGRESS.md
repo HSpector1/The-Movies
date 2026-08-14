@@ -22,19 +22,23 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   Engine week now advances from the lot, repaints the same world, and returns there after releases.
 - **World-First Annex Construction Interaction V1:** CLOSED at `933d074`;
   the physical parcel is now an exact inspect/build/progress interaction on the same live lot.
-- **World-First Scenery Load-In V1:** CLOSED by this documentation checkpoint; the physical
+- **World-First Scenery Load-In V1:** CLOSED at `ae64b41`; the physical
   Scenery & Service yard now owns an exact same-lot blocked → ready → scheduled interaction while
   the Engine remains the sole task authority.
 - **World-First Studio Home V1:** CLOSED at `5a20a24` under contract `8d5f8dd` and implementation
   `0c4bd9d`; founded, recovered, and loaded operating studios enter the adopted Hollywood Lot by
   default while Dashboard remains an explicit supporting root.
-- **World-First Named Person Work & Career Inspector V1:** CLOSED by this documentation checkpoint
-  under corrected contract `c5c1679` and implementation `04f7d9d`; an exact visible Director or
+- **World-First Named Person Work & Career Inspector V1:** CLOSED at `ce96ddf` under corrected
+  contract `c5c1679` and implementation `04f7d9d`; an exact visible Director or
   Lead now exposes truthful work, assignment, and career context in the Lot and opens the canonical
   profile over the same mounted living world.
-- **Immediate next evidence step:** replay the Owner's several-minutes-on-Lot experience against the
-  retained inspector and promote only the observed highest-leverage break. No persistent-shell,
-  queue, parallel-production, or new human-story milestone is pre-authorized by this close.
+- **World-First Publicity Campaign V1:** CLOSED by this documentation checkpoint under contract
+  `f83f27f` and implementation `f2f2e22`; physical Administration & Publicity now owns the exact
+  three-tier action, same-Lot successor truth, bounded photocall acknowledgement, and explicit
+  Dashboard-details return.
+- **Next promoted slice:** World-First Operational Annex Work Presence V1. Freeze exact idle/occupied
+  slot truth, owner/title/activity inspection, targeted deep-owner return, and the Annex location
+  correction before implementation. Do not invent queue, worker, reroute, or new facility law.
 
 ## Closed marathon milestones
 
@@ -54,9 +58,10 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Soundstage Intervention V1 | `001c692` | `c48f8ac` | `6419452` |
 | World-First Live Week Advance V1 | `3391528` | `621e7e1` | `a9be116` |
 | World-First Annex Construction Interaction V1 | `6cab9c9` | `7a370fd` | `933d074` |
-| World-First Scenery Load-In V1 | `b03bb10` | `3a667e0` | this documentation checkpoint |
+| World-First Scenery Load-In V1 | `b03bb10` | `3a667e0` | `ae64b41` |
 | World-First Studio Home V1 | `8d5f8dd` | `0c4bd9d` | `5a20a24` |
-| World-First Named Person Work & Career Inspector V1 | `c5c1679` (`9bd075b` initial freeze) | `04f7d9d` | this documentation checkpoint |
+| World-First Named Person Work & Career Inspector V1 | `c5c1679` (`9bd075b` initial freeze) | `04f7d9d` | `ce96ddf` |
+| World-First Publicity Campaign V1 | `f83f27f` | `f2f2e22` | this documentation checkpoint |
 
 ## Product result so far
 
@@ -78,13 +83,20 @@ The canonical Talent Profile opens modally without unmounting, pausing, or repla
 world input is suspended while the renderer remains alive, and closure returns to the exact visible
 person or a stable Lot fallback when identity changes.
 
+Publicity now begins in the physical world. Administration & Publicity exposes the exact Whisper,
+Push, and Blitz offers, dispatches one existing Engine action, and repaints authoritative cash,
+Audience Awareness, ledger, and cooldown truth without leaving the mounted Lot. The bounded
+photocall cue cannot erase Stage 7 production truth. Dashboard remains one explicit details handoff
+and returns to fresh Administration context rather than becoming the primary purchase path.
+
 Deep non-modal screens still unmount and later remount the Lot. Studio Home persists bounded
 selected-building/focus context and authoritative GameState; it does not preserve the same Phaser
 instance, camera, selected person, or other transient world presentation through those routes.
-Inspector closure proof passed 167/167 repository files and 2,095/2,095 tests, the governed
-D-16/D-17 10/10 files and 176/176 tests, the complete Chromium suite at 117/117, a 135-module
-production build, clean TypeScript/diff gates, and clean independent final review. The next
-priority must come from a fresh several-minutes-on-Lot observation, not feature-list completion.
+Publicity closure proof passed 168/168 repository files and 2,171/2,171 tests, the governed
+D-16/D-17 10/10 files and 176/176 tests, focused publicity Chromium at 5 passed/1 explicit GPU skip,
+the full Lot Chromium suite at 20/20, a 136-module production build, clean TypeScript/provenance/diff
+gates, and clean independent final review. The completed several-minutes-on-Lot audit—not
+feature-list completion—promotes exact Operational Annex Work Presence as the next bounded slice.
 
 ## Governing status
 
@@ -92,7 +104,7 @@ priority must come from a fresh several-minutes-on-Lot observation, not feature-
 
 Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
 dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
-and formal G12 timing remain open. Named Person Inspector V1 certifies no macroeconomic balance and
+and formal G12 timing remain open. Publicity Campaign V1 certifies no macroeconomic balance and
 authorizes no financing, bailout, restructuring, failure ladder, or arbitrary cash sink.
 
 No merge to main, push, or milestone tag is authorized by autonomous progress alone.

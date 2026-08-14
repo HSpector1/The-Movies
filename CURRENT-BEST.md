@@ -4,7 +4,7 @@ Updated: 2026-08-14
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current implementation HEAD: `04f7d9da01a1f609b54430c4a0265d7cdd637b4a`
+Current implementation HEAD: `f2f2e22fe292772ef8aba4f97f42ea38855cbf96`
 
 ## Product doctrine — World First
 
@@ -21,17 +21,19 @@ WORLD → INSPECT / ACT → DEEP PANEL IF NEEDED → RETURN TO THE SAME LIVE WOR
 ```
 
 “Same live world” means the same authoritative studio and explicit Lot root, not permanent renderer
-object identity. Studio Home V1 still unmounts the Lot for deep screens and remounts one Phaser view
-on return. Only bounded selected-building/focus context and current authoritative state persist;
-camera, selected person, production/place context, and presentation animation do not.
+object identity. Studio Home V1 still unmounts the Lot for non-modal deep screens and remounts one
+Phaser view on return. Bounded selected-building/focus context, the explicit Publicity Campaign
+handoff, and current authoritative state persist; camera, selected person, general production/place
+context, and presentation animation do not.
 
 Dashboard, Assembly, Production Board, Calendar, Roster, Hiring, Finance, Film Autopsy, Chronicle,
 Writers Room, Casting Room, and Studio Development remain valuable. Do not delete or trivialize
 them. They are deep management surfaces for information and decisions too complex to express
 spatially. They support the world; they do not replace it. Where technically appropriate, the
 studio may remain alive behind or around them. In the current architecture, closing a deep screen
-returns to the same authoritative Lot root with bounded selected-building/focus restoration, not the
-same Phaser instance, camera, or selected person.
+returns to the same authoritative Lot root with bounded context restoration, not the same Phaser
+instance, camera, or selected person. Publicity Campaign V1 proves one narrow exact contextual
+handoff; it is not a general persistent-shell claim.
 
 ### Critical experience test
 
@@ -111,35 +113,53 @@ whether the game remains playable.
 - World-First Named Person Work & Career Inspector V1 makes an exact visible Director or Lead a
   truthful world inhabitant: Lot selection exposes existing work, production, assignment, and
   career identity, then opens the one canonical Talent Profile over the same mounted live renderer.
+- World-First Publicity Campaign V1 makes the physical Administration & Publicity building the
+  primary exact three-tier campaign surface: one purchase repaints cash, Awareness, ledger, and
+  cooldown truth in the same mounted Lot, with Dashboard retained as a bounded details handoff.
 
 ## Current world-first checkpoint
 
-World-First Named Person Work & Career Inspector V1 is closed by this documentation checkpoint at
-implementation authority `04f7d9d` under corrected contract `c5c1679` (initial freeze `9bd075b`):
+World-First Publicity Campaign V1 is closed at implementation authority `f2f2e22` under frozen
+contract `f83f27f`:
+
+- exact `publicityDecision` offers project through a pure hostile-state validator with no UI-owned
+  price, lift, cooldown, affordability, recommendation, or action law;
+- the canonical physical Administration & Publicity place and native semantic companion enter one
+  exact Whisper/Push/Blitz context while unrelated world selections clear it;
+- one App-owned action accepts a selected tier exactly once and returns only a validated tier/week
+  receipt; fresh GameState repaints cash, Awareness, the ledger row, and all-tier cooldown truth in
+  the same mounted Lot;
+- one bounded photocall cue acknowledges accepted truth without borrowing or erasing Stage 7
+  graphics, and reduced motion/reload/rejection never fabricate ceremony;
+- an explicit Dashboard-details handoff returns to fresh Administration context without replaying
+  the Lot result, while ordinary Dashboard and cross-studio navigation remain unchanged;
+- stale offers, rapid pointer/keyboard input, receipt mismatch, renderer/manifest failure, context
+  loss during loading/create, recreation, hidden tabs, modal input, and semantic fallback all fail
+  closed; and
+- final proof passed 168/168 repository files and 2,171/2,171 tests, governed D-16/D-17 176/176,
+  focused publicity Chromium 5 passed/1 explicit GPU skip, full Lot Chromium 20/20, a 136-module
+  build, exact provenance gates, and independent review with no P1–P3 findings.
+
+No core Engine, GameState, SaveFileV11, schema, migration, economy/publicity tuning, production,
+career, facility, construction, RNG, manifest, art, or pathfinding authority changed.
+
+## Prior world-first checkpoint — Named Person Inspector V1
+
+World-First Named Person Work & Career Inspector V1 is closed at implementation authority
+`04f7d9d` under corrected contract `c5c1679` (initial freeze `9bd075b`):
 
 - one snapshot-only selector accepts only unique, internally consistent managed/Engine or
   legacy/presentation person-to-operation joins and fails contradictory identity/provenance closed;
-- exact operation membership, never Talent primary discipline, owns `Director` or `Lead actor` on
-  the picture, so legal cross-discipline work remains truthful;
-- a separate whole-studio assignment gate withholds assignment, career, and profile handoff on
-  duplicate or ambiguous production/script use instead of leaking last-write-wins copy;
-- the world inspector exposes only existing role, picture, phase, facilities/workplace boundary,
-  status, countdown, Director task where applicable, assignment, and career identity facts;
-- the canonical Talent Profile is a modal sibling over the same mounted Lot/canvas. Renderer
-  animation remains live while Phaser and semantic world input are inert, including delayed-ready,
-  hidden-tab, reduced-motion, and recreation paths;
-- disappearance, changed name, duplicate identity, lost operation membership, ambiguous
-  assignment, or missing profile closes the raw open ID once, prevents automatic reopening, and
-  restores focus to the named-people group or Lot heading;
-- renderer rejection retains the complete semantic person/profile route; accepted commands retain
-  exact Engine ownership and Lead final-command focus returns to the stable person inspector; and
-- final proof passed 167/167 repository files and 2,095/2,095 tests, governed D-16/D-17 10/10 files
-  and 176/176 tests, full Chromium 117/117, a 135-module production build, clean TypeScript/diff
-  gates, and independent review with no P1–P3 findings.
+- exact operation membership owns Director/Lead work while a whole-studio ambiguity gate protects
+  assignment, career, and profile copy;
+- the world inspector exposes existing role, picture, phase, facility/workplace boundary, status,
+  countdown, assignment, and career identity facts; and
+- the canonical Talent Profile opens modally over the same mounted live renderer with world input
+  suspended and complete identity-loss/focus/failure handling.
 
-No core Engine, GameState, SaveFileV11, schema, migration, production law, career progression,
-facility, construction, economy, publicity, RNG, ledger, Role Atlas asset, or pathfinding authority
-changed.
+Its closure passed 167/167 repository files and 2,095/2,095 tests, D-16/D-17 176/176, full Chromium
+117/117, a 135-module build, and clean independent review without changing production, career,
+people, save, economy, asset, or pathfinding authority.
 
 ## Prior world-first checkpoint — Studio Home V1
 
@@ -217,6 +237,8 @@ production and integration remain unauthorized.
 - World-First Studio Home V1 implementation: `0c4bd9dade7ef866900dfd7d4557cb18fb69653f`
 - Named Person Inspector V1 corrected contract: `c5c1679a1eee3ff82655ac59c80af54c8c6f52e0`
 - Named Person Inspector V1 implementation: `04f7d9da01a1f609b54430c4a0265d7cdd637b4a`
+- World-First Publicity Campaign V1 contract: `f83f27f0d42b16ea177b35f1a39e23236faf6831`
+- World-First Publicity Campaign V1 implementation: `f2f2e22fe292772ef8aba4f97f42ea38855cbf96`
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -227,13 +249,14 @@ or arbitrary cash sink is authorized.
 
 ## Current highest-leverage evidence step
 
-Re-run the Owner's several-minutes-on-Lot experience now that an exact named inhabitant's work and
-career can be understood without leaving the world. Observe which continuity break most reduces
-meaningful Lot play: deep-panel remount/context, facility occupancy and queues, parallel-production
-legibility, or an independently authoritative workload/human-story system. Freeze only the smallest
-observed repair; this checkpoint does not pre-authorize any one candidate.
+The post-publicity several-minutes-on-Lot audit promotes **World-First Operational Annex Work
+Presence V1** for contract freeze. The existing physical Annex becomes Available or Working from
+the exact Engine/Calendar one-slot occupant, with exact owner/title/activity inspection and a
+targeted supporting deep handoff/return. A status label alone is insufficient.
 
-Do not invent worker autonomy, needs, relationships, stress/fatigue, pathfinding authority, new
-career progression, UI-authored work state, or a second people model. Week-208 research remains
-closed with no current repair justified; the underlying roster-wall residual and every other
-accepted D-17B residual remain open.
+This slice may correct the current presentation mapping that sends an Annex-reserved production to
+Writers/Casting instead of the physical Annex. It may not invent queue position, worker assignment,
+rerouting, relocation, destination/ETA, workload, facility blocking, new art, a second Annex, or a
+new core/save/facility law. Physical Stage 12 remains blocked by its recorded art no-go. Week-208
+research remains closed with no current repair justified; every accepted D-17B residual remains
+open.
