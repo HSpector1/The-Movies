@@ -5525,6 +5525,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
       prestige: standing.industryPrestige,
       confidence: standing.commercialConfidence,
     },
+    publicityOffers: publicityDecision(state),
     activeProductions,
     releasedFilms,
     releasePresence,

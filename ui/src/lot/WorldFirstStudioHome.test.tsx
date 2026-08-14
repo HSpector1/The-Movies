@@ -25,7 +25,7 @@ import { foundedRosterIds, newFoundedGame } from '../test/founding.ts'
 const navigationProbe = vi.hoisted(() => ({
   dashboardRenders: 0,
   lotEntries: [] as Array<{
-    focus: 'studio-home' | 'selected-building' | 'advance-week' | undefined
+    focus: 'studio-home' | 'selected-building' | 'advance-week' | 'publicity-campaign' | undefined
     week: number
   }>,
 }))
@@ -46,9 +46,24 @@ vi.mock('./StudioLotScreen.tsx', () => ({
         data-testid="studio-home-probe"
         data-entry-focus={props.entryFocus}
         data-week={props.state.market.tick}
+        data-publicity-last-used={props.state.publicity.lastUsedWeek ?? 'none'}
       >
         <button type="button" onClick={props.onExit} data-testid="lot-open-dashboard-probe">
           Open Dashboard
+        </button>
+        <button
+          type="button"
+          onClick={props.onOpenPublicityDashboard}
+          data-testid="lot-open-publicity-dashboard-probe"
+        >
+          Open Publicity Dashboard details
+        </button>
+        <button
+          type="button"
+          onClick={() => props.onRunPublicity?.('whisper')}
+          data-testid="lot-run-publicity-probe"
+        >
+          Run Publicity
         </button>
         <button
           type="button"
@@ -115,7 +130,7 @@ function restoreFoundedStudio(seed: string) {
 }
 
 async function expectLotFocus(
-  focus: 'studio-home' | 'selected-building' | 'advance-week',
+  focus: 'studio-home' | 'selected-building' | 'advance-week' | 'publicity-campaign',
 ) {
   const lot = await screen.findByTestId('studio-home-probe')
   expect(lot).toHaveAttribute('data-entry-focus', focus)
@@ -285,6 +300,52 @@ describe('Studio Home V1 — App world-root navigation', () => {
     fireEvent.click(back)
 
     await expectLotFocus('studio-home')
+  })
+
+  it('owns one exact Lot publicity successor and exposes only the accepted tier/week receipt boundary', async () => {
+    const initial = restoreFoundedStudio('studio-home-publicity-owner')
+    const cashBefore = initial.studio.cash
+    await expectLotFocus('studio-home')
+
+    fireEvent.click(screen.getByTestId('lot-run-publicity-probe'))
+
+    const lot = await screen.findByTestId('studio-home-probe')
+    await waitFor(() => expect(lot).toHaveAttribute(
+      'data-publicity-last-used',
+      String(initial.market.tick),
+    ))
+    const restored = loadActiveSession()
+    expect(restored.ok).toBe(true)
+    if (!restored.ok) throw new Error('expected accepted publicity autosave')
+    expect(restored.state.studio.cash).toBeLessThan(cashBefore)
+    expect(restored.state.publicity.lastUsedWeek).toBe(initial.market.tick)
+    expect(restored.state.publicity.byTier.whisper).toBe(initial.market.tick)
+    expect(restored.state.ledger.at(-1)).toMatchObject({
+      week: initial.market.tick,
+      kind: 'publicity',
+      note: 'publicity: whisper',
+    })
+    expect(restored.state.ledger.at(-1)).not.toHaveProperty('productionId')
+  })
+
+  it('returns explicit Publicity Dashboard details to fresh campaign context and demotes unrelated deep navigation', async () => {
+    const initial = restoreFoundedStudio('studio-home-publicity-dashboard-return')
+    await expectLotFocus('studio-home')
+
+    fireEvent.click(screen.getByTestId('lot-open-publicity-dashboard-probe'))
+    const push = await screen.findByTestId('buy-publicity-push')
+    expect(push).toBeEnabled()
+    fireEvent.click(push)
+    await waitFor(() => expect(push).toBeDisabled())
+    fireEvent.click(screen.getByTestId('back-to-studio-lot'))
+
+    const returned = await expectLotFocus('publicity-campaign')
+    expect(returned).toHaveAttribute('data-publicity-last-used', String(initial.market.tick))
+
+    fireEvent.click(screen.getByTestId('lot-open-publicity-dashboard-probe'))
+    fireEvent.click(await screen.findByTestId('open-roster'))
+    fireEvent.click(await screen.findByTestId('roster-back'))
+    await expectLotFocus('selected-building')
   })
 
   it('keeps exact save/RNG/ledger bytes and adds no autosave write across pure root navigation', async () => {

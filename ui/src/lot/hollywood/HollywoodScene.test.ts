@@ -14,6 +14,7 @@ const fakePhaser = vi.hoisted(() => {
     destroyed = false
     visible = true
     fillColor = 0
+    alpha = 1
     interactive = false
     handlers = new Map<string, Array<(...args: unknown[]) => void>>()
 
@@ -47,7 +48,7 @@ const fakePhaser = vi.hoisted(() => {
     setPosition(x: number, y: number) { this.x = x; this.y = y; return this }
     setFlipX(flip = true) { this.flipX = flip; return this }
     setScale(scale: number) { this.scale = scale; return this }
-    setAlpha() { return this }
+    setAlpha(alpha: number) { this.alpha = alpha; return this }
     setText(text: string) { this.text = text; return this }
     setFillStyle(color: number) { this.fillColor = color; return this }
     setStrokeStyle() { return this }
@@ -99,9 +100,19 @@ const fakePhaser = vi.hoisted(() => {
     imageLoads: Array<{ key: string; url: string }> = []
     textureSizes = new Map<string, { width: number; height: number; generated: boolean }>()
     tweenAdds: unknown[] = []
+    killedTweenTargets: unknown[] = []
+    loaderHandlers = new Map<string, Array<(file: { key?: unknown }) => void>>()
+    cacheJson = new Map<string, unknown>()
     children = { length: 0 }
     game = { canvas, loop: { rawDelta: 0, actualFps: 60 } }
-    scene = { isActive: () => true }
+    sceneVisible = true
+    sceneActive = true
+    scenePauses = 0
+    scene = {
+      isActive: () => this.sceneActive,
+      setVisible: (visible: boolean) => { this.sceneVisible = visible },
+      pause: () => { this.scenePauses++ },
+    }
     input = {
       enabled: true,
       resetPointers: vi.fn(),
@@ -111,11 +122,24 @@ const fakePhaser = vi.hoisted(() => {
       },
     }
     load = {
+      on: (name: string, handler: (file: { key?: unknown }) => void) => {
+        const handlers = this.loaderHandlers.get(name) ?? []
+        handlers.push(handler)
+        this.loaderHandlers.set(name, handlers)
+      },
+      emit: (name: string, file: { key?: unknown }) => {
+        for (const handler of this.loaderHandlers.get(name) ?? []) handler(file)
+      },
       json: () => {},
       spritesheet: () => {},
       image: (key: string, url: string) => {
         this.imageLoads.push({ key, url })
         this.textureSizes.set(key, { width: 0, height: 0, generated: false })
+      },
+    }
+    cache = {
+      json: {
+        get: (key: string) => this.cacheJson.get(key),
       },
     }
     textures = {
@@ -169,6 +193,9 @@ const fakePhaser = vi.hoisted(() => {
         this.tweenAdds.push(config)
         return new Tween()
       },
+      killTweensOf: (target: unknown) => {
+        this.killedTweenTargets.push(target)
+      },
     }
     cameras = {
       main: {
@@ -186,6 +213,7 @@ const fakePhaser = vi.hoisted(() => {
 vi.mock('phaser', () => ({
   default: {
     Scene: fakePhaser.Scene,
+    Loader: { Events: { FILE_LOAD_ERROR: 'loaderror' } },
     Math: {
       Linear: (a: number, b: number, t: number) => a + (b - a) * t,
       Clamp: (value: number, min: number, max: number) => globalThis.Math.max(min, globalThis.Math.min(max, value)),
@@ -336,6 +364,7 @@ function snapshot(
     cashBand: 'stable',
     standing: 'finding-footing',
     standingValues: { awareness: 20, prestige: 20, confidence: 20 },
+    publicityOffers: [],
     activeProductions: [],
     releasedFilms: [],
     releasePresence: 'none',
@@ -359,7 +388,9 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   }>
   route: Array<{ x: number; y: number; actorDepth: number; cue: string }>
   manifest: {
+    schemaVersion: number
     districtId: string
+    canvas: { width: number; height: number }
     textureMemoryBytes: number
     layers: Array<{
       id: string
@@ -371,10 +402,18 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
       width: number
       height: number
     }>
-    activities: Array<{ id: string; place: string; visualStates: string[] }>
+    routes: Record<string, Array<{ x: number; y: number; actorDepth: number; cue: string }>>
+    activities: Array<{
+      id: string
+      label: string
+      place: string
+      requiredAffordances: string[]
+      requiredRoles: string[]
+      visualStates: string[]
+    }>
     places: Array<{
       id: string
-      buildingId: 'stage-a' | 'stage-b' | 'post' | 'expansion'
+      buildingId: 'admin' | 'stage-a' | 'stage-b' | 'post' | 'expansion'
       label: string
       affordances: string[]
       anchors: Record<string, [number, number]>
@@ -394,6 +433,9 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   stageLamp: InstanceType<typeof fakePhaser.DisplayObject> | null
   activityGraphics: InstanceType<typeof fakePhaser.Graphics> | null
   sceneryGraphics: InstanceType<typeof fakePhaser.Graphics> | null
+  selectionGraphics: InstanceType<typeof fakePhaser.Graphics> | null
+  sceneActive: boolean
+  scenePauses: number
   fitZoom: number
   expansionGraphics: InstanceType<typeof fakePhaser.Graphics> | null
   expansionLabel: InstanceType<typeof fakePhaser.DisplayObject> | null
@@ -423,6 +465,10 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   }, emitSelection?: boolean) => boolean
   selectSceneryLoadInSurface: (place: SceneHarness['manifest']['places'][number], emitSelection?: boolean) => boolean
   selectServiceYardSurface: (place: SceneHarness['manifest']['places'][number]) => void
+  selectPublicitySurface: (
+    place: SceneHarness['manifest']['places'][number],
+    emitSelection?: boolean,
+  ) => boolean
 }
 
 function harness(initial: StudioLotSnapshot, reducedMotion = false) {
@@ -431,10 +477,25 @@ function harness(initial: StudioLotSnapshot, reducedMotion = false) {
   scene.init({ snapshot: initial, reducedMotion, onEvent: (event) => events.push(event) })
   const internals = scene as unknown as SceneHarness
   internals.manifest = {
+    schemaVersion: 1,
     districtId: 'district',
+    canvas: { width: 1586, height: 992 },
     textureMemoryBytes: 0,
     layers: [],
-    activities: [{ id: 'shooting', place: 'stage-7', visualStates: ['crew-call', 'equipment-staged', 'take-in-progress'] }],
+    routes: {
+      'street-to-stage-7': [
+        { x: 10, y: 20, actorDepth: 30, cue: 'street' },
+        { x: 70, y: 80, actorDepth: 82, cue: 'enter-stage' },
+      ],
+    },
+    activities: [{
+      id: 'shooting',
+      label: 'Stage 7 shooting',
+      place: 'stage-7',
+      requiredAffordances: ['enter-stage', 'shoot'],
+      requiredRoles: ['director', 'talent', 'grip', 'camera-operator'],
+      visualStates: ['crew-call', 'equipment-staged', 'take-in-progress'],
+    }],
     places: [{
       id: 'stage-7',
       buildingId: 'stage-a',
@@ -484,6 +545,38 @@ function serviceYardPlace(): SceneHarness['manifest']['places'][number] {
       loadIn: [390, 584],
     },
     selectionPolygon: [[12, 350], [300, 350], [430, 520], [400, 700], [40, 720]],
+  }
+}
+
+function publicityPlace(): SceneHarness['manifest']['places'][number] {
+  return {
+    id: 'publicity',
+    buildingId: 'admin',
+    label: 'Administration & Publicity',
+    affordances: ['work', 'meeting', 'publicity'],
+    anchors: {
+      entry: [1338, 421],
+      photocall: [1120, 481],
+      queue: [930, 338],
+    },
+    selectionPolygon: [
+      [946, 174],
+      [1586, 122],
+      [1586, 510],
+      [1050, 500],
+      [920, 360],
+    ],
+  }
+}
+
+function publicityActivity(): SceneHarness['manifest']['activities'][number] {
+  return {
+    id: 'publicity',
+    label: 'Publicity call',
+    place: 'publicity',
+    requiredAffordances: ['publicity'],
+    requiredRoles: ['talent', 'publicist', 'photographer'],
+    visualStates: ['queue-forming', 'flash', 'press-moving'],
   }
 }
 
@@ -539,6 +632,105 @@ describe('HollywoodScene snapshot authority', () => {
   function sceneryEvents(events: HollywoodEvent[]) {
     return events.filter((event) => event.type === 'scenery-load-in')
   }
+
+  it('reports an exact manifest load failure once and ignores optional asset failures', () => {
+    const { scene, internals, events } = harness(snapshot([]))
+    // Real Phaser is LOADING here, not active. The queued pause must still be issued.
+    internals.sceneActive = false
+    scene.preload()
+
+    internals.load.emit('loaderror', { key: 'hollywood-role-atlas-manifest-v1' })
+    expect(events).toEqual([])
+
+    internals.load.emit('loaderror', { key: 'hollywood-manifest' })
+    internals.load.emit('loaderror', { key: 'hollywood-manifest' })
+    scene.create()
+
+    expect(events).toEqual([{
+      type: 'failure',
+      reason: 'manifest-load-failed',
+    }])
+    expect(internals.graphicsObjects).toHaveLength(0)
+    expect(internals.input.enabled).toBe(false)
+    expect(internals.sceneVisible).toBe(false)
+    expect(internals.scenePauses).toBe(2)
+  })
+
+  it('reports a loaded but structurally invalid manifest without entering scene setup', () => {
+    const { scene, internals, events } = harness(snapshot([]))
+    internals.cacheJson.set('hollywood-manifest', {
+      schemaVersion: 1,
+      districtId: 'broken-district',
+      places: [],
+    })
+
+    scene.create()
+
+    expect(events).toEqual([{
+      type: 'failure',
+      reason: 'manifest-invalid',
+    }])
+    expect(internals.graphicsObjects).toHaveLength(0)
+    expect(internals.sceneVisible).toBe(false)
+    expect(internals.scenePauses).toBe(1)
+  })
+
+  it('converts an exception during post-load scene creation into one bounded failure', () => {
+    const { scene, internals, events } = harness(snapshot([]))
+    internals.cacheJson.set('hollywood-manifest', internals.manifest)
+    vi.spyOn(internals, 'buildActorTextures').mockImplementation(() => {
+      throw new Error('forced post-load scene creation failure')
+    })
+
+    scene.create()
+    scene.create()
+
+    expect(events).toEqual([{
+      type: 'failure',
+      reason: 'scene-create-failed',
+    }])
+    expect(internals.graphicsObjects).toHaveLength(0)
+    expect(internals.sceneVisible).toBe(false)
+    expect(internals.scenePauses).toBe(1)
+  })
+
+  it('fails a live context-lost generation closed before it can repaint stale publicity', () => {
+    const { scene, internals, events } = harness(snapshot([]))
+    internals.manifest.places.push(publicityPlace())
+    internals.manifest.activities.push(publicityActivity())
+    internals.selectionGraphics = new fakePhaser.Graphics()
+    internals.flash = new fakePhaser.DisplayObject()
+    internals.flash.setAlpha(0.72)
+    expect(scene.selectPublicityFromHost()).toBe(true)
+
+    scene.failClosedFromHost()
+    scene.failClosedFromHost()
+
+    expect(events).toEqual([])
+    expect(internals.input.enabled).toBe(false)
+    expect(internals.input.keyboard.enabled).toBe(false)
+    expect(internals.flash.alpha).toBe(0)
+    expect(internals.selectionGraphics.calls.at(-1)).toEqual({ name: 'clear', args: [] })
+    expect(scene.debugState().selectedPlaceId).toBeNull()
+    expect(internals.sceneVisible).toBe(false)
+    expect(internals.scenePauses).toBe(1)
+  })
+
+  it('retries the pause when a host failure lands after registration but before create', () => {
+    const { scene, internals, events } = harness(snapshot([]))
+    // Context loss may arrive from the View while Phaser still considers this
+    // registered generation LOADING, where its first queued pause is rejected.
+    internals.sceneActive = false
+
+    scene.failClosedFromHost()
+    scene.create()
+
+    expect(events).toEqual([])
+    expect(internals.graphicsObjects).toHaveLength(0)
+    expect(internals.input.enabled).toBe(false)
+    expect(internals.sceneVisible).toBe(false)
+    expect(internals.scenePauses).toBe(2)
+  })
 
   it('suspends world controls without stopping ambience and clears pointer/key/drag state on both edges', () => {
     const { scene, internals, events } = harness(snapshot([director()], [operation()]))
@@ -607,6 +799,191 @@ describe('HollywoodScene snapshot authority', () => {
       if (event.type !== 'production') throw new Error('expected production event')
       expect(Object.keys(event.production).sort()).toEqual(['locationBuildingId', 'productionId'])
     }
+  })
+
+  it('routes the exact publicity polygon and host companion through one identity-only seam', () => {
+    const { scene, internals, events } = harness(snapshot([]))
+    const publicity = publicityPlace()
+    internals.manifest.places.push(publicity)
+    internals.manifest.activities.push(publicityActivity())
+    const shared = vi.spyOn(internals, 'selectPublicitySurface')
+    internals.buildWorld()
+    internals.buildSemanticHotspots()
+
+    expect(internals.flash).toMatchObject({ x: 1120, y: 481 })
+    expect(internals.zones).toHaveLength(2)
+    internals.zones[1]!.emit('pointerdown', pointer())
+
+    expect(shared).toHaveBeenNthCalledWith(1, publicity)
+    expect(events).toEqual([{
+      type: 'place',
+      place: {
+        id: 'publicity',
+        buildingId: 'admin',
+        label: 'Administration & Publicity',
+        affordances: ['work', 'meeting', 'publicity'],
+      },
+    }])
+    expect(scene.debugState()).toMatchObject({
+      selectedPlaceId: 'publicity',
+      selectedProductionId: null,
+    })
+
+    const eventCount = events.length
+    expect(scene.selectPublicityFromHost()).toBe(true)
+    expect(shared).toHaveBeenNthCalledWith(2, publicity, false)
+    expect(events).toHaveLength(eventCount)
+    expect(internals.cameras.main.pan).toHaveBeenCalledTimes(1)
+  })
+
+  it.each([
+    ['missing activity', (_place: ReturnType<typeof publicityPlace>, activity: ReturnType<typeof publicityActivity>) => {
+      activity.id = 'missing'
+      activity.label = 'Missing'
+      activity.place = 'missing'
+      activity.requiredAffordances = []
+      activity.requiredRoles = []
+    }],
+    ['wrong place id', (place: ReturnType<typeof publicityPlace>) => { place.id = 'publicity-drift' }],
+    ['wrong building', (place: ReturnType<typeof publicityPlace>) => { place.buildingId = 'post' }],
+    ['wrong label', (place: ReturnType<typeof publicityPlace>) => { place.label = 'Publicity Office' }],
+    ['reordered affordances', (place: ReturnType<typeof publicityPlace>) => {
+      place.affordances = ['publicity', 'meeting', 'work']
+    }],
+    ['wrong polygon point', (place: ReturnType<typeof publicityPlace>) => {
+      place.selectionPolygon[4] = [921, 360]
+    }],
+    ['self-intersecting polygon', (place: ReturnType<typeof publicityPlace>) => {
+      place.selectionPolygon = [
+        [946, 174], [1586, 510], [1586, 122], [1050, 500], [920, 360],
+      ]
+    }],
+    ['wrong entry anchor', (place: ReturnType<typeof publicityPlace>) => { place.anchors.entry = [1339, 421] }],
+    ['wrong photocall anchor', (place: ReturnType<typeof publicityPlace>) => { place.anchors.photocall = [1120, 480] }],
+    ['wrong queue anchor', (place: ReturnType<typeof publicityPlace>) => { place.anchors.queue = [931, 338] }],
+    ['extra anchor', (place: ReturnType<typeof publicityPlace>) => { place.anchors.extra = [1120, 481] }],
+    ['wrong activity label', (_place: ReturnType<typeof publicityPlace>, activity: ReturnType<typeof publicityActivity>) => {
+      activity.label = 'Publicity calls'
+    }],
+    ['wrong activity place', (_place: ReturnType<typeof publicityPlace>, activity: ReturnType<typeof publicityActivity>) => {
+      activity.place = 'stage-7'
+    }],
+    ['wrong activity affordances', (_place: ReturnType<typeof publicityPlace>, activity: ReturnType<typeof publicityActivity>) => {
+      activity.requiredAffordances = ['meeting']
+    }],
+    ['wrong activity roles', (_place: ReturnType<typeof publicityPlace>, activity: ReturnType<typeof publicityActivity>) => {
+      activity.requiredRoles = ['talent', 'photographer', 'publicist']
+    }],
+    ['wrong activity states', (_place: ReturnType<typeof publicityPlace>, activity: ReturnType<typeof publicityActivity>) => {
+      activity.visualStates = ['flash', 'queue-forming', 'press-moving']
+    }],
+  ])('fails %s publicity identity closed with no hotspot, focus, outline, or flash', (_name, mutate) => {
+    const { scene, internals, events } = harness(snapshot([]))
+    const place = publicityPlace()
+    const activity = publicityActivity()
+    mutate(place, activity)
+    internals.manifest.places.push(place)
+    internals.manifest.activities.push(activity)
+    internals.buildWorld()
+    const stageGraphicsBefore = [...internals.activityGraphics!.calls]
+    internals.buildSemanticHotspots()
+
+    expect(internals.zones).toHaveLength(1)
+    expect(scene.selectPublicityFromHost()).toBe(false)
+    scene.focus('publicity')
+    expect(internals.cameras.main.pan).not.toHaveBeenCalled()
+    expect(scene.playPublicity(true, 'must not announce')).toBe(false)
+    expect(internals.flash?.alpha).toBe(0)
+    expect(internals.tweenAdds).toEqual([])
+    expect(internals.activityGraphics!.calls).toEqual(stageGraphicsBefore)
+    expect(events).toEqual([])
+  })
+
+  it('fails duplicate publicity-like places and activities closed instead of accepting first match', () => {
+    for (const duplicate of ['place', 'activity'] as const) {
+      const { scene, internals, events } = harness(snapshot([]))
+      const place = publicityPlace()
+      const activity = publicityActivity()
+      internals.manifest.places.push(place)
+      internals.manifest.activities.push(activity)
+      if (duplicate === 'place') internals.manifest.places.push(publicityPlace())
+      else internals.manifest.activities.push(publicityActivity())
+      internals.buildWorld()
+      internals.buildSemanticHotspots()
+
+      expect(internals.zones).toHaveLength(1)
+      expect(scene.selectPublicityFromHost()).toBe(false)
+      expect(scene.playPublicity(true, 'must not announce')).toBe(false)
+      expect(events).toEqual([])
+    }
+  })
+
+  it('uses the retained flash locally without clearing or borrowing Stage 7 shooting graphics', () => {
+    const scheduled = operation({ taskStatus: 'scheduled', statusLabel: 'Take scheduled' })
+    const current = snapshot([director()], [scheduled])
+    const { scene, internals, events } = harness(current)
+    internals.manifest.places.push(publicityPlace())
+    internals.manifest.activities.push(publicityActivity())
+    internals.buildWorld()
+    scene.applySnapshot(current)
+    const shootingCalls = [...internals.activityGraphics!.calls]
+    const objectCounts = {
+      graphics: internals.graphicsObjects.length,
+      rectangles: internals.rectangles.length,
+    }
+    const tweenCountBefore = internals.tweenAdds.length
+
+    expect(scene.playPublicity(true, 'React owns this announcement')).toBe(true)
+
+    expect(internals.activityGraphics!.calls).toEqual(shootingCalls)
+    expect(internals.stageStateText?.text).toBe('STAGE 7 · TAKE SCHEDULED')
+    expect(events).toEqual([])
+    expect(internals.flash).toMatchObject({ x: 1120, y: 481, alpha: 0.72 })
+    expect(internals.graphicsObjects).toHaveLength(objectCounts.graphics)
+    expect(internals.rectangles).toHaveLength(objectCounts.rectangles)
+    expect(internals.tweenAdds).toHaveLength(tweenCountBefore + 1)
+    const publicityTween = internals.tweenAdds.at(-1) as { onComplete?: () => void }
+    publicityTween.onComplete?.()
+    expect(internals.flash?.alpha).toBe(0)
+
+    const tweenCount = internals.tweenAdds.length
+    expect(scene.playPublicity(false, 'Engine rejection')).toBe(false)
+    expect(internals.tweenAdds).toHaveLength(tweenCount)
+    expect(events).toEqual([])
+  })
+
+  it('suppresses the canonical accepted flash under reduced motion and clears an active cue', () => {
+    const { scene, internals, events } = harness(snapshot([]))
+    internals.manifest.places.push(publicityPlace())
+    internals.manifest.activities.push(publicityActivity())
+    internals.buildWorld()
+    const vehicleTweenCount = internals.tweenAdds.length
+
+    scene.setReducedMotion(true)
+    expect(scene.playPublicity(true, 'React owns this announcement')).toBe(true)
+    expect(internals.tweenAdds).toHaveLength(vehicleTweenCount)
+    expect(internals.flash?.alpha).toBe(0)
+    expect(events).toEqual([])
+
+    scene.setReducedMotion(false)
+    expect(scene.playPublicity(true, 'React owns this announcement')).toBe(true)
+    expect(internals.flash?.alpha).toBe(0.72)
+    scene.setReducedMotion(true)
+    expect(internals.killedTweenTargets).toContain(internals.flash)
+    expect(internals.flash?.alpha).toBe(0)
+  })
+
+  it('does not retain a publicity ceremony while the scene is inactive', () => {
+    const { scene, internals, events } = harness(snapshot([]))
+    internals.manifest.places.push(publicityPlace())
+    internals.manifest.activities.push(publicityActivity())
+    internals.buildWorld()
+    internals.scene.isActive = () => false
+
+    expect(scene.playPublicity(true, 'accepted while hidden')).toBe(false)
+    expect(internals.flash?.alpha).toBe(0)
+    expect(internals.tweenAdds).toEqual([])
+    expect(events).toEqual([])
   })
 
   it('routes the physical service yard through one exact scenery identity seam in blocked and ready states', () => {
@@ -1187,6 +1564,7 @@ describe('HollywoodScene snapshot authority', () => {
     scene.update(0, 8)
 
     expect(scene.performanceStats()).toMatchObject({
+      frameSampleCount: 2,
       fps: 33,
       frameMs: 30,
       p99FrameMs: 50,
@@ -1196,6 +1574,7 @@ describe('HollywoodScene snapshot authority', () => {
 
     scene.resetPerformanceTelemetry()
     expect(scene.performanceStats()).toMatchObject({
+      frameSampleCount: 0,
       frameMs: 0,
       p99FrameMs: 0,
       worstFrameMs: 0,

@@ -16,7 +16,7 @@
 // released while playing. Films present only in an imported save (released before
 // this session) have no snapshot; the dashboard explains that plainly.
 
-import { Component, lazy, Suspense, useEffect, useState } from 'react'
+import { Component, lazy, Suspense, useEffect, useRef, useState } from 'react'
 import type { ErrorInfo, ReactNode } from 'react'
 import type {
   GameState,
@@ -77,13 +77,18 @@ import type { LotRoute } from './lot/navigation.ts'
 // or the lot screen into the eager bundle.
 import { resetLotStageAssignment } from './lot/snapshot/stageAssignment.ts'
 import { resetLotSelectedBuilding } from './lot/snapshot/selectedBuildingSession.ts'
+import type { LotPublicityResult } from './lot/snapshot/publicityCampaign.ts'
 
 // Gate D1: the Studio Lot overview is lazily imported so Phaser and the whole lot
 // module stay out of the eager bundle. The factory only runs when <StudioLotScreen/>
 // first renders, which only happens when the feature flag is on and the lot is opened.
 const StudioLotScreen = lazy(() => import('./lot/StudioLotScreen.tsx'))
 
-type LotEntryFocus = 'studio-home' | 'selected-building' | 'advance-week'
+type LotEntryFocus =
+  | 'studio-home'
+  | 'selected-building'
+  | 'advance-week'
+  | 'publicity-campaign'
 
 type StudioReturnContext =
   | { kind: 'dashboard' }
@@ -101,6 +106,12 @@ type LotAdvanceFeedback = {
 }
 
 const DASHBOARD_RETURN_CONTEXT: StudioReturnContext = { kind: 'dashboard' }
+
+function withoutPublicityReturnIntent(context: StudioReturnContext): StudioReturnContext {
+  return context.kind === 'lot' && context.focus === 'publicity-campaign'
+    ? { ...context, focus: 'selected-building' }
+    : context
+}
 
 type Screen =
   | { kind: 'start' }
@@ -233,6 +244,8 @@ export function App() {
   // session starts in the living world; an explicit rollback keeps the legacy Dashboard root.
   const [lotEnabled] = useState(studioLotOverviewEnabled)
   const [state, setState] = useState<GameState | null>(restore.ok ? restore.state : null)
+  const latestStateRef = useRef<GameState | null>(state)
+  latestStateRef.current = state
   // D-14 Phase 2: the ONE Talent Profile drawer, openable over any screen from the roster,
   // Assemble a Film, or Autopsy. Null = closed. Focus returns to the opener on close.
   const [openProfileId, setOpenProfileId] = useState<string | null>(null)
@@ -332,7 +345,7 @@ export function App() {
     setScreen(operatingStudioHome(lotEnabled))
   }
 
-  function openDashboardFromLot(focus: 'studio-home' | 'selected-building') {
+  function openDashboardFromLot(focus: LotEntryFocus) {
     setLotAdvanceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setScreen({
@@ -522,14 +535,33 @@ export function App() {
     setScreen({ kind: 'release', ...release })
   }
 
-  function handlePublicity(tier: PublicityTier) {
-    if (!state) return
-    const result = runPublicity(state, tier)
-    if (result.ok) {
-      setState(result.next)
-    } else {
-      alert(result.error)
+  function executePublicity(tier: PublicityTier): LotPublicityResult {
+    const current = latestStateRef.current
+    if (!current) return { ok: false, error: 'No operating studio is available.' }
+    const acceptedWeek = current.market.tick
+    const result = runPublicity(current, tier)
+    if (!result.ok) return result
+    if (
+      result.next.publicity.lastUsedWeek !== acceptedWeek ||
+      result.next.publicity.byTier[tier] !== acceptedWeek
+    ) {
+      return {
+        ok: false,
+        error: 'Publicity successor failed exact acceptance receipt validation.',
+      }
     }
+    latestStateRef.current = result.next
+    setState(result.next)
+    return { ok: true, tier, acceptedWeek }
+  }
+
+  function handleDashboardPublicity(tier: PublicityTier) {
+    const result = executePublicity(tier)
+    if (!result.ok) alert(result.error)
+  }
+
+  function handleLotPublicity(tier: PublicityTier): LotPublicityResult {
+    return executePublicity(tier)
   }
 
   function handleProductionCommand(command: ProductionCommandView) {
@@ -727,6 +759,9 @@ export function App() {
   }
 
   const loadedState = state
+  const dashboardDeepReturnContext = screen.kind === 'dashboard'
+    ? withoutPublicityReturnIntent(screen.returnContext)
+    : DASHBOARD_RETURN_CONTEXT
 
   // World-First Annex Construction Interaction V1: App remains the sole state owner.
   // The lot sends no caller-controlled construction data; this exact current state is
@@ -785,38 +820,38 @@ export function App() {
           onAssemble={() =>
             setScreen(
               state.scriptDevelopment.mode === 'managed'
-                ? { kind: 'writersRoom', returnContext: screen.returnContext }
-                : { kind: 'assembly', returnContext: screen.returnContext },
+                ? { kind: 'writersRoom', returnContext: dashboardDeepReturnContext }
+                : { kind: 'assembly', returnContext: dashboardDeepReturnContext },
             )
           }
-          onAdvance={() => handleAdvance(screen.returnContext, 'supporting-dashboard')}
-          onSimToEvent={() => handleSimToEvent(screen.returnContext)}
+          onAdvance={() => handleAdvance(dashboardDeepReturnContext, 'supporting-dashboard')}
+          onSimToEvent={() => handleSimToEvent(dashboardDeepReturnContext)}
           onCreateTalent={() =>
             setScreen({
               kind: 'talent',
               returnTo: 'dashboard',
-              returnContext: screen.returnContext,
+              returnContext: dashboardDeepReturnContext,
             })
           }
-          onOpenHub={() => setScreen({ kind: 'hub', returnContext: screen.returnContext })}
+          onOpenHub={() => setScreen({ kind: 'hub', returnContext: dashboardDeepReturnContext })}
           onOpenRoster={() =>
-            setScreen({ kind: 'roster', returnContext: screen.returnContext })
+            setScreen({ kind: 'roster', returnContext: dashboardDeepReturnContext })
           }
           onOpenCasting={() =>
-            setScreen({ kind: 'castingRoom', returnContext: screen.returnContext })
+            setScreen({ kind: 'castingRoom', returnContext: dashboardDeepReturnContext })
           }
           onOpenHiring={() =>
-            setScreen({ kind: 'hiring', returnContext: screen.returnContext })
+            setScreen({ kind: 'hiring', returnContext: dashboardDeepReturnContext })
           }
-          onSaves={() => setScreen({ kind: 'saves', returnContext: screen.returnContext })}
+          onSaves={() => setScreen({ kind: 'saves', returnContext: dashboardDeepReturnContext })}
           onOpenRecap={() =>
-            setScreen({ kind: 'recap', returnContext: screen.returnContext })
+            setScreen({ kind: 'recap', returnContext: dashboardDeepReturnContext })
           }
           onOpenCalendar={() =>
-            setScreen({ kind: 'calendar', returnContext: screen.returnContext })
+            setScreen({ kind: 'calendar', returnContext: dashboardDeepReturnContext })
           }
           onOpenDevelopment={() =>
-            setScreen({ kind: 'studioDevelopment', returnContext: screen.returnContext })
+            setScreen({ kind: 'studioDevelopment', returnContext: dashboardDeepReturnContext })
           }
           onOpenLot={
             lotEnabled && screen.returnContext.kind === 'dashboard'
@@ -828,11 +863,11 @@ export function App() {
               ? () => returnToStudioContext(screen.returnContext)
               : undefined
           }
-          onOpenAutopsy={(film) => openAutopsyForFilm(film, screen.returnContext)}
+          onOpenAutopsy={(film) => openAutopsyForFilm(film, dashboardDeepReturnContext)}
           canOpenAutopsy={(film) => snapshots[film.productionId] !== undefined}
-          onOpenChronicle={(film) => openChronicleForFilm(film, screen.returnContext)}
-          onOpenClipping={(film) => openClippingForFilm(film, screen.returnContext)}
-          onPublicize={handlePublicity}
+          onOpenChronicle={(film) => openChronicleForFilm(film, dashboardDeepReturnContext)}
+          onOpenClipping={(film) => openClippingForFilm(film, dashboardDeepReturnContext)}
+          onPublicize={handleDashboardPublicity}
           onProductionCommand={handleProductionCommand}
           {...(screen.focusProductionId ? { focusProductionId: screen.focusProductionId } : {})}
           {...(screen.focusRunId ? { focusRunId: screen.focusRunId } : {})}
@@ -1087,6 +1122,8 @@ export function App() {
             state={state}
             onNavigate={handleLotNavigate}
             onExit={() => openDashboardFromLot('studio-home')}
+            onOpenPublicityDashboard={() => openDashboardFromLot('publicity-campaign')}
+            onRunPublicity={handleLotPublicity}
             onAdvance={() =>
               handleAdvance(
                 {
@@ -1100,7 +1137,6 @@ export function App() {
             advanceFeedback={lotAdvanceFeedback}
             suppressOperationalAnnouncement={lotOperationalAnnouncementSuppressed}
             entryFocus={screen.entryFocus}
-            onStateChange={setState}
             onProductionCommand={handleProductionCommand}
             onStartDevelopmentCastingAnnex={handleStartDevelopmentCastingAnnex}
             onOpenTalentProfile={setOpenProfileId}

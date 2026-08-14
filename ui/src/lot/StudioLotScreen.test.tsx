@@ -46,6 +46,7 @@ import {
   setLotSelectedBuilding,
 } from './snapshot/selectedBuildingSession.ts'
 import type { HollywoodProductionSelection } from './hollywood/HollywoodScene.ts'
+import type { LotPublicityResult, LotPublicityTier } from './snapshot/publicityCampaign.ts'
 
 type TestStudioLotScreenProps = Omit<
   ComponentProps<typeof StudioLotScreenImpl>,
@@ -74,6 +75,7 @@ const spy = vi.hoisted(() => {
     onAction?: (e: { buildingId: string; action: string }) => void
     onSelect?: (sel: unknown) => void
     onReady?: () => void
+    onHollywoodFailure?: (reason: string) => void
     onActivity?: (text: string | null) => void
     onHollywoodPerson?: (person: unknown) => void
     onHollywoodProduction?: (production: HollywoodProductionSelection) => void
@@ -121,6 +123,8 @@ const spy = vi.hoisted(() => {
     hollywoodPerformance() { return null }
     camera(preset: string) { this.cameraPresets.push(preset) }
     showHollywoodPublicity(ok: boolean, detail: string) { this.publicity.push({ ok, detail }) }
+    selectHollywoodPublicityPlace() { return true }
+    focusHollywoodPlace() {}
     selectHollywoodPerson(id: string) { this.hollywoodPeopleSelected.push(id) }
     selectHollywoodProduction(id: string) { this.hollywoodProductionsSelected.push(id) }
     selectHollywoodAnnexPlace() { return true }
@@ -1562,78 +1566,353 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
   })
 })
 
-describe('StudioLotScreen — authoritative D-17B publicity offer', () => {
-  it('renders the exact current Whisper offer, availability, and both cooldowns', () => {
+describe('StudioLotScreen — world-first D-17B publicity campaign', () => {
+  it('gives the exact physical polygon and semantic Administration companion one context, while hostile identity fails closed', async () => {
     setOperationHollywoodOverride(true)
-    const state = foundStudio('hollywood-publicity-offer')
-    const offer = publicityDecision(state).find((candidate) => candidate.tier === 'whisper')!
-
-    const { getByTestId } = render(
-      <StudioLotScreen state={state} onNavigate={() => {}} onExit={() => {}} onStateChange={() => {}} />,
-    )
-
-    const button = getByTestId('hollywood-publicity-whisper')
-    const status = getByTestId('hollywood-publicity-whisper-status')
-    expect(button).toHaveTextContent(moneyExact(offer.cost))
-    expect(button).toHaveTextContent(`+${offer.expectedLift.toFixed(2)} awareness`)
-    expect(button).toBeEnabled()
-    expect(status).toHaveTextContent('Available now.')
-    expect(status).toHaveTextContent(`Global cooldown: ${offer.globalCooldownWeeks} weeks`)
-    expect(status).toHaveTextContent(`Whisper cooldown: ${offer.cooldownWeeks} weeks`)
-  })
-
-  it('replaces state only after success and preserves exact cash, awareness, ledger, and cooldown accounting', async () => {
-    setOperationHollywoodOverride(true)
-    const state = foundStudio('hollywood-publicity-success')
-    const before = JSON.stringify(state)
-    const offer = publicityDecision(state).find((candidate) => candidate.tier === 'whisper')!
-    let replacement: GameState | undefined
-
-    const { getByTestId, rerender } = render(
+    const state = foundStudio('hollywood-publicity-entry-parity')
+    const { getByTestId, queryByTestId } = render(
       <StudioLotScreen
         state={state}
         onNavigate={() => {}}
         onExit={() => {}}
-        onStateChange={(next) => { replacement = next }}
+        onRunPublicity={() => ({ ok: false, error: 'not dispatched in entry test' })}
       />,
     )
-    fireEvent.click(getByTestId('hollywood-publicity-whisper'))
+    await waitFor(() => expect(spy.instances).toHaveLength(1))
 
-    expect(replacement).toBeDefined()
+    act(() => {
+      latest().opts.onHollywoodPlace?.({
+        id: 'publicity',
+        buildingId: 'admin',
+        label: 'Administration & Publicity',
+        affordances: ['work', 'meeting', 'publicity'],
+      })
+    })
+    expect(getByTestId('hollywood-publicity-context')).toBeInTheDocument()
+    expect(getByTestId('hollywood-publicity-offers')).toBeInTheDocument()
+
+    act(() => {
+      latest().opts.onHollywoodPlace?.({
+        id: 'publicity',
+        buildingId: 'admin',
+        label: 'Wrong office',
+        affordances: ['work', 'meeting', 'publicity'],
+      })
+    })
+    expect(queryByTestId('hollywood-publicity-offers')).not.toBeInTheDocument()
+
+    fireEvent.click(getByTestId('lot-nav-admin'))
+    expect(getByTestId('hollywood-publicity-offers')).toBeInTheDocument()
+  })
+
+  it('retains the complete semantic campaign when the renderer is unavailable and makes no physical claim', async () => {
+    setOperationHollywoodOverride(true)
+    spy.controls.constructError = new Error('forced publicity renderer failure')
+    const state = foundStudio('hollywood-publicity-renderer-failure')
+    const { getByTestId } = render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onRunPublicity={() => ({ ok: false, error: 'not dispatched in fallback test' })}
+      />,
+    )
+    await waitFor(() => expect(getByTestId('lot-canvas-fallback')).toBeInTheDocument())
+
+    fireEvent.click(getByTestId('lot-nav-admin'))
+    expect(getByTestId('hollywood-publicity-offers')).toBeInTheDocument()
+    expect(getByTestId('hollywood-publicity-physical-status')).toHaveTextContent(
+      'physical office is unavailable',
+    )
+    expect(getByTestId('hollywood-publicity-run-whisper')).toBeEnabled()
+    expect(getByTestId('hollywood-publicity-run-push')).toBeEnabled()
+    expect(getByTestId('hollywood-publicity-run-blitz')).toBeEnabled()
+  })
+
+  it('converts an asynchronous Hollywood boot/runtime failure into the explicit semantic fallback', async () => {
+    setOperationHollywoodOverride(true)
+    const state = foundStudio('hollywood-publicity-async-renderer-failure')
+    const { getByTestId, queryByTestId } = render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onRunPublicity={() => ({ ok: false, error: 'not exercised' })}
+      />,
+    )
+    await waitFor(() => expect(spy.instances).toHaveLength(1))
+    fireEvent.click(getByTestId('lot-nav-admin'))
+    await waitFor(() => expect(getByTestId('hollywood-publicity-physical-status')).toHaveTextContent(
+      'Selected in the living lot',
+    ))
+
+    act(() => spy.instances[0]!.opts.onHollywoodFailure?.('manifest-invalid'))
+
+    await waitFor(() => expect(getByTestId('lot-canvas-fallback')).toBeInTheDocument())
+    expect(getByTestId('hollywood-publicity-context')).toBeInTheDocument()
+    expect(getByTestId('hollywood-publicity-physical-status')).toHaveTextContent(
+      'physical office is unavailable',
+    )
+    expect(getByTestId('hollywood-publicity-run-whisper')).toBeEnabled()
+
+    act(() => spy.instances[0]!.opts.onReady?.())
+
+    await waitFor(() => expect(queryByTestId('lot-canvas-fallback')).not.toBeInTheDocument())
+    expect(getByTestId('hollywood-publicity-physical-status')).toHaveTextContent(
+      'Selected in the living lot',
+    )
+  })
+
+  it('rejects the second click of one native double-click gesture even when the first owner rejection clears pending synchronously', () => {
+    setOperationHollywoodOverride(true)
+    const state = foundStudio('hollywood-publicity-double-click')
+    const onRunPublicity = vi.fn<(
+      tier: LotPublicityTier,
+    ) => LotPublicityResult>(() => ({
+      ok: false,
+      error: 'applyActions: publicity rejected — exact owner rejection (D-17B §2)',
+    }))
+    const { getByTestId } = render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onRunPublicity={onRunPublicity}
+      />,
+    )
+    fireEvent.click(getByTestId('lot-nav-admin'))
+    const button = getByTestId('hollywood-publicity-run-whisper')
+    fireEvent.click(button, { detail: 1 })
+    fireEvent.click(button, { detail: 2 })
+
+    expect(onRunPublicity).toHaveBeenCalledTimes(1)
+    expect(getByTestId('hollywood-activity-message')).toHaveTextContent(
+      'Publicity blocked: exact owner rejection',
+    )
+    expect(spy.instances.flatMap((instance) => instance.publicity)).toHaveLength(0)
+  })
+
+  it('keeps every tier synchronously guarded while an accepted receipt waits for fresh parent truth', () => {
+    setOperationHollywoodOverride(true)
+    const state = foundStudio('hollywood-publicity-pending-parent')
+    const onRunPublicity = vi.fn<(
+      tier: LotPublicityTier,
+    ) => LotPublicityResult>((tier) => ({ ok: true, tier, acceptedWeek: state.market.tick }))
+    const { getByTestId, queryByTestId } = render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onRunPublicity={onRunPublicity}
+      />,
+    )
+    fireEvent.click(getByTestId('lot-nav-admin'))
+    fireEvent.click(getByTestId('hollywood-publicity-run-whisper'))
+    fireEvent.click(getByTestId('hollywood-publicity-run-push'))
+
+    expect(onRunPublicity).toHaveBeenCalledTimes(1)
+    expect(getByTestId('hollywood-publicity-run-whisper')).toBeDisabled()
+    expect(getByTestId('hollywood-publicity-run-push')).toBeDisabled()
+    expect(getByTestId('hollywood-publicity-run-blitz')).toBeDisabled()
+    expect(getByTestId('hollywood-publicity-open-dashboard')).toBeDisabled()
+    expect(queryByTestId('hollywood-activity-message')).not.toBeInTheDocument()
+    expect(spy.instances.flatMap((instance) => instance.publicity)).toHaveLength(0)
+  })
+
+  it.each(['tier', 'week'] as const)(
+    'clears semantic and physical campaign selection when an accepted receipt names the wrong %s',
+    async (mismatch) => {
+      setOperationHollywoodOverride(true)
+      const state = foundStudio(`hollywood-publicity-hostile-${mismatch}-receipt`)
+      const before = JSON.stringify(state)
+      const onRunPublicity = vi.fn<(
+        tier: LotPublicityTier,
+      ) => LotPublicityResult>(() => ({
+        ok: true,
+        tier: mismatch === 'tier' ? 'push' : 'whisper',
+        acceptedWeek: mismatch === 'week' ? state.market.tick + 1 : state.market.tick,
+      }))
+      const { getAllByTestId, getByTestId, queryByTestId } = render(
+        <StudioLotScreen
+          state={state}
+          onNavigate={() => {}}
+          onExit={() => {}}
+          onRunPublicity={onRunPublicity}
+        />,
+      )
+      await waitFor(() => expect(spy.instances).toHaveLength(1))
+      fireEvent.click(getByTestId('lot-nav-admin'))
+      const physicalClearsBeforeReceipt = latest().hollywoodPlaceClears
+
+      fireEvent.click(getByTestId('hollywood-publicity-run-whisper'))
+
+      expect(onRunPublicity).toHaveBeenCalledOnce()
+      expect(queryByTestId('hollywood-publicity-context')).not.toBeInTheDocument()
+      expect(queryByTestId('hollywood-publicity-offers')).not.toBeInTheDocument()
+      expect(getByTestId('lot-nav-admin')).not.toHaveAttribute('aria-current')
+      expect(latest().hollywoodPlaceClears).toBe(physicalClearsBeforeReceipt + 1)
+      expect(latest().publicity).toHaveLength(0)
+      expect(getAllByTestId('hollywood-activity-message')).toHaveLength(1)
+      expect(getByTestId('hollywood-activity-message')).toHaveTextContent(
+        'Publicity acceptance receipt did not match the selected offer.',
+      )
+      await waitFor(() => expect(getByTestId('lot-studio-heading')).toHaveFocus())
+      expect(JSON.stringify(state)).toBe(before)
+    },
+  )
+
+  it('keeps campaign controls out of unrelated contexts, then renders all three exact offers from Administration', async () => {
+    setOperationHollywoodOverride(true)
+    const state = foundStudio('hollywood-publicity-offers')
+    const offers = publicityDecision(state)
+    const onRunPublicity = vi.fn<(
+      tier: LotPublicityTier,
+    ) => LotPublicityResult>()
+
+    const { getByTestId, queryByTestId } = render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onRunPublicity={onRunPublicity}
+      />,
+    )
+
+    expect(queryByTestId('hollywood-publicity-offers')).not.toBeInTheDocument()
+    fireEvent.click(getByTestId('lot-nav-admin'))
+
+    expect(getByTestId('hollywood-publicity-offers')).toBeInTheDocument()
+    for (const offer of offers) {
+      const card = getByTestId(`hollywood-publicity-${offer.tier}`)
+      expect(card).toHaveTextContent(moneyExact(offer.cost))
+      expect(card).toHaveTextContent(`+${offer.expectedLift.toFixed(2)}`)
+      expect(card).toHaveTextContent(`${offer.cooldownWeeks} weeks`)
+      expect(card).toHaveTextContent(`${offer.globalCooldownWeeks} weeks`)
+      expect(getByTestId(`hollywood-publicity-run-${offer.tier}`)).toBeEnabled()
+    }
+    await waitFor(() => expect(getByTestId('hollywood-publicity-physical-status')).toHaveTextContent(
+      'Selected in the living lot',
+    ))
+  })
+
+  it('names the presentation-owner boundary when an Engine-available offer has no host action', () => {
+    setOperationHollywoodOverride(true)
+    const state = foundStudio('hollywood-publicity-owner-absent')
+    const { getByTestId } = render(
+      <StudioLotScreen state={state} onNavigate={() => {}} onExit={() => {}} />,
+    )
+    fireEvent.click(getByTestId('lot-nav-admin'))
+
+    expect(getByTestId('hollywood-publicity-run-whisper')).toBeDisabled()
+    expect(getByTestId('hollywood-publicity-whisper-offer-status')).toHaveTextContent(
+      'this host has no publicity action owner',
+    )
+  })
+
+  it('accepts once through the Lot-safe owner, then repaints exact successor accounting and all-tier cooldown truth', async () => {
+    setOperationHollywoodOverride(true)
+    const initial = foundStudio('hollywood-publicity-success')
+    const before = JSON.stringify(initial)
+    const offer = publicityDecision(initial).find((candidate) => candidate.tier === 'whisper')!
+    const ownerCalls: LotPublicityTier[] = []
+    let replacement: GameState | undefined
+
+    function Harness() {
+      const [current, setCurrent] = useState(initial)
+      const onRunPublicity = (tier: LotPublicityTier): LotPublicityResult => {
+        ownerCalls.push(tier)
+        const result = runPublicity(current, tier)
+        if (!result.ok) return result
+        replacement = result.next
+        setCurrent(result.next)
+        return { ok: true, tier, acceptedWeek: current.market.tick }
+      }
+      return (
+        <StudioLotScreen
+          state={current}
+          onNavigate={() => {}}
+          onExit={() => {}}
+          onRunPublicity={onRunPublicity}
+        />
+      )
+    }
+
+    const { getByTestId } = render(<Harness />)
+    fireEvent.click(getByTestId('lot-nav-admin'))
+    await waitFor(() => expect(getByTestId('hollywood-publicity-physical-status')).toHaveTextContent(
+      'Selected in the living lot',
+    ))
+    fireEvent.click(getByTestId('hollywood-publicity-run-whisper'))
+    fireEvent.click(getByTestId('hollywood-publicity-run-push'), { detail: 2 })
+
+    await waitFor(() => expect(replacement).toBeDefined())
     const next = replacement!
-    expect(next).not.toBe(state)
-    expect(next.studio.cash).toBe(state.studio.cash - offer.cost)
+    expect(ownerCalls).toEqual(['whisper'])
+    expect(next.studio.cash).toBe(initial.studio.cash - offer.cost)
     expect(next.studio.standing.audienceAwareness).toBeCloseTo(
-      state.studio.standing.audienceAwareness + offer.expectedLift,
+      initial.studio.standing.audienceAwareness + offer.expectedLift,
       12,
     )
     expect(next.ledger.at(-1)).toEqual({
-      week: state.market.tick,
+      week: initial.market.tick,
       kind: 'publicity',
       amount: -offer.cost,
       note: 'publicity: whisper',
     })
-    expect(next.publicity.lastUsedWeek).toBe(state.market.tick)
-    expect(next.publicity.byTier.whisper).toBe(state.market.tick)
-    expect(JSON.stringify(state)).toBe(before)
+    expect(next.ledger.at(-1)).not.toHaveProperty('productionId')
+    expect(next.publicity.lastUsedWeek).toBe(initial.market.tick)
+    expect(next.publicity.byTier.whisper).toBe(initial.market.tick)
+    expect(JSON.stringify(initial)).toBe(before)
 
-    const cooldownOffer = publicityDecision(next).find((candidate) => candidate.tier === 'whisper')!
-    expect(cooldownOffer.available).toBe(false)
-    expect(cooldownOffer.availableWeek).toBe(state.market.tick + offer.cooldownWeeks)
-
-    rerender(
-      <StudioLotScreen
-        state={next}
-        onNavigate={() => {}}
-        onExit={() => {}}
-        onStateChange={(updated) => { replacement = updated }}
-      />,
-    )
-    await waitFor(() => expect(getByTestId('hollywood-publicity-whisper')).toBeDisabled())
-    expect(getByTestId('hollywood-publicity-whisper-status')).toHaveTextContent(cooldownOffer.reason!)
+    await waitFor(() => {
+      expect(getByTestId('hollywood-publicity-run-whisper')).toBeDisabled()
+      expect(getByTestId('hollywood-publicity-run-push')).toBeDisabled()
+      expect(getByTestId('hollywood-publicity-run-blitz')).toBeDisabled()
+    })
+    await waitFor(() => expect(getByTestId('hollywood-activity-message')).toHaveTextContent(
+      'Whisper publicity accepted',
+    ))
+    expect(latest().publicity).toHaveLength(1)
   })
 
-  it('shows an authoritative rejection and cannot replace or mutate state', () => {
+  it.each(['whisper', 'push', 'blitz'] as const)(
+    'produces the byte-exact existing Engine successor for an independent %s Lot purchase',
+    async (tier) => {
+      setOperationHollywoodOverride(true)
+      const initial = foundStudio(`hollywood-publicity-tier-${tier}`)
+      const direct = runPublicity(initial, tier)
+      if (!direct.ok) throw new Error(direct.error)
+      let replacement: GameState | undefined
+
+      function Harness() {
+        const [current, setCurrent] = useState(initial)
+        const onRunPublicity = (selectedTier: LotPublicityTier): LotPublicityResult => {
+          const result = runPublicity(current, selectedTier)
+          if (!result.ok) return result
+          replacement = result.next
+          setCurrent(result.next)
+          return { ok: true, tier: selectedTier, acceptedWeek: current.market.tick }
+        }
+        return (
+          <StudioLotScreen
+            state={current}
+            onNavigate={() => {}}
+            onExit={() => {}}
+            onRunPublicity={onRunPublicity}
+          />
+        )
+      }
+
+      const { getByTestId } = render(<Harness />)
+      fireEvent.click(getByTestId('lot-nav-admin'))
+      fireEvent.click(getByTestId(`hollywood-publicity-run-${tier}`))
+
+      await waitFor(() => expect(replacement).toBeDefined())
+      expect(exportSaveJson(replacement!)).toBe(exportSaveJson(direct.next))
+    },
+  )
+
+  it('shows authoritative unavailability without calling an action owner or mutating state', () => {
     setOperationHollywoodOverride(true)
     const founded = foundStudio('hollywood-publicity-rejected')
     const state: GameState = {
@@ -1651,22 +1930,100 @@ describe('StudioLotScreen — authoritative D-17B publicity offer', () => {
     }
     const before = JSON.stringify(state)
     const offer = publicityDecision(state).find((candidate) => candidate.tier === 'whisper')!
-    const rejected = runPublicity(state, 'whisper')
-    const onStateChange = vi.fn()
-
-    expect(offer.available).toBe(false)
-    expect(offer.reason).toBeTruthy()
-    expect(rejected.ok).toBe(false)
+    const onRunPublicity = vi.fn<(
+      tier: LotPublicityTier,
+    ) => LotPublicityResult>()
 
     const { getByTestId } = render(
-      <StudioLotScreen state={state} onNavigate={() => {}} onExit={() => {}} onStateChange={onStateChange} />,
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onRunPublicity={onRunPublicity}
+      />,
     )
-    const button = getByTestId('hollywood-publicity-whisper')
+    fireEvent.click(getByTestId('lot-nav-admin'))
+    const button = getByTestId('hollywood-publicity-run-whisper')
     expect(button).toBeDisabled()
-    expect(getByTestId('hollywood-publicity-whisper-status')).toHaveTextContent(offer.reason!)
+    expect(getByTestId('hollywood-publicity-whisper-offer-status')).toHaveTextContent(offer.reason!)
     fireEvent.click(button)
 
-    expect(onStateChange).not.toHaveBeenCalled()
+    expect(onRunPublicity).not.toHaveBeenCalled()
     expect(JSON.stringify(state)).toBe(before)
+  })
+
+  it('makes the complete Lot inert and blocks held/programmatic campaign actions while a profile modal is open', async () => {
+    setOperationHollywoodOverride(true)
+    const state = foundStudio('hollywood-publicity-modal-boundary')
+    const onRunPublicity = vi.fn<(
+      tier: LotPublicityTier,
+    ) => LotPublicityResult>(() => ({ ok: false, error: 'test owner rejection' }))
+    const onOpenPublicityDashboard = vi.fn()
+    const onAdvance = vi.fn()
+    const onExit = vi.fn()
+    const stableNavigate = () => {}
+    const screen = render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={stableNavigate}
+        onExit={onExit}
+        onAdvance={onAdvance}
+        onOpenPublicityDashboard={onOpenPublicityDashboard}
+        onRunPublicity={onRunPublicity}
+      />,
+    )
+
+    fireEvent.click(screen.getByTestId('lot-nav-admin'))
+    const whisper = screen.getByTestId('hollywood-publicity-run-whisper')
+    fireEvent.keyDown(whisper, { key: 'Enter' })
+
+    screen.rerender(
+      <StudioLotScreen
+        state={state}
+        onNavigate={stableNavigate}
+        onExit={onExit}
+        onAdvance={onAdvance}
+        onOpenPublicityDashboard={onOpenPublicityDashboard}
+        onRunPublicity={onRunPublicity}
+        worldInputSuspended
+      />,
+    )
+
+    await waitFor(() => expect(screen.getByTestId('studio-lot-screen')).toHaveAttribute('inert'))
+    expect(screen.getByTestId('lot-nav-admin')).toBeDisabled()
+    expect(screen.getByTestId('lot-advance-week')).toBeDisabled()
+    expect(screen.getByTestId('lot-return-dashboard')).toBeDisabled()
+    expect(whisper).toBeDisabled()
+    expect(screen.getByTestId('hollywood-publicity-open-dashboard')).toBeDisabled()
+    expect(screen.getByTestId('hollywood-publicity-whisper-offer-status')).toHaveTextContent(
+      'Close the open talent profile',
+    )
+
+    fireEvent.click(whisper)
+    fireEvent.click(screen.getByTestId('hollywood-publicity-open-dashboard'))
+    fireEvent.click(screen.getByTestId('lot-nav-admin'))
+    fireEvent.click(screen.getByTestId('lot-advance-week'))
+    fireEvent.click(screen.getByTestId('lot-return-dashboard'))
+    expect(onRunPublicity).not.toHaveBeenCalled()
+    expect(onOpenPublicityDashboard).not.toHaveBeenCalled()
+    expect(onAdvance).not.toHaveBeenCalled()
+    expect(onExit).not.toHaveBeenCalled()
+
+    screen.rerender(
+      <StudioLotScreen
+        state={state}
+        onNavigate={stableNavigate}
+        onExit={onExit}
+        onAdvance={onAdvance}
+        onOpenPublicityDashboard={onOpenPublicityDashboard}
+        onRunPublicity={onRunPublicity}
+      />,
+    )
+    await waitFor(() => expect(screen.getByTestId('studio-lot-screen')).not.toHaveAttribute('inert'))
+    expect(screen.getByTestId('hollywood-publicity-run-whisper')).toBeEnabled()
+    fireEvent.keyDown(screen.getByTestId('hollywood-publicity-run-whisper'), { key: 'Enter' })
+    fireEvent.keyUp(screen.getByTestId('hollywood-publicity-run-whisper'), { key: 'Enter' })
+    fireEvent.click(screen.getByTestId('hollywood-publicity-run-whisper'))
+    expect(onRunPublicity).toHaveBeenCalledTimes(1)
   })
 })

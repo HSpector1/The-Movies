@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type {
+  LotPublicityOffer,
   LotPersonState,
   ProductionOperationsState,
   StudioLotSnapshot,
@@ -41,6 +42,44 @@ function operation(overrides: Partial<ProductionOperationsState> = {}): Producti
   }
 }
 
+function publicityOffersAtWeek(week: number): LotPublicityOffer[] {
+  const unavailable = {
+    globalCooldownWeeks: 6,
+    available: false,
+    availableWeek: week,
+    reason: 'Insufficient cash for this campaign.',
+  } as const
+  return [
+    {
+      tier: 'whisper',
+      cost: 1_200_000,
+      maxLift: 18,
+      expectedLift: 0.28125,
+      pricePerPoint: 4_266_666.666666667,
+      cooldownWeeks: 8,
+      ...unavailable,
+    },
+    {
+      tier: 'push',
+      cost: 3_600_000,
+      maxLift: 30,
+      expectedLift: 0.46875,
+      pricePerPoint: 7_680_000,
+      cooldownWeeks: 12,
+      ...unavailable,
+    },
+    {
+      tier: 'blitz',
+      cost: 8_000_000,
+      maxLift: 42,
+      expectedLift: 0.65625,
+      pricePerPoint: 12_190_476.19047619,
+      cooldownWeeks: 20,
+      ...unavailable,
+    },
+  ]
+}
+
 function snapshot(
   people: LotPersonState[],
   productionOperations: ProductionOperationsState[],
@@ -53,6 +92,7 @@ function snapshot(
     cashBand: 'stable' as const,
     standing: 'established' as const,
     standingValues: { awareness: 50, prestige: 50, confidence: 50 },
+    publicityOffers: publicityOffersAtWeek(30),
     activeProductions: [],
     releasedFilms: [],
     releasePresence: 'none' as const,

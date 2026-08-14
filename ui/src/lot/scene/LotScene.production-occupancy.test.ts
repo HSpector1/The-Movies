@@ -168,6 +168,7 @@ import { LotScene } from './LotScene.ts'
 import type {
   AttentionState,
   BuildingId,
+  LotPublicityOffer,
   ProductionCard,
   StudioLotSnapshot,
 } from '../snapshot/StudioLotSnapshot.ts'
@@ -235,6 +236,44 @@ function production(overrides: Partial<ProductionCard> = {}): ProductionCard {
   }
 }
 
+function publicityOffersAtWeek(week: number): LotPublicityOffer[] {
+  const unavailable = {
+    globalCooldownWeeks: 6,
+    available: false,
+    availableWeek: week,
+    reason: 'Insufficient cash for this campaign.',
+  } as const
+  return [
+    {
+      tier: 'whisper',
+      cost: 1_200_000,
+      maxLift: 18,
+      expectedLift: 3.20361328125,
+      pricePerPoint: 374_577.0461819845,
+      cooldownWeeks: 8,
+      ...unavailable,
+    },
+    {
+      tier: 'push',
+      cost: 3_600_000,
+      maxLift: 30,
+      expectedLift: 5.33935546875,
+      pricePerPoint: 674_238.6831275721,
+      cooldownWeeks: 12,
+      ...unavailable,
+    },
+    {
+      tier: 'blitz',
+      cost: 8_000_000,
+      maxLift: 42,
+      expectedLift: 7.47509765625,
+      pricePerPoint: 1_070_220.131948527,
+      cooldownWeeks: 20,
+      ...unavailable,
+    },
+  ]
+}
+
 function snapshot(
   card: ProductionCard,
   stageAttention: AttentionState = 'normal',
@@ -246,6 +285,7 @@ function snapshot(
     cashBand: 'stable',
     standing: 'finding-footing',
     standingValues: { awareness: 25, prestige: 20, confidence: 30 },
+    publicityOffers: publicityOffersAtWeek(12),
     activeProductions: [card],
     releasedFilms: [],
     releasePresence: 'none',

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type {
+  LotPublicityOffer,
   ProductionOperationsState,
   StudioLotSnapshot,
 } from './StudioLotSnapshot.ts'
@@ -74,6 +75,44 @@ function stage12(
   }
 }
 
+function publicityOffersAtWeek(week: number): LotPublicityOffer[] {
+  const available = {
+    globalCooldownWeeks: 6,
+    available: true,
+    availableWeek: week,
+    reason: null,
+  } as const
+  return [
+    {
+      tier: 'whisper',
+      cost: 1_200_000,
+      maxLift: 18,
+      expectedLift: 0.28125,
+      pricePerPoint: 4_266_666.666666667,
+      cooldownWeeks: 8,
+      ...available,
+    },
+    {
+      tier: 'push',
+      cost: 3_600_000,
+      maxLift: 30,
+      expectedLift: 0.46875,
+      pricePerPoint: 7_680_000,
+      cooldownWeeks: 12,
+      ...available,
+    },
+    {
+      tier: 'blitz',
+      cost: 8_000_000,
+      maxLift: 42,
+      expectedLift: 0.65625,
+      pricePerPoint: 12_190_476.19047619,
+      cooldownWeeks: 20,
+      ...available,
+    },
+  ]
+}
+
 function managedSnapshot(
   productionOperations: ProductionOperationsState[],
 ): StudioLotSnapshot {
@@ -84,6 +123,7 @@ function managedSnapshot(
     cashBand: 'flush',
     standing: 'established',
     standingValues: { awareness: 50, prestige: 50, confidence: 50 },
+    publicityOffers: publicityOffersAtWeek(30),
     activeProductions: [],
     releasedFilms: [],
     releasePresence: 'none',

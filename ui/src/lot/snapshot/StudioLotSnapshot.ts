@@ -47,6 +47,26 @@ export type StandingBand = 'struggling' | 'finding-footing' | 'established' | 'p
 /** Coarse cash position — a display band, not an accounting value. */
 export type CashBand = 'in-the-red' | 'tight' | 'stable' | 'flush'
 
+/** Exact Engine-owned publicity tier identity. */
+export type LotPublicityTier = 'whisper' | 'push' | 'blitz'
+
+/**
+ * One field-exact publicity offer projected from the Engine read model. These
+ * values are facts, not inputs for Lot-side pricing, lift, or legality rules.
+ */
+export type LotPublicityOffer = {
+  tier: LotPublicityTier
+  cost: number
+  maxLift: number
+  expectedLift: number
+  pricePerPoint: number | null
+  cooldownWeeks: number
+  globalCooldownWeeks: number
+  available: boolean
+  availableWeek: number | null
+  reason: string | null
+}
+
 /**
  * Canonical per-destination attention semantics (Gate D1 addendum §7). Every state
  * is paired in the UI with text + an icon/shape as well as colour — never colour
@@ -225,6 +245,8 @@ type StudioLotSnapshotBase = {
   standing: StandingBand
   /** Authoritative 0..100 standing channels for the three meters. */
   standingValues: { awareness: number; prestige: number; confidence: number }
+  /** Exact current Engine publicity offers, copied without Lot-side inference. */
+  publicityOffers: LotPublicityOffer[]
   /** Films shooting now — drives which stages are lit and their progress. */
   activeProductions: ProductionCard[]
   /** Recent releases — drives the theater marquee. */

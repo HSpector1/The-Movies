@@ -22,6 +22,7 @@ import type { IdentityMode } from './identity/manifest'
 import {
   HollywoodScene,
   type HollywoodEvent,
+  type HollywoodFailureReason,
   type HollywoodPerformance,
   type HollywoodPlaceSelection,
   type HollywoodProductionSelection,
@@ -61,6 +62,8 @@ export type StudioLotViewOptions = {
   onHollywoodSceneryLoadIn?: (selection: HollywoodSceneryLoadInSelection) => void
   /** The lot finished first paint. */
   onReady?: () => void
+  /** Hollywood could not establish or retain a usable physical renderer. */
+  onHollywoodFailure?: (reason: HollywoodFailureReason) => void
   /**
    * D1-B soundstage content gate, resolved by the host from ../flags.ts. Consumed once at
    * scene init (textures bake in create()), so it is not switchable on a live view.
@@ -88,6 +91,9 @@ export class StudioLotView {
   private reducedMotion = false
   /** Modal overlays suspend world input without pausing or recreating the renderer. */
   private inputSuspended = false
+  /** Suppress duplicate loader/create/context-loss reports within one renderer generation. */
+  private hollywoodFailureReported = false
+  private destroyed = false
   private readonly opts: StudioLotViewOptions
 
   constructor(opts: StudioLotViewOptions) {
@@ -107,13 +113,28 @@ export class StudioLotView {
       render: { antialias: true, roundPixels: false, powerPreference: 'low-power' },
       scene: [],
     })
+    if (this.opts.hollywood) {
+      game.events.once(Phaser.Core.Events.CONTEXT_LOST, () => {
+        if (this.destroyed || game !== this.game) return
+        this.reportHollywoodFailure('renderer-context-lost')
+      })
+    }
     game.events.once('ready', () => {
+      if (this.destroyed || game !== this.game || this.hollywoodFailureReported) return
       if (this.opts.hollywood) {
-        game.scene.add('hollywood', HollywoodScene, true, {
-          snapshot: this.pendingSnapshot ?? this.opts.snapshot,
-          onEvent: (e: HollywoodEvent) => this.handleHollywoodEvent(e),
-          reducedMotion: this.reducedMotion,
-        })
+        try {
+          game.scene.add('hollywood', HollywoodScene, true, {
+            snapshot: this.pendingSnapshot ?? this.opts.snapshot,
+            onEvent: (e: HollywoodEvent) => {
+              if (!this.destroyed && game === this.game) this.handleHollywoodEvent(e)
+            },
+            reducedMotion: this.reducedMotion,
+          })
+        } catch {
+          // SceneManager failures happen after StudioLotView construction, outside
+          // React's lazy-import promise. Surface them through the same exact seam.
+          this.reportHollywoodFailure('scene-boot-failed')
+        }
         return
       }
       game.scene.add('lot', LotScene, true, {
@@ -128,7 +149,12 @@ export class StudioLotView {
   }
 
   private handleHollywoodEvent(e: HollywoodEvent): void {
+    if (e.type === 'failure') {
+      this.reportHollywoodFailure(e.reason)
+      return
+    }
     if (e.type === 'ready') {
+      if (this.hollywoodFailureReported) return
       this.hollywoodScene = this.game.scene.getScene('hollywood') as HollywoodScene
       this.hollywoodScene.setReducedMotion(this.reducedMotion)
       this.hollywoodScene.setInputSuspended(this.inputSuspended)
@@ -143,6 +169,25 @@ export class StudioLotView {
     else if (e.type === 'production') this.opts.onHollywoodProduction?.(e.production)
     else if (e.type === 'scenery-load-in') this.opts.onHollywoodSceneryLoadIn?.(e.sceneryLoadIn)
     else if (e.type === 'activity') this.opts.onActivity?.(e.text)
+  }
+
+  private reportHollywoodFailure(reason: HollywoodFailureReason): void {
+    if (this.hollywoodFailureReported || this.destroyed || !this.opts.hollywood) return
+    this.hollywoodFailureReported = true
+    let failedScene = this.hollywoodScene
+    if (!failedScene) {
+      try {
+        failedScene = this.game.scene.getScene('hollywood') as HollywoodScene
+      } catch {
+        // A SceneManager boot failure may occur before the scene is registered.
+      }
+    }
+    try {
+      failedScene?.failClosedFromHost()
+    } finally {
+      this.hollywoodScene = null
+      this.opts.onHollywoodFailure?.(reason)
+    }
   }
 
   private handleEvent(e: LotEvent): void {
@@ -238,7 +283,11 @@ export class StudioLotView {
   resume(): void {
     this.game.loop.wake()
     if (this.game.scene.isPaused('lot')) this.game.scene.resume('lot')
-    if (this.game.scene.isPaused('hollywood')) this.game.scene.resume('hollywood')
+    // A failed Hollywood generation may still be registered by Phaser, but its
+    // host seam is deliberately null. Never reactivate that hidden/inert orphan.
+    if (this.hollywoodScene && this.game.scene.isPaused('hollywood')) {
+      this.game.scene.resume('hollywood')
+    }
     // Scene visibility and modal input are independent. Reasserting the retained
     // input state prevents a Phaser lifecycle resume from reviving controls behind
     // an overlay while leaving the renderer itself free to wake normally.
@@ -309,10 +358,12 @@ export class StudioLotView {
     this.scene = null
     this.hollywoodScene = null
     this.game.destroy(true)
+    this.hollywoodFailureReported = false
     this.game = this.boot()
   }
 
   destroy(): void {
+    this.destroyed = true
     this.scene = null
     this.hollywoodScene = null
     this.game.destroy(true)
@@ -330,6 +381,10 @@ export class StudioLotView {
   selectHollywoodAnnexPlace(): boolean {
     return this.hollywoodScene?.selectAnnexFromHost() ?? false
   }
+  /** Select exact Administration & Publicity and report physical availability. */
+  selectHollywoodPublicityPlace(): boolean {
+    return this.hollywoodScene?.selectPublicityFromHost() ?? false
+  }
   clearHollywoodPersonSelection(): void { this.hollywoodScene?.clearPersonSelection() }
   clearHollywoodPlaceSelection(): void { this.hollywoodScene?.clearPlaceSelection() }
 
@@ -341,6 +396,11 @@ export class StudioLotView {
 
   hollywoodPerformance(): HollywoodPerformance | null {
     return this.hollywoodScene?.performanceStats() ?? null
+  }
+
+  /** Evidence-only: begin a fresh sustained Hollywood frame window at a known UI boundary. */
+  resetHollywoodPerformance(): void {
+    this.hollywoodScene?.resetPerformanceTelemetry()
   }
 
   /** Debug/evidence seam: exact snapshot-derived Hollywood state, no GameState access. */

@@ -21,8 +21,6 @@ import type {
 } from '../engine/adapter.ts'
 import {
   careerIdentityLabel,
-  publicityDecision,
-  runPublicity,
   studioDevelopment,
   studioLotSnapshot,
   talentAssignmentContext,
@@ -33,6 +31,7 @@ import { moneyExact } from '../format.ts'
 import type {
   AttentionState,
   BuildingId,
+  LotPublicityOffer,
   LotPersonState,
   LotProductionCommand,
   ProductionOperationsState,
@@ -40,6 +39,11 @@ import type {
 } from './snapshot/StudioLotSnapshot.ts'
 import { ALL_BUILDING_IDS, BUILDING_ACTION, BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
 import { sceneryLoadInContext } from './snapshot/sceneryLoadIn.ts'
+import {
+  publicityCampaignContext,
+  type LotPublicityResult,
+  type LotPublicityTier,
+} from './snapshot/publicityCampaign.ts'
 import { lotPersonWorkContext } from './snapshot/personWork.ts'
 import {
   getLotSelectedBuilding,
@@ -73,6 +77,55 @@ const containWorldInput = (event: { stopPropagation(): void }) => {
 }
 
 type SceneryLoadInPresentationState = 'blocked' | 'ready'
+type PublicityPhysicalAvailability = 'pending' | 'available' | 'unavailable'
+
+const PUBLICITY_PLACE_ID = 'publicity'
+const PUBLICITY_BUILDING_ID = 'admin'
+const PUBLICITY_LABEL = 'Administration & Publicity'
+const PUBLICITY_AFFORDANCES = ['work', 'meeting', 'publicity'] as const
+
+function isExactPublicityPlace(place: HollywoodPlaceSelection): boolean {
+  return place.id === PUBLICITY_PLACE_ID &&
+    place.buildingId === PUBLICITY_BUILDING_ID &&
+    place.label === PUBLICITY_LABEL &&
+    place.affordances.length === PUBLICITY_AFFORDANCES.length &&
+    place.affordances.every((value, index) => value === PUBLICITY_AFFORDANCES[index])
+}
+
+function isFieldExactPublicityOffer(
+  rendered: LotPublicityOffer,
+  latest: LotPublicityOffer,
+): boolean {
+  const renderedEntries = Object.entries(rendered)
+  const latestRecord = latest as unknown as Record<string, unknown>
+  return renderedEntries.length === Object.keys(latest).length &&
+    renderedEntries.every(([key, value]) => (
+      Object.prototype.hasOwnProperty.call(latest, key) && latestRecord[key] === value
+    ))
+}
+
+function publicityTierLabel(tier: LotPublicityTier): string {
+  switch (tier) {
+    case 'whisper': return 'Whisper'
+    case 'push': return 'Push'
+    case 'blitz': return 'Blitz'
+  }
+}
+
+function cleanPublicityError(error: string): string {
+  return error
+    .replace(/^applyActions: publicity rejected — /, '')
+    .replace(/ \(D-17B §2\)$/, '')
+}
+
+function moneyWithCents(value: number): string {
+  return value.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
+}
 
 // Commands in this slice are flat projection records. Compare their complete own-field
 // sets so an activation rendered from an older projection can never borrow a legal
@@ -129,11 +182,13 @@ type Props = {
     constructionCompletion: ConstructionCompletionSummary | null
   } | null
   /** Exact focus instruction for canonical entry or a bounded deep-surface return. */
-  entryFocus?: 'studio-home' | 'selected-building' | 'advance-week'
+  entryFocus?: 'studio-home' | 'selected-building' | 'advance-week' | 'publicity-campaign'
   /** Suppress a generic Annex announcement already owned by an exact completion surface. */
   suppressOperationalAnnouncement?: boolean
-  /** The host replaces the authoritative state only after a successful real engine action. */
-  onStateChange?: (state: GameState) => void
+  /** Open the supporting Dashboard and return to this exact campaign context. */
+  onOpenPublicityDashboard?: () => void
+  /** App-owned publicity action. The Lot receives only a validated tier/week receipt. */
+  onRunPublicity?: (tier: LotPublicityTier) => LotPublicityResult
   /** Dispatch exactly the command projected by the authoritative operations read model. */
   onProductionCommand?: (command: LotProductionCommand) => ActionOutcome | void
   /** Dispatch the existing parameter-free Annex action through the authoritative App owner. */
@@ -144,7 +199,7 @@ type Props = {
   onCloseTalentProfile?: (personId: string) => void
   /** The exact App-owned profile currently open over this Lot, if any. */
   openTalentProfileId?: string | null
-  /** Suspend only world input while a modal remains mounted above the living renderer. */
+  /** Suspend every world/companion action while a modal remains above the living renderer. */
   worldInputSuspended?: boolean
 }
 
@@ -244,7 +299,8 @@ export function StudioLotScreen({
   advanceFeedback = null,
   entryFocus,
   suppressOperationalAnnouncement = false,
-  onStateChange,
+  onOpenPublicityDashboard,
+  onRunPublicity,
   onProductionCommand,
   onStartDevelopmentCastingAnnex,
   onOpenTalentProfile,
@@ -282,10 +338,15 @@ export function StudioLotScreen({
   const [hollywoodActivity, setHollywoodActivity] = useState<string | null>(null)
   const [hollywoodActivitySerial, setHollywoodActivitySerial] = useState(0)
   const [hollywoodPerf, setHollywoodPerf] = useState<HollywoodPerformance | null>(null)
+  const [hollywoodPerfWindow, setHollywoodPerfWindow] = useState(0)
   const [annexSelected, setAnnexSelected] = useState(false)
   const [annexPending, setAnnexPending] = useState(false)
   const [annexAnnouncement, setAnnexAnnouncement] = useState('')
   const [annexAnnouncementSerial, setAnnexAnnouncementSerial] = useState(0)
+  const [publicitySelected, setPublicitySelected] = useState(false)
+  const [publicityPhysicalAvailability, setPublicityPhysicalAvailability] =
+    useState<PublicityPhysicalAvailability>('pending')
+  const [publicityPending, setPublicityPending] = useState(false)
   const hollywoodCommandRef = useRef<HTMLButtonElement | null>(null)
   const hollywoodTaskStatusRef = useRef<HTMLDivElement | null>(null)
   const hollywoodPersonStatusRef = useRef<HTMLDivElement | null>(null)
@@ -307,7 +368,19 @@ export function StudioLotScreen({
   const annexAcceptedFocusRef = useRef(false)
   const onStartAnnexRef = useRef(onStartDevelopmentCastingAnnex)
   onStartAnnexRef.current = onStartDevelopmentCastingAnnex
-  const whisperOffer = publicityDecision(state).find((offer) => offer.tier === 'whisper')
+  const publicityHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const publicityStatusRef = useRef<HTMLDivElement | null>(null)
+  const publicityButtonRefs = useRef<Partial<Record<LotPublicityTier, HTMLButtonElement | null>>>({})
+  const publicitySelectedRef = useRef(false)
+  const publicityPendingRef = useRef(false)
+  const publicityHeldKeyRef = useRef<'Enter' | ' ' | null>(null)
+  const publicityFrameNonceRef = useRef(0)
+  const acceptedPublicityRef = useRef<{
+    receipt: Extract<LotPublicityResult, { ok: true }>
+    renderedOffer: LotPublicityOffer
+  } | null>(null)
+  const onRunPublicityRef = useRef(onRunPublicity)
+  onRunPublicityRef.current = onRunPublicity
 
   // Keep one live-region owner while replacing its child for every real event. An
   // identical second Engine rejection is still a distinct accessibility announcement.
@@ -380,6 +453,7 @@ export function StudioLotScreen({
   }, [])
 
   const snapshot = readSnapshot(state)
+  const currentPublicityCampaign = publicityCampaignContext(snapshot)
   const expansionFact = snapshot.buildings.find((building) => building.id === 'expansion')
   const annexView = studioDevelopment(state)
   const [operationalAnnouncement, setOperationalAnnouncement] = useState('')
@@ -551,6 +625,104 @@ export function StudioLotScreen({
     setAnnexAnnouncement('')
   }, [])
 
+  const clearPublicityContext = useCallback(() => {
+    publicityFrameNonceRef.current += 1
+    publicitySelectedRef.current = false
+    publicityPendingRef.current = false
+    publicityHeldKeyRef.current = null
+    acceptedPublicityRef.current = null
+    setPublicitySelected(false)
+    setPublicityPending(false)
+  }, [])
+
+  const focusPublicityContext = useCallback((target: 'first-action' | 'heading' | 'status') => {
+    queueMicrotask(() => {
+      if (!publicitySelectedRef.current || worldInputSuspendedRef.current) return
+      if (target === 'heading') {
+        publicityHeadingRef.current?.focus({ preventScroll: true })
+        return
+      }
+      if (target === 'first-action') {
+        const current = publicityCampaignContext(latestSnapshotRef.current)
+        const first = current?.offers.find((offer) => offer.available)
+        if (first) {
+          const button = publicityButtonRefs.current[first.tier]
+          if (button && !button.disabled) {
+            button.focus({ preventScroll: true })
+            return
+          }
+        }
+      }
+      publicityStatusRef.current?.focus({ preventScroll: true })
+    })
+  }, [])
+
+  const enterPublicityContext = useCallback((options: {
+    place: HollywoodPlaceSelection | null
+    paintHollywoodOutline: boolean
+    focus: 'first-action' | 'heading' | false
+  }): boolean => {
+    if (worldInputSuspendedRef.current) return false
+    if (publicityCampaignContext(latestSnapshotRef.current) === null) return false
+
+    if (options.place !== null && isExactPublicityPlace(options.place)) {
+      clearHollywoodSceneryLoadInReactContext()
+    } else {
+      clearHollywoodSceneryLoadInContext()
+    }
+    clearAnnexContext()
+    publicitySelectedRef.current = true
+    publicityPendingRef.current = false
+    publicityHeldKeyRef.current = null
+    acceptedPublicityRef.current = null
+    setPublicitySelected(true)
+    setPublicityPending(false)
+    setSelectionInfo(null)
+    setHollywoodPerson(null)
+    setHollywoodProductionId(undefined)
+    setHollywoodPlace(options.place)
+    pendingHollywoodFocusProductionId.current = null
+    viewRef.current?.clearHollywoodPersonSelection?.()
+    recordSelection('admin')
+
+    let physicalAvailable = options.place !== null && isExactPublicityPlace(options.place)
+    if (options.paintHollywoodOutline) {
+      physicalAvailable = viewRef.current?.selectHollywoodPublicityPlace?.() === true
+    }
+    setPublicityPhysicalAvailability(
+      physicalAvailable
+        ? 'available'
+        : canvasReady || canvasFailed
+          ? 'unavailable'
+        : 'pending',
+    )
+    if (options.focus) focusPublicityContext(options.focus)
+    if (physicalAvailable && options.paintHollywoodOutline) {
+      // Moving focus from the temporarily expanded semantic companion back into
+      // the campaign panel collapses that companion and resizes the canvas. Let
+      // both rendering turns settle, then issue the canonical office framing
+      // exactly once so Phaser's resize fit cannot erase it.
+      const frameNonce = ++publicityFrameNonceRef.current
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (
+          publicityFrameNonceRef.current !== frameNonce ||
+          !publicitySelectedRef.current ||
+          worldInputSuspendedRef.current
+        ) return
+        viewRef.current?.focusHollywoodPlace?.(PUBLICITY_PLACE_ID)
+      }))
+    }
+    return true
+  }, [
+    canvasFailed,
+    canvasReady,
+    clearAnnexContext,
+    clearHollywoodSceneryLoadInContext,
+    clearHollywoodSceneryLoadInReactContext,
+    focusPublicityContext,
+    recordSelection,
+  ])
+
   const focusSelectedAnnex = useCallback(() => {
     const nonce = ++annexFocusNonceRef.current
     queueMicrotask(() => {
@@ -569,8 +741,10 @@ export function StudioLotScreen({
     paintHollywoodOutline: boolean
     focus: boolean
   }): boolean => {
+    if (worldInputSuspendedRef.current) return false
     if (!hasExactAnnexProjection(latestSnapshotRef.current, latestAnnexViewRef.current)) return false
 
+    clearPublicityContext()
     clearHollywoodSceneryLoadInContext()
     annexSelectedRef.current = true
     annexAcceptedFocusRef.current = false
@@ -589,13 +763,14 @@ export function StudioLotScreen({
     }
     if (options.focus) focusSelectedAnnex()
     return true
-  }, [clearHollywoodSceneryLoadInContext, focusSelectedAnnex, recordSelection])
+  }, [clearHollywoodSceneryLoadInContext, clearPublicityContext, focusSelectedAnnex, recordSelection])
 
   const enterHollywoodSceneryLoadInContext = useCallback((
     selection: HollywoodSceneryLoadInSelection,
     options: { paintHollywoodOutline: boolean; focus: boolean },
   ): boolean => {
     if (
+      worldInputSuspendedRef.current ||
       !hollywood ||
       selection.placeId !== 'service-yard' ||
       selection.locationBuildingId !== 'stage-a'
@@ -606,6 +781,7 @@ export function StudioLotScreen({
       exact.operation.productionId !== selection.productionId
     ) return false
 
+    clearPublicityContext()
     hollywoodSceneryLoadInProductionIdRef.current = selection.productionId
     setHollywoodSceneryLoadInProductionId(selection.productionId)
     setHollywoodProductionId(selection.productionId)
@@ -636,12 +812,13 @@ export function StudioLotScreen({
       })
     }
     return true
-  }, [clearAnnexContext, hollywood, recordSelection])
+  }, [clearAnnexContext, clearPublicityContext, hollywood, recordSelection])
 
   const enterHollywoodProductionContext = useCallback((
     productionId: string,
     options: { stage7Only: boolean; focus: boolean },
   ): boolean => {
+    if (worldInputSuspendedRef.current) return false
     const current = latestSnapshotRef.current
     if (
       options.stage7Only &&
@@ -653,6 +830,7 @@ export function StudioLotScreen({
     )
     if (!exact) return false
 
+    clearPublicityContext()
     clearHollywoodSceneryLoadInContext()
     setHollywoodProductionId(exact.productionId)
     setHollywoodPerson(null)
@@ -680,7 +858,7 @@ export function StudioLotScreen({
       })
     }
     return true
-  }, [clearAnnexContext, clearHollywoodSceneryLoadInContext, recordSelection])
+  }, [clearAnnexContext, clearHollywoodSceneryLoadInContext, clearPublicityContext, recordSelection])
 
   const recordHollywoodProduction = useCallback((
     production: HollywoodProductionSelection,
@@ -725,6 +903,14 @@ export function StudioLotScreen({
       return
     }
 
+    if (entryFocus === 'publicity-campaign') {
+      if (enterPublicityContext({
+        place: null,
+        paintHollywoodOutline: hollywood,
+        focus: 'heading',
+      })) return
+    }
+
     if (entryFocus === 'selected-building') {
       const selectedBuilding = getLotSelectedBuilding()
       const exactFactCount = selectedBuilding === null
@@ -748,8 +934,10 @@ export function StudioLotScreen({
   }, [entryFocus])
 
   const recordHollywoodPerson = useCallback((person: LotPersonState | null) => {
+    if (worldInputSuspendedRef.current) return
     setHollywoodPerson(person)
     if (person !== null) {
+      clearPublicityContext()
       clearHollywoodSceneryLoadInContext()
       clearAnnexContext()
       setSelectionInfo(null)
@@ -767,13 +955,18 @@ export function StudioLotScreen({
           : null,
       )
     }
-  }, [clearAnnexContext, clearHollywoodSceneryLoadInContext, recordSelection])
+  }, [clearAnnexContext, clearHollywoodSceneryLoadInContext, clearPublicityContext, recordSelection])
 
   const recordHollywoodPlace = useCallback((place: HollywoodPlaceSelection | null) => {
+    if (worldInputSuspendedRef.current) return
     // The scene has already painted a non-null physical place selection before
     // emitting this event. Leave that generic outline intact while dropping only
     // a previously owned React scenery context.
     if (place !== null) clearHollywoodSceneryLoadInReactContext()
+    if (place !== null && isExactPublicityPlace(place)) {
+      enterPublicityContext({ place, paintHollywoodOutline: false, focus: 'first-action' })
+      return
+    }
     if (
       place !== null &&
       place.id === 'annex-parcel' &&
@@ -783,6 +976,7 @@ export function StudioLotScreen({
       return
     }
 
+    clearPublicityContext()
     clearAnnexContext()
     setHollywoodPlace(place)
     if (place !== null) {
@@ -794,6 +988,8 @@ export function StudioLotScreen({
   }, [
     clearAnnexContext,
     clearHollywoodSceneryLoadInReactContext,
+    clearPublicityContext,
+    enterPublicityContext,
     enterAnnexContext,
     recordSelection,
   ])
@@ -852,6 +1048,77 @@ export function StudioLotScreen({
     setHollywoodPlace(null)
     recordSelection(null)
   }, [annexSelected, annexView.status, clearAnnexContext, recordSelection, snapshot])
+
+  useEffect(() => {
+    if (!publicitySelected || currentPublicityCampaign !== null) return
+    clearPublicityContext()
+    setHollywoodPlace(null)
+    viewRef.current?.clearHollywoodPlaceSelection?.()
+    recordSelection(null)
+  }, [
+    clearPublicityContext,
+    currentPublicityCampaign,
+    publicitySelected,
+    recordSelection,
+  ])
+
+  useEffect(() => {
+    const accepted = acceptedPublicityRef.current
+    if (accepted === null) return
+    const current = currentPublicityCampaign
+    const latest = current?.offers.find((offer) => offer.tier === accepted.receipt.tier)
+    const reconciled =
+      current !== null &&
+      snapshot.week === accepted.receipt.acceptedWeek &&
+      latest !== undefined &&
+      !latest.available &&
+      current.offers.every((offer) =>
+        !offer.available &&
+        offer.availableWeek !== null &&
+        offer.availableWeek > accepted.receipt.acceptedWeek,
+      ) &&
+      !isFieldExactPublicityOffer(accepted.renderedOffer, latest)
+
+    if (reconciled) {
+      const offer = accepted.renderedOffer
+      const detail = `${publicityTierLabel(offer.tier)} publicity accepted · ${moneyExact(offer.cost)} · immediate awareness +${offer.expectedLift.toFixed(2)}`
+      acceptedPublicityRef.current = null
+      publicityPendingRef.current = false
+      publicityHeldKeyRef.current = null
+      setPublicityPending(false)
+      announceHollywoodActivity(detail)
+      viewRef.current?.showHollywoodPublicity(true, detail)
+      focusPublicityContext('status')
+      return
+    }
+
+    // The immediate pre-replacement render still carries the exact rendered token.
+    // Keep the synchronous latch until fresh App state arrives.
+    if (
+      current !== null &&
+      snapshot.week === accepted.receipt.acceptedWeek &&
+      latest !== undefined &&
+      isFieldExactPublicityOffer(accepted.renderedOffer, latest)
+    ) return
+
+    clearPublicityContext()
+    setHollywoodPlace(null)
+    viewRef.current?.clearHollywoodPlaceSelection?.()
+    recordSelection(null)
+    announceHollywoodActivity('Publicity result could not be reconciled with current studio truth.')
+  }, [
+    announceHollywoodActivity,
+    clearPublicityContext,
+    currentPublicityCampaign,
+    focusPublicityContext,
+    recordSelection,
+    snapshot.week,
+  ])
+
+  useEffect(() => {
+    if (!publicitySelected || !canvasFailed) return
+    setPublicityPhysicalAvailability('unavailable')
+  }, [canvasFailed, publicitySelected])
 
   // Accepted construction keeps the action synchronously guarded until fresh App-owned
   // state repaints Vacant → Building. Focus then moves into the persistent status region.
@@ -963,6 +1230,7 @@ export function StudioLotScreen({
   ])
 
   const dispatchRoute = useCallback((action: LotActionEvent['action']) => {
+    if (worldInputSuspendedRef.current) return
     const res = resolveAction(action)
     onNavigateRef.current(res.route)
   }, [])
@@ -1002,6 +1270,7 @@ export function StudioLotScreen({
               }
               return
             }
+            clearPublicityContext()
             clearHollywoodSceneryLoadInContext()
             clearAnnexContext()
             setSelectionInfo(sel)
@@ -1015,6 +1284,7 @@ export function StudioLotScreen({
             // Renderer actions are independently activatable: record their exact source before
             // routing instead of assuming an onSelect event happened first.
             recordSelection(e.buildingId)
+            clearPublicityContext()
             clearHollywoodSceneryLoadInContext()
             clearAnnexContext()
             dispatchRoute(e.action)
@@ -1024,11 +1294,26 @@ export function StudioLotScreen({
           onHollywoodProduction: recordHollywoodProduction,
           onHollywoodSceneryLoadIn: recordHollywoodSceneryLoadIn,
           onActivity: (text) => { if (text) recordHollywoodRendererActivity(text) },
+          onHollywoodFailure: () => {
+            if (cancelled) return
+            setCanvasReady(false)
+            setCanvasFailed(true)
+            if (publicitySelectedRef.current) {
+              setPublicityPhysicalAvailability('unavailable')
+            }
+          },
           onReady: () => {
             if (cancelled) return
+            // StudioLotView suppresses ready from a failed renderer generation, so
+            // any ready reaching React is a validated live or recreated renderer.
+            setCanvasFailed(false)
             setCanvasReady(true)
             const sceneryProductionId = hollywoodSceneryLoadInProductionIdRef.current
-            if (sceneryProductionId !== null) {
+            if (publicitySelectedRef.current) {
+              const physical = hollywood && view?.selectHollywoodPublicityPlace?.() === true
+              setPublicityPhysicalAvailability(physical ? 'available' : 'unavailable')
+              if (physical) view?.focusHollywoodPlace?.(PUBLICITY_PLACE_ID)
+            } else if (sceneryProductionId !== null) {
               view?.selectHollywoodSceneryLoadIn?.(sceneryProductionId)
             } else if (annexSelectedRef.current) {
               if (hollywood) view?.selectHollywoodAnnexPlace?.()
@@ -1064,9 +1349,15 @@ export function StudioLotScreen({
   }, [])
 
   // Modal overlays keep this exact view mounted and animated while making the
-  // world inert. The latest ref above also covers a drawer opened before the
-  // lazy renderer constructor resolves.
+  // world inert. Native DOM controls are also placed in an inert subtree below;
+  // clear held semantic keys here so an activation begun before modal entry
+  // cannot complete after it closes. The latest ref above also covers a drawer
+  // opened before the lazy renderer constructor resolves.
   useEffect(() => {
+    if (worldInputSuspended) {
+      publicityHeldKeyRef.current = null
+      hollywoodSceneryCommandHeldKeyRef.current = null
+    }
     viewRef.current?.setInputSuspended?.(worldInputSuspended)
   }, [worldInputSuspended])
 
@@ -1076,9 +1367,9 @@ export function StudioLotScreen({
     if (v && canvasReady) {
       v.setSnapshot({ ...readSnapshot(state), selectedBuildingId: getLotSelectedBuilding() })
       const sceneryProductionId = hollywoodSceneryLoadInProductionIdRef.current
-      if (sceneryProductionId !== null) {
+      if (!publicitySelectedRef.current && sceneryProductionId !== null) {
         v.selectHollywoodSceneryLoadIn?.(sceneryProductionId)
-      } else if (annexSelectedRef.current) {
+      } else if (!publicitySelectedRef.current && annexSelectedRef.current) {
         if (hollywood) v.selectHollywoodAnnexPlace?.()
         else v.select('expansion')
       }
@@ -1168,6 +1459,18 @@ export function StudioLotScreen({
     return () => window.clearInterval(h)
   }, [hollywood, identityProof, canvasReady])
 
+  useEffect(() => {
+    // The publicity performance proof must measure the selected campaign subtree,
+    // not inherit a rolling window gathered before that subtree was mounted. This
+    // runs after React commits the panel and is inert outside explicit proof mode.
+    if (!hollywood || !identityProof || !canvasReady || !publicitySelected) return
+    const view = viewRef.current
+    view?.resetHollywoodPerformance?.()
+    const emptyWindow = view?.hollywoodPerformance()
+    if (emptyWindow) setHollywoodPerf(emptyWindow)
+    setHollywoodPerfWindow((current) => current + 1)
+  }, [hollywood, identityProof, canvasReady, publicitySelected])
+
   const selectHollywoodPerson = useCallback((person: LotPersonState) => {
     recordHollywoodPerson(person)
     viewRef.current?.selectHollywoodPerson(person.id)
@@ -1196,6 +1499,7 @@ export function StudioLotScreen({
     productionId: string,
     command: LotProductionCommand,
   ) => {
+    if (worldInputSuspendedRef.current) return
     pendingHollywoodFocusProductionId.current = productionId
     const outcome = onProductionCommand?.(command)
     if (outcome && !outcome.ok) {
@@ -1216,7 +1520,7 @@ export function StudioLotScreen({
     // The second click in one native double-click gesture may land after React has
     // repainted blocked -> ready. It is still the original gesture, not consent to
     // dispatch the freshly presented Schedule command.
-    if (clickDetail > 1) return
+    if (worldInputSuspendedRef.current || clickDetail > 1) return
     if (hollywoodSceneryCommandPendingRef.current || onProductionCommand === undefined) return
     const current = sceneryLoadInContext(latestSnapshotRef.current)
     const productionId = renderedCommand.productionId
@@ -1313,6 +1617,7 @@ export function StudioLotScreen({
 
   const startAnnexConstruction = useCallback(() => {
     if (
+      worldInputSuspendedRef.current ||
       annexPendingRef.current ||
       !annexSelectedRef.current ||
       !hasExactAnnexProjection(latestSnapshotRef.current, latestAnnexViewRef.current)
@@ -1342,26 +1647,101 @@ export function StudioLotScreen({
     )
   }, [focusSelectedAnnex])
 
-  const runHollywoodPublicity = useCallback(() => {
-    if (!whisperOffer) return
-    const result = runPublicity(state, whisperOffer.tier)
-    if (!result.ok) {
-      const clean = result.error.replace(/^applyActions: publicity rejected — /, '').replace(/ \(D-17B §2\)$/, '')
-      announceHollywoodActivity(`Publicity blocked: ${clean}`)
-      viewRef.current?.showHollywoodPublicity(false, `Publicity blocked: ${clean}`)
+  const runHollywoodPublicity = useCallback((renderedOffer: LotPublicityOffer) => {
+    if (
+      worldInputSuspendedRef.current ||
+      !publicitySelectedRef.current ||
+      publicityPendingRef.current
+    ) return
+    const current = publicityCampaignContext(latestSnapshotRef.current)
+    const latest = current?.offers.find((offer) => offer.tier === renderedOffer.tier)
+    if (
+      current === null ||
+      latest === undefined ||
+      !latest.available ||
+      !isFieldExactPublicityOffer(renderedOffer, latest)
+    ) {
+      announceHollywoodActivity('Publicity offer changed. Review the current campaign terms.')
+      focusPublicityContext('status')
       return
     }
-    const cashDelta = state.studio.cash - result.next.studio.cash
-    const awarenessDelta = result.next.studio.standing.audienceAwareness - state.studio.standing.audienceAwareness
-    onStateChange?.(result.next)
-    const detail = `Publicity call complete · −$${cashDelta.toLocaleString('en-US')} · awareness +${awarenessDelta.toFixed(1)}`
-    announceHollywoodActivity(detail)
-    viewRef.current?.showHollywoodPublicity(true, detail)
-  }, [announceHollywoodActivity, onStateChange, state, whisperOffer])
+    const owner = onRunPublicityRef.current
+    if (owner === undefined) return
+
+    publicityPendingRef.current = true
+    setPublicityPending(true)
+    const result = owner(renderedOffer.tier)
+    if (!result.ok) {
+      publicityPendingRef.current = false
+      setPublicityPending(false)
+      announceHollywoodActivity(`Publicity blocked: ${cleanPublicityError(result.error)}`)
+      queueMicrotask(() => {
+        if (!publicitySelectedRef.current) return
+        const button = publicityButtonRefs.current[renderedOffer.tier]
+        if (button && !button.disabled) button.focus({ preventScroll: true })
+        else publicityStatusRef.current?.focus({ preventScroll: true })
+      })
+      return
+    }
+    if (
+      result.tier !== renderedOffer.tier ||
+      result.acceptedWeek !== latestSnapshotRef.current.week
+    ) {
+      clearPublicityContext()
+      setHollywoodPlace(null)
+      viewRef.current?.clearHollywoodPlaceSelection?.()
+      recordSelection(null)
+      announceHollywoodActivity('Publicity acceptance receipt did not match the selected offer.')
+      queueMicrotask(() => studioHeadingRef.current?.focus({ preventScroll: true }))
+      return
+    }
+
+    acceptedPublicityRef.current = { receipt: result, renderedOffer }
+  }, [
+    announceHollywoodActivity,
+    clearPublicityContext,
+    focusPublicityContext,
+    recordSelection,
+  ])
+
+  const guardPublicityKeyDown = useCallback((event: {
+    key: string
+    repeat: boolean
+    preventDefault(): void
+    stopPropagation(): void
+  }) => {
+    containWorldInput(event)
+    if (worldInputSuspendedRef.current) {
+      event.preventDefault()
+      return
+    }
+    if (event.key !== 'Enter' && event.key !== ' ') return
+    if (event.repeat || publicityHeldKeyRef.current === event.key) {
+      event.preventDefault()
+      return
+    }
+    publicityHeldKeyRef.current = event.key
+  }, [])
+
+  const releasePublicityKey = useCallback((event: { key: string; stopPropagation(): void }) => {
+    containWorldInput(event)
+    if (publicityHeldKeyRef.current === event.key) publicityHeldKeyRef.current = null
+  }, [])
 
   // Companion-nav activation: select the building AND route to its destination.
   const activate = useCallback(
     (id: BuildingId) => {
+      if (worldInputSuspendedRef.current) return
+      if (hollywood && id === 'admin') {
+        if (enterPublicityContext({
+          place: null,
+          paintHollywoodOutline: true,
+          focus: 'first-action',
+        })) return
+        clearPublicityContext()
+        recordSelection(null)
+        return
+      }
       if (id === 'expansion') {
         if (enterAnnexContext({
           place: null,
@@ -1393,6 +1773,7 @@ export function StudioLotScreen({
           return
         }
       }
+      clearPublicityContext()
       clearHollywoodSceneryLoadInContext()
       clearAnnexContext()
       recordSelection(id)
@@ -1402,9 +1783,11 @@ export function StudioLotScreen({
     [
       clearAnnexContext,
       clearHollywoodSceneryLoadInContext,
+      clearPublicityContext,
       dispatchRoute,
       enterAnnexContext,
       enterHollywoodProductionContext,
+      enterPublicityContext,
       hollywood,
       recordSelection,
     ],
@@ -1428,6 +1811,148 @@ export function StudioLotScreen({
     const label = maskNames && isStage ? 'Soundstage' : BUILDING_LABELS[id]
     return { id, label, attention, meta, stateText }
   })
+
+  const publicityContextContents = !publicitySelected
+    ? null
+    : currentPublicityCampaign === null
+      ? (
+          <div
+            ref={publicityStatusRef}
+            tabIndex={-1}
+            role="region"
+            aria-label="Publicity campaign unavailable"
+            data-testid="hollywood-publicity-context-unavailable"
+          >
+            <h3 ref={publicityHeadingRef} tabIndex={-1}>Administration &amp; Publicity</h3>
+            <p>Current campaign offers are unavailable. No publicity action was sent.</p>
+          </div>
+        )
+      : (
+          <>
+            <p className="hollywood-eyebrow">SELECTED OFFICE · WEEK {snapshot.week}</p>
+            <div className="hollywood-publicity-heading">
+              <h3
+                id="hollywood-publicity-heading"
+                ref={publicityHeadingRef}
+                tabIndex={-1}
+              >
+                Administration &amp; Publicity
+              </h3>
+              <span className="hollywood-publicity-tag">
+                {currentPublicityCampaign.availableCount} OF 3 AVAILABLE
+              </span>
+            </div>
+            <div
+              ref={publicityStatusRef}
+              tabIndex={-1}
+              className="hollywood-publicity-status"
+              role="region"
+              aria-labelledby="hollywood-publicity-heading"
+              data-testid="hollywood-publicity-status"
+            >
+              <strong>
+                Audience Awareness {snapshot.standingValues.awareness.toFixed(2)}
+              </strong>
+              <p data-testid="hollywood-publicity-physical-status">
+                {publicityPhysicalAvailability === 'available'
+                  ? 'Selected in the living lot at Administration & Publicity.'
+                  : publicityPhysicalAvailability === 'pending'
+                    ? 'The physical office is still preparing. Complete campaign controls remain available here.'
+                    : 'The physical office is unavailable in this renderer. Complete campaign controls remain available here.'}
+              </p>
+            </div>
+            <div
+              className="hollywood-publicity-offers"
+              aria-label="Current publicity campaign offers"
+              data-testid="hollywood-publicity-offers"
+            >
+              {currentPublicityCampaign.offers.map((offer) => {
+                const label = publicityTierLabel(offer.tier)
+                const statusId = `hollywood-publicity-${offer.tier}-status`
+                return (
+                  <article
+                    key={offer.tier}
+                    className={`hollywood-publicity-offer${offer.available ? ' is-available' : ' is-unavailable'}`}
+                    data-testid={`hollywood-publicity-${offer.tier}`}
+                  >
+                    <div className="hollywood-publicity-offer-title">
+                      <strong>{label}</strong>
+                      <span>{moneyExact(offer.cost)}</span>
+                    </div>
+                    <dl>
+                      <div><dt>Immediate lift</dt><dd>+{offer.expectedLift.toFixed(2)}</dd></div>
+                      <div><dt>Price / point</dt><dd>{offer.pricePerPoint === null ? '—' : moneyWithCents(offer.pricePerPoint)}</dd></div>
+                      <div><dt>Tier cooldown</dt><dd>{offer.cooldownWeeks} weeks</dd></div>
+                      <div><dt>Shared cooldown</dt><dd>{offer.globalCooldownWeeks} weeks</dd></div>
+                      <div><dt>Available week</dt><dd>{offer.availableWeek === null ? '—' : offer.availableWeek}</dd></div>
+                    </dl>
+                    <p
+                      id={statusId}
+                      className="hollywood-publicity-offer-status"
+                      data-testid={`hollywood-publicity-${offer.tier}-offer-status`}
+                    >
+                      {publicityPending
+                        ? 'A publicity campaign is processing. Wait for current studio truth.'
+                        : worldInputSuspended
+                          ? 'Close the open talent profile before acting in the Studio Lot.'
+                        : offer.available && !onRunPublicity
+                          ? `Engine offer available now in Week ${offer.availableWeek}; this host has no publicity action owner.`
+                          : offer.available
+                            ? `Available now in Week ${offer.availableWeek}.`
+                            : offer.reason}
+                    </p>
+                    <button
+                      ref={(node) => {
+                        publicityButtonRefs.current[offer.tier] = node
+                      }}
+                      type="button"
+                      className="hollywood-publicity-action"
+                      aria-describedby={statusId}
+                      disabled={
+                        worldInputSuspended ||
+                        publicityPending ||
+                        !offer.available ||
+                        !onRunPublicity
+                      }
+                      onPointerDown={containWorldInput}
+                      onMouseDown={containWorldInput}
+                      onTouchStart={containWorldInput}
+                      onKeyDown={guardPublicityKeyDown}
+                      onKeyUp={releasePublicityKey}
+                      onClick={(event) => {
+                        if (event.detail > 1) return
+                        runHollywoodPublicity(offer)
+                      }}
+                      data-testid={`hollywood-publicity-run-${offer.tier}`}
+                    >
+                      {publicityPending ? 'Campaign processing…' : `Run ${label}`}
+                    </button>
+                  </article>
+                )
+              })}
+            </div>
+            <p className="hollywood-publicity-boundary">
+              Immediate visibility only. These offers do not promise revenue, recovery, or a
+              profitable business outcome.
+            </p>
+            <button
+              type="button"
+              className="ghost hollywood-publicity-dashboard"
+              disabled={
+                worldInputSuspended ||
+                publicityPending ||
+                !onOpenPublicityDashboard
+              }
+              onPointerDown={containWorldInput}
+              onMouseDown={containWorldInput}
+              onTouchStart={containWorldInput}
+              onClick={onOpenPublicityDashboard}
+              data-testid="hollywood-publicity-open-dashboard"
+            >
+              Open Dashboard details
+            </button>
+          </>
+        )
 
   const annexAffordability = !annexView.affordability.ok
     ? annexView.affordability.reason
@@ -1703,6 +2228,7 @@ export function StudioLotScreen({
     <div
       className={`lot-screen${reducedMotion ? ' lot-reduced-motion' : ''}${hollywood ? ' lot-hollywood' : ''}`}
       data-testid="studio-lot-screen"
+      inert={worldInputSuspended || undefined}
     >
       <div
         className="visually-hidden"
@@ -1747,12 +2273,22 @@ export function StudioLotScreen({
             onPointerDown={containWorldInput}
             onMouseDown={containWorldInput}
             onTouchStart={containWorldInput}
-            onClick={onAdvance}
+            disabled={worldInputSuspended}
+            onClick={() => {
+              if (!worldInputSuspendedRef.current) onAdvance()
+            }}
             data-testid="lot-advance-week"
           >
             Advance one week
           </button>
-          <button className="ghost" onClick={onExit} data-testid="lot-return-dashboard">
+          <button
+            className="ghost"
+            disabled={worldInputSuspended}
+            onClick={() => {
+              if (!worldInputSuspendedRef.current) onExit()
+            }}
+            data-testid="lot-return-dashboard"
+          >
             Open Dashboard
           </button>
         </div>
@@ -1865,9 +2401,11 @@ export function StudioLotScreen({
               </section>
 
               <section
-                className={`hollywood-inspector${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}${hollywoodPerson ? ' is-person' : ''}`}
+                className={`hollywood-inspector${publicitySelected ? ' is-publicity' : ''}${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}${hollywoodPerson ? ' is-person' : ''}`}
                 data-testid={
-                  annexSelected
+                  publicitySelected
+                    ? 'hollywood-publicity-context'
+                    : annexSelected
                     ? 'lot-annex-context'
                     : selectedSceneryLoadInContext
                       ? 'hollywood-scenery-load-in-context'
@@ -1877,7 +2415,9 @@ export function StudioLotScreen({
                 onMouseDown={containWorldInput}
                 onTouchStart={containWorldInput}
               >
-                {annexSelected
+                {publicitySelected
+                  ? publicityContextContents
+                  : annexSelected
                   ? annexContextContents
                   : selectedSceneryLoadInContext
                     ? sceneryLoadInContextContents
@@ -1927,26 +2467,6 @@ export function StudioLotScreen({
                   >
                     {hollywoodInspectorOperation.currentCommand.label}
                   </button>
-                    )}
-                    {whisperOffer && (
-                  <>
-                    <button
-                      className="hollywood-publicity"
-                      data-testid="hollywood-publicity-whisper"
-                      aria-describedby="hollywood-publicity-whisper-status"
-                      disabled={!whisperOffer.available}
-                      onClick={runHollywoodPublicity}
-                    >
-                      Run publicity · Whisper · {moneyExact(whisperOffer.cost)} · +{whisperOffer.expectedLift.toFixed(2)} awareness
-                    </button>
-                    <small
-                      id="hollywood-publicity-whisper-status"
-                      data-testid="hollywood-publicity-whisper-status"
-                    >
-                      {whisperOffer.available ? 'Available now.' : `Unavailable. ${whisperOffer.reason ?? 'No offer is available.'}`}
-                      {' '}Global cooldown: {whisperOffer.globalCooldownWeeks} weeks · Whisper cooldown: {whisperOffer.cooldownWeeks} weeks
-                    </small>
-                  </>
                     )}
                   </>
                     )}
@@ -2018,7 +2538,12 @@ export function StudioLotScreen({
                 )}
               </div>
               {identityProof && hollywoodPerf && (
-                <div className="hollywood-perf" data-testid="hollywood-performance">
+                <div
+                  className="hollywood-perf"
+                  data-testid="hollywood-performance"
+                  data-frame-samples={hollywoodPerf.frameSampleCount}
+                  data-telemetry-window={hollywoodPerfWindow}
+                >
                   {hollywoodPerf.fps} fps · {hollywoodPerf.onePercentLowFps} fps 1% low · {hollywoodPerf.displayObjects} objects · {hollywoodPerf.dynamicActors} actors · {hollywoodPerf.textureMemoryMb} MB decoded · {hollywoodPerf.roleAtlasEncodedKb} KB atlas · {hollywoodPerf.p99FrameMs} ms p99 · {hollywoodPerf.worstFrameMs} ms worst · {hollywoodPerf.updateMs} ms update · {hollywoodPerf.drawCalls} draws
                 </div>
               )}
@@ -2173,7 +2698,14 @@ export function StudioLotScreen({
 
         </div>
 
-        <nav className="lot-companion" aria-label="Studio lot destinations" data-testid="lot-companion-nav">
+        <nav
+          className="lot-companion"
+          aria-label="Studio lot destinations"
+          data-testid="lot-companion-nav"
+          onPointerDown={containWorldInput}
+          onMouseDown={containWorldInput}
+          onTouchStart={containWorldInput}
+        >
           <h2 className="lot-companion-title">Studio Lot</h2>
           <p className="hint lot-companion-hint">
             Every destination is reachable here or by clicking the lot.
@@ -2188,6 +2720,7 @@ export function StudioLotScreen({
                   }`}
                   data-testid="lot-nav-service-yard"
                   data-attention="decision-required"
+                  disabled={worldInputSuspended}
                   aria-current={selectedSceneryLoadInContext ? 'true' : undefined}
                   onPointerDown={containWorldInput}
                   onMouseDown={containWorldInput}
@@ -2220,6 +2753,7 @@ export function StudioLotScreen({
                   className={`lot-nav-item att-${row.attention}${selected === row.id ? ' is-selected' : ''}`}
                   data-testid={`lot-nav-${row.id}`}
                   data-attention={row.attention}
+                  disabled={worldInputSuspended}
                   aria-current={selected === row.id ? 'true' : undefined}
                   onClick={() => activate(row.id)}
                   title={BUILDING_BLURBS[row.id]}

@@ -8,6 +8,15 @@ const runtime = vi.hoisted(() => {
   type SceneryLoadInSelection = ProductionSelection & { placeId: 'service-yard' }
   type Event =
     | { type: 'ready' }
+    | {
+        type: 'failure'
+        reason:
+          | 'manifest-load-failed'
+          | 'manifest-invalid'
+          | 'scene-create-failed'
+          | 'scene-boot-failed'
+          | 'renderer-context-lost'
+      }
     | { type: 'production'; production: ProductionSelection }
     | { type: 'scenery-load-in'; sceneryLoadIn: SceneryLoadInSelection }
 
@@ -26,11 +35,15 @@ const runtime = vi.hoisted(() => {
     sceneryLoadInSelectionResult = true
     annexSelections = 0
     annexSelectionResult = true
+    publicitySelections = 0
+    publicitySelectionResult = true
     telemetryResets = 0
+    failClosedCalls = 0
     snapshotsApplied: unknown[] = []
     setReducedMotion(on: boolean) { this.reduced.push(on) }
     setInputSuspended(on: boolean) { this.inputSuspensions.push(on) }
     resetPerformanceTelemetry() { this.telemetryResets++ }
+    failClosedFromHost() { this.failClosedCalls++ }
     applySnapshot(snapshot: unknown) { this.snapshotsApplied.push(snapshot) }
     selectProductionFromHost(productionId: string) {
       this.productionSelections.push(productionId)
@@ -44,22 +57,32 @@ const runtime = vi.hoisted(() => {
       this.annexSelections++
       return this.annexSelectionResult
     }
+    selectPublicityFromHost() {
+      this.publicitySelections++
+      return this.publicitySelectionResult
+    }
     emitProduction(production: ProductionSelection) {
       this.data?.onEvent({ type: 'production', production })
     }
     emitSceneryLoadIn(sceneryLoadIn: SceneryLoadInSelection) {
       this.data?.onEvent({ type: 'scenery-load-in', sceneryLoadIn })
     }
+    emitFailure(reason: Extract<Event, { type: 'failure' }>['reason']) {
+      this.data?.onEvent({ type: 'failure', reason })
+    }
   }
 
   class SceneManager {
     scenes = new Map<string, object>()
     paused = new Set<string>()
+    startupEvent: Event = { type: 'ready' }
+    addError: Error | null = null
     add(key: string, SceneClass: new () => object, _autoStart: boolean, data: HollywoodScene['data']) {
+      if (this.addError) throw this.addError
       const scene = new SceneClass() as HollywoodScene
       scene.data = data
       this.scenes.set(key, scene)
-      data?.onEvent({ type: 'ready' })
+      data?.onEvent(this.startupEvent)
     }
     getScene(key: string) { return this.scenes.get(key) }
     isActive(key: string) { return this.scenes.has(key) && !this.paused.has(key) }
@@ -84,6 +107,7 @@ vi.mock('phaser', () => ({
   default: {
     AUTO: 0,
     Scale: { RESIZE: 0 },
+    Core: { Events: { CONTEXT_LOST: 'contextlost' } },
     Game: runtime.Game,
   },
 }))
@@ -91,7 +115,48 @@ vi.mock('./scene/LotScene', () => ({ LotScene: class LotScene {} }))
 vi.mock('./hollywood/HollywoodScene', () => ({ HollywoodScene: runtime.HollywoodScene }))
 
 import { StudioLotView } from './StudioLotView.ts'
-import type { StudioLotSnapshot } from './snapshot/StudioLotSnapshot.ts'
+import type {
+  LotPublicityOffer,
+  StudioLotSnapshot,
+} from './snapshot/StudioLotSnapshot.ts'
+
+function publicityOffersAtWeek(week: number): LotPublicityOffer[] {
+  const unavailable = {
+    globalCooldownWeeks: 6,
+    available: false,
+    availableWeek: week,
+    reason: 'Insufficient cash for this campaign.',
+  } as const
+  return [
+    {
+      tier: 'whisper',
+      cost: 1_200_000,
+      maxLift: 18,
+      expectedLift: 4.718592000000002,
+      pricePerPoint: 254_313.15104166657,
+      cooldownWeeks: 8,
+      ...unavailable,
+    },
+    {
+      tier: 'push',
+      cost: 3_600_000,
+      maxLift: 30,
+      expectedLift: 7.864320000000003,
+      pricePerPoint: 457_763.6718749998,
+      cooldownWeeks: 12,
+      ...unavailable,
+    },
+    {
+      tier: 'blitz',
+      cost: 8_000_000,
+      maxLift: 42,
+      expectedLift: 11.010048000000005,
+      pricePerPoint: 726_609.0029761902,
+      cooldownWeeks: 20,
+      ...unavailable,
+    },
+  ]
+}
 
 const snapshot: StudioLotSnapshot = {
   studioName: 'Project: Studio',
@@ -100,6 +165,7 @@ const snapshot: StudioLotSnapshot = {
   cashBand: 'stable',
   standing: 'finding-footing',
   standingValues: { awareness: 20, prestige: 20, confidence: 20 },
+  publicityOffers: publicityOffersAtWeek(1),
   activeProductions: [],
   releasedFilms: [],
   releasePresence: 'none',
@@ -111,6 +177,78 @@ const snapshot: StudioLotSnapshot = {
 }
 
 describe('StudioLotView Hollywood lifecycle', () => {
+  it('forwards one exact scene failure and never promotes that generation to ready', () => {
+    const onHollywoodFailure = vi.fn()
+    const onReady = vi.fn()
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+      onHollywoodFailure,
+      onReady,
+    })
+    const game = runtime.games.at(-1)!
+    game.scene.startupEvent = { type: 'failure', reason: 'manifest-invalid' }
+
+    game.events.emit('ready')
+
+    const scene = game.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+    scene.emitFailure('scene-create-failed')
+    expect(onHollywoodFailure).toHaveBeenCalledOnce()
+    expect(onHollywoodFailure).toHaveBeenCalledWith('manifest-invalid')
+    expect(onReady).not.toHaveBeenCalled()
+    expect(view.selectHollywoodPublicityPlace()).toBe(false)
+  })
+
+  it('surfaces a synchronous SceneManager boot failure after View construction', () => {
+    const onHollywoodFailure = vi.fn()
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+      onHollywoodFailure,
+    })
+    const game = runtime.games.at(-1)!
+    game.scene.addError = new Error('forced scene-manager boot failure')
+
+    game.events.emit('ready')
+
+    expect(onHollywoodFailure).toHaveBeenCalledOnce()
+    expect(onHollywoodFailure).toHaveBeenCalledWith('scene-boot-failed')
+    expect(view.selectHollywoodPublicityPlace()).toBe(false)
+  })
+
+  it('reports renderer context loss once and clears the physical scene seam', () => {
+    const onHollywoodFailure = vi.fn()
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+      onHollywoodFailure,
+    })
+    const game = runtime.games.at(-1)!
+    game.events.emit('ready')
+    expect(view.selectHollywoodPublicityPlace()).toBe(true)
+
+    game.events.emit('contextlost')
+    game.events.emit('contextlost')
+
+    expect(onHollywoodFailure).toHaveBeenCalledOnce()
+    expect(onHollywoodFailure).toHaveBeenCalledWith('renderer-context-lost')
+    expect(view.selectHollywoodPublicityPlace()).toBe(false)
+    const scene = game.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+    expect(scene.inputSuspensions).toEqual([false])
+    expect(scene.failClosedCalls).toBe(1)
+
+    // Visibility lifecycle wakes the renderer loop but must never resume the
+    // registered, failed Hollywood generation whose live host seam is now null.
+    game.scene.paused.add('hollywood')
+    view.pause()
+    view.resume()
+    expect(game.loop.wake).toHaveBeenCalledOnce()
+    expect(game.scene.isPaused('hollywood')).toBe(true)
+  })
+
   it('forwards exact production identity and keeps host highlighting presentation-only', () => {
     const onHollywoodProduction = vi.fn()
     const view = new StudioLotView({
@@ -156,6 +294,46 @@ describe('StudioLotView Hollywood lifecycle', () => {
     scene.annexSelectionResult = false
     expect(view.selectHollywoodAnnexPlace()).toBe(false)
     expect(scene.annexSelections).toBe(2)
+  })
+
+  it('reports exact publicity physical availability through the host-selection return value', () => {
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+    })
+    const game = runtime.games.at(-1)!
+
+    expect(view.selectHollywoodPublicityPlace()).toBe(false)
+    game.events.emit('ready')
+    const scene = game.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+
+    expect(view.selectHollywoodPublicityPlace()).toBe(true)
+    expect(scene.publicitySelections).toBe(1)
+
+    scene.publicitySelectionResult = false
+    expect(view.selectHollywoodPublicityPlace()).toBe(false)
+    expect(scene.publicitySelections).toBe(2)
+
+    view.recreate()
+    expect(view.selectHollywoodPublicityPlace()).toBe(false)
+  })
+
+  it('starts a fresh Hollywood evidence window only when the live scene exists', () => {
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+    })
+    const game = runtime.games.at(-1)!
+
+    view.resetHollywoodPerformance()
+    game.events.emit('ready')
+    const scene = game.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+    expect(scene.telemetryResets).toBe(0)
+
+    view.resetHollywoodPerformance()
+    expect(scene.telemetryResets).toBe(1)
   })
 
   it('forwards exact scenery identity and returns truthful host-selection parity', () => {

@@ -28,6 +28,7 @@ const ROLE_ATLAS_IMAGE_URL = '/lot/hollywood/role-atlas-v1.png'
 const ROLE_ATLAS_CACHE_KEY = 'hollywood-role-atlas-manifest-v1'
 const ROLE_ATLAS_TEXTURE_KEY = 'hollywood-role-atlas-v1'
 const CAMERA_OCCLUDER_TEXTURE_KEY = 'hollywood-camera-dolly-occluder'
+const DISTRICT_MANIFEST_CACHE_KEY = 'hollywood-manifest'
 const DISTRICT_W = 1586
 const DISTRICT_H = 992
 const PERFORMANCE_WARMUP_FRAMES = 120
@@ -39,6 +40,24 @@ const ANNEX_BUILDING_ID = 'expansion'
 const SERVICE_YARD_PLACE_ID = 'service-yard'
 const SERVICE_YARD_BUILDING_ID = 'post'
 const STAGE_7_PLACE_ID = 'stage-7'
+const PUBLICITY_PLACE_ID = 'publicity'
+const PUBLICITY_BUILDING_ID = 'admin'
+const PUBLICITY_LABEL = 'Administration & Publicity'
+const PUBLICITY_AFFORDANCES = ['work', 'meeting', 'publicity'] as const
+const PUBLICITY_SELECTION_POLYGON = [
+  [946, 174],
+  [1586, 122],
+  [1586, 510],
+  [1050, 500],
+  [920, 360],
+] as const
+const PUBLICITY_ENTRY_ANCHOR = [1338, 421] as const
+const PUBLICITY_PHOTOCALL_ANCHOR = [1120, 481] as const
+const PUBLICITY_QUEUE_ANCHOR = [930, 338] as const
+const PUBLICITY_ACTIVITY_LABEL = 'Publicity call'
+const PUBLICITY_ACTIVITY_AFFORDANCES = ['publicity'] as const
+const PUBLICITY_ACTIVITY_ROLES = ['talent', 'publicist', 'photographer'] as const
+const PUBLICITY_ACTIVITY_VISUAL_STATES = ['queue-forming', 'flash', 'press-moving'] as const
 const SCENERY_SWEEP_DURATION_MS = 1_200
 
 type Point = { x: number; y: number }
@@ -100,11 +119,19 @@ export type HollywoodSceneryLoadInSelection = {
 
 export type HollywoodEvent =
   | { type: 'ready' }
+  | { type: 'failure'; reason: HollywoodFailureReason }
   | { type: 'person'; person: LotPersonState | null }
   | { type: 'place'; place: HollywoodPlaceSelection }
   | { type: 'production'; production: HollywoodProductionSelection }
   | { type: 'scenery-load-in'; sceneryLoadIn: HollywoodSceneryLoadInSelection }
   | { type: 'activity'; text: string | null }
+
+export type HollywoodFailureReason =
+  | 'manifest-load-failed'
+  | 'manifest-invalid'
+  | 'scene-create-failed'
+  | 'scene-boot-failed'
+  | 'renderer-context-lost'
 
 export type HollywoodSceneData = {
   snapshot: StudioLotSnapshot
@@ -144,6 +171,8 @@ type CosmeticSceneryLoadIn = {
 }
 
 export type HollywoodPerformance = {
+  /** Number of post-warm-up wall-frame samples in the frozen sustained window. */
+  frameSampleCount: number
   fps: number
   displayObjects: number
   textureMemoryMb: number
@@ -207,6 +236,12 @@ export class HollywoodScene extends Phaser.Scene {
   private worstUpdateMs = 0
   private roleAtlasActive = false
   private roleAtlasManifest: RoleAtlasRuntimeManifest | null = null
+  /** One bounded host-visible failure per scene lifetime; never an Engine event. */
+  private failureReported = false
+  /** Idempotent physical shutdown shared by scene- and View-originated failures. */
+  private failureStateApplied = false
+  /** LOADING rejects pause; one CREATING retry is required after any pre-ready failure. */
+  private retryFailurePauseAtCreate = false
 
   init(data: HollywoodSceneData): void {
     this.snapshot = data.snapshot
@@ -215,7 +250,12 @@ export class HollywoodScene extends Phaser.Scene {
   }
 
   preload(): void {
-    this.load.json('hollywood-manifest', MANIFEST_URL)
+    this.load.on(Phaser.Loader.Events.FILE_LOAD_ERROR, (file: { key?: unknown }) => {
+      if (file?.key === DISTRICT_MANIFEST_CACHE_KEY) {
+        this.reportFailure('manifest-load-failed')
+      }
+    })
+    this.load.json(DISTRICT_MANIFEST_CACHE_KEY, MANIFEST_URL)
     this.load.json(ROLE_ATLAS_CACHE_KEY, ROLE_ATLAS_MANIFEST_URL)
     this.load.spritesheet(ROLE_ATLAS_TEXTURE_KEY, ROLE_ATLAS_IMAGE_URL, {
       frameWidth: ROLE_ATLAS_FRAME_WIDTH,
@@ -228,21 +268,109 @@ export class HollywoodScene extends Phaser.Scene {
   }
 
   create(): void {
-    this.manifest = this.cache.json.get('hollywood-manifest') as DistrictManifest
-    this.route = this.manifest.routes['street-to-stage-7'] ?? []
-    this.buildActorTextures()
-    this.roleAtlasActive = this.hasValidRoleAtlas()
-    this.buildWorld()
-    this.buildSemanticHotspots()
-    this.buildPeople()
-    this.buildAmbientLife()
-    this.buildVehicle()
-    this.bindCamera()
-    this.resetPerformanceTelemetry()
-    this.bindDrawCallTelemetry()
-    this.applySnapshot(this.snapshot)
-    this.setReducedMotion(this.reducedMotion)
-    this.emitEvent({ type: 'ready' })
+    if (this.failureReported) {
+      // A pre-ready failure can queue its first pause while Phaser is still in
+      // LOADING, where Systems.pause rejects it. create() is entered as CREATING;
+      // queue again here so the next manager update pauses the generation after
+      // Phaser completes its mandatory CREATING → RUNNING transition.
+      if (this.retryFailurePauseAtCreate) {
+        this.retryFailurePauseAtCreate = false
+        this.scene.pause()
+      }
+      return
+    }
+    const manifest = this.districtManifestFromCache()
+    if (manifest === null) {
+      this.reportFailure('manifest-invalid')
+      return
+    }
+
+    try {
+      this.manifest = manifest
+      this.route = this.manifest.routes['street-to-stage-7'] ?? []
+      this.buildActorTextures()
+      this.roleAtlasActive = this.hasValidRoleAtlas()
+      this.buildWorld()
+      this.buildSemanticHotspots()
+      this.buildPeople()
+      this.buildAmbientLife()
+      this.buildVehicle()
+      this.bindCamera()
+      this.resetPerformanceTelemetry()
+      this.bindDrawCallTelemetry()
+      this.events.on(Phaser.Scenes.Events.PAUSE, this.clearPublicityVisual, this)
+      this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+        this.clearPublicityVisual()
+        this.events.off(Phaser.Scenes.Events.PAUSE, this.clearPublicityVisual, this)
+      })
+      this.applySnapshot(this.snapshot)
+      this.setReducedMotion(this.reducedMotion)
+      this.emitEvent({ type: 'ready' })
+    } catch {
+      // Scene setup happens after the React import/constructor promise has resolved.
+      // Convert that otherwise-unobservable failure into one presentation-only signal.
+      this.reportFailure('scene-create-failed')
+    }
+  }
+
+  private districtManifestFromCache(): DistrictManifest | null {
+    const value = this.cache.json.get(DISTRICT_MANIFEST_CACHE_KEY) as unknown
+    if (typeof value !== 'object' || value === null || Array.isArray(value)) return null
+    const manifest = value as Partial<DistrictManifest>
+    const canvas = manifest.canvas
+    return (
+      Number.isFinite(manifest.schemaVersion) &&
+      typeof manifest.districtId === 'string' &&
+      typeof canvas === 'object' &&
+      canvas !== null &&
+      Number.isFinite(canvas.width) &&
+      Number.isFinite(canvas.height) &&
+      Array.isArray(manifest.layers) &&
+      Array.isArray(manifest.places) &&
+      typeof manifest.routes === 'object' &&
+      manifest.routes !== null &&
+      !Array.isArray(manifest.routes) &&
+      Array.isArray(manifest.activities) &&
+      Number.isFinite(manifest.textureMemoryBytes)
+    ) ? value as DistrictManifest : null
+  }
+
+  private reportFailure(reason: HollywoodFailureReason): void {
+    if (this.failureReported) return
+    this.failureReported = true
+    if (reason === 'manifest-load-failed') this.retryFailurePauseAtCreate = true
+    this.applyFailedPresentationState()
+    this.emitEvent({ type: 'failure', reason })
+  }
+
+  /**
+   * View-owned failures (notably WebGL context loss) cross the Phaser event seam
+   * without first executing a Scene lifecycle callback. Make that generation just
+   * as inert and invisible as a manifest/create failure before the View drops it.
+   */
+  failClosedFromHost(): void {
+    this.failureReported = true
+    // A host failure can arrive after SceneManager registration but before this
+    // scene reaches create(). Its LOADING pause may be rejected, so arm the same
+    // bounded CREATING retry as the manifest-loader failure path.
+    this.retryFailurePauseAtCreate = true
+    this.applyFailedPresentationState()
+  }
+
+  private applyFailedPresentationState(): void {
+    if (this.failureStateApplied) return
+    this.failureStateApplied = true
+    // A partially-created scene must not leave an interactive polygon, outline,
+    // or draw fragment behind the semantic fallback. This changes failure paths
+    // only; the successful display-object and draw budgets are untouched.
+    this.setInputSuspended(true)
+    this.clearPublicityVisual()
+    this.clearPlaceSelection()
+    this.scene.setVisible(false)
+    // ScenePlugin queues this operation. During preload/create the manager will
+    // first finish its lifecycle transition, then process the queued pause, so a
+    // failed LOADING/CREATING generation cannot become a running orphan.
+    this.scene.pause()
   }
 
   private buildWorld(): void {
@@ -265,7 +393,14 @@ export class HollywoodScene extends Phaser.Scene {
     // over a named person travelling through the same world coordinate.
     this.sceneryGraphics = this.add.graphics().setDepth(80).setName('tier:stateful-scenery-load-in')
     this.selectionGraphics = this.add.graphics().setDepth(170).setName('tier:selection')
-    this.flash = this.add.rectangle(1120, 475, 190, 130, 0xfff7d6, 0).setDepth(160)
+    this.flash = this.add.rectangle(
+      PUBLICITY_PHOTOCALL_ANCHOR[0],
+      PUBLICITY_PHOTOCALL_ANCHOR[1],
+      190,
+      130,
+      0xfff7d6,
+      1,
+    ).setAlpha(0).setDepth(160).setName('tier:publicity-flash')
     this.stageLamp = this.add.circle(740, 405, 9, 0x7a160f, 1).setDepth(86)
       .setStrokeStyle(3, 0xf2d6a1, 0.75)
     this.stageStateText = this.add.text(764, 392, 'STAGE 7 · AVAILABLE', {
@@ -306,7 +441,12 @@ export class HollywoodScene extends Phaser.Scene {
   }
 
   private buildSemanticHotspots(): void {
+    const canonicalPublicity = this.canonicalPublicityPlace()
     for (const place of this.manifest.places) {
+      // Administration & Publicity is a governed physical action surface, not a
+      // generic place. Any record that claims part of that identity must validate
+      // as the one complete canonical place/activity pair or receive no zone at all.
+      if (this.isPublicityLikePlace(place) && place !== canonicalPublicity) continue
       const shape = new Phaser.Geom.Polygon(place.selectionPolygon.map(([x, y]) => ({ x, y })))
       // Zones render nothing, so keep their input ordering below every managed person.
       // At depth 150 the full-district polygons won Phaser's top-only hit test and
@@ -314,11 +454,17 @@ export class HollywoodScene extends Phaser.Scene {
       const zone = this.add.zone(0, 0, DISTRICT_W, DISTRICT_H).setOrigin(0).setDepth(1)
       zone.setInteractive(shape, Phaser.Geom.Polygon.Contains)
       if (zone.input) zone.input.cursor = 'pointer'
-      zone.on('pointerover', () => this.drawPlaceOutline(place, false))
+      zone.on('pointerover', () => {
+        if (this.isPublicityLikePlace(place) && place !== this.canonicalPublicityPlace()) return
+        this.drawPlaceOutline(place, false)
+      })
       zone.on('pointerout', () => {
-        const selected = this.manifest.places.find(
-          (candidate) => candidate.id === this.selectedPlaceId,
-        )
+        const selected = this.selectedPlaceId === PUBLICITY_PLACE_ID
+          ? this.canonicalPublicityPlace()
+          : this.manifest.places.find(
+              (candidate) =>
+                candidate.id === this.selectedPlaceId && !this.isPublicityLikePlace(candidate),
+            )
         if (selected) this.drawPlaceOutline(selected, true)
         else this.selectionGraphics?.clear()
       })
@@ -335,6 +481,10 @@ export class HollywoodScene extends Phaser.Scene {
         }
         if (place === this.canonicalServiceYardPlace()) {
           this.selectServiceYardSurface(place)
+          return
+        }
+        if (place === this.canonicalPublicityPlace()) {
+          if (this.selectPublicitySurface(place)) this.focusPlace(place)
           return
         }
         this.selectGenericPlaceSurface(place)
@@ -377,6 +527,84 @@ export class HollywoodScene extends Phaser.Scene {
     ) ? place : null
   }
 
+  /**
+   * Exact accepted runtime Administration & Publicity identity. The deliberately
+   * divergent runtime manifest owns these literals; exporter/source geometry is
+   * not an alternate authority. A publicity-like duplicate fails the pair closed.
+   */
+  private canonicalPublicityPlace(): Place | null {
+    const places = (this.manifest as unknown as { places?: unknown } | null)?.places
+    if (!Array.isArray(places)) return null
+    const candidates = places.filter((candidate) => this.isPublicityLikePlace(candidate))
+    if (candidates.length !== 1) return null
+    const place = candidates[0] as Place
+    const activity = this.canonicalPublicityActivity()
+    if (activity === null || activity.place !== place.id) return null
+    return (
+      place.id === PUBLICITY_PLACE_ID &&
+      place.buildingId === PUBLICITY_BUILDING_ID &&
+      place.label === PUBLICITY_LABEL &&
+      this.sameStrings(place.affordances, PUBLICITY_AFFORDANCES) &&
+      this.sameAnchorKeys(place.anchors, ['entry', 'photocall', 'queue']) &&
+      this.sameAnchor(place.anchors?.entry, PUBLICITY_ENTRY_ANCHOR) &&
+      this.sameAnchor(place.anchors?.photocall, PUBLICITY_PHOTOCALL_ANCHOR) &&
+      this.sameAnchor(place.anchors?.queue, PUBLICITY_QUEUE_ANCHOR) &&
+      this.validSelectionPolygon(place.selectionPolygon) &&
+      this.samePolygon(place.selectionPolygon, PUBLICITY_SELECTION_POLYGON) &&
+      !this.polygonSelfIntersects(place.selectionPolygon) &&
+      this.pointInPolygon(PUBLICITY_PHOTOCALL_ANCHOR, place.selectionPolygon)
+    ) ? place : null
+  }
+
+  private canonicalPublicityActivity(): Activity | null {
+    const activities = (this.manifest as unknown as { activities?: unknown } | null)?.activities
+    if (!Array.isArray(activities)) return null
+    const candidates = activities.filter((candidate) => this.isPublicityLikeActivity(candidate))
+    if (candidates.length !== 1) return null
+    const activity = candidates[0] as Activity
+    return (
+      activity.id === PUBLICITY_PLACE_ID &&
+      activity.label === PUBLICITY_ACTIVITY_LABEL &&
+      activity.place === PUBLICITY_PLACE_ID &&
+      this.sameStrings(activity.requiredAffordances, PUBLICITY_ACTIVITY_AFFORDANCES) &&
+      this.sameStrings(activity.requiredRoles, PUBLICITY_ACTIVITY_ROLES) &&
+      this.sameStrings(activity.visualStates, PUBLICITY_ACTIVITY_VISUAL_STATES)
+    ) ? activity : null
+  }
+
+  private isPublicityLikePlace(candidate: unknown): boolean {
+    if (typeof candidate !== 'object' || candidate === null) return false
+    const place = candidate as {
+      id?: unknown
+      buildingId?: unknown
+      label?: unknown
+      affordances?: unknown
+    }
+    return place.id === PUBLICITY_PLACE_ID ||
+      place.buildingId === PUBLICITY_BUILDING_ID ||
+      place.label === PUBLICITY_LABEL ||
+      (Array.isArray(place.affordances) && place.affordances.includes(PUBLICITY_PLACE_ID))
+  }
+
+  private isPublicityLikeActivity(candidate: unknown): boolean {
+    if (typeof candidate !== 'object' || candidate === null) return false
+    const activity = candidate as {
+      id?: unknown
+      label?: unknown
+      place?: unknown
+      requiredAffordances?: unknown
+      requiredRoles?: unknown
+    }
+    return activity.id === PUBLICITY_PLACE_ID ||
+      activity.label === PUBLICITY_ACTIVITY_LABEL ||
+      activity.place === PUBLICITY_PLACE_ID ||
+      (Array.isArray(activity.requiredAffordances) &&
+        activity.requiredAffordances.includes(PUBLICITY_PLACE_ID)) ||
+      (Array.isArray(activity.requiredRoles) &&
+        (activity.requiredRoles.includes('publicist') ||
+          activity.requiredRoles.includes('photographer')))
+  }
+
   private uniqueRuntimePlace(id: string): Place | null {
     const places = (this.manifest as unknown as { places?: unknown } | null)?.places
     if (!Array.isArray(places)) return null
@@ -404,6 +632,23 @@ export class HollywoodScene extends Phaser.Scene {
       actual.every((value, index) => value === expected[index])
   }
 
+  private sameAnchorKeys(actual: unknown, expected: readonly string[]): boolean {
+    if (typeof actual !== 'object' || actual === null || Array.isArray(actual)) return false
+    const keys = Object.keys(actual).sort()
+    const expectedKeys = [...expected].sort()
+    return keys.length === expectedKeys.length &&
+      keys.every((key, index) => key === expectedKeys[index])
+  }
+
+  private samePolygon(
+    actual: unknown,
+    expected: readonly (readonly [number, number])[],
+  ): actual is [number, number][] {
+    return Array.isArray(actual) &&
+      actual.length === expected.length &&
+      actual.every((point, index) => this.sameAnchor(point, expected[index]!))
+  }
+
   private validSelectionPolygon(actual: unknown): actual is [number, number][] {
     return Array.isArray(actual) &&
       actual.length >= 3 &&
@@ -413,6 +658,81 @@ export class HollywoodScene extends Phaser.Scene {
         Number.isFinite(point[0]) &&
         Number.isFinite(point[1]),
       )
+  }
+
+  private pointOnSegment(
+    point: readonly [number, number],
+    a: readonly [number, number],
+    b: readonly [number, number],
+  ): boolean {
+    const cross = (point[1] - a[1]) * (b[0] - a[0]) -
+      (point[0] - a[0]) * (b[1] - a[1])
+    if (cross !== 0) return false
+    return point[0] >= Math.min(a[0], b[0]) &&
+      point[0] <= Math.max(a[0], b[0]) &&
+      point[1] >= Math.min(a[1], b[1]) &&
+      point[1] <= Math.max(a[1], b[1])
+  }
+
+  private segmentsIntersect(
+    a: readonly [number, number],
+    b: readonly [number, number],
+    c: readonly [number, number],
+    d: readonly [number, number],
+  ): boolean {
+    const orientation = (
+      p: readonly [number, number],
+      q: readonly [number, number],
+      r: readonly [number, number],
+    ) => Math.sign(
+      (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0]),
+    )
+    const o1 = orientation(a, b, c)
+    const o2 = orientation(a, b, d)
+    const o3 = orientation(c, d, a)
+    const o4 = orientation(c, d, b)
+    if (o1 !== o2 && o3 !== o4) return true
+    return (o1 === 0 && this.pointOnSegment(c, a, b)) ||
+      (o2 === 0 && this.pointOnSegment(d, a, b)) ||
+      (o3 === 0 && this.pointOnSegment(a, c, d)) ||
+      (o4 === 0 && this.pointOnSegment(b, c, d))
+  }
+
+  private polygonSelfIntersects(polygon: readonly (readonly [number, number])[]): boolean {
+    for (let first = 0; first < polygon.length; first++) {
+      const firstNext = (first + 1) % polygon.length
+      for (let second = first + 1; second < polygon.length; second++) {
+        const secondNext = (second + 1) % polygon.length
+        if (first === second || firstNext === second || secondNext === first) continue
+        if (this.segmentsIntersect(
+          polygon[first]!,
+          polygon[firstNext]!,
+          polygon[second]!,
+          polygon[secondNext]!,
+        )) return true
+      }
+    }
+    return false
+  }
+
+  private pointInPolygon(
+    point: readonly [number, number],
+    polygon: readonly (readonly [number, number])[],
+  ): boolean {
+    let inside = false
+    for (
+      let current = 0, previous = polygon.length - 1;
+      current < polygon.length;
+      previous = current++
+    ) {
+      const a = polygon[previous]!
+      const b = polygon[current]!
+      if (this.pointOnSegment(point, a, b)) return true
+      const crosses = (a[1] > point[1]) !== (b[1] > point[1]) &&
+        point[0] < ((b[0] - a[0]) * (point[1] - a[1])) / (b[1] - a[1]) + a[0]
+      if (crosses) inside = !inside
+    }
+    return inside
   }
 
   /**
@@ -461,6 +781,37 @@ export class HollywoodScene extends Phaser.Scene {
         affordances: place.affordances,
       },
     })
+  }
+
+  /**
+   * One exact Administration & Publicity seam shared by the physical polygon and
+   * the native host companion. Host parity suppresses only the feedback event;
+   * canonical validation and selection outline remain identical. The physical
+   * polygon focuses immediately; the host uses the existing explicit focus seam.
+   */
+  private selectPublicitySurface(place: Place, emitSelection = true): boolean {
+    if (!this.selectionGraphics || place !== this.canonicalPublicityPlace()) return false
+    this.selectedProductionId = null
+    this.selectedPlaceId = PUBLICITY_PLACE_ID
+    this.drawPlaceOutline(place, true)
+    if (emitSelection) {
+      this.emitEvent({
+        type: 'place',
+        place: {
+          id: PUBLICITY_PLACE_ID,
+          buildingId: PUBLICITY_BUILDING_ID,
+          label: PUBLICITY_LABEL,
+          affordances: [...PUBLICITY_AFFORDANCES],
+        },
+      })
+    }
+    return true
+  }
+
+  /** Host/DOM parity and physical-availability proof; never emits a feedback event. */
+  selectPublicityFromHost(): boolean {
+    const place = this.canonicalPublicityPlace()
+    return place === null ? false : this.selectPublicitySurface(place, false)
   }
 
   /** Host/DOM parity: revalidate and paint exact service work without emitting an event. */
@@ -1223,26 +1574,39 @@ export class HollywoodScene extends Phaser.Scene {
     this.emitEvent({ type: 'person', person: null })
   }
 
-  playPublicity(success: boolean, detail: string): void {
-    if (!success) {
-      this.emitEvent({ type: 'activity', text: detail })
-      return
+  /**
+   * Local acknowledgement of an already-accepted App/Engine result. React owns
+   * the sole live announcement; this method emits no event and changes no snapshot.
+   */
+  playPublicity(success: boolean, _detail?: string): boolean {
+    const place = this.canonicalPublicityPlace()
+    if (!success || place === null || !this.flash || !this.scene.isActive()) {
+      this.clearPublicityVisual()
+      return false
     }
-    this.setActivityVisual('publicity', 'flash')
-    this.emitEvent({ type: 'activity', text: detail })
-    if (this.flash) {
-      if (this.reducedMotion) {
-        this.flash.setAlpha(0)
-        return
-      }
-      this.flash.setAlpha(0.72)
-      this.tweens.add({ targets: this.flash, alpha: 0, duration: 420, repeat: 2, repeatDelay: 210 })
-    }
+    const photocall = place.anchors.photocall
+    this.clearPublicityVisual()
+    this.flash.setPosition(photocall[0], photocall[1])
+    if (this.reducedMotion) return true
+    this.flash.setAlpha(0.72)
+    this.tweens.add({
+      targets: this.flash,
+      alpha: 0,
+      duration: 420,
+      repeat: 2,
+      repeatDelay: 210,
+      onComplete: () => this.flash?.setAlpha(0),
+    })
+    return true
   }
 
-  focus(placeId: string): void {
-    const place = this.manifest.places.find((candidate) => candidate.id === placeId)
-    if (!place) return
+  private clearPublicityVisual(): void {
+    if (!this.flash) return
+    this.tweens.killTweensOf(this.flash)
+    this.flash.setAlpha(0)
+  }
+
+  private focusPlace(place: Place): void {
     const points = place.selectionPolygon
     const cx = points.reduce((sum, [x]) => sum + x, 0) / points.length
     const cy = points.reduce((sum, [, y]) => sum + y, 0) / points.length
@@ -1254,6 +1618,17 @@ export class HollywoodScene extends Phaser.Scene {
     }
     this.cameras.main.pan(cx, cy, 520, 'Sine.easeInOut')
     this.cameras.main.zoomTo(zoom, 520, 'Sine.easeInOut')
+  }
+
+  focus(placeId: string): void {
+    if (placeId === PUBLICITY_PLACE_ID) {
+      const publicity = this.canonicalPublicityPlace()
+      if (publicity) this.focusPlace(publicity)
+      return
+    }
+    const place = this.manifest.places.find((candidate) => candidate.id === placeId)
+    if (!place || this.isPublicityLikePlace(place)) return
+    this.focusPlace(place)
   }
 
   resetCamera(): void { this.fitCamera() }
@@ -1276,6 +1651,7 @@ export class HollywoodScene extends Phaser.Scene {
   setReducedMotion(on: boolean): void {
     this.reducedMotion = on
     if (on) {
+      this.clearPublicityVisual()
       this.vehicleTween?.pause()
       if (this.roleAtlasActive) {
         for (const actor of this.ambientActors) {
@@ -1290,30 +1666,22 @@ export class HollywoodScene extends Phaser.Scene {
     this.vehicleTween?.resume()
   }
 
-  private setShootingVisual(state: string): void { this.setActivityVisual('shooting', state) }
-
-  /** One generic activity painter proves both Shooting and Publicity read the same manifest vocabulary. */
-  private setActivityVisual(activityId: string, state: string): void {
-    const activity = this.manifest.activities.find((candidate) => candidate.id === activityId)
+  /** Persistent Stage 7 truth owns this Graphics object exclusively. */
+  private setShootingVisual(state: string): void {
+    const activity = this.manifest.activities.find((candidate) => candidate.id === 'shooting')
     const place = activity ? this.manifest.places.find((candidate) => candidate.id === activity.place) : undefined
     if (!activity || !place || !activity.visualStates.includes(state) || !this.activityGraphics) return
-    const anchor = activityId === 'shooting' ? place.anchors.crewCall : place.anchors.photocall
+    const anchor = place.anchors.crewCall
     if (!anchor) return
     const [x, y] = anchor
     const g = this.activityGraphics
     g.clear()
-    if (activityId === 'shooting') {
-      g.fillStyle(0xffcb6b, state === 'take-in-progress' ? 0.48 : 0.24).fillEllipse(x, y, 230, 88)
-      g.lineStyle(5, 0xe7c477, 0.9).lineBetween(x - 76, y + 29, x + 76, y - 28)
-      g.fillStyle(0x1a2020, 1).fillCircle(x - 72, y + 28, 8).fillCircle(x + 74, y - 27, 8)
-      if (state !== 'crew-call') {
-        g.fillStyle(0x121919, 0.95).fillRect(x - 36, y - 21, 72, 44)
-        g.lineStyle(3, 0xe2c273, 0.8).strokeRect(x - 36, y - 21, 72, 44)
-      }
-    } else {
-      g.fillStyle(0xf7e4af, 0.23).fillEllipse(x, y, 210, 104)
-      g.lineStyle(3, 0xd7b761, 0.9).strokeCircle(x, y, 43)
-      g.fillStyle(0xf8eccd, 0.92).fillCircle(x, y, 8)
+    g.fillStyle(0xffcb6b, state === 'take-in-progress' ? 0.48 : 0.24).fillEllipse(x, y, 230, 88)
+    g.lineStyle(5, 0xe7c477, 0.9).lineBetween(x - 76, y + 29, x + 76, y - 28)
+    g.fillStyle(0x1a2020, 1).fillCircle(x - 72, y + 28, 8).fillCircle(x + 74, y - 27, 8)
+    if (state !== 'crew-call') {
+      g.fillStyle(0x121919, 0.95).fillRect(x - 36, y - 21, 72, 44)
+      g.lineStyle(3, 0xe2c273, 0.8).strokeRect(x - 36, y - 21, 72, 44)
     }
   }
 
@@ -1485,6 +1853,7 @@ export class HollywoodScene extends Phaser.Scene {
       + peopleTextureBytes
       + GENERATED_VEHICLE_DECODED_BYTES
     return {
+      frameSampleCount: this.frameSamples.length,
       fps: Math.round(frameMs ? 1000 / frameMs : this.game.loop.actualFps || 0),
       displayObjects: this.children.length,
       textureMemoryMb: Math.round((totalTextureBytes / 1024 / 1024) * 10) / 10,
