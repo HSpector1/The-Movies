@@ -1,0 +1,576 @@
+# World-First Soundstage 12 World Presence V1 Contract
+
+Status: **FROZEN — ART/PRECONDITION GATE PRECEDES RUNTIME IMPLEMENTATION**
+
+Date: 2026-08-14
+
+Branch: `operation-hollywood-autonomous-marathon`
+
+## 1. Product ruling
+
+The next bounded world-first milestone is:
+
+> **World-First Soundstage 12 World Presence V1**
+
+The name is deliberately narrow. This is not certification of parallel-production simulation,
+staffing, queues, schedules, travel, interiors, or facility expansion. It gives one already-real
+Engine facility and its already-real production a credible physical place in the continuously
+mounted Hollywood Studio Lot.
+
+The ordinary retained loop must be:
+
+```text
+SEE SOUNDSTAGE 12 IN THE LIVE WORLD
+→ SELECT ITS PHYSICAL BUILDING OR EXACT SEMANTIC COMPANION
+→ READ THE EXACT STAGE-B PICTURE AND EXISTING OPERATING TRUTH
+→ TAKE AN ALREADY-LEGAL PRODUCTION COMMAND IF ONE EXISTS
+→ RECEIVE FRESH ENGINE TRUTH IN THE SAME MOUNTED WORLD
+→ MOVE BETWEEN SOUNDSTAGE 12 AND SOUNDSTAGE 7 WITHOUT OPENING A SCREEN
+```
+
+This target follows the post-inspector critical-experience audit. The player successfully remained
+on the Lot while selecting a Stage 7 production, resolving scenery, scheduling its take, inspecting
+its Director and Lead, opening and closing the canonical Talent Profile over the same canvas,
+starting Annex construction, and advancing the authoritative week. The first material world-first
+break was the inability to observe the other concurrent production as a physical operation: the
+Hollywood plate depicts only Stage 7, while Stage 12 survives as an inspector row and deep-screen
+fallback.
+
+Persistent deep-screen mounting is not selected because the audited several-minutes-on-Lot loop
+completed without it. Facility queues and human workload/story systems are not selected because no
+comparably complete authority currently exists. Feature-list completeness is not an authorization.
+
+## 2. Mandatory art precondition and Kill gate
+
+Runtime implementation is prohibited until one premium physical Soundstage 12 cell passes this
+contract's visual, provenance, management-camera, and performance preflight.
+
+The accepted legacy `b-stage-b.png` is not the answer. It is a `512×374` transparent building
+registered to the old 2:1 isometric renderer. Its camera, scale, materials, lighting, and visual
+language do not match the Operation Hollywood plate. It may serve only as a massing/identity
+reference and must not be composited into the Hollywood district.
+
+The current Stage 7 plate also cannot be relabelled. It owns exact Stage 7 architecture, polygons,
+anchors, occluders, service route, and activity. No unspecified background building can be declared
+Soundstage 12 after the fact.
+
+The preflight candidate must be a separate adjacent/camera cell in the same Phaser scene. It may be
+derived with the built-in image-generation workflow using the repository-owned immutable
+`moonshot-studio-chronicle-concept.png` only as a visual reference. It must have its own tracked
+source, immutable runtime bytes, prompt/tool provenance, cell manifest, place identity, polygon,
+anchors, affordances, measurements, and review evidence.
+
+### 2.1 One-cell cinematic-plate authorization and environment-standard exception
+
+`docs/art/AUTHORED-ENVIRONMENT-PIPELINE-STANDARD.md` remains the active standard for standalone
+offline-authored hero **building assets** placed into the classic lot: deterministic generator,
+`.blend`, raw renders, camera contract, manifest/provenance, and a pushed private Art Source commit.
+That standard is not silently weakened here.
+
+Soundstage 12 V1 is a different asset class: one full baked Operation Hollywood **cinematic
+district cell**, not a transparent building sprite, procedural building conversion, or reusable
+hero-building source. Its visual source is an immutable generated plate in the same tracked
+`art/hollywood/source/` lineage as the Owner-authorized Phase I north-star. A Blender building
+generator could not reproduce the baked landscape, atmosphere, street, people, vehicles, and
+integrated lighting that make the cell the product.
+
+The Owner's autonomous-marathon order ratifies Operation Hollywood as the presentation quality
+baseline, directs richer systems to rise to that art, delegates continuous evidence-led game
+direction, and now requires the Studio Lot to be the primary game surface. It does **not** itself
+name Soundstage 12 or grant an image-generation/private-Art-Source exception. Exercising that
+delegated autonomous game-director authority, this frozen contract records the separate bounded Art
+authorization required by the active standard for **exactly one** Soundstage 12 cinematic
+district-cell preflight and, if it passes, its V1 integration.
+
+This is an explicit, narrow exception to the private-Art-Source/Blender-generator rule for this
+cinematic plate class only. Its replacement durable-source law is §4: retained raw generated bytes,
+complete prompt/reference/result provenance, ordered local derivative replay, source/runtime
+hashes, and immutable tracked outputs. It does not authorize another cell, another building,
+runtime generation, arbitrary AI art, migration of existing building sources, or a change to the
+environment standard outside this contract. If the frozen generated source cannot support the
+required correction within the single targeted iteration allowed by §19, Kill the cell rather than
+pretending prompt text is a deterministic generator.
+
+Kill the milestone, record the honest no-go, and retain the current inspector fallback if any of
+the following is true:
+
+- the candidate does not read as premium Golden Age studio architecture at the management camera;
+- the candidate cannot be distinguished as a soundstage with signage hidden;
+- its perspective, lighting, materials, human scale, or density visibly regress below Operation
+  Hollywood;
+- the only workable interaction is a HUD card, map chip, invisible hotspot, renamed row, or detached
+  menu;
+- integration requires overwriting or blindly regenerating the deliberately divergent current
+  district runtime manifest;
+- the treatment requires a second App tree, second Lot, screen navigation, or legacy-renderer swap;
+- it requires new Engine facilities, allocation, staffing, queues, schedules, tasks, pathfinding,
+  costs, SaveFile fields, or simulation law;
+- it borrows Stage 7 scenery, route, travel, outline, activity, or destination fiction;
+- its measured performance misses §12; or
+- exact latest Stage B identity cannot fail closed.
+
+An explicitly off-camera locator is an honest fallback but does not satisfy this contract and may
+not be closed as physical world presence.
+
+## 3. Frozen simulation authority
+
+No new simulation authority is required or permitted.
+
+Core already owns:
+
+- `TUNING.MAX_CONCURRENT_PRODUCTIONS = 2`;
+- `facility-soundstage-07` and `facility-soundstage-12`, each with soundstage capability and
+  capacity `1`;
+- exact `Production.id`, personnel, remaining production time, and active-production membership;
+- one `ProductionWorkflow` per production;
+- exact `FacilityReservation` owner, facility ID, capability, slot, and phase;
+- deterministic facility allocation and retained Rehearsal → Shooting soundstage identity;
+- shooting task, blocker, legal command, and exact task destination;
+- overbooking, reservation, workflow, and save invariants; and
+- all week, SaveFileV11, RNG, ledger, economy, career, publicity, and outcome transitions.
+
+The authoritative join is:
+
+```text
+Production.id
+→ ProductionWorkflow.productionId
+→ unique reservation where capability == soundstage
+→ StudioFacility.id / name / capacity
+```
+
+The existing adapter maps:
+
+```text
+facility-soundstage-07 → stage-a
+facility-soundstage-12 → stage-b
+```
+
+`ProductionOperationsState` already projects production ID/title, phase, countdown, progress,
+exact location, facility label, Director/Lead identities, task status, status label, blocker,
+attention, and exact legal command. Managed Rehearsal/Shooting already produces an exact Stage B
+`ProductionCard` and Stage B building attention.
+
+Engine/GameState remains sole authority. The world may select, frame, outline, label, and
+acknowledge fresh truth. It may not create, reserve, progress, relocate, complete, staff, or price
+anything.
+
+## 4. Separate cell and provenance boundary
+
+Do not overwrite or regenerate the current runtime `district-manifest.json`. Its accepted Annex and
+adjusted interaction geometry intentionally differ from the source exporter output.
+
+Soundstage 12 must use a separate additive source/runtime family:
+
+```text
+art/hollywood/source/soundstage-12-district-cell-v1.png
+art/hollywood/soundstage-12-cell-manifest.source.json
+docs/art/SOUNDSTAGE-12-DISTRICT-CELL-V1-PROVENANCE.md
+
+ui/public/lot/hollywood/soundstage-12-district-cell-v1.png
+ui/public/lot/hollywood/soundstage-12-cell-manifest.json
+```
+
+The final selected source and runtime plate may be byte-identical. If optimization changes bytes,
+the provenance record must name the exact deterministic local command and hash both inputs and
+outputs. The game, build, tests, and normal runtime perform no network request or image generation.
+
+The provenance record must include:
+
+- built-in image-generation tool as the creation path;
+- the complete final prompt and every referenced image by path, role, and SHA-256;
+- every generation/edit result ID and output path in chronological order, including rejected
+  candidates and the exact selected result;
+- selected raw output path, dimensions, color mode, byte length, and SHA-256;
+- final runtime output dimensions, mode, byte length, and SHA-256;
+- explicit rights basis and external-source disposition: project-created OpenAI output using only
+  repository-owned reference inputs; no third-party game asset or rejected 05H/05I material;
+- an ordered operation ledger binding each tool invocation to its prompt, input hashes, output
+  hashes, and selection/rejection ruling;
+- all local post-processing commands, tool versions, inputs, and outputs, if any;
+- deterministic byte-identical replay for every local derivative step from retained raw output to
+  runtime plate; generation itself is frozen by retained bytes/result identity and is not falsely
+  claimed to be reproducible;
+- exact review date and Keep/Kill ruling; and
+- the statement that generated pixels are presentation source, never simulation authority.
+
+This provenance follows canonical Lesson BR: a run label or prompt is not provenance unless every
+input, operation, output, and result identity is bound to durable bytes.
+
+The accepted Stage 7 north-star is a style/reference image, not an edit target. The new cell must
+not mutate or overwrite it.
+
+## 5. Canonical cell identity
+
+The separate cell manifest must contain exactly one canonical place satisfying all of:
+
+```text
+id            == stage-12
+buildingId    == stage-b
+label         == Soundstage 12
+affordances   == [enter-stage, shoot]
+selectionPolygon is finite, non-self-intersecting, inside the cell, and has >= 3 points
+anchors.entry and anchors.crewCall are finite and inside the cell
+```
+
+The source and runtime manifests must agree exactly for the accepted Stage 12 cell. No exporter may
+silently replace the existing Stage 7 manifest.
+
+The plate is a presentation cell on the same physical studio campus. It does not assert a measured
+distance from Stage 7, an authoritative travel time, or a person's exact location. Camera movement
+between cells is navigation inside one live world, not simulation time.
+
+All Stage 12 place polygons and anchors are **cell-local pixel coordinates** with local origin
+`[0,0]` at the plate's top-left. Phaser translates them by `worldPlacement.origin` exactly once.
+The existing Stage 7 district remains frozen in world coordinates as:
+
+```text
+stage7WorldBounds == { x: 0, y: 0, width: 1586, height: 992 }
+```
+
+The manifest must freeze this exact JSON-compatible shape:
+
+```text
+canvas: { width: positive integer, height: positive integer }
+worldPlacement: {
+  origin: { x: finite number, y: finite number },
+  localBounds: { x: 0, y: 0, width: canvas.width, height: canvas.height },
+  overviewAnchor: { x: finite cell-local number, y: finite cell-local number },
+  connectorPolygonWorld: [ [finite world x, finite world y], ... >= 3 ],
+  minPanCorridorWorld: { x: finite, y: finite, width: positive, height: positive },
+  cameraBoundsWorld: { x: finite, y: finite, width: positive, height: positive },
+  connectorOverlay: null | {
+    sourcePath: non-empty repository-relative path,
+    runtimePath: non-empty repository-relative path,
+    sha256: 64 lowercase hexadecimal characters,
+    width: positive integer,
+    height: positive integer,
+    origin: { x: finite world number, y: finite world number }
+  }
+}
+```
+
+The pure JSON manifest validator must prove:
+
+1. `localBounds` width/height equal `canvas` and its origin is exactly `[0,0]`;
+2. every selection point, anchor, and `overviewAnchor` lies inside `localBounds`;
+3. `stage12WorldBounds` is the exact translation of `localBounds` by `origin`;
+4. `connectorPolygonWorld` is finite, non-self-intersecting, lies inside
+   `minPanCorridorWorld`, and has positive-area intersection with both `stage7WorldBounds` and
+   `stage12WorldBounds`;
+5. `minPanCorridorWorld` is one positive rectangle with positive-area intersection with both cell
+   bounds and fully contains the connector polygon's axis-aligned bounds;
+6. `cameraBoundsWorld` fully contains both cell bounds, the connector polygon, and the complete pan
+   corridor; and
+7. when `connectorOverlay` is non-null, its declared world rectangle covers the connector polygon.
+
+A separate scene-readiness gate may inspect loaded runtime textures, but no repository source. It
+requires the Stage 12 runtime texture to exist, finish decoding, and match `canvas` dimensions. When
+`connectorOverlay` is non-null, the loaded runtime overlay must likewise exist, finish decoding,
+and match its declared dimensions. The scene may paint or emit a physical Stage 12 production only
+when the pure JSON validator and this readiness gate both pass.
+
+Separate repository provenance tests—not runtime code—must prove all declared source/runtime paths
+exist; SHA-256, byte lengths, color modes, and decoded dimensions match; the ordered generation and
+local-derivative ledger binds every input/output; and local derivative replay is byte-identical.
+Those tests plus visual review must also prove the connector area contains no transparent or blank
+void. Closure requires this repository gate even though production runtime never reads source paths,
+hashes, or provenance documents.
+
+The accepted cell's frozen entry edge must visibly continue the existing district's studio road,
+curb, ground plane, scale, atmosphere, and sightline at the frozen world offset. A connector overlay
+may be derived only from the two retained plates under the exact optional schema above. The join
+cannot use a fade, blank void, loading curtain, texture replacement, teleport, or screen transition.
+At normal pan/zoom the two textures coexist in one world coordinate space.
+
+## 6. Exact Stage B world selector
+
+One pure selector must decide whether Soundstage 12 may embody an operation. It consumes only
+`StudioLotSnapshot` and returns either one exact Stage B operation/card pair or unavailable.
+
+Acceptance requires atomically:
+
+1. `operationsMode === managed`;
+2. `stageAssignmentAuthority === engine`;
+3. exactly one `productionOperations` row with `locationBuildingId === stage-b`;
+4. phase is exactly `rehearsal` or `shooting`;
+5. exactly one matching `activeProductions` card;
+6. card ID and `stageId === stage-b` agree with the operation;
+7. building projection contains exactly one `stage-b` fact;
+8. command, blocker, task, Director identity, and production identity are internally consistent
+   wherever the existing public shape exposes them.
+
+Zero matches yields Available/generic place truth. More than one match or any contradiction yields
+unavailable. No first/last match, array-order selection, title join, facility-label parsing,
+presentation assignment, person inference, or stale prior identity is permitted.
+
+The selector must cover Stage 12 only. It must not loosen or silently generalize Stage 7's existing
+Scenery & Service law.
+
+A separate pure manifest validator accepts only one exact §5 Stage 12 place plus one valid
+`worldPlacement`. It cannot see `StudioLotSnapshot` and owns no production choice. The scene may
+emit or paint a physical Stage 12 production only when the latest snapshot selector and latest
+manifest validator both succeed and their identities agree. Keeping these gates separate prevents
+renderer state from entering the snapshot read model while still failing the physical affordance
+closed.
+
+## 7. Physical and semantic interaction
+
+The following three affordances must share one exact host revalidation path:
+
+- the Stage 12 building polygon;
+- a visible in-world Stage 12 lamp/status control; and
+- the existing native Stage B semantic companion control.
+
+With one exact operation they select that production, frame the Stage 12 cell, expose the existing
+inspector, and focus the exact current command or stable status. With no exact operation they select
+the physical building as Available and expose generic place context without inventing a picture.
+
+The scene event carries identity only:
+
+```text
+productionId
+locationBuildingId == stage-b
+placeId == stage-12
+```
+
+It carries no command, GameState, facility object, state mutation, route completion, task result,
+clock, or money. React re-runs the latest pure selector before changing context or dispatching an
+existing command.
+
+Native Enter and Space activation must occur exactly once. Pointer, keyboard, visible status, and
+semantic companion paths must reach identical context and focus. Overlay controls must contain
+input so a click cannot also drag or select the world underneath.
+
+## 8. Same-world camera continuity
+
+Soundstage 12 is an additive cell inside the existing `HollywoodScene` and the same mounted Phaser
+game/canvas. The player may pan manually or use a bounded camera focus transition between the two
+cells. Opening Stage 12 must not:
+
+- change App screen/route;
+- mount a second Lot or renderer;
+- destroy or replace the canvas;
+- replace authoritative state;
+- clear unrelated Stage 7 truth; or
+- pause the world except under existing document-visibility rules.
+
+Reduced motion changes only the transition: focus snaps rather than tweens. It cannot remove the
+cell, status, exact selection, inspector, or commands.
+
+The ordinary management view must make both stage destinations discoverable without fitting both
+full-resolution plates into one unreadably tiny overview. A campus edge affordance or native Stage B
+companion may focus the adjacent cell, but the destination must resolve to the physical building,
+not a card pretending to be one.
+
+Manual pan must traverse the frozen `minPanCorridor` from the Stage 7 district, across the visible
+campus connector, into the Stage 12 cell without a texture swap, blank frame, fade, route change, or
+canvas replacement. Programmatic focus is a convenience over that same world geometry, not the
+only way the second cell exists. Camera bounds must include both cell bounds and the connector;
+resize, reduced motion, maximum zoom, and browser zoom must clamp to the same geometry without
+stranding either cell.
+
+## 9. Visual state boundary
+
+Soundstage 12 paints only existing public operation/card truth:
+
+- no exact operation → **AVAILABLE**;
+- Rehearsal or non-recording work → **RESERVED / WORKING**, no REC fiction;
+- blocker or current command → **ATTENTION REQUIRED**, with exact existing status/headline;
+- scheduled/completed shooting truth that already qualifies for current recording treatment →
+  **RECORDING**; and
+- removal or phase relocation → building becomes Available and exact production selection clears.
+
+The exact title may appear in a runtime status treatment. Generated plate pixels must contain no
+fictional film title, permanent production state, trademark, or UI label.
+
+Loaded saves paint directly from loaded truth. No arrival ceremony, animation, or prior transition
+is required. Presentation animation cannot advance work.
+
+## 10. Stage 7 and people isolation
+
+Soundstage 12 must never borrow:
+
+- `street-to-stage-7`;
+- Stage 7's service-yard or scenery-load-in selection;
+- Stage 7's scenery sweep, truck, camera-dolly occluder, outline, lamp, or status object;
+- the Stage 7 Director dispatch destination or arrival copy;
+- Stage 7's operation after a Stage B mismatch; or
+- Stage 7's person coordinates.
+
+No Stage 12 person route ships in V1. No named person receives an invented room, coordinate,
+destination, reservation, ETA, occupancy claim, or Lead task. The existing named-person inspector
+remains sole current work/career truth. Ambient crew may make the cell feel alive but remain clearly
+presentation-only and cannot own a production result.
+
+Stage 7 and Stage 12 must remain simultaneously truthful. Selecting one may change inspection and
+camera framing, but may not erase, migrate, copy, or mutate the other's operation.
+
+## 11. Invalidation and failure parity
+
+Exact Stage 12 production context must clear without transfer when any of these changes:
+
+- operation disappears;
+- phase moves outside Rehearsal/Shooting;
+- location moves away from Stage B;
+- occupant production ID changes;
+- card, building, command, or operation identity becomes contradictory;
+- duplicate Stage B operation/card/building appears; or
+- the canonical Stage 12 place becomes absent, duplicated, or malformed.
+
+Restoring the old ID later must not automatically reopen stale context. Focus moves to the stable
+Stage B companion or Lot heading.
+
+If the Stage 12 asset or manifest fails while Stage 7 still loads, Stage 7 remains fully usable and
+the complete semantic Stage 12 inspector/command path remains available with explicit unavailable
+physical-cell copy. No invisible hotspot survives. If the renderer module is rejected entirely,
+the existing semantic path remains complete.
+
+Delayed renderer readiness, hidden-tab resume, view recreation, Talent Profile modal input
+suspension, and reduced motion must all preserve these failure and identity rules.
+
+## 12. Performance and responsive gates
+
+Preflight records the actual added encoded and decoded texture bytes, display objects, and dynamic
+actors. Integration must preserve the ratified 1920×1080 target:
+
+- average FPS `>= 50`;
+- one-percent-low FPS `>= 30`;
+- p99 frame time `<= 33.4 ms`;
+- worst sampled raw frame time `<= 33.4 ms` over the existing 240-frame rolling measurement window
+  after warm-up;
+- no long task or resize loop caused by cell switching; and
+- no second simultaneously rendered full cell when it is outside the camera if culling or
+  visibility gating is required to meet the target.
+
+The measured texture budget may increase because new authored art is the product. The contract does
+not demand byte neutrality; it demands explicit measurement and sustained frame evidence. The cell
+must remain readable and reachable at 1920×1080, 1366×768, 1024×768, and governed 960×540, with
+maximum zoom and 200% browser zoom checks proportional to existing Lot law.
+
+## 13. Deterministic live fixture
+
+Freeze one public-action-generated native SaveFileV11 fixture with:
+
+- two simultaneous managed Rehearsal/Shooting productions;
+- distinct production IDs, concepts, Directors, Leads, and other locked personnel;
+- exact Soundstage 7 and Soundstage 12 reservations;
+- no overbooking and valid workflow/task invariants;
+- stable week, cash, RNG, ledger length, reservation facts, and hashes; and
+- byte-identical native import/export replay.
+
+Do not promote the existing `ui/e2e/fixtures/two.json`: it is a legacy presentation fixture and is
+not Engine stage authority.
+
+The generator is committed and deterministic. Generated evidence may be committed only where a
+browser fixture is required; incidental captures remain under ignored `out/`.
+
+## 14. Required automated proof
+
+At minimum prove:
+
+1. no Stage B operation paints Available generic place truth;
+2. one exact managed Stage B operation paints its exact picture/status;
+3. Stage 12-only, Stage 7-only, both stages, and reversed operation order;
+4. simultaneous Stage 7/12 selection remains isolated and exact;
+5. legacy/presentation authority never becomes an Engine workplace;
+6. duplicate Stage B operation, production ID, card, building, or place fails closed;
+7. missing/wrong-stage/mismatched card fails closed;
+8. wrong phase or non-stage location fails closed;
+9. cross-owned or malformed command/blocker/task fails closed;
+10. late event after removal, relocation, Post transition, or occupant replacement cannot select;
+11. physical polygon, status control, and semantic companion have exact identity/focus parity;
+12. native Enter/Space and pointer dispatch once;
+13. blocked/ready/scheduled/completed direct reload paints current truth;
+14. Stage 12 never activates Stage 7 scenery/service, route, sweep, or arrival copy;
+15. existing production commands call the App owner once and repaint from the returned state;
+16. command rejection preserves selection, reports exact error, and leaves authority unchanged;
+17. Stage 7 release while Stage 12 remains does not migrate Stage 12 identity;
+18. asset/manifest failure removes the physical hotspot and retains semantic command parity;
+19. renderer rejection, reduced motion, delayed readiness, hidden-tab resume, and modal suspension;
+20. selection/camera-only journeys preserve SaveFileV11 bytes, RNG, ledger, week, cash,
+    reservations, and tasks;
+21. source/runtime art hashes, prompt provenance, dimensions, and manifest identity; and
+22. sustained performance and responsive gates from §12.
+
+## 15. Ordinary-player browser acceptance
+
+Using the deterministic managed two-production fixture:
+
+1. load directly into the Hollywood Lot;
+2. observe both stage destinations without opening Dashboard or Production Board;
+3. manually pan from the Stage 7 district across the visible campus connector into the Stage 12
+   cell with no fade, blank void, texture swap, route change, or canvas replacement;
+4. focus Soundstage 12 through a visible world/campus affordance and prove it reaches the same world
+   geometry;
+5. physically select the Stage 12 building/status and read its exact film, phase, facility, status,
+   countdown, Director, and current command/status;
+6. execute one already-legal Stage 12 command if the fixture owns one;
+7. observe fresh Engine truth repaint in the same canvas;
+8. select Soundstage 7 and prove its exact independent production remains unchanged;
+9. return to Soundstage 12 without a screen route;
+10. advance one authoritative week on the Lot;
+11. reload the native save and prove both reservations/identities persist; and
+12. repeat essential selection under reduced motion, 960×540, renderer rejection, and Stage 12
+    asset failure.
+
+The player must never need a deep management screen to identify or switch between the two current
+physical stage operations. Deeper Production Board detail remains supported infrastructure.
+
+## 16. Proportional final verification
+
+Before Keep:
+
+- root and UI TypeScript;
+- focused selector, scene, host, provenance, failure, and fixture suites;
+- complete repository Vitest suite;
+- governed D-16/D-17 harness;
+- production build;
+- focused Chromium ordinary-player acceptance;
+- complete Chromium suite if shared Lot/renderer/camera behavior changed;
+- 1920×1080 sustained performance capture plus responsive/maximum-zoom review;
+- `git diff --check`; and
+- independent strict authority, runtime, accessibility, and Art review.
+
+The 300×208 economy corpus is not proportional for this behavior-neutral world-presence milestone.
+
+## 17. Explicit non-goals
+
+V1 does not authorize:
+
+- broad parallel-production certification;
+- a third production or increased stage capacity;
+- facility construction, upgrades, or costs;
+- queues, staffing, shift schedules, bottleneck ownership, or workload;
+- a Stage 12 travel route or authoritative person position;
+- Stage 12 scenery-service logistics;
+- stage interiors, set simulation, unrestricted autonomy, or character control;
+- a second clock, physics, pathfinding, or renderer-owned completion;
+- GameState, SaveFile, economy, RNG, ledger, career, publicity, or production-law changes;
+- replacement of the Studio Lot with a map, card, screen, or legacy renderer;
+- revival of rejected 05H/05I character production;
+- financing, loans, bailouts, restructuring, failure ladder, or arbitrary cash sink; or
+- merge, push, publication, or milestone tag.
+
+## 18. Governing economic boundary
+
+The governing status remains exactly:
+
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+
+Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
+dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
+and formal G12 timing remain explicitly open. This milestone is not economy-balance certification.
+
+## 19. Stop conditions
+
+Stop implementation and record the result if:
+
+- the art precondition fails after one base candidate and one targeted corrective iteration;
+- physical integration cannot remain additive and provenance-safe;
+- exact Stage B identity cannot fail closed;
+- a required improvement expands into unowned simulation law; or
+- measured ordinary-player value does not justify the cell.
+
+Do not force Soundstage 12 to exist physically by lowering the visual or authority bar. A truthful
+no-go is a valid research result. If the cell passes, implement only the bounded world-presence loop
+above and then re-run the critical-experience test before choosing another milestone.
