@@ -242,3 +242,26 @@ No authored facility building was invented for this slice. The fixed asphalt par
 overlay are an honest V1 representation until a separately contracted district-art state earns its
 own evidence. Future construction catalogues, placement, upgrades, era variants, and facility
 economics remain outside this bridge update.
+
+## Film Chronicle V1 bridge update
+
+Film Chronicle V1 is delivered at `f59b4675a745734f721b7ec73d5bee04eb7c7813`. It makes the
+player's completed movie visible without widening the Phaser or simulation boundary.
+
+The release route pairs a deterministic HTML/CSS studio one-sheet with the truthful Silver Screen
+Gazette. The one-sheet reads only the pure Chronicle projection: exact title/genre, locked Shape
+and Promise, frozen credits and greenlight Fits, persisted chronology, and the existing reception.
+It uses no generated image, remote request, canvas, random draw, current talent state, hidden
+ability, or delivered-expression surrogate.
+
+The authored lot remains unchanged. No Chronicle fact crosses `StudioLotSnapshot`; no poster or
+newspaper interaction moves a person, advances a clock, spends money, schedules production, or
+changes the district. `Chronicle`, `Clipping`, and session-only `Autopsy` are distinct React routes
+over their exact evidence bases.
+
+Live Chromium acceptance completed the real managed path through screenplay, casting, package,
+Soundstage commands, release, reload, clipping, and durable Chronicle. The poster/Gazette pair
+passed the governed desktop viewports at 100% and 125%, plus 200% text/compact cases, with no page-
+level horizontal overflow, unreachable action, console warning, or console error. SaveFileV1-V11,
+engine actions, tick, economy, reception, RNG, and the Hollywood district remain behaviorally
+unchanged.

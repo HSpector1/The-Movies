@@ -2371,3 +2371,49 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
 - **Pattern:** immutable authority + bounded deterministic replay + independent recomputation.
   **Anti-pattern:** treating a self-consistent checksum envelope or schema-shaped summary as proof
   of simulation meaning.
+
+---
+
+# Film Chronicle V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Contract `4c76216`; implementation `f59b467`. Related:
+> `docs/FILM-CHRONICLE-V1-CONTRACT.md` and `docs/FILM-CHRONICLE-V1-CLOSURE.md`.
+
+## CU. A durable artifact should project frozen event identity, not today's entity state — **MG, BR**
+
+- **Risk:** an archived film can quietly change writer, employment, Fit, or creative identity when
+  a presentation joins through the current roster or the nearest screenplay-shaped record.
+- **Resolution:** associate the released film by exact production ID to one Produced screenplay and
+  one immutable production debit, then bill only frozen FilmResult participants. Older missing
+  history stays visibly unavailable; it is never inferred from current talent or delivered output.
+- **Coverage / fastest diagnostic:** interleave two films' scripts and ledger rows, reverse every
+  source array, mutate current talent, export/import, and require the exact same disjoint records.
+- **Pattern:** immutable event witness + exact cross-domain ID + honest absence. **Anti-pattern:**
+  reconstructing a past creative decision from current state or visual similarity.
+
+## CV. A durable summary and a session autopsy are different products — **MG**
+
+- **Symptom:** an `Autopsy` action silently fell back to an archived film record after reload, so
+  one label described two different evidence bases.
+- **Resolution:** expose Chronicle, Clipping, and Autopsy as distinct routes. Chronicle and Clipping
+  rebuild from persisted authority; Autopsy is enabled only while its exact pre-release snapshot
+  survives. The unavailable action explains the boundary instead of changing destination.
+- **Coverage / fastest diagnostic:** release live, open all three paths, reload the save, and require
+  Chronicle/Clipping to remain stable while Autopsy becomes visibly unavailable.
+- **Pattern:** one label, one evidence basis, one destination. **Anti-pattern:** navigation fallback
+  that preserves clickability by changing the meaning of the click.
+
+## CW. A shared document needs explicit route-entry scroll and focus ownership — **MG**
+
+- **Symptom:** opening a release from a deep, horizontally scrollable dashboard could preserve the
+  old document position and land below the new poster; an Annex co-event could also lose its first
+  announcement if every new surface focused itself unconditionally.
+- **Resolution:** reset document scroll on Chronicle entry, focus the film-title heading without
+  scrolling, and yield that first-focus beat when an authoritative construction-completion notice
+  is present. Contain genuinely wide tables in labelled keyboard-scroll regions rather than making
+  the whole page overflow.
+- **Coverage / fastest diagnostic:** enter from a deep dashboard at 200% zoom, combine the route
+  with a completion co-event, and assert scroll zero, the correct focus owner, and reachable trailing
+  actions without page-level horizontal overflow.
+- **Pattern:** explicit entry state + co-event focus priority + local overflow containment.
+  **Anti-pattern:** assuming a component swap behaves like a browser navigation.
