@@ -42,43 +42,46 @@ Vacant facts, the existing App-owned start action, immediate Building repaint, w
 Operational completion, reload truth, renderer fallback, reduced motion, and standalone deep-owner
 parity are proven without adding a facility, construction, economy, clock, or renderer authority.
 
-## Next candidate — World-First Scenery Load-In V1
+## Closed — World-First Scenery Load-In V1
 
-Instrument first, then freeze a bounded world-interaction contract before implementation. The
-Engine already exposes the exact `scenery-load-in` blocker and `clearSceneryLoadIn` command, and the
-Hollywood runtime manifest already defines `service-yard` / `post` as **Scenery & Service** with
-delivery, supply-scenery, and load-in affordances. But the ordinary player currently encounters the
-command only inside Stage 7's inspector. Scenery preparation and travel are not yet a visible
-physical process.
+Contract `b03bb10` and implementation `3a667e0` close the physical Scenery & Service → Stage 7
+production beat. Exact source/destination identity, field-exact existing commands, blocked → ready
+same-context continuity, presentation-only load-in acknowledgement, Schedule-during-motion,
+renderer/manifest failure, reduced motion, direct reload, Stage 12 isolation, and generic place
+compatibility are proven without adding simulation law.
 
-There is a concrete authority hazard to resolve before editing or exporting art: the committed
-runtime district manifest contains the accepted `annex-parcel`, while its declared authored source
-does not. A blind regeneration could silently delete the just-closed parcel identity. Record hashes
-and provenance, determine the exact source/runtime delta, and freeze which artifact is authoritative
-before any pipeline or scene mutation.
+## Next candidate — World-First Studio Home V1
+
+Instrument first, then freeze the ordinary entry and return contract. The Studio Lot is now capable
+of several minutes of meaningful production, people, weekly, and construction play, but an
+operating studio still defaults to Dashboard after founding, recovery, or load. That contradicts
+the Owner's home-surface ruling even though Dashboard remains a valuable deep management surface.
 
 Expected minimum:
 
-- the runtime/source-manifest discrepancy is measured and preserved safely before any exporter run;
-- a physical Scenery & Service/service-yard selection and semantic fallback resolve an exact latest
-  Engine-backed load-in blocker, production, stage destination, and current command without an
-  array-order or presentation guess;
-- the same-lot context makes the source → delivery/load-in → blocked stage relationship legible;
-- one world intent carries only the exact selected production identity to the existing App/adapter
-  `clearSceneryLoadIn` command, which is invoked exactly once;
-- accepted Engine truth repaints `blocked → ready` while any truck, crate, crew, route, or door
-  motion remains non-authoritative acknowledgement and cannot clear the blocker itself;
-- stale identity, a changed command, another stage/production, legacy state, missing manifest,
-  renderer rejection, and reduced motion fail closed or retain the complete semantic path;
-- the current Stage 7 inspector and Production Board command surfaces remain behaviorally exact;
-- named people, productions, tasks, reservations, week, cash, RNG, save bytes, camera, and the Annex
-  lifecycle remain unchanged except for the existing accepted load-in transition; and
-- no core command, second task clock, new facility/economy law, generalized delivery system,
-  worker autonomy, or pathfinding authority is introduced.
+- enumerate every current entry owner: new founding, current-session startup, recovery notice,
+  accepted Saves import, explicit Dashboard action, deep-screen return, release chain, Autopsy,
+  and lot exit;
+- distinguish onboarding/founding states that still require a non-world decision from an already
+  operating studio that can safely inhabit the lot;
+- route ordinary operating-studio startup/recovery/load to the persistent Studio Lot without
+  fabricating a second session, tick, selection, camera, notice, or save event;
+- retain Dashboard as an explicit supporting destination and preserve all current actions, truth,
+  focus, and tests there;
+- carry exact origin through deep screens and return to the same live-world context wherever the
+  bounded architecture can truthfully retain it;
+- prove reload, older-save conversion acknowledgement, release/Annex co-events, renderer failure,
+  feature rollback, reduced motion, and keyboard navigation;
+- measure whether keeping the lot mounted behind deep panels is justified in this V1 or requires a
+  later shell/navigation contract; do not assume it;
+- preserve Engine/GameState, SaveFileV11, RNG, economy, production, construction, publicity,
+  facility, and task behavior; and
+- add no Phaser-owned navigation, duplicate App tree, hidden automatic decision, or deleted deep
+  management route.
 
-Do not assume that a believable route, truck, load-in duration, or assigned worker already exists.
-Measure the current world, Engine transition, manifest geometry, and ordinary-player timing first;
-the frozen contract must distinguish truthful presentation acknowledgement from new simulation.
+The smallest honest result may be default lot entry plus explicit, origin-safe supporting routes.
+Persistent background simulation/presentation across every deep panel is desirable but must not be
+smuggled into the same slice if it requires a new application shell or two mounted owners.
 
 ## Closed parallel evidence lane
 
@@ -89,12 +92,13 @@ construction, or operating costs materially change the decision boundary.
 
 ## Not authorized next
 
-- a new screen-first operations dashboard;
+- a new screen-first operations dashboard or deleting the existing supporting Dashboard;
 - decorative building animation without authoritative state and interaction;
 - arbitrary people autonomy, needs, or character control;
 - a second production clock, facility ledger, or UI-owned scheduler;
 - a renderer-owned scenery task, delivery timer, completion condition, or pathfinding result;
 - an exporter run that can erase accepted runtime manifest places;
+- a duplicate mounted lot/App tree or Phaser-owned navigation state;
 - an unmeasured construction catalogue, placement system, second Annex, fourth slot, or arbitrary
   cash sink;
 - invented cancellation, refund, maintenance, staffing, operating-cost, or worker-pathfinding law;
@@ -103,10 +107,10 @@ construction, or operating costs materially change the decision boundary.
 
 ## After the slice
 
-Re-run the several-minutes-on-lot test after scenery load-in becomes spatially playable. Then choose
-the next observed break among default world-home routing, persistent lot mounting/context across
-deep panels, visible facility occupancy/queues, parallel production legibility, or human
-workload/story state. Choose from observed play, not menu completeness.
+Re-run the several-minutes-on-lot test after ordinary startup reaches the world. Then choose the
+next observed break among persistent lot mounting/context across deep panels, visible facility
+occupancy/queues, parallel production legibility, or human workload/story state. Choose from
+observed play, not menu completeness.
 
 The governing economic classification remains exactly:
 

@@ -20,11 +20,14 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   Stage 7 selection now enters the exact Engine-owned command chain on the same live lot.
 - **World-First Live Week Advance V1:** CLOSED at `a9be116`; one App-owned
   Engine week now advances from the lot, repaints the same world, and returns there after releases.
-- **World-First Annex Construction Interaction V1:** CLOSED by this documentation checkpoint;
+- **World-First Annex Construction Interaction V1:** CLOSED at `933d074`;
   the physical parcel is now an exact inspect/build/progress interaction on the same live lot.
-- **Next playable milestone:** World-First Scenery Load-In V1 — instrument the physical
-  Scenery & Service → Stage 7 boundary, freeze its authority contract, then make the existing
-  load-in blocker and command spatially legible without new simulation law.
+- **World-First Scenery Load-In V1:** CLOSED by this documentation checkpoint; the physical
+  Scenery & Service yard now owns an exact same-lot blocked → ready → scheduled interaction while
+  the Engine remains the sole task authority.
+- **Next playable milestone:** World-First Studio Home V1 — instrument and freeze the ordinary
+  operating-studio entry/return boundary so the persistent lot becomes home while Dashboard and
+  deep management screens remain explicit supporting destinations.
 
 ## Closed marathon milestones
 
@@ -43,18 +46,20 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | Dynamic People Role Atlas V1 | `b01edc2`, `0ee129c` | `471c8ef`, `66f856c` | `5146490` |
 | World-First Soundstage Intervention V1 | `001c692` | `c48f8ac` | `6419452` |
 | World-First Live Week Advance V1 | `3391528` | `621e7e1` | `a9be116` |
-| World-First Annex Construction Interaction V1 | `6cab9c9` | `7a370fd` | this documentation checkpoint |
+| World-First Annex Construction Interaction V1 | `6cab9c9` | `7a370fd` | `933d074` |
+| World-First Scenery Load-In V1 | `b03bb10` | `3a667e0` | this documentation checkpoint |
 
 ## Product result so far
 
 The game now has an engine-owned operating middle, persistent upstream development/casting,
 current studio-wide capacity truth, one evidence-backed physical expansion, a durable released-film
-artifact, premium role-readable people, one exact physical blockage-to-resumption interaction, and
-one authoritative week advance on the persistent Hollywood lot. The fixed Annex parcel is now a
-complete same-world choice: inspect exact Vacant truth, commit the existing project, watch Building
-progress, and reach Operational capacity while the lot remains the primary surface. The strongest
-observed break is now scenery load-in: the Engine command already exists, but Scenery & Service,
-delivery, and the Stage 7 blockage are not yet one visible spatial process.
+artifact, premium role-readable people, two exact physical production interventions, and one
+authoritative week advance on the persistent Hollywood lot. The fixed Annex parcel is a complete
+same-world choice: inspect exact Vacant truth, commit the existing project, watch Building progress,
+and reach Operational capacity. Scenery & Service now physically joins the exact Stage 7 blocker,
+existing Clear command, bounded load-in acknowledgement, and fresh Schedule decision without a
+second clock or logistics simulation. The strongest observed break is now entry ownership: a
+founded, restored, or loaded operating studio still opens on Dashboard instead of its living lot.
 
 ## Governing status
 

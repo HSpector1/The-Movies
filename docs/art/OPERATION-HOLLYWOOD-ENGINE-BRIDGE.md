@@ -447,3 +447,53 @@ This world-first interaction neither closes nor reclassifies cash runaway, top-s
 immortality, the week-208 synchronized roster wall, P5 dominance, world-led variance, cheap-film
 purpose, premium-film purpose, remaining menu breadth, or formal G12 timing. It adds no financing,
 loan, bailout, restructuring, failure ladder, arbitrary cash sink, or macroeconomic certification.
+
+## World-First Scenery Load-In V1 bridge update
+
+World-First Scenery Load-In V1 is delivered at
+`3a667e05986579d6474878f238d1c6dbc4a7e362` from frozen contract
+`b03bb101a6880552c299f94240d65c04ace98682`. It closes the physical Scenery & Service → Stage 7
+bridge without adding logistics simulation or widening `StudioLotSnapshot`.
+
+One pure selector accepts only managed mode, Engine stage authority, exactly one Stage 7 Shooting
+operation, and the exact blocked/ready scenery task + command shape. The canonical physical
+`service-yard` / `post` place may emit one identity-only event carrying production ID,
+`locationBuildingId: 'stage-a'`, and `placeId: 'service-yard'`. React independently rechecks every
+literal and the latest selector. Stage 12, legacy/presentation authority, stale identity, duplicate
+Stage 7, and mismatched command truth fail closed without substituting the current production.
+
+The existing App/adapter owner remains the only dispatcher. Accepted Clear replaces GameState with
+exact ready truth immediately and retains the same-lot service context. Accepted Schedule selects
+existing Stage 7 scheduled truth. The 1,200 ms flat/crate sweep begins only after fresh accepted
+ready truth, cannot gate Schedule, and cancels on scheduled/absent/mismatched truth. Reduced motion
+resolves the same acknowledgement immediately. Direct Stage 7, Production Board, service-yard, and
+adapter paths produce byte-identical SaveFileV11, RNG, and ledger successors.
+
+The scene adds one draw-only Graphics object and no texture bytes, actor, route, second draw, asset,
+or manifest mutation. Canonical manifest selection is a truthful boolean: absent or malformed
+runtime identity paints no outline while the complete native semantic Engine path remains
+available. Generic service-yard selection still exposes ordinary **Scenery & Service** when no
+exact production selector exists.
+
+The authored source/runtime manifest drift is preserved rather than regenerated. All source,
+runtime, exporter, plate, and PNG hashes are frozen; a clean temporary exporter replay proves its
+deliberately divergent manifest. The deterministic Week-30 SaveFileV11 corpus freezes unassigned,
+blocked, ready, scheduled, and manifest byte identities.
+
+Live acceptance completed physical blocked → ready → scheduled play, Schedule during the moving
+acknowledgement, direct ready reload, reduced motion, renderer rejection, generic place fallback,
+the governed viewport matrix, 960×540 stress, and actual maximum camera zoom. The final 1920×1080
+window retained one draw, 34 objects, 15 actors, exactly 11,096,896 decoded bytes, 180 average FPS,
+143 FPS 1%-low, and 7 ms p99/worst. Full repository, D-16/D-17, TypeScript, build, fixture,
+responsive, and strict/visual gates passed with no remaining P1–P3.
+
+The next bridge question is application-home ownership, not another passive district overlay.
+World-First Studio Home V1 must measure every founding, recovery, load, Dashboard, deep-screen, and
+release return before making the living lot the ordinary operating-studio home. Dashboard and deep
+management owners remain supported; Phaser must not become a router or second App-state owner.
+
+The governing economic status remains exactly:
+
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+
+No accepted macroeconomic residual is closed or reclassified by this bridge update.

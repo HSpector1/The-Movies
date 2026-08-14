@@ -2627,3 +2627,69 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   GameState, RNG, ledger, save, and renderer snapshot after each rejection.
 - **Pattern:** stable announcement owner + per-event DOM identity. **Anti-pattern:** assuming a state
   setter can make unchanged text observable as a second accessibility event.
+
+---
+
+# World-First Scenery Load-In V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Contract `b03bb10`; implementation `3a667e0`. Related:
+> `docs/WORLD-FIRST-SCENERY-LOAD-IN-V1-EVIDENCE.md` and
+> `docs/WORLD-FIRST-SCENERY-LOAD-IN-V1-CLOSURE.md`.
+
+## DK. One gesture cannot become consent to a freshly repainted successor — **MG, BR**
+
+- **Symptom:** a real double-click or held Enter can activate Clear, receive the immediate
+  blocked → ready repaint, and land its remaining native events on the new Schedule button. Both
+  individual commands are legal, but the player supplied only one intent.
+- **Resolution:** bind activation to the rendered state and field-exact rendered command, recheck
+  both against the latest selector, synchronously mark the command pending, reject a second native
+  click detail, and retain a held-key generation until keyup. Fresh Schedule needs a fresh gesture.
+- **Coverage / fastest diagnostic:** run a real `dblClick` and held `{Enter>.../}` across a live
+  component repaint; require one owner call, exact ready bytes, and an enabled but undispatched
+  Schedule successor.
+- **Pattern:** one gesture + one rendered generation + latest-owner validation. **Anti-pattern:**
+  assuming a disabled old DOM node can contain native events after React replaces it.
+
+## DL. Renderer refusal removes the outline, not the authoritative semantic action — **MG, BR**
+
+- **Risk:** requiring a canonical scene-selection success before retaining React context makes an
+  absent/malformed manifest or failed renderer erase an otherwise legal Engine action; pretending
+  success instead invents a physical outline that does not exist.
+- **Resolution:** scene host-selection is a truthful boolean. `false` paints nothing. React still
+  owns the native exact context and existing command whenever the latest Engine selector is valid.
+  Separate tests prove absent, drifted, duplicate, and malformed canonical identities return false
+  before one shared semantic inspect → Clear → Schedule continuation proof.
+- **Coverage / fastest diagnostic:** omit the service place, corrupt one exact literal, duplicate
+  service or Stage 7, and reject renderer construction. Require no scene event/outline/throw and a
+  byte-identical semantic successor.
+- **Pattern:** presentation capability may fail while owner truth remains operable. **Anti-pattern:**
+  using renderer readiness or asset validity as action legality.
+
+## DM. Presentation feedback must expire against every fresh authority path — **BR**
+
+- **Symptom:** a delivery sweep can finish and announce “ready to schedule,” then a generic Stage 7
+  command or external scheduled/relocated/absent snapshot supersedes it without passing through the
+  dedicated service-context cleanup. The stale toast can survive beside contradictory truth.
+- **Resolution:** record the exact arrival acknowledgement only when the latest shared selector is
+  truly ready. Any fresh snapshot whose exact ready identity no longer matches clears only that
+  acknowledgement. Renderer callbacks independently suppress late arrival events when current
+  Stage 7 truth is already scheduled.
+- **Coverage / fastest diagnostic:** finish the sweep through both dedicated and generic Stage 7
+  paths, then schedule locally or replace with scheduled, relocated, duplicate, or absent truth;
+  require immediate feedback removal and fail-empty selection without hiding unrelated activity.
+- **Pattern:** feedback identity tied to the read model it describes. **Anti-pattern:** cleanup tied
+  only to the UI path that happened to create the message.
+
+## DN. Divergent authored/runtime manifests require a consumption-only freeze — **BR**
+
+- **Risk:** a deterministic exporter can still be destructively wrong when its authored input is
+  stale relative to accepted runtime identity. Re-running it would produce reproducible bytes while
+  erasing the Annex and moving accepted Stage 7/service geometry.
+- **Resolution:** hash the source, runtime, exporter, plate, and every PNG; replay the exporter only
+  in a clean temporary directory; pin its divergent manifest; and treat the accepted runtime as
+  consumption-only until a separate reconciliation milestone owns regeneration.
+- **Coverage / fastest diagnostic:** require the clean-export manifest's distinct byte/hash anchor,
+  byte-freeze all accepted artifacts, and exact-validate unique service, destination, and Annex
+  records before allowing the scene seam.
+- **Pattern:** deterministic replay + explicit divergence + no-write boundary. **Anti-pattern:**
+  treating reproducibility as proof that an exporter input still owns current product truth.

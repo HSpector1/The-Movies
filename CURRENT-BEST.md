@@ -4,7 +4,7 @@ Updated: 2026-08-14
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current implementation HEAD: `7a370fda50bc6f9065918098de24455195414af8`
+Current implementation HEAD: `3a667e05986579d6474878f238d1c6dbc4a7e362`
 
 ## Product doctrine — World First
 
@@ -94,40 +94,44 @@ whether the game remains playable.
 - World-First Annex Construction Interaction V1 makes the physical Annex parcel and its semantic
   companion select exact construction truth in the living lot, dispatch the existing App-owned
   start action, and retain that same selected world context through Building and Operational.
+- World-First Scenery Load-In V1 makes the physical Scenery & Service yard, marker, production
+  blocker, and native semantic control select one exact Stage 7 load-in context; accepted Clear
+  produces immediate ready truth plus bounded world acknowledgement, and Schedule remains legal
+  while that acknowledgement is moving.
 
 ## Current world-first checkpoint
 
-World-First Annex Construction Interaction V1 is closed at implementation authority `7a370fd`
-under frozen contract `6cab9c9`:
+World-First Scenery Load-In V1 is closed at implementation authority `3a667e0` under frozen
+contract `b03bb10`:
 
-- the physical parcel, visible lifecycle label, and native semantic companion enter one exact
-  latest-snapshot Annex context without navigation, mutation, or renderer-owned construction law;
-- the same-lot inspector projects the existing `studioDevelopment(state)` price, clock, cash,
-  capacity, affordability, project, and lifecycle truth;
-- one no-payload lot intent invokes the existing App-owned start action exactly once; acceptance
-  debits $780,000 and repaints Vacant → Building at 0/13 in the same mounted renderer, camera,
-  production, and parcel selection;
-- the shipped live-week action carries the selected context through exact Building progress and
-  Week-13 Operational +1-slot truth with single focus and announcement ownership;
-- standalone Studio Development remains the full deep-management fallback and produces
-  byte-identical GameState, RNG, ledger, and SaveFileV11 output from the same pre-state;
-- stale, malformed, absent, duplicate, legacy, unaffordable, and post-render rejection boundaries
-  fail closed; renderer failure, procedural rollback, delayed import, and reduced motion retain the
-  semantic interaction;
-- focused proof passed 6/6 files and 114/114 tests, the complete repository passed 160/160 files and
-  1,952/1,952 tests, the governed D-16/D-17 harness passed 10/10 files and 176/176 tests, and the
-  Playwright lot suite passed 14/14; and
-- both TypeScript projects, production build, deterministic fixture replay, and diff checks passed.
+- one pure selector accepts only exact managed + Engine + unique Stage 7 Shooting
+  `scenery-load-in` blocked/ready truth and fails every hostile state closed;
+- the canonical physical Scenery & Service polygon/marker, production problem, and native semantic
+  control enter the same exact film → source → Soundstage 7 context without navigation;
+- one existing App/adapter command owner produces blocked → ready, retains context, and exposes
+  Schedule immediately; normal-motion acknowledgement cannot gate it;
+- accepted Schedule exits service context into truthful Stage 7 scheduled state on the same canvas,
+  camera, URL, week, cash, production, people, reservations, RNG, ledger, and save authority;
+- direct Stage 7, Production Board, same-lot service, and adapter surfaces produce byte-identical
+  ready successors from the frozen blocked prestate;
+- renderer rejection, delayed import, reduced motion, absent/malformed canonical manifest, direct
+  ready reload, Stage 12, duplicate Stage 7, stale identity, and generic service-place behavior are
+  all explicit fail-closed/compatibility proofs;
+- the retained renderer cost is one draw-only Graphics object, zero texture bytes, zero actors,
+  zero routes, and no second draw; and
+- focused proof passed 7/7 files and 143/143 tests, complete repository proof passed 163/163 files
+  and 2,028/2,028 tests, D-16/D-17 passed 176/176, and the full Lot Playwright suite passed 20/20.
 
-Live acceptance proved exact Week-30 Vacant → Building cash truth, Week-11 → Week-12 progress,
-Week-13 Operational completion and same-bytes reload, the renderer-failure and reduced-motion
-semantic paths, all governed viewports plus 960×540 stress and actual maximum camera zoom. Final
-1920×1080 measurement retained 180 average FPS, 143 FPS 1%-low, 7 ms p99/worst, one draw, 33 display
-objects, 15 actors, and the exact 11,096,896-byte decoded texture budget.
+Live acceptance proved the exact Week-30 physical blocked → ready → scheduled loop, Schedule during
+the 1,200 ms sweep, direct ready reload, native semantic keyboard operation in real Chromium,
+reduced motion, renderer rejection, generic service inspection, all governed viewports, 960×540
+stress, actual maximum camera zoom, and zero product diagnostics. Final 1920×1080 measurement
+retained 180 average FPS, 143 FPS 1%-low, 7 ms p99/worst, one draw, 34 display objects, 15 actors,
+and the exact 11,096,896-byte decoded texture budget.
 
-The in-app browser controller focused but could not synthesize physical `Enter` or `Space`; this
-limitation is recorded honestly and is not relabelled as a live keyboard pass. Automated native
-button `Enter` and `Space` exact-once parity both pass.
+The in-app browser controller itself focused but did not synthesize physical Enter activation; that
+limitation is recorded honestly and is not relabelled. Playwright's real Chromium keyboard journey
+and focused native-control tests independently pass Enter/Space exact-once behavior.
 
 The accepted 2D Role Atlas remains the people presentation authority. Rejected 05H/05I character
 production and integration remain unauthorized.
@@ -140,6 +144,7 @@ production and integration remain unauthorized.
 - marathon integration baseline: `4432a9befef578ac3549896c2796bf0a22950ec0`
 - final Annex compatibility authority: `8b7e95eb92f6f809522a595b4b458d4f19e26852`
 - reviewed Week-208 observatory authority: `f16e2e0b184f6818d373d77556c5c7a1b3df7b94`
+- World-First Scenery Load-In V1 implementation: `3a667e05986579d6474878f238d1c6dbc4a7e362`
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -150,28 +155,21 @@ or arbitrary cash sink is authorized.
 
 ## Current highest-leverage gap
 
-The player can now resolve a Stage 7 blockage, record a take, advance its authoritative week, and
-inspect/start/advance the Annex without leaving the lot. The next observed world-first break is
-**World-First Scenery Load-In V1**. The Engine already owns the `scenery-load-in` blocker and
-`clearSceneryLoadIn` command, while Hollywood already names the physical `service-yard` as
-Scenery & Service. Today those truths meet only inside the Stage inspector: the player does not yet
-see delivery/load-in as a spatial process joining Scenery & Service to the blocked stage.
+The player can now select the exact Stage 7 production, assign its named Director, watch travel,
+resolve scenery at its physical source, schedule the take, advance the Engine week, and
+inspect/build/advance the Annex without leaving the lot. The next observed world-first break is
+**World-First Studio Home V1**: new, restored, and loaded operating studios still open on Dashboard
+even though the Owner has ruled that the persistent lot is home.
 
-Instrument and freeze the contract before implementation. The declared authored district source
-currently omits `annex-parcel` while the committed runtime manifest contains it. Any blind exporter
-run could therefore erase accepted Annex identity. First prove provenance and reconcile or safely
-bound that manifest-source drift; then define exact production/place selection and accepted-action
-acknowledgement from current Engine truth.
+Instrument and freeze entry/return behavior before implementation. Identify every founding,
+recovery, save-load, deep-screen, release-result, and explicit Dashboard route. The bounded target
+should make the lot the ordinary operating-studio destination while retaining Dashboard and all
+deep surfaces as intentional supporting destinations with exact return origin, focus, selection,
+camera, and save/reload truth.
 
-The bounded target should let the player select the visible service-yard/load-in problem, identify
-the exact blocked production and destination, invoke the existing App-owned command once, and watch
-an honest same-lot delivery/load-in acknowledgement before returning attention to the ready stage.
-It may add no core command, second task clock, economy rule, facility rule, worker autonomy, or
-pathfinding authority. The existing Stage inspector and Production Board remain supported deep
-surfaces.
-
-The doctrine is still not fully delivered. New, restored, and loaded studios open on Dashboard;
-deep screens unmount the lot; several buildings still route directly to standalone owners; and the
-world does not yet show every queue, workload, construction decision, or production phase. Those
-remain explicit forward gaps. Week-208 research remains closed with no current repair justified;
-the underlying roster-wall residual remains open.
+Do not delete Dashboard, skip required founding/onboarding decisions, keep duplicate mounted Apps,
+make Phaser own navigation, or infer return origin from the current URL. Deep screens still unmount
+the lot today; whether persistence behind them is part of this bounded slice must be measured rather
+than assumed. Visible queues/occupancy, parallel-production legibility, and richer human workload/
+relationship/stress/fatigue/career stories remain explicit later gaps. Week-208 research remains
+closed with no current repair justified; the underlying roster-wall residual remains open.

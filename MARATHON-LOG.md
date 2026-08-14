@@ -134,3 +134,35 @@ Owner rulings remain the authority when a summary here conflicts with them.
   RESIDUALS REMAIN OPEN**. Cash runaway, top-studio economic immortality, the week-208 synchronized
   roster wall, P5 dominance, world-led variance, cheap-film purpose, premium-film purpose,
   remaining menu breadth, and formal G12 timing remain open.
+
+## 2026-08-14 — World-first Scenery & Service load-in closes
+
+- Froze contract `b03bb10` and delivered implementation `3a667e0` without changing core Engine,
+  adapter command ownership, App routes, save schema, economy, production law, facilities,
+  construction, publicity, RNG, district manifest, exporter, or authored art.
+- Added one shared exact selector and made the canonical physical Scenery & Service polygon/marker,
+  production blocker, and native semantic control select the exact Stage 7 load-in problem on the
+  same living lot.
+- Reused the existing Clear and Schedule commands. Accepted Clear retains exact context and exposes
+  Schedule immediately; one bounded flat/crate sweep acknowledges fresh ready truth but cannot gate
+  or create it. Scheduling while the sweep is moving remains legal and cancels stale feedback.
+- Preserved generic service-yard inspection, Stage 12 isolation, direct Stage 7 and Production Board
+  parity, ready reload truth, renderer/manifest failure, reduced motion, delayed import, and all
+  latest-state fail-closed boundaries.
+- Froze source/runtime/exporter/art hashes without regenerating the stale authored manifest, and
+  committed deterministic native SaveFileV11 blocked/ready fixtures plus in-memory unassigned and
+  frozen-scheduled byte proofs.
+- Played the exact Week-30 physical blocked → ready → scheduled loop, native semantic keyboard
+  fallback in real Chromium, reduced motion, intentional renderer failure, generic place fallback,
+  all governed viewports, 960×540 stress, and actual maximum camera zoom.
+- Closed with 143/143 focused tests across 7/7 files, 2,028/2,028 repository tests across 163/163
+  files, 176/176 D-16/D-17 tests, 20/20 Lot Playwright tests, clean TypeScript/build/fixture/diff
+  gates, and independent strict/visual reviews with no remaining P1–P3.
+- Final 1920×1080 measurement retained 180 average FPS, 143 FPS 1%-low, 7 ms p99/worst,
+  0.02 ms update, one draw, 34 display objects, 15 actors, and exactly 11,096,896 decoded bytes.
+- Promoted World-First Studio Home V1: instrument the founding/recovery/load/deep-return boundary so
+  an operating studio ordinarily lives in the lot while Dashboard remains an explicit supporting
+  management destination.
+- Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
+  RESIDUALS REMAIN OPEN**. Every accepted macroeconomic residual remains open; no financing,
+  bailout, failure ladder, or arbitrary cash sink was introduced.
