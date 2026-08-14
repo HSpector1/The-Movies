@@ -6,6 +6,10 @@ const fakePhaser = vi.hoisted(() => {
     y: number
     text = ''
     texture = ''
+    frame: string | number | null = null
+    scale = 1
+    flipX = false
+    depth = 0
     destroyed = false
     visible = true
     fillColor = 0
@@ -17,15 +21,20 @@ const fakePhaser = vi.hoisted(() => {
     }
 
     setOrigin() { return this }
-    setDepth() { return this }
+    setDepth(depth: number) { this.depth = depth; return this }
     setInteractive() { return this }
     on() { return this }
     setVisible(visible: boolean) { this.visible = visible; return this }
     setTint() { return this }
-    setTexture(texture: string) { this.texture = texture; return this }
+    setTexture(texture: string, frame?: string | number) {
+      this.texture = texture
+      if (frame !== undefined) this.frame = frame
+      return this
+    }
+    setFrame(frame: string | number) { this.frame = frame; return this }
     setPosition(x: number, y: number) { this.x = x; this.y = y; return this }
-    setFlipX() { return this }
-    setScale() { return this }
+    setFlipX(flip = true) { this.flipX = flip; return this }
+    setScale(scale: number) { this.scale = scale; return this }
     setAlpha() { return this }
     setText(text: string) { this.text = text; return this }
     setFillStyle(color: number) { this.fillColor = color; return this }
@@ -33,17 +42,27 @@ const fakePhaser = vi.hoisted(() => {
   }
 
   class Graphics extends DisplayObject {
+    constructor(private readonly onGenerate?: (key: string, width: number, height: number) => void) {
+      super()
+    }
     clear() { return this }
     fillStyle() { return this }
     fillEllipse() { return this }
+    fillRoundedRect() { return this }
+    fillTriangle() { return this }
     lineStyle() { return this }
     lineBetween() { return this }
     fillCircle() { return this }
     fillRect() { return this }
     strokeRect() { return this }
     strokeCircle() { return this }
+    strokeRoundedRect() { return this }
     fillPoints() { return this }
     strokePoints() { return this }
+    generateTexture(key: string, width: number, height: number) {
+      this.onGenerate?.(key, width, height)
+      return this
+    }
   }
 
   class Tween {
@@ -56,8 +75,29 @@ const fakePhaser = vi.hoisted(() => {
   class Scene {
     sprites: DisplayObject[] = []
     texts: DisplayObject[] = []
+    zones: DisplayObject[] = []
+    imageLoads: Array<{ key: string; url: string }> = []
+    textureSizes = new Map<string, { width: number; height: number; generated: boolean }>()
     tweenAdds: unknown[] = []
+    children = { length: 0 }
+    game = { loop: { rawDelta: 0, actualFps: 60 } }
     scene = { isActive: () => true }
+    load = {
+      json: () => {},
+      spritesheet: () => {},
+      image: (key: string, url: string) => {
+        this.imageLoads.push({ key, url })
+        this.textureSizes.set(key, { width: 0, height: 0, generated: false })
+      },
+    }
+    textures = {
+      exists: (key: string) => this.textureSizes.has(key),
+    }
+    make = {
+      graphics: () => new Graphics((key, width, height) => {
+        this.textureSizes.set(key, { width, height, generated: true })
+      }),
+    }
     add = {
       sprite: (x: number, y: number, texture: string) => {
         const sprite = new DisplayObject(x, y, texture)
@@ -69,6 +109,11 @@ const fakePhaser = vi.hoisted(() => {
         label.text = text
         this.texts.push(label)
         return label
+      },
+      zone: (x: number, y: number) => {
+        const zone = new DisplayObject(x, y)
+        this.zones.push(zone)
+        return zone
       },
     }
     tweens = {
@@ -195,6 +240,7 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   route: Array<{ x: number; y: number; actorDepth: number; cue: string }>
   manifest: {
     districtId: string
+    textureMemoryBytes: number
     activities: Array<{ id: string; place: string; visualStates: string[] }>
     places: Array<{
       id: string
@@ -217,6 +263,11 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   fitZoom: number
   expansionGraphics: InstanceType<typeof fakePhaser.Graphics> | null
   expansionLabel: InstanceType<typeof fakePhaser.DisplayObject> | null
+  roleAtlasActive: boolean
+  performanceWarmupFramesRemaining: number
+  buildAmbientLife: () => void
+  buildSemanticHotspots: () => void
+  buildActorTextures: () => void
 }
 
 function harness(initial: StudioLotSnapshot, reducedMotion = false) {
@@ -226,6 +277,7 @@ function harness(initial: StudioLotSnapshot, reducedMotion = false) {
   const internals = scene as unknown as SceneHarness
   internals.manifest = {
     districtId: 'district',
+    textureMemoryBytes: 0,
     activities: [{ id: 'shooting', place: 'stage-7', visualStates: ['crew-call', 'equipment-staged', 'take-in-progress'] }],
     places: [{ id: 'stage-7', anchors: { crewCall: [50, 60] }, selectionPolygon: [[0, 0], [100, 0], [100, 100], [0, 100]] }],
   }
@@ -241,6 +293,146 @@ function harness(initial: StudioLotSnapshot, reducedMotion = false) {
 }
 
 describe('HollywoodScene snapshot authority', () => {
+  it('uses one validated atlas frame per existing actor while generated textures remain fallback', () => {
+    const { scene, internals } = harness(snapshot([]))
+    internals.roleAtlasActive = true
+    scene.applySnapshot(snapshot([director(), talent()], [operation()]))
+
+    const managedDirector = internals.runtimePeople.get('director-1')!.sprite
+    const managedTalent = internals.runtimePeople.get('talent-1')!.sprite
+    expect(managedDirector).toMatchObject({
+      texture: 'hollywood-role-atlas-v1',
+      frame: 0,
+      scale: 74 / 128,
+      flipX: false,
+    })
+    expect(managedTalent).toMatchObject({ texture: 'hollywood-role-atlas-v1', frame: 4 })
+
+    scene.applySnapshot(snapshot([
+      director({ role: 'talent' }),
+      talent(),
+    ]))
+    expect(managedDirector).toMatchObject({
+      texture: 'hollywood-role-atlas-v1',
+      frame: 4,
+      scale: 74 / 128,
+      x: 1252,
+      y: 489,
+    })
+    scene.applySnapshot(snapshot([director(), talent()], [operation()]))
+    expect(managedDirector).toMatchObject({
+      texture: 'hollywood-role-atlas-v1',
+      frame: 0,
+      x: 150,
+      y: 806,
+    })
+
+    internals.buildAmbientLife()
+    const grip = internals.ambientActors[0]!
+    expect(grip.sprite).toMatchObject({
+      texture: 'hollywood-role-atlas-v1',
+      frame: 9,
+      scale: (74 / 128) * 0.9,
+    })
+    grip.phase = 0.49
+    grip.sprite.setPosition(grip.b.x, grip.b.y)
+    scene.update(0, 500)
+    expect(grip.sprite.frame).toBe(11)
+
+    scene.setReducedMotion(true)
+    expect(grip.sprite.frame).toBe(8)
+
+    internals.route = [
+      { x: 142, y: 805, actorDepth: 30, cue: 'going' },
+      { x: 244, y: 682, actorDepth: 30, cue: 'behind-truck' },
+      { x: 411, y: 591, actorDepth: 50, cue: 'past-truck' },
+      { x: 514, y: 535, actorDepth: 56, cue: 'behind-camera' },
+      { x: 658, y: 469, actorDepth: 78, cue: 'past-camera' },
+      { x: 586, y: 383, actorDepth: 82, cue: 'enter-stage' },
+    ]
+    scene.setReducedMotion(false)
+    scene.applySnapshot(snapshot([director(), talent()], [operation({ taskStatus: 'blocked' })]))
+    scene.update(0, 1)
+    expect(managedDirector.frame).toBe(2)
+    const governedRouteFrames: number[] = [managedDirector.frame as number]
+    for (let segment = 1; segment < internals.route.length - 1; segment++) {
+      scene.update(0, 1300)
+      governedRouteFrames.push(managedDirector.frame as number)
+    }
+    expect(governedRouteFrames).toEqual([2, 1, 1, 1, 2])
+    scene.update(0, 1300)
+    expect(managedDirector.frame).toBe(0)
+    expect(managedDirector).toMatchObject({ x: 586, y: 383, depth: 82 })
+    expect(scene.debugState().roleAtlasActive).toBe(true)
+
+    const activeActorObjects = internals.sprites.length
+    const fallback = harness(snapshot([]))
+    fallback.scene.applySnapshot(snapshot([director(), talent()], [operation()]))
+    fallback.internals.buildAmbientLife()
+    expect(fallback.internals.sprites).toHaveLength(activeActorObjects)
+  })
+
+  it('keeps the existing generated actor path when no valid atlas was activated', () => {
+    const { internals } = harness(snapshot([director()]))
+    expect(internals.roleAtlasActive).toBe(false)
+    expect(internals.runtimePeople.get('director-1')!.sprite).toMatchObject({
+      texture: 'hollywood-director',
+      scale: 1,
+      flipX: false,
+    })
+  })
+
+  it('keeps invisible place hit areas below managed people in pointer ordering', () => {
+    const { internals } = harness(snapshot([director()]))
+    internals.buildSemanticHotspots()
+
+    expect(internals.zones).toHaveLength(1)
+    expect(internals.zones[0]!.depth).toBeLessThan(
+      internals.runtimePeople.get('director-1')!.sprite.depth,
+    )
+  })
+
+  it('keeps the camera-person fallback distinct from the camera-dolly occluder', () => {
+    const { scene, internals } = harness(snapshot([]))
+    scene.preload()
+    internals.buildActorTextures()
+
+    expect(internals.imageLoads).toContainEqual({
+      key: 'hollywood-camera-dolly-occluder',
+      url: '/lot/hollywood/camera-dolly-occluder.png',
+    })
+    expect(internals.textureSizes.get('hollywood-camera')).toEqual({
+      width: 54,
+      height: 74,
+      generated: true,
+    })
+  })
+
+  it('measures unsmoothed wall-frame intervals and resets the sustained window', () => {
+    const { scene, internals } = harness(snapshot([]))
+    internals.performanceWarmupFramesRemaining = 0
+
+    internals.game.loop.rawDelta = 50
+    scene.update(0, 8)
+    internals.game.loop.rawDelta = 10
+    scene.update(0, 8)
+
+    expect(scene.performanceStats()).toMatchObject({
+      fps: 33,
+      frameMs: 30,
+      p99FrameMs: 50,
+      onePercentLowFps: 20,
+      worstFrameMs: 50,
+    })
+
+    scene.resetPerformanceTelemetry()
+    expect(scene.performanceStats()).toMatchObject({
+      frameMs: 0,
+      p99FrameMs: 0,
+      worstFrameMs: 0,
+    })
+  })
+
   it('paints and reports the authoritative fixed Annex parcel lifecycle', () => {
     const initial = snapshot([], [])
     initial.buildings = [{

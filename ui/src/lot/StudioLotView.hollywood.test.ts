@@ -10,7 +10,9 @@ const runtime = vi.hoisted(() => {
   class HollywoodScene {
     data: { reducedMotion?: boolean; onEvent: (event: { type: 'ready' }) => void } | null = null
     reduced: boolean[] = []
+    telemetryResets = 0
     setReducedMotion(on: boolean) { this.reduced.push(on) }
+    resetPerformanceTelemetry() { this.telemetryResets++ }
     applySnapshot() {}
   }
 
@@ -98,5 +100,6 @@ describe('StudioLotView Hollywood lifecycle', () => {
     view.resume()
     expect(game.scene.isActive('hollywood')).toBe(true)
     expect(game.loop.wake).toHaveBeenCalledOnce()
+    expect(scene.telemetryResets).toBe(1)
   })
 })

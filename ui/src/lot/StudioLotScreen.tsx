@@ -687,7 +687,7 @@ export function StudioLotScreen({
               {hollywoodActivity && <div className="hollywood-activity" role="status">{hollywoodActivity}</div>}
               {identityProof && hollywoodPerf && (
                 <div className="hollywood-perf" data-testid="hollywood-performance">
-                  {hollywoodPerf.fps} fps · {hollywoodPerf.displayObjects} objects · {hollywoodPerf.dynamicActors} actors · {hollywoodPerf.textureMemoryMb} MB
+                  {hollywoodPerf.fps} fps · {hollywoodPerf.onePercentLowFps} fps 1% low · {hollywoodPerf.displayObjects} objects · {hollywoodPerf.dynamicActors} actors · {hollywoodPerf.textureMemoryMb} MB decoded · {hollywoodPerf.roleAtlasEncodedKb} KB atlas · {hollywoodPerf.p99FrameMs} ms p99 · {hollywoodPerf.worstFrameMs} ms worst · {hollywoodPerf.updateMs} ms update · {hollywoodPerf.drawCalls} draws
                 </div>
               )}
             </>

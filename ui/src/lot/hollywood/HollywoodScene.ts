@@ -5,10 +5,32 @@ import type {
   ProductionOperationsState,
   StudioLotSnapshot,
 } from '../snapshot/StudioLotSnapshot'
+import {
+  FALLBACK_PEOPLE_DECODED_BYTES,
+  GENERATED_VEHICLE_DECODED_BYTES,
+  ROLE_ATLAS_DECODED_BYTES,
+  ROLE_ATLAS_FRAME_COUNT,
+  ROLE_ATLAS_FRAME_HEIGHT,
+  ROLE_ATLAS_FRAME_WIDTH,
+  ROLE_ATLAS_RENDER_SCALE,
+  directionFromDelta,
+  isRoleAtlasRuntimeManifest,
+  roleAtlasFrame,
+  type RoleAtlasDirection,
+  type RoleAtlasRole,
+  type RoleAtlasRuntimeManifest,
+} from './roleAtlas.ts'
 
 const MANIFEST_URL = '/lot/hollywood/district-manifest.json'
+const ROLE_ATLAS_MANIFEST_URL = '/lot/hollywood/role-atlas-v1.json'
+const ROLE_ATLAS_IMAGE_URL = '/lot/hollywood/role-atlas-v1.png'
+const ROLE_ATLAS_CACHE_KEY = 'hollywood-role-atlas-manifest-v1'
+const ROLE_ATLAS_TEXTURE_KEY = 'hollywood-role-atlas-v1'
+const CAMERA_OCCLUDER_TEXTURE_KEY = 'hollywood-camera-dolly-occluder'
 const DISTRICT_W = 1586
 const DISTRICT_H = 992
+const PERFORMANCE_WARMUP_FRAMES = 120
+const PERFORMANCE_SAMPLE_FRAMES = 240
 const FONT_SERIF = 'Georgia, "Iowan Old Style", "Times New Roman", serif'
 const FONT_SANS = 'Avenir, "Helvetica Neue", Arial, sans-serif'
 
@@ -72,6 +94,8 @@ export type HollywoodSceneData = {
 
 type MovingActor = {
   sprite: Phaser.GameObjects.Sprite
+  role: RoleAtlasRole
+  direction: RoleAtlasDirection
   a: Point
   b: Point
   phase: number
@@ -84,6 +108,7 @@ type RuntimePerson = {
   label: Phaser.GameObjects.Text
   /** Stable within this scene lifetime; prevents same-role people occupying one pixel. */
   homeSlot: number
+  direction: RoleAtlasDirection
 }
 
 type CosmeticRoute = {
@@ -96,8 +121,15 @@ export type HollywoodPerformance = {
   fps: number
   displayObjects: number
   textureMemoryMb: number
+  districtTextureMemoryMb: number
+  peopleTextureMemoryMb: number
+  roleAtlasActive: boolean
+  roleAtlasEncodedKb: number
+  roleAtlasDecodedMb: number
   drawCalls: number
   frameMs: number
+  p99FrameMs: number
+  onePercentLowFps: number
   worstFrameMs: number
   updateMs: number
   worstUpdateMs: number
@@ -134,8 +166,15 @@ export class HollywoodScene extends Phaser.Scene {
   private fitZoom = 1
   private frameSamples: number[] = []
   private updateSamples: number[] = []
+  private drawCallSamples: number[] = []
+  private currentFrameDrawCalls = 0
+  private drawPipelines: Phaser.Renderer.WebGL.WebGLPipeline[] = []
+  private performanceWarmupFramesRemaining = PERFORMANCE_WARMUP_FRAMES
+  private capturePerformanceFrame = false
   private worstFrameMs = 0
   private worstUpdateMs = 0
+  private roleAtlasActive = false
+  private roleAtlasManifest: RoleAtlasRuntimeManifest | null = null
 
   init(data: HollywoodSceneData): void {
     this.snapshot = data.snapshot
@@ -145,9 +184,14 @@ export class HollywoodScene extends Phaser.Scene {
 
   preload(): void {
     this.load.json('hollywood-manifest', MANIFEST_URL)
+    this.load.json(ROLE_ATLAS_CACHE_KEY, ROLE_ATLAS_MANIFEST_URL)
+    this.load.spritesheet(ROLE_ATLAS_TEXTURE_KEY, ROLE_ATLAS_IMAGE_URL, {
+      frameWidth: ROLE_ATLAS_FRAME_WIDTH,
+      frameHeight: ROLE_ATLAS_FRAME_HEIGHT,
+    })
     this.load.image('hollywood-base', '/lot/hollywood/district-base.png')
     this.load.image('hollywood-truck', '/lot/hollywood/truck-occluder.png')
-    this.load.image('hollywood-camera', '/lot/hollywood/camera-dolly-occluder.png')
+    this.load.image(CAMERA_OCCLUDER_TEXTURE_KEY, '/lot/hollywood/camera-dolly-occluder.png')
     this.load.image('hollywood-gate', '/lot/hollywood/gate-foreground-occluder.png')
   }
 
@@ -155,12 +199,15 @@ export class HollywoodScene extends Phaser.Scene {
     this.manifest = this.cache.json.get('hollywood-manifest') as DistrictManifest
     this.route = this.manifest.routes['street-to-stage-7'] ?? []
     this.buildActorTextures()
+    this.roleAtlasActive = this.hasValidRoleAtlas()
     this.buildWorld()
     this.buildSemanticHotspots()
     this.buildPeople()
     this.buildAmbientLife()
     this.buildVehicle()
     this.bindCamera()
+    this.resetPerformanceTelemetry()
+    this.bindDrawCallTelemetry()
     this.applySnapshot(this.snapshot)
     this.setReducedMotion(this.reducedMotion)
     this.emitEvent({ type: 'ready' })
@@ -170,7 +217,7 @@ export class HollywoodScene extends Phaser.Scene {
     const textureByLayer: Record<string, string> = {
       'district-base': 'hollywood-base',
       'truck-occluder': 'hollywood-truck',
-      'camera-dolly-occluder': 'hollywood-camera',
+      'camera-dolly-occluder': CAMERA_OCCLUDER_TEXTURE_KEY,
       'gate-foreground-occluder': 'hollywood-gate',
     }
     for (const layer of this.manifest.layers) {
@@ -207,7 +254,10 @@ export class HollywoodScene extends Phaser.Scene {
   private buildSemanticHotspots(): void {
     for (const place of this.manifest.places) {
       const shape = new Phaser.Geom.Polygon(place.selectionPolygon.map(([x, y]) => ({ x, y })))
-      const zone = this.add.zone(0, 0, DISTRICT_W, DISTRICT_H).setOrigin(0).setDepth(150)
+      // Zones render nothing, so keep their input ordering below every managed person.
+      // At depth 150 the full-district polygons won Phaser's top-only hit test and
+      // swallowed genuine pointer selection whenever a person stood over a place.
+      const zone = this.add.zone(0, 0, DISTRICT_W, DISTRICT_H).setOrigin(0).setDepth(1)
       zone.setInteractive(shape, Phaser.Geom.Polygon.Contains)
       zone.on('pointerover', () => this.drawPlaceOutline(place, false))
       zone.on('pointerout', () => {
@@ -283,7 +333,9 @@ export class HollywoodScene extends Phaser.Scene {
         if (roleChanged) {
           existing.homeSlot = this.availablePersonHomeSlot(person.role, person.id)
           const p = this.personHome(person.role, existing.homeSlot)
-          existing.sprite.setTexture(`hollywood-${person.role}`)
+          existing.direction = 'south'
+          existing.sprite.setScale(this.actorScale(1))
+          this.setActorFacing(existing.sprite, person.role, existing.direction)
           this.placePerson(existing, p, 95)
         }
         if (this.cosmeticRoute?.personId === person.id && (roleChanged || authorityChanged)) {
@@ -298,6 +350,8 @@ export class HollywoodScene extends Phaser.Scene {
       const homeSlot = this.availablePersonHomeSlot(person.role, person.id)
       const p = this.personHome(person.role, homeSlot)
       const sprite = this.add.sprite(p.x, p.y, `hollywood-${person.role}`).setOrigin(0.5, 0.92).setDepth(95)
+      sprite.setScale(this.actorScale(1))
+      this.setActorFacing(sprite, person.role, 'south')
       sprite.setInteractive({ useHandCursor: true })
       sprite.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
         pointer.event.stopPropagation?.()
@@ -311,12 +365,12 @@ export class HollywoodScene extends Phaser.Scene {
         backgroundColor: '#10241fd9',
         padding: { x: 7, y: 4 },
       }).setOrigin(0.5, 1).setDepth(171).setVisible(false)
-      this.runtimePeople.set(person.id, { fact: person, sprite, label, homeSlot })
+      this.runtimePeople.set(person.id, { fact: person, sprite, label, homeSlot, direction: 'south' })
     }
   }
 
   private buildAmbientLife(): void {
-    const specs: Array<{ role: string; a: Point; b: Point; phase: number; speed: number }> = [
+    const specs: Array<{ role: RoleAtlasRole; a: Point; b: Point; phase: number; speed: number }> = [
       { role: 'grip', a: { x: 388, y: 572 }, b: { x: 510, y: 516 }, phase: 0.1, speed: 0.00008 },
       { role: 'stagehand', a: { x: 486, y: 450 }, b: { x: 630, y: 420 }, phase: 0.4, speed: 0.00007 },
       { role: 'electrician', a: { x: 703, y: 446 }, b: { x: 744, y: 392 }, phase: 0.7, speed: 0.00009 },
@@ -332,9 +386,20 @@ export class HollywoodScene extends Phaser.Scene {
     ]
     for (const spec of specs) {
       const sprite = this.add.sprite(spec.a.x, spec.a.y, `hollywood-${spec.role}`).setOrigin(0.5, 0.92)
-      sprite.setScale(spec.role === 'extra' ? 0.82 : 0.9)
+      const scaleMultiplier = spec.role === 'extra' ? 0.82 : 0.9
+      const direction = directionFromDelta(spec.b.x - spec.a.x, spec.b.y - spec.a.y)
+      sprite.setScale(this.actorScale(scaleMultiplier))
+      this.setActorFacing(sprite, spec.role, direction)
       sprite.setDepth(52 + spec.a.y / 28)
-      this.ambientActors.push({ sprite, a: spec.a, b: spec.b, phase: spec.phase, speed: spec.speed })
+      this.ambientActors.push({
+        sprite,
+        role: spec.role,
+        direction,
+        a: spec.a,
+        b: spec.b,
+        phase: spec.phase,
+        speed: spec.speed,
+      })
     }
   }
 
@@ -369,6 +434,48 @@ export class HollywoodScene extends Phaser.Scene {
     ] as const
     for (const [role, color, prop] of roles) this.makePersonTexture(`hollywood-${role}`, color, prop)
     this.makeVehicleTexture()
+  }
+
+  private hasValidRoleAtlas(): boolean {
+    this.roleAtlasManifest = null
+    const candidate = this.cache.json.get(ROLE_ATLAS_CACHE_KEY) as unknown
+    if (!isRoleAtlasRuntimeManifest(candidate) || !this.textures.exists(ROLE_ATLAS_TEXTURE_KEY)) {
+      return false
+    }
+    const texture = this.textures.get(ROLE_ATLAS_TEXTURE_KEY)
+    const source = texture.getSourceImage()
+    if (source.width !== candidate.width || source.height !== candidate.height) return false
+    if (source.width * source.height * 4 !== ROLE_ATLAS_DECODED_BYTES) return false
+    for (let index = 0; index < ROLE_ATLAS_FRAME_COUNT; index++) {
+      if (!texture.has(String(index))) return false
+    }
+    if (texture.has(String(ROLE_ATLAS_FRAME_COUNT))) return false
+    this.roleAtlasManifest = candidate
+    return true
+  }
+
+  private actorScale(multiplier: number): number {
+    return (this.roleAtlasActive ? ROLE_ATLAS_RENDER_SCALE : 1) * multiplier
+  }
+
+  private setActorFacing(
+    sprite: Phaser.GameObjects.Sprite,
+    role: RoleAtlasRole,
+    direction: RoleAtlasDirection,
+  ): void {
+    if (this.roleAtlasActive) {
+      sprite.setTexture(ROLE_ATLAS_TEXTURE_KEY, roleAtlasFrame(role, direction))
+      sprite.setFlipX(false)
+      return
+    }
+    sprite.setTexture(`hollywood-${role}`)
+    sprite.setFlipX(direction === 'west')
+  }
+
+  private loadedRoleAtlasBytes(): number {
+    if (!this.textures.exists(ROLE_ATLAS_TEXTURE_KEY)) return 0
+    const source = this.textures.get(ROLE_ATLAS_TEXTURE_KEY).getSourceImage()
+    return source.width * source.height * 4
   }
 
   private makePersonTexture(key: string, suit: number, prop: string): void {
@@ -586,6 +693,8 @@ export class HollywoodScene extends Phaser.Scene {
   }
 
   private placePerson(runtime: RuntimePerson, point: Point, depth: number): void {
+    runtime.direction = 'south'
+    this.setActorFacing(runtime.sprite, runtime.fact.role, runtime.direction)
     runtime.sprite.setPosition(point.x, point.y).setDepth(depth)
     runtime.label.setPosition(point.x, point.y - 72)
   }
@@ -659,6 +768,9 @@ export class HollywoodScene extends Phaser.Scene {
       return
     }
     director.sprite.setPosition(start.x, start.y).setDepth(start.actorDepth)
+    const next = this.route[1]!
+    director.direction = directionFromDelta(next.x - start.x, next.y - start.y, director.direction)
+    this.setActorFacing(director.sprite, director.fact.role, director.direction)
     director.label.setVisible(false)
     this.cosmeticRoute = {
       productionId: operation.productionId,
@@ -734,6 +846,12 @@ export class HollywoodScene extends Phaser.Scene {
     this.reducedMotion = on
     if (on) {
       this.vehicleTween?.pause()
+      if (this.roleAtlasActive) {
+        for (const actor of this.ambientActors) {
+          actor.direction = 'south'
+          this.setActorFacing(actor.sprite, actor.role, actor.direction)
+        }
+      }
       if (this.cosmeticRoute) this.finishCosmeticDirectorRoute()
       return
     }
@@ -769,27 +887,47 @@ export class HollywoodScene extends Phaser.Scene {
 
   update(_time: number, delta: number): void {
     const updateStart = performance.now()
-    this.frameSamples.push(delta)
-    if (this.frameSamples.length > 240) this.frameSamples.shift()
-    this.worstFrameMs = Math.max(this.worstFrameMs, delta)
+    this.capturePerformanceFrame = this.performanceWarmupFramesRemaining === 0
+    if (!this.capturePerformanceFrame) {
+      this.performanceWarmupFramesRemaining--
+    } else {
+      // Phaser smooths the callback delta by default. rawDelta is the actual wall-frame
+      // interval and therefore the only honest input for p99, 1%-low, and worst-frame.
+      const rawFrameMs = this.game?.loop?.rawDelta ?? delta
+      if (Number.isFinite(rawFrameMs) && rawFrameMs > 0) {
+        this.frameSamples.push(rawFrameMs)
+        if (this.frameSamples.length > PERFORMANCE_SAMPLE_FRAMES) this.frameSamples.shift()
+        this.worstFrameMs = Math.max(...this.frameSamples)
+      }
+    }
 
     if (!this.reducedMotion) {
       for (const actor of this.ambientActors) {
+        const previousX = actor.sprite.x
+        const previousY = actor.sprite.y
         actor.phase = (actor.phase + delta * actor.speed) % 1
         const t = (1 - Math.cos(actor.phase * Math.PI * 2)) / 2
         actor.sprite.x = Phaser.Math.Linear(actor.a.x, actor.b.x, t)
         actor.sprite.y = Phaser.Math.Linear(actor.a.y, actor.b.y, t) + Math.sin(actor.phase * Math.PI * 4) * 1.5
         actor.sprite.setDepth(52 + actor.sprite.y / 28)
-        actor.sprite.setFlipX(actor.phase > 0.5)
+        actor.direction = directionFromDelta(
+          actor.sprite.x - previousX,
+          actor.sprite.y - previousY,
+          actor.direction,
+        )
+        if (this.roleAtlasActive) this.setActorFacing(actor.sprite, actor.role, actor.direction)
+        else actor.sprite.setFlipX(actor.phase > 0.5)
       }
     }
 
     if (this.cosmeticRoute) this.updateCosmeticDirectorRoute(delta)
 
-    const updateMs = performance.now() - updateStart
-    this.updateSamples.push(updateMs)
-    if (this.updateSamples.length > 240) this.updateSamples.shift()
-    this.worstUpdateMs = Math.max(this.worstUpdateMs, updateMs)
+    if (this.capturePerformanceFrame) {
+      const updateMs = performance.now() - updateStart
+      this.updateSamples.push(updateMs)
+      if (this.updateSamples.length > PERFORMANCE_SAMPLE_FRAMES) this.updateSamples.shift()
+      this.worstUpdateMs = Math.max(...this.updateSamples)
+    }
   }
 
   private updateCosmeticDirectorRoute(delta: number): void {
@@ -810,7 +948,8 @@ export class HollywoodScene extends Phaser.Scene {
     const eased = Phaser.Math.Easing.Sine.InOut(local)
     runtime.sprite.setPosition(Phaser.Math.Linear(a.x, b.x, eased), Phaser.Math.Linear(a.y, b.y, eased))
     runtime.sprite.setDepth(local < 0.52 ? a.actorDepth : b.actorDepth)
-    runtime.sprite.setFlipX(b.x < a.x)
+    runtime.direction = directionFromDelta(b.x - a.x, b.y - a.y, runtime.direction)
+    this.setActorFacing(runtime.sprite, runtime.fact.role, runtime.direction)
     if (rawSegment >= this.route.length - 1) {
       this.finishCosmeticDirectorRoute()
     }
@@ -832,17 +971,92 @@ export class HollywoodScene extends Phaser.Scene {
     })
   }
 
+  private bindDrawCallTelemetry(): void {
+    const renderer = this.game.renderer
+    if (!('pipelines' in renderer)) return
+    const webgl = renderer as Phaser.Renderer.WebGL.WebGLRenderer
+    webgl.pipelines.pipelines.each((_key, pipeline) => {
+      pipeline.on(
+        Phaser.Renderer.WebGL.Pipelines.Events.BEFORE_FLUSH,
+        this.capturePipelineDrawCalls,
+        this,
+      )
+      this.drawPipelines.push(pipeline)
+      return true
+    })
+    this.game.events.on(Phaser.Core.Events.PRE_RENDER, this.resetFrameDrawCalls, this)
+    this.game.events.on(Phaser.Core.Events.POST_RENDER, this.commitFrameDrawCalls, this)
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.game.events.off(Phaser.Core.Events.PRE_RENDER, this.resetFrameDrawCalls, this)
+      this.game.events.off(Phaser.Core.Events.POST_RENDER, this.commitFrameDrawCalls, this)
+      for (const pipeline of this.drawPipelines) {
+        pipeline.off(
+          Phaser.Renderer.WebGL.Pipelines.Events.BEFORE_FLUSH,
+          this.capturePipelineDrawCalls,
+          this,
+        )
+      }
+      this.drawPipelines = []
+    })
+  }
+
+  private resetFrameDrawCalls(): void {
+    this.currentFrameDrawCalls = 0
+  }
+
+  private capturePipelineDrawCalls(pipeline: Phaser.Renderer.WebGL.WebGLPipeline): void {
+    this.currentFrameDrawCalls += Math.max(1, pipeline.batch.length)
+  }
+
+  private commitFrameDrawCalls(): void {
+    if (!this.capturePerformanceFrame || this.currentFrameDrawCalls <= 0) return
+    this.drawCallSamples.push(this.currentFrameDrawCalls)
+    if (this.drawCallSamples.length > PERFORMANCE_SAMPLE_FRAMES) this.drawCallSamples.shift()
+  }
+
+  /**
+   * Start a fresh sustained-measurement window after scene boot or a sleeping tab wakes.
+   * The warm-up excludes texture upload and wake transients without smoothing measured stalls.
+   */
+  resetPerformanceTelemetry(): void {
+    this.frameSamples = []
+    this.updateSamples = []
+    this.drawCallSamples = []
+    this.currentFrameDrawCalls = 0
+    this.performanceWarmupFramesRemaining = PERFORMANCE_WARMUP_FRAMES
+    this.capturePerformanceFrame = false
+    this.worstFrameMs = 0
+    this.worstUpdateMs = 0
+  }
+
   performanceStats(): HollywoodPerformance {
     const average = (values: number[]) => values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : 0
+    const percentile = (values: number[], fraction: number) => {
+      if (values.length === 0) return 0
+      const sorted = [...values].sort((a, b) => a - b)
+      return sorted[Math.max(0, Math.ceil(sorted.length * fraction) - 1)] ?? 0
+    }
     const frameMs = average(this.frameSamples)
+    const p99FrameMs = percentile(this.frameSamples, 0.99)
     const updateMs = average(this.updateSamples)
-    const renderer = this.game.renderer as unknown as { drawCount?: number }
+    const roleAtlasBytes = this.loadedRoleAtlasBytes()
+    const peopleTextureBytes = roleAtlasBytes + FALLBACK_PEOPLE_DECODED_BYTES
+    const totalTextureBytes = this.manifest.textureMemoryBytes
+      + peopleTextureBytes
+      + GENERATED_VEHICLE_DECODED_BYTES
     return {
-      fps: Math.round(this.game.loop.actualFps || (frameMs ? 1000 / frameMs : 0)),
+      fps: Math.round(frameMs ? 1000 / frameMs : this.game.loop.actualFps || 0),
       displayObjects: this.children.length,
-      textureMemoryMb: Math.round((this.manifest.textureMemoryBytes / 1024 / 1024) * 10) / 10,
-      drawCalls: renderer.drawCount ?? 0,
+      textureMemoryMb: Math.round((totalTextureBytes / 1024 / 1024) * 10) / 10,
+      districtTextureMemoryMb: Math.round((this.manifest.textureMemoryBytes / 1024 / 1024) * 10) / 10,
+      peopleTextureMemoryMb: Math.round((peopleTextureBytes / 1024 / 1024) * 10) / 10,
+      roleAtlasActive: this.roleAtlasActive,
+      roleAtlasEncodedKb: Math.round((this.roleAtlasManifest?.atlasEncodedBytes ?? 0) / 1024),
+      roleAtlasDecodedMb: Math.round((roleAtlasBytes / 1024 / 1024) * 10) / 10,
+      drawCalls: Math.round(average(this.drawCallSamples)),
       frameMs: Math.round(frameMs * 100) / 100,
+      p99FrameMs: Math.round(p99FrameMs * 100) / 100,
+      onePercentLowFps: Math.round(p99FrameMs ? 1000 / p99FrameMs : 0),
       worstFrameMs: Math.round(this.worstFrameMs * 100) / 100,
       updateMs: Math.round(updateMs * 100) / 100,
       worstUpdateMs: Math.round(this.worstUpdateMs * 100) / 100,
@@ -860,6 +1074,7 @@ export class HollywoodScene extends Phaser.Scene {
     manifestId: string
     routeDepths: number[]
     expansionStatus: 'legacy' | 'vacant' | 'building' | 'operational'
+    roleAtlasActive: boolean
   } {
     return {
       selectedPersonId: this.selectedPersonId,
@@ -869,6 +1084,7 @@ export class HollywoodScene extends Phaser.Scene {
       manifestId: this.manifest.districtId,
       routeDepths: this.route.map((point) => point.actorDepth),
       expansionStatus: this.expansionStatus,
+      roleAtlasActive: this.roleAtlasActive,
     }
   }
 }

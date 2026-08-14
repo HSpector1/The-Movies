@@ -229,6 +229,7 @@ export class StudioLotView {
     this.game.loop.wake()
     if (this.game.scene.isPaused('lot')) this.game.scene.resume('lot')
     if (this.game.scene.isPaused('hollywood')) this.game.scene.resume('hollywood')
+    this.hollywoodScene?.resetPerformanceTelemetry()
     this.pauseVignettes(false)
   }
 

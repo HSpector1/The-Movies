@@ -104,8 +104,16 @@ def verify(
             )
             require(residue == 0, f"Chroma residue: {role}/{direction}={residue}")
             cells[direction] = cell
+        for first, second in (("south", "east"), ("south", "north"), ("east", "north")):
+            require(
+                ImageChops.difference(cells[first], cells[second]).getbbox(alpha_only=False) is not None,
+                f"Authored source views collapsed: {role}/{first}={second}",
+            )
         mirrored = cells["east"].transpose(Image.Transpose.FLIP_LEFT_RIGHT)
-        require(ImageChops.difference(mirrored, cells["west"]).getbbox() is None, f"West is not exact East mirror: {role}")
+        require(
+            ImageChops.difference(mirrored, cells["west"]).getbbox(alpha_only=False) is None,
+            f"West is not exact East mirror: {role}",
+        )
     require(len(frame_addresses) == 36, "Atlas does not own exactly 36 unique frame addresses")
 
     district = json.loads(district_manifest_path.read_text(encoding="utf-8"))
