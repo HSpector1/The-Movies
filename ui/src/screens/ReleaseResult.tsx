@@ -4,6 +4,7 @@
 // profit/loss, standing changes, forecast-vs-result — clearly marked as RESULTS.
 // From here the player can open the full autopsy for any released film.
 
+import { useLayoutEffect, useRef } from 'react'
 import type {
   GameState,
   FilmResult,
@@ -22,6 +23,7 @@ export function ReleaseResult({
   postTickStanding,
   released,
   constructionCompletion,
+  focusOnMount = false,
   careerImpactFor,
   onOpenAutopsy,
   onContinue,
@@ -30,6 +32,8 @@ export function ReleaseResult({
   postTickStanding: GameState['studio']['standing']
   released: FilmResult[]
   constructionCompletion?: ConstructionCompletionSummary | null
+  /** Lot-origin deep entry owns focus unless an exact construction completion takes priority. */
+  focusOnMount?: boolean
   // D-14 §7: the CANONICAL film-development presentation. Career Impact (frozen events)
   // supersedes the old per-release Development Summary so OVR + Star Power development is
   // shown in ONE place, from one authoritative record.
@@ -37,6 +41,14 @@ export function ReleaseResult({
   onOpenAutopsy: (view: AutopsyView, film: FilmResult) => void
   onContinue: () => void
 }) {
+  const firstReleaseHeadingRef = useRef<HTMLHeadingElement | null>(null)
+
+  useLayoutEffect(() => {
+    if (focusOnMount && !constructionCompletion) {
+      firstReleaseHeadingRef.current?.focus({ preventScroll: true })
+    }
+  }, [constructionCompletion, focusOnMount, released[0]?.productionId])
+
   return (
     <div className="app-shell">
       <div className="topbar">
@@ -52,7 +64,7 @@ export function ReleaseResult({
         {constructionCompletion && (
           <ConstructionCompletionNotice completion={constructionCompletion} />
         )}
-        {released.map((f) => {
+        {released.map((f, index) => {
           // D-12 P5: this screen shows every film that released THIS week side by side; the studio-standing
           // delta is the week's studio-wide movement, shared across them. Pass the co-releases so each card
           // (and the autopsy opened from it) labels the delta honestly instead of implying this film caused it.
@@ -67,7 +79,13 @@ export function ReleaseResult({
           return (
             <div className="card" key={f.productionId} data-testid={`release-card-${f.productionId}`}>
               <div className="spread">
-                <h2 style={{ margin: 0 }}>{concept?.title ?? f.conceptId}</h2>
+                <h2
+                  style={{ margin: 0 }}
+                  ref={index === 0 ? firstReleaseHeadingRef : undefined}
+                  tabIndex={index === 0 && focusOnMount ? -1 : undefined}
+                >
+                  {concept?.title ?? f.conceptId}
+                </h2>
                 <span className="tag result">Result</span>
               </div>
 

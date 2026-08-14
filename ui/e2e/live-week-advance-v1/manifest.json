@@ -1,0 +1,838 @@
+{
+  "schemaVersion": "world-first-live-week-advance-fixtures-v1",
+  "generatedBy": "scripts/gen-live-week-advance-fixtures.mts",
+  "reproduceCommand": "node_modules/.bin/vite-node scripts/gen-live-week-advance-fixtures.mts",
+  "outputDirectory": "ui/e2e/live-week-advance-v1",
+  "authority": {
+    "stateConstruction": "public Engine actions and UI adapter action boundaries only",
+    "weeklyTransition": "advanceWeek (one tick with normal-play development enabled)",
+    "serialization": "exportSaveJson / importSaveJson live SaveFileV11 boundary",
+    "deterministic": true,
+    "generatedFilesAreHandEdited": false
+  },
+  "commonFoundingRecipe": {
+    "applicantSelection": "first N foundingApplicantCards in authoritative draft order for each role",
+    "roleOrder": [
+      "actor",
+      "director",
+      "writer",
+      "craft"
+    ],
+    "counts": {
+      "actor": 8,
+      "director": 2,
+      "writer": 3,
+      "craft": 2
+    },
+    "termWeeks": 104,
+    "managedSystemsActivated": [
+      "Studio Operations"
+    ],
+    "systemsRetainedInLegacyMode": [
+      "Script Projects",
+      "Casting Sessions"
+    ]
+  },
+  "fixtures": [
+    {
+      "id": "week-30-nights-of-watchtower-stage-7-scheduled",
+      "file": "week-30-nights-of-watchtower-stage-7-scheduled.save.json",
+      "saveVersion": 11,
+      "byteLength": 227429,
+      "sha256": "e922f9b7e957388bed7c7674be8c17596245823200e478371dc7ff970458f46b",
+      "seed": "marathon-annex-play",
+      "claim": {
+        "week": 30,
+        "productionId": "prod-0026",
+        "title": "Nights of Watchtower",
+        "phase": "shooting",
+        "locationBuildingId": "stage-a",
+        "authoritativeFacility": "Soundstage 7 + Scenery Shop",
+        "directorId": "t-dir-01",
+        "directorName": "Estelle Delgado",
+        "taskStatus": "scheduled"
+      },
+      "actionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "marathon-annex-play"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-13",
+              "name": "Vivien Nakamura",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-04",
+              "name": "Nils Winslow",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-16",
+              "name": "Fredric Underwood",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-18",
+              "name": "Nils Halberstam",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-07",
+              "name": "Gary Ashby",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-11",
+              "name": "Rex Vance",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-08",
+              "name": "Gloria Chandra",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-03",
+              "name": "Reginald Delgado",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-07",
+              "name": "Myrna Sable",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-06",
+              "name": "Spencer Novak",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-03",
+              "name": "Edward Lasky",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-06",
+              "name": "Ava Marlowe",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-00",
+              "name": "Fredric Okonkwo",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-01",
+              "name": "Leslie Cortland",
+              "role": "craft",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-02",
+              "name": "Roland Beaumont",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundStudio"
+        },
+        {
+          "action": "activateStudioOperations"
+        },
+        {
+          "action": "advanceWeek",
+          "count": 26,
+          "resultWeek": 26
+        },
+        {
+          "action": "selectAvailableFreelancer",
+          "market": "freelancerMarketCards",
+          "week": 26,
+          "talent": {
+            "id": "t-dir-01",
+            "name": "Estelle Delgado"
+          }
+        },
+        {
+          "action": "greenlight",
+          "package": {
+            "conceptId": "c-01",
+            "conceptTitle": "Nights of Watchtower",
+            "genre": "adventure",
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "reversal",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.4,
+                  0.4
+                ],
+                "tonalWeight": [
+                  -0.4,
+                  0.4
+                ],
+                "kineticEnergy": [
+                  -0.4,
+                  0.4
+                ]
+              }
+            },
+            "assignments": {
+              "writer": {
+                "id": "t-wri-03",
+                "name": "Edward Lasky"
+              },
+              "director": {
+                "id": "t-dir-01",
+                "name": "Estelle Delgado"
+              },
+              "lead": {
+                "id": "t-act-13",
+                "name": "Vivien Nakamura"
+              },
+              "antagonist": {
+                "id": "t-act-04",
+                "name": "Nils Winslow"
+              },
+              "support": {
+                "id": "t-act-16",
+                "name": "Fredric Underwood"
+              },
+              "craft": {
+                "id": "t-cra-01",
+                "name": "Leslie Cortland"
+              }
+            },
+            "budget": {
+              "negative": 2700505.71,
+              "marketing": 400000
+            }
+          },
+          "resultWeek": 26
+        },
+        {
+          "action": "advanceWeek",
+          "count": 4,
+          "resultWeek": 30
+        },
+        {
+          "action": "runProductionCommand",
+          "sequence": [
+            "assignShootingDirector",
+            "clearSceneryLoadIn",
+            "scheduleShootingTake"
+          ],
+          "consumesWeeks": 0
+        }
+      ],
+      "nextAuthoritativeAdvance": {
+        "fromWeek": 30,
+        "toWeek": 31,
+        "releaseCount": 0,
+        "productionId": "prod-0026",
+        "taskStatus": "completed",
+        "constructionCompletion": false
+      }
+    },
+    {
+      "id": "week-11-annex-progress-then-completion",
+      "file": "week-11-annex-progress-then-completion.save.json",
+      "saveVersion": 11,
+      "byteLength": 220812,
+      "sha256": "ffc443f9fb3a75ec9f79be967600bb94933c9dacdd0b4f0bee878c37cdbd03ac",
+      "seed": "live-week-annex-progress-then-completion",
+      "claim": {
+        "week": 11,
+        "status": "building",
+        "projectId": "construction-development-casting-annex",
+        "facilityId": "facility-development-casting-annex",
+        "startedWeek": 0,
+        "dueWeek": 13,
+        "completedAdvances": 11,
+        "remainingAdvances": 2
+      },
+      "actionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "live-week-annex-progress-then-completion"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-01",
+              "name": "Warner Brandt",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-15",
+              "name": "Adolphe Delacroix",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-02",
+              "name": "Sylvia Loewenthal",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-27",
+              "name": "Kay Lindqvist",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-11",
+              "name": "Spencer Merrick",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-09",
+              "name": "Marion Pemberton",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-00",
+              "name": "Myrna Zaleski",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-08",
+              "name": "Anna Fenwick",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-08",
+              "name": "Wallace Lindqvist",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-02",
+              "name": "Thelma Whitlock",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-06",
+              "name": "Errol Delacroix",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-05",
+              "name": "Barbara Kingsley",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-11",
+              "name": "Basil Kingsley",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-02",
+              "name": "Herbert Ashby",
+              "role": "craft",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-08",
+              "name": "Rex Vollmer",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundStudio"
+        },
+        {
+          "action": "activateStudioOperations"
+        },
+        {
+          "action": "startDevelopmentCastingAnnex",
+          "resultWeek": 0
+        },
+        {
+          "action": "advanceWeek",
+          "count": 11,
+          "resultWeek": 11
+        }
+      ],
+      "nextAuthoritativeAdvance": {
+        "fromWeek": 11,
+        "toWeek": 12,
+        "releaseCount": 0,
+        "constructionCompletion": false,
+        "status": "building",
+        "completedAdvances": 12,
+        "remainingAdvances": 1,
+        "followingAuthoritativeAdvance": {
+          "fromWeek": 12,
+          "toWeek": 13,
+          "releaseCount": 0,
+          "constructionCompletion": true,
+          "completedWeek": 13,
+          "status": "operational"
+        }
+      }
+    },
+    {
+      "id": "week-12-annex-completion-next",
+      "file": "week-12-annex-completion-next.save.json",
+      "saveVersion": 11,
+      "byteLength": 220793,
+      "sha256": "63669586ad8f0256ac165a5141b8dd770dadc68840c3e69a31f9abc8b72ab712",
+      "seed": "live-week-annex-completion",
+      "claim": {
+        "week": 12,
+        "status": "building",
+        "projectId": "construction-development-casting-annex",
+        "facilityId": "facility-development-casting-annex",
+        "startedWeek": 0,
+        "dueWeek": 13,
+        "completedAdvances": 12,
+        "remainingAdvances": 1
+      },
+      "actionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "live-week-annex-completion"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-02",
+              "name": "Barbara Ferro",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-17",
+              "name": "Kay Marchetti",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-05",
+              "name": "Gloria Emerson",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-21",
+              "name": "Victor Devereaux",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-26",
+              "name": "Edward Loewenthal",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-06",
+              "name": "Boris Thorne",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-16",
+              "name": "Barbara Kingsley",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-18",
+              "name": "Jean Marsh",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-04",
+              "name": "Barbara Brandt",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-06",
+              "name": "Alma Petrov",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-11",
+              "name": "Joan Thorne",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-03",
+              "name": "Vera Winslow",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-07",
+              "name": "Lionel Everhart",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-02",
+              "name": "Wallace Ostrow",
+              "role": "craft",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-06",
+              "name": "Gary Delacroix",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundStudio"
+        },
+        {
+          "action": "activateStudioOperations"
+        },
+        {
+          "action": "startDevelopmentCastingAnnex",
+          "resultWeek": 0
+        },
+        {
+          "action": "advanceWeek",
+          "count": 12,
+          "resultWeek": 12
+        }
+      ],
+      "nextAuthoritativeAdvance": {
+        "fromWeek": 12,
+        "toWeek": 13,
+        "releaseCount": 0,
+        "constructionCompletion": true,
+        "completedWeek": 13,
+        "status": "operational"
+      }
+    },
+    {
+      "id": "week-12-release-annex-coevent-next",
+      "file": "week-12-release-annex-coevent-next.save.json",
+      "saveVersion": 11,
+      "byteLength": 224835,
+      "sha256": "c7f03299b75e9d1c0a99bb3a47abdccfa1d854f33b29f2c72902c74ed41d64f2",
+      "seed": "live-week-release-annex-coevent",
+      "claim": {
+        "week": 12,
+        "productionId": "prod-0004",
+        "title": "House of Cipher",
+        "remainingTicks": 1,
+        "annexStatus": "building",
+        "annexCompletedAdvances": 12,
+        "annexRemainingAdvances": 1
+      },
+      "actionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "live-week-release-annex-coevent"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-16",
+              "name": "Victor Lindqvist",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-26",
+              "name": "Vera Fairbanks",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-27",
+              "name": "Ramon Beaumont",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-18",
+              "name": "Lionel Fenwick",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-10",
+              "name": "Blanche Delacroix",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-09",
+              "name": "Miriam Blackwood",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-06",
+              "name": "Marlon Blackwood",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-20",
+              "name": "Jean Vandermeer",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-08",
+              "name": "Otto Chandra",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-07",
+              "name": "Sylvia Grimaldi",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-03",
+              "name": "Loretta Vance",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-08",
+              "name": "Spencer Castellano",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-06",
+              "name": "Conrad Beaumont",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-01",
+              "name": "Douglas Calloway",
+              "role": "craft",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-02",
+              "name": "Roland Sterling",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundStudio"
+        },
+        {
+          "action": "activateStudioOperations"
+        },
+        {
+          "action": "startDevelopmentCastingAnnex",
+          "resultWeek": 0
+        },
+        {
+          "action": "advanceWeek",
+          "count": 4,
+          "resultWeek": 4
+        },
+        {
+          "action": "greenlight",
+          "package": {
+            "conceptId": "c-00",
+            "conceptTitle": "House of Cipher",
+            "genre": "crime",
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "reversal",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.4,
+                  0.4
+                ],
+                "tonalWeight": [
+                  -0.4,
+                  0.4
+                ],
+                "kineticEnergy": [
+                  -0.4,
+                  0.4
+                ]
+              }
+            },
+            "assignments": {
+              "writer": {
+                "id": "t-wri-03",
+                "name": "Loretta Vance"
+              },
+              "director": {
+                "id": "t-dir-08",
+                "name": "Otto Chandra"
+              },
+              "lead": {
+                "id": "t-act-16",
+                "name": "Victor Lindqvist"
+              },
+              "antagonist": {
+                "id": "t-act-26",
+                "name": "Vera Fairbanks"
+              },
+              "support": {
+                "id": "t-act-27",
+                "name": "Ramon Beaumont"
+              },
+              "craft": {
+                "id": "t-cra-01",
+                "name": "Douglas Calloway"
+              }
+            },
+            "budget": {
+              "negative": 4837525.875,
+              "marketing": 400000
+            }
+          },
+          "resultWeek": 4
+        },
+        {
+          "action": "advanceWeek",
+          "count": 4,
+          "resultWeek": 8
+        },
+        {
+          "action": "runProductionCommand",
+          "sequence": [
+            "assignShootingDirector",
+            "clearSceneryLoadIn",
+            "scheduleShootingTake"
+          ],
+          "consumesWeeks": 0
+        },
+        {
+          "action": "advanceWeek",
+          "count": 4,
+          "resultWeek": 12
+        }
+      ],
+      "nextAuthoritativeAdvance": {
+        "fromWeek": 12,
+        "toWeek": 13,
+        "releaseCount": 1,
+        "productionId": "prod-0004",
+        "title": "House of Cipher",
+        "gazetteCapable": true,
+        "sessionAutopsyCapable": true,
+        "constructionCompletion": true,
+        "coevent": "film release + Development & Casting Annex completion"
+      }
+    }
+  ]
+}

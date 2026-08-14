@@ -69,7 +69,12 @@ const latest = () => spy.instances[spy.instances.length - 1]!
 function renderScreen(state: GameState = baseState) {
   const routes: LotRoute[] = []
   const utils = render(
-    <StudioLotScreen state={state} onNavigate={(r) => routes.push(r)} onExit={() => {}} />,
+    <StudioLotScreen
+      state={state}
+      onNavigate={(r) => routes.push(r)}
+      onExit={() => {}}
+      onAdvance={() => {}}
+    />,
   )
   return { ...utils, routes }
 }
@@ -193,7 +198,12 @@ describe('D1-A identity review selector', () => {
     const before = JSON.stringify(state)
     const routes: LotRoute[] = []
     const { getByTestId } = render(
-      <StudioLotScreen state={state} onNavigate={(r) => routes.push(r)} onExit={() => {}} />,
+      <StudioLotScreen
+        state={state}
+        onNavigate={(r) => routes.push(r)}
+        onExit={() => {}}
+        onAdvance={() => {}}
+      />,
     )
     await waitFor(() => expect(getByTestId('lot-review-mode')).toBeInTheDocument())
     for (const key of ['baseline', 'fallback', 'reduced', 'concept-a']) {

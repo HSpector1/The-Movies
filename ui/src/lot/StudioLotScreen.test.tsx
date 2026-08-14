@@ -5,7 +5,7 @@
 // emits routes only (never mutating GameState). The companion navigation is asserted
 // as the accessible, keyboard-operable backbone.
 
-import { useState } from 'react'
+import { useState, type ComponentProps } from 'react'
 import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
@@ -18,10 +18,12 @@ import {
 import type { CreativeRole, GameState } from '../../../src/core/index.ts'
 import {
   exportSaveJson,
+  advanceWeek,
   productionDecision,
   publicityDecision,
   runProductionCommand,
   runPublicity,
+  startDevelopmentCastingAnnexAction,
   studioLotSnapshot,
 } from '../engine/adapter.ts'
 import { moneyExact } from '../format.ts'
@@ -30,7 +32,7 @@ import {
   setStudioLotIdentityOverride,
   setStudioLotSoundstageProofOverride,
 } from '../flags.ts'
-import { StudioLotScreen } from './StudioLotScreen.tsx'
+import { StudioLotScreen as StudioLotScreenImpl } from './StudioLotScreen.tsx'
 import type { LotRoute } from './navigation.ts'
 import type {
   BuildingId,
@@ -40,11 +42,27 @@ import type {
 } from './snapshot/StudioLotSnapshot.ts'
 import type { HollywoodProductionSelection } from './hollywood/HollywoodScene.ts'
 
+type TestStudioLotScreenProps = Omit<
+  ComponentProps<typeof StudioLotScreenImpl>,
+  'onAdvance'
+> & {
+  onAdvance?: ComponentProps<typeof StudioLotScreenImpl>['onAdvance']
+}
+
+// Existing host tests predate the App-owned clock intent. Keep their setup terse while the focused
+// week-advance cases below pass an explicit spy.
+function StudioLotScreen({ onAdvance = () => {}, ...props }: TestStudioLotScreenProps) {
+  return <StudioLotScreenImpl {...props} onAdvance={onAdvance} />
+}
+
 // A spy StudioLotView. Records construction, snapshots, lifecycle calls, and lets a
 // test drive the onAction/onSelect callbacks the real view would emit.
 const spy = vi.hoisted(() => {
   const instances: FakeInstance[] = []
-  const controls = { constructError: null as Error | null }
+  const controls = {
+    constructError: null as Error | null,
+    deferReady: false,
+  }
   type Opts = {
     parent: HTMLElement
     snapshot: { selectedBuildingId: string | null; week: number }
@@ -81,7 +99,7 @@ const spy = vi.hoisted(() => {
       this.opts = opts
       this.snapshots.push(opts.snapshot)
       instances.push(this)
-      queueMicrotask(() => opts.onReady?.())
+      if (!controls.deferReady) queueMicrotask(() => opts.onReady?.())
     }
     setSnapshot(s: unknown) { this.snapshots.push(s) }
     select(id: string) { this.selected.push(id) }
@@ -257,6 +275,7 @@ afterEach(() => {
   // resolved between hooks can be counted as the next test's renderer.
   cleanup()
   spy.controls.constructError = null
+  spy.controls.deferReady = false
   spy.instances.length = 0
   vi.restoreAllMocks()
   vi.unstubAllGlobals()
@@ -388,6 +407,267 @@ describe('StudioLotScreen — host lifecycle + accessible companion navigation',
     const { getByTestId, exits } = renderScreen()
     fireEvent.click(getByTestId('lot-return-dashboard'))
     expect(exits()).toBe(1)
+  })
+})
+
+describe('StudioLotScreen — World-First Live Week Advance V1 host boundary', () => {
+  it('exposes one native intent and contains every down-event family before Phaser', () => {
+    const onAdvance = vi.fn()
+    const documentPointerDown = vi.fn()
+    const windowMouseDown = vi.fn()
+    const windowTouchStart = vi.fn()
+    document.addEventListener('pointerdown', documentPointerDown)
+    window.addEventListener('mousedown', windowMouseDown)
+    window.addEventListener('touchstart', windowTouchStart)
+    try {
+      const { getByTestId } = render(
+        <StudioLotScreen
+          state={baseState}
+          onNavigate={() => {}}
+          onExit={() => {}}
+          onAdvance={onAdvance}
+        />,
+      )
+      const button = getByTestId('lot-advance-week')
+      expect(button.tagName).toBe('BUTTON')
+      expect(button).toHaveAccessibleName('Advance one week')
+
+      fireEvent.pointerDown(button)
+      fireEvent.mouseDown(button)
+      fireEvent.touchStart(button)
+      expect(documentPointerDown).not.toHaveBeenCalled()
+      expect(windowMouseDown).not.toHaveBeenCalled()
+      expect(windowTouchStart).not.toHaveBeenCalled()
+
+      fireEvent.click(button)
+      expect(onAdvance).toHaveBeenCalledOnce()
+    } finally {
+      document.removeEventListener('pointerdown', documentPointerDown)
+      window.removeEventListener('mousedown', windowMouseDown)
+      window.removeEventListener('touchstart', windowTouchStart)
+    }
+  })
+
+  it('keeps the same focused renderer host through sequential authoritative snapshots', async () => {
+    function Harness() {
+      const [current, setCurrent] = useState(baseState)
+      const [feedback, setFeedback] = useState<{
+        week: number
+        constructionCompletion: null
+      } | null>(null)
+      return (
+        <StudioLotScreen
+          state={current}
+          onNavigate={() => {}}
+          onExit={() => {}}
+          onAdvance={() => {
+            const result = advanceWeek(current)
+            setCurrent(result.next)
+            setFeedback({ week: result.next.market.tick, constructionCompletion: null })
+          }}
+          advanceFeedback={feedback}
+        />
+      )
+    }
+
+    const { getByTestId } = render(<Harness />)
+    await waitFor(() => expect(spy.instances).toHaveLength(1))
+    const view = latest()
+    await waitFor(() => expect(view.snapshots.length).toBeGreaterThan(1))
+    const snapshotsBefore = view.snapshots.length
+    const button = getByTestId('lot-advance-week')
+    button.focus()
+
+    fireEvent.click(button)
+    await waitFor(() => expect(getByTestId('lot-week-update-announcement')).toHaveTextContent(
+      'Week 1. Studio Lot updated.',
+    ))
+    expect(getByTestId('lot-advance-week')).toBe(button)
+    expect(button).toHaveFocus()
+    expect(spy.instances).toHaveLength(1)
+    expect(view.destroyed).toBe(false)
+    expect(view.cameraPresets).toEqual([])
+    expect(view.snapshots).toHaveLength(snapshotsBefore + 1)
+    expect((view.snapshots.at(-1) as { week: number }).week).toBe(1)
+
+    fireEvent.click(button)
+    await waitFor(() => expect(getByTestId('lot-week-update-announcement')).toHaveTextContent(
+      'Week 2. Studio Lot updated.',
+    ))
+    expect((view.snapshots.at(-1) as { week: number }).week).toBe(2)
+    expect(spy.instances).toHaveLength(1)
+    expect(view.destroyed).toBe(false)
+  })
+
+  it('feeds the latest post-tick snapshot when renderer readiness arrives late', async () => {
+    spy.controls.deferReady = true
+    function Harness() {
+      const [current, setCurrent] = useState(baseState)
+      return (
+        <StudioLotScreen
+          state={current}
+          onNavigate={() => {}}
+          onExit={() => {}}
+          onAdvance={() => setCurrent(advanceWeek(current).next)}
+        />
+      )
+    }
+
+    const { getByTestId } = render(<Harness />)
+    await waitFor(() => expect(spy.instances).toHaveLength(1))
+    const view = latest()
+    expect((view.snapshots[0] as { week: number }).week).toBe(0)
+    fireEvent.click(getByTestId('lot-advance-week'))
+    expect(view.snapshots).toHaveLength(1)
+
+    act(() => view.opts.onReady?.())
+    await waitFor(() => expect((view.snapshots.at(-1) as { week: number }).week).toBe(1))
+    expect(spy.instances).toHaveLength(1)
+    expect(view.destroyed).toBe(false)
+  })
+
+  it('records a scheduled Stage 7 take only after the authoritative weekly result', async () => {
+    setOperationHollywoodOverride(true)
+    let scheduled = advance(greenlightFilm(foundManagedStudio('lot-week-stage-7-recording')), 4)
+    const productionId = scheduled.studio.activeProductions[0]!.id
+    for (let i = 0; i < 3; i++) {
+      const command = studioLotSnapshot(scheduled).productionOperations?.find(
+        (operation) => operation.productionId === productionId,
+      )?.currentCommand
+      if (!command) throw new Error(`expected Stage 7 command ${String(i + 1)}`)
+      const result = runProductionCommand(scheduled, command)
+      if (!result.ok) throw new Error(result.error)
+      scheduled = result.next
+    }
+    expect(studioLotSnapshot(scheduled).productionOperations?.[0]?.taskStatus).toBe('scheduled')
+    const expected = advanceWeek(scheduled).next
+
+    function Harness() {
+      const [current, setCurrent] = useState(scheduled)
+      const [feedback, setFeedback] = useState<{
+        week: number
+        constructionCompletion: null
+      } | null>(null)
+      return (
+        <StudioLotScreen
+          state={current}
+          onNavigate={() => {}}
+          onExit={() => {}}
+          onAdvance={() => {
+            const result = advanceWeek(current)
+            setCurrent(result.next)
+            setFeedback({ week: result.next.market.tick, constructionCompletion: null })
+          }}
+          advanceFeedback={feedback}
+        />
+      )
+    }
+
+    const { getByTestId } = render(<Harness />)
+    expect(getByTestId(`hollywood-task-status-${productionId}`)).toHaveTextContent('scheduled')
+    fireEvent.click(getByTestId('lot-advance-week'))
+    await waitFor(() => expect(getByTestId(`hollywood-task-status-${productionId}`)).toHaveTextContent(
+      'Shooting beat completed',
+    ))
+    await waitFor(() => expect((latest().snapshots.at(-1) as { week: number }).week).toBe(
+      expected.market.tick,
+    ))
+  })
+
+  it('gives exact construction completion sole focus and suppresses duplicate Operational copy', async () => {
+    let state = foundManagedStudio('lot-week-advance-completion')
+    const started = startDevelopmentCastingAnnexAction(state)
+    if (!started.ok) throw new Error(started.error)
+    state = started.next
+    for (let i = 0; i < 12; i++) state = advanceWeek(state).next
+    const completed = advanceWeek(state)
+    if (!completed.constructionCompletion) throw new Error('expected Annex completion')
+
+    const { getByTestId, queryByTestId, rerender } = render(
+      <StudioLotScreen
+        state={completed.next}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onAdvance={() => {}}
+        advanceFeedback={{
+          week: completed.next.market.tick,
+          constructionCompletion: completed.constructionCompletion,
+        }}
+      />,
+    )
+    const notice = getByTestId('annex-completion-summary')
+    await waitFor(() => expect(notice).toHaveFocus())
+    expect(getByTestId('lot-week-update-announcement')).toHaveTextContent('')
+    expect(getByTestId('lot-annex-operational-announcement')).toHaveTextContent('')
+
+    const following = advanceWeek(completed.next)
+    rerender(
+      <StudioLotScreen
+        state={following.next}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onAdvance={() => {}}
+        advanceFeedback={{
+          week: following.next.market.tick,
+          constructionCompletion: following.constructionCompletion,
+        }}
+      />,
+    )
+    expect(queryByTestId('annex-completion-summary')).not.toBeInTheDocument()
+    expect(getByTestId('lot-week-update-announcement')).toHaveTextContent(
+      `Week ${following.next.market.tick}. Studio Lot updated.`,
+    )
+    expect(getByTestId('lot-annex-operational-announcement')).toHaveTextContent('')
+  })
+
+  it('suppresses Operational on the immediate deep return, then restores it on a fresh mount', async () => {
+    let state = foundManagedStudio('lot-week-advance-return-suppression')
+    const started = startDevelopmentCastingAnnexAction(state)
+    if (!started.ok) throw new Error(started.error)
+    state = started.next
+    for (let i = 0; i < 13; i++) state = advanceWeek(state).next
+
+    const immediate = render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onAdvance={() => {}}
+        entryFocus="advance-week"
+        suppressOperationalAnnouncement
+      />,
+    )
+    await waitFor(() => expect(immediate.getByTestId('lot-advance-week')).toHaveFocus())
+    expect(immediate.getByTestId('lot-annex-operational-announcement')).toHaveTextContent('')
+    immediate.unmount()
+
+    const fresh = render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onAdvance={() => {}}
+      />,
+    )
+    await waitFor(() => expect(fresh.getByTestId('lot-annex-operational-announcement')).toHaveTextContent(
+      'Development & Casting Annex is Operational.',
+    ))
+  })
+
+  it('keeps the semantic advance path when renderer construction fails', async () => {
+    spy.controls.constructError = new Error('intentional renderer construction rejection')
+    const onAdvance = vi.fn()
+    const { findByTestId, getByTestId } = render(
+      <StudioLotScreen
+        state={baseState}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onAdvance={onAdvance}
+      />,
+    )
+    await findByTestId('lot-canvas-fallback')
+    fireEvent.click(getByTestId('lot-advance-week'))
+    expect(onAdvance).toHaveBeenCalledOnce()
   })
 })
 

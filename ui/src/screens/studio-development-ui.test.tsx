@@ -22,7 +22,8 @@ import type { CreativeRole, DraftPackage, GameState } from '../engine/adapter.ts
 import { StudioDevelopment, StudioDevelopmentPreview } from './StudioDevelopment.tsx'
 import { StudioCalendar } from './StudioCalendar.tsx'
 import { StudioLotScreen } from '../lot/StudioLotScreen.tsx'
-import { saveActiveSession } from '../engine/session.ts'
+import { loadActiveSession, saveActiveSession } from '../engine/session.ts'
+import { setStudioLotOverviewOverride } from '../flags.ts'
 import { App } from '../App.tsx'
 import { Dashboard } from './Dashboard.tsx'
 import { WeeklySummary } from './WeeklySummary.tsx'
@@ -261,6 +262,70 @@ describe('Development & Casting Annex player experience', () => {
     expect(screen.queryByTestId('annex-completion-summary')).not.toBeInTheDocument()
   })
 
+  it('keeps a no-release Annex completion on the same mounted lot with one focus owner', async () => {
+    let state = managedStudio('annex-ui-lot-advance-completion')
+    const started = startDevelopmentCastingAnnexAction(state)
+    if (!started.ok) throw new Error(started.error)
+    state = started.next
+    for (let i = 0; i < 12; i++) state = advanceWeek(state).next
+    saveActiveSession(state)
+    setStudioLotOverviewOverride(true)
+
+    render(<App />)
+    fireEvent.click(screen.getByTestId('open-studio-lot'))
+    const lot = await screen.findByTestId('studio-lot-screen')
+    const advance = screen.getByTestId('lot-advance-week')
+    fireEvent.click(advance)
+
+    expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
+    expect(screen.getByText(/Week 13$/)).toBeInTheDocument()
+    expect(screen.getByTestId('annex-completion-summary')).toHaveFocus()
+    expect(screen.getByTestId('lot-week-update-announcement')).toHaveTextContent('')
+    expect(screen.getByTestId('lot-annex-operational-announcement')).toHaveTextContent('')
+    expect(screen.queryByTestId('no-week-releases')).not.toBeInTheDocument()
+
+    fireEvent.click(screen.getByTestId('lot-advance-week'))
+    expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
+    expect(screen.queryByTestId('annex-completion-summary')).not.toBeInTheDocument()
+    expect(screen.getByTestId('lot-week-update-announcement')).toHaveTextContent(
+      'Week 14. Studio Lot updated.',
+    )
+    expect(screen.getByTestId('lot-annex-operational-announcement')).toHaveTextContent('')
+  })
+
+  it('repaints exact intermediate Annex progress in the same mounted lot', async () => {
+    let state = managedStudio('annex-ui-lot-progress')
+    const started = startDevelopmentCastingAnnexAction(state)
+    if (!started.ok) throw new Error(started.error)
+    state = started.next
+    for (let i = 0; i < 5; i++) state = advanceWeek(state).next
+    expect(studioDevelopment(state).status).toBe('building')
+    const expected = advanceWeek(state)
+    expect(expected.released).toHaveLength(0)
+    expect(expected.constructionCompletion).toBeNull()
+    saveActiveSession(state)
+    setStudioLotOverviewOverride(true)
+
+    render(<App />)
+    fireEvent.click(screen.getByTestId('open-studio-lot'))
+    const lot = await screen.findByTestId('studio-lot-screen')
+    expect(screen.getByTestId('lot-nav-expansion-state')).toHaveTextContent(
+      '5 of 13 weekly advances complete',
+    )
+    fireEvent.click(screen.getByTestId('lot-advance-week'))
+
+    expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
+    expect(screen.getByTestId('lot-nav-expansion-state')).toHaveTextContent(
+      '6 of 13 weekly advances complete',
+    )
+    expect(screen.queryByTestId('annex-completion-summary')).not.toBeInTheDocument()
+    await waitFor(() => {
+      const restored = loadActiveSession()
+      expect(restored.ok).toBe(true)
+      if (restored.ok) expect(exportSaveJson(restored.state)).toBe(exportSaveJson(expected.next))
+    })
+  })
+
   it('keeps release priority, reports completion first on Newspaper, and never repeats after Continue', () => {
     const state = releaseConstructionCoevent('annex-ui-release-coevent')
     expect(studioDevelopment(state).status).toBe('building')
@@ -279,6 +344,57 @@ describe('Development & Casting Annex player experience', () => {
 
     fireEvent.click(screen.getByTestId('newspaper-continue'))
     expect(screen.queryByTestId('annex-completion-summary')).not.toBeInTheDocument()
+  })
+
+  it('returns a lot-origin release plus Annex completion without repeating Operational', async () => {
+    const state = releaseConstructionCoevent('annex-ui-lot-release-coevent')
+    saveActiveSession(state)
+    setStudioLotOverviewOverride(true)
+
+    render(<App />)
+    fireEvent.click(screen.getByTestId('open-studio-lot'))
+    await screen.findByTestId('studio-lot-screen')
+    fireEvent.click(screen.getByTestId('lot-advance-week'))
+
+    expect(screen.getByTestId('newspaper-reveal')).toBeInTheDocument()
+    expect(screen.getAllByTestId('annex-completion-summary')).toHaveLength(1)
+    expect(screen.getByTestId('annex-completion-summary')).toHaveFocus()
+    fireEvent.click(screen.getByTestId('newspaper-continue'))
+
+    expect(screen.queryByTestId('annex-completion-summary')).not.toBeInTheDocument()
+    const releaseHeading = screen.getAllByRole('heading', { level: 2 })[0]!
+    expect(releaseHeading).toHaveFocus()
+    fireEvent.click(screen.getByTestId('release-continue'))
+
+    await screen.findByTestId('studio-lot-screen')
+    expect(screen.getByTestId('lot-advance-week')).toHaveFocus()
+    expect(screen.queryByTestId('annex-completion-summary')).not.toBeInTheDocument()
+    expect(screen.getByTestId('lot-annex-operational-announcement')).toHaveTextContent('')
+
+    fireEvent.click(screen.getByTestId('lot-return-dashboard'))
+    fireEvent.click(screen.getByTestId('open-studio-lot'))
+    await waitFor(() => expect(screen.getByTestId('lot-annex-operational-announcement')).toHaveTextContent(
+      'Development & Casting Annex is Operational.',
+    ))
+  })
+
+  it('carries a lot-origin completion context through Newspaper Autopsy back to the lot', async () => {
+    const state = releaseConstructionCoevent('annex-ui-lot-autopsy-coevent')
+    saveActiveSession(state)
+    setStudioLotOverviewOverride(true)
+
+    render(<App />)
+    fireEvent.click(screen.getByTestId('open-studio-lot'))
+    await screen.findByTestId('studio-lot-screen')
+    fireEvent.click(screen.getByTestId('lot-advance-week'))
+    fireEvent.click(screen.getByTestId('newspaper-open-autopsy'))
+    expect(screen.getByTestId('autopsy')).toBeInTheDocument()
+    expect(screen.queryByTestId('annex-completion-summary')).not.toBeInTheDocument()
+
+    fireEvent.click(screen.getByTestId('autopsy-back'))
+    await screen.findByTestId('studio-lot-screen')
+    expect(screen.getByTestId('lot-advance-week')).toHaveFocus()
+    expect(screen.getByTestId('lot-annex-operational-announcement')).toHaveTextContent('')
   })
 
   it('newspaper-to-autopsy bypass still consumes the same-tick completion exactly once', () => {
@@ -426,7 +542,14 @@ describe('Development & Casting Annex player experience', () => {
     )
     calendar.unmount()
 
-    render(<StudioLotScreen state={state} onNavigate={() => {}} onExit={() => {}} />)
+    render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onAdvance={() => {}}
+      />,
+    )
     const lotAnnouncement = screen.getByTestId('lot-annex-operational-announcement')
     expect(lotAnnouncement).toHaveAttribute('role', 'status')
     expect(lotAnnouncement).toHaveAttribute('aria-live', 'polite')
@@ -442,7 +565,14 @@ describe('Development & Casting Annex player experience', () => {
     state = advanceWeek(started.next).next
     const navigate = vi.fn()
 
-    render(<StudioLotScreen state={state} onNavigate={navigate} onExit={() => {}} />)
+    render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={navigate}
+        onExit={() => {}}
+        onAdvance={() => {}}
+      />,
+    )
     const expansion = screen.getByTestId('lot-nav-expansion')
     expect(expansion).toHaveTextContent('1 of 13 weekly advances complete')
     fireEvent.click(expansion)

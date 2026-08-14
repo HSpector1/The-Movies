@@ -81,6 +81,21 @@ import { resetLotStageAssignment } from './lot/snapshot/stageAssignment.ts'
 // first renders, which only happens when the feature flag is on and the lot is opened.
 const StudioLotScreen = lazy(() => import('./lot/StudioLotScreen.tsx'))
 
+type StudioReturnContext =
+  | { kind: 'dashboard' }
+  | {
+      kind: 'lot'
+      focus: 'advance-week'
+      suppressOperationalAnnouncement: boolean
+    }
+
+type LotAdvanceFeedback = {
+  week: number
+  constructionCompletion: ConstructionCompletionSummary | null
+}
+
+const DASHBOARD_RETURN_CONTEXT: StudioReturnContext = { kind: 'dashboard' }
+
 type Screen =
   | { kind: 'start' }
   | { kind: 'founding' }
@@ -99,6 +114,7 @@ type Screen =
       released: FilmResult[]
       development: ReleaseDevelopment[]
       constructionCompletion: ConstructionCompletionSummary | null
+      returnContext: StudioReturnContext
     }
   | {
       // D-11.C PART 2: the newspaper front page shown ONCE at release. `source` records
@@ -112,15 +128,22 @@ type Screen =
       views: NewspaperView[]
       films: FilmResult[]
       constructionCompletion: ConstructionCompletionSummary | null
+      returnContext: StudioReturnContext
       release?: {
         preTick: GameState
         postTickStanding: Standing
         released: FilmResult[]
         development: ReleaseDevelopment[]
         constructionCompletion: ConstructionCompletionSummary | null
+        returnContext: StudioReturnContext
       }
     }
-  | { kind: 'autopsy'; view: AutopsyView; compare: AutopsyCompareView | null }
+  | {
+      kind: 'autopsy'
+      view: AutopsyView
+      compare: AutopsyCompareView | null
+      returnContext: StudioReturnContext
+    }
   | { kind: 'filmRecord'; view: FilmRecordView }
   | {
       // D-12.18: "Sim to next event" stopped on a non-release event. The aggregate cash
@@ -137,7 +160,7 @@ type Screen =
   | { kind: 'hub' }
   | { kind: 'saves' }
   | { kind: 'recap' } // D-15: read-only Studio Run Recap
-  | { kind: 'lot' } // Gate D1: Studio Lot overview (feature-flagged, default off)
+  | { kind: 'lot'; entryFocus?: 'advance-week' } // Gate D1: Studio Lot overview (feature-flagged, default off)
 
 // Where the Talent Creator returns after create/back (D-11.A: reachable during founding,
 // from the Hiring Market, and from the Dashboard).
@@ -213,6 +236,13 @@ export function App() {
   // productionId → pre-release snapshot, for exact autopsy of session releases. Session-only
   // (never in the save). Durable Film Chronicle navigation is a separate persisted-data path.
   const [snapshots, setSnapshots] = useState<Record<string, ReleaseSnapshot>>({})
+  // World-First Live Week Advance V1: transient presentation feedback for a no-release tick
+  // initiated on the mounted lot. Neither value is GameState or SaveFileV11 data. The separate
+  // suppression bit survives only a tick-generated deep release chain, preventing the exact Annex
+  // completion from being repeated as the generic "already operational" lot announcement.
+  const [lotAdvanceFeedback, setLotAdvanceFeedback] = useState<LotAdvanceFeedback | null>(null)
+  const [lotOperationalAnnouncementSuppressed, setLotOperationalAnnouncementSuppressed] =
+    useState(false)
 
   // Autosave after EVERY authoritative state transition — every GameState change flows through
   // setState, so this single effect covers founding, hiring, greenlight, advance, sim, release,
@@ -224,6 +254,8 @@ export function App() {
   function startGame(next: GameState, details: { converted: boolean }) {
     setState(next)
     setSnapshots({})
+    setLotAdvanceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
     setRecovery(null)
     setSaveMigrationNotice(details.converted)
     // AUTHORITATIVE STATE REPLACEMENT: a brand-new studio, or a save imported at the start
@@ -253,6 +285,8 @@ export function App() {
     clearActiveSession()
     setState(null)
     setSnapshots({})
+    setLotAdvanceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
     setRecovery(null)
     setSaveMigrationNotice(false)
     // The old studio ends HERE, past the confirm — so its presentation memory ends here too.
@@ -261,7 +295,25 @@ export function App() {
   }
 
   function goDashboard() {
+    setLotAdvanceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
     setScreen({ kind: 'dashboard' })
+  }
+
+  function openLot() {
+    setLotAdvanceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
+    setScreen({ kind: 'lot' })
+  }
+
+  function returnToStudioContext(context: StudioReturnContext) {
+    if (context.kind === 'dashboard') {
+      goDashboard()
+      return
+    }
+    setLotAdvanceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(context.suppressOperationalAnnouncement)
+    setScreen({ kind: 'lot', entryFocus: context.focus })
   }
 
   // Studio Calendar routes are presentation-only. Every intent lands on the existing
@@ -295,6 +347,10 @@ export function App() {
   // Translate a lot navigation intent into the existing screen navigation. Every route
   // targets a screen that already exists outside the lot.
   function handleLotNavigate(route: LotRoute) {
+    // Existing lot destinations are ordinary deep navigation, not part of the tick-generated
+    // release chain. A later lot entry is fresh and may announce an already-operational Annex.
+    setLotAdvanceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
     switch (route.kind) {
       case 'dashboard':
         setScreen({ kind: 'dashboard' })
@@ -327,7 +383,7 @@ export function App() {
     }
   }
 
-  function handleAdvance() {
+  function handleAdvance(returnContext: StudioReturnContext) {
     if (!state) return
     // RULING A: advanceWeek ticks with development ON. The engine applies development
     // EXACTLY ONCE inside this single tick; we then replace the authoritative GameState
@@ -337,12 +393,27 @@ export function App() {
     // talent (pure read of two immutable snapshots — no re-run of development).
     const development = buildReleaseDevelopment(preTick, next, released)
     setState(next)
+    const resolvedReturnContext: StudioReturnContext =
+      returnContext.kind === 'lot'
+        ? {
+            ...returnContext,
+            suppressOperationalAnnouncement:
+              lotOperationalAnnouncementSuppressed || constructionCompletion !== null,
+          }
+        : returnContext
+    if (resolvedReturnContext.kind === 'lot') {
+      setLotAdvanceFeedback(null)
+      setLotOperationalAnnouncementSuppressed(
+        resolvedReturnContext.suppressOperationalAnnouncement,
+      )
+    }
     const release = {
       preTick,
       postTickStanding: next.studio.standing,
       released,
       development,
       constructionCompletion,
+      returnContext: resolvedReturnContext,
     }
     // Record a per-film snapshot so each release keeps an exact autopsy path.
     if (released.length > 0) {
@@ -354,10 +425,15 @@ export function App() {
         return merged
       })
     }
+    // World-First Live Week Advance V1: a no-release lot tick never changes screens. React
+    // retains the mounted host/view and repaints it from the fresh authoritative state.
+    if (released.length === 0 && resolvedReturnContext.kind === 'lot') {
+      setLotAdvanceFeedback({ week: next.market.tick, constructionCompletion })
+      return
+    }
     // D-11.C PART 2: when a film actually reaches audiences this week, the reveal is the
-    // newspaper front page — shown ONCE, here, at release. Continue hands off to the
-    // existing release/development summary (unchanged). A week with no release skips
-    // straight to that summary (nothing to put on a front page).
+    // newspaper front page — shown ONCE, here, at release. Gazette eligibility decides only
+    // whether Newspaper precedes ReleaseResult; released.length above owns release truth.
     const newspaperReleases = released
       .map((film) => ({ film, view: releaseNewspaper(next, film) }))
       .filter((entry): entry is { film: FilmResult; view: NewspaperView } => entry.view !== null)
@@ -368,6 +444,7 @@ export function App() {
         views: newspaperReleases.map((entry) => entry.view),
         films: newspaperReleases.map((entry) => entry.film),
         constructionCompletion,
+        returnContext: resolvedReturnContext,
         // The first post-tick surface owns the one-time item. Continuing from
         // the newspaper must not repeat it on ReleaseResult.
         release: { ...release, constructionCompletion: null },
@@ -413,6 +490,7 @@ export function App() {
         released: result.released,
         development,
         constructionCompletion: result.constructionCompletion,
+        returnContext: DASHBOARD_RETURN_CONTEXT,
       }
       setSnapshots((prev) => {
         const merged = { ...prev }
@@ -431,6 +509,7 @@ export function App() {
           views: newspaperReleases.map((entry) => entry.view),
           films: newspaperReleases.map((entry) => entry.film),
           constructionCompletion: result.constructionCompletion,
+          returnContext: DASHBOARD_RETURN_CONTEXT,
           release: { ...release, constructionCompletion: null },
         })
         return
@@ -469,6 +548,7 @@ export function App() {
       views: [view],
       films: [film],
       constructionCompletion: null,
+      returnContext: DASHBOARD_RETURN_CONTEXT,
     })
   }
 
@@ -487,7 +567,10 @@ export function App() {
   }
 
   // Open the exact autopsy for a film with a retained snapshot (dashboard path).
-  function openAutopsyForFilm(film: FilmResult) {
+  function openAutopsyForFilm(
+    film: FilmResult,
+    returnContext: StudioReturnContext = DASHBOARD_RETURN_CONTEXT,
+  ) {
     const snap = snapshots[film.productionId]
     if (!snap) {
       alert(
@@ -507,7 +590,7 @@ export function App() {
     // Locked greenlight expectation vs actual (the compare panel). Uses the same retained
     // pre-tick snapshot; null only if the production is not in the pre-tick active list.
     const compare = autopsyCompare(snap.preTick, film)
-    setScreen({ kind: 'autopsy', view, compare })
+    setScreen({ kind: 'autopsy', view, compare, returnContext })
   }
 
   // A concise, dismissible recovery notice shown once after a restore (or a safe failure message).
@@ -590,7 +673,7 @@ export function App() {
                 : { kind: 'assembly' },
             )
           }
-          onAdvance={handleAdvance}
+          onAdvance={() => handleAdvance(DASHBOARD_RETURN_CONTEXT)}
           onSimToEvent={handleSimToEvent}
           onCreateTalent={() => setScreen({ kind: 'talent', returnTo: 'dashboard' })}
           onOpenHub={() => setScreen({ kind: 'hub' })}
@@ -601,7 +684,7 @@ export function App() {
           onOpenRecap={() => setScreen({ kind: 'recap' })}
           onOpenCalendar={() => setScreen({ kind: 'calendar' })}
           onOpenDevelopment={() => setScreen({ kind: 'studioDevelopment' })}
-          onOpenLot={lotEnabled ? () => setScreen({ kind: 'lot' }) : undefined}
+          onOpenLot={lotEnabled ? openLot : undefined}
           onOpenAutopsy={openAutopsyForFilm}
           canOpenAutopsy={(film) => snapshots[film.productionId] !== undefined}
           onOpenChronicle={openChronicleForFilm}
@@ -695,15 +778,17 @@ export function App() {
           postTickStanding={screen.postTickStanding}
           released={screen.released}
           constructionCompletion={screen.constructionCompletion}
+          focusOnMount={screen.returnContext.kind === 'lot'}
           careerImpactFor={(pid) => filmCareerImpact(state, pid)}
           onOpenAutopsy={(view, film) =>
             setScreen({
               kind: 'autopsy',
               view,
               compare: autopsyCompare(screen.preTick, film),
+              returnContext: screen.returnContext,
             })
           }
-          onContinue={goDashboard}
+          onContinue={() => returnToStudioContext(screen.returnContext)}
         />
       )}
 
@@ -717,7 +802,7 @@ export function App() {
           }}
           onOpenAutopsy={(index) => {
             const film = screen.films[index]
-            if (film) openAutopsyForFilm(film)
+            if (film) openAutopsyForFilm(film, screen.returnContext)
           }}
           onOpenChronicle={(index) => {
             const film = screen.films[index]
@@ -726,7 +811,7 @@ export function App() {
           onContinue={() =>
             screen.source === 'release' && screen.release
               ? setScreen({ kind: 'release', ...screen.release })
-              : goDashboard()
+              : returnToStudioContext(screen.returnContext)
           }
         />
       )}
@@ -737,7 +822,7 @@ export function App() {
           compare={screen.compare}
           careerImpact={filmCareerImpact(state, screen.view.productionId)}
           onOpenProfile={setOpenProfileId}
-          onBack={goDashboard}
+          onBack={() => returnToStudioContext(screen.returnContext)}
         />
       )}
 
@@ -791,6 +876,8 @@ export function App() {
           onLoad={(next, details) => {
             setState(next)
             setSnapshots({})
+            setLotAdvanceFeedback(null)
+            setLotOperationalAnnouncementSuppressed(false)
             setSaveMigrationNotice(details.converted)
             // AUTHORITATIVE STATE REPLACEMENT: Saves only calls this once a save has been
             // accepted, so a REJECTED import never reaches here and the live studio keeps
@@ -815,6 +902,16 @@ export function App() {
             state={state}
             onNavigate={handleLotNavigate}
             onExit={goDashboard}
+            onAdvance={() =>
+              handleAdvance({
+                kind: 'lot',
+                focus: 'advance-week',
+                suppressOperationalAnnouncement: lotOperationalAnnouncementSuppressed,
+              })
+            }
+            advanceFeedback={lotAdvanceFeedback}
+            suppressOperationalAnnouncement={lotOperationalAnnouncementSuppressed}
+            {...(screen.entryFocus ? { entryFocus: screen.entryFocus } : {})}
             onStateChange={setState}
             onProductionCommand={handleProductionCommand}
           />

@@ -77,7 +77,14 @@ const noop = () => {}
 
 /** Mount the real screen and return the scene configuration the real view handed over. */
 async function sceneConfig(): Promise<LotSceneData> {
-  render(<StudioLotScreen state={foundStudio('h2-wiring')} onNavigate={noop} onExit={noop} />)
+  render(
+    <StudioLotScreen
+      state={foundStudio('h2-wiring')}
+      onNavigate={noop}
+      onExit={noop}
+      onAdvance={noop}
+    />,
+  )
   await waitFor(() => expect(phaser.sceneAdds).toHaveLength(1))
   expect(phaser.sceneAdds[0]!.key).toBe('lot')
   return phaser.sceneAdds[0]!.data as unknown as LotSceneData

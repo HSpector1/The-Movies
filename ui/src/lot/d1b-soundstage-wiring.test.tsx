@@ -113,12 +113,12 @@ const noop = () => {}
  */
 async function runTimeline(states: GameState[]) {
   const { getByTestId, queryByText, rerender } = render(
-    <StudioLotScreen state={states[0]!} onNavigate={noop} onExit={noop} />,
+    <StudioLotScreen state={states[0]!} onNavigate={noop} onExit={noop} onAdvance={noop} />,
   )
   await waitFor(() => expect(spy.instances[0]).toBeDefined())
   await waitFor(() => expect(queryByText('Preparing the lot…')).toBeNull())
   for (const s of states.slice(1)) {
-    rerender(<StudioLotScreen state={s} onNavigate={noop} onExit={noop} />)
+    rerender(<StudioLotScreen state={s} onNavigate={noop} onExit={noop} onAdvance={noop} />)
   }
   return { getByTestId, view: spy.instances[0]! }
 }

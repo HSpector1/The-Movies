@@ -13,8 +13,13 @@
 // they emit identity/intent and the host dispatches only engine-projected commands.
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import type { ActionOutcome, GameState } from '../engine/adapter.ts'
+import type {
+  ActionOutcome,
+  ConstructionCompletionSummary,
+  GameState,
+} from '../engine/adapter.ts'
 import { publicityDecision, runPublicity, studioLotSnapshot } from '../engine/adapter.ts'
+import { ConstructionCompletionNotice } from '../components/ConstructionCompletionNotice.tsx'
 import { moneyExact } from '../format.ts'
 import type {
   AttentionState,
@@ -76,6 +81,17 @@ type Props = {
   onNavigate: (route: LotRoute) => void
   /** Return to the normal Dashboard. */
   onExit: () => void
+  /** Emit one authoritative App-owned weekly-advance intent. */
+  onAdvance: () => void
+  /** Exact transient feedback from a no-release lot-origin advance. */
+  advanceFeedback?: {
+    week: number
+    constructionCompletion: ConstructionCompletionSummary | null
+  } | null
+  /** Focus target used only when a tick-generated deep surface returns to a remounted lot. */
+  entryFocus?: 'advance-week'
+  /** Suppress a generic Annex announcement already owned by an exact completion surface. */
+  suppressOperationalAnnouncement?: boolean
   /** The host replaces the authoritative state only after a successful real engine action. */
   onStateChange?: (state: GameState) => void
   /** Dispatch exactly the command projected by the authoritative operations read model. */
@@ -88,12 +104,12 @@ type Props = {
 let sessionSelectedBuilding: BuildingId | null = null
 
 // Stage assignment memory. Same kind of UI session state as the selection above — NOT
-// GameState, NOT SaveFileV4 — and it MUST outlive this screen, because the way a player
-// advances a week is to leave the lot, tick, and come back; a per-mount instance would
-// forget every held stage on the way out and the migration defect would reappear on
-// re-entry. It is owned by the module that defines it, so that its lifetime can END with
-// the loaded game rather than with the page: App.tsx calls resetLotStageAssignment() at the
-// new-studio and loaded-save boundaries. See snapshot/stageAssignment.ts.
+// GameState, NOT SaveFileV4 — and it MUST outlive this screen. A release or deliberate deep
+// management route can still unmount the lot between ticks; per-mount memory would then forget
+// every held stage and reintroduce the migration defect on return. It is owned by the module that
+// defines it, so that its lifetime can END with the loaded game rather than with the page:
+// App.tsx calls resetLotStageAssignment() at the new-studio and loaded-save boundaries. See
+// snapshot/stageAssignment.ts.
 
 // Attention → icon + word. Every state is communicated with text + shape + colour
 // (addendum §7) — never colour alone. The class drives the colour in lot.css.
@@ -120,11 +136,16 @@ export function StudioLotScreen({
   state,
   onNavigate,
   onExit,
+  onAdvance,
+  advanceFeedback = null,
+  entryFocus,
+  suppressOperationalAnnouncement = false,
   onStateChange,
   onProductionCommand,
 }: Props) {
   const mountRef = useRef<HTMLDivElement | null>(null)
   const viewRef = useRef<StudioLotViewClass | null>(null)
+  const advanceButtonRef = useRef<HTMLButtonElement | null>(null)
   const onNavigateRef = useRef(onNavigate)
   onNavigateRef.current = onNavigate
 
@@ -210,6 +231,7 @@ export function StudioLotScreen({
   const snapshot = readSnapshot(state)
   const expansionFact = snapshot.buildings.find((building) => building.id === 'expansion')
   const [operationalAnnouncement, setOperationalAnnouncement] = useState('')
+  const completionAnnouncementOwnedRef = useRef(suppressOperationalAnnouncement)
   const hollywoodOperations = snapshot.productionOperations ?? []
   const latestSnapshotRef = useRef(snapshot)
   latestSnapshotRef.current = snapshot
@@ -280,13 +302,31 @@ export function StudioLotScreen({
   }, [enterHollywoodProductionContext])
 
   useEffect(() => {
+    if (suppressOperationalAnnouncement || advanceFeedback?.constructionCompletion) {
+      completionAnnouncementOwnedRef.current = true
+    }
     const capacity = expansionFact?.attentionReason?.replace(/^Annex operational · /, '')
     setOperationalAnnouncement(
-      expansionFact?.constructionStatus === 'operational'
+      expansionFact?.constructionStatus === 'operational' &&
+        !completionAnnouncementOwnedRef.current
         ? `Development & Casting Annex is Operational. Development & Casting capacity is now ${capacity ?? 'available with one additional shared slot'}.`
         : '',
     )
-  }, [expansionFact?.attentionReason, expansionFact?.constructionStatus])
+  }, [
+    advanceFeedback?.constructionCompletion,
+    expansionFact?.attentionReason,
+    expansionFact?.constructionStatus,
+    suppressOperationalAnnouncement,
+  ])
+
+  useEffect(() => {
+    if (entryFocus === 'advance-week' && !advanceFeedback?.constructionCompletion) {
+      advanceButtonRef.current?.focus()
+    }
+    // Entry focus is a remount instruction. Ordinary state/feedback changes must leave the
+    // existing focused node alone, so this intentionally depends on entryFocus only.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entryFocus])
 
   const recordHollywoodPerson = useCallback((person: LotPersonState | null) => {
     setHollywoodPerson(person)
@@ -386,7 +426,13 @@ export function StudioLotScreen({
           authoredStage,
           authoredStageA,
           hollywood,
-          snapshot: { ...readSnapshot(state), selectedBuildingId: sessionSelectedBuilding },
+          // The import can resolve after an App-owned week advance. Construct from the latest
+          // host snapshot rather than the mount-time state closure so that preparation never
+          // paints a stale week before onReady enables ordinary snapshot delivery.
+          snapshot: {
+            ...latestSnapshotRef.current,
+            selectedBuildingId: sessionSelectedBuilding,
+          },
           onSelect: (sel) => {
             setSelectionInfo(sel)
             recordSelection(sel?.buildingId ?? null)
@@ -619,6 +665,17 @@ export function StudioLotScreen({
       >
         {operationalAnnouncement}
       </div>
+      <div
+        className="visually-hidden"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        data-testid="lot-week-update-announcement"
+      >
+        {advanceFeedback !== null && advanceFeedback.constructionCompletion === null
+          ? `Week ${advanceFeedback.week}. Studio Lot updated.`
+          : ''}
+      </div>
       <header className="lot-topbar">
         <div className="lot-brand">
           <span className="mark">{snapshot.studioName}</span>
@@ -628,7 +685,19 @@ export function StudioLotScreen({
           <span className="lot-cash" data-testid="lot-cash">
             {snapshot.cash < 0 ? '-' : ''}${Math.abs(Math.round(snapshot.cash)).toLocaleString('en-US')}
           </span>
-          <button className="primary" onClick={onExit} data-testid="lot-return-dashboard">
+          <button
+            ref={advanceButtonRef}
+            type="button"
+            className="primary lot-advance-week"
+            onPointerDown={containWorldInput}
+            onMouseDown={containWorldInput}
+            onTouchStart={containWorldInput}
+            onClick={onAdvance}
+            data-testid="lot-advance-week"
+          >
+            Advance one week
+          </button>
+          <button className="ghost" onClick={onExit} data-testid="lot-return-dashboard">
             Return to Dashboard
           </button>
         </div>
@@ -638,6 +707,19 @@ export function StudioLotScreen({
         <div className="lot-stage-wrap">
           {/* Primary visual world surface; the DOM companion is its semantic equivalent. */}
           <div ref={mountRef} className="lot-canvas" data-testid="studio-lot-canvas" aria-hidden="true" />
+
+          {advanceFeedback?.constructionCompletion && (
+            <div
+              className="lot-event-notice"
+              onPointerDown={containWorldInput}
+              onMouseDown={containWorldInput}
+              onTouchStart={containWorldInput}
+            >
+              <ConstructionCompletionNotice
+                completion={advanceFeedback.constructionCompletion}
+              />
+            </div>
+          )}
 
           {hollywood && (
             <>

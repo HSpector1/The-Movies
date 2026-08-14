@@ -146,7 +146,9 @@ const noop = () => {}
 
 /** Mount the lot screen on a state, let it settle, and return the mocked view. */
 async function openLot(state: GameState) {
-  const utils = render(<StudioLotScreen state={state} onNavigate={noop} onExit={noop} />)
+  const utils = render(
+    <StudioLotScreen state={state} onNavigate={noop} onExit={noop} onAdvance={noop} />,
+  )
   await waitFor(() => expect(spy.instances[spy.instances.length - 1]).toBeDefined())
   await waitFor(() => expect(utils.queryByText('Preparing the lot…')).toBeNull())
   return { utils, view: spy.instances[spy.instances.length - 1]! }
@@ -160,7 +162,9 @@ const shownOn = (view: { snapshots: StudioLotSnapshot[] }, id: string) =>
 async function primeFromGameOne(states: GameState[], survivorId: string) {
   const { utils, view } = await openLot(states[0]!)
   for (const s of states.slice(1)) {
-    utils.rerender(<StudioLotScreen state={s} onNavigate={noop} onExit={noop} />)
+    utils.rerender(
+      <StudioLotScreen state={s} onNavigate={noop} onExit={noop} onAdvance={noop} />,
+    )
   }
   expect(shownOn(view, survivorId)).toBe('stage-b')
   expect(lotStageAssignment.slotFor(survivorId)).toBe('stage-b')

@@ -40,8 +40,11 @@
 .lot-topbar-actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 14px;
+  flex-wrap: wrap;
 }
+.lot-advance-week { white-space: nowrap; }
 .lot-cash {
   font-variant-numeric: tabular-nums;
   color: var(--text);
@@ -68,6 +71,19 @@
 }
 .lot-canvas canvas {
   display: block;
+}
+.lot-event-notice {
+  position: absolute;
+  z-index: 18;
+  top: 16px;
+  left: 50%;
+  width: min(460px, calc(100% - 40px));
+  transform: translateX(-50%);
+}
+.lot-event-notice .card {
+  margin: 0;
+  border-color: rgba(210, 174, 98, 0.72);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.5);
 }
 .lot-canvas-note {
   position: absolute;
@@ -403,7 +419,25 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   .hollywood-inspector { width: 250px; }
   .hollywood-activity { display: none; }
 }
+/* The exact completion card owns attention, but it must not cover the persistent
+   production or person inspectors. At compact management widths the centre gap is
+   narrower than the notice, so keep both live-world panels below its bounded card. */
+@media (min-width: 721px) and (max-width: 1400px) {
+  .lot-stage-wrap:has(.lot-event-notice) :is(.hollywood-production, .hollywood-inspector) {
+    top: 168px;
+  }
+}
+@media (min-width: 721px) and (max-width: 980px) {
+  .lot-stage-wrap:has(.lot-event-notice) .hollywood-inspector {
+    box-sizing: border-box;
+    max-height: calc(100% - 184px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
 @media (max-width: 720px) {
+  .lot-topbar { align-items: flex-start; }
+  .lot-topbar-actions { gap: 8px; }
   .lot-hollywood .lot-stage-wrap { min-height: 720px; }
   .hollywood-production, .hollywood-inspector { position: absolute; top: auto; bottom: 76px; width: calc(50% - 24px); }
   .hollywood-productions, .hollywood-people { max-width: calc(100% - 32px); overflow-x: auto; }
