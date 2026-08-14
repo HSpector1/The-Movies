@@ -136,6 +136,10 @@ describe('App end-to-end loop', () => {
       // Continue through it to reach the release/development summary with the cards.
       const newspaperContinue = screen.queryByTestId('newspaper-continue')
       if (newspaperContinue) {
+        expect(screen.getByTestId('newspaper-open-autopsy')).toHaveTextContent(
+          'Read the full autopsy',
+        )
+        expect(screen.queryByTestId('newspaper-open-chronicle')).not.toBeInTheDocument()
         fireEvent.click(newspaperContinue)
       }
       // On the release screen, look for a release card.

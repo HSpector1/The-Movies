@@ -444,13 +444,30 @@ export type { DevelopmentContext } from './development.js'
 
 // ── D-11.C newspaper release reveal (newspaper.ts) — pure deterministic derivation ─
 export {
+  buildFilmChronicle,
   buildNewspaper,
   criticStars,
   audienceTier,
   aggregateAudienceScore,
   NEWSPAPER_MASTHEAD,
 } from './newspaper.js'
-export type { NewspaperView, NewspaperInput, CriticRating, AudienceTier } from './newspaper.js'
+export type {
+  NewspaperView,
+  NewspaperInput,
+  CriticRating,
+  AudienceTier,
+  FilmChronicleScriptInput,
+  FilmChronicleLedgerInput,
+  FilmChronicleReception,
+  FilmChronicleInput,
+  FilmChronicleUnavailable,
+  FilmChronicleCreativeRecord,
+  FilmChronicleCredits,
+  FilmChronicleProductionRecord,
+  FilmChronicleFit,
+  FilmChroniclePackageRecord,
+  FilmChronicleView,
+} from './newspaper.js'
 
 // ── D-12 studio economy (economy.ts) — pure theatrical-run + fame-saturation math ─
 export { fameReach, theatricalSchedule, openTheatricalRun, legacyTheatricalRun } from './economy.js'

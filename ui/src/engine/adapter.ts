@@ -145,6 +145,7 @@ import {
   foundingGaps,
   FOUNDING_MINIMUMS,
   // D-11.C newspaper release reveal (pure derivation)
+  buildFilmChronicle,
   buildNewspaper,
   criticStars,
   audienceTier,
@@ -233,6 +234,7 @@ import type {
   NewspaperView,
   CriticRating,
   AudienceTier,
+  FilmChronicleView,
   Persona,
   CreativeRole,
   Discipline,
@@ -346,6 +348,7 @@ export type {
   NewspaperView,
   CriticRating,
   AudienceTier,
+  FilmChronicleView,
   // Film Package assessment types re-exported through the single boundary.
   CreativeCohesion,
   AssignmentFit,
@@ -4797,6 +4800,7 @@ export function teamDirectionGuidance(
 export type FilmRecordView = {
   productionId: string
   conceptTitle: string
+  chronicle: FilmChronicleView
   participants: FilmParticipants
   criticScore: number
   boxOffice: { opening: number; total: number }
@@ -4808,6 +4812,8 @@ export type FilmRecordView = {
 }
 export function filmRecordView(state: GameState, film: FilmResult): FilmRecordView | null {
   if (!film.participants) return null
+  const newspaper = releaseNewspaper(state, film)
+  if (newspaper === null) return null
   const concept = findConcept(state, film.conceptId)
   const committedCost = state.ledger
     .filter((e) => e.productionId === film.productionId && (e.kind === 'production' || e.kind === 'freelancerFee'))
@@ -4818,7 +4824,8 @@ export function filmRecordView(state: GameState, film: FilmResult): FilmRecordVi
   return {
     productionId: film.productionId,
     conceptTitle: concept?.title ?? film.conceptId,
-    participants: film.participants,
+    chronicle: newspaper.chronicle,
+    participants: newspaper.participants,
     criticScore: film.criticScore,
     boxOffice: film.boxOffice,
     committedCost,
@@ -4848,6 +4855,25 @@ export function releaseNewspaper(state: GameState, film: FilmResult): NewspaperV
   return buildNewspaper({
     film,
     conceptTitle: concept?.title ?? film.conceptId,
+    genre: concept?.genre ?? null,
+    producedScripts: state.scriptDevelopment.projects
+      .filter((project) => project.status === 'produced')
+      .map((project) => ({
+        productionId: project.productionId,
+        writerId: project.writerId,
+        shape: project.shape,
+        promise: project.promise,
+        commissionedWeek: project.commissionedWeek,
+        rewriteCount: project.rewriteCount,
+      })),
+    productionLedgerRows: state.ledger
+      .filter((entry) => entry.kind === 'production')
+      .map((entry) => ({
+        productionId: entry.productionId ?? null,
+        week: entry.week,
+        amount: entry.amount,
+      })),
+    currentWeek: state.market.tick,
     committedCost,
     segmentShares,
     ...(studioRevenue !== null ? { studioRevenue } : {}),
@@ -4855,7 +4881,7 @@ export function releaseNewspaper(state: GameState, film: FilmResult): NewspaperV
     week: film.releaseTick,
   })
 }
-export { criticStars, NEWSPAPER_MASTHEAD }
+export { buildFilmChronicle, criticStars, NEWSPAPER_MASTHEAD }
 
 // ── Gate D1: Studio Lot presentation snapshot ────────────────────────────────
 // A pure, deterministic read-model that projects the authoritative D-12 GameState

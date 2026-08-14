@@ -210,8 +210,8 @@ export function App() {
   // migration occurred; App owns this notice because the successful load immediately
   // navigates away from (and unmounts) the Saves screen.
   const [saveMigrationNotice, setSaveMigrationNotice] = useState(restore.ok && restore.converted)
-  // productionId → pre-release snapshot, for exact autopsy of session releases. Session-only (never
-  // in the save), so a restored session's pre-restore releases fall back to the persisted FilmRecord.
+  // productionId → pre-release snapshot, for exact autopsy of session releases. Session-only
+  // (never in the save). Durable Film Chronicle navigation is a separate persisted-data path.
   const [snapshots, setSnapshots] = useState<Record<string, ReleaseSnapshot>>({})
 
   // Autosave after EVERY authoritative state transition — every GameState change flows through
@@ -358,13 +358,15 @@ export function App() {
     // newspaper front page — shown ONCE, here, at release. Continue hands off to the
     // existing release/development summary (unchanged). A week with no release skips
     // straight to that summary (nothing to put on a front page).
-    const views = released.map((f) => releaseNewspaper(next, f)).filter((v): v is NewspaperView => v !== null)
-    if (views.length > 0) {
+    const newspaperReleases = released
+      .map((film) => ({ film, view: releaseNewspaper(next, film) }))
+      .filter((entry): entry is { film: FilmResult; view: NewspaperView } => entry.view !== null)
+    if (newspaperReleases.length > 0) {
       setScreen({
         kind: 'newspaper',
         source: 'release',
-        views,
-        films: released,
+        views: newspaperReleases.map((entry) => entry.view),
+        films: newspaperReleases.map((entry) => entry.film),
         constructionCompletion,
         // The first post-tick surface owns the one-time item. Continuing from
         // the newspaper must not repeat it on ReleaseResult.
@@ -418,15 +420,15 @@ export function App() {
         }
         return merged
       })
-      const views = result.released
-        .map((f) => releaseNewspaper(result.next, f))
-        .filter((v): v is NewspaperView => v !== null)
-      if (views.length > 0) {
+      const newspaperReleases = result.released
+        .map((film) => ({ film, view: releaseNewspaper(result.next, film) }))
+        .filter((entry): entry is { film: FilmResult; view: NewspaperView } => entry.view !== null)
+      if (newspaperReleases.length > 0) {
         setScreen({
           kind: 'newspaper',
           source: 'release',
-          views,
-          films: result.released,
+          views: newspaperReleases.map((entry) => entry.view),
+          films: newspaperReleases.map((entry) => entry.film),
           constructionCompletion: result.constructionCompletion,
           release: { ...release, constructionCompletion: null },
         })
@@ -469,23 +471,28 @@ export function App() {
     })
   }
 
+  // Film Chronicle V1: durable, persisted-data record. This is deliberately a
+  // separate action from the exact session-only mathematical autopsy.
+  function openChronicleForFilm(film: FilmResult) {
+    if (!state) return
+    const record = filmRecordView(state, film)
+    if (record) {
+      setScreen({ kind: 'filmRecord', view: record })
+      return
+    }
+    alert(
+      'This older film predates the frozen participant record required for a Film Chronicle.',
+    )
+  }
+
   // Open the exact autopsy for a film with a retained snapshot (dashboard path).
   function openAutopsyForFilm(film: FilmResult) {
     const snap = snapshots[film.productionId]
     if (!snap) {
-      // No session snapshot (e.g. after a save/reload). If the film carries its own
-      // immutable participant record (D-11.A), show that archived record — WHO made it
-      // and how it did — so identity survives reload. Otherwise (legacy film) explain.
-      if (!state) return
-      const record = filmRecordView(state, film)
-      if (record) {
-        setScreen({ kind: 'filmRecord', view: record })
-        return
-      }
       alert(
         'The full autopsy needs the studio state from just before this film released. ' +
-          'That snapshot is kept only for films that released while you were playing this session ' +
-          '(not for films already released inside an imported save).',
+          'That snapshot is kept only for films that released while you were playing this session. ' +
+          'Open the film’s Chronicle for its durable production record.',
       )
       return
     }
@@ -595,6 +602,8 @@ export function App() {
           onOpenDevelopment={() => setScreen({ kind: 'studioDevelopment' })}
           onOpenLot={lotEnabled ? () => setScreen({ kind: 'lot' }) : undefined}
           onOpenAutopsy={openAutopsyForFilm}
+          canOpenAutopsy={(film) => snapshots[film.productionId] !== undefined}
+          onOpenChronicle={openChronicleForFilm}
           onOpenClipping={openClippingForFilm}
           onPublicize={handlePublicity}
           onProductionCommand={handleProductionCommand}
@@ -701,9 +710,17 @@ export function App() {
         <NewspaperReveal
           views={screen.views}
           constructionCompletion={screen.constructionCompletion}
+          canOpenAutopsy={(index) => {
+            const film = screen.films[index]
+            return film !== undefined && snapshots[film.productionId] !== undefined
+          }}
           onOpenAutopsy={(index) => {
             const film = screen.films[index]
             if (film) openAutopsyForFilm(film)
+          }}
+          onOpenChronicle={(index) => {
+            const film = screen.films[index]
+            if (film) openChronicleForFilm(film)
           }}
           onContinue={() =>
             screen.source === 'release' && screen.release

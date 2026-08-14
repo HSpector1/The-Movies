@@ -191,6 +191,36 @@ describe('D-12 active-session recovery — App startup', () => {
     render(<App />)
     expect(screen.getByTestId('recovery-notice').textContent).toMatch(/Could not recover/i)
   })
+
+  it('keeps restored Chronicle, Clipping, and session-only Autopsy as three honest paths', () => {
+    let state = gl(newFoundedGame('film-chronicle-restored-app'), pkg(newFoundedGame('film-chronicle-restored-app')))
+    for (let guard = 0; guard < 40 && state.studio.releasedFilms.length === 0; guard++) {
+      state = advanceWeek(state).next
+    }
+    const film = state.studio.releasedFilms[0]!
+    expect(film).toBeDefined()
+    saveActiveSession(state)
+
+    render(<App />)
+    const chronicle = screen.getByTestId(`chronicle-${film.productionId}`)
+    const clipping = screen.getByTestId(`clipping-${film.productionId}`)
+    const autopsy = screen.getByTestId(`autopsy-${film.productionId}`)
+    expect(chronicle).toBeEnabled()
+    expect(clipping).toBeEnabled()
+    expect(autopsy).toBeDisabled()
+    expect(autopsy).toHaveAttribute('title', expect.stringMatching(/unavailable after reload/i))
+
+    fireEvent.click(chronicle)
+    expect(screen.getByRole('heading', { name: 'FILM CHRONICLE' })).toHaveFocus()
+    expect(screen.getByTestId('film-record')).toHaveTextContent(film.participants!.director.name)
+    fireEvent.click(screen.getByTestId('film-record-back'))
+
+    fireEvent.click(screen.getByTestId(`clipping-${film.productionId}`))
+    expect(screen.getByTestId('newspaper-open-chronicle')).toHaveTextContent('Open Film Chronicle')
+    expect(screen.queryByTestId('newspaper-open-autopsy')).not.toBeInTheDocument()
+    fireEvent.click(screen.getByTestId('newspaper-open-chronicle'))
+    expect(screen.getByTestId('film-record')).toBeInTheDocument()
+  })
 })
 
 // New Studio is a confirmed destructive action (D-12 A5). The prompt must fire on the LIVE studio,

@@ -54,6 +54,8 @@ export function Dashboard({
   onOpenDevelopment,
   onSaves,
   onOpenAutopsy,
+  canOpenAutopsy,
+  onOpenChronicle,
   onOpenClipping,
   onPublicize,
   onProductionCommand,
@@ -78,6 +80,10 @@ export function Dashboard({
   onOpenDevelopment?: () => void
   onSaves: () => void
   onOpenAutopsy: (film: FilmResult) => void
+  canOpenAutopsy?: (film: FilmResult) => boolean
+  // Film Chronicle V1: the durable persisted-data record is distinct from the
+  // session-only mathematical Autopsy and the newspaper Clipping.
+  onOpenChronicle?: (film: FilmResult) => void
   // D-11.C PART 2: reopen a film's newspaper clipping. Optional — the clipping is
   // reconstructed from persisted state, so it works even for imported saves.
   onOpenClipping?: (film: FilmResult) => void
@@ -468,6 +474,12 @@ export function Dashboard({
             No films have released yet.
           </div>
         ) : (
+          <div
+            className="data-table-scroll"
+            role="region"
+            aria-label="Recent releases table"
+            tabIndex={0}
+          >
           <table className="data" data-testid="releases-table">
             <thead>
               <tr>
@@ -515,6 +527,15 @@ export function Dashboard({
                     <td>week {f.releaseTick}</td>
                     <td>
                       <div className="btn-row">
+                        {onOpenChronicle && (
+                          <button
+                            className="ghost"
+                            onClick={() => onOpenChronicle(f)}
+                            data-testid={`chronicle-${f.productionId}`}
+                          >
+                            Chronicle
+                          </button>
+                        )}
                         {onOpenClipping && (
                           <button
                             className="ghost"
@@ -527,6 +548,12 @@ export function Dashboard({
                         <button
                           className="ghost"
                           onClick={() => onOpenAutopsy(f)}
+                          disabled={canOpenAutopsy ? !canOpenAutopsy(f) : false}
+                          title={
+                            canOpenAutopsy && !canOpenAutopsy(f)
+                              ? 'Full autopsy unavailable after reload; open the Film Chronicle instead.'
+                              : undefined
+                          }
                           data-testid={`autopsy-${f.productionId}`}
                         >
                           Autopsy
@@ -538,11 +565,12 @@ export function Dashboard({
               })}
             </tbody>
           </table>
+          </div>
         )}
         {recent.length > 0 && (
           <p className="hint" style={{ marginTop: 8 }}>
-            Autopsy is available for releases from this session (the full breakdown needs the
-            pre-release studio state, which is kept only for films released while you play).
+            Chronicle and Clipping survive reload. Autopsy is available for releases from this
+            session because its full breakdown needs the retained pre-release studio state.
           </p>
         )}
       </div>

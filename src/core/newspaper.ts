@@ -10,7 +10,15 @@
 // No RNG, no wall-clock, no state mutation. The underlying critic score is never changed.
 
 import { clamp } from './math.js'
-import type { FilmParticipant, FilmParticipants, FilmResult, SegmentId } from './types.js'
+import type {
+  FilmParticipant,
+  FilmParticipants,
+  FilmResult,
+  FilmShape,
+  Genre,
+  Promise as FilmPromise,
+  SegmentId,
+} from './types.js'
 
 // Original fictional entertainment-industry newspaper (not a real publication).
 export const NEWSPAPER_MASTHEAD = 'The Silver Screen Gazette'
@@ -58,6 +66,309 @@ export function aggregateAudienceScore(
   return vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0
 }
 
+// ── Film Chronicle V1 — pure, durable released-film identity ────────────────
+// This is deliberately a narrow projection rather than a GameState selector. The
+// adapter supplies only the exact persisted witnesses associated with one released
+// film. Nothing here reads current talent, current employment, delivered expression,
+// RNG, or wall-clock state.
+export type FilmChronicleScriptInput = {
+  productionId: string | null
+  writerId: string
+  shape: FilmShape
+  promise: FilmPromise
+  commissionedWeek: number
+  rewriteCount: 0 | 1
+}
+
+export type FilmChronicleLedgerInput = {
+  productionId: string | null
+  week: number
+  amount: number
+}
+
+export type FilmChronicleReception = {
+  critic: CriticRating
+  audience: { tier: AudienceTier; label: string; score: number }
+}
+
+export type FilmChronicleInput = {
+  film: FilmResult
+  conceptTitle: string
+  genre: Genre | null
+  producedScripts: readonly FilmChronicleScriptInput[]
+  productionLedgerRows: readonly FilmChronicleLedgerInput[]
+  currentWeek: number
+  reception: FilmChronicleReception
+}
+
+export type FilmChronicleUnavailable = { available: false; message: string }
+
+export type FilmChronicleCreativeRecord =
+  | {
+      available: true
+      shape: FilmShape
+      promise: FilmPromise
+      commissionedWeek: number
+      rewriteCount: 0 | 1
+    }
+  | FilmChronicleUnavailable
+
+export type FilmChronicleCredits =
+  | { available: true; participants: FilmParticipants }
+  | FilmChronicleUnavailable
+
+export type FilmChronicleProductionRecord =
+  | {
+      available: true
+      commissionedWeek: number
+      rewriteCount: 0 | 1
+      greenlightWeek: number
+      releaseWeek: number
+      elapsedWeeks: number
+    }
+  | FilmChronicleUnavailable
+
+export type FilmChronicleFit = {
+  participant: FilmParticipant
+  label: 'Standout fit' | 'Strongest fit' | 'Stretch fit' | 'Tightest fit'
+  fit: number
+}
+
+export type FilmChroniclePackageRecord =
+  | { available: true; strongest: FilmChronicleFit; weakest: FilmChronicleFit }
+  | FilmChronicleUnavailable
+
+export type FilmChronicleView = {
+  productionId: string
+  title: string
+  genre: Genre | null
+  reception: FilmChronicleReception
+  creativeRecord: FilmChronicleCreativeRecord
+  credits: FilmChronicleCredits
+  productionRecord: FilmChronicleProductionRecord
+  packageRecord: FilmChroniclePackageRecord
+}
+
+const CREATIVE_NOT_RECORDED = 'Creative brief not recorded for this older film'
+const CREATIVE_UNAVAILABLE = 'Creative brief unavailable'
+const CREDITS_UNAVAILABLE = 'Frozen film credits unavailable'
+const CHRONOLOGY_NOT_RECORDED = 'Detailed production chronology not recorded for this film'
+const CHRONOLOGY_UNAVAILABLE = 'Detailed production chronology unavailable'
+const PACKAGE_UNAVAILABLE = 'Frozen package fit record unavailable'
+
+function cloneShape(shape: FilmShape): FilmShape {
+  return { opening: shape.opening, midpoint: shape.midpoint, ending: shape.ending }
+}
+
+function clonePromise(promise: FilmPromise): FilmPromise {
+  return {
+    genre: promise.genre,
+    intendedSegments: [...promise.intendedSegments],
+    ranges: {
+      intimacy: [promise.ranges.intimacy[0], promise.ranges.intimacy[1]],
+      tonalWeight: [promise.ranges.tonalWeight[0], promise.ranges.tonalWeight[1]],
+      kineticEnergy: [promise.ranges.kineticEnergy[0], promise.ranges.kineticEnergy[1]],
+    },
+  }
+}
+
+function cloneParticipant(participant: FilmParticipant): FilmParticipant {
+  return {
+    talentId: participant.talentId,
+    name: participant.name,
+    role: participant.role,
+    discipline: participant.discipline,
+    greenlightOVR: participant.greenlightOVR,
+    greenlightFit: participant.greenlightFit,
+    greenlightEP: {
+      low: participant.greenlightEP.low,
+      high: participant.greenlightEP.high,
+      expected: participant.greenlightEP.expected,
+    },
+    freelancer: participant.freelancer,
+  }
+}
+
+function participantList(participants: FilmParticipants): FilmParticipant[] {
+  return [
+    participants.writer,
+    participants.director,
+    participants.cast.lead,
+    participants.cast.antagonist,
+    participants.cast.support,
+    ...participants.craft,
+  ]
+}
+
+function cloneParticipants(participants: FilmParticipants): FilmParticipants {
+  return {
+    writer: cloneParticipant(participants.writer),
+    director: cloneParticipant(participants.director),
+    cast: {
+      lead: cloneParticipant(participants.cast.lead),
+      antagonist: cloneParticipant(participants.cast.antagonist),
+      support: cloneParticipant(participants.cast.support),
+    },
+    craft: participants.craft.map(cloneParticipant),
+  }
+}
+
+function structurallyValidCredits(participants: FilmParticipants, film: FilmResult): boolean {
+  if (
+    participants.writer.role !== 'writer' ||
+    participants.director.role !== 'director' ||
+    participants.cast.lead.role !== 'lead' ||
+    participants.cast.antagonist.role !== 'antagonist' ||
+    participants.cast.support.role !== 'support' ||
+    participants.craft.length === 0 ||
+    participants.craft.some((participant) => participant.role !== 'craft') ||
+    participants.director.talentId !== film.directorId
+  ) {
+    return false
+  }
+  const ids = participantList(participants).map((participant) => participant.talentId)
+  return ids.length === new Set(ids).size
+}
+
+const CHRONICLE_ROLE_RANK: Record<FilmParticipant['role'], number> = {
+  writer: 0,
+  director: 1,
+  lead: 2,
+  antagonist: 3,
+  support: 4,
+  craft: 5,
+}
+
+function compareCanonicalParticipant(a: FilmParticipant, b: FilmParticipant): number {
+  const roleDelta = CHRONICLE_ROLE_RANK[a.role] - CHRONICLE_ROLE_RANK[b.role]
+  if (roleDelta !== 0) return roleDelta
+  return a.talentId < b.talentId ? -1 : a.talentId > b.talentId ? 1 : 0
+}
+
+/**
+ * Build one immutable released-film presentation projection. Returns null only for
+ * pre-D-11.A films that have no frozen participant record. Malformed witnesses that
+ * SaveFileV11 accepts fail their affected section closed rather than throwing.
+ */
+export function buildFilmChronicle(input: FilmChronicleInput): FilmChronicleView | null {
+  const participants = input.film.participants
+  if (participants === undefined) return null
+
+  const linkedScripts = input.producedScripts.filter(
+    (script) => script.productionId === input.film.productionId,
+  )
+  const linkedScript = linkedScripts.length === 1 ? linkedScripts[0] : undefined
+  const writerCorrelates = linkedScript?.writerId === participants.writer.talentId
+  const scriptValid = linkedScript !== undefined && writerCorrelates
+
+  const creativeRecord: FilmChronicleCreativeRecord = scriptValid
+    ? {
+        available: true,
+        shape: cloneShape(linkedScript.shape),
+        promise: clonePromise(linkedScript.promise),
+        commissionedWeek: linkedScript.commissionedWeek,
+        rewriteCount: linkedScript.rewriteCount,
+      }
+    : {
+        available: false,
+        message: linkedScripts.length === 0 ? CREATIVE_NOT_RECORDED : CREATIVE_UNAVAILABLE,
+      }
+
+  // No Produced project is the expected honest path for an older participant-bearing
+  // film. A duplicate link or exact-project writer mismatch is corruption, so identity
+  // fails closed rather than treating it as a legacy absence.
+  const creditCorrelationValid =
+    structurallyValidCredits(participants, input.film) &&
+    (linkedScripts.length === 0 || (linkedScripts.length === 1 && writerCorrelates))
+  const credits: FilmChronicleCredits = creditCorrelationValid
+    ? { available: true, participants: cloneParticipants(participants) }
+    : { available: false, message: CREDITS_UNAVAILABLE }
+
+  let productionRecord: FilmChronicleProductionRecord
+  if (linkedScripts.length === 0) {
+    productionRecord = { available: false, message: CHRONOLOGY_NOT_RECORDED }
+  } else if (!scriptValid) {
+    productionRecord = { available: false, message: CHRONOLOGY_UNAVAILABLE }
+  } else {
+    const matchingRows = input.productionLedgerRows.filter(
+      (row) => row.productionId === input.film.productionId,
+    )
+    const witness = matchingRows.length === 1 ? matchingRows[0] : undefined
+    const commissionedWeek = linkedScript.commissionedWeek
+    const releaseWeek = input.film.releaseTick
+    const chronologyValid =
+      witness !== undefined &&
+      Number.isInteger(witness.week) &&
+      Number.isFinite(witness.amount) &&
+      witness.amount < 0 &&
+      Number.isInteger(commissionedWeek) &&
+      Number.isInteger(releaseWeek) &&
+      Number.isInteger(input.currentWeek) &&
+      commissionedWeek + 1 + linkedScript.rewriteCount <= witness.week &&
+      witness.week < releaseWeek &&
+      releaseWeek <= input.currentWeek
+    productionRecord = chronologyValid
+      ? {
+          available: true,
+          commissionedWeek,
+          rewriteCount: linkedScript.rewriteCount,
+          greenlightWeek: witness.week,
+          releaseWeek,
+          elapsedWeeks: releaseWeek - witness.week,
+        }
+      : { available: false, message: CHRONOLOGY_UNAVAILABLE }
+  }
+
+  let packageRecord: FilmChroniclePackageRecord
+  const canonicalParticipants = creditCorrelationValid
+    ? participantList(participants).slice().sort(compareCanonicalParticipant)
+    : []
+  if (
+    canonicalParticipants.length === 0 ||
+    canonicalParticipants.some((participant) => !Number.isFinite(participant.greenlightFit))
+  ) {
+    packageRecord = { available: false, message: PACKAGE_UNAVAILABLE }
+  } else {
+    let strongest = canonicalParticipants[0]!
+    let weakest = canonicalParticipants[0]!
+    for (const participant of canonicalParticipants.slice(1)) {
+      if (participant.greenlightFit > strongest.greenlightFit) strongest = participant
+      if (participant.greenlightFit < weakest.greenlightFit) weakest = participant
+    }
+    packageRecord = {
+      available: true,
+      strongest: {
+        participant: cloneParticipant(strongest),
+        label: strongest.greenlightFit >= 70 ? 'Standout fit' : 'Strongest fit',
+        fit: strongest.greenlightFit,
+      },
+      weakest: {
+        participant: cloneParticipant(weakest),
+        label: weakest.greenlightFit < 45 ? 'Stretch fit' : 'Tightest fit',
+        fit: weakest.greenlightFit,
+      },
+    }
+  }
+
+  return {
+    productionId: input.film.productionId,
+    title: input.conceptTitle,
+    genre: input.genre,
+    reception: {
+      critic: { stars: input.reception.critic.stars, score: input.reception.critic.score },
+      audience: {
+        tier: input.reception.audience.tier,
+        label: input.reception.audience.label,
+        score: input.reception.audience.score,
+      },
+    },
+    creativeRecord,
+    credits,
+    productionRecord,
+    packageRecord,
+  }
+}
+
 // ── critic tier (internal, for headline selection) ────────────────────────────
 type CriticTier = 'pan' | 'mixed' | 'favorable' | 'strong' | 'rave'
 function criticTier(score: number): CriticTier {
@@ -100,11 +411,18 @@ export type NewspaperView = {
   forecast: { expectedCritic: number; expectedTotal: number; criticDelta: Delta; boxDelta: Delta }
   callouts: string[]
   participants: FilmParticipants
+  chronicle: FilmChronicleView
 }
 
 export type NewspaperInput = {
   film: FilmResult
   conceptTitle: string
+  // Film Chronicle V1. Optional only to preserve the original low-level newspaper
+  // helper call surface; the GameState adapter always supplies the exact witnesses.
+  genre?: Genre | null
+  producedScripts?: readonly FilmChronicleScriptInput[]
+  productionLedgerRows?: readonly FilmChronicleLedgerInput[]
+  currentWeek?: number
   committedCost: number
   segmentShares: Record<SegmentId, number>
   // D-12: the studio's PROJECTED full-run Studio Revenue for this film (blended rental share ×
@@ -215,22 +533,14 @@ function makeHeadline(d: DimsWithCost): { headline: string; subheadline: string 
 // Dims carries committedCost for rule 5 without widening the public type.
 type DimsWithCost = Dims & { committedCostRef: number }
 
-function strongestWeakest(p: FilmParticipants): { strongest: FilmParticipant; weakest: FilmParticipant } {
-  const all: FilmParticipant[] = [p.writer, p.director, p.cast.lead, p.cast.antagonist, p.cast.support, ...p.craft]
-  let strongest = all[0]!
-  let weakest = all[0]!
-  for (const x of all) {
-    if (x.greenlightFit > strongest.greenlightFit) strongest = x
-    if (x.greenlightFit < weakest.greenlightFit) weakest = x
-  }
-  return { strongest, weakest }
-}
-
 // Two–three truthful callouts, drawn ONLY from recorded mechanics (cohesion, Fit,
 // critic-audience divergence, forecast delta, profitability), in priority order.
-function makeCallouts(d: Dims, film: FilmResult): string[] {
+function makeCallouts(
+  d: Dims,
+  film: FilmResult,
+  packageRecord: FilmChroniclePackageRecord,
+): string[] {
   const out: string[] = []
-  const p = film.participants
   const criticRank = { pan: 0, mixed: 1, favorable: 2, strong: 3, rave: 4 }[d.criticTier]
   const audRank = { hated: 0, disliked: 1, divided: 2, liked: 3, loved: 4 }[d.audTier]
 
@@ -244,13 +554,17 @@ function makeCallouts(d: Dims, film: FilmResult): string[] {
   if (film.cohesion >= 0.6) out.push('Critics rewarded the film’s strong creative cohesion.')
   else if (film.cohesion < 0.4) out.push('A muddled creative brief undercut the film.')
 
-  if (p) {
-    const { strongest, weakest } = strongestWeakest(p)
-    if (strongest.greenlightFit >= 70) {
-      out.push(`${strongest.name}’s ${strongest.role} casting was a standout fit for the material.`)
+  if (packageRecord.available) {
+    const { strongest, weakest } = packageRecord
+    if (strongest.fit >= 70) {
+      out.push(
+        `${strongest.participant.name}’s ${strongest.participant.role} casting was a standout fit for the material.`,
+      )
     }
-    if (weakest.greenlightFit < 45 && out.length < 3) {
-      out.push(`${weakest.name} was a stretch in the ${weakest.role} role.`)
+    if (weakest.fit < 45 && out.length < 3) {
+      out.push(
+        `${weakest.participant.name} was a stretch in the ${weakest.participant.role} role.`,
+      )
     }
   }
   if (out.length < 3) {
@@ -312,14 +626,30 @@ export function buildNewspaper(input: NewspaperInput): NewspaperView | null {
   }
   const { headline, subheadline } = makeHeadline(dims)
 
+  // Compute reception once, then hand those exact recorded verdict values to the
+  // Chronicle. Chronicle V1 has no second audience aggregation or threshold family.
+  const criticRating: CriticRating = { stars: criticStars(critic), score: Math.round(critic) }
+  const audience = { tier: dims.audTier, label: AUDIENCE_LABEL[dims.audTier], score: Math.round(aud) }
+  const chronicle = buildFilmChronicle({
+    film,
+    conceptTitle,
+    genre: input.genre ?? null,
+    producedScripts: input.producedScripts ?? [],
+    productionLedgerRows: input.productionLedgerRows ?? [],
+    currentWeek: input.currentWeek ?? input.week ?? film.releaseTick,
+    reception: { critic: criticRating, audience },
+  })
+  // The participant guard above is the Chronicle eligibility guard too.
+  if (chronicle === null) return null
+
   return {
     masthead: NEWSPAPER_MASTHEAD,
     week: input.week ?? film.releaseTick,
     filmTitle: conceptTitle,
     headline,
     subheadline,
-    critic: { stars: criticStars(critic), score: Math.round(critic) },
-    audience: { tier: dims.audTier, label: AUDIENCE_LABEL[dims.audTier], score: Math.round(aud) },
+    critic: criticRating,
+    audience,
     financial: {
       openingGross,
       studioRevenueThisWeek,
@@ -332,7 +662,15 @@ export function buildNewspaper(input: NewspaperInput): NewspaperView | null {
       disclosure: DISCLOSURE,
     },
     forecast: { expectedCritic: Math.round(expectedCritic), expectedTotal, criticDelta, boxDelta },
-    callouts: makeCallouts(dims, film),
-    participants: film.participants,
+    // Person-bearing callouts use only the same validated frozen credits the
+    // Chronicle bills. A failed correlation may keep general result commentary,
+    // but it must never leak or grade the rejected raw participant record.
+    callouts: makeCallouts(
+      dims,
+      film,
+      chronicle.packageRecord,
+    ),
+    participants: cloneParticipants(film.participants),
+    chronicle,
   }
 }

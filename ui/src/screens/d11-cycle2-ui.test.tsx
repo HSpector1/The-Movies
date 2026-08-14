@@ -215,6 +215,22 @@ describe('D-11.A — autopsy / record render the film\'s OWN participants', () =
     return {
       productionId: `prod-${prefix}`,
       conceptTitle: `${prefix} Film`,
+      chronicle: {
+        productionId: `prod-${prefix}`,
+        title: `${prefix} Film`,
+        genre: 'drama',
+        reception: {
+          critic: { stars: 3, score: 60 },
+          audience: { tier: 'liked', label: 'Audiences liked it', score: 64 },
+        },
+        creativeRecord: { available: false, message: 'Creative brief not recorded for this older film' },
+        credits: { available: true, participants },
+        productionRecord: {
+          available: false,
+          message: 'Detailed production chronology not recorded for this film',
+        },
+        packageRecord: { available: false, message: 'Frozen package fit record unavailable' },
+      },
       participants,
       criticScore: 60,
       boxOffice: { opening: 1_000_000, total: 5_000_000 },

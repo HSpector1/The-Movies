@@ -377,6 +377,15 @@ table.data th {
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
+.data-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+.data-table-scroll:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
 td.num,
 th.num {
   text-align: right;
@@ -818,4 +827,572 @@ th.num {
 @media (prefers-reduced-motion: reduce) {
   .drawer.talent-profile, .drawer-scrim { transition: none !important; animation: none !important; }
   .development-site-mark *, .development-progress > span { transition: none !important; animation: none !important; }
+}
+
+/* ── Film Chronicle V1 — one-sheet + restrained period newspaper ───────────── */
+.film-chronicle-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.film-chronicle-lead {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.82fr) minmax(0, 1.18fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.film-chronicle-lead > * {
+  min-width: 0;
+}
+
+.film-poster {
+  --poster-paper: #efe3bd;
+  --poster-paper-deep: #caa66b;
+  --poster-ink: #16222f;
+  --poster-ink-soft: #394b59;
+  --poster-accent: #c6503e;
+  --poster-accent-ink: #fff8e6;
+  --poster-rule: rgba(22, 34, 47, 0.48);
+  isolation: isolate;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: 680px;
+  overflow: hidden;
+  margin: 0;
+  padding: clamp(22px, 4vw, 42px);
+  color: var(--poster-ink);
+  background:
+    linear-gradient(148deg, transparent 0 56%, rgba(255, 255, 255, 0.18) 56% 56.7%, transparent 56.7%),
+    linear-gradient(18deg, var(--poster-paper-deep), var(--poster-paper) 36% 78%, var(--poster-paper-deep));
+  border: 1px solid color-mix(in srgb, var(--poster-ink) 65%, transparent);
+  border-radius: 3px;
+  box-shadow: 0 20px 52px rgba(0, 0, 0, 0.36), inset 0 0 0 7px rgba(255, 255, 255, 0.13);
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.film-poster--comedy {
+  --poster-paper: #fff0bd;
+  --poster-paper-deep: #e9ad52;
+  --poster-ink: #162e45;
+  --poster-ink-soft: #344f63;
+  --poster-accent: #c54436;
+  --poster-accent-ink: #fff8df;
+  --poster-rule: rgba(22, 46, 69, 0.5);
+}
+
+.film-poster--drama {
+  --poster-paper: #ead9bd;
+  --poster-paper-deep: #a88767;
+  --poster-ink: #291923;
+  --poster-ink-soft: #59424d;
+  --poster-accent: #6f2030;
+  --poster-accent-ink: #fff1d9;
+  --poster-rule: rgba(41, 25, 35, 0.5);
+}
+
+.film-poster--crime {
+  --poster-paper: #d9d4c6;
+  --poster-paper-deep: #8d8b85;
+  --poster-ink: #111319;
+  --poster-ink-soft: #34373d;
+  --poster-accent: #a32026;
+  --poster-accent-ink: #fff4dc;
+  --poster-rule: rgba(17, 19, 25, 0.6);
+}
+
+.film-poster--romance {
+  --poster-paper: #f3d9d2;
+  --poster-paper-deep: #c8898d;
+  --poster-ink: #3b1730;
+  --poster-ink-soft: #684256;
+  --poster-accent: #8d3154;
+  --poster-accent-ink: #fff5ed;
+  --poster-rule: rgba(59, 23, 48, 0.5);
+}
+
+.film-poster--horror {
+  --poster-paper: #c7c9b8;
+  --poster-paper-deep: #707664;
+  --poster-ink: #10150f;
+  --poster-ink-soft: #30392d;
+  --poster-accent: #5d1719;
+  --poster-accent-ink: #f5ecd7;
+  --poster-rule: rgba(16, 21, 15, 0.64);
+}
+
+.film-poster--adventure {
+  --poster-paper: #e9d8a5;
+  --poster-paper-deep: #b98b43;
+  --poster-ink: #102c38;
+  --poster-ink-soft: #34515a;
+  --poster-accent: #b74e21;
+  --poster-accent-ink: #fff5d7;
+  --poster-rule: rgba(16, 44, 56, 0.52);
+}
+
+.film-poster__motif {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.film-poster__motif--disc {
+  width: min(68vw, 420px);
+  aspect-ratio: 1;
+  right: -38%;
+  top: 15%;
+  border: clamp(18px, 4vw, 42px) solid color-mix(in srgb, var(--poster-accent) 76%, transparent);
+  border-radius: 50%;
+  opacity: 0.54;
+}
+
+.film-poster__motif--beam {
+  width: 145%;
+  height: 17%;
+  left: -20%;
+  bottom: 24%;
+  background: var(--poster-ink);
+  opacity: 0.09;
+  transform: rotate(-12deg);
+  transform-origin: center;
+}
+
+.film-poster--opening-immediateAction .film-poster__motif--beam {
+  height: 23%;
+  transform: rotate(-19deg);
+}
+
+.film-poster--opening-slowSetup .film-poster__motif--beam {
+  height: 11%;
+  transform: rotate(-5deg);
+}
+
+.film-poster--opening-mysteryHook .film-poster__motif--disc {
+  border-style: double;
+  opacity: 0.42;
+}
+
+.film-poster__header,
+.film-poster__footer {
+  position: relative;
+  z-index: 1;
+}
+
+.film-poster__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--poster-ink);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.17em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.film-poster__genre {
+  flex: none;
+  padding: 4px 8px 3px;
+  color: var(--poster-accent-ink);
+  background: var(--poster-accent);
+  border: 1px solid var(--poster-ink);
+}
+
+.film-poster__body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: clamp(28px, 6vw, 62px) 0 clamp(22px, 5vw, 48px);
+}
+
+.film-poster__title {
+  max-width: 11ch;
+  margin: 0;
+  color: var(--poster-ink);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Franklin Gothic Condensed', sans-serif;
+  font-size: clamp(3rem, 8vw, 6.7rem);
+  font-stretch: condensed;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 0.86;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.film-poster__shape-line {
+  max-width: 39ch;
+  margin: 20px 0 0;
+  padding-left: 13px;
+  border-left: 5px solid var(--poster-accent);
+  color: var(--poster-ink-soft);
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.film-poster__billing {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin: 24px 0 0;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.film-poster__billing span {
+  display: flex;
+  flex-direction: column;
+}
+
+.film-poster__billing small {
+  color: var(--poster-ink-soft);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.film-poster__billing strong {
+  overflow-wrap: anywhere;
+}
+
+.film-poster__audience {
+  align-self: flex-start;
+  margin-top: 22px;
+  padding: 8px 11px;
+  color: var(--poster-accent-ink);
+  background: var(--poster-accent);
+  border: 2px solid var(--poster-ink);
+  box-shadow: 4px 4px 0 var(--poster-ink);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.film-poster__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding-top: 14px;
+  border-top: 2px solid var(--poster-ink);
+}
+
+.film-poster__beats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  border: 1px solid var(--poster-rule);
+  background: color-mix(in srgb, var(--poster-paper) 80%, transparent);
+}
+
+.film-poster__beat {
+  min-width: 0;
+  padding: 8px 9px;
+}
+
+.film-poster__beat + .film-poster__beat {
+  border-left: 1px solid var(--poster-rule);
+}
+
+.film-poster__beat dt,
+.film-poster__fact-label {
+  color: var(--poster-ink-soft);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.film-poster__beat dd {
+  margin: 2px 0 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.film-poster__promise {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  color: var(--poster-ink-soft);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1.3;
+  list-style: none;
+}
+
+.film-poster__promise li {
+  min-width: 0;
+  padding-top: 7px;
+  border-top: 3px solid var(--poster-accent);
+  overflow-wrap: anywhere;
+}
+
+.film-poster__credits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 14px;
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.59rem;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.film-poster__credits > div {
+  display: flex;
+  min-width: 0;
+  gap: 4px;
+}
+
+.film-poster__credits dt {
+  color: var(--poster-ink-soft);
+  font-weight: 700;
+}
+
+.film-poster__credits dd {
+  margin: 0;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.film-poster__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.film-poster__fact {
+  min-width: 0;
+  margin: 0;
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
+.film-poster__fact strong {
+  display: block;
+  margin-top: 2px;
+  overflow-wrap: anywhere;
+}
+
+.film-poster__unavailable {
+  margin: 0;
+  color: var(--poster-ink-soft);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.film-poster__reception {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+  padding-top: 10px;
+  border-top: 1px solid var(--poster-rule);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Shared classes for the Film Chronicle newspaper refit. Existing values and
+   accounting labels remain supplied by the authoritative NewspaperView. */
+.film-chronicle-newspaper {
+  min-width: 0;
+  padding: clamp(20px, 3vw, 38px);
+  color: #211d17;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0)),
+    #e7dcc0;
+  border: 1px solid #84765e;
+  border-radius: 2px;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.3);
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.film-chronicle-newspaper .hint {
+  color: #5a5042;
+}
+
+.film-chronicle-newspaper .film-chronicle-masthead {
+  padding-bottom: 9px;
+  border-top: 4px solid #211d17;
+  border-bottom: 4px double #211d17;
+  text-align: center;
+}
+
+.film-chronicle-masthead__name {
+  display: block;
+  font-size: clamp(1.8rem, 4vw, 3.15rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.film-chronicle-masthead__date {
+  display: block;
+  margin-top: 7px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.film-chronicle-headline {
+  margin: 20px 0 7px;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.94;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.film-chronicle-deck {
+  margin: 0 0 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #84765e;
+  color: #4d4438;
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.film-chronicle-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 22px;
+}
+
+.film-chronicle-column + .film-chronicle-column {
+  padding-left: 22px;
+  border-left: 1px solid #84765e;
+}
+
+.film-chronicle-newspaper .panel {
+  color: #211d17;
+  background: rgba(255, 251, 235, 0.38);
+  border-color: #9a8a70;
+  border-radius: 1px;
+}
+
+.film-chronicle-newspaper button {
+  color: #211d17;
+  background: transparent;
+  border-color: #615746;
+}
+
+.film-chronicle-newspaper button:hover:not(:disabled),
+.film-chronicle-newspaper button:focus-visible {
+  color: #0b0a08;
+  background: rgba(255, 251, 235, 0.54);
+  border-color: #211d17;
+}
+
+.film-chronicle-newspaper button.primary,
+.film-chronicle-newspaper button.accent {
+  color: #f8f0da;
+  background: #29231c;
+  border-color: #29231c;
+}
+
+.film-chronicle-newspaper .money.pos,
+.film-chronicle-newspaper .money.neg,
+.film-chronicle-newspaper .tag.result {
+  color: #211d17;
+}
+
+.film-chronicle-newspaper .sep {
+  border-color: #9a8a70;
+}
+
+.film-chronicle-secondary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .film-chronicle-lead {
+    grid-template-columns: 1fr;
+  }
+
+  .film-poster {
+    width: min(100%, 620px);
+    min-height: 620px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .film-poster {
+    min-height: 560px;
+    padding: 20px;
+  }
+
+  .film-poster__header,
+  .film-poster__reception {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .film-poster__beats,
+  .film-poster__promise,
+  .film-poster__facts,
+  .film-chronicle-columns,
+  .film-chronicle-secondary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .film-poster__beat + .film-poster__beat {
+    border-top: 1px solid var(--poster-rule);
+    border-left: 0;
+  }
+
+  .film-chronicle-column + .film-chronicle-column {
+    margin-top: 16px;
+    padding-top: 16px;
+    padding-left: 0;
+    border-top: 1px solid #84765e;
+    border-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .film-poster,
+  .film-poster *,
+  .film-chronicle-newspaper,
+  .film-chronicle-newspaper * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
 }

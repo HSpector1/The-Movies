@@ -1,21 +1,14 @@
-// ── Newspaper release reveal (D-11.C, Phase 5.2A cycle-3) ─────────────────────
-// The emotional headline layer shown once at a film's release. Renders an original
-// fictional entertainment newspaper front page from the pure NewspaperView derivation
-// (see src/core/newspaper.ts). Comprehensible in ~5 seconds: one dominant headline, a
-// star line, an audience verdict, a restrained financial summary, and a couple of
-// callouts — NOT a metrics wall. The detailed autopsy is the authoritative analysis and
-// is one click away. Presentation only: no simulation logic, no RNG.
+// ── Film Chronicle V1 release reveal ────────────────────────────────────────
+// A deterministic studio one-sheet beside the existing truthful release story.
+// All claims arrive through NewspaperView / FilmChronicleView; this screen adds
+// presentation and session-aware navigation only.
 
-import type {
-  ConstructionCompletionSummary,
-  NewspaperView,
-} from '../engine/adapter.ts'
+import { useLayoutEffect, useRef } from 'react'
+import type { ConstructionCompletionSummary, NewspaperView } from '../engine/adapter.ts'
 import { money } from '../format.ts'
 import { ConstructionCompletionNotice } from '../components/ConstructionCompletionNotice.tsx'
+import { FilmPoster } from '../components/FilmPoster.tsx'
 
-// ── critic stars as ★ / ½ / ☆ to 5 ────────────────────────────────────────────
-// stars is already in half-steps (criticStars, 0..5). Render filled ★, one optional
-// half ½, then empty ☆ padding to five glyphs.
 function StarGlyphs({ stars }: { stars: number }) {
   const full = Math.floor(stars)
   const half = stars - full >= 0.5
@@ -26,8 +19,15 @@ function StarGlyphs({ stars }: { stars: number }) {
   return <span aria-hidden="true">{glyphs.join('')}</span>
 }
 
-// A profit/loss number colored via money pos|neg (text sign + color, never color alone).
-function ProfitFigure({ value, label, testid = 'newspaper-profit' }: { value: number; label: string; testid?: string }) {
+function ProfitFigure({
+  value,
+  label,
+  testid = 'newspaper-profit',
+}: {
+  value: number
+  label: string
+  testid?: string
+}) {
   const cls = value >= 0 ? 'money pos' : 'money neg'
   const sign = value >= 0 ? '' : '-'
   return (
@@ -38,32 +38,44 @@ function ProfitFigure({ value, label, testid = 'newspaper-profit' }: { value: nu
   )
 }
 
-// One secondary film — A9: every same-week release is EQUALLY inspectable. A secondary
-// story is not just a headline: it carries the same reception + opening-vs-projected
-// financials the lead story shows, plus a link to its own full autopsy. No metric a
-// player needs to judge the film is hidden behind the lead story.
 function SecondaryStory({
   view,
   index,
+  autopsyAvailable,
   onOpenAutopsy,
+  onOpenChronicle,
 }: {
   view: NewspaperView
   index: number
+  autopsyAvailable: boolean
   onOpenAutopsy: (index: number) => void
+  onOpenChronicle?: ((index: number) => void) | undefined
 }) {
   const f = view.financial
   return (
-    <div className="panel stack" data-testid={`newspaper-secondary-${index}`}>
+    <article className="panel stack" data-testid={`newspaper-secondary-${index}`}>
       <div className="spread">
         <strong data-testid={`newspaper-secondary-title-${index}`}>{view.filmTitle}</strong>
-        <button
-          type="button"
-          className="ghost"
-          onClick={() => onOpenAutopsy(index)}
-          data-testid={`newspaper-secondary-autopsy-${index}`}
-        >
-          Autopsy →
-        </button>
+        {autopsyAvailable ? (
+          <button
+            type="button"
+            className="ghost"
+            onClick={() => onOpenAutopsy(index)}
+            data-testid={`newspaper-secondary-autopsy-${index}`}
+          >
+            Autopsy →
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="ghost"
+            onClick={() => onOpenChronicle?.(index)}
+            disabled={!onOpenChronicle}
+            data-testid={`newspaper-secondary-chronicle-${index}`}
+          >
+            Chronicle →
+          </button>
+        )}
       </div>
       <span className="hint">{view.headline}</span>
       <div className="row" style={{ gap: 24, flexWrap: 'wrap' }}>
@@ -71,7 +83,7 @@ function SecondaryStory({
           Critics {view.critic.stars.toFixed(1)}/5 · {Math.round(view.critic.score)}/100
         </span>
         <span className="mono" data-testid={`newspaper-secondary-audience-${index}`}>
-          Audiences: {view.audience.label}
+          Audiences: {view.audience.label} · {Math.round(view.audience.score)}/100
         </span>
       </div>
       <div className="spread">
@@ -93,6 +105,18 @@ function SecondaryStory({
         <span className="mono">{money(f.projectedTotalStudioRevenue)}</span>
       </div>
       <div className="spread">
+        <span>Studio Revenue still to come</span>
+        <span className="mono" data-testid={`newspaper-secondary-still-to-come-${index}`}>
+          {money(f.studioRevenueStillToCome)}
+        </span>
+      </div>
+      <div className="spread">
+        <span>Total immediate commitment</span>
+        <span className="mono" data-testid={`newspaper-secondary-commitment-${index}`}>
+          {money(f.totalCommitment)}
+        </span>
+      </div>
+      <div className="spread">
         <span>Projected film contribution</span>
         <ProfitFigure
           value={f.projectedContribution}
@@ -100,24 +124,42 @@ function SecondaryStory({
           testid={`newspaper-secondary-contribution-${index}`}
         />
       </div>
-    </div>
+      <span className="hint" style={{ fontSize: 10 }}>
+        {f.disclosure}
+      </span>
+    </article>
   )
 }
 
 export function NewspaperReveal({
   views,
   constructionCompletion,
+  canOpenAutopsy,
   onOpenAutopsy,
+  onOpenChronicle,
   onContinue,
 }: {
   views: NewspaperView[]
   constructionCompletion?: ConstructionCompletionSummary | null
+  canOpenAutopsy?: ((index: number) => boolean) | undefined
   onOpenAutopsy: (index: number) => void
+  onOpenChronicle?: ((index: number) => void) | undefined
   onContinue: () => void
 }) {
+  const headingRef = useRef<HTMLHeadingElement | null>(null)
   const primary = views[0]
+
+  useLayoutEffect(() => {
+    // App screens share one document instead of a router, so a dashboard action
+    // can otherwise carry its deep scroll position into this new release surface.
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
+    // A just-completed facility owns the first announcement/focus beat on this
+    // release screen. Otherwise enter at the Chronicle's film-title heading.
+    if (!constructionCompletion) headingRef.current?.focus({ preventScroll: true })
+  }, [primary?.chronicle.productionId, constructionCompletion])
+
   if (primary === undefined) {
-    // Defensive: nothing released this beat. Still offer a way forward.
     return (
       <div className="app-shell">
         <div className="card stack">
@@ -133,150 +175,171 @@ export function NewspaperReveal({
   }
 
   const p = primary.critic
-  const cast = primary.participants.cast
-  const lead = cast.lead
+  const primaryAutopsyAvailable = canOpenAutopsy?.(0) ?? true
+  const credits = primary.chronicle.credits
 
   return (
-    <div className="app-shell">
-      {constructionCompletion && (
-        <ConstructionCompletionNotice completion={constructionCompletion} />
-      )}
-      <div className="card stack" data-testid="newspaper-reveal">
-        {/* ── Masthead ── */}
-        <div
-          className="stack"
-          style={{ borderBottom: '3px double currentColor', paddingBottom: 8, textAlign: 'center' }}
-        >
-          <span
-            className="mark"
-            data-testid="newspaper-masthead"
-            style={{ fontSize: 34, letterSpacing: 2, lineHeight: 1.05 }}
-          >
-            {primary.masthead}
-          </span>
-          <span className="hint mono">Week {primary.week}</span>
-        </div>
+    <main className="app-shell film-chronicle-screen">
+      {constructionCompletion && <ConstructionCompletionNotice completion={constructionCompletion} />}
 
-        {/* ── Primary story: the dominant headline ── */}
-        <div className="stack" style={{ textAlign: 'center' }}>
-          <h1
+      <div className="film-chronicle-lead">
+        <FilmPoster view={primary.chronicle} titleAsHeading titleRef={headingRef} />
+
+        <article className="film-chronicle-newspaper" data-testid="newspaper-reveal">
+          <header className="film-chronicle-masthead">
+            <span className="film-chronicle-masthead__name" data-testid="newspaper-masthead">
+              {primary.masthead}
+            </span>
+            <span className="film-chronicle-masthead__date">Week {primary.week} · Evening Edition</span>
+          </header>
+
+          <h2
+            className="film-chronicle-headline"
             data-testid="newspaper-headline"
-            style={{ fontSize: 40, lineHeight: 1.05, margin: '8px 0 4px', textTransform: 'uppercase' }}
           >
             {primary.headline}
-          </h1>
-          <p className="hint" style={{ fontSize: 15 }}>
-            {primary.subheadline}
-          </p>
-        </div>
+          </h2>
+          <p className="film-chronicle-deck">{primary.subheadline}</p>
 
-        {/* ── Critic + audience verdicts, side by side ── */}
-        <div className="grid grid-2">
-          <div className="panel stack" data-testid="newspaper-critic">
-            <span className="hint">Critics</span>
-            <div className="row" style={{ gap: 8, alignItems: 'baseline' }}>
-              <span style={{ fontSize: 26 }}>
-                <StarGlyphs stars={p.stars} />
-              </span>
-              <strong className="mono" data-testid="newspaper-critic-stars">
-                {p.stars.toFixed(1)}/5
-              </strong>
-              <span className="mono hint">{Math.round(p.score)}/100</span>
+          <div className="film-chronicle-columns">
+            <div className="film-chronicle-column stack">
+              <section className="panel stack" data-testid="newspaper-critic">
+                <span className="hint">Critics</span>
+                <div className="row" style={{ gap: 8, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: 26 }}>
+                    <StarGlyphs stars={p.stars} />
+                  </span>
+                  <strong className="mono" data-testid="newspaper-critic-stars">
+                    {p.stars.toFixed(1)}/5
+                  </strong>
+                  <span className="mono hint">{Math.round(p.score)}/100</span>
+                </div>
+              </section>
+
+              <section className="panel stack" data-testid="newspaper-audience">
+                <span className="hint">Audiences</span>
+                <strong>{primary.audience.label}</strong>
+                <span className="mono">{Math.round(primary.audience.score)}/100</span>
+              </section>
+
+              {primary.callouts.length > 0 && (
+                <section className="stack" data-testid="newspaper-callouts">
+                  <strong>From the review desk</strong>
+                  {primary.callouts.slice(0, 3).map((callout, index) => (
+                    <span key={index} className="hint" data-testid={`newspaper-callout-${index}`}>
+                      • {callout}
+                    </span>
+                  ))}
+                </section>
+              )}
+
+              <section className="stack" data-testid="newspaper-participants">
+                <strong>Production credits</strong>
+                {credits.available ? (
+                  <>
+                    <span>Written by {credits.participants.writer.name}</span>
+                    <span>Directed by {credits.participants.director.name}</span>
+                    <span>Starring {credits.participants.cast.lead.name}</span>
+                  </>
+                ) : (
+                  <span className="hint">{credits.message}</span>
+                )}
+              </section>
             </div>
-          </div>
-          <div className="panel stack" data-testid="newspaper-audience">
-            <span className="hint">Audiences</span>
-            <strong>{primary.audience.label}</strong>
-          </div>
-        </div>
 
-        {/* ── Opening-day financials: PAID this week vs PROJECTED full run (P3) ── */}
-        <div className="panel stack" data-testid="newspaper-financial">
-          <span className="hint">Opening week — banked so far</span>
-          <div className="spread">
-            <span>Opening gross</span>
-            <span className="mono">{money(primary.financial.openingGross)}</span>
-          </div>
-          <div className="spread">
-            <span>Studio Revenue paid this week</span>
-            <span className="mono" data-testid="newspaper-paid-this-week">
-              {money(primary.financial.studioRevenueThisWeek)}
-            </span>
-          </div>
-          <div className="sep" />
-          <span className="hint">Projected — full theatrical run (not yet banked)</span>
-          <div className="spread">
-            <span>Projected total gross</span>
-            <span className="mono">{money(primary.financial.projectedTotalGross)}</span>
-          </div>
-          <div className="spread">
-            <span>Projected total Studio Revenue</span>
-            <span className="mono">{money(primary.financial.projectedTotalStudioRevenue)}</span>
-          </div>
-          <div className="spread">
-            <span>Studio Revenue still to come</span>
-            <span className="mono">{money(primary.financial.studioRevenueStillToCome)}</span>
-          </div>
-          <div className="sep" />
-          <div className="spread">
-            <span>Total immediate commitment</span>
-            <span className="mono">{money(primary.financial.totalCommitment)}</span>
-          </div>
-          <div className="spread">
-            <span>Projected film contribution</span>
-            <ProfitFigure
-              value={primary.financial.projectedContribution}
-              label={primary.financial.projectedContributionLabel}
-            />
-          </div>
-          <span className="hint" style={{ fontSize: 10 }}>
-            {primary.financial.disclosure}
-          </span>
-        </div>
-
-        {/* ── Callouts (2–3 short lines) ── */}
-        {primary.callouts.length > 0 && (
-          <div className="stack" data-testid="newspaper-callouts">
-            {primary.callouts.slice(0, 3).map((c, i) => (
-              <span key={i} className="hint" data-testid={`newspaper-callout-${i}`}>
-                • {c}
+            <section className="film-chronicle-column stack" data-testid="newspaper-financial">
+              <strong>Opening-week ledger</strong>
+              <span className="hint">Banked so far</span>
+              <div className="spread">
+                <span>Opening gross</span>
+                <span className="mono">{money(primary.financial.openingGross)}</span>
+              </div>
+              <div className="spread">
+                <span>Studio Revenue paid this week</span>
+                <span className="mono" data-testid="newspaper-paid-this-week">
+                  {money(primary.financial.studioRevenueThisWeek)}
+                </span>
+              </div>
+              <div className="sep" />
+              <span className="hint">Projected full theatrical run — not yet banked</span>
+              <div className="spread">
+                <span>Projected total gross</span>
+                <span className="mono">{money(primary.financial.projectedTotalGross)}</span>
+              </div>
+              <div className="spread">
+                <span>Projected total Studio Revenue</span>
+                <span className="mono">{money(primary.financial.projectedTotalStudioRevenue)}</span>
+              </div>
+              <div className="spread">
+                <span>Studio Revenue still to come</span>
+                <span className="mono">{money(primary.financial.studioRevenueStillToCome)}</span>
+              </div>
+              <div className="sep" />
+              <div className="spread">
+                <span>Total immediate commitment</span>
+                <span className="mono">{money(primary.financial.totalCommitment)}</span>
+              </div>
+              <div className="spread">
+                <span>Projected film contribution</span>
+                <ProfitFigure
+                  value={primary.financial.projectedContribution}
+                  label={primary.financial.projectedContributionLabel}
+                />
+              </div>
+              <span className="hint" style={{ fontSize: 10 }}>
+                {primary.financial.disclosure}
               </span>
-            ))}
+            </section>
           </div>
-        )}
 
-        {/* ── Key names where space permits ── */}
-        <div className="spread hint" data-testid="newspaper-participants">
-          <span>Written by {primary.participants.writer.name}</span>
-          <span>Directed by {primary.participants.director.name}</span>
-          <span>Starring {lead.name}</span>
-        </div>
-
-        {/* ── Actions ── */}
-        <div className="btn-row">
-          <button
-            type="button"
-            className="accent"
-            onClick={() => onOpenAutopsy(0)}
-            data-testid="newspaper-open-autopsy"
-          >
-            Read the full autopsy
-          </button>
-          <button type="button" className="primary" onClick={onContinue} data-testid="newspaper-continue">
-            Continue
-          </button>
-        </div>
-
-        {/* ── Secondary films (if any) ── */}
-        {views.length > 1 && (
-          <div className="stack" data-testid="newspaper-secondary-list">
-            <span className="hint">Also opening this week</span>
-            {views.slice(1).map((v, i) => (
-              <SecondaryStory key={i + 1} view={v} index={i + 1} onOpenAutopsy={onOpenAutopsy} />
-            ))}
+          <div className="btn-row" style={{ marginTop: 20 }}>
+            {primaryAutopsyAvailable ? (
+              <button
+                type="button"
+                className="accent"
+                onClick={() => onOpenAutopsy(0)}
+                data-testid="newspaper-open-autopsy"
+              >
+                Read the full autopsy
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="accent"
+                onClick={() => onOpenChronicle?.(0)}
+                disabled={!onOpenChronicle}
+                data-testid="newspaper-open-chronicle"
+              >
+                Open Film Chronicle
+              </button>
+            )}
+            <button type="button" className="primary" onClick={onContinue} data-testid="newspaper-continue">
+              Continue
+            </button>
           </div>
-        )}
+        </article>
       </div>
-    </div>
+
+      {views.length > 1 && (
+        <section className="film-chronicle-newspaper stack" data-testid="newspaper-secondary-list">
+          <h2>Also opening this week</h2>
+          <div className="film-chronicle-secondary-grid">
+            {views.slice(1).map((view, offset) => {
+              const index = offset + 1
+              return (
+                <SecondaryStory
+                  key={view.chronicle.productionId}
+                  view={view}
+                  index={index}
+                  autopsyAvailable={canOpenAutopsy?.(index) ?? true}
+                  onOpenAutopsy={onOpenAutopsy}
+                  onOpenChronicle={onOpenChronicle}
+                />
+              )
+            })}
+          </div>
+        </section>
+      )}
+    </main>
   )
 }
