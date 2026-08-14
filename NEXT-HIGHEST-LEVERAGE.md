@@ -119,35 +119,56 @@ Stage 12 art, manifest/exporter/art, or renderer cost changed. Final proof passe
 repository tests, 176/176 governed tests, 141/141 focused tests, 35/35 final Chromium checks,
 byte-identical native replay, the exact structural reference, a 138-module build, and clean review.
 
-## Promoted — World-First Studio Gate Talent Arrival & Hiring Return V1
+## Closed — World-First Studio Gate Talent Arrival & Hiring Return V1
 
-The post-handoff critical-experience audit found the next truthful human-and-tycoon seam. The
-accepted physical `studio-gate` is the only canonical Hollywood place not yet operationalized. It
-already owns exact Gate identity, an arrival anchor, and `gate-security` / `arrival` affordances;
-existing Engine/App authority already owns deterministic hiring-market cards, employment/profile
-facts, multi-term offers, and `signContractAction`.
+Contract `712c311` and implementation `ca8279c` close the exact physical Gate → explicit current
+candidate → visitor/profile → focused complete Hiring terms → fresh Gate seam. One shared
+adapter-owned eligibility boundary prevents Lot/App/Hiring drift; no default or first card becomes
+consent; one distinct existing-atlas visitor remains outside staff/work authority; and signing
+still uses only the existing Engine action.
 
-Freeze the smallest supporting loop before implementation:
+Stale identity, offer drift, signing, rotation, duplication, whole-studio replacement, delayed or
+rejected renderer, modal/visibility transitions, and pointer/touch/keyboard/virtual-AT tails restore
+fresh exact truth or a neutral Gate without substitution. No market, offer, economy, queue,
+pathfinding, autonomy, save, manifest, art, or renderer-draw law changed. Final proof passed
+2,383/2,383 repository tests, 176/176 governed tests, 149/149 focused tests, Chromium 6 passed/1
+explicit GPU-only skip, byte-identical replay, a 139-module build, and the measured one-object/
+one-actor visitor delta at unchanged texture bytes and one draw.
 
-- physical Gate/status/native semantic Gate enters exact current hiring-market context;
-- the player explicitly selects one exact named current candidate; no default or first-market-card
-  identity may become consent;
-- that person becomes a bounded visible visitor at the existing arrival anchor and exposes exact
-  role/availability plus the canonical Talent Profile over the live Lot;
-- **Open Hiring terms · <exact name>** revalidates latest identity and focuses one exact unique
-  canonical Hiring card where salary, bonus, obligations, and runway remain fully legible;
-- the existing exact-terms review remains HiringMarket/adapter/Core-owned; the player may sign an
-  Engine-accepted offer or return without signing, and direct Back rebuilds fresh Gate and
-  candidate truth while a rotation that removes the exact candidate, disappearance, signing,
-  duplication, or studio replacement returns neutrally without substitution; and
-- renderer failure, modal suspension, pointer/keyboard/AT, reduced motion, compact viewports, zoom,
-  deterministic replay, and a measured bounded visitor presentation cost remain explicit.
+## Promoted — World-First Greenlight Production Formation & Fresh Lot Return V1
 
-This slice may not add candidate generation or rotation, offer/legality/economy law, an arrival
-clock, worker location, queue, pathfinding, autonomy, save/schema state, manifest/art, a generic
-first candidate, or one-click hiring that bypasses complete obligation truth. Stage 12 remains a
-binding art no-go. The service yard is not Post identity, and absent workload/queue systems cannot
-be invented for presentation.
+The fresh post-Gate audit found the largest remaining beginning-of-production break. Accepted
+greenlight already owns the exact new Production, commitment debit, managed workflow, deterministic
+Development & Casting reservation, phase, Director, Lead, and countdown. App currently drops the
+accepted production identity and performs only a generic return. Development and Pre-production
+are excluded from stage dressing, and two or more non-Stage-7 operations can leave the Hollywood
+desk saying `No active production` despite real active pictures.
+
+Freeze the smallest truthful continuity loop:
+
+- derive one exact new production ID from a strict before/after accepted-greenlight comparison;
+- carry that identity only as typed transient return provenance, then independently revalidate the
+  latest GameState and Lot snapshot;
+- return to the fresh Lot with the exact Director selected as a visible inhabitant and the exact
+  Lead still visibly present/selectable;
+- expose current title, Development/Pre-production, production-level facility reservation, status,
+  countdown, Director, and Lead without claiming personal room occupancy;
+- retain that exact production through mounted week advances so current truth repaints through
+  Pre-production and then uses the existing soundstage embodiment at Rehearsal; and
+- fall back neutrally on disappearance, release, duplicate/malformed identity, replacement, or
+  cross-studio state without selecting another picture.
+
+The Hollywood manifest has no canonical physical base Development or Casting place. V1 therefore
+cannot add Development/Pre-production person travel, room occupation, huddles, queues, workload,
+or a renderer-authored job. A one-shot formed acknowledgement may witness only the accepted
+transition and may not replay after save/reload. No Core, SaveFile, phase, reservation, clock,
+facility, market, economy, or art change is required or authorized.
+
+Two proven existing person-flow defects are proportional maintenance before freeze: a selected
+Lead currently inherits the Director-only call action, and a selected Director's nameplate is
+hidden throughout and after the existing cosmetic dispatch route. Remove the false Lead command
+and keep the selected existing nameplate attached through travel without changing route or task
+authority.
 
 ## Closed parallel evidence lane
 
@@ -174,12 +195,12 @@ construction, or operating costs materially change the decision boundary.
 
 ## Contract boundary
 
-Freeze the exact hiring-market selector, physical Gate provenance, explicit candidate selection,
-visitor/profile truth, latest-identity handoff, unique Hiring focus, fresh return/fallback,
-exact-once input, renderer/modal failure, viewport, and measured performance boundary before
-implementation. Existing market/profile/offer/signing state is the only authority; no new core
-mechanic, save field, facility, art, place, offer, clock, queue, worker-location model, or
-pathfinding result is authorized.
+Freeze the exact accepted-greenlight before/after receipt, typed production return, latest-state
+selector, exact Director/Lead framing, mounted phase continuity, neutral fallback, input/lifecycle,
+viewport, and measured performance boundary before implementation. Existing Production,
+workflow/reservation, phase, person, and Lot read models are the only authority. No new core
+mechanic, save field, facility, physical Development/Casting place, art, person destination,
+travel, queue, workload, staffing choice, clock, or pathfinding result is authorized.
 
 The governing economic classification remains exactly:
 

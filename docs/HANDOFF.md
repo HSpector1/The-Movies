@@ -1,40 +1,41 @@
 # Project: Studio — Engineering Handoff
 
-> ## 🎬 2026-08-14 — CURRENT: Selected Stage 7 Detail Handoff & Fresh Return V1 CLOSED
+> ## 🎬 2026-08-14 — CURRENT: Studio Gate Talent Arrival & Hiring Return V1 CLOSED
 >
-> Frozen contract `05d2d44b387cdfb9d4daeaffd37902f5ba0c9065` and implementation
-> `6a3f85f2c991b850f065b4fd81ef60a5974a256a` close the exact physical Stage 7 → focused Production
-> Board → fresh Stage 7 continuity seam. One shared strict selector owns unique managed/Engine
-> Stage 7 truth for Phaser and React; the old first-match seams are removed.
+> Frozen contract `712c31180629396e33107e22826e73fbffffd9c2` and implementation
+> `ca8279cfb91990ef1904e36fa1d92d762811d180` close the exact physical Gate → explicit current
+> candidate → visible visitor/profile → complete Hiring terms → fresh Gate continuity seam. One
+> adapter-owned eligibility boundary keeps Lot, App, and Hiring aligned on unemployed, no-contract,
+> complete-current-offer truth.
 >
-> Only explicit physical Stage 7, status/problem, exact blocker, native Stage A, same-film scenery
-> continuation, or typed return provenance exposes **Open Production Board details · <title>**.
-> Studio Desk auto-orientation, the generic rail, people, Stage 12, and global Dashboard do not.
-> Existing in-world production commands remain first. Lot compares every rendered operation field
-> with latest snapshot truth and App independently reselects latest Engine truth before focusing
-> one exact unique Board card.
+> Physical/status/native Gate entry opens a neutral current slate. No first/default candidate
+> becomes consent. Explicit selection places one distinct stationary existing-atlas visitor at the
+> accepted arrival anchor, outside the staff/work model, and exposes exact name, profession, `Free
+> agent`, and current term lengths. The canonical profile opens over the same mounted live Lot;
+> **Open Hiring terms · <name>** independently revalidates and focuses one exact current card.
 >
-> Direct Back carries only the old production ID and rebuilds current truth. It restores fresh
-> semantic/physical Stage 7 when that ID remains uniquely valid; removed, released, relocated,
-> replaced, duplicate, malformed, or cross-studio identity lands on the neutral Lot without
-> selecting another occupant. Pointer/touch/keyboard/virtual-AT, modal/visibility/renderer/import,
-> failure, compact viewport, maximum world zoom, forced-color, and effective 200% paths are
-> exact-once or fail closed.
+> Signing remains solely the existing Hiring → `signContractAction` → Core chain. Direct Back
+> rebuilds identity and complete terms: exact retained truth restores the visitor; disappearance,
+> signing, drift, duplication, malformed truth, or accepted studio replacement lands neutrally
+> without choosing a successor. Runtime Gate geometry, renderer failure/readiness, delayed import,
+> pointer/touch/keyboard/virtual-AT, modal/visibility, compact viewport, maximum world zoom, and
+> effective 200% paths are exact-once or fail closed.
 >
-> Final proof: **173/173 files, 2,310/2,310 tests**; governed D-16/D-17 **10/10 files, 176/176
-> tests**; focused authority **141/141**; final Chromium **35/35**; production build **138 modules**;
-> byte-identical native replay; exact **34 objects / 15 actors / 11,096,896 decoded bytes / one
-> draw** structural reference; and three independent reviews with no unresolved P1–P3 findings.
-> No Core, GameState, SaveFileV11, adapter business law, production command, economy, facility, RNG,
-> manifest, exporter, art, or renderer structure changed. Default headless wall-clock remains
-> honestly uncertified and no threshold was relaxed.
+> Final proof: **177/177 files, 2,383/2,383 tests**; governed D-16/D-17 **10/10 files, 176/176
+> tests**; focused authority **149/149**; Chromium **6 passed / 1 explicit GPU-only skip**;
+> production build **139 modules**; byte-identical native replay; exact **34/15 → 35/16** visitor
+> structural delta at **11,096,896 decoded bytes / one draw**; and independent strict review with
+> no remaining findings. No Core, GameState, SaveFileV11, adapter business law, market/offer/
+> signing law, production, economy, facility, RNG, manifest, exporter, art, or renderer-draw
+> behavior changed. No GPU-only absolute pass is claimed and no threshold was relaxed.
 >
-> **NEXT:** freeze and build **World-First Studio Gate Talent Arrival & Hiring Return V1**. Use the
-> accepted physical Gate and arrival anchor to embody one explicitly selected exact current market
-> candidate, inspect that person/profile from the world, open the canonical complete Hiring terms
-> only when needed, and return to fresh Gate/candidate truth or neutral Lot. Do not add market/
-> offer/economy law, queues, arrival clocks, worker location, pathfinding, autonomy, save fields,
-> manifest/art, first-match selection, or one-click hiring that hides obligations.
+> **NEXT:** first land two proportional person-flow repairs: a selected Lead cannot issue the
+> Director-only call, and a selected Director's existing nameplate follows and survives the
+> governed cosmetic dispatch route. Then freeze **World-First Greenlight Production Formation &
+> Fresh Lot Return V1**: strict accepted new-picture receipt → fresh exact Director/Lead world
+> framing → mounted Development/Pre-production repaint → existing soundstage embodiment at
+> Rehearsal. Do not invent physical base Development/Casting rooms, personal travel, queues,
+> workload, staffing, save, art, or simulation law.
 >
 > Protected anchors remain untouched: `main` =
 > `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =
@@ -47,6 +48,15 @@
 > dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
 > and formal G12 timing remain open. No financing, bailout, restructuring, failure ladder, or
 > arbitrary cash sink is authorized.
+
+> ## 🎬 2026-08-14 — PRIOR: Selected Stage 7 Detail Handoff & Fresh Return V1 CLOSED
+>
+> Contract `05d2d44b387cdfb9d4daeaffd37902f5ba0c9065` and implementation
+> `6a3f85f2c991b850f065b4fd81ef60a5974a256a` close explicit physical Stage 7 → exact focused
+> Production Board → fresh exact Stage 7 or neutral Lot continuity. Existing world commands remain
+> primary; first-match, stale-return, substitution, and screen-first entry are rejected. See
+> `docs/WORLD-FIRST-SELECTED-STAGE-7-PRODUCTION-DETAIL-HANDOFF-FRESH-RETURN-V1-CLOSURE.md` and its
+> evidence record for the complete authority, input, performance, and verification boundary.
 
 > ## 🎬 2026-08-14 — PRIOR: World-First Named Person Work & Career Inspector V1 CLOSED
 >

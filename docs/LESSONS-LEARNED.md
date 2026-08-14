@@ -2932,3 +2932,85 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   never a substitute.
 - **Pattern:** old identity token → fresh authority → exact or neutral. **Anti-pattern:** selected-
   building fallback, current-occupant fallback, or cached pre-navigation detail.
+
+---
+
+# World-First Studio Gate Talent Arrival & Hiring Return V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Contract `712c311`; implementation `ca8279c`. Related:
+> `docs/WORLD-FIRST-STUDIO-GATE-TALENT-ARRIVAL-HIRING-RETURN-V1-EVIDENCE.md` and
+> `docs/WORLD-FIRST-STUDIO-GATE-TALENT-ARRIVAL-HIRING-RETURN-V1-CLOSURE.md`.
+
+## ED. One eligibility predicate must survive world projection and deep action — **MG, BR**
+
+- **Risk:** the Lot can show a market member while Hiring rejects them, or a focused Hiring card can
+  accept freelancer-only, employed, no-offer, duplicate, or stale truth if each surface rebuilds
+  “eligible candidate” independently.
+- **Resolution:** own the complete existing predicate once at the adapter boundary, project only its
+  complete facts, and independently rerun that same helper in Lot snapshot creation, App handoff,
+  and canonical Hiring focus. Treat identity cardinality and complete current offers as authority,
+  not array membership alone.
+- **Coverage / fastest diagnostic:** permute and duplicate market/talent arrays; independently
+  remove unemployment, contract, offer, term, or identity truth at every boundary. Require the
+  world visitor, navigation callback, and deep focus to fail together without choosing another
+  card.
+- **Pattern:** shared business eligibility → narrow projection → independent latest checks. **Anti-
+  pattern:** similar-looking filters maintained in world, router, and deep screen.
+
+## EE. A visitor must not masquerade as an authoritative worker — **MG, BR**
+
+- **Risk:** appending a hiring candidate to `snapshot.people` gives them a production-person home,
+  staff provenance, work-selector semantics, or an implied job/location before a contract exists.
+- **Resolution:** use a distinct presentation-only visitor seam tied to one exact selected market
+  identity and one validated physical arrival anchor. Reuse the accepted atlas category only for
+  appearance; keep exact profession and `Free agent` truth textual and forbid route, queue, task,
+  destination, arrival clock, or autonomy claims.
+- **Coverage / fastest diagnostic:** select Actor, Director, Writer, and Craft candidates; inspect
+  sprite category and exact DOM profession, then remove/sign/replace/mutate truth. Require one inert
+  visitor or none, never staff membership or a substituted person.
+- **Pattern:** presentation embodiment can be narrower than simulation identity. **Anti-pattern:**
+  forcing every visible human through a staff/work collection whose semantics do not fit.
+
+## EF. Runtime spatial authority must be validated as a complete record — **BR**
+
+- **Risk:** accepting a Gate by ID alone lets stale source geometry, wrong anchors, reordered
+  affordances, duplicate Gate-like records, or a mismatched foreground place a clickable visitor
+  somewhere the accepted plate does not support.
+- **Resolution:** validate exact canvas, polygon, building/place identity, anchors, affordance order,
+  and foreground record before creating the physical zone or visitor. Fail only that local seam;
+  preserve unrelated Hollywood places and the native semantic fallback.
+- **Coverage / fastest diagnostic:** mutate every coordinate/key/order/depth/bounds field, duplicate
+  the record, use the known stale source polygon, and reject renderer selection. Require no physical
+  disclosure while the semantic Gate remains complete.
+- **Pattern:** complete accepted spatial tuple or no physical affordance. **Anti-pattern:** loose ID
+  lookup followed by trust in whichever geometry happened to load.
+
+## EG. A deep-return token must carry the person's rendered meaning, not only a raw ID — **MG, BR**
+
+- **Risk:** deterministic market rotation or whole-studio replacement can reuse a talent ID with a
+  different name, profession, content seed, or terms; restoring by ID alone silently transfers the
+  player's selection. Restoring the next card after signing invents consent.
+- **Resolution:** carry exact ID plus rendered owner identity and content provenance, rebuild latest
+  eligibility and complete terms on return, and restore only the same valid meaning. Signing,
+  disappearance, drift, duplication, or replacement returns to neutral Gate truth. A true retained
+  candidate remains valid without inventing disappearance.
+- **Coverage / fastest diagnostic:** return after unchanged state, retained rotation, removed
+  candidate, accepted signing, offer drift, rename, re-role, duplicate ID, and accepted studio
+  replacement. Require exact fresh restoration or neutral fallback, never successor selection.
+- **Pattern:** rendered meaning token → fresh business truth → exact or neutral. **Anti-pattern:**
+  raw-ID restoration, first-card fallback, or cached offer replay.
+
+## EH. Keyboard ownership spans the whole activation gesture, including cross-key tails — **BR**
+
+- **Symptom:** keydown Enter activates a candidate, React repaints, then keyup/compatibility click or
+  a Space tail activates the newly mounted action; guarding only repeated keydown is insufficient.
+- **Resolution:** latch one accepted keyboard family/identity synchronously, reject held and cross-
+  key tails until the gesture is released or cancelled, and consume its compatibility click while
+  preserving a later fresh virtual-AT click. Clear ownership at modal, visibility, renderer, and
+  whole-state boundaries.
+- **Coverage / fastest diagnostic:** Enter down → repaint → Space/Enter tail → compatibility click;
+  repeat without a compatibility click, with held repeats, modal entry, hidden tab, and fresh
+  `detail=0` AT activation. Require exactly one original action and a usable next independent
+  gesture.
+- **Pattern:** gesture-family ownership + rendered identity + latest authority. **Anti-pattern:**
+  handling each DOM keyboard/click event as unrelated consent.

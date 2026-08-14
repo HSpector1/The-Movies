@@ -339,3 +339,47 @@ Owner rulings remain the authority when a summary here conflicts with them.
 - Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
   RESIDUALS REMAIN OPEN**. Every accepted residual remains open and no financing, bailout,
   restructuring, failure ladder, arbitrary cash sink, or macroeconomic certification was added.
+
+## 2026-08-14 — World-first Studio Gate talent arrival and Hiring return closes
+
+- Froze contract `712c31180629396e33107e22826e73fbffffd9c2` and delivered implementation
+  `ca8279cfb91990ef1904e36fa1d92d762811d180` without changing Core, GameState, SaveFileV11,
+  adapter business law, market generation/rotation, offer/pricing/signing law, production,
+  facilities, economy/publicity tuning, RNG, manifest, exporter, authored art, or renderer draws.
+- Reused one adapter-owned current-candidate eligibility boundary across narrow Lot projection,
+  App handoff, and canonical Hiring focus. Duplicate, employed, contracted, freelancer-only,
+  no-offer, malformed, and stale truth fails closed rather than selecting the first card.
+- Made the exact accepted physical Gate, status, and native semantic companion open a neutral
+  current slate. Explicit selection alone places one exact stationary existing-atlas visitor at
+  the accepted arrival anchor, outside staff/work/queue/pathfinding authority.
+- Added truthful world inspection for exact name, profession, `Free agent`, and current term
+  lengths; retained the existing canonical Talent Profile above the same mounted live Lot; and
+  focused one exact complete Hiring card only after separate latest-state checks.
+- Preserved existing signing law. Direct Back restores the same fresh candidate only while exact
+  owner/content/term truth remains valid; signing, removal, drift, duplication, malformed truth,
+  or studio replacement returns to neutral Gate truth without substituting a successor.
+- Hardened complete runtime Gate geometry, delayed/rejected renderer, delayed import, snapshot
+  replacement, modal/visibility boundaries, and exact-once pointer/touch/keyboard/virtual-AT
+  activation across compact, maximum-zoom, CSS-magnified, and effective 200% layouts.
+- Replayed existing scenery and Annex native evidence byte-identically and retained all frozen
+  runtime/source manifest, exporter, plate, Gate occluder, and Role Atlas hashes.
+- Closed with 177/177 repository files and 2,383/2,383 tests, 10/10 governed D-16/D-17 files and
+  176/176 tests, focused Gate authority 149/149, Chromium 6 passed/1 explicit GPU-only skip, a
+  139-module production build, clean TypeScript/provenance/protected-path/ref/diff gates, and an
+  independent strict audit with no remaining findings.
+- Recorded performance honestly: explicit visitor selection measures 34/15 → 35/16 at unchanged
+  11,096,896 decoded bytes and one draw. No GPU-only absolute wall-clock pass is claimed because
+  the opt-in evidence flag was not enabled; no threshold was relaxed.
+- Completed a fresh parallel several-minutes-on-Lot audit across production formation, named-person
+  flow, and construction/events. Killed any new construction catalogue/upgrade because only the
+  fixed Annex is authoritative. Recorded Lot-native next-event reaction as a strong later cadence
+  seam, but promoted **World-First Greenlight Production Formation & Fresh Lot Return V1** first
+  because the movie currently loses exact world continuity at birth and can falsely read idle with
+  multiple non-Stage-7 operations.
+- Ordered two proportional maintenance repairs before contract freeze: a selected Lead must not
+  inherit the Director-only call, and the selected Director's existing nameplate must follow and
+  survive the governed cosmetic dispatch route. No new task, route, destination, workload, or
+  authority follows.
+- Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
+  RESIDUALS REMAIN OPEN**. Every accepted residual remains open and no financing, bailout,
+  restructuring, failure ladder, arbitrary cash sink, or macroeconomic certification was added.

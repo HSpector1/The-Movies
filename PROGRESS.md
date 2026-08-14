@@ -43,10 +43,14 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   documentation checkpoint under contract `05d2d44` and implementation `6a3f85f`; explicit Stage 7
   world inspection now optionally reaches the exact Production Board card and returns to fresh
   exact Stage 7 or neutral Lot truth while existing world commands remain primary.
-- **Next promoted slice:** World-First Studio Gate Talent Arrival & Hiring Return V1. Freeze exact
-  Gate/market authority, explicit named-candidate selection, bounded visitor/profile truth, focused
-  canonical Hiring terms, and fresh return. Do not invent market, offer, queue, pathfinding,
-  autonomy, save, or art law.
+- **World-First Studio Gate Talent Arrival & Hiring Return V1:** CLOSED by this documentation
+  checkpoint under contract `712c311` and implementation `ca8279c`; the exact physical Gate now
+  embodies one explicitly selected current free-agent visitor, supports canonical profile and full
+  Hiring terms, and returns to fresh exact or neutral Gate truth without substitution.
+- **Next promoted slice:** World-First Greenlight Production Formation & Fresh Lot Return V1 after
+  proportional repair of the Lead/Director command leak and selected-Director route nameplate.
+  Preserve exact existing greenlight/workflow/person authority; do not invent physical base
+  Development/Casting rooms, personal travel, workload, queues, staffing, save, or art law.
 
 ## Closed marathon milestones
 
@@ -71,7 +75,8 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Named Person Work & Career Inspector V1 | `c5c1679` (`9bd075b` initial freeze) | `04f7d9d` | `ce96ddf` |
 | World-First Publicity Campaign V1 | `f83f27f` | `f2f2e22` | `04932d2` |
 | World-First Operational Annex Work Presence V1 | `e2fd6df` | `e14633b` | `72c13e3` |
-| World-First Selected Stage 7 Detail Handoff V1 | `05d2d44` | `6a3f85f` | this documentation checkpoint |
+| World-First Selected Stage 7 Detail Handoff V1 | `05d2d44` | `6a3f85f` | `9ed7fc8` |
+| World-First Studio Gate Talent Arrival V1 | `712c311` | `ca8279c` | this documentation checkpoint |
 
 ## Product result so far
 
@@ -112,19 +117,30 @@ one unique ID, and direct Back restores fresh exact Stage 7 or a neutral Lot wit
 replacement film. The path is byte-neutral except when the player deliberately invokes an existing
 Board command, whose successor is byte-identical to the established world owner path.
 
+The Studio Gate now makes an existing outsider physically present before contract management.
+Physical/status/native Gate entry opens a neutral exact current slate; explicit selection places
+one exact free-agent visitor at the accepted arrival anchor and exposes truthful person/profile
+facts. Complete salary, bonus, obligations, and runway remain in canonical Hiring, and direct Back
+revalidates the same candidate or lands neutrally. The visitor is deliberately not staff, work,
+queue, pathfinding, or authoritative location truth.
+
 Deep non-modal screens still unmount and later remount the Lot. Studio Home persists bounded
 selected-building/focus context and authoritative GameState; it does not preserve the same Phaser
 instance, camera, selected person, or other transient world presentation through those routes.
-Current closure proof passed 173/173 repository files and 2,310/2,310 tests, the governed D-16/D-17
-10/10 files and 176/176 tests, focused Stage 7 authority 141/141, final combined Chromium 35/35, a
-138-module production build, byte-identical native SaveFileV11 evidence, exact structural parity,
-clean TypeScript/protected-path/diff gates, and three clean independent reviews. Default headless
-absolute wall-clock remains honestly uncertified; no frozen gate was relaxed.
+Current closure proof passed 177/177 repository files and 2,383/2,383 tests, the governed D-16/D-17
+10/10 files and 176/176 tests, focused Gate authority 149/149, Chromium Gate proof 6 passed/1
+explicit GPU-only skip, a 139-module production build, byte-identical native SaveFileV11 evidence,
+exact 34/15 → 35/16 structural attribution at unchanged texture bytes/one draw, clean TypeScript/
+protected-path/diff gates, and clean independent review. No GPU-only absolute wall-clock pass is
+claimed; no frozen gate was relaxed.
 
-The next smallest evidence-backed world seam is the accepted physical Studio Gate and current
-Hiring market: establish one exact named visitor and person-first inspection in the world, use the
-canonical Hiring surface only for complete terms, then return to fresh Gate truth. No market,
-offer, queue, location, pathfinding, autonomy, save, or art behavior is authorized by that priority.
+The next audit promotes exact greenlight continuity. Accepted greenlight already creates the
+picture, managed workflow, Development & Casting reservation, Director, and Lead; the generic
+return currently discards which picture formed, and multiple non-Stage-7 operations can produce a
+false idle desk. The bounded next target returns to fresh exact production/person truth and follows
+it through mounted phase repaint into existing physical Rehearsal presence. It does not invent a
+physical base facility or personal travel where the accepted Hollywood manifest and Engine own
+none.
 
 ## Governing status
 

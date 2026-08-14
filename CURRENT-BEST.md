@@ -4,7 +4,7 @@ Updated: 2026-08-14
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current implementation HEAD: `6a3f85f2c991b850f065b4fd81ef60a5974a256a`
+Current implementation HEAD: `ca8279cfb91990ef1904e36fa1d92d762811d180`
 
 ## Product doctrine — World First
 
@@ -123,8 +123,42 @@ whether the game remains playable.
   or semantic Stage 7 inspection the only gateway to the exact current Production Board card;
   existing world commands remain primary and direct Back returns to fresh exact Stage 7 truth or a
   neutral Lot without substituting another film.
+- World-First Studio Gate Talent Arrival & Hiring Return V1 makes the accepted physical Gate the
+  primary neutral arrival slate: explicit selection embodies one exact current free-agent visitor,
+  supports canonical profile/complete Hiring terms, and returns to fresh exact or neutral Gate
+  truth without defaulting, substituting, or bypassing existing contract law.
 
 ## Current world-first checkpoint
+
+World-First Studio Gate Talent Arrival & Hiring Return V1 is closed at implementation authority
+`ca8279c` under frozen contract `712c311`:
+
+- one adapter-owned Gate eligibility boundary, narrow snapshot projection, and strict selectors
+  keep Lot, App, and Hiring aligned on exact current unemployed/no-contract/complete-offer truth;
+- the exact accepted runtime Gate, its status, and native semantic companion enter a neutral
+  chooser; no first/default candidate becomes consent;
+- explicit selection adds one distinct stationary existing-atlas visitor at the accepted arrival
+  anchor, outside the staff/production people model, with exact name, profession, `Free agent`, and
+  current term lengths in the world inspector;
+- the canonical Talent Profile opens over the same mounted live Lot, while the secondary exact-name
+  Hiring handoff independently focuses one unique complete current contract card;
+- signing remains solely the existing Hiring → `signContractAction` → Core path, and direct Back
+  restores only fresh exact identity/terms or a neutral Gate without choosing a successor;
+- runtime geometry, renderer failure/readiness, delayed import, modal/visibility transitions,
+  whole-studio replacement, pointer/touch/keyboard/virtual-AT activation, compact layout, maximum
+  world zoom, and effective 200% paths are exact-once or fail closed; and
+- final proof passed 177/177 repository files and 2,383/2,383 tests, governed D-16/D-17 176/176,
+  focused Gate authority 149/149, Chromium 6 passed/1 explicit GPU-only skip, a 139-module build,
+  byte-identical native replay, the exact 34/15 → 35/16 structural delta at 11,096,896 bytes/one
+  draw, and independent strict review with no remaining findings.
+
+No Core, GameState, SaveFileV11, schema, migration, adapter business law, market/offer/signing law,
+production/facility/economy/RNG behavior, manifest, exporter, art, authored atlas, pathfinding,
+queue, autonomy, route, animation, or renderer-draw behavior changed. No GPU-only absolute
+wall-clock pass is claimed; the opt-in test was intentionally skipped and no threshold was
+relaxed.
+
+## Prior world-first checkpoint — Selected Stage 7 Production Detail Handoff V1
 
 World-First Selected Stage 7 Production Detail Handoff & Fresh Return V1 is closed at
 implementation authority `6a3f85f` under frozen contract `05d2d44`:
@@ -307,6 +341,8 @@ production and integration remain unauthorized.
 - World-First Operational Annex Work Presence V1 implementation: `e14633b578834f5a2f625049762c45506e6b1ee2`
 - World-First Selected Stage 7 Detail Handoff V1 contract: `05d2d44b387cdfb9d4daeaffd37902f5ba0c9065`
 - World-First Selected Stage 7 Detail Handoff V1 implementation: `6a3f85f2c991b850f065b4fd81ef60a5974a256a`
+- World-First Studio Gate Talent Arrival V1 contract: `712c31180629396e33107e22826e73fbffffd9c2`
+- World-First Studio Gate Talent Arrival V1 implementation: `ca8279cfb91990ef1904e36fa1d92d762811d180`
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -317,22 +353,30 @@ or arbitrary cash sink is authorized.
 
 ## Current highest-leverage evidence step
 
-The post-handoff several-minutes-on-Lot audit promotes **World-First Studio Gate Talent Arrival &
-Hiring Return V1** for contract freeze. The accepted physical `studio-gate` is the only canonical
-Hollywood place not yet operationalized and already owns a Gate identity, arrival anchor, and
-arrival/security affordances. Existing Engine/App authority already owns deterministic hiring
-cards, exact employment/profile facts, multi-term offers, and the signing action.
+The post-Gate parallel several-minutes-on-Lot audit promotes **World-First Greenlight Production
+Formation & Fresh Lot Return V1** after two proportional person-flow maintenance repairs.
 
-The bounded target is physical/semantic Gate → exact current market slate → explicit named
-candidate selection → visible visitor/person inspection and canonical live-Lot profile → optional
-focused Hiring terms → review exact terms and either sign an Engine-accepted offer or return
-without signing → direct return to fresh exact Gate/candidate truth or the neutral Lot. A market
-rotation that retains the same exact eligible candidate does not manufacture a disappearance.
-Complex salary, bonus, obligation, and runway comparison stays in Hiring;
-the world establishes the person and decision.
+Accepted greenlight already creates one exact Production, commitment debit, managed workflow,
+phase, deterministic Development & Casting reservation, Director and Lead. The current App throws
+away that accepted production identity and performs a generic Lot return. With multiple non-Stage
+7 operations the desk can even say `No active production` because no exact operation is selected.
+The named people exist on the Lot, but nothing frames them as the picture that just formed.
 
-It may not add market generation/rotation, offer or economy law, an arrival clock, authoritative
-worker location, pathfinding, autonomy, save fields, manifest/art changes, first-match candidate
-selection, or one-click hiring that hides full obligations. Stage 12 remains blocked by its art
-no-go; service-yard identity cannot be relabelled as Post; absent queue/workload law cannot be
-invented. Week-208 research remains closed with no current repair justified.
+The bounded target is supporting Assembly → accepted exact before/after production receipt → fresh
+Lot → exact Director selected as the new picture's inhabitant → exact title/phase/facility/status/
+countdown/Director/Lead inspection → mounted week advances retain that production identity → fresh
+Pre-production repaint → existing physical soundstage presence at Rehearsal. It must use a strict
+accepted-transition selector and exact-or-neutral return; no `.at(-1)`, predicted ID, first
+operation, or substitute production may own continuity.
+
+The accepted Hollywood manifest has no canonical physical base Development or Casting place, so
+V1 may expose the production reservation and people but may not claim personal room occupancy or
+invent Development/Pre-production travel. Full facility embodiment needs separate spatial/art
+authority. Stage 12 remains blocked by its art no-go; service-yard identity cannot be relabelled as
+Post; queues, workload, alternate staffing, pathfinding, ceremony replay, save fields, or new
+simulation law are not authorized.
+
+Before contract freeze, repair two proven presentation defects without broadening the milestone:
+a selected Lead must not issue the Director-only call, and a selected Director's existing
+nameplate must follow and survive the already-governed cosmetic dispatch route. The existing
+Shooting command, route, and Engine law remain unchanged.
