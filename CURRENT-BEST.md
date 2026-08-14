@@ -4,7 +4,7 @@ Updated: 2026-08-14
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current implementation HEAD: `f2f2e22fe292772ef8aba4f97f42ea38855cbf96`
+Current implementation HEAD: `e14633b578834f5a2f625049762c45506e6b1ee2`
 
 ## Product doctrine — World First
 
@@ -32,8 +32,8 @@ them. They are deep management surfaces for information and decisions too comple
 spatially. They support the world; they do not replace it. Where technically appropriate, the
 studio may remain alive behind or around them. In the current architecture, closing a deep screen
 returns to the same authoritative Lot root with bounded context restoration, not the same Phaser
-instance, camera, or selected person. Publicity Campaign V1 proves one narrow exact contextual
-handoff; it is not a general persistent-shell claim.
+instance, camera, or selected person. Publicity Campaign V1 and Operational Annex Work Presence V1
+prove narrow exact contextual handoffs; neither is a general persistent-shell claim.
 
 ### Critical experience test
 
@@ -116,8 +116,39 @@ whether the game remains playable.
 - World-First Publicity Campaign V1 makes the physical Administration & Publicity building the
   primary exact three-tier campaign surface: one purchase repaints cash, Awareness, ledger, and
   cooldown truth in the same mounted Lot, with Dashboard retained as a bounded details handoff.
+- World-First Operational Annex Work Presence V1 makes the completed physical Annex visibly
+  Available or Working from exact Calendar 0/1 or 1/1 truth, exposes its exact owner/title/activity,
+  and returns from its focused deep owner to freshly revalidated Annex context.
 
 ## Current world-first checkpoint
+
+World-First Operational Annex Work Presence V1 is closed at implementation authority `e14633b`
+under frozen contract `e2fd6df`:
+
+- one Calendar call projects the exact unique canonical Annex row/slot; one pure selector rejects
+  malformed lifecycle, identity, count, owner/activity, and production-outlook truth;
+- the physical Annex, its label, semantic companion, and inspector share exact Available, Working,
+  or separately labelled configured Held vocabulary without inventing a worker or queue;
+- exact script, casting, or production owner IDs open focused existing deep surfaces only after
+  latest-state revalidation, and direct Back rebuilds fresh Annex truth and focuses Current work;
+- exact Annex production reservations now point to physical `expansion`, while every non-Annex
+  location mapping and Engine allocation rule remains unchanged;
+- stale gesture identity, changed occupants, unrelated deep navigation, studio replacement,
+  renderer failure, delayed readiness, modal suspension, compact layout, maximum camera zoom, and
+  200% page zoom fail closed; and
+- final proof passed 170/170 repository files and 2,242/2,242 tests, governed D-16/D-17 176/176,
+  final combined Chromium 30/30 (Lot 20, named person 3, Annex 7), a 137-module build, byte-identical
+  native SaveFileV11 replay, and independent review with no P1–P3 findings.
+
+The Annex paint adds zero objects, actors, textures, routes, or draws. Default headless wall-clock
+samples remained compositor-contended and are explicitly not an absolute-gate pass; the frozen
+one-production structural tuple and opt-in thresholds were not relaxed.
+
+No Core Engine, GameState, SaveFileV11, schema, migration, action/allocation law, economy/facility/
+construction tuning, RNG, manifest, exporter, art, or pathfinding authority changed. One adjacent
+Talent Profile focus-lifecycle defect was repaired without changing profile or career data.
+
+## Prior world-first checkpoint — Publicity Campaign V1
 
 World-First Publicity Campaign V1 is closed at implementation authority `f2f2e22` under frozen
 contract `f83f27f`:
@@ -239,6 +270,8 @@ production and integration remain unauthorized.
 - Named Person Inspector V1 implementation: `04f7d9da01a1f609b54430c4a0265d7cdd637b4a`
 - World-First Publicity Campaign V1 contract: `f83f27f0d42b16ea177b35f1a39e23236faf6831`
 - World-First Publicity Campaign V1 implementation: `f2f2e22fe292772ef8aba4f97f42ea38855cbf96`
+- World-First Operational Annex Work Presence V1 contract: `e2fd6dfdedc0ac398cae24c2ccea9bcc524d38d1`
+- World-First Operational Annex Work Presence V1 implementation: `e14633b578834f5a2f625049762c45506e6b1ee2`
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -249,16 +282,16 @@ or arbitrary cash sink is authorized.
 
 ## Current highest-leverage evidence step
 
-The post-publicity several-minutes-on-Lot audit promotes **World-First Operational Annex Work
-Presence V1** for contract freeze. The existing physical Annex becomes Available or Working from
-exact Engine/Calendar one-slot truth, with exact owner/title/activity inspection and a targeted
-supporting deep handoff/return. Configured-capacity Held truth remains a separately labelled
-robustness boundary, not a claim about reachable native V11 play. A status label alone is
-insufficient.
+The post-Annex critical-experience review promotes **World-First Selected Stage 7 Production Detail
+Handoff & Fresh Return V1** for contract freeze. Physical Stage 7 already owns exact selection,
+blocker inspection, Director dispatch, scenery clearance, scheduling, and visible work. The missing
+supporting beat is an optional exact focused Production Board handoff followed by fresh exact Stage
+7 return.
 
-This slice may correct the current presentation mapping that sends an Annex-reserved production to
-Writers/Casting instead of the physical Annex. It may not invent queue position, worker assignment,
-rerouting, relocation, destination/ETA, workload, facility blocking, new art, a second Annex, or a
-new core/save/facility law. Physical Stage 12 remains blocked by its recorded art no-go. Week-208
-research remains closed with no current repair justified; every accepted D-17B residual remains
-open.
+The action must appear only after explicit physical/status/problem/native Stage A inspection, keep
+the existing world command primary, revalidate the unique production in both Lot and App, and
+return to current Stage 7 or the neutral Lot heading without substituting another film. It may not
+add a global Dashboard shortcut, first-match identity, cached detail, Stage 12 art, queue, staffing,
+reroute, new command/task/clock, same-camera promise, Core/save/adapter law, or renderer cost.
+Physical Stage 12 remains blocked by its recorded art no-go. Week-208 research remains closed with
+no current repair justified; every accepted D-17B residual remains open.

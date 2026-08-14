@@ -2783,3 +2783,84 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   focus, and no Engine/GameState/SaveFile/RNG/ledger change.
 - **Pattern:** exact open gate + continuous revalidation + stable fallback focus. **Anti-pattern:**
   validating only at click time or letting raw ID resolvability define identity.
+
+---
+
+# World-First Operational Annex Work Presence V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Contract `e2fd6df`; implementation `e14633b`. Related:
+> `docs/WORLD-FIRST-OPERATIONAL-ANNEX-WORK-PRESENCE-V1-EVIDENCE.md` and
+> `docs/WORLD-FIRST-OPERATIONAL-ANNEX-WORK-PRESENCE-V1-CLOSURE.md`.
+
+## DU. A physical workplace needs one exact owner row, not parallel UI reconstruction — **MG, BR**
+
+- **Risk:** assembling Annex occupancy independently from facilities, reservations, scripts,
+  casting sessions, and productions can accept a lookalike row, transfer same-title work, or show
+  Available while a canonical slot is occupied.
+- **Resolution:** call the existing Calendar authority once, select the exact unique canonical
+  facility ID, preserve its slot identity/counts, and join production status only to one exact
+  outlook. A snapshot-only selector then revalidates lifecycle, authority, identity, counts,
+  owner/activity, and status/blocker shape before either Phaser or React presents it.
+- **Coverage / fastest diagnostic:** permute rows; duplicate the canonical ID; mutate name,
+  capability, capacity, slot, occupied/available, owner, title, activity, and production outlook;
+  require null or an invariant error rather than a first-match result.
+- **Pattern:** one authoritative row → exact projection → pure shared validator. **Anti-pattern:**
+  convenient joins over raw arrays in each presentation layer.
+
+## DV. One gesture must stay bound to the world identity rendered at its start — **MG, BR**
+
+- **Symptom:** an occupant can change between pointer/key down and click after React repaints the
+  Annex; revalidating only the new button can turn the tail of a stale gesture into consent to open
+  a replacement owner's deep screen.
+- **Resolution:** capture the complete rendered owner context at down time, consume that latch once
+  at activation, and require it and the latest shared selector to agree field-for-field. Clear
+  latches across modal, selection, visibility, and renderer lifecycle boundaries.
+- **Coverage / fastest diagnostic:** down on owner A, replace with owner B, then deliver click;
+  repeat with double-click, held Enter/Space, modal entry, and callback rejection. Require zero
+  substitution and at most one owner call.
+- **Pattern:** gesture generation + rendered identity + latest authority. **Anti-pattern:** treating
+  the DOM node present at click time as proof of the player's original target.
+
+## DW. Deep-return focus targets exist only after the fresh world commits — **BR**
+
+- **Symptom:** returning from a deep owner selects the Annex correctly but focuses `BODY` because
+  the Current work heading is conditionally mounted after the first return render.
+- **Resolution:** carry one typed transient return intent, rebuild the latest world context, retain
+  a pending focus owner through the selection render, and focus by stable target only after mount.
+  Consume the intent once; fall back to Annex status or the Lot heading when current truth no
+  longer supports it.
+- **Coverage / fastest diagnostic:** return to Available, same owner, replacement owner, and Held;
+  repeat with delayed renderer readiness and missing/hostile truth. Require fresh copy plus one
+  deterministic focus destination, never a cached occupant or destructive command.
+- **Pattern:** latest-state remount → conditional target commit → consume focus. **Anti-pattern:**
+  focusing a target synchronously before the render that creates it.
+
+## DX. An inert transition can erase modal opener identity before a passive effect runs — **BR**
+
+- **Symptom:** opening Talent Profile over the live Lot makes the Lot inert and the browser blurs
+  the opener before the drawer effect reads `document.activeElement`; Escape then restores focus to
+  `BODY` even though standalone drawer tests pass.
+- **Resolution:** the App boundary captures the opener synchronously inside the open callback,
+  before inertness. After close and inert removal, a next-frame restore requires the same epoch, no
+  reopened profile, a connected opener, and no inert ancestor. Accepted studio replacement clears
+  the opener and invalidates the epoch instead of focusing stale UI.
+- **Coverage / fastest diagnostic:** in real Chromium open from a physical-world inspector, close
+  by Escape and button, and require the exact opener. Reopen before the pending frame and replace
+  the studio while open; require no stale focus.
+- **Pattern:** pre-transition capture + post-transition guarded restoration. **Anti-pattern:**
+  discovering the opener in a passive modal-mount effect after the underlying surface became inert.
+
+## DY. Renderer structure is feature delta; scene population is fixture truth — **BR**
+
+- **Risk:** calling a governed one-production `34 objects / 15 actors` tuple a universal maximum
+  makes a legal two-production Annex fixture look like a renderer regression, while quoting only
+  the smaller fixture can hide actual feature allocation.
+- **Resolution:** freeze the reference tuple exactly, separately report each native fixture's
+  population, and prove the Annex paint reuses its existing Graphics/label with zero objects,
+  actors, textures, routes, or draws added. Keep wall-clock host failures visible and never infer an
+  absolute performance pass from structural parity.
+- **Coverage / fastest diagnostic:** measure fresh 240-sample windows for the native script fixture,
+  the two-production native allocation, and the frozen one-production reference; attribute
+  population differences before claiming a feature delta.
+- **Pattern:** exact fixture population + explicit feature delta + separate wall clock. **Anti-
+  pattern:** universalizing one reference tuple or relabelling compositor contention as a pass.

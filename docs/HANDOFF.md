@@ -1,6 +1,55 @@
 # Project: Studio — Engineering Handoff
 
-> ## 🎬 2026-08-14 — CURRENT: World-First Named Person Work & Career Inspector V1 CLOSED
+> ## 🎬 2026-08-14 — CURRENT: World-First Operational Annex Work Presence V1 CLOSED
+>
+> Frozen contract `e2fd6dfdedc0ac398cae24c2ccea9bcc524d38d1` and implementation
+> `e14633b578834f5a2f625049762c45506e6b1ee2` make the completed Development & Casting Annex a
+> truthful physical workplace. The canonical Calendar slot now projects Available 0/1 or Working
+> 1/1 into one pure fail-closed context shared by physical paint, semantic companion, and the
+> in-world inspector. Native work names exact screenplay/casting/production owner, title, and
+> activity. Configured-capacity Production Held is separately labelled read-model robustness
+> evidence and is not claimed as native SaveFileV11 play.
+>
+> Exact owner IDs optionally open focused Writers Room, Casting Room, or Production Board details
+> after world inspection. App revalidates latest truth before navigation; direct Back rebuilds
+> current Annex truth and focuses Current work. Stale/replaced identity, repeated gestures,
+> unrelated child navigation, studio replacement, renderer failure, delayed readiness, modal
+> suspension, hidden tabs, recreation, reduced motion, 960×540, maximum camera zoom, and 200% page
+> zoom fail closed. Annex-reserved Development/Pre-production points to physical `expansion`; no
+> Engine allocation law changed.
+>
+> Three committed public-action-derived native SaveFileV11 fixtures replay byte-identically at
+> `4026c516...`, `cb49f61a...`, and `d7213ae7...`; manifest `43c40208...`. Final proof: **170/170
+> files, 2,242/2,242 tests**; governed D-16/D-17 **10/10 files, 176/176 tests**; focused Annex
+> **203/203**; final Chromium **30/30**; production build **137 modules**; TypeScript, hashes, diff,
+> and independent authority/focus/visual review clean with no unresolved P1–P3 findings.
+>
+> Annex paint adds zero objects, actors, textures, routes, or draws. Default headless wall-clock
+> samples did not clear every absolute gate and are not called a pass; no threshold was relaxed.
+> Proportional verification also repaired one App-owned Talent Profile focus lifecycle defect by
+> capturing the opener before the Lot becomes inert and restoring it after the world is interactive.
+> No profile/career data, Core, GameState, SaveFileV11, economy, RNG, manifest, exporter, or art
+> authority changed.
+>
+> **NEXT:** freeze and build **World-First Selected Stage 7 Production Detail Handoff & Fresh Return
+> V1**. Explicit physical Stage 7 inspection may optionally open the exact focused Production Board
+> card and return to fresh exact Stage 7 context. Existing in-world commands remain primary. No
+> global Dashboard shortcut, first-match identity, Stage 12 art, new simulation law, or renderer
+> cost is authorized.
+>
+> Protected anchors remain untouched: `main` =
+> `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =
+> `35d42687a410a621becf1df35c75986657f8c44e`; Operation Hollywood bridge =
+> `623b8b2a80e9c6b85304eaa2a338b6045e8f6b21`. Nothing was merged, pushed, or tagged.
+>
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+>
+> Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
+> dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
+> and formal G12 timing remain open. No financing, bailout, restructuring, failure ladder, or
+> arbitrary cash sink is authorized.
+
+> ## 🎬 2026-08-14 — PRIOR: World-First Named Person Work & Career Inspector V1 CLOSED
 >
 > Corrected frozen contract [`c5c1679`](WORLD-FIRST-NAMED-PERSON-WORK-CAREER-INSPECTOR-V1-CONTRACT.md)
 > and implementation `04f7d9da01a1f609b54430c4a0265d7cdd637b4a` make visible named Directors
@@ -42,7 +91,7 @@
 > dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
 > and formal G12 timing remain open. This world/navigation closure is not macroeconomic
 > certification and authorizes no financing, bailout, restructuring, failure ladder, or arbitrary
-> cash sink. Legacy history below remains historical; this banner is the current handoff.
+> cash sink. This prior banner is historical; the Operational Annex banner above is current.
 
 > ## 📚 Lessons — read before, update after
 >

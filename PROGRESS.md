@@ -32,14 +32,17 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   contract `c5c1679` and implementation `04f7d9d`; an exact visible Director or
   Lead now exposes truthful work, assignment, and career context in the Lot and opens the canonical
   profile over the same mounted living world.
-- **World-First Publicity Campaign V1:** CLOSED by this documentation checkpoint under contract
-  `f83f27f` and implementation `f2f2e22`; physical Administration & Publicity now owns the exact
+- **World-First Publicity Campaign V1:** CLOSED at `04932d2` under contract `f83f27f` and
+  implementation `f2f2e22`; physical Administration & Publicity now owns the exact
   three-tier action, same-Lot successor truth, bounded photocall acknowledgement, and explicit
   Dashboard-details return.
-- **Next promoted slice:** World-First Operational Annex Work Presence V1. Freeze exact
-  Available/Working native slot truth, owner/title/activity inspection, targeted deep-owner return,
-  and the Annex location correction before implementation. Keep configured Held truth explicitly
-  non-native. Do not invent queue, worker, reroute, or new facility law.
+- **World-First Operational Annex Work Presence V1:** CLOSED by this documentation checkpoint under
+  contract `e2fd6df` and implementation `e14633b`; the completed physical Annex now exposes exact
+  Available/Working slot truth, current work, and focused deep-owner return.
+- **Next promoted slice:** World-First Selected Stage 7 Production Detail Handoff & Fresh Return V1.
+  Freeze explicit physical-inspection provenance, exact Production Board focus, and fresh typed
+  return. Existing world commands remain primary; do not add Stage 12, simulation, or global-menu
+  authority.
 
 ## Closed marathon milestones
 
@@ -62,7 +65,8 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Scenery Load-In V1 | `b03bb10` | `3a667e0` | `ae64b41` |
 | World-First Studio Home V1 | `8d5f8dd` | `0c4bd9d` | `5a20a24` |
 | World-First Named Person Work & Career Inspector V1 | `c5c1679` (`9bd075b` initial freeze) | `04f7d9d` | `ce96ddf` |
-| World-First Publicity Campaign V1 | `f83f27f` | `f2f2e22` | this documentation checkpoint |
+| World-First Publicity Campaign V1 | `f83f27f` | `f2f2e22` | `04932d2` |
+| World-First Operational Annex Work Presence V1 | `e2fd6df` | `e14633b` | this documentation checkpoint |
 
 ## Product result so far
 
@@ -90,14 +94,21 @@ Audience Awareness, ledger, and cooldown truth without leaving the mounted Lot. 
 photocall cue cannot erase Stage 7 production truth. Dashboard remains one explicit details handoff
 and returns to fresh Administration context rather than becoming the primary purchase path.
 
+The completed Annex is now a readable workplace. Its physical label and inspector show exact
+Calendar Available 0/1 or Working 1/1 truth, identify the current screenplay/casting/production and
+activity, and optionally open the exact focused deep owner. Direct Back rebuilds current Annex
+truth rather than replaying the old occupant. Configured Held remains explicitly non-native
+read-model evidence; no worker, queue, reroute, or facility-choice law was invented.
+
 Deep non-modal screens still unmount and later remount the Lot. Studio Home persists bounded
 selected-building/focus context and authoritative GameState; it does not preserve the same Phaser
 instance, camera, selected person, or other transient world presentation through those routes.
-Publicity closure proof passed 168/168 repository files and 2,171/2,171 tests, the governed
-D-16/D-17 10/10 files and 176/176 tests, focused publicity Chromium at 5 passed/1 explicit GPU skip,
-the full Lot Chromium suite at 20/20, a 136-module production build, clean TypeScript/provenance/diff
-gates, and clean independent final review. The completed several-minutes-on-Lot audit—not
-feature-list completion—promotes exact Operational Annex Work Presence as the next bounded slice.
+Annex closure proof passed 170/170 repository files and 2,242/2,242 tests, the governed D-16/D-17
+10/10 files and 176/176 tests, final combined Chromium 30/30, a 137-module production build,
+byte-identical native SaveFileV11 evidence, clean TypeScript/hash/diff gates, and clean independent
+review. Default headless absolute wall-clock samples remain honestly non-passing; the zero-cost
+structural proof passes and no frozen gate was relaxed. The next smallest continuity repair is the
+explicit Stage 7 → exact Production Board → fresh Stage 7 handoff.
 
 ## Governing status
 
@@ -105,7 +116,7 @@ feature-list completion—promotes exact Operational Annex Work Presence as the 
 
 Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
 dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
-and formal G12 timing remain open. Publicity Campaign V1 certifies no macroeconomic balance and
+and formal G12 timing remain open. Operational Annex Work Presence V1 certifies no macroeconomic balance and
 authorizes no financing, bailout, restructuring, failure ladder, or arbitrary cash sink.
 
 No merge to main, push, or milestone tag is authorized by autonomous progress alone.

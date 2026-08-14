@@ -91,37 +91,44 @@ worker, film-specific campaign, core/save/tuning law, manifest mutation, art, or
 proof passed 168/168 files and 2,171/2,171 tests, D-16/D-17 176/176, publicity Chromium 5 passed/1
 explicit GPU skip, full Lot Chromium 20/20, a 136-module build, and clean independent review.
 
-## Promoted — World-First Operational Annex Work Presence V1
+## Closed — World-First Operational Annex Work Presence V1
 
-The post-publicity critical-experience audit found that the physical Annex stops at
-`OPERATIONAL / +1 capacity` even when its exact one slot is doing real studio work. Existing
-Engine/Calendar truth already identifies the slot as idle or occupied and, when occupied, supplies
-its exact owner kind, owner ID, title, and current activity. Construction tests prove both a truly
-idle completed Annex and later ordinary script/production allocation into that exact facility.
+Contract `e2fd6df` and implementation `e14633b` close the completed Annex's physical work presence.
+One exact Calendar slot projects to Available 0/1, Working 1/1, or separately labelled configured
+Held truth; physical paint, semantic companion, and inspector share it; exact focused deep owners
+return to fresh Annex context; and Annex-reserved productions point to physical `expansion`.
 
-Freeze the smallest truthful repair before implementation:
+Malformed/stale identity, replacement, repeated gestures, unrelated navigation, renderer failure,
+modal suspension, delayed readiness, and compact/zoom layouts fail closed. No worker, queue,
+facility choice, reroute, new allocation law, Core/save/tuning change, art, object, actor, texture,
+route, or draw was added. Final proof passed 2,242/2,242 repository tests, 176/176 governed tests,
+30/30 final Chromium checks, byte-identical native evidence, a 137-module build, and clean review.
 
-- project only the exact Annex slot leaf into the Lot snapshot;
-- make the existing physical Annex read **AVAILABLE** or **WORKING** in native play;
-- selecting it must show exact `0/1` or `1/1`, owner kind, title, and activity in world;
-- configured-capacity robustness may read **PRODUCTION HELD** only from its exact Calendar
-  status/blocker while retaining the occupied Annex reservation; never label that configured state
-  as native V11 play or the facility itself as blocked;
-- provide an exact owner-ID supporting handoff to Writers Room, Casting Room, or focused Production
-  Board, with direct return to fresh Annex context; and
-- correct the presentation mapping where an operation reserved in the exact Annex currently points
-  to Writers/Casting instead of the physical `expansion` place.
+## Promoted — World-First Selected Stage 7 Production Detail Handoff & Fresh Return V1
 
-A status glow or label alone is display-only and must be killed. No facility-choice command exists,
-so V1 must not invent assignment, relocation, freeing, rerouting, cancellation, or queue control.
-There is no authoritative queue position, waiter, ETA, named worker travel, workload, stress, or
-facility-blocked state. `reserved` and `occupied` describe the same current slot claim; do not imply
-a future reservation system. Operational copy must not say “available now” when the slot is 1/1.
+The post-Annex critical-experience review found one small continuity gap in an otherwise playable
+Stage 7 loop. The player can already select physical Stage 7, inspect exact film/status/blocker,
+dispatch the Director, clear scenery, schedule the take, and watch current work. But physical Stage
+7 inspection cannot optionally open that exact production's complete Production Board card and
+return to freshly revalidated Stage 7 context. Generic Dashboard entry loses the inspected film.
 
-Physical Stage 12 remains the largest parallel-production visibility gap but is unavailable under
-its recorded art no-go. Exact selected-production deep handoff is a useful lower-ranked supporting
-repair, but it adds another Dashboard visit without first making an existing physical workplace
-more alive.
+Freeze the smallest supporting repair before implementation:
+
+- add one pure unique Stage 7 production-detail selector and remove the current first-match seams;
+- expose **Open Production Board details · <exact title>** only after explicit physical/status/
+  problem/native Stage A inspection, never from default auto-selection or the generic rail;
+- keep the existing in-world command ahead of this secondary deep action;
+- revalidate exact production ID and `stage-a` location in both Lot and App before focused Board
+  navigation;
+- carry one typed exact-production return intent; direct Back rebuilds latest Stage 7 truth,
+  restores the physical outline when available, and focuses a stable context heading;
+- if the film is removed, released, relocated, replaced, duplicated, malformed, or no longer exact,
+  return to the neutral Lot heading without substituting another production; and
+- retain semantic Stage A → Board → Lot parity when the renderer is unavailable.
+
+This is navigation/continuity over existing Production Board and command authority. It may not add
+a global Dashboard shortcut, cached Board truth, Stage 12 art, a new command/task/clock, same-camera
+promise, new Core/save/adapter law, queue, staffing, reroute, cancellation, art, or renderer cost.
 
 ## Closed parallel evidence lane
 
@@ -148,9 +155,11 @@ construction, or operating costs materially change the decision boundary.
 
 ## Contract boundary
 
-Freeze the exact selector, hostile-state, deep-return, failure, viewport, and performance boundary
-before implementation. Existing core/Calendar state is read-only authority; no new core mechanic,
-save field, facility, art, place, action, clock, worker model, or pathfinding result is authorized.
+Freeze the exact selector, explicit-world provenance, latest-identity handoff, focused Board,
+fresh-return/fallback, exact-once, failure, viewport, and performance boundary before
+implementation. Existing snapshot/Production Board state is read-only authority; no new core
+mechanic, save field, facility, art, place, action, clock, worker model, or pathfinding result is
+authorized.
 
 The governing economic classification remains exactly:
 

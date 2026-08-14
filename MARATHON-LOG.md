@@ -263,3 +263,42 @@ Owner rulings remain the authority when a summary here conflicts with them.
 - Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
   RESIDUALS REMAIN OPEN**. Every accepted residual remains open and no financing, bailout,
   restructuring, failure ladder, or arbitrary cash sink was introduced.
+
+## 2026-08-14 — World-first operational Annex work presence closes
+
+- Froze contract `e2fd6dfdedc0ac398cae24c2ccea9bcc524d38d1` and delivered implementation
+  `e14633b578834f5a2f625049762c45506e6b1ee2` without changing Core, GameState, SaveFileV11,
+  allocation, facility/construction/economy tuning, RNG, manifest, exporter, or art authority.
+- Projected the exact unique Development & Casting Annex Calendar row/slot into the Lot and added a
+  pure hostile-state validator for Available, Working, and separately labelled configured Held
+  truth.
+- Made the physical Annex and native semantic companion show exact 0/1 or 1/1 state, current owner
+  kind/title/activity, and production status/blocker truth without claiming a worker, queue,
+  destination, or facility blocking.
+- Corrected Annex-reserved Development/Pre-production presentation location to physical
+  `expansion`; base Writers/Casting and every non-Annex phase mapping remain unchanged.
+- Added exact focused production, screenplay, and casting detail handoffs. Direct Back rebuilds
+  current Annex truth and focuses Current work; replacement or stale identity cannot substitute a
+  new occupant, and unrelated child navigation demotes the return intent.
+- Committed three deterministic public-action-derived native SaveFileV11 fixtures plus a manifest
+  and generator. Clean replay is byte-identical at `4026c516...`, `cb49f61a...`, `d7213ae7...`, and
+  manifest `43c40208...`; configured Held remains in-memory evidence only.
+- Hardened stale down→replacement→click activation, repeated keys, modal transitions, renderer
+  rejection, delayed readiness, hidden tabs, recreation, reduced motion, 960×540, maximum camera
+  zoom, and 200% page zoom.
+- Proportional browser verification exposed and fixed an adjacent Talent Profile focus defect:
+  opener identity is now captured before the Lot becomes inert and restored after it is interactive,
+  with race and accepted-studio-replacement guards. Profile/career data authority is unchanged.
+- Closed with 170/170 repository files and 2,242/2,242 tests, 10/10 governed D-16/D-17 files and
+  176/176 tests, focused Annex 203/203, final Chromium 30/30, byte-identical evidence, a 137-module
+  production build, and independent strict/focus/visual review with no unresolved P1–P3 findings.
+- Recorded performance honestly: Annex paint adds zero objects/actors/textures/routes/draws; the
+  governed one-production reference remains exact 34/15/11,096,896/one draw. Default headless
+  wall-clock samples did not clear every absolute gate, are not called a pass, and no threshold was
+  relaxed.
+- Promoted **World-First Selected Stage 7 Production Detail Handoff & Fresh Return V1**. Physical
+  Stage 7 inspection may optionally open the exact focused Production Board card and return to
+  fresh Stage 7 context; existing in-world commands remain primary.
+- Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
+  RESIDUALS REMAIN OPEN**. Every accepted residual remains open and no financing, bailout,
+  restructuring, failure ladder, or arbitrary cash sink was introduced.
