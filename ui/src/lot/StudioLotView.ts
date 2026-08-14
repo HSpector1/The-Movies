@@ -24,6 +24,7 @@ import {
   type HollywoodEvent,
   type HollywoodPerformance,
   type HollywoodPlaceSelection,
+  type HollywoodProductionSelection,
 } from './hollywood/HollywoodScene'
 import type { LotPersonState } from './snapshot/StudioLotSnapshot'
 
@@ -55,6 +56,7 @@ export type StudioLotViewOptions = {
   /** Operation Hollywood semantic events, kept presentation-only at this boundary. */
   onHollywoodPerson?: (person: LotPersonState | null) => void
   onHollywoodPlace?: (place: HollywoodPlaceSelection) => void
+  onHollywoodProduction?: (production: HollywoodProductionSelection) => void
   /** The lot finished first paint. */
   onReady?: () => void
   /**
@@ -133,6 +135,7 @@ export class StudioLotView {
     }
     if (e.type === 'person') this.opts.onHollywoodPerson?.(e.person)
     else if (e.type === 'place') this.opts.onHollywoodPlace?.(e.place)
+    else if (e.type === 'production') this.opts.onHollywoodProduction?.(e.production)
     else if (e.type === 'activity') this.opts.onActivity?.(e.text)
   }
 
@@ -290,6 +293,9 @@ export class StudioLotView {
   }
 
   selectHollywoodPerson(id: string): void { this.hollywoodScene?.selectPerson(id) }
+  selectHollywoodProduction(id: string): boolean {
+    return this.hollywoodScene?.selectProductionFromHost(id) ?? false
+  }
   clearHollywoodPersonSelection(): void { this.hollywoodScene?.clearPersonSelection() }
   clearHollywoodPlaceSelection(): void { this.hollywoodScene?.clearPlaceSelection() }
 

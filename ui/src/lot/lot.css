@@ -239,9 +239,9 @@
 .lot-hollywood .lot-selection,
 .lot-hollywood .lot-review-bar,
 .lot-hollywood .lot-review-show { display: none; }
-/* The canvas is aria-hidden, so the semantic destination list must stay in the
-   accessibility tree. Keep it out of the cinematic composition without using
-   display:none; if the renderer fails, restore the normal visible side panel. */
+/* Phaser is the primary visual pointer surface but cannot expose a reliable
+   accessibility tree. Keep its equivalent destination controls in the DOM;
+   if the renderer fails, restore the visible semantic side panel. */
 .lot-hollywood .lot-companion {
   position: absolute !important;
   width: 1px;
@@ -269,10 +269,8 @@
 }
 .lot-hollywood .lot-body:has(.lot-canvas-note[data-testid="lot-canvas-fallback"]) :is(
   .hollywood-production,
-  .hollywood-inspector,
   .hollywood-productions,
   .hollywood-people,
-  .hollywood-activity,
   .hollywood-perf
 ) { display: none; }
 .lot-hollywood .lot-canvas::after {
@@ -332,6 +330,8 @@
 .hollywood-production.is-idle .hollywood-eyebrow i { background: #577064; box-shadow: none; }
 .hollywood-idle-copy { margin: 0; color: #aeb9ae; font-size: 12px; line-height: 1.5; }
 .hollywood-consequence { display: flex; align-items: flex-start; gap: 9px; margin: 10px 0 0; padding: 9px; background: rgba(104, 48, 23, .44); border-left: 3px solid #c7893d; font-size: 11px; }
+button.hollywood-consequence { width: 100%; color: inherit; text-align: left; border-top: 0; border-right: 0; border-bottom: 0; cursor: pointer; }
+button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
 .hollywood-consequence b { width: 20px; height: 20px; border: 1px solid #d4a85a; border-radius: 50%; text-align: center; }
 .hollywood-consequence strong { display: block; color: #f0c67b; }
 .hollywood-inspector > p:not(.hollywood-eyebrow) { margin: 0 0 12px; color: #b7c0b5; font-size: 12px; line-height: 1.45; }

@@ -7,14 +7,13 @@
 // Phaser is loaded ONLY here, via a dynamic import() inside an effect, so it never
 // reaches the eager bundle and is fetched only when the lot is actually opened.
 //
-// The accessible backbone is the React COMPANION NAVIGATION — a semantic list of every
-// destination with its name, current state, and attention, keyboard-operable and
-// screen-reader friendly. The canvas is progressive enhancement: if it cannot load
-// (e.g. no WebGL), every destination is still reachable from the list. The lot never
-// mutates GameState — it only emits navigation intents the host maps to real routes.
+// The canvas is the primary visual pointer surface. The React companion supplies the
+// equivalent semantic controls and complete renderer-failure path because a Phaser
+// canvas cannot expose a reliable accessibility tree. Neither surface owns GameState:
+// they emit identity/intent and the host dispatches only engine-projected commands.
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import type { GameState } from '../engine/adapter.ts'
+import type { ActionOutcome, GameState } from '../engine/adapter.ts'
 import { publicityDecision, runPublicity, studioLotSnapshot } from '../engine/adapter.ts'
 import { moneyExact } from '../format.ts'
 import type {
@@ -29,7 +28,11 @@ import { ALL_BUILDING_IDS, BUILDING_ACTION, BUILDING_LABELS } from './snapshot/S
 import { lotStageAssignment } from './snapshot/stageAssignment.ts'
 import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
-import type { HollywoodPerformance, HollywoodPlaceSelection } from './hollywood/HollywoodScene.ts'
+import type {
+  HollywoodPerformance,
+  HollywoodPlaceSelection,
+  HollywoodProductionSelection,
+} from './hollywood/HollywoodScene.ts'
 import {
   studioLotIdentityEnabled,
   studioLotIdentityProofEnabled,
@@ -40,6 +43,13 @@ import {
   operationHollywoodEnabled,
 } from '../flags.ts'
 import type { IdentityMode } from './identity/manifest.ts'
+
+// Phaser listens for mouse and touch input at window level. Contain every down
+// event family from React overlays so a desk command cannot also select the
+// building geometrically underneath it and unmount before the later `click`.
+const containWorldInput = (event: { stopPropagation(): void }) => {
+  event.stopPropagation()
+}
 import './lot.css'
 
 // ── D1-A studio-identity review modes ────────────────────────────────────────────
@@ -69,7 +79,7 @@ type Props = {
   /** The host replaces the authoritative state only after a successful real engine action. */
   onStateChange?: (state: GameState) => void
   /** Dispatch exactly the command projected by the authoritative operations read model. */
-  onProductionCommand?: (command: LotProductionCommand) => void
+  onProductionCommand?: (command: LotProductionCommand) => ActionOutcome | void
 }
 
 // Session-level selection memory. This is UI session state — NOT GameState, NOT
@@ -201,11 +211,73 @@ export function StudioLotScreen({
   const expansionFact = snapshot.buildings.find((building) => building.id === 'expansion')
   const [operationalAnnouncement, setOperationalAnnouncement] = useState('')
   const hollywoodOperations = snapshot.productionOperations ?? []
+  const latestSnapshotRef = useRef(snapshot)
+  latestSnapshotRef.current = snapshot
+  const hasManagedEngineOperations =
+    snapshot.operationsMode === 'managed' && snapshot.stageAssignmentAuthority === 'engine'
+  const hollywoodStage7Operation =
+    hasManagedEngineOperations
+      ? hollywoodOperations.find((operation) => operation.locationBuildingId === 'stage-a') ?? null
+      : null
+  const explicitlySelectedHollywoodOperation = hollywoodProductionId === null
+    ? null
+    : hollywoodOperations.find((operation) => operation.productionId === hollywoodProductionId) ?? null
   const hollywoodOperation: ProductionOperationsState | null =
-    hollywoodOperations.find((operation) => operation.productionId === hollywoodProductionId) ??
-    hollywoodOperations.find((operation) => operation.locationBuildingId === 'stage-a') ??
-    hollywoodOperations[0] ??
-    null
+    hollywoodProductionId === null
+      ? hasManagedEngineOperations
+        ? hollywoodStage7Operation ?? (hollywoodOperations.length === 1 ? hollywoodOperations[0]! : null)
+        : hollywoodOperations[0] ?? null
+      : explicitlySelectedHollywoodOperation
+  const renderedHollywoodProductionIdRef = useRef<string | null>(hollywoodOperation?.productionId ?? null)
+  renderedHollywoodProductionIdRef.current = hollywoodOperation?.productionId ?? null
+
+  const enterHollywoodProductionContext = useCallback((
+    productionId: string,
+    options: { stage7Only: boolean; focus: boolean },
+  ): boolean => {
+    const current = latestSnapshotRef.current
+    if (
+      options.stage7Only &&
+      (current.operationsMode !== 'managed' || current.stageAssignmentAuthority !== 'engine')
+    ) return false
+    const exact = (current.productionOperations ?? []).find(
+      (operation) => operation.productionId === productionId &&
+        (!options.stage7Only || operation.locationBuildingId === 'stage-a'),
+    )
+    if (!exact) return false
+
+    setHollywoodProductionId(exact.productionId)
+    setHollywoodPerson(null)
+    setHollywoodPlace(null)
+    viewRef.current?.clearHollywoodPersonSelection()
+    viewRef.current?.clearHollywoodPlaceSelection()
+    if (exact.locationBuildingId === 'stage-a') {
+      viewRef.current?.selectHollywoodProduction(exact.productionId)
+    }
+    if (options.focus) {
+      pendingHollywoodFocusProductionId.current = exact.productionId
+      queueMicrotask(() => {
+        if (
+          pendingHollywoodFocusProductionId.current !== exact.productionId ||
+          renderedHollywoodProductionIdRef.current !== exact.productionId
+        ) return
+        const target = exact.currentCommand
+          ? hollywoodCommandRef.current
+          : hollywoodTaskStatusRef.current
+        if (!target) return
+        target.focus()
+        pendingHollywoodFocusProductionId.current = null
+      })
+    }
+    return true
+  }, [])
+
+  const recordHollywoodProduction = useCallback((
+    production: HollywoodProductionSelection,
+  ) => {
+    if (production.locationBuildingId !== 'stage-a') return
+    enterHollywoodProductionContext(production.productionId, { stage7Only: true, focus: true })
+  }, [enterHollywoodProductionContext])
 
   useEffect(() => {
     const capacity = expansionFact?.attentionReason?.replace(/^Annex operational · /, '')
@@ -263,6 +335,14 @@ export function StudioLotScreen({
     }
   }, [hollywoodPerson, recordHollywoodPerson, snapshot.people])
 
+  // An explicit identity never falls through to another film. Snapshot replacement
+  // may remove or relocate it; in that case the context stays empty until the player
+  // makes a fresh selection and no pending focus can attach to a future command.
+  useEffect(() => {
+    if (hollywoodProductionId === null || explicitlySelectedHollywoodOperation !== null) return
+    pendingHollywoodFocusProductionId.current = null
+  }, [explicitlySelectedHollywoodOperation, hollywoodProductionId])
+
   useEffect(() => {
     const productionId = pendingHollywoodFocusProductionId.current
     if (
@@ -314,6 +394,7 @@ export function StudioLotScreen({
           onAction: (e) => dispatchRoute(e.action),
           onHollywoodPerson: recordHollywoodPerson,
           onHollywoodPlace: recordHollywoodPlace,
+          onHollywoodProduction: recordHollywoodProduction,
           onActivity: (text) => { if (text) setHollywoodActivity(text) },
           onReady: () => {
             if (cancelled) return
@@ -436,24 +517,27 @@ export function StudioLotScreen({
   }, [recordHollywoodPerson])
 
   const selectHollywoodProduction = useCallback((productionId: string) => {
-    setHollywoodProductionId(productionId)
-    setHollywoodPlace(null)
-    viewRef.current?.clearHollywoodPlaceSelection()
-    if (
-      hollywoodPerson?.authority === 'active-production' &&
-      hollywoodPerson.productionId !== productionId
-    ) {
-      setHollywoodPerson(null)
-      viewRef.current?.clearHollywoodPersonSelection()
-    }
-  }, [hollywoodPerson])
+    enterHollywoodProductionContext(productionId, { stage7Only: false, focus: false })
+  }, [enterHollywoodProductionContext])
+
+  const inspectHollywoodStage7 = useCallback((productionId: string) => {
+    enterHollywoodProductionContext(productionId, { stage7Only: true, focus: true })
+  }, [enterHollywoodProductionContext])
 
   const dispatchHollywoodProductionCommand = useCallback((
     productionId: string,
     command: LotProductionCommand,
   ) => {
     pendingHollywoodFocusProductionId.current = productionId
-    onProductionCommand?.(command)
+    const outcome = onProductionCommand?.(command)
+    if (outcome && !outcome.ok) {
+      pendingHollywoodFocusProductionId.current = null
+      setHollywoodActivity(`Production command blocked: ${outcome.error}`)
+    } else if (outcome?.ok) {
+      setHollywoodActivity((current) =>
+        current?.startsWith('Production command blocked: ') ? null : current,
+      )
+    }
   }, [onProductionCommand])
 
   const runHollywoodPublicity = useCallback(() => {
@@ -476,11 +560,30 @@ export function StudioLotScreen({
   // Companion-nav activation: select the building AND route to its destination.
   const activate = useCallback(
     (id: BuildingId) => {
+      if (hollywood && id === 'stage-a') {
+        const current = latestSnapshotRef.current
+        const operation =
+          current.operationsMode === 'managed' && current.stageAssignmentAuthority === 'engine'
+            ? current.productionOperations.find(
+                (candidate) => candidate.locationBuildingId === 'stage-a',
+              )
+            : undefined
+        if (
+          operation &&
+          enterHollywoodProductionContext(operation.productionId, {
+            stage7Only: true,
+            focus: true,
+          })
+        ) {
+          recordSelection(id)
+          return
+        }
+      }
       recordSelection(id)
       viewRef.current?.select(id)
       dispatchRoute(BUILDING_ACTION[id])
     },
-    [dispatchRoute, recordSelection],
+    [dispatchRoute, enterHollywoodProductionContext, hollywood, recordSelection],
   )
 
   // With the review signage mask on, the companion list must not print the answer the
@@ -533,7 +636,7 @@ export function StudioLotScreen({
 
       <div className="lot-body">
         <div className="lot-stage-wrap">
-          {/* The canvas is decorative; the companion navigation is the accessible truth. */}
+          {/* Primary visual world surface; the DOM companion is its semantic equivalent. */}
           <div ref={mountRef} className="lot-canvas" data-testid="studio-lot-canvas" aria-hidden="true" />
 
           {hollywood && (
@@ -542,6 +645,9 @@ export function StudioLotScreen({
                 className={`hollywood-production${hollywoodOperation ? '' : ' is-idle'}`}
                 aria-label="Current production"
                 data-testid={hollywoodOperation ? 'hollywood-current-production' : 'hollywood-production-idle'}
+                onPointerDown={containWorldInput}
+                onMouseDown={containWorldInput}
+                onTouchStart={containWorldInput}
               >
                 {hollywoodOperation ? (
                   <>
@@ -565,13 +671,30 @@ export function StudioLotScreen({
                       <div><dt>Director</dt><dd>{hollywoodOperation.directorName}</dd></div>
                     </dl>
                     {hollywoodOperation.blocker && (
-                      <p className="hollywood-consequence" data-testid="hollywood-production-blocker">
-                        <b>!</b>
-                        <span>
-                          <strong>{hollywoodOperation.blocker.headline}</strong>
-                          {hollywoodOperation.blocker.detail}
-                        </span>
-                      </p>
+                      hollywoodStage7Operation?.productionId === hollywoodOperation.productionId ? (
+                        <button
+                          type="button"
+                          className="hollywood-consequence"
+                          data-testid="hollywood-production-blocker"
+                          data-world-problem="stage-7"
+                          aria-label={`Inspect ${hollywoodOperation.title} problem at Soundstage 7: ${hollywoodOperation.blocker.headline}`}
+                          onClick={() => inspectHollywoodStage7(hollywoodOperation.productionId)}
+                        >
+                          <b>!</b>
+                          <span>
+                            <strong>{hollywoodOperation.blocker.headline}</strong>
+                            {hollywoodOperation.blocker.detail}
+                          </span>
+                        </button>
+                      ) : (
+                        <p className="hollywood-consequence" data-testid="hollywood-production-blocker">
+                          <b>!</b>
+                          <span>
+                            <strong>{hollywoodOperation.blocker.headline}</strong>
+                            {hollywoodOperation.blocker.detail}
+                          </span>
+                        </p>
+                      )
                     )}
                   </>
                 ) : (
@@ -585,7 +708,13 @@ export function StudioLotScreen({
                 )}
               </section>
 
-              <section className="hollywood-inspector" aria-live="polite">
+              <section
+                className="hollywood-inspector"
+                aria-live="polite"
+                onPointerDown={containWorldInput}
+                onMouseDown={containWorldInput}
+                onTouchStart={containWorldInput}
+              >
                 <p className="hollywood-eyebrow">{hollywoodPerson ? 'SELECTED PERSON' : hollywoodPlace ? 'SELECTED PLACE' : 'STUDIO DESK'}</p>
                 <h3>{hollywoodPerson?.name ?? hollywoodPlace?.label ?? hollywoodOperation?.title ?? 'Studio idle'}</h3>
                 <p>{hollywoodPerson
@@ -652,7 +781,14 @@ export function StudioLotScreen({
               </section>
 
               {hollywoodOperations.length > 1 && (
-                <div className="hollywood-productions" role="group" aria-label="Active productions">
+                <div
+                  className="hollywood-productions"
+                  role="group"
+                  aria-label="Active productions"
+                  onPointerDown={containWorldInput}
+                  onMouseDown={containWorldInput}
+                  onTouchStart={containWorldInput}
+                >
                   {hollywoodOperations.map((operation) => (
                     <button
                       key={operation.productionId}
@@ -669,7 +805,14 @@ export function StudioLotScreen({
                 </div>
               )}
               {snapshot.people.length > 0 && (
-                <div className="hollywood-people" role="group" aria-label="Named studio people">
+                <div
+                  className="hollywood-people"
+                  role="group"
+                  aria-label="Named studio people"
+                  onPointerDown={containWorldInput}
+                  onMouseDown={containWorldInput}
+                  onTouchStart={containWorldInput}
+                >
                   {snapshot.people.map((person) => (
                     <button
                       key={person.id}
@@ -699,6 +842,9 @@ export function StudioLotScreen({
               data-testid="lot-review-mode"
               role="group"
               aria-label="Studio identity review mode (development only)"
+              onPointerDown={containWorldInput}
+              onMouseDown={containWorldInput}
+              onTouchStart={containWorldInput}
             >
               <span className="lot-review-title">Identity review</span>
               <div className="lot-review-opts">
@@ -746,6 +892,9 @@ export function StudioLotScreen({
               data-testid="lot-soundstage-review"
               role="group"
               aria-label="Soundstage proof review tools (development only)"
+              onPointerDown={containWorldInput}
+              onMouseDown={containWorldInput}
+              onTouchStart={containWorldInput}
             >
               <span className="lot-review-title">Soundstage proof</span>
               <div className="lot-review-opts">
@@ -775,6 +924,9 @@ export function StudioLotScreen({
               type="button"
               className="lot-review-show"
               data-testid="lot-review-show"
+              onPointerDown={containWorldInput}
+              onMouseDown={containWorldInput}
+              onTouchStart={containWorldInput}
               onClick={() => setReviewHidden(false)}
             >
               Identity review ▸
@@ -787,7 +939,8 @@ export function StudioLotScreen({
           )}
           {canvasFailed && (
             <div className="lot-canvas-note" role="status" data-testid="lot-canvas-fallback">
-              The visual lot could not load here. Every destination is available in the list.
+              The visual lot could not load here. Every destination remains in the list, and exact
+              Stage 7 work remains available through the Studio Desk.
             </div>
           )}
 

@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 
 const fakePhaser = vi.hoisted(() => {
+  const canvas = {}
   class DisplayObject {
     x: number
     y: number
@@ -13,6 +14,8 @@ const fakePhaser = vi.hoisted(() => {
     destroyed = false
     visible = true
     fillColor = 0
+    interactive = false
+    handlers = new Map<string, Array<(...args: unknown[]) => void>>()
 
     constructor(x = 0, y = 0, texture = '') {
       this.x = x
@@ -22,8 +25,17 @@ const fakePhaser = vi.hoisted(() => {
 
     setOrigin() { return this }
     setDepth(depth: number) { this.depth = depth; return this }
-    setInteractive() { return this }
-    on() { return this }
+    setInteractive() { this.interactive = true; return this }
+    on<TArgs extends unknown[]>(name: string, handler: (...args: TArgs) => void) {
+      const handlers = this.handlers.get(name) ?? []
+      handlers.push(handler as (...args: unknown[]) => void)
+      this.handlers.set(name, handlers)
+      return this
+    }
+    emit(name: string, ...args: unknown[]) {
+      for (const handler of this.handlers.get(name) ?? []) handler(...args)
+      return this
+    }
     setVisible(visible: boolean) { this.visible = visible; return this }
     setTint() { return this }
     setTexture(texture: string, frame?: string | number) {
@@ -38,6 +50,8 @@ const fakePhaser = vi.hoisted(() => {
     setAlpha() { return this }
     setText(text: string) { this.text = text; return this }
     setFillStyle(color: number) { this.fillColor = color; return this }
+    setStrokeStyle() { return this }
+    setName() { return this }
     destroy() { this.destroyed = true }
   }
 
@@ -76,11 +90,15 @@ const fakePhaser = vi.hoisted(() => {
     sprites: DisplayObject[] = []
     texts: DisplayObject[] = []
     zones: DisplayObject[] = []
+    circles: DisplayObject[] = []
+    rectangles: DisplayObject[] = []
+    graphicsObjects: Graphics[] = []
+    images: DisplayObject[] = []
     imageLoads: Array<{ key: string; url: string }> = []
     textureSizes = new Map<string, { width: number; height: number; generated: boolean }>()
     tweenAdds: unknown[] = []
     children = { length: 0 }
-    game = { loop: { rawDelta: 0, actualFps: 60 } }
+    game = { canvas, loop: { rawDelta: 0, actualFps: 60 } }
     scene = { isActive: () => true }
     load = {
       json: () => {},
@@ -99,6 +117,11 @@ const fakePhaser = vi.hoisted(() => {
       }),
     }
     add = {
+      image: (x: number, y: number, texture: string) => {
+        const image = new DisplayObject(x, y, texture)
+        this.images.push(image)
+        return image
+      },
       sprite: (x: number, y: number, texture: string) => {
         const sprite = new DisplayObject(x, y, texture)
         this.sprites.push(sprite)
@@ -114,6 +137,21 @@ const fakePhaser = vi.hoisted(() => {
         const zone = new DisplayObject(x, y)
         this.zones.push(zone)
         return zone
+      },
+      graphics: () => {
+        const graphics = new Graphics()
+        this.graphicsObjects.push(graphics)
+        return graphics
+      },
+      rectangle: (x: number, y: number) => {
+        const rectangle = new DisplayObject(x, y)
+        this.rectangles.push(rectangle)
+        return rectangle
+      },
+      circle: (x: number, y: number) => {
+        const circle = new DisplayObject(x, y)
+        this.circles.push(circle)
+        return circle
       },
     }
     tweens = {
@@ -132,7 +170,7 @@ const fakePhaser = vi.hoisted(() => {
     }
   }
 
-  return { DisplayObject, Graphics, Scene, Tween }
+  return { canvas, DisplayObject, Graphics, Scene, Tween }
 })
 
 vi.mock('phaser', () => ({
@@ -149,11 +187,77 @@ vi.mock('phaser', () => ({
 }))
 
 import { HollywoodScene, type HollywoodEvent } from './HollywoodScene.ts'
+import {
+  applyActions,
+  beginFounding,
+  FOUNDING_MINIMUMS,
+  generateWorld,
+  tick,
+} from '../../../../src/core/index.ts'
+import type { CreativeRole, GameState } from '../../../../src/core/index.ts'
+import { runProductionCommand, studioLotSnapshot } from '../../engine/adapter.ts'
 import type {
   LotPersonState,
   ProductionOperationsState,
   StudioLotSnapshot,
 } from '../snapshot/StudioLotSnapshot.ts'
+
+function foundManagedEngineState(seed: string): GameState {
+  let state = beginFounding(generateWorld(seed))
+  const pool = state.founding!.applicantIds.map(
+    (id) => state.talent.find((candidate) => candidate.id === id)!,
+  )
+  const byRole = (role: CreativeRole, count: number) =>
+    pool.filter((candidate) => candidate.role === role).slice(0, count)
+  const hires = [
+    ...byRole('actor', FOUNDING_MINIMUMS.actor),
+    ...byRole('director', FOUNDING_MINIMUMS.director),
+    ...byRole('writer', FOUNDING_MINIMUMS.writer),
+    ...byRole('craft', FOUNDING_MINIMUMS.craft),
+  ]
+  for (const person of hires) {
+    state = applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks: 156 }])
+  }
+  return applyActions(applyActions(state, [{ kind: 'foundStudio' }]), [
+    { kind: 'activateStudioOperations' },
+  ])
+}
+
+function greenlightEngineFilm(state: GameState): GameState {
+  const concept = state.concepts[0]!
+  const ids = (role: CreativeRole) => state.contracts
+    .map((contract) => state.talent.find((talent) => talent.id === contract.talentId)!)
+    .filter((talent) => talent.role === role)
+    .map((talent) => talent.id)
+  const actors = ids('actor')
+  return applyActions(state, [{
+    kind: 'greenlight',
+    production: {
+      conceptId: concept.id,
+      shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+      promise: {
+        genre: concept.genre,
+        intendedSegments: ['adult'],
+        ranges: {
+          intimacy: [-0.5, 0.5],
+          tonalWeight: [-0.5, 0.5],
+          kineticEnergy: [-0.5, 0.5],
+        },
+      },
+      writerId: ids('writer')[0]!,
+      directorId: ids('director')[0]!,
+      cast: { lead: actors[0]!, antagonist: actors[1]!, support: actors[2]! },
+      craftIds: [ids('craft')[0]!],
+      budget: { negative: concept.baseNegativeCost, marketing: 100_000 },
+    },
+  }])
+}
+
+function advanceEngineState(state: GameState, weeks: number): GameState {
+  let next = state
+  for (let week = 0; week < weeks; week++) next = tick(next)
+  return next
+}
 
 const director = (overrides: Partial<LotPersonState> = {}): LotPersonState => ({
   id: 'director-1',
@@ -241,9 +345,22 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   manifest: {
     districtId: string
     textureMemoryBytes: number
+    layers: Array<{
+      id: string
+      kind: 'baked' | 'occluder'
+      depth: number
+      output: string
+      x: number
+      y: number
+      width: number
+      height: number
+    }>
     activities: Array<{ id: string; place: string; visualStates: string[] }>
     places: Array<{
       id: string
+      buildingId: 'stage-a'
+      label: string
+      affordances: string[]
       anchors: Record<string, [number, number]>
       selectionPolygon: [number, number][]
     }>
@@ -265,9 +382,16 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   expansionLabel: InstanceType<typeof fakePhaser.DisplayObject> | null
   roleAtlasActive: boolean
   performanceWarmupFramesRemaining: number
+  buildWorld: () => void
   buildAmbientLife: () => void
   buildSemanticHotspots: () => void
   buildActorTextures: () => void
+  selectStage7Surface: (place: {
+    id: string
+    buildingId: 'stage-a'
+    label: string
+    affordances: string[]
+  }) => void
 }
 
 function harness(initial: StudioLotSnapshot, reducedMotion = false) {
@@ -278,8 +402,16 @@ function harness(initial: StudioLotSnapshot, reducedMotion = false) {
   internals.manifest = {
     districtId: 'district',
     textureMemoryBytes: 0,
+    layers: [],
     activities: [{ id: 'shooting', place: 'stage-7', visualStates: ['crew-call', 'equipment-staged', 'take-in-progress'] }],
-    places: [{ id: 'stage-7', anchors: { crewCall: [50, 60] }, selectionPolygon: [[0, 0], [100, 0], [100, 100], [0, 100]] }],
+    places: [{
+      id: 'stage-7',
+      buildingId: 'stage-a',
+      label: 'Stage 7',
+      affordances: ['enter-stage', 'shoot', 'load-in'],
+      anchors: { crewCall: [50, 60] },
+      selectionPolygon: [[0, 0], [100, 0], [100, 100], [0, 100]],
+    }],
   }
   internals.route = [
     { x: 10, y: 20, actorDepth: 30, cue: 'street' },
@@ -293,6 +425,154 @@ function harness(initial: StudioLotSnapshot, reducedMotion = false) {
 }
 
 describe('HollywoodScene snapshot authority', () => {
+  function pointer(target: unknown = fakePhaser.canvas) {
+    return { event: { stopPropagation: vi.fn(), target } }
+  }
+
+  function productionEvents(events: HollywoodEvent[]) {
+    return events.filter((event) => event.type === 'production')
+  }
+
+  it('routes the Stage 7 polygon, lamp, and status through one exact identity-only selection seam', () => {
+    const exact = operation()
+    const { internals, events } = harness(snapshot([director()], [exact]))
+    const shared = vi.spyOn(internals, 'selectStage7Surface')
+    internals.buildWorld()
+    internals.buildSemanticHotspots()
+
+    internals.zones[0]!.emit('pointerdown', pointer())
+    internals.stageLamp!.emit('pointerdown', pointer())
+    internals.stageStateText!.emit('pointerdown', pointer())
+
+    expect(shared).toHaveBeenCalledTimes(3)
+    expect(productionEvents(events)).toEqual([
+      {
+        type: 'production',
+        production: { productionId: exact.productionId, locationBuildingId: 'stage-a' },
+      },
+      {
+        type: 'production',
+        production: { productionId: exact.productionId, locationBuildingId: 'stage-a' },
+      },
+      {
+        type: 'production',
+        production: { productionId: exact.productionId, locationBuildingId: 'stage-a' },
+      },
+    ])
+    for (const event of productionEvents(events)) {
+      if (event.type !== 'production') throw new Error('expected production event')
+      expect(Object.keys(event.production).sort()).toEqual(['locationBuildingId', 'productionId'])
+    }
+  })
+
+  it('ignores scene hits whose native event belongs to an over-canvas DOM control', () => {
+    const exact = operation()
+    const { scene, internals, events } = harness(snapshot([director()], [exact]))
+    internals.buildWorld()
+    internals.buildSemanticHotspots()
+
+    const overlayButton = {}
+    internals.zones[0]!.emit('pointerdown', pointer(overlayButton))
+    internals.stageLamp!.emit('pointerdown', pointer(overlayButton))
+    internals.stageStateText!.emit('pointerdown', pointer(overlayButton))
+    expect(events).toEqual([])
+
+    const canvas = (scene as unknown as { game: { canvas: unknown } }).game.canvas
+    internals.stageStateText!.emit('pointerdown', pointer(canvas))
+    expect(productionEvents(events)).toEqual([{
+      type: 'production',
+      production: { productionId: exact.productionId, locationBuildingId: 'stage-a' },
+    }])
+  })
+
+  it('keeps ordinary Stage 7 place selection when no managed Stage 7 operation exists', () => {
+    const { internals, events } = harness(snapshot([]))
+    internals.buildSemanticHotspots()
+
+    internals.zones[0]!.emit('pointerdown', pointer())
+
+    expect(productionEvents(events)).toEqual([])
+    expect(events).toContainEqual({
+      type: 'place',
+      place: {
+        id: 'stage-7',
+        buildingId: 'stage-a',
+        label: 'Stage 7',
+        affordances: ['enter-stage', 'shoot', 'load-in'],
+      },
+    })
+  })
+
+  it('never borrows a Stage 12 operation for the physical Stage 7 selection seam', () => {
+    const stage12 = operation({
+      productionId: 'production-stage-12',
+      locationBuildingId: 'stage-b',
+      facilityLabel: 'Soundstage 12 + Scenery Shop',
+    })
+    const { internals, events } = harness(snapshot([director()], [stage12]))
+    internals.buildWorld()
+    internals.buildSemanticHotspots()
+
+    internals.zones[0]!.emit('pointerdown', pointer())
+    internals.stageLamp!.emit('pointerdown', pointer())
+    internals.stageStateText!.emit('pointerdown', pointer())
+
+    expect(productionEvents(events)).toEqual([])
+    expect(events.filter((event) => event.type === 'place')).toHaveLength(3)
+  })
+
+  it('selects exact Stage 7 identity with Stage 12 first and reads the latest snapshot at click time', () => {
+    const stage12 = operation({
+      productionId: 'production-stage-12',
+      locationBuildingId: 'stage-b',
+      facilityLabel: 'Soundstage 12 + Scenery Shop',
+    })
+    const firstStage7 = operation({ productionId: 'production-stage-7-old' })
+    const { scene, internals, events } = harness(
+      snapshot([director()], [stage12, firstStage7]),
+    )
+    internals.buildSemanticHotspots()
+
+    const latestStage7 = operation({
+      productionId: 'production-stage-7-latest',
+      title: 'Latest Stage 7 Picture',
+    })
+    scene.applySnapshot(snapshot([director()], [stage12, latestStage7]))
+    internals.zones[0]!.emit('pointerdown', pointer())
+
+    expect(productionEvents(events)).toEqual([
+      {
+        type: 'production',
+        production: {
+          productionId: 'production-stage-7-latest',
+          locationBuildingId: 'stage-a',
+        },
+      },
+    ])
+  })
+
+  it('lets the semantic host highlight only exact current Stage 7 without re-emitting selection', () => {
+    const exact = operation({ productionId: 'production-stage-7' })
+    const { scene, internals, events } = harness(snapshot([director()], [exact]))
+    internals.buildWorld()
+    const eventCount = events.length
+
+    expect(scene.selectProductionFromHost(exact.productionId)).toBe(true)
+    expect(scene.debugState().selectedPlaceId).toBe('stage-7')
+    expect(events).toHaveLength(eventCount)
+
+    expect(scene.selectProductionFromHost('production-not-on-stage-7')).toBe(false)
+    expect(events).toHaveLength(eventCount)
+
+    scene.applySnapshot(snapshot([director()], [{
+      ...exact,
+      locationBuildingId: 'stage-b',
+      facilityLabel: 'Soundstage 12 + Scenery Shop',
+    }]))
+    expect(scene.selectProductionFromHost(exact.productionId)).toBe(false)
+    expect(events).toHaveLength(eventCount)
+  })
+
   it('uses one validated atlas frame per existing actor while generated textures remain fallback', () => {
     const { scene, internals } = harness(snapshot([]))
     internals.roleAtlasActive = true
@@ -568,6 +848,41 @@ describe('HollywoodScene snapshot authority', () => {
     expect(scene.debugState().stage7Operation?.taskStatus).toBe('blocked')
     expect(internals.stageStateText?.text).toContain('PRODUCTION HOLD')
     expect(internals.sprites[0]).toMatchObject({ x: 70, y: 80 })
+  })
+
+  it('keeps the exact successor command legal while the cosmetic director route is still moving', () => {
+    const unassignedState = advanceEngineState(
+      greenlightEngineFilm(foundManagedEngineState('hollywood-route-command-independence')),
+      4,
+    )
+    const unassignedSnapshot = studioLotSnapshot(unassignedState)
+    const unassignedOperation = unassignedSnapshot.productionOperations!.find(
+      (candidate) => candidate.locationBuildingId === 'stage-a',
+    )!
+    expect(unassignedOperation.currentCommand?.kind).toBe('assignShootingDirector')
+    const assigned = runProductionCommand(unassignedState, unassignedOperation.currentCommand!)
+    if (!assigned.ok) throw new Error(assigned.error)
+
+    const { scene } = harness(unassignedSnapshot)
+    const blockedSnapshot = studioLotSnapshot(assigned.next)
+    scene.applySnapshot(blockedSnapshot)
+    expect(scene.debugState().routeProductionId).toBe(unassignedOperation.productionId)
+    const blockedOperation = blockedSnapshot.productionOperations!.find(
+      (candidate) => candidate.productionId === unassignedOperation.productionId,
+    )!
+    expect(blockedOperation.taskStatus).toBe('blocked')
+    expect(blockedOperation.currentCommand?.kind).toBe('clearSceneryLoadIn')
+
+    const inputBefore = JSON.stringify(assigned.next)
+    const whileRoute = runProductionCommand(assigned.next, blockedOperation.currentCommand!)
+    const withoutRoute = runProductionCommand(assigned.next, blockedOperation.currentCommand!)
+    expect(JSON.stringify(whileRoute)).toBe(JSON.stringify(withoutRoute))
+    expect(JSON.stringify(assigned.next)).toBe(inputBefore)
+    if (!whileRoute.ok) throw new Error(whileRoute.error)
+
+    scene.applySnapshot(studioLotSnapshot(whileRoute.next))
+    expect(scene.debugState().routeProductionId).toBeNull()
+    expect(scene.debugState().stage7Operation?.taskStatus).toBe('ready')
   })
 
   it('does not route or paint Stage 7 from an authoritative Soundstage 12 operation', () => {

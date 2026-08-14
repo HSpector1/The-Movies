@@ -395,6 +395,7 @@ export function App() {
     } else {
       alert(result.error)
     }
+    return result
   }
 
   // D-12.18: Sim to next event — advance many weeks through the engine, stopping before the

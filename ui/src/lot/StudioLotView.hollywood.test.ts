@@ -1,6 +1,14 @@
 import { describe, expect, it, vi } from 'vitest'
 
 const runtime = vi.hoisted(() => {
+  type ProductionSelection = {
+    productionId: string
+    locationBuildingId: 'stage-a'
+  }
+  type Event =
+    | { type: 'ready' }
+    | { type: 'production'; production: ProductionSelection }
+
   class Events {
     handlers = new Map<string, () => void>()
     once(name: string, handler: () => void) { this.handlers.set(name, handler) }
@@ -8,12 +16,20 @@ const runtime = vi.hoisted(() => {
   }
 
   class HollywoodScene {
-    data: { reducedMotion?: boolean; onEvent: (event: { type: 'ready' }) => void } | null = null
+    data: { reducedMotion?: boolean; onEvent: (event: Event) => void } | null = null
     reduced: boolean[] = []
+    productionSelections: string[] = []
     telemetryResets = 0
     setReducedMotion(on: boolean) { this.reduced.push(on) }
     resetPerformanceTelemetry() { this.telemetryResets++ }
     applySnapshot() {}
+    selectProductionFromHost(productionId: string) {
+      this.productionSelections.push(productionId)
+      return true
+    }
+    emitProduction(production: ProductionSelection) {
+      this.data?.onEvent({ type: 'production', production })
+    }
   }
 
   class SceneManager {
@@ -75,6 +91,33 @@ const snapshot: StudioLotSnapshot = {
 }
 
 describe('StudioLotView Hollywood lifecycle', () => {
+  it('forwards exact production identity and keeps host highlighting presentation-only', () => {
+    const onHollywoodProduction = vi.fn()
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+      onHollywoodProduction,
+    })
+    const game = runtime.games.at(-1)!
+    game.events.emit('ready')
+    const scene = game.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+    const exact = {
+      productionId: 'production-stage-7',
+      locationBuildingId: 'stage-a' as const,
+    }
+
+    scene.emitProduction(exact)
+
+    expect(onHollywoodProduction).toHaveBeenCalledOnce()
+    expect(onHollywoodProduction).toHaveBeenCalledWith(exact)
+
+    onHollywoodProduction.mockClear()
+    expect(view.selectHollywoodProduction(exact.productionId)).toBe(true)
+    expect(scene.productionSelections).toEqual([exact.productionId])
+    expect(onHollywoodProduction).not.toHaveBeenCalled()
+  })
+
   it('retains pre-ready reduced motion, forwards later changes, and pauses the Hollywood scene', () => {
     const view = new StudioLotView({
       parent: document.createElement('div'),

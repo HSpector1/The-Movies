@@ -80,10 +80,16 @@ export type HollywoodPlaceSelection = {
   affordances: string[]
 }
 
+export type HollywoodProductionSelection = {
+  productionId: string
+  locationBuildingId: 'stage-a'
+}
+
 export type HollywoodEvent =
   | { type: 'ready' }
   | { type: 'person'; person: LotPersonState | null }
   | { type: 'place'; place: HollywoodPlaceSelection }
+  | { type: 'production'; production: HollywoodProductionSelection }
   | { type: 'activity'; text: string | null }
 
 export type HollywoodSceneData = {
@@ -148,6 +154,7 @@ export class HollywoodScene extends Phaser.Scene {
   private reducedMotion = false
   private selectedPersonId: string | null = null
   private selectedPlaceId: string | null = null
+  private selectedProductionId: string | null = null
   /**
    * A route is visual acknowledgement of an already-accepted engine transition.
    * It never owns or advances a production/task status.
@@ -239,6 +246,14 @@ export class HollywoodScene extends Phaser.Scene {
       backgroundColor: '#1b3029dd',
       padding: { x: 9, y: 5 },
     }).setDepth(86)
+    const selectStage7 = (pointer: Phaser.Input.Pointer) => {
+      if (!this.isCanvasPointer(pointer)) return
+      pointer.event.stopPropagation?.()
+      const place = this.manifest.places.find((candidate) => candidate.buildingId === 'stage-a')
+      if (place) this.selectStage7Surface(place)
+    }
+    this.stageLamp.setInteractive({ useHandCursor: true }).on('pointerdown', selectStage7)
+    this.stageStateText.setInteractive({ useHandCursor: true }).on('pointerdown', selectStage7)
     this.expansionGraphics = this.add.graphics().setDepth(87).setName('tier:stateful-expansion')
     this.expansionLabel = this.add.text(0, 0, '', {
       fontFamily: FONT_SANS,
@@ -264,7 +279,13 @@ export class HollywoodScene extends Phaser.Scene {
         if (this.selectedPlaceId !== place.id) this.selectionGraphics?.clear()
       })
       zone.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+        if (!this.isCanvasPointer(pointer)) return
         pointer.event.stopPropagation?.()
+        if (place.buildingId === 'stage-a') {
+          this.selectStage7Surface(place)
+          return
+        }
+        this.selectedProductionId = null
         this.selectedPlaceId = place.id
         this.drawPlaceOutline(place, true)
         this.emitEvent({
@@ -273,6 +294,49 @@ export class HollywoodScene extends Phaser.Scene {
         })
       })
     }
+  }
+
+  /**
+   * One physical Stage 7 selection seam. It resolves the latest snapshot at pointer
+   * time and emits identity only; without exact managed authority it remains a place.
+   */
+  private selectStage7Surface(place: Place): void {
+    this.selectedPlaceId = place.id
+    this.drawPlaceOutline(place, true)
+    const operation = this.authoritativeStage7Operation(this.snapshot)
+    if (operation !== null) {
+      this.selectedProductionId = operation.productionId
+      this.emitEvent({
+        type: 'production',
+        production: {
+          productionId: operation.productionId,
+          locationBuildingId: 'stage-a',
+        },
+      })
+      return
+    }
+    this.selectedProductionId = null
+    this.emitEvent({
+      type: 'place',
+      place: {
+        id: place.id,
+        buildingId: place.buildingId,
+        label: place.label,
+        affordances: place.affordances,
+      },
+    })
+  }
+
+  /** Host/DOM parity: paint exact Stage 7 selection without re-emitting an event. */
+  selectProductionFromHost(productionId: string): boolean {
+    const operation = this.authoritativeStage7Operation(this.snapshot)
+    if (operation?.productionId !== productionId) return false
+    const place = this.manifest.places.find((candidate) => candidate.buildingId === 'stage-a')
+    if (!place) return false
+    this.selectedProductionId = operation.productionId
+    this.selectedPlaceId = place.id
+    this.drawPlaceOutline(place, true)
+    return true
   }
 
   private drawPlaceOutline(place: Place, selected: boolean): void {
@@ -286,6 +350,7 @@ export class HollywoodScene extends Phaser.Scene {
   }
 
   clearPlaceSelection(): void {
+    this.selectedProductionId = null
     this.selectedPlaceId = null
     this.selectionGraphics?.clear()
   }
@@ -354,6 +419,7 @@ export class HollywoodScene extends Phaser.Scene {
       this.setActorFacing(sprite, person.role, 'south')
       sprite.setInteractive({ useHandCursor: true })
       sprite.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+        if (!this.isCanvasPointer(pointer)) return
         pointer.event.stopPropagation?.()
         this.selectPerson(person.id)
       })
@@ -526,11 +592,13 @@ export class HollywoodScene extends Phaser.Scene {
     this.cameras.main.setBounds(-120, -90, DISTRICT_W + 240, DISTRICT_H + 180)
     this.fitCamera()
     this.scale.on('resize', () => this.fitCamera())
-    this.input.on('wheel', (_pointer: Phaser.Input.Pointer, _over: unknown[], _dx: number, dy: number) => {
+    this.input.on('wheel', (pointer: Phaser.Input.Pointer, _over: unknown[], _dx: number, dy: number) => {
+      if (!this.isCanvasPointer(pointer)) return
       const camera = this.cameras.main
       camera.setZoom(Phaser.Math.Clamp(camera.zoom * (dy > 0 ? 0.91 : 1.1), this.fitZoom * 0.85, this.fitZoom * 1.85))
     })
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+      if (!this.isCanvasPointer(pointer)) return
       this.dragOrigin = { x: pointer.x, y: pointer.y, scrollX: this.cameras.main.scrollX, scrollY: this.cameras.main.scrollY }
     })
     this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
@@ -539,6 +607,11 @@ export class HollywoodScene extends Phaser.Scene {
       this.cameras.main.scrollY = this.dragOrigin.scrollY - (pointer.y - this.dragOrigin.y) / this.cameras.main.zoom
     })
     this.input.on('pointerup', () => { this.dragOrigin = null })
+  }
+
+  /** Phaser can observe document-level input even when a React overlay owns the hit. */
+  private isCanvasPointer(pointer: Phaser.Input.Pointer): boolean {
+    return pointer.event?.target === this.game.canvas
   }
 
   private fitCamera(): void {
@@ -555,6 +628,10 @@ export class HollywoodScene extends Phaser.Scene {
 
     this.reconcilePeople(snapshot.people)
     const nextStage7 = this.authoritativeStage7Operation(snapshot)
+    if (
+      this.selectedProductionId !== null &&
+      nextStage7?.productionId !== this.selectedProductionId
+    ) this.clearPlaceSelection()
     if (
       this.cosmeticRoute !== null &&
       (nextStage7 === null ||
@@ -661,7 +738,10 @@ export class HollywoodScene extends Phaser.Scene {
   private authoritativeStage7Operation(
     snapshot: StudioLotSnapshot,
   ): ProductionOperationsState | null {
-    if (snapshot.operationsMode !== 'managed') return null
+    if (
+      snapshot.operationsMode !== 'managed' ||
+      snapshot.stageAssignmentAuthority !== 'engine'
+    ) return null
     return snapshot.productionOperations.find(
       (operation) => operation.locationBuildingId === 'stage-a',
     ) ?? null
@@ -1069,6 +1149,7 @@ export class HollywoodScene extends Phaser.Scene {
   debugState(): {
     selectedPersonId: string | null
     selectedPlaceId: string | null
+    selectedProductionId: string | null
     stage7Operation: ProductionOperationsState | null
     routeProductionId: string | null
     manifestId: string
@@ -1079,6 +1160,7 @@ export class HollywoodScene extends Phaser.Scene {
     return {
       selectedPersonId: this.selectedPersonId,
       selectedPlaceId: this.selectedPlaceId,
+      selectedProductionId: this.selectedProductionId,
       stage7Operation: this.authoritativeStage7Operation(this.snapshot),
       routeProductionId: this.cosmeticRoute?.productionId ?? null,
       manifestId: this.manifest.districtId,
