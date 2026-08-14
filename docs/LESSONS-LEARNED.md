@@ -2864,3 +2864,71 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   population differences before claiming a feature delta.
 - **Pattern:** exact fixture population + explicit feature delta + separate wall clock. **Anti-
   pattern:** universalizing one reference tuple or relabelling compositor contention as a pass.
+
+---
+
+# World-First Selected Stage 7 Production Detail Handoff & Fresh Return V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Contract `05d2d44`; implementation `6a3f85f`. Related:
+> `docs/WORLD-FIRST-SELECTED-STAGE-7-PRODUCTION-DETAIL-HANDOFF-FRESH-RETURN-V1-EVIDENCE.md` and
+> `docs/WORLD-FIRST-SELECTED-STAGE-7-PRODUCTION-DETAIL-HANDOFF-FRESH-RETURN-V1-CLOSURE.md`.
+
+## DZ. One physical identity needs one shared strict selector across scene and host — **MG, BR**
+
+- **Risk:** independent `find(stage-a)` logic in Phaser and React can choose different productions,
+  accept duplicate IDs, or transfer a same-title Stage 12 film into Stage 7 interaction.
+- **Resolution:** one snapshot-only selector validates managed/Engine authority, exact Stage 7
+  cardinality, global production-ID uniqueness, phase, identity, countdown/progress, people,
+  blocker, and command shape. Both presentation layers consume that result; malformed truth paints
+  and navigates nothing.
+- **Coverage / fastest diagnostic:** permute operations, duplicate Stage 7 or an ID, add a same-title
+  Stage 12 row, and mutate each nested discriminant independently. Scene status, physical selection,
+  semantic context, and host action must all fail together.
+- **Pattern:** one authority projection → many presentations. **Anti-pattern:** first plausible row
+  or separately maintained validation in each layer.
+
+## EA. Visible inspector context is not proof of world provenance — **MG, BR**
+
+- **Risk:** a desk that auto-orients to the only production can expose a deep action even though the
+  player never selected that film in the world, quietly turning the Lot into a menu with scenery.
+- **Resolution:** track a separate transient provenance token granted only by physical/status/problem
+  selection, its native semantic equivalent, exact same-film continuation, or typed return. Generic
+  rails, people, Dashboard, and auto-selection may still show useful context but cannot claim the
+  world-provenance-only action.
+- **Coverage / fastest diagnostic:** load the same snapshot through every entry source and assert
+  identical inspector facts but different deep-action eligibility. Then change place/person/film or
+  authority and require immediate fail-empty clearing without substitution.
+- **Pattern:** context can be informative while consent remains source-specific. **Anti-pattern:**
+  treating whatever the inspector currently renders as proof of the player's selection intent.
+
+## EB. Cancelled physical gestures and fresh virtual-AT clicks need different lifetimes — **BR**
+
+- **Symptom:** pointerdown on film A, repaint, compatibility mousedown/click on film B can retarget a
+  stale gesture; suppressing every next click after cancellation instead blocks a legitimate screen-
+  reader `click(detail=0)`.
+- **Resolution:** latch only the first accepted down identity, never replace it during compatibility
+  events, and mark suppression only when a physical pointer/touch activation was actually in flight.
+  Consume that token only for a later physical `detail>0` click. Own Enter/Space synchronously on
+  keydown with `preventDefault`; allow a fresh virtual-AT click to validate current truth normally.
+- **Coverage / fastest diagnostic:** pointerdown A → repaint → mousedown/click B; pointercancel →
+  physical click; pointercancel → fresh `detail=0` click; held Enter/Space across modal, hidden-tab,
+  renderer failure/readiness, and import boundaries. Require no retargeting and at most one owner
+  call without excluding AT.
+- **Pattern:** input-family-aware gesture generation + latest authority. **Anti-pattern:** one sticky
+  “suppress next click” bit for all activation sources.
+
+## EC. Exact deep return restores the old identity or nothing — **MG, BR**
+
+- **Risk:** returning by selected building or current Stage 7 occupant can highlight a replacement
+  film and imply continuity the player did not choose. Caching the old operation instead shows
+  obsolete commands after a legitimate Board action.
+- **Resolution:** carry only the mandatory old production ID in a discriminated transient return
+  arm, rerun the shared selector after remount, and restore current fields/outline/focus only when
+  that exact ID remains uniquely at Stage 7. Otherwise focus the neutral Lot heading. A Board
+  command may change current truth; its successor is rebuilt, never replayed.
+- **Coverage / fastest diagnostic:** return after same-state navigation, an accepted command,
+  removal, release, relocation, replacement, duplicate ID, malformed state, unrelated Dashboard
+  child navigation, and cross-studio ID collision. Require fresh exact truth or neutral fallback,
+  never a substitute.
+- **Pattern:** old identity token → fresh authority → exact or neutral. **Anti-pattern:** selected-
+  building fallback, current-occupant fallback, or cached pre-navigation detail.

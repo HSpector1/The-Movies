@@ -302,3 +302,40 @@ Owner rulings remain the authority when a summary here conflicts with them.
 - Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
   RESIDUALS REMAIN OPEN**. Every accepted residual remains open and no financing, bailout,
   restructuring, failure ladder, or arbitrary cash sink was introduced.
+
+## 2026-08-14 — World-first selected Stage 7 detail handoff closes
+
+- Froze contract `05d2d44b387cdfb9d4daeaffd37902f5ba0c9065` and delivered implementation
+  `6a3f85f2c991b850f065b4fd81ef60a5974a256a` without changing Core, GameState, SaveFileV11,
+  adapter business law, production commands, facilities, economy/publicity tuning, RNG, manifest,
+  exporter, art, or renderer structure.
+- Added one shared strict selector for unique managed/Engine Stage 7 rehearsal/shooting truth and
+  removed the scene/React first-match seams.
+- Required explicit physical Stage 7, status/problem, exact blocker, native Stage A, same-film
+  scenery continuation, or typed-return provenance before exposing the secondary exact-title Board
+  action. Studio Desk auto-orientation, the generic rail, people, Stage 12, and global Dashboard do
+  not qualify.
+- Kept the existing world command first. Lot validates the complete rendered operation against the
+  latest snapshot and App independently reselects latest Engine truth before opening one exact
+  unique Production Board card.
+- Direct Back carries only the old exact production ID, rebuilds current truth, and restores fresh
+  semantic/physical Stage 7 when still valid. Removed, released, relocated, replaced, duplicate,
+  malformed, or cross-studio identity lands neutrally and never substitutes a new occupant.
+- Hardened pointer/touch compatibility clicks, virtual-AT clicks, synchronous Enter/Space ownership,
+  stale repaint, modal/visibility/renderer/import transitions, renderer failure, compact viewports,
+  maximum world zoom, forced colors, and effective 200% layout.
+- Replayed the existing native Stage 7/live-week/scenery/Annex SaveFileV11 evidence byte-identically.
+  Board Clear yields the exact accepted ready-fixture bytes. The frozen 34 objects / 15 actors /
+  11,096,896 decoded bytes / one draw structural reference remains exact.
+- Closed with 173/173 repository files and 2,310/2,310 tests, 10/10 governed D-16/D-17 files and
+  176/176 tests, focused authority 141/141, final Chromium 35/35, a 138-module production build,
+  and three independent reviews with no unresolved P1–P3 findings.
+- Recorded performance honestly: no new absolute wall-clock pass is claimed on the default
+  compositor-contended headless host and no threshold was relaxed.
+- Promoted **World-First Studio Gate Talent Arrival & Hiring Return V1**. The accepted physical Gate
+  and arrival anchor may embody one explicitly selected exact current hiring candidate, open the
+  canonical profile/terms only when needed, and return to fresh Gate truth. No market, offer,
+  queue, pathfinding, autonomy, save, manifest, or art law may be invented.
+- Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
+  RESIDUALS REMAIN OPEN**. Every accepted residual remains open and no financing, bailout,
+  restructuring, failure ladder, arbitrary cash sink, or macroeconomic certification was added.

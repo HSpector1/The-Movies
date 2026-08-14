@@ -4,7 +4,7 @@ Updated: 2026-08-14
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current implementation HEAD: `e14633b578834f5a2f625049762c45506e6b1ee2`
+Current implementation HEAD: `6a3f85f2c991b850f065b4fd81ef60a5974a256a`
 
 ## Product doctrine — World First
 
@@ -119,8 +119,41 @@ whether the game remains playable.
 - World-First Operational Annex Work Presence V1 makes the completed physical Annex visibly
   Available or Working from exact Calendar 0/1 or 1/1 truth, exposes its exact owner/title/activity,
   and returns from its focused deep owner to freshly revalidated Annex context.
+- World-First Selected Stage 7 Production Detail Handoff & Fresh Return V1 makes explicit physical
+  or semantic Stage 7 inspection the only gateway to the exact current Production Board card;
+  existing world commands remain primary and direct Back returns to fresh exact Stage 7 truth or a
+  neutral Lot without substituting another film.
 
 ## Current world-first checkpoint
+
+World-First Selected Stage 7 Production Detail Handoff & Fresh Return V1 is closed at
+implementation authority `6a3f85f` under frozen contract `05d2d44`:
+
+- one shared strict selector owns unique managed/Engine Stage 7 identity for both Phaser and React;
+  the former first-match seams are removed and every hostile/malformed shape fails closed;
+- explicit physical Stage 7, status/problem, exact blocker, native Stage A, same-film scenery
+  continuation, or typed return provenance is required; Studio Desk auto-orientation, the generic
+  rail, people, Stage 12, and global Dashboard cannot expose the deep action;
+- the existing in-world command remains first, followed only when exact by **Open Production Board
+  details · <title>**;
+- the Lot validates every rendered operation field against latest snapshot truth and App
+  independently reselects latest Engine truth before focusing one exact unique Board card;
+- direct Back carries the old exact ID, rebuilds fresh Stage 7 truth, restores semantic/physical
+  context when still valid, and falls back to the neutral Lot without selecting a replacement;
+- renderer/import failure, delayed readiness, modal/visibility transitions, pointer/touch/keyboard/
+  virtual-AT activation, stale identity, studio replacement, compact layout, maximum world zoom,
+  and effective 200% layout are exact-once or fail closed; and
+- final proof passed 173/173 repository files and 2,310/2,310 tests, governed D-16/D-17 176/176,
+  focused authority 141/141, final combined Chromium 35/35, a 138-module build, byte-identical
+  native SaveFileV11 replay, the exact 34/15/11,096,896/one-draw structural reference, and three
+  independent reviews with no P1–P3 findings.
+
+No Core Engine, GameState, SaveFileV11, schema, migration, adapter business law, production action/
+task/clock, facility/allocation, economy/publicity tuning, RNG, ledger, manifest, exporter, art,
+route, actor, object, animation, or renderer-draw behavior changed. Default headless wall-clock
+remains honestly uncertified; the frozen opt-in thresholds were not relaxed.
+
+## Prior world-first checkpoint — Operational Annex Work Presence V1
 
 World-First Operational Annex Work Presence V1 is closed at implementation authority `e14633b`
 under frozen contract `e2fd6df`:
@@ -272,6 +305,8 @@ production and integration remain unauthorized.
 - World-First Publicity Campaign V1 implementation: `f2f2e22fe292772ef8aba4f97f42ea38855cbf96`
 - World-First Operational Annex Work Presence V1 contract: `e2fd6dfdedc0ac398cae24c2ccea9bcc524d38d1`
 - World-First Operational Annex Work Presence V1 implementation: `e14633b578834f5a2f625049762c45506e6b1ee2`
+- World-First Selected Stage 7 Detail Handoff V1 contract: `05d2d44b387cdfb9d4daeaffd37902f5ba0c9065`
+- World-First Selected Stage 7 Detail Handoff V1 implementation: `6a3f85f2c991b850f065b4fd81ef60a5974a256a`
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -282,16 +317,20 @@ or arbitrary cash sink is authorized.
 
 ## Current highest-leverage evidence step
 
-The post-Annex critical-experience review promotes **World-First Selected Stage 7 Production Detail
-Handoff & Fresh Return V1** for contract freeze. Physical Stage 7 already owns exact selection,
-blocker inspection, Director dispatch, scenery clearance, scheduling, and visible work. The missing
-supporting beat is an optional exact focused Production Board handoff followed by fresh exact Stage
-7 return.
+The post-handoff several-minutes-on-Lot audit promotes **World-First Studio Gate Talent Arrival &
+Hiring Return V1** for contract freeze. The accepted physical `studio-gate` is the only canonical
+Hollywood place not yet operationalized and already owns a Gate identity, arrival anchor, and
+arrival/security affordances. Existing Engine/App authority already owns deterministic hiring
+cards, exact employment/profile facts, multi-term offers, and the signing action.
 
-The action must appear only after explicit physical/status/problem/native Stage A inspection, keep
-the existing world command primary, revalidate the unique production in both Lot and App, and
-return to current Stage 7 or the neutral Lot heading without substituting another film. It may not
-add a global Dashboard shortcut, first-match identity, cached detail, Stage 12 art, queue, staffing,
-reroute, new command/task/clock, same-camera promise, Core/save/adapter law, or renderer cost.
-Physical Stage 12 remains blocked by its recorded art no-go. Week-208 research remains closed with
-no current repair justified; every accepted D-17B residual remains open.
+The bounded target is physical/semantic Gate → exact current market slate → explicit named
+candidate selection → visible visitor/person inspection and canonical live-Lot profile → optional
+focused Hiring terms → existing sign-or-leave decision → direct return to fresh exact Gate/candidate
+truth or the neutral Lot. Complex salary, bonus, obligation, and runway comparison stays in Hiring;
+the world establishes the person and decision.
+
+It may not add market generation/rotation, offer or economy law, an arrival clock, authoritative
+worker location, pathfinding, autonomy, save fields, manifest/art changes, first-match candidate
+selection, or one-click hiring that hides full obligations. Stage 12 remains blocked by its art
+no-go; service-yard identity cannot be relabelled as Post; absent queue/workload law cannot be
+invented. Week-208 research remains closed with no current repair justified.

@@ -36,13 +36,17 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   implementation `f2f2e22`; physical Administration & Publicity now owns the exact
   three-tier action, same-Lot successor truth, bounded photocall acknowledgement, and explicit
   Dashboard-details return.
-- **World-First Operational Annex Work Presence V1:** CLOSED by this documentation checkpoint under
+- **World-First Operational Annex Work Presence V1:** CLOSED at `72c13e3` under
   contract `e2fd6df` and implementation `e14633b`; the completed physical Annex now exposes exact
   Available/Working slot truth, current work, and focused deep-owner return.
-- **Next promoted slice:** World-First Selected Stage 7 Production Detail Handoff & Fresh Return V1.
-  Freeze explicit physical-inspection provenance, exact Production Board focus, and fresh typed
-  return. Existing world commands remain primary; do not add Stage 12, simulation, or global-menu
-  authority.
+- **World-First Selected Stage 7 Production Detail Handoff & Fresh Return V1:** CLOSED by this
+  documentation checkpoint under contract `05d2d44` and implementation `6a3f85f`; explicit Stage 7
+  world inspection now optionally reaches the exact Production Board card and returns to fresh
+  exact Stage 7 or neutral Lot truth while existing world commands remain primary.
+- **Next promoted slice:** World-First Studio Gate Talent Arrival & Hiring Return V1. Freeze exact
+  Gate/market authority, explicit named-candidate selection, bounded visitor/profile truth, focused
+  canonical Hiring terms, and fresh return. Do not invent market, offer, queue, pathfinding,
+  autonomy, save, or art law.
 
 ## Closed marathon milestones
 
@@ -66,7 +70,8 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Studio Home V1 | `8d5f8dd` | `0c4bd9d` | `5a20a24` |
 | World-First Named Person Work & Career Inspector V1 | `c5c1679` (`9bd075b` initial freeze) | `04f7d9d` | `ce96ddf` |
 | World-First Publicity Campaign V1 | `f83f27f` | `f2f2e22` | `04932d2` |
-| World-First Operational Annex Work Presence V1 | `e2fd6df` | `e14633b` | this documentation checkpoint |
+| World-First Operational Annex Work Presence V1 | `e2fd6df` | `e14633b` | `72c13e3` |
+| World-First Selected Stage 7 Detail Handoff V1 | `05d2d44` | `6a3f85f` | this documentation checkpoint |
 
 ## Product result so far
 
@@ -100,15 +105,26 @@ activity, and optionally open the exact focused deep owner. Direct Back rebuilds
 truth rather than replaying the old occupant. Configured Held remains explicitly non-native
 read-model evidence; no worker, queue, reroute, or facility-choice law was invented.
 
+Stage 7 now has an exact supporting-detail seam without surrendering world primacy. Only explicit
+physical/status/problem/native Stage A inspection exposes the exact-title Board action, after the
+existing world command. Lot and App independently revalidate current Engine truth, Board focuses
+one unique ID, and direct Back restores fresh exact Stage 7 or a neutral Lot without selecting a
+replacement film. The path is byte-neutral except when the player deliberately invokes an existing
+Board command, whose successor is byte-identical to the established world owner path.
+
 Deep non-modal screens still unmount and later remount the Lot. Studio Home persists bounded
 selected-building/focus context and authoritative GameState; it does not preserve the same Phaser
 instance, camera, selected person, or other transient world presentation through those routes.
-Annex closure proof passed 170/170 repository files and 2,242/2,242 tests, the governed D-16/D-17
-10/10 files and 176/176 tests, final combined Chromium 30/30, a 137-module production build,
-byte-identical native SaveFileV11 evidence, clean TypeScript/hash/diff gates, and clean independent
-review. Default headless absolute wall-clock samples remain honestly non-passing; the zero-cost
-structural proof passes and no frozen gate was relaxed. The next smallest continuity repair is the
-explicit Stage 7 → exact Production Board → fresh Stage 7 handoff.
+Current closure proof passed 173/173 repository files and 2,310/2,310 tests, the governed D-16/D-17
+10/10 files and 176/176 tests, focused Stage 7 authority 141/141, final combined Chromium 35/35, a
+138-module production build, byte-identical native SaveFileV11 evidence, exact structural parity,
+clean TypeScript/protected-path/diff gates, and three clean independent reviews. Default headless
+absolute wall-clock remains honestly uncertified; no frozen gate was relaxed.
+
+The next smallest evidence-backed world seam is the accepted physical Studio Gate and current
+Hiring market: establish one exact named visitor and person-first inspection in the world, use the
+canonical Hiring surface only for complete terms, then return to fresh Gate truth. No market,
+offer, queue, location, pathfinding, autonomy, save, or art behavior is authorized by that priority.
 
 ## Governing status
 
@@ -116,7 +132,7 @@ explicit Stage 7 → exact Production Board → fresh Stage 7 handoff.
 
 Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
 dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
-and formal G12 timing remain open. Operational Annex Work Presence V1 certifies no macroeconomic balance and
+and formal G12 timing remain open. This world/navigation closure certifies no macroeconomic balance and
 authorizes no financing, bailout, restructuring, failure ladder, or arbitrary cash sink.
 
 No merge to main, push, or milestone tag is authorized by autonomous progress alone.

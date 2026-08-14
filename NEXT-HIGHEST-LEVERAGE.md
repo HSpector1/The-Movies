@@ -104,31 +104,49 @@ facility choice, reroute, new allocation law, Core/save/tuning change, art, obje
 route, or draw was added. Final proof passed 2,242/2,242 repository tests, 176/176 governed tests,
 30/30 final Chromium checks, byte-identical native evidence, a 137-module build, and clean review.
 
-## Promoted — World-First Selected Stage 7 Production Detail Handoff & Fresh Return V1
+## Closed — World-First Selected Stage 7 Production Detail Handoff & Fresh Return V1
 
-The post-Annex critical-experience review found one small continuity gap in an otherwise playable
-Stage 7 loop. The player can already select physical Stage 7, inspect exact film/status/blocker,
-dispatch the Director, clear scenery, schedule the take, and watch current work. But physical Stage
-7 inspection cannot optionally open that exact production's complete Production Board card and
-return to freshly revalidated Stage 7 context. Generic Dashboard entry loses the inspected film.
+Contract `05d2d44` and implementation `6a3f85f` close the exact physical Stage 7 → focused
+Production Board → fresh Stage 7 seam. One shared strict selector removed first-match authority;
+explicit world provenance alone exposes the secondary exact-title detail action; the existing world
+command remains first; Lot and App independently revalidate latest Engine truth; and direct Back
+restores only the old exact ID or lands neutrally without substituting another film.
 
-Freeze the smallest supporting repair before implementation:
+Pointer/touch/keyboard/virtual-AT identity, modal and renderer lifecycles, stale snapshots,
+cross-studio replacement, renderer failure, compact viewports, maximum world zoom, and effective
+200% layout are exact-once or fail closed. No Core/save/adapter business law, production command,
+Stage 12 art, manifest/exporter/art, or renderer cost changed. Final proof passed 2,310/2,310
+repository tests, 176/176 governed tests, 141/141 focused tests, 35/35 final Chromium checks,
+byte-identical native replay, the exact structural reference, a 138-module build, and clean review.
 
-- add one pure unique Stage 7 production-detail selector and remove the current first-match seams;
-- expose **Open Production Board details · <exact title>** only after explicit physical/status/
-  problem/native Stage A inspection, never from default auto-selection or the generic rail;
-- keep the existing in-world command ahead of this secondary deep action;
-- revalidate exact production ID and `stage-a` location in both Lot and App before focused Board
-  navigation;
-- carry one typed exact-production return intent; direct Back rebuilds latest Stage 7 truth,
-  restores the physical outline when available, and focuses a stable context heading;
-- if the film is removed, released, relocated, replaced, duplicated, malformed, or no longer exact,
-  return to the neutral Lot heading without substituting another production; and
-- retain semantic Stage A → Board → Lot parity when the renderer is unavailable.
+## Promoted — World-First Studio Gate Talent Arrival & Hiring Return V1
 
-This is navigation/continuity over existing Production Board and command authority. It may not add
-a global Dashboard shortcut, cached Board truth, Stage 12 art, a new command/task/clock, same-camera
-promise, new Core/save/adapter law, queue, staffing, reroute, cancellation, art, or renderer cost.
+The post-handoff critical-experience audit found the next truthful human-and-tycoon seam. The
+accepted physical `studio-gate` is the only canonical Hollywood place not yet operationalized. It
+already owns exact Gate identity, an arrival anchor, and `gate-security` / `arrival` affordances;
+existing Engine/App authority already owns deterministic hiring-market cards, employment/profile
+facts, multi-term offers, and `signContractAction`.
+
+Freeze the smallest supporting loop before implementation:
+
+- physical Gate/status/native semantic Gate enters exact current hiring-market context;
+- the player explicitly selects one exact named current candidate; no default or first-market-card
+  identity may become consent;
+- that person becomes a bounded visible visitor at the existing arrival anchor and exposes exact
+  role/availability plus the canonical Talent Profile over the live Lot;
+- **Open Hiring terms · <exact name>** revalidates latest identity and focuses one exact unique
+  canonical Hiring card where salary, bonus, obligations, and runway remain fully legible;
+- the existing sign-or-leave decision remains App/Engine-owned; direct Back rebuilds fresh Gate and
+  candidate truth, while rotation, disappearance, signing, duplication, or studio replacement
+  returns neutrally without substitution; and
+- renderer failure, modal suspension, pointer/keyboard/AT, reduced motion, compact viewports, zoom,
+  deterministic replay, and a measured bounded visitor presentation cost remain explicit.
+
+This slice may not add candidate generation or rotation, offer/legality/economy law, an arrival
+clock, worker location, queue, pathfinding, autonomy, save/schema state, manifest/art, a generic
+first candidate, or one-click hiring that bypasses complete obligation truth. Stage 12 remains a
+binding art no-go. The service yard is not Post identity, and absent workload/queue systems cannot
+be invented for presentation.
 
 ## Closed parallel evidence lane
 
@@ -155,11 +173,12 @@ construction, or operating costs materially change the decision boundary.
 
 ## Contract boundary
 
-Freeze the exact selector, explicit-world provenance, latest-identity handoff, focused Board,
-fresh-return/fallback, exact-once, failure, viewport, and performance boundary before
-implementation. Existing snapshot/Production Board state is read-only authority; no new core
-mechanic, save field, facility, art, place, action, clock, worker model, or pathfinding result is
-authorized.
+Freeze the exact hiring-market selector, physical Gate provenance, explicit candidate selection,
+visitor/profile truth, latest-identity handoff, unique Hiring focus, fresh return/fallback,
+exact-once input, renderer/modal failure, viewport, and measured performance boundary before
+implementation. Existing market/profile/offer/signing state is the only authority; no new core
+mechanic, save field, facility, art, place, offer, clock, queue, worker-location model, or
+pathfinding result is authorized.
 
 The governing economic classification remains exactly:
 

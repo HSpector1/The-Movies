@@ -1,41 +1,40 @@
 # Project: Studio — Engineering Handoff
 
-> ## 🎬 2026-08-14 — CURRENT: World-First Operational Annex Work Presence V1 CLOSED
+> ## 🎬 2026-08-14 — CURRENT: Selected Stage 7 Detail Handoff & Fresh Return V1 CLOSED
 >
-> Frozen contract `e2fd6dfdedc0ac398cae24c2ccea9bcc524d38d1` and implementation
-> `e14633b578834f5a2f625049762c45506e6b1ee2` make the completed Development & Casting Annex a
-> truthful physical workplace. The canonical Calendar slot now projects Available 0/1 or Working
-> 1/1 into one pure fail-closed context shared by physical paint, semantic companion, and the
-> in-world inspector. Native work names exact screenplay/casting/production owner, title, and
-> activity. Configured-capacity Production Held is separately labelled read-model robustness
-> evidence and is not claimed as native SaveFileV11 play.
+> Frozen contract `05d2d44b387cdfb9d4daeaffd37902f5ba0c9065` and implementation
+> `6a3f85f2c991b850f065b4fd81ef60a5974a256a` close the exact physical Stage 7 → focused Production
+> Board → fresh Stage 7 continuity seam. One shared strict selector owns unique managed/Engine
+> Stage 7 truth for Phaser and React; the old first-match seams are removed.
 >
-> Exact owner IDs optionally open focused Writers Room, Casting Room, or Production Board details
-> after world inspection. App revalidates latest truth before navigation; direct Back rebuilds
-> current Annex truth and focuses Current work. Stale/replaced identity, repeated gestures,
-> unrelated child navigation, studio replacement, renderer failure, delayed readiness, modal
-> suspension, hidden tabs, recreation, reduced motion, 960×540, maximum camera zoom, and 200% page
-> zoom fail closed. Annex-reserved Development/Pre-production points to physical `expansion`; no
-> Engine allocation law changed.
+> Only explicit physical Stage 7, status/problem, exact blocker, native Stage A, same-film scenery
+> continuation, or typed return provenance exposes **Open Production Board details · <title>**.
+> Studio Desk auto-orientation, the generic rail, people, Stage 12, and global Dashboard do not.
+> Existing in-world production commands remain first. Lot compares every rendered operation field
+> with latest snapshot truth and App independently reselects latest Engine truth before focusing
+> one exact unique Board card.
 >
-> Three committed public-action-derived native SaveFileV11 fixtures replay byte-identically at
-> `4026c516...`, `cb49f61a...`, and `d7213ae7...`; manifest `43c40208...`. Final proof: **170/170
-> files, 2,242/2,242 tests**; governed D-16/D-17 **10/10 files, 176/176 tests**; focused Annex
-> **203/203**; final Chromium **30/30**; production build **137 modules**; TypeScript, hashes, diff,
-> and independent authority/focus/visual review clean with no unresolved P1–P3 findings.
+> Direct Back carries only the old production ID and rebuilds current truth. It restores fresh
+> semantic/physical Stage 7 when that ID remains uniquely valid; removed, released, relocated,
+> replaced, duplicate, malformed, or cross-studio identity lands on the neutral Lot without
+> selecting another occupant. Pointer/touch/keyboard/virtual-AT, modal/visibility/renderer/import,
+> failure, compact viewport, maximum world zoom, forced-color, and effective 200% paths are
+> exact-once or fail closed.
 >
-> Annex paint adds zero objects, actors, textures, routes, or draws. Default headless wall-clock
-> samples did not clear every absolute gate and are not called a pass; no threshold was relaxed.
-> Proportional verification also repaired one App-owned Talent Profile focus lifecycle defect by
-> capturing the opener before the Lot becomes inert and restoring it after the world is interactive.
-> No profile/career data, Core, GameState, SaveFileV11, economy, RNG, manifest, exporter, or art
-> authority changed.
+> Final proof: **173/173 files, 2,310/2,310 tests**; governed D-16/D-17 **10/10 files, 176/176
+> tests**; focused authority **141/141**; final Chromium **35/35**; production build **138 modules**;
+> byte-identical native replay; exact **34 objects / 15 actors / 11,096,896 decoded bytes / one
+> draw** structural reference; and three independent reviews with no unresolved P1–P3 findings.
+> No Core, GameState, SaveFileV11, adapter business law, production command, economy, facility, RNG,
+> manifest, exporter, art, or renderer structure changed. Default headless wall-clock remains
+> honestly uncertified and no threshold was relaxed.
 >
-> **NEXT:** freeze and build **World-First Selected Stage 7 Production Detail Handoff & Fresh Return
-> V1**. Explicit physical Stage 7 inspection may optionally open the exact focused Production Board
-> card and return to fresh exact Stage 7 context. Existing in-world commands remain primary. No
-> global Dashboard shortcut, first-match identity, Stage 12 art, new simulation law, or renderer
-> cost is authorized.
+> **NEXT:** freeze and build **World-First Studio Gate Talent Arrival & Hiring Return V1**. Use the
+> accepted physical Gate and arrival anchor to embody one explicitly selected exact current market
+> candidate, inspect that person/profile from the world, open the canonical complete Hiring terms
+> only when needed, and return to fresh Gate/candidate truth or neutral Lot. Do not add market/
+> offer/economy law, queues, arrival clocks, worker location, pathfinding, autonomy, save fields,
+> manifest/art, first-match selection, or one-click hiring that hides obligations.
 >
 > Protected anchors remain untouched: `main` =
 > `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =
