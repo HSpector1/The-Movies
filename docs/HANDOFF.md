@@ -1,6 +1,67 @@
 # Project: Studio — Engineering Handoff
 
-> ## 🎬 2026-08-15 — CURRENT: Greenlight Production Formation & Fresh Lot Return V1 CLOSED
+> ## 🎬 2026-08-15 — CURRENT: Lot-Native Next-Event Cadence & Reaction V1 CLOSED
+>
+> Work continues on `operation-hollywood-autonomous-marathon`. Frozen contract authority is
+> `15e65c494b28518e3ba8df2e74823adff3178897`; primary implementation is
+> `eb6cef1bb2cadc09438daacefb5868e7e6269b44`; final replacement-input hardening and accepted
+> behavior authority is `aabb68477fe73ea21af3195985ee7ffaf6a182f7`. This documentation
+> checkpoint is the closure record.
+>
+> **THE STUDIO LOT IS THE PRIMARY GAME SURFACE. MANAGEMENT UI SUPPORTS THE WORLD. IT DOES NOT
+> REPLACE THE WORLD.** One native Lot action now invokes existing App-owned `advanceToNextEvent`
+> exactly once against the exact rendered state. Every non-release stop accepts one final Engine
+> successor and one final renderer snapshot without changing screens, preserving the same Lot
+> host, renderer, canvas, and camera. Skipped weeks are one synchronous batch; they are not claimed
+> as watched travel, queues, occupancy, construction labor, rehearsal, shooting, Post, publicity,
+> or theatrical activity.
+>
+> A complete closed transient receipt owns exact stop, target, range, completed runs, orthogonal
+> Annex completion, and every period-accounting category. If presentation validation fails after a
+> valid successor, only independently safe neutral week/cash/message truth survives; no entity or
+> deep action is guessed. Exact Stage 7 keeps its existing world command first. Administration is
+> physical only when exact. Hollywood Writers, Casting, Theater, and Stage 12 remain honest
+> semantic destinations with no invented place.
+>
+> Exact deep routes revalidate latest state. Unchanged Back may restore the same receipt-bearing
+> reaction; any accepted successor returns neutrally. Rejected save import and declined restart
+> preserve the unchanged session; accepted whole-studio replacement clears it even when seed and
+> week collide. Releases retain Newspaper/ReleaseResult/Autopsy and return to the initiating Lot
+> through a receipt-free control context. Annex completion remains a one-shot co-event.
+>
+> Input and renderer lifetimes are fail-closed across pointer/touch/mouse/keyboard/virtual-AT,
+> cancel, blur, visibility, modal, renderer failure/readiness, unmount, and replacement. Final audit
+> found and repaired a pre-readiness replacement-tail race: a newly mounted host now rejects
+> compatibility-only input until its own fresh primary pointer boundary.
+>
+> Final proof: **185/185 repository files, 2,476/2,476 tests**; focused next-event authority
+> **214/214**; governed D-16/D-17 **10/10 files, 176/176 tests**; Chromium **12/12, zero skipped**;
+> production build **142 modules**; both TypeScript projects clean; deterministic 12-fixture native
+> SaveFileV11 replay byte-identical; exact and neutral structure both **34 objects / 15 actors /
+> 11,096,896 decoded bytes / one draw**; and independent strict audits clean after every finding.
+> No Core, GameState, SaveFileV11, adapter stop/simulation/accounting law, production, construction,
+> employment, release, economy, RNG, manifest, exporter, art, world movement route, task, queue, autonomy,
+> pathfinding, or renderer-draw behavior changed. No GPU/FPS certification is claimed and no
+> threshold was relaxed.
+>
+> **NEXT: EVIDENCE-LED CRITICAL-EXPERIENCE AUDIT.** Spend several minutes in the accepted Lot,
+> instrument the next observed break in exact world play, and freeze a bounded successor only when
+> current authority, accepted art, readability, performance, and ordinary-player value justify it.
+> No successor feature is automatically authorized by this closure.
+>
+> Protected anchors remain untouched: `main` =
+> `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =
+> `35d42687a410a621becf1df35c75986657f8c44e`; Operation Hollywood bridge =
+> `623b8b2a80e9c6b85304eaa2a338b6045e8f6b21`. Nothing was merged, pushed, or tagged.
+>
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+>
+> Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
+> dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
+> and formal G12 timing remain open. No financing, loans, bailouts, restructuring, failure ladder,
+> hard bankruptcy, or arbitrary cash sink is authorized.
+
+> ## 🎬 2026-08-15 — PRIOR: Greenlight Production Formation & Fresh Lot Return V1 CLOSED
 >
 > Work continues on `operation-hollywood-autonomous-marathon`. The frozen contract is
 > `6ec10a6e4801dc7d1cd60932fb53a76160c57bb4`; the complete reviewed behavior implementation

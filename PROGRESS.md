@@ -54,10 +54,13 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   `7966603ae8cc85702e10e10e8850f9481dd322b2`. Exact accepted Assembly identity now returns to the
   new picture's Director, Lead, and mounted phase truth in the living Lot without adding simulation
   law.
-- **Next FROZEN slice:** World-First Lot-Native Next-Event Cadence & Reaction V1. Its contract is
-  frozen by this documentation checkpoint; implementation is next. Existing `advanceToNextEvent`
-  remains sole authority, pending unified decisions disable cadence, non-release stops remain on
-  the mounted Lot, and the existing release chain remains intact.
+- **World-First Lot-Native Next-Event Cadence & Reaction V1:** ACCEPTED under contract `15e65c4`,
+  implementation `eb6cef1`, and final replacement-input hardening / accepted behavior `aabb684`;
+  CLOSED by this documentation checkpoint. One existing App/Engine batch now produces one final
+  exact-or-neutral Lot reaction, every non-release stop retains the mounted world/camera, and real
+  releases retain their established deep chain.
+- **Next selection:** a fresh several-minutes-on-Lot critical-experience audit; instrument the next
+  observed break before freezing another feature.
 
 ## Closed marathon milestones
 
@@ -86,6 +89,7 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Studio Gate Talent Arrival V1 | `712c311` | `ca8279c` | `79be27e` |
 | Exact Director call/nameplate maintenance | post-Gate world audit | `ff0e0fc` | proportional repair |
 | World-First Greenlight Production Formation V1 | `6ec10a6` | `345a892` | `7966603` |
+| World-First Lot-Native Next-Event Cadence V1 | `15e65c4` | `eb6cef1`, `aabb684` | this documentation checkpoint |
 
 ## Product result so far
 
@@ -146,29 +150,38 @@ Pre-production, and Rehearsal, using physical Stage 7 only when exact allocation
 truthful Stage 12 semantic fallback otherwise. Invalid, stale, duplicate, replaced, or unrelated
 truth lands neutrally and never substitutes another picture.
 
-Deep non-modal screens still unmount and later remount the Lot. Studio Home persists bounded
-selected-building/focus context and authoritative GameState; it does not preserve the same Phaser
-instance, camera, selected person, or other transient world presentation through those routes.
-Current Formation proof passed 181/181 repository files and 2,422/2,422 tests, focused Formation
-authority 37/37, the governed D-16/D-17 176/176, Chromium 9/9, and a 140-module production build.
-Native replay is byte-identical, governed hashes/protected refs remain exact, and independent audit
-is clean. Behavior change is bounded to supporting UI/world continuity; no Core, GameState,
-SaveFileV11, greenlight/workflow/reservation/phase/person/facility/economy/RNG, manifest, exporter,
-art, pathfinding, task, queue, autonomy, or renderer-draw behavior changed. Structural parity is
-recorded; no GPU wall-clock certification is claimed and no threshold was relaxed.
+Lot-native cadence now carries ordinary play from waiting to reaction without routing a
+non-release stop through Dashboard or Weekly Summary. One native **Sim to next event** action reuses
+the existing App-owned `advanceToNextEvent` once; one exact final state and renderer snapshot
+repaint the same mounted Lot/camera. A closed receipt exposes exact stop, target, period accounting,
+completed runs, and one orthogonal construction co-event. If presentation proof fails, the valid
+successor remains accepted and only safe neutral final facts survive.
 
-The FROZEN next contract is the bounded implementation authority for Lot-native cadence and
-reaction; implementation is next and no implementation result or SHA is claimed yet. One native
-**Sim to next event** action reuses existing App-owned `advanceToNextEvent` as the sole authority and
-is disabled when a unified preflight
-decision is already pending. App retains the exact Engine successor separately; governed
-non-release stops use a complete strict receipt for stop priority, target, period accounting, and
-any construction co-event exactly once, while a valid 520-week guard uses deliberate
-primitive-neutral feedback. Every non-release result stays on the same mounted Lot, while the
-existing release chain remains intact. Hollywood Writers, Casting, and Theater remain semantic-only, and supporting deep routes
-must revalidate exact latest truth and return exact-or-neutral. Malformed, stale, or replaced
-presentation fails neutral. There is no authority for a second clock, autoplay, intermediate-week
-simulation animation, new stop priority, physical place, or new simulation/economic law.
+Physical Stage 7 and exact Administration orientation are used only where accepted authority
+exists. Hollywood Writers, Casting, Theater, and Stage 12 remain semantic-only. Exact supporting
+routes revalidate current truth and return only to the unchanged event or a neutral Lot. Rejected
+save import/declined restart retain unchanged reaction context; accepted same-seed/same-week
+replacement clears it. Releases preserve Newspaper/ReleaseResult/Autopsy and return receipt-free.
+
+Deep non-modal screens still unmount and later remount the Lot. Same-mounted continuity is the law
+for ordinary non-release event stops, not a claim that every supporting surface preserves the same
+Phaser instance. Skipped weeks are one synchronous Engine batch and one final snapshot; the game
+does not claim their travel, queues, occupancy, construction labor, rehearsal, shooting, Post,
+publicity, or theatrical activity was watched.
+
+Final cadence proof passed 185/185 repository files and 2,476/2,476 tests, focused next-event
+authority 214/214, governed D-16/D-17 176/176, Chromium 12/12, both TypeScript projects, and a
+142-module production build. The deterministic 12-fixture SaveFileV11 corpus replayed
+byte-identically; exact and neutral renderer windows both remained 34 objects / 15 actors /
+11,096,896 decoded bytes / one draw. Independent audit is clean after every finding was repaired.
+No Core, GameState, SaveFileV11, adapter stop/simulation/accounting law, production, construction,
+employment, release, economy, RNG, manifest, exporter, art, task, queue, autonomy, pathfinding, or
+renderer-draw behavior changed. No GPU/FPS certification is claimed and no threshold was relaxed.
+
+The next action is evidence-led: repeat the Owner's several-minutes-on-Lot test against this
+accepted cadence, instrument the next smallest truthful break, and freeze a bounded contract only
+if ordinary-player value and current authority justify it. Do not invent a successor merely to
+continue the roadmap.
 
 ## Governing status
 

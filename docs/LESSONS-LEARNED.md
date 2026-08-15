@@ -3302,3 +3302,95 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
 - **Pattern:** mounted continuity where the world owns reaction; governed deep interruption where
   release owns the moment. **Anti-pattern:** universal remounting or universal background-renderer
   persistence.
+
+---
+
+# World-First Lot-Native Next-Event Cadence & Reaction V1 — IMPLEMENTATION CLOSED
+
+> Contract `15e65c494b28518e3ba8df2e74823adff3178897`; primary implementation
+> `eb6cef1bb2cadc09438daacefb5868e7e6269b44`; final replacement-input hardening and accepted
+> behavior authority `aabb68477fe73ea21af3195985ee7ffaf6a182f7`; closure by the
+> documentation checkpoint containing this record.
+
+## FD. One final batch state needs one renderer-delivery owner — **BR**
+
+- **Risk:** both the React state effect and renderer readiness can deliver the same accepted final
+  snapshot, creating duplicate paint/selection work and making a delayed renderer appear to have
+  observed an intermediate state.
+- **Resolution / fastest proof:** retain the exact GameState object last delivered to the view.
+  Construct a delayed renderer from the latest host snapshot; after readiness, deliver only when
+  object identity changed. Assert one initial and one final snapshot for an accepted batch, and one
+  latest-only snapshot when the batch finishes before readiness.
+- **Coverage / fastest diagnostic:** use a fake view that records constructor and `setSnapshot`
+  weeks, then pair it with real Chromium delayed-readiness proof.
+- **Pattern:** one accepted state → one renderer delivery owner. **Anti-pattern:** independent
+  effects that each “ensure” the final snapshot was sent.
+
+## FE. Same-mounted responsive layout must preserve camera intent — **MG, BR**
+
+- **Risk:** showing or resizing a world-owned reaction rail can trigger generic host-resize camera
+  resets, technically preserving the renderer while functionally destroying spatial continuity.
+- **Resolution / fastest proof:** let the existing camera resize against current transform and
+  bounds; do not reinterpret rail layout as a fresh Lot entry or call a home-camera reset.
+- **Coverage / fastest diagnostic:** capture camera state before one non-release sim, wait for rail
+  layout and final renderer repaint, and require the same view plus unchanged camera transform.
+- **Pattern:** responsive companion UI around a persistent camera. **Anti-pattern:** remount-free
+  code that still recenters the player on every reaction.
+
+## FF. A reaction owns world orientation until one deliberate release — **MG, BR**
+
+- **Risk:** older production/person/place contexts can repaint over the selected event, while
+  dismissing the rail can leave its physical highlight behind as false current intent.
+- **Resolution / fastest proof:** make event orientation mutually exclusive and apply it before
+  older context owners. Preserve it through related inspection and exact unchanged deep return;
+  consume it on world action, accepted successor, unrelated selection, explicit Dismiss, or invalid
+  truth. Dismiss must clear event-owned production/detail/scenery context as well as the rail.
+- **Coverage / fastest diagnostic:** test Stage 7 exact orientation, semantic Stage 12 neutral
+  physical state, ordinary selection, deep unchanged/changed returns, and Dismiss separately.
+- **Pattern:** one event context with explicit acquisition and release. **Anti-pattern:** hiding the
+  card while its selection continues to govern the world.
+
+## FG. Accepted replacement and rejected replacement attempts have different session boundaries — **BR**
+
+- **Risk:** sanitizing transient return context merely because the player opened Saves loses exact
+  unchanged play after a malformed import or declined restart; retaining it after an accepted load
+  leaks one studio's presentation into another.
+- **Resolution / fastest proof:** carry the typed exact return context into Saves while the accepted
+  successor object and complete receipt remain current. Rejected import and `confirm === false`
+  change nothing. Only accepted load/restart crosses whole-state replacement and clears session,
+  cadence, focus, gesture, and selection state.
+- **Coverage / fastest diagnostic:** exact event → deep owner → Saves → malformed import → Back,
+  then declined restart → Back, then accepted same-seed/same-week replacement. Compare autosave
+  bytes and exact rail/focus/suppression on every branch.
+- **Pattern:** replacement acceptance is the boundary. **Anti-pattern:** treating entry into a
+  destructive-capable screen as though destruction already occurred.
+
+## FH. A newly mounted control must distrust compatibility input until its own primary pointer — **BR**
+
+- **Risk:** an old Lot can capture `pointerdown`, unmount for whole-studio replacement, and later
+  deliver a mouse/touch compatibility tail to the new control before its renderer is ready. If the
+  new host starts permissive, the old gesture activates a different studio.
+- **Resolution / fastest proof:** initialize every new host in physical-primary-required state.
+  Mouse/touch compatibility starts cannot mint a token until a fresh `pointerdown` occurs on that
+  exact host. Renderer ready/failure, cancel, blur, hidden-tab, and modal boundaries restore the
+  same requirement.
+- **Coverage / fastest diagnostic:** defer renderer #2, hold the old control, replace the studio,
+  fire pre-ready and post-ready mouse/touch detail-1 clicks, then prove only one fresh replacement
+  `pointerdown` can advance.
+- **Pattern:** fresh host, fresh primary boundary. **Anti-pattern:** clearing the old token but
+  trusting the delayed compatibility family that follows it.
+
+## FI. One event rail must serialize world, deep, and dismiss claims — **MG, BR**
+
+- **Risk:** world action, supporting deep route, and Dismiss are three competing consumers of one
+  transient event. Same-stack pointer/keyboard tails can otherwise invoke multiple callbacks or
+  apply one callback to a repainted successor.
+- **Resolution / fastest proof:** capture the exact rendered rail/action at gesture start, compare
+  the complete current presentation at activation, and synchronously claim the rail before any
+  callback. Release claim state only after the bounded presentation turn or an explicit fresh
+  gesture.
+- **Coverage / fastest diagnostic:** race world/deep/dismiss actions, replacement callbacks,
+  double-click/detail>1, key repeats/cross-key tails, touch/mouse compatibility, virtual AT,
+  renderer generation, suspension, visibility, and unmount.
+- **Pattern:** one transient presentation, one winning deliberate claim. **Anti-pattern:** three
+  independent buttons that each trust their latest React closure.

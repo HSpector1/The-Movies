@@ -158,42 +158,41 @@ repository files and 2,422/2,422 tests, focused Formation authority 37/37, gover
 hashes, and clean independent audit. Structural parity is proven; no GPU wall-clock certification
 is claimed.
 
-## FROZEN next — World-First Lot-Native Next-Event Cadence & Reaction V1
+## Closed — World-First Lot-Native Next-Event Cadence & Reaction V1
 
-Formation closes the exact birth-of-picture continuity break. The next smallest critical-experience
-seam is waiting for meaningful studio change without leaving the Lot or manually ticking through
-empty weeks. Formation closure authority is exact at
-`7966603ae8cc85702e10e10e8850f9481dd322b2`; the next-event contract is **FROZEN by this
-documentation checkpoint** and implementation is the next step. The freeze is binding bounded
-implementation authority; no implementation result or SHA is claimed.
+Contract `15e65c4`, primary implementation `eb6cef1`, and final replacement-input hardening /
+accepted behavior `aabb684` close the ordinary waiting → interruption → reaction seam by this
+documentation checkpoint.
 
-The frozen boundary requires:
+One native Lot action calls existing App-owned `advanceToNextEvent` once against the exact rendered
+state. Every non-release stop accepts one final Engine successor and snapshot on the same mounted
+Lot, renderer, canvas, and camera. A complete closed receipt owns exact target, range, completed
+runs, period accounting, and one orthogonal Annex completion; malformed presentation retains only
+independently safe neutral facts and never rejects valid Engine progress.
 
-- keep the existing App-owned `advanceToNextEvent` as the sole next-event authority; do not copy,
-  reorder, reinterpret, or rerun its stop law in React or Phaser;
-- disable one native **Sim to next event** action when the existing unified preflight decision is
-  already pending, while preserving the closed one-week action;
-- retain the exact Engine successor separately from presentation; governed non-release stops accept
-  only a complete strict transient receipt for primary-stop priority, message, reason target, range,
-  completed runs, construction co-event, and complete period accounting, while a valid 520-week
-  guard uses deliberate primitive-neutral feedback; malformed or mismatched presentation fails
-  neutral without rejecting the valid Engine successor;
-- keep every non-release stop and its reaction rail on the same mounted Lot;
-- preserve the existing release Newspaper → ReleaseResult → Autopsy/deep-result chain and explicit
-  Lot return;
-- treat Hollywood Writers, Casting, and Theater as semantic-only destinations because no accepted
-  physical place authority exists for them;
-- carry construction completion as an orthogonal co-event exactly once without changing the
-  primary stop; and
-- permit only exact latest-state deep routes with exact unchanged-event return or a neutral fresh
-  Lot, never a guessed replacement.
+Stage 7 uses exact physical truth and its existing world command first. Administration is physical
+only when exact. Writers, Casting, Theater, and Stage 12 remain semantic-only. Exact deep routes
+revalidate current truth and return only to the unchanged reaction or a neutral Lot. Rejected save
+import and declined restart preserve the unchanged session; accepted replacement clears it.
+Releases retain Newspaper/ReleaseResult/Autopsy and return receipt-free.
 
-Exact selected-event inspection may open an existing focused deep owner only when the decision
-cannot be expressed spatially and latest state still proves the same event. Disappearance,
-replacement, stale result, pending decision, or changed truth must clear or land neutrally; no
-first event, guessed person, or substitute owner may take over continuity. No second clock,
-autoplay, intermediate-week simulation animation, new stop priority, physical-place claim, or new
-simulation/economic law is authorized.
+Final proof passed 185/185 repository files and 2,476/2,476 tests, focused authority 214/214,
+governed D-16/D-17 176/176, Chromium 12/12, a 142-module build, byte-identical 12-fixture native
+replay, and exact 34/15/11,096,896/one-draw structural parity. Skipped weeks remain one synchronous
+batch and one final snapshot, not witnessed intermediate work. No Core/save/simulation/economy,
+physical-place, art, world movement route, task, queue, autonomy, pathfinding, or renderer-draw law
+changed.
+
+## Evidence-led next audit
+
+Repeat the Owner's several-minutes-on-Lot critical-experience test against accepted cadence. Observe
+where the player next loses exact world identity, cannot act spatially, or must leave the Lot for a
+decision already supportable by current authority. Instrument first and freeze a bounded successor
+only after ordinary-player value, accepted art, readability, and performance are proven.
+
+Do not predeclare a feature merely to keep the marathon moving. A candidate must survive current
+Core/GameState authority, exact identity/cardinality, two-production readability, and the existing
+world-first Keep/Kill standard before it becomes a contract.
 
 ## Closed parallel evidence lane
 
@@ -218,15 +217,18 @@ construction, or operating costs materially change the decision boundary.
 - financing, loans, bailouts, restructuring, hard bankruptcy, or a failure ladder; or
 - revival of rejected 05H/05I character production.
 
-## Contract boundary
+## Post-close evidence boundary
 
-Implement only against the frozen next-event contract recorded by this documentation checkpoint.
-The slice may compose only the existing `advanceToNextEvent`, App navigation, authoritative
-successor and receipt validation, same-mounted non-release Lot rail, governed release chain,
-exact deep routes/returns, construction co-event, complete period accounting, and semantic-only
-Hollywood Writers/Casting/Theater destinations. It may not add a second clock, autoplay, a
-UI/renderer scheduler, new event-stop or decision law, save field, facility, physical place, art,
-queue, workload, staffing, economy tuning, or pathfinding result.
+Preserve the accepted next-event contract exactly while observing the next seam. Same-mounted
+continuity applies to ordinary non-release reactions; existing deep owners may still unmount and
+remount the Lot. One synchronous batch supplies one final state; do not narrate skipped travel,
+work, queues, occupancy, construction labor, rehearsal, shooting, Post, publicity, or theatrical
+activity as watched simulation.
+
+Any proposed successor must remain UI/world projection over existing authority unless a separately
+frozen Engine contract explicitly says otherwise. No new save field, facility, physical place,
+worker path, queue, workload, staffing, economy tuning, or renderer-owned result follows from this
+closure.
 
 The governing economic classification remains exactly:
 

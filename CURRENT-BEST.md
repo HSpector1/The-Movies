@@ -4,9 +4,12 @@ Updated: 2026-08-15
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current accepted milestone closure HEAD: `7966603ae8cc85702e10e10e8850f9481dd322b2`
+Current accepted milestone: World-First Lot-Native Next-Event Cadence & Reaction V1, closed by this
+documentation checkpoint
 
-Current implementation authority: `345a89281ad1e89ac32f07082d4eb34ac664f280`
+Current accepted behavior authority: `aabb68477fe73ea21af3195985ee7ffaf6a182f7`
+
+Primary implementation authority: `eb6cef1bb2cadc09438daacefb5868e7e6269b44`
 
 ## Product doctrine — World First
 
@@ -132,8 +135,53 @@ whether the game remains playable.
 - World-First Greenlight Production Formation & Fresh Lot Return V1 carries one accepted exact
   Assembly transition back into the living Lot, frames its exact Director, keeps its Lead visible,
   and follows the same picture through mounted Development, Pre-production, and Rehearsal repaint.
+- World-First Lot-Native Next-Event Cadence & Reaction V1 lets the player wait for the next existing
+  authoritative interruption from the living Lot, retain every non-release result on the same
+  mounted world and camera, react through an exact-or-neutral rail, and use an exact supporting
+  owner only when the action needs deeper space. Real releases retain their established deep chain.
 
 ## Current world-first checkpoint
+
+World-First Lot-Native Next-Event Cadence & Reaction V1 is accepted under frozen contract
+`15e65c494b28518e3ba8df2e74823adff3178897`, primary implementation
+`eb6cef1bb2cadc09438daacefb5868e7e6269b44`, and final replacement-input hardening / accepted
+behavior authority `aabb68477fe73ea21af3195985ee7ffaf6a182f7`. This documentation checkpoint
+closes the slice:
+
+- one native Lot action claims the exact rendered state and calls existing App-owned
+  `advanceToNextEvent` once; the Engine retains loop, priority, stop, period-accounting, and final
+  successor authority;
+- every non-release stop updates authoritative state/autosave and one final renderer snapshot
+  without changing screens, preserving the same Lot host, renderer, canvas, and camera;
+- complete closed receipts disclose exact stop, target, range, completed runs, orthogonal Annex
+  completion, and every period category; malformed presentation keeps only independently safe
+  neutral week/cash/message truth and never rejects valid Engine progress;
+- physical Stage 7 and exact Administration orientation are used only when independently proven;
+  Writers, Casting, Theater, and Stage 12 remain honest semantic destinations with no invented
+  place;
+- world command, exact deep route, unchanged receipt-bearing return, state-changing neutral return,
+  rejected/declined Saves preservation, and accepted whole-studio replacement are separately
+  provenance-governed and cannot substitute identity;
+- releases retain Newspaper/ReleaseResult/Autopsy and return receipt-free; construction completion
+  remains one orthogonal non-repeating co-event; and
+- pointer/touch/mouse/keyboard/virtual-AT, cancel/blur/visibility/modal/renderer, delayed readiness,
+  and pre-ready whole-studio replacement tails are exact-once or fail closed.
+
+Final proof passed 185/185 repository files and 2,476/2,476 tests, focused next-event authority
+214/214, governed D-16/D-17 176/176, Chromium 12/12, both TypeScript projects, and a 142-module
+production build. The 12-fixture native SaveFileV11 corpus replayed byte-identically at manifest
+SHA-256 `0736b837fb6bd1954a72e1db0da64469b8d833f29166ee454c32a163b489ade1`.
+Exact and byte-identical neutral renderer windows both measured 34 objects, 15 actors, 11,096,896
+decoded bytes, and one draw. Independent strict audit is clean after every finding was repaired.
+
+Behavior change is bounded to primary-world invocation and presentation of existing authority. No
+Core, GameState, SaveFileV11, schema, migration, adapter stop/simulation/period law, production,
+construction, employment, release, facility, economy, RNG, ledger, manifest, exporter, authored
+art, world movement route, task, queue, autonomy, pathfinding, or renderer-draw behavior changed. Skipped weeks are
+one synchronous batch and one final snapshot; they are not claimed as watched intermediate work.
+No GPU/FPS certification is claimed and no threshold was relaxed.
+
+## Prior world-first checkpoint — Greenlight Production Formation V1
 
 World-First Greenlight Production Formation & Fresh Lot Return V1 is accepted at implementation
 authority `345a89281ad1e89ac32f07082d4eb34ac664f280` under frozen contract `6ec10a6`; exact
@@ -405,6 +453,11 @@ production and integration remain unauthorized.
 - World-First Greenlight Production Formation V1 contract: `6ec10a6e4801dc7d1cd60932fb53a76160c57bb4`
 - World-First Greenlight Production Formation V1 implementation: `345a89281ad1e89ac32f07082d4eb34ac664f280`
 - World-First Greenlight Production Formation V1 closure: `7966603ae8cc85702e10e10e8850f9481dd322b2`
+- World-First Lot-Native Next-Event Cadence V1 contract: `15e65c494b28518e3ba8df2e74823adff3178897`
+- World-First Lot-Native Next-Event Cadence V1 implementation: `eb6cef1bb2cadc09438daacefb5868e7e6269b44`
+- World-First Lot-Native Next-Event Cadence V1 final hardening / accepted behavior:
+  `aabb68477fe73ea21af3195985ee7ffaf6a182f7`
+- World-First Lot-Native Next-Event Cadence V1 closure: this documentation checkpoint
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -415,25 +468,14 @@ or arbitrary cash sink is authorized.
 
 ## Current highest-leverage evidence step
 
-Promote **World-First Lot-Native Next-Event Cadence & Reaction V1** as the next smallest world-first
-continuity seam. Its contract is **FROZEN by this documentation checkpoint** against Formation
-closure `7966603ae8cc85702e10e10e8850f9481dd322b2`; implementation is next. This freeze is the
-binding bounded implementation contract, not an implemented result.
+Run a fresh several-minutes-on-Lot critical-experience audit against accepted next-event behavior.
+Observe where an ordinary player next leaves, loses, or cannot act on authoritative world truth.
+Instrument that seam first; compare its ordinary-player value with current Engine, facility, person,
+production, and accepted-art authority; and freeze a bounded successor only if the evidence justifies
+it.
 
-The frozen boundary keeps existing `advanceToNextEvent` as the sole next-event authority, disables
-the native **Sim to next event** Lot action when the unified preflight decision is already pending,
-and retains the exact Engine successor separately from presentation. Governed non-release stops use
-one strict transient receipt for the adapter's exact stop priority, message, period, target, and
-complete accounting; a valid 520-week guard uses deliberate primitive-neutral feedback instead.
-Every non-release stop remains on the same mounted Lot. Existing release stops retain the governed
-Newspaper → ReleaseResult → Autopsy/deep-result chain and explicit Lot return; no release
-presentation is collapsed merely to keep the canvas visible.
-
-Hollywood Writers, Casting, and Theater destinations are semantic-only in this slice because the
-accepted manifest provides no canonical physical place authority for those systems. Exact existing
-deep owners may support a selected event only after latest-state and complete-receipt validation,
-with exact focused routes and exact-unchanged or neutral returns. Construction remains an
-orthogonal co-event shown exactly once; malformed, stale, replaced, or unprovable presentation
-fails neutral without rejecting the valid Engine successor. The slice must not add a second clock,
-autoplay, a renderer/UI scheduler, intermediate-week animation, new stop priority, or any new
-simulation/economic law.
+No successor feature is predeclared merely to continue the roadmap. In particular, do not force a
+construction catalogue, physical Stage 12, new facility, second Annex, fourth slot, personal
+autonomy, intermediate-week spectacle, or screen-first operations surface. The accepted truthful
+batch boundary remains: one Engine call, one final state, and no claim that skipped travel, queues,
+occupancy, construction labor, rehearsal, shooting, Post, publicity, or theatrical work was watched.

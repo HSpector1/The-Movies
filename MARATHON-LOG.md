@@ -471,3 +471,53 @@ Owner rulings remain the authority when a summary here conflicts with them.
   MACROECONOMY RESIDUALS REMAIN OPEN**. No merge, push, tag, publication, macroeconomic
   reclassification, financing, bailout, restructuring, failure ladder, or arbitrary cash sink is
   authorized.
+
+## 2026-08-15 — World-first Lot-native next-event cadence and reaction closes
+
+- Delivered primary implementation `eb6cef1bb2cadc09438daacefb5868e7e6269b44` under frozen
+  contract `15e65c494b28518e3ba8df2e74823adff3178897`, then closed the final replacement-input
+  race at accepted behavior authority `aabb68477fe73ea21af3195985ee7ffaf6a182f7`. This
+  documentation checkpoint closes the milestone.
+- Kept existing App-owned `advanceToNextEvent` as the sole batch, stop-priority, period-accounting,
+  and successor authority. One exact rendered-state claim calls it once; pending unified decisions
+  disable cadence with truthful reasons while preserving the existing one-week action.
+- Added one complete strict transient receipt plus a deliberate primitive-neutral fallback. Exact
+  presentation discloses stop, range, target, completed runs, every period category, and one
+  independently validated Annex completion; malformed presentation never rejects valid Engine
+  progress or guesses a substitute.
+- Kept every non-release result on the same Lot host, renderer, canvas, camera, and one final
+  snapshot. Skipped weeks remain a synchronous batch, not witnessed intermediate travel, queues,
+  occupancy, construction labor, rehearsal, shooting, Post, publicity, or theatrical work.
+- Used physical Stage 7 and Administration only under exact accepted authority. Hollywood Writers,
+  Casting, Theater, and Stage 12 remain semantic-only. Existing world commands stay first; exact
+  supporting owners revalidate current truth before navigation.
+- Separated receipt-bearing unchanged reaction return from state-changing neutral return and
+  receipt-free release return. Rejected import or declined restart preserves the same exact
+  session; accepted same-seed/same-week replacement clears every transient.
+- Preserved Gazette and non-Gazette Newspaper/ReleaseResult/Autopsy behavior. A simultaneous Annex
+  completion appears on the first deep surface exactly once and never changes primary stop order.
+- Hardened pointer/touch/mouse/keyboard/virtual-AT, cancel/blur/visibility/modal/renderer, delayed
+  readiness, focus, live-region, and replacement lifetimes. Final audit found that a new host could
+  accept a compatibility tail before ready; `aabb684` now requires that host's own fresh primary
+  pointer, with a deferred-renderer regression proving pre-ready and post-ready containment.
+- Added a public-action-derived deterministic 12-fixture native SaveFileV11 corpus. Regeneration
+  was byte-identical; manifest SHA-256 is
+  `0736b837fb6bd1954a72e1db0da64469b8d833f29166ee454c32a163b489ade1`.
+- Closed proof with 185/185 repository files and 2,476/2,476 tests, focused next-event authority
+  214/214, governed D-16/D-17 176/176, Chromium 12/12, both TypeScript projects, a 142-module build,
+  16 reviewed screenshots, and independent strict audits clean after every finding was repaired.
+- Exact Stage 7 and byte-identical neutral windows both remained 34 objects / 15 actors /
+  11,096,896 decoded bytes / one draw. No GPU/FPS certification is claimed, the existing chunk
+  warning remains visible, and no threshold was relaxed.
+- Changed no Core, GameState, SaveFileV11, schema, migration, adapter stop/simulation/accounting
+  law, production, construction, employment, release, facility, economy, RNG, ledger, manifest,
+  exporter, art, world movement route, task, queue, autonomy, pathfinding, or renderer-draw
+  behavior.
+- Promoted no automatic successor. The next loop is a fresh several-minutes-on-Lot audit: instrument
+  the next observed world break, research current authority/art/value, then freeze only the smallest
+  justified contract. Do not force construction, Stage 12 art, autonomy, or a screen-first system.
+- Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
+  RESIDUALS REMAIN OPEN**. Cash runaway, top-studio economic immortality, the week-208 synchronized
+  roster wall, P5 dominance, world-led variance, cheap-film purpose, premium-film purpose,
+  remaining menu breadth, and formal G12 timing remain open. No merge, push, tag, financing, loan,
+  bailout, restructuring, failure ladder, hard bankruptcy, or arbitrary cash sink was introduced.
