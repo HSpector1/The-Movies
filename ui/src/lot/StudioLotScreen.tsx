@@ -36,6 +36,10 @@ import {
   LotScriptReviewPanel,
   type LotScriptReviewPanelFeedback,
 } from './LotScriptReviewPanel.tsx'
+import {
+  LotCastingReviewPanel,
+  type LotCastingReviewPanelFeedback,
+} from './LotCastingReviewPanel.tsx'
 import { moneyExact } from '../format.ts'
 import type {
   AttentionState,
@@ -100,6 +104,16 @@ import {
   type LotScriptReviewSuccess,
   type LotScriptReviewTarget,
 } from './snapshot/scriptReview.ts'
+import {
+  acceptedLotCastingReviewSuccess,
+  currentLotCastingReviewContext,
+  sameLotCastingReviewAction,
+  sameLotCastingReviewContext,
+  type LotCastingReviewAction,
+  type LotCastingReviewContext,
+  type LotCastingReviewSuccess,
+  type LotCastingReviewTarget,
+} from './snapshot/castingReview.ts'
 import {
   getLotSelectedBuilding,
   setLotSelectedBuilding,
@@ -285,6 +299,8 @@ const REVIEW_MODES: ReadonlyArray<{
 
 type Props = {
   state: GameState
+  /** Claim/release the exact App-owned authority lifetime of this mounted Lot presentation. */
+  onPresentationMount?: () => () => void
   /** Host maps a lot route to the existing app navigation (setScreen). */
   onNavigate: (route: LotRoute) => void
   /** Open the supporting Dashboard surface. */
@@ -310,6 +326,7 @@ type Props = {
     | 'gate-candidate'
     | 'production-formation'
     | 'script-review'
+    | 'casting-review'
     | 'next-event-control'
     | 'next-event-reaction'
   /** Exact identity required by the transient Stage 7 deep-return arm. */
@@ -320,6 +337,8 @@ type Props = {
   entryProductionFormation?: GreenlightFormationReceipt
   /** Exact pending screenplay identity required by the deep-return arm. */
   entryScriptReviewTarget?: LotScriptReviewTarget
+  /** Exact pending Casting-review identity required by the deep-return arm. */
+  entryCastingReviewTarget?: LotCastingReviewTarget
   /** Exact receipt restored only by App's accepted-state reaction-return arm. */
   entryNextEventReceipt?: LotNextEventReceipt
   /** Suppress a generic Annex announcement already owned by an exact completion surface. */
@@ -346,6 +365,18 @@ type Props = {
   onOpenScriptReviewDetails?: (
     renderedState: GameState,
     context: LotScriptReviewContext,
+  ) => boolean
+  /** Dispatch the one exact Core-emitted Casting acknowledgement from the mounted Lot. */
+  onRunCastingReviewAction?: (
+    renderedState: GameState,
+    context: LotCastingReviewContext,
+    action: LotCastingReviewAction,
+    receipt: LotNextEventReceipt | null,
+  ) => ActionOutcome
+  /** Open the exact current Casting review card in its supporting deep owner. */
+  onOpenCastingReviewDetails?: (
+    renderedState: GameState,
+    context: LotCastingReviewContext,
   ) => boolean
   /** Dispatch the existing parameter-free Annex action through the authoritative App owner. */
   onStartDevelopmentCastingAnnex?: () => ActionOutcome
@@ -426,7 +457,7 @@ function lotNextEventEligibility(state: GameState): {
       case 'castingReview':
         return {
           eligible: false,
-          reason: `Review casting for ${pending.decision.title} in the Casting Room before simming to another event.`,
+          reason: `Select Casting and review ${pending.decision.title} in the live Studio Lot before simming to another event.`,
         }
       case 'productionDecision':
         return {
@@ -449,6 +480,14 @@ function scriptReviewSuccessMessage(success: LotScriptReviewSuccess): string {
     return `${success.title} is ${success.statusLabel}. ${success.writerName} remains attached as writer.`
   }
   return `${success.title} is in final rewrite with ${success.writerName} through Week ${success.dueWeek} at ${success.facilityName}, slot ${success.slot + 1}.`
+}
+
+function castingReviewSuccessMessage(success: LotCastingReviewSuccess): string {
+  if (success.kind === 'clear') {
+    return `${success.title} casting review is complete. Opening the focused Package Assembly.`
+  }
+  const blockers = success.blockers.map((blocker) => blocker.headline).join(' · ')
+  return `${success.title} casting review is complete. Persisted evidence remains available. The current package blockers still apply: ${blockers}`
 }
 
 function annexStatusLabel(view: StudioConstructionView): string {
@@ -576,6 +615,7 @@ function sceneryArrivalActivity(title: string): string {
 
 export function StudioLotScreen({
   state,
+  onPresentationMount,
   onNavigate,
   onExit,
   onAdvance,
@@ -586,6 +626,7 @@ export function StudioLotScreen({
   entryGateCandidate,
   entryProductionFormation,
   entryScriptReviewTarget,
+  entryCastingReviewTarget,
   entryNextEventReceipt,
   suppressOperationalAnnouncement = false,
   onOpenPublicityDashboard,
@@ -594,6 +635,8 @@ export function StudioLotScreen({
   onRunNextEventProductionCommand,
   onRunScriptReviewAction,
   onOpenScriptReviewDetails,
+  onRunCastingReviewAction,
+  onOpenCastingReviewDetails,
   onStartDevelopmentCastingAnnex,
   onOpenAnnexWorkDetails,
   onOpenStage7ProductionDetails,
@@ -608,6 +651,8 @@ export function StudioLotScreen({
   onInvalidateNextEvent,
   onDismissNextEvent,
 }: Props) {
+  useLayoutEffect(() => onPresentationMount?.(), [onPresentationMount])
+
   const advanceFeedback = cadenceFeedback?.kind === 'week'
     ? cadenceFeedback
     : cadenceFeedback === null
@@ -634,6 +679,11 @@ export function StudioLotScreen({
     rawExactNextEventReceipt?.target.kind === 'script'
       ? rawExactNextEventReceipt
       : null
+  const rawNextEventCastingReceipt =
+    exactNextEventReceiptIsClosed &&
+    rawExactNextEventReceipt?.target.kind === 'casting'
+      ? rawExactNextEventReceipt
+      : null
   const currentScriptReviewContext = currentLotScriptReviewContext(state)
   const nextEventScriptReviewContext =
     rawNextEventScriptReceipt === null ||
@@ -643,6 +693,16 @@ export function StudioLotScreen({
         projectId: rawNextEventScriptReceipt.target.projectId,
         title: rawNextEventScriptReceipt.target.title,
       })
+  const currentCastingReviewContext = currentLotCastingReviewContext(state)
+  const nextEventCastingReviewContext =
+    rawNextEventCastingReceipt === null ||
+    rawNextEventCastingReceipt.target.kind !== 'casting'
+      ? null
+      : currentLotCastingReviewContext(state, {
+          sessionId: rawNextEventCastingReceipt.target.sessionId,
+          projectId: rawNextEventCastingReceipt.target.projectId,
+          title: rawNextEventCastingReceipt.target.title,
+        })
   const nextEventProductionCommand = rawNextEventProductionReceipt === null
     ? null
     : currentLotNextEventProductionCommand(state, rawNextEventProductionReceipt)
@@ -654,6 +714,10 @@ export function StudioLotScreen({
     rawNextEventScriptReceipt !== null && nextEventScriptReviewContext === null
       ? rawNextEventScriptReceipt
       : null
+  const invalidNextEventCastingReceipt =
+    rawNextEventCastingReceipt !== null && nextEventCastingReviewContext === null
+      ? rawNextEventCastingReceipt
+      : null
   const malformedExactNextEventReceipt =
     rawExactNextEventReceipt !== null && !exactNextEventReceiptIsClosed
       ? rawExactNextEventReceipt
@@ -661,7 +725,8 @@ export function StudioLotScreen({
   const invalidNextEventReceipt =
     malformedExactNextEventReceipt ??
     invalidNextEventProductionReceipt ??
-    invalidNextEventScriptReceipt
+    invalidNextEventScriptReceipt ??
+    invalidNextEventCastingReceipt
   const nextEventFeedback: Extract<
     LotCadenceFeedback,
     { kind: 'next-event-exact' | 'next-event-neutral' }
@@ -822,6 +887,50 @@ export function StudioLotScreen({
       queueMicrotask(() => studioHeadingRef.current?.focus({ preventScroll: true }))
     }
   }, [scriptReviewIntent, selectedScriptReviewContext, visibleScriptReviewActivity])
+  const [castingReviewIntent, setCastingReviewIntent] = useState<LotCastingReviewTarget | null>(
+    entryFocus === 'casting-review' ? entryCastingReviewTarget ?? null : null,
+  )
+  const castingReviewHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const castingReviewDispatchGuardRef = useRef<{
+    renderedState: GameState
+    context: LotCastingReviewContext
+    action: LotCastingReviewAction
+  } | null>(null)
+  const [castingReviewActivity, setCastingReviewActivity] = useState<{
+    acceptedState: GameState
+    context: LotCastingReviewContext
+    success: LotCastingReviewSuccess | null
+    feedback: LotCastingReviewPanelFeedback
+  } | null>(null)
+  const visibleCastingReviewActivity =
+    castingReviewActivity?.acceptedState === state ? castingReviewActivity : null
+  const selectedCastingReviewContext =
+    castingReviewIntent !== null &&
+    currentCastingReviewContext !== null &&
+    castingReviewIntent.sessionId === currentCastingReviewContext.sessionId &&
+    castingReviewIntent.projectId === currentCastingReviewContext.projectId &&
+    castingReviewIntent.title === currentCastingReviewContext.title
+      ? currentCastingReviewContext
+      : null
+  useEffect(() => {
+    if (castingReviewActivity !== null && castingReviewActivity.acceptedState !== state) {
+      setCastingReviewActivity(null)
+      castingReviewDispatchGuardRef.current = null
+    }
+  }, [castingReviewActivity, state])
+  useEffect(() => {
+    if (
+      castingReviewIntent !== null &&
+      selectedCastingReviewContext === null &&
+      visibleCastingReviewActivity === null
+    ) {
+      setCastingReviewIntent(null)
+      setLotSelectedBuilding(null)
+      setSelected(null)
+      castingReviewDispatchGuardRef.current = null
+      queueMicrotask(() => studioHeadingRef.current?.focus({ preventScroll: true }))
+    }
+  }, [castingReviewIntent, selectedCastingReviewContext, visibleCastingReviewActivity])
   const [canvasReady, setCanvasReady] = useState(false)
   const [canvasFailed, setCanvasFailed] = useState(false)
   const [nextEventRailInputResetEpoch, setNextEventRailInputResetEpoch] = useState(0)
@@ -850,7 +959,8 @@ export function StudioLotScreen({
     entryFocus === 'stage-7-production' ||
       entryFocus === 'gate-candidate' ||
       entryFocus === 'production-formation' ||
-      entryFocus === 'script-review'
+      entryFocus === 'script-review' ||
+      entryFocus === 'casting-review'
       ? null
       : undefined,
   )
@@ -1251,6 +1361,9 @@ export function StudioLotScreen({
     setScriptReviewIntent(null)
     setScriptReviewActivity(null)
     scriptReviewDispatchGuardRef.current = null
+    setCastingReviewIntent(null)
+    setCastingReviewActivity(null)
+    castingReviewDispatchGuardRef.current = null
     setLotSelectedBuilding(id)
     setSelected(id)
   }, [])
@@ -2200,6 +2313,41 @@ export function StudioLotScreen({
       return
     }
 
+    if (entryFocus === 'casting-review') {
+      const review = entryCastingReviewTarget === undefined
+        ? null
+        : currentLotCastingReviewContext(state, entryCastingReviewTarget)
+      if (review !== null) {
+        clearFormationContext()
+        clearHollywoodStage7DetailContext()
+        clearGateContext()
+        clearPublicityContext()
+        clearHollywoodSceneryLoadInContext()
+        clearAnnexContext()
+        setHollywoodProductionId(null)
+        setHollywoodPerson(null)
+        setHollywoodPlace(null)
+        setSelectionInfo(null)
+        recordSelection('casting')
+        setCastingReviewIntent({
+          sessionId: review.sessionId,
+          projectId: review.projectId,
+          title: review.title,
+        })
+        if (!hollywood) viewRef.current?.select('casting')
+        queueMicrotask(() => focusVisibleLotOwner(castingReviewHeadingRef.current))
+        return
+      }
+      recordSelection(null)
+      setHollywoodProductionId(null)
+      setHollywoodPerson(null)
+      setHollywoodPlace(null)
+      viewRef.current?.clearHollywoodPersonSelection?.()
+      viewRef.current?.clearHollywoodPlaceSelection?.()
+      studioHeadingRef.current?.focus({ preventScroll: true })
+      return
+    }
+
     if (entryFocus === 'production-formation') {
       if (formationEntryConsumedRef.current) return
       formationEntryConsumedRef.current = true
@@ -2334,6 +2482,7 @@ export function StudioLotScreen({
     entryGateCandidate,
     entryNextEventReceipt,
     entryProductionFormation,
+    entryCastingReviewTarget,
     entryScriptReviewTarget,
     entryStage7ProductionId,
   ])
@@ -2973,6 +3122,192 @@ export function StudioLotScreen({
     return onOpenScriptReviewDetails(renderedState, latest)
   }, [onOpenScriptReviewDetails])
 
+  const enterCurrentCastingReview = useCallback((
+    target?: LotCastingReviewTarget,
+  ): LotCastingReviewContext | null => {
+    if (worldInputSuspendedRef.current) return null
+    const latest = latestGameStateRef.current
+    const context = currentLotCastingReviewContext(latest, target)
+    if (context === null) return null
+
+    clearFormationContext()
+    clearHollywoodStage7DetailContext()
+    clearGateContext()
+    clearPublicityContext()
+    clearHollywoodSceneryLoadInContext()
+    clearAnnexContext()
+    setHollywoodProductionId(null)
+    setHollywoodPerson(null)
+    setHollywoodPlace(null)
+    setSelectionInfo(null)
+    viewRef.current?.clearSelection()
+    viewRef.current?.clearHollywoodPersonSelection?.()
+    viewRef.current?.clearHollywoodPlaceSelection?.()
+    recordSelection('casting')
+    setCastingReviewIntent({
+      sessionId: context.sessionId,
+      projectId: context.projectId,
+      title: context.title,
+    })
+    // Classic owns the established physical Casting building. Paint that host
+    // selection without re-entering this exact review through the renderer's
+    // synchronous onSelect callback; the React owner above already owns it.
+    if (!hollywood) {
+      applyingNextEventOrientationRef.current = true
+      try {
+        viewRef.current?.select('casting')
+      } finally {
+        applyingNextEventOrientationRef.current = false
+      }
+    }
+    queueMicrotask(() => focusVisibleLotOwner(castingReviewHeadingRef.current))
+    return context
+  }, [
+    clearAnnexContext,
+    clearFormationContext,
+    clearGateContext,
+    clearHollywoodSceneryLoadInContext,
+    clearHollywoodStage7DetailContext,
+    clearPublicityContext,
+    hollywood,
+    recordSelection,
+  ])
+
+  const keepInvalidCurrentCastingReviewNeutral = useCallback((): boolean => {
+    let currentCastingDecision = false
+    try {
+      currentCastingDecision = studioDecision(latestGameStateRef.current)?.kind === 'castingReview'
+    } catch {
+      // A thrown decision adapter is still an unavailable current-decision presentation,
+      // never evidence that Casting is free to fall through into a supporting deep screen.
+      currentCastingDecision = true
+    }
+    if (!currentCastingDecision) return false
+
+    clearFormationContext()
+    clearHollywoodStage7DetailContext()
+    clearGateContext()
+    clearPublicityContext()
+    clearHollywoodSceneryLoadInContext()
+    clearAnnexContext()
+    setHollywoodProductionId(null)
+    setHollywoodPerson(null)
+    setHollywoodPlace(null)
+    setSelectionInfo(null)
+    recordSelection(null)
+    viewRef.current?.clearSelection()
+    viewRef.current?.clearHollywoodPersonSelection?.()
+    viewRef.current?.clearHollywoodPlaceSelection?.()
+    queueMicrotask(() => studioHeadingRef.current?.focus({ preventScroll: true }))
+    return true
+  }, [
+    clearAnnexContext,
+    clearFormationContext,
+    clearGateContext,
+    clearHollywoodSceneryLoadInContext,
+    clearHollywoodStage7DetailContext,
+    clearPublicityContext,
+    recordSelection,
+  ])
+
+  const dispatchLotCastingReviewAction = useCallback((
+    renderedState: GameState,
+    renderedContext: LotCastingReviewContext,
+    renderedAction: LotCastingReviewAction,
+    receipt: LotNextEventReceipt | null,
+  ) => {
+    if (worldInputSuspendedRef.current || onRunCastingReviewAction === undefined) return
+    if (castingReviewDispatchGuardRef.current !== null) return
+
+    let target: LotCastingReviewTarget | undefined
+    if (receipt !== null) {
+      if (
+        !sameLotNextEventReceipt(receipt, receipt) ||
+        receipt.target.kind !== 'casting'
+      ) return
+      target = {
+        sessionId: receipt.target.sessionId,
+        projectId: receipt.target.projectId,
+        title: receipt.target.title,
+      }
+    }
+    const current = currentLotCastingReviewContext(renderedState, target)
+    if (
+      current === null ||
+      !sameLotCastingReviewContext(renderedContext, current) ||
+      !sameLotCastingReviewAction(renderedAction, current.action)
+    ) return
+
+    castingReviewDispatchGuardRef.current = {
+      renderedState,
+      context: renderedContext,
+      action: renderedAction,
+    }
+    const result = onRunCastingReviewAction(
+      renderedState,
+      current,
+      current.action,
+      receipt,
+    )
+    if (result.ok) {
+      const success = acceptedLotCastingReviewSuccess(
+        current,
+        current.action,
+        renderedState,
+        result.next,
+      )
+      recordSelection('casting')
+      setCastingReviewActivity({
+        acceptedState: result.next,
+        context: current,
+        success,
+        feedback: {
+          kind: 'success',
+          message: success === null
+            ? 'Casting review completed. Review the current studio state.'
+            : castingReviewSuccessMessage(success),
+        },
+      })
+      if (success?.kind !== 'clear') {
+        queueMicrotask(() => focusVisibleLotOwner(castingReviewHeadingRef.current))
+      }
+      return
+    }
+
+    setCastingReviewActivity({
+      acceptedState: renderedState,
+      context: current,
+      success: null,
+      feedback: { kind: 'error', message: result.error },
+    })
+    const rejectedGuard = castingReviewDispatchGuardRef.current
+    window.setTimeout(() => {
+      if (castingReviewDispatchGuardRef.current === rejectedGuard) {
+        castingReviewDispatchGuardRef.current = null
+      }
+    }, 0)
+  }, [onRunCastingReviewAction, recordSelection])
+
+  const openCurrentCastingReviewDetails = useCallback((
+    renderedState: GameState,
+    renderedContext: LotCastingReviewContext,
+  ): boolean => {
+    if (
+      worldInputSuspendedRef.current ||
+      onOpenCastingReviewDetails === undefined
+    ) return false
+    const latest = currentLotCastingReviewContext(renderedState, {
+      sessionId: renderedContext.sessionId,
+      projectId: renderedContext.projectId,
+      title: renderedContext.title,
+    })
+    if (
+      latest === null ||
+      !sameLotCastingReviewContext(renderedContext, latest)
+    ) return false
+    return onOpenCastingReviewDetails(renderedState, latest)
+  }, [onOpenCastingReviewDetails])
+
   const dispatchRoute = useCallback((action: LotActionEvent['action']) => {
     if (worldInputSuspendedRef.current) return
     const res = resolveAction(action)
@@ -3010,6 +3345,13 @@ export function StudioLotScreen({
             if (sel?.buildingId === 'writers' && enterCurrentScriptReview() !== null) {
               return
             }
+            if (sel?.buildingId === 'casting' && enterCurrentCastingReview() !== null) {
+              return
+            }
+            if (
+              sel?.buildingId === 'casting' &&
+              keepInvalidCurrentCastingReviewNeutral()
+            ) return
             if (hollywood && sel?.buildingId === 'gate') {
               if (!enterGateContext({
                 place: null,
@@ -3049,6 +3391,13 @@ export function StudioLotScreen({
             if (e.buildingId === 'writers' && enterCurrentScriptReview() !== null) {
               return
             }
+            if (e.buildingId === 'casting' && enterCurrentCastingReview() !== null) {
+              return
+            }
+            if (
+              e.buildingId === 'casting' &&
+              keepInvalidCurrentCastingReviewNeutral()
+            ) return
             if (hollywood && e.buildingId === 'gate') {
               enterGateContext({
                 place: null,
@@ -3157,7 +3506,9 @@ export function StudioLotScreen({
               view?.selectHollywoodProduction?.(hollywoodStage7DetailProductionIdRef.current)
             } else {
               const selectedBuilding = getLotSelectedBuilding()
-              if (selectedBuilding) view?.select(selectedBuilding)
+              if (selectedBuilding && (!hollywood || selectedBuilding !== 'casting')) {
+                view?.select(selectedBuilding)
+              }
             }
             if (reducedMotion) view?.setReducedMotion(true)
             // The tab can become hidden before the dynamic import or Phaser scene
@@ -4142,6 +4493,8 @@ export function StudioLotScreen({
       if (worldInputSuspendedRef.current) return
       yieldNextEventOrientation()
       if (id === 'writers' && enterCurrentScriptReview() !== null) return
+      if (id === 'casting' && enterCurrentCastingReview() !== null) return
+      if (id === 'casting' && keepInvalidCurrentCastingReviewNeutral()) return
       if (hollywood && id === 'admin') {
         if (enterPublicityContext({
           place: null,
@@ -4199,7 +4552,7 @@ export function StudioLotScreen({
       clearHollywoodSceneryLoadInContext()
       clearAnnexContext()
       recordSelection(id)
-      viewRef.current?.select(id)
+      if (!hollywood || id !== 'casting') viewRef.current?.select(id)
       dispatchRoute(BUILDING_ACTION[id])
     },
     [
@@ -4211,11 +4564,13 @@ export function StudioLotScreen({
       clearPublicityContext,
       dispatchRoute,
       enterAnnexContext,
+      enterCurrentCastingReview,
       enterCurrentScriptReview,
       enterHollywoodProductionContext,
       enterGateContext,
       enterPublicityContext,
       hollywood,
+      keepInvalidCurrentCastingReviewNeutral,
       recordSelection,
       yieldNextEventOrientation,
     ],
@@ -4946,6 +5301,97 @@ export function StudioLotScreen({
         )
       : null
 
+  const pendingCastingReviewSelected =
+    castingReviewIntent !== null &&
+    selectedCastingReviewContext !== null &&
+    exactNextEventReceipt?.target.kind !== 'casting'
+  const castingSuccessSelected =
+    selected === 'casting' &&
+    visibleCastingReviewActivity?.feedback.kind === 'success' &&
+    exactNextEventReceipt?.target.kind !== 'casting'
+  const castingReviewSurfaceContents = pendingCastingReviewSelected
+    ? (
+        <LotCastingReviewPanel
+          ref={castingReviewHeadingRef}
+          inputBoundary={state}
+          context={selectedCastingReviewContext}
+          disabled={worldInputSuspended || onRunCastingReviewAction === undefined}
+          feedback={
+            visibleCastingReviewActivity !== null &&
+            sameLotCastingReviewContext(
+              visibleCastingReviewActivity.context,
+              selectedCastingReviewContext,
+            )
+              ? visibleCastingReviewActivity.feedback
+              : null
+          }
+          onAction={(action) => dispatchLotCastingReviewAction(
+            state,
+            selectedCastingReviewContext,
+            action,
+            null,
+          )}
+          onOpenDetails={() => {
+            if (!openCurrentCastingReviewDetails(state, selectedCastingReviewContext)) {
+              setCastingReviewActivity({
+                acceptedState: state,
+                context: selectedCastingReviewContext,
+                success: null,
+                feedback: {
+                  kind: 'error',
+                  message: 'Casting review details changed. Review the current lot.',
+                },
+              })
+            }
+          }}
+        />
+      )
+    : castingSuccessSelected && visibleCastingReviewActivity !== null
+      ? (
+          <div
+            className="lot-casting-review-success"
+            data-testid="lot-casting-review-success"
+            data-session-id={visibleCastingReviewActivity.context.sessionId}
+            data-project-id={visibleCastingReviewActivity.context.projectId}
+          >
+            <p className="hollywood-eyebrow">CASTING · REVIEW COMPLETE</p>
+            <h3 ref={castingReviewHeadingRef} tabIndex={-1}>
+              {visibleCastingReviewActivity.context.title}
+            </h3>
+            <p
+              data-testid="lot-casting-review-feedback"
+              data-feedback-kind="success"
+            >
+              {visibleCastingReviewActivity.feedback.message}
+            </p>
+            {visibleCastingReviewActivity.success?.kind === 'blocked' && (
+              <>
+                <dl className="hollywood-person-facts" data-testid="lot-casting-review-blocked-success">
+                  <div><dt>Status</dt><dd>{visibleCastingReviewActivity.success.statusLabel}</dd></div>
+                  <div><dt>Evidence</dt><dd>Six persisted camera-test observations remain available.</dd></div>
+                </dl>
+                <section className="lot-casting-review-success-blockers" aria-label="Current package blockers">
+                  <h4>Current package blockers</h4>
+                  <div className="stack">
+                    {visibleCastingReviewActivity.success.blockers.map((blocker, index) => (
+                      <div
+                        className="warn"
+                        key={`${index}:${blocker.kind}:${blocker.headline}`}
+                        data-testid="lot-casting-review-success-blocker"
+                      >
+                        <strong>{blocker.headline}</strong>
+                        <div>{blocker.detail}</div>
+                        <div className="hint">Remedy: {blocker.remedy}</div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              </>
+            )}
+          </div>
+        )
+      : null
+
   const personInspectorContents = hollywoodPerson === null
     ? null
     : (() => {
@@ -5070,7 +5516,29 @@ export function StudioLotScreen({
           />
         )
       case 'casting':
-        return <p>Casting review · {receipt.target.title}</p>
+        return nextEventCastingReviewContext === null ? null : (
+          <LotCastingReviewPanel
+            inputBoundary={state}
+            context={nextEventCastingReviewContext}
+            identityOwnedExternally
+            disabled={worldInputSuspended || onRunCastingReviewAction === undefined}
+            feedback={
+              visibleCastingReviewActivity !== null &&
+              sameLotCastingReviewContext(
+                visibleCastingReviewActivity.context,
+                nextEventCastingReviewContext,
+              )
+                ? visibleCastingReviewActivity.feedback
+                : null
+            }
+            onAction={(action) => dispatchLotCastingReviewAction(
+              state,
+              nextEventCastingReviewContext,
+              action,
+              receipt,
+            )}
+          />
+        )
       case 'production': {
         const target = receipt.target
         const operations = (snapshot.productionOperations ?? []).filter(
@@ -5286,6 +5754,18 @@ export function StudioLotScreen({
       >
         {advanceFeedback !== null && advanceFeedback.constructionCompletion === null
           ? `Week ${advanceFeedback.week}. Studio Lot updated.`
+          : ''}
+      </div>
+      <div
+        className="visually-hidden"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        data-testid="lot-casting-review-announcement"
+      >
+        {visibleCastingReviewActivity?.feedback.kind === 'success' &&
+        visibleCastingReviewActivity.success?.kind === 'blocked'
+          ? visibleCastingReviewActivity.feedback.message
           : ''}
       </div>
       <div
@@ -5533,9 +6013,11 @@ export function StudioLotScreen({
               </section>
 
               <section
-                className={`hollywood-inspector${scriptReviewSurfaceContents ? ' is-script-review' : ''}${gateSelected ? ' is-gate' : ''}${publicitySelected ? ' is-publicity' : ''}${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}${hollywoodPerson ? ' is-person' : ''}`}
+                className={`hollywood-inspector${scriptReviewSurfaceContents ? ' is-script-review' : ''}${castingReviewSurfaceContents ? ' is-casting-review' : ''}${gateSelected ? ' is-gate' : ''}${publicitySelected ? ' is-publicity' : ''}${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}${hollywoodPerson ? ' is-person' : ''}`}
                 data-testid={
-                  scriptReviewSurfaceContents
+                  castingReviewSurfaceContents
+                    ? 'lot-casting-review-context'
+                    : scriptReviewSurfaceContents
                     ? 'lot-script-review-context'
                     : gateSelected
                     ? 'hollywood-gate-context'
@@ -5551,7 +6033,9 @@ export function StudioLotScreen({
                 onMouseDown={containWorldInput}
                 onTouchStart={containWorldInput}
               >
-                {scriptReviewSurfaceContents
+                {castingReviewSurfaceContents
+                  ? castingReviewSurfaceContents
+                  : scriptReviewSurfaceContents
                   ? scriptReviewSurfaceContents
                   : gateSelected
                   ? gateContextContents
@@ -5827,6 +6311,19 @@ export function StudioLotScreen({
             </section>
           )}
 
+          {!hollywood && castingReviewSurfaceContents !== null && (
+            <section
+              className="lot-casting-review-fallback"
+              data-testid="lot-casting-review-context"
+              aria-label="Casting review"
+              onPointerDown={containWorldInput}
+              onMouseDown={containWorldInput}
+              onTouchStart={containWorldInput}
+            >
+              {castingReviewSurfaceContents}
+            </section>
+          )}
+
           {!hollywood && annexSelected && (
             <section
               className="lot-annex-fallback-context"
@@ -5955,7 +6452,7 @@ export function StudioLotScreen({
             </div>
           )}
 
-          {selectionInfo && !annexSelected && scriptReviewSurfaceContents === null && (
+          {selectionInfo && !annexSelected && scriptReviewSurfaceContents === null && castingReviewSurfaceContents === null && (
             <div className="lot-selection card" role="dialog" aria-label={`${selectionInfo.label} details`} data-testid="lot-selection-panel">
               <div className="spread">
                 <h3 style={{ margin: 0 }}>{maskStageText(selectionInfo.label)}</h3>
@@ -5971,6 +6468,14 @@ export function StudioLotScreen({
                   if (
                     selectionInfo.buildingId === 'writers' &&
                     enterCurrentScriptReview() !== null
+                  ) return
+                  if (
+                    selectionInfo.buildingId === 'casting' &&
+                    enterCurrentCastingReview() !== null
+                  ) return
+                  if (
+                    selectionInfo.buildingId === 'casting' &&
+                    keepInvalidCurrentCastingReviewNeutral()
                   ) return
                   dispatchRoute(selectionInfo.action)
                 }}

@@ -5,9 +5,12 @@ import { dirname, join } from 'node:path'
 import { performance as nodePerformance } from 'node:perf_hooks'
 import { fileURLToPath } from 'node:url'
 import {
+  acknowledgeCastingSessionAction,
   advanceToNextEvent,
+  castingSessionsBoard,
   exportSaveJson,
   importSaveJson,
+  releaseTalentAction,
   runProductionCommand,
   runScriptProjectAction,
   scriptProjectsBoard,
@@ -227,6 +230,7 @@ type SeedOptions = {
   expectCanvas?: boolean
   awaitRenderer?: boolean
   identityProof?: boolean
+  operationHollywoodRollback?: boolean
 }
 
 async function seedLot(page: Page, fixtureId: string, options: SeedOptions = {}) {
@@ -234,12 +238,22 @@ async function seedLot(page: Page, fixtureId: string, options: SeedOptions = {})
   const save = options.saveBytes ?? fixtureBytes(fixtureId)
   const recoveredWeek = options.recoveredWeek ?? fixture.expectedStartWeek
   await page.addInitScript(
-    ([sessionKey, corruptKey, saveJson, lotFlag, hollywoodFlag, proofFlag, proof]) => {
+    ([
+      sessionKey,
+      corruptKey,
+      saveJson,
+      lotFlag,
+      hollywoodFlag,
+      proofFlag,
+      proof,
+      hollywoodRollback,
+    ]) => {
       localStorage.setItem(sessionKey as string, saveJson as string)
       localStorage.removeItem(corruptKey as string)
       // Absence exercises the shipped world-first defaults instead of a positive test override.
       localStorage.removeItem(lotFlag as string)
-      localStorage.removeItem(hollywoodFlag as string)
+      if (hollywoodRollback) localStorage.setItem(hollywoodFlag as string, '0')
+      else localStorage.removeItem(hollywoodFlag as string)
       if (proof) localStorage.setItem(proofFlag as string, '1')
       else localStorage.removeItem(proofFlag as string)
     },
@@ -251,6 +265,7 @@ async function seedLot(page: Page, fixtureId: string, options: SeedOptions = {})
       HOLLYWOOD_FLAG_KEY,
       IDENTITY_PROOF_FLAG_KEY,
       options.identityProof === true,
+      options.operationHollywoodRollback === true,
     ] as const,
   )
   await page.goto('/')
@@ -816,17 +831,34 @@ test('already-pending screenplay review acts from Development and deep return re
   expectCleanRuntime(runtime)
 })
 
-test('casting stop remains semantic-only and transfers the exact session/project focus token', async ({ page }) => {
+test('casting stop keeps all six advisory results in the world, preserves optional exact detail, then opens Package after the accepted save', async ({ page }) => {
   const runtime = captureRuntimeSignals(page)
   await exposeRendererEvidence(page)
   await seedLot(page, 'casting-review')
+  const stopped = directResult('casting-review')
+  const review = castingSessionsBoard(stopped.next).sections.needsReview.find(
+    (card) => card.sessionId === 'casting-0000' && card.projectId === 'script-0000',
+  )
+  if (review === undefined || review.results === null) {
+    throw new Error('casting-review fixture has no complete six-row review')
+  }
+  const acknowledge = review.legalActions.find(
+    (action) => action.kind === 'acknowledgeCastingSession',
+  )
+  if (acknowledge === undefined || !acknowledge.opensPackage) {
+    throw new Error('casting-review fixture has no clear Package handoff')
+  }
+  const accepted = acknowledgeCastingSessionAction(stopped.next, acknowledge.sessionId)
+  if (!accepted.ok) throw new Error(accepted.error)
   const sim = page.getByTestId('lot-sim-to-next-event')
   await sim.focus()
   await page.keyboard.press('Space')
 
   const rail = await expectExactRail(page, 'casting-review')
-  await expect(rail).toContainText('The Fading Constellation')
-  await expect(rail).toContainText('Project script-0000 · Session casting-0000')
+  await expect(rail).toContainText(review.title)
+  await expect(rail).toContainText(
+    `Project ${review.projectId} · Session ${review.sessionId}`,
+  )
   await expect(page.getByTestId('lot-nav-casting')).toHaveAttribute('aria-current', 'true')
   expect((await rendererEvidence(page)).debug).toMatchObject({
     selectedPersonId: null,
@@ -834,19 +866,329 @@ test('casting stop remains semantic-only and transfers the exact session/project
     selectedProductionId: null,
   })
 
-  await page.getByTestId('lot-next-event-open-details').click()
-  const exactStatus = page.getByTestId('casting-status-script-0000')
-  await expect(page.getByTestId('casting-room')).toBeVisible()
-  await expect(page.getByTestId('casting-project-script-0000')).toContainText(
-    'The Fading Constellation',
+  const panel = rail.getByTestId('lot-casting-review-panel')
+  await expect(panel).toHaveAttribute('data-opens-package', 'true')
+  await expect(panel.getByTestId('lot-casting-review-writer')).toHaveText(review.writer.name)
+  await expect(panel.getByTestId('lot-casting-review-consequence')).toContainText(
+    'results remain advisory and select no winner',
   )
+  await expect(panel.getByTestId('lot-casting-review-package-state')).toContainText(
+    'Known package gates clear',
+  )
+  const roleOrder = ['lead', 'antagonist', 'support'] as const
+  await expect(panel.locator('[data-testid^="lot-casting-review-row-"]')).toHaveCount(6)
+  for (const role of roleOrder) {
+    const candidates = review.results[role]
+    expect(candidates).toHaveLength(2)
+    for (let index = 0; index < candidates.length; index += 1) {
+      const evidence = candidates[index]!
+      await expect(panel.getByTestId(`lot-casting-review-name-${role}-${index}`))
+        .toHaveText(evidence.name)
+      await expect(panel.getByTestId(`lot-casting-review-talent-id-${role}-${index}`))
+        .toContainText(evidence.talentId)
+      await expect(panel.getByTestId(`lot-casting-review-estimate-${role}-${index}`))
+        .toContainText(`${evidence.estimate} · ${evidence.low}–${evidence.high}`)
+      await expect(panel.getByTestId(`lot-casting-review-fit-${role}-${index}`))
+        .toHaveText(Number.isInteger(evidence.fit.score)
+          ? String(evidence.fit.score)
+          : evidence.fit.score.toFixed(1))
+      await expect(panel.getByTestId(`lot-casting-review-availability-${role}-${index}`))
+        .toContainText(evidence.availabilityLabel)
+      for (const language of [...evidence.strengths, ...evidence.concerns]) {
+        await expect(panel.getByTestId(`lot-casting-review-role-${role}`)).toContainText(language)
+      }
+    }
+  }
+  await expect(panel).not.toContainText(/combined score|recommended cast|ranked first/i)
+  const worldAction = panel.getByTestId(
+    `lot-casting-review-action-acknowledgeCastingSession-${acknowledge.sessionId}`,
+  )
+  await expect(worldAction).toHaveText(acknowledge.label)
+  await expectEarlierInDocument(worldAction, page.getByTestId('lot-next-event-open-details'))
+  await page.screenshot({ path: join(outDir, '02a-casting-review-six-rows-live-lot.png') })
+
+  await page.getByTestId('lot-next-event-open-details').click()
+  const exactStatus = page.getByTestId(`casting-status-${review.projectId}`)
+  await expect(page.getByTestId('casting-room')).toBeVisible()
+  await expect(page.getByTestId(`casting-project-${review.projectId}`)).toContainText(review.title)
   await expect(exactStatus).toContainText('Results need review')
   await expect(exactStatus).toBeFocused()
   await page.getByTestId('casting-room-back').click()
   await expect(page.getByRole('heading', { name: 'NEXT EVENT' })).toBeFocused()
   await expect(page.getByTestId('lot-next-event-announcement')).toHaveCount(0)
-  await page.screenshot({ path: join(outDir, '02-casting-semantic-exact-return.png') })
+  await expect(page.getByTestId('lot-casting-review-panel')).toBeVisible()
+
+  await page.getByTestId(
+    `lot-casting-review-action-acknowledgeCastingSession-${acknowledge.sessionId}`,
+  ).click()
+  await expect(page.getByTestId('assembly-casting-handoff')).toContainText(
+    `${review.title} casting review complete`,
+  )
+  await expect(page.getByTestId('assembly-casting-handoff')).toContainText(
+    'Auditions did not select anyone',
+  )
+  await expect(page.getByTestId('assembly-talent-heading')).toBeFocused()
+  expect(await activeSessionBytes(page)).toBe(exportSaveJson(accepted.next))
+  await page.screenshot({ path: join(outDir, '02-casting-lot-native-package-handoff.png') })
+
+  await page.getByTestId('assembly-back-dashboard').click()
+  await expect(page.getByTestId('studio-lot-screen')).toHaveAttribute(
+    'data-entry-focus',
+    'studio-home',
+  )
+  await expect(page.getByTestId('lot-casting-review-panel')).toHaveCount(0)
+  await expect(page.getByTestId('lot-next-event-rail')).toHaveCount(0)
   expectCleanRuntime(runtime)
+})
+
+test('blocked casting review completes on the same living Lot with exact current remedies', async ({ page }) => {
+  const runtime = captureRuntimeSignals(page)
+  await page.setViewportSize({ width: 960, height: 540 })
+  await exposeRendererEvidence(page)
+  const reviewState = directResult('casting-review').next
+  const clearReview = castingSessionsBoard(reviewState).sections.needsReview[0]
+  if (clearReview === undefined) throw new Error('casting review card is absent')
+  const released = releaseTalentAction(reviewState, clearReview.writer.id)
+  if (!released.ok) throw new Error(released.error)
+  const blockedReview = castingSessionsBoard(released.next).sections.needsReview[0]
+  const acknowledge = blockedReview?.legalActions.find(
+    (action) => action.kind === 'acknowledgeCastingSession',
+  )
+  if (
+    blockedReview === undefined ||
+    acknowledge === undefined ||
+    acknowledge.opensPackage ||
+    blockedReview.packageAvailability === null ||
+    blockedReview.packageAvailability.blockers.length === 0
+  ) throw new Error('test-only writer release did not create the expected Package blocker')
+  const accepted = acknowledgeCastingSessionAction(released.next, acknowledge.sessionId)
+  if (!accepted.ok) throw new Error(accepted.error)
+
+  await seedLot(page, 'casting-review', {
+    saveBytes: exportSaveJson(released.next),
+    recoveredWeek: released.next.market.tick,
+  })
+  const canvas = page.getByTestId('studio-lot-canvas')
+  await canvas.evaluate((node) => node.setAttribute('data-blocked-casting-proof', 'same-world'))
+  const casting = page.getByTestId('lot-nav-casting')
+  await casting.focus()
+  await expect(casting).toBeFocused()
+  await page.keyboard.press('Enter')
+
+  const panel = page.getByTestId('lot-casting-review-panel')
+  await expect(panel).toBeVisible()
+  await expect(panel).toHaveAttribute('data-opens-package', 'false')
+  await expect(panel.getByTestId('lot-casting-review-package-state')).toContainText(
+    'Package gates blocked',
+  )
+  for (const blocker of blockedReview.packageAvailability.blockers) {
+    await expect(panel.getByTestId('lot-casting-review-blockers')).toContainText(blocker.headline)
+    await expect(panel.getByTestId('lot-casting-review-blockers')).toContainText(blocker.detail)
+    await expect(panel.getByTestId('lot-casting-review-blockers')).toContainText(blocker.remedy)
+  }
+  const beforeAction = await rendererEvidence(page)
+  await panel.getByTestId(
+    `lot-casting-review-action-acknowledgeCastingSession-${acknowledge.sessionId}`,
+  ).click()
+
+  const success = page.getByTestId('lot-casting-review-success')
+  await expect(success).toContainText('casting review is complete')
+  await expect(success).toContainText('Persisted evidence remains available')
+  await expect(success.getByTestId('lot-casting-review-blocked-success')).toContainText(
+    'Six persisted camera-test observations remain available',
+  )
+  for (const blocker of blockedReview.packageAvailability.blockers) {
+    await expect(success).toContainText(blocker.headline)
+    await expect(success).toContainText(blocker.detail)
+    await expect(success).toContainText(blocker.remedy)
+  }
+  await expect(page.getByTestId('lot-casting-review-announcement')).toContainText(
+    'Persisted evidence remains available',
+  )
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
+  await expect(canvas).toHaveAttribute('data-blocked-casting-proof', 'same-world')
+  const afterAction = await rendererEvidence(page)
+  expect(afterAction.constructions).toBe(beforeAction.constructions)
+  expect(afterAction.destroys).toBe(beforeAction.destroys)
+  expect(await activeSessionBytes(page)).toBe(exportSaveJson(accepted.next))
+  await page.screenshot({ path: join(outDir, '02b-casting-blocked-same-lot.png') })
+  expectCleanRuntime(runtime)
+})
+
+test('casting review keeps six-row world truth reachable at effective 200% in forced colors', async ({ page }) => {
+  const runtime = captureRuntimeSignals(page)
+  await page.setViewportSize({ width: 960, height: 540 })
+  await page.emulateMedia({ reducedMotion: 'reduce', forcedColors: 'active' })
+  await seedLot(page, 'casting-review')
+  await page.getByTestId('lot-sim-to-next-event').click()
+  await expectExactRail(page, 'casting-review')
+
+  const panel = page.getByTestId('lot-casting-review-panel')
+  const action = panel.getByTestId(
+    'lot-casting-review-action-acknowledgeCastingSession-casting-0000',
+  )
+  const details = page.getByTestId('lot-next-event-open-details')
+  await expect(panel.locator('[data-testid^="lot-casting-review-row-"]')).toHaveCount(6)
+  await expectEarlierInDocument(action, details)
+  await expect(page.getByTestId('studio-lot-screen')).toHaveClass(/lot-reduced-motion/)
+  expect(await page.evaluate(() => matchMedia('(forced-colors: active)').matches)).toBe(true)
+
+  await page.evaluate(() => {
+    document.documentElement.style.zoom = '2'
+    window.scrollTo(0, 0)
+  })
+  await expectReachableAction('Casting 200% world action', action)
+  await expectReachableAction('Casting 200% deep detail', details)
+  expect(await page.evaluate(() => ({
+    pageFits: document.documentElement.scrollWidth <= window.innerWidth,
+    rows: document.querySelectorAll('[data-testid^="lot-casting-review-row-"]').length,
+    panelFits: (() => {
+      const owner = document.querySelector<HTMLElement>('[data-testid="lot-casting-review-panel"]')
+      return owner !== null && owner.scrollWidth <= owner.clientWidth
+    })(),
+  }))).toEqual({ pageFits: true, rows: 6, panelFits: true })
+  await page.screenshot({ path: join(outDir, '02c-casting-forced-colors-css-zoom-200.png') })
+  expectCleanRuntime(runtime)
+})
+
+test('480x270 DSF2 keeps all six Casting observations and both world-first actions reachable', async ({ browser }) => {
+  const context = await browser.newContext({
+    viewport: { width: 480, height: 270 },
+    deviceScaleFactor: 2,
+    reducedMotion: 'reduce',
+    forcedColors: 'active',
+  })
+  const page = await context.newPage()
+  const runtime = captureRuntimeSignals(page)
+  try {
+    await seedLot(page, 'casting-review')
+    await page.getByTestId('lot-sim-to-next-event').click()
+    await expectExactRail(page, 'casting-review')
+    const panel = page.getByTestId('lot-casting-review-panel')
+    const action = panel.getByTestId(
+      'lot-casting-review-action-acknowledgeCastingSession-casting-0000',
+    )
+    const details = page.getByTestId('lot-next-event-open-details')
+
+    await expect(panel.locator('[data-testid^="lot-casting-review-row-"]')).toHaveCount(6)
+    await expectEarlierInDocument(action, details)
+    await expectReachableAction('480/DSF2 Casting world action', action)
+    await expectReachableAction('480/DSF2 Casting details', details)
+    expect(await page.evaluate(() => ({
+      innerWidth: window.innerWidth,
+      devicePixelRatio: window.devicePixelRatio,
+      compact: matchMedia('(max-width: 720px)').matches,
+      scrollWidth: document.documentElement.scrollWidth,
+      rows: document.querySelectorAll('[data-testid^="lot-casting-review-row-"]').length,
+      evidenceScrolls: (() => {
+        const evidence = document.querySelector<HTMLElement>('.lot-casting-review-evidence')
+        return evidence !== null && evidence.scrollHeight > evidence.clientHeight
+      })(),
+    }))).toEqual({
+      innerWidth: 480,
+      devicePixelRatio: 2,
+      compact: true,
+      scrollWidth: 480,
+      rows: 6,
+      evidenceScrolls: true,
+    })
+    await expectNoVisualOverlap(
+      '480/DSF2 Casting rail / production desk',
+      page.getByTestId('lot-next-event-rail'),
+      page.getByRole('region', { name: 'Current production' }),
+    )
+    await expectNoVisualOverlap(
+      '480/DSF2 Casting rail / studio inspector',
+      page.getByTestId('lot-next-event-rail'),
+      page.getByTestId('hollywood-inspector'),
+    )
+    await page.screenshot({ path: join(outDir, '02d-casting-480x270-dsf2.png') })
+    expectCleanRuntime(runtime)
+  } finally {
+    await context.close()
+  }
+})
+
+test('already-pending Casting review keeps both actions physically reachable in Hollywood and Classic at governed viewports', async ({ browser }) => {
+  const pending = directResult('casting-review').next
+  const review = castingSessionsBoard(pending).sections.needsReview.find(
+    (card) => card.sessionId === 'casting-0000' && card.projectId === 'script-0000',
+  )
+  const acknowledge = review?.legalActions.find(
+    (action) => action.kind === 'acknowledgeCastingSession',
+  )
+  if (review === undefined || review.results === null || acknowledge === undefined) {
+    throw new Error('casting-review fixture has no pending six-row review action')
+  }
+
+  const configurations = [
+    { label: 'Hollywood desktop', width: 1280, height: 720, dsf: 1, classic: false },
+    { label: 'Hollywood 960', width: 960, height: 540, dsf: 1, classic: false },
+    { label: 'Hollywood 480/DSF2', width: 480, height: 270, dsf: 2, classic: false },
+    { label: 'Classic desktop', width: 1280, height: 720, dsf: 1, classic: true },
+    { label: 'Classic 960', width: 960, height: 540, dsf: 1, classic: true },
+    { label: 'Classic 480/DSF2', width: 480, height: 270, dsf: 2, classic: true },
+  ] as const
+
+  for (const configuration of configurations) {
+    const context = await browser.newContext({
+      viewport: { width: configuration.width, height: configuration.height },
+      deviceScaleFactor: configuration.dsf,
+      reducedMotion: 'reduce',
+    })
+    const page = await context.newPage()
+    const runtime = captureRuntimeSignals(page)
+    try {
+      await seedLot(page, 'casting-review', {
+        saveBytes: exportSaveJson(pending),
+        recoveredWeek: pending.market.tick,
+        operationHollywoodRollback: configuration.classic,
+      })
+      const casting = page.getByTestId('lot-nav-casting')
+      await casting.focus()
+      await expect(casting).toBeFocused()
+      await page.keyboard.press('Enter')
+
+      const owner = page.getByTestId('lot-casting-review-context')
+      const panel = page.getByTestId('lot-casting-review-panel')
+      const action = panel.getByTestId(
+        `lot-casting-review-action-acknowledgeCastingSession-${acknowledge.sessionId}`,
+      )
+      const details = panel.getByTestId('lot-casting-review-open-details')
+      await expect(owner).toBeVisible()
+      await expect(panel.locator('[data-testid^="lot-casting-review-row-"]')).toHaveCount(6)
+      await expect(
+        panel.getByTestId('lot-casting-review-heading'),
+        `${configuration.label} pending review heading owns focus`,
+      ).toBeFocused()
+      await expect(action).toHaveText(acknowledge.label)
+      await expectEarlierInDocument(action, details)
+      await expectReachableAction(`${configuration.label} pending world action`, action)
+      await expectReachableAction(`${configuration.label} pending deep detail`, details)
+
+      expect(await page.evaluate(() => {
+        const owner = document.querySelector<HTMLElement>(
+          '[data-testid="lot-casting-review-context"]',
+        )
+        const evidence = document.querySelector<HTMLElement>('.lot-casting-review-evidence')
+        const screen = document.querySelector<HTMLElement>('[data-testid="studio-lot-screen"]')
+        return {
+          pageFits: document.documentElement.scrollWidth <= window.innerWidth,
+          ownerClipsItsPanel: owner === null || owner.scrollHeight > owner.clientHeight + 1,
+          evidenceScrolls: evidence !== null && evidence.scrollHeight > evidence.clientHeight,
+          hollywood: screen?.classList.contains('lot-hollywood') ?? false,
+        }
+      })).toEqual({
+        pageFits: true,
+        ownerClipsItsPanel: false,
+        evidenceScrolls: true,
+        hollywood: !configuration.classic,
+      })
+      expectCleanRuntime(runtime)
+    } finally {
+      await context.close()
+    }
+  }
 })
 
 test('Stage 7 physically selects the exact picture, keeps its world command first, and consumes the receipt on command', async ({ page }) => {

@@ -16,8 +16,17 @@
 // released while playing. Films present only in an imported save (released before
 // this session) have no snapshot; the dashboard explains that plainly.
 
-import { Component, lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
-import type { ErrorInfo, ReactNode } from 'react'
+import {
+  Component,
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
+import type { ErrorInfo, ReactNode, SetStateAction } from 'react'
 import type {
   ActionOutcome,
   GameState,
@@ -37,6 +46,7 @@ import type {
 import {
   advanceWeek,
   advanceToNextEvent,
+  acknowledgeCastingSessionAction,
   explainRelease,
   buildReleaseDevelopment,
   autopsyCompare,
@@ -119,6 +129,15 @@ import {
   type LotScriptReviewContext,
   type LotScriptReviewTarget,
 } from './lot/snapshot/scriptReview.ts'
+import {
+  acceptedLotCastingReviewSuccess,
+  currentLotCastingReviewContext,
+  sameLotCastingReviewAction,
+  sameLotCastingReviewContext,
+  type LotCastingReviewAction,
+  type LotCastingReviewContext,
+  type LotCastingReviewTarget,
+} from './lot/snapshot/castingReview.ts'
 import type { CastingDecisionFocusToken } from './screens/CastingRoom.tsx'
 import type { DashboardFocusSection } from './screens/Dashboard.tsx'
 
@@ -159,6 +178,12 @@ type StudioReturnContext =
       kind: 'lot'
       focus: 'script-review'
       target: LotScriptReviewTarget
+      suppressOperationalAnnouncement: boolean
+    }
+  | {
+      kind: 'lot'
+      focus: 'casting-review'
+      target: LotCastingReviewTarget
       suppressOperationalAnnouncement: boolean
     }
   | {
@@ -322,6 +347,11 @@ type Screen =
     }
   | {
       kind: 'lot'
+      entryFocus: 'casting-review'
+      entryCastingReviewTarget: LotCastingReviewTarget
+    }
+  | {
+      kind: 'lot'
       entryFocus: 'next-event-reaction'
       entryNextEventReceipt: LotNextEventReceipt
     }
@@ -430,6 +460,9 @@ export function App() {
   const [state, setState] = useState<GameState | null>(restore.ok ? restore.state : null)
   const latestStateRef = useRef<GameState | null>(state)
   latestStateRef.current = state
+  // Logical screen identity alone cannot prove that its Lot child is still alive. The mounted
+  // child claims one opaque token below and clears it synchronously on root/error-boundary teardown.
+  const activeLotPresentationRef = useRef<object | null>(null)
   // D-14 Phase 2: the ONE Talent Profile drawer, openable over any screen from the roster,
   // Assemble a Film, or Autopsy. Null = closed. Focus returns to the opener on close.
   const [openProfileId, setOpenProfileId] = useState<string | null>(null)
@@ -446,6 +479,7 @@ export function App() {
     profileRestoreEpochRef.current += 1
     const active = typeof document === 'undefined' ? null : document.activeElement
     profileOpenerRef.current = active instanceof HTMLElement ? active : null
+    latestOpenProfileIdRef.current = personId
     setOpenProfileId(personId)
   }, [])
   const closeTalentProfile = useCallback(() => {
@@ -459,13 +493,41 @@ export function App() {
     profileOpenerRef.current = null
     setOpenProfileId(null)
   }, [])
-  const [screen, setScreen] = useState<Screen>(
+  const [screen, setScreenState] = useState<Screen>(
     restore.ok
       ? restore.state.founding !== null
         ? { kind: 'founding' }
         : operatingStudioHome(lotEnabled)
       : { kind: 'start' },
   )
+  // Screen ownership is part of Lot command authority. Keep the latest scheduled screen
+  // synchronously visible to retained world callbacks: React may not have rendered a route
+  // change yet when a delayed pointer/touch tail invokes an old Lot closure.
+  const latestScreenRef = useRef<Screen>(screen)
+  latestScreenRef.current = screen
+  const setScreen = useCallback((next: SetStateAction<Screen>) => {
+    const previous = latestScreenRef.current
+    const resolved = typeof next === 'function'
+      ? (next as (current: Screen) => Screen)(previous)
+      : next
+    if (resolved !== previous) activeLotPresentationRef.current = null
+    latestScreenRef.current = resolved
+    setScreenState(resolved)
+  }, [])
+  const lotPresentationToken = useMemo<object | null>(
+    () => screen.kind === 'lot' ? {} : null,
+    [screen],
+  )
+  const mountLotPresentation = useCallback(() => {
+    const token = lotPresentationToken
+    if (token === null) return () => {}
+    activeLotPresentationRef.current = token
+    return () => {
+      if (activeLotPresentationRef.current === token) {
+        activeLotPresentationRef.current = null
+      }
+    }
+  }, [lotPresentationToken])
   // A dismissible recovery notice: the recovered week, or a safe "recovery failed" message.
   const [recovery, setRecovery] = useState<{ kind: 'recovered'; week: number } | { kind: 'corrupt' } | null>(
     restore.ok
@@ -502,6 +564,27 @@ export function App() {
           receipt: LotNextEventReceipt
         }
   } | null>(null)
+  const lotCastingReviewActivationRef = useRef<{
+    renderedState: GameState
+    context: LotCastingReviewContext
+    action: LotCastingReviewAction
+    source:
+      | { kind: 'pending' }
+      | {
+          kind: 'event'
+          session: { acceptedState: GameState; receipt: LotNextEventReceipt }
+          receipt: LotNextEventReceipt
+        }
+  } | null>(null)
+  const lotCastingPackageHandoffRef = useRef<{
+    before: GameState
+    next: GameState
+    lotScreen: Extract<Screen, { kind: 'lot' }>
+    lotPresentation: object
+    context: LotCastingReviewContext
+    action: LotCastingReviewAction
+    returnContext: StudioReturnContext
+  } | null>(null)
   const [lotOperationalAnnouncementSuppressed, setLotOperationalAnnouncementSuppressed] =
     useState(false)
 
@@ -509,6 +592,8 @@ export function App() {
     lotNextEventSessionRef.current = null
     lotNextEventActivationRef.current = null
     lotScriptReviewActivationRef.current = null
+    lotCastingReviewActivationRef.current = null
+    lotCastingPackageHandoffRef.current = null
     latestStateRef.current = next
     setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
@@ -523,6 +608,8 @@ export function App() {
     lotNextEventSessionRef.current = null
     lotNextEventActivationRef.current = null
     lotScriptReviewActivationRef.current = null
+    lotCastingReviewActivationRef.current = null
+    lotCastingPackageHandoffRef.current = null
     latestStateRef.current = next
     setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
@@ -535,6 +622,56 @@ export function App() {
   useEffect(() => {
     if (state) saveActiveSession(state)
   }, [state])
+
+  // A clear Casting review may hand off only after the exact successor has committed and the
+  // established autosave effect above has been invoked for it. Re-prove the complete transition
+  // here; any replacement, unmount, or presentation drift consumes the pending route neutrally.
+  useEffect(() => {
+    const pending = lotCastingPackageHandoffRef.current
+    if (pending === null) return
+    if (
+      state !== pending.next ||
+      latestStateRef.current !== pending.next ||
+      screen !== pending.lotScreen ||
+      latestScreenRef.current !== pending.lotScreen ||
+      activeLotPresentationRef.current !== pending.lotPresentation
+    ) {
+      lotCastingPackageHandoffRef.current = null
+      return
+    }
+    let active = true
+    // Make the Package route observably later than both the committed Lot successor and its
+    // autosave invocation. A presentation replacement or unmount in that boundary keeps the
+    // valid Engine successor but consumes this optional route neutrally.
+    window.queueMicrotask(() => {
+      if (
+        !active ||
+        lotCastingPackageHandoffRef.current !== pending ||
+        latestStateRef.current !== pending.next ||
+        latestScreenRef.current !== pending.lotScreen ||
+        activeLotPresentationRef.current !== pending.lotPresentation
+      ) return
+      const success = acceptedLotCastingReviewSuccess(
+        pending.context,
+        pending.action,
+        pending.before,
+        pending.next,
+      )
+      lotCastingPackageHandoffRef.current = null
+      if (success === null || success.kind !== 'clear') return
+      setScreen({
+        kind: 'assembly',
+        returnContext: pending.returnContext,
+        scriptProjectId: success.projectId,
+      })
+    })
+    return () => {
+      active = false
+      if (lotCastingPackageHandoffRef.current === pending) {
+        lotCastingPackageHandoffRef.current = null
+      }
+    }
+  }, [screen, state])
 
   useEffect(() => {
     const profileIsOpen = openProfileId !== null
@@ -644,11 +781,18 @@ export function App() {
         current === session.acceptedState &&
         sameLotNextEventReceipt(session.receipt, context.receipt) &&
         (
-          session.receipt.target.kind !== 'script' ||
-          currentLotScriptReviewContext(current, {
-            projectId: session.receipt.target.projectId,
-            title: session.receipt.target.title,
-          }) !== null
+          session.receipt.target.kind === 'script'
+            ? currentLotScriptReviewContext(current, {
+                projectId: session.receipt.target.projectId,
+                title: session.receipt.target.title,
+              }) !== null
+            : session.receipt.target.kind === 'casting'
+              ? currentLotCastingReviewContext(current, {
+                  sessionId: session.receipt.target.sessionId,
+                  projectId: session.receipt.target.projectId,
+                  title: session.receipt.target.title,
+                }) !== null
+              : true
         )
       ) {
         setLotCadenceFeedback({ kind: 'next-event-exact', receipt: session.receipt })
@@ -680,6 +824,26 @@ export function App() {
         kind: 'lot',
         entryFocus: 'script-review',
         entryScriptReviewTarget: {
+          projectId: review.projectId,
+          title: review.title,
+        },
+      })
+      return
+    }
+    if (context.focus === 'casting-review') {
+      const current = latestStateRef.current
+      const review = current === null
+        ? null
+        : currentLotCastingReviewContext(current, context.target)
+      if (review === null) {
+        setScreen({ kind: 'lot', entryFocus: 'studio-home' })
+        return
+      }
+      setScreen({
+        kind: 'lot',
+        entryFocus: 'casting-review',
+        entryCastingReviewTarget: {
+          sessionId: review.sessionId,
           projectId: review.projectId,
           title: review.title,
         },
@@ -1274,19 +1438,18 @@ export function App() {
           return true
         }
         case 'casting': {
-          const decision = studioDecision(current)
-          if (
-            decision?.kind !== 'castingReview' ||
-            decision.decision.sessionId !== receipt.target.sessionId ||
-            decision.decision.projectId !== receipt.target.projectId ||
-            decision.decision.title !== receipt.target.title
-          ) return demoteRendered()
+          const review = currentLotCastingReviewContext(current, {
+            sessionId: receipt.target.sessionId,
+            projectId: receipt.target.projectId,
+            title: receipt.target.title,
+          })
+          if (review === null) return demoteRendered()
           setScreen({
             kind: 'castingRoom',
             returnContext,
             focusCastingDecision: {
-              sessionId: receipt.target.sessionId,
-              projectId: receipt.target.projectId,
+              sessionId: review.sessionId,
+              projectId: review.projectId,
             },
           })
           return true
@@ -1494,6 +1657,210 @@ export function App() {
       sameLotScriptReviewContext(latest, restored) &&
       restoredActions.length === 1 &&
       sameLotScriptReviewAction(currentActions[0]!, restoredActions[0]!)
+    ) {
+      lotNextEventSessionRef.current = session
+      setLotCadenceFeedback({ kind: 'next-event-exact', receipt: session.receipt })
+    } else if (lotNextEventSessionRef.current === null) {
+      lotNextEventSessionRef.current = session
+      demoteLotNextEventReceipt({ acceptedState: current, receipt: session.receipt })
+    }
+    return result
+  }
+
+  function handleOpenLotCastingReviewDetails(
+    renderedState: GameState,
+    renderedContext: LotCastingReviewContext,
+  ): boolean {
+    const current = latestStateRef.current
+    if (
+      current === null ||
+      current !== renderedState ||
+      lotNextEventSessionRef.current !== null
+    ) return false
+
+    const target: LotCastingReviewTarget = {
+      sessionId: renderedContext.sessionId,
+      projectId: renderedContext.projectId,
+      title: renderedContext.title,
+    }
+    const latest = currentLotCastingReviewContext(current, target)
+    if (latest === null || !sameLotCastingReviewContext(renderedContext, latest)) return false
+
+    setLotCadenceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
+    setScreen({
+      kind: 'castingRoom',
+      returnContext: {
+        kind: 'lot',
+        focus: 'casting-review',
+        target,
+        suppressOperationalAnnouncement: false,
+      },
+      focusCastingDecision: {
+        sessionId: latest.sessionId,
+        projectId: latest.projectId,
+      },
+    })
+    return true
+  }
+
+  function handleLotCastingReviewAction(
+    renderedState: GameState,
+    renderedContext: LotCastingReviewContext,
+    renderedAction: LotCastingReviewAction,
+    receipt: LotNextEventReceipt | null,
+  ): ActionOutcome {
+    if (lotCastingReviewActivationRef.current !== null) {
+      return {
+        ok: false,
+        error: 'Casting review action is already being resolved.',
+      }
+    }
+    const current = latestStateRef.current
+    const lotScreen = latestScreenRef.current
+    const lotPresentation = activeLotPresentationRef.current
+    const session = lotNextEventSessionRef.current
+    const stale = (): ActionOutcome => {
+      if (receipt !== null) {
+        demoteLotNextEventReceipt({ acceptedState: renderedState, receipt })
+      }
+      return {
+        ok: false,
+        error: 'Casting review details changed. Review the current lot.',
+      }
+    }
+    if (
+      current === null ||
+      current !== renderedState ||
+      lotScreen.kind !== 'lot' ||
+      lotPresentation === null ||
+      latestOpenProfileIdRef.current !== null
+    ) return stale()
+
+    let target: LotCastingReviewTarget | undefined
+    if (receipt !== null) {
+      try {
+        if (
+          session === null ||
+          current !== session.acceptedState ||
+          !sameLotNextEventReceipt(receipt, session.receipt) ||
+          receipt.target.kind !== 'casting'
+        ) return stale()
+        target = {
+          sessionId: receipt.target.sessionId,
+          projectId: receipt.target.projectId,
+          title: receipt.target.title,
+        }
+      } catch {
+        return stale()
+      }
+    } else if (session !== null) {
+      // An exact cadence ceremony may never be silently downgraded to the pending path.
+      return stale()
+    }
+
+    const latest = currentLotCastingReviewContext(current, target)
+    if (
+      latest === null ||
+      !sameLotCastingReviewContext(renderedContext, latest) ||
+      !sameLotCastingReviewAction(renderedAction, latest.action)
+    ) return stale()
+
+    const activation = {
+      renderedState: current,
+      context: latest,
+      action: latest.action,
+      source: receipt === null
+        ? { kind: 'pending' as const }
+        : {
+            kind: 'event' as const,
+            session: session!,
+            receipt: session!.receipt,
+          },
+    }
+    lotCastingReviewActivationRef.current = activation
+    const returnContext: StudioReturnContext = receipt === null
+      ? {
+          kind: 'lot',
+          focus: 'casting-review',
+          target: {
+            sessionId: latest.sessionId,
+            projectId: latest.projectId,
+            title: latest.title,
+          },
+          suppressOperationalAnnouncement: false,
+        }
+      : {
+          kind: 'lot',
+          focus: 'next-event-reaction',
+          receipt: session!.receipt,
+          suppressOperationalAnnouncement:
+            session!.receipt.constructionCompletion !== null ||
+            operationalAnnexAnnouncementAlreadyOwned(current),
+        }
+
+    if (receipt !== null) {
+      // Event ownership ends before the one Engine dispatch, closing nested and delayed tails.
+      lotNextEventSessionRef.current = null
+      setLotCadenceFeedback(null)
+    }
+    const result = acknowledgeCastingSessionAction(current, latest.action.sessionId)
+    if (latestStateRef.current !== current) {
+      lotCastingReviewActivationRef.current = null
+      return {
+        ok: false,
+        error: 'The studio changed while the casting action was resolving.',
+      }
+    }
+    if (result.ok) {
+      const success = acceptedLotCastingReviewSuccess(
+        latest,
+        latest.action,
+        current,
+        result.next,
+      )
+      replaceMountedLotAuthoritativeState(result.next)
+      if (success?.kind === 'clear') {
+        lotCastingPackageHandoffRef.current = {
+          before: current,
+          next: result.next,
+          lotScreen,
+          lotPresentation,
+          context: latest,
+          action: latest.action,
+          returnContext,
+        }
+      }
+      return result
+    }
+
+    const rejectedActivation = lotCastingReviewActivationRef.current
+    window.setTimeout(() => {
+      if (lotCastingReviewActivationRef.current === rejectedActivation) {
+        lotCastingReviewActivationRef.current = null
+      }
+    }, 0)
+    if (
+      receipt === null ||
+      session === null ||
+      activation.source.kind !== 'event'
+    ) return result
+
+    // A rejected action has no successor. Restore the ceremony only while its entire closed
+    // receipt, review, and sole action remain exact in the unchanged accepted state.
+    const restored = latestStateRef.current === current
+      ? currentLotCastingReviewContext(current, target)
+      : null
+    if (
+      lotCastingReviewActivationRef.current === activation &&
+      lotNextEventSessionRef.current === null &&
+      activation.source.session === session &&
+      activation.source.session.acceptedState === current &&
+      sameLotNextEventReceipt(activation.source.receipt, session.receipt) &&
+      sameLotNextEventReceipt(receipt, activation.source.receipt) &&
+      restored !== null &&
+      sameLotCastingReviewContext(latest, restored) &&
+      sameLotCastingReviewAction(latest.action, restored.action)
     ) {
       lotNextEventSessionRef.current = session
       setLotCadenceFeedback({ kind: 'next-event-exact', receipt: session.receipt })
@@ -2253,6 +2620,7 @@ export function App() {
         >
           <StudioLotScreen
             state={state}
+            onPresentationMount={mountLotPresentation}
             onNavigate={handleLotNavigate}
             onExit={() => openDashboardFromLot('studio-home')}
             onOpenPublicityDashboard={() => openDashboardFromLot('publicity-campaign')}
@@ -2269,8 +2637,21 @@ export function App() {
             }
             cadenceFeedback={lotCadenceFeedback}
             onSimToNextEvent={handleLotSimToEvent}
-            onOpenNextEventDetails={handleOpenLotNextEventDetails}
+            onOpenNextEventDetails={(...args) =>
+              lotPresentationToken !== null &&
+              activeLotPresentationRef.current === lotPresentationToken &&
+              latestScreenRef.current === screen &&
+              latestOpenProfileIdRef.current === null
+                ? handleOpenLotNextEventDetails(...args)
+                : false}
             onOpenScriptReviewDetails={handleOpenLotScriptReviewDetails}
+            onOpenCastingReviewDetails={(...args) =>
+              lotPresentationToken !== null &&
+              activeLotPresentationRef.current === lotPresentationToken &&
+              latestScreenRef.current === screen &&
+              latestOpenProfileIdRef.current === null
+                ? handleOpenLotCastingReviewDetails(...args)
+                : false}
             onInvalidateNextEvent={handleInvalidLotNextEventPresentation}
             onDismissNextEvent={handleDismissLotNextEvent}
             suppressOperationalAnnouncement={lotOperationalAnnouncementSuppressed}
@@ -2287,12 +2668,25 @@ export function App() {
             {...(screen.entryFocus === 'script-review'
               ? { entryScriptReviewTarget: screen.entryScriptReviewTarget }
               : {})}
+            {...(screen.entryFocus === 'casting-review'
+              ? { entryCastingReviewTarget: screen.entryCastingReviewTarget }
+              : {})}
             {...(screen.entryFocus === 'next-event-reaction'
               ? { entryNextEventReceipt: screen.entryNextEventReceipt }
               : {})}
             onProductionCommand={handleProductionCommand}
             onRunNextEventProductionCommand={handleLotNextEventProductionCommand}
             onRunScriptReviewAction={handleLotScriptReviewAction}
+            onRunCastingReviewAction={(...args) =>
+              lotPresentationToken !== null &&
+              activeLotPresentationRef.current === lotPresentationToken &&
+              latestScreenRef.current === screen &&
+              latestOpenProfileIdRef.current === null
+                ? handleLotCastingReviewAction(...args)
+                : {
+                    ok: false,
+                    error: 'Casting review is no longer owned by the mounted Studio Lot.',
+                  }}
             onStartDevelopmentCastingAnnex={handleStartDevelopmentCastingAnnex}
             onOpenAnnexWorkDetails={handleOpenAnnexWorkDetails}
             onOpenStage7ProductionDetails={handleOpenStage7ProductionDetails}
