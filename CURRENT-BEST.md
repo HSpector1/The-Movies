@@ -4,7 +4,9 @@ Updated: 2026-08-15
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current implementation HEAD: `345a89281ad1e89ac32f07082d4eb34ac664f280`
+Current accepted milestone closure HEAD: `7966603ae8cc85702e10e10e8850f9481dd322b2`
+
+Current implementation authority: `345a89281ad1e89ac32f07082d4eb34ac664f280`
 
 ## Product doctrine — World First
 
@@ -134,8 +136,8 @@ whether the game remains playable.
 ## Current world-first checkpoint
 
 World-First Greenlight Production Formation & Fresh Lot Return V1 is accepted at implementation
-authority `345a89281ad1e89ac32f07082d4eb34ac664f280` under frozen contract `6ec10a6`; this
-documentation checkpoint closes the slice:
+authority `345a89281ad1e89ac32f07082d4eb34ac664f280` under frozen contract `6ec10a6`; exact
+closure authority `7966603ae8cc85702e10e10e8850f9481dd322b2` closes the slice:
 
 - one pure strict before/after selector proves exactly one new production and field-exact
   production, Director, Lead, greenlight-week, and screenplay identity without predicting or
@@ -402,7 +404,7 @@ production and integration remain unauthorized.
 - exact Director call/nameplate maintenance: `ff0e0fc36628d248cedbec25fdbbfef01ebe8655`
 - World-First Greenlight Production Formation V1 contract: `6ec10a6e4801dc7d1cd60932fb53a76160c57bb4`
 - World-First Greenlight Production Formation V1 implementation: `345a89281ad1e89ac32f07082d4eb34ac664f280`
-- World-First Greenlight Production Formation V1 closure: this documentation checkpoint
+- World-First Greenlight Production Formation V1 closure: `7966603ae8cc85702e10e10e8850f9481dd322b2`
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -414,17 +416,24 @@ or arbitrary cash sink is authorized.
 ## Current highest-leverage evidence step
 
 Promote **World-First Lot-Native Next-Event Cadence & Reaction V1** as the next smallest world-first
-continuity seam. Its contract remains **DRAFT** until this Formation documentation checkpoint is
-committed; draft language is not implementation authority.
+continuity seam. Its contract is **FROZEN by this documentation checkpoint** against Formation
+closure `7966603ae8cc85702e10e10e8850f9481dd322b2`; implementation is next. This freeze is the
+binding bounded implementation contract, not an implemented result.
 
-The bounded target reuses the existing App-owned `advanceToNextEvent` result from a native
-**Sim to next event** Lot action. Every non-release stop remains on the same mounted Lot and appears
-as one truthful, selectable event-rail item so the player can inspect or react from the world.
-Existing release stops retain the governed Newspaper → ReleaseResult → Autopsy/deep-result chain
-and explicit return; no release presentation is collapsed merely to keep the canvas visible.
+The frozen boundary keeps existing `advanceToNextEvent` as the sole next-event authority, disables
+the native **Sim to next event** Lot action when the unified preflight decision is already pending,
+and retains the exact Engine successor separately from presentation. Governed non-release stops use
+one strict transient receipt for the adapter's exact stop priority, message, period, target, and
+complete accounting; a valid 520-week guard uses deliberate primitive-neutral feedback instead.
+Every non-release stop remains on the same mounted Lot. Existing release stops retain the governed
+Newspaper → ReleaseResult → Autopsy/deep-result chain and explicit Lot return; no release
+presentation is collapsed merely to keep the canvas visible.
 
 Hollywood Writers, Casting, and Theater destinations are semantic-only in this slice because the
 accepted manifest provides no canonical physical place authority for those systems. Exact existing
-deep owners may support a selected event only after latest-state validation and exact-or-neutral
-return. The slice must not add a second clock, autoplay, a renderer/UI scheduler, intermediate-week
-animation, new stop priority, or any simulation/economic law.
+deep owners may support a selected event only after latest-state and complete-receipt validation,
+with exact focused routes and exact-unchanged or neutral returns. Construction remains an
+orthogonal co-event shown exactly once; malformed, stale, replaced, or unprovable presentation
+fails neutral without rejecting the valid Engine successor. The slice must not add a second clock,
+autoplay, a renderer/UI scheduler, intermediate-week animation, new stop priority, or any new
+simulation/economic law.

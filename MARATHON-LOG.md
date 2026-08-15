@@ -411,7 +411,8 @@ Owner rulings remain the authority when a summary here conflicts with them.
 ## 2026-08-15 — World-first greenlight production formation closes
 
 - Delivered accepted implementation `345a89281ad1e89ac32f07082d4eb34ac664f280` under frozen
-  contract `6ec10a6e4801dc7d1cd60932fb53a76160c57bb4`; this documentation checkpoint closes the slice.
+  contract `6ec10a6e4801dc7d1cd60932fb53a76160c57bb4`; exact closure authority
+  `7966603ae8cc85702e10e10e8850f9481dd322b2` closes the slice.
 - Added one strict pure accepted-greenlight before/after selector and field-exact receipt. Assembly
   emits only accepted transition identity, while App independently verifies the latest GameState
   and current Lot/Hollywood session before granting exact continuity.
@@ -434,12 +435,39 @@ Owner rulings remain the authority when a summary here conflicts with them.
   SaveFileV11, schema, migration, greenlight/workflow/reservation/phase/person/facility/economy/RNG
   law, manifest, exporter, authored art, pathfinding, task, queue, autonomy, or renderer-draw
   behavior changed.
-- Promoted **World-First Lot-Native Next-Event Cadence & Reaction V1** as DRAFT until this Formation
-  closure is committed. It must reuse existing `advanceToNextEvent`, retain all non-release results
-  on the same mounted Lot rail, preserve the existing release chain, keep Hollywood Writers/
-  Casting/Theater semantic-only, and add no second clock, autoplay, or simulation/economic law.
+- Promoted **World-First Lot-Native Next-Event Cadence & Reaction V1** for a bounded contract freeze
+  after the exact Formation closure. It must reuse existing `advanceToNextEvent`, retain all
+  non-release results on the same mounted Lot rail, preserve the existing release chain, keep
+  Hollywood Writers/Casting/Theater semantic-only, and add no second clock, autoplay, or
+  simulation/economic law.
 - Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
   RESIDUALS REMAIN OPEN**. Cash runaway, top-studio economic immortality, the week-208 synchronized
   roster wall, P5 dominance, world-led variance, cheap-film purpose, premium-film purpose,
   remaining menu breadth, and formal G12 timing remain open. No financing, bailout, restructuring,
   failure ladder, arbitrary cash sink, or macroeconomic certification was added.
+
+## 2026-08-15 — Lot-native next-event cadence contract freezes
+
+- Recorded exact Greenlight Production Formation closure authority
+  `7966603ae8cc85702e10e10e8850f9481dd322b2`; no provisional documentation-checkpoint reference
+  remains for that milestone.
+- Froze **World-First Lot-Native Next-Event Cadence & Reaction V1** by this documentation
+  checkpoint. Implementation is next; this record intentionally does not guess its own contract
+  commit SHA and records no implementation result.
+- Kept existing App-owned `advanceToNextEvent` as the sole next-event authority. The Lot action is
+  disabled when the unified preflight decision is already pending. App retains the exact Engine
+  successor separately; governed non-release stops use one complete strict transient receipt, while
+  a valid 520-week guard uses deliberate primitive-neutral feedback.
+- Bound every non-release stop to one event/reaction rail on the same mounted Lot and preserved the
+  existing Newspaper → ReleaseResult → Autopsy/deep-result release chain with explicit Lot return.
+  Hollywood Writers, Casting, and Theater remain semantic-only; no physical place is invented.
+- Required exact latest-state deep routes and exact-unchanged or neutral return, one orthogonal
+  construction co-event shown exactly once, and every authoritative period-accounting category.
+  Malformed, stale, replaced, or unprovable presentation fails neutral without rejecting the valid
+  Engine successor or substituting another event owner.
+- Added no second clock, autoplay, intermediate-week simulation animation, new stop priority,
+  simulation law, economic law, save field, facility, art, queue, or pathfinding result.
+- Preserved exact protected refs and the governing result: **D-17B ACCEPTED — BOUNDED REPAIR,
+  MACROECONOMY RESIDUALS REMAIN OPEN**. No merge, push, tag, publication, macroeconomic
+  reclassification, financing, bailout, restructuring, failure ladder, or arbitrary cash sink is
+  authorized.

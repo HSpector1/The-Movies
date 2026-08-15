@@ -3,10 +3,9 @@
 > ## 🎬 2026-08-15 — CURRENT: Greenlight Production Formation & Fresh Lot Return V1 CLOSED
 >
 > Work continues on `operation-hollywood-autonomous-marathon`. The frozen contract is
-> `6ec10a6e4801dc7d1cd60932fb53a76160c57bb4`; the complete reviewed implementation authority and
-> current durable implementation HEAD is `345a89281ad1e89ac32f07082d4eb34ac664f280`. Closure authority
-> is **this documentation checkpoint** (the commit containing this record), following the repository's
-> self-referential closure convention.
+> `6ec10a6e4801dc7d1cd60932fb53a76160c57bb4`; the complete reviewed behavior implementation
+> authority is `345a89281ad1e89ac32f07082d4eb34ac664f280`. Exact accepted
+> Formation closure authority is `7966603ae8cc85702e10e10e8850f9481dd322b2`.
 >
 > The existing Engine greenlight remains the sole mutation owner. Assembly derives a strict,
 > identity-only accepted-action receipt from the exact before/after set difference; App rejects
@@ -35,13 +34,18 @@
 > it makes no GPU wall-clock claim. No Engine/Core, GameState, SaveFileV11, greenlight/economy/
 > production/facility/RNG/ledger law, manifest, exporter, art, or renderer-draw behavior changed.
 >
-> **NEXT CONTRACT IS DRAFT ONLY:**
-> `WORLD-FIRST-LOT-NATIVE-NEXT-EVENT-CADENCE-REACTION-V1-CONTRACT.md` is a proposed bounded design,
-> not implementation authority. It must remain draft until this closure checkpoint is durable and
-> the proposal is separately promoted with that exact parent SHA. Its intended seam is one existing
-> `advanceToNextEvent` call from the Lot, same-mounted-Lot reaction for non-release stops, and the
-> existing release chain—no autoplay, second clock, invented stop law, or simulated intermediate-
-> week spectacle.
+> **NEXT CONTRACT FROZEN — IMPLEMENTATION NEXT:**
+> `WORLD-FIRST-LOT-NATIVE-NEXT-EVENT-CADENCE-REACTION-V1-CONTRACT.md` is the bounded binding design
+> authority frozen by the documentation checkpoint that contains it; its self SHA is intentionally
+> not guessed before that checkpoint exists. Production implementation is next. The contract permits
+> one App-owned call to the existing `advanceToNextEvent` batch authority, then exact final truth: a
+> non-release stop remains on the same mounted Lot and camera with an exact-or-neutral reaction rail,
+> while a real release follows the existing Newspaper / ReleaseResult / Autopsy chain and returns to
+> the Lot through a receipt-free origin arm. Existing stop priority remains Engine-owned;
+> construction completion is only an orthogonal one-shot co-event. No React-owned loop, fake skipped-
+> week spectacle, autoplay, second clock, invented stop or target, new physical place, Engine/Core,
+> GameState, SaveFileV1–V11, economy, production, construction, employment, release, RNG, ledger,
+> manifest, exporter, art, or renderer-draw law is authorized.
 >
 > Protected anchors remain untouched: `main` =
 > `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =

@@ -3052,8 +3052,8 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
 
 # World-First Greenlight Production Formation & Fresh Lot Return V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
 
-> Frozen contract `6ec10a6`; implementation `345a892`; closure authority is this documentation
-> checkpoint (the commit containing this record). Date: 2026-08-15.
+> Frozen contract `6ec10a6`; implementation `345a892`; exact closure authority
+> `7966603ae8cc85702e10e10e8850f9481dd322b2`. Date: 2026-08-15.
 
 ## EK. Accepted-action identity comes from the exact before/after set difference — **MG, BR**
 
@@ -3212,3 +3212,93 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   select it by exact saved ID, and require truthful Stage 12 copy with no Stage 7 detail action.
 - **Pattern:** exact physical embodiment or explicit semantic honesty. **Anti-pattern:** mapping an
   unauthored facility onto the nearest available building art.
+
+---
+
+# World-First Lot-Native Next-Event Cadence & Reaction V1 — CONTRACT FROZEN
+
+> Formation closure prerequisite `7966603ae8cc85702e10e10e8850f9481dd322b2`. The next-event
+> contract is frozen by the documentation checkpoint containing this record; its self SHA is
+> intentionally not guessed before that commit exists. Production implementation is next.
+
+## EW. A synchronous Engine batch must not be presented as witnessed intermediate time — **MG, BR**
+
+- **Risk:** wrapping `advanceToNextEvent` in progress animation or intermediate Lot snapshots tells
+  the player that skipped travel, work, queues, or occupancy were observed when the Engine returned
+  only one deterministic final state.
+- **Contract law / fastest proof:** call the existing adapter once, accept its exact final state and
+  stop reason, and deliver one final snapshot. Require no copied React tick loop, intermediate
+  announcement, renderer draw, second clock, autoplay, or invented activity.
+- **Pattern:** truthful start → one authoritative batch → truthful finish. **Anti-pattern:** staged
+  spectacle that implies simulation evidence the batch never exposed.
+
+## EX. A primary stop and an orthogonal co-event are different kinds of truth — **MG, BR**
+
+- **Risk:** promoting construction completion over a same-tick release or decision silently changes
+  Engine priority; dropping it loses a real consequence of the stopping tick.
+- **Contract law / fastest proof:** preserve the adapter's primary order exactly—release, screenplay,
+  casting, production, run, cash, expiry, renewal, construction, limit—while carrying exact Annex
+  completion once beside any higher-priority owner. Exercise deliberately colliding fixtures and
+  require one primary route plus one non-repeating completion.
+- **Pattern:** one ordered primary reason + one orthogonal one-shot co-event. **Anti-pattern:** React
+  reprioritization or duplicate completion ceremony.
+
+## EY. A semantic destination does not grant physical-world authority — **MG, BR**
+
+- **Risk:** an event ID or building label can tempt presentation code to borrow the nearest authored
+  place and create false Hollywood geometry, occupancy, or camera truth.
+- **Contract law / fastest proof:** orient physically only where accepted runtime authority proves
+  the exact place—such as Stage 7 or Administration—and otherwise use an honest semantic companion.
+  Writers/Development, Casting, Theater, and Stage 12 gain no Hollywood polygon, outline, route, or
+  occupancy by implication.
+- **Pattern:** exact accepted physical target or explicit semantic orientation. **Anti-pattern:** a
+  receipt field treated as permission to invent world art.
+
+## EZ. Release return and non-release reaction return require distinct provenance — **BR**
+
+- **Risk:** one generic Lot-return token can reconstruct a non-release event after a release chain,
+  or replay stale reaction context after a deep screen changed authoritative state.
+- **Contract law / fastest proof:** release carries only receipt-free Lot origin and returns focus to
+  the next-event control. A non-release deep visit may carry a receipt-bearing reaction return only
+  while the exact accepted successor object and complete receipt remain current; any successor
+  returns neutrally.
+- **Pattern:** origin-only release arm + exact-session reaction arm. **Anti-pattern:** inferring an
+  event receipt from the returned post-state.
+
+## FA. Presentation validation may fail after a valid successor; preserve only independently safe truth — **BR**
+
+- **Risk:** rejecting a malformed receipt can accidentally reject valid Engine progress, while
+  rebuilding a richer target from post-state arrays substitutes identity and manufactures proof.
+- **Contract law / fastest proof:** accept the exact adapter successor independently. If closed-shape
+  receipt or target validation fails, retain only independently validated final week, cash, and a
+  non-empty primitive stop message; expose no primary summary, entity, selection, or deep action,
+  and never upgrade later by inspecting state. An orthogonal Annex completion is separate truth:
+  retain it exactly once only when its closed identity/week/current-Annex join is independently
+  proven; otherwise use null.
+- **Pattern:** authoritative successor + typed neutral primary feedback + independently validated
+  one-shot co-event. **Anti-pattern:** all-or-nothing rollback or guessed presentation recovery.
+
+## FB. Period accounting is complete only when compatibility and residual cash stay visible — **MG, BR**
+
+- **Risk:** a polished event recap can appear reconciled while omitting `boxOfficeLump` or folding
+  `otherCash` into another category, concealing disengaged compatibility revenue or signing,
+  freelancer, and termination cash.
+- **Contract law / fastest proof:** validate and disclose the complete exact `PeriodSummary`, including
+  `studioRevenue`, `boxOfficeLump`, payroll, overhead, production, publicity, construction,
+  `otherCash`, net cash, releases, completed runs, and current cash. Keep `boxOfficeLump` labelled as
+  legacy compatibility truth and `otherCash` separately explained; never recompute the period.
+- **Pattern:** complete adapter-owned accounting vocabulary. **Anti-pattern:** selective rows that
+  make net movement easier to narrate than to audit.
+
+## FC. Same-mounted world continuity is a non-release law, not a universal screen trick — **MG, BR**
+
+- **Risk:** remounting the Lot for an ordinary stop destroys camera and spatial context; forcing the
+  renderer behind release surfaces weakens the established Newspaper / ReleaseResult / Autopsy
+  sequence and invents unsupported modal architecture.
+- **Contract law / fastest proof:** every non-release Lot-origin result keeps the same React host,
+  renderer instance, camera transform, and one final snapshot. A real release legitimately leaves
+  through the existing chain, preserves exact release evidence, and returns fresh to the initiating
+  Lot without fabricating a reaction receipt.
+- **Pattern:** mounted continuity where the world owns reaction; governed deep interruption where
+  release owns the moment. **Anti-pattern:** universal remounting or universal background-renderer
+  persistence.

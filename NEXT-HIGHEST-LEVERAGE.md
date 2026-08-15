@@ -138,7 +138,8 @@ one-actor visitor delta at unchanged texture bytes and one draw.
 ## Closed — World-First Greenlight Production Formation & Fresh Lot Return V1
 
 Contract `6ec10a6` and accepted implementation `345a89281ad1e89ac32f07082d4eb34ac664f280`
-close the exact Assembly → formed picture → fresh living Lot seam by this documentation checkpoint.
+close the exact Assembly → formed picture → fresh living Lot seam at exact closure authority
+`7966603ae8cc85702e10e10e8850f9481dd322b2`.
 A strict accepted-transition receipt and independent latest-state checks frame the exact new
 picture, select its exact Director, retain its visible Lead, and expose current
 phase/facility/status/countdown truth without a predicted, first, or last production.
@@ -157,30 +158,42 @@ repository files and 2,422/2,422 tests, focused Formation authority 37/37, gover
 hashes, and clean independent audit. Structural parity is proven; no GPU wall-clock certification
 is claimed.
 
-## DRAFT next — World-First Lot-Native Next-Event Cadence & Reaction V1
+## FROZEN next — World-First Lot-Native Next-Event Cadence & Reaction V1
 
 Formation closes the exact birth-of-picture continuity break. The next smallest critical-experience
 seam is waiting for meaningful studio change without leaving the Lot or manually ticking through
-empty weeks. The next-event contract remains **DRAFT** until Formation closure authority
-from this documentation checkpoint is committed; it is not yet frozen implementation authority.
+empty weeks. Formation closure authority is exact at
+`7966603ae8cc85702e10e10e8850f9481dd322b2`; the next-event contract is **FROZEN by this
+documentation checkpoint** and implementation is the next step. The freeze is binding bounded
+implementation authority; no implementation result or SHA is claimed.
 
-Freeze only after the draft proves this boundary:
+The frozen boundary requires:
 
-- reuse the existing App-owned `advanceToNextEvent`; do not copy, reorder, or reinterpret its stop
-  law in React or Phaser;
-- expose one native **Sim to next event** action and one truthful event rail for its exact result;
-- keep every non-release stop and its reaction on the same mounted Lot;
+- keep the existing App-owned `advanceToNextEvent` as the sole next-event authority; do not copy,
+  reorder, reinterpret, or rerun its stop law in React or Phaser;
+- disable one native **Sim to next event** action when the existing unified preflight decision is
+  already pending, while preserving the closed one-week action;
+- retain the exact Engine successor separately from presentation; governed non-release stops accept
+  only a complete strict transient receipt for primary-stop priority, message, reason target, range,
+  completed runs, construction co-event, and complete period accounting, while a valid 520-week
+  guard uses deliberate primitive-neutral feedback; malformed or mismatched presentation fails
+  neutral without rejecting the valid Engine successor;
+- keep every non-release stop and its reaction rail on the same mounted Lot;
 - preserve the existing release Newspaper → ReleaseResult → Autopsy/deep-result chain and explicit
   Lot return;
 - treat Hollywood Writers, Casting, and Theater as semantic-only destinations because no accepted
-  physical place authority exists for them; and
-- add no second clock, autoplay, intermediate-week simulation animation, new stop priority, or
-  simulation/economic law.
+  physical place authority exists for them;
+- carry construction completion as an orthogonal co-event exactly once without changing the
+  primary stop; and
+- permit only exact latest-state deep routes with exact unchanged-event return or a neutral fresh
+  Lot, never a guessed replacement.
 
 Exact selected-event inspection may open an existing focused deep owner only when the decision
 cannot be expressed spatially and latest state still proves the same event. Disappearance,
 replacement, stale result, pending decision, or changed truth must clear or land neutrally; no
-first event, guessed person, or substitute owner may take over continuity.
+first event, guessed person, or substitute owner may take over continuity. No second clock,
+autoplay, intermediate-week simulation animation, new stop priority, physical-place claim, or new
+simulation/economic law is authorized.
 
 ## Closed parallel evidence lane
 
@@ -207,12 +220,13 @@ construction, or operating costs materially change the decision boundary.
 
 ## Contract boundary
 
-Do not implement the draft until Formation closure is committed and the next-event contract is
-frozen. The future slice may compose only the existing `advanceToNextEvent`, App navigation,
-authoritative successor state, same-mounted non-release Lot rail, governed release chain, and
-semantic-only Hollywood Writers/Casting/Theater destinations. It may not add a second clock,
-autoplay, a UI/renderer scheduler, new event-stop or decision law, save field, facility, physical
-place, art, queue, workload, staffing, economy tuning, or pathfinding result.
+Implement only against the frozen next-event contract recorded by this documentation checkpoint.
+The slice may compose only the existing `advanceToNextEvent`, App navigation, authoritative
+successor and receipt validation, same-mounted non-release Lot rail, governed release chain,
+exact deep routes/returns, construction co-event, complete period accounting, and semantic-only
+Hollywood Writers/Casting/Theater destinations. It may not add a second clock, autoplay, a
+UI/renderer scheduler, new event-stop or decision law, save field, facility, physical place, art,
+queue, workload, staffing, economy tuning, or pathfinding result.
 
 The governing economic classification remains exactly:
 

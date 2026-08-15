@@ -50,12 +50,14 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 - **Exact Director call/nameplate maintenance:** CLOSED at `ff0e0fc`; selected Lead no longer owns
   the Director-only call and the selected Director's existing nameplate follows the governed route.
 - **World-First Greenlight Production Formation & Fresh Lot Return V1:** ACCEPTED at implementation
-  `345a89281ad1e89ac32f07082d4eb34ac664f280` under contract `6ec10a6`; this documentation
-  checkpoint closes it. Exact accepted Assembly identity now returns to the new picture's Director,
-  Lead, and mounted phase truth in the living Lot without adding simulation law.
-- **Next DRAFT slice:** World-First Lot-Native Next-Event Cadence & Reaction V1. Its contract remains
-  DRAFT until Formation closure is committed; reuse existing `advanceToNextEvent`, keep non-release
-  stops on the mounted Lot, preserve the existing release chain, and add no second clock/autoplay.
+  `345a89281ad1e89ac32f07082d4eb34ac664f280` under contract `6ec10a6` and CLOSED at
+  `7966603ae8cc85702e10e10e8850f9481dd322b2`. Exact accepted Assembly identity now returns to the
+  new picture's Director, Lead, and mounted phase truth in the living Lot without adding simulation
+  law.
+- **Next FROZEN slice:** World-First Lot-Native Next-Event Cadence & Reaction V1. Its contract is
+  frozen by this documentation checkpoint; implementation is next. Existing `advanceToNextEvent`
+  remains sole authority, pending unified decisions disable cadence, non-release stops remain on
+  the mounted Lot, and the existing release chain remains intact.
 
 ## Closed marathon milestones
 
@@ -83,7 +85,7 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Selected Stage 7 Detail Handoff V1 | `05d2d44` | `6a3f85f` | `9ed7fc8` |
 | World-First Studio Gate Talent Arrival V1 | `712c311` | `ca8279c` | `79be27e` |
 | Exact Director call/nameplate maintenance | post-Gate world audit | `ff0e0fc` | proportional repair |
-| World-First Greenlight Production Formation V1 | `6ec10a6` | `345a892` | this documentation checkpoint |
+| World-First Greenlight Production Formation V1 | `6ec10a6` | `345a892` | `7966603` |
 
 ## Product result so far
 
@@ -155,12 +157,18 @@ SaveFileV11, greenlight/workflow/reservation/phase/person/facility/economy/RNG, 
 art, pathfinding, task, queue, autonomy, or renderer-draw behavior changed. Structural parity is
 recorded; no GPU wall-clock certification is claimed and no threshold was relaxed.
 
-The DRAFT next contract promotes Lot-native cadence and reaction. It may expose one native
-**Sim to next event** action by reusing existing App-owned `advanceToNextEvent`, keep all non-release
-results on the same mounted Lot in a truthful event rail, and preserve the existing release result
-chain. Hollywood Writers, Casting, and Theater remain semantic-only destinations in this slice.
-There is no authority for a second clock, autoplay, intermediate-week simulation animation, new
-stop priority, physical place, or new simulation/economic law.
+The FROZEN next contract is the bounded implementation authority for Lot-native cadence and
+reaction; implementation is next and no implementation result or SHA is claimed yet. One native
+**Sim to next event** action reuses existing App-owned `advanceToNextEvent` as the sole authority and
+is disabled when a unified preflight
+decision is already pending. App retains the exact Engine successor separately; governed
+non-release stops use a complete strict receipt for stop priority, target, period accounting, and
+any construction co-event exactly once, while a valid 520-week guard uses deliberate
+primitive-neutral feedback. Every non-release result stays on the same mounted Lot, while the
+existing release chain remains intact. Hollywood Writers, Casting, and Theater remain semantic-only, and supporting deep routes
+must revalidate exact latest truth and return exact-or-neutral. Malformed, stale, or replaced
+presentation fails neutral. There is no authority for a second clock, autoplay, intermediate-week
+simulation animation, new stop priority, physical place, or new simulation/economic law.
 
 ## Governing status
 
