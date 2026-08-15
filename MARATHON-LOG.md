@@ -407,3 +407,39 @@ Owner rulings remain the authority when a summary here conflicts with them.
 - Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
   RESIDUALS REMAIN OPEN**. No financing, bailout, restructuring, failure ladder, arbitrary cash
   sink, facility/art expansion, or macroeconomic certification was added.
+
+## 2026-08-15 — World-first greenlight production formation closes
+
+- Delivered accepted implementation `345a89281ad1e89ac32f07082d4eb34ac664f280` under frozen
+  contract `6ec10a6e4801dc7d1cd60932fb53a76160c57bb4`; this documentation checkpoint closes the slice.
+- Added one strict pure accepted-greenlight before/after selector and field-exact receipt. Assembly
+  emits only accepted transition identity, while App independently verifies the latest GameState
+  and current Lot/Hollywood session before granting exact continuity.
+- Returned to the living Lot with the exact new picture's Director selected, its exact Lead still
+  visible/selectable, and exact title, phase, production-level reservation, status, countdown, and
+  people facts plus a bounded one-shot `PICTURE FORMED` witness.
+- Retained that exact picture through the same mounted Development/Development/Pre-production/
+  Rehearsal sequence. Exact Stage 7 allocation becomes physical; Stage 12 remains a truthful
+  semantic fallback, and no Development/Casting room or personal travel is invented.
+- Hardened stale/mismatched callbacks, rejected compatibility tails, malformed/duplicate identity,
+  related and unrelated selection, studio replacement, renderer rejection/delay, profile-over-Lot
+  continuity, pointer/touch/keyboard/virtual-AT activation, compact layout, maximum world zoom,
+  forced colors, CSS magnification, and effective 200% layout.
+- Closed proof with 181/181 repository files and 2,422/2,422 tests, focused Formation authority
+  37/37, governed D-16/D-17 176/176, Chromium 9/9, a 140-module production build, byte-identical
+  native evidence replay, exact governed hashes/protected refs, and clean independent audit.
+- Recorded performance honestly: structural parity is proven, but no GPU wall-clock certification
+  is claimed and no threshold was relaxed.
+- Bounded behavior change to supporting UI/world continuity. No Core Engine, GameState,
+  SaveFileV11, schema, migration, greenlight/workflow/reservation/phase/person/facility/economy/RNG
+  law, manifest, exporter, authored art, pathfinding, task, queue, autonomy, or renderer-draw
+  behavior changed.
+- Promoted **World-First Lot-Native Next-Event Cadence & Reaction V1** as DRAFT until this Formation
+  closure is committed. It must reuse existing `advanceToNextEvent`, retain all non-release results
+  on the same mounted Lot rail, preserve the existing release chain, keep Hollywood Writers/
+  Casting/Theater semantic-only, and add no second clock, autoplay, or simulation/economic law.
+- Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
+  RESIDUALS REMAIN OPEN**. Cash runaway, top-studio economic immortality, the week-208 synchronized
+  roster wall, P5 dominance, world-led variance, cheap-film purpose, premium-film purpose,
+  remaining menu breadth, and formal G12 timing remain open. No financing, bailout, restructuring,
+  failure ladder, arbitrary cash sink, or macroeconomic certification was added.

@@ -1,6 +1,6 @@
 # Project: Studio — Next Highest Leverage
 
-Updated: 2026-08-14
+Updated: 2026-08-15
 
 ## Decision rule
 
@@ -135,45 +135,52 @@ pathfinding, autonomy, save, manifest, art, or renderer-draw law changed. Final 
 explicit GPU-only skip, byte-identical replay, a 139-module build, and the measured one-object/
 one-actor visitor delta at unchanged texture bytes and one draw.
 
-## Frozen next — World-First Greenlight Production Formation & Fresh Lot Return V1
+## Closed — World-First Greenlight Production Formation & Fresh Lot Return V1
 
-The fresh post-Gate audit found the largest remaining beginning-of-production break. Accepted
-greenlight already owns the exact new Production, commitment debit, managed workflow, deterministic
-Development & Casting reservation, phase, Director, Lead, and countdown. App currently drops the
-accepted production identity and performs only a generic return. Development and Pre-production
-are excluded from stage dressing, and two or more non-Stage-7 operations can leave the Hollywood
-desk saying `No active production` despite real active pictures.
+Contract `6ec10a6` and accepted implementation `345a89281ad1e89ac32f07082d4eb34ac664f280`
+close the exact Assembly → formed picture → fresh living Lot seam by this documentation checkpoint.
+A strict accepted-transition receipt and independent latest-state checks frame the exact new
+picture, select its exact Director, retain its visible Lead, and expose current
+phase/facility/status/countdown truth without a predicted, first, or last production.
 
-Freeze the smallest truthful continuity loop:
+The same mounted Lot retains exact picture context through Development, Pre-production, and
+Rehearsal. Physical Stage 7 appears only when exact allocation owns it; Stage 12 remains a truthful
+semantic fallback. Hostile/malformed state, stale callbacks, rejection tails, studio replacement,
+identity drift, unrelated selection, renderer lifecycle, native activation, modal/profile, and
+compact/zoom paths fail closed or land neutrally without substituting another picture.
 
-- derive one exact new production ID from a strict before/after accepted-greenlight comparison;
-- carry that identity only as typed transient return provenance, then independently revalidate the
-  latest GameState and Lot snapshot;
-- return to the fresh Lot with the exact Director selected as a visible inhabitant and the exact
-  Lead still visibly present/selectable;
-- expose current title, Development/Pre-production, production-level facility reservation, status,
-  countdown, Director, and Lead without claiming personal room occupancy;
-- retain that exact production through mounted week advances so current truth repaints through
-  Pre-production and then uses exact Rehearsal allocation—existing physical Stage 7 when allocated
-  there, truthful Stage 12 fallback otherwise; and
-- fall back neutrally on disappearance, release, duplicate/malformed identity, replacement, or
-  cross-studio state without selecting another picture.
+Behavior change is bounded to supporting UI/world continuity. No Core/GameState/SaveFileV11,
+greenlight, workflow, reservation, phase, person, facility, economy, RNG, manifest, exporter, art,
+pathfinding, task, queue, autonomy, or renderer-draw behavior changed. Final proof passed 181/181
+repository files and 2,422/2,422 tests, focused Formation authority 37/37, governed D-16/D-17
+176/176, Chromium 9/9, a 140-module production build, byte-identical native replay, exact governed
+hashes, and clean independent audit. Structural parity is proven; no GPU wall-clock certification
+is claimed.
 
-The Hollywood manifest has no canonical physical base Development or Casting place. V1 therefore
-cannot add Development/Pre-production person travel, room occupation, huddles, queues, workload,
-or a renderer-authored job. A one-shot formed acknowledgement may witness only the accepted
-transition and may not replay after save/reload. No Core, SaveFile, phase, reservation, clock,
-facility, market, economy, or art change is required or authorized.
+## DRAFT next — World-First Lot-Native Next-Event Cadence & Reaction V1
 
-The contract is frozen at
-`docs/WORLD-FIRST-GREENLIGHT-PRODUCTION-FORMATION-FRESH-LOT-RETURN-V1-CONTRACT.md`. It explicitly
-narrows the ordinary claim to managed Operations, forbids seed-as-studio-identity and legacy phase
-claims, freezes the real Development/Development/Pre-production/Rehearsal week sequence, and
-requires exact-or-neutral multi-production behavior.
+Formation closes the exact birth-of-picture continuity break. The next smallest critical-experience
+seam is waiting for meaningful studio change without leaving the Lot or manually ticking through
+empty weeks. The next-event contract remains **DRAFT** until Formation closure authority
+from this documentation checkpoint is committed; it is not yet frozen implementation authority.
 
-The two proven person-flow defects are already closed proportionally at `ff0e0fc`: selected Lead no
-longer inherits the Director-only call, and the selected Director's existing nameplate remains
-attached throughout the governed cosmetic route. No route or task authority changed.
+Freeze only after the draft proves this boundary:
+
+- reuse the existing App-owned `advanceToNextEvent`; do not copy, reorder, or reinterpret its stop
+  law in React or Phaser;
+- expose one native **Sim to next event** action and one truthful event rail for its exact result;
+- keep every non-release stop and its reaction on the same mounted Lot;
+- preserve the existing release Newspaper → ReleaseResult → Autopsy/deep-result chain and explicit
+  Lot return;
+- treat Hollywood Writers, Casting, and Theater as semantic-only destinations because no accepted
+  physical place authority exists for them; and
+- add no second clock, autoplay, intermediate-week simulation animation, new stop priority, or
+  simulation/economic law.
+
+Exact selected-event inspection may open an existing focused deep owner only when the decision
+cannot be expressed spatially and latest state still proves the same event. Disappearance,
+replacement, stale result, pending decision, or changed truth must clear or land neutrally; no
+first event, guessed person, or substitute owner may take over continuity.
 
 ## Closed parallel evidence lane
 
@@ -200,12 +207,12 @@ construction, or operating costs materially change the decision boundary.
 
 ## Contract boundary
 
-Implement only the frozen exact accepted-greenlight before/after receipt, typed production return,
-latest-state selector, exact Director/Lead framing, mounted phase continuity, neutral fallback,
-input/lifecycle, viewport, and measured performance boundary. Existing Production, workflow/
-reservation, phase, person, and Lot read models are the only authority. No new core mechanic, save
-field, facility, physical Development/Casting place, art, person destination, travel, queue,
-workload, staffing choice, clock, or pathfinding result is authorized.
+Do not implement the draft until Formation closure is committed and the next-event contract is
+frozen. The future slice may compose only the existing `advanceToNextEvent`, App navigation,
+authoritative successor state, same-mounted non-release Lot rail, governed release chain, and
+semantic-only Hollywood Writers/Casting/Theater destinations. It may not add a second clock,
+autoplay, a UI/renderer scheduler, new event-stop or decision law, save field, facility, physical
+place, art, queue, workload, staffing, economy tuning, or pathfinding result.
 
 The governing economic classification remains exactly:
 

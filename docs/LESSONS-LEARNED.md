@@ -3047,3 +3047,168 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   route/draw delta.
 - **Pattern:** selected presentation identity follows cosmetic acknowledgement. **Anti-pattern:**
   moving the sprite while leaving selection/name identity behind or globally showing all labels.
+
+---
+
+# World-First Greenlight Production Formation & Fresh Lot Return V1 — CLOSED ON AUTONOMOUS MARATHON BRANCH
+
+> Frozen contract `6ec10a6`; implementation `345a892`; closure authority is this documentation
+> checkpoint (the commit containing this record). Date: 2026-08-15.
+
+## EK. Accepted-action identity comes from the exact before/after set difference — **MG, BR**
+
+- **Risk:** array tail, predicted ID, title, largest ID, first changed object, or first workflow can
+  identify the wrong picture when same-week, same-title, reordered, or concurrent productions are
+  legal.
+- **Resolution:** derive one narrow receipt by proving that every old identity remains and exactly
+  one new production, workflow, ledger owner, and optional screenplay transition agree across the
+  complete accepted successor. Carry only immutable event provenance, never cached display facts.
+- **Coverage / fastest diagnostic:** reorder arrays, add a same-title/same-week picture, duplicate an
+  ID, mutate one prior row, or add two candidates; require no receipt while the Engine successor
+  remains independently authoritative.
+- **Pattern:** exact set difference + cross-record agreement. **Anti-pattern:** positional or
+  predictive inference after mutation.
+
+## EL. A route callback must revalidate latest state independently — **BR**
+
+- **Risk:** a deep screen can emit a valid-looking successor after App has already accepted newer
+  state, or can attach a forged/mismatched receipt to an otherwise real successor.
+- **Resolution:** bind the callback to the exact rendered-before object, compare it with App's latest
+  reference synchronously, independently recompute every receipt field, and reject a stale callback
+  without replacing state. A receipt mismatch may keep the existing generic accepted-successor path,
+  but it grants no special world identity.
+- **Coverage / fastest diagnostic:** deliver callbacks out of order, omit or alter each receipt
+  field, and reuse an old callback after a newer acceptance; require latest state to win and no
+  ceremony to appear.
+- **Pattern:** child evidence + independent owner revalidation + stale no-op. **Anti-pattern:**
+  trusting navigation metadata because the mutation itself succeeded.
+
+## EM. World entry needs an explicit-empty state and fail-neutral semantics — **MG, BR**
+
+- **Risk:** representing “formation context absent” only as `undefined` lets ordinary auto-selection
+  orient the Lot to a first/current picture and falsely present it as the accepted result.
+- **Resolution:** distinguish a deliberate empty world entry from exact formation entry, validate
+  the complete latest projection, and collapse malformed, duplicated, missing, or contradictory
+  truth to neutral. Never choose a replacement picture, person, or place.
+- **Coverage / fastest diagnostic:** enter with no receipt, unknown IDs, duplicates, disappeared
+  participants, altered workflow/facility truth, and unrelated active pictures; require useful
+  neutral Lot truth without an implied acceptance.
+- **Pattern:** explicit-empty discriminant + exact-or-neutral projection. **Anti-pattern:** default
+  orientation masquerading as provenance.
+
+## EN. Acceptance feedback is a one-shot event witness, not persisted-state inference — **MG, BR**
+
+- **Risk:** deriving `PICTURE FORMED` from a production's age or phase replays celebration on reload,
+  return, or any later visit and turns durable state into a fabricated recent event.
+- **Resolution:** carry one transient receipt-owned witness, consume it on the first unrelated world
+  choice or accepted time advance, and never serialize or reconstruct it. Related selection of the
+  same receipt-owned identities may preserve context without generating a new announcement.
+- **Coverage / fastest diagnostic:** refresh the accepted save, reopen the Lot, advance, select an
+  unrelated target, then reselect the picture; require the witness to occur once and never replay.
+- **Pattern:** transient acceptance event + bounded consumption. **Anti-pattern:** inferring event
+  ownership from persistent result shape.
+
+## EO. A delayed renderer must paint latest truth, not constructor-time closure truth — **BR**
+
+- **Risk:** while a lazy renderer module is loading, the semantic host can accept a week advance;
+  constructing later from captured formation state paints an obsolete phase/countdown beside fresh
+  React facts.
+- **Resolution:** keep accepted state in the host's latest reference and have delayed construction
+  read that reference at the instant the view is created. Renderer rejection removes only canvas
+  embodiment; semantic identity and authoritative actions remain available.
+- **Coverage / fastest diagnostic:** hold the renderer response, form a picture, advance a week,
+  then release the module; require one canvas built directly from the latest week and no replay of
+  the consumed witness.
+- **Pattern:** delayed construction reads latest authority. **Anti-pattern:** lazy import completion
+  reviving the render props that started the import.
+
+## EP. Related selection should preserve context; unrelated selection should consume it — **MG, BR**
+
+- **Risk:** clearing formation provenance on every selection makes the exact Director, Lead, or
+  formed picture destroy the context they embody; preserving it across every selection makes an
+  old ceremony follow the player to unrelated work.
+- **Resolution:** define the receipt-owned identity set explicitly. Exact selection of its picture,
+  Director, or Lead preserves current formation facts; selecting any different production, person,
+  or place consumes the receipt and one-shot witness.
+- **Coverage / fastest diagnostic:** traverse all three related identities, then one unrelated
+  target and back; require preservation within the set and permanent consumption outside it.
+- **Pattern:** ownership-aware context lifetime. **Anti-pattern:** global clear-on-selection or
+  sticky ceremony across unrelated world work.
+
+## EQ. Hostile presentation inputs require complete closed-shape guards — **BR**
+
+- **Risk:** a partial check such as `typeof row === 'object'` still admits `null`, missing nested
+  fields, extra contradictory variants, or malformed arrays that throw before the world can fail
+  neutral.
+- **Resolution:** validate every discriminant, required scalar, nested collection, identity
+  cardinality, and permitted variant before property access or selector composition. A failed guard
+  withholds only the bounded presentation seam and never mutates or guesses.
+- **Coverage / fastest diagnostic:** inject nulls, primitives, partial rows, unknown variants,
+  duplicates, and malformed nested people one field at a time; require no throw and no formation
+  projection.
+- **Pattern:** closed input shape → pure selector → exact result or null. **Anti-pattern:** optional
+  chaining over an unvalidated open object graph.
+
+## ER. Exact-once activation proof must include real browser-generated tails — **BR**
+
+- **Risk:** unit-dispatched `keydown` does not prove the native button's Enter/Space click synthesis,
+  touch compatibility click, held/cross-key tail, or synchronous double-click behavior in Chromium.
+- **Resolution:** retain one native click mutation owner with a synchronous acceptance latch, then
+  exercise real Enter, Space, held/repeat/cross-key sequences, touch/pointer/mouse compatibility
+  tails, duplicate clicks, and `dblclick` in browser evidence. Assert one saved production and one
+  formation navigation, not merely one mock call.
+- **Coverage / fastest diagnostic:** deliver all compatibility events before React can unmount the
+  accepted button and inspect the native saved production set afterward.
+- **Pattern:** native control + synchronous latch + browser-level durable-result count. **Anti-
+  pattern:** event-mock confidence standing in for browser activation semantics.
+
+## ES. Structural feature parity needs independent fresh windows over the same saved state — **BR**
+
+- **Risk:** comparing formation against a different selected place changes scene population, while
+  resetting one live renderer can retain caches or selection costs that conceal the true feature
+  delta.
+- **Resolution:** capture the byte-identical post-greenlight save, open independent fresh renderer
+  windows, and compare formation context with a neutral remount of that exact state. Keep object,
+  actor, decoded-byte, and draw evidence structural; do not relabel it as a GPU wall-clock pass.
+- **Coverage / fastest diagnostic:** require equal save bytes and equal fresh-window structural
+  tuples before attributing any delta to the receipt/witness seam.
+- **Pattern:** same authoritative bytes + independent renderer lifecycles. **Anti-pattern:** unlike
+  fixtures, warm resets, or structural evidence presented as frame-time certification.
+
+## ET. Visual inspection catches defects that geometry and computed style can miss — **MG, BR**
+
+- **Risk:** a nominal 44-pixel box, nonzero border, or computed forced-color contrast can still paint
+  clipped copy, an unreadable witness, weak focus separation, or a compact control below the real
+  usable target after layout.
+- **Resolution:** inspect actual screenshots at forced colors, compact 480×270/DSF2, world zoom, CSS
+  magnification, and real browser page scale in addition to assertions. Use raster evidence where
+  the claim is that glyphs visibly painted, and fix production CSS when inspection reveals the
+  defect rather than weakening the gate.
+- **Coverage / fastest diagnostic:** pair target geometry/computed-style checks with the rendered
+  screenshot and, for forced colors, a crop histogram or equivalent composited-pixel check.
+- **Pattern:** semantic assertion + layout geometry + composited visual review. **Anti-pattern:**
+  treating CSS values as proof of the pixels a player sees.
+
+## EU. Rich evidence fixtures should be earned through public actions — **BR, MG**
+
+- **Risk:** synthesizing a second-production save by editing roster, facilities, cash, reservations,
+  or workflow fields can manufacture the desired Stage allocation while bypassing Engine laws.
+- **Resolution:** build the richer studio through public Engine actions, preserve the native save
+  envelope and ledger reconciliation, then drive both greenlights through ordinary UI actions. The
+  browser may inspect exact saved IDs but must not invent state fields.
+- **Coverage / fastest diagnostic:** replay fixture generation, validate the native save, form two
+  concurrent pictures through the product, and prove the selected second ID is not array-first.
+- **Pattern:** public-action construction → native save → ordinary UI proof. **Anti-pattern:**
+  hand-shaped evidence state whose legality exists only in the test.
+
+## EV. Spatial embodiment must remain honest when authoritative work has no accepted art — **MG, BR**
+
+- **Risk:** a Stage 12 allocation rendered or linked as the authored Stage 7 gives the player a
+  confident but false physical explanation merely because one soundstage asset exists.
+- **Resolution:** use the physical Stage 7 affordance only for exact Stage 7 allocation. For exact
+  Stage 12 truth, show a conspicuous semantic fallback naming Stage 12 and stating that the current
+  district art depicts Stage 7; withhold Stage-7-specific deep provenance.
+- **Coverage / fastest diagnostic:** create two real concurrent pictures so one reaches Stage 12,
+  select it by exact saved ID, and require truthful Stage 12 copy with no Stage 7 detail action.
+- **Pattern:** exact physical embodiment or explicit semantic honesty. **Anti-pattern:** mapping an
+  unauthored facility onto the nearest available building art.

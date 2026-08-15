@@ -1,10 +1,10 @@
 # Project: Studio — Current Best
 
-Updated: 2026-08-14
+Updated: 2026-08-15
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current implementation HEAD: `ff0e0fc36628d248cedbec25fdbbfef01ebe8655`
+Current implementation HEAD: `345a89281ad1e89ac32f07082d4eb34ac664f280`
 
 ## Product doctrine — World First
 
@@ -127,8 +127,47 @@ whether the game remains playable.
   primary neutral arrival slate: explicit selection embodies one exact current free-agent visitor,
   supports canonical profile/complete Hiring terms, and returns to fresh exact or neutral Gate
   truth without defaulting, substituting, or bypassing existing contract law.
+- World-First Greenlight Production Formation & Fresh Lot Return V1 carries one accepted exact
+  Assembly transition back into the living Lot, frames its exact Director, keeps its Lead visible,
+  and follows the same picture through mounted Development, Pre-production, and Rehearsal repaint.
 
 ## Current world-first checkpoint
+
+World-First Greenlight Production Formation & Fresh Lot Return V1 is accepted at implementation
+authority `345a89281ad1e89ac32f07082d4eb34ac664f280` under frozen contract `6ec10a6`; this
+documentation checkpoint closes the slice:
+
+- one pure strict before/after selector proves exactly one new production and field-exact
+  production, Director, Lead, greenlight-week, and screenplay identity without predicting or
+  choosing the first/last production;
+- Assembly emits only an accepted transition receipt, App independently checks exact latest
+  GameState and current session gates, and stale, duplicate, malformed, rejected, or mismatched
+  callbacks fail closed;
+- fresh Lot return selects the exact new picture's Director as an inhabitant, keeps its exact Lead
+  visible and selectable, and exposes exact title, phase, production-level facility reservation,
+  status, countdown, Director, and Lead with a bounded one-shot `PICTURE FORMED` witness;
+- the same mounted Lot retains exact picture context across the accepted
+  Development/Development/Pre-production/Rehearsal sequence, then uses physical Stage 7 only when
+  exact allocation owns it and the semantic Stage 12 fallback otherwise;
+- related Director, Lead, and formed-picture inspection preserves valid context, while unrelated
+  selection, identity drift, studio replacement, disappearance, release, duplicates, and hostile
+  snapshot shapes land neutrally without substituting another picture; and
+- renderer rejection/readiness, delayed import, profile-over-Lot continuity, pointer/touch/
+  keyboard/virtual-AT exact-once activation, compact viewports, maximum world zoom, forced colors,
+  CSS magnification, and effective 200% layout are proven or fail closed.
+
+Final proof passed 181/181 repository files and 2,422/2,422 tests, focused Formation authority
+37/37, governed D-16/D-17 176/176, Chromium 9/9, and a 140-module production build. Native evidence
+replay was byte-identical, governed asset/provenance hashes and protected refs stayed exact, and
+independent strict audit closed with no remaining findings.
+
+Behavior change is bounded to supporting UI/world continuity. No Core Engine, GameState,
+SaveFileV11, schema, migration, greenlight/workflow/reservation/phase/person/facility/economy/RNG
+law, manifest, exporter, authored art, pathfinding, task, queue, autonomy, or renderer-draw behavior
+changed. Structural parity is recorded; no GPU wall-clock certification is claimed and no
+performance threshold was relaxed.
+
+## Prior world-first checkpoint — Studio Gate Talent Arrival V1
 
 World-First Studio Gate Talent Arrival & Hiring Return V1 is closed at implementation authority
 `ca8279c` under frozen contract `712c311`:
@@ -361,6 +400,9 @@ production and integration remain unauthorized.
 - World-First Studio Gate Talent Arrival V1 implementation: `ca8279cfb91990ef1904e36fa1d92d762811d180`
 - World-First Studio Gate Talent Arrival V1 closure: `79be27e`
 - exact Director call/nameplate maintenance: `ff0e0fc36628d248cedbec25fdbbfef01ebe8655`
+- World-First Greenlight Production Formation V1 contract: `6ec10a6e4801dc7d1cd60932fb53a76160c57bb4`
+- World-First Greenlight Production Formation V1 implementation: `345a89281ad1e89ac32f07082d4eb34ac664f280`
+- World-First Greenlight Production Formation V1 closure: this documentation checkpoint
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -371,32 +413,18 @@ or arbitrary cash sink is authorized.
 
 ## Current highest-leverage evidence step
 
-The post-Gate parallel several-minutes-on-Lot audit promotes **World-First Greenlight Production
-Formation & Fresh Lot Return V1** under the frozen contract
-`docs/WORLD-FIRST-GREENLIGHT-PRODUCTION-FORMATION-FRESH-LOT-RETURN-V1-CONTRACT.md`.
+Promote **World-First Lot-Native Next-Event Cadence & Reaction V1** as the next smallest world-first
+continuity seam. Its contract remains **DRAFT** until this Formation documentation checkpoint is
+committed; draft language is not implementation authority.
 
-Accepted greenlight already creates one exact Production, commitment debit, managed workflow,
-phase, deterministic Development & Casting reservation, Director and Lead. The current App throws
-away that accepted production identity and performs a generic Lot return. With multiple non-Stage
-7 operations the desk can even say `No active production` because no exact operation is selected.
-The named people exist on the Lot, but nothing frames them as the picture that just formed.
+The bounded target reuses the existing App-owned `advanceToNextEvent` result from a native
+**Sim to next event** Lot action. Every non-release stop remains on the same mounted Lot and appears
+as one truthful, selectable event-rail item so the player can inspect or react from the world.
+Existing release stops retain the governed Newspaper → ReleaseResult → Autopsy/deep-result chain
+and explicit return; no release presentation is collapsed merely to keep the canvas visible.
 
-The bounded target is supporting Assembly → accepted exact before/after production receipt → fresh
-Lot → exact Director selected as the new picture's inhabitant → exact title/phase/facility/status/
-countdown/Director/Lead inspection → mounted week advances retain that production identity → fresh
-Pre-production repaint → exact Rehearsal allocation, with existing physical Stage 7 presence when
-allocated there and the truthful Stage 12 fallback otherwise. It must use a strict
-accepted-transition selector and exact-or-neutral return; no `.at(-1)`, predicted ID, first
-operation, or substitute production may own continuity.
-
-The accepted Hollywood manifest has no canonical physical base Development or Casting place, so
-V1 may expose the production reservation and people but may not claim personal room occupancy or
-invent Development/Pre-production travel. Full facility embodiment needs separate spatial/art
-authority. Stage 12 remains blocked by its art no-go; service-yard identity cannot be relabelled as
-Post; queues, workload, alternate staffing, pathfinding, ceremony replay, save fields, or new
-simulation law are not authorized.
-
-The two proven presentation defects are closed proportionally at `ff0e0fc`: a selected Lead cannot
-issue the Director-only call, and a selected Director's existing nameplate follows and survives the
-already-governed cosmetic dispatch route. The existing Shooting command, route, and Engine law are
-unchanged.
+Hollywood Writers, Casting, and Theater destinations are semantic-only in this slice because the
+accepted manifest provides no canonical physical place authority for those systems. Exact existing
+deep owners may support a selected event only after latest-state validation and exact-or-neutral
+return. The slice must not add a second clock, autoplay, a renderer/UI scheduler, intermediate-week
+animation, new stop priority, or any simulation/economic law.

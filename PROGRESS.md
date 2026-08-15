@@ -1,6 +1,6 @@
 # Project: Studio — Marathon Progress
 
-Updated: 2026-08-14
+Updated: 2026-08-15
 
 Branch: `operation-hollywood-autonomous-marathon`
 
@@ -49,10 +49,13 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   Hiring terms, and returns to fresh exact or neutral Gate truth without substitution.
 - **Exact Director call/nameplate maintenance:** CLOSED at `ff0e0fc`; selected Lead no longer owns
   the Director-only call and the selected Director's existing nameplate follows the governed route.
-- **Next frozen slice:** World-First Greenlight Production Formation & Fresh Lot Return V1 under
-  `docs/WORLD-FIRST-GREENLIGHT-PRODUCTION-FORMATION-FRESH-LOT-RETURN-V1-CONTRACT.md`. Preserve exact
-  existing greenlight/workflow/person authority; do not invent physical base Development/Casting
-  rooms, personal travel, workload, queues, staffing, save, or art law.
+- **World-First Greenlight Production Formation & Fresh Lot Return V1:** ACCEPTED at implementation
+  `345a89281ad1e89ac32f07082d4eb34ac664f280` under contract `6ec10a6`; this documentation
+  checkpoint closes it. Exact accepted Assembly identity now returns to the new picture's Director,
+  Lead, and mounted phase truth in the living Lot without adding simulation law.
+- **Next DRAFT slice:** World-First Lot-Native Next-Event Cadence & Reaction V1. Its contract remains
+  DRAFT until Formation closure is committed; reuse existing `advanceToNextEvent`, keep non-release
+  stops on the mounted Lot, preserve the existing release chain, and add no second clock/autoplay.
 
 ## Closed marathon milestones
 
@@ -80,6 +83,7 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Selected Stage 7 Detail Handoff V1 | `05d2d44` | `6a3f85f` | `9ed7fc8` |
 | World-First Studio Gate Talent Arrival V1 | `712c311` | `ca8279c` | `79be27e` |
 | Exact Director call/nameplate maintenance | post-Gate world audit | `ff0e0fc` | proportional repair |
+| World-First Greenlight Production Formation V1 | `6ec10a6` | `345a892` | this documentation checkpoint |
 
 ## Product result so far
 
@@ -132,23 +136,31 @@ dispatch while retaining picture-level Clear/Schedule actions; selecting the Dir
 call. The selected Director's existing nameplate follows the already-governed cosmetic route and
 survives arrival without any new object, actor, texture, route, draw, or Engine claim.
 
+Accepted greenlight now forms one exact picture in the living studio instead of losing identity on
+a generic return. A strict before/after receipt and independent App/latest-snapshot validation land
+on the exact Director, retain the exact Lead, and expose the picture's current phase, reservation,
+status, and countdown. The same mounted Lot follows that identity through Development,
+Pre-production, and Rehearsal, using physical Stage 7 only when exact allocation owns it and the
+truthful Stage 12 semantic fallback otherwise. Invalid, stale, duplicate, replaced, or unrelated
+truth lands neutrally and never substitutes another picture.
+
 Deep non-modal screens still unmount and later remount the Lot. Studio Home persists bounded
 selected-building/focus context and authoritative GameState; it does not preserve the same Phaser
 instance, camera, selected person, or other transient world presentation through those routes.
-Current closure proof passed 177/177 repository files and 2,383/2,383 tests, the governed D-16/D-17
-10/10 files and 176/176 tests, focused Gate authority 149/149, Chromium Gate proof 6 passed/1
-explicit GPU-only skip, a 139-module production build, byte-identical native SaveFileV11 evidence,
-exact 34/15 → 35/16 structural attribution at unchanged texture bytes/one draw, clean TypeScript/
-protected-path/diff gates, and clean independent review. No GPU-only absolute wall-clock pass is
-claimed; no frozen gate was relaxed.
+Current Formation proof passed 181/181 repository files and 2,422/2,422 tests, focused Formation
+authority 37/37, the governed D-16/D-17 176/176, Chromium 9/9, and a 140-module production build.
+Native replay is byte-identical, governed hashes/protected refs remain exact, and independent audit
+is clean. Behavior change is bounded to supporting UI/world continuity; no Core, GameState,
+SaveFileV11, greenlight/workflow/reservation/phase/person/facility/economy/RNG, manifest, exporter,
+art, pathfinding, task, queue, autonomy, or renderer-draw behavior changed. Structural parity is
+recorded; no GPU wall-clock certification is claimed and no threshold was relaxed.
 
-The frozen next contract promotes exact greenlight continuity. Accepted greenlight already creates the
-picture, managed workflow, Development & Casting reservation, Director, and Lead; the generic
-return currently discards which picture formed, and multiple non-Stage-7 operations can produce a
-false idle desk. The bounded next target returns to fresh exact production/person truth and follows
-it through mounted phase repaint into exact Rehearsal allocation—physical Stage 7 when exact,
-truthful Stage 12 fallback otherwise. It does not invent a physical base facility or personal
-travel where the accepted Hollywood manifest and Engine own none.
+The DRAFT next contract promotes Lot-native cadence and reaction. It may expose one native
+**Sim to next event** action by reusing existing App-owned `advanceToNextEvent`, keep all non-release
+results on the same mounted Lot in a truthful event rail, and preserve the existing release result
+chain. Hollywood Writers, Casting, and Theater remain semantic-only destinations in this slice.
+There is no authority for a second clock, autoplay, intermediate-week simulation animation, new
+stop priority, physical place, or new simulation/economic law.
 
 ## Governing status
 
@@ -156,7 +168,7 @@ travel where the accepted Hollywood manifest and Engine own none.
 
 Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
 dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
-and formal G12 timing remain open. This world/navigation closure certifies no macroeconomic balance and
-authorizes no financing, bailout, restructuring, failure ladder, or arbitrary cash sink.
+and formal G12 timing remain open. This world-continuity closure certifies no macroeconomic balance
+and authorizes no financing, bailout, restructuring, failure ladder, or arbitrary cash sink.
 
 No merge to main, push, or milestone tag is authorized by autonomous progress alone.

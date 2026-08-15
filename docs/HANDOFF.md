@@ -1,6 +1,61 @@
 # Project: Studio — Engineering Handoff
 
-> ## 🎬 2026-08-14 — CURRENT: Studio Gate Talent Arrival & Hiring Return V1 CLOSED
+> ## 🎬 2026-08-15 — CURRENT: Greenlight Production Formation & Fresh Lot Return V1 CLOSED
+>
+> Work continues on `operation-hollywood-autonomous-marathon`. The frozen contract is
+> `6ec10a6e4801dc7d1cd60932fb53a76160c57bb4`; the complete reviewed implementation authority and
+> current durable implementation HEAD is `345a89281ad1e89ac32f07082d4eb34ac664f280`. Closure authority
+> is **this documentation checkpoint** (the commit containing this record), following the repository's
+> self-referential closure convention.
+>
+> The existing Engine greenlight remains the sole mutation owner. Assembly derives a strict,
+> identity-only accepted-action receipt from the exact before/after set difference; App rejects
+> stale callbacks, independently recomputes every receipt field against latest state, and grants
+> special world continuity only on exact agreement. A valid Lot-origin greenlight remounts fresh
+> accepted state, selects the exact new picture and Director, keeps the exact Lead visible, and
+> presents one bounded `PICTURE FORMED` witness. The same mounted Lot then repaints the governed
+> Development 8 → Development 8 greenlight-tick skip → Pre-production 7 → Rehearsal 6 progression.
+> Exact Soundstage 7 allocation receives its existing physical embodiment; exact Soundstage 12
+> remains an explicit semantic fallback and is never misrepresented as the authored Stage 7.
+>
+> Formation context is transient and fail-neutral. An explicit-empty entry cannot auto-orient to an
+> unrelated picture; malformed or ambiguous world truth presents no ceremony; another picture is
+> never substituted. Selecting the receipt-owned picture, Director, or Lead preserves the exact
+> context, while an unrelated person/place/picture consumes it. The acceptance witness is one-shot
+> and never replays from persisted state. Delayed or rejected renderer construction retains the
+> semantic path and, when ready, constructs from latest accepted truth. Managed legacy-script
+> compatibility remains bounded; pure legacy and Studio Home/Hollywood rollback behavior remain
+> intact.
+>
+> Final implementation proof: **181/181 repository files, 2,422/2,422 tests**; focused Formation
+> authority **4/4 files, 37/37 tests**; governed D-16/D-17 **10/10 files, 176/176 tests**; Chromium
+> **9/9 passed, zero skipped**; production build **140 modules**; both TypeScript projects clean;
+> native Annex/scenery replay byte-identical; and independent strict audit clean. Structural
+> evidence compares independent fresh renderer windows over the same authoritative saved state;
+> it makes no GPU wall-clock claim. No Engine/Core, GameState, SaveFileV11, greenlight/economy/
+> production/facility/RNG/ledger law, manifest, exporter, art, or renderer-draw behavior changed.
+>
+> **NEXT CONTRACT IS DRAFT ONLY:**
+> `WORLD-FIRST-LOT-NATIVE-NEXT-EVENT-CADENCE-REACTION-V1-CONTRACT.md` is a proposed bounded design,
+> not implementation authority. It must remain draft until this closure checkpoint is durable and
+> the proposal is separately promoted with that exact parent SHA. Its intended seam is one existing
+> `advanceToNextEvent` call from the Lot, same-mounted-Lot reaction for non-release stops, and the
+> existing release chain—no autoplay, second clock, invented stop law, or simulated intermediate-
+> week spectacle.
+>
+> Protected anchors remain untouched: `main` =
+> `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =
+> `35d42687a410a621becf1df35c75986657f8c44e`; Operation Hollywood bridge =
+> `623b8b2a80e9c6b85304eaa2a338b6045e8f6b21`. Nothing was merged, pushed, or tagged.
+>
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+>
+> Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
+> dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
+> and formal G12 timing remain open. No financing, bailout, restructuring, failure ladder, or
+> arbitrary cash sink is authorized.
+
+> ## 🎬 2026-08-14 — PRIOR: Studio Gate Talent Arrival & Hiring Return V1 CLOSED
 >
 > Frozen contract `712c31180629396e33107e22826e73fbffffd9c2` and implementation
 > `ca8279cfb91990ef1904e36fa1d92d762811d180` close the exact physical Gate → explicit current
