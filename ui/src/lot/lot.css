@@ -52,7 +52,10 @@
   gap: 14px;
   flex-wrap: wrap;
 }
-.lot-advance-week { white-space: nowrap; }
+.lot-advance-week {
+  min-height: 44px;
+  white-space: nowrap;
+}
 .lot-cash {
   font-variant-numeric: tabular-nums;
   color: var(--text);
@@ -292,10 +295,11 @@
   border-left: 1px solid var(--border);
 }
 .lot-hollywood .lot-body:has(.lot-canvas-note[data-testid="lot-canvas-fallback"]) :is(
-  .hollywood-production,
   .hollywood-productions,
   .hollywood-perf
 ) { display: none; }
+.lot-hollywood .lot-body:has(.lot-canvas-note[data-testid="lot-canvas-fallback"])
+  .hollywood-production:not(.is-formation) { display: none; }
 .lot-hollywood .lot-canvas::after {
   content: "";
   position: absolute;
@@ -343,6 +347,17 @@
 }
 .hollywood-production h2 { font-size: 24px; }
 .hollywood-inspector h3 { font-size: 21px; }
+.hollywood-formation-witness {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 4px 7px;
+  color: #10241f;
+  background: #e4c575;
+  border: 1px solid #fff0cd;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .14em;
+}
 .hollywood-progress { height: 5px; background: #07100e; border: 1px solid #4d5d4d; margin-bottom: 11px; }
 .hollywood-progress span { display: block; height: 100%; background: linear-gradient(90deg, #9b7134, #e4c575); }
 .hollywood-production dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: 0; }
@@ -677,7 +692,7 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   background: rgba(0, 0, 0, .2);
 }
 .hollywood-person-work-note.is-unavailable { border-left-color: #a76845; }
-.hollywood-profile-command { width: 100%; min-height: 34px; font-size: 11px; }
+.hollywood-profile-command { width: 100%; min-height: 44px; font-size: 11px; }
 .hollywood-scenery-heading {
   display: flex;
   align-items: flex-start;
@@ -1115,6 +1130,9 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   .lot-topbar-actions { gap: 8px; }
   .lot-hollywood .lot-stage-wrap { min-height: 720px; }
   .hollywood-production, .hollywood-inspector { position: absolute; top: auto; bottom: 76px; width: calc(50% - 24px); }
+  .hollywood-production dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hollywood-production dl div { min-width: 0; }
+  .hollywood-production dd { overflow-wrap: anywhere; }
   .hollywood-inspector.is-annex,
   .hollywood-inspector.is-scenery,
   .hollywood-inspector.is-person,
@@ -1129,11 +1147,20 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   }
   .hollywood-inspector.is-publicity { left: auto; }
   .hollywood-inspector.is-gate { left: auto; }
+  .hollywood-inspector .hollywood-task-chain { display: grid; grid-template-columns: 1fr; }
+  .hollywood-inspector .hollywood-task-chain i { display: none; }
+  .hollywood-inspector .hollywood-task-chain span b { overflow-wrap: anywhere; }
   .hollywood-productions, .hollywood-people { max-width: calc(100% - 32px); overflow-x: auto; }
   .hollywood-perf { display: none; }
 }
 
 @media (forced-colors: active) {
+  .hollywood-formation-witness {
+    forced-color-adjust: none;
+    color: Canvas;
+    background: CanvasText;
+    border-color: CanvasText;
+  }
   .hollywood-production-details {
     forced-color-adjust: auto;
     border: 1px solid CanvasText;

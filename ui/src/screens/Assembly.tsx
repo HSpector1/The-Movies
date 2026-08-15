@@ -96,6 +96,10 @@ import { ChangePreview } from '../components/ChangePreview.tsx'
 import { ErrorBox, Warn, Metric } from '../components/common.tsx'
 import { TalentCreator } from './TalentCreator.tsx'
 import { CastingEvidence } from './CastingRoom.tsx'
+import {
+  acceptedGreenlightFormationReceipt,
+  type GreenlightFormationReceipt,
+} from '../lot/snapshot/productionFormation.ts'
 
 type Step = 'concept' | 'shape' | 'promise' | 'talent' | 'budget' | 'review'
 const STEP_ORDER: Step[] = ['concept', 'shape', 'promise', 'talent', 'budget', 'review']
@@ -257,7 +261,7 @@ export function Assembly({
 }: {
   state: GameState
   scriptProjectId?: string
-  onGreenlit: (next: GameState) => void
+  onGreenlit: (next: GameState, receipt: GreenlightFormationReceipt | null) => void
   onCancel: () => void
   // A1: apply an authoritative GameState change (a Custom Talent created mid-assembly) WITHOUT
   // unmounting Assembly, so the in-progress film-package draft is preserved. Optional so existing
@@ -288,6 +292,16 @@ export function Assembly({
   // A1: when true, the embedded Talent Creator is shown IN PLACE of the wizard. Assembly stays
   // mounted the whole time, so `draft` (concept/shape/promise/talent picks) survives the round-trip.
   const [creating, setCreating] = useState(false)
+  // World-first production formation: the native button click remains the sole action owner.
+  // A synchronous ref (rather than render-time disabled state) closes double-click, key-repeat,
+  // cross-key, and compatibility-click tails before React can commit another render. Rejection
+  // releases the accepted gate, while an exact state+package token suppresses only unchanged
+  // rejection tails. Any real correction changes that token and makes the native click retryable.
+  const greenlightAcceptedGesture = useRef(false)
+  const greenlightRejectedAttempt = useRef<{
+    state: GameState
+    packageSignature: string
+  } | null>(null)
   // A2: on each step transition, reset scroll to the top and move focus to the new step's heading
   // so the primary controls (not the bottom Next button) are what the player lands on.
   const contentRef = useRef<HTMLDivElement>(null)
@@ -453,20 +467,39 @@ export function Assembly({
   }
 
   function handleGreenlight() {
-    setError(null)
+    if (greenlightAcceptedGesture.current) return
     if (!pkg) {
       setError('The film is not fully assembled yet.')
       return
     }
-    if (blockedByScriptAvailability) return
+    if (blockedByScriptAvailability) {
+      setError(null)
+      return
+    }
+    const packageSignature = JSON.stringify(pkg)
+    const rejected = greenlightRejectedAttempt.current
+    if (
+      rejected !== null &&
+      rejected.state === state &&
+      rejected.packageSignature === packageSignature
+    ) return
+    // A compatibility/double-click tail for the exact rejected attempt is a no-op above.
+    // Clear the prior reason only once a genuinely different state/package may retry.
+    setError(null)
+    greenlightRejectedAttempt.current = null
+    greenlightAcceptedGesture.current = true
     const result = lockedScript
       ? greenlightScriptProject(state, lockedScript.projectId, pkg)
       : greenlight(state, pkg)
     if (!result.ok) {
+      greenlightAcceptedGesture.current = false
+      greenlightRejectedAttempt.current = { state, packageSignature }
       setError(result.error)
       return
     }
-    onGreenlit(result.next)
+    greenlightRejectedAttempt.current = null
+    const receipt = acceptedGreenlightFormationReceipt(state, result.next)
+    onGreenlit(result.next, receipt)
   }
 
   if (managedRequiresScript && lockedScript === undefined) {

@@ -34,6 +34,7 @@ const navigationProbe = vi.hoisted(() => ({
       | 'gate-arrivals'
       | 'stage-7-production'
       | 'gate-candidate'
+      | 'production-formation'
       | undefined
     week: number
   }>,

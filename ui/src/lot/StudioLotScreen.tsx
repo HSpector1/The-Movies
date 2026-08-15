@@ -65,6 +65,11 @@ import {
 } from './snapshot/annexWork.ts'
 import { lotPersonWorkContext } from './snapshot/personWork.ts'
 import {
+  initialProductionFormationContext,
+  productionFormationContext,
+  type GreenlightFormationReceipt,
+} from './snapshot/productionFormation.ts'
+import {
   getLotSelectedBuilding,
   setLotSelectedBuilding,
 } from './snapshot/selectedBuildingSession.ts'
@@ -252,11 +257,22 @@ type Props = {
     constructionCompletion: ConstructionCompletionSummary | null
   } | null
   /** Exact focus instruction for canonical entry or a bounded deep-surface return. */
-  entryFocus?: 'studio-home' | 'selected-building' | 'advance-week' | 'publicity-campaign' | 'annex-work' | 'gate-arrivals' | 'stage-7-production' | 'gate-candidate'
+  entryFocus?:
+    | 'studio-home'
+    | 'selected-building'
+    | 'advance-week'
+    | 'publicity-campaign'
+    | 'annex-work'
+    | 'gate-arrivals'
+    | 'stage-7-production'
+    | 'gate-candidate'
+    | 'production-formation'
   /** Exact identity required by the transient Stage 7 deep-return arm. */
   entryStage7ProductionId?: string
   /** Exact transient candidate identity required by the Gate deep-return arm. */
   entryGateCandidate?: GateCandidateOwnerIntent
+  /** Exact accepted-greenlight receipt required by the formation return arm. */
+  entryProductionFormation?: GreenlightFormationReceipt
   /** Suppress a generic Annex announcement already owned by an exact completion surface. */
   suppressOperationalAnnouncement?: boolean
   /** Open the supporting Dashboard and return to this exact campaign context. */
@@ -446,6 +462,7 @@ export function StudioLotScreen({
   entryFocus,
   entryStage7ProductionId,
   entryGateCandidate,
+  entryProductionFormation,
   suppressOperationalAnnouncement = false,
   onOpenPublicityDashboard,
   onRunPublicity,
@@ -480,17 +497,27 @@ export function StudioLotScreen({
   const [reducedMotion, setReducedMotionState] = useState(prefersReducedMotion)
   const hollywood = operationHollywoodEnabled()
   const [hollywoodPerson, setHollywoodPerson] = useState<LotPersonState | null>(null)
+  const hollywoodPersonRef = useRef<LotPersonState | null>(hollywoodPerson)
   const [hollywoodPlace, setHollywoodPlace] = useState<HollywoodPlaceSelection | null>(null)
   const [gateSelected, setGateSelected] = useState(false)
   const [gateCandidateIntent, setGateCandidateIntent] =
     useState<GateCandidateOwnerIntent | null>(null)
   const [gatePhysicalAvailability, setGatePhysicalAvailability] =
     useState<GatePhysicalAvailability>('pending')
+  const [formationReceipt, setFormationReceipt] = useState<GreenlightFormationReceipt | null>(
+    entryFocus === 'production-formation' ? entryProductionFormation ?? null : null,
+  )
+  const [formationWitnessVisible, setFormationWitnessVisible] = useState(false)
+  const [formationAnnouncement, setFormationAnnouncement] = useState('')
   // undefined = default desk orientation, null = an explicit empty desk, string =
   // one exact selected production. The distinction lets stale world contexts fail
   // empty instead of silently falling back to whichever film is now first.
   const [hollywoodProductionId, setHollywoodProductionId] = useState<string | null | undefined>(
-    entryFocus === 'stage-7-production' || entryFocus === 'gate-candidate' ? null : undefined,
+    entryFocus === 'stage-7-production' ||
+      entryFocus === 'gate-candidate' ||
+      entryFocus === 'production-formation'
+      ? null
+      : undefined,
   )
   // Deep-detail provenance is deliberately separate from the production that the
   // Studio Desk happens to orient toward. Only an explicit world inspection or an
@@ -515,6 +542,9 @@ export function StudioLotScreen({
   const hollywoodTaskStatusRef = useRef<HTMLDivElement | null>(null)
   const hollywoodStage7HeadingRef = useRef<HTMLHeadingElement | null>(null)
   const hollywoodPersonStatusRef = useRef<HTMLDivElement | null>(null)
+  const formationReceiptRef = useRef<GreenlightFormationReceipt | null>(formationReceipt)
+  const formationPendingFocusRef = useRef<string | null>(null)
+  const formationEntryConsumedRef = useRef(false)
   const gateHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const gateVisitorHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const gateProfileButtonRef = useRef<HTMLButtonElement | null>(null)
@@ -662,6 +692,9 @@ export function StudioLotScreen({
   const currentPublicityCampaign = publicityCampaignContext(snapshot)
   const currentAnnexWork = operationalAnnexWorkContext(snapshot)
   const currentGateMarket = gateHiringMarketContext(snapshot)
+  const currentFormationContext = formationReceipt === null
+    ? null
+    : productionFormationContext(snapshot, formationReceipt)
   const currentGateCandidate = gateCandidateIntent === null
     ? null
     : gateHiringCandidateContext(snapshot, gateCandidateIntent.talentId)
@@ -673,6 +706,8 @@ export function StudioLotScreen({
       : null
   gateSelectedRef.current = gateSelected
   gateCandidateIntentRef.current = gateCandidateIntent
+  formationReceiptRef.current = formationReceipt
+  hollywoodPersonRef.current = hollywoodPerson
   const annexView = studioDevelopment(state)
   const operationalAnnexCapacity = annexView.status === 'operational'
     ? annexView.currentDevelopmentCastingCapacity
@@ -880,6 +915,18 @@ export function StudioLotScreen({
     viewRef.current?.clearHollywoodPlaceSelection?.()
   }, [clearHollywoodSceneryLoadInReactContext])
 
+  const clearFormationWitness = useCallback(() => {
+    setFormationWitnessVisible(false)
+    setFormationAnnouncement('')
+  }, [])
+
+  const clearFormationContext = useCallback(() => {
+    formationReceiptRef.current = null
+    formationPendingFocusRef.current = null
+    setFormationReceipt(null)
+    clearFormationWitness()
+  }, [clearFormationWitness])
+
   const clearAnnexContext = useCallback(() => {
     annexSelectedRef.current = false
     annexAcceptedFocusRef.current = false
@@ -997,6 +1044,7 @@ export function StudioLotScreen({
     if (worldInputSuspendedRef.current) return false
     if (publicityCampaignContext(latestSnapshotRef.current) === null) return false
 
+    clearFormationContext()
     clearHollywoodStage7DetailContext()
     clearGateContext()
     if (options.place !== null && isExactPublicityPlace(options.place)) {
@@ -1052,6 +1100,7 @@ export function StudioLotScreen({
     canvasReady,
     clearAnnexContext,
     clearGateContext,
+    clearFormationContext,
     clearHollywoodSceneryLoadInContext,
     clearHollywoodSceneryLoadInReactContext,
     clearHollywoodStage7DetailContext,
@@ -1092,6 +1141,7 @@ export function StudioLotScreen({
     if (worldInputSuspendedRef.current) return false
     if (!hasExactAnnexProjection(latestSnapshotRef.current, latestAnnexViewRef.current)) return false
 
+    clearFormationContext()
     clearHollywoodStage7DetailContext()
     clearGateContext()
     clearPublicityContext()
@@ -1116,6 +1166,7 @@ export function StudioLotScreen({
   }, [
     clearHollywoodSceneryLoadInContext,
     clearHollywoodStage7DetailContext,
+    clearFormationContext,
     clearGateContext,
     clearPublicityContext,
     focusSelectedAnnex,
@@ -1138,6 +1189,7 @@ export function StudioLotScreen({
       exact.operation.productionId !== selection.productionId
     ) return false
 
+    clearFormationContext()
     const preservesExactStage7Context =
       hollywoodStage7DetailProductionIdRef.current === selection.productionId &&
       stage7ProductionDetailContext(latestSnapshotRef.current)?.operation.productionId ===
@@ -1178,6 +1230,7 @@ export function StudioLotScreen({
     return true
   }, [
     clearAnnexContext,
+    clearFormationContext,
     clearGateContext,
     clearHollywoodStage7DetailContext,
     clearPublicityContext,
@@ -1206,6 +1259,12 @@ export function StudioLotScreen({
     const exact = matches.length === 1 ? matches[0]! : null
     if (!exact) return false
 
+    const ownedFormation = formationReceiptRef.current === null
+      ? null
+      : productionFormationContext(current, formationReceiptRef.current)
+    const preservesFormation =
+      ownedFormation?.operation.productionId === exact.productionId
+    if (!preservesFormation) clearFormationContext()
     if (options.detailEligible && exact.locationBuildingId === 'stage-a') {
       ownHollywoodStage7DetailContext(exact.productionId)
     } else {
@@ -1247,6 +1306,7 @@ export function StudioLotScreen({
     return true
   }, [
     clearAnnexContext,
+    clearFormationContext,
     clearHollywoodSceneryLoadInContext,
     clearHollywoodStage7DetailContext,
     clearGateContext,
@@ -1277,6 +1337,7 @@ export function StudioLotScreen({
         ? requested
         : null
 
+    clearFormationContext()
     clearHollywoodStage7DetailContext()
     clearPublicityContext()
     if (options.place !== null && isExactGatePlace(options.place)) {
@@ -1326,6 +1387,7 @@ export function StudioLotScreen({
     canvasReady,
     clearAnnexContext,
     clearGateCandidate,
+    clearFormationContext,
     clearHollywoodSceneryLoadInContext,
     clearHollywoodSceneryLoadInReactContext,
     clearHollywoodStage7DetailContext,
@@ -1454,6 +1516,51 @@ export function StudioLotScreen({
     })
   }, [enterHollywoodSceneryLoadInContext])
 
+  const enterProductionFormationContext = useCallback((
+    receipt: GreenlightFormationReceipt,
+  ): boolean => {
+    if (worldInputSuspendedRef.current || !hollywood) return false
+    const exact = initialProductionFormationContext(latestSnapshotRef.current, receipt)
+    if (exact === null) return false
+
+    // Formation is a fresh, exact world owner. Drop every mutually exclusive Lot
+    // context directly; calling the ordinary production entry would erase the
+    // receipt and could substitute the Stage 7 or array-order fallback.
+    clearHollywoodStage7DetailContext()
+    clearGateContext()
+    clearPublicityContext()
+    clearHollywoodSceneryLoadInContext()
+    clearAnnexContext()
+    setSelectionInfo(null)
+    recordSelection(null)
+    setHollywoodPlace(null)
+    viewRef.current?.clearHollywoodPlaceSelection?.()
+
+    formationReceiptRef.current = receipt
+    formationPendingFocusRef.current = exact.director.id
+    hollywoodPersonRef.current = exact.director
+    setFormationReceipt(receipt)
+    setHollywoodProductionId(exact.operation.productionId)
+    setHollywoodPerson(exact.director)
+    setFormationWitnessVisible(true)
+    setFormationAnnouncement(
+      `Picture formed: ${exact.operation.title}. Director ${exact.director.name}. Lead ${exact.lead.name}.`,
+    )
+    if (canvasReady) {
+      viewRef.current?.selectHollywoodPerson(exact.director.id)
+    }
+    return true
+  }, [
+    canvasReady,
+    clearAnnexContext,
+    clearGateContext,
+    clearHollywoodSceneryLoadInContext,
+    clearHollywoodStage7DetailContext,
+    clearPublicityContext,
+    hollywood,
+    recordSelection,
+  ])
+
   useEffect(() => {
     if (suppressOperationalAnnouncement || advanceFeedback?.constructionCompletion) {
       completionAnnouncementOwnedRef.current = true
@@ -1476,6 +1583,34 @@ export function StudioLotScreen({
 
     if (entryFocus === 'advance-week') {
       advanceButtonRef.current?.focus()
+      return
+    }
+
+    if (entryFocus === 'production-formation') {
+      if (formationEntryConsumedRef.current) return
+      formationEntryConsumedRef.current = true
+      if (
+        entryProductionFormation !== undefined &&
+        enterProductionFormationContext(entryProductionFormation)
+      ) return
+
+      // A formation receipt is never a license to guess. Initial state is
+      // explicit-empty, and any invalid receipt returns to the neutral Lot heading.
+      clearFormationContext()
+      clearHollywoodStage7DetailContext()
+      clearGateContext()
+      clearPublicityContext()
+      clearHollywoodSceneryLoadInContext()
+      clearAnnexContext()
+      setHollywoodProductionId(null)
+      hollywoodPersonRef.current = null
+      setHollywoodPerson(null)
+      setHollywoodPlace(null)
+      setSelectionInfo(null)
+      recordSelection(null)
+      viewRef.current?.clearHollywoodPersonSelection?.()
+      viewRef.current?.clearHollywoodPlaceSelection?.()
+      studioHeadingRef.current?.focus({ preventScroll: true })
       return
     }
 
@@ -1580,10 +1715,65 @@ export function StudioLotScreen({
     // Entry focus is a remount instruction. Ordinary state/feedback changes must leave the
     // existing focused node alone, so this intentionally depends only on the typed entry arm.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entryFocus, entryGateCandidate, entryStage7ProductionId])
+  }, [
+    entryFocus,
+    entryGateCandidate,
+    entryProductionFormation,
+    entryStage7ProductionId,
+  ])
+
+  useEffect(() => {
+    const pendingDirectorId = formationPendingFocusRef.current
+    if (
+      pendingDirectorId === null ||
+      currentFormationContext?.director.id !== pendingDirectorId ||
+      hollywoodPerson?.id !== pendingDirectorId
+    ) return
+    const target = hollywoodPersonStatusRef.current
+    if (target === null || !target.isConnected) return
+    target.focus({ preventScroll: true })
+    formationPendingFocusRef.current = null
+  }, [currentFormationContext, hollywoodPerson])
+
+  useEffect(() => {
+    if (formationReceipt === null || currentFormationContext !== null) return
+
+    // Mounted continuity is exact-or-neutral. Release, malformed replacement,
+    // disappearing people, or any failed join clears both semantic and physical
+    // ownership; another valid operation is never a substitute.
+    clearFormationContext()
+    hollywoodPersonRef.current = null
+    setHollywoodProductionId(null)
+    setHollywoodPerson(null)
+    viewRef.current?.clearHollywoodPersonSelection?.()
+    if (!worldInputSuspendedRef.current) {
+      queueMicrotask(() => studioHeadingRef.current?.focus({ preventScroll: true }))
+    }
+  }, [clearFormationContext, currentFormationContext, formationReceipt])
 
   const recordHollywoodPerson = useCallback((person: LotPersonState | null) => {
     if (worldInputSuspendedRef.current) return
+    const formation = formationReceiptRef.current === null
+      ? null
+      : productionFormationContext(
+          latestSnapshotRef.current,
+          formationReceiptRef.current,
+        )
+    const currentFormationPerson = person === null || formation === null
+      ? null
+      : person.id === formation.director.id
+        ? formation.director
+        : person.id === formation.lead.id
+          ? formation.lead
+          : null
+    const preservesFormation = currentFormationPerson !== null &&
+      person !== null &&
+      person.name === currentFormationPerson.name &&
+      person.role === currentFormationPerson.role &&
+      person.authority === currentFormationPerson.authority &&
+      person.productionId === currentFormationPerson.productionId &&
+      person.productionTitle === currentFormationPerson.productionTitle
+    if (person !== null && !preservesFormation) clearFormationContext()
     setHollywoodPerson(person)
     if (person !== null) {
       clearHollywoodStage7DetailContext()
@@ -1611,12 +1801,14 @@ export function StudioLotScreen({
     clearGateContext,
     clearHollywoodSceneryLoadInContext,
     clearHollywoodStage7DetailContext,
+    clearFormationContext,
     clearPublicityContext,
     recordSelection,
   ])
 
   const recordHollywoodPlace = useCallback((place: HollywoodPlaceSelection | null) => {
     if (worldInputSuspendedRef.current) return
+    if (place !== null) clearFormationContext()
     // The scene has already painted a non-null physical place selection before
     // emitting this event. Leave that generic outline intact while dropping only
     // a previously owned React scenery context.
@@ -1661,6 +1853,7 @@ export function StudioLotScreen({
     clearGateContext,
     clearHollywoodSceneryLoadInReactContext,
     clearHollywoodStage7DetailContext,
+    clearFormationContext,
     clearPublicityContext,
     enterPublicityContext,
     enterAnnexContext,
@@ -2043,6 +2236,7 @@ export function StudioLotScreen({
             selectedBuildingId: getLotSelectedBuilding(),
           },
           onSelect: (sel) => {
+            clearFormationContext()
             if (hollywood && sel?.buildingId === 'gate') {
               if (!enterGateContext({
                 place: null,
@@ -2076,6 +2270,7 @@ export function StudioLotScreen({
             recordSelection(sel?.buildingId ?? null)
           },
           onAction: (e) => {
+            clearFormationContext()
             if (hollywood && e.buildingId === 'gate') {
               enterGateContext({
                 place: null,
@@ -2125,7 +2320,18 @@ export function StudioLotScreen({
             setCanvasFailed(false)
             setCanvasReady(true)
             const sceneryProductionId = hollywoodSceneryLoadInProductionIdRef.current
-            if (gateSelectedRef.current) {
+            const receipt = formationReceiptRef.current
+            const formation = receipt === null
+              ? null
+              : productionFormationContext(latestSnapshotRef.current, receipt)
+            const formationDirectorId =
+              formation !== null &&
+              hollywoodPersonRef.current?.id === formation.director.id
+                ? formation.director.id
+                : null
+            if (formationDirectorId !== null) {
+              view?.selectHollywoodPerson(formationDirectorId)
+            } else if (gateSelectedRef.current) {
               const market = gateHiringMarketContext(latestSnapshotRef.current)
               const intent = gateCandidateIntentRef.current
               const current = intent === null
@@ -2257,10 +2463,23 @@ export function StudioLotScreen({
       // StudioLotView owns a pending snapshot while Phaser is still preparing. Feed
       // every accepted host replacement immediately so onReady cannot reconcile a
       // fresh visitor against stale mount-time scene truth.
+      const receipt = formationReceiptRef.current
+      const formation = receipt === null
+        ? null
+        : productionFormationContext(latestSnapshotRef.current, receipt)
+      const formationDirectorId =
+        formation !== null && hollywoodPersonRef.current?.id === formation.director.id
+          ? formation.director.id
+          : null
       v.setSnapshot({ ...readSnapshot(state), selectedBuildingId: getLotSelectedBuilding() })
       if (!canvasReady) return
+      if (formationDirectorId !== null) {
+        v.selectHollywoodPerson(formationDirectorId)
+      }
       const sceneryProductionId = hollywoodSceneryLoadInProductionIdRef.current
-      if (gateSelectedRef.current) {
+      if (formationDirectorId !== null) {
+        // Exact person selection above is the sole current physical owner.
+      } else if (gateSelectedRef.current) {
         const market = gateHiringMarketContext(latestSnapshotRef.current)
         const intent = gateCandidateIntentRef.current
         const current = intent === null
@@ -3116,6 +3335,7 @@ export function StudioLotScreen({
           return
         }
       }
+      clearFormationContext()
       clearHollywoodStage7DetailContext()
       clearGateContext()
       clearPublicityContext()
@@ -3127,6 +3347,7 @@ export function StudioLotScreen({
     },
     [
       clearAnnexContext,
+      clearFormationContext,
       clearGateContext,
       clearHollywoodSceneryLoadInContext,
       clearHollywoodStage7DetailContext,
@@ -3899,6 +4120,15 @@ export function StudioLotScreen({
           ? `Week ${advanceFeedback.week}. Studio Lot updated.`
           : ''}
       </div>
+      <div
+        className="visually-hidden"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        data-testid="lot-production-formation-announcement"
+      >
+        {formationAnnouncement}
+      </div>
       <header className="lot-topbar">
         <div className="lot-brand">
           <h1
@@ -3924,7 +4154,10 @@ export function StudioLotScreen({
             onTouchStart={containWorldInput}
             disabled={worldInputSuspended}
             onClick={() => {
-              if (!worldInputSuspendedRef.current) onAdvance()
+              if (!worldInputSuspendedRef.current) {
+                clearFormationWitness()
+                onAdvance()
+              }
             }}
             data-testid="lot-advance-week"
           >
@@ -3964,7 +4197,12 @@ export function StudioLotScreen({
           {hollywood && (
             <>
               <section
-                className={`hollywood-production${hollywoodOperation ? '' : ' is-idle'}`}
+                className={`hollywood-production${hollywoodOperation ? '' : ' is-idle'}${
+                  currentFormationContext?.operation.productionId ===
+                  hollywoodOperation?.productionId
+                    ? ' is-formation'
+                    : ''
+                }`}
                 aria-label="Current production"
                 data-testid={hollywoodOperation ? 'hollywood-current-production' : 'hollywood-production-idle'}
                 onPointerDown={containWorldInput}
@@ -3973,6 +4211,16 @@ export function StudioLotScreen({
               >
                 {hollywoodOperation ? (
                   <>
+                    {formationWitnessVisible &&
+                      currentFormationContext?.operation.productionId ===
+                        hollywoodOperation.productionId && (
+                        <p
+                          className="hollywood-formation-witness"
+                          data-testid="hollywood-production-formation-witness"
+                        >
+                          PICTURE FORMED
+                        </p>
+                      )}
                     <p className="hollywood-eyebrow">
                       <i /> {hollywoodOperation.phaseLabel} · {hollywoodOperation.facilityLabel}
                     </p>
@@ -3989,8 +4237,16 @@ export function StudioLotScreen({
                     </div>
                     <dl>
                       <div><dt>Phase</dt><dd>{hollywoodOperation.phaseLabel}</dd></div>
+                      <div><dt>Production facilities</dt><dd>{hollywoodOperation.facilityLabel}</dd></div>
+                      {currentFormationContext?.operation.productionId ===
+                        hollywoodOperation.productionId && (
+                        <div><dt>Status</dt><dd>{hollywoodOperation.statusLabel}</dd></div>
+                      )}
                       <div><dt>Weeks left</dt><dd>{hollywoodOperation.weeksRemaining}</dd></div>
                       <div><dt>Director</dt><dd>{hollywoodOperation.directorName}</dd></div>
+                      {hollywoodOperation.leadName && (
+                        <div><dt>Lead</dt><dd>{hollywoodOperation.leadName}</dd></div>
+                      )}
                     </dl>
                     {hollywoodOperation.blocker && (
                       hollywoodStage7Operation?.productionId === hollywoodOperation.productionId ? (

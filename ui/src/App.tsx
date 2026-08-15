@@ -71,7 +71,7 @@ import { NewspaperReveal } from './screens/NewspaperReveal.tsx'
 import { WeeklySummary } from './screens/WeeklySummary.tsx'
 import { StudioRunRecap } from './screens/StudioRunRecap.tsx'
 import { saveActiveSession, loadActiveSession, clearActiveSession } from './engine/session.ts'
-import { studioLotOverviewEnabled } from './flags.ts'
+import { operationHollywoodEnabled, studioLotOverviewEnabled } from './flags.ts'
 import type { LotRoute } from './lot/navigation.ts'
 // Presentation-only, and deliberately NOT part of the lazy lot chunk: this module imports
 // nothing but types, so App can end the lot's presentation session without pulling Phaser
@@ -91,6 +91,11 @@ import {
   gateHiringCandidateContext,
   type GateCandidateOwnerIntent,
 } from './lot/snapshot/gateHiring.ts'
+import {
+  acceptedGreenlightFormationReceipt,
+  sameGreenlightFormationReceipt,
+  type GreenlightFormationReceipt,
+} from './lot/snapshot/productionFormation.ts'
 
 // Gate D1: the Studio Lot overview is lazily imported so Phaser and the whole lot
 // module stay out of the eager bundle. The factory only runs when <StudioLotScreen/>
@@ -256,6 +261,11 @@ type Screen =
       kind: 'lot'
       entryFocus: 'gate-candidate'
       entryGateCandidate: GateCandidateOwnerIntent
+    }
+  | {
+      kind: 'lot'
+      entryFocus: 'production-formation'
+      entryProductionFormation: GreenlightFormationReceipt
     } // Studio Home V1: primary world surface
 
 function operatingStudioHome(lotEnabled: boolean): Screen {
@@ -307,6 +317,9 @@ export function App() {
   // Studio Home V1: freeze the environment/session gate once. A founded ordinary-player
   // session starts in the living world; an explicit rollback keeps the legacy Dashboard root.
   const [lotEnabled] = useState(studioLotOverviewEnabled)
+  // Production Formation is a Hollywood person-selected presentation, not a classic-Lot
+  // capability. Freeze its independent rollback gate at the same session boundary.
+  const [hollywoodEnabled] = useState(operationHollywoodEnabled)
   const [state, setState] = useState<GameState | null>(restore.ok ? restore.state : null)
   const latestStateRef = useRef<GameState | null>(state)
   latestStateRef.current = state
@@ -502,6 +515,56 @@ export function App() {
       return
     }
     setScreen({ kind: 'lot', entryFocus: context.focus })
+  }
+
+  // World-First Greenlight Production Formation V1: Assembly reports the successor plus a
+  // narrow receipt, but App remains the independent state/navigation owner. The callback is
+  // legal only while the exact object rendered into that Assembly is still the latest state.
+  // A receipt problem demotes presentation only; the already Engine-accepted successor keeps
+  // the existing generic return. Synchronizing the ref before React's render also makes a
+  // duplicate same-stack callback stale rather than applying the successor twice.
+  function handleAssemblyGreenlit(
+    renderedBefore: GameState,
+    next: GameState,
+    assemblyReceipt: GreenlightFormationReceipt | null,
+    returnContext: StudioReturnContext,
+  ) {
+    const current = latestStateRef.current
+    if (current === null || current !== renderedBefore) return
+
+    let appReceipt: GreenlightFormationReceipt | null = null
+    try {
+      appReceipt = acceptedGreenlightFormationReceipt(current, next)
+    } catch {
+      // The Engine successor remains accepted. A hostile or malformed presentation receipt
+      // can only remove the special world ceremony; it can never make App guess an identity.
+      appReceipt = null
+    }
+
+    latestStateRef.current = next
+    setState(next)
+
+    if (
+      lotEnabled &&
+      hollywoodEnabled &&
+      returnContext.kind === 'lot' &&
+      appReceipt !== null &&
+      assemblyReceipt !== null &&
+      sameGreenlightFormationReceipt(appReceipt, assemblyReceipt)
+    ) {
+      setLotAdvanceFeedback(null)
+      setLotOperationalAnnouncementSuppressed(
+        returnContext.suppressOperationalAnnouncement,
+      )
+      setScreen({
+        kind: 'lot',
+        entryFocus: 'production-formation',
+        entryProductionFormation: appReceipt,
+      })
+      return
+    }
+
+    returnToStudioContext(returnContext)
   }
 
   // Talent Creator has two true nested owners (Founding and Hiring). A creator opened
@@ -1278,14 +1341,15 @@ export function App() {
         <Assembly
           state={state}
           {...(screen.scriptProjectId ? { scriptProjectId: screen.scriptProjectId } : {})}
-          onGreenlit={(next) => {
-            setState(next)
-            returnToStudioContext(screen.returnContext)
-          }}
+          onGreenlit={(next, receipt) =>
+            handleAssemblyGreenlit(state, next, receipt, screen.returnContext)}
           onCancel={() => returnToStudioContext(screen.returnContext)}
           // A1: a Custom Talent created mid-assembly updates the authoritative GameState here,
           // while Assembly stays mounted so the in-progress film-package draft is preserved.
-          onStateChange={setState}
+          onStateChange={(next) => {
+            latestStateRef.current = next
+            setState(next)
+          }}
           onOpenProfile={openTalentProfile}
         />
       )}
@@ -1466,6 +1530,9 @@ export function App() {
               : {})}
             {...(screen.entryFocus === 'gate-candidate'
               ? { entryGateCandidate: screen.entryGateCandidate }
+              : {})}
+            {...(screen.entryFocus === 'production-formation'
+              ? { entryProductionFormation: screen.entryProductionFormation }
               : {})}
             onProductionCommand={handleProductionCommand}
             onStartDevelopmentCastingAnnex={handleStartDevelopmentCastingAnnex}
