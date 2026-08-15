@@ -35,6 +35,8 @@ const navigationProbe = vi.hoisted(() => ({
       | 'stage-7-production'
       | 'gate-candidate'
       | 'production-formation'
+      | 'next-event-control'
+      | 'next-event-reaction'
       | undefined
     week: number
   }>,

@@ -40,7 +40,11 @@ const runtime = vi.hoisted(() => {
   }
 
   class HollywoodScene {
-    data: { reducedMotion?: boolean; onEvent: (event: Event) => void } | null = null
+    data: {
+      snapshot?: unknown
+      reducedMotion?: boolean
+      onEvent: (event: Event) => void
+    } | null = null
     reduced: boolean[] = []
     inputSuspensions: boolean[] = []
     productionSelections: string[] = []
@@ -228,6 +232,24 @@ const visitor = (
 })
 
 describe('StudioLotView Hollywood lifecycle', () => {
+  it('boots delayed readiness from the latest exact snapshot without a ready-time duplicate', () => {
+    const mountSnapshot = { ...snapshot, week: 0 }
+    const finalSnapshot = { ...snapshot, week: 4 }
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot: mountSnapshot,
+      hollywood: true,
+    })
+    const game = runtime.games.at(-1)!
+
+    view.setSnapshot(finalSnapshot)
+    game.events.emit('ready')
+
+    const scene = game.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+    expect(scene.data?.snapshot).toBe(finalSnapshot)
+    expect(scene.snapshotsApplied).toEqual([])
+  })
+
   it('forwards one exact scene failure and never promotes that generation to ready', () => {
     const onHollywoodFailure = vi.fn()
     const onReady = vi.fn()

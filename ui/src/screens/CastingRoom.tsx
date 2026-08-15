@@ -373,10 +373,20 @@ const SECTIONS: ReadonlyArray<{
   { key: 'history', title: 'Casting history', empty: 'No completed casting review yet.' },
 ]
 
+export type CastingDecisionFocusToken = {
+  sessionId: string
+  projectId: string
+}
+
+function castingDecisionFocusKey(token: CastingDecisionFocusToken): string {
+  return JSON.stringify([token.sessionId, token.projectId])
+}
+
 export function CastingRoom({
   state,
   onChange,
   initialProjectId,
+  focusCastingDecision,
   focusProjectId,
   onOpenPackage,
   onOpenRoster,
@@ -385,6 +395,8 @@ export function CastingRoom({
   state: GameState
   onChange: (next: GameState) => void
   initialProjectId?: string
+  /** Exact navigation handoff for a specific casting-session decision. */
+  focusCastingDecision?: CastingDecisionFocusToken
   /** Navigation-only handoff from the Studio Calendar. */
   focusProjectId?: string
   onOpenPackage: (projectId: string) => void
@@ -401,14 +413,35 @@ export function CastingRoom({
   const [error, setError] = useState('')
   const [announcement, setAnnouncement] = useState('')
   const pendingFocusProjectId = useRef<string | null>(null)
+  const initialFocusCastingDecision = useRef<CastingDecisionFocusToken | null>(
+    focusCastingDecision ?? null,
+  )
   const initialFocusProjectId = useRef<string | null>(focusProjectId ?? null)
   const statusRefs = useRef(new Map<string, HTMLSpanElement>())
+  const exactStatusRefs = useRef(new Map<string, HTMLSpanElement>())
   const headingRef = useRef<HTMLHeadingElement | null>(null)
   const planningProject = board.sections.readyToPlan.find(
     (project) => project.projectId === planningProjectId,
   )
 
   useEffect(() => {
+    const exact = initialFocusCastingDecision.current
+    if (exact !== null) {
+      const matches = SECTIONS.flatMap((section) => board.sections[section.key]).filter(
+        (project) =>
+          project.sessionId === exact.sessionId && project.projectId === exact.projectId,
+      )
+      const target =
+        matches.length === 1
+          ? exactStatusRefs.current.get(castingDecisionFocusKey(exact))
+          : undefined
+      if (target) target.focus()
+      else headingRef.current?.focus()
+      initialFocusCastingDecision.current = null
+      initialFocusProjectId.current = null
+      return
+    }
+
     const projectId = pendingFocusProjectId.current ?? initialFocusProjectId.current
     if (projectId === null) return
     const target = statusRefs.current.get(projectId)
@@ -532,9 +565,9 @@ export function CastingRoom({
               <div className="empty" data-testid={`casting-empty-${section.key}`}>{section.empty}</div>
             ) : (
               <div className="grid grid-2" data-testid={`casting-section-${section.key}-cards`}>
-                {projects.map((project) => (
+                {projects.map((project, projectIndex) => (
                   <ProjectCard
-                    key={project.projectId}
+                    key={`${project.projectId}:${project.sessionId ?? 'none'}:${projectIndex}`}
                     project={project}
                     onPlan={() => {
                       if (!project.legalActions.some((action) => action.kind === 'planAuditions')) {
@@ -548,6 +581,14 @@ export function CastingRoom({
                     statusRef={(node) => {
                       if (node) statusRefs.current.set(project.projectId, node)
                       else statusRefs.current.delete(project.projectId)
+                      if (project.sessionId !== null) {
+                        const exactKey = castingDecisionFocusKey({
+                          sessionId: project.sessionId,
+                          projectId: project.projectId,
+                        })
+                        if (node) exactStatusRefs.current.set(exactKey, node)
+                        else exactStatusRefs.current.delete(exactKey)
+                      }
                     }}
                   />
                 ))}

@@ -183,7 +183,8 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
       const lot = await screen.findByTestId('studio-lot-screen')
       await waitFor(() => expect(renderer.instances).toHaveLength(1))
       const view = renderer.instances[0]!
-      await waitFor(() => expect(view.snapshots.length).toBeGreaterThan(1))
+      await waitFor(() => expect(view.snapshots).toHaveLength(1))
+      expect(view.snapshots[0]?.week).toBe(pre.market.tick)
       const snapshotsBefore = view.snapshots.length
       fireEvent.click(screen.getByTestId('lot-nav-stage-a'))
       const advance = screen.getByTestId('lot-advance-week')
@@ -206,7 +207,9 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
       expect(renderer.instances).toHaveLength(1)
       expect(view.destroyed).toBe(false)
       expect(view.cameraPresets).toEqual([])
-      expect(view.snapshots).toHaveLength(snapshotsBefore + 1)
+      await waitFor(() =>
+        expect(view.snapshots).toHaveLength(snapshotsBefore + 1),
+      )
       expect(view.snapshots.at(-1)?.week).toBe(expected.next.market.tick)
 
       await waitFor(() => {

@@ -38,6 +38,8 @@ import { ProductionBoard } from '../components/ProductionBoard.tsx'
 import { StudioCalendarPreview } from './StudioCalendar.tsx'
 import { StudioDevelopmentPreview } from './StudioDevelopment.tsx'
 
+export type DashboardFocusSection = 'finances' | 'releases'
+
 export function Dashboard({
   state,
   onAssemble,
@@ -62,6 +64,8 @@ export function Dashboard({
   onProductionCommand,
   focusProductionId,
   focusRunId,
+  focusSection,
+  focusDashboard,
 }: {
   state: GameState
   onAssemble: () => void
@@ -96,6 +100,10 @@ export function Dashboard({
   /** Navigation-only handoffs from the Studio Calendar. */
   focusProductionId?: string
   focusRunId?: string
+  /** Generic next-event destination when no more exact Dashboard identity exists. */
+  focusSection?: DashboardFocusSection
+  /** Focus the generic Dashboard root without inventing a section identity. */
+  focusDashboard?: boolean
 }) {
   const week = selectWeek(state)
   const cash = selectCash(state)
@@ -124,6 +132,14 @@ export function Dashboard({
   const runRefs = useRef(new Map<string, HTMLElement>())
   const runsHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const pendingRunFocus = useRef(focusRunId ?? null)
+  const dashboardHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const financesHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const releasesHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const pendingDashboardFocus = useRef<DashboardFocusSection | 'dashboard' | null>(
+    focusProductionId !== undefined || focusRunId !== undefined
+      ? null
+      : focusSection ?? (focusDashboard ? 'dashboard' : null),
+  )
 
   useEffect(() => {
     const productionId = pendingRunFocus.current
@@ -134,6 +150,19 @@ export function Dashboard({
     pendingRunFocus.current = null
   }, [runs])
 
+  useEffect(() => {
+    const destination = pendingDashboardFocus.current
+    if (destination === null) return
+    const target =
+      destination === 'finances'
+        ? financesHeadingRef.current
+        : destination === 'releases'
+          ? releasesHeadingRef.current
+          : dashboardHeadingRef.current
+    target?.focus()
+    pendingDashboardFocus.current = null
+  }, [])
+
   // Recent releases: most recent first.
   const recent = [...released].reverse().slice(0, 6)
 
@@ -141,7 +170,15 @@ export function Dashboard({
     <div className="app-shell">
       <div className="topbar">
         <div className="brand">
-          <span className="mark">PROJECT: STUDIO</span>
+          <h1
+            ref={dashboardHeadingRef}
+            className="mark"
+            style={{ margin: 0 }}
+            tabIndex={-1}
+            data-testid="dashboard-heading"
+          >
+            PROJECT: STUDIO
+          </h1>
           <span className="sub" data-testid="seed-label">
             seed “{state.seed}”
           </span>
@@ -391,7 +428,9 @@ export function Dashboard({
       <div style={{ height: 16 }} />
 
       <div className="card">
-        <h2>Finances</h2>
+        <h2 ref={financesHeadingRef} tabIndex={-1} data-testid="dashboard-finances-heading">
+          Finances
+        </h2>
         <div className="row" style={{ gap: 24, flexWrap: 'wrap' }} data-testid="finances-card">
           <Metric label="Cash" small testid="fin-cash">
             <span className={fin.cash < 0 ? 'money neg' : 'money pos'}>{money(fin.cash)}</span>
@@ -481,7 +520,9 @@ export function Dashboard({
       <div style={{ height: 16 }} />
 
       <div className="card">
-        <h2>Recent releases</h2>
+        <h2 ref={releasesHeadingRef} tabIndex={-1} data-testid="dashboard-releases-heading">
+          Recent releases
+        </h2>
         {recent.length === 0 ? (
           <div className="empty" data-testid="no-releases">
             No films have released yet.

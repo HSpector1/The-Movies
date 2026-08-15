@@ -1,0 +1,2283 @@
+{
+  "schemaVersion": "world-first-lot-native-next-event-hostile-corpus-v1",
+  "generatedBy": "scripts/gen-lot-native-next-event-fixtures.mts",
+  "reproduceCommand": "node_modules/.bin/vite-node scripts/gen-lot-native-next-event-fixtures.mts",
+  "outputDirectory": "ui/e2e/lot-native-next-event-v1",
+  "authority": {
+    "stateConstruction": "public Core/adapter constructors, actions, and authoritative advance functions only",
+    "ordinaryPlayerConstruction": "newGame, founding cards, contracts, founding, managed activation, screenplay, casting, construction, greenlight, production commands, and real ticks",
+    "compatibilityConstruction": "generateWorld is used only for the retained disengaged M0A non-Gazette path and the contract-authorized direct 520-week adapter guard boundary",
+    "nextEvent": "advanceToNextEvent is the sole stop authority",
+    "serialization": "exportSaveJson / importSaveJson native SaveFileV11 boundary",
+    "importedConverted": false,
+    "byteIdenticalImportExport": true,
+    "byteIdenticalNextEventReplay": true,
+    "deterministic": true,
+    "generatedFilesAreHandEdited": false,
+    "timestampsPresent": false
+  },
+  "minimality": {
+    "storedFixtures": 12,
+    "coveredBoundaries": 12,
+    "overlap": "Gazette release is the higher-priority stop sharing Annex completion",
+    "blockers": []
+  },
+  "fixtures": [
+    {
+      "id": "script-review",
+      "file": "script-review.save.json",
+      "seed": "lot-next-event-script-review",
+      "publicActionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "lot-next-event-script-review"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-11",
+              "name": "Edward Voss",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-22",
+              "name": "Jean Delacroix",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-02",
+              "name": "Marlon Ostrow",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-13",
+              "name": "Irene Everhart",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-19",
+              "name": "Basil Radcliffe",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-10",
+              "name": "Ingrid Castellano",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-06",
+              "name": "Rita Pemberton",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-09",
+              "name": "Fredric Pemberton",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-06",
+              "name": "Bette Novak",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-04",
+              "name": "Marlon Barrow",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-00",
+              "name": "Barbara Ashby",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-09",
+              "name": "Alma Sable",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-04",
+              "name": "Leslie Okonkwo",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-09",
+              "name": "Jean Sunderland",
+              "role": "craft",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-04",
+              "name": "Franchot Salazar",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundManagedStudio",
+          "atomicManagedSystems": [
+            "Studio Operations",
+            "Script Projects",
+            "Casting Sessions"
+          ]
+        },
+        {
+          "action": "commissionScript",
+          "payload": {
+            "conceptId": "c-00",
+            "writerId": "t-act-02",
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "reversal",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "genre": "horror",
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.4,
+                  0.4
+                ],
+                "tonalWeight": [
+                  -0.4,
+                  0.4
+                ],
+                "kineticEnergy": [
+                  -0.4,
+                  0.4
+                ]
+              }
+            }
+          },
+          "resolvedProject": {
+            "projectId": "script-0000",
+            "title": "Fires of Gambit"
+          }
+        }
+      ],
+      "saveVersion": 11,
+      "byteLength": 219020,
+      "sha256": "5cb5db9ac24c967060efddcca4f6966e6ff24f1e170f62d428088dfb3bc8ca82",
+      "expectedStartWeek": 0,
+      "expectedEndWeek": 1,
+      "expectedWeeksAdvanced": 1,
+      "expectedStopReason": "scriptReview",
+      "expectedPresentation": {
+        "arm": "exact",
+        "target": {
+          "kind": "script",
+          "projectId": "script-0000",
+          "title": "Fires of Gambit",
+          "buildingId": "writers"
+        }
+      },
+      "expectedConstructionCompletion": null,
+      "expectedFinalSaveSha256": "8530dad3ba740b86863d8dfcfded335ccd6215b57a881440deafca918c4bf625",
+      "claim": {
+        "week": 0,
+        "projectId": "script-0000",
+        "title": "Fires of Gambit",
+        "status": "drafting"
+      }
+    },
+    {
+      "id": "casting-review",
+      "file": "casting-review.save.json",
+      "seed": "lot-next-event-casting-review",
+      "publicActionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "lot-next-event-casting-review"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-23",
+              "name": "Hedy Delacroix",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-10",
+              "name": "Herbert Thorne",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-27",
+              "name": "Greta Hollis",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-05",
+              "name": "Irene Radcliffe",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-26",
+              "name": "Gloria Salazar",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-09",
+              "name": "Myrna Sterling",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-04",
+              "name": "Carole Okonkwo",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-03",
+              "name": "Boris Marlowe",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-02",
+              "name": "Carole Winters",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-00",
+              "name": "Ava Thorne",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-00",
+              "name": "Marion Hollis",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-04",
+              "name": "Vera Lindqvist",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-03",
+              "name": "Vivien Ferro",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-05",
+              "name": "Marion Grimaldi",
+              "role": "craft",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-09",
+              "name": "Reginald Vasquez",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundManagedStudio",
+          "atomicManagedSystems": [
+            "Studio Operations",
+            "Script Projects",
+            "Casting Sessions"
+          ]
+        },
+        {
+          "action": "commissionScript",
+          "payload": {
+            "conceptId": "c-00",
+            "writerId": "t-act-03",
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "reversal",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "genre": "adventure",
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.4,
+                  0.4
+                ],
+                "tonalWeight": [
+                  -0.4,
+                  0.4
+                ],
+                "kineticEnergy": [
+                  -0.4,
+                  0.4
+                ]
+              }
+            }
+          }
+        },
+        {
+          "action": "advanceWeek",
+          "count": 1,
+          "resultWeek": 1
+        },
+        {
+          "action": "runScriptProjectAction",
+          "command": {
+            "kind": "acceptScript",
+            "projectId": "script-0000",
+            "label": "Accept first draft"
+          }
+        },
+        {
+          "action": "startCastingSession",
+          "payload": {
+            "projectId": "script-0000",
+            "slate": {
+              "lead": [
+                "t-act-04",
+                "t-act-05"
+              ],
+              "antagonist": [
+                "t-act-04",
+                "t-act-05"
+              ],
+              "support": [
+                "t-act-04",
+                "t-act-09"
+              ]
+            }
+          },
+          "resolvedSessionId": "casting-0000"
+        }
+      ],
+      "saveVersion": 11,
+      "byteLength": 219527,
+      "sha256": "1319d4251636c5289a2b73486d2a75113c1914ba1f3d31058a7db0eaa4c5eb95",
+      "expectedStartWeek": 1,
+      "expectedEndWeek": 2,
+      "expectedWeeksAdvanced": 1,
+      "expectedStopReason": "castingReview",
+      "expectedPresentation": {
+        "arm": "exact",
+        "target": {
+          "kind": "casting",
+          "sessionId": "casting-0000",
+          "projectId": "script-0000",
+          "title": "The Fading Constellation",
+          "buildingId": "casting"
+        }
+      },
+      "expectedConstructionCompletion": null,
+      "expectedFinalSaveSha256": "19d6bb8b193642c358ad6ec229af3012d3048baa67b42459d0955328a4ca83b8",
+      "claim": {
+        "week": 1,
+        "sessionId": "casting-0000",
+        "projectId": "script-0000",
+        "title": "The Fading Constellation",
+        "status": "auditioning"
+      }
+    },
+    {
+      "id": "stage-7-production-decision",
+      "file": "stage-7-production-decision.save.json",
+      "seed": "lot-next-event-stage-7-decision",
+      "publicActionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "lot-next-event-stage-7-decision"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-10",
+              "name": "Lauren Zaleski",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-17",
+              "name": "Roland Brandt",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-18",
+              "name": "Blanche Vollmer",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-22",
+              "name": "Vivien Lasky",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-05",
+              "name": "Estelle Chandra",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-19",
+              "name": "Anna Vollmer",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-03",
+              "name": "Basil Ashcombe",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-27",
+              "name": "Claude Marchetti",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-01",
+              "name": "Fay Sable",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-09",
+              "name": "Thelma Devereaux",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-03",
+              "name": "Fredric Mancuso",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-04",
+              "name": "Myrna Castellano",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-10",
+              "name": "Ruth Halloran",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-06",
+              "name": "Kay Prescott",
+              "role": "craft",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-04",
+              "name": "Cary Underwood",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundStudio",
+          "atomicManagedSystems": []
+        },
+        {
+          "action": "activateStudioOperations"
+        },
+        {
+          "action": "greenlight",
+          "package": {
+            "concept": {
+              "id": "c-00",
+              "title": "House of Aviator",
+              "genre": "romance"
+            },
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "reversal",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.4,
+                  0.4
+                ],
+                "tonalWeight": [
+                  -0.4,
+                  0.4
+                ],
+                "kineticEnergy": [
+                  -0.4,
+                  0.4
+                ]
+              }
+            },
+            "assignments": {
+              "writer": {
+                "id": "t-wri-03",
+                "name": "Fredric Mancuso"
+              },
+              "director": {
+                "id": "t-dir-01",
+                "name": "Fay Sable"
+              },
+              "lead": {
+                "id": "t-act-10",
+                "name": "Lauren Zaleski"
+              },
+              "antagonist": {
+                "id": "t-act-17",
+                "name": "Roland Brandt"
+              },
+              "support": {
+                "id": "t-act-18",
+                "name": "Blanche Vollmer"
+              },
+              "craft": {
+                "id": "t-cra-06",
+                "name": "Kay Prescott"
+              }
+            },
+            "budget": {
+              "negative": 6086615.535,
+              "marketing": 400000
+            }
+          },
+          "resultWeek": 0
+        }
+      ],
+      "saveVersion": 11,
+      "byteLength": 222898,
+      "sha256": "8566a55cbb16da8952832d9e8621b45ccea9e047dfa2e44b6c7acb15a1e2c316",
+      "expectedStartWeek": 0,
+      "expectedEndWeek": 4,
+      "expectedWeeksAdvanced": 4,
+      "expectedStopReason": "productionDecision",
+      "expectedPresentation": {
+        "arm": "exact",
+        "target": {
+          "kind": "production",
+          "productionId": "prod-0000",
+          "title": "House of Aviator",
+          "location": "stage-7"
+        }
+      },
+      "expectedConstructionCompletion": null,
+      "expectedFinalSaveSha256": "48e2769d6e78ca148e23abbe84bc13e8f7ffe090daa1130d9e5b26a86d1d1bed",
+      "claim": {
+        "week": 0,
+        "productionId": "prod-0000",
+        "title": "House of Aviator",
+        "expectedSoundstage": "Soundstage 7"
+      }
+    },
+    {
+      "id": "stage-12-production-decision",
+      "file": "stage-12-production-decision.save.json",
+      "seed": "lot-next-event-stage-12-decision",
+      "publicActionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "lot-next-event-stage-12-decision"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-12",
+              "name": "Barbara Marsh",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-02",
+              "name": "Miriam Brandt",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-01",
+              "name": "Gloria Petrov",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-17",
+              "name": "Victor Delgado",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-07",
+              "name": "Constance Ostrow",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-11",
+              "name": "Clark Halberstam",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-06",
+              "name": "Bette Sable",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-27",
+              "name": "Tyrone Salazar",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-01",
+              "name": "Thelma Delacroix",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-03",
+              "name": "Edward Lindqvist",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-09",
+              "name": "Boris Thorne",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-06",
+              "name": "Otto Pemberton",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-10",
+              "name": "Adolphe Winters",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-09",
+              "name": "Estelle Salazar",
+              "role": "craft",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-08",
+              "name": "Genevieve Devereaux",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundStudio",
+          "atomicManagedSystems": []
+        },
+        {
+          "action": "activateStudioOperations"
+        },
+        {
+          "action": "greenlight",
+          "package": {
+            "concept": {
+              "id": "c-00",
+              "title": "Rumors of Prizefighter",
+              "genre": "drama"
+            },
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "reversal",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.4,
+                  0.4
+                ],
+                "tonalWeight": [
+                  -0.4,
+                  0.4
+                ],
+                "kineticEnergy": [
+                  -0.4,
+                  0.4
+                ]
+              }
+            },
+            "assignments": {
+              "writer": {
+                "id": "t-wri-09",
+                "name": "Boris Thorne"
+              },
+              "director": {
+                "id": "t-dir-01",
+                "name": "Thelma Delacroix"
+              },
+              "lead": {
+                "id": "t-act-12",
+                "name": "Barbara Marsh"
+              },
+              "antagonist": {
+                "id": "t-act-02",
+                "name": "Miriam Brandt"
+              },
+              "support": {
+                "id": "t-act-01",
+                "name": "Gloria Petrov"
+              },
+              "craft": {
+                "id": "t-cra-09",
+                "name": "Estelle Salazar"
+              }
+            },
+            "budget": {
+              "negative": 6145258.455,
+              "marketing": 400000
+            }
+          },
+          "resultWeek": 0
+        },
+        {
+          "action": "advanceWeek",
+          "count": 1,
+          "resultWeek": 1
+        },
+        {
+          "action": "greenlight",
+          "package": {
+            "concept": {
+              "id": "c-01",
+              "title": "City of Cascade",
+              "genre": "adventure"
+            },
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "reversal",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.4,
+                  0.4
+                ],
+                "tonalWeight": [
+                  -0.4,
+                  0.4
+                ],
+                "kineticEnergy": [
+                  -0.4,
+                  0.4
+                ]
+              }
+            },
+            "assignments": {
+              "writer": {
+                "id": "t-wri-06",
+                "name": "Otto Pemberton"
+              },
+              "director": {
+                "id": "t-dir-03",
+                "name": "Edward Lindqvist"
+              },
+              "lead": {
+                "id": "t-act-17",
+                "name": "Victor Delgado"
+              },
+              "antagonist": {
+                "id": "t-act-07",
+                "name": "Constance Ostrow"
+              },
+              "support": {
+                "id": "t-act-11",
+                "name": "Clark Halberstam"
+              },
+              "craft": {
+                "id": "t-cra-08",
+                "name": "Genevieve Devereaux"
+              }
+            },
+            "budget": {
+              "negative": 3814125.8400000003,
+              "marketing": 400000
+            }
+          },
+          "resultWeek": 1
+        },
+        {
+          "action": "advanceWeek",
+          "count": 3,
+          "resultWeek": 4
+        },
+        {
+          "action": "runProductionCommand",
+          "commands": [
+            {
+              "kind": "assignShootingDirector",
+              "productionId": "prod-0000",
+              "directorId": "t-dir-01",
+              "label": "Call Thelma Delacroix to Soundstage 7"
+            },
+            {
+              "kind": "clearSceneryLoadIn",
+              "productionId": "prod-0000",
+              "label": "Clear scenery load-in"
+            },
+            {
+              "kind": "scheduleShootingTake",
+              "productionId": "prod-0000",
+              "label": "Schedule the shooting take"
+            }
+          ]
+        }
+      ],
+      "saveVersion": 11,
+      "byteLength": 227801,
+      "sha256": "fa73612780afc72f888489e9e88751695bd2326f70334e5fa9877236797414da",
+      "expectedStartWeek": 4,
+      "expectedEndWeek": 5,
+      "expectedWeeksAdvanced": 1,
+      "expectedStopReason": "productionDecision",
+      "expectedPresentation": {
+        "arm": "exact",
+        "target": {
+          "kind": "production",
+          "productionId": "prod-0001",
+          "title": "City of Cascade",
+          "location": "stage-12-semantic"
+        }
+      },
+      "expectedConstructionCompletion": null,
+      "expectedFinalSaveSha256": "dfb4d9a13e7a0c70c0d2983d18c17f7367050a439d0eda8820b97c3b4f294c2a",
+      "claim": {
+        "week": 4,
+        "productionId": "prod-0001",
+        "title": "City of Cascade",
+        "authoritativeSoundstage": "Soundstage 12",
+        "locationBuildingId": "stage-b",
+        "earlierStage7CommandsResolved": true
+      }
+    },
+    {
+      "id": "simultaneous-completed-runs",
+      "file": "simultaneous-completed-runs.save.json",
+      "seed": "lot-next-event-simultaneous-runs",
+      "publicActionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "lot-next-event-simultaneous-runs"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 208,
+          "resolvedSignings": [
+            {
+              "id": "t-act-05",
+              "name": "Lauren Novak",
+              "role": "actor",
+              "termWeeks": 208
+            },
+            {
+              "id": "t-act-02",
+              "name": "Dolores Fenwick",
+              "role": "actor",
+              "termWeeks": 208
+            },
+            {
+              "id": "t-act-23",
+              "name": "Irene Kingsley",
+              "role": "actor",
+              "termWeeks": 208
+            },
+            {
+              "id": "t-act-12",
+              "name": "Claude Ravel",
+              "role": "actor",
+              "termWeeks": 208
+            },
+            {
+              "id": "t-act-16",
+              "name": "Marlon Hollis",
+              "role": "actor",
+              "termWeeks": 208
+            },
+            {
+              "id": "t-act-04",
+              "name": "Joan Kingsley",
+              "role": "actor",
+              "termWeeks": 208
+            },
+            {
+              "id": "t-act-24",
+              "name": "Herbert Underwood",
+              "role": "actor",
+              "termWeeks": 208
+            },
+            {
+              "id": "t-act-18",
+              "name": "Ingrid Rourke",
+              "role": "actor",
+              "termWeeks": 208
+            },
+            {
+              "id": "t-dir-07",
+              "name": "Adolphe Winters",
+              "role": "director",
+              "termWeeks": 208
+            },
+            {
+              "id": "t-dir-01",
+              "name": "Fay Thorne",
+              "role": "director",
+              "termWeeks": 208
+            },
+            {
+              "id": "t-wri-06",
+              "name": "Anna Marsh",
+              "role": "writer",
+              "termWeeks": 208
+            },
+            {
+              "id": "t-wri-07",
+              "name": "Wallace Fairbanks",
+              "role": "writer",
+              "termWeeks": 208
+            },
+            {
+              "id": "t-wri-03",
+              "name": "Otto Kingsley",
+              "role": "writer",
+              "termWeeks": 208
+            },
+            {
+              "id": "t-cra-09",
+              "name": "Hedy Blackwood",
+              "role": "craft",
+              "termWeeks": 208
+            },
+            {
+              "id": "t-cra-05",
+              "name": "Gloria Winslow",
+              "role": "craft",
+              "termWeeks": 208
+            }
+          ]
+        },
+        {
+          "action": "foundStudio",
+          "atomicManagedSystems": []
+        },
+        {
+          "action": "greenlight",
+          "package": {
+            "concept": {
+              "id": "c-00",
+              "title": "The Fading Cathedral",
+              "genre": "romance"
+            },
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "reversal",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.4,
+                  0.4
+                ],
+                "tonalWeight": [
+                  -0.4,
+                  0.4
+                ],
+                "kineticEnergy": [
+                  -0.4,
+                  0.4
+                ]
+              }
+            },
+            "assignments": {
+              "writer": {
+                "id": "t-wri-06",
+                "name": "Anna Marsh"
+              },
+              "director": {
+                "id": "t-dir-07",
+                "name": "Adolphe Winters"
+              },
+              "lead": {
+                "id": "t-act-05",
+                "name": "Lauren Novak"
+              },
+              "antagonist": {
+                "id": "t-act-02",
+                "name": "Dolores Fenwick"
+              },
+              "support": {
+                "id": "t-act-23",
+                "name": "Irene Kingsley"
+              },
+              "craft": {
+                "id": "t-cra-09",
+                "name": "Hedy Blackwood"
+              }
+            },
+            "budget": {
+              "negative": 5016953.025,
+              "marketing": 400000
+            }
+          },
+          "resultWeek": 0
+        },
+        {
+          "action": "greenlight",
+          "package": {
+            "concept": {
+              "id": "c-01",
+              "title": "The Restless Undertaker",
+              "genre": "comedy"
+            },
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "reversal",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.4,
+                  0.4
+                ],
+                "tonalWeight": [
+                  -0.4,
+                  0.4
+                ],
+                "kineticEnergy": [
+                  -0.4,
+                  0.4
+                ]
+              }
+            },
+            "assignments": {
+              "writer": {
+                "id": "t-wri-07",
+                "name": "Wallace Fairbanks"
+              },
+              "director": {
+                "id": "t-dir-01",
+                "name": "Fay Thorne"
+              },
+              "lead": {
+                "id": "t-act-12",
+                "name": "Claude Ravel"
+              },
+              "antagonist": {
+                "id": "t-act-16",
+                "name": "Marlon Hollis"
+              },
+              "support": {
+                "id": "t-act-04",
+                "name": "Joan Kingsley"
+              },
+              "craft": {
+                "id": "t-cra-05",
+                "name": "Gloria Winslow"
+              }
+            },
+            "budget": {
+              "negative": 6186608.82,
+              "marketing": 400000
+            }
+          },
+          "resultWeek": 0
+        },
+        {
+          "action": "advanceToNextEvent",
+          "fromWeek": 0,
+          "toWeek": 9,
+          "stopReason": "release",
+          "releaseProductionIds": [
+            "prod-0000",
+            "prod-0000-1"
+          ]
+        }
+      ],
+      "saveVersion": 11,
+      "byteLength": 238772,
+      "sha256": "df246366d8d56e02ad21196fd98bfeb4a73339dca050984e399122b40382e876",
+      "expectedStartWeek": 9,
+      "expectedEndWeek": 14,
+      "expectedWeeksAdvanced": 5,
+      "expectedStopReason": "runCompleted",
+      "expectedPresentation": {
+        "arm": "exact",
+        "target": {
+          "kind": "run-completed",
+          "runs": [
+            {
+              "productionId": "prod-0000",
+              "title": "The Fading Cathedral"
+            },
+            {
+              "productionId": "prod-0000-1",
+              "title": "The Restless Undertaker"
+            }
+          ],
+          "buildingId": "theater"
+        }
+      },
+      "expectedConstructionCompletion": null,
+      "expectedFinalSaveSha256": "6f7421d4a9fb5ba02926877f2d462fa453dc709110c005bef5eb8a7ff4365a29",
+      "claim": {
+        "week": 9,
+        "activeRuns": [
+          {
+            "productionId": "prod-0000",
+            "status": "active",
+            "weekIndex": 1,
+            "totalWeeks": 6
+          },
+          {
+            "productionId": "prod-0000-1",
+            "status": "active",
+            "weekIndex": 1,
+            "totalWeeks": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "cash-negative-crossing",
+      "file": "cash-negative-crossing.save.json",
+      "seed": "lot-next-event-cash-crossing",
+      "publicActionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "lot-next-event-cash-crossing"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 400,
+          "resolvedSignings": [
+            {
+              "id": "t-act-18",
+              "name": "Sylvia Halloran",
+              "role": "actor",
+              "termWeeks": 400
+            },
+            {
+              "id": "t-act-12",
+              "name": "Reginald Zaleski",
+              "role": "actor",
+              "termWeeks": 400
+            },
+            {
+              "id": "t-act-00",
+              "name": "Alma Lindqvist",
+              "role": "actor",
+              "termWeeks": 400
+            },
+            {
+              "id": "t-act-08",
+              "name": "Marlon Underwood",
+              "role": "actor",
+              "termWeeks": 400
+            },
+            {
+              "id": "t-act-09",
+              "name": "Spencer Vance",
+              "role": "actor",
+              "termWeeks": 400
+            },
+            {
+              "id": "t-act-06",
+              "name": "Edward Ferro",
+              "role": "actor",
+              "termWeeks": 400
+            },
+            {
+              "id": "t-act-24",
+              "name": "Fay Petrov",
+              "role": "actor",
+              "termWeeks": 400
+            },
+            {
+              "id": "t-act-13",
+              "name": "Barbara Beaumont",
+              "role": "actor",
+              "termWeeks": 400
+            },
+            {
+              "id": "t-dir-05",
+              "name": "Tyrone Emerson",
+              "role": "director",
+              "termWeeks": 400
+            },
+            {
+              "id": "t-dir-03",
+              "name": "Claude Devereaux",
+              "role": "director",
+              "termWeeks": 400
+            },
+            {
+              "id": "t-wri-02",
+              "name": "Gary Cabral",
+              "role": "writer",
+              "termWeeks": 400
+            },
+            {
+              "id": "t-wri-06",
+              "name": "Ava Fenwick",
+              "role": "writer",
+              "termWeeks": 400
+            },
+            {
+              "id": "t-wri-00",
+              "name": "Miriam Nakamura",
+              "role": "writer",
+              "termWeeks": 400
+            },
+            {
+              "id": "t-cra-01",
+              "name": "Ingrid Grimaldi",
+              "role": "craft",
+              "termWeeks": 400
+            },
+            {
+              "id": "t-cra-05",
+              "name": "Fay Delgado",
+              "role": "craft",
+              "termWeeks": 400
+            }
+          ]
+        },
+        {
+          "action": "foundStudio",
+          "atomicManagedSystems": []
+        }
+      ],
+      "saveVersion": 11,
+      "byteLength": 218159,
+      "sha256": "8aa9be34a636259b31b812ed1d7b0a0e99ccfe1f144844b08f2853476f44e212",
+      "expectedStartWeek": 0,
+      "expectedEndWeek": 117,
+      "expectedWeeksAdvanced": 117,
+      "expectedStopReason": "cashNegative",
+      "expectedPresentation": {
+        "arm": "exact",
+        "target": {
+          "kind": "cash",
+          "buildingId": "admin"
+        }
+      },
+      "expectedConstructionCompletion": null,
+      "expectedFinalSaveSha256": "659f1931b578d8a78251a7d2f3e54802443005704665cce51694c6d847bb5713",
+      "claim": {
+        "week": 0,
+        "cash": 20000000,
+        "contractTermWeeks": 400
+      }
+    },
+    {
+      "id": "contract-expiry",
+      "file": "contract-expiry.save.json",
+      "seed": "lot-next-event-contract-expiry",
+      "publicActionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "lot-next-event-contract-expiry"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 52,
+          "resolvedSignings": [
+            {
+              "id": "t-act-15",
+              "name": "Carole Beaumont",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-act-17",
+              "name": "Ruth Ravel",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-act-04",
+              "name": "Tyrone Hollis",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-act-07",
+              "name": "Alma Brandt",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-act-25",
+              "name": "Wallace Grimaldi",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-act-21",
+              "name": "Warner Larkin",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-act-16",
+              "name": "Myrna Underwood",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-act-24",
+              "name": "Franchot Barrow",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-dir-04",
+              "name": "Roland Reyes",
+              "role": "director",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-dir-03",
+              "name": "Boris Marlowe",
+              "role": "director",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-wri-07",
+              "name": "Ingrid Brandt",
+              "role": "writer",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-wri-10",
+              "name": "Edward Loewenthal",
+              "role": "writer",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-wri-08",
+              "name": "Marion Trask",
+              "role": "writer",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-cra-01",
+              "name": "Ramon Ashby",
+              "role": "craft",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-cra-00",
+              "name": "Warner Fairbanks",
+              "role": "craft",
+              "termWeeks": 52
+            }
+          ]
+        },
+        {
+          "action": "foundStudio",
+          "atomicManagedSystems": []
+        },
+        {
+          "action": "advanceToNextEvent",
+          "fromWeek": 0,
+          "toWeek": 40,
+          "stopReason": "renewalWindow",
+          "playerActionAtBoundary": "none"
+        }
+      ],
+      "saveVersion": 11,
+      "byteLength": 223864,
+      "sha256": "f36ba337619789c52ecdf97a94bb08bfc450c7d7c7313b5b0451fa9bcec05323",
+      "expectedStartWeek": 40,
+      "expectedEndWeek": 52,
+      "expectedWeeksAdvanced": 12,
+      "expectedStopReason": "contractExpired",
+      "expectedPresentation": {
+        "arm": "exact",
+        "target": {
+          "kind": "contracts",
+          "change": "expired",
+          "buildingId": null
+        }
+      },
+      "expectedConstructionCompletion": null,
+      "expectedFinalSaveSha256": "dc5b45877a50b15d524f7418bd030478de9f17c80eac05ebb49587f0f9bd557e",
+      "claim": {
+        "week": 40,
+        "contracts": 15,
+        "renewalWindowAlreadyOpen": true
+      }
+    },
+    {
+      "id": "renewal-window-opening",
+      "file": "renewal-window-opening.save.json",
+      "seed": "lot-next-event-renewal-window",
+      "publicActionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "lot-next-event-renewal-window"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 52,
+          "resolvedSignings": [
+            {
+              "id": "t-act-27",
+              "name": "Reginald Chandra",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-act-26",
+              "name": "Victor Zaleski",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-act-01",
+              "name": "Tyrone Okonkwo",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-act-20",
+              "name": "Loretta Grimaldi",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-act-00",
+              "name": "Myrna Underwood",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-act-16",
+              "name": "Ramon Winslow",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-act-05",
+              "name": "Gene Halloran",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-act-08",
+              "name": "Lauren Everhart",
+              "role": "actor",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-dir-07",
+              "name": "Miriam Ashcombe",
+              "role": "director",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-dir-05",
+              "name": "Ava Everhart",
+              "role": "director",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-wri-01",
+              "name": "Constance Thorne",
+              "role": "writer",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-wri-09",
+              "name": "Ava Vance",
+              "role": "writer",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-wri-05",
+              "name": "Victor Calloway",
+              "role": "writer",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-cra-03",
+              "name": "Edward Sterling",
+              "role": "craft",
+              "termWeeks": 52
+            },
+            {
+              "id": "t-cra-01",
+              "name": "Estelle Ashcombe",
+              "role": "craft",
+              "termWeeks": 52
+            }
+          ]
+        },
+        {
+          "action": "foundStudio",
+          "atomicManagedSystems": []
+        }
+      ],
+      "saveVersion": 11,
+      "byteLength": 218040,
+      "sha256": "f2068042ad9934312070a530d242110d59564c3124a6ca35519a2faaa60971af",
+      "expectedStartWeek": 0,
+      "expectedEndWeek": 40,
+      "expectedWeeksAdvanced": 40,
+      "expectedStopReason": "renewalWindow",
+      "expectedPresentation": {
+        "arm": "exact",
+        "target": {
+          "kind": "contracts",
+          "change": "renewal",
+          "buildingId": null
+        }
+      },
+      "expectedConstructionCompletion": null,
+      "expectedFinalSaveSha256": "6433510d66545f622b35e66081fd763d7b9cbd59fac7ce9275d0ec33e68ce9c9",
+      "claim": {
+        "week": 0,
+        "contracts": 15,
+        "contractTermWeeks": 52
+      }
+    },
+    {
+      "id": "construction-only-completion",
+      "file": "construction-only-completion.save.json",
+      "seed": "lot-next-event-construction-only",
+      "publicActionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "lot-next-event-construction-only"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-18",
+              "name": "Vera Novak",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-01",
+              "name": "Cary Lasky",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-03",
+              "name": "Estelle Brandt",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-24",
+              "name": "Douglas Grimaldi",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-12",
+              "name": "Miriam Calloway",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-08",
+              "name": "Genevieve Delacroix",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-19",
+              "name": "Nils Thorne",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-09",
+              "name": "Herbert Delgado",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-06",
+              "name": "Irene Blackwood",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-00",
+              "name": "Boris Ashby",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-00",
+              "name": "Myrna Barrow",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-02",
+              "name": "Thelma Merrick",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-08",
+              "name": "Claude Attwater",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-01",
+              "name": "Irene Ostrow",
+              "role": "craft",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-02",
+              "name": "Gary Loewenthal",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundStudio",
+          "atomicManagedSystems": []
+        },
+        {
+          "action": "activateStudioOperations"
+        },
+        {
+          "action": "startDevelopmentCastingAnnex",
+          "resultWeek": 0
+        }
+      ],
+      "saveVersion": 11,
+      "byteLength": 219012,
+      "sha256": "86e1ea3a030bfc38f749bd31ac300f505717ebfc5ee0eccd670f6fa11f32e090",
+      "expectedStartWeek": 0,
+      "expectedEndWeek": 13,
+      "expectedWeeksAdvanced": 13,
+      "expectedStopReason": "constructionCompleted",
+      "expectedPresentation": {
+        "arm": "exact",
+        "target": {
+          "kind": "construction",
+          "projectId": "construction-development-casting-annex",
+          "facilityId": "facility-development-casting-annex",
+          "name": "Development & Casting Annex",
+          "buildingId": "expansion"
+        }
+      },
+      "expectedConstructionCompletion": {
+        "projectId": "construction-development-casting-annex",
+        "facilityId": "facility-development-casting-annex",
+        "name": "Development & Casting Annex",
+        "completedWeek": 13,
+        "message": "Development & Casting Annex is Operational in Week 13. One shared Development & Casting slot is now available."
+      },
+      "expectedFinalSaveSha256": "6a9f3b97746a88ff52e00e064c4b82b7106d8103b24442002c4776972a856728",
+      "claim": {
+        "week": 0,
+        "projectId": "construction-development-casting-annex",
+        "facilityId": "facility-development-casting-annex",
+        "status": "building",
+        "dueWeek": 13
+      }
+    },
+    {
+      "id": "gazette-release-with-annex-completion",
+      "file": "gazette-release-with-annex-completion.save.json",
+      "seed": "lot-next-event-gazette-annex-coevent",
+      "publicActionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "lot-next-event-gazette-annex-coevent"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 8,
+            "director": 2,
+            "writer": 3,
+            "craft": 2
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-07",
+              "name": "Ruth Merrick",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-26",
+              "name": "Rex Petrov",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-16",
+              "name": "Douglas Petrov",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-27",
+              "name": "Blanche Beaumont",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-20",
+              "name": "Clark Lindqvist",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-00",
+              "name": "Leslie Trask",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-15",
+              "name": "Jean Underwood",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-19",
+              "name": "Wallace Sterling",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-05",
+              "name": "Roland Vance",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-06",
+              "name": "Rex Cabral",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-09",
+              "name": "Nils Barrow",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-04",
+              "name": "Tyrone Okonkwo",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-05",
+              "name": "Gary Ashcombe",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-04",
+              "name": "Victor Whitlock",
+              "role": "craft",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-05",
+              "name": "Dolores Radcliffe",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundStudio",
+          "atomicManagedSystems": []
+        },
+        {
+          "action": "activateStudioOperations"
+        },
+        {
+          "action": "startDevelopmentCastingAnnex",
+          "resultWeek": 0
+        },
+        {
+          "action": "advanceWeek",
+          "count": 4,
+          "resultWeek": 4
+        },
+        {
+          "action": "greenlight",
+          "package": {
+            "concept": {
+              "id": "c-00",
+              "title": "The Crimson Prizefighter",
+              "genre": "horror"
+            },
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "reversal",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.4,
+                  0.4
+                ],
+                "tonalWeight": [
+                  -0.4,
+                  0.4
+                ],
+                "kineticEnergy": [
+                  -0.4,
+                  0.4
+                ]
+              }
+            },
+            "assignments": {
+              "writer": {
+                "id": "t-wri-09",
+                "name": "Nils Barrow"
+              },
+              "director": {
+                "id": "t-dir-05",
+                "name": "Roland Vance"
+              },
+              "lead": {
+                "id": "t-act-07",
+                "name": "Ruth Merrick"
+              },
+              "antagonist": {
+                "id": "t-act-26",
+                "name": "Rex Petrov"
+              },
+              "support": {
+                "id": "t-act-16",
+                "name": "Douglas Petrov"
+              },
+              "craft": {
+                "id": "t-cra-04",
+                "name": "Victor Whitlock"
+              }
+            },
+            "budget": {
+              "negative": 5354141.3100000005,
+              "marketing": 400000
+            }
+          },
+          "resultWeek": 4
+        },
+        {
+          "action": "advanceWeek",
+          "count": 4,
+          "resultWeek": 8
+        },
+        {
+          "action": "runProductionCommand",
+          "commands": [
+            {
+              "kind": "assignShootingDirector",
+              "productionId": "prod-0004",
+              "directorId": "t-dir-05",
+              "label": "Call Roland Vance to Soundstage 7"
+            },
+            {
+              "kind": "clearSceneryLoadIn",
+              "productionId": "prod-0004",
+              "label": "Clear scenery load-in"
+            },
+            {
+              "kind": "scheduleShootingTake",
+              "productionId": "prod-0004",
+              "label": "Schedule the shooting take"
+            }
+          ]
+        },
+        {
+          "action": "advanceWeek",
+          "count": 4,
+          "resultWeek": 12
+        }
+      ],
+      "saveVersion": 11,
+      "byteLength": 224828,
+      "sha256": "e150b865b6cf5dba1302d5749bc2c7536943164668f0170b81e3349569bd4b60",
+      "expectedStartWeek": 12,
+      "expectedEndWeek": 13,
+      "expectedWeeksAdvanced": 1,
+      "expectedStopReason": "release",
+      "expectedPresentation": {
+        "arm": "release",
+        "target": {
+          "kind": "release",
+          "route": "gazette-newspaper",
+          "releases": [
+            {
+              "productionId": "prod-0004",
+              "title": "The Crimson Prizefighter"
+            }
+          ]
+        }
+      },
+      "expectedConstructionCompletion": {
+        "projectId": "construction-development-casting-annex",
+        "facilityId": "facility-development-casting-annex",
+        "name": "Development & Casting Annex",
+        "completedWeek": 13,
+        "message": "Development & Casting Annex is Operational in Week 13. One shared Development & Casting slot is now available."
+      },
+      "expectedFinalSaveSha256": "a4652aae241ec653fce938e963554f2b919795c20fd2cca4b401b8a32c05b79f",
+      "claim": {
+        "week": 12,
+        "productionId": "prod-0004",
+        "remainingTicks": 1,
+        "annexStatus": "building",
+        "annexRemainingAdvances": 1
+      }
+    },
+    {
+      "id": "non-gazette-release",
+      "file": "non-gazette-release.save.json",
+      "seed": "lot-next-event-non-gazette-release",
+      "publicActionRecipe": [
+        {
+          "action": "generateWorld",
+          "seed": "lot-next-event-non-gazette-release",
+          "authority": "public Core legacy/M0A constructor retained for disengaged compatibility"
+        },
+        {
+          "action": "greenlight",
+          "package": {
+            "concept": {
+              "id": "c-00",
+              "title": "The Crimson Gambit",
+              "genre": "comedy"
+            },
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "reversal",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.4,
+                  0.4
+                ],
+                "tonalWeight": [
+                  -0.4,
+                  0.4
+                ],
+                "kineticEnergy": [
+                  -0.4,
+                  0.4
+                ]
+              }
+            },
+            "assignments": {
+              "writer": {
+                "id": "t-wri-00",
+                "name": "Barbara Vasquez"
+              },
+              "director": {
+                "id": "t-dir-00",
+                "name": "Constance Nakamura"
+              },
+              "lead": {
+                "id": "t-act-00",
+                "name": "Conrad Devereaux"
+              },
+              "antagonist": {
+                "id": "t-act-01",
+                "name": "Lauren Ashby"
+              },
+              "support": {
+                "id": "t-act-02",
+                "name": "Basil Okonkwo"
+              },
+              "craft": {
+                "id": "t-cra-00",
+                "name": "Fredric Marlowe"
+              }
+            },
+            "budget": {
+              "negative": 4869015.410558611,
+              "marketing": 400000
+            }
+          },
+          "resultWeek": 0
+        }
+      ],
+      "saveVersion": 11,
+      "byteLength": 219108,
+      "sha256": "a7ec092144cb9a7ffe0e263d03cd94a35f2884591ffcc239f4c05174a8b1b0dc",
+      "expectedStartWeek": 0,
+      "expectedEndWeek": 9,
+      "expectedWeeksAdvanced": 9,
+      "expectedStopReason": "release",
+      "expectedPresentation": {
+        "arm": "release",
+        "target": {
+          "kind": "release",
+          "route": "release-result",
+          "releases": [
+            {
+              "productionId": "prod-0000",
+              "title": "The Crimson Gambit"
+            }
+          ]
+        }
+      },
+      "expectedConstructionCompletion": null,
+      "expectedFinalSaveSha256": "18b9d32e1ff44720c5bc4bf7767c99152e15346a2fc9222ee916a21ac025d91c",
+      "claim": {
+        "week": 0,
+        "productionId": "prod-0000",
+        "participantsPersisted": false,
+        "compatibilityBoundary": "disengaged M0A"
+      }
+    },
+    {
+      "id": "week-520-guard",
+      "file": "week-520-guard.save.json",
+      "seed": "lot-next-event-520-week-guard",
+      "publicActionRecipe": [
+        {
+          "action": "generateWorld",
+          "seed": "lot-next-event-520-week-guard",
+          "authority": "public Core deterministic adapter-level guard construction"
+        }
+      ],
+      "saveVersion": 11,
+      "byteLength": 216648,
+      "sha256": "7bab747904424ee17d56a8e6dc496f943682474311561d5c5158ce7cc14e34b8",
+      "expectedStartWeek": 0,
+      "expectedEndWeek": 520,
+      "expectedWeeksAdvanced": 520,
+      "expectedStopReason": "limit",
+      "expectedPresentation": {
+        "arm": "neutral",
+        "target": null,
+        "neutralKind": "next-event-neutral"
+      },
+      "expectedConstructionCompletion": null,
+      "expectedFinalSaveSha256": "169954309327966d0e858f27cc9eca546ee1329e6516962e4b54a11d40a0b276",
+      "claim": {
+        "week": 0,
+        "contracts": 0,
+        "activeProductions": 0,
+        "directAdapterBoundary": true
+      }
+    }
+  ]
+}

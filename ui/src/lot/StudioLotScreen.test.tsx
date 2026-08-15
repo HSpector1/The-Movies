@@ -563,7 +563,8 @@ describe('StudioLotScreen — World-First Live Week Advance V1 host boundary', (
     const { getByTestId } = render(<Harness />)
     await waitFor(() => expect(spy.instances).toHaveLength(1))
     const view = latest()
-    await waitFor(() => expect(view.snapshots.length).toBeGreaterThan(1))
+    await waitFor(() => expect(view.snapshots).toHaveLength(1))
+    expect((view.snapshots[0] as { week: number }).week).toBe(0)
     const snapshotsBefore = view.snapshots.length
     const button = getByTestId('lot-advance-week')
     button.focus()
@@ -606,16 +607,16 @@ describe('StudioLotScreen — World-First Live Week Advance V1 host boundary', (
     const { getByTestId } = render(<Harness />)
     await waitFor(() => expect(spy.instances).toHaveLength(1))
     const view = latest()
-    expect((view.snapshots[0] as { week: number }).week).toBe(0)
+    expect(view.snapshots.map((snapshot) => (snapshot as { week: number }).week)).toEqual([0])
     fireEvent.click(getByTestId('lot-advance-week'))
-    await waitFor(() => expect((view.snapshots.at(-1) as { week: number }).week).toBe(1))
-    const pendingSnapshots = view.snapshots.length
+    await waitFor(() =>
+      expect(view.snapshots.map((snapshot) => (snapshot as { week: number }).week)).toEqual([0, 1]),
+    )
 
     act(() => view.opts.onReady?.())
-    await waitFor(() => expect((view.snapshots.at(-1) as { week: number }).week).toBe(1))
-    expect(view.snapshots.length).toBeGreaterThanOrEqual(pendingSnapshots)
-    expect(view.snapshots.some((snapshot) => (snapshot as { week: number }).week === 0)).toBe(true)
-    expect((view.snapshots.at(-1) as { week: number }).week).toBe(1)
+    await waitFor(() =>
+      expect(view.snapshots.map((snapshot) => (snapshot as { week: number }).week)).toEqual([0, 1]),
+    )
     expect(spy.instances).toHaveLength(1)
     expect(view.destroyed).toBe(false)
   })

@@ -46,6 +46,8 @@ import {
   runPublicity,
   runProductionCommand,
   startDevelopmentCastingAnnexAction,
+  studioDecision,
+  studioDevelopment,
   studioLotSnapshot,
 } from './engine/adapter.ts'
 import { filmCareerImpact, talentCareerHistory, preV5CreditCount } from './engine/careerImpact.ts'
@@ -96,6 +98,19 @@ import {
   sameGreenlightFormationReceipt,
   type GreenlightFormationReceipt,
 } from './lot/snapshot/productionFormation.ts'
+import {
+  acceptedLotNextEventConstructionCompletion,
+  acceptedLotNextEventGuardNeutral,
+  acceptedLotNextEventReceipt,
+  currentLotNextEventProductionCommand,
+  lotNextEventNeutralFeedback,
+  sameLotNextEventProductionCommand,
+  sameLotNextEventReceipt,
+  type LotCadenceFeedback,
+  type LotNextEventReceipt,
+} from './lot/snapshot/nextEvent.ts'
+import type { CastingDecisionFocusToken } from './screens/CastingRoom.tsx'
+import type { DashboardFocusSection } from './screens/Dashboard.tsx'
 
 // Gate D1: the Studio Lot overview is lazily imported so Phaser and the whole lot
 // module stay out of the eager bundle. The factory only runs when <StudioLotScreen/>
@@ -109,6 +124,7 @@ type OrdinaryLotEntryFocus =
   | 'publicity-campaign'
   | 'annex-work'
   | 'gate-arrivals'
+  | 'next-event-control'
 
 type StudioReturnContext =
   | { kind: 'dashboard' }
@@ -129,13 +145,14 @@ type StudioReturnContext =
       candidate: GateCandidateOwnerIntent
       suppressOperationalAnnouncement: boolean
     }
+  | {
+      kind: 'lot'
+      focus: 'next-event-reaction'
+      receipt: LotNextEventReceipt
+      suppressOperationalAnnouncement: boolean
+    }
 
 type StudioActionSource = 'mounted-lot' | 'supporting-dashboard'
-
-type LotAdvanceFeedback = {
-  week: number
-  constructionCompletion: ConstructionCompletionSummary | null
-}
 
 const DASHBOARD_RETURN_CONTEXT: StudioReturnContext = { kind: 'dashboard' }
 
@@ -152,6 +169,13 @@ function withoutTransientWorldReturnIntent(context: StudioReturnContext): Studio
     return {
       kind: 'lot',
       focus: 'gate-arrivals',
+      suppressOperationalAnnouncement: context.suppressOperationalAnnouncement,
+    }
+  }
+  if (context.focus === 'next-event-reaction') {
+    return {
+      kind: 'lot',
+      focus: 'studio-home',
       suppressOperationalAnnouncement: context.suppressOperationalAnnouncement,
     }
   }
@@ -180,8 +204,15 @@ type Screen =
       returnContext: StudioReturnContext
       focusProductionId?: string
       focusRunId?: string
+      focusSection?: DashboardFocusSection
+      focusDashboard?: boolean
     }
-  | { kind: 'roster'; returnContext: StudioReturnContext; focusTalentId?: string }
+  | {
+      kind: 'roster'
+      returnContext: StudioReturnContext
+      focusTalentId?: string
+      focusHeadingOnMount?: boolean
+    }
   | { kind: 'hiring'; returnContext: StudioReturnContext; focusTalentId?: string }
   | { kind: 'writersRoom'; returnContext: StudioReturnContext; focusProjectId?: string }
   | {
@@ -189,6 +220,7 @@ type Screen =
       returnContext: StudioReturnContext
       scriptProjectId?: string
       focusProjectId?: string
+      focusCastingDecision?: CastingDecisionFocusToken
     }
   | { kind: 'calendar'; returnContext: StudioReturnContext }
   | { kind: 'studioDevelopment'; returnContext: StudioReturnContext }
@@ -267,6 +299,60 @@ type Screen =
       entryFocus: 'production-formation'
       entryProductionFormation: GreenlightFormationReceipt
     } // Studio Home V1: primary world surface
+  | {
+      kind: 'lot'
+      entryFocus: 'next-event-reaction'
+      entryNextEventReceipt: LotNextEventReceipt
+    }
+
+function clearNextEventReturnIntent(
+  context: StudioReturnContext,
+): StudioReturnContext {
+  return context.kind === 'lot' && context.focus === 'next-event-reaction'
+    ? {
+        kind: 'lot',
+        focus: 'studio-home',
+        suppressOperationalAnnouncement: context.suppressOperationalAnnouncement,
+      }
+    : context
+}
+
+function operationalAnnexAnnouncementAlreadyOwned(state: GameState): boolean {
+  try {
+    return studioDevelopment(state).status === 'operational'
+  } catch {
+    // Presentation suppression must never turn an adapter failure into a new state claim.
+    return false
+  }
+}
+
+function clearNextEventScreenIntent(current: Screen): Screen {
+  if (current.kind === 'lot') {
+    return current.entryFocus === 'next-event-reaction'
+      ? { kind: 'lot', entryFocus: 'studio-home' }
+      : current
+  }
+  if (!('returnContext' in current)) return current
+
+  const returnContext = clearNextEventReturnIntent(current.returnContext)
+  if (current.kind === 'newspaper' && current.release !== undefined) {
+    const releaseReturnContext = clearNextEventReturnIntent(
+      current.release.returnContext,
+    )
+    if (
+      returnContext === current.returnContext &&
+      releaseReturnContext === current.release.returnContext
+    ) return current
+    return {
+      ...current,
+      returnContext,
+      release: { ...current.release, returnContext: releaseReturnContext },
+    }
+  }
+  return returnContext === current.returnContext
+    ? current
+    : { ...current, returnContext } as Screen
+}
 
 function operatingStudioHome(lotEnabled: boolean): Screen {
   return lotEnabled
@@ -374,13 +460,39 @@ export function App() {
   // productionId → pre-release snapshot, for exact autopsy of session releases. Session-only
   // (never in the save). Durable Film Chronicle navigation is a separate persisted-data path.
   const [snapshots, setSnapshots] = useState<Record<string, ReleaseSnapshot>>({})
-  // World-First Live Week Advance V1: transient presentation feedback for a no-release tick
-  // initiated on the mounted lot. Neither value is GameState or SaveFileV11 data. The separate
-  // suppression bit survives only a tick-generated deep release chain, preventing the exact Annex
-  // completion from being repeated as the generic "already operational" lot announcement.
-  const [lotAdvanceFeedback, setLotAdvanceFeedback] = useState<LotAdvanceFeedback | null>(null)
+  // One mutually-exclusive Lot cadence channel. Week and next-event feedback are UI-session only;
+  // the separately retained exact successor object is the non-serialized provenance boundary for
+  // receipt-bearing deep returns.
+  const [lotCadenceFeedback, setLotCadenceFeedback] = useState<LotCadenceFeedback | null>(null)
+  const lotNextEventSessionRef = useRef<{
+    acceptedState: GameState
+    receipt: LotNextEventReceipt
+  } | null>(null)
+  const lotNextEventActivationRef = useRef<GameState | null>(null)
   const [lotOperationalAnnouncementSuppressed, setLotOperationalAnnouncementSuppressed] =
     useState(false)
+
+  const replaceAuthoritativeState = useCallback((next: GameState | null) => {
+    lotNextEventSessionRef.current = null
+    lotNextEventActivationRef.current = null
+    latestStateRef.current = next
+    setLotCadenceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
+    setScreen(clearNextEventScreenIntent)
+    setState(next)
+  }, [])
+
+  // A non-release Lot-native cadence successor must stay inside the exact mounted Lot host.
+  // Keep this boundary separate from ordinary whole-state replacement: even an identity-returning
+  // setScreen updater would still violate the frozen no-screen-mutation contract for this path.
+  const replaceMountedLotAuthoritativeState = useCallback((next: GameState) => {
+    lotNextEventSessionRef.current = null
+    lotNextEventActivationRef.current = null
+    latestStateRef.current = next
+    setLotCadenceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
+    setState(next)
+  }, [])
 
   // Autosave after EVERY authoritative state transition — every GameState change flows through
   // setState, so this single effect covers founding, hiring, greenlight, advance, sim, release,
@@ -415,10 +527,9 @@ export function App() {
   }, [openProfileId])
 
   function startGame(next: GameState, details: { converted: boolean }) {
-    setState(next)
+    replaceAuthoritativeState(next)
     clearTalentProfileWithoutFocusRestore()
     setSnapshots({})
-    setLotAdvanceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setRecovery(null)
     setSaveMigrationNotice(details.converted)
@@ -448,10 +559,9 @@ export function App() {
       return
     }
     clearActiveSession()
-    setState(null)
+    replaceAuthoritativeState(null)
     clearTalentProfileWithoutFocusRestore()
     setSnapshots({})
-    setLotAdvanceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setRecovery(null)
     setSaveMigrationNotice(false)
@@ -462,19 +572,19 @@ export function App() {
   }
 
   function goDashboard() {
-    setLotAdvanceFeedback(null)
+    setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setScreen({ kind: 'dashboard', returnContext: DASHBOARD_RETURN_CONTEXT })
   }
 
   function goStudioHome() {
-    setLotAdvanceFeedback(null)
+    setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setScreen(operatingStudioHome(lotEnabled))
   }
 
   function openDashboardFromLot(focus: OrdinaryLotEntryFocus) {
-    setLotAdvanceFeedback(null)
+    setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setScreen({
       kind: 'dashboard',
@@ -491,7 +601,29 @@ export function App() {
       goDashboard()
       return
     }
-    setLotAdvanceFeedback(null)
+    if (context.focus === 'next-event-reaction') {
+      const session = lotNextEventSessionRef.current
+      const current = latestStateRef.current
+      if (
+        session !== null &&
+        current === session.acceptedState &&
+        sameLotNextEventReceipt(session.receipt, context.receipt)
+      ) {
+        setLotCadenceFeedback({ kind: 'next-event-exact', receipt: session.receipt })
+        setLotOperationalAnnouncementSuppressed(context.suppressOperationalAnnouncement)
+        setScreen({
+          kind: 'lot',
+          entryFocus: 'next-event-reaction',
+          entryNextEventReceipt: session.receipt,
+        })
+        return
+      }
+      setLotCadenceFeedback(null)
+      setLotOperationalAnnouncementSuppressed(context.suppressOperationalAnnouncement)
+      setScreen({ kind: 'lot', entryFocus: 'studio-home' })
+      return
+    }
+    setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(context.suppressOperationalAnnouncement)
     if (context.focus === 'gate-candidate') {
       // Preserve only the exact transient owner identity. The remounted Lot independently
@@ -541,8 +673,7 @@ export function App() {
       appReceipt = null
     }
 
-    latestStateRef.current = next
-    setState(next)
+    replaceAuthoritativeState(next)
 
     if (
       lotEnabled &&
@@ -552,7 +683,7 @@ export function App() {
       assemblyReceipt !== null &&
       sameGreenlightFormationReceipt(appReceipt, assemblyReceipt)
     ) {
-      setLotAdvanceFeedback(null)
+      setLotCadenceFeedback(null)
       setLotOperationalAnnouncementSuppressed(
         returnContext.suppressOperationalAnnouncement,
       )
@@ -615,9 +746,34 @@ export function App() {
   // Translate a lot navigation intent into the existing screen navigation. Every route
   // targets a screen that already exists outside the lot.
   function handleLotNavigate(route: LotRoute) {
+    // Saves is the one deep surface whose attempted action may leave GameState unchanged.
+    // Preserve the exact receipt only while it still proves the currently accepted successor,
+    // so a rejected import or declined restart can return to the same live-world reaction.
+    // An accepted load/restart crosses replaceAuthoritativeState() and clears this session.
+    if (route.kind === 'saves' && lotCadenceFeedback?.kind === 'next-event-exact') {
+      const session = lotNextEventSessionRef.current
+      const current = latestStateRef.current
+      if (
+        session !== null &&
+        current === session.acceptedState &&
+        sameLotNextEventReceipt(session.receipt, lotCadenceFeedback.receipt)
+      ) {
+        setLotCadenceFeedback(null)
+        setScreen({
+          kind: 'saves',
+          returnContext: {
+            kind: 'lot',
+            focus: 'next-event-reaction',
+            receipt: session.receipt,
+            suppressOperationalAnnouncement: lotOperationalAnnouncementSuppressed,
+          },
+        })
+        return
+      }
+    }
     // Existing lot destinations are ordinary deep navigation, not part of the tick-generated
     // release chain. A later lot entry is fresh and may announce an already-operational Annex.
-    setLotAdvanceFeedback(null)
+    setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     const returnContext: StudioReturnContext = {
       kind: 'lot',
@@ -668,7 +824,7 @@ export function App() {
     // Build the per-release development summary by DIFFING the pre-tick vs post-tick
     // talent (pure read of two immutable snapshots — no re-run of development).
     const development = buildReleaseDevelopment(preTick, next, released)
-    setState(next)
+    replaceAuthoritativeState(next)
     const resolvedReturnContext: StudioReturnContext =
       returnContext.kind === 'lot'
         ? {
@@ -679,7 +835,7 @@ export function App() {
           }
         : returnContext
     if (resolvedReturnContext.kind === 'lot') {
-      setLotAdvanceFeedback(null)
+      setLotCadenceFeedback(null)
       setLotOperationalAnnouncementSuppressed(
         resolvedReturnContext.suppressOperationalAnnouncement,
       )
@@ -705,7 +861,11 @@ export function App() {
     // World-First Live Week Advance V1: a no-release lot tick never changes screens. React
     // retains the mounted host/view and repaints it from the fresh authoritative state.
     if (released.length === 0 && resolvedReturnContext.kind === 'lot') {
-      setLotAdvanceFeedback({ week: next.market.tick, constructionCompletion })
+      setLotCadenceFeedback({
+        kind: 'week',
+        week: next.market.tick,
+        constructionCompletion,
+      })
       if (source === 'supporting-dashboard') {
         setScreen({ kind: 'lot', entryFocus: 'advance-week' })
       }
@@ -749,8 +909,7 @@ export function App() {
         error: 'Publicity successor failed exact acceptance receipt validation.',
       }
     }
-    latestStateRef.current = result.next
-    setState(result.next)
+    replaceAuthoritativeState(result.next)
     return { ok: true, tier, acceptedWeek }
   }
 
@@ -767,7 +926,7 @@ export function App() {
     if (!state) return
     const result = runProductionCommand(state, command)
     if (result.ok) {
-      setState(result.next)
+      replaceAuthoritativeState(result.next)
     } else {
       alert(result.error)
     }
@@ -780,7 +939,7 @@ export function App() {
   function handleSimToEvent(returnContext: StudioReturnContext) {
     if (!state) return
     const result = advanceToNextEvent(state)
-    setState(result.next)
+    replaceAuthoritativeState(result.next)
     const demotedReturnContext = withoutTransientWorldReturnIntent(returnContext)
     const resolvedReturnContext: StudioReturnContext =
       demotedReturnContext.kind === 'lot'
@@ -791,7 +950,7 @@ export function App() {
           }
         : demotedReturnContext
     if (resolvedReturnContext.kind === 'lot') {
-      setLotAdvanceFeedback(null)
+      setLotCadenceFeedback(null)
       setLotOperationalAnnouncementSuppressed(
         resolvedReturnContext.suppressOperationalAnnouncement,
       )
@@ -841,6 +1000,335 @@ export function App() {
       constructionCompletion: result.constructionCompletion,
       returnContext: resolvedReturnContext,
     })
+  }
+
+  // World-First Lot-Native Next-Event Cadence V1. This is intentionally separate from the
+  // Dashboard compatibility handler above: non-release results stay on the same mounted Lot.
+  // The exact rendered object, latest-state ref, and one synchronous claim together prevent a
+  // stale callback or compatibility tail from running the adapter twice.
+  function handleLotSimToEvent(renderedBefore: GameState): boolean {
+    const current = latestStateRef.current
+    if (
+      current === null ||
+      current !== renderedBefore ||
+      lotNextEventActivationRef.current !== null ||
+      latestOpenProfileIdRef.current !== null
+    ) return false
+
+    try {
+      if (studioDecision(current) !== null) return false
+    } catch {
+      alert('The studio could not verify whether a decision is already waiting.')
+      return false
+    }
+
+    lotNextEventActivationRef.current = current
+    let result
+    try {
+      result = advanceToNextEvent(current)
+    } catch {
+      lotNextEventActivationRef.current = null
+      alert('The studio could not advance to the next event. The current lot is unchanged.')
+      return false
+    }
+
+    // `advanceToNextEvent` is synchronous. A hostile nested owner that replaced App state in the
+    // same stack cannot let this older result overwrite its successor.
+    if (
+      lotNextEventActivationRef.current !== current ||
+      latestStateRef.current !== current
+    ) {
+      lotNextEventActivationRef.current = null
+      return false
+    }
+
+    const acceptedCompletion = acceptedLotNextEventConstructionCompletion(current, result)
+    const suppressOperationalAnnouncement =
+      acceptedCompletion !== null || operationalAnnexAnnouncementAlreadyOwned(result.next)
+    const hasRelease = Array.isArray(result.released) && result.released.length > 0
+    let acceptedReceipt: LotNextEventReceipt | null = null
+    let acceptedNeutral: Extract<LotCadenceFeedback, { kind: 'next-event-neutral' }> | null = null
+    if (!hasRelease) {
+      try {
+        acceptedReceipt = acceptedLotNextEventReceipt(current, result)
+      } catch {
+        acceptedReceipt = null
+      }
+      if (acceptedReceipt === null) {
+        acceptedNeutral = result.stopReason === 'limit'
+          ? acceptedLotNextEventGuardNeutral(current, result)
+          : lotNextEventNeutralFeedback(current, result)
+      }
+    }
+
+    if (hasRelease) {
+      replaceAuthoritativeState(result.next)
+    } else {
+      replaceMountedLotAuthoritativeState(result.next)
+    }
+    setLotOperationalAnnouncementSuppressed(suppressOperationalAnnouncement)
+
+    if (hasRelease) {
+      const returnContext: StudioReturnContext = {
+        kind: 'lot',
+        focus: 'next-event-control',
+        suppressOperationalAnnouncement,
+      }
+      const development = buildReleaseDevelopment(
+        result.preTick,
+        result.next,
+        result.released,
+      )
+      const release = {
+        preTick: result.preTick,
+        postTickStanding: result.next.studio.standing,
+        released: result.released,
+        development,
+        constructionCompletion: acceptedCompletion,
+        returnContext,
+      }
+      setSnapshots((previous) => {
+        const merged = { ...previous }
+        for (const film of result.released) {
+          merged[film.productionId] = {
+            preTick: result.preTick,
+            postTickStanding: result.next.studio.standing,
+          }
+        }
+        return merged
+      })
+      const newspaperReleases = result.released
+        .map((film) => ({ film, view: releaseNewspaper(result.next, film) }))
+        .filter(
+          (entry): entry is { film: FilmResult; view: NewspaperView } =>
+            entry.view !== null,
+        )
+      if (newspaperReleases.length > 0) {
+        setScreen({
+          kind: 'newspaper',
+          source: 'release',
+          views: newspaperReleases.map((entry) => entry.view),
+          films: newspaperReleases.map((entry) => entry.film),
+          constructionCompletion: acceptedCompletion,
+          returnContext,
+          release: { ...release, constructionCompletion: null },
+        })
+      } else {
+        setScreen({ kind: 'release', ...release })
+      }
+      return true
+    }
+
+    if (acceptedReceipt !== null) {
+      lotNextEventSessionRef.current = {
+        acceptedState: result.next,
+        receipt: acceptedReceipt,
+      }
+      setLotCadenceFeedback({ kind: 'next-event-exact', receipt: acceptedReceipt })
+      return true
+    }
+
+    lotNextEventSessionRef.current = null
+    if (acceptedNeutral !== null) {
+      setLotCadenceFeedback(acceptedNeutral)
+      return true
+    }
+
+    // The real adapter always supplies finite final primitives. This branch is defensive against
+    // a hostile boundary replacement: accept no presentation claim that was not independently safe.
+    setLotCadenceFeedback(null)
+    alert('The studio advanced, but exact event details were unavailable. Review the current lot.')
+    return true
+  }
+
+  function demoteLotNextEventReceipt(): false {
+    const session = lotNextEventSessionRef.current
+    const current = latestStateRef.current
+    lotNextEventSessionRef.current = null
+    if (session === null || current !== session.acceptedState) {
+      setLotCadenceFeedback(null)
+      return false
+    }
+    setLotCadenceFeedback({
+      kind: 'next-event-neutral',
+      toWeek: session.receipt.toWeek,
+      cashNow: session.receipt.cashNow,
+      stopMessage: 'Studio event details changed. Review the current lot.',
+      // An exact rail already presented any independently valid co-event. A later stale deep
+      // action must not remount and announce the same completion a second time.
+      constructionCompletion: null,
+    })
+    return false
+  }
+
+  function handleOpenLotNextEventDetails(receipt: LotNextEventReceipt): boolean {
+    const current = latestStateRef.current
+    const session = lotNextEventSessionRef.current
+    if (
+      current === null ||
+      session === null ||
+      current !== session.acceptedState ||
+      !sameLotNextEventReceipt(receipt, session.receipt)
+    ) return demoteLotNextEventReceipt()
+
+    const returnContext: StudioReturnContext = {
+      kind: 'lot',
+      focus: 'next-event-reaction',
+      receipt: session.receipt,
+      suppressOperationalAnnouncement:
+        session.receipt.constructionCompletion !== null ||
+        operationalAnnexAnnouncementAlreadyOwned(current),
+    }
+
+    try {
+      switch (receipt.target.kind) {
+        case 'script': {
+          const decision = studioDecision(current)
+          if (
+            decision?.kind !== 'scriptReview' ||
+            decision.decision.projectId !== receipt.target.projectId ||
+            decision.decision.title !== receipt.target.title
+          ) return demoteLotNextEventReceipt()
+          setScreen({
+            kind: 'writersRoom',
+            returnContext,
+            focusProjectId: receipt.target.projectId,
+          })
+          return true
+        }
+        case 'casting': {
+          const decision = studioDecision(current)
+          if (
+            decision?.kind !== 'castingReview' ||
+            decision.decision.sessionId !== receipt.target.sessionId ||
+            decision.decision.projectId !== receipt.target.projectId ||
+            decision.decision.title !== receipt.target.title
+          ) return demoteLotNextEventReceipt()
+          setScreen({
+            kind: 'castingRoom',
+            returnContext,
+            focusCastingDecision: {
+              sessionId: receipt.target.sessionId,
+              projectId: receipt.target.projectId,
+            },
+          })
+          return true
+        }
+        case 'production': {
+          const target = receipt.target
+          const decision = studioDecision(current)
+          const location = target.location === 'stage-7' ? 'stage-a' : 'stage-b'
+          const operations = (studioLotSnapshot(current).productionOperations ?? []).filter(
+            (operation) => operation.productionId === target.productionId,
+          )
+          if (
+            decision?.kind !== 'productionDecision' ||
+            decision.decision.productionId !== target.productionId ||
+            decision.decision.title !== target.title ||
+            currentLotNextEventProductionCommand(current, receipt) === null ||
+            operations.length !== 1 ||
+            operations[0]?.locationBuildingId !== location
+          ) return demoteLotNextEventReceipt()
+          setScreen({
+            kind: 'dashboard',
+            returnContext,
+            focusProductionId: target.productionId,
+          })
+          return true
+        }
+        case 'run-completed':
+          setScreen({ kind: 'dashboard', returnContext, focusSection: 'releases' })
+          return true
+        case 'cash':
+          setScreen({ kind: 'dashboard', returnContext, focusSection: 'finances' })
+          return true
+        case 'contracts':
+          setScreen({ kind: 'roster', returnContext, focusHeadingOnMount: true })
+          return true
+        case 'construction': {
+          const development = studioDevelopment(current)
+          if (
+            development.status !== 'operational' ||
+            development.projectId !== receipt.target.projectId ||
+            development.facilityId !== receipt.target.facilityId ||
+            development.name !== receipt.target.name ||
+            development.completedWeek !== receipt.constructionCompletion?.completedWeek
+          ) return demoteLotNextEventReceipt()
+          setScreen({ kind: 'studioDevelopment', returnContext })
+          return true
+        }
+      }
+    } catch {
+      return demoteLotNextEventReceipt()
+    }
+  }
+
+  function handleLotNextEventProductionCommand(
+    receipt: LotNextEventReceipt,
+    command: ProductionCommandView,
+  ) {
+    const current = latestStateRef.current
+    const session = lotNextEventSessionRef.current
+    const currentCommand = current === null
+      ? null
+      : currentLotNextEventProductionCommand(current, receipt)
+    if (
+      current === null ||
+      session === null ||
+      current !== session.acceptedState ||
+      !sameLotNextEventReceipt(receipt, session.receipt) ||
+      currentCommand === null ||
+      !sameLotNextEventProductionCommand(command, currentCommand)
+    ) {
+      demoteLotNextEventReceipt()
+      return {
+        ok: false as const,
+        error: 'Studio event details changed. Review the current lot.',
+      }
+    }
+
+    // The exact event owns this command only until dispatch. Consume that ownership
+    // synchronously so a nested/delayed tail cannot issue a successor command.
+    lotNextEventSessionRef.current = null
+    setLotCadenceFeedback(null)
+    const result = runProductionCommand(current, currentCommand)
+    if (result.ok) {
+      replaceAuthoritativeState(result.next)
+      return result
+    }
+
+    // Engine rejection produced no successor. Restore only if the exact accepted
+    // state, complete receipt, and projected command all remain unchanged.
+    const restoredCommand = latestStateRef.current === current
+      ? currentLotNextEventProductionCommand(current, session.receipt)
+      : null
+    if (
+      restoredCommand !== null &&
+      sameLotNextEventProductionCommand(currentCommand, restoredCommand)
+    ) {
+      lotNextEventSessionRef.current = session
+      setLotCadenceFeedback({ kind: 'next-event-exact', receipt: session.receipt })
+    } else {
+      lotNextEventSessionRef.current = session
+      demoteLotNextEventReceipt()
+    }
+    return result
+  }
+
+  function handleInvalidLotNextEventPresentation(receipt: LotNextEventReceipt): false {
+    const session = lotNextEventSessionRef.current
+    const current = latestStateRef.current
+    if (
+      session === null ||
+      current !== session.acceptedState ||
+      !sameLotNextEventReceipt(receipt, session.receipt)
+    ) return false
+    return demoteLotNextEventReceipt()
+  }
+
+  function handleDismissLotNextEvent() {
+    lotNextEventSessionRef.current = null
+    setLotCadenceFeedback(null)
   }
 
   // D-11.C PART 2: re-open a film's newspaper clipping after the fact (dashboard / record).
@@ -970,8 +1458,7 @@ export function App() {
   function handleStartDevelopmentCastingAnnex() {
     const result = startDevelopmentCastingAnnexAction(loadedState)
     if (result.ok) {
-      setLotAdvanceFeedback(null)
-      setState(result.next)
+      replaceAuthoritativeState(result.next)
     }
     return result
   }
@@ -1000,7 +1487,7 @@ export function App() {
         suppressOperationalAnnouncement: false,
       }
       const prepareDeepOwner = () => {
-        setLotAdvanceFeedback(null)
+        setLotCadenceFeedback(null)
         setLotOperationalAnnouncementSuppressed(false)
       }
 
@@ -1072,7 +1559,7 @@ export function App() {
   ): boolean {
     if (!hasCurrentStage7Production(intent)) return false
 
-    setLotAdvanceFeedback(null)
+    setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setScreen({
       kind: 'dashboard',
@@ -1133,7 +1620,7 @@ export function App() {
       return false
     }
 
-    setLotAdvanceFeedback(null)
+    setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setScreen({
       kind: 'hiring',
@@ -1169,7 +1656,7 @@ export function App() {
       {screen.kind === 'founding' && (
         <FoundingScreen
           state={state}
-          onChange={setState}
+          onChange={replaceAuthoritativeState}
           onCreate={() =>
             setScreen({
               kind: 'talent',
@@ -1178,8 +1665,7 @@ export function App() {
             })
           }
           onFounded={(next) => {
-            setState(next)
-            setLotAdvanceFeedback(null)
+            replaceAuthoritativeState(next)
             setLotOperationalAnnouncementSuppressed(false)
             setScreen(operatingStudioHome(lotEnabled))
           }}
@@ -1215,7 +1701,10 @@ export function App() {
           onOpenHiring={() =>
             setScreen({ kind: 'hiring', returnContext: dashboardDeepReturnContext })
           }
-          onSaves={() => setScreen({ kind: 'saves', returnContext: dashboardDeepReturnContext })}
+          // Unlike ordinary deep panels, Saves can reject an import or decline a restart without
+          // changing authoritative state. Keep the current exact return receipt until and unless
+          // Saves accepts a whole-studio replacement (which clears it at that boundary).
+          onSaves={() => setScreen({ kind: 'saves', returnContext: screen.returnContext })}
           onOpenRecap={() =>
             setScreen({ kind: 'recap', returnContext: dashboardDeepReturnContext })
           }
@@ -1243,23 +1732,26 @@ export function App() {
           onProductionCommand={handleProductionCommand}
           {...(screen.focusProductionId ? { focusProductionId: screen.focusProductionId } : {})}
           {...(screen.focusRunId ? { focusRunId: screen.focusRunId } : {})}
+          {...(screen.focusSection ? { focusSection: screen.focusSection } : {})}
+          {...(screen.focusDashboard ? { focusDashboard: true } : {})}
         />
       )}
 
       {screen.kind === 'roster' && (
         <StudioRoster
           state={state}
-          onChange={setState}
+          onChange={replaceAuthoritativeState}
           onBack={() => returnToStudioContext(screen.returnContext)}
           onOpenProfile={openTalentProfile}
           {...(screen.focusTalentId ? { focusTalentId: screen.focusTalentId } : {})}
+          {...(screen.focusHeadingOnMount ? { focusHeadingOnMount: true } : {})}
         />
       )}
 
       {screen.kind === 'hiring' && (
         <HiringMarket
           state={state}
-          onChange={setState}
+          onChange={replaceAuthoritativeState}
           onCreate={() =>
             setScreen({
               kind: 'talent',
@@ -1275,7 +1767,7 @@ export function App() {
       {screen.kind === 'writersRoom' && (
         <WritersRoom
           state={state}
-          onChange={setState}
+          onChange={replaceAuthoritativeState}
           onOpenPackage={(scriptProjectId) => {
             const returnContext = annexProjectChildReturnContext(
               screen.returnContext,
@@ -1308,7 +1800,7 @@ export function App() {
       {screen.kind === 'studioDevelopment' && (
         <StudioDevelopment
           state={state}
-          onChange={setState}
+          onChange={replaceAuthoritativeState}
           onBack={() => returnToStudioContext(screen.returnContext)}
         />
       )}
@@ -1316,7 +1808,7 @@ export function App() {
       {screen.kind === 'castingRoom' && (
         <CastingRoom
           state={state}
-          onChange={setState}
+          onChange={replaceAuthoritativeState}
           {...(screen.scriptProjectId ? { initialProjectId: screen.scriptProjectId } : {})}
           onOpenPackage={(scriptProjectId) => {
             const returnContext = annexProjectChildReturnContext(
@@ -1334,6 +1826,9 @@ export function App() {
           }
           onBack={() => returnToStudioContext(screen.returnContext)}
           {...(screen.focusProjectId ? { focusProjectId: screen.focusProjectId } : {})}
+          {...(screen.focusCastingDecision
+            ? { focusCastingDecision: screen.focusCastingDecision }
+            : {})}
         />
       )}
 
@@ -1347,8 +1842,7 @@ export function App() {
           // A1: a Custom Talent created mid-assembly updates the authoritative GameState here,
           // while Assembly stays mounted so the in-progress film-package draft is preserved.
           onStateChange={(next) => {
-            latestStateRef.current = next
-            setState(next)
+            replaceAuthoritativeState(next)
           }}
           onOpenProfile={openTalentProfile}
         />
@@ -1443,7 +1937,7 @@ export function App() {
         <TalentCreator
           state={state}
           onCreated={(next) => {
-            setState(next)
+            replaceAuthoritativeState(next)
             returnFromTalent(screen.returnTo, screen.returnContext)
           }}
           onBack={() => returnFromTalent(screen.returnTo, screen.returnContext)}
@@ -1469,10 +1963,9 @@ export function App() {
         <Saves
           state={state}
           onLoad={(next, details) => {
-            setState(next)
+            replaceAuthoritativeState(next)
             clearTalentProfileWithoutFocusRestore()
             setSnapshots({})
-            setLotAdvanceFeedback(null)
             setLotOperationalAnnouncementSuppressed(false)
             setRecovery(null)
             setSaveMigrationNotice(details.converted)
@@ -1522,7 +2015,11 @@ export function App() {
                 'mounted-lot',
               )
             }
-            advanceFeedback={lotAdvanceFeedback}
+            cadenceFeedback={lotCadenceFeedback}
+            onSimToNextEvent={handleLotSimToEvent}
+            onOpenNextEventDetails={handleOpenLotNextEventDetails}
+            onInvalidateNextEvent={handleInvalidLotNextEventPresentation}
+            onDismissNextEvent={handleDismissLotNextEvent}
             suppressOperationalAnnouncement={lotOperationalAnnouncementSuppressed}
             entryFocus={screen.entryFocus}
             {...(screen.entryFocus === 'stage-7-production'
@@ -1534,7 +2031,11 @@ export function App() {
             {...(screen.entryFocus === 'production-formation'
               ? { entryProductionFormation: screen.entryProductionFormation }
               : {})}
+            {...(screen.entryFocus === 'next-event-reaction'
+              ? { entryNextEventReceipt: screen.entryNextEventReceipt }
+              : {})}
             onProductionCommand={handleProductionCommand}
+            onRunNextEventProductionCommand={handleLotNextEventProductionCommand}
             onStartDevelopmentCastingAnnex={handleStartDevelopmentCastingAnnex}
             onOpenAnnexWorkDetails={handleOpenAnnexWorkDetails}
             onOpenStage7ProductionDetails={handleOpenStage7ProductionDetails}

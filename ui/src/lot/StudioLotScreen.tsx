@@ -12,7 +12,7 @@
 // canvas cannot expose a reliable accessibility tree. Neither surface owns GameState:
 // they emit identity/intent and the host dispatches only engine-projected commands.
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type {
   ActionOutcome,
   ConstructionCompletionSummary,
@@ -21,12 +21,17 @@ import type {
 } from '../engine/adapter.ts'
 import {
   careerIdentityLabel,
+  studioDecision,
   studioDevelopment,
   studioLotSnapshot,
   talentAssignmentContext,
   talentProfile,
 } from '../engine/adapter.ts'
 import { ConstructionCompletionNotice } from '../components/ConstructionCompletionNotice.tsx'
+import {
+  LotNextEventRail,
+  type LotNextEventRailAction,
+} from './LotNextEventRail.tsx'
 import { moneyExact } from '../format.ts'
 import type {
   AttentionState,
@@ -69,6 +74,13 @@ import {
   productionFormationContext,
   type GreenlightFormationReceipt,
 } from './snapshot/productionFormation.ts'
+import {
+  currentLotNextEventProductionCommand,
+  sameLotNextEventProductionCommand,
+  sameLotNextEventReceipt,
+  type LotCadenceFeedback,
+  type LotNextEventReceipt,
+} from './snapshot/nextEvent.ts'
 import {
   getLotSelectedBuilding,
   setLotSelectedBuilding,
@@ -251,7 +263,9 @@ type Props = {
   onExit: () => void
   /** Emit one authoritative App-owned weekly-advance intent. */
   onAdvance: () => void
-  /** Exact transient feedback from a no-release lot-origin advance. */
+  /** One mutually exclusive App-owned weekly or next-event feedback arm. */
+  cadenceFeedback?: LotCadenceFeedback | null
+  /** Legacy focused-test compatibility; App uses cadenceFeedback. */
   advanceFeedback?: {
     week: number
     constructionCompletion: ConstructionCompletionSummary | null
@@ -267,12 +281,16 @@ type Props = {
     | 'stage-7-production'
     | 'gate-candidate'
     | 'production-formation'
+    | 'next-event-control'
+    | 'next-event-reaction'
   /** Exact identity required by the transient Stage 7 deep-return arm. */
   entryStage7ProductionId?: string
   /** Exact transient candidate identity required by the Gate deep-return arm. */
   entryGateCandidate?: GateCandidateOwnerIntent
   /** Exact accepted-greenlight receipt required by the formation return arm. */
   entryProductionFormation?: GreenlightFormationReceipt
+  /** Exact receipt restored only by App's accepted-state reaction-return arm. */
+  entryNextEventReceipt?: LotNextEventReceipt
   /** Suppress a generic Annex announcement already owned by an exact completion surface. */
   suppressOperationalAnnouncement?: boolean
   /** Open the supporting Dashboard and return to this exact campaign context. */
@@ -281,6 +299,11 @@ type Props = {
   onRunPublicity?: (tier: LotPublicityTier) => LotPublicityResult
   /** Dispatch exactly the command projected by the authoritative operations read model. */
   onProductionCommand?: (command: LotProductionCommand) => ActionOutcome | void
+  /** Consume one exact event-session production command after independent App validation. */
+  onRunNextEventProductionCommand?: (
+    receipt: LotNextEventReceipt,
+    command: LotProductionCommand,
+  ) => ActionOutcome
   /** Dispatch the existing parameter-free Annex action through the authoritative App owner. */
   onStartDevelopmentCastingAnnex?: () => ActionOutcome
   /** Navigate to the exact current Annex occupant's existing deep owner after revalidation. */
@@ -299,6 +322,14 @@ type Props = {
   openTalentProfileId?: string | null
   /** Suspend every world/companion action while a modal remains above the living renderer. */
   worldInputSuspended?: boolean
+  /** Run the existing App-owned adapter once from this exact rendered state. */
+  onSimToNextEvent?: (renderedBefore: GameState) => boolean
+  /** Open one exact supporting owner after App independently revalidates the receipt. */
+  onOpenNextEventDetails?: (receipt: LotNextEventReceipt) => boolean
+  /** Demote an exact presentation whose current semantic projection no longer validates. */
+  onInvalidateNextEvent?: (receipt: LotNextEventReceipt) => boolean
+  /** Dismiss only current next-event presentation. */
+  onDismissNextEvent?: () => void
 }
 
 // Stage assignment memory. Like selected-building memory, it is UI session state — NOT
@@ -327,6 +358,40 @@ function prefersReducedMotion(): boolean {
     return typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
   } catch {
     return false
+  }
+}
+
+function lotNextEventEligibility(state: GameState): {
+  eligible: boolean
+  reason: string | null
+} {
+  try {
+    const pending = studioDecision(state)
+    if (pending === null) return { eligible: true, reason: null }
+    switch (pending.kind) {
+      case 'scriptReview':
+        return {
+          eligible: false,
+          reason: `Review ${pending.decision.title} in the Writers’ Room before simming to another event.`,
+        }
+      case 'castingReview':
+        return {
+          eligible: false,
+          reason: `Review casting for ${pending.decision.title} in the Casting Room before simming to another event.`,
+        }
+      case 'productionDecision':
+        return {
+          eligible: false,
+          reason: `${pending.decision.title} — ${
+            pending.decision.blocker?.headline ?? pending.decision.command?.label ?? pending.decision.statusLabel
+          } at ${pending.decision.currentFacility}. Resolve this production problem before simming to another event.`,
+        }
+    }
+  } catch {
+    return {
+      eligible: false,
+      reason: 'Current studio decision status is unavailable. Review the live lot before simming.',
+    }
   }
 }
 
@@ -458,15 +523,18 @@ export function StudioLotScreen({
   onNavigate,
   onExit,
   onAdvance,
-  advanceFeedback = null,
+  cadenceFeedback = null,
+  advanceFeedback: legacyAdvanceFeedback = null,
   entryFocus,
   entryStage7ProductionId,
   entryGateCandidate,
   entryProductionFormation,
+  entryNextEventReceipt,
   suppressOperationalAnnouncement = false,
   onOpenPublicityDashboard,
   onRunPublicity,
   onProductionCommand,
+  onRunNextEventProductionCommand,
   onStartDevelopmentCastingAnnex,
   onOpenAnnexWorkDetails,
   onOpenStage7ProductionDetails,
@@ -476,12 +544,73 @@ export function StudioLotScreen({
   onCloseTalentProfile,
   openTalentProfileId = null,
   worldInputSuspended = false,
+  onSimToNextEvent,
+  onOpenNextEventDetails,
+  onInvalidateNextEvent,
+  onDismissNextEvent,
 }: Props) {
+  const advanceFeedback = cadenceFeedback?.kind === 'week'
+    ? cadenceFeedback
+    : cadenceFeedback === null
+      ? legacyAdvanceFeedback
+      : null
+  const rawNextEventFeedback = cadenceFeedback?.kind === 'next-event-exact' ||
+      cadenceFeedback?.kind === 'next-event-neutral'
+    ? cadenceFeedback
+    : null
+  const rawNextEventProductionReceipt =
+    rawNextEventFeedback?.kind === 'next-event-exact' &&
+    rawNextEventFeedback.receipt.target.kind === 'production'
+      ? rawNextEventFeedback.receipt
+      : null
+  const nextEventProductionCommand = rawNextEventProductionReceipt === null
+    ? null
+    : currentLotNextEventProductionCommand(state, rawNextEventProductionReceipt)
+  const invalidNextEventProductionReceipt =
+    rawNextEventProductionReceipt !== null && nextEventProductionCommand === null
+      ? rawNextEventProductionReceipt
+      : null
+  const nextEventFeedback: Extract<
+    LotCadenceFeedback,
+    { kind: 'next-event-exact' | 'next-event-neutral' }
+  > | null = invalidNextEventProductionReceipt === null
+    ? rawNextEventFeedback
+    : {
+        kind: 'next-event-neutral',
+        toWeek: invalidNextEventProductionReceipt.toWeek,
+        cashNow: invalidNextEventProductionReceipt.cashNow,
+        stopMessage: 'Studio event details changed. Review the current lot.',
+        constructionCompletion: null,
+      }
+  const nextEventConstructionCompletion = nextEventFeedback?.kind === 'next-event-exact'
+    ? nextEventFeedback.receipt.constructionCompletion
+    : nextEventFeedback?.constructionCompletion ?? null
+  const nextEventEligibility = lotNextEventEligibility(state)
   const mountRef = useRef<HTMLDivElement | null>(null)
   const viewRef = useRef<StudioLotViewClass | null>(null)
+  const rendererStateRef = useRef<GameState | null>(null)
   const studioHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const namedPeopleGroupRef = useRef<HTMLDivElement | null>(null)
   const advanceButtonRef = useRef<HTMLButtonElement | null>(null)
+  const nextEventButtonRef = useRef<HTMLButtonElement | null>(null)
+  const nextEventHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const nextEventFeedbackRef = useRef(nextEventFeedback)
+  nextEventFeedbackRef.current = nextEventFeedback
+  const nextEventOrientationRef = useRef<LotNextEventReceipt | null>(null)
+  const nextEventOrientationOwnedRef = useRef(false)
+  const applyingNextEventOrientationRef = useRef(false)
+  const nextEventGestureRef = useRef<{
+    renderedState: GameState
+    origin: 'pointer' | 'keyboard'
+  } | null>(null)
+  const nextEventHeldKeyRef = useRef<'Enter' | ' ' | null>(null)
+  const nextEventSuppressUntokenedVirtualRef = useRef(false)
+  const nextEventVirtualReleaseEpochRef = useRef(0)
+  const nextEventSuppressPhysicalStartRef = useRef(false)
+  const nextEventPhysicalReleaseEpochRef = useRef(0)
+  const nextEventPhysicalPrimaryRequiredRef = useRef(false)
+  const nextEventWasSuspendedRef = useRef(worldInputSuspended)
+  const nextEventDocumentWasHiddenRef = useRef(false)
   const companionButtonRefs = useRef<Partial<Record<BuildingId, HTMLButtonElement | null>>>({})
   const onNavigateRef = useRef(onNavigate)
   onNavigateRef.current = onNavigate
@@ -490,10 +619,73 @@ export function StudioLotScreen({
   const worldInputSuspendedRef = useRef(worldInputSuspended)
   worldInputSuspendedRef.current = worldInputSuspended
 
+  const releaseNextEventVirtualTail = useCallback(() => {
+    nextEventSuppressUntokenedVirtualRef.current = true
+    const epoch = ++nextEventVirtualReleaseEpochRef.current
+    queueMicrotask(() => {
+      if (nextEventVirtualReleaseEpochRef.current === epoch) {
+        nextEventSuppressUntokenedVirtualRef.current = false
+      }
+    })
+  }, [])
+
+  const releaseNextEventVirtualTailAfterTask = useCallback(() => {
+    nextEventSuppressUntokenedVirtualRef.current = true
+    const epoch = ++nextEventVirtualReleaseEpochRef.current
+    window.setTimeout(() => {
+      if (nextEventVirtualReleaseEpochRef.current === epoch) {
+        nextEventSuppressUntokenedVirtualRef.current = false
+      }
+    }, 0)
+  }, [])
+
+  const suppressNextEventPhysicalStartsThroughTask = useCallback(() => {
+    nextEventSuppressPhysicalStartRef.current = true
+    const epoch = ++nextEventPhysicalReleaseEpochRef.current
+    window.setTimeout(() => {
+      if (nextEventPhysicalReleaseEpochRef.current === epoch) {
+        nextEventSuppressPhysicalStartRef.current = false
+      }
+    }, 0)
+  }, [])
+
+  const clearNextEventGesture = useCallback((sealVirtualTail: boolean) => {
+    nextEventGestureRef.current = null
+    nextEventHeldKeyRef.current = null
+    if (sealVirtualTail) {
+      // Cancellation boundaries can precede the browser's keyup/click turn.
+      // Hold only through the next task, never as an unbounded accessibility lock.
+      releaseNextEventVirtualTailAfterTask()
+      suppressNextEventPhysicalStartsThroughTask()
+    } else {
+      nextEventVirtualReleaseEpochRef.current += 1
+      nextEventSuppressUntokenedVirtualRef.current = false
+    }
+  }, [releaseNextEventVirtualTailAfterTask, suppressNextEventPhysicalStartsThroughTask])
+
+  const settleNextEventKeyUp = useCallback((key: string) => {
+    if (nextEventHeldKeyRef.current !== key) return
+    nextEventHeldKeyRef.current = null
+    const gesture = nextEventGestureRef.current
+    if (gesture?.origin !== 'keyboard') return
+    window.setTimeout(() => {
+      if (
+        nextEventGestureRef.current === gesture &&
+        nextEventHeldKeyRef.current === null
+      ) {
+        clearNextEventGesture(true)
+      }
+    }, 0)
+  }, [clearNextEventGesture])
+
   const [selected, setSelected] = useState<BuildingId | null>(getLotSelectedBuilding)
   const [selectionInfo, setSelectionInfo] = useState<SelectionInfo | null>(null)
   const [canvasReady, setCanvasReady] = useState(false)
   const [canvasFailed, setCanvasFailed] = useState(false)
+  const [nextEventRailInputResetEpoch, setNextEventRailInputResetEpoch] = useState(0)
+  const resetNextEventRailInput = useCallback(() => {
+    setNextEventRailInputResetEpoch((epoch) => epoch + 1)
+  }, [])
   const [reducedMotion, setReducedMotionState] = useState(prefersReducedMotion)
   const hollywood = operationHollywoodEnabled()
   const [hollywoodPerson, setHollywoodPerson] = useState<LotPersonState | null>(null)
@@ -545,6 +737,7 @@ export function StudioLotScreen({
   const formationReceiptRef = useRef<GreenlightFormationReceipt | null>(formationReceipt)
   const formationPendingFocusRef = useRef<string | null>(null)
   const formationEntryConsumedRef = useRef(false)
+  const entryFocusConsumedRef = useRef(false)
   const gateHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const gateVisitorHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const gateProfileButtonRef = useRef<HTMLButtonElement | null>(null)
@@ -689,6 +882,8 @@ export function StudioLotScreen({
   }, [])
 
   const snapshot = readSnapshot(state)
+  const latestGameStateRef = useRef(state)
+  latestGameStateRef.current = state
   const currentPublicityCampaign = publicityCampaignContext(snapshot)
   const currentAnnexWork = operationalAnnexWorkContext(snapshot)
   const currentGateMarket = gateHiringMarketContext(snapshot)
@@ -835,6 +1030,9 @@ export function StudioLotScreen({
   renderedHollywoodProductionIdRef.current = hollywoodOperation?.productionId ?? null
 
   const recordHollywoodRendererActivity = useCallback((activity: string) => {
+    // Renderer animation may finish while an authoritative cadence event owns
+    // the Lot. Keep the visual truth, but do not create a competing live event.
+    if (nextEventFeedbackRef.current !== null) return
     const current = latestSnapshotRef.current
     const stage7 = (current.productionOperations ?? []).filter(
       (operation) => operation.locationBuildingId === 'stage-a',
@@ -870,6 +1068,60 @@ export function StudioLotScreen({
   const recordSelection = useCallback((id: BuildingId | null) => {
     setLotSelectedBuilding(id)
     setSelected(id)
+  }, [])
+
+  const paintNextEventOrientation = useCallback((paint: () => void) => {
+    applyingNextEventOrientationRef.current = true
+    try {
+      paint()
+    } finally {
+      applyingNextEventOrientationRef.current = false
+    }
+  }, [])
+
+  const applyNextEventPhysicalOrientation = useCallback((view: StudioLotViewClass): boolean => {
+    if (!nextEventOrientationOwnedRef.current) return false
+    const receipt = nextEventOrientationRef.current
+    paintNextEventOrientation(() => {
+      view.clearSelection()
+      view.clearHollywoodPersonSelection?.()
+      view.clearHollywoodPlaceSelection?.()
+      if (receipt === null) return
+      switch (receipt.target.kind) {
+        case 'script':
+          if (!hollywood) view.select('writers')
+          return
+        case 'casting':
+          if (!hollywood) view.select('casting')
+          return
+        case 'run-completed':
+          if (!hollywood) view.select('theater')
+          return
+        case 'cash':
+          if (hollywood) view.selectHollywoodPublicityPlace?.()
+          else view.select('admin')
+          return
+        case 'contracts':
+          return
+        case 'construction':
+          if (hollywood) view.selectHollywoodAnnexPlace?.()
+          else view.select('expansion')
+          return
+        case 'production':
+          if (receipt.target.location === 'stage-7') {
+            if (hollywood) view.selectHollywoodProduction?.(receipt.target.productionId)
+            else view.select('stage-a')
+          } else if (!hollywood) {
+            view.select('stage-b')
+          }
+      }
+    })
+    return true
+  }, [hollywood, paintNextEventOrientation])
+
+  const yieldNextEventOrientation = useCallback(() => {
+    nextEventOrientationRef.current = null
+    nextEventOrientationOwnedRef.current = false
   }, [])
 
   const cancelHollywoodStage7Gesture = useCallback(() => {
@@ -1463,10 +1715,11 @@ export function StudioLotScreen({
       if (event.key !== 'Enter' && event.key !== ' ') return
       if (gateCandidateHeldKeyRef.current === event.key) gateCandidateHeldKeyRef.current = null
       if (gateHeldKeyRef.current === event.key) gateHeldKeyRef.current = null
+      settleNextEventKeyUp(event.key)
     }
     document.addEventListener('keyup', release, true)
     return () => document.removeEventListener('keyup', release, true)
-  }, [])
+  }, [settleNextEventKeyUp])
 
   const clickGateCandidateSelection = useCallback((talentId: string, detail: number) => {
     const suppressed = gateCandidateSuppressClickRef.current
@@ -1482,11 +1735,13 @@ export function StudioLotScreen({
   const recordHollywoodGateVisitor = useCallback((
     visitor: HollywoodGateVisitorSelection,
   ) => {
+    if (applyingNextEventOrientationRef.current) return
     if (
       worldInputSuspendedRef.current ||
       !gateSelectedRef.current ||
       gateCandidateIntentRef.current?.talentId !== visitor.talentId
     ) return
+    yieldNextEventOrientation()
     const current = gateHiringCandidateContext(latestSnapshotRef.current, visitor.talentId)
     if (
       current === null ||
@@ -1494,27 +1749,31 @@ export function StudioLotScreen({
     ) return
     setGateCandidateIntent(current.ownerIntent)
     focusGateContext('visitor')
-  }, [focusGateContext])
+  }, [focusGateContext, yieldNextEventOrientation])
 
   const recordHollywoodProduction = useCallback((
     production: HollywoodProductionSelection,
   ) => {
+    if (applyingNextEventOrientationRef.current) return
     if (production.locationBuildingId !== 'stage-a') return
+    yieldNextEventOrientation()
     enterHollywoodProductionContext(production.productionId, {
       stage7Only: true,
       detailEligible: true,
       focus: 'primary',
     })
-  }, [enterHollywoodProductionContext])
+  }, [enterHollywoodProductionContext, yieldNextEventOrientation])
 
   const recordHollywoodSceneryLoadIn = useCallback((
     selection: HollywoodSceneryLoadInSelection,
   ) => {
+    if (applyingNextEventOrientationRef.current) return
+    yieldNextEventOrientation()
     enterHollywoodSceneryLoadInContext(selection, {
       paintHollywoodOutline: true,
       focus: true,
     })
-  }, [enterHollywoodSceneryLoadInContext])
+  }, [enterHollywoodSceneryLoadInContext, yieldNextEventOrientation])
 
   const enterProductionFormationContext = useCallback((
     receipt: GreenlightFormationReceipt,
@@ -1562,27 +1821,166 @@ export function StudioLotScreen({
   ])
 
   useEffect(() => {
-    if (suppressOperationalAnnouncement || advanceFeedback?.constructionCompletion) {
+    const clearPhysicalOrientation = () => {
+      const view = viewRef.current
+      if (view === null) return
+      paintNextEventOrientation(() => {
+        view.clearSelection()
+        view.clearHollywoodPersonSelection?.()
+        view.clearHollywoodPlaceSelection?.()
+      })
+    }
+
+    if (nextEventFeedback === null) {
+      const yieldedReceipt = nextEventOrientationRef.current
+      nextEventOrientationRef.current = null
+      if (!nextEventOrientationOwnedRef.current) return
+      nextEventOrientationOwnedRef.current = false
+      if (yieldedReceipt?.target.kind === 'production') {
+        pendingHollywoodFocusProductionId.current = null
+        clearHollywoodStage7DetailContext()
+        clearHollywoodSceneryLoadInContext()
+        setHollywoodProductionId(null)
+      }
+      const retained = getLotSelectedBuilding()
+      setSelected(retained)
+      clearPhysicalOrientation()
+      if (retained !== null && viewRef.current !== null) {
+        const view = viewRef.current
+        paintNextEventOrientation(() => view.select(retained))
+      }
+      return
+    }
+
+    clearFormationContext()
+    clearHollywoodStage7DetailContext()
+    clearGateContext()
+    clearPublicityContext()
+    clearHollywoodSceneryLoadInContext()
+    clearAnnexContext()
+    pendingHollywoodFocusProductionId.current = null
+    hollywoodPersonRef.current = null
+    setHollywoodProductionId(null)
+    setHollywoodPerson(null)
+    setHollywoodPlace(null)
+    setSelectionInfo(null)
+    clearPhysicalOrientation()
+    nextEventOrientationOwnedRef.current = true
+
+    if (nextEventFeedback.kind === 'next-event-neutral') {
+      nextEventOrientationRef.current = null
+      setSelected(null)
+      return
+    }
+
+    const receipt = nextEventFeedback.receipt
+    nextEventOrientationRef.current = receipt
+    switch (receipt.target.kind) {
+      case 'script':
+        setSelected('writers')
+        break
+      case 'casting':
+        setSelected('casting')
+        break
+      case 'run-completed':
+        setSelected('theater')
+        break
+      case 'cash':
+        setSelected('admin')
+        break
+      case 'contracts':
+        setSelected(null)
+        break
+      case 'construction':
+        setSelected('expansion')
+        break
+      case 'production': {
+        const target = receipt.target
+        if (hollywood) {
+          paintNextEventOrientation(() => {
+            enterHollywoodProductionContext(target.productionId, {
+              stage7Only: target.location === 'stage-7',
+              detailEligible: target.location === 'stage-7',
+              focus: false,
+            })
+          })
+        } else {
+          const building = target.location === 'stage-7' ? 'stage-a' : 'stage-b'
+          setSelected(building)
+        }
+      }
+    }
+    if (viewRef.current !== null) applyNextEventPhysicalOrientation(viewRef.current)
+  }, [
+    applyNextEventPhysicalOrientation,
+    clearAnnexContext,
+    clearFormationContext,
+    clearGateContext,
+    clearHollywoodSceneryLoadInContext,
+    clearHollywoodStage7DetailContext,
+    clearPublicityContext,
+    enterHollywoodProductionContext,
+    hollywood,
+    nextEventFeedback,
+    paintNextEventOrientation,
+  ])
+
+  useEffect(() => {
+    if (
+      suppressOperationalAnnouncement ||
+      advanceFeedback?.constructionCompletion ||
+      nextEventConstructionCompletion ||
+      (nextEventFeedback !== null && operationalAnnexCapacity !== null)
+    ) {
       completionAnnouncementOwnedRef.current = true
     }
     setOperationalAnnouncement(
-      operationalAnnexCapacity !== null &&
+      nextEventFeedback === null &&
+        operationalAnnexCapacity !== null &&
         !completionAnnouncementOwnedRef.current
         ? `Development & Casting Annex is Operational. Development & Casting capacity is now ${operationalAnnexCapacity} shared slots.`
         : '',
     )
   }, [
     advanceFeedback?.constructionCompletion,
+    nextEventConstructionCompletion,
+    nextEventFeedback,
     operationalAnnexCapacity,
     suppressOperationalAnnouncement,
   ])
 
   useEffect(() => {
+    if (!entryFocus || entryFocusConsumedRef.current) return
+    entryFocusConsumedRef.current = true
     // The exact completion item owns first focus on its arrival surface.
-    if (!entryFocus || advanceFeedback?.constructionCompletion) return
+    if (
+      advanceFeedback?.constructionCompletion ||
+      nextEventConstructionCompletion
+    ) return
 
     if (entryFocus === 'advance-week') {
       advanceButtonRef.current?.focus()
+      return
+    }
+
+    if (entryFocus === 'next-event-control') {
+      nextEventButtonRef.current?.focus()
+      return
+    }
+
+    if (entryFocus === 'next-event-reaction') {
+      if (
+        nextEventFeedback?.kind === 'next-event-exact' &&
+        entryNextEventReceipt !== undefined &&
+        sameLotNextEventReceipt(
+          nextEventFeedback.receipt,
+          entryNextEventReceipt,
+        )
+      ) {
+        // The newly mounted rail owns this one exact focus transfer.
+        return
+      }
+      studioHeadingRef.current?.focus({ preventScroll: true })
       return
     }
 
@@ -1718,6 +2116,7 @@ export function StudioLotScreen({
   }, [
     entryFocus,
     entryGateCandidate,
+    entryNextEventReceipt,
     entryProductionFormation,
     entryStage7ProductionId,
   ])
@@ -1753,6 +2152,8 @@ export function StudioLotScreen({
 
   const recordHollywoodPerson = useCallback((person: LotPersonState | null) => {
     if (worldInputSuspendedRef.current) return
+    if (applyingNextEventOrientationRef.current) return
+    if (person !== null) yieldNextEventOrientation()
     const formation = formationReceiptRef.current === null
       ? null
       : productionFormationContext(
@@ -1804,10 +2205,13 @@ export function StudioLotScreen({
     clearFormationContext,
     clearPublicityContext,
     recordSelection,
+    yieldNextEventOrientation,
   ])
 
   const recordHollywoodPlace = useCallback((place: HollywoodPlaceSelection | null) => {
     if (worldInputSuspendedRef.current) return
+    if (applyingNextEventOrientationRef.current) return
+    if (place !== null) yieldNextEventOrientation()
     if (place !== null) clearFormationContext()
     // The scene has already painted a non-null physical place selection before
     // emitting this event. Leave that generic outline intact while dropping only
@@ -2072,13 +2476,21 @@ export function StudioLotScreen({
     setAnnexPending(false)
     if (!annexAcceptedFocusRef.current) return
     annexAcceptedFocusRef.current = false
-    if (!annexSelectedRef.current || advanceFeedback?.constructionCompletion) return
+    if (
+      !annexSelectedRef.current ||
+      advanceFeedback?.constructionCompletion ||
+      nextEventConstructionCompletion
+    ) return
     const nonce = ++annexFocusNonceRef.current
     queueMicrotask(() => {
       if (!annexSelectedRef.current || annexFocusNonceRef.current !== nonce) return
       annexStatusRef.current?.focus()
     })
-  }, [advanceFeedback?.constructionCompletion, annexView.status])
+  }, [
+    advanceFeedback?.constructionCompletion,
+    annexView.status,
+    nextEventConstructionCompletion,
+  ])
 
   // An explicit identity never falls through to another film. Snapshot replacement
   // may remove or relocate it; in that case the context stays empty until the player
@@ -2222,6 +2634,7 @@ export function StudioLotScreen({
     import('./StudioLotView.ts')
       .then(({ StudioLotView }) => {
         if (cancelled || !mountRef.current) return
+        rendererStateRef.current = latestGameStateRef.current
         view = new StudioLotView({
           parent: mountRef.current,
           distinctStages: soundstages,
@@ -2236,6 +2649,8 @@ export function StudioLotScreen({
             selectedBuildingId: getLotSelectedBuilding(),
           },
           onSelect: (sel) => {
+            if (applyingNextEventOrientationRef.current) return
+            yieldNextEventOrientation()
             clearFormationContext()
             if (hollywood && sel?.buildingId === 'gate') {
               if (!enterGateContext({
@@ -2270,6 +2685,8 @@ export function StudioLotScreen({
             recordSelection(sel?.buildingId ?? null)
           },
           onAction: (e) => {
+            if (applyingNextEventOrientationRef.current) return
+            yieldNextEventOrientation()
             clearFormationContext()
             if (hollywood && e.buildingId === 'gate') {
               enterGateContext({
@@ -2302,6 +2719,9 @@ export function StudioLotScreen({
           onActivity: (text) => { if (text) recordHollywoodRendererActivity(text) },
           onHollywoodFailure: () => {
             if (cancelled) return
+            nextEventPhysicalPrimaryRequiredRef.current = true
+            clearNextEventGesture(true)
+            resetNextEventRailInput()
             cancelHollywoodStage7Gesture()
             cancelGateCandidateGesture()
             setCanvasReady(false)
@@ -2313,8 +2733,13 @@ export function StudioLotScreen({
           },
           onReady: () => {
             if (cancelled) return
+            const readyView = view
+            if (readyView === null) return
             // StudioLotView suppresses ready from a failed renderer generation, so
             // any ready reaching React is a validated live or recreated renderer.
+            nextEventPhysicalPrimaryRequiredRef.current = true
+            clearNextEventGesture(true)
+            resetNextEventRailInput()
             cancelHollywoodStage7Gesture()
             cancelGateCandidateGesture()
             setCanvasFailed(false)
@@ -2329,7 +2754,10 @@ export function StudioLotScreen({
               hollywoodPersonRef.current?.id === formation.director.id
                 ? formation.director.id
                 : null
-            if (formationDirectorId !== null) {
+            if (applyNextEventPhysicalOrientation(readyView)) {
+              // The event receipt owns the current orientation, including deliberate semantic-only
+              // and neutral cases where no Hollywood physical outline is authorized.
+            } else if (formationDirectorId !== null) {
               view?.selectHollywoodPerson(formationDirectorId)
             } else if (gateSelectedRef.current) {
               const market = gateHiringMarketContext(latestSnapshotRef.current)
@@ -2384,6 +2812,9 @@ export function StudioLotScreen({
         // Canvas unavailable (no WebGL / jsdom). The companion navigation remains
         // fully functional — the lot degrades to the accessible list.
         if (!cancelled) {
+          nextEventPhysicalPrimaryRequiredRef.current = true
+          clearNextEventGesture(true)
+          resetNextEventRailInput()
           cancelHollywoodStage7Gesture()
           cancelGateCandidateGesture()
           setCanvasFailed(true)
@@ -2393,6 +2824,12 @@ export function StudioLotScreen({
 
     return () => {
       cancelled = true
+      nextEventVirtualReleaseEpochRef.current += 1
+      nextEventGestureRef.current = null
+      nextEventHeldKeyRef.current = null
+      nextEventSuppressUntokenedVirtualRef.current = false
+      nextEventPhysicalReleaseEpochRef.current += 1
+      nextEventSuppressPhysicalStartRef.current = false
       gateNavigationPendingRef.current = false
       gateHeldKeyRef.current = null
       gateActivationRef.current = null
@@ -2403,18 +2840,34 @@ export function StudioLotScreen({
       view?.setHollywoodGateVisitor?.(null)
       view?.destroy()
       viewRef.current = null
+      rendererStateRef.current = null
     }
     // Intentionally run once: the view is created a single time and fed new snapshots
     // by the effect below. state/callbacks are read via refs / fresh selector calls.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // A cadence gesture belongs to the exact GameState rendered at its start. Any
+  // external authoritative replacement invalidates that token before a delayed
+  // native click can borrow the newly rendered control.
+  useLayoutEffect(() => {
+    const gesture = nextEventGestureRef.current
+    if (gesture !== null && gesture.renderedState !== state) {
+      nextEventPhysicalPrimaryRequiredRef.current = true
+      clearNextEventGesture(true)
+    }
+  }, [clearNextEventGesture, state])
+
   // Modal overlays keep this exact view mounted and animated while making the
   // world inert. Native DOM controls are also placed in an inert subtree below;
   // clear held semantic keys here so an activation begun before modal entry
   // cannot complete after it closes. The latest ref above also covers a drawer
   // opened before the lazy renderer constructor resolves.
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (worldInputSuspended || nextEventWasSuspendedRef.current) {
+      nextEventPhysicalPrimaryRequiredRef.current = true
+      clearNextEventGesture(true)
+    }
     if (worldInputSuspended) {
       publicityHeldKeyRef.current = null
       hollywoodSceneryCommandHeldKeyRef.current = null
@@ -2426,8 +2879,14 @@ export function StudioLotScreen({
       cancelHollywoodStage7Gesture()
       cancelGateCandidateGesture()
     }
+    nextEventWasSuspendedRef.current = worldInputSuspended
     viewRef.current?.setInputSuspended?.(worldInputSuspended)
-  }, [cancelGateCandidateGesture, cancelHollywoodStage7Gesture, worldInputSuspended])
+  }, [
+    cancelGateCandidateGesture,
+    cancelHollywoodStage7Gesture,
+    clearNextEventGesture,
+    worldInputSuspended,
+  ])
 
   // App restores a valid profile opener itself. If fresh state invalidated and
   // unmounted that opener while the drawer was open, own the only safe fallback:
@@ -2471,13 +2930,20 @@ export function StudioLotScreen({
         formation !== null && hollywoodPersonRef.current?.id === formation.director.id
           ? formation.director.id
           : null
-      v.setSnapshot({ ...readSnapshot(state), selectedBuildingId: getLotSelectedBuilding() })
+      if (rendererStateRef.current !== state) {
+        rendererStateRef.current = state
+        v.setSnapshot({ ...readSnapshot(state), selectedBuildingId: getLotSelectedBuilding() })
+      }
       if (!canvasReady) return
-      if (formationDirectorId !== null) {
+      if (applyNextEventPhysicalOrientation(v)) {
+        // Current next-event orientation supersedes older world presentation contexts.
+      } else if (formationDirectorId !== null) {
         v.selectHollywoodPerson(formationDirectorId)
       }
       const sceneryProductionId = hollywoodSceneryLoadInProductionIdRef.current
-      if (formationDirectorId !== null) {
+      if (nextEventOrientationOwnedRef.current) {
+        // Already applied above; do not let an older context repaint over it.
+      } else if (formationDirectorId !== null) {
         // Exact person selection above is the sole current physical owner.
       } else if (gateSelectedRef.current) {
         const market = gateHiringMarketContext(latestSnapshotRef.current)
@@ -2510,16 +2976,21 @@ export function StudioLotScreen({
         v.selectHollywoodProduction?.(hollywoodStage7DetailProductionIdRef.current)
       }
     }
-  }, [state, canvasReady, hollywood, readSnapshot])
+  }, [applyNextEventPhysicalOrientation, state, canvasReady, hollywood, readSnapshot])
 
   // ── Pause when the tab is hidden; resume when visible (no CPU while backgrounded). ─
   useEffect(() => {
     function onVisibility() {
       const hidden = typeof document !== 'undefined' && document.hidden
+      if (hidden || nextEventDocumentWasHiddenRef.current) {
+        nextEventPhysicalPrimaryRequiredRef.current = true
+        clearNextEventGesture(true)
+      }
       if (hidden) {
         cancelHollywoodStage7Gesture()
         cancelGateCandidateGesture()
       }
+      nextEventDocumentWasHiddenRef.current = hidden
       const v = viewRef.current
       if (!v) return
       if (hidden) v.pause()
@@ -2528,7 +2999,7 @@ export function StudioLotScreen({
     document.addEventListener('visibilitychange', onVisibility)
     onVisibility()
     return () => document.removeEventListener('visibilitychange', onVisibility)
-  }, [cancelGateCandidateGesture, cancelHollywoodStage7Gesture])
+  }, [cancelGateCandidateGesture, cancelHollywoodStage7Gesture, clearNextEventGesture])
 
   // Honour a live change to the OS reduced-motion preference.
   useEffect(() => {
@@ -2624,17 +3095,19 @@ export function StudioLotScreen({
   }, [hollywood, identityProof, canvasReady, gateCandidateIntent])
 
   const selectHollywoodPerson = useCallback((person: LotPersonState) => {
+    yieldNextEventOrientation()
     recordHollywoodPerson(person)
     viewRef.current?.selectHollywoodPerson(person.id)
-  }, [recordHollywoodPerson])
+  }, [recordHollywoodPerson, yieldNextEventOrientation])
 
   const selectHollywoodProduction = useCallback((productionId: string) => {
+    yieldNextEventOrientation()
     enterHollywoodProductionContext(productionId, {
       stage7Only: false,
       detailEligible: false,
       focus: false,
     })
-  }, [enterHollywoodProductionContext])
+  }, [enterHollywoodProductionContext, yieldNextEventOrientation])
 
   const inspectHollywoodStage7 = useCallback((productionId: string) => {
     enterHollywoodProductionContext(productionId, {
@@ -3285,6 +3758,7 @@ export function StudioLotScreen({
   const activate = useCallback(
     (id: BuildingId) => {
       if (worldInputSuspendedRef.current) return
+      yieldNextEventOrientation()
       if (hollywood && id === 'admin') {
         if (enterPublicityContext({
           place: null,
@@ -3359,6 +3833,7 @@ export function StudioLotScreen({
       enterPublicityContext,
       hollywood,
       recordSelection,
+      yieldNextEventOrientation,
     ],
   )
 
@@ -4094,10 +4569,222 @@ export function StudioLotScreen({
       ? selectedStage7DetailContext
       : null
 
+  const exactNextEventReceipt = nextEventFeedback?.kind === 'next-event-exact'
+    ? nextEventFeedback.receipt
+    : null
+  const restoredNextEventReaction =
+    entryFocus === 'next-event-reaction' &&
+    exactNextEventReceipt !== null &&
+    entryNextEventReceipt !== undefined &&
+    sameLotNextEventReceipt(exactNextEventReceipt, entryNextEventReceipt)
+  useEffect(() => {
+    if (invalidNextEventProductionReceipt !== null) {
+      onInvalidateNextEvent?.(invalidNextEventProductionReceipt)
+    }
+  }, [invalidNextEventProductionReceipt, onInvalidateNextEvent])
+  const nextEventReasonDetail = (() => {
+    const receipt = exactNextEventReceipt
+    if (receipt === null) return null
+    switch (receipt.target.kind) {
+      case 'script':
+        return <p>Screenplay review · {receipt.target.title}</p>
+      case 'casting':
+        return <p>Casting review · {receipt.target.title}</p>
+      case 'production': {
+        const target = receipt.target
+        const operations = (snapshot.productionOperations ?? []).filter(
+          (operation) => operation.productionId === target.productionId,
+        )
+        const operation = operations.length === 1 ? operations[0]! : null
+        return (
+          <p>
+            Production decision · {target.title}
+            {operation === null
+              ? ''
+              : ` · ${operation.phaseLabel} · ${operation.statusLabel}${
+                  operation.blocker ? ` · ${operation.blocker.headline}` : ''
+                }${operation.currentCommand ? ` · Command: ${operation.currentCommand.label}` : ''}`}
+          </p>
+        )
+      }
+      case 'run-completed':
+        return <p>Theatrical run completed · {receipt.target.runs.map((run) => run.title).join(' · ')}</p>
+      case 'cash':
+        return <p>Administration · studio cash crossed below zero.</p>
+      case 'contracts':
+        return (
+          <p>
+            {receipt.target.change === 'expired'
+              ? 'A studio contract ended. No person identity is inferred.'
+              : 'A studio contract entered its renewal window. No person identity is inferred.'}
+          </p>
+        )
+      case 'construction':
+        return null
+    }
+  })()
+  const nextEventWorldAction: LotNextEventRailAction | null =
+    exactNextEventReceipt === null ||
+    exactNextEventReceipt.target.kind !== 'production' ||
+    nextEventProductionCommand === null ||
+    onRunNextEventProductionCommand === undefined
+      ? null
+      : {
+          label: nextEventProductionCommand.label,
+          onActivate: () => {
+            const latestCommand = currentLotNextEventProductionCommand(
+              state,
+              exactNextEventReceipt,
+            )
+            const commandIsCurrent = latestCommand !== null &&
+              sameLotNextEventProductionCommand(nextEventProductionCommand, latestCommand)
+            if (commandIsCurrent && hollywood) {
+              pendingHollywoodFocusProductionId.current =
+                exactNextEventReceipt.target.kind === 'production'
+                  ? exactNextEventReceipt.target.productionId
+                  : null
+            }
+            const outcome = onRunNextEventProductionCommand(
+              exactNextEventReceipt,
+              commandIsCurrent ? latestCommand : nextEventProductionCommand,
+            )
+            if (!outcome.ok) {
+              pendingHollywoodFocusProductionId.current = null
+              if (outcome.error !== 'Studio event details changed. Review the current lot.') {
+                announceHollywoodActivity(`Production command blocked: ${outcome.error}`)
+              }
+            }
+          },
+          testId: `hollywood-production-command-${nextEventProductionCommand.kind}`,
+        }
+  const nextEventDeepAction: LotNextEventRailAction | null =
+    exactNextEventReceipt === null || onOpenNextEventDetails === undefined
+      ? null
+      : {
+          label: (() => {
+            switch (exactNextEventReceipt.target.kind) {
+              case 'script':
+                return `Open Writers’ Room · ${exactNextEventReceipt.target.title}`
+              case 'casting':
+                return `Open Casting Room · ${exactNextEventReceipt.target.title}`
+              case 'production':
+                return `Open Production Board details · ${exactNextEventReceipt.target.title}`
+              case 'run-completed':
+                return 'Open Dashboard releases'
+              case 'cash':
+                return 'Open Dashboard finances'
+              case 'contracts':
+                return 'Open Studio Roster'
+              case 'construction':
+                return 'Open Studio Development'
+            }
+          })(),
+          onActivate: () => onOpenNextEventDetails(exactNextEventReceipt),
+          testId: 'lot-next-event-open-details',
+        }
+
+  const beginNextEventPointerGesture = (
+    event: { stopPropagation(): void },
+    family: 'pointer' | 'mouse' | 'touch',
+  ) => {
+    containWorldInput(event)
+    if (
+      worldInputSuspendedRef.current ||
+      (typeof document !== 'undefined' && document.hidden) ||
+      nextEventHeldKeyRef.current !== null ||
+      nextEventSuppressPhysicalStartRef.current ||
+      (nextEventPhysicalPrimaryRequiredRef.current && family !== 'pointer')
+    ) return
+    if (family === 'pointer') nextEventPhysicalPrimaryRequiredRef.current = false
+    nextEventVirtualReleaseEpochRef.current += 1
+    nextEventSuppressUntokenedVirtualRef.current = false
+    if (nextEventGestureRef.current === null) {
+      nextEventGestureRef.current = { renderedState: state, origin: 'pointer' }
+    }
+  }
+
+  const cancelNextEventPointerGesture = (event: { stopPropagation(): void }) => {
+    containWorldInput(event)
+    // A physical late click has detail > 0 and cannot pass without this token.
+    // Keep virtual/switch activation immediately available after pointer cancel.
+    if (nextEventGestureRef.current?.origin === 'pointer') {
+      nextEventPhysicalPrimaryRequiredRef.current = true
+    }
+    clearNextEventGesture(false)
+    suppressNextEventPhysicalStartsThroughTask()
+  }
+
+  const guardNextEventKeyDown = (event: {
+    key: string
+    repeat: boolean
+    preventDefault(): void
+    stopPropagation(): void
+  }) => {
+    containWorldInput(event)
+    if (event.key !== 'Enter' && event.key !== ' ') return
+    if (
+      worldInputSuspendedRef.current ||
+      event.repeat ||
+      nextEventHeldKeyRef.current !== null ||
+      nextEventGestureRef.current !== null
+    ) {
+      event.preventDefault()
+      return
+    }
+    nextEventVirtualReleaseEpochRef.current += 1
+    nextEventSuppressUntokenedVirtualRef.current = false
+    nextEventHeldKeyRef.current = event.key
+    nextEventGestureRef.current = { renderedState: state, origin: 'keyboard' }
+  }
+
+  const releaseNextEventKey = (event: { key: string; stopPropagation(): void }) => {
+    containWorldInput(event)
+    settleNextEventKeyUp(event.key)
+  }
+
+  const activateNextEvent = (detail: number) => {
+    if (detail > 1) {
+      clearNextEventGesture(true)
+      return
+    }
+    if (
+      worldInputSuspendedRef.current ||
+      !nextEventEligibility.eligible ||
+      onSimToNextEvent === undefined
+    ) return
+
+    const gesture = nextEventGestureRef.current
+    if (detail > 0 && gesture?.origin !== 'pointer') return
+    if (
+      gesture === null &&
+      (detail !== 0 ||
+        nextEventHeldKeyRef.current !== null ||
+        nextEventSuppressUntokenedVirtualRef.current)
+    ) return
+
+    nextEventGestureRef.current = null
+    if (gesture !== null && gesture.renderedState !== state) {
+      releaseNextEventVirtualTail()
+      return
+    }
+
+    // Seal same-stack detail-0 compatibility/repeat tails, but release the seal
+    // at a bounded microtask so a later genuine AT/switch click stays available.
+    releaseNextEventVirtualTail()
+    const renderedBefore = gesture?.renderedState ?? state
+    if (onSimToNextEvent(renderedBefore)) {
+      clearFormationWitness()
+      // The next-event rail owns this cadence moment; prior one-shot world
+      // acknowledgements must not remain as a competing live announcement.
+      setHollywoodActivity(null)
+    }
+  }
+
   return (
     <div
       className={`lot-screen${reducedMotion ? ' lot-reduced-motion' : ''}${hollywood ? ' lot-hollywood' : ''}`}
       data-testid="studio-lot-screen"
+      data-entry-focus={entryFocus ?? 'none'}
       inert={worldInputSuspended || undefined}
     >
       <div
@@ -4163,6 +4850,51 @@ export function StudioLotScreen({
           >
             Advance one week
           </button>
+          <div className="lot-next-event-control">
+            <button
+              ref={nextEventButtonRef}
+              type="button"
+              className="accent lot-next-event-button"
+              onPointerDown={(event) => beginNextEventPointerGesture(event, 'pointer')}
+              onMouseDown={(event) => beginNextEventPointerGesture(event, 'mouse')}
+              onTouchStart={(event) => beginNextEventPointerGesture(event, 'touch')}
+              onPointerCancel={cancelNextEventPointerGesture}
+              onTouchCancel={cancelNextEventPointerGesture}
+              onKeyDown={guardNextEventKeyDown}
+              onKeyUp={releaseNextEventKey}
+              onBlur={() => {
+                if (nextEventGestureRef.current !== null) {
+                  if (nextEventGestureRef.current.origin === 'pointer') {
+                    nextEventPhysicalPrimaryRequiredRef.current = true
+                  }
+                  clearNextEventGesture(true)
+                }
+              }}
+              disabled={
+                worldInputSuspended ||
+                !nextEventEligibility.eligible ||
+                onSimToNextEvent === undefined
+              }
+              aria-describedby={
+                !nextEventEligibility.eligible
+                  ? 'lot-next-event-disabled-reason'
+                  : undefined
+              }
+              onClick={(event) => activateNextEvent(event.detail)}
+              data-testid="lot-sim-to-next-event"
+            >
+              Sim to next event
+            </button>
+            {!nextEventEligibility.eligible && nextEventEligibility.reason !== null && (
+              <span
+                id="lot-next-event-disabled-reason"
+                className="lot-next-event-disabled-reason"
+                data-testid="lot-next-event-disabled-reason"
+              >
+                {nextEventEligibility.reason}
+              </span>
+            )}
+          </div>
           <button
             className="ghost"
             disabled={worldInputSuspended}
@@ -4374,7 +5106,10 @@ export function StudioLotScreen({
                         {hollywoodInspectorOperation.facilityLabel} is authoritative. This district view depicts Soundstage 7; manage this production from the inspector.
                       </p>
                     )}
-                    {hollywoodPlace === null && hollywoodInspectorOperation && hollywoodInspectorCommand && (
+                    {hollywoodPlace === null &&
+                      hollywoodInspectorOperation &&
+                      hollywoodInspectorCommand &&
+                      exactNextEventReceipt?.target.kind !== 'production' && (
                       <button
                         className="accent hollywood-command"
                         disabled={!onProductionCommand}
@@ -4388,7 +5123,8 @@ export function StudioLotScreen({
                         {hollywoodInspectorCommand.label}
                       </button>
                     )}
-                    {stage7DetailActionContext !== null && (
+                    {stage7DetailActionContext !== null &&
+                      exactNextEventReceipt?.target.kind !== 'production' && (
                       <button
                         type="button"
                         className="ghost hollywood-production-details"
@@ -4520,6 +5256,40 @@ export function StudioLotScreen({
                 </div>
               )}
             </>
+          )}
+
+          {nextEventFeedback !== null && (
+            <div
+              className="lot-next-event-wrap"
+              onPointerDown={containWorldInput}
+              onMouseDown={containWorldInput}
+              onTouchStart={containWorldInput}
+            >
+              <LotNextEventRail
+                ref={nextEventHeadingRef}
+                feedback={nextEventFeedback}
+                reasonDetail={nextEventReasonDetail}
+                worldAction={nextEventWorldAction}
+                deepAction={nextEventDeepAction}
+                restored={restoredNextEventReaction}
+                inputSuspended={worldInputSuspended}
+                inputResetEpoch={nextEventRailInputResetEpoch}
+                onDismiss={() => {
+                  onDismissNextEvent?.()
+                  queueMicrotask(() => {
+                    const button = nextEventButtonRef.current
+                    if (button !== null && button.isConnected && !button.disabled) {
+                      button.focus({ preventScroll: true })
+                    } else {
+                      studioHeadingRef.current?.focus({ preventScroll: true })
+                    }
+                  })
+                }}
+                onRequestLotHeadingFocus={() => {
+                  studioHeadingRef.current?.focus({ preventScroll: true })
+                }}
+              />
+            </div>
           )}
 
           {!hollywood && annexSelected && (

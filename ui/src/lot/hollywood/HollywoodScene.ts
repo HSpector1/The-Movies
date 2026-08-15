@@ -1473,7 +1473,7 @@ export class HollywoodScene extends Phaser.Scene {
   private bindCamera(): void {
     this.cameras.main.setBounds(-120, -90, DISTRICT_W + 240, DISTRICT_H + 180)
     this.fitCamera()
-    this.scale.on('resize', () => this.fitCamera())
+    this.scale.on('resize', () => this.preserveCameraOnResize())
     this.input.on('wheel', (pointer: Phaser.Input.Pointer, _over: unknown[], _dx: number, dy: number) => {
       if (!this.isCanvasPointer(pointer)) return
       const camera = this.cameras.main
@@ -1502,6 +1502,20 @@ export class HollywoodScene extends Phaser.Scene {
     this.fitZoom = Math.min(camera.width / DISTRICT_W, camera.height / DISTRICT_H)
     camera.setZoom(this.fitZoom)
     camera.centerOn(DISTRICT_W / 2, DISTRICT_H / 2)
+  }
+
+  private preserveCameraOnResize(): void {
+    const camera = this.cameras.main
+    const scrollX = camera.scrollX
+    const scrollY = camera.scrollY
+    const zoom = camera.zoom
+    // React chrome can change the RESIZE canvas box when a transient rail appears.
+    // That is not player consent to a new camera preset. Refresh only the bounds used
+    // by future wheel clamping and restore the exact live transform.
+    this.fitZoom = Math.min(camera.width / DISTRICT_W, camera.height / DISTRICT_H)
+    camera.setZoom(zoom)
+    camera.scrollX = scrollX
+    camera.scrollY = scrollY
   }
 
   applySnapshot(snapshot: StudioLotSnapshot): void {

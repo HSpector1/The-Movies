@@ -93,6 +93,8 @@ export class StudioLotView {
   private scene: LotScene | null = null
   private hollywoodScene: HollywoodScene | null = null
   private pendingSnapshot: StudioLotSnapshot | null = null
+  /** Snapshot handed to the currently booting scene; avoids repainting it at ready. */
+  private sceneBootSnapshot: StudioLotSnapshot | null = null
   /** Latest transient Gate presentation, retained independently of renderer readiness. */
   private pendingGateVisitor: HollywoodGateVisitorPresentation | null = null
   private reducedMotion = false
@@ -130,8 +132,10 @@ export class StudioLotView {
       if (this.destroyed || game !== this.game || this.hollywoodFailureReported) return
       if (this.opts.hollywood) {
         try {
+          const snapshot = this.pendingSnapshot ?? this.opts.snapshot
+          this.sceneBootSnapshot = snapshot
           game.scene.add('hollywood', HollywoodScene, true, {
-            snapshot: this.pendingSnapshot ?? this.opts.snapshot,
+            snapshot,
             onEvent: (e: HollywoodEvent) => {
               if (!this.destroyed && game === this.game) this.handleHollywoodEvent(e)
             },
@@ -144,8 +148,10 @@ export class StudioLotView {
         }
         return
       }
+      const snapshot = this.pendingSnapshot ?? this.opts.snapshot
+      this.sceneBootSnapshot = snapshot
       game.scene.add('lot', LotScene, true, {
-        snapshot: this.pendingSnapshot ?? this.opts.snapshot,
+        snapshot,
         onEvent: (e: LotEvent) => this.handleEvent(e),
         distinctStages: this.opts.distinctStages === true,
         authoredStage: this.opts.authoredStage === true,
@@ -165,9 +171,10 @@ export class StudioLotView {
       this.hollywoodScene = this.game.scene.getScene('hollywood') as HollywoodScene
       this.hollywoodScene.setReducedMotion(this.reducedMotion)
       this.hollywoodScene.setInputSuspended(this.inputSuspended)
-      if (this.pendingSnapshot && this.pendingSnapshot !== this.opts.snapshot) {
+      if (this.pendingSnapshot && this.pendingSnapshot !== this.sceneBootSnapshot) {
         this.hollywoodScene.applySnapshot(this.pendingSnapshot)
       }
+      this.sceneBootSnapshot = this.pendingSnapshot
       this.reconcilePendingGateVisitor()
       this.opts.onReady?.()
       return
@@ -212,9 +219,10 @@ export class StudioLotView {
     if (e.type === 'ready') {
       this.scene = this.game.scene.getScene('lot') as LotScene
       this.scene.setInputSuspended(this.inputSuspended)
-      if (this.pendingSnapshot && this.pendingSnapshot !== this.opts.snapshot) {
+      if (this.pendingSnapshot && this.pendingSnapshot !== this.sceneBootSnapshot) {
         this.scene.applySnapshot(this.pendingSnapshot)
       }
+      this.sceneBootSnapshot = this.pendingSnapshot
       this.opts.onReady?.()
       return
     }

@@ -208,6 +208,11 @@ const fakePhaser = vi.hoisted(() => {
     }
     cameras = {
       main: {
+        width: 1586,
+        height: 992,
+        scrollX: 0,
+        scrollY: 0,
+        zoom: 1,
         centerOn: vi.fn(),
         setZoom: vi.fn(),
         pan: vi.fn(),
@@ -499,6 +504,7 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   dragOrigin: { x: number; y: number; scrollX: number; scrollY: number } | null
   performanceWarmupFramesRemaining: number
   drawCallSamples: number[]
+  preserveCameraOnResize: () => void
   buildWorld: () => void
   buildAmbientLife: () => void
   buildSemanticHotspots: () => void
@@ -922,6 +928,23 @@ describe('HollywoodScene snapshot authority', () => {
 
     internals.zones[0]!.emit('pointerdown', pointer())
     expect(productionEvents(events)).toHaveLength(1)
+  })
+
+  it('preserves the exact live camera transform when surrounding React chrome resizes the canvas', () => {
+    const { internals } = harness(snapshot([director()], [operation()]))
+    const camera = internals.cameras.main
+    camera.width = 960
+    camera.height = 540
+    camera.scrollX = 146.7946
+    camera.scrollY = -22.375
+    camera.zoom = 1.1875
+
+    internals.preserveCameraOnResize()
+
+    expect(camera.scrollX).toBe(146.7946)
+    expect(camera.scrollY).toBe(-22.375)
+    expect(camera.setZoom).toHaveBeenLastCalledWith(1.1875)
+    expect(internals.fitZoom).toBeCloseTo(Math.min(960 / 1586, 540 / 992), 12)
   })
 
   it('routes the Stage 7 polygon, lamp, and status through one exact identity-only selection seam', () => {

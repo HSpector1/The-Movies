@@ -42,6 +42,7 @@ export function StudioRoster({
   onBack,
   onOpenProfile,
   focusTalentId,
+  focusHeadingOnMount,
 }: {
   state: GameState
   onChange: (next: GameState) => void
@@ -49,6 +50,8 @@ export function StudioRoster({
   onOpenProfile?: ((id: string) => void) | undefined
   /** Navigation-only handoff from the Studio Calendar. */
   focusTalentId?: string
+  /** Generic roster destination without claiming an exact person identity. */
+  focusHeadingOnMount?: boolean
 }) {
   const [profession, setProfession] = useState<ProfessionFilter>('all')
   const [renewalsOnly, setRenewalsOnly] = useState(false)
@@ -57,6 +60,9 @@ export function StudioRoster({
   const cardRefs = useRef(new Map<string, HTMLDivElement>())
   const headingRef = useRef<HTMLHeadingElement | null>(null)
   const pendingInitialFocus = useRef(focusTalentId ?? null)
+  const pendingHeadingFocus = useRef(
+    focusTalentId === undefined && focusHeadingOnMount === true,
+  )
 
   const payroll = payrollSummary(state)
   const all = rosterCards(state)
@@ -68,11 +74,17 @@ export function StudioRoster({
 
   useEffect(() => {
     const talentId = pendingInitialFocus.current
-    if (talentId === null) return
-    const target = cardRefs.current.get(talentId)
-    if (target) target.focus()
-    else headingRef.current?.focus()
-    pendingInitialFocus.current = null
+    if (talentId !== null) {
+      const target = cardRefs.current.get(talentId)
+      if (target) target.focus()
+      else headingRef.current?.focus()
+      pendingInitialFocus.current = null
+      return
+    }
+    if (pendingHeadingFocus.current) {
+      headingRef.current?.focus()
+      pendingHeadingFocus.current = false
+    }
   }, [all])
 
   function renew(talentId: string, termWeeks: number) {

@@ -346,6 +346,35 @@ function badgeWord(badge: Display): string | null {
 }
 
 describe('LotScene managed production occupancy renderer', () => {
+  it('preserves the exact Classic camera transform across React-owned canvas reflow', () => {
+    const scene = new LotScene()
+    const camera = {
+      scrollX: 146.7946,
+      scrollY: -22.375,
+      zoom: 1.1875,
+      setZoom: vi.fn((zoom: number) => {
+        camera.zoom = zoom
+      }),
+      setScroll: vi.fn((x: number, y: number) => {
+        camera.scrollX = x
+        camera.scrollY = y
+      }),
+    }
+    ;(scene as unknown as { cameras: { main: typeof camera } }).cameras = { main: camera }
+
+    ;(scene as unknown as { preserveCameraOnResize(): void }).preserveCameraOnResize()
+
+    expect(camera.setZoom).toHaveBeenCalledOnce()
+    expect(camera.setZoom).toHaveBeenLastCalledWith(1.1875)
+    expect(camera.setScroll).toHaveBeenCalledOnce()
+    expect(camera.setScroll).toHaveBeenLastCalledWith(146.7946, -22.375)
+    expect(camera).toMatchObject({
+      scrollX: 146.7946,
+      scrollY: -22.375,
+      zoom: 1.1875,
+    })
+  })
+
   it('resets legacy camera input latches on both modal-boundary transitions', () => {
     const scene = new LotScene()
     const internals = scene as unknown as {

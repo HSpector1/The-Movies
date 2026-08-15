@@ -229,9 +229,6 @@ export class LotScene extends Phaser.Scene {
   private authoredStageAActive = false
   /** True if an authored Stage A texture failed to load; the procedural fallback stands. */
   private authoredStageALoadFailed = false
-  /** The framing currently applied, so a resize re-fits it instead of forcing overview. */
-  private cameraPreset: CameraPreset = 'overview'
-
   constructor() {
     super('lot')
   }
@@ -332,9 +329,9 @@ export class LotScene extends Phaser.Scene {
     this.applySnapshot(this.snapshot)
     this.resetCamera()
 
-    // Keep the whole lot framed when the viewport changes: fit-to-lot on resize so
-    // every core destination stays visible at every supported viewport (Phase 7).
-    const onResize = () => this.refitCamera()
+    // React chrome (including the next-event rail) can resize the canvas without
+    // expressing a player camera command. Preserve the exact live transform.
+    const onResize = () => this.preserveCameraOnResize()
     this.scale.on('resize', onResize)
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.scale.off('resize', onResize))
 
@@ -1340,22 +1337,17 @@ export class LotScene extends Phaser.Scene {
     this.applyCameraPreset('overview')
   }
 
-  /**
-   * Re-fit the CURRENT framing after a viewport change.
-   *
-   * Phaser's RESIZE scale mode polls the parent and emits `resize` whenever it believes the
-   * size changed, so a handler that called resetCamera() unconditionally snapped the camera
-   * back to 'overview' within half a second. That was invisible while 'overview' was the
-   * only framing ever applied — the other four presets had no caller — and it silently
-   * defeated the first one that did. Re-fitting the active preset keeps a review framing
-   * stable while still re-fitting properly when the window really does change size.
-   */
-  private refitCamera(): void {
-    this.applyCameraPreset(this.cameraPreset)
+  /** Preserve player-authored pan/zoom across RESIZE-owned canvas reflow. */
+  private preserveCameraOnResize(): void {
+    const cam = this.cameras.main
+    const zoom = cam.zoom
+    const scrollX = cam.scrollX
+    const scrollY = cam.scrollY
+    cam.setZoom(zoom)
+    cam.setScroll(scrollX, scrollY)
   }
 
   applyCameraPreset(preset: CameraPreset): void {
-    this.cameraPreset = preset
     const cam = this.cameras.main
     const corners = this.lotCorners()
     const minX = Math.min(...corners.map((c) => c.x))
