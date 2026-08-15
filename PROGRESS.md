@@ -66,13 +66,17 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   or ambiguous accepted state withholds the expanded claim atomically.
 - **World-First Lot-Native Screenplay Review Intervention V1:** ACCEPTED at implementation
   `67a0bf333fc4863548fb13fbc2696fd002bd627d` under frozen contract `22ee17c` and CLOSED by this
-  documentation checkpoint. Newly surfaced and already-pending screenplay reviews now expose exact
-  player-safe facts and Core-emitted Accept/Rewrite actions in the same mounted living Lot, with
-  Writers’ Room retained as an optional exact deep owner.
-- **Next action:** freeze a separate bounded World-First Lot-Native Casting Review Intervention V1
-  contract from existing Core audition-result and acknowledgement authority. Keep Casting semantic
-  unless accepted art authority proves a physical place; do not invent movement, occupancy,
-  audition performance, casting assignment, or new Engine law.
+  branch at `e37035c1caff095d4456c85d74a97304fc654cba`. Newly surfaced and already-pending
+  screenplay reviews now expose exact player-safe facts and Core-emitted Accept/Rewrite actions in
+  the same mounted living Lot, with Writers’ Room retained as an optional exact deep owner.
+- **World-First Lot-Native Casting Review Intervention V1:** ACCEPTED at implementation
+  `cd0ace6213c88255439010ff284f390a538a6650` under corrected frozen contract `d707f98` and CLOSED
+  by this documentation checkpoint. All six exact persisted audition observations and the sole
+  acknowledgement now live in the Lot; blocked successors stay mounted and clear successors
+  autosave before the exact Package handoff.
+- **Next action:** resume the several-minutes-on-Lot audit and rank the next ordinary-player world
+  break. Freeze a separate contract only after existing Engine/GameState and art authority prove
+  the complete loop; no successor is automatic.
 
 ## Closed marathon milestones
 
@@ -103,7 +107,8 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Greenlight Production Formation V1 | `6ec10a6` | `345a892` | `7966603` |
 | World-First Lot-Native Next-Event Cadence V1 | `15e65c4` | `eb6cef1`, `aabb684` | `2e32b05` |
 | World-First Active Production Company Presence V1 | `08e86ab` | `2ef7f0a` | `9294fb6` |
-| World-First Lot-Native Screenplay Review V1 | `22ee17c` | `67a0bf3` | this documentation checkpoint |
+| World-First Lot-Native Screenplay Review V1 | `22ee17c` | `67a0bf3` | `e37035c` |
+| World-First Lot-Native Casting Review V1 | `d707f98` (`8fe3aea` initial freeze) | `cd0ace6` | this documentation checkpoint |
 
 ## Product result so far
 
@@ -199,6 +204,13 @@ successor in the same mounted world; Writers’ Room is supporting depth, not th
 action surface. Base Development remains semantic and the Annex becomes physical only under an
 independently proven real Annex reservation.
 
+The Casting review stop now stays in that same world. One strict closed projection requires the
+exact current decision, session, project, card, six canonical Lead/Antagonist/Support audition
+observations, every player-safe comparison field, package consequence/blocker/remedy, and sole
+acknowledgement. Blocked successors autosave and remain on the same mounted Lot; clear successors
+autosave before a fresh exact Package handoff. Casting Room remains optional supporting depth,
+Hollywood Casting remains semantic, and Classic preserves its already accepted physical place.
+
 Deep non-modal screens still unmount and later remount the Lot. Same-mounted continuity is the law
 for ordinary non-release event stops, not a claim that every supporting surface preserves the same
 Phaser instance. Skipped weeks are one synchronous Engine batch and one final snapshot; the game
@@ -229,10 +241,17 @@ protected-path/ref gates; manual browser play; and clean independent final P0/P1
 save, simulation, economy, art, manifest/exporter, physical-place, travel, occupancy, queue,
 workload, autonomy, pathfinding, or renderer-draw behavior changed.
 
-The next action remains evidence-led: freeze a bounded Casting review contract around the already
-owned current decision, six audition results, player-safe comparison facts, and one acknowledgement
-action. Do not turn that evidence into a physical Casting building, performed auditions, travel,
-room occupancy, cast assignment, or any other authority Core and accepted art do not own.
+Final casting-review proof passed focused 6/6 files and 92/92 tests; UI 107/107 files and
+1,377/1,377 tests; repository 194/194 files and 2,607/2,607 tests; governed D-16/D-17 176/176;
+Chromium 18/18; both TypeScript projects; a 147-module build; 42-object / 19-actor /
+11,096,896-byte / one-draw structural parity; protected-path/ref gates; and clean independent final
+P0–P2 audits. No Core, save, simulation, economy, art, manifest/exporter, renderer structure/draw,
+travel, occupancy, queue, workload, autonomy, or pathfinding behavior changed.
+
+The next action remains evidence-led: resume the several-minutes-on-Lot test and rank the next
+visible person, production, building, blockage, or event whose meaningful action still starts in a
+supporting screen. Do not turn evidence into an invented place, travel, occupancy, assignment,
+facility, construction, or Engine law.
 
 ## Governing status
 

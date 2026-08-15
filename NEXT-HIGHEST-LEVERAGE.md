@@ -215,8 +215,8 @@ workload, autonomy, pathfinding, or renderer-draw law changed.
 
 ## Closed — World-First Lot-Native Screenplay Review Intervention V1
 
-Contract `22ee17c` and implementation `67a0bf3` close the first bounded forced production-decision
-stop by this documentation checkpoint. A newly surfaced or already-pending screenplay review now
+Contract `22ee17c`, implementation `67a0bf3`, and closure `e37035c` close the first bounded forced
+production-decision stop. A newly surfaced or already-pending screenplay review now
 exposes exact player-safe `Est.` assessment, writer, consequence, blockers, and Core-emitted Accept
 plus optional Rewrite actions in the living Lot. App revalidates and dispatches the existing action
 once, autosaves the exact Ready/Rewriting successor, and repaints the same mounted world.
@@ -232,25 +232,33 @@ D-16/D-17 176/176, Chromium 14/14, both TypeScript projects, a 145-module build,
 byte parity, compact/accessibility/renderer paths, protected gates, manual play, and independent
 final re-audit. No Core/save/simulation/economy/art/draw behavior changed.
 
-## Next contract — World-First Lot-Native Casting Review Intervention V1
+## Closed — World-First Lot-Native Casting Review Intervention V1
 
-Freeze a separate bounded contract before implementation. Current Core authority already owns one
-current Casting review decision, exact session/project/title/writer identity, two persisted audition
-results for each of Lead, Antagonist, and Support, player-safe estimated score/range, Fit,
-availability, strengths, concerns, blockers/consequence, and one legal acknowledgement action.
-This is the next forced menu stop after screenplay review and is the smallest current seam that
-makes production preparation more playable from the living Lot.
+Corrected contract `d707f98` and implementation `cd0ace6` close the next forced production-decision
+stop by this documentation checkpoint. A newly surfaced or already-pending Casting review now
+exposes all six exact persisted Lead, Antagonist, and Support audition observations plus the sole
+Core acknowledgement action in the living Lot.
 
-The contract should require the exact six audition rows in canonical role/result order, all current
-player-safe facts, one App-owned `acknowledgeCastingSession` dispatch, exact review → complete
-successor, direct action/save parity, same-mounted action repaint, optional exact Casting Room deep
-handoff, fresh return, no substitution, and the full stale/malformed/replacement/input/renderer/
-responsive/accessibility boundary proven by the screenplay pattern.
+The strict closed selector requires complete decision/session/project/card identity, canonical
+role/result order, every player-safe score/range/Fit/availability/strength/concern field, exact
+consequence/blocker/remedy truth, and one acknowledgement. App revalidates state, action, current
+screen, modal absence, and the opaque live-Lot presentation before dispatch. Blocked successors
+autosave and stay on the same mounted world; clear successors autosave before one fresh exact
+Package handoff. Stale, malformed, duplicate, replacement, unmount, deep-navigation, renderer, and
+input-tail paths are exact or neutral.
 
-Hollywood has no accepted physical Casting building. Keep the destination semantic and do not
-claim performed auditions, people travel, personal location, room occupancy, queues, workload,
-cast assignment, new candidates, new actions, or new Core/save/art/economy law. If strict authority
-cannot prove every current row and the sole action, fail neutral and retain the existing deep route.
+Final proof passed focused 92/92, complete UI 1,377/1,377, repository 2,607/2,607, governed
+D-16/D-17 176/176, Chromium 18/18, both TypeScript projects, a 147-module build, structural
+42-object / 19-actor / one-draw parity, protected gates, and independent final P0–P2 audits. No
+Core/save/simulation/economy/art/renderer behavior changed. Casting Room remains optional supporting
+depth; Hollywood Casting remains semantic while Classic preserves its established physical place.
+
+## Next evidence-led world audit
+
+Resume the several-minutes-on-Lot test from this accepted checkpoint and rank the next visible break
+in ordinary play. Prefer an existing authoritative person, production, facility, blockage, or event
+whose inspection and action currently begin in a supporting screen. Freeze a separate contract only
+after proving the complete authority and art boundary; no successor is automatic.
 
 ## Closed parallel evidence lane
 

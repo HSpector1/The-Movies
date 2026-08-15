@@ -1,6 +1,54 @@
 # Project: Studio — Engineering Handoff
 
-> ## 🎬 2026-08-15 — CURRENT: LOT-NATIVE SCREENPLAY REVIEW INTERVENTION V1 CLOSED
+> ## 🎬 2026-08-15 — CURRENT: LOT-NATIVE CASTING REVIEW INTERVENTION V1 CLOSED
+>
+> Work continues on `operation-hollywood-autonomous-marathon`. Corrected frozen contract authority
+> is `d707f9878abdcd3a8d28ddb583a166ff3e911ff3`; accepted implementation authority is
+> `cd0ace6213c88255439010ff284f390a538a6650`. This documentation checkpoint closes the slice.
+>
+> **THE STUDIO LOT IS THE PRIMARY GAME SURFACE. MANAGEMENT UI SUPPORTS THE WORLD. IT DOES NOT
+> REPLACE THE WORLD.** A newly surfaced or already-pending Casting review now exposes all six exact
+> persisted Lead, Antagonist, and Support audition observations, current package consequence and
+> blockers, and the sole Core-emitted acknowledgement in the living Lot. It invents no winner.
+>
+> App revalidates complete state/context/action, event provenance, current screen, modal absence,
+> and one opaque live-Lot presentation before dispatching the existing action once. A blocked
+> successor autosaves and remains on the same mounted Lot. A clear successor autosaves first, then
+> opens the exact Package owner only while that successor and presentation still own the handoff.
+> Stale, malformed, duplicate, replaced, unmounted, deep-navigation, renderer, and input-tail paths
+> are exact or neutral; valid Engine progress survives optional-route failure.
+>
+> **Open Casting Room details** remains optional supporting depth. Package Assembly remains the
+> sole owner of final cast choice, package formation, and greenlight. Operation Hollywood Casting
+> remains semantic; Classic retains its established physical Casting building. No performed
+> audition, personal travel, room occupancy, queue, workload, assignment, or Hollywood place is
+> claimed.
+>
+> Final proof: focused **6/6 files, 92/92 tests**; UI **107/107 files, 1,377/1,377 tests**;
+> repository **194/194 files, 2,607/2,607 tests**; governed D-16/D-17 **10/10 files, 176/176
+> tests**; Chromium **18/18**; both TypeScript projects; production build **147 modules** with the
+> existing chunk warning; exact action/save parity; responsive/accessibility/renderer/input gates;
+> unchanged **42 objects / 19 actors / 11,096,896 decoded bytes / one draw**; protected refs; and
+> independent final P0–P2 audit all pass. No GPU/FPS certification is claimed.
+>
+> No Core, GameState, SaveFileV11, schema, migration, Casting result, package gate, assignment,
+> facility, production, economy, RNG, ledger, manifest, exporter, authored art, renderer
+> structure/draw, travel, occupancy, queue, workload, autonomy, or pathfinding behavior changed.
+> Resume the several-minutes-on-Lot audit from this accepted checkpoint; no successor is automatic.
+>
+> Protected anchors remain untouched: `main` =
+> `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =
+> `35d42687a410a621becf1df35c75986657f8c44e`; Operation Hollywood bridge =
+> `623b8b2a80e9c6b85304eaa2a338b6045e8f6b21`. Nothing was merged, pushed, or tagged.
+>
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+>
+> Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
+> dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
+> and formal G12 timing remain open. No financing, loans, bailouts, restructuring, failure ladder,
+> hard bankruptcy, or arbitrary cash sink is authorized.
+
+> ## 🎬 2026-08-15 — PRIOR: LOT-NATIVE SCREENPLAY REVIEW INTERVENTION V1 CLOSED
 >
 > Work continues on `operation-hollywood-autonomous-marathon`. Frozen contract authority is
 > `22ee17c01b688a114b9803f7754af1be6477c655`; accepted implementation authority is

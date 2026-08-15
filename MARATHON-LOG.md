@@ -656,3 +656,37 @@ Owner rulings remain the authority when a summary here conflicts with them.
 - Preserved every named residual under **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS
   REMAIN OPEN**. Nothing was merged, pushed, tagged, financed, bailed out, restructured, or assigned
   an arbitrary cash sink.
+
+## 2026-08-15 — World-first Lot-native Casting review intervention closes
+
+- Delivered accepted implementation `cd0ace6213c88255439010ff284f390a538a6650` under corrected
+  frozen contract `d707f9878abdcd3a8d28ddb583a166ff3e911ff3`; this documentation checkpoint
+  closes the bounded interaction/navigation milestone with a **KEEP** ruling.
+- Added one strict `currentLotCastingReviewContext` that atomically proves the exact current Core
+  decision, session/project/card identity, canonical Lead/Antagonist/Support ordering, both dense
+  persisted observations per role, all player-safe comparison facts, package consequence/blockers,
+  and the sole Core acknowledgement. Sparse, decorated, duplicate, stale, throwing, malformed, or
+  disagreeing authority fails neutral.
+- Made newly surfaced and already-pending review paths playable from the living Lot without mixing
+  event receipt and current-decision provenance. Six exact rows remain readable in a bounded
+  internal scrollport and expose no inferred winner, ranking, combined score, or hidden input.
+- App captures and synchronously revalidates complete state/context/action, current screen, modal
+  absence, and one opaque live-Lot presentation token before dispatching the existing action once.
+  Blocked successors autosave and remain mounted; clear successors autosave before one fresh exact
+  Package handoff, which presentation drift can cancel without rolling back valid Engine progress.
+- Kept Casting Room optional supporting depth and Package Assembly the sole cast/package owner.
+  Hollywood Casting remains semantic; Classic preserves its established physical Casting building.
+- Proved Hollywood and Classic at 1280×720, 960×540, and 480×270/DSF2 with six rows, focused owner,
+  reachable world/deep actions, no owner clipping, and no page-level horizontal overflow.
+- Closed proof with focused 6/6 files and 92/92 tests; UI 107/107 and 1,377/1,377; repository
+  194/194 and 2,607/2,607; governed D-16/D-17 10/10 and 176/176; Chromium 18/18; both TypeScript
+  projects; a 147-module build; direct-action/save byte parity; unchanged 42 objects / 19 actors /
+  11,096,896 decoded bytes / one draw; protected refs; and independent final P0–P2 audits clean.
+- Changed no Core, GameState, SaveFileV11, schema, migration, Casting result, package gate,
+  assignment, facility, production, economy, RNG, ledger, manifest, exporter, authored art,
+  renderer structure/draw, travel, occupancy, queue, workload, autonomy, or pathfinding behavior.
+- Promoted no automatic successor. Resume the several-minutes-on-Lot audit from this accepted
+  checkpoint and freeze only the smallest evidence-backed authority slice.
+- Preserved every named residual under **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS
+  REMAIN OPEN**. Nothing was merged, pushed, tagged, financed, bailed out, restructured, or assigned
+  an arbitrary cash sink.
