@@ -274,16 +274,45 @@ TypeScript projects; a 148-module build; direct save parity; exact 42/19/11,096,
 structure; manual browser play; and clean independent audit. No Core/save/package/production/
 economy/art/renderer-structure behavior changed, and no GPU certification is claimed.
 
+## Closed — World-First Lot-Retained Screenplay Commission Workspace V1
+
+Contract `57ce405` and implementation `2ec3b8a3c6451112a423fe3e30f1c9331b831caa`
+close the ordinary start-of-filmmaking break. One shared canonical commission form opens above the
+exact mounted Lot only for current idle/startable managed Development truth. The same Lot Screen,
+presentation token, Phaser view, canvas, camera, and App authority survive open, cancel, rejection,
+accepted commit, autosave, close, and witness.
+
+Cancel is byte-neutral; rejection preserves the full edited form and exact Engine error. Accepted
+commissioning is synchronously exact-once, commits and autosaves before close, and never lets
+optional receipt failure roll back valid Engine truth. One strict receipt lets the same Development
+selection show exact **SCREENPLAY COMMISSIONED**, writer, commissioned/due weeks, facility, and
+slot once. Operation-Hollywood-off and legacy paths keep their standalone owners.
+
+Final proof passed focused Commission 33/33; UI 113/113 files and 1,421/1,421 tests; repository
+200/200 files and 2,651/2,651 tests; governed D-16/D-17 176/176; Commission Chromium 4/4; combined
+Commission/Studio-Home/formation Chromium 20 passed / one explicit GPU-only skip; both TypeScript
+projects; a 151-module build; direct save parity; exact minimal-fixture 30/13/11,096,896/one-draw
+structure; six screenshot reviews; and clean independent audit. No Core/save/screenplay/economy/
+art/renderer-structure behavior changed, and no GPU certification is claimed.
+
 ## Next evidence-led world audit
 
-Resume the several-minutes-on-Lot test from this accepted checkpoint. First measure the Lot →
-screenplay-commissioning seam: the current canonical Writers’ Room already owns exact concept,
-writer, shape, audience, and `commissionScriptAction` authority, but entering it replaces the Lot.
-Determine whether that bounded decision can become a retained supporting workspace and connect the
-start of filmmaking to the now-continuous review → Casting → Package → formation chain. Hollywood
-Development remains semantic; do not invent a Writers building. Rank the measured result against
-other existing person, production, facility, blockage, and event seams before freezing anything;
-no successor is automatic.
+Measure **World-First Lot-Retained Audition Planning Workspace V1**. The accepted Lot already shows
+truthful managed Casting cues, and the canonical Casting Room already owns `SlatePlanner`, complete
+`castingSessionsBoard` legality/capacity truth, and `startCastingSessionAction`. Planning still
+replaces the Lot just before an existing authoritative one-week camera-test session begins.
+
+The bounded candidate may retain only one uniquely eligible Ready project's canonical planner over
+the exact current Lot. Zero or multiple eligible projects, pending review, active/history state,
+capacity/actor blockers, legacy, Operation-Hollywood-off, and non-Lot origins retain the full
+Casting Room. Acceptance must commit and autosave before close, then show one exact **CAMERA TESTS
+UNDERWAY** witness without implying a winner, hire, hold, payment, assignment, travel, occupancy,
+queue, or performed animation.
+
+Freeze implementation authority only after a short measured browser audit proves the current
+unmount, exact legal project gate, direct-action/save footprint, and retained-workspace feasibility.
+Do not add a physical Hollywood Casting building, fee, week advance, result generation, full-room
+retention, Core/GameState/SaveFile/economy/RNG change, or renderer/art structure.
 
 ## Closed parallel evidence lane
 
@@ -310,12 +339,12 @@ construction, or operating costs materially change the decision boundary.
 
 ## Post-close evidence boundary
 
-Preserve the accepted next-event, complete-company, Casting, and retained-Package contracts exactly
-while observing the next seam. Same-mounted continuity applies to ordinary non-release reactions
-and the exact accepted Package path; other standalone deep owners may still unmount and remount the
-Lot. One synchronous batch supplies one final state; do not narrate skipped travel, work, queues,
-occupancy, construction labor, rehearsal, shooting, Post, publicity, or theatrical activity as
-watched simulation.
+Preserve the accepted next-event, complete-company, Casting-review, retained-Package, and retained-
+Commission contracts exactly while observing the next seam. Same-mounted continuity applies to
+ordinary non-release reactions and those exact accepted retained paths; other standalone deep
+owners may still unmount and remount the Lot. One synchronous batch supplies one final state; do
+not narrate skipped travel, work, queues, occupancy, construction labor, rehearsal, shooting, Post,
+publicity, or theatrical activity as watched simulation.
 
 Any proposed successor must remain UI/world projection over existing authority unless a separately
 frozen Engine contract explicitly says otherwise. No new save field, facility, physical place,

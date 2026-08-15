@@ -4,15 +4,16 @@ Updated: 2026-08-15
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current accepted milestone: World-First Lot-Retained Package & Greenlight Workspace V1, closed by
-this documentation checkpoint
+Current accepted milestone: World-First Lot-Retained Screenplay Commission Workspace V1, closed
+by this documentation checkpoint
 
-Current accepted behavior authority: `729afb72d345e3430655d33f6b73ed8c7a33f1df`
+Current accepted behavior authority: `2ec3b8a3c6451112a423fe3e30f1c9331b831caa`
 
-Primary implementation authority: `729afb72d345e3430655d33f6b73ed8c7a33f1df`
+Primary implementation authority: `2ec3b8a3c6451112a423fe3e30f1c9331b831caa`
 
-Current frozen successor: none. Audit the Lot → screenplay-commissioning seam from this accepted
-checkpoint; no implementation successor is automatic.
+Current frozen successor: none. The next measured candidate is a bounded Lot-retained audition
+planning workspace for one uniquely eligible Ready screenplay; audit and freeze it separately
+before implementation.
 
 ## Product doctrine — World First
 
@@ -30,17 +31,18 @@ WORLD → INSPECT / ACT → DEEP PANEL IF NEEDED → RETURN TO THE SAME LIVE WOR
 
 “Same live world” always means the same authoritative studio and explicit Lot root. Most standalone
 deep screens still unmount the Lot and remount one Phaser view on return, so they do not promise
-camera or general selection continuity. The accepted retained-Package path is deliberately
-stronger: its exact Lot Screen, presentation token, Phaser view, canvas, camera, and local world
-memory stay mounted while canonical Assembly works above them.
+camera or general selection continuity. The accepted retained Package and Commission paths are
+deliberately stronger: their exact Lot Screen, presentation token, Phaser view, canvas, camera, and
+local world memory stay mounted while canonical management works above them.
 
 Dashboard, Assembly, Production Board, Calendar, Roster, Hiring, Finance, Film Autopsy, Chronicle,
 Writers Room, Casting Room, and Studio Development remain valuable. Do not delete or trivialize
 them. They are deep management surfaces for information and decisions too complex to express
 spatially. They support the world; they do not replace it. Where technically appropriate, the
 studio may remain alive behind or around them. Standalone deep owners return to the same
-authoritative Lot root with bounded context restoration; retained Package proves one narrow exact
-same-instance workspace. Neither behavior is a general persistent-shell claim for every screen.
+authoritative Lot root with bounded context restoration; retained Package and Commission prove two
+narrow exact same-instance workspaces. Neither behavior is a general persistent-shell claim for
+every screen.
 
 ### Critical experience test
 
@@ -107,6 +109,14 @@ all company/budget/marketing/Profile/Custom Talent depth, and leaves the world v
 Cancel is byte-neutral. Accepted greenlight remains covered through autosave, then the same canvas
 paints the exact formed picture, Director, Lead, and complete company. This is not a general claim
 that every deep screen is retained.
+
+The accepted Lot-Retained Screenplay Commission slice closes the start of that chain. Selecting
+Development while canonical start truth is idle opens the one shared concept/writer/shape/audience
+form over the exact same Lot. Cancel is byte-neutral; rejection preserves the complete draft; and
+acceptance commits plus autosaves one exact Drafting project before the same canvas names its
+writer, due week, facility, and slot. Writers' Room remains explicit supporting depth. Hollywood
+Development remains semantic; no physical Writers building, writer travel, occupancy, queue, or
+new screenplay law is claimed.
 
 Pan, zoom, selection, management-scale legibility, human-story-scale discovery, and Operation
 Hollywood visual quality are protected. Zoom should change which story the player notices, not
@@ -184,12 +194,54 @@ whether the game remains playable.
   same mounted Lot, preserves exact cancel/Profile/Custom Talent/Engine-rejection behavior, and
   commits plus autosaves greenlight before one live formation receipt paints the exact picture and
   company in the same canvas.
+- World-First Lot-Retained Screenplay Commission Workspace V1 keeps the canonical commission form
+  over that same mounted Lot, preserves exact cancel/rejection/standalone behavior, and commits plus
+  autosaves one exact Drafting project before a one-shot Development witness names its writer,
+  weeks, facility, and slot.
 
 ## Current world-first checkpoint
 
+World-First Lot-Retained Screenplay Commission Workspace V1 is accepted under frozen contract
+`57ce4058a122dfdb1443d9607087f30ff472ce48` and implementation
+`2ec3b8a3c6451112a423fe3e30f1c9331b831caa`. This documentation checkpoint closes the slice:
+
+- one shared canonical commission form serves the retained workspace and standalone Writers' Room;
+- App owns one `editing → committed` session bound to the exact rendered state, Lot Screen,
+  presentation token, workspace identity, and Development opener;
+- open, cancel, rejection, acceptance, autosave, close, and witness retain one Lot component,
+  Phaser view, canvas node, camera, Screen object, presentation token, and App authority tree;
+- world semantic, recovery/migration, and renderer input remain inert while the large workspace is
+  open, but the same visibly living studio stays mounted behind it;
+- cancel is byte-neutral, while Engine rejection keeps the same form instance, complete edited
+  draft, exact error, unchanged state/save, and legal retry;
+- accepted commissioning is synchronously exact-once, keeps a noninteractive recording state
+  through autosave, then closes without letting optional receipt failure roll back Engine truth;
+- one strict receipt proves the exact appended Drafting project and deterministic current
+  Development & Casting reservation before the Lot shows **SCREENPLAY COMMISSIONED** once; and
+- Operation-Hollywood-off managed and legacy modes preserve their established standalone routes.
+
+The visual/product ruling is **KEEP**. Desktop, 960×540, actual page-scale 200%, forced colors,
+reduced motion, and 480×270/DSF2 retain one bounded scroll owner, reachable controls, visible focus,
+no page overflow, and the same underlying Lot/canvas. The minimal founded fixture stays exactly
+30 objects / 13 actors / 11,096,896 decoded bytes / one draw across open, cancel, and accept.
+
+Final proof passed focused Commission 33/33; UI 113/113 files and 1,421/1,421 tests; repository
+200/200 files and 2,651/2,651 tests; governed D-16/D-17 10/10 files and 176/176 tests; Commission
+Chromium 4/4; combined Commission/Studio-Home/formation Chromium 20 passed / one explicit GPU-only
+skip; both TypeScript projects; and a 151-module production build. Direct Engine/SaveFileV11 byte
+parity, protected paths/refs, six screenshot reviews, `git diff --check`, and independent final
+audit passed. No GPU certification is claimed.
+
+No Core, GameState, SaveFileV11, screenplay, writer, capacity, reservation, facility, production,
+construction, publicity, economy, RNG, ledger, manifest, exporter, art, renderer structure/draw,
+travel, occupancy, queue, workload, autonomy, or pathfinding behavior changed.
+
+## Prior world-first checkpoint — Lot-Retained Package & Greenlight V1
+
 World-First Lot-Retained Package & Greenlight Workspace V1 is accepted under frozen contract
 `cc2c4af067f681d1a26f10959eb1c0dbd7512d0d` and implementation
-`729afb72d345e3430655d33f6b73ed8c7a33f1df`. This documentation checkpoint closes the slice:
+`729afb72d345e3430655d33f6b73ed8c7a33f1df`; exact closure authority is
+`910ac51b2c89bc238274db979c75ae379b02f5b9`:
 
 - App owns one independent `editing → committed` workspace session over the exact retained Lot
   Screen and opaque presentation token; no new `Screen`, App tree, Lot tree, view, or canvas exists;
@@ -670,7 +722,13 @@ production and integration remain unauthorized.
   `cc2c4af067f681d1a26f10959eb1c0dbd7512d0d`
 - World-First Lot-Retained Package & Greenlight Workspace V1 implementation:
   `729afb72d345e3430655d33f6b73ed8c7a33f1df`
-- World-First Lot-Retained Package & Greenlight Workspace V1 closure: this documentation checkpoint
+- World-First Lot-Retained Package & Greenlight Workspace V1 closure:
+  `910ac51b2c89bc238274db979c75ae379b02f5b9`
+- World-First Lot-Retained Screenplay Commission Workspace V1 contract:
+  `57ce4058a122dfdb1443d9607087f30ff472ce48`
+- World-First Lot-Retained Screenplay Commission Workspace V1 implementation:
+  `2ec3b8a3c6451112a423fe3e30f1c9331b831caa`
+- World-First Lot-Retained Screenplay Commission Workspace V1 closure: this documentation checkpoint
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -681,12 +739,19 @@ hard bankruptcy, or arbitrary cash sink is authorized.
 
 ## Current highest-leverage evidence step
 
-Resume a fresh several-minutes-on-Lot audit from the accepted retained-Package checkpoint. First
-measure the Lot → screenplay-commissioning seam: canonical Writers’ Room already owns the real
-concept/writer/shape/audience decision and Engine action, but entering it replaces the Lot. Rank a
-bounded retained commissioning workspace against the next visible person, production, building,
-blockage, or event break. Freeze a separate contract only when existing Engine/GameState and
-accepted art authority prove the complete loop; no successor is automatic.
+Measure **World-First Lot-Retained Audition Planning Workspace V1** as the next candidate. The
+existing Lot Casting cue names one legally plannable Ready screenplay; the complete canonical
+`castingSessionsBoard` can separately prove whether exactly one exists. `SlatePlanner` and
+`startCastingSessionAction` own the real camera-test decision and one-week shared-capacity
+reservation. Today that decision replaces the Lot with the Casting Room.
+
+Audit one exact project only, then freeze a separate contract if the current sources prove a
+same-mounted planner, byte-neutral cancel/rejection, commit → autosave → close ordering, and one
+exact **CAMERA TESTS UNDERWAY** witness. Zero or multiple legal projects, active/history/review,
+blocked capacity or actors, legacy, Operation-Hollywood-off, and non-Lot origins must retain the
+full Casting Room. No winner, hiring, actor movement, occupancy, physical Hollywood Casting place,
+fee, time advance, art, renderer object, Core/save/economy/RNG change, or full-room retention is
+authorized.
 
 Do not invent a physical Hollywood Writers/Casting building, performed audition travel, room
 occupancy, cast assignment, construction catalogue, physical Stage 12, new facility, second Annex,

@@ -728,3 +728,40 @@ Owner rulings remain the authority when a summary here conflicts with them.
   breadth, and formal G12 timing remain open. Nothing was merged, pushed, or tagged. No financing,
   loans, bailouts, restructuring, failure ladder, hard bankruptcy, or arbitrary cash sink is
   authorized.
+
+## 2026-08-15 — World-first Lot-retained screenplay commission workspace closes
+
+- Froze contract `57ce405` and delivered implementation
+  `2ec3b8a3c6451112a423fe3e30f1c9331b831caa` without changing Core, GameState, SaveFileV11,
+  screenplay legality, capacity, timing, facility, economy, RNG, art, manifest, or renderer
+  structure authority.
+- Extracted one shared canonical commission form so retained Lot and standalone Writers' Room paths
+  keep the same concept, writer, shape, audience, promise, blocker, consequence, and Engine action.
+- Bound one App-owned `editing → committed` session to the exact rendered state, Lot Screen,
+  presentation token, workspace identity, and opener. Stale state/screen/token callbacks, modal
+  conflicts, whole-studio replacement, close/reopen, Lot teardown, and App teardown fail neutral.
+- Retained the same mounted `StudioLotScreen`, Phaser view, canvas, camera, and Lot-local memory
+  through open, cancel, rejection, accepted commit, autosave, close, and witness. Shared Package /
+  Commission containment keeps the visible world and recovery controls inert without pausing the
+  renderer.
+- Made cancel byte-neutral and rejection draft-preserving. Accepted commissioning is synchronously
+  exact-once, keeps a recording state through established autosave, and survives optional receipt
+  failure without rollback, redispatch, or guessed identity.
+- Added one strict closed receipt so the already-mounted Development context consumes exact
+  **SCREENPLAY COMMISSIONED**, title, writer, commissioned/due weeks, facility, and one-based slot
+  once. No physical Writers building, travel, occupancy, queue, or watched drafting is claimed.
+- Closed proof with focused Commission 33/33; UI 113/113 files and 1,421/1,421 tests; repository
+  200/200 files and 2,651/2,651 tests; governed D-16/D-17 10/10 and 176/176; Commission Chromium
+  4/4; combined Commission/Studio-Home/formation Chromium 20 passed / one explicit GPU-only skip;
+  both TypeScript projects; a 151-module build; exact action/save parity; six screenshot reviews;
+  and clean independent audit.
+- Preserved the minimal fixture at 30 objects / 13 actors / 11,096,896 decoded bytes / one draw.
+  Structural parity is not GPU certification; no threshold was relaxed.
+- Promoted the measured **World-First Lot-Retained Audition Planning Workspace V1** candidate.
+  Audit and freeze it separately around one uniquely eligible Ready screenplay and the canonical
+  Casting planner/action; do not invent a winner, hire, actor movement, physical Hollywood Casting
+  place, fee, time advance, art, renderer structure, or Engine law.
+- Preserved protected refs and **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN
+  OPEN**. All nine macroeconomic residuals remain open. Nothing was merged, pushed, or tagged; no
+  financing, loans, bailouts, restructuring, failure ladder, hard bankruptcy, or arbitrary cash
+  sink was introduced.

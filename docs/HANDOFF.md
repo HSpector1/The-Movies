@@ -1,10 +1,62 @@
 # Project: Studio — Engineering Handoff
 
-> ## 🎬 2026-08-15 — CURRENT: LOT-RETAINED PACKAGE & GREENLIGHT WORKSPACE V1 CLOSED
+> ## 🎬 2026-08-15 — CURRENT: LOT-RETAINED SCREENPLAY COMMISSION WORKSPACE V1 CLOSED
+>
+> Work continues on `operation-hollywood-autonomous-marathon`. Frozen contract authority is
+> `57ce4058a122dfdb1443d9607087f30ff472ce48`; accepted implementation authority is
+> `2ec3b8a3c6451112a423fe3e30f1c9331b831caa`. This documentation checkpoint closes the slice.
+>
+> **THE STUDIO LOT IS THE PRIMARY GAME SURFACE. MANAGEMENT UI SUPPORTS THE WORLD. IT DOES NOT
+> REPLACE THE WORLD.** Selecting idle/startable managed Development now opens the one shared
+> canonical concept/writer/shape/audience commission form over the exact mounted Lot, Screen,
+> presentation token, Phaser view, canvas, and camera. Writers' Room remains explicit supporting
+> depth; Operation-Hollywood-off and legacy paths keep their standalone owners.
+>
+> App owns one strict transient `editing → committed` session. Cancel is save-byte neutral;
+> rejection retains the same form, complete edited draft, exact Engine error, and legal retry.
+> Submit is synchronously exact-once. Acceptance commits and reaches established autosave before
+> the recording workspace closes; optional receipt failure cannot roll back valid Engine truth.
+> One strict receipt lets the same Development selection show **SCREENPLAY COMMISSIONED** once with
+> exact title, writer, commissioned/due weeks, facility, and one-based slot.
+>
+> Stale Lot/state/screen/presentation callbacks, Package/Profile conflicts, whole-studio
+> replacement, screen drift, close/reopen, Lot unmount, renderer failure/delay, App teardown, and
+> physical input tails are exact or neutral. The world remains visible but inert; recovery and
+> migration controls join that inert boundary and focus returns only after containment clears.
+>
+> Final proof: focused Commission **33/33**; UI **113/113 files, 1,421/1,421 tests**; repository
+> **200/200 files, 2,651/2,651 tests**; governed D-16/D-17 **10/10 files, 176/176 tests**;
+> Commission Chromium **4/4**; combined Commission/Studio-Home/formation Chromium **20 passed /
+> one explicit GPU-only skip**; both TypeScript projects; production build **151 modules** with the
+> existing chunk advisory; direct action/save parity; six screenshot reviews; and independent
+> final audit all pass. The minimal fixture remains exactly **30 objects / 13 actors / 11,096,896
+> decoded bytes / one draw**. No GPU/FPS certification is claimed.
+>
+> No Core, GameState, SaveFileV1–V11, screenplay, writer, capacity, facility, production,
+> construction, publicity, economy, RNG, ledger, authored-art, manifest/exporter, renderer
+> structure/draw, travel, occupancy, queue, workload, autonomy, or pathfinding behavior changed.
+> The next measured candidate is a separately frozen Lot-retained audition planner for one uniquely
+> eligible Ready screenplay; do not invent a winner, actor movement, physical Hollywood Casting
+> place, fee, time advance, art, or Engine law.
+>
+> Protected anchors remain untouched: `main` =
+> `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =
+> `35d42687a410a621becf1df35c75986657f8c44e`; Operation Hollywood bridge =
+> `623b8b2a80e9c6b85304eaa2a338b6045e8f6b21`. Nothing was merged, pushed, or tagged.
+>
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+>
+> Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
+> dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
+> and formal G12 timing remain open. No financing, loans, bailouts, restructuring, failure ladder,
+> hard bankruptcy, or arbitrary cash sink is authorized.
+
+> ## 🎬 2026-08-15 — PRIOR: LOT-RETAINED PACKAGE & GREENLIGHT WORKSPACE V1 CLOSED
 >
 > Work continues on `operation-hollywood-autonomous-marathon`. Frozen contract authority is
 > `cc2c4af067f681d1a26f10959eb1c0dbd7512d0d`; accepted implementation authority is
-> `729afb72d345e3430655d33f6b73ed8c7a33f1df`. This documentation checkpoint closes the slice.
+> `729afb72d345e3430655d33f6b73ed8c7a33f1df`; exact closure authority is
+> `910ac51b2c89bc238274db979c75ae379b02f5b9`.
 >
 > **THE STUDIO LOT IS THE PRIMARY GAME SURFACE. MANAGEMENT UI SUPPORTS THE WORLD. IT DOES NOT
 > REPLACE THE WORLD.** The exact clear Casting successor now commits and reaches established

@@ -75,14 +75,18 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   the sole acknowledgement now live in the Lot; blocked successors stay mounted and clear
   successors autosave before the exact Package handoff.
 - **World-First Lot-Retained Package & Greenlight Workspace V1:** ACCEPTED at implementation
-  `729afb72d345e3430655d33f6b73ed8c7a33f1df` under frozen contract `cc2c4af` and CLOSED by this
-  documentation checkpoint. The canonical Package now opens over the same mounted Lot; cancel is
-  byte-neutral, and accepted greenlight autosaves before the exact picture forms in that same
-  canvas/camera.
-- **Next action:** resume the several-minutes-on-Lot audit at the screenplay-commissioning seam.
-  Measure whether canonical Writers’ Room commissioning can become a retained supporting workspace
-  without inventing a physical Hollywood Writers building or changing Engine law; no successor is
-  automatic.
+  `729afb72d345e3430655d33f6b73ed8c7a33f1df` under frozen contract `cc2c4af` and CLOSED at
+  `910ac51b2c89bc238274db979c75ae379b02f5b9`. The canonical Package now opens over the same mounted
+  Lot; cancel is byte-neutral, and accepted greenlight autosaves before the exact picture forms in
+  that same canvas/camera.
+- **World-First Lot-Retained Screenplay Commission Workspace V1:** ACCEPTED at implementation
+  `2ec3b8a3c6451112a423fe3e30f1c9331b831caa` under frozen contract `57ce405` and CLOSED by this
+  documentation checkpoint. The shared canonical form now opens over the exact mounted Lot; cancel
+  and rejection preserve bytes/draft, while acceptance autosaves before one exact Development
+  witness appears in that same canvas/camera.
+- **Next action:** measure and separately freeze World-First Lot-Retained Audition Planning
+  Workspace V1 for one uniquely eligible Ready screenplay. Reuse the canonical Casting planner and
+  action; do not invent a winner, actor movement, physical Hollywood Casting place, or Engine law.
 
 ## Closed marathon milestones
 
@@ -115,7 +119,8 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Active Production Company Presence V1 | `08e86ab` | `2ef7f0a` | `9294fb6` |
 | World-First Lot-Native Screenplay Review V1 | `22ee17c` | `67a0bf3` | `e37035c` |
 | World-First Lot-Native Casting Review V1 | `d707f98` (`8fe3aea` initial freeze) | `cd0ace6` | `5c6f757` |
-| World-First Lot-Retained Package & Greenlight Workspace V1 | `cc2c4af` | `729afb7` | this documentation checkpoint |
+| World-First Lot-Retained Package & Greenlight Workspace V1 | `cc2c4af` | `729afb7` | `910ac51` |
+| World-First Lot-Retained Screenplay Commission Workspace V1 | `57ce405` | `2ec3b8a` | this documentation checkpoint |
 
 ## Product result so far
 
@@ -226,11 +231,18 @@ before open; greenlight autosaves before close; one strict live receipt then pai
 FORMED**, Director, Lead, and complete company in the same canvas. Cancel changes no save byte.
 Classic retains standalone Assembly.
 
+Screenplay commissioning now begins in that same living studio. The one shared canonical form owns
+concept, writer, shape, audience, promise, blockers, and the sole Engine intent above the exact Lot.
+Cancel is byte-neutral; rejection retains every edited field and exact error; accepted state commits
+and autosaves before close. One strict receipt then paints exact **SCREENPLAY COMMISSIONED**, writer,
+weeks, facility, and slot in the same canvas. Writers' Room remains optional supporting depth.
+
 Standalone deep screens generally still unmount and later remount the Lot. Same-mounted continuity
-is accepted for ordinary non-release event stops and this exact retained Package path, not a claim
-that every supporting surface preserves the same Phaser instance. Skipped weeks are one synchronous
-Engine batch and one final snapshot; the game does not claim their travel, queues, occupancy,
-construction labor, rehearsal, shooting, Post, publicity, or theatrical activity was watched.
+is accepted for ordinary non-release event stops and the exact retained Package and Commission
+paths, not a claim that every supporting surface preserves the same Phaser instance. Skipped weeks
+are one synchronous Engine batch and one final snapshot; the game does not claim their travel,
+queues, occupancy, construction labor, rehearsal, shooting, Post, publicity, or theatrical activity
+was watched.
 
 Final cadence proof passed 185/185 repository files and 2,476/2,476 tests, focused next-event
 authority 214/214, governed D-16/D-17 176/176, Chromium 12/12, both TypeScript projects, and a
@@ -271,10 +283,20 @@ byte parity; exact 42-object / 19-actor / 11,096,896-byte / one-draw structure; 
 and clean independent P0/P1 audit. No Core, save, simulation, package, economy, art,
 manifest/exporter, or renderer-structure/draw behavior changed. No GPU certification is claimed.
 
-The next action remains evidence-led: audit the Lot → screenplay-commissioning break as the first
-candidate for a retained canonical Writers’ Room workspace, then rank it against other visible
-person, production, building, blockage, or event seams. Do not turn that candidate into an invented
-place, travel, occupancy, assignment, facility, construction, or Engine law.
+Final retained-Commission proof passed focused Commission 33/33; UI 113/113 files and
+1,421/1,421 tests; repository 200/200 files and 2,651/2,651 tests; governed D-16/D-17 10/10 files
+and 176/176 tests; Commission Chromium 4/4; combined Commission/Studio-Home/formation Chromium
+20 passed / one explicit GPU-only skip; both TypeScript projects; a 151-module build; direct
+Engine/SaveFileV11 byte parity; exact minimal-fixture 30-object / 13-actor / 11,096,896-byte /
+one-draw structure; six screenshot reviews; and clean independent audit. No Core, save, simulation,
+screenplay, economy, art, manifest/exporter, or renderer-structure/draw behavior changed. No GPU
+certification is claimed.
+
+The next action remains evidence-led: measure a bounded Lot-retained audition planner for exactly
+one current legally eligible Ready screenplay, then freeze authority separately. Use canonical
+`SlatePlanner`, `castingSessionsBoard`, and `startCastingSessionAction`; retain full Casting Room for
+ambiguous, blocked, active, legacy, and non-Lot paths. Do not invent a winner, hire, movement,
+occupancy, physical place, fee, time advance, art, renderer structure, or Engine law.
 
 ## Governing status
 

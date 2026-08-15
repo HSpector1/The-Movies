@@ -3627,3 +3627,63 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   center-hit-test it, activate it by pointer and keyboard, and retain one intentional scroll owner.
 - **Pattern:** governed rectangle + hit target + real input proof. **Anti-pattern:** viewport math
   without the browser's rendered geometry.
+
+---
+
+# World-First Lot-Retained Screenplay Commission Workspace V1 — IMPLEMENTATION CLOSED
+
+> Contract `57ce4058a122dfdb1443d9607087f30ff472ce48`; implementation
+> `2ec3b8a3c6451112a423fe3e30f1c9331b831caa`; closure by the documentation checkpoint containing
+> this record.
+
+## GB. Retaining a workflow must share its canonical decision component — **IT**
+
+- **Risk:** copying a convenient portion of Writers' Room into the Lot creates two concept, writer,
+  shape, audience, blocker, default, or submit implementations that silently drift.
+- **Resolution / fastest proof:** extract one form component and let each host own only presentation
+  and accepted-state routing. Exercise identical explicit payloads and blockers in both hosts, and
+  require standalone acceptance to report its successor before closing.
+- **Pattern:** shared decision owner + host-specific lifecycle. **Anti-pattern:** visually matching
+  forms backed by separately maintained logic.
+
+## GC. Lot provenance is state + Screen object + presentation token, not `kind: 'lot'` — **BR**
+
+- **Risk:** a callback captured by an older Lot can fire after a same-kind Lot remount and pass a
+  current-screen check, acquiring authority over a different camera, canvas, state, or studio.
+- **Resolution / fastest proof:** capture the exact rendered GameState object, exact Screen object,
+  and opaque presentation token at the JSX boundary; compare all three with latest refs before
+  opening, mutating, closing, focusing, or navigating. Race old-screen, older-state-same-screen,
+  remount, and whole-studio replacement callbacks.
+- **Pattern:** complete presentation provenance. **Anti-pattern:** route-kind or stable-ID checks as
+  proof of current mounted-world ownership.
+
+## GD. A strict optional receipt can explain success but cannot veto it — **IT, BR**
+
+- **Risk:** malformed or ambiguous presentation evidence after a valid Engine action causes the UI
+  to roll back, redispatch, retain an invalid form, or guess the appended project.
+- **Resolution / fastest proof:** synchronously claim once, commit the exact Engine successor, and
+  let established autosave observe it before closing. Build a closed before/after receipt only for
+  the witness. If it returns `null`, close to neutral current world truth with no guessed identity.
+- **Pattern:** transaction → save → optional explanation. **Anti-pattern:** making witness proof a
+  precondition for accepting Engine truth.
+
+## GE. One modal owner requires one complete inert boundary and one success announcer — **MG, BR**
+
+- **Risk:** recovery/migration controls outside the visual world subtree remain clickable while a
+  retained workspace claims modal ownership; separately, committed workspace and returning Lot can
+  announce the same success twice or leave focus nowhere.
+- **Resolution / fastest proof:** include every background sibling and renderer input in the inert /
+  `aria-hidden` boundary; make committed state visual-only with a focusable dialog fallback; remove
+  inert before restoring focus; let the stable Lot activity region own the single success message.
+- **Pattern:** complete modal containment + one live-region owner. **Anti-pattern:** inerting only
+  the canvas wrapper or mounting success announcements in both transaction and world layers.
+
+## GF. Structural parity must name the fixture actually measured — **MG**
+
+- **Risk:** reusing a richer one-production 42/19 tuple for a minimal founded commission fixture
+  turns a true no-delta result into false evidence.
+- **Resolution / fastest proof:** capture the before tuple from the same browser fixture and compare
+  open, cancel, and accept against it. Record the honest 30 objects / 13 actors / 11,096,896 decoded
+  bytes / one draw result and keep richer fixture totals in their own evidence records.
+- **Pattern:** fixture-local before/after structure. **Anti-pattern:** copying a familiar structural
+  headline across semantically different saves.
