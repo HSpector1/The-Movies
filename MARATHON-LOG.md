@@ -521,3 +521,35 @@ Owner rulings remain the authority when a summary here conflicts with them.
   roster wall, P5 dominance, world-led variance, cheap-film purpose, premium-film purpose,
   remaining menu breadth, and formal G12 timing remain open. No merge, push, tag, financing, loan,
   bailout, restructuring, failure ladder, hard bankruptcy, or arbitrary cash sink was introduced.
+
+## 2026-08-15 — Active production company audit and contract freeze
+
+- Re-ran the Owner's several-minutes-on-Lot test from accepted cadence closure
+  `2e32b0520ca2dc1c5a3a091000c6cbb998637f28` rather than restarting the campaign.
+- Found one bounded presentation break: Core already owns the exact Writer, Director, three cast
+  slots, and one Production/Craft Lead for every ordinary managed active picture, but the living
+  Lot projects only Director and Lead.
+- Proved public-action law already rejects within-picture role reuse, cross-picture/screenplay reuse,
+  missing craft, and ordinary concurrency above two. Also recorded honestly that SaveFileV11 does
+  not independently re-prove every one of those invariants.
+- Froze
+  `docs/WORLD-FIRST-ACTIVE-PRODUCTION-COMPANY-PRESENCE-PICTURE-SWITCHING-V1-CONTRACT.md` by this
+  documentation checkpoint. The additive company projection must be all-or-nothing, uniqueness-
+  aware, exact by production ID, and hostile-state safe; optional immutable greenlight participant
+  history and last-write-wins profile maps are not current assignment authority.
+- Authorized only existing Role Atlas `director` and generic `talent` presentation categories.
+  Exact Writer/Director/Lead/Antagonist/Support/Production-Craft role remains textual; ambient Grip,
+  Stagehand, Electrician, Camera, Publicity, Security, and Extra art remains cosmetic and cannot be
+  promoted into named staff.
+- Required every valid six-person company to remain present while exact person/picture selection
+  switches; release/removal clears only stale ownership and never substitutes another company.
+- Recorded the structural expectations `42/19` for one full company and `54/25` for two, with
+  unchanged `11,096,896` decoded bytes, as hypotheses requiring measurement rather than evidence.
+  Twelve-person professional readability, physical selectability, responsive access, and retained
+  performance are explicit Keep/Kill gates.
+- Added no Core, GameState, SaveFile, production, assignment, career, facility, construction,
+  economy, RNG, manifest, exporter, authored-art, task, route, queue, workload, autonomy, or
+  pathfinding behavior.
+- Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
+  RESIDUALS REMAIN OPEN**. No merge, push, tag, financing, loan, bailout, restructuring, failure
+  ladder, hard bankruptcy, or arbitrary cash sink is authorized.

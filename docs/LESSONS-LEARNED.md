@@ -3394,3 +3394,32 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   renderer generation, suspension, visibility, and unmount.
 - **Pattern:** one transient presentation, one winning deliberate claim. **Anti-pattern:** three
   independent buttons that each trust their latest React closure.
+
+## FJ. Save acceptance is not proof of every public-action staffing invariant — **IT, BR**
+
+- **Risk:** a new world projection assumes that a loadable production necessarily obeys the
+  ordinary two-picture cap, one-craft rule, and within/cross-picture assignment exclusivity. The
+  current SaveFileV11 envelope validates references and shapes but does not independently re-prove
+  every one of those action-time conditions.
+- **Resolution / fastest proof:** collect the complete raw active-production slot set before
+  emitting any “complete company.” Require 0–2 unique productions, exactly one craft slot, one
+  unique current Talent per canonical role, no global reuse, and one exact whole-studio assignment.
+  On failure omit the expanded projection atomically; never slice, Map-overwrite, or repair.
+- **Coverage / fastest diagnostic:** construct hostile accepted shapes for >2 pictures, zero/two
+  craft, same ID in two roles/pictures, and production+screenplay collision. Require no partial
+  company and no mutation/crash.
+- **Pattern:** narrow read-model authority is re-proven at its boundary. **Anti-pattern:** treating
+  schema validity as domain-legality certification.
+
+## FK. Current assignment slots and frozen participant history answer different questions — **IT**
+
+- **Risk:** immutable greenlight `participants` look richer than raw Production IDs and tempt a
+  world inspector to use historical name, freelancer, OVR, Fit, or Expected Performance as current
+  company truth.
+- **Resolution / fastest proof:** use raw active writer/director/cast/craft slots for current role,
+  one unique current Talent for current identity/name, and the strict assignment gate for current
+  engagement. Leave optional participant history to Autopsy/Chronicle contribution evidence.
+- **Coverage / fastest diagnostic:** permit legal cross-discipline work and historical participant
+  names while requiring current Lot role/name from the exact active slot/current Talent join.
+- **Pattern:** current assignment and historical evidence remain separate authorities.
+  **Anti-pattern:** one rich immutable record silently becoming the live roster.

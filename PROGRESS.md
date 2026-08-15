@@ -59,8 +59,16 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   CLOSED by this documentation checkpoint. One existing App/Engine batch now produces one final
   exact-or-neutral Lot reaction, every non-release stop retains the mounted world/camera, and real
   releases retain their established deep chain.
-- **Next selection:** a fresh several-minutes-on-Lot critical-experience audit; instrument the next
-  observed break before freezing another feature.
+- **World-First Active Production Company Presence & Picture Switching V1:** CONTRACT FROZEN by
+  the current documentation checkpoint against accepted cadence closure `2e32b05`. The measured
+  break is presentation-only: Core already owns six exact people per ordinary managed picture,
+  while the Lot projects only Director and Lead. Implementation must use an atomic strict company
+  projection, retain every other company in world while switching exact picture context, and pass
+  the twelve-person visual/performance Keep gate without adding simulation, personal-location,
+  facility, route, queue, workload, save, economy, or art law.
+- **Next action:** implement and prove only that frozen bounded slice; kill or narrow physical
+  expansion if generic Talent presentation becomes misleading or twelve-person play is not
+  professionally legible and selectable.
 
 ## Closed marathon milestones
 

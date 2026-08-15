@@ -183,16 +183,38 @@ batch and one final snapshot, not witnessed intermediate work. No Core/save/simu
 physical-place, art, world movement route, task, queue, autonomy, pathfinding, or renderer-draw law
 changed.
 
-## Evidence-led next audit
+## Frozen next — World-First Active Production Company Presence & Picture Switching V1
 
-Repeat the Owner's several-minutes-on-Lot critical-experience test against accepted cadence. Observe
-where the player next loses exact world identity, cannot act spatially, or must leave the Lot for a
-decision already supportable by current authority. Instrument first and freeze a bounded successor
-only after ordinary-player value, accepted art, readability, and performance are proven.
+The post-cadence critical-experience audit found the next smallest truthful world break. Core
+already owns one exact Writer, Director, Lead, Antagonist, Support, and Production/Craft Lead per
+ordinary managed picture, including within/cross-picture exclusivity and a two-picture ordinary
+cap. The accepted Lot projects only Director and Lead, so four real engaged people per picture do
+not yet exist as named inhabitants and two-picture company membership remains mostly screen memory.
 
-Do not predeclare a feature merely to keep the marathon moving. A candidate must survive current
-Core/GameState authority, exact identity/cardinality, two-production readability, and the existing
-world-first Keep/Kill standard before it becomes a contract.
+The new frozen contract is
+`docs/WORLD-FIRST-ACTIVE-PRODUCTION-COMPANY-PRESENCE-PICTURE-SWITCHING-V1-CONTRACT.md`, against
+accepted cadence closure `2e32b0520ca2dc1c5a3a091000c6cbb998637f28`. Implement only its
+bounded presentation/navigation slice:
+
+- atomically prove zero through two complete six-person managed companies from raw active
+  Production slots, unique current Talent, exact operation identity, and the strict whole-studio
+  assignment gate;
+- populate no partial “complete company” on hostile accepted states and never slice or Map-overwrite
+  duplicate identity;
+- embody valid members through existing `director`/generic `talent` presentation roles while exact
+  profession remains textual;
+- select any member into their exact picture, keep all other active company members present, and
+  switch A/B by production ID rather than title, array order, stage, or current tab;
+- retain the canonical same-mounted Talent Profile and exact-or-neutral release/replacement law;
+  and
+- add no personal location, destination, route, workplace, queue, workload, task, autonomy,
+  company building, facility, Engine/save/economy law, or new art.
+
+Normal full-company structure is expected—not yet proven—to rise from the accepted one-picture
+`34/15` reference to `42/19`, and to `54/25` for two pictures, at unchanged `11,096,896` decoded
+bytes. Measure rather than assume. KILL or narrow if twelve repeated figures are misleading,
+unreadable, physically unselectable, materially less professional, or fail the retained performance
+gate. Do not relabel a semantic rail or partial cast as complete company presence.
 
 ## Closed parallel evidence lane
 

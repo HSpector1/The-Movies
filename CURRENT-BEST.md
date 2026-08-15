@@ -11,6 +11,10 @@ Current accepted behavior authority: `aabb68477fe73ea21af3195985ee7ffaf6a182f7`
 
 Primary implementation authority: `eb6cef1bb2cadc09438daacefb5868e7e6269b44`
 
+Current frozen successor: World-First Active Production Company Presence & Picture Switching V1,
+frozen by the current documentation checkpoint against accepted cadence closure
+`2e32b0520ca2dc1c5a3a091000c6cbb998637f28`
+
 ## Product doctrine — World First
 
 **THE STUDIO LOT IS THE PRIMARY GAME SURFACE.**
@@ -76,6 +80,16 @@ people/resource movement, facility reservation and occupation, scenery arrival a
 rehearsal, shooting, visible problems and intervention, Post, release, and publicity. The primary
 experience must not collapse into `greenlight → abstract production screen → completion → return
 to lot`.
+
+The next bounded implementation applies that doctrine to the already-authoritative active picture
+company. Ordinary managed pictures own one Writer, Director, Lead, Antagonist, Support, and
+Production/Craft Lead, but the accepted Lot currently embodies only Director and Lead. The frozen
+Active Production Company contract may project all six as selectable named inhabitants and make
+two-picture switching legible only after a strict all-or-nothing authority gate. It adds no people
+simulation, personal location, company facility, route, queue, workload, or new art authority.
+Generic `director`/`talent` atlas categories remain presentation roles; exact role-on-picture stays
+textual and the complete twelve-person presentation must pass its explicit visual/performance
+Keep gate before acceptance.
 
 Pan, zoom, selection, management-scale legibility, human-story-scale discovery, and Operation
 Hollywood visual quality are protected. Zoom should change which story the player notices, not

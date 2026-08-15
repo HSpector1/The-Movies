@@ -1,5 +1,43 @@
 # Project: Studio — Engineering Handoff
 
+> ## 🎬 2026-08-15 — CURRENT: ACTIVE PRODUCTION COMPANY PRESENCE CONTRACT FROZEN
+>
+> Work continues on `operation-hollywood-autonomous-marathon`. Accepted Lot-native cadence closure
+> is `2e32b0520ca2dc1c5a3a091000c6cbb998637f28`. The current documentation checkpoint freezes
+> `WORLD-FIRST-ACTIVE-PRODUCTION-COMPANY-PRESENCE-PICTURE-SWITCHING-V1-CONTRACT.md`; implementation
+> has not yet been accepted.
+>
+> The fresh critical-experience audit found a precise world-first gap. Core already owns each
+> ordinary managed picture's exact Writer, Director, Lead, Antagonist, Support, and one
+> Production/Craft Lead, plus role exclusivity and ordinary two-picture capacity. The accepted Lot
+> embodies only Director and Lead. The new slice may make the complete six/twelve-person company
+> selectable in the living Lot and make exact A/B picture switching legible.
+>
+> The projection must be atomic and hostile-state safe. SaveFileV11 does not re-prove every legal
+> greenlight invariant, so >2 pictures, missing/extra craft, repeated IDs, production/screenplay
+> collisions, stale names/titles, and malformed operations withhold the full-company claim rather
+> than truncate, overwrite, repair, reject, or crash. Raw active Production slots plus one unique
+> current Talent and exact assignment/operation identity own current membership. Optional frozen
+> participant history and last-write-wins maps do not.
+>
+> Reuse only accepted `director` and generic `talent` presentation roles; exact role-on-picture
+> remains textual. Ambient crew art cannot become named staff. Selecting a member selects that
+> exact production while every other active company remains present. No personal room,
+> destination, travel, occupancy, workplace, route, queue, workload, task, autonomy, company
+> facility, Engine/save/economy law, or new art is authorized.
+>
+> Code-derived structure expects `42 objects / 19 actors` for one full company and `54 / 25` for
+> two, at unchanged `11,096,896` decoded bytes. Those are not evidence. Implement, measure, play,
+> and KILL or narrow if twelve-person presentation is misleading, crowded, unselectable, less
+> professional, or below the retained performance gate.
+>
+> Protected anchors remain untouched: `main` =
+> `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =
+> `35d42687a410a621becf1df35c75986657f8c44e`; Operation Hollywood bridge =
+> `623b8b2a80e9c6b85304eaa2a338b6045e8f6b21`. Nothing was merged, pushed, or tagged.
+>
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+>
 > ## 🎬 2026-08-15 — CURRENT: Lot-Native Next-Event Cadence & Reaction V1 CLOSED
 >
 > Work continues on `operation-hollywood-autonomous-marathon`. Frozen contract authority is
