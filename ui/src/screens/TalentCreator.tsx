@@ -9,13 +9,14 @@
 // rejections as DATA, surfaced loudly). OVR is never an input. Fit is never shown here
 // (it depends on the specific film/assignment). No Math.random anywhere.
 
-import { useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import type { GameState } from '../engine/adapter.ts'
 import { BalancedCareerCreator } from '../components/creator/BalancedCareerCreator.tsx'
 import { FullCustomCreator } from '../components/creator/FullCustomCreator.tsx'
 
 // ── Creator mode (D-11.A A3): Balanced Career (default) vs Full Custom ────────
 type CreatorMode = 'balanced' | 'full'
+export type TalentCreatorSurface = 'standalone' | 'lot-workspace'
 
 // A shared segmented control at the top of the creator. Switching swaps which
 // editor renders. Kept identical in both topbars so the toggle never moves.
@@ -50,31 +51,70 @@ export function TalentCreator({
   state,
   onCreated,
   onBack,
+  surface = 'standalone',
 }: {
   state: GameState
   onCreated: (next: GameState) => void
   onBack: () => void
+  surface?: TalentCreatorSurface
 }) {
   const [mode, setMode] = useState<CreatorMode>('balanced')
+  const isLotWorkspace = surface === 'lot-workspace'
+  const surfaceRef = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    if (!isLotWorkspace) return
+    surfaceRef.current
+      ?.querySelector<HTMLElement>('[data-testid="creator-mode-balanced"]')
+      ?.focus({ preventScroll: true })
+  }, [isLotWorkspace])
 
   return (
-    <div className="app-shell">
-      <div className="topbar">
-        <div className="brand">
-          <span className="mark">CREATE TALENT</span>
+    <div
+      ref={surfaceRef}
+      className={
+        isLotWorkspace
+          ? 'talent-creator-surface talent-creator-surface--lot-workspace'
+          : 'app-shell talent-creator-surface talent-creator-surface--standalone'
+      }
+      data-testid="talent-creator-surface"
+      data-surface={surface}
+    >
+      {isLotWorkspace ? (
+        <div className="talent-creator-workspace-header">
+          <div className="brand">
+            <span className="mark">CREATE TALENT</span>
+          </div>
+          <div className="row" style={{ gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+            <ModeToggle mode={mode} onMode={setMode} />
+            <button className="ghost" onClick={onBack} data-testid="talent-creator-back">
+              Back to package
+            </button>
+          </div>
         </div>
-        <div className="row" style={{ gap: 8, alignItems: 'center' }}>
-          <ModeToggle mode={mode} onMode={setMode} />
-          <button className="ghost" onClick={onBack} data-testid="talent-creator-back">
-            Back to studio
-          </button>
-        </div>
-      </div>
-      {mode === 'full' ? (
-        <FullCustomCreator state={state} onCreated={onCreated} />
       ) : (
-        <BalancedCareerCreator state={state} onCreated={onCreated} />
+        <div className="topbar">
+          <div className="brand">
+            <span className="mark">CREATE TALENT</span>
+          </div>
+          <div className="row" style={{ gap: 8, alignItems: 'center' }}>
+            <ModeToggle mode={mode} onMode={setMode} />
+            <button className="ghost" onClick={onBack} data-testid="talent-creator-back">
+              Back to studio
+            </button>
+          </div>
+        </div>
       )}
+      <div
+        className={isLotWorkspace ? 'assembly-workspace-scroll' : undefined}
+        data-testid={isLotWorkspace ? 'talent-creator-workspace-scroll' : undefined}
+      >
+        {mode === 'full' ? (
+          <FullCustomCreator state={state} onCreated={onCreated} />
+        ) : (
+          <BalancedCareerCreator state={state} onCreated={onCreated} />
+        )}
+      </div>
     </div>
   )
 }

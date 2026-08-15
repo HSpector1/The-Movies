@@ -415,6 +415,224 @@ th.num {
   border-color: var(--border-strong);
 }
 
+/* ── Lot-retained Package workspace ───────────────────────────────────────
+   Package remains a deep management surface, but it now sits above the same
+   mounted, visibly living Studio Lot instead of replacing the world route. */
+.lot-package-workspace-layer {
+  position: fixed;
+  z-index: 40;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: clamp(24px, 2.4vw, 32px);
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: rgba(5, 7, 12, 0.42);
+  isolation: isolate;
+}
+
+.lot-package-workspace {
+  display: flex;
+  flex-direction: column;
+  width: min(1120px, 82vw);
+  height: min(88dvh, 920px);
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  color: var(--text);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  box-shadow: -18px 18px 70px rgba(0, 0, 0, 0.58);
+}
+
+.lot-package-workspace:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.lot-package-workspace-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 22px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-inset);
+}
+
+.lot-package-workspace-header > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lot-package-workspace-header strong {
+  overflow: hidden;
+  font-size: 17px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lot-package-workspace-header .ghost {
+  min-height: 44px;
+}
+
+.lot-package-workspace-committing {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(28px, 6vw, 88px);
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(201, 162, 74, 0.13), transparent 42%),
+    var(--bg-panel);
+}
+
+.lot-package-workspace-committing h2 {
+  max-width: 680px;
+  margin: 8px 0;
+  font-size: clamp(24px, 3vw, 38px);
+}
+
+.lot-package-workspace-committing p {
+  max-width: 560px;
+  color: var(--text-dim);
+}
+
+.lot-package-workspace-eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+}
+
+/* ── Package Assembly presentation adapter ────────────────────────────────
+   The Lot host owns the dialog/scrim. These styles keep the canonical Assembly
+   and its in-place Talent Creator inside that bounded host without creating a
+   second page shell or scrolling the still-live studio underneath it. */
+.assembly-surface--lot-workspace,
+.talent-creator-surface--lot-workspace {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.assembly-workspace-scroll {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding: 18px 22px 24px;
+}
+
+.assembly-workspace-progress {
+  position: sticky;
+  z-index: 4;
+  top: 0;
+  margin-bottom: 18px;
+  padding: 4px 0 12px;
+  background: linear-gradient(180deg, var(--bg-panel) 78%, rgba(28, 31, 40, 0));
+}
+
+.assembly-workspace-actions {
+  position: sticky;
+  z-index: 4;
+  bottom: 0;
+  justify-content: flex-end;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+  background: linear-gradient(0deg, var(--bg-panel) 78%, rgba(28, 31, 40, 0));
+}
+
+.talent-creator-workspace-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-panel);
+}
+
+@media (max-width: 760px) {
+  .lot-package-workspace-layer {
+    align-items: stretch;
+    padding: 8px;
+  }
+
+  .lot-package-workspace {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border-radius: 8px;
+  }
+
+  .lot-package-workspace-header {
+    align-items: flex-start;
+    padding: 10px 14px;
+  }
+
+  .assembly-workspace-scroll {
+    padding: 12px 14px 18px;
+    scrollbar-gutter: auto;
+  }
+
+  .talent-creator-workspace-header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 12px 14px;
+  }
+}
+
+@media (max-height: 620px) and (min-width: 761px) {
+  .lot-package-workspace-layer {
+    align-items: stretch;
+    padding-block: 8px;
+  }
+
+  .lot-package-workspace {
+    height: 100%;
+    max-height: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .lot-package-workspace-layer {
+    background: transparent;
+  }
+
+  .lot-package-workspace {
+    border: 2px solid CanvasText;
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lot-package-workspace,
+  .lot-package-workspace-layer {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
 /* ── Misc ───────────────────────────────────────────────────────────────── */
 .empty {
   color: var(--text-faint);

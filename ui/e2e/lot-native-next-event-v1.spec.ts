@@ -9,11 +9,16 @@ import {
   advanceToNextEvent,
   castingSessionsBoard,
   exportSaveJson,
+  findConcept,
+  greenlightScriptProject,
   importSaveJson,
+  marketingMenu,
   releaseTalentAction,
+  requiredNegative,
   runProductionCommand,
   runScriptProjectAction,
   scriptProjectsBoard,
+  type DraftPackage,
   type SimResult,
 } from '../src/engine/adapter.ts'
 
@@ -286,6 +291,27 @@ async function activeSessionBytes(page: Page): Promise<string> {
   return bytes!
 }
 
+async function chooseFirstEligiblePackageTalent(
+  page: Page,
+  pickerTestId: string,
+): Promise<{ id: string; name: string }> {
+  const candidate = page
+    .getByTestId(pickerTestId)
+    .locator('button[aria-pressed]:not([disabled])')
+    .first()
+  await candidate.scrollIntoViewIfNeeded()
+  await expect(candidate).toBeVisible()
+  const testId = await candidate.getAttribute('data-testid')
+  expect(testId).toMatch(/^talent-/)
+  const name = await candidate.locator('.opt-title').evaluate(
+    (node) => node.firstChild?.textContent?.trim() ?? '',
+  )
+  expect(name).not.toBe('')
+  await candidate.click()
+  await expect(candidate).toHaveAttribute('aria-pressed', 'true')
+  return { id: testId!.replace(/^talent-/, ''), name }
+}
+
 async function expectDirectSuccessor(page: Page, fixtureId: string) {
   expect(await activeSessionBytes(page), `${fixtureId} browser/direct SaveFileV11 parity`)
     .toBe(expectedFinalBytes(fixtureId))
@@ -400,6 +426,31 @@ async function rendererEvidence(page: Page): Promise<RendererEvidence> {
       debug: evidence.view?.hollywoodDebugState?.() ?? null,
     }
   })
+}
+
+async function rendererViewIdentity(page: Page) {
+  return page.evaluateHandle(() => {
+    const root = globalThis as typeof globalThis & {
+      __projectStudioNextEventEvidence?: { view: object | null }
+    }
+    const view = root.__projectStudioNextEventEvidence?.view
+    if (view === undefined || view === null) {
+      throw new Error('next-event renderer identity is unavailable')
+    }
+    return view
+  })
+}
+
+async function expectSameRendererView(
+  page: Page,
+  prior: Awaited<ReturnType<typeof rendererViewIdentity>>,
+) {
+  expect(await page.evaluate((retained) => {
+    const root = globalThis as typeof globalThis & {
+      __projectStudioNextEventEvidence?: { view: object | null }
+    }
+    return root.__projectStudioNextEventEvidence?.view === retained
+  }, prior)).toBe(true)
 }
 
 type StructuralTelemetry = {
@@ -918,9 +969,27 @@ test('casting stop keeps all six advisory results in the world, preserves option
   await expect(page.getByTestId('lot-next-event-announcement')).toHaveCount(0)
   await expect(page.getByTestId('lot-casting-review-panel')).toBeVisible()
 
+  const retainedLot = page.getByTestId('studio-lot-screen')
+  const retainedCanvas = page.getByTestId('studio-lot-canvas').locator('canvas')
+  const retainedLotNode = await retainedLot.elementHandle()
+  const retainedCanvasNode = await retainedCanvas.elementHandle()
+  if (retainedLotNode === null || retainedCanvasNode === null) {
+    throw new Error('retained Casting Package identity cannot capture the live Lot/canvas')
+  }
+  const retainedView = await rendererViewIdentity(page)
+  const beforePackage = await rendererEvidence(page)
+  const stableUrl = page.url()
+
   await page.getByTestId(
     `lot-casting-review-action-acknowledgeCastingSession-${acknowledge.sessionId}`,
   ).click()
+  await expect(page.getByTestId('lot-package-workspace')).toBeVisible()
+  await expect(page.getByTestId('assembly-surface')).toHaveAttribute(
+    'data-surface',
+    'lot-workspace',
+  )
+  await expect(page.getByTestId('assembly-steps')).toHaveCount(1)
+  await expect(page.getByTestId('assembly-back-dashboard')).toHaveCount(0)
   await expect(page.getByTestId('assembly-casting-handoff')).toContainText(
     `${review.title} casting review complete`,
   )
@@ -928,16 +997,232 @@ test('casting stop keeps all six advisory results in the world, preserves option
     'Auditions did not select anyone',
   )
   await expect(page.getByTestId('assembly-talent-heading')).toBeFocused()
+  await expect(retainedLot).toHaveCount(1)
+  await expect(retainedLot).toHaveAttribute('inert', '')
+  await expect(retainedCanvas).toHaveCount(1)
+  expect(await retainedLot.evaluate((node, prior) => node === prior, retainedLotNode)).toBe(true)
+  expect(await retainedCanvas.evaluate((node, prior) => node === prior, retainedCanvasNode)).toBe(true)
+  await expectSameRendererView(page, retainedView)
+  const packageOpen = await rendererEvidence(page)
+  expect(packageOpen.constructions).toBe(beforePackage.constructions)
+  expect(packageOpen.destroys).toBe(beforePackage.destroys)
+  expect(packageOpen.camera).toEqual(beforePackage.camera)
   expect(await activeSessionBytes(page)).toBe(exportSaveJson(accepted.next))
+  expect(page.url()).toBe(stableUrl)
   await page.screenshot({ path: join(outDir, '02-casting-lot-native-package-handoff.png') })
 
-  await page.getByTestId('assembly-back-dashboard').click()
-  await expect(page.getByTestId('studio-lot-screen')).toHaveAttribute(
-    'data-entry-focus',
-    'studio-home',
+  const profileOpener = page
+    .getByTestId('picker-director')
+    .locator('[data-testid^="picker-open-profile-"]')
+    .first()
+  await profileOpener.scrollIntoViewIfNeeded()
+  await profileOpener.focus()
+  await expect(profileOpener).toBeFocused()
+  await profileOpener.click()
+  await expect(page.getByTestId('talent-profile')).toBeVisible()
+  await expect(page.getByTestId('lot-package-workspace-layer')).toHaveAttribute('inert', '')
+  await expect(page.getByTestId('lot-package-workspace-layer')).toHaveAttribute(
+    'aria-hidden',
+    'true',
   )
+  await expect(retainedLot).toHaveAttribute('inert', '')
+  expect(await retainedCanvas.evaluate((node, prior) => node === prior, retainedCanvasNode)).toBe(true)
+  await expectSameRendererView(page, retainedView)
+  await page.screenshot({ path: join(outDir, '02b-casting-profile-over-retained-package.png') })
+
+  await page.getByTestId('talent-profile-close').click()
+  await expect(page.getByTestId('talent-profile')).toHaveCount(0)
+  await expect(page.getByTestId('lot-package-workspace')).toBeVisible()
+  await expect(page.getByTestId('lot-package-workspace-layer')).not.toHaveAttribute('inert')
+  await expect(page.getByTestId('lot-package-workspace-layer')).not.toHaveAttribute('aria-hidden')
+  await expect(profileOpener).toBeFocused()
+  expect(await activeSessionBytes(page)).toBe(exportSaveJson(accepted.next))
+
+  await page.setViewportSize({ width: 960, height: 540 })
+  const workspaceBox = await page.getByTestId('lot-package-workspace').boundingBox()
+  expect(workspaceBox, '960×540 retained Package workspace').not.toBeNull()
+  expect(workspaceBox!.x).toBeGreaterThan(0)
+  expect(workspaceBox!.x + workspaceBox!.width).toBeLessThanOrEqual(960)
+  await expectReachableAction(
+    '960×540 retained Package close',
+    page.getByTestId('lot-package-workspace-close'),
+  )
+  expect(await page.evaluate(() => ({
+    pageWidth: document.documentElement.scrollWidth,
+    scrollOwners: document.querySelectorAll('[data-testid="assembly-workspace-scroll"]').length,
+  }))).toEqual({ pageWidth: 960, scrollOwners: 1 })
+  expect(await retainedCanvas.evaluate((node, prior) => node === prior, retainedCanvasNode)).toBe(true)
+  await expectSameRendererView(page, retainedView)
+  await page.screenshot({ path: join(outDir, '02c-casting-package-960x540.png') })
+
+  await page.getByTestId('lot-package-workspace-close').click()
+  await expect(page.getByTestId('lot-package-workspace')).toHaveCount(0)
+  await expect(page.getByTestId('assembly-steps')).toHaveCount(0)
+  await expect(retainedLot).toHaveAttribute(
+    'data-entry-focus',
+    'next-event-reaction',
+  )
+  await expect(retainedLot).not.toHaveAttribute('inert')
+  await expect(retainedCanvas).toHaveCount(1)
+  expect(await retainedLot.evaluate((node, prior) => node === prior, retainedLotNode)).toBe(true)
+  expect(await retainedCanvas.evaluate((node, prior) => node === prior, retainedCanvasNode)).toBe(true)
+  await expectSameRendererView(page, retainedView)
+  const afterCancel = await rendererEvidence(page)
+  expect(afterCancel.constructions).toBe(beforePackage.constructions)
+  expect(afterCancel.destroys).toBe(beforePackage.destroys)
+  expect(afterCancel.camera).toEqual(beforePackage.camera)
   await expect(page.getByTestId('lot-casting-review-panel')).toHaveCount(0)
   await expect(page.getByTestId('lot-next-event-rail')).toHaveCount(0)
+  await expect(page.getByTestId('hollywood-production-formation-witness')).toHaveCount(0)
+  const castingSuccess = page.getByTestId('lot-casting-review-success')
+  await expect(castingSuccess).toBeVisible()
+  await expect(castingSuccess.getByRole('heading', { name: review.title })).toBeFocused()
+  expect(await activeSessionBytes(page)).toBe(exportSaveJson(accepted.next))
+  expect(page.url()).toBe(stableUrl)
+  await page.screenshot({ path: join(outDir, '02c-casting-package-cancel-same-lot.png') })
+  expectCleanRuntime(runtime)
+})
+
+test('retained Casting Package greenlight forms the exact picture in the same Lot, canvas, camera, and renderer', async ({ page }) => {
+  const runtime = captureRuntimeSignals(page)
+  await exposeRendererEvidence(page)
+  await seedLot(page, 'casting-review')
+  const stopped = directResult('casting-review')
+  const review = castingSessionsBoard(stopped.next).sections.needsReview.find(
+    (card) => card.sessionId === 'casting-0000' && card.projectId === 'script-0000',
+  )
+  const acknowledge = review?.legalActions.find(
+    (action) => action.kind === 'acknowledgeCastingSession',
+  )
+  if (review === undefined || acknowledge === undefined || !acknowledge.opensPackage) {
+    throw new Error('casting-review fixture has no clear retained Package handoff')
+  }
+  const accepted = acknowledgeCastingSessionAction(stopped.next, acknowledge.sessionId)
+  if (!accepted.ok) throw new Error(accepted.error)
+
+  await page.getByTestId('lot-sim-to-next-event').click()
+  const rail = await expectExactRail(page, 'casting-review')
+  const retainedLot = page.getByTestId('studio-lot-screen')
+  const retainedCanvas = page.getByTestId('studio-lot-canvas').locator('canvas')
+  const retainedLotNode = await retainedLot.elementHandle()
+  const retainedCanvasNode = await retainedCanvas.elementHandle()
+  if (retainedLotNode === null || retainedCanvasNode === null) {
+    throw new Error('retained greenlight cannot capture the live Lot/canvas')
+  }
+  const retainedView = await rendererViewIdentity(page)
+  const beforePackage = await rendererEvidence(page)
+  const stableUrl = page.url()
+
+  await rail.getByTestId(
+    `lot-casting-review-action-acknowledgeCastingSession-${acknowledge.sessionId}`,
+  ).click()
+  await expect(page.getByTestId('lot-package-workspace')).toBeVisible()
+  await expect(page.getByTestId('assembly-surface')).toHaveAttribute(
+    'data-surface',
+    'lot-workspace',
+  )
+  await expect(retainedLot).toHaveAttribute('inert', '')
+  await expect(
+    page.locator('[data-testid^="talent-"][aria-pressed="true"]'),
+  ).toHaveCount(0)
+  expect(await activeSessionBytes(page)).toBe(exportSaveJson(accepted.next))
+
+  const director = await chooseFirstEligiblePackageTalent(page, 'picker-director')
+  const lead = await chooseFirstEligiblePackageTalent(page, 'picker-lead')
+  const antagonist = await chooseFirstEligiblePackageTalent(page, 'picker-antagonist')
+  const support = await chooseFirstEligiblePackageTalent(page, 'picker-support')
+  const craft = await chooseFirstEligiblePackageTalent(page, 'picker-craft')
+
+  const locked = scriptProjectsBoard(accepted.next).packages.find(
+    (candidate) => candidate.projectId === review.projectId,
+  )
+  if (locked === undefined) throw new Error('accepted Casting successor has no exact Ready screenplay')
+  const concept = findConcept(accepted.next, locked.concept.id)
+  if (concept === undefined) throw new Error('accepted Casting successor has no exact concept')
+  const negative = requiredNegative(concept, locked.lockedShape, accepted.next)
+  const withoutMarketing: DraftPackage = {
+    conceptId: locked.concept.id,
+    shape: locked.lockedShape,
+    promise: locked.lockedPromise,
+    writerId: locked.writer.id,
+    directorId: director.id,
+    cast: {
+      lead: lead.id,
+      antagonist: antagonist.id,
+      support: support.id,
+    },
+    craftIds: [craft.id],
+    budget: { negative, marketing: 0 },
+  }
+  const exactPackage: DraftPackage = {
+    ...withoutMarketing,
+    budget: {
+      negative,
+      marketing: marketingMenu(
+        accepted.next,
+        withoutMarketing,
+        review.projectId,
+      ).levels[1],
+    },
+  }
+  const directGreenlight = greenlightScriptProject(
+    accepted.next,
+    review.projectId,
+    exactPackage,
+  )
+  if (!directGreenlight.ok) throw new Error(directGreenlight.error)
+  expect(directGreenlight.next.studio.activeProductions).toHaveLength(1)
+  const productionId = directGreenlight.next.studio.activeProductions[0]!.id
+
+  await page.getByTestId('assembly-next').click()
+  await expect(page.getByTestId('forecast-display')).toBeVisible()
+  await page.getByTestId('assembly-next').click()
+  await expect(page.getByTestId('greenlight')).toBeEnabled()
+  const beforeGreenlight = await rendererEvidence(page)
+  expect(beforeGreenlight.constructions).toBe(beforePackage.constructions)
+  expect(beforeGreenlight.destroys).toBe(beforePackage.destroys)
+  expect(beforeGreenlight.camera).toEqual(beforePackage.camera)
+  expect(await activeSessionBytes(page)).toBe(exportSaveJson(accepted.next))
+
+  await page.getByTestId('greenlight').click()
+  await expect(page.getByTestId('lot-package-workspace')).toHaveCount(0)
+  await expect(page.getByTestId('hollywood-production-formation-witness')).toHaveText(
+    'PICTURE FORMED',
+  )
+  await expect.poll(() => activeSessionBytes(page)).toBe(exportSaveJson(directGreenlight.next))
+
+  await expect(retainedLot).toHaveCount(1)
+  await expect(retainedLot).not.toHaveAttribute('inert')
+  await expect(retainedCanvas).toHaveCount(1)
+  expect(await retainedLot.evaluate((node, prior) => node === prior, retainedLotNode)).toBe(true)
+  expect(await retainedCanvas.evaluate((node, prior) => node === prior, retainedCanvasNode)).toBe(true)
+  await expectSameRendererView(page, retainedView)
+  const afterGreenlight = await rendererEvidence(page)
+  expect(afterGreenlight.constructions).toBe(beforePackage.constructions)
+  expect(afterGreenlight.destroys).toBe(beforePackage.destroys)
+  expect(afterGreenlight.camera).toEqual(beforePackage.camera)
+  expect(page.url()).toBe(stableUrl)
+
+  const production = page.getByTestId('hollywood-current-production')
+  await expect(production).toContainText(review.title)
+  await expect(production.getByText('Development', { exact: true })).toBeVisible()
+  await expect(production.getByText('Development & Casting', { exact: true })).toBeVisible()
+  await expect(production.getByText('On schedule', { exact: true })).toBeVisible()
+  await expect(production.getByText('8', { exact: true })).toBeVisible()
+  await expect(production).toContainText(director.name)
+  await expect(production).toContainText(lead.name)
+  await expect(page.getByTestId(`hollywood-select-person-${director.id}`))
+    .toHaveAttribute('aria-pressed', 'true')
+  await expect(page.getByTestId(`hollywood-select-person-${lead.id}`))
+    .toHaveAttribute('aria-pressed', 'false')
+  await expect(page.locator(
+    `[data-testid^="hollywood-select-person-"][data-production-id="${productionId}"]`,
+  )).toHaveCount(6)
+  await expect(page.getByTestId('lot-production-formation-announcement')).toContainText(
+    `Picture formed: ${review.title}`,
+  )
+  await expect(page.getByTestId('hollywood-person-inspector-status')).toBeFocused()
+  await page.screenshot({ path: join(outDir, '02d-casting-greenlight-same-canvas-formation.png') })
   expectCleanRuntime(runtime)
 })
 
@@ -1015,7 +1300,7 @@ test('blocked casting review completes on the same living Lot with exact current
   expectCleanRuntime(runtime)
 })
 
-test('casting review keeps six-row world truth reachable at effective 200% in forced colors', async ({ page }) => {
+test('casting review keeps six-row world truth reachable at effective 200% in forced colors', async ({ page }, testInfo) => {
   const runtime = captureRuntimeSignals(page)
   await page.setViewportSize({ width: 960, height: 540 })
   await page.emulateMedia({ reducedMotion: 'reduce', forcedColors: 'active' })
@@ -1028,6 +1313,9 @@ test('casting review keeps six-row world truth reachable at effective 200% in fo
     'lot-casting-review-action-acknowledgeCastingSession-casting-0000',
   )
   const details = page.getByTestId('lot-next-event-open-details')
+  const retainedCanvas = page.getByTestId('studio-lot-canvas').locator('canvas')
+  const retainedCanvasNode = await retainedCanvas.elementHandle()
+  if (retainedCanvasNode === null) throw new Error('200% Casting canvas identity is absent')
   await expect(panel.locator('[data-testid^="lot-casting-review-row-"]')).toHaveCount(6)
   await expectEarlierInDocument(action, details)
   await expect(page.getByTestId('studio-lot-screen')).toHaveClass(/lot-reduced-motion/)
@@ -1048,6 +1336,62 @@ test('casting review keeps six-row world truth reachable at effective 200% in fo
     })(),
   }))).toEqual({ pageFits: true, rows: 6, panelFits: true })
   await page.screenshot({ path: join(outDir, '02c-casting-forced-colors-css-zoom-200.png') })
+
+  await action.click()
+  const workspace = page.getByTestId('lot-package-workspace')
+  const closeWorkspace = page.getByTestId('lot-package-workspace-close')
+  await expect(workspace).toBeVisible()
+  await expect(page.getByTestId('assembly-surface')).toHaveAttribute(
+    'data-surface',
+    'lot-workspace',
+  )
+  await expect(page.getByTestId('step-talent')).toHaveAttribute('aria-current', 'step')
+  await expect(page.getByTestId('studio-lot-screen')).toHaveAttribute('inert', '')
+  await expect(retainedCanvas).toHaveCount(1)
+  expect(await retainedCanvas.evaluate((node, prior) => node === prior, retainedCanvasNode)).toBe(true)
+  expect(await page.evaluate(() => ({
+    pageFits: document.documentElement.scrollWidth <= window.innerWidth,
+    oneScrollOwner: document.querySelectorAll('[data-testid="assembly-workspace-scroll"]').length,
+  }))).toEqual({ pageFits: true, oneScrollOwner: 1 })
+
+  const pointerViewport = await closeWorkspace.evaluate((node) => {
+    const rect = node.getBoundingClientRect()
+    const visual = window.visualViewport
+    const left = visual?.offsetLeft ?? 0
+    const top = visual?.offsetTop ?? 0
+    const width = visual?.width ?? window.innerWidth
+    const height = visual?.height ?? window.innerHeight
+    return {
+      x: rect.x,
+      y: rect.y,
+      width: rect.width,
+      height: rect.height,
+      visualLeft: left,
+      visualTop: top,
+      visualWidth: width,
+      visualHeight: height,
+      fullyInside:
+        rect.left >= left &&
+        rect.top >= top &&
+        rect.right <= left + width &&
+        rect.bottom <= top + height,
+    }
+  })
+  testInfo.annotations.push({
+    type: 'effective-200-package-close-pointer-viewport',
+    description: JSON.stringify(pointerViewport),
+  })
+  expect(pointerViewport.width).toBeGreaterThanOrEqual(44)
+  expect(pointerViewport.height).toBeGreaterThanOrEqual(44)
+  expect(pointerViewport.fullyInside).toBe(true)
+  await closeWorkspace.click({ trial: true })
+  await closeWorkspace.focus()
+  await expect(closeWorkspace).toBeFocused()
+  await page.screenshot({ path: join(outDir, '02d-casting-package-forced-colors-200.png') })
+  await page.keyboard.press('Enter')
+  await expect(workspace).toHaveCount(0)
+  await expect(page.getByTestId('studio-lot-screen')).not.toHaveAttribute('inert')
+  expect(await retainedCanvas.evaluate((node, prior) => node === prior, retainedCanvasNode)).toBe(true)
   expectCleanRuntime(runtime)
 })
 
@@ -1069,6 +1413,9 @@ test('480x270 DSF2 keeps all six Casting observations and both world-first actio
       'lot-casting-review-action-acknowledgeCastingSession-casting-0000',
     )
     const details = page.getByTestId('lot-next-event-open-details')
+    const retainedCanvas = page.getByTestId('studio-lot-canvas').locator('canvas')
+    const retainedCanvasNode = await retainedCanvas.elementHandle()
+    if (retainedCanvasNode === null) throw new Error('480/DSF2 Casting canvas identity is absent')
 
     await expect(panel.locator('[data-testid^="lot-casting-review-row-"]')).toHaveCount(6)
     await expectEarlierInDocument(action, details)
@@ -1103,6 +1450,42 @@ test('480x270 DSF2 keeps all six Casting observations and both world-first actio
       page.getByTestId('hollywood-inspector'),
     )
     await page.screenshot({ path: join(outDir, '02d-casting-480x270-dsf2.png') })
+
+    await action.click()
+    const workspace = page.getByTestId('lot-package-workspace')
+    await expect(workspace).toBeVisible()
+    await expect(page.getByTestId('assembly-surface')).toHaveAttribute(
+      'data-surface',
+      'lot-workspace',
+    )
+    await expect(page.getByTestId('step-talent')).toHaveAttribute('aria-current', 'step')
+    await expect(page.getByTestId('studio-lot-screen')).toHaveAttribute('inert', '')
+    await expect(retainedCanvas).toHaveCount(1)
+    expect(await retainedCanvas.evaluate((node, prior) => node === prior, retainedCanvasNode)).toBe(true)
+    await expectReachableAction(
+      '480/DSF2 Casting Package close',
+      page.getByTestId('lot-package-workspace-close'),
+    )
+    const compactBox = await workspace.boundingBox()
+    expect(compactBox, '480/DSF2 Package workspace').not.toBeNull()
+    expect(compactBox!.x).toBeGreaterThanOrEqual(8)
+    expect(compactBox!.x + compactBox!.width).toBeLessThanOrEqual(472)
+    expect(await page.evaluate(() => ({
+      innerWidth: window.innerWidth,
+      devicePixelRatio: window.devicePixelRatio,
+      scrollWidth: document.documentElement.scrollWidth,
+      oneScrollOwner: document.querySelectorAll('[data-testid="assembly-workspace-scroll"]').length,
+    }))).toEqual({
+      innerWidth: 480,
+      devicePixelRatio: 2,
+      scrollWidth: 480,
+      oneScrollOwner: 1,
+    })
+    await page.screenshot({ path: join(outDir, '02f-casting-package-480x270-dsf2.png') })
+    await page.getByTestId('lot-package-workspace-close').click()
+    await expect(workspace).toHaveCount(0)
+    await expect(page.getByTestId('studio-lot-screen')).not.toHaveAttribute('inert')
+    expect(await retainedCanvas.evaluate((node, prior) => node === prior, retainedCanvasNode)).toBe(true)
     expectCleanRuntime(runtime)
   } finally {
     await context.close()

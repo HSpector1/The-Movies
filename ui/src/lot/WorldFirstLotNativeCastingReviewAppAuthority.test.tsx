@@ -1,15 +1,24 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import type { ComponentProps } from 'react'
-import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { App } from '../App.tsx'
 import {
   acknowledgeCastingSessionAction,
   advanceToNextEvent,
+  createBalancedTalent,
   exportSaveJson,
+  findConcept,
+  greenlightScriptProject,
   importSaveJson,
+  marketingMenu,
   releaseTalentAction,
+  requiredNegative,
+  scriptProjectsBoard,
+  studioPool,
+  freelancerPool,
+  type DraftPackage,
   type GameState,
 } from '../engine/adapter.ts'
 import {
@@ -30,8 +39,21 @@ import {
   type LotNextEventReceipt,
 } from './snapshot/nextEvent.ts'
 import { currentLotCastingReviewContext } from './snapshot/castingReview.ts'
+import {
+  acceptedGreenlightFormationReceipt,
+  type GreenlightFormationReceipt,
+} from './snapshot/productionFormation.ts'
 
 type LotProps = ComponentProps<typeof StudioLotScreenType>
+type AssemblyProbeProps = {
+  state: GameState
+  scriptProjectId?: string
+  surface?: 'standalone' | 'lot-workspace'
+  onGreenlit: (next: GameState, receipt: GreenlightFormationReceipt | null) => void
+  onCancel: () => void
+  onStateChange?: (next: GameState) => void
+  onOpenProfile?: (personId: string) => void
+}
 
 const authorityProbe = vi.hoisted(() => ({
   lotProps: null as LotProps | null,
@@ -40,6 +62,9 @@ const authorityProbe = vi.hoisted(() => ({
   rejectCastingAction: false,
   exitLotWhenSessionCompletes: null as string | null,
   unmountApp: null as (() => void) | null,
+  assemblyProps: null as AssemblyProbeProps | null,
+  lotMounts: 0,
+  lotUnmounts: 0,
 }))
 
 vi.mock('../engine/adapter.ts', async (importOriginal) => {
@@ -73,6 +98,10 @@ vi.mock('./StudioLotScreen.tsx', async () => {
     default: (props: LotProps) => {
       authorityProbe.lotProps = props
       authorityProbe.trace.push('lot')
+      React.useLayoutEffect(() => {
+        authorityProbe.lotMounts += 1
+        return () => { authorityProbe.lotUnmounts += 1 }
+      }, [])
       React.useLayoutEffect(
         () => props.onPresentationMount?.(),
         [props.onPresentationMount],
@@ -89,7 +118,16 @@ vi.mock('./StudioLotScreen.tsx', async () => {
           props.onExit()
         }
       }, [props])
-      return React.createElement('div', { 'data-testid': 'mock-casting-authority-lot' })
+      return React.createElement(
+        'div',
+        {
+          'data-testid': 'mock-casting-authority-lot',
+          'data-world-suspended': String(props.worldInputSuspended === true),
+          'data-state-productions': String(props.state.studio.activeProductions.length),
+          'data-live-formation': props.liveFormationPresentation?.receipt.productionId ?? 'none',
+        },
+        React.createElement('div', { 'data-testid': 'mock-casting-authority-canvas' }),
+      )
     },
   }
 })
@@ -97,13 +135,15 @@ vi.mock('./StudioLotScreen.tsx', async () => {
 vi.mock('../screens/Assembly.tsx', async () => {
   const React = await import('react')
   return {
-    Assembly: (props: { scriptProjectId?: string; onCancel: () => void }) => {
+    Assembly: (props: AssemblyProbeProps) => {
+      authorityProbe.assemblyProps = props
       authorityProbe.trace.push(`assembly:${props.scriptProjectId ?? 'none'}`)
       return React.createElement(
         'div',
         {
           'data-project-id': props.scriptProjectId,
           'data-testid': 'mock-casting-authority-assembly',
+          'data-surface': props.surface,
         },
         React.createElement('button', {
           'data-testid': 'mock-casting-authority-assembly-back',
@@ -144,6 +184,62 @@ function blockedReviewState(): GameState {
     throw new Error('setup: expected the released writer to block Package Assembly')
   }
   return released.next
+}
+
+function exactGreenlight(state: GameState, projectId: string) {
+  const locked = scriptProjectsBoard(state).packages.find(
+    (candidate) => candidate.projectId === projectId,
+  )
+  if (locked === undefined) throw new Error('setup: exact Ready screenplay is absent')
+  const available = (role: 'director' | 'actor' | 'craft') => [
+    ...studioPool(state, role),
+    ...freelancerPool(state, role).map((candidate) => candidate.talent),
+  ].filter((candidate) => candidate.available)
+  const director = available('director').find(
+    (candidate) => candidate.id !== locked.writer.id,
+  )
+  const actors = available('actor').filter(
+    (candidate) =>
+      candidate.id !== locked.writer.id && candidate.id !== director?.id,
+  ).slice(0, 3)
+  const reserved = new Set([
+    locked.writer.id,
+    director?.id,
+    ...actors.map((candidate) => candidate.id),
+  ])
+  const craft = available('craft').find((candidate) => !reserved.has(candidate.id))
+  if (director === undefined || actors.length !== 3 || craft === undefined) {
+    throw new Error('setup: exact Package company is unavailable')
+  }
+  const concept = findConcept(state, locked.concept.id)
+  if (concept === undefined) throw new Error('setup: exact screenplay concept is absent')
+  const negative = requiredNegative(concept, locked.lockedShape, state)
+  const withoutMarketing: DraftPackage = {
+    conceptId: locked.concept.id,
+    shape: locked.lockedShape,
+    promise: locked.lockedPromise,
+    writerId: locked.writer.id,
+    directorId: director.id,
+    cast: {
+      lead: actors[0]!.id,
+      antagonist: actors[1]!.id,
+      support: actors[2]!.id,
+    },
+    craftIds: [craft.id],
+    budget: { negative, marketing: 0 },
+  }
+  const pkg: DraftPackage = {
+    ...withoutMarketing,
+    budget: {
+      negative,
+      marketing: marketingMenu(state, withoutMarketing, projectId).levels[1],
+    },
+  }
+  const outcome = greenlightScriptProject(state, projectId, pkg)
+  if (!outcome.ok) throw new Error(outcome.error)
+  const receipt = acceptedGreenlightFormationReceipt(state, outcome.next)
+  if (receipt === null) throw new Error('setup: exact formation receipt is absent')
+  return { next: outcome.next, receipt }
 }
 
 function exactFeedback(props: LotProps): Extract<
@@ -189,6 +285,9 @@ beforeEach(() => {
   authorityProbe.rejectCastingAction = false
   authorityProbe.exitLotWhenSessionCompletes = null
   authorityProbe.unmountApp = null
+  authorityProbe.assemblyProps = null
+  authorityProbe.lotMounts = 0
+  authorityProbe.lotUnmounts = 0
 })
 
 afterEach(() => {
@@ -203,6 +302,9 @@ afterEach(() => {
   authorityProbe.rejectCastingAction = false
   authorityProbe.exitLotWhenSessionCompletes = null
   authorityProbe.unmountApp = null
+  authorityProbe.assemblyProps = null
+  authorityProbe.lotMounts = 0
+  authorityProbe.lotUnmounts = 0
   vi.restoreAllMocks()
   vi.unstubAllGlobals()
 })
@@ -210,7 +312,8 @@ afterEach(() => {
 describe('Lot-native Casting review — App commit and handoff authority', () => {
   it('commits the clear successor, invokes autosave, then opens the exact Package owner once', async () => {
     const before = fixtureState()
-    await mountStudio(before)
+    const lot = await mountStudio(before)
+    const canvas = screen.getByTestId('mock-casting-authority-canvas')
     const initial = authorityProbe.lotProps!
 
     act(() => {
@@ -249,6 +352,15 @@ describe('Lot-native Casting review — App commit and handoff authority', () =>
 
     const assembly = await screen.findByTestId('mock-casting-authority-assembly')
     expect(assembly).toHaveAttribute('data-project-id', context.projectId)
+    expect(assembly).toHaveAttribute('data-surface', 'lot-workspace')
+    expect(screen.getByTestId('mock-casting-authority-lot')).toBe(lot)
+    expect(screen.getByTestId('mock-casting-authority-canvas')).toBe(canvas)
+    expect(screen.getByTestId('mock-casting-authority-lot')).toHaveAttribute(
+      'data-world-suspended',
+      'true',
+    )
+    expect(authorityProbe.lotMounts).toBe(1)
+    expect(authorityProbe.lotUnmounts).toBe(0)
     expect(authorityProbe.acknowledgeCalls).toHaveLength(1)
     expect(authorityProbe.acknowledgeCalls[0]).toEqual({
       state: reviewProps.state,
@@ -265,6 +377,248 @@ describe('Lot-native Casting review — App commit and handoff authority', () =>
     expect(saveIndex).toBeGreaterThan(committedLotIndex)
     expect(assemblyIndex).toBeGreaterThan(saveIndex)
     expect(authorityProbe.trace.filter((entry) => entry.startsWith('assembly:'))).toHaveLength(1)
+  })
+
+  it('contains retained Lot profile tails while the Package and its nested Profile own input', async () => {
+    const before = reviewState()
+    const context = currentLotCastingReviewContext(before)
+    if (context === null || !context.action.opensPackage) {
+      throw new Error('setup: expected one clear pending Casting review')
+    }
+    await mountStudio(before)
+    const prePackageLotProps = authorityProbe.lotProps!
+
+    act(() => {
+      expect(prePackageLotProps.onRunCastingReviewAction?.(
+        prePackageLotProps.state,
+        context,
+        context.action,
+        null,
+      )?.ok).toBe(true)
+    })
+    await screen.findByTestId('mock-casting-authority-assembly')
+    const suspendedLotProps = authorityProbe.lotProps!
+    const assemblyProps = authorityProbe.assemblyProps!
+
+    act(() => {
+      prePackageLotProps.onOpenTalentProfile?.(context.writer.id)
+      suspendedLotProps.onOpenTalentProfile?.(context.writer.id)
+    })
+    expect(screen.queryByTestId('talent-profile')).not.toBeInTheDocument()
+    expect(screen.getByTestId('lot-package-workspace')).toBeInTheDocument()
+
+    act(() => assemblyProps.onOpenProfile?.(context.writer.id))
+    expect(await screen.findByTestId('talent-profile')).toBeInTheDocument()
+    const profileCoveredLotProps = authorityProbe.lotProps!
+    act(() => profileCoveredLotProps.onCloseTalentProfile?.(context.writer.id))
+    expect(screen.getByTestId('talent-profile')).toBeInTheDocument()
+    expect(screen.getByTestId('lot-package-workspace-layer')).toHaveAttribute('inert')
+
+    fireEvent.click(screen.getByTestId('talent-profile-close'))
+    await waitFor(() => expect(screen.queryByTestId('talent-profile')).not.toBeInTheDocument())
+    expect(screen.getByTestId('lot-package-workspace')).toBeInTheDocument()
+  })
+
+  it('cancels only the optional Package open when a current Lot Profile wins the handoff boundary', async () => {
+    const before = reviewState()
+    const context = currentLotCastingReviewContext(before)
+    if (context === null || !context.action.opensPackage) {
+      throw new Error('setup: expected one clear pending Casting review')
+    }
+    const accepted = acknowledgeCastingSessionAction(before, context.sessionId)
+    if (!accepted.ok) throw new Error(accepted.error)
+    await mountStudio(before)
+    const reviewProps = authorityProbe.lotProps!
+    const deferred: Array<() => void> = []
+    vi.spyOn(window, 'queueMicrotask').mockImplementation((callback) => {
+      deferred.push(callback)
+    })
+
+    act(() => {
+      expect(reviewProps.onRunCastingReviewAction?.(
+        reviewProps.state,
+        context,
+        context.action,
+        null,
+      )?.ok).toBe(true)
+    })
+    expect(deferred.length).toBeGreaterThanOrEqual(1)
+    const acceptedLotProps = authorityProbe.lotProps!
+    expect(acceptedLotProps.state).not.toBe(before)
+    expect(exportSaveJson(acceptedLotProps.state)).toBe(exportSaveJson(accepted.next))
+
+    act(() => acceptedLotProps.onOpenTalentProfile?.(context.writer.id))
+    expect(await screen.findByTestId('talent-profile')).toBeInTheDocument()
+    act(() => deferred.splice(0).forEach((callback) => callback()))
+
+    expect(screen.queryByTestId('lot-package-workspace')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('mock-casting-authority-assembly')).not.toBeInTheDocument()
+    expect(screen.getByTestId('talent-profile')).toBeInTheDocument()
+    expect(activeSessionBytes()).toBe(exportSaveJson(accepted.next))
+  })
+
+  it('accepts one exact Custom Talent successor without replacing the Lot, workspace, or Assembly owner', async () => {
+    const before = reviewState()
+    const context = currentLotCastingReviewContext(before)
+    if (context === null || !context.action.opensPackage) {
+      throw new Error('setup: expected one clear pending Casting review')
+    }
+    const lot = await mountStudio(before)
+    const canvas = screen.getByTestId('mock-casting-authority-canvas')
+    const reviewProps = authorityProbe.lotProps!
+    act(() => {
+      expect(reviewProps.onRunCastingReviewAction?.(
+        reviewProps.state,
+        context,
+        context.action,
+        null,
+      )?.ok).toBe(true)
+    })
+    const assembly = await screen.findByTestId('mock-casting-authority-assembly')
+    const assemblyProps = authorityProbe.assemblyProps!
+    const created = createBalancedTalent(assemblyProps.state, {
+      name: 'Workspace Prospect',
+      age: 27,
+      role: 'actor',
+      actual: { warmth: 0, gravity: 0, physicality: 0 },
+      presetId: 'balancedActingProspect',
+      potentialTier: 'Promising',
+      workEthic: 60,
+      allocation: {},
+    })
+    if (!created.ok) throw new Error(created.error)
+
+    act(() => assemblyProps.onStateChange?.(created.next))
+    await waitFor(() => expect(activeSessionBytes()).toBe(exportSaveJson(created.next)))
+    expect(screen.getByTestId('mock-casting-authority-lot')).toBe(lot)
+    expect(screen.getByTestId('mock-casting-authority-canvas')).toBe(canvas)
+    expect(screen.getByTestId('mock-casting-authority-assembly')).toBe(assembly)
+    expect(authorityProbe.assemblyProps?.state).toBe(created.next)
+    expect(authorityProbe.lotProps?.state).toBe(created.next)
+    expect(authorityProbe.lotMounts).toBe(1)
+    expect(authorityProbe.lotUnmounts).toBe(0)
+    expect(screen.getByTestId('mock-casting-authority-lot')).toHaveAttribute(
+      'data-world-suspended',
+      'true',
+    )
+    expect(screen.queryByTestId('hollywood-production-formation-witness')).not.toBeInTheDocument()
+
+    act(() => assemblyProps.onStateChange?.(before))
+    expect(activeSessionBytes()).toBe(exportSaveJson(created.next))
+    expect(authorityProbe.assemblyProps?.state).toBe(created.next)
+  })
+
+  it('keeps the committing successor above the same Lot until autosave, then publishes one live formation atomically', async () => {
+    const before = reviewState()
+    const context = currentLotCastingReviewContext(before)
+    if (context === null || !context.action.opensPackage) {
+      throw new Error('setup: expected one clear pending Casting review')
+    }
+    const acknowledged = acknowledgeCastingSessionAction(before, context.sessionId)
+    if (!acknowledged.ok) throw new Error(acknowledged.error)
+    const lot = await mountStudio(before)
+    const canvas = screen.getByTestId('mock-casting-authority-canvas')
+    const lotProps = authorityProbe.lotProps!
+
+    act(() => {
+      expect(lotProps.onRunCastingReviewAction?.(
+        lotProps.state,
+        context,
+        context.action,
+        null,
+      )?.ok).toBe(true)
+    })
+    await screen.findByTestId('mock-casting-authority-assembly')
+    const assemblyProps = authorityProbe.assemblyProps!
+    const accepted = exactGreenlight(assemblyProps.state, context.projectId)
+    const deferred: Array<() => void> = []
+    vi.spyOn(window, 'queueMicrotask').mockImplementation((callback) => {
+      deferred.push(callback)
+    })
+    authorityProbe.trace.length = 0
+
+    act(() => assemblyProps.onGreenlit(accepted.next, accepted.receipt))
+
+    expect(screen.getByTestId('lot-package-workspace-committing')).toHaveTextContent(
+      'GREENLIGHT ACCEPTED',
+    )
+    expect(screen.queryByTestId('mock-casting-authority-assembly')).not.toBeInTheDocument()
+    expect(screen.getByTestId('mock-casting-authority-lot')).toBe(lot)
+    expect(screen.getByTestId('mock-casting-authority-canvas')).toBe(canvas)
+    expect(screen.getByTestId('mock-casting-authority-lot')).toHaveAttribute(
+      'data-world-suspended',
+      'true',
+    )
+    expect(screen.getByTestId('mock-casting-authority-lot')).toHaveAttribute(
+      'data-state-productions',
+      '1',
+    )
+    expect(authorityProbe.trace).toContain('save')
+    expect(activeSessionBytes()).toBe(exportSaveJson(accepted.next))
+    expect(deferred.length).toBeGreaterThanOrEqual(1)
+
+    act(() => deferred.forEach((callback) => callback()))
+    await waitFor(() => expect(screen.queryByTestId('lot-package-workspace')).not.toBeInTheDocument())
+    expect(screen.getByTestId('mock-casting-authority-lot')).toBe(lot)
+    expect(screen.getByTestId('mock-casting-authority-canvas')).toBe(canvas)
+    expect(screen.getByTestId('mock-casting-authority-lot')).toHaveAttribute(
+      'data-world-suspended',
+      'false',
+    )
+    expect(screen.getByTestId('mock-casting-authority-lot')).toHaveAttribute(
+      'data-live-formation',
+      accepted.receipt.productionId,
+    )
+    expect(authorityProbe.lotMounts).toBe(1)
+    expect(authorityProbe.lotUnmounts).toBe(0)
+
+    const liveIdentity = authorityProbe.lotProps?.liveFormationPresentation?.identity
+    if (liveIdentity === undefined) throw new Error('expected one live formation identity')
+    act(() => authorityProbe.lotProps?.onLiveFormationConsumed?.(liveIdentity))
+    expect(authorityProbe.lotProps?.liveFormationPresentation).toBeUndefined()
+    expect(screen.getByTestId('mock-casting-authority-lot')).toHaveAttribute(
+      'data-live-formation',
+      'none',
+    )
+  })
+
+  it('commits a valid greenlight with a mismatched presentation receipt but exposes no formation guess', async () => {
+    const before = reviewState()
+    const context = currentLotCastingReviewContext(before)
+    if (context === null || !context.action.opensPackage) {
+      throw new Error('setup: expected one clear pending Casting review')
+    }
+    await mountStudio(before)
+    const lotProps = authorityProbe.lotProps!
+    act(() => {
+      expect(lotProps.onRunCastingReviewAction?.(
+        lotProps.state,
+        context,
+        context.action,
+        null,
+      )?.ok).toBe(true)
+    })
+    await screen.findByTestId('mock-casting-authority-assembly')
+    const assemblyProps = authorityProbe.assemblyProps!
+    const accepted = exactGreenlight(assemblyProps.state, context.projectId)
+
+    act(() => assemblyProps.onGreenlit(accepted.next, {
+      ...accepted.receipt,
+      productionId: `${accepted.receipt.productionId}-substitute`,
+    }))
+
+    await waitFor(() => expect(screen.queryByTestId('lot-package-workspace')).not.toBeInTheDocument())
+    expect(activeSessionBytes()).toBe(exportSaveJson(accepted.next))
+    expect(screen.getByTestId('mock-casting-authority-lot')).toHaveAttribute(
+      'data-state-productions',
+      '1',
+    )
+    expect(screen.getByTestId('mock-casting-authority-lot')).toHaveAttribute(
+      'data-live-formation',
+      'none',
+    )
+    expect(authorityProbe.lotMounts).toBe(1)
+    expect(authorityProbe.lotUnmounts).toBe(0)
   })
 
   it('keeps a blocked accepted successor in the same mounted Lot and autosaves exact parity', async () => {

@@ -254,6 +254,7 @@ function RichPicker({
             value={sortKey}
             onChange={(e) => setSortKey(e.target.value as SortKey)}
             data-testid={`${testid ?? 'picker'}-sort`}
+            aria-label={`${title}: sort candidates`}
           >
             {(Object.keys(SORT_LABELS) as SortKey[]).map((k) => (
               <option key={k} value={k}>
@@ -267,6 +268,7 @@ function RichPicker({
             value={proven}
             onChange={(e) => setProven(e.target.value as ProvenFilter)}
             data-testid={`${testid ?? 'picker'}-filter-proven`}
+            aria-label={`${title}: experience filter`}
           >
             <option value="all">Proven & unproven</option>
             <option value="proven">Proven only</option>
@@ -276,6 +278,7 @@ function RichPicker({
             value={String(minFit)}
             onChange={(e) => setMinFit(Number(e.target.value))}
             data-testid={`${testid ?? 'picker'}-filter-minfit`}
+            aria-label={`${title}: minimum project fit`}
           >
             <option value="0">Any Fit</option>
             <option value="50">Fit ≥ 50</option>
@@ -307,6 +310,7 @@ function RichPicker({
             value={String(minOvr)}
             onChange={(e) => setMinOvr(Number(e.target.value))}
             data-testid={`${testid ?? 'picker'}-filter-minovr`}
+            aria-label={`${title}: minimum role OVR`}
           >
             <option value="0">Any OVR</option>
             <option value="50">OVR ≥ 50</option>
@@ -319,6 +323,7 @@ function RichPicker({
               setMaxSalary(e.target.value === 'all' ? Infinity : Number(e.target.value))
             }
             data-testid={`${testid ?? 'picker'}-filter-maxsalary`}
+            aria-label={`${title}: maximum salary`}
           >
             <option value="all">Any salary</option>
             <option value="500000">Salary ≤ {money(500_000)}</option>
@@ -329,6 +334,7 @@ function RichPicker({
             value={String(minStar)}
             onChange={(e) => setMinStar(Number(e.target.value))}
             data-testid={`${testid ?? 'picker'}-filter-minstar`}
+            aria-label={`${title}: minimum Star Power`}
           >
             <option value="0">Any Star Power</option>
             <option value="40">Star ≥ 40</option>
@@ -339,6 +345,7 @@ function RichPicker({
             value={String(minGenreExp)}
             onChange={(e) => setMinGenreExp(Number(e.target.value))}
             data-testid={`${testid ?? 'picker'}-filter-mingenreexp`}
+            aria-label={`${title}: minimum genre experience`}
           >
             <option value="0">Any genre exp.</option>
             <option value="25">Genre exp. ≥ 25</option>
@@ -380,7 +387,14 @@ function RichPicker({
                   type="button"
                   className="linkish"
                   data-testid={`picker-open-profile-${t.id}`}
-                  onClick={() => onOpenProfile(t.id)}
+                  onClick={(event) => {
+                    // The shared Profile drawer captures the exact control that opened it so
+                    // closing can return the player to the same candidate in the live Package.
+                    // Claim focus explicitly instead of depending on browser-specific pointer
+                    // focus defaults (which also makes keyboard/test activation deterministic).
+                    event.currentTarget.focus({ preventScroll: true })
+                    onOpenProfile(t.id)
+                  }}
                 >
                   View profile
                 </button>

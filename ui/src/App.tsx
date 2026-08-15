@@ -87,6 +87,7 @@ import { StudioRunRecap } from './screens/StudioRunRecap.tsx'
 import { saveActiveSession, loadActiveSession, clearActiveSession } from './engine/session.ts'
 import { operationHollywoodEnabled, studioLotOverviewEnabled } from './flags.ts'
 import type { LotRoute } from './lot/navigation.ts'
+import { LotPackageWorkspace } from './lot/LotPackageWorkspace.tsx'
 // Presentation-only, and deliberately NOT part of the lazy lot chunk: this module imports
 // nothing but types, so App can end the lot's presentation session without pulling Phaser
 // or the lot screen into the eager bundle.
@@ -356,6 +357,43 @@ type Screen =
       entryNextEventReceipt: LotNextEventReceipt
     }
 
+type LotScreen = Extract<Screen, { kind: 'lot' }>
+
+type LotPackageWorkspaceBase = {
+  identity: object
+  key: number
+  lotScreen: LotScreen
+  lotPresentation: object
+  scriptProjectId: string
+  title: string
+  opener: HTMLElement | null
+}
+
+type LotPackageWorkspaceSession =
+  | (LotPackageWorkspaceBase & {
+      phase: 'editing'
+      acceptedState: GameState
+    })
+  | (LotPackageWorkspaceBase & {
+      phase: 'committed'
+      before: GameState
+      next: GameState
+      formationReceipt: GreenlightFormationReceipt | null
+    })
+
+type LiveFormationPresentation = {
+  identity: object
+  acceptedState: GameState
+  lotScreen: LotScreen
+  lotPresentation: object
+  receipt: GreenlightFormationReceipt
+}
+
+type LotPackagePresentationState = {
+  workspace: LotPackageWorkspaceSession | null
+  liveFormation: LiveFormationPresentation | null
+}
+
 function clearNextEventReturnIntent(
   context: StudioReturnContext,
 ): StudioReturnContext {
@@ -500,6 +538,28 @@ export function App() {
         : operatingStudioHome(lotEnabled)
       : { kind: 'start' },
   )
+  // World-first retained Package is independent of Screen navigation. Keeping its session and
+  // one-shot live formation input in one state object makes workspace-close/world-resume atomic.
+  const [lotPackagePresentation, setLotPackagePresentationState] =
+    useState<LotPackagePresentationState>({ workspace: null, liveFormation: null })
+  const latestLotPackagePresentationRef = useRef(lotPackagePresentation)
+  latestLotPackagePresentationRef.current = lotPackagePresentation
+  const lotPackageKeyRef = useRef(0)
+  const commitLotPackagePresentation = useCallback((
+    next: SetStateAction<LotPackagePresentationState>,
+  ) => {
+    const previous = latestLotPackagePresentationRef.current
+    const resolved = typeof next === 'function'
+      ? (next as (current: LotPackagePresentationState) => LotPackagePresentationState)(previous)
+      : next
+    latestLotPackagePresentationRef.current = resolved
+    setLotPackagePresentationState(resolved)
+  }, [])
+  const clearLotPackagePresentation = useCallback(() => {
+    const current = latestLotPackagePresentationRef.current
+    if (current.workspace === null && current.liveFormation === null) return
+    commitLotPackagePresentation({ workspace: null, liveFormation: null })
+  }, [commitLotPackagePresentation])
   // Screen ownership is part of Lot command authority. Keep the latest scheduled screen
   // synchronously visible to retained world callbacks: React may not have rendered a route
   // change yet when a delayed pointer/touch tail invokes an old Lot closure.
@@ -510,10 +570,13 @@ export function App() {
     const resolved = typeof next === 'function'
       ? (next as (current: Screen) => Screen)(previous)
       : next
-    if (resolved !== previous) activeLotPresentationRef.current = null
+    if (resolved !== previous) {
+      activeLotPresentationRef.current = null
+      clearLotPackagePresentation()
+    }
     latestScreenRef.current = resolved
     setScreenState(resolved)
-  }, [])
+  }, [clearLotPackagePresentation])
   const lotPresentationToken = useMemo<object | null>(
     () => screen.kind === 'lot' ? {} : null,
     [screen],
@@ -526,8 +589,15 @@ export function App() {
       if (activeLotPresentationRef.current === token) {
         activeLotPresentationRef.current = null
       }
+      const presentation = latestLotPackagePresentationRef.current
+      if (
+        presentation.workspace?.lotPresentation === token ||
+        presentation.liveFormation?.lotPresentation === token
+      ) {
+        commitLotPackagePresentation({ workspace: null, liveFormation: null })
+      }
     }
-  }, [lotPresentationToken])
+  }, [commitLotPackagePresentation, lotPresentationToken])
   // A dismissible recovery notice: the recovered week, or a safe "recovery failed" message.
   const [recovery, setRecovery] = useState<{ kind: 'recovered'; week: number } | { kind: 'corrupt' } | null>(
     restore.ok
@@ -584,6 +654,7 @@ export function App() {
     context: LotCastingReviewContext
     action: LotCastingReviewAction
     returnContext: StudioReturnContext
+    opener: HTMLElement | null
   } | null>(null)
   const [lotOperationalAnnouncementSuppressed, setLotOperationalAnnouncementSuppressed] =
     useState(false)
@@ -594,12 +665,13 @@ export function App() {
     lotScriptReviewActivationRef.current = null
     lotCastingReviewActivationRef.current = null
     lotCastingPackageHandoffRef.current = null
+    clearLotPackagePresentation()
     latestStateRef.current = next
     setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setScreen(clearNextEventScreenIntent)
     setState(next)
-  }, [])
+  }, [clearLotPackagePresentation, setScreen])
 
   // A non-release Lot-native cadence successor must stay inside the exact mounted Lot host.
   // Keep this boundary separate from ordinary whole-state replacement: even an identity-returning
@@ -610,10 +682,43 @@ export function App() {
     lotScriptReviewActivationRef.current = null
     lotCastingReviewActivationRef.current = null
     lotCastingPackageHandoffRef.current = null
+    clearLotPackagePresentation()
     latestStateRef.current = next
     setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setState(next)
+  }, [clearLotPackagePresentation])
+
+  const restoreRetainedPackageFocus = useCallback((
+    workspace: LotPackageWorkspaceBase,
+    allowExactOpener: boolean,
+  ) => {
+    const restore = () => {
+      const presentation = latestLotPackagePresentationRef.current
+      if (
+        presentation.workspace !== null ||
+        latestOpenProfileIdRef.current !== null ||
+        latestScreenRef.current !== workspace.lotScreen ||
+        activeLotPresentationRef.current !== workspace.lotPresentation
+      ) return
+      const exactSuccess = Array.from(
+        document.querySelectorAll<HTMLElement>('[data-testid="lot-casting-review-success"]'),
+      ).find((candidate) => candidate.dataset.projectId === workspace.scriptProjectId)
+      const candidates = [
+        allowExactOpener ? workspace.opener : null,
+        exactSuccess?.querySelector<HTMLElement>('h3') ?? null,
+        document.querySelector<HTMLElement>('[data-testid="lot-studio-heading"]'),
+      ]
+      const target = candidates.find(
+        (candidate): candidate is HTMLElement =>
+          candidate !== null &&
+          candidate.isConnected &&
+          candidate.closest('[inert]') === null,
+      )
+      target?.focus({ preventScroll: true })
+    }
+    if (typeof requestAnimationFrame === 'function') requestAnimationFrame(restore)
+    else queueMicrotask(restore)
   }, [])
 
   // Autosave after EVERY authoritative state transition — every GameState change flows through
@@ -634,7 +739,8 @@ export function App() {
       latestStateRef.current !== pending.next ||
       screen !== pending.lotScreen ||
       latestScreenRef.current !== pending.lotScreen ||
-      activeLotPresentationRef.current !== pending.lotPresentation
+      activeLotPresentationRef.current !== pending.lotPresentation ||
+      latestOpenProfileIdRef.current !== null
     ) {
       lotCastingPackageHandoffRef.current = null
       return
@@ -649,7 +755,8 @@ export function App() {
         lotCastingPackageHandoffRef.current !== pending ||
         latestStateRef.current !== pending.next ||
         latestScreenRef.current !== pending.lotScreen ||
-        activeLotPresentationRef.current !== pending.lotPresentation
+        activeLotPresentationRef.current !== pending.lotPresentation ||
+        latestOpenProfileIdRef.current !== null
       ) return
       const success = acceptedLotCastingReviewSuccess(
         pending.context,
@@ -659,10 +766,32 @@ export function App() {
       )
       lotCastingPackageHandoffRef.current = null
       if (success === null || success.kind !== 'clear') return
-      setScreen({
-        kind: 'assembly',
-        returnContext: pending.returnContext,
+      // The retained host is an Operation Hollywood world-first surface. Preserve the
+      // pre-contract full-screen Package route for the Classic/rollback presentation.
+      if (!hollywoodEnabled) {
+        setScreen({
+          kind: 'assembly',
+          returnContext: pending.returnContext,
+          scriptProjectId: success.projectId,
+        })
+        return
+      }
+      const presentation = latestLotPackagePresentationRef.current
+      if (presentation.workspace !== null || presentation.liveFormation !== null) return
+      const workspace: LotPackageWorkspaceSession = {
+        phase: 'editing',
+        identity: {},
+        key: ++lotPackageKeyRef.current,
+        lotScreen: pending.lotScreen,
+        lotPresentation: pending.lotPresentation,
         scriptProjectId: success.projectId,
+        title: success.title,
+        opener: pending.opener,
+        acceptedState: pending.next,
+      }
+      commitLotPackagePresentation({
+        workspace,
+        liveFormation: null,
       })
     })
     return () => {
@@ -671,7 +800,59 @@ export function App() {
         lotCastingPackageHandoffRef.current = null
       }
     }
-  }, [screen, state])
+  }, [commitLotPackagePresentation, screen, state])
+
+  // Accepted greenlight closes only after the successor has reached the established autosave
+  // effect above. Workspace close and live-formation publication are one atomic presentation
+  // update, so the Lot cannot observe a receipt while it is still suspended by the Package.
+  useEffect(() => {
+    const workspace = lotPackagePresentation.workspace
+    if (workspace?.phase !== 'committed') return
+    if (
+      state !== workspace.next ||
+      latestStateRef.current !== workspace.next ||
+      screen !== workspace.lotScreen ||
+      latestScreenRef.current !== workspace.lotScreen ||
+      activeLotPresentationRef.current !== workspace.lotPresentation
+    ) {
+      if (latestLotPackagePresentationRef.current.workspace === workspace) {
+        commitLotPackagePresentation({ workspace: null, liveFormation: null })
+      }
+      return
+    }
+    let active = true
+    window.queueMicrotask(() => {
+      if (
+        !active ||
+        latestLotPackagePresentationRef.current.workspace !== workspace ||
+        latestStateRef.current !== workspace.next ||
+        latestScreenRef.current !== workspace.lotScreen ||
+        activeLotPresentationRef.current !== workspace.lotPresentation
+      ) return
+      const liveFormation = workspace.formationReceipt === null
+        ? null
+        : {
+            identity: {},
+            acceptedState: workspace.next,
+            lotScreen: workspace.lotScreen,
+            lotPresentation: workspace.lotPresentation,
+            receipt: workspace.formationReceipt,
+          }
+      commitLotPackagePresentation({ workspace: null, liveFormation })
+      if (liveFormation === null) {
+        restoreRetainedPackageFocus(workspace, false)
+      }
+    })
+    return () => {
+      active = false
+    }
+  }, [
+    commitLotPackagePresentation,
+    lotPackagePresentation.workspace,
+    restoreRetainedPackageFocus,
+    screen,
+    state,
+  ])
 
   useEffect(() => {
     const profileIsOpen = openProfileId !== null
@@ -874,6 +1055,140 @@ export function App() {
     setScreen({ kind: 'lot', entryFocus: context.focus })
   }
 
+  function currentLotWorldInputOwner(): boolean {
+    return latestLotPackagePresentationRef.current.workspace === null &&
+      latestOpenProfileIdRef.current === null &&
+      latestScreenRef.current.kind === 'lot'
+  }
+
+  function handleLotPackageCancel(workspace: LotPackageWorkspaceSession) {
+    const current = latestLotPackagePresentationRef.current.workspace
+    if (
+      current !== workspace ||
+      current.phase !== 'editing' ||
+      latestStateRef.current !== current.acceptedState ||
+      latestScreenRef.current !== current.lotScreen ||
+      activeLotPresentationRef.current !== current.lotPresentation ||
+      latestOpenProfileIdRef.current !== null
+    ) return
+    commitLotPackagePresentation({ workspace: null, liveFormation: null })
+    restoreRetainedPackageFocus(current, true)
+  }
+
+  function handleLotPackageStateChange(
+    workspace: LotPackageWorkspaceSession,
+    renderedBefore: GameState,
+    next: GameState,
+  ) {
+    const current = latestLotPackagePresentationRef.current.workspace
+    if (
+      current !== workspace ||
+      current.phase !== 'editing' ||
+      current.acceptedState !== renderedBefore ||
+      latestStateRef.current !== renderedBefore ||
+      latestScreenRef.current !== current.lotScreen ||
+      activeLotPresentationRef.current !== current.lotPresentation ||
+      latestOpenProfileIdRef.current !== null
+    ) return
+    const updated: LotPackageWorkspaceSession = {
+      ...current,
+      acceptedState: next,
+    }
+    commitLotPackagePresentation({ workspace: updated, liveFormation: null })
+    latestStateRef.current = next
+    setState(next)
+  }
+
+  function handleLotPackageOpenProfile(
+    workspace: LotPackageWorkspaceSession,
+    personId: string,
+  ) {
+    const current = latestLotPackagePresentationRef.current.workspace
+    if (
+      current !== workspace ||
+      current.phase !== 'editing' ||
+      latestStateRef.current !== current.acceptedState ||
+      latestScreenRef.current !== current.lotScreen ||
+      activeLotPresentationRef.current !== current.lotPresentation ||
+      latestOpenProfileIdRef.current !== null ||
+      talentProfile(current.acceptedState, personId) === undefined
+    ) return
+    openTalentProfile(personId)
+  }
+
+  function handleLotPackageGreenlit(
+    workspace: LotPackageWorkspaceSession,
+    renderedBefore: GameState,
+    next: GameState,
+    assemblyReceipt: GreenlightFormationReceipt | null,
+  ) {
+    const currentWorkspace = latestLotPackagePresentationRef.current.workspace
+    const current = latestStateRef.current
+    if (
+      currentWorkspace !== workspace ||
+      currentWorkspace.phase !== 'editing' ||
+      current === null ||
+      current !== renderedBefore ||
+      currentWorkspace.acceptedState !== renderedBefore ||
+      latestScreenRef.current !== currentWorkspace.lotScreen ||
+      activeLotPresentationRef.current !== currentWorkspace.lotPresentation ||
+      latestOpenProfileIdRef.current !== null
+    ) return
+
+    let appReceipt: GreenlightFormationReceipt | null = null
+    try {
+      appReceipt = acceptedGreenlightFormationReceipt(current, next)
+    } catch {
+      appReceipt = null
+    }
+    let formationReceipt: GreenlightFormationReceipt | null = null
+    try {
+      if (
+        lotEnabled &&
+        hollywoodEnabled &&
+        appReceipt !== null &&
+        assemblyReceipt !== null &&
+        sameGreenlightFormationReceipt(appReceipt, assemblyReceipt)
+      ) {
+        formationReceipt = appReceipt
+      }
+    } catch {
+      formationReceipt = null
+    }
+
+    const committed: LotPackageWorkspaceSession = {
+      phase: 'committed',
+      identity: currentWorkspace.identity,
+      key: currentWorkspace.key,
+      lotScreen: currentWorkspace.lotScreen,
+      lotPresentation: currentWorkspace.lotPresentation,
+      scriptProjectId: currentWorkspace.scriptProjectId,
+      title: currentWorkspace.title,
+      opener: currentWorkspace.opener,
+      before: current,
+      next,
+      formationReceipt,
+    }
+    // Close the editing owner synchronously before the Engine successor can make the screenplay
+    // disappear from Assembly's Ready-package projection.
+    commitLotPackagePresentation({ workspace: committed, liveFormation: null })
+    lotNextEventSessionRef.current = null
+    lotNextEventActivationRef.current = null
+    lotScriptReviewActivationRef.current = null
+    lotCastingReviewActivationRef.current = null
+    lotCastingPackageHandoffRef.current = null
+    latestStateRef.current = next
+    setLotCadenceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
+    setState(next)
+  }
+
+  function handleLiveFormationConsumed(identity: object) {
+    const presentation = latestLotPackagePresentationRef.current
+    if (presentation.liveFormation?.identity !== identity) return
+    commitLotPackagePresentation({ ...presentation, liveFormation: null })
+  }
+
   // World-First Greenlight Production Formation V1: Assembly reports the successor plus a
   // narrow receipt, but App remains the independent state/navigation owner. The callback is
   // legal only while the exact object rendered into that Assembly is still the latest state.
@@ -971,6 +1286,7 @@ export function App() {
   // Translate a lot navigation intent into the existing screen navigation. Every route
   // targets a screen that already exists outside the lot.
   function handleLotNavigate(route: LotRoute) {
+    if (!currentLotWorldInputOwner()) return
     // Saves is the one deep surface whose attempted action may leave GameState unchanged.
     // Preserve the exact receipt only while it still proves the currently accepted successor,
     // so a rejected import or declined restart can return to the same live-world reaction.
@@ -1041,6 +1357,7 @@ export function App() {
     returnContext: StudioReturnContext,
     source: StudioActionSource,
   ) {
+    if (source === 'mounted-lot' && !currentLotWorldInputOwner()) return
     if (!state) return
     // RULING A: advanceWeek ticks with development ON. The engine applies development
     // EXACTLY ONCE inside this single tick; we then replace the authoritative GameState
@@ -1144,10 +1461,17 @@ export function App() {
   }
 
   function handleLotPublicity(tier: PublicityTier): LotPublicityResult {
+    if (!currentLotWorldInputOwner()) {
+      return { ok: false, error: 'The live Lot is suspended while Package decisions are open.' }
+    }
     return executePublicity(tier)
   }
 
-  function handleProductionCommand(command: ProductionCommandView) {
+  function handleProductionCommand(
+    command: ProductionCommandView,
+    source: StudioActionSource = 'supporting-dashboard',
+  ) {
+    if (source === 'mounted-lot' && !currentLotWorldInputOwner()) return
     if (!state) return
     const result = runProductionCommand(state, command)
     if (result.ok) {
@@ -1236,6 +1560,7 @@ export function App() {
     if (
       current === null ||
       current !== renderedBefore ||
+      !currentLotWorldInputOwner() ||
       lotNextEventActivationRef.current !== null ||
       latestOpenProfileIdRef.current !== null
     ) return false
@@ -1406,6 +1731,7 @@ export function App() {
     const expected = { acceptedState: renderedState, receipt }
     const demoteRendered = () => demoteLotNextEventReceipt(expected)
     if (
+      !currentLotWorldInputOwner() ||
       current === null ||
       session === null ||
       current !== renderedState ||
@@ -1509,6 +1835,7 @@ export function App() {
   ): boolean {
     const current = latestStateRef.current
     if (
+      !currentLotWorldInputOwner() ||
       current === null ||
       current !== renderedState ||
       lotNextEventSessionRef.current !== null
@@ -1541,6 +1868,9 @@ export function App() {
     renderedAction: LotScriptReviewAction,
     receipt: LotNextEventReceipt | null,
   ): ActionOutcome {
+    if (!currentLotWorldInputOwner()) {
+      return { ok: false, error: 'The live Lot is suspended while Package decisions are open.' }
+    }
     if (lotScriptReviewActivationRef.current !== null) {
       return {
         ok: false,
@@ -1673,6 +2003,7 @@ export function App() {
   ): boolean {
     const current = latestStateRef.current
     if (
+      !currentLotWorldInputOwner() ||
       current === null ||
       current !== renderedState ||
       lotNextEventSessionRef.current !== null
@@ -1710,6 +2041,9 @@ export function App() {
     renderedAction: LotCastingReviewAction,
     receipt: LotNextEventReceipt | null,
   ): ActionOutcome {
+    if (!currentLotWorldInputOwner()) {
+      return { ok: false, error: 'The live Lot is suspended while Package decisions are open.' }
+    }
     if (lotCastingReviewActivationRef.current !== null) {
       return {
         ok: false,
@@ -1821,6 +2155,7 @@ export function App() {
       )
       replaceMountedLotAuthoritativeState(result.next)
       if (success?.kind === 'clear') {
+        const active = typeof document === 'undefined' ? null : document.activeElement
         lotCastingPackageHandoffRef.current = {
           before: current,
           next: result.next,
@@ -1829,6 +2164,7 @@ export function App() {
           context: latest,
           action: latest.action,
           returnContext,
+          opener: active instanceof HTMLElement ? active : null,
         }
       }
       return result
@@ -1875,6 +2211,12 @@ export function App() {
     receipt: LotNextEventReceipt,
     command: ProductionCommandView,
   ) {
+    if (!currentLotWorldInputOwner()) {
+      return {
+        ok: false as const,
+        error: 'The live Lot is suspended while Package decisions are open.',
+      }
+    }
     const current = latestStateRef.current
     const session = lotNextEventSessionRef.current
     const currentCommand = current === null
@@ -1927,6 +2269,7 @@ export function App() {
     renderedState: GameState,
     receipt: LotNextEventReceipt,
   ): false {
+    if (!currentLotWorldInputOwner()) return false
     const session = lotNextEventSessionRef.current
     const current = latestStateRef.current
     if (
@@ -1946,6 +2289,7 @@ export function App() {
   }
 
   function handleDismissLotNextEvent() {
+    if (!currentLotWorldInputOwner()) return
     lotNextEventSessionRef.current = null
     setLotCadenceFeedback(null)
   }
@@ -2075,6 +2419,9 @@ export function App() {
   // passed to the existing parameter-free adapter action once, and the exact outcome is
   // returned so the mounted world can own focus and announcement presentation.
   function handleStartDevelopmentCastingAnnex() {
+    if (!currentLotWorldInputOwner()) {
+      return { ok: false as const, error: 'The live Lot is suspended while Package decisions are open.' }
+    }
     const result = startDevelopmentCastingAnnexAction(loadedState)
     if (result.ok) {
       replaceAuthoritativeState(result.next)
@@ -2087,6 +2434,7 @@ export function App() {
   // completed/replaced occupant can never route by stale presentation text or array position.
   // This is navigation only; Calendar remains the read authority and GameState is untouched.
   function handleOpenAnnexWorkDetails(intent: LotAnnexWorkOwnerIntent): boolean {
+    if (!currentLotWorldInputOwner()) return false
     const current = latestStateRef.current
     if (current === null) return false
 
@@ -2176,6 +2524,7 @@ export function App() {
   function handleOpenStage7ProductionDetails(
     intent: Stage7ProductionOwnerIntent,
   ): boolean {
+    if (!currentLotWorldInputOwner()) return false
     if (!hasCurrentStage7Production(intent)) return false
 
     setLotCadenceFeedback(null)
@@ -2227,7 +2576,7 @@ export function App() {
   }
 
   function handleOpenGateCandidateProfile(intent: GateCandidateOwnerIntent): boolean {
-    if (latestOpenProfileIdRef.current !== null || currentGateCandidate(intent) === null) {
+    if (!currentLotWorldInputOwner() || currentGateCandidate(intent) === null) {
       return false
     }
     openTalentProfile(intent.talentId)
@@ -2235,7 +2584,7 @@ export function App() {
   }
 
   function handleOpenGateCandidateHiring(intent: GateCandidateOwnerIntent): boolean {
-    if (latestOpenProfileIdRef.current !== null || currentGateCandidate(intent) === null) {
+    if (!currentLotWorldInputOwner() || currentGateCandidate(intent) === null) {
       return false
     }
 
@@ -2259,6 +2608,8 @@ export function App() {
   // including the single reconciliation render where a hostile/replaced state no
   // longer resolves that identity. The Lot clears stale raw IDs fail-closed.
   const profileDrawerOpen = openProfileId !== null
+  const retainedPackageWorkspace = lotPackagePresentation.workspace
+  const retainedLiveFormation = lotPackagePresentation.liveFormation
 
   return (
     <DevErrorBoundary>
@@ -2622,8 +2973,12 @@ export function App() {
             state={state}
             onPresentationMount={mountLotPresentation}
             onNavigate={handleLotNavigate}
-            onExit={() => openDashboardFromLot('studio-home')}
-            onOpenPublicityDashboard={() => openDashboardFromLot('publicity-campaign')}
+            onExit={() => {
+              if (currentLotWorldInputOwner()) openDashboardFromLot('studio-home')
+            }}
+            onOpenPublicityDashboard={() => {
+              if (currentLotWorldInputOwner()) openDashboardFromLot('publicity-campaign')
+            }}
             onRunPublicity={handleLotPublicity}
             onAdvance={() =>
               handleAdvance(
@@ -2674,7 +3029,16 @@ export function App() {
             {...(screen.entryFocus === 'next-event-reaction'
               ? { entryNextEventReceipt: screen.entryNextEventReceipt }
               : {})}
-            onProductionCommand={handleProductionCommand}
+            {...(retainedLiveFormation !== null &&
+              retainedLiveFormation.lotScreen === screen &&
+              retainedLiveFormation.lotPresentation === lotPresentationToken
+              ? {
+                  liveFormationPresentation: retainedLiveFormation,
+                  onLiveFormationConsumed: handleLiveFormationConsumed,
+                }
+              : {})}
+            onProductionCommand={(command) =>
+              handleProductionCommand(command, 'mounted-lot')}
             onRunNextEventProductionCommand={handleLotNextEventProductionCommand}
             onRunScriptReviewAction={handleLotScriptReviewAction}
             onRunCastingReviewAction={(...args) =>
@@ -2692,13 +3056,71 @@ export function App() {
             onOpenStage7ProductionDetails={handleOpenStage7ProductionDetails}
             onOpenGateCandidateProfile={handleOpenGateCandidateProfile}
             onOpenGateCandidateHiring={handleOpenGateCandidateHiring}
-            onOpenTalentProfile={openTalentProfile}
-            onCloseTalentProfile={closeTalentProfileIfOpen}
+            onOpenTalentProfile={(personId) => {
+              if (
+                lotPresentationToken === null ||
+                latestStateRef.current !== state ||
+                latestScreenRef.current !== screen ||
+                activeLotPresentationRef.current !== lotPresentationToken ||
+                !currentLotWorldInputOwner() ||
+                talentProfile(state, personId) === undefined
+              ) return
+              openTalentProfile(personId)
+            }}
+            onCloseTalentProfile={(personId) => {
+              if (
+                lotPresentationToken === null ||
+                latestStateRef.current !== state ||
+                latestScreenRef.current !== screen ||
+                activeLotPresentationRef.current !== lotPresentationToken ||
+                latestLotPackagePresentationRef.current.workspace !== null ||
+                latestOpenProfileIdRef.current !== personId
+              ) return
+              closeTalentProfileIfOpen(personId)
+            }}
             openTalentProfileId={openProfileId}
-            worldInputSuspended={profileDrawerOpen}
+            worldInputSuspended={profileDrawerOpen || retainedPackageWorkspace !== null}
           />
         </Suspense>
       )}
+
+      {screen.kind === 'lot' &&
+        retainedPackageWorkspace !== null &&
+        retainedPackageWorkspace.lotScreen === screen &&
+        retainedPackageWorkspace.lotPresentation === lotPresentationToken && (
+          <LotPackageWorkspace
+            key={retainedPackageWorkspace.key}
+            phase={retainedPackageWorkspace.phase}
+            title={retainedPackageWorkspace.title}
+            nestedModalOpen={profileDrawerOpen}
+            onCancel={() => handleLotPackageCancel(retainedPackageWorkspace)}
+          >
+            {retainedPackageWorkspace.phase === 'editing' && (
+              <Assembly
+                key={retainedPackageWorkspace.key}
+                surface="lot-workspace"
+                state={retainedPackageWorkspace.acceptedState}
+                scriptProjectId={retainedPackageWorkspace.scriptProjectId}
+                onGreenlit={(next, receipt) =>
+                  handleLotPackageGreenlit(
+                    retainedPackageWorkspace,
+                    retainedPackageWorkspace.acceptedState,
+                    next,
+                    receipt,
+                  )}
+                onCancel={() => handleLotPackageCancel(retainedPackageWorkspace)}
+                onStateChange={(next) =>
+                  handleLotPackageStateChange(
+                    retainedPackageWorkspace,
+                    retainedPackageWorkspace.acceptedState,
+                    next,
+                  )}
+                onOpenProfile={(personId) =>
+                  handleLotPackageOpenProfile(retainedPackageWorkspace, personId)}
+              />
+            )}
+          </LotPackageWorkspace>
+        )}
     </DevErrorBoundary>
   )
 }

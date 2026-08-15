@@ -223,14 +223,20 @@ async function formPictureFromCurrentLot(
     `Week ${(startingWeek as number) + 1}`,
   )
 
-  // Re-enter from the Lot, accept the exact screenplay, and open its locked package.
+  // The completed draft is now an exact world-first Development decision. Accept it in the
+  // living Lot, then use Writers' Room only for the deeper Package decision.
   await activateSemanticControl(page, 'lot-nav-writers')
-  const accept = page.getByTestId(`script-action-acceptScript-${projectId}`)
-  await expect(accept).toBeVisible()
-  const scriptCard = page.getByTestId(`script-card-${projectId}`)
-  const title = ((await scriptCard.locator('strong').first().textContent()) ?? '').trim()
+  const worldReview = page.getByTestId('lot-script-review-panel')
+  await expect(worldReview).toBeVisible()
+  await expect(worldReview.getByTestId('lot-script-review-project-id')).toContainText(projectId)
+  const worldAccept = worldReview.getByRole('button', { name: /^Accept / })
+  await expect(worldAccept).toBeVisible()
+  const title = ((await page.getByTestId('lot-script-review-heading').textContent()) ?? '').trim()
   expect(title).not.toBe('')
-  await accept.click()
+  await worldAccept.click()
+  await expect(page.getByTestId('lot-script-review-success')).toBeVisible()
+  await activateSemanticControl(page, 'lot-nav-writers')
+  await expect(page.getByTestId('writers-room')).toBeVisible()
   await page.getByTestId(`script-action-openPackage-${projectId}`).click()
   await expect(page.getByTestId('assembly-steps')).toBeVisible()
   await expect(page.getByTestId('step-talent')).toHaveClass(/active/)

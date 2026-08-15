@@ -236,6 +236,15 @@ function expectEarlierInDocument(earlier: HTMLElement, later: HTMLElement) {
   ).not.toBe(0)
 }
 
+function pickFirstEligible(testId: string) {
+  const candidate = within(screen.getByTestId(testId))
+    .getAllByRole('button')
+    .find((button) =>
+      button.hasAttribute('aria-pressed') && !(button as HTMLButtonElement).disabled)
+  if (candidate === undefined) throw new Error(`setup: no eligible candidate in ${testId}`)
+  fireEvent.click(candidate)
+}
+
 beforeEach(() => {
   localStorage.clear()
   clearActiveSession()
@@ -328,6 +337,9 @@ describe('World-First Lot-Native Casting Review Intervention V1 — App/Lot inte
 
     expect(await screen.findByTestId('lot-casting-review-panel')).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'NEXT EVENT' })).toHaveFocus()
+    const retainedLot = screen.getByTestId('studio-lot-screen')
+    const retainedCanvas = screen.getByTestId('studio-lot-canvas')
+    const retainedView = renderer.instances.at(-1)!
     fireEvent.click(screen.getByTestId(
       `lot-casting-review-action-acknowledgeCastingSession-${context.sessionId}`,
     ))
@@ -340,14 +352,98 @@ describe('World-First Lot-Native Casting Review Intervention V1 — App/Lot inte
     )
     await waitFor(() => expect(screen.getByTestId('assembly-talent-heading')).toHaveFocus())
     expect(activeSessionBytes()).toBe(exportSaveJson(direct.next))
+    expect(screen.getByTestId('lot-package-workspace')).toBeInTheDocument()
+    expect(screen.getByTestId('studio-lot-screen')).toBe(retainedLot)
+    expect(screen.getByTestId('studio-lot-screen')).toHaveAttribute('inert')
+    expect(screen.getByTestId('studio-lot-canvas')).toBe(retainedCanvas)
+    expect(renderer.instances.at(-1)).toBe(retainedView)
+    expect(retainedView.destroyed).toBe(false)
 
-    fireEvent.click(screen.getByTestId('assembly-back-dashboard'))
-    expect(await screen.findByTestId('studio-lot-screen')).toHaveAttribute(
-      'data-entry-focus',
-      'studio-home',
+    const profileOpener = within(screen.getByTestId('picker-director'))
+      .getAllByTestId(/^picker-open-profile-/)[0]!
+    fireEvent.click(profileOpener)
+    expect(await screen.findByTestId('talent-profile')).toBeInTheDocument()
+    expect(screen.getByTestId('lot-package-workspace-layer')).toHaveAttribute('inert')
+    expect(screen.getByTestId('lot-package-workspace-layer')).toHaveAttribute(
+      'aria-hidden',
+      'true',
     )
-    expect(screen.queryByTestId('lot-casting-review-panel')).not.toBeInTheDocument()
+    expect(screen.getByTestId('studio-lot-screen')).toHaveAttribute('inert')
+    fireEvent.click(screen.getByTestId('talent-profile-close'))
+    await waitFor(() => expect(screen.queryByTestId('talent-profile')).not.toBeInTheDocument())
+    await waitFor(() => expect(profileOpener).toHaveFocus())
+    expect(screen.getByTestId('lot-package-workspace-layer')).not.toHaveAttribute('inert')
+
+    fireEvent.click(screen.getByTestId('assembly-back'))
+    expect(screen.getByTestId('studio-lot-screen')).toBe(retainedLot)
+    expect(screen.getByTestId('studio-lot-screen')).toHaveAttribute(
+      'data-entry-focus',
+      'next-event-reaction',
+    )
+    expect(screen.getByTestId('studio-lot-screen')).not.toHaveAttribute('inert')
+    expect(screen.getByTestId('studio-lot-canvas')).toBe(retainedCanvas)
+    expect(renderer.instances.at(-1)).toBe(retainedView)
+    expect(screen.queryByTestId('lot-package-workspace')).not.toBeInTheDocument()
+    expect(screen.getByTestId('lot-casting-review-success')).toBeInTheDocument()
     expect(screen.queryByTestId('lot-next-event-rail')).not.toBeInTheDocument()
+  })
+
+  it('greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer', async () => {
+    const before = reviewState()
+    const context = currentLotCastingReviewContext(before)
+    if (context === null || !context.action.opensPackage) {
+      throw new Error('setup: expected one clear Casting acknowledgement')
+    }
+    const acknowledged = acknowledgeCastingSessionAction(before, context.sessionId)
+    if (!acknowledged.ok) throw new Error(acknowledged.error)
+
+    const { lot, canvas, view } = await renderStudio(before)
+    fireEvent.click(screen.getByTestId('lot-nav-casting'))
+    expect(await screen.findByTestId('lot-casting-review-panel')).toBeInTheDocument()
+    fireEvent.click(screen.getByTestId(
+      `lot-casting-review-action-acknowledgeCastingSession-${context.sessionId}`,
+    ))
+
+    expect(await screen.findByTestId('lot-package-workspace')).toBeInTheDocument()
+    expect(activeSessionBytes()).toBe(exportSaveJson(acknowledged.next))
+    expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
+    expect(screen.getByTestId('studio-lot-canvas')).toBe(canvas)
+    expect(renderer.instances).toEqual([view])
+
+    pickFirstEligible('picker-director')
+    pickFirstEligible('picker-lead')
+    pickFirstEligible('picker-antagonist')
+    pickFirstEligible('picker-support')
+    pickFirstEligible('picker-craft')
+    fireEvent.click(screen.getByTestId('assembly-next'))
+    fireEvent.click(screen.getByTestId('assembly-next'))
+    expect(screen.getByTestId('greenlight')).toBeEnabled()
+    fireEvent.click(screen.getByTestId('greenlight'))
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('lot-package-workspace')).not.toBeInTheDocument()
+      expect(screen.getByTestId('hollywood-production-formation-witness')).toHaveTextContent(
+        'PICTURE FORMED',
+      )
+    })
+    expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
+    expect(screen.getByTestId('studio-lot-screen')).not.toHaveAttribute('inert')
+    expect(screen.getByTestId('studio-lot-canvas')).toBe(canvas)
+    expect(renderer.instances).toEqual([view])
+    expect(view.destroyed).toBe(false)
+    expect(screen.getByTestId('hollywood-current-production')).toHaveTextContent(context.title)
+    expect(screen.getByTestId('lot-production-formation-announcement')).toHaveTextContent(
+      `Picture formed: ${context.title}`,
+    )
+
+    const saved = loadActiveSession()
+    expect(saved.ok).toBe(true)
+    if (!saved.ok) throw new Error('expected accepted greenlight autosave')
+    expect(saved.state.studio.activeProductions).toHaveLength(1)
+    expect(saved.state.studio.activeProductions[0]?.conceptId).toBe(
+      before.scriptDevelopment.projects.find((project) => project.id === context.projectId)
+        ?.conceptId,
+    )
   })
 
   it('keeps a blocked acknowledgement and every current remedy on the same mounted fallback Lot', async () => {
@@ -436,6 +532,37 @@ describe('World-First Lot-Native Casting Review Intervention V1 — App/Lot inte
     expect(renderer.instances).toEqual([view])
     expect(view.destroyed).toBe(false)
     expect(activeSessionBytes()).toBe(exportSaveJson(direct.next))
+  })
+
+  it('preserves the clear Classic rollback route as standalone Package Assembly', async () => {
+    setOperationHollywoodOverride(false)
+    const before = reviewState()
+    const context = currentLotCastingReviewContext(before)
+    if (context === null || !context.action.opensPackage) {
+      throw new Error('setup: expected one clear Classic Casting review')
+    }
+    const direct = acknowledgeCastingSessionAction(before, context.sessionId)
+    if (!direct.ok) throw new Error(direct.error)
+
+    const { lot, canvas, view } = await renderStudio(before)
+    fireEvent.click(screen.getByTestId('lot-nav-casting'))
+    fireEvent.click(screen.getByTestId(
+      `lot-casting-review-action-acknowledgeCastingSession-${context.sessionId}`,
+    ))
+
+    expect(await screen.findByTestId('assembly-casting-handoff')).toHaveTextContent(
+      `${context.title} casting review complete`,
+    )
+    expect(screen.getByTestId('assembly-surface')).toHaveAttribute('data-surface', 'standalone')
+    expect(screen.queryByTestId('lot-package-workspace')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('studio-lot-screen')).not.toBeInTheDocument()
+    expect(lot).not.toBeInTheDocument()
+    expect(canvas).not.toBeInTheDocument()
+    expect(view.destroyed).toBe(true)
+    expect(activeSessionBytes()).toBe(exportSaveJson(direct.next))
+
+    fireEvent.click(screen.getByTestId('assembly-back-dashboard'))
+    expect(await screen.findByTestId('studio-lot-screen')).toBeInTheDocument()
   })
 
   it('rebuilds an imported pending review only after Casting is selected in the replacement Lot', async () => {
@@ -530,7 +657,7 @@ describe('World-First Lot-Native Casting Review Intervention V1 — App/Lot inte
     expect(focused.sessionId).not.toBe(replacement.sessionId)
     expect(focused.projectId).not.toBe(replacement.projectId)
 
-    await renderStudio(pending)
+    const { lot, canvas, view } = await renderStudio(pending)
     fireEvent.click(screen.getByTestId('lot-nav-casting'))
     expect(await screen.findByTestId('lot-casting-review-heading')).toHaveTextContent(focused.title)
     expect(screen.getByTestId('lot-casting-review-panel')).toHaveAttribute(
@@ -544,13 +671,19 @@ describe('World-First Lot-Native Casting Review Intervention V1 — App/Lot inte
     ))
     expect(await screen.findByTestId('assembly-casting-handoff')).toHaveTextContent(focused.title)
     expect(activeSessionBytes()).toBe(exportSaveJson(direct.next))
-    fireEvent.click(screen.getByTestId('assembly-back-dashboard'))
+    expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
+    expect(screen.getByTestId('studio-lot-canvas')).toBe(canvas)
+    expect(renderer.instances).toEqual([view])
+    fireEvent.click(screen.getByTestId('assembly-back'))
 
-    expect(await screen.findByTestId('studio-lot-screen')).toHaveAttribute(
+    expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
+    expect(screen.getByTestId('studio-lot-screen')).toHaveAttribute(
       'data-entry-focus',
       'studio-home',
     )
-    expect(screen.queryByTestId('lot-casting-review-panel')).not.toBeInTheDocument()
+    expect(screen.getByTestId('studio-lot-canvas')).toBe(canvas)
+    expect(renderer.instances).toEqual([view])
+    expect(screen.queryByTestId('lot-package-workspace')).not.toBeInTheDocument()
     expect(screen.getByTestId('lot-sim-to-next-event')).toBeDisabled()
 
     fireEvent.click(screen.getByTestId('lot-nav-casting'))

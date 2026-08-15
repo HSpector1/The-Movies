@@ -6,7 +6,7 @@
 // outputs (previewForecast, requiredNegative, salaries) — no invented scores.
 // Greenlight surfaces engine validation errors in plain English before committing.
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type {
   GameState,
   FilmConcept,
@@ -102,6 +102,8 @@ import {
 } from '../lot/snapshot/productionFormation.ts'
 
 type Step = 'concept' | 'shape' | 'promise' | 'talent' | 'budget' | 'review'
+export type AssemblySurface = 'standalone' | 'lot-workspace'
+
 const STEP_ORDER: Step[] = ['concept', 'shape', 'promise', 'talent', 'budget', 'review']
 const STEP_LABELS: Record<Step, string> = {
   concept: 'Concept',
@@ -258,6 +260,7 @@ export function Assembly({
   onCancel,
   onStateChange,
   onOpenProfile,
+  surface = 'standalone',
 }: {
   state: GameState
   scriptProjectId?: string
@@ -270,7 +273,11 @@ export function Assembly({
   // D-14: open the shared Talent Profile for a candidate/assigned talent. Optional so existing
   // tests still work.
   onOpenProfile?: ((id: string) => void) | undefined
+  // The Lot workspace is a presentation adapter over this same canonical wizard. It removes
+  // page-level chrome and owns scroll locally so the still-mounted world never drifts behind it.
+  surface?: AssemblySurface
 }) {
+  const isLotWorkspace = surface === 'lot-workspace'
   const screenplayBoard = scriptProjectsBoard(state)
   const lockedScript = scriptProjectId
     ? screenplayBoard.packages.find((candidate) => candidate.projectId === scriptProjectId)
@@ -292,6 +299,7 @@ export function Assembly({
   // A1: when true, the embedded Talent Creator is shown IN PLACE of the wizard. Assembly stays
   // mounted the whole time, so `draft` (concept/shape/promise/talent picks) survives the round-trip.
   const [creating, setCreating] = useState(false)
+  const [creatorReturnFocusEpoch, setCreatorReturnFocusEpoch] = useState(0)
   // World-first production formation: the native button click remains the sole action owner.
   // A synchronous ref (rather than render-time disabled state) closes double-click, key-repeat,
   // cross-key, and compatibility-click tails before React can commit another render. Rejection
@@ -305,27 +313,39 @@ export function Assembly({
   // A2: on each step transition, reset scroll to the top and move focus to the new step's heading
   // so the primary controls (not the bottom Next button) are what the player lands on.
   const contentRef = useRef<HTMLDivElement>(null)
+  const workspaceScrollRef = useRef<HTMLDivElement>(null)
   const firstRender = useRef(true)
+  useLayoutEffect(() => {
+    if (creatorReturnFocusEpoch === 0 || creating) return
+    contentRef.current
+      ?.querySelector<HTMLElement>('[data-testid="talent-step-create"]')
+      ?.focus({ preventScroll: true })
+  }, [creating, creatorReturnFocusEpoch])
   useEffect(() => {
     const isFirstRender = firstRender.current
     firstRender.current = false
     if (isFirstRender && castingHandoffAnnouncement === null) return
     const container = contentRef.current
     if (!container) return
-    if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+    if (!isLotWorkspace && typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
       try {
         window.scrollTo(0, 0)
       } catch {
         /* jsdom has no layout; focus below is the accessible signal */
       }
     }
-    container.scrollTop = 0
+    if (isLotWorkspace) {
+      const workspaceScroll = workspaceScrollRef.current
+      if (workspaceScroll) workspaceScroll.scrollTop = 0
+    } else {
+      container.scrollTop = 0
+    }
     const heading = container.querySelector('h2')
     if (heading instanceof HTMLElement) {
       heading.setAttribute('tabindex', '-1')
       heading.focus()
     }
-  }, [step, castingHandoffAnnouncement])
+  }, [step, castingHandoffAnnouncement, isLotWorkspace])
 
   const concepts = selectConcepts(state)
   const concept = draft.conceptId ? findConcept(state, draft.conceptId) : undefined
@@ -504,13 +524,29 @@ export function Assembly({
 
   if (managedRequiresScript && lockedScript === undefined) {
     return (
-      <div className="app-shell">
-        <div className="topbar">
-          <div className="brand"><span className="mark">PACKAGE A SCREENPLAY</span></div>
-          <button className="ghost" onClick={onCancel}>Back to studio</button>
-        </div>
-        <div className="errbox" role="alert" data-testid="managed-assembly-gate">
-          Managed studios must open package assembly from a Ready screenplay in the Writers’ Room.
+      <div
+        className={
+          isLotWorkspace
+            ? 'assembly-surface assembly-surface--lot-workspace'
+            : 'app-shell assembly-surface assembly-surface--standalone'
+        }
+        data-testid="assembly-surface"
+        data-surface={surface}
+      >
+        {!isLotWorkspace && (
+          <div className="topbar">
+            <div className="brand"><span className="mark">PACKAGE A SCREENPLAY</span></div>
+            <button className="ghost" onClick={onCancel}>Back to studio</button>
+          </div>
+        )}
+        <div
+          ref={workspaceScrollRef}
+          className={isLotWorkspace ? 'assembly-workspace-scroll' : undefined}
+          data-testid={isLotWorkspace ? 'assembly-workspace-scroll' : undefined}
+        >
+          <div className="errbox" role="alert" data-testid="managed-assembly-gate">
+            Managed studios must open package assembly from a Ready screenplay in the Writers’ Room.
+          </div>
         </div>
       </div>
     )
@@ -520,20 +556,33 @@ export function Assembly({
   // the wizard. Assembly does not unmount, so the film-package draft is preserved; on Created/Back
   // we return to the exact step the player left, with every selection intact.
   if (creating) {
+    const returnFromCreator = () => {
+      setCreating(false)
+      setCreatorReturnFocusEpoch((epoch) => epoch + 1)
+    }
     return (
       <TalentCreator
         state={state}
+        surface={surface}
         onCreated={(next) => {
           onStateChange?.(next)
-          setCreating(false)
+          returnFromCreator()
         }}
-        onBack={() => setCreating(false)}
+        onBack={returnFromCreator}
       />
     )
   }
 
   return (
-    <div className="app-shell">
+    <div
+      className={
+        isLotWorkspace
+          ? 'assembly-surface assembly-surface--lot-workspace'
+          : 'app-shell assembly-surface assembly-surface--standalone'
+      }
+      data-testid="assembly-surface"
+      data-surface={surface}
+    >
       {castingHandoffAnnouncement !== null && (
         <div
           id="assembly-casting-handoff"
@@ -546,21 +595,32 @@ export function Assembly({
           {castingHandoffAnnouncement}
         </div>
       )}
-      <div className="topbar">
-        <div className="brand">
-          <span className="mark">{lockedScript ? `PACKAGE ${lockedScript.concept.title}` : 'ASSEMBLE A FILM'}</span>
+      {!isLotWorkspace && (
+        <div className="topbar">
+          <div className="brand">
+            <span className="mark">{lockedScript ? `PACKAGE ${lockedScript.concept.title}` : 'ASSEMBLE A FILM'}</span>
+          </div>
+          <button className="ghost" onClick={onCancel} data-testid="assembly-back-dashboard">
+            Back to studio
+          </button>
         </div>
-        <button className="ghost" onClick={onCancel} data-testid="assembly-back-dashboard">
-          Back to studio
-        </button>
-      </div>
+      )}
 
-      <div className="steps" data-testid="assembly-steps">
+      <div
+        ref={workspaceScrollRef}
+        className={isLotWorkspace ? 'assembly-workspace-scroll' : undefined}
+        data-testid={isLotWorkspace ? 'assembly-workspace-scroll' : undefined}
+      >
+      <div
+        className={`steps${isLotWorkspace ? ' assembly-workspace-progress' : ''}`}
+        data-testid="assembly-steps"
+      >
         {stepOrder.map((s) => (
           <span
             key={s}
             className={`step${s === step ? ' active' : ''}${stepIndex(s) < stepIndex(step) ? ' done' : ''}`}
             data-testid={`step-${s}`}
+            aria-current={s === step ? 'step' : undefined}
           >
             {STEP_LABELS[s]}
           </span>
@@ -653,7 +713,10 @@ export function Assembly({
         </div>
       )}
 
-      <div className="btn-row" style={{ marginTop: 20 }}>
+      <div
+        className={`btn-row${isLotWorkspace ? ' assembly-workspace-actions' : ''}`}
+        style={{ marginTop: 20 }}
+      >
         <button onClick={back} data-testid="assembly-back">
           {stepOrder.indexOf(step) === 0 ? 'Cancel' : 'Back'}
         </button>
@@ -699,6 +762,7 @@ export function Assembly({
           ))}
         </div>
       )}
+      </div>
     </div>
   )
 }

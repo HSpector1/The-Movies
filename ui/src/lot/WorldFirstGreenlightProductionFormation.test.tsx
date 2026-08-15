@@ -212,6 +212,89 @@ afterEach(() => {
 })
 
 describe('World-First Greenlight Production Formation — Studio Lot boundary', () => {
+  it('consumes a live formation once in the same mounted Lot after modal suspension clears', async () => {
+    const { before, after, receipt } = acceptedFormation('formation-lot-live-retained')
+    const identity = {}
+    const consumed = vi.fn()
+    const baseProps = {
+      entryFocus: 'studio-home' as const,
+      onNavigate: () => {},
+      onExit: () => {},
+      onAdvance: () => {},
+      onLiveFormationConsumed: consumed,
+    }
+    const rendered = render(<StudioLotScreen {...baseProps} state={before} />)
+    const view = await latestView()
+    const lot = screen.getByTestId('studio-lot-screen')
+    const canvas = screen.getByTestId('studio-lot-canvas')
+
+    rendered.rerender(
+      <StudioLotScreen
+        {...baseProps}
+        state={after}
+        worldInputSuspended
+        liveFormationPresentation={{ identity, acceptedState: after, receipt }}
+      />,
+    )
+    expect(consumed).not.toHaveBeenCalled()
+    expect(screen.queryByTestId('hollywood-production-formation-witness')).not.toBeInTheDocument()
+
+    rendered.rerender(
+      <StudioLotScreen
+        {...baseProps}
+        state={after}
+        liveFormationPresentation={{ identity, acceptedState: after, receipt }}
+      />,
+    )
+
+    await waitFor(() => expect(consumed).toHaveBeenCalledOnce())
+    expect(consumed).toHaveBeenCalledWith(identity)
+    expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
+    expect(screen.getByTestId('studio-lot-canvas')).toBe(canvas)
+    expect(renderer.instances).toEqual([view])
+    expect(view.destroyed).toBe(false)
+    expect(view.selectedPeople).toContain(receipt.directorId)
+    expect(screen.getByTestId('hollywood-production-formation-witness')).toHaveTextContent(
+      'PICTURE FORMED',
+    )
+
+    rendered.rerender(
+      <StudioLotScreen
+        {...baseProps}
+        state={after}
+        liveFormationPresentation={{ identity, acceptedState: after, receipt }}
+      />,
+    )
+    expect(consumed).toHaveBeenCalledOnce()
+    expect(renderer.instances).toEqual([view])
+  })
+
+  it('consumes a stale live receipt without selecting or substituting a formation', async () => {
+    const { after, receipt } = acceptedFormation('formation-lot-live-stale')
+    const identity = {}
+    const consumed = vi.fn()
+    const stale = { ...receipt, productionId: `${receipt.productionId}-missing` }
+
+    render(
+      <StudioLotScreen
+        state={after}
+        entryFocus="studio-home"
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onAdvance={() => {}}
+        liveFormationPresentation={{ identity, acceptedState: after, receipt: stale }}
+        onLiveFormationConsumed={consumed}
+      />,
+    )
+    const view = await latestView()
+
+    await waitFor(() => expect(consumed).toHaveBeenCalledOnce())
+    expect(view.selectedPeople).toEqual([])
+    expect(screen.queryByTestId('hollywood-production-formation-witness')).not.toBeInTheDocument()
+    expect(screen.getByTestId('lot-production-formation-announcement')).toHaveTextContent('')
+    expect(screen.getByTestId('lot-studio-heading')).toHaveFocus()
+  })
+
   it('returns to the exact formed picture, frames its Director in the ready world, and keeps its Lead independently selectable', async () => {
     const { after, receipt } = acceptedFormation('formation-lot-exact-entry')
     const operation = formationOperation(after, receipt)

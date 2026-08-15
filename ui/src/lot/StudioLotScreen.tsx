@@ -335,6 +335,14 @@ type Props = {
   entryGateCandidate?: GateCandidateOwnerIntent
   /** Exact accepted-greenlight receipt required by the formation return arm. */
   entryProductionFormation?: GreenlightFormationReceipt
+  /** One transient accepted formation delivered without replacing this mounted Lot. */
+  liveFormationPresentation?: {
+    identity: object
+    acceptedState: GameState
+    receipt: GreenlightFormationReceipt
+  }
+  /** Consume the transient identity whether strict formation succeeds or fails neutral. */
+  onLiveFormationConsumed?: (identity: object) => void
   /** Exact pending screenplay identity required by the deep-return arm. */
   entryScriptReviewTarget?: LotScriptReviewTarget
   /** Exact pending Casting-review identity required by the deep-return arm. */
@@ -625,6 +633,8 @@ export function StudioLotScreen({
   entryStage7ProductionId,
   entryGateCandidate,
   entryProductionFormation,
+  liveFormationPresentation,
+  onLiveFormationConsumed,
   entryScriptReviewTarget,
   entryCastingReviewTarget,
   entryNextEventReceipt,
@@ -990,6 +1000,7 @@ export function StudioLotScreen({
   const formationReceiptRef = useRef<GreenlightFormationReceipt | null>(formationReceipt)
   const formationPendingFocusRef = useRef<string | null>(null)
   const formationEntryConsumedRef = useRef(false)
+  const liveFormationConsumedRef = useRef<object | null>(null)
   const entryFocusConsumedRef = useRef(false)
   const gateHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const gateVisitorHeadingRef = useRef<HTMLHeadingElement | null>(null)
@@ -2116,6 +2127,33 @@ export function StudioLotScreen({
     clearPublicityContext,
     hollywood,
     recordSelection,
+  ])
+
+  // A retained Package workspace delivers formation to this existing component only after the
+  // world becomes interactive again. Object identity is the one-shot presentation authority;
+  // malformed, stale, duplicate, or state-mismatched receipts are consumed without substitution.
+  useLayoutEffect(() => {
+    const presentation = liveFormationPresentation
+    if (
+      presentation === undefined ||
+      worldInputSuspended ||
+      liveFormationConsumedRef.current === presentation.identity
+    ) return
+    liveFormationConsumedRef.current = presentation.identity
+    const accepted =
+      presentation.acceptedState === state &&
+      latestGameStateRef.current === presentation.acceptedState &&
+      enterProductionFormationContext(presentation.receipt)
+    if (!accepted) {
+      queueMicrotask(() => studioHeadingRef.current?.focus({ preventScroll: true }))
+    }
+    onLiveFormationConsumed?.(presentation.identity)
+  }, [
+    enterProductionFormationContext,
+    liveFormationPresentation,
+    onLiveFormationConsumed,
+    state,
+    worldInputSuspended,
   ])
 
   useEffect(() => {
