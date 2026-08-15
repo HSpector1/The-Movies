@@ -183,38 +183,44 @@ batch and one final snapshot, not witnessed intermediate work. No Core/save/simu
 physical-place, art, world movement route, task, queue, autonomy, pathfinding, or renderer-draw law
 changed.
 
-## Frozen next — World-First Active Production Company Presence & Picture Switching V1
+## Closed — World-First Active Production Company Presence & Picture Switching V1
 
-The post-cadence critical-experience audit found the next smallest truthful world break. Core
-already owns one exact Writer, Director, Lead, Antagonist, Support, and Production/Craft Lead per
-ordinary managed picture, including within/cross-picture exclusivity and a two-picture ordinary
-cap. The accepted Lot projects only Director and Lead, so four real engaged people per picture do
-not yet exist as named inhabitants and two-picture company membership remains mostly screen memory.
+Contract `08e86ab` and implementation `2ef7f0a` close the complete active-picture company and exact
+two-picture switching seam by this documentation checkpoint. The adapter proves each company
+atomically from raw active Production slots, unique current Talent, exact operation identity, and
+the existing whole-studio assignment gate. Save acceptance alone is never treated as action-time
+legality proof.
 
-The new frozen contract is
-`docs/WORLD-FIRST-ACTIVE-PRODUCTION-COMPANY-PRESENCE-PICTURE-SWITCHING-V1-CONTRACT.md`, against
-accepted cadence closure `2e32b0520ca2dc1c5a3a091000c6cbb998637f28`. Implement only its
-bounded presentation/navigation slice:
+Every valid picture presents exactly Writer, Director, Lead, Antagonist, Support, and
+Production/Craft Lead through existing Role Atlas presentation categories. All companies remain in
+the living Lot; exact person and picture context switches by stable production/Talent ID, never by
+title, array order, stage, current tab, participant history, or Map winner. Malformed or ambiguous
+accepted state withholds the complete-company claim atomically and retains only independently safe
+legacy presentation.
 
-- atomically prove zero through two complete six-person managed companies from raw active
-  Production slots, unique current Talent, exact operation identity, and the strict whole-studio
-  assignment gate;
-- populate no partial “complete company” on hostile accepted states and never slice or Map-overwrite
-  duplicate identity;
-- embody valid members through existing `director`/generic `talent` presentation roles while exact
-  profession remains textual;
-- select any member into their exact picture, keep all other active company members present, and
-  switch A/B by production ID rather than title, array order, stage, or current tab;
-- retain the canonical same-mounted Talent Profile and exact-or-neutral release/replacement law;
-  and
-- add no personal location, destination, route, workplace, queue, workload, task, autonomy,
-  company building, facility, Engine/save/economy law, or new art.
+The visual/performance ruling is **KEEP**. One picture measures 42 objects / 19 actors and two
+pictures 54 / 25 at unchanged 11,096,896 decoded bytes and one draw. Twelve controls remain
+horizontally reachable, people and production rails remain physically selectable, exact role/title
+copy survives grayscale and forced colors, and release removes the exact six-person company. Fresh
+quiescent 50/30 measurements are retained without being relabelled GPU certification; absolute
+gates remain explicit `PROJECT_STUDIO_PERFORMANCE_EVIDENCE` runs.
 
-Normal full-company structure is expected—not yet proven—to rise from the accepted one-picture
-`34/15` reference to `42/19`, and to `54/25` for two pictures, at unchanged `11,096,896` decoded
-bytes. Measure rather than assume. KILL or narrow if twelve repeated figures are misleading,
-unreadable, physically unselectable, materially less professional, or fail the retained performance
-gate. Do not relabel a semantic rail or partial cast as complete company presence.
+Final proof passed 99/99 UI files and 1,289/1,289 tests; 186/186 repository files and 2,519/2,519
+tests; governed D-16/D-17 176/176; affected-world Chromium 55 passed / two explicit pre-existing
+GPU-only skips; dedicated company Chromium 13 ordinary passes / two explicit GPU-only evidence
+skips; targeted release 1/1; both TypeScript projects; a 143-module build; exact asset/protected-path
+gates; and clean independent audit. No Core/GameState/SaveFileV11, assignment, production,
+employment, release, facility, economy, RNG, art, texture, personal location, route, queue,
+workload, autonomy, pathfinding, or renderer-draw law changed.
+
+## Next audit — the next smallest watched-work break
+
+Resume the Owner's several-minutes-on-Lot test from this accepted complete-company world. Observe
+where a player next loses the ability to understand or act on current production work. Instrument
+before designing. In particular, company presence does not authorize personal destinations,
+phase-specific workplaces, movement, workload, assignment, queues, occupancy, or production labor.
+Freeze a successor only if current Engine truth and accepted physical art support it honestly; a
+negative result is valid and should move the marathon to the next evidence-backed seam.
 
 ## Closed parallel evidence lane
 
@@ -241,8 +247,9 @@ construction, or operating costs materially change the decision boundary.
 
 ## Post-close evidence boundary
 
-Preserve the accepted next-event contract exactly while observing the next seam. Same-mounted
-continuity applies to ordinary non-release reactions; existing deep owners may still unmount and
+Preserve the accepted next-event and complete-company contracts exactly while observing the next
+seam. Same-mounted continuity applies to ordinary non-release reactions; existing deep owners may
+still unmount and
 remount the Lot. One synchronous batch supplies one final state; do not narrate skipped travel,
 work, queues, occupancy, construction labor, rehearsal, shooting, Post, publicity, or theatrical
 activity as watched simulation.

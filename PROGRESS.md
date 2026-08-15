@@ -59,16 +59,14 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   CLOSED by this documentation checkpoint. One existing App/Engine batch now produces one final
   exact-or-neutral Lot reaction, every non-release stop retains the mounted world/camera, and real
   releases retain their established deep chain.
-- **World-First Active Production Company Presence & Picture Switching V1:** CONTRACT FROZEN by
-  the current documentation checkpoint against accepted cadence closure `2e32b05`. The measured
-  break is presentation-only: Core already owns six exact people per ordinary managed picture,
-  while the Lot projects only Director and Lead. Implementation must use an atomic strict company
-  projection, retain every other company in world while switching exact picture context, and pass
-  the twelve-person visual/performance Keep gate without adding simulation, personal-location,
-  facility, route, queue, workload, save, economy, or art law.
-- **Next action:** implement and prove only that frozen bounded slice; kill or narrow physical
-  expansion if generic Talent presentation becomes misleading or twelve-person play is not
-  professionally legible and selectable.
+- **World-First Active Production Company Presence & Picture Switching V1:** ACCEPTED at
+  implementation `2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a` under frozen contract `08e86ab` and
+  CLOSED by this documentation checkpoint. Every valid managed picture now embodies its exact
+  six-person company; two companies remain present and switch by production ID; hostile or
+  ambiguous accepted state withholds the expanded claim atomically.
+- **Next action:** run a fresh several-minutes-on-Lot audit from the accepted complete-company
+  checkpoint. Instrument the next ordinary-player world break before selecting or freezing a
+  successor; do not assume personal movement, assignment, workload, queue, or facility authority.
 
 ## Closed marathon milestones
 
@@ -97,7 +95,8 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Studio Gate Talent Arrival V1 | `712c311` | `ca8279c` | `79be27e` |
 | Exact Director call/nameplate maintenance | post-Gate world audit | `ff0e0fc` | proportional repair |
 | World-First Greenlight Production Formation V1 | `6ec10a6` | `345a892` | `7966603` |
-| World-First Lot-Native Next-Event Cadence V1 | `15e65c4` | `eb6cef1`, `aabb684` | this documentation checkpoint |
+| World-First Lot-Native Next-Event Cadence V1 | `15e65c4` | `eb6cef1`, `aabb684` | `2e32b05` |
+| World-First Active Production Company Presence V1 | `08e86ab` | `2ef7f0a` | this documentation checkpoint |
 
 ## Product result so far
 
@@ -171,6 +170,20 @@ routes revalidate current truth and return only to the unchanged event or a neut
 save import/declined restart retain unchanged reaction context; accepted same-seed/same-week
 replacement clears it. Releases preserve Newspaper/ReleaseResult/Autopsy and return receipt-free.
 
+Active pictures now read as complete companies rather than Director/Lead fragments. One strict
+adapter projection and one shared Lot selector prove exactly Writer, Director, Lead, Antagonist,
+Support, and Production/Craft Lead from current slots, unique Talent, exact operation identity, and
+the existing whole-studio assignment gate. All six are named Role Atlas inhabitants and semantic
+controls. Selecting a person selects the exact picture and role; switching pictures keeps the
+other company present; release removes the released six without substituting a survivor.
+
+The Keep gate passed at exact 42 objects / 19 actors for one picture and 54 / 25 for two, with
+11,096,896 decoded bytes and one draw unchanged. Twelve-person navigation remains horizontally
+reachable across governed layouts; the HUD clears both people and production rails; grayscale,
+forced colors, reduced motion, maximum zoom, effective 200%, renderer failure, and profile return
+remain legible and operable. Generic Talent art is still presentation-only and no personal place,
+destination, travel, occupancy, worker, route, queue, workload, or new facility is claimed.
+
 Deep non-modal screens still unmount and later remount the Lot. Same-mounted continuity is the law
 for ordinary non-release event stops, not a claim that every supporting surface preserves the same
 Phaser instance. Skipped weeks are one synchronous Engine batch and one final snapshot; the game
@@ -186,10 +199,18 @@ No Core, GameState, SaveFileV11, adapter stop/simulation/accounting law, product
 employment, release, economy, RNG, manifest, exporter, art, task, queue, autonomy, pathfinding, or
 renderer-draw behavior changed. No GPU/FPS certification is claimed and no threshold was relaxed.
 
+Final company-presence proof passed 99/99 UI files and 1,289/1,289 tests; 186/186 repository files
+and 2,519/2,519 tests; governed D-16/D-17 176/176; affected-world Chromium 55 passed / two explicit
+pre-existing GPU-only skips; dedicated company Chromium 13 ordinary passes / two explicit GPU-only
+evidence skips; targeted release 1/1; both TypeScript projects; and a 143-module production build.
+Independent audit is clean after every finding was repaired. Fresh quiescent 50/30 measurements
+are retained as bounded evidence, not GPU certification; normal verification gates them behind
+`PROJECT_STUDIO_PERFORMANCE_EVIDENCE`.
+
 The next action is evidence-led: repeat the Owner's several-minutes-on-Lot test against this
-accepted cadence, instrument the next smallest truthful break, and freeze a bounded contract only
-if ordinary-player value and current authority justify it. Do not invent a successor merely to
-continue the roadmap.
+accepted complete-company world, instrument the next smallest truthful break, and freeze a bounded
+contract only if ordinary-player value and current authority justify it. Do not invent a successor
+merely to continue the roadmap.
 
 ## Governing status
 

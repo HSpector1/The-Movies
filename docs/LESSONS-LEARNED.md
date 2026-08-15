@@ -3423,3 +3423,70 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   names while requiring current Lot role/name from the exact active slot/current Talent join.
 - **Pattern:** current assignment and historical evidence remain separate authorities.
   **Anti-pattern:** one rich immutable record silently becoming the live roster.
+
+---
+
+# World-First Active Production Company Presence & Picture Switching V1 — IMPLEMENTATION CLOSED
+
+> Contract `08e86abf0d166d2f79555f79a8afc10c80bc18f8`; implementation
+> `2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a`; closure by the documentation checkpoint containing
+> this record.
+
+## FL. Optional compatibility and malformed expanded claims are different states — **BR**
+
+- **Risk:** treating `undefined`, an absent key, and a present malformed expanded field as the same
+  condition lets hostile new-format truth silently downgrade into a permissive legacy selector.
+- **Resolution / fastest proof:** absence of the optional company field retains frozen
+  Director/Lead compatibility. An own `companyMembers` claim that is malformed fails the expanded
+  context closed and removes partial active-company presentation while preserving only independently
+  safe roster people. Test absent, own-undefined, partial, duplicate, and extra-field objects
+  separately.
+- **Pattern:** absence may mean compatibility; a present invalid claim means invalid.
+  **Anti-pattern:** `if (!value) legacyFallback()` at an authority boundary.
+
+## FM. Closed read-model objects need exact own-key validation — **BR**
+
+- **Risk:** ordinary field checks accept an object with every expected member plus an unexpected
+  own key. That extra key can carry stale or future semantics while the object is called “closed.”
+- **Resolution / fastest proof:** validate the exact own-key set with `Reflect.ownKeys`, including
+  symbol keys, before validating values. The final audit caught this after nominal cardinality and
+  type checks were already green; an extra-member-field regression now fails closed.
+- **Pattern:** exact keys + exact values for closed presentation receipts/read models.
+  **Anti-pattern:** validating required fields while ignoring additional authority-bearing data.
+
+## FN. A wide semantic rail must be tested against every overlay, not only viewport overflow — **MG, BR**
+
+- **Risk:** converting six/twelve people into a full-width horizontal rail can pass no-overflow and
+  keyboard-focus checks while covering a Publicity panel or being covered by an evidence HUD. The
+  DOM remains reachable but the world becomes visually confusing or pointer-inoperable.
+- **Resolution / fastest proof:** reserve an explicit inspector lane only while the panel exists;
+  keep the HUD above both people and production rails with no pointer ownership; compute rectangle
+  intersection at every governed viewport; use `elementFromPoint` at a button center and perform a
+  real click. Visual review remains mandatory.
+- **Pattern:** viewport fit + zero overlay intersection + center hit-test + real activation.
+  **Anti-pattern:** focus-only reachability or `scrollWidth <= clientWidth` as complete spatial proof.
+
+## FO. Wall-clock evidence needs an explicit GPU gate and a fresh structure-specific window — **BR**
+
+- **Risk:** unconditional 50/30 FPS assertions in ordinary headless Chromium pass on a quiet run
+  and fail under contention, while a 240-frame counter may still describe the earlier one-company
+  scene after a second company formed.
+- **Resolution / fastest proof:** keep object/actor/decoded-byte/draw assertions in ordinary runs.
+  Put absolute FPS thresholds behind `PROJECT_STUDIO_PERFORMANCE_EVIDENCE=1`; after the exact final
+  structure exists, call the real evidence reset, observe samples drop below 240, then wait for the
+  fresh 240-frame window. Do not relabel headless or contended results GPU certification.
+- **Pattern:** structural CI gate + explicit quiescent GPU gate + `<240 → 240` handshake.
+  **Anti-pattern:** hardware-sensitive thresholds in normal CI or telemetry read without a reset.
+
+## FP. Primary-world recovery and command framing need shared compact-height accounting — **MG**
+
+- **Risk:** a full card-style recovery notice plus a wrapped command bar can push an authored
+  minimum-height world below the viewport. Programmatic focus then scrolls the document and makes a
+  stage-relative inspector report a negative top. Separately, a top-bar action cluster without flex
+  ownership can wrap at 1280×720 and hide semantic destinations.
+- **Resolution / fastest proof:** while the Lot is mounted, keep recovery as a visible 45px status
+  strip with a 44px Dismiss target; give the action cluster explicit flex ownership; keep inspectors
+  internally scrollable at compact height. Verify exact context rectangles at 960×540, navigation
+  at 1280×720, and the strip at 480×270 without horizontal overflow.
+- **Pattern:** compact status strip + owned command layout + internally scrolling context.
+  **Anti-pattern:** compressing the world itself to compensate for unrelated flow chrome.

@@ -553,3 +553,42 @@ Owner rulings remain the authority when a summary here conflicts with them.
 - Preserved the governing result exactly: **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY
   RESIDUALS REMAIN OPEN**. No merge, push, tag, financing, loan, bailout, restructuring, failure
   ladder, hard bankruptcy, or arbitrary cash sink is authorized.
+
+## 2026-08-15 — Active production company presence and picture switching closes
+
+- Delivered implementation `2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a` under frozen contract
+  `08e86abf0d166d2f79555f79a8afc10c80bc18f8`; this documentation checkpoint closes the bounded
+  presentation/navigation milestone.
+- Added one atomic adapter projection and shared strict Lot selector for exact Writer, Director,
+  Lead, Antagonist, Support, and Production/Craft Lead membership. Zero through two pictures are
+  proven as a whole; malformed or ambiguous accepted state cannot produce a partial company,
+  overwrite duplicate identity, mutate state, or substitute another picture.
+- Embodied every valid member with existing Role Atlas `director`/generic `talent` presentation,
+  stable Talent identity, exact semantic controls, and role/picture/phase/facility/status/countdown
+  facts. Only the assigned Director retains Director-task/call authority.
+- Kept both complete companies present while selection switches by exact production ID. Same-title,
+  reversed-array, Stage 7/12, profile, delayed/rejected renderer, reduced-motion, forced-color,
+  compact, zoom, replacement, disappearance, and hostile-state paths are exact or fail neutral.
+- Proved authoritative release teardown: `prod-0004` exposes exactly six company members in
+  Release Ready, an exact Director is selectable, and the receipt-free post-release Lot contains
+  zero members for that production.
+- Accepted the **KEEP** visual/performance ruling at exact one-picture 42 objects / 19 actors and
+  two-picture 54 / 25, unchanged 11,096,896 decoded bytes and one draw. The selected Gate visitor
+  remains the exact 43/20 +1/+1 marginal. The scrollable people rail remains physically selectable;
+  the evidence HUD clears both people and production controls.
+- Closed proof with 99/99 UI files and 1,289/1,289 tests; 186/186 repository files and
+  2,519/2,519 tests; governed D-16/D-17 10/10 and 176/176; affected-world Chromium 55 passed / two
+  explicit pre-existing GPU-only skips; dedicated company Chromium 13 ordinary passes / two
+  explicit GPU-only evidence skips; targeted release 1/1; clean TypeScript; a 143-module build;
+  exact protected paths/assets; and independent audit with no remaining P0–P2 findings.
+- Fresh quiescent 50/30 evidence is retained but not relabelled GPU certification. Absolute
+  wall-clock gates run only with `PROJECT_STUDIO_PERFORMANCE_EVIDENCE=1`; no threshold was relaxed.
+- Changed no Core, GameState, SaveFileV11, schema, migration, assignment, production, employment,
+  release, facility, construction, economy, RNG, ledger, manifest, exporter, authored art,
+  texture, personal location, route, queue, task, workload, autonomy, pathfinding, or draw law.
+- Preserved **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN** and every named
+  residual. Nothing was merged, pushed, tagged, financed, bailed out, restructured, or assigned an
+  arbitrary cash sink.
+- Promoted no automatic successor. Resume the several-minutes-on-Lot test from the accepted
+  complete-company checkpoint, instrument the next watched-work break, and freeze only the smallest
+  evidence-backed authority slice.

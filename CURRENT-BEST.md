@@ -4,16 +4,16 @@ Updated: 2026-08-15
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current accepted milestone: World-First Lot-Native Next-Event Cadence & Reaction V1, closed by this
-documentation checkpoint
+Current accepted milestone: World-First Active Production Company Presence & Picture Switching V1,
+closed by this documentation checkpoint
 
-Current accepted behavior authority: `aabb68477fe73ea21af3195985ee7ffaf6a182f7`
+Current accepted behavior authority: `2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a`
 
-Primary implementation authority: `eb6cef1bb2cadc09438daacefb5868e7e6269b44`
+Primary implementation authority: `2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a`
 
-Current frozen successor: World-First Active Production Company Presence & Picture Switching V1,
-frozen by the current documentation checkpoint against accepted cadence closure
-`2e32b0520ca2dc1c5a3a091000c6cbb998637f28`
+Current frozen successor: none. Resume the Owner's several-minutes-on-Lot test from this accepted
+company-presence checkpoint, instrument the next truthful break, and freeze nothing until current
+authority and ordinary-player value justify it.
 
 ## Product doctrine — World First
 
@@ -81,15 +81,13 @@ rehearsal, shooting, visible problems and intervention, Post, release, and publi
 experience must not collapse into `greenlight → abstract production screen → completion → return
 to lot`.
 
-The next bounded implementation applies that doctrine to the already-authoritative active picture
-company. Ordinary managed pictures own one Writer, Director, Lead, Antagonist, Support, and
-Production/Craft Lead, but the accepted Lot currently embodies only Director and Lead. The frozen
-Active Production Company contract may project all six as selectable named inhabitants and make
-two-picture switching legible only after a strict all-or-nothing authority gate. It adds no people
-simulation, personal location, company facility, route, queue, workload, or new art authority.
-Generic `director`/`talent` atlas categories remain presentation roles; exact role-on-picture stays
-textual and the complete twelve-person presentation must pass its explicit visual/performance
-Keep gate before acceptance.
+The accepted Active Production Company slice now applies that doctrine to existing picture truth.
+Every legal managed picture exposes its exact Writer, Director, Lead, Antagonist, Support, and
+Production/Craft Lead as selectable named inhabitants; two pictures remain present and switch by
+exact production ID. A strict all-or-nothing authority gate withholds malformed or ambiguous
+company claims. This is still presentation, not people simulation, personal location, a company
+facility, route, queue, workload, or new art authority. Generic `director`/`talent` atlas categories
+remain presentation roles and exact role-on-picture remains textual.
 
 Pan, zoom, selection, management-scale legibility, human-story-scale discovery, and Operation
 Hollywood visual quality are protected. Zoom should change which story the player notices, not
@@ -153,8 +151,52 @@ whether the game remains playable.
   authoritative interruption from the living Lot, retain every non-release result on the same
   mounted world and camera, react through an exact-or-neutral rail, and use an exact supporting
   owner only when the action needs deeper space. Real releases retain their established deep chain.
+- World-First Active Production Company Presence & Picture Switching V1 embodies the complete
+  six-person company for each legal managed picture, keeps both companies present, selects exact
+  people and picture roles, switches by production ID, and removes released company presence
+  without inventing personal location, work, movement, or staffing law.
 
 ## Current world-first checkpoint
+
+World-First Active Production Company Presence & Picture Switching V1 is accepted under frozen
+contract `08e86abf0d166d2f79555f79a8afc10c80bc18f8` and implementation
+`2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a`. This documentation checkpoint closes the slice:
+
+- the adapter atomically proves zero through two complete companies from raw active-production
+  slots, exact operation identity, unique current Talent, and the existing ambiguity-aware
+  whole-studio assignment gate;
+- every valid company is exactly Writer, Director, Lead, Antagonist, Support, and
+  Production/Craft Lead in canonical order; hostile accepted state withholds expanded company
+  truth instead of truncating, repairing, Map-overwriting, crashing, or mutating state;
+- React and the Hollywood scene share one strict selector, keep every active company present, and
+  switch exact person/picture context by stable IDs rather than title, array order, stage, or tab;
+- all six roles expose exact picture, phase, facility, status, countdown, assignment, and career
+  context; only the assigned Director receives Director-task/call authority;
+- canonical profile continuity, renderer failure, reduced motion, forced colors, compact/zoom,
+  pointer/keyboard/virtual-AT, delayed/replaced truth, and same-title/two-picture cases are exact or
+  fail neutral; and
+- release proof observes one exact six-person `prod-0004` company before the authoritative event
+  and zero company members after the receipt-free Lot return.
+
+The visual/performance ruling is **KEEP**. One complete picture measures 42 display objects / 19
+dynamic actors; two complete pictures measure 54 / 25; the selected Gate visitor remains the exact
+43 / 20 one-picture +1/+1 marginal. Every case retains 11,096,896 decoded bytes and one draw.
+Twelve semantic buttons remain horizontally reachable, company/member emphasis is readable without
+color alone, and the evidence HUD neither covers nor intercepts people or production controls.
+
+Final proof passed 99/99 UI files and 1,289/1,289 tests; 186/186 repository files and 2,519/2,519
+tests; governed D-16/D-17 10/10 files and 176/176 tests; affected-world Chromium 55 passed with two
+explicit pre-existing GPU-only skips; dedicated company Chromium 13 ordinary passes with two
+explicit GPU-only evidence skips; targeted release proof 1/1; both TypeScript projects; and a
+143-module production build with the existing large-chunk warning. Fresh quiescent 50/30 evidence
+was measured, but it is not relabelled GPU certification; absolute thresholds remain behind
+`PROJECT_STUDIO_PERFORMANCE_EVIDENCE`.
+
+No Core, GameState, SaveFileV11, schema, migration, production, assignment, employment, release,
+facility, construction, economy, RNG, ledger, manifest, exporter, authored art, texture, route,
+queue, task, workload, autonomy, pathfinding, or renderer-draw behavior changed.
+
+## Prior world-first checkpoint — Lot-Native Next-Event Cadence V1
 
 World-First Lot-Native Next-Event Cadence & Reaction V1 is accepted under frozen contract
 `15e65c494b28518e3ba8df2e74823adff3178897`, primary implementation
@@ -471,7 +513,13 @@ production and integration remain unauthorized.
 - World-First Lot-Native Next-Event Cadence V1 implementation: `eb6cef1bb2cadc09438daacefb5868e7e6269b44`
 - World-First Lot-Native Next-Event Cadence V1 final hardening / accepted behavior:
   `aabb68477fe73ea21af3195985ee7ffaf6a182f7`
-- World-First Lot-Native Next-Event Cadence V1 closure: this documentation checkpoint
+- World-First Lot-Native Next-Event Cadence V1 closure:
+  `2e32b0520ca2dc1c5a3a091000c6cbb998637f28`
+- World-First Active Production Company Presence V1 contract:
+  `08e86abf0d166d2f79555f79a8afc10c80bc18f8`
+- World-First Active Production Company Presence V1 implementation:
+  `2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a`
+- World-First Active Production Company Presence V1 closure: this documentation checkpoint
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -482,7 +530,8 @@ or arbitrary cash sink is authorized.
 
 ## Current highest-leverage evidence step
 
-Run a fresh several-minutes-on-Lot critical-experience audit against accepted next-event behavior.
+Run a fresh several-minutes-on-Lot critical-experience audit against accepted complete-company
+behavior.
 Observe where an ordinary player next leaves, loses, or cannot act on authoritative world truth.
 Instrument that seam first; compare its ordinary-player value with current Engine, facility, person,
 production, and accepted-art authority; and freeze a bounded successor only if the evidence justifies

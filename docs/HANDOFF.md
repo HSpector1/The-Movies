@@ -1,6 +1,57 @@
 # Project: Studio — Engineering Handoff
 
-> ## 🎬 2026-08-15 — CURRENT: ACTIVE PRODUCTION COMPANY PRESENCE CONTRACT FROZEN
+> ## 🎬 2026-08-15 — CURRENT: ACTIVE PRODUCTION COMPANY PRESENCE V1 CLOSED
+>
+> Work continues on `operation-hollywood-autonomous-marathon`. Frozen contract authority is
+> `08e86abf0d166d2f79555f79a8afc10c80bc18f8`; accepted implementation authority is
+> `2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a`. This documentation checkpoint closes the slice.
+>
+> Every legal managed picture now embodies exactly Writer, Director, Lead, Antagonist, Support,
+> and Production/Craft Lead as named selectable Lot inhabitants. The adapter proves zero through
+> two complete companies atomically from raw active slots, exact operations, unique current Talent,
+> and the existing whole-studio assignment gate. SaveFileV11 acceptance alone is not treated as
+> action-time legality. Malformed, duplicate, stale, or ambiguous truth withholds the expanded
+> company instead of truncating, repairing, overwriting, rejecting the save, or substituting.
+>
+> Both companies remain present. Person and picture focus switches by stable production/Talent ID,
+> exact role-on-picture stays textual, and generic Role Atlas Talent art remains presentation-only.
+> All six roles expose exact picture/phase/facility/status/countdown/assignment/career facts; only
+> the assigned Director receives Director-task/call authority. Canonical profile continuity and
+> exact-or-neutral renderer/replacement/disappearance law remain intact. Release proof observes
+> six exact `prod-0004` members before release and zero after receipt-free Lot return.
+>
+> The visual/performance ruling is **KEEP**: one picture is 42 objects / 19 actors, two pictures
+> 54 / 25, the Gate visitor remains 43 / 20, and all retain 11,096,896 decoded bytes / one draw.
+> Twelve controls remain reachable and physically selectable; the telemetry HUD clears people and
+> production controls; grayscale, forced colors, reduced motion, compact, zoom, and effective 200%
+> remain legible. Fresh quiescent 50/30 evidence is not GPU certification; absolute gates remain
+> explicit `PROJECT_STUDIO_PERFORMANCE_EVIDENCE` runs.
+>
+> Final proof: UI **99/99 files, 1,289/1,289 tests**; repository **186/186 files,
+> 2,519/2,519 tests**; governed D-16/D-17 **10/10 files, 176/176 tests**; affected-world Chromium
+> **55 passed / 2 explicit pre-existing GPU-only skips**; dedicated company Chromium **13 ordinary
+> passes / 2 explicit GPU-only evidence skips**; targeted release **1/1**; clean TypeScript;
+> production build **143 modules** with the existing chunk warning; exact protected paths/assets;
+> and independent audit with no remaining P0–P2 findings.
+>
+> No Core, GameState, SaveFileV11, schema, migration, production, assignment, employment, release,
+> facility, construction, economy, RNG, ledger, manifest, exporter, authored art, texture, personal
+> location, route, queue, task, workload, autonomy, pathfinding, or renderer-draw behavior changed.
+> Resume the several-minutes-on-Lot audit from this accepted checkpoint; no successor is automatic.
+>
+> Protected anchors remain untouched: `main` =
+> `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =
+> `35d42687a410a621becf1df35c75986657f8c44e`; Operation Hollywood bridge =
+> `623b8b2a80e9c6b85304eaa2a338b6045e8f6b21`. Nothing was merged, pushed, or tagged.
+>
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+>
+> Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
+> dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
+> and formal G12 timing remain open. No financing, loans, bailouts, restructuring, failure ladder,
+> hard bankruptcy, or arbitrary cash sink is authorized.
+
+> ## 🎬 2026-08-15 — PRIOR: ACTIVE PRODUCTION COMPANY PRESENCE CONTRACT FROZEN
 >
 > Work continues on `operation-hollywood-autonomous-marathon`. Accepted Lot-native cadence closure
 > is `2e32b0520ca2dc1c5a3a091000c6cbb998637f28`. The current documentation checkpoint freezes
@@ -38,7 +89,7 @@
 >
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 >
-> ## 🎬 2026-08-15 — CURRENT: Lot-Native Next-Event Cadence & Reaction V1 CLOSED
+> ## 🎬 2026-08-15 — PRIOR: Lot-Native Next-Event Cadence & Reaction V1 CLOSED
 >
 > Work continues on `operation-hollywood-autonomous-marathon`. Frozen contract authority is
 > `15e65c494b28518e3ba8df2e74823adff3178897`; primary implementation is
