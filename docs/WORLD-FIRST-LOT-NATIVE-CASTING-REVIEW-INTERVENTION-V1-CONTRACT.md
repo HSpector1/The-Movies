@@ -229,15 +229,21 @@ App remains the sole action owner. One activation must:
 5. for an event, require exact current event-session and receipt ownership;
 6. consume event ownership before dispatch;
 7. call `acknowledgeCastingSessionAction` exactly once with the exact session ID;
-8. on success, synchronously advance latest-state ref, App state, autosave, and the current Lot
-   snapshot to the exact returned successor; and
+8. on success, synchronously advance the latest-state ref and schedule the exact returned App
+   state through the established authoritative replacement boundary; the resulting committed state
+   owns the normal autosave effect and either the blocked same-Lot repaint or the clear deep-route
+   handoff; and
 9. on Engine rejection, preserve unchanged state and restore an event only if the same complete
    receipt/context/action remain current.
 
 If the successor is clear and `opensPackage === true`, deep Package navigation occurs only after
-step 8 and only while the exact successor still proves the same completed session/project, the
-same persisted results, clear current package availability, and one exact `openPackage` action. A
-stale or presentation-invalid successor remains in fresh Lot truth and never opens Package.
+the exact successor render has committed and the earlier existing autosave effect has been invoked.
+One later App effect may consume a captured pending route only while current state still is that
+exact successor and still proves the same completed session/project, the same persisted results,
+clear current package availability, and one exact `openPackage` action. A stale,
+presentation-invalid, unmounted, or replaced successor clears the pending route, remains in fresh
+Lot truth, and never opens Package. The contract does not require or claim an impossible
+intermediate visible Lot paint before this clear deep handoff.
 
 No optimistic completion, delayed UI result, retry, read-model rerun, renderer acknowledgement, or
 deep route may make the command legal. Double click, held Enter/Space, cross-key tails,
@@ -338,7 +344,8 @@ Implementation is not Keep-eligible without:
 3. byte-identical parity with the same direct `acknowledgeCastingSessionAction` action;
 4. proof that exactly one session field changes `review → complete`, results persist, and week,
    cash, capacity, RNG, ledger, facilities, and unrelated state do not move;
-5. blocked same-mounted successor and clear accepted-successor → exact focused Package route;
+5. blocked same-mounted committed successor and clear committed successor → autosave invocation →
+   exact focused Package route, with no claimed intermediate visible Lot paint for the clear path;
 6. exact event consumption, rejection restoration, stale state/context/action/receipt,
    same-title/multiple-session ordering, replacement, import/load, deep return, and no substitution;
 7. Casting Room exact focus before action; exact Package focus only after clear accepted success;
