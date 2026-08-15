@@ -32,6 +32,10 @@ import {
   LotNextEventRail,
   type LotNextEventRailAction,
 } from './LotNextEventRail.tsx'
+import {
+  LotScriptReviewPanel,
+  type LotScriptReviewPanelFeedback,
+} from './LotScriptReviewPanel.tsx'
 import { moneyExact } from '../format.ts'
 import type {
   AttentionState,
@@ -87,6 +91,16 @@ import {
   type LotNextEventReceipt,
 } from './snapshot/nextEvent.ts'
 import {
+  acceptedLotScriptReviewSuccess,
+  currentLotScriptReviewContext,
+  sameLotScriptReviewAction,
+  sameLotScriptReviewContext,
+  type LotScriptReviewAction,
+  type LotScriptReviewContext,
+  type LotScriptReviewSuccess,
+  type LotScriptReviewTarget,
+} from './snapshot/scriptReview.ts'
+import {
   getLotSelectedBuilding,
   setLotSelectedBuilding,
 } from './snapshot/selectedBuildingSession.ts'
@@ -117,6 +131,15 @@ import type { IdentityMode } from './identity/manifest.ts'
 // building geometrically underneath it and unmount before the later `click`.
 const containWorldInput = (event: { stopPropagation(): void }) => {
   event.stopPropagation()
+}
+
+function focusVisibleLotOwner(target: HTMLElement | null) {
+  if (target === null || !target.isConnected) return
+  // Review owners scroll internally at compact/zoomed layouts. Bring the exact
+  // owner into its nearest scrollport before transferring focus so focus never
+  // lands truthfully but invisibly below the live viewport.
+  target.scrollIntoView?.({ block: 'nearest', inline: 'nearest' })
+  target.focus({ preventScroll: true })
 }
 
 type SceneryLoadInPresentationState = 'blocked' | 'ready'
@@ -286,6 +309,7 @@ type Props = {
     | 'stage-7-production'
     | 'gate-candidate'
     | 'production-formation'
+    | 'script-review'
     | 'next-event-control'
     | 'next-event-reaction'
   /** Exact identity required by the transient Stage 7 deep-return arm. */
@@ -294,6 +318,8 @@ type Props = {
   entryGateCandidate?: GateCandidateOwnerIntent
   /** Exact accepted-greenlight receipt required by the formation return arm. */
   entryProductionFormation?: GreenlightFormationReceipt
+  /** Exact pending screenplay identity required by the deep-return arm. */
+  entryScriptReviewTarget?: LotScriptReviewTarget
   /** Exact receipt restored only by App's accepted-state reaction-return arm. */
   entryNextEventReceipt?: LotNextEventReceipt
   /** Suppress a generic Annex announcement already owned by an exact completion surface. */
@@ -309,6 +335,18 @@ type Props = {
     receipt: LotNextEventReceipt,
     command: LotProductionCommand,
   ) => ActionOutcome
+  /** Dispatch one exact Core-emitted screenplay decision without unmounting the live Lot. */
+  onRunScriptReviewAction?: (
+    renderedState: GameState,
+    context: LotScriptReviewContext,
+    action: LotScriptReviewAction,
+    receipt: LotNextEventReceipt | null,
+  ) => ActionOutcome
+  /** Open the exact current screenplay card in its supporting deep owner. */
+  onOpenScriptReviewDetails?: (
+    renderedState: GameState,
+    context: LotScriptReviewContext,
+  ) => boolean
   /** Dispatch the existing parameter-free Annex action through the authoritative App owner. */
   onStartDevelopmentCastingAnnex?: () => ActionOutcome
   /** Navigate to the exact current Annex occupant's existing deep owner after revalidation. */
@@ -330,9 +368,15 @@ type Props = {
   /** Run the existing App-owned adapter once from this exact rendered state. */
   onSimToNextEvent?: (renderedBefore: GameState) => boolean
   /** Open one exact supporting owner after App independently revalidates the receipt. */
-  onOpenNextEventDetails?: (receipt: LotNextEventReceipt) => boolean
+  onOpenNextEventDetails?: (
+    renderedState: GameState,
+    receipt: LotNextEventReceipt,
+  ) => boolean
   /** Demote an exact presentation whose current semantic projection no longer validates. */
-  onInvalidateNextEvent?: (receipt: LotNextEventReceipt) => boolean
+  onInvalidateNextEvent?: (
+    renderedState: GameState,
+    receipt: LotNextEventReceipt,
+  ) => boolean
   /** Dismiss only current next-event presentation. */
   onDismissNextEvent?: () => void
 }
@@ -377,7 +421,7 @@ function lotNextEventEligibility(state: GameState): {
       case 'scriptReview':
         return {
           eligible: false,
-          reason: `Review ${pending.decision.title} in the Writers’ Room before simming to another event.`,
+          reason: `Select Development and review ${pending.decision.title} in the live Studio Lot before simming to another event.`,
         }
       case 'castingReview':
         return {
@@ -398,6 +442,13 @@ function lotNextEventEligibility(state: GameState): {
       reason: 'Current studio decision status is unavailable. Review the live lot before simming.',
     }
   }
+}
+
+function scriptReviewSuccessMessage(success: LotScriptReviewSuccess): string {
+  if (success.kind === 'accepted') {
+    return `${success.title} is ${success.statusLabel}. ${success.writerName} remains attached as writer.`
+  }
+  return `${success.title} is in final rewrite with ${success.writerName} through Week ${success.dueWeek} at ${success.facilityName}, slot ${success.slot + 1}.`
 }
 
 function annexStatusLabel(view: StudioConstructionView): string {
@@ -534,12 +585,15 @@ export function StudioLotScreen({
   entryStage7ProductionId,
   entryGateCandidate,
   entryProductionFormation,
+  entryScriptReviewTarget,
   entryNextEventReceipt,
   suppressOperationalAnnouncement = false,
   onOpenPublicityDashboard,
   onRunPublicity,
   onProductionCommand,
   onRunNextEventProductionCommand,
+  onRunScriptReviewAction,
+  onOpenScriptReviewDetails,
   onStartDevelopmentCastingAnnex,
   onOpenAnnexWorkDetails,
   onOpenStage7ProductionDetails,
@@ -563,11 +617,32 @@ export function StudioLotScreen({
       cadenceFeedback?.kind === 'next-event-neutral'
     ? cadenceFeedback
     : null
-  const rawNextEventProductionReceipt =
-    rawNextEventFeedback?.kind === 'next-event-exact' &&
-    rawNextEventFeedback.receipt.target.kind === 'production'
+  const rawExactNextEventReceipt =
+    rawNextEventFeedback?.kind === 'next-event-exact'
       ? rawNextEventFeedback.receipt
       : null
+  const exactNextEventReceiptIsClosed =
+    rawExactNextEventReceipt !== null &&
+    sameLotNextEventReceipt(rawExactNextEventReceipt, rawExactNextEventReceipt)
+  const rawNextEventProductionReceipt =
+    exactNextEventReceiptIsClosed &&
+    rawExactNextEventReceipt?.target.kind === 'production'
+      ? rawExactNextEventReceipt
+      : null
+  const rawNextEventScriptReceipt =
+    exactNextEventReceiptIsClosed &&
+    rawExactNextEventReceipt?.target.kind === 'script'
+      ? rawExactNextEventReceipt
+      : null
+  const currentScriptReviewContext = currentLotScriptReviewContext(state)
+  const nextEventScriptReviewContext =
+    rawNextEventScriptReceipt === null ||
+    rawNextEventScriptReceipt.target.kind !== 'script'
+    ? null
+    : currentLotScriptReviewContext(state, {
+        projectId: rawNextEventScriptReceipt.target.projectId,
+        title: rawNextEventScriptReceipt.target.title,
+      })
   const nextEventProductionCommand = rawNextEventProductionReceipt === null
     ? null
     : currentLotNextEventProductionCommand(state, rawNextEventProductionReceipt)
@@ -575,15 +650,31 @@ export function StudioLotScreen({
     rawNextEventProductionReceipt !== null && nextEventProductionCommand === null
       ? rawNextEventProductionReceipt
       : null
+  const invalidNextEventScriptReceipt =
+    rawNextEventScriptReceipt !== null && nextEventScriptReviewContext === null
+      ? rawNextEventScriptReceipt
+      : null
+  const malformedExactNextEventReceipt =
+    rawExactNextEventReceipt !== null && !exactNextEventReceiptIsClosed
+      ? rawExactNextEventReceipt
+      : null
+  const invalidNextEventReceipt =
+    malformedExactNextEventReceipt ??
+    invalidNextEventProductionReceipt ??
+    invalidNextEventScriptReceipt
   const nextEventFeedback: Extract<
     LotCadenceFeedback,
     { kind: 'next-event-exact' | 'next-event-neutral' }
-  > | null = invalidNextEventProductionReceipt === null
+  > | null = invalidNextEventReceipt === null
     ? rawNextEventFeedback
     : {
         kind: 'next-event-neutral',
-        toWeek: invalidNextEventProductionReceipt.toWeek,
-        cashNow: invalidNextEventProductionReceipt.cashNow,
+        toWeek: sameLotNextEventReceipt(invalidNextEventReceipt, invalidNextEventReceipt)
+          ? invalidNextEventReceipt.toWeek
+          : state.market.tick,
+        cashNow: sameLotNextEventReceipt(invalidNextEventReceipt, invalidNextEventReceipt)
+          ? invalidNextEventReceipt.cashNow
+          : state.studio.cash,
         stopMessage: 'Studio event details changed. Review the current lot.',
         constructionCompletion: null,
       }
@@ -688,6 +779,49 @@ export function StudioLotScreen({
 
   const [selected, setSelected] = useState<BuildingId | null>(getLotSelectedBuilding)
   const [selectionInfo, setSelectionInfo] = useState<SelectionInfo | null>(null)
+  const [scriptReviewIntent, setScriptReviewIntent] = useState<LotScriptReviewTarget | null>(
+    entryFocus === 'script-review' ? entryScriptReviewTarget ?? null : null,
+  )
+  const scriptReviewHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const scriptReviewDispatchGuardRef = useRef<{
+    renderedState: GameState
+    context: LotScriptReviewContext
+    action: LotScriptReviewAction
+  } | null>(null)
+  const [scriptReviewActivity, setScriptReviewActivity] = useState<{
+    acceptedState: GameState
+    context: LotScriptReviewContext
+    success: LotScriptReviewSuccess | null
+    feedback: LotScriptReviewPanelFeedback
+  } | null>(null)
+  const visibleScriptReviewActivity =
+    scriptReviewActivity?.acceptedState === state ? scriptReviewActivity : null
+  const selectedScriptReviewContext =
+    scriptReviewIntent !== null &&
+    currentScriptReviewContext !== null &&
+    scriptReviewIntent.projectId === currentScriptReviewContext.projectId &&
+    scriptReviewIntent.title === currentScriptReviewContext.title
+      ? currentScriptReviewContext
+      : null
+  useEffect(() => {
+    if (scriptReviewActivity !== null && scriptReviewActivity.acceptedState !== state) {
+      setScriptReviewActivity(null)
+      scriptReviewDispatchGuardRef.current = null
+    }
+  }, [scriptReviewActivity, state])
+  useEffect(() => {
+    if (
+      scriptReviewIntent !== null &&
+      selectedScriptReviewContext === null &&
+      visibleScriptReviewActivity === null
+    ) {
+      setScriptReviewIntent(null)
+      setLotSelectedBuilding(null)
+      setSelected(null)
+      scriptReviewDispatchGuardRef.current = null
+      queueMicrotask(() => studioHeadingRef.current?.focus({ preventScroll: true }))
+    }
+  }, [scriptReviewIntent, selectedScriptReviewContext, visibleScriptReviewActivity])
   const [canvasReady, setCanvasReady] = useState(false)
   const [canvasFailed, setCanvasFailed] = useState(false)
   const [nextEventRailInputResetEpoch, setNextEventRailInputResetEpoch] = useState(0)
@@ -715,7 +849,8 @@ export function StudioLotScreen({
   const [hollywoodProductionId, setHollywoodProductionId] = useState<string | null | undefined>(
     entryFocus === 'stage-7-production' ||
       entryFocus === 'gate-candidate' ||
-      entryFocus === 'production-formation'
+      entryFocus === 'production-formation' ||
+      entryFocus === 'script-review'
       ? null
       : undefined,
   )
@@ -1111,6 +1246,11 @@ export function StudioLotScreen({
   }, [exactReadySceneryArrival])
 
   const recordSelection = useCallback((id: BuildingId | null) => {
+    // Only the dedicated strict review entry may create screenplay-review ownership.
+    // Generic places that happen to share the semantic `writers` id cannot inherit it.
+    setScriptReviewIntent(null)
+    setScriptReviewActivity(null)
+    scriptReviewDispatchGuardRef.current = null
     setLotSelectedBuilding(id)
     setSelected(id)
   }, [])
@@ -2029,6 +2169,37 @@ export function StudioLotScreen({
       return
     }
 
+    if (entryFocus === 'script-review') {
+      const review = entryScriptReviewTarget === undefined
+        ? null
+        : currentLotScriptReviewContext(state, entryScriptReviewTarget)
+      if (review !== null) {
+        clearFormationContext()
+        clearHollywoodStage7DetailContext()
+        clearGateContext()
+        clearPublicityContext()
+        clearHollywoodSceneryLoadInContext()
+        clearAnnexContext()
+        setHollywoodProductionId(null)
+        setHollywoodPerson(null)
+        setHollywoodPlace(null)
+        setSelectionInfo(null)
+        recordSelection('writers')
+        setScriptReviewIntent({ projectId: review.projectId, title: review.title })
+        if (!hollywood) viewRef.current?.select('writers')
+        queueMicrotask(() => focusVisibleLotOwner(scriptReviewHeadingRef.current))
+        return
+      }
+      recordSelection(null)
+      setHollywoodProductionId(null)
+      setHollywoodPerson(null)
+      setHollywoodPlace(null)
+      viewRef.current?.clearHollywoodPersonSelection?.()
+      viewRef.current?.clearHollywoodPlaceSelection?.()
+      studioHeadingRef.current?.focus({ preventScroll: true })
+      return
+    }
+
     if (entryFocus === 'production-formation') {
       if (formationEntryConsumedRef.current) return
       formationEntryConsumedRef.current = true
@@ -2163,6 +2334,7 @@ export function StudioLotScreen({
     entryGateCandidate,
     entryNextEventReceipt,
     entryProductionFormation,
+    entryScriptReviewTarget,
     entryStage7ProductionId,
   ])
 
@@ -2666,6 +2838,141 @@ export function StudioLotScreen({
     snapshot,
   ])
 
+  const enterCurrentScriptReview = useCallback((
+    target?: LotScriptReviewTarget,
+  ): LotScriptReviewContext | null => {
+    if (worldInputSuspendedRef.current) return null
+    const latest = latestGameStateRef.current
+    const context = currentLotScriptReviewContext(latest, target)
+    if (context === null) return null
+
+    clearFormationContext()
+    clearHollywoodStage7DetailContext()
+    clearGateContext()
+    clearPublicityContext()
+    clearHollywoodSceneryLoadInContext()
+    clearAnnexContext()
+    setHollywoodProductionId(null)
+    setHollywoodPerson(null)
+    setHollywoodPlace(null)
+    setSelectionInfo(null)
+    viewRef.current?.clearSelection()
+    viewRef.current?.clearHollywoodPersonSelection?.()
+    viewRef.current?.clearHollywoodPlaceSelection?.()
+    recordSelection('writers')
+    setScriptReviewIntent({
+      projectId: context.projectId,
+      title: context.title,
+    })
+    if (!hollywood) viewRef.current?.select('writers')
+    queueMicrotask(() => focusVisibleLotOwner(scriptReviewHeadingRef.current))
+    return context
+  }, [
+    clearAnnexContext,
+    clearFormationContext,
+    clearGateContext,
+    clearHollywoodSceneryLoadInContext,
+    clearHollywoodStage7DetailContext,
+    clearPublicityContext,
+    hollywood,
+    recordSelection,
+  ])
+
+  const dispatchLotScriptReviewAction = useCallback((
+    renderedState: GameState,
+    renderedContext: LotScriptReviewContext,
+    renderedAction: LotScriptReviewAction,
+    receipt: LotNextEventReceipt | null,
+  ) => {
+    if (worldInputSuspendedRef.current || onRunScriptReviewAction === undefined) return
+    if (scriptReviewDispatchGuardRef.current !== null) return
+
+    let target: LotScriptReviewTarget | undefined
+    if (receipt !== null) {
+      if (
+        !sameLotNextEventReceipt(receipt, receipt) ||
+        receipt.target.kind !== 'script'
+      ) return
+      target = {
+        projectId: receipt.target.projectId,
+        title: receipt.target.title,
+      }
+    }
+    const current = currentLotScriptReviewContext(renderedState, target)
+    const action = current?.legalActions.find(
+      (candidate) => candidate.kind === renderedAction.kind,
+    ) ?? null
+    if (
+      current === null ||
+      action === null ||
+      !sameLotScriptReviewContext(renderedContext, current) ||
+      !sameLotScriptReviewAction(renderedAction, action)
+    ) return
+
+    scriptReviewDispatchGuardRef.current = {
+      renderedState,
+      context: renderedContext,
+      action: renderedAction,
+    }
+    const result = onRunScriptReviewAction(
+      renderedState,
+      current,
+      action,
+      receipt,
+    )
+    if (result.ok) {
+      const success = acceptedLotScriptReviewSuccess(
+        current,
+        action,
+        renderedState,
+        result.next,
+      )
+      recordSelection('writers')
+      setScriptReviewActivity({
+        acceptedState: result.next,
+        context: current,
+        success,
+        feedback: {
+          kind: 'success',
+          message: success === null
+            ? 'Screenplay action completed. Review the current studio state.'
+            : scriptReviewSuccessMessage(success),
+        },
+      })
+      queueMicrotask(() => focusVisibleLotOwner(scriptReviewHeadingRef.current))
+      return
+    }
+
+    setScriptReviewActivity({
+      acceptedState: renderedState,
+      context: current,
+      success: null,
+      feedback: { kind: 'error', message: result.error },
+    })
+    const rejectedGuard = scriptReviewDispatchGuardRef.current
+    window.setTimeout(() => {
+      if (scriptReviewDispatchGuardRef.current === rejectedGuard) {
+        scriptReviewDispatchGuardRef.current = null
+      }
+    }, 0)
+  }, [onRunScriptReviewAction, recordSelection])
+
+  const openCurrentScriptReviewDetails = useCallback((
+    renderedState: GameState,
+    renderedContext: LotScriptReviewContext,
+  ): boolean => {
+    if (
+      worldInputSuspendedRef.current ||
+      onOpenScriptReviewDetails === undefined
+    ) return false
+    const latest = currentLotScriptReviewContext(renderedState)
+    if (
+      latest === null ||
+      !sameLotScriptReviewContext(renderedContext, latest)
+    ) return false
+    return onOpenScriptReviewDetails(renderedState, latest)
+  }, [onOpenScriptReviewDetails])
+
   const dispatchRoute = useCallback((action: LotActionEvent['action']) => {
     if (worldInputSuspendedRef.current) return
     const res = resolveAction(action)
@@ -2700,6 +3007,9 @@ export function StudioLotScreen({
             if (applyingNextEventOrientationRef.current) return
             yieldNextEventOrientation()
             clearFormationContext()
+            if (sel?.buildingId === 'writers' && enterCurrentScriptReview() !== null) {
+              return
+            }
             if (hollywood && sel?.buildingId === 'gate') {
               if (!enterGateContext({
                 place: null,
@@ -2736,6 +3046,9 @@ export function StudioLotScreen({
             if (applyingNextEventOrientationRef.current) return
             yieldNextEventOrientation()
             clearFormationContext()
+            if (e.buildingId === 'writers' && enterCurrentScriptReview() !== null) {
+              return
+            }
             if (hollywood && e.buildingId === 'gate') {
               enterGateContext({
                 place: null,
@@ -3828,6 +4141,7 @@ export function StudioLotScreen({
     (id: BuildingId) => {
       if (worldInputSuspendedRef.current) return
       yieldNextEventOrientation()
+      if (id === 'writers' && enterCurrentScriptReview() !== null) return
       if (hollywood && id === 'admin') {
         if (enterPublicityContext({
           place: null,
@@ -3897,6 +4211,7 @@ export function StudioLotScreen({
       clearPublicityContext,
       dispatchRoute,
       enterAnnexContext,
+      enterCurrentScriptReview,
       enterHollywoodProductionContext,
       enterGateContext,
       enterPublicityContext,
@@ -4473,6 +4788,10 @@ export function StudioLotScreen({
     </>
   )
 
+  const exactNextEventReceipt = nextEventFeedback?.kind === 'next-event-exact'
+    ? nextEventFeedback.receipt
+    : null
+
   const sceneryLoadInContextContents = selectedSceneryLoadInContext === null
     ? null
     : (() => {
@@ -4552,6 +4871,80 @@ export function StudioLotScreen({
           </>
         )
       })()
+
+  const pendingScriptReviewSelected =
+    scriptReviewIntent !== null &&
+    selectedScriptReviewContext !== null &&
+    exactNextEventReceipt?.target.kind !== 'script'
+  const screenplaySuccessSelected =
+    selected === 'writers' &&
+    visibleScriptReviewActivity?.feedback.kind === 'success' &&
+    exactNextEventReceipt?.target.kind !== 'script'
+  const scriptReviewSurfaceContents = pendingScriptReviewSelected
+    ? (
+        <LotScriptReviewPanel
+          ref={scriptReviewHeadingRef}
+          inputBoundary={state}
+          context={selectedScriptReviewContext}
+          disabled={worldInputSuspended || onRunScriptReviewAction === undefined}
+          feedback={
+            visibleScriptReviewActivity !== null &&
+            sameLotScriptReviewContext(
+              visibleScriptReviewActivity.context,
+              selectedScriptReviewContext,
+            )
+              ? visibleScriptReviewActivity.feedback
+              : null
+          }
+          onAction={(action) => dispatchLotScriptReviewAction(
+            state,
+            selectedScriptReviewContext,
+            action,
+            null,
+          )}
+          onOpenDetails={() => {
+            if (!openCurrentScriptReviewDetails(state, selectedScriptReviewContext)) {
+              setScriptReviewActivity({
+                acceptedState: state,
+                context: selectedScriptReviewContext,
+                success: null,
+                feedback: {
+                  kind: 'error',
+                  message: 'Screenplay review details changed. Review the current lot.',
+                },
+              })
+            }
+          }}
+        />
+      )
+    : screenplaySuccessSelected && visibleScriptReviewActivity !== null
+      ? (
+          <div
+            className="lot-script-review-success"
+            data-testid="lot-script-review-success"
+            data-project-id={visibleScriptReviewActivity.context.projectId}
+          >
+            <p className="hollywood-eyebrow">DEVELOPMENT · SCREENPLAY UPDATED</p>
+            <h3 ref={scriptReviewHeadingRef} tabIndex={-1}>
+              {visibleScriptReviewActivity.context.title}
+            </h3>
+            <p
+              data-testid="lot-script-review-feedback"
+              data-feedback-kind="success"
+            >
+              {visibleScriptReviewActivity.feedback.message}
+            </p>
+            {visibleScriptReviewActivity.success?.kind === 'rewrite' && (
+              <dl className="hollywood-person-facts" data-testid="lot-script-review-rewrite-success">
+                <div><dt>Writer</dt><dd>{visibleScriptReviewActivity.success.writerName}</dd></div>
+                <div><dt>Due</dt><dd>Week {visibleScriptReviewActivity.success.dueWeek}</dd></div>
+                <div><dt>Facility</dt><dd>{visibleScriptReviewActivity.success.facilityName}</dd></div>
+                <div><dt>Slot</dt><dd>{visibleScriptReviewActivity.success.slot + 1}</dd></div>
+              </dl>
+            )}
+          </div>
+        )
+      : null
 
   const personInspectorContents = hollywoodPerson === null
     ? null
@@ -4638,25 +5031,44 @@ export function StudioLotScreen({
       ? selectedStage7DetailContext
       : null
 
-  const exactNextEventReceipt = nextEventFeedback?.kind === 'next-event-exact'
-    ? nextEventFeedback.receipt
-    : null
   const restoredNextEventReaction =
     entryFocus === 'next-event-reaction' &&
     exactNextEventReceipt !== null &&
     entryNextEventReceipt !== undefined &&
     sameLotNextEventReceipt(exactNextEventReceipt, entryNextEventReceipt)
   useEffect(() => {
-    if (invalidNextEventProductionReceipt !== null) {
-      onInvalidateNextEvent?.(invalidNextEventProductionReceipt)
+    if (invalidNextEventReceipt !== null) {
+      onInvalidateNextEvent?.(state, invalidNextEventReceipt)
     }
-  }, [invalidNextEventProductionReceipt, onInvalidateNextEvent])
+  }, [invalidNextEventReceipt, onInvalidateNextEvent, state])
   const nextEventReasonDetail = (() => {
     const receipt = exactNextEventReceipt
     if (receipt === null) return null
     switch (receipt.target.kind) {
       case 'script':
-        return <p>Screenplay review · {receipt.target.title}</p>
+        return nextEventScriptReviewContext === null ? null : (
+          <LotScriptReviewPanel
+            inputBoundary={state}
+            context={nextEventScriptReviewContext}
+            identityOwnedExternally
+            disabled={worldInputSuspended || onRunScriptReviewAction === undefined}
+            feedback={
+              visibleScriptReviewActivity !== null &&
+              sameLotScriptReviewContext(
+                visibleScriptReviewActivity.context,
+                nextEventScriptReviewContext,
+              )
+                ? visibleScriptReviewActivity.feedback
+                : null
+            }
+            onAction={(action) => dispatchLotScriptReviewAction(
+              state,
+              nextEventScriptReviewContext,
+              action,
+              receipt,
+            )}
+          />
+        )
       case 'casting':
         return <p>Casting review · {receipt.target.title}</p>
       case 'production': {
@@ -4748,7 +5160,7 @@ export function StudioLotScreen({
                 return 'Open Studio Development'
             }
           })(),
-          onActivate: () => onOpenNextEventDetails(exactNextEventReceipt),
+          onActivate: () => onOpenNextEventDetails(state, exactNextEventReceipt),
           testId: 'lot-next-event-open-details',
         }
 
@@ -4884,6 +5296,17 @@ export function StudioLotScreen({
         data-testid="lot-production-formation-announcement"
       >
         {formationAnnouncement}
+      </div>
+      <div
+        className="visually-hidden"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        data-testid="lot-script-review-announcement"
+      >
+        {visibleScriptReviewActivity?.feedback.kind === 'success'
+          ? visibleScriptReviewActivity.feedback.message
+          : ''}
       </div>
       <header className="lot-topbar">
         <div className="lot-brand">
@@ -5110,9 +5533,11 @@ export function StudioLotScreen({
               </section>
 
               <section
-                className={`hollywood-inspector${gateSelected ? ' is-gate' : ''}${publicitySelected ? ' is-publicity' : ''}${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}${hollywoodPerson ? ' is-person' : ''}`}
+                className={`hollywood-inspector${scriptReviewSurfaceContents ? ' is-script-review' : ''}${gateSelected ? ' is-gate' : ''}${publicitySelected ? ' is-publicity' : ''}${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}${hollywoodPerson ? ' is-person' : ''}`}
                 data-testid={
-                  gateSelected
+                  scriptReviewSurfaceContents
+                    ? 'lot-script-review-context'
+                    : gateSelected
                     ? 'hollywood-gate-context'
                     : publicitySelected
                     ? 'hollywood-publicity-context'
@@ -5126,7 +5551,9 @@ export function StudioLotScreen({
                 onMouseDown={containWorldInput}
                 onTouchStart={containWorldInput}
               >
-                {gateSelected
+                {scriptReviewSurfaceContents
+                  ? scriptReviewSurfaceContents
+                  : gateSelected
                   ? gateContextContents
                   : publicitySelected
                   ? publicityContextContents
@@ -5387,6 +5814,19 @@ export function StudioLotScreen({
             </div>
           )}
 
+          {!hollywood && scriptReviewSurfaceContents !== null && (
+            <section
+              className="lot-script-review-fallback"
+              data-testid="lot-script-review-context"
+              aria-label="Development screenplay review"
+              onPointerDown={containWorldInput}
+              onMouseDown={containWorldInput}
+              onTouchStart={containWorldInput}
+            >
+              {scriptReviewSurfaceContents}
+            </section>
+          )}
+
           {!hollywood && annexSelected && (
             <section
               className="lot-annex-fallback-context"
@@ -5515,7 +5955,7 @@ export function StudioLotScreen({
             </div>
           )}
 
-          {selectionInfo && !annexSelected && (
+          {selectionInfo && !annexSelected && scriptReviewSurfaceContents === null && (
             <div className="lot-selection card" role="dialog" aria-label={`${selectionInfo.label} details`} data-testid="lot-selection-panel">
               <div className="spread">
                 <h3 style={{ margin: 0 }}>{maskStageText(selectionInfo.label)}</h3>
@@ -5527,7 +5967,13 @@ export function StudioLotScreen({
               <button
                 className="accent"
                 data-testid="lot-selection-open"
-                onClick={() => dispatchRoute(selectionInfo.action)}
+                onClick={() => {
+                  if (
+                    selectionInfo.buildingId === 'writers' &&
+                    enterCurrentScriptReview() !== null
+                  ) return
+                  dispatchRoute(selectionInfo.action)
+                }}
               >
                 {resolveAction(selectionInfo.action).navLabel}
               </button>

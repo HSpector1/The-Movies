@@ -27,6 +27,7 @@ import {
   type DraftPackage,
   type GameState,
   type SimResult,
+  type ScriptProjectActionView,
 } from '../engine/adapter.ts'
 import {
   clearActiveSession,
@@ -48,8 +49,10 @@ import { resetLotStageAssignment } from './snapshot/stageAssignment.ts'
 
 const adapterProbe = vi.hoisted(() => ({
   calls: [] as GameState[],
+  scriptCalls: [] as Array<{ state: GameState; action: ScriptProjectActionView }>,
   transform: null as null | ((result: SimResult) => SimResult),
   rejectCurrentDecision: false,
+  rejectScriptAction: false,
 }))
 
 vi.mock('../engine/adapter.ts', async (importOriginal) => {
@@ -65,6 +68,12 @@ vi.mock('../engine/adapter.ts', async (importOriginal) => {
       return adapterProbe.rejectCurrentDecision
         ? null
         : actual.studioDecision(state)
+    },
+    runScriptProjectAction(state: GameState, action: ScriptProjectActionView) {
+      adapterProbe.scriptCalls.push({ state, action })
+      return adapterProbe.rejectScriptAction
+        ? { ok: false as const, error: 'test-only screenplay action rejection' }
+        : actual.runScriptProjectAction(state, action)
     },
   }
 })
@@ -217,6 +226,43 @@ function commissionedStudio(seed: string): GameState {
   return commissionScriptIn(managedScriptStudio(seed))
 }
 
+function pendingFirstDraftReview(seed: string): GameState {
+  const stopped = advanceToNextEvent(commissionedStudio(seed))
+  if (stopped.stopReason !== 'scriptReview' || stopped.scriptDecision === null) {
+    throw new Error('setup: expected a first-draft screenplay review')
+  }
+  return stopped.next
+}
+
+function pendingFinalDraftReview(seed: string): GameState {
+  const first = pendingFirstDraftReview(seed)
+  const rewrite = scriptProjectsBoard(first).nextDecision?.legalActions.find(
+    (action) => action.kind === 'requestScriptRewrite',
+  )
+  if (rewrite === undefined) throw new Error('setup: expected a legal final rewrite')
+  const requested = runScriptProjectAction(first, rewrite)
+  if (!requested.ok) throw new Error(requested.error)
+  const reviewed = advanceWeek(requested.next).next
+  const decision = scriptProjectsBoard(reviewed).nextDecision
+  if (
+    decision === null ||
+    !decision.legalActions.some((action) => action.kind === 'acceptScript') ||
+    decision.legalActions.some((action) => action.kind === 'requestScriptRewrite')
+  ) throw new Error('setup: expected a final-draft review')
+  return reviewed
+}
+
+function twoPendingReviews(seed: string): GameState {
+  let state = managedScriptStudio(seed)
+  state = commissionScriptIn(state)
+  state = commissionScriptIn(state)
+  state = advanceWeek(state).next
+  if (scriptProjectsBoard(state).sections.needsReview.length !== 2) {
+    throw new Error('setup: expected two simultaneous screenplay reviews')
+  }
+  return state
+}
+
 function operationalAnnexCommissionedStudio(seed: string): GameState {
   const started = startDevelopmentCastingAnnexAction(managedScriptStudio(seed))
   if (!started.ok) throw new Error(started.error)
@@ -226,6 +272,59 @@ function operationalAnnexCommissionedStudio(seed: string): GameState {
     throw new Error('setup: expected the Development & Casting Annex to be Operational')
   }
   return commissionScriptIn(state)
+}
+
+function pendingAnnexRewriteReview(seed: string): GameState {
+  let state = operationalAnnexCommissionedStudio(seed)
+  const stopped = advanceToNextEvent(state)
+  if (stopped.stopReason !== 'scriptReview' || stopped.scriptDecision === null) {
+    throw new Error('setup: expected the Annex screenplay to reach review')
+  }
+  state = stopped.next
+  const reviewed = scriptProjectsBoard(state).sections.needsReview[0]
+  if (reviewed === undefined) throw new Error('setup: expected one reviewed screenplay')
+
+  for (let index = 0; index < 2; index += 1) {
+    const board = scriptProjectsBoard(state)
+    const concept = board.commission.concepts[0]
+    const writer = board.commission.writers.find(
+      (candidate) => candidate.available && candidate.id !== reviewed.writer.id,
+    )
+    if (concept === undefined || writer === undefined) {
+      throw new Error('setup: expected another writer and concept for base-slot occupancy')
+    }
+    const commissioned = commissionScriptAction(state, {
+      conceptId: concept.id,
+      writerId: writer.id,
+      shape: SHAPE,
+      promise: {
+        genre: concept.genre,
+        intendedSegments: ['adult'],
+        ranges: {
+          intimacy: [-0.65, 0.15],
+          tonalWeight: [-0.65, 0.15],
+          kineticEnergy: [-0.65, 0.15],
+        },
+      },
+    })
+    if (!commissioned.ok) throw new Error(commissioned.error)
+    state = commissioned.next
+  }
+
+  const board = scriptProjectsBoard(state)
+  const rewrite = board.nextDecision?.legalActions.find(
+    (action) => action.kind === 'requestScriptRewrite',
+  )
+  if (rewrite === undefined || board.capacity.available !== 1) {
+    throw new Error('setup: expected one Annex slot and a legal rewrite')
+  }
+  const base = board.capacity.facilities.find(
+    (facility) => facility.facilityId === 'facility-development-casting',
+  )
+  if (base === undefined || base.occupied !== base.capacity) {
+    throw new Error('setup: expected both base Development & Casting slots occupied')
+  }
+  return state
 }
 
 function legalPackage(state: GameState, slot = 0): DraftPackage {
@@ -428,8 +527,10 @@ function limitBefore(seed: string): GameState {
 
 function resetAdapterProbe() {
   adapterProbe.calls.length = 0
+  adapterProbe.scriptCalls.length = 0
   adapterProbe.transform = null
   adapterProbe.rejectCurrentDecision = false
+  adapterProbe.rejectScriptAction = false
 }
 
 function currentSessionBytes(): string {
@@ -563,6 +664,354 @@ describe('World-First Lot-Native Next-Event Cadence V1 — App/Lot integration',
       ),
     )
     expect(screen.queryByTestId('lot-next-event-rail')).not.toBeInTheDocument()
+  })
+
+  it('accepts a newly surfaced first draft in the mounted Lot with direct-adapter parity', async () => {
+    const before = commissionedStudio('lot-native-script-review-event-accept')
+    const stopped = advanceToNextEvent(before)
+    const action = stopped.scriptDecision?.legalActions.find(
+      (candidate) => candidate.kind === 'acceptScript',
+    )
+    if (stopped.stopReason !== 'scriptReview' || action === undefined) {
+      throw new Error('setup: expected an actionable first-draft review')
+    }
+    const direct = runScriptProjectAction(stopped.next, action)
+    if (!direct.ok) throw new Error(direct.error)
+    resetAdapterProbe()
+
+    const { lot, canvas, view } = await renderStudio(before)
+    fireEvent.click(screen.getByTestId('lot-sim-to-next-event'))
+    const worldAction = await screen.findByTestId(
+      `lot-script-review-action-acceptScript-${action.projectId}`,
+    )
+    const deepAction = screen.getByTestId('lot-next-event-open-details')
+    expectEarlierInDocument(worldAction, deepAction)
+    expect(screen.getByTestId('lot-script-review-estimate')).toHaveTextContent('Est.')
+    expect(screen.getByTestId('lot-script-review-announcement')).toBeEmptyDOMElement()
+
+    fireEvent.click(worldAction)
+
+    const feedback = await screen.findByTestId('lot-script-review-feedback')
+    expect(feedback).toHaveAttribute('data-feedback-kind', 'success')
+    expect(feedback).toHaveTextContent('Ready to package')
+    expect(screen.getByTestId('lot-script-review-announcement')).toHaveTextContent(
+      'Ready to package',
+    )
+    expect(feedback).not.toHaveAttribute('aria-live')
+    expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
+    expect(screen.getByTestId('studio-lot-canvas')).toBe(canvas)
+    expect(renderer.instances).toEqual([view])
+    expect(view.destroyed).toBe(false)
+    expect(screen.queryByTestId('lot-next-event-rail')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('writers-room')).not.toBeInTheDocument()
+    expect(adapterProbe.scriptCalls).toHaveLength(1)
+    expect(exportSaveJson(adapterProbe.scriptCalls[0]!.state)).toBe(
+      exportSaveJson(stopped.next),
+    )
+    expect(adapterProbe.scriptCalls[0]!.action).toEqual(action)
+    expect(currentSessionBytes()).toBe(exportSaveJson(direct.next))
+  })
+
+  it('requests the legal final rewrite from a newly surfaced review and reports its exact base slot', async () => {
+    const before = commissionedStudio('lot-native-script-review-event-rewrite')
+    const stopped = advanceToNextEvent(before)
+    const action = stopped.scriptDecision?.legalActions.find(
+      (candidate) => candidate.kind === 'requestScriptRewrite',
+    )
+    if (stopped.stopReason !== 'scriptReview' || action === undefined) {
+      throw new Error('setup: expected a legal final rewrite')
+    }
+    const direct = runScriptProjectAction(stopped.next, action)
+    if (!direct.ok) throw new Error(direct.error)
+    const expectedFacility = scriptProjectsBoard(direct.next).capacity.facilities
+      .flatMap((facility) => facility.slots.map((slot) => ({ facility, slot })))
+      .find(({ slot }) =>
+        slot.occupant?.owner === 'script' &&
+        slot.occupant.ownerId === action.projectId,
+      )
+    if (expectedFacility === undefined) throw new Error('setup: expected rewrite occupancy')
+    expect(expectedFacility.facility.facilityId).toBe('facility-development-casting')
+    resetAdapterProbe()
+
+    const { lot, canvas, view } = await renderStudio(before)
+    fireEvent.click(screen.getByTestId('lot-sim-to-next-event'))
+    fireEvent.click(await screen.findByTestId(
+      `lot-script-review-action-requestScriptRewrite-${action.projectId}`,
+    ))
+
+    const facts = await screen.findByTestId('lot-script-review-rewrite-success')
+    expect(facts).toHaveTextContent(expectedFacility.facility.facilityName)
+    expect(facts).toHaveTextContent(`Week ${
+      scriptProjectsBoard(direct.next).sections.inDevelopment[0]!.dueWeek
+    }`)
+    expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
+    expect(screen.getByTestId('studio-lot-canvas')).toBe(canvas)
+    expect(renderer.instances).toEqual([view])
+    expect(view.destroyed).toBe(false)
+    expect(adapterProbe.scriptCalls).toHaveLength(1)
+    expect(currentSessionBytes()).toBe(exportSaveJson(direct.next))
+  })
+
+  it('uses and repaints the operational Annex only when the accepted rewrite owns its exact slot', async () => {
+    const pending = pendingAnnexRewriteReview('lot-native-script-review-annex-rewrite')
+    const decision = scriptProjectsBoard(pending).nextDecision
+    const action = decision?.legalActions.find(
+      (candidate) => candidate.kind === 'requestScriptRewrite',
+    )
+    if (decision === null || action === undefined) {
+      throw new Error('setup: expected an Annex-bound rewrite action')
+    }
+    const direct = runScriptProjectAction(pending, action)
+    if (!direct.ok) throw new Error(direct.error)
+    const occupancy = scriptProjectsBoard(direct.next).capacity.facilities
+      .flatMap((facility) => facility.slots.map((slot) => ({ facility, slot })))
+      .find(({ slot }) =>
+        slot.occupant?.owner === 'script' &&
+        slot.occupant.ownerId === action.projectId,
+      )
+    if (occupancy === undefined) throw new Error('setup: expected exact rewrite occupancy')
+    expect(occupancy.facility.facilityId).toBe('facility-development-casting-annex')
+    resetAdapterProbe()
+
+    await renderStudio(pending)
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    fireEvent.click(await screen.findByTestId(
+      `lot-script-review-action-requestScriptRewrite-${action.projectId}`,
+    ))
+
+    const facts = await screen.findByTestId('lot-script-review-rewrite-success')
+    expect(facts).toHaveTextContent('Development & Casting Annex')
+    expect(screen.getByTestId('lot-nav-expansion-state')).toHaveTextContent('Working')
+    fireEvent.click(screen.getByTestId('lot-nav-expansion'))
+    expect(await screen.findByTestId('lot-annex-current-work')).toHaveTextContent('Working')
+    expect(screen.getByTestId('lot-annex-current-work')).toHaveTextContent(decision.title)
+    expect(adapterProbe.scriptCalls).toHaveLength(1)
+    expect(currentSessionBytes()).toBe(exportSaveJson(direct.next))
+  })
+
+  it('opens an already-pending final review from Development, returns by exact identity, and accepts it in the same Lot', async () => {
+    const pending = pendingFinalDraftReview('lot-native-script-review-pending-final')
+    const decision = scriptProjectsBoard(pending).nextDecision
+    const action = decision?.legalActions.find(
+      (candidate) => candidate.kind === 'acceptScript',
+    )
+    if (decision === null || action === undefined) {
+      throw new Error('setup: expected a final-draft accept action')
+    }
+    const direct = runScriptProjectAction(pending, action)
+    if (!direct.ok) throw new Error(direct.error)
+    resetAdapterProbe()
+
+    const { lot, canvas, view } = await renderStudio(pending)
+    const pendingBytes = currentSessionBytes()
+    expect(screen.getByTestId('lot-sim-to-next-event')).toBeDisabled()
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    expect(currentSessionBytes()).toBe(pendingBytes)
+    expect(await screen.findByTestId('lot-script-review-state')).toHaveTextContent('Final draft')
+    expect(
+      screen.queryByTestId(`lot-script-review-action-requestScriptRewrite-${action.projectId}`),
+    ).not.toBeInTheDocument()
+
+    fireEvent.click(screen.getByTestId('lot-script-review-open-details'))
+    expect(await screen.findByTestId(`script-card-${action.projectId}`)).toHaveTextContent(
+      decision.title,
+    )
+    fireEvent.click(screen.getByTestId('writers-room-back'))
+    expect(currentSessionBytes()).toBe(pendingBytes)
+    expect(await screen.findByTestId('studio-lot-screen')).toHaveAttribute(
+      'data-entry-focus',
+      'script-review',
+    )
+    expect(screen.getByTestId('lot-script-review-heading')).toHaveTextContent(decision.title)
+    const returnedLot = screen.getByTestId('studio-lot-screen')
+    const returnedCanvas = screen.getByTestId('studio-lot-canvas')
+    const returnedView = renderer.instances.at(-1)!
+    expect(returnedLot).not.toBe(lot)
+    expect(returnedCanvas).not.toBe(canvas)
+    expect(returnedView).not.toBe(view)
+
+    fireEvent.click(screen.getByTestId(
+      `lot-script-review-action-acceptScript-${action.projectId}`,
+    ))
+    expect(await screen.findByTestId('lot-script-review-feedback')).toHaveTextContent(
+      'Ready to package',
+    )
+    expect(screen.getByTestId('studio-lot-screen')).toBe(returnedLot)
+    expect(screen.getByTestId('studio-lot-canvas')).toBe(returnedCanvas)
+    expect(renderer.instances.at(-1)).toBe(returnedView)
+    expect(returnedView.destroyed).toBe(false)
+    expect(adapterProbe.scriptCalls).toHaveLength(1)
+    expect(currentSessionBytes()).toBe(exportSaveJson(direct.next))
+  })
+
+  it('rebuilds an imported pending review only after the player selects Development in the replacement Lot', async () => {
+    const initial = commissionedStudio('lot-native-script-review-import-origin')
+    const replacement = pendingFinalDraftReview('lot-native-script-review-import-replacement')
+    const decision = scriptProjectsBoard(replacement).nextDecision
+    if (decision === null) throw new Error('setup: imported review is absent')
+    resetAdapterProbe()
+
+    const { lot: originalLot, view: originalView } = await renderStudio(initial)
+    fireEvent.click(screen.getByTestId('lot-return-dashboard'))
+    fireEvent.click(await screen.findByTestId('open-saves'))
+    fireEvent.change(await screen.findByTestId('saves-import-text'), {
+      target: { value: exportSaveJson(replacement) },
+    })
+    fireEvent.click(screen.getByTestId('saves-import'))
+
+    const replacedLot = await screen.findByTestId('studio-lot-screen')
+    expect(replacedLot).not.toBe(originalLot)
+    expect(originalView.destroyed).toBe(true)
+    expect(replacedLot).toHaveAttribute('data-entry-focus', 'studio-home')
+    expect(screen.queryByTestId('lot-script-review-panel')).not.toBeInTheDocument()
+    expect(screen.getByTestId('lot-sim-to-next-event')).toBeDisabled()
+    expect(currentSessionBytes()).toBe(exportSaveJson(replacement))
+
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    expect(await screen.findByTestId('lot-script-review-heading')).toHaveTextContent(
+      decision.title,
+    )
+    expect(screen.getByTestId('lot-script-review-state')).toHaveTextContent('Final draft')
+    expect(currentSessionBytes()).toBe(exportSaveJson(replacement))
+    expect(adapterProbe.scriptCalls).toHaveLength(0)
+  })
+
+  it('returns neutral instead of substituting the next screenplay after the focused deep review is accepted', async () => {
+    const pending = twoPendingReviews('lot-native-script-review-no-substitution')
+    const board = scriptProjectsBoard(pending)
+    const focused = board.nextDecision
+    const replacement = board.sections.needsReview[1]
+    if (focused === null || replacement === undefined) {
+      throw new Error('setup: expected focused and replacement screenplay reviews')
+    }
+    resetAdapterProbe()
+
+    await renderStudio(pending)
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    fireEvent.click(await screen.findByTestId('lot-script-review-open-details'))
+    fireEvent.click(await screen.findByTestId(
+      `script-action-acceptScript-${focused.projectId}`,
+    ))
+    fireEvent.click(screen.getByTestId('writers-room-back'))
+
+    expect(await screen.findByTestId('studio-lot-screen')).toHaveAttribute(
+      'data-entry-focus',
+      'studio-home',
+    )
+    expect(screen.queryByTestId('lot-script-review-panel')).not.toBeInTheDocument()
+    expect(
+      screen.queryByRole('heading', { name: replacement.title }),
+    ).not.toBeInTheDocument()
+    expect(screen.getByTestId('lot-sim-to-next-event')).toBeDisabled()
+  })
+
+  it('keeps the pending screenplay action complete when the Hollywood renderer fails', async () => {
+    const pending = pendingFirstDraftReview('lot-native-script-review-renderer-failure')
+    const action = scriptProjectsBoard(pending).nextDecision?.legalActions[0]
+    if (action === undefined) throw new Error('setup: expected a screenplay action')
+    const direct = runScriptProjectAction(pending, action)
+    if (!direct.ok) throw new Error(direct.error)
+    resetAdapterProbe()
+
+    const { lot, canvas, view } = await renderStudio(pending)
+    act(() => view.fail())
+    expect(await screen.findByTestId('lot-canvas-fallback')).toBeInTheDocument()
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    fireEvent.click(await screen.findByTestId(
+      `lot-script-review-action-${action.kind}-${action.projectId}`,
+    ))
+
+    expect(await screen.findByTestId('lot-script-review-feedback')).toHaveAttribute(
+      'data-feedback-kind',
+      'success',
+    )
+    expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
+    expect(screen.getByTestId('studio-lot-canvas')).toBe(canvas)
+    expect(currentSessionBytes()).toBe(exportSaveJson(direct.next))
+  })
+
+  it('keeps the same Lot-native screenplay review and action in Classic semantic fallback', async () => {
+    setOperationHollywoodOverride(false)
+    const pending = pendingFirstDraftReview('lot-native-script-review-classic')
+    const action = scriptProjectsBoard(pending).nextDecision?.legalActions[0]
+    if (action === undefined) throw new Error('setup: expected a screenplay action')
+    const direct = runScriptProjectAction(pending, action)
+    if (!direct.ok) throw new Error(direct.error)
+    resetAdapterProbe()
+
+    const { lot, canvas, view } = await renderStudio(pending)
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    expect(await screen.findByTestId('lot-script-review-context')).toBeInTheDocument()
+    fireEvent.click(screen.getByTestId(
+      `lot-script-review-action-${action.kind}-${action.projectId}`,
+    ))
+
+    expect(await screen.findByTestId('lot-script-review-feedback')).toHaveAttribute(
+      'data-feedback-kind',
+      'success',
+    )
+    expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
+    expect(screen.getByTestId('studio-lot-canvas')).toBe(canvas)
+    expect(renderer.instances).toEqual([view])
+    expect(currentSessionBytes()).toBe(exportSaveJson(direct.next))
+  })
+
+  it('contains same-stack duplicate screenplay activation when the Engine rejects', async () => {
+    const pending = pendingFirstDraftReview('lot-native-script-review-rejection-tail')
+    const action = scriptProjectsBoard(pending).nextDecision?.legalActions[0]
+    if (action === undefined) throw new Error('setup: expected a screenplay action')
+    resetAdapterProbe()
+    adapterProbe.rejectScriptAction = true
+    await renderStudio(pending)
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    const control = await screen.findByTestId(
+      `lot-script-review-action-${action.kind}-${action.projectId}`,
+    )
+
+    act(() => {
+      ;(control as HTMLButtonElement).click()
+      ;(control as HTMLButtonElement).click()
+    })
+
+    expect(adapterProbe.scriptCalls).toHaveLength(1)
+    expect(await screen.findByTestId('lot-script-review-feedback')).toHaveTextContent(
+      'test-only screenplay action rejection',
+    )
+    expect(currentSessionBytes()).toBe(exportSaveJson(pending))
+  })
+
+  it('restores the exact next-event screenplay ceremony after Engine rejection and permits a fresh retry', async () => {
+    const before = commissionedStudio('lot-native-script-review-event-rejection')
+    const stopped = advanceToNextEvent(before)
+    const action = stopped.scriptDecision?.legalActions[0]
+    if (stopped.stopReason !== 'scriptReview' || action === undefined) {
+      throw new Error('setup: expected an event-owned screenplay action')
+    }
+    resetAdapterProbe()
+    adapterProbe.rejectScriptAction = true
+    await renderStudio(before)
+    fireEvent.click(screen.getByTestId('lot-sim-to-next-event'))
+    const actionId = `lot-script-review-action-${action.kind}-${action.projectId}`
+    fireEvent.click(await screen.findByTestId(actionId))
+
+    expect(screen.getByTestId('lot-next-event-rail')).toHaveAttribute(
+      'data-feedback-kind',
+      'next-event-exact',
+    )
+    expect(screen.getByTestId('lot-script-review-feedback')).toHaveTextContent(
+      'test-only screenplay action rejection',
+    )
+    expect(adapterProbe.scriptCalls).toHaveLength(1)
+    expect(currentSessionBytes()).toBe(exportSaveJson(stopped.next))
+
+    await new Promise((resolve) => setTimeout(resolve, 0))
+    adapterProbe.rejectScriptAction = false
+    fireEvent.click(screen.getByTestId(actionId))
+    expect(await screen.findByTestId('lot-script-review-feedback')).toHaveAttribute(
+      'data-feedback-kind',
+      'success',
+    )
+    expect(adapterProbe.scriptCalls).toHaveLength(2)
   })
 
   it('does not replay an already-Operational Annex announcement across an unchanged exact deep return', async () => {
@@ -706,7 +1155,7 @@ describe('World-First Lot-Native Next-Event Cadence V1 — App/Lot integration',
     expect(
       screen.getByTestId('lot-next-event-disabled-reason'),
     ).toHaveTextContent(
-      `Review ${stopped.scriptDecision!.title} in the Writers’ Room before simming to another event.`,
+      `Select Development and review ${stopped.scriptDecision!.title} in the live Studio Lot before simming to another event.`,
     )
     expect(screen.getByTestId('lot-advance-week')).toBeEnabled()
     fireEvent.click(control)

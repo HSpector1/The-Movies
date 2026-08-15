@@ -9,6 +9,8 @@ import {
   exportSaveJson,
   importSaveJson,
   runProductionCommand,
+  runScriptProjectAction,
+  scriptProjectsBoard,
   type SimResult,
 } from '../src/engine/adapter.ts'
 
@@ -437,6 +439,37 @@ function expectEarlierInDocument(earlier: Locator, later: Locator) {
   )).toBe(true)
 }
 
+async function expectNoVisualOverlap(label: string, first: Locator, second: Locator) {
+  const [firstBox, secondBox] = await Promise.all([first.boundingBox(), second.boundingBox()])
+  expect(firstBox, `${label}: first surface is absent`).not.toBeNull()
+  expect(secondBox, `${label}: second surface is absent`).not.toBeNull()
+  const horizontal = Math.min(
+    firstBox!.x + firstBox!.width,
+    secondBox!.x + secondBox!.width,
+  ) - Math.max(firstBox!.x, secondBox!.x)
+  const vertical = Math.min(
+    firstBox!.y + firstBox!.height,
+    secondBox!.y + secondBox!.height,
+  ) - Math.max(firstBox!.y, secondBox!.y)
+  expect(
+    horizontal > 0 && vertical > 0,
+    `${label}: ${horizontal.toFixed(1)}×${vertical.toFixed(1)} px overlap`,
+  ).toBe(false)
+}
+
+async function expectInsideVisualViewport(label: string, target: Locator, page: Page) {
+  const box = await target.boundingBox()
+  expect(box, `${label}: focused owner is absent`).not.toBeNull()
+  const viewport = await page.evaluate(() => ({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  }))
+  expect(box!.x, `${label}: left edge`).toBeGreaterThanOrEqual(0)
+  expect(box!.y, `${label}: top edge`).toBeGreaterThanOrEqual(0)
+  expect(box!.x + box!.width, `${label}: right edge`).toBeLessThanOrEqual(viewport.width)
+  expect(box!.y + box!.height, `${label}: bottom edge`).toBeLessThanOrEqual(viewport.height)
+}
+
 async function measureActivation(page: Page, fixtureId: string, activate: () => Promise<void>) {
   const started = await page.evaluate(() => performance.now())
   await activate()
@@ -456,9 +489,23 @@ async function measureActivation(page: Page, fixtureId: string, activate: () => 
 
 test('screenplay stop keeps one mounted camera, exposes complete accounting, and returns to the exact reaction', async ({ page }, testInfo) => {
   const runtime = captureRuntimeSignals(page)
-  await page.setViewportSize({ width: 1366, height: 768 })
+  await page.setViewportSize({ width: 960, height: 540 })
   await exposeRendererEvidence(page)
   await seedLot(page, 'script-review')
+
+  const stopped = directResult('script-review')
+  const accept = stopped.scriptDecision?.legalActions.find(
+    (action) => action.kind === 'acceptScript',
+  )
+  if (accept === undefined) throw new Error('script-review fixture has no Accept action')
+  const accepted = runScriptProjectAction(stopped.next, accept)
+  if (!accepted.ok) throw new Error(accepted.error)
+  const review = scriptProjectsBoard(stopped.next).sections.needsReview.find(
+    (card) => card.projectId === accept.projectId,
+  )
+  if (review === undefined || review.assessment === null) {
+    throw new Error('script-review fixture has no complete review card')
+  }
 
   const canvas = page.getByTestId('studio-lot-canvas').locator('canvas')
   await canvas.evaluate((node) => node.setAttribute('data-next-event-canvas-proof', 'script'))
@@ -484,6 +531,41 @@ test('screenplay stop keeps one mounted camera, exposes complete accounting, and
   await expect(rail).toContainText('Fires of Gambit')
   await expect(page.getByTestId('lot-nav-writers')).toHaveAttribute('aria-current', 'true')
   await expect(canvas).toHaveAttribute('data-next-event-canvas-proof', 'script')
+  const reviewPanel = rail.getByTestId('lot-script-review-panel')
+  await expect(reviewPanel).toContainText(review.writer.name)
+  await expect(reviewPanel.getByTestId('lot-script-review-estimate')).toContainText('Est.')
+  await expect(reviewPanel.getByTestId('lot-script-review-estimate')).toContainText(
+    Number.isInteger(review.assessment.score)
+      ? `${review.assessment.score}`
+      : review.assessment.score.toFixed(1),
+  )
+  await expect(reviewPanel.getByTestId('lot-script-review-estimate')).toContainText(
+    review.assessment.band,
+  )
+  for (const fact of [
+    ...review.assessment.strengths,
+    ...review.assessment.concerns,
+    review.consequence,
+  ]) await expect(reviewPanel).toContainText(fact)
+  for (const blocker of review.blockers) {
+    await expect(reviewPanel).toContainText(blocker.headline)
+    await expect(reviewPanel).toContainText(blocker.detail)
+    await expect(reviewPanel).toContainText(blocker.remedy)
+  }
+  const lotAccept = reviewPanel.getByTestId(
+    `lot-script-review-action-acceptScript-${accept.projectId}`,
+  )
+  await expectEarlierInDocument(lotAccept, page.getByTestId('lot-next-event-open-details'))
+  await expectNoVisualOverlap(
+    '960×540 screenplay rail / production desk',
+    rail,
+    page.getByRole('region', { name: 'Current production' }),
+  )
+  await expectNoVisualOverlap(
+    '960×540 screenplay rail / studio inspector',
+    rail,
+    page.getByTestId('hollywood-inspector'),
+  )
 
   const after = await rendererEvidence(page)
   expect(after.constructions).toBe(1)
@@ -552,6 +634,185 @@ test('screenplay stop keeps one mounted camera, exposes complete accounting, and
   await expect(page.getByTestId('lot-next-event-announcement')).toHaveCount(0)
   await expect(page.getByTestId('annex-completion-summary')).toHaveCount(0)
   await page.screenshot({ path: join(outDir, '01-screenplay-exact-deep-return.png') })
+
+  const returnedCanvas = page.getByTestId('studio-lot-canvas').locator('canvas')
+  await returnedCanvas.evaluate((node) => {
+    node.setAttribute('data-lot-native-script-action-proof', 'same-mounted-world')
+  })
+  const beforeAction = await rendererEvidence(page)
+  await page.getByTestId(
+    `lot-script-review-action-acceptScript-${accept.projectId}`,
+  ).click()
+  const success = page.getByTestId('lot-script-review-success')
+  await expect(success).toContainText(review.title)
+  await expect(success).toContainText(review.writer.name)
+  await expect(success).toContainText('Ready to package')
+  await expect(page.getByTestId('lot-next-event-rail')).toHaveCount(0)
+  await expect(page.getByTestId('writers-room')).toHaveCount(0)
+  await expect(returnedCanvas).toHaveAttribute(
+    'data-lot-native-script-action-proof',
+    'same-mounted-world',
+  )
+  const afterAction = await rendererEvidence(page)
+  expect(afterAction.constructions).toBe(beforeAction.constructions)
+  expect(afterAction.destroys).toBe(beforeAction.destroys)
+  expect(await activeSessionBytes(page)).toBe(exportSaveJson(accepted.next))
+  await page.screenshot({ path: join(outDir, '01b-screenplay-accepted-in-live-lot.png') })
+  expectCleanRuntime(runtime)
+})
+
+test('grayscale screenplay review keeps exact meaning, world actions, focus, and width', async ({ page }) => {
+  const runtime = captureRuntimeSignals(page)
+  await page.setViewportSize({ width: 960, height: 540 })
+  await seedLot(page, 'script-review')
+  await page.evaluate(() => {
+    document.documentElement.style.filter = 'grayscale(1)'
+  })
+
+  const stopped = directResult('script-review')
+  const legalActions = stopped.scriptDecision?.legalActions ?? []
+  expect(legalActions.map((action) => action.kind)).toEqual([
+    'acceptScript',
+    'requestScriptRewrite',
+  ])
+  const review = scriptProjectsBoard(stopped.next).sections.needsReview.find(
+    (card) => card.projectId === legalActions[0]?.projectId,
+  )
+  if (review === undefined || review.assessment === null) {
+    throw new Error('script-review fixture has no complete exact review')
+  }
+
+  await page.getByTestId('lot-sim-to-next-event').click()
+  const rail = await expectExactRail(page, 'script-review')
+  const panel = rail.getByTestId('lot-script-review-panel')
+  await expect(panel).toHaveAccessibleName(`Screenplay review · ${review.title}`)
+  await expect(panel.getByTestId('lot-script-review-writer')).toHaveText(review.writer.name)
+  await expect(panel.getByTestId('lot-script-review-state')).toHaveText('First draft')
+  await expect(panel.getByTestId('lot-script-review-estimate')).toContainText('Est.')
+  await expect(panel.getByTestId('lot-script-review-estimate')).toContainText(
+    `${Number.isInteger(review.assessment.score)
+      ? review.assessment.score
+      : review.assessment.score.toFixed(1)} · ${review.assessment.band}`,
+  )
+  await expect(panel.getByTestId('lot-script-review-consequence')).toContainText(
+    review.consequence,
+  )
+
+  const deepAction = page.getByTestId('lot-next-event-open-details')
+  const worldActions = legalActions.map((action) => ({
+    action,
+    locator: panel.getByTestId(
+      `lot-script-review-action-${action.kind}-${action.projectId}`,
+    ),
+  }))
+  for (const { action, locator: worldAction } of worldActions) {
+    await expectReachableAction(`grayscale ${action.label}`, worldAction)
+    await expect(worldAction).toHaveAccessibleName(action.label)
+    await expectEarlierInDocument(worldAction, deepAction)
+  }
+  await worldActions[0]!.locator.focus()
+  await expect(worldActions[0]!.locator).toBeFocused()
+  for (const { locator: worldAction } of worldActions.slice(1)) {
+    await page.keyboard.press('Tab')
+    await expect(worldAction).toBeFocused()
+  }
+  await page.keyboard.press('Tab')
+  await expect(deepAction).toBeFocused()
+  await expect(deepAction).toHaveAccessibleName(`Open Writers’ Room · ${review.title}`)
+
+  expect(await page.evaluate(() => {
+    const eventRail = document.querySelector<HTMLElement>('[data-testid="lot-next-event-rail"]')
+    const reviewPanel = document.querySelector<HTMLElement>('[data-testid="lot-script-review-panel"]')
+    if (eventRail === null || reviewPanel === null) throw new Error('screenplay review is absent')
+    return {
+      filter: getComputedStyle(document.documentElement).filter,
+      pageFits: document.documentElement.scrollWidth <= window.innerWidth,
+      railFits: eventRail.scrollWidth <= eventRail.clientWidth,
+      panelFits: reviewPanel.scrollWidth <= reviewPanel.clientWidth,
+    }
+  })).toEqual({ filter: 'grayscale(1)', pageFits: true, railFits: true, panelFits: true })
+
+  const rewrite = legalActions.find((action) => action.kind === 'requestScriptRewrite')
+  if (rewrite === undefined) throw new Error('script-review fixture has no rewrite action')
+  const rewritten = runScriptProjectAction(stopped.next, rewrite)
+  if (!rewritten.ok) throw new Error(rewritten.error)
+  await worldActions[0]!.locator.focus()
+  await expect(worldActions[0]!.locator).toBeFocused()
+  await worldActions[1]!.locator.click()
+  const rewriteSuccess = page.getByTestId('lot-script-review-rewrite-success')
+  await expect(rewriteSuccess).toContainText(review.writer.name)
+  await expect(rewriteSuccess).toContainText('Development & Casting')
+  expect(await activeSessionBytes(page)).toBe(exportSaveJson(rewritten.next))
+  expectCleanRuntime(runtime)
+})
+
+test('already-pending screenplay review acts from Development and deep return restores exact current Lot truth', async ({ page }) => {
+  const runtime = captureRuntimeSignals(page)
+  await page.setViewportSize({ width: 960, height: 540 })
+  await exposeRendererEvidence(page)
+
+  const stopped = directResult('script-review')
+  const accept = stopped.scriptDecision?.legalActions.find(
+    (action) => action.kind === 'acceptScript',
+  )
+  if (accept === undefined) throw new Error('script-review fixture has no Accept action')
+  const accepted = runScriptProjectAction(stopped.next, accept)
+  if (!accepted.ok) throw new Error(accepted.error)
+  await seedLot(page, 'script-review', {
+    saveBytes: expectedFinalBytes('script-review'),
+    recoveredWeek: corpusFixture('script-review').expectedEndWeek,
+  })
+
+  const pendingBytes = await activeSessionBytes(page)
+  await expect(page.getByTestId('lot-sim-to-next-event')).toBeDisabled()
+  await expect(page.getByTestId('lot-next-event-rail')).toHaveCount(0)
+  const development = page.getByTestId('lot-nav-writers')
+  await development.focus()
+  await expect(development).toBeFocused()
+  await page.keyboard.press('Enter')
+  const panel = page.getByTestId('lot-script-review-panel')
+  await expect(panel).toBeVisible()
+  const pendingHeading = panel.getByTestId('lot-script-review-heading')
+  await expect(pendingHeading).toContainText('Fires of Gambit')
+  await expect(pendingHeading).toBeFocused()
+  await expectInsideVisualViewport('960×540 pending screenplay heading', pendingHeading, page)
+  const worldAction = panel.getByTestId(
+    `lot-script-review-action-acceptScript-${accept.projectId}`,
+  )
+  const deepAction = panel.getByTestId('lot-script-review-open-details')
+  await expectEarlierInDocument(worldAction, deepAction)
+  expect(await activeSessionBytes(page)).toBe(pendingBytes)
+
+  await deepAction.click()
+  await expect(page.getByTestId('writers-room')).toBeVisible()
+  await expect(page.getByTestId(`script-card-${accept.projectId}`)).toContainText('Fires of Gambit')
+  await page.getByTestId('writers-room-back').click()
+  await expect(page.getByTestId('studio-lot-screen')).toHaveAttribute(
+    'data-entry-focus',
+    'script-review',
+  )
+  await expect(page.getByTestId('lot-script-review-heading')).toContainText('Fires of Gambit')
+  expect(await activeSessionBytes(page)).toBe(pendingBytes)
+
+  const returnedCanvas = page.getByTestId('studio-lot-canvas').locator('canvas')
+  await returnedCanvas.evaluate((node) => {
+    node.setAttribute('data-pending-script-action-proof', 'same-mounted-world')
+  })
+  const beforeAction = await rendererEvidence(page)
+  await page.getByTestId(
+    `lot-script-review-action-acceptScript-${accept.projectId}`,
+  ).click()
+  await expect(page.getByTestId('lot-script-review-feedback')).toContainText('Ready to package')
+  await expect(returnedCanvas).toHaveAttribute(
+    'data-pending-script-action-proof',
+    'same-mounted-world',
+  )
+  const afterAction = await rendererEvidence(page)
+  expect(afterAction.constructions).toBe(beforeAction.constructions)
+  expect(afterAction.destroys).toBe(beforeAction.destroys)
+  expect(await activeSessionBytes(page)).toBe(exportSaveJson(accepted.next))
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(960)
+  await page.screenshot({ path: join(outDir, '01c-pending-screenplay-development-action.png') })
   expectCleanRuntime(runtime)
 })
 
@@ -1119,7 +1380,21 @@ test('480x270 CSS pixels at DSF2 keeps the world and complete event rail reachab
       { trial: false },
     )
     await expect(page.getByTestId('lot-next-event-disabled-reason')).toContainText(
-      'Writers’ Room',
+      'Development',
+    )
+    await expectReachableAction(
+      '480/DSF2 Accept screenplay',
+      page.getByTestId('lot-script-review-action-acceptScript-script-0000'),
+    )
+    await expectNoVisualOverlap(
+      '480/DSF2 screenplay rail / production desk',
+      page.getByTestId('lot-next-event-rail'),
+      page.getByRole('region', { name: 'Current production' }),
+    )
+    await expectNoVisualOverlap(
+      '480/DSF2 screenplay rail / studio inspector',
+      page.getByTestId('lot-next-event-rail'),
+      page.getByTestId('hollywood-inspector'),
     )
     await expectReachableAction('480/DSF2 details', page.getByTestId('lot-next-event-open-details'))
     await expectReachableAction('480/DSF2 dismiss', page.getByTestId('lot-next-event-dismiss'))

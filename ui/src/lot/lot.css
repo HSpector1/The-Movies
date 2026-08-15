@@ -154,6 +154,11 @@
   width: min(460px, calc(100% - 40px));
   border-color: var(--border);
 }
+.lot-next-event-rail:has(.lot-script-review-panel) {
+  /* Keep a continuous visible band for the studio desk, production card, and
+     bottom world rails. The complete decision scrolls inside this bounded owner. */
+  max-height: min(520px, calc(100% - 104px));
+}
 .lot-next-event-header {
   display: flex;
   align-items: flex-end;
@@ -271,6 +276,100 @@
   width: 100%;
   white-space: normal;
   text-align: left;
+}
+.lot-script-review-panel {
+  box-sizing: border-box;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow-wrap: anywhere;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.lot-next-event-reason-detail .lot-script-review-panel {
+  padding: 12px;
+  color: var(--text);
+  background: rgba(7, 10, 15, .38);
+  border: 1px solid rgba(210, 174, 98, .42);
+  border-radius: 6px;
+}
+.lot-next-event-reason-detail .lot-script-review-evidence {
+  max-height: 168px;
+  padding-right: 5px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+.lot-script-review-panel h3:focus,
+.lot-script-review-success h3:focus {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+.lot-script-review-panel h4 {
+  margin: 8px 0 5px;
+  color: inherit;
+  font-size: 11px;
+  letter-spacing: .04em;
+}
+.lot-script-review-panel .estimate-block,
+.lot-script-review-panel .inset,
+.lot-script-review-panel .warn {
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 8px;
+  background: rgba(0, 0, 0, .2);
+  border: 1px solid rgba(210, 174, 98, .25);
+}
+.lot-script-review-panel ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+}
+.lot-script-review-panel li,
+.lot-script-review-panel .inset,
+.lot-script-review-panel .warn {
+  font-size: 11px;
+  line-height: 1.4;
+}
+.lot-script-review-panel .hint {
+  color: var(--text-dim);
+}
+.lot-script-review-panel .lot-next-event-actions {
+  margin-bottom: 0;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+}
+.lot-script-review-panel [data-testid="lot-script-review-open-details"] {
+  grid-column: 1 / -1;
+}
+.lot-script-review-panel .lot-next-event-action:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+.lot-script-review-success > p[role="status"] {
+  padding: 9px;
+  color: #efe0bc;
+  background: rgba(25, 74, 52, .48);
+  border-left: 3px solid #74ae75;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.lot-script-review-fallback {
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 14;
+  top: 16px;
+  right: 16px;
+  width: min(390px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  padding: 15px 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  color: var(--chronicle-cream);
+  background: linear-gradient(150deg, rgba(17, 43, 35, .98), rgba(8, 22, 18, .97));
+  border: 1px solid rgba(210, 174, 98, .68);
+  box-shadow: 0 12px 38px rgba(0, 0, 0, .52);
 }
 .lot-next-event-accounting {
   margin-top: 12px;
@@ -702,6 +801,7 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
 .hollywood-inspector.is-annex,
 .hollywood-inspector.is-scenery,
 .hollywood-inspector.is-person,
+.hollywood-inspector.is-script-review,
 .hollywood-inspector.is-gate,
 .hollywood-inspector.is-publicity,
 .lot-annex-fallback-context {
@@ -1304,13 +1404,15 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
    management surfaces. Narrow the scrollable people rail beside Publicity so
    neither surface conceals the other. */
 @media (min-width: 981px) {
-  .lot-stage-wrap:has(.hollywood-inspector.is-publicity) .hollywood-people {
+  .lot-stage-wrap:has(.hollywood-inspector.is-publicity) .hollywood-people,
+  .lot-stage-wrap:has(.hollywood-inspector.is-script-review) .hollywood-people {
     right: 422px;
     width: auto;
   }
 }
 @media (min-width: 721px) and (max-width: 980px) {
-  .lot-stage-wrap:has(.hollywood-inspector.is-publicity) .hollywood-people {
+  .lot-stage-wrap:has(.hollywood-inspector.is-publicity) .hollywood-people,
+  .lot-stage-wrap:has(.hollywood-inspector.is-script-review) .hollywood-people {
     right: 332px;
     width: auto;
   }
@@ -1351,9 +1453,11 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   .hollywood-inspector.is-annex,
   .hollywood-inspector.is-scenery,
   .hollywood-inspector.is-person,
+  .hollywood-inspector.is-script-review,
   .hollywood-inspector.is-gate,
   .hollywood-inspector.is-publicity,
-  .lot-annex-fallback-context { width: 300px; }
+  .lot-annex-fallback-context,
+  .lot-script-review-fallback { width: 300px; }
   .hollywood-activity {
     bottom: 8px;
     left: 50%;
@@ -1476,7 +1580,22 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
     overscroll-behavior: contain;
   }
 }
+@media (min-width: 721px) and (max-width: 1100px) {
+  .lot-next-event-rail:has(.lot-script-review-panel) {
+    max-height: min(360px, calc(100% - 260px));
+  }
+  .lot-stage-wrap:has(.lot-next-event-rail .lot-script-review-panel)
+    :is(.hollywood-production, .hollywood-inspector) {
+    top: 392px;
+    max-height: calc(100% - 476px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
 @media (max-width: 720px) {
+  .lot-next-event-rail:has(.lot-script-review-panel) {
+    max-height: min(360px, calc(100% - 360px));
+  }
   .lot-topbar { align-items: flex-start; }
   .lot-topbar-actions { gap: 8px; }
   .lot-hollywood .lot-stage-wrap { min-height: 720px; }
@@ -1487,9 +1606,11 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   .hollywood-inspector.is-annex,
   .hollywood-inspector.is-scenery,
   .hollywood-inspector.is-person,
+  .hollywood-inspector.is-script-review,
   .hollywood-inspector.is-gate,
   .hollywood-inspector.is-publicity,
-  .lot-annex-fallback-context {
+  .lot-annex-fallback-context,
+  .lot-script-review-fallback {
     top: auto;
     right: 16px;
     bottom: 76px;
@@ -1503,6 +1624,12 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   .hollywood-inspector .hollywood-task-chain span b { overflow-wrap: anywhere; }
   .hollywood-productions, .hollywood-people { max-width: calc(100% - 32px); overflow-x: auto; }
   .hollywood-perf { display: none; }
+  .lot-stage-wrap:has(.lot-next-event-rail .lot-script-review-panel)
+    :is(.hollywood-production, .hollywood-inspector) {
+    max-height: 244px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
 }
 
 @media (forced-colors: active) {
@@ -1514,13 +1641,16 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   .lot-next-event-accounting,
   .lot-next-event-accounting dl > div,
   .lot-next-event-action,
+  .lot-script-review-panel,
+  .lot-script-review-fallback,
   .lot-next-event-dismiss {
     forced-color-adjust: auto;
     color: CanvasText;
     background: Canvas;
     border-color: CanvasText;
   }
-  .lot-next-event-button:disabled {
+  .lot-next-event-button:disabled,
+  .lot-next-event-action:disabled {
     opacity: 1;
     color: GrayText;
     background: ButtonFace;
