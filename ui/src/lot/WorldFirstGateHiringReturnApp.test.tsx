@@ -48,6 +48,10 @@ vi.mock('./StudioLotScreen.tsx', async () => {
 
   return {
     default: (props: MockLotProps) => {
+      React.useLayoutEffect(
+        () => props.onPresentationMount?.(),
+        [props.onPresentationMount],
+      )
       React.useEffect(() => {
         gateProbe.mounts += 1
       }, [])

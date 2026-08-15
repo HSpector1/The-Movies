@@ -403,9 +403,11 @@ describe('Lot-native Casting review — App commit and handoff authority', () =>
     act(() => {
       prePackageLotProps.onOpenTalentProfile?.(context.writer.id)
       suspendedLotProps.onOpenTalentProfile?.(context.writer.id)
+      suspendedLotProps.onNavigate({ kind: 'assembly' })
     })
     expect(screen.queryByTestId('talent-profile')).not.toBeInTheDocument()
     expect(screen.getByTestId('lot-package-workspace')).toBeInTheDocument()
+    expect(screen.queryByTestId('lot-commission-workspace')).not.toBeInTheDocument()
 
     act(() => assemblyProps.onOpenProfile?.(context.writer.id))
     expect(await screen.findByTestId('talent-profile')).toBeInTheDocument()

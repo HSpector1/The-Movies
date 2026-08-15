@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import type { ComponentProps } from 'react'
+import { useLayoutEffect, type ComponentProps } from 'react'
 import type StudioLotScreenType from './StudioLotScreen.tsx'
 import { App } from '../App.tsx'
 import {
@@ -51,6 +51,10 @@ type MockLotProps = ComponentProps<typeof StudioLotScreenType>
 // focus instruction observable at the lazy boundary.
 vi.mock('./StudioLotScreen.tsx', () => ({
   default: (props: MockLotProps) => {
+    useLayoutEffect(
+      () => props.onPresentationMount?.(),
+      [props.onPresentationMount],
+    )
     navigationProbe.lotEntries.push({
       focus: props.entryFocus,
       week: props.state.market.tick,

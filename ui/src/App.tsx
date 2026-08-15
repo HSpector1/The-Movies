@@ -42,6 +42,8 @@ import type {
   PublicityTier,
   ProductionCommandView,
   ConstructionCompletionSummary,
+  CommissionScriptPayload,
+  ScriptProjectsReadModel,
 } from './engine/adapter.ts'
 import {
   advanceWeek,
@@ -61,13 +63,15 @@ import {
   studioDecision,
   studioDevelopment,
   studioLotSnapshot,
+  commissionScriptAction,
+  scriptProjectsBoard,
 } from './engine/adapter.ts'
 import { filmCareerImpact, talentCareerHistory, preV5CreditCount } from './engine/careerImpact.ts'
 import { TalentProfileDrawer } from './components/TalentProfileDrawer.tsx'
 import { StartScreen } from './screens/StartScreen.tsx'
 import { Dashboard } from './screens/Dashboard.tsx'
 import { Assembly } from './screens/Assembly.tsx'
-import { WritersRoom } from './screens/WritersRoom.tsx'
+import { ScreenplayCommissionForm, WritersRoom } from './screens/WritersRoom.tsx'
 import { CastingRoom } from './screens/CastingRoom.tsx'
 import { StudioCalendar } from './screens/StudioCalendar.tsx'
 import type { StudioCalendarRoute } from './screens/StudioCalendar.tsx'
@@ -88,6 +92,7 @@ import { saveActiveSession, loadActiveSession, clearActiveSession } from './engi
 import { operationHollywoodEnabled, studioLotOverviewEnabled } from './flags.ts'
 import type { LotRoute } from './lot/navigation.ts'
 import { LotPackageWorkspace } from './lot/LotPackageWorkspace.tsx'
+import { LotCommissionWorkspace } from './lot/LotCommissionWorkspace.tsx'
 // Presentation-only, and deliberately NOT part of the lazy lot chunk: this module imports
 // nothing but types, so App can end the lot's presentation session without pulling Phaser
 // or the lot screen into the eager bundle.
@@ -139,6 +144,10 @@ import {
   type LotCastingReviewContext,
   type LotCastingReviewTarget,
 } from './lot/snapshot/castingReview.ts'
+import {
+  acceptedScreenplayCommissionReceipt,
+  type ScreenplayCommissionReceipt,
+} from './lot/snapshot/scriptCommission.ts'
 import type { CastingDecisionFocusToken } from './screens/CastingRoom.tsx'
 import type { DashboardFocusSection } from './screens/Dashboard.tsx'
 
@@ -394,6 +403,67 @@ type LotPackagePresentationState = {
   liveFormation: LiveFormationPresentation | null
 }
 
+type LotCommissionWorkspaceBase = {
+  identity: object
+  key: number
+  lotScreen: LotScreen
+  lotPresentation: object
+  opener: HTMLElement | null
+}
+
+type LotCommissionWorkspaceSession =
+  | (LotCommissionWorkspaceBase & {
+      phase: 'editing'
+      acceptedState: GameState
+    })
+  | (LotCommissionWorkspaceBase & {
+      phase: 'committed'
+      before: GameState
+      next: GameState
+      title: string
+      receipt: ScreenplayCommissionReceipt | null
+    })
+
+type LiveCommissionPresentation = {
+  identity: object
+  acceptedState: GameState
+  lotScreen: LotScreen
+  lotPresentation: object
+  receipt: ScreenplayCommissionReceipt
+}
+
+type LotCommissionPresentationState = {
+  workspace: LotCommissionWorkspaceSession | null
+  liveReceipt: LiveCommissionPresentation | null
+}
+
+function RetainedScreenplayCommissionForm({
+  board,
+  onSubmit,
+  onClose,
+}: {
+  board: ScriptProjectsReadModel
+  onSubmit: (payload: CommissionScriptPayload) => ActionOutcome
+  onClose: () => void
+}) {
+  const [error, setError] = useState('')
+  return (
+    <>
+      <ScreenplayCommissionForm
+        board={board}
+        onSubmit={onSubmit}
+        onClose={onClose}
+        onError={setError}
+      />
+      {error && (
+        <div className="errbox" role="alert" data-testid="lot-commission-workspace-error">
+          {error}
+        </div>
+      )}
+    </>
+  )
+}
+
 function clearNextEventReturnIntent(
   context: StudioReturnContext,
 ): StudioReturnContext {
@@ -560,6 +630,42 @@ export function App() {
     if (current.workspace === null && current.liveFormation === null) return
     commitLotPackagePresentation({ workspace: null, liveFormation: null })
   }, [commitLotPackagePresentation])
+  // Commissioning is a separate, narrower retained authority. Package tokens can never
+  // authorize it, and clearing either presentation cannot leave a stale submit claim alive.
+  const [lotCommissionPresentation, setLotCommissionPresentationState] =
+    useState<LotCommissionPresentationState>({ workspace: null, liveReceipt: null })
+  const latestLotCommissionPresentationRef = useRef(lotCommissionPresentation)
+  latestLotCommissionPresentationRef.current = lotCommissionPresentation
+  const lotCommissionKeyRef = useRef(0)
+  const lotCommissionActivationRef = useRef<{
+    workspace: LotCommissionWorkspaceSession
+    payload: CommissionScriptPayload
+  } | null>(null)
+  const lotCommissionRejectedAttemptRef = useRef<{
+    workspace: LotCommissionWorkspaceSession
+    state: GameState
+    payloadSignature: string
+    error: string
+  } | null>(null)
+  const commitLotCommissionPresentation = useCallback((
+    next: SetStateAction<LotCommissionPresentationState>,
+  ) => {
+    const previous = latestLotCommissionPresentationRef.current
+    const resolved = typeof next === 'function'
+      ? (next as (
+          current: LotCommissionPresentationState,
+        ) => LotCommissionPresentationState)(previous)
+      : next
+    latestLotCommissionPresentationRef.current = resolved
+    setLotCommissionPresentationState(resolved)
+  }, [])
+  const clearLotCommissionPresentation = useCallback(() => {
+    lotCommissionActivationRef.current = null
+    lotCommissionRejectedAttemptRef.current = null
+    const current = latestLotCommissionPresentationRef.current
+    if (current.workspace === null && current.liveReceipt === null) return
+    commitLotCommissionPresentation({ workspace: null, liveReceipt: null })
+  }, [commitLotCommissionPresentation])
   // Screen ownership is part of Lot command authority. Keep the latest scheduled screen
   // synchronously visible to retained world callbacks: React may not have rendered a route
   // change yet when a delayed pointer/touch tail invokes an old Lot closure.
@@ -573,10 +679,11 @@ export function App() {
     if (resolved !== previous) {
       activeLotPresentationRef.current = null
       clearLotPackagePresentation()
+      clearLotCommissionPresentation()
     }
     latestScreenRef.current = resolved
     setScreenState(resolved)
-  }, [clearLotPackagePresentation])
+  }, [clearLotCommissionPresentation, clearLotPackagePresentation])
   const lotPresentationToken = useMemo<object | null>(
     () => screen.kind === 'lot' ? {} : null,
     [screen],
@@ -590,14 +697,27 @@ export function App() {
         activeLotPresentationRef.current = null
       }
       const presentation = latestLotPackagePresentationRef.current
+      const commission = latestLotCommissionPresentationRef.current
       if (
         presentation.workspace?.lotPresentation === token ||
         presentation.liveFormation?.lotPresentation === token
       ) {
         commitLotPackagePresentation({ workspace: null, liveFormation: null })
       }
+      if (
+        commission.workspace?.lotPresentation === token ||
+        commission.liveReceipt?.lotPresentation === token
+      ) {
+        lotCommissionActivationRef.current = null
+        lotCommissionRejectedAttemptRef.current = null
+        commitLotCommissionPresentation({ workspace: null, liveReceipt: null })
+      }
     }
-  }, [commitLotPackagePresentation, lotPresentationToken])
+  }, [
+    commitLotCommissionPresentation,
+    commitLotPackagePresentation,
+    lotPresentationToken,
+  ])
   // A dismissible recovery notice: the recovered week, or a safe "recovery failed" message.
   const [recovery, setRecovery] = useState<{ kind: 'recovered'; week: number } | { kind: 'corrupt' } | null>(
     restore.ok
@@ -666,12 +786,13 @@ export function App() {
     lotCastingReviewActivationRef.current = null
     lotCastingPackageHandoffRef.current = null
     clearLotPackagePresentation()
+    clearLotCommissionPresentation()
     latestStateRef.current = next
     setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setScreen(clearNextEventScreenIntent)
     setState(next)
-  }, [clearLotPackagePresentation, setScreen])
+  }, [clearLotCommissionPresentation, clearLotPackagePresentation, setScreen])
 
   // A non-release Lot-native cadence successor must stay inside the exact mounted Lot host.
   // Keep this boundary separate from ordinary whole-state replacement: even an identity-returning
@@ -683,11 +804,12 @@ export function App() {
     lotCastingReviewActivationRef.current = null
     lotCastingPackageHandoffRef.current = null
     clearLotPackagePresentation()
+    clearLotCommissionPresentation()
     latestStateRef.current = next
     setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setState(next)
-  }, [clearLotPackagePresentation])
+  }, [clearLotCommissionPresentation, clearLotPackagePresentation])
 
   const restoreRetainedPackageFocus = useCallback((
     workspace: LotPackageWorkspaceBase,
@@ -707,6 +829,36 @@ export function App() {
       const candidates = [
         allowExactOpener ? workspace.opener : null,
         exactSuccess?.querySelector<HTMLElement>('h3') ?? null,
+        document.querySelector<HTMLElement>('[data-testid="lot-studio-heading"]'),
+      ]
+      const target = candidates.find(
+        (candidate): candidate is HTMLElement =>
+          candidate !== null &&
+          candidate.isConnected &&
+          candidate.closest('[inert]') === null,
+      )
+      target?.focus({ preventScroll: true })
+    }
+    if (typeof requestAnimationFrame === 'function') requestAnimationFrame(restore)
+    else queueMicrotask(restore)
+  }, [])
+
+  const restoreRetainedCommissionFocus = useCallback((
+    workspace: LotCommissionWorkspaceBase,
+    allowExactOpener: boolean,
+  ) => {
+    const restore = () => {
+      const presentation = latestLotCommissionPresentationRef.current
+      if (
+        presentation.workspace !== null ||
+        presentation.liveReceipt !== null ||
+        latestLotPackagePresentationRef.current.workspace !== null ||
+        latestOpenProfileIdRef.current !== null ||
+        latestScreenRef.current !== workspace.lotScreen ||
+        activeLotPresentationRef.current !== workspace.lotPresentation
+      ) return
+      const candidates = [
+        allowExactOpener ? workspace.opener : null,
         document.querySelector<HTMLElement>('[data-testid="lot-studio-heading"]'),
       ]
       const target = candidates.find(
@@ -777,7 +929,13 @@ export function App() {
         return
       }
       const presentation = latestLotPackagePresentationRef.current
-      if (presentation.workspace !== null || presentation.liveFormation !== null) return
+      const commission = latestLotCommissionPresentationRef.current
+      if (
+        presentation.workspace !== null ||
+        presentation.liveFormation !== null ||
+        commission.workspace !== null ||
+        commission.liveReceipt !== null
+      ) return
       const workspace: LotPackageWorkspaceSession = {
         phase: 'editing',
         identity: {},
@@ -850,6 +1008,62 @@ export function App() {
     commitLotPackagePresentation,
     lotPackagePresentation.workspace,
     restoreRetainedPackageFocus,
+    screen,
+    state,
+  ])
+
+  // An accepted commission remains visibly committed until the established autosave effect above
+  // has observed its exact successor. Only then may the workspace close and publish one transient
+  // receipt to this already-mounted Lot.
+  useEffect(() => {
+    const workspace = lotCommissionPresentation.workspace
+    if (workspace?.phase !== 'committed') return
+    if (
+      state !== workspace.next ||
+      latestStateRef.current !== workspace.next ||
+      screen !== workspace.lotScreen ||
+      latestScreenRef.current !== workspace.lotScreen ||
+      activeLotPresentationRef.current !== workspace.lotPresentation
+    ) {
+      if (latestLotCommissionPresentationRef.current.workspace === workspace) {
+        lotCommissionActivationRef.current = null
+        lotCommissionRejectedAttemptRef.current = null
+        commitLotCommissionPresentation({ workspace: null, liveReceipt: null })
+      }
+      return
+    }
+    let active = true
+    window.queueMicrotask(() => {
+      if (
+        !active ||
+        latestLotCommissionPresentationRef.current.workspace !== workspace ||
+        latestStateRef.current !== workspace.next ||
+        latestScreenRef.current !== workspace.lotScreen ||
+        activeLotPresentationRef.current !== workspace.lotPresentation ||
+        latestLotPackagePresentationRef.current.workspace !== null ||
+        latestOpenProfileIdRef.current !== null
+      ) return
+      const liveReceipt: LiveCommissionPresentation | null = workspace.receipt === null
+        ? null
+        : {
+            identity: {},
+            acceptedState: workspace.next,
+            lotScreen: workspace.lotScreen,
+            lotPresentation: workspace.lotPresentation,
+            receipt: workspace.receipt,
+          }
+      lotCommissionActivationRef.current = null
+      lotCommissionRejectedAttemptRef.current = null
+      commitLotCommissionPresentation({ workspace: null, liveReceipt })
+      if (liveReceipt === null) restoreRetainedCommissionFocus(workspace, false)
+    })
+    return () => {
+      active = false
+    }
+  }, [
+    commitLotCommissionPresentation,
+    lotCommissionPresentation.workspace,
+    restoreRetainedCommissionFocus,
     screen,
     state,
   ])
@@ -1057,8 +1271,152 @@ export function App() {
 
   function currentLotWorldInputOwner(): boolean {
     return latestLotPackagePresentationRef.current.workspace === null &&
+      latestLotPackagePresentationRef.current.liveFormation === null &&
+      latestLotCommissionPresentationRef.current.workspace === null &&
+      latestLotCommissionPresentationRef.current.liveReceipt === null &&
       latestOpenProfileIdRef.current === null &&
       latestScreenRef.current.kind === 'lot'
+  }
+
+  function handleLotCommissionCancel(workspace: LotCommissionWorkspaceSession) {
+    const current = latestLotCommissionPresentationRef.current.workspace
+    if (
+      current !== workspace ||
+      current.phase !== 'editing' ||
+      lotCommissionActivationRef.current !== null ||
+      latestStateRef.current !== current.acceptedState ||
+      latestScreenRef.current !== current.lotScreen ||
+      activeLotPresentationRef.current !== current.lotPresentation ||
+      latestLotPackagePresentationRef.current.workspace !== null ||
+      latestOpenProfileIdRef.current !== null
+    ) return
+    lotCommissionRejectedAttemptRef.current = null
+    commitLotCommissionPresentation({ workspace: null, liveReceipt: null })
+    restoreRetainedCommissionFocus(current, true)
+  }
+
+  function handleLotCommissionOpenDetails(workspace: LotCommissionWorkspaceSession) {
+    const current = latestLotCommissionPresentationRef.current.workspace
+    if (
+      current !== workspace ||
+      current.phase !== 'editing' ||
+      lotCommissionActivationRef.current !== null ||
+      latestStateRef.current !== current.acceptedState ||
+      latestScreenRef.current !== current.lotScreen ||
+      activeLotPresentationRef.current !== current.lotPresentation ||
+      latestLotPackagePresentationRef.current.workspace !== null ||
+      latestOpenProfileIdRef.current !== null
+    ) return
+    lotCommissionActivationRef.current = null
+    lotCommissionRejectedAttemptRef.current = null
+    commitLotCommissionPresentation({ workspace: null, liveReceipt: null })
+    setScreen({
+      kind: 'writersRoom',
+      returnContext: {
+        kind: 'lot',
+        focus: 'selected-building',
+        suppressOperationalAnnouncement: false,
+      },
+    })
+  }
+
+  function handleLotCommissionSubmit(
+    workspace: LotCommissionWorkspaceSession,
+    renderedBefore: GameState,
+    payload: CommissionScriptPayload,
+  ): ActionOutcome {
+    const current = latestLotCommissionPresentationRef.current.workspace
+    if (
+      current !== workspace ||
+      current.phase !== 'editing' ||
+      current.acceptedState !== renderedBefore ||
+      latestStateRef.current !== renderedBefore ||
+      latestScreenRef.current !== current.lotScreen ||
+      activeLotPresentationRef.current !== current.lotPresentation ||
+      latestLotPackagePresentationRef.current.workspace !== null ||
+      latestOpenProfileIdRef.current !== null ||
+      lotCommissionActivationRef.current !== null
+    ) {
+      return {
+        ok: false,
+        error: 'Screenplay commission is no longer owned by the live Studio Lot.',
+      }
+    }
+
+    let payloadSignature: string
+    try {
+      payloadSignature = JSON.stringify(payload)
+    } catch {
+      return {
+        ok: false,
+        error: 'Screenplay commission details are malformed. Review the current form.',
+      }
+    }
+    const rejectedAttempt = lotCommissionRejectedAttemptRef.current
+    if (
+      rejectedAttempt !== null &&
+      rejectedAttempt.workspace === current &&
+      rejectedAttempt.state === renderedBefore &&
+      rejectedAttempt.payloadSignature === payloadSignature
+    ) {
+      return { ok: false, error: rejectedAttempt.error }
+    }
+    lotCommissionRejectedAttemptRef.current = null
+    const activation = { workspace: current, payload }
+    lotCommissionActivationRef.current = activation
+    const result = commissionScriptAction(renderedBefore, payload)
+    if (!result.ok) {
+      if (lotCommissionActivationRef.current === activation) {
+        lotCommissionActivationRef.current = null
+      }
+      lotCommissionRejectedAttemptRef.current = {
+        workspace: current,
+        state: renderedBefore,
+        payloadSignature,
+        error: result.error,
+      }
+      return result
+    }
+
+    let receipt: ScreenplayCommissionReceipt | null = null
+    try {
+      receipt = acceptedScreenplayCommissionReceipt(renderedBefore, result.next, payload)
+    } catch {
+      receipt = null
+    }
+    const committed: LotCommissionWorkspaceSession = {
+      phase: 'committed',
+      identity: current.identity,
+      key: current.key,
+      lotScreen: current.lotScreen,
+      lotPresentation: current.lotPresentation,
+      opener: current.opener,
+      before: renderedBefore,
+      next: result.next,
+      title: receipt?.title ?? 'screenplay',
+      receipt,
+    }
+    // Publish the committed owner synchronously before React can deliver another activation from
+    // the still-rendered form. The valid Engine successor is accepted even if optional receipt
+    // presentation fails strict proof.
+    lotCommissionRejectedAttemptRef.current = null
+    commitLotCommissionPresentation({ workspace: committed, liveReceipt: null })
+    lotNextEventSessionRef.current = null
+    lotNextEventActivationRef.current = null
+    lotScriptReviewActivationRef.current = null
+    lotCastingReviewActivationRef.current = null
+    lotCastingPackageHandoffRef.current = null
+    latestStateRef.current = result.next
+    setLotCadenceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
+    setState(result.next)
+    return result
+  }
+
+  function handleLiveCommissionConsumed(identity: object) {
+    const presentation = latestLotCommissionPresentationRef.current
+    if (presentation.liveReceipt?.identity !== identity) return
+    commitLotCommissionPresentation({ ...presentation, liveReceipt: null })
   }
 
   function handleLotPackageCancel(workspace: LotPackageWorkspaceSession) {
@@ -1285,8 +1643,18 @@ export function App() {
 
   // Translate a lot navigation intent into the existing screen navigation. Every route
   // targets a screen that already exists outside the lot.
-  function handleLotNavigate(route: LotRoute) {
-    if (!currentLotWorldInputOwner()) return
+  function handleLotNavigate(
+    route: LotRoute,
+    originState: GameState,
+    originScreen: LotScreen,
+    originPresentation: object,
+  ) {
+    if (
+      !currentLotWorldInputOwner() ||
+      latestStateRef.current !== originState ||
+      latestScreenRef.current !== originScreen ||
+      activeLotPresentationRef.current !== originPresentation
+    ) return
     // Saves is the one deep surface whose attempted action may leave GameState unchanged.
     // Preserve the exact receipt only while it still proves the currently accepted successor,
     // so a rejected import or declined restart can return to the same live-world reaction.
@@ -1338,6 +1706,46 @@ export function App() {
         setScreen({ kind: 'hub', returnContext })
         break
       case 'assembly':
+        if (hollywoodEnabled) {
+          const currentState = latestStateRef.current
+          const currentScreen = latestScreenRef.current
+          const currentPresentation = activeLotPresentationRef.current
+          let board: ScriptProjectsReadModel | null = null
+          try {
+            board = currentState === null ? null : scriptProjectsBoard(currentState)
+          } catch {
+            board = null
+          }
+          if (
+            currentState !== null &&
+            currentState.scriptDevelopment.mode === 'managed' &&
+            currentScreen.kind === 'lot' &&
+            currentPresentation !== null &&
+            board?.mode === 'managed' &&
+            board.lotAttention.kind === 'idle' &&
+            board.commission.canStart === true &&
+            latestLotPackagePresentationRef.current.workspace === null &&
+            latestLotPackagePresentationRef.current.liveFormation === null &&
+            latestLotCommissionPresentationRef.current.workspace === null &&
+            latestLotCommissionPresentationRef.current.liveReceipt === null &&
+            latestOpenProfileIdRef.current === null
+          ) {
+            const active = typeof document === 'undefined' ? null : document.activeElement
+            const workspace: LotCommissionWorkspaceSession = {
+              phase: 'editing',
+              identity: {},
+              key: ++lotCommissionKeyRef.current,
+              lotScreen: currentScreen,
+              lotPresentation: currentPresentation,
+              opener: active instanceof HTMLElement ? active : null,
+              acceptedState: currentState,
+            }
+            lotCommissionActivationRef.current = null
+            lotCommissionRejectedAttemptRef.current = null
+            commitLotCommissionPresentation({ workspace, liveReceipt: null })
+            return
+          }
+        }
         setScreen(
           state?.scriptDevelopment.mode === 'managed'
             ? { kind: 'writersRoom', returnContext }
@@ -2365,9 +2773,24 @@ export function App() {
     setScreen({ kind: 'autopsy', view, compare, returnContext })
   }
 
+  // Recovery/migration notices sit outside the routed screen tree. Include them in the same
+  // background inert boundary as the mounted Lot so a retained workspace or Profile is the only
+  // virtual-AT/programmatic owner, not merely the only pointer-visible owner.
+  const backgroundModalOpen =
+    openProfileId !== null ||
+    lotPackagePresentation.workspace !== null ||
+    lotCommissionPresentation.workspace !== null
+
   // A concise, dismissible recovery notice shown once after a restore (or a safe failure message).
   const recoveryBanner = recovery && (
-    <div className="card" data-testid="recovery-notice" role="status" style={{ marginBottom: 12 }}>
+    <div
+      className="card"
+      data-testid="recovery-notice"
+      role="status"
+      style={{ marginBottom: 12 }}
+      inert={backgroundModalOpen || undefined}
+      aria-hidden={backgroundModalOpen || undefined}
+    >
       <div className="spread">
         <span>
           {recovery.kind === 'recovered'
@@ -2382,7 +2805,14 @@ export function App() {
   )
 
   const saveMigrationBanner = saveMigrationNotice && (
-    <div className="card" data-testid="save-migration-notice" role="status" style={{ marginBottom: 12 }}>
+    <div
+      className="card"
+      data-testid="save-migration-notice"
+      role="status"
+      style={{ marginBottom: 12 }}
+      inert={backgroundModalOpen || undefined}
+      aria-hidden={backgroundModalOpen || undefined}
+    >
       <div className="spread">
         <span>
           An older save was upgraded to the current format. Export now if you want a separate copy
@@ -2610,6 +3040,16 @@ export function App() {
   const profileDrawerOpen = openProfileId !== null
   const retainedPackageWorkspace = lotPackagePresentation.workspace
   const retainedLiveFormation = lotPackagePresentation.liveFormation
+  const retainedCommissionWorkspace = lotCommissionPresentation.workspace
+  const retainedLiveCommission = lotCommissionPresentation.liveReceipt
+  const retainedCommissionBoard = (() => {
+    if (retainedCommissionWorkspace?.phase !== 'editing') return null
+    try {
+      return scriptProjectsBoard(retainedCommissionWorkspace.acceptedState)
+    } catch {
+      return null
+    }
+  })()
 
   return (
     <DevErrorBoundary>
@@ -2972,7 +3412,7 @@ export function App() {
           <StudioLotScreen
             state={state}
             onPresentationMount={mountLotPresentation}
-            onNavigate={handleLotNavigate}
+            onNavigate={(route) => handleLotNavigate(route, state, screen, lotPresentationToken!)}
             onExit={() => {
               if (currentLotWorldInputOwner()) openDashboardFromLot('studio-home')
             }}
@@ -3037,6 +3477,14 @@ export function App() {
                   onLiveFormationConsumed: handleLiveFormationConsumed,
                 }
               : {})}
+            {...(retainedLiveCommission !== null &&
+              retainedLiveCommission.lotScreen === screen &&
+              retainedLiveCommission.lotPresentation === lotPresentationToken
+              ? {
+                  liveCommissionPresentation: retainedLiveCommission,
+                  onLiveCommissionConsumed: handleLiveCommissionConsumed,
+                }
+              : {})}
             onProductionCommand={(command) =>
               handleProductionCommand(command, 'mounted-lot')}
             onRunNextEventProductionCommand={handleLotNextEventProductionCommand}
@@ -3074,12 +3522,17 @@ export function App() {
                 latestScreenRef.current !== screen ||
                 activeLotPresentationRef.current !== lotPresentationToken ||
                 latestLotPackagePresentationRef.current.workspace !== null ||
+                latestLotCommissionPresentationRef.current.workspace !== null ||
                 latestOpenProfileIdRef.current !== personId
               ) return
               closeTalentProfileIfOpen(personId)
             }}
             openTalentProfileId={openProfileId}
-            worldInputSuspended={profileDrawerOpen || retainedPackageWorkspace !== null}
+            worldInputSuspended={
+              profileDrawerOpen ||
+              retainedPackageWorkspace !== null ||
+              retainedCommissionWorkspace !== null
+            }
           />
         </Suspense>
       )}
@@ -3120,6 +3573,38 @@ export function App() {
               />
             )}
           </LotPackageWorkspace>
+        )}
+
+      {screen.kind === 'lot' &&
+        retainedCommissionWorkspace !== null &&
+        retainedCommissionWorkspace.lotScreen === screen &&
+        retainedCommissionWorkspace.lotPresentation === lotPresentationToken && (
+          <LotCommissionWorkspace
+            key={retainedCommissionWorkspace.key}
+            phase={retainedCommissionWorkspace.phase}
+            title={
+              retainedCommissionWorkspace.phase === 'committed'
+                ? retainedCommissionWorkspace.title
+                : 'New screenplay'
+            }
+            nestedModalOpen={profileDrawerOpen}
+            onCancel={() => handleLotCommissionCancel(retainedCommissionWorkspace)}
+            onOpenDetails={() => handleLotCommissionOpenDetails(retainedCommissionWorkspace)}
+          >
+            {retainedCommissionWorkspace.phase === 'editing' &&
+              retainedCommissionBoard !== null && (
+                <RetainedScreenplayCommissionForm
+                  key={retainedCommissionWorkspace.key}
+                  board={retainedCommissionBoard}
+                  onSubmit={(payload) => handleLotCommissionSubmit(
+                    retainedCommissionWorkspace,
+                    retainedCommissionWorkspace.acceptedState,
+                    payload,
+                  )}
+                  onClose={() => handleLotCommissionCancel(retainedCommissionWorkspace)}
+                />
+              )}
+          </LotCommissionWorkspace>
         )}
     </DevErrorBoundary>
   )

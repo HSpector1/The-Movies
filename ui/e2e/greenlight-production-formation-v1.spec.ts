@@ -197,27 +197,20 @@ async function formPictureFromCurrentLot(
   }, ACTIVE_SESSION_KEY)
   expect(startingWeek).toEqual(expect.any(Number))
 
-  // LIVE LOT -> Development supporting surface.
+  // LIVE LOT -> retained Development commission surface. The exact screenplay is formed by
+  // the canonical shared form while the Lot stays mounted behind it.
   await activateSemanticControl(page, 'lot-nav-writers')
-  await expect(page.getByTestId('writers-room')).toBeVisible()
-  const scriptCards = page.locator('[data-testid^="script-card-"]')
-  const priorScriptIds = await scriptCards.evaluateAll((cards) => cards.map(
-    (card) => card.getAttribute('data-testid')?.replace('script-card-', '') ?? '',
-  ))
-  const priorScriptCount = await scriptCards.count()
-  await page.getByTestId('commission-open').click()
+  await expect(page.getByTestId('lot-commission-workspace')).toBeVisible()
+  await expect(page.getByTestId('writers-room')).toHaveCount(0)
   await expect(page.getByTestId('commission-submit')).toBeEnabled()
   await page.getByTestId('commission-submit').click()
-  await expect(scriptCards).toHaveCount(priorScriptCount + 1)
-  const commissionedIds = (await scriptCards.evaluateAll((cards) => cards.map(
-    (card) => card.getAttribute('data-testid')?.replace('script-card-', '') ?? '',
-  ))).filter((id) => id.length > 0 && !priorScriptIds.includes(id))
-  expect(commissionedIds).toHaveLength(1)
-  const projectId = commissionedIds[0]!
+  const commissionWitness = page.getByTestId('lot-screenplay-commission-witness')
+  await expect(commissionWitness).toBeVisible()
+  await expect(page.getByTestId('lot-commission-workspace')).toHaveCount(0)
+  const projectId = await commissionWitness.getAttribute('data-project-id')
+  expect(projectId).toMatch(/^script-/)
 
-  // Return to the same world root and let one authoritative studio week complete the draft.
-  await page.getByTestId('writers-room-back').click()
-  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
+  // Let one authoritative studio week complete the draft in that same world root.
   await page.getByTestId('lot-advance-week').click()
   await expect(page.getByTestId('studio-lot-screen')).toContainText(
     `Week ${(startingWeek as number) + 1}`,
@@ -228,7 +221,7 @@ async function formPictureFromCurrentLot(
   await activateSemanticControl(page, 'lot-nav-writers')
   const worldReview = page.getByTestId('lot-script-review-panel')
   await expect(worldReview).toBeVisible()
-  await expect(worldReview.getByTestId('lot-script-review-project-id')).toContainText(projectId)
+  await expect(worldReview.getByTestId('lot-script-review-project-id')).toContainText(projectId!)
   const worldAccept = worldReview.getByRole('button', { name: /^Accept / })
   await expect(worldAccept).toBeVisible()
   const title = ((await page.getByTestId('lot-script-review-heading').textContent()) ?? '').trim()
@@ -237,7 +230,7 @@ async function formPictureFromCurrentLot(
   await expect(page.getByTestId('lot-script-review-success')).toBeVisible()
   await activateSemanticControl(page, 'lot-nav-writers')
   await expect(page.getByTestId('writers-room')).toBeVisible()
-  await page.getByTestId(`script-action-openPackage-${projectId}`).click()
+  await page.getByTestId(`script-action-openPackage-${projectId!}`).click()
   await expect(page.getByTestId('assembly-steps')).toBeVisible()
   await expect(page.getByTestId('step-talent')).toHaveClass(/active/)
 

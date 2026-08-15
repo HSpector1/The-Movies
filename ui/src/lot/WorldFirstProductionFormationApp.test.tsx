@@ -1,5 +1,6 @@
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { useLayoutEffect } from 'react'
 import { App } from '../App.tsx'
 import {
   advanceWeek,
@@ -40,6 +41,7 @@ type LotProbeProps = {
     | 'production-formation'
   entryProductionFormation?: GreenlightFormationReceipt
   onNavigate: (route: LotRoute) => void
+  onPresentationMount?: () => void | (() => void)
 }
 
 type GreenlitCallback = (
@@ -57,39 +59,45 @@ const formationProbe = vi.hoisted(() => ({
 // App is the unit under test. Keep both supporting Assembly and the large Lot host as typed
 // boundary probes so hostile callback ordering can be driven without duplicating either owner.
 vi.mock('./StudioLotScreen.tsx', () => ({
-  default: (props: LotProbeProps) => (
-    <main
-      data-testid="formation-app-lot-probe"
-      data-entry-focus={props.entryFocus}
-      data-entry-production-id={props.entryProductionFormation?.productionId ?? 'none'}
-      data-entry-director-id={props.entryProductionFormation?.directorId ?? 'none'}
-      data-entry-lead-id={props.entryProductionFormation?.leadId ?? 'none'}
-      data-entry-week={props.entryProductionFormation?.greenlightWeek ?? 'none'}
-      data-entry-script-id={props.entryProductionFormation?.scriptProjectId ?? 'none'}
-      data-state-week={props.state.market.tick}
-      data-state-production-count={props.state.studio.activeProductions.length}
-    >
-      {props.entryProductionFormation !== undefined && (
-        <p role="status" data-testid="formation-app-picture-formed">
-          PICTURE FORMED
-        </p>
-      )}
-      <button
-        type="button"
-        data-testid="formation-app-open-assembly"
-        onClick={() => props.onNavigate({ kind: 'assembly' })}
+  default: (props: LotProbeProps) => {
+    useLayoutEffect(
+      () => props.onPresentationMount?.(),
+      [props.onPresentationMount],
+    )
+    return (
+      <main
+        data-testid="formation-app-lot-probe"
+        data-entry-focus={props.entryFocus}
+        data-entry-production-id={props.entryProductionFormation?.productionId ?? 'none'}
+        data-entry-director-id={props.entryProductionFormation?.directorId ?? 'none'}
+        data-entry-lead-id={props.entryProductionFormation?.leadId ?? 'none'}
+        data-entry-week={props.entryProductionFormation?.greenlightWeek ?? 'none'}
+        data-entry-script-id={props.entryProductionFormation?.scriptProjectId ?? 'none'}
+        data-state-week={props.state.market.tick}
+        data-state-production-count={props.state.studio.activeProductions.length}
       >
-        Open Assembly
-      </button>
-      <button
-        type="button"
-        data-testid="formation-app-open-saves"
-        onClick={() => props.onNavigate({ kind: 'saves' })}
-      >
-        Open Saves
-      </button>
-    </main>
-  ),
+        {props.entryProductionFormation !== undefined && (
+          <p role="status" data-testid="formation-app-picture-formed">
+            PICTURE FORMED
+          </p>
+        )}
+        <button
+          type="button"
+          data-testid="formation-app-open-assembly"
+          onClick={() => props.onNavigate({ kind: 'assembly' })}
+        >
+          Open Assembly
+        </button>
+        <button
+          type="button"
+          data-testid="formation-app-open-saves"
+          onClick={() => props.onNavigate({ kind: 'saves' })}
+        >
+          Open Saves
+        </button>
+      </main>
+    )
+  },
 }))
 
 vi.mock('../screens/Assembly.tsx', () => ({

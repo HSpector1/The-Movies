@@ -4,7 +4,7 @@
 // browser and a founded active-session recovery. Both must choose the world-first home,
 // then preserve authoritative state through real lazy React + Phaser supporting routes.
 
-import { expect, test, type Page } from '@playwright/test'
+import { expect, test, type ElementHandle, type Page } from '@playwright/test'
 import { execSync } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
@@ -128,7 +128,70 @@ async function activeSessionBytes(page: Page): Promise<string> {
   return value!
 }
 
-test('fresh Founding lands in Hollywood, commissions through its Writers Room, and restores the world object', async ({ page }) => {
+async function foundFreshStudio(page: Page, seed: string) {
+  await page.goto('/')
+  await expect(page.getByTestId('new-game')).toBeVisible()
+  await page.getByTestId('seed-input').fill(seed)
+  await page.getByTestId('new-game').click()
+  await expect(page.getByTestId('found-studio')).toBeVisible()
+
+  for (const [role, count] of [
+    ['actor', 3],
+    ['director', 1],
+    ['writer', 1],
+    ['craft', 1],
+  ] as Array<[string, number]>) {
+    await page.getByTestId(`founding-tab-${role}`).click()
+    const group = page.getByTestId(`founding-group-${role}`)
+    for (let signed = 0; signed < count; signed += 1) {
+      await group.locator('button[data-testid^="founding-sign-"]').first().click()
+    }
+  }
+
+  const found = page.getByTestId('found-studio')
+  await expect(found).toBeEnabled()
+  await found.click()
+  await expectLotReady(page)
+}
+
+async function captureLotDomIdentity(page: Page) {
+  const lot = await page.getByTestId('studio-lot-screen').elementHandle()
+  const canvasMount = await page.getByTestId('studio-lot-canvas').elementHandle()
+  const canvas = await page.getByTestId('studio-lot-canvas').locator('canvas').elementHandle()
+  if (lot === null || canvasMount === null || canvas === null) {
+    throw new Error('Studio Lot identity capture requires one connected Lot, mount, and canvas.')
+  }
+  return { lot, canvasMount, canvas }
+}
+
+async function expectCurrentNode(
+  handle: ElementHandle<Node>,
+  selector: string,
+) {
+  expect(await handle.evaluate(
+    (node, currentSelector) =>
+      node.isConnected && document.querySelector(currentSelector) === node,
+    selector,
+  )).toBe(true)
+}
+
+async function expectSameLotDomIdentity(
+  identity: Awaited<ReturnType<typeof captureLotDomIdentity>>,
+) {
+  await expectCurrentNode(identity.lot, '[data-testid="studio-lot-screen"]')
+  await expectCurrentNode(identity.canvasMount, '[data-testid="studio-lot-canvas"]')
+  await expectCurrentNode(identity.canvas, '[data-testid="studio-lot-canvas"] canvas')
+}
+
+async function expectDisconnectedLotDomIdentity(
+  identity: Awaited<ReturnType<typeof captureLotDomIdentity>>,
+) {
+  for (const handle of [identity.lot, identity.canvasMount, identity.canvas]) {
+    expect(await handle.evaluate((node) => node.isConnected)).toBe(false)
+  }
+}
+
+test('fresh Founding retains the exact Hollywood Lot through cancel and accepted screenplay commission', async ({ page }) => {
   const runtime = watchRuntime(page)
 
   // Observe paints without touching any game state or feature-flag storage. A clean browser
@@ -158,31 +221,8 @@ test('fresh Founding lands in Hollywood, commissions through its Writers Room, a
     startObserver()
   })
 
-  await page.goto('/')
-  await expect(page.getByTestId('new-game')).toBeVisible()
-  await page.getByTestId('seed-input').fill('studio-home-fresh-founding')
-  await page.getByTestId('new-game').click()
-  await expect(page.getByTestId('found-studio')).toBeVisible()
-
-  for (const [role, count] of [
-    ['actor', 3],
-    ['director', 1],
-    ['writer', 1],
-    ['craft', 1],
-  ] as Array<[string, number]>) {
-    await page.getByTestId(`founding-tab-${role}`).click()
-    const group = page.getByTestId(`founding-group-${role}`)
-    for (let signed = 0; signed < count; signed += 1) {
-      await group.locator('button[data-testid^="founding-sign-"]').first().click()
-    }
-  }
-
-  const found = page.getByTestId('found-studio')
-  await expect(found).toBeEnabled()
-  await found.click()
-
+  await foundFreshStudio(page, 'studio-home-fresh-founding')
   const stableUrl = page.url()
-  await expectLotReady(page)
   await expect(page.getByTestId('studio-lot-screen')).toHaveClass(/\blot-hollywood\b/)
   await expect(page.getByTestId('lot-studio-heading')).toBeFocused()
   await expect(page.getByTestId('dash-week')).toHaveCount(0)
@@ -198,54 +238,238 @@ test('fresh Founding lands in Hollywood, commissions through its Writers Room, a
       .__freshFoundingDashboardSeen,
   )).toBe(false)
 
-  // Enter Development from its physical world object. Current Founding is managed, so this
-  // must open the real Writers Room rather than the migrated direct-assembly compatibility path.
+  // Idle managed Development owns a retained commission form. Opening it cannot replace any
+  // part of the player's world: the exact Lot root, Phaser mount, and canvas stay connected.
+  const initialIdentity = await captureLotDomIdentity(page)
+  const baselineBytes = await activeSessionBytes(page)
   const writersBuilding = page.getByTestId('lot-nav-writers')
   await writersBuilding.focus()
   await writersBuilding.press('Enter')
+  await expect(page.getByTestId('lot-commission-workspace')).toBeVisible()
+  await expect(page.getByTestId('commission-panel')).toBeVisible()
+  await expect(page.getByTestId('writers-room')).toHaveCount(0)
+  await expect(page.getByTestId('assembly-steps')).toHaveCount(0)
+  await expect(page.getByTestId('studio-lot-screen')).toHaveJSProperty('inert', true)
+  await expectSameLotDomIdentity(initialIdentity)
+  expect(await activeSessionBytes(page)).toBe(baselineBytes)
+  expect(await page.evaluate(() =>
+    document.activeElement?.closest('[data-testid="lot-commission-workspace"]') !== null,
+  )).toBe(true)
+
+  // Explicit cancel is byte-neutral and restores the exact Development opener only after the
+  // world's inert boundary has been removed. No renderer or canvas is reconstructed.
+  await page.getByTestId('lot-commission-workspace-close').click()
+  await expect(page.getByTestId('lot-commission-workspace')).toHaveCount(0)
+  await expect(page.getByTestId('studio-lot-screen')).not.toHaveAttribute('inert', '')
+  await expectSameLotDomIdentity(initialIdentity)
+  await expect(page.getByTestId('lot-nav-writers')).toHaveAttribute('aria-current', 'true')
+  await expect(page.getByTestId('lot-nav-writers')).toBeFocused()
+  expect(await activeSessionBytes(page)).toBe(baselineBytes)
+
+  // The retained form's deliberate deep-management escape hatch remains the canonical full
+  // Writers' Room. Choosing it closes the retained owner and deliberately remounts on return.
+  await page.getByTestId('lot-nav-writers').press('Enter')
+  await expect(page.getByTestId('lot-commission-workspace')).toBeVisible()
+  await expectSameLotDomIdentity(initialIdentity)
+  await page.getByTestId('lot-commission-workspace-details').click()
   await expect(page.getByTestId('writers-room')).toBeVisible()
   await expect(page.getByTestId('writers-room-legacy')).toHaveCount(0)
-  await expect(page.getByTestId('assembly-steps')).toHaveCount(0)
-  await expect(page.getByTestId('script-capacity-summary')).toHaveText(
-    '0 of 2 slots occupied · 2 available',
-  )
+  await expect(page.getByTestId('lot-commission-workspace')).toHaveCount(0)
+  await expect(page.getByTestId('studio-lot-screen')).toHaveCount(0)
+  await expect(page.getByTestId('studio-lot-canvas')).toHaveCount(0)
+  await expectDisconnectedLotDomIdentity(initialIdentity)
+  expect(await activeSessionBytes(page)).toBe(baselineBytes)
 
+  await page.getByTestId('writers-room-back').click()
+  await expectLotReady(page)
+  await expect(page.getByTestId('lot-nav-writers')).toHaveAttribute('aria-current', 'true')
+  await expect(page.getByTestId('lot-nav-writers')).toBeFocused()
+  const commissionIdentity = await captureLotDomIdentity(page)
+
+  // Re-enter the governed retained path. Capture the explicit form payload before submit, then
+  // prove the exact Engine project, save footprint, save-before-witness ordering, and same world.
+  await page.getByTestId('lot-nav-writers').press('Enter')
+  await expect(page.getByTestId('lot-commission-workspace')).toBeVisible()
+  await expectSameLotDomIdentity(commissionIdentity)
+  const conceptSelect = page.getByTestId('script-concept')
+  const writerSelect = page.getByTestId('script-writer')
+  const conceptId = await conceptSelect.inputValue()
+  const writerId = await writerSelect.inputValue()
+  const title = (await conceptSelect.locator('option:checked').textContent())!.split(' — ')[0]!
+  const writerName = (await writerSelect.locator('option:checked').textContent())!.split(' — ')[0]!
   const beforeCommissionBytes = await activeSessionBytes(page)
-  await page.getByTestId('commission-open').click()
-  await expect(page.getByTestId('commission-panel')).toBeVisible()
+  const beforeCommission = JSON.parse(beforeCommissionBytes) as {
+    state: {
+      market: { tick: number }
+      studio: { cash: number }
+      rngState: string
+      ledger: unknown[]
+      concepts: Array<{ id: string; genre: string }>
+      scriptDevelopment: { mode: string; projects: unknown[] }
+    }
+  }
+  await page.evaluate((sessionKey) => {
+    const probedWindow = window as typeof window & {
+      __screenplayCommissionWitnessSave?: string | null
+    }
+    probedWindow.__screenplayCommissionWitnessSave = null
+    const observer = new MutationObserver(() => {
+      if (
+        probedWindow.__screenplayCommissionWitnessSave === null &&
+        document.querySelector('[data-testid="lot-screenplay-commission-witness"]')
+      ) {
+        probedWindow.__screenplayCommissionWitnessSave = localStorage.getItem(sessionKey)
+        observer.disconnect()
+      }
+    })
+    observer.observe(document.documentElement, { childList: true, subtree: true })
+  }, ACTIVE_SESSION_KEY)
+
   await expect(page.getByTestId('commission-submit')).toBeEnabled()
   await page.getByTestId('commission-submit').click()
-  await expect(page.locator('[data-testid^="script-card-"]')).toHaveCount(1)
-  await expect(page.getByTestId('script-capacity-summary')).toHaveText(
-    '1 of 2 slots occupied · 1 available',
+  const witness = page.getByTestId('lot-screenplay-commission-witness')
+  await expect(witness).toBeVisible()
+  await expect(page.getByTestId('lot-commission-workspace')).toHaveCount(0)
+  await expect(page.getByTestId('studio-lot-screen')).not.toHaveAttribute('inert', '')
+  await expectSameLotDomIdentity(commissionIdentity)
+  await expect(witness).toHaveAttribute('data-project-id', 'script-0000')
+  await expect(witness.getByRole('heading', { level: 3, name: title })).toBeFocused()
+  await expect(page.getByTestId('lot-screenplay-commission-feedback')).toContainText(
+    'Drafting is underway',
   )
-  await expect.poll(() => activeSessionBytes(page)).not.toBe(beforeCommissionBytes)
+  await expect(page.getByTestId('lot-screenplay-commission-facts')).toContainText(writerName)
+  await expect(page.getByTestId('lot-screenplay-commission-facts')).toContainText('Week 0')
+  await expect(page.getByTestId('lot-screenplay-commission-facts')).toContainText('Week 1')
+  await expect(page.getByTestId('lot-screenplay-commission-facts')).toContainText(
+    'Development & Casting',
+  )
+  await expect(
+    page.getByTestId('lot-screenplay-commission-facts').locator('dd').nth(4),
+  ).toHaveText('1')
+  await expect(page.getByTestId('lot-screenplay-commission-open-details')).toBeVisible()
+  await expect(page.getByTestId('lot-nav-writers')).toHaveAttribute('aria-current', 'true')
 
   const commissionedBytes = await activeSessionBytes(page)
   const commissioned = JSON.parse(commissionedBytes) as {
     seed: string
     state: {
       market: { tick: number }
-      scriptDevelopment: { mode: string; projects: unknown[] }
+      studio: { cash: number }
+      rngState: string
+      ledger: unknown[]
+      scriptDevelopment: {
+        mode: string
+        projects: Array<{
+          id: string
+          conceptId: string
+          writerId: string
+          shape: { opening: string; midpoint: string; ending: string }
+          promise: {
+            genre: string
+            intendedSegments: string[]
+            ranges: Record<string, [number, number]>
+          }
+          status: string
+          rewriteCount: number
+          commissionedWeek: number
+          dueWeek: number | null
+          assessment: unknown
+          reservation: {
+            projectId: string
+            facilityId: string
+            capability: string
+            slot: number
+          } | null
+          productionId: string | null
+        }>
+      }
     }
   }
+  expect(commissionedBytes).not.toBe(beforeCommissionBytes)
+  expect(await page.evaluate(() =>
+    (window as typeof window & { __screenplayCommissionWitnessSave?: string | null })
+      .__screenplayCommissionWitnessSave,
+  )).toBe(commissionedBytes)
   expect(commissioned.seed).toBe('studio-home-fresh-founding')
   expect(commissioned.state.market.tick).toBe(0)
+  expect(commissioned.state.market.tick).toBe(beforeCommission.state.market.tick)
+  expect(commissioned.state.studio.cash).toBe(beforeCommission.state.studio.cash)
+  expect(commissioned.state.rngState).toBe(beforeCommission.state.rngState)
+  expect(commissioned.state.ledger).toEqual(beforeCommission.state.ledger)
   expect(commissioned.state.scriptDevelopment.mode).toBe('managed')
   expect(commissioned.state.scriptDevelopment.projects).toHaveLength(1)
-
-  // Back restores the exact originating world object as selected and focused. Navigation
-  // remounts the renderer by design, while URL and authoritative save remain unchanged.
-  await page.getByTestId('writers-room-back').click()
-  await expectLotReady(page)
-  await expect(page.getByTestId('lot-nav-writers')).toHaveAttribute('aria-current', 'true')
-  await expect(page.getByTestId('lot-nav-writers')).toBeFocused()
+  expect(commissioned.state.scriptDevelopment.projects[0]).toEqual({
+    id: 'script-0000',
+    conceptId,
+    writerId,
+    shape: {
+      opening: 'slowSetup',
+      midpoint: 'reversal',
+      ending: 'bittersweet',
+    },
+    promise: {
+      genre: beforeCommission.state.concepts.find((concept) => concept.id === conceptId)!.genre,
+      intendedSegments: ['adult'],
+      ranges: {
+        intimacy: [-0.65, 0.15000000000000002],
+        tonalWeight: [-0.65, 0.15000000000000002],
+        kineticEnergy: [-0.65, 0.15000000000000002],
+      },
+    },
+    status: 'drafting',
+    rewriteCount: 0,
+    commissionedWeek: 0,
+    dueWeek: 1,
+    assessment: null,
+    reservation: {
+      projectId: 'script-0000',
+      facilityId: 'facility-development-casting',
+      capability: 'development-casting',
+      slot: 0,
+    },
+    productionId: null,
+  })
   expect(page.url()).toBe(stableUrl)
   expect(await activeSessionBytes(page)).toBe(commissionedBytes)
   expect(await page.evaluate(
     () => (window as typeof window & { __freshFoundingDashboardSeen?: boolean })
       .__freshFoundingDashboardSeen,
   )).toBe(false)
+  expect(runtime.pageErrors, runtime.pageErrors.join('\n')).toEqual([])
+  expect(runtime.consoleErrors, runtime.consoleErrors.join('\n')).toEqual([])
+})
+
+test('Hollywood rollback keeps managed Development in the standalone Writers Room remount path', async ({ page }) => {
+  const runtime = watchRuntime(page)
+  await page.addInitScript((hollywoodKey) => {
+    localStorage.setItem(hollywoodKey, '0')
+  }, OPERATION_HOLLYWOOD_FLAG)
+  await foundFreshStudio(page, 'studio-home-hollywood-rollback-managed')
+
+  await expect(page.getByTestId('studio-lot-screen')).not.toHaveClass(/\blot-hollywood\b/)
+  const baselineBytes = await activeSessionBytes(page)
+  const initialIdentity = await captureLotDomIdentity(page)
+  const writersBuilding = page.getByTestId('lot-nav-writers')
+  await writersBuilding.focus()
+  await writersBuilding.press('Enter')
+
+  await expect(page.getByTestId('writers-room')).toBeVisible()
+  await expect(page.getByTestId('writers-room-legacy')).toHaveCount(0)
+  await expect(page.getByTestId('lot-commission-workspace')).toHaveCount(0)
+  await expect(page.getByTestId('studio-lot-screen')).toHaveCount(0)
+  await expect(page.getByTestId('studio-lot-canvas')).toHaveCount(0)
+  await expectDisconnectedLotDomIdentity(initialIdentity)
+  expect(await activeSessionBytes(page)).toBe(baselineBytes)
+
+  await page.getByTestId('writers-room-back').click()
+  await expectLotReady(page)
+  await expect(page.getByTestId('lot-nav-writers')).toHaveAttribute('aria-current', 'true')
+  await expect(page.getByTestId('lot-nav-writers')).toBeFocused()
+  expect(await activeSessionBytes(page)).toBe(baselineBytes)
+  expect(await page.evaluate(
+    (key) => localStorage.getItem(key),
+    OPERATION_HOLLYWOOD_FLAG,
+  )).toBe('0')
   expect(runtime.pageErrors, runtime.pageErrors.join('\n')).toEqual([])
   expect(runtime.consoleErrors, runtime.consoleErrors.join('\n')).toEqual([])
 })
@@ -308,11 +532,15 @@ test('default founded recovery opens the Hollywood Lot first and preserves truth
 
   // A building-origin deep route remembers the exact world object. Returning from the
   // Assembly surface restores both its selection and keyboard focus in the companion view.
+  const classicIdentity = await captureLotDomIdentity(page)
   const writersBuilding = page.getByTestId('lot-nav-writers')
   await writersBuilding.focus()
   await expect(writersBuilding).toBeFocused()
   await writersBuilding.press('Enter')
   await expect(page.getByTestId('assembly-steps')).toBeVisible()
+  await expect(page.getByTestId('lot-commission-workspace')).toHaveCount(0)
+  await expect(page.getByTestId('studio-lot-screen')).toHaveCount(0)
+  await expectDisconnectedLotDomIdentity(classicIdentity)
   expect(page.url()).toBe(stableUrl)
   expect(await activeSessionBytes(page)).toBe(baselineBytes)
   await page.getByTestId('assembly-back-dashboard').click()

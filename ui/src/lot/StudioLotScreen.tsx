@@ -88,6 +88,10 @@ import {
   type GreenlightFormationReceipt,
 } from './snapshot/productionFormation.ts'
 import {
+  currentScreenplayCommissionReceipt,
+  type ScreenplayCommissionReceipt,
+} from './snapshot/scriptCommission.ts'
+import {
   currentLotNextEventProductionCommand,
   sameLotNextEventProductionCommand,
   sameLotNextEventReceipt,
@@ -343,6 +347,14 @@ type Props = {
   }
   /** Consume the transient identity whether strict formation succeeds or fails neutral. */
   onLiveFormationConsumed?: (identity: object) => void
+  /** One transient accepted commission delivered without replacing this mounted Lot. */
+  liveCommissionPresentation?: {
+    identity: object
+    acceptedState: GameState
+    receipt: ScreenplayCommissionReceipt
+  }
+  /** Consume the transient commission identity whether strict current truth succeeds or fails. */
+  onLiveCommissionConsumed?: (identity: object) => void
   /** Exact pending screenplay identity required by the deep-return arm. */
   entryScriptReviewTarget?: LotScriptReviewTarget
   /** Exact pending Casting-review identity required by the deep-return arm. */
@@ -635,6 +647,8 @@ export function StudioLotScreen({
   entryProductionFormation,
   liveFormationPresentation,
   onLiveFormationConsumed,
+  liveCommissionPresentation,
+  onLiveCommissionConsumed,
   entryScriptReviewTarget,
   entryCastingReviewTarget,
   entryNextEventReceipt,
@@ -854,6 +868,23 @@ export function StudioLotScreen({
 
   const [selected, setSelected] = useState<BuildingId | null>(getLotSelectedBuilding)
   const [selectionInfo, setSelectionInfo] = useState<SelectionInfo | null>(null)
+  const commissionWitnessHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const [screenplayCommissionActivity, setScreenplayCommissionActivity] = useState<{
+    acceptedState: GameState
+    receipt: ScreenplayCommissionReceipt
+  } | null>(null)
+  const visibleScreenplayCommissionActivity =
+    screenplayCommissionActivity?.acceptedState === state
+      ? screenplayCommissionActivity
+      : null
+  useEffect(() => {
+    if (
+      screenplayCommissionActivity !== null &&
+      screenplayCommissionActivity.acceptedState !== state
+    ) {
+      setScreenplayCommissionActivity(null)
+    }
+  }, [screenplayCommissionActivity, state])
   const [scriptReviewIntent, setScriptReviewIntent] = useState<LotScriptReviewTarget | null>(
     entryFocus === 'script-review' ? entryScriptReviewTarget ?? null : null,
   )
@@ -1001,6 +1032,7 @@ export function StudioLotScreen({
   const formationPendingFocusRef = useRef<string | null>(null)
   const formationEntryConsumedRef = useRef(false)
   const liveFormationConsumedRef = useRef<object | null>(null)
+  const liveCommissionConsumedRef = useRef<object | null>(null)
   const entryFocusConsumedRef = useRef(false)
   const gateHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const gateVisitorHeadingRef = useRef<HTMLHeadingElement | null>(null)
@@ -1375,6 +1407,7 @@ export function StudioLotScreen({
     setCastingReviewIntent(null)
     setCastingReviewActivity(null)
     castingReviewDispatchGuardRef.current = null
+    if (id !== 'writers') setScreenplayCommissionActivity(null)
     setLotSelectedBuilding(id)
     setSelected(id)
   }, [])
@@ -2152,6 +2185,48 @@ export function StudioLotScreen({
     enterProductionFormationContext,
     liveFormationPresentation,
     onLiveFormationConsumed,
+    state,
+    worldInputSuspended,
+  ])
+
+  // Retained commissioning publishes one exact, non-serialized receipt only after App has
+  // committed and autosaved its successor. The semantic Development owner consumes it without
+  // moving the Hollywood camera or claiming a new physical building/location.
+  useLayoutEffect(() => {
+    const presentation = liveCommissionPresentation
+    if (
+      presentation === undefined ||
+      worldInputSuspended ||
+      liveCommissionConsumedRef.current === presentation.identity
+    ) return
+    liveCommissionConsumedRef.current = presentation.identity
+    const current =
+      presentation.acceptedState === state &&
+      latestGameStateRef.current === presentation.acceptedState
+        ? currentScreenplayCommissionReceipt(state, presentation.receipt)
+        : null
+    if (current !== null) {
+      recordSelection('writers')
+      setSelectionInfo(null)
+      setScreenplayCommissionActivity({
+        acceptedState: presentation.acceptedState,
+        receipt: current,
+      })
+      announceHollywoodActivity(
+        `Screenplay commissioned: ${current.title}. Writer ${current.writerName}. ` +
+          `Due Week ${String(current.dueWeek)} in ${current.facilityName}, ` +
+          `slot ${String(current.slot + 1)}.`,
+      )
+      queueMicrotask(() => focusVisibleLotOwner(commissionWitnessHeadingRef.current))
+    } else {
+      queueMicrotask(() => studioHeadingRef.current?.focus({ preventScroll: true }))
+    }
+    onLiveCommissionConsumed?.(presentation.identity)
+  }, [
+    announceHollywoodActivity,
+    liveCommissionPresentation,
+    onLiveCommissionConsumed,
+    recordSelection,
     state,
     worldInputSuspended,
   ])
@@ -5273,6 +5348,10 @@ export function StudioLotScreen({
     selected === 'writers' &&
     visibleScriptReviewActivity?.feedback.kind === 'success' &&
     exactNextEventReceipt?.target.kind !== 'script'
+  const screenplayCommissionSelected =
+    selected === 'writers' &&
+    visibleScreenplayCommissionActivity !== null &&
+    exactNextEventReceipt?.target.kind !== 'script'
   const scriptReviewSurfaceContents = pendingScriptReviewSelected
     ? (
         <LotScriptReviewPanel
@@ -5310,7 +5389,59 @@ export function StudioLotScreen({
           }}
         />
       )
-    : screenplaySuccessSelected && visibleScriptReviewActivity !== null
+    : screenplayCommissionSelected && visibleScreenplayCommissionActivity !== null
+      ? (
+          <div
+            className="lot-script-review-success"
+            data-testid="lot-screenplay-commission-witness"
+            data-project-id={visibleScreenplayCommissionActivity.receipt.projectId}
+          >
+            <p className="hollywood-eyebrow">DEVELOPMENT · SCREENPLAY COMMISSIONED</p>
+            <h3 ref={commissionWitnessHeadingRef} tabIndex={-1}>
+              {visibleScreenplayCommissionActivity.receipt.title}
+            </h3>
+            <p data-testid="lot-screenplay-commission-feedback">
+              Drafting is underway with an exact studio reservation.
+            </p>
+            <dl
+              className="hollywood-person-facts"
+              data-testid="lot-screenplay-commission-facts"
+            >
+              <div>
+                <dt>Writer</dt>
+                <dd>{visibleScreenplayCommissionActivity.receipt.writerName}</dd>
+              </div>
+              <div>
+                <dt>Commissioned</dt>
+                <dd>Week {visibleScreenplayCommissionActivity.receipt.commissionedWeek}</dd>
+              </div>
+              <div>
+                <dt>Due</dt>
+                <dd>Week {visibleScreenplayCommissionActivity.receipt.dueWeek}</dd>
+              </div>
+              <div>
+                <dt>Facility</dt>
+                <dd>{visibleScreenplayCommissionActivity.receipt.facilityName}</dd>
+              </div>
+              <div>
+                <dt>Slot</dt>
+                <dd>{visibleScreenplayCommissionActivity.receipt.slot + 1}</dd>
+              </div>
+            </dl>
+            <button
+              type="button"
+              className="accent"
+              disabled={worldInputSuspended}
+              onClick={() => {
+                if (!worldInputSuspendedRef.current) dispatchRoute(BUILDING_ACTION.writers)
+              }}
+              data-testid="lot-screenplay-commission-open-details"
+            >
+              Open full Writers' Room details
+            </button>
+          </div>
+        )
+      : screenplaySuccessSelected && visibleScriptReviewActivity !== null
       ? (
           <div
             className="lot-script-review-success"

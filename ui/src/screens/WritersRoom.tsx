@@ -14,6 +14,7 @@ import {
   commissionScriptAction,
 } from '../engine/adapter.ts'
 import type {
+  ActionOutcome,
   CommissionScriptPayload,
   FilmPromise,
   FilmShape,
@@ -130,16 +131,14 @@ function Blockers({
   )
 }
 
-function CommissionPanel({
+export function ScreenplayCommissionForm({
   board,
-  state,
-  onChange,
+  onSubmit,
   onClose,
   onError,
 }: {
   board: ScriptProjectsReadModel
-  state: GameState
-  onChange: (next: GameState) => void
+  onSubmit: (payload: CommissionScriptPayload) => ActionOutcome
   onClose: () => void
   onError: (message: string) => void
 }) {
@@ -187,14 +186,13 @@ function CommissionPanel({
         ranges,
       },
     }
-    const result = commissionScriptAction(state, payload)
+    const result = onSubmit(payload)
     if (!result.ok) {
       onError(result.error)
       return
     }
     onError('')
     onClose()
-    onChange(result.next)
   }
 
   return (
@@ -496,10 +494,13 @@ export function WritersRoom({
         <Blockers blockers={board.commission.blockers} testId="writers-room-commission-blockers" />
       )}
       {commissioning && (
-        <CommissionPanel
+        <ScreenplayCommissionForm
           board={board}
-          state={state}
-          onChange={onChange}
+          onSubmit={(payload) => {
+            const result = commissionScriptAction(state, payload)
+            if (result.ok) onChange(result.next)
+            return result
+          }}
           onClose={() => setCommissioning(false)}
           onError={setError}
         />
