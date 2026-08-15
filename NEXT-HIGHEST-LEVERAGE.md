@@ -253,12 +253,37 @@ D-16/D-17 176/176, Chromium 18/18, both TypeScript projects, a 147-module build,
 Core/save/simulation/economy/art/renderer behavior changed. Casting Room remains optional supporting
 depth; Hollywood Casting remains semantic while Classic preserves its established physical place.
 
+## Closed — World-First Lot-Retained Package & Greenlight Workspace V1
+
+Contract `cc2c4af` and implementation `729afb72d345e3430655d33f6b73ed8c7a33f1df`
+close the first substantial deep-management workflow without replacing the player's current
+studio place. The clear Casting successor commits and autosaves before canonical Assembly opens in
+one large workspace over the exact same Lot Screen, presentation token, Phaser view, canvas, and
+camera.
+
+Assembly retains complete Casting evidence, company choices, Custom Talent, Profile, Production
+Budget, marketing, forecast, blockers, Engine rejection/retry, and greenlight law. The world is
+visible but inert behind the workspace. Cancel is byte-neutral; accepted greenlight remains covered
+through autosave, then one strict receipt paints exact **PICTURE FORMED**, Director, Lead, and
+complete company in the already-mounted Lot. Classic retains standalone Assembly.
+
+Final proof passed UI 108/108 files and 1,388/1,388 tests; repository 195/195 files and
+2,618/2,618 tests; governed D-16/D-17 176/176; next-event Chromium 19/19; retained-Package Chromium
+4/4; formation Chromium 10 passed / one explicit GPU-only skip; D-14 career Chromium 7/7; both
+TypeScript projects; a 148-module build; direct save parity; exact 42/19/11,096,896/one-draw
+structure; manual browser play; and clean independent audit. No Core/save/package/production/
+economy/art/renderer-structure behavior changed, and no GPU certification is claimed.
+
 ## Next evidence-led world audit
 
-Resume the several-minutes-on-Lot test from this accepted checkpoint and rank the next visible break
-in ordinary play. Prefer an existing authoritative person, production, facility, blockage, or event
-whose inspection and action currently begin in a supporting screen. Freeze a separate contract only
-after proving the complete authority and art boundary; no successor is automatic.
+Resume the several-minutes-on-Lot test from this accepted checkpoint. First measure the Lot →
+screenplay-commissioning seam: the current canonical Writers’ Room already owns exact concept,
+writer, shape, audience, and `commissionScriptAction` authority, but entering it replaces the Lot.
+Determine whether that bounded decision can become a retained supporting workspace and connect the
+start of filmmaking to the now-continuous review → Casting → Package → formation chain. Hollywood
+Development remains semantic; do not invent a Writers building. Rank the measured result against
+other existing person, production, facility, blockage, and event seams before freezing anything;
+no successor is automatic.
 
 ## Closed parallel evidence lane
 
@@ -285,12 +310,12 @@ construction, or operating costs materially change the decision boundary.
 
 ## Post-close evidence boundary
 
-Preserve the accepted next-event and complete-company contracts exactly while observing the next
-seam. Same-mounted continuity applies to ordinary non-release reactions; existing deep owners may
-still unmount and
-remount the Lot. One synchronous batch supplies one final state; do not narrate skipped travel,
-work, queues, occupancy, construction labor, rehearsal, shooting, Post, publicity, or theatrical
-activity as watched simulation.
+Preserve the accepted next-event, complete-company, Casting, and retained-Package contracts exactly
+while observing the next seam. Same-mounted continuity applies to ordinary non-release reactions
+and the exact accepted Package path; other standalone deep owners may still unmount and remount the
+Lot. One synchronous batch supplies one final state; do not narrate skipped travel, work, queues,
+occupancy, construction labor, rehearsal, shooting, Post, publicity, or theatrical activity as
+watched simulation.
 
 Any proposed successor must remain UI/world projection over existing authority unless a separately
 frozen Engine contract explicitly says otherwise. No new save field, facility, physical place,

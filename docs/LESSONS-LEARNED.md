@@ -3566,3 +3566,64 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
 - **Pattern:** internally scrolling action owner + visible focus + persistent announcement.
   **Anti-pattern:** document scrolling, visual-only action order, or a live region created after the
   message exists.
+
+---
+
+# World-First Lot-Retained Package & Greenlight Workspace V1 — IMPLEMENTATION CLOSED
+
+> Contract `cc2c4af067f681d1a26f10959eb1c0dbd7512d0d`; implementation
+> `729afb72d345e3430655d33f6b73ed8c7a33f1df`; closure by the documentation checkpoint containing
+> this record.
+
+## FW. A retained deep workflow needs an App-owned exact world session — **IT, BR**
+
+- **Risk:** ordinary screen navigation unmounts or replaces the Lot, canvas, renderer, camera, or
+  selected world context; a loosely keyed overlay can instead survive into a different studio.
+- **Resolution / fastest proof:** own the workspace beside Screen navigation and bind it to the
+  exact GameState, Screen, Lot presentation, and workflow identity. Clear it on any ownership
+  change. Assert DOM-node, canvas, renderer, and camera identity across open, nested work, cancel,
+  and accepted return.
+- **Pattern:** independent App session over one exact mounted world. **Anti-pattern:** disguising a
+  screen transition as a world-retained workflow.
+
+## FX. Authoritative commit and autosave precede presentation close — **IT**
+
+- **Risk:** closing the workspace before accepting and saving the Engine successor can expose old
+  state, lose the formation handoff, or make a retry dispatch greenlight twice.
+- **Resolution / fastest proof:** synchronously mark the exact workspace committed, accept the one
+  Engine successor, let canonical autosave observe it, then close presentation and consume the
+  live-world formation receipt once. Compare the resulting save bytes with direct Engine output.
+- **Pattern:** commit → autosave → close → one world witness. **Anti-pattern:** treating modal close
+  as the transaction boundary.
+
+## FY. Nested modal callbacks and focus need exact current workspace ownership — **BR, MG**
+
+- **Risk:** Profile or Custom Talent callbacks can arrive after the workspace, person, modal, or
+  whole studio changed; generic focus restoration can land on a successor control with the same
+  label.
+- **Resolution / fastest proof:** make the covered workspace inert and require exact current
+  GameState, Screen, presentation, workspace, modal, and subject identity before every nested open,
+  close, or return. Focus the exact opener before entry and restore the exact governed control only
+  after a valid return; race stale and hostile callback tails in tests.
+- **Pattern:** nested work borrows authority from one exact owner. **Anti-pattern:** ID-only callback
+  checks or ambient `activeElement` restoration.
+
+## FZ. Scope gates belong at the first presentation handoff — **BR**
+
+- **Risk:** adding a retained Hollywood workflow below a shared Assembly entry point silently
+  changes Classic mode even when all downstream components appear feature-specific.
+- **Resolution / fastest proof:** gate the initial handoff on the authoritative Hollywood setting;
+  retain the new workspace only in scope and preserve the prior standalone Assembly route outside
+  it. Keep an explicit Hollywood-off regression through the complete entry path.
+- **Pattern:** scope before session creation. **Anti-pattern:** creating new authority and hoping a
+  descendant later hides it.
+
+## GA. Effective 200% geometry requires the real visual viewport and a real activation — **MG**
+
+- **Risk:** `dvh`, nominal CSS dimensions, and document-level overflow checks can report success
+  while zoom centers the workspace header offscreen or leaves its close control unreachable.
+- **Resolution / fastest proof:** size the retained workspace through its actual flex owner, keep a
+  44px target, and at effective 200% prove the control rectangle is inside the visual viewport,
+  center-hit-test it, activate it by pointer and keyboard, and retain one intentional scroll owner.
+- **Pattern:** governed rectangle + hit target + real input proof. **Anti-pattern:** viewport math
+  without the browser's rendered geometry.

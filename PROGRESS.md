@@ -71,12 +71,18 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   the same mounted living Lot, with Writers’ Room retained as an optional exact deep owner.
 - **World-First Lot-Native Casting Review Intervention V1:** ACCEPTED at implementation
   `cd0ace6213c88255439010ff284f390a538a6650` under corrected frozen contract `d707f98` and CLOSED
-  by this documentation checkpoint. All six exact persisted audition observations and the sole
-  acknowledgement now live in the Lot; blocked successors stay mounted and clear successors
-  autosave before the exact Package handoff.
-- **Next action:** resume the several-minutes-on-Lot audit and rank the next ordinary-player world
-  break. Freeze a separate contract only after existing Engine/GameState and art authority prove
-  the complete loop; no successor is automatic.
+  at `5c6f7573c85498fde2ce17c39d7058e13e4fdd06`. All six exact persisted audition observations and
+  the sole acknowledgement now live in the Lot; blocked successors stay mounted and clear
+  successors autosave before the exact Package handoff.
+- **World-First Lot-Retained Package & Greenlight Workspace V1:** ACCEPTED at implementation
+  `729afb72d345e3430655d33f6b73ed8c7a33f1df` under frozen contract `cc2c4af` and CLOSED by this
+  documentation checkpoint. The canonical Package now opens over the same mounted Lot; cancel is
+  byte-neutral, and accepted greenlight autosaves before the exact picture forms in that same
+  canvas/camera.
+- **Next action:** resume the several-minutes-on-Lot audit at the screenplay-commissioning seam.
+  Measure whether canonical Writers’ Room commissioning can become a retained supporting workspace
+  without inventing a physical Hollywood Writers building or changing Engine law; no successor is
+  automatic.
 
 ## Closed marathon milestones
 
@@ -108,7 +114,8 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Lot-Native Next-Event Cadence V1 | `15e65c4` | `eb6cef1`, `aabb684` | `2e32b05` |
 | World-First Active Production Company Presence V1 | `08e86ab` | `2ef7f0a` | `9294fb6` |
 | World-First Lot-Native Screenplay Review V1 | `22ee17c` | `67a0bf3` | `e37035c` |
-| World-First Lot-Native Casting Review V1 | `d707f98` (`8fe3aea` initial freeze) | `cd0ace6` | this documentation checkpoint |
+| World-First Lot-Native Casting Review V1 | `d707f98` (`8fe3aea` initial freeze) | `cd0ace6` | `5c6f757` |
+| World-First Lot-Retained Package & Greenlight Workspace V1 | `cc2c4af` | `729afb7` | this documentation checkpoint |
 
 ## Product result so far
 
@@ -211,11 +218,19 @@ acknowledgement. Blocked successors autosave and remain on the same mounted Lot;
 autosave before a fresh exact Package handoff. Casting Room remains optional supporting depth,
 Hollywood Casting remains semantic, and Classic preserves its already accepted physical place.
 
-Deep non-modal screens still unmount and later remount the Lot. Same-mounted continuity is the law
-for ordinary non-release event stops, not a claim that every supporting surface preserves the same
-Phaser instance. Skipped weeks are one synchronous Engine batch and one final snapshot; the game
-does not claim their travel, queues, occupancy, construction labor, rehearsal, shooting, Post,
-publicity, or theatrical activity was watched.
+That Package handoff now remains inside the living studio. App retains the exact Lot Screen,
+presentation token, `StudioLotScreen`, Phaser view, canvas node, camera, and local world memory while
+canonical Assembly owns the full company, budget, marketing, forecast, Profile, Custom Talent,
+rejection, and greenlight workflow in one large supporting workspace. Casting success autosaves
+before open; greenlight autosaves before close; one strict live receipt then paints exact **PICTURE
+FORMED**, Director, Lead, and complete company in the same canvas. Cancel changes no save byte.
+Classic retains standalone Assembly.
+
+Standalone deep screens generally still unmount and later remount the Lot. Same-mounted continuity
+is accepted for ordinary non-release event stops and this exact retained Package path, not a claim
+that every supporting surface preserves the same Phaser instance. Skipped weeks are one synchronous
+Engine batch and one final snapshot; the game does not claim their travel, queues, occupancy,
+construction labor, rehearsal, shooting, Post, publicity, or theatrical activity was watched.
 
 Final cadence proof passed 185/185 repository files and 2,476/2,476 tests, focused next-event
 authority 214/214, governed D-16/D-17 176/176, Chromium 12/12, both TypeScript projects, and a
@@ -248,10 +263,18 @@ Chromium 18/18; both TypeScript projects; a 147-module build; 42-object / 19-act
 P0–P2 audits. No Core, save, simulation, economy, art, manifest/exporter, renderer structure/draw,
 travel, occupancy, queue, workload, autonomy, or pathfinding behavior changed.
 
-The next action remains evidence-led: resume the several-minutes-on-Lot test and rank the next
-visible person, production, building, blockage, or event whose meaningful action still starts in a
-supporting screen. Do not turn evidence into an invented place, travel, occupancy, assignment,
-facility, construction, or Engine law.
+Final retained-Package proof passed UI 108/108 files and 1,388/1,388 tests; repository 195/195 files
+and 2,618/2,618 tests; governed D-16/D-17 10/10 files and 176/176 tests; next-event Chromium 19/19;
+focused retained-Package Chromium 4/4; formation Chromium 10 passed / one explicit GPU-only skip;
+D-14 career Chromium 7/7; both TypeScript projects; a 148-module build; direct Engine/SaveFileV11
+byte parity; exact 42-object / 19-actor / 11,096,896-byte / one-draw structure; manual browser play;
+and clean independent P0/P1 audit. No Core, save, simulation, package, economy, art,
+manifest/exporter, or renderer-structure/draw behavior changed. No GPU certification is claimed.
+
+The next action remains evidence-led: audit the Lot → screenplay-commissioning break as the first
+candidate for a retained canonical Writers’ Room workspace, then rank it against other visible
+person, production, building, blockage, or event seams. Do not turn that candidate into an invented
+place, travel, occupancy, assignment, facility, construction, or Engine law.
 
 ## Governing status
 
@@ -260,6 +283,7 @@ facility, construction, or Engine law.
 Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
 dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
 and formal G12 timing remain open. This world-continuity closure certifies no macroeconomic balance
-and authorizes no financing, bailout, restructuring, failure ladder, or arbitrary cash sink.
+and authorizes no financing, loans, bailouts, restructuring, failure ladder, hard bankruptcy, or
+arbitrary cash sink.
 
 No merge to main, push, or milestone tag is authorized by autonomous progress alone.

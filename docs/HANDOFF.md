@@ -1,10 +1,62 @@
 # Project: Studio — Engineering Handoff
 
-> ## 🎬 2026-08-15 — CURRENT: LOT-NATIVE CASTING REVIEW INTERVENTION V1 CLOSED
+> ## 🎬 2026-08-15 — CURRENT: LOT-RETAINED PACKAGE & GREENLIGHT WORKSPACE V1 CLOSED
+>
+> Work continues on `operation-hollywood-autonomous-marathon`. Frozen contract authority is
+> `cc2c4af067f681d1a26f10959eb1c0dbd7512d0d`; accepted implementation authority is
+> `729afb72d345e3430655d33f6b73ed8c7a33f1df`. This documentation checkpoint closes the slice.
+>
+> **THE STUDIO LOT IS THE PRIMARY GAME SURFACE. MANAGEMENT UI SUPPORTS THE WORLD. IT DOES NOT
+> REPLACE THE WORLD.** The exact clear Casting successor now commits and reaches established
+> autosave before canonical Package Assembly opens as a substantial supporting workspace over the
+> same mounted Lot, Screen object, Phaser view, canvas, and camera. No second App, Lot, renderer,
+> canvas, or state authority is created.
+>
+> App owns one strict transient `editing → committed` workspace session. Canonical Assembly,
+> Talent Creator, and Talent Profile retain package, greenlight, rejection, retry, and focus law;
+> the Lot remains visible but inert behind the active modal. Cancel is save-byte neutral and
+> returns to the exact same world. Accepted greenlight remains covered through autosave, then one
+> exact receipt paints **PICTURE FORMED** and the complete company in that already-mounted Lot.
+> Stale, malformed, replaced, conflicting-modal, renderer-delay/failure, and retained-callback
+> paths are exact or neutral without rolling back valid Engine progress.
+>
+> Operation-Hollywood-off / Classic keeps the established standalone Assembly route and remount
+> behavior. The same-mounted guarantee is intentionally limited to the accepted Hollywood
+> Lot-native Casting handoff.
+>
+> Final proof: UI **108/108 files, 1,388/1,388 tests**; repository **195/195 files,
+> 2,618/2,618 tests**; governed D-16/D-17 **10/10 files, 176/176 tests**; next-event Chromium
+> **19/19**; retained-Package Chromium **4/4**; formation Chromium **10 passed / one explicit
+> GPU-only skip**; D-14 Chromium **7/7**; both TypeScript projects; production build **148
+> modules** with the existing chunk warning; exact save/action parity; manual browser play; and
+> independent audit all pass. Structure remains exactly **42 objects / 19 actors / 11,096,896
+> decoded bytes / one draw**. No GPU/FPS certification is claimed.
+>
+> No Core, GameState, SaveFileV1–V11, schema, migration, import/export, Casting, screenplay,
+> package, greenlight, assignment, facility, production, release, construction, publicity,
+> employment, economy, RNG, ledger, authored-art, manifest/exporter, or renderer structure/draw
+> behavior changed.
+> The next Lot → screenplay-commissioning seam is audit-only: measure it before any separately
+> frozen authority, and do not invent a physical Hollywood Writers building or new Engine law.
+>
+> Protected anchors remain untouched: `main` =
+> `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =
+> `35d42687a410a621becf1df35c75986657f8c44e`; Operation Hollywood bridge =
+> `623b8b2a80e9c6b85304eaa2a338b6045e8f6b21`. Nothing was merged, pushed, or tagged.
+>
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+>
+> Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
+> dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
+> and formal G12 timing remain open. No financing, loans, bailouts, restructuring, failure ladder,
+> hard bankruptcy, or arbitrary cash sink is authorized.
+
+> ## 🎬 2026-08-15 — PRIOR: LOT-NATIVE CASTING REVIEW INTERVENTION V1 CLOSED
 >
 > Work continues on `operation-hollywood-autonomous-marathon`. Corrected frozen contract authority
 > is `d707f9878abdcd3a8d28ddb583a166ff3e911ff3`; accepted implementation authority is
-> `cd0ace6213c88255439010ff284f390a538a6650`. This documentation checkpoint closes the slice.
+> `cd0ace6213c88255439010ff284f390a538a6650`; exact closure authority is
+> `5c6f7573c85498fde2ce17c39d7058e13e4fdd06`.
 >
 > **THE STUDIO LOT IS THE PRIMARY GAME SURFACE. MANAGEMENT UI SUPPORTS THE WORLD. IT DOES NOT
 > REPLACE THE WORLD.** A newly surfaced or already-pending Casting review now exposes all six exact

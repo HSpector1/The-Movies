@@ -690,3 +690,41 @@ Owner rulings remain the authority when a summary here conflicts with them.
 - Preserved every named residual under **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS
   REMAIN OPEN**. Nothing was merged, pushed, tagged, financed, bailed out, restructured, or assigned
   an arbitrary cash sink.
+
+## 2026-08-15 — World-first Lot-retained Package and greenlight workspace closes
+
+- Delivered accepted implementation `729afb72d345e3430655d33f6b73ed8c7a33f1df` under frozen
+  contract `cc2c4af067f681d1a26f10959eb1c0dbd7512d0d`; this documentation checkpoint closes the
+  bounded host-continuity milestone with a **KEEP** ruling.
+- Kept the exact clear Casting successor and established autosave ahead of one App-owned canonical
+  Package workspace. Assembly, Talent Creator, Talent Profile, package legality, greenlight,
+  rejection, retry, and Engine/SaveFile authority remain shared rather than copied.
+- Retained the same Lot Screen object, presentation token, mounted `StudioLotScreen`, Phaser view,
+  canvas, and camera through Package open, nested Profile, Custom Talent, cancel, and accepted
+  greenlight. Background world and renderer input remain inert while the Lot stays visibly alive.
+- Made cancel save-byte neutral. Accepted greenlight keeps a noninteractive committed workspace
+  through exact successor autosave, then publishes one strict transient receipt so the already-
+  mounted Lot paints **PICTURE FORMED** and the exact company once. Stale, replaced, malformed,
+  conflicting-modal, delayed-renderer, and retained-callback paths fail neutral.
+- Preserved Operation-Hollywood-off / Classic standalone Assembly and prior remount behavior. The
+  V1 same-mounted guarantee does not become a general deep-screen promise.
+- Closed proof with UI 108/108 files and 1,388/1,388 tests; repository 195/195 and 2,618/2,618;
+  governed D-16/D-17 10/10 and 176/176; next-event Chromium 19/19; retained-Package Chromium 4/4;
+  formation Chromium 10 passed / one explicit GPU-only skip; D-14 Chromium 7/7; both TypeScript
+  projects; and a 148-module production build with the existing chunk warning.
+- Preserved exact 42 objects / 19 actors / 11,096,896 decoded bytes / one draw, action/save-byte
+  parity, responsive/accessibility/manual-browser gates, and independent audit. No GPU/FPS
+  certification is claimed and no threshold was relaxed.
+- Changed no Core, GameState, SaveFileV1–V11, schema, migration, import/export, Casting,
+  screenplay, package, greenlight, assignment, facility, production, construction, publicity,
+  employment, economy, RNG, ledger, authored-art, manifest/exporter, or renderer structure/draw
+  behavior.
+- Promoted no automatic successor. Lot → screenplay commissioning is the next measured seam only;
+  it requires a fresh audit and separately frozen authority, with no invented physical Hollywood
+  Writers building or new Engine law.
+- Preserved protected refs and **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN
+  OPEN**. Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall,
+  P5 dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu
+  breadth, and formal G12 timing remain open. Nothing was merged, pushed, or tagged. No financing,
+  loans, bailouts, restructuring, failure ladder, hard bankruptcy, or arbitrary cash sink is
+  authorized.

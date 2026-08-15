@@ -4,14 +4,14 @@ Updated: 2026-08-15
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current accepted milestone: World-First Lot-Native Casting Review Intervention V1, closed by this
-documentation checkpoint
+Current accepted milestone: World-First Lot-Retained Package & Greenlight Workspace V1, closed by
+this documentation checkpoint
 
-Current accepted behavior authority: `cd0ace6213c88255439010ff284f390a538a6650`
+Current accepted behavior authority: `729afb72d345e3430655d33f6b73ed8c7a33f1df`
 
-Primary implementation authority: `cd0ace6213c88255439010ff284f390a538a6650`
+Primary implementation authority: `729afb72d345e3430655d33f6b73ed8c7a33f1df`
 
-Current frozen successor: none. Resume the several-minutes-on-Lot audit from this accepted
+Current frozen successor: none. Audit the Lot → screenplay-commissioning seam from this accepted
 checkpoint; no implementation successor is automatic.
 
 ## Product doctrine — World First
@@ -28,20 +28,19 @@ The default interaction grammar is:
 WORLD → INSPECT / ACT → DEEP PANEL IF NEEDED → RETURN TO THE SAME LIVE WORLD
 ```
 
-“Same live world” means the same authoritative studio and explicit Lot root, not permanent renderer
-object identity. Studio Home V1 still unmounts the Lot for non-modal deep screens and remounts one
-Phaser view on return. Bounded selected-building/focus context, the explicit Publicity Campaign
-handoff, and current authoritative state persist; camera, selected person, general production/place
-context, and presentation animation do not.
+“Same live world” always means the same authoritative studio and explicit Lot root. Most standalone
+deep screens still unmount the Lot and remount one Phaser view on return, so they do not promise
+camera or general selection continuity. The accepted retained-Package path is deliberately
+stronger: its exact Lot Screen, presentation token, Phaser view, canvas, camera, and local world
+memory stay mounted while canonical Assembly works above them.
 
 Dashboard, Assembly, Production Board, Calendar, Roster, Hiring, Finance, Film Autopsy, Chronicle,
 Writers Room, Casting Room, and Studio Development remain valuable. Do not delete or trivialize
 them. They are deep management surfaces for information and decisions too complex to express
 spatially. They support the world; they do not replace it. Where technically appropriate, the
-studio may remain alive behind or around them. In the current architecture, closing a deep screen
-returns to the same authoritative Lot root with bounded context restoration, not the same Phaser
-instance, camera, or selected person. Publicity Campaign V1 and Operational Annex Work Presence V1
-prove narrow exact contextual handoffs; neither is a general persistent-shell claim.
+studio may remain alive behind or around them. Standalone deep owners return to the same
+authoritative Lot root with bounded context restoration; retained Package proves one narrow exact
+same-instance workspace. Neither behavior is a general persistent-shell claim for every screen.
 
 ### Critical experience test
 
@@ -99,8 +98,15 @@ The accepted Lot-Native Casting Review slice carries the next forced production 
 same world. A newly surfaced or already-pending review exposes all six exact persisted Lead,
 Antagonist, and Support audition observations plus the sole Core acknowledgement in the living Lot.
 A blocked successor stays on the same mounted Lot with exact remedy truth; a clear successor is
-autosaved before one fresh exact Package handoff. Casting Room remains optional supporting depth.
+autosaved before one exact retained Package handoff. Casting Room remains optional supporting depth.
 Hollywood Casting remains semantic; Classic retains its established physical Casting selection.
+
+The accepted Lot-Retained Package slice then keeps that complete decision chain in one studio
+place. Canonical Assembly opens as a large supporting workspace over the same mounted Lot, retains
+all company/budget/marketing/Profile/Custom Talent depth, and leaves the world visible but inert.
+Cancel is byte-neutral. Accepted greenlight remains covered through autosave, then the same canvas
+paints the exact formed picture, Director, Lead, and complete company. This is not a general claim
+that every deep screen is retained.
 
 Pan, zoom, selection, management-scale legibility, human-story-scale discovery, and Operation
 Hollywood visual quality are protected. Zoom should change which story the player notices, not
@@ -174,45 +180,73 @@ whether the game remains playable.
 - World-First Lot-Native Casting Review Intervention V1 lets a player review all six exact persisted
   audition observations and acknowledge the sole current decision in the same mounted Lot; blocked
   successors stay in world and clear successors autosave before the exact Package handoff.
+- World-First Lot-Retained Package & Greenlight Workspace V1 keeps canonical Assembly over that
+  same mounted Lot, preserves exact cancel/Profile/Custom Talent/Engine-rejection behavior, and
+  commits plus autosaves greenlight before one live formation receipt paints the exact picture and
+  company in the same canvas.
 
 ## Current world-first checkpoint
 
+World-First Lot-Retained Package & Greenlight Workspace V1 is accepted under frozen contract
+`cc2c4af067f681d1a26f10959eb1c0dbd7512d0d` and implementation
+`729afb72d345e3430655d33f6b73ed8c7a33f1df`. This documentation checkpoint closes the slice:
+
+- App owns one independent `editing → committed` workspace session over the exact retained Lot
+  Screen and opaque presentation token; no new `Screen`, App tree, Lot tree, view, or canvas exists;
+- the exact clear Casting successor commits and reaches autosave before canonical Assembly opens;
+  blocked or drifted handoffs preserve accepted prior same-Lot/neutral behavior;
+- canonical Assembly, Talent Creator, and Talent Profile retain complete company, evidence, budget,
+  marketing, forecast, blocker, rejection, retry, and focus behavior through bounded presentation
+  adapters;
+- world semantic and renderer input remain inert while the large workspace is open, but the same
+  visibly living studio remains mounted behind it;
+- explicit cancel is byte-neutral and restores the exact same Lot, Phaser view, canvas, camera,
+  Screen object, and connected opener when still current;
+- accepted greenlight keeps one noninteractive committed workspace through autosave, then atomically
+  closes and publishes one strict live receipt to that already-mounted Lot;
+- exact **PICTURE FORMED**, title, Director, Lead, complete company, phase, reservation, status, and
+  countdown appear without first/last/array-order substitution or witness replay; and
+- Classic / Operation-Hollywood-off preserves standalone Assembly and the prior remount path.
+
+The visual/product ruling is **KEEP**. Desktop, 960×540, effective 200%, forced colors, reduced
+motion, and 480×270/DSF2 keep one scroll owner, reachable header/close/primary action, visible focus,
+and no page overflow. The Lot remains visually legible where space permits and semantically mounted
+at every compact gate.
+
+Final proof passed UI 108/108 files and 1,388/1,388 tests; repository 195/195 files and
+2,618/2,618 tests; governed D-16/D-17 10/10 files and 176/176 tests; next-event Chromium 19/19;
+retained-Package Chromium 4/4; formation Chromium 10 passed / one explicit GPU-only skip; D-14
+career Chromium 7/7; both TypeScript projects; and a 148-module production build. Direct Engine/
+SaveFileV11 byte parity, exact 42 objects / 19 actors / 11,096,896 decoded bytes / one draw,
+protected paths/refs, manual browser play, and independent final P0/P1 audit passed. No GPU
+certification is claimed.
+
+No Core, GameState, SaveFileV11, schema, migration, Casting, screenplay, package, greenlight,
+assignment, facility, capacity, production, release, construction, publicity, employment, economy,
+RNG, ledger, manifest, exporter, authored art, texture, renderer structure/draw, travel, occupancy,
+queue, workload, autonomy, or pathfinding behavior changed.
+
+## Prior world-first checkpoint — Lot-Native Casting Review V1
+
 World-First Lot-Native Casting Review Intervention V1 is accepted under corrected frozen contract
 `d707f9878abdcd3a8d28ddb583a166ff3e911ff3` and implementation
-`cd0ace6213c88255439010ff284f390a538a6650`. This documentation checkpoint closes the slice:
+`cd0ace6213c88255439010ff284f390a538a6650`; exact closure authority is
+`5c6f7573c85498fde2ce17c39d7058e13e4fdd06`:
 
-- one strict closed selector joins the exact current Core Casting decision, matching complete
-  session/project/card authority, all six persisted observations in canonical Lead/Antagonist/
-  Support and result order, and the sole Core-emitted acknowledgement action;
-- each row retains exact actor identity, role, result, `Est.` score/range, Fit, availability,
-  strengths, and concerns; package consequence, blockers, and remedies remain exact and complete;
-- newly surfaced cadence review and already-pending review retain distinct provenance, while
-  malformed, duplicate, sparse, extra-key, stale, replaced, or contradictory truth fails neutral;
-- App captures and synchronously revalidates exact state/context/action, current screen, modal
-  absence, and one opaque live-Lot presentation token before dispatching the existing action once;
-- blocked acknowledgement successors autosave and remain on the same mounted Lot; clear successors
-  autosave first, then enter Package only if the same exact successor and live presentation still
-  own the microtask handoff;
-- valid Engine progress survives optional-route failure, and unmount, deep navigation, modal,
-  replacement, renderer, input-tail, delayed-readiness, and stale-callback paths never substitute
-  another review; and
-- Hollywood exposes honest semantic Casting while Classic preserves its established physical
-  Casting selection. No Hollywood building or room is invented.
+- one strict closed selector joins the exact Core Casting decision, complete session/project/card,
+  six canonical Lead/Antagonist/Support observations, current package consequences, and sole
+  acknowledgement action;
+- newly surfaced and already-pending reviews retain distinct provenance; malformed, duplicate,
+  sparse, extra-key, stale, replaced, or contradictory truth fails neutral;
+- App revalidates exact state/context/action, current screen, modal absence, and one opaque live-Lot
+  token before dispatching once and autosaving the exact successor;
+- blocked successors remain on the same mounted Lot; clear successors become the exact accepted
+  input to the retained Package path above; and
+- Hollywood Casting remains semantic while Classic preserves its accepted physical selection.
 
-The visual/product ruling is **KEEP**. Six rows and their native actions remain reachable at
-1280×720, 960×540, and 480×270/DSF2 through bounded internal evidence scrolling with no page-level
-horizontal overflow. The live Lot remains visible and operable around the decision surface.
-
-Final proof passed focused 6/6 files and 92/92 tests; UI 107/107 files and 1,377/1,377 tests;
-repository 194/194 files and 2,607/2,607 tests; governed D-16/D-17 10/10 files and 176/176 tests;
-Chromium 18/18; both TypeScript projects; and a 147-module production build with the existing
-large-chunk warning. Structural truth remains 42 objects / 19 actors / 11,096,896 decoded bytes /
-one draw, and protected paths/refs plus independent final P0–P2 audits passed.
-
-No Core, GameState, SaveFileV11, schema, migration, casting result, package gate, assignment,
-facility, capacity, production, release, construction, publicity, employment, economy, RNG,
-ledger, manifest, exporter, authored art, texture, renderer structure/draw, travel, occupancy,
-queue, workload, autonomy, or pathfinding behavior changed.
+Final Casting proof passed focused 92/92, UI 1,377/1,377, repository 2,607/2,607, governed 176/176,
+Chromium 18/18, both TypeScript projects, a 147-module build, exact structure, protected gates, and
+independent audit. No Core/save/simulation/economy/art/renderer behavior changed.
 
 ## Prior world-first checkpoint — Lot-Native Screenplay Review V1
 
@@ -630,26 +664,33 @@ production and integration remain unauthorized.
   `d707f9878abdcd3a8d28ddb583a166ff3e911ff3`
 - World-First Lot-Native Casting Review V1 implementation:
   `cd0ace6213c88255439010ff284f390a538a6650`
-- World-First Lot-Native Casting Review V1 closure: this documentation checkpoint
+- World-First Lot-Native Casting Review V1 closure:
+  `5c6f7573c85498fde2ce17c39d7058e13e4fdd06`
+- World-First Lot-Retained Package & Greenlight Workspace V1 contract:
+  `cc2c4af067f681d1a26f10959eb1c0dbd7512d0d`
+- World-First Lot-Retained Package & Greenlight Workspace V1 implementation:
+  `729afb72d345e3430655d33f6b73ed8c7a33f1df`
+- World-First Lot-Retained Package & Greenlight Workspace V1 closure: this documentation checkpoint
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
 Open residuals remain cash runaway, top-studio economic immortality, the week-208 synchronized
 roster wall, P5 dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining
 menu breadth, and formal G12 timing. No financing, loans, bailouts, restructuring, failure ladder,
-or arbitrary cash sink is authorized.
+hard bankruptcy, or arbitrary cash sink is authorized.
 
 ## Current highest-leverage evidence step
 
-Resume a fresh several-minutes-on-Lot audit from the accepted Casting checkpoint. Rank the next
-ordinary-player break by whether a visible person, production, building, blockage, or event can be
-understood and acted on without beginning in a menu. Freeze a separate bounded contract only when
-existing Engine/GameState and accepted art authority can prove the complete loop; no successor is
-automatic.
+Resume a fresh several-minutes-on-Lot audit from the accepted retained-Package checkpoint. First
+measure the Lot → screenplay-commissioning seam: canonical Writers’ Room already owns the real
+concept/writer/shape/audience decision and Engine action, but entering it replaces the Lot. Rank a
+bounded retained commissioning workspace against the next visible person, production, building,
+blockage, or event break. Freeze a separate contract only when existing Engine/GameState and
+accepted art authority prove the complete loop; no successor is automatic.
 
-Do not invent a physical Hollywood Casting building, performed audition travel, room occupancy,
-cast assignment, construction catalogue, physical Stage 12, new facility, second Annex, fourth
-slot, personal autonomy, intermediate-week spectacle, or screen-first operations surface. The
-accepted truthful batch boundary remains one Engine call and one final state; it does not claim
+Do not invent a physical Hollywood Writers/Casting building, performed audition travel, room
+occupancy, cast assignment, construction catalogue, physical Stage 12, new facility, second Annex,
+fourth slot, personal autonomy, intermediate-week spectacle, or screen-first operations surface.
+The accepted truthful batch boundary remains one Engine call and one final state; it does not claim
 that skipped travel, queues, occupancy, construction labor, rehearsal, shooting, Post, publicity,
 or theatrical work was watched.
