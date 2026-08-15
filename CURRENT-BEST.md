@@ -4,16 +4,16 @@ Updated: 2026-08-15
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current accepted milestone: World-First Active Production Company Presence & Picture Switching V1,
-closed by this documentation checkpoint
+Current accepted milestone: World-First Lot-Native Screenplay Review Intervention V1, closed by
+this documentation checkpoint
 
-Current accepted behavior authority: `2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a`
+Current accepted behavior authority: `67a0bf333fc4863548fb13fbc2696fd002bd627d`
 
-Primary implementation authority: `2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a`
+Primary implementation authority: `67a0bf333fc4863548fb13fbc2696fd002bd627d`
 
-Current frozen successor: none. Resume the Owner's several-minutes-on-Lot test from this accepted
-company-presence checkpoint, instrument the next truthful break, and freeze nothing until current
-authority and ordinary-player value justify it.
+Current frozen successor: none. The next evidence-backed contract target is World-First Lot-Native
+Casting Review Intervention V1. Freeze it separately before implementation and preserve Casting as
+a semantic destination unless accepted art authority proves a physical place.
 
 ## Product doctrine — World First
 
@@ -89,6 +89,13 @@ company claims. This is still presentation, not people simulation, personal loca
 facility, route, queue, workload, or new art authority. Generic `director`/`talent` atlas categories
 remain presentation roles and exact role-on-picture remains textual.
 
+The accepted Lot-Native Screenplay Review slice now applies the same doctrine to the first
+authoritative production decision that previously forced the player into a menu. A newly surfaced
+or already-pending review exposes its exact player-safe `Est.` assessment and current legal Accept
+or Rewrite actions in the living Lot, then repaints the exact Engine successor without unmounting
+the world. Writers’ Room remains an optional deep owner. Development/Writers remains semantic;
+this milestone does not invent a physical room, writer travel, human occupancy, or screenplay law.
+
 Pan, zoom, selection, management-scale legibility, human-story-scale discovery, and Operation
 Hollywood visual quality are protected. Zoom should change which story the player notices, not
 whether the game remains playable.
@@ -155,12 +162,55 @@ whether the game remains playable.
   six-person company for each legal managed picture, keeps both companies present, selects exact
   people and picture roles, switches by production ID, and removes released company presence
   without inventing personal location, work, movement, or staffing law.
+- World-First Lot-Native Screenplay Review Intervention V1 lets a player resolve a newly surfaced
+  or already-pending exact screenplay review from Development in the same mounted Lot, using only
+  Core-emitted Accept/Rewrite actions; Writers’ Room remains an optional exact deep handoff.
 
 ## Current world-first checkpoint
 
+World-First Lot-Native Screenplay Review Intervention V1 is accepted under frozen contract
+`22ee17c01b688a114b9803f7754af1be6477c655` and implementation
+`67a0bf333fc4863548fb13fbc2696fd002bd627d`. This documentation checkpoint closes the slice:
+
+- one strict closed selector joins the exact current Core screenplay decision, one exact
+  player-safe review card, and the exact Core-emitted Accept plus optional Rewrite actions;
+- newly surfaced cadence review and already-pending review retain distinct provenance, so a stale
+  receipt cannot downgrade into a pending action while current Core truth needs no invented receipt;
+- the live Lot presents exact title/ID, named writer, first/final state, qualified `Est.` score and
+  band, strengths, concerns, consequence, blockers, and every current legal action in Core order;
+- App captures and revalidates the complete rendered state/context/action, dispatches the existing
+  Script Projects chain exactly once, autosaves, and repaints the exact Engine successor in the
+  same mounted world;
+- Accept and base/Annex Rewrite successors are exact; valid Engine progress survives presentation
+  failure, and stale/malformed/replaced/deep-return paths never substitute another review;
+- renderer failure, delayed readiness, pointer/touch/keyboard/virtual-AT, neighboring-button blur,
+  compact/zoom/effective-200%, forced colors, grayscale, reduced motion, focus, and announcement
+  paths are exact or deliberately neutral; and
+- Writers’ Room remains an optional exact deep owner after the world actions, returning to fresh
+  current Lot truth without replaying cached facts or a consumed event receipt.
+
+The visual/product ruling is **KEEP**. The bounded action rail remains readable and operable at
+960×540, effective 200%, maximum world zoom, and 480×270/DSF2 without page-level horizontal
+overflow or covering the people/production rails. No renderer structure changed and no GPU
+certification is claimed.
+
+Final proof passed focused 6/6 files and 104/104 tests; UI 103/103 files and 1,334/1,334 tests;
+repository 190/190 files and 2,564/2,564 tests; governed D-16/D-17 10/10 files and 176/176 tests;
+Chromium 14/14; both TypeScript projects; and a 145-module production build with the existing
+large-chunk warning. Direct Core-action/SaveFile parity, protected paths/refs, manual browser play,
+and independent final P0/P1 re-audit passed.
+
+No Core, GameState, SaveFileV11, schema, migration, screenplay, assignment, facility, capacity,
+production, casting, release, construction, publicity, employment, economy, RNG, ledger, manifest,
+exporter, authored art, texture, Place, route, actor, draw, travel, occupancy, queue, workload,
+autonomy, or pathfinding behavior changed.
+
+## Prior world-first checkpoint — Active Production Company Presence V1
+
 World-First Active Production Company Presence & Picture Switching V1 is accepted under frozen
 contract `08e86abf0d166d2f79555f79a8afc10c80bc18f8` and implementation
-`2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a`. This documentation checkpoint closes the slice:
+`2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a`; closure authority is
+`9294fb65a59a1c438f7a7e9eb4dd820fe8c56231`:
 
 - the adapter atomically proves zero through two complete companies from raw active-production
   slots, exact operation identity, unique current Talent, and the existing ambiguity-aware
@@ -519,7 +569,13 @@ production and integration remain unauthorized.
   `08e86abf0d166d2f79555f79a8afc10c80bc18f8`
 - World-First Active Production Company Presence V1 implementation:
   `2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a`
-- World-First Active Production Company Presence V1 closure: this documentation checkpoint
+- World-First Active Production Company Presence V1 closure:
+  `9294fb65a59a1c438f7a7e9eb4dd820fe8c56231`
+- World-First Lot-Native Screenplay Review V1 contract:
+  `22ee17c01b688a114b9803f7754af1be6477c655`
+- World-First Lot-Native Screenplay Review V1 implementation:
+  `67a0bf333fc4863548fb13fbc2696fd002bd627d`
+- World-First Lot-Native Screenplay Review V1 closure: this documentation checkpoint
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -530,15 +586,16 @@ or arbitrary cash sink is authorized.
 
 ## Current highest-leverage evidence step
 
-Run a fresh several-minutes-on-Lot critical-experience audit against accepted complete-company
-behavior.
-Observe where an ordinary player next leaves, loses, or cannot act on authoritative world truth.
-Instrument that seam first; compare its ordinary-player value with current Engine, facility, person,
-production, and accepted-art authority; and freeze a bounded successor only if the evidence justifies
-it.
+Freeze a separate bounded World-First Lot-Native Casting Review Intervention V1 contract. Current
+Core authority already owns the current Casting review decision, exact project/session identity,
+two audition results for each of Lead, Antagonist, and Support, player-safe score/range/Fit/
+availability/strength/concern copy, consequence/blockers, and one acknowledgement action. Confirm
+those boundaries in the frozen record, then make that forced decision readable and actionable from
+the living Lot while preserving Casting Room as the deep owner.
 
-No successor feature is predeclared merely to continue the roadmap. In particular, do not force a
-construction catalogue, physical Stage 12, new facility, second Annex, fourth slot, personal
-autonomy, intermediate-week spectacle, or screen-first operations surface. The accepted truthful
-batch boundary remains: one Engine call, one final state, and no claim that skipped travel, queues,
-occupancy, construction labor, rehearsal, shooting, Post, publicity, or theatrical work was watched.
+Do not invent a physical Casting building, audition travel/performance, room occupancy, cast
+assignment, new action, construction catalogue, physical Stage 12, new facility, second Annex,
+fourth slot, personal autonomy, intermediate-week spectacle, or screen-first operations surface.
+The accepted truthful batch boundary remains one Engine call and one final state; it does not claim
+that skipped travel, queues, occupancy, construction labor, rehearsal, shooting, Post, publicity,
+or theatrical work was watched.

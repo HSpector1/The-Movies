@@ -56,17 +56,23 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   law.
 - **World-First Lot-Native Next-Event Cadence & Reaction V1:** ACCEPTED under contract `15e65c4`,
   implementation `eb6cef1`, and final replacement-input hardening / accepted behavior `aabb684`;
-  CLOSED by this documentation checkpoint. One existing App/Engine batch now produces one final
+  CLOSED at `2e32b05`. One existing App/Engine batch now produces one final
   exact-or-neutral Lot reaction, every non-release stop retains the mounted world/camera, and real
   releases retain their established deep chain.
 - **World-First Active Production Company Presence & Picture Switching V1:** ACCEPTED at
   implementation `2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a` under frozen contract `08e86ab` and
-  CLOSED by this documentation checkpoint. Every valid managed picture now embodies its exact
-  six-person company; two companies remain present and switch by production ID; hostile or
-  ambiguous accepted state withholds the expanded claim atomically.
-- **Next action:** run a fresh several-minutes-on-Lot audit from the accepted complete-company
-  checkpoint. Instrument the next ordinary-player world break before selecting or freezing a
-  successor; do not assume personal movement, assignment, workload, queue, or facility authority.
+  CLOSED at `9294fb65a59a1c438f7a7e9eb4dd820fe8c56231`. Every valid managed picture now embodies
+  its exact six-person company; two companies remain present and switch by production ID; hostile
+  or ambiguous accepted state withholds the expanded claim atomically.
+- **World-First Lot-Native Screenplay Review Intervention V1:** ACCEPTED at implementation
+  `67a0bf333fc4863548fb13fbc2696fd002bd627d` under frozen contract `22ee17c` and CLOSED by this
+  documentation checkpoint. Newly surfaced and already-pending screenplay reviews now expose exact
+  player-safe facts and Core-emitted Accept/Rewrite actions in the same mounted living Lot, with
+  Writers’ Room retained as an optional exact deep owner.
+- **Next action:** freeze a separate bounded World-First Lot-Native Casting Review Intervention V1
+  contract from existing Core audition-result and acknowledgement authority. Keep Casting semantic
+  unless accepted art authority proves a physical place; do not invent movement, occupancy,
+  audition performance, casting assignment, or new Engine law.
 
 ## Closed marathon milestones
 
@@ -96,7 +102,8 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | Exact Director call/nameplate maintenance | post-Gate world audit | `ff0e0fc` | proportional repair |
 | World-First Greenlight Production Formation V1 | `6ec10a6` | `345a892` | `7966603` |
 | World-First Lot-Native Next-Event Cadence V1 | `15e65c4` | `eb6cef1`, `aabb684` | `2e32b05` |
-| World-First Active Production Company Presence V1 | `08e86ab` | `2ef7f0a` | this documentation checkpoint |
+| World-First Active Production Company Presence V1 | `08e86ab` | `2ef7f0a` | `9294fb6` |
+| World-First Lot-Native Screenplay Review V1 | `22ee17c` | `67a0bf3` | this documentation checkpoint |
 
 ## Product result so far
 
@@ -184,6 +191,14 @@ forced colors, reduced motion, maximum zoom, effective 200%, renderer failure, a
 remain legible and operable. Generic Talent art is still presentation-only and no personal place,
 destination, travel, occupancy, worker, route, queue, workload, or new facility is claimed.
 
+The first screenplay decision now stays in the living Lot. A strict current-review context presents
+the exact named writer, qualified `Est.` assessment, strengths, concerns, consequence, blockers,
+and every Core-emitted Accept/optional Rewrite action for either a newly surfaced event or an
+already-pending Development decision. The accepted action repaints the exact Ready or Rewriting
+successor in the same mounted world; Writers’ Room is supporting depth, not the required primary
+action surface. Base Development remains semantic and the Annex becomes physical only under an
+independently proven real Annex reservation.
+
 Deep non-modal screens still unmount and later remount the Lot. Same-mounted continuity is the law
 for ordinary non-release event stops, not a claim that every supporting surface preserves the same
 Phaser instance. Skipped weeks are one synchronous Engine batch and one final snapshot; the game
@@ -207,10 +222,17 @@ Independent audit is clean after every finding was repaired. Fresh quiescent 50/
 are retained as bounded evidence, not GPU certification; normal verification gates them behind
 `PROJECT_STUDIO_PERFORMANCE_EVIDENCE`.
 
-The next action is evidence-led: repeat the Owner's several-minutes-on-Lot test against this
-accepted complete-company world, instrument the next smallest truthful break, and freeze a bounded
-contract only if ordinary-player value and current authority justify it. Do not invent a successor
-merely to continue the roadmap.
+Final screenplay-review proof passed focused 6/6 files and 104/104 tests; UI 103/103 files and
+1,334/1,334 tests; repository 190/190 files and 2,564/2,564 tests; governed D-16/D-17 176/176;
+Chromium 14/14; both TypeScript projects; a 145-module build; exact direct-action/SaveFile parity;
+protected-path/ref gates; manual browser play; and clean independent final P0/P1 re-audit. No Core,
+save, simulation, economy, art, manifest/exporter, physical-place, travel, occupancy, queue,
+workload, autonomy, pathfinding, or renderer-draw behavior changed.
+
+The next action remains evidence-led: freeze a bounded Casting review contract around the already
+owned current decision, six audition results, player-safe comparison facts, and one acknowledgement
+action. Do not turn that evidence into a physical Casting building, performed auditions, travel,
+room occupancy, cast assignment, or any other authority Core and accepted art do not own.
 
 ## Governing status
 

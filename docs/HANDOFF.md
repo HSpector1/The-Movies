@@ -1,10 +1,62 @@
 # Project: Studio — Engineering Handoff
 
-> ## 🎬 2026-08-15 — CURRENT: ACTIVE PRODUCTION COMPANY PRESENCE V1 CLOSED
+> ## 🎬 2026-08-15 — CURRENT: LOT-NATIVE SCREENPLAY REVIEW INTERVENTION V1 CLOSED
+>
+> Work continues on `operation-hollywood-autonomous-marathon`. Frozen contract authority is
+> `22ee17c01b688a114b9803f7754af1be6477c655`; accepted implementation authority is
+> `67a0bf333fc4863548fb13fbc2696fd002bd627d`. This documentation checkpoint closes the slice.
+>
+> **THE STUDIO LOT IS THE PRIMARY GAME SURFACE. MANAGEMENT UI SUPPORTS THE WORLD. IT DOES NOT
+> REPLACE THE WORLD.** A newly surfaced or already-pending screenplay review now exposes its exact
+> named writer, first/final state, perceived `Est.` assessment, player-safe strengths/concerns,
+> consequence, blockers, and Core-emitted Accept plus optional Rewrite actions in the living Lot.
+> App revalidates the complete rendered/latest state, strict context/action, and event ownership,
+> dispatches the existing Script Projects action once, autosaves, and repaints the exact Engine
+> successor in the same mounted world.
+>
+> Event receipt and pending Core decision remain distinct provenance. Strict closed validation
+> rejects duplicate, sparse, extra/symbol-key, stale, same-title, malformed, or replaced authority
+> without choosing another project. Valid Engine progress survives presentation failure. Accept
+> proves Ready with no week/cash/capacity/RNG use; Rewrite proves the same writer, exact due week,
+> Development & Casting facility/slot, and one-week consequence. Only a real independently proven
+> Annex reservation makes the physical Annex Working; the base facility remains semantic.
+>
+> **Open Writers’ Room details** remains optional supporting depth after the native actions.
+> Navigation revalidates the exact project and direct Back returns to a freshly rebuilt current Lot,
+> not necessarily the same Phaser instance or camera. Development/Writers is semantic-only: no
+> physical room, writer travel, personal location, human occupancy, queue, or workload is claimed.
+>
+> Final proof: focused **6/6 files, 104/104 tests**; UI **103/103 files, 1,334/1,334 tests**;
+> repository **190/190 files, 2,564/2,564 tests**; governed D-16/D-17 **10/10 files, 176/176
+> tests**; Chromium **14/14**; both TypeScript projects; production build **145 modules** with the
+> existing chunk warning; direct-action/save byte parity; compact, effective-200%, grayscale,
+> forced-colors, reduced-motion, renderer, input, protected-path/ref, manual-play, and independent
+> P0/P1 gates all pass. No GPU/FPS certification is claimed.
+>
+> No Core, GameState, SaveFileV11, schema, migration, screenplay, facility, production, casting,
+> economy, RNG, ledger, manifest, exporter, authored art, renderer structure/draw, travel,
+> occupancy, queue, workload, autonomy, or pathfinding behavior changed. The next evidence-backed
+> step is a separately frozen bounded Lot-Native Casting Review contract; Hollywood has no accepted
+> physical Casting building, so the destination remains semantic.
+>
+> Protected anchors remain untouched: `main` =
+> `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =
+> `35d42687a410a621becf1df35c75986657f8c44e`; Operation Hollywood bridge =
+> `623b8b2a80e9c6b85304eaa2a338b6045e8f6b21`. Nothing was merged, pushed, or tagged.
+>
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+>
+> Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
+> dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
+> and formal G12 timing remain open. No financing, loans, bailouts, restructuring, failure ladder,
+> hard bankruptcy, or arbitrary cash sink is authorized.
+
+> ## 🎬 2026-08-15 — PRIOR: ACTIVE PRODUCTION COMPANY PRESENCE V1 CLOSED
 >
 > Work continues on `operation-hollywood-autonomous-marathon`. Frozen contract authority is
 > `08e86abf0d166d2f79555f79a8afc10c80bc18f8`; accepted implementation authority is
-> `2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a`. This documentation checkpoint closes the slice.
+> `2ef7f0aa7cb13c52fde9b3d64a8d384a6f79b56a`; exact closure authority is
+> `9294fb65a59a1c438f7a7e9eb4dd820fe8c56231`.
 >
 > Every legal managed picture now embodies exactly Writer, Director, Lead, Antagonist, Support,
 > and Production/Craft Lead as named selectable Lot inhabitants. The adapter proves zero through

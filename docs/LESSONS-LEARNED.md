@@ -3490,3 +3490,79 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   at 1280×720, and the strip at 480×270 without horizontal overflow.
 - **Pattern:** compact status strip + owned command layout + internally scrolling context.
   **Anti-pattern:** compressing the world itself to compensate for unrelated flow chrome.
+
+---
+
+# World-First Lot-Native Screenplay Review Intervention V1 — IMPLEMENTATION CLOSED
+
+> Contract `22ee17c01b688a114b9803f7754af1be6477c655`; implementation
+> `67a0bf333fc4863548fb13fbc2696fd002bd627d`; closure by the documentation checkpoint containing
+> this record.
+
+## FQ. A world-native decision should project Core's closed legal menu, not reconstruct it — **BR**
+
+- **Risk:** a Lot panel infers Rewrite availability from rewrite count, writer employment,
+  capacity, or blockers and silently becomes a second screenplay rules engine.
+- **Resolution / fastest proof:** join the one current Core decision to one exact player-safe card
+  and the exact Core-emitted actions. Require exact own keys, canonical arrays, unique identity,
+  one Accept, and at most one Rewrite in Core order. Reject sparse, duplicate, extra/symbol-key, or
+  disagreeing inputs as a whole.
+- **Pattern:** strict current read model + Core-emitted legal menu. **Anti-pattern:** convenient UI
+  inference over several individually plausible fields.
+
+## FR. A transient event receipt and a current pending decision are different authorities — **IT**
+
+- **Risk:** requiring a receipt makes a loaded pending decision unplayable, while falling back from
+  a malformed event receipt to current state lets a stale gesture acquire fresh authority.
+- **Resolution / fastest proof:** newly surfaced review requires the complete receipt and exact App
+  event session; loaded/current review requires only the exact current Core decision and card. Do
+  not downgrade the first provenance into the second during one gesture. Test load, unchanged
+  return, stale receipt, malformed receipt, and same-title replacement separately.
+- **Pattern:** provenance-specific entry, shared strict current context. **Anti-pattern:** treating
+  “same project ID” as transferable authority between event and current-state paths.
+
+## FS. An exact-once gesture boundary must capture the whole rendered decision — **BR**
+
+- **Risk:** binding only a project ID or action kind lets delayed input dispatch against a newer
+  assessment, action menu, receipt, or whole-studio state. A focused button's blur handler can also
+  cancel a legitimate pointer click on its neighboring action.
+- **Resolution / fastest proof:** capture exact rendered GameState identity, complete review
+  context, exact action, and optional receipt; rebuild and field-compare the latest context before
+  dispatch. Give each button its own pointer-gesture owner so crossing from focused Accept to
+  Rewrite cancels the old gesture without cancelling the new button's valid click.
+- **Pattern:** full-state/context capture + per-control gesture ownership. **Anti-pattern:** one
+  panel-global “armed” flag or ID-only stale check.
+
+## FT. Presentation invalidation must consume canonical ownership, never a malformed token — **BR**
+
+- **Risk:** malformed receipt cleanup calls a generic clear with attacker/stale identity and either
+  fails to clear the current broken session or clears a newer valid one.
+- **Resolution / fastest proof:** identify the canonical current App session by the exact rendered
+  state first, then consume only that session. A stale or malformed presented token has no power to
+  clear another session. Prove newer-session survival and exact current-session demotion.
+- **Pattern:** current owner decides invalidation. **Anti-pattern:** presentation payload decides
+  which authority record to destroy.
+
+## FU. A valid Engine successor must survive failed successor presentation — **IT**
+
+- **Risk:** strict post-action rendering rejects a malformed or temporarily unprovable successor
+  and the UI accidentally rolls back, re-dispatches, or reports the original decision as current.
+- **Resolution / fastest proof:** synchronously accept/autosave the one Engine successor first.
+  Build exact Ready/Rewriting feedback second; if that proof fails, retain state and demote only to
+  neutral success. Test direct-action byte parity, malformed presentation, renderer failure, and
+  deep return.
+- **Pattern:** authoritative transaction first, optional strict witness second. **Anti-pattern:**
+  making presentation validation part of Core transaction commit.
+
+## FV. Action-forward world rails need bounded layout, focus scrolling, and one stable announcer — **MG**
+
+- **Risk:** long decision copy makes the panel cover living-world rails, programmatic focus lands
+  outside a compact viewport, low-contrast details disappear, or conditionally mounted live regions
+  miss the announcement.
+- **Resolution / fastest proof:** constrain the rail inside its stage lane, scroll the owning panel
+  before focusing its heading, keep world actions ahead of the deep action, use compliant normal
+  and forced-color text, and keep one polite live region mounted throughout the interaction.
+  Verify 960×540, effective 200%, 480×270/DSF2, grayscale, forced colors, and real pointer hit tests.
+- **Pattern:** internally scrolling action owner + visible focus + persistent announcement.
+  **Anti-pattern:** document scrolling, visual-only action order, or a live region created after the
+  message exists.

@@ -592,3 +592,67 @@ Owner rulings remain the authority when a summary here conflicts with them.
 - Promoted no automatic successor. Resume the several-minutes-on-Lot test from the accepted
   complete-company checkpoint, instrument the next watched-work break, and freeze only the smallest
   evidence-backed authority slice.
+
+## 2026-08-15 — Lot-native screenplay review audit and contract freeze
+
+- Resumed the Owner's several-minutes-on-Lot test from exact Active Production Company closure
+  `9294fb65a59a1c438f7a7e9eb4dd820fe8c56231` without restarting the campaign.
+- Found the next bounded forced-menu break: accepted Lot-native cadence already stops at an exact
+  screenplay review, but the player had to open Writers’ Room even though Core already emitted the
+  complete player-safe review card and legal Accept/optional final-Rewrite actions.
+- Froze `docs/WORLD-FIRST-LOT-NATIVE-SCREENPLAY-REVIEW-INTERVENTION-V1-CONTRACT.md` at
+  `22ee17c01b688a114b9803f7754af1be6477c655`. The contract separates a newly surfaced event receipt
+  from an already-pending current Core decision and requires one strict closed read model for both.
+- Kept App as sole state/session/autosave/dispatch owner and `runScriptProjectAction` as the exact
+  action chain. The Lot may project only current Core-emitted `acceptScript` and optional
+  `requestScriptRewrite`; it may not infer legality from rewrite count, capacity, employment, or
+  blockers.
+- Required player-safe `Est.` assessment, writer, strengths/concerns, consequence, blockers, and
+  Core action order while keeping actual strength, hidden skill/ceiling, and RNG inputs private.
+- Preserved Development/Writers as a semantic destination. No physical Writers building, worker,
+  route, personal travel, room/human occupancy, queue, workload, second simulation, new art, save,
+  Engine, or economy law was authorized.
+- Preserved exact protected refs and **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS
+  REMAIN OPEN**. No merge, push, tag, financing, loan, bailout, restructuring, failure ladder,
+  hard bankruptcy, or arbitrary cash sink was authorized.
+
+## 2026-08-15 — World-first Lot-native screenplay review intervention closes
+
+- Delivered accepted implementation `67a0bf333fc4863548fb13fbc2696fd002bd627d` under frozen
+  contract `22ee17c01b688a114b9803f7754af1be6477c655`; this documentation checkpoint closes the
+  bounded interaction/navigation milestone with a **KEEP** ruling.
+- Added one strict `currentLotScriptReviewContext` that atomically proves the current Core decision,
+  exact player-safe card, named writer, qualified `Est.` assessment, consequence/blockers, and
+  exact Core-ordered Accept plus optional Rewrite actions. Sparse, duplicate, extra/symbol-key,
+  same-title, malformed, or disagreeing authority fails neutral.
+- Made both paths playable from the living Lot: newly surfaced cadence review retains exact receipt
+  and App-session ownership; already-pending review opens from semantic Development without an
+  invented receipt. Neither path can downgrade, substitute, or borrow the other's provenance.
+- App captures and revalidates the complete rendered state/context/action, consumes exact event
+  ownership before dispatch, calls the existing Script Projects chain once, autosaves, and repaints
+  the exact Engine successor in the same mounted Lot.
+- Proved Accept first/final and Rewrite base/Annex successors, byte-identical direct-action parity,
+  neutral success after presentation failure, exact rejection restoration, stale/replaced/malformed
+  closure, load/import, same-title no-substitution, and exact deep return.
+- Kept Writers’ Room optional after native actions and revalidated its focused handoff. Deep return
+  rebuilds fresh current Lot truth and does not claim the same Phaser instance/camera or replay a
+  consumed receipt. Base Development remains semantic; only an independently proven Annex
+  reservation selects the physical Annex Working state.
+- Hardened pointer/mouse/touch/keyboard/virtual-AT, repeat/cross-key, neighboring-button blur,
+  visibility/modal, renderer delay/failure/recreation, malformed-session, compact/effective-200%,
+  grayscale, forced-colors, reduced-motion, focus-scroll, and polite-announcement lifetimes.
+- Closed proof with focused 6/6 files and 104/104 tests; UI 103/103 and 1,334/1,334; repository
+  190/190 and 2,564/2,564; governed D-16/D-17 10/10 and 176/176; Chromium 14/14; both TypeScript
+  projects; a 145-module build with the existing chunk warning; direct-action/save byte parity;
+  exact protected paths/refs; manual browser play; and independent P0/P1 re-audit clean.
+- Changed no Core, GameState, SaveFileV11, schema, migration, screenplay law, assignment, facility,
+  production, casting, economy, RNG, ledger, manifest, exporter, authored art, renderer structure/
+  draw, travel, human occupancy, queue, workload, autonomy, or pathfinding behavior. No GPU/FPS
+  certification is claimed and no threshold was relaxed.
+- Promoted the next evidence-backed contract target: **World-First Lot-Native Casting Review
+  Intervention V1**. Core already owns six persisted audition results and one acknowledgement
+  action. Freeze that boundary separately; keep Hollywood Casting semantic and do not invent
+  performed auditions, travel, room occupancy, cast assignment, new action, facility, art, or law.
+- Preserved every named residual under **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS
+  REMAIN OPEN**. Nothing was merged, pushed, tagged, financed, bailed out, restructured, or assigned
+  an arbitrary cash sink.

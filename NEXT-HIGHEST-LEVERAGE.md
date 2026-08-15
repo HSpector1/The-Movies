@@ -185,8 +185,8 @@ changed.
 
 ## Closed — World-First Active Production Company Presence & Picture Switching V1
 
-Contract `08e86ab` and implementation `2ef7f0a` close the complete active-picture company and exact
-two-picture switching seam by this documentation checkpoint. The adapter proves each company
+Contract `08e86ab`, implementation `2ef7f0a`, and closure `9294fb6` close the complete
+active-picture company and exact two-picture switching seam. The adapter proves each company
 atomically from raw active Production slots, unique current Talent, exact operation identity, and
 the existing whole-studio assignment gate. Save acceptance alone is never treated as action-time
 legality proof.
@@ -213,14 +213,44 @@ gates; and clean independent audit. No Core/GameState/SaveFileV11, assignment, p
 employment, release, facility, economy, RNG, art, texture, personal location, route, queue,
 workload, autonomy, pathfinding, or renderer-draw law changed.
 
-## Next audit — the next smallest watched-work break
+## Closed — World-First Lot-Native Screenplay Review Intervention V1
 
-Resume the Owner's several-minutes-on-Lot test from this accepted complete-company world. Observe
-where a player next loses the ability to understand or act on current production work. Instrument
-before designing. In particular, company presence does not authorize personal destinations,
-phase-specific workplaces, movement, workload, assignment, queues, occupancy, or production labor.
-Freeze a successor only if current Engine truth and accepted physical art support it honestly; a
-negative result is valid and should move the marathon to the next evidence-backed seam.
+Contract `22ee17c` and implementation `67a0bf3` close the first bounded forced production-decision
+stop by this documentation checkpoint. A newly surfaced or already-pending screenplay review now
+exposes exact player-safe `Est.` assessment, writer, consequence, blockers, and Core-emitted Accept
+plus optional Rewrite actions in the living Lot. App revalidates and dispatches the existing action
+once, autosaves the exact Ready/Rewriting successor, and repaints the same mounted world.
+
+The event receipt and current pending decision remain distinct authorities. Malformed, stale,
+duplicate, extra-key, same-title, replacement, renderer, deep-return, and input-tail cases fail
+neutral without rejecting valid Engine progress or substituting another review. Writers’ Room
+remains optional supporting depth and returns to fresh current Lot truth; Development/Writers is
+semantic-only and no physical room, writer travel, or human occupancy is claimed.
+
+Final proof passed focused 104/104, complete UI 1,334/1,334, repository 2,564/2,564, governed
+D-16/D-17 176/176, Chromium 14/14, both TypeScript projects, a 145-module build, direct-action/save
+byte parity, compact/accessibility/renderer paths, protected gates, manual play, and independent
+final re-audit. No Core/save/simulation/economy/art/draw behavior changed.
+
+## Next contract — World-First Lot-Native Casting Review Intervention V1
+
+Freeze a separate bounded contract before implementation. Current Core authority already owns one
+current Casting review decision, exact session/project/title/writer identity, two persisted audition
+results for each of Lead, Antagonist, and Support, player-safe estimated score/range, Fit,
+availability, strengths, concerns, blockers/consequence, and one legal acknowledgement action.
+This is the next forced menu stop after screenplay review and is the smallest current seam that
+makes production preparation more playable from the living Lot.
+
+The contract should require the exact six audition rows in canonical role/result order, all current
+player-safe facts, one App-owned `acknowledgeCastingSession` dispatch, exact review → complete
+successor, direct action/save parity, same-mounted action repaint, optional exact Casting Room deep
+handoff, fresh return, no substitution, and the full stale/malformed/replacement/input/renderer/
+responsive/accessibility boundary proven by the screenplay pattern.
+
+Hollywood has no accepted physical Casting building. Keep the destination semantic and do not
+claim performed auditions, people travel, personal location, room occupancy, queues, workload,
+cast assignment, new candidates, new actions, or new Core/save/art/economy law. If strict authority
+cannot prove every current row and the sole action, fail neutral and retain the existing deep route.
 
 ## Closed parallel evidence lane
 
