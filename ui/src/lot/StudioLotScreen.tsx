@@ -608,7 +608,10 @@ export function StudioLotScreen({
   const nextEventVirtualReleaseEpochRef = useRef(0)
   const nextEventSuppressPhysicalStartRef = useRef(false)
   const nextEventPhysicalReleaseEpochRef = useRef(0)
-  const nextEventPhysicalPrimaryRequiredRef = useRef(false)
+  // A newly mounted host may be the successor of a full-studio replacement. Until this exact
+  // control receives a fresh primary PointerEvent, reject mouse/touch compatibility starts that
+  // could be the delayed tail of a gesture captured by the unmounted studio.
+  const nextEventPhysicalPrimaryRequiredRef = useRef(true)
   const nextEventWasSuspendedRef = useRef(worldInputSuspended)
   const nextEventDocumentWasHiddenRef = useRef(false)
   const companionButtonRefs = useRef<Partial<Record<BuildingId, HTMLButtonElement | null>>>({})

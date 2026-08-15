@@ -78,6 +78,7 @@ const renderer = vi.hoisted(() => {
     onActivity?: (text: string) => void
   }
   const instances: FakeView[] = []
+  const controls = { deferReady: false }
 
   class FakeView {
     readonly options: Options
@@ -92,7 +93,7 @@ const renderer = vi.hoisted(() => {
       this.options = options
       this.snapshots.push(options.snapshot)
       instances.push(this)
-      queueMicrotask(() => options.onReady?.())
+      if (!controls.deferReady) queueMicrotask(() => options.onReady?.())
     }
 
     setSnapshot(snapshot: Snapshot) {
@@ -150,6 +151,9 @@ const renderer = vi.hoisted(() => {
     fail() {
       this.options.onHollywoodFailure?.()
     }
+    ready() {
+      this.options.onReady?.()
+    }
     emitActivity(text: string) {
       this.options.onActivity?.(text)
     }
@@ -158,7 +162,7 @@ const renderer = vi.hoisted(() => {
     }
   }
 
-  return { FakeView, instances }
+  return { FakeView, instances, controls }
 })
 
 vi.mock('./StudioLotView.ts', () => ({ StudioLotView: renderer.FakeView }))
@@ -458,6 +462,7 @@ beforeEach(() => {
   resetLotStageAssignment()
   resetLotSelectedBuilding()
   renderer.instances.length = 0
+  renderer.controls.deferReady = false
   resetAdapterProbe()
   setStudioLotOverviewOverride(true)
   setOperationHollywoodOverride(true)
@@ -472,6 +477,7 @@ afterEach(() => {
   resetLotStageAssignment()
   resetLotSelectedBuilding()
   renderer.instances.length = 0
+  renderer.controls.deferReady = false
   resetAdapterProbe()
   vi.restoreAllMocks()
   vi.unstubAllGlobals()
@@ -1555,6 +1561,7 @@ describe('World-First Lot-Native Next-Event Cadence V1 — App/Lot integration',
     )
     await waitFor(() => expect(releasesHeading).toHaveFocus())
     fireEvent.click(screen.getByTestId('open-saves'))
+    renderer.controls.deferReady = true
     fireEvent.change(await screen.findByTestId('saves-import-text'), {
       target: { value: exportSaveJson(replacement) },
     })
@@ -1577,11 +1584,19 @@ describe('World-First Lot-Native Next-Event Cadence V1 — App/Lot integration',
       ).toHaveTextContent('Development & Casting Annex is Operational.'),
     )
 
+    const replacementControl = screen.getByTestId('lot-sim-to-next-event')
+    expect(screen.getByTestId('lot-canvas-loading')).toBeInTheDocument()
+    fireEvent.mouseDown(replacementControl)
+    fireEvent.click(replacementControl, { detail: 1 })
+    fireEvent.touchStart(replacementControl)
+    fireEvent.click(replacementControl, { detail: 1 })
+    expect(adapterProbe.calls).toHaveLength(1)
+
+    act(() => renderer.instances[1]!.ready())
     await waitFor(() =>
       expect(screen.queryByTestId('lot-canvas-loading')).not.toBeInTheDocument(),
     )
     await new Promise((resolve) => window.setTimeout(resolve, 5))
-    const replacementControl = screen.getByTestId('lot-sim-to-next-event')
     fireEvent.mouseDown(replacementControl)
     fireEvent.click(replacementControl, { detail: 1 })
     expect(adapterProbe.calls).toHaveLength(1)
