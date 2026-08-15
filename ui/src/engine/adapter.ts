@@ -210,6 +210,8 @@ import type {
   LotAnnexWork,
   LotAnnexWorkOccupant,
   LotGateHiringMarket,
+  LotProductionCompanyMember,
+  LotProductionCompanyRole,
   ProductionOperationsState,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
 import { ALL_BUILDING_IDS } from '../lot/snapshot/StudioLotSnapshot.ts'
@@ -5364,6 +5366,153 @@ function managedCastingLotCue(
   return null
 }
 
+const LOT_PRODUCTION_COMPANY_ROLE_ORDER = [
+  'writer',
+  'director',
+  'lead',
+  'antagonist',
+  'support',
+  'craft',
+] as const satisfies readonly LotProductionCompanyRole[]
+
+export type ManagedProductionCompanyProjection = {
+  membersByProductionId: ReadonlyMap<string, readonly LotProductionCompanyMember[]>
+  people: LotPersonState[]
+}
+
+/**
+ * Prove the complete current company for the whole managed production set. This
+ * intentionally does not repair hostile state or consult frozen participants:
+ * one failed identity/assignment join removes the additive company claim for
+ * every picture while the older Director/Lead projection remains available.
+ */
+export function managedProductionCompanyProjection(
+  state: GameState,
+  operations: readonly ProductionOperationsState[],
+): ManagedProductionCompanyProjection | null {
+  const productions = state.studio.activeProductions
+  if (state.operations.mode !== 'managed' || productions.length > 2) return null
+
+  const productionIds = new Set<string>()
+  for (const production of productions) {
+    if (production.id.length === 0 || productionIds.has(production.id)) return null
+    productionIds.add(production.id)
+  }
+  if (operations.length !== productions.length) return null
+
+  const operationsByProductionId = new Map<string, ProductionOperationsState>()
+  for (const operation of operations) {
+    if (
+      operation.productionId.length === 0 ||
+      operationsByProductionId.has(operation.productionId) ||
+      !productionIds.has(operation.productionId)
+    ) {
+      return null
+    }
+    operationsByProductionId.set(operation.productionId, operation)
+  }
+
+  const membersByProductionId = new Map<
+    string,
+    readonly LotProductionCompanyMember[]
+  >()
+  const people: LotPersonState[] = []
+  const globallyAssignedTalentIds = new Set<string>()
+  const canonicalProductions = [...productions].sort((a, b) => comparePlainId(a.id, b.id))
+
+  for (const production of canonicalProductions) {
+    const operation = operationsByProductionId.get(production.id)
+    const title = productionTitle(state, production)
+    if (operation === undefined || operation.productionId !== production.id || operation.title !== title) {
+      return null
+    }
+    if (production.craftIds.length !== 1) return null
+
+    const memberSlots: ReadonlyArray<{
+      productionRole: LotProductionCompanyRole
+      talentId: string
+      presentationRole: LotProductionCompanyMember['presentationRole']
+    }> = [
+      { productionRole: 'writer', talentId: production.writerId, presentationRole: 'talent' },
+      { productionRole: 'director', talentId: production.directorId, presentationRole: 'director' },
+      { productionRole: 'lead', talentId: production.cast.lead, presentationRole: 'talent' },
+      { productionRole: 'antagonist', talentId: production.cast.antagonist, presentationRole: 'talent' },
+      { productionRole: 'support', talentId: production.cast.support, presentationRole: 'talent' },
+      { productionRole: 'craft', talentId: production.craftIds[0]!, presentationRole: 'talent' },
+    ]
+    if (
+      memberSlots.length !== LOT_PRODUCTION_COMPANY_ROLE_ORDER.length ||
+      memberSlots.some(
+        (member, index) => member.productionRole !== LOT_PRODUCTION_COMPANY_ROLE_ORDER[index],
+      )
+    ) {
+      return null
+    }
+
+    const pictureTalentIds = new Set<string>()
+    const members: LotProductionCompanyMember[] = []
+    for (const memberSlot of memberSlots) {
+      if (
+        memberSlot.talentId.length === 0 ||
+        pictureTalentIds.has(memberSlot.talentId) ||
+        globallyAssignedTalentIds.has(memberSlot.talentId)
+      ) {
+        return null
+      }
+
+      const currentTalent = state.talent.filter(
+        (candidate) => candidate.id === memberSlot.talentId,
+      )
+      if (currentTalent.length !== 1) return null
+      const talent = currentTalent[0]!
+      const assignment = talentAssignmentContext(state, talent.id)
+      if (
+        assignment.kind !== 'assigned' ||
+        assignment.assignment.kind !== 'production' ||
+        assignment.assignment.assignmentId !== production.id ||
+        assignment.assignment.label !== title
+      ) {
+        return null
+      }
+
+      pictureTalentIds.add(talent.id)
+      globallyAssignedTalentIds.add(talent.id)
+      members.push({
+        productionRole: memberSlot.productionRole,
+        slotIndex: 0,
+        talentId: talent.id,
+        name: talent.name,
+        presentationRole: memberSlot.presentationRole,
+      })
+    }
+
+    const director = members[1]!
+    const lead = members[2]!
+    if (
+      operation.directorId !== director.talentId ||
+      operation.directorName !== director.name ||
+      operation.leadId !== lead.talentId ||
+      operation.leadName !== lead.name
+    ) {
+      return null
+    }
+
+    membersByProductionId.set(production.id, members)
+    for (const member of members) {
+      people.push({
+        id: member.talentId,
+        name: member.name,
+        role: member.presentationRole,
+        authority: 'active-production',
+        productionId: production.id,
+        productionTitle: title,
+      })
+    }
+  }
+
+  return { membersByProductionId, people }
+}
+
 /**
  * Project the authoritative GameState into the lot presentation snapshot. Pure,
  * deterministic, non-mutating. The single source the Studio Lot renders from.
@@ -5429,7 +5578,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
     state.operations.workflows.map((workflow) => [workflow.productionId, workflow]),
   )
 
-  const productionOperations: ProductionOperationsState[] = prods.map((production, index) => {
+  const baseProductionOperations: ProductionOperationsState[] = prods.map((production, index) => {
     const card = boardByProductionId.get(production.id)
     if (card === undefined) {
       throw new Error(`studioLotSnapshot: productionId "${production.id}" has no Production Board card`)
@@ -5479,6 +5628,20 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
     }
   })
 
+  const companyProjection = managedProductionCompanyProjection(
+    state,
+    baseProductionOperations,
+  )
+  const productionOperations =
+    companyProjection === null
+      ? baseProductionOperations
+      : [...baseProductionOperations]
+          .sort((a, b) => comparePlainId(a.productionId, b.productionId))
+          .map((operation) => ({
+            ...operation,
+            companyMembers: companyProjection.membersByProductionId.get(operation.productionId)!,
+          }))
+
   const activeProductions: ProductionCard[] =
     state.operations.mode === 'legacy'
       ? prods.slice(0, STAGE_IDS.length).map((production, index) =>
@@ -5520,34 +5683,65 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
           ]
         })
 
-  // Managed people are only the real director/lead of an authoritative active production;
-  // an empty studio is honestly empty. Legacy retains its established presentation fallback.
+  // A fully proven managed set projects every exact current company member. If
+  // the additive proof fails atomically, preserve the independently safe
+  // Director/Lead fallback. Legacy retains its established roster fallback.
   const peopleById = new Map<string, LotPersonState>()
-  const peopleProductions =
-    state.operations.mode === 'managed' ? prods : prods.slice(0, STAGE_IDS.length)
-  for (const production of peopleProductions) {
-    const title = findConcept(state, production.conceptId)?.title ?? production.conceptId
-    const director = state.talent.find((person) => person.id === production.directorId)
-    if (director) {
-      peopleById.set(director.id, {
-        id: director.id,
-        name: director.name,
-        role: 'director',
-        authority: 'active-production',
-        productionId: production.id,
-        productionTitle: title,
-      })
+  if (state.operations.mode === 'managed' && companyProjection !== null) {
+    for (const person of companyProjection.people) peopleById.set(person.id, person)
+  } else if (state.operations.mode === 'managed') {
+    for (const production of [...prods].sort((a, b) => comparePlainId(a.id, b.id))) {
+      const title = findConcept(state, production.conceptId)?.title ?? production.conceptId
+      for (const [talentId, role] of [
+        [production.directorId, 'director'],
+        [production.cast.lead, 'talent'],
+      ] as const) {
+        const currentTalent = state.talent.filter((person) => person.id === talentId)
+        const assignment = talentAssignmentContext(state, talentId)
+        if (
+          currentTalent.length !== 1 ||
+          assignment.kind !== 'assigned' ||
+          assignment.assignment.kind !== 'production' ||
+          assignment.assignment.assignmentId !== production.id ||
+          assignment.assignment.label !== title ||
+          peopleById.has(talentId)
+        ) continue
+        const talent = currentTalent[0]!
+        peopleById.set(talent.id, {
+          id: talent.id,
+          name: talent.name,
+          role,
+          authority: 'active-production',
+          productionId: production.id,
+          productionTitle: title,
+        })
+      }
     }
-    const lead = state.talent.find((person) => person.id === production.cast.lead)
-    if (lead) {
-      peopleById.set(lead.id, {
-        id: lead.id,
-        name: lead.name,
-        role: 'talent',
-        authority: 'active-production',
-        productionId: production.id,
-        productionTitle: title,
-      })
+  } else {
+    for (const production of prods.slice(0, STAGE_IDS.length)) {
+      const title = findConcept(state, production.conceptId)?.title ?? production.conceptId
+      const director = state.talent.find((person) => person.id === production.directorId)
+      if (director) {
+        peopleById.set(director.id, {
+          id: director.id,
+          name: director.name,
+          role: 'director',
+          authority: 'active-production',
+          productionId: production.id,
+          productionTitle: title,
+        })
+      }
+      const lead = state.talent.find((person) => person.id === production.cast.lead)
+      if (lead) {
+        peopleById.set(lead.id, {
+          id: lead.id,
+          name: lead.name,
+          role: 'talent',
+          authority: 'active-production',
+          productionId: production.id,
+          productionTitle: title,
+        })
+      }
     }
   }
   if (state.operations.mode === 'legacy') {

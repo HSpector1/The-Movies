@@ -340,7 +340,7 @@ test('selected visitor holds exact frozen structural cost after a fresh 120 + 24
   await seedGateLot(page, { identityProof: true })
   const beforeBytes = await activeSessionBytes(page)
   const performance = page.getByTestId('hollywood-performance')
-  await expectStructuralTelemetry(performance, { objects: 34, actors: 15 })
+  await expectStructuralTelemetry(performance, { objects: 42, actors: 19 })
   const initialWindow = Number(await performance.getAttribute('data-telemetry-window'))
 
   await activateSemanticGate(page)
@@ -353,7 +353,7 @@ test('selected visitor holds exact frozen structural cost after a fresh 120 + 24
     message: 'visitor selection must begin a visibly fresh sustained telemetry window',
     timeout: 5_000,
   }).toBe(true)
-  await expectStructuralTelemetry(performance, { objects: 35, actors: 16 })
+  await expectStructuralTelemetry(performance, { objects: 43, actors: 20 })
   expect(await activeSessionBytes(page)).toBe(beforeBytes)
   await page.screenshot({ path: join(outDir, '07-selected-visitor-structural-headless.png') })
   expect(runtimeErrors, runtimeErrors.join('\n')).toEqual([])
@@ -373,7 +373,7 @@ test('GPU evidence run meets every frozen selected-visitor wall-clock budget', a
   await expect.poll(async () => Number(
     await performance.getAttribute('data-telemetry-window'),
   )).toBeGreaterThan(initialWindow)
-  await expectStructuralTelemetry(performance, { objects: 35, actors: 16 })
+  await expectStructuralTelemetry(performance, { objects: 43, actors: 20 })
 
   const metric = async (name: string) => Number(await performance.getAttribute(name))
   expect(await metric('data-fps')).toBeGreaterThanOrEqual(50)

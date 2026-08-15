@@ -48,6 +48,9 @@ const runtime = vi.hoisted(() => {
     reduced: boolean[] = []
     inputSuspensions: boolean[] = []
     productionSelections: string[] = []
+    productionCompanySelections: string[] = []
+    productionCompanySelectionResult = true
+    productionCompanyClears = 0
     sceneryLoadInSelections: string[] = []
     sceneryLoadInSelectionResult = true
     annexSelections = 0
@@ -71,6 +74,11 @@ const runtime = vi.hoisted(() => {
       this.productionSelections.push(productionId)
       return true
     }
+    selectProductionCompanyFromHost(productionId: string) {
+      this.productionCompanySelections.push(productionId)
+      return this.productionCompanySelectionResult
+    }
+    clearProductionCompanySelection() { this.productionCompanyClears++ }
     selectSceneryLoadInFromHost(productionId: string) {
       this.sceneryLoadInSelections.push(productionId)
       return this.sceneryLoadInSelectionResult
@@ -346,6 +354,36 @@ describe('StudioLotView Hollywood lifecycle', () => {
     onHollywoodProduction.mockClear()
     expect(view.selectHollywoodProduction(exact.productionId)).toBe(true)
     expect(scene.productionSelections).toEqual([exact.productionId])
+    expect(onHollywoodProduction).not.toHaveBeenCalled()
+  })
+
+  it('selects and clears exact company presentation independently of physical production selection', () => {
+    const onHollywoodProduction = vi.fn()
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+      onHollywoodProduction,
+    })
+    const game = runtime.games.at(-1)!
+
+    expect(view.selectHollywoodProductionCompany('production-a')).toBe(false)
+    view.clearHollywoodProductionCompanySelection()
+    game.events.emit('ready')
+    const scene = game.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+
+    expect(view.selectHollywoodProductionCompany('production-a')).toBe(true)
+    expect(scene.productionCompanySelections).toEqual(['production-a'])
+    expect(scene.productionSelections).toEqual([])
+    expect(onHollywoodProduction).not.toHaveBeenCalled()
+
+    scene.productionCompanySelectionResult = false
+    expect(view.selectHollywoodProductionCompany('production-b')).toBe(false)
+    expect(scene.productionCompanySelections).toEqual(['production-a', 'production-b'])
+
+    view.clearHollywoodProductionCompanySelection()
+    expect(scene.productionCompanyClears).toBe(1)
+    expect(scene.productionSelections).toEqual([])
     expect(onHollywoodProduction).not.toHaveBeenCalled()
   })
 

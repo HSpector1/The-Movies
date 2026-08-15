@@ -70,6 +70,11 @@ import {
 } from './snapshot/annexWork.ts'
 import { lotPersonWorkContext } from './snapshot/personWork.ts'
 import {
+  activeProductionCompanyContexts,
+  lotPeopleForCompanyPresentation,
+  productionCompanyRoleLabel,
+} from './snapshot/productionCompany.ts'
+import {
   initialProductionFormationContext,
   productionFormationContext,
   type GreenlightFormationReceipt,
@@ -913,6 +918,22 @@ export function StudioLotScreen({
   const [operationalAnnouncement, setOperationalAnnouncement] = useState('')
   const completionAnnouncementOwnedRef = useRef(suppressOperationalAnnouncement)
   const hollywoodOperations = snapshot.productionOperations ?? []
+  const hollywoodProductionCompanies = activeProductionCompanyContexts(snapshot)
+  const hollywoodPresentationPeople = lotPeopleForCompanyPresentation(snapshot)
+  const hollywoodCompanyMembershipSignature = hollywoodProductionCompanies === null
+    ? 'unavailable'
+    : hollywoodProductionCompanies
+        .map((company) => `${company.operation.productionId}:${company.members
+          .map(({ member }) => `${member.productionRole}:${member.talentId}`)
+          .join(',')}`)
+        .join('|')
+  const hollywoodCompanyMembers = hollywoodProductionCompanies?.flatMap((company) =>
+    company.members.map(({ member, person }) => ({
+      company,
+      member,
+      person,
+    })),
+  ) ?? null
   const currentSceneryLoadInContext = sceneryLoadInContext(snapshot)
   const selectedSceneryLoadInContext =
     hollywoodSceneryLoadInProductionId !== null &&
@@ -1009,6 +1030,26 @@ export function StudioLotScreen({
       : hollywoodProductionId === null
         ? null
       : explicitlySelectedHollywoodOperation
+  const hollywoodCompanyPresentationOwned =
+    hollywoodPlace === null &&
+    !publicitySelected &&
+    !gateSelected &&
+    !annexSelected &&
+    (selected === null || selected === 'stage-a')
+  const hollywoodCompanyPresentationProductionId =
+    !hollywoodCompanyPresentationOwned
+      ? null
+      : typeof hollywoodProductionId === 'string'
+        ? hollywoodProductionId
+        : hollywoodProductionId === undefined
+          ? hollywoodOperation?.productionId ?? null
+          : null
+  const hollywoodCompanyPresentationExact =
+    hollywoodCompanyPresentationProductionId !== null &&
+    hollywoodProductionCompanies !== null &&
+    hollywoodProductionCompanies.filter(
+      (company) => company.operation.productionId === hollywoodCompanyPresentationProductionId,
+    ).length === 1
   const hollywoodInspectorOperation =
     hollywoodPerson === null
       ? hollywoodOperation
@@ -1018,7 +1059,8 @@ export function StudioLotScreen({
         : null
   const hollywoodInspectorCommand =
     hollywoodInspectorOperation?.currentCommand?.kind === 'assignShootingDirector' &&
-    selectedProductionWork?.productionRole === 'lead'
+    selectedProductionWork !== null &&
+    selectedProductionWork.productionRole !== 'director'
       ? null
       : hollywoodInspectorOperation?.currentCommand ?? null
   const showHollywoodInspectorTaskChain =
@@ -2272,11 +2314,14 @@ export function StudioLotScreen({
   // snapshot, not the old scene event, decides whether that inspection remains valid.
   useEffect(() => {
     if (hollywoodPerson === null) return
-    const currentMatches = snapshot.people.filter((person) => person.id === hollywoodPerson.id)
+    const currentMatches = hollywoodPresentationPeople.filter(
+      (person) => person.id === hollywoodPerson.id,
+    )
     const current = currentMatches.length === 1 ? currentMatches[0]! : undefined
     if (current === undefined) {
       setHollywoodPerson(null)
       setHollywoodProductionId(null)
+      viewRef.current?.clearHollywoodPersonSelection?.()
       return
     }
     if (
@@ -2288,7 +2333,7 @@ export function StudioLotScreen({
     ) {
       recordHollywoodPerson(current)
     }
-  }, [hollywoodPerson, recordHollywoodPerson, snapshot.people])
+  }, [hollywoodPerson, hollywoodPresentationPeople, recordHollywoodPerson])
 
   // The canonical profile may remain resolvable by ID after the Lot-to-profile
   // handoff ceases to be exact (ambiguous assignment, lost operation membership,
@@ -2980,6 +3025,27 @@ export function StudioLotScreen({
       }
     }
   }, [applyNextEventPhysicalOrientation, state, canvasReady, hollywood, readSnapshot])
+
+  // Company emphasis is presentation-only and deliberately separate from the
+  // physical Stage 7 outline. It follows the exact current production context in
+  // every phase, but only when the complete strict snapshot projection survives.
+  useEffect(() => {
+    if (!hollywood || !canvasReady) return
+    const view = viewRef.current
+    if (!view) return
+    const productionId = hollywoodCompanyPresentationProductionId
+    if (productionId !== null && hollywoodCompanyPresentationExact) {
+      view.selectHollywoodProductionCompany?.(productionId)
+    } else {
+      view.clearHollywoodProductionCompanySelection?.()
+    }
+  }, [
+    canvasReady,
+    hollywood,
+    hollywoodCompanyMembershipSignature,
+    hollywoodCompanyPresentationExact,
+    hollywoodCompanyPresentationProductionId,
+  ])
 
   // ── Pause when the tab is hidden; resume when visible (no CPU while backgrounded). ─
   useEffect(() => {
@@ -4508,7 +4574,7 @@ export function StudioLotScreen({
               <dl className="hollywood-person-facts" data-testid="hollywood-person-work-facts">
                 <div>
                   <dt>Role on picture</dt>
-                  <dd>{productionWork.productionRole === 'director' ? 'Director' : 'Lead actor'}</dd>
+                  <dd>{productionCompanyRoleLabel(productionWork.productionRole)}</dd>
                 </div>
                 <div><dt>Picture</dt><dd>{productionWork.productionTitle}</dd></div>
                 <div><dt>Production phase</dt><dd>{productionWork.phaseLabel}</dd></div>
@@ -5197,7 +5263,7 @@ export function StudioLotScreen({
                   ))}
                 </div>
               )}
-              {snapshot.people.length > 0 && (
+              {hollywoodPresentationPeople.length > 0 && (
                 <div
                   ref={namedPeopleGroupRef}
                   className="hollywood-people"
@@ -5208,18 +5274,44 @@ export function StudioLotScreen({
                   onMouseDown={containWorldInput}
                   onTouchStart={containWorldInput}
                 >
-                  {snapshot.people.map((person) => (
-                    <button
-                      key={person.id}
-                      type="button"
-                      className={hollywoodPerson?.id === person.id ? 'active' : ''}
-                      aria-pressed={hollywoodPerson?.id === person.id}
-                      onClick={() => selectHollywoodPerson(person)}
-                      data-testid={`hollywood-select-person-${person.id}`}
-                    >
-                      <span>{person.name}</span><small>{person.role}</small>
-                    </button>
-                  ))}
+                  {hollywoodCompanyMembers !== null
+                    ? hollywoodCompanyMembers.map(({ company, member, person }) => {
+                        const selectedPerson = hollywoodPerson?.id === person.id
+                        const selectedCompany = hollywoodCompanyPresentationProductionId ===
+                          company.operation.productionId
+                        return (
+                          <button
+                            key={person.id}
+                            type="button"
+                            className={`${selectedPerson ? 'active' : ''}${
+                              selectedCompany ? ' company-active' : ''
+                            }`.trim()}
+                            aria-pressed={selectedPerson}
+                            aria-label={`${person.name} · ${productionCompanyRoleLabel(member.productionRole)} · ${company.operation.title}`}
+                            onClick={() => selectHollywoodPerson(person)}
+                            data-production-id={company.operation.productionId}
+                            data-production-role={member.productionRole}
+                            data-testid={`hollywood-select-person-${person.id}`}
+                          >
+                            <span>{person.name}</span>
+                            <small>
+                              {productionCompanyRoleLabel(member.productionRole)} · {company.operation.title}
+                            </small>
+                          </button>
+                        )
+                      })
+                    : hollywoodPresentationPeople.map((person) => (
+                        <button
+                          key={person.id}
+                          type="button"
+                          className={hollywoodPerson?.id === person.id ? 'active' : ''}
+                          aria-pressed={hollywoodPerson?.id === person.id}
+                          onClick={() => selectHollywoodPerson(person)}
+                          data-testid={`hollywood-select-person-${person.id}`}
+                        >
+                          <span>{person.name}</span><small>{person.role}</small>
+                        </button>
+                      ))}
                 </div>
               )}
               <div

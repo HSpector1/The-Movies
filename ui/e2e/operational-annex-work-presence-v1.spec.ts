@@ -44,8 +44,8 @@ const HOLLYWOOD_DISTRICT_HEIGHT = 992
 const HOLLYWOOD_CAMERA_BOUNDS = { x: -120, y: -90, width: 1826, height: 1172 } as const
 const ANNEX_WORLD_POINT = { x: 640, y: 790 } as const
 
-const EXPECTED_DISPLAY_OBJECTS = 34
-const EXPECTED_DYNAMIC_ACTORS = 15
+const EXPECTED_DISPLAY_OBJECTS = 42
+const EXPECTED_DYNAMIC_ACTORS = 19
 const EXPECTED_DECODED_BYTES = 11_096_896
 const EXPECTED_DRAW_CALLS = 1
 const GENERATED_AND_VEHICLE_TEXTURE_BYTES = 163_064
@@ -436,7 +436,7 @@ test('native script Working telemetry records its truthful population-dependent 
   expect(runtimeErrors, runtimeErrors.join('\n')).toEqual([])
 })
 
-test('governed one-production reference retains the frozen exact 34/15 Hollywood tuple', async ({ page }) => {
+test('governed one-production reference retains the exact 42/19 complete-company Hollywood tuple', async ({ page }) => {
   const runtimeErrors = captureRuntimeErrors(page)
   await page.setViewportSize({ width: 1920, height: 1080 })
   await seedGovernedPerformanceLot(page)

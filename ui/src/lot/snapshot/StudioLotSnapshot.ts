@@ -225,6 +225,27 @@ export type LotShootingTaskStatus =
   | 'scheduled'
   | 'completed'
 
+/** Exact current role inside one active production company. */
+export type LotProductionCompanyRole =
+  | 'writer'
+  | 'director'
+  | 'lead'
+  | 'antagonist'
+  | 'support'
+  | 'craft'
+
+/**
+ * One strictly proven current company member. `presentationRole` selects an
+ * existing Role Atlas appearance; it does not relabel the person's profession.
+ */
+export type LotProductionCompanyMember = {
+  productionRole: LotProductionCompanyRole
+  slotIndex: number
+  talentId: string
+  name: string
+  presentationRole: 'director' | 'talent'
+}
+
 /** A legal, engine-owned operation the host can dispatch for this production. */
 export type LotProductionCommand =
   | {
@@ -257,6 +278,11 @@ export type ProductionOperationsState = {
   /** Exact Lead actor identity for person-to-picture inspection. Older fixtures may omit it. */
   leadId?: string
   leadName?: string
+  /**
+   * Complete six-person current company, present only when the adapter proves
+   * the entire managed production set atomically.
+   */
+  companyMembers?: readonly LotProductionCompanyMember[]
   taskStatus: LotShootingTaskStatus | null
   statusLabel: string
   blocker: {

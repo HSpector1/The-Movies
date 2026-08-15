@@ -158,6 +158,11 @@ const OPERATION_KEYS = [
   'currentCommand',
 ] as const
 
+const OPERATION_COMPANY_KEYS = [
+  ...OPERATION_KEYS,
+  'companyMembers',
+] as const
+
 const EXACT_STOP_REASONS = new Set<LotNextEventStopReason>([
   'scriptReview',
   'castingReview',
@@ -392,7 +397,11 @@ function isExactOperationForCard(
   value: unknown,
   card: ProductionBoardCardView,
 ): value is ProductionOperationsState {
-  if (!isRecord(value) || !hasExactOwnKeys(value, OPERATION_KEYS)) return false
+  if (!isRecord(value)) return false
+  const operationKeys = Object.prototype.hasOwnProperty.call(value, 'companyMembers')
+    ? OPERATION_COMPANY_KEYS
+    : OPERATION_KEYS
+  if (!hasExactOwnKeys(value, operationKeys)) return false
   if (
     value.productionId !== card.productionId ||
     value.title !== card.title ||

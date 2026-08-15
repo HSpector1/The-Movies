@@ -681,6 +681,19 @@ test('Annex completion owns one focus/live instance and exact Back does not repl
 test('Gazette/co-event and non-Gazette releases retain their exact chains and return receipt-free', async ({ context, page }, testInfo) => {
   const gazetteRuntime = captureRuntimeSignals(page)
   await seedLot(page, 'gazette-release-with-annex-completion')
+  const releasingCompany = page.locator(
+    '[data-production-id="prod-0004"][data-production-role]',
+  )
+  await expect(releasingCompany).toHaveCount(6)
+  const releaseReadyDirector = page.locator(
+    '[data-production-id="prod-0004"][data-production-role="director"]',
+  )
+  await expect(releaseReadyDirector).toHaveCount(1)
+  await releaseReadyDirector.click()
+  await expect(releaseReadyDirector).toHaveAttribute('aria-pressed', 'true')
+  const releaseReadyPersonFacts = page.getByTestId('hollywood-person-work-facts')
+  await expect(releaseReadyPersonFacts).toContainText('Release Ready')
+  await expect(releaseReadyPersonFacts).toContainText('The Crimson Prizefighter')
   const gazetteWallMs = await measureActivation(
     page,
     'gazette-release-with-annex-completion',
@@ -714,6 +727,7 @@ test('Gazette/co-event and non-Gazette releases retain their exact chains and re
   await expect(page.getByTestId('lot-next-event-rail')).toHaveCount(0)
   await expect(page.getByTestId('annex-completion-summary')).toHaveCount(0)
   await expect(page.getByTestId('lot-annex-operational-announcement')).toHaveText('')
+  await expect(releasingCompany).toHaveCount(0)
   await page.screenshot({ path: join(outDir, '07-gazette-receipt-free-lot-return.png') })
   expectCleanRuntime(gazetteRuntime)
 

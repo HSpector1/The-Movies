@@ -1,15 +1,20 @@
 import type {
   BuildingId,
   LotPersonState,
+  LotProductionCompanyRole,
   LotProductionPhase,
   LotShootingTaskStatus,
   ProductionOperationsState,
   StudioLotSnapshot,
 } from './StudioLotSnapshot.ts'
+import {
+  activeProductionCompanyContexts,
+  hasProductionCompanyProjectionClaim,
+} from './productionCompany.ts'
 
 type PersonProductionWorkBase = {
   person: LotPersonState
-  productionRole: 'director' | 'lead'
+  productionRole: LotProductionCompanyRole
   productionId: string
   productionTitle: string
   phase: LotProductionPhase
@@ -47,6 +52,7 @@ export type LotPersonWorkContext =
         | 'ambiguous-assignment'
         | 'stale-assignment'
         | 'unsupported-authority'
+        | 'malformed-company-projection'
     }
 
 type ParticipantMatch = {
@@ -64,6 +70,9 @@ export function lotPersonWorkContext(
   snapshot: StudioLotSnapshot,
   personId: string,
 ): LotPersonWorkContext {
+  if (!Array.isArray(snapshot.people)) {
+    return { kind: 'unavailable', person: null, reason: 'missing-person' }
+  }
   const people = snapshot.people.filter((candidate) => candidate.id === personId)
   if (people.length === 0) {
     return { kind: 'unavailable', person: null, reason: 'missing-person' }
@@ -87,7 +96,66 @@ export function lotPersonWorkContext(
     return { kind: 'unavailable', person, reason: 'unsupported-provenance' }
   }
 
-  const operations = snapshot.productionOperations ?? []
+  const operations = Array.isArray(snapshot.productionOperations)
+    ? snapshot.productionOperations
+    : []
+  const hasPopulatedCompanyProjection = hasProductionCompanyProjectionClaim(snapshot)
+  const companyContexts = managedAuthority
+    ? activeProductionCompanyContexts(snapshot)
+    : null
+
+  if (companyContexts !== null) {
+    if (person.authority === 'studio-roster') {
+      return person.productionId === null && person.productionTitle === null
+        ? { kind: 'roster', person }
+        : { kind: 'unavailable', person, reason: 'contradictory-person' }
+    }
+
+    const companyMatches = companyContexts.flatMap((context) =>
+      context.members
+        .filter((memberContext) => memberContext.person.id === person.id)
+        .map((memberContext) => ({ context, ...memberContext })),
+    )
+    if (companyMatches.length !== 1) {
+      return { kind: 'unavailable', person, reason: 'ambiguous-assignment' }
+    }
+    const match = companyMatches[0]!
+    if (
+      match.person !== person ||
+      person.productionId === null ||
+      person.productionTitle === null ||
+      match.member.talentId !== person.id ||
+      match.member.name !== person.name ||
+      match.member.presentationRole !== person.role ||
+      match.context.operation.productionId !== person.productionId ||
+      match.context.operation.title !== person.productionTitle
+    ) {
+      return { kind: 'unavailable', person, reason: 'stale-assignment' }
+    }
+
+    return {
+      kind: 'managed-production',
+      person,
+      productionRole: match.member.productionRole,
+      productionId: match.context.operation.productionId,
+      productionTitle: match.context.operation.title,
+      phase: match.context.operation.phase,
+      phaseLabel: match.context.operation.phaseLabel,
+      productionStatusLabel: match.context.operation.statusLabel,
+      productionWeeksRemaining: match.context.operation.weeksRemaining,
+      directorTaskStatus:
+        match.member.productionRole === 'director' ? match.context.operation.taskStatus : null,
+      productionFacilities: {
+        buildingId: match.context.operation.locationBuildingId,
+        facilityLabel: match.context.operation.facilityLabel,
+      },
+    }
+  }
+
+  if (hasPopulatedCompanyProjection) {
+    return { kind: 'unavailable', person, reason: 'malformed-company-projection' }
+  }
+
   const hasCompleteParticipantProjection = operations.every(
     (operation) => operation.leadId !== undefined && operation.leadName !== undefined,
   )

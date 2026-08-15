@@ -554,10 +554,12 @@ describe('World-First Annex Construction Interaction V1 — React/App boundary',
       (candidate) => candidate.locationBuildingId === 'stage-a',
     )
     const person = snapshot.people.find(
-      (candidate) => candidate.productionId === operation?.productionId,
+      (candidate) =>
+        candidate.id === operation?.directorId &&
+        candidate.productionId === operation?.productionId,
     )
     if (!operation?.currentCommand || !person) {
-      throw new Error('expected exact Stage 7 command and named person')
+      throw new Error('expected exact Stage 7 command and named Director')
     }
     const owner = vi.fn(() => rejection())
     renderLot(state, { onStart: owner })

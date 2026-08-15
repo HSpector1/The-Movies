@@ -2,10 +2,30 @@ import { describe, expect, it } from 'vitest'
 import type {
   LotPublicityOffer,
   LotPersonState,
+  LotProductionCompanyMember,
+  LotProductionCompanyRole,
   ProductionOperationsState,
   StudioLotSnapshot,
 } from './StudioLotSnapshot.ts'
 import { lotPersonWorkContext } from './personWork.ts'
+
+const COMPANY_ROLES: readonly LotProductionCompanyRole[] = [
+  'writer',
+  'director',
+  'lead',
+  'antagonist',
+  'support',
+  'craft',
+]
+
+const COMPANY_NAMES: Record<LotProductionCompanyRole, string> = {
+  writer: 'Writer A',
+  director: 'Director A',
+  lead: 'Lead A',
+  antagonist: 'Antagonist A',
+  support: 'Support A',
+  craft: 'Craft Lead A',
+}
 
 function person(overrides: Partial<LotPersonState> = {}): LotPersonState {
   return {
@@ -40,6 +60,47 @@ function operation(overrides: Partial<ProductionOperationsState> = {}): Producti
     currentCommand: null,
     ...overrides,
   }
+}
+
+function companyMembers(suffix = 'a'): LotProductionCompanyMember[] {
+  return COMPANY_ROLES.map((productionRole) => ({
+    productionRole,
+    slotIndex: 0,
+    talentId: `${productionRole}-${suffix}`,
+    name: suffix === 'a'
+      ? COMPANY_NAMES[productionRole]
+      : `${COMPANY_NAMES[productionRole].replace(/ A$/, '')} ${suffix.toUpperCase()}`,
+    presentationRole: productionRole === 'director' ? 'director' : 'talent',
+  }))
+}
+
+function companyOperation(
+  suffix = 'a',
+  overrides: Partial<ProductionOperationsState> = {},
+): ProductionOperationsState {
+  const members = companyMembers(suffix)
+  return operation({
+    productionId: `production-${suffix}`,
+    title: `Picture ${suffix.toUpperCase()}`,
+    directorId: `director-${suffix}`,
+    directorName: members[1]!.name,
+    leadId: `lead-${suffix}`,
+    leadName: members[2]!.name,
+    locationBuildingId: suffix === 'b' ? 'stage-b' : 'stage-a',
+    companyMembers: members,
+    ...overrides,
+  })
+}
+
+function companyPeople(operationRow: ProductionOperationsState): LotPersonState[] {
+  return (operationRow.companyMembers ?? []).map((member) => ({
+    id: member.talentId,
+    name: member.name,
+    role: member.presentationRole,
+    authority: 'active-production',
+    productionId: operationRow.productionId,
+    productionTitle: operationRow.title,
+  }))
 }
 
 function publicityOffersAtWeek(week: number): LotPublicityOffer[] {
@@ -119,6 +180,108 @@ function snapshot(
 }
 
 describe('lotPersonWorkContext', () => {
+  it('projects every exact company role and reserves Director task truth for the Director', () => {
+    const operationRow = companyOperation()
+    const people = companyPeople(operationRow)
+    const state = snapshot(people, [operationRow])
+
+    for (const role of COMPANY_ROLES) {
+      expect(lotPersonWorkContext(state, `${role}-a`)).toMatchObject({
+        kind: 'managed-production',
+        productionRole: role,
+        productionId: 'production-a',
+        productionTitle: 'Picture A',
+        phaseLabel: 'Shooting',
+        productionStatusLabel: 'Decision required',
+        productionWeeksRemaining: 5,
+        directorTaskStatus: role === 'director' ? 'ready' : null,
+        productionFacilities: {
+          buildingId: 'stage-a',
+          facilityLabel: 'Soundstage 7 + Scenery Shop',
+        },
+      })
+    }
+  })
+
+  it('joins a member to the exact production ID when two pictures share a title', () => {
+    const operationA = companyOperation('a', { title: 'Same Picture' })
+    const operationB = companyOperation('b', { title: 'Same Picture' })
+    const state = snapshot(
+      [...companyPeople(operationB), ...companyPeople(operationA)].reverse(),
+      [operationB, operationA],
+    )
+
+    expect(lotPersonWorkContext(state, 'support-b')).toMatchObject({
+      kind: 'managed-production',
+      productionRole: 'support',
+      productionId: 'production-b',
+      productionTitle: 'Same Picture',
+      productionFacilities: { buildingId: 'stage-b' },
+      directorTaskStatus: null,
+    })
+  })
+
+  it('keeps an unrelated exact roster person while a valid company is present', () => {
+    const operationRow = companyOperation()
+    const rosterPerson = person({
+      id: 'roster-writer',
+      name: 'Roster Writer',
+      role: 'talent',
+      authority: 'studio-roster',
+      productionId: null,
+      productionTitle: null,
+    })
+    const state = snapshot([...companyPeople(operationRow), rosterPerson], [operationRow])
+
+    expect(lotPersonWorkContext(state, rosterPerson.id)).toEqual({
+      kind: 'roster',
+      person: rosterPerson,
+    })
+  })
+
+  it('fails a present malformed company claim instead of using Director/Lead fallback', () => {
+    const operationRow = companyOperation()
+    operationRow.companyMembers = operationRow.companyMembers!.slice(1)
+    const legacyFallbackPeople = [person(), person({
+      id: 'lead-a',
+      name: 'Lead A',
+      role: 'talent',
+    })]
+
+    expect(lotPersonWorkContext(
+      snapshot(legacyFallbackPeople, [operationRow]),
+      'director-a',
+    )).toMatchObject({
+      kind: 'unavailable',
+      reason: 'malformed-company-projection',
+    })
+  })
+
+  it('treats an own undefined company field as malformed rather than absent compatibility', () => {
+    const operationRow = companyOperation()
+    Object.defineProperty(operationRow, 'companyMembers', {
+      value: undefined,
+      enumerable: true,
+      configurable: true,
+      writable: true,
+    })
+    const fallbackDirector = person({
+      id: operationRow.directorId,
+      name: operationRow.directorName,
+      productionId: operationRow.productionId,
+      productionTitle: operationRow.title,
+    })
+
+    expect(Object.hasOwn(operationRow, 'companyMembers')).toBe(true)
+    expect(lotPersonWorkContext(
+      snapshot([fallbackDirector], [operationRow]),
+      fallbackDirector.id,
+    )).toMatchObject({
+      kind: 'unavailable',
+      reason: 'malformed-company-projection',
+    })
+  })
+
   it('projects exact managed Director and Lead picture facts without inventing a Lead task', () => {
     const director = person()
     const lead = person({ id: 'lead-a', name: 'Lead A', role: 'talent' })

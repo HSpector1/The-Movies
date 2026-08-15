@@ -326,7 +326,11 @@ describe('World-First Greenlight Production Formation — Studio Lot boundary', 
       const rendered = render(<StudioLotScreen {...lotProps(after, receipt)} />)
       const view = await latestView()
       await waitFor(() => expect(view.selectedPeople).toContain(receipt.directorId))
-      const duplicateKeyWarning = hostility.startsWith('duplicate')
+      // Duplicate operation rows still reach the pre-existing production rail
+      // long enough for React to report their duplicate key. Duplicate people
+      // are now removed by the strict presentation boundary before rendering,
+      // so they must not be required to produce a console warning.
+      const duplicateKeyWarning = hostility === 'duplicate operation'
         ? vi.spyOn(console, 'error').mockImplementation(() => {})
         : null
 

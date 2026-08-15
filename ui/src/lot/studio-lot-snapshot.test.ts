@@ -25,6 +25,7 @@ import {
   exportSaveJson,
   financeCard,
   importSaveJson,
+  managedProductionCompanyProjection,
   castingSessionsBoard,
   selectActiveProductions,
   selectCash,
@@ -828,20 +829,325 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     expect(stage(snap, 'stage-b').attention).toBe('empty')
   })
 
-  it('shows only the real active production director and lead in managed mode', () => {
-    const state = greenlightFilm(foundManagedStudio('lot-managed-real-people'), 0)
+  it('projects one complete current company in canonical slot order without consulting profession or frozen history', () => {
+    let state = greenlightFilm(foundManagedStudio('lot-managed-real-company'), 0)
+    const original = state.studio.activeProductions[0]!
+    const frozenWriterName = 'Frozen Greenlight Writer'
+    state = {
+      ...state,
+      // Assigned role comes from the production slot, not this career-home role.
+      talent: state.talent.map((person) =>
+        person.id === original.writerId
+          ? { ...person, name: 'Current Writer Name', role: 'actor' }
+          : person,
+      ),
+      studio: {
+        ...state.studio,
+        activeProductions: state.studio.activeProductions.map((production) =>
+          production.id === original.id && production.participants !== undefined
+            ? {
+                ...production,
+                participants: {
+                  ...production.participants,
+                  writer: { ...production.participants.writer, name: frozenWriterName },
+                },
+              }
+            : production,
+        ),
+      },
+    }
     const production = state.studio.activeProductions[0]!
+    const before = JSON.stringify(state)
     const snap = studioLotSnapshot(state)
-    expect(new Set(snap.people.map((person) => person.id))).toEqual(
-      new Set([production.directorId, production.cast.lead]),
+    const company = operation(snap, production.id).companyMembers
+    const expectedSlots = [
+      ['writer', production.writerId, 'talent'],
+      ['director', production.directorId, 'director'],
+      ['lead', production.cast.lead, 'talent'],
+      ['antagonist', production.cast.antagonist, 'talent'],
+      ['support', production.cast.support, 'talent'],
+      ['craft', production.craftIds[0], 'talent'],
+    ] as const
+
+    expect(company).toEqual(
+      expectedSlots.map(([productionRole, talentId, presentationRole]) => ({
+        productionRole,
+        slotIndex: 0,
+        talentId,
+        name: state.talent.find((person) => person.id === talentId)!.name,
+        presentationRole,
+      })),
     )
-    expect(snap.people.every((person) => person.authority === 'active-production')).toBe(true)
-    expect(snap.people.every((person) => person.productionId === production.id)).toBe(true)
-    expect(operation(snap, production.id)).toMatchObject({
-      directorId: production.directorId,
-      leadId: production.cast.lead,
-      leadName: state.talent.find((person) => person.id === production.cast.lead)!.name,
+    expect(company?.[0]?.name).toBe('Current Writer Name')
+    expect(company?.[0]?.name).not.toBe(frozenWriterName)
+    expect(company?.every((member) => Object.keys(member).sort().join(',') ===
+      'name,presentationRole,productionRole,slotIndex,talentId')).toBe(true)
+    expect(snap.people).toEqual(
+      company?.map((member) => ({
+        id: member.talentId,
+        name: member.name,
+        role: member.presentationRole,
+        authority: 'active-production',
+        productionId: production.id,
+        productionTitle: operation(snap, production.id).title,
+      })),
+    )
+    expect(JSON.stringify(state)).toBe(before)
+  })
+
+  it('projects two same-title companies by exact production ID and ignores all source array order', () => {
+    let state = greenlightFilm(foundManagedStudio('lot-managed-two-companies', true), 0, 0)
+    state = greenlightFilm(state, 1, 1)
+    const sharedTitle = 'The Same Working Title'
+    const conceptIds = new Set(state.studio.activeProductions.map((production) => production.conceptId))
+    state = {
+      ...state,
+      concepts: state.concepts.map((concept) =>
+        conceptIds.has(concept.id) ? { ...concept, title: sharedTitle } : concept,
+      ),
+    }
+
+    const expected = studioLotSnapshot(state)
+    const reordered = studioLotSnapshot({
+      ...state,
+      talent: [...state.talent].reverse(),
+      studio: {
+        ...state.studio,
+        activeProductions: [...state.studio.activeProductions].reverse(),
+      },
+      operations: {
+        ...state.operations,
+        workflows: [...state.operations.workflows].reverse(),
+      },
     })
+
+    const companyView = (snap: ReturnType<typeof studioLotSnapshot>) => ({
+      operations: snap.productionOperations?.map((entry) => ({
+        productionId: entry.productionId,
+        title: entry.title,
+        companyMembers: entry.companyMembers,
+      })),
+      people: snap.people,
+    })
+    expect(companyView(reordered)).toEqual(companyView(expected))
+    expect(reordered.productionOperations?.map((entry) => entry.productionId)).toEqual(
+      [...state.studio.activeProductions.map((production) => production.id)].sort(),
+    )
+    expect(reordered.productionOperations?.every((entry) => entry.title === sharedTitle)).toBe(true)
+    expect(reordered.productionOperations?.every((entry) => entry.companyMembers?.length === 6)).toBe(true)
+    expect(new Set(reordered.people.map((person) => person.id)).size).toBe(12)
+    expect(reordered.people).toHaveLength(12)
+  })
+
+  it('omits every expanded company atomically and preserves Director/Lead fallback for hostile staffing truth', () => {
+    const legalOne = greenlightFilm(foundManagedStudio('lot-managed-company-hostile-one'), 0)
+    const legalTwo = greenlightFilm(
+      greenlightFilm(foundManagedStudio('lot-managed-company-hostile-two', true), 0, 0),
+      1,
+      1,
+    )
+    const oneProduction = legalOne.studio.activeProductions[0]!
+    const twoA = legalTwo.studio.activeProductions[0]!
+    const twoB = legalTwo.studio.activeProductions[1]!
+
+    const noCraft: GameState = {
+      ...legalOne,
+      studio: {
+        ...legalOne.studio,
+        activeProductions: [{ ...oneProduction, craftIds: [] }],
+      },
+    }
+    const extraCraft: GameState = {
+      ...legalOne,
+      studio: {
+        ...legalOne.studio,
+        activeProductions: [
+          { ...oneProduction, craftIds: [...oneProduction.craftIds, oneProduction.writerId] },
+        ],
+      },
+    }
+    const duplicateRole: GameState = {
+      ...legalOne,
+      studio: {
+        ...legalOne.studio,
+        activeProductions: [
+          {
+            ...oneProduction,
+            cast: { ...oneProduction.cast, support: oneProduction.cast.lead },
+          },
+        ],
+      },
+    }
+    const duplicateCurrentTalent: GameState = {
+      ...legalOne,
+      talent: [
+        ...legalOne.talent,
+        { ...legalOne.talent.find((person) => person.id === oneProduction.writerId)! },
+      ],
+    }
+    const reusedAcrossPictures: GameState = {
+      ...legalTwo,
+      studio: {
+        ...legalTwo.studio,
+        activeProductions: legalTwo.studio.activeProductions.map((production) =>
+          production.id === twoB.id
+            ? { ...production, cast: { ...production.cast, support: twoA.writerId } }
+            : production,
+        ),
+      },
+    }
+    const hostileStates = [
+      noCraft,
+      extraCraft,
+      duplicateRole,
+      duplicateCurrentTalent,
+      reusedAcrossPictures,
+    ]
+    for (const hostile of hostileStates) {
+      const before = JSON.stringify(hostile)
+      const snap = studioLotSnapshot(hostile)
+      expect(
+        snap.productionOperations?.every((entry) => entry.companyMembers === undefined),
+      ).toBe(true)
+      const fallbackIds = new Set(
+        hostile.studio.activeProductions.flatMap((production) => [
+          production.directorId,
+          production.cast.lead,
+        ]),
+      )
+      expect(snap.people.every((person) => fallbackIds.has(person.id))).toBe(true)
+      expect(snap.people.length).toBeLessThanOrEqual(fallbackIds.size)
+      expect(JSON.stringify(hostile)).toBe(before)
+    }
+  })
+
+  it('rejects a production-plus-screenplay writer collision inside the bounded company proof', () => {
+    const legal = productionAndDraftingScript(
+      'lot-managed-company-production-script-collision',
+    )
+    const legalSnapshot = studioLotSnapshot(legal)
+    const productionWriter = legal.studio.activeProductions[0]!.writerId
+    const draftingProject = legal.scriptDevelopment.projects.at(-1)!
+    const collision: GameState = {
+      ...legal,
+      scriptDevelopment: {
+        ...legal.scriptDevelopment,
+        projects: legal.scriptDevelopment.projects.map((project) =>
+          project.id === draftingProject.id
+            ? { ...project, writerId: productionWriter }
+            : project,
+        ),
+      },
+    }
+    const before = JSON.stringify(collision)
+
+    expect(managedProductionCompanyProjection(
+      collision,
+      legalSnapshot.productionOperations ?? [],
+    )).toBeNull()
+    expect(JSON.stringify(collision)).toBe(before)
+  })
+
+  it('keeps hostile Director/Lead fallback uniqueness-aware and array-order independent', () => {
+    const legalOne = greenlightFilm(
+      foundManagedStudio('lot-managed-company-hostile-fallback-duplicate'),
+      0,
+    )
+    const oneProduction = legalOne.studio.activeProductions[0]!
+    const duplicateDirector = {
+      ...legalOne.talent.find((person) => person.id === oneProduction.directorId)!,
+      name: 'Hostile duplicate Director name',
+    }
+    const duplicateState: GameState = {
+      ...legalOne,
+      talent: [duplicateDirector, ...legalOne.talent],
+    }
+    const duplicateReversed: GameState = {
+      ...duplicateState,
+      talent: [...duplicateState.talent].reverse(),
+    }
+    const duplicatePeople = studioLotSnapshot(duplicateState).people
+    expect(studioLotSnapshot(duplicateReversed).people).toEqual(duplicatePeople)
+    expect(duplicatePeople.map((person) => person.id)).toEqual([oneProduction.cast.lead])
+
+    const legalTwo = greenlightFilm(
+      greenlightFilm(
+        foundManagedStudio('lot-managed-company-hostile-fallback-reuse', true),
+        0,
+        0,
+      ),
+      1,
+      1,
+    )
+    const first = legalTwo.studio.activeProductions[0]!
+    const second = legalTwo.studio.activeProductions[1]!
+    const reusedId = first.cast.lead
+    const reusedState: GameState = {
+      ...legalTwo,
+      studio: {
+        ...legalTwo.studio,
+        activeProductions: legalTwo.studio.activeProductions.map((production) =>
+          production.id === second.id
+            ? { ...production, directorId: reusedId }
+            : production,
+        ),
+      },
+    }
+    const reusedReversed: GameState = {
+      ...reusedState,
+      talent: [...reusedState.talent].reverse(),
+      studio: {
+        ...reusedState.studio,
+        activeProductions: [...reusedState.studio.activeProductions].reverse(),
+      },
+      operations: {
+        ...reusedState.operations,
+        workflows: [...reusedState.operations.workflows].reverse(),
+      },
+    }
+    const expectedSafeIds = [first.directorId, second.cast.lead].sort()
+    const reusedPeople = studioLotSnapshot(reusedState).people
+    expect(studioLotSnapshot(reusedReversed).people).toEqual(reusedPeople)
+    expect(reusedPeople.map((person) => person.id).sort()).toEqual(expectedSafeIds)
+    expect(reusedPeople.some((person) => person.id === reusedId)).toBe(false)
+  })
+
+  it('does not truncate a third managed picture into an apparently complete company', () => {
+    let state = greenlightFilm(
+      greenlightFilm(foundManagedStudio('lot-managed-company-overflow', true), 0, 0),
+      1,
+      1,
+    )
+    const source = state.studio.activeProductions[0]!
+    const overflowId = 'production-overflow'
+    state = {
+      ...state,
+      studio: {
+        ...state.studio,
+        activeProductions: [
+          ...state.studio.activeProductions,
+          { ...source, id: overflowId, remainingTicks: 1 },
+        ],
+      },
+      operations: {
+        ...state.operations,
+        workflows: [
+          ...state.operations.workflows,
+          {
+            productionId: overflowId,
+            phase: 'releaseReady',
+            reservations: [],
+            shootingTask: null,
+            blocker: null,
+          },
+        ],
+      },
+    }
+
+    const snap = studioLotSnapshot(state)
+    expect(snap.productionOperations).toHaveLength(3)
+    expect(snap.productionOperations?.every((entry) => entry.companyMembers === undefined)).toBe(true)
+    expect(snap.people.length).toBeLessThanOrEqual(4)
   })
 
   it('labels legacy stage assignment while preserving every pre-operations lot field', () => {

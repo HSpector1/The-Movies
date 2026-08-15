@@ -298,10 +298,27 @@ describe('World-First Selected Stage 7 Production Detail Handoff — Lot boundar
   it('never grants detail provenance from the generic production rail or a named person', async () => {
     const state = loadFixture()
     const operation = stage7Operation(state)
-    transformOperations((operations) => [stage12From(operation), ...operations])
     const owner = vi.fn((_intent: Stage7ProductionOwnerIntent) => true)
     renderLot(state, { onOpen: owner })
-    const view = await latestView()
+    let view = await latestView()
+
+    // A member of the exact live company remains selectable in the ordinary
+    // snapshot and must clear physical Stage 7 provenance.
+    act(() => view.emitProduction(operation.productionId))
+    const person = studioLotSnapshot(state).people[0] as LotPersonState | undefined
+    if (!person) throw new Error('fixture requires one named person')
+    fireEvent.click(screen.getByTestId(`hollywood-select-person-${person.id}`))
+    expect(screen.queryByText(`Open Production Board details · ${operation.title}`))
+      .not.toBeInTheDocument()
+
+    // The two-row generic production-rail hostility intentionally cannot claim
+    // a complete second company. Prove that rail ownership separately rather
+    // than depending on malformed company presentation to expose a person.
+    cleanup()
+    renderer.instances.length = 0
+    transformOperations((operations) => [stage12From(operation), ...operations])
+    renderLot(state, { onOpen: owner })
+    view = await latestView()
 
     act(() => view.emitProduction(operation.productionId))
     expect(detailButton(operation.productionId)).toBeInTheDocument()
@@ -311,13 +328,6 @@ describe('World-First Selected Stage 7 Production Detail Handoff — Lot boundar
     expect(screen.queryByTestId(
       `hollywood-open-production-details-${operation.productionId}`,
     )).not.toBeInTheDocument()
-
-    act(() => view.emitProduction(operation.productionId))
-    const person = studioLotSnapshot(state).people[0] as LotPersonState | undefined
-    if (!person) throw new Error('fixture requires one named person')
-    fireEvent.click(screen.getByTestId(`hollywood-select-person-${person.id}`))
-    expect(screen.queryByText(`Open Production Board details · ${operation.title}`))
-      .not.toBeInTheDocument()
     expect(owner).not.toHaveBeenCalled()
   })
 

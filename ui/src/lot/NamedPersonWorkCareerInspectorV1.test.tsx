@@ -169,8 +169,24 @@ function lotProps(state: GameState) {
 
 function selectedPeople(snapshot: StudioLotSnapshot) {
   const director = snapshot.people.find((person) => person.role === 'director')!
-  const lead = snapshot.people.find((person) => person.role === 'talent')!
+  const leadId = snapshot.productionOperations
+    ?.flatMap((operation) => operation.companyMembers ?? [])
+    .find((member) => member.productionRole === 'lead')
+    ?.talentId
+  const lead = snapshot.people.find((person) => person.id === leadId)!
   return { director, lead }
+}
+
+function withoutCompanyProjection(snapshot: StudioLotSnapshot): StudioLotSnapshot {
+  if (snapshot.productionOperations === undefined) return snapshot
+  return {
+    ...snapshot,
+    productionOperations: snapshot.productionOperations.map((operation) => {
+      const compatibilityOperation = { ...operation }
+      delete compatibilityOperation.companyMembers
+      return compatibilityOperation
+    }),
+  }
 }
 
 beforeEach(() => {
@@ -240,6 +256,8 @@ describe('World-First Named Person Work & Career Inspector V1', () => {
 
   it('withholds career copy and profile handoff when whole-studio assignment identity is ambiguous', () => {
     const valid = crossDisciplineShooting('named-person-ambiguous-assignment')
+    const snapshot = adapter.studioLotSnapshot(valid)
+    const director = selectedPeople(snapshot).director
     const production = valid.studio.activeProductions[0]!
     const state: GameState = {
       ...valid,
@@ -253,8 +271,12 @@ describe('World-First Named Person Work & Career Inspector V1', () => {
         }],
       },
     }
-    const snapshot = adapter.studioLotSnapshot(state)
-    const director = selectedPeople(snapshot).director
+    // Preserve one exact pre-expansion Director/Lead snapshot while the current
+    // GameState becomes hostile. The UI must still gate career/profile truth on
+    // the whole-studio assignment authority rather than trusting stale display.
+    vi.spyOn(adapter, 'studioLotSnapshot').mockReturnValue(
+      withoutCompanyProjection(snapshot),
+    )
     const onOpenTalentProfile = vi.fn()
     const screen = render(
       <StudioLotScreen
@@ -282,6 +304,7 @@ describe('World-First Named Person Work & Career Inspector V1', () => {
     const snapshot = adapter.studioLotSnapshot(state)
     const director = selectedPeople(snapshot).director
     const operation = { ...snapshot.productionOperations![0]! }
+    delete operation.companyMembers
     delete operation.leadId
     delete operation.leadName
     vi.spyOn(adapter, 'studioLotSnapshot').mockReturnValue({
@@ -449,6 +472,7 @@ describe('World-First Named Person Work & Career Inspector V1', () => {
       ...completeSnapshot,
       people: [lead],
     }
+    currentSnapshot = withoutCompanyProjection(currentSnapshot)
     screen.rerender(<Host revision={1} />)
 
     await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1))

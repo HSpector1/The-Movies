@@ -14,6 +14,7 @@ const fakePhaser = vi.hoisted(() => {
     destroyed = false
     visible = true
     fillColor = 0
+    tint = 0xffffff
     alpha = 1
     originX = 0
     originY = 0
@@ -40,7 +41,7 @@ const fakePhaser = vi.hoisted(() => {
       return this
     }
     setVisible(visible: boolean) { this.visible = visible; return this }
-    setTint() { return this }
+    setTint(tint = 0xffffff) { this.tint = tint; return this }
     setTexture(texture: string, frame?: string | number) {
       this.texture = texture
       if (frame !== undefined) this.frame = frame
@@ -262,6 +263,7 @@ import type {
   LotAnnexWork,
   LotAnnexWorkOccupant,
   LotPersonState,
+  LotProductionCompanyRole,
   ProductionOperationsState,
   StudioLotSnapshot,
 } from '../snapshot/StudioLotSnapshot.ts'
@@ -374,6 +376,75 @@ const operation = (
     },
     ...overrides,
   }
+}
+
+const COMPANY_ROLE_ORDER = [
+  'writer',
+  'director',
+  'lead',
+  'antagonist',
+  'support',
+  'craft',
+] as const satisfies readonly LotProductionCompanyRole[]
+
+function companyFixture(
+  productionId: string,
+  title: string,
+  locationBuildingId: 'stage-a' | 'stage-b',
+) {
+  const people = COMPANY_ROLE_ORDER.map((productionRole) => {
+    const presentationRole = productionRole === 'director' ? 'director' : 'talent'
+    return {
+      id: `${productionId}-${productionRole}`,
+      name: `${title} ${productionRole}`,
+      role: presentationRole,
+      authority: 'active-production',
+      productionId,
+      productionTitle: title,
+    } satisfies LotPersonState
+  })
+  const byRole = (role: LotProductionCompanyRole) =>
+    people[COMPANY_ROLE_ORDER.indexOf(role)]!
+  const companyMembers = COMPANY_ROLE_ORDER.map((productionRole) => {
+    const person = byRole(productionRole)
+    return {
+      productionRole,
+      slotIndex: 0,
+      talentId: person.id,
+      name: person.name,
+      presentationRole: person.role,
+    }
+  })
+  return {
+    people,
+    operation: operation({
+      productionId,
+      title,
+      locationBuildingId,
+      facilityLabel: locationBuildingId === 'stage-a'
+        ? 'Soundstage 7 + Scenery Shop'
+        : 'Soundstage 12 + Scenery Shop',
+      directorId: byRole('director').id,
+      directorName: byRole('director').name,
+      leadId: byRole('lead').id,
+      leadName: byRole('lead').name,
+      companyMembers,
+      taskStatus: null,
+      statusLabel: 'In production',
+      blocker: null,
+      currentCommand: null,
+      attention: 'active',
+    }),
+  }
+}
+
+function companySnapshot(
+  companies: ReturnType<typeof companyFixture>[],
+): StudioLotSnapshot {
+  return snapshot(
+    companies.flatMap((company) => company.people),
+    companies.map((company) => company.operation),
+  )
 }
 
 function snapshot(
@@ -513,12 +584,7 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
     place: SceneHarness['manifest']['places'][number],
     selected: boolean,
   ) => void
-  selectStage7Surface: (place: {
-    id: string
-    buildingId: 'stage-a'
-    label: string
-    affordances: string[]
-  }) => void
+  selectStage7Surface: (place: SceneHarness['manifest']['places'][number]) => void
   selectAnnexSurface: (place: {
     id: string
     buildingId: 'expansion'
@@ -527,6 +593,7 @@ type SceneHarness = InstanceType<typeof fakePhaser.Scene> & {
   }, emitSelection?: boolean) => boolean
   selectSceneryLoadInSurface: (place: SceneHarness['manifest']['places'][number], emitSelection?: boolean) => boolean
   selectServiceYardSurface: (place: SceneHarness['manifest']['places'][number]) => void
+  selectGenericPlaceSurface: (place: SceneHarness['manifest']['places'][number]) => void
   selectPublicitySurface: (
     place: SceneHarness['manifest']['places'][number],
     emitSelection?: boolean,
@@ -1960,6 +2027,250 @@ describe('HollywoodScene snapshot authority', () => {
     expect(() => scene.applySnapshot(contradictory)).not.toThrow()
     expect(internals.expansionLabel!.text).toBe('DEVELOPMENT & CASTING ANNEX · OPERATIONAL')
     expect(internals.expansionGraphics!.calls.some((call) => call.name === 'fillCircle')).toBe(false)
+  })
+
+  it('emphasizes an exact selected company while keeping both complete companies visible and selectable', () => {
+    const companyA = companyFixture('production-a', 'Shared Title', 'stage-a')
+    const companyB = companyFixture('production-b', 'Shared Title', 'stage-b')
+    const { scene, internals, events } = harness(companySnapshot([companyA, companyB]))
+    const presentation = (id: string) => internals.runtimePeople.get(id)!
+
+    expect(internals.runtimePeople).toHaveLength(12)
+    expect(scene.selectProductionCompanyFromHost('production-a')).toBe(true)
+    expect(scene.debugState().selectedCompanyProductionId).toBe('production-a')
+    for (const person of companyA.people) {
+      expect(presentation(person.id).sprite).toMatchObject({
+        tint: 0xbfe3d6,
+        alpha: 1,
+        scale: 1.03,
+        visible: true,
+        interactive: true,
+      })
+      expect(presentation(person.id).label.visible).toBe(false)
+    }
+    for (const person of companyB.people) {
+      expect(presentation(person.id).sprite).toMatchObject({
+        tint: 0xffffff,
+        alpha: 0.72,
+        scale: 0.96,
+        visible: true,
+        interactive: true,
+      })
+    }
+
+    expect(scene.selectProductionCompanyFromHost('production-b')).toBe(true)
+    expect(scene.debugState().selectedCompanyProductionId).toBe('production-b')
+    const selected = companyB.people.find((person) => person.id.endsWith('-writer'))!
+    scene.selectPerson(selected.id)
+    expect(scene.debugState()).toMatchObject({
+      selectedPersonId: selected.id,
+      selectedCompanyProductionId: 'production-b',
+    })
+    expect(presentation(selected.id).sprite).toMatchObject({
+      tint: 0xffe6a0,
+      alpha: 1,
+      scale: 1.08,
+    })
+    expect(presentation(selected.id).label).toMatchObject({ visible: true, text: selected.name })
+    expect(events.at(-1)).toEqual({ type: 'person', person: selected })
+    expect(internals.runtimePeople.size).toBe(12)
+  })
+
+  it('keeps company identity, emphasis, and person homes stable across same-title array reversal', () => {
+    const companyA = companyFixture('production-a', 'Same Title', 'stage-a')
+    const companyB = companyFixture('production-b', 'Same Title', 'stage-b')
+    const initial = companySnapshot([companyA, companyB])
+    const { scene, internals } = harness(initial)
+    const position = (id: string) => {
+      const sprite = internals.runtimePeople.get(id)!.sprite
+      return { x: sprite.x, y: sprite.y }
+    }
+    const homes = new Map(initial.people.map((person) => [person.id, position(person.id)]))
+
+    expect(scene.selectProductionCompanyFromHost('production-b')).toBe(true)
+    const reversed = companySnapshot([companyB, companyA])
+    reversed.people = [...reversed.people].reverse()
+    reversed.productionOperations = [...reversed.productionOperations!].reverse()
+    scene.applySnapshot(reversed)
+
+    expect(scene.debugState().selectedCompanyProductionId).toBe('production-b')
+    for (const person of initial.people) expect(position(person.id)).toEqual(homes.get(person.id))
+    for (const person of companyA.people) {
+      expect(internals.runtimePeople.get(person.id)!.sprite).toMatchObject({ alpha: 0.72, visible: true })
+    }
+    for (const person of companyB.people) {
+      expect(internals.runtimePeople.get(person.id)!.sprite).toMatchObject({
+        tint: 0xbfe3d6,
+        alpha: 1,
+      })
+    }
+  })
+
+  it('preserves a selected surviving company and clears only when that exact company disappears', () => {
+    const companyA = companyFixture('production-a', 'Picture A', 'stage-a')
+    const companyB = companyFixture('production-b', 'Picture B', 'stage-b')
+    const { scene, internals } = harness(companySnapshot([companyA, companyB]))
+
+    const selectedB = companyB.people.find((person) => person.id.endsWith('-support'))!
+    scene.selectPerson(selectedB.id)
+    scene.applySnapshot(companySnapshot([companyB]))
+    expect(scene.debugState()).toMatchObject({
+      selectedPersonId: selectedB.id,
+      selectedCompanyProductionId: 'production-b',
+    })
+    for (const person of companyB.people) {
+      expect(internals.runtimePeople.get(person.id)!.sprite).toMatchObject({
+        tint: person.id === selectedB.id ? 0xffe6a0 : 0xbfe3d6,
+        alpha: 1,
+      })
+    }
+
+    scene.applySnapshot(companySnapshot([companyA]))
+    expect(scene.debugState()).toMatchObject({
+      selectedPersonId: null,
+      selectedCompanyProductionId: null,
+    })
+    for (const person of companyA.people) {
+      expect(internals.runtimePeople.get(person.id)!.sprite).toMatchObject({
+        tint: 0xffffff,
+        alpha: 1,
+        scale: 1,
+        visible: true,
+      })
+    }
+  })
+
+  it('fails malformed or absent expanded company truth closed to neutral presentation', () => {
+    const company = companyFixture('production-a', 'Picture A', 'stage-a')
+    const { scene, internals } = harness(companySnapshot([company]))
+    expect(scene.selectProductionCompanyFromHost(company.operation.productionId)).toBe(true)
+
+    const malformedMembers = company.operation.companyMembers!.map((member) => ({ ...member }))
+    malformedMembers[0]!.name = 'Stale writer name'
+    scene.applySnapshot(snapshot(company.people, [{
+      ...company.operation,
+      companyMembers: malformedMembers,
+    }]))
+    expect(scene.debugState().selectedCompanyProductionId).toBeNull()
+    expect(scene.selectProductionCompanyFromHost(company.operation.productionId)).toBe(false)
+    expect(internals.runtimePeople).toHaveLength(0)
+
+    const compatibility = snapshot([director(), talent()], [operation({
+      leadId: 'talent-1',
+      leadName: 'Alex Vale',
+    })])
+    scene.applySnapshot(compatibility)
+    expect(scene.selectProductionCompanyFromHost('production-1')).toBe(false)
+    expect(scene.debugState().selectedCompanyProductionId).toBeNull()
+    for (const runtime of internals.runtimePeople.values()) {
+      expect(runtime.sprite).toMatchObject({ tint: 0xffffff, alpha: 1, scale: 1, visible: true })
+    }
+  })
+
+  it('clears a selected person and every partial active-company sprite on duplicate identity', () => {
+    const company = companyFixture('production-a', 'Picture A', 'stage-a')
+    const { scene, internals, events } = harness(companySnapshot([company]))
+    const selected = company.people[0]!
+    scene.selectPerson(selected.id)
+    expect(scene.debugState().selectedPersonId).toBe(selected.id)
+
+    const duplicate = { ...selected, name: 'Hostile duplicate name' }
+    scene.applySnapshot(snapshot([...company.people, duplicate], [company.operation]))
+
+    expect(scene.debugState()).toMatchObject({
+      selectedPersonId: null,
+      selectedCompanyProductionId: null,
+    })
+    expect(internals.runtimePeople).toHaveLength(0)
+    expect(events.at(-1)).toEqual({ type: 'person', person: null })
+  })
+
+  it('shares company emphasis with Stage 7 and scenery selection while generic places clear it', () => {
+    const company = companyFixture('production-1', 'Night Crossing', 'stage-a')
+    const blocked = blockedSceneryOperation({
+      ...company.operation,
+      productionId: 'production-1',
+      taskStatus: 'blocked',
+      statusLabel: 'Production hold',
+      blocker: {
+        kind: 'scenery-load-in',
+        headline: 'Scenery load-in blocking camera',
+        detail: 'The camera mark is blocked.',
+      },
+      currentCommand: {
+        kind: 'clearSceneryLoadIn',
+        productionId: 'production-1',
+        label: 'Clear scenery load-in',
+      },
+    })
+    const { scene, internals } = harness(snapshot(company.people, [blocked]))
+    internals.selectionGraphics = new fakePhaser.Graphics()
+    const serviceYard = serviceYardPlace()
+    internals.manifest.places.push(serviceYard)
+
+    internals.selectStage7Surface(internals.manifest.places[0]!)
+    expect(scene.debugState()).toMatchObject({
+      selectedProductionId: 'production-1',
+      selectedCompanyProductionId: 'production-1',
+    })
+    scene.clearProductionCompanySelection()
+    expect(scene.debugState()).toMatchObject({
+      selectedProductionId: 'production-1',
+      selectedCompanyProductionId: null,
+    })
+    expect(scene.selectProductionFromHost('production-1')).toBe(true)
+    expect(scene.debugState()).toMatchObject({
+      selectedProductionId: 'production-1',
+      selectedCompanyProductionId: 'production-1',
+    })
+
+    scene.clearProductionCompanySelection()
+    expect(internals.selectSceneryLoadInSurface(serviceYard)).toBe(true)
+    expect(scene.debugState()).toMatchObject({
+      selectedPlaceId: 'service-yard',
+      selectedCompanyProductionId: 'production-1',
+    })
+    scene.clearProductionCompanySelection()
+    expect(scene.selectSceneryLoadInFromHost('production-1')).toBe(true)
+    expect(scene.debugState()).toMatchObject({
+      selectedPlaceId: 'service-yard',
+      selectedCompanyProductionId: 'production-1',
+    })
+
+    internals.selectGenericPlaceSurface(annexPlace())
+    expect(scene.debugState().selectedCompanyProductionId).toBeNull()
+    for (const runtime of internals.runtimePeople.values()) {
+      expect(runtime.sprite).toMatchObject({ tint: 0xffffff, alpha: 1, scale: 1, visible: true })
+    }
+  })
+
+  it('adds no display or draw owner when company selection changes', () => {
+    const companyA = companyFixture('production-a', 'Picture A', 'stage-a')
+    const companyB = companyFixture('production-b', 'Picture B', 'stage-b')
+    const { scene, internals } = harness(companySnapshot([companyA, companyB]))
+    const structure = {
+      sprites: internals.sprites.length,
+      texts: internals.texts.length,
+      graphics: internals.graphicsObjects.length,
+      rectangles: internals.rectangles.length,
+      circles: internals.circles.length,
+      images: internals.images.length,
+    }
+
+    scene.selectProductionCompanyFromHost('production-a')
+    scene.selectPerson(companyA.people[0]!.id)
+    scene.selectProductionCompanyFromHost('production-b')
+    scene.clearProductionCompanySelection()
+
+    expect({
+      sprites: internals.sprites.length,
+      texts: internals.texts.length,
+      graphics: internals.graphicsObjects.length,
+      rectangles: internals.rectangles.length,
+      circles: internals.circles.length,
+      images: internals.images.length,
+    }).toEqual(structure)
+    expect(structure).toMatchObject({ sprites: 12, texts: 12, graphics: 0 })
   })
 
   it('gives concurrent same-role people stable, non-overlapping authoritative homes', () => {

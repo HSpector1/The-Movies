@@ -7,6 +7,10 @@ import type {
 } from '../snapshot/StudioLotSnapshot'
 import { operationalAnnexWorkContext } from '../snapshot/annexWork.ts'
 import { gateHiringCandidateContext } from '../snapshot/gateHiring.ts'
+import {
+  activeProductionCompanyContexts,
+  lotPeopleForCompanyPresentation,
+} from '../snapshot/productionCompany.ts'
 import { sceneryLoadInContext } from '../snapshot/sceneryLoadIn.ts'
 import { stage7ProductionDetailContext } from '../snapshot/stage7Production.ts'
 import {
@@ -86,6 +90,9 @@ const GATE_FOREGROUND_LAYER = {
   height: 489,
 } as const
 const SCENERY_SWEEP_DURATION_MS = 1_200
+const SELECTED_PERSON_TINT = 0xffe6a0
+const SELECTED_COMPANY_TINT = 0xbfe3d6
+const OTHER_COMPANY_ALPHA = 0.72
 
 type Point = { x: number; y: number }
 type RoutePoint = Point & { actorDepth: number; cue: string }
@@ -261,6 +268,11 @@ export class HollywoodScene extends Phaser.Scene {
   private selectedPersonId: string | null = null
   private selectedPlaceId: string | null = null
   private selectedProductionId: string | null = null
+  /**
+   * Presentation-only company focus. This must never stand in for the physical
+   * Stage 7/scenery selection above, which has its own independently proven seam.
+   */
+  private selectedCompanyProductionId: string | null = null
   /**
    * A route is visual acknowledgement of an already-accepted engine transition.
    * It never owns or advances a production/task status.
@@ -922,6 +934,7 @@ export class HollywoodScene extends Phaser.Scene {
     ) return false
     const scenery = sceneryLoadInContext(this.snapshot)
     if (scenery === null) return false
+    this.selectProductionCompanyPresentation(scenery.operation.productionId)
     this.selectedProductionId = scenery.operation.productionId
     this.selectedPlaceId = place.id
     this.drawPlaceOutline(place, true)
@@ -945,6 +958,7 @@ export class HollywoodScene extends Phaser.Scene {
   }
 
   private selectGenericPlaceSurface(place: Place): void {
+    this.clearProductionCompanySelection()
     this.selectedProductionId = null
     this.selectedPlaceId = place.id
     this.drawPlaceOutline(place, true)
@@ -962,6 +976,7 @@ export class HollywoodScene extends Phaser.Scene {
   /** One exact Gate seam shared by the physical polygon and native host companion. */
   private selectGateSurface(place: Place, emitSelection = true): boolean {
     if (!this.selectionGraphics || place !== this.canonicalGatePlace()) return false
+    this.clearProductionCompanySelection()
     this.selectedProductionId = null
     this.selectedPlaceId = GATE_PLACE_ID
     this.drawPlaceOutline(place, true)
@@ -1001,6 +1016,7 @@ export class HollywoodScene extends Phaser.Scene {
    */
   private selectPublicitySurface(place: Place, emitSelection = true): boolean {
     if (!this.selectionGraphics || place !== this.canonicalPublicityPlace()) return false
+    this.clearProductionCompanySelection()
     this.selectedProductionId = null
     this.selectedPlaceId = PUBLICITY_PLACE_ID
     this.drawPlaceOutline(place, true)
@@ -1040,6 +1056,7 @@ export class HollywoodScene extends Phaser.Scene {
    */
   private selectAnnexSurface(place: Place, emitSelection = true): boolean {
     if (place.id !== ANNEX_PLACE_ID || place.buildingId !== ANNEX_BUILDING_ID) return false
+    this.clearProductionCompanySelection()
     this.selectedProductionId = null
     this.selectedPlaceId = place.id
     this.drawPlaceOutline(place, true)
@@ -1074,6 +1091,7 @@ export class HollywoodScene extends Phaser.Scene {
     this.drawPlaceOutline(place, true)
     const operation = this.authoritativeStage7Operation(this.snapshot)
     if (operation !== null) {
+      this.selectProductionCompanyPresentation(operation.productionId)
       this.selectedProductionId = operation.productionId
       this.emitEvent({
         type: 'production',
@@ -1084,6 +1102,7 @@ export class HollywoodScene extends Phaser.Scene {
       })
       return
     }
+    this.clearProductionCompanySelection()
     this.selectedProductionId = null
     this.emitEvent({
       type: 'place',
@@ -1102,6 +1121,7 @@ export class HollywoodScene extends Phaser.Scene {
     if (operation?.productionId !== productionId) return false
     const place = this.canonicalStage7Place()
     if (place === null) return false
+    this.selectProductionCompanyPresentation(operation.productionId)
     this.selectedProductionId = operation.productionId
     this.selectedPlaceId = place.id
     this.drawPlaceOutline(place, true)
@@ -1124,8 +1144,101 @@ export class HollywoodScene extends Phaser.Scene {
     this.selectionGraphics?.clear()
   }
 
+  /**
+   * Resolve presentation focus only from the strict shared company selector. A
+   * missing or malformed expanded claim clears this cue; it never borrows Stage 7,
+   * title, array position, or the currently selected person as alternate authority.
+   */
+  private selectProductionCompanyPresentation(productionId: string): boolean {
+    const contexts = activeProductionCompanyContexts(this.snapshot)
+    const matches = contexts?.filter(
+      (context) => context.operation.productionId === productionId,
+    ) ?? []
+    if (matches.length !== 1) {
+      this.selectedCompanyProductionId = null
+      this.paintPersonSelection()
+      return false
+    }
+    this.selectedCompanyProductionId = productionId
+    this.paintPersonSelection(contexts)
+    return true
+  }
+
+  /** Host/DOM parity for phase-independent exact company focus. Emits no event. */
+  selectProductionCompanyFromHost(productionId: string): boolean {
+    return this.selectProductionCompanyPresentation(productionId)
+  }
+
+  /** Clear only company presentation; physical place/Stage selection is untouched. */
+  clearProductionCompanySelection(): void {
+    if (this.selectedCompanyProductionId === null) return
+    this.selectedCompanyProductionId = null
+    this.paintPersonSelection()
+  }
+
+  /**
+   * Revalidate retained focus after every snapshot. Unrelated company removal keeps
+   * the exact survivor; removal or corruption of the selected company clears neutral.
+   */
+  private reconcileProductionCompanySelection(): void {
+    if (this.selectedCompanyProductionId === null) {
+      this.paintPersonSelection()
+      return
+    }
+    const contexts = activeProductionCompanyContexts(this.snapshot)
+    const matches = contexts?.filter(
+      (context) => context.operation.productionId === this.selectedCompanyProductionId,
+    ) ?? []
+    if (matches.length !== 1) this.selectedCompanyProductionId = null
+    this.paintPersonSelection(contexts)
+  }
+
+  /**
+   * Existing sprites own the complete cue: no Graphics, texture, badge, or draw owner.
+   * The selected person remains gold and named; company peers are cool-highlighted;
+   * every other visible person remains selectable at a bounded reduced emphasis.
+   */
+  private paintPersonSelection(
+    contexts = activeProductionCompanyContexts(this.snapshot),
+  ): void {
+    const selectedCompany = contexts === null || this.selectedCompanyProductionId === null
+      ? null
+      : contexts.filter(
+          (context) => context.operation.productionId === this.selectedCompanyProductionId,
+        ).length === 1
+        ? contexts.find(
+            (context) => context.operation.productionId === this.selectedCompanyProductionId,
+          ) ?? null
+        : null
+    const selectedCompanyPeople = new Set(
+      selectedCompany?.members.map(({ person }) => person.id) ?? [],
+    )
+
+    for (const runtime of this.runtimePeople.values()) {
+      const selectedPerson = runtime.fact.id === this.selectedPersonId
+      const selectedCompanyMember = selectedCompanyPeople.has(runtime.fact.id)
+      runtime.label.setVisible(selectedPerson)
+      runtime.sprite
+        .setTint(
+          selectedPerson
+            ? SELECTED_PERSON_TINT
+            : selectedCompanyMember
+              ? SELECTED_COMPANY_TINT
+              : 0xffffff,
+        )
+        .setAlpha(
+          selectedCompany === null || selectedPerson || selectedCompanyMember
+            ? 1
+            : OTHER_COMPANY_ALPHA,
+        )
+        .setScale(this.actorScale(
+          selectedPerson ? 1.08 : selectedCompanyMember ? 1.03 : selectedCompany === null ? 1 : 0.96,
+        ))
+    }
+  }
+
   private buildPeople(): void {
-    this.reconcilePeople(this.snapshot.people)
+    this.reconcilePeople(lotPeopleForCompanyPresentation(this.snapshot))
   }
 
   private copyGateVisitor(
@@ -1247,7 +1360,12 @@ export class HollywoodScene extends Phaser.Scene {
    * authoritative snapshot without retaining a Talent or Production object.
    */
   private reconcilePeople(people: readonly LotPersonState[]): void {
-    const nextById = new Map(people.map((person) => [person.id, person]))
+    const identityCounts = new Map<string, number>()
+    for (const person of people) {
+      identityCounts.set(person.id, (identityCounts.get(person.id) ?? 0) + 1)
+    }
+    const uniquePeople = people.filter((person) => identityCounts.get(person.id) === 1)
+    const nextById = new Map(uniquePeople.map((person) => [person.id, person]))
 
     for (const [id, runtime] of this.runtimePeople) {
       if (nextById.has(id)) continue
@@ -1260,7 +1378,7 @@ export class HollywoodScene extends Phaser.Scene {
 
     // A fresh scene must produce the same slots even if an equivalent snapshot arrives
     // in a different array order. Existing people retain their slots across updates.
-    const orderedPeople = [...people].sort(
+    const orderedPeople = [...uniquePeople].sort(
       (a, b) => a.role.localeCompare(b.role) || a.id.localeCompare(b.id),
     )
     for (const person of orderedPeople) {
@@ -1530,7 +1648,7 @@ export class HollywoodScene extends Phaser.Scene {
       return
     }
 
-    this.reconcilePeople(snapshot.people)
+    this.reconcilePeople(lotPeopleForCompanyPresentation(snapshot))
     const nextStage7 = this.authoritativeStage7Operation(snapshot)
     const nextScenery = sceneryLoadInContext(snapshot)
     if (
@@ -1579,6 +1697,7 @@ export class HollywoodScene extends Phaser.Scene {
       previousScenery.operation.productionId === nextScenery.operation.productionId
 
     this.syncPeopleToAuthoritativeSnapshot(nextStage7)
+    this.reconcileProductionCompanySelection()
     this.paintAuthoritativeStage7(nextStage7)
     this.paintSceneryLoadIn(nextScenery)
     if (acceptedSceneryClear) this.beginCosmeticSceneryLoadIn(nextScenery.operation)
@@ -1900,21 +2019,21 @@ export class HollywoodScene extends Phaser.Scene {
     const runtime = this.runtimePeople.get(personId)
     if (!runtime) return
     this.selectedPersonId = personId
-    for (const person of this.runtimePeople.values()) {
-      const selected = person.fact.id === personId
-      person.label.setVisible(selected)
-      person.sprite.setTint(selected ? 0xffe6a0 : 0xffffff)
-    }
+    const contexts = activeProductionCompanyContexts(this.snapshot)
+    const companyMatches = contexts?.filter((context) =>
+      context.members.some(({ person }) => person.id === personId)
+    ) ?? []
+    this.selectedCompanyProductionId = companyMatches.length === 1
+      ? companyMatches[0]!.operation.productionId
+      : null
+    this.paintPersonSelection(contexts)
     this.emitEvent({ type: 'person', person: runtime.fact })
   }
 
   clearPersonSelection(): void {
     if (this.selectedPersonId === null) return
     this.selectedPersonId = null
-    for (const person of this.runtimePeople.values()) {
-      person.label.setVisible(false)
-      person.sprite.setTint(0xffffff)
-    }
+    this.paintPersonSelection()
     this.emitEvent({ type: 'person', person: null })
   }
 
@@ -2234,6 +2353,7 @@ export class HollywoodScene extends Phaser.Scene {
     selectedPersonId: string | null
     selectedPlaceId: string | null
     selectedProductionId: string | null
+    selectedCompanyProductionId: string | null
     stage7Operation: ProductionOperationsState | null
     routeProductionId: string | null
     sceneryLoadInState: 'blocked' | 'ready' | null
@@ -2250,6 +2370,7 @@ export class HollywoodScene extends Phaser.Scene {
       selectedPersonId: this.selectedPersonId,
       selectedPlaceId: this.selectedPlaceId,
       selectedProductionId: this.selectedProductionId,
+      selectedCompanyProductionId: this.selectedCompanyProductionId,
       stage7Operation: this.authoritativeStage7Operation(this.snapshot),
       routeProductionId: this.cosmeticRoute?.productionId ?? null,
       sceneryLoadInState: sceneryLoadInContext(this.snapshot)?.state ?? null,

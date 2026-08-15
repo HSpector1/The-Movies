@@ -452,8 +452,8 @@ async function collectGovernedTelemetry(page: Page) {
 test('warm Hollywood telemetry completes 240 frames and the exact structural budgets', async ({ page }) => {
   const { performance, values } = await collectGovernedTelemetry(page)
 
-  expect(Number(values![3])).toBe(34)
-  expect(Number(values![4])).toBe(15)
+  expect(Number(values![3])).toBe(42)
+  expect(Number(values![4])).toBe(19)
   expect(Number(values![5])).toBe(10.6)
   expect(Number(values![8])).toBe(1)
   await expect(performance).toHaveAttribute('data-frame-samples', '240')

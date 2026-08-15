@@ -33,6 +33,7 @@ const IDENTITY_PROOF_FLAG_KEY = 'project-studio.flags.studio-lot-identity-proof'
 const FIXTURE_SHA256 = '4026c51603afe35605a9d5a71391764cd6dfea3972ef3a8d20ef3b3987dc4652'
 const EXPECTED_DECODED_BYTES = 11_096_896
 const RICH_MANAGED_SEED = 'world-first-production-formation-rich-browser'
+const PERFORMANCE_EVIDENCE = process.env.PROJECT_STUDIO_PERFORMANCE_EVIDENCE === '1'
 
 /**
  * Build the two-picture browser authority through the same public actions as the governed Annex
@@ -648,6 +649,7 @@ test('a second real picture forms by exact receipt, not array order, and reaches
   await seedManagedLot(page, {
     saveBytes: RICH_MANAGED_AVAILABLE_SAVE,
     recoveredWeek: 13,
+    identityProof: true,
   })
   const first = await formPictureFromCurrentLot(page)
   await expectFormationFacts(page, first)
@@ -659,6 +661,7 @@ test('a second real picture forms by exact receipt, not array order, and reaches
   await expectFormationFacts(page, second)
   const secondProductionId = await exactSavedProductionId(page, second)
   expect(secondProductionId).not.toBe(firstProductionId)
+  const twoPictureSaveBeforeInspection = await activeSessionBytes(page)
 
   const firstChoice = page.getByTestId(`hollywood-select-production-${firstProductionId}`)
   const secondChoice = page.getByTestId(`hollywood-select-production-${secondProductionId}`)
@@ -671,7 +674,107 @@ test('a second real picture forms by exact receipt, not array order, and reaches
     .toHaveAttribute('aria-pressed', 'true')
   await expect(productionPanel(page)).toContainText(second.directorName)
   await expect(productionPanel(page)).toContainText(second.leadName)
+
+  const companyButtons = page.locator('.hollywood-people [data-production-id]')
+  await expect(companyButtons).toHaveCount(12)
+  for (const productionId of [firstProductionId, secondProductionId]) {
+    const company = page.locator(
+      `.hollywood-people [data-production-id="${productionId}"]`,
+    )
+    await expect(company).toHaveCount(6)
+    expect(await company.evaluateAll((buttons) => buttons.map(
+      (button) => button.getAttribute('data-production-role'),
+    ))).toEqual(['writer', 'director', 'lead', 'antagonist', 'support', 'craft'])
+  }
+  expect(await page.evaluate(
+    () => document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+  )).toBe(true)
+  const lastCompanyMember = companyButtons.last()
+  await lastCompanyMember.focus()
+  await expect(lastCompanyMember).toBeFocused()
+  expect(await lastCompanyMember.evaluate((button) => {
+    const buttonRect = button.getBoundingClientRect()
+    const railRect = button.closest('.hollywood-people')!.getBoundingClientRect()
+    return buttonRect.left >= railRect.left - 1 && buttonRect.right <= railRect.right + 1
+  })).toBe(true)
+  expect(await lastCompanyMember.evaluate((button) => {
+    const rect = button.getBoundingClientRect()
+    const hit = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2)
+    return hit === button || (hit !== null && button.contains(hit))
+  }), 'last company member center remains physically selectable above evidence UI').toBe(true)
+  await lastCompanyMember.click()
+  await expect(lastCompanyMember).toHaveAttribute('aria-pressed', 'true')
+
+  await firstChoice.click()
+  await expect(firstChoice).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.locator(
+    `.hollywood-people [data-production-id="${firstProductionId}"].company-active`,
+  )).toHaveCount(6)
+  await expect(page.locator(
+    `.hollywood-people [data-production-id="${secondProductionId}"].company-active`,
+  )).toHaveCount(0)
+  const firstWriter = page.locator(
+    `.hollywood-people [data-production-id="${firstProductionId}"][data-production-role="writer"]`,
+  )
+  await firstWriter.click()
+  await expect(firstWriter).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.getByTestId('hollywood-person-work-facts')).toContainText('Writer')
+  await expect(page.getByTestId('hollywood-person-work-facts')).toContainText(first.title)
+
+  await secondChoice.click()
+  await expect(secondChoice).toHaveAttribute('aria-pressed', 'true')
+
+  const performance = page.getByTestId('hollywood-performance')
+  await expect(performance).toHaveAttribute('data-frame-samples', '240', { timeout: 30_000 })
+  await expect(performance).toHaveAttribute('data-display-objects', '54')
+  await expect(performance).toHaveAttribute('data-dynamic-actors', '25')
+  await expect(performance).toHaveAttribute('data-decoded-bytes', String(EXPECTED_DECODED_BYTES))
+  await expect(performance).toHaveAttribute('data-draw-calls', '1')
+  expect(await activeSessionBytes(page)).toBe(twoPictureSaveBeforeInspection)
+  await lastCompanyMember.focus()
   await page.screenshot({ path: join(outDir, '09-second-exact-picture-not-array-first.png') })
+
+  for (const viewport of [
+    { width: 1920, height: 1080 },
+    { width: 1366, height: 768 },
+    { width: 1280, height: 720 },
+    { width: 1024, height: 768 },
+    { width: 960, height: 540 },
+  ]) {
+    await page.setViewportSize(viewport)
+    await expect(companyButtons).toHaveCount(12)
+    await companyButtons.first().focus()
+    await lastCompanyMember.focus()
+    await expect(lastCompanyMember).toBeFocused()
+    expect(await page.evaluate(
+      () => document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+    )).toBe(true)
+    expect(await lastCompanyMember.evaluate((button) => {
+      const buttonRect = button.getBoundingClientRect()
+      const railRect = button.closest('.hollywood-people')!.getBoundingClientRect()
+      return buttonRect.left >= railRect.left - 1 && buttonRect.right <= railRect.right + 1
+    }), `${String(viewport.width)}×${String(viewport.height)} focused member reachability`).toBe(true)
+    expect(await page.evaluate(() => {
+      const hud = document.querySelector<HTMLElement>('.hollywood-perf')
+      if (hud === null || getComputedStyle(hud).display === 'none') return []
+      const hudRect = hud.getBoundingClientRect()
+      return [...document.querySelectorAll<HTMLElement>('.hollywood-productions button')].map(
+        (button) => {
+          const buttonRect = button.getBoundingClientRect()
+          const width = Math.max(
+            0,
+            Math.min(hudRect.right, buttonRect.right) - Math.max(hudRect.left, buttonRect.left),
+          )
+          const height = Math.max(
+            0,
+            Math.min(hudRect.bottom, buttonRect.bottom) - Math.max(hudRect.top, buttonRect.top),
+          )
+          return width * height
+        },
+      )
+    }), `${String(viewport.width)}×${String(viewport.height)} HUD/production overlap`).toEqual([0, 0])
+  }
+  await page.setViewportSize({ width: 1280, height: 720 })
 
   // At Week 18 the staggered second picture truthfully occupies Stage 12 while the
   // first picture owns Stage 7. Selecting the exact saved-state ID must not repaint it
@@ -697,12 +800,53 @@ test('a second real picture forms by exact receipt, not array order, and reaches
   expect(runtimeErrors, runtimeErrors.join('\n')).toEqual([])
 })
 
+test('GPU evidence run meets the complete two-picture company wall-clock budget', async ({ page }) => {
+  test.skip(
+    !PERFORMANCE_EVIDENCE,
+    'Set PROJECT_STUDIO_PERFORMANCE_EVIDENCE=1 only in a quiescent GPU-accelerated evidence browser.',
+  )
+
+  await exposeRendererEvidenceReset(page)
+  await seedManagedLot(page, {
+    saveBytes: RICH_MANAGED_AVAILABLE_SAVE,
+    recoveredWeek: 13,
+    identityProof: true,
+  })
+  await formPictureFromCurrentLot(page)
+  await formPictureFromCurrentLot(page)
+  const telemetry = await collectFreshStructuralTelemetry(page, 'two-picture GPU evidence')
+  expect(telemetry).toEqual({
+    displayObjects: 54,
+    dynamicActors: 25,
+    decodedBytes: EXPECTED_DECODED_BYTES,
+    drawCalls: 1,
+  })
+  const performance = page.getByTestId('hollywood-performance')
+  expect(Number(await performance.getAttribute('data-fps'))).toBeGreaterThanOrEqual(50)
+  expect(Number(await performance.getAttribute('data-one-percent-low-fps')))
+    .toBeGreaterThanOrEqual(30)
+})
+
 test('forced colors retains textual formation identity, exact selection, and visible boundaries', async ({ page }) => {
   const runtimeErrors = captureRuntimeErrors(page)
   await page.emulateMedia({ forcedColors: 'active' })
   const formed = await greenlightFromLot(page)
   await expectFormationFacts(page, formed)
   expect(await page.evaluate(() => matchMedia('(forced-colors: active)').matches)).toBe(true)
+
+  const company = page.locator('.hollywood-people [data-production-id]')
+  await expect(company).toHaveCount(6)
+  await expect(page.locator('.hollywood-people .company-active')).toHaveCount(6)
+  const forcedCompanyCue = await company.first().evaluate((button) => {
+    const style = getComputedStyle(button)
+    return { borderTopStyle: style.borderTopStyle, borderTopWidth: style.borderTopWidth }
+  })
+  expect(forcedCompanyCue.borderTopStyle).toBe('double')
+  expect(forcedCompanyCue.borderTopWidth).toBe('4px')
+  const selectedDirector = page.getByTestId(`hollywood-select-person-${formed.directorId}`)
+  await expect(selectedDirector).toHaveClass(/active/)
+  expect(await selectedDirector.evaluate((button) => getComputedStyle(button).outlineStyle))
+    .toBe('solid')
 
   const witness = page.getByTestId('hollywood-production-formation-witness')
   await expect(witness).toHaveText('PICTURE FORMED')
@@ -1065,6 +1209,58 @@ test.describe('formation 480×270 CSS-pixel layout at device scale factor 2', ()
       () => document.documentElement.scrollWidth > window.innerWidth,
     )).toBe(false)
     await page.screenshot({ path: join(outDir, '13-480x270-dsf2-formation.png') })
+    expect(runtimeErrors, runtimeErrors.join('\n')).toEqual([])
+  })
+
+  test('keeps both complete companies keyboard-reachable at 480 CSS pixels', async ({ page }) => {
+    const runtimeErrors = captureRuntimeErrors(page)
+    await seedManagedLot(page, {
+      saveBytes: RICH_MANAGED_AVAILABLE_SAVE,
+      recoveredWeek: 13,
+      identityProof: true,
+    })
+    const first = await formPictureFromCurrentLot(page)
+    const firstProductionId = await exactSavedProductionId(page, first)
+    const second = await formPictureFromCurrentLot(page)
+    const secondProductionId = await exactSavedProductionId(page, second)
+    const beforeInspection = await activeSessionBytes(page)
+
+    const members = page.locator('.hollywood-people [data-production-id]')
+    await expect(members).toHaveCount(12)
+    await expect(page.locator(
+      `.hollywood-people [data-production-id="${firstProductionId}"]`,
+    )).toHaveCount(6)
+    await expect(page.locator(
+      `.hollywood-people [data-production-id="${secondProductionId}"]`,
+    )).toHaveCount(6)
+
+    const last = members.last()
+    await members.first().focus()
+    await last.focus()
+    await expect(last).toBeFocused()
+    const geometry = await last.evaluate((button) => {
+      const rect = button.getBoundingClientRect()
+      const rail = button.closest('.hollywood-people')!.getBoundingClientRect()
+      return {
+        insideRail: rect.left >= rail.left - 1 && rect.right <= rail.right + 1,
+        width: rect.width,
+        height: rect.height,
+      }
+    })
+    expect(geometry.insideRail).toBe(true)
+    expect(geometry.width).toBeGreaterThanOrEqual(44)
+    expect(geometry.height).toBeGreaterThanOrEqual(44)
+    await page.keyboard.press('Enter')
+    await expect(last).toHaveAttribute('aria-pressed', 'true')
+    await expect(page.getByTestId('hollywood-person-work-facts')).toContainText(
+      'Production/Craft Lead',
+    )
+    await expect(page.getByTestId('hollywood-person-work-facts')).toContainText(second.title)
+    expect(await page.evaluate(
+      () => document.documentElement.scrollWidth === window.innerWidth,
+    )).toBe(true)
+    expect(await activeSessionBytes(page)).toBe(beforeInspection)
+    await page.screenshot({ path: join(outDir, '14-two-companies-480x270-dsf2.png') })
     expect(runtimeErrors, runtimeErrors.join('\n')).toEqual([])
   })
 })

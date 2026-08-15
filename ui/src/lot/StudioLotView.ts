@@ -419,6 +419,14 @@ export class StudioLotView {
   selectHollywoodProduction(id: string): boolean {
     return this.hollywoodScene?.selectProductionFromHost(id) ?? false
   }
+  /** Emphasize one exact complete company independently of physical Stage 7 selection. */
+  selectHollywoodProductionCompany(id: string): boolean {
+    return this.hollywoodScene?.selectProductionCompanyFromHost(id) ?? false
+  }
+  /** Clear only presentation company focus; physical place and person state stay intact. */
+  clearHollywoodProductionCompanySelection(): void {
+    this.hollywoodScene?.clearProductionCompanySelection()
+  }
   /** Paint exact Scenery & Service work from the host without re-emitting a scene event. */
   selectHollywoodSceneryLoadIn(id: string): boolean {
     return this.hollywoodScene?.selectSceneryLoadInFromHost(id) ?? false

@@ -99,6 +99,8 @@ const spy = vi.hoisted(() => {
     publicity: Array<{ ok: boolean; detail: string }> = []
     hollywoodPeopleSelected: string[] = []
     hollywoodProductionsSelected: string[] = []
+    hollywoodCompaniesSelected: string[] = []
+    hollywoodCompanyClears = 0
     hollywoodPersonClears = 0
     hollywoodPlaceClears = 0
     constructor(opts: Opts) {
@@ -127,6 +129,11 @@ const spy = vi.hoisted(() => {
     focusHollywoodPlace() {}
     selectHollywoodPerson(id: string) { this.hollywoodPeopleSelected.push(id) }
     selectHollywoodProduction(id: string) { this.hollywoodProductionsSelected.push(id) }
+    selectHollywoodProductionCompany(id: string) {
+      this.hollywoodCompaniesSelected.push(id)
+      return true
+    }
+    clearHollywoodProductionCompanySelection() { this.hollywoodCompanyClears++ }
     selectHollywoodAnnexPlace() { return true }
     clearHollywoodPersonSelection() { this.hollywoodPersonClears++ }
     clearHollywoodPlaceSelection() { this.hollywoodPlaceClears++ }
@@ -1568,6 +1575,130 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
       'aria-pressed',
       'false',
     )
+  })
+
+  it('keeps all six exact company members selectable while only the assigned Director owns the call', async () => {
+    setOperationHollywoodOverride(true)
+    let state = greenlightFilm(foundManagedStudio('hollywood-complete-company'))
+    let snapshot = studioLotSnapshot(state)
+    for (let week = 0; week < 8; week++) {
+      const command = snapshot.productionOperations?.[0]?.currentCommand
+      if (command?.kind === 'assignShootingDirector') break
+      state = tick(state)
+      snapshot = studioLotSnapshot(state)
+    }
+    const operation = snapshot.productionOperations![0]!
+    expect(operation.currentCommand?.kind).toBe('assignShootingDirector')
+    expect(operation.companyMembers).toHaveLength(6)
+
+    const onOpenTalentProfile = vi.fn()
+    const view = render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onOpenTalentProfile={onOpenTalentProfile}
+      />,
+    )
+    await waitFor(() => expect(spy.instances).toHaveLength(1))
+
+    const labels = [
+      'Writer',
+      'Director',
+      'Lead actor',
+      'Antagonist',
+      'Supporting actor',
+      'Production/Craft Lead',
+    ]
+    expect(operation.companyMembers!.map((member) =>
+      view.getByTestId(`hollywood-select-person-${member.talentId}`).getAttribute('aria-label'),
+    )).toEqual(labels.map((label, index) =>
+      `${operation.companyMembers![index]!.name} · ${label} · ${operation.title}`,
+    ))
+
+    const writer = operation.companyMembers!.find((member) => member.productionRole === 'writer')!
+    fireEvent.click(view.getByTestId(`hollywood-select-person-${writer.talentId}`))
+    expect(view.getByTestId('hollywood-person-work-facts')).toHaveTextContent(
+      `Role on picture${labels[0]}`,
+    )
+    expect(view.getByTestId('hollywood-person-work-facts')).toHaveTextContent(operation.title)
+    expect(view.queryByTestId('hollywood-production-command-assignShootingDirector')).not.toBeInTheDocument()
+    fireEvent.click(view.getByTestId(`hollywood-open-talent-profile-${writer.talentId}`))
+    expect(onOpenTalentProfile).toHaveBeenCalledWith(writer.talentId)
+
+    const director = operation.companyMembers!.find(
+      (member) => member.productionRole === 'director',
+    )!
+    fireEvent.click(view.getByTestId(`hollywood-select-person-${director.talentId}`))
+    expect(view.getByTestId('hollywood-person-work-facts')).toHaveTextContent(
+      'Role on pictureDirector',
+    )
+    expect(view.getByTestId('hollywood-production-command-assignShootingDirector')).toHaveTextContent(
+      operation.currentCommand!.label,
+    )
+    await waitFor(() => expect(latest().hollywoodCompaniesSelected).toContain(operation.productionId))
+
+    const clearsBeforePublicity = latest().hollywoodCompanyClears
+    fireEvent.click(view.getByTestId('lot-nav-admin'))
+    expect(view.getByTestId('hollywood-publicity-context')).toBeInTheDocument()
+    await waitFor(() =>
+      expect(latest().hollywoodCompanyClears).toBeGreaterThan(clearsBeforePublicity),
+    )
+    expect(view.container.querySelectorAll('.hollywood-people .company-active')).toHaveLength(0)
+
+    fireEvent.click(view.getByTestId(`hollywood-select-person-${director.talentId}`))
+    await waitFor(() =>
+      expect(view.container.querySelectorAll('.hollywood-people .company-active')).toHaveLength(6),
+    )
+    const clearsBeforePlace = latest().hollywoodCompanyClears
+    act(() => {
+      latest().opts.onHollywoodPlace?.({
+        id: 'backlot-workshop',
+        buildingId: 'writers',
+        label: 'Backlot workshop',
+        affordances: ['work'],
+      })
+    })
+    await waitFor(() =>
+      expect(latest().hollywoodCompanyClears).toBeGreaterThan(clearsBeforePlace),
+    )
+    expect(view.container.querySelectorAll('.hollywood-people .company-active')).toHaveLength(0)
+  })
+
+  it('clears semantic and physical person ownership when a company identity becomes duplicated', async () => {
+    setOperationHollywoodOverride(true)
+    const state = greenlightFilm(foundManagedStudio('hollywood-company-duplicate-replacement'))
+    let projected = studioLotSnapshot(state)
+    const selected = projected.productionOperations?.[0]?.companyMembers?.[0]
+    if (!selected) throw new Error('expected one projected company member')
+    const adapter = await import('../engine/adapter.ts')
+    vi.spyOn(adapter, 'studioLotSnapshot').mockImplementation(() => projected)
+
+    const view = render(
+      <StudioLotScreen state={state} onNavigate={() => {}} onExit={() => {}} />,
+    )
+    await waitFor(() => expect(spy.instances).toHaveLength(1))
+    fireEvent.click(view.getByTestId(`hollywood-select-person-${selected.talentId}`))
+    expect(view.getByTestId('hollywood-person-work-facts')).toBeInTheDocument()
+    const clearsBefore = latest().hollywoodPersonClears
+
+    const selectedPerson = projected.people.find((person) => person.id === selected.talentId)!
+    projected = {
+      ...projected,
+      people: [
+        ...projected.people,
+        { ...selectedPerson, name: 'Hostile duplicate identity' },
+      ],
+    }
+    view.rerender(
+      <StudioLotScreen state={{ ...state }} onNavigate={() => {}} onExit={() => {}} />,
+    )
+
+    await waitFor(() =>
+      expect(view.queryByTestId(`hollywood-select-person-${selected.talentId}`)).not.toBeInTheDocument(),
+    )
+    expect(view.queryByTestId('hollywood-person-work-facts')).not.toBeInTheDocument()
+    expect(latest().hollywoodPersonClears).toBeGreaterThan(clearsBefore)
   })
 })
 

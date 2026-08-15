@@ -49,6 +49,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  flex: 1 1 auto;
+  min-width: 0;
   gap: 14px;
   flex-wrap: wrap;
 }
@@ -528,6 +530,23 @@
   --chronicle-brass: #d2ae62;
   --chronicle-cream: #f2e2bd;
   background: #08120f;
+}
+/* Session recovery remains visible and dismissible over the world, but should
+   not consume a card-height slice of the primary game surface. This only
+   compacts the notice while the Lot is the mounted home. */
+#root:has(> .lot-screen) > [data-testid="recovery-notice"] {
+  margin-bottom: 0 !important;
+  padding: 0 12px;
+  border-width: 0 0 1px;
+  border-radius: 0;
+}
+#root:has(> .lot-screen) > [data-testid="recovery-notice"] > .spread {
+  flex-direction: row;
+  align-items: center;
+}
+#root:has(> .lot-screen) > [data-testid="recovery-notice"] button {
+  min-height: 44px;
+  padding-block: 4px;
 }
 .lot-hollywood .lot-topbar {
   min-height: 56px;
@@ -1229,7 +1248,18 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   gap: 6px;
 }
 .hollywood-productions { bottom: 68px; }
-.hollywood-people { bottom: 16px; }
+.hollywood-people {
+  right: 16px;
+  bottom: 16px;
+  box-sizing: border-box;
+  width: calc(100% - 32px);
+  max-width: calc(100% - 32px);
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-inline: contain;
+  padding: 3px 2px 4px;
+  scrollbar-width: thin;
+}
 .hollywood-productions button,
 .hollywood-people button {
   min-width: 128px;
@@ -1240,14 +1270,51 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   padding: 7px 10px;
   box-shadow: 0 5px 16px rgba(0,0,0,.35);
 }
+.hollywood-people button {
+  flex: 0 0 auto;
+  max-width: 190px;
+}
 .hollywood-productions button.active,
 .hollywood-people button.active { border-color: #e1bf70; box-shadow: inset 0 -2px #e1bf70, 0 5px 16px rgba(0,0,0,.35); }
+.hollywood-people button.company-active {
+  border-top: 3px double #9bc7aa;
+}
+.hollywood-people button.active.company-active {
+  border-color: #e1bf70;
+  border-top-style: double;
+}
 .hollywood-productions span, .hollywood-productions small,
 .hollywood-people span, .hollywood-people small { display: block; }
 .hollywood-productions span,
 .hollywood-people span { font-family: Georgia, serif; font-size: 13px; }
 .hollywood-productions small,
-.hollywood-people small { color: #90a092; text-transform: uppercase; letter-spacing: .08em; font-size: 8px; margin-top: 2px; }
+.hollywood-people small {
+  color: #90a092;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: 8px;
+  margin-top: 2px;
+}
+.hollywood-people small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* A selected world office and the people who inhabit the Lot are simultaneous
+   management surfaces. Narrow the scrollable people rail beside Publicity so
+   neither surface conceals the other. */
+@media (min-width: 981px) {
+  .lot-stage-wrap:has(.hollywood-inspector.is-publicity) .hollywood-people {
+    right: 422px;
+    width: auto;
+  }
+}
+@media (min-width: 721px) and (max-width: 980px) {
+  .lot-stage-wrap:has(.hollywood-inspector.is-publicity) .hollywood-people {
+    right: 332px;
+    width: auto;
+  }
+}
 .hollywood-activity {
   /* The authored district is intentionally taller than some supported browser
      viewports. Keep transient world feedback inside the visible browser, not at
@@ -1270,7 +1337,8 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   position: absolute;
   z-index: 12;
   right: 16px;
-  bottom: 16px;
+  bottom: 140px;
+  pointer-events: none;
   color: #a9b4aa;
   background: rgba(5, 14, 12, .85);
   border: 1px solid rgba(132, 143, 129, .35);
@@ -1331,7 +1399,7 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   .hollywood-inspector.is-gate {
     top: 8px;
     right: 8px;
-    max-height: min(calc(100% - 16px), calc(100dvh - 80px));
+    max-height: min(calc(100% - 16px), calc(100dvh - 170px));
     padding: 10px 12px;
   }
   .hollywood-inspector.is-gate .hollywood-gate-candidates {
@@ -1342,7 +1410,7 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
     bottom: auto;
     right: 8px;
     left: auto;
-    max-height: min(calc(100% - 16px), calc(100dvh - 80px));
+    max-height: min(calc(100% - 16px), calc(100dvh - 170px));
     padding: 10px 12px;
   }
   .hollywood-inspector.is-publicity .hollywood-publicity-offer { padding: 6px; }
@@ -1521,6 +1589,14 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
     color: GrayText;
     background: ButtonFace;
     border-color: GrayText;
+  }
+  .hollywood-people button.company-active {
+    forced-color-adjust: auto;
+    border-top: 4px double Highlight;
+  }
+  .hollywood-people button.active {
+    outline: 3px solid Highlight;
+    outline-offset: -3px;
   }
 }
 
