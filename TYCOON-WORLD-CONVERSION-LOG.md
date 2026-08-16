@@ -108,6 +108,36 @@ CorsixTH parcels/per-cell legality/built-active gate). Engine side:
   state); per-cell green/red; cost + build-weeks quote; construction site paints on the
   lot; completion flips real capacity.
 
+## M2-UI — FROZEN TARGET: Build Mode V1 in-world (ui/src only)
+
+The draft above is frozen with the delivered engine API (`queryPlacement`, action
+`placeFacility`, `studioPlacementView`, `LOT_PARCELS`, per-cell `cellLegality`,
+`PLACEMENT_REJECTION_ORDER`; legacy `startDevelopmentCastingAnnex` is an alias). Ghost
+preview is UI-only with identical-input memoization; draft carries value + revision
+authority; commit paths and receipts follow the retained-workspace laws. Adds first
+grid-world Playwright coverage (boot, inspector, build smoke; grid→screen helper; fresh
+named-fixture tuples). Not built: demolition, mothball UI, roads, more real blueprints,
+minimap.
+
+## M3-Engine — FROZEN TARGET: Presence Projection V1 (src/core + tests, save-neutral)
+
+A pure engine projection `studioPresence(state)` (new `src/core/presence.ts`) derives,
+for the current week, one deterministic per-person timeline over BEATS_PER_WEEK = 10
+integer beats, from EXISTING authoritative truth only: production company members at
+their phase's reserved facilities; script writers drafting/rewriting at Development &
+Casting; casting sessions auditioning; roster employees present without a workplace
+claim; blocked productions' members waiting at the full facility (derived from
+facility-capacity blockers — the first honest queue). Shape: {talentId, name, role,
+engagement, site (facilityId | gate | none), beats[10] of home/travel/at-site/waiting,
+blockedReason?}. Cosmetic stagger (departure beat) uses a derived RNG stream keyed
+(seed, 'presence-v1', talentId:week) — never state.rngState. The projection changes ZERO
+outcomes, persists NOTHING, and alters no tick step; it is the engine-owned canonical
+decomposition of the week's known work for presentation and inspection. Tests: single
+site claim per person; site equals an owner-held reservation; waiting appears iff the
+blocker exists; beat arrays well-formed; byte-determinism; zero sim-RNG consumption.
+Explicitly not built: persistence, arrival-across-weeks law, task queue records, hiring
+travel, sub-week engine decisions, any UI.
+
 ## Authority reconciliation note
 
 The sealed marathon's "not authorized next" list (NEXT-HIGHEST-LEVERAGE.md) prohibited a
