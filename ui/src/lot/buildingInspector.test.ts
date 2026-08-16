@@ -13,6 +13,7 @@ import {
 import {
   ALL_BUILDING_IDS,
   BUILDING_LABELS,
+  LOT_PRESENCE_STATIC_BEAT,
   type ProductionOperationsState,
   type StudioLotSnapshot,
 } from './snapshot/StudioLotSnapshot.ts'
@@ -343,5 +344,124 @@ describe('World Inspector projection — theater, gate, administration, parcel',
     )
     expect(context.facts).toEqual([])
     expect(context.status).toBe('Parcel details are unavailable.')
+  })
+})
+
+// ── M3-UI: "Who's here this week" ────────────────────────────────────────────
+
+describe('World Inspector projection — presence occupants (M3-UI)', () => {
+  function presenceSnapshot(people: unknown[]): StudioLotSnapshot {
+    return baseSnapshot({
+      presence: {
+        week: 2,
+        beatsPerWeek: 10,
+        staticBeat: LOT_PRESENCE_STATIC_BEAT,
+        people,
+        withheldTalentIds: ['talent-withheld'],
+      },
+    } as unknown as Partial<StudioLotSnapshot>)
+  }
+
+  const beats = (working: 'at-site' | 'waiting'): string[] =>
+    Array.from({ length: 10 }, (_, i) => (i === 0 ? 'home' : i === 1 ? 'travel' : i <= 8 ? working : 'home'))
+
+  const occupant = (overrides: Record<string, unknown> = {}) => ({
+    talentId: 'talent-w',
+    name: 'Ada Vane',
+    creativeRole: 'writer',
+    engagement: 'script',
+    credit: 'writer',
+    ownerId: 'script-1',
+    facilityId: 'facility-development-casting',
+    slot: 0,
+    beats: beats('at-site'),
+    blockedReason: null,
+    facilityName: 'Development & Casting',
+    workTitle: 'A Season of Archipelago',
+    activity: 'drafting',
+    ...overrides,
+  })
+
+  it('lists who is in the building this week, by name and credit', () => {
+    const context = lotBuildingInspectorContext(
+      presenceSnapshot([
+        occupant(),
+        occupant({ talentId: 'talent-d', name: 'Ida Cross', credit: 'director', slot: 1 }),
+      ]),
+      'writers',
+      null,
+      null,
+    )
+    expect(context.facts.map((fact) => `${fact.term} — ${fact.detail}`)).toEqual([
+      'Who’s here this week — 2 people',
+      'Ada Vane — Writer · A Season of Archipelago',
+      'Ida Cross — Director · A Season of Archipelago',
+    ])
+  })
+
+  it('marks a queued person as waiting outside the stage', () => {
+    const context = lotBuildingInspectorContext(
+      presenceSnapshot([
+        occupant({
+          talentId: 'talent-q',
+          name: 'Rex Hale',
+          credit: 'lead',
+          facilityId: 'facility-soundstage-07',
+          beats: beats('waiting'),
+          blockedReason: 'awaiting soundstage capacity to enter rehearsal',
+          facilityName: 'Soundstage 7',
+        }),
+      ]),
+      'stage-a',
+      null,
+      null,
+    )
+    expect(context.facts.map((fact) => fact.detail)).toEqual([
+      '1 person',
+      'Lead · waiting outside',
+    ])
+  })
+
+  it('reports the Annex parcel’s own occupants without inventing Calendar slot facts', () => {
+    const context = lotBuildingInspectorContext(
+      presenceSnapshot([
+        occupant({ facilityId: 'facility-development-casting-annex', facilityName: 'Annex' }),
+      ]),
+      'expansion',
+      null,
+      null,
+    )
+    expect(context.facts.map((fact) => fact.term)).toEqual(['Who’s here this week', 'Ada Vane'])
+  })
+
+  it('claims nobody when the snapshot carries no presence, and still opens', () => {
+    const context = lotBuildingInspectorContext(baseSnapshot(), 'writers', null, null)
+    expect(context.facts).toEqual([])
+    expect(context.status.length).toBeGreaterThan(0)
+  })
+
+  it('never lists a person the engine withheld', () => {
+    const context = lotBuildingInspectorContext(
+      presenceSnapshot([occupant()]),
+      'writers',
+      null,
+      null,
+    )
+    expect(context.facts.some((fact) => fact.key === 'presence:talent-withheld')).toBe(false)
+  })
+
+  it('adds presence BELOW the accepted Calendar occupancy, never instead of it', () => {
+    const view = calendar([
+      developmentFacility([
+        { owner: 'script', ownerId: 'script-1', title: 'A Season of Archipelago', activity: 'drafting' },
+      ]),
+    ])
+    const context = lotBuildingInspectorContext(presenceSnapshot([occupant()]), 'writers', view, null)
+    expect(context.facts.map((fact) => fact.key)).toEqual([
+      'facility:facility-development-casting',
+      'slot:facility-development-casting:0',
+      'presence:heading',
+      'presence:talent-w',
+    ])
   })
 })

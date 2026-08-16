@@ -553,7 +553,7 @@ export const PRESENCE_ROUTES: Readonly<
       { gx: 9.2, gy: 10.4 },
       { gx: 8.2, gy: 13.4 },
       { gx: 6.4, gy: 14.4 },
-      { gx: 6.2, gy: 17.8 },
+      { gx: 6.4, gy: 18.6 },
     ],
     expansion: [
       { gx: 9.4, gy: 7.5 },
@@ -611,8 +611,9 @@ export const PRESENCE_ROUTES: Readonly<
     ],
     theater: [
       { gx: 5.6, gy: 13.4 },
-      { gx: 6.2, gy: 15.4 },
-      { gx: 6.2, gy: 17.8 },
+      { gx: 5.6, gy: 15.6 },
+      { gx: 6.6, gy: 16.2 },
+      { gx: 6.6, gy: 18.6 },
     ],
     expansion: [
       { gx: 6.6, gy: 13.4 },

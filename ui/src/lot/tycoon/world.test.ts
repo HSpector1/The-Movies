@@ -21,6 +21,10 @@ import {
   PERSON_HOME_SLOTS,
   PLACE_BY_BUILDING,
   PLAZA,
+  PRESENCE_QUEUE_RANK,
+  PRESENCE_ROUTES,
+  presenceQueueSlotOffset,
+  presenceSiteSlotOffset,
   ROADS,
   WORLD_PLACES,
   YARD_PADS,
@@ -431,5 +435,179 @@ describe('tycoon world — LOD bands recompute against the current fit (M1.5)', 
     expect(reframedZoom(0, 0.6, 0.5)).toBe(clampZoom(0.5))
     expect(reframedZoom(0.6, 0, 0.5)).toBe(clampZoom(0.6))
     expect(reframedZoom(0.6, 0.6, Number.NaN)).toBe(clampZoom(0.6))
+  })
+})
+
+// ── M3-UI: work/wait anchors and the authored presence commutes ───────────────
+
+describe('tycoon world — presence anchors and commutes (M3-UI)', () => {
+  /**
+   * Strictly INSIDE a building's mass — the test the commutes have to pass. The
+   * inclusive `insideFootprint` above is the right test for a standing anchor (it also
+   * rejects standing on the wall line); a path only has to stay out of the body.
+   */
+  const insideBody = (point: GridPoint, place: WorldPlace): boolean =>
+    point.gx > place.gx &&
+    point.gx < place.gx + place.fw &&
+    point.gy > place.gy &&
+    point.gy < place.gy + place.fd
+
+  /**
+   * The Studio Gate is an ARCH standing across the boulevard — the road runs under it by
+   * design (see WORLD_PLACES). It is the one body a path is supposed to pass through.
+   */
+  const solidPlaces = WORLD_PLACES.filter(
+    (place) => place.texKey !== '' && place.buildingId !== 'gate',
+  )
+
+  const sampleSegment = (a: GridPoint, b: GridPoint): GridPoint[] => {
+    const steps = 64
+    const points: GridPoint[] = []
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps
+      points.push({ gx: a.gx + (b.gx - a.gx) * t, gy: a.gy + (b.gy - a.gy) * t })
+    }
+    return points
+  }
+
+  it('gives every place a work anchor and a wait anchor', () => {
+    for (const place of WORLD_PLACES) {
+      expect(`${place.buildingId}.work`).toBe(
+        place.anchors.work === undefined ? 'MISSING' : `${place.buildingId}.work`,
+      )
+      expect(`${place.buildingId}.wait`).toBe(
+        place.anchors.wait === undefined ? 'MISSING' : `${place.buildingId}.wait`,
+      )
+    }
+  })
+
+  it('stands workers at the door, never inside the building’s own mass', () => {
+    for (const place of WORLD_PLACES) {
+      // The Annex parcel has no body of its own — its occupants stand ON the parcel.
+      if (place.texKey === '') continue
+      for (const key of ['work', 'wait'] as const) {
+        const at = place.anchors[key]!
+        expect(`${place.buildingId}.${key}: ${insideBody(at, place)}`).toBe(
+          `${place.buildingId}.${key}: false`,
+        )
+      }
+    }
+  })
+
+  it('puts the waiting queue OUTSIDE the door it is queueing for', () => {
+    for (const place of WORLD_PLACES) {
+      const work = place.anchors.work!
+      const wait = place.anchors.wait!
+      expect(`${place.buildingId} queue is elsewhere`).toBe(
+        work.gx === wait.gx && work.gy === wait.gy
+          ? `${place.buildingId} queue is on the door`
+          : `${place.buildingId} queue is elsewhere`,
+      )
+    }
+  })
+
+  it('spreads co-located workers and queued people onto distinct points', () => {
+    const work = new Set(
+      Array.from({ length: 12 }, (_, i) => {
+        const o = presenceSiteSlotOffset(i)
+        return `${o.gx.toFixed(4)},${o.gy.toFixed(4)}`
+      }),
+    )
+    expect(work.size).toBe(12)
+    const queue = new Set(
+      Array.from({ length: 12 }, (_, i) => {
+        const o = presenceQueueSlotOffset(i)
+        return `${o.gx.toFixed(4)},${o.gy.toFixed(4)}`
+      }),
+    )
+    expect(queue.size).toBe(12)
+    // A queue is a LINE: the first rank marches away in one consistent direction.
+    for (let i = 1; i < PRESENCE_QUEUE_RANK; i++) {
+      expect(presenceQueueSlotOffset(i).gx).toBeGreaterThan(presenceQueueSlotOffset(i - 1).gx)
+      expect(presenceQueueSlotOffset(i).gy).toBeGreaterThan(presenceQueueSlotOffset(i - 1).gy)
+    }
+    expect(presenceSiteSlotOffset(-3)).toEqual(presenceSiteSlotOffset(0))
+    expect(presenceQueueSlotOffset(Number.NaN)).toEqual(presenceQueueSlotOffset(0))
+  })
+
+  it('routes both home zones to every place on the property', () => {
+    for (const role of ['director', 'talent'] as const) {
+      for (const place of WORLD_PLACES) {
+        expect(`${role}→${place.buildingId}`).toBe(
+          PRESENCE_ROUTES[role][place.buildingId] === undefined
+            ? `${role}→${place.buildingId} MISSING`
+            : `${role}→${place.buildingId}`,
+        )
+      }
+    }
+  })
+
+  it('keeps every commute waypoint inside the graded property', () => {
+    for (const role of ['director', 'talent'] as const) {
+      for (const waypoints of Object.values(PRESENCE_ROUTES[role])) {
+        for (const at of waypoints ?? []) {
+          expect(at.gx).toBeGreaterThanOrEqual(0)
+          expect(at.gy).toBeGreaterThanOrEqual(0)
+          expect(at.gx).toBeLessThanOrEqual(LOT_W)
+          expect(at.gy).toBeLessThanOrEqual(LOT_D)
+        }
+      }
+    }
+  })
+
+  it('never walks a commute THROUGH a building — the whole path, densely sampled', () => {
+    for (const role of ['director', 'talent'] as const) {
+      const home = PERSON_HOME[role]
+      for (const place of WORLD_PLACES) {
+        const full: GridPoint[] = [
+          home,
+          ...(PRESENCE_ROUTES[role][place.buildingId] ?? []),
+          place.anchors.work!,
+        ]
+        for (let i = 1; i < full.length; i++) {
+          for (const point of sampleSegment(full[i - 1]!, full[i]!)) {
+            for (const body of solidPlaces) {
+              expect(
+                `${role}→${place.buildingId} @${point.gx.toFixed(2)},${point.gy.toFixed(2)}` +
+                  ` in ${body.buildingId}: ${insideBody(point, body)}`,
+              ).toBe(
+                `${role}→${place.buildingId} @${point.gx.toFixed(2)},${point.gy.toFixed(2)}` +
+                  ` in ${body.buildingId}: false`,
+              )
+            }
+          }
+        }
+      }
+    }
+  })
+
+  it('follows the studio’s own circulation rather than cutting across the lawn', () => {
+    // Not every waypoint can be on pavement (the Casting forecourt has none), but the
+    // SPINE must be: most of every commute stands on road, path, plaza, apron or pad.
+    const circulation: readonly Rect[] = [
+      ...ROADS,
+      ...PATHS,
+      ...PLAZA,
+      ...APRONS,
+      ...EXPANSION_PADS,
+      ...YARD_PADS,
+    ]
+    const onCirculation = (at: GridPoint): boolean =>
+      circulation.some(
+        (rect) =>
+          at.gx >= rect.x0 && at.gx < rect.x1 + 1 && at.gy >= rect.y0 && at.gy < rect.y1 + 1,
+      )
+    for (const role of ['director', 'talent'] as const) {
+      for (const [buildingId, waypoints] of Object.entries(PRESENCE_ROUTES[role])) {
+        const points = waypoints ?? []
+        if (points.length === 0) continue
+        const paved = points.filter(onCirculation).length
+        expect(`${role}→${buildingId}: ${paved}/${points.length} paved`).toBe(
+          paved * 2 >= points.length
+            ? `${role}→${buildingId}: ${paved}/${points.length} paved`
+            : `${role}→${buildingId}: MOSTLY OFF-ROAD`,
+        )
+      }
+    }
   })
 })
