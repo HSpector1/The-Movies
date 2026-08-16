@@ -82,13 +82,25 @@ export default defineConfig({
     //
     // The shipped default is the grid world, and M2 has now PAID this suite's grid-world debt:
     // `ui/e2e/tycoon-build-mode-v1.spec.ts` runs on the 5179 origin below with its own
-    // grid→screen click helper and its own freshly measured fixture tuple — grid managed-idle
-    // Week 0 = 172 objects / 14 actors / 8,545,720 bytes / 4 draws. That is a DIFFERENT WORLD
-    // from the plate numbers above, not a regression (and 2.5 MB cheaper). Unit coverage stays
-    // `ui/src/lot/tycoon/world.test.ts` plus the tycoon boundary cases in
+    // grid→screen click helper and its own freshly measured fixture tuple. That is a DIFFERENT
+    // WORLD from the plate numbers above, not a regression (and 2.5 MB cheaper). Unit coverage
+    // stays `ui/src/lot/tycoon/world.test.ts` plus the tycoon boundary cases in
     // `ui/src/lot/StudioLotView.hollywood.test.ts`. The quarantine on 5178 remains only so the
     // plate-pinned specs keep measuring exactly what they were written to measure, on a path
     // the product still ships.
+    //
+    // GRID TUPLES, by fixture — displayObjects / dynamicActors / decoded bytes / draw calls:
+    //
+    //     build-mode "grid managed-idle", Week 0            172 / 14 / 8,545,720 / 4
+    //     presence   "grid presence",     Week 0            173 / 14 / 8,546,680 / 4
+    //     presence   "grid presence greenlit", Week 0 and 1 173 / 14 / 8,546,680 / 4
+    //
+    // M3-UI moved the first of these by exactly ONE display object: the single shared
+    // waiting-queue Graphics layer (`tier:presence-queue`). Presence itself adds no object
+    // and no actor — it MOVES existing bodies — which is what the greenlit fixture's two
+    // identical Week-0/Week-1 tuples prove across a whole week playback. The presence
+    // fixtures are a different studio from the build-mode one (their own seed and their own
+    // roster), so their decoded-byte figure is theirs alone and is not a re-baseline of it.
     env: {
       VITE_STUDIO_LOT_OVERVIEW: '',
       VITE_OPERATION_HOLLYWOOD: '',

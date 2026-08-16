@@ -594,6 +594,11 @@ export class StudioLotView {
     return this.tycoonScene?.cellViewportFraction(gx, gy) ?? null
   }
 
+  /** Evidence seam: where an EXACT grid point lands — a person stands on a fraction. */
+  worldPointFraction(gx: number, gy: number): { fx: number; fy: number } | null {
+    return this.tycoonScene?.gridPointViewportFraction(gx, gy) ?? null
+  }
+
   /** Debug/evidence seam for the grid world specifically. */
   tycoonDebugState(): ReturnType<TycoonScene['debugState']> | null {
     return this.tycoonScene?.debugState() ?? null

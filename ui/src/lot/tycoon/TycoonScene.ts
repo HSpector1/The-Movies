@@ -1494,6 +1494,18 @@ export class TycoonScene extends Phaser.Scene {
     return { fx: (point.x - view.x) / view.width, fy: (point.y - view.y) / view.height }
   }
 
+  /**
+   * Evidence seam: where an EXACT grid point (not a cell centre) lands, as a fraction of
+   * the canvas box. A person stands on a fractional point, so a spec that wants to click
+   * a person has to be able to address one.
+   */
+  gridPointViewportFraction(gx: number, gy: number): { fx: number; fy: number } | null {
+    const view = this.cameras.main.worldView
+    if (view.width <= 0 || view.height <= 0) return null
+    const point = this.world(gx, gy)
+    return { fx: (point.x - view.x) / view.width, fy: (point.y - view.y) / view.height }
+  }
+
   // ── selection ───────────────────────────────────────────────────────────────
 
   private drawSelectionRing(place: WorldPlace, selected: boolean): void {
@@ -3203,7 +3215,14 @@ export class TycoonScene extends Phaser.Scene {
     presencePlaybackWeek: number | null
     presencePlaybackMs: number | null
     presenceOccupants: [BuildingId, number][]
-    presenceStands: { talentId: string; stance: string; site: string | null }[]
+    presenceStands: {
+      talentId: string
+      stance: string
+      site: string | null
+      destination: { gx: number; gy: number } | null
+      /** The live sprite's own world position — the proof a body actually moved. */
+      sprite: { x: number; y: number } | null
+    }[]
   } {
     return {
       selectedPersonId: this.selectedPersonId,
@@ -3252,16 +3271,21 @@ export class TycoonScene extends Phaser.Scene {
         a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0,
       ),
       presenceStands: [...this.presenceStandsById.values()]
-        .map((stand) => ({
-          talentId: stand.talentId,
-          stance: stand.stance,
-          site:
-            stand.site === null
-              ? null
-              : stand.site.kind === 'place'
-                ? stand.site.buildingId
-                : `placed:${String(stand.site.placedId)}`,
-        }))
+        .map((stand) => {
+          const sprite = this.runtimePeople.get(stand.talentId)?.sprite ?? null
+          return {
+            talentId: stand.talentId,
+            stance: stand.stance,
+            site:
+              stand.site === null
+                ? null
+                : stand.site.kind === 'place'
+                  ? stand.site.buildingId
+                  : `placed:${String(stand.site.placedId)}`,
+            destination: stand.destination === null ? null : { ...stand.destination },
+            sprite: sprite === null ? null : { x: sprite.x, y: sprite.y },
+          }
+        })
         .sort((a, b) => (a.talentId < b.talentId ? -1 : a.talentId > b.talentId ? 1 : 0)),
     }
   }
