@@ -233,3 +233,85 @@ markRoomAsBuilt L640, Lua/hospital.lua purchasePlot L583.
   cells + debit immediately, status=underConstruction. Weekly tick pure pass: week >=
   completesWeek → operational. Capacity aggregation reads ONLY operational.
 - Explicitly rejected: ghost-as-real-element; fail-fast query.
+
+---
+
+## Entry 4 — Tycoon camera, zoom readability, minimap (OpenRCT2)
+
+**PROBLEM** True tycoon camera for a fixed-scene-less world: drag/edge/key pan, zoom over
+discrete levels, bounds clamping, and readability at every zoom.
+
+**DONOR** OpenRCT2, shallow clone `8ebe3965a2f1e2540f8882a1d67e7b66f5470195`, scratch only.
+
+**LICENSE / NOTICE** GPL-3.0-or-later confirmed on disk (licence.txt full GPLv3; readme
+§6; per-file headers). **RULING: CLEAN-ROOM REIMPLEMENT** — this entry is the interface;
+implementers never open the donor tree. Numeric constants are feel-facts; re-derive our
+own against our art scale.
+
+**FILES / MODULES** interface/Viewport.{h,cpp}, interface/ZoomLevel.{h,cpp},
+interface/Window.cpp (WindowZoomSet L432, WindowScrollToLocation L336, anchor table
+L51-69), openrct2-ui/input/MouseInput.cpp (drag L533-633, edge L1597, scroll L1632),
+drawing/Drawing.Sprite.cpp (zoom-sprite substitution), paint/* (per-feature cutoffs),
+windows/Map.cpp (minimap), windows/Viewport.cpp (secondary camera).
+
+**MECHANISM (essence)**
+- Zoom = one signed int, log2(world-units/screen-px), range −2..+3 (4x..1/8), NO
+  continuous zoom anywhere; pinch resolves to integer steps (accumulate, step at
+  threshold, reset).
+- Zoom-at-cursor: step one level at a time; keep screen centre fixed via ±ViewWidth/2
+  (in) and −ViewWidth/4 (out) at the new zoom; then correct by the cursor's offset from
+  centre scaled at the appropriate zoom.
+- Drag pan: 1:1 (actually 2× naive rate), sign-preserving shift to avoid a truncation
+  deadzone, cursor warped back each frame (unbounded drag), <500 ms release = context
+  click. NO inertia, NO smoothing — and RCT feels good; evidence neither is needed.
+- Keyboard/edge scroll: held-state polled per frame; speed multiplied by zoom so
+  apparent speed is constant; horizontal speed doubled near edges (iso halves Y).
+- Bounds: clamp the camera's WORLD-SPACE CENTRE (not screen rect), generously past the
+  playable edge so the border can be framed; re-centre if clamped.
+- Scroll-to-location: 17 anchor fractions ({.5,.5}, {.75,.5} … eighths), pick the first
+  whose screen point is not covered by an open window (+10px inflation); glide at
+  ceil(remaining/8)/frame — exact-terminating exponential ease-out.
+- Hit-testing renders a 1×1-px paint pass and respects the zoom-sprite substitution —
+  you can only click what you can see.
+- READABILITY DOCTRINE (the crown jewel): (a) pre-authored half-res LOD sprite chains —
+  zoomed-out is different, hand-tuned, higher-contrast ART, not filtered shrink; (b)
+  hard per-feature visibility cutoffs (½: litter/particles/money text/height labels/
+  grass variation/sign text→blank sign; ¼: path additions/banners/most riders, peeps
+  unclickable; ⅛: ALL entities gone) — anything <~2 dest px or text-borne is REMOVED,
+  never shrunk; (c) text is never scaled down, it disappears (one world-text site,
+  disabled above zoom 0); (d) sub-pixel snapping: dest origins quantised to 2^zoom
+  lattice; entity positions floored to 2/4-unit grids at deep zoom; entity tween
+  interpolation OFF at any zoom > 0; (e) zoom-aware invalidation: every dirty-mark
+  carries maxZoom visibility so deep-zoom repaints skip invisible detail.
+- Minimap: fixed-scale 2px/tile palette raster diamond, incrementally rebuilt 16
+  lines/tick (self-healing, never cleared); entities as 1px overlay after blit; camera
+  indicator = 8 corner ticks (not an outline), size derived from ViewWidth; click/drag →
+  the same eased scroll-to-location. Secondary camera window: independent viewport,
+  mirrors flags, own zoom, locate drives main camera.
+
+**PROJECT: STUDIO APPLICATION (Phaser 3)**
+- Discrete ladder LEVELS=[0.25,0.5,1.0,2.0] (logical int index; tween rendered
+  camera.zoom ~120-150ms Cubic.easeOut; remove detail on tween start, add on end;
+  retarget never queue). Zoom-at-cursor via getWorldPoint before/after + preRender,
+  applied per tween step. Wheel/pinch at cursor; keys/buttons at centre. Trackpad
+  debounce: accumulate deltaY, step at |accum|>40.
+- Clamp: setBounds inflated ~15% of lot short edge; when world*zoom < viewport, centre
+  instead of clamp; floor zoom so world ≥ ~40% of viewport.
+- Bindings: middle-drag + Space+left-drag pan (left stays selection; right is browser
+  menu); arrows+WASD held-state, velocity BASE/zoom × delta; edge scroll DEFAULT OFF in
+  browser (setting); wheel/+−/PageUp-Down one step; pinch ~15% distance per step; Home
+  reset; double-click/minimap → focusOn.
+- focusOn(worldPoint,{avoidPanels}): scroll += (target−scroll)×0.18/frame, terminate
+  <0.5px; anchor table {.5,.5}→{.75,.5}→{.25,.5}→{.5,.75}→{.5,.25}→corners→eighths, first
+  framing not under an open panel (+12px).
+- Readability: (1) two authored sprite tiers per building (simplified, higher-contrast
+  half-scale), swap at index ≤1 — shipping one tier = unsolved; (2) labels counter-scaled
+  (setScale(1/zoom)) to constant screen size, hidden wholesale below threshold: idx 3-2
+  full labels+badges; idx 1 names only; idx 0 NO text, flat category-colour icons; (3)
+  cull <~6 screen px things (people/vehicles/props/particles) at idx ≤1 via
+  visible=false; (4) cam.roundPixels=true + entity grid rounding at deep zoom; integer
+  zoom factors; (5) disable entity position lerping at idx ≤1; (6) ground simplifies to
+  flat colour regions at idx ≤1 (drop texture variation/shadows/dither).
+- Minimap: 4px/tile RenderTexture, incremental row slices, flat category colours, camera
+  as 4 corner ticks, click/drag → focusOn, entities as post-blit dots.
+- SKIP: pan inertia, continuous zoom, camera rotation.
