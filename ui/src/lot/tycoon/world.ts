@@ -46,16 +46,12 @@ export type WorldPlace = {
   placeId: string
   /** Canvas label — the sign painted on the building. */
   label: string
-  /** Longer world label used by the selection panel. */
-  blurb: string
   /** Texture key, or '' for a marked open parcel with no building. */
   texKey: string
   gx: number
   gy: number
   fw: number
   fd: number
-  /** Affordances published with the place selection event. */
-  affordances: string[]
   /** Named ground anchors in grid space. */
   anchors: Record<string, GridPoint>
 }
@@ -93,13 +89,11 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     buildingId: 'admin',
     placeId: PUBLICITY_PLACE_ID,
     label: 'ADMINISTRATION',
-    blurb: 'Administration & Publicity',
     texKey: 'tw-admin',
     gx: 9,
     gy: 2,
     fw: 3,
     fd: 3,
-    affordances: ['work', 'meeting', 'publicity'],
     anchors: {
       entry: { gx: 10.5, gy: 5.6 },
       photocall: { gx: 9.4, gy: 6.1 },
@@ -110,26 +104,22 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     buildingId: 'writers',
     placeId: 'development',
     label: 'DEVELOPMENT',
-    blurb: 'Where pictures begin. Develop and assemble a new film.',
     texKey: 'tw-writers',
     gx: 3,
     gy: 2,
     fw: 3,
     fd: 2,
-    affordances: ['work', 'develop-script'],
     anchors: { entry: { gx: 4.5, gy: 4.6 } },
   },
   {
     buildingId: 'casting',
     placeId: 'casting-office',
     label: 'CASTING',
-    blurb: 'Browse and sign the talent who will carry your pictures.',
     texKey: 'tw-casting',
     gx: 3,
     gy: 9,
     fw: 3,
     fd: 2,
-    affordances: ['work', 'audition', 'meeting'],
     anchors: {
       entry: { gx: 4.5, gy: 11.6 },
       queue: { gx: 6.1, gy: 11.9 },
@@ -139,13 +129,11 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     buildingId: 'stage-a',
     placeId: STAGE_7_PLACE_ID,
     label: STAGE_SIGN['stage-a'],
-    blurb: 'Stage 7',
     texKey: 'tw-stage-a',
     gx: 17,
     gy: 2,
     fw: 4,
     fd: 4,
-    affordances: ['enter-stage', 'shoot', 'load-in'],
     anchors: {
       entry: { gx: 19, gy: 6.4 },
       crewCall: { gx: 20.4, gy: 6.9 },
@@ -158,13 +146,11 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     buildingId: 'stage-b',
     placeId: 'stage-12',
     label: STAGE_SIGN['stage-b'],
-    blurb: 'The second stage. Dark until a second picture is greenlit.',
     texKey: 'tw-stage-b',
     gx: 17,
     gy: 9,
     fw: 4,
     fd: 4,
-    affordances: ['enter-stage', 'shoot'],
     anchors: {
       entry: { gx: 19, gy: 13.4 },
       crewCall: { gx: 20.4, gy: 13.9 },
@@ -175,13 +161,11 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     buildingId: 'post',
     placeId: SERVICE_YARD_PLACE_ID,
     label: 'SCENERY & POST',
-    blurb: 'Scenery & Service',
     texKey: 'tw-post',
     gx: 18,
     gy: 18,
     fw: 3,
     fd: 2,
-    affordances: ['delivery', 'supply-scenery', 'load-in'],
     anchors: {
       entry: { gx: 19.5, gy: 20.6 },
       truck: { gx: 23.4, gy: 17.4 },
@@ -193,20 +177,17 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     buildingId: 'theater',
     placeId: 'theater',
     label: 'THEATER',
-    blurb: 'The house lights dim. View recently released films.',
     texKey: 'tw-theater',
     gx: 3,
     gy: 16,
     fw: 3,
     fd: 2,
-    affordances: ['screening', 'premiere'],
     anchors: { entry: { gx: 4.5, gy: 18.6 } },
   },
   {
     buildingId: 'gate',
     placeId: GATE_PLACE_ID,
     label: 'STUDIO GATE',
-    blurb: 'Studio Gate',
     // The arch straddles the boulevard: three tiles across gx, one deep in gy, so the
     // road (gx 9-10) passes under it exactly as an entrance should.
     texKey: 'tw-gate',
@@ -214,7 +195,6 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     gy: 23,
     fw: 3,
     fd: 1,
-    affordances: ['gate-security', 'arrival'],
     anchors: {
       guard: { gx: 11.1, gy: 23.7 },
       arrival: { gx: 9.9, gy: 24.7 },
@@ -225,13 +205,11 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     buildingId: 'expansion',
     placeId: ANNEX_PLACE_ID,
     label: 'ANNEX PARCEL',
-    blurb: 'Development & Casting Annex',
     texKey: '', // a marked open parcel until construction completes
     gx: 7,
     gy: 15,
     fw: 4,
     fd: 3,
-    affordances: ['develop-studio', 'construct-annex'],
     anchors: { site: { gx: 9, gy: 16.5 } },
   },
 ]
