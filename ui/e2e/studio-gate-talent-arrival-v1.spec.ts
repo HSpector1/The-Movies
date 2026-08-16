@@ -17,7 +17,12 @@ const ACTIVE_SESSION_KEY = 'project-studio.active-session.v4'
 const LOT_FLAG_KEY = 'project-studio.flags.studio-lot-overview'
 const HOLLYWOOD_FLAG_KEY = 'project-studio.flags.operation-hollywood'
 const IDENTITY_PROOF_FLAG_KEY = 'project-studio.flags.studio-lot-identity-proof'
-const FIXTURE_SHA256 = '7534518e4db3970bb4ca988b0b0fa78975f5053ee67fd42377f69b80ebe711dc'
+// M2-ENGINE (V12) RE-PIN — see `greenlight-production-formation-v1.spec.ts`. The governed
+// blocked fixture was regenerated natively at the V12 boundary in `628d8ad`; this digest was
+// its V11 value, so the integrity gate threw in `beforeAll` and the other six tests in this
+// file never ran. Re-measured from the committed bytes, which
+// `scripts/gen-world-first-scenery-load-in-fixtures.mts` reproduces byte-identically at HEAD.
+const FIXTURE_SHA256 = 'cb0c58f8f84a1d2e46737c3806eb70decb9fad33bf66b36d34e348d6f5c5af79'
 const EXPECTED_DECODED_BYTES = 11_096_896
 const PERFORMANCE_EVIDENCE = process.env.PROJECT_STUDIO_PERFORMANCE_EVIDENCE === '1'
 
@@ -340,7 +345,12 @@ test('selected visitor holds exact frozen structural cost after a fresh 120 + 24
   await seedGateLot(page, { identityProof: true })
   const beforeBytes = await activeSessionBytes(page)
   const performance = page.getByTestId('hollywood-performance')
-  await expectStructuralTelemetry(performance, { objects: 42, actors: 19 })
+  // M1.5 RE-MEASURE (accepted, not a regression): `eebbefd` moved roster presence into
+  // `studioLotSnapshot`, so the ten contracted employees this governed fixture's single
+  // picture does not claim now stand on the retained plate too — one dynamic actor and two
+  // display objects each, 42/19 → 62/29. `expectStructuralTelemetry` still pins decoded bytes
+  // and the single draw call unchanged, which is what proves the delta is people, not a leak.
+  await expectStructuralTelemetry(performance, { objects: 62, actors: 29 })
   const initialWindow = Number(await performance.getAttribute('data-telemetry-window'))
 
   await activateSemanticGate(page)
@@ -353,7 +363,7 @@ test('selected visitor holds exact frozen structural cost after a fresh 120 + 24
     message: 'visitor selection must begin a visibly fresh sustained telemetry window',
     timeout: 5_000,
   }).toBe(true)
-  await expectStructuralTelemetry(performance, { objects: 43, actors: 20 })
+  await expectStructuralTelemetry(performance, { objects: 63, actors: 30 })
   expect(await activeSessionBytes(page)).toBe(beforeBytes)
   await page.screenshot({ path: join(outDir, '07-selected-visitor-structural-headless.png') })
   expect(runtimeErrors, runtimeErrors.join('\n')).toEqual([])
@@ -373,7 +383,7 @@ test('GPU evidence run meets every frozen selected-visitor wall-clock budget', a
   await expect.poll(async () => Number(
     await performance.getAttribute('data-telemetry-window'),
   )).toBeGreaterThan(initialWindow)
-  await expectStructuralTelemetry(performance, { objects: 43, actors: 20 })
+  await expectStructuralTelemetry(performance, { objects: 63, actors: 30 })
 
   const metric = async (name: string) => Number(await performance.getAttribute(name))
   expect(await metric('data-fps')).toBeGreaterThanOrEqual(50)

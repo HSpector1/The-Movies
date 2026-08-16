@@ -26,9 +26,15 @@ const outDir = join(repoRoot, 'out', 'world-first-stage7-production-detail-hando
 const ACTIVE_SESSION_KEY = 'project-studio.active-session.v4'
 const LOT_FLAG_KEY = 'project-studio.flags.studio-lot-overview'
 const HOLLYWOOD_FLAG_KEY = 'project-studio.flags.operation-hollywood'
-const BLOCKED_SHA256 = '7534518e4db3970bb4ca988b0b0fa78975f5053ee67fd42377f69b80ebe711dc'
-const READY_SHA256 = '6760b72739608e930da84726067685c515d87817cb3793f9d9d37fa9f2063f92'
-const SCHEDULED_SHA256 = 'e922f9b7e957388bed7c7674be8c17596245823200e478371dc7ff970458f46b'
+// M2-ENGINE (V12) RE-PIN — see `greenlight-production-formation-v1.spec.ts`. All three
+// governed saves were regenerated natively at the V12 boundary in `628d8ad`; these digests
+// were their V11 values, so the integrity gate threw in `beforeAll` and the other four tests
+// in this file never ran. Re-measured from the committed bytes, which
+// `scripts/gen-world-first-scenery-load-in-fixtures.mts` and
+// `scripts/gen-live-week-advance-fixtures.mts` reproduce byte-identically at HEAD.
+const BLOCKED_SHA256 = 'cb0c58f8f84a1d2e46737c3806eb70decb9fad33bf66b36d34e348d6f5c5af79'
+const READY_SHA256 = '68d0b3f4576683fc75d91fc24c9921e5fa88e68c4cb5b90dd252c097d01e56a8'
+const SCHEDULED_SHA256 = '9f5f1a7a6b5038281b227170410fb7723309f41f4b675e8f076564235aac02ff'
 const PRODUCTION_ID = 'prod-0026'
 const PRODUCTION_TITLE = 'Nights of Watchtower'
 

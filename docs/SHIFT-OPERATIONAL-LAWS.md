@@ -60,11 +60,17 @@ Compact briefing for every production agent this shift. Citations: `LL <entry> (
     fixtures built by calling adapter actions in-spec with a named seed, injected via
     `page.addInitScript` into `localStorage['project-studio.active-session.v4']`; never
     hand-edit cash/roster in fixtures. `LL EU (3192)`, `LL DO (2703)`, `LL DQ (2735)`.
-25. Structural pins: minimal Lot fixture = 30 objects / 13 actors / 11,096,896 bytes /
-    1 draw (`ui/e2e/audition-planning-current-break-audit.spec.ts:144–242`); other tuples
-    (34/15, 42/19) belong to different fixtures — always name the fixture; compare across
-    independent fresh windows over byte-identical saves; absolute FPS only behind
-    `PROJECT_STUDIO_PERFORMANCE_EVIDENCE=1`. `LL DY/GF/ES/FO/CZ`.
+25. Structural pins: always name the fixture; compare across independent fresh windows over
+    byte-identical saves; absolute FPS only behind `PROJECT_STUDIO_PERFORMANCE_EVIDENCE=1`.
+    `LL DY/GF/ES/FO/CZ`. **The 30/13, 34/15, 42/19 and 54/25 plate tuples quoted here are
+    PRE-M1.5 history** — `eebbefd` put roster presence in `studioLotSnapshot`, which both
+    worlds consume, so every unclaimed contracted employee now adds 1 actor / 2 objects to
+    the plate as well (decoded bytes and draw calls unchanged). Current live values live with
+    their specs and are tabulated in the M1 quarantine note in `ui/playwright.config.ts`
+    (plate: 42/19, 46/21, 62/29, 63/30, 64/30 at 11,096,896 bytes / 1 draw; grid managed-idle
+    Week 0: 172/14/8,545,720/4). The frozen 30/13/11,096,896/1 in
+    `ui/e2e/audition-planning-current-break-audit.spec.ts:144–242` is a `testIgnore`d
+    historical audit and is not re-measured.
 26. Accessibility: repeated identical live-region strings need a new keyed DOM child; one
     polite region mounted throughout; inert boundary includes every background sibling +
     renderer input; capture modal opener synchronously inside the open callback; pending

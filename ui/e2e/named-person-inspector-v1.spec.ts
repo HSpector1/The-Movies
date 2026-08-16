@@ -18,6 +18,21 @@ const LOT_FLAG_KEY = 'project-studio.flags.studio-lot-overview'
 const HOLLYWOOD_FLAG_KEY = 'project-studio.flags.operation-hollywood'
 const IDENTITY_PROOF_FLAG_KEY = 'project-studio.flags.studio-lot-identity-proof'
 const EXPECTED_DECODED_BYTES = 11_096_896
+/**
+ * The RETAINED PLATE structural fingerprint at the governed Week-30 blocked fixture
+ * (fifteen contracts, one active picture).
+ *
+ * M1.5 RE-MEASURE — an accepted behavior change, not a regression. `eebbefd` moved roster
+ * presence into `studioLotSnapshot`, so every contracted employee the projected company does
+ * NOT already claim now also stands on the lot — on the retained plate too, because both
+ * worlds consume the same snapshot. Ten such employees remain here, adding exactly ten
+ * dynamic actors and twenty display objects (body + label). Decoded texture bytes and the
+ * single draw call are unchanged, which is what proves the delta is people, not a leak.
+ *
+ * Prior plate value (pre-M1.5): 42 display objects / 19 dynamic actors.
+ */
+const EXPECTED_DISPLAY_OBJECTS = 62
+const EXPECTED_DYNAMIC_ACTORS = 29
 const PERFORMANCE_EVIDENCE = process.env.PROJECT_STUDIO_PERFORMANCE_EVIDENCE === '1'
 
 test.describe.configure({ timeout: 60_000 })
@@ -193,8 +208,8 @@ test('named Director and Lead expose exact work/career and return to the same li
     await performance.getAttribute('data-frame-samples'),
   )).toBeLessThan(240)
   await expect(performance).toHaveAttribute('data-frame-samples', '240', { timeout: 30_000 })
-  await expect(performance).toHaveAttribute('data-display-objects', '42')
-  await expect(performance).toHaveAttribute('data-dynamic-actors', '19')
+  await expect(performance).toHaveAttribute('data-display-objects', String(EXPECTED_DISPLAY_OBJECTS))
+  await expect(performance).toHaveAttribute('data-dynamic-actors', String(EXPECTED_DYNAMIC_ACTORS))
   await expect(performance).toHaveAttribute(
     'data-decoded-bytes',
     String(EXPECTED_DECODED_BYTES),
@@ -242,8 +257,8 @@ test('GPU evidence run meets the complete one-picture company wall-clock budget'
     timeout: 5_000,
   }).toBeLessThan(240)
   await expect(performance).toHaveAttribute('data-frame-samples', '240', { timeout: 30_000 })
-  await expect(performance).toHaveAttribute('data-display-objects', '42')
-  await expect(performance).toHaveAttribute('data-dynamic-actors', '19')
+  await expect(performance).toHaveAttribute('data-display-objects', String(EXPECTED_DISPLAY_OBJECTS))
+  await expect(performance).toHaveAttribute('data-dynamic-actors', String(EXPECTED_DYNAMIC_ACTORS))
   await expect(performance).toHaveAttribute('data-decoded-bytes', String(EXPECTED_DECODED_BYTES))
   await expect(performance).toHaveAttribute('data-draw-calls', '1')
   expect(Number(await performance.getAttribute('data-fps'))).toBeGreaterThanOrEqual(50)

@@ -22,9 +22,24 @@ const ACTIVE_SESSION_CORRUPT_KEY = 'project-studio.active-session.v4.corrupt'
 const LOT_FLAG_KEY = 'project-studio.flags.studio-lot-overview'
 const HOLLYWOOD_FLAG_KEY = 'project-studio.flags.operation-hollywood'
 const IDENTITY_PROOF_FLAG_KEY = 'project-studio.flags.studio-lot-identity-proof'
+/**
+ * The byte-neutrality structural fingerprint of the RETAINED PLATE renderer at this file's
+ * own `managedIdleSave()` fixture (six contracted employees, no active production).
+ *
+ * M1.5 RE-MEASURE — an accepted behavior change, not a regression. `eebbefd` put the studio's
+ * own contracted roster into `studioLotSnapshot` itself, so roster staff now paint on EVERY
+ * world the snapshot feeds, the retained Hollywood plate included. The six employees of this
+ * fixture add exactly six dynamic actors and twelve display objects (a person body plus its
+ * label), and nothing else moved: decoded texture bytes and the single draw call are
+ * unchanged, which is what proves the delta is people and not a renderer leak. Re-measured at
+ * HEAD on port 5178, identical across all four tests and across the independent fresh-window
+ * comparison at the end of this file.
+ *
+ * Prior plate value (pre-M1.5, quoted by operational law 25): 30 / 13 / 11,096,896 / 1.
+ */
 const EXPECTED_STRUCTURE = {
-  displayObjects: 30,
-  dynamicActors: 13,
+  displayObjects: 42,
+  dynamicActors: 19,
   decodedBytes: 11_096_896,
   drawCalls: 1,
 }

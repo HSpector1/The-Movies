@@ -19,20 +19,27 @@ const LOT_FLAG_KEY = 'project-studio.flags.studio-lot-overview'
 const HOLLYWOOD_FLAG_KEY = 'project-studio.flags.operation-hollywood'
 const IDENTITY_PROOF_FLAG_KEY = 'project-studio.flags.studio-lot-identity-proof'
 
+// M2-ENGINE (V12) RE-PIN — the FIXTURES changed, not the assertions. `3d0349d`/`628d8ad`
+// advanced the fixture corpus to native SaveFileV12 and regenerated every governed save;
+// these digests still held their V11 values, so the integrity gate threw in `beforeAll` and
+// Playwright marked the other six tests of this file "did not run". Re-measured from the
+// committed bytes, which
+// `scripts/gen-world-first-operational-annex-work-presence-fixtures.mts` reproduces
+// byte-identically at HEAD ("unchanged" on a clean tree). Same strength: three exact digests.
 const FIXTURES = {
   available: {
     file: 'week-13-operational-annex-available.save.json',
-    sha256: '4026c51603afe35605a9d5a71391764cd6dfea3972ef3a8d20ef3b3987dc4652',
+    sha256: 'fce7196b01435a68a26f2aef33022c1ed825f16656a8e01588a9251adde5337e',
     week: 13,
   },
   scriptWorking: {
     file: 'week-13-operational-annex-script-working.save.json',
-    sha256: 'cb49f61ac81d239b14db744fdc7b37b91ccd507e8f0e4a8fda56e802bd96bdc4',
+    sha256: 'b4d9153771d7cc504b54da765ea4a66e364bf38eabc9a2487920218adc88a9ea',
     week: 13,
   },
   productionWorking: {
     file: 'week-14-operational-annex-production-development-working.save.json',
-    sha256: 'd7213ae7c064ad59ac685a777042b0b237d9ce1c367a9af3b9d754cb25b8044e',
+    sha256: '34cd6aec3267097275811d43f77a1d50914cd3eb7db3f29acd388d22e1774f3b',
     week: 14,
   },
 } as const
@@ -44,22 +51,43 @@ const HOLLYWOOD_DISTRICT_HEIGHT = 992
 const HOLLYWOOD_CAMERA_BOUNDS = { x: -120, y: -90, width: 1826, height: 1172 } as const
 const ANNEX_WORLD_POINT = { x: 640, y: 790 } as const
 
-const EXPECTED_DISPLAY_OBJECTS = 42
-const EXPECTED_DYNAMIC_ACTORS = 19
+/**
+ * M1.5 RE-MEASURE of every plate structural tuple in this file — an accepted behavior change,
+ * not a regression. `eebbefd` moved roster presence into `studioLotSnapshot`, so every
+ * contracted employee the projected company does not already claim now stands on the lot, on
+ * the retained Hollywood plate as well (both worlds consume the same snapshot). Each such
+ * person costs exactly one dynamic actor and two display objects (body + label); decoded
+ * texture bytes and the single draw call are unchanged, which is what proves the delta is
+ * people and not a renderer leak.
+ *
+ *   governed Week-30 blocked reference (15 contracts, 1 picture, 10 unclaimed)
+ *     42 / 19  →  62 / 29
+ *   this file's own script-Working fixture (8 contracts, 0 pictures, 8 unclaimed)
+ *     30 / 13  →  46 / 21
+ */
+const EXPECTED_DISPLAY_OBJECTS = 62
+const EXPECTED_DYNAMIC_ACTORS = 29
+const SCRIPT_WORKING_DISPLAY_OBJECTS = 46
+const SCRIPT_WORKING_DYNAMIC_ACTORS = 21
 const EXPECTED_DECODED_BYTES = 11_096_896
 const EXPECTED_DRAW_CALLS = 1
 const GENERATED_AND_VEHICLE_TEXTURE_BYTES = 163_064
 const GOVERNED_PERFORMANCE_FIXTURE_SHA256 =
-  '7534518e4db3970bb4ca988b0b0fa78975f5053ee67fd42377f69b80ebe711dc'
+  'cb0c58f8f84a1d2e46737c3806eb70decb9fad33bf66b36d34e348d6f5c5af79'
 
 mkdirSync(outDir, { recursive: true })
 
 test.beforeAll(() => {
   const manifest = JSON.parse(readFileSync(join(fixtureDir, 'manifest.json'), 'utf8'))
+  // M2-ENGINE (V12): the generator's own claimed authority moved to the V12 save boundary
+  // with `3d0349d`. The assertion follows the accepted current boundary at the same strength
+  // (exact native serialization, no conversion on import) and additionally pins that the
+  // generator never hand-edits its output.
   expect(manifest.authority).toMatchObject({
-    serialization: 'exportSaveJson / importSaveJson native SaveFileV11 boundary',
-    importMode: 'native SaveFileV11; converted === false',
+    serialization: 'exportSaveJson / importSaveJson native SaveFileV12 boundary',
+    importMode: 'native SaveFileV12; converted === false',
     deterministic: true,
+    generatedFilesAreHandEdited: false,
     configuredHeldSave: false,
   })
   expect(manifest.fixtures.map((fixture: { claim: { contextState: string } }) => (
@@ -424,19 +452,22 @@ test('Annex work remains usable at 960x540, maximum world zoom, and 200% page zo
   expect(runtimeErrors, runtimeErrors.join('\n')).toEqual([])
 })
 
-test('native script Working telemetry records its truthful population-dependent 30/13 structure', async ({ page }) => {
+test('native script Working telemetry records its truthful population-dependent 46/21 structure', async ({ page }) => {
   const runtimeErrors = captureRuntimeErrors(page)
   await page.setViewportSize({ width: 1920, height: 1080 })
   await seedAnnexLot(page, 'scriptWorking', { identityProof: true })
   await page.getByTestId('recovery-dismiss').click()
   await activateSemanticAnnex(page)
   await expect(page.getByTestId('lot-annex-work-occupied')).toContainText('The Silent Widow')
-  await expectStructuralTelemetry(page, { displayObjects: 30, dynamicActors: 13 })
+  await expectStructuralTelemetry(page, {
+    displayObjects: SCRIPT_WORKING_DISPLAY_OBJECTS,
+    dynamicActors: SCRIPT_WORKING_DYNAMIC_ACTORS,
+  })
   await page.screenshot({ path: join(outDir, '08-native-script-working-telemetry-1920x1080.png') })
   expect(runtimeErrors, runtimeErrors.join('\n')).toEqual([])
 })
 
-test('governed one-production reference retains the exact 42/19 complete-company Hollywood tuple', async ({ page }) => {
+test('governed one-production reference retains the exact 62/29 complete-company Hollywood tuple', async ({ page }) => {
   const runtimeErrors = captureRuntimeErrors(page)
   await page.setViewportSize({ width: 1920, height: 1080 })
   await seedGovernedPerformanceLot(page)

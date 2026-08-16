@@ -30,7 +30,14 @@ const ACTIVE_SESSION_CORRUPT_KEY = 'project-studio.active-session.v4.corrupt'
 const LOT_FLAG_KEY = 'project-studio.flags.studio-lot-overview'
 const HOLLYWOOD_FLAG_KEY = 'project-studio.flags.operation-hollywood'
 const IDENTITY_PROOF_FLAG_KEY = 'project-studio.flags.studio-lot-identity-proof'
-const FIXTURE_SHA256 = '4026c51603afe35605a9d5a71391764cd6dfea3972ef3a8d20ef3b3987dc4652'
+// M2-ENGINE (V12) RE-PIN — the FIXTURE changed, not the assertion. `3d0349d`/`628d8ad`
+// advanced the whole fixture corpus to native SaveFileV12 and regenerated every governed
+// save; this constant still held the V11 digest, so the integrity gate threw in `beforeAll`
+// and Playwright marked the remaining ten tests of this file "did not run". Re-measured from
+// the committed bytes, which `scripts/gen-world-first-operational-annex-work-presence-fixtures.mts`
+// reproduces byte-identically at HEAD ("unchanged" on a clean tree). Same strength: an exact
+// digest of the exact governed fixture.
+const FIXTURE_SHA256 = 'fce7196b01435a68a26f2aef33022c1ed825f16656a8e01588a9251adde5337e'
 const EXPECTED_DECODED_BYTES = 11_096_896
 const RICH_MANAGED_SEED = 'world-first-production-formation-rich-browser'
 const PERFORMANCE_EVIDENCE = process.env.PROJECT_STUDIO_PERFORMANCE_EVIDENCE === '1'
@@ -733,8 +740,13 @@ test('a second real picture forms by exact receipt, not array order, and reaches
 
   const performance = page.getByTestId('hollywood-performance')
   await expect(performance).toHaveAttribute('data-frame-samples', '240', { timeout: 30_000 })
-  await expect(performance).toHaveAttribute('data-display-objects', '54')
-  await expect(performance).toHaveAttribute('data-dynamic-actors', '25')
+  // M1.5 RE-MEASURE (accepted, not a regression): `eebbefd` moved roster presence into
+  // `studioLotSnapshot`, so the contracted employees neither of the two formed companies
+  // claims now stand on the retained plate too — five of them here, one dynamic actor and two
+  // display objects each, 54/25 → 64/30. Decoded bytes and the single draw call below are
+  // unchanged, which is what proves the delta is people and not a renderer leak.
+  await expect(performance).toHaveAttribute('data-display-objects', '64')
+  await expect(performance).toHaveAttribute('data-dynamic-actors', '30')
   await expect(performance).toHaveAttribute('data-decoded-bytes', String(EXPECTED_DECODED_BYTES))
   await expect(performance).toHaveAttribute('data-draw-calls', '1')
   expect(await activeSessionBytes(page)).toBe(twoPictureSaveBeforeInspection)
@@ -822,9 +834,10 @@ test('GPU evidence run meets the complete two-picture company wall-clock budget'
   await formPictureFromCurrentLot(page)
   await formPictureFromCurrentLot(page)
   const telemetry = await collectFreshStructuralTelemetry(page, 'two-picture GPU evidence')
+  // M1.5 RE-MEASURE — the same two-picture plate tuple pinned in the headless test above.
   expect(telemetry).toEqual({
-    displayObjects: 54,
-    dynamicActors: 25,
+    displayObjects: 64,
+    dynamicActors: 30,
     decodedBytes: EXPECTED_DECODED_BYTES,
     drawCalls: 1,
   })

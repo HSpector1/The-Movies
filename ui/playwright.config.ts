@@ -64,17 +64,31 @@ export default defineConfig({
     //   • world geometry — helpers such as `clickHollywoodWorldPoint` reimplement the plate's
     //     1586×992 canvas and its fit-locked camera to convert a PAINTED-DISTRICT PIXEL into a
     //     screen point. Those pixels do not exist in a 28×26 tile property;
-    //   • structural fingerprints — the 30/13/11,096,896/1 and 42/19 and 54/25 tuples are
-    //     byte-neutrality fingerprints of the plate renderer at a NAMED fixture. The grid world
-    //     measures 149/8/8,180,280/4 at the managed-idle fixture, which is a different world,
-    //     not a regression (and 2.9 MB cheaper).
+    //   • structural fingerprints — every plate tuple below is a byte-neutrality fingerprint of
+    //     the PLATE renderer at a NAMED fixture, and belongs to that fixture alone (law 25).
     //
-    // The shipped default is the grid world. Its own coverage in M1 is
-    // `ui/src/lot/tycoon/world.test.ts` (the spatial record) and the tycoon boundary cases in
-    // `ui/src/lot/StudioLotView.hollywood.test.ts`. **M2 owes this suite a grid-world browser
-    // layer**: a grid→screen click helper and freshly measured per-fixture tuples. Until then
-    // this line keeps every existing browser assertion measuring exactly what it was written to
-    // measure, on a path the product still ships.
+    // PLATE TUPLES, RE-MEASURED AT HEAD (browser-suite stabilization, 2026-08-17). M1.5
+    // `eebbefd` moved roster presence into `studioLotSnapshot`, which BOTH worlds consume, so
+    // every contracted employee the projected company does not already claim now stands on the
+    // plate too — one dynamic actor and two display objects each. Decoded bytes (11,096,896)
+    // and the single draw call are unchanged in every case, which is what proves the delta is
+    // people and not a renderer leak. displayObjects / dynamicActors, by fixture:
+    //
+    //     commission-workspace managed idle (6 contracts, 0 pictures)   30/13 → 42/19
+    //     operational-annex script Working  (8 contracts, 0 pictures)   30/13 → 46/21
+    //     governed Week-30 blocked          (15 contracts, 1 picture)   42/19 → 62/29
+    //       …with a Gate visitor selected                               43/20 → 63/30
+    //     greenlight two-picture formation  (15 contracts, 2 pictures)  54/25 → 64/30
+    //
+    // The shipped default is the grid world, and M2 has now PAID this suite's grid-world debt:
+    // `ui/e2e/tycoon-build-mode-v1.spec.ts` runs on the 5179 origin below with its own
+    // grid→screen click helper and its own freshly measured fixture tuple — grid managed-idle
+    // Week 0 = 172 objects / 14 actors / 8,545,720 bytes / 4 draws. That is a DIFFERENT WORLD
+    // from the plate numbers above, not a regression (and 2.5 MB cheaper). Unit coverage stays
+    // `ui/src/lot/tycoon/world.test.ts` plus the tycoon boundary cases in
+    // `ui/src/lot/StudioLotView.hollywood.test.ts`. The quarantine on 5178 remains only so the
+    // plate-pinned specs keep measuring exactly what they were written to measure, on a path
+    // the product still ships.
     env: {
       VITE_STUDIO_LOT_OVERVIEW: '',
       VITE_OPERATION_HOLLYWOOD: '',

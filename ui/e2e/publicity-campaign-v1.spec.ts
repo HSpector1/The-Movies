@@ -17,7 +17,12 @@ const ACTIVE_SESSION_KEY = 'project-studio.active-session.v4'
 const LOT_FLAG_KEY = 'project-studio.flags.studio-lot-overview'
 const HOLLYWOOD_FLAG_KEY = 'project-studio.flags.operation-hollywood'
 const IDENTITY_PROOF_FLAG_KEY = 'project-studio.flags.studio-lot-identity-proof'
-const GOVERNED_FIXTURE_SHA256 = '7534518e4db3970bb4ca988b0b0fa78975f5053ee67fd42377f69b80ebe711dc'
+// M2-ENGINE (V12) RE-PIN — see `greenlight-production-formation-v1.spec.ts`. The governed
+// blocked fixture was regenerated natively at the V12 boundary in `628d8ad`; this digest was
+// its V11 value, so the integrity gate threw in `beforeAll` and the other five tests in this
+// file never ran. Re-measured from the committed bytes, which
+// `scripts/gen-world-first-scenery-load-in-fixtures.mts` reproduces byte-identically at HEAD.
+const GOVERNED_FIXTURE_SHA256 = 'cb0c58f8f84a1d2e46737c3806eb70decb9fad33bf66b36d34e348d6f5c5af79'
 const PERFORMANCE_EVIDENCE = process.env.PROJECT_STUDIO_PERFORMANCE_EVIDENCE === '1'
 
 const HOLLYWOOD_DISTRICT_WIDTH = 1586
@@ -452,8 +457,13 @@ async function collectGovernedTelemetry(page: Page) {
 test('warm Hollywood telemetry completes 240 frames and the exact structural budgets', async ({ page }) => {
   const { performance, values } = await collectGovernedTelemetry(page)
 
-  expect(Number(values![3])).toBe(42)
-  expect(Number(values![4])).toBe(19)
+  // M1.5 RE-MEASURE (accepted, not a regression): `eebbefd` moved roster presence into
+  // `studioLotSnapshot`, so the ten contracted employees this governed fixture's single
+  // picture does not claim now stand on the retained plate too — one dynamic actor and two
+  // display objects each, 42/19 → 62/29. Decoded MB and the single draw call are unchanged,
+  // which is what proves the delta is people and not a renderer leak.
+  expect(Number(values![3])).toBe(62)
+  expect(Number(values![4])).toBe(29)
   expect(Number(values![5])).toBe(10.6)
   expect(Number(values![8])).toBe(1)
   await expect(performance).toHaveAttribute('data-frame-samples', '240')
