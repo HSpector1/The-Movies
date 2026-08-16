@@ -818,12 +818,24 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     expect(stage(snap, card.stageId).attention).toBe('warning')
   })
 
-  it('keeps an empty managed studio idle and never fabricates Mara or roster people', () => {
-    const snap = studioLotSnapshot(foundManagedStudio('lot-managed-idle'))
+  it('keeps an empty managed studio idle and shows only its OWN employees, never a fabricated one', () => {
+    // Tycoon World M1.5: the studio's contracted people are present on a Week-0 managed
+    // lot (they were projected only in legacy mode before, so the world showed nobody).
+    // Presence is employment truth ONLY: no production, no title, no location claim.
+    const state = foundManagedStudio('lot-managed-idle')
+    const snap = studioLotSnapshot(state)
+    const contracted = new Set(state.contracts.map((contract) => contract.talentId))
     expect(snap.operationsMode).toBe('managed')
     expect(snap.activeProductions).toEqual([])
     expect(snap.productionOperations).toEqual([])
-    expect(snap.people).toEqual([])
+    expect(snap.people.length).toBeGreaterThan(0)
+    expect(snap.people.every((person) => contracted.has(person.id))).toBe(true)
+    expect(snap.people.every((person) =>
+      person.authority === 'studio-roster' &&
+      person.productionId === null &&
+      person.productionTitle === null,
+    )).toBe(true)
+    expect(new Set(snap.people.map((person) => person.id)).size).toBe(snap.people.length)
     expect(snap.people.some((person) => person.name === 'Mara Voss')).toBe(false)
     expect(stage(snap, 'stage-a').attention).toBe('empty')
     expect(stage(snap, 'stage-b').attention).toBe('empty')
@@ -882,7 +894,7 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     expect(company?.[0]?.name).not.toBe(frozenWriterName)
     expect(company?.every((member) => Object.keys(member).sort().join(',') ===
       'name,presentationRole,productionRole,slotIndex,talentId')).toBe(true)
-    expect(snap.people).toEqual(
+    expect(snap.people.filter((person) => person.authority === 'active-production')).toEqual(
       company?.map((member) => ({
         id: member.talentId,
         name: member.name,
@@ -935,8 +947,12 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     )
     expect(reordered.productionOperations?.every((entry) => entry.title === sharedTitle)).toBe(true)
     expect(reordered.productionOperations?.every((entry) => entry.companyMembers?.length === 6)).toBe(true)
-    expect(new Set(reordered.people.map((person) => person.id)).size).toBe(12)
-    expect(reordered.people).toHaveLength(12)
+    expect(new Set(reordered.people.map((person) => person.id)).size).toBe(
+      reordered.people.length,
+    )
+    expect(
+      reordered.people.filter((person) => person.authority === 'active-production'),
+    ).toHaveLength(12)
   })
 
   it('omits every expanded company atomically and preserves Director/Lead fallback for hostile staffing truth', () => {
@@ -1015,8 +1031,17 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
           production.cast.lead,
         ]),
       )
-      expect(snap.people.every((person) => fallbackIds.has(person.id))).toBe(true)
-      expect(snap.people.length).toBeLessThanOrEqual(fallbackIds.size)
+      // Production presence stays bounded by the safe Director/Lead fallback; the studio's
+      // own employees remain present beside it, always as roster and never as a picture.
+      const onPicture = snap.people.filter((person) => person.authority === 'active-production')
+      expect(onPicture.every((person) => fallbackIds.has(person.id))).toBe(true)
+      expect(onPicture.length).toBeLessThanOrEqual(fallbackIds.size)
+      expect(snap.people.every((person) =>
+        person.authority === 'active-production' ||
+        (person.authority === 'studio-roster' &&
+          person.productionId === null &&
+          person.productionTitle === null),
+      )).toBe(true)
       expect(JSON.stringify(hostile)).toBe(before)
     }
   })
@@ -1068,7 +1093,14 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     }
     const duplicatePeople = studioLotSnapshot(duplicateState).people
     expect(studioLotSnapshot(duplicateReversed).people).toEqual(duplicatePeople)
-    expect(duplicatePeople.map((person) => person.id)).toEqual([oneProduction.cast.lead])
+    expect(
+      duplicatePeople
+        .filter((person) => person.authority === 'active-production')
+        .map((person) => person.id),
+    ).toEqual([oneProduction.cast.lead])
+    // The duplicated hostile Director identity is ambiguous: it is withheld from roster
+    // presence too, never resolved to whichever entry happens to be first.
+    expect(duplicatePeople.some((person) => person.id === oneProduction.directorId)).toBe(false)
 
     const legalTwo = greenlightFilm(
       greenlightFilm(
@@ -1108,7 +1140,14 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     const expectedSafeIds = [first.directorId, second.cast.lead].sort()
     const reusedPeople = studioLotSnapshot(reusedState).people
     expect(studioLotSnapshot(reusedReversed).people).toEqual(reusedPeople)
-    expect(reusedPeople.map((person) => person.id).sort()).toEqual(expectedSafeIds)
+    expect(
+      reusedPeople
+        .filter((person) => person.authority === 'active-production')
+        .map((person) => person.id)
+        .sort(),
+    ).toEqual(expectedSafeIds)
+    // A talent reused across two pictures is ambiguous: neither production presence nor
+    // roster presence may claim them.
     expect(reusedPeople.some((person) => person.id === reusedId)).toBe(false)
   })
 
@@ -1147,7 +1186,9 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     const snap = studioLotSnapshot(state)
     expect(snap.productionOperations).toHaveLength(3)
     expect(snap.productionOperations?.every((entry) => entry.companyMembers === undefined)).toBe(true)
-    expect(snap.people.length).toBeLessThanOrEqual(4)
+    expect(
+      snap.people.filter((person) => person.authority === 'active-production').length,
+    ).toBeLessThanOrEqual(4)
   })
 
   it('labels legacy stage assignment while preserving every pre-operations lot field', () => {

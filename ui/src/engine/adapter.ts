@@ -5514,6 +5514,81 @@ export function managedProductionCompanyProjection(
 }
 
 /**
+ * Presentation role for one employee's Role Atlas appearance. It selects an existing
+ * sprite; it does NOT relabel the person's profession — the person inspector still reads
+ * the real career identity from `talentProfile`. Identical to the company projection's
+ * accepted `presentationRole` convention: directors look like directors, everyone else
+ * uses the generic studio-person appearance.
+ */
+const LOT_ROSTER_PRESENTATION_ROLE: Readonly<Record<CreativeRole, LotPersonState['role']>> = {
+  director: 'director',
+  actor: 'talent',
+  writer: 'talent',
+  craft: 'talent',
+}
+
+/**
+ * The studio's contracted EMPLOYEES, as lot inhabitants (Tycoon World M1.5).
+ *
+ * Playtest 1: a managed Week-0 lot showed zero named employees, because roster people
+ * were projected only in legacy mode. This closes that gap for managed mode.
+ *
+ * PRESENTATION ONLY. It claims no location, no task, no facility and no picture — the
+ * scene parks these people at the accepted deterministic `personHome` slots exactly as
+ * it already does for production people. It restates employment that already exists.
+ *
+ * Strict per shift laws 17/21:
+ *  • a duplicated or empty contract identity makes employment ambiguous → withhold ALL;
+ *  • an identity that is absent from, or duplicated in, `state.talent` is skipped;
+ *  • anyone already projected as an active-production company member keeps that
+ *    authority (company presence takes precedence for those ids);
+ *  • anyone the projected operations name as a director or lead is left to the
+ *    production presence path, so roster presence can never contradict it;
+ *  • an ambiguous current assignment is skipped rather than presented as free staff.
+ */
+function managedRosterPresence(
+  state: GameState,
+  claimed: ReadonlyMap<string, LotPersonState>,
+  operations: readonly ProductionOperationsState[],
+): LotPersonState[] {
+  const contractedIds: string[] = []
+  const seen = new Set<string>()
+  for (const contract of state.contracts) {
+    if (typeof contract.talentId !== 'string' || contract.talentId.length === 0) return []
+    if (seen.has(contract.talentId)) return []
+    seen.add(contract.talentId)
+    contractedIds.push(contract.talentId)
+  }
+
+  const productionParticipantIds = new Set<string>()
+  for (const operation of operations) {
+    productionParticipantIds.add(operation.directorId)
+    if (operation.leadId !== undefined) productionParticipantIds.add(operation.leadId)
+  }
+
+  const people: LotPersonState[] = []
+  for (const talentId of [...contractedIds].sort(comparePlainId)) {
+    if (claimed.has(talentId) || productionParticipantIds.has(talentId)) continue
+    const matches = state.talent.filter((person) => person.id === talentId)
+    if (matches.length !== 1) continue
+    const talent = matches[0]!
+    const presentationRole = LOT_ROSTER_PRESENTATION_ROLE[talent.role]
+    if (presentationRole === undefined) continue
+    if (typeof talent.name !== 'string' || talent.name.trim().length === 0) continue
+    if (talentAssignmentContext(state, talentId).kind === 'ambiguous') continue
+    people.push({
+      id: talent.id,
+      name: talent.name,
+      role: presentationRole,
+      authority: 'studio-roster',
+      productionId: null,
+      productionTitle: null,
+    })
+  }
+  return people
+}
+
+/**
  * Project the authoritative GameState into the lot presentation snapshot. Pure,
  * deterministic, non-mutating. The single source the Studio Lot renders from.
  */
@@ -5742,6 +5817,13 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
           productionTitle: title,
         })
       }
+    }
+  }
+  if (state.operations.mode === 'managed') {
+    // World-first staff presence (M1.5): the studio's own employees belong in its world
+    // even when no picture is shooting. Company presence already claimed above wins.
+    for (const person of managedRosterPresence(state, peopleById, productionOperations)) {
+      peopleById.set(person.id, person)
     }
   }
   if (state.operations.mode === 'legacy') {

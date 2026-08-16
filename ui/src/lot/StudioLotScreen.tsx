@@ -6812,44 +6812,62 @@ export function StudioLotScreen({
                   onMouseDown={containWorldInput}
                   onTouchStart={containWorldInput}
                 >
-                  {hollywoodCompanyMembers !== null
-                    ? hollywoodCompanyMembers.map(({ company, member, person }) => {
-                        const selectedPerson = hollywoodPerson?.id === person.id
-                        const selectedCompany = hollywoodCompanyPresentationProductionId ===
-                          company.operation.productionId
-                        return (
-                          <button
-                            key={person.id}
-                            type="button"
-                            className={`${selectedPerson ? 'active' : ''}${
-                              selectedCompany ? ' company-active' : ''
-                            }`.trim()}
-                            aria-pressed={selectedPerson}
-                            aria-label={`${person.name} · ${productionCompanyRoleLabel(member.productionRole)} · ${company.operation.title}`}
-                            onClick={() => selectHollywoodPerson(person)}
-                            data-production-id={company.operation.productionId}
-                            data-production-role={member.productionRole}
-                            data-testid={`hollywood-select-person-${person.id}`}
-                          >
-                            <span>{person.name}</span>
-                            <small>
-                              {productionCompanyRoleLabel(member.productionRole)} · {company.operation.title}
-                            </small>
-                          </button>
-                        )
-                      })
-                    : hollywoodPresentationPeople.map((person) => (
+                  {/*
+                    One list over every named person the snapshot proves. A company member
+                    keeps their exact picture credit; the studio's other contracted
+                    employees (M1.5 staff presence) are listed as roster, claiming no
+                    picture. Both paths select through the same owner.
+                  */}
+                  {hollywoodPresentationPeople.map((rendered) => {
+                    const membership =
+                      hollywoodCompanyMembers?.find((entry) => entry.person.id === rendered.id) ??
+                      null
+                    // The company context owns its own exact person object; person-work
+                    // resolution compares identity, so never substitute a lookalike.
+                    const person = membership?.person ?? rendered
+                    const selectedPerson = hollywoodPerson?.id === person.id
+                    if (membership !== null) {
+                      const { company, member } = membership
+                      const selectedCompany = hollywoodCompanyPresentationProductionId ===
+                        company.operation.productionId
+                      return (
                         <button
                           key={person.id}
                           type="button"
-                          className={hollywoodPerson?.id === person.id ? 'active' : ''}
-                          aria-pressed={hollywoodPerson?.id === person.id}
+                          className={`${selectedPerson ? 'active' : ''}${
+                            selectedCompany ? ' company-active' : ''
+                          }`.trim()}
+                          aria-pressed={selectedPerson}
+                          aria-label={`${person.name} · ${productionCompanyRoleLabel(member.productionRole)} · ${company.operation.title}`}
                           onClick={() => selectHollywoodPerson(person)}
+                          data-production-id={company.operation.productionId}
+                          data-production-role={member.productionRole}
                           data-testid={`hollywood-select-person-${person.id}`}
                         >
-                          <span>{person.name}</span><small>{person.role}</small>
+                          <span>{person.name}</span>
+                          <small>
+                            {productionCompanyRoleLabel(member.productionRole)} · {company.operation.title}
+                          </small>
                         </button>
-                      ))}
+                      )
+                    }
+                    const onRoster = person.authority === 'studio-roster'
+                    return (
+                      <button
+                        key={person.id}
+                        type="button"
+                        className={selectedPerson ? 'active' : ''}
+                        aria-pressed={selectedPerson}
+                        aria-label={onRoster ? `${person.name} · Studio roster` : undefined}
+                        onClick={() => selectHollywoodPerson(person)}
+                        data-authority={person.authority}
+                        data-testid={`hollywood-select-person-${person.id}`}
+                      >
+                        <span>{person.name}</span>
+                        <small>{onRoster ? 'Studio roster' : person.role}</small>
+                      </button>
+                    )
+                  })}
                 </div>
               )}
               <div

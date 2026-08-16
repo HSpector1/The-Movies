@@ -6,7 +6,7 @@
 // as the accessible, keyboard-operable backbone.
 
 import { useState, type ComponentProps } from 'react'
-import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, waitFor, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   applyActions,
@@ -832,11 +832,11 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
     expect(queryByTestId('hollywood-performance')).not.toBeInTheDocument()
   })
 
-  it('shows an honestly idle managed studio without a fabricated film, person, or task', () => {
+  it('shows an honestly idle managed studio — its OWN employees, no fabricated film, person, or task', () => {
     setOperationHollywoodOverride(true)
     const state = foundManagedStudio('hollywood-managed-idle')
 
-    const { getByTestId, queryByText, queryByRole } = render(
+    const { getByTestId, queryByText, getByRole } = render(
       <StudioLotScreen state={state} onNavigate={() => {}} onExit={() => {}} />,
     )
 
@@ -845,7 +845,19 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
     expect(queryByText(/Violet Hour/i)).not.toBeInTheDocument()
     expect(queryByText(/Mara Voss/i)).not.toBeInTheDocument()
     expect(queryByText(/Take 12/i)).not.toBeInTheDocument()
-    expect(queryByRole('group', { name: 'Named studio people' })).not.toBeInTheDocument()
+    // Tycoon World M1.5: an idle studio still HAS staff, and they are on the lot. Every
+    // name in the group is a real contracted employee — never an invented inhabitant.
+    const people = getByRole('group', { name: 'Named studio people' })
+    const contractedNames = new Set(
+      state.contracts.map(
+        (contract) => state.talent.find((person) => person.id === contract.talentId)!.name,
+      ),
+    )
+    const shown = within(people)
+      .getAllByRole('button')
+      .map((button) => button.querySelector('span')?.textContent ?? '')
+    expect(shown.length).toBeGreaterThan(0)
+    expect(shown.every((name) => contractedNames.has(name))).toBe(true)
   })
 
   it('renders exact operations facts and dispatches the exact snapshot command', () => {
