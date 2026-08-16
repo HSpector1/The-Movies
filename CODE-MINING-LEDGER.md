@@ -94,3 +94,142 @@ enter the build.
   entries; beatsRemaining positive-int decrement-by-1; completion only via CHECKPOINT;
   TRAVEL.beats = matrix; teardown releases queue+reservation+enroute — test interruption
   at every pipeline stage).
+
+---
+
+## Entry 2 — Build-footprint legality, placement preview, construction lifecycle (OpenRCT2)
+
+**PROBLEM** Build mode → pick facility → grid-snapped ghost preview → legality (occupancy,
+terrain, road/clearance) → authoritative cost at commit → N-week construction site →
+operational capacity. Deterministic, save-persistable, pure engine.
+
+**DONOR** OpenRCT2, shallow clone inspected in scratch only.
+
+**LICENSE / NOTICE** `licence.txt` is verbatim GPLv3 (no linking exception). readme §6
+confirms. Source headers: "OpenRCT2 is licensed under the GNU General Public License
+version 3." GPLv3 is incompatible with our proprietary distribution.
+
+**RULING** **CLEAN-ROOM REIMPLEMENT ONLY.** No code, comments, constants, enum orderings,
+or transliterated identifiers may be copied. Implementers work from this prose entry with
+the donor source closed. Do not reuse donor identifier names or magic constants.
+
+**FILES / MODULES** actions/GameAction.hpp (Query/Execute virtuals), actions/CommandFlag.h,
+actions/GameActionResult.h, actions/GameActionRunner.cpp (QueryInternal L167,
+ExecuteInternal L264), world/ConstructionClearance.{h,cpp} (MapCanConstructWithClearAt
+L181), world/QuarterTile.h, actions/scenery/LargeSceneryPlaceAction.cpp (multi-tile
+reference), actions/footpath/FootpathPlaceAction.cpp, world/Scenery.{h,cpp} (ghost
+lifecycle), openrct2-ui/windows/Scenery.cpp (onToolUpdate/TryPlaceGhost*),
+openrct2-ui/windows/Footpath.cpp (ProvisionalFootpath), management/Finance.cpp.
+
+**MECHANISM (clean-room spec, in our own words)**
+- Every mutation is an action object of serialisable params + flag word, exposing Query
+  ("would this succeed, what cost?") and Execute. Both return {errorEnum, message+args,
+  worldPosition, cost, expenditureCategory}.
+- THE RUNNER INVARIANT: Execute always calls Query first and aborts on error — one
+  legality implementation, no drift. The charged cost is computed inside Execute at commit
+  time; the UI's cached number is display-only.
+- Ordering: domain legality errors outrank insufficient-funds (money checked only after
+  the action's own query passes). Money required unless no-money mode/editor/noSpend/ghost
+  flags; affordability = cost<=0 || cost<=cash.
+- Nested query/execute variants skip pause gate/network/money/logging so compound actions
+  aggregate cost from sub-actions.
+- Ghost preview: donor inserts REAL elements flagged ghost into world state (placed via
+  the same action with ghost|noSpend), then must defend everywhere (clearance skips
+  ghosts; network strips ghosts; tool-cancel/save strips ghosts). Cursor loop: hit-test →
+  update highlight → early-out if (kind,tile,quadrant,height,object) unchanged since last
+  frame → remove old ghost → try place new; failure shows no preview/cost. CAUTIONARY:
+  we reject ghost-in-sim-state; preview must live in a UI-only layer.
+- Multi-tile footprint: blueprint = list of tiles {offset xyz, zClearance, quarter-mask,
+  index}; placement = origin + direction 0-3; rotate offsets AND masks by direction; base
+  height = max ground under footprint (object never follows terrain); per-tile clearance
+  query accumulates auto-clear costs; footprint must be uniformly above OR below ground;
+  Query fails fast on first bad tile (donor weakness — we evaluate all cells instead).
+- Clearance query inputs: tile, Z-range, quarter mask, flags, slope, optional ignored-ride,
+  and a clearing callback that prices/permits obstruction removal. Overlap test = Z ranges
+  intersect AND quarter masks intersect; escape hatches (clearing fn, slope tuck,
+  level-crossing rules) else typed obstruction error.
+- Footpath rule order: off-map → land not owned → irregular slope → below min height →
+  above max height → invalid direction.
+- No construction-time concept exists (instant placement). Ride status machine
+  (closed/testing/open) uses the same query(false)/execute(true) split.
+
+**WHY USEFUL** The runner invariant (Execute = Query-then-mutate, single implementation),
+independent suppressible side-effect flags, rotation applied to offsets+masks, ordered
+legality lists with typed errors, and the cautionary ghost tale.
+
+---
+
+## Entry 3 — Room/parcel placement, per-cell legality, built/active lifecycle (CorsixTH)
+
+**PROBLEM** As Entry 2, on a coarse parcel grid over authored art.
+
+**DONOR** CorsixTH, same clone as Entry 1.
+
+**LICENSE / NOTICE** MIT confirmed on disk (LICENSE.txt: ~125 copyright lines + verbatim
+Expat grant; every Lua file repeats it). Theme Hospital's own assets/data are NOT licensed.
+
+**RULING** ADAPT permitted with attribution (ship full copyright block + permission notice
+in THIRD-PARTY-NOTICES if any recognisable code is lifted). RECOMMENDED: clean-room from
+this spec (Lua/C++ would be rewritten anyway; rules are game-design facts). Any verbatim
+lift must be flagged so the notice ships.
+
+**FILES / MODULES** Lua/dialogs/edit_room.lua (placement state machine; checkReachability
+L841; setBlueprintRect L1136; validDoorTile L1225), Lua/dialogs/place_objects.lua
+(footprint legality L696-871), Src/th_lua_map.cpp is_valid() L244 + updateRoomBlueprint,
+Src/th_map.h tile flags L120-164, Src/th_map.cpp is_parcel_purchasable L816, Lua/room.lua
+(initRoom L52, roomFinished L716, deactivate L1015), Lua/world.lua newRoom L625 /
+markRoomAsBuilt L640, Lua/hospital.lua purchasePlot L583.
+
+**MECHANISM (essence)**
+- PARCELS over tiles: numbered parcels (0 = outside) each owning tiles; per-parcel owner;
+  purchasable iff non-zero, unowned, and adjacent to owned-or-outside; matrix rebuilt on
+  ownership change; buying = check→price→afford→set owner→spend (also bumps valuation).
+- Tile flags: passable, 4 directional travel edges, buildable, room, and
+  passable_if_not_for_blueprint (a RESTORE SLOT while a blueprint overlays passability).
+- Room-tile legality = 4 conjuncts: blueprint valid ∧ tile not in a room ∧ buildable ∧
+  owned. Size/doors/reachability layered separately.
+- Blueprint rect update: clamp into bounds (shrink, don't slide); byte-identical early-out;
+  EVALUATE EVERY TILE (green/red per cell, aggregate valid) — never fail-fast; preview
+  writes a separate UI layer; only shadowed passability touches sim, restored from slot.
+- Phase machine: walls → door → windows → clear_area → objects → closed. Confirm button
+  enabled-ness IS the current phase's legality verdict. Door legality checks wall content
+  + both flanking tiles (owned, unoccupied, exclusively passable); swing doors return a
+  per-segment failure bitmask. clear_area = wait-for-people gate (re-check timer), not a
+  duration. Objects phase: requirements map decremented by present objects.
+- Payment at FINAL confirm (minus already-paid required objects), guarded by a paid flag;
+  plus a pre-gate: the picker refuses to open when cash < cost. Affordability checked
+  twice.
+- REACHABILITY (best single rule): with footprint marked impassable, walk the ring of
+  perimeter tiles in order; for each consecutive passable pair require a path; failure =
+  placement would sever the lot. O(perimeter) queries, no flood fill.
+- Object footprints: offsets with {optional, only_passable, only_side, shareable} flags;
+  4 ordered checks per tile; optional cells fail only collectively; moving an object
+  de-occupies self first (avoids self-collision).
+- LIFECYCLE: room ids monotonically increasing (never promptly reused — stale refs fail
+  loudly); initRoom sets built=false; markRoomAsBuilt → roomFinished sets built=true,
+  is_active=true, seeds happiness, pulls waiting patients, broadcasts. CAPACITY GATED ON
+  is_active, NOT existence — the site exists/occupies land contributing zero capacity
+  until the flag flips. Editing deactivates. No construction-time concept anywhere.
+
+**PROJECT: STUDIO APPLICATION (both donors, agreed spec for M2)**
+- Coarse parcel LotGrid (~12×8) over authored art; Parcel {id, terrain:
+  buildable|blocked|road|gate, zone, ownedFromStart}; OccupancyIndex DERIVED from
+  facilities[].cells, never persisted.
+- FacilityBlueprint constants in TUNING: {footprint offsets (+optional), rotations,
+  requiresRoadAdjacency, clearanceRing, buildWeeks, cost, capacity}. Flat grid — no Z,
+  no slopes, no quarter masks.
+- Preview: UI-only layer; pure queryPlacement called per cursor move with identical-input
+  memo early-out; per-cell green/red; Build button enabled = quote.ok; cost box from
+  quote; legality errors outrank money in `primary`.
+- Engine shape: queryPlacement(state, req) → PlacementQuote {ok, cells, cellLegality[],
+  cost, buildWeeks, completesOnWeek, capacityDelta, rejections[], primary};
+  commitPlacement(state, req) MUST call queryPlacement first, return state unchanged
+  (reference-equal) when !ok, and charge the internally computed cost — never a UI value.
+  Unit test: !ok ⟹ same state ref; property test: commit quote deep-equals query quote.
+- Rule order: unknownBlueprint → offLot → notOwned → terrainUnbuildable → occupied →
+  clearanceRingBlocked → noRoadAccess → seversLot (perimeter walk) → insufficientFunds.
+- Lifecycle: Facility {id monotonic, blueprintId, origin, rotation, cells, status:
+  underConstruction|operational|mothballed, placedWeek, completesWeek}. Commit: occupy
+  cells + debit immediately, status=underConstruction. Weekly tick pure pass: week >=
+  completesWeek → operational. Capacity aggregation reads ONLY operational.
+- Explicitly rejected: ghost-as-real-element; fail-fast query.
