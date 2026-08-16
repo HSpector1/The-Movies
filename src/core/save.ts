@@ -4769,7 +4769,8 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
   if (
     save.saveVersion === 9 ||
     save.saveVersion === 10 ||
-    save.saveVersion === 11
+    save.saveVersion === 11 ||
+    save.saveVersion === 12
   ) {
     throw new Error(
       `migrateToV8: cannot downgrade SaveFileV${String(save.saveVersion)} or discard newer authoritative state`,
@@ -4783,7 +4784,11 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
 // identity; V1–V8 migrate forward. V10 is rejected rather than silently losing
 // authoritative casting history.
 export function migrateToV9(save: SaveFile): SaveFileV9 {
-  if (save.saveVersion === 10 || save.saveVersion === 11) {
+  if (
+    save.saveVersion === 10 ||
+    save.saveVersion === 11 ||
+    save.saveVersion === 12
+  ) {
     throw new Error(
       `migrateToV9: cannot downgrade SaveFileV${String(save.saveVersion)} or discard newer authoritative state`,
     );
@@ -4796,9 +4801,9 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
 // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
 // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
 export function migrateToV10(save: SaveFile): SaveFileV10 {
-  if (save.saveVersion === 11) {
+  if (save.saveVersion === 11 || save.saveVersion === 12) {
     throw new Error(
-      "migrateToV10: cannot downgrade SaveFileV11 or discard construction state",
+      `migrateToV10: cannot downgrade SaveFileV${String(save.saveVersion)} or discard construction and placement state`,
     );
   }
   if (save.saveVersion === 10) return save;
