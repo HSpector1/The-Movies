@@ -2220,7 +2220,11 @@ export class TycoonScene extends Phaser.Scene {
           return source.width * source.height * 4
         })()
       : 0
+    // The fallback silhouettes are baked into this scene's texture manager, so they are
+    // already inside `worldTextureBytes`. Attribute them to PEOPLE in the breakdown and
+    // subtract them from the world figure, so the two parts sum to the exact total.
     const peopleBytes = roleAtlasBytes + FALLBACK_PEOPLE_BYTES
+    const worldBytes = Math.max(0, this.worldTextureBytes - FALLBACK_PEOPLE_BYTES)
     const totalBytes = this.worldTextureBytes + roleAtlasBytes
     return {
       frameSampleCount: this.frameSamples.length,
@@ -2228,7 +2232,7 @@ export class TycoonScene extends Phaser.Scene {
       displayObjects: this.children.length,
       textureMemoryBytes: totalBytes,
       textureMemoryMb: Math.round((totalBytes / 1024 / 1024) * 10) / 10,
-      districtTextureMemoryMb: Math.round((this.worldTextureBytes / 1024 / 1024) * 10) / 10,
+      districtTextureMemoryMb: Math.round((worldBytes / 1024 / 1024) * 10) / 10,
       peopleTextureMemoryMb: Math.round((peopleBytes / 1024 / 1024) * 10) / 10,
       roleAtlasActive: this.roleAtlasActive,
       roleAtlasEncodedKb: Math.round((this.roleAtlasManifest?.atlasEncodedBytes ?? 0) / 1024),
