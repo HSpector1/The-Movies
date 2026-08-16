@@ -170,6 +170,18 @@ stays rejected.
   camera transformation is real and every accepted world verb survived the world swap.
   Playtest-1 breaks become M1.5. Note: wheel-zoom non-response under CDP-synthesized
   scroll is an automation artifact (JS-dispatched wheel works); not a product defect.
+- **M1.5 World Inspector Default V1 — KEEP** (commits `b2f39d9..9f83af9`; playtest 2,
+  Week 1 save, live V12-migrated browser session). Idle Stage A click → in-world
+  "stage is dark" inspector with slot truth (was: Dashboard ejection). Theater →
+  marquee/releases inspector. Casting → status + shared-slot truth + optional-auditions
+  note. All with explicit deep-details secondaries; the world never unmounts; roster
+  staff visible on the Week-1 lot; the browser save upgraded V11→V12 in place with the
+  standard upgrade notice.
+- **M2-Engine Placement Core V12 — ACCEPTED into the line** (verified: both tsc clean,
+  placement suites 55/55 spot-run, tree clean at `9a5ae98`). Ten-parcel map, one Annex
+  law via blueprint alias, $3,500/wk opex, byte-disciplined migration. Full-tree claim
+  (212 files / 2,854 tests) accepted from the writer's report pending the M2-UI run,
+  which re-executes the whole suite.
 
 ## M1.5 — FROZEN TARGET: World Inspector Default V1 (UI surfaces only)
 
