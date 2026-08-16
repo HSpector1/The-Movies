@@ -9,6 +9,18 @@ import { fileURLToPath } from 'node:url'
 
 const uiDir = dirname(fileURLToPath(import.meta.url))
 const PORT = 5178 // fixed, distinct from the default dev port (5173)
+/**
+ * TYCOON WORLD CONVERSION M2 — the grid-world browser layer's own origin.
+ *
+ * `VITE_TYCOON_WORLD` is resolved by `resolveAdoptedPlayerGate`, where ANY explicit
+ * rollback wins — including over a localStorage `1`. The quarantine below therefore
+ * cannot be lifted per-spec, and one Vite dev server can only ever serve one value of
+ * a build-time env var. So the grid world gets a SECOND server on its own fixed port,
+ * serving the SHIPPED DEFAULT (no rollback anywhere), while 5178 keeps every existing
+ * plate-pinned assertion measuring exactly what it was written to measure. Same config,
+ * same command, same `workers: 1` — two origins, because the product has two worlds.
+ */
+const GRID_PORT = 5179
 
 export default defineConfig({
   testDir: './e2e',
@@ -33,7 +45,7 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  webServer: {
+  webServer: [{
     // Reuse the project's vite dev server on the fixed port. `cwd` = the ui dir so
     // the config path is relative (the repo path contains a space, which would break
     // an unquoted absolute --config argument).
@@ -71,5 +83,19 @@ export default defineConfig({
     url: `http://localhost:${PORT}`,
     reuseExistingServer: false,
     timeout: 120_000,
-  },
+  }, {
+    // The M2 grid-world layer: the SHIPPED DEFAULT world, no rollback of any gate.
+    // `ui/e2e/tycoon-build-mode-v1.spec.ts` is the only spec that uses this origin,
+    // and it addresses it absolutely (`GRID_BASE_URL`) rather than through `baseURL`.
+    command: `npx vite --config vite.config.ts --port ${GRID_PORT} --strictPort`,
+    cwd: uiDir,
+    env: {
+      VITE_STUDIO_LOT_OVERVIEW: '',
+      VITE_OPERATION_HOLLYWOOD: '',
+      VITE_TYCOON_WORLD: '',
+    },
+    url: `http://localhost:${GRID_PORT}`,
+    reuseExistingServer: false,
+    timeout: 120_000,
+  }],
 })

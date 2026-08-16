@@ -2930,6 +2930,9 @@ export class TycoonScene extends Phaser.Scene {
     previewOk: boolean | null
     parcelZoneIds: string[]
     placedFacilityIds: number[]
+    lodBand: LodBand
+    visibleBuildingLabels: number
+    placementLabels: string[]
   } {
     return {
       selectedPersonId: this.selectedPersonId,
@@ -2960,6 +2963,13 @@ export class TycoonScene extends Phaser.Scene {
       previewOk: this.preview?.ok ?? null,
       parcelZoneIds: [...this.parcelZones.keys()].sort(),
       placedFacilityIds: (this.placement?.placements ?? []).map((placed) => placed.id),
+      lodBand: this.lodBand,
+      visibleBuildingLabels: [...this.buildings.values()].filter((view) => view.label.visible)
+        .length,
+      placementLabels: [...this.placementLabels.values()]
+        .filter((label) => label.visible)
+        .map((label) => label.text)
+        .sort(),
     }
   }
 
