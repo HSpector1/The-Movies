@@ -484,6 +484,65 @@ export const AMBIENT_ROUTES: readonly {
 
 // ── camera framing targets ────────────────────────────────────────────────────
 
+/** Absolute camera zoom range — institution scale through person scale. */
+export const ZOOM_MIN = 0.32
+export const ZOOM_MAX = 1.9
+
+/**
+ * LOD band thresholds. BOTH boundaries are relative to the CURRENT whole-property fit,
+ * because the fit moves every time host chrome changes the canvas box.
+ *
+ * Playtest 1 found the two ways an absolute threshold lies about the default view:
+ *   • the camera holds a raw zoom across a resize, the canvas grows, and the same zoom is
+ *     suddenly BELOW the new fit — the whole-property view classified as institution
+ *     scale and every building label disappeared;
+ *   • on a large canvas the fit alone exceeds an absolute person-scale threshold, so the
+ *     default framing classified as person scale and every status badge stepped aside.
+ *
+ * Keying both boundaries to fit closes both: the whole-property framing (ratio 1.0) is
+ * always an operations view, whatever the host does to the box. On a canvas so large that
+ * the fit is already near max zoom, the people band becomes unreachable — the property is
+ * then drawn at person scale anyway, and the selected person keeps their nameplate.
+ */
+export const ZOOM_INSTITUTION_OF_FIT = 0.92
+export const ZOOM_PEOPLE_OF_FIT = 1.25
+/** Absolute floor for person scale, so a small canvas cannot enter it too early. */
+export const ZOOM_PEOPLE_ABSOLUTE = 1.0
+
+export type LodBand = 'institution' | 'operations' | 'people'
+
+/** Clamp any camera zoom into the world's absolute range. */
+export function clampZoom(zoom: number): number {
+  if (!Number.isFinite(zoom)) return ZOOM_MIN
+  return Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, zoom))
+}
+
+/** Which reading distance a camera zoom is at, against the CURRENT whole-property fit. */
+export function lodBandFor(zoom: number, fitZoom: number): LodBand {
+  // A zoom or fit that cannot be read must not blank the world's chrome. The default
+  // reading distance is the working studio, never the silhouette-only institution view.
+  if (!Number.isFinite(zoom) || zoom <= 0) return 'operations'
+  if (!Number.isFinite(fitZoom) || fitZoom <= 0) return 'operations'
+  if (zoom < fitZoom * ZOOM_INSTITUTION_OF_FIT) return 'institution'
+  const peopleAbove = Math.max(ZOOM_PEOPLE_ABSOLUTE, fitZoom * ZOOM_PEOPLE_OF_FIT)
+  return zoom < peopleAbove ? 'operations' : 'people'
+}
+
+/**
+ * The zoom that HOLDS A FRAMING across a canvas resize.
+ *
+ * Host chrome changing the box is not a camera command, but keeping the raw number is not
+ * "no command" either — the same zoom shows a different fraction of the property once the
+ * fit moves. Keeping the camera's ratio to the fit is what actually leaves the framing
+ * alone.
+ */
+export function reframedZoom(previousZoom: number, previousFit: number, nextFit: number): number {
+  if (!Number.isFinite(previousZoom) || previousZoom <= 0) return clampZoom(nextFit)
+  if (!Number.isFinite(previousFit) || previousFit <= 0) return clampZoom(previousZoom)
+  if (!Number.isFinite(nextFit) || nextFit <= 0) return clampZoom(previousZoom)
+  return clampZoom((previousZoom / previousFit) * nextFit)
+}
+
 export type CameraFraming = 'overview' | 'wide' | 'production' | 'entrance' | 'theater'
 
 /** Grid centre + zoom multiplier (relative to the whole-property fit) per framing. */

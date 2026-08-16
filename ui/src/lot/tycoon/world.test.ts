@@ -25,9 +25,16 @@ import {
   WORLD_PLACES,
   YARD_PADS,
   YARD_REGION,
+  ZOOM_MAX,
+  ZOOM_MIN,
+  ZOOM_INSTITUTION_OF_FIT,
+  ZOOM_PEOPLE_OF_FIT,
+  clampZoom,
   establishedDressing,
   landscaping,
+  lodBandFor,
   personHomeSlotOffset,
+  reframedZoom,
   type GridPoint,
   type Rect,
   type WorldPlace,
@@ -291,11 +298,11 @@ describe('tycoon world — movement and framing', () => {
   })
 })
 
-// ── M1.5: the whole contracted roster now parks at these homes ───────────────
+// ── M1.5: parked people and the fit-relative LOD bands ───────────────────────
 
 describe('tycoon world — parked staff presence (M1.5)', () => {
-  // Presence must never put a person inside a building, and the seed jitter must not
-  // push one in either.
+  // The studio's whole contracted roster now stands at these homes. Presence must never
+  // put a person inside a building, and the seed jitter must not push one in either.
   const jitterCorners = (at: GridPoint): GridPoint[] => {
     const j = PERSON_HOME_JITTER
     return [
@@ -356,5 +363,73 @@ describe('tycoon world — parked staff presence (M1.5)', () => {
     expect(personHomeSlotOffset(-4)).toEqual(personHomeSlotOffset(0))
     expect(personHomeSlotOffset(2.7)).toEqual(personHomeSlotOffset(2))
     expect(personHomeSlotOffset(Number.NaN)).toEqual(personHomeSlotOffset(0))
+  })
+})
+
+describe('tycoon world — LOD bands recompute against the current fit (M1.5)', () => {
+  // Playtest 1: opening a side panel resized the canvas and every building label vanished
+  // at property scale. Fit moves with the box, so a band keyed to anything else lies.
+  const FITS = [0.32, 0.45, 0.6, 0.667, 0.8, 1.0, 1.2, 1.45, 1.9]
+
+  it('always reads the whole-property framing as an operations view', () => {
+    for (const fit of FITS) {
+      expect(`fit ${String(fit)}: ${lodBandFor(fit, fit)}`).toBe(`fit ${String(fit)}: operations`)
+    }
+  })
+
+  it('still separates the three reading distances at every fit', () => {
+    for (const fit of FITS) {
+      expect(lodBandFor(fit * (ZOOM_INSTITUTION_OF_FIT - 0.05), fit)).toBe('institution')
+      const peopleAbove = Math.max(1.0, fit * ZOOM_PEOPLE_OF_FIT)
+      expect(lodBandFor(peopleAbove - 0.001, fit)).toBe('operations')
+      expect(lodBandFor(peopleAbove, fit)).toBe('people')
+    }
+  })
+
+  it('reads as operations rather than blanking the world when the fit cannot be computed', () => {
+    for (const bad of [0, -1, Number.NaN, Number.POSITIVE_INFINITY]) {
+      expect(lodBandFor(0.8, bad)).toBe('operations')
+      expect(lodBandFor(bad, 0.8)).toBe('operations')
+    }
+  })
+
+  it('keeps a resized default view in the operations band — the exact playtest defect', () => {
+    // Host chrome opens/closes a side panel: the canvas box changes, so the fit changes.
+    for (const previousFit of FITS) {
+      for (const nextFit of FITS) {
+        // What the old code did: hold the raw zoom. Where fit grew by more than the
+        // institution margin, the default view fell out of the operations band entirely.
+        const held = clampZoom(previousFit)
+        const reframed = reframedZoom(previousFit, previousFit, nextFit)
+        expect(
+          `${String(previousFit)}→${String(nextFit)}: ${lodBandFor(reframed, nextFit)}`,
+        ).toBe(`${String(previousFit)}→${String(nextFit)}: operations`)
+        if (nextFit > previousFit / ZOOM_INSTITUTION_OF_FIT && nextFit <= ZOOM_MAX) {
+          expect(lodBandFor(held, nextFit)).toBe('institution')
+        }
+      }
+    }
+  })
+
+  it('holds a close framing’s RATIO to the property across a resize', () => {
+    const previousFit = 0.6
+    const nextFit = 0.45
+    const zoomedIn = previousFit * 1.8
+    const reframed = reframedZoom(zoomedIn, previousFit, nextFit)
+    expect(reframed).toBeCloseTo(clampZoom(nextFit * 1.8), 6)
+  })
+
+  it('clamps every reframed zoom into the world’s absolute range', () => {
+    expect(reframedZoom(1.8, 0.4, 1.9)).toBe(ZOOM_MAX)
+    expect(reframedZoom(0.33, 1.9, 0.32)).toBe(ZOOM_MIN)
+    expect(clampZoom(Number.NaN)).toBe(ZOOM_MIN)
+    expect(clampZoom(99)).toBe(ZOOM_MAX)
+    expect(clampZoom(-99)).toBe(ZOOM_MIN)
+  })
+
+  it('falls back to the fit, never to nothing, when a previous framing is unusable', () => {
+    expect(reframedZoom(0, 0.6, 0.5)).toBe(clampZoom(0.5))
+    expect(reframedZoom(0.6, 0, 0.5)).toBe(clampZoom(0.6))
+    expect(reframedZoom(0.6, 0.6, Number.NaN)).toBe(clampZoom(0.6))
   })
 })

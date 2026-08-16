@@ -88,12 +88,18 @@ import {
   WORLD_PLACES,
   YARD_PADS,
   YARD_REGION,
+  ZOOM_MAX,
+  ZOOM_MIN,
+  clampZoom,
   establishedDressing,
   landscaping,
+  lodBandFor,
   personHomeSlotOffset,
+  reframedZoom,
   type CameraFraming,
   type GridPoint,
   type GroundKind,
+  type LodBand,
   type Rect,
   type WorldPlace,
 } from './world.ts'
@@ -101,27 +107,18 @@ import {
 const hw = TILE_W / 2
 const hh = TILE_H / 2
 
-/** Absolute camera zoom range — institution scale through person scale. */
-const ZOOM_MIN = 0.32
-const ZOOM_MAX = 1.9
 /**
- * LOD band thresholds, crisp and hysteresis-free (code-mining ledger entry 4).
+ * Three reading distances, crisp and hysteresis-free (code-mining ledger entry 4):
  *
- *   < 0.45   institution — silhouettes and status COLOUR only, no text at all.
- *   < 1.00   operations  — the default whole-property framing: names, status badges,
- *                          people at work, nameplate on the selected person only.
- *   ≥ 1.00   people      — nameplates on every named person; badges step aside.
+ *   institution — silhouettes and status COLOUR only, no text at all.
+ *   operations  — the default whole-property framing: names, status badges, people at
+ *                 work, nameplate on the selected person only.
+ *   people      — nameplates on every named person; badges step aside.
  *
- * Chrome is counter-scaled to a constant SCREEN size inside its bands, so a label never
- * shrinks below legibility — it disappears instead.
+ * Both boundaries are fit-relative and live in ./world.ts, so they can be checked without
+ * a renderer. Chrome is counter-scaled to a constant SCREEN size inside its bands, so a
+ * label never shrinks below legibility — it disappears instead.
  */
-const ZOOM_PEOPLE = 1.0
-/**
- * The institution band begins just BELOW the whole-property framing, so the default view
- * is always an operations view no matter what the host chrome does to the canvas box.
- * An absolute threshold cannot do this: the fit zoom moves with the window.
- */
-const ZOOM_INSTITUTION_OF_FIT = 0.92
 
 const FONT_SERIF = 'Georgia, "Iowan Old Style", "Times New Roman", serif'
 const FONT_SANS = 'Avenir, "Helvetica Neue", Arial, sans-serif'
@@ -247,7 +244,15 @@ export class TycoonScene extends Phaser.Scene {
   private pointerScreen: Point | null = null
   private wasd: Record<'up' | 'down' | 'left' | 'right', Phaser.Input.Keyboard.Key> | null = null
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | null = null
-  private lodBand: 'institution' | 'operations' | 'people' = 'operations'
+  private lodBand: LodBand = 'operations'
+  /**
+   * The framing the camera is holding: its zoom RELATIVE to the whole-property fit, plus
+   * the world point at the centre of the viewport. Recorded every frame so a resize can
+   * restore the same framing without depending on Phaser's own resize listener order.
+   */
+  private framing: { ratio: number; centre: Point } | null = null
+  /** A centre to re-apply once Phaser has resized the camera itself. */
+  private pendingReframeCentre: Point | null = null
   /** Zoom the on-canvas chrome was last counter-scaled for. */
   private chromeZoom = 1
   private fitCache: { w: number; h: number; zoom: number } | null = null
@@ -1837,11 +1842,7 @@ export class TycoonScene extends Phaser.Scene {
       return this.fitCache.zoom
     }
     const e = this.worldExtent()
-    const zoom = Phaser.Math.Clamp(
-      Math.min(w / (e.maxX - e.minX), h / (e.maxY - e.minY)),
-      ZOOM_MIN,
-      ZOOM_MAX,
-    )
+    const zoom = clampZoom(Math.min(w / (e.maxX - e.minX), h / (e.maxY - e.minY)))
     this.fitCache = { w, h, zoom }
     return zoom
   }
@@ -1861,12 +1862,47 @@ export class TycoonScene extends Phaser.Scene {
     })
   }
 
+  /**
+   * React chrome can change the RESIZE canvas box. That is not a camera command — but
+   * KEEPING THE RAW ZOOM is not "no command" either: once the whole-property fit moves,
+   * the same number frames a different fraction of the property. Playtest 1 caught the
+   * consequence, a default view whose labels all vanished when a side panel resized the
+   * canvas. Hold the FRAMING instead: the camera's ratio to the fit, and its world centre.
+   */
   private preserveCameraOnResize(): void {
-    // React chrome can change the RESIZE canvas box. That is not a camera command.
     const camera = this.cameras.main
-    const { scrollX, scrollY, zoom } = camera
-    camera.setZoom(zoom)
-    camera.setScroll(scrollX, scrollY)
+    const framing = this.framing
+    if (framing === null) {
+      camera.setZoom(camera.zoom)
+      camera.setScroll(camera.scrollX, camera.scrollY)
+      return
+    }
+    const previousFit = this.fitCache?.zoom ?? null
+    // `fitZoom()` re-measures against the NEW box; the cache above still held the old one.
+    camera.setZoom(
+      previousFit === null
+        ? clampZoom(framing.ratio * this.fitZoom())
+        : reframedZoom(camera.zoom, previousFit, this.fitZoom()),
+    )
+    // Phaser resizes its cameras from the same scale event this handler rides, so the
+    // camera's own viewport size may still be the old one here. Re-centre on the next
+    // frame instead of guessing which listener ran first.
+    this.pendingReframeCentre = framing.centre
+    camera.centerOn(framing.centre.x, framing.centre.y)
+    this.updateLod()
+  }
+
+  /** The framing the camera is currently holding, recorded for the next resize. */
+  private rememberFraming(): void {
+    const camera = this.cameras.main
+    const fit = this.fitZoom()
+    if (fit <= 0) return
+    this.framing = {
+      ratio: camera.zoom / fit,
+      // Phaser zooms about the camera centre, so the world point under the middle of the
+      // viewport is the scroll plus half the UNZOOMED viewport — independent of zoom.
+      centre: { x: camera.scrollX + camera.width / 2, y: camera.scrollY + camera.height / 2 },
+    }
   }
 
   private bindInput(): void {
@@ -1943,19 +1979,24 @@ export class TycoonScene extends Phaser.Scene {
     const camera = this.cameras.main
     const fit = this.fitZoom()
     const at = this.world(framing.at.gx, framing.at.gy)
-    camera.setZoom(Phaser.Math.Clamp(fit * framing.scale, ZOOM_MIN, ZOOM_MAX))
+    camera.setZoom(clampZoom(fit * framing.scale))
     if (preset === 'overview' || preset === 'wide') {
       const e = this.worldExtent()
       camera.centerOn((e.minX + e.maxX) / 2, (e.minY + e.maxY) / 2)
-      return
+    } else {
+      camera.centerOn(at.x, at.y)
     }
-    camera.centerOn(at.x, at.y)
+    // A reset/preset is an explicit command: capture the framing it established and
+    // re-read the fit-relative bands now, so the new view paints its chrome immediately.
+    this.pendingReframeCentre = null
+    this.rememberFraming()
+    this.updateLod()
   }
 
   private focusPlace(place: WorldPlace): void {
     const camera = this.cameras.main
     const at = this.world(place.gx + place.fw / 2, place.gy + place.fd / 2)
-    const zoom = Phaser.Math.Clamp(this.fitZoom() * 2.0, ZOOM_MIN, ZOOM_MAX)
+    const zoom = clampZoom(this.fitZoom() * 2.0)
     if (this.reducedMotion) {
       camera.setZoom(zoom)
       camera.centerOn(at.x, at.y)
@@ -2023,8 +2064,14 @@ export class TycoonScene extends Phaser.Scene {
       }
     }
 
+    if (this.pendingReframeCentre !== null) {
+      const centre = this.pendingReframeCentre
+      this.pendingReframeCentre = null
+      this.cameras.main.centerOn(centre.x, centre.y)
+    }
     this.updateCameraPan(delta)
     this.updateLod()
+    this.rememberFraming()
 
     if (!this.reducedMotion) {
       for (const actor of this.ambientActors) {
@@ -2099,12 +2146,13 @@ export class TycoonScene extends Phaser.Scene {
    *
    * Institution: silhouettes and status colour, no text and no person-level detail.
    * Operations: the working studio. People: nameplates on everyone.
+   *
+   * The band is classified against the CURRENT fit every frame, so a host layout change
+   * that moves the fit can never leave a stale threshold deciding what is readable.
    */
   private updateLod(): void {
     const zoom = this.cameras.main.zoom
-    const institutionBelow = this.fitZoom() * ZOOM_INSTITUTION_OF_FIT
-    const band: 'institution' | 'operations' | 'people' =
-      zoom < institutionBelow ? 'institution' : zoom < ZOOM_PEOPLE ? 'operations' : 'people'
+    const band = lodBandFor(zoom, this.fitZoom())
     const bandChanged = band !== this.lodBand
     this.lodBand = band
 
