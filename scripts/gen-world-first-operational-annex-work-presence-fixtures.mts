@@ -1,4 +1,4 @@
-// World-First Operational Annex Work Presence V1 — native SaveFileV11 authority.
+// World-First Operational Annex Work Presence V1 — native SaveFileV12 authority.
 //
 // Run from the repository root:
 //   node_modules/.bin/vite-node scripts/gen-world-first-operational-annex-work-presence-fixtures.mts
@@ -174,8 +174,9 @@ function foundOperationalStudio(
   state = advanceExactly(state, 13)
 
   invariant(state.market.tick === 13, `operational state landed in Week ${String(state.market.tick)}`)
-  invariant(state.construction.projects[0]?.status === 'completed', 'Annex did not complete')
-  invariant(state.construction.projects[0]?.completedWeek === 13, 'Annex did not complete in Week 13')
+  // Placement Core V12: the Annex is a placed facility on the legacy parcel.
+  invariant(state.placement.facilities[0]?.status === 'operational', 'Annex did not complete')
+  invariant(state.placement.facilities[0]?.completesWeek === 13, 'Annex did not complete in Week 13')
 
   return {
     state,
@@ -446,17 +447,17 @@ function buildFixtures(): Fixture[] {
 function verifiedSave(state: GameState): VerifiedSave {
   const bytes = exportSaveJson(state)
   const envelope = JSON.parse(bytes) as { saveVersion?: unknown; seed?: unknown }
-  invariant(envelope.saveVersion === 11, `exported SaveFileV${String(envelope.saveVersion)}`)
+  invariant(envelope.saveVersion === 12, `exported SaveFileV${String(envelope.saveVersion)}`)
   invariant(envelope.seed === SEED, `envelope seed is ${JSON.stringify(envelope.seed)}`)
   const first = importSaveJson(bytes)
-  invariant(first.ok, `native SaveFileV11 import rejected${first.ok ? '' : ` — ${first.error}`}`)
-  invariant(first.converted === false, 'native SaveFileV11 was reported as converted')
+  invariant(first.ok, `native SaveFileV12 import rejected${first.ok ? '' : ` — ${first.error}`}`)
+  invariant(first.converted === false, 'native SaveFileV12 was reported as converted')
   const firstReplay = exportSaveJson(first.state)
-  invariant(firstReplay === bytes, 'first SaveFileV11 import/export replay changed bytes')
+  invariant(firstReplay === bytes, 'first SaveFileV12 import/export replay changed bytes')
   const second = importSaveJson(firstReplay)
-  invariant(second.ok, `replayed SaveFileV11 import rejected${second.ok ? '' : ` — ${second.error}`}`)
-  invariant(second.converted === false, 'replayed SaveFileV11 was reported as converted')
-  invariant(exportSaveJson(second.state) === bytes, 'second SaveFileV11 replay changed bytes')
+  invariant(second.ok, `replayed SaveFileV12 import rejected${second.ok ? '' : ` — ${second.error}`}`)
+  invariant(second.converted === false, 'replayed SaveFileV12 was reported as converted')
+  invariant(exportSaveJson(second.state) === bytes, 'second SaveFileV12 replay changed bytes')
   return {
     bytes,
     byteLength: Buffer.byteLength(bytes, 'utf8'),
@@ -472,9 +473,9 @@ function writeVerified(path: string, verified: VerifiedSave): 'unchanged' | 'wri
   invariant(Buffer.byteLength(disk, 'utf8') === verified.byteLength, `disk length changed for ${path}`)
   invariant(sha256(disk) === verified.sha256, `disk hash changed for ${path}`)
   const imported = importSaveJson(disk)
-  invariant(imported.ok, `disk SaveFileV11 import rejected${imported.ok ? '' : ` — ${imported.error}`}`)
-  invariant(imported.converted === false, 'disk SaveFileV11 was reported as converted')
-  invariant(exportSaveJson(imported.state) === disk, `disk SaveFileV11 replay changed ${path}`)
+  invariant(imported.ok, `disk SaveFileV12 import rejected${imported.ok ? '' : ` — ${imported.error}`}`)
+  invariant(imported.converted === false, 'disk SaveFileV12 was reported as converted')
+  invariant(exportSaveJson(imported.state) === disk, `disk SaveFileV12 replay changed ${path}`)
   return unchanged ? 'unchanged' : 'written'
 }
 
@@ -511,8 +512,8 @@ const manifestFixtures = firstBuild.map((fixture) => {
   return {
     id: fixture.id,
     file: fixture.file,
-    saveVersion: 11,
-    importMode: 'native-v11',
+    saveVersion: 12,
+    importMode: 'native-v12',
     converted: false,
     byteLength: verified.byteLength,
     sha256: verified.sha256,
@@ -532,8 +533,8 @@ const manifest = `${JSON.stringify({
     stateConstruction: 'public Engine and UI adapter actions only',
     construction: 'exact Week-13 authoritative Development & Casting Annex completion',
     allocation: 'ordinary deterministic shared development-casting allocation',
-    serialization: 'exportSaveJson / importSaveJson native SaveFileV11 boundary',
-    importMode: 'native SaveFileV11; converted === false',
+    serialization: 'exportSaveJson / importSaveJson native SaveFileV12 boundary',
+    importMode: 'native SaveFileV12; converted === false',
     deterministic: true,
     generatedFilesAreHandEdited: false,
     configuredHeldSave: false,

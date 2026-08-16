@@ -20,15 +20,15 @@ const EXPECTED_FILES = [
 ] as const
 const EXPECTED_SAVES = {
   'week-13-operational-annex-available.save.json': {
-    byteLength: 220_259,
-    sha256: '4026c51603afe35605a9d5a71391764cd6dfea3972ef3a8d20ef3b3987dc4652',
+    byteLength: 220_422,
+    sha256: 'fce7196b01435a68a26f2aef33022c1ed825f16656a8e01588a9251adde5337e',
     week: 13,
     contextState: 'available',
     occupant: null,
   },
   'week-13-operational-annex-script-working.save.json': {
-    byteLength: 221_866,
-    sha256: 'cb49f61ac81d239b14db744fdc7b37b91ccd507e8f0e4a8fda56e802bd96bdc4',
+    byteLength: 222_029,
+    sha256: 'b4d9153771d7cc504b54da765ea4a66e364bf38eabc9a2487920218adc88a9ea',
     week: 13,
     contextState: 'working',
     occupant: {
@@ -42,8 +42,8 @@ const EXPECTED_SAVES = {
     },
   },
   'week-14-operational-annex-production-development-working.save.json': {
-    byteLength: 230_918,
-    sha256: 'd7213ae7c064ad59ac685a777042b0b237d9ce1c367a9af3b9d754cb25b8044e',
+    byteLength: 231_170,
+    sha256: '34cd6aec3267097275811d43f77a1d50914cd3eb7db3f29acd388d22e1774f3b',
     week: 14,
     contextState: 'working',
     occupant: {
@@ -124,8 +124,8 @@ describe('World-First Operational Annex Work Presence V1 — native fixture auth
       authority: {
         stateConstruction: 'public Engine and UI adapter actions only',
         allocation: 'ordinary deterministic shared development-casting allocation',
-        serialization: 'exportSaveJson / importSaveJson native SaveFileV11 boundary',
-        importMode: 'native SaveFileV11; converted === false',
+        serialization: 'exportSaveJson / importSaveJson native SaveFileV12 boundary',
+        importMode: 'native SaveFileV12; converted === false',
         deterministic: true,
         generatedFilesAreHandEdited: false,
         configuredHeldSave: false,
@@ -137,8 +137,8 @@ describe('World-First Operational Annex Work Presence V1 — native fixture auth
     for (const fixture of evidence.fixtures) {
       const expected = EXPECTED_SAVES[fixture.file]
       expect(fixture).toMatchObject({
-        saveVersion: 11,
-        importMode: 'native-v11',
+        saveVersion: 12,
+        importMode: 'native-v12',
         converted: false,
         byteLength: expected.byteLength,
         sha256: expected.sha256,
@@ -162,7 +162,7 @@ describe('World-First Operational Annex Work Presence V1 — native fixture auth
     }
   })
 
-  it('replays all three native SaveFileV11 files byte-identically and projects exact Annex truth', () => {
+  it('replays all three native SaveFileV12 files byte-identically and projects exact Annex truth', () => {
     for (const fixture of manifest().fixtures) {
       const expected = EXPECTED_SAVES[fixture.file]
       const bytes = readFileSync(join(OUTPUT_DIRECTORY, fixture.file), 'utf8')
@@ -171,7 +171,7 @@ describe('World-First Operational Annex Work Presence V1 — native fixture auth
 
       const envelope = JSON.parse(bytes) as { saveVersion?: unknown; seed?: unknown }
       expect(envelope).toMatchObject({
-        saveVersion: 11,
+        saveVersion: 12,
         seed: 'world-first-operational-annex-work',
       })
 

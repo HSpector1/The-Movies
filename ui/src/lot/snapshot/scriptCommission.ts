@@ -1,6 +1,6 @@
 import {
   canonicalScriptProjectId,
-  makeSaveV11,
+  makeSaveV12,
 } from '../../../../src/core/index.ts'
 import { scriptProjectsBoard } from '../../engine/adapter.ts'
 import type {
@@ -244,7 +244,7 @@ function sameClosedFieldsExcept(
 }
 
 function isClosedCanonicalState(state: GameState): boolean {
-  const projected = makeSaveV11(state).state
+  const projected = makeSaveV12(state).state
   return sameClosedValue(state, projected)
 }
 

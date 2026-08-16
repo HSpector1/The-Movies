@@ -247,7 +247,7 @@ describe('Film Chronicle V1 — real adapter wiring', () => {
     expect(state).toEqual(stateBefore)
   })
 
-  it('uses current market week as the chronology gate and reconstructs deeply after V11 reload', () => {
+  it('uses current market week as the chronology gate and reconstructs deeply after V12 reload', () => {
     const { state, films } = threeFilmState('chronicle-adapter-reload')
     const film = films[1]!
     const atRelease = structuredClone(state)
@@ -276,7 +276,7 @@ describe('Film Chronicle V1 — real adapter wiring', () => {
     const before = releaseNewspaper(state, film)
     expect(before).not.toBeNull()
     const json = exportSaveJson(state)
-    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(11)
+    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(12)
     const imported = importSaveJson(json)
     expect(imported.ok).toBe(true)
     if (!imported.ok) return
