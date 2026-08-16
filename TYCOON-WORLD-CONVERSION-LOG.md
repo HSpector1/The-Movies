@@ -193,7 +193,10 @@ PM rulings on its three findings:
    for M3-UI or a follow-on slice, not to be invented casually (law 12).
 2. `studioCalendar` never lists non-legacy construction (core staleness at
    `studioCalendar.ts:426`) — REPAIR NOW, dispatched as a bounded core seam-repair
-   writer parallel to M3-UI.
+   writer parallel to M3-UI. DELIVERED at `156e273`: events project from the placement
+   root (legacy Annex event byte-identical, additive placementId/parcelId/facilityName
+   fields, numeric placement-id ordering), utilization proven already correct, 6 new
+   falsification-checked specs, suite 218 files / 2,924 green.
 3. Multiple completions in one advance share one receipt (lowest id owns it, message
    counts the rest) — ACCEPTED.
 
