@@ -359,6 +359,85 @@ export type LotPlacedFacilityState = {
   weeklyOperatingCost: number
 }
 
+// ── Presence on the Lot V1 (M3-UI) — who is where, doing what, this week ─────
+//
+// A field-for-field mirror of the ENGINE's own `studioPresence(state)` projection
+// (src/core/presence.ts), plus three strictly cross-checked presentation strings
+// (`facilityName` / `workTitle` / `activity`) the adapter joins from the already
+// accepted Studio Calendar for the SAME facility slot and the SAME owner id.
+//
+// Nothing here is a rule. The lot decides no attendance, invents no location and
+// advances no beat: it renders the decomposition the engine already made. A person
+// the engine WITHHELD is simply absent from `people` — the lot then claims no
+// presence line for them at all (fail-neutral), while every already-accepted M1.5
+// employment fact keeps rendering from its own source.
+
+/** One integer beat of the engine's week decomposition. */
+export type LotPresenceBeat = 'home' | 'travel' | 'at-site' | 'waiting'
+
+/** Which authority claims the person's week. */
+export type LotPresenceEngagement = 'production' | 'script' | 'casting' | 'roster'
+
+/** What the person is credited as at the claimed site; null for an unclaimed week. */
+export type LotPresenceCredit =
+  | 'writer'
+  | 'director'
+  | 'lead'
+  | 'antagonist'
+  | 'support'
+  | 'craft'
+  | 'auditionee'
+  | null
+
+export type LotPresencePerson = {
+  talentId: string
+  name: string
+  /** The person's PRIMARY profession, not the week's credit. */
+  creativeRole: 'actor' | 'director' | 'writer' | 'craft'
+  engagement: LotPresenceEngagement
+  credit: LotPresenceCredit
+  /** productionId | scriptProjectId | castingSessionId, or null for roster. */
+  ownerId: string | null
+  /** The ENGINE facility id claimed this week, or null for a roster week. */
+  facilityId: string | null
+  /** The exact reserved slot index at `facilityId`, or null. */
+  slot: number | null
+  /** Exactly `beatsPerWeek` entries, in beat order. */
+  beats: LotPresenceBeat[]
+  /** The engine's own queue reason, verbatim, or null. */
+  blockedReason: string | null
+  /** Calendar facility name for the claimed slot; null when unproven. */
+  facilityName: string | null
+  /** Calendar occupant title for the claimed slot; null when unproven. */
+  workTitle: string | null
+  /** Calendar occupant activity for the claimed slot; null when unproven. */
+  activity: string | null
+}
+
+/** The engine's canonical decomposition of the CURRENT week, mirrored for the lot. */
+export type LotPresenceProjection = {
+  week: number
+  /** The engine's BEATS_PER_WEEK. Carried so the renderer never assumes it. */
+  beatsPerWeek: number
+  /** The beat the STATIC lot renders — the middle of the working day. */
+  staticBeat: number
+  /** Ascending by talentId; each id appears at most once. */
+  people: LotPresencePerson[]
+  /** Ids the engine deliberately withheld. They claim no presence line. */
+  withheldTalentIds: string[]
+}
+
+/**
+ * The beat the STATIC lot renders — the middle of the engine's working day.
+ *
+ * The engine staggers departures across beats 0…2 and ends the working day at beat 8,
+ * so beats 3…8 are the only ones where EVERY claimed person is provably at (or waiting
+ * outside) their site. Beat 5 is the middle of that window: one beat, chosen once, so
+ * the canvas and the DOM companion can never disagree about which instant "this week"
+ * means. It is presentation law, not an engine number.
+ */
+export const LOT_PRESENCE_STATIC_BEAT = 5
+
 /** One buildable blueprint the catalog offers. */
 export type LotBlueprintState = {
   blueprintId: string
@@ -429,6 +508,13 @@ type StudioLotSnapshotBase = {
    * presentation fixtures stay source-compatible; `studioLotSnapshot()` always emits it.
    */
   placement?: LotPlacementProjection
+  /**
+   * Presence on the Lot V1 truth. Optional ONLY so the older hand-authored
+   * presentation fixtures stay source-compatible; `studioLotSnapshot()` always emits
+   * it in managed mode and omits it in legacy mode (legacy holds no reservations the
+   * engine projection can read, so there is nothing honest to claim).
+   */
+  presence?: LotPresenceProjection
   /** Films shooting now — drives which stages are lit and their progress. */
   activeProductions: ProductionCard[]
   /** Recent releases — drives the theater marquee. */

@@ -198,6 +198,9 @@ import {
   // The V12 placement root's own derivations — the authority the completion detector reads.
   blueprintById,
   placedStudioFacility,
+  // Presence Projection V1 — the engine's canonical "who is where this week".
+  BEATS_PER_WEEK,
+  studioPresence as coreStudioPresence,
 } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
@@ -219,11 +222,17 @@ import type {
   LotAnnexWorkOccupant,
   LotGateHiringMarket,
   LotPlacementProjection,
+  LotPresenceBeat,
+  LotPresencePerson,
+  LotPresenceProjection,
   LotProductionCompanyMember,
   LotProductionCompanyRole,
   ProductionOperationsState,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
-import { ALL_BUILDING_IDS } from '../lot/snapshot/StudioLotSnapshot.ts'
+import {
+  ALL_BUILDING_IDS,
+  LOT_PRESENCE_STATIC_BEAT,
+} from '../lot/snapshot/StudioLotSnapshot.ts'
 import type {
   GameState,
   Talent,
@@ -5417,6 +5426,95 @@ function managedWorkflowLocation(workflow: ProductionWorkflow): BuildingId {
   }
 }
 
+// ── Presence on the Lot V1 — mirroring `studioPresence` at the one boundary ──
+//
+// The engine already owns the whole answer. This does three things and no more:
+//
+//   1. copies the projection field for field into presentation-safe shapes;
+//   2. JOINS three display strings — the facility's name, the title of the work, and
+//      its activity — from the already-accepted Studio Calendar, matched on the SAME
+//      facility id, the SAME slot, and the SAME owner id. Any disagreement drops the
+//      three strings for that person and keeps the placement facts (law 21: a
+//      projection is omitted atomically, never partially guessed);
+//   3. records which talent ids the engine withheld, so the host can be certain that
+//      "no presence line" is a deliberate silence rather than a lookup miss.
+//
+// It adds no attendance rule, no location, and no beat of its own.
+
+const LOT_PRESENCE_BEATS: readonly LotPresenceBeat[] = ['home', 'travel', 'at-site', 'waiting']
+
+function lotPresenceProjection(
+  state: GameState,
+  calendar: StudioCalendarView,
+): LotPresenceProjection | undefined {
+  // Legacy operations hold no reservations for the projection to read; there is no
+  // honest presence to claim, so the field is absent rather than empty-but-present.
+  if (state.operations.mode !== 'managed') return undefined
+  const presence = coreStudioPresence(state)
+  if (presence.week === null) return undefined
+
+  // One lookup table over every calendar slot: (facilityId, slot) → its exact row.
+  const slotRows = new Map<string, { facilityName: string; occupant: StudioCalendarOccupantView | null }>()
+  for (const facility of calendar.facilities) {
+    for (const slot of facility.slots) {
+      slotRows.set(`${slot.facilityId}:${String(slot.slot)}`, {
+        facilityName: facility.facilityName,
+        occupant: slot.occupant,
+      })
+    }
+  }
+
+  const people: LotPresencePerson[] = []
+  for (const person of presence.people) {
+    const beats = person.beats.filter((beat): beat is LotPresenceBeat =>
+      LOT_PRESENCE_BEATS.includes(beat as LotPresenceBeat),
+    )
+    // A malformed beat array cannot be repaired into a truthful one.
+    if (beats.length !== person.beats.length || beats.length !== BEATS_PER_WEEK) continue
+
+    let facilityName: string | null = null
+    let workTitle: string | null = null
+    let activity: string | null = null
+    if (person.site !== null && person.slot !== null) {
+      const row = slotRows.get(`${person.site}:${String(person.slot)}`)
+      const occupant = row?.occupant ?? null
+      // The join is accepted only when the Calendar agrees about WHOSE work occupies
+      // that exact slot. Otherwise the three strings are dropped together.
+      if (row !== undefined && occupant !== null && occupant.ownerId === person.ownerId) {
+        facilityName = row.facilityName
+        workTitle = occupant.title
+        activity = occupant.activity
+      }
+    }
+
+    people.push({
+      talentId: person.talentId,
+      name: person.name,
+      creativeRole: person.role,
+      engagement: person.engagement,
+      credit: person.credit,
+      ownerId: person.ownerId,
+      facilityId: person.site,
+      slot: person.slot,
+      beats,
+      blockedReason: person.blockedReason,
+      facilityName,
+      workTitle,
+      activity,
+    })
+  }
+
+  return {
+    week: presence.week,
+    beatsPerWeek: BEATS_PER_WEEK,
+    staticBeat: LOT_PRESENCE_STATIC_BEAT,
+    people,
+    withheldTalentIds: presence.withheld
+      .map((entry) => entry.talentId)
+      .filter((talentId): talentId is string => talentId !== null),
+  }
+}
+
 function operationsAttention(card: ProductionBoardCardView): AttentionState {
   if (card.blocker?.kind === 'facility-capacity') return 'warning'
   if (card.blocker !== null || card.command !== null) return 'decision-required'
@@ -5796,6 +5894,10 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
   const calendar = studioCalendarBoard(state)
   const construction = calendar.studioDevelopment
   const annexWork = operationalAnnexProjection(calendar)
+  // Presence on the Lot V1: the engine's own decomposition of this week, joined to
+  // the Calendar for its three display strings. Pure and cheap; computed once here,
+  // with the rest of the snapshot, so canvas and DOM read one identical answer.
+  const presence = lotPresenceProjection(state, calendar)
   const runway = fin.runway
   const standingBand = lotStandingBand(standing)
   const underDressed = standingBand === 'struggling'
@@ -6274,6 +6376,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
     publicityOffers: publicityDecision(state),
     annexWork,
     placement: lotPlacementProjection(state),
+    ...(presence === undefined ? {} : { presence }),
     activeProductions,
     releasedFilms,
     releasePresence,

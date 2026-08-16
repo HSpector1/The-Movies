@@ -98,6 +98,8 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
       entry: { gx: 10.5, gy: 5.6 },
       photocall: { gx: 9.4, gy: 6.1 },
       queue: { gx: 11.6, gy: 5.9 },
+      work: { gx: 10.5, gy: 5.7 },
+      wait: { gx: 10.5, gy: 6.7 },
     },
   },
   {
@@ -109,7 +111,11 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     gy: 2,
     fw: 3,
     fd: 2,
-    anchors: { entry: { gx: 4.5, gy: 4.6 } },
+    anchors: {
+      entry: { gx: 4.5, gy: 4.6 },
+      work: { gx: 4.5, gy: 4.5 },
+      wait: { gx: 4.6, gy: 5.7 },
+    },
   },
   {
     buildingId: 'casting',
@@ -123,6 +129,8 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     anchors: {
       entry: { gx: 4.5, gy: 11.6 },
       queue: { gx: 6.1, gy: 11.9 },
+      work: { gx: 4.5, gy: 11.5 },
+      wait: { gx: 4.7, gy: 12.6 },
     },
   },
   {
@@ -140,6 +148,8 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
       camera: { gx: 21.4, gy: 7.1 },
       service: { gx: 17.6, gy: 6.5 },
       lamp: { gx: 17.1, gy: 6.05 },
+      work: { gx: 19.0, gy: 6.5 },
+      wait: { gx: 20.6, gy: 6.8 },
     },
   },
   {
@@ -155,6 +165,8 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
       entry: { gx: 19, gy: 13.4 },
       crewCall: { gx: 20.4, gy: 13.9 },
       lamp: { gx: 17.1, gy: 13.05 },
+      work: { gx: 19.0, gy: 13.5 },
+      wait: { gx: 20.6, gy: 13.8 },
     },
   },
   {
@@ -171,6 +183,8 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
       truck: { gx: 23.4, gy: 17.4 },
       sceneryRack: { gx: 24.6, gy: 15.2 },
       loadIn: { gx: 22.2, gy: 16.2 },
+      work: { gx: 19.5, gy: 20.5 },
+      wait: { gx: 21.0, gy: 20.4 },
     },
   },
   {
@@ -182,7 +196,11 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     gy: 16,
     fw: 3,
     fd: 2,
-    anchors: { entry: { gx: 4.5, gy: 18.6 } },
+    anchors: {
+      entry: { gx: 4.5, gy: 18.6 },
+      work: { gx: 4.5, gy: 18.5 },
+      wait: { gx: 5.9, gy: 18.8 },
+    },
   },
   {
     buildingId: 'gate',
@@ -199,6 +217,8 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
       guard: { gx: 11.1, gy: 23.7 },
       arrival: { gx: 9.9, gy: 24.7 },
       inside: { gx: 9.9, gy: 21.8 },
+      work: { gx: 11.1, gy: 23.7 },
+      wait: { gx: 9.9, gy: 24.7 },
     },
   },
   {
@@ -210,7 +230,11 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     gy: 15,
     fw: 4,
     fd: 3,
-    anchors: { site: { gx: 9, gy: 16.5 } },
+    anchors: {
+      site: { gx: 9, gy: 16.5 },
+      work: { gx: 9.0, gy: 17.8 },
+      wait: { gx: 10.4, gy: 18.0 },
+    },
   },
 ]
 
@@ -463,6 +487,199 @@ export function personHomeSlotOffset(slot: number): GridPoint {
   return {
     gx: base.gx + ring * PERSON_HOME_RING_STEP.gx,
     gy: base.gy + ring * PERSON_HOME_RING_STEP.gy,
+  }
+}
+
+// ── Presence commutes (M3-UI) ────────────────────────────────────────────────
+//
+// Presentation waypoint paths from a role's HOME ZONE to a place's `work` anchor.
+//
+// They are AUTHORED, not searched. The property has exactly two home zones and nine
+// places, so the whole commute table is twelve short lists a person can read and a
+// test can check — which is the honest way to get road-following movement without
+// inventing a pathfinder the milestone explicitly excludes. Every interior waypoint
+// below sits on real circulation (road, path, plaza, apron, parcel pad or parking) or
+// on the open lawn strip immediately beside it, and no segment crosses a building
+// footprint; `world.test.ts` asserts both.
+//
+// LAW 2. Nothing on these paths advances anything. A person's POSITION during a week
+// playback is interpolation over the engine's own beat array; the engine's answer for
+// where they are this week is identical whether or not the walk was ever seen.
+
+export type PersonHomeRole = 'director' | 'talent'
+
+/** The interior waypoints between each home zone and each place's `work` anchor. */
+export const PRESENCE_ROUTES: Readonly<
+  Record<PersonHomeRole, Readonly<Partial<Record<BuildingId, readonly GridPoint[]>>>>
+> = {
+  // The director home is the Administration forecourt, one step off the avenue.
+  director: {
+    admin: [],
+    writers: [
+      { gx: 9.4, gy: 7.5 },
+      { gx: 5.6, gy: 7.5 },
+      { gx: 5.5, gy: 5.4 },
+    ],
+    // Casting's door faces SOUTH, and its own building blocks the western path, so
+    // the walk goes down the admin path, across the courtyard and back up.
+    casting: [
+      { gx: 9.4, gy: 7.5 },
+      { gx: 9.2, gy: 10.4 },
+      { gx: 8.2, gy: 13.4 },
+      { gx: 6.4, gy: 14.4 },
+      { gx: 5.5, gy: 12.8 },
+    ],
+    'stage-a': [
+      { gx: 11.6, gy: 7.5 },
+      { gx: 16.6, gy: 7.5 },
+      { gx: 18.4, gy: 6.7 },
+    ],
+    'stage-b': [
+      { gx: 11.6, gy: 7.5 },
+      { gx: 13.6, gy: 7.7 },
+      { gx: 13.6, gy: 13.6 },
+      { gx: 15.6, gy: 14.4 },
+      { gx: 17.6, gy: 13.7 },
+    ],
+    post: [
+      { gx: 11.6, gy: 7.5 },
+      { gx: 13.6, gy: 7.7 },
+      { gx: 13.6, gy: 20.6 },
+      { gx: 16.4, gy: 21.5 },
+      { gx: 19.4, gy: 21.4 },
+    ],
+    theater: [
+      { gx: 9.4, gy: 7.5 },
+      { gx: 9.2, gy: 10.4 },
+      { gx: 8.2, gy: 13.4 },
+      { gx: 6.4, gy: 14.4 },
+      { gx: 6.2, gy: 17.8 },
+    ],
+    expansion: [
+      { gx: 9.4, gy: 7.5 },
+      { gx: 9.2, gy: 10.4 },
+      { gx: 9.0, gy: 13.6 },
+      { gx: 9.0, gy: 15.6 },
+    ],
+    gate: [
+      { gx: 9.4, gy: 7.5 },
+      { gx: 9.2, gy: 10.4 },
+      { gx: 9.6, gy: 13.6 },
+      { gx: 9.6, gy: 19.6 },
+      { gx: 9.9, gy: 22.6 },
+    ],
+  },
+  // The talent home is the Casting forecourt, on the courtyard's western edge.
+  talent: {
+    casting: [],
+    writers: [
+      { gx: 6.4, gy: 11.4 },
+      { gx: 6.4, gy: 8.4 },
+      { gx: 5.6, gy: 7.5 },
+      { gx: 5.5, gy: 5.4 },
+    ],
+    admin: [
+      { gx: 6.4, gy: 11.4 },
+      { gx: 6.4, gy: 8.4 },
+      { gx: 9.4, gy: 7.5 },
+      { gx: 9.6, gy: 6.4 },
+    ],
+    'stage-a': [
+      { gx: 6.4, gy: 11.4 },
+      { gx: 6.4, gy: 8.4 },
+      { gx: 9.4, gy: 7.5 },
+      { gx: 13.6, gy: 7.6 },
+      { gx: 16.6, gy: 7.5 },
+      { gx: 18.4, gy: 6.7 },
+    ],
+    'stage-b': [
+      { gx: 6.6, gy: 12.4 },
+      { gx: 8.4, gy: 12.6 },
+      { gx: 11.4, gy: 12.4 },
+      { gx: 13.6, gy: 12.6 },
+      { gx: 15.6, gy: 14.4 },
+      { gx: 17.6, gy: 13.7 },
+    ],
+    post: [
+      { gx: 6.6, gy: 12.4 },
+      { gx: 8.4, gy: 12.6 },
+      { gx: 11.4, gy: 12.4 },
+      { gx: 13.6, gy: 12.6 },
+      { gx: 13.6, gy: 20.6 },
+      { gx: 16.4, gy: 21.5 },
+      { gx: 19.4, gy: 21.4 },
+    ],
+    theater: [
+      { gx: 5.6, gy: 13.4 },
+      { gx: 6.2, gy: 15.4 },
+      { gx: 6.2, gy: 17.8 },
+    ],
+    expansion: [
+      { gx: 6.6, gy: 13.4 },
+      { gx: 8.0, gy: 14.4 },
+      { gx: 9.0, gy: 15.6 },
+    ],
+    gate: [
+      { gx: 6.6, gy: 13.4 },
+      { gx: 8.0, gy: 14.4 },
+      { gx: 9.6, gy: 16.6 },
+      { gx: 9.6, gy: 19.6 },
+      { gx: 9.9, gy: 22.6 },
+    ],
+  },
+}
+
+/**
+ * Where the Nth co-located WORKER stands, relative to a site's `work` anchor.
+ *
+ * A loose knot around the door, not a rank: six people at a soundstage should read as
+ * a company standing about on the apron. Like the home lattice this is parking, not a
+ * claim — the engine says the person is at this facility, and nothing finer.
+ */
+export const PRESENCE_SITE_SLOTS: readonly GridPoint[] = [
+  { gx: 0, gy: 0 },
+  { gx: 0.78, gy: 0.26 },
+  { gx: -0.62, gy: 0.34 },
+  { gx: 0.24, gy: 0.84 },
+  { gx: 1.32, gy: 0.72 },
+  { gx: -1.14, gy: 0.92 },
+  { gx: 0.94, gy: 1.4 },
+  { gx: -0.28, gy: 1.46 },
+]
+
+/** How far each ring of site slots is shifted before the lattice repeats. */
+const PRESENCE_SITE_RING_STEP: GridPoint = { gx: 0.36, gy: 0.62 }
+
+export function presenceSiteSlotOffset(index: number): GridPoint {
+  const count = PRESENCE_SITE_SLOTS.length
+  const n = Number.isFinite(index) ? Math.max(0, Math.floor(index)) : 0
+  const base = PRESENCE_SITE_SLOTS[n % count]!
+  const ring = Math.floor(n / count)
+  return {
+    gx: base.gx + ring * PRESENCE_SITE_RING_STEP.gx,
+    gy: base.gy + ring * PRESENCE_SITE_RING_STEP.gy,
+  }
+}
+
+/** How many people stand in one rank of the waiting queue before it doubles back. */
+export const PRESENCE_QUEUE_RANK = 4
+/** The step between two people in the queue, and between two ranks. */
+const PRESENCE_QUEUE_STEP: GridPoint = { gx: 0.46, gy: 0.3 }
+const PRESENCE_QUEUE_RANK_STEP: GridPoint = { gx: -0.34, gy: 0.52 }
+
+/**
+ * Where the Nth WAITING person stands, relative to a site's `wait` anchor.
+ *
+ * Deliberately a LINE rather than a knot: a queue outside a full building is the one
+ * thing on this lot that should look like a queue at a glance.
+ */
+export function presenceQueueSlotOffset(index: number): GridPoint {
+  const n = Number.isFinite(index) ? Math.max(0, Math.floor(index)) : 0
+  const place = n % PRESENCE_QUEUE_RANK
+  const rank = Math.floor(n / PRESENCE_QUEUE_RANK)
+  return {
+    gx: place * PRESENCE_QUEUE_STEP.gx + rank * PRESENCE_QUEUE_RANK_STEP.gx,
+    gy: place * PRESENCE_QUEUE_STEP.gy + rank * PRESENCE_QUEUE_RANK_STEP.gy,
   }
 }
 
