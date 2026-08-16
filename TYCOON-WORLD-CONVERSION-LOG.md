@@ -83,6 +83,41 @@ sprites used, role-atlas people, soft shadows, readable silhouettes at managemen
 6. Root+UI typecheck pass, production build passes, repository tests triaged: Hollywood-
    pinned specs updated or explicitly quarantined with rationale; everything else green.
 
+## M2 — DRAFT TARGET (freeze after M1 playtest): Build Mode V1
+
+Design source: CODE-MINING-LEDGER Entries 2–3 (OpenRCT2 clean-room runner invariant;
+CorsixTH parcels/per-cell legality/built-active gate). Engine side:
+
+- V12 save slice: authored parcel grid over the M1 world; placed-facility records
+  {id monotonic, blueprintId, origin, rotation, cells, status underConstruction→
+  operational, placedWeek, completesWeek}; OccupancyIndex derived, never persisted.
+- Pure `queryPlacement` / `commitPlacement` actions; commit re-queries internally,
+  reference-equal state on rejection; legality order per ledger (occupied → … →
+  seversLot → insufficientFunds last).
+- Weekly completion pass before capacity aggregation; capacity contributed ONLY by
+  operational status (generalizes the existing Annex completeDueConstruction append).
+- Catalog V1 honest and small: the Development & Casting Annex becomes a parcel-placeable
+  blueprint (existing $780k/13wk/+1 shared slot law preserved); multiple Annex-class
+  placements become legal in V12 (the old single-Annex cap was marathon law; the Owner's
+  conversion mission supersedes it where the tycoon design requires). Each operational
+  placed facility carries a small honest weekly operating cost in the ledger — the
+  natural size-scaling cost D-17B's charter asked to instrument, not an arbitrary sink.
+- V11 saves with the fixed-parcel Annex (vacant/building/operational) migrate onto the
+  grid at the legacy parcel's location.
+- UI: build mode entered from the world; ghost preview in a UI-only layer (never sim
+  state); per-cell green/red; cost + build-weeks quote; construction site paints on the
+  lot; completion flips real capacity.
+
+## Authority reconciliation note
+
+The sealed marathon's "not authorized next" list (NEXT-HIGHEST-LEVERAGE.md) prohibited a
+placement system, worker pathfinding, construction catalogue, second Annex, and new save
+fields pending fresh Owner authorization. The Owner's Tycoon World Conversion mission IS
+that authorization and explicitly commands those systems. Still in force: Engine owns all
+truth; no renderer-owned simulation; no unrestricted Sims autonomy/needs; no financing/
+loans/bailouts/failure-ladder/arbitrary cash sinks; rejected 05H/05I character production
+stays rejected.
+
 ## Playtests
 
 - Playtest 0 (pre-work, Week 0): documented in the diagnosis above.
