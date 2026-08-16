@@ -5,9 +5,9 @@
 // onto the Dashboard and Casting-without-an-eligible-session threw them into the full
 // Casting Room. These specs pin the replacement law:
 //
-//   1. In the world (Hollywood/tycoon on) NO building activation navigates. Every place
-//      lands an in-world context — a richer one where one exists, the generic World
-//      Inspector otherwise.
+//   1. In the adopted grid world NO building activation navigates. Every place lands an
+//      in-world context — a richer one where one exists, the generic World Inspector
+//      otherwise. The retained painted plate and the legacy lot keep their old route.
 //   2. The deep screens stay reachable, but ONLY from the inspector's explicit
 //      "Open <deep screen> details" secondary action.
 //   3. Canvas intent and semantic companion activation route to the same owner
@@ -20,8 +20,10 @@ import type { GameState } from '../engine/adapter.ts'
 import {
   clearOperationHollywoodOverride,
   clearStudioLotOverviewOverride,
+  clearTycoonWorldOverride,
   setOperationHollywoodOverride,
   setStudioLotOverviewOverride,
+  setTycoonWorldOverride,
 } from '../flags.ts'
 import { newFoundedGame } from '../test/founding.ts'
 import { StudioLotScreen } from './StudioLotScreen.tsx'
@@ -148,6 +150,7 @@ afterEach(() => {
   renderer.instances.length = 0
   clearOperationHollywoodOverride()
   clearStudioLotOverviewOverride()
+  clearTycoonWorldOverride()
   resetLotSelectedBuilding()
   resetLotStageAssignment()
   localStorage.clear()
@@ -255,6 +258,19 @@ describe('World Inspector Default V1 — no building click ever ejects', () => {
   it('keeps the legacy pre-Hollywood lot on its compatibility route', async () => {
     setOperationHollywoodOverride(false)
     const { routes } = renderLot(newFoundedGame('world-inspector-legacy'))
+    await onlyView()
+
+    fireEvent.click(screen.getByTestId('lot-nav-theater'))
+
+    expect(routes).toEqual([{ kind: 'dashboard' }])
+    expect(screen.queryByTestId('lot-building-inspector-theater')).not.toBeInTheDocument()
+  })
+
+  it('leaves the retained painted plate exactly as M1 left it', async () => {
+    // The plate is the adopted world's rollback path, kept untouched by the M1 KEEP
+    // ruling and pinned by the browser suite. The inspector belongs to the grid world.
+    setTycoonWorldOverride(false)
+    const { routes } = renderLot(managedWeekZero('world-inspector-plate'))
     await onlyView()
 
     fireEvent.click(screen.getByTestId('lot-nav-theater'))

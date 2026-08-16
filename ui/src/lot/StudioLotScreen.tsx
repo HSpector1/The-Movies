@@ -4833,7 +4833,10 @@ export function StudioLotScreen({
    * The deep screen remains reachable, but only from the panel's explicit secondary action.
    */
   const enterBuildingInspectorContext = useCallback((id: BuildingId): boolean => {
-    if (worldInputSuspendedRef.current) return false
+    // The tycoon grid world only. The retained painted plate is a rollback path that M1
+    // deliberately left untouched (and the browser suite is pinned to it), and the legacy
+    // pre-Hollywood lot has no in-world panel to land — both keep their old route.
+    if (!tycoon || worldInputSuspendedRef.current) return false
     clearFormationContext()
     clearHollywoodStage7DetailContext()
     clearGateContext()
@@ -4851,8 +4854,7 @@ export function StudioLotScreen({
     setBuildingInspectorId(id)
     // Canvas intent and semantic navigation must name the same owner (shift law 10):
     // a companion activation asks the renderer for the ring the canvas already paints.
-    // The retained painted plate has no physical Casting target, so it is left alone.
-    if (!hollywood || tycoon || id !== 'casting') viewRef.current?.select(id)
+    viewRef.current?.select(id)
     const nonce = ++buildingInspectorFocusNonceRef.current
     queueMicrotask(() => {
       if (
@@ -4869,7 +4871,6 @@ export function StudioLotScreen({
     clearHollywoodSceneryLoadInContext,
     clearHollywoodStage7DetailContext,
     clearPublicityContext,
-    hollywood,
     recordSelection,
     tycoon,
   ])
@@ -4918,7 +4919,7 @@ export function StudioLotScreen({
           return
         }
         clearAnnexContext()
-        if (hollywood && enterBuildingInspectorContext(id)) return
+        if (enterBuildingInspectorContext(id)) return
         recordSelection(null)
         return
       }
@@ -4938,10 +4939,10 @@ export function StudioLotScreen({
           return
         }
       }
-      // WORLD-FIRST LAW: a physical place never navigates by itself. In the world the
-      // click lands the in-world inspector. Only the pre-Hollywood legacy lot keeps the
-      // old compatibility route, because it has no in-world panel to land.
-      if (hollywood && enterBuildingInspectorContext(id)) return
+      // WORLD-FIRST LAW: a physical place never navigates by itself. In the grid world
+      // the click lands the in-world inspector; the retained plate and the pre-Hollywood
+      // legacy lot keep the old compatibility route (see enterBuildingInspectorContext).
+      if (enterBuildingInspectorContext(id)) return
       clearFormationContext()
       clearHollywoodStage7DetailContext()
       clearGateContext()
@@ -5002,7 +5003,7 @@ export function StudioLotScreen({
 
   // ── World Inspector Default V1 — the in-world panel for an ordinary place click ──
   const buildingInspector =
-    hollywood && buildingInspectorId !== null
+    tycoon && buildingInspectorId !== null
       ? lotBuildingInspectorContext(
           snapshot,
           buildingInspectorId,
@@ -5019,6 +5020,8 @@ export function StudioLotScreen({
     : (
         <div
           className="hollywood-building-inspector"
+          role="region"
+          aria-label={`${maskStageText(buildingInspector.label)} — in the lot`}
           data-testid={`lot-building-inspector-${buildingInspector.buildingId}`}
           data-attention={buildingInspector.attention}
         >
