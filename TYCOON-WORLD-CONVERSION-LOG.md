@@ -175,6 +175,36 @@ Findings of record:
   in-progress files via `git add -A`. Repaired forward in `758d4f2..0eefb3b`; history
   not rewritten; the UI writer instructed to stage owned paths only.
 
+## M3-UI — FROZEN TARGET: Presence on the Lot V1 (dispatch after stabilization lands)
+
+**Before:** people stand at parked spots; a week advance teleports state; nothing
+travels; occupancy is text in panels only.
+
+**After:** the lot renders `studioPresence(state)`. Static truth: every person appears
+at their site (or home zone) for the current week's beat mid-point; facility label
+chrome gains an occupant count at operations zoom; the person inspector quotes
+engagement/site/credit/blockedReason ("Drafting A Season of Archipelago at Development
+& Casting, slot 1"); the facility inspector lists current occupants by name and credit;
+waiting people cluster visibly outside their site (renderable from configured states
+even though unreachable in shipped config — spec-proven). Living playback: on a single
+Advance-one-week, the renderer plays the new current week's beat timeline over ~8–12s
+wall time — commute along road-based presentation waypoints, work presence at sites,
+return — skippable (click/Esc), reduced-motion = instant final positions. Multi-week
+sims land on the final state and may play ONLY the new current week's timeline; skipped
+weeks are never animated (law 3). Playback is pure presentation over the engine
+timeline: no tick, no truth, no RNG, positions interpolated between beat boundaries
+(laws 1–2). Secondary fixes folded in: construction-site caption must not occlude its
+building sprite at mid zoom; ghost per-cell verdicts legible at institution zoom.
+
+**Not built:** authoritative movement/location, new engine truth, queue interaction
+verbs, ambient wandering, visual-polish palette work (separate milestone).
+
+**Acceptance:** advance a week with a drafting script → watch the writer commute to
+Development and the building read occupied; person/facility inspectors quote presence;
+company presence follows phases across facilities week over week; reduced-motion
+instant; suite/tsc/build green; at least one grid e2e spec covering presence paint +
+occupant count.
+
 ## Authority reconciliation note
 
 The sealed marathon's "not authorized next" list (NEXT-HIGHEST-LEVERAGE.md) prohibited a
