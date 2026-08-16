@@ -4,7 +4,7 @@
 //   node_modules/.bin/vite-node scripts/gen-live-week-advance-fixtures.mts
 //
 // Every fixture is built only through public Engine/adapter actions. The generator
-// validates the live SaveFileV11 envelope, byte-identical import/export roundtrip,
+// validates the live SaveFileV12 envelope, byte-identical import/export roundtrip,
 // exact pre-state claim, and exact next authoritative advance before writing.
 
 import { createHash } from 'node:crypto'
@@ -614,11 +614,11 @@ function releaseCoeventFixture(): GeneratedFixture {
 function verifiedSave(state: GameState): { bytes: string; sha256: string; byteLength: number } {
   const bytes = exportSaveJson(state)
   const envelope = JSON.parse(bytes) as { saveVersion?: unknown }
-  invariant(envelope.saveVersion === 11, `exported envelope is SaveFileV${String(envelope.saveVersion)}`)
+  invariant(envelope.saveVersion === 12, `exported envelope is SaveFileV${String(envelope.saveVersion)}`)
   const imported = importSaveJson(bytes)
-  invariant(imported.ok, `generated SaveFileV11 import rejected — ${imported.ok ? '' : imported.error}`)
-  invariant(imported.converted === false, 'generated SaveFileV11 was reported as converted')
-  invariant(exportSaveJson(imported.state) === bytes, 'SaveFileV11 import/export roundtrip changed bytes')
+  invariant(imported.ok, `generated SaveFileV12 import rejected — ${imported.ok ? '' : imported.error}`)
+  invariant(imported.converted === false, 'generated SaveFileV12 was reported as converted')
+  invariant(exportSaveJson(imported.state) === bytes, 'SaveFileV12 import/export roundtrip changed bytes')
   return {
     bytes,
     sha256: sha256(bytes),
@@ -656,7 +656,7 @@ const manifestFixtures = fixtures.map((fixture) => {
   return {
     id: fixture.id,
     file: fixture.file,
-    saveVersion: 11,
+    saveVersion: 12,
     byteLength: verified.byteLength,
     sha256: verified.sha256,
     seed: fixture.seed,
@@ -674,7 +674,7 @@ const manifest = `${JSON.stringify({
   authority: {
     stateConstruction: 'public Engine actions and UI adapter action boundaries only',
     weeklyTransition: 'advanceWeek (one tick with normal-play development enabled)',
-    serialization: 'exportSaveJson / importSaveJson live SaveFileV11 boundary',
+    serialization: 'exportSaveJson / importSaveJson live SaveFileV12 boundary',
     deterministic: true,
     generatedFilesAreHandEdited: false,
   },

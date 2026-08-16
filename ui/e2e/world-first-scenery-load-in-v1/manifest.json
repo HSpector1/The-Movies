@@ -5,8 +5,8 @@
   "outputDirectory": "ui/e2e/world-first-scenery-load-in-v1",
   "authority": {
     "stateConstruction": "public Engine actions and UI adapter action boundaries only",
-    "serialization": "exportSaveJson / importSaveJson live SaveFileV11 boundary",
-    "importMode": "native SaveFileV11; converted === false",
+    "serialization": "exportSaveJson / importSaveJson live SaveFileV12 boundary",
+    "importMode": "native SaveFileV12; converted === false",
     "deterministic": true,
     "generatedFilesAreHandEdited": false,
     "unassignedAndScheduledAreInMemoryOnly": true
@@ -38,11 +38,11 @@
     {
       "id": "week-30-nights-of-watchtower-stage-7-blocked",
       "file": "week-30-nights-of-watchtower-stage-7-blocked.save.json",
-      "saveVersion": 11,
-      "importMode": "native-v11",
+      "saveVersion": 12,
+      "importMode": "native-v12",
       "converted": false,
-      "byteLength": 227479,
-      "sha256": "7534518e4db3970bb4ca988b0b0fa78975f5053ee67fd42377f69b80ebe711dc",
+      "byteLength": 227546,
+      "sha256": "cb0c58f8f84a1d2e46737c3806eb70decb9fad33bf66b36d34e348d6f5c5af79",
       "seed": "marathon-annex-play",
       "claim": {
         "week": 30,
@@ -298,11 +298,11 @@
     {
       "id": "week-30-nights-of-watchtower-stage-7-ready",
       "file": "week-30-nights-of-watchtower-stage-7-ready.save.json",
-      "saveVersion": 11,
-      "importMode": "native-v11",
+      "saveVersion": 12,
+      "importMode": "native-v12",
       "converted": false,
-      "byteLength": 227425,
-      "sha256": "6760b72739608e930da84726067685c515d87817cb3793f9d9d37fa9f2063f92",
+      "byteLength": 227492,
+      "sha256": "68d0b3f4576683fc75d91fc24c9921e5fa88e68c4cb5b90dd252c097d01e56a8",
       "seed": "marathon-annex-play",
       "claim": {
         "week": 30,
@@ -567,9 +567,9 @@
   ],
   "inMemoryProofAnchors": {
     "unassigned": {
-      "saveVersion": 11,
-      "byteLength": 227430,
-      "sha256": "2b352e3ef1be5ab9d5e0ba0abfbeb6c0a717f5334afe7d6a60ff5a81cef584ca",
+      "saveVersion": 12,
+      "byteLength": 227497,
+      "sha256": "0a3448baa238aa0e3674f71e2dff77ef1e511f3b69cb62b4da844c82f590f4b5",
       "taskStatus": "unassigned",
       "projectedCommand": {
         "kind": "assignShootingDirector",
@@ -580,9 +580,9 @@
       "written": false
     },
     "scheduled": {
-      "saveVersion": 11,
-      "byteLength": 227429,
-      "sha256": "e922f9b7e957388bed7c7674be8c17596245823200e478371dc7ff970458f46b",
+      "saveVersion": 12,
+      "byteLength": 227496,
+      "sha256": "9f5f1a7a6b5038281b227170410fb7723309f41f4b675e8f076564235aac02ff",
       "taskStatus": "scheduled",
       "comparedByteForByteTo": "ui/e2e/live-week-advance-v1/week-30-nights-of-watchtower-stage-7-scheduled.save.json",
       "written": false

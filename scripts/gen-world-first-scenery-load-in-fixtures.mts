@@ -63,20 +63,20 @@ const EXPECTED_FILES = [
 ] as const
 const EXPECTED_ANCHORS = {
   unassigned: {
-    byteLength: 227_430,
-    sha256: '2b352e3ef1be5ab9d5e0ba0abfbeb6c0a717f5334afe7d6a60ff5a81cef584ca',
+    byteLength: 227_497,
+    sha256: '0a3448baa238aa0e3674f71e2dff77ef1e511f3b69cb62b4da844c82f590f4b5',
   },
   blocked: {
-    byteLength: 227_479,
-    sha256: '7534518e4db3970bb4ca988b0b0fa78975f5053ee67fd42377f69b80ebe711dc',
+    byteLength: 227_546,
+    sha256: 'cb0c58f8f84a1d2e46737c3806eb70decb9fad33bf66b36d34e348d6f5c5af79',
   },
   ready: {
-    byteLength: 227_425,
-    sha256: '6760b72739608e930da84726067685c515d87817cb3793f9d9d37fa9f2063f92',
+    byteLength: 227_492,
+    sha256: '68d0b3f4576683fc75d91fc24c9921e5fa88e68c4cb5b90dd252c097d01e56a8',
   },
   scheduled: {
-    byteLength: 227_429,
-    sha256: 'e922f9b7e957388bed7c7674be8c17596245823200e478371dc7ff970458f46b',
+    byteLength: 227_496,
+    sha256: '9f5f1a7a6b5038281b227170410fb7723309f41f4b675e8f076564235aac02ff',
   },
 } as const
 const SHAPE = {
@@ -105,8 +105,8 @@ type VerifiedSave = {
   bytes: string
   byteLength: number
   sha256: string
-  saveVersion: 11
-  importMode: 'native-v11'
+  saveVersion: 12
+  importMode: 'native-v12'
   converted: false
 }
 
@@ -176,7 +176,7 @@ function advanceExactly(state: GameState, count: number): GameState {
 function verifyAnchor(state: GameState, name: AnchorName, requireRoundtrip = false): VerifiedSave {
   const bytes = exportSaveJson(state)
   const envelope = JSON.parse(bytes) as { saveVersion?: unknown; seed?: unknown }
-  invariant(envelope.saveVersion === 11, `${name} exported SaveFileV${String(envelope.saveVersion)}`)
+  invariant(envelope.saveVersion === 12, `${name} exported SaveFileV${String(envelope.saveVersion)}`)
   invariant(envelope.seed === SEED, `${name} envelope seed is ${JSON.stringify(envelope.seed)}`)
   const byteLength = Buffer.byteLength(bytes, 'utf8')
   const hash = sha256(bytes)
@@ -186,17 +186,17 @@ function verifyAnchor(state: GameState, name: AnchorName, requireRoundtrip = fal
 
   if (requireRoundtrip) {
     const imported = importSaveJson(bytes)
-    invariant(imported.ok, `${name} native SaveFileV11 import was rejected${imported.ok ? '' : ` — ${imported.error}`}`)
-    invariant(imported.converted === false, `${name} native SaveFileV11 was reported as converted`)
-    invariant(exportSaveJson(imported.state) === bytes, `${name} native SaveFileV11 roundtrip changed bytes`)
+    invariant(imported.ok, `${name} native SaveFileV12 import was rejected${imported.ok ? '' : ` — ${imported.error}`}`)
+    invariant(imported.converted === false, `${name} native SaveFileV12 was reported as converted`)
+    invariant(exportSaveJson(imported.state) === bytes, `${name} native SaveFileV12 roundtrip changed bytes`)
   }
 
   return {
     bytes,
     byteLength,
     sha256: hash,
-    saveVersion: 11,
-    importMode: 'native-v11',
+    saveVersion: 12,
+    importMode: 'native-v12',
     converted: false,
   }
 }
@@ -327,9 +327,9 @@ function writeVerified(path: string, verified: VerifiedSave): 'unchanged' | 'wri
   invariant(Buffer.byteLength(disk, 'utf8') === verified.byteLength, `disk byte length changed ${path}`)
   invariant(sha256(disk) === verified.sha256, `disk hash changed ${path}`)
   const imported = importSaveJson(disk)
-  invariant(imported.ok, `disk SaveFileV11 import rejected for ${path}${imported.ok ? '' : ` — ${imported.error}`}`)
-  invariant(imported.converted === false, `disk SaveFileV11 was reported as converted for ${path}`)
-  invariant(exportSaveJson(imported.state) === disk, `disk SaveFileV11 roundtrip changed ${path}`)
+  invariant(imported.ok, `disk SaveFileV12 import rejected for ${path}${imported.ok ? '' : ` — ${imported.error}`}`)
+  invariant(imported.converted === false, `disk SaveFileV12 was reported as converted for ${path}`)
+  invariant(exportSaveJson(imported.state) === disk, `disk SaveFileV12 roundtrip changed ${path}`)
   return unchanged ? 'unchanged' : 'written'
 }
 
@@ -508,8 +508,8 @@ const manifest = `${JSON.stringify({
   outputDirectory: OUTPUT_DIRECTORY,
   authority: {
     stateConstruction: 'public Engine actions and UI adapter action boundaries only',
-    serialization: 'exportSaveJson / importSaveJson live SaveFileV11 boundary',
-    importMode: 'native SaveFileV11; converted === false',
+    serialization: 'exportSaveJson / importSaveJson live SaveFileV12 boundary',
+    importMode: 'native SaveFileV12; converted === false',
     deterministic: true,
     generatedFilesAreHandEdited: false,
     unassignedAndScheduledAreInMemoryOnly: true,
@@ -599,9 +599,9 @@ invariant(
 )
 
 // eslint-disable-next-line no-console
-console.log(`${blockedStatus}: ${blockedFile} · ${String(blocked.byteLength)} bytes · sha256 ${blocked.sha256} · native V11 roundtrip`)
+console.log(`${blockedStatus}: ${blockedFile} · ${String(blocked.byteLength)} bytes · sha256 ${blocked.sha256} · native V12 roundtrip`)
 // eslint-disable-next-line no-console
-console.log(`${readyStatus}: ${readyFile} · ${String(ready.byteLength)} bytes · sha256 ${ready.sha256} · native V11 roundtrip`)
+console.log(`${readyStatus}: ${readyFile} · ${String(ready.byteLength)} bytes · sha256 ${ready.sha256} · native V12 roundtrip`)
 // eslint-disable-next-line no-console
 console.log(`${manifestStatus}: manifest.json · ${String(Buffer.byteLength(manifest, 'utf8'))} bytes · sha256 ${sha256(manifest)}`)
 // eslint-disable-next-line no-console

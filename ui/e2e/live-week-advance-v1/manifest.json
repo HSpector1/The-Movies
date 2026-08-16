@@ -6,7 +6,7 @@
   "authority": {
     "stateConstruction": "public Engine actions and UI adapter action boundaries only",
     "weeklyTransition": "advanceWeek (one tick with normal-play development enabled)",
-    "serialization": "exportSaveJson / importSaveJson live SaveFileV11 boundary",
+    "serialization": "exportSaveJson / importSaveJson live SaveFileV12 boundary",
     "deterministic": true,
     "generatedFilesAreHandEdited": false
   },
@@ -37,9 +37,9 @@
     {
       "id": "week-30-nights-of-watchtower-stage-7-scheduled",
       "file": "week-30-nights-of-watchtower-stage-7-scheduled.save.json",
-      "saveVersion": 11,
-      "byteLength": 227429,
-      "sha256": "e922f9b7e957388bed7c7674be8c17596245823200e478371dc7ff970458f46b",
+      "saveVersion": 12,
+      "byteLength": 227496,
+      "sha256": "9f5f1a7a6b5038281b227170410fb7723309f41f4b675e8f076564235aac02ff",
       "seed": "marathon-annex-play",
       "claim": {
         "week": 30,
@@ -276,9 +276,9 @@
     {
       "id": "week-11-annex-progress-then-completion",
       "file": "week-11-annex-progress-then-completion.save.json",
-      "saveVersion": 11,
-      "byteLength": 220812,
-      "sha256": "ffc443f9fb3a75ec9f79be967600bb94933c9dacdd0b4f0bee878c37cdbd03ac",
+      "saveVersion": 12,
+      "byteLength": 220980,
+      "sha256": "d5daf896a8c94cfe2f76197cb0af89e4a4d99a2a744369ff130ca7d7df2bd0aa",
       "seed": "live-week-annex-progress-then-completion",
       "claim": {
         "week": 11,
@@ -441,9 +441,9 @@
     {
       "id": "week-12-annex-completion-next",
       "file": "week-12-annex-completion-next.save.json",
-      "saveVersion": 11,
-      "byteLength": 220793,
-      "sha256": "63669586ad8f0256ac165a5141b8dd770dadc68840c3e69a31f9abc8b72ab712",
+      "saveVersion": 12,
+      "byteLength": 220961,
+      "sha256": "7be14cd9dd332d67902be6f646515348a61f4c5d40f49d796476313a95614468",
       "seed": "live-week-annex-completion",
       "claim": {
         "week": 12,
@@ -597,9 +597,9 @@
     {
       "id": "week-12-release-annex-coevent-next",
       "file": "week-12-release-annex-coevent-next.save.json",
-      "saveVersion": 11,
-      "byteLength": 224835,
-      "sha256": "c7f03299b75e9d1c0a99bb3a47abdccfa1d854f33b29f2c72902c74ed41d64f2",
+      "saveVersion": 12,
+      "byteLength": 225003,
+      "sha256": "27f0137e768fd2f6ce7d802f8a244231125648289bf4bc7a1fc52941132909bb",
       "seed": "live-week-release-annex-coevent",
       "claim": {
         "week": 12,
