@@ -2563,9 +2563,6 @@ export class TycoonScene extends Phaser.Scene {
     })
   }
 
-  // ── publicity ───────────────────────────────────────────────────────────────
-
-  /** Local acknowledgement of an already-accepted App/Engine result. Emits no event. */
   // ── week playback ───────────────────────────────────────────────────────────
 
   /**
@@ -2637,6 +2634,9 @@ export class TycoonScene extends Phaser.Scene {
     this.applyPresenceFrame(playback.elapsed)
   }
 
+  // ── publicity ───────────────────────────────────────────────────────────────
+
+  /** Local acknowledgement of an already-accepted App/Engine result. Emits no event. */
   playPublicity(success: boolean, _detail?: string): boolean {
     if (!success || !this.flash || !this.scene.isActive()) {
       this.clearPublicityVisual()
