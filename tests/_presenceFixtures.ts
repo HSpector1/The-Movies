@@ -11,6 +11,7 @@
 import {
   applyActions,
   beginFounding,
+  BEATS_PER_WEEK,
   FOUNDING_MINIMUMS,
   generateWorld,
   tick,
@@ -22,7 +23,10 @@ import type {
   FilmConcept,
   GameState,
   GreenlightScriptProjectPayload,
+  PersonPresence,
+  PresenceBeat,
   SegmentId,
+  StudioPresence,
   Talent,
 } from '../src/core/index.js'
 
@@ -131,6 +135,161 @@ export function packagePayload(
     cast: company.cast,
     budget: { negative: concept.baseNegativeCost, marketing: 0 },
   }
+}
+
+// ── the projection's laws, checked against the state that produced it ────────
+// Returns every violated law as a string so a test can assert `[]` and read the
+// exact failure. Kept here so every presence spec applies the SAME laws to every
+// world it builds, rather than each test re-deciding what "correct" means.
+
+const BEAT_VALUES: readonly PresenceBeat[] = ['home', 'travel', 'at-site', 'waiting']
+
+/** home* → travel → (at-site|waiting)+ → home, or a full week at home. */
+function beatShapeViolation(beats: readonly PresenceBeat[]): string | null {
+  if (beats.length !== BEATS_PER_WEEK) return `beats length ${String(beats.length)}`
+  for (const beat of beats) {
+    if (!BEAT_VALUES.includes(beat)) return `unknown beat "${String(beat)}"`
+  }
+  if (beats.every((beat) => beat === 'home')) return null
+  const travelAt = beats.indexOf('travel')
+  if (travelAt < 0) return 'a working week has no travel beat'
+  if (beats.lastIndexOf('travel') !== travelAt) return 'more than one travel beat'
+  for (let i = 0; i < travelAt; i++) {
+    if (beats[i] !== 'home') return `beat ${String(i)} before travel is "${String(beats[i])}"`
+  }
+  const working = beats[travelAt + 1]
+  if (working !== 'at-site' && working !== 'waiting') return 'travel is not followed by work'
+  let i = travelAt + 1
+  while (i < beats.length && beats[i] === working) i++
+  for (; i < beats.length; i++) {
+    if (beats[i] !== 'home') return `beat ${String(i)} after work is "${String(beats[i])}"`
+  }
+  if (beats[beats.length - 1] !== 'home') return 'the week does not end at home'
+  return null
+}
+
+function reservationHolds(
+  state: GameState,
+  person: PersonPresence,
+): string | null {
+  const { engagement, ownerId, site, slot } = person
+  if (ownerId === null || site === null || slot === null) return 'claim is missing owner/site/slot'
+  if (engagement === 'production') {
+    const workflow = state.operations.workflows.find(
+      (candidate) => candidate.productionId === ownerId,
+    )
+    if (workflow === undefined) return `no workflow "${ownerId}"`
+    const held = workflow.reservations.some(
+      (reservation) => reservation.facilityId === site && reservation.slot === slot,
+    )
+    return held ? null : `production "${ownerId}" holds no reservation at ${site}:${String(slot)}`
+  }
+  if (engagement === 'script') {
+    const project = state.scriptDevelopment.projects.find((candidate) => candidate.id === ownerId)
+    if (project === undefined) return `no screenplay "${ownerId}"`
+    const reservation = project.reservation
+    if (reservation === null) return `screenplay "${ownerId}" holds no reservation`
+    return reservation.facilityId === site && reservation.slot === slot
+      ? null
+      : `screenplay "${ownerId}" reservation is not ${site}:${String(slot)}`
+  }
+  const session = state.castingSessions.sessions.find((candidate) => candidate.id === ownerId)
+  if (session === undefined) return `no casting session "${ownerId}"`
+  const reservation = session.reservation
+  if (reservation === null) return `casting session "${ownerId}" holds no reservation`
+  return reservation.facilityId === site && reservation.slot === slot
+    ? null
+    : `casting session "${ownerId}" reservation is not ${site}:${String(slot)}`
+}
+
+export function presenceViolations(state: GameState, presence: StudioPresence): string[] {
+  const problems: string[] = []
+  const seen = new Set<string>()
+  const facilityIds = new Set(state.operations.facilities.map((facility) => facility.id))
+
+  for (let i = 0; i < presence.people.length; i++) {
+    const person = presence.people[i]!
+    if (seen.has(person.talentId)) problems.push(`${person.talentId}: projected more than once`)
+    seen.add(person.talentId)
+    if (i > 0 && !(presence.people[i - 1]!.talentId < person.talentId)) {
+      problems.push(`${person.talentId}: out of ascending talentId order`)
+    }
+    const talent = state.talent.find((candidate) => candidate.id === person.talentId)
+    if (talent === undefined) problems.push(`${person.talentId}: no talent record`)
+    else if (talent.name !== person.name || talent.role !== person.role) {
+      problems.push(`${person.talentId}: name/role disagree with the talent record`)
+    }
+
+    const shape = beatShapeViolation(person.beats)
+    if (shape !== null) problems.push(`${person.talentId}: ${shape}`)
+
+    const waiting = person.beats.includes('waiting')
+    if (waiting !== (person.blockedReason !== null)) {
+      problems.push(`${person.talentId}: waiting beats and blockedReason disagree`)
+    }
+
+    if (person.engagement === 'roster') {
+      if (person.site !== null || person.slot !== null || person.ownerId !== null) {
+        problems.push(`${person.talentId}: a roster week claims a workplace`)
+      }
+      if (person.credit !== null) problems.push(`${person.talentId}: a roster week carries a credit`)
+      if (person.blockedReason !== null) problems.push(`${person.talentId}: a roster week is blocked`)
+      if (!person.beats.every((beat) => beat === 'home')) {
+        problems.push(`${person.talentId}: a roster week leaves home`)
+      }
+      continue
+    }
+
+    if (person.site === null || person.slot === null) {
+      problems.push(`${person.talentId}: a claimed week has no site`)
+      continue
+    }
+    if (!facilityIds.has(person.site)) {
+      problems.push(`${person.talentId}: site "${person.site}" is not a studio facility`)
+    }
+    if (!Number.isInteger(person.slot) || person.slot < 0) {
+      problems.push(`${person.talentId}: slot ${String(person.slot)} is not a slot index`)
+    }
+    const held = reservationHolds(state, person)
+    if (held !== null) problems.push(`${person.talentId}: ${held}`)
+
+    if (waiting) {
+      if (person.engagement !== 'production') {
+        problems.push(`${person.talentId}: only a production company can queue`)
+      } else {
+        const workflow = state.operations.workflows.find(
+          (candidate) => candidate.productionId === person.ownerId,
+        )
+        if (workflow?.blocker?.kind !== 'facility-capacity') {
+          problems.push(`${person.talentId}: waits without a facility-capacity blocker`)
+        }
+      }
+    }
+  }
+
+  // The converse: every facility-capacity blocker puts its company in the queue.
+  for (const workflow of state.operations.workflows) {
+    if (workflow.blocker?.kind !== 'facility-capacity') continue
+    const queued = presence.people.filter(
+      (person) => person.ownerId === workflow.productionId && person.engagement === 'production',
+    )
+    for (const person of queued) {
+      if (!person.beats.includes('waiting')) {
+        problems.push(`${person.talentId}: blocked company member is not waiting`)
+      }
+    }
+  }
+
+  for (const entry of presence.withheld) {
+    if (entry.talentId === null) {
+      if (presence.people.length > 0) problems.push('a global withholding still projected people')
+      continue
+    }
+    if (seen.has(entry.talentId)) problems.push(`${entry.talentId}: withheld yet projected`)
+    if (entry.reason.length === 0) problems.push(`${entry.talentId}: withheld without a reason`)
+  }
+
+  return problems
 }
 
 /** Commission one screenplay, run its single drafting week, and accept it. */
