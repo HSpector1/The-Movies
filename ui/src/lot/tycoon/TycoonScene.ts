@@ -1878,8 +1878,9 @@ export class TycoonScene extends Phaser.Scene {
     const endDrag = (): void => {
       this.dragging = false
       this.input.setDefaultCursor('grab')
-      // Release the latch a frame later so the click that ends a pan is still ignored.
-      this.time.delayedCall(0, () => { this.dragMoved = false })
+      // Phaser delivers a game object's `pointerup` BEFORE this plugin-level one, so the
+      // click that ended a pan has already been declined by the time the latch clears.
+      this.dragMoved = false
     }
     this.input.on('pointerup', endDrag)
     this.input.on('pointerupoutside', endDrag)
@@ -2057,9 +2058,11 @@ export class TycoonScene extends Phaser.Scene {
       if (this.wasd.up.isDown || this.cursors.up.isDown) my -= 1
       if (this.wasd.down.isDown || this.cursors.down.isDown) my += 1
     }
-    // Edge scroll: only while the pointer is genuinely inside the canvas box.
+    // Edge scroll: only while the pointer is genuinely over the canvas. `isOver` is the
+    // guard that matters — a pointer parked near an edge and then moved onto React chrome
+    // stops producing canvas moves, and a stale position would otherwise scroll forever.
     const p = this.pointerScreen
-    if (p !== null && !this.dragging) {
+    if (p !== null && !this.dragging && this.input.manager.isOver) {
       const margin = 26
       const w = this.scale.width
       const h = this.scale.height
