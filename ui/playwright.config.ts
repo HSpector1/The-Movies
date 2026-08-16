@@ -42,9 +42,31 @@ export default defineConfig({
     // Keep adopted/default-on Studio Home tests independent of rollback variables inherited
     // from a developer shell without positively enabling either gate. Empty values exercise the
     // shipped default; explicit localStorage rollbacks in individual specs still win.
+    //
+    // TYCOON WORLD CONVERSION M1 — QUARANTINE, NOT A ROLLBACK OF THE PRODUCT.
+    //
+    // `VITE_TYCOON_WORLD: '0'` pins this browser suite to the RETAINED Operation Hollywood
+    // plate. It is deliberate and it is temporary. These specs are inherently plate-specific
+    // in two ways that no re-baseline can fix in place:
+    //
+    //   • world geometry — helpers such as `clickHollywoodWorldPoint` reimplement the plate's
+    //     1586×992 canvas and its fit-locked camera to convert a PAINTED-DISTRICT PIXEL into a
+    //     screen point. Those pixels do not exist in a 28×26 tile property;
+    //   • structural fingerprints — the 30/13/11,096,896/1 and 42/19 and 54/25 tuples are
+    //     byte-neutrality fingerprints of the plate renderer at a NAMED fixture. The grid world
+    //     measures 149/8/8,180,280/4 at the managed-idle fixture, which is a different world,
+    //     not a regression (and 2.9 MB cheaper).
+    //
+    // The shipped default is the grid world. Its own coverage in M1 is
+    // `ui/src/lot/tycoon/world.test.ts` (the spatial record) and the tycoon boundary cases in
+    // `ui/src/lot/StudioLotView.hollywood.test.ts`. **M2 owes this suite a grid-world browser
+    // layer**: a grid→screen click helper and freshly measured per-fixture tuples. Until then
+    // this line keeps every existing browser assertion measuring exactly what it was written to
+    // measure, on a path the product still ships.
     env: {
       VITE_STUDIO_LOT_OVERVIEW: '',
       VITE_OPERATION_HOLLYWOOD: '',
+      VITE_TYCOON_WORLD: '0',
     },
     url: `http://localhost:${PORT}`,
     reuseExistingServer: false,
