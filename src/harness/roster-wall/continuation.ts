@@ -5,6 +5,7 @@
 // advances only through the public tick. Nothing in this module mutates production
 // constants, save authority, or a harvested entry object.
 
+import { rosterWallLiveState } from './live-state.js'
 import { createHash } from 'node:crypto'
 import {
   FOUNDING_MINIMUMS,
@@ -530,11 +531,12 @@ function loadFreshEntry(harvest: RosterWallEntryHarvest): GameState {
   if (imported.state.market.tick !== ROSTER_WALL_ENTRY_WEEK) {
     throw new Error('roster-wall continuation: fresh entry is not the visible Week-196 arrival')
   }
-  if (stateHash(imported.state) !== harvest.entryStateHash) {
+  const importedState = rosterWallLiveState(imported)
+  if (stateHash(importedState) !== harvest.entryStateHash) {
     throw new Error('roster-wall continuation: fresh entry state hash disagrees with harvest')
   }
-  rosterWallCashReconciliation(imported.state)
-  return structuredClone(imported.state)
+  rosterWallCashReconciliation(importedState)
+  return structuredClone(importedState)
 }
 
 function commonRecord(
@@ -1294,7 +1296,7 @@ function pairRecord(
   const cohortIds = input.harvest.cohort.map((member) => member.talentId).sort(compareId)
   const baselineRetained = retainedIds(baseline, cohortIds)
   const comparedRetained = retainedIds(compared, cohortIds)
-  const entryState = input.harvest.entrySave.state
+  const entryState = rosterWallLiveState(input.harvest.entrySave)
   const entryOverhead = overheadParts(entryState)
   const entryReadiness = rosterWallPackageReadiness(
     entryState,

@@ -9,8 +9,8 @@ import {
 } from './operations.js'
 import { nextStudioDecision } from './scriptReadModel.js'
 import type { StudioDecisionView } from './scriptReadModel.js'
-import { studioConstructionView } from './construction.js'
-import type { StudioConstructionView } from './construction.js'
+import { studioConstructionView } from './placement.js'
+import type { StudioConstructionView } from './placement.js'
 import { TUNING } from './tuning.js'
 import type {
   FacilityCapability,

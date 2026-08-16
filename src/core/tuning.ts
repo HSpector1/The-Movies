@@ -14,6 +14,7 @@ import type {
   CulturalForce,
   Discipline,
   Expression,
+  FacilityBlueprint,
   Genre,
   PotentialTier,
   SegmentId,
@@ -556,7 +557,70 @@ export const TUNING = {
     writer: 0.35,
     craft: 0.2,
   },
+
+  // ── Placement Core V12 ─────────────────────────────────────────────────────
+  // The Annex's capital law is NON-NEGOTIABLE: $780,000 / 13 weeks / +1 shared
+  // Development & Casting slot, carried over verbatim from the accepted V11
+  // fixed-parcel project so the bump changes no committed number.
+  PLACEMENT_ANNEX_CAPEX: 780_000, // [OWNER, V11 law] Annex capital cost
+  PLACEMENT_ANNEX_BUILD_WEEKS: 13, // [OWNER, V11 law] weeks from commit to operational
+  PLACEMENT_ANNEX_CAPACITY: 1, // [OWNER, V11 law] shared development-casting slots gained
+  // The one genuinely NEW number this milestone: what an operational placed
+  // facility costs to run every week. Sized against the existing weekly overhead
+  // it sits beside — OVERHEAD_BASE 15,000 and OVERHEAD_PER_EMPLOYEE 1,500 — an
+  // annex block carries roughly the standing cost of two support staff plus its
+  // own utilities and maintenance. That is $182,000 a year against a $780,000
+  // capex: a real carrying cost that makes size a decision, small enough beside
+  // INITIAL_CASH 20,000,000 that it can never manufacture a death spiral, and it
+  // is exactly the size-scaling operating cost D-17B's charter asked to
+  // instrument rather than an arbitrary cash sink.
+  PLACEMENT_ANNEX_WEEKLY_OPERATING_COST: 3_500, // [ICH] weekly opex per operational Annex
+  PLACEMENT_ANNEX_FOOTPRINT_WIDTH: 3, // [ICH] cells along gx
+  PLACEMENT_ANNEX_FOOTPRINT_DEPTH: 2, // [ICH] cells along gy
+  PLACEMENT_ANNEX_CLEARANCE_RING: 1, // [ICH] cells of separation from other placements
 } as const
+
+// ── Placement Core V12 — the facility blueprint catalog ──────────────────────
+// Blueprints are authored constants, never persisted: a placed facility stores
+// only its `blueprintId`, so a later catalog correction can never rewrite a cost,
+// duration, or footprint that has already been committed and charged.
+//
+// V1 of the catalog is HONEST AND SMALL: exactly one real blueprint. The
+// Development & Casting Annex keeps its accepted V11 law to the dollar and the
+// week; the only thing added is the weekly operating cost every operational
+// placement now carries. The catalog is a list so more blueprints are additive,
+// but no second blueprint is invented here.
+//
+// `facilityIdBase` / `projectIdBase` are the identities the FIRST placement of a
+// blueprint takes verbatim — these are the exact V11 Annex identities, which is
+// what lets a migrated V11 Annex keep every reservation and ledger row it owns.
+// Later placements of the same blueprint take `${base}-${placementId}`.
+export const DEVELOPMENT_CASTING_ANNEX_BLUEPRINT = {
+  id: 'development-casting-annex',
+  name: 'Development & Casting Annex',
+  capability: 'development-casting',
+  capacity: TUNING.PLACEMENT_ANNEX_CAPACITY,
+  footprint: {
+    width: TUNING.PLACEMENT_ANNEX_FOOTPRINT_WIDTH,
+    depth: TUNING.PLACEMENT_ANNEX_FOOTPRINT_DEPTH,
+  },
+  clearanceRing: TUNING.PLACEMENT_ANNEX_CLEARANCE_RING,
+  // A construction site needs truck access; the site must front a road.
+  requiresRoadAccess: true,
+  buildWeeks: TUNING.PLACEMENT_ANNEX_BUILD_WEEKS,
+  capex: TUNING.PLACEMENT_ANNEX_CAPEX,
+  weeklyOperatingCost: TUNING.PLACEMENT_ANNEX_WEEKLY_OPERATING_COST,
+  facilityIdBase: 'facility-development-casting-annex',
+  projectIdBase: 'construction-development-casting-annex',
+  ledgerNote: 'Development & Casting Annex construction',
+} as const satisfies FacilityBlueprint
+
+export const FACILITY_BLUEPRINTS: readonly FacilityBlueprint[] = [
+  DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
+]
+
+/** The canonical ledger note for a weekly placed-facility operating charge. */
+export const FACILITY_OPEX_LEDGER_NOTE = 'weekly facility operating cost'
 
 // ── §5.1 cast weighting ──────────────────────────────────────────────────────
 export const CAST_WEIGHT: Record<CastSlot, number> = { lead: 1.0, antagonist: 0.6, support: 0.35 }

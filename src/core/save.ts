@@ -49,6 +49,7 @@ import type {
   GameStateV9,
   GameStateV10,
   GameStateV11,
+  GameStateV12,
   GameStateV2,
   GameStateV3,
   GameStateV4,
@@ -58,12 +59,14 @@ import type {
   Genre,
   LedgerEntry,
   LedgerEntryV10,
+  LedgerEntryV11,
   LedgerKind,
   PublicityState,
   ScriptDevelopment,
   CastingSessions,
   StudioOperations,
   StudioConstruction,
+  StudioPlacement,
   GenreExperience,
   Persona,
   SkillProfiles,
@@ -84,6 +87,21 @@ import {
   assertCastingSessionsInvariants,
   emptyCastingSessions,
 } from "./castingSessions.js";
+import {
+  assertStudioPlacementInvariants,
+  emptyStudioPlacement,
+  footprintCells,
+  initialManagedStudioPlacement,
+} from "./placement.js";
+import {
+  LEGACY_EXPANSION_PARCEL_ID,
+  parcelById,
+} from "./lot.js";
+import {
+  DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
+  FACILITY_BLUEPRINTS,
+  FACILITY_OPEX_LEDGER_NOTE,
+} from "./tuning.js";
 import {
   ANNEX_CAPEX,
   ANNEX_DURATION_WEEKS,
@@ -213,12 +231,23 @@ export type SaveFileV10 = {
   broadcastCache: BroadcastItem[];
 };
 
-// Development & Casting Annex V1 V11 envelope — the live GameState (V10 plus
-// authoritative parcel/project lifecycle state). V1–V10 remain frozen/readable.
+// Development & Casting Annex V1 V11 envelope — the FROZEN GameStateV11 (V10 plus
+// the fixed-parcel project lifecycle). Anchored to GameStateV11 so Placement Core
+// V12's placement root and widened ledger cannot leak into the accepted V11
+// format. New games no longer write V11, but old V11 files remain readable.
 export type SaveFileV11 = {
   saveVersion: 11;
   seed: string;
   state: GameStateV11;
+  broadcastCache: BroadcastItem[];
+};
+
+// Placement Core V12 envelope — the live GameState (V11 plus the authored parcel
+// map's placed-facility records). V1–V11 remain frozen/readable.
+export type SaveFileV12 = {
+  saveVersion: 12;
+  seed: string;
+  state: GameStateV12;
   broadcastCache: BroadcastItem[];
 };
 
@@ -234,7 +263,8 @@ export type SaveFile =
   | SaveFileV8
   | SaveFileV9
   | SaveFileV10
-  | SaveFileV11;
+  | SaveFileV11
+  | SaveFileV12;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -382,6 +412,58 @@ function rejectV11AuthorityAtHistoricalBoundary(
   }
 }
 
+// The same posture one version on: SaveFileV12 owns the placement root, the
+// weekly facility-operating ledger kind, and every catalog identity beyond the
+// single canonical Annex. Accepting any of them under an older version tag would
+// let a caller discard real placed-facility, occupancy, or operating history
+// during migration. Copied deliberately from the V11 guard above (law 19).
+function rejectV12AuthorityAtHistoricalBoundary(
+  state: Record<string, unknown>,
+  label: string,
+): void {
+  if (Object.prototype.hasOwnProperty.call(state, "placement")) {
+    throw new Error(
+      `${label}: state.placement belongs only to SaveFileV12 and cannot appear at this historical boundary`,
+    );
+  }
+  if (Array.isArray(state.ledger)) {
+    for (let i = 0; i < state.ledger.length; i++) {
+      const entry = state.ledger[i];
+      if (isRecord(entry) && entry.kind === "facilityOpex") {
+        throw new Error(
+          `${label}: state.ledger[${String(i)}] contains SaveFileV12 facility operating authority`,
+        );
+      }
+      if (
+        isRecord(entry) &&
+        entry.kind === "constructionCapex" &&
+        typeof entry.constructionProjectId === "string" &&
+        entry.constructionProjectId !== ANNEX_PROJECT_ID
+      ) {
+        throw new Error(
+          `${label}: state.ledger[${String(i)}] carries a SaveFileV12 catalog project id`,
+        );
+      }
+    }
+  }
+  if (isRecord(state.operations) && Array.isArray(state.operations.facilities)) {
+    for (let i = 0; i < state.operations.facilities.length; i++) {
+      const facility = state.operations.facilities[i];
+      const facilityId = isRecord(facility) ? facility.id : undefined;
+      if (
+        typeof facilityId === "string" &&
+        FACILITY_BLUEPRINTS.some((blueprint) =>
+          facilityId.startsWith(`${blueprint.facilityIdBase}-`),
+        )
+      ) {
+        throw new Error(
+          `${label}: state.operations.facilities[${String(i)}] contains a SaveFileV12 placed facility`,
+        );
+      }
+    }
+  }
+}
+
 // ── V1 validation (ORIGINAL rules, UNCHANGED) ────────────────────────────────
 // Throws on any divergence; returns the narrowed SaveFileV1 (old-shape talent).
 // The V1 rules are exactly the pre-D-9 rules; nothing about them changed.
@@ -397,6 +479,7 @@ export function validateSaveV1(save: unknown): SaveFileV1 {
   }
   const state = checkEnvelope(s, "validateSaveV1");
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV1");
+  rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV1");
   return save as SaveFileV1;
 }
 
@@ -415,6 +498,7 @@ export function validateSaveV2(save: unknown): SaveFileV2 {
   }
   const state = checkEnvelope(s, "validateSaveV2");
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV2");
+  rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV2");
   return save as SaveFileV2;
 }
 
@@ -433,6 +517,7 @@ export function validateSaveV3(save: unknown): SaveFileV3 {
   }
   const state = checkEnvelope(s, "validateSaveV3");
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV3");
+  rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV3");
   return save as SaveFileV3;
 }
 
@@ -449,6 +534,7 @@ export function validateSaveV4(save: unknown): SaveFileV4 {
   }
   const state = checkEnvelope(s, "validateSaveV4");
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV4");
+  rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV4");
   return save as SaveFileV4;
 }
 
@@ -465,6 +551,7 @@ export function validateSaveV5(save: unknown): SaveFileV5 {
   }
   const state = checkEnvelope(s, "validateSaveV5");
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV5");
+  rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV5");
   return save as SaveFileV5;
 }
 
@@ -495,6 +582,7 @@ export function validateSaveV6(save: unknown): SaveFileV6 {
     );
   }
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV6");
+  rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV6");
   return save as SaveFileV6;
 }
 
@@ -555,6 +643,7 @@ export function validateSaveV7(save: unknown): SaveFileV7 {
   const state = checkEnvelope(s, "validateSaveV7");
   checkV7State(state, "validateSaveV7");
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV7");
+  rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV7");
   return save as SaveFileV7;
 }
 
@@ -659,11 +748,12 @@ const LEDGER_KINDS = [
   "publicity",
 ] as const;
 const V11_LEDGER_KINDS = [...LEDGER_KINDS, "constructionCapex"] as const;
+const V12_LEDGER_KINDS = [...V11_LEDGER_KINDS, "facilityOpex"] as const;
 
 // Historical validators use the exact facility/ledger laws they shipped with.
 // V11 reuses their exhaustive structural checks under this explicitly wider,
 // Annex-only policy, then validates the construction root and all correlations.
-type LiveStateValidationPolicy = "historical" | "annex-v1";
+type LiveStateValidationPolicy = "historical" | "annex-v1" | "placement-v12";
 const CAREER_REASON_CODES = [
   "substantialLeadExposure",
   "supportingRoleVisibility",
@@ -1497,10 +1587,11 @@ function v8LedgerEntry(
   policy: LiveStateValidationPolicy = "historical",
 ): void {
   const entry = v8Record(value, label);
+  const constructionAware = policy === "annex-v1" || policy === "placement-v12";
   v8ExactKeys(
     entry,
     ["week", "kind", "amount", "note"],
-    policy === "annex-v1"
+    constructionAware
       ? ["talentId", "productionId", "constructionProjectId"]
       : ["talentId", "productionId"],
     label,
@@ -1508,7 +1599,11 @@ function v8LedgerEntry(
   v8Integer(entry.week, `${label}.week`, 0);
   v8Enum(
     entry.kind,
-    policy === "annex-v1" ? V11_LEDGER_KINDS : LEDGER_KINDS,
+    policy === "placement-v12"
+      ? V12_LEDGER_KINDS
+      : policy === "annex-v1"
+        ? V11_LEDGER_KINDS
+        : LEDGER_KINDS,
     `${label}.kind`,
   );
   v8Number(entry.amount, `${label}.amount`);
@@ -1519,7 +1614,56 @@ function v8LedgerEntry(
       v8Error(`${label}.talentId`, "references unknown talent");
   }
   v8OptionalString(entry, "productionId", label);
-  if (policy === "annex-v1") {
+  if (policy === "placement-v12") {
+    // Placement Core V12 widens the correlation to any catalog project id and adds
+    // the weekly operating row. The exact identity, week, price, and note are
+    // proved against the placement record by assertStudioPlacementInvariants; this
+    // structural pass only enforces what a row may CARRY.
+    const hasConstructionProjectId = Object.prototype.hasOwnProperty.call(
+      entry,
+      "constructionProjectId",
+    );
+    if (entry.kind === "constructionCapex") {
+      if (!hasConstructionProjectId) {
+        v8Error(
+          `${label}.constructionProjectId`,
+          "is required for constructionCapex",
+        );
+      }
+      v8String(entry.constructionProjectId, `${label}.constructionProjectId`, true);
+      if (
+        Object.prototype.hasOwnProperty.call(entry, "talentId") ||
+        Object.prototype.hasOwnProperty.call(entry, "productionId")
+      ) {
+        v8Error(
+          label,
+          "constructionCapex cannot carry talentId or productionId",
+        );
+      }
+    } else if (hasConstructionProjectId) {
+      v8Error(
+        `${label}.constructionProjectId`,
+        "is forbidden unless kind is constructionCapex",
+      );
+    }
+    if (entry.kind === "facilityOpex") {
+      if (
+        Object.prototype.hasOwnProperty.call(entry, "talentId") ||
+        Object.prototype.hasOwnProperty.call(entry, "productionId")
+      ) {
+        v8Error(
+          label,
+          "facilityOpex cannot carry talentId or productionId",
+        );
+      }
+      if (entry.note !== FACILITY_OPEX_LEDGER_NOTE) {
+        v8Error(
+          `${label}.note`,
+          `must equal ${JSON.stringify(FACILITY_OPEX_LEDGER_NOTE)}`,
+        );
+      }
+    }
+  } else if (policy === "annex-v1") {
     const hasConstructionProjectId = Object.prototype.hasOwnProperty.call(
       entry,
       "constructionProjectId",
@@ -2298,7 +2442,14 @@ function checkOperationsState(
           facilityPolicy: "annex-v1",
           annexOperational: facilities.has(ANNEX_FACILITY_ID),
         }
-      : undefined,
+      : policy === "placement-v12"
+        ? // The exact V12 facility set is a function of the placement root, which
+          // this nested frozen-V11 projection deliberately cannot see. The V12
+          // validator proves it immediately afterwards through
+          // assertStudioPlacementInvariants; here only the generic capacity,
+          // reservation, and workflow law applies.
+          { facilityPolicy: "configured" }
+        : undefined,
   );
   return operations as StudioOperations;
 }
@@ -2902,7 +3053,10 @@ function v11Integer(value: unknown, label: string): number {
   return value;
 }
 
-function checkConstructionShape(value: unknown): StudioConstruction {
+function checkConstructionShape(
+  value: unknown,
+  policy: LiveStateValidationPolicy = "annex-v1",
+): StudioConstruction {
   const construction = v11Record(value, "state.construction");
   v11ExactKeys(construction, ["mode", "parcels", "projects"], "state.construction");
   if (construction.mode !== "legacy" && construction.mode !== "managed") {
@@ -2930,6 +3084,12 @@ function checkConstructionShape(value: unknown): StudioConstruction {
     }
   }
 
+  if (policy === "placement-v12" && construction.projects.length > 0) {
+    v11Error(
+      "state.construction.projects",
+      "must be empty in SaveFileV12; placement owns every capital project",
+    );
+  }
   for (let i = 0; i < construction.projects.length; i++) {
     const label = `state.construction.projects[${String(i)}]`;
     const project = v11Record(construction.projects[i], label);
@@ -2991,7 +3151,10 @@ function checkConstructionShape(value: unknown): StudioConstruction {
 // structurally validated under the exact Annex facility/ledger policy, never the
 // research-only configured policy. Construction then owns lifecycle, capex, cash,
 // and facility-presence correlations.
-export function validateSaveV11(save: unknown): SaveFileV11 {
+function validateSaveV11WithPolicy(
+  save: unknown,
+  policy: LiveStateValidationPolicy,
+): SaveFileV11 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV11: save is not a plain object");
   }
@@ -3012,6 +3175,9 @@ export function validateSaveV11(save: unknown): SaveFileV11 {
     "state",
     V11_OPTIONAL_STATE_KEYS,
   );
+  if (policy !== "placement-v12") {
+    rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV11");
+  }
 
   const hasCashLedgerCheckpoint = Object.prototype.hasOwnProperty.call(
     state,
@@ -3030,7 +3196,7 @@ export function validateSaveV11(save: unknown): SaveFileV11 {
         state: v10State,
         broadcastCache: save.broadcastCache,
       },
-      "annex-v1",
+      policy === "placement-v12" ? "placement-v12" : "annex-v1",
     );
   } catch (error) {
     throw new Error(
@@ -3038,19 +3204,191 @@ export function validateSaveV11(save: unknown): SaveFileV11 {
     );
   }
 
-  checkConstructionShape(rawConstruction);
+  checkConstructionShape(rawConstruction, policy);
   if (hasCashLedgerCheckpoint) {
     checkCashLedgerCheckpointShape(
       rawCashLedgerCheckpoint,
       (state.ledger as unknown[]).length,
     );
   }
-  try {
-    assertStudioConstructionInvariants(state as GameStateV11);
-  } catch (error) {
-    throw new Error(`validateSaveV11: ${(error as Error).message}`);
+  // Under the V12 policy this projection is a fragment of a larger state: the
+  // construction/cash law it owns is proved by the placement authority, which the
+  // V12 validator runs over the WHOLE state immediately after this returns.
+  if (policy !== "placement-v12") {
+    try {
+      // The checker reads no V12 root, so a frozen V11 fragment is a valid input.
+      assertStudioConstructionInvariants(state as unknown as GameStateV12);
+    } catch (error) {
+      throw new Error(`validateSaveV11: ${(error as Error).message}`);
+    }
   }
   return save as SaveFileV11;
+}
+
+export function validateSaveV11(save: unknown): SaveFileV11 {
+  return validateSaveV11WithPolicy(save, "annex-v1");
+}
+
+const V12_STATE_KEYS = [...V11_STATE_KEYS, "placement"] as const;
+const PLACEMENT_STATUSES = ["underConstruction", "operational"] as const;
+
+function v12Error(label: string, message: string): never {
+  throw new Error(`validateSaveV12: ${label} ${message}`);
+}
+
+function v12Record(value: unknown, label: string): Record<string, unknown> {
+  if (!isRecord(value)) return v12Error(label, "must be a plain object");
+  return value;
+}
+
+function v12ExactKeys(
+  value: Record<string, unknown>,
+  required: readonly string[],
+  label: string,
+  optional: readonly string[] = [],
+): void {
+  const allowed = new Set([...required, ...optional]);
+  for (const key of required) {
+    if (!Object.prototype.hasOwnProperty.call(value, key)) {
+      v12Error(label, `is missing required field ${JSON.stringify(key)}`);
+    }
+  }
+  for (const key of Object.keys(value)) {
+    if (!allowed.has(key)) {
+      v12Error(label, `has unknown field ${JSON.stringify(key)}`);
+    }
+  }
+}
+
+function v12Integer(value: unknown, label: string, min = 0): number {
+  if (
+    typeof value !== "number" ||
+    !Number.isFinite(value) ||
+    !Number.isInteger(value) ||
+    value < min
+  ) {
+    return v12Error(label, `must be a finite integer no less than ${String(min)}`);
+  }
+  return value;
+}
+
+function v12Cell(value: unknown, label: string): void {
+  const cell = v12Record(value, label);
+  v12ExactKeys(cell, ["gx", "gy"], label);
+  v12Integer(cell.gx, `${label}.gx`);
+  v12Integer(cell.gy, `${label}.gy`);
+}
+
+// Structural shape only. Occupancy, footprint, terrain, clearance, road access,
+// identity, capex, and operating correlations are DOMAIN law and belong to
+// assertStudioPlacementInvariants, which runs over the whole state below.
+function checkPlacementShape(value: unknown): StudioPlacement {
+  const placement = v12Record(value, "state.placement");
+  v12ExactKeys(
+    placement,
+    ["mode", "nextPlacementId", "facilities"],
+    "state.placement",
+  );
+  if (placement.mode !== "legacy" && placement.mode !== "managed") {
+    v12Error("state.placement.mode", 'must be "legacy" or "managed"');
+  }
+  v12Integer(placement.nextPlacementId, "state.placement.nextPlacementId", 1);
+  if (!Array.isArray(placement.facilities)) {
+    v12Error("state.placement.facilities", "must be an array");
+  }
+  for (let i = 0; i < placement.facilities.length; i++) {
+    const label = `state.placement.facilities[${String(i)}]`;
+    const placed = v12Record(placement.facilities[i], label);
+    v12ExactKeys(
+      placed,
+      [
+        "id",
+        "blueprintId",
+        "parcelId",
+        "origin",
+        "cells",
+        "facilityId",
+        "projectId",
+        "status",
+        "placedWeek",
+        "completesWeek",
+      ],
+      label,
+    );
+    v12Integer(placed.id, `${label}.id`, 1);
+    v8String(placed.blueprintId, `${label}.blueprintId`, true);
+    v8String(placed.parcelId, `${label}.parcelId`, true);
+    v12Cell(placed.origin, `${label}.origin`);
+    if (!Array.isArray(placed.cells) || placed.cells.length === 0) {
+      v12Error(`${label}.cells`, "must be a non-empty array");
+    }
+    for (let c = 0; c < placed.cells.length; c++) {
+      v12Cell(placed.cells[c], `${label}.cells[${String(c)}]`);
+    }
+    v8String(placed.facilityId, `${label}.facilityId`, true);
+    v8String(placed.projectId, `${label}.projectId`, true);
+    if (
+      placed.status !== PLACEMENT_STATUSES[0] &&
+      placed.status !== PLACEMENT_STATUSES[1]
+    ) {
+      v12Error(
+        `${label}.status`,
+        `must be one of ${PLACEMENT_STATUSES.map((status) => JSON.stringify(status)).join(", ")}`,
+      );
+    }
+    v12Integer(placed.placedWeek, `${label}.placedWeek`);
+    v12Integer(placed.completesWeek, `${label}.completesWeek`);
+  }
+  return placement as unknown as StudioPlacement;
+}
+
+// Placement Core V12 validator. The frozen V11 projection is structurally
+// validated under the placement policy (which widens the capex correlation, adds
+// the operating row, and requires the V11 project root to have retired), then the
+// placement authority proves the whole state: footprints, terrain, occupancy,
+// clearance, road access, identity, lifecycle clock, capital and operating rows,
+// cash reconciliation, and the exact operational facility set.
+export function validateSaveV12(save: unknown): SaveFileV12 {
+  if (!isRecord(save)) {
+    throw new Error("validateSaveV12: save is not a plain object");
+  }
+  v12ExactKeys(
+    save,
+    ["saveVersion", "seed", "state", "broadcastCache"],
+    "save",
+  );
+  if (save.saveVersion !== 12) {
+    throw new Error(
+      `validateSaveV12: expected saveVersion 12, got ${JSON.stringify(save.saveVersion)}`,
+    );
+  }
+  const state = v12Record(checkEnvelope(save, "validateSaveV12"), "state");
+  v12ExactKeys(state, V12_STATE_KEYS, "state", V11_OPTIONAL_STATE_KEYS);
+
+  const { placement: rawPlacement, ...v11State } = state;
+  try {
+    validateSaveV11WithPolicy(
+      {
+        saveVersion: 11,
+        seed: save.seed,
+        state: v11State,
+        broadcastCache: save.broadcastCache,
+      },
+      "placement-v12",
+    );
+  } catch (error) {
+    throw new Error(
+      `validateSaveV12: frozen V11 state is invalid — ${(error as Error).message}`,
+    );
+  }
+
+  checkPlacementShape(rawPlacement);
+  try {
+    assertStudioPlacementInvariants(state as unknown as GameStateV12);
+  } catch (error) {
+    throw new Error(`validateSaveV12: ${(error as Error).message}`);
+  }
+  return save as SaveFileV12;
 }
 
 // ── Version-dispatching validation (LOUD rejection of unknown versions) ──────
@@ -3073,8 +3411,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 9) return validateSaveV9(save);
   if (s.saveVersion === 10) return validateSaveV10(save);
   if (s.saveVersion === 11) return validateSaveV11(save);
+  if (s.saveVersion === 12) return validateSaveV12(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 11 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 12 only)`,
   );
 }
 
@@ -3124,6 +3463,11 @@ function historicalLedgerProjection(
     ) {
       throw new Error(
         "frozen save projection cannot discard authoritative V11 construction ledger state",
+      );
+    }
+    if (entry.kind === "facilityOpex") {
+      throw new Error(
+        "frozen save projection cannot discard authoritative V12 facility operating ledger state",
       );
     }
   }
@@ -3215,7 +3559,35 @@ function projectStateV10(
   };
 }
 
-function projectStateV11(state: GameStateV11): GameStateV11 {
+// The V11 ledger projection: a V12 value may cross this boundary only when it
+// carries no V12-only row. Construction capex survives (V11 owned it) provided it
+// still identifies the one canonical Annex project.
+function historicalConstructionLedgerProjection(
+  ledger: readonly LedgerEntry[],
+): LedgerEntryV11[] {
+  for (const entry of ledger) {
+    if (entry.kind === "facilityOpex") {
+      throw new Error(
+        "frozen save projection cannot discard authoritative V12 facility operating ledger state",
+      );
+    }
+    if (
+      entry.kind === "constructionCapex" &&
+      entry.constructionProjectId !== ANNEX_PROJECT_ID
+    ) {
+      throw new Error(
+        "frozen save projection cannot relabel an authoritative V12 catalog project as the canonical Annex",
+      );
+    }
+  }
+  return ledger as readonly LedgerEntryV11[] as LedgerEntryV11[];
+}
+
+type HistoricalProjectionSourceV11 = Omit<GameStateV11, "ledger"> & {
+  ledger: LedgerEntryV11[] | LedgerEntry[];
+};
+
+function projectStateV11(state: HistoricalProjectionSourceV11): GameStateV11 {
   return {
     seed: state.seed,
     rngState: state.rngState,
@@ -3228,7 +3600,7 @@ function projectStateV11(state: GameStateV11): GameStateV11 {
     coverageContexts: state.coverageContexts,
     founding: state.founding,
     contracts: state.contracts,
-    ledger: state.ledger,
+    ledger: historicalConstructionLedgerProjection(state.ledger),
     freeAgents: state.freeAgents,
     theatricalRuns: state.theatricalRuns,
     careerEvents: state.careerEvents,
@@ -3241,6 +3613,14 @@ function projectStateV11(state: GameStateV11): GameStateV11 {
     ...(state.cashLedgerCheckpoint === undefined
       ? {}
       : { cashLedgerCheckpoint: state.cashLedgerCheckpoint }),
+  };
+}
+
+function projectStateV12(state: GameStateV12): GameStateV12 {
+  return {
+    ...projectStateV11(state),
+    ledger: state.ledger,
+    placement: state.placement,
   };
 }
 
@@ -3339,10 +3719,66 @@ function assertFrozenBuilderCanProjectV11State(
   }
 }
 
+// The same guard one version on. A frozen builder may cross this boundary only
+// when the state carries no authoritative V12 placement history: an empty legacy
+// or empty managed placement root loses nothing, anything else would discard a
+// real placed facility, its land, its debit, or its operating charges.
+function assertFrozenBuilderCanProjectV12State(
+  state: object,
+  builder: string,
+): void {
+  const candidate = state as Record<string, unknown>;
+  if (Object.prototype.hasOwnProperty.call(candidate, "placement")) {
+    const placement = candidate.placement;
+    const isEmptyLegacy = deepEqual(placement, emptyStudioPlacement());
+    const isEmptyManaged = deepEqual(placement, initialManagedStudioPlacement());
+    if (!isEmptyLegacy && !isEmptyManaged) {
+      throw new Error(
+        `${builder}: cannot downgrade or discard authoritative V12 placement history`,
+      );
+    }
+  }
+  if (Array.isArray(candidate.ledger)) {
+    for (const raw of candidate.ledger) {
+      if (!isRecord(raw)) continue;
+      if (raw.kind === "facilityOpex") {
+        throw new Error(
+          `${builder}: cannot downgrade or discard authoritative V12 facility operating ledger state`,
+        );
+      }
+      if (
+        raw.kind === "constructionCapex" &&
+        typeof raw.constructionProjectId === "string" &&
+        raw.constructionProjectId !== ANNEX_PROJECT_ID
+      ) {
+        throw new Error(
+          `${builder}: cannot downgrade or relabel an authoritative V12 catalog project`,
+        );
+      }
+    }
+  }
+  if (isRecord(candidate.operations) && Array.isArray(candidate.operations.facilities)) {
+    for (const facility of candidate.operations.facilities) {
+      const facilityId = isRecord(facility) ? facility.id : undefined;
+      if (
+        typeof facilityId === "string" &&
+        FACILITY_BLUEPRINTS.some((blueprint) =>
+          facilityId.startsWith(`${blueprint.facilityIdBase}-`),
+        )
+      ) {
+        throw new Error(
+          `${builder}: cannot downgrade or discard an operational V12 placed facility`,
+        );
+      }
+    }
+  }
+}
+
 // Build a validated V1 envelope from a legacy GameStateV1 (broadcastCache mirrors
 // the state's aired items, per M14). Kept so V1 fixtures/back-compat are typed.
 export function makeSaveV1(state: GameStateV1 | GameState): SaveFileV1 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV1", 1);
+  assertFrozenBuilderCanProjectV12State(state, "makeSaveV1");
   const frozenState = projectStateV1(state);
   const save: SaveFileV1 = {
     saveVersion: 1,
@@ -3357,6 +3793,7 @@ export function makeSaveV1(state: GameStateV1 | GameState): SaveFileV1 {
 // so V2 fixtures / the V1→V2 conversion stay typed against the frozen shape.
 export function makeSaveV2(state: GameStateV2 | GameState): SaveFileV2 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV2", 2);
+  assertFrozenBuilderCanProjectV12State(state, "makeSaveV2");
   const frozenState = projectStateV2(state);
   const save: SaveFileV2 = {
     saveVersion: 2,
@@ -3373,6 +3810,7 @@ export function makeSaveV3(
   state: HistoricalProjectionSource<GameStateV3>,
 ): SaveFileV3 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV3", 3);
+  assertFrozenBuilderCanProjectV12State(state, "makeSaveV3");
   const frozenState = projectStateV3(state);
   const save: SaveFileV3 = {
     saveVersion: 3,
@@ -3389,6 +3827,7 @@ export function makeSaveV4(
   state: HistoricalProjectionSource<GameStateV4>,
 ): SaveFileV4 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV4", 4);
+  assertFrozenBuilderCanProjectV12State(state, "makeSaveV4");
   const frozenState = projectStateV4(state);
   const save: SaveFileV4 = {
     saveVersion: 4,
@@ -3405,6 +3844,7 @@ export function makeSaveV5(
   state: HistoricalProjectionSource<GameStateV5>,
 ): SaveFileV5 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV5", 5);
+  assertFrozenBuilderCanProjectV12State(state, "makeSaveV5");
   const frozenState = projectStateV5(state);
   const save: SaveFileV5 = {
     saveVersion: 5,
@@ -3421,6 +3861,7 @@ export function makeSaveV6(
   state: HistoricalProjectionSource<GameStateV6>,
 ): SaveFileV6 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV6", 6);
+  assertFrozenBuilderCanProjectV12State(state, "makeSaveV6");
   const frozenState = projectStateV6(state);
   const save: SaveFileV6 = {
     saveVersion: 6,
@@ -3437,6 +3878,7 @@ export function makeSaveV7(
   state: HistoricalProjectionSource<GameStateV7>,
 ): SaveFileV7 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV7", 7);
+  assertFrozenBuilderCanProjectV12State(state, "makeSaveV7");
   // Structural typing permits present and future live roots where GameStateV7 is
   // expected. Use the same positive allowlist as the other frozen builders so no
   // later field can be mislabeled as V7 or make this builder's output unmigratable.
@@ -3456,6 +3898,7 @@ export function makeSaveV8(
   state: HistoricalProjectionSource<GameStateV8>,
 ): SaveFileV8 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV8", 8);
+  assertFrozenBuilderCanProjectV12State(state, "makeSaveV8");
   const frozenState = projectStateV8(state);
   const save: SaveFileV8 = {
     saveVersion: 8,
@@ -3472,6 +3915,7 @@ export function makeSaveV9(
   state: HistoricalProjectionSource<GameStateV9>,
 ): SaveFileV9 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV9", 9);
+  assertFrozenBuilderCanProjectV12State(state, "makeSaveV9");
   const frozenState = projectStateV9(state);
   const save: SaveFileV9 = {
     saveVersion: 9,
@@ -3488,6 +3932,7 @@ export function makeSaveV10(
   state: HistoricalProjectionSource<GameStateV10>,
 ): SaveFileV10 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV10", 10);
+  assertFrozenBuilderCanProjectV12State(state, "makeSaveV10");
   const frozenState = projectStateV10(state);
   const save: SaveFileV10 = {
     saveVersion: 10,
@@ -3498,23 +3943,40 @@ export function makeSaveV10(
   return validateSaveV10(save);
 }
 
-// Build the current V11 envelope. Live state already owns explicit construction
-// lifecycle state, so this boundary never invents migration defaults.
-export function makeSaveV11(state: GameState): SaveFileV11 {
-  const currentState = projectStateV11(state);
+// Build a frozen V11 envelope. Placement state belongs only to V12; a current
+// value may cross this projection only while its placement root is empty and
+// therefore loses no history.
+export function makeSaveV11(
+  state: HistoricalProjectionSourceV11,
+): SaveFileV11 {
+  assertFrozenBuilderCanProjectV12State(state, "makeSaveV11");
+  const frozenState = projectStateV11(state);
   const save: SaveFileV11 = {
     saveVersion: 11,
-    seed: currentState.seed,
-    state: currentState,
-    broadcastCache: currentState.broadcastItems,
+    seed: frozenState.seed,
+    state: frozenState,
+    broadcastCache: frozenState.broadcastItems,
   };
   return validateSaveV11(save);
 }
 
-// makeSave — the Development & Casting Annex V1 live boundary. Frozen V10
-// values must cross convertV10ToV11/migrateToV11 explicitly.
-export function makeSave(state: GameState): SaveFileV11 {
-  return makeSaveV11(state);
+// Build the current V12 envelope. Live state already owns an explicit placement
+// root, so this boundary never invents migration defaults.
+export function makeSaveV12(state: GameState): SaveFileV12 {
+  const currentState = projectStateV12(state);
+  const save: SaveFileV12 = {
+    saveVersion: 12,
+    seed: currentState.seed,
+    state: currentState,
+    broadcastCache: currentState.broadcastItems,
+  };
+  return validateSaveV12(save);
+}
+
+// makeSave — the Placement Core V12 live boundary. Frozen V11 values must cross
+// convertV11ToV12/migrateToV12 explicitly.
+export function makeSave(state: GameState): SaveFileV12 {
+  return makeSaveV12(state);
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -3918,6 +4380,9 @@ const LEDGER_KIND_PROVES_ENGAGEMENT = {
   overhead: true,
   publicity: true,
   constructionCapex: true,
+  // V12: a placed facility can only exist in a founded, engaged, managed studio,
+  // so its weekly operating charge is decisive engagement evidence.
+  facilityOpex: true,
 } as const satisfies Record<LedgerKind, boolean>;
 
 function ledgerKindProvesEngagement(kind: LedgerKind): boolean {
@@ -4116,6 +4581,70 @@ export function convertV10ToV11(v10: SaveFileV10): SaveFileV11 {
   return makeSaveV11(newState);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// Placement Core V12 — deterministic V11 → V12 conversion.
+//   The V11 fixed-parcel Annex lifecycle MOVES onto the parcel map; it is not
+//   duplicated and it is not thrown away. A legacy (unmanaged) world receives the
+//   empty placement root; a managed world with a vacant parcel receives the empty
+//   managed root and its parcel stays free; a managed world with a building or
+//   completed Annex becomes exactly ONE placed facility standing on the legacy
+//   expansion parcel with the same weeks, the same status, the same facility id,
+//   and the same construction-capex correlation — so every reservation and every
+//   ledger row it already owns keeps pointing at the same thing. The retired V11
+//   project root is emptied and its parcel link cleared. No week, price, debit, or
+//   reservation is invented; rngState is byte-identical.
+// ═══════════════════════════════════════════════════════════════════════════════
+
+export function convertV11ToV12(v11: SaveFileV11): SaveFileV12 {
+  const validated = validateSaveV11(v11);
+  const oldState = clonePlainJson(validated.state);
+  const project = oldState.construction.projects[0];
+
+  let placement: StudioPlacement;
+  let construction: StudioConstruction;
+  if (oldState.construction.mode === "legacy") {
+    placement = emptyStudioPlacement();
+    construction = emptyStudioConstruction();
+  } else if (project === undefined) {
+    placement = initialManagedStudioPlacement();
+    construction = initialManagedStudioConstruction();
+  } else {
+    const parcel = parcelById(LEGACY_EXPANSION_PARCEL_ID);
+    if (parcel === null) {
+      throw new Error(
+        "convertV11ToV12: the legacy expansion parcel is missing from the authored lot",
+      );
+    }
+    const origin = { gx: parcel.rect.x0, gy: parcel.rect.y0 };
+    placement = {
+      mode: "managed",
+      nextPlacementId: 2,
+      facilities: [
+        {
+          id: 1,
+          blueprintId: DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.id,
+          parcelId: parcel.id,
+          origin,
+          cells: footprintCells(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT, origin),
+          facilityId: project.facilityId,
+          projectId: project.id,
+          status: project.status === "completed" ? "operational" : "underConstruction",
+          placedWeek: project.startedWeek,
+          completesWeek: project.dueWeek,
+        },
+      ],
+    };
+    construction = initialManagedStudioConstruction();
+  }
+
+  const newState: GameStateV12 = {
+    ...oldState,
+    construction,
+    placement,
+  };
+  return makeSaveV12(newState);
+}
+
 // importLegacyV{3,2,1}ToV4 — parse a legacy JSON string and return a NEW SaveFileV4.
 export function importLegacyV3ToV4(json: string): SaveFileV4 {
   let parsed: unknown;
@@ -4247,10 +4776,25 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
   return convertV9ToV10(migrateToV9(save));
 }
 
-// migrateToV11 — live load-to-play migration. V11 passes through by identity;
-// V1–V10 cross every frozen boundary, then receive only the truthful empty or
-// vacant construction default selected by their validated operations mode.
+// migrateToV11 — retained historical PRE-V12 boundary. V11 passes through by
+// identity; V1–V10 cross every frozen boundary and receive only the truthful
+// empty or vacant construction default selected by their validated operations
+// mode. V12 is rejected, never downgraded: a placed facility, its land, its
+// debit, and its operating history have no V11 home.
 export function migrateToV11(save: SaveFile): SaveFileV11 {
+  if (save.saveVersion === 12) {
+    throw new Error(
+      "migrateToV11: cannot downgrade SaveFileV12 or discard placement state",
+    );
+  }
   if (save.saveVersion === 11) return save;
   return convertV10ToV11(migrateToV10(save));
+}
+
+// migrateToV12 — live load-to-play migration. V12 passes through by identity;
+// V1–V11 cross every frozen boundary, then receive the placement root their own
+// validated construction history implies at the final V11→V12 step.
+export function migrateToV12(save: SaveFile): SaveFileV12 {
+  if (save.saveVersion === 12) return save;
+  return convertV11ToV12(migrateToV11(save));
 }

@@ -4,6 +4,7 @@
 // renewal choices. It is deliberately not paired with the maximum-term corpus:
 // 196 weeks of operating and renewal feedback precede its immutable entry save.
 
+import { rosterWallLiveState } from './live-state.js'
 import { createHash } from 'node:crypto'
 import {
   FOUNDING_MINIMUMS,
@@ -645,6 +646,7 @@ function exactSave(state: GameState): {
   hash: string
   stateHash: string
   imported: SaveFileV11
+  importedState: GameState
 } {
   const save = makeSaveV11(structuredClone(state))
   const bytes = exportSave(save)
@@ -658,13 +660,15 @@ function exactSave(state: GameState): {
   if (exportSave(makeSaveV11(structuredClone(imported.state))) !== bytes) {
     throw new Error('roster-wall player policy: remade entry save changed bytes')
   }
-  assertCashReconciles(imported.state, `Week ${String(imported.state.market.tick)} save`)
+  const importedState = rosterWallLiveState(imported)
+  assertCashReconciles(importedState, `Week ${String(importedState.market.tick)} save`)
   return {
     save,
     bytes,
     hash: sha256(bytes),
-    stateHash: hashState(imported.state),
+    stateHash: hashState(importedState),
     imported,
+    importedState,
   }
 }
 
@@ -673,7 +677,7 @@ function harvestEntry(state: GameState): PlayerPolicyEntryHarvest {
     throw new Error('roster-wall player policy: entry harvest must occur at Week 196')
   }
   const exact = exactSave(state)
-  const freshContinuationImportStateHash = hashState(exact.imported.state)
+  const freshContinuationImportStateHash = hashState(exact.importedState)
   if (freshContinuationImportStateHash !== exact.stateHash) {
     throw new Error('roster-wall player policy: fresh continuation import changed state')
   }
@@ -683,9 +687,9 @@ function harvestEntry(state: GameState): PlayerPolicyEntryHarvest {
     saveBytes: exact.bytes,
     saveHash: exact.hash,
     stateHash: exact.stateHash,
-    rngState: exact.imported.state.rngState,
-    cash: reconcilePlayerPolicyCash(exact.imported.state),
-    roster: entryRoster(exact.imported.state),
+    rngState: exact.importedState.rngState,
+    cash: reconcilePlayerPolicyCash(exact.importedState),
+    roster: entryRoster(exact.importedState),
     replay: {
       importedSaveVersion: 11,
       importReexportByteIdentical: true,
@@ -1103,7 +1107,7 @@ function executePlayerPolicy(
       'roster-wall player policy: continuation did not fresh-load the immutable entry bytes',
     )
   }
-  state = freshEntry.state
+  state = rosterWallLiveState(freshEntry)
   memory = createRenewalPolicyMemory(ROSTER_WALL_ENTRY_WEEK)
   if (hashState(state) !== entry.stateHash || state.rngState !== entry.rngState) {
     throw new Error('roster-wall player policy: continuation did not start from entry bytes')
@@ -1135,7 +1139,7 @@ function executePlayerPolicy(
     episodes,
     expiryMoves,
     boundaryCadence,
-    finalState: final.imported.state,
+    finalState: final.importedState,
     finalSaveBytes: final.bytes,
     finalSaveHash: final.hash,
     finalStateHash: final.stateHash,
@@ -1332,15 +1336,16 @@ function exactPlayerPolicyEntryState(result: RosterWallPlayerPolicyResult): Game
   if (
     reexported !== result.entry.saveBytes ||
     sha256(reexported) !== result.entry.saveHash ||
-    hashState(imported.state) !== result.entry.stateHash ||
+    hashState(rosterWallLiveState(imported)) !== result.entry.stateHash ||
     imported.state.market.tick !== ROSTER_WALL_ENTRY_WEEK
   ) {
     throw new Error(
       'roster-wall player policy evidence: immutable Week-196 entry bytes/hash/state disagree',
     )
   }
-  assertCashReconciles(imported.state, 'serialized Week 196 entry')
-  return imported.state
+  const importedState = rosterWallLiveState(imported)
+  assertCashReconciles(importedState, 'serialized Week 196 entry')
+  return importedState
 }
 
 /** Full contract-governed Week-196 player-policy entry projection. */

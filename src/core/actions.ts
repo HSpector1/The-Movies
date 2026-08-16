@@ -58,17 +58,17 @@ import {
   startCastingSession,
 } from './castingSessions.js'
 import {
-  ANNEX_CAPEX,
-  ANNEX_DURATION_WEEKS,
-  ANNEX_FACILITY_ID,
-  ANNEX_LEDGER_NOTE,
-  ANNEX_PARCEL_ID,
-  ANNEX_PROJECT_ID,
-  ANNEX_PROJECT_KIND,
   annexCanonicalProductionIdCollision,
-  assertStudioConstructionInvariants,
   initialManagedStudioConstruction,
 } from './construction.js'
+import {
+  assertStudioPlacementInvariants,
+  commitPlacement,
+  initialManagedStudioPlacement,
+  legacyAnnexPlacementRequest,
+  placementRegimeReady,
+  queryPlacement,
+} from './placement.js'
 import {
   addManagedProductionWorkflow,
   assignShootingDirector,
@@ -126,6 +126,7 @@ import type {
   Genre,
   GenreExperience,
   LedgerEntry,
+  PlacementRequest,
   PotentialTier,
   Production,
   Promise as FilmPromise,
@@ -1220,10 +1221,11 @@ function applyActivateStudioOperations(
   _action: Action & { kind: 'activateStudioOperations' },
 ): GameState {
   // Activation changes construction authority from legacy-empty to the one
-  // managed parcel. Validate the complete pre-transition boundary first so a
-  // forged legacy capex row, cash divergence, or malformed sibling workflow
-  // cannot be laundered into an apparently vacant managed state.
-  assertStudioConstructionInvariants(state)
+  // managed parcel registry plus a managed (empty) placement root. Validate the
+  // complete pre-transition boundary first so a forged legacy capex row, cash
+  // divergence, or malformed sibling workflow cannot be laundered into an
+  // apparently vacant managed state.
+  assertStudioPlacementInvariants(state)
   if (state.operations.mode !== 'legacy') {
     throw new Error('applyActions: activateStudioOperations rejected — studio operations are already managed')
   }
@@ -1239,6 +1241,11 @@ function applyActivateStudioOperations(
   ) {
     throw new Error(
       'applyActions: activateStudioOperations rejected — legacy construction state is not an empty slate',
+    )
+  }
+  if (state.placement.mode !== 'legacy' || state.placement.facilities.length !== 0) {
+    throw new Error(
+      'applyActions: activateStudioOperations rejected — legacy placement state is not an empty slate',
     )
   }
   if (!economyEngaged(state)) {
@@ -1260,90 +1267,76 @@ function applyActivateStudioOperations(
     ...state,
     operations: initialManagedStudioOperations(),
     construction: initialManagedStudioConstruction(),
+    placement: initialManagedStudioPlacement(),
   }
 }
 
+// ── Placement Core V12 actions ──────────────────────────────────────────────
+//
+// THE BOUNDARY, stated once because it is easy to get wrong: `queryPlacement`
+// REPORTS illegality (a preview must never explode), and the pure
+// `commitPlacement` helper returns the caller's state BY REFERENCE when the quote
+// is not ok (a refused build is provably byte-neutral). The ACTION layer is
+// different: like every other action in this file it THROWS on an illegal
+// command, because an action is an assertion that the command was legal. The two
+// are reconciled here — the action asks the same single query, throws with the
+// quote's `primary` code when it is not ok, and otherwise delegates the mutation
+// to the one commit implementation.
+function rejectIllegalPlacement(
+  state: GameState,
+  actionName: string,
+  request: PlacementRequest,
+): GameState {
+  // Reject malformed/stale state before deriving any transition, so a forged
+  // capex row, cash divergence, or mismatched facility set cannot be laundered
+  // into an apparently legal placement.
+  assertStudioPlacementInvariants(state)
+  if (!placementRegimeReady(state)) {
+    throw new Error(
+      `applyActions: ${actionName} rejected — placement requires managed operations, a founded studio, and an engaged economy`,
+    )
+  }
+  const quote = queryPlacement(state, request)
+  if (!quote.ok) {
+    throw new Error(
+      `applyActions: ${actionName} rejected — ${String(quote.primary)} (${quote.rejections.join(", ")})`,
+    )
+  }
+  const next = commitPlacement(state, request)
+  if (next === state) {
+    throw new Error(
+      `applyActions: ${actionName} rejected — the commit refused a placement its own query accepted`,
+    )
+  }
+  return next
+}
+
+function applyPlaceFacility(
+  state: GameState,
+  action: Action & { kind: 'placeFacility' },
+): GameState {
+  return rejectIllegalPlacement(state, 'placeFacility', action.placement)
+}
+
+// The retained V11 action, now an ALIAS: it commits the Annex blueprint at the
+// legacy expansion parcel's origin. There is exactly one Annex law in V12 and one
+// implementation of it; this action is the shortcut a surface that already knows
+// where the Annex goes can keep calling.
 function applyStartDevelopmentCastingAnnex(
   state: GameState,
   _action: Action & { kind: 'startDevelopmentCastingAnnex' },
 ): GameState {
-  // Reject malformed/stale state before deriving any transition. The exact V11
-  // policy prevents research-only configured facilities from entering production.
-  assertStudioConstructionInvariants(state)
-  if (state.operations.mode !== 'managed' || state.construction.mode !== 'managed') {
-    throw new Error(
-      'applyActions: startDevelopmentCastingAnnex rejected — studio operations and construction are not managed',
-    )
-  }
-  if (!economyEngaged(state)) {
-    throw new Error(
-      'applyActions: startDevelopmentCastingAnnex rejected — the studio economy is not engaged',
-    )
-  }
-  if (state.founding !== null) {
-    throw new Error(
-      'applyActions: startDevelopmentCastingAnnex rejected — the studio is still in its founding draft',
-    )
-  }
-  const parcel = state.construction.parcels[0]
-  if (parcel?.id !== ANNEX_PARCEL_ID || parcel.projectId !== null) {
-    throw new Error(
-      'applyActions: startDevelopmentCastingAnnex rejected — the expansion parcel is not vacant',
-    )
-  }
-  if (state.construction.projects.length !== 0) {
-    throw new Error(
-      'applyActions: startDevelopmentCastingAnnex rejected — the Annex project already exists',
-    )
-  }
-  if (state.operations.facilities.some((facility) => facility.id === ANNEX_FACILITY_ID)) {
-    throw new Error(
-      'applyActions: startDevelopmentCastingAnnex rejected — the Annex facility id is already in use',
-    )
-  }
   const identityCollision = annexCanonicalProductionIdCollision(state)
   if (identityCollision !== null) {
     throw new Error(
       `applyActions: startDevelopmentCastingAnnex rejected — canonical Annex id ${JSON.stringify(identityCollision)} is already reserved by persisted production history`,
     )
   }
-  const affordability = canAfford(state, ANNEX_CAPEX)
-  if (!affordability.ok) {
-    throw new Error(
-      `applyActions: startDevelopmentCastingAnnex rejected — ${affordability.reason} (D-12 solvency gate)`,
-    )
-  }
-
-  const startedWeek = state.market.tick
-  const project = {
-    id: ANNEX_PROJECT_ID,
-    kind: ANNEX_PROJECT_KIND,
-    parcelId: ANNEX_PARCEL_ID,
-    facilityId: ANNEX_FACILITY_ID,
-    status: 'building' as const,
-    capex: ANNEX_CAPEX,
-    startedWeek,
-    dueWeek: startedWeek + ANNEX_DURATION_WEEKS,
-    completedWeek: null,
-  }
-  const entry: LedgerEntry = {
-    week: startedWeek,
-    kind: 'constructionCapex',
-    amount: -ANNEX_CAPEX,
-    constructionProjectId: ANNEX_PROJECT_ID,
-    note: ANNEX_LEDGER_NOTE,
-  }
-
-  return {
-    ...state,
-    studio: { ...state.studio, cash: state.studio.cash - ANNEX_CAPEX },
-    ledger: [...state.ledger, entry],
-    construction: {
-      mode: 'managed',
-      parcels: [{ id: ANNEX_PARCEL_ID, projectId: ANNEX_PROJECT_ID }],
-      projects: [project],
-    },
-  }
+  return rejectIllegalPlacement(
+    state,
+    'startDevelopmentCastingAnnex',
+    legacyAnnexPlacementRequest(),
+  )
 }
 
 function requireActiveProductionForOperations(
@@ -1998,6 +1991,9 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'startDevelopmentCastingAnnex':
         next = applyStartDevelopmentCastingAnnex(next, action)
+        break
+      case 'placeFacility':
+        next = applyPlaceFacility(next, action)
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).

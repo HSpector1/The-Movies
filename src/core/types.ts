@@ -375,12 +375,14 @@ export type LedgerEntryV10 = {
   note: string
 }
 
-export type LedgerKind = LedgerKindV10 | 'constructionCapex'
+export type LedgerKindV11 = LedgerKindV10 | 'constructionCapex'
+export type LedgerKind = LedgerKindV11 | 'facilityOpex'
 
-// Live V11 rows discriminate the one capital event and its exact correlation.
+// Frozen V11 rows discriminate the one capital event and its exact correlation.
 // Construction capex cannot masquerade as film/talent spend, while historical
-// rows cannot carry constructionProjectId.
-export type LedgerEntry =
+// rows cannot carry constructionProjectId. SaveFileV11 stays anchored here so the
+// V12 placement catalog's project ids can never be written under version 11.
+export type LedgerEntryV11 =
   | LedgerEntryV10
   | {
       week: number
@@ -389,6 +391,31 @@ export type LedgerEntry =
       talentId?: never
       productionId?: never
       constructionProjectId: 'construction-development-casting-annex'
+      note: string
+    }
+
+// Live V12 rows. Construction capex now correlates to any catalog placement (the
+// canonical Annex project id remains legal and is what the first Annex-class
+// placement still uses), and the weekly operating cost of operational placed
+// facilities is its own auditable kind carrying no per-film correlation.
+export type LedgerEntry =
+  | LedgerEntryV10
+  | {
+      week: number
+      kind: 'constructionCapex'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId: string
+      note: string
+    }
+  | {
+      week: number
+      kind: 'facilityOpex'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId?: never
       note: string
     }
 
@@ -730,12 +757,140 @@ export type CashLedgerCheckpoint = {
 // root and one optional migration-only cash/ledger checkpoint. Native and already-
 // reconciled states omit the checkpoint, preserving the original V11 byte shape.
 export type GameStateV11 = Omit<GameStateV10, 'ledger'> & {
-  ledger: LedgerEntry[]
+  ledger: LedgerEntryV11[]
   construction: StudioConstruction
   cashLedgerCheckpoint?: CashLedgerCheckpoint
 }
 
-export type GameState = GameStateV11
+// ── Placement Core V12 ───────────────────────────────────────────────────────
+// The tycoon build surface: an authored coarse parcel map over the studio lot, a
+// TUNING blueprint catalog, and monotonic placed-facility records. Occupancy is
+// DERIVED from `placement.facilities[].cells` and is never persisted.
+
+/** One grid cell of the studio lot. Integer coordinates only; there is no Z. */
+export type LotCell = { gx: number; gy: number }
+
+/** An INCLUSIVE grid rectangle (both bounds are inside the rectangle). */
+export type LotRect = { x0: number; y0: number; x1: number; y1: number }
+
+/** Buildable ground, or owned-but-protected ground the studio will not build on. */
+export type ParcelTerrain = 'buildable' | 'blocked'
+
+export type LotParcel = {
+  id: string
+  label: string
+  terrain: ParcelTerrain
+  rect: LotRect
+  // There is no land market this milestone: the studio owns its whole lot from
+  // week zero, so this is uniformly true and `notOwned` means "not the property".
+  ownedFromStart: true
+}
+
+/**
+ * A catalog entry. Blueprints are authored TUNING constants, never persisted:
+ * a placed facility stores only its `blueprintId`, so a catalog correction can
+ * never rewrite a committed cost, duration, or footprint that already happened.
+ */
+export type FacilityBlueprint = {
+  id: string
+  name: string
+  capability: FacilityCapability
+  /** Capacity ONE operational placement of this blueprint contributes. */
+  capacity: number
+  /** Flat rectangular footprint in cells. No Z, no slopes, no rotation in V12. */
+  footprint: { width: number; depth: number }
+  /** Cells that must stay clear of other placed facilities around the footprint. */
+  clearanceRing: number
+  requiresRoadAccess: boolean
+  buildWeeks: number
+  capex: number
+  weeklyOperatingCost: number
+  /** Identity bases; the first placement of the blueprint uses them verbatim. */
+  facilityIdBase: string
+  projectIdBase: string
+  ledgerNote: string
+}
+
+export type PlacementStatus = 'underConstruction' | 'operational'
+
+export type PlacedFacility = {
+  /** Monotonic, never reused. Reserved through `StudioPlacement.nextPlacementId`. */
+  id: number
+  blueprintId: string
+  /** The parcel owning the ORIGIN cell. */
+  parcelId: string
+  origin: LotCell
+  /** Every occupied cell, in fixed reading order (ascending gy, then gx). */
+  cells: LotCell[]
+  /** The `StudioFacility.id` this placement contributes once operational. */
+  facilityId: string
+  /** The `constructionCapex` ledger correlation id. */
+  projectId: string
+  status: PlacementStatus
+  placedWeek: number
+  completesWeek: number
+}
+
+export type StudioPlacementMode = 'legacy' | 'managed'
+
+export type StudioPlacement = {
+  mode: StudioPlacementMode
+  nextPlacementId: number
+  facilities: PlacedFacility[]
+}
+
+/**
+ * The nine rejection codes, in their binding legality ORDER. `primary` is the
+ * first of these present in a quote; money is always last, so a placement that is
+ * both illegal and unaffordable reports the domain failure.
+ */
+export type PlacementRejection =
+  | 'unknownBlueprint'
+  | 'offLot'
+  | 'notOwned'
+  | 'terrainUnbuildable'
+  | 'occupied'
+  | 'clearanceRing'
+  | 'noRoadAccess'
+  | 'seversLot'
+  | 'insufficientFunds'
+
+/** Per-cell verdict. Every cell is evaluated; the query never fails fast. */
+export type PlacementCellVerdict = {
+  cell: LotCell
+  ok: boolean
+  rejection: PlacementRejection | null
+}
+
+export type PlacementRequest = { blueprintId: string; origin: LotCell }
+
+export type PlacementQuote = {
+  ok: boolean
+  blueprintId: string
+  origin: LotCell
+  /** The parcel owning the origin cell, or null when it owns none. */
+  parcelId: string | null
+  cells: LotCell[]
+  cellLegality: PlacementCellVerdict[]
+  /** The authoritative capital cost. A commit charges THIS, never a caller value. */
+  cost: number
+  weeklyOperatingCost: number
+  buildWeeks: number
+  completesOnWeek: number
+  capability: FacilityCapability | null
+  capacityDelta: number
+  rejections: PlacementRejection[]
+  primary: PlacementRejection | null
+}
+
+// SaveFileV11 remains recursively frozen above. SaveFileV12 owns the placement
+// root and widens the live ledger to the catalog's construction/opex rows.
+export type GameStateV12 = Omit<GameStateV11, 'ledger'> & {
+  ledger: LedgerEntry[]
+  placement: StudioPlacement
+}
+
+export type GameState = GameStateV12
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
@@ -816,7 +971,11 @@ export type Action =
   | { kind: 'startCastingSession'; session: StartCastingSessionPayload }
   | { kind: 'acknowledgeCastingSession'; sessionId: string }
   // ── Development & Casting Annex V1 ──
+  // Retained and still legal in V12, where it is an ALIAS for placing the
+  // `development-casting-annex` blueprint at the legacy expansion parcel's origin.
   | { kind: 'startDevelopmentCastingAnnex' }
+  // ── Placement Core V12 ──
+  | { kind: 'placeFacility'; placement: PlacementRequest }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

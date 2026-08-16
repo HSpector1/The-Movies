@@ -335,8 +335,11 @@ export function assertStudioOperationsInvariants(
   operations: StudioOperations,
   productions: readonly Production[],
   options?: {
-    facilityPolicy?: 'initial-v1' | 'configured' | 'annex-v1'
+    facilityPolicy?: 'initial-v1' | 'configured' | 'annex-v1' | 'placement-v12'
     annexOperational?: boolean
+    // Required with `placement-v12`: the exact operational placed facilities that
+    // must follow the initial five, in weekly-completion append order.
+    placedFacilities?: readonly StudioFacility[]
   },
 ): void {
   if (operations.mode === 'legacy') {
@@ -405,6 +408,31 @@ export function assertStudioOperationsInvariants(
           actual.capability === canonical.capability &&
           actual.capacity === canonical.capacity,
         `managed Annex V1 facility at index ${String(i)} differs from ${canonical.id}`,
+      )
+    }
+  } else if (facilityPolicy === 'placement-v12') {
+    // The V12 facility set is the initial five followed by every OPERATIONAL
+    // placed facility, in the order the weekly completion pass appends them.
+    // A construction site contributes nothing until it flips.
+    const placed = options?.placedFacilities
+    invariant(
+      placed !== undefined,
+      'placement-v12 policy requires the exact operational placed facility list',
+    )
+    const expected = [...INITIAL_STUDIO_FACILITIES, ...placed]
+    invariant(
+      operations.facilities.length === expected.length,
+      'managed V12 facility count disagrees with the placement lifecycle',
+    )
+    for (let i = 0; i < expected.length; i++) {
+      const actual = operations.facilities[i]!
+      const canonical = expected[i]!
+      invariant(
+        actual.id === canonical.id &&
+          actual.name === canonical.name &&
+          actual.capability === canonical.capability &&
+          actual.capacity === canonical.capacity,
+        `managed V12 facility at index ${String(i)} differs from ${canonical.id}`,
       )
     }
   }

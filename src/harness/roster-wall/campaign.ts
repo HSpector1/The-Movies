@@ -6,6 +6,7 @@
 // tooling. Vacant-estate parity tests therefore compare this copy against
 // runFacilitiesArm at the exact Week-196 boundary.
 
+import { rosterWallLiveState } from './live-state.js'
 import { createHash } from 'node:crypto'
 import {
   FOUNDING_MINIMUMS,
@@ -1403,7 +1404,7 @@ function harvestSave(state: GameState): {
   if (remadeReexport !== entrySaveBytes) {
     throw new Error('roster-wall observatory: re-made SaveFileV11 changed entry bytes')
   }
-  const entryStateHash = stateHash(validated.state)
+  const entryStateHash = stateHash(rosterWallLiveState(validated))
   if (entryStateHash !== stateHashBefore) {
     throw new Error('roster-wall observatory: SaveFileV11 replay changed entry state')
   }
@@ -1478,7 +1479,7 @@ export function runRosterWallEntryCampaign(
   if (execution.runtime.preEntryWindowEve === null) {
     throw new Error('roster-wall observatory: Week-195 window-eve boundary was not captured')
   }
-  const cohort = cohortAtEntry(harvested.entrySave.state)
+  const cohort = cohortAtEntry(rosterWallLiveState(harvested.entrySave))
   if (
     cohort.some(
       (member) =>

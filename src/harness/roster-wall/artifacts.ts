@@ -4,6 +4,7 @@
 // entry-save sink, strict governed paths, recursive digests, exact governed
 // campaign replay, semantic verification, and byte-for-byte replay comparison.
 
+import { rosterWallLiveState } from './live-state.js'
 import { createHash } from 'node:crypto'
 import {
   appendFileSync,
@@ -3250,11 +3251,12 @@ export function verifyRosterWallAcceptedArtifactDirectory(
     ) {
       throw new Error(`roster-wall artifacts: ${label} disagrees with its exact Week-196 save`)
     }
-    assertAcceptedEntryPayload(row, fact, label, imported.state)
+    const importedState = rosterWallLiveState(imported)
+    assertAcceptedEntryPayload(row, fact, label, importedState)
     if (fact.mode === 'current') {
       shadowEntryAuthorities.set(
         fact.entryId!,
-        deriveShadowEntryAuthority(imported.state, fact.operatingPolicyId!),
+        deriveShadowEntryAuthority(importedState, fact.operatingPolicyId!),
       )
     }
     if (entryLines.has(fact.entryId!)) {

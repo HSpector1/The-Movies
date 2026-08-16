@@ -3,7 +3,6 @@
 // caller-owned mutation. The constants below are the sole production authority
 // for price, duration, and persisted identities.
 
-import { canAfford, economyEngaged, type Affordability } from './employment.js'
 import { assertCastingSessionsInvariants } from './castingSessions.js'
 import {
   assertStudioOperationsInvariants,
@@ -18,6 +17,7 @@ import type {
   GameState,
   LedgerEntry,
   StudioConstruction,
+  StudioFacility,
   StudioOperations,
 } from './types.js'
 
@@ -94,9 +94,13 @@ function isExactAnnexFacility(operations: StudioOperations): boolean {
 
 export type ConstructionInvariantOptions = {
   // `configured` exists only so the committed research observatory can continue
-  // projecting arbitrary counterfactual capacity. SaveFileV11 and production
-  // actions always use the default exact Annex V1 policy.
-  facilityPolicy?: 'annex-v1' | 'configured'
+  // projecting arbitrary counterfactual capacity. SaveFileV11 always uses the
+  // default exact Annex V1 policy; SaveFileV12 always uses `placement-v12`.
+  facilityPolicy?: 'annex-v1' | 'configured' | 'placement-v12'
+  // Required with `placement-v12`: the exact operational placed facilities that
+  // must follow the initial five, in the order the weekly completion pass appends
+  // them. The placement authority owns that list; this checker only enforces it.
+  expectedFacilities?: readonly StudioFacility[]
 }
 
 // Shared action/tick/read/save boundary. Outer exact-key checking belongs to the
@@ -108,9 +112,17 @@ export function assertStudioConstructionInvariants(
   const { construction, operations } = state
   invariant(construction.mode === operations.mode, 'construction mode must equal operations mode')
 
+  // Placement Core V12 owns the capital-project catalog, so under its policy the
+  // capex row's project identity, price, and note are proved against the placement
+  // record instead of the single canonical Annex project. Everything else in this
+  // checker — the retired construction root, cash reconciliation, and the shared
+  // script/casting law — is enforced identically under both policies.
+  const placementOwned = (options?.facilityPolicy ?? 'annex-v1') === 'placement-v12'
+
   const constructionRows = state.ledger.filter((entry) => entry.kind === 'constructionCapex')
   for (const entry of state.ledger) {
     if (entry.kind === 'constructionCapex') {
+      if (placementOwned) continue
       invariant(
         entry.constructionProjectId === ANNEX_PROJECT_ID,
         'construction capex must identify the canonical project',
@@ -130,7 +142,36 @@ export function assertStudioConstructionInvariants(
     (facility) => facility.id === ANNEX_FACILITY_ID,
   )
 
-  if (construction.mode === 'legacy') {
+  if (placementOwned) {
+    // The V11 fixed-parcel project lifecycle has RETIRED into `state.placement`.
+    // What survives here is the mode and the legacy parcel registry, kept so the
+    // V11 root's shape (and every read model over it) stays valid across the bump.
+    invariant(
+      construction.projects.length === 0,
+      'SaveFileV12 retires the V11 construction project root; placement owns every project',
+    )
+    if (construction.mode === 'legacy') {
+      invariant(construction.parcels.length === 0, 'legacy mode must have no parcels')
+    } else {
+      invariant(construction.mode === 'managed', `unknown mode ${String(construction.mode)}`)
+      invariant(construction.parcels.length === 1, 'managed mode must have exactly one parcel')
+      const parcel = construction.parcels[0]!
+      invariant(parcel.id === ANNEX_PARCEL_ID, 'managed parcel id must be expansion')
+      invariant(
+        parcel.projectId === null,
+        'SaveFileV12 retires the V11 parcel/project link; placement owns occupancy',
+      )
+    }
+    const expectedFacilities = options?.expectedFacilities
+    invariant(
+      expectedFacilities !== undefined,
+      'placement-v12 policy requires the exact operational placed facility list',
+    )
+    assertStudioOperationsInvariants(operations, state.studio.activeProductions, {
+      facilityPolicy: 'placement-v12',
+      placedFacilities: expectedFacilities,
+    })
+  } else if (construction.mode === 'legacy') {
     invariant(construction.parcels.length === 0, 'legacy mode must have no parcels')
     invariant(construction.projects.length === 0, 'legacy mode must have no projects')
     invariant(annexFacilities.length === 0, 'legacy mode cannot have an Annex facility')
@@ -417,95 +458,5 @@ export function completeDueConstruction(
       ],
     },
     completed: true,
-  }
-}
-
-export type StudioConstructionView = {
-  mode: 'legacy' | 'managed'
-  status: 'legacy' | 'vacant' | 'building' | 'operational'
-  parcelId: typeof ANNEX_PARCEL_ID | null
-  projectId: typeof ANNEX_PROJECT_ID | null
-  facilityId: typeof ANNEX_FACILITY_ID | null
-  name: typeof ANNEX_NAME
-  capex: typeof ANNEX_CAPEX
-  durationWeeks: typeof ANNEX_DURATION_WEEKS
-  currentWeek: number
-  cash: number
-  cashAfter: number
-  affordability: Affordability
-  canStart: boolean
-  startedWeek: number | null
-  dueWeek: number | null
-  completedWeek: number | null
-  completedAdvances: number
-  remainingAdvances: number
-  currentDevelopmentCastingCapacity: number
-  completedCapacityGain: 0 | 1
-  consequence: string
-}
-
-export function studioConstructionView(
-  state: GameState,
-  options?: ConstructionInvariantOptions,
-): StudioConstructionView {
-  assertStudioConstructionInvariants(state, options)
-  const project = state.construction.projects[0]
-  const status =
-    state.construction.mode === 'legacy'
-      ? 'legacy'
-      : project === undefined
-        ? 'vacant'
-        : project.status === 'building'
-          ? 'building'
-          : 'operational'
-  const completedAdvances =
-    project === undefined
-      ? 0
-      : project.status === 'completed'
-        ? ANNEX_DURATION_WEEKS
-        : Math.max(0, Math.min(ANNEX_DURATION_WEEKS, state.market.tick - project.startedWeek))
-  const remainingAdvances =
-    project === undefined || project.status === 'completed'
-      ? 0
-      : Math.max(0, Math.min(ANNEX_DURATION_WEEKS, project.dueWeek - state.market.tick))
-  const affordability = canAfford(state, ANNEX_CAPEX)
-  const currentDevelopmentCastingCapacity = state.operations.facilities
-    .filter((facility) => facility.capability === 'development-casting')
-    .reduce((sum, facility) => sum + facility.capacity, 0)
-
-  return {
-    mode: state.construction.mode,
-    status,
-    parcelId: state.construction.mode === 'managed' ? ANNEX_PARCEL_ID : null,
-    projectId: project?.id ?? null,
-    facilityId: project?.facilityId ?? null,
-    name: ANNEX_NAME,
-    capex: ANNEX_CAPEX,
-    durationWeeks: ANNEX_DURATION_WEEKS,
-    currentWeek: state.market.tick,
-    cash: state.studio.cash,
-    cashAfter: state.studio.cash - ANNEX_CAPEX,
-    affordability,
-    canStart:
-      status === 'vacant' &&
-      state.founding === null &&
-      economyEngaged(state) &&
-      annexCanonicalProductionIdCollision(state) === null &&
-      affordability.ok,
-    startedWeek: project?.startedWeek ?? null,
-    dueWeek: project?.dueWeek ?? null,
-    completedWeek: project?.completedWeek ?? null,
-    completedAdvances,
-    remainingAdvances,
-    currentDevelopmentCastingCapacity,
-    completedCapacityGain: status === 'operational' ? ANNEX_CAPACITY_GAIN : 0,
-    consequence:
-      status === 'legacy'
-        ? 'Studio Development becomes available after managed studio operations are activated.'
-        : status === 'vacant'
-          ? 'Build one additional shared Development & Casting slot. This does not raise the production ceiling or guarantee another release.'
-          : status === 'building'
-            ? 'Construction is committed. The Annex becomes available after the completing weekly advance; no work is reallocated during that advance.'
-            : 'The Annex is operational and contributes one shared Development & Casting slot.',
   }
 }

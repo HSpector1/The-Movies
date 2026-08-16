@@ -6,6 +6,11 @@
 //
 // Pipeline, in this EXACT order (§3):
 //   1. PRODUCTION  advance active productions
+//   1.5 CONSTRUCTION COMPLETION — the retained V11 Annex pass (a no-op under V12,
+//                  whose construction root carries no projects)
+//   1.6 PLACEMENT COMPLETION — V12 placed facilities become operational (inserted,
+//                  not reordered; same position as 1.5, i.e. BEFORE any capacity
+//                  aggregation, so a site contributes nothing until it flips)
 //   2. RELEASE     finished productions enter release
 //   3. RECEPTION   resolve released films (§5)
 //   4. STANDING    update the three channels (§6)
@@ -13,6 +18,8 @@
 //   5.5 AWARENESS DRIFT — D-17B §1 counter-flow, ENGAGED-ONLY, no RNG (inserted, not reordered;
 //                  D-12 §9 permits insertions — docs/D-12-economy-contract.md:129)
 //   6. DEVELOPMENT D-9.8 talent growth — GATED OFF by default (owner ruling)
+//   7. PAYROLL / 7.5 OVERHEAD / 7.6 PLACED-FACILITY OPERATING COST (V12; inserted,
+//                  not reordered) / 8. CONTRACT EXPIRATION
 //
 // The ONLY randomness consumed FROM THE SIM STREAM (state.rngState) is in
 // RECEPTION (the single §5.3 critic gaussian per release). `applyActions` and the
@@ -45,10 +52,12 @@ import {
   castingOccupiedFacilitySlots,
   completeDueCastingSessions,
 } from './castingSessions.js'
+import { completeDueConstruction } from './construction.js'
 import {
-  assertStudioConstructionInvariants,
-  completeDueConstruction,
-} from './construction.js'
+  assertStudioPlacementInvariants,
+  completeDuePlacements,
+  weeklyPlacementOperatingCost,
+} from './placement.js'
 import { developTalent, type DevelopmentContext } from './development.js'
 import { economyEngaged, weeklyPayroll } from './employment.js'
 import { openTheatricalRun } from './economy.js'
@@ -66,7 +75,7 @@ import {
   flattenParticipants,
   roleDiscipline,
 } from './starPower.js'
-import { TUNING } from './tuning.js'
+import { FACILITY_OPEX_LEDGER_NOTE, TUNING } from './tuning.js'
 import { buildFilmResult, resolveReception, type ReceptionInputs } from './reception.js'
 import { RngStream, stream } from './rng.js'
 import { resolveShape } from './shape.js'
@@ -138,15 +147,14 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   const develop = options?.develop ?? false
   const currentTick = state.market.tick
 
-  // Validate the whole construction/accounting boundary before advancing so a
-  // tick cannot repair malformed empty state, a missing debit, a forged clock,
-  // or a mismatched completed facility. The committed facilities observatory's
-  // project-free counterfactual arms retain their explicit configured-capacity
-  // policy; any real Annex history immediately selects exact Annex V1 truth.
-  assertStudioConstructionInvariants(state, {
-    facilityPolicy:
-      state.construction.projects.length === 0 ? 'configured' : 'annex-v1',
-  })
+  // Validate the whole placement/construction/accounting boundary before advancing
+  // so a tick cannot repair malformed empty state, a missing debit, a forged clock,
+  // or a mismatched completed facility. Placement Core V12 is the single authority:
+  // it owns the placed-facility lifecycle, the capital and operating ledger rows,
+  // and the exact operational facility set, and it delegates the retired V11
+  // construction root, cash reconciliation, and shared script/casting law to the
+  // construction checker under its placement policy.
+  assertStudioPlacementInvariants(state)
 
   // Deserialize the sim stream ONCE. Its state is re-serialized as the final step.
   const rng = RngStream.deserialize(state.rngState)
@@ -199,8 +207,23 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     productionAdvance.operations,
     currentTick + 1,
   )
-  const operations = constructionCompletion.operations
   const construction = constructionCompletion.construction
+
+  // ── 1.6 PLACEMENT COMPLETION (V12) ──────────────────────────────────────
+  // INSERTION, NOT A REORDERING (D-12 §9 permits insertions —
+  // docs/D-12-economy-contract.md:129): steps 1–6 keep their order and meaning.
+  // This sits in EXACTLY the position the V11 Annex completion holds — after this
+  // advance's script, casting, and production allocation, before RELEASE and
+  // therefore before any capacity aggregation. That is the whole point: a placed
+  // facility occupies land and contributes ZERO capacity until it flips here, and
+  // no existing work is reallocated during the completing advance.
+  const placementCompletion = completeDuePlacements(
+    state.placement,
+    constructionCompletion.operations,
+    currentTick + 1,
+  )
+  const operations = placementCompletion.operations
+  const placement = placementCompletion.placement
 
   // ── 2. RELEASE ─────────────────────────────────────────────────────────────
   // Collect productions at remainingTicks === 0 after step 1; the rest stay
@@ -615,6 +638,27 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     }
   }
 
+  // ── 7.6 PLACED-FACILITY OPERATING COST (V12; gated) ────────────────────────
+  // INSERTION, NOT A REORDERING. One aggregated row per week — the convention
+  // payroll and overhead already use — charged for every facility that was
+  // OPERATIONAL at the start of this advance (`state.placement`, deliberately not
+  // the post-completion set): a site that becomes operational during this advance
+  // was still a construction site for the week being charged, so its first
+  // operating charge lands on the NEXT advance. Absent for every state with no
+  // operational placement, so M0A and all pre-V12 histories stay byte-identical.
+  if (engaged && state.founding === null) {
+    const facilityOpex = weeklyPlacementOperatingCost(state.placement)
+    if (facilityOpex > 0) {
+      cash -= facilityOpex
+      ledger.push({
+        week: currentTick,
+        kind: 'facilityOpex',
+        amount: -facilityOpex,
+        note: FACILITY_OPEX_LEDGER_NOTE,
+      })
+    }
+  }
+
   // ── 8. CONTRACT EXPIRATION (D-11.8) ────────────────────────────────────────
   // Contracts whose term ends at or before the NEW week expire; their talent
   // become free agents (deterministic order: existing free agents, then expiring
@@ -660,5 +704,6 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     scriptDevelopment,
     castingSessions,
     construction,
+    placement,
   }
 }

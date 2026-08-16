@@ -3,6 +3,7 @@
 // ANALYSIS ONLY. These rows contain observed public engine facts; they never feed
 // back into simulation behavior.
 
+import { rosterWallLiveState } from './live-state.js'
 import {
   FOUNDING_MINIMUMS,
   TUNING,
@@ -436,7 +437,7 @@ export function makeRosterWallEntryRecord(
   mode: 'current' | 'player-policy',
 ): RosterWallEntryRecord {
   const entryId = rosterWallEntryId(harvest, foundingTermPolicyId)
-  const state = harvest.entrySave.state
+  const state = rosterWallLiveState(harvest.entrySave)
   const activeTheatricalRuns = state.theatricalRuns
     .filter((run) => run.status === 'active')
     .map((run) => structuredClone(run))

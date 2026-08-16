@@ -146,13 +146,58 @@ export {
   initialManagedStudioConstruction,
   assertStudioConstructionInvariants,
   completeDueConstruction,
-  studioConstructionView,
 } from './construction.js'
 export type {
   ConstructionInvariantOptions,
   ConstructionCompletion,
-  StudioConstructionView,
 } from './construction.js'
+
+// ── Placement Core V12 ───────────────────────────────────────────────────────
+export {
+  LOT_DEPTH,
+  LOT_PARCELS,
+  LOT_ROADS,
+  LOT_WIDTH,
+  LEGACY_EXPANSION_PARCEL_ID,
+  cellKey,
+  isOnLot,
+  isRoadCell,
+  parcelAt,
+  parcelById,
+  parcelHasRoadFrontage,
+  placementWouldSeverLot,
+  rectCells,
+} from './lot.js'
+export {
+  PLACEMENT_REJECTION_ORDER,
+  assertStudioPlacementInvariants,
+  blueprintById,
+  clearanceRingCells,
+  commitPlacement,
+  completeDuePlacements,
+  emptyStudioPlacement,
+  expectedWeeklyOperatingCostAt,
+  footprintCells,
+  initialManagedStudioPlacement,
+  legacyAnnexPlacement,
+  legacyAnnexPlacementRequest,
+  occupiedCellKeys,
+  operationalPlacedFacilities,
+  placedStudioFacility,
+  placementRegimeReady,
+  queryPlacement,
+  studioConstructionView,
+  studioPlacementView,
+  weeklyPlacementOperatingCost,
+} from './placement.js'
+export type {
+  PlacedFacilityView,
+  PlacementCatalogView,
+  PlacementCompletion,
+  PlacementParcelView,
+  StudioConstructionView,
+  StudioPlacementView,
+} from './placement.js'
 
 // §2.1 vector math + EPSILON
 export {
@@ -691,6 +736,7 @@ export {
   validateSaveV9,
   validateSaveV10,
   validateSaveV11,
+  validateSaveV12,
   makeSave,
   makeSaveV1,
   makeSaveV2,
@@ -703,6 +749,7 @@ export {
   makeSaveV9,
   makeSaveV10,
   makeSaveV11,
+  makeSaveV12,
   loadSave,
   exportSave,
   importSave,
@@ -745,7 +792,9 @@ export {
   migrateToV10,
   // Development & Casting Annex V1 — legacy V10 → live V11.
   convertV10ToV11,
+  convertV11ToV12,
   migrateToV11,
+  migrateToV12,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -759,6 +808,7 @@ export type {
   SaveFileV9,
   SaveFileV10,
   SaveFileV11,
+  SaveFileV12,
   SaveFile,
   TalentV1,
   GameStateV1,

@@ -455,6 +455,13 @@ const KIND_FIELD: Record<LedgerKind, keyof FinanceTotals> = {
   termination: 'termination',
   publicity: 'publicity',
   constructionCapex: 'construction',
+  // Placement Core V12: the weekly operating cost of operational placed
+  // facilities is its own auditable LEDGER KIND (one aggregated row per week,
+  // correlated to nothing per-film) but it reports inside the existing OVERHEAD
+  // bucket — it is studio overhead that scales with the property, and giving it
+  // a new reporting field would change every finance read model's shape for a
+  // number that belongs beside the weekly overhead it sits next to.
+  facilityOpex: 'overhead',
 }
 
 // Aggregate the whole signed ledger by kind. `net` is the reconciliation total.
@@ -514,6 +521,11 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
         s.payroll += e.amount
         break
       case 'overhead':
+      // Placement Core V12: the weekly placed-facility operating charge is a
+      // distinct kind on the ledger and reports inside the overhead bucket it
+      // economically belongs to (see KIND_FIELD above). It is given an EXPLICIT
+      // case here rather than falling through `default:` or `otherCash`.
+      case 'facilityOpex':
         s.overhead += e.amount
         break
       case 'studioRevenue':
