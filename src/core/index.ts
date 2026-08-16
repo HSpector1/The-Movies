@@ -214,6 +214,24 @@ export type {
   StudioPlacementView,
 } from './placement.js'
 
+// ── Presence Projection V1 ───────────────────────────────────────────────────
+// A pure, save-neutral projection of the CURRENT week into per-person beats.
+// Changes zero outcomes, persists nothing, consumes zero simulation RNG.
+export {
+  BEATS_PER_WEEK,
+  PRESENCE_DEPARTURE_WINDOW,
+  PRESENCE_LAST_WORK_BEAT,
+  studioPresence,
+} from './presence.js'
+export type {
+  PersonPresence,
+  PresenceBeat,
+  PresenceCredit,
+  PresenceEngagement,
+  PresenceWithholding,
+  StudioPresence,
+} from './presence.js'
+
 // §2.1 vector math + EPSILON
 export {
   EPSILON,

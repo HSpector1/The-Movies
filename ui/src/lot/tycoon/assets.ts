@@ -376,6 +376,50 @@ function bakeOffice(scene: Phaser.Scene, key: string, fw: number, fd: number, H:
   finalize(b, key)
 }
 
+/**
+ * The Development & Casting Annex — the first PLACED building on the property.
+ *
+ * Deliberately MODEST: a single-storey annex block, lower than Development (66px) and
+ * Casting (58px), in the same stucco family so it reads as the studio's own extension
+ * rather than a new institution. It carries the framework's flat roof + parapet, one
+ * band of glazing on the lit face, a small entry canopy, and a painted sign field —
+ * so the silhouette is distinguishable from the two gabled offices at institution zoom
+ * while the palette and light direction are identical.
+ *
+ * Its footprint is the blueprint's own (3 × 2 cells), so the sprite lands exactly on
+ * the cells the Engine says the placement occupies.
+ */
+function bakeAnnex(scene: Phaser.Scene): void {
+  const fw = 3
+  const fd = 2
+  const H = 50
+  const b = beginBuilding(scene, fw, fd, H, 14)
+  const { g, p } = b
+  drawWalls(b, fw, fd, H, C.taupe, C.taupeShade)
+  windowsLit(b, fw, fd, H, 5, 1, C.glass, C.windowLit)
+  windowsShade(b, fw, fd, H, fd + 1, 0.36, 0.66)
+  // entry: a recessed door under a shallow canopy on the lit face
+  poly(
+    g,
+    [p(fw / 2 - 0.24, fd, 0), p(fw / 2 + 0.24, fd, 0), p(fw / 2 + 0.24, fd, 26), p(fw / 2 - 0.24, fd, 26)],
+    C.signPanel,
+    0.88,
+  )
+  poly(
+    g,
+    [p(fw / 2 - 0.46, fd, 27), p(fw / 2 + 0.46, fd, 27), p(fw / 2 + 0.46, fd, 32), p(fw / 2 - 0.46, fd, 32)],
+    C.awning,
+  )
+  signField(b, fw, fd, H, 0.72, 0.9, 0.3)
+  flatRoof(b, fw, fd, H)
+  // one rooftop vent stack, so the roof plane is not a bare rectangle at close zoom
+  poly(g, [p(2.15, 0.5, H + 5), p(2.5, 0.5, H + 5), p(2.5, 0.9, H + 5), p(2.15, 0.9, H + 5)], C.slateLit)
+  poly(g, [p(2.15, 0.9, H + 5), p(2.5, 0.9, H + 5), p(2.5, 0.9, H + 15), p(2.15, 0.9, H + 15)], C.slateShade)
+  poly(g, [p(2.15, 0.5, H + 15), p(2.5, 0.5, H + 15), p(2.5, 0.9, H + 15), p(2.15, 0.9, H + 15)], C.slate)
+  TYCOON_BUILDING_TEX['tw-annex'] = { key: 'tw-annex', originX: 0.5, originY: b.originY, fw, fd }
+  finalize(b, 'tw-annex')
+}
+
 function bakePost(scene: Phaser.Scene): void {
   const fw = 3
   const fd = 2
@@ -897,6 +941,7 @@ export function bakeTycoonTextures(scene: Phaser.Scene): void {
   bakeAdmin(scene)
   bakeOffice(scene, 'tw-writers', 3, 2, 66, 32)
   bakeOffice(scene, 'tw-casting', 3, 2, 58, 28)
+  bakeAnnex(scene)
   bakePost(scene)
   bakeTheater(scene)
   bakeStage(scene, 'tw-stage-a')

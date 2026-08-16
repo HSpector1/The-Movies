@@ -46,6 +46,10 @@ export type RngPurpose =
   // Casting Sessions V1: isolated camera-test evidence, keyed by
   // sessionId:talentId:slot. Derived-only, so completion never advances rngState.
   | 'casting-v1'
+  // Presence Projection V1: the COSMETIC per-person departure stagger inside a
+  // week, keyed talentId:week. Derived-only and read by a projection that writes
+  // nothing, so presentation consumes zero simulation RNG and replay stays exact.
+  | 'presence-v1'
 
 // A 32-bit hash accumulator step (splitmix32 finalizer). Deterministic, avalanche-y.
 function splitmix32(seed: number): { value: number; next: number } {

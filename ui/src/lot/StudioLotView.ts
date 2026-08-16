@@ -29,7 +29,13 @@ import {
   type HollywoodProductionSelection,
   type HollywoodSceneryLoadInSelection,
 } from './hollywood/HollywoodScene'
-import { TycoonScene, type TycoonEvent } from './tycoon/TycoonScene'
+import {
+  TycoonScene,
+  type TycoonBuildMode,
+  type TycoonEvent,
+  type TycoonPlacementPreview,
+} from './tycoon/TycoonScene'
+import type { LotCellPoint } from './snapshot/StudioLotSnapshot'
 import type { LotPersonState } from './snapshot/StudioLotSnapshot'
 
 export type { CameraPreset, CharacterInfo, MomentKind }
@@ -98,7 +104,20 @@ export type StudioLotViewOptions = {
    * navigation can never route to different owners.
    */
   onWorldBuilding?: (buildingId: BuildingId) => void
+  /**
+   * Build Mode V1: a parcel of the studio's own ground was activated in the world. The
+   * host lands the SAME in-world panel its companion control lands (shift law 10).
+   */
+  onWorldParcel?: (parcelId: string) => void
+  /**
+   * A build-mode origin was pointed at on the canvas. Presentation INTENT only — the
+   * host owns the draft, runs the Engine's own `queryPlacement`, and hands the verdict
+   * back down as a preview. Nothing here commits or enters simulation state.
+   */
+  onWorldBuildOrigin?: (parcelId: string, origin: LotCellPoint) => void
 }
+
+export type { TycoonBuildMode, TycoonPlacementPreview }
 
 export class StudioLotView {
   private game: Phaser.Game
@@ -218,6 +237,8 @@ export class StudioLotView {
       return
     }
     if (e.type === 'building') this.opts.onWorldBuilding?.(e.buildingId)
+    else if (e.type === 'parcel') this.opts.onWorldParcel?.(e.parcelId)
+    else if (e.type === 'build-origin') this.opts.onWorldBuildOrigin?.(e.parcelId, e.origin)
     else if (e.type === 'person') this.opts.onHollywoodPerson?.(e.person)
     else if (e.type === 'place') this.opts.onHollywoodPlace?.(e.place)
     else if (e.type === 'production') this.opts.onHollywoodProduction?.(e.production)
@@ -513,5 +534,47 @@ export class StudioLotView {
   /** Debug/evidence seam: exact snapshot-derived Hollywood state, no GameState access. */
   hollywoodDebugState(): ReturnType<HollywoodScene['debugState']> | null {
     return this.hollywoodScene?.debugState() ?? null
+  }
+
+  // ── Build Mode V1 ──────────────────────────────────────────────────────────
+  // Grid-world only. The painted plate has no parcel substrate, so every command
+  // below is a no-op there and reports it, exactly as `camera()` already does.
+
+  /** Paint a parcel from the host without emitting a scene event. */
+  selectWorldParcel(parcelId: string): boolean {
+    return this.tycoonScene?.selectParcelFromHost(parcelId) ?? false
+  }
+
+  clearWorldParcelSelection(): void {
+    this.tycoonScene?.clearParcelSelection()
+  }
+
+  focusWorldParcel(parcelId: string): boolean {
+    return this.tycoonScene?.focusParcel(parcelId) ?? false
+  }
+
+  /** Enter/leave the bounded in-world build flow. */
+  setWorldBuildMode(mode: TycoonBuildMode | null): void {
+    this.tycoonScene?.setBuildMode(mode)
+  }
+
+  /** Hand the world the current ghost. Nothing here enters simulation state. */
+  setWorldPlacementPreview(preview: TycoonPlacementPreview | null): void {
+    this.tycoonScene?.setPlacementPreview(preview)
+  }
+
+  /** Evidence seam: the live camera's grid → screen transform (browser suite). */
+  worldProjection(): ReturnType<TycoonScene['worldProjection']> | null {
+    return this.tycoonScene?.worldProjection() ?? null
+  }
+
+  /** Evidence seam: where a named cell's centre lands, as a fraction of the canvas. */
+  worldCellFraction(gx: number, gy: number): { fx: number; fy: number } | null {
+    return this.tycoonScene?.cellViewportFraction(gx, gy) ?? null
+  }
+
+  /** Debug/evidence seam for the grid world specifically. */
+  tycoonDebugState(): ReturnType<TycoonScene['debugState']> | null {
+    return this.tycoonScene?.debugState() ?? null
   }
 }

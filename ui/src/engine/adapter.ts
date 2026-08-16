@@ -191,6 +191,10 @@ import {
   studioCalendar as coreStudioCalendar,
   // Development & Casting Annex V1 — one core-owned lifecycle projection.
   studioConstructionView as coreStudioConstructionView,
+  // Placement Core V12 — the one construction authority (M2-UI Build Mode).
+  studioPlacementView as coreStudioPlacementView,
+  queryPlacement as coreQueryPlacement,
+  PLACEMENT_REJECTION_ORDER,
 } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
@@ -211,6 +215,7 @@ import type {
   LotAnnexWork,
   LotAnnexWorkOccupant,
   LotGateHiringMarket,
+  LotPlacementProjection,
   LotProductionCompanyMember,
   LotProductionCompanyRole,
   ProductionOperationsState,
@@ -312,6 +317,15 @@ import type {
   StudioCalendarExpiryClusterView,
   StudioCalendarSummaryView,
   StudioConstructionView,
+  StudioPlacementView,
+  PlacementParcelView,
+  PlacementCatalogView,
+  PlacedFacilityView,
+  PlacementQuote,
+  PlacementRequest,
+  PlacementRejection,
+  PlacementCellVerdict,
+  LotCell,
 } from '../../../src/core/index.ts'
 
 // Re-export the core types the UI needs, so components import types from the
@@ -406,6 +420,15 @@ export type {
   StudioCalendarExpiryClusterView,
   StudioCalendarSummaryView,
   StudioConstructionView,
+  StudioPlacementView,
+  PlacementParcelView,
+  PlacementCatalogView,
+  PlacedFacilityView,
+  PlacementQuote,
+  PlacementRequest,
+  PlacementRejection,
+  PlacementCellVerdict,
+  LotCell,
 }
 
 export const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support']
@@ -854,6 +877,38 @@ export function studioDevelopment(state: GameState): StudioConstructionView {
 export function startDevelopmentCastingAnnexAction(state: GameState): ActionOutcome {
   try {
     return { ok: true, next: applyActions(state, [{ kind: 'startDevelopmentCastingAnnex' }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+// ── Placement Core V12 / Build Mode V1: read + query + commit ────────────────
+// Three functions, one boundary. The UI reads the property with `studioPlacement`,
+// asks "would this be legal, and what would it cost?" with `placementQuote` (pure,
+// never throws, evaluates every cell), and commits with `placeFacilityAction`. The
+// engine re-runs its own query inside the commit and charges its own price — the
+// quote a preview holds is display-only and can never become an input to the charge.
+
+/** The whole property: parcels, what stands on them, the catalog, buildEnabled. */
+export function studioPlacement(state: GameState): StudioPlacementView {
+  return coreStudioPlacementView(state)
+}
+
+/** Pure legality + price for one candidate placement. Never throws on illegality. */
+export function placementQuote(state: GameState, request: PlacementRequest): PlacementQuote {
+  return coreQueryPlacement(state, request)
+}
+
+/** The binding legality order, so a surface can order its own messages identically. */
+export const PLACEMENT_REJECTION_SEQUENCE: readonly PlacementRejection[] =
+  PLACEMENT_REJECTION_ORDER
+
+export function placeFacilityAction(
+  state: GameState,
+  placement: PlacementRequest,
+): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'placeFacility', placement }]) }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -5593,6 +5648,70 @@ function managedRosterPresence(
  * Project the authoritative GameState into the lot presentation snapshot. Pure,
  * deterministic, non-mutating. The single source the Studio Lot renders from.
  */
+/**
+ * Build Mode V1 — the property, projected for the world to paint.
+ *
+ * A field-for-field copy of the Engine's own `studioPlacementView`, plus ONE derived
+ * presentation number: `progress01`, the same completed-advances ÷ build-weeks fraction
+ * the retained Annex surface already shows. The lot never computes a legality, a price,
+ * or a completion week of its own.
+ */
+function lotPlacementProjection(state: GameState): LotPlacementProjection {
+  const view = coreStudioPlacementView(state)
+  return {
+    mode: view.mode,
+    currentWeek: view.currentWeek,
+    buildEnabled: view.buildEnabled,
+    lotWidth: view.lotWidth,
+    lotDepth: view.lotDepth,
+    parcels: view.parcels.map((parcel) => ({
+      id: parcel.id,
+      label: parcel.label,
+      terrain: parcel.terrain,
+      rect: { x0: parcel.rect.x0, y0: parcel.rect.y0, x1: parcel.rect.x1, y1: parcel.rect.y1 },
+      roadFrontage: parcel.roadFrontage,
+      occupiedCells: parcel.occupiedCells,
+      placedFacilityIds: [...parcel.placedFacilityIds],
+    })),
+    placements: view.placements.map((placed) => {
+      const buildWeeks = Math.max(1, placed.completesWeek - placed.placedWeek)
+      const completedAdvances =
+        placed.status === 'operational'
+          ? buildWeeks
+          : Math.max(0, Math.min(buildWeeks, view.currentWeek - placed.placedWeek))
+      return {
+        id: placed.id,
+        blueprintId: placed.blueprintId,
+        name: placed.name,
+        facilityId: placed.facilityId,
+        parcelId: placed.parcelId,
+        origin: { gx: placed.origin.gx, gy: placed.origin.gy },
+        cells: placed.cells.map((cell) => ({ gx: cell.gx, gy: cell.gy })),
+        status: placed.status,
+        placedWeek: placed.placedWeek,
+        completesWeek: placed.completesWeek,
+        weeksRemaining: placed.weeksRemaining,
+        progress01: completedAdvances / buildWeeks,
+        weeklyOperatingCost: placed.weeklyOperatingCost,
+      }
+    }),
+    catalog: view.catalog.map((blueprint) => ({
+      blueprintId: blueprint.blueprintId,
+      name: blueprint.name,
+      capability: blueprint.capability,
+      capacity: blueprint.capacity,
+      footprint: { width: blueprint.footprint.width, depth: blueprint.footprint.depth },
+      clearanceRing: blueprint.clearanceRing,
+      requiresRoadAccess: blueprint.requiresRoadAccess,
+      buildWeeks: blueprint.buildWeeks,
+      cost: blueprint.cost,
+      weeklyOperatingCost: blueprint.weeklyOperatingCost,
+      affordable: blueprint.affordable,
+    })),
+    weeklyOperatingCost: view.weeklyOperatingCost,
+  }
+}
+
 export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
   const week = state.market.tick
   const cash = state.studio.cash
@@ -6096,6 +6215,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
     },
     publicityOffers: publicityDecision(state),
     annexWork,
+    placement: lotPlacementProjection(state),
     activeProductions,
     releasedFilms,
     releasePresence,

@@ -316,6 +316,78 @@ export type BuildingState = {
   constructionProgressText?: string
 }
 
+// ── Build Mode V1 (M2-UI) — the placement facts the world paints ─────────────
+//
+// These mirror the Engine's `studioPlacementView(state)` projection field for field.
+// Nothing here is a rule: the lot never decides what may be built, only what stands
+// on the property right now. Legality for a CANDIDATE placement is a separate pure
+// `queryPlacement` call the host runs per draft revision, and its result never
+// enters this snapshot — a ghost is a UI-only layer (CODE-MINING-LEDGER Entry 2).
+
+/** One grid cell of the lot, in the renderer's own (gx, gy) convention. */
+export type LotCellPoint = { gx: number; gy: number }
+
+/** Inclusive grid rectangle, exactly as the Engine's parcel map authors it. */
+export type LotGridRect = { x0: number; y0: number; x1: number; y1: number }
+
+/** One authored parcel of the studio's own ground. */
+export type LotParcelState = {
+  id: string
+  label: string
+  terrain: 'buildable' | 'blocked'
+  rect: LotGridRect
+  roadFrontage: boolean
+  occupiedCells: number
+  placedFacilityIds: number[]
+}
+
+/** One facility standing on the lot — a construction site, or an operational building. */
+export type LotPlacedFacilityState = {
+  id: number
+  blueprintId: string
+  name: string
+  facilityId: string
+  parcelId: string
+  origin: LotCellPoint
+  cells: LotCellPoint[]
+  status: 'underConstruction' | 'operational'
+  placedWeek: number
+  completesWeek: number
+  weeksRemaining: number
+  /** Completed advances ÷ build weeks, 0..1. Presentation only; core owns the clock. */
+  progress01: number
+  weeklyOperatingCost: number
+}
+
+/** One buildable blueprint the catalog offers. */
+export type LotBlueprintState = {
+  blueprintId: string
+  name: string
+  capability: string
+  capacity: number
+  footprint: { width: number; depth: number }
+  clearanceRing: number
+  requiresRoadAccess: boolean
+  buildWeeks: number
+  cost: number
+  weeklyOperatingCost: number
+  affordable: boolean
+}
+
+/** The complete placement truth of the property this week. */
+export type LotPlacementProjection = {
+  mode: 'legacy' | 'managed'
+  currentWeek: number
+  /** May a placement be committed at all this week (managed regime, engaged economy)? */
+  buildEnabled: boolean
+  lotWidth: number
+  lotDepth: number
+  parcels: LotParcelState[]
+  placements: LotPlacedFacilityState[]
+  catalog: LotBlueprintState[]
+  weeklyOperatingCost: number
+}
+
 /** One exact, currently signable contract-market visitor the Gate may present. */
 export type LotGateHiringCandidate = {
   talentId: string
@@ -352,6 +424,11 @@ type StudioLotSnapshotBase = {
   publicityOffers: LotPublicityOffer[]
   /** Exact Operational Annex slot truth, or null before the Annex is operational. */
   annexWork: LotAnnexWork | null
+  /**
+   * Build Mode V1 placement truth. Optional ONLY so the older hand-authored
+   * presentation fixtures stay source-compatible; `studioLotSnapshot()` always emits it.
+   */
+  placement?: LotPlacementProjection
   /** Films shooting now — drives which stages are lit and their progress. */
   activeProductions: ProductionCard[]
   /** Recent releases — drives the theater marquee. */

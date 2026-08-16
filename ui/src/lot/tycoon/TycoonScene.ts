@@ -21,7 +21,12 @@
 import Phaser from 'phaser'
 import type {
   BuildingId,
+  LotCellPoint,
+  LotGridRect,
+  LotParcelState,
   LotPersonState,
+  LotPlacedFacilityState,
+  LotPlacementProjection,
   ProductionOperationsState,
   StudioLotSnapshot,
 } from '../snapshot/StudioLotSnapshot'
@@ -34,7 +39,7 @@ import {
 } from '../snapshot/productionCompany.ts'
 import { sceneryLoadInContext } from '../snapshot/sceneryLoadIn.ts'
 import { stage7ProductionDetailContext } from '../snapshot/stage7Production.ts'
-import { TILE_H, TILE_W, gridToScreen } from '../scene/iso.ts'
+import { TILE_H, TILE_W, gridToScreen, screenToGrid } from '../scene/iso.ts'
 import { Rng } from '../scene/rng.ts'
 import {
   ROLE_ATLAS_DECODED_BYTES,
@@ -141,21 +146,75 @@ const OTHER_COMPANY_ALPHA = 0.72
 
 const DEPTH = {
   ground: -1_000_000,
+  /** Parcel hit areas sit BELOW every building, so a building always wins an overlap. */
+  parcelZone: 0.05,
   buildingZoneBase: 0.5,
   yardZone: 0.2,
   worldOverlay: 200_000,
+  /** The build-mode ghost paints above world overlays but below the selection ring. */
+  placementPreview: 400_000,
   selection: 700_000,
   label: 900_000,
   nameplate: 950_000,
   flash: 960_000,
 } as const
 
+/** Which baked building texture an operational placed facility wears. */
+const PLACEMENT_TEX_BY_BLUEPRINT: Readonly<Record<string, string>> = {
+  'development-casting-annex': 'tw-annex',
+}
+
+/**
+ * The legacy fixed Annex parcel. Its ground is already owned by the `expansion` place
+ * and painted by `paintExpansion`, so the generic placement layer stands off it — one
+ * piece of ground, one owner (shift law 10).
+ */
+const ANNEX_PARCEL_ID = 'expansion'
+
+/**
+ * Ghost verdict colours. Deliberately NOT the status-lamp greens/reds: a preview is
+ * chrome over the world, so it reads at full saturation against the warm palette.
+ * Colour is never the only channel — the caption states the verdict in words and the
+ * Build button's own enabled-state carries it into the DOM.
+ */
+const PREVIEW_OK = 0x5fd08a
+const PREVIEW_BAD = 0xe2604f
+/** How tall the ghost's massing hint stands, in screen px at zoom 1. */
+const PREVIEW_MASS_HEIGHT = 54
+
 type Point = { x: number; y: number }
+
+/**
+ * The build-mode ghost, handed down from the host. It is PURE PRESENTATION and it is
+ * never derived here: `ok` and every per-cell verdict come from the Engine's own
+ * `queryPlacement`, which the host runs once per draft revision. Nothing in this shape
+ * enters simulation state — Entry 2's cautionary tale about donor ghosts living as real
+ * world elements is the reason the preview is its own UI-only layer.
+ */
+export type TycoonPlacementPreview = {
+  blueprintId: string
+  parcelId: string
+  origin: LotCellPoint
+  cells: { gx: number; gy: number; ok: boolean }[]
+  ok: boolean
+  /** One short caption painted with the ghost: the quote, or the primary rejection. */
+  caption: string
+}
+
+/** The bounded build flow the world is currently inside, or null. */
+export type TycoonBuildMode = {
+  parcelId: string
+  footprint: { width: number; depth: number }
+}
 
 export type TycoonEvent =
   | HollywoodEvent
   /** A physical place was activated: the host runs the exact same verb the DOM list runs. */
   | { type: 'building'; buildingId: BuildingId }
+  /** A parcel of the studio's own ground was activated. */
+  | { type: 'parcel'; parcelId: string }
+  /** A build-mode origin was pointed at. Presentation intent only; it commits nothing. */
+  | { type: 'build-origin'; parcelId: string; origin: LotCellPoint }
 
 export type TycoonSceneData = {
   snapshot: StudioLotSnapshot
@@ -221,6 +280,22 @@ export class TycoonScene extends Phaser.Scene {
   private expansionLabel: Phaser.GameObjects.Text | null = null
   private yardZone: Phaser.GameObjects.Zone | null = null
   private flash: Phaser.GameObjects.Rectangle | null = null
+
+  // ── Build Mode V1 ───────────────────────────────────────────────────────────
+  /** Latest placement truth, delivered on the snapshot. Never authored here. */
+  private placement: LotPlacementProjection | null = null
+  private parcelZones = new Map<string, Phaser.GameObjects.Zone>()
+  private parcelGraphics: Phaser.GameObjects.Graphics | null = null
+  private siteGraphics: Phaser.GameObjects.Graphics | null = null
+  private placementSprites = new Map<number, Phaser.GameObjects.Sprite>()
+  private placementLabels = new Map<number, Phaser.GameObjects.Text>()
+  private previewGraphics: Phaser.GameObjects.Graphics | null = null
+  private previewLabel: Phaser.GameObjects.Text | null = null
+  private preview: TycoonPlacementPreview | null = null
+  private buildMode: TycoonBuildMode | null = null
+  private selectedParcelId: string | null = null
+  /** Last origin reported to the host, so a mouse crossing one cell emits once. */
+  private lastHoverOrigin: LotCellPoint | null = null
 
   private selectedPersonId: string | null = null
   private selectedPlaceId: string | null = null
@@ -361,6 +436,8 @@ export class TycoonScene extends Phaser.Scene {
     this.clearPublicityVisual()
     this.discardGateVisitor()
     this.clearPlaceSelection()
+    this.clearParcelSelection()
+    this.setBuildMode(null)
     this.scene.setVisible(false)
     this.scene.pause()
   }
@@ -798,6 +875,35 @@ export class TycoonScene extends Phaser.Scene {
     this.sceneryGraphics = this.add.graphics().setDepth(DEPTH.worldOverlay).setName('tier:scenery-load-in')
     this.activityGraphics = this.add.graphics().setDepth(DEPTH.worldOverlay - 1).setName('tier:stage-activity')
 
+    // Build Mode V1 layers. The parcel outline sits just above the ground so a building
+    // never hides behind it; construction sites sort with the world; the ghost is chrome.
+    this.parcelGraphics = this.add
+      .graphics()
+      .setDepth(DEPTH.ground + 1)
+      .setName('tier:parcel-outline')
+    this.siteGraphics = this.add
+      .graphics()
+      .setDepth(DEPTH.worldOverlay - 2)
+      .setName('tier:placement-sites')
+    this.previewGraphics = this.add
+      .graphics()
+      .setDepth(DEPTH.placementPreview)
+      .setName('tier:placement-preview')
+    this.previewLabel = this.add
+      .text(0, 0, '', {
+        fontFamily: FONT_SANS,
+        fontSize: '13px',
+        fontStyle: 'bold',
+        color: '#f6ebd2',
+        backgroundColor: '#1f3524ee',
+        padding: { x: 9, y: 5 },
+        align: 'center',
+      })
+      .setOrigin(0.5, 1)
+      .setDepth(DEPTH.nameplate)
+      .setVisible(false)
+      .setName('tier:placement-preview-label')
+
     const annex = PLACE_BY_BUILDING.expansion
     this.expansionGraphics = this.add
       .graphics()
@@ -857,6 +963,461 @@ export class TycoonScene extends Phaser.Scene {
     ]
   }
 
+  // ── Build Mode V1 — parcels, placed facilities, and the ghost ───────────────
+  //
+  // Three layers, in depth order: parcel hit areas and their outline (below every
+  // building), the facilities actually standing on the property (construction sites
+  // drawn from truth, operational buildings as sprites), and the UI-only ghost.
+  //
+  // The scene decides NONE of it. Parcels, footprints, statuses and progress all
+  // arrive on the snapshot from the Engine's own `studioPlacementView`; the ghost's
+  // per-cell verdicts arrive from the host's `queryPlacement`. Nothing here starts a
+  // build, completes one, or advances a construction week (shift law 2).
+
+  /** One cell's ground diamond, in screen space. */
+  private cellDiamond(cell: LotCellPoint): Point[] {
+    return [
+      this.world(cell.gx, cell.gy),
+      this.world(cell.gx + 1, cell.gy),
+      this.world(cell.gx + 1, cell.gy + 1),
+      this.world(cell.gx, cell.gy + 1),
+    ]
+  }
+
+  private static cellsExtent(cells: readonly LotCellPoint[]): LotGridRect | null {
+    if (cells.length === 0) return null
+    let x0 = Number.POSITIVE_INFINITY
+    let y0 = Number.POSITIVE_INFINITY
+    let x1 = Number.NEGATIVE_INFINITY
+    let y1 = Number.NEGATIVE_INFINITY
+    for (const cell of cells) {
+      if (cell.gx < x0) x0 = cell.gx
+      if (cell.gy < y0) y0 = cell.gy
+      if (cell.gx > x1) x1 = cell.gx
+      if (cell.gy > y1) y1 = cell.gy
+    }
+    return { x0, y0, x1, y1 }
+  }
+
+  private fillPolygon(
+    g: Phaser.GameObjects.Graphics,
+    points: readonly Point[],
+    colour: number,
+    alpha: number,
+  ): void {
+    g.fillStyle(colour, alpha)
+    g.fillPoints(
+      points.map((p) => new Phaser.Math.Vector2(p.x, p.y)),
+      true,
+    )
+  }
+
+  private strokePolygon(
+    g: Phaser.GameObjects.Graphics,
+    points: readonly Point[],
+    colour: number,
+    width: number,
+    alpha: number,
+  ): void {
+    g.lineStyle(width, colour, alpha)
+    g.strokePoints(
+      points.map((p) => new Phaser.Math.Vector2(p.x, p.y)),
+      true,
+    )
+  }
+
+  /**
+   * Create one hit area per BUILDABLE parcel, once, when the first placement
+   * projection arrives. The parcel map is authored engine data and never changes
+   * shape, so these are built once and then only repainted.
+   *
+   * Shift law 10 — hotspots must be pairwise disjoint and the canvas must route to the
+   * same owner as the companion. The legacy `expansion` parcel is deliberately EXCLUDED:
+   * the Annex place already owns that ground with its own richer context, and giving the
+   * parcel a second overlapping hotspot there would be exactly the ambiguity the law
+   * forbids. Blocked parcels get no hotspot because nothing may ever be built on them.
+   */
+  private ensureParcelZones(placement: LotPlacementProjection): void {
+    if (this.parcelZones.size > 0) return
+    for (const parcel of placement.parcels) {
+      if (parcel.terrain !== 'buildable') continue
+      if (parcel.id === ANNEX_PARCEL_ID) continue
+      const polygon = this.rectPolygon(parcel.rect)
+      const zone = this.add
+        .zone(0, 0, 1, 1)
+        .setOrigin(0)
+        .setDepth(DEPTH.parcelZone)
+        .setName(`hit:parcel:${parcel.id}`)
+      zone.setInteractive(
+        new Phaser.Geom.Polygon(polygon.map((p) => ({ x: p.x, y: p.y }))),
+        Phaser.Geom.Polygon.Contains,
+      )
+      if (zone.input) zone.input.cursor = 'pointer'
+      zone.on('pointerover', () => {
+        if (this.inputSuspended || this.buildMode !== null) return
+        if (this.selectedParcelId === null && this.selectedPlaceId === null) {
+          this.paintParcelOutline(parcel, false)
+        }
+      })
+      zone.on('pointerout', () => {
+        if (this.selectedParcelId === null) this.parcelGraphics?.clear()
+      })
+      zone.on('pointerup', (pointer: Phaser.Input.Pointer) => {
+        if (!this.isCanvasPointer(pointer) || this.dragMoved) return
+        pointer.event.stopPropagation?.()
+        // Inside the bounded build flow a ground click MOVES THE GHOST; it never
+        // re-selects a parcel and it never commits (the commit is an explicit button).
+        if (this.buildMode !== null) {
+          this.pointBuildOriginAt(pointer)
+          return
+        }
+        this.activateParcel(parcel.id)
+      })
+      this.parcelZones.set(parcel.id, zone)
+    }
+  }
+
+  /** ONE activation seam for a parcel, shared by the canvas and the host (law 10). */
+  private activateParcel(parcelId: string): void {
+    const parcel = this.parcelById(parcelId)
+    if (parcel === null) return
+    this.clearPlaceSelection()
+    this.selectedParcelId = parcelId
+    this.paintParcelOutline(parcel, true)
+    this.emitEvent({ type: 'parcel', parcelId })
+  }
+
+  private parcelById(parcelId: string): LotParcelState | null {
+    return this.placement?.parcels.find((parcel) => parcel.id === parcelId) ?? null
+  }
+
+  private paintParcelOutline(parcel: LotParcelState, selected: boolean): void {
+    const g = this.parcelGraphics
+    if (!g) return
+    g.clear()
+    const polygon = this.rectPolygon(parcel.rect)
+    this.fillPolygon(g, polygon, selected ? C.selection : C.hover, selected ? 0.16 : 0.08)
+    this.strokePolygon(g, polygon, selected ? C.selection : C.hover, selected ? 3.5 : 2, 0.95)
+  }
+
+  /** Host/DOM parity: paint a parcel without emitting an event. */
+  selectParcelFromHost(parcelId: string): boolean {
+    const parcel = this.parcelById(parcelId)
+    if (parcel === null) return false
+    this.clearPlaceSelection()
+    this.selectedParcelId = parcelId
+    this.paintParcelOutline(parcel, true)
+    return true
+  }
+
+  clearParcelSelection(): void {
+    this.selectedParcelId = null
+    this.parcelGraphics?.clear()
+  }
+
+  /** Frame a parcel the way `focusPlace` frames a building. */
+  focusParcel(parcelId: string): boolean {
+    const parcel = this.parcelById(parcelId)
+    if (parcel === null) return false
+    const camera = this.cameras.main
+    const at = this.world((parcel.rect.x0 + parcel.rect.x1 + 1) / 2, (parcel.rect.y0 + parcel.rect.y1 + 1) / 2)
+    const zoom = clampZoom(this.fitZoom() * 2.0)
+    if (this.reducedMotion) {
+      camera.setZoom(zoom)
+      camera.centerOn(at.x, at.y)
+      return true
+    }
+    camera.pan(at.x, at.y, 520, 'Sine.easeInOut')
+    camera.zoomTo(zoom, 520, 'Sine.easeInOut')
+    return true
+  }
+
+  /**
+   * Enter or leave the bounded build flow. While it is active the world's ordinary
+   * activation seams stand down: a pointer over the lot points the GHOST instead of
+   * selecting places, exactly as a build cursor should.
+   */
+  setBuildMode(mode: TycoonBuildMode | null): void {
+    this.buildMode = mode
+    this.lastHoverOrigin = null
+    if (mode === null) {
+      this.setPlacementPreview(null)
+      this.input.setDefaultCursor('grab')
+      return
+    }
+    this.input.setDefaultCursor('crosshair')
+    const parcel = this.parcelById(mode.parcelId)
+    if (parcel !== null) {
+      this.selectedParcelId = mode.parcelId
+      this.paintParcelOutline(parcel, true)
+    }
+  }
+
+  /** Accept the host's ghost. Identical input yields an identical repaint. */
+  setPlacementPreview(preview: TycoonPlacementPreview | null): void {
+    this.preview = preview
+    this.paintPreview()
+  }
+
+  private paintPreview(): void {
+    const g = this.previewGraphics
+    const label = this.previewLabel
+    if (!g || !label) return
+    g.clear()
+    const preview = this.preview
+    if (preview === null || preview.cells.length === 0) {
+      label.setVisible(false)
+      return
+    }
+
+    // EVALUATE EVERY CELL (Entry 3): each cell carries its own verdict and each cell is
+    // painted, so a player can see exactly WHICH corner of a footprint is the problem.
+    for (const cell of preview.cells) {
+      const diamond = this.cellDiamond(cell)
+      this.fillPolygon(g, diamond, cell.ok ? PREVIEW_OK : PREVIEW_BAD, 0.42)
+      this.strokePolygon(g, diamond, cell.ok ? PREVIEW_OK : PREVIEW_BAD, 2, 0.9)
+    }
+    const extent = TycoonScene.cellsExtent(preview.cells)
+    if (extent !== null) {
+      const outline = this.rectPolygon(extent)
+      this.strokePolygon(g, outline, preview.ok ? PREVIEW_OK : PREVIEW_BAD, 3.5, 0.98)
+      // A short massing hint so the ghost reads as a BUILDING, not a paint swatch.
+      const corners = outline.map((p) => ({ x: p.x, y: p.y - PREVIEW_MASS_HEIGHT }))
+      this.strokePolygon(g, corners, preview.ok ? PREVIEW_OK : PREVIEW_BAD, 2, 0.55)
+      for (let index = 0; index < outline.length; index++) {
+        g.lineStyle(2, preview.ok ? PREVIEW_OK : PREVIEW_BAD, 0.55)
+        g.lineBetween(outline[index]!.x, outline[index]!.y, corners[index]!.x, corners[index]!.y)
+      }
+      const top = this.world((extent.x0 + extent.x1 + 1) / 2, (extent.y0 + extent.y1 + 1) / 2)
+      label
+        .setText(preview.caption)
+        .setPosition(top.x, top.y - PREVIEW_MASS_HEIGHT - 18)
+        .setBackgroundColor(preview.ok ? '#1f3524ee' : '#3a1d18ee')
+        .setScale(1 / this.cameras.main.zoom)
+        .setVisible(this.lodBand !== 'institution')
+    }
+  }
+
+  /** Screen pointer → the build parcel's clamped origin, reported at most once a cell. */
+  private pointBuildOriginAt(pointer: Phaser.Input.Pointer): void {
+    const mode = this.buildMode
+    if (mode === null || this.inputSuspended) return
+    const parcel = this.parcelById(mode.parcelId)
+    if (parcel === null) return
+    const world = this.cameras.main.getWorldPoint(pointer.x, pointer.y)
+    const grid = screenToGrid(world.x, world.y)
+    const maxGx = Math.max(parcel.rect.x0, parcel.rect.x1 - mode.footprint.width + 1)
+    const maxGy = Math.max(parcel.rect.y0, parcel.rect.y1 - mode.footprint.depth + 1)
+    const origin = {
+      gx: Math.min(maxGx, Math.max(parcel.rect.x0, Math.floor(grid.gx))),
+      gy: Math.min(maxGy, Math.max(parcel.rect.y0, Math.floor(grid.gy))),
+    }
+    if (
+      this.lastHoverOrigin !== null &&
+      this.lastHoverOrigin.gx === origin.gx &&
+      this.lastHoverOrigin.gy === origin.gy
+    ) return
+    this.lastHoverOrigin = origin
+    this.emitEvent({ type: 'build-origin', parcelId: mode.parcelId, origin })
+  }
+
+  /**
+   * Paint every facility standing on the property.
+   *
+   * A construction SITE is drawn (hoarding, scaffold, and a frame whose height is the
+   * Engine's own completed-advances fraction) rather than sprited, because its
+   * appearance is a function of truth that changes every week. An OPERATIONAL facility
+   * is a real sprite on the same isometric footprint every authored building uses.
+   * A blueprint with no authored sprite falls back to an honest massing block rather
+   * than borrowing another building's body (shift law 12).
+   */
+  private paintPlacements(): void {
+    const g = this.siteGraphics
+    if (!g) return
+    g.clear()
+    const placement = this.placement
+    const live = new Set<number>()
+
+    for (const placed of placement?.placements ?? []) {
+      // The legacy expansion parcel keeps its own accepted lifecycle painting.
+      if (placed.parcelId === ANNEX_PARCEL_ID) continue
+      live.add(placed.id)
+      const extent = TycoonScene.cellsExtent(placed.cells)
+      if (extent === null) continue
+      const front = this.depthAt(extent.x1 + 1, extent.y1 + 1, 4)
+
+      if (placed.status === 'operational') {
+        this.paintOperationalPlacement(placed, extent, front)
+      } else {
+        this.disposePlacementSprite(placed.id)
+        this.paintConstructionSite(g, placed, extent)
+      }
+      this.paintPlacementLabel(placed, extent)
+    }
+
+    for (const id of [...this.placementSprites.keys()]) {
+      if (!live.has(id)) this.disposePlacementSprite(id)
+    }
+    for (const [id, label] of [...this.placementLabels.entries()]) {
+      if (live.has(id)) continue
+      label.destroy()
+      this.placementLabels.delete(id)
+    }
+  }
+
+  private disposePlacementSprite(id: number): void {
+    const sprite = this.placementSprites.get(id)
+    if (!sprite) return
+    sprite.destroy()
+    this.placementSprites.delete(id)
+  }
+
+  private paintOperationalPlacement(
+    placed: LotPlacedFacilityState,
+    extent: LotGridRect,
+    depth: number,
+  ): void {
+    const texKey = PLACEMENT_TEX_BY_BLUEPRINT[placed.blueprintId]
+    const meta = texKey === undefined ? undefined : TYCOON_BUILDING_TEX[texKey]
+    const anchor = this.world((extent.x0 + extent.x1 + 1) / 2, (extent.y0 + extent.y1 + 1) / 2)
+    if (!meta) {
+      // Honest fallback: an unauthored blueprint gets a plain massing block, never
+      // another building's art.
+      const g = this.siteGraphics
+      if (g) {
+        const outline = this.rectPolygon(extent)
+        this.fillPolygon(g, outline, C.taupeShade, 0.9)
+        this.strokePolygon(g, outline, C.shadow, 2.5, 0.5)
+      }
+      return
+    }
+    const existing = this.placementSprites.get(placed.id)
+    const sprite =
+      existing ??
+      this.add
+        .sprite(anchor.x, anchor.y, meta.key)
+        .setName(`placement:${String(placed.id)}`)
+    sprite
+      .setTexture(meta.key)
+      .setOrigin(meta.originX, meta.originY)
+      .setPosition(anchor.x, anchor.y)
+      .setDepth(depth)
+      .setVisible(true)
+    this.placementSprites.set(placed.id, sprite)
+  }
+
+  /**
+   * A construction site: hoarding around the pad, scaffold standards, and a frame that
+   * rises with the Engine's own progress fraction. The frame's height is READ, never
+   * animated — no tick here advances a build (shift law 2).
+   */
+  private paintConstructionSite(
+    g: Phaser.GameObjects.Graphics,
+    placed: LotPlacedFacilityState,
+    extent: LotGridRect,
+  ): void {
+    const outline = this.rectPolygon(extent)
+    const left = Math.min(...outline.map((p) => p.x))
+    const right = Math.max(...outline.map((p) => p.x))
+    const top = Math.min(...outline.map((p) => p.y))
+    const bottom = Math.max(...outline.map((p) => p.y))
+    const cx = (left + right) / 2
+    const progress = Math.max(0, Math.min(1, placed.progress01))
+
+    // graded pad
+    this.fillPolygon(g, outline, C.dirt, 0.92)
+    this.strokePolygon(g, outline, C.dirtEdge, 2, 0.9)
+
+    // hoarding: a stake at each ground corner, joined along the two near edges
+    for (const corner of outline) {
+      g.fillStyle(C.brass, 0.95).fillRect(corner.x - 2.5, corner.y - 20, 5, 24)
+    }
+    g.lineStyle(3, C.timberDark, 0.85)
+    g.lineBetween(outline[3]!.x, outline[3]!.y - 12, outline[2]!.x, outline[2]!.y - 12)
+    g.lineBetween(outline[2]!.x, outline[2]!.y - 12, outline[1]!.x, outline[1]!.y - 12)
+
+    // the rising frame
+    const height = 16 + Math.round(progress * 78)
+    const width = Math.max(70, Math.min(190, right - left - 84))
+    const baseY = (top + bottom) / 2 + 22
+    g.fillStyle(C.shadow, 0.22).fillRect(cx - width / 2 - 8, baseY - 2, width + 16, 12)
+    g.fillStyle(C.timber, 1).fillRect(cx - width / 2, baseY - height, width, height)
+    g.fillStyle(C.timberDark, 1).fillRect(cx + width / 2 - 22, baseY - height, 22, height)
+    g.lineStyle(2.5, C.brass, 0.9).strokeRect(cx - width / 2, baseY - height, width, height)
+    // scaffold lattice, only as tall as the frame
+    g.lineStyle(2, C.steel, 0.85)
+    for (let x = cx - width / 2 - 10; x <= cx + width / 2 + 10; x += 30) {
+      g.lineBetween(x, baseY - height - 10, x, baseY + 4)
+    }
+    for (let y = baseY - height - 6; y <= baseY; y += 24) {
+      g.lineBetween(cx - width / 2 - 12, y, cx + width / 2 + 12, y)
+    }
+  }
+
+  private paintPlacementLabel(placed: LotPlacedFacilityState, extent: LotGridRect): void {
+    const anchor = this.world((extent.x0 + extent.x1 + 1) / 2, (extent.y0 + extent.y1 + 1) / 2)
+    const text =
+      placed.status === 'operational'
+        ? `${placed.name.toUpperCase()} · OPERATIONAL`
+        : `${placed.name.toUpperCase()} · ${String(placed.weeksRemaining)} ${placed.weeksRemaining === 1 ? 'WEEK' : 'WEEKS'} LEFT`
+    const existing = this.placementLabels.get(placed.id)
+    const label =
+      existing ??
+      this.add
+        .text(anchor.x, anchor.y, '', {
+          fontFamily: FONT_SANS,
+          fontSize: '13px',
+          fontStyle: 'bold',
+          color: '#f6ebd2',
+          backgroundColor: '#241d14ee',
+          padding: { x: 8, y: 5 },
+          align: 'center',
+        })
+        .setOrigin(0.5, 1)
+        .setDepth(DEPTH.label)
+        .setName(`placement-label:${String(placed.id)}`)
+    label
+      .setText(text)
+      .setPosition(anchor.x, Math.min(...this.rectPolygon(extent).map((p) => p.y)) - 8)
+      .setScale(1 / this.cameras.main.zoom)
+      .setVisible(this.lodBand !== 'institution')
+    this.placementLabels.set(placed.id, label)
+  }
+
+  /**
+   * Evidence seam for the browser suite: the exact forward grid → screen transform of
+   * the live camera, expressed as fractions of the canvas box. A spec multiplies these
+   * by the canvas' own bounding box to click a named CELL rather than a magic pixel.
+   */
+  worldProjection(): {
+    lotWidth: number
+    lotDepth: number
+    tileWidth: number
+    tileHeight: number
+    zoom: number
+    worldView: { x: number; y: number; width: number; height: number }
+  } {
+    const camera = this.cameras.main
+    const view = camera.worldView
+    return {
+      lotWidth: LOT_W,
+      lotDepth: LOT_D,
+      tileWidth: TILE_W,
+      tileHeight: TILE_H,
+      zoom: camera.zoom,
+      worldView: { x: view.x, y: view.y, width: view.width, height: view.height },
+    }
+  }
+
+  /** Where the CENTRE of a grid cell lands, as a fraction of the canvas box. */
+  cellViewportFraction(gx: number, gy: number): { fx: number; fy: number } | null {
+    const camera = this.cameras.main
+    const view = camera.worldView
+    if (view.width <= 0 || view.height <= 0) return null
+    const point = this.world(gx + 0.5, gy + 0.5)
+    return { fx: (point.x - view.x) / view.width, fy: (point.y - view.y) / view.height }
+  }
+
   // ── selection ───────────────────────────────────────────────────────────────
 
   private drawSelectionRing(place: WorldPlace, selected: boolean): void {
@@ -883,6 +1444,10 @@ export class TycoonScene extends Phaser.Scene {
    * DOM companion can never route the same destination to different owners (law 10).
    */
   private activatePlace(place: WorldPlace): void {
+    // Inside the bounded build flow the world stops handing out new selections; the
+    // player is pointing at ground, and only the explicit Cancel/Build controls leave.
+    if (this.buildMode !== null) return
+    this.clearParcelSelection()
     this.selectedPlaceId = place.placeId
     this.drawSelectionRing(place, true)
     if (place.buildingId === 'post' && this.selectSceneryLoadInSurface()) return
@@ -1418,6 +1983,21 @@ export class TycoonScene extends Phaser.Scene {
     this.paintBuildingStates(this.snapshot, stage7)
     this.paintSceneryLoadIn(sceneryLoadInContext(this.snapshot))
     this.paintExpansion(this.snapshot)
+    this.paintPlacementFromSnapshot()
+  }
+
+  /** Adopt the snapshot's placement truth, build the parcel hotspots once, repaint. */
+  private paintPlacementFromSnapshot(): void {
+    const placement = this.snapshot.placement ?? null
+    this.placement = placement
+    if (placement !== null) this.ensureParcelZones(placement)
+    // A parcel selection whose parcel vanished from the projection cannot survive.
+    if (this.selectedParcelId !== null && this.parcelById(this.selectedParcelId) === null) {
+      this.clearParcelSelection()
+    } else if (this.selectedParcelId !== null) {
+      this.paintParcelOutline(this.parcelById(this.selectedParcelId)!, true)
+    }
+    this.paintPlacements()
   }
 
   private syncPeopleToSnapshot(stage7: ProductionOperationsState | null): void {
@@ -1919,6 +2499,16 @@ export class TycoonScene extends Phaser.Scene {
     })
     this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
       this.pointerScreen = this.inputSuspended ? null : { x: pointer.x, y: pointer.y }
+      // Build mode: the pointer paints the ghost. Entry 2's cursor loop, with its
+      // identical-input early-out enforced one layer up in `pointBuildOriginAt`.
+      if (
+        !this.inputSuspended &&
+        this.buildMode !== null &&
+        !this.dragging &&
+        pointer.event?.target === this.game.canvas
+      ) {
+        this.pointBuildOriginAt(pointer)
+      }
       if (this.inputSuspended || !this.dragging) return
       const dx = pointer.x - this.dragStart.x
       const dy = pointer.y - this.dragStart.y
@@ -2172,6 +2762,8 @@ export class TycoonScene extends Phaser.Scene {
         view.chip.setY(view.chromeBaseY - view.label.height * inv - 10 * inv)
       }
       this.expansionLabel?.setScale(inv)
+      for (const label of this.placementLabels.values()) label.setScale(inv)
+      this.previewLabel?.setScale(inv)
       for (const runtime of this.runtimePeople.values()) runtime.label.setScale(inv)
     }
 
@@ -2197,6 +2789,8 @@ export class TycoonScene extends Phaser.Scene {
       view.chip.setVisible(view.chip.getData('status') === true)
     }
     this.expansionLabel?.setVisible(text)
+    for (const label of this.placementLabels.values()) label.setVisible(text)
+    if (this.previewLabel !== null) this.previewLabel.setVisible(text && this.preview !== null)
   }
 
   // ── telemetry ───────────────────────────────────────────────────────────────
@@ -2330,6 +2924,12 @@ export class TycoonScene extends Phaser.Scene {
     roleAtlasActive: boolean
     gateVisitorTalentId: string | null
     gateVisitorPosition: { x: number; y: number; depth: number } | null
+    selectedParcelId: string | null
+    buildModeParcelId: string | null
+    previewOrigin: LotCellPoint | null
+    previewOk: boolean | null
+    parcelZoneIds: string[]
+    placedFacilityIds: number[]
   } {
     return {
       selectedPersonId: this.selectedPersonId,
@@ -2354,6 +2954,12 @@ export class TycoonScene extends Phaser.Scene {
               y: this.gateVisitor.sprite.y,
               depth: this.gateVisitor.sprite.depth,
             },
+      selectedParcelId: this.selectedParcelId,
+      buildModeParcelId: this.buildMode?.parcelId ?? null,
+      previewOrigin: this.preview === null ? null : { ...this.preview.origin },
+      previewOk: this.preview?.ok ?? null,
+      parcelZoneIds: [...this.parcelZones.keys()].sort(),
+      placedFacilityIds: (this.placement?.placements ?? []).map((placed) => placed.id),
     }
   }
 
