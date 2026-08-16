@@ -637,12 +637,18 @@ describe('World-First Lot-Native Casting Review Intervention V1 — App/Lot inte
     expect(activeSessionBytes()).toBe(beforeBytes)
   })
 
-  it('preserves the established Casting Room route when no current studio decision exists', async () => {
+  it('lands the in-world Casting inspector when no current studio decision exists, and still reaches the Casting Room by explicit choice', async () => {
     const noReview = fixtureState()
     expect(adapter.studioDecision(noReview)).toBeNull()
     await renderStudio(noReview)
 
     fireEvent.click(screen.getByTestId('lot-nav-casting'))
+
+    // World Inspector Default V1: no eligible review is a fact the world states in
+    // place. The established Casting Room route survives as an explicit secondary action.
+    expect(screen.queryByTestId('casting-room')).not.toBeInTheDocument()
+    expect(screen.getByTestId('lot-building-inspector-casting')).toBeInTheDocument()
+    fireEvent.click(screen.getByTestId('lot-building-inspector-open-details-casting'))
 
     expect(await screen.findByTestId('casting-room')).toBeInTheDocument()
     expect(activeSessionBytes()).toBe(exportSaveJson(noReview))

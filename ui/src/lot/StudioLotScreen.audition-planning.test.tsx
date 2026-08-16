@@ -242,7 +242,7 @@ describe('StudioLotScreen — retained audition-planning origin', () => {
   )
 
   it.each(['missing', 'declined', 'cue-mismatch'] as const)(
-    'keeps the canonical Casting Room route when retained origin is %s',
+    'lands the in-world Casting inspector when retained origin is %s, keeping the Casting Room an explicit choice',
     async (kind) => {
       const state = readyCastingState(`lot-audition-origin-${kind}`)
       const onNavigate = vi.fn()
@@ -266,6 +266,11 @@ describe('StudioLotScreen — retained audition-planning origin', () => {
 
       if (kind === 'declined') expect(onOpen).toHaveBeenCalledOnce()
       else if (onOpen !== undefined) expect(onOpen).not.toHaveBeenCalled()
+      // World Inspector Default V1: a declined/absent retained origin is a fact about
+      // Casting, not a reason to eject the player out of the living lot.
+      expect(onNavigate).not.toHaveBeenCalled()
+      expect(screen.getByTestId('lot-building-inspector-casting')).toBeInTheDocument()
+      fireEvent.click(screen.getByTestId('lot-building-inspector-open-details-casting'))
       expect(onNavigate).toHaveBeenCalledOnce()
       expect(onNavigate).toHaveBeenCalledWith({ kind: 'castingRoom' })
     },

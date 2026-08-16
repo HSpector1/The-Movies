@@ -164,7 +164,11 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
 
     render(<App />)
     await screen.findByTestId('studio-lot-screen')
+    // World Inspector Default V1: the companion lands Development in the world; the
+    // deep Assembly route (and therefore the building-origin return) is the explicit
+    // secondary action inside that panel.
     fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    fireEvent.click(screen.getByTestId('lot-building-inspector-open-details-writers'))
     fireEvent.click(await screen.findByTestId('assembly-back-dashboard'))
 
     await screen.findByTestId('studio-lot-screen')

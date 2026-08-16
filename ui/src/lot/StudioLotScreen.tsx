@@ -17,10 +17,12 @@ import type {
   ActionOutcome,
   ConstructionCompletionSummary,
   GameState,
+  StudioCalendarView,
   StudioConstructionView,
 } from '../engine/adapter.ts'
 import {
   careerIdentityLabel,
+  studioCalendarBoard,
   studioDecision,
   studioDevelopment,
   studioLotSnapshot,
@@ -128,6 +130,7 @@ import {
 } from './snapshot/selectedBuildingSession.ts'
 import { lotStageAssignment } from './snapshot/stageAssignment.ts'
 import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
+import { lotBuildingInspectorContext } from './buildingInspector.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
 import type {
   HollywoodPerformance,
@@ -486,6 +489,21 @@ const ATTENTION_META: Record<AttentionState, { icon: string; word: string }> = {
   empty: { icon: '○', word: 'Available' },
   future: { icon: '◇', word: 'Future' },
   'recently-completed': { icon: '✓', word: 'Recently completed' },
+}
+
+/**
+ * The Studio Calendar read model, or null when this accepted state cannot produce one.
+ *
+ * The calendar throws on a hostile/incoherent accepted save. That withholds the in-world
+ * inspector's occupancy facts (shift laws 17/21) — it must never become a reason to eject
+ * the player onto a deep screen, which is exactly the defect M1.5 exists to close.
+ */
+function inspectorCalendarView(state: GameState): StudioCalendarView | null {
+  try {
+    return studioCalendarBoard(state)
+  } catch {
+    return null
+  }
 }
 
 function prefersReducedMotion(): boolean {
@@ -1098,6 +1116,12 @@ export function StudioLotScreen({
   const [publicityPhysicalAvailability, setPublicityPhysicalAvailability] =
     useState<PublicityPhysicalAvailability>('pending')
   const [publicityPending, setPublicityPending] = useState(false)
+  // World Inspector Default V1 (M1.5): the in-world panel a physical building click lands
+  // when no richer world context applies. It replaces the old `dispatchRoute` fallthrough,
+  // so no ordinary building click can eject the player out of the world any more.
+  const [buildingInspectorId, setBuildingInspectorId] = useState<BuildingId | null>(null)
+  const buildingInspectorHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const buildingInspectorFocusNonceRef = useRef(0)
   const hollywoodCommandRef = useRef<HTMLButtonElement | null>(null)
   const hollywoodTaskStatusRef = useRef<HTMLDivElement | null>(null)
   const hollywoodStage7HeadingRef = useRef<HTMLHeadingElement | null>(null)
@@ -1474,6 +1498,10 @@ export function StudioLotScreen({
   }, [exactReadySceneryArrival])
 
   const recordSelection = useCallback((id: BuildingId | null) => {
+    // Every richer world context routes through here, so this is the one place the
+    // generic World Inspector releases ownership. `enterBuildingInspectorContext` sets
+    // its own id immediately AFTER calling this, exactly like the other contexts do.
+    setBuildingInspectorId(null)
     // Only the dedicated strict review entry may create screenplay-review ownership.
     // Generic places that happen to share the semantic `writers` id cannot inherit it.
     setScriptReviewIntent(null)
@@ -4794,7 +4822,59 @@ export function StudioLotScreen({
     if (clickDetail === 0) openGateCandidateDestination(action, rendered, clickDetail)
   }, [openGateCandidateDestination])
 
-  // Companion-nav activation: select the building AND route to its destination.
+  /**
+   * World Inspector Default V1 — the in-world landing every physical place now has.
+   *
+   * Every richer world context (review interventions, retained Commission/Audition
+   * workspaces, Gate, Publicity, Annex, Scenery, Stage 7 production) is tried first and
+   * takes precedence exactly as before. When none of them applies, this takes semantic
+   * ownership of the place and opens its inspector panel in the established right-rail
+   * pattern — instead of the old `dispatchRoute` that threw the player out of the world.
+   * The deep screen remains reachable, but only from the panel's explicit secondary action.
+   */
+  const enterBuildingInspectorContext = useCallback((id: BuildingId): boolean => {
+    if (worldInputSuspendedRef.current) return false
+    clearFormationContext()
+    clearHollywoodStage7DetailContext()
+    clearGateContext()
+    clearPublicityContext()
+    clearHollywoodSceneryLoadInContext()
+    clearAnnexContext()
+    setSelectionInfo(null)
+    setHollywoodPerson(null)
+    setHollywoodPlace(null)
+    pendingHollywoodFocusProductionId.current = null
+    viewRef.current?.clearHollywoodPersonSelection?.()
+    // `recordSelection` releases any previous inspector ownership, so the new id is
+    // claimed immediately after it — the same order every other context uses.
+    recordSelection(id)
+    setBuildingInspectorId(id)
+    // Canvas intent and semantic navigation must name the same owner (shift law 10):
+    // a companion activation asks the renderer for the ring the canvas already paints.
+    // The retained painted plate has no physical Casting target, so it is left alone.
+    if (!hollywood || tycoon || id !== 'casting') viewRef.current?.select(id)
+    const nonce = ++buildingInspectorFocusNonceRef.current
+    queueMicrotask(() => {
+      if (
+        buildingInspectorFocusNonceRef.current !== nonce ||
+        worldInputSuspendedRef.current
+      ) return
+      buildingInspectorHeadingRef.current?.focus({ preventScroll: true })
+    })
+    return true
+  }, [
+    clearAnnexContext,
+    clearFormationContext,
+    clearGateContext,
+    clearHollywoodSceneryLoadInContext,
+    clearHollywoodStage7DetailContext,
+    clearPublicityContext,
+    hollywood,
+    recordSelection,
+    tycoon,
+  ])
+
+  // Companion-nav activation: select the building AND land its in-world context.
   const activate = useCallback(
     (id: BuildingId) => {
       if (worldInputSuspendedRef.current) return
@@ -4810,6 +4890,9 @@ export function StudioLotScreen({
           focus: 'first-action',
         })) return
         clearPublicityContext()
+        // No campaign is offered this week: that is a fact about Administration, not a
+        // reason to abandon the selection or leave the world.
+        if (enterBuildingInspectorContext(id)) return
         recordSelection(null)
         return
       }
@@ -4821,6 +4904,7 @@ export function StudioLotScreen({
           focus: 'gate',
         })) return
         clearGateContext()
+        if (enterBuildingInspectorContext(id)) return
         recordSelection(null)
         studioHeadingRef.current?.focus({ preventScroll: true })
         return
@@ -4834,6 +4918,7 @@ export function StudioLotScreen({
           return
         }
         clearAnnexContext()
+        if (hollywood && enterBuildingInspectorContext(id)) return
         recordSelection(null)
         return
       }
@@ -4853,6 +4938,10 @@ export function StudioLotScreen({
           return
         }
       }
+      // WORLD-FIRST LAW: a physical place never navigates by itself. In the world the
+      // click lands the in-world inspector. Only the pre-Hollywood legacy lot keeps the
+      // old compatibility route, because it has no in-world panel to land.
+      if (hollywood && enterBuildingInspectorContext(id)) return
       clearFormationContext()
       clearHollywoodStage7DetailContext()
       clearGateContext()
@@ -4860,7 +4949,7 @@ export function StudioLotScreen({
       clearHollywoodSceneryLoadInContext()
       clearAnnexContext()
       recordSelection(id)
-      if (!hollywood || id !== 'casting') viewRef.current?.select(id)
+      viewRef.current?.select(id)
       dispatchRoute(BUILDING_ACTION[id])
     },
     [
@@ -4872,6 +4961,7 @@ export function StudioLotScreen({
       clearPublicityContext,
       dispatchRoute,
       enterAnnexContext,
+      enterBuildingInspectorContext,
       enterCurrentCastingReview,
       enterCurrentScriptReview,
       enterHollywoodProductionContext,
@@ -4909,6 +4999,95 @@ export function StudioLotScreen({
     const label = maskNames && isStage ? 'Soundstage' : BUILDING_LABELS[id]
     return { id, label, attention, meta, stateText }
   })
+
+  // ── World Inspector Default V1 — the in-world panel for an ordinary place click ──
+  const buildingInspector =
+    hollywood && buildingInspectorId !== null
+      ? lotBuildingInspectorContext(
+          snapshot,
+          buildingInspectorId,
+          inspectorCalendarView(state),
+          annexView,
+        )
+      : null
+  const buildingInspectorCommand =
+    buildingInspector?.commandOperation?.currentCommand ?? null
+  const buildingInspectorCommandProductionId =
+    buildingInspector?.commandOperation?.productionId ?? null
+  const buildingInspectorContents = buildingInspector === null
+    ? null
+    : (
+        <div
+          className="hollywood-building-inspector"
+          data-testid={`lot-building-inspector-${buildingInspector.buildingId}`}
+          data-attention={buildingInspector.attention}
+        >
+          <p className="hollywood-eyebrow">
+            IN THE LOT · {maskStageText(buildingInspector.label).toUpperCase()}
+          </p>
+          <h3
+            ref={buildingInspectorHeadingRef}
+            tabIndex={-1}
+            data-testid="lot-building-inspector-heading"
+          >
+            {maskStageText(buildingInspector.label)}
+          </h3>
+          <p className="hollywood-building-inspector-role">{buildingInspector.role}</p>
+          <p data-testid="lot-building-inspector-status">
+            {maskStageText(buildingInspector.status)}
+          </p>
+          {buildingInspector.attentionNote !== null &&
+            buildingInspector.attentionNote !==
+              ATTENTION_META[buildingInspector.attention].word && (
+            <p className="hollywood-consequence" data-testid="lot-building-inspector-attention">
+              <b>{ATTENTION_META[buildingInspector.attention].icon}</b>
+              <span>
+                <strong>{ATTENTION_META[buildingInspector.attention].word}</strong>
+                {maskStageText(buildingInspector.attentionNote)}
+              </span>
+            </p>
+          )}
+          {buildingInspector.facts.length > 0 && (
+            <dl className="hollywood-person-facts" data-testid="lot-building-inspector-facts">
+              {buildingInspector.facts.map((fact) => (
+                <div key={fact.key} data-fact-key={fact.key}>
+                  <dt>{maskStageText(fact.term)}</dt>
+                  <dd>{maskStageText(fact.detail)}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+          {buildingInspectorCommand !== null &&
+            buildingInspectorCommandProductionId !== null &&
+            onProductionCommand !== undefined && (
+            <button
+              type="button"
+              className="accent hollywood-command"
+              disabled={worldInputSuspended}
+              data-testid={`lot-building-inspector-command-${buildingInspectorCommand.kind}`}
+              onClick={() => dispatchHollywoodProductionCommand(
+                buildingInspectorCommandProductionId,
+                buildingInspectorCommand,
+              )}
+            >
+              {buildingInspectorCommand.label}
+            </button>
+          )}
+          <button
+            type="button"
+            className="ghost hollywood-building-inspector-details"
+            disabled={worldInputSuspended}
+            data-testid={`lot-building-inspector-open-details-${buildingInspector.buildingId}`}
+            onClick={() => {
+              if (worldInputSuspendedRef.current) return
+              // The ONLY way a building reaches a deep screen now: an explicit choice.
+              dispatchRoute(BUILDING_ACTION[buildingInspector.buildingId])
+            }}
+          >
+            Open {buildingInspector.deepLabel} details
+          </button>
+        </div>
+      )
 
   const gateContextContents = !gateSelected
     ? null
@@ -6457,7 +6636,7 @@ export function StudioLotScreen({
               </section>
 
               <section
-                className={`hollywood-inspector${scriptReviewSurfaceContents ? ' is-script-review' : ''}${castingReviewSurfaceContents ? ' is-casting-review' : ''}${gateSelected ? ' is-gate' : ''}${publicitySelected ? ' is-publicity' : ''}${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}${hollywoodPerson ? ' is-person' : ''}`}
+                className={`hollywood-inspector${scriptReviewSurfaceContents ? ' is-script-review' : ''}${castingReviewSurfaceContents ? ' is-casting-review' : ''}${gateSelected ? ' is-gate' : ''}${publicitySelected ? ' is-publicity' : ''}${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}${buildingInspectorContents ? ' is-building' : ''}${hollywoodPerson ? ' is-person' : ''}`}
                 data-testid={
                   castingReviewSurfaceContents
                     ? 'lot-casting-review-context'
@@ -6471,7 +6650,9 @@ export function StudioLotScreen({
                     ? 'lot-annex-context'
                     : selectedSceneryLoadInContext
                       ? 'hollywood-scenery-load-in-context'
-                      : 'hollywood-inspector'
+                      : buildingInspectorContents
+                        ? 'lot-building-inspector-context'
+                        : 'hollywood-inspector'
                 }
                 onPointerDown={containWorldInput}
                 onMouseDown={containWorldInput}
@@ -6489,7 +6670,9 @@ export function StudioLotScreen({
                   ? annexContextContents
                   : selectedSceneryLoadInContext
                     ? sceneryLoadInContextContents
-                    : (
+                    : buildingInspectorContents
+                      ? buildingInspectorContents
+                      : (
                   <>
                     {personInspectorContents ?? (
                       <>

@@ -1004,6 +1004,32 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   outline-offset: 3px;
 }
 .hollywood-stage-fallback { padding: 8px; border-left: 3px solid #8d7848; background: rgba(0,0,0,.2); }
+/* World Inspector Default V1 — the in-world panel an ordinary building click lands.
+   Same right-rail family as the Gate / Annex / commission-receipt contexts. */
+.hollywood-building-inspector-role {
+  margin: 0 0 8px !important;
+  padding: 7px 9px;
+  color: #c6d0c4 !important;
+  background: rgba(0, 0, 0, .24);
+  border-left: 3px solid #d2ae62;
+  font-size: 11px !important;
+}
+.hollywood-building-inspector-details {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 7px;
+  padding: 8px 10px;
+  color: #e6d4ac;
+  border-color: rgba(210, 174, 98, .58);
+  font-size: 11px;
+  line-height: 1.35;
+}
+.hollywood-building-inspector-details:hover { border-color: #d2ae62; color: #fff0cd; }
+.hollywood-building-inspector-details:focus-visible,
+.hollywood-inspector h3[data-testid="lot-building-inspector-heading"]:focus {
+  outline: 3px solid #f2cf78;
+  outline-offset: 3px;
+}
 .hollywood-inspector.is-annex,
 .hollywood-inspector.is-scenery,
 .hollywood-inspector.is-person,
@@ -1011,6 +1037,7 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
 .hollywood-inspector.is-casting-review,
 .hollywood-inspector.is-gate,
 .hollywood-inspector.is-publicity,
+.hollywood-inspector.is-building,
 .lot-annex-fallback-context {
   box-sizing: border-box;
   /* Context actions must remain operable when browser zoom magnifies the

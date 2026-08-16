@@ -212,12 +212,17 @@ describe('D1-A identity review selector', () => {
     expect(JSON.stringify(state)).toBe(before)
   })
 
-  it('the companion navigation still routes while the review selector is active', async () => {
+  it('the companion navigation still reaches the deep screen while the review selector is active', async () => {
     setStudioLotIdentityOverride(true)
     const { getByTestId, routes } = renderScreen()
     await waitFor(() => expect(getByTestId('lot-review-mode')).toBeInTheDocument())
     fireEvent.click(getByTestId('lot-review-fallback'))
-    fireEvent.click(getByTestId('lot-nav-writers')) // Development → Assemble a Film
+    // World Inspector Default V1: the companion activation lands Development IN the
+    // world. The deep Assembly screen stays reachable, by explicit choice only.
+    fireEvent.click(getByTestId('lot-nav-writers'))
+    expect(routes).toEqual([])
+    expect(getByTestId('lot-building-inspector-writers')).toBeInTheDocument()
+    fireEvent.click(getByTestId('lot-building-inspector-open-details-writers'))
     expect(routes).toContainEqual({ kind: 'assembly' })
   })
 })
