@@ -2110,3 +2110,127 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
 }
 .lot-review-show:hover { color: var(--text); border-color: var(--accent, #c9a24a); }
 .lot-review-show:focus-visible { outline: 2px solid var(--accent, #c9a24a); outline-offset: 2px; }
+
+/* ── Build Mode V1 — the parcel panel and the in-world placement flow ──────────
+   The panel reuses the World Inspector's frame; only the build affordances below
+   it are new. Every state is carried by text as well as colour, and every control
+   keeps a visible focus ring at the same 44px-friendly hit size the rest of the
+   rail uses. */
+.lot-parcel-inspector .hollywood-eyebrow { color: #d1b16a; }
+
+.lot-build-receipt {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 8px 0 0;
+  padding: 8px 9px;
+  border-left: 3px solid var(--pos, #6fae7d);
+  background: rgba(70, 120, 84, .16);
+  color: #dfeadb;
+  font-size: 11px;
+  line-height: 1.45;
+}
+.lot-build-receipt b { color: var(--pos, #6fae7d); }
+
+.lot-build-open {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 10px;
+}
+
+.lot-build-flow {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(209, 177, 106, .28);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.lot-build-flow h4 {
+  margin: 0;
+  font-size: 10px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #91a095;
+}
+
+.lot-build-catalog {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.lot-build-catalog-item {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 10px;
+  text-align: left;
+  background: rgba(0, 0, 0, .24);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--text-faint);
+  color: var(--text);
+  cursor: pointer;
+}
+.lot-build-catalog-item:hover:not(:disabled) { border-color: var(--accent, #c9a24a); }
+.lot-build-catalog-item:focus-visible { outline: 2px solid var(--accent, #c9a24a); outline-offset: 2px; }
+.lot-build-catalog-item.is-selected {
+  border-left-color: var(--accent, #c9a24a);
+  background: rgba(201, 162, 74, .14);
+}
+.lot-build-catalog-name { font-size: 12px; font-weight: 600; }
+.lot-build-catalog-facts {
+  font-size: 10px;
+  color: #eadcbc;
+  font-variant-numeric: tabular-nums;
+}
+.lot-build-catalog-opex { font-size: 10px; color: #91a095; }
+
+.lot-build-origin {
+  padding: 8px 9px;
+  background: rgba(0, 0, 0, .2);
+  border: 1px solid rgba(209, 177, 106, .25);
+}
+.lot-build-origin:focus-visible { outline: 2px solid var(--accent, #c9a24a); outline-offset: 2px; }
+.lot-build-origin-label {
+  margin: 0 0 6px;
+  font-size: 10px;
+  color: #91a095;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.lot-build-origin-label strong {
+  color: #eadcbc;
+  font-variant-numeric: tabular-nums;
+}
+.lot-build-origin-pad {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+}
+.lot-build-nudge {
+  min-height: 44px;
+  font-size: 11px;
+  cursor: pointer;
+}
+.lot-build-nudge:focus-visible { outline: 2px solid var(--accent, #c9a24a); outline-offset: 2px; }
+.lot-build-origin-hint { margin: 6px 0 0; font-size: 10px; }
+
+.lot-build-actions {
+  display: flex;
+  gap: 6px;
+}
+.lot-build-commit { flex: 1 1 auto; min-height: 44px; }
+.lot-build-cancel { flex: 0 0 auto; min-height: 44px; }
+
+.lot-companion-subtitle {
+  margin: 12px 0 5px;
+  font-size: 10px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #91a095;
+}

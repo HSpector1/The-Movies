@@ -30,6 +30,7 @@ import type { ErrorInfo, ReactNode, SetStateAction } from 'react'
 import type {
   ActionOutcome,
   GameState,
+  PlacementRequest,
   FilmResult,
   AutopsyView,
   AutopsyCompareView,
@@ -61,6 +62,7 @@ import {
   runProductionCommand,
   runScriptProjectAction,
   startDevelopmentCastingAnnexAction,
+  placeFacilityAction,
   studioDecision,
   studioDevelopment,
   studioLotSnapshot,
@@ -3523,6 +3525,20 @@ export function App() {
     return result
   }
 
+  // Build Mode V1: the same owner, the same discipline. The Lot supplies only a
+  // blueprint id and an origin; the Engine's own commit re-runs its query and charges
+  // its own price, and the accepted state is replaced (and autosaved) exactly once.
+  function handlePlaceFacility(placement: PlacementRequest) {
+    if (!currentLotWorldInputOwner()) {
+      return { ok: false as const, error: 'The live Lot is suspended while Package decisions are open.' }
+    }
+    const result = placeFacilityAction(loadedState, placement)
+    if (result.ok) {
+      replaceAuthoritativeState(result.next)
+    }
+    return result
+  }
+
   // World-First Operational Annex Work Presence V1: the Lot may offer a deep owner only
   // after world inspection. Re-read the one canonical Calendar slot at activation time so a
   // completed/replaced occupant can never route by stale presentation text or array position.
@@ -4182,6 +4198,7 @@ export function App() {
                     error: 'Casting review is no longer owned by the mounted Studio Lot.',
                   }}
             onStartDevelopmentCastingAnnex={handleStartDevelopmentCastingAnnex}
+            onPlaceFacility={handlePlaceFacility}
             onOpenAnnexWorkDetails={handleOpenAnnexWorkDetails}
             onOpenStage7ProductionDetails={handleOpenStage7ProductionDetails}
             onOpenGateCandidateProfile={handleOpenGateCandidateProfile}

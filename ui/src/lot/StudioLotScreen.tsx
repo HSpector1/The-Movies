@@ -12,16 +12,19 @@
 // canvas cannot expose a reliable accessibility tree. Neither surface owns GameState:
 // they emit identity/intent and the host dispatches only engine-projected commands.
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type {
   ActionOutcome,
   ConstructionCompletionSummary,
   GameState,
+  PlacementQuote,
+  PlacementRequest,
   StudioCalendarView,
   StudioConstructionView,
 } from '../engine/adapter.ts'
 import {
   careerIdentityLabel,
+  placementQuote,
   studioCalendarBoard,
   studioDecision,
   studioDevelopment,
@@ -131,6 +134,21 @@ import {
 import { lotStageAssignment } from './snapshot/stageAssignment.ts'
 import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
 import { lotBuildingInspectorContext } from './buildingInspector.ts'
+import {
+  blueprintById,
+  buildQuoteKey,
+  buildReceiptText,
+  clampBuildOrigin,
+  defaultBuildOrigin,
+  lotParcelInspectorContext,
+  parcelById,
+  placementsOnParcel,
+  quoteFacts,
+  quoteRejectionText,
+  type LotBuildDraft,
+  type LotParcelInspectorContext,
+} from './buildMode.ts'
+import type { LotCellPoint } from './snapshot/StudioLotSnapshot.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
 import type {
   HollywoodPerformance,
@@ -438,6 +456,12 @@ type Props = {
   ) => boolean
   /** Dispatch the existing parameter-free Annex action through the authoritative App owner. */
   onStartDevelopmentCastingAnnex?: () => ActionOutcome
+  /**
+   * Build Mode V1: commit one exact placement through the authoritative App owner.
+   * The Lot sends only a blueprint id and an origin; price, duration and legality are
+   * re-derived by the Engine inside the commit and never taken from this surface.
+   */
+  onPlaceFacility?: (placement: PlacementRequest) => ActionOutcome
   /** Navigate to the exact current Annex occupant's existing deep owner after revalidation. */
   onOpenAnnexWorkDetails?: (intent: LotAnnexWorkOwnerIntent) => boolean
   /** Navigate from an explicitly inspected Stage 7 production to its existing Board card. */
@@ -480,6 +504,33 @@ type Props = {
 
 // Attention → icon + word. Every state is communicated with text + shape + colour
 // (addendum §7) — never colour alone. The class drives the colour in lot.css.
+/**
+ * Build Mode V1 — the non-pointer path to every origin.
+ *
+ * The world's own grid convention (see `tycoon/world.ts`): +gx runs DOWN-RIGHT on
+ * screen and +gy runs DOWN-LEFT. The four controls are named for what the player
+ * actually sees the ghost do, and the arrow keys are bound to the same four steps, so
+ * the canvas and the semantic surface reach every legal origin identically (law 10).
+ */
+const BUILD_ORIGIN_NUDGES: readonly {
+  testId: string
+  label: string
+  gx: number
+  gy: number
+}[] = [
+  { testId: 'up-left', label: '↖ Up-left', gx: -1, gy: 0 },
+  { testId: 'up-right', label: '↗ Up-right', gx: 0, gy: -1 },
+  { testId: 'down-left', label: '↙ Down-left', gx: 0, gy: 1 },
+  { testId: 'down-right', label: '↘ Down-right', gx: 1, gy: 0 },
+]
+
+const BUILD_ORIGIN_KEY_STEPS: Readonly<Record<string, { gx: number; gy: number }>> = {
+  ArrowLeft: { gx: -1, gy: 0 },
+  ArrowRight: { gx: 1, gy: 0 },
+  ArrowUp: { gx: 0, gy: -1 },
+  ArrowDown: { gx: 0, gy: 1 },
+}
+
 const ATTENTION_META: Record<AttentionState, { icon: string; word: string }> = {
   normal: { icon: '•', word: 'Open' },
   active: { icon: '▶', word: 'Active' },
@@ -728,6 +779,7 @@ export function StudioLotScreen({
   onRunCastingReviewAction,
   onOpenCastingReviewDetails,
   onStartDevelopmentCastingAnnex,
+  onPlaceFacility,
   onOpenAnnexWorkDetails,
   onOpenStage7ProductionDetails,
   onOpenGateCandidateProfile,
@@ -845,6 +897,11 @@ export function StudioLotScreen({
    * click and a keyboard navigation can never resolve to different owners.
    */
   const activateRef = useRef<((id: BuildingId) => void) | null>(null)
+  // Build Mode V1: the renderer is constructed once, so its two placement seams are
+  // reached through refs, exactly as the building activation seam already is.
+  const activateParcelRef = useRef<((parcelId: string) => void) | null>(null)
+  const moveBuildOriginRef =
+    useRef<((origin: LotCellPoint, fromParcelId?: string) => void) | null>(null)
   const rendererStateRef = useRef<GameState | null>(null)
   const studioHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const namedPeopleGroupRef = useRef<HTMLDivElement | null>(null)
@@ -1122,6 +1179,29 @@ export function StudioLotScreen({
   const [buildingInspectorId, setBuildingInspectorId] = useState<BuildingId | null>(null)
   const buildingInspectorHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const buildingInspectorFocusNonceRef = useRef(0)
+  // ── Build Mode V1 (M2-UI) ─────────────────────────────────────────────────
+  // Three pieces of session state, none of them GameState: which parcel's panel is
+  // open, the mutable placement draft, and the one-shot receipt a commit earns.
+  // The draft carries VALUE and a MONOTONIC REVISION (shift law 16), so a late canvas
+  // hover can never resurrect an origin the player has already moved off.
+  const [parcelInspectorId, setParcelInspectorId] = useState<string | null>(null)
+  const [buildDraft, setBuildDraft] = useState<LotBuildDraft | null>(null)
+  const [buildPending, setBuildPending] = useState(false)
+  const [buildError, setBuildError] = useState<string | null>(null)
+  const [buildReceipt, setBuildReceipt] = useState<string | null>(null)
+  const [buildFlowOpen, setBuildFlowOpen] = useState(false)
+  const [buildAnnouncementSerial, setBuildAnnouncementSerial] = useState(0)
+  const parcelInspectorHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const buildCommitRef = useRef<HTMLButtonElement | null>(null)
+  const buildOriginPadRef = useRef<HTMLDivElement | null>(null)
+  const parcelInspectorIdRef = useRef<string | null>(null)
+  const buildDraftRef = useRef<LotBuildDraft | null>(null)
+  const buildPendingRef = useRef(false)
+  const buildRevisionRef = useRef(0)
+  const parcelFocusNonceRef = useRef(0)
+  const pendingBuildFocusRef = useRef<'parcel' | 'commit' | 'origin' | null>(null)
+  const onPlaceFacilityRef = useRef(onPlaceFacility)
+  onPlaceFacilityRef.current = onPlaceFacility
   const hollywoodCommandRef = useRef<HTMLButtonElement | null>(null)
   const hollywoodTaskStatusRef = useRef<HTMLDivElement | null>(null)
   const hollywoodStage7HeadingRef = useRef<HTMLHeadingElement | null>(null)
@@ -1299,6 +1379,34 @@ export function StudioLotScreen({
   formationReceiptRef.current = formationReceipt
   hollywoodPersonRef.current = hollywoodPerson
   const annexView = studioDevelopment(state)
+  // ── Build Mode V1 — the property, the open panel, and the live quote ───────
+  const placementView = snapshot.placement ?? null
+  const latestPlacementRef = useRef(placementView)
+  latestPlacementRef.current = placementView
+  parcelInspectorIdRef.current = parcelInspectorId
+  buildDraftRef.current = buildDraft
+  buildPendingRef.current = buildPending
+  /**
+   * The identical-input memo the ledger asks for (Entry 2's cursor loop, Entry 3's
+   * byte-identical blueprint early-out). A pointer wandering forty pixels inside one
+   * cell produces the same key and never re-queries; a new blueprint, origin, week,
+   * cash position — or any new authoritative state at all — does.
+   */
+  const buildQuoteMemoKey =
+    buildDraft === null
+      ? null
+      : buildQuoteKey(buildDraft.blueprintId, buildDraft.origin, snapshot.week, snapshot.cash)
+  const buildQuote: PlacementQuote | null = useMemo(() => {
+    const draft = buildDraftRef.current
+    if (draft === null || buildQuoteMemoKey === null) return null
+    return placementQuote(state, { blueprintId: draft.blueprintId, origin: draft.origin })
+    // `buildQuoteMemoKey` carries the whole draft; `state` is the other input the pure
+    // query reads. Both are listed, and nothing else can change the answer.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state, buildQuoteMemoKey])
+  const buildBlueprint =
+    buildDraft === null ? null : blueprintById(placementView, buildDraft.blueprintId)
+  const buildRejectionText = quoteRejectionText(buildQuote)
   const operationalAnnexCapacity = annexView.status === 'operational'
     ? annexView.currentDevelopmentCastingCapacity
     : null
@@ -1502,6 +1610,8 @@ export function StudioLotScreen({
     // generic World Inspector releases ownership. `enterBuildingInspectorContext` sets
     // its own id immediately AFTER calling this, exactly like the other contexts do.
     setBuildingInspectorId(null)
+    // …and so is the Build Mode parcel panel: one in-world context owns the rail.
+    setParcelInspectorId(null)
     // Only the dedicated strict review entry may create screenplay-review ownership.
     // Generic places that happen to share the semantic `writers` id cannot inherit it.
     setScriptReviewIntent(null)
@@ -3665,6 +3775,12 @@ export function StudioLotScreen({
           hollywood,
           tycoon,
           onWorldBuilding: (buildingId) => { activateRef.current?.(buildingId) },
+          // Build Mode V1: a parcel click lands the SAME panel its companion control
+          // lands, and a build-mode hover only ever moves the host-owned draft.
+          onWorldParcel: (parcelId) => { activateParcelRef.current?.(parcelId) },
+          onWorldBuildOrigin: (parcelId, origin) => {
+            moveBuildOriginRef.current?.(origin, parcelId)
+          },
           // The import can resolve after an App-owned week advance. Construct from the latest
           // host snapshot rather than the mount-time state closure so that preparation never
           // paints a stale week before onReady enables ordinary snapshot delivery.
@@ -4822,6 +4938,242 @@ export function StudioLotScreen({
     if (clickDetail === 0) openGateCandidateDestination(action, rendered, clickDetail)
   }, [openGateCandidateDestination])
 
+  // ── Build Mode V1 — the bounded in-world placement flow ────────────────────
+  //
+  // Retained-workspace discipline (shift laws 15–16) applied to a draft that lives in
+  // the world instead of a modal: the draft carries value + monotonic revision; a
+  // commit autosaves through the App owner and closes the flow; a cancel is BYTE-
+  // NEUTRAL because it never dispatched anything; and an Engine rejection keeps the
+  // draft exactly where it was and reports the Engine's own words.
+
+  /** Leave the build flow without touching GameState. Byte-neutral by construction. */
+  const cancelBuild = useCallback(() => {
+    buildDraftRef.current = null
+    setBuildDraft(null)
+    setBuildError(null)
+    setBuildFlowOpen(false)
+    viewRef.current?.setWorldBuildMode?.(null)
+    viewRef.current?.setWorldPlacementPreview?.(null)
+  }, [])
+
+  /** Release the parcel panel and any draft inside it. */
+  const clearParcelContext = useCallback(() => {
+    cancelBuild()
+    setBuildReceipt(null)
+    parcelInspectorIdRef.current = null
+    setParcelInspectorId(null)
+    viewRef.current?.clearWorldParcelSelection?.()
+  }, [cancelBuild])
+
+  /**
+   * The in-world landing a parcel of the studio's own ground has. Same right-rail
+   * pattern, same focus discipline and same canvas/companion parity the M1.5 building
+   * inspector established — a parcel is simply the other kind of place on this lot.
+   */
+  const enterParcelInspectorContext = useCallback((parcelId: string): boolean => {
+    if (!tycoon || worldInputSuspendedRef.current) return false
+    if (lotParcelInspectorContext(latestPlacementRef.current, parcelId) === null) return false
+    cancelBuild()
+    setBuildReceipt(null)
+    setBuildError(null)
+    clearFormationContext()
+    clearHollywoodStage7DetailContext()
+    clearGateContext()
+    clearPublicityContext()
+    clearHollywoodSceneryLoadInContext()
+    clearAnnexContext()
+    setSelectionInfo(null)
+    setHollywoodPerson(null)
+    setHollywoodPlace(null)
+    pendingHollywoodFocusProductionId.current = null
+    viewRef.current?.clearHollywoodPersonSelection?.()
+    // `recordSelection` releases every other in-world context, including this one, so
+    // the parcel claims ownership immediately after it — the established order.
+    recordSelection(null)
+    parcelInspectorIdRef.current = parcelId
+    setParcelInspectorId(parcelId)
+    // Law 10: canvas intent and semantic navigation name the same owner. A companion
+    // activation asks the renderer for the outline the canvas already paints.
+    viewRef.current?.selectWorldParcel?.(parcelId)
+    const nonce = ++parcelFocusNonceRef.current
+    queueMicrotask(() => {
+      if (parcelFocusNonceRef.current !== nonce || worldInputSuspendedRef.current) return
+      parcelInspectorHeadingRef.current?.focus({ preventScroll: true })
+    })
+    return true
+  }, [
+    cancelBuild,
+    clearAnnexContext,
+    clearFormationContext,
+    clearGateContext,
+    clearHollywoodSceneryLoadInContext,
+    clearHollywoodStage7DetailContext,
+    clearPublicityContext,
+    recordSelection,
+    tycoon,
+  ])
+
+  /** Enter the catalog's chosen blueprint at a courteous first origin on this parcel. */
+  const beginBuild = useCallback((blueprintId: string) => {
+    if (worldInputSuspendedRef.current || buildPendingRef.current) return
+    const parcelId = parcelInspectorIdRef.current
+    const placement = latestPlacementRef.current
+    if (parcelId === null || placement === null) return
+    const parcel = parcelById(placement, parcelId)
+    const blueprint = blueprintById(placement, blueprintId)
+    if (parcel === null || blueprint === null || !placement.buildEnabled) return
+
+    const origin = defaultBuildOrigin(
+      parcel,
+      blueprint.footprint,
+      placementsOnParcel(placement, parcelId),
+    )
+    const draft: LotBuildDraft = {
+      parcelId,
+      blueprintId,
+      origin,
+      revision: ++buildRevisionRef.current,
+    }
+    buildDraftRef.current = draft
+    setBuildDraft(draft)
+    setBuildError(null)
+    setBuildReceipt(null)
+    setBuildFlowOpen(true)
+    viewRef.current?.setWorldBuildMode?.({ parcelId, footprint: blueprint.footprint })
+    pendingBuildFocusRef.current = 'origin'
+  }, [])
+
+  /** Open the catalog over this parcel. No draft exists yet; nothing is previewed. */
+  const openBuildCatalog = useCallback(() => {
+    if (worldInputSuspendedRef.current || buildPendingRef.current) return
+    const placement = latestPlacementRef.current
+    const parcelId = parcelInspectorIdRef.current
+    if (placement === null || parcelId === null || !placement.buildEnabled) return
+    setBuildReceipt(null)
+    setBuildError(null)
+    setBuildFlowOpen(true)
+  }, [])
+
+  /** Replace the draft origin, clamped inside its parcel, bumping the revision. */
+  const moveBuildOrigin = useCallback((next: LotCellPoint, fromParcelId?: string) => {
+    if (worldInputSuspendedRef.current || buildPendingRef.current) return
+    const draft = buildDraftRef.current
+    const placement = latestPlacementRef.current
+    if (draft === null || placement === null) return
+    // A late canvas report for a parcel the draft has already left is a superseded
+    // revision, not a new command (shift law 16).
+    if (fromParcelId !== undefined && fromParcelId !== draft.parcelId) return
+    const parcel = parcelById(placement, draft.parcelId)
+    const blueprint = blueprintById(placement, draft.blueprintId)
+    if (parcel === null || blueprint === null) return
+    const origin = clampBuildOrigin(next, parcel.rect, blueprint.footprint)
+    if (origin.gx === draft.origin.gx && origin.gy === draft.origin.gy) return
+    const updated: LotBuildDraft = { ...draft, origin, revision: ++buildRevisionRef.current }
+    buildDraftRef.current = updated
+    setBuildDraft(updated)
+    setBuildError(null)
+  }, [])
+
+  /** Keyboard-driven nudging — the non-pointer path to every legal origin. */
+  const nudgeBuildOrigin = useCallback((dgx: number, dgy: number) => {
+    const draft = buildDraftRef.current
+    if (draft === null) return
+    moveBuildOrigin({ gx: draft.origin.gx + dgx, gy: draft.origin.gy + dgy })
+  }, [moveBuildOrigin])
+
+  /**
+   * Commit. The Lot sends a blueprint id and an origin and nothing else: the Engine
+   * re-runs its own query inside the commit and charges its own price (the runner
+   * invariant). A rejection keeps the draft and reports the exact Engine message.
+   */
+  const commitBuild = useCallback(() => {
+    if (worldInputSuspendedRef.current || buildPendingRef.current) return
+    const draft = buildDraftRef.current
+    const placement = latestPlacementRef.current
+    const owner = onPlaceFacilityRef.current
+    if (draft === null || placement === null || owner === undefined) return
+    const blueprint = blueprintById(placement, draft.blueprintId)
+    if (blueprint === null) return
+    // Re-query against the LATEST state immediately before crossing the boundary: a
+    // week may have advanced under an open panel and moved the answer.
+    const request: PlacementRequest = { blueprintId: draft.blueprintId, origin: draft.origin }
+    const latest = placementQuote(latestGameStateRef.current, request)
+    if (!latest.ok) {
+      setBuildAnnouncementSerial((serial) => serial + 1)
+      setBuildError(quoteRejectionText(latest) ?? 'This placement is no longer legal.')
+      return
+    }
+
+    buildPendingRef.current = true
+    setBuildPending(true)
+    const outcome = owner(request)
+    buildPendingRef.current = false
+    setBuildPending(false)
+    if (!outcome.ok) {
+      // The draft SURVIVES a rejection with its exact value and revision, and the
+      // player reads the Engine's own words (shift law 15: receipts explain, never veto).
+      setBuildAnnouncementSerial((serial) => serial + 1)
+      setBuildError(outcome.error)
+      return
+    }
+    setBuildAnnouncementSerial((serial) => serial + 1)
+    setBuildError(null)
+    setBuildReceipt(buildReceiptText(latest, blueprint.name))
+    cancelBuild()
+    pendingBuildFocusRef.current = 'parcel'
+  }, [cancelBuild])
+
+  // Deliver build mode + the ghost to the renderer whenever the draft's revision, the
+  // quote, or renderer readiness changes. ONE delivery owner, latest truth only (law 4).
+  useEffect(() => {
+    const view = viewRef.current
+    if (!view || !canvasReady) return
+    if (buildDraft === null || buildBlueprint === null) {
+      view.setWorldBuildMode?.(null)
+      view.setWorldPlacementPreview?.(null)
+      return
+    }
+    view.setWorldBuildMode?.({
+      parcelId: buildDraft.parcelId,
+      footprint: buildBlueprint.footprint,
+    })
+    if (buildQuote === null) {
+      view.setWorldPlacementPreview?.(null)
+      return
+    }
+    view.setWorldPlacementPreview?.({
+      blueprintId: buildQuote.blueprintId,
+      parcelId: buildDraft.parcelId,
+      origin: { gx: buildQuote.origin.gx, gy: buildQuote.origin.gy },
+      cells: buildQuote.cellLegality.map((verdict) => ({
+        gx: verdict.cell.gx,
+        gy: verdict.cell.gy,
+        ok: verdict.ok,
+      })),
+      ok: buildQuote.ok,
+      caption: buildQuote.ok
+        ? `${moneyExact(buildQuote.cost)} · ${String(buildQuote.buildWeeks)} weeks`
+        : (quoteRejectionText(buildQuote) ?? 'This placement is not legal.'),
+    })
+  }, [buildBlueprint, buildDraft, buildQuote, canvasReady])
+
+  // Focus the control the flow just handed the player, once, after React commits it.
+  useEffect(() => {
+    const pending = pendingBuildFocusRef.current
+    if (pending === null || worldInputSuspended) return
+    pendingBuildFocusRef.current = null
+    if (pending === 'origin') buildOriginPadRef.current?.focus({ preventScroll: true })
+    else if (pending === 'commit') buildCommitRef.current?.focus({ preventScroll: true })
+    else parcelInspectorHeadingRef.current?.focus({ preventScroll: true })
+  }, [buildDraft, buildReceipt, worldInputSuspended])
+
+  // A parcel panel whose parcel stopped being describable cannot stay open.
+  useEffect(() => {
+    if (parcelInspectorId === null) return
+    if (lotParcelInspectorContext(placementView, parcelInspectorId) !== null) return
+    clearParcelContext()
+  }, [clearParcelContext, parcelInspectorId, placementView])
+
   /**
    * World Inspector Default V1 — the in-world landing every physical place now has.
    *
@@ -4843,6 +5195,9 @@ export function StudioLotScreen({
     clearPublicityContext()
     clearHollywoodSceneryLoadInContext()
     clearAnnexContext()
+    // A building selection releases any open parcel panel and its ground outline, so
+    // the world never paints two owners of the player's attention at once.
+    clearParcelContext()
     setSelectionInfo(null)
     setHollywoodPerson(null)
     setHollywoodPlace(null)
@@ -4870,6 +5225,7 @@ export function StudioLotScreen({
     clearGateContext,
     clearHollywoodSceneryLoadInContext,
     clearHollywoodStage7DetailContext,
+    clearParcelContext,
     clearPublicityContext,
     recordSelection,
     tycoon,
@@ -4982,6 +5338,26 @@ export function StudioLotScreen({
     activateRef.current = activate
   }, [activate])
 
+  /**
+   * Companion/canvas parity for a parcel. The DOM list and the world hit area both call
+   * exactly this, so the two surfaces can never route the same ground to different
+   * owners (shift law 10) — the same contract `activate` holds for buildings.
+   */
+  const activateParcel = useCallback((parcelId: string) => {
+    if (worldInputSuspendedRef.current) return
+    yieldNextEventOrientation()
+    if (enterParcelInspectorContext(parcelId)) return
+    clearParcelContext()
+  }, [clearParcelContext, enterParcelInspectorContext, yieldNextEventOrientation])
+
+  useEffect(() => {
+    activateParcelRef.current = activateParcel
+  }, [activateParcel])
+
+  useEffect(() => {
+    moveBuildOriginRef.current = moveBuildOrigin
+  }, [moveBuildOrigin])
+
   // With the review signage mask on, the companion list must not print the answer the
   // canvas is being masked to hide. Only the stage NAME is neutralised — attention state
   // and the production reason stay, so the list still shows the lot in its real context.
@@ -5089,6 +5465,252 @@ export function StudioLotScreen({
           >
             Open {buildingInspector.deepLabel} details
           </button>
+        </div>
+      )
+
+  // ── Build Mode V1 — the parcel panel and the bounded placement flow ────────
+  /**
+   * The parcels the companion list names. Buildable ground only, and never the legacy
+   * `expansion` parcel: that ground is the Annex place, which already has its own row
+   * and its own richer context — one destination, one control (shift law 10).
+   */
+  const companionParcels =
+    tycoon && placementView !== null
+      ? placementView.parcels.filter(
+          (parcel) => parcel.terrain === 'buildable' && parcel.id !== 'expansion',
+        )
+      : []
+  const parcelInspector: LotParcelInspectorContext | null =
+    tycoon && parcelInspectorId !== null
+      ? lotParcelInspectorContext(placementView, parcelInspectorId)
+      : null
+  const buildCatalog = placementView?.catalog ?? []
+  const parcelInspectorContents = parcelInspector === null
+    ? null
+    : (
+        <div
+          className="hollywood-building-inspector lot-parcel-inspector"
+          role="region"
+          aria-label={`${parcelInspector.label} — open ground on the lot`}
+          data-testid={`lot-parcel-inspector-${parcelInspector.parcelId}`}
+          data-parcel-status={parcelInspector.status}
+        >
+          <div
+            className="visually-hidden"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            data-testid="lot-build-announcement"
+          >
+            {(buildReceipt ?? buildError) !== null && (
+              <span key={buildAnnouncementSerial}>{buildReceipt ?? buildError}</span>
+            )}
+          </div>
+          <p className="hollywood-eyebrow">
+            OPEN GROUND · {parcelInspector.label.toUpperCase()} · WEEK{' '}
+            {placementView?.currentWeek ?? snapshot.week}
+          </p>
+          <h3
+            ref={parcelInspectorHeadingRef}
+            tabIndex={-1}
+            data-testid="lot-parcel-inspector-heading"
+          >
+            {parcelInspector.label}
+          </h3>
+          <p className="hollywood-building-inspector-role">{parcelInspector.role}</p>
+          <p data-testid="lot-parcel-inspector-status">{parcelInspector.statusLine}</p>
+          <dl className="hollywood-person-facts" data-testid="lot-parcel-inspector-facts">
+            {parcelInspector.facts.map((fact) => (
+              <div key={fact.key} data-fact-key={fact.key}>
+                <dt>{fact.term}</dt>
+                <dd>{fact.detail}</dd>
+              </div>
+            ))}
+          </dl>
+
+          {buildReceipt !== null && buildDraft === null && (
+            <p className="lot-build-receipt" data-testid="lot-build-receipt">
+              <b>✓</b>
+              <span>{buildReceipt}</span>
+            </p>
+          )}
+
+          {!buildFlowOpen && (
+            parcelInspector.canBuild ? (
+              <button
+                type="button"
+                className="primary lot-build-open"
+                disabled={worldInputSuspended || !onPlaceFacility}
+                onPointerDown={containWorldInput}
+                onMouseDown={containWorldInput}
+                onTouchStart={containWorldInput}
+                onClick={openBuildCatalog}
+                data-testid={`lot-parcel-build-${parcelInspector.parcelId}`}
+              >
+                Build here
+              </button>
+            ) : (
+              <p
+                className="hollywood-annex-help is-blocked"
+                data-testid="lot-parcel-build-blocked"
+              >
+                {parcelInspector.buildBlockedReason ?? 'Nothing may be built on this parcel.'}
+              </p>
+            )
+          )}
+
+          {buildFlowOpen && (
+            <section
+              className="lot-build-flow"
+              aria-labelledby="lot-build-catalog-heading"
+              data-testid="lot-build-flow"
+            >
+              <h4 id="lot-build-catalog-heading" data-testid="lot-build-catalog-heading">
+                Studio catalog
+              </h4>
+              <ul className="lot-build-catalog" data-testid="lot-build-catalog">
+                {buildCatalog.map((entry) => {
+                  const chosen = buildDraft?.blueprintId === entry.blueprintId
+                  return (
+                    <li key={entry.blueprintId}>
+                      <button
+                        type="button"
+                        className={`lot-build-catalog-item${chosen ? ' is-selected' : ''}`}
+                        aria-pressed={chosen}
+                        disabled={worldInputSuspended || buildPending}
+                        onPointerDown={containWorldInput}
+                        onMouseDown={containWorldInput}
+                        onTouchStart={containWorldInput}
+                        onClick={() => beginBuild(entry.blueprintId)}
+                        data-testid={`lot-build-blueprint-${entry.blueprintId}`}
+                      >
+                        <span className="lot-build-catalog-name">{entry.name}</span>
+                        <span className="lot-build-catalog-facts">
+                          {moneyExact(entry.cost)} · {entry.buildWeeks} weeks ·{' '}
+                          {entry.footprint.width}×{entry.footprint.depth} cells · +
+                          {entry.capacity} slot
+                        </span>
+                        <span className="lot-build-catalog-opex">
+                          {moneyExact(entry.weeklyOperatingCost)} a week to run once open
+                        </span>
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+
+              {buildDraft !== null && buildQuote !== null && (
+                <>
+                  <div
+                    ref={buildOriginPadRef}
+                    className="lot-build-origin"
+                    role="group"
+                    tabIndex={-1}
+                    aria-label={`Placement origin — cell ${buildDraft.origin.gx}, ${buildDraft.origin.gy}. Use the arrow keys to move the footprint.`}
+                    data-testid="lot-build-origin"
+                    data-origin-gx={buildDraft.origin.gx}
+                    data-origin-gy={buildDraft.origin.gy}
+                    data-revision={buildDraft.revision}
+                    onPointerDown={containWorldInput}
+                    onMouseDown={containWorldInput}
+                    onTouchStart={containWorldInput}
+                    onKeyDown={(event) => {
+                      const step = BUILD_ORIGIN_KEY_STEPS[event.key]
+                      if (step === undefined) return
+                      event.preventDefault()
+                      event.stopPropagation()
+                      nudgeBuildOrigin(step.gx, step.gy)
+                    }}
+                  >
+                    <p className="lot-build-origin-label">
+                      Origin cell{' '}
+                      <strong data-testid="lot-build-origin-cell">
+                        {buildDraft.origin.gx}, {buildDraft.origin.gy}
+                      </strong>
+                    </p>
+                    <div className="lot-build-origin-pad">
+                      {BUILD_ORIGIN_NUDGES.map((nudge) => (
+                        <button
+                          key={nudge.testId}
+                          type="button"
+                          className="ghost lot-build-nudge"
+                          disabled={worldInputSuspended || buildPending}
+                          onPointerDown={containWorldInput}
+                          onMouseDown={containWorldInput}
+                          onTouchStart={containWorldInput}
+                          onClick={() => nudgeBuildOrigin(nudge.gx, nudge.gy)}
+                          data-testid={`lot-build-nudge-${nudge.testId}`}
+                        >
+                          {nudge.label}
+                        </button>
+                      ))}
+                    </div>
+                    <p className="hint lot-build-origin-hint">
+                      Point anywhere on the parcel in the lot, or use the arrow keys.
+                    </p>
+                  </div>
+
+                  <dl className="hollywood-annex-facts" data-testid="lot-build-quote">
+                    {quoteFacts(buildQuote).map((fact) => (
+                      <div key={fact.key} data-fact-key={fact.key}>
+                        <dt>{fact.term}</dt>
+                        <dd>{fact.detail}</dd>
+                      </div>
+                    ))}
+                  </dl>
+
+                  <p
+                    className={
+                      buildQuote.ok ? 'hollywood-annex-help' : 'hollywood-annex-help is-blocked'
+                    }
+                    id="lot-build-verdict"
+                    data-testid="lot-build-verdict"
+                    data-ok={buildQuote.ok ? 'true' : 'false'}
+                  >
+                    {buildError ??
+                      buildRejectionText ??
+                      'This site is clear. The studio can build here.'}
+                  </p>
+
+                  <div className="lot-build-actions">
+                    <button
+                      ref={buildCommitRef}
+                      type="button"
+                      className="primary lot-build-commit"
+                      aria-describedby="lot-build-verdict"
+                      disabled={
+                        worldInputSuspended ||
+                        buildPending ||
+                        !buildQuote.ok ||
+                        !onPlaceFacility
+                      }
+                      onPointerDown={containWorldInput}
+                      onMouseDown={containWorldInput}
+                      onTouchStart={containWorldInput}
+                      onClick={commitBuild}
+                      data-testid="lot-build-commit"
+                    >
+                      {buildPending
+                        ? 'Committing…'
+                        : `Build ${buildBlueprint?.name ?? ''} · ${moneyExact(buildQuote.cost)}`}
+                    </button>
+                    <button
+                      type="button"
+                      className="ghost lot-build-cancel"
+                      disabled={worldInputSuspended || buildPending}
+                      onPointerDown={containWorldInput}
+                      onMouseDown={containWorldInput}
+                      onTouchStart={containWorldInput}
+                      onClick={cancelBuild}
+                      data-testid="lot-build-cancel"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </>
+              )}
+            </section>
+          )}
         </div>
       )
 
@@ -6639,7 +7261,7 @@ export function StudioLotScreen({
               </section>
 
               <section
-                className={`hollywood-inspector${scriptReviewSurfaceContents ? ' is-script-review' : ''}${castingReviewSurfaceContents ? ' is-casting-review' : ''}${gateSelected ? ' is-gate' : ''}${publicitySelected ? ' is-publicity' : ''}${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}${buildingInspectorContents ? ' is-building' : ''}${hollywoodPerson ? ' is-person' : ''}`}
+                className={`hollywood-inspector${scriptReviewSurfaceContents ? ' is-script-review' : ''}${castingReviewSurfaceContents ? ' is-casting-review' : ''}${gateSelected ? ' is-gate' : ''}${publicitySelected ? ' is-publicity' : ''}${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}${parcelInspectorContents ? ' is-parcel' : ''}${buildingInspectorContents ? ' is-building' : ''}${hollywoodPerson ? ' is-person' : ''}`}
                 data-testid={
                   castingReviewSurfaceContents
                     ? 'lot-casting-review-context'
@@ -6653,9 +7275,11 @@ export function StudioLotScreen({
                     ? 'lot-annex-context'
                     : selectedSceneryLoadInContext
                       ? 'hollywood-scenery-load-in-context'
-                      : buildingInspectorContents
-                        ? 'lot-building-inspector-context'
-                        : 'hollywood-inspector'
+                      : parcelInspectorContents
+                        ? 'lot-parcel-inspector-context'
+                        : buildingInspectorContents
+                          ? 'lot-building-inspector-context'
+                          : 'hollywood-inspector'
                 }
                 onPointerDown={containWorldInput}
                 onMouseDown={containWorldInput}
@@ -6673,7 +7297,9 @@ export function StudioLotScreen({
                   ? annexContextContents
                   : selectedSceneryLoadInContext
                     ? sceneryLoadInContextContents
-                    : buildingInspectorContents
+                    : parcelInspectorContents
+                      ? parcelInspectorContents
+                      : buildingInspectorContents
                       ? buildingInspectorContents
                       : (
                   <>
@@ -7212,6 +7838,43 @@ export function StudioLotScreen({
               )
             })}
           </ul>
+          {companionParcels.length > 0 && (
+            <>
+              <h3 className="lot-companion-subtitle" id="lot-companion-ground">
+                Open ground
+              </h3>
+              <ul className="lot-nav-list lot-nav-parcels" aria-labelledby="lot-companion-ground">
+                {companionParcels.map((parcel) => {
+                  const context = lotParcelInspectorContext(placementView, parcel.id)
+                  const chosen = parcelInspectorId === parcel.id
+                  return (
+                    <li key={parcel.id}>
+                      <button
+                        type="button"
+                        className={`lot-nav-item att-future${chosen ? ' is-selected' : ''}`}
+                        data-testid={`lot-nav-parcel-${parcel.id}`}
+                        data-attention="future"
+                        disabled={worldInputSuspended}
+                        aria-current={chosen ? 'true' : undefined}
+                        onClick={() => activateParcel(parcel.id)}
+                        title={context?.role ?? parcel.label}
+                      >
+                        <span className="lot-nav-name">{parcel.label}</span>
+                        <span
+                          className="lot-nav-state"
+                          data-testid={`lot-nav-parcel-${parcel.id}-state`}
+                        >
+                          <span className="lot-nav-icon" aria-hidden="true">◇</span>
+                          <span className="lot-nav-att-word visually-hidden">Open ground: </span>
+                          {context?.statusLine ?? parcel.label}
+                        </span>
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+            </>
+          )}
         </nav>
       </div>
     </div>
