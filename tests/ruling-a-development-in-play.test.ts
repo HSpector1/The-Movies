@@ -410,7 +410,7 @@ describe('RULING A — development survives save round-trips without duplication
     const released = runOneFilm('A-save-3', true).released
     const reloaded = importSave(exportSave(makeSave(released)))
     // The reloaded state is the live SaveFileV11; drive it forward, no greenlights.
-    if (reloaded.saveVersion !== 11) throw new Error('expected V11 save')
+    if (reloaded.saveVersion !== 12) throw new Error('expected V12 save')
     const advanced = advanceDev(reloaded.state, 5)
     expect(advanced.talent).toEqual(reloaded.state.talent)
   })

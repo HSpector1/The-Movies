@@ -3616,11 +3616,36 @@ function projectStateV11(state: HistoricalProjectionSourceV11): GameStateV11 {
   };
 }
 
+// The live projection. Enumerated positively (never a clone-then-delete) and
+// deliberately NOT built on projectStateV11, whose ledger narrowing exists to
+// refuse V12 rows at a historical boundary.
 function projectStateV12(state: GameStateV12): GameStateV12 {
   return {
-    ...projectStateV11(state),
+    seed: state.seed,
+    rngState: state.rngState,
+    market: state.market,
+    era: state.era,
+    studio: state.studio,
+    talent: state.talent,
+    concepts: state.concepts,
+    broadcastItems: state.broadcastItems,
+    coverageContexts: state.coverageContexts,
+    founding: state.founding,
+    contracts: state.contracts,
     ledger: state.ledger,
+    freeAgents: state.freeAgents,
+    theatricalRuns: state.theatricalRuns,
+    careerEvents: state.careerEvents,
+    economyEngagedEver: state.economyEngagedEver,
+    publicity: state.publicity,
+    operations: state.operations,
+    scriptDevelopment: state.scriptDevelopment,
+    castingSessions: state.castingSessions,
+    construction: state.construction,
     placement: state.placement,
+    ...(state.cashLedgerCheckpoint === undefined
+      ? {}
+      : { cashLedgerCheckpoint: state.cashLedgerCheckpoint }),
   };
 }
 

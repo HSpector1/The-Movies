@@ -97,9 +97,11 @@ export type ConstructionInvariantOptions = {
   // projecting arbitrary counterfactual capacity. SaveFileV11 always uses the
   // default exact Annex V1 policy; SaveFileV12 always uses `placement-v12`.
   facilityPolicy?: 'annex-v1' | 'configured' | 'placement-v12'
-  // Required with `placement-v12`: the exact operational placed facilities that
+  // Supplied with `placement-v12`: the exact operational placed facilities that
   // must follow the initial five, in the order the weekly completion pass appends
   // them. The placement authority owns that list; this checker only enforces it.
+  // OMITTING it selects the research observatory's configured-capacity arm, the
+  // same behaviour-neutral escape hatch the V11 `configured` policy provided.
   expectedFacilities?: readonly StudioFacility[]
 }
 
@@ -163,14 +165,13 @@ export function assertStudioConstructionInvariants(
       )
     }
     const expectedFacilities = options?.expectedFacilities
-    invariant(
-      expectedFacilities !== undefined,
-      'placement-v12 policy requires the exact operational placed facility list',
+    assertStudioOperationsInvariants(
+      operations,
+      state.studio.activeProductions,
+      expectedFacilities === undefined
+        ? { facilityPolicy: 'configured' }
+        : { facilityPolicy: 'placement-v12', placedFacilities: expectedFacilities },
     )
-    assertStudioOperationsInvariants(operations, state.studio.activeProductions, {
-      facilityPolicy: 'placement-v12',
-      placedFacilities: expectedFacilities,
-    })
   } else if (construction.mode === 'legacy') {
     invariant(construction.parcels.length === 0, 'legacy mode must have no parcels')
     invariant(construction.projects.length === 0, 'legacy mode must have no projects')

@@ -9,7 +9,7 @@ import {
   nextStudioDecision,
   stableStringify,
   tick,
-} from '../src/core/index.js'
+  initialManagedStudioPlacement,} from '../src/core/index.js'
 import type {
   CastSlot,
   CommissionScriptPayload,
@@ -114,6 +114,7 @@ function twoProductionsAtShooting(seed: string): GameState {
     ...generateWorld(seed),
     operations: initialManagedStudioOperations(),
     construction: initialManagedStudioConstruction(),
+    placement: initialManagedStudioPlacement(),
   }
   state = applyActions(state, [
     { kind: 'greenlight', production: rawProductionPayload(state, 0) },
@@ -285,6 +286,7 @@ describe('Script Projects V1 — unified studio decision ordering', () => {
         ),
       },
       construction: initialManagedStudioConstruction(),
+      placement: initialManagedStudioPlacement(),
     }
     constrained = applyActions(constrained, [
       { kind: 'greenlight', production: rawProductionPayload(constrained, 0) },

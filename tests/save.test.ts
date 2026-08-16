@@ -180,6 +180,7 @@ function makeState(broadcastItems: BroadcastItem[]): GameState {
     castingSessions: { mode: "legacy", sessions: [] },
     // Annex V1 live persistence. This never-engaged fixture owns no parcel or history.
     construction: { mode: "legacy", parcels: [], projects: [] },
+    placement: { mode: "legacy", nextPlacementId: 1, facilities: [] },
   };
 }
 
@@ -211,11 +212,11 @@ describe("§17 / §15.7 — export→import→export round-trips byte-identicall
 });
 
 describe("§17 — loud rejection of an unknown saveVersion", () => {
-  it("throws on an unknown saveVersion (e.g. 12)", () => {
-    // Source: §17 "loud rejection of unknown versions". Versions 1–11 are known;
-    // Annex V1 moved the unknown boundary from 11 to 12.
+  it("throws on an unknown saveVersion (e.g. 13)", () => {
+    // Source: §17 "loud rejection of unknown versions". Versions 1–12 are known;
+    // Placement Core V12 moved the unknown boundary from 12 to 13.
     const save = wellFormedSave();
-    const bad = { ...save, saveVersion: 12 } as unknown as SaveFileV11;
+    const bad = { ...save, saveVersion: 13 } as unknown as SaveFileV11;
     expect(() => loadSave(bad)).toThrow();
   });
 });

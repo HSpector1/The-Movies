@@ -1298,9 +1298,14 @@ function rejectIllegalPlacement(
   }
   const quote = queryPlacement(state, request)
   if (!quote.ok) {
-    throw new Error(
-      `applyActions: ${actionName} rejected — ${String(quote.primary)} (${quote.rejections.join(", ")})`,
-    )
+    // The D-12 solvency gate keeps its exact player-facing reason; every domain
+    // rejection reports its code and the full ordered rejection set.
+    const affordability = canAfford(state, quote.cost)
+    const detail =
+      quote.primary === 'insufficientFunds' && !affordability.ok
+        ? `${affordability.reason} (D-12 solvency gate)`
+        : `${String(quote.primary)} (${quote.rejections.join(', ')})`
+    throw new Error(`applyActions: ${actionName} rejected — ${detail}`)
   }
   const next = commitPlacement(state, request)
   if (next === state) {

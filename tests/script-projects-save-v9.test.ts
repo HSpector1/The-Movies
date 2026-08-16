@@ -17,6 +17,7 @@ import {
   generateWorld,
   importSave,
   initialManagedStudioConstruction,
+  initialManagedStudioPlacement,
   initialManagedStudioOperations,
   makeSaveV9,
   makeSaveV8,
@@ -83,6 +84,7 @@ function managedState(seed: string, project?: ScriptProject): GameState {
     economyEngagedEver: true,
     operations: initialManagedStudioOperations(),
     construction: initialManagedStudioConstruction(),
+    placement: initialManagedStudioPlacement(),
     scriptDevelopment: {
       mode: "managed",
       projects: project === undefined ? [] : [project],
@@ -196,6 +198,7 @@ function activeProductionState(seed: string): GameState {
     },
     operations,
     construction: initialManagedStudioConstruction(),
+    placement: initialManagedStudioPlacement(),
     scriptDevelopment: {
       mode: "managed",
       projects: [
@@ -269,6 +272,7 @@ function producedState(seed: string): GameState {
     economyEngagedEver: true,
     operations: initialManagedStudioOperations(),
     construction: initialManagedStudioConstruction(),
+    placement: initialManagedStudioPlacement(),
     scriptDevelopment: {
       mode: "managed",
       projects: [
@@ -384,13 +388,13 @@ describe("Script Projects V1 — SaveFileV9", () => {
     expect(migrateToV9(current)).toBe(current);
   });
 
-  it("rejects unknown version 12 and refuses to downgrade V9 through migrateToV8", () => {
+  it("rejects unknown version 13 and refuses to downgrade V9 through migrateToV8", () => {
     const save = makeSaveV9(generateWorld("save-v9-boundary"));
-    expect(() => validateSave({ ...save, saveVersion: 12 })).toThrow(
-      /unknown saveVersion 12/,
+    expect(() => validateSave({ ...save, saveVersion: 13 })).toThrow(
+      /unknown saveVersion 13/,
     );
-    expect(() => validateSave({ ...save, saveVersion: 12 })).toThrow(
-      /versions 1 through 11 only/,
+    expect(() => validateSave({ ...save, saveVersion: 13 })).toThrow(
+      /versions 1 through 12 only/,
     );
     expect(() => migrateToV8(save)).toThrow(/cannot downgrade SaveFileV9/);
   });

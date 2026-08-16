@@ -6,7 +6,6 @@
 // tooling. Vacant-estate parity tests therefore compare this copy against
 // runFacilitiesArm at the exact Week-196 boundary.
 
-import { rosterWallLiveState } from './live-state.js'
 import { createHash } from 'node:crypto'
 import {
   FOUNDING_MINIMUMS,
@@ -24,7 +23,7 @@ import {
   generateWorld,
   importSave,
   isContracted,
-  makeSaveV11,
+  makeSaveV12,
   marketingLevelsFor,
   nextStudioDecision,
   readyScriptPerceivedStrength,
@@ -33,7 +32,7 @@ import {
   runway,
   stableStringify,
   tick,
-  validateSaveV11,
+  validateSaveV12,
   weeklyOverhead,
   weeklyPayroll,
   weeklySalary,
@@ -51,7 +50,7 @@ import type {
   GreenlightScriptProjectPayload,
   LedgerEntry,
   ReceptionInputs,
-  SaveFileV11,
+  SaveFileV12,
   ScriptProject,
   Talent,
 } from '../../core/index.js'
@@ -279,13 +278,13 @@ export type RosterWallEntryHarvest = {
   foundingTermWeeks: typeof ROSTER_WALL_FOUNDING_TERM_WEEKS
   initialSaveHash: string
   initialStateHash: string
-  entrySave: SaveFileV11
+  entrySave: SaveFileV12
   entrySaveBytes: string
   entrySaveHash: string
   entryStateHash: string
   entryRngState: string
   replay: {
-    importedSaveVersion: 11
+    importedSaveVersion: 12
     importedReexportByteIdentical: true
     remadeReexportByteIdentical: true
   }
@@ -534,7 +533,7 @@ function initializeCampaign(
     state = applyActions(state, [{ kind: 'startDevelopmentCastingAnnex' }])
   }
   const initialStateHash = stateHash(state)
-  const initialSaveHash = sha256(exportSave(makeSaveV11(structuredClone(state))))
+  const initialSaveHash = sha256(exportSave(makeSaveV12(structuredClone(state))))
   return {
     runtime: {
       state,
@@ -1382,31 +1381,31 @@ function executeEntryCampaign(
 }
 
 function harvestSave(state: GameState): {
-  entrySave: SaveFileV11
+  entrySave: SaveFileV12
   entrySaveBytes: string
   entrySaveHash: string
   entryStateHash: string
 } {
   const stateHashBefore = stateHash(state)
-  const made = makeSaveV11(structuredClone(state))
+  const made = makeSaveV12(structuredClone(state))
   const entrySaveBytes = exportSave(made)
   const imported = importSave(entrySaveBytes)
-  if (imported.saveVersion !== 11) {
-    throw new Error('roster-wall observatory: Week-196 import did not return SaveFileV11')
+  if (imported.saveVersion !== 12) {
+    throw new Error('roster-wall observatory: Week-196 import did not return SaveFileV12')
   }
-  const validated = validateSaveV11(imported)
+  const validated = validateSaveV12(imported)
   const importedReexport = exportSave(validated)
   if (importedReexport !== entrySaveBytes) {
-    throw new Error('roster-wall observatory: imported SaveFileV11 re-export changed bytes')
+    throw new Error('roster-wall observatory: imported SaveFileV12 re-export changed bytes')
   }
-  const remade = makeSaveV11(structuredClone(validated.state))
+  const remade = makeSaveV12(structuredClone(validated.state))
   const remadeReexport = exportSave(remade)
   if (remadeReexport !== entrySaveBytes) {
-    throw new Error('roster-wall observatory: re-made SaveFileV11 changed entry bytes')
+    throw new Error('roster-wall observatory: re-made SaveFileV12 changed entry bytes')
   }
-  const entryStateHash = stateHash(rosterWallLiveState(validated))
+  const entryStateHash = stateHash(validated.state)
   if (entryStateHash !== stateHashBefore) {
-    throw new Error('roster-wall observatory: SaveFileV11 replay changed entry state')
+    throw new Error('roster-wall observatory: SaveFileV12 replay changed entry state')
   }
   return {
     entrySave: validated,
@@ -1469,7 +1468,7 @@ function parityProjection(
 /**
  * Build the canonical all-208 founding campaign, apply the optional real Annex
  * public action at Week 0, run the frozen film policy without renewals, and harvest
- * the exact validated/replayed Week-196 SaveFileV11 entry.
+ * the exact validated/replayed Week-196 SaveFileV12 entry.
  */
 export function runRosterWallEntryCampaign(
   input: RunRosterWallEntryCampaignInput,
@@ -1479,7 +1478,7 @@ export function runRosterWallEntryCampaign(
   if (execution.runtime.preEntryWindowEve === null) {
     throw new Error('roster-wall observatory: Week-195 window-eve boundary was not captured')
   }
-  const cohort = cohortAtEntry(rosterWallLiveState(harvested.entrySave))
+  const cohort = cohortAtEntry(harvested.entrySave.state)
   if (
     cohort.some(
       (member) =>
@@ -1501,7 +1500,7 @@ export function runRosterWallEntryCampaign(
     ...harvested,
     entryRngState: harvested.entrySave.state.rngState,
     replay: {
-      importedSaveVersion: 11,
+      importedSaveVersion: 12,
       importedReexportByteIdentical: true,
       remadeReexportByteIdentical: true,
     },

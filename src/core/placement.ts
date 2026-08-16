@@ -21,7 +21,10 @@
 // into simulation state. A preview is a pure query the UI runs per cursor move.
 
 import { canAfford, economyEngaged, type Affordability } from './employment.js'
-import { assertStudioConstructionInvariants } from './construction.js'
+import {
+  annexCanonicalProductionIdCollision,
+  assertStudioConstructionInvariants,
+} from './construction.js'
 import {
   LEGACY_EXPANSION_PARCEL_ID,
   LOT_DEPTH,
@@ -38,6 +41,7 @@ import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
   FACILITY_BLUEPRINTS,
   FACILITY_OPEX_LEDGER_NOTE,
+  TUNING,
 } from './tuning.js'
 import type {
   FacilityBlueprint,
@@ -460,8 +464,19 @@ export function expectedWeeklyOperatingCostAt(placement: StudioPlacement, week: 
  * placement policy, which is also what proves the V11 construction root has
  * genuinely retired (empty projects, vacant parcel).
  */
-export function assertStudioPlacementInvariants(state: GameState): void {
+export function assertStudioPlacementInvariants(
+  state: GameState,
+  // The committed facilities observatory projects arbitrary counterfactual
+  // capacity, so it keeps its explicit `configured` escape hatch: every placement
+  // law below still runs, only the exact operational facility SET is delegated to
+  // the generic capacity check. Every live surface uses the default.
+  options?: { facilityPolicy?: 'placement-v12' | 'configured' },
+): void {
+  const configured = (options?.facilityPolicy ?? 'placement-v12') === 'configured'
   const { placement, operations } = state
+  if (placement === undefined || placement === null) {
+    throw new Error('placement invariant: state.placement is missing')
+  }
   invariant(
     placement.mode === operations.mode,
     'placement mode must equal operations mode',
@@ -481,7 +496,7 @@ export function assertStudioPlacementInvariants(state: GameState): void {
     invariant(opexRows.length === 0, 'legacy mode cannot have facility operating cost')
     assertStudioConstructionInvariants(state, {
       facilityPolicy: 'placement-v12',
-      expectedFacilities: [],
+      ...(configured ? {} : { expectedFacilities: [] }),
     })
     return
   }
@@ -632,9 +647,87 @@ export function assertStudioPlacementInvariants(state: GameState): void {
     )
   }
 
+  // A placed facility is appended only AFTER allocations on its completing
+  // advance. A save may not retroactively move work that started before that
+  // visible-week boundary onto the new facility. Ported verbatim in intent from
+  // the V11 Annex law and generalized to every operational placement.
+  for (const placed of placement.facilities) {
+    if (placed.status !== 'operational') continue
+    const availableWeek = placed.completesWeek
+    for (const workflow of operations.workflows) {
+      if (!workflow.reservations.some((reservation) => reservation.facilityId === placed.facilityId)) {
+        continue
+      }
+      const production = state.studio.activeProductions.find(
+        (candidate) => candidate.id === workflow.productionId,
+      )
+      const elapsedProgress =
+        production === undefined
+          ? Number.POSITIVE_INFINITY
+          : TUNING.PRODUCTION_TICKS - production.remainingTicks
+      const productionDebits = state.ledger.filter(
+        (entry) => entry.kind === 'production' && entry.productionId === workflow.productionId,
+      )
+      // `startTick` is reservation-time evidence only for workflows that actually
+      // claim a placed facility. Bound its relation to the stored countdown here
+      // so a forged save cannot move that clock forward to launder a
+      // pre-completion allocation.
+      invariant(
+        production !== undefined &&
+          Number.isInteger(production.startTick) &&
+          production.startTick >= 0 &&
+          production.startTick <= state.market.tick,
+        `production "${workflow.productionId}" has an invalid or future startTick`,
+      )
+      invariant(
+        Number.isInteger(production.remainingTicks) &&
+          production.remainingTicks >= 1 &&
+          production.remainingTicks <= TUNING.PRODUCTION_TICKS,
+        `production "${workflow.productionId}" has an invalid remainingTicks`,
+      )
+      invariant(
+        elapsedProgress <= state.market.tick - production.startTick,
+        `production "${workflow.productionId}" advanced farther than its startTick permits`,
+      )
+      invariant(
+        productionDebits.length === 1 && productionDebits[0]!.week === production.startTick,
+        `production "${workflow.productionId}" placed-facility reservation disagrees with its authoritative greenlight week`,
+      )
+      invariant(
+        productionDebits[0]!.week >= availableWeek,
+        `production "${workflow.productionId}" cannot reserve the Annex before Week ${String(availableWeek)}`,
+      )
+    }
+    for (const screenplay of state.scriptDevelopment.projects) {
+      if (screenplay.reservation?.facilityId !== placed.facilityId) continue
+      const reservationWeek =
+        screenplay.status === 'drafting'
+          ? screenplay.commissionedWeek
+          : screenplay.status === 'rewriting' && screenplay.dueWeek !== null
+            ? screenplay.dueWeek - 1
+            : -1
+      invariant(
+        reservationWeek >= availableWeek,
+        `screenplay "${screenplay.id}" cannot reserve the Annex before Week ${String(availableWeek)}`,
+      )
+    }
+    for (const session of state.castingSessions.sessions) {
+      if (session.reservation?.facilityId !== placed.facilityId) continue
+      invariant(
+        session.startedWeek >= availableWeek,
+        `casting session "${session.id}" cannot reserve the Annex before Week ${String(availableWeek)}`,
+      )
+    }
+  }
+
   assertStudioConstructionInvariants(state, {
     facilityPolicy: 'placement-v12',
-    expectedFacilities: operationalPlacedFacilities(placement).map(placedStudioFacility),
+    ...(configured
+      ? {}
+      : {
+          expectedFacilities:
+            operationalPlacedFacilities(placement).map(placedStudioFacility),
+        }),
   })
 }
 
@@ -708,11 +801,9 @@ export function studioConstructionView(
   // did under V11. Every live surface uses the default: the full V12 authority.
   options?: { facilityPolicy?: 'placement-v12' | 'configured' },
 ): StudioConstructionView {
-  if ((options?.facilityPolicy ?? 'placement-v12') === 'configured') {
-    assertStudioConstructionInvariants(state, { facilityPolicy: 'configured' })
-  } else {
-    assertStudioPlacementInvariants(state)
-  }
+  assertStudioPlacementInvariants(state, {
+    facilityPolicy: options?.facilityPolicy ?? 'placement-v12',
+  })
   const blueprint = DEVELOPMENT_CASTING_ANNEX_BLUEPRINT
   const placed = legacyAnnexPlacement(state.placement)
   const status =
@@ -752,7 +843,9 @@ export function studioConstructionView(
     cashAfter: state.studio.cash - blueprint.capex,
     affordability,
     canStart:
-      placementRegimeReady(state) && queryPlacement(state, legacyAnnexPlacementRequest()).ok,
+      placementRegimeReady(state) &&
+      annexCanonicalProductionIdCollision(state) === null &&
+      queryPlacement(state, legacyAnnexPlacementRequest()).ok,
     startedWeek: placed?.placedWeek ?? null,
     dueWeek: placed?.completesWeek ?? null,
     completedWeek: placed === null || placed.status !== 'operational' ? null : placed.completesWeek,

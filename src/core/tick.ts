@@ -154,7 +154,13 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // and the exact operational facility set, and it delegates the retired V11
   // construction root, cash reconciliation, and shared script/casting law to the
   // construction checker under its placement policy.
-  assertStudioPlacementInvariants(state)
+  // The committed facilities observatory's placement-free counterfactual arms
+  // retain their explicit configured-capacity policy (the V11 rule, one version
+  // on: it keyed off `construction.projects.length === 0`); any real placement
+  // history immediately selects the exact V12 facility truth.
+  assertStudioPlacementInvariants(state, {
+    facilityPolicy: state.placement.facilities.length === 0 ? 'configured' : 'placement-v12',
+  })
 
   // Deserialize the sim stream ONCE. Its state is re-serialized as the final step.
   const rng = RngStream.deserialize(state.rngState)

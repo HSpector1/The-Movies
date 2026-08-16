@@ -21,7 +21,7 @@ const SOURCE: RosterWallSourceProvenance = {
   tree: 'schema-test-tree',
   worktreeDirty: false,
   runtime: 'vitest',
-  saveVersion: 11,
+  saveVersion: 12,
   productionAuthorityCommit: '8b7e95eb92f6f809522a595b4b458d4f19e26852',
   productionAuthorityTree: 'schema-test-authority-tree',
   authorityDiffPaths: ['src/harness/roster-wall/schema.ts'],
@@ -168,7 +168,8 @@ describe('Week-208 roster-wall evidence schema', () => {
     const entry = makeRosterWallEntryRecord(harvest, SOURCE, 'all-208', 'current')
 
     expect(entry.entryId).toContain('annex-start-week-0')
-    expect(entry.construction.projects[0]?.status).toBe('completed')
+    expect(entry.construction.projects).toEqual([])
+    expect(entry.placement.facilities[0]?.status).toBe('operational')
     expect(
       entry.ledger.filter((ledger) => ledger.kind === 'constructionCapex'),
     ).toHaveLength(1)

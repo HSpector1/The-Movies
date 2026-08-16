@@ -16,7 +16,8 @@ import {
   resolveShape,
   stableStringify,
   tick,
-} from '../src/core/index.js'
+  emptyStudioPlacement,
+  initialManagedStudioPlacement,} from '../src/core/index.js'
 import type {
   CastSlot,
   CreativeRole,
@@ -253,6 +254,7 @@ describe('Production Operations V1', () => {
           ...withFilm,
           operations: emptyStudioOperations(),
           construction: emptyStudioConstruction(),
+          placement: emptyStudioPlacement(),
         },
         [{ kind: 'activateStudioOperations' }],
       ),
@@ -265,6 +267,7 @@ describe('Production Operations V1', () => {
       ...state,
       operations: initialManagedStudioOperations(),
       construction: initialManagedStudioConstruction(),
+      placement: initialManagedStudioPlacement(),
     }
     state = greenlightManaged(state, 0)
     state = greenlightManaged(state, 1)
@@ -285,6 +288,7 @@ describe('Production Operations V1', () => {
       ...state,
       operations: initialManagedStudioOperations(),
       construction: initialManagedStudioConstruction(),
+      placement: initialManagedStudioPlacement(),
     }
     state = greenlightManaged(state)
     const developmentBlocker = {
@@ -327,6 +331,7 @@ describe('Production Operations V1', () => {
       ...state,
       operations: initialManagedStudioOperations(),
       construction: initialManagedStudioConstruction(),
+      placement: initialManagedStudioPlacement(),
     }
     state = greenlightManaged(state)
     const productionId = state.studio.activeProductions[0]!.id
@@ -375,6 +380,7 @@ describe('Production Operations V1', () => {
       ...state,
       operations: initialManagedStudioOperations(),
       construction: initialManagedStudioConstruction(),
+      placement: initialManagedStudioPlacement(),
     }
     state = greenlightManaged(state, 0)
     state = greenlightManaged(state, 1)
@@ -431,6 +437,7 @@ describe('Production Operations V1', () => {
         ...state,
         operations: initialManagedStudioOperations(),
         construction: initialManagedStudioConstruction(),
+        placement: initialManagedStudioPlacement(),
       }
       state = greenlightManaged(state, 0)
       state = greenlightManaged(state, 1)
@@ -539,6 +546,7 @@ describe('Production Operations V1', () => {
       ...state,
       operations: initialManagedStudioOperations(),
       construction: initialManagedStudioConstruction(),
+      placement: initialManagedStudioPlacement(),
     }
     state = greenlightManaged(state, 0)
     state = greenlightManaged(state, 1)
@@ -595,6 +603,7 @@ describe('Production Operations V1', () => {
       ...state,
       operations: initialManagedStudioOperations(),
       construction: initialManagedStudioConstruction(),
+      placement: initialManagedStudioPlacement(),
     }
     state = toShooting(greenlightManaged(state))
     const production = state.studio.activeProductions[0]!
@@ -624,6 +633,7 @@ describe('Production Operations V1', () => {
       ...state,
       operations: initialManagedStudioOperations(),
       construction: initialManagedStudioConstruction(),
+      placement: initialManagedStudioPlacement(),
     }
     state = greenlightManaged(state)
     const productionId = state.studio.activeProductions[0]!.id

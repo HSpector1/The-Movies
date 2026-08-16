@@ -3,7 +3,6 @@
 // ANALYSIS ONLY. These rows contain observed public engine facts; they never feed
 // back into simulation behavior.
 
-import { rosterWallLiveState } from './live-state.js'
 import {
   FOUNDING_MINIMUMS,
   TUNING,
@@ -123,6 +122,10 @@ export type RosterWallEntryRecord = RosterWallCommonEnvelope & {
     castingSessions: GameState['castingSessions']['sessions']
   }
   construction: GameState['construction']
+  // Placement Core V12: the capital-project authority moved here. `construction`
+  // above is retained (and now always the vacant registry) so the record's frozen
+  // shape still reads, but the Annex's real lifecycle lives in this field.
+  placement: GameState['placement']
   operationsFacilities: GameState['operations']['facilities']
   roleCoverage: Record<CreativeRole, number>
   entryFileSha256: string
@@ -156,7 +159,7 @@ export function rosterWallCashReconciliation(state: GameState): RosterWallCashRe
     checkpointLedgerLength < 0 ||
     checkpointLedgerLength > ledgerLength
   ) {
-    throw new Error('roster-wall schema: invalid SaveFileV11 cash-ledger checkpoint length')
+    throw new Error('roster-wall schema: invalid SaveFileV12 cash-ledger checkpoint length')
   }
   const suffix = state.ledger.slice(checkpointLedgerLength)
   const suffixLedgerTotal = orderedLedgerFold(0, suffix)
@@ -334,7 +337,7 @@ export type RosterWallEnvelopeInput = {
 function assertAcceptedSource(source: RosterWallSourceProvenance): void {
   if (
     source.worktreeDirty !== false ||
-    source.saveVersion !== 11 ||
+    source.saveVersion !== 12 ||
     source.productionAuthorityCommit !== ROSTER_WALL_PRODUCTION_AUTHORITY ||
     source.branch.length === 0 ||
     source.commit.length === 0 ||
@@ -343,7 +346,7 @@ function assertAcceptedSource(source: RosterWallSourceProvenance): void {
     source.productionAuthorityTree.length === 0
   ) {
     throw new Error(
-      'roster-wall schema: serialized evidence requires an accepted clean SaveFileV11 source',
+      'roster-wall schema: serialized evidence requires an accepted clean SaveFileV12 source',
     )
   }
 }
@@ -437,7 +440,7 @@ export function makeRosterWallEntryRecord(
   mode: 'current' | 'player-policy',
 ): RosterWallEntryRecord {
   const entryId = rosterWallEntryId(harvest, foundingTermPolicyId)
-  const state = rosterWallLiveState(harvest.entrySave)
+  const state = harvest.entrySave.state
   const activeTheatricalRuns = state.theatricalRuns
     .filter((run) => run.status === 'active')
     .map((run) => structuredClone(run))
@@ -477,6 +480,7 @@ export function makeRosterWallEntryRecord(
         castingSessions: structuredClone(state.castingSessions.sessions),
       },
       construction: structuredClone(state.construction),
+      placement: structuredClone(state.placement),
       operationsFacilities: structuredClone(state.operations.facilities),
       roleCoverage: rosterWallRoleCoverage(state),
       entryFileSha256: harvest.entrySaveHash,

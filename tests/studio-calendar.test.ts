@@ -8,14 +8,14 @@ import {
   initialManagedStudioConstruction,
   initialManagedStudioOperations,
   makeSaveV7,
-  migrateToV11,
+  migrateToV12,
   nextStudioDecision,
   openTheatricalRun,
   stableStringify,
   studioCalendar,
   tick,
   TUNING,
-} from '../src/core/index.js'
+  initialManagedStudioPlacement,} from '../src/core/index.js'
 import type {
   CastSlot,
   CommissionScriptPayload,
@@ -215,7 +215,7 @@ describe('Studio Calendar V1 — authoritative read model', () => {
     state = applyActions(state, [
       { kind: 'greenlight', production: rawProductionPayload(state, 1) },
     ])
-    const migrated = migrateToV11(makeSaveV7(state))
+    const migrated = migrateToV12(makeSaveV7(state))
     const before = exportSave(migrated)
 
     const calendar = studioCalendar(migrated.state)
@@ -498,6 +498,7 @@ describe('Studio Calendar V1 — authoritative read model', () => {
     state = {
       ...state,
       construction: initialManagedStudioConstruction(),
+      placement: initialManagedStudioPlacement(),
       operations: {
         ...initialManagedStudioOperations(),
         facilities: initialManagedStudioOperations().facilities.filter(

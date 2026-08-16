@@ -445,7 +445,7 @@ describe('D-17A/R2: a V6 save without an explicit engagement fact is rejected LO
   it('new games save as V11 and carry the fact', () => {
     // Annex V1: makeSave writes V11; the R2 fact is still carried.
     const save = makeSave(foundStudio('d17-newgame'))
-    expect(save.saveVersion).toBe(11)
+    expect(save.saveVersion).toBe(12)
     expect(save.state.economyEngagedEver).toBe(true)
   })
 })

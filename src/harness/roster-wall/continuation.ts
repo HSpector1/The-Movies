@@ -1,11 +1,10 @@
 // Week-208 roster-wall exact-entry continuation observatory.
 //
-// ANALYSIS ONLY. Every arm imports the immutable Week-196 SaveFileV11 bytes afresh,
+// ANALYSIS ONLY. Every arm imports the immutable Week-196 SaveFileV12 bytes afresh,
 // applies one C0-C6 renewal policy before the unchanged operating controller, and
 // advances only through the public tick. Nothing in this module mutates production
 // constants, save authority, or a harvested entry object.
 
-import { rosterWallLiveState } from './live-state.js'
 import { createHash } from 'node:crypto'
 import {
   FOUNDING_MINIMUMS,
@@ -13,7 +12,7 @@ import {
   contractOffer,
   exportSave,
   importSave,
-  makeSaveV11,
+  makeSaveV12,
   renewalWindowOpen,
   stableStringify,
   weeklyOverhead,
@@ -497,8 +496,8 @@ function missingRoles(coverage: RosterWallRoleCoverage): CreativeRole[] {
 }
 
 function assertSource(source: RosterWallSourceProvenance): void {
-  if (source.worktreeDirty !== false || source.saveVersion !== 11) {
-    throw new Error('roster-wall continuation: accepted source must be clean SaveFileV11 authority')
+  if (source.worktreeDirty !== false || source.saveVersion !== 12) {
+    throw new Error('roster-wall continuation: accepted source must be clean SaveFileV12 authority')
   }
 }
 
@@ -521,8 +520,8 @@ function loadFreshEntry(harvest: RosterWallEntryHarvest): GameState {
   // `importSave` is intentionally called for every execution. Do not replace this
   // with harvest.entrySave.state or a clone of a prior arm.
   const imported = importSave(harvest.entrySaveBytes)
-  if (imported.saveVersion !== 11) {
-    throw new Error('roster-wall continuation: immutable entry is not SaveFileV11')
+  if (imported.saveVersion !== 12) {
+    throw new Error('roster-wall continuation: immutable entry is not SaveFileV12')
   }
   const reexported = exportSave(imported)
   if (reexported !== harvest.entrySaveBytes || sha256(reexported) !== harvest.entrySaveHash) {
@@ -531,7 +530,7 @@ function loadFreshEntry(harvest: RosterWallEntryHarvest): GameState {
   if (imported.state.market.tick !== ROSTER_WALL_ENTRY_WEEK) {
     throw new Error('roster-wall continuation: fresh entry is not the visible Week-196 arrival')
   }
-  const importedState = rosterWallLiveState(imported)
+  const importedState = imported.state
   if (stateHash(importedState) !== harvest.entryStateHash) {
     throw new Error('roster-wall continuation: fresh entry state hash disagrees with harvest')
   }
@@ -768,7 +767,7 @@ function executeContinuation(
   assertHorizon(input.continuationPolicyId, horizonWeeks)
   let state = loadFreshEntry(input.harvest)
   const freshImportStateHash = stateHash(state)
-  const freshImportSaveHash = sha256(exportSave(makeSaveV11(state)))
+  const freshImportSaveHash = sha256(exportSave(makeSaveV12(state)))
   const cohortIds = new Set(input.harvest.cohort.map((member) => member.talentId))
   const originalContractKeyByTalentId = new Map(
     input.harvest.cohort.map((member) => [
@@ -1028,7 +1027,7 @@ function executeContinuation(
   if (state.market.tick !== horizonWeeks) {
     throw new Error('roster-wall continuation: final arrival disagrees with requested horizon')
   }
-  const finalSaveBytes = exportSave(makeSaveV11(state))
+  const finalSaveBytes = exportSave(makeSaveV12(state))
   const finalActive = new Set(activeContractIds(state))
   const expiry = originalExpiryBoundary
   const retainedAtExpiry = (
@@ -1296,7 +1295,7 @@ function pairRecord(
   const cohortIds = input.harvest.cohort.map((member) => member.talentId).sort(compareId)
   const baselineRetained = retainedIds(baseline, cohortIds)
   const comparedRetained = retainedIds(compared, cohortIds)
-  const entryState = rosterWallLiveState(input.harvest.entrySave)
+  const entryState = input.harvest.entrySave.state
   const entryOverhead = overheadParts(entryState)
   const entryReadiness = rosterWallPackageReadiness(
     entryState,

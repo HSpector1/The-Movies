@@ -14,6 +14,7 @@ import {
   generateWorld,
   importSave,
   initialManagedStudioConstruction,
+  initialManagedStudioPlacement,
   initialManagedStudioOperations,
   makeSave,
   OracleAgent,
@@ -827,6 +828,7 @@ function validProducedState(seed: string): { state: GameState; productionId: str
     },
     operations: initialManagedStudioOperations(),
     construction: initialManagedStudioConstruction(),
+    placement: initialManagedStudioPlacement(),
     scriptDevelopment: { mode: "managed", projects: [project] },
   };
   return { state, productionId: production.id };
@@ -891,7 +893,7 @@ describe("Film Chronicle V1 — SaveFileV11 durability", () => {
   it("reconstructs a deep-equal Chronicle after an exact V11 export/import round-trip", () => {
     const { state, productionId } = validProducedState("film-chronicle-save-v11");
     const envelope = makeSave(state);
-    expect(envelope.saveVersion).toBe(11);
+    expect(envelope.saveVersion).toBe(12);
     expect(validateSave(envelope)).toBe(envelope);
 
     const beforeState = stableStringify(state);
@@ -902,8 +904,8 @@ describe("Film Chronicle V1 — SaveFileV11 durability", () => {
     expectAvailable(before!.productionRecord);
 
     const restored = importSave(exportSave(envelope));
-    expect(restored.saveVersion).toBe(11);
-    if (restored.saveVersion !== 11) return;
+    expect(restored.saveVersion).toBe(12);
+    if (restored.saveVersion !== 12) return;
     const after = buildFilmChronicle(inputFromState(restored.state, productionId));
 
     expect(after).toEqual(before);

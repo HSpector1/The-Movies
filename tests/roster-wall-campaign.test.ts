@@ -50,7 +50,7 @@ describe('Week-208 roster-wall campaign entry harvest', () => {
     })
   }
 
-  it('captures pure 52/26/12-week timing shadows and exact SaveFileV11 replay', () => {
+  it('captures pure 52/26/12-week timing shadows and exact SaveFileV12 replay', () => {
     const harvest = runRosterWallEntryCampaign({
       seed: 'roster-wall-entry-replay',
       operatingPolicyId: 'development-casting',
@@ -58,10 +58,10 @@ describe('Week-208 roster-wall campaign entry harvest', () => {
     })
 
     expect(harvest.entryWeek).toBe(196)
-    expect(harvest.entrySave.saveVersion).toBe(11)
+    expect(harvest.entrySave.saveVersion).toBe(12)
     expect(exportSave(importSave(harvest.entrySaveBytes))).toBe(harvest.entrySaveBytes)
     expect(harvest.replay).toEqual({
-      importedSaveVersion: 11,
+      importedSaveVersion: 12,
       importedReexportByteIdentical: true,
       remadeReexportByteIdentical: true,
     })
@@ -136,9 +136,19 @@ describe('Week-208 roster-wall campaign entry harvest', () => {
     })
     const state = harvest.entrySave.state
 
-    expect(state.construction.projects).toContainEqual(
-      expect.objectContaining({ id: ANNEX_PROJECT_ID, status: 'completed', completedWeek: 13 }),
+    // Placement Core V12: the Annex is a placed facility on the legacy parcel,
+    // still carrying the canonical project id, still operational at Week 13.
+    expect(state.placement.facilities).toContainEqual(
+      expect.objectContaining({
+        projectId: ANNEX_PROJECT_ID,
+        facilityId: ANNEX_FACILITY_ID,
+        parcelId: 'expansion',
+        status: 'operational',
+        placedWeek: 0,
+        completesWeek: 13,
+      }),
     )
+    expect(state.construction.projects).toEqual([])
     expect(state.operations.facilities).toContainEqual(
       expect.objectContaining({ id: ANNEX_FACILITY_ID, capability: 'development-casting' }),
     )

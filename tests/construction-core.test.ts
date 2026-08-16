@@ -9,14 +9,14 @@ import {
   INITIAL_STUDIO_FACILITIES,
   TUNING,
   applyActions,
-  assertStudioConstructionInvariants,
+  assertStudioPlacementInvariants,
   beginFounding,
   generateWorld,
   makeSave,
   stableStringify,
   studioConstructionView,
   tick,
-  validateSaveV11,
+  validateSaveV12,
 } from '../src/core/index.js'
 import { DEVELOPMENT_CASTING_ANNEX_FACILITY } from '../src/core/operations.js'
 import type {
@@ -292,16 +292,27 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
     expect(started.market.tick).toBe(exact.market.tick)
     expect(started.studio.cash).toBe(0)
     expect(started.operations).toBe(exact.operations)
-    expect(started.construction.projects[0]).toEqual({
-      id: ANNEX_PROJECT_ID,
-      kind: 'development-casting-annex',
-      parcelId: 'expansion',
+    // Placement Core V12: the Annex is a placed facility on the legacy parcel.
+    // Its price, duration, identities, and parcel are the V11 law unchanged.
+    expect(started.construction.projects).toEqual([])
+    expect(started.placement.facilities[0]).toEqual({
+      id: 1,
+      blueprintId: 'development-casting-annex',
+      parcelId: ANNEX_PARCEL_ID,
+      origin: { gx: 7, gy: 15 },
+      cells: [
+        { gx: 7, gy: 15 },
+        { gx: 8, gy: 15 },
+        { gx: 9, gy: 15 },
+        { gx: 7, gy: 16 },
+        { gx: 8, gy: 16 },
+        { gx: 9, gy: 16 },
+      ],
       facilityId: ANNEX_FACILITY_ID,
-      status: 'building',
-      capex: ANNEX_CAPEX,
-      startedWeek: 0,
-      dueWeek: ANNEX_DURATION_WEEKS,
-      completedWeek: null,
+      projectId: ANNEX_PROJECT_ID,
+      status: 'underConstruction',
+      placedWeek: 0,
+      completesWeek: ANNEX_DURATION_WEEKS,
     })
     expect(started.ledger.at(-1)).toMatchObject({
       week: 0,
@@ -311,8 +322,8 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
     })
     expect(() =>
       applyActions(started, [{ kind: 'startDevelopmentCastingAnnex' }]),
-    ).toThrow(/expansion parcel is not vacant|already exists/)
-    assertStudioConstructionInvariants(started)
+    ).toThrow(/occupied|clearanceRing/)
+    assertStudioPlacementInvariants(started)
   })
 
   it.each([ANNEX_PARCEL_ID, ANNEX_PROJECT_ID, ANNEX_FACILITY_ID])(
@@ -327,7 +338,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
 
       // A migrated vacant V11 state remains representable, but the start gate
       // must refuse to reserve an identity already owned by film history.
-      expect(() => assertStudioConstructionInvariants(forged)).not.toThrow()
+      expect(() => assertStudioPlacementInvariants(forged)).not.toThrow()
       expect(studioConstructionView(forged).canStart).toBe(false)
       expect(() =>
         applyActions(forged, [{ kind: 'startDevelopmentCastingAnnex' }]),
@@ -353,7 +364,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
     }
     const before = stableStringify(forged)
     expect(forged.studio.activeProductions).toEqual([])
-    expect(() => assertStudioConstructionInvariants(forged)).not.toThrow()
+    expect(() => assertStudioPlacementInvariants(forged)).not.toThrow()
     expect(() =>
       applyActions(forged, [{ kind: 'startDevelopmentCastingAnnex' }]),
     ).toThrow(/canonical Annex id .*persisted production history/)
@@ -372,7 +383,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
 
     state = advance(state, 12)
     expect(state.market.tick).toBe(startedWeek + 12)
-    expect(state.construction.projects[0]!.status).toBe('building')
+    expect(state.placement.facilities[0]!.status).toBe('underConstruction')
     expect(state.operations.facilities.some((facility) => facility.id === ANNEX_FACILITY_ID)).toBe(false)
     expect(studioConstructionView(state)).toMatchObject({
       status: 'building',
@@ -383,10 +394,9 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
     const ledgerBeforeCompletion = state.ledger.length
     state = tick(state)
     expect(state.market.tick).toBe(startedWeek + 13)
-    expect(state.construction.projects[0]).toMatchObject({
-      status: 'completed',
-      dueWeek: startedWeek + 13,
-      completedWeek: startedWeek + 13,
+    expect(state.placement.facilities[0]).toMatchObject({
+      status: 'operational',
+      completesWeek: startedWeek + 13,
     })
     expect(state.operations.facilities.at(-1)).toEqual(DEVELOPMENT_CASTING_ANNEX_FACILITY)
     expect(state.ledger).toHaveLength(ledgerBeforeCompletion + 2) // payroll + unchanged base overhead only
@@ -395,7 +405,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
     )
     expect(ledgerAfterStart).toBeGreaterThan(0)
     expect(state.rngState).toBe(rng)
-    assertStudioConstructionInvariants(state)
+    assertStudioPlacementInvariants(state)
   })
 
   it('does not reallocate completing-advance productions into the Annex, then exposes it immediately', () => {
@@ -478,20 +488,20 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
         ),
       },
     }
-    expect(() => assertStudioConstructionInvariants(forged)).toThrow(
+    expect(() => assertStudioPlacementInvariants(forged)).toThrow(
       /cannot reserve the Annex before Week 13/,
     )
     const forgedSave = JSON.parse(stableStringify(makeSave(state))) as ReturnType<typeof makeSave>
     forgedSave.state.operations.workflows[0]!.reservations[0]!.facilityId = ANNEX_FACILITY_ID
-    expect(() => validateSaveV11(forgedSave)).toThrow(
+    expect(() => validateSaveV12(forgedSave)).toThrow(
       /cannot reserve the Annex before Week 13/,
     )
     const laundered = JSON.parse(stableStringify(forged)) as GameState
     laundered.studio.activeProductions[0]!.startTick = 13
-    expect(() => assertStudioConstructionInvariants(laundered)).toThrow(
+    expect(() => assertStudioPlacementInvariants(laundered)).toThrow(
       /advanced farther than its startTick permits/,
     )
-    expect(() => validateSaveV11(makeSave(laundered))).toThrow(
+    expect(() => validateSaveV12(makeSave(laundered))).toThrow(
       /advanced farther than its startTick permits/,
     )
 
@@ -504,7 +514,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
       capability: 'development-casting',
       slot: 0,
     })
-    assertStudioConstructionInvariants(state)
+    assertStudioPlacementInvariants(state)
   })
 
   it('uses the authoritative greenlight debit to reject skip-first start-clock laundering', () => {
@@ -539,21 +549,21 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
 
     state = tick(state)
     expect(state.market.tick).toBe(13)
-    expect(state.construction.projects[0]).toMatchObject({ status: 'completed', completedWeek: 13 })
+    expect(state.placement.facilities[0]).toMatchObject({ status: 'operational', completesWeek: 13 })
     expect(state.studio.activeProductions[0]).toMatchObject({ startTick: 12, remainingTicks: 8 })
 
     const forged = JSON.parse(stableStringify(state)) as GameState
     forged.studio.activeProductions[0]!.startTick = 13
     forged.operations.workflows[0]!.reservations[0]!.facilityId = ANNEX_FACILITY_ID
-    expect(() => assertStudioConstructionInvariants(forged)).toThrow(
-      /Annex reservation disagrees with its authoritative greenlight week/,
+    expect(() => assertStudioPlacementInvariants(forged)).toThrow(
+      /placed-facility reservation disagrees with its authoritative greenlight week/,
     )
 
     const forgedSave = JSON.parse(stableStringify(makeSave(state))) as ReturnType<typeof makeSave>
     forgedSave.state.studio.activeProductions[0]!.startTick = 13
     forgedSave.state.operations.workflows[0]!.reservations[0]!.facilityId = ANNEX_FACILITY_ID
-    expect(() => validateSaveV11(forgedSave)).toThrow(
-      /Annex reservation disagrees with its authoritative greenlight week/,
+    expect(() => validateSaveV12(forgedSave)).toThrow(
+      /placed-facility reservation disagrees with its authoritative greenlight week/,
     )
   })
 
@@ -573,7 +583,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
     ])
     state = advance(state, 12)
     expect(state.market.tick).toBe(13)
-    expect(state.construction.projects[0]!.status).toBe('completed')
+    expect(state.placement.facilities[0]!.status).toBe('operational')
 
     state = applyActions(state, [
       { kind: 'commissionScript', project: scriptPayload(state, 1, writers[1]!.id) },
@@ -602,7 +612,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
     expect(state.studio.activeProductions).toEqual([])
     expect(state.operations.workflows).toEqual([])
     expect(state.operations.facilities.at(-1)!.id).toBe(ANNEX_FACILITY_ID)
-    expect(state.construction.projects[0]).toMatchObject({ status: 'completed', completedWeek: 13 })
+    expect(state.placement.facilities[0]).toMatchObject({ status: 'operational', completesWeek: 13 })
 
     // Cancellation returns the screenplay to Ready and frees the sixth-facility
     // slot. With both base slots still occupied by the two live drafts, a new
@@ -642,8 +652,8 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
       state.studio.releasedFilms.some((film) => film.productionId === releasedProductionId),
     ).toBe(true)
     expect(state.operations.facilities.at(-1)!.id).toBe(ANNEX_FACILITY_ID)
-    expect(state.construction.projects[0]).toMatchObject({ status: 'completed', completedWeek: 13 })
-    expect(() => validateSaveV11(makeSave(state))).not.toThrow()
+    expect(state.placement.facilities[0]).toMatchObject({ status: 'operational', completesWeek: 13 })
+    expect(() => validateSaveV12(makeSave(state))).not.toThrow()
   })
 
   it('accepts only the exact Annex V1 facility set and detects cross-owner collisions', () => {
@@ -653,7 +663,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
       ]),
       ANNEX_DURATION_WEEKS,
     )
-    expect(() => assertStudioConstructionInvariants(completed)).not.toThrow()
+    expect(() => assertStudioPlacementInvariants(completed)).not.toThrow()
 
     const capacityMutation: GameState = {
       ...completed,
@@ -664,8 +674,8 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
         ),
       },
     }
-    expect(() => assertStudioConstructionInvariants(capacityMutation)).toThrow(
-      /Annex facility differs from canonical truth|completed Annex facility differs/,
+    expect(() => assertStudioPlacementInvariants(capacityMutation)).toThrow(
+      /managed V12 facility at index .* differs from/,
     )
 
     // Exercise the existing three-owner collision authority on the configured
@@ -721,7 +731,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
         })),
       },
     }
-    expect(() => assertStudioConstructionInvariants(collided)).toThrow(/overbooked/)
+    expect(() => assertStudioPlacementInvariants(collided)).toThrow(/overbooked/)
 
     // No Annex operating charge exists: weekly overhead remains exactly the
     // governed base + per-employee formula before and after completion.
@@ -745,6 +755,15 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
     const cashBefore = stableStringify(cashMismatch)
     expect(() => tick(cashMismatch)).toThrow(/studio cash must equal initial cash plus the ordered ledger/)
     expect(stableStringify(cashMismatch)).toBe(cashBefore)
+
+    const placementModeMismatch: GameState = {
+      ...vacant,
+      construction: { mode: 'legacy', parcels: [], projects: [] },
+      placement: { mode: 'legacy', nextPlacementId: 1, facilities: [] },
+    }
+    const placementModeBefore = stableStringify(placementModeMismatch)
+    expect(() => tick(placementModeMismatch)).toThrow(/placement mode must equal operations mode/)
+    expect(stableStringify(placementModeMismatch)).toBe(placementModeBefore)
 
     const modeMismatch: GameState = {
       ...vacant,
