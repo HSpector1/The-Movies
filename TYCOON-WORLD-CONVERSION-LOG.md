@@ -205,3 +205,46 @@ visible), SaveFileV12 with V11→V12 migration mapping fixed-parcel Annex state 
 grid, historical-boundary guards per operational laws 18–19, and the ledger's full test
 list. Multiple Annex-class placements become legal. No UI, no renderer, no beats, no
 demolition. M0A replay/determinism preserved.
+
+## M2-Engine delivery note — Placement Core V12 (shipped)
+
+Delivered in commits `5d35d26..HEAD`. Full repository suite green at the final commit
+(212 files / 2854 tests), both tsc projects clean, `npm run build` passing.
+
+**Parcel map (engine-owned, `src/core/lot.ts`).** Ten coarse parcels over the 28×26 M1
+world, aligned by hand and asserted against the renderer's own numbers in
+`tests/placement-lot.test.ts`. Eight buildable — `expansion` (7,15)–(10,18, the legacy
+graded pad plus its boulevard frontage row, id preserved), `west-lawn` (0,9)–(2,14),
+`north-lawn` (0,2)–(2,6), `north-court` (6,2)–(8,6), `north-back-lot` (21,0)–(27,5),
+`stage-south` (15,16)–(17,20), `south-lawn` (3,19)–(8,22), `backlot-apron`
+(23,20)–(26,24) — and two owned-but-blocked: `courtyard` (7,10)–(11,14) and
+`service-yard` (21,16)–(26,18). Rectangles are INCLUSIVE, matching the renderer's ground
+rasterizer. `north-back-lot` deliberately has no road frontage, which is what makes
+`noRoadAccess` a live rule. Roads are circulation, never parcels.
+
+**API surface for the M2-UI writer** (all from `src/core/index.ts`):
+`queryPlacement(state, {blueprintId, origin}) → PlacementQuote` (pure, never throws on
+illegality; `cells`, `cellLegality[]` per-cell green/red, `cost`, `buildWeeks`,
+`completesOnWeek`, `capacityDelta`, `weeklyOperatingCost`, ordered `rejections[]`,
+`primary`); action `{kind:'placeFacility', placement:{blueprintId, origin}}` (throws on
+illegal commit); `studioPlacementView(state)` for the parcel map, catalog, live
+occupancy, and `buildEnabled`; `LOT_PARCELS` / `LOT_WIDTH` / `LOT_DEPTH` /
+`parcelAt` / `parcelHasRoadFrontage` for geometry; `PLACEMENT_REJECTION_ORDER` for
+message ordering. Preview stays a UI-only layer: nothing here writes a ghost to state.
+
+**Retained surfaces.** `studioConstructionView` is unchanged in shape and now projects
+from the placement root, so every accepted construction surface keeps working;
+`startDevelopmentCastingAnnex` is an alias that commits the Annex blueprint on the legacy
+parcel. `projectId`/`facilityId` on that view widened to `string` (a second Annex-class
+placement takes a suffixed identity; the legacy-parcel one keeps the exact V11 ids).
+
+**New numbers.** `PLACEMENT_ANNEX_WEEKLY_OPERATING_COST = 3,500/wk` — the only new
+economic quantity. Sized against `OVERHEAD_BASE` 15,000 and `OVERHEAD_PER_EMPLOYEE`
+1,500: an annex block carries about two support staff of standing cost, $182k/yr against
+its $780k capex. One aggregated `facilityOpex` ledger row per week, first charged the
+week AFTER a facility becomes operational, reported inside the existing overhead bucket
+so no finance read model changed shape.
+
+**Known gaps (deliberate).** The D-17A fixed-cost allocator still counts only
+payroll+overhead — folding `facilityOpex` into that audited cost basis needs its own
+authorization. No rotation, no demolition, no mothballing, no second real blueprint.
