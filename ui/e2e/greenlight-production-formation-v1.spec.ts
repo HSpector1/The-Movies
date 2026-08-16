@@ -37,8 +37,15 @@ const PERFORMANCE_EVIDENCE = process.env.PROJECT_STUDIO_PERFORMANCE_EVIDENCE ===
 
 /**
  * Build the two-picture browser authority through the same public actions as the governed Annex
- * generator. No save field is patched: 13 real Engine advances complete the Annex, and native V11
+ * generator. No save field is patched: 13 real Engine advances complete the Annex, and native
  * export/import replay must remain byte-identical before Chromium ever sees the state.
+ *
+ * M2-ENGINE (V12) CARRY-OVER — recorded because this is a REPAIR, not a relaxation. Under
+ * Placement Core V12 the Annex is a PLACED FACILITY, and the V11 `construction.projects` root
+ * has genuinely retired (the placement invariant asserts it is empty). The recipe's completion
+ * check therefore had to move to the authority that now owns the fact. It is checked at the same
+ * strength — one facility, exactly `operational` — and this precondition already threw at the
+ * M2-UI branch point `5b0777a`, before any Build Mode work existed.
  */
 function richManagedAvailableSave(): string {
   const counts: Readonly<Record<CreativeRole, number>> = {
@@ -73,7 +80,8 @@ function richManagedAvailableSave(): string {
     state.castingSessions.mode !== 'managed' ||
     state.operations.mode !== 'managed' ||
     state.studio.activeProductions.length !== 0 ||
-    state.construction.projects[0]?.status !== 'completed'
+    state.placement.facilities.length !== 1 ||
+    state.placement.facilities[0]?.status !== 'operational'
   ) {
     throw new Error('rich formation recipe did not produce the exact empty managed Week-13 studio')
   }
