@@ -1,6 +1,6 @@
 # Project: Studio — Next Highest Leverage
 
-Updated: 2026-08-15
+Updated: 2026-08-16
 
 ## Decision rule
 
@@ -295,24 +295,28 @@ projects; a 151-module build; direct save parity; exact minimal-fixture 30/13/11
 structure; six screenshot reviews; and clean independent audit. No Core/save/screenplay/economy/
 art/renderer-structure behavior changed, and no GPU certification is claimed.
 
-## Next evidence-led world audit
+## Closed — World-First Lot-Retained Audition Planning Workspace V1
 
-Measure **World-First Lot-Retained Audition Planning Workspace V1**. The accepted Lot already shows
-truthful managed Casting cues, and the canonical Casting Room already owns `SlatePlanner`, complete
-`castingSessionsBoard` legality/capacity truth, and `startCastingSessionAction`. Planning still
-replaces the Lot just before an existing authoritative one-week camera-test session begins.
+Contract `d94dd47` and implementation `e6426fcff8fec0744f9ce1bc9fe88f8d09d94ff9`
+close the bounded camera-test planning break by this documentation checkpoint. One shared canonical
+six-read planner opens over the exact mounted Lot only when a strict complete-board selector proves
+one uniquely eligible Ready screenplay, raw empty session history, complete candidates/capacity,
+and the first free shared slot.
 
-The bounded candidate may retain only one uniquely eligible Ready project's canonical planner over
-the exact current Lot. Zero or multiple eligible projects, pending review, active/history state,
-capacity/actor blockers, legacy, Operation-Hollywood-off, and non-Lot origins retain the full
-Casting Room. Acceptance must commit and autosave before close, then show one exact **CAMERA TESTS
-UNDERWAY** witness without implying a winner, hire, hold, payment, assignment, travel, occupancy,
-queue, or performed animation.
+App owns the exact state, Screen, presentation, workspace, opener, slate draft, and revision.
+Cancel is byte-neutral; rejection retains every selection and the exact Engine error; stale,
+unchanged, or older callbacks cannot clear or acquire newer authority. Accepted planning is
+exact-once, validates the App-owned payload, commits and autosaves before close, then one strict
+receipt paints **CAMERA TESTS UNDERWAY**, due/facility/slot truth, and all six reads in the same
+canvas. Full Casting Room remains explicit depth and owns every ambiguous, blocked, active,
+history, legacy, Hollywood-off, and non-Lot path.
 
-Freeze implementation authority only after a short measured browser audit proves the current
-unmount, exact legal project gate, direct-action/save footprint, and retained-workspace feasibility.
-Do not add a physical Hollywood Casting building, fee, week advance, result generation, full-room
-retention, Core/GameState/SaveFile/economy/RNG change, or renderer/art structure.
+Final proof passed focused 39/39; UI 117/117 files and 1,458/1,458 tests; repository 204/204 files
+and 2,688/2,688 tests; governed D-16/D-17 176/176; Audition Chromium 4/4; adjacent retained-host
+Chromium 14 passed / one explicit pre-existing GPU-only skip; both TypeScript projects; a
+155-module build; direct SaveFileV11 parity; exact 30/13/11,096,896/one-draw structure; seven
+screenshot reviews; and clean independent audits. No Core/save/Casting-result/economy/art/renderer-
+structure behavior changed, and no GPU certification is claimed.
 
 ## Closed parallel evidence lane
 
@@ -320,6 +324,20 @@ The complete Week-208 roster-wall corpus closed with no current repair justified
 wall remains an open macroeconomic residual; no production behavior, tuning, or implementation
 contract follows from the study. Revisit only after authoritative studio scale, facilities,
 construction, or operating costs materially change the decision boundary.
+
+## Post-marathon priorities — fresh Owner authorization required
+
+1. Replay and instrument the several-minutes-on-Lot experience across the accepted Commission →
+   screenplay review → Audition Planning → Casting review → Package → formation chain; identify
+   the next visible break without assuming a feature.
+2. Research an authoritative physical Development/Casting facility, reservation, occupancy,
+   queue, and clickable-blockage model before giving Hollywood a physical room or human route.
+3. Make rehearsal, shooting, Post, and publicity increasingly watchable with named-person travel
+   only after Engine tasks, destinations, and completion authority exist.
+4. Measure which remaining high-value deep surfaces—especially Calendar/Production Board and
+   Finance—benefit from retained same-world hosting without turning the Lot into a decorative tab.
+5. Instrument the richer facility/capacity/construction system's capital and operating costs, then
+   remeasure week-208 and cash-runaway behavior before considering any size-scaling sink.
 
 ## Not authorized next
 
@@ -339,12 +357,12 @@ construction, or operating costs materially change the decision boundary.
 
 ## Post-close evidence boundary
 
-Preserve the accepted next-event, complete-company, Casting-review, retained-Package, and retained-
-Commission contracts exactly while observing the next seam. Same-mounted continuity applies to
-ordinary non-release reactions and those exact accepted retained paths; other standalone deep
-owners may still unmount and remount the Lot. One synchronous batch supplies one final state; do
-not narrate skipped travel, work, queues, occupancy, construction labor, rehearsal, shooting, Post,
-publicity, or theatrical activity as watched simulation.
+Preserve the accepted next-event, complete-company, Casting-review, retained-Package, retained-
+Commission, and retained-Audition contracts exactly. Same-mounted continuity applies to ordinary
+non-release reactions and those exact accepted retained paths; other standalone deep owners may
+still unmount and remount the Lot. One synchronous batch supplies one final state; do not narrate
+skipped travel, work, queues, occupancy, construction labor, rehearsal, shooting, Post, publicity,
+or theatrical activity as watched simulation.
 
 Any proposed successor must remain UI/world projection over existing authority unless a separately
 frozen Engine contract explicitly says otherwise. No new save field, facility, physical place,

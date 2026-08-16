@@ -3687,3 +3687,47 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   bytes / one draw result and keep richer fixture totals in their own evidence records.
 - **Pattern:** fixture-local before/after structure. **Anti-pattern:** copying a familiar structural
   headline across semantically different saves.
+
+---
+
+# World-First Lot-Retained Audition Planning Workspace V1 — IMPLEMENTATION CLOSED
+
+> Contract `d94dd4714ab6ee8e0666afba3aae9a714c578db4`; implementation
+> `e6426fcff8fec0744f9ce1bc9fe88f8d09d94ff9`; closure by the documentation checkpoint containing
+> this record.
+
+## GG. Mutable decision drafts require value and revision authority, not workspace identity — **BR**
+
+- **Risk:** callbacks from an older render still share the same workspace/state/project identity.
+  If draft authority is keyed only to that identity, an unchanged callback can erase a valid Engine
+  rejection, an old submit can dispatch a newer slate, or an old cancel/details tail can close or
+  navigate a revised decision.
+- **Resolution / fastest proof:** let App own the complete draft and monotonic revision. Increment
+  only for a genuine candidate change, require submitted payload equality with the current
+  App-owned draft, and bind reject/submit/cancel/details callbacks to exact revision plus owner.
+  Race unchanged, stale, old-submit, old-cancel, and old-details callbacks around one real toggle.
+- **Pattern:** exact owner + App-owned value + monotonic revision. **Anti-pattern:** treating stable
+  workspace identity as authority over mutable form content.
+
+## GH. Modal initial focus must be visible inside the actual scroll owner — **MG**
+
+- **Risk:** a focus trap can technically focus a heading or sentinel that remains outside the
+  compact viewport. `preventScroll` makes the keyboard state valid to the DOM but invisible to the
+  player, especially at effective 200% or 480×270.
+- **Resolution / fastest proof:** choose a visible, actionable 44px control as initial focus and let
+  trap entry/wrap scroll the bounded workspace owner. Assert both `activeElement` and intersection
+  with the visual viewport at desktop, compact, and effective-zoom layouts.
+- **Pattern:** visible action focus + intentional container scroll. **Anti-pattern:** hidden heading
+  focus or unconditional `preventScroll` inside an overflow-constrained dialog.
+
+## GI. CDP page scale and Playwright locator coordinates are separate evidence layers — **MG, BR**
+
+- **Risk:** after `Emulation.setPageScaleFactor`, a locator-generated click can miss a target even
+  when the target's visual-viewport center is visible and `elementFromPoint` proves the correct hit.
+  Treating that harness conversion mismatch as product geometry can drive false layout fixes;
+  replacing activation with DOM `.click()` would instead weaken real-input evidence.
+- **Resolution / fastest proof:** first prove the target rectangle and center hit in visual-viewport
+  coordinates, then dispatch a real `page.mouse` activation at that visual-relative center. Keep
+  ordinary locator pointer and keyboard proofs at normal scale. Record the distinction explicitly.
+- **Pattern:** geometry proof + real visual-coordinate input. **Anti-pattern:** equating CDP-scaled
+  locator coordinates with product hit geometry or using synthetic DOM activation as a substitute.

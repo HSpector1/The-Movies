@@ -1,6 +1,56 @@
 # Project: Studio — Engineering Handoff
 
-> ## 🎬 2026-08-15 — CURRENT: LOT-RETAINED SCREENPLAY COMMISSION WORKSPACE V1 CLOSED
+> ## 🎬 2026-08-16 — CURRENT: LOT-RETAINED AUDITION PLANNING WORKSPACE V1 CLOSED; MARATHON SEALED
+>
+> Work is sealed on `operation-hollywood-autonomous-marathon`. Frozen contract authority is
+> `d94dd4714ab6ee8e0666afba3aae9a714c578db4`; accepted implementation authority is
+> `e6426fcff8fec0744f9ce1bc9fe88f8d09d94ff9`. The documentation checkpoint containing this
+> record closes the slice and the autonomous marathon. No successor is automatic.
+>
+> **THE STUDIO LOT IS THE PRIMARY GAME SURFACE. MANAGEMENT UI SUPPORTS THE WORLD. IT DOES NOT
+> REPLACE THE WORLD.** When the complete canonical Casting board proves exactly one legally
+> plannable Ready screenplay, selecting Lot Casting opens the one shared six-read slate planner
+> above the exact mounted Lot, Screen, presentation token, Phaser view, canvas, and camera. Full
+> Casting Room remains explicit supporting depth and owns every ambiguous, blocked, active,
+> history, legacy, Hollywood-off, and non-Lot path.
+>
+> App owns exact state, presentation, workspace, opener, draft, and revision. Cancel is save-byte
+> neutral. Rejection retains the same planner, all six selections, exact Engine error, and legal
+> revised retry. Unchanged or stale callbacks cannot clear rejection or acquire newer authority.
+> Accepted planning is synchronously exact-once, validates the exact App-owned draft, commits and
+> reaches established autosave before close, then one strict receipt paints **CAMERA TESTS
+> UNDERWAY**, due week, facility, slot, and all six reads in the already-mounted Lot.
+>
+> Final proof: focused **39/39**; UI **117/117 files, 1,458/1,458 tests**; repository **204/204
+> files, 2,688/2,688 tests**; governed D-16/D-17 **10/10 files, 176/176 tests**; Audition Chromium
+> **4/4**; adjacent retained-host Chromium **14 passed / one explicit pre-existing GPU-only skip**;
+> both TypeScript projects; production build **155 modules** with the existing chunk advisory;
+> direct Engine/SaveFileV11 byte parity; seven screenshot reviews; and independent final audits all
+> pass. The minimal fixture remains **30 display objects / 13 actors / 11,096,896 decoded bytes /
+> one draw**. No GPU/FPS certification is claimed.
+>
+> No Core, GameState, SaveFileV1–V11, Casting-result, screenplay, facility, production,
+> construction, publicity, economy, RNG, ledger, authored-art, manifest/exporter, renderer
+> structure/draw, travel, occupancy, queue, workload, autonomy, or pathfinding behavior changed.
+> Hollywood Casting remains semantic; no winner, hire, hold, payment, assignment, performed
+> audition, physical room, or actor route is claimed.
+>
+> Protected anchors remain untouched: `main` =
+> `33eb33ae307904aa3f00db20bc695e40bf46d1e4`; accepted D-17B =
+> `35d42687a410a621becf1df35c75986657f8c44e`; Operation Hollywood bridge =
+> `623b8b2a80e9c6b85304eaa2a338b6045e8f6b21`. The Owner authorized a normal push of only the
+> current marathon branch to `hspector-github`; no merge/push to `main`, force-push, or tag
+> publication is authorized. The sealed checkpoint carries local annotated tag
+> `operation-hollywood-marathon-sealed` under established major-closure practice.
+>
+> **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
+>
+> Cash runaway, top-studio economic immortality, the week-208 synchronized roster wall, P5
+> dominance, world-led variance, cheap-film purpose, premium-film purpose, remaining menu breadth,
+> and formal G12 timing remain open. No financing, loans, bailouts, restructuring, failure ladder,
+> hard bankruptcy, or arbitrary cash sink is authorized.
+
+> ## 🎬 2026-08-15 — PRIOR: LOT-RETAINED SCREENPLAY COMMISSION WORKSPACE V1 CLOSED
 >
 > Work continues on `operation-hollywood-autonomous-marathon`. Frozen contract authority is
 > `57ce4058a122dfdb1443d9607087f30ff472ce48`; accepted implementation authority is

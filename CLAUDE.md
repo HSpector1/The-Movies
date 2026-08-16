@@ -8,9 +8,11 @@
 > operations, careers, and visual output now exist by explicit later authority. Do not stop, delete,
 > or roll them back because of the original M0A-only instructions below.
 >
-> Current product law: **THE STUDIO LOT IS THE PRIMARY GAME SURFACE.** Read `CURRENT-BEST.md`,
-> `PROGRESS.md`, `NEXT-HIGHEST-LEVERAGE.md`, `MARATHON-LOG.md`, current contracts/closures, and Git
-> before changing behavior.
+> Current product law: **THE STUDIO LOT IS THE PRIMARY GAME SURFACE.** The autonomous marathon is
+> sealed at the closure checkpoint containing `AUTONOMOUS-MARATHON-HANDOFF.md`; no successor is
+> automatic. Read that handoff, `CURRENT-BEST.md`, `DECISIONS.md`, `PROGRESS.md`,
+> `NEXT-HIGHEST-LEVERAGE.md`, `MARATHON-LOG.md`, current contracts/closures, and Git before changing
+> behavior. Any successor requires fresh Owner authorization and separately frozen authority.
 
 ## The one rule
 

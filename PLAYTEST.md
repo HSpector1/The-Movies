@@ -1,4 +1,9 @@
-# Project: Studio — Playtest Guide (Phase 5.1 — talent milestone)
+# Project: Studio — Playtest Guide
+
+> **Current-branch notice (2026-08-16):** this file's long Phase 5.1 walkthrough is retained as
+> historical playtest provenance. Current authority is `AUTONOMOUS-MARATHON-HANDOFF.md`,
+> `CURRENT-BEST.md`, and `DECISIONS.md`. The game now writes SaveFileV11, Studio Lot is the primary
+> game surface, and Operation Hollywood plus the Lot default on.
 
 This is a thin, playable film-studio laboratory over the proven simulation engine.
 It is not a finished product — it is a real game loop you can open and play. The
@@ -9,16 +14,16 @@ a redesigned **Talent Creator**, and **talent that develops as it works**.
 
 ## Launch it (one time setup, then run)
 
-From the repository root (`/Users/bruce/The Movies`):
+From the current repository root (`/Users/bruce/The Movies - Autonomous Marathon`):
 
 ```
 npm install          # installs the UI toolchain (one time)
-npm run dev          # starts the app
+npm run dev -- --host 127.0.0.1   # starts the app
 ```
 
 Then open in a desktop browser:
 
-**http://localhost:5173/**
+**http://127.0.0.1:5173/**
 
 To stop the app: press `Ctrl+C` in the terminal running `npm run dev`.
 
@@ -173,13 +178,12 @@ Two things are stated plainly in the UI so nothing misleads you:
 
 ## Saving
 
-- **Export:** open **Saves → Export**. Your entire game is a `SaveFileV2` JSON (the talent
-  format) you can copy or download.
+- **Export:** open **Saves → Export**. The current writer produces a complete `SaveFileV11` JSON
+  you can copy or download.
 - **Import:** open **Saves → Import**, paste the JSON, and continue. A malformed or
   unknown-version save is rejected with a clear message (it will not silently corrupt play).
-- **Legacy imports:** a save from the earlier prototype (a `SaveFileV1`, before the talent
-  layer) is accepted and **converted** to the new format on import — deterministically, so
-  the same legacy save always converts the same way and your run continues exactly.
+- **Legacy imports:** accepted `SaveFileV1` through `SaveFileV10` data is migrated
+  deterministically to the current V11 model, so the same legacy save always converts the same way.
 
 ---
 

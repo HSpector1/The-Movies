@@ -765,3 +765,44 @@ Owner rulings remain the authority when a summary here conflicts with them.
   OPEN**. All nine macroeconomic residuals remain open. Nothing was merged, pushed, or tagged; no
   financing, loans, bailouts, restructuring, failure ladder, hard bankruptcy, or arbitrary cash
   sink was introduced.
+
+## 2026-08-16 — World-first Lot-retained audition planning closes; marathon sealed
+
+- Recovered the interrupted milestone from clean Git authority without reset, clean, stash,
+  rebase, restart, or discarded artifact. The frozen contract is
+  `d94dd4714ab6ee8e0666afba3aae9a714c578db4`; accepted implementation is
+  `e6426fcff8fec0744f9ce1bc9fe88f8d09d94ff9`; this documentation checkpoint closes the slice.
+- Extracted one shared canonical six-read `CastingSlatePlanner` for retained Lot and standalone
+  Casting Room. A strict complete-board selector admits only one uniquely eligible Ready project
+  with raw empty sessions, complete candidates/capacity, and the first free shared slot.
+- Bound the retained session to exact rendered state, Lot Screen, presentation token, workspace,
+  opener, complete App-owned slate draft, and revision. Stale/unchanged draft, submit, cancel, and
+  details callbacks cannot clear rejection or acquire newer authority; transition owners block
+  entry.
+- Preserved exact mounted Lot, Phaser view, canvas, camera, Screen, presentation token, and local
+  world memory through open, cancel, rejection, accepted commit, autosave, close, and witness.
+  Cancel is byte-neutral; rejection retains all six reads and exact error; accepted planning is
+  exact-once and autosaves before close.
+- Added one strict current receipt so the same Casting context shows **CAMERA TESTS UNDERWAY**,
+  exact screenplay, due week, facility, one-based slot, and six reads without inventing a winner,
+  hire, hold, payment, assignment, travel, occupancy, queue, performed audition, or physical
+  Hollywood Casting room.
+- Hardened visible initial focus, bounded workspace scroll, 44px compact targets, forced colors,
+  reduced motion, 480×270/DSF2, and actual page-scale 200%. At CDP page scale the harness uses a
+  visual-viewport-relative real mouse activation after exact center hit-test because Chromium
+  locator coordinates are not converted into that viewport.
+- Closed proof with focused 39/39; UI 117/117 files and 1,458/1,458 tests; repository 204/204 files
+  and 2,688/2,688 tests; governed D-16/D-17 176/176; Audition Chromium 4/4; adjacent retained-host
+  Chromium 14 passed / one explicit pre-existing GPU-only skip; both TypeScript projects; a
+  155-module build; direct SaveFileV11 byte parity; exact 30/13/11,096,896/one-draw structure;
+  seven screenshot reviews; and clean independent authority/accessibility audits.
+- Changed no Core, GameState, SaveFileV1–V11, simulation, Casting-result, capacity, facility,
+  economy, RNG, art, manifest/exporter, renderer structure/draw, movement, occupancy, queue,
+  workload, autonomy, or pathfinding behavior. No GPU/FPS certification is claimed.
+- Sealed the autonomous marathon with no successor authorized. The Owner authorized a normal push
+  of only `operation-hollywood-autonomous-marathon` to `hspector-github`; `main` must remain
+  untouched, force-push and merge remain prohibited. Established major-closure practice is retained
+  with local annotated tag `operation-hollywood-marathon-sealed`; tag publication is not authorized.
+- Preserved **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN** and all nine
+  named residuals. No financing, loans, bailouts, restructuring, failure ladder, hard bankruptcy,
+  or arbitrary cash sink was introduced or authorized.

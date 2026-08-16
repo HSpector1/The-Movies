@@ -1,6 +1,6 @@
 # Project: Studio — Marathon Progress
 
-Updated: 2026-08-15
+Updated: 2026-08-16
 
 Branch: `operation-hollywood-autonomous-marathon`
 
@@ -80,13 +80,17 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
   Lot; cancel is byte-neutral, and accepted greenlight autosaves before the exact picture forms in
   that same canvas/camera.
 - **World-First Lot-Retained Screenplay Commission Workspace V1:** ACCEPTED at implementation
-  `2ec3b8a3c6451112a423fe3e30f1c9331b831caa` under frozen contract `57ce405` and CLOSED by this
-  documentation checkpoint. The shared canonical form now opens over the exact mounted Lot; cancel
+  `2ec3b8a3c6451112a423fe3e30f1c9331b831caa` under frozen contract `57ce405` and CLOSED at
+  `5cacd87`. The shared canonical form now opens over the exact mounted Lot; cancel
   and rejection preserve bytes/draft, while acceptance autosaves before one exact Development
   witness appears in that same canvas/camera.
-- **Next action:** measure and separately freeze World-First Lot-Retained Audition Planning
-  Workspace V1 for one uniquely eligible Ready screenplay. Reuse the canonical Casting planner and
-  action; do not invent a winner, actor movement, physical Hollywood Casting place, or Engine law.
+- **World-First Lot-Retained Audition Planning Workspace V1:** ACCEPTED at implementation
+  `e6426fcff8fec0744f9ce1bc9fe88f8d09d94ff9` under frozen contract `d94dd47` and CLOSED by this
+  documentation checkpoint. The shared canonical six-read planner now opens over the exact mounted
+  Lot for one uniquely eligible Ready screenplay; cancel/rejection preserve bytes and draft, while
+  acceptance autosaves before one exact Casting witness appears in that same canvas/camera.
+- **Next action:** none. The autonomous marathon is sealed. Any successor requires fresh Owner
+  authorization and a separately frozen evidence/authority boundary.
 
 ## Closed marathon milestones
 
@@ -120,7 +124,8 @@ import the sibling Operation Hollywood prototype's untracked progress notes.
 | World-First Lot-Native Screenplay Review V1 | `22ee17c` | `67a0bf3` | `e37035c` |
 | World-First Lot-Native Casting Review V1 | `d707f98` (`8fe3aea` initial freeze) | `cd0ace6` | `5c6f757` |
 | World-First Lot-Retained Package & Greenlight Workspace V1 | `cc2c4af` | `729afb7` | `910ac51` |
-| World-First Lot-Retained Screenplay Commission Workspace V1 | `57ce405` | `2ec3b8a` | this documentation checkpoint |
+| World-First Lot-Retained Screenplay Commission Workspace V1 | `57ce405` | `2ec3b8a` | `5cacd87` |
+| World-First Lot-Retained Audition Planning Workspace V1 | `d94dd47` | `e6426fc` | this documentation checkpoint |
 
 ## Product result so far
 
@@ -237,9 +242,19 @@ Cancel is byte-neutral; rejection retains every edited field and exact error; ac
 and autosaves before close. One strict receipt then paints exact **SCREENPLAY COMMISSIONED**, writer,
 weeks, facility, and slot in the same canvas. Writers' Room remains optional supporting depth.
 
+Audition planning now follows in that same living studio. One strict complete-board projection
+opens the shared six-read slate planner only when exactly one Ready screenplay is legally eligible.
+App owns the exact draft and revision; stale, unchanged, or older submit/cancel/details callbacks
+cannot affect newer authority. Cancel is byte-neutral; rejection preserves every selected Actor and
+the exact error; accepted state commits and autosaves before close. One strict receipt then paints
+exact **CAMERA TESTS UNDERWAY**, due week, facility, slot, and all six reads in the same canvas.
+Casting Room remains optional supporting depth and no winner, hire, hold, payment, travel,
+occupancy, queue, performed audition, or physical Hollywood Casting building is claimed.
+
 Standalone deep screens generally still unmount and later remount the Lot. Same-mounted continuity
-is accepted for ordinary non-release event stops and the exact retained Package and Commission
-paths, not a claim that every supporting surface preserves the same Phaser instance. Skipped weeks
+is accepted for ordinary non-release event stops and the exact retained Package, Commission, and
+Audition Planning paths, not a claim that every supporting surface preserves the same Phaser
+instance. Skipped weeks
 are one synchronous Engine batch and one final snapshot; the game does not claim their travel,
 queues, occupancy, construction labor, rehearsal, shooting, Post, publicity, or theatrical activity
 was watched.
@@ -292,11 +307,17 @@ one-draw structure; six screenshot reviews; and clean independent audit. No Core
 screenplay, economy, art, manifest/exporter, or renderer-structure/draw behavior changed. No GPU
 certification is claimed.
 
-The next action remains evidence-led: measure a bounded Lot-retained audition planner for exactly
-one current legally eligible Ready screenplay, then freeze authority separately. Use canonical
-`SlatePlanner`, `castingSessionsBoard`, and `startCastingSessionAction`; retain full Casting Room for
-ambiguous, blocked, active, legacy, and non-Lot paths. Do not invent a winner, hire, movement,
-occupancy, physical place, fee, time advance, art, renderer structure, or Engine law.
+Final retained-Audition proof passed focused authority/workspace/Lot/selector 39/39; UI 117/117
+files and 1,458/1,458 tests; repository 204/204 files and 2,688/2,688 tests; governed D-16/D-17
+10/10 files and 176/176 tests; Audition Chromium 4/4; adjacent retained-Commission/formation
+Chromium 14 passed / one explicit pre-existing GPU-only skip; both TypeScript projects; a
+155-module build; direct Engine/SaveFileV11 byte parity; exact minimal-fixture 30-object / 13-actor
+/ 11,096,896-byte / one-draw structure; seven screenshot reviews; and clean independent authority
+and accessibility audits. No Core, save, simulation, Casting result, economy, art,
+manifest/exporter, or renderer-structure/draw behavior changed. No GPU certification is claimed.
+
+The autonomous marathon is sealed. No successor is authorized. The ranked future investigations
+in `NEXT-HIGHEST-LEVERAGE.md` require a fresh Owner ruling before work begins.
 
 ## Governing status
 
@@ -308,4 +329,7 @@ and formal G12 timing remain open. This world-continuity closure certifies no ma
 and authorizes no financing, loans, bailouts, restructuring, failure ladder, hard bankruptcy, or
 arbitrary cash sink.
 
-No merge to main, push, or milestone tag is authorized by autonomous progress alone.
+The Owner authorized one normal publication of
+`operation-hollywood-autonomous-marathon` to `hspector-github` for durable backup. No merge or push
+to `main`, force-push, or tag publication is authorized. The sealed checkpoint has the local
+annotated tag `operation-hollywood-marathon-sealed` under established milestone practice.

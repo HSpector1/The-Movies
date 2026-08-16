@@ -1,19 +1,18 @@
 # Project: Studio — Current Best
 
-Updated: 2026-08-15
+Updated: 2026-08-16
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Current accepted milestone: World-First Lot-Retained Screenplay Commission Workspace V1, closed
-by this documentation checkpoint
+Current accepted milestone: World-First Lot-Retained Audition Planning Workspace V1, closed by
+this documentation checkpoint
 
-Current accepted behavior authority: `2ec3b8a3c6451112a423fe3e30f1c9331b831caa`
+Current accepted behavior authority: `e6426fcff8fec0744f9ce1bc9fe88f8d09d94ff9`
 
-Primary implementation authority: `2ec3b8a3c6451112a423fe3e30f1c9331b831caa`
+Primary implementation authority: `e6426fcff8fec0744f9ce1bc9fe88f8d09d94ff9`
 
-Current frozen successor: none. The next measured candidate is a bounded Lot-retained audition
-planning workspace for one uniquely eligible Ready screenplay; audit and freeze it separately
-before implementation.
+Current frozen successor: none. The autonomous marathon is sealed. Any successor requires fresh
+Owner authorization and a separately frozen evidence/authority boundary.
 
 ## Product doctrine — World First
 
@@ -31,18 +30,18 @@ WORLD → INSPECT / ACT → DEEP PANEL IF NEEDED → RETURN TO THE SAME LIVE WOR
 
 “Same live world” always means the same authoritative studio and explicit Lot root. Most standalone
 deep screens still unmount the Lot and remount one Phaser view on return, so they do not promise
-camera or general selection continuity. The accepted retained Package and Commission paths are
-deliberately stronger: their exact Lot Screen, presentation token, Phaser view, canvas, camera, and
-local world memory stay mounted while canonical management works above them.
+camera or general selection continuity. The accepted retained Package, Commission, and Audition
+Planning paths are deliberately stronger: their exact Lot Screen, presentation token, Phaser view,
+canvas, camera, and local world memory stay mounted while canonical management works above them.
 
 Dashboard, Assembly, Production Board, Calendar, Roster, Hiring, Finance, Film Autopsy, Chronicle,
 Writers Room, Casting Room, and Studio Development remain valuable. Do not delete or trivialize
 them. They are deep management surfaces for information and decisions too complex to express
 spatially. They support the world; they do not replace it. Where technically appropriate, the
 studio may remain alive behind or around them. Standalone deep owners return to the same
-authoritative Lot root with bounded context restoration; retained Package and Commission prove two
-narrow exact same-instance workspaces. Neither behavior is a general persistent-shell claim for
-every screen.
+authoritative Lot root with bounded context restoration; retained Package, Commission, and
+Audition Planning prove three narrow exact same-instance workspaces. Neither behavior is a general
+persistent-shell claim for every screen.
 
 ### Critical experience test
 
@@ -117,6 +116,15 @@ acceptance commits plus autosaves one exact Drafting project before the same can
 writer, due week, facility, and slot. Writers' Room remains explicit supporting depth. Hollywood
 Development remains semantic; no physical Writers building, writer travel, occupancy, queue, or
 new screenplay law is claimed.
+
+The accepted Lot-Retained Audition Planning slice keeps the next upstream decision in that same
+world. When the complete canonical Casting board proves exactly one legally plannable Ready
+screenplay, the shared six-read slate planner opens over the exact mounted Lot. Cancel is
+byte-neutral; rejection preserves the complete slate and exact error; acceptance commits plus
+autosaves one exact Auditioning session before the same canvas shows **CAMERA TESTS UNDERWAY**,
+due/facility/slot truth, and all six reads. Casting Room remains explicit supporting depth.
+Hollywood Casting remains semantic; no winner, hire, hold, payment, actor travel, occupancy,
+queue, performed audition, or physical Casting building is claimed.
 
 Pan, zoom, selection, management-scale legibility, human-story-scale discovery, and Operation
 Hollywood visual quality are protected. Zoom should change which story the player notices, not
@@ -198,8 +206,54 @@ whether the game remains playable.
   over that same mounted Lot, preserves exact cancel/rejection/standalone behavior, and commits plus
   autosaves one exact Drafting project before a one-shot Development witness names its writer,
   weeks, facility, and slot.
+- World-First Lot-Retained Audition Planning Workspace V1 keeps the canonical six-read planner over
+  that same mounted Lot for one uniquely eligible Ready screenplay, preserves exact cancel,
+  rejection, revision, and standalone behavior, and commits plus autosaves one exact Auditioning
+  session before a one-shot Casting witness names its due week, facility, slot, and six reads.
 
 ## Current world-first checkpoint
+
+World-First Lot-Retained Audition Planning Workspace V1 is accepted under frozen contract
+`d94dd4714ab6ee8e0666afba3aae9a714c578db4` and implementation
+`e6426fcff8fec0744f9ce1bc9fe88f8d09d94ff9`. This documentation checkpoint closes the slice:
+
+- one shared canonical slate planner serves the retained workspace and standalone Casting Room;
+- one strict selector requires the complete current board, raw empty session history, exactly one
+  Ready/legal project, all candidates/capacity, and the first free shared slot;
+- App owns the exact workspace, rendered state, Lot Screen, presentation token, opener, draft, and
+  slate revision, and stale or unchanged callbacks cannot acquire newer authority;
+- open, cancel, rejection, acceptance, autosave, close, and witness retain one Lot component,
+  Phaser view, canvas node, camera, Screen object, presentation token, and App authority tree;
+- cancel is byte-neutral, while Engine rejection keeps the same planner, all six selected reads,
+  exact error, unchanged state/save bytes, and legal revised retry;
+- accepted planning is synchronously exact-once, validates the exact App-owned draft, commits and
+  autosaves before close, and cannot be rolled back by optional witness failure;
+- one strict receipt proves the exact appended Auditioning session and current Casting reservation
+  before the same Lot shows **CAMERA TESTS UNDERWAY**, due/facility/slot truth, and all six reads;
+  and
+- zero/multiple projects, blockers, active/review/history state, legacy, non-Lot, and
+  Operation-Hollywood-off paths retain the full Casting Room owner.
+
+The visual/product ruling is **KEEP**. Desktop, 960×540, actual page-scale 200%, forced colors,
+reduced motion, and 480×270/DSF2 retain one bounded scroll owner, visible focus, complete six-read
+controls, reachable submit/cancel/deep details, no page overflow, and the same underlying
+Lot/canvas. The minimal founded fixture remains exactly 30 display objects / 13 actors /
+11,096,896 decoded bytes / one draw.
+
+Final proof passed focused authority/workspace/Lot/selector 39/39; UI 117/117 files and
+1,458/1,458 tests; repository 204/204 files and 2,688/2,688 tests; governed D-16/D-17 10/10 files
+and 176/176 tests; Audition Chromium 4/4; adjacent retained-Commission/formation Chromium 14 passed
+/ one explicit pre-existing GPU-only skip; both TypeScript projects; and a 155-module production
+build. Direct Engine/SaveFileV11 byte parity, protected paths/refs, seven screenshot reviews,
+`git diff --check`, and independent authority/accessibility audits passed. No GPU certification is
+claimed.
+
+No Core, GameState, SaveFileV11, Casting result, screenplay, capacity, reservation, facility,
+production, construction, publicity, economy, RNG, ledger, manifest, exporter, authored art,
+renderer structure/draw, travel, occupancy, queue, workload, autonomy, or pathfinding behavior
+changed.
+
+## Prior world-first checkpoint — Lot-Retained Screenplay Commission V1
 
 World-First Lot-Retained Screenplay Commission Workspace V1 is accepted under frozen contract
 `57ce4058a122dfdb1443d9607087f30ff472ce48` and implementation
@@ -728,7 +782,13 @@ production and integration remain unauthorized.
   `57ce4058a122dfdb1443d9607087f30ff472ce48`
 - World-First Lot-Retained Screenplay Commission Workspace V1 implementation:
   `2ec3b8a3c6451112a423fe3e30f1c9331b831caa`
-- World-First Lot-Retained Screenplay Commission Workspace V1 closure: this documentation checkpoint
+- World-First Lot-Retained Screenplay Commission Workspace V1 closure:
+  `5cacd872a773910a18699b20cb5d4ab3c01a4821`
+- World-First Lot-Retained Audition Planning Workspace V1 contract:
+  `d94dd4714ab6ee8e0666afba3aae9a714c578db4`
+- World-First Lot-Retained Audition Planning Workspace V1 implementation:
+  `e6426fcff8fec0744f9ce1bc9fe88f8d09d94ff9`
+- World-First Lot-Retained Audition Planning Workspace V1 closure: this documentation checkpoint
 
 > **D-17B ACCEPTED — BOUNDED REPAIR, MACROECONOMY RESIDUALS REMAIN OPEN**
 
@@ -737,25 +797,21 @@ roster wall, P5 dominance, world-led variance, cheap-film purpose, premium-film 
 menu breadth, and formal G12 timing. No financing, loans, bailouts, restructuring, failure ladder,
 hard bankruptcy, or arbitrary cash sink is authorized.
 
-## Current highest-leverage evidence step
+## Marathon seal and future boundary
 
-Measure **World-First Lot-Retained Audition Planning Workspace V1** as the next candidate. The
-existing Lot Casting cue names one legally plannable Ready screenplay; the complete canonical
-`castingSessionsBoard` can separately prove whether exactly one exists. `SlatePlanner` and
-`startCastingSessionAction` own the real camera-test decision and one-week shared-capacity
-reservation. Today that decision replaces the Lot with the Casting Room.
+The autonomous marathon is complete. No successor feature is authorized by this record. Preserve
+the accepted Commission → screenplay review → Audition Planning → Casting review → Package →
+formation chain, and begin any future work only after a fresh Owner ruling and a separately frozen
+evidence contract.
 
-Audit one exact project only, then freeze a separate contract if the current sources prove a
-same-mounted planner, byte-neutral cancel/rejection, commit → autosave → close ordering, and one
-exact **CAMERA TESTS UNDERWAY** witness. Zero or multiple legal projects, active/history/review,
-blocked capacity or actors, legacy, Operation-Hollywood-off, and non-Lot origins must retain the
-full Casting Room. No winner, hiring, actor movement, occupancy, physical Hollywood Casting place,
-fee, time advance, art, renderer object, Core/save/economy/RNG change, or full-room retention is
-authorized.
+The five highest-value future product investigations are recorded in
+`NEXT-HIGHEST-LEVERAGE.md` and `AUTONOMOUS-MARATHON-HANDOFF.md`. They prioritize a measured
+several-minutes-on-Lot audit, authoritative physical Casting/Development work, watched production
+beats, selective retention of high-value deep surfaces, and facility/economy instrumentation.
 
 Do not invent a physical Hollywood Writers/Casting building, performed audition travel, room
 occupancy, cast assignment, construction catalogue, physical Stage 12, new facility, second Annex,
-fourth slot, personal autonomy, intermediate-week spectacle, or screen-first operations surface.
-The accepted truthful batch boundary remains one Engine call and one final state; it does not claim
-that skipped travel, queues, occupancy, construction labor, rehearsal, shooting, Post, publicity,
-or theatrical work was watched.
+fourth slot, personal autonomy, intermediate-week spectacle, arbitrary cash sink, or screen-first
+operations surface. The accepted truthful batch boundary remains one Engine call and one final
+state; it does not claim that skipped travel, queues, occupancy, construction labor, rehearsal,
+shooting, Post, publicity, or theatrical work was watched.
