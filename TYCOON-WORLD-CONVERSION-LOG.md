@@ -164,6 +164,34 @@ workspaces, build mode.
 world; employees visible and selectable at Week 0; labels stable across panel
 open/close; suite/typecheck/build green with updated specs.
 
+## M2-UI — DRAFT TARGET (freeze after M2-engine API report): Build Mode V1 in-world
+
+**Before:** vacant parcels show inspector facts; construction starts only via the legacy
+fixed-parcel action; no preview, no parcel choice, no multiple placements.
+
+**After:** the whole build flow lives in the world: vacant parcel click → inspector
+offers "Build here" → blueprint choice (V1 catalog = the Annex) → ghost footprint paints
+on the parcel from live `queryPlacement` (UI-only preview layer, identical-input memo,
+per-cell green/red) → cost + build-weeks quote, primary rejection shown in-world when
+illegal (funds last) → Commit → immediate debit + construction site paints (scaffold +
+weekly progress from truth) → completion swaps in the operational building and the new
+capacity shows in calendar/inspectors. Multiple annex-class placements on distinct
+parcels. Cancel byte-neutral. Draft carries value + monotonic revision authority (law
+16). ALSO: first grid-world Playwright coverage — boot, building→inspector, build-flow
+smoke — with a grid→screen click helper and fresh named-fixture structural tuples.
+
+**Not built:** demolition, mothballing UI, roads, extra real blueprints, minimap.
+
+## M1.5 delivery note (accepted pending PM playtest)
+
+Delivered in commits `b2f39d9..9f83af9`; verified green in isolation at `02db48e` base
+(ui 1541/1541, core 1230/1230, both tsc, build). Shared tree temporarily red under the
+parallel V12 core work; the three adapter save-boundary call sites (~adapter.ts
+2842/2854/2868) were granted to the M2-engine writer as a narrow remit extension, whose
+done-definition now includes a fully green tree. PM playtest asks recorded: two-crowds
+readability at Week 0, inspector panel size at 1920×1080, LOD stability across retained
+workspace open/close.
+
 ## M2-Engine — FROZEN TARGET: Placement Core V12 (src/core + tests only)
 
 Implement CODE-MINING-LEDGER Entries 2–3's agreed spec exactly: authored coarse parcel
