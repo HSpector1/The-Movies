@@ -4141,6 +4141,32 @@ export function StudioLotScreen({
     }
   }, [applyNextEventPhysicalOrientation, state, canvasReady, hollywood, readSnapshot])
 
+  // ── Presence on the Lot V1 — play ONE advanced week, never a batch ───────────
+  //
+  // Law 3: a synchronous Engine batch is not witnessed time. `advanceToNextEvent` may
+  // cross forty weeks in one call; none of those weeks was ever a moment the player
+  // was present for, so none of them is animated and the world simply lands on current
+  // truth. Only the single Advance-one-week arm — the one week the player asked for,
+  // one at a time — plays its beat timeline, and only when the App's own feedback for
+  // that advance names the exact week the renderer is now showing.
+  //
+  // This effect runs AFTER the snapshot-delivery effect above (source order is effect
+  // order), so the scene is already holding the new week's projection when it fires.
+  const playedAdvanceRef = useRef<object | null>(null)
+  useEffect(() => {
+    const feedback = cadenceFeedback
+    if (feedback === null || feedback === undefined || feedback.kind !== 'week') {
+      playedAdvanceRef.current = null
+      return
+    }
+    // One playback per accepted advance: App mints a fresh feedback object each time.
+    if (playedAdvanceRef.current === feedback) return
+    playedAdvanceRef.current = feedback
+    if (!hollywood || !canvasReady) return
+    if (feedback.week !== state.market.tick) return
+    viewRef.current?.playPresenceWeek?.(feedback.week)
+  }, [cadenceFeedback, canvasReady, hollywood, state])
+
   // Company emphasis is presentation-only and deliberately separate from the
   // physical Stage 7 outline. It follows the exact current production context in
   // every phase, but only when the complete strict snapshot projection survives.

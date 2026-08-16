@@ -563,6 +563,27 @@ export class StudioLotView {
     this.tycoonScene?.setPlacementPreview(preview)
   }
 
+  // ── Presence on the Lot V1 ─────────────────────────────────────────────────
+  // Grid-world only. The painted plate has no property to walk across, so both
+  // commands are no-ops there and report it, exactly as the build seams already do.
+
+  /**
+   * Play ONE week's beat timeline in the world. `week` is the week the host believes
+   * the world is now showing; the scene refuses if that is not the week its own
+   * projection describes, so a stale intent can never replay an old commute.
+   *
+   * Returns true only when a playback actually began (false under reduced motion, on
+   * the plate, and whenever the world simply shows the settled week instead).
+   */
+  playPresenceWeek(week: number): boolean {
+    return this.tycoonScene?.playPresenceWeek(week) ?? false
+  }
+
+  /** Abandon a running playback and settle on the week's own truth. Idempotent. */
+  skipPresencePlayback(): boolean {
+    return this.tycoonScene?.skipPresencePlayback() ?? false
+  }
+
   /** Evidence seam: the live camera's grid → screen transform (browser suite). */
   worldProjection(): ReturnType<TycoonScene['worldProjection']> | null {
     return this.tycoonScene?.worldProjection() ?? null

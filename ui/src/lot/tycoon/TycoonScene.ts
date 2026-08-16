@@ -27,10 +27,18 @@ import type {
   LotPersonState,
   LotPlacedFacilityState,
   LotPlacementProjection,
+  LotPresenceProjection,
   ProductionOperationsState,
   StudioLotSnapshot,
 } from '../snapshot/StudioLotSnapshot'
 import { ALL_BUILDING_IDS, BUILDING_LABELS } from '../snapshot/StudioLotSnapshot'
+import {
+  presenceOccupantCounts,
+  presenceStands,
+  type PresencePersonHome,
+  type PresenceStand,
+} from './presence.ts'
+import { personPositionAt, playbackFinished } from './playback.ts'
 import { operationalAnnexWorkContext } from '../snapshot/annexWork.ts'
 import { gateHiringCandidateContext } from '../snapshot/gateHiring.ts'
 import {
@@ -261,6 +269,14 @@ type AmbientActor = {
 type CosmeticRoute = { productionId: string; personId: string; elapsed: number }
 type CosmeticSceneryLoadIn = { productionId: string; title: string; elapsed: number }
 
+/**
+ * One week of the engine's beat timeline, being played as presentation time.
+ *
+ * `week` is the projection's own week, so a snapshot that moves the studio on ends the
+ * playback rather than replaying an old week's commute over new truth (law 3).
+ */
+type PresencePlayback = { week: number; elapsed: number }
+
 export class TycoonScene extends Phaser.Scene {
   private snapshot!: StudioLotSnapshot
   private emitEvent!: (event: TycoonEvent) => void
@@ -305,6 +321,18 @@ export class TycoonScene extends Phaser.Scene {
 
   private cosmeticRoute: CosmeticRoute | null = null
   private cosmeticSceneryLoadIn: CosmeticSceneryLoadIn | null = null
+
+  // ── Presence on the Lot V1 ─────────────────────────────────────────────────
+  /** Latest presence truth, delivered on the snapshot. Never authored here. */
+  private presence: LotPresenceProjection | null = null
+  /** This week's stands, recomputed only when a snapshot arrives — never per frame. */
+  private presenceStandsById = new Map<string, PresenceStand>()
+  /** How many people the engine says are at each authored place this week. */
+  private presenceOccupants = new Map<BuildingId, number>()
+  private presencePlacementOccupants = new Map<number, number>()
+  private presencePlayback: PresencePlayback | null = null
+  /** The one ground cue under every waiting queue. One object, not one per person. */
+  private presenceGraphics: Phaser.GameObjects.Graphics | null = null
 
   private reducedMotion = false
   private inputSuspended = false
@@ -874,6 +902,12 @@ export class TycoonScene extends Phaser.Scene {
     this.selectionGraphics = this.add.graphics().setDepth(DEPTH.selection).setName('tier:selection')
     this.sceneryGraphics = this.add.graphics().setDepth(DEPTH.worldOverlay).setName('tier:scenery-load-in')
     this.activityGraphics = this.add.graphics().setDepth(DEPTH.worldOverlay - 1).setName('tier:stage-activity')
+    // The waiting-queue cue. ONE object for the whole property — a queue outside a full
+    // building must read at a glance, but it must not cost a display object per person.
+    this.presenceGraphics = this.add
+      .graphics()
+      .setDepth(DEPTH.ground + 2)
+      .setName('tier:presence-queue')
 
     // Build Mode V1 layers. The parcel outline sits just above the ground so a building
     // never hides behind it; construction sites sort with the world; the ghost is chrome.
@@ -1170,22 +1204,28 @@ export class TycoonScene extends Phaser.Scene {
       return
     }
 
-    // EVALUATE EVERY CELL (Entry 3): each cell carries its own verdict and each cell is
-    // painted, so a player can see exactly WHICH corner of a footprint is the problem.
+    // PLAYTEST 3 DEFECT: at institution scale a one-tile diamond is a few pixels across
+    // and a 2px world-space stroke is sub-pixel, so the per-cell verdicts read as a
+    // uniform smear — the exact information the per-cell paint exists to give. The ghost
+    // is CHROME over the world (like every label here), so it counter-scales with the
+    // camera: strokes keep a constant SCREEN weight, and the fill deepens as the cells
+    // shrink. Colour is still never the only channel — the caption states the verdict.
+    const inv = Math.max(1, 1 / this.cameras.main.zoom)
+    const fillAlpha = this.lodBand === 'institution' ? 0.66 : 0.42
     for (const cell of preview.cells) {
       const diamond = this.cellDiamond(cell)
-      this.fillPolygon(g, diamond, cell.ok ? PREVIEW_OK : PREVIEW_BAD, 0.42)
-      this.strokePolygon(g, diamond, cell.ok ? PREVIEW_OK : PREVIEW_BAD, 2, 0.9)
+      this.fillPolygon(g, diamond, cell.ok ? PREVIEW_OK : PREVIEW_BAD, fillAlpha)
+      this.strokePolygon(g, diamond, cell.ok ? PREVIEW_OK : PREVIEW_BAD, 2 * inv, 0.95)
     }
     const extent = TycoonScene.cellsExtent(preview.cells)
     if (extent !== null) {
       const outline = this.rectPolygon(extent)
-      this.strokePolygon(g, outline, preview.ok ? PREVIEW_OK : PREVIEW_BAD, 3.5, 0.98)
+      this.strokePolygon(g, outline, preview.ok ? PREVIEW_OK : PREVIEW_BAD, 3.5 * inv, 0.98)
       // A short massing hint so the ghost reads as a BUILDING, not a paint swatch.
       const corners = outline.map((p) => ({ x: p.x, y: p.y - PREVIEW_MASS_HEIGHT }))
-      this.strokePolygon(g, corners, preview.ok ? PREVIEW_OK : PREVIEW_BAD, 2, 0.55)
+      this.strokePolygon(g, corners, preview.ok ? PREVIEW_OK : PREVIEW_BAD, 2 * inv, 0.55)
       for (let index = 0; index < outline.length; index++) {
-        g.lineStyle(2, preview.ok ? PREVIEW_OK : PREVIEW_BAD, 0.55)
+        g.lineStyle(2 * inv, preview.ok ? PREVIEW_OK : PREVIEW_BAD, 0.55)
         g.lineBetween(outline[index]!.x, outline[index]!.y, corners[index]!.x, corners[index]!.y)
       }
       const top = this.world((extent.x0 + extent.x1 + 1) / 2, (extent.y0 + extent.y1 + 1) / 2)
@@ -1354,11 +1394,42 @@ export class TycoonScene extends Phaser.Scene {
     }
   }
 
+  /**
+   * How tall the thing standing on these cells actually is, in screen pixels.
+   *
+   * PLAYTEST 3 DEFECT: the caption was pinned to the back corner of the GROUND rect, so
+   * at mid zoom it sat squarely across the annex sprite's front wall. A caption must
+   * clear the body it names at every reading distance (shift law 11), so the lift is
+   * measured from the thing itself — the sprite's own drawn height when a blueprint has
+   * authored art, or the construction frame's current height when it does not.
+   */
+  private placementCaptionLift(placed: LotPlacedFacilityState, extent: LotGridRect): number {
+    if (placed.status === 'operational') {
+      const texKey = PLACEMENT_TEX_BY_BLUEPRINT[placed.blueprintId]
+      const meta = texKey === undefined ? undefined : TYCOON_BUILDING_TEX[texKey]
+      if (meta === undefined) return 42
+      const fw = extent.x1 - extent.x0 + 1
+      const fd = extent.y1 - extent.y0 + 1
+      return this.spriteHeight(meta.key, fw, fd) + 14
+    }
+    // The site's own scaffold: `paintConstructionSite` raises the frame to
+    // 16 + progress·78 above a base line half a diamond below the rect's top corner.
+    const outline = this.rectPolygon(extent)
+    const top = Math.min(...outline.map((p) => p.y))
+    const bottom = Math.max(...outline.map((p) => p.y))
+    const progress = Math.max(0, Math.min(1, placed.progress01))
+    const baseY = (top + bottom) / 2 + 22
+    const frameTop = baseY - (16 + Math.round(progress * 78)) - 12
+    return Math.max(42, top - frameTop)
+  }
+
   private paintPlacementLabel(placed: LotPlacedFacilityState, extent: LotGridRect): void {
     const anchor = this.world((extent.x0 + extent.x1 + 1) / 2, (extent.y0 + extent.y1 + 1) / 2)
+    const occupants = this.presencePlacementOccupants.get(placed.id) ?? 0
+    const here = occupants > 0 ? ` · ${String(occupants)} HERE` : ''
     const text =
       placed.status === 'operational'
-        ? `${placed.name.toUpperCase()} · OPERATIONAL`
+        ? `${placed.name.toUpperCase()} · OPERATIONAL${here}`
         : `${placed.name.toUpperCase()} · ${String(placed.weeksRemaining)} ${placed.weeksRemaining === 1 ? 'WEEK' : 'WEEKS'} LEFT`
     const existing = this.placementLabels.get(placed.id)
     const label =
@@ -1378,7 +1449,12 @@ export class TycoonScene extends Phaser.Scene {
         .setName(`placement-label:${String(placed.id)}`)
     label
       .setText(text)
-      .setPosition(anchor.x, Math.min(...this.rectPolygon(extent).map((p) => p.y)) - 8)
+      .setPosition(
+        anchor.x,
+        Math.min(...this.rectPolygon(extent).map((p) => p.y)) -
+          8 -
+          this.placementCaptionLift(placed, extent),
+      )
       .setScale(1 / this.cameras.main.zoom)
       .setVisible(this.lodBand !== 'institution')
     this.placementLabels.set(placed.id, label)
@@ -1587,9 +1663,13 @@ export class TycoonScene extends Phaser.Scene {
     return slot
   }
 
-  private placePerson(runtime: RuntimePerson, at: GridPoint): void {
+  private placePerson(
+    runtime: RuntimePerson,
+    at: GridPoint,
+    direction: RoleAtlasDirection = 'south',
+  ): void {
     const p = this.world(at.gx, at.gy)
-    runtime.direction = 'south'
+    runtime.direction = direction
     this.setActorFacing(runtime.sprite, runtime.fact.role, runtime.direction)
     runtime.sprite.setPosition(p.x, p.y).setDepth(this.depthAt(at.gx, at.gy, 7))
     runtime.label.setPosition(p.x, p.y - 74)
@@ -1914,8 +1994,15 @@ export class TycoonScene extends Phaser.Scene {
     const previousScenery = sceneryLoadInContext(this.snapshot)
     this.snapshot = snapshot
     this.reconcileGateVisitor()
+    // Law 3: a batch of weeks is not witnessed time. A playback belongs to ONE week's
+    // beat timeline, so any snapshot that moves the studio off that week ends it — the
+    // skipped weeks are never replayed, and the world lands on current truth at once.
+    if (this.presencePlayback !== null && (snapshot.presence?.week ?? null) !== this.presencePlayback.week) {
+      this.presencePlayback = null
+    }
     if (!this.scene.isActive()) {
       this.cosmeticSceneryLoadIn = null
+      this.presencePlayback = null
       return
     }
 
@@ -1978,6 +2065,7 @@ export class TycoonScene extends Phaser.Scene {
   private paintFromSnapshot(): void {
     const stage7 = this.authoritativeStage7Operation(this.snapshot)
     this.reconcilePeople(lotPeopleForCompanyPresentation(this.snapshot))
+    this.recomputePresence()
     this.syncPeopleToSnapshot(stage7)
     this.reconcileProductionCompanySelection()
     this.paintBuildingStates(this.snapshot, stage7)
@@ -2000,17 +2088,95 @@ export class TycoonScene extends Phaser.Scene {
     this.paintPlacements()
   }
 
+  /** The home-zone parking point for one rendered person, exactly as M1.5 authored it. */
+  private personHomePoint(runtime: RuntimePerson): GridPoint {
+    return this.personHome(runtime.fact.role, runtime.homeSlot, runtime.fact.id)
+  }
+
+  /**
+   * Adopt this week's presence truth and derive every stand from it.
+   *
+   * Called ONLY when a snapshot arrives (and when the rendered roster changes under it)
+   * — never per frame. `studioPresence` is pure and cheap, but a projection recomputed
+   * sixty times a second would be a renderer pretending to own a simulation.
+   */
+  private recomputePresence(): void {
+    this.presence = this.snapshot.presence ?? null
+    const homes = new Map<string, PresencePersonHome>()
+    for (const runtime of this.runtimePeople.values()) {
+      homes.set(runtime.fact.id, {
+        role: runtime.fact.role,
+        home: this.personHomePoint(runtime),
+      })
+    }
+    const placements = this.snapshot.placement?.placements ?? []
+    const beat = this.presence?.staticBeat ?? 0
+    this.presenceStandsById = new Map(
+      presenceStands(this.presence, placements, homes, beat).map((stand) => [
+        stand.talentId,
+        stand,
+      ]),
+    )
+    const counts = presenceOccupantCounts(this.presence, placements)
+    this.presenceOccupants = counts.byBuilding
+    this.presencePlacementOccupants = counts.byPlacement
+  }
+
+  /**
+   * Put every rendered person where the CURRENT WEEK says they are.
+   *
+   * A claimed person stands at (or waits outside) their site; everyone else keeps the
+   * M1.5 home-zone parked slot. This is the lot's resting truth — the frame a playback
+   * settles onto, and the only frame a fresh load or a multi-week sim ever shows.
+   */
   private syncPeopleToSnapshot(stage7: ProductionOperationsState | null): void {
     for (const runtime of this.runtimePeople.values()) {
       if (runtime.fact.id === this.cosmeticRoute?.personId) continue
-      this.placePerson(runtime, this.personHome(runtime.fact.role, runtime.homeSlot, runtime.fact.id))
+      const stand = this.presenceStandsById.get(runtime.fact.id)
+      if (stand?.destination != null) {
+        // A queued person faces the door they cannot get through; a working one faces
+        // the camera. Distinct stance, no new art and no new display object.
+        this.placePerson(runtime, stand.destination, stand.stance === 'waiting' ? 'north' : 'south')
+      } else {
+        this.placePerson(runtime, this.personHomePoint(runtime))
+      }
     }
+    this.paintPresenceQueues()
     if (stage7 === null || stage7.taskStatus === null || stage7.taskStatus === 'unassigned') return
     const director = this.runtimePeople.get(stage7.directorId)
     const destination = DIRECTOR_ROUTE.at(-1)
     // A saved blocked/ready/scheduled/completed task is painted at the destination
-    // immediately: no transient walk has to replay before the world is truthful.
+    // immediately: no transient walk has to replay before the world is truthful. This
+    // retained accepted override stands the dispatched director at the Stage 7 doors,
+    // which is the same body of ground presence claims for a shooting company.
     if (director && destination) this.placePerson(director, destination)
+  }
+
+  /**
+   * The one ground cue under every waiting queue: a short arc of chevrons pointing at
+   * the door the queue cannot get through. Painted from the settled stands, so it is
+   * exactly as true as the people standing on it.
+   */
+  private paintPresenceQueues(): void {
+    const g = this.presenceGraphics
+    if (!g) return
+    g.clear()
+    if (this.presencePlayback !== null) return
+    for (const stand of this.presenceStandsById.values()) {
+      if (stand.stance !== 'waiting' || stand.destination === null || stand.site === null) continue
+      const at = this.world(stand.destination.gx, stand.destination.gy)
+      const door = this.world(stand.site.work.gx, stand.site.work.gy)
+      const dx = door.x - at.x
+      const dy = door.y - at.y
+      const length = Math.hypot(dx, dy)
+      if (length <= 0) continue
+      const ux = dx / length
+      const uy = dy / length
+      g.fillStyle(C.lampHeld, 0.26)
+      g.fillEllipse(at.x, at.y + 3, 30, 15)
+      g.lineStyle(2, C.lampHeld, 0.7)
+      g.lineBetween(at.x + ux * 14, at.y + uy * 7 + 3, at.x + ux * 26, at.y + uy * 13 + 3)
+    }
   }
 
   /** Building availability, attention badges, status chips and the two stage lamps. */
@@ -2032,6 +2198,15 @@ export class TycoonScene extends Phaser.Scene {
       const fact = snapshot.buildings.find((building) => building.id === id)
       const attention = fact?.attention ?? 'normal'
       const available = fact?.available !== false
+      // Occupancy chrome: the engine's own count of who is AT this place this week,
+      // painted onto the sign the building already wears. It rides the label's LOD
+      // rule, so it vanishes with every other word at institution scale.
+      const occupants = this.presenceOccupants.get(id) ?? 0
+      const labelText =
+        occupants > 0
+          ? `${BUILDING_LABELS[id]} • ${String(occupants)} here`
+          : BUILDING_LABELS[id]
+      if (view.label.text !== labelText) view.label.setText(labelText)
       view.sprite?.setAlpha(available ? 1 : 0.78)
       view.sign?.setAlpha(available ? 1 : 0.6)
       const reason = fact?.attentionReason ?? null
@@ -2370,6 +2545,77 @@ export class TycoonScene extends Phaser.Scene {
   // ── publicity ───────────────────────────────────────────────────────────────
 
   /** Local acknowledgement of an already-accepted App/Engine result. Emits no event. */
+  // ── week playback ───────────────────────────────────────────────────────────
+
+  /**
+   * Play the CURRENT week's beat timeline once: people leave home on their staggered
+   * departure beat, walk their authored road route, and are at work when it settles.
+   *
+   * Returns true only when a playback actually began. It refuses — and the world simply
+   * shows the settled truth — when the projection is absent, when `week` is not the week
+   * the snapshot is currently describing (so a stale intent can never replay an old
+   * commute over new truth), or under reduced motion.
+   */
+  playPresenceWeek(week: number): boolean {
+    if (!this.scene.isActive()) return false
+    const presence = this.presence
+    if (presence === null || presence.week !== week) return false
+    if (this.presenceStandsById.size === 0) return false
+    if (this.reducedMotion) {
+      // Reduced motion is instant final positions, not a shorter walk.
+      this.presencePlayback = null
+      this.syncPeopleToSnapshot(this.authoritativeStage7Operation(this.snapshot))
+      return false
+    }
+    this.presencePlayback = { week, elapsed: 0 }
+    this.paintPresenceQueues()
+    this.applyPresenceFrame(0)
+    return true
+  }
+
+  /**
+   * Abandon a running playback and snap to the settled week. Idempotent, and safe to
+   * call from any input path: it touches presentation only.
+   */
+  skipPresencePlayback(): boolean {
+    if (this.presencePlayback === null) return false
+    this.presencePlayback = null
+    this.syncPeopleToSnapshot(this.authoritativeStage7Operation(this.snapshot))
+    return true
+  }
+
+  /** Position every person for one instant of the played week. */
+  private applyPresenceFrame(elapsed: number): void {
+    for (const runtime of this.runtimePeople.values()) {
+      if (runtime.fact.id === this.cosmeticRoute?.personId) continue
+      const stand = this.presenceStandsById.get(runtime.fact.id)
+      if (stand === undefined) continue
+      const position = personPositionAt(stand.beats, stand.path, elapsed)
+      const direction = position.moving
+        ? directionFromDelta(
+            position.heading.dgx - position.heading.dgy,
+            position.heading.dgx + position.heading.dgy,
+            runtime.direction,
+          )
+        : stand.stance === 'waiting'
+          ? 'north'
+          : 'south'
+      this.placePerson(runtime, position.at, direction)
+    }
+  }
+
+  private updatePresencePlayback(delta: number): void {
+    const playback = this.presencePlayback
+    if (playback === null) return
+    playback.elapsed += delta
+    if (playbackFinished(playback.elapsed)) {
+      this.presencePlayback = null
+      this.syncPeopleToSnapshot(this.authoritativeStage7Operation(this.snapshot))
+      return
+    }
+    this.applyPresenceFrame(playback.elapsed)
+  }
+
   playPublicity(success: boolean, _detail?: string): boolean {
     if (!success || !this.flash || !this.scene.isActive()) {
       this.clearPublicityVisual()
@@ -2491,6 +2737,11 @@ export class TycoonScene extends Phaser.Scene {
 
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
       if (!this.isCanvasPointer(pointer)) return
+      // SKIP SEMANTICS. The first press anywhere on the canvas ends a running playback
+      // and settles the world. Selection therefore resolves against the SETTLED anchors,
+      // not against a moving body — the documented half of the milestone's choice. It
+      // never blocks input: the press goes on to do whatever it was going to do.
+      this.skipPresencePlayback()
       this.dragging = true
       this.dragMoved = false
       this.dragStart = { x: pointer.x, y: pointer.y }
@@ -2552,6 +2803,13 @@ export class TycoonScene extends Phaser.Scene {
       keyboard.addKey('R').on('down', () => {
         if (!this.inputSuspended) this.resetCamera()
       })
+      // Esc and Space skip a week playback. Both are checked against the suspension
+      // latch, so a modal owning interaction never has its keys stolen by the world.
+      for (const key of ['ESC', 'SPACE'] as const) {
+        keyboard.addKey(key).on('down', () => {
+          if (!this.inputSuspended) this.skipPresencePlayback()
+        })
+      }
     }
   }
 
@@ -2636,6 +2894,9 @@ export class TycoonScene extends Phaser.Scene {
     }
     if (this.cosmeticRoute) this.finishDirectorRoute()
     if (this.cosmeticSceneryLoadIn) this.finishSceneryLoadIn()
+    // Reduced motion is instant FINAL positions: a running week playback stops where the
+    // settled week says everybody is, not part-way down a road.
+    this.skipPresencePlayback()
   }
 
   // ── frame ───────────────────────────────────────────────────────────────────
@@ -2681,6 +2942,7 @@ export class TycoonScene extends Phaser.Scene {
       }
     }
 
+    this.updatePresencePlayback(delta)
     if (this.cosmeticRoute) this.updateDirectorRoute(delta)
     if (this.cosmeticSceneryLoadIn) {
       this.cosmeticSceneryLoadIn.elapsed += delta
@@ -2765,6 +3027,9 @@ export class TycoonScene extends Phaser.Scene {
       for (const label of this.placementLabels.values()) label.setScale(inv)
       this.previewLabel?.setScale(inv)
       for (const runtime of this.runtimePeople.values()) runtime.label.setScale(inv)
+      // The ghost's own stroke weight is counter-scaled too, so a per-cell verdict stays
+      // legible when the whole property is on screen.
+      if (this.preview !== null) this.paintPreview()
     }
 
     if (!bandChanged) return
@@ -2932,7 +3197,13 @@ export class TycoonScene extends Phaser.Scene {
     placedFacilityIds: number[]
     lodBand: LodBand
     visibleBuildingLabels: number
+    buildingLabels: string[]
     placementLabels: string[]
+    presenceWeek: number | null
+    presencePlaybackWeek: number | null
+    presencePlaybackMs: number | null
+    presenceOccupants: [BuildingId, number][]
+    presenceStands: { talentId: string; stance: string; site: string | null }[]
   } {
     return {
       selectedPersonId: this.selectedPersonId,
@@ -2966,10 +3237,32 @@ export class TycoonScene extends Phaser.Scene {
       lodBand: this.lodBand,
       visibleBuildingLabels: [...this.buildings.values()].filter((view) => view.label.visible)
         .length,
+      buildingLabels: [...this.buildings.values()]
+        .filter((view) => view.label.visible)
+        .map((view) => view.label.text)
+        .sort(),
       placementLabels: [...this.placementLabels.values()]
         .filter((label) => label.visible)
         .map((label) => label.text)
         .sort(),
+      presenceWeek: this.presence?.week ?? null,
+      presencePlaybackWeek: this.presencePlayback?.week ?? null,
+      presencePlaybackMs: this.presencePlayback?.elapsed ?? null,
+      presenceOccupants: [...this.presenceOccupants.entries()].sort((a, b) =>
+        a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0,
+      ),
+      presenceStands: [...this.presenceStandsById.values()]
+        .map((stand) => ({
+          talentId: stand.talentId,
+          stance: stand.stance,
+          site:
+            stand.site === null
+              ? null
+              : stand.site.kind === 'place'
+                ? stand.site.buildingId
+                : `placed:${String(stand.site.placedId)}`,
+        }))
+        .sort((a, b) => (a.talentId < b.talentId ? -1 : a.talentId > b.talentId ? 1 : 0)),
     }
   }
 
