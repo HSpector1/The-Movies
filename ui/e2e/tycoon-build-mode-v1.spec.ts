@@ -424,8 +424,12 @@ test('the whole build loop runs in the world: parcel → catalog → ghost → c
   await expect(pad).toHaveAttribute('data-origin-gy', String(BUILD_PARCEL_RECT.y0))
 
   // ── commit ──
+  // The canvas capture is a LIVENESS witness, not a determinism claim: a composited
+  // WebGL surface is not guaranteed byte-stable frame to frame even under reduced
+  // motion, so the proof that the site actually painted is the structural one below
+  // (the placement's own caption object, named from truth). This only catches a world
+  // that did not repaint at all.
   const stillCanvas = await canvasHash(page)
-  expect(await canvasHash(page)).toBe(stillCanvas) // the frozen world is a valid baseline
   await expect(page.getByTestId('lot-build-commit')).toBeEnabled()
   await page.getByTestId('lot-build-commit').click()
 
@@ -483,6 +487,39 @@ test('the whole build loop runs in the world: parcel → catalog → ghost → c
   await expect(page.getByTestId('lot-parcel-inspector-facts')).toContainText('$3,500/week')
   const finished = await gridDebug(page)
   expect(finished.placementLabels).toEqual(['DEVELOPMENT & CASTING ANNEX · OPERATIONAL'])
+
+  // ── a SECOND annex, on different ground ──
+  // The V11 single-Annex cap was marathon law; the conversion mission supersedes it.
+  // Both facilities must stand on the property at once, in two states, in two panels.
+  const secondParcel = 'west-lawn'
+  await page.getByTestId(`lot-nav-parcel-${secondParcel}`).focus()
+  await page.getByTestId(`lot-nav-parcel-${secondParcel}`).press('Enter')
+  await page.getByTestId(`lot-parcel-build-${secondParcel}`).click()
+  await page.getByTestId(`lot-build-blueprint-${ANNEX_BLUEPRINT}`).click()
+  await expect(page.getByTestId('lot-build-verdict')).toHaveAttribute('data-ok', 'true')
+  const beforeSecond = await canvasHash(page)
+  await page.getByTestId('lot-build-commit').click()
+  await expect(page.getByTestId('lot-build-receipt')).toContainText('completes in Week 26')
+
+  const both = await gridDebug(page)
+  expect(both.placedFacilityIds).toEqual([1, 2])
+  // Both captions are painted on the world at once, in their two different states.
+  // (`placementLabels` is sorted for stability, so the second annex sorts first.)
+  expect(both.placementLabels).toEqual([
+    'DEVELOPMENT & CASTING ANNEX 2 · 13 WEEKS LEFT',
+    'DEVELOPMENT & CASTING ANNEX · OPERATIONAL',
+  ])
+  expect(await canvasHash(page)).not.toBe(beforeSecond)
+  await expect(page.getByTestId(`lot-parcel-inspector-${secondParcel}`)).toHaveAttribute(
+    'data-parcel-status',
+    'building',
+  )
+  // …and the first one is still standing, operational, on its own ground.
+  await clickCell(page, BUILD_PARCEL_RECT.x0, BUILD_PARCEL_RECT.y1)
+  await expect(page.getByTestId(`lot-parcel-inspector-${BUILD_PARCEL}`)).toHaveAttribute(
+    'data-parcel-status',
+    'operational',
+  )
 
   // The capacity the studio actually gained shows on the shared facility itself.
   await clickCell(page, 4, 3) // Development, at grid (3,2)–(5,3)
