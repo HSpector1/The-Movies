@@ -138,6 +138,29 @@ blocker exists; beat arrays well-formed; byte-determinism; zero sim-RNG consumpt
 Explicitly not built: persistence, arrival-across-weeks law, task queue records, hiring
 travel, sub-week engine decisions, any UI.
 
+## M3-Engine delivery note (accepted)
+
+Presence Projection V1 delivered green: full suite 215 files / 2,872 tests, both tsc,
+save-neutrality and zero-sim-RNG proven by byte-parity tests (eight ticks with and
+without interleaved projections identical). API: `studioPresence(state)` with
+`BEATS_PER_WEEK = 10`, per-person `{engagement, credit, ownerId, site, slot, beats[10],
+blockedReason}` plus an auditable `withheld[]`. Attendance canon per phase documented
+in-file as presentation canon, not outcome law.
+
+Findings of record:
+- **Facility-capacity queues are unreachable in the shipped configuration** (2
+  productions max, 2 slots of every capability): the first honest visible queue requires
+  either higher concurrency or scarcer capacity — an Owner-level product/economy
+  decision (it intersects the open P5-dominance and cash-runaway residuals). The
+  presence system supports waiting/queue truth and is proven against a configured
+  one-soundstage state; the shipped bottleneck today is action-time rejection, which the
+  inspectors already surface as slot occupancy.
+- No gate/arrival site is emitted (no arrival truth exists); casting tier projects the
+  slate itself (no casting personnel exist); `releaseReady` claims nobody.
+- Cross-agent incident: the M2-UI writer's commit `b580bef` swept the presence writer's
+  in-progress files via `git add -A`. Repaired forward in `758d4f2..0eefb3b`; history
+  not rewritten; the UI writer instructed to stage owned paths only.
+
 ## Authority reconciliation note
 
 The sealed marathon's "not authorized next" list (NEXT-HIGHEST-LEVERAGE.md) prohibited a
