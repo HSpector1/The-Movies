@@ -25,6 +25,7 @@ import {
   annexCanonicalProductionIdCollision,
   assertStudioConstructionInvariants,
 } from './construction.js'
+import { persistedProductionIds } from './productionIdentity.js'
 import {
   LEGACY_EXPANSION_PARCEL_ID,
   LOT_DEPTH,
@@ -582,6 +583,19 @@ export function assertStudioPlacementInvariants(
         placed.projectId === `${blueprint.projectIdBase}-${String(placed.id)}`,
       `${label} projectId is not a canonical identity for its blueprint`,
     )
+    // Law 20: a placement's identities are reserved against the longest-lived
+    // identity authority. Persisted production history (active, released, ledger,
+    // and canceled traces) may never already own one of them.
+    for (const [label2, id] of [
+      ['parcel', placed.parcelId],
+      ['project', placed.projectId],
+      ['facility', placed.facilityId],
+    ] as const) {
+      invariant(
+        !persistedProductionIds(state).has(id),
+        `canonical Annex id ${JSON.stringify(id)} collides with persisted production history (${label2})`,
+      )
+    }
     invariant(!facilityIds.has(placed.facilityId), `duplicate placed facility id "${placed.facilityId}"`)
     invariant(!projectIds.has(placed.projectId), `duplicate placement project id "${placed.projectId}"`)
     facilityIds.add(placed.facilityId)

@@ -1,4 +1,8 @@
-// Development & Casting Annex V1 — strict SaveFileV11 persistence boundary.
+// Development & Casting Annex — the strict persistence boundary, on both sides of
+// the V12 bump. The frozen SaveFileV11 rules are unchanged and are still proved
+// here against genuine V11 envelopes (`asV11Save` expresses a live state's Annex
+// in the frozen fixed-parcel shape); the LIVE boundary is now SaveFileV12, whose
+// Annex truth lives in the placement root.
 
 import { describe, expect, it } from "vitest";
 import { applyActions } from "../src/core/actions.js";
@@ -12,6 +16,7 @@ import {
   emptyStudioConstruction,
   initialManagedStudioConstruction,
 } from "../src/core/construction.js";
+import { emptyStudioPlacement } from "../src/core/placement.js";
 import {
   convertV10ToV11,
   convertV1ToV2,
@@ -35,10 +40,13 @@ import {
   migrateToV8,
   migrateToV9,
   migrateToV10,
+  makeSaveV11,
   migrateToV11,
+  migrateToV12,
   stableStringify,
   validateSave,
   validateSaveV11,
+  validateSaveV12,
   type SaveFile,
   type SaveFileV11,
 } from "../src/core/save.js";
@@ -80,12 +88,45 @@ function advance(state: GameState, count: number): GameState {
   return next;
 }
 
-function setCashToLedgerIdentity(state: GameState): GameState {
-  const cash = state.ledger.reduce(
-    (sum, entry) => sum + entry.amount,
-    20_000_000,
-  );
-  return { ...state, studio: { ...state.studio, cash } };
+// Express a live V12 state's Annex in the FROZEN V11 fixed-parcel shape, so the
+// V11 validator's rules can still be exercised against real lifecycle states.
+// Only used at weeks where no facility-operating row exists (the charge begins the
+// week AFTER completion), so nothing about the ledger has to be rewritten.
+function asV11Save(state: GameState): SaveFileV11 {
+  const placed = state.placement.facilities[0];
+  const construction =
+    placed === undefined
+      ? state.construction
+      : {
+          mode: "managed" as const,
+          parcels: [{ id: ANNEX_PARCEL_ID, projectId: ANNEX_PROJECT_ID }],
+          projects: [
+            {
+              id: ANNEX_PROJECT_ID,
+              kind: "development-casting-annex" as const,
+              parcelId: ANNEX_PARCEL_ID,
+              facilityId: ANNEX_FACILITY_ID,
+              status:
+                placed.status === "operational"
+                  ? ("completed" as const)
+                  : ("building" as const),
+              capex: ANNEX_CAPEX,
+              startedWeek: placed.placedWeek,
+              dueWeek: placed.completesWeek,
+              completedWeek:
+                placed.status === "operational" ? placed.completesWeek : null,
+            },
+          ],
+        };
+  return makeSaveV11({
+    ...state,
+    construction,
+    placement: emptyStudioPlacement(),
+  });
+}
+
+function ledgerIdentityCash(ledger: readonly { amount: number }[]): number {
+  return ledger.reduce((sum, entry) => sum + entry.amount, 20_000_000);
 }
 
 describe("Development & Casting Annex V1 — SaveFileV11", () => {
@@ -121,7 +162,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
     expect(invalidFrozenState.seed).toBe("save-v11-static-boundary");
   });
 
-  it("writes V11 by default and round-trips legacy, vacant, building, and completed lifecycle states", () => {
+  it("writes V12 by default and round-trips legacy, vacant, building, and completed lifecycle states", () => {
     const started = building("save-v11-lifecycles");
     const states = [
       generateWorld("save-v11-legacy"),
@@ -132,9 +173,9 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
 
     for (const state of states) {
       const save = makeSave(state);
-      expect(save.saveVersion).toBe(11);
+      expect(save.saveVersion).toBe(12);
       expect(validateSave(save)).toBe(save);
-      expect(validateSaveV11(save)).toBe(save);
+      expect(validateSaveV12(save)).toBe(save);
       const json = exportSave(save);
       expect(exportSave(importSave(json))).toBe(json);
     }
@@ -145,11 +186,14 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
     const input = stableStringify(started);
     const week12 = advance(started, 12);
     expect(stableStringify(started)).toBe(input);
-    expect(week12.construction.projects[0]).toMatchObject({
-      status: "building",
-      startedWeek: 0,
-      dueWeek: 13,
-      completedWeek: null,
+    expect(week12.construction.projects).toEqual([]);
+    expect(week12.placement.facilities[0]).toMatchObject({
+      status: "underConstruction",
+      placedWeek: 0,
+      completesWeek: 13,
+      parcelId: ANNEX_PARCEL_ID,
+      facilityId: ANNEX_FACILITY_ID,
+      projectId: ANNEX_PROJECT_ID,
     });
     expect(
       week12.operations.facilities.some(
@@ -159,11 +203,10 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
     expect(() => makeSave(week12)).not.toThrow();
 
     const week13 = tick(week12);
-    expect(week13.construction.projects[0]).toMatchObject({
-      status: "completed",
-      startedWeek: 0,
-      dueWeek: 13,
-      completedWeek: 13,
+    expect(week13.placement.facilities[0]).toMatchObject({
+      status: "operational",
+      placedWeek: 0,
+      completesWeek: 13,
     });
     expect(
       week13.operations.facilities.filter(
@@ -179,7 +222,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
 
     for (const state of states) {
       const json = exportSave(makeSave(state));
-      const imported = migrateToV11(importSave(json)).state;
+      const imported = migrateToV12(importSave(json)).state;
       expect(exportSave(makeSave(imported))).toBe(json);
       expect(exportSave(makeSave(tick(imported)))).toBe(
         exportSave(makeSave(tick(state))),
@@ -308,7 +351,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
   });
 
   it("strictly rejects malformed parcel, project, ledger, cash, and facility truth", () => {
-    const valid = makeSave(building("save-v11-strict"));
+    const valid = asV11Save(building("save-v11-strict"));
 
     const cases: Array<[string, (save: SaveFileV11) => void, RegExp]> = [
       [
@@ -344,7 +387,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
         "missing debit",
         (save) => {
           save.state.ledger = [];
-          save.state = setCashToLedgerIdentity(save.state);
+          save.state.studio.cash = ledgerIdentityCash(save.state.ledger);
         },
         /project requires exactly one construction-capex row/,
       ],
@@ -352,7 +395,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
         "wrong debit amount",
         (save) => {
           save.state.ledger[0]!.amount = -ANNEX_CAPEX + 1;
-          save.state = setCashToLedgerIdentity(save.state);
+          save.state.studio.cash = ledgerIdentityCash(save.state.ledger);
         },
         /construction capex amount must be -780000/,
       ],
@@ -392,7 +435,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
       expect(() => validateSaveV11(bad)).toThrow(expected);
     }
 
-    const completed = makeSave(advance(building("save-v11-facility"), 13));
+    const completed = asV11Save(advance(building("save-v11-facility"), 13));
     const mutated = clone(completed);
     mutated.state.operations.facilities.find(
       (facility) => facility.id === ANNEX_FACILITY_ID,
@@ -433,15 +476,29 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
         ANNEX_PROJECT_ID,
         ANNEX_FACILITY_ID,
       ]) {
-        const forged = clone(makeSave(state));
-        forged.state.ledger.push({
-          week: forged.state.market.tick,
+        const forgedV11 = clone(asV11Save(state));
+        forgedV11.state.ledger.push({
+          week: forgedV11.state.market.tick,
           kind: "production",
           amount: 0,
           productionId: reservedId,
           note: "forged persisted production identity",
         });
-        expect(() => validateSaveV11(forged)).toThrow(
+        expect(() => validateSaveV11(forgedV11)).toThrow(
+          /canonical Annex id .*collides with persisted production history/,
+        );
+
+        // The same law, one version on: the placement authority reserves the
+        // parcel, project, and facility identity against the same history.
+        const forgedV12 = clone(makeSave(state));
+        forgedV12.state.ledger.push({
+          week: forgedV12.state.market.tick,
+          kind: "production",
+          amount: 0,
+          productionId: reservedId,
+          note: "forged persisted production identity",
+        });
+        expect(() => validateSaveV12(forgedV12)).toThrow(
           /canonical Annex id .*collides with persisted production history/,
         );
       }
@@ -473,15 +530,15 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
     );
   });
 
-  it("positively projects V11 and rejects unknown future versions", () => {
+  it("positively projects V12 and rejects unknown future versions", () => {
     const withFuture = {
       ...managedVacant("save-v11-projection"),
-      futureV12: { mustNotLeak: true },
+      futureV13: { mustNotLeak: true },
     };
     const save = makeSave(withFuture);
-    expect("futureV12" in save.state).toBe(false);
-    expect(() => validateSave({ ...save, saveVersion: 12 })).toThrow(
-      /unknown saveVersion 12.*versions 1 through 11 only/,
+    expect("futureV13" in save.state).toBe(false);
+    expect(() => validateSave({ ...save, saveVersion: 13 })).toThrow(
+      /unknown saveVersion 13.*versions 1 through 12 only/,
     );
   });
 });

@@ -3585,6 +3585,10 @@ function historicalConstructionLedgerProjection(
 
 type HistoricalProjectionSourceV11 = Omit<GameStateV11, "ledger"> & {
   ledger: LedgerEntryV11[] | LedgerEntry[];
+  // A live V12 value is a valid positive input; `projectStateV11` never copies
+  // this key and `assertFrozenBuilderCanProjectV12State` refuses any placement
+  // root that is not empty, so no authority can be discarded here.
+  placement?: StudioPlacement;
 };
 
 function projectStateV11(state: HistoricalProjectionSourceV11): GameStateV11 {
