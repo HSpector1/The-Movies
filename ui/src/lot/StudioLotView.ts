@@ -21,7 +21,6 @@ import type { StudioLotSnapshot, BuildingId, LotActionKind, ProductionCard } fro
 import type { IdentityMode } from './identity/manifest'
 import {
   HollywoodScene,
-  type HollywoodEvent,
   type HollywoodFailureReason,
   type HollywoodGateVisitorPresentation,
   type HollywoodGateVisitorSelection,
@@ -30,6 +29,7 @@ import {
   type HollywoodProductionSelection,
   type HollywoodSceneryLoadInSelection,
 } from './hollywood/HollywoodScene'
+import { TycoonScene, type TycoonEvent } from './tycoon/TycoonScene'
 import type { LotPersonState } from './snapshot/StudioLotSnapshot'
 
 export type { CameraPreset, CharacterInfo, MomentKind }
@@ -86,12 +86,32 @@ export type StudioLotViewOptions = {
   authoredStageA?: boolean
   /** Phase II hybrid district presentation. Independent from the legacy D1 renderer. */
   hollywood?: boolean
+  /**
+   * Tycoon World Conversion M1: render the navigable isometric grid property instead of
+   * the painted district plate. Requires `hollywood` (both worlds publish the same
+   * semantic event contract); an explicit rollback returns the plate untouched.
+   */
+  tycoon?: boolean
+  /**
+   * A physical place was activated in the grid world. The host runs the SAME verb its
+   * DOM companion list runs for that destination, so canvas intent and semantic
+   * navigation can never route to different owners.
+   */
+  onWorldBuilding?: (buildingId: BuildingId) => void
 }
 
 export class StudioLotView {
   private game: Phaser.Game
   private scene: LotScene | null = null
-  private hollywoodScene: HollywoodScene | null = null
+  /**
+   * The active semantic world renderer. Both the tycoon grid world and the retained
+   * Hollywood plate implement the same host-facing surface, so every command below is
+   * written once against the union.
+   */
+  private hollywoodScene: HollywoodScene | TycoonScene | null = null
+  /** Narrow handle for the commands only the grid world offers (camera framings). */
+  private tycoonScene: TycoonScene | null = null
+  private readonly worldSceneKey: 'hollywood' | 'tycoon'
   private pendingSnapshot: StudioLotSnapshot | null = null
   /** Snapshot handed to the currently booting scene; avoids repainting it at ready. */
   private sceneBootSnapshot: StudioLotSnapshot | null = null
@@ -107,6 +127,7 @@ export class StudioLotView {
 
   constructor(opts: StudioLotViewOptions) {
     this.opts = opts
+    this.worldSceneKey = opts.tycoon === true ? 'tycoon' : 'hollywood'
     this.pendingSnapshot = opts.snapshot
     this.game = this.boot()
   }
@@ -119,7 +140,13 @@ export class StudioLotView {
       // around the lot rather than a flat fill.
       transparent: true,
       scale: { mode: Phaser.Scale.RESIZE, width: '100%', height: '100%' },
-      render: { antialias: true, roundPixels: false, powerPreference: 'low-power' },
+      // The grid world pans continuously over baked isometric tiles, where sub-pixel
+      // sampling shimmers; the painted plate does not and keeps its existing setting.
+      render: {
+        antialias: true,
+        roundPixels: this.opts.tycoon === true,
+        powerPreference: 'low-power',
+      },
       scene: [],
     })
     if (this.opts.hollywood) {
@@ -134,13 +161,22 @@ export class StudioLotView {
         try {
           const snapshot = this.pendingSnapshot ?? this.opts.snapshot
           this.sceneBootSnapshot = snapshot
-          game.scene.add('hollywood', HollywoodScene, true, {
-            snapshot,
-            onEvent: (e: HollywoodEvent) => {
-              if (!this.destroyed && game === this.game) this.handleHollywoodEvent(e)
-            },
-            reducedMotion: this.reducedMotion,
-          })
+          const onEvent = (e: TycoonEvent) => {
+            if (!this.destroyed && game === this.game) this.handleHollywoodEvent(e)
+          }
+          if (this.worldSceneKey === 'tycoon') {
+            game.scene.add('tycoon', TycoonScene, true, {
+              snapshot,
+              onEvent,
+              reducedMotion: this.reducedMotion,
+            })
+          } else {
+            game.scene.add('hollywood', HollywoodScene, true, {
+              snapshot,
+              onEvent,
+              reducedMotion: this.reducedMotion,
+            })
+          }
         } catch {
           // SceneManager failures happen after StudioLotView construction, outside
           // React's lazy-import promise. Surface them through the same exact seam.
@@ -161,14 +197,16 @@ export class StudioLotView {
     return game
   }
 
-  private handleHollywoodEvent(e: HollywoodEvent): void {
+  private handleHollywoodEvent(e: TycoonEvent): void {
     if (e.type === 'failure') {
       this.reportHollywoodFailure(e.reason)
       return
     }
     if (e.type === 'ready') {
       if (this.hollywoodFailureReported) return
-      this.hollywoodScene = this.game.scene.getScene('hollywood') as HollywoodScene
+      const scene = this.game.scene.getScene(this.worldSceneKey)
+      this.hollywoodScene = scene as HollywoodScene | TycoonScene
+      this.tycoonScene = this.worldSceneKey === 'tycoon' ? (scene as TycoonScene) : null
       this.hollywoodScene.setReducedMotion(this.reducedMotion)
       this.hollywoodScene.setInputSuspended(this.inputSuspended)
       if (this.pendingSnapshot && this.pendingSnapshot !== this.sceneBootSnapshot) {
@@ -179,7 +217,8 @@ export class StudioLotView {
       this.opts.onReady?.()
       return
     }
-    if (e.type === 'person') this.opts.onHollywoodPerson?.(e.person)
+    if (e.type === 'building') this.opts.onWorldBuilding?.(e.buildingId)
+    else if (e.type === 'person') this.opts.onHollywoodPerson?.(e.person)
     else if (e.type === 'place') this.opts.onHollywoodPlace?.(e.place)
     else if (e.type === 'production') this.opts.onHollywoodProduction?.(e.production)
     else if (e.type === 'scenery-load-in') this.opts.onHollywoodSceneryLoadIn?.(e.sceneryLoadIn)
@@ -202,7 +241,7 @@ export class StudioLotView {
     let failedScene = this.hollywoodScene
     if (!failedScene) {
       try {
-        failedScene = this.game.scene.getScene('hollywood') as HollywoodScene
+        failedScene = this.game.scene.getScene(this.worldSceneKey) as HollywoodScene | TycoonScene
       } catch {
         // A SceneManager boot failure may occur before the scene is registered.
       }
@@ -211,6 +250,7 @@ export class StudioLotView {
       failedScene?.failClosedFromHost()
     } finally {
       this.hollywoodScene = null
+      this.tycoonScene = null
       this.opts.onHollywoodFailure?.(reason)
     }
   }
@@ -280,13 +320,15 @@ export class StudioLotView {
       : this.reconcilePendingGateVisitor()
   }
 
-  /** Programmatically select a building (as if the user clicked it). */
+  /** Programmatically select a building (as if the user clicked it). Emits no event. */
   select(id: BuildingId): void {
     this.scene?.selectFromHost(id)
+    this.tycoonScene?.selectFromHost(id)
   }
 
   clearSelection(): void {
     this.scene?.clearSelection()
+    this.tycoonScene?.clearPlaceSelection()
   }
 
   /** Invoke a building's default navigation action (fires onAction). */
@@ -299,9 +341,10 @@ export class StudioLotView {
     this.hollywoodScene?.resetCamera()
   }
 
-  /** Move the camera to a named framing (overview / production / wide). */
+  /** Move the camera to a named framing (overview / production / wide / entrance / theater). */
   camera(preset: CameraPreset): void {
     this.scene?.applyCameraPreset(preset)
+    this.tycoonScene?.applyCameraPreset(preset)
   }
 
   /**
@@ -320,7 +363,7 @@ export class StudioLotView {
   pause(): void {
     this.pauseVignettes(true)
     if (this.game.scene.isActive('lot')) this.game.scene.pause('lot')
-    if (this.game.scene.isActive('hollywood')) this.game.scene.pause('hollywood')
+    if (this.game.scene.isActive(this.worldSceneKey)) this.game.scene.pause(this.worldSceneKey)
     this.game.loop.sleep()
   }
 
@@ -330,8 +373,8 @@ export class StudioLotView {
     if (this.game.scene.isPaused('lot')) this.game.scene.resume('lot')
     // A failed Hollywood generation may still be registered by Phaser, but its
     // host seam is deliberately null. Never reactivate that hidden/inert orphan.
-    if (this.hollywoodScene && this.game.scene.isPaused('hollywood')) {
-      this.game.scene.resume('hollywood')
+    if (this.hollywoodScene && this.game.scene.isPaused(this.worldSceneKey)) {
+      this.game.scene.resume(this.worldSceneKey)
     }
     // Scene visibility and modal input are independent. Reasserting the retained
     // input state prevents a Phaser lifecycle resume from reviving controls behind
@@ -403,6 +446,7 @@ export class StudioLotView {
   recreate(): void {
     this.scene = null
     this.hollywoodScene = null
+    this.tycoonScene = null
     this.game.destroy(true)
     this.hollywoodFailureReported = false
     this.game = this.boot()
@@ -412,6 +456,7 @@ export class StudioLotView {
     this.destroyed = true
     this.scene = null
     this.hollywoodScene = null
+    this.tycoonScene = null
     this.game.destroy(true)
   }
 

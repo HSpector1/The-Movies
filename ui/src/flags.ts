@@ -40,6 +40,15 @@ export const STUDIO_LOT_AUTHORED_STAGE_A_LS_KEY = 'project-studio.flags.studio-l
 /** Adopted Phase II hybrid-district presentation gate. Default ON; explicit `0` rolls back. */
 export const OPERATION_HOLLYWOOD_LS_KEY = 'project-studio.flags.operation-hollywood'
 
+/**
+ * Tycoon World Conversion M1 — is the Studio Lot the navigable isometric grid property?
+ * **DEFAULT ON: this is the adopted default world.** An explicit rollback (`0`) selects the
+ * retained Operation Hollywood painted district instead, which keeps every semantic event
+ * and verb; setting the Hollywood key to `0` as well falls all the way back to the legacy
+ * procedural lot. The two gates are independent and compose in that order.
+ */
+export const TYCOON_WORLD_LS_KEY = 'project-studio.flags.tycoon-world'
+
 type ViteEnv = {
   VITE_STUDIO_LOT_OVERVIEW?: string
   VITE_STUDIO_LOT_IDENTITY_PROOF?: string
@@ -49,6 +58,7 @@ type ViteEnv = {
   VITE_STUDIO_LOT_AUTHORED_STAGE?: string
   VITE_STUDIO_LOT_AUTHORED_STAGE_A?: string
   VITE_OPERATION_HOLLYWOOD?: string
+  VITE_TYCOON_WORLD?: string
 }
 
 function envValue(pick: (e: ViteEnv) => string | undefined): boolean {
@@ -139,6 +149,21 @@ export function studioLotOverviewEnabled(): boolean {
 /** Is adopted Operation Hollywood enabled? Default ON and independent of the overview gate. */
 export function operationHollywoodEnabled(): boolean {
   return adoptedPlayerGate((e) => e.VITE_OPERATION_HOLLYWOOD, OPERATION_HOLLYWOOD_LS_KEY)
+}
+
+/** Is the adopted tycoon grid world enabled? Default ON; explicit `0` keeps the plate. */
+export function tycoonWorldEnabled(): boolean {
+  return adoptedPlayerGate((e) => e.VITE_TYCOON_WORLD, TYCOON_WORLD_LS_KEY)
+}
+
+/** Dev/test helper: write an explicit runtime enable (`1`) or rollback (`0`). Reload to apply. */
+export function setTycoonWorldOverride(on: boolean): void {
+  setAdoptedGateOverride(TYCOON_WORLD_LS_KEY, on)
+}
+
+/** Remove the QA override and return the tycoon world to its adopted default. */
+export function clearTycoonWorldOverride(): void {
+  clearLsFlag(TYCOON_WORLD_LS_KEY)
 }
 
 export function setOperationHollywoodOverride(on: boolean): void {

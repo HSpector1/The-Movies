@@ -145,6 +145,7 @@ import {
   studioLotAuthoredStageEnabled,
   studioLotAuthoredStageAEnabled,
   operationHollywoodEnabled,
+  tycoonWorldEnabled,
 } from '../flags.ts'
 import type { IdentityMode } from './identity/manifest.ts'
 
@@ -820,6 +821,12 @@ export function StudioLotScreen({
   const nextEventEligibility = lotNextEventEligibility(state)
   const mountRef = useRef<HTMLDivElement | null>(null)
   const viewRef = useRef<StudioLotViewClass | null>(null)
+  /**
+   * Latest world-verb router. The grid world activates a physical place by calling
+   * exactly the handler the DOM companion list calls for that destination, so a canvas
+   * click and a keyboard navigation can never resolve to different owners.
+   */
+  const activateRef = useRef<((id: BuildingId) => void) | null>(null)
   const rendererStateRef = useRef<GameState | null>(null)
   const studioHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const namedPeopleGroupRef = useRef<HTMLDivElement | null>(null)
@@ -1044,6 +1051,9 @@ export function StudioLotScreen({
   }, [])
   const [reducedMotion, setReducedMotionState] = useState(prefersReducedMotion)
   const hollywood = operationHollywoodEnabled()
+  // Tycoon World Conversion M1: the grid property is the adopted default world. It rides
+  // on the Hollywood semantic contract, so the plate rollback also rolls this back.
+  const tycoon = hollywood && tycoonWorldEnabled()
   const [hollywoodPerson, setHollywoodPerson] = useState<LotPersonState | null>(null)
   const hollywoodPersonRef = useRef<LotPersonState | null>(hollywoodPerson)
   const [hollywoodPlace, setHollywoodPlace] = useState<HollywoodPlaceSelection | null>(null)
@@ -3625,6 +3635,8 @@ export function StudioLotScreen({
           authoredStage,
           authoredStageA,
           hollywood,
+          tycoon,
+          onWorldBuilding: (buildingId) => { activateRef.current?.(buildingId) },
           // The import can resolve after an App-owned week advance. Construct from the latest
           // host snapshot rather than the mount-time state closure so that preparation never
           // paints a stale week before onReady enables ordinary snapshot delivery.
@@ -4872,6 +4884,12 @@ export function StudioLotScreen({
       yieldNextEventOrientation,
     ],
   )
+
+  // The world renderer routes every physical activation through the same handler the
+  // companion list uses. Kept in a ref because the renderer is constructed once.
+  useEffect(() => {
+    activateRef.current = activate
+  }, [activate])
 
   // With the review signage mask on, the companion list must not print the answer the
   // canvas is being masked to hide. Only the stage NAME is neutralised — attention state
