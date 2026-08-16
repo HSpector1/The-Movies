@@ -195,6 +195,9 @@ import {
   studioPlacementView as coreStudioPlacementView,
   queryPlacement as coreQueryPlacement,
   PLACEMENT_REJECTION_ORDER,
+  // The V12 placement root's own derivations — the authority the completion detector reads.
+  blueprintById,
+  placedStudioFacility,
 } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
@@ -325,6 +328,7 @@ import type {
   PlacementRequest,
   PlacementRejection,
   PlacementCellVerdict,
+  PlacementStatus,
   LotCell,
 } from '../../../src/core/index.ts'
 
@@ -1917,26 +1921,80 @@ export type ConstructionCompletionSummary = {
   message: string
 }
 
+/**
+ * Did a COMMITTED BUILD reach Operational across this tick?
+ *
+ * V12 REPAIR (PM playtest, 2026-08-17). This read the retained `studioConstructionView`, which
+ * projects ONLY the Annex-class placement standing on the legacy `expansion` parcel
+ * (`legacyAnnexPlacement`). Under Placement Core V12 a player may build on any of the eight
+ * buildable parcels, so a facility completing anywhere else left `status` at `vacant` on both
+ * sides of the tick and reported NOTHING: `advanceWeek` returned a null completion and, worse,
+ * `advanceToNextEvent` ran straight THROUGH the completion week — the accepted V11
+ * `constructionCompleted` stop had silently stopped existing for every non-legacy placement.
+ *
+ * The detector now reads the placement root itself, which is the authority that owns the fact,
+ * and diffs status per placement id. The legacy Annex keeps byte-identical behavior: its
+ * `facilityId` equals the blueprint's `facilityIdBase`, so `placedStudioFacility` returns the
+ * unsuffixed blueprint name and the message is character-for-character what V11 emitted.
+ *
+ * Completions are ordered by ascending placement id — the same order `completeDuePlacements`
+ * applies them in — so the reported summary is deterministic. The accepted receipt shape stays
+ * SINGULAR (every consuming surface reads one), so when V12 lets several placements complete on
+ * the same advance the lowest id owns the receipt and the message states the remainder rather
+ * than silently dropping it. The full ordered list is available here for any surface that wants
+ * it.
+ */
+export function constructionCompletionsBetween(
+  before: GameState,
+  after: GameState,
+): ConstructionCompletionSummary[] {
+  const priorStatus = new Map<number, PlacementStatus>()
+  for (const placed of before.placement.facilities) priorStatus.set(placed.id, placed.status)
+  return after.placement.facilities
+    .filter(
+      (placed) =>
+        placed.status === 'operational' && priorStatus.get(placed.id) === 'underConstruction',
+    )
+    .sort((a, b) => a.id - b.id)
+    .map((placed) => {
+      const blueprint = blueprintById(placed.blueprintId)
+      if (blueprint === null) {
+        throw new Error(
+          `construction completion references unknown blueprint "${placed.blueprintId}"`,
+        )
+      }
+      const name = placedStudioFacility(placed).name
+      const capability = FACILITY_CAPABILITY_LABEL[blueprint.capability]
+      const slots =
+        blueprint.capacity === 1
+          ? `One shared ${capability} slot is now available.`
+          : `${String(blueprint.capacity)} shared ${capability} slots are now available.`
+      return {
+        projectId: placed.projectId,
+        facilityId: placed.facilityId,
+        name,
+        completedWeek: placed.completesWeek,
+        message: `${name} is Operational in Week ${String(placed.completesWeek)}. ${slots}`,
+      }
+    })
+}
+
 function constructionCompletionBetween(
   before: GameState,
   after: GameState,
 ): ConstructionCompletionSummary | null {
-  const prior = coreStudioConstructionView(before, { facilityPolicy: 'configured' })
-  const current = coreStudioConstructionView(after, { facilityPolicy: 'configured' })
-  if (prior.status !== 'building' || current.status !== 'operational') return null
-  if (
-    current.projectId === null ||
-    current.facilityId === null ||
-    current.completedWeek === null
-  ) {
-    throw new Error('construction completion has no canonical Annex identity')
-  }
+  const completions = constructionCompletionsBetween(before, after)
+  const primary = completions[0]
+  if (primary === undefined) return null
+  const others = completions.length - 1
+  if (others === 0) return primary
   return {
-    projectId: current.projectId,
-    facilityId: current.facilityId,
-    name: current.name,
-    completedWeek: current.completedWeek,
-    message: `${current.name} is Operational in Week ${current.completedWeek}. One shared Development & Casting slot is now available.`,
+    ...primary,
+    message: `${primary.message} ${
+      others === 1
+        ? 'One further committed build also completed on this advance.'
+        : `${String(others)} further committed builds also completed on this advance.`
+    }`,
   }
 }
 
