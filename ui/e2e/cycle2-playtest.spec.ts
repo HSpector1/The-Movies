@@ -224,8 +224,16 @@ test('cycle-2 owner playtest: custom-actor founding → hiring → two distinct 
 
   // ── STEP 10 — Confirm they are NOT auto-employed: a signable card in the market. ──
   await expect(page.getByTestId('hiring-list')).toBeVisible()
-  const hireCard = page.locator('[data-testid^="hiring-card-"]').filter({ hasText: HIRE_NAME })
+  // SELECTOR REPAIR (pre-existing at shift base `2be6656`, byte-identical failure there).
+  // `HiringCard` nests `hiring-card-heading-<id>` INSIDE `hiring-card-<id>`, and the heading's
+  // text is exactly the talent's name — so a bare `^="hiring-card-"` prefix matched the panel
+  // AND its own heading and this count read 2. The card container is the element that is not a
+  // heading; the created talent is then pinned harder than before, by their own heading text.
+  const hireCard = page
+    .locator('[data-testid^="hiring-card-"]:not([data-testid^="hiring-card-heading-"])')
+    .filter({ hasText: HIRE_NAME })
   await expect(hireCard).toHaveCount(1) // present as a signable FREE AGENT (not employed)
+  await expect(hireCard.locator('[data-testid^="hiring-card-heading-"]')).toHaveText(HIRE_NAME)
 
   // ── STEP 11 — Sign them, then return to the dashboard. ──────────────────────
   await hireCard.locator('button[data-testid^="hiring-sign-"]').first().click()

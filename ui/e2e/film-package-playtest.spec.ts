@@ -224,8 +224,17 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
   // freelancers). Sign the created crew via the Hiring Market, then return.
   await page.getByTestId('open-hiring').click()
   await expect(page.getByTestId('hiring-list')).toBeVisible()
-  const crewMarketCard = page.locator('[data-testid^="hiring-card-"]').filter({ hasText: CREW_NAME })
+  // SELECTOR REPAIR (pre-existing at shift base `2be6656`, byte-identical failure there).
+  // `HiringCard` nests `hiring-card-heading-<id>` INSIDE `hiring-card-<id>`, and the heading's
+  // text is exactly the talent's name — so a bare `^="hiring-card-"` prefix matched the panel
+  // AND its own heading and this count read 2. The card container is the element that is not a
+  // heading; the created crew is then pinned harder than before, by their own heading text.
+  const crewMarketCard = page
+    .locator('[data-testid^="hiring-card-"]:not([data-testid^="hiring-card-heading-"])')
+    .filter({ hasText: CREW_NAME })
   await expect(crewMarketCard).toHaveCount(1) // the created crew is signable as a free agent
+  await expect(crewMarketCard.locator('[data-testid^="hiring-card-heading-"]'))
+    .toHaveText(CREW_NAME)
   await crewMarketCard.locator('button[data-testid^="hiring-sign-"]').first().click()
   await page.getByTestId('hiring-back').click()
   await expect(page.getByTestId('dash-week')).toBeVisible()
