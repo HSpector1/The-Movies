@@ -138,6 +138,20 @@ blocker exists; beat arrays well-formed; byte-determinism; zero sim-RNG consumpt
 Explicitly not built: persistence, arrival-across-weeks law, task queue records, hiring
 travel, sub-week engine decisions, any UI.
 
+- **M2-UI Build Mode V1 — KEEP** (commits `b580bef..4086729`; playtest 3, live browser,
+  Week 1→40). The full tycoon loop verified by hand: open ground is a place ("Stage
+  South Pad · 3×5 cells · trucks can reach this site") → Build here → catalog → ghost
+  with live quote → commit debits $780k with an exact receipt → the site caption counts
+  down weekly with panel truth in lockstep → at Week 14 a real annex building stands,
+  Operational, +1 shared slot, $3,500/wk opex charging. Defects logged: (1) REGRESSION —
+  construction completion no longer stops `advanceToNextEvent` (V12 retired the slice
+  the stop-detector reads; sim ran Week 4→40 through the completion silently) — routed
+  to the stabilization writer with repro; (2) polish — the site caption occludes the
+  annex sprite at mid zoom; ghost cells read faintly at institution zoom. E2e state
+  accepted provisionally pending the stabilization milestone (13 failures + 33 not-run
+  at branch point are its charter). Dual-webServer e2e strategy (5178 plate quarantine /
+  5179 shipped grid) — PM ruling: ACCEPTED.
+
 ## M3-Engine delivery note (accepted)
 
 Presence Projection V1 delivered green: full suite 215 files / 2,872 tests, both tsc,
