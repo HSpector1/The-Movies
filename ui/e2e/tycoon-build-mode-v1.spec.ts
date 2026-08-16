@@ -540,8 +540,17 @@ async function pointOf(page: Page, gx: number, gy: number): Promise<[number, num
 // The freshly measured tuple for the grid managed-idle fixture. Filled from a real run
 // (see the report accompanying this milestone); a change here is a real change in what
 // the world costs to draw, not a re-baseline of convenience.
+//
+// M3-UI RE-PIN — one object, one named reason. Presence on the Lot V1 adds exactly one
+// display object to this world: `tier:presence-queue`, the SINGLE shared Graphics layer
+// that paints the ground cue under every waiting queue (one layer for the whole
+// property, deliberately not one object per person). Nothing else moved — the same 14
+// dynamic actors, the same 8,545,720 decoded bytes and the same 4 draw calls, which is
+// what proves the delta is that one layer and not a renderer leak. Presence MOVES
+// existing bodies; it creates none, which the presence suite's own Week-0/Week-1 tuples
+// prove across a whole week playback.
 const GRID_MANAGED_IDLE_STRUCTURE = {
-  displayObjects: 172,
+  displayObjects: 173,
   dynamicActors: 14,
   decodedBytes: 8_545_720,
   drawCalls: 4,

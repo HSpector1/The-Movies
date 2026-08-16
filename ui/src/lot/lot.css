@@ -1344,6 +1344,14 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
 }
 .hollywood-person-presence[data-presence-kind='waiting'] { border-left-color: #c79a3c; }
 .hollywood-person-presence[data-presence-kind='roster'] { border-left-color: #7d8b8c; }
+.hollywood-person-presence-credit {
+  display: block;
+  margin-top: 4px;
+  color: #9eac9d;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
 .hollywood-person-work-note.is-unavailable { border-left-color: #a76845; }
 .hollywood-profile-command { width: 100%; min-height: 44px; font-size: 11px; }
 .hollywood-scenery-heading {

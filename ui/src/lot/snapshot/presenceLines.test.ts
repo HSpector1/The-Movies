@@ -141,6 +141,15 @@ describe('person presence line', () => {
     expect(line?.line).toBe('On the studio roster this week — no workplace is claimed for them.')
   })
 
+  it('claims nothing when a claimed site and its own beat disagree', () => {
+    // The canvas parks such a person at home, so a sentence saying they are at work
+    // would make the two surfaces disagree about one week. Neither is claimed.
+    const contradictory = person({
+      beats: Array.from({ length: 10 }, () => 'home' as LotPresenceBeat),
+    })
+    expect(lotPersonPresenceLine(snapshot([contradictory]), 'talent-w')).toBeNull()
+  })
+
   it('claims NOTHING for a person the engine withheld — fail-neutral', () => {
     // The engine's withholding shows up as absence from `people`, which is exactly the
     // shape the adapter mirrors. The panel simply prints no presence line.

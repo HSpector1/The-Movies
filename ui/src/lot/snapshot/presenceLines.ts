@@ -127,6 +127,13 @@ export function lotPersonPresenceLine(
     }
   }
 
+  // A claimed site whose OWN BEAT does not put the person there is contradictory truth.
+  // The canvas parks such a person at home (`stanceForBeat` reads the same beat), so a
+  // sentence saying they are at work would make the two surfaces disagree about one
+  // week. Claim neither (laws 6 / 21). Unreachable from a well-formed projection: the
+  // engine's working window covers the static beat for every legal departure stagger.
+  if (beat !== 'at-site') return null
+
   const activityLabel = isText(person.activity) ? (ACTIVITY_VERB[person.activity] ?? null) : null
   const workTitle = isText(person.workTitle) ? person.workTitle : null
   const facilityName = isText(person.facilityName) ? person.facilityName : null

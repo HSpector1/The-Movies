@@ -6696,6 +6696,14 @@ export function StudioLotScreen({
                 data-presence-kind={selectedPersonPresence.kind}
               >
                 {selectedPersonPresence.line}
+                {selectedPersonPresence.creditLabel !== null && (
+                  <span
+                    className="hollywood-person-presence-credit"
+                    data-testid="hollywood-person-presence-credit"
+                  >
+                    Credited this week as {selectedPersonPresence.creditLabel}
+                  </span>
+                )}
               </p>
             )}
             {productionWork !== null ? (
