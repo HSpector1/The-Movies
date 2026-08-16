@@ -9,7 +9,7 @@ import {
 } from './operations.js'
 import { nextStudioDecision } from './scriptReadModel.js'
 import type { StudioDecisionView } from './scriptReadModel.js'
-import { studioConstructionView } from './placement.js'
+import { blueprintById, placedStudioFacility, studioConstructionView } from './placement.js'
 import type { StudioConstructionView } from './placement.js'
 import { TUNING } from './tuning.js'
 import type {
@@ -68,11 +68,20 @@ export type StudioCalendarCommitmentView =
       projectId: string
       title: string
     })
+  // One event per placed facility still under construction, projected from the V12
+  // placement root. `projectId`/`facilityId`/`title` are the exact fields the V11
+  // construction surface published, so the Annex standing on the legacy expansion
+  // parcel reports byte-identical values; `placementId`/`parcelId`/`facilityName`
+  // are the additive engine identities that tell two simultaneous builds apart.
+  // No BuildingId and no world geometry: the calendar speaks in engine identities.
   | (CommitmentBase & {
       kind: 'constructionCompletion'
       projectId: string
       facilityId: string
       title: string
+      placementId: number
+      parcelId: string
+      facilityName: string
     })
   | (CommitmentBase & {
       kind: 'theatricalReceipt'
@@ -377,6 +386,17 @@ function facilityViews(state: GameState): StudioCalendarFacilityView[] {
   })
 }
 
+/**
+ * The placement-id tiebreak. Two builds can finish in the same week, and their
+ * project ids are string-suffixed (`…-10` sorts before `…-2`), so the numeric
+ * engine id — not the identity string — is what orders them. Every other kind
+ * yields 0 on both sides, which leaves the existing owner/occurrence law exactly
+ * where it was.
+ */
+function commitmentPlacementId(event: StudioCalendarCommitmentView): number {
+  return event.kind === 'constructionCompletion' ? event.placementId : 0
+}
+
 function commitmentViews(state: GameState): StudioCalendarCommitmentView[] {
   const currentWeek = state.market.tick
   const events: StudioCalendarCommitmentView[] = []
@@ -420,20 +440,30 @@ function commitmentViews(state: GameState): StudioCalendarCommitmentView[] {
     })
   }
 
-  // Calendar remains the research observatory's public projection surface. The
-  // configured policy preserves that behavior-neutral harness path; live saves
-  // are still constrained to exact Annex V1 by their validator.
-  const construction = studioConstructionView(state, { facilityPolicy: 'configured' })
-  if (construction.status === 'building') {
+  // Committed future capacity comes from the ONE construction authority — the V12
+  // placement root — not from the retained Annex read model, which fronts only the
+  // placement standing on the legacy expansion parcel. A facility rising on any
+  // other parcel is just as committed, and a calendar that omitted it lied about
+  // capacity the studio has already bought. Placements are stored in ascending id,
+  // so this emits in ascending id and the stable sort below keeps it there.
+  for (const placed of state.placement.facilities) {
+    if (placed.status !== 'underConstruction') continue
+    const blueprint = blueprintById(placed.blueprintId)
+    if (blueprint === null) {
+      throw new Error(`studioCalendar: placed facility ${String(placed.id)} references unknown blueprint "${placed.blueprintId}"`)
+    }
     events.push({
       kind: 'constructionCompletion',
       certainty: 'committed',
-      week: construction.dueWeek!,
-      ownerId: construction.projectId!,
+      week: placed.completesWeek,
+      ownerId: placed.projectId,
       occurrenceIndex: 0,
-      projectId: construction.projectId!,
-      facilityId: construction.facilityId!,
-      title: construction.name,
+      projectId: placed.projectId,
+      facilityId: placed.facilityId,
+      title: blueprint.name,
+      placementId: placed.id,
+      parcelId: placed.parcelId,
+      facilityName: placedStudioFacility(placed).name,
     })
   }
 
@@ -490,6 +520,7 @@ function commitmentViews(state: GameState): StudioCalendarCommitmentView[] {
   return events.sort((a, b) =>
     a.week - b.week ||
     COMMITMENT_KIND_ORDER[a.kind] - COMMITMENT_KIND_ORDER[b.kind] ||
+    commitmentPlacementId(a) - commitmentPlacementId(b) ||
     compareId(a.ownerId, b.ownerId) ||
     a.occurrenceIndex - b.occurrenceIndex,
   )
