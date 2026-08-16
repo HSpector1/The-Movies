@@ -82,6 +82,7 @@ import {
   type LotAnnexWorkOwnerIntent,
 } from './snapshot/annexWork.ts'
 import { lotPersonWorkContext } from './snapshot/personWork.ts'
+import { lotPersonPresenceLine } from './snapshot/presenceLines.ts'
 import {
   activeProductionCompanyContexts,
   lotPeopleForCompanyPresentation,
@@ -1448,6 +1449,11 @@ export function StudioLotScreen({
   const selectedPersonWork = hollywoodPerson === null
     ? null
     : lotPersonWorkContext(snapshot, hollywoodPerson.id)
+  // Presence on the Lot V1: what the engine says this person's WEEK is. Independent of
+  // the employment facts above — a person the projection withheld simply has no line.
+  const selectedPersonPresence = hollywoodPerson === null
+    ? null
+    : lotPersonPresenceLine(snapshot, hollywoodPerson.id)
   const selectedPersonAssignment = hollywoodPerson === null
     ? null
     : talentAssignmentContext(state, hollywoodPerson.id)
@@ -6683,6 +6689,15 @@ export function StudioLotScreen({
           >
             <p className="hollywood-eyebrow">SELECTED PERSON</p>
             <h3>{hollywoodPerson.name}</h3>
+            {selectedPersonPresence !== null && (
+              <p
+                className="hollywood-person-presence"
+                data-testid="hollywood-person-presence"
+                data-presence-kind={selectedPersonPresence.kind}
+              >
+                {selectedPersonPresence.line}
+              </p>
+            )}
             {productionWork !== null ? (
               <dl className="hollywood-person-facts" data-testid="hollywood-person-work-facts">
                 <div>

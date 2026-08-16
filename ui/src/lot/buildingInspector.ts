@@ -22,6 +22,7 @@ import type {
   StudioLotSnapshot,
 } from './snapshot/StudioLotSnapshot.ts'
 import { BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
+import { lotFacilityPresenceOccupants } from './snapshot/presenceLines.ts'
 import type { StudioCalendarView, StudioConstructionView } from '../engine/adapter.ts'
 import { moneyExact } from '../format.ts'
 
@@ -95,6 +96,24 @@ const BUILDING_FACILITY_IDS: Partial<Record<BuildingId, readonly string[]>> = {
   'stage-a': ['facility-soundstage-07'],
   'stage-b': ['facility-soundstage-12'],
   post: ['facility-post-building', 'facility-scenery-shop'],
+}
+
+/**
+ * Which facilities each place reports PRESENCE for — "who's here this week".
+ *
+ * The occupancy list above and this one are deliberately separate maps. Occupancy is
+ * the Calendar's slot record and the Annex parcel has never printed one; presence is
+ * the engine's per-person projection, and the parcel is exactly where the annex's
+ * occupants stand. Extending one map to serve both would have silently added slot
+ * facts to a panel that was accepted without them.
+ */
+const BUILDING_PRESENCE_FACILITY_IDS: Partial<Record<BuildingId, readonly string[]>> = {
+  writers: ['facility-development-casting', 'facility-development-casting-annex'],
+  casting: ['facility-development-casting', 'facility-development-casting-annex'],
+  'stage-a': ['facility-soundstage-07'],
+  'stage-b': ['facility-soundstage-12'],
+  post: ['facility-post-building', 'facility-scenery-shop'],
+  expansion: ['facility-development-casting-annex'],
 }
 
 /** Which slot occupants each place reports first. Absent ⇒ every occupant is reported. */
@@ -270,6 +289,41 @@ function facilityFacts(
         detail: `${activity}: ${occupant.title}`,
       })
     }
+  }
+  return facts
+}
+
+/**
+ * "Who's here this week" — the engine's own presence for this place, by name and
+ * credit. Absent presence means no lines at all: the panel never invents an occupant,
+ * and a person the engine withheld is silently not claimed (fail-neutral).
+ */
+function presenceFacts(
+  snapshot: StudioLotSnapshot,
+  buildingId: BuildingId,
+): LotBuildingInspectorFact[] {
+  const facilityIds = BUILDING_PRESENCE_FACILITY_IDS[buildingId]
+  if (facilityIds === undefined) return []
+  const occupants = lotFacilityPresenceOccupants(snapshot, facilityIds)
+  if (occupants.length === 0) return []
+  const facts: LotBuildingInspectorFact[] = [
+    {
+      key: 'presence:heading',
+      term: 'Who’s here this week',
+      detail: `${String(occupants.length)} ${plural(occupants.length, 'person', 'people')}`,
+    },
+  ]
+  for (const occupant of occupants) {
+    const credit = occupant.creditLabel ?? 'On the roster'
+    facts.push({
+      key: `presence:${occupant.talentId}`,
+      term: occupant.name,
+      detail: occupant.waiting
+        ? `${credit} · waiting outside`
+        : occupant.workTitle === null
+          ? credit
+          : `${credit} · ${occupant.workTitle}`,
+    })
   }
   return facts
 }
@@ -471,6 +525,7 @@ export function lotBuildingInspectorContext(
     case 'writers': {
       const occupancy = facilityFacts('writers', calendar)
       if (occupancy !== null) facts.push(...occupancy)
+      facts.push(...presenceFacts(snapshot, 'writers'))
       facts.push(...commitmentFacts(exactCommitments(calendar, ['scriptDue']), 'scriptDue'))
       status =
         occupancy === null
@@ -483,6 +538,7 @@ export function lotBuildingInspectorContext(
     case 'casting': {
       const occupancy = facilityFacts('casting', calendar)
       if (occupancy !== null) facts.push(...occupancy)
+      facts.push(...presenceFacts(snapshot, 'casting'))
       facts.push(...commitmentFacts(exactCommitments(calendar, ['castingDue']), 'castingDue'))
       status =
         occupancy === null
@@ -496,6 +552,7 @@ export function lotBuildingInspectorContext(
     case 'stage-b': {
       const occupancy = facilityFacts(buildingId, calendar)
       if (occupancy !== null) facts.push(...occupancy)
+      facts.push(...presenceFacts(snapshot, buildingId))
       facts.push(...operationFacts(operations))
       status =
         operations.length === 1
@@ -508,6 +565,7 @@ export function lotBuildingInspectorContext(
     case 'post': {
       const occupancy = facilityFacts('post', calendar)
       if (occupancy !== null) facts.push(...occupancy)
+      facts.push(...presenceFacts(snapshot, 'post'))
       facts.push(...operationFacts(operations))
       status =
         operations.length === 1
@@ -551,6 +609,7 @@ export function lotBuildingInspectorContext(
     case 'expansion': {
       const built = constructionFacts(construction)
       if (built !== null) facts.push(...built)
+      facts.push(...presenceFacts(snapshot, 'expansion'))
       const rawProgressText: unknown = building?.constructionProgressText
       const progressText = isText(rawProgressText) ? rawProgressText : null
       status =

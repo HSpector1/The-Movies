@@ -1332,6 +1332,18 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   border-left: 3px solid #8d7848;
   background: rgba(0, 0, 0, .2);
 }
+/* Presence on the Lot V1: what the engine says this person's WEEK is. */
+.hollywood-person-presence {
+  margin: 0 0 10px;
+  padding: 8px;
+  color: #f2e6c8;
+  border-left: 3px solid #6f9a72;
+  background: rgba(0, 0, 0, .24);
+  font-size: 11px;
+  line-height: 1.4;
+}
+.hollywood-person-presence[data-presence-kind='waiting'] { border-left-color: #c79a3c; }
+.hollywood-person-presence[data-presence-kind='roster'] { border-left-color: #7d8b8c; }
 .hollywood-person-work-note.is-unavailable { border-left-color: #a76845; }
 .hollywood-profile-command { width: 100%; min-height: 44px; font-size: 11px; }
 .hollywood-scenery-heading {
