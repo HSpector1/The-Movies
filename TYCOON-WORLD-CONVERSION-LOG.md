@@ -121,7 +121,59 @@ stays rejected.
 ## Playtests
 
 - Playtest 0 (pre-work, Week 0): documented in the diagnosis above.
+- Playtest 1 (post-M1, Fable, Week 0→1): camera proves three real scales (whole-property
+  default, operations mid, person close), zoom-at-cursor, 1:1 drag pan, R reset. Gate →
+  in-world visitor slate; Development → retained Commission over the live world; accept →
+  in-world receipt (writer/due/facility/slot); next-event stops in-world with the review
+  actions; after acceptance the buildings themselves read "Screenplay ready to package" /
+  "auditions optional". Breaks found: (1) idle Stage A click ejects to Dashboard and
+  Casting-without-eligible-session ejects to full Casting Room — pre-existing
+  `activate()` fallthrough to `dispatchRoute(BUILDING_ACTION[id])`, now the loudest
+  world-first violation; (2) LOD label band mis-hides all labels at property scale when a
+  side panel resizes the canvas; (3) zero named employees on the Week-0 lot (adapter
+  projects roster people only in legacy mode); (4) back-lot sparse, palette leans olive
+  vs the plate's warm ochre; (5) no browser e2e coverage of the grid world yet.
 
 ## Keep/Kill record
 
-- (pending)
+- **M1 Tycoon World Foundation V1 — KEEP** (commits `38db60a..825b403`). The property/
+  camera transformation is real and every accepted world verb survived the world swap.
+  Playtest-1 breaks become M1.5. Note: wheel-zoom non-response under CDP-synthesized
+  scroll is an automation artifact (JS-dispatched wheel works); not a product defect.
+
+## M1.5 — FROZEN TARGET: World Inspector Default V1 (UI surfaces only)
+
+**Before:** clicking an idle stage ejects to the Dashboard; clicking Casting/Development
+without an eligible decision ejects to full-screen rooms; the Week-0 lot shows none of
+the studio's own employees.
+
+**After:** no physical building click ever auto-navigates. Every BuildingId lands an
+in-world context panel in the established right-rail pattern: name, live status from
+existing projections (operations/calendar occupancy, theatrical runs, construction,
+script/casting state), current legal in-world quick actions where they already exist,
+and an explicit "Open <deep> details" secondary button. The DOM companion behaves
+identically. Roster employees appear on the lot as selectable inhabitants at
+deterministic presentation-only parked positions (sceneSeed-derived; the accepted
+personHome precedent — no location truth claimed), opening the existing person
+inspector. LOD label bands recompute against current fit on every canvas resize.
+
+**Not built:** engine changes, travel, new deep screens, redesign of retained
+workspaces, build mode.
+
+**Acceptance:** click every building in ordinary idle/active states and never leave the
+world; employees visible and selectable at Week 0; labels stable across panel
+open/close; suite/typecheck/build green with updated specs.
+
+## M2-Engine — FROZEN TARGET: Placement Core V12 (src/core + tests only)
+
+Implement CODE-MINING-LEDGER Entries 2–3's agreed spec exactly: authored coarse parcel
+grid constant (aligned to the M1 world's buildable zones incl. the legacy expansion
+parcel), TUNING blueprint catalog (Development & Casting Annex as the first real
+blueprint, preserving its $780k/13wk/+1-slot law), pure `queryPlacement` /
+`commitPlacement` (commit re-queries, reference-equal state on rejection, internally
+computed cost), weekly completion pass before capacity aggregation, operational-only
+capacity, small honest weekly operating cost per operational placed facility (ledger-
+visible), SaveFileV12 with V11→V12 migration mapping fixed-parcel Annex state onto the
+grid, historical-boundary guards per operational laws 18–19, and the ledger's full test
+list. Multiple Annex-class placements become legal. No UI, no renderer, no beats, no
+demolition. M0A replay/determinism preserved.
