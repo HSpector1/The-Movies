@@ -5,7 +5,12 @@
 // as the production changes phase, and a genuine facility-capacity queue.
 
 import { describe, expect, it } from 'vitest'
-import { applyActions, studioPresence, tick } from '../src/core/index.js'
+import {
+  applyActions,
+  assertStudioOperationsInvariants,
+  studioPresence,
+  tick,
+} from '../src/core/index.js'
 import type { GameState, PersonPresence, StudioPresence } from '../src/core/index.js'
 import {
   activateManaged,
@@ -193,19 +198,20 @@ describe('Presence Projection V1 — scenario walk', () => {
   })
 
   it('shows an honest queue: a soundstage-blocked company waits at the site it holds', () => {
-    // Three concurrent companies. Two hold both soundstages through Shooting (the
-    // take is deliberately never scheduled, so they do not advance); the third
-    // reaches the Rehearsal transition and finds no stage.
+    // MAX_CONCURRENT_PRODUCTIONS is 2 and every capability ships two slots, so
+    // the initial facility set can never produce a queue. This uses the accepted
+    // operations-suite mechanism for reaching one: a structurally valid
+    // CONFIGURED facility set with a single soundstage (see
+    // `withOneSoundstage` / `facilityPolicy: 'configured'` in operations.test.ts).
+    // The blocker itself is produced by the engine's own tick, never hand-written.
     let state = activateManaged(
-      foundedStudio('presence-queue', { actor: 9, director: 3, writer: 3, craft: 3 }),
+      foundedStudio('presence-queue', { actor: 6, director: 2, writer: 2, craft: 2 }),
     )
-    const concepts = cheapestConcepts(state, 3)
+    const concepts = cheapestConcepts(state, 2)
     const writers = contractedByRole(state, 'writer')
     const directors = contractedByRole(state, 'director')
     const crafts = contractedByRole(state, 'craft')
     const actors = contractedByRole(state, 'actor')
-    expect(writers.length).toBeGreaterThanOrEqual(3)
-    expect(actors.length).toBeGreaterThanOrEqual(9)
 
     const greenlight = (index: number, projectId: string): void => {
       state = applyActions(state, [
@@ -224,51 +230,51 @@ describe('Presence Projection V1 — scenario walk', () => {
       ])
     }
 
-    // Two films first — the shared Development & Casting floor holds exactly two.
     const first = readyScript(state, concepts[0]!, writers[0]!.id)
     state = first.state
     const second = readyScript(state, concepts[1]!, writers[1]!.id)
     state = second.state
     greenlight(0, first.projectId)
     greenlight(1, second.projectId)
-    // Both companies march to the stages and stay there: the Shooting take is
-    // deliberately never scheduled, so neither soundstage is ever released.
-    state = advanceUntil(
-      state,
-      (candidate) =>
-        candidate.operations.workflows.filter((workflow) => workflow.phase === 'rehearsal')
-          .length === 2,
-    )
 
-    // The third film starts now that Development & Casting is free again.
-    const third = readyScript(state, concepts[2]!, writers[2]!.id)
-    state = third.state
-    greenlight(2, third.projectId)
-    const blockedId = state.studio.activeProductions.find(
-      (production) => production.conceptId === concepts[2]!.id,
-    )!.id
+    // One soundstage for two companies.
+    state = {
+      ...state,
+      operations: {
+        ...state.operations,
+        facilities: state.operations.facilities.filter(
+          (facility) => facility.id !== 'facility-soundstage-12',
+        ),
+      },
+    }
+    assertStudioOperationsInvariants(state.operations, state.studio.activeProductions, {
+      facilityPolicy: 'configured',
+    })
 
     state = advanceUntil(
       state,
-      (candidate) =>
-        candidate.operations.workflows.find((workflow) => workflow.productionId === blockedId)
-          ?.blocker !== null,
+      (candidate) => candidate.operations.workflows.some((workflow) => workflow.blocker !== null),
     )
+    assertStudioOperationsInvariants(state.operations, state.studio.activeProductions, {
+      facilityPolicy: 'configured',
+    })
 
-    const blocked = state.operations.workflows.find(
-      (workflow) => workflow.productionId === blockedId,
-    )!
+    const blocked = state.operations.workflows.find((workflow) => workflow.blocker !== null)!
+    const blockedId = blocked.productionId
     expect(blocked.phase).toBe('preProduction')
     expect(blocked.blocker).toEqual({
       kind: 'facility-capacity',
       capability: 'soundstage',
       targetPhase: 'rehearsal',
     })
+    const blockedProduction = state.studio.activeProductions.find(
+      (production) => production.id === blockedId,
+    )!
 
     const presence = studioPresence(state)
     expect(presence.withheld).toEqual([])
     const held = facilityOf(state, 'development-casting', blockedId)
-    for (const talentId of [writers[2]!.id, directors[2]!.id]) {
+    for (const talentId of [blockedProduction.writerId, blockedProduction.directorId]) {
       const person = at(presence, talentId)
       expect(person).toMatchObject({
         engagement: 'production',
@@ -280,16 +286,30 @@ describe('Presence Projection V1 — scenario walk', () => {
       expect(person.beats).not.toContain('at-site')
     }
 
-    // Nobody else in the studio is waiting: the queue is exactly one company.
+    // The queue is exactly the blocked company's phase attendance — nobody else.
     const waiting = presence.people.filter((person) => person.beats.includes('waiting'))
     expect(waiting.map((person) => person.talentId).sort()).toEqual(
-      [writers[2]!.id, directors[2]!.id].sort(),
+      [blockedProduction.writerId, blockedProduction.directorId].sort(),
     )
-    // …and the two companies that hold the stages are working, not queued.
+    // …and the company that holds the stage is working, not queued.
     for (const person of presence.people) {
       if (person.engagement !== 'production' || person.ownerId === blockedId) continue
       expect(person.blockedReason).toBeNull()
       expect(person.beats).toContain('at-site')
     }
+
+    // The queue clears the moment the stage frees: cancel the holder, tick, and
+    // the same people are at work with no blockedReason.
+    const holderId = state.operations.workflows.find(
+      (workflow) => workflow.productionId !== blockedId,
+    )!.productionId
+    state = applyActions(state, [{ kind: 'cancel', productionId: holderId }])
+    state = advanceUntil(state, (candidate) => phaseOf(candidate, blockedId) === 'rehearsal')
+    const cleared = studioPresence(state)
+    expect(cleared.people.filter((person) => person.beats.includes('waiting'))).toEqual([])
+    expect(at(cleared, blockedProduction.directorId)).toMatchObject({
+      site: facilityOf(state, 'soundstage', blockedId),
+      blockedReason: null,
+    })
   })
 })
