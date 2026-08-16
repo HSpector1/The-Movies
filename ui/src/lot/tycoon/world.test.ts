@@ -21,6 +21,8 @@ import {
   PERSON_HOME_SLOTS,
   PLACE_BY_BUILDING,
   PLAZA,
+  chromeStrokeWidth,
+  GHOST_FILL_ALPHA,
   PRESENCE_QUEUE_RANK,
   PRESENCE_ROUTES,
   presenceQueueSlotOffset,
@@ -608,6 +610,39 @@ describe('tycoon world — presence anchors and commutes (M3-UI)', () => {
             : `${role}→${buildingId}: MOSTLY OFF-ROAD`,
         )
       }
+    }
+  })
+})
+
+// ── M3-UI: legibility of world-space chrome across the reading distances ─────
+
+describe('tycoon world — chrome legibility (M3-UI)', () => {
+  it('counter-scales a world-space stroke so its SCREEN weight is constant', () => {
+    // Playtest 3: at institution scale a 2px world stroke is two thirds of a pixel, and
+    // the build ghost's per-cell verdicts smeared into one another.
+    expect(chromeStrokeWidth(2, ZOOM_MIN)).toBeCloseTo(2 / ZOOM_MIN, 6)
+    expect(chromeStrokeWidth(2, ZOOM_MIN) * ZOOM_MIN).toBeCloseTo(2, 6)
+    expect(chromeStrokeWidth(3.5, 0.5) * 0.5).toBeCloseTo(3.5, 6)
+  })
+
+  it('never fattens a hairline when the camera zooms IN past 1:1', () => {
+    expect(chromeStrokeWidth(2, 1)).toBe(2)
+    expect(chromeStrokeWidth(2, ZOOM_MAX)).toBe(2)
+  })
+
+  it('refuses to draw a nonsense stroke rather than throwing at paint time', () => {
+    expect(chromeStrokeWidth(2, Number.NaN)).toBe(2)
+    expect(chromeStrokeWidth(2, 0)).toBe(2)
+    expect(chromeStrokeWidth(0, 0.5)).toBe(0)
+    expect(chromeStrokeWidth(Number.NaN, 0.5)).toBe(0)
+  })
+
+  it('deepens the ghost fill exactly where a tile is too small to carry an outline', () => {
+    expect(GHOST_FILL_ALPHA.institution).toBeGreaterThan(GHOST_FILL_ALPHA.operations)
+    expect(GHOST_FILL_ALPHA.operations).toBe(GHOST_FILL_ALPHA.people)
+    for (const alpha of Object.values(GHOST_FILL_ALPHA)) {
+      expect(alpha).toBeGreaterThan(0)
+      expect(alpha).toBeLessThan(1)
     }
   })
 })

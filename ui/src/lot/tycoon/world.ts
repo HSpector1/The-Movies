@@ -761,6 +761,32 @@ export function reframedZoom(previousZoom: number, previousFit: number, nextFit:
   return clampZoom((previousZoom / previousFit) * nextFit)
 }
 
+/**
+ * How thick a WORLD-SPACE stroke must be drawn to keep a constant SCREEN weight.
+ *
+ * Text chrome already counter-scales (see `updateLod`); Graphics chrome did not, which
+ * is why the build ghost's per-cell verdicts smeared into one another at institution
+ * scale — a 2px world stroke over a 0.32× camera is two thirds of a pixel. Never thinner
+ * than the requested screen weight: zooming IN must not fatten a hairline.
+ */
+export function chromeStrokeWidth(screenWidth: number, zoom: number): number {
+  if (!Number.isFinite(screenWidth) || screenWidth <= 0) return 0
+  if (!Number.isFinite(zoom) || zoom <= 0) return screenWidth
+  return screenWidth * Math.max(1, 1 / zoom)
+}
+
+/**
+ * How deeply one ghost cell fills, per reading distance. At institution scale a tile is
+ * a few pixels across and its outline carries almost nothing, so the FILL has to carry
+ * the verdict instead. Colour is never the only channel: the ghost's caption states the
+ * verdict in words and the Build button's own enabled state carries it into the DOM.
+ */
+export const GHOST_FILL_ALPHA: Readonly<Record<LodBand, number>> = {
+  institution: 0.66,
+  operations: 0.42,
+  people: 0.42,
+}
+
 export type CameraFraming = 'overview' | 'wide' | 'production' | 'entrance' | 'theater'
 
 /** Grid centre + zoom multiplier (relative to the whole-property fit) per framing. */

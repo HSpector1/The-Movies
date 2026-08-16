@@ -84,6 +84,8 @@ import {
   APRONS,
   CAMERA_FRAMINGS,
   DIRECTOR_ROUTE,
+  GHOST_FILL_ALPHA,
+  chromeStrokeWidth,
   EXPANSION_PADS,
   GATE_PLACE_ID,
   LOT_D,
@@ -1210,22 +1212,29 @@ export class TycoonScene extends Phaser.Scene {
     // is CHROME over the world (like every label here), so it counter-scales with the
     // camera: strokes keep a constant SCREEN weight, and the fill deepens as the cells
     // shrink. Colour is still never the only channel — the caption states the verdict.
-    const inv = Math.max(1, 1 / this.cameras.main.zoom)
-    const fillAlpha = this.lodBand === 'institution' ? 0.66 : 0.42
+    const zoom = this.cameras.main.zoom
+    const hairline = chromeStrokeWidth(2, zoom)
+    const fillAlpha = GHOST_FILL_ALPHA[this.lodBand]
     for (const cell of preview.cells) {
       const diamond = this.cellDiamond(cell)
       this.fillPolygon(g, diamond, cell.ok ? PREVIEW_OK : PREVIEW_BAD, fillAlpha)
-      this.strokePolygon(g, diamond, cell.ok ? PREVIEW_OK : PREVIEW_BAD, 2 * inv, 0.95)
+      this.strokePolygon(g, diamond, cell.ok ? PREVIEW_OK : PREVIEW_BAD, hairline, 0.95)
     }
     const extent = TycoonScene.cellsExtent(preview.cells)
     if (extent !== null) {
       const outline = this.rectPolygon(extent)
-      this.strokePolygon(g, outline, preview.ok ? PREVIEW_OK : PREVIEW_BAD, 3.5 * inv, 0.98)
+      this.strokePolygon(
+        g,
+        outline,
+        preview.ok ? PREVIEW_OK : PREVIEW_BAD,
+        chromeStrokeWidth(3.5, zoom),
+        0.98,
+      )
       // A short massing hint so the ghost reads as a BUILDING, not a paint swatch.
       const corners = outline.map((p) => ({ x: p.x, y: p.y - PREVIEW_MASS_HEIGHT }))
-      this.strokePolygon(g, corners, preview.ok ? PREVIEW_OK : PREVIEW_BAD, 2 * inv, 0.55)
+      this.strokePolygon(g, corners, preview.ok ? PREVIEW_OK : PREVIEW_BAD, hairline, 0.55)
       for (let index = 0; index < outline.length; index++) {
-        g.lineStyle(2 * inv, preview.ok ? PREVIEW_OK : PREVIEW_BAD, 0.55)
+        g.lineStyle(hairline, preview.ok ? PREVIEW_OK : PREVIEW_BAD, 0.55)
         g.lineBetween(outline[index]!.x, outline[index]!.y, corners[index]!.x, corners[index]!.y)
       }
       const top = this.world((extent.x0 + extent.x1 + 1) / 2, (extent.y0 + extent.y1 + 1) / 2)
@@ -2815,13 +2824,21 @@ export class TycoonScene extends Phaser.Scene {
       keyboard.addKey('R').on('down', () => {
         if (!this.inputSuspended) this.resetCamera()
       })
-      // Esc and Space skip a week playback. Both are checked against the suspension
-      // latch, so a modal owning interaction never has its keys stolen by the world.
-      for (const key of ['ESC', 'SPACE'] as const) {
-        keyboard.addKey(key).on('down', () => {
-          if (!this.inputSuspended) this.skipPresencePlayback()
-        })
-      }
+      // Esc and Space skip a week playback, both behind the suspension latch so a modal
+      // owning interaction never has its keys stolen by the world.
+      //
+      // Escape is bound with capture EXPLICITLY OFF. Phaser's capture list lives on the
+      // KeyboardManager, which keeps calling preventDefault even after the plugin is
+      // disabled for a modal — and Escape is a key the platform and the DOM own (native
+      // dialogs, IME, the retained workspaces' own close handlers). Skipping a cosmetic
+      // playback is not worth taking that key away from them. Space needs no new capture
+      // at all: `createCursorKeys()` above already owns it.
+      keyboard.addKey('ESC', false).on('down', () => {
+        if (!this.inputSuspended) this.skipPresencePlayback()
+      })
+      this.cursors.space.on('down', () => {
+        if (!this.inputSuspended) this.skipPresencePlayback()
+      })
     }
   }
 
