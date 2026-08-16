@@ -175,6 +175,28 @@ Findings of record:
   in-progress files via `git add -A`. Repaired forward in `758d4f2..0eefb3b`; history
   not rewritten; the UI writer instructed to stage owned paths only.
 
+## Stabilization milestone — ACCEPTED (commits `1442601..81cdbe9`)
+
+Browser suite fully deliberate: 181 passed / 0 failed / 4 env-gated GPU skips / 0 not
+run (185 total); repository vitest 218 files / 2,918; both tsc; build. Completion-stop
+regression fixed at the adapter (detector re-pointed from the retired V11 slice to the
+placement root; 3/5 new specs fail against the old detector — spot-verified 5/5 at
+HEAD). The two shift-base "pre-existing" failures were a stale hiring-card selector,
+proven at `2be6656` and fixed at greater strength. All re-pins are fresh measured
+values; the M1.5 plate-tuple shift (+1 actor/+2 objects per fixture at identical bytes
+and draws) is roster presence on both worlds, proven invariant.
+
+PM rulings on its three findings:
+1. Non-legacy completion receipt fails closed to neutral in-world feedback — ACCEPTED
+   for now (truthful, law-5/13 conforming). Real fix is first-class world identity for
+   placed facilities (BuildingId union widening) — recorded as next-leverage, candidate
+   for M3-UI or a follow-on slice, not to be invented casually (law 12).
+2. `studioCalendar` never lists non-legacy construction (core staleness at
+   `studioCalendar.ts:426`) — REPAIR NOW, dispatched as a bounded core seam-repair
+   writer parallel to M3-UI.
+3. Multiple completions in one advance share one receipt (lowest id owns it, message
+   counts the rest) — ACCEPTED.
+
 ## M3-UI — FROZEN TARGET: Presence on the Lot V1 (dispatch after stabilization lands)
 
 **Before:** people stand at parked spots; a week advance teleports state; nothing
