@@ -455,31 +455,39 @@ function bakeStage(scene: Phaser.Scene, key: string): void {
   finalize(b, key)
 }
 
-/** The hero entrance arch: two deco pillars + a lettered header beam, 1×3. */
+/**
+ * The hero entrance arch: two deco pillars + a lettered header beam.
+ *
+ * 3 tiles across gx by 1 deep in gy, so it STRADDLES the two-lane boulevard rather
+ * than lying along it — the road passes under the arch, which is the whole point of a
+ * studio gate. The scene letters the beam with the studio's own name.
+ */
 function bakeGate(scene: Phaser.Scene): void {
-  const fw = 1
-  const fd = 3
-  const H = 128
+  const fw = 3
+  const fd = 1
+  const H = 126
   const b = beginBuilding(scene, fw, fd, H, 30)
   const { g, p } = b
   const PW = 0.62
-  for (const gy of [0, fd - PW]) {
-    poly(g, [p(0, gy + PW, 0), p(PW, gy + PW, 0), p(PW, gy + PW, H), p(0, gy + PW, H)], C.taupe)
-    poly(g, [p(PW, gy, 0), p(PW, gy + PW, 0), p(PW, gy + PW, H), p(PW, gy, H)], C.taupeShade)
-    poly(g, [p(0, gy, H), p(PW, gy, H), p(PW, gy + PW, H), p(0, gy + PW, H)], C.roofGravel)
-    poly(g, [p(0, gy + PW, 12), p(PW, gy + PW, 12), p(PW, gy + PW, 18), p(0, gy + PW, 18)], C.brass, 0.9)
+  for (const gx of [0, fw - PW]) {
+    // lit face (gy = fd), shaded face (gx = pillar's far side), then the cap
+    poly(g, [p(gx, fd, 0), p(gx + PW, fd, 0), p(gx + PW, fd, H), p(gx, fd, H)], C.taupe)
+    poly(g, [p(gx + PW, 0, 0), p(gx + PW, fd, 0), p(gx + PW, fd, H), p(gx + PW, 0, H)], C.taupeShade)
+    poly(g, [p(gx, 0, H), p(gx + PW, 0, H), p(gx + PW, fd, H), p(gx, fd, H)], C.roofGravel)
+    poly(g, [p(gx, fd, 12), p(gx + PW, fd, 12), p(gx + PW, fd, 18), p(gx, fd, 18)], C.brass, 0.9)
   }
-  // header beam spanning the pillars
-  const bz0 = H - 30
-  poly(g, [p(0, 0, bz0), p(0, fd, bz0), p(0, fd, H), p(0, 0, H)], C.taupe)
-  poly(g, [p(PW, 0, bz0), p(PW, fd, bz0), p(PW, fd, H), p(PW, 0, H)], C.taupeShade)
-  poly(g, [p(0, 0, H), p(PW, 0, H), p(PW, fd, H), p(0, fd, H)], C.roofGravel)
-  poly(g, [p(0, 0, H - 4), p(0, fd, H - 4), p(0, fd, H), p(0, 0, H)], C.brass, 0.9)
-  poly(g, [p(0, 0, bz0), p(0, fd, bz0), p(0, fd, bz0 + 3), p(0, 0, bz0 + 3)], C.brass, 0.9)
-  // stepped finial
-  const cy = fd / 2
-  poly(g, [p(0.1, cy - 0.5, H), p(0.5, cy - 0.5, H), p(0.5, cy + 0.5, H), p(0.1, cy + 0.5, H)], C.brass)
-  poly(g, [p(0.1, cy + 0.5, H), p(0.5, cy + 0.5, H), p(0.5, cy + 0.5, H + 14), p(0.1, cy + 0.5, H + 14)], C.brassDark)
+  // header beam spanning the pillars, deep enough for lettering to read on it
+  const bz0 = H - 32
+  poly(g, [p(0, fd, bz0), p(fw, fd, bz0), p(fw, fd, H), p(0, fd, H)], C.taupe)
+  poly(g, [p(fw, 0, bz0), p(fw, fd, bz0), p(fw, fd, H), p(fw, 0, H)], C.taupeShade)
+  poly(g, [p(0, 0, H), p(fw, 0, H), p(fw, fd, H), p(0, fd, H)], C.roofGravel)
+  poly(g, [p(0, fd, H - 4), p(fw, fd, H - 4), p(fw, fd, H), p(0, fd, H)], C.brass, 0.9)
+  poly(g, [p(0, fd, bz0), p(fw, fd, bz0), p(fw, fd, bz0 + 3), p(0, fd, bz0 + 3)], C.brass, 0.9)
+  // stepped finial centred on the beam
+  const cx = fw / 2
+  poly(g, [p(cx - 0.45, 0, H), p(cx + 0.45, 0, H), p(cx + 0.45, fd, H), p(cx - 0.45, fd, H)], C.brass)
+  poly(g, [p(cx - 0.45, fd, H), p(cx + 0.45, fd, H), p(cx + 0.45, fd, H + 15), p(cx - 0.45, fd, H + 15)], C.brassDark)
+  poly(g, [p(cx - 0.25, 0, H + 15), p(cx + 0.25, 0, H + 15), p(cx + 0.25, fd, H + 15), p(cx - 0.25, fd, H + 15)], C.brass)
   TYCOON_BUILDING_TEX['tw-gate'] = { key: 'tw-gate', originX: 0.5, originY: b.originY, fw, fd }
   finalize(b, 'tw-gate')
 }

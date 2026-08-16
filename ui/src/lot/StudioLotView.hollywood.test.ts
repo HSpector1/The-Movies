@@ -117,6 +117,19 @@ const runtime = vi.hoisted(() => {
     emitFailure(reason: Extract<Event, { type: 'failure' }>['reason']) {
       this.data?.onEvent({ type: 'failure', reason })
     }
+    // The tycoon grid world adds exactly two commands to the shared world surface.
+    hostSelections: string[] = []
+    cameraPresets: string[] = []
+    placeClears = 0
+    selectFromHost(buildingId: string) {
+      this.hostSelections.push(buildingId)
+      return true
+    }
+    clearPlaceSelection() { this.placeClears++ }
+    applyCameraPreset(preset: string) { this.cameraPresets.push(preset) }
+    emitBuilding(buildingId: string) {
+      this.data?.onEvent({ type: 'building', buildingId } as unknown as Event)
+    }
   }
 
   class SceneManager {
@@ -160,6 +173,9 @@ vi.mock('phaser', () => ({
 }))
 vi.mock('./scene/LotScene', () => ({ LotScene: class LotScene {} }))
 vi.mock('./hollywood/HollywoodScene', () => ({ HollywoodScene: runtime.HollywoodScene }))
+// Both worlds implement the same host surface, so the View boundary is proven against
+// one double. The grid world's own behaviour is proven in ui/src/lot/tycoon/*.test.ts.
+vi.mock('./tycoon/TycoonScene', () => ({ TycoonScene: runtime.HollywoodScene }))
 
 import { StudioLotView } from './StudioLotView.ts'
 import type {
@@ -612,5 +628,111 @@ describe('StudioLotView Hollywood lifecycle', () => {
     scene.gateFocusResult = false
     expect(view.selectHollywoodGatePlace()).toBe(false)
     expect(view.focusHollywoodGate()).toBe(false)
+  })
+})
+
+describe('StudioLotView tycoon world selection', () => {
+  it('boots the grid world under its own scene key and keeps the plate for a rollback', () => {
+    new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+      tycoon: true,
+    })
+    const tycoonGame = runtime.games.at(-1)!
+    tycoonGame.events.emit('ready')
+    expect(tycoonGame.scene.getScene('tycoon')).toBeDefined()
+    expect(tycoonGame.scene.getScene('hollywood')).toBeUndefined()
+
+    new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+      tycoon: false,
+    })
+    const plateGame = runtime.games.at(-1)!
+    plateGame.events.emit('ready')
+    expect(plateGame.scene.getScene('hollywood')).toBeDefined()
+    expect(plateGame.scene.getScene('tycoon')).toBeUndefined()
+  })
+
+  it('forwards a physical place activation to the host verb router', () => {
+    const onWorldBuilding = vi.fn()
+    new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+      tycoon: true,
+      onWorldBuilding,
+    })
+    const game = runtime.games.at(-1)!
+    game.events.emit('ready')
+    const scene = game.scene.getScene('tycoon') as InstanceType<typeof runtime.HollywoodScene>
+
+    scene.emitBuilding('writers')
+    expect(onWorldBuilding).toHaveBeenCalledOnce()
+    expect(onWorldBuilding).toHaveBeenCalledWith('writers')
+  })
+
+  it('routes host selection, clearing and camera framings into the grid world', () => {
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+      tycoon: true,
+    })
+    const game = runtime.games.at(-1)!
+    game.events.emit('ready')
+    const scene = game.scene.getScene('tycoon') as InstanceType<typeof runtime.HollywoodScene>
+
+    view.select('theater')
+    view.camera('entrance')
+    view.clearSelection()
+
+    expect(scene.hostSelections).toEqual(['theater'])
+    expect(scene.cameraPresets).toEqual(['entrance'])
+    expect(scene.placeClears).toBe(1)
+  })
+
+  it('never reaches the grid world with those commands on the retained plate path', () => {
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+    })
+    const game = runtime.games.at(-1)!
+    game.events.emit('ready')
+    const scene = game.scene.getScene('hollywood') as InstanceType<typeof runtime.HollywoodScene>
+
+    view.select('theater')
+    view.camera('entrance')
+    view.clearSelection()
+
+    expect(scene.hostSelections).toEqual([])
+    expect(scene.cameraPresets).toEqual([])
+    expect(scene.placeClears).toBe(0)
+  })
+
+  it('pauses, resumes and fails closed against the grid world scene key', () => {
+    const onHollywoodFailure = vi.fn()
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+      tycoon: true,
+      onHollywoodFailure,
+    })
+    const game = runtime.games.at(-1)!
+    game.events.emit('ready')
+    const scene = game.scene.getScene('tycoon') as InstanceType<typeof runtime.HollywoodScene>
+
+    view.pause()
+    expect(game.scene.isPaused('tycoon')).toBe(true)
+    view.resume()
+    expect(game.scene.isActive('tycoon')).toBe(true)
+
+    game.events.emit('contextlost')
+    expect(onHollywoodFailure).toHaveBeenCalledWith('renderer-context-lost')
+    expect(scene.failClosedCalls).toBe(1)
   })
 })

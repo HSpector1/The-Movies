@@ -207,16 +207,18 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     placeId: GATE_PLACE_ID,
     label: 'STUDIO GATE',
     blurb: 'Studio Gate',
+    // The arch straddles the boulevard: three tiles across gx, one deep in gy, so the
+    // road (gx 9-10) passes under it exactly as an entrance should.
     texKey: 'tw-gate',
-    gx: 9,
-    gy: 22,
-    fw: 1,
-    fd: 3,
+    gx: 8,
+    gy: 23,
+    fw: 3,
+    fd: 1,
     affordances: ['gate-security', 'arrival'],
     anchors: {
-      guard: { gx: 11.3, gy: 24.1 },
-      arrival: { gx: 9.9, gy: 24.4 },
-      inside: { gx: 9.9, gy: 21.2 },
+      guard: { gx: 11.1, gy: 23.7 },
+      arrival: { gx: 9.9, gy: 24.7 },
+      inside: { gx: 9.9, gy: 21.8 },
     },
   },
   {
@@ -246,7 +248,13 @@ export const ROADS: readonly Rect[] = [
   { x0: 13, y0: 0, x1: 14, y1: 25 }, // stage road (runs down-left)
   { x0: 0, y0: 7, x1: 27, y1: 8 }, // studio avenue (runs down-right)
   { x0: 9, y0: 19, x1: 10, y1: 25 }, // studio boulevard: plaza → gate
-  { x0: 15, y0: 15, x1: 27, y1: 16 }, // service spur into the scenery yard
+  { x0: 15, y0: 14, x1: 22, y1: 15 }, // service spur to the scenery yard gate
+  { x0: 14, y0: 21, x1: 22, y1: 22 }, // back-lot road to the staff parking apron
+]
+
+/** Staff/production parking — the working lot's open ground, and M2's build room. */
+export const PARKING: readonly Rect[] = [
+  { x0: 21, y0: 20, x1: 26, y1: 24 },
 ]
 
 export const PLAZA: readonly Rect[] = [
@@ -261,8 +269,9 @@ export const APRONS: readonly Rect[] = [
 
 export const PATHS: readonly Rect[] = [
   { x0: 9, y0: 5, x1: 9, y1: 10 }, // admin → courtyard
-  { x0: 5, y0: 4, x1: 5, y1: 9 }, // development → casting
-  { x0: 5, y0: 15, x1: 9, y1: 15 }, // theater → courtyard
+  { x0: 5, y0: 4, x1: 5, y1: 8 }, // development → casting
+  { x0: 5, y0: 12, x1: 5, y1: 15 }, // casting → theater
+  { x0: 5, y0: 14, x1: 7, y1: 14 }, // theater walk → courtyard
   { x0: 11, y0: 12, x1: 12, y1: 12 }, // courtyard → stage road
 ]
 
@@ -299,8 +308,8 @@ export function landscaping(): PropPlacement[] {
   // the lot's landmark, behind the stages
   props.push({ texKey: 'tw-tower', gx: 24, gy: 4 })
 
-  // palms lining the boulevard up to the gate — the arrival
-  for (let gy = 18.4; gy <= 24; gy += 1.8) {
+  // palms lining the boulevard up to (but never under) the gate arch — the arrival
+  for (let gy = 18.4; gy <= 22.5; gy += 1.8) {
     props.push({ texKey: 'tw-palm', gx: 8.3, gy, jitter: 0.08 })
     props.push({ texKey: 'tw-palm', gx: 10.8, gy, jitter: 0.08 })
   }
@@ -323,7 +332,7 @@ export function landscaping(): PropPlacement[] {
 
   // lamps along the studio avenue and the boulevard
   for (let gx = 2; gx <= 26; gx += 4) props.push({ texKey: 'tw-lamp', gx, gy: 6.4 })
-  for (let gy = 10; gy <= 24; gy += 3.5) {
+  for (let gy = 10; gy <= 22; gy += 3.5) {
     props.push({ texKey: 'tw-lamp', gx: 8.5, gy })
     props.push({ texKey: 'tw-lamp', gx: 10.5, gy })
   }
@@ -343,10 +352,10 @@ export function landscaping(): PropPlacement[] {
   props.push({ texKey: 'tw-hedge', gx: 15.5, gy: 20.5 })
 
   // gate: guard booth + barrier + flanking palms
-  props.push({ texKey: 'tw-booth', gx: 11.3, gy: 23.4 })
-  props.push({ texKey: 'tw-barrier', gx: 10.0, gy: 23.6 })
-  props.push({ texKey: 'tw-palm', gx: 7.3, gy: 24.4, jitter: 0.05 })
-  props.push({ texKey: 'tw-palm', gx: 12.2, gy: 22.0, jitter: 0.05 })
+  props.push({ texKey: 'tw-booth', gx: 11.4, gy: 23.6 })
+  props.push({ texKey: 'tw-barrier', gx: 10.4, gy: 24.1 })
+  props.push({ texKey: 'tw-palm', gx: 7.2, gy: 24.6, jitter: 0.05 })
+  props.push({ texKey: 'tw-palm', gx: 12.4, gy: 22.2, jitter: 0.05 })
 
   // scenery yard: racks, stacked flats, crates, a service truck
   props.push({ texKey: 'tw-rack', gx: 24.7, gy: 15.2 })
@@ -356,6 +365,21 @@ export function landscaping(): PropPlacement[] {
   props.push({ texKey: 'tw-crate', gx: 23.2, gy: 18.2, jitter: 0.08 })
   props.push({ texKey: 'tw-crate', gx: 24.4, gy: 17.9, jitter: 0.08 })
   props.push({ texKey: 'tw-truck', gx: 23.4, gy: 17.4 })
+
+  // the back lot: staff parking, lit and swept, on the far side of the stage road
+  props.push({ texKey: 'tw-car', gx: 22.4, gy: 21.4 })
+  props.push({ texKey: 'tw-car', gx: 23.6, gy: 22.6 })
+  props.push({ texKey: 'tw-car', gx: 24.8, gy: 21.3 })
+  props.push({ texKey: 'tw-lamp', gx: 21.4, gy: 20.4 })
+  props.push({ texKey: 'tw-lamp', gx: 25.6, gy: 23.6 })
+  props.push({ texKey: 'tw-flats', gx: 25.4, gy: 19.4 })
+  props.push({ texKey: 'tw-crate', gx: 26.4, gy: 20.4, jitter: 0.08 })
+  for (let gy = 19.5; gy <= 24.5; gy += 2.4) {
+    props.push({ texKey: 'tw-palm', gx: 27.3, gy, jitter: 0.08 })
+  }
+  props.push({ texKey: 'tw-palm', gx: 17.4, gy: 24.4, jitter: 0.1 })
+  props.push({ texKey: 'tw-palm', gx: 13.4, gy: 25.2, jitter: 0.1 })
+  props.push({ texKey: 'tw-hedge', gx: 20.5, gy: 24.5 })
 
   // stage aprons: standing gear that belongs to the stages
   props.push({ texKey: 'tw-cart', gx: 21.6, gy: 6.4 })

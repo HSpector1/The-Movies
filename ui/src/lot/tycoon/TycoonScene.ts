@@ -75,6 +75,7 @@ import {
   GATE_PLACE_ID,
   LOT_D,
   LOT_W,
+  PARKING,
   PATHS,
   PERSON_HOME,
   PERSON_HOME_SLOTS,
@@ -113,8 +114,13 @@ const ZOOM_MAX = 1.9
  * Chrome is counter-scaled to a constant SCREEN size inside its bands, so a label never
  * shrinks below legibility — it disappears instead.
  */
-const ZOOM_OPERATIONS = 0.45
 const ZOOM_PEOPLE = 1.0
+/**
+ * The institution band begins just BELOW the whole-property framing, so the default view
+ * is always an operations view no matter what the host chrome does to the canvas box.
+ * An absolute threshold cannot do this: the fit zoom moves with the window.
+ */
+const ZOOM_INSTITUTION_OF_FIT = 0.92
 
 const FONT_SERIF = 'Georgia, "Iowan Old Style", "Times New Roman", serif'
 const FONT_SANS = 'Avenir, "Helvetica Neue", Arial, sans-serif'
@@ -169,6 +175,8 @@ type BuildingView = {
   chip: Phaser.GameObjects.Arc
   sign: Phaser.GameObjects.Text | null
   lamp: Phaser.GameObjects.Arc | null
+  /** World Y the counter-scaled chrome stack is laid out from. */
+  chromeBaseY: number
   /** Screen-space silhouette used for the hit area and the selection ring. */
   silhouette: Point[]
   /** Screen-space ground diamond. */
@@ -241,6 +249,7 @@ export class TycoonScene extends Phaser.Scene {
   private lodBand: 'institution' | 'operations' | 'people' = 'operations'
   /** Zoom the on-canvas chrome was last counter-scaled for. */
   private chromeZoom = 1
+  private fitCache: { w: number; h: number; zoom: number } | null = null
 
   private frameSamples: number[] = []
   private updateSamples: number[] = []
@@ -311,6 +320,10 @@ export class TycoonScene extends Phaser.Scene {
       })
 
       this.applySnapshot(this.snapshot)
+      // Phaser is still CREATING here, so `scene.isActive()` is false and the transition
+      // arm of applySnapshot deliberately declines to run. Paint current truth directly,
+      // or the world's first frame would show construction defaults instead of facts.
+      this.paintFromSnapshot()
       this.applyCameraPreset('overview')
       this.setReducedMotion(this.reducedMotion)
       this.emitEvent({ type: 'ready' })
@@ -441,6 +454,7 @@ export class TycoonScene extends Phaser.Scene {
     }
     paint(EXPANSION_PADS, 'tw-t-dirt')
     paint(YARD_PADS, 'tw-t-gravel')
+    paint(PARKING, 'tw-t-apron')
     paint(PLAZA, 'tw-t-plaza')
     paint(PATHS, 'tw-t-path')
     paint(ROADS, 'tw-t-road', 'tw-t-road-line')
@@ -492,9 +506,10 @@ export class TycoonScene extends Phaser.Scene {
     }
     rt.endDraw()
 
-    // Plinths and drop shadows are baked into the ground so they cost no display object
-    // and can never sort between a building and its own footing.
+    // Plinths, drop shadows and the perimeter wall are baked into the ground so they
+    // cost no display object and can never sort between a building and its own footing.
     const decals = this.make.graphics({ x: 0, y: 0 })
+    this.drawPerimeter(decals, minX, minY)
     for (const place of WORLD_PLACES) {
       if (place.texKey === '') continue
       const pts = this.footprintPoints(place).map((p) => ({ x: p.x - minX, y: p.y - minY }))
@@ -532,6 +547,49 @@ export class TycoonScene extends Phaser.Scene {
     rt.batchDraw(decals, 0, 0)
     rt.endDraw()
     decals.destroy()
+  }
+
+  /**
+   * The studio wall. A tycoon property has to have an EDGE — without one the graded lot
+   * dissolves into the surrounding scrub and the player never reads "this is mine".
+   *
+   * Back edges (gy = 0 and gx = 0) get a full stucco wall with terracotta coping; the two
+   * camera-facing edges get a low kerb and hedge, so the wall never occludes the world.
+   */
+  private drawPerimeter(g: Phaser.GameObjects.Graphics, minX: number, minY: number): void {
+    const at = (gx: number, gy: number, z = 0): Point => {
+      const p = this.world(gx, gy)
+      return { x: p.x - minX, y: p.y - minY - z }
+    }
+    const band = (a: Point, b: Point, height: number, face: number, cap: number): void => {
+      const pts = [a, b, { x: b.x, y: b.y - height }, { x: a.x, y: a.y - height }]
+      g.fillStyle(face, 1)
+      g.beginPath()
+      g.moveTo(pts[0].x, pts[0].y)
+      for (let i = 1; i < pts.length; i++) g.lineTo(pts[i].x, pts[i].y)
+      g.closePath()
+      g.fillPath()
+      g.lineStyle(3, cap, 1)
+      g.beginPath()
+      g.moveTo(a.x, a.y - height)
+      g.lineTo(b.x, b.y - height)
+      g.strokePath()
+    }
+    // The two back walls, lit and shaded by the same upper-left key light as everything.
+    band(at(0, 0), at(LOT_W, 0), 30, C.creamShade, C.terracotta)
+    band(at(0, LOT_D), at(0, 0), 30, 0xdccbaa, C.terracotta)
+    // Front edges: a kerb and a clipped hedge, low enough to see over.
+    band(at(LOT_W, 0), at(LOT_W, LOT_D), 13, C.hedgeDark, C.hedge)
+    band(at(LOT_W, LOT_D), at(0, LOT_D), 13, C.hedgeDark, C.hedge)
+    // A pale kerb inside the whole boundary reads the property line at institution zoom.
+    g.lineStyle(2.5, C.plaza, 0.75)
+    g.beginPath()
+    g.moveTo(at(0, 0).x, at(0, 0).y)
+    g.lineTo(at(LOT_W, 0).x, at(LOT_W, 0).y)
+    g.lineTo(at(LOT_W, LOT_D).x, at(LOT_W, LOT_D).y)
+    g.lineTo(at(0, LOT_D).x, at(0, LOT_D).y)
+    g.closePath()
+    g.strokePath()
   }
 
   // ── buildings ───────────────────────────────────────────────────────────────
@@ -581,8 +639,11 @@ export class TycoonScene extends Phaser.Scene {
       })
 
       const top = this.world(place.gx + place.fw / 2, place.gy + place.fd / 2)
+      // Chrome is a stack laid out from one base line, re-measured whenever the counter
+      // scale changes, so a name and its status can never collide at any zoom.
+      const chromeBaseY = top.y - height - 30
       const label = this.add
-        .text(top.x, top.y - height - 22, BUILDING_LABELS[place.buildingId], {
+        .text(top.x, chromeBaseY, BUILDING_LABELS[place.buildingId], {
           fontFamily: FONT_SANS,
           fontSize: '15px',
           fontStyle: 'bold',
@@ -594,7 +655,7 @@ export class TycoonScene extends Phaser.Scene {
         .setDepth(DEPTH.label)
         .setName(`label:${place.buildingId}`)
       const badge = this.add
-        .text(top.x, top.y - height - 4, '', {
+        .text(top.x, chromeBaseY + 3, '', {
           fontFamily: FONT_SANS,
           fontSize: '13px',
           fontStyle: 'bold',
@@ -602,13 +663,14 @@ export class TycoonScene extends Phaser.Scene {
           backgroundColor: '#3f6a4add',
           padding: { x: 7, y: 3 },
         })
-        .setOrigin(0.5, 1)
+        // Grows DOWNWARD from the base line; the name grows upward from it.
+        .setOrigin(0.5, 0)
         .setDepth(DEPTH.label)
         .setVisible(false)
         .setName(`badge:${place.buildingId}`)
       badge.setData('want', false)
       const chip = this.add
-        .circle(top.x, top.y - height - 30, 7, C.lampAvailable, 1)
+        .circle(top.x, chromeBaseY - 34, 7, C.lampAvailable, 1)
         .setStrokeStyle(2.5, 0x241d14, 0.85)
         .setDepth(DEPTH.label)
         .setVisible(false)
@@ -630,6 +692,7 @@ export class TycoonScene extends Phaser.Scene {
         chip,
         sign,
         lamp,
+        chromeBaseY,
         silhouette,
         footprint,
       })
@@ -642,30 +705,35 @@ export class TycoonScene extends Phaser.Scene {
    * wall plane and slightly foreshortened.
    */
   private buildWallSign(place: WorldPlace, height: number): Phaser.GameObjects.Text | null {
+    // Height of the sign band as a fraction of the drawn sprite height, tuned per
+    // building so the lettering lands on its painted field (and, for the two authored
+    // stage images, on their blank upper wall).
     const zFrac: Partial<Record<BuildingId, number>> = {
-      admin: 0.5,
-      writers: 0.78,
-      casting: 0.78,
-      post: 0.82,
-      theater: 0.73,
-      'stage-a': 0.81,
-      'stage-b': 0.81,
+      admin: 0.34,
+      writers: 0.52,
+      casting: 0.52,
+      post: 0.58,
+      theater: 0.39,
+      'stage-a': 0.56,
+      'stage-b': 0.6,
+      gate: 0.7,
     }
     const frac = zFrac[place.buildingId]
     if (frac === undefined) return null
-    // Wall height is the sprite height minus its roof headroom; the sign fields are
-    // authored as a fraction of the wall, so approximate from the drawn box.
-    const wall = place.buildingId === 'admin' ? height - 56 : height * 0.62
     const anchor = this.world(place.gx + place.fw / 2, place.gy + place.fd)
     const size = place.fw >= 4 ? 21 : 15
+    const text =
+      place.buildingId === 'gate' ? this.snapshot.studioName.toUpperCase() : place.label
     return this.add
-      .text(anchor.x, anchor.y - wall * frac, place.label, {
+      .text(anchor.x, anchor.y - height * frac, text, {
         fontFamily: FONT_SANS,
         fontSize: `${size}px`,
         fontStyle: 'bold',
         color: '#f2e2bd',
       })
       .setOrigin(0.5, 0.5)
+      // Squash then rotate onto the 2:1 wall plane: the lettering lies on the wall
+      // instead of floating in front of it.
       .setScale(1, 0.86)
       .setAngle(WALL_ANGLE_DEG)
       .setDepth(this.depthAt(place.gx + place.fw, place.gy + place.fd, 5))
@@ -1265,7 +1333,6 @@ export class TycoonScene extends Phaser.Scene {
       return
     }
 
-    this.reconcilePeople(lotPeopleForCompanyPresentation(snapshot))
     const nextStage7 = this.authoritativeStage7Operation(snapshot)
     const nextScenery = sceneryLoadInContext(snapshot)
 
@@ -1311,14 +1378,25 @@ export class TycoonScene extends Phaser.Scene {
       nextScenery?.state === 'ready' &&
       previousScenery.operation.productionId === nextScenery.operation.productionId
 
-    this.syncPeopleToSnapshot(nextStage7)
-    this.reconcileProductionCompanySelection()
-    this.paintBuildingStates(snapshot, nextStage7)
-    this.paintSceneryLoadIn(nextScenery)
+    this.paintFromSnapshot()
     if (acceptedSceneryClear && nextScenery !== null) {
       this.beginSceneryLoadIn(nextScenery.operation)
     }
-    this.paintExpansion(snapshot)
+  }
+
+  /**
+   * Repaint every world surface from the retained snapshot. Pure projection: it starts
+   * no ceremony and consumes no transition, so it is safe to run both on the first frame
+   * and after every accepted replacement.
+   */
+  private paintFromSnapshot(): void {
+    const stage7 = this.authoritativeStage7Operation(this.snapshot)
+    this.reconcilePeople(lotPeopleForCompanyPresentation(this.snapshot))
+    this.syncPeopleToSnapshot(stage7)
+    this.reconcileProductionCompanySelection()
+    this.paintBuildingStates(this.snapshot, stage7)
+    this.paintSceneryLoadIn(sceneryLoadInContext(this.snapshot))
+    this.paintExpansion(this.snapshot)
   }
 
   private syncPeopleToSnapshot(stage7: ProductionOperationsState | null): void {
@@ -1341,6 +1419,11 @@ export class TycoonScene extends Phaser.Scene {
   ): void {
     const established = snapshot.standing === 'established' || snapshot.standing === 'prestige'
     for (const prop of this.establishedProps) prop.setVisible(established)
+
+    // The gate beam carries the studio's own name, from the snapshot.
+    const gateSign = this.buildings.get('gate')?.sign
+    const studioName = snapshot.studioName.toUpperCase()
+    if (gateSign && gateSign.text !== studioName) gateSign.setText(studioName)
 
     for (const id of ALL_BUILDING_IDS) {
       const view = this.buildings.get(id)
@@ -1722,20 +1805,29 @@ export class TycoonScene extends Phaser.Scene {
     ]
     return {
       minX: Math.min(...corners.map((c) => c.x)),
-      // headroom for building tops and their labels
-      minY: Math.min(...corners.map((c) => c.y)) - 190,
+      // headroom for building tops and their counter-scaled labels, footroom so the
+      // near corner of the property is never clipped by the frame
+      minY: Math.min(...corners.map((c) => c.y)) - 175,
       maxX: Math.max(...corners.map((c) => c.x)),
-      maxY: Math.max(...corners.map((c) => c.y)) + 90,
+      maxY: Math.max(...corners.map((c) => c.y)) + 150,
     }
   }
 
+  /** Zoom at which the whole graded property fits the current canvas. Memoized per box. */
   private fitZoom(): number {
+    const w = this.scale.width
+    const h = this.scale.height
+    if (this.fitCache !== null && this.fitCache.w === w && this.fitCache.h === h) {
+      return this.fitCache.zoom
+    }
     const e = this.worldExtent()
-    return Phaser.Math.Clamp(
-      Math.min(this.scale.width / (e.maxX - e.minX), this.scale.height / (e.maxY - e.minY)),
+    const zoom = Phaser.Math.Clamp(
+      Math.min(w / (e.maxX - e.minX), h / (e.maxY - e.minY)),
       ZOOM_MIN,
       ZOOM_MAX,
     )
+    this.fitCache = { w, h, zoom }
+    return zoom
   }
 
   private bindCamera(): void {
@@ -1991,8 +2083,9 @@ export class TycoonScene extends Phaser.Scene {
    */
   private updateLod(): void {
     const zoom = this.cameras.main.zoom
+    const institutionBelow = this.fitZoom() * ZOOM_INSTITUTION_OF_FIT
     const band: 'institution' | 'operations' | 'people' =
-      zoom < ZOOM_OPERATIONS ? 'institution' : zoom < ZOOM_PEOPLE ? 'operations' : 'people'
+      zoom < institutionBelow ? 'institution' : zoom < ZOOM_PEOPLE ? 'operations' : 'people'
     const bandChanged = band !== this.lodBand
     this.lodBand = band
 
@@ -2006,6 +2099,10 @@ export class TycoonScene extends Phaser.Scene {
         view.badge.setScale(inv)
         view.chip.setScale(inv)
         view.lamp?.setScale(inv)
+        // Re-stack: status chip, then the name, then the status line under it.
+        view.label.setY(view.chromeBaseY)
+        view.badge.setY(view.chromeBaseY + 3 * inv)
+        view.chip.setY(view.chromeBaseY - view.label.height * inv - 10 * inv)
       }
       this.expansionLabel?.setScale(inv)
       for (const runtime of this.runtimePeople.values()) runtime.label.setScale(inv)

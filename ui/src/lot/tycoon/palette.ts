@@ -25,9 +25,12 @@ export const WARM = {
   // ── atmosphere ────────────────────────────────────────────────────────────
   /** Camera fill beyond the property — a hazy Californian afternoon. */
   haze: 0x9fa8a4,
-  /** Dry scrub apron surrounding the graded lot. */
-  surround: 0x9a9668,
-  surroundEdge: 0x878352,
+  /**
+   * Dry scrub apron surrounding the graded lot. Deliberately a drier, paler tan than
+   * the watered lawn inside the wall, so the property boundary reads at any zoom.
+   */
+  surround: 0xa89a6e,
+  surroundEdge: 0x93855c,
 
   // ── terrain ───────────────────────────────────────────────────────────────
   lawn: 0x8a9459,
