@@ -78,7 +78,7 @@ import {
   PARKING,
   PATHS,
   PERSON_HOME,
-  PERSON_HOME_SLOTS,
+  PERSON_HOME_JITTER,
   PLACE_BY_BUILDING,
   PLAZA,
   PUBLICITY_PLACE_ID,
@@ -90,6 +90,7 @@ import {
   YARD_REGION,
   establishedDressing,
   landscaping,
+  personHomeSlotOffset,
   type CameraFraming,
   type GridPoint,
   type GroundKind,
@@ -981,13 +982,28 @@ export class TycoonScene extends Phaser.Scene {
     sprite.setFlipX(direction === 'west')
   }
 
-  private personHome(role: LotPersonState['role'], slot: number): GridPoint {
+  /**
+   * Where one named person stands when no place has claimed them.
+   *
+   * PRESENTATION ONLY — the accepted `personHome` precedent. It is parking, not a
+   * location claim: no engine fact says this person is here, and nothing about the work
+   * they are doing follows from it. The scene seed supplies a small deterministic jitter
+   * (never Math.random, never a simulation stream) so the studio's whole contracted
+   * roster reads as people standing about rather than as a rank on a lattice.
+   */
+  private personHome(
+    role: LotPersonState['role'],
+    slot: number,
+    personId: string,
+  ): GridPoint {
     const base = PERSON_HOME[role]
-    const offset = PERSON_HOME_SLOTS[slot] ?? {
-      gx: (slot % 3) * 0.95,
-      gy: Math.floor(slot / 3) * 0.9,
+    const offset = personHomeSlotOffset(slot)
+    const rng = new Rng(`${this.snapshot.sceneSeed}:person-home:${personId}`)
+    const j = PERSON_HOME_JITTER
+    return {
+      gx: base.gx + offset.gx + rng.range(-j, j),
+      gy: base.gy + offset.gy + rng.range(-j, j),
     }
-    return { gx: base.gx + offset.gx, gy: base.gy + offset.gy }
   }
 
   private availablePersonHomeSlot(role: LotPersonState['role'], personId: string): number {
@@ -1048,7 +1064,7 @@ export class TycoonScene extends Phaser.Scene {
         if (roleChanged) {
           existing.homeSlot = this.availablePersonHomeSlot(person.role, person.id)
           existing.sprite.setScale(this.actorScale(1))
-          this.placePerson(existing, this.personHome(person.role, existing.homeSlot))
+          this.placePerson(existing, this.personHome(person.role, existing.homeSlot, person.id))
         }
         if (this.cosmeticRoute?.personId === person.id && (roleChanged || authorityChanged)) {
           this.cosmeticRoute = null
@@ -1060,7 +1076,7 @@ export class TycoonScene extends Phaser.Scene {
       }
 
       const homeSlot = this.availablePersonHomeSlot(person.role, person.id)
-      const at = this.personHome(person.role, homeSlot)
+      const at = this.personHome(person.role, homeSlot, person.id)
       const p = this.world(at.gx, at.gy)
       const sprite = this.add
         .sprite(p.x, p.y, `tw-person-${person.role}`)
@@ -1402,7 +1418,7 @@ export class TycoonScene extends Phaser.Scene {
   private syncPeopleToSnapshot(stage7: ProductionOperationsState | null): void {
     for (const runtime of this.runtimePeople.values()) {
       if (runtime.fact.id === this.cosmeticRoute?.personId) continue
-      this.placePerson(runtime, this.personHome(runtime.fact.role, runtime.homeSlot))
+      this.placePerson(runtime, this.personHome(runtime.fact.role, runtime.homeSlot, runtime.fact.id))
     }
     if (stage7 === null || stage7.taskStatus === null || stage7.taskStatus === 'unassigned') return
     const director = this.runtimePeople.get(stage7.directorId)

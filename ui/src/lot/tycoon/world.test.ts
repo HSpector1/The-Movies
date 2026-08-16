@@ -17,6 +17,7 @@ import {
   LOT_W,
   PATHS,
   PERSON_HOME,
+  PERSON_HOME_JITTER,
   PERSON_HOME_SLOTS,
   PLACE_BY_BUILDING,
   PLAZA,
@@ -26,6 +27,7 @@ import {
   YARD_REGION,
   establishedDressing,
   landscaping,
+  personHomeSlotOffset,
   type GridPoint,
   type Rect,
   type WorldPlace,
@@ -286,5 +288,73 @@ describe('tycoon world — movement and framing', () => {
     expect(CAMERA_FRAMINGS.production.at.gx).toBeGreaterThan(PLACE_BY_BUILDING['stage-a'].gx - 2)
     expect(CAMERA_FRAMINGS.entrance.at.gy).toBeGreaterThan(PLACE_BY_BUILDING.gate.gy - 4)
     expect(CAMERA_FRAMINGS.theater.at.gx).toBeLessThan(PLACE_BY_BUILDING.theater.gx + 4)
+  })
+})
+
+// ── M1.5: the whole contracted roster now parks at these homes ───────────────
+
+describe('tycoon world — parked staff presence (M1.5)', () => {
+  // Presence must never put a person inside a building, and the seed jitter must not
+  // push one in either.
+  const jitterCorners = (at: GridPoint): GridPoint[] => {
+    const j = PERSON_HOME_JITTER
+    return [
+      { gx: at.gx - j, gy: at.gy - j },
+      { gx: at.gx + j, gy: at.gy - j },
+      { gx: at.gx + j, gy: at.gy + j },
+      { gx: at.gx - j, gy: at.gy + j },
+    ]
+  }
+
+  it('never parks anyone inside a building, for any slot a large roster can reach', () => {
+    for (const home of Object.values(PERSON_HOME)) {
+      for (let slot = 0; slot < 64; slot++) {
+        const offset = personHomeSlotOffset(slot)
+        const at = { gx: home.gx + offset.gx, gy: home.gy + offset.gy }
+        for (const corner of jitterCorners(at)) {
+          for (const place of WORLD_PLACES) {
+            if (place.texKey === '') continue
+            expect(
+              `slot ${String(slot)} in ${place.buildingId}: ${insideFootprint(corner, place)}`,
+            ).toBe(`slot ${String(slot)} in ${place.buildingId}: false`)
+          }
+        }
+      }
+    }
+  })
+
+  it('keeps every reachable parking slot on the graded property', () => {
+    for (const home of Object.values(PERSON_HOME)) {
+      for (let slot = 0; slot < 64; slot++) {
+        const offset = personHomeSlotOffset(slot)
+        for (const corner of jitterCorners({
+          gx: home.gx + offset.gx,
+          gy: home.gy + offset.gy,
+        })) {
+          expect(corner.gx).toBeGreaterThanOrEqual(0)
+          expect(corner.gy).toBeGreaterThanOrEqual(0)
+          expect(corner.gx).toBeLessThanOrEqual(LOT_W)
+          expect(corner.gy).toBeLessThanOrEqual(LOT_D)
+        }
+      }
+    }
+  })
+
+  it('gives the authored lattice its own distinct slot for a whole founding roster', () => {
+    expect(PERSON_HOME_SLOTS.length).toBeGreaterThanOrEqual(16)
+    const seen = new Set<string>()
+    for (let slot = 0; slot < PERSON_HOME_SLOTS.length; slot++) {
+      const offset = personHomeSlotOffset(slot)
+      expect(offset).toEqual(PERSON_HOME_SLOTS[slot])
+      seen.add(`${offset.gx.toFixed(3)},${offset.gy.toFixed(3)}`)
+    }
+    expect(seen.size).toBe(PERSON_HOME_SLOTS.length)
+  })
+
+  it('is deterministic and never negative or fractional in its slot index', () => {
+    expect(personHomeSlotOffset(3)).toEqual(personHomeSlotOffset(3))
+    expect(personHomeSlotOffset(-4)).toEqual(personHomeSlotOffset(0))
+    expect(personHomeSlotOffset(2.7)).toEqual(personHomeSlotOffset(2))
+    expect(personHomeSlotOffset(Number.NaN)).toEqual(personHomeSlotOffset(0))
   })
 })

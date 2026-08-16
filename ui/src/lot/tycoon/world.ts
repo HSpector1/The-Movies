@@ -412,7 +412,15 @@ export const PERSON_HOME: Readonly<Record<'director' | 'talent', GridPoint>> = {
   talent: { gx: 5.4, gy: 11.9 },
 }
 
-/** Deterministic slot offsets (in tiles) so co-located people never share a pixel. */
+/**
+ * Deterministic slot offsets (in tiles) so co-located people never share a pixel.
+ *
+ * Sixteen authored slots, laid out as loose knots of two and three rather than a grid,
+ * because the studio's whole contracted roster now stands here (M1.5 staff presence) and
+ * a fifteen-person rank reads as a spreadsheet, not a lot. Every offset stays on open
+ * ground for BOTH homes; `PERSON_HOME_JITTER` softens the remaining regularity from the
+ * scene seed. This is parking, not a claim: no slot asserts a location or a task.
+ */
 export const PERSON_HOME_SLOTS: readonly GridPoint[] = [
   { gx: 0, gy: 0 },
   { gx: 0.95, gy: 0.35 },
@@ -420,7 +428,43 @@ export const PERSON_HOME_SLOTS: readonly GridPoint[] = [
   { gx: 0.55, gy: 1.05 },
   { gx: 1.6, gy: 0.95 },
   { gx: 2.5, gy: 0.45 },
+  { gx: -0.7, gy: 0.75 },
+  { gx: 0.15, gy: 1.85 },
+  { gx: 1.15, gy: 2.0 },
+  { gx: 2.15, gy: 1.6 },
+  { gx: 3.05, gy: 1.15 },
+  { gx: -0.35, gy: 2.6 },
+  { gx: 0.75, gy: 2.85 },
+  { gx: 1.8, gy: 2.75 },
+  { gx: 2.8, gy: 2.3 },
+  { gx: 3.35, gy: 0.15 },
 ]
+
+/** Jitter magnitude (tiles) applied to a parked person from the scene seed. */
+export const PERSON_HOME_JITTER = 0.16
+
+/** How many times the authored lattice is re-used, shifted, before it repeats. */
+const PERSON_HOME_RINGS = 3
+const PERSON_HOME_RING_STEP: GridPoint = { gx: 0.45, gy: 0.08 }
+
+/**
+ * Where the Nth co-located person of a role parks, relative to their role's home.
+ *
+ * Past the authored lattice the slots WRAP with a small ring shift rather than marching
+ * away on an unbounded arithmetic grid — that grid eventually stood someone inside the
+ * Theater. Repeating at very high occupancy is a cosmetic overlap; leaving the open
+ * ground is a lie about where a person can stand.
+ */
+export function personHomeSlotOffset(slot: number): GridPoint {
+  const count = PERSON_HOME_SLOTS.length
+  const index = Number.isFinite(slot) ? Math.max(0, Math.floor(slot)) : 0
+  const base = PERSON_HOME_SLOTS[index % count]!
+  const ring = Math.floor(index / count) % PERSON_HOME_RINGS
+  return {
+    gx: base.gx + ring * PERSON_HOME_RING_STEP.gx,
+    gy: base.gy + ring * PERSON_HOME_RING_STEP.gy,
+  }
+}
 
 /** Deterministic ambient patrols. Roles come from the role atlas. */
 export const AMBIENT_ROUTES: readonly {
