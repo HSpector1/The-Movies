@@ -103,7 +103,9 @@ export function LotRetainedWorkspace({
         const target = preferred !== null && focusable.includes(preferred)
           ? preferred
           : focusable[0] ?? dialog
-        target.focus({ preventScroll: true })
+        // Let the dialog's bounded scroll owner reveal the focused control. At compact
+        // layouts a valid target can otherwise own focus while remaining wholly offscreen.
+        target.focus()
       }
     })
   }, [focusVersion, initialFocusSelector, nestedModalOpen])
@@ -130,10 +132,10 @@ export function LotRetainedWorkspace({
     const active = document.activeElement
     if (event.shiftKey && (active === first || !dialog.contains(active))) {
       event.preventDefault()
-      last.focus({ preventScroll: true })
+      last.focus()
     } else if (!event.shiftKey && (active === last || !dialog.contains(active))) {
       event.preventDefault()
-      first.focus({ preventScroll: true })
+      first.focus()
     }
   }
 

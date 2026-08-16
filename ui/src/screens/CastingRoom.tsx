@@ -13,22 +13,19 @@ import {
 } from '../engine/adapter.ts'
 import type {
   CastSlot,
-  CastingCandidateView,
   CastingProjectView,
   CastingSessionsReadModel,
   GameState,
 } from '../engine/adapter.ts'
 import { genreLabel } from '../content.ts'
+import { CastingSlatePlanner } from './CastingSlatePlanner.tsx'
+import type { CastingSlate } from './CastingSlatePlanner.tsx'
 
 const SLOT_LABEL: Record<CastSlot, string> = {
   lead: 'Lead',
   antagonist: 'Antagonist',
   support: 'Support',
 }
-
-type SlateDraft = Record<CastSlot, string[]>
-
-const EMPTY_SLATE = (): SlateDraft => ({ lead: [], antagonist: [], support: [] })
 
 function Blockers({
   blockers,
@@ -85,160 +82,36 @@ function CapacityPanel({ capacity }: { capacity: CastingSessionsReadModel['capac
   )
 }
 
-function CandidateButton({
-  candidate,
-  selected,
-  disabled,
-  onToggle,
-  slot,
-}: {
-  candidate: CastingCandidateView
-  selected: boolean
-  disabled: boolean
-  onToggle: () => void
-  slot: CastSlot
-}) {
-  return (
-    <button
-      type="button"
-      className={`option${selected ? ' selected' : ''}${candidate.available ? '' : ' ineligible'}`}
-      aria-pressed={selected}
-      disabled={disabled}
-      onClick={onToggle}
-      data-testid={`casting-candidate-${slot}-${candidate.id}`}
-    >
-      <span className="spread">
-        <span className="opt-title">{candidate.name}</span>
-        <span className="tag estimate">{candidate.fit.label} {candidate.fit.score.toFixed(0)}</span>
-      </span>
-      <span className="opt-desc">Primary Actor · {candidate.availabilityLabel}</span>
-    </button>
-  )
-}
-
 function SlatePlanner({
   project,
   state,
   onChange,
   onCancel,
   onStarted,
-  onError,
 }: {
   project: CastingProjectView
   state: GameState
   onChange: (next: GameState) => void
   onCancel: () => void
   onStarted: (projectId: string) => void
-  onError: (message: string) => void
 }) {
-  const [selected, setSelected] = useState<SlateDraft>(EMPTY_SLATE)
-
-  const uniqueCount = new Set(CAST_SLOTS.flatMap((slot) => selected[slot])).size
-  const exactPairs = CAST_SLOTS.every((slot) => selected[slot].length === 2)
-  const planStillLegal = project.legalActions.some((action) => action.kind === 'planAuditions')
-  const everySelectionStillAvailable = CAST_SLOTS.every((slot) =>
-    selected[slot].every((id) =>
-      project.candidates[slot].some((candidate) => candidate.id === id && candidate.available),
-    ),
-  )
-  const canStart =
-    planStillLegal && everySelectionStillAvailable && exactPairs && uniqueCount >= 3
-
-  function toggle(slot: CastSlot, candidate: CastingCandidateView) {
-    setSelected((current) => {
-      const pair = current[slot]
-      const nextPair = pair.includes(candidate.id)
-        ? pair.filter((id) => id !== candidate.id)
-        : pair.length < 2
-          ? [...pair, candidate.id]
-          : pair
-      return { ...current, [slot]: nextPair }
-    })
-  }
-
-  function submit() {
-    if (!canStart) return
+  function submit(slate: CastingSlate) {
     const result = startCastingSessionAction(state, {
       projectId: project.projectId,
-      slate: {
-        lead: [selected.lead[0]!, selected.lead[1]!],
-        antagonist: [selected.antagonist[0]!, selected.antagonist[1]!],
-        support: [selected.support[0]!, selected.support[1]!],
-      },
+      slate,
     })
-    if (!result.ok) {
-      onError(result.error)
-      return
-    }
-    onError('')
-    onStarted(project.projectId)
+    if (!result.ok) return result
     onChange(result.next)
+    onStarted(project.projectId)
+    return result
   }
 
   return (
-    <section className="card stack" aria-labelledby="casting-plan-heading" data-testid="casting-planner">
-      <div className="spread">
-        <div>
-          <div className="eyebrow">Camera-test slate</div>
-          <h2 id="casting-plan-heading">Plan auditions for {project.title}</h2>
-          <p className="hint">
-            Choose exactly two primary Actors for each role. A person may read more than one role,
-            but the complete slate needs at least three different people.
-          </p>
-        </div>
-        <button type="button" onClick={onCancel} data-testid="casting-plan-close">Close</button>
-      </div>
-
-      <div className="inset stack" data-testid="casting-consequence">
-        <strong>One week · one shared Development &amp; Casting slot · no audition fee</strong>
-        <span>
-          Camera tests do not sign, pay, reserve, or mark an actor busy. Payroll and studio overhead
-          continue while the week passes.
-        </span>
-        <span className="hint">
-          Results are imperfect evidence, not a forecast guarantee or an automatic cast choice.
-        </span>
-      </div>
-
-      <div className="grid grid-3">
-        {CAST_SLOTS.map((slot) => (
-          <fieldset className="panel stack" key={slot} data-testid={`casting-slate-${slot}`}>
-            <legend>{SLOT_LABEL[slot]} · choose 2</legend>
-            <span className="hint" aria-live="polite" aria-atomic="true">
-              {selected[slot].length} of 2 selected
-            </span>
-            {project.candidates[slot].map((candidate) => (
-              <CandidateButton
-                key={candidate.id}
-                candidate={candidate}
-                slot={slot}
-                selected={selected[slot].includes(candidate.id)}
-                disabled={
-                  !candidate.available ||
-                  (selected[slot].length >= 2 && !selected[slot].includes(candidate.id))
-                }
-                onToggle={() => toggle(slot, candidate)}
-              />
-            ))}
-          </fieldset>
-        ))}
-      </div>
-
-      <div className="spread">
-        <span className="hint" role="status" aria-live="polite" aria-atomic="true" data-testid="casting-unique-count">
-          {uniqueCount} different actor{uniqueCount === 1 ? '' : 's'} selected · at least 3 required
-        </span>
-        <button
-          type="button"
-          className="primary"
-          disabled={!canStart}
-          onClick={submit}
-          data-testid="casting-start"
-        >
-          Start one-week auditions
-        </button>
-      </div>
-    </section>
+    <CastingSlatePlanner
+      project={project}
+      onCancel={onCancel}
+      onSubmit={submit}
+    />
   )
 }
 
@@ -549,7 +422,6 @@ export function CastingRoom({
             pendingFocusProjectId.current = projectId
             setAnnouncement('Auditions started. Results are due in one week; no actor was reserved or paid.')
           }}
-          onError={setError}
         />
       )}
 

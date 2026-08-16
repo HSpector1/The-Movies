@@ -44,6 +44,7 @@ import type {
   ConstructionCompletionSummary,
   CommissionScriptPayload,
   ScriptProjectsReadModel,
+  StartCastingSessionPayload,
 } from './engine/adapter.ts'
 import {
   advanceWeek,
@@ -65,6 +66,7 @@ import {
   studioLotSnapshot,
   commissionScriptAction,
   scriptProjectsBoard,
+  startCastingSessionAction,
 } from './engine/adapter.ts'
 import { filmCareerImpact, talentCareerHistory, preV5CreditCount } from './engine/careerImpact.ts'
 import { TalentProfileDrawer } from './components/TalentProfileDrawer.tsx'
@@ -73,6 +75,7 @@ import { Dashboard } from './screens/Dashboard.tsx'
 import { Assembly } from './screens/Assembly.tsx'
 import { ScreenplayCommissionForm, WritersRoom } from './screens/WritersRoom.tsx'
 import { CastingRoom } from './screens/CastingRoom.tsx'
+import type { CastingSlateDraft } from './screens/CastingSlatePlanner.tsx'
 import { StudioCalendar } from './screens/StudioCalendar.tsx'
 import type { StudioCalendarRoute } from './screens/StudioCalendar.tsx'
 import { StudioDevelopment } from './screens/StudioDevelopment.tsx'
@@ -93,6 +96,8 @@ import { operationHollywoodEnabled, studioLotOverviewEnabled } from './flags.ts'
 import type { LotRoute } from './lot/navigation.ts'
 import { LotPackageWorkspace } from './lot/LotPackageWorkspace.tsx'
 import { LotCommissionWorkspace } from './lot/LotCommissionWorkspace.tsx'
+import { LotAuditionWorkspace } from './lot/LotAuditionWorkspace.tsx'
+import type { LotAuditionPlanningOrigin } from './lot/StudioLotScreen.tsx'
 // Presentation-only, and deliberately NOT part of the lazy lot chunk: this module imports
 // nothing but types, so App can end the lot's presentation session without pulling Phaser
 // or the lot screen into the eager bundle.
@@ -148,6 +153,14 @@ import {
   acceptedScreenplayCommissionReceipt,
   type ScreenplayCommissionReceipt,
 } from './lot/snapshot/scriptCommission.ts'
+import {
+  acceptedLotAuditionPlanningReceipt,
+  currentLotAuditionPlanningContext,
+  sameLotAuditionPlanningContext,
+  lotAuditionPlanningPayload,
+  type LotAuditionPlanningContext,
+  type LotAuditionPlanningReceipt,
+} from './lot/snapshot/auditionPlanning.ts'
 import type { CastingDecisionFocusToken } from './screens/CastingRoom.tsx'
 import type { DashboardFocusSection } from './screens/Dashboard.tsx'
 
@@ -437,6 +450,190 @@ type LotCommissionPresentationState = {
   liveReceipt: LiveCommissionPresentation | null
 }
 
+type LotAuditionWorkspaceBase = {
+  identity: object
+  key: number
+  lotScreen: LotScreen
+  lotPresentation: object
+  context: LotAuditionPlanningContext
+  opener: HTMLElement | null
+}
+
+type LotAuditionWorkspaceSession =
+  | (LotAuditionWorkspaceBase & {
+      phase: 'editing'
+      acceptedState: GameState
+      slateRevision: number
+      slate: CastingSlateDraft
+    })
+  | (LotAuditionWorkspaceBase & {
+      phase: 'committed'
+      before: GameState
+      next: GameState
+      receipt: LotAuditionPlanningReceipt | null
+    })
+
+type EditingLotAuditionWorkspace = Extract<
+  LotAuditionWorkspaceSession,
+  { phase: 'editing' }
+>
+
+type LiveAuditionPresentation = {
+  identity: object
+  acceptedState: GameState
+  lotScreen: LotScreen
+  lotPresentation: object
+  receipt: LotAuditionPlanningReceipt
+}
+
+type LotAuditionPresentationState = {
+  workspace: LotAuditionWorkspaceSession | null
+  liveReceipt: LiveAuditionPresentation | null
+}
+
+const LOT_AUDITION_ATTENTION = new Set([
+  'normal',
+  'active',
+  'positive',
+  'warning',
+  'decision-required',
+  'empty',
+  'future',
+  'recently-completed',
+])
+
+function exactLotAuditionPlanningOrigin(
+  value: LotAuditionPlanningOrigin,
+): value is LotAuditionPlanningOrigin {
+  if (
+    typeof value !== 'object' ||
+    value === null ||
+    Reflect.ownKeys(value).length !== 2 ||
+    !Object.prototype.hasOwnProperty.call(value, 'opener') ||
+    !Object.prototype.hasOwnProperty.call(value, 'cue') ||
+    !(value.opener instanceof HTMLButtonElement) ||
+    !value.opener.isConnected ||
+    value.opener.disabled ||
+    value.opener.getAttribute('data-testid') !== 'lot-nav-casting' ||
+    value.opener !== document.querySelector('[data-testid="lot-nav-casting"]')
+  ) return false
+  const cue = value.cue
+  if (
+    typeof cue !== 'object' ||
+    cue === null ||
+    Reflect.ownKeys(cue).length !== 4 ||
+    cue.buildingId !== 'casting' ||
+    cue.action !== 'browse-talent' ||
+    typeof cue.attention !== 'string' ||
+    !LOT_AUDITION_ATTENTION.has(cue.attention) ||
+    typeof cue.reason !== 'string' ||
+    cue.reason.trim().length === 0 ||
+    value.opener.getAttribute('data-attention') !== cue.attention
+  ) return false
+  const cueNode = value.opener.querySelector('[data-testid="lot-nav-casting-state"]')
+  const cueText = cueNode?.textContent?.replace(/\s+/g, ' ').trim() ?? ''
+  return cueNode !== null && cueText.endsWith(cue.reason)
+}
+
+const LOT_AUDITION_DRAFT_ROLES = ['lead', 'antagonist', 'support'] as const
+
+function closedLotAuditionDraft(
+  context: LotAuditionPlanningContext,
+  value: unknown,
+): CastingSlateDraft | null {
+  try {
+    if (
+      typeof value !== 'object' ||
+      value === null ||
+      Array.isArray(value) ||
+      (Object.getPrototypeOf(value) !== Object.prototype && Object.getPrototypeOf(value) !== null)
+    ) return null
+    const record = value as Record<PropertyKey, unknown>
+    const keys = Reflect.ownKeys(record)
+    if (
+      keys.length !== LOT_AUDITION_DRAFT_ROLES.length ||
+      !LOT_AUDITION_DRAFT_ROLES.every((role) =>
+        Object.prototype.hasOwnProperty.call(record, role),
+      )
+    ) return null
+
+    const draft = {} as CastingSlateDraft
+    for (const role of LOT_AUDITION_DRAFT_ROLES) {
+      const roleDescriptor = Object.getOwnPropertyDescriptor(record, role)
+      if (
+        roleDescriptor === undefined ||
+        !('value' in roleDescriptor) ||
+        !roleDescriptor.enumerable
+      ) return null
+      const pair = roleDescriptor.value
+      if (!Array.isArray(pair) || pair.length > 2) return null
+      const pairKeys = Reflect.ownKeys(pair)
+      if (
+        pairKeys.length !== pair.length + 1 ||
+        !pairKeys.includes('length') ||
+        !pair.every((id, index) => {
+          const descriptor = Object.getOwnPropertyDescriptor(pair, String(index))
+          return descriptor !== undefined &&
+            'value' in descriptor &&
+            descriptor.enumerable &&
+            typeof id === 'string' &&
+            id.trim().length > 0 &&
+            context.project.candidates[role].some(
+              (candidate) => candidate.available && candidate.id === id,
+            )
+        }) ||
+        new Set(pair).size !== pair.length
+      ) return null
+      draft[role] = [...pair]
+    }
+    return draft
+  } catch {
+    return null
+  }
+}
+
+function sameLotAuditionDraft(
+  context: LotAuditionPlanningContext,
+  left: unknown,
+  right: unknown,
+): boolean {
+  const closedLeft = closedLotAuditionDraft(context, left)
+  const closedRight = closedLotAuditionDraft(context, right)
+  return closedLeft !== null && closedRight !== null &&
+    LOT_AUDITION_DRAFT_ROLES.every((role) =>
+      closedLeft[role].length === closedRight[role].length &&
+      closedLeft[role].every((id, index) => id === closedRight[role][index]),
+    )
+}
+
+function oneLotAuditionToggle(before: readonly string[], after: readonly string[]): boolean {
+  if (Math.abs(before.length - after.length) !== 1) return false
+  const longer = before.length > after.length ? before : after
+  const shorter = before.length > after.length ? after : before
+  return longer.some((_, removedIndex) =>
+    shorter.every((id, index) => id === longer[index < removedIndex ? index : index + 1]),
+  )
+}
+
+function genuineLotAuditionDraftChange(
+  context: LotAuditionPlanningContext,
+  before: unknown,
+  after: unknown,
+): CastingSlateDraft | null {
+  const closedBefore = closedLotAuditionDraft(context, before)
+  const closedAfter = closedLotAuditionDraft(context, after)
+  if (closedBefore === null || closedAfter === null) return null
+  const changedRoles = LOT_AUDITION_DRAFT_ROLES.filter((role) =>
+    closedBefore[role].length !== closedAfter[role].length ||
+    closedBefore[role].some((id, index) => id !== closedAfter[role][index]),
+  )
+  if (
+    changedRoles.length !== 1 ||
+    !oneLotAuditionToggle(closedBefore[changedRoles[0]!], closedAfter[changedRoles[0]!])
+  ) return null
+  return closedAfter
+}
+
 function RetainedScreenplayCommissionForm({
   board,
   onSubmit,
@@ -666,6 +863,45 @@ export function App() {
     if (current.workspace === null && current.liveReceipt === null) return
     commitLotCommissionPresentation({ workspace: null, liveReceipt: null })
   }, [commitLotCommissionPresentation])
+  // Audition planning is a third, independent retained authority. Its monotonic slate revision
+  // makes a genuine candidate edit the only retry boundary after one exact Engine rejection.
+  const [lotAuditionPresentation, setLotAuditionPresentationState] =
+    useState<LotAuditionPresentationState>({ workspace: null, liveReceipt: null })
+  const latestLotAuditionPresentationRef = useRef(lotAuditionPresentation)
+  latestLotAuditionPresentationRef.current = lotAuditionPresentation
+  const lotAuditionKeyRef = useRef(0)
+  const lotAuditionActivationRef = useRef<{
+    workspace: EditingLotAuditionWorkspace
+    state: GameState
+    revision: number
+    payload: StartCastingSessionPayload
+  } | null>(null)
+  const lotAuditionRejectedAttemptRef = useRef<{
+    workspace: EditingLotAuditionWorkspace
+    state: GameState
+    revision: number
+    payloadSignature: string
+    error: string
+  } | null>(null)
+  const commitLotAuditionPresentation = useCallback((
+    next: SetStateAction<LotAuditionPresentationState>,
+  ) => {
+    const previous = latestLotAuditionPresentationRef.current
+    const resolved = typeof next === 'function'
+      ? (next as (
+          current: LotAuditionPresentationState,
+        ) => LotAuditionPresentationState)(previous)
+      : next
+    latestLotAuditionPresentationRef.current = resolved
+    setLotAuditionPresentationState(resolved)
+  }, [])
+  const clearLotAuditionPresentation = useCallback(() => {
+    lotAuditionActivationRef.current = null
+    lotAuditionRejectedAttemptRef.current = null
+    const current = latestLotAuditionPresentationRef.current
+    if (current.workspace === null && current.liveReceipt === null) return
+    commitLotAuditionPresentation({ workspace: null, liveReceipt: null })
+  }, [commitLotAuditionPresentation])
   // Screen ownership is part of Lot command authority. Keep the latest scheduled screen
   // synchronously visible to retained world callbacks: React may not have rendered a route
   // change yet when a delayed pointer/touch tail invokes an old Lot closure.
@@ -680,10 +916,15 @@ export function App() {
       activeLotPresentationRef.current = null
       clearLotPackagePresentation()
       clearLotCommissionPresentation()
+      clearLotAuditionPresentation()
     }
     latestScreenRef.current = resolved
     setScreenState(resolved)
-  }, [clearLotCommissionPresentation, clearLotPackagePresentation])
+  }, [
+    clearLotAuditionPresentation,
+    clearLotCommissionPresentation,
+    clearLotPackagePresentation,
+  ])
   const lotPresentationToken = useMemo<object | null>(
     () => screen.kind === 'lot' ? {} : null,
     [screen],
@@ -698,6 +939,7 @@ export function App() {
       }
       const presentation = latestLotPackagePresentationRef.current
       const commission = latestLotCommissionPresentationRef.current
+      const audition = latestLotAuditionPresentationRef.current
       if (
         presentation.workspace?.lotPresentation === token ||
         presentation.liveFormation?.lotPresentation === token
@@ -712,8 +954,17 @@ export function App() {
         lotCommissionRejectedAttemptRef.current = null
         commitLotCommissionPresentation({ workspace: null, liveReceipt: null })
       }
+      if (
+        audition.workspace?.lotPresentation === token ||
+        audition.liveReceipt?.lotPresentation === token
+      ) {
+        lotAuditionActivationRef.current = null
+        lotAuditionRejectedAttemptRef.current = null
+        commitLotAuditionPresentation({ workspace: null, liveReceipt: null })
+      }
     }
   }, [
+    commitLotAuditionPresentation,
     commitLotCommissionPresentation,
     commitLotPackagePresentation,
     lotPresentationToken,
@@ -787,12 +1038,18 @@ export function App() {
     lotCastingPackageHandoffRef.current = null
     clearLotPackagePresentation()
     clearLotCommissionPresentation()
+    clearLotAuditionPresentation()
     latestStateRef.current = next
     setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setScreen(clearNextEventScreenIntent)
     setState(next)
-  }, [clearLotCommissionPresentation, clearLotPackagePresentation, setScreen])
+  }, [
+    clearLotAuditionPresentation,
+    clearLotCommissionPresentation,
+    clearLotPackagePresentation,
+    setScreen,
+  ])
 
   // A non-release Lot-native cadence successor must stay inside the exact mounted Lot host.
   // Keep this boundary separate from ordinary whole-state replacement: even an identity-returning
@@ -805,11 +1062,16 @@ export function App() {
     lotCastingPackageHandoffRef.current = null
     clearLotPackagePresentation()
     clearLotCommissionPresentation()
+    clearLotAuditionPresentation()
     latestStateRef.current = next
     setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setState(next)
-  }, [clearLotCommissionPresentation, clearLotPackagePresentation])
+  }, [
+    clearLotAuditionPresentation,
+    clearLotCommissionPresentation,
+    clearLotPackagePresentation,
+  ])
 
   const restoreRetainedPackageFocus = useCallback((
     workspace: LotPackageWorkspaceBase,
@@ -871,6 +1133,55 @@ export function App() {
     }
     if (typeof requestAnimationFrame === 'function') requestAnimationFrame(restore)
     else queueMicrotask(restore)
+  }, [])
+
+  const restoreRetainedAuditionFocus = useCallback((
+    workspace: LotAuditionWorkspaceBase,
+    allowExactOpener: boolean,
+  ) => {
+    const restore = () => {
+      const presentation = latestLotAuditionPresentationRef.current
+      if (
+        presentation.workspace !== null ||
+        presentation.liveReceipt !== null ||
+        latestLotPackagePresentationRef.current.workspace !== null ||
+        latestLotPackagePresentationRef.current.liveFormation !== null ||
+        latestLotCommissionPresentationRef.current.workspace !== null ||
+        latestLotCommissionPresentationRef.current.liveReceipt !== null ||
+        latestOpenProfileIdRef.current !== null ||
+        latestScreenRef.current !== workspace.lotScreen ||
+        activeLotPresentationRef.current !== workspace.lotPresentation
+      ) return
+      const candidates = [
+        allowExactOpener ? workspace.opener : null,
+        document.querySelector<HTMLElement>('[data-testid="lot-studio-heading"]'),
+      ]
+      const target = candidates.find(
+        (candidate): candidate is HTMLElement =>
+          candidate !== null &&
+          candidate.isConnected &&
+          candidate.closest('[inert]') === null,
+      )
+      target?.focus({ preventScroll: true })
+    }
+    if (typeof requestAnimationFrame === 'function') requestAnimationFrame(restore)
+    else queueMicrotask(restore)
+  }, [])
+
+  useEffect(() => {
+    const clearHeldAuditionClaim = () => {
+      lotAuditionActivationRef.current = null
+    }
+    const clearHiddenAuditionClaim = () => {
+      if (document.visibilityState === 'hidden') clearHeldAuditionClaim()
+    }
+    window.addEventListener('blur', clearHeldAuditionClaim)
+    document.addEventListener('visibilitychange', clearHiddenAuditionClaim)
+    return () => {
+      window.removeEventListener('blur', clearHeldAuditionClaim)
+      document.removeEventListener('visibilitychange', clearHiddenAuditionClaim)
+      lotAuditionActivationRef.current = null
+    }
   }, [])
 
   // Autosave after EVERY authoritative state transition — every GameState change flows through
@@ -1064,6 +1375,64 @@ export function App() {
     commitLotCommissionPresentation,
     lotCommissionPresentation.workspace,
     restoreRetainedCommissionFocus,
+    screen,
+    state,
+  ])
+
+  // A valid Casting successor remains in the bounded committed sheet until the established
+  // autosave effect has observed it. Receipt failure demotes only the optional Lot witness.
+  useEffect(() => {
+    const workspace = lotAuditionPresentation.workspace
+    if (workspace?.phase !== 'committed') return
+    if (
+      state !== workspace.next ||
+      latestStateRef.current !== workspace.next ||
+      screen !== workspace.lotScreen ||
+      latestScreenRef.current !== workspace.lotScreen ||
+      activeLotPresentationRef.current !== workspace.lotPresentation
+    ) {
+      if (latestLotAuditionPresentationRef.current.workspace === workspace) {
+        lotAuditionActivationRef.current = null
+        lotAuditionRejectedAttemptRef.current = null
+        commitLotAuditionPresentation({ workspace: null, liveReceipt: null })
+      }
+      return
+    }
+    let active = true
+    window.queueMicrotask(() => {
+      if (
+        !active ||
+        latestLotAuditionPresentationRef.current.workspace !== workspace ||
+        latestStateRef.current !== workspace.next ||
+        latestScreenRef.current !== workspace.lotScreen ||
+        activeLotPresentationRef.current !== workspace.lotPresentation ||
+        latestLotPackagePresentationRef.current.workspace !== null ||
+        latestLotPackagePresentationRef.current.liveFormation !== null ||
+        latestLotCommissionPresentationRef.current.workspace !== null ||
+        latestLotCommissionPresentationRef.current.liveReceipt !== null ||
+        latestOpenProfileIdRef.current !== null
+      ) return
+      const liveReceipt: LiveAuditionPresentation | null = workspace.receipt === null
+        ? null
+        : {
+            identity: {},
+            acceptedState: workspace.next,
+            lotScreen: workspace.lotScreen,
+            lotPresentation: workspace.lotPresentation,
+            receipt: workspace.receipt,
+          }
+      lotAuditionActivationRef.current = null
+      lotAuditionRejectedAttemptRef.current = null
+      commitLotAuditionPresentation({ workspace: null, liveReceipt })
+      if (liveReceipt === null) restoreRetainedAuditionFocus(workspace, false)
+    })
+    return () => {
+      active = false
+    }
+  }, [
+    commitLotAuditionPresentation,
+    lotAuditionPresentation.workspace,
+    restoreRetainedAuditionFocus,
     screen,
     state,
   ])
@@ -1274,8 +1643,302 @@ export function App() {
       latestLotPackagePresentationRef.current.liveFormation === null &&
       latestLotCommissionPresentationRef.current.workspace === null &&
       latestLotCommissionPresentationRef.current.liveReceipt === null &&
+      latestLotAuditionPresentationRef.current.workspace === null &&
+      latestLotAuditionPresentationRef.current.liveReceipt === null &&
       latestOpenProfileIdRef.current === null &&
       latestScreenRef.current.kind === 'lot'
+  }
+
+  function currentLotAuditionTransitionOwnerFree(): boolean {
+    return lotNextEventSessionRef.current === null &&
+      lotNextEventActivationRef.current === null &&
+      lotScriptReviewActivationRef.current === null &&
+      lotCastingReviewActivationRef.current === null &&
+      lotCastingPackageHandoffRef.current === null
+  }
+
+  function handleOpenLotAuditionPlanning(
+    renderedState: GameState,
+    renderedScreen: LotScreen,
+    renderedPresentation: object,
+    origin: LotAuditionPlanningOrigin,
+  ): boolean {
+    const currentState = latestStateRef.current
+    const currentScreen = latestScreenRef.current
+    const currentPresentation = activeLotPresentationRef.current
+    if (
+      !currentLotWorldInputOwner() ||
+      !currentLotAuditionTransitionOwnerFree() ||
+      currentState !== renderedState ||
+      currentScreen !== renderedScreen ||
+      currentPresentation !== renderedPresentation ||
+      !exactLotAuditionPlanningOrigin(origin)
+    ) return false
+
+    let context: LotAuditionPlanningContext | null = null
+    try {
+      context = currentLotAuditionPlanningContext({
+        hollywoodEnabled,
+        origin: 'lot-browse-talent',
+        worldInputOwner: true,
+        originState: renderedState,
+        currentState,
+        originScreen: renderedScreen,
+        currentScreen,
+        originPresentation: renderedPresentation,
+        currentPresentation,
+      })
+    } catch {
+      context = null
+    }
+    if (context === null) return false
+
+    const workspace: LotAuditionWorkspaceSession = {
+      phase: 'editing',
+      identity: {},
+      key: ++lotAuditionKeyRef.current,
+      lotScreen: renderedScreen,
+      lotPresentation: renderedPresentation,
+      context,
+      opener: origin.opener,
+      acceptedState: renderedState,
+      slateRevision: 0,
+      slate: { lead: [], antagonist: [], support: [] },
+    }
+    lotAuditionActivationRef.current = null
+    lotAuditionRejectedAttemptRef.current = null
+    commitLotAuditionPresentation({ workspace, liveReceipt: null })
+    return true
+  }
+
+  function currentLotAuditionWorkspaceOwner(
+    workspace: LotAuditionWorkspaceSession,
+  ): workspace is EditingLotAuditionWorkspace {
+    const currentWorkspace = latestLotAuditionPresentationRef.current.workspace
+    const currentState = latestStateRef.current
+    const currentScreen = latestScreenRef.current
+    const currentPresentation = activeLotPresentationRef.current
+    return !(
+      currentWorkspace !== workspace ||
+      workspace.phase !== 'editing' ||
+      !currentLotAuditionTransitionOwnerFree() ||
+      currentState !== workspace.acceptedState ||
+      currentScreen !== workspace.lotScreen ||
+      currentPresentation !== workspace.lotPresentation ||
+      latestLotPackagePresentationRef.current.workspace !== null ||
+      latestLotPackagePresentationRef.current.liveFormation !== null ||
+      latestLotCommissionPresentationRef.current.workspace !== null ||
+      latestLotCommissionPresentationRef.current.liveReceipt !== null ||
+      latestLotAuditionPresentationRef.current.liveReceipt !== null ||
+      latestOpenProfileIdRef.current !== null
+    )
+  }
+
+  function currentLotAuditionWorkspaceContext(
+    workspace: LotAuditionWorkspaceSession,
+  ): LotAuditionPlanningContext | null {
+    if (!currentLotAuditionWorkspaceOwner(workspace)) return null
+    const currentState = latestStateRef.current
+    const currentScreen = latestScreenRef.current
+    const currentPresentation = activeLotPresentationRef.current
+    try {
+      const context = currentLotAuditionPlanningContext({
+        hollywoodEnabled,
+        origin: 'lot-browse-talent',
+        worldInputOwner: true,
+        originState: workspace.acceptedState,
+        currentState,
+        originScreen: workspace.lotScreen,
+        currentScreen,
+        originPresentation: workspace.lotPresentation,
+        currentPresentation,
+      })
+      return context !== null && sameLotAuditionPlanningContext(workspace.context, context)
+        ? context
+        : null
+    } catch {
+      return null
+    }
+  }
+
+  function handleLotAuditionSlateChange(
+    workspace: LotAuditionWorkspaceSession,
+    draft: CastingSlateDraft,
+  ) {
+    const current = latestLotAuditionPresentationRef.current.workspace
+    if (
+      current === null ||
+      current.phase !== 'editing' ||
+      current !== workspace ||
+      lotAuditionActivationRef.current !== null ||
+      !currentLotAuditionWorkspaceOwner(current)
+    ) return
+    const nextDraft = genuineLotAuditionDraftChange(current.context, current.slate, draft)
+    if (nextDraft === null) return
+    lotAuditionRejectedAttemptRef.current = null
+    const updated: LotAuditionWorkspaceSession = {
+      ...current,
+      slateRevision: current.slateRevision + 1,
+      slate: nextDraft,
+    }
+    commitLotAuditionPresentation({ workspace: updated, liveReceipt: null })
+  }
+
+  function handleLotAuditionCancel(workspace: LotAuditionWorkspaceSession) {
+    const current = latestLotAuditionPresentationRef.current.workspace
+    if (
+      current === null ||
+      current.phase !== 'editing' ||
+      current !== workspace ||
+      lotAuditionActivationRef.current !== null ||
+      !currentLotAuditionWorkspaceOwner(current)
+    ) return
+    lotAuditionRejectedAttemptRef.current = null
+    commitLotAuditionPresentation({ workspace: null, liveReceipt: null })
+    restoreRetainedAuditionFocus(current, true)
+  }
+
+  function handleLotAuditionOpenDetails(workspace: LotAuditionWorkspaceSession) {
+    const current = latestLotAuditionPresentationRef.current.workspace
+    if (
+      current === null ||
+      current.phase !== 'editing' ||
+      current !== workspace ||
+      lotAuditionActivationRef.current !== null ||
+      currentLotAuditionWorkspaceContext(current) === null
+    ) return
+    lotAuditionActivationRef.current = null
+    lotAuditionRejectedAttemptRef.current = null
+    commitLotAuditionPresentation({ workspace: null, liveReceipt: null })
+    setLotCadenceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
+    setScreen({
+      kind: 'castingRoom',
+      returnContext: {
+        kind: 'lot',
+        focus: 'selected-building',
+        suppressOperationalAnnouncement: false,
+      },
+      scriptProjectId: current.context.project.projectId,
+    })
+  }
+
+  function handleLotAuditionSubmit(
+    workspace: LotAuditionWorkspaceSession,
+    renderedBefore: GameState,
+    slate: StartCastingSessionPayload['slate'],
+  ): ActionOutcome {
+    const current = latestLotAuditionPresentationRef.current.workspace
+    if (
+      current === null ||
+      current.phase !== 'editing' ||
+      current !== workspace ||
+      current.acceptedState !== renderedBefore ||
+      lotAuditionActivationRef.current !== null
+    ) {
+      return {
+        ok: false,
+        error: 'Audition planning is no longer owned by the live Studio Lot.',
+      }
+    }
+    const latestContext = currentLotAuditionWorkspaceContext(current)
+    const payload = latestContext === null
+      ? null
+      : lotAuditionPlanningPayload(latestContext, {
+          projectId: current.context.project.projectId,
+          slate,
+        })
+    if (latestContext === null || payload === null) {
+      return {
+        ok: false,
+        error: 'Audition planning is no longer legal for this live Studio Lot.',
+      }
+    }
+    if (!sameLotAuditionDraft(latestContext, current.slate, payload.slate)) {
+      return {
+        ok: false,
+        error: 'The camera-test slate no longer matches the live Studio Lot workspace.',
+      }
+    }
+
+    let payloadSignature: string
+    try {
+      payloadSignature = JSON.stringify(payload)
+    } catch {
+      return {
+        ok: false,
+        error: 'The camera-test slate is malformed. Review all six reads.',
+      }
+    }
+    const rejectedAttempt = lotAuditionRejectedAttemptRef.current
+    if (
+      rejectedAttempt !== null &&
+      rejectedAttempt.workspace === current &&
+      rejectedAttempt.state === renderedBefore &&
+      rejectedAttempt.revision === current.slateRevision &&
+      rejectedAttempt.payloadSignature === payloadSignature
+    ) {
+      return { ok: false, error: rejectedAttempt.error }
+    }
+    lotAuditionRejectedAttemptRef.current = null
+    const activation = {
+      workspace: current,
+      state: renderedBefore,
+      revision: current.slateRevision,
+      payload,
+    }
+    lotAuditionActivationRef.current = activation
+    const result = startCastingSessionAction(renderedBefore, payload)
+    if (!result.ok) {
+      if (lotAuditionActivationRef.current === activation) {
+        lotAuditionActivationRef.current = null
+      }
+      lotAuditionRejectedAttemptRef.current = {
+        workspace: current,
+        state: renderedBefore,
+        revision: current.slateRevision,
+        payloadSignature,
+        error: result.error,
+      }
+      return result
+    }
+
+    let receipt: LotAuditionPlanningReceipt | null = null
+    try {
+      receipt = acceptedLotAuditionPlanningReceipt(renderedBefore, result.next, payload)
+    } catch {
+      receipt = null
+    }
+    const committed: LotAuditionWorkspaceSession = {
+      phase: 'committed',
+      identity: current.identity,
+      key: current.key,
+      lotScreen: current.lotScreen,
+      lotPresentation: current.lotPresentation,
+      context: current.context,
+      opener: current.opener,
+      before: renderedBefore,
+      next: result.next,
+      receipt,
+    }
+    lotAuditionRejectedAttemptRef.current = null
+    commitLotAuditionPresentation({ workspace: committed, liveReceipt: null })
+    lotNextEventSessionRef.current = null
+    lotNextEventActivationRef.current = null
+    lotScriptReviewActivationRef.current = null
+    lotCastingReviewActivationRef.current = null
+    lotCastingPackageHandoffRef.current = null
+    latestStateRef.current = result.next
+    setLotCadenceFeedback(null)
+    setLotOperationalAnnouncementSuppressed(false)
+    setState(result.next)
+    return result
+  }
+
+  function handleLiveAuditionConsumed(identity: object) {
+    const presentation = latestLotAuditionPresentationRef.current
+    if (presentation.liveReceipt?.identity !== identity) return
+    commitLotAuditionPresentation({ ...presentation, liveReceipt: null })
   }
 
   function handleLotCommissionCancel(workspace: LotCommissionWorkspaceSession) {
@@ -2779,7 +3442,8 @@ export function App() {
   const backgroundModalOpen =
     openProfileId !== null ||
     lotPackagePresentation.workspace !== null ||
-    lotCommissionPresentation.workspace !== null
+    lotCommissionPresentation.workspace !== null ||
+    lotAuditionPresentation.workspace !== null
 
   // A concise, dismissible recovery notice shown once after a restore (or a safe failure message).
   const recoveryBanner = recovery && (
@@ -3042,6 +3706,8 @@ export function App() {
   const retainedLiveFormation = lotPackagePresentation.liveFormation
   const retainedCommissionWorkspace = lotCommissionPresentation.workspace
   const retainedLiveCommission = lotCommissionPresentation.liveReceipt
+  const retainedAuditionWorkspace = lotAuditionPresentation.workspace
+  const retainedLiveAudition = lotAuditionPresentation.liveReceipt
   const retainedCommissionBoard = (() => {
     if (retainedCommissionWorkspace?.phase !== 'editing') return null
     try {
@@ -3413,6 +4079,14 @@ export function App() {
             state={state}
             onPresentationMount={mountLotPresentation}
             onNavigate={(route) => handleLotNavigate(route, state, screen, lotPresentationToken!)}
+            onOpenAuditionPlanning={(renderedState, origin) =>
+              lotPresentationToken !== null &&
+              handleOpenLotAuditionPlanning(
+                renderedState,
+                screen,
+                lotPresentationToken,
+                origin,
+              )}
             onExit={() => {
               if (currentLotWorldInputOwner()) openDashboardFromLot('studio-home')
             }}
@@ -3485,6 +4159,14 @@ export function App() {
                   onLiveCommissionConsumed: handleLiveCommissionConsumed,
                 }
               : {})}
+            {...(retainedLiveAudition !== null &&
+              retainedLiveAudition.lotScreen === screen &&
+              retainedLiveAudition.lotPresentation === lotPresentationToken
+              ? {
+                  liveAuditionPresentation: retainedLiveAudition,
+                  onLiveAuditionConsumed: handleLiveAuditionConsumed,
+                }
+              : {})}
             onProductionCommand={(command) =>
               handleProductionCommand(command, 'mounted-lot')}
             onRunNextEventProductionCommand={handleLotNextEventProductionCommand}
@@ -3523,6 +4205,7 @@ export function App() {
                 activeLotPresentationRef.current !== lotPresentationToken ||
                 latestLotPackagePresentationRef.current.workspace !== null ||
                 latestLotCommissionPresentationRef.current.workspace !== null ||
+                latestLotAuditionPresentationRef.current.workspace !== null ||
                 latestOpenProfileIdRef.current !== personId
               ) return
               closeTalentProfileIfOpen(personId)
@@ -3531,7 +4214,8 @@ export function App() {
             worldInputSuspended={
               profileDrawerOpen ||
               retainedPackageWorkspace !== null ||
-              retainedCommissionWorkspace !== null
+              retainedCommissionWorkspace !== null ||
+              retainedAuditionWorkspace !== null
             }
           />
         </Suspense>
@@ -3605,6 +4289,33 @@ export function App() {
                 />
               )}
           </LotCommissionWorkspace>
+        )}
+
+      {screen.kind === 'lot' &&
+        retainedAuditionWorkspace !== null &&
+        retainedAuditionWorkspace.lotScreen === screen &&
+        retainedAuditionWorkspace.lotPresentation === lotPresentationToken && (
+          <LotAuditionWorkspace
+            key={retainedAuditionWorkspace.key}
+            phase={retainedAuditionWorkspace.phase}
+            project={retainedAuditionWorkspace.context.project}
+            disabled={retainedAuditionWorkspace.phase === 'committed'}
+            nestedModalOpen={profileDrawerOpen}
+            onCancel={() => handleLotAuditionCancel(retainedAuditionWorkspace)}
+            onOpenDetails={() => handleLotAuditionOpenDetails(retainedAuditionWorkspace)}
+            onSlateChange={(draft) =>
+              handleLotAuditionSlateChange(retainedAuditionWorkspace, draft)}
+            onSubmit={(slate) => retainedAuditionWorkspace.phase === 'editing'
+              ? handleLotAuditionSubmit(
+                  retainedAuditionWorkspace,
+                  retainedAuditionWorkspace.acceptedState,
+                  slate,
+                )
+              : {
+                  ok: false,
+                  error: 'Audition planning is already recording with the live Studio Lot.',
+                }}
+          />
         )}
     </DevErrorBoundary>
   )

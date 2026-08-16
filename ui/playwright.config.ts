@@ -13,6 +13,10 @@ const PORT = 5178 // fixed, distinct from the default dev port (5173)
 export default defineConfig({
   testDir: './e2e',
   testMatch: /.*\.spec\.ts$/,
+  // Frozen current-break audits prove a superseded pre-implementation failure at their
+  // contract checkpoint. Keep the source as durable evidence without making the accepted
+  // post-repair browser suite assert that the old world-unmount defect still exists.
+  testIgnore: /.*current-break-audit\.spec\.ts$/,
   fullyParallel: false,
   workers: 1,
   retries: 0,

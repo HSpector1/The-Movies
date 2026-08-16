@@ -1,0 +1,218 @@
+/* Lot-retained camera-test planning. The shared planner remains the decision
+   surface while this bounded sheet preserves the living Lot around it. */
+.lot-audition-workspace-layer {
+  position: fixed;
+  z-index: 40;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: clamp(24px, 2.4vw, 32px);
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: rgba(5, 7, 12, 0.42);
+  isolation: isolate;
+}
+
+.lot-audition-workspace {
+  display: flex;
+  flex-direction: column;
+  width: min(760px, 72vw);
+  height: min(88dvh, 860px);
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  color: var(--text);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  box-shadow: -18px 18px 70px rgba(0, 0, 0, 0.58);
+}
+
+.lot-audition-workspace:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.lot-audition-workspace-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-inset);
+}
+
+.lot-audition-workspace-identity {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lot-audition-workspace-identity strong {
+  overflow: hidden;
+  font-size: 17px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lot-audition-workspace-identity > span:last-child {
+  overflow: hidden;
+  color: var(--text-faint);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lot-audition-workspace-header-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.lot-audition-workspace-header-actions .ghost {
+  min-height: 44px;
+}
+
+.lot-audition-workspace-scroll {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding: 18px;
+}
+
+.lot-audition-workspace-scroll > .casting-slate-planner {
+  margin: 0;
+}
+
+.lot-audition-workspace .casting-slate-candidate-grid {
+  grid-template-columns: 1fr;
+}
+
+.lot-audition-workspace .casting-slate-planner-heading > div {
+  min-width: 0;
+}
+
+.lot-audition-workspace .casting-slate-planner-submit {
+  align-items: center;
+}
+
+.lot-audition-workspace .casting-slate-planner-submit button {
+  min-height: 44px;
+}
+
+.lot-audition-workspace .option {
+  min-height: 56px;
+}
+
+.lot-audition-workspace-recording {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(28px, 6vw, 72px);
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(201, 162, 74, 0.13), transparent 42%),
+    var(--bg-panel);
+}
+
+.lot-audition-workspace-recording h2 {
+  max-width: 620px;
+  margin: 8px 0;
+  font-size: clamp(24px, 3vw, 36px);
+}
+
+.lot-audition-workspace-recording p {
+  max-width: 520px;
+  color: var(--text-dim);
+}
+
+.lot-audition-workspace-eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+}
+
+@media (max-width: 760px) {
+  .lot-audition-workspace-layer {
+    align-items: stretch;
+    padding: 8px;
+  }
+
+  .lot-audition-workspace {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border-radius: 8px;
+  }
+
+  .lot-audition-workspace-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 14px;
+  }
+
+  .lot-audition-workspace-header-actions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .lot-audition-workspace-scroll {
+    padding: 12px 14px 18px;
+    scrollbar-gutter: auto;
+  }
+}
+
+@media (max-height: 620px) and (min-width: 761px) {
+  .lot-audition-workspace-layer {
+    align-items: stretch;
+    padding-block: 8px;
+  }
+
+  .lot-audition-workspace {
+    height: 100%;
+    max-height: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .lot-audition-workspace-layer {
+    background: transparent;
+  }
+
+  .lot-audition-workspace {
+    border: 2px solid CanvasText;
+    box-shadow: none;
+  }
+
+  .lot-audition-workspace-header {
+    border-color: CanvasText;
+  }
+
+  .lot-audition-workspace .option[aria-pressed='true'] {
+    outline: 2px solid Highlight;
+    outline-offset: -3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lot-audition-workspace,
+  .lot-audition-workspace-layer {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -92,6 +92,10 @@ import {
   type ScreenplayCommissionReceipt,
 } from './snapshot/scriptCommission.ts'
 import {
+  currentLotAuditionPlanningReceipt,
+  type LotAuditionPlanningReceipt,
+} from './snapshot/auditionPlanning.ts'
+import {
   currentLotNextEventProductionCommand,
   sameLotNextEventProductionCommand,
   sameLotNextEventReceipt,
@@ -143,6 +147,20 @@ import {
   operationHollywoodEnabled,
 } from '../flags.ts'
 import type { IdentityMode } from './identity/manifest.ts'
+
+/**
+ * Exact, non-serialized origin proof for the one retained first-session planner.
+ * The cue is presentation-only; App must still prove the complete Casting board.
+ */
+export type LotAuditionPlanningOrigin = Readonly<{
+  opener: HTMLButtonElement
+  cue: Readonly<{
+    buildingId: 'casting'
+    action: 'browse-talent'
+    attention: AttentionState
+    reason: string
+  }>
+}>
 
 // Phaser listens for mouse and touch input at window level. Contain every down
 // event family from React overlays so a desk command cannot also select the
@@ -355,6 +373,22 @@ type Props = {
   }
   /** Consume the transient commission identity whether strict current truth succeeds or fails. */
   onLiveCommissionConsumed?: (identity: object) => void
+  /** One transient accepted Casting-session receipt for this already-mounted Lot. */
+  liveAuditionPresentation?: {
+    identity: object
+    acceptedState: GameState
+    receipt: LotAuditionPlanningReceipt
+  }
+  /** Consume the audition identity once whether strict current truth succeeds or fails. */
+  onLiveAuditionConsumed?: (identity: object) => void
+  /**
+   * Offer one exact current Casting cue to App's independent retained-planner gate.
+   * `true` keeps this Lot mounted; false/absence preserves the canonical deep route.
+   */
+  onOpenAuditionPlanning?: (
+    renderedState: GameState,
+    origin: LotAuditionPlanningOrigin,
+  ) => boolean
   /** Exact pending screenplay identity required by the deep-return arm. */
   entryScriptReviewTarget?: LotScriptReviewTarget
   /** Exact pending Casting-review identity required by the deep-return arm. */
@@ -510,6 +544,16 @@ function castingReviewSuccessMessage(success: LotCastingReviewSuccess): string {
   return `${success.title} casting review is complete. Persisted evidence remains available. The current package blockers still apply: ${blockers}`
 }
 
+function auditionPlanningRoleLabel(
+  role: LotAuditionPlanningReceipt['reads'][number]['role'],
+): 'Lead' | 'Antagonist' | 'Support' {
+  switch (role) {
+    case 'lead': return 'Lead'
+    case 'antagonist': return 'Antagonist'
+    case 'support': return 'Support'
+  }
+}
+
 function annexStatusLabel(view: StudioConstructionView): string {
   switch (view.status) {
     case 'legacy':
@@ -649,6 +693,9 @@ export function StudioLotScreen({
   onLiveFormationConsumed,
   liveCommissionPresentation,
   onLiveCommissionConsumed,
+  liveAuditionPresentation,
+  onLiveAuditionConsumed,
+  onOpenAuditionPlanning,
   entryScriptReviewTarget,
   entryCastingReviewTarget,
   entryNextEventReceipt,
@@ -885,6 +932,23 @@ export function StudioLotScreen({
       setScreenplayCommissionActivity(null)
     }
   }, [screenplayCommissionActivity, state])
+  const auditionPlanningWitnessHeadingRef = useRef<HTMLHeadingElement | null>(null)
+  const [auditionPlanningActivity, setAuditionPlanningActivity] = useState<{
+    acceptedState: GameState
+    receipt: LotAuditionPlanningReceipt
+  } | null>(null)
+  const visibleAuditionPlanningActivity =
+    auditionPlanningActivity?.acceptedState === state
+      ? auditionPlanningActivity
+      : null
+  useEffect(() => {
+    if (
+      auditionPlanningActivity !== null &&
+      auditionPlanningActivity.acceptedState !== state
+    ) {
+      setAuditionPlanningActivity(null)
+    }
+  }, [auditionPlanningActivity, state])
   const [scriptReviewIntent, setScriptReviewIntent] = useState<LotScriptReviewTarget | null>(
     entryFocus === 'script-review' ? entryScriptReviewTarget ?? null : null,
   )
@@ -1033,6 +1097,7 @@ export function StudioLotScreen({
   const formationEntryConsumedRef = useRef(false)
   const liveFormationConsumedRef = useRef<object | null>(null)
   const liveCommissionConsumedRef = useRef<object | null>(null)
+  const liveAuditionConsumedRef = useRef<WeakSet<object>>(new WeakSet())
   const entryFocusConsumedRef = useRef(false)
   const gateHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const gateVisitorHeadingRef = useRef<HTMLHeadingElement | null>(null)
@@ -1408,6 +1473,7 @@ export function StudioLotScreen({
     setCastingReviewActivity(null)
     castingReviewDispatchGuardRef.current = null
     if (id !== 'writers') setScreenplayCommissionActivity(null)
+    if (id !== 'casting') setAuditionPlanningActivity(null)
     setLotSelectedBuilding(id)
     setSelected(id)
   }, [])
@@ -2226,6 +2292,52 @@ export function StudioLotScreen({
     announceHollywoodActivity,
     liveCommissionPresentation,
     onLiveCommissionConsumed,
+    recordSelection,
+    state,
+    worldInputSuspended,
+  ])
+
+  // Starting camera tests changes only canonical Casting-session truth. App publishes this
+  // optional receipt after the successor is committed and autosaved; the same mounted Lot then
+  // consumes it once without manufacturing Actor travel, occupancy, work, or a winner.
+  useLayoutEffect(() => {
+    const presentation = liveAuditionPresentation
+    if (presentation === undefined || worldInputSuspended) return
+    if (liveAuditionConsumedRef.current.has(presentation.identity)) {
+      queueMicrotask(() => studioHeadingRef.current?.focus({ preventScroll: true }))
+      return
+    }
+    liveAuditionConsumedRef.current.add(presentation.identity)
+    const current =
+      presentation.acceptedState === state &&
+      latestGameStateRef.current === presentation.acceptedState
+        ? currentLotAuditionPlanningReceipt(state, presentation.receipt)
+        : null
+    if (current !== null) {
+      recordSelection('casting')
+      setSelectionInfo(null)
+      setAuditionPlanningActivity({
+        acceptedState: presentation.acceptedState,
+        receipt: current,
+      })
+      const reads = current.reads
+        .map((read) => `${auditionPlanningRoleLabel(read.role)} ${read.name}`)
+        .join('; ')
+      announceHollywoodActivity(
+        `Camera tests underway for ${current.title}. Started Week ${String(current.startedWeek)}, ` +
+          `due Week ${String(current.dueWeek)} in ${current.facilityName}, ` +
+          `slot ${String(current.slot + 1)}. Reads: ${reads}. No Actor was hired, signed, ` +
+          'held, paid, reserved, made busy, assigned, moved, or chosen.',
+      )
+      queueMicrotask(() => focusVisibleLotOwner(auditionPlanningWitnessHeadingRef.current))
+    } else {
+      queueMicrotask(() => studioHeadingRef.current?.focus({ preventScroll: true }))
+    }
+    onLiveAuditionConsumed?.(presentation.identity)
+  }, [
+    announceHollywoodActivity,
+    liveAuditionPresentation,
+    onLiveAuditionConsumed,
     recordSelection,
     state,
     worldInputSuspended,
@@ -3427,6 +3539,75 @@ export function StudioLotScreen({
     onNavigateRef.current(res.route)
   }, [])
 
+  const currentAuditionPlanningOrigin = useCallback((): LotAuditionPlanningOrigin | null => {
+    if (!hollywood || worldInputSuspendedRef.current) return null
+    const matches = latestSnapshotRef.current.buildings.filter(
+      (building) => building.id === 'casting',
+    )
+    const fact = matches.length === 1 ? matches[0]! : null
+    const opener = companionButtonRefs.current.casting
+    if (
+      fact === null ||
+      opener === null ||
+      opener === undefined ||
+      !opener.isConnected ||
+      opener.disabled ||
+      opener.getAttribute('data-testid') !== 'lot-nav-casting' ||
+      opener !== document.querySelector('[data-testid="lot-nav-casting"]')
+    ) return null
+
+    const attention = fact.attention ?? 'normal'
+    const reason = fact.attentionReason ?? ATTENTION_META[attention].word
+    const cueNode = opener.querySelector('[data-testid="lot-nav-casting-state"]')
+    const cueText = cueNode?.textContent?.replace(/\s+/g, ' ').trim() ?? ''
+    if (
+      opener.getAttribute('data-attention') !== attention ||
+      cueNode === null ||
+      !cueText.endsWith(reason)
+    ) return null
+
+    return {
+      opener,
+      cue: {
+        buildingId: 'casting',
+        action: 'browse-talent',
+        attention,
+        reason,
+      },
+    }
+  }, [hollywood])
+
+  const openCurrentAuditionPlanning = useCallback((): boolean => {
+    if (onOpenAuditionPlanning === undefined) return false
+    const origin = currentAuditionPlanningOrigin()
+    if (origin === null) return false
+    const renderedState = latestGameStateRef.current
+    if (!onOpenAuditionPlanning(renderedState, origin)) return false
+
+    // Casting becomes the semantic Lot owner only after App accepts the exact retained
+    // origin. Hollywood has no authorized physical Casting target, so preserve the view,
+    // canvas, camera, and every renderer-local selection exactly as they are.
+    clearFormationContext()
+    clearHollywoodStage7DetailContext()
+    clearGateContext()
+    clearPublicityContext()
+    clearHollywoodSceneryLoadInContext()
+    clearAnnexContext()
+    setSelectionInfo(null)
+    recordSelection('casting')
+    return true
+  }, [
+    clearAnnexContext,
+    clearFormationContext,
+    clearGateContext,
+    clearHollywoodSceneryLoadInContext,
+    clearHollywoodStage7DetailContext,
+    clearPublicityContext,
+    currentAuditionPlanningOrigin,
+    onOpenAuditionPlanning,
+    recordSelection,
+  ])
+
   // ── Create the Phaser view exactly once, lazily. Destroy on unmount. ─────────
   useEffect(() => {
     let cancelled = false
@@ -3511,6 +3692,7 @@ export function StudioLotScreen({
               e.buildingId === 'casting' &&
               keepInvalidCurrentCastingReviewNeutral()
             ) return
+            if (e.buildingId === 'casting' && openCurrentAuditionPlanning()) return
             if (hollywood && e.buildingId === 'gate') {
               enterGateContext({
                 place: null,
@@ -4608,6 +4790,7 @@ export function StudioLotScreen({
       if (id === 'writers' && enterCurrentScriptReview() !== null) return
       if (id === 'casting' && enterCurrentCastingReview() !== null) return
       if (id === 'casting' && keepInvalidCurrentCastingReviewNeutral()) return
+      if (id === 'casting' && openCurrentAuditionPlanning()) return
       if (hollywood && id === 'admin') {
         if (enterPublicityContext({
           place: null,
@@ -4684,6 +4867,7 @@ export function StudioLotScreen({
       enterPublicityContext,
       hollywood,
       keepInvalidCurrentCastingReviewNeutral,
+      openCurrentAuditionPlanning,
       recordSelection,
       yieldNextEventOrientation,
     ],
@@ -5478,6 +5662,10 @@ export function StudioLotScreen({
     selected === 'casting' &&
     visibleCastingReviewActivity?.feedback.kind === 'success' &&
     exactNextEventReceipt?.target.kind !== 'casting'
+  const auditionPlanningSelected =
+    selected === 'casting' &&
+    visibleAuditionPlanningActivity !== null &&
+    exactNextEventReceipt?.target.kind !== 'casting'
   const castingReviewSurfaceContents = pendingCastingReviewSelected
     ? (
         <LotCastingReviewPanel
@@ -5515,6 +5703,75 @@ export function StudioLotScreen({
           }}
         />
       )
+    : auditionPlanningSelected && visibleAuditionPlanningActivity !== null
+      ? (
+          <div
+            className="lot-casting-review-success"
+            data-testid="lot-audition-planning-witness"
+            data-session-id={visibleAuditionPlanningActivity.receipt.sessionId}
+            data-project-id={visibleAuditionPlanningActivity.receipt.projectId}
+          >
+            <p className="hollywood-eyebrow">CASTING · CAMERA TESTS UNDERWAY</p>
+            <h3 ref={auditionPlanningWitnessHeadingRef} tabIndex={-1}>
+              {visibleAuditionPlanningActivity.receipt.title}
+            </h3>
+            <p data-testid="lot-audition-planning-feedback">
+              Six camera-test reads are scheduled. No result or winner exists yet.
+            </p>
+            <dl
+              className="hollywood-person-facts"
+              data-testid="lot-audition-planning-facts"
+            >
+              <div>
+                <dt>Started</dt>
+                <dd>Week {visibleAuditionPlanningActivity.receipt.startedWeek}</dd>
+              </div>
+              <div>
+                <dt>Due</dt>
+                <dd>Week {visibleAuditionPlanningActivity.receipt.dueWeek}</dd>
+              </div>
+              <div>
+                <dt>Facility</dt>
+                <dd>{visibleAuditionPlanningActivity.receipt.facilityName}</dd>
+              </div>
+              <div>
+                <dt>Slot</dt>
+                <dd>{visibleAuditionPlanningActivity.receipt.slot + 1}</dd>
+              </div>
+            </dl>
+            <section aria-label="Scheduled camera-test reads">
+              <h4>Six scheduled reads</h4>
+              <ol data-testid="lot-audition-planning-reads">
+                {visibleAuditionPlanningActivity.receipt.reads.map((read, index) => (
+                  <li
+                    key={`${index}:${read.role}:${read.talentId}`}
+                    data-testid={`lot-audition-planning-read-${index}`}
+                    data-role={read.role}
+                    data-talent-id={read.talentId}
+                  >
+                    <strong>{auditionPlanningRoleLabel(read.role)}</strong>
+                    {' · '}{read.name}
+                  </li>
+                ))}
+              </ol>
+            </section>
+            <p data-testid="lot-audition-planning-boundary">
+              Starting camera tests did not hire, sign, hold, pay, reserve, make busy, assign,
+              move, or choose any Actor.
+            </p>
+            <button
+              type="button"
+              className="accent"
+              disabled={worldInputSuspended}
+              onClick={() => {
+                if (!worldInputSuspendedRef.current) dispatchRoute(BUILDING_ACTION.casting)
+              }}
+              data-testid="lot-audition-planning-open-details"
+            >
+              Open full Casting Room details
+            </button>
+          </div>
+        )
     : castingSuccessSelected && visibleCastingReviewActivity !== null
       ? (
           <div
