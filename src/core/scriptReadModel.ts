@@ -889,6 +889,30 @@ function lotAttention(
       detail: `${ready.title} is accepted and ready for package assembly.`,
     }
   }
+  // The screenplay system genuinely has nothing needing attention — but the
+  // SHARED Development & Casting facility is not necessarily empty. A greenlit
+  // picture holds one of its slots through development and pre-production, and
+  // announcing an idle Writers Room beside that picture is a flat contradiction
+  // of the building's own state.
+  //
+  // `kind` deliberately stays 'idle'. It is the screenplay system's own state,
+  // and every consumer gate keyed to it (commission legality, the retained
+  // commissioning workspace) must keep its exact current meaning: a picture in
+  // development occupies one slot, it does not stop the studio commissioning the
+  // next screenplay in another. Only the engine-owned copy is corrected, to name
+  // what actually occupies the building. Occupants are read from the one
+  // authoritative shared-capacity union, in facility-then-slot order, so this
+  // stays deterministic.
+  const productionOccupant = capacity.facilities
+    .flatMap((facility) => facility.slots)
+    .find((slot) => slot.occupant !== null && slot.occupant.owner === 'production')?.occupant
+  if (productionOccupant !== undefined && productionOccupant !== null) {
+    return {
+      kind: 'idle',
+      headline: `${productionOccupant.title} — early production work`,
+      detail: `No screenplay is in development. ${productionOccupant.title} holds a Development & Casting slot; another slot is open for a new commission.`,
+    }
+  }
   return {
     kind: 'idle',
     headline: 'Writers Room idle',
