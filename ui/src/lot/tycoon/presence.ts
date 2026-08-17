@@ -11,12 +11,15 @@
 // makes is checkable in `presence.test.ts` rather than by eye.
 //
 // Two kinds of site exist on this property:
-//   • an AUTHORED place — the nine `WORLD_PLACES` bodies, each with a `work` anchor at
-//     its door and a `wait` anchor on the ground outside it;
-//   • a PLACED facility — a V12 annex standing on a parcel. It has no BuildingId (the
-//     neutral-receipt ruling stands; this milestone does not widen the union), so its
-//     anchors are derived from the cells the engine says it occupies, and its commute
-//     re-uses the authored road route to the nearest authored place.
+//   • an AUTHORED place — one of the composed authored bodies, each with a `work` anchor
+//     at its door and a `wait` anchor on the ground outside it. Since C1-M1b those doors
+//     are re-expressed from the ENGINE's own origin for the body, not from a hard-coded
+//     footprint, so a body the engine puts somewhere else takes its door with it;
+//   • a PLACED facility — a facility the studio built. Since C1-M1b it is a first-class
+//     world citizen with its own `BuildingId` (`placed-<placementId>`), and its anchors
+//     come from its BLUEPRINT's presentation template rather than from arithmetic
+//     invented here. Its commute re-uses the authored road route to the nearest
+//     authored place.
 
 import type {
   BuildingId,
@@ -28,13 +31,14 @@ import type {
 import {
   LOT_D,
   LOT_W,
-  PLACE_BY_BUILDING,
   PRESENCE_ROUTES,
+  placedAnchors,
   presenceQueueSlotOffset,
   presenceSiteSlotOffset,
   type GridPoint,
   type PersonHomeRole,
 } from './world.ts'
+import { INITIAL_WORLD_BUILDINGS, worldBuildingById, type WorldBuilding } from './buildings.ts'
 
 /**
  * Which authored place each FOUNDING engine facility is.
@@ -61,11 +65,6 @@ export const PRESENCE_FACILITY_PLACE: Readonly<Record<string, BuildingId>> = {
 
 /** The legacy fixed Annex parcel, which the `expansion` place already owns. */
 const LEGACY_ANNEX_PARCEL = 'expansion'
-
-/** How far outside a placed facility's front face its workers stand, in tiles. */
-const PLACED_WORK_STANDOFF = 1.6
-/** How far outside that again its queue forms. */
-const PLACED_WAIT_STANDOFF = 2.1
 
 export type PresenceSite =
   | {
@@ -111,21 +110,34 @@ function clampToLot(point: GridPoint): GridPoint {
   }
 }
 
-function placeAnchor(buildingId: BuildingId, key: 'work' | 'wait'): GridPoint {
-  const place = PLACE_BY_BUILDING[buildingId]
+/**
+ * One authored body's named ground anchor, from the COMPOSED world.
+ *
+ * `buildings` is the world the scene actually painted. Absent, it falls back to the
+ * authored Week-0 composition — the same compatibility seam a snapshot with no property
+ * projection gets, and the reason every retained caller keeps working unchanged.
+ */
+function placeAnchor(
+  buildingId: BuildingId,
+  key: 'work' | 'wait',
+  buildings: readonly WorldBuilding[],
+): GridPoint | null {
+  const place = worldBuildingById(buildings, buildingId)
+  if (place === null) return null
   const anchor = place.anchors[key] ?? place.anchors.entry ?? { gx: place.gx, gy: place.gy }
   return { gx: anchor.gx, gy: anchor.gy }
 }
 
 /** Which authored place a free-standing point is nearest to, by its `work` anchor. */
-function nearestAuthoredPlace(at: GridPoint): BuildingId {
+function nearestAuthoredPlace(at: GridPoint, buildings: readonly WorldBuilding[]): BuildingId {
   let best: BuildingId = 'admin'
   let bestDistance = Number.POSITIVE_INFINITY
   // Fixed iteration order: the map's own key order, which is the authored place order.
   for (const buildingId of Object.keys(PRESENCE_FACILITY_PLACE).map(
     (facilityId) => PRESENCE_FACILITY_PLACE[facilityId]!,
   )) {
-    const anchor = placeAnchor(buildingId, 'work')
+    const anchor = placeAnchor(buildingId, 'work', buildings)
+    if (anchor === null) continue
     const distance = (anchor.gx - at.gx) ** 2 + (anchor.gy - at.gy) ** 2
     if (distance < bestDistance) {
       bestDistance = distance
@@ -135,7 +147,17 @@ function nearestAuthoredPlace(at: GridPoint): BuildingId {
   return best
 }
 
-function placedSite(placed: LotPlacedFacilityState): PresenceSite | null {
+/**
+ * The site one PLACED facility is, dressed by its own blueprint's anchor template.
+ *
+ * The footprint is the extent of the cells the ENGINE says it occupies, so a facility of
+ * any size on any parcel resolves — nothing here assumes an annex, a single placement,
+ * or a first-placement-only world.
+ */
+function placedSite(
+  placed: LotPlacedFacilityState,
+  buildings: readonly WorldBuilding[],
+): PresenceSite | null {
   if (!Array.isArray(placed.cells) || placed.cells.length === 0) return null
   let x0 = placed.cells[0]!.gx
   let y0 = placed.cells[0]!.gy
@@ -148,10 +170,20 @@ function placedSite(placed: LotPlacedFacilityState): PresenceSite | null {
     if (cell.gx > x1) x1 = cell.gx
     if (cell.gy > y1) y1 = cell.gy
   }
-  const centreGx = (x0 + x1 + 1) / 2
-  const work = clampToLot({ gx: centreGx, gy: y1 + PLACED_WORK_STANDOFF })
-  const wait = clampToLot({ gx: centreGx + 1.4, gy: y1 + PLACED_WAIT_STANDOFF })
-  return { kind: 'placed', placedId: placed.id, routeTo: nearestAuthoredPlace(work), work, wait }
+  const anchors = placedAnchors(
+    { gx: x0, gy: y0 },
+    { width: x1 - x0 + 1, depth: y1 - y0 + 1 },
+    placed.blueprintId,
+  )
+  const work = clampToLot(anchors.work ?? { gx: x0, gy: y1 })
+  const wait = clampToLot(anchors.wait ?? work)
+  return {
+    kind: 'placed',
+    placedId: placed.id,
+    routeTo: nearestAuthoredPlace(work, buildings),
+    work,
+    wait,
+  }
 }
 
 /**
@@ -162,25 +194,24 @@ function placedSite(placed: LotPlacedFacilityState): PresenceSite | null {
 export function resolvePresenceSite(
   facilityId: string,
   placements: readonly LotPlacedFacilityState[],
+  buildings: readonly WorldBuilding[] = INITIAL_WORLD_BUILDINGS,
 ): PresenceSite | null {
   const placed = placements.filter((candidate) => candidate.facilityId === facilityId)
   if (placed.length === 1) {
     const only = placed[0]!
     // The legacy fixed parcel IS the authored `expansion` place, which paints its own
     // lifecycle; a second body there would be two owners for one piece of ground.
-    if (only.parcelId !== LEGACY_ANNEX_PARCEL) return placedSite(only)
+    if (only.parcelId !== LEGACY_ANNEX_PARCEL) return placedSite(only, buildings)
   }
   // More than one placement claiming one facility id is contradictory truth: withhold.
   if (placed.length > 1) return null
   const buildingId = PRESENCE_FACILITY_PLACE[facilityId]
   if (buildingId === undefined) return null
-  return {
-    kind: 'place',
-    buildingId,
-    routeTo: buildingId,
-    work: placeAnchor(buildingId, 'work'),
-    wait: placeAnchor(buildingId, 'wait'),
-  }
+  const work = placeAnchor(buildingId, 'work', buildings)
+  const wait = placeAnchor(buildingId, 'wait', buildings)
+  // A facility whose body is not standing on this property claims no site at all.
+  if (work === null || wait === null) return null
+  return { kind: 'place', buildingId, routeTo: buildingId, work, wait }
 }
 
 /** The stance one beat of the engine's array puts a person in. */
@@ -220,6 +251,7 @@ export function presenceStands(
   placements: readonly LotPlacedFacilityState[],
   people: ReadonlyMap<string, PresencePersonHome>,
   beat: number,
+  buildings: readonly WorldBuilding[] = INITIAL_WORLD_BUILDINGS,
 ): PresenceStand[] {
   if (presence === null || presence === undefined || !Array.isArray(presence.people)) return []
   const stands: PresenceStand[] = []
@@ -232,7 +264,9 @@ export function presenceStands(
     const beats = Array.isArray(person.beats) ? person.beats : []
     const stance = stanceForBeat(beats[beat])
     const site =
-      person.facilityId === null ? null : resolvePresenceSite(person.facilityId, placements)
+      person.facilityId === null
+        ? null
+        : resolvePresenceSite(person.facilityId, placements, buildings)
 
     if (site === null || stance === 'home') {
       stands.push({
@@ -277,6 +311,7 @@ export function presenceStands(
 export function presenceOccupantCounts(
   presence: LotPresenceProjection | null | undefined,
   placements: readonly LotPlacedFacilityState[],
+  buildings: readonly WorldBuilding[] = INITIAL_WORLD_BUILDINGS,
 ): { byBuilding: Map<BuildingId, number>; byPlacement: Map<number, number> } {
   const byBuilding = new Map<BuildingId, number>()
   const byPlacement = new Map<number, number>()
@@ -287,7 +322,7 @@ export function presenceOccupantCounts(
   for (const person of presence.people) {
     if (person.facilityId === null) continue
     if (stanceForBeat(person.beats?.[beat]) !== 'at-site') continue
-    const site = resolvePresenceSite(person.facilityId, placements)
+    const site = resolvePresenceSite(person.facilityId, placements, buildings)
     if (site === null) continue
     if (site.kind === 'place') {
       byBuilding.set(site.buildingId, (byBuilding.get(site.buildingId) ?? 0) + 1)
