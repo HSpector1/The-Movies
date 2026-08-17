@@ -279,6 +279,55 @@ no confusion about the next decision ✓; ordinary actions from the studio ✓; 
 physical studio visible and relevant throughout ✓. "I know where this is because I
 built it" moments: none on the ordinary chain.
 
+### Wave 4 — red-team verdict: VERIFIED WITH CAVEATS
+
+Independent red-team at HEAD `6d7d284`, all gates reproduced (root+ui tsc clean;
+vitest 226 files / 3,104; Playwright FULL 193 passed / 4 env-gated GPU skips / 0
+failed; determinism, reduced-motion, camera law, focus traps, byte-neutral Escape
+cancels all verified). The first film held on two seeds the PM never played
+(`redteam-7`, `gazette-3`): guidance-first to Week-2 greenlight, zero console
+errors, copy/marker/verbs agreeing at every stage; trap default dead on both;
+rewrite path fully truthful; two-simultaneous-READY-screenplays impossible (the
+card-names-A-button-acts-on-B ambiguity cannot arise).
+
+Findings ruled into the FINAL FIX WAVE (bounded, before seal):
+- **P0-1** Retained audition planner worked exactly once per studio —
+  `auditionPlanning.ts:674` requires `sessions.length === 0` (append-only array), the
+  same over-strict world-rejection family as the Wave-2 duplicate-name bug; every
+  picture after the first ejected to the Casting Room while guidance pointed there.
+- **P0-2** Ready-to-package card advertised "or go straight to the picture's
+  package" — a step the world does not offer at that state. Untrue sentence, cut.
+- **P2-7** Scenery guidance said "at the soundstage" while the world flags Scenery &
+  Service. **P1-5** Development withheld the commission verb with no in-world
+  explanation while a screenplay occupies the room. **P2-10** stage attr said
+  `drafting` during rewriting.
+
+Findings DEFERRED on the record (next-hills; no code touched):
+- **P0-3** Escape from the package workspace leaves guidance pointing at
+  "Assemble the picture's package at Casting" whose only path is the full-screen
+  Casting Room — the world-mounted package re-entry does not exist (already
+  next-hills #1; this is its sharpest motivation).
+- **P1-4** With one production active, the desk renders the production card and the
+  guidance card never appears for a concurrent second picture's pre-greenlight
+  journey (the red-badge + blocked-sim grammar carries it; desk ownership with two
+  pictures is an Owner design decision).
+- **P2-8** A staffing-blocked package still shows an enabled next + marker (tied to
+  the recorded Owner design finding on commissioning stripping roles).
+- **P2-9** At ready-to-package, activating Casting auto-opens the planner, so the
+  Wave-2 inspector verb is bypassed in ordinary first-picture play (PM taste ruling:
+  auto-open is the better grammar there; the verb is load-bearing when the planner
+  refuses — e.g. sessions pending — and from picture #2 after Fix 1).
+
+Log corrections (Fable's own overclaims, per red-team):
+- Wave-4 playtest said all three shooting interventions carried the guidance card's
+  own verb — in truth the card owns the desk only when the production card stands
+  down (scenery block); the director-call and take-ready blocks are resolved from
+  the flagged building, the desk panel, or the next-event rail. The interventions
+  are all world-resolvable; the card claim was too broad.
+- "Released Week 10" reproduces only with my exact package staffing; first-eligible
+  staffing released Week 13 from the same Week-2 greenlight. Release week is
+  staffing-dependent; recorded as drift, not a defect.
+
 ### Phase 0 — Research + cold playtest (complete)
 
 - Research workflow dispatched: The Movies (pipeline + lot/UI, two agents), Zoo Tycoon,
