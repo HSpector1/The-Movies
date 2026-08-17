@@ -787,6 +787,82 @@ export const GHOST_FILL_ALPHA: Readonly<Record<LodBand, number>> = {
   people: 0.42,
 }
 
+/**
+ * How much clear world space a brought-into-view target keeps between itself and the
+ * frame, expressed in SCREEN pixels so the comfort margin reads the same at every zoom.
+ */
+export const FOCUS_COMFORT_MARGIN_PX = 72
+
+/** A camera's visible world rectangle, described the way Phaser's own camera keeps it. */
+export type CameraView = {
+  /** World point under the middle of the viewport (Phaser: scroll + half UNZOOMED size). */
+  centreX: number
+  centreY: number
+  /** Visible world size — the viewport divided by zoom. */
+  width: number
+  height: number
+}
+
+/** An axis-aligned world-space box. */
+export type WorldBox = { minX: number; minY: number; maxX: number; maxY: number }
+
+/**
+ * ONE CAMERA GRAMMAR: selecting something PANS, it never zooms.
+ *
+ * Returns the camera centre that brings `target` comfortably inside `view` at the
+ * CURRENT zoom, or `null` when the target is already comfortably framed — "no camera
+ * command" is a real answer, and the answer a player expects when they click a building
+ * they can already see.
+ *
+ * The move is the SMALLEST one that works: the camera slides just far enough for the
+ * target plus its margin to clear the frame edge, so the rest of the property the player
+ * had arranged stays where they put it. Only a target too big for the frame is centred,
+ * because nothing else can frame it.
+ *
+ * (Before M3-UI's grammar repair, three plate-era retained contexts — Administration,
+ * the Gate, the Annex — answered a selection by setting zoom to twice the whole-property
+ * fit and re-centring, which silently threw away the player's own framing and left about
+ * a third of the studio off-screen with no player-facing way back.)
+ */
+export function panCentreIntoView(
+  view: CameraView,
+  target: WorldBox,
+  marginWorld: number,
+): { x: number; y: number } | null {
+  if (!Number.isFinite(view.width) || !Number.isFinite(view.height)) return null
+  if (view.width <= 0 || view.height <= 0) return null
+  if (!Number.isFinite(view.centreX) || !Number.isFinite(view.centreY)) return null
+  for (const edge of [target.minX, target.minY, target.maxX, target.maxY]) {
+    if (!Number.isFinite(edge)) return null
+  }
+  const margin = Number.isFinite(marginWorld) && marginWorld > 0 ? marginWorld : 0
+  const x = axisCentreIntoView(view.centreX, view.width, target.minX, target.maxX, margin)
+  const y = axisCentreIntoView(view.centreY, view.height, target.minY, target.maxY, margin)
+  if (x === null && y === null) return null
+  return { x: x ?? view.centreX, y: y ?? view.centreY }
+}
+
+/** One axis of `panCentreIntoView`. Null means this axis is already comfortable. */
+function axisCentreIntoView(
+  centre: number,
+  size: number,
+  min: number,
+  max: number,
+  margin: number,
+): number | null {
+  const wantMin = min - margin
+  const wantMax = max + margin
+  const half = size / 2
+  // Too big to frame with its margins: the middle of it is the best any camera can do.
+  if (wantMax - wantMin >= size) {
+    const middle = (min + max) / 2
+    return middle === centre ? null : middle
+  }
+  if (wantMin < centre - half) return wantMin + half
+  if (wantMax > centre + half) return wantMax - half
+  return null
+}
+
 export type CameraFraming = 'overview' | 'wide' | 'production' | 'entrance' | 'theater'
 
 /** Grid centre + zoom multiplier (relative to the whole-property fit) per framing. */

@@ -84,6 +84,7 @@ import {
   APRONS,
   CAMERA_FRAMINGS,
   DIRECTOR_ROUTE,
+  FOCUS_COMFORT_MARGIN_PX,
   GHOST_FILL_ALPHA,
   chromeStrokeWidth,
   EXPANSION_PADS,
@@ -109,6 +110,7 @@ import {
   establishedDressing,
   landscaping,
   lodBandFor,
+  panCentreIntoView,
   personHomeSlotOffset,
   reframedZoom,
   type CameraFraming,
@@ -116,6 +118,7 @@ import {
   type GroundKind,
   type LodBand,
   type Rect,
+  type WorldBox,
   type WorldPlace,
 } from './world.ts'
 
@@ -150,6 +153,13 @@ const PERFORMANCE_WARMUP_FRAMES = 120
 const PERFORMANCE_SAMPLE_FRAMES = 240
 const SCENERY_SWEEP_DURATION_MS = 1_200
 const ROUTE_SEGMENT_MS = 1_100
+/** How long a selection's bring-into-view glide takes. Pan only — zoom never moves. */
+const FOCUS_PAN_MS = 520
+/**
+ * World-space headroom above a footprint's ground quad when framing it. A building's
+ * painted mass and its counter-scaled sign both stand above the tiles it occupies.
+ */
+const FOOTPRINT_HEADROOM = 120
 const SELECTED_PERSON_TINT = 0xffe6a0
 const SELECTED_COMPANY_TINT = 0xbfe3d6
 const OTHER_COMPANY_ALPHA = 0.72
@@ -1151,20 +1161,19 @@ export class TycoonScene extends Phaser.Scene {
     this.parcelGraphics?.clear()
   }
 
-  /** Frame a parcel the way `focusPlace` frames a building. */
+  /** Frame a parcel the way `focusPlace` frames a building — glide-pan, never a zoom. */
   focusParcel(parcelId: string): boolean {
     const parcel = this.parcelById(parcelId)
     if (parcel === null) return false
-    const camera = this.cameras.main
-    const at = this.world((parcel.rect.x0 + parcel.rect.x1 + 1) / 2, (parcel.rect.y0 + parcel.rect.y1 + 1) / 2)
-    const zoom = clampZoom(this.fitZoom() * 2.0)
-    if (this.reducedMotion) {
-      camera.setZoom(zoom)
-      camera.centerOn(at.x, at.y)
-      return true
-    }
-    camera.pan(at.x, at.y, 520, 'Sine.easeInOut')
-    camera.zoomTo(zoom, 520, 'Sine.easeInOut')
+    // Parcel rectangles are INCLUSIVE of both corners (see `src/core/lot.ts`).
+    this.glideIntoView(
+      this.gridFootprintBox(
+        parcel.rect.x0,
+        parcel.rect.y0,
+        parcel.rect.x1 - parcel.rect.x0 + 1,
+        parcel.rect.y1 - parcel.rect.y0 + 1,
+      ),
+    )
     return true
   }
 
@@ -2870,17 +2879,65 @@ export class TycoonScene extends Phaser.Scene {
     this.updateLod()
   }
 
+  /**
+   * THE CAMERA GRAMMAR: selecting a place PANS the camera, it never zooms.
+   *
+   * Reading distance belongs to the player — it is the one thing wheel, keys and the
+   * whole-property control exist to set. So a selection glides just far enough to bring
+   * the building comfortably into the frame at the CURRENT zoom, and does nothing at all
+   * when it is already fully visible. Every selection in the world now answers the same
+   * way: the generic building inspectors (which never moved the camera) and the three
+   * plate-era retained contexts that used to jump to twice the whole-property fit.
+   */
   private focusPlace(place: WorldPlace): void {
+    this.glideIntoView(this.gridFootprintBox(place.gx, place.gy, place.fw, place.fd))
+  }
+
+  /** The world-space box a grid footprint occupies, including the height it is drawn at. */
+  private gridFootprintBox(gx: number, gy: number, fw: number, fd: number): WorldBox {
+    const corners = [
+      this.world(gx, gy),
+      this.world(gx + fw, gy),
+      this.world(gx + fw, gy + fd),
+      this.world(gx, gy + fd),
+    ]
+    const xs = corners.map((corner) => corner.x)
+    const ys = corners.map((corner) => corner.y)
+    return {
+      minX: Math.min(...xs),
+      // A building is painted UP from its ground quad and wears a counter-scaled sign
+      // above that, so framing the ground alone would still cut the roof and the name off.
+      minY: Math.min(...ys) - FOOTPRINT_HEADROOM,
+      maxX: Math.max(...xs),
+      maxY: Math.max(...ys),
+    }
+  }
+
+  /**
+   * Bring a world box comfortably into the frame WITHOUT touching zoom. No-ops when it
+   * already is. Reduced motion takes the settled position instantly; nothing else changes.
+   */
+  private glideIntoView(box: WorldBox): void {
     const camera = this.cameras.main
-    const at = this.world(place.gx + place.fw / 2, place.gy + place.fd / 2)
-    const zoom = clampZoom(this.fitZoom() * 2.0)
+    const zoom = camera.zoom
+    if (!Number.isFinite(zoom) || zoom <= 0) return
+    const centre = panCentreIntoView(
+      {
+        centreX: camera.scrollX + camera.width / 2,
+        centreY: camera.scrollY + camera.height / 2,
+        width: camera.width / zoom,
+        height: camera.height / zoom,
+      },
+      box,
+      FOCUS_COMFORT_MARGIN_PX / zoom,
+    )
+    // Already comfortably framed: a selection the player can see is not a camera command.
+    if (centre === null) return
     if (this.reducedMotion) {
-      camera.setZoom(zoom)
-      camera.centerOn(at.x, at.y)
+      camera.centerOn(centre.x, centre.y)
       return
     }
-    camera.pan(at.x, at.y, 520, 'Sine.easeInOut')
-    camera.zoomTo(zoom, 520, 'Sine.easeInOut')
+    camera.pan(centre.x, centre.y, FOCUS_PAN_MS, 'Sine.easeInOut')
   }
 
   /** Host focus by place id, using the Hollywood place vocabulary. */

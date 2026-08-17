@@ -39,10 +39,13 @@ import {
   establishedDressing,
   landscaping,
   lodBandFor,
+  panCentreIntoView,
   personHomeSlotOffset,
   reframedZoom,
+  type CameraView,
   type GridPoint,
   type Rect,
+  type WorldBox,
   type WorldPlace,
 } from './world.ts'
 
@@ -437,6 +440,93 @@ describe('tycoon world — LOD bands recompute against the current fit (M1.5)', 
     expect(reframedZoom(0, 0.6, 0.5)).toBe(clampZoom(0.5))
     expect(reframedZoom(0.6, 0, 0.5)).toBe(clampZoom(0.6))
     expect(reframedZoom(0.6, 0.6, Number.NaN)).toBe(clampZoom(0.6))
+  })
+})
+
+// ── ONE CAMERA GRAMMAR: a selection pans, it never zooms ─────────────────────
+//
+// The defect this replaces: three plate-era retained contexts (Administration/publicity,
+// the Gate, the Annex) answered a selection by setting zoom to twice the whole-property
+// fit and re-centring — while the generic M1.5 building inspectors moved the camera not
+// at all. Two grammars for one gesture, and the doubled zoom silently discarded whatever
+// framing the player had arranged. `panCentreIntoView` is the whole of the replacement,
+// and it never returns a zoom because the new grammar never has one to return.
+
+describe('tycoon world — selection camera grammar', () => {
+  /** A 1000×600 world view centred on the origin. */
+  const view: CameraView = { centreX: 0, centreY: 0, width: 1000, height: 600 }
+  const MARGIN = 50
+
+  function box(minX: number, minY: number, maxX: number, maxY: number): WorldBox {
+    return { minX, minY, maxX, maxY }
+  }
+
+  it('issues NO camera command for a target already comfortably in frame', () => {
+    expect(panCentreIntoView(view, box(-100, -100, 100, 100), MARGIN)).toBeNull()
+    // …right up to the last world unit of clearance the margin asks for.
+    expect(panCentreIntoView(view, box(-450, -250, 450, 250), MARGIN)).toBeNull()
+  })
+
+  it('pans by the SMALLEST move that clears the frame edge, keeping the player’s framing', () => {
+    // One unit past the comfortable right edge: the camera slides exactly one unit.
+    expect(panCentreIntoView(view, box(-400, -200, 451, 200), MARGIN)).toEqual({ x: 1, y: 0 })
+    // …and the same on the other three edges, one axis at a time.
+    expect(panCentreIntoView(view, box(-451, -200, 400, 200), MARGIN)).toEqual({ x: -1, y: 0 })
+    expect(panCentreIntoView(view, box(-400, -200, 400, 251), MARGIN)).toEqual({ x: 0, y: 1 })
+    expect(panCentreIntoView(view, box(-400, -251, 400, 200), MARGIN)).toEqual({ x: 0, y: -1 })
+  })
+
+  it('brings a target that is entirely off-screen fully inside, margin and all', () => {
+    const target = box(2000, 1200, 2200, 1400)
+    const centre = panCentreIntoView(view, target, MARGIN)
+    expect(centre).not.toBeNull()
+    if (centre === null) throw new Error('unreachable')
+    expect(target.minX - MARGIN).toBeGreaterThanOrEqual(centre.x - view.width / 2)
+    expect(target.maxX + MARGIN).toBeLessThanOrEqual(centre.x + view.width / 2)
+    expect(target.minY - MARGIN).toBeGreaterThanOrEqual(centre.y - view.height / 2)
+    expect(target.maxY + MARGIN).toBeLessThanOrEqual(centre.y + view.height / 2)
+  })
+
+  it('moves only the axis that is out of frame', () => {
+    // Off to the right, but vertically already fine: the camera must not drift in y.
+    expect(panCentreIntoView(view, box(3000, -100, 3100, 100), MARGIN)?.y).toBe(0)
+    expect(panCentreIntoView(view, box(-100, 3000, 100, 3100), MARGIN)?.x).toBe(0)
+  })
+
+  it('centres a target too large to frame, because nothing else can frame it', () => {
+    expect(panCentreIntoView(view, box(-3000, -30, 5000, 30), MARGIN)).toEqual({ x: 1000, y: 0 })
+    // …and still issues no command when that centre is where the camera already is:
+    // an oversized target the player is already looking at the middle of is not a move.
+    expect(panCentreIntoView(view, box(-4000, -20, 4000, 20), MARGIN)).toBeNull()
+  })
+
+  it('answers a bigger view with LESS movement — the same target, framed by zoom alone', () => {
+    const target = box(900, 0, 1000, 100)
+    const near = panCentreIntoView(view, target, MARGIN)
+    const far = panCentreIntoView({ ...view, width: 3000, height: 1800 }, target, MARGIN)
+    expect(near).not.toBeNull()
+    // A view wide enough to already contain the target issues no command at all.
+    expect(far).toBeNull()
+  })
+
+  it('never claims a camera command it cannot compute', () => {
+    const target = box(9000, 0, 9100, 100)
+    // A viewport that has not been measured yet (0) or cannot be read at all.
+    for (const bad of [0, -1, Number.NaN, Number.POSITIVE_INFINITY]) {
+      expect(panCentreIntoView({ ...view, width: bad }, target, MARGIN)).toBeNull()
+      expect(panCentreIntoView({ ...view, height: bad }, target, MARGIN)).toBeNull()
+    }
+    // A centre or an edge that is not a number at all. (0 and negatives are ordinary
+    // world coordinates and must keep working — the isometric origin sits inside them.)
+    for (const bad of [Number.NaN, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY]) {
+      expect(panCentreIntoView({ ...view, centreX: bad }, target, MARGIN)).toBeNull()
+      expect(panCentreIntoView({ ...view, centreY: bad }, target, MARGIN)).toBeNull()
+      expect(panCentreIntoView(view, box(bad, 0, 9100, 100), MARGIN)).toBeNull()
+      expect(panCentreIntoView(view, box(9000, 0, 9100, bad), MARGIN)).toBeNull()
+    }
+    // A margin that cannot be read is dropped, not allowed to poison the answer.
+    expect(panCentreIntoView(view, box(-400, -200, 400, 200), Number.NaN)).toBeNull()
+    expect(panCentreIntoView(view, box(9000, 0, 9100, 100), Number.NaN)).toEqual({ x: 8600, y: 0 })
   })
 })
 
