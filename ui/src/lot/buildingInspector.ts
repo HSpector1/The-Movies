@@ -93,6 +93,14 @@ export type LotBuildingInspectorContext = {
   /** Engine-published verbs this place offers right now, in reading order. */
   primaryActions: LotBuildingInspectorPrimaryAction[]
   /**
+   * One plain sentence for a verb this place would otherwise offer and currently does not.
+   *
+   * A missing button is only honest if the panel says why it is missing. Null whenever
+   * nothing is being withheld, or whenever the reason cannot be stated truthfully — the
+   * panel never guesses at an explanation any more than it guesses at a verb.
+   */
+  primaryActionNote: string | null
+  /**
    * Exactly one production located at this place whose EXISTING in-world command may be
    * offered here. Null when there is no located production, more than one, or no command.
    */
@@ -590,6 +598,64 @@ function primaryActions(
   return []
 }
 
+/** The first printable title in one screenplay-board section, or null. */
+function sectionTitle(board: ScriptProjectsReadModel, section: string): string | null {
+  const sections: unknown = (board as unknown as Record<string, unknown>).sections
+  if (!isRecord(sections)) return null
+  const rows: unknown = sections[section]
+  if (!Array.isArray(rows)) return null
+  const first: unknown = rows[0]
+  if (!isRecord(first) || !isText(first.title)) return null
+  return first.title
+}
+
+/**
+ * Why Development is not offering "Commission a screenplay" right now.
+ *
+ * The legality gate is unchanged and stays exactly where it is: the host's retained
+ * commissioning interception requires an IDLE screenplay board, so the verb is correctly
+ * absent whenever the Writers' Room is holding something. What was missing is the
+ * SENTENCE — the panel read "No screenplay is in development · 0/2 slots" with the verb
+ * silently gone, which is the "the world goes quiet and you must guess" seam this campaign
+ * exists to close (red-team finding).
+ *
+ * Only called when the engine says commissioning itself is legal (`commission.canStart`),
+ * so the sentence never contradicts a real blocker: the board's own blockers already speak
+ * for those. Every reason names the studio's ACTUAL current occupation and what ends it,
+ * and none of them claims anything about surfaces other than this one.
+ */
+function commissionWithheldNote(board: ScriptProjectsReadModel | null): string | null {
+  if (board === null || board.mode !== 'managed' || board.commission?.canStart !== true) return null
+  const attention: unknown = (board as unknown as Record<string, unknown>).lotAttention
+  if (!isRecord(attention) || !isText(attention.kind) || attention.kind === 'idle') return null
+  const reopens = 'Commissioning opens here again once it moves on.'
+  switch (attention.kind) {
+    case 'review-required': {
+      const title = sectionTitle(board, 'needsReview')
+      return title === null
+        ? `Development is holding a screenplay decision. ${reopens}`
+        : `${title} is waiting on an Accept or Rewrite decision. ${reopens}`
+    }
+    case 'active-work': {
+      const title = sectionTitle(board, 'inDevelopment')
+      return title === null
+        ? `The writers are working on a screenplay. ${reopens}`
+        : `The writers are working on ${title}. ${reopens}`
+    }
+    case 'ready-script': {
+      const title = sectionTitle(board, 'readyToPackage')
+      return title === null
+        ? `An accepted screenplay is waiting on casting. ${reopens}`
+        : `${title} is accepted and waiting on casting. ${reopens}`
+    }
+    case 'capacity-constraint':
+      return `Every Development & Casting slot is occupied. ${reopens}`
+    default:
+      // An attention kind this panel has never been taught to explain says nothing at all.
+      return null
+  }
+}
+
 /**
  * Project everything the in-world panel for one building shows.
  *
@@ -723,6 +789,7 @@ export function lotBuildingInspectorContext(
     }
   }
 
+  const actions = primaryActions(snapshot, buildingId, scriptBoard)
   return {
     buildingId,
     label: BUILDING_LABELS[buildingId],
@@ -732,7 +799,13 @@ export function lotBuildingInspectorContext(
     attentionNote,
     occupantFacts,
     facts,
-    primaryActions: primaryActions(snapshot, buildingId, scriptBoard),
+    primaryActions: actions,
+    // Only Development withholds a verb the engine calls legal, so only Development has
+    // something to explain. The note appears exactly where the button would have been.
+    primaryActionNote:
+      buildingId === 'writers' && actions.length === 0
+        ? commissionWithheldNote(scriptBoard)
+        : null,
     commandOperation: commandCandidates.length === 1 ? commandCandidates[0]! : null,
     deepLabel: LOT_DEEP_SCREEN_LABEL[buildingId],
   }

@@ -577,14 +577,25 @@ describe('M-B — the buildings carry the verbs the guidance names', () => {
     const order = inspectorReadingOrder(panel)
     expect(order).toContain('occupants')
     expect(order.indexOf('occupants')).toBeLessThan(order.indexOf('capacity'))
+    // The action slot is occupied even though no button is: the engine still calls
+    // commissioning legal here (another contracted person can write), while the world's
+    // retained workspace needs an idle Writers' Room — so the panel prints the reason
+    // exactly where the verb would have been instead of going silent.
     expect(order).toEqual([
       'description',
       'status',
       'attention',
       'occupants',
+      'actions',
       'capacity',
       'deep',
     ])
+    expect(
+      screen.queryByTestId('lot-building-inspector-primary-commission'),
+    ).not.toBeInTheDocument()
+    expect(screen.getByTestId('lot-building-inspector-primary-note')).toHaveTextContent(
+      /^The writers are working on .+\. Commissioning opens here again once it moves on\.$/,
+    )
     // The people group is its own block, and capacity did not swallow it.
     expect(screen.getByTestId('lot-building-inspector-occupants')).toHaveTextContent(
       'Who’s here this week',
@@ -663,6 +674,26 @@ describe('M-B — the buildings carry the verbs the guidance names', () => {
     expect(
       screen.queryByTestId('lot-building-inspector-primary-commission'),
     ).not.toBeInTheDocument()
+  })
+
+  it('tells the player WHY Development is not offering the verb, in the verb’s own slot', async () => {
+    // The red-team's exact frame: the screenplay is accepted and waiting on casting, the
+    // engine still calls commissioning legal, and the world's retained workspace requires
+    // an idle Writers' Room — so the button is correctly absent. Before this, the panel
+    // said nothing at all about it and the player was left to guess.
+    const state = readyToPackageStudio('m-b-commission-withheld')
+    const title = scriptProjectsBoard(state).sections.readyToPackage[0]!.title
+    renderLot(state)
+    await onlyView()
+
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    expect(screen.getByTestId('lot-building-inspector-writers')).toBeInTheDocument()
+    expect(
+      screen.queryByTestId('lot-building-inspector-primary-commission'),
+    ).not.toBeInTheDocument()
+    expect(screen.getByTestId('lot-building-inspector-primary-note')).toHaveTextContent(
+      `${title} is accepted and waiting on casting. Commissioning opens here again once it moves on.`,
+    )
   })
 
   it('names the picture in Casting’s audition verb, and prefers the retained in-world planner', async () => {

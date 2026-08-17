@@ -500,11 +500,13 @@ describe('World Inspector projection — primary actions (M-B)', () => {
     mode?: 'legacy' | 'managed'
     attention?: string
     canStart?: boolean
+    sections?: Record<string, { title: string }[]>
   } = {}): ScriptProjectsReadModel {
     return {
       mode: overrides.mode ?? 'managed',
       lotAttention: { kind: overrides.attention ?? 'idle', headline: 'x', detail: 'y' },
       commission: { canStart: overrides.canStart ?? true, blockers: [], concepts: [], writers: [] },
+      ...(overrides.sections === undefined ? {} : { sections: overrides.sections }),
     } as unknown as ScriptProjectsReadModel
   }
 
@@ -571,6 +573,110 @@ describe('World Inspector projection — primary actions (M-B)', () => {
         board({ attention }),
       )
       expect(context.primaryActions, attention).toEqual([])
+    }
+  })
+
+  it('says WHY commissioning is withheld whenever the engine says it is legal', () => {
+    // The defect: with a screenplay accepted and waiting on casting, Development read
+    // "No screenplay is in development · 0/2 slots" and the verb was simply gone. The
+    // legality gate is unchanged — the sentence is what was missing.
+    const cases: Array<[string, Record<string, { title: string }[]>, string]> = [
+      [
+        'ready-script',
+        { readyToPackage: [{ title: 'A Season of Archipelago' }] },
+        'A Season of Archipelago is accepted and waiting on casting. Commissioning opens here again once it moves on.',
+      ],
+      [
+        'active-work',
+        { inDevelopment: [{ title: 'The Long Way Down' }] },
+        'The writers are working on The Long Way Down. Commissioning opens here again once it moves on.',
+      ],
+      [
+        'review-required',
+        { needsReview: [{ title: 'Harbour Lights' }] },
+        'Harbour Lights is waiting on an Accept or Rewrite decision. Commissioning opens here again once it moves on.',
+      ],
+      [
+        'capacity-constraint',
+        {},
+        'Every Development & Casting slot is occupied. Commissioning opens here again once it moves on.',
+      ],
+    ]
+    for (const [attention, sections, note] of cases) {
+      const context = lotBuildingInspectorContext(
+        baseSnapshot(),
+        'writers',
+        null,
+        null,
+        board({ attention, sections }),
+      )
+      expect(context.primaryActions, attention).toEqual([])
+      expect(context.primaryActionNote, attention).toBe(note)
+    }
+  })
+
+  it('says nothing when there is nothing to explain, and never guesses a reason', () => {
+    // A verb that IS offered explains itself; a real blocker already speaks through the
+    // board's own blockers; an unknown attention kind and a title-less section are
+    // withheld facts, so the note degrades instead of inventing one.
+    expect(
+      lotBuildingInspectorContext(baseSnapshot(), 'writers', null, null, board())
+        .primaryActionNote,
+    ).toBeNull()
+    expect(
+      lotBuildingInspectorContext(
+        baseSnapshot(),
+        'writers',
+        null,
+        null,
+        board({ attention: 'ready-script', canStart: false }),
+      ).primaryActionNote,
+    ).toBeNull()
+    expect(
+      lotBuildingInspectorContext(baseSnapshot(), 'writers', null, null, null).primaryActionNote,
+    ).toBeNull()
+    expect(
+      lotBuildingInspectorContext(
+        baseSnapshot(),
+        'writers',
+        null,
+        null,
+        board({ mode: 'legacy', attention: 'ready-script' }),
+      ).primaryActionNote,
+    ).toBeNull()
+    expect(
+      lotBuildingInspectorContext(
+        baseSnapshot(),
+        'writers',
+        null,
+        null,
+        board({ attention: 'invented-kind' }),
+      ).primaryActionNote,
+    ).toBeNull()
+    // A section whose first row carries no printable title still gets an honest sentence,
+    // just without the picture's name.
+    expect(
+      lotBuildingInspectorContext(
+        baseSnapshot(),
+        'writers',
+        null,
+        null,
+        board({ attention: 'ready-script', sections: { readyToPackage: [] } }),
+      ).primaryActionNote,
+    ).toBe('An accepted screenplay is waiting on casting. Commissioning opens here again once it moves on.')
+    // …and no other place ever carries one.
+    for (const id of ALL_BUILDING_IDS) {
+      if (id === 'writers') continue
+      expect(
+        lotBuildingInspectorContext(
+          baseSnapshot(),
+          id,
+          null,
+          null,
+          board({ attention: 'ready-script', sections: { readyToPackage: [{ title: 'X' }] } }),
+        ).primaryActionNote,
+        id,
+      ).toBeNull()
     }
   })
 

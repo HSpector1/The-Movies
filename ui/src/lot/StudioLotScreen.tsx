@@ -5704,6 +5704,17 @@ export function StudioLotScreen({
               {action.label}
             </button>
           ))}
+          {/* …and when a verb this place would offer is withheld, the panel says why,
+              in the same slot the button would have occupied. A silently missing control
+              is the seam this campaign exists to close. */}
+          {buildingInspector.primaryActionNote !== null && (
+            <p
+              className="hint hollywood-building-inspector-note"
+              data-testid="lot-building-inspector-primary-note"
+            >
+              {maskStageText(buildingInspector.primaryActionNote)}
+            </p>
+          )}
           {/* HOW MUCH ROOM IS LEFT — capacity, slots and commitments read as detail. */}
           {buildingInspector.facts.length > 0 && (
             <dl className="hollywood-person-facts" data-testid="lot-building-inspector-facts">
