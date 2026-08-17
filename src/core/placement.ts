@@ -276,6 +276,35 @@ export function operationalPlacedFacilities(placement: StudioPlacement): PlacedF
     .sort((a, b) => (a.completesWeek !== b.completesWeek ? a.completesWeek - b.completesWeek : a.id - b.id))
 }
 
+/**
+ * The operational placements that belong in the SHARED-CAPACITY REGISTRY
+ * (`operations.facilities`) — those whose blueprint actually provides slots.
+ *
+ * C1-M4 makes this distinction explicit. Until now every blueprint provided
+ * capacity, so "operational" and "provides capacity" were the same set and the
+ * registry law could be stated with either. The widened catalog holds buildings
+ * whose effect is elsewhere entirely — a Development Office raises what a script
+ * becomes, a Craft Services Annex lowers a fee — and those provide no shared slot
+ * at all.
+ *
+ * Putting them in the registry would be a lie in two directions: the allocator
+ * would scan a facility it can never place work in, and the calendar would show
+ * the player a facility with no slots. So the registry keeps its exact meaning
+ * — "what work can be scheduled into" — and the law it satisfies becomes MORE
+ * precise rather than weaker. `operations.facilities` is still exactly
+ * INITIAL_STUDIO_FACILITIES followed by this list, in this order.
+ *
+ * A capacity-0 building is in every other respect a real building: it occupies
+ * ground, pays its weekly operating cost, can be moved, demolished, and refunded,
+ * and satisfies a `facility` requirement for the next tier.
+ */
+export function capacityProvidingPlacedFacilities(placement: StudioPlacement): PlacedFacility[] {
+  return operationalPlacedFacilities(placement).filter((placed) => {
+    const blueprint = blueprintById(placed.blueprintId)
+    return blueprint !== null && blueprint.capacity > 0
+  })
+}
+
 /** Σ weekly operating cost of every OPERATIONAL placed facility. */
 export function weeklyPlacementOperatingCost(placement: StudioPlacement): number {
   let total = 0
@@ -647,7 +676,14 @@ export function completeDuePlacements(
     const completedFacility: PlacedFacility = { ...facility, status: 'operational' }
     completedIds.add(facility.id)
     completed.push(completedFacility)
-    facilities.push(placedStudioFacility(completedFacility))
+    // C1-M4: only a capacity-providing building joins the shared-capacity
+    // registry. An effect-only building completes exactly like any other — it
+    // becomes operational, starts paying opex, and starts having its effect —
+    // it simply has no slot to offer the allocator.
+    const blueprint = blueprintById(completedFacility.blueprintId)
+    if (blueprint !== null && blueprint.capacity > 0) {
+      facilities.push(placedStudioFacility(completedFacility))
+    }
   }
 
   return {
@@ -1655,7 +1691,7 @@ export function assertStudioPlacementInvariants(
       ? {}
       : {
           expectedFacilities:
-            operationalPlacedFacilities(placement).map(placedStudioFacility),
+            capacityProvidingPlacedFacilities(placement).map(placedStudioFacility),
         }),
   })
 }

@@ -208,6 +208,11 @@ export {
   structureCells,
 } from './lot.js'
 export {
+  hasOperationalBlueprint,
+  nonStackingDiscountMultiplier,
+  operationalBlueprintCount,
+} from './facilityEffects.js'
+export {
   LIVE_REQUIREMENT_KINDS,
   blueprintAtInstanceLimit,
   blueprintInstanceCount,
@@ -232,6 +237,7 @@ export {
   legacyAnnexPlacementRequest,
   groundOccupiedCellKeys,
   occupiedCellKeys,
+  capacityProvidingPlacedFacilities,
   operationalPlacedFacilities,
   placedStudioFacility,
   placementRegimeReady,
