@@ -208,6 +208,9 @@ export {
   structureCells,
 } from './lot.js'
 export {
+  DEVELOPMENT_OFFICE_TIER_BLUEPRINT_IDS,
+  developmentOfficeEstUplift,
+  freelancerFeeMultiplier,
   hasOperationalBlueprint,
   nonStackingDiscountMultiplier,
   operationalBlueprintCount,
