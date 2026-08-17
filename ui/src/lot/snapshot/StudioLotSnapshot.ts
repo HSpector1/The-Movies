@@ -360,6 +360,46 @@ export type LotParcelState = {
   placedFacilityIds: number[]
 }
 
+// ── Move & Demolish V1 (C1-M3b) — may this building be re-sited or taken down? ──
+//
+// The ENGINE decides the fact and the UI decides the words (C1-M3a's own law). These
+// types carry the fact. They are the DESTINATION-INDEPENDENT half of the two verbs —
+// the eligibility that gates whether the world offers them at all. A move's DESTINATION
+// legality is a separate live `placementQuote(..., { movingPlacementId })` the host runs
+// per draft revision, exactly like the build ghost, and it never enters this snapshot.
+
+/** One live claim on a facility, mirrored from the engine's own engagement guard. */
+export type LotFacilityEngagement = {
+  kind: 'production' | 'shootingTask' | 'screenplay' | 'castingSession' | 'legacyConstructionProject'
+  /** The production, screenplay, or session id holding it. */
+  holderId: string
+  /** The engine's own activity word, verbatim. */
+  activity: string
+  /**
+   * What the work is called, resolved at the engine boundary from the Studio Calendar.
+   * NULL when nothing could prove a title — the world then says so neutrally rather
+   * than inventing a name for the thing standing in the player's way.
+   */
+  title: string | null
+}
+
+/** Why a facility may not be moved or demolished right now. */
+export type LotFacilityMutationBlock = {
+  code: 'regimeNotReady' | 'unknownPlacement' | 'foundingPlacement' | 'facilityEngaged'
+  /** Every live claim, in the engine's fixed order. Empty for every other code. */
+  holders: LotFacilityEngagement[]
+}
+
+/** Whether the two destructive verbs may be offered for one placed facility. */
+export type LotFacilityMutation = {
+  canMove: boolean
+  canDemolish: boolean
+  /** The engine's refusal, or null when both verbs are legal right now. */
+  blocked: LotFacilityMutationBlock | null
+  /** The exact credit a demolition would return. The engine's number, not a fraction. */
+  demolitionRefund: number
+}
+
 /** One facility standing on the lot — a construction site, or an operational building. */
 export type LotPlacedFacilityState = {
   id: number
@@ -376,6 +416,12 @@ export type LotPlacedFacilityState = {
   /** Completed advances ÷ build weeks, 0..1. Presentation only; core owns the clock. */
   progress01: number
   weeklyOperatingCost: number
+  /**
+   * Move & Demolish eligibility (C1-M3b). Optional ONLY so the older hand-authored
+   * presentation fixtures stay source-compatible; `studioLotSnapshot()` always emits it.
+   * Absent ⇒ the world offers neither verb, which is the safe reading of "unknown".
+   */
+  mutation?: LotFacilityMutation
 }
 
 // ── Presence on the Lot V1 (M3-UI) — who is where, doing what, this week ─────

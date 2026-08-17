@@ -35,6 +35,11 @@ import {
   isFoundingBuildingId,
   placedFacilityIdOf,
 } from './snapshot/StudioLotSnapshot.ts'
+import {
+  canOfferFacilityVerbs,
+  demolishVerbLabel,
+  facilityMutationBlockedReason,
+} from './facilityMutation.ts'
 import { lotFacilityPresenceOccupants } from './snapshot/presenceLines.ts'
 import type {
   ScriptProjectsReadModel,
@@ -59,6 +64,10 @@ export type LotBuildingInspectorPrimaryActionKind =
   | 'commission'
   | 'plan-auditions'
   | 'open-package'
+  /** C1-M3b: re-site this placed facility. Offered on `placed-*` bodies only. */
+  | 'move'
+  /** C1-M3b: take this placed facility down for its refund. Same restriction. */
+  | 'demolish'
 
 /**
  * "What can I do here RIGHT NOW" — one imperative verb this place currently offers.
@@ -73,6 +82,16 @@ export type LotBuildingInspectorPrimaryAction = {
   kind: LotBuildingInspectorPrimaryActionKind
   /** The button's visible words AND its accessible name. Imperative, plain language. */
   label: string
+  /**
+   * C1-M3b: the engine currently refuses this verb, so it is shown and DISABLED.
+   *
+   * Present only where a refusal is a situation the player can read and act on — live
+   * work holding the facility, which ends. A caller-state refusal produces no action at
+   * all, because a greyed button explaining the studio's regime teaches nothing.
+   */
+  disabled?: true
+  /** Why it is refused, in the standing blocked-state grammar. Never a code name. */
+  reason?: string
 }
 
 export type LotBuildingInspectorContext = {
@@ -710,7 +729,38 @@ function primaryActions(
   snapshot: StudioLotSnapshot,
   buildingId: BuildingId,
   scriptBoard: ScriptProjectsReadModel | null,
+  placed: LotPlacedFacilityState | null,
 ): LotBuildingInspectorPrimaryAction[] {
+  // C1-M3b — the two destructive verbs, on a facility the studio BUILT and nowhere else.
+  //
+  // Three states, and the difference between them is the whole design:
+  //   • legal now                  → an enabled verb;
+  //   • live work holds it         → the SAME verb, disabled, with the sentence that
+  //                                  says what holds it and therefore when it reopens;
+  //   • a caller state the player  → NO verb at all. Absence, not a greyed control
+  //     cannot act on                 explaining the studio's regime to nobody.
+  //
+  // The founding bodies and the legacy Annex never reach here: they own no placed
+  // identity, so no `placed-*` id names one, and `canOfferFacilityVerbs` refuses the
+  // `foundingPlacement` code besides. The verbs are ABSENT there, not disabled.
+  if (placed !== null) {
+    const mutation = placed.mutation ?? null
+    if (!canOfferFacilityVerbs(mutation) || mutation === null) return []
+    const reason = facilityMutationBlockedReason(placed.name, mutation.blocked)
+    const move: LotBuildingInspectorPrimaryAction = {
+      kind: 'move',
+      label: 'Move this building',
+      ...(mutation.canMove ? {} : { disabled: true as const }),
+      ...(mutation.canMove || reason === null ? {} : { reason }),
+    }
+    const demolish: LotBuildingInspectorPrimaryAction = {
+      kind: 'demolish',
+      label: demolishVerbLabel(mutation.demolitionRefund),
+      ...(mutation.canDemolish ? {} : { disabled: true as const }),
+      ...(mutation.canDemolish || reason === null ? {} : { reason }),
+    }
+    return [move, demolish]
+  }
   if (buildingId === 'writers') {
     if (
       scriptBoard === null ||
@@ -967,7 +1017,7 @@ export function lotBuildingInspectorContext(
       break
   }
 
-  const actions = primaryActions(snapshot, buildingId, scriptBoard)
+  const actions = primaryActions(snapshot, buildingId, scriptBoard, placed)
   return {
     buildingId,
     label,

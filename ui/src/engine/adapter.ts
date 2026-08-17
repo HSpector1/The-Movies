@@ -199,6 +199,10 @@ import {
   LEGACY_EXPANSION_PARCEL_ID,
   queryPlacement as coreQueryPlacement,
   PLACEMENT_REJECTION_ORDER,
+  // Move & Demolish V1 (C1-M3a) — the two destructive verbs' own probes.
+  facilityMoveRefusal as coreFacilityMoveRefusal,
+  facilityDemolitionRefusal as coreFacilityDemolitionRefusal,
+  facilityDemolitionRefund as coreFacilityDemolitionRefund,
   // The V12 placement root's own derivations — the authority the completion detector reads.
   blueprintById,
   placedStudioFacility,
@@ -228,6 +232,8 @@ import type {
   LotAnnexWork,
   LotAnnexWorkOccupant,
   LotGateHiringMarket,
+  LotFacilityEngagement,
+  LotFacilityMutation,
   LotPlacedFacilityState,
   LotPlacementProjection,
   LotPropertyProjection,
@@ -349,10 +355,15 @@ import type {
   PlacementCatalogView,
   PlacedFacilityView,
   PlacementQuote,
+  PlacementQueryOptions,
   PlacementRequest,
   PlacementRejection,
   PlacementCellVerdict,
   PlacementStatus,
+  PlacementMutationRefusal,
+  FacilityEngagement,
+  FacilityMoveRequest,
+  FacilityDemolitionRequest,
   LotCell,
 } from '../../../src/core/index.ts'
 
@@ -453,9 +464,14 @@ export type {
   PlacementCatalogView,
   PlacedFacilityView,
   PlacementQuote,
+  PlacementQueryOptions,
   PlacementRequest,
   PlacementRejection,
   PlacementCellVerdict,
+  PlacementMutationRefusal,
+  FacilityEngagement,
+  FacilityMoveRequest,
+  FacilityDemolitionRequest,
   LotCell,
 }
 
@@ -922,9 +938,61 @@ export function studioPlacement(state: GameState): StudioPlacementView {
   return coreStudioPlacementView(state)
 }
 
-/** Pure legality + price for one candidate placement. Never throws on illegality. */
-export function placementQuote(state: GameState, request: PlacementRequest): PlacementQuote {
-  return coreQueryPlacement(state, request)
+/**
+ * Pure legality + price for one candidate placement. Never throws on illegality.
+ *
+ * `options.movingPlacementId` is what makes a MOVE askable (C1-M3b): without it a
+ * building being re-sited collides with the ground it is already standing on, and every
+ * destination overlapping its own footprint reads as `occupied`. It is ONE concept,
+ * threaded to the ONE legality authority — the UI never subtracts its own cells.
+ */
+export function placementQuote(
+  state: GameState,
+  request: PlacementRequest,
+  options?: PlacementQueryOptions,
+): PlacementQuote {
+  return coreQueryPlacement(state, request, options)
+}
+
+// ── Move & Demolish V1 (C1-M3b) — the boundary the world asks ────────────────
+//
+// Structured facts in, never parsed strings. Both probes answer "may this happen right
+// now"; both actions go through the ordinary action path and return the SAME state by
+// reference when the engine refuses, so an unchanged identity IS "nothing happened".
+
+/** Why this facility cannot be moved to that origin, or null when it can. */
+export function facilityMoveRefusal(
+  state: GameState,
+  request: FacilityMoveRequest,
+): PlacementMutationRefusal | null {
+  return coreFacilityMoveRefusal(state, request)
+}
+
+/** Why this facility cannot be demolished, or null when it can. */
+export function facilityDemolitionRefusal(
+  state: GameState,
+  request: FacilityDemolitionRequest,
+): PlacementMutationRefusal | null {
+  return coreFacilityDemolitionRefusal(state, request)
+}
+
+export function moveFacilityAction(state: GameState, move: FacilityMoveRequest): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'moveFacility', move }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+export function demolishFacilityAction(
+  state: GameState,
+  demolition: FacilityDemolitionRequest,
+): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'demolishFacility', demolition }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
 }
 
 /** The binding legality order, so a surface can order its own messages identically. */
@@ -5904,8 +5972,77 @@ function placedFootprintExtent(
  * the retained Annex surface already shows. The lot never computes a legality, a price,
  * or a completion week of its own.
  */
+/**
+ * Move & Demolish eligibility for ONE placed facility (C1-M3b).
+ *
+ * Both probes are asked; neither is inferred from the other. They share an eligibility
+ * ladder in the engine but they are different questions, and a UI that derived one from
+ * the other would be re-implementing that ladder — which is exactly the drift the
+ * structured refusal exists to prevent.
+ *
+ * A refusal that names live work carries its HOLDERS, and each holder's title is
+ * resolved here, at the boundary that can see the Studio Calendar. Unresolvable stays
+ * null: the world then declines to name the work rather than inventing a name for it.
+ */
+function lotFacilityMutation(
+  state: GameState,
+  placed: PlacedFacilityView,
+  calendar: StudioCalendarView,
+): LotFacilityMutation {
+  const demolitionRefusal = coreFacilityDemolitionRefusal(state, { placementId: placed.id })
+  // The MOVE probe is asked at the facility's CURRENT origin. That destination is
+  // trivially legal for the building already standing on it (its own cells are excluded),
+  // so what survives is exactly the destination-independent eligibility — the same
+  // ladder the demolition probe runs, asked through the verb the player will use.
+  const moveRefusal = coreFacilityMoveRefusal(state, {
+    placementId: placed.id,
+    origin: placed.origin,
+  })
+  const blocked = demolitionRefusal ?? moveRefusal
+  const blueprint = blueprintById(placed.blueprintId)
+  return {
+    canMove: moveRefusal === null,
+    canDemolish: demolitionRefusal === null,
+    blocked:
+      blocked === null || blocked.code === 'illegalDestination'
+        ? null
+        : {
+            code: blocked.code,
+            holders:
+              blocked.code === 'facilityEngaged'
+                ? blocked.holders.map((holder) => lotFacilityEngagement(holder, calendar))
+                : [],
+          },
+    demolitionRefund: blueprint === null ? 0 : coreFacilityDemolitionRefund(blueprint),
+  }
+}
+
+/** One engine engagement, with the title the Studio Calendar can prove for it. */
+function lotFacilityEngagement(
+  holder: FacilityEngagement,
+  calendar: StudioCalendarView,
+): LotFacilityEngagement {
+  let title: string | null = null
+  for (const facility of calendar.facilities) {
+    for (const slot of facility.slots) {
+      if (slot.occupant?.ownerId === holder.holderId) title = slot.occupant.title
+    }
+  }
+  if (title === null) {
+    title =
+      calendar.productionOutlook.find((row) => row.productionId === holder.holderId)?.title ?? null
+  }
+  return {
+    kind: holder.kind,
+    holderId: holder.holderId,
+    activity: holder.activity,
+    title,
+  }
+}
+
 function lotPlacementProjection(state: GameState): LotPlacementProjection {
   const view = coreStudioPlacementView(state)
+  const calendar = coreStudioCalendar(state)
   return {
     mode: view.mode,
     currentWeek: view.currentWeek,
@@ -5923,6 +6060,7 @@ function lotPlacementProjection(state: GameState): LotPlacementProjection {
     })),
     placements: view.placements.map((placed) => {
       const buildWeeks = Math.max(1, placed.completesWeek - placed.placedWeek)
+      const mutation = lotFacilityMutation(state, placed, calendar)
       const completedAdvances =
         placed.status === 'operational'
           ? buildWeeks
@@ -5941,6 +6079,7 @@ function lotPlacementProjection(state: GameState): LotPlacementProjection {
         weeksRemaining: placed.weeksRemaining,
         progress01: completedAdvances / buildWeeks,
         weeklyOperatingCost: placed.weeklyOperatingCost,
+        mutation,
       }
     }),
     catalog: view.catalog.map((blueprint) => ({
