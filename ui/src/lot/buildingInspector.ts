@@ -24,10 +24,17 @@
 import type {
   AttentionState,
   BuildingId,
+  FoundingBuildingId,
+  LotParcelState,
+  LotPlacedFacilityState,
   ProductionOperationsState,
   StudioLotSnapshot,
 } from './snapshot/StudioLotSnapshot.ts'
-import { BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
+import {
+  buildingLabelFor,
+  isFoundingBuildingId,
+  placedFacilityIdOf,
+} from './snapshot/StudioLotSnapshot.ts'
 import { lotFacilityPresenceOccupants } from './snapshot/presenceLines.ts'
 import type {
   ScriptProjectsReadModel,
@@ -114,7 +121,7 @@ export type LotBuildingInspectorContext = {
  * destinations (see ./navigation.ts) — the Dashboard's production and release sections
  * are the Production Board and Released Films the player already knows by those names.
  */
-export const LOT_DEEP_SCREEN_LABEL: Record<BuildingId, string> = {
+export const LOT_DEEP_SCREEN_LABEL: Record<FoundingBuildingId, string> = {
   admin: 'Dashboard',
   // M-B copy law: the ghost names the PLACE the player clicked, in the words the lot
   // already uses for it. 'Assembly' and 'Casting Room' were internal screen names — a
@@ -129,7 +136,18 @@ export const LOT_DEEP_SCREEN_LABEL: Record<BuildingId, string> = {
   expansion: 'Studio Development',
 }
 
-const BUILDING_ROLE: Record<BuildingId, string> = {
+/**
+ * The deep screen ANY world id opens (C1-M1b).
+ *
+ * A facility the studio built lives on Studio Development — the screen that owns
+ * building on this lot — which is the same deep destination the Annex parcel opens and
+ * the one `buildingActionFor` already routes it to. One id, one owner (shift law 10).
+ */
+export function lotDeepScreenLabel(id: BuildingId): string {
+  return isFoundingBuildingId(id) ? LOT_DEEP_SCREEN_LABEL[id] : 'Studio Development'
+}
+
+const BUILDING_ROLE: Record<FoundingBuildingId, string> = {
   admin: 'Studio administration, finances, and publicity',
   writers: 'Development — screenplays commissioned, drafted, and reviewed',
   casting: 'Casting — camera tests, audition evidence, and packaging',
@@ -300,6 +318,21 @@ function facilityFacts(
 ): LotBuildingInspectorFact[] | null {
   const facilityIds = BUILDING_FACILITY_IDS[buildingId]
   if (facilityIds === undefined) return null
+  return calendarFacilityFacts(facilityIds, calendar, BUILDING_OCCUPANT_OWNER[buildingId])
+}
+
+/**
+ * The Calendar's own occupancy record for a set of facility ids, as printed facts.
+ *
+ * Split out of `facilityFacts` by C1-M1b so a facility the studio BUILT can report the
+ * same slot truth through the same strictness: one malformed member still invalidates
+ * the whole claim, and a facility the Calendar does not carry still prints nothing.
+ */
+function calendarFacilityFacts(
+  facilityIds: readonly string[],
+  calendar: StudioCalendarView | null,
+  preferredOwner: 'script' | 'casting' | 'production' | undefined,
+): LotBuildingInspectorFact[] | null {
   if (calendar === null) return null
   const raw: unknown = (calendar as unknown as Record<string, unknown>).facilities
   if (!Array.isArray(raw)) return null
@@ -317,7 +350,6 @@ function facilityFacts(
   }
   if (matched.length === 0) return null
 
-  const preferredOwner = BUILDING_OCCUPANT_OWNER[buildingId]
   const facts: LotBuildingInspectorFact[] = []
   for (const facility of matched) {
     facts.push({
@@ -358,8 +390,9 @@ function facilityFacts(
 function presenceFacts(
   snapshot: StudioLotSnapshot,
   buildingId: BuildingId,
+  override?: readonly string[],
 ): LotBuildingInspectorFact[] {
-  const facilityIds = BUILDING_PRESENCE_FACILITY_IDS[buildingId]
+  const facilityIds = override ?? BUILDING_PRESENCE_FACILITY_IDS[buildingId]
   if (facilityIds === undefined) return []
   const occupants = lotFacilityPresenceOccupants(snapshot, facilityIds)
   if (occupants.length === 0) return []
@@ -460,6 +493,115 @@ function constructionFacts(
     return facts
   }
   return null
+}
+
+// ── Placed facilities (C1-M1b) — a facility the studio BUILT, inspected ───────
+//
+// Until this milestone a placed facility had no `BuildingId`, so clicking one landed
+// its PARCEL and the facility itself said nothing at all: no name, no countdown, no
+// occupants, no running cost. It is a first-class world citizen now, and it answers the
+// SAME five questions in the SAME order every other place answers — what is this, what
+// is happening, who is here, what can I do, how much room is left.
+//
+// The legacy Annex is deliberately not one of these. A placement standing on the
+// `expansion` parcel keeps being addressed as `expansion` and keeps the accepted Annex
+// panel exactly as it is; nothing below can reach it.
+
+/** The placement one world id names, or null. Two claiming one id is contradictory. */
+function placedFacilityFor(
+  snapshot: StudioLotSnapshot,
+  buildingId: BuildingId,
+): LotPlacedFacilityState | null {
+  const placedId = placedFacilityIdOf(buildingId)
+  if (placedId === null) return null
+  const placements = snapshot.placement?.placements
+  if (!Array.isArray(placements)) return null
+  const matches = placements.filter((placed) => isRecord(placed) && placed.id === placedId)
+  if (matches.length !== 1) return null
+  const only = matches[0]!
+  if (!isText(only.name) || !isText(only.facilityId) || !isText(only.parcelId)) return null
+  if (only.status !== 'operational' && only.status !== 'underConstruction') return null
+  if (!isCount(only.placedWeek) || !isCount(only.completesWeek)) return null
+  if (!isCount(only.weeksRemaining) || !isFiniteNumber(only.weeklyOperatingCost)) return null
+  return only
+}
+
+/** The parcel a placed facility stands on, when the projection proves exactly one. */
+function parcelFor(snapshot: StudioLotSnapshot, parcelId: string): LotParcelState | null {
+  const parcels = snapshot.placement?.parcels
+  if (!Array.isArray(parcels)) return null
+  const matches = parcels.filter((parcel) => isRecord(parcel) && parcel.id === parcelId)
+  return matches.length === 1 && isText(matches[0]!.label) ? matches[0]! : null
+}
+
+/**
+ * WHAT IS HAPPENING here — the construction countdown, or the operational facts.
+ *
+ * Every number is the Engine's own: `completesWeek` and `weeksRemaining` come off the
+ * placement projection, and the weeks-done figure is their difference, never a clock
+ * this module runs.
+ */
+function placedFacts(
+  snapshot: StudioLotSnapshot,
+  placed: LotPlacedFacilityState,
+  calendar: StudioCalendarView | null,
+): LotBuildingInspectorFact[] {
+  const facts: LotBuildingInspectorFact[] = [
+    { key: 'placed:name', term: 'Facility', detail: placed.name },
+  ]
+  const parcel = parcelFor(snapshot, placed.parcelId)
+  if (parcel !== null) {
+    facts.push({ key: 'placed:parcel', term: 'Ground', detail: parcel.label })
+  }
+  const buildWeeks = Math.max(1, placed.completesWeek - placed.placedWeek)
+  if (placed.status === 'underConstruction') {
+    const done = Math.max(0, Math.min(buildWeeks, buildWeeks - placed.weeksRemaining))
+    facts.push({
+      key: 'placed:progress',
+      term: 'Under construction',
+      detail: `${String(done)}/${String(buildWeeks)} ${plural(
+        buildWeeks,
+        'week',
+        'weeks',
+      )} done · due Week ${String(placed.completesWeek)}`,
+    })
+  } else {
+    facts.push({
+      key: 'placed:progress',
+      term: 'Status',
+      detail: `Operational since Week ${String(placed.completesWeek)}`,
+    })
+    facts.push({
+      key: 'placed:opex',
+      term: 'Weekly running cost',
+      detail: moneyExact(placed.weeklyOperatingCost),
+    })
+    // HOW MUCH ROOM IS LEFT — the Calendar's own slot record for this exact facility.
+    const capacity = calendarFacilityFacts([placed.facilityId], calendar, undefined)
+    if (capacity !== null) facts.push(...capacity)
+  }
+  return facts
+}
+
+/** One live status line for a facility the studio built. */
+function placedStatusLine(
+  placed: LotPlacedFacilityState,
+  calendar: StudioCalendarView | null,
+): string {
+  if (placed.status === 'underConstruction') {
+    return placed.weeksRemaining === 0
+      ? `${placed.name} completes this week.`
+      : `${placed.name} is under construction — ${String(placed.weeksRemaining)} ${plural(
+          placed.weeksRemaining,
+          'week',
+          'weeks',
+        )} to go.`
+  }
+  const capacity = calendarFacilityFacts([placed.facilityId], calendar, undefined)
+  if (capacity === null) return `${placed.name} is operational.`
+  return capacity.some((fact) => fact.key.startsWith('slot:'))
+    ? `Work is under way in ${placed.name}.`
+    : `${placed.name} is operational — nothing is booked in here this week.`
 }
 
 function theaterFacts(snapshot: StudioLotSnapshot): LotBuildingInspectorFact[] {
@@ -684,9 +826,28 @@ export function lotBuildingInspectorContext(
   const occupantFacts: LotBuildingInspectorFact[] = []
   const operations = locatedOperations(snapshot, buildingId)
   const commandCandidates = operations.filter((operation) => operation.currentCommand !== null)
-  let status: string
+  let status = ''
+  let role = isFoundingBuildingId(buildingId) ? BUILDING_ROLE[buildingId] : ''
+  let label = buildingLabelFor(buildingId, snapshot.property)
 
-  switch (buildingId) {
+  // A facility the studio BUILT answers the same five questions as every founding place
+  // (C1-M1b). It is checked FIRST because it is the one branch the founding switch below
+  // was never written for — and a closed switch is exactly how this milestone's defect
+  // family gets in.
+  const placed = placedFacilityFor(snapshot, buildingId)
+  if (placed !== null) {
+    label = label ?? placed.name
+    role =
+      placed.status === 'operational'
+        ? `A studio facility the lot built — ${placed.name}`
+        : `A facility under construction on the studio's own ground — ${placed.name}`
+    facts.push(...placedFacts(snapshot, placed, calendar))
+    occupantFacts.push(...presenceFacts(snapshot, buildingId, [placed.facilityId]))
+    facts.push(...operationFacts(operations))
+    status = placedStatusLine(placed, calendar)
+  }
+
+  switch (placed !== null ? '' : buildingId) {
     case 'admin': {
       facts.push(...adminFacts(snapshot))
       status = 'The front office is open — finances, standing, and this week’s publicity.'
@@ -787,13 +948,21 @@ export function lotBuildingInspectorContext(
         (built === null ? 'Parcel details are unavailable.' : 'The parcel is marked and graded.')
       break
     }
+    default:
+      // Every founding place is handled above and every placed facility before the
+      // switch. Anything else is a world id this panel has never been taught — it opens
+      // and says so, rather than pretending to describe a place it cannot see.
+      if (placed === null && status === '') {
+        status = 'This place is not part of the studio property this week.'
+      }
+      break
   }
 
   const actions = primaryActions(snapshot, buildingId, scriptBoard)
   return {
     buildingId,
-    label: BUILDING_LABELS[buildingId],
-    role: BUILDING_ROLE[buildingId],
+    label: label ?? buildingId,
+    role,
     status,
     attention,
     attentionNote,
@@ -807,6 +976,6 @@ export function lotBuildingInspectorContext(
         ? commissionWithheldNote(scriptBoard)
         : null,
     commandOperation: commandCandidates.length === 1 ? commandCandidates[0]! : null,
-    deepLabel: LOT_DEEP_SCREEN_LABEL[buildingId],
+    deepLabel: lotDeepScreenLabel(buildingId),
   }
 }

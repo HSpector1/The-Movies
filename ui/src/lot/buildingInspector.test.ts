@@ -17,6 +17,7 @@ import {
 import {
   ALL_BUILDING_IDS,
   BUILDING_LABELS,
+  FOUNDING_BUILDING_IDS,
   LOT_PRESENCE_STATIC_BEAT,
   type ProductionOperationsState,
   type StudioLotSnapshot,
@@ -101,7 +102,7 @@ function operation(
 
 describe('World Inspector projection — the panel always opens', () => {
   it('names, describes and states every one of the nine places with nothing but a bare snapshot', () => {
-    for (const id of ALL_BUILDING_IDS) {
+    for (const id of FOUNDING_BUILDING_IDS) {
       const context = lotBuildingInspectorContext(baseSnapshot(), id, null, null)
       expect(context.buildingId).toBe(id)
       expect(context.label).toBe(BUILDING_LABELS[id])
