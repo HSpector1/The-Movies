@@ -481,13 +481,18 @@ function commissionAvailability(
       genre: concept.genre,
     }))
 
+  // Best writing estimate first. The commission form takes its default from the
+  // head of this list, and a pure canonical-id order handed a fresh studio's very
+  // first screenplay to whoever happened to own the lowest id — in practice an
+  // actor with a fragile writing estimate, while the roster's actual writer sat
+  // last. Ordering by the same player-visible `Est.` score the form already shows
+  // makes the default explainable. Equal scores fall back to the canonical id, so
+  // the order stays fully deterministic and independent of input array order.
   const writers = state.talent
     .filter(
       (writer) =>
         writer.skills.writing !== undefined && activeContract(state, writer.id) !== undefined,
     )
-    .slice()
-    .sort((a, b) => compareId(a.id, b.id))
     .map((writer): CommissionWriterView => {
       const availability = writerAvailability(state, writer.id)
       return {
@@ -499,6 +504,9 @@ function commissionAvailability(
         assignmentLabel: availability.assignmentLabel,
       }
     })
+    .sort(
+      (a, b) => b.writingEstimate.score - a.writingEstimate.score || compareId(a.id, b.id),
+    )
 
   const blockers: ScriptPlayerBlocker[] = []
   if (state.scriptDevelopment.mode !== 'managed') {

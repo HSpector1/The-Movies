@@ -45,7 +45,15 @@ function managedStudio(seed: string): GameState {
 function commissionPayload(state: GameState): CommissionScriptPayload {
   const board = scriptProjectsBoard(state)
   const concept = board.commission.concepts[0]!
-  const writer = board.commission.writers.find((candidate) => candidate.available)!
+  // `commission.writers` now leads with the best writing estimate, which on this
+  // deliberately thin founding roster (one director, one craft) can be a
+  // cross-discipline person whose primary role the package still needs. These
+  // specs are about review focus and package opening, not about that trade-off,
+  // so the fixture commissions the best available primary-role writer.
+  const writer =
+    board.commission.writers.find(
+      (candidate) => candidate.available && candidate.primaryRole === 'writer',
+    ) ?? board.commission.writers.find((candidate) => candidate.available)!
   return {
     conceptId: concept.id,
     writerId: writer.id,

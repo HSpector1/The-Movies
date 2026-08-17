@@ -119,9 +119,21 @@ describe('Script Projects V1 player read model', () => {
     expect(view.commission.concepts.map((concept) => concept.id)).toEqual(
       [...state.concepts.map((concept) => concept.id)].sort(),
     )
-    expect(view.commission.writers.map((writer) => writer.id)).toEqual(
+    // Every contracted writing-capable person is offered, but the list now leads
+    // with the best writing estimate so the form's default is the best writer.
+    // Ties fall back to the canonical id.
+    expect([...view.commission.writers.map((writer) => writer.id)].sort()).toEqual(
       [...state.contracts.map((contract) => contract.talentId)].sort(),
     )
+    const estimates = view.commission.writers.map((writer) => writer.writingEstimate.score)
+    expect(estimates).toEqual([...estimates].sort((a, b) => b - a))
+    for (let index = 1; index < view.commission.writers.length; index++) {
+      const previous = view.commission.writers[index - 1]!
+      const current = view.commission.writers[index]!
+      if (previous.writingEstimate.score === current.writingEstimate.score) {
+        expect(previous.id < current.id).toBe(true)
+      }
+    }
     // Cross-discipline careers: every contracted person with a writing profile is
     // selectable; primary-role labels do not silently partition the commission list.
     expect(view.commission.writers.some((writer) => writer.primaryRole !== 'writer')).toBe(true)
