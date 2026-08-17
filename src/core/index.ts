@@ -230,6 +230,7 @@ export {
   placedStudioFacility,
   placementRegimeReady,
   queryPlacement,
+  quoteForBlueprint,
   studioConstructionView,
   studioPlacementView,
   weeklyPlacementOperatingCost,

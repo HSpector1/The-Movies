@@ -310,7 +310,30 @@ export function queryPlacement(state: GameState, request: PlacementRequest): Pla
       maxInstances: null,
     }
   }
+  return quoteForBlueprint(state, blueprint, origin)
+}
 
+/**
+ * Judge and price ONE blueprint at ONE origin. This is where every rule actually
+ * lives; `queryPlacement` is the catalog-resolving entry in front of it.
+ *
+ * The split is not a convenience. Resolving an id and judging an entry are two
+ * different jobs, and separating them means the rule engine can be exercised
+ * against a blueprint the shipped catalog does not contain — which is the only
+ * way to prove the requirement and instance-limit law before C1-M4 authors
+ * catalog content that would exercise it.
+ *
+ * THE RUNNER INVARIANT IS UNAFFECTED. `commitPlacement` calls `queryPlacement`,
+ * never this, so the only blueprints that can ever be charged for are the ones
+ * the catalog contains. A caller reaching this directly gets a pure quote and no
+ * way to spend a penny against it.
+ */
+export function quoteForBlueprint(
+  state: GameState,
+  blueprint: FacilityBlueprint,
+  requestOrigin: LotCell,
+): PlacementQuote {
+  const origin = { gx: requestOrigin.gx, gy: requestOrigin.gy }
   const property = propertyOf(state)
   const cells = footprintCells(blueprint, origin)
   // Ground occupancy (placements AND authored structures) answers "is a body
