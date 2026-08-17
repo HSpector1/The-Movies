@@ -405,3 +405,36 @@ yes, in-world; see people travel and facilities become occupied — yes, witness
 resumes/proceeds authoritatively — yes; inspect any inhabitant's job/place/credit — yes;
 initiate and inspect real construction — yes; observe events and react from the world —
 yes. Facility-capacity queues remain latent in shipped config (recorded Owner decision).
+
+## Independent red-team audit (pre-seal)
+
+Verdict: **VERIFIED WITH CAVEATS. Zero P0, zero P1.** All four gate claims reproduced
+exactly at `4f53e25` by independent measurement (vitest 222/3,003; Playwright 186/0/4/0
+of 190; both tsc; build — logs and 49 screenshots in the session scratch archive). The
+15-minute chain was driven adversarially on a different seed at 1920×1080: every step
+stayed in the world, zero console errors; the only ejections reachable were behind
+explicit deep-details buttons. Determinism proven to the byte (presence interleaving,
+export/import round-trips, identical replays, identical localStorage after identical
+in-world sequences). No test deleted, no .skip/.only added this shift; net +8,819 test
+lines. 484-week sim soak clean. Both rollback flags verified working (my opening
+"legacy renders black" diagnosis did not reproduce — it was the hidden-tab pause
+artifact, as the M1 writer reported).
+
+Findings and dispositions:
+- P2-1 camera grammar inconsistency (plate-era retained contexts double zoom on click
+  with no player-facing reset; M1.5 inspectors do not) — FIX DISPATCHED (selection
+  never changes zoom; glide-pan into view; player-facing "Whole property" HUD control).
+- P3-1 stale 172-tuple in SHIFT-OPERATIONAL-LAWS law 25 + playwright.config table —
+  FIX DISPATCHED. P3-2 presenceLines duplicated-id comment/behavior mismatch — FIX
+  DISPATCHED (behavior tightened to match comment).
+- P3-3 Escape-after-background-click on retained workspaces (pre-existing, plate too)
+  and P3-4 480×270/DSF2 world-below-fold (pre-existing, byte-identical on plate) —
+  recorded, not this shift's regressions, next-leverage candidates.
+- P3-5 forced-colors cannot restyle canvas world (DOM companion carries semantics) —
+  recorded honestly; no world forced-colors claim is made.
+- P3-6 insufficientFunds unreachable via build alone at $20M start (12 legal annex
+  sites = $9.36M) — correct ordering, unit-tested; economy question for later catalogs.
+- P3-7 studioLotSnapshot (now carrying presence + calendar joins) is unmemoised on a
+  per-render path — measured harmless today (+6 rebuilds/40 hovers); watch on growth.
+- P3-9 no GPU wall-clock certification for the grid world — unchanged scope note; the
+  four env-gated evidence specs remain the honest gate.
