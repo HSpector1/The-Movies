@@ -5423,6 +5423,7 @@ export function StudioLotScreen({
     const placed = placedFacilityById(placement.placements, placementId)
     if (placed === null) return
     const name = placed.name
+    const parcelId = placed.parcelId
     const refund = placed.mutation?.demolitionRefund ?? 0
     demolishPendingRef.current = true
     setDemolishPending(true)
@@ -5440,14 +5441,26 @@ export function StudioLotScreen({
     setDemolishIntent(null)
     setDemolishError(null)
     setBuildAnnouncementSerial((serial) => serial + 1)
-    setBuildReceipt(demolishReceiptText(name, refund))
     // The body is gone. A selection pointing at it would be a dangling identity, which
-    // is exactly the defect family this campaign is hunting — so selection falls to
-    // neutral HERE, before any snapshot arrives to be misread (C1-M3b).
+    // is exactly the defect family this campaign is hunting — so the selection is
+    // released HERE, before any snapshot can arrive to be misread (C1-M3b).
+    //
+    // Where it LANDS is the ground the building stood on: that parcel is a real thing
+    // that survived, it is what actually changed, and it is where the player would look
+    // next. A demolition that dropped the player into nothing at all would be neutral
+    // and useless. If the parcel cannot describe itself, selection falls all the way to
+    // neutral rather than to a second guess.
     setBuildingInspectorId(null)
     recordSelection(null)
     viewRef.current?.clearHollywoodPlaceSelection?.()
-  }, [facilityRefusalWords, recordSelection])
+    if (!enterParcelInspectorContext(parcelId)) clearParcelContext()
+    setBuildReceipt(demolishReceiptText(name, refund))
+  }, [
+    clearParcelContext,
+    enterParcelInspectorContext,
+    facilityRefusalWords,
+    recordSelection,
+  ])
 
   /** Keyboard-driven nudging — the non-pointer path to every legal origin. */
   const nudgeBuildOrigin = useCallback((dgx: number, dgy: number) => {

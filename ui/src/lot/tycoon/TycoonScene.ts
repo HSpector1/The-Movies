@@ -1110,13 +1110,6 @@ export class TycoonScene extends Phaser.Scene {
       .graphics()
       .setDepth(DEPTH.placementPreview)
       .setName('tier:placement-preview')
-    // The carried body's own ground outline. Created once, exactly like the queue cue
-    // and the guidance pool: the world carries at most one building at a time.
-    this.carriedGraphics = this.add
-      .graphics()
-      .setDepth(DEPTH.ground + 4)
-      .setVisible(false)
-      .setName('tier:carried-body')
     this.previewLabel = this.add
       .text(0, 0, '', {
         fontFamily: FONT_SANS,
@@ -1400,6 +1393,17 @@ export class TycoonScene extends Phaser.Scene {
     const carriedId = this.buildMode?.movingPlacementId ?? null
     for (const [id, sprite] of this.placementSprites) {
       sprite.setAlpha(id === carriedId ? CARRIED_BODY_ALPHA : 1)
+    }
+    // Created on the FIRST move and never before. A world nobody is moving a building
+    // in costs exactly nothing for this feature — which is what keeps the Week-0
+    // structural tuple where it has always been (law 25: no re-pin without a reason,
+    // and "a layer that might be used later" is not one).
+    if (carriedId !== null && this.carriedGraphics === null) {
+      this.carriedGraphics = this.add
+        .graphics()
+        .setDepth(DEPTH.ground + 4)
+        .setVisible(false)
+        .setName('tier:carried-body')
     }
     const g = this.carriedGraphics
     if (!g) return
