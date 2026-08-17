@@ -937,8 +937,12 @@ test('casting stop keeps all six advisory results in the world, preserves option
       const evidence = candidates[index]!
       await expect(panel.getByTestId(`lot-casting-review-name-${role}-${index}`))
         .toHaveText(evidence.name)
+      // M-B re-pin: the row's second line names WHICH camera test this is; the exact
+      // per-row talent identity moved to the row's own `data-talent-id` attribute.
       await expect(panel.getByTestId(`lot-casting-review-talent-id-${role}-${index}`))
-        .toContainText(evidence.talentId)
+        .toHaveText(`Camera test ${index + 1} of 2`)
+      await expect(panel.getByTestId(`lot-casting-review-row-${role}-${index}`))
+        .toHaveAttribute('data-talent-id', evidence.talentId)
       await expect(panel.getByTestId(`lot-casting-review-estimate-${role}-${index}`))
         .toContainText(`${evidence.estimate} · ${evidence.low}–${evidence.high}`)
       await expect(panel.getByTestId(`lot-casting-review-fit-${role}-${index}`))

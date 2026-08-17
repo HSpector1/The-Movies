@@ -379,8 +379,12 @@ export const LotCastingReviewPanel = forwardRef<
                     <strong data-testid={`lot-casting-review-name-${role.slot}-${index}`}>
                       {evidence.name}
                     </strong>
+                    {/* Which of the role's two reads this row is. Everything honest
+                        about the person is already printed below; the talent id it used
+                        to show added nothing a player could act on, and lives on
+                        `data-talent-id` above. */}
                     <span data-testid={`lot-casting-review-talent-id-${role.slot}-${index}`}>
-                      Talent {evidence.talentId}
+                      Camera test {index + 1} of {role.evidence.length}
                     </span>
                   </header>
 

@@ -310,8 +310,13 @@ describe('World-First Lot-Native Casting Review Intervention V1 — App/Lot inte
       role.evidence.forEach((evidence, index) => {
         expect(screen.getByTestId(`lot-casting-review-name-${role.slot}-${index}`))
           .toHaveTextContent(evidence.name)
+        // M-B: the row's second line names WHICH camera test this is. The talent id
+        // it used to print now lives only on the row's `data-talent-id`, so the exact
+        // per-row identity is still pinned — by attribute rather than by player copy.
         expect(screen.getByTestId(`lot-casting-review-talent-id-${role.slot}-${index}`))
-          .toHaveTextContent(evidence.talentId)
+          .toHaveTextContent(`Camera test ${index + 1} of 2`)
+        expect(screen.getByTestId(`lot-casting-review-row-${role.slot}-${index}`))
+          .toHaveAttribute('data-talent-id', evidence.talentId)
         expect(screen.getByTestId(`lot-casting-review-estimate-${role.slot}-${index}`))
           .toHaveTextContent(`${evidence.estimate} · ${evidence.low}–${evidence.high}`)
         expect(screen.getByTestId(`lot-casting-review-fit-${role.slot}-${index}`))

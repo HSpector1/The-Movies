@@ -264,8 +264,13 @@ describe('LotCastingReviewPanel', () => {
       for (const [index, result] of role.evidence.entries()) {
         expect(screen.getByTestId(`lot-casting-review-name-${role.slot}-${index}`))
           .toHaveTextContent(result.name)
+        // M-B: the row's second line names WHICH read this is, not the talent id. The
+        // id stays on the row's `data-talent-id`, asserted in the ordering block above.
         expect(screen.getByTestId(`lot-casting-review-talent-id-${role.slot}-${index}`))
-          .toHaveTextContent(`Talent ${result.talentId}`)
+          .toHaveTextContent(`Camera test ${index + 1} of 2`)
+        expect(
+          screen.getByTestId(`lot-casting-review-talent-id-${role.slot}-${index}`).textContent ?? '',
+        ).not.toContain(result.talentId)
         const estimate = screen.getByTestId(`lot-casting-review-estimate-${role.slot}-${index}`)
         expect(estimate).toHaveTextContent(`${result.estimate} · ${result.low}–${result.high}`)
         expect(estimate.querySelector('data')).toHaveAttribute('value', String(result.estimate))
