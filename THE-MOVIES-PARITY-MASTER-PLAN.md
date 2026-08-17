@@ -1,6 +1,6 @@
 # THE MOVIES → PROJECT: STUDIO — PARITY MASTER PLAN
 
-Fable PM / Game Director reconciliation pass · 2026-08-17
+Fable PM / Game Director reconciliation pass · 2026-08-17 · **v1.1**
 Evidence: `~/Desktop/Big Swing Art/` (Bible v1.0 + Source Register + Comparative Design
 Register + Technical Artifact Register + ORIGINAL-DATA + TECHNICAL-ARTIFACTS + the
 screenshot corpus, all read; both validators run clean this pass — original data
@@ -8,6 +8,13 @@ screenshot corpus, all read; both validators run clean this pass — original da
 Current build: canonical `main` = `first-movie-journey-v1` @ `8464f3d` (tag
 `seal/first-movie-journey-v1`), personally played this pass as a fresh studio from
 founding through greenlight and into mid-shoot interventions.
+
+**v1.1 (this revision): OWNER AMENDMENT incorporated** — six rulings (player-built
+studio migration; hybrid original-faithful interaction law; move/demolish V1 in C1;
+expandable property architecture; concurrency-from-capacity principle; declarative
+unlock metadata) plus the Star-Life-vs-Economy reorder question, answered in §7.
+Amendment reviewed against the current build; no new research performed; no
+implementation performed.
 
 **Status: PLAN ONLY. Campaign #1 is NOT authorized and NOT started.** Owner review
 required before any implementation.
@@ -46,6 +53,10 @@ Sets, the Laboratory, the Movie Mogul ladder, the ceremony cycle, era progressio
 is PARTIAL-thin or MISSING, exactly as the Bible scored, and none of that changed at
 the FMJ seal because none of it was that shift's job.
 
+Per **Owner Ruling 1**, the nine fixed buildings are now formally *transitional
+architecture, not sacred permanent geography*: the destination is a studio the player
+builds from near-nothing. §6 defines the migration.
+
 The machinery to close this is proven: placement/build-mode is real (legality, cost,
 countdown, capacity flip), the save format migrates, the engine is deterministic and
 heavily gated (226 files / 3,110 vitest; 194/4 Playwright at seal), and the evidence
@@ -57,9 +68,8 @@ Personal screenshot-study verdict worth recording: the original's "building as m
 is literally a **walls-lowered floorplan** — Staff Office, Casting Office, Stage
 School, Laboratory, and Restaurant all render labeled interior rooms as world-scale
 click/drop targets (the "radial menu" readings in earlier passes are crops of the same
-idiom). Our inspector-verb grammar is a legitimate modernization of it; the floorplan
-verb-room upgrade remains the recorded north star (research rec #4), not a near-term
-requirement.
+idiom). Per **Owner Ruling 2**, this idiom is the north star for world-native simple
+actions; retained overlays remain valid where complexity earns them (§5).
 
 ## 2. Original-vs-current parity matrix (corrected to the sealed build)
 
@@ -123,7 +133,9 @@ Ranked by how much of the original's identity they carry:
 
 1. **Facility catalog / buildable lot** — original: ~28 costed, gated, multi-tier
    facilities (now fully datasheeted in `facility_catalog.csv` + the recovered engine
-   schema). Ours: one blueprint. The core tycoon expansion fantasy is absent.
+   schema). Ours: one blueprint. The core tycoon expansion fantasy is absent — and per
+   Owner Ruling 1 the target is stronger than a catalog: the player builds the core
+   studio itself.
 2. **Sets as a subsystem** — original: ~39+ named sets with hidden Quality, weighted
    genre association (engine-schema-proven), novelty decay across films, decay/repair,
    throughput constraint, rehearsal surface. Ours: two fixed soundstages.
@@ -141,11 +153,12 @@ Ranked by how much of the original's identity they carry:
 6. **Star life (deferred by ruling, not forgotten)** — stress/boredom point economy,
    relationship ladder with production-context building (REHEARSE/FILM/CASTING —
    the artifact pass's most elegant finding), addiction/rehab, press/photo events.
-   Sequenced after progression, per standing Owner ruling.
+   Sequencing re-evaluated in §7 per the Owner's roadmap question.
 7. **Concurrent-production bustle** — original: many films at once, auto-fill crew,
-   a lot that reads busy. Ours: two max, and the second is roster-gated.
+   a lot that reads busy. Ours: two max, and the second is roster-gated. Per Owner
+   Ruling 5, throughput should ultimately emerge from what the player built.
 
-## 5. Preserve / Modernize / Deepen rulings
+## 5. Preserve / Modernize / Deepen rulings + the interaction law
 
 The Bible §39 rulings stand; this pass re-affirms them against the sealed build with
 these clarifications:
@@ -171,83 +184,215 @@ these clarifications:
 - **OWNER RULING pending**: machinima/Advanced Movie-Maker investment level (still
   the recorded deferred major-parity pillar); sandbox timing.
 
+**THE HYBRID INTERACTION LAW (Owner Ruling 2 — RESOLVED, binding from Campaign 1).**
+*World first for simple actions; overlay when complexity earns it; never eject the
+player from the studio casually.*
+
+- **World-native is the default for low-dimensional physical actions**: hiring,
+  assigning, selecting a facility action, rehearsing, repair, moving/demolishing a
+  building, choosing a Set, simple production routing. The original's lowered-wall /
+  labeled-room building interaction is the north star — the player should feel they
+  are *operating the building*, not launching an unrelated menu. Literal cloning is
+  not mandatory; friction-free recognition is the bar.
+- **Retained overlays remain valid for genuinely complex decisions**: audition
+  analysis, detailed casting comparison, package assembly, budgeting, forecasting,
+  deep reports. FMJ proved these work extremely well over the mounted Lot.
+- **The former "ratify forms as permanent house style" recommendation is withdrawn.**
+  No broad forms-forever declaration is made. Each new surface is classified at
+  design time as world-native or complexity-earned-overlay, and the classification is
+  recorded in its contract.
+
 Cross-campaign law adopted from the comparative pass (acceptance criteria, not new
 campaigns): every major number ships with its drivers and one actionable response
 (RCT3-DIAGNOSTICS-001); suitability decomposes (ZT-SUITABILITY-002); amplifiers never
 overwrite Movie Quality (ZT-CORE-HIERARCHY-001 — already in copy, keep it invariant);
 aggregate warnings drill down to real entities (RCT3-ATTENTION-002).
 
-## 6. Recommended complete campaign sequence (revalidated from scratch)
+## 6. Fixed buildings → player-built studio (Owner Ruling 1 migration strategy)
 
-The prior five-campaign order was proposed against `b58e6f8`. Two things changed:
-the FMJ seal shipped a large fraction of "Decision Legibility" at the moments that
-matter most, and the evidence package turned Campaigns 1–2 from intentions into
-datasheets. I am therefore **retiring Decision Legibility as a standalone campaign**
-(its remaining pieces become acceptance criteria and one Campaign-3 milestone) and
-**promoting Progression & Prestige to third**. Otherwise the spine holds.
+**Product law.** The fantasy is *"I started with almost nothing. I built this
+studio."* — not *"I inherited nine permanent buildings and placed upgrades around
+them."* Today's nine fixed buildings are transitional architecture. The migration is
+staged so the sealed First Movie Journey never breaks along the way.
 
-1. **Campaign 1 — Lot Content Expansion** (P0, no dependencies): the facility catalog
-   on the proven placement engine, with first-class identity for placed buildings.
-   Fully scoped in §8.
-2. **Campaign 2 — Sets & Production Throughput** (P0, depends on C1's identity/
-   catalog work): Sets as placeable, decaying, genre-weighted, novelty-carrying,
-   script-required entities reserved through existing phase machinery; the
-   concurrency/capacity Owner ruling lands here and the first visible queue with it;
-   shooting-week theater (scenery truck route, stage-door activity).
-3. **Campaign 3 — Progression, Prestige & Awards** (P1, depends on C1 for buildings
-   to gate, C2 for a lot worth scoring): discrete checklist-gated Studio Rank ladder
-   over existing Standing; Lot Prestige reconnected to physical maintenance/decay/
-   ornamentation (landscaping layer lands here, feeding the score from day one);
-   Awards as the ceremony/evaluation cadence folded in per the standing ruling; plus
-   the remaining legibility milestone — post-release attribution in Autopsy ("which
-   package inputs moved this result") so thresholds feel fair.
-4. **Campaign 4 — Genre Depth, Research & the Opening of Time** (P1): five/six-genre
-   depth on FORCE_VECTORS with audience-taste movement (bounded; see Owner decision
-   #5), Laboratory/research as the unlock engine using the dual-route pattern the
-   artifact pass proved (research early OR calendar fallback), EraConfig begins to
-   vary — the timeline starts moving.
-5. **Campaign 5 — Economy Closure** (P1/P2): close cash-runaway/top-studio
-   immortality with the real capex/opex of a now-populated lot (D-17B charter);
-   remeasure week-208 at the new scale.
-6. **Then the deferred pillars, in ruled order**: Star Life (stress/mood with teeth,
-   automated, Stars only) → Relationships/chemistry (derived, production-context) →
-   Addiction/Rehab flavor → Sandbox → Machinima (after its dedicated scope ruling).
+**Classification of today's nine (BuildingIds verified in
+`StudioLotSnapshot.ts` this pass):**
 
-## 7. Exact next three campaigns
+| Building | Verdict | Rationale / timing |
+|---|---|---|
+| `gate` (Studio Gate) | **PERMANENT LANDMARK** | The entrance is company identity, the hiring/arrival stage, and the original's own gate was fixed non-buildable (corroborated: the recovered `facility_gatehouse.ini` candidate is $0, non-demolishable, non-moveable) |
+| `admin` (Administration) | **PERMANENT LANDMARK** | The Staff Office analog — founding, company administration; the original's Staff Office was pre-built at start, never buildable |
+| `theater` (Theater) | **LANDMARK (lean)** | Exhibition is the town's, not studio construction; the original never made cinemas buildable (its "Cinema" facility is confirmed dormant/debug content). Final call at the Founding Flip design review — an explicit open decision, not silently settled |
+| `writers` (Development) | **CONVERT** → buildable tiered Development Office class | C1 introduces higher tiers as new construction; the base building becomes a founding placement in data now, buildable-from-scratch at the Flip |
+| `casting` (Casting/Talent) | **CONVERT** → buildable Casting Office class | Founding placement in C1; buildable at the Flip |
+| `stage-a` / `stage-b` (Stages 7/12) | **CONVERT** → buildable Soundstage class | Conversion lands in **Campaign 2** with Sets, where stage construction belongs |
+| `post` (Production/Post) | **CONVERT** → buildable Production/Post class | Founding placement in C1; buildable at the Flip |
+| `expansion` (Annex) | Already the placed-facility pattern | C1-M1 unifies everything on this exact identity model |
 
-1. **Lot Content Expansion** — §8.
-2. **Sets & Production Throughput** — headline acceptance: a player builds a chosen
-   set, a script requires it by name, a blocked set flags red with the reason, lot
-   layout visibly affects a production's cost/schedule, and two productions contend
-   for one desirable set. Requires the concurrency ruling first (Owner decision #2).
-3. **Progression, Prestige & Awards** — headline acceptance: a fresh player can name
-   their current rank, see the checklist to the next one, watch prestige move when
-   the lot decays or gets dressed, and attend (or read) a first ceremony whose
-   verdict follows from legible numbers.
+**Minimum starting lot of the eventual mature design:** Studio Gate, Administration/
+Staff Office, frontage road + minimal utilities, and vacant parcels inside the
+starting property boundary. Everything else — talent facility, script/development
+offices, crew facility, casting office, production office, soundstages, Sets, and
+later specialized facilities and amenities — is player-built.
 
-## 8. Campaign #1 — LOT CONTENT EXPANSION ("a studio you actually build")
+**Staging (what happens when):**
 
-**Objective.** Convert the fixed nine-building diorama plus one blueprint into a
-player-built lot with a real facility catalog — every placed building a first-class,
-inspectable, presence-anchored world citizen with a mechanical effect the player can
-see — using placement machinery that already works and historical catalog data we
-now actually hold.
+- **Campaign 1 — representation conversion + new construction.** One unified
+  first-class facility identity covers fixed and placed buildings alike; today's
+  nine become **founding placements** in data with their BuildingIds preserved
+  verbatim (the exact grandfathering pattern the Annex blueprint already uses —
+  `facilityIdBase` carries the V11 identity so migrated saves keep every reservation
+  and ledger row). Founding behavior is unchanged: a fresh studio still spawns all
+  nine. The *new* catalog families are genuinely player-built, and Move & Demolish V1
+  applies to player-built facilities only. **Gate: every sealed FMJ spec passes
+  unmodified.**
+- **Campaign 2 — buildable core + THE FOUNDING FLIP (capstone milestone).** Sets and
+  Soundstages become buildable classes (C2's own subject matter); Development,
+  Casting, and Production/Post gain buildable-from-scratch blueprints; then the
+  fresh-start experience switches: a brand-new studio begins with Gate + Admin +
+  road + vacant parcels, and the journey projection gains construction stages
+  upstream of "Commission a screenplay" ("The studio has no development office —
+  build one"). Starting cash/costs tuned so the core build-out is the opening act.
+  *Contingency:* if C2 runs long, the Flip splits into its own bounded mini-campaign
+  between C2 and C3 rather than shipping rushed.
+- **Campaign 3 — land acquisition** (§7) completes the arc: build the core, earn the
+  right to grow the property.
 
-**Player fantasy.** "I chose these buildings. My studio looks like my decisions."
-The original's core expansion loop: open the catalog, weigh cost against effect,
-place the ghost, watch construction, get a building that changes what your studio
-can do.
+**How First Movie Journey survives (Owner requirement, engineering answer):**
+
+1. C1 changes representation, not behavior: identical founding spawn, identical
+   BuildingIds, identical journey site→building mapping. The FMJ golden-path spec
+   and the founded-through-UI audition spec run unmodified as C1 acceptance gates.
+2. The journey projection already speaks **semantic sites** (engine never names
+   renderer buildings — sealed law 12); extending it upstream with construction
+   stages at the Flip adds entries to an existing mapping instead of rewriting one.
+3. At the Flip, the golden path *extends* — "bare lot → build core → FIRST FILM
+   GREENLIT" — and the pre-Flip fixture (studio founded with buildings, i.e. every
+   migrated save) is retained as a permanent regression suite. Migrated saves never
+   experience the Flip retroactively; they simply own their founding placements.
+4. Move & Demolish V1 excludes founding placements until the Flip, so no sealed
+   journey state can have its buildings deleted out from under it in C1.
+
+## 7. Recommended complete campaign sequence (revalidated; v1.1 order)
+
+The prior five-campaign order was proposed against `b58e6f8`. Two things changed at
+the seal (FMJ shipped most of "Decision Legibility" where it matters; the evidence
+package turned C1–C2 into datasheets), and the Owner amendment changed two more
+(migration strategy; Star-Life reorder question). Decision Legibility stays retired
+as a standalone campaign; Progression stays third; **Stars Become People +
+Relationships V1 moves ahead of Economy Closure** (recommendation below).
+
+1. **Campaign 1 — Lot Content Expansion** (P0, no dependencies): the facility
+   catalog on the proven placement engine, unified facility identity including
+   founding placements, Move & Demolish V1, expandable-property architecture,
+   declarative unlock schema. Fully scoped in §9.
+2. **Campaign 2 — Sets, Stages & Production Throughput + the Founding Flip** (P0,
+   depends on C1): Sets as placeable, decaying, genre-weighted, novelty-carrying,
+   script-required entities; **Soundstages become buildable**; the explicit
+   concurrency ruling lands here with the first real capacity contention and visible
+   queue — under the standing principle (Owner Ruling 5) that throughput emerges
+   from what the player built (usable Sets, stages, casting/development capacity,
+   crew and talent availability, lot travel); shooting-week theater; **capstone: the
+   Founding Flip** (§6).
+3. **Campaign 3 — Progression, Prestige & Awards + Land Acquisition V1** (P1):
+   discrete checklist-gated Studio Rank ladder over existing Standing; Lot Prestige
+   reconnected to physical maintenance/decay/ornamentation (landscaping layer lands
+   here); Awards as ceremony/evaluation cadence; post-release attribution in Autopsy;
+   **and the earned property-expansion mechanic** — successful studios acquire
+   adjacent land (candidate gates: cash purchase, Studio Rank, Prestige, Achievement
+   Certificate, or combinations; exact tuning decided in C3 planning). This is where
+   "become physically bigger" belongs, with progression context to earn it.
+4. **Campaign 4 — Genre Depth, Research & the Opening of Time** (P1): genre depth on
+   FORCE_VECTORS with bounded audience-taste movement (Owner decision, §10),
+   Laboratory/research as the unlock engine using the proven dual-route pattern
+   (research early OR calendar fallback), EraConfig begins to vary.
+5. **Campaign 5 — Stars Become People + Relationships V1** (one bounded campaign —
+   recommendation below): Star-tier stress/mood/limits with automated consequences
+   (never per-second babysitting), plus relationships/chemistry as a derived signal
+   with production-context accrual (CASTING/REHEARSE/FILM). Amenity-tier facilities
+   (trailers, canteen) join the catalog here, where their effects finally exist.
+6. **Campaign 6 — Economy Closure** (P1/P2): close cash-runaway/top-studio
+   immortality against the real capex/opex of a fully populated studio — catalog,
+   sets, land, landscaping, star salaries and amenities all existing first (D-17B
+   charter); remeasure week-208 at true scale.
+7. **Campaign 7 — Addiction/Rehab deepening** (modern, bounded dark-Hollywood
+   flavor, sequenced after Star life per standing ruling).
+8. **Campaign 8 — Sandbox.**
+9. **Campaign 9 — Machinima / Advanced Movie-Maker** — only after its dedicated
+   Owner scope ruling.
+
+**PM recommendation — Star Life/Relationships ahead of Economy Closure (Owner
+roadmap question): YES, adopt the order above.**
+
+- *One campaign, not two.* Stress/mood and relationships share the same substrate —
+  a bounded per-Star state layer over people the engine already treats as first-class
+  individuals. Splitting them builds that layer twice; together, mood consequences
+  and derived chemistry reinforce one another (a fraying co-star pair is both a
+  mood story and a chemistry number).
+- *The evidence argues for it.* The recovered engine schema shows the original built
+  relationships during CASTING/REHEARSE/FILM — during the work itself, not only at
+  bars. After C2 the work is physical (companies on stages and sets) and after C3/C4
+  careers have stakes (ranks, awards, genre identity). Deriving chemistry from that
+  visible shared work is the modernization the standing ruling asked for, with zero
+  manual-socialization grind.
+- *Economy Closure gets more meaningful later, not less.* Closure is calibration.
+  Calibrating before star salaries, amenity opex, land purchases, and landscaping
+  exist means recalibrating again after. D-17B's own language says instrument the
+  authoritative facility/capacity/construction systems first — after C5, they all
+  exist. No dependency was found that requires closure earlier.
+- *Risk, honestly stated:* the cash-runaway residual persists through five campaigns
+  of long-horizon playtesting and can distort tuning judgments. Mitigation: the
+  per-campaign economy snapshots (C1-M6 onward) keep a measured record; C3's land
+  and landscaping purchases add natural sinks that partially self-correct before
+  formal closure; any campaign may take a bounded interim guard (e.g. visible
+  runaway instrumentation) without invoking full closure.
+
+## 8. Exact next three campaigns
+
+1. **Lot Content Expansion** — §9.
+2. **Sets, Stages & Production Throughput + Founding Flip** — headline acceptance:
+   a player builds a chosen stage and set, a script requires the set by name, a
+   blocked set flags red with the reason, layout visibly affects cost/schedule, two
+   productions contend for one desirable set, and — at the capstone — a brand-new
+   studio starts from Gate + Admin and builds its own core. Requires the concurrency
+   ruling (Owner decision, §10).
+3. **Progression, Prestige & Awards + Land Acquisition V1** — headline acceptance:
+   a fresh player can name their current rank, see the checklist to the next one,
+   watch prestige move when the lot decays or gets dressed, read a ceremony verdict
+   that follows from legible numbers, and — once earned — buy the adjacent parcel
+   and build on it.
+
+## 9. Campaign #1 — LOT CONTENT EXPANSION ("a studio you actually build")
+
+**Objective.** Convert the fixed nine-building diorama plus one blueprint into the
+*foundation* of a player-built studio: a real facility catalog on proven placement
+machinery, one unified first-class identity for every building (fixed and placed
+alike), the ability to move and demolish what you built, and an architecture that
+already accommodates property growth and future declarative unlock gates — while the
+sealed First Movie Journey keeps working unmodified.
+
+**Player fantasy.** "I chose these buildings. My studio looks like my decisions —
+and I can rearrange it when I've made better ones." The original's core expansion
+loop: open the catalog, weigh cost against effect, place the ghost, watch
+construction, get a building that changes what your studio can do.
 
 **Original reference mechanics** (evidence, not spec): 28-facility costed catalog
 (`facility_catalog.csv`); tiered Script Offices with hard quality ceilings ($6,000/1★
 → $66,666/4★; writer experience = speed only — Prima, engine-corroborated); unified
-engine blueprint schema (purchasecost/annualcost, maxinstances, requires as
-date-or-facility, availableindebt on exactly the core-loop facilities — a legible
-design signal we should honor in spirit); N-Owned counters and photographic-thumbnail
-catalog browsing (directly observed); negative base attractiveness on facilities
-(buildings cost beauty; landscaping pays it back — noted for C3).
+engine blueprint schema (purchasecost/annualcost, maxinstances, **requires as a
+numbered list of typed requirement entries** — date and prerequisite-facility kinds
+directly observed — availableindebt on exactly the core-loop facilities); N-Owned
+counters and photographic-thumbnail catalog browsing (directly observed);
+**depreciated demolition refunds** (Prima + 2 independent GameFAQs sources confirm
+selling/demolishing recoups a depreciated portion, never full, never zero); negative
+base attractiveness on facilities (buildings cost beauty; landscaping pays it back —
+noted for C3).
 
 **Modern design.**
+- **Unified facility identity (Ruling 1 enabler).** One identity model for all
+  buildings; today's nine become founding placements (verbatim IDs — §6); position
+  is state, not identity (a facility keeps its ID when moved). This is both the
+  migration foundation and the precondition for Move & Demolish.
 - Catalog families, each with a real effect on day one (product rule: **no
   decorative blueprints** — every entry moves a number the player can already see):
   - *Development tiers* (2 entries above the current baseline): raise the screenplay
@@ -257,152 +402,214 @@ catalog browsing (directly observed); negative base attractiveness on facilities
     variant): +shared slots (already-proven pattern).
   - *Crew & Scenery expansion*: reduces shooting-week scenery/blocker friction or
     freelancer craft fees — ties into the existing intervention loop.
-  - *Stage C (third soundstage)* — **only if** the Owner's concurrency ruling allows
-    a third concurrent production (else deferred to C2 where the ruling lands).
   - *Theater/Administration upgrades*: release-terms or campaign-tier effects
     (bounded; reuse existing publicity/release levers, no new economy law).
-  - *Explicitly NOT in C1*: trailers/canteen/amenity tier (their effects need Star
-    life; building them now would violate the no-decorative-blueprints rule), Rehab,
-    Laboratory (C4), ornaments/landscaping (C3, where the score exists).
+  - *Explicitly NOT in C1*: soundstages and Sets (C2, per §6); trailers/canteen/
+    amenity tier (C5, where their effects exist); Rehab (C7); Laboratory (C4);
+    ornaments/landscaping (C3).
+- **Move & Demolish V1 (Ruling 3).** Scope: player-built facilities only; founding
+  placements and landmarks excluded until the Flip. Deterministic and save-safe;
+  demolition returns a **depreciated refund** (named TUNING constants; build+demolish
+  cycles strictly lossy by construction — no refund farming); a facility holding
+  active reservations or authoritative work cannot be moved/demolished unless the
+  operation is safely permitted, and refusal states the reason in the standing
+  blocked-state grammar ("Stage 7 is reserved by A SEASON OF ARCHIPELAGO —
+  Shooting"); movement preserves identity, reservations, and ledger history.
+  Interaction is world-native per the hybrid law: select the building in the world,
+  act on it in place (move = re-enter the existing ghost-placement flow with the
+  same legality preview; demolish = in-world confirm with the refund quoted).
+  **Explicitly excluded:** demolition debris, janitor cleanup, construction
+  accidents, or any upkeep theater — room is preserved for those systems later.
+- **Declarative unlock metadata (Ruling 6).** The blueprint schema ships with a
+  typed `requires` list supporting: minimum Studio Rank, Achievement Certificate,
+  Award, research completion, era/date, prerequisite facility, land/property
+  availability. **C1 activates cash-availability only** (plus at most
+  prerequisite-facility if a tier chain wants it); C3/C4 activate rank/award/
+  research gates by data/content change, and the catalog UI already knows how to
+  render a locked entry with its named reason.
+- **Expandable-property architecture (Ruling 4).** C1 removes every "eight parcels
+  forever" assumption: parcels are data, not enums; placement queries take the
+  property definition as input; world bounds derive from property state (today's
+  28×26 becomes the *starting* property, not a constant baked into logic);
+  snapshot/renderer iterate dynamic building sets; facility count is unbounded by
+  type. The mature target — dozens of structures across acquired zones — must be
+  reachable by data/content change. The land-acquisition *mechanic* is C3; C1 ships
+  no player-facing land purchase.
 - Pricing/opex rebalanced for our economy; original prices are reference flavor
-  (the $X,XXX repdigit house style — $11,111/$44,444/$77,777 — is worth keeping as
-  tone).
-- Unlock gating in C1 is **cash-only availability**; award/rank gating arrives with
-  C3, research gating with C4 (Owner decision #4 ratifies this sequencing).
+  (the repdigit house style — $11,111/$44,444/$77,777 — is worth keeping as tone).
+- Concurrency: C1 hard-codes nothing new around the two-production limit; the cap
+  stays a single named config the C2 capacity model will subsume (Ruling 5).
 
-**Engine requirements.** First-class identity for placed facilities (stable
-BuildingId, inspector/presence/receipt parity — closes the tycoon handoff's #1
-target and its accepted fail-closed ruling); FACILITY_BLUEPRINTS widened (~6–9
-entries) with effect hooks (EST ceiling term, slot math, intervention friction);
-completion/opex already in tick.
+**Engine requirements.** Unified facility identity (stable BuildingId for placed
+facilities, founding-placement conversion, inspector/presence/receipt parity —
+closes the tycoon handoff's #1 target); FACILITY_BLUEPRINTS widened (~6–9 entries)
+with effect hooks (EST ceiling term, slot math, intervention friction) and the typed
+`requires` schema; move/demolish actions with reservation guards and depreciated
+refund ledger entries; property model refactor (parcels/bounds as state).
 
 **World/renderer requirements.** Distinct sprites per family (art constraint);
-placed buildings join snapshot/labels/attention; parcel occupancy on the existing
-8 buildable parcels (lot-size expansion is explicitly out — Owner decision #3);
-construction sites already render. Fold the deferred **visual warmth pass** in here
-as a milestone (ochre shift, back-lot dressing) with art review — this campaign is
-where the lot starts being looked at.
+placed buildings join snapshot/labels/attention; move/demolish world affordances on
+the selected building; construction sites already render. Fold the deferred
+**visual warmth pass** in here as a milestone (ochre shift, back-lot dressing) with
+art review — this campaign is where the lot starts being looked at.
 
-**UI grammar.** Build Mode catalog grows from one card to a browsable list (name,
-cost, weeks, opex, owned-count, one-line effect — the original's Facilities panel,
-our styling); inspector for placed buildings uses the standard hierarchy (what is
-this → what's happening → who's here → actions → capacity → deep details); guidance
-card learns exactly one new sentence family ("Your development office caps scripts
-at ~X — a better office raises the ceiling") only if the journey stage warrants it;
-overlays remain the house style (Owner decision #1 ratifies).
+**UI grammar (per the hybrid law).** Placement, movement, demolition, and facility
+actions are world-native. The Build Mode catalog remains a docked panel over the
+live world (name, cost, weeks, opex, owned-count, one-line effect, locked-reason
+rendering — the original's Facilities panel, our styling): browsing a catalog is a
+complexity-earned surface; *placing* stays physical. Inspector hierarchy unchanged
+(what is this → what's happening → who's here → actions → capacity → deep details).
+Guidance card learns at most one new sentence family ("Your development office caps
+scripts at ~X — a better office raises the ceiling").
 
 **Content/data needs.** 6–9 blueprint definitions; sprite set per family; copy for
-catalog cards and inspectors; TUNING entries (all named constants, no magic numbers).
+catalog cards, locked reasons, move/demolish confirms; TUNING entries including
+refund depreciation (all named constants, no magic numbers).
 
-**Save/schema implications.** SaveFileV13: placed-facility identity + catalog
-entries; V12→V13 migration + historical-boundary guards, per the established
-pattern.
+**Save/schema implications.** SaveFileV13: unified facility identity (founding
+placements + placed), catalog entries, typed requires, property definition,
+move/demolish ledger events; V12→V13 migration + historical-boundary guards, per the
+established pattern. Migrated saves' fixed buildings convert to founding placements
+with identities preserved verbatim.
 
 **Economy implications.** Each blueprint adds capex+opex against the $20M start;
-instrument runway effects (D-17B residuals stay open; no new sinks invented here —
-closure is C5's charter). Milestone M5 includes an economy remeasure snapshot at
-"fully built-out C1 lot" scale as evidence for C5.
+demolition refunds are depreciated and ledgered; instrument runway effects (D-17B
+residuals stay open; no new sinks invented here — closure is C6's charter).
+Milestone M6 includes an economy remeasure snapshot at "fully built-out C1 lot"
+scale as evidence for C6.
 
 **Required screenshots/reference frames** (from the corpus, for the implementers):
 `11.59.47 AM` + `12.01.45 PM` (Facilities panel + tooltip idiom), `11.39.30 AM`
 (tutorial-era four-facility purchase moment), `12.00.20 PM` (construction
-scaffolding), `11.37.21 AM` (Apr 1956 whole-lot density — the ten-year target,
-not the C1 target).
+scaffolding), `12.00.04 PM` + `12.00.56 PM` (the original's building-move control:
+roof-mounted directional grab inside a hazard-striped boundary — the direct
+reference for Move V1's world-native gesture), `11.37.21 AM` (Apr 1956 whole-lot
+density — the ten-year target, not the C1 target).
 
 **Executable milestones.**
-- **M1 (engine): Placed-facility first-class identity.** BuildingId for placed
-  facilities; inspector/presence/receipts parity; V13 migration. Gate: every
-  existing Playwright building-interaction spec passes against a placed Annex
-  exactly as against fixed buildings.
-- **M2 (engine): Catalog widening + effect hooks.** Blueprints with EST-ceiling /
-  slot / friction effects; bounded-term unit tests per entry.
-- **M3 (UI/world): Catalog UX + sprites + inspectors.** Browsable Build Mode
-  catalog; distinct visual identity; N-owned; ghost/quote flow unchanged.
-- **M4 (world): Visual warmth pass** (ochre shift, back-lot dressing, annex/sprite
+- **M1 (engine): Unified facility identity + property model.** One first-class
+  identity for fixed and placed facilities; the nine become founding placements
+  (verbatim IDs); position-as-state; parcels/bounds as data; V13 migration.
+  Gate: every sealed FMJ spec passes unmodified; every existing building-interaction
+  spec passes against a placed Annex exactly as against founding placements.
+- **M2 (engine): Catalog widening + declarative unlock schema + effect hooks.**
+  Blueprints with EST-ceiling / slot / friction effects; typed `requires` list
+  (cash-only active); bounded-term unit tests per entry.
+- **M3 (engine+world): Move & Demolish V1.** Reservation-guarded, depreciated,
+  deterministic, world-native, player-built-only; refusal reasons in blocked-state
+  grammar.
+- **M4 (UI/world): Catalog UX + sprites + inspectors.** Docked catalog with
+  locked-reason rendering; distinct visual identity; N-owned; ghost/quote flow
+  unchanged; move/demolish affordances.
+- **M5 (world): Visual warmth pass** (ochre shift, back-lot dressing, sprite
   variants) with art review — the standing deferred target, now in scope.
-- **M5 (proof): Golden path + economy snapshot.** New e2e: fresh studio → build
-  Development Office II → commission at it → ceiling visibly different → second
+- **M6 (proof): Golden path + expandability + economy snapshot.** New e2e: fresh
+  studio → build Development Office II → commission at it → ceiling visibly
+  different → move a built facility → demolish one (refund correct) → second
   picture planned in the same session (regression-guarding the FMJ planner fix).
-  Economy remeasure recorded.
-- **M6 (seal): PM playtest, red-team, closure records, handoff.**
+  **Expandability fixture proof:** a second buildable zone added purely by
+  data/content change renders, accepts placement, and round-trips saves — no
+  renderer or placement rearchitecture. Economy remeasure recorded.
+- **M7 (seal): PM playtest, red-team, closure records, handoff.**
 
 **Test gates.** Both tsc clean; full vitest (no deleted/weakened tests — standing
 law); Playwright FULL on both origins, serialized (contended runs are invalid —
 recorded FMJ lesson); structural tuple re-pins with named reasons (law 25);
-determinism/save round-trip suites extended to placed buildings.
+determinism/save round-trip suites extended to placed, moved, and demolished
+buildings; V12→V13 migration suite including founding-placement conversion.
 
 **Red-team targets.** Placement legality abuse (overlap/out-of-parcel/insufficient
-cash mid-quote); save round-trip and V12→V13 migration with multiple placed
-buildings; receipts fail-closed on malformed identity; strict-context predicates on
-generated worlds (the recurring FMJ defect family — any new closed-shape selector
-must be proven against duplicate-name and re-entry worlds in a real browser, not
-only vitest); guidance/journey interaction with placed buildings; determinism across
-build/demolish sequences (if demolition ships — see decision #6).
+cash mid-quote); **move/demolish exploitation** (refund farming — must be strictly
+lossy; demolish-during-construction; move-mid-tick; move/demolish under active
+reservations; orphaned presence/journey references after demolition); save
+round-trip and V12→V13 migration with multiple placed/moved buildings; receipts
+fail-closed on malformed identity; strict-context predicates on generated worlds
+(the recurring FMJ defect family — any new closed-shape selector must be proven
+against duplicate-name and re-entry worlds in a real browser, not only vitest);
+guidance/journey interaction with placed and demolished buildings; property-model
+regressions at the old fixed bounds.
 
-**Owner playtest script (15 min).** Found fresh studio → read the lot → open Build
-Mode, browse the catalog, reject something as too expensive → build Development
-Office II → commission and see the higher ceiling reflected in the form/review →
-build one more facility of choice → advance through a production week → confirm the
-lot reads as *yours*. Pass = "I made choices I can see and the numbers moved";
+**Owner playtest script (15 min).** Found fresh studio → read the lot → open the
+catalog, reject something as too expensive → build Development Office II →
+commission and see the higher ceiling reflected → build one more facility of choice
+→ decide the layout is wrong and **move it** → demolish something and read the
+refund → advance through a production week → confirm the lot reads as *yours*.
+Pass = "I made choices I can see, the numbers moved, and I could fix my mistakes";
 fail = "a menu of sprites."
 
-**Explicit non-goals for Campaign 1.** Sets (C2); concurrency changes (C2, after
-the ruling); rank/award/research gating of blueprints (C3/C4); landscaping/
-ornaments/prestige (C3); amenity/trailer tier (Star Life); lot-size growth
-(decision #3); demolition/moving unless cheap (decision #6); any needs, relationship,
-era, or machinima work; any macroeconomy repair beyond instrumentation.
+**Explicit non-goals for Campaign 1.** The Founding Flip and any change to founding
+spawn (C2 capstone); soundstage/Set construction (C2); concurrency changes (C2,
+after the ruling); the land-acquisition mechanic and any player-facing property
+purchase (C3); rank/award/research gate *activation* (C3/C4 — schema only in C1);
+landscaping/ornaments/prestige (C3); amenity/trailer tier (C5); demolition debris,
+cleanup labor, or construction-accident systems (preserved for later); moving/
+demolishing founding placements or landmarks; any needs, relationship, era, or
+machinima work; any macroeconomy repair beyond instrumentation.
 
-## 9. Owner decisions genuinely required before implementation
+## 10. Owner decisions — resolved by amendment vs still required
 
-1. **Overlay house style — formal ratification.** The Bible flags the form-overlay
-   pattern as "an accident, not a decision." Recommendation: ratify overlays as the
-   permanent house style, with the two lowest-dimensional physical gestures (Gate
-   hire; single-Star casting confirm) recorded as future *additive* entry points.
-2. **Concurrency/capacity ruling** (raise concurrency vs scarcen capacity) — the
-   tycoon handoff's standing ask. Shapes C2's whole design and whether Stage C is a
-   C1 blueprint. Needed before C2 freeze; advisory for C1.
-3. **Lot size.** Keep 28×26/8-parcels through C1–C3 (my recommendation) or plan a
-   purchasable back-lot expansion (fits C3 prestige). Decide before C3.
-4. **Unlock philosophy sequencing.** C1 = cash-only, C3 adds rank/award gates, C4
-   adds research gates (deviates from the original, where two office tiers were
-   award-gated from the start). Ratify or reorder.
-5. **Audience-taste movement vs the "cultural drift" non-goal.** C4's genre depth
-   reads close to the excluded "cultural drift." Rule on the bounded version
-   (slow segment-taste movement + release-timing reads) before C4 planning.
-6. **Demolition/moving of placed facilities in C1** — cheap if fail-closed, but it
-   adds red-team surface. In or out?
-7. **Genre vocabulary** (six current vs five original) — a C4-planning question;
-   flagged now so nobody "fixes" it casually in C1/C2.
-8. **Machinima scope ruling** — still outstanding per standing record; not blocking
-   C1–C5.
+**Resolved by the 2026-08-17 Owner Amendment (recorded, binding):**
+1. ~~Overlay house style~~ → **Hybrid interaction law** (§5): world-first for simple
+   actions, overlays where complexity earns them, no casual ejection, no broad
+   forms-forever declaration.
+2. ~~Demolition in or out~~ → **IN**: Move & Demolish V1 is C1 scope (§9), bounded,
+   world-native, exploit-proof, no debris systems.
+3. ~~Lot size~~ → **28×26 is the starting property, not the maximum**: C1 must ship
+   expandable-property architecture; the earned land-acquisition mechanic lands in
+   C3 with progression context.
+4. ~~Unlock philosophy~~ → **cash-only availability in C1 over a declarative
+   requirement schema** (rank/certificate/award/research/era/prerequisite/land
+   kinds), activated by data in C3/C4.
+5. ~~Fixed buildings~~ → **transitional**: migration strategy per §6 (founding
+   placements in C1; buildable core + Founding Flip in C2; Gate/Admin permanent;
+   Theater leaning landmark).
+6. Concurrency **principle** → throughput ultimately emerges from built physical
+   capacity; C1 hard-codes nothing around two productions.
 
-## 10. Historical uncertainties: blocking vs safe to design around
+**Still required from the Owner:**
+1. **Concurrency/capacity specifics — before C2 freeze** (the explicit ruling Owner
+   Ruling 5 assigns to C2): target concurrent-production range at mature build-out,
+   and which constraint should bind first (stages, sets, casting/development slots,
+   crew, talent).
+2. **Founding Flip ratification — at C2 planning**: confirm the Flip as C2's
+   capstone (with the split-into-mini-campaign contingency), and make the Theater
+   landmark-vs-buildable final call at that design review.
+3. **Star-Life-before-Economy reorder — ratify §7's recommendation** (Campaigns 5/6
+   as proposed).
+4. **Audience-taste movement vs the "cultural drift" non-goal — before C4.**
+5. **Genre vocabulary (six current vs five original) — C4 planning.** Flagged so
+   nobody "fixes" it casually in C1/C2.
+6. **Machinima scope ruling — unchanged, not blocking C1–C6.**
+
+## 11. Historical uncertainties: blocking vs safe to design around
 
 **Blocking Campaign 1: none.** Every open item in `ACTIVE-UNRESOLVED-QUESTIONS.csv`
 (70 rows) was checked against this scope; original numeric values are evidence, not
 spec, and we rebalance regardless. The catalog's *shape* (tiers, gating patterns,
-effect classes) is settled at developer-reviewed or engine-schema confidence.
+effect classes, move/demolish-with-depreciation, requirement-list schema) is settled
+at developer-reviewed or engine-schema confidence.
 
 **Safe to design around (named, with the campaign they touch):**
 - Intermediate Script Office cost $29k-vs-$33k (Q004) — flavor only; we price our own
   tiers. (C1)
+- Exact original depreciation curve for demolition refunds — never documented beyond
+  "a depreciated portion"; we set our own named constants. (C1)
 - Movie Quality vs Success exact ratio (Q065) and the marketing-"raises the rating"
   ambiguity (Q011) — we define our own explicit split, already consistent with
   Prima's "quality outweighs success" and our shipped amplifier law. (C3 awards
-  fairness, C5)
+  fairness, C6)
 - Restaurant/Restroom capacity units 9-vs-180 / 1-5-2-vs-10-50-20 (Q007/Q008) —
-  matters only when the amenity tier lands (Star Life); both unit hypotheses are
-  recorded.
+  matters only when the amenity tier lands. (C5)
 - Achievement-ladder order three-way contradiction (Q001) and Greenhorn 9-vs-10
   (Q002) — we design our own ladder; requirement *content* is cross-confirmed. (C3)
 - Ceremony-continuation-past-2005, sandbox year bounds, capital-curve ceiling
-  $1.6M-vs-$5M — our timeline and economy differ by design. (C3/C4/C5)
+  $1.6M-vs-$5M — our timeline and economy differ by design. (C3/C4/C6)
 - Aging/decay of Looks-Physique before retirement (Q020, HIGH priority in the
-  dataset) — genuinely matters, but only when Star Life lands; flag it to that
-  campaign's planning pass.
+  dataset) — flag to Campaign 5 planning.
 - Everything Stunts & Effects-specific — CUT territory; no research needed.
 
 ---
 
-*Prepared, reviewed against the live build, and stopped without implementation, per
-the mission's hard stop. Campaign 1 awaits Owner authorization.*
+*v1.1 — Owner Amendment incorporated, reviewed against the live build, and stopped
+without implementation, per the mission's hard stop. Campaign 1 awaits Owner
+authorization.*
