@@ -145,3 +145,24 @@ identical strength with provenance comments; recap version pin follows the bound
 root+ui tsc clean · Playwright FULL 195 passed / 4 env-gated GPU skips / 0 failed /
 0 did-not-run (14.8m, exit 0; +1 = new first-class-facility spec) · structural tuple
 pins unchanged · FMJ specs unmodified and green.
+
+## M2 — RULING: KEEP (2026-08-17)
+
+Engine agent (continued from M1a) delivered the declarative blueprint/unlock schema
+on 4 commits (`5951b81..d9c5be3`). 8-kind typed `requires` union (date/facility/
+structure live; rank/certificate/award/research/landZone declared, honestly
+evaluatable as not-yet-attainable — C3/C4 activate each with one case + one
+LIVE_REQUIREMENT_KINDS entry); pure evaluator with player-safe locked-reason
+vocabulary (pinned by shape tests: full sentences, no code names); two new rejection
+codes `requirementsUnmet` → `instanceLimit` ranked after geometry, before money;
+maxInstances binds the NEXT build only (history never invalidated by catalog
+corrections — standing law); `quoteForBlueprint` split keeps the runner invariant
+(only catalog blueprints are ever charged; verified at queryPlacement personally).
+Accepted addition: `UnmetRequirement.notYetAttainable` so M5 can style "work toward
+this" vs "not in the game yet" without string-sniffing. Annex behavior unchanged.
+
+PM gates: root+ui tsc clean; vitest full: one flake in StudioLotScreen.test.tsx on
+first pass (1/3,170), isolated rerun 60/60 and full rerun 229 files / 3,170 tests
+all green — same unreproduced-under-contention class as the FMJ-era flake; WATCH
+ITEM, not cleared silently. No Playwright surfaces touched beyond compile-forced
+rejection sentences (two new player sentences in buildMode).
