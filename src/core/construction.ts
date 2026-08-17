@@ -123,6 +123,24 @@ export function assertStudioConstructionInvariants(
 
   const constructionRows = state.ledger.filter((entry) => entry.kind === 'constructionCapex')
   for (const entry of state.ledger) {
+    // C1-M3a: the demolition refund carries the SAME correlation field as the
+    // capex row it refunds — that shared project id is the whole link between
+    // committing capital and recovering it. It belongs to the placement catalog,
+    // so it is legal only under the placement policy; the V11-only Annex policy
+    // predates demolition entirely and still refuses it, which is what keeps the
+    // historical boundary real.
+    if (entry.kind === 'facilityDemolitionRefund') {
+      invariant(
+        placementOwned,
+        'facility demolition refund belongs to the placement catalog, not the canonical Annex project',
+      )
+      invariant(entry.talentId === undefined, 'demolition refund cannot identify talent')
+      invariant(entry.productionId === undefined, 'demolition refund cannot identify a production')
+      // The exact amount, its correlation to a real prior capex row, and the
+      // one-refund-per-project law are proved by assertStudioPlacementInvariants,
+      // which owns the placement record this row points at.
+      continue
+    }
     if (entry.kind === 'constructionCapex') {
       if (placementOwned) continue
       invariant(
