@@ -247,6 +247,17 @@ type GatePhysicalAvailability = 'pending' | 'available' | 'unavailable'
 type GateCandidateAction = 'profile' | 'hiring'
 
 const PUBLICITY_PLACE_ID = 'publicity'
+/**
+ * The place ids the world reports for the three re-assertable surfaces (C1-M5).
+ *
+ * Named here rather than imported from the grid world's own table because BOTH
+ * renderers answer with them — the retained plate and the tycoon world share this
+ * place vocabulary exactly, which is why `worldSelection()` can be compared against
+ * them whichever scene is live.
+ */
+const SERVICE_YARD_PLACE_ID = 'service-yard'
+const ANNEX_PLACE_ID = 'annex-parcel'
+const STAGE_7_PLACE_ID = 'stage-7'
 const PUBLICITY_BUILDING_ID = 'admin'
 const PUBLICITY_LABEL = 'Administration & Publicity'
 const PUBLICITY_AFFORDANCES = ['work', 'meeting', 'publicity'] as const
@@ -4298,10 +4309,27 @@ export function StudioLotScreen({
         v.setSnapshot({ ...readSnapshot(state), selectedBuildingId: getLotSelectedBuilding() })
       }
       if (!canvasReady) return
+      // C1-M5 FLAKE FIX — this effect RESTORES a selection the renderer lost.
+      //
+      // It runs on every repaint (`state`, `canvasReady`), and its whole job is to put
+      // the world back where the host says it should be after a snapshot delivery or a
+      // canvas recreation. When the renderer is ALREADY holding that exact selection
+      // there is nothing to restore, and re-asserting it is a second dispatch of a
+      // command the world has already obeyed — which is what made three separate
+      // React-boundary specs count two selections where one was intended.
+      //
+      // The comparison reads the RENDERER's own live fields through `worldSelection()`.
+      // The host deliberately keeps no copy of what the world is showing: a cached
+      // answer here would be the stale-identity trap this campaign keeps finding.
+      //
+      // The GATE arm below is deliberately NOT guarded: it does not merely re-assert a
+      // selection, it re-derives `setGatePhysicalAvailability` from the current market
+      // and visitor every repaint, and that recomputation is the point of running it.
+      const held = v.worldSelection?.() ?? null
       if (applyNextEventPhysicalOrientation(v)) {
         // Current next-event orientation supersedes older world presentation contexts.
       } else if (formationDirectorId !== null) {
-        v.selectHollywoodPerson(formationDirectorId)
+        if (held?.personId !== formationDirectorId) v.selectHollywoodPerson(formationDirectorId)
       }
       const sceneryProductionId = hollywoodSceneryLoadInProductionIdRef.current
       if (nextEventOrientationOwnedRef.current) {
@@ -4326,17 +4354,26 @@ export function StudioLotScreen({
           physical && (exact === null || visitorAccepted) ? 'available' : 'unavailable',
         )
       } else if (!publicitySelectedRef.current && sceneryProductionId !== null) {
-        v.selectHollywoodSceneryLoadIn?.(sceneryProductionId)
+        // The scenery surface is the yard place plus the exact production it resolves.
+        if (
+          held?.productionId !== sceneryProductionId ||
+          held.placeId !== SERVICE_YARD_PLACE_ID
+        ) v.selectHollywoodSceneryLoadIn?.(sceneryProductionId)
       } else if (!publicitySelectedRef.current && annexSelectedRef.current) {
-        if (hollywood) v.selectHollywoodAnnexPlace?.()
-        else v.select('expansion')
+        if (held?.placeId !== ANNEX_PLACE_ID) {
+          if (hollywood) v.selectHollywoodAnnexPlace?.()
+          else v.select('expansion')
+        }
       } else if (
         !publicitySelectedRef.current &&
         hollywoodStage7DetailProductionIdRef.current !== null &&
         stage7ProductionDetailContext(latestSnapshotRef.current)?.operation.productionId ===
           hollywoodStage7DetailProductionIdRef.current
       ) {
-        v.selectHollywoodProduction?.(hollywoodStage7DetailProductionIdRef.current)
+        if (
+          held?.productionId !== hollywoodStage7DetailProductionIdRef.current ||
+          held.placeId !== STAGE_7_PLACE_ID
+        ) v.selectHollywoodProduction?.(hollywoodStage7DetailProductionIdRef.current)
       }
     }
   }, [applyNextEventPhysicalOrientation, state, canvasReady, hollywood, readSnapshot])
