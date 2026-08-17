@@ -17,7 +17,7 @@
 // adapter assigns the engine's own return value into a field of this type, so any drift
 // between the engine's shape and this mirror is a compile error at that seam.
 
-import type { BuildingId, StudioLotSnapshot } from './StudioLotSnapshot.ts'
+import type { AttentionState, BuildingId, StudioLotSnapshot } from './StudioLotSnapshot.ts'
 
 // ── The frozen projection contract ────────────────────────────────────────────
 
@@ -159,6 +159,65 @@ export function journeyTargetBuildingId(
     return activeStageBuildingId(snapshot) ?? JOURNEY_STAGE_BUILDING_IDS[0]!
   }
   return JOURNEY_SITE_BUILDING[site]
+}
+
+// ── The guidance world marker (M-D) ───────────────────────────────────────────
+//
+// The card already NAMES the next step. This is the answer to "which building, if any,
+// should the world itself quietly point at" — one building at a time, or none.
+//
+// It is a DECISION, not a drawing: the marker's form belongs to the renderer, and the
+// renderer never derives this. Both the host (for the `data-guidance-target` attribute
+// and the scene command) and the world's own final refusal read this one rule, so the
+// DOM and the canvas can never disagree about where the world is pointing.
+
+/**
+ * The attention states that already own a building's attention outright.
+ *
+ * The lot has ONE established attention grammar — red badge + sign line + a blocked
+ * "Sim to next event" with an instruction — and it works. A guidance marker on a
+ * building that is already showing it would be a second attention system competing with
+ * the first for the same object, which the donor research files under anti-patterns.
+ * Where the red badge is, the marker stands down: it has nothing to add.
+ */
+const ATTENTION_OWNED_OUTRIGHT: readonly AttentionState[] = ['decision-required']
+
+function buildingAttention(snapshot: StudioLotSnapshot, id: BuildingId): AttentionState | null {
+  const buildings: unknown = snapshot.buildings
+  if (!Array.isArray(buildings)) return null
+  for (const building of buildings) {
+    if (!isPlainRecord(building) || building['id'] !== id) continue
+    const attention = building['attention']
+    return typeof attention === 'string' ? (attention as AttentionState) : 'normal'
+  }
+  return null
+}
+
+/**
+ * The ONE building the world may mark for this journey, or `null` for no marker at all.
+ *
+ * Frozen rules, in order:
+ *   1. no step, or a step that addresses no place (`advance-week`) — nothing to point at;
+ *   2. a stage the player is merely WAITING through — the answer is the week control on
+ *      the studio bar, which is not a building;
+ *   3. a step whose site has no physical address on this lot — never a guess;
+ *   4. a target that already carries an outright attention state — the red badge wins.
+ *
+ * Everything that survives is a single `BuildingId`. The marker is a suggestion the
+ * player may ignore, so it is never legality and never a gate.
+ */
+export function guidanceMarkerBuildingId(
+  view: FirstFilmJourneyView,
+  snapshot: StudioLotSnapshot,
+): BuildingId | null {
+  const next = view.next
+  if (next === null || next.kind === 'advance-week') return null
+  if (view.waiting !== null) return null
+  const target = journeyTargetBuildingId(next.site, snapshot)
+  if (target === null) return null
+  const attention = buildingAttention(snapshot, target)
+  if (attention !== null && ATTENTION_OWNED_OUTRIGHT.includes(attention)) return null
+  return target
 }
 
 // ── Reading the projection off the snapshot ───────────────────────────────────

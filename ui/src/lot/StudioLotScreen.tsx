@@ -134,6 +134,7 @@ import {
 } from './snapshot/castingReview.ts'
 import {
   firstFilmJourneyContext,
+  guidanceMarkerBuildingId,
   journeyTargetBuildingId,
   type FirstFilmJourneyNext,
 } from './snapshot/firstFilmJourney.ts'
@@ -1424,6 +1425,19 @@ export function StudioLotScreen({
     pictureJourney.kind === 'view'
       ? { kind: 'view', view: pictureJourney.view }
       : { kind: 'unavailable' }
+  /**
+   * M-D — the ONE building the world itself points at, or none.
+   *
+   * The card names the next step in words; this is the same step as a place on the
+   * property. It is RENDERER PRESENTATION STATE: it is decided here from the projection
+   * the snapshot already carries, delivered to the scene by an explicit command (like the
+   * build ghost), and never routed through the engine adapter or the snapshot's own
+   * building facts — the world's marker is not a fact about the studio.
+   */
+  const guidanceMarkerTarget =
+    pictureJourney.kind === 'view'
+      ? guidanceMarkerBuildingId(pictureJourney.view, snapshot)
+      : null
   const currentFormationContext = formationReceipt === null
     ? null
     : productionFormationContext(snapshot, formationReceipt)
@@ -5301,6 +5315,15 @@ export function StudioLotScreen({
     })
   }, [buildBlueprint, buildDraft, buildQuote, canvasReady])
 
+  // Deliver the guidance marker's target to the renderer whenever the journey moves or
+  // the renderer becomes ready. ONE delivery owner, latest truth only (law 4) — the same
+  // discipline the build ghost above is delivered with.
+  useEffect(() => {
+    const view = viewRef.current
+    if (!view || !canvasReady) return
+    view.setWorldGuidanceTarget?.(guidanceMarkerTarget)
+  }, [canvasReady, guidanceMarkerTarget])
+
   // Focus the control the flow just handed the player, once, after React commits it.
   useEffect(() => {
     const pending = pendingBuildFocusRef.current
@@ -7386,7 +7409,12 @@ export function StudioLotScreen({
       </header>
 
       <div className="lot-body">
-        <div className="lot-stage-wrap">
+        {/*
+          `data-guidance-target` is the DOM-readable fact of where the world is currently
+          pointing: the building the picture's next step names, or 'none'. It is evidence,
+          not a control — the marker itself is painted in the world.
+        */}
+        <div className="lot-stage-wrap" data-guidance-target={guidanceMarkerTarget ?? 'none'}>
           {/* Primary visual world surface; the DOM companion is its semantic equivalent. */}
           <div ref={mountRef} className="lot-canvas" data-testid="studio-lot-canvas" aria-hidden="true" />
 

@@ -23,6 +23,13 @@ import {
   PLAZA,
   chromeStrokeWidth,
   GHOST_FILL_ALPHA,
+  GUIDANCE_MARKER_ALPHA_MAX,
+  GUIDANCE_MARKER_ALPHA_MIN,
+  GUIDANCE_MARKER_ALPHA_STATIC,
+  GUIDANCE_MARKER_FILL_ALPHA,
+  GUIDANCE_MARKER_PULSE_MS,
+  GUIDANCE_MARKER_SPREAD,
+  guidanceMarkerAlpha,
   PRESENCE_QUEUE_RANK,
   PRESENCE_ROUTES,
   presenceQueueSlotOffset,
@@ -734,5 +741,66 @@ describe('tycoon world — chrome legibility (M3-UI)', () => {
       expect(alpha).toBeGreaterThan(0)
       expect(alpha).toBeLessThan(1)
     }
+  })
+})
+
+// ── M-D: the guidance world marker's own arithmetic ──────────────────────────
+
+describe('tycoon world — the guidance marker (M-D)', () => {
+  it('breathes slowly between two bounded alphas, and never flashes', () => {
+    // Explicitly ignorable, never a mobile-game blink: one full breath is well over two
+    // seconds and the marker is never fully transparent at any point in it.
+    expect(GUIDANCE_MARKER_PULSE_MS).toBeGreaterThanOrEqual(2_000)
+    for (let step = 0; step <= 64; step++) {
+      const alpha = guidanceMarkerAlpha((GUIDANCE_MARKER_PULSE_MS * step) / 64, false)
+      expect(alpha).toBeGreaterThanOrEqual(GUIDANCE_MARKER_ALPHA_MIN)
+      expect(alpha).toBeLessThanOrEqual(GUIDANCE_MARKER_ALPHA_MAX)
+    }
+    // A cosine ease: dimmest at the start of the cycle, brightest at its middle.
+    expect(guidanceMarkerAlpha(0, false)).toBeCloseTo(GUIDANCE_MARKER_ALPHA_MIN, 6)
+    expect(guidanceMarkerAlpha(GUIDANCE_MARKER_PULSE_MS / 2, false)).toBeCloseTo(
+      GUIDANCE_MARKER_ALPHA_MAX,
+      6,
+    )
+    // …and it is periodic, so a long-lived marker never drifts brighter or dimmer.
+    expect(guidanceMarkerAlpha(GUIDANCE_MARKER_PULSE_MS * 7, false)).toBeCloseTo(
+      guidanceMarkerAlpha(0, false),
+      6,
+    )
+  })
+
+  it('is STATIC under reduced motion, at every point of the cycle', () => {
+    for (const elapsed of [0, 1, 640, GUIDANCE_MARKER_PULSE_MS / 2, GUIDANCE_MARKER_PULSE_MS * 3]) {
+      expect(guidanceMarkerAlpha(elapsed, true)).toBe(GUIDANCE_MARKER_ALPHA_STATIC)
+    }
+    // Still lit: reduced motion hides no cue, it only stops the movement.
+    expect(GUIDANCE_MARKER_ALPHA_STATIC).toBeGreaterThan(GUIDANCE_MARKER_ALPHA_MIN)
+    expect(GUIDANCE_MARKER_ALPHA_STATIC).toBeLessThanOrEqual(GUIDANCE_MARKER_ALPHA_MAX)
+  })
+
+  it('stands still rather than throwing over a clock it cannot read', () => {
+    expect(guidanceMarkerAlpha(Number.NaN, false)).toBe(GUIDANCE_MARKER_ALPHA_STATIC)
+    expect(guidanceMarkerAlpha(Number.POSITIVE_INFINITY, false)).toBe(GUIDANCE_MARKER_ALPHA_STATIC)
+    expect(guidanceMarkerAlpha(-1, false)).toBe(GUIDANCE_MARKER_ALPHA_STATIC)
+  })
+
+  it('deepens its pool exactly where the property is smallest on screen', () => {
+    expect(GUIDANCE_MARKER_FILL_ALPHA.institution).toBeGreaterThan(
+      GUIDANCE_MARKER_FILL_ALPHA.operations,
+    )
+    expect(GUIDANCE_MARKER_FILL_ALPHA.operations).toBeGreaterThan(GUIDANCE_MARKER_FILL_ALPHA.people)
+    for (const alpha of Object.values(GUIDANCE_MARKER_FILL_ALPHA)) {
+      expect(alpha).toBeGreaterThan(0)
+      // A soft pool of light, never a solid tile of colour over the world.
+      expect(alpha).toBeLessThan(0.5)
+    }
+  })
+
+  it('spreads beyond the building it lights, so the pool is never hidden under it', () => {
+    expect(GUIDANCE_MARKER_SPREAD.inner).toBeGreaterThan(1)
+    expect(GUIDANCE_MARKER_SPREAD.outer).toBeGreaterThan(GUIDANCE_MARKER_SPREAD.inner)
+    // …and stays on its own ground: a footprint spread this far still sits well inside
+    // the plaza/road margin the world lays around every building.
+    expect(GUIDANCE_MARKER_SPREAD.outer).toBeLessThan(1.75)
   })
 })

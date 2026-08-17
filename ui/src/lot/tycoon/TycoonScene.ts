@@ -86,6 +86,11 @@ import {
   DIRECTOR_ROUTE,
   FOCUS_COMFORT_MARGIN_PX,
   GHOST_FILL_ALPHA,
+  GUIDANCE_MARKER_ALPHA_STATIC,
+  GUIDANCE_MARKER_FILL_ALPHA,
+  GUIDANCE_MARKER_PULSE_MS,
+  GUIDANCE_MARKER_SPREAD,
+  guidanceMarkerAlpha,
   chromeStrokeWidth,
   EXPANSION_PADS,
   GATE_PLACE_ID,
@@ -346,6 +351,19 @@ export class TycoonScene extends Phaser.Scene {
   /** The one ground cue under every waiting queue. One object, not one per person. */
   private presenceGraphics: Phaser.GameObjects.Graphics | null = null
 
+  // ── Guidance World Marker V1 (M-D) ─────────────────────────────────────────
+  /**
+   * ONE object for the whole property, exactly like the presence queue cue: the world
+   * marks at most one building at any time, so a second layer could only ever be a
+   * second marker. Presentation only — it paints where the HOST says the picture's next
+   * step points, decides no step, and completes no work (shift law 2).
+   */
+  private guidanceGraphics: Phaser.GameObjects.Graphics | null = null
+  /** The building the host last named. Renderer state; never read off the snapshot. */
+  private guidanceTarget: BuildingId | null = null
+  /** Where the marker is in its slow breath. Reset when the target changes. */
+  private guidanceElapsed = 0
+
   private reducedMotion = false
   private inputSuspended = false
   private roleAtlasActive = false
@@ -478,6 +496,7 @@ export class TycoonScene extends Phaser.Scene {
     this.clearPlaceSelection()
     this.clearParcelSelection()
     this.setBuildMode(null)
+    this.setGuidanceTarget(null)
     this.scene.setVisible(false)
     this.scene.pause()
   }
@@ -920,6 +939,13 @@ export class TycoonScene extends Phaser.Scene {
       .graphics()
       .setDepth(DEPTH.ground + 2)
       .setName('tier:presence-queue')
+    // The guidance marker: ONE layer for the whole property, on the ground just above the
+    // queue cue so a building always stands on top of the light it is lit by.
+    this.guidanceGraphics = this.add
+      .graphics()
+      .setDepth(DEPTH.ground + 3)
+      .setVisible(false)
+      .setName('tier:guidance-marker')
 
     // Build Mode V1 layers. The parcel outline sits just above the ground so a building
     // never hides behind it; construction sites sort with the world; the ghost is chrome.
@@ -1638,6 +1664,83 @@ export class TycoonScene extends Phaser.Scene {
     return this.selectSceneryLoadInSurface(false)
   }
 
+  // ── Guidance World Marker V1 — the world points at the next step ───────────
+  //
+  // The picture-guidance card NAMES the studio's one next step. This is the world saying
+  // the same thing physically: a soft warm pool of light on the ground around that one
+  // building, so a player who glances at the property knows where they are needed without
+  // reading anything.
+  //
+  // Four rules it never breaks:
+  //   • at most ONE marker exists, because there is one target field and one layer;
+  //   • it is PRESENTATION — it is handed down by the host exactly like the build ghost,
+  //     it completes nothing, and clicking it is just clicking the building (law 2);
+  //   • it never shares a building with the red decision badge — one attention system per
+  //     object, always (the host applies the same rule; this is the world's own refusal);
+  //   • under reduced motion it is STATIC. Lit, still, and just as findable.
+
+  /** Accept the host's guidance target. Identical input yields an identical repaint. */
+  setGuidanceTarget(buildingId: BuildingId | null): boolean {
+    const requested = buildingId !== null && this.buildings.has(buildingId) ? buildingId : null
+    if (requested !== this.guidanceTarget) {
+      this.guidanceTarget = requested
+      // A new destination starts its own breath, so the marker never arrives mid-fade.
+      this.guidanceElapsed = 0
+    }
+    this.paintGuidanceMarker()
+    return this.markedBuildingId() !== null
+  }
+
+  /**
+   * The building the marker may actually paint on — the world's own final say.
+   *
+   * The host has already applied this rule (`guidanceMarkerBuildingId`, in
+   * ../snapshot/firstFilmJourney.ts) before naming a target. The world re-checks it
+   * against its OWN latest snapshot so that a building which starts demanding a decision
+   * between deliveries cannot end up wearing two attention systems at once.
+   */
+  private markedBuildingId(): BuildingId | null {
+    const id = this.guidanceTarget
+    if (id === null) return null
+    const fact = this.snapshot.buildings.find((building) => building.id === id)
+    return fact?.attention === 'decision-required' ? null : id
+  }
+
+  private paintGuidanceMarker(): void {
+    const g = this.guidanceGraphics
+    if (!g) return
+    g.clear()
+    const id = this.markedBuildingId()
+    const view = id === null ? undefined : this.buildings.get(id)
+    if (!view) {
+      g.setVisible(false)
+      return
+    }
+
+    // A footprint is always the four corners of a ground diamond (`footprintPoints`), so
+    // its centre is the mean of them — the point the pool spreads out from.
+    const centre = view.footprint.reduce(
+      (sum, point) => ({ x: sum.x + point.x / 4, y: sum.y + point.y / 4 }),
+      { x: 0, y: 0 },
+    )
+    const spread = (scale: number): Point[] =>
+      view.footprint.map((point) => ({
+        x: centre.x + (point.x - centre.x) * scale,
+        y: centre.y + (point.y - centre.y) * scale,
+      }))
+
+    // Two nested pools give the light a soft edge without a gradient texture, and the
+    // rim keeps a constant SCREEN weight so it never sub-pixels away at institution scale.
+    const fill = GUIDANCE_MARKER_FILL_ALPHA[this.lodBand]
+    const outer = spread(GUIDANCE_MARKER_SPREAD.outer)
+    this.fillPolygon(g, outer, C.marquee, fill * 0.55)
+    this.fillPolygon(g, spread(GUIDANCE_MARKER_SPREAD.inner), C.marquee, fill)
+    this.strokePolygon(g, outer, C.brass, chromeStrokeWidth(2, this.cameras.main.zoom), 0.85)
+
+    g.setVisible(true)
+    g.setAlpha(guidanceMarkerAlpha(this.guidanceElapsed, this.reducedMotion))
+  }
+
   // ── people ──────────────────────────────────────────────────────────────────
 
   private actorScale(multiplier: number): number {
@@ -2102,6 +2205,9 @@ export class TycoonScene extends Phaser.Scene {
     this.paintSceneryLoadIn(sceneryLoadInContext(this.snapshot))
     this.paintExpansion(this.snapshot)
     this.paintPlacementFromSnapshot()
+    // Attention is snapshot truth, so a building that starts (or stops) demanding a
+    // decision changes whether the marker may stand there at all.
+    this.paintGuidanceMarker()
   }
 
   /** Adopt the snapshot's placement truth, build the parcel hotspots once, repaint. */
@@ -2970,6 +3076,8 @@ export class TycoonScene extends Phaser.Scene {
 
   setReducedMotion(on: boolean): void {
     this.reducedMotion = on
+    // The marker stays exactly as findable either way; only its breath stops.
+    this.guidanceGraphics?.setAlpha(guidanceMarkerAlpha(this.guidanceElapsed, on))
     if (!on) return
     this.clearPublicityVisual()
     if (this.roleAtlasActive) {
@@ -3026,6 +3134,14 @@ export class TycoonScene extends Phaser.Scene {
         if (this.roleAtlasActive) this.setActorFacing(actor.sprite, actor.role, actor.direction)
         else actor.sprite.setFlipX(actor.direction === 'west')
       }
+    }
+
+    // The marker's slow breath. Alpha only: the pool's geometry is repainted when the
+    // target, the camera scale or the snapshot changes, never per frame.
+    const marker = this.guidanceGraphics
+    if (!this.reducedMotion && marker !== null && marker.visible) {
+      this.guidanceElapsed = (this.guidanceElapsed + delta) % GUIDANCE_MARKER_PULSE_MS
+      marker.setAlpha(guidanceMarkerAlpha(this.guidanceElapsed, false))
     }
 
     this.updatePresencePlayback(delta)
@@ -3116,6 +3232,8 @@ export class TycoonScene extends Phaser.Scene {
       // The ghost's own stroke weight is counter-scaled too, so a per-cell verdict stays
       // legible when the whole property is on screen.
       if (this.preview !== null) this.paintPreview()
+      // …and so is the guidance pool's rim, for the same reason.
+      if (this.guidanceTarget !== null) this.paintGuidanceMarker()
     }
 
     if (!bandChanged) return
@@ -3125,6 +3243,9 @@ export class TycoonScene extends Phaser.Scene {
     for (const view of this.buildings.values()) view.sign?.setVisible(!institution)
     this.applyChromeVisibility()
     this.paintPersonSelection()
+    // The pool deepens as the property shrinks, so the cue survives every reading
+    // distance instead of stepping aside with the text.
+    if (this.guidanceTarget !== null) this.paintGuidanceMarker()
   }
 
   /** One owner of on-canvas chrome visibility, so a repaint and a zoom cannot disagree. */
@@ -3281,6 +3402,13 @@ export class TycoonScene extends Phaser.Scene {
     previewOk: boolean | null
     parcelZoneIds: string[]
     placedFacilityIds: number[]
+    /** What the host last named as the picture's next step, before the world's refusal. */
+    guidanceTarget: BuildingId | null
+    /**
+     * The marker actually on the property: at most one, ever. `motion` is the evidence
+     * seam for reduced motion — 'static' means nothing about it moves.
+     */
+    guidanceMarker: { buildingId: BuildingId; motion: 'static' | 'pulse'; alpha: number } | null
     lodBand: LodBand
     visibleBuildingLabels: number
     buildingLabels: string[]
@@ -3327,6 +3455,18 @@ export class TycoonScene extends Phaser.Scene {
       previewOk: this.preview?.ok ?? null,
       parcelZoneIds: [...this.parcelZones.keys()].sort(),
       placedFacilityIds: (this.placement?.placements ?? []).map((placed) => placed.id),
+      guidanceTarget: this.guidanceTarget,
+      guidanceMarker: (() => {
+        const marked = this.markedBuildingId()
+        if (marked === null || this.guidanceGraphics?.visible !== true) return null
+        return {
+          buildingId: marked,
+          motion: this.reducedMotion ? ('static' as const) : ('pulse' as const),
+          alpha: this.reducedMotion
+            ? GUIDANCE_MARKER_ALPHA_STATIC
+            : this.guidanceGraphics.alpha,
+        }
+      })(),
       lodBand: this.lodBand,
       visibleBuildingLabels: [...this.buildings.values()].filter((view) => view.label.visible)
         .length,

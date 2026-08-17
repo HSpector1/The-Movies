@@ -20,12 +20,14 @@ import type { ProductionOperationsState, StudioLotSnapshot } from './StudioLotSn
 import {
   activeStageBuildingId,
   firstFilmJourneyContext,
+  guidanceMarkerBuildingId,
   isFirstFilmJourneyView,
   journeyTargetBuildingId,
   JOURNEY_SITE_BUILDING,
   JOURNEY_STAGE_BUILDING_IDS,
 } from './firstFilmJourney.ts'
 import type { FirstFilmJourneyView, JourneySite } from './firstFilmJourney.ts'
+import type { AttentionState, BuildingId } from './StudioLotSnapshot.ts'
 
 function foundManagedStudio(seed: string): GameState {
   let state = beginFounding(generateWorld(seed))
@@ -155,6 +157,125 @@ describe('journeyTargetBuildingId — the renderer owns the physical address', (
     } as unknown as StudioLotSnapshot
     expect(activeStageBuildingId(hostile)).toBeNull()
     expect(journeyTargetBuildingId('stage', hostile)).toBe('stage-a')
+  })
+})
+
+describe('guidanceMarkerBuildingId — the world points at ONE place, or none', () => {
+  function withAttention(id: BuildingId, attention: AttentionState): StudioLotSnapshot {
+    return {
+      ...baseSnapshot,
+      buildings: baseSnapshot.buildings.map((building) =>
+        building.id === id ? { ...building, attention } : building,
+      ),
+    }
+  }
+
+  const commissionStep = view({
+    stage: 'no-picture',
+    pictureTitle: null,
+    next: {
+      kind: 'commission',
+      label: 'Commission a screenplay at Development',
+      site: 'development',
+    },
+  })
+
+  it('marks the building the next step names', () => {
+    expect(guidanceMarkerBuildingId(commissionStep, baseSnapshot)).toBe('writers')
+    expect(
+      guidanceMarkerBuildingId(
+        view({
+          stage: 'ready-to-package',
+          next: { kind: 'plan-auditions', label: 'Plan auditions at Casting', site: 'casting' },
+        }),
+        baseSnapshot,
+      ),
+    ).toBe('casting')
+  })
+
+  it('marks nothing when there is no step, or the step addresses no place', () => {
+    expect(guidanceMarkerBuildingId(view({ next: null }), baseSnapshot)).toBeNull()
+    expect(
+      guidanceMarkerBuildingId(
+        view({ next: { kind: 'advance-week', label: 'Wait', site: null } }),
+        baseSnapshot,
+      ),
+    ).toBeNull()
+  })
+
+  it('marks nothing while the studio is merely waiting a week out', () => {
+    // The answer to a wait is the ONE advance control on the studio bar, which is not a
+    // building — a lit building would be pointing at something that cannot help.
+    const waitingWithASite = view({
+      stage: 'drafting',
+      next: {
+        kind: 'commission',
+        label: 'Commission a screenplay at Development',
+        site: 'development',
+      },
+      waiting: { untilWeek: 2, reason: 'The draft is due Week 2 — advance the week.' },
+    })
+    expect(guidanceMarkerBuildingId(waitingWithASite, baseSnapshot)).toBeNull()
+  })
+
+  it('yields to a building that already carries the red decision badge', () => {
+    // FALSIFICATION: two attention systems on one building is the anti-pattern this rule
+    // exists for. If the marker ever paints under a red badge, this fails.
+    const reviewing = withAttention('writers', 'decision-required')
+    expect(guidanceMarkerBuildingId(commissionStep, reviewing)).toBeNull()
+
+    const castingStep = view({
+      next: { kind: 'audition-review', label: 'Review audition results at Casting', site: 'casting' },
+    })
+    expect(guidanceMarkerBuildingId(castingStep, withAttention('casting', 'decision-required'))).toBeNull()
+    // …and a red badge somewhere ELSE never suppresses the marker on this building.
+    expect(guidanceMarkerBuildingId(castingStep, withAttention('writers', 'decision-required'))).toBe(
+      'casting',
+    )
+  })
+
+  it('still marks a building whose attention is not an outright claim', () => {
+    for (const attention of [
+      'normal',
+      'active',
+      'positive',
+      'warning',
+      'empty',
+      'future',
+      'recently-completed',
+    ] as const) {
+      expect(guidanceMarkerBuildingId(commissionStep, withAttention('writers', attention))).toBe(
+        'writers',
+      )
+    }
+  })
+
+  it('marks at most one building for any journey the engine can project', () => {
+    const marked = [
+      commissionStep,
+      view({ next: { kind: 'script-review', label: 'Review', site: 'development' } }),
+      view({ next: { kind: 'plan-auditions', label: 'Plan', site: 'casting' } }),
+      view({ next: { kind: 'resolve-production', label: 'Call', site: 'stage' } }),
+      view({ next: { kind: 'open-package', label: 'Package', site: 'casting' } }),
+      view({ next: { kind: 'advance-week', label: 'Wait', site: null } }),
+    ].map((projection) => guidanceMarkerBuildingId(projection, baseSnapshot))
+    for (const id of marked) {
+      expect(id === null || ALL_BUILDING_IDS.includes(id)).toBe(true)
+    }
+    // Every call answers with a single id or nothing — never a set.
+    expect(marked.filter((id) => id !== null)).toHaveLength(5)
+  })
+
+  it('survives a snapshot whose building facts are absent or hostile', () => {
+    const absent = { ...baseSnapshot } as unknown as StudioLotSnapshot
+    delete (absent as { buildings?: unknown }).buildings
+    expect(guidanceMarkerBuildingId(commissionStep, absent)).toBe('writers')
+    const hostile = {
+      ...baseSnapshot,
+      buildings: [null, 'writers', { id: 'writers' }],
+    } as unknown as StudioLotSnapshot
+    // A record with no attention at all is 'normal', not a decision — the marker stands.
+    expect(guidanceMarkerBuildingId(commissionStep, hostile)).toBe('writers')
   })
 })
 

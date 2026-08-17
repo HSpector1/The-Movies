@@ -563,6 +563,21 @@ export class StudioLotView {
     this.tycoonScene?.setPlacementPreview(preview)
   }
 
+  // ── Guidance World Marker V1 (M-D) ─────────────────────────────────────────
+
+  /**
+   * Name the ONE building the picture's next step points at, or `null` for none.
+   *
+   * Presentation state, handed down exactly like the build ghost: the host decides it
+   * from the engine's own journey projection, the world only paints it, and nothing here
+   * enters simulation state or completes any work. Returns whether a marker is actually
+   * standing on the property (the world declines a building that already carries the red
+   * decision badge, and the painted plate has no property to mark at all).
+   */
+  setWorldGuidanceTarget(buildingId: BuildingId | null): boolean {
+    return this.tycoonScene?.setGuidanceTarget?.(buildingId) ?? false
+  }
+
   // ── Presence on the Lot V1 ─────────────────────────────────────────────────
   // Grid-world only. The painted plate has no property to walk across, so both
   // commands are no-ops there and report it, exactly as the build seams already do.

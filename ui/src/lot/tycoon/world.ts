@@ -787,6 +787,56 @@ export const GHOST_FILL_ALPHA: Readonly<Record<LodBand, number>> = {
   people: 0.42,
 }
 
+// ── Guidance world marker (M-D) ───────────────────────────────────────────────
+//
+// The restrained Guiding Stream. The donor games all answered "where am I needed" with
+// something SOFT, physical and explicitly ignorable — a sparkling trail, a lit pool of
+// ground — never a blinking mobile-game arrow. This is that, in one shape: a warm pool of
+// light spread on the ground around the building the picture's next step names.
+//
+// It is world-space geometry, not text, so it reads at all three reading distances
+// without ever shrinking a label below legibility: it simply scales with the property
+// like the building it lies under, deepening its fill as the camera pulls back.
+
+/** How far the pool spreads beyond the building's own ground footprint, as a scale. */
+export const GUIDANCE_MARKER_SPREAD = { outer: 1.46, inner: 1.18 } as const
+
+/**
+ * How deeply the pool fills, per reading distance. Same reasoning as `GHOST_FILL_ALPHA`:
+ * at institution scale a footprint is small and its outline carries little, so the fill
+ * has to carry the cue. Colour is never the only channel — the guidance card names the
+ * same step in words, and the marker is a suggestion either way.
+ */
+export const GUIDANCE_MARKER_FILL_ALPHA: Readonly<Record<LodBand, number>> = {
+  institution: 0.3,
+  operations: 0.2,
+  people: 0.16,
+}
+
+/** A slow breath, well over the two seconds that separates "gentle" from "flashing". */
+export const GUIDANCE_MARKER_PULSE_MS = 2_600
+export const GUIDANCE_MARKER_ALPHA_MIN = 0.55
+export const GUIDANCE_MARKER_ALPHA_MAX = 1
+/**
+ * The STATIC value. Reduced motion does not mean "no marker" — the player still has to be
+ * able to see where they are needed — it means the marker simply sits there, lit and
+ * still, at the middle of the breath it would otherwise take.
+ */
+export const GUIDANCE_MARKER_ALPHA_STATIC = 0.8
+
+/**
+ * The marker's alpha at a moment in its cycle: a cosine ease from MIN up to MAX and back,
+ * once per `GUIDANCE_MARKER_PULSE_MS`. Under reduced motion — or over any clock this
+ * cannot read — the answer is the one static value, so nothing ever moves.
+ */
+export function guidanceMarkerAlpha(elapsedMs: number, reducedMotion: boolean): number {
+  if (reducedMotion) return GUIDANCE_MARKER_ALPHA_STATIC
+  if (!Number.isFinite(elapsedMs) || elapsedMs < 0) return GUIDANCE_MARKER_ALPHA_STATIC
+  const phase = (elapsedMs % GUIDANCE_MARKER_PULSE_MS) / GUIDANCE_MARKER_PULSE_MS
+  const eased = (1 - Math.cos(phase * Math.PI * 2)) / 2
+  return GUIDANCE_MARKER_ALPHA_MIN + (GUIDANCE_MARKER_ALPHA_MAX - GUIDANCE_MARKER_ALPHA_MIN) * eased
+}
+
 /**
  * How much clear world space a brought-into-view target keeps between itself and the
  * frame, expressed in SCREEN pixels so the comfort margin reads the same at every zoom.
