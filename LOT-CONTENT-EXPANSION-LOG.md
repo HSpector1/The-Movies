@@ -218,3 +218,36 @@ selection counters, both green in isolation; class predates C1 (recorded at the 
 seal). HARD TRIGGER: one more contention flake in ANY file, or any repeat, forces a
 dedicated diagnosis pass before the M8 seal. PM playtest of move/demolish feel is
 consolidated into the M5 review checkpoint (mechanics proven on canvas by spec).
+
+## M4 — RULING: KEEP (2026-08-18) — 4 of 6 shipped, 2 stopped on evidence
+
+Shipped (commits `e31a7d1..b56c60c`): catalog 1→5. Development Office II (+4 EST on
+first drafts, $600K/8wk/$2.5K, maxInstances 1) and III (+9 replacing II, $1.2M/12wk/
+$4K, requires operational office-2 — M2's facility gate live, maxInstances 1);
+Development & Casting Hall (+2 shared slots, $1.4M/20wk/$6K, stacks); Craft Services
+Annex (−15% freelancer fees, $400K/6wk/$2K, maxInstances 1). One effects authority
+(`facilityEffects.ts`): operational-only, pure, neutral-when-absent — baseline
+byte-unchanged. Capacity registry made precise (capacity-providing placements only)
+so effect-only buildings exist honestly. Uplift read at DRAFT time (stored
+assessments; screenplays never un-written by demolition; rewrites don't recompound).
+`freelancerFee(state, talent)` param required, not optional — no silent
+undiscounted-quote trap. effectSummary (player copy) required on every blueprint.
+
+**STOPPED — publicity-wing: verified authority conflict, Owner ruling required.**
+Master Plan §9 contemplates Administration/Theater upgrades; but D-17B authorization
+("NOT: PUBLICITY OFFICE FACILITY"), D-16 R9, the sealed Publicity Campaign V1
+contract (§9 forbids a Publicity facility; §17 kill boundary names cooldowns), and
+the Facilities/Construction research contract non-goals all forbid exactly this
+entry's mechanism space. Quoted verbatim by the implementer, verified. → Owner
+decision item for the seal report. C1 ships without it.
+
+**STOPPED — scenery-annex: fails the no-decorative-blueprint law on merits.** The
+load-in blocker is player-created, deterministic, costs zero weeks/dollars in normal
+play, has no quality effect, extra set-scenery capacity is provably a no-op at the
+two-production ceiling (frozen research closure agrees), and removing the blocker
+would delete the sealed Scenery Load-In V1 content. Master Plan §9's explicit OR
+branch (freelancer craft fees) shipped instead. Family satisfied.
+
+Economy flags recorded for M7/M8 (NOT gut-tuned now): Office III value weakest in
+slate; Hall's 20-week payback may exceed a run's horizon. PM gates: 232 files /
+3,227 tests green (no flake this run), both tsc clean.
