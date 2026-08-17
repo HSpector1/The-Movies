@@ -520,10 +520,16 @@ test('advancing one week walks the company to Development and leaves them there'
   await expect(page.getByTestId('lot-building-inspector-theater')).toBeVisible()
   await clickCell(page, DEVELOPMENT_CELL.gx, DEVELOPMENT_CELL.gy)
   await expect(page.getByTestId('lot-building-inspector-writers')).toBeVisible()
+  // M-B re-pin: the people group is now its OWN block, printed above the verbs while
+  // capacity stays below them ("who's here" is not management detail). Same three facts,
+  // plus a new assertion that the capacity block did not keep a copy of them.
+  const occupants = page.getByTestId('lot-building-inspector-occupants')
+  await expect(occupants).toContainText('Who’s here this week')
+  await expect(occupants).toContainText(WRITER.name)
+  await expect(occupants).toContainText(DIRECTOR.name)
   const facts = page.getByTestId('lot-building-inspector-facts')
-  await expect(facts).toContainText('Who’s here this week')
-  await expect(facts).toContainText(WRITER.name)
-  await expect(facts).toContainText(DIRECTOR.name)
+  await expect(facts).toContainText('slots in use')
+  await expect(facts).not.toContainText(WRITER.name)
 
   // STRUCTURAL TUPLE — fixture: "grid presence greenlit, Week 1, company at Development".
   // People MOVE; moving them creates and destroys nothing, which is what a second tuple

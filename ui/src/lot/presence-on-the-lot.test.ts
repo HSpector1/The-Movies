@@ -185,8 +185,13 @@ describe('presence reaches the lot from real engine state', () => {
     const snapshot = studioLotSnapshot(DRAFTING)
     const writer = snapshot.people.find((person) => person.id === writerId(DRAFTING))!
     const context = lotBuildingInspectorContext(snapshot, 'writers', null, null)
-    expect(context.facts.map((fact) => fact.term)).toContain(writer.name)
-    expect(context.facts.find((fact) => fact.key === 'presence:heading')?.detail).toBe('1 person')
+    // M-B prints the people group ahead of the verbs, so it is now `occupantFacts`.
+    // Same content, same source, and it is still ONLY there.
+    expect(context.occupantFacts.map((fact) => fact.term)).toContain(writer.name)
+    expect(context.occupantFacts.find((fact) => fact.key === 'presence:heading')?.detail).toBe(
+      '1 person',
+    )
+    expect(context.facts.map((fact) => fact.term)).not.toContain(writer.name)
   })
 
   it('states an unclaimed week for an employee with no work', () => {

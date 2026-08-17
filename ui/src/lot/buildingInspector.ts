@@ -6,9 +6,15 @@
 // instead, and the deep screen is reachable only by an explicit secondary choice.
 //
 // This module is the projection behind that panel. It is PURE and owns no rule: it reads
-// the already-accepted presentation snapshot plus the already-accepted Studio Calendar and
-// Construction read models, and re-states them as short labelled facts. It computes no
-// occupancy, no capacity, no schedule and no money of its own.
+// the already-accepted presentation snapshot plus the already-accepted Studio Calendar,
+// Construction and Screenplay-board read models, and re-states them as short labelled
+// facts. It computes no occupancy, no capacity, no schedule and no money of its own.
+//
+// M-B adds the missing middle of that panel: the VERBS. A cold player could reach neither
+// Commission nor Plan-auditions from the buildings, because the only control here was a
+// deep-details ghost. `primaryActions` fixes that WITHOUT owning legality — every verb is
+// a legality some read model already published, restated as a button, and every button
+// takes an entry the host already owned.
 //
 // Strict-selector discipline (shift laws 6 / 17 / 21): every FACT GROUP is atomic. A group
 // whose source read model is absent, malformed, or ambiguous is omitted entirely rather
@@ -23,7 +29,12 @@ import type {
 } from './snapshot/StudioLotSnapshot.ts'
 import { BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
 import { lotFacilityPresenceOccupants } from './snapshot/presenceLines.ts'
-import type { StudioCalendarView, StudioConstructionView } from '../engine/adapter.ts'
+import type {
+  ScriptProjectsReadModel,
+  StudioCalendarView,
+  StudioConstructionView,
+} from '../engine/adapter.ts'
+import { firstFilmJourneyContext } from './snapshot/firstFilmJourney.ts'
 import { moneyExact } from '../format.ts'
 
 /** One labelled line of live truth. `key` is a stable React/test identity. */
@@ -31,6 +42,30 @@ export type LotBuildingInspectorFact = {
   key: string
   term: string
   detail: string
+}
+
+/**
+ * Which existing entry a primary action takes. The kind is the action's identity —
+ * its stable testid suffix and its React key — never a rule of its own.
+ */
+export type LotBuildingInspectorPrimaryActionKind =
+  | 'commission'
+  | 'plan-auditions'
+  | 'open-package'
+
+/**
+ * "What can I do here RIGHT NOW" — one imperative verb this place currently offers.
+ *
+ * Every action here is a LEGALITY ALREADY PUBLISHED BY THE ENGINE, restated as a button.
+ * This module decides nothing: it reads the screenplay board's own `commission.canStart`
+ * and the engine's own first-film journey, and offers the verb only where one of them
+ * already says the step is the picture's next one. No action is ever invented, and no
+ * action opens a path the host did not already own.
+ */
+export type LotBuildingInspectorPrimaryAction = {
+  kind: LotBuildingInspectorPrimaryActionKind
+  /** The button's visible words AND its accessible name. Imperative, plain language. */
+  label: string
 }
 
 export type LotBuildingInspectorContext = {
@@ -45,7 +80,18 @@ export type LotBuildingInspectorContext = {
   attention: AttentionState
   /** The snapshot's own attention reason, when it warrants one. */
   attentionNote: string | null
+  /**
+   * "Who's here this week" — the people group, printed BEFORE the actions.
+   *
+   * Split out of `facts` by M-B: a player reads a building as what is this → what is
+   * happening → who is here → what can I do → how much room is left. Capacity is
+   * management detail and belongs after the verb, not in front of it.
+   */
+  occupantFacts: LotBuildingInspectorFact[]
+  /** Capacity, slots, commitments and place facts — printed AFTER the actions. */
   facts: LotBuildingInspectorFact[]
+  /** Engine-published verbs this place offers right now, in reading order. */
+  primaryActions: LotBuildingInspectorPrimaryAction[]
   /**
    * Exactly one production located at this place whose EXISTING in-world command may be
    * offered here. Null when there is no located production, more than one, or no command.
@@ -62,8 +108,11 @@ export type LotBuildingInspectorContext = {
  */
 export const LOT_DEEP_SCREEN_LABEL: Record<BuildingId, string> = {
   admin: 'Dashboard',
-  writers: 'Assembly',
-  casting: 'Casting Room',
+  // M-B copy law: the ghost names the PLACE the player clicked, in the words the lot
+  // already uses for it. 'Assembly' and 'Casting Room' were internal screen names — a
+  // cold player reading "Open Assembly details" on Development learned nothing.
+  writers: 'Development',
+  casting: 'Casting',
   'stage-a': 'Production Board',
   'stage-b': 'Production Board',
   post: 'Production Board',
@@ -490,17 +539,71 @@ function commitmentFacts(
 }
 
 /**
+ * The verbs this place offers right now.
+ *
+ * TWO published legalities feed this, and nothing else:
+ *
+ *   • Development's "Commission a screenplay" mirrors the EXACT condition the host's own
+ *     retained-commissioning interception already requires (managed board · Writers Room
+ *     idle capacity · `commission.canStart`). Offering the button on any weaker test
+ *     would produce a verb that lands the full-screen screen instead of the in-world
+ *     workspace, which is the defect this milestone exists to close.
+ *   • Casting's two verbs are the engine's OWN first-film journey, read verbatim off the
+ *     snapshot: at `ready-to-package` the projection has already decided (from the
+ *     Casting Room's own `legalActions`) whether the next step is auditions or the
+ *     package. This module never re-answers that question.
+ *
+ * Any absent or malformed source yields NO action — a withheld verb is a missing button,
+ * never a guessed one.
+ */
+function primaryActions(
+  snapshot: StudioLotSnapshot,
+  buildingId: BuildingId,
+  scriptBoard: ScriptProjectsReadModel | null,
+): LotBuildingInspectorPrimaryAction[] {
+  if (buildingId === 'writers') {
+    if (
+      scriptBoard === null ||
+      scriptBoard.mode !== 'managed' ||
+      scriptBoard.lotAttention.kind !== 'idle' ||
+      scriptBoard.commission.canStart !== true
+    ) return []
+    return [{ kind: 'commission', label: 'Commission a screenplay' }]
+  }
+  if (buildingId !== 'casting') return []
+  const journey = firstFilmJourneyContext(snapshot)
+  if (journey.kind !== 'view') return []
+  const { stage, next, pictureTitle } = journey.view
+  if (stage !== 'ready-to-package' || next === null || next.site !== 'casting') return []
+  if (next.kind === 'plan-auditions') {
+    return [
+      {
+        kind: 'plan-auditions',
+        label:
+          pictureTitle === null ? 'Plan auditions' : `Plan auditions for ${pictureTitle}`,
+      },
+    ]
+  }
+  if (next.kind === 'open-package') {
+    return [{ kind: 'open-package', label: 'Open the picture’s package' }]
+  }
+  return []
+}
+
+/**
  * Project everything the in-world panel for one building shows.
  *
- * `calendar` / `construction` are the ALREADY-ACCEPTED adapter read models. Pass `null`
- * when the host could not obtain one (a read model that throws on a hostile accepted save
- * is a withheld fact group, never a reason to eject the player to a deep screen).
+ * `calendar` / `construction` / `scriptBoard` are the ALREADY-ACCEPTED adapter read
+ * models. Pass `null` when the host could not obtain one (a read model that throws on a
+ * hostile accepted save is a withheld fact group, never a reason to eject the player to a
+ * deep screen).
  */
 export function lotBuildingInspectorContext(
   snapshot: StudioLotSnapshot,
   buildingId: BuildingId,
   calendar: StudioCalendarView | null,
   construction: StudioConstructionView | null,
+  scriptBoard: ScriptProjectsReadModel | null = null,
 ): LotBuildingInspectorContext {
   const building = Array.isArray(snapshot.buildings)
     ? (snapshot.buildings.find(
@@ -512,6 +615,7 @@ export function lotBuildingInspectorContext(
   const attentionNote = isText(rawAttentionNote) ? rawAttentionNote : null
 
   const facts: LotBuildingInspectorFact[] = []
+  const occupantFacts: LotBuildingInspectorFact[] = []
   const operations = locatedOperations(snapshot, buildingId)
   const commandCandidates = operations.filter((operation) => operation.currentCommand !== null)
   let status: string
@@ -525,7 +629,7 @@ export function lotBuildingInspectorContext(
     case 'writers': {
       const occupancy = facilityFacts('writers', calendar)
       if (occupancy !== null) facts.push(...occupancy)
-      facts.push(...presenceFacts(snapshot, 'writers'))
+      occupantFacts.push(...presenceFacts(snapshot, 'writers'))
       facts.push(...commitmentFacts(exactCommitments(calendar, ['scriptDue']), 'scriptDue'))
       status =
         occupancy === null
@@ -538,7 +642,7 @@ export function lotBuildingInspectorContext(
     case 'casting': {
       const occupancy = facilityFacts('casting', calendar)
       if (occupancy !== null) facts.push(...occupancy)
-      facts.push(...presenceFacts(snapshot, 'casting'))
+      occupantFacts.push(...presenceFacts(snapshot, 'casting'))
       facts.push(...commitmentFacts(exactCommitments(calendar, ['castingDue']), 'castingDue'))
       status =
         occupancy === null
@@ -552,7 +656,7 @@ export function lotBuildingInspectorContext(
     case 'stage-b': {
       const occupancy = facilityFacts(buildingId, calendar)
       if (occupancy !== null) facts.push(...occupancy)
-      facts.push(...presenceFacts(snapshot, buildingId))
+      occupantFacts.push(...presenceFacts(snapshot, buildingId))
       facts.push(...operationFacts(operations))
       status =
         operations.length === 1
@@ -565,7 +669,7 @@ export function lotBuildingInspectorContext(
     case 'post': {
       const occupancy = facilityFacts('post', calendar)
       if (occupancy !== null) facts.push(...occupancy)
-      facts.push(...presenceFacts(snapshot, 'post'))
+      occupantFacts.push(...presenceFacts(snapshot, 'post'))
       facts.push(...operationFacts(operations))
       status =
         operations.length === 1
@@ -609,7 +713,7 @@ export function lotBuildingInspectorContext(
     case 'expansion': {
       const built = constructionFacts(construction)
       if (built !== null) facts.push(...built)
-      facts.push(...presenceFacts(snapshot, 'expansion'))
+      occupantFacts.push(...presenceFacts(snapshot, 'expansion'))
       const rawProgressText: unknown = building?.constructionProgressText
       const progressText = isText(rawProgressText) ? rawProgressText : null
       status =
@@ -626,7 +730,9 @@ export function lotBuildingInspectorContext(
     status,
     attention,
     attentionNote,
+    occupantFacts,
     facts,
+    primaryActions: primaryActions(snapshot, buildingId, scriptBoard),
     commandOperation: commandCandidates.length === 1 ? commandCandidates[0]! : null,
     deepLabel: LOT_DEEP_SCREEN_LABEL[buildingId],
   }

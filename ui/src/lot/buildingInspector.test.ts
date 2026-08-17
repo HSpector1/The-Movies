@@ -5,7 +5,11 @@
 // atomically rather than guessed at (shift laws 6 / 17 / 21).
 
 import { describe, expect, it } from 'vitest'
-import type { StudioCalendarView, StudioConstructionView } from '../engine/adapter.ts'
+import type {
+  ScriptProjectsReadModel,
+  StudioCalendarView,
+  StudioConstructionView,
+} from '../engine/adapter.ts'
 import {
   LOT_DEEP_SCREEN_LABEL,
   lotBuildingInspectorContext,
@@ -392,11 +396,15 @@ describe('World Inspector projection — presence occupants (M3-UI)', () => {
       null,
       null,
     )
-    expect(context.facts.map((fact) => `${fact.term} — ${fact.detail}`)).toEqual([
+    // M-B moved the people group into `occupantFacts` so the panel can print WHO IS
+    // HERE before the verbs and leave capacity as trailing detail. The group's content
+    // is unchanged, and `facts` must no longer carry any of it.
+    expect(context.occupantFacts.map((fact) => `${fact.term} — ${fact.detail}`)).toEqual([
       'Who’s here this week — 2 people',
       'Ada Vane — Writer · A Season of Archipelago',
       'Ida Cross — Director · A Season of Archipelago',
     ])
+    expect(context.facts.some((fact) => fact.key.startsWith('presence:'))).toBe(false)
   })
 
   it('marks a queued person as waiting outside the stage', () => {
@@ -416,10 +424,11 @@ describe('World Inspector projection — presence occupants (M3-UI)', () => {
       null,
       null,
     )
-    expect(context.facts.map((fact) => fact.detail)).toEqual([
+    expect(context.occupantFacts.map((fact) => fact.detail)).toEqual([
       '1 person',
       'Lead · waiting outside',
     ])
+    expect(context.facts).toEqual([])
   })
 
   it('reports the Annex parcel’s own occupants without inventing Calendar slot facts', () => {
@@ -431,11 +440,16 @@ describe('World Inspector projection — presence occupants (M3-UI)', () => {
       null,
       null,
     )
-    expect(context.facts.map((fact) => fact.term)).toEqual(['Who’s here this week', 'Ada Vane'])
+    expect(context.occupantFacts.map((fact) => fact.term)).toEqual([
+      'Who’s here this week',
+      'Ada Vane',
+    ])
+    expect(context.facts).toEqual([])
   })
 
   it('claims nobody when the snapshot carries no presence, and still opens', () => {
     const context = lotBuildingInspectorContext(baseSnapshot(), 'writers', null, null)
+    expect(context.occupantFacts).toEqual([])
     expect(context.facts).toEqual([])
     expect(context.status.length).toBeGreaterThan(0)
   })
@@ -447,6 +461,9 @@ describe('World Inspector projection — presence occupants (M3-UI)', () => {
       null,
       null,
     )
+    expect(
+      context.occupantFacts.some((fact) => fact.key === 'presence:talent-withheld'),
+    ).toBe(false)
     expect(context.facts.some((fact) => fact.key === 'presence:talent-withheld')).toBe(false)
   })
 
@@ -457,11 +474,183 @@ describe('World Inspector projection — presence occupants (M3-UI)', () => {
       ]),
     ])
     const context = lotBuildingInspectorContext(presenceSnapshot([occupant()]), 'writers', view, null)
-    expect(context.facts.map((fact) => fact.key)).toEqual([
-      'facility:facility-development-casting',
-      'slot:facility-development-casting:0',
+    // Both groups still exist and neither swallowed the other — the ONLY thing M-B
+    // changed is which group prints first (people, then the verbs, then capacity).
+    expect(context.occupantFacts.map((fact) => fact.key)).toEqual([
       'presence:heading',
       'presence:talent-w',
     ])
+    expect(context.facts.map((fact) => fact.key)).toEqual([
+      'facility:facility-development-casting',
+      'slot:facility-development-casting:0',
+    ])
+  })
+})
+
+// ── M-B: "what can I do here right now" ──────────────────────────────────────
+//
+// The cold playtest's loudest finding: a new player could not reach Commission or
+// Plan-auditions FROM THE BUILDINGS. The picture-guidance card names those verbs; the
+// buildings offered only a deep-details ghost. These specs pin the replacement and,
+// just as hard, pin what must NOT appear — a verb the engine has not published is a
+// button that lies about legality, which is worse than no button at all.
+
+describe('World Inspector projection — primary actions (M-B)', () => {
+  function board(overrides: {
+    mode?: 'legacy' | 'managed'
+    attention?: string
+    canStart?: boolean
+  } = {}): ScriptProjectsReadModel {
+    return {
+      mode: overrides.mode ?? 'managed',
+      lotAttention: { kind: overrides.attention ?? 'idle', headline: 'x', detail: 'y' },
+      commission: { canStart: overrides.canStart ?? true, blockers: [], concepts: [], writers: [] },
+    } as unknown as ScriptProjectsReadModel
+  }
+
+  function journeySnapshot(view: unknown): StudioLotSnapshot {
+    return baseSnapshot({ firstFilmJourney: view } as unknown as Partial<StudioLotSnapshot>)
+  }
+
+  function readyToPackage(kind: 'plan-auditions' | 'open-package'): unknown {
+    return {
+      stage: 'ready-to-package',
+      pictureTitle: 'A Season of Archipelago',
+      ordinal: 1,
+      headline: 'Screenplay accepted',
+      detail: 'Writer: Ada Vane',
+      next: {
+        kind,
+        label:
+          kind === 'plan-auditions'
+            ? 'Plan auditions at Casting'
+            : "Assemble the picture's package at Casting",
+        site: 'casting',
+      },
+      waiting: null,
+      blocked: null,
+    }
+  }
+
+  it('offers Development the Commission verb on exactly the legality the host requires', () => {
+    const context = lotBuildingInspectorContext(baseSnapshot(), 'writers', null, null, board())
+    expect(context.primaryActions).toEqual([
+      { kind: 'commission', label: 'Commission a screenplay' },
+    ])
+  })
+
+  it('offers NO verb when the screenplay board is withheld', () => {
+    const context = lotBuildingInspectorContext(baseSnapshot(), 'writers', null, null, null)
+    expect(context.primaryActions).toEqual([])
+    // …and the panel still opens with everything else intact (the M1.5 guarantee).
+    expect(context.status.length).toBeGreaterThan(0)
+    expect(context.deepLabel).toBe('Development')
+  })
+
+  it('offers NO verb when the engine says commissioning is illegal', () => {
+    // The "no writer on the roster" shape: the board publishes the availability itself.
+    const context = lotBuildingInspectorContext(
+      baseSnapshot(),
+      'writers',
+      null,
+      null,
+      board({ canStart: false }),
+    )
+    expect(context.primaryActions).toEqual([])
+  })
+
+  it('offers NO verb when both development slots are full', () => {
+    // The board stops calling the Writers Room idle the moment capacity is constrained,
+    // and the host's retained-commissioning interception requires that exact `idle`.
+    for (const attention of ['capacity-constraint', 'active-work', 'review-required', 'ready-script']) {
+      const context = lotBuildingInspectorContext(
+        baseSnapshot(),
+        'writers',
+        null,
+        null,
+        board({ attention }),
+      )
+      expect(context.primaryActions, attention).toEqual([])
+    }
+  })
+
+  it('offers NO verb on a legacy board', () => {
+    const context = lotBuildingInspectorContext(
+      baseSnapshot(),
+      'writers',
+      null,
+      null,
+      board({ mode: 'legacy' }),
+    )
+    expect(context.primaryActions).toEqual([])
+  })
+
+  it('names the picture in Casting’s audition verb, straight off the engine’s journey', () => {
+    const context = lotBuildingInspectorContext(
+      journeySnapshot(readyToPackage('plan-auditions')),
+      'casting',
+      null,
+      null,
+      board(),
+    )
+    expect(context.primaryActions).toEqual([
+      { kind: 'plan-auditions', label: 'Plan auditions for A Season of Archipelago' },
+    ])
+  })
+
+  it('offers the package verb when the engine says auditions are no longer the next step', () => {
+    const context = lotBuildingInspectorContext(
+      journeySnapshot(readyToPackage('open-package')),
+      'casting',
+      null,
+      null,
+      board(),
+    )
+    expect(context.primaryActions).toEqual([
+      { kind: 'open-package', label: 'Open the picture’s package' },
+    ])
+  })
+
+  it('offers Casting nothing when the journey is absent, malformed, or at another stage', () => {
+    expect(lotBuildingInspectorContext(baseSnapshot(), 'casting', null, null, board())
+      .primaryActions).toEqual([])
+    expect(lotBuildingInspectorContext(journeySnapshot({ stage: 'ready-to-package' }), 'casting', null, null, board())
+      .primaryActions).toEqual([])
+    const drafting = {
+      ...(readyToPackage('plan-auditions') as Record<string, unknown>),
+      stage: 'drafting',
+    }
+    expect(lotBuildingInspectorContext(journeySnapshot(drafting), 'casting', null, null, board())
+      .primaryActions).toEqual([])
+  })
+
+  it('never offers a verb the Development/Casting pair does not own', () => {
+    const snapshot = journeySnapshot(readyToPackage('plan-auditions'))
+    for (const id of ALL_BUILDING_IDS) {
+      if (id === 'writers' || id === 'casting') continue
+      expect(
+        lotBuildingInspectorContext(snapshot, id, null, null, board()).primaryActions,
+        id,
+      ).toEqual([])
+    }
+  })
+
+  it('keeps every action kind unique, so its testid and React key stay stable', () => {
+    const snapshot = journeySnapshot(readyToPackage('plan-auditions'))
+    for (const id of ALL_BUILDING_IDS) {
+      const actions = lotBuildingInspectorContext(snapshot, id, null, null, board()).primaryActions
+      const kinds = actions.map((action) => action.kind)
+      expect(new Set(kinds).size, id).toBe(kinds.length)
+      for (const action of actions) expect(action.label.trim().length).toBeGreaterThan(0)
+    }
+  })
+
+  it('names the deep ghosts in the player’s words, never in screen names', () => {
+    expect(LOT_DEEP_SCREEN_LABEL.writers).toBe('Development')
+    expect(LOT_DEEP_SCREEN_LABEL.casting).toBe('Casting')
+    for (const label of Object.values(LOT_DEEP_SCREEN_LABEL)) {
+      expect(label).not.toBe('Assembly')
+      expect(label).not.toBe('Casting Room')
+    }
   })
 })

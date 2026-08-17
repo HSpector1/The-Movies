@@ -16,6 +16,17 @@
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { applyActions } from '../../../src/core/index.ts'
+import {
+  advanceWeek,
+  commissionScriptAction,
+  foundingApplicantCards,
+  foundManagedStudioAction,
+  newGame,
+  runScriptProjectAction,
+  scriptProjectsBoard,
+  signContractAction,
+  type CreativeRole,
+} from '../engine/adapter.ts'
 import type { GameState } from '../engine/adapter.ts'
 import {
   clearOperationHollywoodOverride,
@@ -98,7 +109,10 @@ async function onlyView() {
   return renderer.instances[0]!
 }
 
-function renderLot(state: GameState) {
+function renderLot(
+  state: GameState,
+  extra: { onOpenAuditionPlanning?: () => boolean } = {},
+) {
   const routes: LotRoute[] = []
   const utils = render(
     <StudioLotScreen
@@ -106,9 +120,127 @@ function renderLot(state: GameState) {
       onNavigate={(route) => routes.push(route)}
       onExit={vi.fn()}
       onAdvance={vi.fn()}
+      {...(extra.onOpenAuditionPlanning
+        ? { onOpenAuditionPlanning: extra.onOpenAuditionPlanning }
+        : {})}
     />,
   )
   return { ...utils, routes }
+}
+
+/**
+ * A managed-EVERYTHING Week 0 — the exact studio the Owner's cold playtest started from,
+ * and the one `managedWeekZero` above deliberately is not (that one keeps the legacy
+ * direct-greenlight screenplay path, which publishes no commission legality at all).
+ * Built by calling the real Engine actions in order — never by hand-editing state.
+ */
+function managedScriptWeekZero(seed: string): GameState {
+  const required: Readonly<Record<CreativeRole, number>> = {
+    actor: 3,
+    director: 1,
+    writer: 1,
+    craft: 1,
+  }
+  let state = newGame(seed)
+  const cards = foundingApplicantCards(state)
+  for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
+    const selected = cards.filter((card) => card.profile.role === role).slice(0, required[role])
+    if (selected.length !== required[role]) throw new Error(`setup: missing ${role}`)
+    for (const card of selected) {
+      const signed = signContractAction(state, card.profile.id, 104)
+      if (!signed.ok) throw new Error(signed.error)
+      state = signed.next
+    }
+  }
+  const founded = foundManagedStudioAction(state)
+  if (!founded.ok) throw new Error(founded.error)
+  return founded.next
+}
+
+/** One commission later: a writer is physically at Development, drafting. */
+function draftingStudio(seed: string): GameState {
+  const state = managedScriptWeekZero(seed)
+  const commission = scriptProjectsBoard(state).commission
+  const concept = commission.concepts[0]
+  const writer = commission.writers.find((candidate) => candidate.available)
+  if (concept === undefined || writer === undefined) throw new Error('setup: no commission')
+  const started = commissionScriptAction(state, {
+    conceptId: concept.id,
+    writerId: writer.id,
+    shape: { opening: 'mysteryHook', midpoint: 'revelation', ending: 'bittersweet' },
+    promise: {
+      genre: concept.genre,
+      intendedSegments: ['adult'],
+      ranges: {
+        intimacy: [-0.4, 0.4],
+        tonalWeight: [-0.4, 0.4],
+        kineticEnergy: [-0.4, 0.4],
+      },
+    },
+  })
+  if (!started.ok) throw new Error(started.error)
+  return started.next
+}
+
+/**
+ * A managed studio whose first screenplay has been accepted: the exact moment the
+ * picture-guidance card starts saying "Plan auditions at Casting".
+ */
+function readyToPackageStudio(seed: string): GameState {
+  const state = advanceWeek(draftingStudio(seed)).next
+  const review = scriptProjectsBoard(state).sections.needsReview[0]
+  const accept = review?.legalActions.find((action) => action.kind === 'acceptScript')
+  if (review === undefined || accept === undefined) throw new Error('setup: no acceptance')
+  const accepted = runScriptProjectAction(state, accept)
+  if (!accepted.ok) throw new Error(accepted.error)
+  return accepted.next
+}
+
+/**
+ * The panel's READING ORDER, as a player meets it: what is this → what is happening →
+ * who is here → what can I do right now → how much room is left → deep details.
+ */
+const INSPECTOR_HIERARCHY: readonly (readonly [string, (el: Element) => boolean])[] = [
+  ['description', (el) => el.classList.contains('hollywood-building-inspector-role')],
+  ['status', (el) => el.getAttribute('data-testid') === 'lot-building-inspector-status'],
+  ['attention', (el) => el.getAttribute('data-testid') === 'lot-building-inspector-attention'],
+  ['occupants', (el) => el.getAttribute('data-testid') === 'lot-building-inspector-occupants'],
+  [
+    'actions',
+    (el) => {
+      const id = el.getAttribute('data-testid') ?? ''
+      return (
+        id.startsWith('lot-building-inspector-primary-') ||
+        id.startsWith('lot-building-inspector-command-')
+      )
+    },
+  ],
+  ['capacity', (el) => el.getAttribute('data-testid') === 'lot-building-inspector-facts'],
+  [
+    'deep',
+    (el) => (el.getAttribute('data-testid') ?? '').startsWith('lot-building-inspector-open-details-'),
+  ],
+]
+
+function inspectorReadingOrder(panel: HTMLElement): string[] {
+  const seen: string[] = []
+  for (const element of Array.from(panel.querySelectorAll('*'))) {
+    for (const [name, matches] of INSPECTOR_HIERARCHY) {
+      if (matches(element) && seen[seen.length - 1] !== name) seen.push(name)
+    }
+  }
+  return seen
+}
+
+/** Is `observed` the canonical order with some blocks simply absent? */
+function isCanonicalSubsequence(observed: readonly string[]): boolean {
+  let cursor = 0
+  for (const block of observed) {
+    const at = INSPECTOR_HIERARCHY.findIndex(([name]) => name === block)
+    if (at < cursor) return false
+    cursor = at
+  }
+  return true
 }
 
 /**
@@ -401,5 +533,179 @@ describe('the camera grammar — selection frames, and the whole property is alw
     expect(control).not.toHaveAttribute('aria-keyshortcuts')
     fireEvent.click(control)
     expect(view.cameraResets).toBe(1)
+  })
+})
+
+// ── M-B: every important building answers "what can I do here RIGHT NOW" ─────
+//
+// The cold playtest's three dead-end seams all had the same shape: the world said what
+// was happening and then went silent about what to do, leaving one unexplained ghost
+// ("Open Assembly details") as the only control. These specs are written to FAIL against
+// that inspector — the verbs did not exist, and the panel printed capacity before them.
+
+describe('M-B — the buildings carry the verbs the guidance names', () => {
+  it('reads in the player’s order: what is this → what is happening → who is here → what can I do → capacity → deep details', async () => {
+    renderLot(managedScriptWeekZero('m-b-hierarchy-week-zero'))
+    await onlyView()
+
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    const panel = screen.getByTestId('lot-building-inspector-writers')
+    // Week 0: nobody is at Development yet, so the people block is honestly absent —
+    // but the VERB is above the capacity readout, which is the inversion M-B fixes.
+    expect(inspectorReadingOrder(panel)).toEqual([
+      'description',
+      'status',
+      'attention',
+      'actions',
+      'capacity',
+      'deep',
+    ])
+  })
+
+  it('puts the people ahead of the paperwork once someone is actually working here', async () => {
+    renderLot(draftingStudio('m-b-hierarchy-drafting'))
+    await onlyView()
+
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    const panel = screen.getByTestId('lot-building-inspector-writers')
+    const order = inspectorReadingOrder(panel)
+    expect(order).toContain('occupants')
+    expect(order.indexOf('occupants')).toBeLessThan(order.indexOf('capacity'))
+    expect(order).toEqual([
+      'description',
+      'status',
+      'attention',
+      'occupants',
+      'capacity',
+      'deep',
+    ])
+    // The people group is its own block, and capacity did not swallow it.
+    expect(screen.getByTestId('lot-building-inspector-occupants')).toHaveTextContent(
+      'Who’s here this week',
+    )
+    expect(screen.getByTestId('lot-building-inspector-facts')).toHaveTextContent('slots in use')
+  })
+
+  it('never lets any place print its blocks out of the canonical order', async () => {
+    for (const state of [
+      managedScriptWeekZero('m-b-order-sweep-zero'),
+      draftingStudio('m-b-order-sweep-drafting'),
+      readyToPackageStudio('m-b-order-sweep-ready'),
+    ]) {
+      for (const id of ALL_BUILDING_IDS) {
+        const { unmount } = renderLot(state)
+        await onlyView()
+        fireEvent.click(screen.getByTestId(`lot-nav-${id}`))
+        const panel = screen.queryByTestId(`lot-building-inspector-${id}`)
+        if (panel !== null) {
+          const order = inspectorReadingOrder(panel)
+          expect(isCanonicalSubsequence(order), `${id}: ${order.join(' → ')}`).toBe(true)
+        }
+        unmount()
+        renderer.instances.length = 0
+        resetLotSelectedBuilding()
+      }
+    }
+  })
+
+  it('offers Development the Commission verb at Week 0 — the first step of the whole game', async () => {
+    const { routes } = renderLot(managedScriptWeekZero('m-b-commission-verb'))
+    await onlyView()
+
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    const commission = screen.getByTestId('lot-building-inspector-primary-commission')
+    expect(commission.tagName).toBe('BUTTON')
+    expect(commission).toHaveAttribute('type', 'button')
+    expect(commission).toHaveAccessibleName('Commission a screenplay')
+    expect(commission).toBeEnabled()
+    expect(routes).toEqual([])
+
+    fireEvent.click(commission)
+
+    // It takes the EXACT intent the deep ghost takes — the one the App intercepts into
+    // the retained in-world commission workspace. Not a second opener with its own rules.
+    expect(routes).toEqual([{ kind: 'assembly' }])
+    expect(screen.getByTestId('studio-lot-screen')).toBeInTheDocument()
+  })
+
+  it('routes the Commission verb and the deep ghost to the same owner', async () => {
+    const { routes, unmount } = renderLot(managedScriptWeekZero('m-b-commission-parity'))
+    await onlyView()
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    fireEvent.click(screen.getByTestId('lot-building-inspector-primary-commission'))
+    const fromVerb = [...routes]
+    unmount()
+    renderer.instances.length = 0
+    resetLotSelectedBuilding()
+
+    const second = renderLot(managedScriptWeekZero('m-b-commission-parity'))
+    await onlyView()
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    fireEvent.click(screen.getByTestId('lot-building-inspector-open-details-writers'))
+
+    expect(second.routes).toEqual(fromVerb)
+  })
+
+  it('withholds the Commission verb the moment the engine says commissioning is illegal', async () => {
+    // A screenplay already occupies the Writers Room: the board stops publishing an idle
+    // Development, and the panel must stop offering the verb rather than lie about it.
+    renderLot(draftingStudio('m-b-commission-illegal'))
+    await onlyView()
+
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    expect(screen.getByTestId('lot-building-inspector-writers')).toBeInTheDocument()
+    expect(
+      screen.queryByTestId('lot-building-inspector-primary-commission'),
+    ).not.toBeInTheDocument()
+  })
+
+  it('names the picture in Casting’s audition verb, and prefers the retained in-world planner', async () => {
+    // The retained planner proves its own exact origin and may refuse; the first call
+    // (the building activation) refuses here so the inspector is what the player sees.
+    const opens = vi.fn((): boolean => true)
+    opens.mockReturnValueOnce(false)
+    const { routes } = renderLot(readyToPackageStudio('m-b-plan-auditions'), {
+      onOpenAuditionPlanning: opens,
+    })
+    await onlyView()
+
+    fireEvent.click(screen.getByTestId('lot-nav-casting'))
+    const plan = screen.getByTestId('lot-building-inspector-primary-plan-auditions')
+    expect(plan.tagName).toBe('BUTTON')
+    expect(plan.getAttribute('aria-label') ?? '').toMatch(/^Plan auditions for .+/)
+    expect(plan).toHaveAccessibleName(plan.getAttribute('aria-label')!)
+
+    fireEvent.click(plan)
+
+    // The retained path took it: no deep navigation, and the world was never left.
+    expect(opens).toHaveBeenCalledTimes(2)
+    expect(routes).toEqual([])
+    expect(screen.getByTestId('studio-lot-screen')).toBeInTheDocument()
+  })
+
+  it('falls back to the existing deep Casting path rather than leaving a dead button', async () => {
+    // No retained planner is wired at all — the verb must still do something honest.
+    const { routes } = renderLot(readyToPackageStudio('m-b-plan-auditions-fallback'))
+    await onlyView()
+
+    fireEvent.click(screen.getByTestId('lot-nav-casting'))
+    fireEvent.click(screen.getByTestId('lot-building-inspector-primary-plan-auditions'))
+
+    expect(routes).toEqual([DEEP_ROUTE.casting])
+  })
+
+  it('reads the deep ghosts in plain language, never in internal screen names', async () => {
+    renderLot(managedScriptWeekZero('m-b-deep-labels'))
+    await onlyView()
+
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    expect(screen.getByTestId('lot-building-inspector-open-details-writers')).toHaveTextContent(
+      'Open Development details',
+    )
+
+    fireEvent.click(screen.getByTestId('lot-nav-casting'))
+    expect(screen.getByTestId('lot-building-inspector-open-details-casting')).toHaveTextContent(
+      'Open Casting details',
+    )
   })
 })

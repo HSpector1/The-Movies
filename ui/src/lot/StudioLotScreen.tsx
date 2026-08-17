@@ -19,12 +19,14 @@ import type {
   GameState,
   PlacementQuote,
   PlacementRequest,
+  ScriptProjectsReadModel,
   StudioCalendarView,
   StudioConstructionView,
 } from '../engine/adapter.ts'
 import {
   careerIdentityLabel,
   placementQuote,
+  scriptProjectsBoard,
   studioCalendarBoard,
   studioDecision,
   studioDevelopment,
@@ -143,7 +145,10 @@ import {
 } from './snapshot/selectedBuildingSession.ts'
 import { lotStageAssignment } from './snapshot/stageAssignment.ts'
 import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
-import { lotBuildingInspectorContext } from './buildingInspector.ts'
+import {
+  lotBuildingInspectorContext,
+  type LotBuildingInspectorPrimaryAction,
+} from './buildingInspector.ts'
 import {
   blueprintById,
   buildQuoteKey,
@@ -563,6 +568,21 @@ const ATTENTION_META: Record<AttentionState, { icon: string; word: string }> = {
 function inspectorCalendarView(state: GameState): StudioCalendarView | null {
   try {
     return studioCalendarBoard(state)
+  } catch {
+    return null
+  }
+}
+
+/**
+ * The Screenplay board, or null when this accepted state cannot produce one.
+ *
+ * Same discipline as the calendar above, for the same reason: the board is what publishes
+ * `commission.canStart`, so a board that rejects a hostile save withholds Development's
+ * Commission verb — it never fabricates one, and never closes the panel.
+ */
+function inspectorScriptBoardView(state: GameState): ScriptProjectsReadModel | null {
+  try {
+    return scriptProjectsBoard(state)
   } catch {
     return null
   }
@@ -5421,6 +5441,44 @@ export function StudioLotScreen({
   }, [activate])
 
   /**
+   * Take one of a building inspector's engine-published verbs (M-B).
+   *
+   * NO NEW OPENING PATH EXISTS HERE. Each verb takes an entry this host already owned,
+   * so the button can only ever be a shorter name for something the player could already
+   * have reached — never a second way in with its own rules:
+   *
+   *   • commission     → the SAME `assemble-film` intent the deep ghost dispatches. The
+   *     App's retained-commissioning interception owns what that becomes; the inspector
+   *     only offers it when the board publishes the exact legality that interception
+   *     requires, so the verb lands the in-world workspace rather than a full screen.
+   *   • plan-auditions → the retained in-world planner first (`openCurrentAuditionPlanning`,
+   *     the same entry the companion activation uses). It proves its own exact origin and
+   *     refuses when it cannot; a refusal falls back to the ALREADY-EXISTING deep Casting
+   *     path rather than leaving the player holding a dead button.
+   *   • open-package   → the deep Casting path. The retained Package workspace is opened
+   *     ONLY by the casting-review handoff today, so there is no in-world package entry to
+   *     reuse; naming the verb here is honest, inventing a second opener would not be.
+   */
+  const takeBuildingInspectorPrimaryAction = useCallback(
+    (action: LotBuildingInspectorPrimaryAction) => {
+      if (worldInputSuspendedRef.current) return
+      switch (action.kind) {
+        case 'commission':
+          dispatchRoute(BUILDING_ACTION.writers)
+          return
+        case 'plan-auditions':
+          if (openCurrentAuditionPlanning()) return
+          dispatchRoute(BUILDING_ACTION.casting)
+          return
+        case 'open-package':
+          dispatchRoute(BUILDING_ACTION.casting)
+          return
+      }
+    },
+    [dispatchRoute, openCurrentAuditionPlanning],
+  )
+
+  /**
    * Companion/canvas parity for a parcel. The DOM list and the world hit area both call
    * exactly this, so the two surfaces can never route the same ground to different
    * owners (shift law 10) — the same contract `activate` holds for buildings.
@@ -5467,6 +5525,7 @@ export function StudioLotScreen({
           buildingInspectorId,
           inspectorCalendarView(state),
           annexView,
+          inspectorScriptBoardView(state),
         )
       : null
   const buildingInspectorCommand =
@@ -5508,9 +5567,13 @@ export function StudioLotScreen({
               </span>
             </p>
           )}
-          {buildingInspector.facts.length > 0 && (
-            <dl className="hollywood-person-facts" data-testid="lot-building-inspector-facts">
-              {buildingInspector.facts.map((fact) => (
+          {/* WHO IS HERE — people before paperwork. */}
+          {buildingInspector.occupantFacts.length > 0 && (
+            <dl
+              className="hollywood-person-facts"
+              data-testid="lot-building-inspector-occupants"
+            >
+              {buildingInspector.occupantFacts.map((fact) => (
                 <div key={fact.key} data-fact-key={fact.key}>
                   <dt>{maskStageText(fact.term)}</dt>
                   <dd>{maskStageText(fact.detail)}</dd>
@@ -5518,6 +5581,7 @@ export function StudioLotScreen({
               ))}
             </dl>
           )}
+          {/* WHAT CAN I DO HERE RIGHT NOW — the engine's own verbs, before the detail. */}
           {buildingInspectorCommand !== null &&
             buildingInspectorCommandProductionId !== null &&
             onProductionCommand !== undefined && (
@@ -5533,6 +5597,30 @@ export function StudioLotScreen({
             >
               {buildingInspectorCommand.label}
             </button>
+          )}
+          {buildingInspector.primaryActions.map((action) => (
+            <button
+              key={action.kind}
+              type="button"
+              className="accent hollywood-command hollywood-building-inspector-primary"
+              disabled={worldInputSuspended}
+              data-testid={`lot-building-inspector-primary-${action.kind}`}
+              aria-label={action.label}
+              onClick={() => takeBuildingInspectorPrimaryAction(action)}
+            >
+              {action.label}
+            </button>
+          ))}
+          {/* HOW MUCH ROOM IS LEFT — capacity, slots and commitments read as detail. */}
+          {buildingInspector.facts.length > 0 && (
+            <dl className="hollywood-person-facts" data-testid="lot-building-inspector-facts">
+              {buildingInspector.facts.map((fact) => (
+                <div key={fact.key} data-fact-key={fact.key}>
+                  <dt>{maskStageText(fact.term)}</dt>
+                  <dd>{maskStageText(fact.detail)}</dd>
+                </div>
+              ))}
+            </dl>
           )}
           <button
             type="button"
@@ -6784,11 +6872,11 @@ export function StudioLotScreen({
               </dl>
             ) : work?.kind === 'roster' ? (
               <p className="hollywood-person-work-note" data-testid="hollywood-person-roster-work">
-                No production assignment is represented for this person in the current Lot snapshot.
+                Not working on a picture this week.
               </p>
             ) : (
               <p className="hollywood-person-work-note is-unavailable" data-testid="hollywood-person-work-unavailable">
-                Current work details are unavailable from this Lot snapshot.
+                This week’s work is not recorded for this person.
               </p>
             )}
             <dl className="hollywood-person-career" data-testid="hollywood-person-career-summary">
