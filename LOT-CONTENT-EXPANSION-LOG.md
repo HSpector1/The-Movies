@@ -1,0 +1,96 @@
+# Campaign 1 — Lot Content Expansion ("A Studio You Actually Build") — Log
+
+Branch: `lot-content-expansion-v1` off `main` @ `24fb87b` (accepted Master Plan v1.1).
+Authorized by Owner 2026-08-17. Fable = Game Director/PM (play, diagnose, dispatch,
+review, KEEP/KILL, integrate, final playtest). Opus agents implement. One production
+writer per overlapping mutable surface. Small commits. Push accepted milestones.
+
+Governing docs: `THE-MOVIES-PARITY-MASTER-PLAN.md` §9 (scope, non-goals),
+Owner authorization order (M1–M8), `docs/SHIFT-OPERATIONAL-LAWS.md`,
+`FIRST-MOVIE-JOURNEY-HANDOFF.md` (regression law).
+
+## Binding campaign laws (from the authorization)
+
+- FMJ is load-bearing: existing FMJ tests pass **without weakening**.
+- Attack the twice-found defect family: overly strict closed-world predicates,
+  duplicate-name assumptions, one-shot-per-studio workflows, re-entry after
+  cancellation, stale identity assumptions, orphaned guidance references after
+  building mutation. **Unit-green but browser-broken is not DONE.**
+- Identity must not depend on coordinates; fixed coordinates are not business logic.
+- 28×26 is the starting property; architecture must not cap lifetime buildings at
+  eight or assume one immutable boundary.
+- Two-production concurrency is transitional: don't raise it, don't hard-code
+  around it being permanent.
+- No decorative blueprints; every C1 facility changes a real existing number.
+- Founding placements excluded from move/demolish until the Flip (C2).
+- Out of scope: Sets, Founding Flip, concurrency overhaul, Awards, Rank,
+  landscaping *scoring*, research, era, genre rewrite, Star needs, relationships,
+  addiction, sandbox, machinima, macroeconomy closure.
+
+## PM recon (pre-dispatch, personally read)
+
+- `src/core/lot.ts` (296): authored constants LOT_WIDTH/DEPTH=28/26, LOT_ROADS (5
+  rects), LOT_PARCELS (10; 8 buildable, 2 blocked; `expansion` id preserved from
+  V11), pure helpers close over the constants; alignment with renderer world is BY
+  HAND + tests. Severance walk, road frontage per parcel.
+- `src/core/placement.ts` (1013): StudioPlacement {mode, nextPlacementId,
+  facilities: PlacedFacility[]}; queryPlacement evaluates every cell, 9 rejection
+  codes, money last; commitPlacement re-queries, byte-neutral on refuse; identity
+  via `deriveIdentity(base, id, taken)` — **the annex grandfathering pattern**;
+  completion pass appends `placedStudioFacility` to operations.facilities;
+  invariants assert operations.facilities == INITIAL_STUDIO_FACILITIES ⧺
+  operational placements (ascending completesWeek, id).
+- `src/core/operations.ts`: INITIAL_STUDIO_FACILITIES = 5 capacity facilities
+  (development-casting, post-building, scenery-shop, soundstage-07, soundstage-12).
+  Gate/Admin/Theater are NOT engine capacity facilities — renderer places +
+  semantic sites only.
+- `ui/src/lot/snapshot/StudioLotSnapshot.ts` (597): BuildingId = closed 9-union;
+  BUILDING_ACTION/BUILDING_LABELS as Record<BuildingId,…>;
+  LotPlacementProjection already carries lotWidth/lotDepth/parcels/placements/
+  catalog as data. Placed facilities are painted from the projection but are NOT
+  first-class buildings (known accepted gap).
+- `ui/src/lot/tycoon/world.ts` (926): WORLD_PLACES = authored 9 places
+  (texKey/gx/gy/fw/fd/anchors) keyed by BuildingId; ROADS/PLAZA/APRONS/PATHS/
+  EXPANSION_PADS/landscaping authored here. Geometry duplicated with lot.ts.
+
+## Frozen M1 design (PM architectural decision)
+
+Split: **M1a engine** then **M1b UI/renderer** (different mutable surfaces,
+sequential on the seam).
+
+M1a (engine):
+1. `PropertyState` on GameState: bounds {width,depth}, roads, parcels, landmarks —
+   initialized from today's exact authored data. `INITIAL_PROPERTY` constant;
+   lot.ts logic parameterized by property (constants remain only as the initial
+   authored data). Landmarks = gate/admin/theater with engine-owned footprint
+   geometry (numbers lifted from today's world.ts; engine owns geometry as pure
+   data, renderer keeps only presentation metadata).
+2. Founding placements: the 5 capacity facilities become PlacedFacility entries
+   (kind 'founding', verbatim facilityIds, geometry = today's world.ts footprints,
+   status operational, week 0, **no capex ledger, zero opex** — representation
+   change must be economy-byte-neutral). INITIAL_STUDIO_FACILITIES becomes derived
+   from founding placements (same order); invariants updated, not weakened.
+3. SaveFileV13: property + founding entries persisted; V12→V13 migration
+   synthesizes them; historical-boundary guards; round-trip determinism.
+4. Proofs: (a) representation-neutrality — a migrated V12 world simulated N weeks
+   equals the V13 world on all cash/ledger/production outputs; (b) scalability —
+   12+ placements fixture passes every invariant; (c) full vitest green.
+
+M1b (UI/renderer):
+1. Snapshot building list becomes dynamic: landmarks + founding + placed
+   facilities, each id/label/position/footprint; BuildingId widens to string with
+   founding ids preserved verbatim; label/action lookups become functions with
+   per-blueprint defaults (Record types retired without breaking founding paths).
+2. world.ts geometry authority retired: scene consumes positions/footprints from
+   snapshot; renderer keeps presentation tables (texKey/anchors) keyed by founding
+   id + per-blueprint anchor templates for placed facilities.
+3. Placed facilities become first-class: selectable, standard inspector hierarchy,
+   presence anchors, receipts — closing the accepted "no first-class BuildingId"
+   gap.
+4. Render-parity gate: Week-0 world identical to pre-M1 (structural tuple: objects/
+   actors/decoded bytes/draws unchanged; law 25 re-pin only with named reasons).
+5. FMJ specs pass unmodified.
+
+## Dispatch record
+
+(appended per milestone)
