@@ -32,9 +32,16 @@ const HOLLYWOOD_FLAG_KEY = 'project-studio.flags.operation-hollywood'
 // in this file never ran. Re-measured from the committed bytes, which
 // `scripts/gen-world-first-scenery-load-in-fixtures.mts` and
 // `scripts/gen-live-week-advance-fixtures.mts` reproduce byte-identically at HEAD.
-const BLOCKED_SHA256 = 'cb0c58f8f84a1d2e46737c3806eb70decb9fad33bf66b36d34e348d6f5c5af79'
-const READY_SHA256 = '68d0b3f4576683fc75d91fc24c9921e5fa88e68c4cb5b90dd252c097d01e56a8'
-const SCHEDULED_SHA256 = '9f5f1a7a6b5038281b227170410fb7723309f41f4b675e8f076564235aac02ff'
+//
+// C1-M1A (V13) RE-PIN — the SAME situation, one save boundary later, and the same repair.
+// `0e97e0a` advanced the fixture corpus to SaveFileV13; these constants kept their V12
+// values, so the gate threw again and the other four tests were "did not run". Both
+// generators were themselves advanced to the V13 boundary in this campaign and reproduce
+// every committed byte ("unchanged" on a clean tree at HEAD). Same strength, no assertion
+// below moved.
+const BLOCKED_SHA256 = '34f062fdd44e3a7116731d214de5aaa2eb4d02af85b874764d5de1cf66229b22'
+const READY_SHA256 = 'db1950a818577c46280773b8b5f83433fc0c9207f659ca07b5adcb7da8d4d133'
+const SCHEDULED_SHA256 = 'd5c2a7edd4b0c53ddd82c49a55f62029d1f7923733e37f1d3c00987fe5c42c9f'
 const PRODUCTION_ID = 'prod-0026'
 const PRODUCTION_TITLE = 'Nights of Watchtower'
 

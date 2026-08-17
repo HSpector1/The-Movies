@@ -38,7 +38,9 @@ test.beforeAll(() => {
   // M2-ENGINE (V12): `makeSave` emits SaveFileV12 since `5d35d26`/`3d0349d`, so the generator
   // this hook just re-ran writes a native V12 envelope. The pin follows the accepted current
   // save version rather than the retired one — same strength, still an exact equality.
-  expect(fixture.saveVersion).toBe(12)
+  // C1-M1A (V13): `makeSave` emits SaveFileV13 since the property became engine state; the
+  // pin follows the accepted current boundary again — same strength, still an exact equality.
+  expect(fixture.saveVersion).toBe(13)
   expect(fixture.state.cashLedgerCheckpoint).toBeUndefined()
   expect(
     fixture.state.ledger.reduce((cash, entry) => cash + entry.amount, 20_000_000),

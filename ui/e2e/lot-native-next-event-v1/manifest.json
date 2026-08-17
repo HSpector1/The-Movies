@@ -8,7 +8,7 @@
     "ordinaryPlayerConstruction": "newGame, founding cards, contracts, founding, managed activation, screenplay, casting, construction, greenlight, production commands, and real ticks",
     "compatibilityConstruction": "generateWorld is used only for the retained disengaged M0A non-Gazette path and the contract-authorized direct 520-week adapter guard boundary",
     "nextEvent": "advanceToNextEvent is the sole stop authority",
-    "serialization": "exportSaveJson / importSaveJson native SaveFileV12 boundary",
+    "serialization": "exportSaveJson / importSaveJson native SaveFileV13 boundary",
     "importedConverted": false,
     "byteIdenticalImportExport": true,
     "byteIdenticalNextEventReplay": true,
@@ -153,7 +153,7 @@
           "action": "commissionScript",
           "payload": {
             "conceptId": "c-00",
-            "writerId": "t-act-02",
+            "writerId": "t-wri-04",
             "shape": {
               "opening": "slowSetup",
               "midpoint": "reversal",
@@ -186,9 +186,9 @@
           }
         }
       ],
-      "saveVersion": 12,
-      "byteLength": 219087,
-      "sha256": "f233b7a04625b5f428969b22ff1cf0421d6a94130252b2908f8f207372c0df9b",
+      "saveVersion": 13,
+      "byteLength": 221880,
+      "sha256": "7de7c830aa8bb71e43baff712f94134e98b3337c4411517aa5fdc6dfa75574e1",
       "expectedStartWeek": 0,
       "expectedEndWeek": 1,
       "expectedWeeksAdvanced": 1,
@@ -203,7 +203,7 @@
         }
       },
       "expectedConstructionCompletion": null,
-      "expectedFinalSaveSha256": "232542c6e64d325ce432df16baf631520384219c40f885cd31ba8e8d8ba8b466",
+      "expectedFinalSaveSha256": "d25c53c6e0b51db729bb2ba83be7eb59ac3de1460f63cb0718e044a148128cab",
       "claim": {
         "week": 0,
         "projectId": "script-0000",
@@ -341,7 +341,7 @@
           "action": "commissionScript",
           "payload": {
             "conceptId": "c-00",
-            "writerId": "t-act-03",
+            "writerId": "t-act-10",
             "shape": {
               "opening": "slowSetup",
               "midpoint": "reversal",
@@ -388,25 +388,25 @@
             "projectId": "script-0000",
             "slate": {
               "lead": [
-                "t-act-04",
-                "t-act-05"
+                "t-act-03",
+                "t-act-04"
               ],
               "antagonist": [
-                "t-act-04",
-                "t-act-05"
+                "t-act-03",
+                "t-act-04"
               ],
               "support": [
-                "t-act-04",
-                "t-act-09"
+                "t-act-03",
+                "t-act-05"
               ]
             }
           },
           "resolvedSessionId": "casting-0000"
         }
       ],
-      "saveVersion": 12,
-      "byteLength": 219594,
-      "sha256": "d8e6dc258df5c8c54ff0e7487e38898a78003d60afd979890e5dcb074a2176aa",
+      "saveVersion": 13,
+      "byteLength": 222388,
+      "sha256": "04197238584baf64af6cb9c49251c04d286509971648479a22e3377b85653646",
       "expectedStartWeek": 1,
       "expectedEndWeek": 2,
       "expectedWeeksAdvanced": 1,
@@ -422,7 +422,7 @@
         }
       },
       "expectedConstructionCompletion": null,
-      "expectedFinalSaveSha256": "a24c0a593da6aff9d44b2ffe18333319037550347aa84c35af4a2de58de0402c",
+      "expectedFinalSaveSha256": "7f240964be7610adc75652f9245e25b2ff15e18560a49b2ecbd83669fb826b7a",
       "claim": {
         "week": 1,
         "sessionId": "casting-0000",
@@ -622,9 +622,9 @@
           "resultWeek": 0
         }
       ],
-      "saveVersion": 12,
-      "byteLength": 222965,
-      "sha256": "3972c99d3ea64c8128c75a0d21af40b2682fd3782111ccd9a2bef59ae27271fd",
+      "saveVersion": 13,
+      "byteLength": 225758,
+      "sha256": "548992033ab840bbfcac3923878eb1a3ba8c80a78de3b26d033dcf2c5c41dcc3",
       "expectedStartWeek": 0,
       "expectedEndWeek": 4,
       "expectedWeeksAdvanced": 4,
@@ -639,7 +639,7 @@
         }
       },
       "expectedConstructionCompletion": null,
-      "expectedFinalSaveSha256": "92e3622f2531846942ea4e4b08bd704f814b6e7343ebd89dd0e7536d64aed210",
+      "expectedFinalSaveSha256": "5d24a4668eea60d84697e431b853baa9cf9af92c8e4c557268a1a7134370fbf3",
       "claim": {
         "week": 0,
         "productionId": "prod-0000",
@@ -934,9 +934,9 @@
           ]
         }
       ],
-      "saveVersion": 12,
-      "byteLength": 227868,
-      "sha256": "ce8adc703abfda9971c15cdaa528c3acf94ca41001e9e45ae701013a6cc58d6d",
+      "saveVersion": 13,
+      "byteLength": 230661,
+      "sha256": "4945ded3ad5f64d0211003a0467b3df9e7b6db1308909f416e5bdabc3cee730d",
       "expectedStartWeek": 4,
       "expectedEndWeek": 5,
       "expectedWeeksAdvanced": 1,
@@ -951,7 +951,7 @@
         }
       },
       "expectedConstructionCompletion": null,
-      "expectedFinalSaveSha256": "f73140202d143306f12a08f6f5f4d68871a84160d296919781a5eb7158ed726e",
+      "expectedFinalSaveSha256": "5fb34d46ccfefb71d955144d10543239b24195731f9c1303eea737839b3ee55b",
       "claim": {
         "week": 4,
         "productionId": "prod-0001",
@@ -1224,9 +1224,9 @@
           ]
         }
       ],
-      "saveVersion": 12,
-      "byteLength": 238838,
-      "sha256": "ff006d77c0292a0f720fcbd4eed63385576db3f9b4277791a7fcb152263c63d3",
+      "saveVersion": 13,
+      "byteLength": 241631,
+      "sha256": "896c39a3662e1a555f95c8ee506368302a323d43b8ea7b4fdaaef13f46a67d2b",
       "expectedStartWeek": 9,
       "expectedEndWeek": 14,
       "expectedWeeksAdvanced": 5,
@@ -1249,7 +1249,7 @@
         }
       },
       "expectedConstructionCompletion": null,
-      "expectedFinalSaveSha256": "ed4f31046d8a1caf6a25e4cf15f54de037a191a5923fb34b7065eba9cfd3840a",
+      "expectedFinalSaveSha256": "3d80f44784733f9a792f2b9be7382cc2d6891f398a23d2bc63233b87aae9bddb",
       "claim": {
         "week": 9,
         "activeRuns": [
@@ -1391,9 +1391,9 @@
           "atomicManagedSystems": []
         }
       ],
-      "saveVersion": 12,
-      "byteLength": 218225,
-      "sha256": "0ab059cf0278a0f93c19598a872826ce4ae24e83c86604d19e93f3876934b7f4",
+      "saveVersion": 13,
+      "byteLength": 221018,
+      "sha256": "35388cfb49ed0a12eb77dfd735f2f2e5b99e154e33882ab3f6bdff2d38434564",
       "expectedStartWeek": 0,
       "expectedEndWeek": 117,
       "expectedWeeksAdvanced": 117,
@@ -1406,7 +1406,7 @@
         }
       },
       "expectedConstructionCompletion": null,
-      "expectedFinalSaveSha256": "9d31a4164c33638eb497a06c2267d180ab8d83f54271cea615bea4abd2e41989",
+      "expectedFinalSaveSha256": "f3ec4f338d9b33062f67547ebce2c1d537fa6ee2cf476c68bf0ea83a45d23c0a",
       "claim": {
         "week": 0,
         "cash": 20000000,
@@ -1543,9 +1543,9 @@
           "playerActionAtBoundary": "none"
         }
       ],
-      "saveVersion": 12,
-      "byteLength": 223930,
-      "sha256": "c15f5ce98a925fb826b717c83cddb2e2bfb252dcbe45b2921fecd74cddfa4286",
+      "saveVersion": 13,
+      "byteLength": 226723,
+      "sha256": "02aaee18f6e5f562d43ab87705bc2c8c94b6ebec78c640b5606cb8e68b470e19",
       "expectedStartWeek": 40,
       "expectedEndWeek": 52,
       "expectedWeeksAdvanced": 12,
@@ -1559,7 +1559,7 @@
         }
       },
       "expectedConstructionCompletion": null,
-      "expectedFinalSaveSha256": "7d2fb57c3a141ac634678a9f8ea5e8fe6d46596adc623680de8b9f8594ea7331",
+      "expectedFinalSaveSha256": "02cac1cdfd6d403a80617b8c588d2cb2809741b1a0fbe6ec99a080b7e226999d",
       "claim": {
         "week": 40,
         "contracts": 15,
@@ -1689,9 +1689,9 @@
           "atomicManagedSystems": []
         }
       ],
-      "saveVersion": 12,
-      "byteLength": 218106,
-      "sha256": "27256fe83e76aa4719006fe09be6c366dad392c20495275d56a297aa6f24865f",
+      "saveVersion": 13,
+      "byteLength": 220899,
+      "sha256": "5d600e6786accfbc72743cf1779ef2ae22c345891d2c502b66238af0e0a65eb3",
       "expectedStartWeek": 0,
       "expectedEndWeek": 40,
       "expectedWeeksAdvanced": 40,
@@ -1705,7 +1705,7 @@
         }
       },
       "expectedConstructionCompletion": null,
-      "expectedFinalSaveSha256": "6ae869a739f8e5fdfd092fa8ff9ec040f52dd459075583b4b6824bfbecb8c0bb",
+      "expectedFinalSaveSha256": "80a387975e2a2a7a8cbaaced2fd8406dcb1d53b3e3b693927d2d47a910ff0441",
       "claim": {
         "week": 0,
         "contracts": 15,
@@ -1842,9 +1842,9 @@
           "resultWeek": 0
         }
       ],
-      "saveVersion": 12,
-      "byteLength": 219180,
-      "sha256": "eb78f763a9e10dd65f0b18900b08ef3245d480ac2e75a6bc0a56aa0acec742b4",
+      "saveVersion": 13,
+      "byteLength": 221973,
+      "sha256": "818726b3ce1c5dacdfb18ce7cc46f6561b3b9fb0bfc2966b82cb6ab70f0b87b9",
       "expectedStartWeek": 0,
       "expectedEndWeek": 13,
       "expectedWeeksAdvanced": 13,
@@ -1866,7 +1866,7 @@
         "completedWeek": 13,
         "message": "Development & Casting Annex is Operational in Week 13. One shared Development & Casting slot is now available."
       },
-      "expectedFinalSaveSha256": "184c35671ebd21527810b6ad185c923083a7bf66037219a99339344b16c5cbd0",
+      "expectedFinalSaveSha256": "99bb01886efe8486e928b50efe3a255162cdd5a409d563373badf34a4f7f08fb",
       "claim": {
         "week": 0,
         "projectId": "construction-development-casting-annex",
@@ -2106,9 +2106,9 @@
           "resultWeek": 12
         }
       ],
-      "saveVersion": 12,
-      "byteLength": 224996,
-      "sha256": "1784fb40f19e22fe584b307dcbdd1618cef6417d0cec8fcd0a9ca3b1949fac66",
+      "saveVersion": 13,
+      "byteLength": 227789,
+      "sha256": "735c9c8a94644f026921d157c6f7e78f5020d1a37e0546b4bd1f3ff01d4f58c9",
       "expectedStartWeek": 12,
       "expectedEndWeek": 13,
       "expectedWeeksAdvanced": 1,
@@ -2133,7 +2133,7 @@
         "completedWeek": 13,
         "message": "Development & Casting Annex is Operational in Week 13. One shared Development & Casting slot is now available."
       },
-      "expectedFinalSaveSha256": "e7667f0ce3c03f0d50f1dc6961a5e7e653831f7ee593409a18e2484e118c0d13",
+      "expectedFinalSaveSha256": "870b35364c7068afecebf06a6f308dd6a52955610bf81c39a6d4abec59385658",
       "claim": {
         "week": 12,
         "productionId": "prod-0004",
@@ -2218,9 +2218,9 @@
           "resultWeek": 0
         }
       ],
-      "saveVersion": 12,
-      "byteLength": 219174,
-      "sha256": "6819afc07fe236c328df6e6e4044f03247a663b70eb6f11e9fffe4f58a382a96",
+      "saveVersion": 13,
+      "byteLength": 221967,
+      "sha256": "bad0e15ffbf0084ecee1cf66cae8b8f1a78b09119e45875794b2bd9d273049cb",
       "expectedStartWeek": 0,
       "expectedEndWeek": 9,
       "expectedWeeksAdvanced": 9,
@@ -2239,7 +2239,7 @@
         }
       },
       "expectedConstructionCompletion": null,
-      "expectedFinalSaveSha256": "4602e99f45151ccfe66c817f8e89e63ca0090a6c78cbff961d16d6d993de302b",
+      "expectedFinalSaveSha256": "7b715df713aabc1bfd320d1ff496d9ec24f280a3963c4d5dbac81d47926733a7",
       "claim": {
         "week": 0,
         "productionId": "prod-0000",
@@ -2258,9 +2258,9 @@
           "authority": "public Core deterministic adapter-level guard construction"
         }
       ],
-      "saveVersion": 12,
-      "byteLength": 216714,
-      "sha256": "2df92f8d2fea9df48cb9f98949bf6cd91afa67ef8a85e1cef642fdf70ed682a6",
+      "saveVersion": 13,
+      "byteLength": 219507,
+      "sha256": "eefe1f54be1b9bd6672a2ee985bb0823a704969352a033e1af0f8e90a9e785c0",
       "expectedStartWeek": 0,
       "expectedEndWeek": 520,
       "expectedWeeksAdvanced": 520,
@@ -2271,7 +2271,7 @@
         "neutralKind": "next-event-neutral"
       },
       "expectedConstructionCompletion": null,
-      "expectedFinalSaveSha256": "f536e1e600ce8837a6cfd97c95bf4d49091941ffa2c4e5cb5d4d350560af25e9",
+      "expectedFinalSaveSha256": "d56a9a857fc58f63029654bdb9ebac7ad88a82009a2fb3163173f060abc82cff",
       "claim": {
         "week": 0,
         "contracts": 0,

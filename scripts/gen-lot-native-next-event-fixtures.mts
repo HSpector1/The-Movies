@@ -4,7 +4,7 @@
 //   node_modules/.bin/vite-node scripts/gen-lot-native-next-event-fixtures.mts
 //
 // Stored states are built only through public Core/adapter constructors, actions,
-// and authoritative advance functions. The generator validates native SaveFileV12,
+// and authoritative advance functions. The generator validates native SaveFileV13,
 // byte-identical import/export, the exact next-event result, and a second replay from
 // the serialized fixture before writing a timestamp-free manifest.
 
@@ -910,7 +910,7 @@ function verifiedSave(fixture: GeneratedFixture): {
 } {
   const bytes = exportSaveJson(fixture.state)
   const envelope = JSON.parse(bytes) as { saveVersion?: unknown }
-  invariant(envelope.saveVersion === 12, `${fixture.id} exported SaveFileV${String(envelope.saveVersion)}`)
+  invariant(envelope.saveVersion === 13, `${fixture.id} exported SaveFileV${String(envelope.saveVersion)}`)
   const imported = importSaveJson(bytes)
   invariant(imported.ok, `${fixture.id} import rejected — ${imported.ok ? '' : imported.error}`)
   invariant(imported.converted === false, `${fixture.id} import reported conversion`)
@@ -925,7 +925,7 @@ function verifiedSave(fixture: GeneratedFixture): {
   )
   invariant(
     exportSaveJson(replay.next) === exportSaveJson(fixture.result.next),
-    `${fixture.id} replay changed final SaveFileV12 bytes`,
+    `${fixture.id} replay changed final SaveFileV13 bytes`,
   )
 
   return {
@@ -978,7 +978,7 @@ const manifestFixtures = fixtures.map((fixture) => {
     file: fixture.file,
     seed: fixture.seed,
     publicActionRecipe: fixture.actionRecipe,
-    saveVersion: 12,
+    saveVersion: 13,
     byteLength: verified.byteLength,
     sha256: verified.sha256,
     expectedStartWeek: fixture.result.fromWeek,
@@ -1002,7 +1002,7 @@ const manifest = `${JSON.stringify({
     ordinaryPlayerConstruction: 'newGame, founding cards, contracts, founding, managed activation, screenplay, casting, construction, greenlight, production commands, and real ticks',
     compatibilityConstruction: 'generateWorld is used only for the retained disengaged M0A non-Gazette path and the contract-authorized direct 520-week adapter guard boundary',
     nextEvent: 'advanceToNextEvent is the sole stop authority',
-    serialization: 'exportSaveJson / importSaveJson native SaveFileV12 boundary',
+    serialization: 'exportSaveJson / importSaveJson native SaveFileV13 boundary',
     importedConverted: false,
     byteIdenticalImportExport: true,
     byteIdenticalNextEventReplay: true,

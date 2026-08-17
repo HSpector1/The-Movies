@@ -22,7 +22,10 @@ const IDENTITY_PROOF_FLAG_KEY = 'project-studio.flags.studio-lot-identity-proof'
 // its V11 value, so the integrity gate threw in `beforeAll` and the other five tests in this
 // file never ran. Re-measured from the committed bytes, which
 // `scripts/gen-world-first-scenery-load-in-fixtures.mts` reproduces byte-identically at HEAD.
-const GOVERNED_FIXTURE_SHA256 = 'cb0c58f8f84a1d2e46737c3806eb70decb9fad33bf66b36d34e348d6f5c5af79'
+const GOVERNED_FIXTURE_SHA256 = '34f062fdd44e3a7116731d214de5aaa2eb4d02af85b874764d5de1cf66229b22'
+// C1-M1A (V13) RE-PIN — `0e97e0a` advanced the governed fixture to SaveFileV13; the digest
+// above follows it at the same strength. The generator was advanced to the V13 boundary in
+// this campaign and reproduces the committed bytes ("unchanged" at HEAD). No assertion moved.
 const PERFORMANCE_EVIDENCE = process.env.PROJECT_STUDIO_PERFORMANCE_EVIDENCE === '1'
 
 const HOLLYWOOD_DISTRICT_WIDTH = 1586
