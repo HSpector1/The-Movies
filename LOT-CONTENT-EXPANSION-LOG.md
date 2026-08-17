@@ -190,3 +190,31 @@ nothing persisted references a facilityId across demolition; engagement guard pr
 no survivor) — "no duplication" read as no duplication EXPLOITS, which are guarded.
 Note for M4/M5: TWO files enforce ledger shape (placement.ts + construction.ts,
 now policy-scoped) — a genuine second authority, know it exists.
+
+## M3b — RULING: KEEP (M3 complete, 2026-08-18)
+
+UI agent delivered the world half on 7 commits (`d4f6b72..e541caf`). Move = the
+placement ghost carrying the building (roaming the whole property — where an owned
+building may stand is the quote's question, not a parcel's), standing body dimmed
+with hazard outline "Moving <name>", explicit keyboard-reachable commit, Escape
+byte-neutral. Demolish = in-world confirm with exact refund, receipt on the parcel
+that survived, selection never dangles (orphan-safety effect as second line of
+defence, stale-guarded). Engaged facilities: verbs disabled WITH the bound reason
+sentence; caller-error states render no verb. Holder titles resolved at the adapter
+boundary. Two defects found and fixed at proof time (thrown refusal message replaced
+by re-probe + studio sentence; receipt no longer rendered inside the panel the
+demolition closes). Week-0 pins preserved by making the carried-body layer lazy —
+the agent caught its own would-be +1 re-pin and designed it away.
+
+PM gates: both tsc clean; full vitest ×3 → green / 1 flake (WorldFirstAnnex
+Construction, annexHostSelections 2≠1) / green; flaky test green in isolation ×2.
+Agent-run Playwright: move-demolish 3/3, build-mode 7/7, FMJ golden path 1/1,
+operational-annex 7/7, presence 5/5. Deviations accepted: explicit commit button
+(keyboard law), property-roaming move, demolition lands on the parcel.
+
+**FLAKE WATCH — UPGRADED.** Two distinct contention-only flakes in four full runs
+(StudioLotScreen at M2, WorldFirstAnnexConstruction at M3b), both React-boundary
+selection counters, both green in isolation; class predates C1 (recorded at the FMJ
+seal). HARD TRIGGER: one more contention flake in ANY file, or any repeat, forces a
+dedicated diagnosis pass before the M8 seal. PM playtest of move/demolish feel is
+consolidated into the M5 review checkpoint (mechanics proven on canvas by spec).
