@@ -84,6 +84,11 @@ export type {
   StudioPlacement,
   StudioPlacementMode,
   GameStateV12,
+  // ── Property State (C1-M1a) ──
+  PropertyState,
+  PropertyStructure,
+  PropertyStructureRole,
+  GameStateV13,
   CashLedgerCheckpoint,
   ScriptDevelopmentMode,
   ScriptProjectStatus,
@@ -167,21 +172,29 @@ export type {
   ConstructionCompletion,
 } from './construction.js'
 
-// ── Placement Core V12 ───────────────────────────────────────────────────────
+// ── Placement Core V12 + Property State (C1-M1a) ─────────────────────────────
 export {
+  INITIAL_PROPERTY,
+  INITIAL_PROPERTY_STRUCTURES,
   LOT_DEPTH,
   LOT_PARCELS,
   LOT_ROADS,
   LOT_WIDTH,
   LEGACY_EXPANSION_PARCEL_ID,
   cellKey,
+  clonePropertyState,
+  initialProperty,
   isOnLot,
   isRoadCell,
   parcelAt,
   parcelById,
   parcelHasRoadFrontage,
   placementWouldSeverLot,
+  propertyOf,
+  propertyStructureCellKeys,
   rectCells,
+  roadCellKeys,
+  structureCells,
 } from './lot.js'
 export {
   PLACEMENT_REJECTION_ORDER,
@@ -196,6 +209,7 @@ export {
   initialManagedStudioPlacement,
   legacyAnnexPlacement,
   legacyAnnexPlacementRequest,
+  groundOccupiedCellKeys,
   occupiedCellKeys,
   operationalPlacedFacilities,
   placedStudioFacility,
@@ -782,6 +796,7 @@ export {
   validateSaveV10,
   validateSaveV11,
   validateSaveV12,
+  validateSaveV13,
   makeSave,
   makeSaveV1,
   makeSaveV2,
@@ -795,6 +810,7 @@ export {
   makeSaveV10,
   makeSaveV11,
   makeSaveV12,
+  makeSaveV13,
   loadSave,
   exportSave,
   importSave,
@@ -838,8 +854,10 @@ export {
   // Development & Casting Annex V1 — legacy V10 → live V11.
   convertV10ToV11,
   convertV11ToV12,
+  convertV12ToV13,
   migrateToV11,
   migrateToV12,
+  migrateToV13,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -854,6 +872,7 @@ export type {
   SaveFileV10,
   SaveFileV11,
   SaveFileV12,
+  SaveFileV13,
   SaveFile,
   TalentV1,
   GameStateV1,

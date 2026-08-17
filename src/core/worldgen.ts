@@ -52,6 +52,7 @@ import { clamp } from './math.js'
 import { emptyCastingSessions } from './castingSessions.js'
 import { emptyStudioConstruction } from './construction.js'
 import { emptyStudioPlacement } from './placement.js'
+import { initialProperty } from './lot.js'
 import { emptyStudioOperations } from './operations.js'
 import { emptyScriptDevelopment } from './scriptDevelopment.js'
 import { stream } from './rng.js'
@@ -674,5 +675,10 @@ export function generateWorld(seed: string): GameState {
     // Placement Core V12: headless worlds own no placed facility and have
     // reserved no placement identity.
     placement: emptyStudioPlacement(),
+    // C1-M1a: every world — headless, migrated, or player — carries its own
+    // property. A fresh state gets a deep COPY of the initial authored property,
+    // never the frozen constant, so state is always independently mutable and no
+    // world can reach back and edit the authored source of truth.
+    property: initialProperty(),
   }
 }

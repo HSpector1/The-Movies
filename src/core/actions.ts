@@ -69,6 +69,7 @@ import {
   placementRegimeReady,
   queryPlacement,
 } from './placement.js'
+import { propertyOf } from './lot.js'
 import {
   addManagedProductionWorkflow,
   assignShootingDirector,
@@ -1340,7 +1341,7 @@ function applyStartDevelopmentCastingAnnex(
   return rejectIllegalPlacement(
     state,
     'startDevelopmentCastingAnnex',
-    legacyAnnexPlacementRequest(),
+    legacyAnnexPlacementRequest(propertyOf(state)),
   )
 }
 

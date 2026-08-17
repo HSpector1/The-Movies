@@ -890,7 +890,99 @@ export type GameStateV12 = Omit<GameStateV11, 'ledger'> & {
   placement: StudioPlacement
 }
 
-export type GameState = GameStateV12
+// ── C1-M1a Property State ────────────────────────────────────────────────────
+// LAW: the studio property is engine STATE, not module constants.
+//
+// WHY: through V12 the lot's dimensions, roads, and parcel map were authored
+// module constants, and the eight physical studio buildings existed only in the
+// renderer. That made three things architecturally impossible: the property could
+// never grow (a constant is not a savegame), today's buildings were privileged
+// (invisible to legality, so nothing could reason about them), and the engine had
+// no answer to "what physically stands on this ground?".
+//
+// Under V13 a GameState carries its whole property. The constants in `lot.ts`
+// remain, but only as THE INITIAL AUTHORED PROPERTY — the data a fresh state is
+// seeded from and the value `convertV12ToV13` synthesizes. No logic closes over
+// them any more: every geometry predicate takes the property it is asked about.
+//
+// This milestone is deliberately BEHAVIOR-NEUTRAL. Nothing here lets a player buy
+// land, move a structure, or build differently than they could under V12; the
+// representation changed, the game did not.
+
+/**
+ * Why a structure stands on the property.
+ *
+ * `landmark` — a civic body with no engine capacity (the Gate, Administration,
+ * the Theater). It occupies ground and nothing else.
+ * `founding` — a working body the studio started with, whose engine capacity is
+ * one or more entries of `INITIAL_STUDIO_FACILITIES` (see `providesFacilityIds`).
+ *
+ * The two differ ONLY by this field. A landmark is not a lesser kind of thing: it
+ * is a structure that provides no facility, which is exactly `providesFacilityIds`
+ * being empty. The role is retained because M1b's inspector and C2's Founding Flip
+ * both need to know which bodies were authored as the studio's founding plant.
+ */
+export type PropertyStructureRole = 'landmark' | 'founding'
+
+/**
+ * One authored physical body standing on the property.
+ *
+ * Geometry is ENGINE-OWNED pure data: `origin` + `footprint` are the same numbers
+ * the M1 renderer authored, lifted here verbatim so the engine no longer depends
+ * on presentation code to know what physically occupies its ground. The renderer
+ * keeps presentation metadata (textures, ground anchors, signage) and, from M1b,
+ * consumes these positions rather than authoring its own.
+ *
+ * Footprints are HALF-OPEN from the origin (`[gx, gx+width) × [gy, gy+depth)`),
+ * matching both the renderer's building rectangles and `FacilityBlueprint`. This
+ * is deliberately NOT the inclusive convention `LotRect` uses for ground zones.
+ *
+ * `providesFacilityIds` is the link between a body and the engine capacity that
+ * works inside it. It is a list because one body can house several facilities (the
+ * Production / Post building holds both Post and the Scenery Shop). Every id must
+ * name an `INITIAL_STUDIO_FACILITIES` entry and may be claimed by exactly one
+ * structure — a facility has one home.
+ */
+export type PropertyStructure = {
+  id: string
+  label: string
+  role: PropertyStructureRole
+  /** Half-open footprint origin, in the same grid as parcels and placements. */
+  origin: LotCell
+  /** Half-open footprint extent. No Z, no slopes, no rotation. */
+  footprint: { width: number; depth: number }
+  /** `StudioFacility.id`s whose bodies stand here. Empty for a landmark. */
+  providesFacilityIds: string[]
+}
+
+/**
+ * The studio property: everything the engine knows about its own ground.
+ *
+ * `bounds` is the addressable grid. `roads` is circulation (never ownable land, so
+ * roads are deliberately not parcels). `parcels` is the coarse ownership map that
+ * placement legality reads. `structures` is what physically stands there.
+ *
+ * All four are STATE. A property with a wider `bounds` and an extra parcel is a
+ * valid property and every predicate in `lot.ts` answers correctly about it with
+ * no code change — that is the whole point of this milestone, and it is asserted
+ * by the expandability test rather than left as an aspiration.
+ */
+export type PropertyState = {
+  bounds: { width: number; depth: number }
+  roads: LotRect[]
+  parcels: LotParcel[]
+  structures: PropertyStructure[]
+}
+
+// SaveFileV12 remains recursively frozen above. SaveFileV13 owns the property
+// root: the bounds, roads, parcel map, and authored structures that V12 held as
+// module constants. A migrated V12 world receives INITIAL_PROPERTY, which IS
+// those constants — so the migration invents nothing.
+export type GameStateV13 = GameStateV12 & {
+  property: PropertyState
+}
+
+export type GameState = GameStateV13
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

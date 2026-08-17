@@ -1,9 +1,30 @@
-// ── Placement Core V12 ───────────────────────────────────────────────────────
-// The single construction authority. One authored parcel map (lot.ts), one TUNING
-// blueprint catalog, one pure legality query, one commit that re-runs that query
-// before it charges anything, one weekly completion pass, and one weekly operating
-// charge. This module is pure: no RNG, no wall clock, no I/O, no caller-owned
-// mutation, and it consumes ZERO bytes of `state.rngState`.
+// ── Placement Core V12 (+ C1-M1a property state) ─────────────────────────────
+// The single construction authority. One parcel map, one TUNING blueprint
+// catalog, one pure legality query, one commit that re-runs that query before it
+// charges anything, one weekly completion pass, and one weekly operating charge.
+// This module is pure: no RNG, no wall clock, no I/O, no caller-owned mutation,
+// and it consumes ZERO bytes of `state.rngState`.
+//
+// C1-M1a: LEGALITY CONSULTS STATE, NEVER CONSTANTS. Every geometry question here
+// is asked of `state.property` — the bounds, roads, parcels, and structures the
+// GameState carries — not of the module constants in `lot.ts`. A property with an
+// extra parcel and wider bounds is answered correctly by this same code, which is
+// what stops today's 28×26 lot from being permanent architecture.
+//
+// OCCUPANCY INCLUDES STRUCTURES (C1-M1a). The occupancy index a query consults is
+// placed facilities UNION the property's authored structures, so nothing can ever
+// be built on top of the Gate or a soundstage — a guarantee V12 got for free from
+// the parcel map happening not to overlap them, and which is now enforced.
+//
+// One rule deliberately does NOT see structures: the CLEARANCE RING. It is a
+// separation rule BETWEEN PLACEMENTS ("other placed facilities may not sit inside
+// it"), which is exactly what its invariant asserts. Extending it to the authored
+// bodies would newly reject 311 origins — 21 of them with fully buildable
+// footprints — and this milestone is behavior-neutral by contract, so the
+// authored bodies are grandfathered out of it exactly as founding placements are
+// grandfathered out of move/demolish until the C2 Flip. The cell-occupancy rule
+// and the severance walk both DO see structures, and both were verified neutral
+// on the initial property before the change landed.
 //
 // THE RUNNER INVARIANT (CODE-MINING-LEDGER Entry 2, clean-room): `commitPlacement`
 // calls `queryPlacement` itself and aborts on any rejection. There is exactly one
@@ -28,15 +49,15 @@ import {
 import { persistedProductionIds } from './productionIdentity.js'
 import {
   LEGACY_EXPANSION_PARCEL_ID,
-  LOT_DEPTH,
-  LOT_PARCELS,
-  LOT_WIDTH,
   cellKey,
   isOnLot,
   parcelAt,
   parcelById,
   parcelHasRoadFrontage,
   placementWouldSeverLot,
+  propertyOf,
+  propertyStructureCellKeys,
+  structureCells,
 } from './lot.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
@@ -50,15 +71,18 @@ import type {
   LedgerEntry,
   LotCell,
   LotParcel,
+  LotRect,
   PlacedFacility,
   PlacementCellVerdict,
   PlacementQuote,
   PlacementRejection,
   PlacementRequest,
+  PropertyState,
   StudioFacility,
   StudioOperations,
   StudioPlacement,
 } from './types.js'
+import { INITIAL_STUDIO_FACILITIES } from './operations.js'
 
 /** The binding legality order. `primary` is the first entry present. */
 export const PLACEMENT_REJECTION_ORDER: readonly PlacementRejection[] = [
@@ -103,12 +127,35 @@ export function footprintCells(blueprint: FacilityBlueprint, origin: LotCell): L
 }
 
 /**
- * The occupancy index — DERIVED from placed facilities on every read and never
- * persisted (CODE-MINING-LEDGER Entry 3's standing law). Membership only; nothing
- * iterates it, so its insertion order is never observable.
+ * The PLACEMENT occupancy index — DERIVED from placed facilities on every read
+ * and never persisted (CODE-MINING-LEDGER Entry 3's standing law). Membership
+ * only; nothing iterates it, so its insertion order is never observable.
+ *
+ * This is the player-created half of occupancy. The clearance-ring rule consults
+ * exactly this, because a clearance ring separates PLACEMENTS from each other.
  */
 export function occupiedCellKeys(placement: StudioPlacement): ReadonlySet<string> {
   const keys = new Set<string>()
+  for (const facility of placement.facilities) {
+    for (const cell of facility.cells) keys.add(cellKey(cell))
+  }
+  return keys
+}
+
+/**
+ * ALL occupied ground (C1-M1a): placed facilities UNION the property's authored
+ * structures. This is what "is something standing on this cell?" means, and it is
+ * what the per-cell `occupied` verdict and the severance walk consult.
+ *
+ * Also derived on every read, never persisted — the structures are already in the
+ * property root, so storing their cells again would create a second authority for
+ * the same fact.
+ */
+export function groundOccupiedCellKeys(
+  property: PropertyState,
+  placement: StudioPlacement,
+): ReadonlySet<string> {
+  const keys = new Set<string>(propertyStructureCellKeys(property))
   for (const facility of placement.facilities) {
     for (const cell of facility.cells) keys.add(cellKey(cell))
   }
@@ -175,11 +222,11 @@ export function placementRegimeReady(state: GameState): boolean {
   )
 }
 
-function distinctParcels(cells: readonly LotCell[]): LotParcel[] {
+function distinctParcels(property: PropertyState, cells: readonly LotCell[]): LotParcel[] {
   const seen = new Set<string>()
   const parcels: LotParcel[] = []
   for (const cell of cells) {
-    const parcel = parcelAt(cell)
+    const parcel = parcelAt(property, cell)
     if (parcel === null || seen.has(parcel.id)) continue
     seen.add(parcel.id)
     parcels.push(parcel)
@@ -189,6 +236,7 @@ function distinctParcels(cells: readonly LotCell[]): LotParcel[] {
 
 /** The clearance cells around a footprint, in fixed reading order. */
 export function clearanceRingCells(
+  property: PropertyState,
   cells: readonly LotCell[],
   ring: number,
 ): LotCell[] {
@@ -208,7 +256,7 @@ export function clearanceRingCells(
   for (let gy = y0 - ring; gy <= y1 + ring; gy++) {
     for (let gx = x0 - ring; gx <= x1 + ring; gx++) {
       const cell = { gx, gy }
-      if (own.has(cellKey(cell)) || !isOnLot(cell)) continue
+      if (own.has(cellKey(cell)) || !isOnLot(property, cell)) continue
       out.push(cell)
     }
   }
@@ -247,17 +295,23 @@ export function queryPlacement(state: GameState, request: PlacementRequest): Pla
     }
   }
 
+  const property = propertyOf(state)
   const cells = footprintCells(blueprint, origin)
-  const occupied = occupiedCellKeys(state.placement)
+  // Ground occupancy (placements AND authored structures) answers "is a body
+  // standing here?"; placement occupancy alone answers "is another PLACEMENT too
+  // close?". See the module header for why the clearance ring keeps the narrower
+  // input.
+  const occupied = groundOccupiedCellKeys(property, state.placement)
+  const placementOccupied = occupiedCellKeys(state.placement)
   const found = new Set<PlacementRejection>()
 
   // Per-cell legality, in the binding per-cell order. Every cell is evaluated.
   const cellLegality: PlacementCellVerdict[] = cells.map((cell) => {
     let rejection: PlacementRejection | null = null
-    if (!isOnLot(cell)) {
+    if (!isOnLot(property, cell)) {
       rejection = 'offLot'
     } else {
-      const parcel = parcelAt(cell)
+      const parcel = parcelAt(property, cell)
       if (parcel === null) rejection = 'notOwned'
       else if (parcel.terrain !== 'buildable') rejection = 'terrainUnbuildable'
       else if (occupied.has(cellKey(cell))) rejection = 'occupied'
@@ -267,8 +321,8 @@ export function queryPlacement(state: GameState, request: PlacementRequest): Pla
   })
 
   // Clearance ring — other placed facilities may not sit inside it.
-  for (const cell of clearanceRingCells(cells, blueprint.clearanceRing)) {
-    if (occupied.has(cellKey(cell))) {
+  for (const cell of clearanceRingCells(property, cells, blueprint.clearanceRing)) {
+    if (placementOccupied.has(cellKey(cell))) {
       found.add('clearanceRing')
       break
     }
@@ -277,18 +331,20 @@ export function queryPlacement(state: GameState, request: PlacementRequest): Pla
   // Road access is a property of the SITE: at least one owning parcel must front
   // a road. A footprint on no owned parcel at all trivially has no frontage.
   if (blueprint.requiresRoadAccess) {
-    const parcels = distinctParcels(cells)
-    if (!parcels.some((parcel) => parcelHasRoadFrontage(parcel))) found.add('noRoadAccess')
+    const parcels = distinctParcels(property, cells)
+    if (!parcels.some((parcel) => parcelHasRoadFrontage(property, parcel))) {
+      found.add('noRoadAccess')
+    }
   }
 
   // The perimeter walk. Always evaluated; never short-circuited.
-  if (placementWouldSeverLot(occupied, cells)) found.add('seversLot')
+  if (placementWouldSeverLot(property, occupied, cells)) found.add('seversLot')
 
   // Money LAST — a domain failure always outranks affordability.
   if (!canAfford(state, blueprint.capex).ok) found.add('insufficientFunds')
 
   const rejections = orderedRejections(found)
-  const originParcel = parcelAt(origin)
+  const originParcel = parcelAt(property, origin)
   return {
     ok: rejections.length === 0,
     blueprintId: blueprint.id,
@@ -342,7 +398,7 @@ export function commitPlacement(state: GameState, request: PlacementRequest): Ga
   if (blueprint === null) return state
 
   const id = state.placement.nextPlacementId
-  const parcel = parcelAt(quote.origin)
+  const parcel = parcelAt(propertyOf(state), quote.origin)
   if (parcel === null) return state // unreachable: an ok quote owns its origin
 
   const facilityId = deriveIdentity(blueprint.facilityIdBase, id, takenFacilityIds(state))
@@ -446,6 +502,119 @@ function invariant(condition: boolean, message: string): asserts condition {
   if (!condition) throw new Error(`placement invariant: ${message}`)
 }
 
+/**
+ * The C1-M1a property laws. Invariants are EXTENDED, never weakened: everything
+ * V12 asserted still holds, and the property root it never had now has to be
+ * internally coherent too.
+ *
+ * Three groups:
+ *   1. BOUNDS SANITY — a property has a positive integral grid, and every road
+ *      and parcel rectangle is well-formed and inside it. Ground the engine
+ *      cannot address is not ground.
+ *   2. STRUCTURE GEOMETRY INTEGRITY — every structure has a positive integral
+ *      footprint that lies wholly on the property, and no two structures overlap.
+ *      (The related law "no structure overlaps a PLACEMENT" is what makes
+ *      occupancy trustworthy — a forged save cannot stand a placement inside the
+ *      Gate — but it is asserted separately at the END of the placement suite so
+ *      it cannot preempt an existing V12 verdict about that same placement.)
+ *   3. PROVIDES-LINKS INTEGRITY — every `providesFacilityIds` entry names a real
+ *      `INITIAL_STUDIO_FACILITIES` facility, and no facility is claimed by two
+ *      structures. A facility has exactly one home.
+ *
+ * Deliberately NOT asserted: that structures never overlap parcels. That is true
+ * of the initial property and is the reason C1-M1a's occupancy change was
+ * verdict-neutral, so it is proved directly in the neutrality tests — but making
+ * it a law would forbid a future property that grades a parcel over demolished
+ * ground, which is precisely the kind of cap this milestone exists to remove.
+ */
+function assertPropertyInvariants(property: PropertyState): void {
+  invariant(
+    Number.isInteger(property.bounds.width) &&
+      Number.isInteger(property.bounds.depth) &&
+      property.bounds.width > 0 &&
+      property.bounds.depth > 0,
+    'property bounds must be positive integers',
+  )
+
+  const withinBounds = (rect: LotRect): boolean =>
+    Number.isInteger(rect.x0) &&
+    Number.isInteger(rect.y0) &&
+    Number.isInteger(rect.x1) &&
+    Number.isInteger(rect.y1) &&
+    rect.x0 >= 0 &&
+    rect.y0 >= 0 &&
+    rect.x0 <= rect.x1 &&
+    rect.y0 <= rect.y1 &&
+    rect.x1 < property.bounds.width &&
+    rect.y1 < property.bounds.depth
+
+  for (let index = 0; index < property.roads.length; index++) {
+    invariant(
+      withinBounds(property.roads[index]!),
+      `property road ${String(index)} is not a well-formed rectangle inside the property bounds`,
+    )
+  }
+
+  const parcelIds = new Set<string>()
+  for (const parcel of property.parcels) {
+    invariant(parcel.id.length > 0, 'property parcel id must be non-empty')
+    invariant(!parcelIds.has(parcel.id), `duplicate property parcel id "${parcel.id}"`)
+    parcelIds.add(parcel.id)
+    invariant(
+      withinBounds(parcel.rect),
+      `property parcel "${parcel.id}" is not a well-formed rectangle inside the property bounds`,
+    )
+  }
+
+  const structureIds = new Set<string>()
+  const structureCellOwner = new Map<string, string>()
+  const providedBy = new Map<string, string>()
+  const knownFacilityIds = new Set(INITIAL_STUDIO_FACILITIES.map((facility) => facility.id))
+  for (const structure of property.structures) {
+    const label = `property structure "${structure.id}"`
+    invariant(structure.id.length > 0, 'property structure id must be non-empty')
+    invariant(!structureIds.has(structure.id), `duplicate property structure id "${structure.id}"`)
+    structureIds.add(structure.id)
+    invariant(
+      structure.role === 'landmark' || structure.role === 'founding',
+      `${label} has unknown role ${String(structure.role)}`,
+    )
+    invariant(
+      Number.isInteger(structure.footprint.width) &&
+        Number.isInteger(structure.footprint.depth) &&
+        structure.footprint.width > 0 &&
+        structure.footprint.depth > 0,
+      `${label} must have a positive integral footprint`,
+    )
+    invariant(
+      Number.isInteger(structure.origin.gx) && Number.isInteger(structure.origin.gy),
+      `${label} origin must be integral`,
+    )
+    for (const cell of structureCells(structure)) {
+      invariant(isOnLot(property, cell), `${label} extends beyond the property bounds`)
+      const key = cellKey(cell)
+      const otherStructure = structureCellOwner.get(key)
+      invariant(
+        otherStructure === undefined,
+        `${label} overlaps property structure "${String(otherStructure)}"`,
+      )
+      structureCellOwner.set(key, structure.id)
+    }
+    for (const facilityId of structure.providesFacilityIds) {
+      invariant(
+        knownFacilityIds.has(facilityId),
+        `${label} provides unknown facility "${facilityId}"`,
+      )
+      const owner = providedBy.get(facilityId)
+      invariant(
+        owner === undefined,
+        `facility "${facilityId}" is provided by both "${String(owner)}" and "${structure.id}"`,
+      )
+      providedBy.set(facilityId, structure.id)
+    }
+  }
+}
+
 /** The opex a week SHOULD have been charged, from the durable placement record. */
 export function expectedWeeklyOperatingCostAt(placement: StudioPlacement, week: number): number {
   let total = 0
@@ -478,6 +647,15 @@ export function assertStudioPlacementInvariants(
   if (placement === undefined || placement === null) {
     throw new Error('placement invariant: state.placement is missing')
   }
+  const property = propertyOf(state)
+  // The property's OWN coherence, first: it is the ground every placement law
+  // below is evaluated against, so a malformed property must not be allowed to
+  // produce a confusing downstream verdict. These laws cannot fire on a
+  // well-formed property, so they never preempt an existing V12 diagnostic. The
+  // one law that could — a structure overlapping a PLACEMENT — is deliberately
+  // deferred to the end of this function, after every V12 placement law has had
+  // its say, so C1-M1a adds diagnostics without reordering them.
+  assertPropertyInvariants(property)
   invariant(
     placement.mode === operations.mode,
     'placement mode must equal operations mode',
@@ -531,16 +709,16 @@ export function assertStudioPlacementInvariants(
       `${label} cells disagree with its blueprint footprint at its origin`,
     )
 
-    const originParcel = parcelAt(placed.origin)
+    const originParcel = parcelAt(property, placed.origin)
     invariant(originParcel !== null, `${label} origin is not on an owned parcel`)
     invariant(placed.parcelId === originParcel.id, `${label} parcelId disagrees with its origin`)
     invariant(
-      parcelById(placed.parcelId) !== null,
+      parcelById(property, placed.parcelId) !== null,
       `${label} references unknown parcel "${placed.parcelId}"`,
     )
 
     for (const cell of placed.cells) {
-      const parcel = parcelAt(cell)
+      const parcel = parcelAt(property, cell)
       invariant(parcel !== null, `${label} occupies unowned ground`)
       invariant(parcel.terrain === 'buildable', `${label} occupies unbuildable terrain`)
       const key = cellKey(cell)
@@ -551,7 +729,9 @@ export function assertStudioPlacementInvariants(
 
     if (blueprint.requiresRoadAccess) {
       invariant(
-        distinctParcels(placed.cells).some((parcel) => parcelHasRoadFrontage(parcel)),
+        distinctParcels(property, placed.cells).some((parcel) =>
+          parcelHasRoadFrontage(property, parcel),
+        ),
         `${label} requires road access its site does not have`,
       )
     }
@@ -602,11 +782,32 @@ export function assertStudioPlacementInvariants(
     projectIds.add(placed.projectId)
   }
 
+  // C1-M1a: no placement may stand where an authored structure already stands.
+  // Under V12 this was true only by luck — the parcel map happened not to overlap
+  // any building, so `notOwned`/`terrainUnbuildable` caught every such forgery
+  // first. Now it is a law in its own right, and it holds even if a future
+  // property grades a parcel next to a body. It runs AFTER every V12 placement
+  // law so a forged save that is also off-parcel still reports the V12 verdict it
+  // always reported; this can only ever ADD a rejection, never relabel one.
+  const structureCellOwner = new Map<string, string>()
+  for (const structure of property.structures) {
+    for (const cell of structureCells(structure)) structureCellOwner.set(cellKey(cell), structure.id)
+  }
+  for (const placed of placement.facilities) {
+    for (const cell of placed.cells) {
+      const standing = structureCellOwner.get(cellKey(cell))
+      invariant(
+        standing === undefined,
+        `placed facility ${String(placed.id)} overlaps property structure "${String(standing)}"`,
+      )
+    }
+  }
+
   // Clearance rings hold between distinct placements, so a forged save cannot
   // recreate a configuration the query would have refused.
   for (const placed of placement.facilities) {
     const blueprint = blueprintById(placed.blueprintId)!
-    for (const cell of clearanceRingCells(placed.cells, blueprint.clearanceRing)) {
+    for (const cell of clearanceRingCells(property, placed.cells, blueprint.clearanceRing)) {
       const owner = cellOwner.get(cellKey(cell))
       invariant(
         owner === undefined || owner === placed.id,
@@ -753,8 +954,8 @@ export function assertStudioPlacementInvariants(
  * `startDevelopmentCastingAnnex` action and its read model both use, which is why
  * V12 has no second copy of the Annex's legality.
  */
-export function legacyAnnexPlacementRequest(): PlacementRequest {
-  const parcel = parcelById(LEGACY_EXPANSION_PARCEL_ID)
+export function legacyAnnexPlacementRequest(property: PropertyState): PlacementRequest {
+  const parcel = parcelById(property, LEGACY_EXPANSION_PARCEL_ID)
   if (parcel === null) {
     throw new Error('placement: the legacy expansion parcel is missing from the lot')
   }
@@ -859,7 +1060,7 @@ export function studioConstructionView(
     canStart:
       placementRegimeReady(state) &&
       annexCanonicalProductionIdCollision(state) === null &&
-      queryPlacement(state, legacyAnnexPlacementRequest()).ok,
+      queryPlacement(state, legacyAnnexPlacementRequest(propertyOf(state))).ok,
     startedWeek: placed?.placedWeek ?? null,
     dueWeek: placed?.completesWeek ?? null,
     completedWeek: placed === null || placed.status !== 'operational' ? null : placed.completesWeek,
@@ -935,7 +1136,8 @@ export type StudioPlacementView = {
  * state; nothing here is stored, and no preview lives in simulation state.
  */
 export function studioPlacementView(state: GameState): StudioPlacementView {
-  const parcels: PlacementParcelView[] = LOT_PARCELS.map((parcel) => {
+  const property = propertyOf(state)
+  const parcels: PlacementParcelView[] = property.parcels.map((parcel) => {
     const ids: number[] = []
     let cells = 0
     for (const placed of state.placement.facilities) {
@@ -958,7 +1160,7 @@ export function studioPlacementView(state: GameState): StudioPlacementView {
       label: parcel.label,
       terrain: parcel.terrain,
       rect: parcel.rect,
-      roadFrontage: parcelHasRoadFrontage(parcel),
+      roadFrontage: parcelHasRoadFrontage(property, parcel),
       occupiedCells: cells,
       placedFacilityIds: ids,
     }
@@ -991,8 +1193,8 @@ export function studioPlacementView(state: GameState): StudioPlacementView {
     currentWeek: state.market.tick,
     cash: state.studio.cash,
     buildEnabled: placementRegimeReady(state),
-    lotWidth: LOT_WIDTH,
-    lotDepth: LOT_DEPTH,
+    lotWidth: property.bounds.width,
+    lotDepth: property.bounds.depth,
     parcels,
     placements,
     catalog: FACILITY_BLUEPRINTS.map((blueprint) => ({
