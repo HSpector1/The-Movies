@@ -18,6 +18,7 @@ import type {
   LotCastingReviewContext,
   LotCastingReviewRole,
 } from './snapshot/castingReview.ts'
+import { genreLabel } from '../content.ts'
 
 export type LotCastingReviewPanelFeedback =
   | { kind: 'success'; message: string }
@@ -325,8 +326,12 @@ export const LotCastingReviewPanel = forwardRef<
           <h3 id={headingId} ref={headingRef} tabIndex={-1} data-testid="lot-casting-review-heading">
             {context.title}
           </h3>
+          {/* Genre and writer, not `script-0000 · casting-0000`. The ids stay on
+              `data-project-id`/`data-session-id` above, where provenance needs them and
+              no player reads them (cold-playtest defect). */}
           <span data-testid="lot-casting-review-identity">
-            Project {context.projectId} · Session {context.sessionId}
+            {genreLabel(context.genre)} ·{' '}
+            {CREATIVE_ROLE_LABEL[context.writer.primaryRole]} {context.writer.name}
           </span>
         </header>
       )}

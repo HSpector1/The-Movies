@@ -907,9 +907,11 @@ test('casting stop keeps all six advisory results in the world, preserves option
 
   const rail = await expectExactRail(page, 'casting-review')
   await expect(rail).toContainText(review.title)
-  await expect(rail).toContainText(
-    `Project ${review.projectId} · Session ${review.sessionId}`,
-  )
+  // M-B re-pin: the rail's identity line is player language now. The ids remain
+  // asserted structurally on the casting-review panel's data-* provenance attributes.
+  await expect(rail).toContainText('The camera tests are in, at Casting')
+  await expect(rail).not.toContainText(review.projectId)
+  await expect(rail).not.toContainText(review.sessionId)
   await expect(page.getByTestId('lot-nav-casting')).toHaveAttribute('aria-current', 'true')
   expect((await rendererEvidence(page)).debug).toMatchObject({
     selectedPersonId: null,

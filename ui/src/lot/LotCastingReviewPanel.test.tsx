@@ -224,9 +224,14 @@ describe('LotCastingReviewPanel', () => {
     expect(panel).toHaveAttribute('data-project-id', 'script-midnight')
     expect(panel).toHaveAttribute('data-opens-package', 'false')
     expect(screen.getByTestId('lot-casting-review-heading')).toBe(headingRef.current)
+    // M-B: genre + writer, never `script-0000 · casting-0000`. The ids stay on the
+    // panel's provenance attributes asserted three lines above.
     expect(screen.getByTestId('lot-casting-review-identity')).toHaveTextContent(
-      'Project script-midnight · Session casting-midnight',
+      'Drama · Writer Octavia Montgomery-Smythe',
     )
+    const identityText = screen.getByTestId('lot-casting-review-identity').textContent ?? ''
+    expect(identityText).not.toContain('script-midnight')
+    expect(identityText).not.toContain('casting-midnight')
     expect(screen.getByTestId('lot-casting-review-genre')).toHaveTextContent('drama')
     expect(screen.getByTestId('lot-casting-review-writer')).toHaveTextContent(
       'Octavia Montgomery-Smythe',

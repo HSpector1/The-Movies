@@ -250,6 +250,15 @@ function sameFeedback(
   );
 }
 
+/**
+ * The rail's subtitle line.
+ *
+ * M-B copy law: an id is provenance, not language. Every branch below used to print the
+ * raw engine identifier a player never chose and cannot act on ("Project script-0000 ·
+ * Session casting-0000" was the exact string the cold playtest reported). The identity of
+ * an event to a player is its PICTURE and its PLACE, both already carried by the target;
+ * the ids remain on the receipt and in the panels' `data-*` provenance attributes.
+ */
 function ReasonIdentity({ target }: { target: LotNextEventWorldTarget }) {
   switch (target.kind) {
     case "script":
@@ -260,7 +269,7 @@ function ReasonIdentity({ target }: { target: LotNextEventWorldTarget }) {
         >
           <span className="lot-next-event-kicker">Screenplay review</span>
           <strong>{target.title}</strong>
-          <span>Project {target.projectId}</span>
+          <span>Waiting for your decision at Development</span>
         </div>
       );
     case "casting":
@@ -271,9 +280,7 @@ function ReasonIdentity({ target }: { target: LotNextEventWorldTarget }) {
         >
           <span className="lot-next-event-kicker">Casting review</span>
           <strong>{target.title}</strong>
-          <span>
-            Project {target.projectId} · Session {target.sessionId}
-          </span>
+          <span>The camera tests are in, at Casting</span>
         </div>
       );
     case "production":
@@ -285,8 +292,7 @@ function ReasonIdentity({ target }: { target: LotNextEventWorldTarget }) {
           <span className="lot-next-event-kicker">Production decision</span>
           <strong>{target.title}</strong>
           <span>
-            {target.location === "stage-7" ? "Soundstage 7" : "Soundstage 12"} ·
-            Production {target.productionId}
+            {target.location === "stage-7" ? "Soundstage 7" : "Soundstage 12"}
           </span>
         </div>
       );
@@ -303,7 +309,7 @@ function ReasonIdentity({ target }: { target: LotNextEventWorldTarget }) {
             {target.runs.map((run) => (
               <li key={run.productionId}>
                 <strong>{run.title}</strong>
-                <span>Production {run.productionId}</span>
+                <span>Its theatrical run has finished</span>
               </li>
             ))}
           </ul>
@@ -341,9 +347,7 @@ function ReasonIdentity({ target }: { target: LotNextEventWorldTarget }) {
         >
           <span className="lot-next-event-kicker">Studio development</span>
           <strong>{target.name}</strong>
-          <span>
-            Project {target.projectId} · Facility {target.facilityId}
-          </span>
+          <span>Construction on the lot has finished</span>
         </div>
       );
   }

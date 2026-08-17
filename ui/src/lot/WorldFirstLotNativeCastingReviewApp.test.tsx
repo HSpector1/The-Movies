@@ -289,9 +289,14 @@ describe('World-First Lot-Native Casting Review Intervention V1 — App/Lot inte
     expect(panel).toHaveAttribute('data-session-id', context.sessionId)
     expect(panel).toHaveAttribute('data-project-id', context.projectId)
     expect(screen.getByTestId('lot-next-event-identity')).toHaveTextContent(context.title)
+    // M-B: the rail identifies the event by picture and place, not by engine id. The
+    // ids are still pinned exactly — on the panel's provenance attributes two lines up.
     expect(screen.getByTestId('lot-next-event-identity')).toHaveTextContent(
-      `Project ${context.projectId} · Session ${context.sessionId}`,
+      'The camera tests are in, at Casting',
     )
+    const railText = screen.getByTestId('lot-next-event-identity').textContent ?? ''
+    expect(railText).not.toContain(context.projectId)
+    expect(railText).not.toContain(context.sessionId)
     expect(screen.getByTestId('lot-casting-review-genre')).toHaveTextContent(context.genre)
     expect(screen.getByTestId('lot-casting-review-writer')).toHaveTextContent(context.writer.name)
     expect(screen.getByTestId('lot-casting-review-consequence')).toHaveTextContent(

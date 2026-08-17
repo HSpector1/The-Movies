@@ -122,8 +122,13 @@ describe('LotScriptReviewPanel', () => {
       screen.getByRole('heading', { level: 3, name: 'A Fraction of Midnight' }),
     ).toBe(headingRef.current)
     expect(screen.getByTestId('lot-script-review-heading')).toBe(headingRef.current)
+    // M-B: the header subtitle is now player language, and the id it used to print is
+    // provenance only. Pinned in BOTH directions so the leak cannot come back.
     expect(screen.getByTestId('lot-script-review-project-id')).toHaveTextContent(
-      'Project script-midnight',
+      'First draft · Writer Octavia Montgomery-Smythe',
+    )
+    expect(screen.getByTestId('lot-script-review-project-id').textContent ?? '').not.toContain(
+      'script-midnight',
     )
     expect(screen.getByTestId('lot-script-review-writer')).toHaveTextContent(
       'Octavia Montgomery-Smythe',

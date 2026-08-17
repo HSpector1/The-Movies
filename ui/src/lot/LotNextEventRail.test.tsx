@@ -127,7 +127,9 @@ describe("LotNextEventRail", () => {
     expect(rail).toHaveTextContent("$1,234.50");
     expect(rail).toHaveTextContent("A Fraction of Midnight");
     expect(rail).toHaveTextContent("Soundstage 12");
-    expect(rail).toHaveTextContent("Production prod-44");
+    // M-B copy law: the rail names the picture and its PLACE, never the engine id. The
+    // id stays in the receipt the rail is built from, asserted structurally elsewhere.
+    expect(rail).not.toHaveTextContent("prod-44");
     expect(
       screen.getByTestId("lot-next-event-reason-detail"),
     ).toHaveTextContent(
@@ -234,10 +236,13 @@ describe("LotNextEventRail", () => {
     const rows = within(
       screen.getByTestId("lot-next-event-identity"),
     ).getAllByRole("listitem");
+    // Order and completeness are the point of this spec; the identity line is now
+    // player language rather than `Production run-b`. Both are still pinned exactly.
     expect(rows.map((row) => row.textContent)).toEqual([
-      "Second BillingProduction run-b",
-      "First LightProduction run-a",
+      "Second BillingIts theatrical run has finished",
+      "First LightIts theatrical run has finished",
     ]);
+    expect(rows.map((row) => row.textContent).join(" ")).not.toContain("run-a");
   });
 
   it("defers focus and live ownership to the one construction completion notice", async () => {

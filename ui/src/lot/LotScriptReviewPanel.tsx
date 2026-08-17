@@ -302,7 +302,14 @@ export const LotScriptReviewPanel = forwardRef<
           <h3 id={headingId} ref={headingRef} tabIndex={-1} data-testid="lot-script-review-heading">
             {context.title}
           </h3>
-          <span data-testid="lot-script-review-project-id">Project {context.projectId}</span>
+          {/* The subtitle names the picture in the studio's own terms. The project id
+              stays on `data-project-id` above, where tests and provenance need it and no
+              player ever reads it (cold-playtest defect: "Project script-0000"). */}
+          <span data-testid="lot-script-review-project-id">
+            {context.reviewState === 'first-draft' ? 'First draft' : 'Final draft'}
+            {' · '}
+            {ROLE_LABEL[context.writer.primaryRole]} {context.writer.name}
+          </span>
         </header>
       )}
 
