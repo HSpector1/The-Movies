@@ -406,6 +406,11 @@ function RichPicker({
                 onClick={() => onSelect(t.id)}
                 data-testid={`talent-${t.id}`}
                 aria-pressed={selected}
+                // Cold-playtest a11y defect: these were UNNAMED buttons. Their computed
+                // name was the whole flattened card — badges, Fit score, strengths — and
+                // it never said which role the press would fill. The same
+                // `${title}: …` grammar every other control in this picker already uses.
+                aria-label={`Select ${t.name} for ${title}`}
               >
                 <div className="spread">
                   <span className="opt-title">
@@ -547,6 +552,8 @@ function MinimalPicker({
               onClick={() => onSelect(t.id)}
               data-testid={`talent-${t.id}`}
               aria-pressed={selected}
+              // Same defect, same grammar, on the minimal fallback card.
+              aria-label={`Select ${t.name} for ${title}`}
             >
               <div className="spread">
                 <span className="opt-title">
