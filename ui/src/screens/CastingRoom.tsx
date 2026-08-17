@@ -421,6 +421,14 @@ export function CastingRoom({
             setPlanningProjectId(null)
             pendingFocusProjectId.current = projectId
             setAnnouncement('Auditions started. Results are due in one week; no actor was reserved or paid.')
+            // DE-STRANDING (cold-playtest defect 3): starting auditions used to leave the
+            // player standing on this full-screen management screen with the world gone
+            // and the week-advance control back on the lot. Camera tests are a WORLD
+            // event — the studio's own Casting sign now reads "camera tests underway" —
+            // so a successful start hands the player back to the studio by exactly the
+            // path "Back to studio" already takes. No new routing is introduced: `onBack`
+            // is the host's existing return, unchanged.
+            onBack()
           }}
         />
       )}
