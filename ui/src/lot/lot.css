@@ -1122,6 +1122,18 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   border-left: 3px solid #d2ae62;
   font-size: 11px !important;
 }
+/* M-B — the verbs a place offers right now. Same accent family as the production
+   command, sized like the details ghost below so the ANSWER to "what can I do here"
+   is never the smallest control in the panel. */
+.hollywood-building-inspector-primary {
+  min-height: 44px;
+  padding: 8px 10px;
+  line-height: 1.35;
+}
+.hollywood-building-inspector-primary:focus-visible {
+  outline: 3px solid #f2cf78;
+  outline-offset: 3px;
+}
 .hollywood-building-inspector-details {
   width: 100%;
   min-height: 44px;
