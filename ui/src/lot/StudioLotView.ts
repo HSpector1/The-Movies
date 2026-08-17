@@ -114,7 +114,7 @@ export type StudioLotViewOptions = {
    * host owns the draft, runs the Engine's own `queryPlacement`, and hands the verdict
    * back down as a preview. Nothing here commits or enters simulation state.
    */
-  onWorldBuildOrigin?: (parcelId: string, origin: LotCellPoint) => void
+  onWorldBuildOrigin?: (parcelId: string | null, origin: LotCellPoint) => void
 }
 
 export type { TycoonBuildMode, TycoonPlacementPreview }

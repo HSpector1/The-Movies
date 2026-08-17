@@ -34,10 +34,25 @@ import { moneyExact } from '../format.ts'
  * a superseded origin. Every nudge, hover, blueprint change and reopen bumps `revision`.
  */
 export type LotBuildDraft = {
-  parcelId: string
+  /**
+   * The parcel the draft is bounded to, or NULL for a move (C1-M3b).
+   *
+   * A build is chosen from one parcel's own catalog, so its ghost is clamped inside
+   * that parcel. A MOVE is a building the player already owns being carried somewhere
+   * else, and where it may land is not a parcel question — it is the quote's question.
+   * So a move roams the whole property and the per-cell verdicts do the teaching.
+   */
+  parcelId: string | null
   blueprintId: string
   origin: LotCellPoint
   revision: number
+  /**
+   * C1-M3b: the placement being RE-SITED, or null when this draft builds a new one.
+   *
+   * It is threaded straight through to `placementQuote`, which is what stops the
+   * building colliding with the ground it is currently standing on.
+   */
+  movingPlacementId: number | null
 }
 
 /** One labelled line of parcel truth, matching the World Inspector fact shape. */
@@ -223,8 +238,39 @@ export function buildQuoteKey(
   origin: LotCellPoint,
   week: number,
   cash: number,
+  movingPlacementId: number | null = null,
 ): string {
-  return [blueprintId, String(origin.gx), String(origin.gy), String(week), String(cash)].join('|')
+  return [
+    blueprintId,
+    String(origin.gx),
+    String(origin.gy),
+    String(week),
+    String(cash),
+    // A move and a build of the same blueprint at the same origin are DIFFERENT
+    // questions — the mover's own cells are excluded from one and not the other — so
+    // they must never share a memo key.
+    movingPlacementId === null ? 'new' : `move:${String(movingPlacementId)}`,
+  ].join('|')
+}
+
+/**
+ * Clamp a MOVE's origin so the whole footprint stays on the addressable property.
+ *
+ * Deliberately NOT clamped into a parcel: a move may be pointed at any ground at all,
+ * including ground the studio does not own or may not build on, because the quote's own
+ * per-cell verdicts are how a player learns where a building may stand. The only thing
+ * clamped is the grid itself, so the ghost can never be pointed off the world.
+ */
+export function clampMoveOrigin(
+  origin: LotCellPoint,
+  bounds: { width: number; depth: number },
+  footprint: { width: number; depth: number },
+): LotCellPoint {
+  return clampBuildOrigin(
+    origin,
+    { x0: 0, y0: 0, x1: Math.max(0, bounds.width - 1), y1: Math.max(0, bounds.depth - 1) },
+    footprint,
+  )
 }
 
 /** The primary rejection in words, or null when the quote is legal. */

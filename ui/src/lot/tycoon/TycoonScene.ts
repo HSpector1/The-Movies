@@ -171,6 +171,8 @@ const FOCUS_PAN_MS = 520
  * painted mass and its counter-scaled sign both stand above the tiles it occupies.
  */
 const FOOTPRINT_HEADROOM = 120
+/** How faint the body being carried stands while its ghost is live (C1-M3b). */
+const CARRIED_BODY_ALPHA = 0.42
 const SELECTED_PERSON_TINT = 0xffe6a0
 const SELECTED_COMPANY_TINT = 0xbfe3d6
 const OTHER_COMPANY_ALPHA = 0.72
@@ -219,7 +221,8 @@ type Point = { x: number; y: number }
  */
 export type TycoonPlacementPreview = {
   blueprintId: string
-  parcelId: string
+  /** The parcel the ghost is bounded to, or null when it roams (a move, C1-M3b). */
+  parcelId: string | null
   origin: LotCellPoint
   cells: { gx: number; gy: number; ok: boolean }[]
   ok: boolean
@@ -229,8 +232,23 @@ export type TycoonPlacementPreview = {
 
 /** The bounded build flow the world is currently inside, or null. */
 export type TycoonBuildMode = {
-  parcelId: string
+  /**
+   * The parcel the flow is bounded to, or NULL when the ghost roams (C1-M3b).
+   *
+   * A BUILD is chosen from one parcel's catalog and its ghost is clamped inside that
+   * parcel. A MOVE is a building the player already owns, carried; where it may land is
+   * the quote's question, not a parcel's, so its ghost is clamped only to the property.
+   */
+  parcelId: string | null
   footprint: { width: number; depth: number }
+  /**
+   * C1-M3b: the placement being RE-SITED, or absent for a new build.
+   *
+   * The world uses it for ONE presentation job — marking the body the player is holding,
+   * so a move reads as picking this building up rather than buying another one. It
+   * decides no legality; the host's quote already carries it to the engine.
+   */
+  movingPlacementId?: number
 }
 
 export type TycoonEvent =
@@ -240,7 +258,7 @@ export type TycoonEvent =
   /** A parcel of the studio's own ground was activated. */
   | { type: 'parcel'; parcelId: string }
   /** A build-mode origin was pointed at. Presentation intent only; it commits nothing. */
-  | { type: 'build-origin'; parcelId: string; origin: LotCellPoint }
+  | { type: 'build-origin'; parcelId: string | null; origin: LotCellPoint }
 
 export type TycoonSceneData = {
   snapshot: StudioLotSnapshot
@@ -347,6 +365,8 @@ export class TycoonScene extends Phaser.Scene {
   private placementSprites = new Map<number, Phaser.GameObjects.Sprite>()
   private placementLabels = new Map<number, Phaser.GameObjects.Text>()
   private previewGraphics: Phaser.GameObjects.Graphics | null = null
+  /** The hazard outline under the body being carried. ONE layer for the whole world. */
+  private carriedGraphics: Phaser.GameObjects.Graphics | null = null
   private previewLabel: Phaser.GameObjects.Text | null = null
   private preview: TycoonPlacementPreview | null = null
   private buildMode: TycoonBuildMode | null = null
@@ -1090,6 +1110,13 @@ export class TycoonScene extends Phaser.Scene {
       .graphics()
       .setDepth(DEPTH.placementPreview)
       .setName('tier:placement-preview')
+    // The carried body's own ground outline. Created once, exactly like the queue cue
+    // and the guidance pool: the world carries at most one building at a time.
+    this.carriedGraphics = this.add
+      .graphics()
+      .setDepth(DEPTH.ground + 4)
+      .setVisible(false)
+      .setName('tier:carried-body')
     this.previewLabel = this.add
       .text(0, 0, '', {
         fontFamily: FONT_SANS,
@@ -1344,14 +1371,53 @@ export class TycoonScene extends Phaser.Scene {
     if (mode === null) {
       this.setPlacementPreview(null)
       this.input.setDefaultCursor('grab')
+      this.paintCarriedBody()
       return
     }
     this.input.setDefaultCursor('crosshair')
-    const parcel = this.parcelById(mode.parcelId)
-    if (parcel !== null) {
+    const parcel = mode.parcelId === null ? null : this.parcelById(mode.parcelId)
+    if (parcel !== null && mode.parcelId !== null) {
       this.selectedParcelId = mode.parcelId
       this.paintParcelOutline(parcel, true)
     }
+    // A MOVE keeps its building standing — it has not moved yet — but marks it as the
+    // one being carried, so the ghost reads as re-siting THIS body rather than buying
+    // a second one. Presentation only: nothing here moves anything (shift law 2).
+    this.paintCarriedBody()
+  }
+
+  /**
+   * Dim the body the player is currently carrying, and outline the ground it still
+   * occupies (C1-M3b).
+   *
+   * The 2005 corpus answers "which building am I moving" physically — the body itself is
+   * marked while its ghost is live. This is that answer in this world's own vocabulary:
+   * the standing body fades and its footprint keeps a hazard outline, so the player can
+   * see both where it IS and where it WOULD go at the same time. One shared Graphics
+   * layer, reused from the selection tier; no object is created per move.
+   */
+  private paintCarriedBody(): void {
+    const carriedId = this.buildMode?.movingPlacementId ?? null
+    for (const [id, sprite] of this.placementSprites) {
+      sprite.setAlpha(id === carriedId ? CARRIED_BODY_ALPHA : 1)
+    }
+    const g = this.carriedGraphics
+    if (!g) return
+    g.clear()
+    if (carriedId === null) {
+      g.setVisible(false)
+      return
+    }
+    const placed = this.placement?.placements.find((candidate) => candidate.id === carriedId)
+    const extent = placed === undefined ? null : TycoonScene.cellsExtent(placed.cells)
+    if (extent === null) {
+      g.setVisible(false)
+      return
+    }
+    const outline = this.rectPolygon(extent)
+    this.fillPolygon(g, outline, C.brass, 0.12)
+    this.strokePolygon(g, outline, C.brass, chromeStrokeWidth(3, this.cameras.main.zoom), 0.9)
+    g.setVisible(true)
   }
 
   /** Accept the host's ghost. Identical input yields an identical repaint. */
@@ -1416,15 +1482,22 @@ export class TycoonScene extends Phaser.Scene {
   private pointBuildOriginAt(pointer: Phaser.Input.Pointer): void {
     const mode = this.buildMode
     if (mode === null || this.inputSuspended) return
-    const parcel = this.parcelById(mode.parcelId)
-    if (parcel === null) return
+    // A bounded BUILD is clamped inside its parcel; a roaming MOVE is clamped only to
+    // the addressable property, so the ghost can be carried anywhere and the quote's own
+    // per-cell verdicts explain the ground it is standing over (C1-M3b).
+    const parcel = mode.parcelId === null ? null : this.parcelById(mode.parcelId)
+    if (parcel === null && mode.parcelId !== null) return
+    const bounds =
+      parcel === null
+        ? { x0: 0, y0: 0, x1: this.lotW - 1, y1: this.lotD - 1 }
+        : parcel.rect
     const world = this.cameras.main.getWorldPoint(pointer.x, pointer.y)
     const grid = screenToGrid(world.x, world.y)
-    const maxGx = Math.max(parcel.rect.x0, parcel.rect.x1 - mode.footprint.width + 1)
-    const maxGy = Math.max(parcel.rect.y0, parcel.rect.y1 - mode.footprint.depth + 1)
+    const maxGx = Math.max(bounds.x0, bounds.x1 - mode.footprint.width + 1)
+    const maxGy = Math.max(bounds.y0, bounds.y1 - mode.footprint.depth + 1)
     const origin = {
-      gx: Math.min(maxGx, Math.max(parcel.rect.x0, Math.floor(grid.gx))),
-      gy: Math.min(maxGy, Math.max(parcel.rect.y0, Math.floor(grid.gy))),
+      gx: Math.min(maxGx, Math.max(bounds.x0, Math.floor(grid.gx))),
+      gy: Math.min(maxGy, Math.max(bounds.y0, Math.floor(grid.gy))),
     }
     if (
       this.lastHoverOrigin !== null &&
@@ -2365,6 +2438,7 @@ export class TycoonScene extends Phaser.Scene {
       this.paintParcelOutline(this.parcelById(this.selectedParcelId)!, true)
     }
     this.paintPlacements()
+    this.paintCarriedBody()
   }
 
   /** The home-zone parking point for one rendered person, exactly as M1.5 authored it. */
@@ -3383,6 +3457,8 @@ export class TycoonScene extends Phaser.Scene {
       if (this.preview !== null) this.paintPreview()
       // …and so is the guidance pool's rim, for the same reason.
       if (this.guidanceTarget !== null) this.paintGuidanceMarker()
+      // …and the carried body's hazard outline, for exactly the same reason.
+      if (this.buildMode?.movingPlacementId !== undefined) this.paintCarriedBody()
     }
 
     if (!bandChanged) return
@@ -3548,6 +3624,8 @@ export class TycoonScene extends Phaser.Scene {
     gateVisitorPosition: { x: number; y: number; depth: number } | null
     selectedParcelId: string | null
     buildModeParcelId: string | null
+    /** The placement the world is currently carrying, or null (C1-M3b). */
+    movingPlacementId: number | null
     previewOrigin: LotCellPoint | null
     previewOk: boolean | null
     parcelZoneIds: string[]
@@ -3601,6 +3679,7 @@ export class TycoonScene extends Phaser.Scene {
             },
       selectedParcelId: this.selectedParcelId,
       buildModeParcelId: this.buildMode?.parcelId ?? null,
+      movingPlacementId: this.buildMode?.movingPlacementId ?? null,
       previewOrigin: this.preview === null ? null : { ...this.preview.origin },
       previewOk: this.preview?.ok ?? null,
       parcelZoneIds: [...this.parcelZones.keys()].sort(),
