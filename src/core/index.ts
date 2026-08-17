@@ -84,6 +84,11 @@ export type {
   StudioPlacement,
   StudioPlacementMode,
   GameStateV12,
+  // ── Blueprint Requirements (C1-M2) ──
+  BlueprintRequirement,
+  BlueprintRequirementKind,
+  UnmetRequirement,
+  BlueprintAvailability,
   // ── Property State (C1-M1a) ──
   PropertyState,
   PropertyStructure,
@@ -196,6 +201,16 @@ export {
   roadCellKeys,
   structureCells,
 } from './lot.js'
+export {
+  LIVE_REQUIREMENT_KINDS,
+  blueprintAtInstanceLimit,
+  blueprintInstanceCount,
+  blueprintMaxInstances,
+  blueprintRequirementMet,
+  blueprintRequirementReason,
+  evaluateBlueprintRequirements,
+  requirementIsAttainable,
+} from './blueprintRequirements.js'
 export {
   PLACEMENT_REJECTION_ORDER,
   assertStudioPlacementInvariants,

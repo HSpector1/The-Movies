@@ -786,6 +786,79 @@ export type LotParcel = {
   ownedFromStart: true
 }
 
+// ── C1-M2 blueprint requirements — the declarative unlock schema ─────────────
+// LAW: what unlocks a building is DATA on the blueprint, never a branch in code.
+//
+// WHY: the recovered original engine gated its catalog with a numbered `requires`
+// list per blueprint (its 2005 data carries date_ and facility_ kinds). That shape
+// is right, and it is right for the same reason our property became state: a gate
+// expressed as data can be authored, inspected, explained to the player, and added
+// to without editing the evaluator. A gate expressed as an `if` cannot.
+//
+// THE HONEST-EVALUATION RULE: five of these kinds name systems that do not exist
+// yet (rank and certificates and awards in C3, research in C4, land zones with C3
+// acquisition). They are declared NOW so the vocabulary is fixed and M4 can author
+// against it, and they evaluate today as honestly UNMET with a reason that says
+// the gate is not yet attainable. They never throw and they are never silently
+// treated as satisfied. When C3/C4 land, each activates by adding a state accessor
+// to the evaluator — no new kind, no new rejection code, no UI change.
+
+/**
+ * One authored precondition on a blueprint. A blueprint is available when EVERY
+ * requirement in its list is met; an empty list means always available.
+ *
+ * The id-bearing kinds carry DISPLAY-READY ids (`tier: 'Respected Studio Head'`),
+ * not slugs. The evaluator renders them into player copy verbatim because it has
+ * no name table for systems that do not exist yet, and inventing one now would be
+ * a second place for that vocabulary to live. M4 authors them as the words the
+ * player should read.
+ */
+export type BlueprintRequirement =
+  /** Available from an absolute week of the studio calendar. */
+  | { kind: 'date'; week: number }
+  /** At least one OPERATIONAL placement of that blueprint exists. */
+  | { kind: 'facility'; blueprintId: string }
+  /** A named property structure exists (founding or landmark). */
+  | { kind: 'structure'; structureId: string }
+  /** Studio Rank gate. The rank system lands in C3. */
+  | { kind: 'rank'; tier: string }
+  /** Achievement Certificate gate. Certificates land in C3. */
+  | { kind: 'certificate'; certificateId: string }
+  /** Award gate. Awards land in C3. */
+  | { kind: 'award'; awardId: string }
+  /** Research completion gate. Research lands in C4. */
+  | { kind: 'research'; packId: string }
+  /** Property zone ownership gate. Land acquisition lands in C3. */
+  | { kind: 'landZone'; zoneId: string }
+
+export type BlueprintRequirementKind = BlueprintRequirement['kind']
+
+/**
+ * One requirement that is NOT met, with the copy a player should be shown.
+ *
+ * `reason` is product copy, not a diagnostic: it is the locked-reason vocabulary
+ * the catalog UI renders verbatim (C1-M5). It never names an internal code, a
+ * milestone, or a campaign. Engine-side messages stay in the invariant strings.
+ *
+ * `notYetAttainable` separates "you have not done this yet" from "no amount of
+ * play can do this yet, because the system does not exist". Both are unmet and
+ * both block, but a catalog that renders them identically would be lying about
+ * which one is a goal. M5 is free to style them differently; the distinction is
+ * computed here so it cannot drift.
+ */
+export type UnmetRequirement = {
+  requirement: BlueprintRequirement
+  reason: string
+  notYetAttainable: boolean
+}
+
+/** The result of evaluating a blueprint's whole requirement list. */
+export type BlueprintAvailability = {
+  available: boolean
+  /** Unmet requirements in AUTHORED order — stable, so UI order never churns. */
+  unmet: UnmetRequirement[]
+}
+
 /**
  * A catalog entry. Blueprints are authored TUNING constants, never persisted:
  * a placed facility stores only its `blueprintId`, so a catalog correction can
@@ -809,6 +882,29 @@ export type FacilityBlueprint = {
   facilityIdBase: string
   projectIdBase: string
   ledgerNote: string
+  /**
+   * C1-M2: everything that must be true before this may be built. An EMPTY list
+   * means unconditionally available, which is what every V12 blueprint was.
+   */
+  requires: readonly BlueprintRequirement[]
+  /**
+   * C1-M2: how many of this blueprint may stand at once. ABSENT means unlimited,
+   * which is the proven V12 behaviour and stays the default.
+   *
+   * Counted over PLACEMENTS of this blueprint in every status: a site under
+   * construction has already reserved its instance, because the alternative lets
+   * a player queue five of a one-per-studio building and discover the problem
+   * only when the fourth completes.
+   *
+   * Founding structures never count toward it. A structure is PROPERTY — authored
+   * ground the studio starts with — not a placement, and the two are deliberately
+   * different things (C1-M1a). A blueprint that says "one per studio" is a rule
+   * about what this studio may BUILD; the bodies it was founded with are not
+   * builds, have no blueprint, and cost nothing to keep. If a future blueprint
+   * genuinely needs to count a founding body, that is a `structure` requirement,
+   * which is exactly the kind that exists for it.
+   */
+  maxInstances?: number
 }
 
 export type PlacementStatus = 'underConstruction' | 'operational'
@@ -840,9 +936,18 @@ export type StudioPlacement = {
 }
 
 /**
- * The nine rejection codes, in their binding legality ORDER. `primary` is the
+ * The eleven rejection codes, in their binding legality ORDER. `primary` is the
  * first of these present in a quote; money is always last, so a placement that is
  * both illegal and unaffordable reports the domain failure.
+ *
+ * C1-M2 adds `requirementsUnmet` and `instanceLimit`, both BEFORE
+ * `insufficientFunds` under the standing law that a domain failure outranks
+ * affordability. They sit after the geometry rules because geometry is about THIS
+ * site and these two are about the studio: told "you cannot build here" and "you
+ * cannot build this yet", a player needs the site answer first when both are true
+ * of the cell under the cursor. `requirementsUnmet` outranks `instanceLimit`
+ * because an unmet requirement means the building is not unlocked at all, which
+ * is a larger fact than having used up its allowance.
  */
 export type PlacementRejection =
   | 'unknownBlueprint'
@@ -853,6 +958,8 @@ export type PlacementRejection =
   | 'clearanceRing'
   | 'noRoadAccess'
   | 'seversLot'
+  | 'requirementsUnmet'
+  | 'instanceLimit'
   | 'insufficientFunds'
 
 /** Per-cell verdict. Every cell is evaluated; the query never fails fast. */
@@ -881,6 +988,16 @@ export type PlacementQuote = {
   capacityDelta: number
   rejections: PlacementRejection[]
   primary: PlacementRejection | null
+  /**
+   * C1-M2: why the blueprint is locked, if it is — the player-facing copy behind
+   * a `requirementsUnmet` rejection. Empty whenever every requirement is met, so
+   * a caller can read it without first checking `rejections`.
+   */
+  unmetRequirements: UnmetRequirement[]
+  /** C1-M2: placements of this blueprint that already exist, in any status. */
+  instanceCount: number
+  /** C1-M2: the blueprint's allowance, or null when it is unlimited. */
+  maxInstances: number | null
 }
 
 // SaveFileV11 remains recursively frozen above. SaveFileV12 owns the placement

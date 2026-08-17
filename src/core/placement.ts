@@ -48,6 +48,12 @@ import {
 } from './construction.js'
 import { persistedProductionIds } from './productionIdentity.js'
 import {
+  blueprintAtInstanceLimit,
+  blueprintInstanceCount,
+  blueprintMaxInstances,
+  evaluateBlueprintRequirements,
+} from './blueprintRequirements.js'
+import {
   LEGACY_EXPANSION_PARCEL_ID,
   cellKey,
   isOnLot,
@@ -78,6 +84,7 @@ import type {
   PlacementRejection,
   PlacementRequest,
   PropertyState,
+  UnmetRequirement,
   StudioFacility,
   StudioOperations,
   StudioPlacement,
@@ -94,6 +101,12 @@ export const PLACEMENT_REJECTION_ORDER: readonly PlacementRejection[] = [
   'clearanceRing',
   'noRoadAccess',
   'seversLot',
+  // C1-M2. Both are studio-scope facts rather than site-scope ones, so they rank
+  // below every geometry rule: when the cell under the cursor is also illegal,
+  // "you cannot build HERE" is the more useful answer. Both outrank money under
+  // the standing law that a domain failure never hides behind affordability.
+  'requirementsUnmet',
+  'instanceLimit',
   'insufficientFunds',
 ]
 
@@ -292,6 +305,9 @@ export function queryPlacement(state: GameState, request: PlacementRequest): Pla
       capacityDelta: 0,
       rejections: ['unknownBlueprint'],
       primary: 'unknownBlueprint',
+      unmetRequirements: [],
+      instanceCount: 0,
+      maxInstances: null,
     }
   }
 
@@ -340,6 +356,14 @@ export function queryPlacement(state: GameState, request: PlacementRequest): Pla
   // The perimeter walk. Always evaluated; never short-circuited.
   if (placementWouldSeverLot(property, occupied, cells)) found.add('seversLot')
 
+  // C1-M2 — is this building unlocked at all, and is there room in its allowance?
+  // Both are evaluated on EVERY query, exactly like the geometry rules: a preview
+  // that only computes availability when geometry happens to pass cannot tell a
+  // player why a catalog entry is greyed out before they pick a site.
+  const availability = evaluateBlueprintRequirements(state, blueprint, FACILITY_BLUEPRINTS)
+  if (!availability.available) found.add('requirementsUnmet')
+  if (blueprintAtInstanceLimit(state.placement, blueprint)) found.add('instanceLimit')
+
   // Money LAST — a domain failure always outranks affordability.
   if (!canAfford(state, blueprint.capex).ok) found.add('insufficientFunds')
 
@@ -360,6 +384,9 @@ export function queryPlacement(state: GameState, request: PlacementRequest): Pla
     capacityDelta: blueprint.capacity,
     rejections,
     primary: rejections[0] ?? null,
+    unmetRequirements: availability.unmet,
+    instanceCount: blueprintInstanceCount(state.placement, blueprint.id),
+    maxInstances: blueprintMaxInstances(blueprint),
   }
 }
 
@@ -527,6 +554,94 @@ function invariant(condition: boolean, message: string): asserts condition {
  * it a law would forbid a future property that grades a parcel over demolished
  * ground, which is precisely the kind of cap this milestone exists to remove.
  */
+/**
+ * C1-M2 — the AUTHORED CATALOG's own coherence.
+ *
+ * This checks TUNING data, not savegame data, and that distinction is the point.
+ * A blueprint with `maxInstances: 0` or a `date` requirement at week −5 is an
+ * authoring mistake, and M4 is about to author a lot of these; catching it at
+ * every action, tick, and save boundary is how it gets caught on the first run
+ * rather than in a playtest.
+ *
+ * Deliberately NOT asserted: that existing placements respect `maxInstances`. A
+ * blueprint is TUNING and a placement stores only its `blueprintId` — the standing
+ * law is that a catalog correction can never invalidate history that already
+ * happened (see `FacilityBlueprint`). If M4 tightens an allowance, saves that
+ * predate the tightening must keep loading; the limit binds the NEXT build, which
+ * is exactly where `queryPlacement` enforces it.
+ */
+function assertBlueprintCatalogInvariants(): void {
+  const ids = new Set<string>()
+  for (const blueprint of FACILITY_BLUEPRINTS) {
+    const label = `blueprint "${blueprint.id}"`
+    invariant(blueprint.id.length > 0, 'blueprint id must be non-empty')
+    invariant(!ids.has(blueprint.id), `duplicate ${label}`)
+    ids.add(blueprint.id)
+
+    if (blueprint.maxInstances !== undefined) {
+      invariant(
+        Number.isInteger(blueprint.maxInstances) && blueprint.maxInstances >= 1,
+        `${label} maxInstances must be an integer of at least 1 when present`,
+      )
+    }
+
+    invariant(Array.isArray(blueprint.requires), `${label} requires must be a list`)
+    for (const requirement of blueprint.requires) {
+      switch (requirement.kind) {
+        case 'date':
+          invariant(
+            Number.isInteger(requirement.week) && requirement.week >= 0,
+            `${label} date requirement week must be a non-negative integer`,
+          )
+          break
+        case 'facility':
+          invariant(
+            requirement.blueprintId.length > 0,
+            `${label} facility requirement must name a blueprint`,
+          )
+          // A blueprint that requires itself can never be built, and the first
+          // one would have to exist before it could exist.
+          invariant(
+            requirement.blueprintId !== blueprint.id,
+            `${label} cannot require itself`,
+          )
+          break
+        case 'structure':
+          invariant(
+            requirement.structureId.length > 0,
+            `${label} structure requirement must name a structure`,
+          )
+          break
+        case 'rank':
+          invariant(requirement.tier.length > 0, `${label} rank requirement must name a tier`)
+          break
+        case 'certificate':
+          invariant(
+            requirement.certificateId.length > 0,
+            `${label} certificate requirement must name a certificate`,
+          )
+          break
+        case 'award':
+          invariant(requirement.awardId.length > 0, `${label} award requirement must name an award`)
+          break
+        case 'research':
+          invariant(requirement.packId.length > 0, `${label} research requirement must name a pack`)
+          break
+        case 'landZone':
+          invariant(requirement.zoneId.length > 0, `${label} landZone requirement must name a zone`)
+          break
+        default:
+          invariant(
+            false,
+            `${label} carries unknown requirement kind ${JSON.stringify(
+              (requirement as { kind: unknown }).kind,
+            )}`,
+          )
+      }
+    }
+  }
+}
+
 function assertPropertyInvariants(property: PropertyState): void {
   invariant(
     Number.isInteger(property.bounds.width) &&
@@ -647,6 +762,8 @@ export function assertStudioPlacementInvariants(
   if (placement === undefined || placement === null) {
     throw new Error('placement invariant: state.placement is missing')
   }
+  // The authored catalog's own coherence, before anything is evaluated against it.
+  assertBlueprintCatalogInvariants()
   const property = propertyOf(state)
   // The property's OWN coherence, first: it is the ground every placement law
   // below is evaluated against, so a malformed property must not be allowed to
@@ -1116,6 +1233,29 @@ export type PlacementCatalogView = {
   cost: number
   weeklyOperatingCost: number
   affordable: boolean
+  /**
+   * C1-M2 — the catalog's unlock surface, which C1-M5 renders.
+   *
+   * `available` and `unmet` answer "is this greyed out, and what do I tell the
+   * player?" WITHOUT a site: a catalog list has no origin under a cursor, so it
+   * can never get its answer from a placement quote. `unmet[].reason` is the copy
+   * to show, in authored order.
+   */
+  available: boolean
+  unmet: UnmetRequirement[]
+  /** Placements of this blueprint that already stand, in any status. */
+  instanceCount: number
+  /** The authored allowance, or null when unlimited. */
+  maxInstances: number | null
+  /** True when the allowance is used up — a distinct, separately worded lock. */
+  atInstanceLimit: boolean
+  /**
+   * True when the entry is buildable somewhere in principle right now: unlocked,
+   * within its allowance, and affordable. It deliberately says nothing about
+   * whether a legal SITE exists — that is a per-origin question and belongs to
+   * `queryPlacement`. A catalog that claimed otherwise would be guessing.
+   */
+  buildable: boolean
 }
 
 export type StudioPlacementView = {
@@ -1197,19 +1337,30 @@ export function studioPlacementView(state: GameState): StudioPlacementView {
     lotDepth: property.bounds.depth,
     parcels,
     placements,
-    catalog: FACILITY_BLUEPRINTS.map((blueprint) => ({
-      blueprintId: blueprint.id,
-      name: blueprint.name,
-      capability: blueprint.capability,
-      capacity: blueprint.capacity,
-      footprint: blueprint.footprint,
-      clearanceRing: blueprint.clearanceRing,
-      requiresRoadAccess: blueprint.requiresRoadAccess,
-      buildWeeks: blueprint.buildWeeks,
-      cost: blueprint.capex,
-      weeklyOperatingCost: blueprint.weeklyOperatingCost,
-      affordable: canAfford(state, blueprint.capex).ok,
-    })),
+    catalog: FACILITY_BLUEPRINTS.map((blueprint) => {
+      const availability = evaluateBlueprintRequirements(state, blueprint, FACILITY_BLUEPRINTS)
+      const atLimit = blueprintAtInstanceLimit(state.placement, blueprint)
+      const affordable = canAfford(state, blueprint.capex).ok
+      return {
+        blueprintId: blueprint.id,
+        name: blueprint.name,
+        capability: blueprint.capability,
+        capacity: blueprint.capacity,
+        footprint: blueprint.footprint,
+        clearanceRing: blueprint.clearanceRing,
+        requiresRoadAccess: blueprint.requiresRoadAccess,
+        buildWeeks: blueprint.buildWeeks,
+        cost: blueprint.capex,
+        weeklyOperatingCost: blueprint.weeklyOperatingCost,
+        affordable,
+        available: availability.available,
+        unmet: availability.unmet,
+        instanceCount: blueprintInstanceCount(state.placement, blueprint.id),
+        maxInstances: blueprintMaxInstances(blueprint),
+        atInstanceLimit: atLimit,
+        buildable: availability.available && !atLimit && affordable,
+      }
+    }),
     weeklyOperatingCost: weeklyPlacementOperatingCost(state.placement),
   }
 }
