@@ -232,6 +232,18 @@ export type {
   StudioPresence,
 } from './presence.js'
 
+// ── First Film Journey V1 ────────────────────────────────────────────────────
+// A pure, save-neutral projection of "where is my picture and what do I do next",
+// derived entirely from the existing screenplay/casting/production read models.
+export { firstFilmJourney } from './firstFilmJourney.js'
+export type {
+  FirstFilmJourneyNext,
+  FirstFilmJourneyStage,
+  FirstFilmJourneyView,
+  JourneySite,
+  JourneyTargetKind,
+} from './firstFilmJourney.js'
+
 // §2.1 vector math + EPSILON
 export {
   EPSILON,
