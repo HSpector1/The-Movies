@@ -548,7 +548,10 @@ test('a brand-new studio reaches its first greenlight, and its first day of shoo
   await expect(page.getByTestId('lot-picture-guidance-blocked')).toContainText(
     'A scenery load-in is blocking the camera.',
   )
-  await expect(card.next).toHaveText('Clear the scenery load-in at the soundstage')
+  // The step names the place the WORLD just flagged — the stage AND the scenery ground —
+  // in the same words the blocked-week reason above uses. "at the soundstage" named half
+  // of it and sent the player to the wrong door.
+  await expect(card.next).toHaveText('Clear the scenery load-in at Soundstage 7 + Scenery Shop')
   expect(await guidanceTarget(page)).toBe('none')
   await expectStillInTheWorld(page, world, 'shooting decision resolved')
 

@@ -628,6 +628,34 @@ function productionPhase(state: GameState, production: Production): ProductionPh
   return attempt(() => productionPhaseForRemainingTicks(production.remainingTicks))
 }
 
+/**
+ * The picture's own reserved facilities, named the way the engine already names them.
+ *
+ * `state.operations.facilities[].name` is engine-owned vocabulary ("Soundstage 7",
+ * "Scenery Shop", operations.ts:29) — NOT renderer building names — so speaking it here
+ * invents no physical world (law 12). The join order and separator are the ones the
+ * Production Board already publishes as `currentFacility`, so the guidance and the
+ * blocked-week reason name the same place in the same words.
+ *
+ * Null whenever the reservation set cannot be named exactly: the caller then falls back to
+ * the generic site place rather than half-naming somewhere.
+ */
+function reservedFacilityLabel(state: GameState, productionId: string): string | null {
+  const workflow = state.operations.workflows.find(
+    (candidate) => candidate.productionId === productionId,
+  )
+  if (workflow === undefined) return null
+  const names: string[] = []
+  for (const reservation of workflow.reservations) {
+    const facility = state.operations.facilities.find(
+      (candidate) => candidate.id === reservation.facilityId,
+    )
+    if (facility === undefined || facility.name === '') return null
+    names.push(facility.name)
+  }
+  return names.length === 0 ? null : names.join(' + ')
+}
+
 function commandGuidance(
   state: GameState,
   command: ProductionOperationsCommand,
@@ -643,11 +671,19 @@ function commandGuidance(
         label: `Call ${who} to ${place}`,
       }
     }
-    case 'clearSceneryLoadIn':
+    case 'clearSceneryLoadIn': {
+      // The scenery beat does NOT happen at the soundstage alone: the world flags the
+      // Scenery & Service ground beside the stage, and the studio's own blocked-week
+      // reason already names "Soundstage 7 + Scenery Shop". Saying "the soundstage" sent
+      // the player to one half of the place the lot was pointing at (red-team finding), so
+      // this step speaks the picture's own reserved facilities instead. Where they cannot
+      // be named exactly, the generic site place still answers.
+      const where = reservedFacilityLabel(state, command.productionId) ?? place
       return {
         reason: 'A scenery load-in is blocking the camera.',
-        label: `Clear the scenery load-in at ${place}`,
+        label: `Clear the scenery load-in at ${where}`,
       }
+    }
     case 'scheduleShootingTake':
       return {
         reason: 'The next take is ready to schedule.',

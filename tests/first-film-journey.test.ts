@@ -354,6 +354,7 @@ describe('First Film Journey V1 — the guided chain', () => {
     })
 
     // ── resolved: every pending command answered, the week resumes ─────────
+    let sceneryStepsSeen = 0
     for (let guard = 0; guard < 6; guard++) {
       const decision = nextStudioDecision(state)
       if (decision === null || decision.kind !== 'productionOperation') break
@@ -361,8 +362,28 @@ describe('First Film Journey V1 — the guided chain', () => {
       seen.push(blocked)
       expect(blocked.blocked).not.toBeNull()
       expect(blocked.next).toMatchObject({ kind: 'resolve-production', site: 'stage' })
+      if (decision.command.kind === 'clearSceneryLoadIn') {
+        // The scenery beat is NOT at the soundstage alone — the lot flags the Scenery &
+        // Service ground beside the stage — so the step names the picture's own reserved
+        // facilities, in the same words the blocked-week reason uses.
+        const facilities = state.operations.workflows
+          .find((workflow) => workflow.productionId === production.id)!
+          .reservations.map(
+            (reservation) =>
+              state.operations.facilities.find(
+                (facility) => facility.id === reservation.facilityId,
+              )!.name,
+          )
+        expect(facilities.length).toBeGreaterThan(1)
+        expect(blocked.next!.label).toBe(
+          `Clear the scenery load-in at ${facilities.join(' + ')}`,
+        )
+        expect(blocked.next!.label).not.toContain('at the soundstage')
+        sceneryStepsSeen += 1
+      }
       state = applyActions(state, [decision.command])
     }
+    expect(sceneryStepsSeen).toBe(1)
     const resolved = firstFilmJourney(state)
     seen.push(resolved)
     expect(resolved).toMatchObject({ stage: 'in-production', blocked: null })
