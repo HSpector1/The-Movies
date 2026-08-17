@@ -31,7 +31,15 @@ import type {
   ProductionOperationsState,
   StudioLotSnapshot,
 } from '../snapshot/StudioLotSnapshot'
-import { ALL_BUILDING_IDS, BUILDING_LABELS } from '../snapshot/StudioLotSnapshot'
+import { buildingLabelFor } from '../snapshot/StudioLotSnapshot'
+import {
+  LEGACY_ANNEX_PARCEL_ID,
+  composeWorldBuildings,
+  worldBounds,
+  worldBuildingById,
+  worldBuildingByPlaceId,
+  type WorldBuilding,
+} from './buildings.ts'
 import {
   presenceOccupantCounts,
   presenceStands,
@@ -83,6 +91,8 @@ import {
   ANNEX_PLACE_ID,
   APRONS,
   CAMERA_FRAMINGS,
+  LOT_D,
+  LOT_W,
   DIRECTOR_ROUTE,
   FOCUS_COMFORT_MARGIN_PX,
   GHOST_FILL_ALPHA,
@@ -94,23 +104,20 @@ import {
   chromeStrokeWidth,
   EXPANSION_PADS,
   GATE_PLACE_ID,
-  LOT_D,
-  LOT_W,
   PARKING,
   PATHS,
   PERSON_HOME,
   PERSON_HOME_JITTER,
-  PLACE_BY_BUILDING,
   PLAZA,
   PUBLICITY_PLACE_ID,
   ROADS,
   SERVICE_YARD_PLACE_ID,
   STAGE_7_PLACE_ID,
-  WORLD_PLACES,
   YARD_PADS,
   YARD_REGION,
   ZOOM_MAX,
   ZOOM_MIN,
+  blueprintPresentation,
   clampZoom,
   establishedDressing,
   landscaping,
@@ -124,7 +131,6 @@ import {
   type LodBand,
   type Rect,
   type WorldBox,
-  type WorldPlace,
 } from './world.ts'
 
 const hw = TILE_W / 2
@@ -184,17 +190,12 @@ const DEPTH = {
   flash: 960_000,
 } as const
 
-/** Which baked building texture an operational placed facility wears. */
-const PLACEMENT_TEX_BY_BLUEPRINT: Readonly<Record<string, string>> = {
-  'development-casting-annex': 'tw-annex',
-}
-
 /**
  * The legacy fixed Annex parcel. Its ground is already owned by the `expansion` place
  * and painted by `paintExpansion`, so the generic placement layer stands off it — one
  * piece of ground, one owner (shift law 10).
  */
-const ANNEX_PARCEL_ID = 'expansion'
+const ANNEX_PARCEL_ID = LEGACY_ANNEX_PARCEL_ID
 
 /**
  * Ghost verdict colours. Deliberately NOT the status-lamp greens/reds: a preview is
@@ -247,14 +248,24 @@ export type TycoonSceneData = {
   reducedMotion?: boolean
 }
 
+/**
+ * One addressable body's runtime objects.
+ *
+ * `label` / `badge` / `chip` are NULL for a facility the studio built (C1-M1b): a placed
+ * facility already carries its own single caption, painted by `paintPlacementLabel` from
+ * the same truth, and stacking a second name-and-status pile over it would be two pieces
+ * of chrome saying one thing. Everything that makes it ADDRESSABLE — the hit area, the
+ * silhouette, the selection ring, the footprint the camera frames — is identical to an
+ * authored body's, because being addressable is the whole point of the milestone.
+ */
 type BuildingView = {
-  place: WorldPlace
+  place: WorldBuilding
   sprite: Phaser.GameObjects.Sprite | null
   zone: Phaser.GameObjects.Zone
-  label: Phaser.GameObjects.Text
-  badge: Phaser.GameObjects.Text
+  label: Phaser.GameObjects.Text | null
+  badge: Phaser.GameObjects.Text | null
   /** Status COLOUR, readable at every zoom including the institution band. */
-  chip: Phaser.GameObjects.Arc
+  chip: Phaser.GameObjects.Arc | null
   sign: Phaser.GameObjects.Text | null
   lamp: Phaser.GameObjects.Arc | null
   /** World Y the counter-scaled chrome stack is laid out from. */
@@ -263,6 +274,8 @@ type BuildingView = {
   silhouette: Point[]
   /** Screen-space ground diamond. */
   footprint: Point[]
+  /** What the view was built from — a placed body is rebuilt when this changes. */
+  signature: string
 }
 
 type RuntimePerson = {
@@ -299,6 +312,17 @@ export class TycoonScene extends Phaser.Scene {
   private emitEvent!: (event: TycoonEvent) => void
 
   private buildings = new Map<BuildingId, BuildingView>()
+  /**
+   * WHICH bodies stand on the property, composed from the snapshot (C1-M1b).
+   *
+   * Recomputed only when a snapshot arrives. Before M1b this was `WORLD_PLACES`, a
+   * closed set of nine the renderer authored; the engine owns the property now, so the
+   * world's building set is state and a facility the studio built is one of them.
+   */
+  private worldBuildings: WorldBuilding[] = []
+  /** The addressable grid this property covers. 28×26 is a STARTING point, not a cap. */
+  private lotW = LOT_W
+  private lotD = LOT_D
   private runtimePeople = new Map<string, RuntimePerson>()
   private ambientActors: AmbientActor[] = []
   private gateVisitor: { presentation: HollywoodGateVisitorPresentation; sprite: Phaser.GameObjects.Sprite } | null = null
@@ -438,6 +462,9 @@ export class TycoonScene extends Phaser.Scene {
       bakeTycoonTextures(this)
       this.adoptAuthoredStages()
       this.roleAtlasActive = this.hasValidRoleAtlas()
+      // WHAT stands here, and WHERE, is the engine's answer — read it before the first
+      // tile is painted, because the ground bake itself lays a plinth under every body.
+      this.adoptWorldGeometry()
 
       this.buildGround()
       this.buildBuildings()
@@ -530,6 +557,25 @@ export class TycoonScene extends Phaser.Scene {
     return true
   }
 
+  /**
+   * Adopt the property the snapshot describes (C1-M1b).
+   *
+   * ONE seam, called at create and on every accepted snapshot. It replaces the composed
+   * building set and the addressable bounds; it paints nothing, so it is safe to run
+   * before the world exists and again after every replacement.
+   */
+  private adoptWorldGeometry(): void {
+    const bounds = worldBounds(this.snapshot)
+    this.lotW = bounds.width
+    this.lotD = bounds.depth
+    this.worldBuildings = composeWorldBuildings(this.snapshot)
+  }
+
+  /** One composed body by id, over the world the scene is actually painting. */
+  private buildingFor(id: BuildingId): WorldBuilding | null {
+    return worldBuildingById(this.worldBuildings, id)
+  }
+
   // ── geometry helpers ────────────────────────────────────────────────────────
 
   private world(gx: number, gy: number): Point {
@@ -541,7 +587,7 @@ export class TycoonScene extends Phaser.Scene {
     return (gx + gy) * 16 + bias
   }
 
-  private footprintPoints(place: WorldPlace): Point[] {
+  private footprintPoints(place: WorldBuilding): Point[] {
     const { gx, gy, fw, fd } = place
     return [
       this.world(gx, gy),
@@ -556,7 +602,7 @@ export class TycoonScene extends Phaser.Scene {
    * top-back → top-left. Used both as the pointer hit area and as the selection ring, so
    * what a player can click is exactly what a player can see (shift law 11).
    */
-  private silhouettePoints(place: WorldPlace, height: number): Point[] {
+  private silhouettePoints(place: WorldBuilding, height: number): Point[] {
     const [back, right, front, left] = this.footprintPoints(place)
     const up = (p: Point): Point => ({ x: p.x, y: p.y - height })
     return [left, front, right, up(right), up(back), up(left)]
@@ -575,9 +621,9 @@ export class TycoonScene extends Phaser.Scene {
   private rasterizeGround(): GroundKind[][] {
     const rng = new Rng(`${this.snapshot.sceneSeed}:tycoon-ground`)
     const grid: GroundKind[][] = []
-    for (let gy = 0; gy < LOT_D; gy++) {
+    for (let gy = 0; gy < this.lotD; gy++) {
       grid[gy] = []
-      for (let gx = 0; gx < LOT_W; gx++) {
+      for (let gx = 0; gx < this.lotW; gx++) {
         grid[gy][gx] = rng.chance(0.24) ? 'tw-t-lawn2' : 'tw-t-lawn'
       }
     }
@@ -587,7 +633,7 @@ export class TycoonScene extends Phaser.Scene {
         const midY = Math.round((r.y0 + r.y1) / 2)
         for (let gy = r.y0; gy <= r.y1; gy++) {
           for (let gx = r.x0; gx <= r.x1; gx++) {
-            if (gx < 0 || gy < 0 || gx >= LOT_W || gy >= LOT_D) continue
+            if (gx < 0 || gy < 0 || gx >= this.lotW || gy >= this.lotD) continue
             const onMid = lineKey !== undefined && (gx === midX || gy === midY)
             grid[gy][gx] = onMid ? lineKey : key
           }
@@ -608,9 +654,9 @@ export class TycoonScene extends Phaser.Scene {
     const kinds = this.rasterizeGround()
     const corners = [
       this.world(0, 0),
-      this.world(LOT_W, 0),
-      this.world(LOT_W, LOT_D),
-      this.world(0, LOT_D),
+      this.world(this.lotW, 0),
+      this.world(this.lotW, this.lotD),
+      this.world(0, this.lotD),
     ]
     const minX = Math.min(...corners.map((c) => c.x)) - hw - 320
     const minY = Math.min(...corners.map((c) => c.y)) - 200
@@ -640,8 +686,8 @@ export class TycoonScene extends Phaser.Scene {
     surround.destroy()
 
     rt.beginDraw()
-    for (let gy = 0; gy < LOT_D; gy++) {
-      for (let gx = 0; gx < LOT_W; gx++) {
+    for (let gy = 0; gy < this.lotD; gy++) {
+      for (let gx = 0; gx < this.lotW; gx++) {
         const s = this.world(gx + 0.5, gy + 0.5)
         rt.batchDraw(kinds[gy][gx], s.x - minX - hw, s.y - minY)
       }
@@ -652,7 +698,7 @@ export class TycoonScene extends Phaser.Scene {
     // cost no display object and can never sort between a building and its own footing.
     const decals = this.make.graphics({ x: 0, y: 0 })
     this.drawPerimeter(decals, minX, minY)
-    for (const place of WORLD_PLACES) {
+    for (const place of this.worldBuildings) {
       if (place.texKey === '') continue
       const pts = this.footprintPoints(place).map((p) => ({ x: p.x - minX, y: p.y - minY }))
       const grow = (k: number): Point[] => {
@@ -718,18 +764,18 @@ export class TycoonScene extends Phaser.Scene {
       g.strokePath()
     }
     // The two back walls, lit and shaded by the same upper-left key light as everything.
-    band(at(0, 0), at(LOT_W, 0), 30, C.creamShade, C.terracotta)
-    band(at(0, LOT_D), at(0, 0), 30, 0xdccbaa, C.terracotta)
+    band(at(0, 0), at(this.lotW, 0), 30, C.creamShade, C.terracotta)
+    band(at(0, this.lotD), at(0, 0), 30, 0xdccbaa, C.terracotta)
     // Front edges: a kerb and a clipped hedge, low enough to see over.
-    band(at(LOT_W, 0), at(LOT_W, LOT_D), 13, C.hedgeDark, C.hedge)
-    band(at(LOT_W, LOT_D), at(0, LOT_D), 13, C.hedgeDark, C.hedge)
+    band(at(this.lotW, 0), at(this.lotW, this.lotD), 13, C.hedgeDark, C.hedge)
+    band(at(this.lotW, this.lotD), at(0, this.lotD), 13, C.hedgeDark, C.hedge)
     // A pale kerb inside the whole boundary reads the property line at institution zoom.
     g.lineStyle(2.5, C.plaza, 0.75)
     g.beginPath()
     g.moveTo(at(0, 0).x, at(0, 0).y)
-    g.lineTo(at(LOT_W, 0).x, at(LOT_W, 0).y)
-    g.lineTo(at(LOT_W, LOT_D).x, at(LOT_W, LOT_D).y)
-    g.lineTo(at(0, LOT_D).x, at(0, LOT_D).y)
+    g.lineTo(at(this.lotW, 0).x, at(this.lotW, 0).y)
+    g.lineTo(at(this.lotW, this.lotD).x, at(this.lotW, this.lotD).y)
+    g.lineTo(at(0, this.lotD).x, at(0, this.lotD).y)
     g.closePath()
     g.strokePath()
   }
@@ -737,55 +783,131 @@ export class TycoonScene extends Phaser.Scene {
   // ── buildings ───────────────────────────────────────────────────────────────
 
   private buildBuildings(): void {
-    for (const place of WORLD_PLACES) {
-      const meta = place.texKey === '' ? null : TYCOON_BUILDING_TEX[place.texKey]
-      const height = place.texKey === '' ? 0 : this.spriteHeight(place.texKey, place.fw, place.fd)
-      const footprint = this.footprintPoints(place)
-      const silhouette = this.silhouettePoints(place, height)
-      const frontDepth = this.depthAt(place.gx + place.fw, place.gy + place.fd, 4)
+    this.syncBuildingViews()
+  }
 
-      let sprite: Phaser.GameObjects.Sprite | null = null
-      if (meta) {
-        const anchor = this.world(place.gx + place.fw / 2, place.gy + place.fd / 2)
-        sprite = this.add
-          .sprite(anchor.x, anchor.y, meta.key)
-          .setOrigin(meta.originX, meta.originY)
-          .setDepth(frontDepth)
-          .setName(`building:${place.buildingId}`)
+  /** What a view was built from. A body whose geometry or dress changed is rebuilt. */
+  private static viewSignature(place: WorldBuilding): string {
+    return [
+      place.role,
+      place.texKey,
+      place.status ?? '-',
+      String(place.gx),
+      String(place.gy),
+      String(place.fw),
+      String(place.fd),
+    ].join('|')
+  }
+
+  /**
+   * Reconcile one runtime view per composed body (C1-M1b).
+   *
+   * Before M1b this ran ONCE over nine authored places and never ran again, which is
+   * precisely why a facility a player built had no hit area, no selection ring and no
+   * camera target: the world's building set was fixed at create. It is state now, so
+   * this runs on every accepted snapshot — creating a view for a body that appeared,
+   * destroying one for a body that is gone, and rebuilding one whose footprint or
+   * dress changed. A body whose signature is unchanged is left completely alone, which
+   * is what keeps a Week-0 repaint free of any object churn at all.
+   */
+  private syncBuildingViews(): void {
+    const live = new Set<BuildingId>()
+    for (const place of this.worldBuildings) {
+      live.add(place.buildingId)
+      const signature = TycoonScene.viewSignature(place)
+      const existing = this.buildings.get(place.buildingId)
+      if (existing !== undefined && existing.signature === signature) {
+        // Same body, same ground: keep every object, adopt the fresh record.
+        existing.place = place
+        continue
       }
+      if (existing !== undefined) this.disposeBuildingView(place.buildingId)
+      this.buildings.set(place.buildingId, this.createBuildingView(place, signature))
+    }
+    for (const id of [...this.buildings.keys()]) {
+      if (!live.has(id)) this.disposeBuildingView(id)
+    }
+  }
 
-      // Hit areas live in a dedicated low band ordered by footprint depth: front-most
-      // building wins where silhouettes overlap, and every person, visitor and yard
-      // marker sits above them, so a person is never swallowed by the place behind them.
-      const zoneDepth =
-        DEPTH.buildingZoneBase + ((place.gx + place.gy) / (LOT_W + LOT_D)) * 0.4
-      const shape = new Phaser.Geom.Polygon(silhouette.map((p) => ({ x: p.x, y: p.y })))
-      const zone = this.add
-        .zone(0, 0, 1, 1)
-        .setOrigin(0)
-        .setDepth(zoneDepth)
-        .setName(`hit:${place.buildingId}`)
-      zone.setInteractive(shape, Phaser.Geom.Polygon.Contains)
-      if (zone.input) zone.input.cursor = 'pointer'
-      zone.on('pointerover', () => {
-        if (this.inputSuspended) return
-        if (this.selectedPlaceId === null) this.drawSelectionRing(place, false)
-      })
-      zone.on('pointerout', () => {
-        if (this.selectedPlaceId === null) this.selectionGraphics?.clear()
-      })
-      zone.on('pointerup', (pointer: Phaser.Input.Pointer) => {
-        if (!this.isCanvasPointer(pointer) || this.dragMoved) return
-        pointer.event.stopPropagation?.()
-        this.activatePlace(place)
-      })
+  private disposeBuildingView(id: BuildingId): void {
+    const view = this.buildings.get(id)
+    if (view === undefined) return
+    view.sprite?.destroy()
+    view.zone.destroy()
+    view.label?.destroy()
+    view.badge?.destroy()
+    view.chip?.destroy()
+    view.sign?.destroy()
+    view.lamp?.destroy()
+    this.buildings.delete(id)
+    if (this.selectedPlaceId === view.place.placeId) this.clearPlaceSelection()
+    if (this.guidanceTarget === id) this.setGuidanceTarget(null)
+  }
 
-      const top = this.world(place.gx + place.fw / 2, place.gy + place.fd / 2)
-      // Chrome is a stack laid out from one base line, re-measured whenever the counter
-      // scale changes, so a name and its status can never collide at any zoom.
-      const chromeBaseY = top.y - height - 30
-      const label = this.add
-        .text(top.x, chromeBaseY, BUILDING_LABELS[place.buildingId], {
+  private createBuildingView(place: WorldBuilding, signature: string): BuildingView {
+    // A facility the studio BUILT keeps its body and its caption in the placement layer,
+    // which paints both from the same weekly truth (construction frame, then sprite).
+    // Everything below that makes a body ADDRESSABLE is built for it exactly as for an
+    // authored one — that is the whole of "first-class" (C1-M1b).
+    const placed = place.role === 'placed'
+    const meta = place.texKey === '' ? null : TYCOON_BUILDING_TEX[place.texKey]
+    // What a player can click is exactly what a player can see (shift law 11). A
+    // BUILDING SITE is a graded pad with hoarding round it, so its hit area is its
+    // ground; the finished facility's is the silhouette its body actually casts.
+    const standing = !placed || place.status === 'operational'
+    const height =
+      place.texKey === '' || !standing ? 0 : this.spriteHeight(place.texKey, place.fw, place.fd)
+    const footprint = this.footprintPoints(place)
+    const silhouette = this.silhouettePoints(place, height)
+    const frontDepth = this.depthAt(place.gx + place.fw, place.gy + place.fd, 4)
+
+    let sprite: Phaser.GameObjects.Sprite | null = null
+    if (meta && !placed) {
+      const anchor = this.world(place.gx + place.fw / 2, place.gy + place.fd / 2)
+      sprite = this.add
+        .sprite(anchor.x, anchor.y, meta.key)
+        .setOrigin(meta.originX, meta.originY)
+        .setDepth(frontDepth)
+        .setName(`building:${place.buildingId}`)
+    }
+
+    // Hit areas live in a dedicated low band ordered by footprint depth: front-most
+    // building wins where silhouettes overlap, and every person, visitor and yard
+    // marker sits above them, so a person is never swallowed by the place behind them.
+    const zoneDepth =
+      DEPTH.buildingZoneBase + ((place.gx + place.gy) / (this.lotW + this.lotD)) * 0.4
+    const shape = new Phaser.Geom.Polygon(silhouette.map((p) => ({ x: p.x, y: p.y })))
+    const zone = this.add
+      .zone(0, 0, 1, 1)
+      .setOrigin(0)
+      .setDepth(zoneDepth)
+      .setName(`hit:${place.buildingId}`)
+    zone.setInteractive(shape, Phaser.Geom.Polygon.Contains)
+    if (zone.input) zone.input.cursor = 'pointer'
+    zone.on('pointerover', () => {
+      if (this.inputSuspended) return
+      if (this.selectedPlaceId === null) this.drawSelectionRing(place, false)
+    })
+    zone.on('pointerout', () => {
+      if (this.selectedPlaceId === null) this.selectionGraphics?.clear()
+    })
+    zone.on('pointerup', (pointer: Phaser.Input.Pointer) => {
+      if (!this.isCanvasPointer(pointer) || this.dragMoved) return
+      pointer.event.stopPropagation?.()
+      // The record is re-read at activation time: scene state is never authority.
+      this.activatePlace(this.buildingFor(place.buildingId) ?? place)
+    })
+
+    const top = this.world(place.gx + place.fw / 2, place.gy + place.fd / 2)
+    // Chrome is a stack laid out from one base line, re-measured whenever the counter
+    // scale changes, so a name and its status can never collide at any zoom.
+    const chromeBaseY = top.y - height - 30
+    let label: Phaser.GameObjects.Text | null = null
+    let badge: Phaser.GameObjects.Text | null = null
+    let chip: Phaser.GameObjects.Arc | null = null
+    if (!placed) {
+      label = this.add
+        .text(top.x, chromeBaseY, buildingLabelFor(place.buildingId, this.snapshot.property) ?? '', {
           fontFamily: FONT_SANS,
           fontSize: '15px',
           fontStyle: 'bold',
@@ -796,7 +918,7 @@ export class TycoonScene extends Phaser.Scene {
         .setOrigin(0.5, 1)
         .setDepth(DEPTH.label)
         .setName(`label:${place.buildingId}`)
-      const badge = this.add
+      badge = this.add
         .text(top.x, chromeBaseY + 3, '', {
           fontFamily: FONT_SANS,
           fontSize: '13px',
@@ -811,33 +933,40 @@ export class TycoonScene extends Phaser.Scene {
         .setVisible(false)
         .setName(`badge:${place.buildingId}`)
       badge.setData('want', false)
-      const chip = this.add
+      chip = this.add
         .circle(top.x, chromeBaseY - 34, 7, C.lampAvailable, 1)
         .setStrokeStyle(2.5, 0x241d14, 0.85)
         .setDepth(DEPTH.label)
         .setVisible(false)
         .setName(`chip:${place.buildingId}`)
       chip.setData('status', false)
+      const inv = 1 / this.chromeZoom
+      if (this.chromeZoom !== 1) {
+        label.setScale(inv)
+        badge.setScale(inv)
+        chip.setScale(inv)
+      }
+    }
 
-      const sign = meta === null ? null : this.buildWallSign(place, height)
-      const lamp =
-        place.buildingId === 'stage-a' || place.buildingId === 'stage-b'
-          ? this.buildStageLamp(place)
-          : null
+    const sign = meta === null || placed ? null : this.buildWallSign(place, height)
+    const lamp =
+      place.buildingId === 'stage-a' || place.buildingId === 'stage-b'
+        ? this.buildStageLamp(place)
+        : null
 
-      this.buildings.set(place.buildingId, {
-        place,
-        sprite,
-        zone,
-        label,
-        badge,
-        chip,
-        sign,
-        lamp,
-        chromeBaseY,
-        silhouette,
-        footprint,
-      })
+    return {
+      place,
+      sprite,
+      zone,
+      label,
+      badge,
+      chip,
+      sign,
+      lamp,
+      chromeBaseY,
+      silhouette,
+      footprint,
+      signature,
     }
   }
 
@@ -846,7 +975,7 @@ export class TycoonScene extends Phaser.Scene {
    * dark sign FIELD and this lays the studio's own lettering onto it, rotated onto the
    * wall plane and slightly foreshortened.
    */
-  private buildWallSign(place: WorldPlace, height: number): Phaser.GameObjects.Text | null {
+  private buildWallSign(place: WorldBuilding, height: number): Phaser.GameObjects.Text | null {
     // Height of the sign band as a fraction of the drawn sprite height, tuned per
     // building so the lettering lands on its painted field (and, for the two authored
     // stage images, on their blank upper wall).
@@ -882,7 +1011,7 @@ export class TycoonScene extends Phaser.Scene {
       .setName(`sign:${place.buildingId}`)
   }
 
-  private buildStageLamp(place: WorldPlace): Phaser.GameObjects.Arc {
+  private buildStageLamp(place: WorldBuilding): Phaser.GameObjects.Arc {
     const anchor = place.anchors.lamp ?? { gx: place.gx, gy: place.gy + place.fd }
     const p = this.world(anchor.gx, anchor.gy)
     return this.add
@@ -976,7 +1105,7 @@ export class TycoonScene extends Phaser.Scene {
       .setVisible(false)
       .setName('tier:placement-preview-label')
 
-    const annex = PLACE_BY_BUILDING.expansion
+    const annex = this.buildingFor(ANNEX_PARCEL_ID) ?? this.worldBuildings[0]!
     this.expansionGraphics = this.add
       .graphics()
       .setDepth(this.depthAt(annex.gx + annex.fw, annex.gy + annex.fd, 3))
@@ -996,8 +1125,8 @@ export class TycoonScene extends Phaser.Scene {
       .setDepth(DEPTH.label)
       .setName('tier:expansion-label')
 
-    const publicity = PLACE_BY_BUILDING.admin
-    const photocall = publicity.anchors.photocall
+    const publicity = this.buildingFor('admin')
+    const photocall = publicity?.anchors.photocall ?? { gx: 0, gy: 0 }
     const flashAt = this.world(photocall.gx, photocall.gy)
     this.flash = this.add
       .rectangle(flashAt.x, flashAt.y - 30, 190, 120, 0xfff7d6, 1)
@@ -1022,7 +1151,8 @@ export class TycoonScene extends Phaser.Scene {
       if (!this.isCanvasPointer(pointer) || this.dragMoved) return
       pointer.event.stopPropagation?.()
       if (this.selectSceneryLoadInSurface()) return
-      this.activatePlace(PLACE_BY_BUILDING.post)
+      const post = this.buildingFor('post')
+      if (post !== null) this.activatePlace(post)
     })
   }
 
@@ -1361,8 +1491,8 @@ export class TycoonScene extends Phaser.Scene {
     extent: LotGridRect,
     depth: number,
   ): void {
-    const texKey = PLACEMENT_TEX_BY_BLUEPRINT[placed.blueprintId]
-    const meta = texKey === undefined ? undefined : TYCOON_BUILDING_TEX[texKey]
+    const texKey = blueprintPresentation(placed.blueprintId).texKey
+    const meta = texKey === '' ? undefined : TYCOON_BUILDING_TEX[texKey]
     const anchor = this.world((extent.x0 + extent.x1 + 1) / 2, (extent.y0 + extent.y1 + 1) / 2)
     if (!meta) {
       // Honest fallback: an unauthored blueprint gets a plain massing block, never
@@ -1449,8 +1579,8 @@ export class TycoonScene extends Phaser.Scene {
    */
   private placementCaptionLift(placed: LotPlacedFacilityState, extent: LotGridRect): number {
     if (placed.status === 'operational') {
-      const texKey = PLACEMENT_TEX_BY_BLUEPRINT[placed.blueprintId]
-      const meta = texKey === undefined ? undefined : TYCOON_BUILDING_TEX[texKey]
+      const texKey = blueprintPresentation(placed.blueprintId).texKey
+      const meta = texKey === '' ? undefined : TYCOON_BUILDING_TEX[texKey]
       if (meta === undefined) return 42
       const fw = extent.x1 - extent.x0 + 1
       const fd = extent.y1 - extent.y0 + 1
@@ -1520,8 +1650,8 @@ export class TycoonScene extends Phaser.Scene {
     const camera = this.cameras.main
     const view = camera.worldView
     return {
-      lotWidth: LOT_W,
-      lotDepth: LOT_D,
+      lotWidth: this.lotW,
+      lotDepth: this.lotD,
       tileWidth: TILE_W,
       tileHeight: TILE_H,
       zoom: camera.zoom,
@@ -1552,7 +1682,7 @@ export class TycoonScene extends Phaser.Scene {
 
   // ── selection ───────────────────────────────────────────────────────────────
 
-  private drawSelectionRing(place: WorldPlace, selected: boolean): void {
+  private drawSelectionRing(place: WorldBuilding, selected: boolean): void {
     const g = this.selectionGraphics
     if (!g) return
     const view = this.buildings.get(place.buildingId)
@@ -1563,7 +1693,12 @@ export class TycoonScene extends Phaser.Scene {
     g.fillPoints(foot, true)
     g.lineStyle(selected ? 4 : 2.5, selected ? C.selection : C.hover, 0.95)
     g.strokePoints(foot, true)
-    if (view.sprite) {
+    const body =
+      view.sprite ??
+      (view.place.placedFacilityId === null
+        ? null
+        : this.placementSprites.get(view.place.placedFacilityId) ?? null)
+    if (body) {
       const sil = view.silhouette.map((p) => new Phaser.Math.Vector2(p.x, p.y))
       g.lineStyle(selected ? 3 : 2, selected ? C.selection : C.hover, selected ? 0.85 : 0.5)
       g.strokePoints(sil, true)
@@ -1575,7 +1710,7 @@ export class TycoonScene extends Phaser.Scene {
    * lands here or in a `*FromHost` method that shares its painting, so the canvas and the
    * DOM companion can never route the same destination to different owners (law 10).
    */
-  private activatePlace(place: WorldPlace): void {
+  private activatePlace(place: WorldBuilding): void {
     // Inside the bounded build flow the world stops handing out new selections; the
     // player is pointing at ground, and only the explicit Cancel/Build controls leave.
     if (this.buildMode !== null) return
@@ -1596,8 +1731,8 @@ export class TycoonScene extends Phaser.Scene {
 
   /** Host/DOM parity: paint a place without emitting an event. */
   selectFromHost(buildingId: BuildingId): boolean {
-    const place = PLACE_BY_BUILDING[buildingId]
-    if (!place) return false
+    const place = this.buildingFor(buildingId)
+    if (place === null) return false
     this.selectedPlaceId = place.placeId
     this.drawSelectionRing(place, true)
     return true
@@ -1616,7 +1751,9 @@ export class TycoonScene extends Phaser.Scene {
   }
 
   focusGateFromHost(): boolean {
-    this.focusPlace(PLACE_BY_BUILDING.gate)
+    const gate = this.buildingFor('gate')
+    if (gate === null) return false
+    this.focusPlace(gate)
     return true
   }
 
@@ -1644,7 +1781,8 @@ export class TycoonScene extends Phaser.Scene {
     this.selectProductionCompanyPresentation(scenery.operation.productionId)
     this.selectedProductionId = scenery.operation.productionId
     this.selectedPlaceId = SERVICE_YARD_PLACE_ID
-    this.drawSelectionRing(PLACE_BY_BUILDING.post, true)
+    const post = this.buildingFor('post')
+    if (post !== null) this.drawSelectionRing(post, true)
     if (emitSelection) {
       this.emitEvent({
         type: 'scenery-load-in',
@@ -2069,7 +2207,7 @@ export class TycoonScene extends Phaser.Scene {
       return false
     }
     const presentation = this.copyGateVisitor(requested)
-    const arrival = PLACE_BY_BUILDING.gate.anchors.arrival
+    const arrival = this.buildingFor('gate')?.anchors.arrival ?? { gx: 0, gy: 0 }
     const at = this.world(arrival.gx, arrival.gy)
     const depth = this.depthAt(arrival.gx, arrival.gy, 8)
     if (this.gateVisitor !== null) {
@@ -2196,6 +2334,11 @@ export class TycoonScene extends Phaser.Scene {
    * and after every accepted replacement.
    */
   private paintFromSnapshot(): void {
+    // WHICH bodies stand here is snapshot truth now, so it is re-read before anything is
+    // painted: a facility that completed this week gets its own body, hit area and
+    // camera target in the same repaint that first reports it (C1-M1b).
+    this.adoptWorldGeometry()
+    this.syncBuildingViews()
     const stage7 = this.authoritativeStage7Operation(this.snapshot)
     this.reconcilePeople(lotPeopleForCompanyPresentation(this.snapshot))
     this.recomputePresence()
@@ -2248,12 +2391,12 @@ export class TycoonScene extends Phaser.Scene {
     const placements = this.snapshot.placement?.placements ?? []
     const beat = this.presence?.staticBeat ?? 0
     this.presenceStandsById = new Map(
-      presenceStands(this.presence, placements, homes, beat).map((stand) => [
+      presenceStands(this.presence, placements, homes, beat, this.worldBuildings).map((stand) => [
         stand.talentId,
         stand,
       ]),
     )
-    const counts = presenceOccupantCounts(this.presence, placements)
+    const counts = presenceOccupantCounts(this.presence, placements, this.worldBuildings)
     this.presenceOccupants = counts.byBuilding
     this.presencePlacementOccupants = counts.byPlacement
   }
@@ -2328,9 +2471,10 @@ export class TycoonScene extends Phaser.Scene {
     const studioName = snapshot.studioName.toUpperCase()
     if (gateSign && gateSign.text !== studioName) gateSign.setText(studioName)
 
-    for (const id of ALL_BUILDING_IDS) {
-      const view = this.buildings.get(id)
-      if (!view) continue
+    // Every body the world is CURRENTLY painting, not a closed nine (C1-M1b). A placed
+    // facility has no chrome stack of its own — its single caption already carries its
+    // name and its status — so the loop is null-safe rather than nine-shaped.
+    for (const [id, view] of this.buildings) {
       const fact = snapshot.buildings.find((building) => building.id === id)
       const attention = fact?.attention ?? 'normal'
       const available = fact?.available !== false
@@ -2338,11 +2482,11 @@ export class TycoonScene extends Phaser.Scene {
       // painted onto the sign the building already wears. It rides the label's LOD
       // rule, so it vanishes with every other word at institution scale.
       const occupants = this.presenceOccupants.get(id) ?? 0
-      const labelText =
-        occupants > 0
-          ? `${BUILDING_LABELS[id]} • ${String(occupants)} here`
-          : BUILDING_LABELS[id]
-      if (view.label.text !== labelText) view.label.setText(labelText)
+      const name = buildingLabelFor(id, snapshot.property)
+      if (view.label !== null && name !== null) {
+        const labelText = occupants > 0 ? `${name} • ${String(occupants)} here` : name
+        if (view.label.text !== labelText) view.label.setText(labelText)
+      }
       view.sprite?.setAlpha(available ? 1 : 0.78)
       view.sign?.setAlpha(available ? 1 : 0.6)
       const reason = fact?.attentionReason ?? null
@@ -2370,10 +2514,11 @@ export class TycoonScene extends Phaser.Scene {
           ? C.lampAvailable
           : C.lampHeld
     if (text === null) {
-      view.badge.setData('want', false)
-      view.chip.setData('status', false).setVisible(false)
+      view.badge?.setData('want', false)
+      view.chip?.setData('status', false).setVisible(false)
       return
     }
+    if (view.badge === null || view.chip === null) return
     view.badge.setText(text).setBackgroundColor(
       attention === 'decision-required'
         ? '#8b3b32ee'
@@ -2390,7 +2535,7 @@ export class TycoonScene extends Phaser.Scene {
     stage7: ProductionOperationsState | null,
   ): void {
     const view = this.buildings.get(id)
-    if (!view?.lamp) return
+    if (!view?.lamp || view.chip === null || view.badge === null) return
     const sign = view.place.label
     const card = this.snapshot.activeProductions.find((production) => production.stageId === id)
 
@@ -2430,7 +2575,8 @@ export class TycoonScene extends Phaser.Scene {
     if (!g) return
     g.clear()
     if (status === null || status === 'unassigned') return
-    const anchor = PLACE_BY_BUILDING['stage-a'].anchors.crewCall
+    const anchor = this.buildingFor('stage-a')?.anchors.crewCall
+    if (anchor === undefined) return
     const p = this.world(anchor.gx, anchor.gy)
     g.fillStyle(0xffcb6b, status === 'scheduled' ? 0.4 : 0.2)
     g.fillEllipse(p.x, p.y, 210, 100)
@@ -2452,8 +2598,9 @@ export class TycoonScene extends Phaser.Scene {
     if (!g) return
     g.clear()
     if (context === null) return
-    const yard = PLACE_BY_BUILDING.post.anchors.loadIn
-    const dock = PLACE_BY_BUILDING['stage-a'].anchors.service
+    const yard = this.buildingFor('post')?.anchors.loadIn
+    const dock = this.buildingFor('stage-a')?.anchors.service
+    if (yard === undefined || dock === undefined) return
     const source = this.world(yard.gx, yard.gy)
     const destination = this.world(dock.gx, dock.gy)
 
@@ -2525,7 +2672,8 @@ export class TycoonScene extends Phaser.Scene {
     const g = this.expansionGraphics
     const label = this.expansionLabel
     if (!g || !label) return
-    const place = PLACE_BY_BUILDING.expansion
+    const place = this.buildingFor(ANNEX_PARCEL_ID)
+    if (place === null) return
     const pts = this.footprintPoints(place)
     const vecs = pts.map((p) => new Phaser.Math.Vector2(p.x, p.y))
     const left = Math.min(...pts.map((p) => p.x))
@@ -2599,12 +2747,12 @@ export class TycoonScene extends Phaser.Scene {
     // The parcel carries its own lifecycle caption; its generic building chrome would
     // only repeat it.
     label.setText(text).setPosition(cx, top - 6)
-    const annexView = this.buildings.get('expansion')
+    const annexView = this.buildings.get(ANNEX_PARCEL_ID)
     if (annexView) {
-      annexView.label.setVisible(false)
-      annexView.badge.setData('want', false)
-      annexView.badge.setVisible(false)
-      annexView.chip.setData('status', false).setVisible(false)
+      annexView.label?.setVisible(false)
+      annexView.badge?.setData('want', false)
+      annexView.badge?.setVisible(false)
+      annexView.chip?.setData('status', false).setVisible(false)
     }
   }
 
@@ -2782,9 +2930,9 @@ export class TycoonScene extends Phaser.Scene {
   private worldExtent(): { minX: number; minY: number; maxX: number; maxY: number } {
     const corners = [
       this.world(0, 0),
-      this.world(LOT_W, 0),
-      this.world(LOT_W, LOT_D),
-      this.world(0, LOT_D),
+      this.world(this.lotW, 0),
+      this.world(this.lotW, this.lotD),
+      this.world(0, this.lotD),
     ]
     return {
       minX: Math.min(...corners.map((c) => c.x)),
@@ -2995,7 +3143,7 @@ export class TycoonScene extends Phaser.Scene {
    * way: the generic building inspectors (which never moved the camera) and the three
    * plate-era retained contexts that used to jump to twice the whole-property fit.
    */
-  private focusPlace(place: WorldPlace): void {
+  private focusPlace(place: WorldBuilding): void {
     this.glideIntoView(this.gridFootprintBox(place.gx, place.gy, place.fw, place.fd))
   }
 
@@ -3050,16 +3198,16 @@ export class TycoonScene extends Phaser.Scene {
   focus(placeId: string): void {
     const place =
       placeId === PUBLICITY_PLACE_ID
-        ? PLACE_BY_BUILDING.admin
+        ? this.buildingFor('admin')
         : placeId === GATE_PLACE_ID
-          ? PLACE_BY_BUILDING.gate
+          ? this.buildingFor('gate')
           : placeId === ANNEX_PLACE_ID
-            ? PLACE_BY_BUILDING.expansion
+            ? this.buildingFor(ANNEX_PARCEL_ID)
             : placeId === STAGE_7_PLACE_ID
-              ? PLACE_BY_BUILDING['stage-a']
+              ? this.buildingFor('stage-a')
               : placeId === SERVICE_YARD_PLACE_ID
-                ? PLACE_BY_BUILDING.post
-                : WORLD_PLACES.find((candidate) => candidate.placeId === placeId) ?? null
+                ? this.buildingFor('post')
+                : worldBuildingByPlaceId(this.worldBuildings, placeId)
     if (place) this.focusPlace(place)
   }
 
@@ -3216,10 +3364,11 @@ export class TycoonScene extends Phaser.Scene {
       this.chromeZoom = zoom
       const inv = 1 / zoom
       for (const view of this.buildings.values()) {
+        view.lamp?.setScale(inv)
+        if (view.label === null || view.badge === null || view.chip === null) continue
         view.label.setScale(inv)
         view.badge.setScale(inv)
         view.chip.setScale(inv)
-        view.lamp?.setScale(inv)
         // Re-stack: status chip, then the name, then the status line under it.
         view.label.setY(view.chromeBaseY)
         view.badge.setY(view.chromeBaseY + 3 * inv)
@@ -3253,9 +3402,10 @@ export class TycoonScene extends Phaser.Scene {
     const band = this.lodBand
     const text = band !== 'institution'
     for (const view of this.buildings.values()) {
+      if (view.label === null || view.badge === null || view.chip === null) continue
       const wantBadge = view.badge.getData('want') === true
       // The Annex parcel carries its own lifecycle caption instead of generic chrome.
-      view.label.setVisible(text && view.place.buildingId !== 'expansion')
+      view.label.setVisible(text && view.place.buildingId !== ANNEX_PARCEL_ID)
       view.badge.setVisible(band === 'operations' && wantBadge)
       // Status colour survives every band; at institution scale it is the only readout.
       view.chip.setVisible(view.chip.getData('status') === true)
@@ -3468,11 +3618,12 @@ export class TycoonScene extends Phaser.Scene {
         }
       })(),
       lodBand: this.lodBand,
-      visibleBuildingLabels: [...this.buildings.values()].filter((view) => view.label.visible)
-        .length,
+      visibleBuildingLabels: [...this.buildings.values()].filter(
+        (view) => view.label?.visible === true,
+      ).length,
       buildingLabels: [...this.buildings.values()]
-        .filter((view) => view.label.visible)
-        .map((view) => view.label.text)
+        .filter((view) => view.label?.visible === true)
+        .map((view) => view.label!.text)
         .sort(),
       placementLabels: [...this.placementLabels.values()]
         .filter((label) => label.visible)
