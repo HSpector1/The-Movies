@@ -50,6 +50,7 @@ import type {
   GameStateV10,
   GameStateV11,
   GameStateV12,
+  GameStateV13,
   GameStateV2,
   GameStateV3,
   GameStateV4,
@@ -61,6 +62,7 @@ import type {
   LedgerEntryV10,
   LedgerEntryV11,
   LedgerKind,
+  PropertyState,
   PublicityState,
   ScriptDevelopment,
   CastingSessions,
@@ -94,7 +96,9 @@ import {
   initialManagedStudioPlacement,
 } from "./placement.js";
 import {
+  INITIAL_PROPERTY,
   LEGACY_EXPANSION_PARCEL_ID,
+  clonePropertyState,
   parcelById,
 } from "./lot.js";
 import {
@@ -242,12 +246,27 @@ export type SaveFileV11 = {
   broadcastCache: BroadcastItem[];
 };
 
-// Placement Core V12 envelope — the live GameState (V11 plus the authored parcel
-// map's placed-facility records). V1–V11 remain frozen/readable.
+// Placement Core V12 envelope — the FROZEN GameStateV12 (V11 plus the authored
+// parcel map's placed-facility records). Anchored to GameStateV12 so C1-M1a's
+// property root cannot leak into the accepted V12 format. New games no longer
+// write V12, but old V12 files remain readable.
 export type SaveFileV12 = {
   saveVersion: 12;
   seed: string;
   state: GameStateV12;
+  broadcastCache: BroadcastItem[];
+};
+
+// Property State V13 envelope (C1-M1a) — the live GameState (V12 plus the studio
+// property: bounds, roads, parcels, and the authored structures standing on it).
+// Through V12 all of that was module constants, which is exactly why a V12 save
+// could not describe a property that had ever changed. V1–V12 remain frozen and
+// readable; a V12 file's property was implicit, and INITIAL_PROPERTY IS that
+// implicit value, so the migration invents nothing.
+export type SaveFileV13 = {
+  saveVersion: 13;
+  seed: string;
+  state: GameStateV13;
   broadcastCache: BroadcastItem[];
 };
 
@@ -264,7 +283,8 @@ export type SaveFile =
   | SaveFileV9
   | SaveFileV10
   | SaveFileV11
-  | SaveFileV12;
+  | SaveFileV12
+  | SaveFileV13;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -464,6 +484,27 @@ function rejectV12AuthorityAtHistoricalBoundary(
   }
 }
 
+// The same posture one version on again (C1-M1a): SaveFileV13 owns the property
+// root. Accepting it under an older version tag would let a caller silently
+// discard a property that had grown — new bounds, a purchased parcel, a road
+// spur, a structure — while claiming to write a historical format. Copied
+// deliberately from the V11 and V12 guards above (law 19).
+//
+// Only the root itself is guarded here. Unlike the V12 ledger and facility
+// authority, V13 adds no new ledger kind and no new facility identity: a property
+// leaves no trace anywhere else in the state, so there is no second place a
+// historical boundary could leak it.
+function rejectV13AuthorityAtHistoricalBoundary(
+  state: Record<string, unknown>,
+  label: string,
+): void {
+  if (Object.prototype.hasOwnProperty.call(state, "property")) {
+    throw new Error(
+      `${label}: state.property belongs only to SaveFileV13 and cannot appear at this historical boundary`,
+    );
+  }
+}
+
 // ── V1 validation (ORIGINAL rules, UNCHANGED) ────────────────────────────────
 // Throws on any divergence; returns the narrowed SaveFileV1 (old-shape talent).
 // The V1 rules are exactly the pre-D-9 rules; nothing about them changed.
@@ -480,6 +521,7 @@ export function validateSaveV1(save: unknown): SaveFileV1 {
   const state = checkEnvelope(s, "validateSaveV1");
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV1");
   rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV1");
+  rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV1");
   return save as SaveFileV1;
 }
 
@@ -499,6 +541,7 @@ export function validateSaveV2(save: unknown): SaveFileV2 {
   const state = checkEnvelope(s, "validateSaveV2");
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV2");
   rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV2");
+  rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV2");
   return save as SaveFileV2;
 }
 
@@ -518,6 +561,7 @@ export function validateSaveV3(save: unknown): SaveFileV3 {
   const state = checkEnvelope(s, "validateSaveV3");
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV3");
   rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV3");
+  rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV3");
   return save as SaveFileV3;
 }
 
@@ -535,6 +579,7 @@ export function validateSaveV4(save: unknown): SaveFileV4 {
   const state = checkEnvelope(s, "validateSaveV4");
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV4");
   rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV4");
+  rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV4");
   return save as SaveFileV4;
 }
 
@@ -552,6 +597,7 @@ export function validateSaveV5(save: unknown): SaveFileV5 {
   const state = checkEnvelope(s, "validateSaveV5");
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV5");
   rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV5");
+  rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV5");
   return save as SaveFileV5;
 }
 
@@ -583,6 +629,7 @@ export function validateSaveV6(save: unknown): SaveFileV6 {
   }
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV6");
   rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV6");
+  rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV6");
   return save as SaveFileV6;
 }
 
@@ -644,6 +691,7 @@ export function validateSaveV7(save: unknown): SaveFileV7 {
   checkV7State(state, "validateSaveV7");
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV7");
   rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV7");
+  rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV7");
   return save as SaveFileV7;
 }
 
@@ -3177,6 +3225,7 @@ function validateSaveV11WithPolicy(
   );
   if (policy !== "placement-v12") {
     rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV11");
+  rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV11");
   }
 
   const hasCashLedgerCheckpoint = Object.prototype.hasOwnProperty.call(
@@ -3217,7 +3266,7 @@ function validateSaveV11WithPolicy(
   if (policy !== "placement-v12") {
     try {
       // The checker reads no V12 root, so a frozen V11 fragment is a valid input.
-      assertStudioConstructionInvariants(state as unknown as GameStateV12);
+      assertStudioConstructionInvariants(state as unknown as GameStateV13);
     } catch (error) {
       throw new Error(`validateSaveV11: ${(error as Error).message}`);
     }
@@ -3348,7 +3397,20 @@ function checkPlacementShape(value: unknown): StudioPlacement {
 // placement authority proves the whole state: footprints, terrain, occupancy,
 // clearance, road access, identity, lifecycle clock, capital and operating rows,
 // cash reconciliation, and the exact operational facility set.
-export function validateSaveV12(save: unknown): SaveFileV12 {
+//
+// C1-M1a adds the policy parameter, for exactly the reason validateSaveV11 has
+// one. Under `property-v13` this runs as a FRAGMENT of a larger state: the
+// placement law it owns is geometry against a property, and the property root
+// lives one level up where this projection cannot see it. Proving placements here
+// would prove them against INITIAL_PROPERTY — right for every V12 file (whose
+// property was implicitly the constants) but WRONG for a V13 world whose property
+// has grown. So the whole-state proof is deferred to `validateSaveV13`, which runs
+// the same one authority over the state INCLUDING its property, immediately after
+// this returns. Structure, envelope, and the frozen V11 law all still run here.
+function validateSaveV12WithPolicy(
+  save: unknown,
+  policy: "placement-v12" | "property-v13",
+): SaveFileV12 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV12: save is not a plain object");
   }
@@ -3364,6 +3426,9 @@ export function validateSaveV12(save: unknown): SaveFileV12 {
   }
   const state = v12Record(checkEnvelope(save, "validateSaveV12"), "state");
   v12ExactKeys(state, V12_STATE_KEYS, "state", V11_OPTIONAL_STATE_KEYS);
+  if (policy !== "property-v13") {
+    rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV12");
+  }
 
   const { placement: rawPlacement, ...v11State } = state;
   try {
@@ -3383,12 +3448,184 @@ export function validateSaveV12(save: unknown): SaveFileV12 {
   }
 
   checkPlacementShape(rawPlacement);
-  try {
-    assertStudioPlacementInvariants(state as unknown as GameStateV12);
-  } catch (error) {
-    throw new Error(`validateSaveV12: ${(error as Error).message}`);
+  if (policy !== "property-v13") {
+    try {
+      // A frozen V12 state carries no property root, so the authority reads the
+      // initial authored property — which IS the property every V12 file was
+      // written against. See `propertyOf`.
+      assertStudioPlacementInvariants(state as unknown as GameStateV13);
+    } catch (error) {
+      throw new Error(`validateSaveV12: ${(error as Error).message}`);
+    }
   }
   return save as SaveFileV12;
+}
+
+export function validateSaveV12(save: unknown): SaveFileV12 {
+  return validateSaveV12WithPolicy(save, "placement-v12");
+}
+
+// ── Property State V13 (C1-M1a) ──────────────────────────────────────────────
+
+const V13_STATE_KEYS = [...V12_STATE_KEYS, "property"] as const;
+const PROPERTY_STRUCTURE_ROLES = ["landmark", "founding"] as const;
+
+function v13Error(label: string, message: string): never {
+  throw new Error(`validateSaveV13: ${label} ${message}`);
+}
+
+function v13Rect(value: unknown, label: string): void {
+  const rect = v12Record(value, label);
+  v12ExactKeys(rect, ["x0", "y0", "x1", "y1"], label);
+  for (const key of ["x0", "y0", "x1", "y1"] as const) {
+    if (
+      typeof rect[key] !== "number" ||
+      !Number.isFinite(rect[key]) ||
+      !Number.isInteger(rect[key])
+    ) {
+      v13Error(`${label}.${key}`, "must be a finite integer");
+    }
+  }
+}
+
+// Structural shape only, exactly as `checkPlacementShape` is. Bounds sanity,
+// on-property containment, structure overlap, and the provides-links law are
+// DOMAIN law and belong to assertStudioPlacementInvariants, which runs over the
+// whole state below.
+function checkPropertyShape(value: unknown): PropertyState {
+  const property = v12Record(value, "state.property");
+  v12ExactKeys(
+    property,
+    ["bounds", "roads", "parcels", "structures"],
+    "state.property",
+  );
+
+  const bounds = v12Record(property.bounds, "state.property.bounds");
+  v12ExactKeys(bounds, ["width", "depth"], "state.property.bounds");
+  v12Integer(bounds.width, "state.property.bounds.width", 1);
+  v12Integer(bounds.depth, "state.property.bounds.depth", 1);
+
+  if (!Array.isArray(property.roads)) {
+    v13Error("state.property.roads", "must be an array");
+  }
+  for (let i = 0; i < property.roads.length; i++) {
+    v13Rect(property.roads[i], `state.property.roads[${String(i)}]`);
+  }
+
+  if (!Array.isArray(property.parcels)) {
+    v13Error("state.property.parcels", "must be an array");
+  }
+  for (let i = 0; i < property.parcels.length; i++) {
+    const label = `state.property.parcels[${String(i)}]`;
+    const parcel = v12Record(property.parcels[i], label);
+    v12ExactKeys(
+      parcel,
+      ["id", "label", "terrain", "rect", "ownedFromStart"],
+      label,
+    );
+    v8String(parcel.id, `${label}.id`, true);
+    v8String(parcel.label, `${label}.label`, true);
+    if (parcel.terrain !== "buildable" && parcel.terrain !== "blocked") {
+      v13Error(`${label}.terrain`, 'must be "buildable" or "blocked"');
+    }
+    v13Rect(parcel.rect, `${label}.rect`);
+    // There is no land market: every parcel of the property is owned from week
+    // zero, and `notOwned` means "not part of the property" (see lot.ts).
+    if (parcel.ownedFromStart !== true) {
+      v13Error(`${label}.ownedFromStart`, "must be true");
+    }
+  }
+
+  if (!Array.isArray(property.structures)) {
+    v13Error("state.property.structures", "must be an array");
+  }
+  for (let i = 0; i < property.structures.length; i++) {
+    const label = `state.property.structures[${String(i)}]`;
+    const structure = v12Record(property.structures[i], label);
+    v12ExactKeys(
+      structure,
+      ["id", "label", "role", "origin", "footprint", "providesFacilityIds"],
+      label,
+    );
+    v8String(structure.id, `${label}.id`, true);
+    v8String(structure.label, `${label}.label`, true);
+    if (
+      structure.role !== PROPERTY_STRUCTURE_ROLES[0] &&
+      structure.role !== PROPERTY_STRUCTURE_ROLES[1]
+    ) {
+      v13Error(
+        `${label}.role`,
+        `must be one of ${PROPERTY_STRUCTURE_ROLES.map((role) => JSON.stringify(role)).join(", ")}`,
+      );
+    }
+    v12Cell(structure.origin, `${label}.origin`);
+    const footprint = v12Record(structure.footprint, `${label}.footprint`);
+    v12ExactKeys(footprint, ["width", "depth"], `${label}.footprint`);
+    v12Integer(footprint.width, `${label}.footprint.width`, 1);
+    v12Integer(footprint.depth, `${label}.footprint.depth`, 1);
+    if (!Array.isArray(structure.providesFacilityIds)) {
+      v13Error(`${label}.providesFacilityIds`, "must be an array");
+    }
+    for (let f = 0; f < structure.providesFacilityIds.length; f++) {
+      v8String(
+        structure.providesFacilityIds[f],
+        `${label}.providesFacilityIds[${String(f)}]`,
+        true,
+      );
+    }
+  }
+
+  return property as unknown as PropertyState;
+}
+
+// Property State V13 validator (C1-M1a). The frozen V12 projection is structurally
+// validated under the property policy (which defers the placement geometry proof
+// to this level, where the property is visible), the property root is structurally
+// checked, and then the ONE placement authority proves the whole state: property
+// bounds, road and parcel rectangles, structure geometry, provides-links, and
+// every V12 placement law — this time against the property the state actually
+// carries rather than the authored constants.
+export function validateSaveV13(save: unknown): SaveFileV13 {
+  if (!isRecord(save)) {
+    throw new Error("validateSaveV13: save is not a plain object");
+  }
+  v12ExactKeys(
+    save,
+    ["saveVersion", "seed", "state", "broadcastCache"],
+    "save",
+  );
+  if (save.saveVersion !== 13) {
+    throw new Error(
+      `validateSaveV13: expected saveVersion 13, got ${JSON.stringify(save.saveVersion)}`,
+    );
+  }
+  const state = v12Record(checkEnvelope(save, "validateSaveV13"), "state");
+  v12ExactKeys(state, V13_STATE_KEYS, "state", V11_OPTIONAL_STATE_KEYS);
+
+  const { property: rawProperty, ...v12State } = state;
+  try {
+    validateSaveV12WithPolicy(
+      {
+        saveVersion: 12,
+        seed: save.seed,
+        state: v12State,
+        broadcastCache: save.broadcastCache,
+      },
+      "property-v13",
+    );
+  } catch (error) {
+    throw new Error(
+      `validateSaveV13: frozen V12 state is invalid — ${(error as Error).message}`,
+    );
+  }
+
+  checkPropertyShape(rawProperty);
+  try {
+    assertStudioPlacementInvariants(state as unknown as GameStateV13);
+  } catch (error) {
+    throw new Error(`validateSaveV13: ${(error as Error).message}`);
+  }
+  return save as SaveFileV13;
 }
 
 // ── Version-dispatching validation (LOUD rejection of unknown versions) ──────
@@ -3412,8 +3649,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 10) return validateSaveV10(save);
   if (s.saveVersion === 11) return validateSaveV11(save);
   if (s.saveVersion === 12) return validateSaveV12(save);
+  if (s.saveVersion === 13) return validateSaveV13(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 12 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 13 only)`,
   );
 }
 
@@ -3620,10 +3858,17 @@ function projectStateV11(state: HistoricalProjectionSourceV11): GameStateV11 {
   };
 }
 
-// The live projection. Enumerated positively (never a clone-then-delete) and
-// deliberately NOT built on projectStateV11, whose ledger narrowing exists to
+type HistoricalProjectionSourceV12 = GameStateV12 & {
+  // A live V13 value is a valid positive input; `projectStateV12` never copies
+  // this key and `assertFrozenBuilderCanProjectV13State` refuses any property
+  // that has grown beyond the authored initial one, so nothing can be discarded.
+  property?: PropertyState;
+};
+
+// The frozen V12 projection. Enumerated positively (never a clone-then-delete)
+// and deliberately NOT built on projectStateV11, whose ledger narrowing exists to
 // refuse V12 rows at a historical boundary.
-function projectStateV12(state: GameStateV12): GameStateV12 {
+function projectStateV12(state: HistoricalProjectionSourceV12): GameStateV12 {
   return {
     seed: state.seed,
     rngState: state.rngState,
@@ -3650,6 +3895,15 @@ function projectStateV12(state: GameStateV12): GameStateV12 {
     ...(state.cashLedgerCheckpoint === undefined
       ? {}
       : { cashLedgerCheckpoint: state.cashLedgerCheckpoint }),
+  };
+}
+
+// The live projection (C1-M1a). Same positive enumeration one version on, plus
+// the property root that makes the studio's ground savable.
+function projectStateV13(state: GameStateV13): GameStateV13 {
+  return {
+    ...projectStateV12(state),
+    property: state.property,
   };
 }
 
@@ -3803,11 +4057,32 @@ function assertFrozenBuilderCanProjectV12State(
   }
 }
 
+// The same guard one version on again (C1-M1a). A frozen builder may cross this
+// boundary only when the state's property is still the INITIAL authored property
+// — the exact value every ≤V12 file implicitly carried, so projecting it away
+// loses nothing and `convertV12ToV13` puts back the identical bytes. A property
+// that has grown (wider bounds, a new parcel, a new or removed structure) has no
+// home in any historical format and may never be silently dropped to write one.
+function assertFrozenBuilderCanProjectV13State(
+  state: object,
+  builder: string,
+): void {
+  const candidate = state as Record<string, unknown>;
+  if (Object.prototype.hasOwnProperty.call(candidate, "property")) {
+    if (!deepEqual(candidate.property, INITIAL_PROPERTY)) {
+      throw new Error(
+        `${builder}: cannot downgrade or discard an authoritative V13 property`,
+      );
+    }
+  }
+}
+
 // Build a validated V1 envelope from a legacy GameStateV1 (broadcastCache mirrors
 // the state's aired items, per M14). Kept so V1 fixtures/back-compat are typed.
 export function makeSaveV1(state: GameStateV1 | GameState): SaveFileV1 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV1", 1);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV1");
+  assertFrozenBuilderCanProjectV13State(state, "makeSaveV1");
   const frozenState = projectStateV1(state);
   const save: SaveFileV1 = {
     saveVersion: 1,
@@ -3823,6 +4098,7 @@ export function makeSaveV1(state: GameStateV1 | GameState): SaveFileV1 {
 export function makeSaveV2(state: GameStateV2 | GameState): SaveFileV2 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV2", 2);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV2");
+  assertFrozenBuilderCanProjectV13State(state, "makeSaveV2");
   const frozenState = projectStateV2(state);
   const save: SaveFileV2 = {
     saveVersion: 2,
@@ -3840,6 +4116,7 @@ export function makeSaveV3(
 ): SaveFileV3 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV3", 3);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV3");
+  assertFrozenBuilderCanProjectV13State(state, "makeSaveV3");
   const frozenState = projectStateV3(state);
   const save: SaveFileV3 = {
     saveVersion: 3,
@@ -3857,6 +4134,7 @@ export function makeSaveV4(
 ): SaveFileV4 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV4", 4);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV4");
+  assertFrozenBuilderCanProjectV13State(state, "makeSaveV4");
   const frozenState = projectStateV4(state);
   const save: SaveFileV4 = {
     saveVersion: 4,
@@ -3874,6 +4152,7 @@ export function makeSaveV5(
 ): SaveFileV5 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV5", 5);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV5");
+  assertFrozenBuilderCanProjectV13State(state, "makeSaveV5");
   const frozenState = projectStateV5(state);
   const save: SaveFileV5 = {
     saveVersion: 5,
@@ -3891,6 +4170,7 @@ export function makeSaveV6(
 ): SaveFileV6 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV6", 6);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV6");
+  assertFrozenBuilderCanProjectV13State(state, "makeSaveV6");
   const frozenState = projectStateV6(state);
   const save: SaveFileV6 = {
     saveVersion: 6,
@@ -3908,6 +4188,7 @@ export function makeSaveV7(
 ): SaveFileV7 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV7", 7);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV7");
+  assertFrozenBuilderCanProjectV13State(state, "makeSaveV7");
   // Structural typing permits present and future live roots where GameStateV7 is
   // expected. Use the same positive allowlist as the other frozen builders so no
   // later field can be mislabeled as V7 or make this builder's output unmigratable.
@@ -3928,6 +4209,7 @@ export function makeSaveV8(
 ): SaveFileV8 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV8", 8);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV8");
+  assertFrozenBuilderCanProjectV13State(state, "makeSaveV8");
   const frozenState = projectStateV8(state);
   const save: SaveFileV8 = {
     saveVersion: 8,
@@ -3945,6 +4227,7 @@ export function makeSaveV9(
 ): SaveFileV9 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV9", 9);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV9");
+  assertFrozenBuilderCanProjectV13State(state, "makeSaveV9");
   const frozenState = projectStateV9(state);
   const save: SaveFileV9 = {
     saveVersion: 9,
@@ -3962,6 +4245,7 @@ export function makeSaveV10(
 ): SaveFileV10 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV10", 10);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV10");
+  assertFrozenBuilderCanProjectV13State(state, "makeSaveV10");
   const frozenState = projectStateV10(state);
   const save: SaveFileV10 = {
     saveVersion: 10,
@@ -3979,6 +4263,7 @@ export function makeSaveV11(
   state: HistoricalProjectionSourceV11,
 ): SaveFileV11 {
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV11");
+  assertFrozenBuilderCanProjectV13State(state, "makeSaveV11");
   const frozenState = projectStateV11(state);
   const save: SaveFileV11 = {
     saveVersion: 11,
@@ -3989,23 +4274,40 @@ export function makeSaveV11(
   return validateSaveV11(save);
 }
 
-// Build the current V12 envelope. Live state already owns an explicit placement
-// root, so this boundary never invents migration defaults.
-export function makeSaveV12(state: GameState): SaveFileV12 {
-  const currentState = projectStateV12(state);
+// Build a frozen V12 envelope. The property root belongs only to V13; a current
+// value may cross this projection only while its property is still the initial
+// authored one and therefore loses no history.
+export function makeSaveV12(
+  state: HistoricalProjectionSourceV12,
+): SaveFileV12 {
+  assertFrozenBuilderCanProjectV13State(state, "makeSaveV12");
+  const frozenState = projectStateV12(state);
   const save: SaveFileV12 = {
     saveVersion: 12,
-    seed: currentState.seed,
-    state: currentState,
-    broadcastCache: currentState.broadcastItems,
+    seed: frozenState.seed,
+    state: frozenState,
+    broadcastCache: frozenState.broadcastItems,
   };
   return validateSaveV12(save);
 }
 
-// makeSave — the Placement Core V12 live boundary. Frozen V11 values must cross
-// convertV11ToV12/migrateToV12 explicitly.
-export function makeSave(state: GameState): SaveFileV12 {
-  return makeSaveV12(state);
+// Build the current V13 envelope (C1-M1a). Live state already owns an explicit
+// property root, so this boundary never invents migration defaults.
+export function makeSaveV13(state: GameState): SaveFileV13 {
+  const currentState = projectStateV13(state);
+  const save: SaveFileV13 = {
+    saveVersion: 13,
+    seed: currentState.seed,
+    state: currentState,
+    broadcastCache: currentState.broadcastItems,
+  };
+  return validateSaveV13(save);
+}
+
+// makeSave — the Property State V13 live boundary. Frozen V12 values must cross
+// convertV12ToV13/migrateToV13 explicitly.
+export function makeSave(state: GameState): SaveFileV13 {
+  return makeSaveV13(state);
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -4638,7 +4940,9 @@ export function convertV11ToV12(v11: SaveFileV11): SaveFileV12 {
     placement = initialManagedStudioPlacement();
     construction = initialManagedStudioConstruction();
   } else {
-    const parcel = parcelById(LEGACY_EXPANSION_PARCEL_ID);
+    // A V11 file's property was the initial authored one (V11 predates the
+    // property root entirely), so its legacy parcel is looked up there.
+    const parcel = parcelById(INITIAL_PROPERTY, LEGACY_EXPANSION_PARCEL_ID);
     if (parcel === null) {
       throw new Error(
         "convertV11ToV12: the legacy expansion parcel is missing from the authored lot",
@@ -4672,6 +4976,31 @@ export function convertV11ToV12(v11: SaveFileV11): SaveFileV12 {
     placement,
   };
   return makeSaveV12(newState);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// Property State V13 (C1-M1a) — deterministic V12 → V13 conversion.
+//   V12 had a property; it just had no way to say so. Its bounds, roads, parcel
+//   map, and buildings were module constants that every V12 file was written
+//   against, which is why every V12 world in existence stands on exactly one
+//   property: the initial authored one. `INITIAL_PROPERTY` IS those constants,
+//   so synthesizing it here reconstructs a fact rather than inventing a default —
+//   the same posture as V5→V6 reconstructing the engagement fact.
+//   Nothing else moves: no cash, no week, no ledger row, no placement, no
+//   reservation, and rngState is byte-identical. A migrated world plays on
+//   exactly the ground it was already playing on.
+// ═══════════════════════════════════════════════════════════════════════════════
+
+export function convertV12ToV13(v12: SaveFileV12): SaveFileV13 {
+  const validated = validateSaveV12(v12);
+  const oldState = clonePlainJson(validated.state);
+  const newState: GameStateV13 = {
+    ...oldState,
+    // A deep copy, never the frozen constant: a savegame's property is its own
+    // mutable state and must not alias the authored source of truth.
+    property: clonePropertyState(INITIAL_PROPERTY),
+  };
+  return makeSaveV13(newState);
 }
 
 // importLegacyV{3,2,1}ToV4 — parse a legacy JSON string and return a NEW SaveFileV4.
@@ -4770,7 +5099,8 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
     save.saveVersion === 9 ||
     save.saveVersion === 10 ||
     save.saveVersion === 11 ||
-    save.saveVersion === 12
+    save.saveVersion === 12 ||
+    save.saveVersion === 13
   ) {
     throw new Error(
       `migrateToV8: cannot downgrade SaveFileV${String(save.saveVersion)} or discard newer authoritative state`,
@@ -4787,7 +5117,8 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
   if (
     save.saveVersion === 10 ||
     save.saveVersion === 11 ||
-    save.saveVersion === 12
+    save.saveVersion === 12 ||
+    save.saveVersion === 13
   ) {
     throw new Error(
       `migrateToV9: cannot downgrade SaveFileV${String(save.saveVersion)} or discard newer authoritative state`,
@@ -4801,9 +5132,13 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
 // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
 // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
 export function migrateToV10(save: SaveFile): SaveFileV10 {
-  if (save.saveVersion === 11 || save.saveVersion === 12) {
+  if (
+    save.saveVersion === 11 ||
+    save.saveVersion === 12 ||
+    save.saveVersion === 13
+  ) {
     throw new Error(
-      `migrateToV10: cannot downgrade SaveFileV${String(save.saveVersion)} or discard construction and placement state`,
+      `migrateToV10: cannot downgrade SaveFileV${String(save.saveVersion)} or discard construction, placement, and property state`,
     );
   }
   if (save.saveVersion === 10) return save;
@@ -4816,19 +5151,34 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
 // mode. V12 is rejected, never downgraded: a placed facility, its land, its
 // debit, and its operating history have no V11 home.
 export function migrateToV11(save: SaveFile): SaveFileV11 {
-  if (save.saveVersion === 12) {
+  if (save.saveVersion === 12 || save.saveVersion === 13) {
     throw new Error(
-      "migrateToV11: cannot downgrade SaveFileV12 or discard placement state",
+      `migrateToV11: cannot downgrade SaveFileV${String(save.saveVersion)} or discard placement and property state`,
     );
   }
   if (save.saveVersion === 11) return save;
   return convertV10ToV11(migrateToV10(save));
 }
 
-// migrateToV12 — live load-to-play migration. V12 passes through by identity;
-// V1–V11 cross every frozen boundary, then receive the placement root their own
-// validated construction history implies at the final V11→V12 step.
+// migrateToV12 — retained historical PRE-V13 boundary. V12 passes through by
+// identity; V1–V11 cross every frozen boundary, then receive the placement root
+// their own validated construction history implies at the final V11→V12 step.
+// V13 is rejected, never downgraded: a property that has grown has no V12 home.
 export function migrateToV12(save: SaveFile): SaveFileV12 {
+  if (save.saveVersion === 13) {
+    throw new Error(
+      "migrateToV12: cannot downgrade SaveFileV13 or discard property state",
+    );
+  }
   if (save.saveVersion === 12) return save;
   return convertV11ToV12(migrateToV11(save));
+}
+
+// migrateToV13 — live load-to-play migration (C1-M1a). V13 passes through by
+// identity; V1–V12 cross every frozen boundary, then receive the initial authored
+// property at the final V12→V13 step — which is the property they were already
+// implicitly played on.
+export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 13) return save;
+  return convertV12ToV13(migrateToV12(save));
 }
