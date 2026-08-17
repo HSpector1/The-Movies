@@ -1223,6 +1223,31 @@ describe('studioLotSnapshot — Script Projects V1 Writers Room attention', () =
     })
   })
 
+  it('never paints Development empty while a picture physically occupies it', () => {
+    let state = foundManagedScriptStudio('lot-scripts-idle-with-picture')
+    state = commissionScript(state, 0)
+    state = tick(state)
+    state = applyActions(state, [{ kind: 'acceptScript', projectId: 'script-0000' }])
+    state = greenlightReadyScript(state, 'script-0000')
+    state = tick(state) // greenlight tick: the picture enters Development
+
+    const cue = scriptProjectsBoard(state).lotAttention
+    // The screenplay system genuinely has nothing of its own to say…
+    expect(cue.kind).toBe('idle')
+    const snap = studioLotSnapshot(state)
+    const operating = operation(snap, state.studio.activeProductions[0]!.id)
+    expect(operating).toMatchObject({ phase: 'development', locationBuildingId: 'writers' })
+
+    // …but a picture holds one of the building's slots, so the building is not empty.
+    // Every non-empty screenplay cue still outranks the production workflow (asserted
+    // by the capacity / review / ready specs below).
+    expect(stage(snap, 'writers')).toMatchObject({
+      attention: operating.attention,
+      attentionReason: `${operating.title} — ${operating.phaseLabel}`,
+    })
+    expect(stage(snap, 'writers').attention).not.toBe('empty')
+  })
+
   it('maps active drafting to active with the core screenplay headline', () => {
     const state = commissionScript(foundManagedScriptStudio('lot-scripts-active'), 0)
     const cue = scriptProjectsBoard(state).lotAttention

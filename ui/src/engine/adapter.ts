@@ -6230,11 +6230,17 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
           // Managed screenplay work owns this destination. Its governed priority
           // (review → capacity → active → ready → idle) must outrank a production
           // workflow that also happens to occupy Development & Casting.
-          if (scriptCue !== null) {
+          //
+          // ONE exception, and only for the display state: when the screenplay system
+          // has nothing of its own ('empty'), a picture in development still physically
+          // occupies the building, and painting Development as empty beside it is a flat
+          // contradiction of the building's own state. Every non-empty screenplay cue
+          // keeps absolute precedence exactly as before.
+          if (scriptCue !== null && scriptCue.attention !== 'empty') {
             attention = scriptCue.attention
             reason = scriptCue.reason
           } else {
-            const cue = managedOperationCue(id)
+            const cue = managedOperationCue(id) ?? scriptCue
             if (cue !== null) {
               attention = cue.attention
               reason = cue.reason
