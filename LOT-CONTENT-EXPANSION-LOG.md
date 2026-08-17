@@ -166,3 +166,27 @@ first pass (1/3,170), isolated rerun 60/60 and full rerun 229 files / 3,170 test
 all green — same unreproduced-under-contention class as the FMJ-era flake; WATCH
 ITEM, not cleared silently. No Playwright surfaces touched beyond compile-forced
 rejection sentences (two new player sentences in buildMode).
+
+## M3a — RULING: KEEP (2026-08-17)
+
+Engine agent delivered Move & Demolish V1 engine half on 4 commits
+(`5d44468..d89684c`). Fail-closed engagement guard over all five persisted holder
+sources (workflow reservations, denormalized shootingTask soundstage id — walked
+independently so divergence can't dangle, script reservations, casting reservations,
+retired V11 construction root); identity-preserving move through the single legality
+authority (`movingPlacementId` threaded, never caller-supplied occupancy);
+strictly-lossy demolition (flat 0.5 fraction, TUNING; fraction<1 invariant);
+`facilityDemolitionRefund` ledger kind V13-only with two-way capex↔refund
+correlation by projectId; nextPlacementId never reused. PM gates rerun: 230 files /
+3,199 tests green, both tsc clean; boundary refusal + forged-refund tests verified.
+
+Three deviations accepted with reasons on record: (a) expectedWeeklyOperatingCostAt
+reconstructs demolished facilities from the ledger pair (capex→birth, refund→death)
+— removal makes the live array insufficient history; ledger-note uniqueness added to
+the catalog invariant as a consequence; (b) move priced at FACILITY_MOVE_COST (0)
+for insufficientFunds — a move is not a re-purchase, one charging rule for both
+verbs; (c) facility-id reuse after demolition allowed (project ids still suffix;
+nothing persisted references a facilityId across demolition; engagement guard proves
+no survivor) — "no duplication" read as no duplication EXPLOITS, which are guarded.
+Note for M4/M5: TWO files enforce ledger shape (placement.ts + construction.ts,
+now policy-scoped) — a genuine second authority, know it exists.
