@@ -43,6 +43,8 @@ import type {
   PublicityTier,
   ProductionCommandView,
   ConstructionCompletionSummary,
+  FacilityMoveRequest,
+  FacilityDemolitionRequest,
   CommissionScriptPayload,
   ScriptProjectsReadModel,
   StartCastingSessionPayload,
@@ -63,6 +65,8 @@ import {
   runScriptProjectAction,
   startDevelopmentCastingAnnexAction,
   placeFacilityAction,
+  moveFacilityAction,
+  demolishFacilityAction,
   studioDecision,
   studioDevelopment,
   studioPlacement,
@@ -3598,6 +3602,33 @@ export function App() {
     return result
   }
 
+  // Move & Demolish V1 (C1-M3b). The same owner shape, for the same reason: the Lot
+  // sends an identity (and, for a move, an origin) and nothing else. Legality, price
+  // and refund are re-derived by the Engine inside the action, which returns the SAME
+  // state by reference when it refuses — so an unchanged identity IS "nothing happened",
+  // and `replaceAuthoritativeState` is never called on a refusal.
+  function handleMoveFacility(move: FacilityMoveRequest) {
+    if (!currentLotWorldInputOwner()) {
+      return { ok: false as const, error: 'The live Lot is suspended while Package decisions are open.' }
+    }
+    const result = moveFacilityAction(loadedState, move)
+    if (result.ok && result.next !== loadedState) {
+      replaceAuthoritativeState(result.next)
+    }
+    return result
+  }
+
+  function handleDemolishFacility(demolition: FacilityDemolitionRequest) {
+    if (!currentLotWorldInputOwner()) {
+      return { ok: false as const, error: 'The live Lot is suspended while Package decisions are open.' }
+    }
+    const result = demolishFacilityAction(loadedState, demolition)
+    if (result.ok && result.next !== loadedState) {
+      replaceAuthoritativeState(result.next)
+    }
+    return result
+  }
+
   // World-First Operational Annex Work Presence V1: the Lot may offer a deep owner only
   // after world inspection. Re-read the one canonical Calendar slot at activation time so a
   // completed/replaced occupant can never route by stale presentation text or array position.
@@ -4258,6 +4289,8 @@ export function App() {
                   }}
             onStartDevelopmentCastingAnnex={handleStartDevelopmentCastingAnnex}
             onPlaceFacility={handlePlaceFacility}
+                  onMoveFacility={handleMoveFacility}
+                  onDemolishFacility={handleDemolishFacility}
             onOpenAnnexWorkDetails={handleOpenAnnexWorkDetails}
             onOpenStage7ProductionDetails={handleOpenStage7ProductionDetails}
             onOpenGateCandidateProfile={handleOpenGateCandidateProfile}

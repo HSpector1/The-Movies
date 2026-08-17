@@ -12,13 +12,15 @@
 // canvas cannot expose a reliable accessibility tree. Neither surface owns GameState:
 // they emit identity/intent and the host dispatches only engine-projected commands.
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type {
   ActionOutcome,
   ConstructionCompletionSummary,
   GameState,
   PlacementQuote,
   PlacementRequest,
+  FacilityMoveRequest,
+  FacilityDemolitionRequest,
   ScriptProjectsReadModel,
   StudioCalendarView,
   StudioConstructionView,
@@ -162,6 +164,7 @@ import {
   buildQuoteKey,
   buildReceiptText,
   clampBuildOrigin,
+  clampMoveOrigin,
   defaultBuildOrigin,
   lotParcelInspectorContext,
   parcelById,
@@ -172,6 +175,14 @@ import {
   type LotParcelInspectorContext,
 } from './buildMode.ts'
 import type { LotCellPoint } from './snapshot/StudioLotSnapshot.ts'
+import { placedFacilityIdOf } from './snapshot/StudioLotSnapshot.ts'
+import {
+  demolishConfirmText,
+  demolishReceiptText,
+  moveFlowHeading,
+  moveReceiptText,
+  placedFacilityById,
+} from './facilityMutation.ts'
 import { PLACE_BY_BUILDING } from './tycoon/world.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
 import type {
@@ -489,6 +500,13 @@ type Props = {
    * re-derived by the Engine inside the commit and never taken from this surface.
    */
   onPlaceFacility?: (placement: PlacementRequest) => ActionOutcome
+  /**
+   * Move & Demolish V1 (C1-M3b): re-site or take down one placed facility through the
+   * authoritative App owner. The Lot sends an identity and (for a move) an origin;
+   * legality, price and refund are the Engine's, re-derived inside the action.
+   */
+  onMoveFacility?: (move: FacilityMoveRequest) => ActionOutcome
+  onDemolishFacility?: (demolition: FacilityDemolitionRequest) => ActionOutcome
   /** Navigate to the exact current Annex occupant's existing deep owner after revalidation. */
   onOpenAnnexWorkDetails?: (intent: LotAnnexWorkOwnerIntent) => boolean
   /** Navigate from an explicitly inspected Stage 7 production to its existing Board card. */
@@ -822,6 +840,8 @@ export function StudioLotScreen({
   onOpenCastingReviewDetails,
   onStartDevelopmentCastingAnnex,
   onPlaceFacility,
+  onMoveFacility,
+  onDemolishFacility,
   onOpenAnnexWorkDetails,
   onOpenStage7ProductionDetails,
   onOpenGateCandidateProfile,
@@ -943,7 +963,7 @@ export function StudioLotScreen({
   // reached through refs, exactly as the building activation seam already is.
   const activateParcelRef = useRef<((parcelId: string) => void) | null>(null)
   const moveBuildOriginRef =
-    useRef<((origin: LotCellPoint, fromParcelId?: string) => void) | null>(null)
+    useRef<((origin: LotCellPoint, fromParcelId?: string | null) => void) | null>(null)
   const rendererStateRef = useRef<GameState | null>(null)
   const studioHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const namedPeopleGroupRef = useRef<HTMLDivElement | null>(null)
@@ -1233,6 +1253,9 @@ export function StudioLotScreen({
   // when no richer world context applies. It replaces the old `dispatchRoute` fallthrough,
   // so no ordinary building click can eject the player out of the world any more.
   const [buildingInspectorId, setBuildingInspectorId] = useState<BuildingId | null>(null)
+  /** Read by the verb dispatcher, which must act on the id the panel currently owns. */
+  const buildingInspectorIdRef = useRef<BuildingId | null>(null)
+  buildingInspectorIdRef.current = buildingInspectorId
   const buildingInspectorHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const buildingInspectorFocusNonceRef = useRef(0)
   // ── Build Mode V1 (M2-UI) ─────────────────────────────────────────────────
@@ -1247,6 +1270,14 @@ export function StudioLotScreen({
   const [buildReceipt, setBuildReceipt] = useState<string | null>(null)
   const [buildFlowOpen, setBuildFlowOpen] = useState(false)
   const [buildAnnouncementSerial, setBuildAnnouncementSerial] = useState(0)
+  // Move & Demolish V1 (C1-M3b). The demolish intent is the whole confirm surface: it
+  // is world state, anchored to the inspector, and it commits nothing by existing.
+  const [demolishIntent, setDemolishIntent] = useState<number | null>(null)
+  const demolishIntentRef = useRef<number | null>(null)
+  const demolishConfirmRef = useRef<HTMLButtonElement | null>(null)
+  const [demolishPending, setDemolishPending] = useState(false)
+  const demolishPendingRef = useRef(false)
+  const [demolishError, setDemolishError] = useState<string | null>(null)
   const parcelInspectorHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const buildCommitRef = useRef<HTMLButtonElement | null>(null)
   const buildOriginPadRef = useRef<HTMLDivElement | null>(null)
@@ -1255,9 +1286,14 @@ export function StudioLotScreen({
   const buildPendingRef = useRef(false)
   const buildRevisionRef = useRef(0)
   const parcelFocusNonceRef = useRef(0)
-  const pendingBuildFocusRef = useRef<'parcel' | 'commit' | 'origin' | null>(null)
+  const pendingBuildFocusRef =
+    useRef<'parcel' | 'commit' | 'origin' | 'building' | 'demolish' | null>(null)
   const onPlaceFacilityRef = useRef(onPlaceFacility)
   onPlaceFacilityRef.current = onPlaceFacility
+  const onMoveFacilityRef = useRef(onMoveFacility)
+  onMoveFacilityRef.current = onMoveFacility
+  const onDemolishFacilityRef = useRef(onDemolishFacility)
+  onDemolishFacilityRef.current = onDemolishFacility
   const hollywoodCommandRef = useRef<HTMLButtonElement | null>(null)
   const hollywoodTaskStatusRef = useRef<HTMLDivElement | null>(null)
   const hollywoodStage7HeadingRef = useRef<HTMLHeadingElement | null>(null)
@@ -1476,11 +1512,25 @@ export function StudioLotScreen({
   const buildQuoteMemoKey =
     buildDraft === null
       ? null
-      : buildQuoteKey(buildDraft.blueprintId, buildDraft.origin, snapshot.week, snapshot.cash)
+      : buildQuoteKey(
+          buildDraft.blueprintId,
+          buildDraft.origin,
+          snapshot.week,
+          snapshot.cash,
+          buildDraft.movingPlacementId,
+        )
   const buildQuote: PlacementQuote | null = useMemo(() => {
     const draft = buildDraftRef.current
     if (draft === null || buildQuoteMemoKey === null) return null
-    return placementQuote(state, { blueprintId: draft.blueprintId, origin: draft.origin })
+    // A MOVE asks the same authority a different question: exclude the mover's own
+    // cells, or the building collides with the ground it is standing on (C1-M3b).
+    return placementQuote(
+      state,
+      { blueprintId: draft.blueprintId, origin: draft.origin },
+      draft.movingPlacementId === null
+        ? undefined
+        : { movingPlacementId: draft.movingPlacementId },
+    )
     // `buildQuoteMemoKey` carries the whole draft; `state` is the other input the pure
     // query reads. Both are listed, and nothing else can change the answer.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -1488,6 +1538,16 @@ export function StudioLotScreen({
   const buildBlueprint =
     buildDraft === null ? null : blueprintById(placementView, buildDraft.blueprintId)
   const buildRejectionText = quoteRejectionText(buildQuote)
+  // C1-M3b: the SAME draft machinery, asked whether it is carrying a building.
+  const movingPlacementId = buildDraft?.movingPlacementId ?? null
+  const movingFacility =
+    movingPlacementId === null
+      ? null
+      : placedFacilityById(placementView?.placements, movingPlacementId)
+  const demolishFacility =
+    demolishIntent === null
+      ? null
+      : placedFacilityById(placementView?.placements, demolishIntent)
   const operationalAnnexCapacity = annexView.status === 'operational'
     ? annexView.currentDevelopmentCastingCapacity
     : null
@@ -5196,6 +5256,7 @@ export function StudioLotScreen({
       blueprintId,
       origin,
       revision: ++buildRevisionRef.current,
+      movingPlacementId: null,
     }
     buildDraftRef.current = draft
     setBuildDraft(draft)
@@ -5218,24 +5279,141 @@ export function StudioLotScreen({
   }, [])
 
   /** Replace the draft origin, clamped inside its parcel, bumping the revision. */
-  const moveBuildOrigin = useCallback((next: LotCellPoint, fromParcelId?: string) => {
+  const moveBuildOrigin = useCallback((next: LotCellPoint, fromParcelId?: string | null) => {
     if (worldInputSuspendedRef.current || buildPendingRef.current) return
     const draft = buildDraftRef.current
     const placement = latestPlacementRef.current
     if (draft === null || placement === null) return
     // A late canvas report for a parcel the draft has already left is a superseded
-    // revision, not a new command (shift law 16).
-    if (fromParcelId !== undefined && fromParcelId !== draft.parcelId) return
-    const parcel = parcelById(placement, draft.parcelId)
+    // revision, not a new command (shift law 16). A ROAMING move draft owns no parcel,
+    // so no report can be stale against one — it is clamped to the property instead.
+    if (draft.parcelId !== null && fromParcelId !== undefined && fromParcelId !== draft.parcelId) {
+      return
+    }
+    const parcel = draft.parcelId === null ? null : parcelById(placement, draft.parcelId)
     const blueprint = blueprintById(placement, draft.blueprintId)
-    if (parcel === null || blueprint === null) return
-    const origin = clampBuildOrigin(next, parcel.rect, blueprint.footprint)
+    if (blueprint === null) return
+    if (draft.parcelId !== null && parcel === null) return
+    const origin =
+      parcel === null
+        ? clampMoveOrigin(
+            next,
+            { width: placement.lotWidth, depth: placement.lotDepth },
+            blueprint.footprint,
+          )
+        : clampBuildOrigin(next, parcel.rect, blueprint.footprint)
     if (origin.gx === draft.origin.gx && origin.gy === draft.origin.gy) return
     const updated: LotBuildDraft = { ...draft, origin, revision: ++buildRevisionRef.current }
     buildDraftRef.current = updated
     setBuildDraft(updated)
     setBuildError(null)
   }, [])
+
+  // ── Move & Demolish V1 (C1-M3b) ────────────────────────────────────────────
+  //
+  // A MOVE re-enters the machinery a build already uses — draft, revision, live quote,
+  // per-cell ghost, explicit commit — with two differences and no third: the draft
+  // carries the placement being carried, and it is bounded to the PROPERTY rather than
+  // to one parcel, because where a building the player already owns may stand is the
+  // quote's question and not a parcel's.
+  //
+  // A DEMOLISH has no draft at all. It is one identity and one confirm.
+
+  /** Pick this building up. The original stays standing until the move commits. */
+  const beginFacilityMove = useCallback((placementId: number) => {
+    if (worldInputSuspendedRef.current || buildPendingRef.current) return
+    const placement = latestPlacementRef.current
+    if (placement === null) return
+    const placed = placedFacilityById(placement.placements, placementId)
+    if (placed === null || placed.mutation?.canMove !== true) return
+    const blueprint = blueprintById(placement, placed.blueprintId)
+    if (blueprint === null) return
+    setDemolishIntent(null)
+    demolishIntentRef.current = null
+    setDemolishError(null)
+    const draft: LotBuildDraft = {
+      // A move roams: no parcel bounds it, and the per-cell verdicts teach the rest.
+      parcelId: null,
+      blueprintId: placed.blueprintId,
+      // It starts exactly where the building already stands, so "cancel" and "commit
+      // without moving" are the same no-op the player expects.
+      origin: { gx: placed.origin.gx, gy: placed.origin.gy },
+      revision: ++buildRevisionRef.current,
+      movingPlacementId: placementId,
+    }
+    buildDraftRef.current = draft
+    setBuildDraft(draft)
+    setBuildError(null)
+    setBuildReceipt(null)
+    setBuildFlowOpen(false)
+    viewRef.current?.setWorldBuildMode?.({
+      parcelId: null,
+      footprint: blueprint.footprint,
+      movingPlacementId: placementId,
+    })
+    pendingBuildFocusRef.current = 'origin'
+  }, [])
+
+  /** Open the in-world confirm. It commits nothing by existing (shift law 15). */
+  const openDemolishConfirm = useCallback((placementId: number) => {
+    if (worldInputSuspendedRef.current || demolishPendingRef.current) return
+    const placement = latestPlacementRef.current
+    if (placement === null) return
+    const placed = placedFacilityById(placement.placements, placementId)
+    if (placed === null || placed.mutation?.canDemolish !== true) return
+    cancelBuild()
+    setBuildReceipt(null)
+    setDemolishError(null)
+    demolishIntentRef.current = placementId
+    setDemolishIntent(placementId)
+    pendingBuildFocusRef.current = 'demolish'
+  }, [cancelBuild])
+
+  /** Byte-neutral: closing the confirm touches nothing but this surface. */
+  const cancelDemolish = useCallback(() => {
+    demolishIntentRef.current = null
+    setDemolishIntent(null)
+    setDemolishError(null)
+    pendingBuildFocusRef.current = 'building'
+  }, [])
+
+  /**
+   * Take it down. The Lot sends ONE identity; the refund, the ledger row and the
+   * withdrawal of the facility are all the Engine's, re-derived inside the action.
+   */
+  const confirmDemolish = useCallback(() => {
+    if (worldInputSuspendedRef.current || demolishPendingRef.current) return
+    const placementId = demolishIntentRef.current
+    const placement = latestPlacementRef.current
+    const owner = onDemolishFacilityRef.current
+    if (placementId === null || placement === null || owner === undefined) return
+    const placed = placedFacilityById(placement.placements, placementId)
+    if (placed === null) return
+    const name = placed.name
+    const refund = placed.mutation?.demolitionRefund ?? 0
+    demolishPendingRef.current = true
+    setDemolishPending(true)
+    const outcome = owner({ placementId })
+    demolishPendingRef.current = false
+    setDemolishPending(false)
+    if (!outcome.ok) {
+      // The confirm SURVIVES a rejection and the player reads the Engine's own words.
+      setBuildAnnouncementSerial((serial) => serial + 1)
+      setDemolishError(outcome.error)
+      return
+    }
+    demolishIntentRef.current = null
+    setDemolishIntent(null)
+    setDemolishError(null)
+    setBuildAnnouncementSerial((serial) => serial + 1)
+    setBuildReceipt(demolishReceiptText(name, refund))
+    // The body is gone. A selection pointing at it would be a dangling identity, which
+    // is exactly the defect family this campaign is hunting — so selection falls to
+    // neutral HERE, before any snapshot arrives to be misread (C1-M3b).
+    setBuildingInspectorId(null)
+    recordSelection(null)
+    viewRef.current?.clearHollywoodPlaceSelection?.()
+  }, [recordSelection])
 
   /** Keyboard-driven nudging — the non-pointer path to every legal origin. */
   const nudgeBuildOrigin = useCallback((dgx: number, dgy: number) => {
@@ -5253,14 +5431,25 @@ export function StudioLotScreen({
     if (worldInputSuspendedRef.current || buildPendingRef.current) return
     const draft = buildDraftRef.current
     const placement = latestPlacementRef.current
-    const owner = onPlaceFacilityRef.current
-    if (draft === null || placement === null || owner === undefined) return
+    if (draft === null || placement === null) return
+    const moving = draft.movingPlacementId
+    // ONE commit seam for both verbs. A move and a build differ in exactly two places —
+    // which owner is asked, and which receipt the player reads — and share everything
+    // else, including the re-query that keeps the runner invariant honest (C1-M3b).
+    const owner = moving === null ? onPlaceFacilityRef.current : onMoveFacilityRef.current
+    if (owner === undefined) return
     const blueprint = blueprintById(placement, draft.blueprintId)
     if (blueprint === null) return
+    const movingFrom = moving === null ? null : placedFacilityById(placement.placements, moving)
+    if (moving !== null && movingFrom === null) return
     // Re-query against the LATEST state immediately before crossing the boundary: a
     // week may have advanced under an open panel and moved the answer.
     const request: PlacementRequest = { blueprintId: draft.blueprintId, origin: draft.origin }
-    const latest = placementQuote(latestGameStateRef.current, request)
+    const latest = placementQuote(
+      latestGameStateRef.current,
+      request,
+      moving === null ? undefined : { movingPlacementId: moving },
+    )
     if (!latest.ok) {
       setBuildAnnouncementSerial((serial) => serial + 1)
       setBuildError(quoteRejectionText(latest) ?? 'This placement is no longer legal.')
@@ -5269,7 +5458,13 @@ export function StudioLotScreen({
 
     buildPendingRef.current = true
     setBuildPending(true)
-    const outcome = owner(request)
+    const outcome =
+      moving === null
+        ? (owner as (placement: PlacementRequest) => ActionOutcome)(request)
+        : (owner as (move: FacilityMoveRequest) => ActionOutcome)({
+            placementId: moving,
+            origin: draft.origin,
+          })
     buildPendingRef.current = false
     setBuildPending(false)
     if (!outcome.ok) {
@@ -5281,9 +5476,18 @@ export function StudioLotScreen({
     }
     setBuildAnnouncementSerial((serial) => serial + 1)
     setBuildError(null)
-    setBuildReceipt(buildReceiptText(latest, blueprint.name))
+    setBuildReceipt(
+      moving === null
+        ? buildReceiptText(latest, blueprint.name)
+        : moveReceiptText(
+            movingFrom?.name ?? blueprint.name,
+            parcelById(placement, latest.parcelId ?? '')?.label ?? null,
+          ),
+    )
     cancelBuild()
-    pendingBuildFocusRef.current = 'parcel'
+    // A move keeps the player with the BUILDING they were carrying; a build hands them
+    // back the ground they were building on.
+    pendingBuildFocusRef.current = moving === null ? 'parcel' : 'building'
   }, [cancelBuild])
 
   // Deliver build mode + the ghost to the renderer whenever the draft's revision, the
@@ -5299,6 +5503,9 @@ export function StudioLotScreen({
     view.setWorldBuildMode?.({
       parcelId: buildDraft.parcelId,
       footprint: buildBlueprint.footprint,
+      ...(buildDraft.movingPlacementId === null
+        ? {}
+        : { movingPlacementId: buildDraft.movingPlacementId }),
     })
     if (buildQuote === null) {
       view.setWorldPlacementPreview?.(null)
@@ -5336,8 +5543,11 @@ export function StudioLotScreen({
     pendingBuildFocusRef.current = null
     if (pending === 'origin') buildOriginPadRef.current?.focus({ preventScroll: true })
     else if (pending === 'commit') buildCommitRef.current?.focus({ preventScroll: true })
-    else parcelInspectorHeadingRef.current?.focus({ preventScroll: true })
-  }, [buildDraft, buildReceipt, worldInputSuspended])
+    else if (pending === 'demolish') demolishConfirmRef.current?.focus({ preventScroll: true })
+    else if (pending === 'building') {
+      buildingInspectorHeadingRef.current?.focus({ preventScroll: true })
+    } else parcelInspectorHeadingRef.current?.focus({ preventScroll: true })
+  }, [buildDraft, buildReceipt, demolishIntent, worldInputSuspended])
 
   // A parcel panel whose parcel stopped being describable cannot stay open.
   useEffect(() => {
@@ -5345,6 +5555,38 @@ export function StudioLotScreen({
     if (lotParcelInspectorContext(placementView, parcelInspectorId) !== null) return
     clearParcelContext()
   }, [clearParcelContext, parcelInspectorId, placementView])
+
+  /**
+   * ORPHAN SAFETY (C1-M3b) — a building that is gone cannot stay selected.
+   *
+   * The twice-found defect family in one sentence: a surface holding an identity that
+   * the latest truth no longer contains. A demolition removes a `placed-*` body, and a
+   * snapshot arriving afterwards must find every surface pointing at it ALREADY neutral
+   * — the panel, the canvas ring, the draft carrying it, and the confirm naming it.
+   *
+   * `confirmDemolish` clears the selection at the moment it dispatches; this is the
+   * second line of defence, for every OTHER way a placement can leave (a load, a
+   * session recovery, an undo of the whole studio) where nothing local was ever told.
+   */
+  useEffect(() => {
+    const placements = placementView?.placements ?? null
+    if (placements === null) return
+    const stale = (id: number | null): boolean =>
+      id !== null && placedFacilityById(placements, id) === null
+    const selectedPlacementId =
+      buildingInspectorId === null ? null : placedFacilityIdOf(buildingInspectorId)
+    if (stale(selectedPlacementId)) {
+      setBuildingInspectorId(null)
+      recordSelection(null)
+      viewRef.current?.clearHollywoodPlaceSelection?.()
+    }
+    if (stale(buildDraftRef.current?.movingPlacementId ?? null)) cancelBuild()
+    if (stale(demolishIntentRef.current)) {
+      demolishIntentRef.current = null
+      setDemolishIntent(null)
+      setDemolishError(null)
+    }
+  }, [buildingInspectorId, cancelBuild, placementView, recordSelection])
 
   /**
    * World Inspector Default V1 — the in-world landing every physical place now has.
@@ -5565,9 +5807,21 @@ export function StudioLotScreen({
         case 'open-package':
           dispatchRoute(BUILDING_ACTION.casting)
           return
+        // C1-M3b. Both verbs stay INSIDE the world: one picks the building up, the
+        // other opens a confirm beside it. Neither navigates anywhere.
+        case 'move': {
+          const placementId = placedFacilityIdOf(buildingInspectorIdRef.current ?? '')
+          if (placementId !== null) beginFacilityMove(placementId)
+          return
+        }
+        case 'demolish': {
+          const placementId = placedFacilityIdOf(buildingInspectorIdRef.current ?? '')
+          if (placementId !== null) openDemolishConfirm(placementId)
+          return
+        }
       }
     },
-    [dispatchRoute, openCurrentAuditionPlanning],
+    [beginFacilityMove, dispatchRoute, openCurrentAuditionPlanning, openDemolishConfirm],
   )
 
   /**
@@ -5624,6 +5878,145 @@ export function StudioLotScreen({
     buildingInspector?.commandOperation?.currentCommand ?? null
   const buildingInspectorCommandProductionId =
     buildingInspector?.commandOperation?.productionId ?? null
+  /**
+   * The draft controls BOTH placement verbs share (C1-M3b): the origin pad, the quote,
+   * the verdict and the two actions.
+   *
+   * Extracted rather than duplicated, because a build and a move are the same
+   * machinery pointed at different questions — and a second copy of a keyboard origin
+   * pad is a second place for its accessibility to rot. Only ONE draft exists at a
+   * time, so only one of the two panels below ever renders this.
+   *
+   * Every testid is the one the build flow has always used: it is the same control.
+   */
+  const placementDraftControls =
+    buildDraft === null || buildQuote === null ? null : (
+      <>
+        <div
+          ref={buildOriginPadRef}
+          className="lot-build-origin"
+          role="group"
+          tabIndex={-1}
+          aria-label={`Placement origin — cell ${buildDraft.origin.gx}, ${buildDraft.origin.gy}. Use the arrow keys to move the footprint.`}
+          data-testid="lot-build-origin"
+          data-origin-gx={buildDraft.origin.gx}
+          data-origin-gy={buildDraft.origin.gy}
+          data-revision={buildDraft.revision}
+          data-moving={buildDraft.movingPlacementId ?? undefined}
+          onPointerDown={containWorldInput}
+          onMouseDown={containWorldInput}
+          onTouchStart={containWorldInput}
+          onKeyDown={(event) => {
+            // Escape leaves the bounded flow from the control the player is actually
+            // holding, and leaves it BYTE-NEUTRAL: a draft was never simulation state
+            // (C1-M3b). Stopped here so the canvas' own Escape cannot also fire.
+            if (event.key === 'Escape') {
+              event.preventDefault()
+              event.stopPropagation()
+              cancelBuild()
+              pendingBuildFocusRef.current =
+                buildDraft.movingPlacementId === null ? 'parcel' : 'building'
+              return
+            }
+            const step = BUILD_ORIGIN_KEY_STEPS[event.key]
+            if (step === undefined) return
+            event.preventDefault()
+            event.stopPropagation()
+            nudgeBuildOrigin(step.gx, step.gy)
+          }}
+        >
+          <p className="lot-build-origin-label">
+            Origin cell{' '}
+            <strong data-testid="lot-build-origin-cell">
+              {buildDraft.origin.gx}, {buildDraft.origin.gy}
+            </strong>
+          </p>
+          <div className="lot-build-origin-pad">
+            {BUILD_ORIGIN_NUDGES.map((nudge) => (
+              <button
+                key={nudge.testId}
+                type="button"
+                className="ghost lot-build-nudge"
+                disabled={worldInputSuspended || buildPending}
+                onPointerDown={containWorldInput}
+                onMouseDown={containWorldInput}
+                onTouchStart={containWorldInput}
+                onClick={() => nudgeBuildOrigin(nudge.gx, nudge.gy)}
+                data-testid={`lot-build-nudge-${nudge.testId}`}
+              >
+                {nudge.label}
+              </button>
+            ))}
+          </div>
+          <p className="hint lot-build-origin-hint">
+            {buildDraft.movingPlacementId === null
+              ? 'Point anywhere on the parcel in the lot, or use the arrow keys.'
+              : 'Point anywhere on the lot, or use the arrow keys.'}
+          </p>
+        </div>
+
+        <dl className="hollywood-annex-facts" data-testid="lot-build-quote">
+          {quoteFacts(buildQuote).map((fact) => (
+            <div key={fact.key} data-fact-key={fact.key}>
+              <dt>{fact.term}</dt>
+              <dd>{fact.detail}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <p
+          className={buildQuote.ok ? 'hollywood-annex-help' : 'hollywood-annex-help is-blocked'}
+          id="lot-build-verdict"
+          data-testid="lot-build-verdict"
+          data-ok={buildQuote.ok ? 'true' : 'false'}
+        >
+          {buildError ??
+            buildRejectionText ??
+            (buildDraft.movingPlacementId === null
+              ? 'This site is clear. The studio can build here.'
+              : 'This ground is clear. The building can stand here.')}
+        </p>
+
+        <div className="lot-build-actions">
+          <button
+            ref={buildCommitRef}
+            type="button"
+            className="primary lot-build-commit"
+            aria-describedby="lot-build-verdict"
+            disabled={
+              worldInputSuspended ||
+              buildPending ||
+              !buildQuote.ok ||
+              (buildDraft.movingPlacementId === null ? !onPlaceFacility : !onMoveFacility)
+            }
+            onPointerDown={containWorldInput}
+            onMouseDown={containWorldInput}
+            onTouchStart={containWorldInput}
+            onClick={commitBuild}
+            data-testid="lot-build-commit"
+          >
+            {buildPending
+              ? 'Committing…'
+              : buildDraft.movingPlacementId === null
+                ? `Build ${buildBlueprint?.name ?? ''} · ${moneyExact(buildQuote.cost)}`
+                : 'Move it here'}
+          </button>
+          <button
+            type="button"
+            className="ghost lot-build-cancel"
+            disabled={worldInputSuspended || buildPending}
+            onPointerDown={containWorldInput}
+            onMouseDown={containWorldInput}
+            onTouchStart={containWorldInput}
+            onClick={cancelBuild}
+            data-testid="lot-build-cancel"
+          >
+            Cancel
+          </button>
+        </div>
+      </>
+    )
+
   const buildingInspectorContents = buildingInspector === null
     ? null
     : (
@@ -5691,24 +6084,121 @@ export function StudioLotScreen({
             </button>
           )}
           {buildingInspector.primaryActions.map((action) => (
-            <button
-              key={action.kind}
-              // The audition verb is a first-class retained-planner opener, so the host
-              // holds the exact element it rendered and then proves it against the
-              // document — the same discipline the companion rail row already uses.
-              ref={action.kind === 'plan-auditions'
-                ? (node) => { auditionPlanningVerbRef.current = node }
-                : undefined}
-              type="button"
-              className="accent hollywood-command hollywood-building-inspector-primary"
-              disabled={worldInputSuspended}
-              data-testid={`lot-building-inspector-primary-${action.kind}`}
-              aria-label={action.label}
-              onClick={() => takeBuildingInspectorPrimaryAction(action)}
-            >
-              {action.label}
-            </button>
+            <Fragment key={action.kind}>
+              <button
+                // The audition verb is a first-class retained-planner opener, so the host
+                // holds the exact element it rendered and then proves it against the
+                // document — the same discipline the companion rail row already uses.
+                ref={action.kind === 'plan-auditions'
+                  ? (node) => { auditionPlanningVerbRef.current = node }
+                  : undefined}
+                type="button"
+                className="accent hollywood-command hollywood-building-inspector-primary"
+                disabled={worldInputSuspended || action.disabled === true}
+                // C1-M3b: a verb the engine currently refuses is SHOWN and disabled, and
+                // its reason is bound to it — so a screen reader hears the refusal with
+                // the control, not as a loose sentence somewhere below it.
+                aria-describedby={
+                  action.reason === undefined
+                    ? undefined
+                    : `lot-building-inspector-reason-${action.kind}`
+                }
+                onPointerDown={containWorldInput}
+                onMouseDown={containWorldInput}
+                onTouchStart={containWorldInput}
+                data-testid={`lot-building-inspector-primary-${action.kind}`}
+                aria-label={action.label}
+                onClick={() => takeBuildingInspectorPrimaryAction(action)}
+              >
+                {action.label}
+              </button>
+              {action.reason !== undefined && (
+                <p
+                  className="hollywood-annex-help is-blocked"
+                  id={`lot-building-inspector-reason-${action.kind}`}
+                  data-testid={`lot-building-inspector-reason-${action.kind}`}
+                >
+                  {maskStageText(action.reason)}
+                </p>
+              )}
+            </Fragment>
           ))}
+          {/* THE IN-WORLD CONFIRM (C1-M3b). Anchored to the building it names, never a
+              browser dialog: a destructive verb must be answered where the thing being
+              destroyed is standing. It commits nothing by existing. */}
+          {demolishIntent !== null && demolishFacility !== null && (
+            <section
+              className="lot-build-flow lot-demolish-confirm"
+              aria-labelledby="lot-demolish-confirm-heading"
+              data-testid="lot-demolish-confirm"
+              data-placement-id={demolishIntent}
+            >
+              <h4 id="lot-demolish-confirm-heading" data-testid="lot-demolish-confirm-heading">
+                {demolishConfirmText(
+                  demolishFacility.name,
+                  demolishFacility.mutation?.demolitionRefund ?? 0,
+                )}
+              </h4>
+              <p
+                className={demolishError === null ? 'hollywood-annex-help' : 'hollywood-annex-help is-blocked'}
+                id="lot-demolish-verdict"
+                data-testid="lot-demolish-verdict"
+                data-ok={demolishError === null ? 'true' : 'false'}
+              >
+                {demolishError ??
+                  'The ground returns to open, buildable land. This cannot be undone.'}
+              </p>
+              <div className="lot-build-actions">
+                <button
+                  ref={demolishConfirmRef}
+                  type="button"
+                  className="primary lot-demolish-accept"
+                  aria-describedby="lot-demolish-verdict"
+                  disabled={worldInputSuspended || demolishPending || !onDemolishFacility}
+                  onPointerDown={containWorldInput}
+                  onMouseDown={containWorldInput}
+                  onTouchStart={containWorldInput}
+                  onClick={confirmDemolish}
+                  data-testid="lot-demolish-confirm-accept"
+                >
+                  {demolishPending ? 'Demolishing…' : 'Demolish it'}
+                </button>
+                <button
+                  type="button"
+                  className="ghost lot-build-cancel"
+                  disabled={worldInputSuspended || demolishPending}
+                  onPointerDown={containWorldInput}
+                  onMouseDown={containWorldInput}
+                  onTouchStart={containWorldInput}
+                  onClick={cancelDemolish}
+                  data-testid="lot-demolish-confirm-cancel"
+                >
+                  Keep it
+                </button>
+              </div>
+            </section>
+          )}
+          {/* THE MOVE FLOW (C1-M3b) — the build ghost's own machinery, re-entered with
+              this building carried. The body is still standing; nothing has moved yet. */}
+          {movingFacility !== null && buildDraft !== null && buildQuote !== null && (
+            <section
+              className="lot-build-flow lot-move-flow"
+              aria-labelledby="lot-move-flow-heading"
+              data-testid="lot-move-flow"
+              data-placement-id={movingFacility.id}
+            >
+              <h4 id="lot-move-flow-heading" data-testid="lot-move-flow-heading">
+                {moveFlowHeading(movingFacility.name)}
+              </h4>
+              {placementDraftControls}
+            </section>
+          )}
+          {buildReceipt !== null && buildDraft === null && demolishIntent === null && (
+            <p className="lot-build-receipt" data-testid="lot-building-receipt">
+              <b>✓</b>
+              <span>{buildReceipt}</span>
+            </p>
+          )}
           {/* …and when a verb this place would offer is withheld, the panel says why,
               in the same slot the button would have occupied. A silently missing control
               is the seam this campaign exists to close. */}
@@ -5878,115 +6368,8 @@ export function StudioLotScreen({
                 })}
               </ul>
 
-              {buildDraft !== null && buildQuote !== null && (
-                <>
-                  <div
-                    ref={buildOriginPadRef}
-                    className="lot-build-origin"
-                    role="group"
-                    tabIndex={-1}
-                    aria-label={`Placement origin — cell ${buildDraft.origin.gx}, ${buildDraft.origin.gy}. Use the arrow keys to move the footprint.`}
-                    data-testid="lot-build-origin"
-                    data-origin-gx={buildDraft.origin.gx}
-                    data-origin-gy={buildDraft.origin.gy}
-                    data-revision={buildDraft.revision}
-                    onPointerDown={containWorldInput}
-                    onMouseDown={containWorldInput}
-                    onTouchStart={containWorldInput}
-                    onKeyDown={(event) => {
-                      const step = BUILD_ORIGIN_KEY_STEPS[event.key]
-                      if (step === undefined) return
-                      event.preventDefault()
-                      event.stopPropagation()
-                      nudgeBuildOrigin(step.gx, step.gy)
-                    }}
-                  >
-                    <p className="lot-build-origin-label">
-                      Origin cell{' '}
-                      <strong data-testid="lot-build-origin-cell">
-                        {buildDraft.origin.gx}, {buildDraft.origin.gy}
-                      </strong>
-                    </p>
-                    <div className="lot-build-origin-pad">
-                      {BUILD_ORIGIN_NUDGES.map((nudge) => (
-                        <button
-                          key={nudge.testId}
-                          type="button"
-                          className="ghost lot-build-nudge"
-                          disabled={worldInputSuspended || buildPending}
-                          onPointerDown={containWorldInput}
-                          onMouseDown={containWorldInput}
-                          onTouchStart={containWorldInput}
-                          onClick={() => nudgeBuildOrigin(nudge.gx, nudge.gy)}
-                          data-testid={`lot-build-nudge-${nudge.testId}`}
-                        >
-                          {nudge.label}
-                        </button>
-                      ))}
-                    </div>
-                    <p className="hint lot-build-origin-hint">
-                      Point anywhere on the parcel in the lot, or use the arrow keys.
-                    </p>
-                  </div>
-
-                  <dl className="hollywood-annex-facts" data-testid="lot-build-quote">
-                    {quoteFacts(buildQuote).map((fact) => (
-                      <div key={fact.key} data-fact-key={fact.key}>
-                        <dt>{fact.term}</dt>
-                        <dd>{fact.detail}</dd>
-                      </div>
-                    ))}
-                  </dl>
-
-                  <p
-                    className={
-                      buildQuote.ok ? 'hollywood-annex-help' : 'hollywood-annex-help is-blocked'
-                    }
-                    id="lot-build-verdict"
-                    data-testid="lot-build-verdict"
-                    data-ok={buildQuote.ok ? 'true' : 'false'}
-                  >
-                    {buildError ??
-                      buildRejectionText ??
-                      'This site is clear. The studio can build here.'}
-                  </p>
-
-                  <div className="lot-build-actions">
-                    <button
-                      ref={buildCommitRef}
-                      type="button"
-                      className="primary lot-build-commit"
-                      aria-describedby="lot-build-verdict"
-                      disabled={
-                        worldInputSuspended ||
-                        buildPending ||
-                        !buildQuote.ok ||
-                        !onPlaceFacility
-                      }
-                      onPointerDown={containWorldInput}
-                      onMouseDown={containWorldInput}
-                      onTouchStart={containWorldInput}
-                      onClick={commitBuild}
-                      data-testid="lot-build-commit"
-                    >
-                      {buildPending
-                        ? 'Committing…'
-                        : `Build ${buildBlueprint?.name ?? ''} · ${moneyExact(buildQuote.cost)}`}
-                    </button>
-                    <button
-                      type="button"
-                      className="ghost lot-build-cancel"
-                      disabled={worldInputSuspended || buildPending}
-                      onPointerDown={containWorldInput}
-                      onMouseDown={containWorldInput}
-                      onTouchStart={containWorldInput}
-                      onClick={cancelBuild}
-                      data-testid="lot-build-cancel"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </>
+              {buildDraft !== null && buildQuote !== null && buildDraft.movingPlacementId === null && (
+                <>{placementDraftControls}</>
               )}
             </section>
           )}
