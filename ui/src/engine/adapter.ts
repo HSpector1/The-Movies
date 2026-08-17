@@ -194,6 +194,9 @@ import {
   studioConstructionView as coreStudioConstructionView,
   // Placement Core V12 — the one construction authority (M2-UI Build Mode).
   studioPlacementView as coreStudioPlacementView,
+  // Property Geometry C1-M1a — the engine's own answer to "what stands on my ground".
+  propertyOf as corePropertyOf,
+  LEGACY_EXPANSION_PARCEL_ID,
   queryPlacement as coreQueryPlacement,
   PLACEMENT_REJECTION_ORDER,
   // The V12 placement root's own derivations — the authority the completion detector reads.
@@ -213,6 +216,7 @@ import type {
   StudioLotSnapshot,
   BuildingId,
   BuildingState,
+  FoundingBuildingId,
   ProductionCard,
   ReleasedCard,
   CashBand,
@@ -224,7 +228,10 @@ import type {
   LotAnnexWork,
   LotAnnexWorkOccupant,
   LotGateHiringMarket,
+  LotPlacedFacilityState,
   LotPlacementProjection,
+  LotPropertyProjection,
+  LotWorldBuilding,
   LotPresenceBeat,
   LotPresencePerson,
   LotPresenceProjection,
@@ -233,8 +240,9 @@ import type {
   ProductionOperationsState,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
 import {
-  ALL_BUILDING_IDS,
+  FOUNDING_BUILDING_IDS,
   LOT_PRESENCE_STATIC_BEAT,
+  placedBuildingId,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
 // The renderer's mirror of the frozen journey contract. Typing the snapshot field with
 // IT, and filling it from the CORE projection, makes any drift between engine and
@@ -5813,6 +5821,78 @@ function managedRosterPresence(
 }
 
 /**
+ * Property Geometry V1 (C1-M1b) — WHAT stands on the lot, projected for the world.
+ *
+ * The engine owns the property (`state.property`, C1-M1a); until this milestone the
+ * renderer's own `world.ts` was the authority for which buildings existed and where.
+ * This is the one seam that hands the engine's answer over. It DERIVES nothing: bounds
+ * and structures are copied field for field, and a placed facility's footprint is the
+ * extent of the cells the engine says it occupies.
+ *
+ * TWO deliberate omissions, both because the engine genuinely says so:
+ *
+ *   • the legacy Annex PARCEL is not here. `INITIAL_PROPERTY_STRUCTURES` records no body
+ *     on it ("graded open ground with no body on it until a placement completes there"),
+ *     so the marked pad the renderer paints is presentation, and the renderer composes
+ *     it in as the retained `expansion` place. That is what keeps every accepted Annex
+ *     spec passing unchanged;
+ *   • a placement standing ON the legacy parcel gets no first-class id either. It IS the
+ *     Annex, the `expansion` place already owns that ground and paints its own lifecycle,
+ *     and a second body there would be two owners for one piece of ground (shift law 10).
+ */
+function lotPropertyProjection(
+  state: GameState,
+  placement: LotPlacementProjection,
+): LotPropertyProjection {
+  const property = corePropertyOf(state)
+  const buildings: LotWorldBuilding[] = property.structures.map((structure) => ({
+    id: structure.id,
+    label: structure.label,
+    role: structure.role,
+    origin: { gx: structure.origin.gx, gy: structure.origin.gy },
+    footprint: { width: structure.footprint.width, depth: structure.footprint.depth },
+  }))
+  for (const placed of placement.placements) {
+    if (placed.parcelId === LEGACY_EXPANSION_PARCEL_ID) continue
+    const extent = placedFootprintExtent(placed)
+    if (extent === null) continue
+    buildings.push({
+      id: placedBuildingId(placed.id),
+      label: placed.name,
+      role: 'placed',
+      origin: extent.origin,
+      footprint: extent.footprint,
+      placedFacilityId: placed.id,
+      blueprintId: placed.blueprintId,
+      status: placed.status,
+    })
+  }
+  return {
+    bounds: { width: property.bounds.width, depth: property.bounds.depth },
+    buildings,
+  }
+}
+
+/** The half-open footprint one placed facility's cells describe, or null if it has none. */
+function placedFootprintExtent(
+  placed: LotPlacedFacilityState,
+): { origin: { gx: number; gy: number }; footprint: { width: number; depth: number } } | null {
+  if (!Array.isArray(placed.cells) || placed.cells.length === 0) return null
+  let x0 = placed.cells[0]!.gx
+  let y0 = placed.cells[0]!.gy
+  let x1 = x0
+  let y1 = y0
+  for (const cell of placed.cells) {
+    if (!Number.isFinite(cell.gx) || !Number.isFinite(cell.gy)) return null
+    if (cell.gx < x0) x0 = cell.gx
+    if (cell.gy < y0) y0 = cell.gy
+    if (cell.gx > x1) x1 = cell.gx
+    if (cell.gy > y1) y1 = cell.gy
+  }
+  return { origin: { gx: x0, gy: y0 }, footprint: { width: x1 - x0 + 1, depth: y1 - y0 + 1 } }
+}
+
+/**
  * Project the authoritative GameState into the lot presentation snapshot. Pure,
  * deterministic, non-mutating. The single source the Studio Lot renders from.
  */
@@ -6221,7 +6301,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
     }
   }
 
-  function buildingState(id: BuildingId): BuildingState {
+  function buildingState(id: FoundingBuildingId): BuildingState {
     let attention: AttentionState = 'normal'
     let reason: string | undefined
     switch (id) {
@@ -6381,7 +6461,41 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
     }
   }
 
-  const buildings: BuildingState[] = ALL_BUILDING_IDS.map(buildingState)
+  const placementProjection = lotPlacementProjection(state)
+  const propertyProjection = lotPropertyProjection(state, placementProjection)
+
+  /**
+   * A first-class placed facility's own availability and attention (C1-M1b).
+   *
+   * Grounded entirely in the placement projection the Engine already publishes: a site
+   * under construction is not usable and reports its own weekly advances; an operational
+   * facility is open and says so. Nothing here re-decides a completion week, and the
+   * legacy Annex is deliberately absent — `expansion` keeps stating that lifecycle.
+   */
+  function placedBuildingState(placed: LotPlacedFacilityState): BuildingState {
+    const buildWeeks = Math.max(1, placed.completesWeek - placed.placedWeek)
+    const completedAdvances =
+      placed.status === 'operational'
+        ? buildWeeks
+        : Math.max(0, Math.min(buildWeeks, week - placed.placedWeek))
+    return {
+      id: placedBuildingId(placed.id),
+      available: placed.status === 'operational',
+      ...(underDressed ? { underDressed: true } : {}),
+      attention: placed.status === 'operational' ? 'normal' : 'active',
+      attentionReason:
+        placed.status === 'operational'
+          ? 'Operational'
+          : `${String(completedAdvances)} of ${String(buildWeeks)} weekly advances complete`,
+    }
+  }
+
+  const buildings: BuildingState[] = [
+    ...FOUNDING_BUILDING_IDS.map(buildingState),
+    ...placementProjection.placements
+      .filter((placed) => placed.parcelId !== LEGACY_EXPANSION_PARCEL_ID)
+      .map(placedBuildingState),
+  ]
 
   const operationsProjection =
     state.operations.mode === 'managed'
@@ -6409,7 +6523,8 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
     },
     publicityOffers: publicityDecision(state),
     annexWork,
-    placement: lotPlacementProjection(state),
+    placement: placementProjection,
+    property: propertyProjection,
     ...(presence === undefined ? {} : { presence }),
     activeProductions,
     releasedFilms,

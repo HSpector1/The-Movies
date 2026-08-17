@@ -16,8 +16,12 @@
 // (engine boundary) and the Phaser view can depend on it without any coupling and
 // without pulling Phaser into the eager bundle.
 
-/** The nine addressable places on the lot. Stable ids the host can key on. */
-export type BuildingId =
+/**
+ * The nine FOUNDING places — the bodies (and the one graded parcel) every studio
+ * starts with. These ids are frozen vocabulary: the world, the companion navigation,
+ * the first-movie journey and every accepted receipt key on them verbatim.
+ */
+export type FoundingBuildingId =
   | 'admin' // studio administration
   | 'writers' // development
   | 'casting' // casting / talent
@@ -26,7 +30,22 @@ export type BuildingId =
   | 'post' // production / post
   | 'theater' // screening theater
   | 'gate' // studio entrance / gate
-  | 'expansion' // open pad suggesting future growth
+  | 'expansion' // the legacy Annex parcel
+
+/**
+ * One addressable place on the lot (C1-M1b).
+ *
+ * OPEN, not a closed nine-union. A studio that builds a facility on the South Lawn has
+ * a tenth addressable place, and an eleventh the week after that; a type that could not
+ * say so was the reason a placed facility had no identity, no inspector and no receipt.
+ * The founding ids above are preserved verbatim inside this alias, so nothing that keys
+ * on them changed — but no code path may assume they are the only ones.
+ *
+ * A placed facility's id is `placed-<placementId>` (see `placedBuildingId`). The ONE
+ * exception is the legacy Annex: a placement standing on the `expansion` parcel keeps
+ * being addressed as `expansion`, exactly as the accepted Annex specs require.
+ */
+export type BuildingId = string
 
 /**
  * Navigation intents a building emits to the host. These are requests to open a
@@ -453,6 +472,88 @@ export type LotBlueprintState = {
   affordable: boolean
 }
 
+// ── Property Geometry V1 (C1-M1b) — WHAT stands on the lot, and WHERE ────────
+//
+// Through M1a the renderer's own `world.ts` was the authority for which buildings
+// existed and where they stood: nine hand-authored footprints, a closed set. The engine
+// now owns that geometry (`state.property.structures`), so the snapshot carries it and
+// the renderer keeps only PRESENTATION (textures, ground anchors, signage, zoning).
+//
+// Nothing here is a rule. It is the engine's own answer to "what physically occupies my
+// ground this week", restated in the renderer's grid vocabulary. Footprints are
+// HALF-OPEN from the origin (`[gx, gx+width) × [gy, gy+depth)`), exactly as the engine
+// authors them and exactly as the renderer's building rectangles always were — NOT the
+// inclusive convention `LotGridRect` uses for ground zones.
+
+/** What kind of body a world building is. */
+export type LotWorldBuildingRole =
+  /** A civic body with no engine capacity behind it (Gate, Administration, Theater). */
+  | 'landmark'
+  /** A founding body that houses the studio's starting plant. */
+  | 'founding'
+  /** Graded ground the studio addresses as a place, with no body on it yet. */
+  | 'parcel'
+  /** A facility the studio built. Its id is `placed-<placementId>`. */
+  | 'placed'
+
+/** One addressable physical body on the property. */
+export type LotWorldBuilding = {
+  id: BuildingId
+  /** The canonical destination name. For a placed facility, the engine's own name. */
+  label: string
+  role: LotWorldBuildingRole
+  /** Half-open footprint origin, in the renderer's own (gx, gy) grid. */
+  origin: LotCellPoint
+  footprint: { width: number; depth: number }
+  /** Placed facilities only: which `LotPlacedFacilityState` this body is. */
+  placedFacilityId?: number
+  /** Placed facilities only: which blueprint's presentation template it wears. */
+  blueprintId?: string
+  /**
+   * Placed facilities only: whether a BODY stands here yet, or only a building site.
+   *
+   * The renderer needs it before it paints: a site's hit area is the graded pad it
+   * actually is, and a finished facility's is the silhouette it actually has. Status
+   * detail — the countdown, the progress, the weekly cost — stays on the placement
+   * projection, which is the authority that owns it.
+   */
+  status?: 'underConstruction' | 'operational'
+}
+
+/** Everything the engine says about the shape of its own ground this week. */
+export type LotPropertyProjection = {
+  /** The addressable grid. 28×26 is where a studio STARTS, not a constant. */
+  bounds: { width: number; depth: number }
+  /**
+   * Every body standing on the property, in a stable order: the authored structures in
+   * engine order, then the legacy Annex parcel, then placed facilities by ascending
+   * placement id. Ids are unique.
+   */
+  buildings: LotWorldBuilding[]
+}
+
+/** The id prefix every non-legacy placed facility is addressed by. */
+export const PLACED_BUILDING_ID_PREFIX = 'placed-'
+
+/** The world id of one placed facility. Stable across weeks: the engine owns the id. */
+export function placedBuildingId(placementId: number): BuildingId {
+  return `${PLACED_BUILDING_ID_PREFIX}${String(placementId)}`
+}
+
+/**
+ * Which placement a world id names, or null when the id is not a placed facility.
+ *
+ * Strict on purpose: `placed-`, `placed-x` and `placed-01` are not placement ids, and a
+ * caller that treated them as one would address a facility that does not exist.
+ */
+export function placedFacilityIdOf(id: BuildingId): number | null {
+  if (typeof id !== 'string' || !id.startsWith(PLACED_BUILDING_ID_PREFIX)) return null
+  const raw = id.slice(PLACED_BUILDING_ID_PREFIX.length)
+  if (!/^(?:0|[1-9][0-9]*)$/.test(raw)) return null
+  const parsed = Number(raw)
+  return Number.isSafeInteger(parsed) ? parsed : null
+}
+
 /** The complete placement truth of the property this week. */
 export type LotPlacementProjection = {
   mode: 'legacy' | 'managed'
@@ -509,6 +610,16 @@ type StudioLotSnapshotBase = {
    */
   placement?: LotPlacementProjection
   /**
+   * Property Geometry V1 truth — what physically stands on the lot and where (C1-M1b).
+   *
+   * Optional ONLY so the older hand-authored presentation fixtures stay source-
+   * compatible; `studioLotSnapshot()` always emits it. A consumer that finds it absent
+   * falls back to the INITIAL authored composition (see ../tycoon/buildings.ts), which
+   * is exactly what a property-less state means — the same seam the engine's own
+   * `propertyOf(state)` fallback uses.
+   */
+  property?: LotPropertyProjection
+  /**
    * Presence on the Lot V1 truth. Optional ONLY so the older hand-authored
    * presentation fixtures stay source-compatible; `studioLotSnapshot()` always emits
    * it in managed mode and omits it in legacy mode (legacy holds no reservations the
@@ -557,8 +668,15 @@ type StudioLotOperationsProjection =
 
 export type StudioLotSnapshot = StudioLotSnapshotBase & StudioLotOperationsProjection
 
-/** Every building id, in a stable order — used for defaults and iteration. */
-export const ALL_BUILDING_IDS: readonly BuildingId[] = [
+/**
+ * The nine FOUNDING ids, in a stable order — used for defaults and iteration.
+ *
+ * This is the CLOSED set, and it is closed on purpose: it names the places every studio
+ * starts with, which is what the companion navigation, the first-movie journey and the
+ * accepted receipts are written against. It is NOT "every building" any more — ask the
+ * snapshot's own `property.buildings` for that (C1-M1b).
+ */
+export const FOUNDING_BUILDING_IDS: readonly FoundingBuildingId[] = [
   'admin',
   'writers',
   'casting',
@@ -570,8 +688,22 @@ export const ALL_BUILDING_IDS: readonly BuildingId[] = [
   'expansion',
 ] as const
 
-/** Which navigation intent a building emits when its action is taken. */
-export const BUILDING_ACTION: Record<BuildingId, LotActionKind> = {
+/**
+ * Retained name for `FOUNDING_BUILDING_IDS`, same values in the same order.
+ *
+ * Typed as `readonly BuildingId[]` so every existing `.includes(someBuildingId)` membership
+ * test still compiles against the open id type. Read it as "the founding ids": since
+ * C1-M1b it has never been every id on the property.
+ */
+export const ALL_BUILDING_IDS: readonly BuildingId[] = FOUNDING_BUILDING_IDS
+
+/** Whether an open world id is one of the nine founding places. */
+export function isFoundingBuildingId(id: BuildingId): id is FoundingBuildingId {
+  return (FOUNDING_BUILDING_IDS as readonly string[]).includes(id)
+}
+
+/** Which navigation intent each FOUNDING building emits when its action is taken. */
+export const BUILDING_ACTION: Record<FoundingBuildingId, LotActionKind> = {
   admin: 'open-studio-overview',
   writers: 'assemble-film',
   casting: 'browse-talent',
@@ -583,8 +715,19 @@ export const BUILDING_ACTION: Record<BuildingId, LotActionKind> = {
   expansion: 'view-expansion',
 }
 
+/**
+ * The navigation intent for ANY world id (C1-M1b).
+ *
+ * A placed facility the studio built is studio development: the same deep destination
+ * the Annex parcel already opens, and the only screen that owns building on the lot.
+ * That is a default, not a guess — every placed facility genuinely lives there.
+ */
+export function buildingActionFor(id: BuildingId): LotActionKind {
+  return isFoundingBuildingId(id) ? BUILDING_ACTION[id] : 'view-expansion'
+}
+
 /** Canonical destination names (Gate D1 addendum §5). The single source of truth for labels. */
-export const BUILDING_LABELS: Record<BuildingId, string> = {
+export const BUILDING_LABELS: Record<FoundingBuildingId, string> = {
   gate: 'Studio Gate',
   admin: 'Administration',
   casting: 'Casting / Talent',
@@ -594,4 +737,26 @@ export const BUILDING_LABELS: Record<BuildingId, string> = {
   post: 'Production / Post',
   theater: 'Theater',
   expansion: 'Development & Casting Annex',
+}
+
+/**
+ * The canonical name of ANY world id (C1-M1b).
+ *
+ * A founding place reads from the frozen table above; a placed facility reads its name
+ * from the ENGINE — `LotWorldBuilding.label` is `PlacedFacility.name`, which is the
+ * de-duplicated identity the engine already assigned ("Development & Casting Annex 2").
+ * A name is never invented: an id the snapshot cannot account for gets no name at all.
+ */
+export function buildingLabelFor(
+  id: BuildingId,
+  property?: LotPropertyProjection | null,
+): string | null {
+  if (isFoundingBuildingId(id)) return BUILDING_LABELS[id]
+  const buildings = property?.buildings
+  if (!Array.isArray(buildings)) return null
+  const matches = buildings.filter((building) => building?.id === id)
+  // Two bodies claiming one id is contradictory truth: name neither.
+  if (matches.length !== 1) return null
+  const label = matches[0]!.label
+  return typeof label === 'string' && label.trim().length > 0 ? label : null
 }
