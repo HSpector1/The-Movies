@@ -582,7 +582,12 @@ describe('World-First Selected Stage 7 Production Detail Handoff — Lot boundar
     const view = await latestView()
 
     await waitFor(() => expect(screen.getByTestId('lot-studio-heading')).toHaveFocus())
-    expect(screen.getByTestId('hollywood-production-idle')).toHaveTextContent('No active production')
+    // No production card: the desk is in its no-operation branch, which First Movie
+    // Journey Wave 1 gave to picture guidance.
+    expect(screen.queryByTestId('hollywood-current-production')).not.toBeInTheDocument()
+    expect(screen.getByTestId('hollywood-production-idle')).toContainElement(
+      screen.getByTestId('lot-picture-guidance'),
+    )
     expect(screen.getByTestId('hollywood-inspector')).toHaveTextContent('Studio idle')
     expect(screen.getByTestId('hollywood-select-production-replacement-stage-7'))
       .toHaveAttribute('aria-pressed', 'false')
@@ -618,7 +623,12 @@ describe('World-First Selected Stage 7 Production Detail Handoff — Lot boundar
     const view = await latestView()
 
     await waitFor(() => expect(screen.getByTestId('lot-studio-heading')).toHaveFocus())
-    expect(screen.getByTestId('hollywood-production-idle')).toHaveTextContent('No active production')
+    // No production card: the desk is in its no-operation branch, which First Movie
+    // Journey Wave 1 gave to picture guidance.
+    expect(screen.queryByTestId('hollywood-current-production')).not.toBeInTheDocument()
+    expect(screen.getByTestId('hollywood-production-idle')).toContainElement(
+      screen.getByTestId('lot-picture-guidance'),
+    )
     expect(screen.getByTestId(`hollywood-select-production-${replacementId}`))
       .toHaveAttribute('aria-pressed', 'false')
     expect(screen.queryByTestId(`hollywood-open-production-details-${replacementId}`))

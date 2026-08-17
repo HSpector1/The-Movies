@@ -201,6 +201,8 @@ import {
   // Presence Projection V1 — the engine's canonical "who is where this week".
   BEATS_PER_WEEK,
   studioPresence as coreStudioPresence,
+  // First Film Journey V1 — "where is my picture, and what do I do next", engine-owned.
+  firstFilmJourney as coreFirstFilmJourney,
 } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
@@ -233,6 +235,10 @@ import {
   ALL_BUILDING_IDS,
   LOT_PRESENCE_STATIC_BEAT,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
+// The renderer's mirror of the frozen journey contract. Typing the snapshot field with
+// IT, and filling it from the CORE projection, makes any drift between engine and
+// renderer a compile error at this one seam.
+import type { FirstFilmJourneyView } from '../lot/snapshot/firstFilmJourney.ts'
 import type {
   GameState,
   Talent,
@@ -5868,7 +5874,23 @@ function lotPlacementProjection(state: GameState): LotPlacementProjection {
   }
 }
 
-export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
+/**
+ * The lot snapshot, plus the engine's own first-film journey.
+ *
+ * The journey rides ON the snapshot so the canvas and the DOM read one identical answer
+ * in the same frame, exactly like presence and the operations projection. It is declared
+ * here rather than in `StudioLotSnapshot.ts` on purpose: that module is a pure leaf type
+ * file that imports nothing, and the journey's shape is engine-owned.
+ *
+ * Optional ONLY so the older hand-authored presentation fixtures stay source-compatible
+ * (the same allowance `presence` and `placement` already carry); `studioLotSnapshot()`
+ * always emits it.
+ */
+export type StudioLotSnapshotWithJourney = StudioLotSnapshot & {
+  firstFilmJourney?: FirstFilmJourneyView
+}
+
+export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourney {
   const week = state.market.tick
   const cash = state.studio.cash
   const standing = state.studio.standing
@@ -6386,6 +6408,8 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshot {
     gateHiringMarket,
     selectedBuildingId: null, // selection is UI session state, applied by the host
     sceneSeed: state.seed,
+    // Engine truth, copied not derived: the lot never re-answers where the picture is.
+    firstFilmJourney: coreFirstFilmJourney(state),
     ...operationsProjection,
   }
 }

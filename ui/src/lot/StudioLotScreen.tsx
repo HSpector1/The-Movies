@@ -129,6 +129,15 @@ import {
   type LotCastingReviewTarget,
 } from './snapshot/castingReview.ts'
 import {
+  firstFilmJourneyContext,
+  journeyTargetBuildingId,
+  type FirstFilmJourneyNext,
+} from './snapshot/firstFilmJourney.ts'
+import {
+  LotPictureGuidanceCard,
+  type LotPictureGuidanceState,
+} from './LotPictureGuidanceCard.tsx'
+import {
   getLotSelectedBuilding,
   setLotSelectedBuilding,
 } from './snapshot/selectedBuildingSession.ts'
@@ -150,6 +159,7 @@ import {
   type LotParcelInspectorContext,
 } from './buildMode.ts'
 import type { LotCellPoint } from './snapshot/StudioLotSnapshot.ts'
+import { PLACE_BY_BUILDING } from './tycoon/world.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
 import type {
   HollywoodPerformance,
@@ -1372,6 +1382,18 @@ export function StudioLotScreen({
   const currentPublicityCampaign = publicityCampaignContext(snapshot)
   const currentAnnexWork = operationalAnnexWorkContext(snapshot)
   const currentGateMarket = gateHiringMarketContext(snapshot)
+  // The picture's own journey, exactly as the engine projected it. The host never
+  // re-derives a stage, a headline, or a next step from GameState — it only decides
+  // whether it has trustworthy truth to render, and where on the lot a semantic
+  // destination physically is.
+  const pictureJourney = firstFilmJourneyContext(snapshot)
+  // A projection that is present but untrustworthy is NOT the same fact as no
+  // projection: it may not quietly become "the studio lot is idle", a claim this host
+  // cannot prove while a picture may be in development.
+  const pictureGuidanceState: LotPictureGuidanceState =
+    pictureJourney.kind === 'view'
+      ? { kind: 'view', view: pictureJourney.view }
+      : { kind: 'unavailable' }
   const currentFormationContext = formationReceipt === null
     ? null
     : productionFormationContext(snapshot, formationReceipt)
@@ -5380,6 +5402,25 @@ export function StudioLotScreen({
   }, [activate])
 
   /**
+   * Take the picture's ONE imperative next step.
+   *
+   * Guidance is a SUGGESTION that points at the world, never a shortcut around it: the
+   * step resolves to a physical building and then does exactly what clicking that
+   * building does — `activate` selects it and lands its in-world context — plus a camera
+   * PAN to frame it. Never a zoom (one camera grammar: a selection pans), never a jump
+   * (`focusHollywoodPlace` glides and no-ops when the place is already comfortably in
+   * frame), and never a full-screen management screen.
+   */
+  const takePictureGuidanceStep = useCallback((next: FirstFilmJourneyNext) => {
+    if (worldInputSuspendedRef.current) return
+    const target = journeyTargetBuildingId(next.site, latestSnapshotRef.current)
+    // An unaddressable step is a real answer, not a fallback to some other building.
+    if (target === null) return
+    activate(target)
+    viewRef.current?.focusHollywoodPlace?.(PLACE_BY_BUILDING[target].placeId)
+  }, [activate])
+
+  /**
    * Companion/canvas parity for a parcel. The DOM list and the world hit area both call
    * exactly this, so the two surfaces can never route the same ground to different
    * owners (shift law 10) — the same contract `activate` holds for buildings.
@@ -7348,7 +7389,9 @@ export function StudioLotScreen({
                       )
                     )}
                   </>
-                ) : (
+                ) : pictureJourney.kind === 'absent' ? (
+                  // No journey projection on this snapshot at all. Claim only what the
+                  // studio's own production truth proves, exactly as before.
                   <>
                     <p className="hollywood-eyebrow"><i /> STUDIO OPERATIONS</p>
                     <h2>No active production</h2>
@@ -7356,6 +7399,16 @@ export function StudioLotScreen({
                       The studio lot is idle. Assemble a film to begin production.
                     </p>
                   </>
+                ) : (
+                  // Before a picture is greenlit this desk used to say the lot was idle
+                  // while a screenplay was drafting and auditions were running. The
+                  // picture owns the slot from before its first commission instead.
+                  <LotPictureGuidanceCard
+                    state={pictureGuidanceState}
+                    onNextStep={takePictureGuidanceStep}
+                    reducedMotion={reducedMotion}
+                    disabled={worldInputSuspended}
+                  />
                 )}
               </section>
 

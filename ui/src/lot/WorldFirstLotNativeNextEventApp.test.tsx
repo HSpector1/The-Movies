@@ -899,9 +899,14 @@ describe('World-First Lot-Native Next-Event Cadence V1 — App/Lot integration',
       'studio-home',
     )
     expect(screen.queryByTestId('lot-script-review-panel')).not.toBeInTheDocument()
+    // No REVIEW surface may substitute the next screenplay. The picture-guidance card is
+    // not a review surface: naming the studio's current picture is the engine's own
+    // journey projection, and it is excluded here rather than being asserted away.
     expect(
-      screen.queryByRole('heading', { name: replacement.title }),
-    ).not.toBeInTheDocument()
+      screen
+        .queryAllByRole('heading', { name: replacement.title })
+        .filter((heading) => heading.closest('[data-testid="lot-picture-guidance"]') === null),
+    ).toEqual([])
     expect(screen.getByTestId('lot-sim-to-next-event')).toBeDisabled()
   })
 

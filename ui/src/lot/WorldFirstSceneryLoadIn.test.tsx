@@ -1070,8 +1070,11 @@ describe('World-First Scenery Load-In V1 — StudioLotScreen contract', () => {
         expect(screen.queryByTestId('hollywood-scenery-load-in-context')).not.toBeInTheDocument()
         expect(screen.queryByTestId('hollywood-activity-message')).not.toBeInTheDocument()
       })
-      expect(screen.getByTestId('hollywood-production-idle')).toHaveTextContent(
-        'No active production',
+      // No production card: the desk is in its no-operation branch, which First Movie
+      // Journey Wave 1 gave to picture guidance.
+      expect(screen.queryByTestId('hollywood-current-production')).not.toBeInTheDocument()
+      expect(screen.getByTestId('hollywood-production-idle')).toContainElement(
+        screen.getByTestId('lot-picture-guidance'),
       )
       expect(screen.getByTestId('hollywood-inspector')).toHaveTextContent('Studio idle')
       expect(view.productionSelections).toEqual([])

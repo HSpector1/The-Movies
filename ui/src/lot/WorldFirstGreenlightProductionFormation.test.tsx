@@ -449,8 +449,11 @@ describe('World-First Greenlight Production Formation — Studio Lot boundary', 
 
       rendered.rerender(<StudioLotScreen {...lotProps({ ...after }, receipt)} />)
 
+      // The desk returns to its no-operation branch, which First Movie Journey Wave 1
+      // gave to picture guidance. The invariant under test is the next line: no
+      // substituted production card.
       await waitFor(() => expect(screen.getByTestId('hollywood-production-idle'))
-        .toHaveTextContent('No active production'))
+        .toContainElement(screen.getByTestId('lot-picture-guidance')))
       expect(screen.queryByTestId('hollywood-current-production')).not.toBeInTheDocument()
       expect(screen.queryByTestId('hollywood-production-formation-witness')).not.toBeInTheDocument()
       expect(screen.getByTestId('lot-production-formation-announcement').textContent).toBe('')
@@ -478,8 +481,8 @@ describe('World-First Greenlight Production Formation — Studio Lot boundary', 
     const view = await latestView()
 
     await waitFor(() => expect(screen.getByTestId('lot-studio-heading')).toHaveFocus())
-    expect(screen.getByTestId('hollywood-production-idle')).toHaveTextContent(
-      'No active production',
+    expect(screen.getByTestId('hollywood-production-idle')).toContainElement(
+      screen.getByTestId('lot-picture-guidance'),
     )
     expect(screen.queryByTestId('hollywood-current-production')).not.toBeInTheDocument()
     expect(screen.queryByTestId('hollywood-production-formation-witness')).not.toBeInTheDocument()
