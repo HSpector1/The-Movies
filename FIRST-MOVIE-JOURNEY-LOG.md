@@ -328,6 +328,25 @@ Log corrections (Fable's own overclaims, per red-team):
   staffing released Week 13 from the same Week-2 greenlight. Release week is
   staffing-dependent; recorded as drift, not a defect.
 
+### Final fix wave — RULED KEEP; SHIFT SEALED (2026-08-17)
+
+All five chartered fixes landed (commits `3c53c64`…`b7cec9a`, 919 insertions /
+13 files): the retained audition planner plans every picture (strict-context
+emptiness clauses removed, faithfulness proofs kept, real-browser falsification
+extended in `lot-founded-audition-path-v1`); the untrue package sentence cut; the
+scenery step names the flagged place; Development explains a closed commission;
+the rewriting attr documented. Verified by the PM on the final tree: both tsc
+clean; vitest 226 files / **3,110** tests green; Playwright FULL **194 passed /
+4 env-gated GPU skips / 0 failed** (14.8m, exit 0); and a LIVE film-#2 probe —
+post-release, "Plan auditions at Casting" for "A Season of Escapement" mounted
+the retained planner over the live lot (`lot-audition-workspace: 1, Casting Room
+screen: 0, lot mounted`), with the corrected ready-to-package copy visible.
+
+The shift is sealed per the Owner stop condition. No successor campaign begun.
+Next: Owner's fresh PM planning pass with The Movies Mechanics Bible + screenshot
+corpus. Deferred defects and next hills recorded in
+`FIRST-MOVIE-JOURNEY-HANDOFF.md`.
+
 ### Phase 0 — Research + cold playtest (complete)
 
 - Research workflow dispatched: The Movies (pipeline + lot/UI, two agents), Zoo Tycoon,

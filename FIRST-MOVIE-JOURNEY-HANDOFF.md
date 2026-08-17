@@ -1,4 +1,4 @@
-# First Movie Journey — Handoff (DRAFT — finalize at seal)
+# First Movie Journey — Handoff
 
 Sealed: 2026-08-17. Shift: Fable-led first-movie-journey campaign (successor to the
 tycoon world conversion).
@@ -6,7 +6,8 @@ tycoon world conversion).
 ## Recovery coordinates
 - Branch: `first-movie-journey-v1` (remote `hspector-github`), from Tycoon World V1
   `b58e6f8a92c0022c613b5c1591f734ae6db3453f`; canonical `main` still `2be6656`.
-- HEAD: (fill at seal); local == remote required. Two-key rule: no self-merge to main.
+- HEAD at seal: the commit that finalizes this file (branch tip on `hspector-github`;
+  local == remote verified in the seal report). Two-key rule: no self-merge to main.
 - Launch: `cd ui && npm run dev -- --host 127.0.0.1 --port 5174` → http://127.0.0.1:5174/
 
 ## The Owner rulings that bound this shift
@@ -35,16 +36,34 @@ tycoon world conversion).
    single-line waiting copy; audition review leads with the reads; person-panel
    jargon removed; Casting Room de-strands after starting auditions; toast off the
    roster chips; package candidate buttons accessibly named.
-6. Golden-path e2e spec (fill name at seal) drives the whole chain guidance-first.
+6. Golden-path e2e spec `ui/e2e/first-movie-golden-path-v1.spec.ts` drives the whole
+   chain guidance-first (found through greenlight + first shooting blocker), proving
+   at every step that the lot screen and canvas are the same mounted nodes.
+7. Final fix wave from red-team findings: the retained audition planner now plans
+   EVERY picture (the append-only-sessions emptiness clause removed at the strict
+   context, faithfulness proofs kept; live-verified on film #2); the untrue
+   "go straight to the picture's package" sentence removed; the scenery step names
+   the place the world flags; Development explains why commissioning is closed
+   instead of going quiet; the rewriting stage attr documented.
 
-## Gates at seal (fill)
-- Root+ui tsc: … · vitest: … files / … tests · Playwright FULL: …
-- Red-team verdict: …
+## Gates at seal (all rerun by the PM on the final tree)
+- Root tsc clean · ui tsc clean · production build passing (fix-wave writer)
+- vitest: 226 files / 3,110 tests, 0 failed
+- Playwright FULL: 194 passed / 4 env-gated GPU skips / 0 failed (14.8m, exit 0)
+- Red-team verdict: VERIFIED WITH CAVEATS (all caveats either fixed in the final
+  wave or deferred on the record below); first film held adversarial testing on
+  three seeds; determinism, reduced-motion, camera law, focus traps verified.
 
-## Known defects and honest limits (fill from red-team)
-- (carry) No world-mounted package re-entry: "Open the picture's package" uses the
-  deep Casting path; retained Package workspace opens only from the casting-review
-  handoff.
+## Known defects and honest limits (deferred on the record)
+- (P0-3, deferred) No world-mounted package re-entry: after Escape from the package
+  workspace, guidance points at "Assemble the picture's package at Casting" whose
+  only path is the full-screen Casting Room. Sharpest motivation for next-hills #1.
+- (P1-4, deferred) With one production active the desk shows the production card and
+  the guidance card does not render for a concurrent second picture's pre-greenlight
+  journey (red-badge + blocked-sim grammar carries it). Desk ownership with two
+  pictures is an Owner design decision.
+- (P2-8, deferred) A staffing-blocked package still shows an enabled next step and
+  marker (ties to the recorded commissioning-strips-roles design finding).
 - (carry) Audition slate cards lack aria-pressed selected state.
 - (carry) Casting Room auto-return loses its live-region announcement (legacy path).
 - (carry) Person-vs-building click precision near busy buildings.
