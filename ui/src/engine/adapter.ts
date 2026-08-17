@@ -200,6 +200,10 @@ import {
   queryPlacement as coreQueryPlacement,
   PLACEMENT_REJECTION_ORDER,
   // Move & Demolish V1 (C1-M3a) — the two destructive verbs' own probes.
+  // Facility Effects (C1-M4) — the one authority for what a standing building does.
+  DEVELOPMENT_OFFICE_TIER_BLUEPRINT_IDS,
+  developmentOfficeEstUplift as coreDevelopmentOfficeEstUplift,
+  hasOperationalBlueprint as coreHasOperationalBlueprint,
   facilityMoveRefusal as coreFacilityMoveRefusal,
   facilityDemolitionRefusal as coreFacilityDemolitionRefusal,
   facilityDemolitionRefund as coreFacilityDemolitionRefund,
@@ -974,6 +978,33 @@ export function facilityDemolitionRefusal(
   request: FacilityDemolitionRequest,
 ): PlacementMutationRefusal | null {
   return coreFacilityDemolitionRefusal(state, request)
+}
+
+/**
+ * What the studio's development offices are currently worth to a new screenplay
+ * (C1-M5), or null when it owns no operational tier.
+ *
+ * M4's finding: the commission form's "Est." is the WRITER's own estimate, and the
+ * office uplift lands later, at draft time — so a player reading the form sees a
+ * building they paid $600,000 for change nothing at all. This is the one line that
+ * closes that, and every number in it comes from the engine's own effects authority.
+ * Nothing here is hard-coded and nothing about the Est. figure or the writer order
+ * changes: the form gains a sentence, not a different answer.
+ */
+export function developmentOfficeUplift(
+  state: GameState,
+): { blueprintId: string; name: string; points: number } | null {
+  const points = coreDevelopmentOfficeEstUplift(state)
+  if (points <= 0) return null
+  // The HIGHEST operational tier is the one whose uplift is in force — the tiers
+  // replace one another rather than stacking, so naming the lower one would be wrong.
+  for (const blueprintId of [...DEVELOPMENT_OFFICE_TIER_BLUEPRINT_IDS].reverse()) {
+    if (!coreHasOperationalBlueprint(state, blueprintId)) continue
+    const blueprint = blueprintById(blueprintId)
+    if (blueprint === null) return null
+    return { blueprintId, name: blueprint.name, points }
+  }
+  return null
 }
 
 export function moveFacilityAction(state: GameState, move: FacilityMoveRequest): ActionOutcome {

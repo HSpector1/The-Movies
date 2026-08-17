@@ -278,7 +278,12 @@ describe('C1-M1b — THREE placed facilities are three first-class world citizen
       )
       expect(context.buildingId).toBe(placedBuildingId(placed.id))
       expect(context.label).toBe(placed.name)
-      expect(context.role).toContain(placed.name)
+      // C1-M5: "what is this" is the blueprint's own authored effect sentence — the
+      // same words the catalog used to sell it. The NAME is the heading above it.
+      expect(context.role).toBe(
+        snapshot.placement!.catalog.find((entry) => entry.blueprintId === placed.blueprintId)!
+          .effectSummary,
+      )
       expect(context.status).toContain(placed.name)
       expect(context.deepLabel).toBe('Studio Development')
       seen.add(context.label)

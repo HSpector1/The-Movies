@@ -12,6 +12,7 @@ import {
   scriptProjectsBoard,
   runScriptProjectAction,
   commissionScriptAction,
+  developmentOfficeUplift,
 } from '../engine/adapter.ts'
 import type {
   ActionOutcome,
@@ -136,11 +137,22 @@ export function ScreenplayCommissionForm({
   onSubmit,
   onClose,
   onError,
+  officeUplift = null,
 }: {
   board: ScriptProjectsReadModel
   onSubmit: (payload: CommissionScriptPayload) => ActionOutcome
   onClose: () => void
   onError: (message: string) => void
+  /**
+   * C1-M5: what the studio's development offices will add to this draft, or null.
+   *
+   * The "Est." beside each writer is the WRITER's own estimate; the office uplift is
+   * applied at DRAFT time, so without this line a player who has just paid $600,000
+   * for Development Office II reads a form where nothing whatsoever changed. The
+   * numbers come from the engine's effects authority — this form states them and
+   * computes nothing.
+   */
+  officeUplift?: { name: string; points: number } | null
 }) {
   const firstConcept = board.commission.concepts[0]
   // The default writer is the best AVAILABLE person whose profession is actually Writer.
@@ -221,6 +233,13 @@ export function ScreenplayCommissionForm({
       </div>
 
       <Blockers blockers={board.commission.blockers} testId="commission-blockers" />
+
+      {officeUplift !== null && officeUplift.points > 0 && (
+        <p className="hint" data-testid="commission-office-uplift">
+          {officeUplift.name} will add {officeUplift.points} points of estimated strength
+          to this draft.
+        </p>
+      )}
 
       <div className="grid grid-2">
         <label className="stack" htmlFor="script-concept">
@@ -507,6 +526,7 @@ export function WritersRoom({
       {commissioning && (
         <ScreenplayCommissionForm
           board={board}
+          officeUplift={developmentOfficeUplift(state)}
           onSubmit={(payload) => {
             const result = commissionScriptAction(state, payload)
             if (result.ok) onChange(result.next)

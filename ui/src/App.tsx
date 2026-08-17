@@ -68,6 +68,7 @@ import {
   moveFacilityAction,
   demolishFacilityAction,
   studioDecision,
+  developmentOfficeUplift,
   studioDevelopment,
   studioPlacement,
   studioLotSnapshot,
@@ -680,10 +681,13 @@ function genuineLotAuditionDraftChange(
 
 function RetainedScreenplayCommissionForm({
   board,
+  officeUplift,
   onSubmit,
   onClose,
 }: {
   board: ScriptProjectsReadModel
+  /** C1-M5: the standing development office's uplift, from the accepted state. */
+  officeUplift: { name: string; points: number } | null
   onSubmit: (payload: CommissionScriptPayload) => ActionOutcome
   onClose: () => void
 }) {
@@ -692,6 +696,7 @@ function RetainedScreenplayCommissionForm({
     <>
       <ScreenplayCommissionForm
         board={board}
+        officeUplift={officeUplift}
         onSubmit={onSubmit}
         onClose={onClose}
         onError={setError}
@@ -4389,6 +4394,7 @@ export function App() {
                 <RetainedScreenplayCommissionForm
                   key={retainedCommissionWorkspace.key}
                   board={retainedCommissionBoard}
+                  officeUplift={developmentOfficeUplift(retainedCommissionWorkspace.acceptedState)}
                   onSubmit={(payload) => handleLotCommissionSubmit(
                     retainedCommissionWorkspace,
                     retainedCommissionWorkspace.acceptedState,

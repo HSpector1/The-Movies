@@ -35,6 +35,7 @@ import {
   isFoundingBuildingId,
   placedFacilityIdOf,
 } from './snapshot/StudioLotSnapshot.ts'
+import { lotCatalogEntryFor } from './buildCatalog.ts'
 import {
   canOfferFacilityVerbs,
   demolishVerbLabel,
@@ -891,10 +892,16 @@ export function lotBuildingInspectorContext(
   const placed = placedFacilityFor(snapshot, buildingId)
   if (placed !== null) {
     label = placed.name
+    // WHAT IS THIS — the blueprint's own authored sentence (C1-M5). The catalog told
+    // the player what this building would do when they chose it; the building says the
+    // same thing, in the same words, for as long as it stands. A blueprint the catalog
+    // cannot account for falls back to naming what it is rather than inventing a claim.
+    const effect = lotCatalogEntryFor(snapshot.placement, placed.blueprintId)?.effectSummary ?? null
     role =
-      placed.status === 'operational'
+      effect ??
+      (placed.status === 'operational'
         ? `A studio facility the lot built — ${placed.name}`
-        : `A facility under construction on the studio's own ground — ${placed.name}`
+        : `A facility under construction on the studio's own ground — ${placed.name}`)
     facts.push(...placedFacts(snapshot, placed, calendar))
     occupantFacts.push(...presenceFacts(snapshot, buildingId, [placed.facilityId]))
     facts.push(...operationFacts(operations))
