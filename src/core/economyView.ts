@@ -455,6 +455,12 @@ const KIND_FIELD: Record<LedgerKind, keyof FinanceTotals> = {
   termination: 'termination',
   publicity: 'publicity',
   constructionCapex: 'construction',
+  // C1-M3a: a demolition refund recovers CAPITAL, so it reports in the same
+  // bucket its capex row did. `construction` therefore reads as NET capital
+  // spend — what the studio actually sank into buildings it still has — which is
+  // the number a producer is asking for. Filing the credit anywhere else would
+  // overstate construction forever and flatter operating cash.
+  facilityDemolitionRefund: 'construction',
   // Placement Core V12: the weekly operating cost of operational placed
   // facilities is its own auditable LEDGER KIND (one aggregated row per week,
   // correlated to nothing per-film) but it reports inside the existing OVERHEAD
@@ -545,6 +551,10 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
         s.publicity += e.amount
         break
       case 'constructionCapex':
+      // C1-M3a: the refund is a POSITIVE amount in the same bucket, so this line
+      // nets capital recovered against capital committed. Same reasoning as
+      // KIND_FIELD above; the two must never disagree.
+      case 'facilityDemolitionRefund':
         s.construction += e.amount
         break
       case 'signingBonus':

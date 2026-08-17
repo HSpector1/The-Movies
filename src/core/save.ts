@@ -104,6 +104,7 @@ import {
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
   FACILITY_BLUEPRINTS,
+  FACILITY_DEMOLITION_LEDGER_NOTE,
   FACILITY_OPEX_LEDGER_NOTE,
 } from "./tuning.js";
 import {
@@ -503,6 +504,20 @@ function rejectV13AuthorityAtHistoricalBoundary(
       `${label}: state.property belongs only to SaveFileV13 and cannot appear at this historical boundary`,
     );
   }
+  // C1-M3a: the demolition refund is V13-only ledger authority, exactly as
+  // constructionCapex was V11-only and facilityOpex V12-only. Accepting one under
+  // an older tag would let a caller keep the credit while discarding the
+  // placement history that justifies it.
+  if (Array.isArray(state.ledger)) {
+    for (let i = 0; i < state.ledger.length; i++) {
+      const entry = state.ledger[i];
+      if (isRecord(entry) && entry.kind === "facilityDemolitionRefund") {
+        throw new Error(
+          `${label}: state.ledger[${String(i)}] contains SaveFileV13 facility demolition authority`,
+        );
+      }
+    }
+  }
 }
 
 // ── V1 validation (ORIGINAL rules, UNCHANGED) ────────────────────────────────
@@ -797,11 +812,29 @@ const LEDGER_KINDS = [
 ] as const;
 const V11_LEDGER_KINDS = [...LEDGER_KINDS, "constructionCapex"] as const;
 const V12_LEDGER_KINDS = [...V11_LEDGER_KINDS, "facilityOpex"] as const;
+const V13_LEDGER_KINDS = [
+  ...V12_LEDGER_KINDS,
+  "facilityDemolitionRefund",
+] as const;
 
 // Historical validators use the exact facility/ledger laws they shipped with.
 // V11 reuses their exhaustive structural checks under this explicitly wider,
 // Annex-only policy, then validates the construction root and all correlations.
-type LiveStateValidationPolicy = "historical" | "annex-v1" | "placement-v12";
+type LiveStateValidationPolicy =
+  | "historical"
+  | "annex-v1"
+  | "placement-v12"
+  // C1-M3a: the live V13 policy. It differs from "placement-v12" in exactly one
+  // way — it admits the `facilityDemolitionRefund` ledger kind — and it exists so
+  // that admission cannot leak backwards. A genuine SaveFileV12 is still
+  // validated under "placement-v12" and still refuses the row, which is what
+  // makes the historical boundary real rather than nominal.
+  | "property-v13";
+
+/** Both policies that know about the placement root and its catalog project ids. */
+function placementAwarePolicy(policy: LiveStateValidationPolicy): boolean {
+  return policy === "placement-v12" || policy === "property-v13";
+}
 const CAREER_REASON_CODES = [
   "substantialLeadExposure",
   "supportingRoleVisibility",
@@ -1635,7 +1668,7 @@ function v8LedgerEntry(
   policy: LiveStateValidationPolicy = "historical",
 ): void {
   const entry = v8Record(value, label);
-  const constructionAware = policy === "annex-v1" || policy === "placement-v12";
+  const constructionAware = policy === "annex-v1" || placementAwarePolicy(policy);
   v8ExactKeys(
     entry,
     ["week", "kind", "amount", "note"],
@@ -1647,11 +1680,13 @@ function v8LedgerEntry(
   v8Integer(entry.week, `${label}.week`, 0);
   v8Enum(
     entry.kind,
-    policy === "placement-v12"
-      ? V12_LEDGER_KINDS
-      : policy === "annex-v1"
-        ? V11_LEDGER_KINDS
-        : LEDGER_KINDS,
+    policy === "property-v13"
+      ? V13_LEDGER_KINDS
+      : policy === "placement-v12"
+        ? V12_LEDGER_KINDS
+        : policy === "annex-v1"
+          ? V11_LEDGER_KINDS
+          : LEDGER_KINDS,
     `${label}.kind`,
   );
   v8Number(entry.amount, `${label}.amount`);
@@ -1662,7 +1697,7 @@ function v8LedgerEntry(
       v8Error(`${label}.talentId`, "references unknown talent");
   }
   v8OptionalString(entry, "productionId", label);
-  if (policy === "placement-v12") {
+  if (placementAwarePolicy(policy)) {
     // Placement Core V12 widens the correlation to any catalog project id and adds
     // the weekly operating row. The exact identity, week, price, and note are
     // proved against the placement record by assertStudioPlacementInvariants; this
@@ -1671,11 +1706,16 @@ function v8LedgerEntry(
       entry,
       "constructionProjectId",
     );
-    if (entry.kind === "constructionCapex") {
+    // C1-M3a: the refund shares the capex row's correlation field, because the
+    // shared project id IS the link between committing capital and recovering it.
+    const correlatedKind =
+      entry.kind === "constructionCapex" ||
+      (policy === "property-v13" && entry.kind === "facilityDemolitionRefund");
+    if (correlatedKind) {
       if (!hasConstructionProjectId) {
         v8Error(
           `${label}.constructionProjectId`,
-          "is required for constructionCapex",
+          `is required for ${String(entry.kind)}`,
         );
       }
       v8String(entry.constructionProjectId, `${label}.constructionProjectId`, true);
@@ -1685,14 +1725,31 @@ function v8LedgerEntry(
       ) {
         v8Error(
           label,
-          "constructionCapex cannot carry talentId or productionId",
+          `${String(entry.kind)} cannot carry talentId or productionId`,
         );
       }
     } else if (hasConstructionProjectId) {
       v8Error(
         `${label}.constructionProjectId`,
-        "is forbidden unless kind is constructionCapex",
+        policy === "property-v13"
+          ? "is forbidden unless kind is constructionCapex or facilityDemolitionRefund"
+          : "is forbidden unless kind is constructionCapex",
       );
+    }
+    if (policy === "property-v13" && entry.kind === "facilityDemolitionRefund") {
+      // A refund is the one INFLOW in the construction family. A negative or zero
+      // "refund" would be a disguised charge; the exact depreciated amount and its
+      // correlation to a real prior capex row are proved by the placement
+      // invariants, which run over the whole state.
+      if (typeof entry.amount !== "number" || !(entry.amount > 0)) {
+        v8Error(`${label}.amount`, "must be a positive credit");
+      }
+      if (entry.note !== FACILITY_DEMOLITION_LEDGER_NOTE) {
+        v8Error(
+          `${label}.note`,
+          `must equal ${JSON.stringify(FACILITY_DEMOLITION_LEDGER_NOTE)}`,
+        );
+      }
     }
     if (entry.kind === "facilityOpex") {
       if (
@@ -2490,7 +2547,7 @@ function checkOperationsState(
           facilityPolicy: "annex-v1",
           annexOperational: facilities.has(ANNEX_FACILITY_ID),
         }
-      : policy === "placement-v12"
+      : placementAwarePolicy(policy)
         ? // The exact V12 facility set is a function of the placement root, which
           // this nested frozen-V11 projection deliberately cannot see. The V12
           // validator proves it immediately afterwards through
@@ -3132,7 +3189,7 @@ function checkConstructionShape(
     }
   }
 
-  if (policy === "placement-v12" && construction.projects.length > 0) {
+  if (placementAwarePolicy(policy) && construction.projects.length > 0) {
     v11Error(
       "state.construction.projects",
       "must be empty in SaveFileV12; placement owns every capital project",
@@ -3223,9 +3280,9 @@ function validateSaveV11WithPolicy(
     "state",
     V11_OPTIONAL_STATE_KEYS,
   );
-  if (policy !== "placement-v12") {
+  if (!placementAwarePolicy(policy)) {
     rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV11");
-  rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV11");
+    rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV11");
   }
 
   const hasCashLedgerCheckpoint = Object.prototype.hasOwnProperty.call(
@@ -3245,7 +3302,7 @@ function validateSaveV11WithPolicy(
         state: v10State,
         broadcastCache: save.broadcastCache,
       },
-      policy === "placement-v12" ? "placement-v12" : "annex-v1",
+      placementAwarePolicy(policy) ? policy : "annex-v1",
     );
   } catch (error) {
     throw new Error(
@@ -3263,7 +3320,7 @@ function validateSaveV11WithPolicy(
   // Under the V12 policy this projection is a fragment of a larger state: the
   // construction/cash law it owns is proved by the placement authority, which the
   // V12 validator runs over the WHOLE state immediately after this returns.
-  if (policy !== "placement-v12") {
+  if (!placementAwarePolicy(policy)) {
     try {
       // The checker reads no V12 root, so a frozen V11 fragment is a valid input.
       assertStudioConstructionInvariants(state as unknown as GameStateV13);
@@ -3439,7 +3496,10 @@ function validateSaveV12WithPolicy(
         state: v11State,
         broadcastCache: save.broadcastCache,
       },
-      "placement-v12",
+      // C1-M3a: thread the LIVE policy down so a V13 save's demolition-refund
+      // rows survive the frozen-V12 projection, while a genuine V12 file is still
+      // validated under "placement-v12" and still refuses them.
+      policy === "property-v13" ? "property-v13" : "placement-v12",
     );
   } catch (error) {
     throw new Error(
@@ -3708,6 +3768,11 @@ function historicalLedgerProjection(
         "frozen save projection cannot discard authoritative V12 facility operating ledger state",
       );
     }
+    if (entry.kind === "facilityDemolitionRefund") {
+      throw new Error(
+        "frozen save projection cannot discard authoritative V13 facility demolition ledger state",
+      );
+    }
   }
   // The discriminant and forbidden-correlation checks above narrow this exact
   // array logically; preserve its identity at the historical projection boundary.
@@ -3807,6 +3872,11 @@ function historicalConstructionLedgerProjection(
     if (entry.kind === "facilityOpex") {
       throw new Error(
         "frozen save projection cannot discard authoritative V12 facility operating ledger state",
+      );
+    }
+    if (entry.kind === "facilityDemolitionRefund") {
+      throw new Error(
+        "frozen save projection cannot discard authoritative V13 facility demolition ledger state",
       );
     }
     if (
@@ -4068,6 +4138,15 @@ function assertFrozenBuilderCanProjectV13State(
   builder: string,
 ): void {
   const candidate = state as Record<string, unknown>;
+  if (Array.isArray(candidate.ledger)) {
+    for (const raw of candidate.ledger) {
+      if (isRecord(raw) && raw.kind === "facilityDemolitionRefund") {
+        throw new Error(
+          `${builder}: cannot downgrade or discard authoritative V13 facility demolition ledger state`,
+        );
+      }
+    }
+  }
   if (Object.prototype.hasOwnProperty.call(candidate, "property")) {
     if (!deepEqual(candidate.property, INITIAL_PROPERTY)) {
       throw new Error(
@@ -4714,6 +4793,9 @@ const LEDGER_KIND_PROVES_ENGAGEMENT = {
   // V12: a placed facility can only exist in a founded, engaged, managed studio,
   // so its weekly operating charge is decisive engagement evidence.
   facilityOpex: true,
+  // C1-M3a: demolishing one requires having built one, so the refund is decisive
+  // engagement evidence for exactly the same reason its capex row is.
+  facilityDemolitionRefund: true,
 } as const satisfies Record<LedgerKind, boolean>;
 
 function ledgerKindProvesEngagement(kind: LedgerKind): boolean {

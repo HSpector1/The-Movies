@@ -376,7 +376,12 @@ export type LedgerEntryV10 = {
 }
 
 export type LedgerKindV11 = LedgerKindV10 | 'constructionCapex'
-export type LedgerKind = LedgerKindV11 | 'facilityOpex'
+export type LedgerKindV12 = LedgerKindV11 | 'facilityOpex'
+// C1-M3a: the credit returned when a placed facility is demolished. Its own
+// kind, never a negative capex and never generic revenue, so the whole capital
+// life of a building — committed, operated, recovered — is one auditable trail
+// correlated by `constructionProjectId`.
+export type LedgerKind = LedgerKindV12 | 'facilityDemolitionRefund'
 
 // Frozen V11 rows discriminate the one capital event and its exact correlation.
 // Construction capex cannot masquerade as film/talent spend, while historical
@@ -416,6 +421,20 @@ export type LedgerEntry =
       talentId?: never
       productionId?: never
       constructionProjectId?: never
+      note: string
+    }
+  // C1-M3a. A POSITIVE amount — the only inflow in the construction family —
+  // carrying the SAME `constructionProjectId` as the capex row it refunds. That
+  // shared id is the whole correlation: exactly one refund per project, never a
+  // refund without a prior capex, and never a refund for a facility still
+  // standing. All three are asserted by the placement invariants.
+  | {
+      week: number
+      kind: 'facilityDemolitionRefund'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId: string
       note: string
     }
 

@@ -627,6 +627,38 @@ export const FACILITY_BLUEPRINTS: readonly FacilityBlueprint[] = [
 /** The canonical ledger note for a weekly placed-facility operating charge. */
 export const FACILITY_OPEX_LEDGER_NOTE = 'weekly facility operating cost'
 
+// ── C1-M3a Move & Demolish V1 ────────────────────────────────────────────────
+/**
+ * What relocating one placed facility costs. ZERO in V1: moving a building is a
+ * planning decision, and charging for it before there is any reason to would be
+ * a number invented to look like economy.
+ *
+ * It exists as a named constant, is charged through the ordinary cash path, and
+ * is invariant-checked, so introducing a real relocation fee later is a one-line
+ * tuning change rather than a new code path — and the path is already proven by
+ * the tests that run with it set to zero.
+ */
+export const FACILITY_MOVE_COST = 0
+
+/**
+ * The fraction of a facility's ORIGINAL capital cost returned when it is
+ * demolished. Reasonable depreciation: half.
+ *
+ * Deliberately FLAT in V1. An age curve (newer buildings recover more) is future
+ * tuning, not law — the law is that it is strictly less than 1, which is what
+ * makes build-then-demolish always a net loss and refund farming impossible. The
+ * invariant enforces that bound so no future tuning can quietly break it.
+ *
+ * The same fraction applies to a site demolished mid-construction. The studio
+ * committed the whole capital sum at the moment it broke ground; a half-built
+ * building is not worth more than a finished one, and a second fraction would be
+ * a second number to justify with nothing to justify it.
+ */
+export const FACILITY_DEMOLITION_REFUND_FRACTION = 0.5
+
+/** The canonical ledger note for a demolition refund credit. */
+export const FACILITY_DEMOLITION_LEDGER_NOTE = 'facility demolition refund'
+
 // ── §5.1 cast weighting ──────────────────────────────────────────────────────
 export const CAST_WEIGHT: Record<CastSlot, number> = { lead: 1.0, antagonist: 0.6, support: 0.35 }
 
