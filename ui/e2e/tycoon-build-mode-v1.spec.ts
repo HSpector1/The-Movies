@@ -480,6 +480,15 @@ test('the whole build loop runs in the world: parcel → catalog → ghost → c
   // precedence, not a defect) — so the proof uses ground the gate does not cover.
   await clickCell(page, 4, 17) // the Theater, to take the rail away from the parcel
   await expect(page.getByTestId('lot-building-inspector-theater')).toBeVisible()
+  // The picture-guidance card owns the desk's corner of the screen and, expanded at this
+  // viewport, its body reaches down over part of the South Lawn. Fold it to its header
+  // with the same control the player has, so this proof keeps using the exact ground it
+  // was written for — and so the fold is proven to actually give the world back.
+  await page.getByTestId('lot-picture-guidance-toggle').click()
+  await expect(page.getByTestId('lot-picture-guidance-toggle')).toHaveAttribute(
+    'aria-expanded',
+    'false',
+  )
   await clickCell(page, BUILD_PARCEL_RECT.x0, BUILD_PARCEL_RECT.y1)
   await expect(page.getByTestId(`lot-parcel-inspector-${BUILD_PARCEL}`)).toHaveAttribute(
     'data-parcel-status',

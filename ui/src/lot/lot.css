@@ -1018,6 +1018,10 @@
   outline: 3px solid #f2cf78;
   outline-offset: 2px;
 }
+/* `display: grid` on a class outranks the UA's `[hidden] { display: none }`, so the
+   collapsed body would stay painted in a real browser while every DOM test still read it
+   as hidden. State the hidden case explicitly. */
+.hollywood-picture-guidance-body[hidden] { display: none; }
 .hollywood-picture-guidance-body {
   display: grid;
   gap: 7px;
