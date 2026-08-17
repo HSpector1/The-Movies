@@ -49,6 +49,82 @@ RollerCoaster Tycoon made the Lot/Park drive the game, then match those dynamics
 - **E — First film golden path**: the real systems, sequenced into one excellent
   first-film experience; then visible-filmmaking theater on top of presence.
 
+## Research verdict (Phase 0, complete)
+
+Five researchers (The Movies ×2, Zoo Tycoon, RCT, modern successors) + synthesis; full
+reports in `docs/research/donor-game-research.json`, design map in
+`docs/research/tycoon-lot-dynamics-synthesis.json`. The load-bearing conclusions:
+
+1. **The Movies' core teaching device was ONE physical film token** (script page →
+   camera → film can) carried through buildings-in-order, its HUD card and physical
+   location always matching. Our exact missing piece pre-greenlight.
+2. **Buildings were verb menus** (walls drop → named drop-rooms: Begin Casting, Shoot
+   It, Release); the Casting Office floorplan doubled as the production checklist —
+   every unfilled role a visibly empty room.
+3. **Guiding Streams**: pick anything up and a sparkling, explicitly ignorable trail
+   points to the most sensible target; Tab jumps to highest-priority pending action.
+   Lionhead already answered Milestone A — suggestion, not automation.
+4. **Imperative stage-completion copy** named building + verb ("Your script is complete
+   and ready for casting in the Casting Office"), never a stat readout.
+5. What The Movies got WRONG (we must beat): star-nannying micromanagement with no
+   delegation ramp; bubble flooding at scale; an opaque nine-factor quality formula;
+   no interesting failure; the machinima toolset taped on outside the economy.
+6. Donor-wide anti-patterns adopted as law for this shift: no panel-completable action
+   the lot can't show; every blocked state names its blocking dependency and is
+   clickable; no unexplainable derived number; no auto-popping overlays; no scripted
+   tutorial state divorced from engine state; pans, never teleports.
+
+## Frozen milestone targets
+
+### Wave 1 — M-A/C: the picture as guided world object (TWO writers, disjoint surfaces)
+
+**Engine writer (src/core only).** New pure, save-neutral projection
+`firstFilmJourney(state)` (presence.ts pattern) deriving the journey from existing read
+models (`scriptProjectsReadModel`, `castingSessionsReadModel`, `nextStudioDecision`,
+`state.studio.activeProductions`): stages no-picture → drafting → script-review →
+ready-to-package → auditioning → audition-review → in-production → released, each with
+pictureTitle, headline, detail, imperative next (label + targetBuildingId + kind),
+waiting, blocker. Copy is engine-owned, plain Hollywood language. Plus two read-model
+fixes: commission writer list sorted by writing estimate desc (scriptReadModel.ts:490,
+kills the actor-default trap) and lotAttention "Writers Room idle" suppressed while a
+picture occupies the facility. Unit tests for every stage + determinism.
+
+**UI writer (ui/ only).** The idle "No active production" branch of the top-left card
+becomes the persistent picture/guidance card driven by the projection (via adapter):
+eyebrow YOUR FIRST PICTURE (later YOUR NEXT PICTURE), title, stage headline, detail,
+one imperative next-step button. Clicking it PANS and selects the target building
+(never a screen teleport; `panCentreIntoView` grammar). Collapsible (UI pref, not
+save). Post-greenlight the existing production card continues to own the slot (it
+already implements C for production). DOM-only — structural tuples must not move.
+
+### Wave 2 — M-B: buildings answer "what can I do here right now" (ONE writer)
+
+Extend `LotBuildingInspectorContext` with engine-derived `primaryActions`; render
+between status and deep-details: Development → "Commission a screenplay" (opens the
+existing retained commission workspace via the assembly interception) / Casting →
+"Plan auditions for <title>" (calls the existing `openCurrentAuditionPlanning` retained
+path — the full-screen Casting Room becomes deep-details only, fixing the eject/strand
+seam). Inspector reorder to: what is this → what is happening → actions → capacity →
+deep details. Copy wave rides along: deep labels to plain language ("Open Development
+details"), "auditions optional" reframed to lead with the action, person-panel "Lot
+snapshot" copy, internal IDs out of review headers, toast repositioned off the roster
+chips, a11y names on package candidate cards.
+
+### Wave 3 — M-D: the world points at the next step (ONE writer, TycoonScene)
+
+Subtle world marker on the guidance target building (one at a time, ignorable — the
+restrained Guiding Stream), sign vocabulary aligned with guidance strings. Structural
+tuples re-pinned per fixture with named reasons (law 25).
+
+### Wave 4 — M-E: golden path proven
+
+e2e golden-path spec (fresh fixture → guidance-driven chain to greenlight, asserting
+each stage's guidance + world state); Fable fresh-studio playtest as a new player;
+red-team; fix wave; docs + handoff. NOT in scope this shift (recorded for next hills):
+pre-delivered first screenplay, physical audition queues, premiere events, floorplan
+verb-rooms, trade-paper ticker, morphing token icon — the research file holds the
+designs.
+
 ## Shift record
 
 ### Phase 0 — Research + cold playtest (in progress)
