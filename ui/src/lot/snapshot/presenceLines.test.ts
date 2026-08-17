@@ -256,4 +256,36 @@ describe('facility presence occupants', () => {
       [],
     )
   })
+
+  it('claims NEITHER copy when one id appears twice — contradictory truth', () => {
+    // The exact contradiction `lotPersonPresenceLine` already withholds on. The two
+    // records disagree about the slot, and nothing in a presentation projection can
+    // adjudicate them, so the building panel must not print either one — otherwise the
+    // person panel (silent) and the facility panel (naming a slot) disagree about the
+    // same week. The OTHER people in the same building are untouched.
+    const contradicted = [
+      person(),
+      person({ slot: 1 }),
+      person({ talentId: 'talent-d', name: 'Ida Cross', credit: 'director', slot: 1 }),
+    ]
+    const here = lotFacilityPresenceOccupants(snapshot(contradicted), [
+      'facility-development-casting',
+    ])
+    expect(here.map((occupant) => occupant.name)).toEqual(['Ida Cross'])
+    expect(here.some((occupant) => occupant.talentId === 'talent-w')).toBe(false)
+    expect(lotPersonPresenceLine(snapshot(contradicted), 'talent-w')).toBeNull()
+  })
+
+  it('withholds a duplicated id even when the copies sit in DIFFERENT buildings', () => {
+    // A person cannot be in two places in one week. Neither building may claim them —
+    // a facility-local duplicate check would have let both print the same name.
+    const split = [
+      person(),
+      person({ facilityId: 'facility-soundstage-07', slot: 1, credit: 'director' }),
+    ]
+    expect(
+      lotFacilityPresenceOccupants(snapshot(split), ['facility-development-casting']),
+    ).toEqual([])
+    expect(lotFacilityPresenceOccupants(snapshot(split), ['facility-soundstage-07'])).toEqual([])
+  })
 })

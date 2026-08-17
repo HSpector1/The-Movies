@@ -74,6 +74,25 @@ function presenceRecords(
   )
 }
 
+/**
+ * Every talent id the projection claims MORE THAN ONCE, over the whole people array.
+ *
+ * Scope matters: `lotPersonPresenceLine` withholds on a second record wherever it stands,
+ * so a facility list that only noticed duplicates inside its own building would still be
+ * able to disagree with the person panel about the same person.
+ */
+function duplicatedTalentIds(people: readonly LotPresencePerson[]): ReadonlySet<string> {
+  const once = new Set<string>()
+  const twice = new Set<string>()
+  for (const person of people) {
+    if (typeof person !== 'object' || person === null) continue
+    if (!isText(person.talentId)) continue
+    if (once.has(person.talentId)) twice.add(person.talentId)
+    else once.add(person.talentId)
+  }
+  return twice
+}
+
 /** Which beat the inspectors read. Falls back to the first beat, never to a guess. */
 function staticBeatOf(snapshot: StudioLotSnapshot): number {
   const beat = snapshot.presence?.staticBeat
@@ -182,14 +201,16 @@ export function lotFacilityPresenceOccupants(
   const wanted = new Set(facilityIds)
   const beat = staticBeatOf(snapshot)
   const occupants: LotPresenceOccupant[] = []
-  const seen = new Set<string>()
+  const duplicated = duplicatedTalentIds(presence.people)
   for (const person of presence.people) {
     if (typeof person !== 'object' || person === null) continue
     if (person.facilityId === null || !wanted.has(person.facilityId)) continue
     if (!isText(person.talentId) || !isText(person.name)) continue
-    // A duplicated id in the projection is contradictory truth; claim neither copy.
-    if (seen.has(person.talentId)) continue
-    seen.add(person.talentId)
+    // A duplicated id in the projection is contradictory truth: the copies can disagree
+    // about site, credit or stance and nothing here can adjudicate them. Claim NEITHER
+    // copy — the exact strictness `lotPersonPresenceLine` already applies to the same
+    // person, so the two panels can never disagree about one week (laws 6 / 17 / 21).
+    if (duplicated.has(person.talentId)) continue
     const stance = Array.isArray(person.beats) ? person.beats[beat] : undefined
     if (stance !== 'at-site' && stance !== 'waiting') continue
     occupants.push({
