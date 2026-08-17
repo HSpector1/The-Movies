@@ -232,6 +232,29 @@ structural tuple re-pinned 64/30 → 62/29 with byte-identical decoded bytes (de
 one more employee claimed by a company under the writer-default fix); Casting Room
 auto-return loses its live-region announcement (law-26 flag; the legacy path only).
 
+### Wave 3 — RULED KEEP (Fable playtest 2026-08-17)
+
+The world now points at the next step: a soft warm pool of light (marquee tones,
+brass rim, ~2.6s alpha breath; static under reduced-motion) on the ONE building the
+journey names. Verified live by me with the state-diff method: apron present around
+Development at Week 0 (`data-guidance-target="writers"`), gone during drafting
+(`none`), moved to Casting after accept (`casting`), and SUPPRESSED whenever the red
+decision badge owns the target (review-required states read `none` — one attention
+system per building, falsification-proven at both host and renderer layers by the
+writer). Copy fixes verified live: single quiet waiting line ("The camera tests
+finish in Week 2 — advance the week."), audition-review detail leads with results
+("The camera tests are in — 6 reads are waiting at Casting"). Tuple re-pins: +1
+display object (the one shared marker layer) on four grid fixtures, all plate
+fixtures byte-identical, dynamic actors/decoded bytes/draw calls unchanged
+everywhere; commission-workspace open/close equality intact. Gates verified by my
+runs: both tsc clean, 226 files / 3,104 tests green; writer's full Playwright at
+HEAD: 192 passed / 4 env-gated GPU skips. Taste rulings on reported deviations:
+amber `warning` does NOT suppress the marker (correct — they signal different
+things); institution-band-unreachable-at-small-windows is a pre-existing camera
+fact; no marker on the retained plate (correct — rollback path has no property).
+A11y note carried to backlog: audition slate cards expose names but not selected
+state (no aria-pressed).
+
 ### Phase 0 — Research + cold playtest (complete)
 
 - Research workflow dispatched: The Movies (pipeline + lot/UI, two agents), Zoo Tycoon,
