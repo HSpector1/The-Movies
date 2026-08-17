@@ -1012,6 +1012,56 @@ function assertBlueprintCatalogInvariants(): void {
       `${label} capex must be positive so its demolition refund is strictly lossy`,
     )
 
+    // C1-M4 — BOUNDED TERMS. Every authored number a catalog entry carries has a
+    // stated range, checked at every action, tick, and save boundary. M4 widens
+    // this catalog from one entry to seven; the cost of a typo in a price or a
+    // footprint is a save that validates and a game that is quietly wrong, so
+    // the ranges are asserted rather than trusted to review.
+    invariant(
+      Number.isInteger(blueprint.capex),
+      `${label} capex must be a whole number of dollars`,
+    )
+    invariant(
+      Number.isInteger(blueprint.buildWeeks) && blueprint.buildWeeks >= 1,
+      `${label} buildWeeks must be a positive whole number of weeks`,
+    )
+    invariant(
+      Number.isInteger(blueprint.weeklyOperatingCost) && blueprint.weeklyOperatingCost >= 0,
+      `${label} weeklyOperatingCost must be a non-negative whole number of dollars`,
+    )
+    invariant(
+      Number.isInteger(blueprint.capacity) && blueprint.capacity >= 0,
+      `${label} capacity must be a non-negative whole number of slots`,
+    )
+    invariant(
+      Number.isInteger(blueprint.footprint.width) &&
+        Number.isInteger(blueprint.footprint.depth) &&
+        blueprint.footprint.width >= 1 &&
+        blueprint.footprint.depth >= 1,
+      `${label} footprint must be at least one cell in each direction`,
+    )
+    invariant(
+      Number.isInteger(blueprint.clearanceRing) && blueprint.clearanceRing >= 0,
+      `${label} clearanceRing must be a non-negative whole number of cells`,
+    )
+    invariant(
+      blueprint.name.length > 0 && blueprint.facilityIdBase.length > 0 &&
+        blueprint.projectIdBase.length > 0,
+      `${label} must carry a name and both identity bases`,
+    )
+
+    // C1-M4 — NO DECORATIVE BLUEPRINTS, enforced at the one place every entry
+    // must pass through. An entry that changes nothing has nothing to say here,
+    // so the emptiness surfaces at authoring time rather than in a playtest.
+    invariant(
+      blueprint.effectSummary.trim().length > 0,
+      `${label} must say what it does for the player`,
+    )
+    invariant(
+      blueprint.effectSummary.trim().endsWith('.'),
+      `${label} effect summary must be a complete sentence`,
+    )
+
     if (blueprint.maxInstances !== undefined) {
       invariant(
         Number.isInteger(blueprint.maxInstances) && blueprint.maxInstances >= 1,

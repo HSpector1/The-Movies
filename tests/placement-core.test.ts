@@ -102,6 +102,8 @@ describe('Placement Core V12 — the blueprint catalog', () => {
       facilityIdBase: 'facility-development-casting-annex',
       projectIdBase: 'construction-development-casting-annex',
       ledgerNote: 'Development & Casting Annex construction',
+      effectSummary:
+        'Adds one shared Development & Casting slot, so one more screenplay or audition can run at a time.',
       // C1-M2: unconditionally available and unlimited — the proven V11 law,
       // now stated in the declarative schema instead of by the schema's absence.
       requires: [],

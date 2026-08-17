@@ -613,6 +613,8 @@ export const DEVELOPMENT_CASTING_ANNEX_BLUEPRINT = {
   facilityIdBase: 'facility-development-casting-annex',
   projectIdBase: 'construction-development-casting-annex',
   ledgerNote: 'Development & Casting Annex construction',
+  effectSummary:
+    'Adds one shared Development & Casting slot, so one more screenplay or audition can run at a time.',
   // C1-M2: the Annex is unconditionally available and unlimited, which is exactly
   // what it has been since V11. An empty list and an absent `maxInstances` are the
   // schema's way of writing "no change" — the declarative gate arrives with the

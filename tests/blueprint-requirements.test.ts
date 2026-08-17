@@ -106,6 +106,7 @@ function synthetic(overrides: Partial<FacilityBlueprint> & { id: string }): Faci
     facilityIdBase: `facility-${overrides.id}`,
     projectIdBase: `construction-${overrides.id}`,
     ledgerNote: `${overrides.id} construction`,
+    effectSummary: 'Does something the tests do not depend on.',
     requires: [],
     ...overrides,
   }

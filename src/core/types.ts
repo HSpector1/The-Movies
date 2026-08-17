@@ -902,6 +902,20 @@ export type FacilityBlueprint = {
   projectIdBase: string
   ledgerNote: string
   /**
+   * C1-M4: ONE player-safe sentence saying what building this actually DOES.
+   *
+   * The catalog card renders it verbatim (C1-M5), so it is written under the same
+   * copy discipline as the locked-reason vocabulary: a full sentence, in the
+   * player's language, naming no engine term, no code, and no milestone.
+   *
+   * It is a REQUIRED field because of the product law it enforces. "No decorative
+   * blueprints" is easy to agree to and easy to erode; making every entry state
+   * its effect in a sentence someone has to write means an entry that does
+   * nothing has nothing to say, and the emptiness shows up at authoring time
+   * instead of in a playtest.
+   */
+  effectSummary: string
+  /**
    * C1-M2: everything that must be true before this may be built. An EMPTY list
    * means unconditionally available, which is what every V12 blueprint was.
    */
