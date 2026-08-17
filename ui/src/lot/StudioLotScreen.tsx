@@ -28,6 +28,7 @@ import type {
 import {
   careerIdentityLabel,
   placementQuote,
+  facilityDemolitionRefusal,
   scriptProjectsBoard,
   studioCalendarBoard,
   studioDecision,
@@ -179,6 +180,7 @@ import { placedFacilityIdOf } from './snapshot/StudioLotSnapshot.ts'
 import {
   demolishConfirmText,
   demolishReceiptText,
+  facilityMutationBlockedReason,
   moveFlowHeading,
   moveReceiptText,
   placedFacilityById,
@@ -5319,6 +5321,37 @@ export function StudioLotScreen({
   //
   // A DEMOLISH has no draft at all. It is one identity and one confirm.
 
+  /**
+   * The PLAYER's words for a refusal the action layer threw (C1-M3b).
+   *
+   * `applyActions` rejects a refused mutation by throwing a message that names the
+   * refusal CODE and the engine ids behind it — deliberately, so a caller error is
+   * loud. That message is diagnostics, not copy: a player must never read
+   * `facilityEngaged — "facility-development-casting-annex" is held by …`.
+   *
+   * So a failed dispatch is re-PROBED against the latest state and re-stated in the same
+   * blocked-state grammar the disabled verb uses. A refusal the probe can no longer
+   * reproduce (a genuine race) degrades to one neutral sentence rather than the raw
+   * message, because the raw message would be the worst of both.
+   */
+  const facilityRefusalWords = useCallback((placementId: number, facilityName: string): string => {
+    const refusal = facilityDemolitionRefusal(latestGameStateRef.current, { placementId })
+    return (
+      facilityMutationBlockedReason(facilityName, {
+        code: refusal?.code === 'facilityEngaged' ? 'facilityEngaged' : 'unknownPlacement',
+        holders:
+          refusal?.code === 'facilityEngaged'
+            ? refusal.holders.map((holder) => ({
+                kind: holder.kind,
+                holderId: holder.holderId,
+                activity: holder.activity,
+                title: null,
+              }))
+            : [],
+      }) ?? 'The studio cannot take this building down right now.'
+    )
+  }, [])
+
   /** Pick this building up. The original stays standing until the move commits. */
   const beginFacilityMove = useCallback((placementId: number) => {
     if (worldInputSuspendedRef.current || buildPendingRef.current) return
@@ -5397,9 +5430,10 @@ export function StudioLotScreen({
     demolishPendingRef.current = false
     setDemolishPending(false)
     if (!outcome.ok) {
-      // The confirm SURVIVES a rejection and the player reads the Engine's own words.
+      // The confirm SURVIVES a rejection, and the player reads the studio's words for
+      // what the engine refused — never the action layer's diagnostic message.
       setBuildAnnouncementSerial((serial) => serial + 1)
-      setDemolishError(outcome.error)
+      setDemolishError(facilityRefusalWords(placementId, name))
       return
     }
     demolishIntentRef.current = null
@@ -5413,7 +5447,7 @@ export function StudioLotScreen({
     setBuildingInspectorId(null)
     recordSelection(null)
     viewRef.current?.clearHollywoodPlaceSelection?.()
-  }, [recordSelection])
+  }, [facilityRefusalWords, recordSelection])
 
   /** Keyboard-driven nudging — the non-pointer path to every legal origin. */
   const nudgeBuildOrigin = useCallback((dgx: number, dgy: number) => {
