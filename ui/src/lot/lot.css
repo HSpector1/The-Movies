@@ -974,6 +974,110 @@
 .hollywood-production dd.warn { color: #efba68; }
 .hollywood-production.is-idle .hollywood-eyebrow i { background: #577064; box-shadow: none; }
 .hollywood-idle-copy { margin: 0; color: #aeb9ae; font-size: 12px; line-height: 1.5; }
+/* ── Picture guidance ─────────────────────────────────────────────────────────
+   The pre-greenlight owner of the production desk. The enclosing
+   `.hollywood-production` still owns the panel chrome, so this is content only, in
+   the same 1948 palette and the same serif/eyebrow typography as the production
+   readout it stands in for. Deliberately quiet: one imperative step, no flashing,
+   no auto-motion, and a chevron that folds it down to its header. */
+.hollywood-picture-guidance { position: relative; display: block; }
+.hollywood-picture-guidance > h2 {
+  margin: 0 0 9px;
+  padding-right: 30px;
+  font-family: Georgia, "Iowan Old Style", serif;
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 1.15;
+  letter-spacing: .01em;
+  color: #fff0cd;
+  overflow-wrap: anywhere;
+}
+.hollywood-picture-guidance-toggle {
+  position: absolute;
+  top: -11px;
+  right: -12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: #c8a65f;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1;
+}
+.hollywood-picture-guidance-toggle:hover:not(:disabled) {
+  color: #fff0cd;
+  background: rgba(0, 0, 0, .22);
+  border-color: rgba(210, 174, 98, .45);
+}
+.hollywood-picture-guidance-toggle:focus-visible {
+  outline: 3px solid #f2cf78;
+  outline-offset: 2px;
+}
+.hollywood-picture-guidance-body {
+  display: grid;
+  gap: 7px;
+  /* Collapse is a fold, never a fade-in of new claims. Motion is the only thing
+     animated, and only when the player has not asked for less of it. */
+  transition: opacity .14s ease-out;
+}
+.hollywood-picture-guidance.is-reduced-motion .hollywood-picture-guidance-body,
+.hollywood-picture-guidance.is-reduced-motion .hollywood-picture-guidance-toggle,
+.hollywood-picture-guidance.is-reduced-motion .hollywood-picture-guidance-next {
+  transition: none;
+}
+.hollywood-picture-guidance-headline {
+  margin: 0;
+  color: #ece0c4;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.hollywood-picture-guidance-detail {
+  margin: 0;
+  color: #aeb9ae;
+  font-size: 11px;
+  line-height: 1.45;
+}
+.hollywood-picture-guidance-waiting,
+.hollywood-picture-guidance-status {
+  margin: 0;
+  padding: 6px 8px;
+  color: #c6cfc3;
+  background: rgba(0, 0, 0, .2);
+  border-left: 3px solid #5e7064;
+  font-size: 11px;
+  line-height: 1.35;
+}
+.hollywood-picture-guidance-blocked { margin: 0 !important; }
+.hollywood-picture-guidance-next {
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 11px;
+  color: #fff2cf;
+  background: #40573f;
+  border: 1px solid #d2ae62;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.3;
+  text-align: left;
+}
+.hollywood-picture-guidance-next:hover:not(:disabled) {
+  background: #4d6a4b;
+  border-color: #f2cf78;
+}
+.hollywood-picture-guidance-next:focus-visible {
+  outline: 3px solid #f2cf78;
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hollywood-picture-guidance-body,
+  .hollywood-picture-guidance-toggle,
+  .hollywood-picture-guidance-next { transition: none; }
+}
 .hollywood-consequence { display: flex; align-items: flex-start; gap: 9px; margin: 10px 0 0; padding: 9px; background: rgba(104, 48, 23, .44); border-left: 3px solid #c7893d; font-size: 11px; }
 button.hollywood-consequence { width: 100%; color: inherit; text-align: left; border-top: 0; border-right: 0; border-bottom: 0; cursor: pointer; }
 button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
@@ -1691,7 +1795,10 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   position: fixed;
   z-index: 12;
   pointer-events: none;
-  bottom: 18px;
+  /* Clear the roster chips rail (`.hollywood-people`: bottom 16px, ~60px tall with
+     its scrollbar). At 18px the toast sat on top of the people the message was
+     usually about. */
+  bottom: 84px;
   left: 50%;
   transform: translateX(-50%);
   padding: 8px 14px;
@@ -1727,8 +1834,11 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   .lot-annex-fallback-context,
   .lot-script-review-fallback,
   .lot-casting-review-fallback { width: 300px; }
+  .hollywood-picture-guidance > h2 { font-size: 18px; }
+  .hollywood-picture-guidance-next { font-size: 11px; }
   .hollywood-activity {
-    bottom: 8px;
+    /* Same clearance as the desktop rule — the chips rail keeps its size here. */
+    bottom: 76px;
     left: 50%;
     width: auto;
     height: auto;
@@ -1880,6 +1990,12 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   .lot-topbar-actions { gap: 8px; }
   .lot-hollywood .lot-stage-wrap { min-height: 720px; }
   .hollywood-production, .hollywood-inspector { position: absolute; top: auto; bottom: 76px; width: calc(50% - 24px); }
+  .hollywood-production:has(.hollywood-picture-guidance) {
+    max-height: calc(100% - 92px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .hollywood-picture-guidance > h2 { font-size: 16px; }
   .hollywood-production dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hollywood-production dl div { min-width: 0; }
   .hollywood-production dd { overflow-wrap: anywhere; }
