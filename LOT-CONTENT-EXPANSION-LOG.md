@@ -94,3 +94,28 @@ M1b (UI/renderer):
 ## Dispatch record
 
 (appended per milestone)
+
+## M1a — RULING: KEEP (2026-08-17)
+
+Engine agent delivered property-as-state on 6 commits (`c057fc0..d616180`).
+PM verification: 227 files / 3,135 tests green (rerun personally), both tsc clean,
+diff reviewed. UI touches limited to the exact V11→V12 precedent (makeSaveV13 in two
+canonical-state guards, adapter migration chain, engine-migrated fixtures — nothing
+hand-edited). Judgment calls accepted and documented in code: clearance ring does
+NOT see authored structures (including them would newly reject 311 origins =
+behavior change; grandfathered like founding move/demolish exclusion); structure-
+overlap invariant runs last (can only add, never reorder, a verdict).
+
+**Design reconciliation:** M1a implements `PropertyStructure` entries in
+`state.property.structures` (8 bodies, roles landmark/founding,
+`providesFacilityIds` links) with INITIAL_STUDIO_FACILITIES untouched — this
+supersedes the log's earlier "founding facilities become PlacedFacility entries"
+phrasing. Simpler, byte-neutral, invariant-safe.
+
+Notes for later milestones: `propertyOf(state)` fallback seam (property-less state
+silently gets INITIAL_PROPERTY — correct only for V12 semantics; watch);
+`casting` body provides no engine facility (bodies stand at Development, accepted
+M1.5 behavior — inspector copy must stay truthful); initial property's real
+placement capacity ≈ 12 (3×2+ring) — the parcel map, not code, is now the binding
+constraint, as intended. Neutrality proof includes 34-week byte-identity
+(incl. rngState) of migrated-V12 vs native-V13 worlds.
