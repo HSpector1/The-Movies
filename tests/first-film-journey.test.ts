@@ -222,8 +222,15 @@ describe('First Film Journey V1 — the guided chain', () => {
       label: 'Plan auditions at Casting',
       site: 'casting',
     })
-    // The package alternative is stated, but the action leads.
-    expect(accepted.detail).toContain("the picture's package")
+    // The detail names ONLY the step this state actually offers. It used to advertise
+    // "…or go straight to the picture's package" — a route the world does not carry here
+    // (Casting's own verb opens the audition planner, and the package is reachable only by
+    // the deep path), so the sentence sent a first-time player looking for a control that
+    // is not on any surface at this stage.
+    expect(accepted.detail).toBe(
+      `Writer: ${writerName} · Auditions show you who can carry the picture`,
+    )
+    expect(accepted.detail).not.toContain('package')
 
     // ── auditions running: waiting on the camera tests ─────────────────────
     state = applyActions(state, [

@@ -580,11 +580,14 @@ function readyToPackageView(
         site: 'casting',
       }
 
-  // First-run guidance leads with the action, never with the fact that auditions
-  // may be skipped — but the alternative is stated so the choice stays the
-  // player's (the "auditions optional" reframing).
+  // First-run guidance leads with the action, and names ONLY what this state actually
+  // offers. It used to add "…or go straight to the picture's package", which advertised a
+  // step the world does not have here: at `ready-to-package` the only package route is the
+  // deep Assembly path, and Casting's own verb opens the audition planner. A card that
+  // names a control the player cannot find is the confusion this campaign exists to end
+  // (red-team finding, first-movie journey).
   const detailTail = canPlanAuditions
-    ? "Auditions show you who can carry the picture, or go straight to the picture's package"
+    ? 'Auditions show you who can carry the picture'
     : session !== undefined && session.status === 'complete'
       ? "The camera tests are done. The picture's package is next"
       : "The picture's package is next"

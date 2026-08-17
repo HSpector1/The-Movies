@@ -379,8 +379,11 @@ test('a brand-new studio reaches its first greenlight, and its first day of shoo
   // ── 6. READY TO PACKAGE — the sign and the card name the same next step ────
   await expect(page.getByTestId('lot-nav-casting-state')).toContainText('ready for auditions')
   await expect(card.headline).toHaveText('Screenplay accepted')
+  // The detail names ONLY what this state offers. The package alternative it used to
+  // advertise has no control anywhere on this stage's surfaces — Casting's verb opens the
+  // audition planner — so naming it sent the player hunting for a button that is not there.
   await expect(card.detail).toHaveText(
-    `Writer: ${writer.name} · Auditions show you who can carry the picture, or go straight to the picture's package`,
+    `Writer: ${writer.name} · Auditions show you who can carry the picture`,
   )
   await expect(card.next).toHaveText('Plan auditions at Casting')
   expect(await guidanceTarget(page)).toBe('casting')
