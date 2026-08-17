@@ -227,7 +227,10 @@ describe('StudioLotScreen — retained audition-planning origin', () => {
         buildingId: 'casting',
         action: 'browse-talent',
         attention: 'positive',
-        reason: `${title} — auditions optional`,
+        // M-B: the sign leads with the action. Auditions are still engine-optional —
+        // the picture-guidance card says so — but the building no longer advertises
+        // skipping the system that teaches casting (cold-playtest defect).
+        reason: `${title} — ready for auditions`,
       })
       expect(screen.getByTestId('lot-nav-casting-state')).toHaveTextContent(origin.cue.reason)
       expect(onNavigate).not.toHaveBeenCalled()

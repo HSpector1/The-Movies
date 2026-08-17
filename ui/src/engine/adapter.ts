@@ -5569,7 +5569,11 @@ function managedCastingLotCue(
     project.legalActions.some((action) => action.kind === 'planAuditions'),
   )
   if (readyWithLegalPlan !== undefined) {
-    return { attention: 'positive', reason: `${readyWithLegalPlan.title} — auditions optional` }
+    // The sign leads with the ACTION, never with the fact that the action is skippable.
+    // Auditions remain engine-optional and the picture-guidance card says so in as many
+    // words; a building sign that opens "— auditions optional" invited a first-time
+    // player to skip the system that teaches casting (cold-playtest defect).
+    return { attention: 'positive', reason: `${readyWithLegalPlan.title} — ready for auditions` }
   }
   const ready = board.sections.readyToPlan[0]
   if (ready !== undefined && board.capacity.available === 0) {

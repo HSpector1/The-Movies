@@ -274,7 +274,9 @@ async function prepareReadyThroughLiveLot(page: Page) {
   await expect(review).toBeVisible()
   await review.getByRole('button', { name: /^Accept / }).click()
   await expect(page.getByTestId('lot-script-review-success')).toBeVisible()
-  await expect(page.getByTestId('lot-nav-casting-state')).toContainText('auditions optional')
+  // M-B re-pin: the Casting sign now leads with the action ("ready for auditions")
+  // instead of advertising that auditions can be skipped. Same cue, same attention.
+  await expect(page.getByTestId('lot-nav-casting-state')).toContainText('ready for auditions')
   return { projectId, title }
 }
 
