@@ -91,7 +91,7 @@ export default defineConfig({
     //
     // GRID TUPLES, by fixture — displayObjects / dynamicActors / decoded bytes / draw calls:
     //
-    //     build-mode "grid managed-idle", Week 0            172 / 14 / 8,545,720 / 4
+    //     build-mode "grid managed-idle", Week 0            173 / 14 / 8,545,720 / 4
     //     presence   "grid presence",     Week 0            173 / 14 / 8,546,680 / 4
     //     presence   "grid presence greenlit", Week 0 and 1 173 / 14 / 8,546,680 / 4
     //
@@ -101,6 +101,14 @@ export default defineConfig({
     // identical Week-0/Week-1 tuples prove across a whole week playback. The presence
     // fixtures are a different studio from the build-mode one (their own seed and their own
     // roster), so their decoded-byte figure is theirs alone and is not a re-baseline of it.
+    //
+    // DOC-DRIFT REPAIR (camera-grammar shift). That first row printed the PRE-M3-UI 172
+    // until now, while the spec that owns the fixture — `tycoon-build-mode-v1.spec.ts` —
+    // has asserted 173 since M3-UI added the shared queue layer. 173 is the live number,
+    // re-measured at HEAD from a full suite run; every other row here is likewise the
+    // value its own spec asserts and re-measures. The whole-property camera control added
+    // in the same shift is DOM chrome over the canvas, so it moves no figure in this
+    // table — objects, actors, decoded bytes and draw calls are all unchanged by it.
     env: {
       VITE_STUDIO_LOT_OVERVIEW: '',
       VITE_OPERATION_HOLLYWOOD: '',

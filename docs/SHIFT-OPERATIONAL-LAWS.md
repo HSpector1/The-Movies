@@ -68,7 +68,8 @@ Compact briefing for every production agent this shift. Citations: `LL <entry> (
     the plate as well (decoded bytes and draw calls unchanged). Current live values live with
     their specs and are tabulated in the M1 quarantine note in `ui/playwright.config.ts`
     (plate: 42/19, 46/21, 62/29, 63/30, 64/30 at 11,096,896 bytes / 1 draw; grid managed-idle
-    Week 0: 172/14/8,545,720/4). The frozen 30/13/11,096,896/1 in
+    Week 0: 173/14/8,545,720/4 — 172 was the pre-M3-UI figure, superseded by the shared
+    `tier:presence-queue` layer and re-measured at HEAD). The frozen 30/13/11,096,896/1 in
     `ui/e2e/audition-planning-current-break-audit.spec.ts:144–242` is a `testIgnore`d
     historical audit and is not re-measured.
 26. Accessibility: repeated identical live-region strings need a new keyed DOM child; one
