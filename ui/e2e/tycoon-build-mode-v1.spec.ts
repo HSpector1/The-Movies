@@ -251,6 +251,19 @@ async function cellPoint(page: Page, gx: number, gy: number): Promise<{ x: numbe
   return { x: box.x + fraction.fx * box.width, y: box.y + fraction.fy * box.height }
 }
 
+/**
+ * Fold the picture-guidance card if it is open, using the player's own control.
+ *
+ * Idempotent on purpose: the card re-expands when the picture's next step changes, so a
+ * bare toggle would OPEN it for a test that ran after an advance. Its expanded body
+ * reaches over the south-lawn ground several of these journeys click on.
+ */
+async function foldGuidance(page: Page): Promise<void> {
+  const toggle = page.getByTestId('lot-picture-guidance-toggle')
+  if ((await toggle.getAttribute('aria-expanded')) === 'true') await toggle.click()
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+}
+
 async function clickCell(page: Page, gx: number, gy: number): Promise<void> {
   const point = await cellPoint(page, gx, gy)
   await page.mouse.move(point.x, point.y)
@@ -824,7 +837,7 @@ test('a facility the studio built is a first-class citizen of the world', async 
 
   // The guidance card's expanded body reaches over part of this ground at this viewport;
   // fold it with the same control the player has, exactly as the build-loop proof does.
-  await page.getByTestId('lot-picture-guidance-toggle').click()
+  await foldGuidance(page)
 
   await page.getByTestId(`lot-nav-parcel-${BUILD_PARCEL}`).focus()
   await page.getByTestId(`lot-nav-parcel-${BUILD_PARCEL}`).press('Enter')
@@ -877,7 +890,10 @@ test('a facility the studio built is a first-class citizen of the world', async 
   await expect(page.getByTestId('lot-building-inspector-facts')).toContainText('$3,500')
   expect((await gridDebug(page)).selectedPlaceId).toBe(worldId)
 
-  // …and the ground it does NOT cover still belongs to the parcel.
+  // …and the ground it does NOT cover still belongs to the parcel. The guidance card
+  // re-expands as the picture's next step moves across those thirteen weeks, so it is
+  // folded again here — the same control, for the same reason, as the build-loop proof.
+  await foldGuidance(page)
   await clickCell(page, BUILD_PARCEL_RECT.x0, BUILD_PARCEL_RECT.y1)
   await expect(page.getByTestId(`lot-parcel-inspector-${BUILD_PARCEL}`)).toHaveAttribute(
     'data-parcel-status',
