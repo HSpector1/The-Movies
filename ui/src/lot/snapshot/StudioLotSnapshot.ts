@@ -504,6 +504,24 @@ export type LotPresenceProjection = {
 export const LOT_PRESENCE_STATIC_BEAT = 5
 
 /** One buildable blueprint the catalog offers. */
+/** One unmet requirement, in the engine's own player copy (C1-M5). */
+export type LotBlueprintUnmet = {
+  /** The sentence to SHOW, verbatim. Never a code name, never re-worded here. */
+  reason: string
+  /**
+   * Whether the requirement is something a studio can work toward, or something the
+   * game does not contain yet. The catalog styles the two differently and says
+   * neither of them itself — C1-M2 added this field so no surface has to sniff strings.
+   */
+  notYetAttainable: boolean
+}
+
+/** How many of one blueprint the studio already has, split honestly (C1-M5). */
+export type LotBlueprintOwned = {
+  operational: number
+  underConstruction: number
+}
+
 export type LotBlueprintState = {
   blueprintId: string
   name: string
@@ -516,6 +534,25 @@ export type LotBlueprintState = {
   cost: number
   weeklyOperatingCost: number
   affordable: boolean
+  /**
+   * The engine-authored sentence saying what this building DOES. Player copy, shown
+   * VERBATIM: the catalog invariant refuses a blueprint that cannot write one, so the
+   * lot never has to invent a description for a building it does not understand.
+   */
+  effectSummary: string
+  /** Unlocked? `unmet` carries the sentences when it is not. */
+  available: boolean
+  unmet: LotBlueprintUnmet[]
+  /** Placements of this blueprint that already stand, in any status. */
+  instanceCount: number
+  /** The authored allowance, or null when unlimited. */
+  maxInstances: number | null
+  /** The allowance is used up — a separately worded lock, not a lack of money. */
+  atInstanceLimit: boolean
+  /** Buildable somewhere in principle: unlocked, within allowance, affordable. */
+  buildable: boolean
+  /** The same count as `instanceCount`, told apart so the list can be honest. */
+  owned: LotBlueprintOwned
 }
 
 // ── Property Geometry V1 (C1-M1b) — WHAT stands on the lot, and WHERE ────────

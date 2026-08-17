@@ -175,6 +175,7 @@ import {
   type LotBuildDraft,
   type LotParcelInspectorContext,
 } from './buildMode.ts'
+import { lotBuildCatalog, lotCatalogEntryFor } from './buildCatalog.ts'
 import type { LotCellPoint } from './snapshot/StudioLotSnapshot.ts'
 import { placedFacilityIdOf } from './snapshot/StudioLotSnapshot.ts'
 import {
@@ -5247,6 +5248,11 @@ export function StudioLotScreen({
     const parcel = parcelById(placement, parcelId)
     const blueprint = blueprintById(placement, blueprintId)
     if (parcel === null || blueprint === null || !placement.buildEnabled) return
+    // C1-M5: a locked, spent or unaffordable entry never starts a draft. The button is
+    // already disabled; this is the second line, because a way in that only the UI
+    // guards is a way in (the engine would refuse the commit, but the player would have
+    // been walked all the way to a ghost first).
+    if (lotCatalogEntryFor(placement, blueprintId)?.selectable !== true) return
 
     const origin = defaultBuildOrigin(
       parcel,
@@ -6300,7 +6306,9 @@ export function StudioLotScreen({
     tycoon && parcelInspectorId !== null
       ? lotParcelInspectorContext(placementView, parcelInspectorId)
       : null
-  const buildCatalog = placementView?.catalog ?? []
+  // C1-M5: the catalog is a LIST the player browses, so its states are projected once,
+  // purely, in the engine's own binding order — never re-derived per row in the JSX.
+  const buildCatalog = lotBuildCatalog(placementView)
   const parcelInspectorContents = parcelInspector === null
     ? null
     : (
@@ -6391,25 +6399,87 @@ export function StudioLotScreen({
                     <li key={entry.blueprintId}>
                       <button
                         type="button"
-                        className={`lot-build-catalog-item${chosen ? ' is-selected' : ''}`}
+                        className={`lot-build-catalog-item${chosen ? ' is-selected' : ''}${
+                          entry.selectable ? '' : ' is-blocked'
+                        }`}
                         aria-pressed={chosen}
-                        disabled={worldInputSuspended || buildPending}
+                        // A locked or spent entry is READABLE — browsing the whole
+                        // catalog is the point — but it is never a way in (C1-M5).
+                        disabled={worldInputSuspended || buildPending || !entry.selectable}
+                        aria-describedby={
+                          entry.selectable ? undefined : `lot-build-blocked-${entry.blueprintId}`
+                        }
                         onPointerDown={containWorldInput}
                         onMouseDown={containWorldInput}
                         onTouchStart={containWorldInput}
                         onClick={() => beginBuild(entry.blueprintId)}
                         data-testid={`lot-build-blueprint-${entry.blueprintId}`}
+                        data-state={entry.state}
+                        data-owned={entry.owned.operational}
+                        data-building={entry.owned.underConstruction}
                       >
-                        <span className="lot-build-catalog-name">{entry.name}</span>
+                        <span className="lot-build-catalog-head">
+                          <span className="lot-build-catalog-name">{entry.name}</span>
+                          <span
+                            className={`lot-build-catalog-state is-${entry.state}`}
+                            data-testid={`lot-build-state-${entry.blueprintId}`}
+                          >
+                            {entry.stateLabel}
+                          </span>
+                        </span>
+                        {/* WHAT IT DOES, in the engine's own words. The reason a
+                            player can compare these at all. */}
+                        <span
+                          className="lot-build-catalog-effect"
+                          data-testid={`lot-build-effect-${entry.blueprintId}`}
+                        >
+                          {entry.effectSummary}
+                        </span>
                         <span className="lot-build-catalog-facts">
                           {moneyExact(entry.cost)} · {entry.buildWeeks} weeks ·{' '}
-                          {entry.footprint.width}×{entry.footprint.depth} cells · +
-                          {entry.capacity} slot
+                          {entry.footprint.width}×{entry.footprint.depth} cells
+                          {entry.capacity > 0
+                            ? ` · +${String(entry.capacity)} shared ${
+                                entry.capacity === 1 ? 'slot' : 'slots'
+                              }`
+                            : ''}
                         </span>
                         <span className="lot-build-catalog-opex">
                           {moneyExact(entry.weeklyOperatingCost)} a week to run once open
+                          {entry.ownedLabel === null ? '' : ` · ${entry.ownedLabel}`}
                         </span>
                       </button>
+                      {/* WHY NOT — every sentence the engine wrote, verbatim, styled
+                          by whether the studio can work toward it at all. */}
+                      {!entry.selectable && (
+                        <div
+                          className="lot-build-catalog-blocked"
+                          id={`lot-build-blocked-${entry.blueprintId}`}
+                          data-testid={`lot-build-blocked-${entry.blueprintId}`}
+                        >
+                          {entry.lockReasons.map((lock, index) => (
+                            <p
+                              key={`${entry.blueprintId}:${String(index)}`}
+                              className={
+                                lock.notYetAttainable
+                                  ? 'hint lot-build-lock is-distant'
+                                  : 'hollywood-annex-help is-blocked lot-build-lock'
+                              }
+                              data-not-yet-attainable={lock.notYetAttainable ? 'true' : 'false'}
+                            >
+                              {lock.reason}
+                            </p>
+                          ))}
+                          {entry.limitReason !== null && (
+                            <p className="hint lot-build-lock is-built">{entry.limitReason}</p>
+                          )}
+                          {entry.affordabilityReason !== null && (
+                            <p className="hollywood-annex-help is-blocked lot-build-lock">
+                              {entry.affordabilityReason}
+                            </p>
+                          )}
+                        </div>
+                      )}
                     </li>
                   )
                 })}

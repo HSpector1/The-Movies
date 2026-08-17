@@ -6094,6 +6094,34 @@ function lotPlacementProjection(state: GameState): LotPlacementProjection {
       cost: blueprint.cost,
       weeklyOperatingCost: blueprint.weeklyOperatingCost,
       affordable: blueprint.affordable,
+      // C1-M5 — the catalog's unlock surface, carried to the world.
+      //
+      // `effectSummary` is JOINED from the blueprint rather than copied off the view:
+      // it is authored TUNING, the catalog invariant guarantees every entry has one,
+      // and joining it here keeps the sentence the engine wrote reaching the player
+      // without a second place to keep it in step.
+      effectSummary: blueprintById(blueprint.blueprintId)?.effectSummary ?? '',
+      available: blueprint.available,
+      unmet: blueprint.unmet.map((entry) => ({
+        reason: entry.reason,
+        notYetAttainable: entry.notYetAttainable,
+      })),
+      instanceCount: blueprint.instanceCount,
+      maxInstances: blueprint.maxInstances,
+      atInstanceLimit: blueprint.atInstanceLimit,
+      buildable: blueprint.buildable,
+      // Owned, told apart. `instanceCount` is the engine's own "in any status"; a
+      // player reading "2 owned" while one of them is still a hole in the ground is
+      // being told something true in a way that misleads.
+      owned: {
+        operational: view.placements.filter(
+          (placed) => placed.blueprintId === blueprint.blueprintId && placed.status === 'operational',
+        ).length,
+        underConstruction: view.placements.filter(
+          (placed) =>
+            placed.blueprintId === blueprint.blueprintId && placed.status === 'underConstruction',
+        ).length,
+      },
     })),
     weeklyOperatingCost: view.weeklyOperatingCost,
   }
