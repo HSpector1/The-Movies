@@ -8,7 +8,7 @@
 // brings its own grid → screen click helper derived from the live camera transform,
 // and records its own freshly measured tuples under its own fixture name (law 25).
 //
-// Four proofs, in the order a player meets them:
+// Five proofs, in the order a player meets them:
 //   1. BOOT      — a fresh managed studio opens onto the whole property, at operations
 //                  reading distance, with every building's name painted on the canvas.
 //   2. INSPECT   — clicking a building in the CANVAS lands its in-world panel and
@@ -18,6 +18,9 @@
 //                  building, its capacity, and its weekly running cost.
 //   4. CAMERA    — one grammar for the camera: a selection pans and never zooms, and
 //                  the whole property is always one named control (or `R`) away.
+//   5. GUIDANCE  — the world lights the ONE building the picture's next step names, at
+//                  every reading distance, static under reduced motion and a slow breath
+//                  otherwise (M-D).
 
 import { expect, test, type Locator, type Page } from '@playwright/test'
 import { createHash } from 'node:crypto'
@@ -113,7 +116,7 @@ function instrumentRendererSource(source: string): string {
   )
 }
 
-type SeedOptions = { save?: string }
+type SeedOptions = { save?: string; reducedMotion?: 'reduce' | 'no-preference' }
 
 async function seed(page: Page, options: SeedOptions = {}) {
   await page.route('**/src/lot/StudioLotView.ts*', async (route) => {
@@ -140,8 +143,9 @@ async function seed(page: Page, options: SeedOptions = {}) {
     save: options.save ?? GRID_MANAGED_IDLE_SAVE,
   })
   // Reduced motion freezes the ambient crowd, which is what lets a canvas capture be
-  // compared frame to frame at all. It is also a real supported player setting.
-  await page.emulateMedia({ reducedMotion: 'reduce' })
+  // compared frame to frame at all. It is also a real supported player setting, and the
+  // one this suite defaults to; the marker test below opts out to watch the world move.
+  await page.emulateMedia({ reducedMotion: options.reducedMotion ?? 'reduce' })
   await page.goto(`${GRID_BASE_URL}/`)
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await expect(page.getByTestId('studio-lot-canvas').locator('canvas')).toHaveCount(1)
@@ -178,6 +182,8 @@ type GridDebug = {
   previewOk: boolean | null
   parcelZoneIds: string[]
   placedFacilityIds: number[]
+  guidanceTarget: string | null
+  guidanceMarker: { buildingId: string; motion: 'static' | 'pulse'; alpha: number } | null
   lodBand: 'institution' | 'operations' | 'people'
   visibleBuildingLabels: number
   placementLabels: string[]
@@ -679,6 +685,129 @@ test('a selection pans the camera and never zooms it, and the whole property is 
   expect(runtime.consoleErrors).toEqual([])
 })
 
+// ── 5. GUIDANCE (M-D) — the world points at the next step ────────────────────
+//
+// The picture-guidance card NAMES the studio's one next step; these two prove the world
+// says the same thing physically, on one building, without ever flashing at anybody.
+
+/** Zoom OUT, the same way a player does — a real wheel event over the canvas. */
+async function wheelZoomOut(page: Page, notches: number): Promise<void> {
+  await page.evaluate((count) => {
+    const canvas = document.querySelector<HTMLCanvasElement>(
+      '[data-testid="studio-lot-canvas"] canvas',
+    )
+    if (canvas === null) throw new Error('the lot canvas is absent')
+    const box = canvas.getBoundingClientRect()
+    for (let i = 0; i < count; i++) {
+      canvas.dispatchEvent(new WheelEvent('wheel', {
+        deltaY: 120,
+        clientX: box.x + box.width / 2,
+        clientY: box.y + box.height / 2,
+        bubbles: true,
+        cancelable: true,
+      }))
+    }
+  }, notches)
+}
+
+test('the world lights the ONE building the next step names, at every reading distance', async ({
+  page,
+}) => {
+  const runtime = watchRuntime(page)
+  // This suite's default: reduced motion, which is also the STATIC marker variant.
+  await seed(page)
+
+  // Week 0 of a managed studio with no picture: the engine's step is "Commission a
+  // screenplay at Development", and Development is the building the world lights.
+  await expect(page.locator('.lot-stage-wrap')).toHaveAttribute('data-guidance-target', 'writers')
+  const booted = await gridDebug(page)
+  expect(booted.guidanceTarget).toBe('writers')
+  expect(booted.guidanceMarker).toMatchObject({ buildingId: 'writers', motion: 'static' })
+
+  // STATIC means static: nothing about it moves, ever, at any point of a cycle it is not
+  // running. (The pulse variant is the next test, on a page that did not ask for reduce.)
+  const settled = booted.guidanceMarker
+  await page.waitForTimeout(1_200)
+  expect((await gridDebug(page)).guidanceMarker).toEqual(settled)
+
+  // ALL THREE READING DISTANCES. The marker is world-space light on the ground, not
+  // counter-scaled text, so it survives the band where every word on the property is
+  // deliberately gone — which is exactly the band a lost player is looking at.
+  //
+  // The institution band is reachable only on a canvas whose whole-property fit sits
+  // above the world's absolute minimum zoom (at 1280×900 the fit IS that minimum, so
+  // there is nowhere further out to go), hence the larger box for this leg.
+  const beforeResize = await gridProjection(page)
+  await page.setViewportSize({ width: 1920, height: 1080 })
+  // The camera holds its FRAMING across a resize, so the new box shows up as a new zoom.
+  // Waiting for it matters: a wheel delivered before Phaser's own resize would be clamped
+  // against the old fit and the band would never move.
+  await expect
+    .poll(async () => (await gridProjection(page)).zoom !== beforeResize.zoom)
+    .toBe(true)
+  await wheelZoomOut(page, 8)
+  await expect.poll(async () => (await gridDebug(page)).lodBand).toBe('institution')
+  const institution = await gridDebug(page)
+  expect(institution.visibleBuildingLabels).toBe(0)
+  expect(institution.guidanceMarker).toMatchObject({ buildingId: 'writers', motion: 'static' })
+
+  await wheelZoomIn(page, 16)
+  await expect.poll(async () => (await gridDebug(page)).lodBand).toBe('people')
+  expect((await gridDebug(page)).guidanceMarker).toMatchObject({
+    buildingId: 'writers',
+    motion: 'static',
+  })
+
+  await page.setViewportSize({ width: 1280, height: 900 })
+  await page.getByTestId('lot-camera-home').click()
+  await expect.poll(async () => (await gridDebug(page)).lodBand).toBe('operations')
+
+  // ONE marker, and it is guidance — not selection. Reading another building moves the
+  // selection ring and leaves the world pointing exactly where it was pointing.
+  await clickCell(page, 4, 17) // the Theater
+  await expect(page.getByTestId('lot-building-inspector-theater')).toBeVisible()
+  const afterSelection = await gridDebug(page)
+  expect(afterSelection.guidanceMarker).toMatchObject({ buildingId: 'writers' })
+  await expect(page.locator('.lot-stage-wrap')).toHaveAttribute('data-guidance-target', 'writers')
+
+  expect(runtime.pageErrors).toEqual([])
+  expect(runtime.consoleErrors).toEqual([])
+})
+
+test('the marker breathes when motion is welcome, and the breath stays inside its bounds', async ({
+  page,
+}) => {
+  const runtime = watchRuntime(page)
+  await seed(page, { reducedMotion: 'no-preference' })
+
+  const opening = await gridDebug(page)
+  expect(opening.guidanceMarker).toMatchObject({ buildingId: 'writers', motion: 'pulse' })
+  const first = opening.guidanceMarker!.alpha
+
+  // It moves…
+  await expect
+    .poll(async () => (await gridDebug(page)).guidanceMarker?.alpha !== first, {
+      timeout: 5_000,
+    })
+    .toBe(true)
+
+  // …gently, and never out of range: it is a slow breath between two lit values, never a
+  // blink to nothing and never a hard-edged flash. Sampled across a whole cycle.
+  const samples: number[] = []
+  for (let sample = 0; sample < 12; sample++) {
+    samples.push((await gridDebug(page)).guidanceMarker!.alpha)
+    await page.waitForTimeout(240)
+  }
+  for (const alpha of samples) {
+    expect(alpha).toBeGreaterThanOrEqual(0.55)
+    expect(alpha).toBeLessThanOrEqual(1)
+  }
+  expect(Math.max(...samples)).toBeGreaterThan(Math.min(...samples))
+
+  expect(runtime.pageErrors).toEqual([])
+  expect(runtime.consoleErrors).toEqual([])
+})
+
 // The freshly measured tuple for the grid managed-idle fixture. Filled from a real run
 // (see the report accompanying this milestone); a change here is a real change in what
 // the world costs to draw, not a re-baseline of convenience.
@@ -691,8 +820,18 @@ test('a selection pans the camera and never zooms it, and the whole property is 
 // what proves the delta is that one layer and not a renderer leak. Presence MOVES
 // existing bodies; it creates none, which the presence suite's own Week-0/Week-1 tuples
 // prove across a whole week playback.
+//
+// M-D RE-PIN (guidance world marker), 173 → 174. ONE more display object, for the same
+// reason and in the same shape as the queue layer above: `tier:guidance-marker`, the
+// SINGLE shared Graphics layer that paints the pool of light under whichever building the
+// picture's next step names. The world marks at most one building at a time, so one layer
+// is the whole feature — it is created once whether or not a marker is currently standing,
+// which is why this figure does not move as the journey advances. Everything else is
+// unchanged: 14 dynamic actors, 8,545,720 decoded bytes, and still 4 draw calls (the pool
+// batches into the existing graphics pipeline), which is what proves the delta is that one
+// layer and not a leak.
 const GRID_MANAGED_IDLE_STRUCTURE = {
-  displayObjects: 173,
+  displayObjects: 174,
   dynamicActors: 14,
   decodedBytes: 8_545_720,
   drawCalls: 4,

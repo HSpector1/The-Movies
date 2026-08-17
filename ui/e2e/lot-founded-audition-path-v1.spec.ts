@@ -93,6 +93,49 @@ async function reachReadyForAuditions(page: Page) {
   await expect(page.getByTestId('lot-nav-casting-state')).toContainText('ready for auditions')
 }
 
+/** Where the world is currently pointing, straight off the DOM. 'none' is an answer. */
+async function guidanceTarget(page: Page): Promise<string | null> {
+  return page.locator('.lot-stage-wrap').getAttribute('data-guidance-target')
+}
+
+/**
+ * A handle on the live renderer, so a test can command the world directly and read what
+ * it actually did. Same route-rewrite seam `tycoon-build-mode-v1` uses: one assignment in
+ * the view's constructor, nothing else changed.
+ */
+async function instrumentRenderer(page: Page): Promise<void> {
+  await page.route('**/src/lot/StudioLotView.ts*', async (route) => {
+    const response = await route.fetch()
+    const source = await response.text()
+    const marker = 'constructor(opts) {\n    this.opts = opts;'
+    if (!source.includes(marker)) throw new Error('StudioLotView constructor marker is absent')
+    await route.fulfill({
+      response,
+      body: source.replace(
+        marker,
+        'constructor(opts) {\n    globalThis.__projectStudioGridWorld = this;\n    this.opts = opts;',
+      ),
+    })
+  })
+}
+
+/** Command the world to mark a building, and report the marker it actually painted. */
+async function forceGuidanceMarker(page: Page, buildingId: string): Promise<unknown> {
+  return page.evaluate((id) => {
+    const root = globalThis as typeof globalThis & {
+      __projectStudioGridWorld?: {
+        setWorldGuidanceTarget(buildingId: string | null): boolean
+        tycoonDebugState(): { guidanceTarget: string | null; guidanceMarker: unknown }
+      }
+    }
+    const world = root.__projectStudioGridWorld
+    if (world === undefined) throw new Error('the grid world renderer is not instrumented')
+    const painted = world.setWorldGuidanceTarget(id)
+    const debug = world.tycoonDebugState()
+    return { painted, target: debug.guidanceTarget, marker: debug.guidanceMarker }
+  }, buildingId)
+}
+
 /** How many contracted people share the most common name on this studio's roster. */
 async function largestNameCollision(page: Page): Promise<number> {
   return page.evaluate((key) => {
@@ -128,6 +171,74 @@ test('a founded studio reaches its first auditions in the world, duplicate roste
   await expect(page.getByTestId('casting-planner')).toBeVisible()
   await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
   await expect(page.getByTestId('casting-room-heading')).toHaveCount(0)
+})
+
+test('the world points at the next step, and never at a building already demanding a decision', async ({
+  page,
+}) => {
+  await instrumentRenderer(page)
+  await foundFreshStudio(page, COLLIDING_SEED)
+
+  // ── Week 0: no picture. The next step is at Development, and so is the marker. ──
+  await expect(page.getByTestId('lot-picture-guidance-next')).toContainText(
+    'Commission a screenplay at Development',
+  )
+  expect(await guidanceTarget(page)).toBe('writers')
+
+  // ── commissioned: the studio is waiting a week out, so nothing is lit. ──
+  // The answer to a wait is the ONE advance control on the studio bar, which is not a
+  // building — lighting one would point at something that cannot help.
+  await activateSemantic(page, 'lot-nav-writers')
+  await expect(page.getByTestId('lot-building-inspector-writers')).toBeVisible()
+  await page.getByTestId('lot-building-inspector-primary-commission').click()
+  await expect(page.getByTestId('lot-commission-workspace')).toBeVisible()
+  // …and opening a retained workspace over the world is not a journey move: the world is
+  // pointing exactly where it was before the DOM opened on top of it.
+  expect(await guidanceTarget(page)).toBe('writers')
+  await page.getByTestId('commission-submit').click()
+  await expect(page.getByTestId('lot-commission-workspace')).toHaveCount(0)
+  await expect(page.getByTestId('lot-picture-guidance-waiting')).toContainText('advance the week')
+  expect(await guidanceTarget(page)).toBe('none')
+
+  // ── the draft lands: Development now demands a decision, in red. ──
+  // FALSIFICATION. This is the one state where the marker's target and the lot's own red
+  // decision badge name the SAME building, and the badge wins outright: two attention
+  // systems on one building is exactly the anti-pattern this rule exists for. If the
+  // marker ever paints under a red badge, this fails.
+  await page.getByTestId('lot-advance-week').click()
+  await expect(page.getByTestId('lot-nav-writers')).toBeVisible()
+  await expect(page.getByTestId('lot-picture-guidance-next')).toContainText(
+    'Review the screenplay at Development',
+  )
+  await expect(page.getByTestId('lot-nav-writers')).toHaveAttribute(
+    'data-attention',
+    'decision-required',
+  )
+  expect(await guidanceTarget(page)).toBe('none')
+
+  // …and the WORLD refuses it too, not merely the host that feeds it: told outright to
+  // mark the building the red badge is standing on, the renderer declines and paints
+  // nothing. One attention system per building holds even against a hostile command.
+  expect(await forceGuidanceMarker(page, 'writers')).toEqual({
+    painted: false,
+    target: 'writers',
+    marker: null,
+  })
+
+  // ── accepted: the picture moves on, and so does the one marker. ──
+  await activateSemantic(page, 'lot-nav-writers')
+  await expect(page.getByTestId('lot-script-review-panel')).toBeVisible()
+  await page
+    .getByTestId('lot-script-review-panel')
+    .getByRole('button', { name: /^Accept / })
+    .click()
+  await expect(page.getByTestId('lot-script-review-success')).toBeVisible()
+  await expect(page.getByTestId('lot-nav-casting-state')).toContainText('ready for auditions')
+  await expect(page.getByTestId('lot-nav-writers')).not.toHaveAttribute(
+    'data-attention',
+    'decision-required',
+  )
+  expect(await guidanceTarget(page)).toBe('casting')
 })
 
 test('the Casting building’s own verb opens the planner when the companion rail cannot vouch for it', async ({

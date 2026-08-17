@@ -701,23 +701,33 @@ test('simulating to the next event lands on current truth and animates no skippe
 // Measured on a real run of THIS spec against THESE fixtures (see the milestone report).
 // They belong to these fixtures and to no others; in particular they are not comparable
 // with the build-mode suite's grid tuple, which names a different studio.
+//
+// M-D RE-PIN (guidance world marker), 173 → 174 in all three. ONE more display object,
+// once, for the whole property: `tier:guidance-marker`, the SINGLE shared Graphics layer
+// that paints the pool of light under whichever building the picture's next step names.
+// It is created with the rest of the overlays whether or not a marker is currently
+// standing — the world marks at most one building at a time and never a second layer —
+// so the figure is the same in all three fixtures and does not move as the journey
+// advances or as a week plays back. Dynamic actors (14), decoded bytes (8,546,680) and
+// draw calls (4) are unchanged in every case, which is what proves the delta is that one
+// layer: the pool batches into the existing graphics pipeline and loads no texture.
 
 const GRID_PRESENCE_WEEK_0_STRUCTURE = {
-  displayObjects: 173,
+  displayObjects: 174,
   dynamicActors: 14,
   decodedBytes: 8_546_680,
   drawCalls: 4,
 }
 
 const GRID_GREENLIT_WEEK_0_STRUCTURE = {
-  displayObjects: 173,
+  displayObjects: 174,
   dynamicActors: 14,
   decodedBytes: 8_546_680,
   drawCalls: 4,
 }
 
 const GRID_GREENLIT_WEEK_1_STRUCTURE = {
-  displayObjects: 173,
+  displayObjects: 174,
   dynamicActors: 14,
   decodedBytes: 8_546_680,
   drawCalls: 4,
