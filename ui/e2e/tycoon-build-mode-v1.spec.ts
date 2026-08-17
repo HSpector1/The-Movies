@@ -260,6 +260,9 @@ async function cellPoint(page: Page, gx: number, gy: number): Promise<{ x: numbe
  */
 async function foldGuidance(page: Page): Promise<void> {
   const toggle = page.getByTestId('lot-picture-guidance-toggle')
+  // The card is not always on the stage: the picture's guidance disappears when the
+  // journey has no next step to name. Absent is a real answer, not something to wait for.
+  if ((await toggle.count()) === 0) return
   if ((await toggle.getAttribute('aria-expanded')) === 'true') await toggle.click()
   await expect(toggle).toHaveAttribute('aria-expanded', 'false')
 }

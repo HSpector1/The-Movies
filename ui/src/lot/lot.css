@@ -2367,6 +2367,20 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   display: flex;
   flex-direction: column;
   gap: 6px;
+  /* C1-M5: the catalog is a LIST now, and a list grows. It scrolls inside a box whose
+     size CANNOT change with its contents — a fixed pixel height and an always-present
+     scrollbar. Both are deliberate. An `auto` scrollbar that appears and disappears as
+     the list's copy changes re-lays out the rail, which resizes the canvas, which
+     re-lays out the rail: the lot canvas is driven by a resize observer, and that
+     feedback froze the page the week a building completed and two entries changed
+     state at once. A viewport unit feeds the same loop. Unbounded is not an option
+     either — the list grew under the named-people strip and its own entries stopped
+     being clickable, which is worse than a scrollbar. */
+  max-height: 300px;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+  scrollbar-width: thin;
 }
 .lot-build-catalog-item {
   width: 100%;
