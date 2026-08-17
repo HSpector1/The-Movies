@@ -552,7 +552,13 @@ function commissionBeforeProjection(
   }
 
   const writers = new Map<string, UnknownRecord>()
-  let priorWriterId: string | null = null
+  // The commission board publishes its writers in ONE canonical order: best writing
+  // estimate first, canonical id as the tie-break (the order the form's default is taken
+  // from). A board arriving in any other order is not the board core published, so it is
+  // rejected whole rather than repaired. This guard previously pinned the older pure
+  // canonical-id order and must track the published order exactly, or a legal board is
+  // read as hostile and the retained commissioning receipt is never published.
+  let priorWriter: { id: string; score: number } | null = null
   for (const writer of board.commission.writers as unknown[]) {
     if (
       !isPlainRecord(writer) ||
@@ -567,11 +573,16 @@ function commissionBeforeProjection(
       !hasExactOwnKeys(writer.writingEstimate, WRITING_ESTIMATE_KEYS) ||
       writer.writingEstimate.label !== 'Est.' ||
       !isFiniteNumber(writer.writingEstimate.score) ||
-      writers.has(writer.id) ||
-      (priorWriterId !== null && writer.id <= priorWriterId)
+      writers.has(writer.id)
+    ) return null
+    const score: number = writer.writingEstimate.score
+    if (
+      priorWriter !== null &&
+      (score > priorWriter.score ||
+        (score === priorWriter.score && writer.id <= priorWriter.id))
     ) return null
     writers.set(writer.id, writer)
-    priorWriterId = writer.id
+    priorWriter = { id: writer.id, score }
   }
 
   const concept = concepts.get(payload.conceptId)
