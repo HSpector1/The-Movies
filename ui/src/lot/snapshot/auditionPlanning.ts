@@ -287,34 +287,68 @@ function uniqueById(rows: unknown): Map<string, UnknownRecord> | null {
   return result
 }
 
-function uniqueName(
+/**
+ * The name the record with this id ACTUALLY carries — proven, plus the same whole-set
+ * sanity sweep `uniqueName` performs, but WITHOUT requiring the name to be unique.
+ *
+ * WHY THIS EXISTS (live defect, found by driving a real browser through founding):
+ * `uniqueName` was used to prove a projected PERSON's name, and it refuses whenever any
+ * other record shares that name. The studio's talent names are procedurally generated
+ * from finite pools, so duplicates are ordinary — founding seed `studio-001` produces two
+ * actors called "Rex Petrov". A studio that happened to hire either of them could never
+ * open the retained audition planner again, because a legal world was being read as a
+ * malformed one. The refusal predates the M-B verb; the verb only made it visible.
+ *
+ * What a projection guard must prove is FAITHFULNESS: that the board printed the name of
+ * the exact person its id names. That is exactly what this returns. Global uniqueness is a
+ * claim about world CONTENT, and it is simply false for people — so it is dropped here and
+ * kept in `uniqueName` for the engine-owned name sets where it remains true and useful.
+ */
+function recordedName(
   rows: Map<string, UnknownRecord>,
   selectedId: string,
 ): string | null {
   const selected = rows.get(selectedId)
   const name = selected?.name
   if (!isNonEmptyString(name)) return null
-  let count = 0
   for (const row of rows.values()) {
     if (!isNonEmptyString(row.name)) return null
-    if (row.name === name) count += 1
   }
-  return count === 1 ? name : null
+  return name
 }
 
-function uniqueTitle(
+/** `recordedTitle` is to `uniqueTitle` exactly what `recordedName` is to `uniqueName`. */
+function recordedTitle(
   rows: Map<string, UnknownRecord>,
   selectedId: string,
 ): string | null {
   const selected = rows.get(selectedId)
   const title = selected?.title
   if (!isNonEmptyString(title)) return null
-  let count = 0
   for (const row of rows.values()) {
     if (!isNonEmptyString(row.title)) return null
-    if (row.title === title) count += 1
   }
-  return count === 1 ? title : null
+  return title
+}
+
+/**
+ * As above, and additionally that NO other record shares the name.
+ *
+ * Correct only where the engine owns the whole name set and a duplicate would itself be
+ * evidence of a malformed save — the studio's facilities. Never correct for people or
+ * concepts, whose names and titles are generated content that may legitimately collide.
+ */
+function uniqueName(
+  rows: Map<string, UnknownRecord>,
+  selectedId: string,
+): string | null {
+  const name = recordedName(rows, selectedId)
+  if (name === null) return null
+  let count = 0
+  for (const row of rows.values()) {
+    if (row.name === name) count += 1
+  }
+  return count === 1 ? name : null
 }
 
 function isCandidate(value: unknown): value is CastingCandidateView {
@@ -409,9 +443,9 @@ function strictCard(
   if (
     concept === undefined ||
     writer === undefined ||
-    uniqueTitle(concepts, sourceProject.conceptId) !== value.title ||
+    recordedTitle(concepts, sourceProject.conceptId) !== value.title ||
     concept.genre !== value.genre ||
-    uniqueName(talent, sourceProject.writerId) !== value.writer.name ||
+    recordedName(talent, sourceProject.writerId) !== value.writer.name ||
     writer.role !== value.writer.primaryRole
   ) return null
 
@@ -433,7 +467,7 @@ function strictCard(
         person === undefined ||
         person.role !== 'actor' ||
         person.id === sourceProject.writerId ||
-        uniqueName(talent, candidate.id) !== candidate.name
+        recordedName(talent, candidate.id) !== candidate.name
       ) return null
       roleIds.push(candidate.id)
       prior = candidate.id
@@ -965,7 +999,7 @@ export function currentLotAuditionPlanningReceipt(
       session.reservation.capability !== 'development-casting' ||
       session.reservation.slot !== receipt.slot ||
       !isNonEmptyString(project.conceptId) ||
-      uniqueTitle(concepts, project.conceptId) !== receipt.title ||
+      recordedTitle(concepts, project.conceptId) !== receipt.title ||
       uniqueName(facilities, receipt.facilityId) !== receipt.facilityName ||
       !isPlainRecord(session.slate) ||
       !hasExactOwnKeys(session.slate, ROLE_RECORD_KEYS)
@@ -985,7 +1019,7 @@ export function currentLotAuditionPlanningReceipt(
           read === undefined ||
           read.role !== role ||
           read.talentId !== talentId ||
-          uniqueName(talent, talentId) !== read.name ||
+          recordedName(talent, talentId) !== read.name ||
           talent.get(talentId)?.role !== 'actor'
         ) return null
         index += 1

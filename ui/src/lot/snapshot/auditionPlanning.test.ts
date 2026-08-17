@@ -397,8 +397,15 @@ describe('accepted Lot audition-planning receipt', () => {
     }
   })
 
-  it('rejects ambiguous names and malformed/decorated receipts without guessing', () => {
+  it('accepts a legally duplicated name, and still rejects an unfaithful or decorated receipt', () => {
     const pair = acceptedPair('audition-planning-receipt-ambiguity')
+
+    // RE-PINNED (live defect). This used to assert that a second person sharing a name
+    // REJECTS the receipt. Talent names are generated from finite pools, so duplicates are
+    // ordinary world content — founding seed `studio-001` yields two actors called "Rex
+    // Petrov" — and under the old rule any studio holding a duplicate could never open the
+    // retained audition planner at all. Sharing a name is a fact about the world, not
+    // evidence of a malformed one, so the legal world is now accepted…
     const ambiguous = clone(pair.before)
     const selected = pair.payload.slate.lead[0]
     const selectedName = ambiguous.talent.find((person) => person.id === selected)!.name
@@ -406,10 +413,20 @@ describe('accepted Lot audition-planning receipt', () => {
     const result = startCastingSessionAction(ambiguous, pair.payload)
     expect(result.ok).toBe(true)
     if (result.ok) {
-      expect(acceptedLotAuditionPlanningReceipt(ambiguous, result.next, pair.payload)).toBeNull()
+      expect(
+        acceptedLotAuditionPlanningReceipt(ambiguous, result.next, pair.payload),
+      ).not.toBeNull()
     }
 
     const receipt = acceptedLotAuditionPlanningReceipt(pair.before, pair.after, pair.payload)!
+
+    // …and the half that always mattered is strengthened, not dropped: a read whose NAME
+    // is not the name of the person its ID names is still refused. (Its state-side twin —
+    // substituting the name into the live roster — is pinned in the next spec.)
+    const misnamed = clone(receipt)
+    misnamed.reads[0]!.name = `${misnamed.reads[0]!.name} (understudy)`
+    expect(currentLotAuditionPlanningReceipt(pair.after, misnamed)).toBeNull()
+
     const wrongRole = clone(receipt)
     wrongRole.reads[0]!.role = 'support'
     const decorated = clone(receipt)
