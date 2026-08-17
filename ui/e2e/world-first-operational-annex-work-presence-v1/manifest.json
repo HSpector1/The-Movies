@@ -7,8 +7,8 @@
     "stateConstruction": "public Engine and UI adapter actions only",
     "construction": "exact Week-13 authoritative Development & Casting Annex completion",
     "allocation": "ordinary deterministic shared development-casting allocation",
-    "serialization": "exportSaveJson / importSaveJson native SaveFileV12 boundary",
-    "importMode": "native SaveFileV12; converted === false",
+    "serialization": "exportSaveJson / importSaveJson native SaveFileV13 boundary",
+    "importMode": "native SaveFileV13; converted === false",
     "deterministic": true,
     "generatedFilesAreHandEdited": false,
     "configuredHeldSave": false
@@ -17,11 +17,11 @@
     {
       "id": "week-13-operational-annex-available",
       "file": "week-13-operational-annex-available.save.json",
-      "saveVersion": 12,
-      "importMode": "native-v12",
+      "saveVersion": 13,
+      "importMode": "native-v13",
       "converted": false,
-      "byteLength": 220422,
-      "sha256": "fce7196b01435a68a26f2aef33022c1ed825f16656a8e01588a9251adde5337e",
+      "byteLength": 223215,
+      "sha256": "a2e60da90ff0475d2340306157cff2a9e7a178850941cd268d85a51dffc025a9",
       "seed": "world-first-operational-annex-work",
       "claim": {
         "week": 13,
@@ -130,11 +130,11 @@
     {
       "id": "week-13-operational-annex-script-working",
       "file": "week-13-operational-annex-script-working.save.json",
-      "saveVersion": 12,
-      "importMode": "native-v12",
+      "saveVersion": 13,
+      "importMode": "native-v13",
       "converted": false,
-      "byteLength": 222029,
-      "sha256": "b4d9153771d7cc504b54da765ea4a66e364bf38eabc9a2487920218adc88a9ea",
+      "byteLength": 224822,
+      "sha256": "ca009c6b5f206ac15a7582ff4913da626770eb8d2c2cb483d51f530f8e552186",
       "seed": "world-first-operational-annex-work",
       "claim": {
         "week": 13,
@@ -275,11 +275,11 @@
     {
       "id": "week-14-operational-annex-production-development-working",
       "file": "week-14-operational-annex-production-development-working.save.json",
-      "saveVersion": 12,
-      "importMode": "native-v12",
+      "saveVersion": 13,
+      "importMode": "native-v13",
       "converted": false,
-      "byteLength": 231170,
-      "sha256": "34cd6aec3267097275811d43f77a1d50914cd3eb7db3f29acd388d22e1774f3b",
+      "byteLength": 233963,
+      "sha256": "664549608c9a36854b4fd30226b2f1e7229f871b72b72e71ef2c99f4819e0cbd",
       "seed": "world-first-operational-annex-work",
       "claim": {
         "week": 14,

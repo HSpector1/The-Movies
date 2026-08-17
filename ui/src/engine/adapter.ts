@@ -96,7 +96,7 @@ import {
   makeSave,
   exportSave,
   importSave,
-  migrateToV12,
+  migrateToV13,
   convertV4ToV5,
   convertV5ToV6,
   convertV6ToV7,
@@ -105,6 +105,7 @@ import {
   convertV9ToV10,
   convertV10ToV11,
   convertV11ToV12,
+  convertV12ToV13,
   importLegacyV2ToV4,
   importLegacyV1ToV4,
   // ── D-11 employment / contracts / roster / freelancer market ──
@@ -2950,9 +2951,10 @@ export function remainingWeeks(prod: Production): number {
 }
 
 // ── Saves ────────────────────────────────────────────────────────────────────
-// New games save as SaveFileV12. V12 appends the authoritative placement lifecycle
-// state. Older envelopes migrate deterministically without inventing a project,
-// debit, completion, or facility.
+// New games save as SaveFileV13. V13 appends the authoritative studio property
+// (bounds, roads, parcels, structures) that V12 held as module constants. Older
+// envelopes migrate deterministically without inventing a project, debit,
+// completion, facility, or a property they were not already played on.
 export function exportSaveJson(state: GameState): string {
   return exportSave(makeSave(state))
 }
@@ -2961,14 +2963,14 @@ export type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
   | { ok: false; error: string }
 
-// Import a save. Accepts V12 (current) and every legacy version V1–V11, all deterministic.
+// Import a save. Accepts V13 (current) and every legacy version V1–V12, all deterministic.
 // `converted` tells the caller a legacy save was upgraded so the UI can inform the player
-// — their original file is never overwritten (a fresh V12 is returned).
+// — their original file is never overwritten (a fresh V13 is returned).
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    const converted = save.saveVersion !== 12
-    return { ok: true, state: migrateToV12(save).state, converted }
+    const converted = save.saveVersion !== 13
+    return { ok: true, state: migrateToV13(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -2980,7 +2982,7 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json))))))))).state,
+      state: convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -2994,7 +2996,7 @@ export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json))))))))).state,
+      state: convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))))))).state,
       converted: true,
     }
   } catch (e) {

@@ -2,7 +2,7 @@ import {
   CASTING_SESSION_CONSEQUENCE,
   canonicalCastingSessionId,
   castingSessionsReadModel,
-  makeSaveV12,
+  makeSaveV13,
 } from '../../../../src/core/index.ts'
 import * as adapter from '../../engine/adapter.ts'
 import type {
@@ -274,7 +274,7 @@ function sameClosedFieldsExcept(
 }
 
 function isClosedCanonicalState(state: GameState): boolean {
-  return sameClosedValue(state, makeSaveV12(state).state)
+  return sameClosedValue(state, makeSaveV13(state).state)
 }
 
 function uniqueById(rows: unknown): Map<string, UnknownRecord> | null {
