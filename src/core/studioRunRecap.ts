@@ -406,8 +406,8 @@ function referenceStaff(state: GameState): ReferenceStaff | null {
           (isContracted(state, talent.id) || freelancerIds.has(talent.id)),
       )
       .sort((a, b) => {
-        const af = isContracted(state, a.id) ? 0 : freelancerFee(a)
-        const bf = isContracted(state, b.id) ? 0 : freelancerFee(b)
+        const af = isContracted(state, a.id) ? 0 : freelancerFee(state, a)
+        const bf = isContracted(state, b.id) ? 0 : freelancerFee(state, b)
         return af - bf || a.id.localeCompare(b.id)
       })
   const writers = candidates('writer')
@@ -422,7 +422,7 @@ function referenceStaff(state: GameState): ReferenceStaff | null {
     actors: [actors[0]!, actors[1]!, actors[2]!],
     craft: crafts[0],
     freelancerFees: selected.reduce(
-      (sum, talent) => sum + (isContracted(state, talent.id) ? 0 : freelancerFee(talent)),
+      (sum, talent) => sum + (isContracted(state, talent.id) ? 0 : freelancerFee(state, talent)),
       0,
     ),
   }

@@ -517,7 +517,7 @@ function applyGreenlight(
           `applyActions: greenlight rejected — talent "${t.id}" is neither studio-contracted nor an available freelancer (D-11.12)`,
         )
       }
-      const fee = freelancerFee(t)
+      const fee = freelancerFee(state, t)
       freelancerFees += fee
       ledgerAdds.push({
         week: currentTick,

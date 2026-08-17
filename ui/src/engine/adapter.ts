@@ -3268,7 +3268,7 @@ export function employmentInfo(state: GameState, talentId: string): EmploymentIn
     status === 'freeAgent' ||
     (state.founding !== null && state.founding.applicantIds.includes(talentId) && c === undefined)
   const offerOptions = signable ? contractOfferOptions(state, talentId) : []
-  const fee = status === 'availableFreelancer' && t ? freelancerFee(t) : null
+  const fee = status === 'availableFreelancer' && t ? freelancerFee(state, t) : null
   return { status, contract, offerOptions, freelancerFee: fee }
 }
 
@@ -3703,7 +3703,7 @@ export function freelancerPool(state: GameState, role: CreativeRole): Freelancer
   return freelancerMarketIds(state)
     .map((id) => findTalent(state, id)!)
     .filter((t) => t.role === role)
-    .map((t) => ({ talent: toPlayerVisible(t, engaged), fee: freelancerFee(t) }))
+    .map((t) => ({ talent: toPlayerVisible(t, engaged), fee: freelancerFee(state, t) }))
 }
 // The per-assignment cost of a chosen talent: 0 if contracted (payroll), else the
 // freelancer fee (a direct project cost). Used by the Budget step to show real cost.
@@ -3717,7 +3717,7 @@ export function assignmentProjectCost(state: GameState, talentId: string): numbe
   }
   if (isContracted(state, talentId)) return 0
   const t = findTalent(state, talentId)
-  return t ? freelancerFee(t) : 0
+  return t ? freelancerFee(state, t) : 0
 }
 
 // ── Small display helpers (formatting only — no simulation logic) ─────────────

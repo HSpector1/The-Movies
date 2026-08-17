@@ -142,7 +142,7 @@ function assemble(s: GameState, st: Strat, conceptIdx: number): Assembled | Bloc
       for (const t of freeFreelancers(role, used)) {
         if (out.length >= n) break
         out.push(t)
-        fees += freelancerFee(t)
+        fees += freelancerFee(s, t)
         freelancers += 1
       }
     }

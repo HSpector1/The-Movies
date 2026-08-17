@@ -112,7 +112,7 @@ function assemble(s: GameState, st: Strat, conceptIdx: number, useFreelancers: b
       for (const t of freeFreelancers(role, used)) {
         if (out.length >= n) break
         out.push(t)
-        freelancerFees += freelancerFee(t)
+        freelancerFees += freelancerFee(s, t)
         freelancers += 1
       }
     }

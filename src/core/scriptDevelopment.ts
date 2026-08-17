@@ -289,11 +289,40 @@ export function commissionScriptProject(
   return { ...development, projects: [...development.projects, project] }
 }
 
+/**
+ * C1-M4 — the Development Office uplift.
+ *
+ * WHERE IT LANDS AND WHY HERE: this is the one place a screenplay's strength is
+ * decided. Everything downstream — the review EST, the forecast, the greenlight,
+ * the release, the autopsy — reads the STORED result of this function. Putting
+ * the uplift anywhere else would mean deciding a script's quality in two places.
+ *
+ * FIRST DRAFT ONLY. A rewrite starts from the stored assessment, which already
+ * carries the uplift, and adds its own delta from the writer's rewriting skill.
+ * Applying the office again there would compound it every rewrite and make the
+ * right play "rewrite forever". The office shapes what a script BECOMES when it
+ * is written; improving one that already exists is the rewrite's own law.
+ *
+ * WHEN IT IS READ, AND WHAT DEMOLITION DOES: the uplift is read at the tick that
+ * WRITES the draft, and the result is persisted on the project. So a screenplay
+ * is never un-written by demolition — once an assessment exists it is permanent,
+ * and demolishing the office cannot change a single existing project's EST,
+ * forecast, or release. The one week that behaves differently is a script
+ * commissioned but not yet drafted: its draft is written by whatever offices are
+ * standing when the writer finishes, which is the honest answer to "was the work
+ * done there?".
+ *
+ * SPEED IS UNTOUCHED. Drafting is one week with or without an office; tiers
+ * change what a script can become, never how fast. That is the original law.
+ */
 export function assessFirstDraft(
   concept: FilmConcept,
   writer: Talent,
   shape: FilmShape,
   promise: FilmPromise,
+  // Defaulted to the identity so every existing caller — and every state with no
+  // Development Office — produces byte-identical output.
+  estUplift = 0,
 ): ScriptAssessment {
   const shapeEffects = resolveShape(shape)
   const actualWriting = effectiveSkill(
@@ -316,9 +345,21 @@ export function assessFirstDraft(
     'perceived',
     shape,
   )
+  // The uplift joins the blend INSIDE the existing clamp, so a script can never
+  // be pushed past 100 and an office can never make one worse. It moves both the
+  // hidden truth and the visible estimate: an office that moved only the estimate
+  // would change what the player is told rather than what the studio made.
   return {
-    actualStrength: clamp(0.6 * concept.baselineStrength + 0.4 * actualWriting, 0, 100),
-    perceivedStrength: clamp(0.6 * concept.baselineStrength + 0.4 * perceivedWriting, 0, 100),
+    actualStrength: clamp(
+      0.6 * concept.baselineStrength + 0.4 * actualWriting + estUplift,
+      0,
+      100,
+    ),
+    perceivedStrength: clamp(
+      0.6 * concept.baselineStrength + 0.4 * perceivedWriting + estUplift,
+      0,
+      100,
+    ),
   }
 }
 
@@ -353,6 +394,12 @@ export function rewriteAssessment(
 export type ScriptWorkSources = {
   concepts: readonly FilmConcept[]
   talent: readonly Talent[]
+  /**
+   * C1-M4: EST points the studio's operational Development Office adds to a
+   * first draft. Optional and defaulted to 0 so every existing caller keeps its
+   * exact behaviour; the live tick supplies the real value.
+   */
+  estUplift?: number
 }
 
 // Completes every due task in canonical stored order. The returned state has all
@@ -387,7 +434,7 @@ export function completeDueScriptWork(
     }
     const assessment =
       project.status === 'drafting'
-        ? assessFirstDraft(concept, writer, project.shape, project.promise)
+        ? assessFirstDraft(concept, writer, project.shape, project.promise, sources.estUplift ?? 0)
         : project.assessment === null
           ? (() => {
               throw new Error(

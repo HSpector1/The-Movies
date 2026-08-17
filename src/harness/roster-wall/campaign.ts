@@ -688,7 +688,7 @@ function availableRoleTalent(
       const bContracted = isContracted(state, b.id)
       if (aContracted !== bContracted) return aContracted ? -1 : 1
       const feeDelta =
-        (aContracted ? 0 : freelancerFee(a)) - (bContracted ? 0 : freelancerFee(b))
+        (aContracted ? 0 : freelancerFee(state, a)) - (bContracted ? 0 : freelancerFee(state, b))
       return feeDelta || compareId(a.id, b.id)
     })
 }
@@ -756,7 +756,7 @@ function packageCast(
         }
         const fee = Object.values(cast).reduce(
           (total, actor) =>
-            total + (isContracted(state, actor.id) ? 0 : freelancerFee(actor)),
+            total + (isContracted(state, actor.id) ? 0 : freelancerFee(state, actor)),
           0,
         )
         candidates.push({

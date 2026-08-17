@@ -216,7 +216,7 @@ describe('D-17A/T10 — adapter economic regime survives the engagement cliff', 
       for (const f of freelancerPool(postCliff, role)) {
         const t = anyTalent.find((x) => x.id === f.talent.id)!
         expect(isContracted(postCliff, t.id)).toBe(false)
-        expect(assignmentProjectCost(postCliff, t.id)).toBe(freelancerFee(t))
+        expect(assignmentProjectCost(postCliff, t.id)).toBe(freelancerFee(postCliff, t))
         checked++
       }
     }

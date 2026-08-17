@@ -86,8 +86,11 @@ const ORIGIN = {
 } as const
 
 describe('Placement Core V12 — the blueprint catalog', () => {
-  it('carries exactly one honest blueprint whose Annex law is the V11 law', () => {
-    expect(FACILITY_BLUEPRINTS).toHaveLength(1)
+  it('keeps the Annex law exactly as V11 wrote it, inside a widened catalog', () => {
+    // C1-M4 widened the catalog; the Annex's own law did not move by a dollar or
+    // a week, and it is still the entry every migrated V11 world points at.
+    expect(FACILITY_BLUEPRINTS).toHaveLength(5)
+    expect(FACILITY_BLUEPRINTS[0]).toBe(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT)
     expect(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT).toEqual({
       id: 'development-casting-annex',
       name: 'Development & Casting Annex',
@@ -616,7 +619,16 @@ describe('Placement Core V12 — the build-mode read model', () => {
     expect(empty.parcels).toHaveLength(10)
     expect(empty.placements).toEqual([])
     expect(empty.weeklyOperatingCost).toBe(0)
-    expect(empty.catalog).toEqual([
+    // The whole catalog is projected, in authored order; the Annex is first and
+    // its projection is pinned field for field.
+    expect(empty.catalog.map((entry) => entry.blueprintId)).toEqual([
+      ANNEX,
+      'development-casting-hall',
+      'development-office-2',
+      'development-office-3',
+      'craft-annex',
+    ])
+    expect(empty.catalog.slice(0, 1)).toEqual([
       {
         blueprintId: ANNEX,
         name: 'Development & Casting Annex',

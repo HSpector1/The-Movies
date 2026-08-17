@@ -291,7 +291,7 @@ describe('D-17A/C — post-cliff, the ENGAGED greenlight branch is fully live, g
     const actors = pick('actor', 3)
     expect(actors.length).toBe(3)
 
-    const fees = [writer, director, ...actors, craft].reduce((a, t) => a + freelancerFee(t), 0)
+    const fees = [writer, director, ...actors, craft].reduce((a, t) => a + freelancerFee(s, t), 0)
     const commitment = 1_000_000 + 100_000 + fees
     const attempt = (st: GameState): GameState =>
       applyActions(st, [

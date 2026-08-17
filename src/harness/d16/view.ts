@@ -280,7 +280,7 @@ function perceivedOf(state: GameState, t: Talent, sets: MarketSets): PerceivedTa
     primaryOVR,
     primaryTier: roleTier(primaryOVR),
     quotedSalary: t.salary,
-    quotedFreelancerFee: freelancerFee(t),
+    quotedFreelancerFee: freelancerFee(state, t),
     contractQuotes: contracted
       ? []
       : TUNING.CONTRACT_TERM_OPTIONS.map((term) => {

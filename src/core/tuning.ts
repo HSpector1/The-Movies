@@ -622,8 +622,135 @@ export const DEVELOPMENT_CASTING_ANNEX_BLUEPRINT = {
   requires: [],
 } as const satisfies FacilityBlueprint
 
+/**
+ * C1-M4 — the widened catalog.
+ *
+ * PRODUCT LAW: no decorative blueprints. Every entry below changes a real number
+ * the player can already see today, with no dependency on any system that does
+ * not exist yet. The `effectSummary` on each one is the sentence that has to be
+ * true, and the catalog invariant refuses an entry that cannot write one.
+ *
+ * Effect-only buildings carry `capacity: 0`. They are real buildings — they take
+ * ground, pay opex, can be moved and demolished — but they provide no SHARED SLOT,
+ * so they never enter the capacity registry the allocator scans. `capability` on
+ * a capacity-0 entry is a classification (which department the building belongs
+ * to), not a claim to schedule work.
+ */
+
+/**
+ * Development Office II — the flagship, and the original's office tier in our
+ * vocabulary. It raises what a screenplay BECOMES: +4 EST on every first draft
+ * written while it stands.
+ *
+ * `maxInstances: 1` because the uplift does not stack. Two offices are one
+ * standard of development, so a second is provably worth nothing, and refusing it
+ * up front is kinder than letting a player spend the capital to find out.
+ */
+export const DEVELOPMENT_OFFICE_2_BLUEPRINT = {
+  id: 'development-office-2',
+  name: 'Development Office II',
+  capability: 'development-casting',
+  capacity: 0,
+  footprint: { width: 3, depth: 2 },
+  clearanceRing: 1,
+  requiresRoadAccess: true,
+  buildWeeks: 8,
+  capex: 600_000,
+  weeklyOperatingCost: 2_500,
+  facilityIdBase: 'facility-development-office-2',
+  projectIdBase: 'construction-development-office-2',
+  ledgerNote: 'Development Office II construction',
+  effectSummary:
+    'Raises every screenplay drafted here by 4 points of estimated strength. It does not make writing faster.',
+  requires: [],
+  maxInstances: 1,
+} as const satisfies FacilityBlueprint
+
+/**
+ * Development Office III — the higher tier, and the catalog's first REAL use of a
+ * facility requirement: it cannot be built until Development Office II is
+ * operational. Highest tier wins rather than summing, so a studio holding both
+ * gets +9, not +13.
+ */
+export const DEVELOPMENT_OFFICE_3_BLUEPRINT = {
+  id: 'development-office-3',
+  name: 'Development Office III',
+  capability: 'development-casting',
+  capacity: 0,
+  footprint: { width: 3, depth: 2 },
+  clearanceRing: 1,
+  requiresRoadAccess: true,
+  buildWeeks: 12,
+  capex: 1_200_000,
+  weeklyOperatingCost: 4_000,
+  facilityIdBase: 'facility-development-office-3',
+  projectIdBase: 'construction-development-office-3',
+  ledgerNote: 'Development Office III construction',
+  effectSummary:
+    'Raises every screenplay drafted here by 9 points of estimated strength, replacing the second office\u2019s smaller gain.',
+  requires: [{ kind: 'facility', blueprintId: 'development-office-2' }],
+  maxInstances: 1,
+} as const satisfies FacilityBlueprint
+
+/**
+ * Development & Casting Hall — the proven Annex pattern at twice the scale. Two
+ * shared slots, so two more screenplays or auditions can run at once. Unlimited,
+ * exactly as the Annex is: capacity genuinely stacks, which is why this one has
+ * no instance limit while the office tiers do.
+ */
+export const DEVELOPMENT_CASTING_HALL_BLUEPRINT = {
+  id: 'development-casting-hall',
+  name: 'Development & Casting Hall',
+  capability: 'development-casting',
+  capacity: 2,
+  footprint: { width: 4, depth: 3 },
+  clearanceRing: 1,
+  requiresRoadAccess: true,
+  buildWeeks: 20,
+  capex: 1_400_000,
+  weeklyOperatingCost: 6_000,
+  facilityIdBase: 'facility-development-casting-hall',
+  projectIdBase: 'construction-development-casting-hall',
+  ledgerNote: 'Development & Casting Hall construction',
+  effectSummary:
+    'Adds two shared Development & Casting slots, so two more screenplays or auditions can run at a time.',
+  requires: [],
+} as const satisfies FacilityBlueprint
+
+/**
+ * Craft Services Annex — the studio feeds its own crew, so hired crew stop
+ * pricing it in. Every one-film freelancer fee falls by 15%.
+ *
+ * `maxInstances: 1` because the discount does not stack, for the same reason the
+ * office tiers do not: a stacking discount would make the correct play "build
+ * until crew are free", which is an arbitrage rather than a decision.
+ */
+export const CRAFT_ANNEX_BLUEPRINT = {
+  id: 'craft-annex',
+  name: 'Craft Services Annex',
+  capability: 'set-scenery',
+  capacity: 0,
+  footprint: { width: 3, depth: 2 },
+  clearanceRing: 1,
+  requiresRoadAccess: true,
+  buildWeeks: 6,
+  capex: 400_000,
+  weeklyOperatingCost: 2_000,
+  facilityIdBase: 'facility-craft-annex',
+  projectIdBase: 'construction-craft-annex',
+  ledgerNote: 'Craft Services Annex construction',
+  effectSummary:
+    'Cuts the one-film fee for every freelancer a production hires by 15%.',
+  requires: [],
+  maxInstances: 1,
+} as const satisfies FacilityBlueprint
+
 export const FACILITY_BLUEPRINTS: readonly FacilityBlueprint[] = [
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
+  DEVELOPMENT_CASTING_HALL_BLUEPRINT,
+  DEVELOPMENT_OFFICE_2_BLUEPRINT,
+  DEVELOPMENT_OFFICE_3_BLUEPRINT,
+  CRAFT_ANNEX_BLUEPRINT,
 ]
 
 /** The canonical ledger note for a weekly placed-facility operating charge. */
@@ -657,6 +784,44 @@ export const FACILITY_MOVE_COST = 0
  * a second number to justify with nothing to justify it.
  */
 export const FACILITY_DEMOLITION_REFUND_FRACTION = 0.5
+
+// ── C1-M4 facility effects ───────────────────────────────────────────────────
+/**
+ * How many EST points an operational Development Office adds to a screenplay's
+ * FIRST DRAFT, by tier. The original's office tier capped what a script could
+ * become; ours raises it, in the same currency the player already reads.
+ *
+ * Applied inside the existing 0..100 clamp, to BOTH the hidden actual strength
+ * and the visible perceived one — an office that moved only the estimate would be
+ * changing the player's information, not the studio's work, which is a lie
+ * dressed as a feature.
+ *
+ * Only the HIGHEST operational tier counts, and tier III requires tier II, so a
+ * fully built studio gets +9 and never +13. Two of the same tier do not stack —
+ * see `developmentOfficeEstUplift`.
+ *
+ * Scale check: the EST bands are Fragile/Workable/Promising/Strong at 45/60/75.
+ * +4 is clearly visible at the .1 precision the player sees and rarely changes a
+ * band by itself; +9 can carry a script across one. That is deliberately a
+ * meaningful nudge rather than a re-roll of the writer's contribution.
+ */
+export const SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT = 4
+export const SCRIPT_DEVELOPMENT_OFFICE_TIER_3_EST_UPLIFT = 9
+
+/**
+ * The share of a one-film freelancer fee an operational Craft Services Annex
+ * saves. Craft services is what a studio provides so that hired crew do not have
+ * to price it in.
+ *
+ * Applied as the last factor before the ONE existing rounding in `freelancerFee`,
+ * so a discounted fee rounds exactly once and the no-facility path multiplies by
+ * exactly 1.0 — a bit-exact no-op. It does NOT stack: a second annex saves
+ * nothing, which the catalog says out loud.
+ *
+ * Historical films are priced from their ledger rows, so a discount never
+ * retroactively changes what a past film cost.
+ */
+export const FREELANCER_FEE_CRAFT_ANNEX_DISCOUNT = 0.15
 
 /** The canonical ledger note for a demolition refund credit. */
 export const FACILITY_DEMOLITION_LEDGER_NOTE = 'facility demolition refund'

@@ -13,6 +13,7 @@ import { clamp } from './math.js'
 import { stream } from './rng.js'
 import { activeScriptWriterAssignments } from './scriptDevelopment.js'
 import { TUNING } from './tuning.js'
+import { freelancerFeeMultiplier } from './facilityEffects.js'
 import type {
   GameStateV3,
   Contract,
@@ -229,8 +230,21 @@ export function contractOfferOptions(
 
 // ── freelancer economics (D-11.10) ───────────────────────────────────────────
 // One-film fee = round(salaryCurve × premium); a DIRECT project cost, never payroll.
-export function freelancerFee(talent: Talent): number {
-  return iround(salaryCurve(talent) * TUNING.FREELANCER_FEE_PREMIUM)
+//
+// C1-M4: the fee now depends on the STUDIO as well as the person, because an
+// operational Craft Services Annex discounts it. The state parameter is the whole
+// reason this is not a pure function of talent any more, and it is deliberately
+// REQUIRED rather than optional: an optional one would leave every existing call
+// site silently quoting the undiscounted fee, which is exactly the trap a
+// parallel `discountedFreelancerFee` helper would have set.
+//
+// The multiplier is the LAST factor before the one existing rounding, so a
+// discounted fee rounds exactly once, and with no annex it multiplies by exactly
+// 1.0 — a bit-exact IEEE no-op rather than merely an equal one.
+export function freelancerFee(state: GameState, talent: Talent): number {
+  return iround(
+    salaryCurve(talent) * TUNING.FREELANCER_FEE_PREMIUM * freelancerFeeMultiplier(state),
+  )
 }
 
 // ── deterministic markets (D-11.14) ──────────────────────────────────────────

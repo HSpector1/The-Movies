@@ -561,7 +561,7 @@ export function generatePackages(state: GameState, options: PackageOptions = {})
             if (engaged) {
               if (isContracted(state, t.id)) continue
               freelancerIds.push(t.id)
-              freelancerFees += freelancerFee(t)
+              freelancerFees += freelancerFee(state, t)
             } else {
               // legacy D-1 debit: negative + marketing + Σ salaries over EVERY assignee.
               freelancerIds.push(t.id)

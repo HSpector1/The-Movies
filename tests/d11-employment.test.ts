@@ -456,7 +456,7 @@ describe('D-11 — assignment legality & freelancers', () => {
     const s = applyActions(s0, [{ kind: 'greenlight', production: payload }])
     const feeEntry = s.ledger.find((e) => e.kind === 'freelancerFee' && e.talentId === freelancer.id)
     expect(feeEntry).toBeDefined()
-    expect(feeEntry!.amount).toBe(-freelancerFee(freelancer))
+    expect(feeEntry!.amount).toBe(-freelancerFee(s0, freelancer))
     expect(reconciles(s)).toBe(true)
   })
 
@@ -464,10 +464,11 @@ describe('D-11 — assignment legality & freelancers', () => {
     const s = foundStudio('freelancer-fee')
     const ids = freelancerMarketIds(s)
     expect(ids.length).toBeGreaterThan(0)
-    // freelancerFee is a pure function of the talent; deterministic and positive.
+    // freelancerFee is a deterministic function of the talent and the studio's
+    // built estate (C1-M4); with no Craft Services Annex it is the D-11.10 fee.
     for (const id of ids) {
       const t = s.talent.find((x) => x.id === id)!
-      expect(freelancerFee(t)).toBeGreaterThan(0)
+      expect(freelancerFee(s, t)).toBeGreaterThan(0)
     }
   })
 })

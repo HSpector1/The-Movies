@@ -63,6 +63,7 @@ import { economyEngaged, weeklyPayroll } from './employment.js'
 import { openTheatricalRun } from './economy.js'
 import { clamp } from './math.js'
 import { advanceManagedProductions } from './operations.js'
+import { developmentOfficeEstUplift } from './facilityEffects.js'
 import {
   completeDueScriptWork,
   markScriptProjectProduced,
@@ -172,7 +173,15 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   let scriptDevelopment = completeDueScriptWork(
     state.scriptDevelopment,
     currentTick + 1,
-    { concepts: state.concepts, talent: state.talent },
+    {
+      concepts: state.concepts,
+      talent: state.talent,
+      // C1-M4: read from the estate STANDING NOW. Step 1.6 completes construction
+      // later in this same advance, so an office finishing this week does not
+      // uplift a draft finishing this week — the same "contributes nothing until
+      // it flips" law capacity has followed since V11.
+      estUplift: developmentOfficeEstUplift(state),
+    },
   )
 
   // ── 0.6 CASTING SESSIONS ─────────────────────────────────────────────────
