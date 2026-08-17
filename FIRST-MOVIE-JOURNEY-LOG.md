@@ -255,6 +255,30 @@ fact; no marker on the retained plate (correct — rollback path has no property
 A11y note carried to backlog: audition slate cards expose names but not selected
 state (no aria-pressed).
 
+### Wave 4 — Owner-style 15-minute playtest: PASS (Fable, 2026-08-17)
+
+Fresh studio (seed `studio-001`), natural pace, no repository knowledge used. Full
+first-film loop in ~11 minutes: found → guidance card "No picture yet / Commission a
+screenplay at Development" → commission (retained workspace, best-writer default) →
+draft → in-world review → accept → "Plan auditions at Casting" → retained planner →
+six-reads receipt → results review → "Take results to Package" → package (named
+select buttons) → budget → greenlight Week 2 → PICTURE FORMED → three shooting
+interventions, each resolvable from the next-event rail, the desk panel, AND the
+guidance card's own verb → post → **RELEASED Week 10**: period poster, The Silver
+Screen Gazette (2.5/5 critics · 60/100 audiences · $7.78M opening · projected
+$5.5M profit), forecast-vs-result table, standing changes, per-person career impact
+with "why it changed" — then Back to studio, where the card reads **YOUR NEXT
+PICTURE / In release / The next picture starts with a screenplay / [Commission a
+screenplay at Development]** and the marker lights Development again: film #2's
+first lesson is exactly the step the golden path deferred.
+
+The 15-minute test v2, item by item: no menu hunting ✓ (the deep Casting Room never
+opened this run); no confusion starting a film ✓; no confusion about the current
+film ✓ (one identity from card to poster); no confusion about what is waiting ✓;
+no confusion about the next decision ✓; ordinary actions from the studio ✓; the
+physical studio visible and relevant throughout ✓. "I know where this is because I
+built it" moments: none on the ordinary chain.
+
 ### Phase 0 — Research + cold playtest (complete)
 
 - Research workflow dispatched: The Movies (pipeline + lot/UI, two agents), Zoo Tycoon,
