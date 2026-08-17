@@ -458,7 +458,9 @@ describe('C1-M1a (b) — nothing assumes eight structures or a small placement c
     const week = operational.market.tick - 1
     const expectedOpex =
       filled.placement.facilities.length * DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.weeklyOperatingCost
-    expect(expectedWeeklyOperatingCostAt(operational.placement, week)).toBe(expectedOpex)
+    expect(
+      expectedWeeklyOperatingCostAt(operational.placement, operational.ledger, week),
+    ).toBe(expectedOpex)
     const opexRow = operational.ledger.filter((entry) => entry.kind === 'facilityOpex').at(-1)!
     expect(opexRow.amount).toBe(-expectedOpex)
 
