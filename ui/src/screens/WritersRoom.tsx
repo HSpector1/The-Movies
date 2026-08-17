@@ -143,7 +143,18 @@ export function ScreenplayCommissionForm({
   onError: (message: string) => void
 }) {
   const firstConcept = board.commission.concepts[0]
-  const firstWriter = board.commission.writers.find((writer) => writer.available)
+  // The default writer is the best AVAILABLE person whose profession is actually Writer.
+  //
+  // The engine publishes this list best-writing-estimate-first, and every entry is merely
+  // "contracted and able to write" — on a thin founding roster the top estimate can belong
+  // to a director or a craft lead, and committing them to a screenplay strips the role the
+  // package will need. Preferring a primary-role Writer never reaches past a better
+  // writer (the list is already sorted, so the FIRST primary-role Writer is the best one),
+  // and when the studio has none the previous best-estimate-first default stands unchanged
+  // — that is a real staffing situation, not a case for an empty form.
+  const availableWriters = board.commission.writers.filter((writer) => writer.available)
+  const firstWriter =
+    availableWriters.find((writer) => writer.primaryRole === 'writer') ?? availableWriters[0]
   const [conceptId, setConceptId] = useState(firstConcept?.id ?? '')
   const [writerId, setWriterId] = useState(firstWriter?.id ?? '')
   const [shape, setShape] = useState<FilmShape>(DEFAULT_SHAPE)

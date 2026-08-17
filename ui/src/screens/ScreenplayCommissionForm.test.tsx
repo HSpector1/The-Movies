@@ -68,7 +68,16 @@ describe('ScreenplayCommissionForm shared action boundary', () => {
     fireEvent.click(screen.getByTestId('commission-submit'))
 
     const concept = board.commission.concepts[0]!
-    const writer = board.commission.writers.find((candidate) => candidate.available)!
+    // M-B: the form's default is the best AVAILABLE person whose profession is Writer.
+    // The board publishes writers best-estimate-first and includes every contracted
+    // person who CAN write, so the old "first available" default could commission a
+    // screenplay from an actor or strip a role the package still needs (the cold
+    // playtest's trap default). This test now proves the rule, not the old code path.
+    const available = board.commission.writers.filter((candidate) => candidate.available)
+    const writer = available.find((candidate) => candidate.primaryRole === 'writer')!
+    expect(writer).toBeDefined()
+    expect(available[0]!.primaryRole).not.toBe('writer')
+    expect(writer.id).not.toBe(available[0]!.id)
     expect(onSubmit).toHaveBeenCalledTimes(1)
     expect(onSubmit).toHaveBeenCalledWith({
       conceptId: concept.id,

@@ -236,7 +236,12 @@ async function formPictureFromCurrentLot(
   await activateSemanticControl(page, 'lot-nav-writers')
   const worldReview = page.getByTestId('lot-script-review-panel')
   await expect(worldReview).toBeVisible()
-  await expect(worldReview.getByTestId('lot-script-review-project-id')).toContainText(projectId!)
+  // M-B re-pin: the header subtitle is player language; the project id it used to print
+  // lives on the panel's own provenance attribute, which is what this step really proves.
+  await expect(worldReview).toHaveAttribute('data-project-id', projectId!)
+  await expect(worldReview.getByTestId('lot-script-review-project-id')).toContainText(
+    'First draft · ',
+  )
   const worldAccept = worldReview.getByRole('button', { name: /^Accept / })
   await expect(worldAccept).toBeVisible()
   const title = ((await page.getByTestId('lot-script-review-heading').textContent()) ?? '').trim()
@@ -742,11 +747,20 @@ test('a second real picture forms by exact receipt, not array order, and reaches
   await expect(performance).toHaveAttribute('data-frame-samples', '240', { timeout: 30_000 })
   // M1.5 RE-MEASURE (accepted, not a regression): `eebbefd` moved roster presence into
   // `studioLotSnapshot`, so the contracted employees neither of the two formed companies
-  // claims now stand on the retained plate too — five of them here, one dynamic actor and two
-  // display objects each, 54/25 → 64/30. Decoded bytes and the single draw call below are
+  // claims now stand on the retained plate too — one dynamic actor and two display objects
+  // each, 54/25 → 64/30. Decoded bytes and the single draw call below are
   // unchanged, which is what proves the delta is people and not a renderer leak.
-  await expect(performance).toHaveAttribute('data-display-objects', '64')
-  await expect(performance).toHaveAttribute('data-dynamic-actors', '30')
+  //
+  // M-B RE-MEASURE (accepted, not a regression): 64/30 → 62/29. This spec commissions both
+  // pictures by clicking `commission-submit` on the shared form's DEFAULT writer, and M-B
+  // changed that default from "first available in the board's order" (which on this roster
+  // was a cross-discipline ACTOR with the top writing estimate) to "the best available
+  // person whose profession is Writer". One more contracted employee is therefore CLAIMED
+  // by a company and one fewer stands unclaimed on the plate — exactly the same one
+  // actor / two display objects per person this fixture already models. Decoded bytes and
+  // the single draw call are byte-identical below, which again proves people, not a leak.
+  await expect(performance).toHaveAttribute('data-display-objects', '62')
+  await expect(performance).toHaveAttribute('data-dynamic-actors', '29')
   await expect(performance).toHaveAttribute('data-decoded-bytes', String(EXPECTED_DECODED_BYTES))
   await expect(performance).toHaveAttribute('data-draw-calls', '1')
   expect(await activeSessionBytes(page)).toBe(twoPictureSaveBeforeInspection)
