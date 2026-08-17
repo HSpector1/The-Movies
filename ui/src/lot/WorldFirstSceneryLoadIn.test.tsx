@@ -85,6 +85,9 @@ const renderer = vi.hoisted(() => {
   class FakeView {
     readonly opts: Options
     readonly snapshots: unknown[] = []
+    heldPlaceId: string | null = null
+    heldProductionId: string | null = null
+    heldPersonId: string | null = null
     readonly scenerySelections: string[] = []
     readonly productionSelections: string[] = []
     readonly personSelections: string[] = []
@@ -110,6 +113,7 @@ const renderer = vi.hoisted(() => {
       // receives the selection event. Model that ordering so host regressions can
       // prove the renderer outline survives the callback.
       this.hollywoodPlaceSelection = place?.id ?? null
+      this.heldPlaceId = place?.id ?? null
       this.opts.onHollywoodPlace?.(place)
     }
     emitProduction(productionId: string, locationBuildingId = 'stage-a') {
@@ -119,18 +123,54 @@ const renderer = vi.hoisted(() => {
     setSnapshot(snapshot: unknown) { this.snapshots.push(snapshot) }
     select() {}
     clearSelection() {}
-    clearHollywoodPersonSelection() { this.hollywoodPersonClears += 1 }
+    clearHollywoodPersonSelection() {
+      this.hollywoodPersonClears += 1
+      this.heldPersonId = null
+    }
     clearHollywoodPlaceSelection() {
       this.hollywoodPlaceClears += 1
       this.hollywoodPlaceSelection = null
+      this.heldPlaceId = null
+      this.heldProductionId = null
     }
-    selectHollywoodPerson(id: string) { this.personSelections.push(id) }
-    selectHollywoodProduction(id: string) { this.productionSelections.push(id) }
+    selectHollywoodPerson(id: string) {
+      this.personSelections.push(id)
+      this.heldPersonId = id
+    }
+    selectHollywoodProduction(id: string) {
+      this.productionSelections.push(id)
+      this.heldProductionId = id
+      this.heldPlaceId = 'stage-7'
+    }
     selectHollywoodSceneryLoadIn(id: string) {
       this.scenerySelections.push(id)
+      if (controls.scenerySelectable) {
+        this.heldProductionId = id
+        this.heldPlaceId = 'service-yard'
+      }
       return controls.scenerySelectable
     }
-    selectHollywoodAnnexPlace() { return true }
+    selectHollywoodAnnexPlace() {
+      this.heldPlaceId = 'annex-parcel'
+      return true
+    }
+    /**
+     * C1-M5: what this double is HOLDING, modelled on the real scenes.
+     *
+     * The host's repaint reconciliation asks the renderer what it already has before
+     * re-asserting a selection. A double that records every command but claims to hold
+     * nothing is an unfaithful renderer, and it is what let a redundant second dispatch
+     * look like normal traffic. The exact-call assertions below are UNCHANGED and now
+     * genuinely catch a double-dispatch.
+     */
+    worldSelection() {
+      return {
+        placeId: this.heldPlaceId,
+        productionId: this.heldProductionId,
+        personId: this.heldPersonId,
+      }
+    }
+
     pause() {}
     resume() {}
     pauseVignettes() {}

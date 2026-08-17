@@ -88,16 +88,47 @@ const renderer = vi.hoisted(() => {
       queueMicrotask(() => opts.onReady?.())
     }
 
+    heldPlaceId: string | null = null
+    heldProductionId: string | null = null
+    heldPersonId: string | null = null
     setSnapshot(snapshot: Options['snapshot']) { this.snapshots.push(snapshot) }
     select() {}
     clearSelection() {}
     selectHollywoodAnnexPlace() {
       this.annexHostSelections++
+      if (controls.annexSelectable) this.heldPlaceId = 'annex-parcel'
       return controls.annexSelectable
     }
-    clearHollywoodPersonSelection() { this.hollywoodPersonClears++ }
-    clearHollywoodPlaceSelection() { this.hollywoodPlaceClears++ }
-    selectHollywoodPerson(id: string) { this.hollywoodPeopleSelected.push(id) }
+    clearHollywoodPersonSelection() {
+      this.hollywoodPersonClears++
+      this.heldPersonId = null
+    }
+    clearHollywoodPlaceSelection() {
+      this.hollywoodPlaceClears++
+      this.heldPlaceId = null
+      this.heldProductionId = null
+    }
+    selectHollywoodPerson(id: string) {
+      this.hollywoodPeopleSelected.push(id)
+      this.heldPersonId = id
+    }
+    /**
+     * C1-M5: what this double is HOLDING, modelled on the real scenes.
+     *
+     * The host's repaint reconciliation asks the renderer what it already has before
+     * re-asserting a selection. A double that records every command but claims to hold
+     * nothing is an unfaithful renderer, and it is what let a redundant second dispatch
+     * look like normal traffic. The exact-call assertions below are UNCHANGED and now
+     * genuinely catch a double-dispatch.
+     */
+    worldSelection() {
+      return {
+        placeId: this.heldPlaceId,
+        productionId: this.heldProductionId,
+        personId: this.heldPersonId,
+      }
+    }
+
     selectHollywoodProduction() {}
     pause() {}
     resume() {}

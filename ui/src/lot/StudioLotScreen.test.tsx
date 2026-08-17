@@ -127,16 +127,53 @@ const spy = vi.hoisted(() => {
     showHollywoodPublicity(ok: boolean, detail: string) { this.publicity.push({ ok, detail }) }
     selectHollywoodPublicityPlace() { return true }
     focusHollywoodPlace() {}
-    selectHollywoodPerson(id: string) { this.hollywoodPeopleSelected.push(id) }
-    selectHollywoodProduction(id: string) { this.hollywoodProductionsSelected.push(id) }
+    selectHollywoodPerson(id: string) {
+      this.hollywoodPeopleSelected.push(id)
+      this.heldPersonId = id
+    }
+    selectHollywoodProduction(id: string) {
+      this.hollywoodProductionsSelected.push(id)
+      this.heldProductionId = id
+      this.heldPlaceId = 'stage-7'
+    }
     selectHollywoodProductionCompany(id: string) {
       this.hollywoodCompaniesSelected.push(id)
       return true
     }
     clearHollywoodProductionCompanySelection() { this.hollywoodCompanyClears++ }
-    selectHollywoodAnnexPlace() { return true }
-    clearHollywoodPersonSelection() { this.hollywoodPersonClears++ }
-    clearHollywoodPlaceSelection() { this.hollywoodPlaceClears++ }
+    selectHollywoodAnnexPlace() {
+      this.heldPlaceId = 'annex-parcel'
+      return true
+    }
+    clearHollywoodPersonSelection() {
+      this.hollywoodPersonClears++
+      this.heldPersonId = null
+    }
+    clearHollywoodPlaceSelection() {
+      this.hollywoodPlaceClears++
+      this.heldPlaceId = null
+      this.heldProductionId = null
+    }
+    /**
+     * C1-M5: what this double is HOLDING, modelled on the real scenes.
+     *
+     * The host's repaint reconciliation asks the renderer what it already has before
+     * re-asserting a selection. A double that records every command but claims to hold
+     * nothing is an unfaithful renderer, and it is what let a redundant second dispatch
+     * look like normal traffic. The exact-call assertions below are UNCHANGED and now
+     * genuinely catch a double-dispatch.
+     */
+    worldSelection() {
+      return {
+        placeId: this.heldPlaceId,
+        productionId: this.heldProductionId,
+        personId: this.heldPersonId,
+      }
+    }
+
+    heldPlaceId: string | null = null
+    heldProductionId: string | null = null
+    heldPersonId: string | null = null
     destroy() { this.destroyed = true }
   }
   return { controls, instances, FakeInstance }
