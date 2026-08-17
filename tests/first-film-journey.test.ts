@@ -179,9 +179,12 @@ describe('First Film Journey V1 — the guided chain', () => {
       blocked: null,
     })
     expect(drafting.detail).toBe(`Writer: ${writerName} · Due Week ${String(project.dueWeek!)}`)
+    // ONE quiet line: the reason names what is being waited on AND the one thing the
+    // player can do about it, so no surface has to append a second near-identical
+    // "Waiting — advance the week" underneath it.
     expect(drafting.waiting).toEqual({
       untilWeek: project.dueWeek,
-      reason: `The draft is due Week ${String(project.dueWeek!)}.`,
+      reason: `The draft is due Week ${String(project.dueWeek!)} — advance the week.`,
     })
     expect(drafting.next).toMatchObject({ kind: 'advance-week', site: null })
     expect(drafting.next!.label).toContain('advance the week')
@@ -237,7 +240,7 @@ describe('First Film Journey V1 — the guided chain', () => {
     })
     expect(auditioning.waiting).toEqual({
       untilWeek: session.dueWeek,
-      reason: `The camera tests finish in Week ${String(session.dueWeek!)}.`,
+      reason: `The camera tests finish in Week ${String(session.dueWeek!)} — advance the week.`,
     })
     expect(auditioning.next).toMatchObject({ kind: 'advance-week', site: null })
 
@@ -258,6 +261,15 @@ describe('First Film Journey V1 — the guided chain', () => {
       label: 'Review audition results at Casting',
       site: 'casting',
     })
+    // The detail leads with the RESULTS, not with the picture's writer: on this state the
+    // decision in front of the player is who can carry the picture, and the count comes
+    // from the session's own stored reads (two per slot).
+    const reads = Object.values(state.castingSessions.sessions[0]!.results!).flat().length
+    expect(reads).toBe(6)
+    expect(auditionReview.detail).toBe(
+      `The camera tests are in — ${String(reads)} reads are waiting at Casting`,
+    )
+    expect(auditionReview.detail).not.toContain('Writer')
 
     // ── acknowledged: the package is now the recommended step ──────────────
     state = applyActions(state, [
@@ -296,7 +308,9 @@ describe('First Film Journey V1 — the guided chain', () => {
     const predictedRelease = state.market.tick + production.remainingTicks + 1
     expect(greenlit.waiting).toEqual({
       untilWeek: predictedRelease,
-      reason: `Development continues. The picture is due in Week ${String(predictedRelease)}.`,
+      reason:
+        `Development continues. The picture is due in Week ${String(predictedRelease)}` +
+        ' — advance the week.',
     })
     expect(greenlit.next).toMatchObject({ kind: 'advance-week', site: null })
 
@@ -365,6 +379,9 @@ describe('First Film Journey V1 — the guided chain', () => {
       } else {
         expect(view.next!.kind).toBe('advance-week')
         expect(view.next!.site).toBeNull()
+        // Every waiting line stands on its own: it says what is being waited on and
+        // what to do about it, so a surface renders exactly one of them.
+        expect(view.waiting!.reason).toMatch(/ — advance the week\.$/)
       }
     }
   })

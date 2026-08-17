@@ -81,7 +81,7 @@ describe('LotPictureGuidanceCard — the picture is followable from before it ex
         headline: 'Screenplay — drafting',
         detail: 'Writer: Lauren Ravel · Due Week 1',
         next: { kind: 'advance-week', label: 'Wait for the draft', site: null },
-        waiting: { untilWeek: 1, reason: 'the draft is due' },
+        waiting: { untilWeek: 1, reason: 'The draft is due Week 1 — advance the week.' },
       }),
       title: 'A Season of Archipelago',
       headline: 'Screenplay — drafting',
@@ -118,7 +118,10 @@ describe('LotPictureGuidanceCard — the picture is followable from before it ex
         pictureTitle: 'A Season of Archipelago',
         headline: 'Auditions running',
         next: { kind: 'advance-week', label: 'Wait for the audition results', site: null },
-        waiting: { untilWeek: 2, reason: 'auditions finish' },
+        waiting: {
+          untilWeek: 2,
+          reason: 'The camera tests finish in Week 2 — advance the week.',
+        },
       }),
       title: 'A Season of Archipelago',
       headline: 'Auditions running',
@@ -174,9 +177,13 @@ describe('LotPictureGuidanceCard — the picture is followable from before it ex
       if (stage.button === null) {
         // A waiting stage owns no verb: the week already has exactly one advance control.
         expect(screen.queryByTestId('lot-picture-guidance-next')).not.toBeInTheDocument()
-        expect(screen.getByTestId('lot-picture-guidance-status')).toHaveTextContent(
-          'Waiting — advance the week',
+        // …and it owns exactly ONE line about the wait. The card used to print the
+        // engine's reason and a second "Waiting — advance the week" status line beneath
+        // it, which said the same thing twice and the week three times.
+        expect(screen.getByTestId('lot-picture-guidance-waiting')).toHaveTextContent(
+          stage.view.waiting!.reason,
         )
+        expect(screen.queryByTestId('lot-picture-guidance-status')).not.toBeInTheDocument()
       } else {
         const button = screen.getByTestId('lot-picture-guidance-next')
         expect(button.tagName).toBe('BUTTON')
@@ -201,17 +208,46 @@ describe('LotPictureGuidanceCard — the picture is followable from before it ex
     )
   })
 
-  it('names the week a wait ends, and states an open wait without inventing one', () => {
+  it('speaks the engine waiting line verbatim, and composes no second one around it', () => {
     const { unmount } = renderCard(
-      journey({ waiting: { untilWeek: 3, reason: 'the draft is due' } }),
+      journey({
+        next: { kind: 'advance-week', label: 'Wait for the draft', site: null },
+        waiting: { untilWeek: 3, reason: 'The draft is due Week 3 — advance the week.' },
+      }),
     )
-    expect(screen.getByTestId('lot-picture-guidance-waiting')).toHaveTextContent(
-      'Waiting until Week 3 — the draft is due',
-    )
+    const waiting = screen.getByTestId('lot-picture-guidance-waiting')
+    // Verbatim: no "Waiting until Week 3 — " prefix of this card's own invention, which
+    // named the same week a second time inside a sentence that already carried it.
+    expect(waiting.textContent).toBe('The draft is due Week 3 — advance the week.')
+    expect(screen.queryByTestId('lot-picture-guidance-status')).not.toBeInTheDocument()
     unmount()
-    renderCard(journey({ waiting: { untilWeek: null, reason: 'the writer is on another picture' } }))
-    expect(screen.getByTestId('lot-picture-guidance-waiting')).toHaveTextContent(
-      'Waiting — the writer is on another picture',
+
+    renderCard(
+      journey({
+        next: { kind: 'advance-week', label: 'Wait for the writer', site: null },
+        waiting: {
+          untilWeek: null,
+          reason: 'The writer is on another picture — advance the week.',
+        },
+      }),
+    )
+    expect(screen.getByTestId('lot-picture-guidance-waiting').textContent).toBe(
+      'The writer is on another picture — advance the week.',
+    )
+  })
+
+  it('still states the wait when a step names no wait at all', () => {
+    // The engine always pairs an advance-week step with a `waiting`; a projection that
+    // did not would otherwise leave the card silent about why nothing can be pressed.
+    renderCard(
+      journey({
+        next: { kind: 'advance-week', label: 'Wait', site: null },
+        waiting: null,
+      }),
+    )
+    expect(screen.queryByTestId('lot-picture-guidance-waiting')).not.toBeInTheDocument()
+    expect(screen.getByTestId('lot-picture-guidance-status')).toHaveTextContent(
+      'Waiting — advance the week',
     )
   })
 

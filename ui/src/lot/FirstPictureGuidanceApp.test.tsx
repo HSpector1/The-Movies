@@ -301,18 +301,21 @@ describe('The next step points at the world — it never teleports to a screen',
       headline: 'Auditions running',
       detail: null,
       next: { kind: 'advance-week', label: 'Wait for the audition results', site: null },
-      waiting: { untilWeek: 2, reason: 'auditions finish' },
+      waiting: {
+        untilWeek: 2,
+        reason: 'The camera tests finish in Week 2 — advance the week.',
+      },
     }) }
     renderLot(managedWeekZero('picture-guidance-waiting'))
     await onlyView()
 
     expect(screen.queryByTestId('lot-picture-guidance-next')).not.toBeInTheDocument()
-    expect(screen.getByTestId('lot-picture-guidance-status')).toHaveTextContent(
-      'Waiting — advance the week',
+    // ONE quiet line about the wait, in the engine's own words. The card used to add a
+    // second "Waiting — advance the week" underneath it (live-playtest finding).
+    expect(screen.getByTestId('lot-picture-guidance-waiting').textContent).toBe(
+      'The camera tests finish in Week 2 — advance the week.',
     )
-    expect(screen.getByTestId('lot-picture-guidance-waiting')).toHaveTextContent(
-      'Waiting until Week 2 — auditions finish',
-    )
+    expect(screen.queryByTestId('lot-picture-guidance-status')).not.toBeInTheDocument()
   })
 })
 

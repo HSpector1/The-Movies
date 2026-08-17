@@ -188,6 +188,23 @@ function plural(count: number, one: string, many: string): string {
   return count === 1 ? one : many
 }
 
+/**
+ * ONE quiet waiting line.
+ *
+ * `waiting.reason` is the complete sentence a surface speaks while the studio simply has
+ * to let the week run, so it names BOTH what is being waited on and the one thing the
+ * player can do about it. It used to name only the former, which left every host to
+ * append its own "advance the week" — and the guidance card duly stacked two near-identical
+ * lines ("Waiting until Week 2 — The camera tests finish in Week 2." above "Waiting —
+ * advance the week"). The instruction belongs in the engine's own sentence, said once.
+ *
+ * `next.label` keeps its own imperative phrasing: the frozen contract says a label always
+ * names the verb, and a surface that shows the step as a control still needs one.
+ */
+function waitOut(reason: string): string {
+  return `${reason} — advance the week.`
+}
+
 function joinDetail(parts: ReadonlyArray<string | null>): string | null {
   const kept = parts.filter((part): part is string => part !== null && part !== '')
   return kept.length === 0 ? null : kept.join(' · ')
@@ -414,10 +431,11 @@ function draftingView(
     },
     waiting: {
       untilWeek: due,
-      reason:
+      reason: waitOut(
         due === null
-          ? 'The draft is still being written.'
-          : `The draft is due Week ${String(due)}.`,
+          ? 'The draft is still being written'
+          : `The draft is due Week ${String(due)}`,
+      ),
     },
     blocked: null,
   }
@@ -474,30 +492,50 @@ function auditioningView(
     },
     waiting: {
       untilWeek: due,
-      reason:
+      reason: waitOut(
         due === null
-          ? 'The camera tests are still running.'
-          : `The camera tests finish in Week ${String(due)}.`,
+          ? 'The camera tests are still running'
+          : `The camera tests finish in Week ${String(due)}`,
+      ),
     },
     blocked: null,
   }
 }
 
+/**
+ * How many camera-test reads are sitting on the desk. A session in `review` always
+ * carries its complete results (castingSessions.ts:386 builds every slot before it flips
+ * the status), so this is a cheap count of what is already there — never a re-derivation
+ * and never an estimate. Malformed results withhold the number instead of guessing one.
+ */
+function auditionReadCount(session: CastingSession | undefined): number | null {
+  const results = session?.results ?? null
+  if (results === null || typeof results !== 'object') return null
+  let reads = 0
+  for (const pair of Object.values(results)) {
+    if (Array.isArray(pair)) reads += pair.length
+  }
+  return reads > 0 ? reads : null
+}
+
 function auditionReviewView(
-  state: GameState,
-  project: ScriptProject,
+  session: CastingSession | undefined,
   ordinal: number,
   title: string | null,
 ): FirstFilmJourneyView {
-  const writer = talentName(state, project.writerId)
+  // The picture's WRITER is stale context on this state — the decision in front of the
+  // player is who can carry the picture, and the detail leads with the results
+  // themselves (live-playtest finding).
+  const reads = auditionReadCount(session)
   return {
     stage: 'audition-review',
     pictureTitle: title,
     ordinal,
     headline: 'Audition results ready',
     detail: joinDetail([
-      writer === null ? null : `Writer: ${writer}`,
-      'The camera tests are in and waiting to be read',
+      reads === null
+        ? `The camera tests are in — the reads are waiting at ${SITE_PLACE.casting}`
+        : `The camera tests are in — ${String(reads)} ${plural(reads, 'read is', 'reads are')} waiting at ${SITE_PLACE.casting}`,
     ]),
     next: {
       kind: 'audition-review',
@@ -677,10 +715,11 @@ function inProductionView(
     },
     waiting: {
       untilWeek: releaseWeek,
-      reason:
+      reason: waitOut(
         releaseWeek === null
-          ? `${continues}.`
-          : `${continues}. The picture is due in Week ${String(releaseWeek)}.`,
+          ? continues
+          : `${continues}. The picture is due in Week ${String(releaseWeek)}`,
+      ),
     },
     blocked: null,
   }
@@ -728,7 +767,7 @@ export function firstFilmJourney(state: GameState): FirstFilmJourneyView {
         return auditioningView(session, ordinal, title)
       }
       if (session !== undefined && session.status === 'review') {
-        return auditionReviewView(state, project, ordinal, title)
+        return auditionReviewView(session, ordinal, title)
       }
       return readyToPackageView(state, project, ordinal, title, board, casting, session)
     }

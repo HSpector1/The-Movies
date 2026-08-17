@@ -46,10 +46,19 @@ function writeCollapsedPreference(collapsed: boolean): void {
   }
 }
 
+/**
+ * ONE waiting line, engine copy rendered verbatim.
+ *
+ * This card used to compose its own "Waiting until Week 2 — " prefix around the engine's
+ * reason and then print a second "Waiting — advance the week" status line under it, so a
+ * waiting stage stacked two near-identical sentences that named the same week three times
+ * (live-playtest finding). The engine's `waiting.reason` is now the whole quiet line —
+ * what is being waited on AND the one thing the player can do about it — so the card
+ * simply says it once. `untilWeek` remains the structured fact for anything that needs the
+ * number itself.
+ */
 function waitingLine(waiting: { untilWeek: number | null; reason: string }): string {
-  return waiting.untilWeek === null
-    ? `Waiting — ${waiting.reason}`
-    : `Waiting until Week ${String(waiting.untilWeek)} — ${waiting.reason}`
+  return waiting.reason
 }
 
 /**
@@ -158,13 +167,17 @@ export function LotPictureGuidanceCard({
               next.kind === 'advance-week' ? (
                 // The week already has ONE advance control, on the studio bar. A second
                 // button here would be a duplicate authority over time, so the picture's
-                // step is stated as a quiet status line instead.
-                <p
-                  className="hollywood-picture-guidance-status"
-                  data-testid="lot-picture-guidance-status"
-                >
-                  Waiting — advance the week
-                </p>
+                // step is stated as a quiet status line instead — and only when the
+                // waiting line above did not already say it, which it now always does for
+                // a step the engine paired with a `waiting`.
+                view.waiting === null && (
+                  <p
+                    className="hollywood-picture-guidance-status"
+                    data-testid="lot-picture-guidance-status"
+                  >
+                    Waiting — advance the week
+                  </p>
+                )
               ) : (
                 <button
                   type="button"
