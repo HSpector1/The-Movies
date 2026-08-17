@@ -40,6 +40,56 @@
 //
 // GHOSTS ARE REJECTED (Entry 2's cautionary tale): nothing here inserts a preview
 // into simulation state. A preview is a pure query the UI runs per cursor move.
+//
+// ── MOVE & DEMOLISH V1 (C1-M3a) ──────────────────────────────────────────────
+//
+// Two destructive verbs, both FAIL-CLOSED: if the engine cannot PROVE a facility
+// is idle, it refuses. There is no override, because the failure mode of getting
+// this wrong is a dangling reservation — and a dangling facilityId does not
+// degrade, it THROWS, out of `studioCalendar` and `scriptCapacityView`, taking a
+// whole screen down with it.
+//
+// THE ENGAGEMENT SOURCES. `facilityEngagements` is the one predicate, and this is
+// the exhaustive list of persisted holders of a `StudioFacility.id` it walks.
+// Anything added to this engine that can hold a facility MUST be added here:
+//
+//   1. state.operations.workflows[].reservations[].facilityId
+//      Production phase reservations. OPEN-ENDED — there is no dueWeek, and a
+//      production blocked on capacity keeps its reservation indefinitely rather
+//      than releasing it. Any reservation present is live.
+//   2. state.operations.workflows[].shootingTask.soundstageFacilityId
+//      A denormalized SECOND copy of the soundstage id, tied to (1) by an
+//      operations invariant. Walked independently anyway: a guard that trusted
+//      the invariant would leave this field dangling the day the two diverge.
+//   3. state.scriptDevelopment.projects[].reservation.facilityId
+//      A screenplay drafting or rewriting. One week; released by the tick's
+//      script-completion step. Tested on the RESERVATION, not the status, so a
+//      malformed state fails closed.
+//   4. state.castingSessions.sessions[].reservation.facilityId
+//      An audition session. One week; released by the tick's casting step. Same
+//      reservation-not-status rule.
+//   5. state.construction.projects[].facilityId
+//      The retired V11 construction root. Provably empty under V12 and later, and
+//      walked anyway so a migrated or forged save cannot slip past.
+//
+// NOT engagements, deliberately: `state.operations.facilities` (the registry the
+// facility is being REMOVED from), and the placement's own record. An
+// underConstruction site holds no engagement by definition — it has no capacity
+// and nothing can reserve it — but it still goes through the identical check
+// rather than being special-cased past it.
+//
+// WHAT IS EXCLUDED FROM BOTH VERBS: the placement standing on the legacy
+// `expansion` parcel. That is the accepted Development & Casting Annex contract,
+// whose retained read model, action, and V11 identities are load-bearing across
+// the whole product; letting V1 move or delete it would put every one of those
+// surfaces in an undefined state for no gameplay gain. Founding STRUCTURES are
+// excluded by construction — both verbs take a placementId, and a structure is
+// property with no placement record at all — and that is asserted rather than
+// assumed.
+//
+// CAPITAL IS STRICTLY LOSSY. A demolition refunds a fraction of the ORIGINAL
+// capex, never more, so build-then-demolish always nets negative and there is no
+// cycle a player can farm. The bound is enforced as an invariant, not a habit.
 
 import { canAfford, economyEngaged, type Affordability } from './employment.js'
 import {
@@ -68,6 +118,9 @@ import {
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
   FACILITY_BLUEPRINTS,
+  FACILITY_DEMOLITION_LEDGER_NOTE,
+  FACILITY_DEMOLITION_REFUND_FRACTION,
+  FACILITY_MOVE_COST,
   FACILITY_OPEX_LEDGER_NOTE,
   TUNING,
 } from './tuning.js'
@@ -83,7 +136,12 @@ import type {
   PlacementQuote,
   PlacementRejection,
   PlacementRequest,
+  PlacementQueryOptions,
+  PlacementMutationRefusal,
+  FacilityMoveRequest,
+  FacilityDemolitionRequest,
   PropertyState,
+  FacilityEngagement,
   UnmetRequirement,
   StudioFacility,
   StudioOperations,
@@ -121,6 +179,20 @@ export function initialManagedStudioPlacement(): StudioPlacement {
 export function blueprintById(blueprintId: string): FacilityBlueprint | null {
   for (const blueprint of FACILITY_BLUEPRINTS) {
     if (blueprint.id === blueprintId) return blueprint
+  }
+  return null
+}
+
+/**
+ * The blueprint a capex row was written for, identified by its canonical ledger
+ * note. This is how a DEMOLISHED facility is recognised: its placement record is
+ * gone, and the note is the only thing in the surviving ledger row that names the
+ * building rather than the project. The catalog invariant asserts notes are
+ * unique so this can never be ambiguous.
+ */
+export function blueprintByLedgerNote(note: string): FacilityBlueprint | null {
+  for (const blueprint of FACILITY_BLUEPRINTS) {
+    if (blueprint.ledgerNote === note) return blueprint
   }
   return null
 }
@@ -286,7 +358,11 @@ function orderedRejections(found: ReadonlySet<PlacementRejection>): PlacementRej
  * different matter and is caught by the invariant checker at the action, tick,
  * and save boundaries.)
  */
-export function queryPlacement(state: GameState, request: PlacementRequest): PlacementQuote {
+export function queryPlacement(
+  state: GameState,
+  request: PlacementRequest,
+  options?: PlacementQueryOptions,
+): PlacementQuote {
   const origin = { gx: request.origin.gx, gy: request.origin.gy }
   const blueprint = blueprintById(request.blueprintId)
   if (blueprint === null) {
@@ -310,7 +386,7 @@ export function queryPlacement(state: GameState, request: PlacementRequest): Pla
       maxInstances: null,
     }
   }
-  return quoteForBlueprint(state, blueprint, origin)
+  return quoteForBlueprint(state, blueprint, origin, options)
 }
 
 /**
@@ -332,16 +408,52 @@ export function quoteForBlueprint(
   state: GameState,
   blueprint: FacilityBlueprint,
   requestOrigin: LotCell,
+  options?: PlacementQueryOptions,
 ): PlacementQuote {
   const origin = { gx: requestOrigin.gx, gy: requestOrigin.gy }
   const property = propertyOf(state)
+  // C1-M3a. `movingPlacementId` is ONE concept, not two flags, and everything it
+  // changes follows from the single fact that this is a relocation of something
+  // the studio already owns rather than a new build:
+  //
+  //   • the mover's own cells leave the occupancy index, so a building may
+  //     overlap its old footprint — a one-cell nudge is the commonest move there
+  //     is, and it would otherwise collide with itself;
+  //   • `requirementsUnmet` and `instanceLimit` do not apply. Both ask "may the
+  //     studio ADD one of these?", and a move adds nothing. A blueprint that has
+  //     since been gated behind a certificate, or whose allowance is now full
+  //     BECAUSE this very building occupies it, must not trap what you own where
+  //     it stands;
+  //   • money is priced at FACILITY_MOVE_COST, not capex. You are not buying the
+  //     building again. This keeps ONE rule true for both verbs — a caller
+  //     charges `quote.cost` — so the fee path is exercised today at zero and a
+  //     future fee needs no new code.
+  //
+  // It is threaded as an id the engine resolves ITSELF, never a caller-supplied
+  // occupancy set: a caller that could hand in occupancy could hand in an empty
+  // one and legalise anything.
+  const moving =
+    options?.movingPlacementId === undefined
+      ? null
+      : (state.placement.facilities.find(
+          (placed) => placed.id === options.movingPlacementId,
+        ) ?? null)
+  const effectivePlacement: StudioPlacement =
+    moving === null
+      ? state.placement
+      : {
+          ...state.placement,
+          facilities: state.placement.facilities.filter((placed) => placed.id !== moving.id),
+        }
+  const isMove = moving !== null
+  const chargedCost = isMove ? FACILITY_MOVE_COST : blueprint.capex
   const cells = footprintCells(blueprint, origin)
   // Ground occupancy (placements AND authored structures) answers "is a body
   // standing here?"; placement occupancy alone answers "is another PLACEMENT too
   // close?". See the module header for why the clearance ring keeps the narrower
   // input.
-  const occupied = groundOccupiedCellKeys(property, state.placement)
-  const placementOccupied = occupiedCellKeys(state.placement)
+  const occupied = groundOccupiedCellKeys(property, effectivePlacement)
+  const placementOccupied = occupiedCellKeys(effectivePlacement)
   const found = new Set<PlacementRejection>()
 
   // Per-cell legality, in the binding per-cell order. Every cell is evaluated.
@@ -383,12 +495,16 @@ export function quoteForBlueprint(
   // Both are evaluated on EVERY query, exactly like the geometry rules: a preview
   // that only computes availability when geometry happens to pass cannot tell a
   // player why a catalog entry is greyed out before they pick a site.
-  const availability = evaluateBlueprintRequirements(state, blueprint, FACILITY_BLUEPRINTS)
+  const availability = isMove
+    ? { available: true, unmet: [] }
+    : evaluateBlueprintRequirements(state, blueprint, FACILITY_BLUEPRINTS)
   if (!availability.available) found.add('requirementsUnmet')
-  if (blueprintAtInstanceLimit(state.placement, blueprint)) found.add('instanceLimit')
+  if (!isMove && blueprintAtInstanceLimit(state.placement, blueprint)) {
+    found.add('instanceLimit')
+  }
 
   // Money LAST — a domain failure always outranks affordability.
-  if (!canAfford(state, blueprint.capex).ok) found.add('insufficientFunds')
+  if (!canAfford(state, chargedCost).ok) found.add('insufficientFunds')
 
   const rejections = orderedRejections(found)
   const originParcel = parcelAt(property, origin)
@@ -399,7 +515,7 @@ export function quoteForBlueprint(
     parcelId: originParcel === null ? null : originParcel.id,
     cells,
     cellLegality,
-    cost: blueprint.capex,
+    cost: chargedCost,
     weeklyOperatingCost: blueprint.weeklyOperatingCost,
     buildWeeks: blueprint.buildWeeks,
     completesOnWeek: state.market.tick + blueprint.buildWeeks,
@@ -546,6 +662,271 @@ export function completeDuePlacements(
   }
 }
 
+// ── Move & Demolish V1 (C1-M3a) ──────────────────────────────────────────────
+
+/**
+ * Every live claim on a facility, in a fixed source order (production, shooting
+ * task, screenplay, casting, legacy construction) and, within a source, in state
+ * order. Deterministic, so a refusal reads the same on every replay.
+ *
+ * This is THE predicate. The module header lists the five persisted holders it
+ * walks and why each one is there; anything that can hold a facility must be
+ * added to both. It is exported so the UI can explain a refusal without
+ * re-deriving it and drifting.
+ */
+export function facilityEngagements(
+  state: GameState,
+  facilityId: string,
+): FacilityEngagement[] {
+  const holders: FacilityEngagement[] = []
+
+  // 1 + 2. Production workflows, and the shooting task's denormalized copy.
+  for (const workflow of state.operations.workflows) {
+    for (const reservation of workflow.reservations) {
+      if (reservation.facilityId !== facilityId) continue
+      holders.push({
+        kind: 'production',
+        facilityId,
+        holderId: workflow.productionId,
+        activity: workflow.phase,
+      })
+    }
+    if (workflow.shootingTask?.soundstageFacilityId === facilityId) {
+      holders.push({
+        kind: 'shootingTask',
+        facilityId,
+        holderId: workflow.productionId,
+        activity: 'shooting',
+      })
+    }
+  }
+
+  // 3. Screenplays. Tested on the reservation, never the status, so a malformed
+  // state fails CLOSED rather than reading as idle.
+  for (const project of state.scriptDevelopment.projects) {
+    if (project.reservation?.facilityId !== facilityId) continue
+    holders.push({
+      kind: 'screenplay',
+      facilityId,
+      holderId: project.id,
+      activity: project.status === 'rewriting' ? 'rewriting a screenplay' : 'drafting a screenplay',
+    })
+  }
+
+  // 4. Audition sessions. Same reservation-not-status rule.
+  for (const session of state.castingSessions.sessions) {
+    if (session.reservation?.facilityId !== facilityId) continue
+    holders.push({
+      kind: 'castingSession',
+      facilityId,
+      holderId: session.id,
+      activity: 'auditioning',
+    })
+  }
+
+  // 5. The retired V11 construction root. Provably empty under V12 and later;
+  // walked so a migrated or forged save cannot slip past.
+  for (const project of state.construction.projects) {
+    if (project.facilityId !== facilityId) continue
+    holders.push({
+      kind: 'legacyConstructionProject',
+      facilityId,
+      holderId: project.id,
+      activity: 'construction',
+    })
+  }
+
+  return holders
+}
+
+/**
+ * The eligibility both verbs share, in a fixed order so the reported reason is
+ * the most fundamental one true of the request.
+ */
+function facilityMutationEligibility(
+  state: GameState,
+  placementId: number,
+): { refusal: PlacementMutationRefusal } | { placed: PlacedFacility } {
+  if (!placementRegimeReady(state)) return { refusal: { code: 'regimeNotReady' } }
+
+  const placed = state.placement.facilities.find((candidate) => candidate.id === placementId)
+  if (placed === undefined) return { refusal: { code: 'unknownPlacement', placementId } }
+
+  // The legacy Annex contract is excluded from both verbs until the C2 Flip —
+  // see the module header for why. Founding STRUCTURES need no check here: they
+  // are property and own no placement record, so no placementId can name one.
+  if (placed.parcelId === LEGACY_EXPANSION_PARCEL_ID) {
+    return {
+      refusal: { code: 'foundingPlacement', placementId, parcelId: placed.parcelId },
+    }
+  }
+
+  // FAIL-CLOSED. An underConstruction site cannot hold an engagement, and is
+  // still asked, because "it cannot happen" is exactly the assumption that stops
+  // being true without anyone noticing.
+  const holders = facilityEngagements(state, placed.facilityId)
+  if (holders.length > 0) {
+    return {
+      refusal: {
+        code: 'facilityEngaged',
+        placementId,
+        facilityId: placed.facilityId,
+        holders,
+      },
+    }
+  }
+
+  return { placed }
+}
+
+/** Why this facility cannot be moved to that origin, or null if it can. */
+export function facilityMoveRefusal(
+  state: GameState,
+  request: FacilityMoveRequest,
+): PlacementMutationRefusal | null {
+  const eligibility = facilityMutationEligibility(state, request.placementId)
+  if ('refusal' in eligibility) return eligibility.refusal
+  const { placed } = eligibility
+
+  const blueprint = blueprintById(placed.blueprintId)
+  if (blueprint === null) {
+    return { code: 'unknownPlacement', placementId: request.placementId }
+  }
+
+  // ONE legality authority, asked about the destination with this placement's own
+  // cells excluded. Nothing here re-implements a rule.
+  const quote = quoteForBlueprint(state, blueprint, request.origin, {
+    movingPlacementId: placed.id,
+  })
+  if (!quote.ok) {
+    return { code: 'illegalDestination', placementId: request.placementId, quote }
+  }
+  return null
+}
+
+/**
+ * Relocate a placed facility. Byte-neutral on refusal: the SAME state object
+ * comes back by reference, exactly as a refused `commitPlacement` does.
+ *
+ * IDENTITY IS PRESERVED. Same placement id, facilityId, projectId, status,
+ * placedWeek, and completesWeek — only the ground changes. That is what makes a
+ * move safe against every correlation the invariants enforce: the capex row still
+ * matches its placement, an operational facility keeps its entry in
+ * `operations.facilities` at the same index, and any reservation that named it
+ * still names the same thing. A move is a change of address, not a rebuild.
+ */
+export function moveFacility(state: GameState, request: FacilityMoveRequest): GameState {
+  if (facilityMoveRefusal(state, request) !== null) return state
+  const placed = state.placement.facilities.find(
+    (candidate) => candidate.id === request.placementId,
+  )
+  if (placed === undefined) return state // unreachable: the refusal probe passed
+  const blueprint = blueprintById(placed.blueprintId)
+  if (blueprint === null) return state // unreachable: same
+  const quote = quoteForBlueprint(state, blueprint, request.origin, {
+    movingPlacementId: placed.id,
+  })
+  if (!quote.ok) return state // unreachable: same
+  const property = propertyOf(state)
+  const parcel = parcelAt(property, quote.origin)
+  if (parcel === null) return state // unreachable: an ok quote owns its origin
+
+  const moved: PlacedFacility = {
+    ...placed,
+    parcelId: parcel.id,
+    origin: quote.origin,
+    cells: quote.cells,
+  }
+
+  // The fee goes through the ordinary cash path and is charged from the quote,
+  // never from a caller. At FACILITY_MOVE_COST = 0 this is a no-op today, which
+  // is the point: the path is exercised by every move test that already runs.
+  return {
+    ...state,
+    studio: { ...state.studio, cash: state.studio.cash - quote.cost },
+    placement: {
+      ...state.placement,
+      // Rebuilt in place, so ascending-id order is preserved by construction.
+      facilities: state.placement.facilities.map((candidate) =>
+        candidate.id === moved.id ? moved : candidate,
+      ),
+    },
+  }
+}
+
+/** The depreciated credit a demolition returns for a blueprint. */
+export function facilityDemolitionRefund(blueprint: FacilityBlueprint): number {
+  return Math.round(blueprint.capex * FACILITY_DEMOLITION_REFUND_FRACTION)
+}
+
+/** Why this facility cannot be demolished, or null if it can. */
+export function facilityDemolitionRefusal(
+  state: GameState,
+  request: FacilityDemolitionRequest,
+): PlacementMutationRefusal | null {
+  const eligibility = facilityMutationEligibility(state, request.placementId)
+  return 'refusal' in eligibility ? eligibility.refusal : null
+}
+
+/**
+ * Demolish a placed facility. Byte-neutral on refusal, like every other verb.
+ *
+ * The placement record is REMOVED, and its `StudioFacility` leaves
+ * `operations.facilities` when it had one. The engagement guard is what makes
+ * that safe: nothing can be holding it, so nothing is left dangling.
+ *
+ * `nextPlacementId` is deliberately untouched. Ids are monotonic and never
+ * reused, so a demolition can never hand a fresh building the identity of a dead
+ * one — which is also what keeps the capex row that survives it unambiguous.
+ *
+ * A site demolished mid-construction is the same operation with no facility to
+ * withdraw: it never became one, so there is nothing to remove and nothing that
+ * could have reserved it.
+ */
+export function demolishFacility(
+  state: GameState,
+  request: FacilityDemolitionRequest,
+): GameState {
+  if (facilityDemolitionRefusal(state, request) !== null) return state
+  const placed = state.placement.facilities.find(
+    (candidate) => candidate.id === request.placementId,
+  )
+  if (placed === undefined) return state // unreachable: the refusal probe passed
+  const blueprint = blueprintById(placed.blueprintId)
+  if (blueprint === null) return state // unreachable: same
+
+  const refund = facilityDemolitionRefund(blueprint)
+  const entry: LedgerEntry = {
+    week: state.market.tick,
+    kind: 'facilityDemolitionRefund',
+    amount: refund,
+    constructionProjectId: placed.projectId,
+    note: FACILITY_DEMOLITION_LEDGER_NOTE,
+  }
+
+  const operations: StudioOperations =
+    placed.status === 'operational'
+      ? {
+          ...state.operations,
+          facilities: state.operations.facilities.filter(
+            (facility) => facility.id !== placed.facilityId,
+          ),
+        }
+      : state.operations
+
+  return {
+    ...state,
+    studio: { ...state.studio, cash: state.studio.cash + refund },
+    ledger: [...state.ledger, entry],
+    operations,
+    placement: {
+      ...state.placement,
+      // nextPlacementId is NOT rolled back: ids are never reused.
+      facilities: state.placement.facilities.filter((candidate) => candidate.id !== placed.id),
+    },
+  }
+}
+
 // ── invariants ───────────────────────────────────────────────────────────────
 
 function invariant(condition: boolean, message: string): asserts condition {
@@ -594,12 +975,42 @@ function invariant(condition: boolean, message: string): asserts condition {
  * is exactly where `queryPlacement` enforces it.
  */
 function assertBlueprintCatalogInvariants(): void {
+  // C1-M3a. THE LAW THAT MAKES REFUND FARMING IMPOSSIBLE: a demolition can never
+  // return the whole capital sum. Asserted here rather than trusted, so no future
+  // tuning pass can turn build-and-demolish into an income stream by editing one
+  // number. The move fee is bounded for the same reason in the other direction —
+  // a negative fee would pay a player to shuffle buildings.
+  invariant(
+    Number.isFinite(FACILITY_DEMOLITION_REFUND_FRACTION) &&
+      FACILITY_DEMOLITION_REFUND_FRACTION >= 0 &&
+      FACILITY_DEMOLITION_REFUND_FRACTION < 1,
+    'the demolition refund fraction must be at least 0 and strictly below 1',
+  )
+  invariant(
+    Number.isInteger(FACILITY_MOVE_COST) && FACILITY_MOVE_COST >= 0,
+    'the facility move cost must be a non-negative integer',
+  )
+
   const ids = new Set<string>()
+  const ledgerNotes = new Set<string>()
   for (const blueprint of FACILITY_BLUEPRINTS) {
     const label = `blueprint "${blueprint.id}"`
     invariant(blueprint.id.length > 0, 'blueprint id must be non-empty')
     invariant(!ids.has(blueprint.id), `duplicate ${label}`)
     ids.add(blueprint.id)
+    // C1-M3a: the ledger note is how a DEMOLISHED facility is identified after
+    // its placement record is gone, so two blueprints sharing one would make a
+    // surviving capex row ambiguous about what it built.
+    invariant(blueprint.ledgerNote.length > 0, `${label} ledger note must be non-empty`)
+    invariant(
+      !ledgerNotes.has(blueprint.ledgerNote),
+      `${label} shares its ledger note with another blueprint`,
+    )
+    ledgerNotes.add(blueprint.ledgerNote)
+    invariant(
+      blueprint.capex > 0,
+      `${label} capex must be positive so its demolition refund is strictly lossy`,
+    )
 
     if (blueprint.maxInstances !== undefined) {
       invariant(
@@ -754,7 +1165,22 @@ function assertPropertyInvariants(property: PropertyState): void {
 }
 
 /** The opex a week SHOULD have been charged, from the durable placement record. */
-export function expectedWeeklyOperatingCostAt(placement: StudioPlacement, week: number): number {
+export function expectedWeeklyOperatingCostAt(
+  placement: StudioPlacement,
+  // C1-M3a: the ledger is now REQUIRED to answer this. Before demolition existed,
+  // the live placement array was a complete record of every facility that had ever
+  // operated, so a past week's expected charge could be recomputed from it alone.
+  // Removing a placement retroactively rewrote that history and made every
+  // historical opex row look forged.
+  //
+  // The ledger is the durable accounting record and already holds everything
+  // needed: the capex row gives the week the building started and, through its
+  // canonical note, WHICH blueprint it was; the refund row gives the week it
+  // stopped. A demolished facility is reconstructed from that pair and charged for
+  // exactly the weeks it stood. Nothing is stored twice.
+  ledger: readonly LedgerEntry[],
+  week: number,
+): number {
   let total = 0
   for (const facility of placement.facilities) {
     if (facility.completesWeek > week) continue
@@ -762,7 +1188,54 @@ export function expectedWeeklyOperatingCostAt(placement: StudioPlacement, week: 
     if (blueprint === null) continue
     total += blueprint.weeklyOperatingCost
   }
+  for (const demolished of demolishedFacilityHistory(ledger)) {
+    // Charged for every week it was operational, and never again from the week it
+    // came down — a facility demolished in week D pays nothing for D, because the
+    // tick that charges week D reads a placement array it has already left.
+    if (demolished.completesWeek > week) continue
+    if (week >= demolished.demolishedWeek) continue
+    total += demolished.blueprint.weeklyOperatingCost
+  }
   return total
+}
+
+/**
+ * Every facility that once stood and no longer does, reconstructed from the two
+ * ledger rows that bracket its life. Pure derivation — a demolished facility has
+ * no record anywhere else, and deliberately so: a second store would be a second
+ * thing to keep true.
+ *
+ * A refund row whose capex row is missing or unrecognisable is SKIPPED here and
+ * caught loudly by the correlation invariant; this function's job is arithmetic,
+ * not accusation.
+ */
+export function demolishedFacilityHistory(
+  ledger: readonly LedgerEntry[],
+): { projectId: string; blueprint: FacilityBlueprint; completesWeek: number; demolishedWeek: number }[] {
+  const capexByProjectId = new Map<string, LedgerEntry>()
+  for (const entry of ledger) {
+    if (entry.kind === 'constructionCapex') capexByProjectId.set(entry.constructionProjectId, entry)
+  }
+  const out: {
+    projectId: string
+    blueprint: FacilityBlueprint
+    completesWeek: number
+    demolishedWeek: number
+  }[] = []
+  for (const entry of ledger) {
+    if (entry.kind !== 'facilityDemolitionRefund') continue
+    const capex = capexByProjectId.get(entry.constructionProjectId)
+    if (capex === undefined) continue
+    const blueprint = blueprintByLedgerNote(capex.note)
+    if (blueprint === null) continue
+    out.push({
+      projectId: entry.constructionProjectId,
+      blueprint,
+      completesWeek: capex.week + blueprint.buildWeeks,
+      demolishedWeek: entry.week,
+    })
+  }
+  return out
 }
 
 /**
@@ -957,29 +1430,80 @@ export function assertStudioPlacementInvariants(
   }
 
   // Every capital row corresponds to exactly one placement, at its exact week and
-  // exact committed price. Placements are never removed, so this is total.
+  // exact committed price — OR, since C1-M3a, to exactly one demolition refund
+  // that ended it. Those are the only two possibilities, and the correlation is
+  // proved in BOTH directions: a capex row whose building is gone must have been
+  // refunded, and a refund must name a real prior capex row. Neither a silently
+  // vanished placement nor a forged credit can survive this.
+  const refundRows = state.ledger.filter((entry) => entry.kind === 'facilityDemolitionRefund')
+  const capexByProjectId = new Map<string, LedgerEntry>()
+  const refundByProjectId = new Map<string, LedgerEntry>()
+  for (const entry of refundRows) {
+    invariant(
+      !refundByProjectId.has(entry.constructionProjectId),
+      `demolition refund "${entry.constructionProjectId}" is credited more than once`,
+    )
+    refundByProjectId.set(entry.constructionProjectId, entry)
+  }
+
   const byProjectId = new Map(placement.facilities.map((placed) => [placed.projectId, placed]))
   const chargedProjects = new Set<string>()
   for (const entry of capexRows) {
-    const placed = byProjectId.get(entry.constructionProjectId)
-    invariant(
-      placed !== undefined,
-      `construction capex "${entry.constructionProjectId}" has no placed facility`,
-    )
-    const blueprint = blueprintById(placed.blueprintId)!
-    invariant(entry.week === placed.placedWeek, 'construction capex week must equal placedWeek')
-    invariant(entry.amount === -blueprint.capex, 'construction capex amount must equal the blueprint capex')
-    invariant(entry.note === blueprint.ledgerNote, 'construction capex note is not canonical')
     invariant(
       !chargedProjects.has(entry.constructionProjectId),
       `construction capex "${entry.constructionProjectId}" is charged more than once`,
     )
     chargedProjects.add(entry.constructionProjectId)
+    capexByProjectId.set(entry.constructionProjectId, entry)
+
+    const placed = byProjectId.get(entry.constructionProjectId)
+    const refund = refundByProjectId.get(entry.constructionProjectId)
+    invariant(
+      placed !== undefined || refund !== undefined,
+      `construction capex "${entry.constructionProjectId}" has no placed facility and no demolition refund`,
+    )
+    // A building cannot be both standing and refunded. This is the rule that
+    // makes refund farming impossible to express in state, not merely hard to do.
+    invariant(
+      placed === undefined || refund === undefined,
+      `construction capex "${entry.constructionProjectId}" was refunded while its facility still stands`,
+    )
+    if (placed === undefined) continue
+
+    const blueprint = blueprintById(placed.blueprintId)!
+    invariant(entry.week === placed.placedWeek, 'construction capex week must equal placedWeek')
+    invariant(entry.amount === -blueprint.capex, 'construction capex amount must equal the blueprint capex')
+    invariant(entry.note === blueprint.ledgerNote, 'construction capex note is not canonical')
   }
   for (const placed of placement.facilities) {
     invariant(
       chargedProjects.has(placed.projectId),
       `placed facility ${String(placed.id)} has no construction capex row`,
+    )
+  }
+
+  // The other direction: every refund is backed by a real capital event, at the
+  // exact depreciated amount, no earlier than the spend and no later than now.
+  for (const entry of refundRows) {
+    const label = `demolition refund "${entry.constructionProjectId}"`
+    const capex = capexByProjectId.get(entry.constructionProjectId)
+    invariant(capex !== undefined, `${label} has no construction capex row`)
+    const blueprint = blueprintByLedgerNote(capex.note)
+    invariant(blueprint !== null, `${label} refunds a project whose blueprint is unknown`)
+    invariant(entry.note === FACILITY_DEMOLITION_LEDGER_NOTE, `${label} note is not canonical`)
+    invariant(
+      entry.amount === facilityDemolitionRefund(blueprint),
+      `${label} amount is not the depreciated fraction of its capital cost`,
+    )
+    // Strictly lossy, restated where the money actually moves: the credit can
+    // never return more than was spent, so no build/demolish cycle can profit.
+    invariant(
+      entry.amount < -capex.amount,
+      `${label} returns more than the capital that was committed`,
+    )
+    invariant(
+      Number.isInteger(entry.week) && entry.week >= capex.week && entry.week <= state.market.tick,
+      `${label} week must fall between its capital spend and the current week`,
     )
   }
 
@@ -995,7 +1519,7 @@ export function assertStudioPlacementInvariants(
     invariant(!opexWeeks.has(entry.week), `week ${String(entry.week)} has more than one facility operating cost row`)
     opexWeeks.add(entry.week)
     invariant(entry.note === FACILITY_OPEX_LEDGER_NOTE, 'facility operating cost note is not canonical')
-    const expected = expectedWeeklyOperatingCostAt(placement, entry.week)
+    const expected = expectedWeeklyOperatingCostAt(placement, state.ledger, entry.week)
     invariant(
       expected > 0 && entry.amount === -expected,
       `facility operating cost at week ${String(entry.week)} disagrees with the operational facilities of that week`,

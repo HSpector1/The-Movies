@@ -946,6 +946,60 @@ export type PlacedFacility = {
   completesWeek: number
 }
 
+// ── C1-M3a Move & Demolish V1 ────────────────────────────────────────────────
+
+/** Where an engagement on a facility comes from. One per persisted holder. */
+export type FacilityEngagementKind =
+  /** A production workflow reservation. Open-ended: held for the whole phase. */
+  | 'production'
+  /** The shooting task's denormalized soundstage copy. */
+  | 'shootingTask'
+  /** A screenplay drafting or rewriting this week. */
+  | 'screenplay'
+  /** An audition session running this week. */
+  | 'castingSession'
+  /** The retired V11 construction root. Defensive; empty under V12 and later. */
+  | 'legacyConstructionProject'
+
+/**
+ * One live claim on a facility, named precisely enough for a refusal to be
+ * explained without the UI having to re-derive it.
+ *
+ * `activity` is a short engine-side phrase ("shooting", "drafting a screenplay").
+ * It is NOT finished player copy — assembling the sentence is M3b's job, and it
+ * needs `holderId` to name the film or script the player recognises.
+ */
+export type FacilityEngagement = {
+  kind: FacilityEngagementKind
+  facilityId: string
+  /** The production, screenplay, or session id holding it. */
+  holderId: string
+  activity: string
+}
+
+/**
+ * Why a move or demolition was refused. Structured, never a string: the engine
+ * decides the FACT and the UI decides the words (C1-M3b).
+ *
+ * Every destructive refusal is FAIL-CLOSED — if the engine cannot prove a facility
+ * is idle, it refuses. There is deliberately no override.
+ */
+export type PlacementMutationRefusal =
+  /** Not a managed, founded, engaged studio — a caller error, as with placeFacility. */
+  | { code: 'regimeNotReady' }
+  | { code: 'unknownPlacement'; placementId: number }
+  /** The legacy Annex parcel's placement, excluded from both verbs until the C2 Flip. */
+  | { code: 'foundingPlacement'; placementId: number; parcelId: string }
+  /** Live work holds this facility. `holders` is every source, in a fixed order. */
+  | {
+      code: 'facilityEngaged'
+      placementId: number
+      facilityId: string
+      holders: FacilityEngagement[]
+    }
+  /** Move only: the destination failed the one legality authority. */
+  | { code: 'illegalDestination'; placementId: number; quote: PlacementQuote }
+
 export type StudioPlacementMode = 'legacy' | 'managed'
 
 export type StudioPlacement = {
@@ -989,6 +1043,21 @@ export type PlacementCellVerdict = {
 }
 
 export type PlacementRequest = { blueprintId: string; origin: LotCell }
+
+/**
+ * C1-M3a: how to ask the one legality authority about a RELOCATION rather than a
+ * new build.
+ *
+ * `movingPlacementId` is an id the engine resolves itself, never a caller-supplied
+ * occupancy set — a caller who could hand in occupancy could hand in an empty one
+ * and legalise anything. See `quoteForBlueprint` for everything its presence
+ * changes and why each follows from the same single fact.
+ */
+export type PlacementQueryOptions = { movingPlacementId?: number }
+
+/** C1-M3a request shapes for the two destructive verbs. */
+export type FacilityMoveRequest = { placementId: number; origin: LotCell }
+export type FacilityDemolitionRequest = { placementId: number }
 
 export type PlacementQuote = {
   ok: boolean
@@ -1204,6 +1273,11 @@ export type Action =
   | { kind: 'startDevelopmentCastingAnnex' }
   // ── Placement Core V12 ──
   | { kind: 'placeFacility'; placement: PlacementRequest }
+  // C1-M3a. Both take a placementId, never coordinates and never a facilityId:
+  // a placement is the only thing either verb may touch, so founding property
+  // structures are out of reach by the shape of the action itself.
+  | { kind: 'moveFacility'; move: FacilityMoveRequest }
+  | { kind: 'demolishFacility'; demolition: FacilityDemolitionRequest }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

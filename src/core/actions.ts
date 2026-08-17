@@ -64,6 +64,10 @@ import {
 import {
   assertStudioPlacementInvariants,
   commitPlacement,
+  demolishFacility,
+  facilityDemolitionRefusal,
+  facilityMoveRefusal,
+  moveFacility,
   initialManagedStudioPlacement,
   legacyAnnexPlacementRequest,
   placementRegimeReady,
@@ -127,6 +131,8 @@ import type {
   Genre,
   GenreExperience,
   LedgerEntry,
+  FacilityEngagement,
+  PlacementMutationRefusal,
   PlacementRequest,
   PotentialTier,
   Production,
@@ -1324,6 +1330,69 @@ function applyPlaceFacility(
   return rejectIllegalPlacement(state, 'placeFacility', action.placement)
 }
 
+/**
+ * C1-M3a — the shared action-layer discipline for the two destructive verbs.
+ *
+ * Identical in shape to `rejectIllegalPlacement`: validate the whole state FIRST,
+ * so a forged ledger or facility set cannot be laundered into an apparently legal
+ * demolition; then ask the one refusal authority; then apply, and abort loudly if
+ * the pure helper disagrees with the probe that just passed.
+ *
+ * The thrown message names the refusal CODE. The structured refusal is what the
+ * UI should render (C1-M3b) — it reaches it through the exported probes, not by
+ * parsing this string.
+ */
+function rejectRefusedMutation(
+  state: GameState,
+  actionName: string,
+  refusal: PlacementMutationRefusal | null,
+  apply: (state: GameState) => GameState,
+): GameState {
+  assertStudioPlacementInvariants(state)
+  if (refusal !== null) {
+    const detail =
+      refusal.code === 'facilityEngaged'
+        ? `${refusal.code} — "${refusal.facilityId}" is held by ${String(refusal.holders.length)} active engagement(s): ${refusal.holders
+            .map((holder: FacilityEngagement) => `${holder.kind}:${holder.holderId}`)
+            .join(', ')}`
+        : refusal.code === 'illegalDestination'
+          ? `${refusal.code} — ${String(refusal.quote.primary)} (${refusal.quote.rejections.join(', ')})`
+          : refusal.code
+    throw new Error(`applyActions: ${actionName} rejected — ${detail}`)
+  }
+  const next = apply(state)
+  if (next === state) {
+    throw new Error(
+      `applyActions: ${actionName} rejected — the helper refused a mutation its own probe accepted`,
+    )
+  }
+  return next
+}
+
+function applyMoveFacility(
+  state: GameState,
+  action: Action & { kind: 'moveFacility' },
+): GameState {
+  return rejectRefusedMutation(
+    state,
+    'moveFacility',
+    facilityMoveRefusal(state, action.move),
+    (current) => moveFacility(current, action.move),
+  )
+}
+
+function applyDemolishFacility(
+  state: GameState,
+  action: Action & { kind: 'demolishFacility' },
+): GameState {
+  return rejectRefusedMutation(
+    state,
+    'demolishFacility',
+    facilityDemolitionRefusal(state, action.demolition),
+    (current) => demolishFacility(current, action.demolition),
+  )
+}
+
 // The retained V11 action, now an ALIAS: it commits the Annex blueprint at the
 // legacy expansion parcel's origin. There is exactly one Annex law in V12 and one
 // implementation of it; this action is the shortcut a surface that already knows
@@ -2000,6 +2069,12 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'placeFacility':
         next = applyPlaceFacility(next, action)
+        break
+      case 'moveFacility':
+        next = applyMoveFacility(next, action)
+        break
+      case 'demolishFacility':
+        next = applyDemolishFacility(next, action)
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).
