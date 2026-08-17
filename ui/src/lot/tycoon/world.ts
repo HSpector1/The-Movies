@@ -389,10 +389,34 @@ export const DEFAULT_BLUEPRINT_PRESENTATION: BlueprintPresentation = {
   anchors: { workStandoff: 1.6, waitStandoff: 2.1, waitAcross: 1.4 },
 }
 
-/** Per-blueprint overrides. Everything absent falls back to the default above. */
+/**
+ * Per-blueprint overrides. Everything absent falls back to the default above.
+ *
+ * C1-M5 gives each of the four new blueprints its own baked body, so a studio's
+ * property reads as a set of buildings the player CHOSE rather than one sprite
+ * repeated. Anchors: the two office tiers and the craft annex are 3 × 2 like the
+ * Annex and keep its standoffs; the Hall is 4 × 3 and stands its people one tile
+ * further out, because a bigger frontage puts its door further from the centre.
+ */
 export const BLUEPRINT_PRESENTATION: Readonly<Record<string, BlueprintPresentation>> = {
   'development-casting-annex': {
     texKey: 'tw-annex',
+    anchors: DEFAULT_BLUEPRINT_PRESENTATION.anchors,
+  },
+  'development-office-2': {
+    texKey: 'tw-office-2',
+    anchors: DEFAULT_BLUEPRINT_PRESENTATION.anchors,
+  },
+  'development-office-3': {
+    texKey: 'tw-office-3',
+    anchors: DEFAULT_BLUEPRINT_PRESENTATION.anchors,
+  },
+  'development-casting-hall': {
+    texKey: 'tw-hall',
+    anchors: { workStandoff: 2.1, waitStandoff: 2.7, waitAcross: 1.8 },
+  },
+  'craft-annex': {
+    texKey: 'tw-craft',
     anchors: DEFAULT_BLUEPRINT_PRESENTATION.anchors,
   },
 }

@@ -83,6 +83,7 @@ import {
   FALLBACK_PEOPLE_BYTES,
   TYCOON_BUILDING_TEX,
   TYCOON_PROP_TEX,
+  bakeBlueprintTexture,
   bakeTycoonTextures,
   pointStageAtAuthored,
 } from './assets.ts'
@@ -589,11 +590,33 @@ export class TycoonScene extends Phaser.Scene {
     this.lotW = bounds.width
     this.lotD = bounds.depth
     this.worldBuildings = composeWorldBuildings(this.snapshot)
+    // A body cannot be painted from a texture that has not been baked yet.
+    this.ensureBlueprintTextures()
   }
 
   /** One composed body by id, over the world the scene is actually painting. */
   private buildingFor(id: BuildingId): WorldBuilding | null {
     return worldBuildingById(this.worldBuildings, id)
+  }
+
+  /**
+   * Make sure the body a placed blueprint wears actually exists (C1-M5).
+   *
+   * The founding set is baked at create; a blueprint's art is baked the FIRST time a
+   * studio stands one on the property, and never before. A world nobody has built in
+   * therefore costs exactly what it always did — which is what keeps the Week-0
+   * decoded-bytes figure where it is pinned, without anyone re-pinning it.
+   *
+   * The telemetry total is re-measured when a bake happens, so the panel reports the
+   * texture memory the world is really holding rather than the figure it had at boot.
+   */
+  private ensureBlueprintTextures(): void {
+    let baked = false
+    for (const building of this.worldBuildings) {
+      if (building.role !== 'placed' || building.texKey === '') continue
+      if (bakeBlueprintTexture(this, building.texKey)) baked = true
+    }
+    if (baked) this.measureWorldTextures()
   }
 
   // ── geometry helpers ────────────────────────────────────────────────────────

@@ -420,6 +420,197 @@ function bakeAnnex(scene: Phaser.Scene): void {
   finalize(b, 'tw-annex')
 }
 
+// ── C1-M5: the four blueprints a studio can add to its property ──────────────
+//
+// Every one of these is a building the player CHOSE from a catalog that told them what
+// it does, so each has to be recognisable from its silhouette alone — at institution
+// zoom, with no label. The families are deliberate:
+//
+//   • the two DEVELOPMENT OFFICE tiers share the gabled cream office family the studio
+//     was founded with (`tw-writers`), and differ by TIER: II is taller with one dormer
+//     and a brass string course; III is taller again, twin-dormered, with a full brass
+//     cornice and a ridge finial. A player who owns II reads III as "the same thing,
+//     more of it" — which is exactly what the effect is;
+//   • the HALL is the Annex's own flat-roofed stucco language at twice the scale, with
+//     the pilaster rhythm the soundstages use, so it reads as the biggest development
+//     building on the lot rather than as a second annex;
+//   • the CRAFT SERVICES ANNEX is SERVICE architecture: low, shallow-pitched, a roller
+//     shutter, an awning over a counter, and an extract flue. It reads as back-of-house
+//     at a glance, which is what stops it being mistaken for another office.
+//
+// These are baked ON DEMAND (see `bakeBlueprintTexture`), not with the founding set: a
+// studio that has built none of them pays no texture memory for them at all.
+
+/** One brass string course wrapped round the lit and shade faces at height `z`. */
+function stringCourse(b: Builder, fw: number, fd: number, z: number, thickness = 3): void {
+  const { g, p } = b
+  poly(g, [p(0, fd, z - thickness), p(fw, fd, z - thickness), p(fw, fd, z + thickness), p(0, fd, z + thickness)], C.brass, 0.85)
+  poly(g, [p(fw, 0, z - thickness), p(fw, fd, z - thickness), p(fw, fd, z + thickness), p(fw, 0, z + thickness)], C.brassDark, 0.8)
+}
+
+/** A roof dormer on the lit slope — the office tiers' rank insignia. */
+function dormer(b: Builder, fd: number, H: number, cx: number, peak: number): void {
+  const { g, p } = b
+  const cy = fd / 2
+  const z = H + peak * 0.34
+  const halfW = 0.32
+  // cheek walls and the little lit face, sitting on the near slope
+  poly(g, [p(cx - halfW, cy + 0.34, z), p(cx + halfW, cy + 0.34, z), p(cx + halfW, cy + 0.34, z + 15), p(cx - halfW, cy + 0.34, z + 15)], C.cream)
+  poly(g, [p(cx - halfW, cy + 0.34, z + 3), p(cx + halfW, cy + 0.34, z + 3), p(cx + halfW, cy + 0.34, z + 12), p(cx - halfW, cy + 0.34, z + 12)], C.windowLit, 0.92)
+  // its own little terracotta cap
+  poly(g, [p(cx - halfW - 0.06, cy + 0.34, z + 15), p(cx + halfW + 0.06, cy + 0.34, z + 15), p(cx + halfW + 0.06, cy, z + 20), p(cx - halfW - 0.06, cy, z + 20)], C.terracotta)
+}
+
+/**
+ * The two Development Office tiers. `tier` is the rank the silhouette carries: one
+ * dormer and a string course, or two dormers, a cornice, and a ridge finial.
+ */
+function bakeDevelopmentOffice(scene: Phaser.Scene, key: string, tier: 2 | 3): void {
+  const fw = 3
+  const fd = 2
+  const H = tier === 3 ? 88 : 74
+  const peak = tier === 3 ? 38 : 34
+  const b = beginBuilding(scene, fw, fd, H, peak + 26)
+  const { g, p } = b
+  drawWalls(b, fw, fd, H, C.cream, C.creamShade)
+  windowsLit(b, fw, fd, H, fw + 1, tier === 3 ? 3 : 2, C.glass, C.windowLit)
+  windowsShade(b, fw, fd, H, fd + 1, 0.32, 0.6)
+  // the office family's door and awning, unchanged from the founding offices
+  poly(g, [p(fw / 2 - 0.28, fd, 0), p(fw / 2 + 0.28, fd, 0), p(fw / 2 + 0.28, fd, 30), p(fw / 2 - 0.28, fd, 30)], C.signPanel, 0.9)
+  poly(g, [p(fw / 2 - 0.5, fd, 32), p(fw / 2 + 0.5, fd, 32), p(fw / 2 + 0.5, fd, 38), p(fw / 2 - 0.5, fd, 38)], C.awning)
+  // TIER MARKING, on the walls: one course for II, a full cornice for III.
+  stringCourse(b, fw, fd, H * 0.52)
+  if (tier === 3) {
+    stringCourse(b, fw, fd, H - 7, 4)
+    // pilasters give the taller mass a vertical rhythm the shorter tier does not have
+    pilasters(b, fw, fd, H, 2, 0.16)
+  }
+  signField(b, fw, fd, H, 0.68, 0.84, 0.3)
+  gableRoof(b, fw, fd, H, peak)
+  // …and on the roof: the rank a player reads at institution zoom.
+  if (tier === 3) {
+    dormer(b, fd, H, fw * 0.3, peak)
+    dormer(b, fd, H, fw * 0.7, peak)
+    stroke(g, [p(fw / 2, fd / 2, H + peak), p(fw / 2, fd / 2, H + peak + 22)], C.brassDark, 2.5)
+    poly(g, [p(fw / 2 - 0.12, fd / 2 - 0.12, H + peak + 22), p(fw / 2 + 0.12, fd / 2 - 0.12, H + peak + 22), p(fw / 2 + 0.12, fd / 2 + 0.12, H + peak + 22), p(fw / 2 - 0.12, fd / 2 + 0.12, H + peak + 22)], C.brass)
+  } else {
+    dormer(b, fd, H, fw * 0.5, peak)
+  }
+  TYCOON_BUILDING_TEX[key] = { key, originX: 0.5, originY: b.originY, fw, fd }
+  finalize(b, key)
+}
+
+/**
+ * The Development & Casting Hall — the Annex's language, twice the building.
+ *
+ * 4 × 3 cells and 82px tall against the Annex's 3 × 2 and 50px, with the soundstage
+ * pilaster rhythm on its lit face and a full glazed band: it has to read as the biggest
+ * thing the development side of the lot can build.
+ */
+function bakeHall(scene: Phaser.Scene): void {
+  const fw = 4
+  const fd = 3
+  const H = 82
+  const b = beginBuilding(scene, fw, fd, H, 22)
+  const { g, p } = b
+  drawWalls(b, fw, fd, H, C.taupe, C.taupeShade)
+  pilasters(b, fw, fd, H, 3, 0.2)
+  windowsLit(b, fw, fd, H, 7, 2, C.glass, C.windowLit)
+  windowsShade(b, fw, fd, H, fd + 2, 0.34, 0.68)
+  stringCourse(b, fw, fd, H * 0.58)
+  // a wide, generous entrance: double doors under a deep canopy, centred
+  poly(g, [p(fw / 2 - 0.42, fd, 0), p(fw / 2 + 0.42, fd, 0), p(fw / 2 + 0.42, fd, 32), p(fw / 2 - 0.42, fd, 32)], C.signPanel, 0.9)
+  stroke(g, [p(fw / 2, fd, 0), p(fw / 2, fd, 32)], C.brassDark, 1.5, 0.8)
+  poly(g, [p(fw / 2 - 0.78, fd, 34), p(fw / 2 + 0.78, fd, 34), p(fw / 2 + 0.78, fd, 41), p(fw / 2 - 0.78, fd, 41)], C.awning)
+  signField(b, fw, fd, H, 0.74, 0.9, 0.34)
+  flatRoof(b, fw, fd, H)
+  // roof plant — a big building runs big machinery, and the roof says so
+  for (const [x0, x1] of [[0.7, 1.5], [2.4, 3.3]] as const) {
+    poly(g, [p(x0, 0.6, H + 5), p(x1, 0.6, H + 5), p(x1, 1.3, H + 5), p(x0, 1.3, H + 5)], C.slateLit)
+    poly(g, [p(x0, 1.3, H + 5), p(x1, 1.3, H + 5), p(x1, 1.3, H + 18), p(x0, 1.3, H + 18)], C.slateShade)
+    poly(g, [p(x0, 0.6, H + 18), p(x1, 0.6, H + 18), p(x1, 1.3, H + 18), p(x0, 1.3, H + 18)], C.slate)
+  }
+  TYCOON_BUILDING_TEX['tw-hall'] = { key: 'tw-hall', originX: 0.5, originY: b.originY, fw, fd }
+  finalize(b, 'tw-hall')
+}
+
+/**
+ * The Craft Services Annex — back-of-house, and it looks it.
+ *
+ * Low (36px), shallow-pitched, gravel-and-timber rather than stucco-and-brass, with a
+ * roller shutter, a serving counter under a striped awning, and an extract flue. Nothing
+ * about it reads "office", which is the whole job: a player glancing at the lot should
+ * never mistake where the crew eat for where the screenplays are written.
+ */
+function bakeCraftAnnex(scene: Phaser.Scene): void {
+  const fw = 3
+  const fd = 2
+  const H = 36
+  const b = beginBuilding(scene, fw, fd, H, 30)
+  const { g, p } = b
+  drawWalls(b, fw, fd, H, C.taupeLit, C.creamDeep)
+  // service ROLLER SHUTTER on the shade face — deliveries come in the back
+  poly(g, [p(fw, 0.45, 2), p(fw, 1.55, 2), p(fw, 1.55, 26), p(fw, 0.45, 26)], C.steel, 0.95)
+  for (let z = 4; z < 26; z += 5) {
+    stroke(g, [p(fw, 0.45, z), p(fw, 1.55, z)], C.shadow, 1, 0.35)
+  }
+  // the SERVING COUNTER on the lit face, under a striped awning
+  poly(g, [p(0.5, fd, 12), p(fw - 0.5, fd, 12), p(fw - 0.5, fd, 25), p(0.5, fd, 25)], C.signPanel, 0.85)
+  poly(g, [p(0.5, fd, 25), p(fw - 0.5, fd, 25), p(fw - 0.5, fd, 28), p(0.5, fd, 28)], C.timber)
+  const stripes = 5
+  for (let i = 0; i < stripes; i++) {
+    const x0 = 0.36 + (i / stripes) * (fw - 0.72)
+    const x1 = 0.36 + ((i + 0.5) / stripes) * (fw - 0.72)
+    poly(g, [p(x0, fd, 29), p(x1, fd, 29), p(x1, fd, 36), p(x0, fd, 36)], i % 2 === 0 ? C.awning : C.cream)
+  }
+  poly(g, [p(0.36, fd, 29), p(fw - 0.36, fd, 29), p(fw - 0.36, fd, 30), p(0.36, fd, 30)], C.awningDark)
+  windowsShade(b, fw, fd, H, 2, 0.55, 0.8)
+  // a shallow gravel roof, then the kitchen's own flue and a vent hood
+  flatRoof(b, fw, fd, H)
+  poly(g, [p(0.55, 0.5, H + 5), p(0.95, 0.5, H + 5), p(0.95, 0.95, H + 5), p(0.55, 0.95, H + 5)], C.steel)
+  poly(g, [p(0.55, 0.95, H + 5), p(0.95, 0.95, H + 5), p(0.95, 0.95, H + 26), p(0.55, 0.95, H + 26)], C.slateShade)
+  poly(g, [p(0.5, 0.45, H + 26), p(1.0, 0.45, H + 26), p(1.0, 1.0, H + 26), p(0.5, 1.0, H + 26)], C.slateLit)
+  // a low vent hood beside it, so the roof plane has a service silhouette
+  poly(g, [p(1.9, 0.6, H + 5), p(2.6, 0.6, H + 5), p(2.6, 1.2, H + 5), p(1.9, 1.2, H + 5)], C.slate)
+  poly(g, [p(1.9, 1.2, H + 5), p(2.6, 1.2, H + 5), p(2.6, 1.2, H + 12), p(1.9, 1.2, H + 12)], C.slateShade)
+  // stacked crates against the shade wall: the yard's own vocabulary, borrowed
+  poly(g, [p(fw - 0.05, 1.62, 0), p(fw - 0.05, 1.95, 0), p(fw - 0.05, 1.95, 13), p(fw - 0.05, 1.62, 13)], C.crate)
+  poly(g, [p(fw - 0.05, 1.62, 13), p(fw - 0.05, 1.95, 13), p(fw - 0.05, 1.95, 24), p(fw - 0.05, 1.62, 24)], C.crateDark)
+  TYCOON_BUILDING_TEX['tw-craft'] = { key: 'tw-craft', originX: 0.5, originY: b.originY, fw, fd }
+  finalize(b, 'tw-craft')
+}
+
+/**
+ * Bake ONE placed-blueprint texture, the first time the world actually needs it.
+ *
+ * Idempotent and deterministic. A studio that has built none of these pays nothing for
+ * them: the founding bake is untouched, so the Week-0 texture figure is exactly what it
+ * has always been (law 25 — a texture that MIGHT be needed later is not a reason to move
+ * a decoded-bytes pin). Returns true when a new texture was actually baked, so the
+ * caller can re-measure its own telemetry rather than report a stale total.
+ */
+export function bakeBlueprintTexture(scene: Phaser.Scene, texKey: string): boolean {
+  if (texKey === '' || TYCOON_BUILDING_TEX[texKey] !== undefined) return false
+  switch (texKey) {
+    case 'tw-office-2':
+      bakeDevelopmentOffice(scene, 'tw-office-2', 2)
+      return true
+    case 'tw-office-3':
+      bakeDevelopmentOffice(scene, 'tw-office-3', 3)
+      return true
+    case 'tw-hall':
+      bakeHall(scene)
+      return true
+    case 'tw-craft':
+      bakeCraftAnnex(scene)
+      return true
+    default:
+      // A blueprint whose art has not been authored gets the honest massing block the
+      // placement layer already draws — never another building's body (shift law 12).
+      return false
+  }
+}
+
 function bakePost(scene: Phaser.Scene): void {
   const fw = 3
   const fd = 2
