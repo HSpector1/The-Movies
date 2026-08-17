@@ -826,17 +826,21 @@ export function lotBuildingInspectorContext(
   const occupantFacts: LotBuildingInspectorFact[] = []
   const operations = locatedOperations(snapshot, buildingId)
   const commandCandidates = operations.filter((operation) => operation.currentCommand !== null)
+  // What this place IS, before anything is known about what is happening in it. A world
+  // id this panel has never been taught still gets an honest sentence rather than a blank.
+  let role = isFoundingBuildingId(buildingId)
+    ? BUILDING_ROLE[buildingId]
+    : 'A place on the studio property'
+  let label = buildingLabelFor(buildingId, snapshot.property) ?? buildingId
   let status = ''
-  let role = isFoundingBuildingId(buildingId) ? BUILDING_ROLE[buildingId] : ''
-  let label = buildingLabelFor(buildingId, snapshot.property)
 
   // A facility the studio BUILT answers the same five questions as every founding place
-  // (C1-M1b). It is checked FIRST because it is the one branch the founding switch below
-  // was never written for — and a closed switch is exactly how this milestone's defect
-  // family gets in.
+  // (C1-M1b). It is answered FIRST, and the founding switch below is then skipped, because
+  // that switch was written against a set that is no longer closed — and a closed switch
+  // over an open set is exactly how this campaign's twice-found defect family gets in.
   const placed = placedFacilityFor(snapshot, buildingId)
   if (placed !== null) {
-    label = label ?? placed.name
+    label = placed.name
     role =
       placed.status === 'operational'
         ? `A studio facility the lot built — ${placed.name}`
@@ -847,7 +851,10 @@ export function lotBuildingInspectorContext(
     status = placedStatusLine(placed, calendar)
   }
 
-  switch (placed !== null ? '' : buildingId) {
+  /** The founding place this panel is describing, or '' when a placed facility answered. */
+  const foundingId: BuildingId = placed === null ? buildingId : ''
+
+  switch (foundingId) {
     case 'admin': {
       facts.push(...adminFacts(snapshot))
       status = 'The front office is open — finances, standing, and this week’s publicity.'
@@ -949,10 +956,12 @@ export function lotBuildingInspectorContext(
       break
     }
     default:
-      // Every founding place is handled above and every placed facility before the
-      // switch. Anything else is a world id this panel has never been taught — it opens
-      // and says so, rather than pretending to describe a place it cannot see.
-      if (placed === null && status === '') {
+      // Every founding place is handled above, and a placed facility answered before the
+      // switch was reached. Anything else is a world id this panel has never been taught:
+      // it opens and says so, rather than describing a place it cannot see. The panel
+      // ALWAYS opens — withholding a fact must never re-open the ejection this module
+      // exists to close.
+      if (placed === null) {
         status = 'This place is not part of the studio property this week.'
       }
       break
@@ -961,7 +970,7 @@ export function lotBuildingInspectorContext(
   const actions = primaryActions(snapshot, buildingId, scriptBoard)
   return {
     buildingId,
-    label: label ?? buildingId,
+    label,
     role,
     status,
     attention,
