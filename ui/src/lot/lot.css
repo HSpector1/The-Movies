@@ -1935,12 +1935,21 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   .lot-casting-review-panel .warn,
   .lot-casting-review-success,
   .lot-casting-review-success .warn,
+  .lot-camera-home,
+  .lot-camera-home-key,
   .lot-next-event-dismiss {
     forced-color-adjust: auto;
     color: CanvasText;
     background: Canvas;
     border-color: CanvasText;
   }
+  .lot-camera-home:disabled {
+    opacity: 1;
+    color: GrayText;
+    background: ButtonFace;
+    border-color: GrayText;
+  }
+  .lot-camera-home:focus-visible { outline: 3px solid Highlight; }
   .lot-next-event-button:disabled,
   .lot-next-event-action:disabled {
     opacity: 1;
@@ -2130,6 +2139,51 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
 }
 .lot-review-show:hover { color: var(--text); border-color: var(--accent, #c9a24a); }
 .lot-review-show:focus-visible { outline: 2px solid var(--accent, #c9a24a); outline-offset: 2px; }
+
+/* ── The way back: the always-available whole-property camera control ──────────
+   A player who has panned and zoomed across a 28×26 property needs one control
+   that always returns the whole thing, and it has to be somewhere they can always
+   find it. Anchored to the world's LEFT EDGE at mid height — the one band no panel
+   claims in either world at any supported viewport: the production panel and the
+   inspectors own the top corners (and the bottom ones at ≤720px), the named-people
+   rail owns the bottom edge, the event notice and the review bars own the top
+   centre. Deliberately quiet: a small pill, one command, not a camera toolbar.
+   The written label never steps aside for a glyph at narrow widths or 200% effective
+   zoom: those are exactly the conditions where a lost player needs to READ it. */
+.lot-camera-home {
+  position: absolute;
+  z-index: 16;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 6px 11px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(18, 21, 30, 0.86);
+  color: var(--text-dim);
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+.lot-camera-home:hover:not(:disabled) { color: var(--text); border-color: var(--accent, #c9a24a); }
+.lot-camera-home:focus-visible { outline: 2px solid var(--accent, #c9a24a); outline-offset: 2px; }
+.lot-camera-home:disabled { opacity: 0.5; cursor: default; }
+.lot-camera-home-glyph { font-size: 13px; line-height: 1; }
+.lot-camera-home-key {
+  padding: 1px 5px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.32);
+  font-family: inherit;
+  font-size: 10px;
+}
 
 /* ── Build Mode V1 — the parcel panel and the in-world placement flow ──────────
    The panel reuses the World Inspector's frame; only the build affordances below

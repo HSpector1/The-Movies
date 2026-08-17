@@ -8,7 +8,7 @@
 // brings its own grid → screen click helper derived from the live camera transform,
 // and records its own freshly measured tuples under its own fixture name (law 25).
 //
-// Three proofs, in the order a player meets them:
+// Four proofs, in the order a player meets them:
 //   1. BOOT      — a fresh managed studio opens onto the whole property, at operations
 //                  reading distance, with every building's name painted on the canvas.
 //   2. INSPECT   — clicking a building in the CANVAS lands its in-world panel and
@@ -16,6 +16,8 @@
 //   3. BUILD     — a parcel click → catalog → ghost + quote → commit → a construction
 //                  site painted on those cells → thirteen advances → an operational
 //                  building, its capacity, and its weekly running cost.
+//   4. CAMERA    — one grammar for the camera: a selection pans and never zooms, and
+//                  the whole property is always one named control (or `R`) away.
 
 import { expect, test, type Locator, type Page } from '@playwright/test'
 import { createHash } from 'node:crypto'
@@ -536,6 +538,137 @@ async function pointOf(page: Page, gx: number, gy: number): Promise<[number, num
   const point = await cellPoint(page, gx, gy)
   return [point.x, point.y]
 }
+
+// ── 4. CAMERA GRAMMAR ────────────────────────────────────────────────────────
+//
+// The red-team finding this pays off: `focusPlace` answered a selection by setting zoom
+// to TWICE the whole-property fit and re-centring, but only for the three plate-era
+// retained contexts that route through it (Administration/publicity, the Gate, the
+// Annex). M1.5's generic building inspectors changed the camera not at all. Two grammars
+// for one gesture — and the doubled zoom discarded whatever framing the player had
+// arranged, with no player-facing way back (the reset lived on an undocumented `R`
+// against an aria-hidden canvas).
+//
+// One grammar now: selection PANS, never zooms, and one visible control always returns
+// the whole property. Both halves proved here on the shipped world, in a real browser.
+
+/** Zoom the live camera in by dispatching real wheel events at a canvas point. */
+async function wheelZoomIn(page: Page, notches: number): Promise<void> {
+  await page.evaluate((count) => {
+    const canvas = document.querySelector<HTMLCanvasElement>(
+      '[data-testid="studio-lot-canvas"] canvas',
+    )
+    if (canvas === null) throw new Error('the lot canvas is absent')
+    const box = canvas.getBoundingClientRect()
+    for (let i = 0; i < count; i++) {
+      canvas.dispatchEvent(new WheelEvent('wheel', {
+        deltaY: -120,
+        clientX: box.x + box.width / 2,
+        clientY: box.y + box.height / 2,
+        bubbles: true,
+        cancelable: true,
+      }))
+    }
+  }, notches)
+}
+
+test('a selection pans the camera and never zooms it, and the whole property is one control away', async ({
+  page,
+}) => {
+  const runtime = watchRuntime(page)
+  await seed(page)
+
+  // The opening framing: the whole graded property, at the reading distance BOOT chose.
+  const opening = await gridProjection(page)
+  const untouchedSession = await sessionBytes(page)
+
+  // ── the player takes the camera somewhere of their own ──
+  await wheelZoomIn(page, 6)
+  const chosen = await gridProjection(page)
+  expect(chosen.zoom).toBeGreaterThan(opening.zoom)
+
+  // ── (a) the Gate: a plate-era retained context, the exact `focusPlace` route ──
+  // Its arch straddles the boulevard at grid (8,23)–(10,23).
+  await clickCell(page, 9, 23)
+  await expect(page.getByTestId('hollywood-gate-context')).toBeVisible()
+  // THE REPAIR. Before it, this selection set zoom to twice the whole-property fit —
+  // roughly a third of the studio thrown off-screen without asking.
+  expect((await gridProjection(page)).zoom).toBe(chosen.zoom)
+
+  // ── (b) Administration: the other retained context on the same route ──
+  // The office block stands at grid (9,2)–(11,4).
+  await clickCell(page, 10, 3)
+  await expect(page.getByTestId('studio-lot-screen')).toBeVisible()
+  expect((await gridProjection(page)).zoom).toBe(chosen.zoom)
+
+  // ── (c) an ordinary M1.5 inspector, which never moved the camera — still doesn't ──
+  await clickCell(page, 4, 17) // the Theater
+  await expect(page.getByTestId('lot-building-inspector-theater')).toBeVisible()
+  expect((await gridProjection(page)).zoom).toBe(chosen.zoom)
+
+  // ── (d) THE WAY BACK, in the world, with a name and a shortcut ──
+  const wholeProperty = page.getByTestId('lot-camera-home')
+  await expect(wholeProperty).toBeVisible()
+  await expect(wholeProperty).toHaveText(/Whole property/)
+  await expect(wholeProperty).toHaveAttribute('aria-keyshortcuts', 'R')
+  await expect(wholeProperty).toHaveAccessibleName(
+    'Show the whole property. Keyboard shortcut R.',
+  )
+  await wholeProperty.click()
+  expect(await gridProjection(page)).toEqual(opening)
+  // …and it commanded the camera and nothing else: the panel the player was reading is
+  // still open, and not one byte of the session moved.
+  await expect(page.getByTestId('lot-building-inspector-theater')).toBeVisible()
+  expect(await sessionBytes(page)).toBe(untouchedSession)
+
+  // ── (e) the shortcut the control names is the shortcut the world answers ──
+  await wheelZoomIn(page, 4)
+  expect((await gridProjection(page)).zoom).toBeGreaterThan(opening.zoom)
+  await page.keyboard.press('r')
+  await expect
+    .poll(async () => (await gridProjection(page)).zoom)
+    .toBe(opening.zoom)
+  expect(await gridProjection(page)).toEqual(opening)
+  expect(await sessionBytes(page)).toBe(untouchedSession)
+
+  // ── (f) a recovery control has to survive the conditions a player gets lost in ──
+  //
+  // Law 26's governed compact viewports and effective 200% zoom, checked with REAL
+  // pointer hits: Playwright's click fails outright if anything covers the control, so
+  // "it still reframes the world" is at the same time the proof that nothing occludes it
+  // and that its hit target is acquirable. The framing it restores is measured PER
+  // VIEWPORT rather than compared to the 1280×900 one — the whole-property fit is a
+  // function of the canvas box, and at a small enough box it meets the world's absolute
+  // minimum zoom, which is a fact about the camera, not a failure of the control.
+  const reframes = async (label: string) => {
+    await expect(wholeProperty, label).toBeVisible()
+    const hit = await wholeProperty.boundingBox()
+    if (hit === null) throw new Error(`${label}: the whole-property control has no box`)
+    // A target a pointer can actually acquire, wholly inside the viewport it belongs to.
+    expect(hit.width, label).toBeGreaterThanOrEqual(24)
+    expect(hit.height, label).toBeGreaterThanOrEqual(24)
+    expect(hit.x, label).toBeGreaterThanOrEqual(0)
+    expect(hit.y, label).toBeGreaterThanOrEqual(0)
+    await wholeProperty.click()
+    const framed = await gridProjection(page)
+    await wheelZoomIn(page, 5)
+    expect((await gridProjection(page)).zoom, label).toBeGreaterThan(framed.zoom)
+    await wholeProperty.click()
+    await expect.poll(async () => (await gridProjection(page)).zoom, { message: label })
+      .toBe(framed.zoom)
+    expect(await gridProjection(page), label).toEqual(framed)
+  }
+  for (const viewport of [{ width: 960, height: 540 }, { width: 1280, height: 720 }]) {
+    await page.setViewportSize(viewport)
+    await reframes(`${viewport.width}×${viewport.height}`)
+  }
+  await page.evaluate(() => { document.documentElement.style.zoom = '2' })
+  await reframes('effective 200% zoom')
+  await page.evaluate(() => { document.documentElement.style.zoom = '1' })
+
+  expect(runtime.pageErrors).toEqual([])
+  expect(runtime.consoleErrors).toEqual([])
+})
 
 // The freshly measured tuple for the grid managed-idle fixture. Filled from a real run
 // (see the report accompanying this milestone); a change here is a real change in what

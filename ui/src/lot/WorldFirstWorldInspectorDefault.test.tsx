@@ -43,6 +43,9 @@ const renderer = vi.hoisted(() => {
   class FakeView {
     readonly options: FakeOptions
     readonly selectedBuildings: string[] = []
+    /** Every bring-into-view the host asked the world for, in order. */
+    readonly framed: string[] = []
+    cameraResets = 0
     destroyed = false
     constructor(options: FakeOptions) {
       this.options = options
@@ -63,8 +66,8 @@ const renderer = vi.hoisted(() => {
     selectHollywoodAnnexPlace() { return true }
     selectHollywoodPublicityPlace() { return true }
     selectHollywoodGatePlace() { return true }
-    focusHollywoodGate() { return true }
-    focusHollywoodPlace() {}
+    focusHollywoodGate() { this.framed.push('studio-gate'); return true }
+    focusHollywoodPlace(id: string) { this.framed.push(id) }
     setHollywoodGateVisitor() { return true }
     pause() {}
     resume() {}
@@ -73,7 +76,7 @@ const renderer = vi.hoisted(() => {
     setIdentityMode() {}
     setSignageMasked() {}
     camera() {}
-    resetCamera() {}
+    resetCamera() { this.cameraResets++ }
     showHollywoodPublicity() {}
     identityDebug() { return null }
     getDebugState() { return null }
@@ -277,5 +280,126 @@ describe('World Inspector Default V1 — no building click ever ejects', () => {
 
     expect(routes).toEqual([{ kind: 'dashboard' }])
     expect(screen.queryByTestId('lot-building-inspector-theater')).not.toBeInTheDocument()
+  })
+})
+
+// ── ONE CAMERA GRAMMAR + the way back ────────────────────────────────────────
+//
+// The red-team finding these pin: M1.5's generic building inspectors changed the camera
+// not at all, while three plate-era retained contexts (Administration/publicity, the
+// Gate, the Annex) answered the same gesture by jumping to twice the whole-property fit
+// — silently discarding the player's framing and stranding about a third of the studio
+// off-screen, with no player-facing way back (only an undocumented `R` on an
+// aria-hidden canvas). The zoom half is now impossible by construction and proven in
+// `tycoon/world.test.ts`; what belongs here is the host half: the retained contexts
+// still ask the world to bring their place into view, an ordinary inspector still asks
+// for nothing, and the world always carries one visible control that reframes it.
+
+describe('the camera grammar — selection frames, and the whole property is always one control away', () => {
+  it('carries one always-available whole-property control that names its shortcut', async () => {
+    renderLot(managedWeekZero('camera-home-present'))
+    await onlyView()
+
+    const control = await screen.findByTestId('lot-camera-home')
+    expect(control).toBeInTheDocument()
+    expect(control).toHaveAccessibleName('Show the whole property. Keyboard shortcut R.')
+    expect(control).toHaveAttribute('aria-keyshortcuts', 'R')
+    expect(control).toHaveAttribute('title', 'Show the whole property (shortcut: R)')
+    // It reads as a control, not as decoration: the visible words say what it does.
+    expect(control).toHaveTextContent('Whole property')
+    expect(control).toBeEnabled()
+  })
+
+  it('commands the camera and NOTHING else — no navigation, no selection, no simulation', async () => {
+    const { routes } = renderLot(managedWeekZero('camera-home-command'))
+    const view = await onlyView()
+    const control = await screen.findByTestId('lot-camera-home')
+    const selectedBefore = view.selectedBuildings.length
+
+    fireEvent.click(control)
+
+    expect(view.cameraResets).toBe(1)
+    expect(routes).toEqual([])
+    expect(view.selectedBuildings).toHaveLength(selectedBefore)
+    expect(view.framed).toEqual([])
+  })
+
+  it('stays available while an in-world inspector is open — that is when a player is lost', async () => {
+    renderLot(managedWeekZero('camera-home-with-inspector'))
+    const view = await onlyView()
+
+    fireEvent.click(screen.getByTestId('lot-nav-stage-b'))
+    expect(screen.getByTestId('lot-building-inspector-stage-b')).toBeInTheDocument()
+
+    const control = screen.getByTestId('lot-camera-home')
+    expect(control).toBeEnabled()
+    fireEvent.click(control)
+    expect(view.cameraResets).toBe(1)
+    // …and reframing the world does not close the panel the player was reading.
+    expect(screen.getByTestId('lot-building-inspector-stage-b')).toBeInTheDocument()
+  })
+
+  it('contains pointer, mouse and touch down-events on the control (law 7)', async () => {
+    // Over-canvas chrome owns its own presses. The exact containment shape every other
+    // world control uses, applied to the newest one.
+    const parentPointer = vi.fn()
+    const parentMouse = vi.fn()
+    const parentTouch = vi.fn()
+    render(
+      <div onPointerDown={parentPointer} onMouseDown={parentMouse} onTouchStart={parentTouch}>
+        <StudioLotScreen
+          state={managedWeekZero('camera-home-containment')}
+          onNavigate={() => {}}
+          onExit={() => {}}
+          onAdvance={() => {}}
+        />
+      </div>,
+    )
+    await onlyView()
+    const control = await screen.findByTestId('lot-camera-home')
+
+    fireEvent.pointerDown(control)
+    fireEvent.mouseDown(control)
+    fireEvent.touchStart(control)
+
+    expect(parentPointer).not.toHaveBeenCalled()
+    expect(parentMouse).not.toHaveBeenCalled()
+    expect(parentTouch).not.toHaveBeenCalled()
+  })
+
+  it('keeps the retained contexts asking the world to bring their place into view', async () => {
+    // The seam itself is preserved — the repair is what the SCENE does with it (a
+    // glide-pan at the current zoom), never the removal of the request.
+    renderLot(managedWeekZero('camera-grammar-retained'))
+    const view = await onlyView()
+
+    fireEvent.click(screen.getByTestId('lot-nav-gate'))
+    await waitFor(() => expect(view.framed).toEqual(['studio-gate']))
+  })
+
+  it('never asks the world to reframe for an ORDINARY inspector — the quiet half of the grammar', async () => {
+    renderLot(managedWeekZero('camera-grammar-generic'))
+    const view = await onlyView()
+
+    for (const id of ['writers', 'casting', 'stage-a', 'stage-b', 'post', 'theater'] as const) {
+      fireEvent.click(screen.getByTestId(`lot-nav-${id}`))
+      expect(screen.getByTestId(`lot-building-inspector-${id}`)).toBeInTheDocument()
+    }
+
+    expect(view.framed).toEqual([])
+  })
+
+  it('does not claim a shortcut the retained plate never bound', async () => {
+    // `TycoonScene` and the legacy `LotScene` both bind R to the overview reset; the
+    // painted plate never has. The command is offered there; the promise is not.
+    setTycoonWorldOverride(false)
+    renderLot(managedWeekZero('camera-home-plate'))
+    const view = await onlyView()
+
+    const control = await screen.findByTestId('lot-camera-home')
+    expect(control).toHaveAccessibleName('Show the whole property')
+    expect(control).not.toHaveAttribute('aria-keyshortcuts')
+    fireEvent.click(control)
+    expect(view.cameraResets).toBe(1)
   })
 })

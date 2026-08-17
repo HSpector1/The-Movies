@@ -1130,6 +1130,15 @@ export function StudioLotScreen({
   // Tycoon World Conversion M1: the grid property is the adopted default world. It rides
   // on the Hollywood semantic contract, so the plate rollback also rolls this back.
   const tycoon = hollywood && tycoonWorldEnabled()
+  /**
+   * The keyboard shortcut the whole-property control may honestly annotate.
+   *
+   * The grid world (`TycoonScene`) and the legacy overview lot (`LotScene`) both bind
+   * `R` to the overview reset; the retained painted plate never has. Naming a key that
+   * world does not answer would be a promise the product cannot keep, so the control
+   * there offers the same command without claiming a shortcut for it (law 12).
+   */
+  const cameraHomeShortcut: string | null = tycoon || !hollywood ? 'R' : null
   const [hollywoodPerson, setHollywoodPerson] = useState<LotPersonState | null>(null)
   const hollywoodPersonRef = useRef<LotPersonState | null>(hollywoodPerson)
   const [hollywoodPlace, setHollywoodPlace] = useState<HollywoodPlaceSelection | null>(null)
@@ -7181,6 +7190,47 @@ export function StudioLotScreen({
         <div className="lot-stage-wrap">
           {/* Primary visual world surface; the DOM companion is its semantic equivalent. */}
           <div ref={mountRef} className="lot-canvas" data-testid="studio-lot-canvas" aria-hidden="true" />
+
+          {/*
+            THE WAY BACK. Panning and zooming a property this size is a gesture a player
+            can lose themselves with, and until now the only recovery was an undocumented
+            `R` keypress on an aria-hidden canvas — no control, no name, nothing a pointer
+            or a screen reader could find. One quiet control, always in the same place,
+            naming its own shortcut. It commands the camera and nothing else: no selection
+            moves, no simulation runs, not one byte of the session changes.
+          */}
+          {canvasReady && !canvasFailed && (
+            <button
+              type="button"
+              className="lot-camera-home"
+              data-testid="lot-camera-home"
+              disabled={worldInputSuspended}
+              aria-keyshortcuts={cameraHomeShortcut ?? undefined}
+              title={
+                cameraHomeShortcut === null
+                  ? 'Show the whole property'
+                  : `Show the whole property (shortcut: ${cameraHomeShortcut})`
+              }
+              aria-label={
+                cameraHomeShortcut === null
+                  ? 'Show the whole property'
+                  : `Show the whole property. Keyboard shortcut ${cameraHomeShortcut}.`
+              }
+              onPointerDown={containWorldInput}
+              onMouseDown={containWorldInput}
+              onTouchStart={containWorldInput}
+              onClick={() => {
+                if (worldInputSuspendedRef.current) return
+                viewRef.current?.resetCamera?.()
+              }}
+            >
+              <span aria-hidden="true" className="lot-camera-home-glyph">⤢</span>
+              <span className="lot-camera-home-label">Whole property</span>
+              {cameraHomeShortcut !== null && (
+                <kbd aria-hidden="true" className="lot-camera-home-key">{cameraHomeShortcut}</kbd>
+              )}
+            </button>
+          )}
 
           {advanceFeedback?.constructionCompletion && (
             <div
