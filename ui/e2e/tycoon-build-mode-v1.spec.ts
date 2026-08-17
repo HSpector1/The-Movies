@@ -808,6 +808,86 @@ test('the marker breathes when motion is welcome, and the breath stays inside it
   expect(runtime.consoleErrors).toEqual([])
 })
 
+// ── 7. A BUILT FACILITY IS A CITIZEN OF THE WORLD (C1-M1b) ───────────────────
+//
+// Through M1a a facility the studio built had a body on the canvas and NOTHING else: no
+// id, no hit area, no panel. Clicking it landed the PARCEL it stood on — the ground, not
+// the building — and the facility itself could not be asked a single question. The world's
+// building set was a closed nine fixed at scene create; the property is engine state now,
+// so a facility that completes is addressable in the same repaint that reports it.
+//
+// This is the browser half of that claim. Unit-green is not done (campaign law): the proof
+// clicks the real body on the real canvas, in both of its lifecycle states.
+test('a facility the studio built is a first-class citizen of the world', async ({ page }) => {
+  const runtime = watchRuntime(page)
+  await seed(page)
+
+  // The guidance card's expanded body reaches over part of this ground at this viewport;
+  // fold it with the same control the player has, exactly as the build-loop proof does.
+  await page.getByTestId('lot-picture-guidance-toggle').click()
+
+  await page.getByTestId(`lot-nav-parcel-${BUILD_PARCEL}`).focus()
+  await page.getByTestId(`lot-nav-parcel-${BUILD_PARCEL}`).press('Enter')
+  await page.getByTestId(`lot-parcel-build-${BUILD_PARCEL}`).click()
+  await page.getByTestId(`lot-build-blueprint-${ANNEX_BLUEPRINT}`).click()
+  await expect(page.getByTestId('lot-build-verdict')).toHaveAttribute('data-ok', 'true')
+  await page.getByTestId('lot-build-commit').click()
+  await expect(page.getByTestId('lot-build-receipt')).toContainText('completes in Week 13')
+
+  // WHERE the engine actually put it — read from the session the app just autosaved, so
+  // no coordinate in this proof is authored.
+  const committed = importSaveJson(await sessionBytes(page))
+  expect(committed.ok).toBe(true)
+  if (!committed.ok) throw new Error(committed.error)
+  const placed = studioPlacement(committed.state).placements
+  expect(placed).toHaveLength(1)
+  const facility = placed[0]!
+  const worldId = `placed-${String(facility.id)}`
+  // Its front corner: the cell furthest DOWN the screen, which nothing behind it covers.
+  const front = [...facility.cells].sort((a, b) => a.gx + a.gy - (b.gx + b.gy)).at(-1)!
+
+  // ── the BUILDING SITE answers for itself ──
+  await clickCell(page, front.gx, front.gy)
+  const panel = page.getByTestId(`lot-building-inspector-${worldId}`)
+  await expect(panel).toBeVisible()
+  await expect(page.getByTestId('lot-building-inspector-status')).toContainText(
+    'under construction',
+  )
+  await expect(page.getByTestId('lot-building-inspector-facts')).toContainText(
+    'Development & Casting Annex',
+  )
+  await expect(page.getByTestId('lot-building-inspector-facts')).toContainText('due Week 13')
+  await expect(page.getByTestId('lot-building-inspector-facts')).toContainText('South Lawn')
+  // The building won the ground it stands on, and the PARCEL panel stood down — one
+  // piece of ground, one owner (shift law 10).
+  await expect(page.getByTestId(`lot-parcel-inspector-${BUILD_PARCEL}`)).toHaveCount(0)
+  expect((await gridDebug(page)).selectedPlaceId).toBe(worldId)
+
+  // ── thirteen advances: the SAME body, the same id, a different answer ──
+  for (let week = 0; week < 13; week++) {
+    await page.getByTestId('lot-advance-week').click()
+    await expect(page.locator('.lot-sub')).toHaveText(new RegExp(`Week ${String(week + 1)}$`))
+  }
+  await expect(page.getByTestId('lot-building-inspector-status')).toContainText('operational')
+  await clickCell(page, front.gx, front.gy)
+  await expect(page.getByTestId(`lot-building-inspector-${worldId}`)).toBeVisible()
+  await expect(page.getByTestId('lot-building-inspector-facts')).toContainText(
+    'Operational since Week 13',
+  )
+  await expect(page.getByTestId('lot-building-inspector-facts')).toContainText('$3,500')
+  expect((await gridDebug(page)).selectedPlaceId).toBe(worldId)
+
+  // …and the ground it does NOT cover still belongs to the parcel.
+  await clickCell(page, BUILD_PARCEL_RECT.x0, BUILD_PARCEL_RECT.y1)
+  await expect(page.getByTestId(`lot-parcel-inspector-${BUILD_PARCEL}`)).toHaveAttribute(
+    'data-parcel-status',
+    'operational',
+  )
+
+  expect(runtime.pageErrors).toEqual([])
+  expect(runtime.consoleErrors).toEqual([])
+})
+
 // The freshly measured tuple for the grid managed-idle fixture. Filled from a real run
 // (see the report accompanying this milestone); a change here is a real change in what
 // the world costs to draw, not a re-baseline of convenience.
