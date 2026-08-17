@@ -4,7 +4,10 @@ Updated: 2026-08-16
 
 Branch: `operation-hollywood-autonomous-marathon`
 
-Status: **AUTONOMOUS MARATHON SEALED — NO SUCCESSOR AUTHORIZED**
+Status: **AUTONOMOUS MARATHON SEALED — superseded by later Owner missions: the tycoon
+world conversion (sealed `b58e6f8`) and the live first-movie-journey shift (branch
+`first-movie-journey-v1`, see `FIRST-MOVIE-JOURNEY-LOG.md`, opened 2026-08-17 by Owner
+order). Marathon-era "no successor" language below is historical.**
 
 This is a compact routing index, not a replacement for the contracts, evidence, Owner records, or
 canonical Lessons Learned.

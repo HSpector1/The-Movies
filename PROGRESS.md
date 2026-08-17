@@ -1,5 +1,10 @@
 # Project: Studio — Marathon Progress
 
+> **CURRENT ERA (2026-08-17): FIRST MOVIE JOURNEY.** Live progress is tracked in
+> `FIRST-MOVIE-JOURNEY-LOG.md` on branch `first-movie-journey-v1` (predecessor:
+> `TYCOON-WORLD-CONVERSION-LOG.md`, sealed at `b58e6f8`). This file is the sealed
+> marathon-era tracker.
+
 Updated: 2026-08-16
 
 Branch: `operation-hollywood-autonomous-marathon`

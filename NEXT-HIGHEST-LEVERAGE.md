@@ -1,5 +1,10 @@
 # Project: Studio — Next Highest Leverage
 
+> **CURRENT ERA (2026-08-17): FIRST MOVIE JOURNEY.** The live leverage list is the
+> frozen wave plan in `FIRST-MOVIE-JOURNEY-LOG.md` (waves 1–4: guidance projection +
+> picture card, inspector verbs, world attention marker, golden-path proof), then the
+> five targets in `TYCOON-WORLD-CONVERSION-HANDOFF.md`. The list below is marathon-era.
+
 Updated: 2026-08-16
 
 ## Decision rule

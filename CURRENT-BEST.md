@@ -1,6 +1,12 @@
 # Project: Studio — Current Best
 
-Updated: 2026-08-16
+> **CURRENT ERA (2026-08-17): FIRST MOVIE JOURNEY.** The marathon record below is
+> historical. Current best = Tycoon World V1, sealed at `b58e6f8` on
+> `tycoon-world-conversion-12h` (Owner ruling: architecture PASS / first-movie
+> discoverability FAIL). Live work: branch `first-movie-journey-v1`; authority chain:
+> `FIRST-MOVIE-JOURNEY-LOG.md` → `TYCOON-WORLD-CONVERSION-HANDOFF.md` → this file.
+
+Updated: 2026-08-16 (marathon record below); era banner 2026-08-17
 
 Branch: `operation-hollywood-autonomous-marathon`
 
