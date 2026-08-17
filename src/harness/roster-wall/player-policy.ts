@@ -12,7 +12,7 @@ import {
   expectedWeeklyRunRevenue,
   exportSave,
   importSave,
-  makeSaveV12,
+  makeSaveV13,
   renewalWindowOpen,
   stableStringify,
   weeklyOverhead,
@@ -25,7 +25,7 @@ import type {
   CreativeRole,
   GameState,
   LedgerEntry,
-  SaveFileV12,
+  SaveFileV13,
 } from '../../core/index.js'
 import {
   ROSTER_WALL_ENTRY_WEEK,
@@ -304,7 +304,7 @@ export type PlayerPolicyOwnerCadence = {
 
 export type PlayerPolicyEntryHarvest = {
   week: typeof ROSTER_WALL_ENTRY_WEEK
-  save: SaveFileV12
+  save: SaveFileV13
   saveBytes: string
   saveHash: string
   stateHash: string
@@ -532,7 +532,7 @@ export function reconcilePlayerPolicyCash(
     ledgerStart > state.ledger.length
   ) {
     throw new Error(
-      'roster-wall player policy: invalid SaveFileV12 cash-ledger checkpoint length',
+      'roster-wall player policy: invalid SaveFileV13 cash-ledger checkpoint length',
     )
   }
   const openingCash = checkpoint?.cash ?? TUNING.INITIAL_CASH
@@ -640,23 +640,23 @@ function entryRoster(state: GameState): PlayerPolicyEntryRosterMember[] {
 }
 
 function exactSave(state: GameState): {
-  save: SaveFileV12
+  save: SaveFileV13
   bytes: string
   hash: string
   stateHash: string
-  imported: SaveFileV12
+  imported: SaveFileV13
   importedState: GameState
 } {
-  const save = makeSaveV12(structuredClone(state))
+  const save = makeSaveV13(structuredClone(state))
   const bytes = exportSave(save)
   const imported = importSave(bytes)
-  if (imported.saveVersion !== 12) {
-    throw new Error('roster-wall player policy: entry did not import as SaveFileV12')
+  if (imported.saveVersion !== 13) {
+    throw new Error('roster-wall player policy: entry did not import as SaveFileV13')
   }
   if (exportSave(imported) !== bytes) {
     throw new Error('roster-wall player policy: entry import/re-export changed bytes')
   }
-  if (exportSave(makeSaveV12(structuredClone(imported.state))) !== bytes) {
+  if (exportSave(makeSaveV13(structuredClone(imported.state))) !== bytes) {
     throw new Error('roster-wall player policy: remade entry save changed bytes')
   }
   const importedState = imported.state
@@ -1065,7 +1065,7 @@ function executePlayerPolicy(
     input.operatingPolicyId,
     'round-robin-mixed',
   )
-  const initialSaveHash = sha256(exportSave(makeSaveV12(structuredClone(state))))
+  const initialSaveHash = sha256(exportSave(makeSaveV13(structuredClone(state))))
   const founders = foundingCohort(state)
   const foundingTalentIds = new Set(founders.map((founder) => founder.talentId))
   const episodes = new Map<string, MutableRenewalEpisode>()
@@ -1098,7 +1098,7 @@ function executePlayerPolicy(
   // descriptive harness memory at this seam cannot change the public policy.
   const freshEntry = importSave(entry.saveBytes)
   if (
-    freshEntry.saveVersion !== 12 ||
+    freshEntry.saveVersion !== 13 ||
     exportSave(freshEntry) !== entry.saveBytes ||
     sha256(exportSave(freshEntry)) !== entry.saveHash
   ) {
@@ -1328,8 +1328,8 @@ function playerPolicyEntryId(result: RosterWallPlayerPolicyResult): string {
 
 function exactPlayerPolicyEntryState(result: RosterWallPlayerPolicyResult): GameState {
   const imported = importSave(result.entry.saveBytes)
-  if (imported.saveVersion !== 12) {
-    throw new Error('roster-wall player policy evidence: entry is not SaveFileV12')
+  if (imported.saveVersion !== 13) {
+    throw new Error('roster-wall player policy evidence: entry is not SaveFileV13')
   }
   const reexported = exportSave(imported)
   if (

@@ -23,7 +23,7 @@ import {
   generateWorld,
   importSave,
   isContracted,
-  makeSaveV12,
+  makeSaveV13,
   marketingLevelsFor,
   nextStudioDecision,
   readyScriptPerceivedStrength,
@@ -32,7 +32,7 @@ import {
   runway,
   stableStringify,
   tick,
-  validateSaveV12,
+  validateSaveV13,
   weeklyOverhead,
   weeklyPayroll,
   weeklySalary,
@@ -50,7 +50,7 @@ import type {
   GreenlightScriptProjectPayload,
   LedgerEntry,
   ReceptionInputs,
-  SaveFileV12,
+  SaveFileV13,
   ScriptProject,
   Talent,
 } from '../../core/index.js'
@@ -278,7 +278,7 @@ export type RosterWallEntryHarvest = {
   foundingTermWeeks: typeof ROSTER_WALL_FOUNDING_TERM_WEEKS
   initialSaveHash: string
   initialStateHash: string
-  entrySave: SaveFileV12
+  entrySave: SaveFileV13
   entrySaveBytes: string
   entrySaveHash: string
   entryStateHash: string
@@ -533,7 +533,7 @@ function initializeCampaign(
     state = applyActions(state, [{ kind: 'startDevelopmentCastingAnnex' }])
   }
   const initialStateHash = stateHash(state)
-  const initialSaveHash = sha256(exportSave(makeSaveV12(structuredClone(state))))
+  const initialSaveHash = sha256(exportSave(makeSaveV13(structuredClone(state))))
   return {
     runtime: {
       state,
@@ -1381,31 +1381,31 @@ function executeEntryCampaign(
 }
 
 function harvestSave(state: GameState): {
-  entrySave: SaveFileV12
+  entrySave: SaveFileV13
   entrySaveBytes: string
   entrySaveHash: string
   entryStateHash: string
 } {
   const stateHashBefore = stateHash(state)
-  const made = makeSaveV12(structuredClone(state))
+  const made = makeSaveV13(structuredClone(state))
   const entrySaveBytes = exportSave(made)
   const imported = importSave(entrySaveBytes)
-  if (imported.saveVersion !== 12) {
-    throw new Error('roster-wall observatory: Week-196 import did not return SaveFileV12')
+  if (imported.saveVersion !== 13) {
+    throw new Error('roster-wall observatory: Week-196 import did not return SaveFileV13')
   }
-  const validated = validateSaveV12(imported)
+  const validated = validateSaveV13(imported)
   const importedReexport = exportSave(validated)
   if (importedReexport !== entrySaveBytes) {
-    throw new Error('roster-wall observatory: imported SaveFileV12 re-export changed bytes')
+    throw new Error('roster-wall observatory: imported SaveFileV13 re-export changed bytes')
   }
-  const remade = makeSaveV12(structuredClone(validated.state))
+  const remade = makeSaveV13(structuredClone(validated.state))
   const remadeReexport = exportSave(remade)
   if (remadeReexport !== entrySaveBytes) {
-    throw new Error('roster-wall observatory: re-made SaveFileV12 changed entry bytes')
+    throw new Error('roster-wall observatory: re-made SaveFileV13 changed entry bytes')
   }
   const entryStateHash = stateHash(validated.state)
   if (entryStateHash !== stateHashBefore) {
-    throw new Error('roster-wall observatory: SaveFileV12 replay changed entry state')
+    throw new Error('roster-wall observatory: SaveFileV13 replay changed entry state')
   }
   return {
     entrySave: validated,
@@ -1468,7 +1468,7 @@ function parityProjection(
 /**
  * Build the canonical all-208 founding campaign, apply the optional real Annex
  * public action at Week 0, run the frozen film policy without renewals, and harvest
- * the exact validated/replayed Week-196 SaveFileV12 entry.
+ * the exact validated/replayed Week-196 SaveFileV13 entry.
  */
 export function runRosterWallEntryCampaign(
   input: RunRosterWallEntryCampaignInput,

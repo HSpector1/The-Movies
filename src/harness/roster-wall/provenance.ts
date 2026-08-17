@@ -39,7 +39,7 @@ export type RosterWallSourceProvenance = {
   tree: string
   worktreeDirty: false
   runtime: string
-  saveVersion: 12
+  saveVersion: 13
   productionAuthorityCommit: string
   productionAuthorityTree: string
   authorityDiffPaths: string[]
@@ -292,7 +292,7 @@ export function rosterWallSourceProvenance(
     tree,
     worktreeDirty: false,
     runtime: options.runtime ?? `node ${process.version}`,
-    saveVersion: 12,
+    saveVersion: 13,
     productionAuthorityCommit: authorityCommit,
     productionAuthorityTree: authorityTree,
     authorityDiffPaths,

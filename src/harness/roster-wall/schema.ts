@@ -159,7 +159,7 @@ export function rosterWallCashReconciliation(state: GameState): RosterWallCashRe
     checkpointLedgerLength < 0 ||
     checkpointLedgerLength > ledgerLength
   ) {
-    throw new Error('roster-wall schema: invalid SaveFileV12 cash-ledger checkpoint length')
+    throw new Error('roster-wall schema: invalid SaveFileV13 cash-ledger checkpoint length')
   }
   const suffix = state.ledger.slice(checkpointLedgerLength)
   const suffixLedgerTotal = orderedLedgerFold(0, suffix)
@@ -337,7 +337,7 @@ export type RosterWallEnvelopeInput = {
 function assertAcceptedSource(source: RosterWallSourceProvenance): void {
   if (
     source.worktreeDirty !== false ||
-    source.saveVersion !== 12 ||
+    source.saveVersion !== 13 ||
     source.productionAuthorityCommit !== ROSTER_WALL_PRODUCTION_AUTHORITY ||
     source.branch.length === 0 ||
     source.commit.length === 0 ||
@@ -346,7 +346,7 @@ function assertAcceptedSource(source: RosterWallSourceProvenance): void {
     source.productionAuthorityTree.length === 0
   ) {
     throw new Error(
-      'roster-wall schema: serialized evidence requires an accepted clean SaveFileV12 source',
+      'roster-wall schema: serialized evidence requires an accepted clean SaveFileV13 source',
     )
   }
 }
