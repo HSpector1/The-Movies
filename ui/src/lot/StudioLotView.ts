@@ -513,6 +513,19 @@ export class StudioLotView {
   focusHollywoodGate(): boolean {
     return this.hollywoodScene?.focusGateFromHost() ?? false
   }
+  /**
+   * What the WORLD is currently holding selected, or null when no scene is live.
+   *
+   * The host's repaint reconciliation reads this before re-asserting a selection: an
+   * effect that exists to RESTORE a selection the renderer lost has nothing to do when
+   * the renderer still holds it. Read from the scene every time — the host must never
+   * keep its own copy of what the renderer is showing, which is the stale-identity trap
+   * this seam exists to avoid.
+   */
+  worldSelection(): { placeId: string | null; productionId: string | null; personId: string | null } | null {
+    return this.hollywoodScene?.currentSelection() ?? null
+  }
+
   clearHollywoodPersonSelection(): void { this.hollywoodScene?.clearPersonSelection() }
   clearHollywoodPlaceSelection(): void { this.hollywoodScene?.clearPlaceSelection() }
 

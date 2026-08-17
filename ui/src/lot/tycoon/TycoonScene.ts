@@ -1823,6 +1823,22 @@ export class TycoonScene extends Phaser.Scene {
     this.emitEvent({ type: 'building', buildingId: place.buildingId })
   }
 
+  /**
+   * WHAT THE RENDERER IS CURRENTLY HOLDING SELECTED (C1-M5 flake fix).
+   *
+   * A first-class read, deliberately not the debug seam: the host's repaint
+   * reconciliation asks this before re-asserting a selection, so it must be as real
+   * and as supported as the commands beside it. It reports the scene's own live
+   * fields — there is no cached copy anywhere for them to drift from.
+   */
+  currentSelection(): { placeId: string | null; productionId: string | null; personId: string | null } {
+    return {
+      placeId: this.selectedPlaceId,
+      productionId: this.selectedProductionId,
+      personId: this.selectedPersonId,
+    }
+  }
+
   clearPlaceSelection(): void {
     this.selectedProductionId = null
     this.selectedPlaceId = null
