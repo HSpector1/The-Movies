@@ -127,7 +127,45 @@ designs.
 
 ## Shift record
 
-### Phase 0 — Research + cold playtest (in progress)
+### Wave 1 — RULED KEEP (Fable playtest 2026-08-17)
+
+Fresh-studio playtest of the integrated wave: the Week-0 dead end is gone — the desk
+card reads "YOUR FIRST PICTURE / No picture yet / Every picture starts with a
+screenplay / [Commission a screenplay at Development]"; the button pans+selects (zoom
+unchanged, no route). The picture becomes a named identity at commission; card states
+observed live: no-picture → script-review ("The first draft is in / Review the
+screenplay at Development" — one click lands the review surface) → ready-to-package
+("Auditions show you who can carry the picture, or go straight to the picture's
+package / [Plan auditions at Casting]"). Collapse chevron works and persists. The
+commission form now defaults to Lauren Ravel — Est. 71 (the trap default is dead). The
+toast sits clear of the roster chips. Gates verified by my own runs: root+ui tsc
+clean; full vitest 226 files / 3,068 tests green. Remaining seam confirmed as designed:
+building inspectors still lack the primary verbs the guidance names — Wave 2's charter.
+
+Wave-1 delivery detail (both writers):
+
+Engine writer delivered `src/core/firstFilmJourney.ts` (pure/save-neutral, presence.ts
+discipline, frozen interface verbatim) + writer sort by writing estimate + lotAttention
+production-occupant copy. Root tsc + ui tsc clean; core suite 95 files / 1,343 tests
+green. Notable engineering: release-week off-by-one pinned by test (M1 skip-first
+rule); read-model rejections degrade gracefully instead of killing the card (law 21);
+blocker copy uses headline+remedy only because `detail` legitimately carries internal
+ids. Two handoffs routed to the UI writer mid-flight (scriptCommission ordering guard
+must assert the NEW canonical order; adapter 'writers' cue precedence for the empty
+case). Narrow exceptions used and reported: two test files re-pinned (strengthened),
+`src/core/index.ts` export block.
+
+**Owner-facing design finding (recorded, not resolved):** with writers published
+best-estimate-first, a thin roster whose best writing estimate belongs to the craft
+lead can default the commission to the craft lead and strand `package-staffing`. On
+the shipped founding pool the default is correct (the actual writer has the top
+estimate). Wave 2 will make the form's default prefer primary-role writers; the deeper
+"warn when commissioning strips a needed role" is an Owner design call, logged here.
+
+Also recorded as pre-existing polish: `FilmResult.releaseTick` reads one week behind
+in-hand week ("released 1 week ago" on release week, adapter.ts:6153).
+
+### Phase 0 — Research + cold playtest (complete)
 
 - Research workflow dispatched: The Movies (pipeline + lot/UI, two agents), Zoo Tycoon,
   RollerCoaster Tycoon, modern successors (Two Point Hospital / Planet Coaster /
