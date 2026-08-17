@@ -165,6 +165,73 @@ estimate). Wave 2 will make the form's default prefer primary-role writers; the 
 Also recorded as pre-existing polish: `FilmResult.releaseTick` reads one week behind
 in-hand week ("released 1 week ago" on release week, adapter.ts:6153).
 
+### Wave 2 — RULED KEEP (after two bounces; root cause was a shift-old latent bug)
+
+Final resolution of the plan-auditions defect: the strict retained-planner context
+(`auditionPlanning.ts`) proved projected names with a GLOBAL-uniqueness helper —
+any studio holding a duplicate talent name anywhere was rejected, and generated name
+pools make duplicates ordinary (seed `studio-001` holds two actors named Rex Petrov).
+So the retained audition planner had been unreachable in real sessions for the
+feature's whole life; every e2e used author-chosen fixture rosters that never
+collided. Fix `756b374`: `recordedName`/`recordedTitle` keep every faithfulness proof
+and drop only the no-other-record-shares-this-string clause for people/concepts
+(facilities keep uniqueness — the engine owns that name set); matches the house
+pattern of every sibling strict selector. New e2e `lot-founded-audition-path-v1`
+founds a studio through the real UI on the shipped grid origin and asserts the
+name collision is present, so the spec cannot quietly stop covering the defect.
+Falsification: restoring the old predicate fails both new tests (2/2).
+
+Verified live by me after the fix: clicking the Casting building lands the retained
+in-world planner directly (world visible behind); slate → "Start one-week auditions"
+completes in-world with the six-reads receipt; the intermediate inspector-origin
+commit (`8bef20a`) stands on its own merits (a verb must prove itself, not a control
+the player never pressed). Gates verified by my runs: both tsc clean; full vitest 226
+files / 3,091 green twice consecutively (one unreproduced single-test flake on the
+first run, not seen again); writer's full Playwright at HEAD: 189 passed / 4 env
+skips. Process lesson recorded: vitest-level falsification did not capture a
+live-only condition — real-browser proof is now the bar for world-first seams.
+
+Verified live by Fable (fresh studio, building-driven, guidance card ignored where
+possible): Development inspector now answers in the Owner's exact order — what it is →
+what's happening → **"Commission a screenplay"** (gold primary, opens the retained
+workspace over the world) → capacity → "Open Development details" (renamed from
+"Assembly"). Casting sign reads "ready for auditions" (was "auditions optional");
+Casting inspector carries "Plan auditions for A Season of Archipelago"; the review
+surface header reads "Adventure · Writer Lauren Ravel" (internal ids gone); starting
+auditions from the legacy Casting Room now returns the player to the studio
+(de-strand verified). Gates verified by my own runs: both tsc clean, 226 files /
+3,088 tests green (writer's full Playwright run: 187 passed / 4 env skips).
+
+**Defect bounced to the writer (live repro + root cause):** the Casting inspector's
+plan-auditions verb ejects to the full-screen Casting Room when the companion rail is
+closed — `currentAuditionPlanningOrigin` proves origin via the companion-rail DOM
+button only, so the inspector entry falls back. Fix charter: accept the inspector
+primary button as a first-class origin with the same closed-shape proofs (narrow App
+remit extension granted for the origin validation), falsification-proven by a test
+that clicks the verb with the rail closed and asserts the retained workspace opens.
+
+**Second bounce (live-only failure).** The origin fix (`8bef20a`) passed its
+falsification tests but STILL ejected live — verified by me on a hard-reloaded,
+cache-busted page with every documented origin condition probed true in the DOM
+immediately before the click (unique panel, matching attention, enabled contained
+button, rail provable too). Conclusion: the App-side acceptance or the strict planner
+context refuses REAL browser states in a way vitest states don't reproduce — and the
+retained audition planner has not mounted in ANY live session this shift (the
+activate-casting auto-open also always fell through), so the refusal predates Wave 2;
+the new verb merely surfaced it. Writer re-dispatched with real-browser reproduction,
+temporary instrumentation of the refusal chain, a root-cause fix at the honest layer,
+and a Playwright (not vitest) falsification spec; also chartered to close the e2e
+coverage gap if no spec drives the retained audition planner.
+
+Wave-2 deviations accepted and recorded: TalentPicker a11y fix landed in
+`ui/src/components/TalentPicker.tsx` (outside declared surface, aria-only, named in
+commits); no world-mounted package re-entry exists (the retained Package workspace
+opens only from the casting-review handoff — "Open the picture's package" uses the
+deep path; recorded as a next-hills item); the greenlight-formation two-picture
+structural tuple re-pinned 64/30 → 62/29 with byte-identical decoded bytes (delta =
+one more employee claimed by a company under the writer-default fix); Casting Room
+auto-return loses its live-region announcement (law-26 flag; the legacy path only).
+
 ### Phase 0 — Research + cold playtest (complete)
 
 - Research workflow dispatched: The Movies (pipeline + lot/UI, two agents), Zoo Tycoon,
