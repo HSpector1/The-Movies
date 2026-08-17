@@ -100,6 +100,21 @@ export function LotPictureGuidanceCard({
   const title = view === null ? 'Picture unavailable' : view.pictureTitle ?? 'No picture yet'
   const next = view?.next ?? null
 
+  /**
+   * The ENGINE's own stage id, printed verbatim — never a value this card derives.
+   *
+   * It therefore reads `drafting` under the headline "Screenplay — rewriting", and that is
+   * correct rather than a mismatch: `drafting` is the engine's ONE stage for "the
+   * screenplay is being written" (`firstFilmJourney.ts` — both `drafting` and `rewriting`
+   * project statuses land on it), and the HEADLINE is where the engine refines a rewrite
+   * from a first draft. Emitting a distinct `rewriting` value here would mean this card
+   * re-answering a question the projection already answered, in a word the frozen contract
+   * does not contain — the exact drift the mirror type exists to prevent. `unavailable` is
+   * the one value that is not an engine stage: it is this card's own absent/malformed
+   * state, which no engine stage names.
+   */
+  const stageAttribute = view?.stage ?? 'unavailable'
+
   return (
     <section
       className={
@@ -108,7 +123,7 @@ export function LotPictureGuidanceCard({
       }
       aria-label="Picture guidance"
       data-testid="lot-picture-guidance"
-      data-guidance-stage={view?.stage ?? 'unavailable'}
+      data-guidance-stage={stageAttribute}
     >
       <p className="hollywood-eyebrow" data-testid="lot-picture-guidance-eyebrow">
         <i /> {eyebrow}

@@ -72,6 +72,10 @@ import type {
 
 export type FirstFilmJourneyStage =
   | 'no-picture'
+  // ONE stage for "the screenplay is being written": both the `drafting` and `rewriting`
+  // project statuses land here, and the stage's HEADLINE is where the two are told apart
+  // ("Screenplay — drafting" / "Screenplay — rewriting"). Surfaces that print the stage id
+  // therefore say `drafting` beside a rewriting headline, by contract.
   | 'drafting'
   | 'script-review'
   | 'ready-to-package'

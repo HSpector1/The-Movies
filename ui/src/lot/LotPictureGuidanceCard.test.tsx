@@ -193,6 +193,30 @@ describe('LotPictureGuidanceCard — the picture is followable from before it ex
     })
   }
 
+  it('prints the ENGINE stage id, even where the headline is finer than the stage', () => {
+    // A rewrite reads "Screenplay — rewriting" over `data-guidance-stage="drafting"`, and
+    // that is the contract rather than a mismatch: `drafting` is the engine's one stage for
+    // "the screenplay is being written", refined by the headline. A distinct `rewriting`
+    // attribute value would be this card inventing a word the frozen projection does not
+    // have. Pinned so the attribute can never quietly become a UI-derived value.
+    renderCard(
+      journey({
+        stage: 'drafting',
+        pictureTitle: 'A Season of Archipelago',
+        headline: 'Screenplay — rewriting',
+        detail: 'Writer: Lauren Ravel · Due Week 3',
+        next: { kind: 'advance-week', label: 'Wait for the rewrite', site: null },
+      }),
+    )
+    expect(screen.getByTestId('lot-picture-guidance-headline')).toHaveTextContent(
+      'Screenplay — rewriting',
+    )
+    expect(screen.getByTestId('lot-picture-guidance')).toHaveAttribute(
+      'data-guidance-stage',
+      'drafting',
+    )
+  })
+
   it('renders the engine detail line verbatim', () => {
     renderCard(
       journey({
