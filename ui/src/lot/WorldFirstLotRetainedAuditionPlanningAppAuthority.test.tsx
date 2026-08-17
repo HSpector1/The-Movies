@@ -184,6 +184,9 @@ vi.mock('./StudioLotScreen.tsx', async () => {
         const opener = openerRef.current
         if (opener === null) throw new Error('mock: Casting opener is absent')
         const origin: LotAuditionPlanningOrigin = {
+          // This mock stands in for the COMPANION rail row, which is the opener kind it
+          // renders below. The inspector arm is proven in its own App-authority spec.
+          openerKind: 'companion',
           opener,
           cue: {
             buildingId: 'casting',

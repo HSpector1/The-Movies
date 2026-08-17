@@ -21,6 +21,25 @@ type PlanAuditionsAction = {
   label: string
 }
 
+/**
+ * Which control opened the retained first-session planner.
+ *
+ * 'companion' is the rail row the world's semantic navigation uses; 'inspector' is the
+ * Casting building panel's own "Plan auditions" verb. Both are first-class openers, each
+ * proving ITSELF against the same snapshot fact. The vocabulary lives HERE — beside the
+ * planner context it authorizes — so the Lot host and App validate against one table
+ * rather than two literals that could drift apart.
+ */
+export type LotAuditionPlanningOpenerKind = 'companion' | 'inspector'
+
+/** The exact testid each opener kind must carry, and be unique by, in the document. */
+export const LOT_AUDITION_OPENER_TESTID: Readonly<
+  Record<LotAuditionPlanningOpenerKind, string>
+> = {
+  companion: 'lot-nav-casting',
+  inspector: 'lot-building-inspector-primary-plan-auditions',
+}
+
 export type LotAuditionPlanningOpenAuthority = {
   hollywoodEnabled: boolean
   origin: 'lot-browse-talent'

@@ -101,6 +101,8 @@ import {
 } from './snapshot/scriptCommission.ts'
 import {
   currentLotAuditionPlanningReceipt,
+  LOT_AUDITION_OPENER_TESTID,
+  type LotAuditionPlanningOpenerKind,
   type LotAuditionPlanningReceipt,
 } from './snapshot/auditionPlanning.ts'
 import {
@@ -186,11 +188,14 @@ import {
 } from '../flags.ts'
 import type { IdentityMode } from './identity/manifest.ts'
 
+export type { LotAuditionPlanningOpenerKind }
+
 /**
  * Exact, non-serialized origin proof for the one retained first-session planner.
  * The cue is presentation-only; App must still prove the complete Casting board.
  */
 export type LotAuditionPlanningOrigin = Readonly<{
+  openerKind: LotAuditionPlanningOpenerKind
   opener: HTMLButtonElement
   cue: Readonly<{
     buildingId: 'casting'
@@ -960,6 +965,11 @@ export function StudioLotScreen({
   const nextEventWasSuspendedRef = useRef(worldInputSuspended)
   const nextEventDocumentWasHiddenRef = useRef(false)
   const companionButtonRefs = useRef<Partial<Record<BuildingId, HTMLButtonElement | null>>>({})
+  /**
+   * The Casting inspector's own "Plan auditions" verb, so the retained planner can prove
+   * the control the player ACTUALLY pressed instead of borrowing the companion rail's.
+   */
+  const auditionPlanningVerbRef = useRef<HTMLButtonElement | null>(null)
   const onNavigateRef = useRef(onNavigate)
   onNavigateRef.current = onNavigate
   const onCloseTalentProfileRef = useRef(onCloseTalentProfile)
@@ -3744,34 +3754,83 @@ export function StudioLotScreen({
     onNavigateRef.current(res.route)
   }, [])
 
-  const currentAuditionPlanningOrigin = useCallback((): LotAuditionPlanningOrigin | null => {
+  /**
+   * Exact origin proof for the retained first-session planner, for ONE named opener.
+   *
+   * TWO controls can legitimately open the planner, and each must prove itself against
+   * the SAME snapshot fact (the Casting building's own attention + reason). Neither arm
+   * is weaker than the other — the inspector arm proves strictly more, because its
+   * attention and its reason live on two different nodes that must BOTH be unique and
+   * BOTH agree with the snapshot:
+   *
+   *   • 'companion' — the rail row (`lot-nav-casting`): connected, enabled, unique in the
+   *     document, `data-attention` equal to the snapshot's attention, and a child cue node
+   *     whose text ends with the snapshot's reason.
+   *   • 'inspector' — the building panel's own verb
+   *     (`lot-building-inspector-primary-plan-auditions`): connected, enabled, unique in
+   *     the document, contained by the ONE `lot-building-inspector-casting` panel, that
+   *     panel's `data-attention` equal to the snapshot's attention, and the panel's
+   *     attention line ending with the snapshot's reason.
+   *
+   * WHY THE SECOND ARM EXISTS (Wave-2 defect, found in live playtest): the verb the player
+   * actually pressed used to be proven through the COMPANION RAIL — a different control
+   * the player never touched and which need not be in a provable state. Whenever that
+   * proof failed the retained planner refused and the verb ejected the player onto the
+   * full-screen Casting Room. An opener must prove ITSELF.
+   */
+  const currentAuditionPlanningOrigin = useCallback((
+    openerKind: LotAuditionPlanningOpenerKind,
+  ): LotAuditionPlanningOrigin | null => {
     if (!hollywood || worldInputSuspendedRef.current) return null
     const matches = latestSnapshotRef.current.buildings.filter(
       (building) => building.id === 'casting',
     )
     const fact = matches.length === 1 ? matches[0]! : null
-    const opener = companionButtonRefs.current.casting
+    if (fact === null) return null
+    const attention = fact.attention ?? 'normal'
+    const reason = fact.attentionReason ?? ATTENTION_META[attention].word
+
+    const testId = LOT_AUDITION_OPENER_TESTID[openerKind]
+    const opener =
+      openerKind === 'companion'
+        ? companionButtonRefs.current.casting
+        : auditionPlanningVerbRef.current
     if (
-      fact === null ||
       opener === null ||
       opener === undefined ||
       !opener.isConnected ||
       opener.disabled ||
-      opener.getAttribute('data-testid') !== 'lot-nav-casting' ||
-      opener !== document.querySelector('[data-testid="lot-nav-casting"]')
+      opener.getAttribute('data-testid') !== testId ||
+      opener !== document.querySelector(`[data-testid="${testId}"]`)
     ) return null
 
-    const attention = fact.attention ?? 'normal'
-    const reason = fact.attentionReason ?? ATTENTION_META[attention].word
-    const cueNode = opener.querySelector('[data-testid="lot-nav-casting-state"]')
+    // Where this opener's own attention + reason evidence lives. The companion carries
+    // both on itself; the inspector verb carries them on the one panel that owns it.
+    const evidenceRoot: Element | null =
+      openerKind === 'companion'
+        ? opener
+        : (() => {
+            const panel = opener.closest('[data-testid="lot-building-inspector-casting"]')
+            return panel !== null &&
+              panel === document.querySelector('[data-testid="lot-building-inspector-casting"]')
+              ? panel
+              : null
+          })()
+    if (evidenceRoot === null) return null
+    const cueNode = evidenceRoot.querySelector(
+      openerKind === 'companion'
+        ? '[data-testid="lot-nav-casting-state"]'
+        : '[data-testid="lot-building-inspector-attention"]',
+    )
     const cueText = cueNode?.textContent?.replace(/\s+/g, ' ').trim() ?? ''
     if (
-      opener.getAttribute('data-attention') !== attention ||
+      evidenceRoot.getAttribute('data-attention') !== attention ||
       cueNode === null ||
       !cueText.endsWith(reason)
     ) return null
 
     return {
+      openerKind,
       opener,
       cue: {
         buildingId: 'casting',
@@ -3782,9 +3841,11 @@ export function StudioLotScreen({
     }
   }, [hollywood])
 
-  const openCurrentAuditionPlanning = useCallback((): boolean => {
+  const openCurrentAuditionPlanning = useCallback((
+    openerKind: LotAuditionPlanningOpenerKind = 'companion',
+  ): boolean => {
     if (onOpenAuditionPlanning === undefined) return false
-    const origin = currentAuditionPlanningOrigin()
+    const origin = currentAuditionPlanningOrigin(openerKind)
     if (origin === null) return false
     const renderedState = latestGameStateRef.current
     if (!onOpenAuditionPlanning(renderedState, origin)) return false
@@ -5451,10 +5512,12 @@ export function StudioLotScreen({
    *     App's retained-commissioning interception owns what that becomes; the inspector
    *     only offers it when the board publishes the exact legality that interception
    *     requires, so the verb lands the in-world workspace rather than a full screen.
-   *   • plan-auditions → the retained in-world planner first (`openCurrentAuditionPlanning`,
-   *     the same entry the companion activation uses). It proves its own exact origin and
-   *     refuses when it cannot; a refusal falls back to the ALREADY-EXISTING deep Casting
-   *     path rather than leaving the player holding a dead button.
+   *   • plan-auditions → the retained in-world planner, opened as ITSELF: this button is a
+   *     first-class origin and proves its own connectedness, uniqueness, owning panel and
+   *     live attention/reason. Only if that refuses does it try the companion rail's
+   *     equally-strict proof, and only if BOTH refuse does it fall back to the
+   *     ALREADY-EXISTING deep Casting path — so the retained path wins whenever the
+   *     planner context accepts, and the button is never dead.
    *   • open-package   → the deep Casting path. The retained Package workspace is opened
    *     ONLY by the casting-review handoff today, so there is no in-world package entry to
    *     reuse; naming the verb here is honest, inventing a second opener would not be.
@@ -5467,7 +5530,8 @@ export function StudioLotScreen({
           dispatchRoute(BUILDING_ACTION.writers)
           return
         case 'plan-auditions':
-          if (openCurrentAuditionPlanning()) return
+          if (openCurrentAuditionPlanning('inspector')) return
+          if (openCurrentAuditionPlanning('companion')) return
           dispatchRoute(BUILDING_ACTION.casting)
           return
         case 'open-package':
@@ -5601,6 +5665,12 @@ export function StudioLotScreen({
           {buildingInspector.primaryActions.map((action) => (
             <button
               key={action.kind}
+              // The audition verb is a first-class retained-planner opener, so the host
+              // holds the exact element it rendered and then proves it against the
+              // document — the same discipline the companion rail row already uses.
+              ref={action.kind === 'plan-auditions'
+                ? (node) => { auditionPlanningVerbRef.current = node }
+                : undefined}
               type="button"
               className="accent hollywood-command hollywood-building-inspector-primary"
               disabled={worldInputSuspended}

@@ -158,6 +158,7 @@ import {
 import {
   acceptedLotAuditionPlanningReceipt,
   currentLotAuditionPlanningContext,
+  LOT_AUDITION_OPENER_TESTID,
   sameLotAuditionPlanningContext,
   lotAuditionPlanningPayload,
   type LotAuditionPlanningContext,
@@ -504,20 +505,41 @@ const LOT_AUDITION_ATTENTION = new Set([
   'recently-completed',
 ])
 
+/**
+ * Accept exactly one retained-planner origin, for exactly one declared opener kind.
+ *
+ * Two controls may open the planner and each proves ITSELF — the companion rail row, and
+ * the Casting building inspector's own "Plan auditions" verb. The arms are mirrored
+ * one-for-one: connected, enabled, unique-in-document opener; the live attention equal to
+ * the cue's; and a cue node whose text ends with the cue's reason. The inspector arm
+ * additionally proves the ONE panel that owns the verb, because that panel — not the
+ * button — is where the building's attention and reason are painted.
+ *
+ * This is a second accepted opener, never a weaker one: nothing the companion arm proved
+ * before is proven less now.
+ */
+const LOT_AUDITION_OPENER_KINDS = new Set(['companion', 'inspector'])
+
 function exactLotAuditionPlanningOrigin(
   value: LotAuditionPlanningOrigin,
 ): value is LotAuditionPlanningOrigin {
   if (
     typeof value !== 'object' ||
     value === null ||
-    Reflect.ownKeys(value).length !== 2 ||
+    Reflect.ownKeys(value).length !== 3 ||
+    !Object.prototype.hasOwnProperty.call(value, 'openerKind') ||
     !Object.prototype.hasOwnProperty.call(value, 'opener') ||
     !Object.prototype.hasOwnProperty.call(value, 'cue') ||
+    typeof value.openerKind !== 'string' ||
+    !LOT_AUDITION_OPENER_KINDS.has(value.openerKind) ||
     !(value.opener instanceof HTMLButtonElement) ||
     !value.opener.isConnected ||
-    value.opener.disabled ||
-    value.opener.getAttribute('data-testid') !== 'lot-nav-casting' ||
-    value.opener !== document.querySelector('[data-testid="lot-nav-casting"]')
+    value.opener.disabled
+  ) return false
+  const testId = LOT_AUDITION_OPENER_TESTID[value.openerKind]
+  if (
+    value.opener.getAttribute('data-testid') !== testId ||
+    value.opener !== document.querySelector(`[data-testid="${testId}"]`)
   ) return false
   const cue = value.cue
   if (
@@ -529,10 +551,24 @@ function exactLotAuditionPlanningOrigin(
     typeof cue.attention !== 'string' ||
     !LOT_AUDITION_ATTENTION.has(cue.attention) ||
     typeof cue.reason !== 'string' ||
-    cue.reason.trim().length === 0 ||
-    value.opener.getAttribute('data-attention') !== cue.attention
+    cue.reason.trim().length === 0
   ) return false
-  const cueNode = value.opener.querySelector('[data-testid="lot-nav-casting-state"]')
+  // The node that carries this opener's live attention + reason evidence.
+  let evidenceRoot: Element | null = value.opener
+  let cueSelector = '[data-testid="lot-nav-casting-state"]'
+  if (value.openerKind === 'inspector') {
+    const panel = value.opener.closest('[data-testid="lot-building-inspector-casting"]')
+    evidenceRoot =
+      panel !== null &&
+      panel === document.querySelector('[data-testid="lot-building-inspector-casting"]')
+        ? panel
+        : null
+    cueSelector = '[data-testid="lot-building-inspector-attention"]'
+  }
+  if (evidenceRoot === null || evidenceRoot.getAttribute('data-attention') !== cue.attention) {
+    return false
+  }
+  const cueNode = evidenceRoot.querySelector(cueSelector)
   const cueText = cueNode?.textContent?.replace(/\s+/g, ' ').trim() ?? ''
   return cueNode !== null && cueText.endsWith(cue.reason)
 }

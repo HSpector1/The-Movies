@@ -16,6 +16,8 @@
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { applyActions } from '../../../src/core/index.ts'
+import { App } from '../App.tsx'
+import { clearActiveSession, saveActiveSession } from '../engine/session.ts'
 import {
   advanceWeek,
   commissionScriptAction,
@@ -37,7 +39,7 @@ import {
   setTycoonWorldOverride,
 } from '../flags.ts'
 import { newFoundedGame } from '../test/founding.ts'
-import { StudioLotScreen } from './StudioLotScreen.tsx'
+import { StudioLotScreen, type LotAuditionPlanningOrigin } from './StudioLotScreen.tsx'
 import { ALL_BUILDING_IDS, type BuildingId } from './snapshot/StudioLotSnapshot.ts'
 import type { LotRoute } from './navigation.ts'
 import { resetLotSelectedBuilding } from './snapshot/selectedBuildingSession.ts'
@@ -111,7 +113,9 @@ async function onlyView() {
 
 function renderLot(
   state: GameState,
-  extra: { onOpenAuditionPlanning?: () => boolean } = {},
+  extra: {
+    onOpenAuditionPlanning?: (state: GameState, origin: LotAuditionPlanningOrigin) => boolean
+  } = {},
 ) {
   const routes: LotRoute[] = []
   const utils = render(
@@ -273,6 +277,7 @@ const DEEP_ROUTE: Record<BuildingId, LotRoute> = {
 
 beforeEach(() => {
   localStorage.clear()
+  clearActiveSession()
   resetLotSelectedBuilding()
   resetLotStageAssignment()
   renderer.instances.length = 0
@@ -282,6 +287,7 @@ beforeEach(() => {
 
 afterEach(() => {
   cleanup()
+  clearActiveSession()
   renderer.instances.length = 0
   clearOperationHollywoodOverride()
   clearStudioLotOverviewOverride()
@@ -662,8 +668,11 @@ describe('M-B — the buildings carry the verbs the guidance names', () => {
   it('names the picture in Casting’s audition verb, and prefers the retained in-world planner', async () => {
     // The retained planner proves its own exact origin and may refuse; the first call
     // (the building activation) refuses here so the inspector is what the player sees.
-    const opens = vi.fn((): boolean => true)
-    opens.mockReturnValueOnce(false)
+    const origins: LotAuditionPlanningOrigin[] = []
+    const opens = vi.fn((_state: GameState, origin: LotAuditionPlanningOrigin): boolean => {
+      origins.push(origin)
+      return origins.length > 1
+    })
     const { routes } = renderLot(readyToPackageStudio('m-b-plan-auditions'), {
       onOpenAuditionPlanning: opens,
     })
@@ -681,6 +690,14 @@ describe('M-B — the buildings carry the verbs the guidance names', () => {
     expect(opens).toHaveBeenCalledTimes(2)
     expect(routes).toEqual([])
     expect(screen.getByTestId('studio-lot-screen')).toBeInTheDocument()
+    // …and it was offered as ITSELF. The verb is a first-class origin: it never borrows
+    // the companion rail's identity to prove a press the player made somewhere else.
+    const railOrigin = origins[0]!
+    const verbOrigin = origins[1]!
+    expect(railOrigin.openerKind).toBe('companion')
+    expect(railOrigin.opener).toHaveAttribute('data-testid', 'lot-nav-casting')
+    expect(verbOrigin.openerKind).toBe('inspector')
+    expect(verbOrigin.opener).toBe(plan)
   })
 
   it('falls back to the existing deep Casting path rather than leaving a dead button', async () => {
@@ -707,5 +724,115 @@ describe('M-B — the buildings carry the verbs the guidance names', () => {
     expect(screen.getByTestId('lot-building-inspector-open-details-casting')).toHaveTextContent(
       'Open Casting details',
     )
+  })
+})
+
+// ── M-B defect repair — the Casting verb opens the planner as ITSELF ─────────
+//
+// Live-playtest defect: the inspector's "Plan auditions for <title>" verb was proven
+// through the COMPANION RAIL — a different control the player never pressed and which
+// need not be in a provable state. Whenever that proof failed, the retained planner
+// refused and the verb ejected the player onto the full-screen Casting Room, with the
+// world gone. An opener must prove ITSELF.
+//
+// These run the REAL App, so "over the live lot" means what it says: the lot screen is
+// still mounted and no deep screen was ever reached.
+
+describe('M-B — the audition verb is a first-class retained-planner origin', () => {
+  /**
+   * Make the companion rail's origin unprovable, deterministically and without touching
+   * React's tree: a second node claims the rail's testid, so the rail's own uniqueness
+   * proof correctly refuses. This models the live condition exactly — the verb is on
+   * screen and the rail cannot vouch for it.
+   */
+  const injected: HTMLElement[] = []
+
+  /** Injected nodes live outside React's container, so this suite removes its own. */
+  function injectDecoy(testId: string): HTMLButtonElement {
+    const decoy = document.createElement('button')
+    decoy.setAttribute('data-testid', testId)
+    document.body.insertBefore(decoy, document.body.firstChild)
+    injected.push(decoy)
+    return decoy
+  }
+
+  afterEach(() => {
+    for (const node of injected.splice(0)) node.remove()
+  })
+
+  function shadowTheCompanionRail(): HTMLButtonElement {
+    return injectDecoy('lot-nav-casting')
+  }
+
+  /** The real rail row, reachable while a decoy shares its testid. */
+  function realCompanionRow(): HTMLButtonElement {
+    const state = screen.getByTestId('lot-nav-casting-state')
+    const row = state.closest('button')
+    if (row === null) throw new Error('setup: the companion Casting row is absent')
+    return row
+  }
+
+  async function bootLot(state: GameState) {
+    saveActiveSession(state)
+    render(<App />)
+    await screen.findByTestId('studio-lot-screen')
+    await waitFor(() => expect(renderer.instances).toHaveLength(1))
+  }
+
+  it('opens the in-world planner over the live lot when the companion rail cannot vouch for it', async () => {
+    await bootLot(readyToPackageStudio('m-b-origin-inspector'))
+    shadowTheCompanionRail()
+
+    // The rail refuses (correctly — it is no longer unique), so the building's own panel
+    // is what the player is looking at. This is the exact live repro.
+    fireEvent.click(realCompanionRow())
+    expect(screen.getByTestId('lot-building-inspector-casting')).toBeInTheDocument()
+    expect(screen.queryByTestId('lot-audition-workspace')).not.toBeInTheDocument()
+
+    fireEvent.click(screen.getByTestId('lot-building-inspector-primary-plan-auditions'))
+
+    // BEFORE THE FIX this landed the full-screen Casting Room. The retained planner must
+    // win whenever the planner context itself accepts.
+    expect(screen.getByTestId('lot-audition-workspace')).toBeInTheDocument()
+    expect(screen.getByTestId('casting-planner')).toBeInTheDocument()
+    // …mounted OVER the live lot: the screen never changed and no deep surface was reached.
+    expect(screen.getByTestId('studio-lot-screen')).toBeInTheDocument()
+    expect(screen.queryByTestId('casting-room-heading')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('writers-room')).not.toBeInTheDocument()
+  })
+
+  it('still refuses — and still never dead-ends — when the verb cannot prove ITSELF either', async () => {
+    // The new arm is a second accepted opener, not a hole. With BOTH openers unprovable
+    // the retained planner must refuse exactly as before, and the verb must still take
+    // the player somewhere real rather than doing nothing.
+    await bootLot(readyToPackageStudio('m-b-origin-both-unprovable'))
+    shadowTheCompanionRail()
+    fireEvent.click(realCompanionRow())
+    expect(screen.getByTestId('lot-building-inspector-casting')).toBeInTheDocument()
+
+    injectDecoy('lot-building-inspector-primary-plan-auditions')
+
+    const verb = screen
+      .getByTestId('lot-building-inspector-casting')
+      .querySelector<HTMLButtonElement>(
+        '[data-testid="lot-building-inspector-primary-plan-auditions"]',
+      )
+    expect(verb).not.toBeNull()
+    fireEvent.click(verb!)
+
+    expect(screen.queryByTestId('lot-audition-workspace')).not.toBeInTheDocument()
+    expect(screen.getByTestId('casting-room-heading')).toBeInTheDocument()
+  })
+
+  it('keeps the companion rail a first-class origin of its own', async () => {
+    // No weakening: with nothing shadowed, the rail still opens the retained planner
+    // directly, exactly as it did before this repair.
+    await bootLot(readyToPackageStudio('m-b-origin-companion'))
+
+    fireEvent.click(screen.getByTestId('lot-nav-casting'))
+
+    expect(screen.getByTestId('lot-audition-workspace')).toBeInTheDocument()
+    expect(screen.getByTestId('studio-lot-screen')).toBeInTheDocument()
+    expect(screen.queryByTestId('casting-room-heading')).not.toBeInTheDocument()
   })
 })
