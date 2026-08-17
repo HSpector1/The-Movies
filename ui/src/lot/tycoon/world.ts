@@ -1,9 +1,30 @@
-// ── Tycoon world model — the studio property, composed by hand on a grid ──────
+// ── Tycoon world PRESENTATION — how the studio property looks ─────────────────
 //
 // The Operation Hollywood plate is one painted 1586×992 corner with five polygon
 // hotspots; there is no more world behind it. This module is the replacement: a
 // 28×26 isometric tile property carrying every addressable place as a real physical
 // footprint with real ground zoning around it.
+//
+// C1-M1b — WHAT STANDS HERE IS NO LONGER THIS FILE'S DECISION.
+//
+// Through M1a the tables below were the authority for which buildings existed and
+// where they stood: nine hand-authored footprints, a closed set, duplicated by hand
+// against `src/core/lot.ts`. The ENGINE now owns that geometry (`state.property`,
+// C1-M1a) and the snapshot carries it (`LotPropertyProjection`), so this module keeps
+// only PRESENTATION — texture keys, ground anchors, painted signage, ground zoning,
+// landscaping, routes, camera framings — keyed by the engine's own structure ids, plus
+// per-BLUEPRINT templates for the facilities a studio builds. `../tycoon/buildings.ts`
+// composes the two, and the scene paints what it composes.
+//
+// Two kinds of geometry remain here, and both are deliberate:
+//
+//   • `surveyedAt` — the origin each anchor set was surveyed against. Anchors are
+//     absolute grid points ("the door of Development is at gx 4.5, gy 4.5"), so they
+//     need a datum to be re-expressible when a body stands somewhere else. It is not a
+//     claim about where the building IS; the snapshot answers that;
+//   • `fallbackFootprint` — what a place occupies when a snapshot carries NO property
+//     projection at all. That is the older hand-authored fixtures, and it is the same
+//     compatibility seam the engine's own `propertyOf(state)` fallback provides.
 //
 // Grid convention (see ../scene/iso.ts): +gx runs down-right on screen, +gy runs
 // down-left. A footprint at origin (gx, gy) with size fw × fd occupies the tiles
@@ -15,6 +36,11 @@
 
 import type { BuildingId } from '../snapshot/StudioLotSnapshot'
 
+/**
+ * The INITIAL property's bounds. `28×26 is where a studio STARTS` (campaign law), so
+ * these are the fallback a property-less snapshot gets, never a cap: the scene reads
+ * `snapshot.property.bounds` whenever the projection is present.
+ */
 export const LOT_W = 28 // tiles along gx
 export const LOT_D = 26 // tiles along gy
 
@@ -34,8 +60,8 @@ export type GroundKind =
   | 'tw-t-road-line'
 
 /**
- * One addressable place in the world. Every `BuildingId` has exactly one entry, so
- * the physical world and the DOM companion list are the same set of destinations.
+ * One addressable place in the world, FULLY COMPOSED: presentation from this module,
+ * geometry from the engine. `../tycoon/buildings.ts` builds these per snapshot.
  *
  * `placeId` mirrors the Operation Hollywood place vocabulary wherever an exact
  * semantic already exists (stage-7 / publicity / studio-gate / annex-parcel), so
@@ -57,6 +83,52 @@ export type WorldPlace = {
 }
 
 /**
+ * How ONE authored place is PRESENTED — keyed by the engine's own structure id.
+ *
+ * This is the whole of what M1b leaves this module deciding about a body: what it is
+ * made of, what its sign says, and where its named ground anchors are. Everything about
+ * WHERE it stands now arrives on the snapshot.
+ */
+export type PlacePresentation = {
+  buildingId: BuildingId
+  placeId: string
+  /** Canvas label — the sign painted on the building. */
+  label: string
+  /** Texture key, or '' for a marked open parcel with no building. */
+  texKey: string
+  /**
+   * The origin these anchors were surveyed against. NOT a claim about where the body
+   * stands: it is the datum the absolute anchor points below are measured from, so the
+   * same door can be re-expressed for a body the engine places somewhere else.
+   */
+  surveyedAt: GridPoint
+  /** What this place occupies when a snapshot carries no property projection at all. */
+  fallbackFootprint: { fw: number; fd: number }
+  /** Named ground anchors, in grid space, at `surveyedAt`. */
+  anchors: Record<string, GridPoint>
+}
+
+/**
+ * Re-express one presentation's anchors for a body standing at `origin`.
+ *
+ * A body at its surveyed origin gets its authored points back BIT FOR BIT (the deltas
+ * are exactly zero and `x + 0 === x`), which is what keeps the Week-0 world identical
+ * to the pre-M1b one. A body anywhere else gets the same doors, translated.
+ */
+export function anchorsAt(
+  presentation: PlacePresentation,
+  origin: GridPoint,
+): Record<string, GridPoint> {
+  const dgx = origin.gx - presentation.surveyedAt.gx
+  const dgy = origin.gy - presentation.surveyedAt.gy
+  const anchors: Record<string, GridPoint> = {}
+  for (const [name, point] of Object.entries(presentation.anchors)) {
+    anchors[name] = { gx: point.gx + dgx, gy: point.gy + dgy }
+  }
+  return anchors
+}
+
+/**
  * Physical stage identity. The Hollywood plate names its one stage "Stage 7"; the
  * second engine stage (`stage-b`) has never had a body. Both exist here, and both
  * carry the sign the plate established.
@@ -73,7 +145,7 @@ export const PUBLICITY_PLACE_ID = 'publicity'
 export const GATE_PLACE_ID = 'studio-gate'
 
 /**
- * The nine addressable places, placed.
+ * The nine addressable places, PRESENTED.
  *
  * Composition, reading the screen from back (top) to front (bottom):
  *   • back-left     Development (writers) and, below it, Casting / Talent
@@ -83,17 +155,19 @@ export const GATE_PLACE_ID = 'studio-gate'
  *   • front-left    the Theater
  *   • front-centre  the Annex expansion parcel, on the boulevard
  *   • front         the Studio Gate at the end of the boulevard
+ *
+ * The ORDER is presentation too: it is the reading order the ground bake and the
+ * building pass walk, so it is preserved here rather than taken from the engine's own
+ * structure order (C1-M1b).
  */
-export const WORLD_PLACES: readonly WorldPlace[] = [
+const AUTHORED_PLACES: readonly PlacePresentation[] = [
   {
     buildingId: 'admin',
     placeId: PUBLICITY_PLACE_ID,
     label: 'ADMINISTRATION',
     texKey: 'tw-admin',
-    gx: 9,
-    gy: 2,
-    fw: 3,
-    fd: 3,
+    surveyedAt: { gx: 9, gy: 2 },
+    fallbackFootprint: { fw: 3, fd: 3 },
     anchors: {
       entry: { gx: 10.5, gy: 5.6 },
       photocall: { gx: 9.4, gy: 6.1 },
@@ -107,10 +181,8 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     placeId: 'development',
     label: 'DEVELOPMENT',
     texKey: 'tw-writers',
-    gx: 3,
-    gy: 2,
-    fw: 3,
-    fd: 2,
+    surveyedAt: { gx: 3, gy: 2 },
+    fallbackFootprint: { fw: 3, fd: 2 },
     anchors: {
       entry: { gx: 4.5, gy: 4.6 },
       work: { gx: 4.5, gy: 4.5 },
@@ -122,10 +194,8 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     placeId: 'casting-office',
     label: 'CASTING',
     texKey: 'tw-casting',
-    gx: 3,
-    gy: 9,
-    fw: 3,
-    fd: 2,
+    surveyedAt: { gx: 3, gy: 9 },
+    fallbackFootprint: { fw: 3, fd: 2 },
     anchors: {
       entry: { gx: 4.5, gy: 11.6 },
       queue: { gx: 6.1, gy: 11.9 },
@@ -138,10 +208,8 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     placeId: STAGE_7_PLACE_ID,
     label: STAGE_SIGN['stage-a'],
     texKey: 'tw-stage-a',
-    gx: 17,
-    gy: 2,
-    fw: 4,
-    fd: 4,
+    surveyedAt: { gx: 17, gy: 2 },
+    fallbackFootprint: { fw: 4, fd: 4 },
     anchors: {
       entry: { gx: 19, gy: 6.4 },
       crewCall: { gx: 20.4, gy: 6.9 },
@@ -157,10 +225,8 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     placeId: 'stage-12',
     label: STAGE_SIGN['stage-b'],
     texKey: 'tw-stage-b',
-    gx: 17,
-    gy: 9,
-    fw: 4,
-    fd: 4,
+    surveyedAt: { gx: 17, gy: 9 },
+    fallbackFootprint: { fw: 4, fd: 4 },
     anchors: {
       entry: { gx: 19, gy: 13.4 },
       crewCall: { gx: 20.4, gy: 13.9 },
@@ -174,10 +240,8 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     placeId: SERVICE_YARD_PLACE_ID,
     label: 'SCENERY & POST',
     texKey: 'tw-post',
-    gx: 18,
-    gy: 18,
-    fw: 3,
-    fd: 2,
+    surveyedAt: { gx: 18, gy: 18 },
+    fallbackFootprint: { fw: 3, fd: 2 },
     anchors: {
       entry: { gx: 19.5, gy: 20.6 },
       truck: { gx: 23.4, gy: 17.4 },
@@ -192,10 +256,8 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     placeId: 'theater',
     label: 'THEATER',
     texKey: 'tw-theater',
-    gx: 3,
-    gy: 16,
-    fw: 3,
-    fd: 2,
+    surveyedAt: { gx: 3, gy: 16 },
+    fallbackFootprint: { fw: 3, fd: 2 },
     anchors: {
       entry: { gx: 4.5, gy: 18.6 },
       work: { gx: 4.5, gy: 18.5 },
@@ -209,10 +271,8 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     // The arch straddles the boulevard: three tiles across gx, one deep in gy, so the
     // road (gx 9-10) passes under it exactly as an entrance should.
     texKey: 'tw-gate',
-    gx: 8,
-    gy: 23,
-    fw: 3,
-    fd: 1,
+    surveyedAt: { gx: 8, gy: 23 },
+    fallbackFootprint: { fw: 3, fd: 1 },
     anchors: {
       guard: { gx: 11.1, gy: 23.7 },
       arrival: { gx: 9.9, gy: 24.7 },
@@ -226,10 +286,8 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
     placeId: ANNEX_PLACE_ID,
     label: 'ANNEX PARCEL',
     texKey: '', // a marked open parcel until construction completes
-    gx: 7,
-    gy: 15,
-    fw: 4,
-    fd: 3,
+    surveyedAt: { gx: 7, gy: 15 },
+    fallbackFootprint: { fw: 4, fd: 3 },
     anchors: {
       site: { gx: 9, gy: 16.5 },
       work: { gx: 9.0, gy: 17.8 },
@@ -238,10 +296,135 @@ export const WORLD_PLACES: readonly WorldPlace[] = [
   },
 ]
 
-/** Fast lookup by building id. Every `BuildingId` is present exactly once. */
+/** The eight AUTHORED BODIES, keyed by the engine structure ids they present. */
+export const FOUNDING_PLACE_PRESENTATION: readonly PlacePresentation[] = AUTHORED_PLACES.filter(
+  (place) => place.buildingId !== 'expansion',
+)
+
+/**
+ * The legacy Annex PARCEL, which is presentation-owned on purpose.
+ *
+ * `INITIAL_PROPERTY_STRUCTURES` deliberately records no body here — the parcel is
+ * "graded open ground with no body on it until a placement completes there" (C1-M1a) —
+ * so there is no engine structure for the snapshot to describe. The marked pad, its
+ * stakes and its whole lifecycle painting stay exactly where the accepted Annex specs
+ * put them, and the `expansion` id keeps addressing exactly this.
+ */
+export const LEGACY_EXPANSION_PRESENTATION: PlacePresentation = AUTHORED_PLACES.find(
+  (place) => place.buildingId === 'expansion',
+)!
+
+/** Every authored presentation, in reading order, keyed by structure id. */
+export const PRESENTATION_BY_BUILDING: Readonly<Record<BuildingId, PlacePresentation>> =
+  Object.fromEntries(AUTHORED_PLACES.map((place) => [place.buildingId, place]))
+
+/**
+ * THE AUTHORED WEEK-0 COMPOSITION — presentation over the fallback footprints.
+ *
+ * Retained, and retained deliberately: it is what the world looks like on the initial
+ * property, it is the composition a snapshot with no property projection falls back to,
+ * and it is the alignment fixture the engine's own geometry is asserted against. It is
+ * NOT the authority any more — `composeWorldBuildings(snapshot)` is (C1-M1b).
+ */
+export const WORLD_PLACES: readonly WorldPlace[] = AUTHORED_PLACES.map((place) => ({
+  buildingId: place.buildingId,
+  placeId: place.placeId,
+  label: place.label,
+  texKey: place.texKey,
+  gx: place.surveyedAt.gx,
+  gy: place.surveyedAt.gy,
+  fw: place.fallbackFootprint.fw,
+  fd: place.fallbackFootprint.fd,
+  anchors: place.anchors,
+}))
+
+/**
+ * Fast lookup by building id over the AUTHORED WEEK-0 COMPOSITION.
+ *
+ * Every FOUNDING id is present exactly once; a placed facility is not here and never
+ * will be, because this table cannot know what a studio built. Ask the composed world
+ * (`worldBuildingById`) for an arbitrary id (C1-M1b).
+ */
 export const PLACE_BY_BUILDING: Readonly<Record<BuildingId, WorldPlace>> = Object.fromEntries(
   WORLD_PLACES.map((place) => [place.buildingId, place]),
 ) as Record<BuildingId, WorldPlace>
+
+// ── Per-BLUEPRINT presentation (C1-M1b) ───────────────────────────────────────
+//
+// A facility the studio BUILDS has no authored body — the player chose where it stands
+// and the engine owns its footprint. What the renderer still owns is how it LOOKS and
+// where its ground anchors fall, and that is a property of the BLUEPRINT, not of the
+// individual placement: every Development & Casting Annex wears the same walls and puts
+// its door on the same face.
+//
+// Standoffs are measured from the facility's FRONT face (its largest gy) in tiles, which
+// is the same arithmetic the accepted presence projection already used — so an annex's
+// workers stand exactly where they stood before this template existed.
+
+/** Where a placed facility's named ground anchors fall, relative to its footprint. */
+export type PlacedAnchorTemplate = {
+  /** Tiles beyond the front face where its workers stand. */
+  workStandoff: number
+  /** Tiles beyond the front face where its queue forms. */
+  waitStandoff: number
+  /** Tiles across the frontage, from the centre line, where the queue's head stands. */
+  waitAcross: number
+}
+
+/** How one buildable blueprint is presented once it stands on the property. */
+export type BlueprintPresentation = {
+  /** Baked building texture, or '' for a blueprint with no authored art yet. */
+  texKey: string
+  anchors: PlacedAnchorTemplate
+}
+
+/**
+ * The default any blueprint gets. It is an HONEST default, not a borrowed one: a
+ * blueprint with no authored art is drawn as a plain massing block rather than wearing
+ * another building's body (shift law 12), and its door is on its front face because
+ * that is the face the camera and every road on this property look at.
+ */
+export const DEFAULT_BLUEPRINT_PRESENTATION: BlueprintPresentation = {
+  texKey: '',
+  anchors: { workStandoff: 1.6, waitStandoff: 2.1, waitAcross: 1.4 },
+}
+
+/** Per-blueprint overrides. Everything absent falls back to the default above. */
+export const BLUEPRINT_PRESENTATION: Readonly<Record<string, BlueprintPresentation>> = {
+  'development-casting-annex': {
+    texKey: 'tw-annex',
+    anchors: DEFAULT_BLUEPRINT_PRESENTATION.anchors,
+  },
+}
+
+/** The presentation one blueprint wears. Never null: an unknown blueprint is honest. */
+export function blueprintPresentation(blueprintId: string | null | undefined): BlueprintPresentation {
+  if (typeof blueprintId !== 'string') return DEFAULT_BLUEPRINT_PRESENTATION
+  return BLUEPRINT_PRESENTATION[blueprintId] ?? DEFAULT_BLUEPRINT_PRESENTATION
+}
+
+/**
+ * The named ground anchors of one placed facility, from its blueprint's template.
+ *
+ * Footprints are HALF-OPEN, so the front face is `origin.gy + depth - 1` and the centre
+ * of the frontage is `origin.gx + width / 2` — the same two numbers the accepted
+ * presence projection derived from the engine's own cell list.
+ */
+export function placedAnchors(
+  origin: GridPoint,
+  footprint: { width: number; depth: number },
+  blueprintId: string | null | undefined,
+): Record<string, GridPoint> {
+  const template = blueprintPresentation(blueprintId).anchors
+  const front = origin.gy + footprint.depth - 1
+  const centre = (origin.gx + (origin.gx + footprint.width - 1) + 1) / 2
+  const work = { gx: centre, gy: front + template.workStandoff }
+  return {
+    entry: { gx: work.gx, gy: work.gy },
+    work,
+    wait: { gx: centre + template.waitAcross, gy: front + template.waitStandoff },
+  }
+}
 
 // ── ground zoning ─────────────────────────────────────────────────────────────
 
