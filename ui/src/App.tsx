@@ -65,11 +65,13 @@ import {
   placeFacilityAction,
   studioDecision,
   studioDevelopment,
+  studioPlacement,
   studioLotSnapshot,
   commissionScriptAction,
   scriptProjectsBoard,
   startCastingSessionAction,
 } from './engine/adapter.ts'
+import { placedFacilityIdOf } from './lot/snapshot/StudioLotSnapshot.ts'
 import { filmCareerImpact, talentCareerHistory, preV5CreditCount } from './engine/careerImpact.ts'
 import { TalentProfileDrawer } from './components/TalentProfileDrawer.tsx'
 import { StartScreen } from './screens/StartScreen.tsx'
@@ -2921,6 +2923,27 @@ export function App() {
           setScreen({ kind: 'roster', returnContext, focusHeadingOnMount: true })
           return true
         case 'construction': {
+          // C1-M1b: a completion that was NOT the legacy Annex used to fall through this
+          // legacy-only check and demote to neutral feedback — the facility genuinely
+          // finished, and the one surface that would have said so declined to. It is
+          // verified against the placement root now, which is the authority that owns
+          // every facility standing on the property, and named by its own world id.
+          const placedId = placedFacilityIdOf(receipt.target.buildingId)
+          if (placedId !== null) {
+            const placements = studioPlacement(current).placements.filter(
+              (placed) => placed.id === placedId,
+            )
+            const placed = placements.length === 1 ? placements[0]! : null
+            if (
+              placed === null ||
+              placed.status !== 'operational' ||
+              placed.facilityId !== receipt.target.facilityId ||
+              placed.name !== receipt.target.name ||
+              placed.completesWeek !== receipt.constructionCompletion?.completedWeek
+            ) return demoteRendered()
+            setScreen({ kind: 'studioDevelopment', returnContext })
+            return true
+          }
           const development = studioDevelopment(current)
           if (
             development.status !== 'operational' ||

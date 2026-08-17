@@ -15,9 +15,11 @@ import type {
 } from '../../engine/adapter.ts'
 import { stage7ProductionDetailContext } from './stage7Production.ts'
 import type {
+  BuildingId,
   LotProductionCommand,
   ProductionOperationsState,
 } from './StudioLotSnapshot.ts'
+import { placedBuildingId, placedFacilityIdOf } from './StudioLotSnapshot.ts'
 
 export type LotNextEventStopReason = Exclude<SimStopReason, 'release' | 'limit'>
 
@@ -53,7 +55,16 @@ export type LotNextEventWorldTarget =
       projectId: string
       facilityId: string
       name: string
-      buildingId: 'expansion'
+      /**
+       * WHICH facility completed (C1-M1b).
+       *
+       * `'expansion'` for the legacy Annex, exactly as before. For any other placement
+       * it is that facility's own world id (`placed-<placementId>`), so the rail's
+       * "show me" lands on the building that actually completed instead of pointing at
+       * the Annex parcel — the truthful-but-neutral answer a player got when a facility
+       * on the South Lawn finished and the world named the wrong ground.
+       */
+      buildingId: BuildingId
     }
 
 export type LotNextEventReceipt = {
@@ -529,6 +540,38 @@ function exactRunTransition(
   return true
 }
 
+/** The legacy Annex parcel id, which the accepted receipt contract keys on verbatim. */
+const LEGACY_EXPANSION_BUILDING_ID = 'expansion'
+
+/**
+ * WHICH world id the completed facility is (C1-M1b).
+ *
+ * Read off the placement root itself — the authority that owns the fact — and matched by
+ * the completion's own `projectId`, which `constructionCompletionsBetween` copied from
+ * that same record. A placement on the LEGACY parcel keeps being named `expansion`
+ * exactly as the accepted Annex receipt requires; everything else is named as itself.
+ *
+ * Null when the placement cannot be identified: a receipt that cannot say what finished
+ * is withheld, never pointed at a building that did not (laws 6 / 21).
+ */
+function completedBuildingId(
+  next: GameState,
+  completion: ConstructionCompletionSummary,
+): BuildingId | null {
+  const facilities: unknown = (next as unknown as Record<string, unknown>).placement
+  const placements =
+    isRecord(facilities) && Array.isArray(facilities.facilities) ? facilities.facilities : null
+  if (placements === null) return null
+  const matches = placements.filter(
+    (placed): placed is Record<string, unknown> =>
+      isRecord(placed) && placed.projectId === completion.projectId,
+  )
+  if (matches.length !== 1) return null
+  const only = matches[0]!
+  if (only.parcelId === LEGACY_EXPANSION_BUILDING_ID) return LEGACY_EXPANSION_BUILDING_ID
+  return isNonNegativeSafeInteger(only.id) ? placedBuildingId(only.id) : null
+}
+
 function targetFor(
   result: SimResult,
   rows: LotNextEventCompletedRun[],
@@ -630,15 +673,18 @@ function targetFor(
       ) return null
       return { kind: 'contracts', change: 'renewal', buildingId: null }
     }
-    case 'constructionCompleted':
+    case 'constructionCompleted': {
       if (studioDecision(result.next) !== null || completion === null) return null
+      const buildingId = completedBuildingId(result.next, completion)
+      if (buildingId === null) return null
       return {
         kind: 'construction',
         projectId: completion.projectId,
         facilityId: completion.facilityId,
         name: completion.name,
-        buildingId: 'expansion',
+        buildingId,
       }
+    }
     default:
       return null
   }
@@ -748,7 +794,9 @@ function isTarget(value: unknown): value is LotNextEventWorldTarget {
         isNonEmptyString(value.projectId) &&
         isNonEmptyString(value.facilityId) &&
         isNonEmptyString(value.name) &&
-        value.buildingId === 'expansion'
+        isNonEmptyString(value.buildingId) &&
+        (value.buildingId === LEGACY_EXPANSION_BUILDING_ID ||
+          placedFacilityIdOf(value.buildingId) !== null)
     default:
       return false
   }
