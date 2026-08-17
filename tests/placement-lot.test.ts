@@ -9,6 +9,7 @@
 
 import { describe, expect, it } from 'vitest'
 import {
+  INITIAL_PROPERTY,
   LEGACY_EXPANSION_PARCEL_ID,
   LOT_DEPTH,
   LOT_PARCELS,
@@ -83,8 +84,8 @@ describe('Placement Core V12 — the authored lot', () => {
       expect(parcel.rect.x0).toBeLessThanOrEqual(parcel.rect.x1)
       expect(parcel.rect.y0).toBeLessThanOrEqual(parcel.rect.y1)
       for (const cell of rectCells(parcel.rect)) {
-        expect(isOnLot(cell)).toBe(true)
-        expect(isRoadCell(cell)).toBe(false)
+        expect(isOnLot(INITIAL_PROPERTY, cell)).toBe(true)
+        expect(isRoadCell(INITIAL_PROPERTY, cell)).toBe(false)
         const key = cellKey(cell)
         expect(owner.get(key)).toBeUndefined()
         owner.set(key, parcel.id)
@@ -97,11 +98,13 @@ describe('Placement Core V12 — the authored lot', () => {
 
   it('never covers an authored studio building except the Annex pad it replaces', () => {
     for (const building of M1_WORLD.buildings) {
-      const covered = buildingCells(building.id).filter((cell) => parcelAt(cell) !== null)
+      const covered = buildingCells(building.id).filter(
+        (cell) => parcelAt(INITIAL_PROPERTY, cell) !== null,
+      )
       if (building.id === 'expansion') {
         expect(covered).toHaveLength(buildingCells('expansion').length)
         for (const cell of covered) {
-          expect(parcelAt(cell)!.id).toBe(LEGACY_EXPANSION_PARCEL_ID)
+          expect(parcelAt(INITIAL_PROPERTY, cell)!.id).toBe(LEGACY_EXPANSION_PARCEL_ID)
         }
       } else {
         expect(covered).toEqual([])
@@ -110,21 +113,21 @@ describe('Placement Core V12 — the authored lot', () => {
   })
 
   it('preserves the legacy expansion parcel id, its graded pad, and its boulevard frontage', () => {
-    const expansion = parcelById(LEGACY_EXPANSION_PARCEL_ID)
+    const expansion = parcelById(INITIAL_PROPERTY, LEGACY_EXPANSION_PARCEL_ID)
     expect(expansion).not.toBeNull()
     expect(expansion!.terrain).toBe('buildable')
     // The renderer's graded pad is gy 15–17; the parcel adds the one-tile
     // frontage strip at gy 18 so the site genuinely fronts the studio boulevard.
     expect(expansion!.rect).toEqual({ x0: 7, y0: 15, x1: 10, y1: 18 })
-    expect(parcelHasRoadFrontage(expansion!)).toBe(true)
+    expect(parcelHasRoadFrontage(INITIAL_PROPERTY, expansion!)).toBe(true)
     // The frontage is the boulevard specifically: (9,19) and (10,19) are road.
-    expect(isRoadCell({ gx: 9, gy: 19 })).toBe(true)
-    expect(isRoadCell({ gx: 10, gy: 19 })).toBe(true)
+    expect(isRoadCell(INITIAL_PROPERTY, { gx: 9, gy: 19 })).toBe(true)
+    expect(isRoadCell(INITIAL_PROPERTY, { gx: 10, gy: 19 })).toBe(true)
   })
 
   it('exposes exactly one buildable parcel with no road frontage, so the rule binds', () => {
     const unserved = LOT_PARCELS.filter(
-      (parcel) => parcel.terrain === 'buildable' && !parcelHasRoadFrontage(parcel),
+      (parcel) => parcel.terrain === 'buildable' && !parcelHasRoadFrontage(INITIAL_PROPERTY, parcel),
     )
     expect(unserved.map((parcel) => parcel.id)).toEqual(['north-back-lot'])
   })
@@ -139,9 +142,9 @@ describe('Placement Core V12 — the authored lot', () => {
   })
 
   it('resolves cells to parcels, unclaimed ground, and off-lot without throwing', () => {
-    expect(parcelAt({ gx: 7, gy: 15 })!.id).toBe(LEGACY_EXPANSION_PARCEL_ID)
+    expect(parcelAt(INITIAL_PROPERTY, { gx: 7, gy: 15 })!.id).toBe(LEGACY_EXPANSION_PARCEL_ID)
     // Inside the lot, owned by nobody: the Administration building's footprint.
-    expect(parcelAt({ gx: 9, gy: 2 })).toBeNull()
+    expect(parcelAt(INITIAL_PROPERTY, { gx: 9, gy: 2 })).toBeNull()
     // Off the lot in every direction.
     for (const cell of [
       { gx: -1, gy: 0 },
@@ -149,13 +152,13 @@ describe('Placement Core V12 — the authored lot', () => {
       { gx: LOT_WIDTH, gy: 0 },
       { gx: 0, gy: LOT_DEPTH },
     ]) {
-      expect(isOnLot(cell)).toBe(false)
-      expect(parcelAt(cell)).toBeNull()
+      expect(isOnLot(INITIAL_PROPERTY, cell)).toBe(false)
+      expect(parcelAt(INITIAL_PROPERTY, cell)).toBeNull()
     }
     // Non-integer coordinates are off-lot, never rounded onto a parcel.
-    expect(isOnLot({ gx: 7.5, gy: 15 })).toBe(false)
-    expect(parcelAt({ gx: 7, gy: 15.5 })).toBeNull()
-    expect(parcelById('no-such-parcel')).toBeNull()
+    expect(isOnLot(INITIAL_PROPERTY, { gx: 7.5, gy: 15 })).toBe(false)
+    expect(parcelAt(INITIAL_PROPERTY, { gx: 7, gy: 15.5 })).toBeNull()
+    expect(parcelById(INITIAL_PROPERTY, 'no-such-parcel')).toBeNull()
   })
 
   it('derives footprint cells in fixed reading order from a flat blueprint rectangle', () => {
@@ -171,7 +174,7 @@ describe('Placement Core V12 — the authored lot', () => {
 
   it('derives the clearance ring around a footprint, clipped to the lot', () => {
     const cells = footprintCells(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT, { gx: 0, gy: 0 })
-    const ring = clearanceRingCells(cells, 1)
+    const ring = clearanceRingCells(INITIAL_PROPERTY, cells, 1)
     // A 3×2 footprint at the lot's corner: the 5×4 expanded box minus the
     // footprint minus everything off-lot.
     expect(ring).toEqual([
@@ -182,8 +185,8 @@ describe('Placement Core V12 — the authored lot', () => {
       { gx: 2, gy: 2 },
       { gx: 3, gy: 2 },
     ])
-    expect(clearanceRingCells(cells, 0)).toEqual([])
-    expect(clearanceRingCells([], 1)).toEqual([])
+    expect(clearanceRingCells(INITIAL_PROPERTY, cells, 0)).toEqual([])
+    expect(clearanceRingCells(INITIAL_PROPERTY, [], 1)).toEqual([])
   })
 })
 
@@ -196,7 +199,7 @@ describe('Placement Core V12 — the perimeter-walk severance rule', () => {
 
   it('accepts an ordinary placement on open ground', () => {
     const cells = footprintCells(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT, { gx: 7, gy: 15 })
-    expect(placementWouldSeverLot(new Set<string>(), cells)).toBe(false)
+    expect(placementWouldSeverLot(INITIAL_PROPERTY, new Set<string>(), cells)).toBe(false)
   })
 
   it('accepts a placement in a lot corner, where the ring has under two passable cells', () => {
@@ -211,7 +214,7 @@ describe('Placement Core V12 — the perimeter-walk severance rule', () => {
       cellKey({ gx: 3, gy: 2 }),
     ])
     const cells = footprintCells(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT, { gx: 0, gy: 0 })
-    expect(placementWouldSeverLot(blocked, cells)).toBe(false)
+    expect(placementWouldSeverLot(INITIAL_PROPERTY, blocked, cells)).toBe(false)
   })
 
   it('REJECTS a placement that completes a wall across the lot', () => {
@@ -225,9 +228,9 @@ describe('Placement Core V12 — the perimeter-walk severance rule', () => {
     }
     const candidate = footprintCells(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT, { gx: 10, gy: 5 })
     // The gap is open before the placement …
-    expect(placementWouldSeverLot(blocked, [])).toBe(false)
+    expect(placementWouldSeverLot(INITIAL_PROPERTY, blocked, [])).toBe(false)
     // … and closed by it.
-    expect(placementWouldSeverLot(blocked, candidate)).toBe(true)
+    expect(placementWouldSeverLot(INITIAL_PROPERTY, blocked, candidate)).toBe(true)
   })
 
   it('accepts the same wall when one gap cell remains open', () => {
@@ -238,7 +241,7 @@ describe('Placement Core V12 — the perimeter-walk severance rule', () => {
       blocked.add(cellKey({ gx, gy: 6 }))
     }
     const candidate = footprintCells(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT, { gx: 10, gy: 5 })
-    expect(placementWouldSeverLot(blocked, candidate)).toBe(false)
+    expect(placementWouldSeverLot(INITIAL_PROPERTY, blocked, candidate)).toBe(false)
   })
 
   it('is structurally satisfiable everywhere a real placement can legally land', () => {
@@ -250,9 +253,9 @@ describe('Placement Core V12 — the perimeter-walk severance rule', () => {
       if (parcel.terrain !== 'buildable') continue
       for (const origin of rectCells(parcel.rect)) {
         const cells = footprintCells(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT, origin)
-        if (!cells.every((cell) => parcelAt(cell)?.id === parcel.id)) continue
+        if (!cells.every((cell) => parcelAt(INITIAL_PROPERTY, cell)?.id === parcel.id)) continue
         originsChecked++
-        expect(placementWouldSeverLot(new Set<string>(), cells)).toBe(false)
+        expect(placementWouldSeverLot(INITIAL_PROPERTY, new Set<string>(), cells)).toBe(false)
       }
     }
     expect(originsChecked).toBeGreaterThan(0)

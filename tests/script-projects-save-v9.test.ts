@@ -388,13 +388,13 @@ describe("Script Projects V1 — SaveFileV9", () => {
     expect(migrateToV9(current)).toBe(current);
   });
 
-  it("rejects unknown version 13 and refuses to downgrade V9 through migrateToV8", () => {
+  it("rejects unknown version 14 and refuses to downgrade V9 through migrateToV8", () => {
     const save = makeSaveV9(generateWorld("save-v9-boundary"));
-    expect(() => validateSave({ ...save, saveVersion: 13 })).toThrow(
-      /unknown saveVersion 13/,
+    expect(() => validateSave({ ...save, saveVersion: 14 })).toThrow(
+      /unknown saveVersion 14/,
     );
-    expect(() => validateSave({ ...save, saveVersion: 13 })).toThrow(
-      /versions 1 through 12 only/,
+    expect(() => validateSave({ ...save, saveVersion: 14 })).toThrow(
+      /versions 1 through 13 only/,
     );
     expect(() => migrateToV8(save)).toThrow(/cannot downgrade SaveFileV9/);
   });

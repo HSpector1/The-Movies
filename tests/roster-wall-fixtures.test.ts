@@ -38,7 +38,7 @@ const SOURCE: RosterWallSourceProvenance = {
   tree: 'fixtures-test-tree',
   worktreeDirty: false,
   runtime: 'vitest',
-  saveVersion: 12,
+  saveVersion: 13,
   productionAuthorityCommit: '8b7e95eb92f6f809522a595b4b458d4f19e26852',
   productionAuthorityTree: 'fixtures-test-authority-tree',
   authorityDiffPaths: ['src/harness/roster-wall/fixtures.ts'],
@@ -129,7 +129,7 @@ describe('Week-208 roster-wall synthetic mechanics fixtures', () => {
         ...SOURCE,
         productionAuthorityCommit: 'not-the-governed-authority',
       }),
-    ).toThrow(/accepted clean SaveFileV12 source/)
+    ).toThrow(/accepted clean SaveFileV13 source/)
   })
 
   it('uses exact explicit 1/7/13 cohorts with stable IDs and role compositions', () => {

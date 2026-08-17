@@ -554,13 +554,13 @@ describe('Placement Core V12 — the action boundary', () => {
 
   it('makes the legacy Annex action an alias for the same commit', () => {
     const state = managedStudio('placement-action-alias')
-    expect(legacyAnnexPlacementRequest()).toEqual({
+    expect(legacyAnnexPlacementRequest(state.property)).toEqual({
       blueprintId: ANNEX,
       origin: { gx: 7, gy: 15 },
     })
     const viaAlias = applyActions(state, [{ kind: 'startDevelopmentCastingAnnex' }])
     const viaPlacement = applyActions(state, [
-      { kind: 'placeFacility', placement: legacyAnnexPlacementRequest() },
+      { kind: 'placeFacility', placement: legacyAnnexPlacementRequest(state.property) },
     ])
     expect(stableStringify(viaAlias)).toBe(stableStringify(viaPlacement))
     // …and the retained read model still describes it exactly as V11 did.

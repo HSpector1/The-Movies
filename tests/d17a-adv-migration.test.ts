@@ -267,9 +267,9 @@ describe('D-17A/D — validateSave still guards the version boundary loudly', ()
     expect(validateSaveV6(v6)).toBe(v6)
   })
 
-  // Placement Core V12: 12 is known, so the loud-rejection boundary is 13.
-  it('rejects an unknown version 13 loudly', () => {
-    expect(() => validateSave({ ...v6, saveVersion: 13 })).toThrow(/unknown saveVersion 13/)
+  // Property State V13 (C1-M1a): 13 is known, so the loud-rejection boundary is 14.
+  it('rejects an unknown version 14 loudly', () => {
+    expect(() => validateSave({ ...v6, saveVersion: 14 })).toThrow(/unknown saveVersion 14/)
   })
 
   it('rejects a V6 whose persisted regime fact is missing or not a boolean', () => {

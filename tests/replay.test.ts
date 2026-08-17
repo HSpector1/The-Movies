@@ -31,6 +31,7 @@ import {
   convertV9ToV10,
   convertV10ToV11,
   convertV11ToV12,
+  convertV12ToV13,
   exportSave,
   generateCandidates,
   generateWorld,
@@ -218,9 +219,10 @@ describe('§15.7/D-9.15 — a run resumed from a converted V2 replays byte-ident
       // Two INDEPENDENT conversions of the same V1 → V2 → V3 (D-11 legacy resume path;
       // the live engine runs on the V3 shape). Both conversions are deterministic.
       // D-17A: legacy saves migrate all the way to the live V6 shape before resuming.
-      // Annex V1: the live chain ends at V11 with every migrated system in explicit legacy mode.
-      const s1 = convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(convertV3ToV4(convertV2ToV3(convertV1ToV2(v1))))))))))).state
-      const s2 = convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(convertV3ToV4(convertV2ToV3(convertV1ToV2(v1))))))))))).state
+      // Annex V1: the live chain ends at V13 with every migrated system in explicit legacy mode
+      // and the initial authored property (C1-M1a).
+      const s1 = convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(convertV3ToV4(convertV2ToV3(convertV1ToV2(v1)))))))))))).state
+      const s2 = convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(convertV3ToV4(convertV2ToV3(convertV1ToV2(v1)))))))))))).state
 
       // The converted starting states are already byte-identical (idempotent migrate).
       expect(exportSave(makeSave(s1))).toBe(exportSave(makeSave(s2)))

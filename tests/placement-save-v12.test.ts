@@ -35,12 +35,15 @@ import {
   makeSaveV11,
   migrateToV10,
   migrateToV11,
+  convertV12ToV13,
+  makeSaveV12,
   migrateToV12,
   stableStringify,
   tick,
   validateSave,
   validateSaveV11,
   validateSaveV12,
+  validateSaveV13,
 } from '../src/core/index.js'
 import type {
   GameState,
@@ -143,8 +146,11 @@ function legacyV11Save(
   return makeSaveV11(source)
 }
 
-describe('Placement Core V12 — the live envelope', () => {
-  it('writes V12 by default and round-trips every lifecycle state byte-identically', () => {
+// C1-M1a: V12 is now a FROZEN format — the live envelope is SaveFileV13 (see
+// property-save-v13.test.ts). Every V12 law below still binds, exercised through
+// the explicit `makeSaveV12` frozen builder instead of the live `makeSave`.
+describe('Placement Core V12 — the frozen envelope', () => {
+  it('writes V12 explicitly and round-trips every lifecycle state byte-identically', () => {
     const started = building('save-v12-lifecycles')
     const states = [
       generateWorld('save-v12-legacy'),
@@ -155,7 +161,7 @@ describe('Placement Core V12 — the live envelope', () => {
       commitPlacement(commitPlacement(managedVacant('save-v12-many'), LEGACY), WEST_NORTH),
     ]
     for (const state of states) {
-      const save = makeSave(state)
+      const save = makeSaveV12(state)
       expect(save.saveVersion).toBe(12)
       expect(validateSave(save)).toBe(save)
       expect(validateSaveV12(save)).toBe(save)
@@ -170,14 +176,16 @@ describe('Placement Core V12 — the live envelope', () => {
       ...managedVacant('save-v12-projection'),
       futureV13: { mustNotLeak: true },
     }
-    const save = makeSave(withFuture)
+    const save = makeSaveV12(withFuture)
     expect('futureV13' in save.state).toBe(false)
+    // The V13 property root is projected away too — it has no V12 home.
+    expect('property' in save.state).toBe(false)
     expect(save.state.placement).toEqual(initialManagedStudioPlacement())
     expect(Object.keys(save.state).sort()).toContain('placement')
   })
 
   it('rejects a malformed placement root structurally, before any domain rule', () => {
-    const valid = makeSave(building('save-v12-shape'))
+    const valid = makeSaveV12(building('save-v12-shape'))
     const cases: ReadonlyArray<[string, (save: SaveFileV12) => void, RegExp]> = [
       [
         'missing root',
@@ -252,7 +260,7 @@ describe('Placement Core V12 — the live envelope', () => {
   })
 
   it('rejects a semantically forged placement root', () => {
-    const valid = makeSave(building('save-v12-semantics'))
+    const valid = makeSaveV12(building('save-v12-semantics'))
     const cases: ReadonlyArray<[string, (save: SaveFileV12) => void, RegExp]> = [
       [
         'cells disagree with the blueprint footprint',
@@ -382,13 +390,13 @@ describe('Placement Core V12 — the live envelope', () => {
       { blueprintId: ANNEX, origin: { gx: 0, gy: 12 } },
     )
     const valid = makeSave(twoPlacements)
-    expect(validateSaveV12(valid)).toBe(valid)
+    expect(validateSaveV13(valid)).toBe(valid)
 
     const overlapped = clone(valid)
     overlapped.state.placement.facilities[1]!.origin = { gx: 0, gy: 9 }
     overlapped.state.placement.facilities[1]!.cells =
       overlapped.state.placement.facilities[0]!.cells.map((cell) => ({ ...cell }))
-    expect(() => validateSaveV12(overlapped)).toThrow(/overlaps placed facility 1/)
+    expect(() => validateSaveV13(overlapped)).toThrow(/overlaps placed facility 1/)
 
     const tooClose = clone(valid)
     tooClose.state.placement.facilities[1]!.origin = { gx: 0, gy: 11 }
@@ -400,27 +408,27 @@ describe('Placement Core V12 — the live envelope', () => {
       { gx: 1, gy: 12 },
       { gx: 2, gy: 12 },
     ]
-    expect(() => validateSaveV12(tooClose)).toThrow(/violates its clearance ring/)
+    expect(() => validateSaveV13(tooClose)).toThrow(/violates its clearance ring/)
   })
 
   it('rejects a forged operating charge that disagrees with the operational facilities', () => {
     const operational = advance(building('save-v12-opex'), ANNEX_DURATION_WEEKS + 2)
     const valid = makeSave(operational)
-    expect(validateSaveV12(valid)).toBe(valid)
+    expect(validateSaveV13(valid)).toBe(valid)
 
     const doubled = clone(valid)
     const row = doubled.state.ledger.find((entry) => entry.kind === 'facilityOpex')!
     const before = row.amount
     row.amount = before * 2
     doubled.state.studio.cash += before
-    expect(() => validateSaveV12(doubled)).toThrow(
+    expect(() => validateSaveV13(doubled)).toThrow(
       /facility operating cost at week .* disagrees/,
     )
 
     const early = clone(valid)
     const earliest = early.state.ledger.find((entry) => entry.kind === 'facilityOpex')!
     earliest.week = 1 // before the facility existed
-    expect(() => validateSaveV12(early)).toThrow(
+    expect(() => validateSaveV13(early)).toThrow(
       /facility operating cost at week 1 disagrees/,
     )
   })
@@ -490,14 +498,29 @@ describe('Placement Core V12 — historical boundary guards (law 19)', () => {
   })
 
   it('refuses to downgrade a V12 save through migrateToV11 or any earlier boundary', () => {
-    const v12 = makeSave(building('save-v12-downgrade'))
+    const v12 = makeSaveV12(building('save-v12-downgrade'))
     expect(() => migrateToV11(v12)).toThrow(
-      /cannot downgrade SaveFileV12 or discard placement state/,
+      /cannot downgrade SaveFileV12 or discard placement and property state/,
     )
     expect(() => migrateToV10(v12)).toThrow(
       /migrateToV10: cannot downgrade SaveFileV12/,
     )
     expect(migrateToV12(v12)).toBe(v12) // idempotent by identity
+  })
+
+  // C1-M1a: the same law one version on. A live V13 save may not be downgraded
+  // through ANY earlier boundary, including the now-historical migrateToV12.
+  it('refuses to downgrade a V13 save through migrateToV12 or any earlier boundary', () => {
+    const v13 = makeSave(building('save-v13-downgrade'))
+    expect(() => migrateToV12(v13)).toThrow(
+      /migrateToV12: cannot downgrade SaveFileV13 or discard property state/,
+    )
+    expect(() => migrateToV11(v13)).toThrow(
+      /cannot downgrade SaveFileV13 or discard placement and property state/,
+    )
+    expect(() => migrateToV10(v13)).toThrow(
+      /migrateToV10: cannot downgrade SaveFileV13/,
+    )
   })
 
   it('lets frozen builders project only an EMPTY placement root', () => {
@@ -562,7 +585,7 @@ describe('Placement Core V12 — the V11 → V12 migration', () => {
     expect(v12.state.placement).toEqual(initialManagedStudioPlacement())
     expect(v12.state.construction).toEqual(initialManagedStudioConstruction())
     // The legacy parcel is genuinely free: the Annex can still be started.
-    const started = applyActions(v12.state, [{ kind: 'startDevelopmentCastingAnnex' }])
+    const started = applyActions(convertV12ToV13(v12).state, [{ kind: 'startDevelopmentCastingAnnex' }])
     expect(started.placement.facilities[0]).toMatchObject({
       parcelId: ANNEX_PARCEL_ID,
       facilityId: ANNEX_FACILITY_ID,
@@ -606,7 +629,10 @@ describe('Placement Core V12 — the V11 → V12 migration', () => {
     expect(v12.state.rngState).toBe(v11.state.rngState)
     expect(v12.state.market.tick).toBe(v11.state.market.tick)
     // …and the remaining weeks still complete on the original committed week.
-    const completed = advance(v12.state, ANNEX_DURATION_WEEKS - v12.state.market.tick)
+    const completed = advance(
+      convertV12ToV13(v12).state,
+      ANNEX_DURATION_WEEKS - v12.state.market.tick,
+    )
     expect(completed.market.tick).toBe(ANNEX_DURATION_WEEKS)
     expect(completed.placement.facilities[0]!.status).toBe('operational')
     expect(
@@ -632,7 +658,7 @@ describe('Placement Core V12 — the V11 → V12 migration', () => {
     // No operating charge is back-dated onto the migrated history.
     expect(v12.state.ledger.filter((entry) => entry.kind === 'facilityOpex')).toEqual([])
     // The charge starts on the next advance, not retroactively.
-    const next = tick(v12.state)
+    const next = tick(convertV12ToV13(v12).state)
     expect(next.ledger.filter((entry) => entry.kind === 'facilityOpex')).toHaveLength(1)
   })
 

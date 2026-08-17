@@ -42,11 +42,11 @@ import {
   migrateToV10,
   makeSaveV11,
   migrateToV11,
-  migrateToV12,
+  migrateToV13,
   stableStringify,
   validateSave,
   validateSaveV11,
-  validateSaveV12,
+  validateSaveV13,
   type SaveFile,
   type SaveFileV11,
 } from "../src/core/save.js";
@@ -173,9 +173,9 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
 
     for (const state of states) {
       const save = makeSave(state);
-      expect(save.saveVersion).toBe(12);
+      expect(save.saveVersion).toBe(13);
       expect(validateSave(save)).toBe(save);
-      expect(validateSaveV12(save)).toBe(save);
+      expect(validateSaveV13(save)).toBe(save);
       const json = exportSave(save);
       expect(exportSave(importSave(json))).toBe(json);
     }
@@ -222,7 +222,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
 
     for (const state of states) {
       const json = exportSave(makeSave(state));
-      const imported = migrateToV12(importSave(json)).state;
+      const imported = migrateToV13(importSave(json)).state;
       expect(exportSave(makeSave(imported))).toBe(json);
       expect(exportSave(makeSave(tick(imported)))).toBe(
         exportSave(makeSave(tick(state))),
@@ -490,15 +490,15 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
 
         // The same law, one version on: the placement authority reserves the
         // parcel, project, and facility identity against the same history.
-        const forgedV12 = clone(makeSave(state));
-        forgedV12.state.ledger.push({
-          week: forgedV12.state.market.tick,
+        const forgedV13 = clone(makeSave(state));
+        forgedV13.state.ledger.push({
+          week: forgedV13.state.market.tick,
           kind: "production",
           amount: 0,
           productionId: reservedId,
           note: "forged persisted production identity",
         });
-        expect(() => validateSaveV12(forgedV12)).toThrow(
+        expect(() => validateSaveV13(forgedV13)).toThrow(
           /canonical Annex id .*collides with persisted production history/,
         );
       }
@@ -537,8 +537,8 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
     };
     const save = makeSave(withFuture);
     expect("futureV13" in save.state).toBe(false);
-    expect(() => validateSave({ ...save, saveVersion: 13 })).toThrow(
-      /unknown saveVersion 13.*versions 1 through 12 only/,
+    expect(() => validateSave({ ...save, saveVersion: 14 })).toThrow(
+      /unknown saveVersion 14.*versions 1 through 13 only/,
     );
   });
 });

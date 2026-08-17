@@ -893,7 +893,7 @@ describe("Film Chronicle V1 — SaveFileV11 durability", () => {
   it("reconstructs a deep-equal Chronicle after an exact V11 export/import round-trip", () => {
     const { state, productionId } = validProducedState("film-chronicle-save-v11");
     const envelope = makeSave(state);
-    expect(envelope.saveVersion).toBe(12);
+    expect(envelope.saveVersion).toBe(13);
     expect(validateSave(envelope)).toBe(envelope);
 
     const beforeState = stableStringify(state);
@@ -904,8 +904,8 @@ describe("Film Chronicle V1 — SaveFileV11 durability", () => {
     expectAvailable(before!.productionRecord);
 
     const restored = importSave(exportSave(envelope));
-    expect(restored.saveVersion).toBe(12);
-    if (restored.saveVersion !== 12) return;
+    expect(restored.saveVersion).toBe(13);
+    if (restored.saveVersion !== 13) return;
     const after = buildFilmChronicle(inputFromState(restored.state, productionId));
 
     expect(after).toEqual(before);
