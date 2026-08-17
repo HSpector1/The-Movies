@@ -26,20 +26,31 @@ const IDENTITY_PROOF_FLAG_KEY = 'project-studio.flags.studio-lot-identity-proof'
 // committed bytes, which
 // `scripts/gen-world-first-operational-annex-work-presence-fixtures.mts` reproduces
 // byte-identically at HEAD ("unchanged" on a clean tree). Same strength: three exact digests.
+//
+// C1-M1A (V13) RE-PIN — the SAME situation, one save boundary later, and the same repair.
+// `0e97e0a` advanced the fixture corpus to native SaveFileV13 and regenerated every governed
+// save. Its VITEST twin
+// (`ui/src/lot/world-first-operational-annex-work-presence-fixtures.test.ts`) was carried
+// across with it; this PLAYWRIGHT twin was not, so the integrity gate has thrown in
+// `beforeAll` since that commit and the other six tests of this file have been marked "did
+// not run" ever since. Re-measured the same way — the generator reports "unchanged" for all
+// four outputs on a clean tree at HEAD — and at the same strength: four exact digests, and
+// the boundary the generator itself now claims. Nothing about the ANNEX assertions below
+// moved; they have never been able to run against V13 truth before this.
 const FIXTURES = {
   available: {
     file: 'week-13-operational-annex-available.save.json',
-    sha256: 'fce7196b01435a68a26f2aef33022c1ed825f16656a8e01588a9251adde5337e',
+    sha256: 'a2e60da90ff0475d2340306157cff2a9e7a178850941cd268d85a51dffc025a9',
     week: 13,
   },
   scriptWorking: {
     file: 'week-13-operational-annex-script-working.save.json',
-    sha256: 'b4d9153771d7cc504b54da765ea4a66e364bf38eabc9a2487920218adc88a9ea',
+    sha256: 'ca009c6b5f206ac15a7582ff4913da626770eb8d2c2cb483d51f530f8e552186',
     week: 13,
   },
   productionWorking: {
     file: 'week-14-operational-annex-production-development-working.save.json',
-    sha256: '34cd6aec3267097275811d43f77a1d50914cd3eb7db3f29acd388d22e1774f3b',
+    sha256: '664549608c9a36854b4fd30226b2f1e7229f871b72b72e71ef2c99f4819e0cbd',
     week: 14,
   },
 } as const
@@ -73,19 +84,19 @@ const EXPECTED_DECODED_BYTES = 11_096_896
 const EXPECTED_DRAW_CALLS = 1
 const GENERATED_AND_VEHICLE_TEXTURE_BYTES = 163_064
 const GOVERNED_PERFORMANCE_FIXTURE_SHA256 =
-  'cb0c58f8f84a1d2e46737c3806eb70decb9fad33bf66b36d34e348d6f5c5af79'
+  '34f062fdd44e3a7116731d214de5aaa2eb4d02af85b874764d5de1cf66229b22'
 
 mkdirSync(outDir, { recursive: true })
 
 test.beforeAll(() => {
   const manifest = JSON.parse(readFileSync(join(fixtureDir, 'manifest.json'), 'utf8'))
-  // M2-ENGINE (V12): the generator's own claimed authority moved to the V12 save boundary
-  // with `3d0349d`. The assertion follows the accepted current boundary at the same strength
-  // (exact native serialization, no conversion on import) and additionally pins that the
-  // generator never hand-edits its output.
+  // C1-M1A (V13): the generator's own claimed authority moved to the V13 save boundary with
+  // `0e97e0a` (it moved to V12 with `3d0349d` before that). The assertion follows the accepted
+  // current boundary at the same strength (exact native serialization, no conversion on
+  // import) and additionally pins that the generator never hand-edits its output.
   expect(manifest.authority).toMatchObject({
-    serialization: 'exportSaveJson / importSaveJson native SaveFileV12 boundary',
-    importMode: 'native SaveFileV12; converted === false',
+    serialization: 'exportSaveJson / importSaveJson native SaveFileV13 boundary',
+    importMode: 'native SaveFileV13; converted === false',
     deterministic: true,
     generatedFilesAreHandEdited: false,
     configuredHeldSave: false,

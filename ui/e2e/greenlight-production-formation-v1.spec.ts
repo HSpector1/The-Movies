@@ -37,7 +37,13 @@ const IDENTITY_PROOF_FLAG_KEY = 'project-studio.flags.studio-lot-identity-proof'
 // the committed bytes, which `scripts/gen-world-first-operational-annex-work-presence-fixtures.mts`
 // reproduces byte-identically at HEAD ("unchanged" on a clean tree). Same strength: an exact
 // digest of the exact governed fixture.
-const FIXTURE_SHA256 = 'fce7196b01435a68a26f2aef33022c1ed825f16656a8e01588a9251adde5337e'
+//
+// C1-M1A (V13) RE-PIN — the SAME situation, one save boundary later, and the same repair.
+// `0e97e0a` advanced the corpus to native SaveFileV13; this constant kept its V12 digest, so
+// `beforeAll` has thrown and the remaining ten tests of this file have been marked "did not
+// run" since that commit. Re-measured the same way — the generator reports "unchanged" for
+// every output on a clean tree at HEAD — at the same strength, and no assertion below moved.
+const FIXTURE_SHA256 = 'a2e60da90ff0475d2340306157cff2a9e7a178850941cd268d85a51dffc025a9'
 const EXPECTED_DECODED_BYTES = 11_096_896
 const RICH_MANAGED_SEED = 'world-first-production-formation-rich-browser'
 const PERFORMANCE_EVIDENCE = process.env.PROJECT_STUDIO_PERFORMANCE_EVIDENCE === '1'
