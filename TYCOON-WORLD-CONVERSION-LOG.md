@@ -382,3 +382,26 @@ so no finance read model changed shape.
 **Known gaps (deliberate).** The D-17A fixed-cost allocator still counts only
 payroll+overhead — folding `facilityOpex` into that audited cost basis needs its own
 authorization. No rotation, no demolition, no mothballing, no second real blueprint.
+
+## M3-UI acceptance and Playtest 4 (Fable, live browser, Weeks 41→44)
+
+**M3-UI Presence on the Lot V1 — KEEP** (commits `53f6a3e..3d416f3`). Verified by hand:
+packaged and greenlit A Season of Archipelago from the world; PICTURE FORMED receipt;
+the Development sign immediately read "• 2 here"; the person panel quoted "Developing A
+Season of Archipelago at Development & Casting, slot 1 · credited this week as
+Director"; the building inspector listed "Who's here this week: Jean Ashcombe (Writer),
+Buster Underwood (Director)". On Advance-one-week the playback is real — Buster
+Underwood was caught mid-commute on the avenue with his nameplate, settling at the
+building. Two weeks later the phase moved to Rehearsal · Soundstage 7 and the company
+physically relocated: "Stage A • 4 here · STAGE 7 · ON SCHEDULE" with the cast visible
+at the stage door, Development empty again. The writer's beat-0–8 resolution of the
+frozen-target contradiction (settled frame = static truth; walk-home implemented but not
+the played window) is ACCEPTED. Occupant-count chrome riding both text LOD bands is
+ACCEPTED. Gates at `3d416f3`: repository vitest 222 files / 3,003; browser 186/0/4/0 of
+190; both tsc; build.
+
+The Owner's critical experience test now maps: select production and inspect its stage —
+yes, in-world; see people travel and facilities become occupied — yes, witnessed; work
+resumes/proceeds authoritatively — yes; inspect any inhabitant's job/place/credit — yes;
+initiate and inspect real construction — yes; observe events and react from the world —
+yes. Facility-capacity queues remain latent in shipped config (recorded Owner decision).
