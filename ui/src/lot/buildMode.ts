@@ -76,6 +76,13 @@ export const LOT_PLACEMENT_REJECTION_TEXT: Record<PlacementRejection, string> = 
   clearanceRing: 'This site is too close to another building — leave a cell of clearance.',
   noRoadAccess: 'This site has no road frontage; construction trucks cannot reach it.',
   seversLot: 'Building here would cut the lot in two.',
+  // C1-M2. These two are the only codes that are NOT about the ground under the
+  // cursor, so they are the only ones whose sentence cannot describe a site. They
+  // are deliberately generic fallbacks: the specific, authored copy lives on the
+  // quote as `unmetRequirements[].reason`, and the catalog surface (C1-M5) should
+  // render that list rather than this one line whenever it has room for it.
+  requirementsUnmet: 'The studio has not unlocked this building yet.',
+  instanceLimit: 'The studio already has as many of these as it can build.',
   insufficientFunds: 'The studio cannot cover the capital cost this week.',
 }
 

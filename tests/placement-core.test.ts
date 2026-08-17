@@ -102,7 +102,12 @@ describe('Placement Core V12 — the blueprint catalog', () => {
       facilityIdBase: 'facility-development-casting-annex',
       projectIdBase: 'construction-development-casting-annex',
       ledgerNote: 'Development & Casting Annex construction',
+      // C1-M2: unconditionally available and unlimited — the proven V11 law,
+      // now stated in the declarative schema instead of by the schema's absence.
+      requires: [],
     })
+    // Unlimited: the absent allowance is the default, and it stays the default.
+    expect(FACILITY_BLUEPRINTS[0]!.maxInstances).toBeUndefined()
   })
 
   it('sources every catalog number from TUNING', () => {
@@ -174,6 +179,9 @@ describe('Placement Core V12 — the legality query', () => {
       capacityDelta: 1,
       rejections: [],
       primary: null,
+      unmetRequirements: [],
+      instanceCount: 0,
+      maxInstances: null,
     })
   })
 
@@ -315,6 +323,10 @@ describe('Placement Core V12 — the legality query', () => {
       'clearanceRing',
       'noRoadAccess',
       'seversLot',
+      // C1-M2: studio-scope locks rank below every site-scope geometry rule and
+      // above money, which stays last.
+      'requirementsUnmet',
+      'instanceLimit',
       'insufficientFunds',
     ])
   })
@@ -615,6 +627,12 @@ describe('Placement Core V12 — the build-mode read model', () => {
         cost: 780_000,
         weeklyOperatingCost: 3_500,
         affordable: true,
+        available: true,
+        unmet: [],
+        instanceCount: 0,
+        maxInstances: null,
+        atInstanceLimit: false,
+        buildable: true,
       },
     ])
     const expansion = empty.parcels.find((parcel) => parcel.id === 'expansion')!
