@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import * as adapter from '../../engine/adapter.ts'
 import {
+  acknowledgeCastingSessionAction,
   advanceWeek,
   castingSessionsBoard,
   commissionScriptAction,
@@ -98,6 +99,38 @@ function readyStudio(seed: string): GameState {
   const result = runScriptProjectAction(review, accept)
   if (!result.ok) throw new Error(result.error)
   return result.next
+}
+
+/**
+ * A studio with a PAST: one camera test already run and acknowledged, and a second
+ * screenplay commissioned, drafted and accepted the ordinary way.
+ *
+ * This is every state a studio is in after its first picture — `castingSessions.sessions`
+ * is append-only (castingSessions.ts:315), so the finished session never leaves the books.
+ */
+function secondPictureStudio(seed: string): GameState {
+  const first = readyStudio(seed)
+  const started = startCastingSessionAction(first, payloadFor(contextFor(first)))
+  if (!started.ok) throw new Error(started.error)
+  const reviewing = advanceWeek(started.next).next
+  const session = reviewing.castingSessions.sessions[0]!
+  if (session.status !== 'review') throw new Error('setup: the camera tests did not finish')
+  const acknowledged = acknowledgeCastingSessionAction(reviewing, session.id)
+  if (!acknowledged.ok) throw new Error(acknowledged.error)
+
+  const commissioned = commissionScriptAction(
+    acknowledged.next,
+    commissionPayload(acknowledged.next),
+  )
+  if (!commissioned.ok) throw new Error(commissioned.error)
+  const drafted = advanceWeek(commissioned.next).next
+  const accept = scriptProjectsBoard(drafted).sections.needsReview[0]!.legalActions.find(
+    (action) => action.kind === 'acceptScript',
+  )
+  if (accept === undefined) throw new Error('setup: the second screenplay cannot be accepted')
+  const accepted = runScriptProjectAction(drafted, accept)
+  if (!accepted.ok) throw new Error(accepted.error)
+  return accepted.next
 }
 
 function authority(state: GameState): LotAuditionPlanningOpenAuthority {
@@ -218,6 +251,73 @@ describe('current Lot audition-planning context', () => {
     ]) {
       expect(currentLotAuditionPlanningContext(authority(changed))).toBeNull()
     }
+  })
+
+  it('plans the studio’s SECOND picture, with a finished camera test already on the books', () => {
+    // THE DEFECT THIS PINS. `sessions` is append-only, so requiring an EMPTY session list
+    // made this selector refuse every world a studio is in after its first camera test —
+    // the planner worked exactly once per studio, and picture #2 fell through to the
+    // full-screen Casting Room from every opener.
+    const state = secondPictureStudio('audition-planning-second-picture')
+    const board = castingSessionsBoard(state)
+    expect(state.castingSessions.sessions).toHaveLength(1)
+    expect(state.castingSessions.sessions[0]!.status).toBe('complete')
+    expect(board.sections.history).toHaveLength(1)
+    expect(board.sections.readyToPlan).toHaveLength(1)
+
+    const context = contextFor(state)
+    expect(context.project.projectId).toBe(board.sections.readyToPlan[0]!.projectId)
+    expect(context.project.sessionId).toBeNull()
+    expect(context.planAction).toEqual({
+      kind: 'planAuditions',
+      projectId: context.project.projectId,
+      label: 'Plan auditions',
+    })
+
+    // …and the session it starts is session N, not a second `casting-0000`.
+    const payload = payloadFor(context)
+    const started = startCastingSessionAction(state, payload)
+    if (!started.ok) throw new Error(started.error)
+    const receipt = acceptedLotAuditionPlanningReceipt(state, started.next, payload)
+    expect(receipt?.sessionId).toBe('casting-0001')
+    expect(receipt?.projectId).toBe(context.project.projectId)
+    expect(started.next.castingSessions.sessions).toHaveLength(2)
+    expect(started.next.castingSessions.sessions[0]).toEqual(state.castingSessions.sessions[0])
+    expect(currentLotAuditionPlanningReceipt(started.next, receipt!)).toEqual(receipt)
+
+    // The successor must APPEND. A world that quietly rewrote the studio's earlier session
+    // while starting this one is not the action this receipt claims to witness.
+    const rewritten = clone(started.next)
+    rewritten.castingSessions.sessions[0]!.status = 'review'
+    expect(acceptedLotAuditionPlanningReceipt(state, rewritten, payload)).toBeNull()
+  })
+
+  it('refuses while any session is still in flight, even one the board files under history', () => {
+    const state = secondPictureStudio('audition-planning-second-in-flight')
+    expect(currentLotAuditionPlanningContext(authority(state))).not.toBeNull()
+
+    // A session whose screenplay has left `ready` is filed under `history` WHATEVER its
+    // status (castingReadModel.ts:423-427), so the sections alone cannot answer "is
+    // anything still running" — the raw session record has to.
+    const firstProjectId = state.castingSessions.sessions[0]!.projectId
+    const inFlight = clone(state)
+    inFlight.scriptDevelopment.projects.find(
+      (project) => project.id === firstProjectId,
+    )!.status = 'inProduction'
+    inFlight.castingSessions.sessions[0]!.status = 'auditioning'
+    const board = castingSessionsBoard(inFlight)
+    expect(board.sections.history).toHaveLength(1)
+    expect(board.sections.readyToPlan).toHaveLength(1)
+    expect(board.sections.auditioning).toHaveLength(0)
+    expect(board.sections.needsReview).toHaveLength(0)
+    expect(currentLotAuditionPlanningContext(authority(inFlight))).toBeNull()
+
+    // Its `review` twin makes the board itself refuse to project at all, and the selector
+    // fails closed on that rather than passing the throw to the world.
+    const owing = clone(inFlight)
+    owing.castingSessions.sessions[0]!.status = 'review'
+    expect(() => castingSessionsBoard(owing)).toThrow()
+    expect(currentLotAuditionPlanningContext(authority(owing))).toBeNull()
   })
 
   it('rejects malformed, sparse, decorated, contradictory, or throwing complete boards', () => {

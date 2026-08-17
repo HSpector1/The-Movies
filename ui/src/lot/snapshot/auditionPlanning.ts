@@ -661,6 +661,31 @@ function strictFirstFreeSlot(
   return first
 }
 
+/**
+ * The one legal NEW-session planner context for this exact world, or null.
+ *
+ * WHAT THIS PROVES: that the projected Casting board IS the Core read model, that the one
+ * card it offers is faithful to the screenplay, concept, writer and candidates the state
+ * actually holds, and that a Development & Casting slot is genuinely free for the session
+ * the player is about to start. Every one of those proofs is kept.
+ *
+ * WHAT IT USED TO PROVE AS WELL, AND NO LONGER DOES (live defect, red-team verified):
+ * that the studio had NEVER held a casting session — `sessions.length === 0`, plus an
+ * empty `history` section. `state.castingSessions.sessions` is APPEND-ONLY
+ * (castingSessions.ts:315), and a finished session stays on the books forever, so from the
+ * first camera test onward this selector refused every world the studio would ever be in
+ * again. The planner worked exactly once per studio: picture #2's "Plan auditions" fell
+ * through to the full-screen Casting Room, from the inspector verb, the companion rail and
+ * the guidance card alike. Emptiness of the world was never the thing that made a new plan
+ * legal — this is the same class of over-strict world-rejection the duplicate-name repair
+ * removed from `recordedName`, left behind in the sibling clauses.
+ *
+ * What DOES still refuse, because it is a fact about this plan rather than about the
+ * studio's history: any session still in flight. A session in `auditioning` holds the very
+ * reservation this plan needs, and a session in `review` is a decision the player owes the
+ * studio first — so both sections must be empty and every session already on the books must
+ * be `complete`. Their COMPLETED records belong to `history`, which may hold any number.
+ */
 function strictContextForState(state: GameState): LotAuditionPlanningContext | null {
   if (
     !isClosedCanonicalState(state) ||
@@ -670,9 +695,14 @@ function strictContextForState(state: GameState): LotAuditionPlanningContext | n
     state.scriptDevelopment.mode !== 'managed' ||
     state.castingSessions.mode !== 'managed' ||
     !Array.isArray(state.castingSessions.sessions) ||
-    !hasCanonicalArrayKeys(state.castingSessions.sessions) ||
-    state.castingSessions.sessions.length !== 0
+    !hasCanonicalArrayKeys(state.castingSessions.sessions)
   ) return null
+  // No session may be in flight. A session whose project has since left `ready` is filed
+  // under `history` by the board whatever its status, so the raw session record — not the
+  // section it lands in — is what answers "is anything still running".
+  for (const session of state.castingSessions.sessions as unknown[]) {
+    if (!isPlainRecord(session) || session.status !== 'complete') return null
+  }
 
   const projected = adapter.castingSessionsBoard(state) as unknown
   const canonical = castingSessionsReadModel(state) as unknown
@@ -693,7 +723,13 @@ function strictContextForState(state: GameState): LotAuditionPlanningContext | n
   for (const section of SECTION_KEYS) {
     const rows = projected.sections[section]
     if (!Array.isArray(rows) || !hasCanonicalArrayKeys(rows)) return null
-    if (section === 'readyToPlan' ? rows.length !== 1 : rows.length !== 0) return null
+    // readyToPlan — exactly the ONE picture this planner is about; two would be a choice
+    // this selector must never make for the player.
+    if (section === 'readyToPlan' && rows.length !== 1) return null
+    // auditioning / needsReview — work in flight or a decision owed. Both still refuse.
+    if ((section === 'auditioning' || section === 'needsReview') && rows.length !== 0) return null
+    // history — the studio's completed camera tests. Any number of them is an ordinary
+    // studio with a past, not a malformed world.
   }
   const readyToPlan = projected.sections.readyToPlan
   if (!Array.isArray(readyToPlan)) return null
@@ -904,11 +940,19 @@ export function acceptedLotAuditionPlanningReceipt(
       !hasCanonicalArrayKeys(priorCasting.sessions) ||
       !Array.isArray(nextCasting.sessions) ||
       !hasCanonicalArrayKeys(nextCasting.sessions) ||
-      priorCasting.sessions.length !== 0 ||
-      nextCasting.sessions.length !== 1
+      nextCasting.sessions.length !== priorCasting.sessions.length + 1
     ) return null
-    const session = nextCasting.sessions[0]
-    const sessionId = canonicalCastingSessionId(priorCasting.sessions.length)
+    // Starting a session APPENDS one record and rewrites none (castingSessions.ts:315), so
+    // every session the studio already held must survive the action byte-for-byte and the
+    // new one must be the last. This is the proof that used to be spelled `0 → 1`, which
+    // held only for a studio's very first camera test.
+    const priorSessions = priorCasting.sessions as unknown[]
+    const nextSessions = nextCasting.sessions as unknown[]
+    for (let index = 0; index < priorSessions.length; index += 1) {
+      if (!sameClosedValue(priorSessions[index], nextSessions[index])) return null
+    }
+    const session = nextSessions[priorSessions.length]
+    const sessionId = canonicalCastingSessionId(priorSessions.length)
     if (
       !isPlainRecord(session) ||
       !hasExactOwnKeys(session, SESSION_KEYS) ||
