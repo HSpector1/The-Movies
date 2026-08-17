@@ -57,7 +57,12 @@ import type {
   ProductionOperationsState,
   StudioLotSnapshot,
 } from './snapshot/StudioLotSnapshot.ts'
-import { ALL_BUILDING_IDS, BUILDING_ACTION, BUILDING_LABELS } from './snapshot/StudioLotSnapshot.ts'
+import {
+  BUILDING_ACTION,
+  BUILDING_LABELS,
+  FOUNDING_BUILDING_IDS,
+  buildingActionFor,
+} from './snapshot/StudioLotSnapshot.ts'
 import { sceneryLoadInContext } from './snapshot/sceneryLoadIn.ts'
 import {
   sameStage7ProductionDetailContext,
@@ -5474,7 +5479,7 @@ export function StudioLotScreen({
       clearAnnexContext()
       recordSelection(id)
       viewRef.current?.select(id)
-      dispatchRoute(BUILDING_ACTION[id])
+      dispatchRoute(buildingActionFor(id))
     },
     [
       clearAnnexContext,
@@ -5594,7 +5599,7 @@ export function StudioLotScreen({
     maskNames
       ? text.replace(/\b(Sound)?[Ss]tage [AB]\b/g, (m) => (m.startsWith('Sound') ? 'Soundstage' : 'Stage'))
       : text
-  const rows = ALL_BUILDING_IDS.map((id) => {
+  const rows = FOUNDING_BUILDING_IDS.map((id) => {
     const b = snapshot.buildings.find((x) => x.id === id)
     const attention: AttentionState = b?.attention ?? 'normal'
     const meta = ATTENTION_META[attention]
@@ -5734,7 +5739,7 @@ export function StudioLotScreen({
             onClick={() => {
               if (worldInputSuspendedRef.current) return
               // The ONLY way a building reaches a deep screen now: an explicit choice.
-              dispatchRoute(BUILDING_ACTION[buildingInspector.buildingId])
+              dispatchRoute(buildingActionFor(buildingInspector.buildingId))
             }}
           >
             Open {buildingInspector.deepLabel} details

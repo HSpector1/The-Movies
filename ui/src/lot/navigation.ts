@@ -11,7 +11,7 @@
 // stays reachable without the lot.
 
 import type { BuildingId, LotActionKind } from './snapshot/StudioLotSnapshot'
-import { BUILDING_ACTION } from './snapshot/StudioLotSnapshot'
+import { buildingActionFor } from './snapshot/StudioLotSnapshot'
 
 /** Existing app destinations a lot intent can open. */
 export type LotRoute =
@@ -54,7 +54,7 @@ export function resolveAction(action: LotActionKind): LotActionResolution {
 }
 
 export function routeForBuilding(id: BuildingId): LotRoute {
-  return ACTION_RESOLUTION[BUILDING_ACTION[id]].route
+  return ACTION_RESOLUTION[buildingActionFor(id)].route
 }
 
 /** Concise, non-mechanic building descriptions (addendum §5/§8 canonical language). */

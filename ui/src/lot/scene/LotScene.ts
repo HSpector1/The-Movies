@@ -43,7 +43,7 @@ import type {
   ProductionCard,
   LotActionKind,
 } from '../snapshot/StudioLotSnapshot'
-import { BUILDING_ACTION } from '../snapshot/StudioLotSnapshot'
+import { buildingActionFor } from '../snapshot/StudioLotSnapshot'
 import {
   VignetteDirector,
   type VignetteHost,
@@ -1400,7 +1400,7 @@ export class LotScene extends Phaser.Scene {
       label: view.spec.label,
       blurb: view.spec.blurb,
       available: this.isAvailable(id),
-      action: BUILDING_ACTION[id],
+      action: buildingActionFor(id),
       production: this.productionFor(id),
     })
   }
@@ -1416,7 +1416,7 @@ export class LotScene extends Phaser.Scene {
   }
 
   triggerAction(id: BuildingId): void {
-    this.emitEvent({ type: 'action', buildingId: id, action: BUILDING_ACTION[id] })
+    this.emitEvent({ type: 'action', buildingId: id, action: buildingActionFor(id) })
   }
 
   private refreshHighlights(): void {
