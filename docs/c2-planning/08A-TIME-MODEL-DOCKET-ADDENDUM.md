@@ -48,15 +48,25 @@ presentation scheduler:
 2. At the end of the played week, the scheduler commits exactly the same
    authoritative advance a player's "Advance Week" press commits today — the
    identical adapter action, producing the identical `SimResult`.
-3. Consult the engine-derived stop ladder. On any decision-required stop
-   (the existing `SimStopReason` priority ladder, plus C2's `wrap` and the
-   Premiere pause point), the loop AUTO-PAUSES with the stop surfaced exactly
-   as today. On a quiet week it continues to week N+1.
+3. Consult the engine-derived stop ladder — **partitioned** (a charter ruling
+   the Owner ratifies; C2 charter §4.1): **PAUSE-class** stops (the player's
+   decision is genuinely required, or a ceremony plays): `release` (Premiere),
+   `scriptReview`, `castingReview`, `productionDecision`, `cashNegative` — the
+   loop AUTO-PAUSES with the stop surfaced exactly as today. **NOTIFY-class**
+   stops (`wrap`, `runCompleted`, `constructionCompleted`, `contractExpired`,
+   `renewalWindow`) surface through the existing attention/badge channel and
+   the played week's beats; the loop CONTINUES. Without the partition, a busy
+   studio pauses every week or two and the proof sentence is defeated by the
+   spec itself. The batch fast-forward verb keeps the FULL unpartitioned
+   ladder — its semantics are unchanged.
 4. **Pause** freezes the scheduler (never the engine — there is nothing to
    freeze; no tick is in flight between commits). **Speed** multiplies playback
-   pacing (named presentation constants; e.g. 1×/2×/4× on PLAYBACK_BEAT_MS).
-   Reduced motion honors the existing law — instant final positions — while the
-   cadence itself continues.
+   pacing: a named ladder **1× / 2× / 4×** on PLAYBACK_BEAT_MS (4× is the
+   ceiling; ~11.5s → ~2.9s per week). Above 2×, Class-B witnessed beats
+   (arrivals, wrap clears, premiere walks) collapse to final positions via the
+   existing reduced-motion path while Class-A state stays continuous — speed
+   never produces half-played ceremonies. Reduced motion honors the existing
+   law — instant final positions — while the cadence itself continues.
 5. **"Advance to next event" survives as fast-forward**: the existing batched
    `advanceToNextEvent` remains available as an explicit convenience verb, and
    keeps operational law 3 (a skipped batch is one stop and one summary, never
@@ -73,7 +83,8 @@ emits *actions*; it never becomes an authority. (This extends PF1's
 presentation-parity gate to time itself.)
 
 **Hidden tab / renderer sleep:** the scheduler pauses whenever the renderer is
-paused (`document.hidden` — the deliberate CPU-saver PF1 §0.7 records). Living
+paused (`document.hidden` — the deliberate CPU-saver PF1 §0.7 records; quoted
+verbatim in `13-PF1-CHARTER-EXCERPTS-APPENDIX.md`). Living
 time never advances a studio nobody is watching; that is the grammar of the
 referenced games (their worlds also stop when the machine is closed) and it keeps
 QA/automation deterministic.
