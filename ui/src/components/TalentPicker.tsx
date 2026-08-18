@@ -29,6 +29,26 @@ import type {
 } from '../engine/adapter.ts'
 import { talentEligibility, assignmentCard } from '../engine/adapter.ts'
 import { money, score, axis, starPower, ageYears } from '../format.ts'
+import {
+  AUDITIONED_BADGE,
+  AUDITIONED_GROUP_LABEL,
+  NOT_AUDITIONED_GROUP_LABEL,
+  auditionGroupingNote,
+  auditionReadSentence,
+  notAuditionedSentence,
+  type SlotAuditionReads,
+} from '../presentation/auditionEvidence.ts'
+
+// The audition payoff at the moment of choice. When a picture ran camera tests for
+// THIS role, the people who read carry their persisted observation onto their own
+// card and are listed first — and everyone else says, honestly, that they did not
+// read. Evidence, never a commitment: nothing is pre-selected and nothing is hidden.
+export type PickerAuditions = {
+  /** The role as the player reads it ("Lead") — the same title as this picker. */
+  roleTitle: string
+  /** Persisted reads for THIS role, by talent id. */
+  reads: SlotAuditionReads
+}
 
 // The assignment context the picker needs to compute per-assignment cards. The parent
 // (Assembly) threads the concept/discipline/slot/promise/shape it already has in hand.
@@ -66,6 +86,7 @@ export function TalentPicker({
   testid,
   assignment,
   freelancerFees,
+  auditions,
 }: {
   title: string
   pool: PlayerVisibleTalent[]
@@ -82,6 +103,10 @@ export function TalentPicker({
   // (not studio-contracted). Tags the row "Freelancer" and shows the fee (a direct
   // project cost) instead of a contract salary. Studio talent are on weekly payroll.
   freelancerFees?: Record<string, number>
+  // Persisted camera-test reads for THIS role, when the picture ran auditions.
+  // Only the rich picker carries them — the minimal fallback has no assignment
+  // context and therefore no role to be an audition FOR.
+  auditions?: PickerAuditions | undefined
 }) {
   // Compute the rich card for every talent in the pool (perceived-only, via adapter).
   const cards = useMemo(() => {
@@ -131,6 +156,7 @@ export function TalentPicker({
       cards={cards}
       genreLabel={assignment.genreLabel}
       freelancerFees={freelancerFees}
+      auditions={auditions}
     />
   )
 }
@@ -148,6 +174,7 @@ function RichPicker({
   cards,
   genreLabel,
   freelancerFees,
+  auditions,
 }: {
   title: string
   pool: PlayerVisibleTalent[]
@@ -160,6 +187,7 @@ function RichPicker({
   cards: Map<string, CandidateCard>
   genreLabel: string
   freelancerFees?: Record<string, number> | undefined
+  auditions?: PickerAuditions | undefined
 }) {
   const [sortKey, setSortKey] = useState<SortKey>('fit') // DEFAULT = Project Fit
   const [proven, setProven] = useState<ProvenFilter>('all')
@@ -239,12 +267,199 @@ function RichPicker({
     })
   }, [filtered, cards, sortKey])
 
+  // ── The audition payoff ────────────────────────────────────────────────────
+  // Reads are carried, not obeyed. They reorder the list (people who read for THIS
+  // role first, each group still ranked by the chosen sort) and they annotate the
+  // cards. They never filter, never pre-select, and never change eligibility.
+  const reads = auditions !== undefined && auditions.reads.size > 0 ? auditions.reads : null
+  const readCountInPool = useMemo(
+    () => (reads === null ? 0 : sorted.filter((t) => reads.has(t.id)).length),
+    [reads, sorted],
+  )
+  const grouped = useMemo(() => {
+    if (reads === null) return null
+    return {
+      auditioned: sorted.filter((t) => reads.has(t.id)),
+      rest: sorted.filter((t) => !reads.has(t.id)),
+    }
+  }, [reads, sorted])
+
+  function renderCandidate(t: PlayerVisibleTalent) {
+    const c = cards.get(t.id)!
+    const elig = talentEligibility(t, role, chosenElsewhere)
+    const selected = selectedId === t.id
+    const isOpen = expanded === t.id
+    const read = reads?.get(t.id)
+    return (
+      <div key={t.id} className="stack" style={{ gap: 4 }}>
+        {onOpenProfile && (
+          <button
+            type="button"
+            className="linkish"
+            data-testid={`picker-open-profile-${t.id}`}
+            onClick={(event) => {
+              // The shared Profile drawer captures the exact control that opened it so
+              // closing can return the player to the same candidate in the live Package.
+              // Claim focus explicitly instead of depending on browser-specific pointer
+              // focus defaults (which also makes keyboard/test activation deterministic).
+              event.currentTarget.focus({ preventScroll: true })
+              onOpenProfile(t.id)
+            }}
+          >
+            View profile
+          </button>
+        )}
+        <button
+          type="button"
+          className={`option${selected ? ' selected' : ''}${elig.eligible ? '' : ' ineligible'}`}
+          disabled={!elig.eligible}
+          onClick={() => onSelect(t.id)}
+          data-testid={`talent-${t.id}`}
+          aria-pressed={selected}
+          // Cold-playtest a11y defect: these were UNNAMED buttons. Their computed
+          // name was the whole flattened card — badges, Fit score, strengths — and
+          // it never said which role the press would fill. The same
+          // `${title}: …` grammar every other control in this picker already uses.
+          aria-label={`Select ${t.name} for ${title}`}
+        >
+          <div className="spread">
+            <span className="opt-title">
+              {t.name}
+              {t.authored && (
+                <span className="badge authored" style={{ marginLeft: 8 }}>
+                  Authored
+                </span>
+              )}
+              {read !== undefined && (
+                <span
+                  className="badge estimate"
+                  style={{ marginLeft: 8 }}
+                  data-testid={`talent-${t.id}-auditioned`}
+                >
+                  {AUDITIONED_BADGE}
+                </span>
+              )}
+              {c.capableButUnproven && (
+                <span
+                  className="badge"
+                  style={{ marginLeft: 8 }}
+                  data-testid={`talent-${t.id}-unproven`}
+                >
+                  Capable but Unproven
+                </span>
+              )}
+              {freelancerFees?.[t.id] !== undefined && (
+                <span
+                  className="badge estimate"
+                  style={{ marginLeft: 8 }}
+                  data-testid={`talent-${t.id}-freelancer`}
+                >
+                  Freelancer
+                </span>
+              )}
+            </span>
+            <span className="badge" data-testid={`talent-${t.id}-fit`}>
+              Fit {c.fit.toFixed(0)}
+            </span>
+          </div>
+          {/* The persisted camera-test observation for THIS role — the same numbers the
+              evidence card upstream showed, now where the choice is actually made. */}
+          {reads !== null && read !== undefined && (
+            <div className="opt-desc mono" data-testid={`talent-${t.id}-audition-read`}>
+              {auditionReadSentence(auditions!.roleTitle, read, c.fit)}
+            </div>
+          )}
+          {reads !== null && read === undefined && (
+            <div className="opt-desc hint" data-testid={`talent-${t.id}-no-audition`}>
+              {notAuditionedSentence(auditions!.roleTitle)}
+            </div>
+          )}
+          {/* Assignment-relevant primary line: role OVR, EP range, star power, and
+              per-film cost — a freelancer's one-film fee, or a studio talent's salary. */}
+          <div className="opt-desc mono">
+            {c.ovrTier} · OVR {c.ovr.toFixed(0)} · Expected{' '}
+            <span data-testid={`talent-${t.id}-ep`}>
+              {c.performance.low.toFixed(0)}–{c.performance.high.toFixed(0)}
+            </span>{' '}
+            · Star {starPower(c.starPower)} ·{' '}
+            {freelancerFees?.[t.id] !== undefined
+              ? `Freelancer fee ${money(freelancerFees[t.id]!)}`
+              : money(c.salary)}
+          </div>
+          <div className="opt-desc">
+            Relevant genre experience ({genreLabel}):{' '}
+            <span data-testid={`talent-${t.id}-genreexp`}>{c.genreExp.toFixed(0)}</span>
+          </div>
+          {/* Top assignment-relevant strengths */}
+          {c.strengths.length > 0 && (
+            <div className="opt-desc" data-testid={`talent-${t.id}-strengths`}>
+              {c.strengths.map((s, i) => (
+                <span key={i} className="tag" style={{ marginRight: 6 }}>
+                  {s}
+                </span>
+              ))}
+            </div>
+          )}
+          {/* The single most important relevant concern */}
+          {c.weakness && (
+            <div className="reason" data-testid={`talent-${t.id}-weakness`}>
+              {c.weakness}
+            </div>
+          )}
+          {!elig.eligible && <div className="reason">{elig.reason}</div>}
+        </button>
+
+        {/* Expand for full details (still perceived-only) */}
+        <button
+          type="button"
+          className="ghost"
+          style={{ alignSelf: 'flex-start', fontSize: 12, padding: '2px 8px' }}
+          onClick={() => setExpanded(isOpen ? null : t.id)}
+          data-testid={`talent-${t.id}-expand`}
+          aria-expanded={isOpen}
+        >
+          {isOpen ? 'Hide details' : 'Details'}
+        </button>
+        {isOpen && (
+          <div className="panel stack" data-testid={`talent-${t.id}-details`}>
+            <div className="opt-desc mono">
+              Believed temperament — warmth {axis(t.perceived.warmth)}, gravity{' '}
+              {axis(t.perceived.gravity)}, physicality {axis(t.perceived.physicality)}
+            </div>
+            <div className="opt-desc mono">
+              Expected performance band: {score(c.performance.low, 0)}–
+              {score(c.performance.high, 0)} (mid {score(c.performance.expected, 0)}), width{' '}
+              {c.bandWidth.toFixed(0)}
+            </div>
+            <div className="opt-desc mono">
+              Age {ageYears(t.age)} · {c.unproven ? 'Unproven' : 'Proven'} in this discipline
+            </div>
+            {c.strengths.length === 0 && !c.weakness && (
+              <div className="hint">
+                The chosen structure does not strongly favor or disfavor this talent.
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    )
+  }
+
   return (
     <div className="stack" {...(testid ? { 'data-testid': testid } : {})}>
       <div className="spread">
         <h4 style={{ margin: 0 }}>{title}</h4>
-        <span className="hint">Sorted by {SORT_LABELS[sortKey]}</span>
+        <span className="hint">
+          {grouped !== null && grouped.auditioned.length > 0
+            ? `Auditions first, then ${SORT_LABELS[sortKey]}`
+            : `Sorted by ${SORT_LABELS[sortKey]}`}
+        </span>
       </div>
+      {readCountInPool > 0 && (
+        <p className="hint" data-testid={`${testid ?? 'picker'}-audition-note`}>
+          {auditionGroupingNote(auditions!.roleTitle, readCountInPool)}
+        </p>
+      )}
 
       {/* Sort + filter controls */}
       <div className="panel stack" data-testid={`${testid ?? 'picker'}-controls`}>
@@ -375,144 +590,24 @@ function RichPicker({
 
       <div className="scroll stack">
         {sorted.length === 0 && <p className="hint">No candidates match these filters.</p>}
-        {sorted.map((t) => {
-          const c = cards.get(t.id)!
-          const elig = talentEligibility(t, role, chosenElsewhere)
-          const selected = selectedId === t.id
-          const isOpen = expanded === t.id
-          return (
-            <div key={t.id} className="stack" style={{ gap: 4 }}>
-              {onOpenProfile && (
-                <button
-                  type="button"
-                  className="linkish"
-                  data-testid={`picker-open-profile-${t.id}`}
-                  onClick={(event) => {
-                    // The shared Profile drawer captures the exact control that opened it so
-                    // closing can return the player to the same candidate in the live Package.
-                    // Claim focus explicitly instead of depending on browser-specific pointer
-                    // focus defaults (which also makes keyboard/test activation deterministic).
-                    event.currentTarget.focus({ preventScroll: true })
-                    onOpenProfile(t.id)
-                  }}
-                >
-                  View profile
-                </button>
-              )}
-              <button
-                type="button"
-                className={`option${selected ? ' selected' : ''}${elig.eligible ? '' : ' ineligible'}`}
-                disabled={!elig.eligible}
-                onClick={() => onSelect(t.id)}
-                data-testid={`talent-${t.id}`}
-                aria-pressed={selected}
-                // Cold-playtest a11y defect: these were UNNAMED buttons. Their computed
-                // name was the whole flattened card — badges, Fit score, strengths — and
-                // it never said which role the press would fill. The same
-                // `${title}: …` grammar every other control in this picker already uses.
-                aria-label={`Select ${t.name} for ${title}`}
-              >
-                <div className="spread">
-                  <span className="opt-title">
-                    {t.name}
-                    {t.authored && (
-                      <span className="badge authored" style={{ marginLeft: 8 }}>
-                        Authored
-                      </span>
-                    )}
-                    {c.capableButUnproven && (
-                      <span
-                        className="badge"
-                        style={{ marginLeft: 8 }}
-                        data-testid={`talent-${t.id}-unproven`}
-                      >
-                        Capable but Unproven
-                      </span>
-                    )}
-                    {freelancerFees?.[t.id] !== undefined && (
-                      <span
-                        className="badge estimate"
-                        style={{ marginLeft: 8 }}
-                        data-testid={`talent-${t.id}-freelancer`}
-                      >
-                        Freelancer
-                      </span>
-                    )}
-                  </span>
-                  <span className="badge" data-testid={`talent-${t.id}-fit`}>
-                    Fit {c.fit.toFixed(0)}
-                  </span>
-                </div>
-                {/* Assignment-relevant primary line: role OVR, EP range, star power, and
-                    per-film cost — a freelancer's one-film fee, or a studio talent's salary. */}
-                <div className="opt-desc mono">
-                  {c.ovrTier} · OVR {c.ovr.toFixed(0)} · Expected{' '}
-                  <span data-testid={`talent-${t.id}-ep`}>
-                    {c.performance.low.toFixed(0)}–{c.performance.high.toFixed(0)}
-                  </span>{' '}
-                  · Star {starPower(c.starPower)} ·{' '}
-                  {freelancerFees?.[t.id] !== undefined
-                    ? `Freelancer fee ${money(freelancerFees[t.id]!)}`
-                    : money(c.salary)}
-                </div>
-                <div className="opt-desc">
-                  Relevant genre experience ({genreLabel}):{' '}
-                  <span data-testid={`talent-${t.id}-genreexp`}>{c.genreExp.toFixed(0)}</span>
-                </div>
-                {/* Top assignment-relevant strengths */}
-                {c.strengths.length > 0 && (
-                  <div className="opt-desc" data-testid={`talent-${t.id}-strengths`}>
-                    {c.strengths.map((s, i) => (
-                      <span key={i} className="tag" style={{ marginRight: 6 }}>
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                {/* The single most important relevant concern */}
-                {c.weakness && (
-                  <div className="reason" data-testid={`talent-${t.id}-weakness`}>
-                    {c.weakness}
-                  </div>
-                )}
-                {!elig.eligible && <div className="reason">{elig.reason}</div>}
-              </button>
-
-              {/* Expand for full details (still perceived-only) */}
-              <button
-                type="button"
-                className="ghost"
-                style={{ alignSelf: 'flex-start', fontSize: 12, padding: '2px 8px' }}
-                onClick={() => setExpanded(isOpen ? null : t.id)}
-                data-testid={`talent-${t.id}-expand`}
-                aria-expanded={isOpen}
-              >
-                {isOpen ? 'Hide details' : 'Details'}
-              </button>
-              {isOpen && (
-                <div className="panel stack" data-testid={`talent-${t.id}-details`}>
-                  <div className="opt-desc mono">
-                    Believed temperament — warmth {axis(t.perceived.warmth)}, gravity{' '}
-                    {axis(t.perceived.gravity)}, physicality {axis(t.perceived.physicality)}
-                  </div>
-                  <div className="opt-desc mono">
-                    Expected performance band: {score(c.performance.low, 0)}–
-                    {score(c.performance.high, 0)} (mid {score(c.performance.expected, 0)}), width{' '}
-                    {c.bandWidth.toFixed(0)}
-                  </div>
-                  <div className="opt-desc mono">
-                    Age {ageYears(t.age)} · {c.unproven ? 'Unproven' : 'Proven'} in this discipline
-                  </div>
-                  {c.strengths.length === 0 && !c.weakness && (
-                    <div className="hint">
-                      The chosen structure does not strongly favor or disfavor this talent.
-                    </div>
-                  )}
+        {grouped === null
+          ? sorted.map(renderCandidate)
+          : (
+            <>
+              {grouped.auditioned.length > 0 && (
+                <div className="stack" data-testid={`${testid ?? 'picker'}-auditioned-group`}>
+                  <span className="hint">{AUDITIONED_GROUP_LABEL}</span>
+                  {grouped.auditioned.map(renderCandidate)}
                 </div>
               )}
-            </div>
-          )
-        })}
+              {grouped.rest.length > 0 && (
+                <div className="stack" data-testid={`${testid ?? 'picker'}-not-auditioned-group`}>
+                  <span className="hint">{NOT_AUDITIONED_GROUP_LABEL}</span>
+                  {grouped.rest.map(renderCandidate)}
+                </div>
+              )}
+            </>
+          )}
       </div>
     </div>
   )

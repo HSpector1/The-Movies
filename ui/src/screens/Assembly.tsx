@@ -93,7 +93,8 @@ import { FilmReadiness } from '../components/FilmReadiness.tsx'
 import { AffordabilityScopesCard } from '../components/AffordabilityScopes.tsx'
 import { DiscoveryExposureLine } from '../components/DiscoveryExposure.tsx'
 import { ChangePreview } from '../components/ChangePreview.tsx'
-import { ErrorBox, Warn, Metric } from '../components/common.tsx'
+import { ErrorBox, RefusalNotice, Warn, Metric } from '../components/common.tsx'
+import { auditionReadsForPackage } from '../presentation/auditionEvidence.ts'
 import { TalentCreator } from './TalentCreator.tsx'
 import { CastingEvidence } from './CastingRoom.tsx'
 import {
@@ -287,6 +288,10 @@ export function Assembly({
         .flat()
         .find((candidate) => candidate.projectId === scriptProjectId)
     : undefined
+  // Engine refusals name people by id. The player never sees an id: this resolver
+  // lets the refusal seam say "Marta Vane is already working" instead.
+  const talentNameOf = (talentId: string): string | undefined =>
+    state.talent.find((candidate) => candidate.id === talentId)?.name
   const castingHandoffAnnouncement =
     castingProject?.status === 'complete' && castingProject.results !== null
       ? `${castingProject.title} casting review complete. Blank package opened at Cast & crew. Auditions did not select anyone; choose a currently legal cast.`
@@ -709,7 +714,10 @@ export function Assembly({
 
       {error && (
         <div style={{ marginTop: 16 }}>
-          <ErrorBox message={error} />
+          {/* 00F tycoon floor: a refused greenlight used to render the engine's own
+              throw verbatim ("applyActions: greenlight rejected — …(M16)"). The seam
+              speaks the studio's language and resolves any named id to a person. */}
+          <RefusalNotice message={error} nameOf={talentNameOf} testid="greenlight-refusal" />
         </div>
       )}
 
@@ -1139,6 +1147,11 @@ function TalentStep({
     support: 'Support',
   }
   const gLabel = genreLabel(concept.genre)
+  // THE AUDITION PAYOFF. The camera-test evidence card above says who read; these
+  // reads carry that answer down to the three cast pickers, where the choice is
+  // actually made. The engine's law is untouched — a read is evidence, not a
+  // commitment, and the handoff line below still says so in as many words.
+  const auditionReads = auditionReadsForPackage(castingProject)
   // A per-assignment context factory: the picker uses it to compute rich cards (Fit,
   // Expected Performance, genre experience, strengths/concerns) via the adapter.
   const assignmentFor = (role: 'writer' | 'director' | 'craft', slot?: CastSlot): PickerAssignment => ({
@@ -1265,6 +1278,9 @@ function TalentStep({
             testid={`picker-${slot}`}
             assignment={castAssignment(slot)}
             freelancerFees={freelancerFees}
+            {...(auditionReads
+              ? { auditions: { roleTitle: SLOT_TITLES[slot], reads: auditionReads[slot] } }
+              : {})}
           />
         ))}
       </div>
