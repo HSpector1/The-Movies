@@ -647,9 +647,14 @@ machinima work; any macroeconomy repair beyond instrumentation.
     requirements; no catalog flooding.
 
 **Still required from the Owner:**
-0. **PF1 implementation authorization** — the charter is a draft; PF1 does not
-   begin until the Owner authorizes it (and approves or strikes each proposed
-   futures-shelf row named in charter §5, M3).
+0. **PF1 implementation authorization** — the charter (r2, Director Review
+   incorporated: all three futures-shelf rows approved, four audio controls
+   approved, six-slot save target with measured quota testing, aria inventory
+   corrected to three moments, prefs substrate sequenced into M1, module paths
+   frozen, one-writer ownership plan added as charter §10) awaits final Owner
+   authorization after the pending independent commercial red-team report is
+   read and triaged (scope filter: professionalism defects, in-scope fixes,
+   collision/assumption corrections only; later-game findings route to C2/C3+).
 1. **Concurrency/capacity specifics — before C2 freeze** (the explicit ruling Owner
    Ruling 5 assigns to C2): target concurrent-production range at mature build-out,
    and which constraint should bind first (stages, sets, casting/development slots,
