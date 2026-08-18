@@ -232,6 +232,72 @@ export type LotStageIdentity = {
   standing: boolean
 }
 
+/**
+ * One SET this studio owns, and the stage it stands on (C2a-M2, §3.1).
+ *
+ * A mirror of the engine's own `StudioSet`, plus two facts the engine already knows and
+ * the lot must never re-answer: whether the set is in good enough repair to shoot on
+ * (`usable`, the engine's own gate) and WHICH scenery shop's crew holds the work on it
+ * (`sceneryFacilityId`, the engine's own derived slot assignment).
+ *
+ * Nothing here is a rule. The lot paints a set's name, its location, its condition and
+ * its work; it decides no legality and it invents no set the engine did not record.
+ */
+export type LotSetState = {
+  /** The engine set id — `set-0`. Stable, never recycled. */
+  id: string
+  /** The set's own name. A player's word for it, and the identity the world prints. */
+  name: string
+  /** WHAT KIND OF PLACE it is, in the studio's own words — "Graveyard", "City Street". */
+  locationLabel: string
+  /** The soundstage FACILITY it is mounted on. In V1 a stage carries at most one set. */
+  mountedOnFacilityId: string
+  status: 'under-construction' | 'standing' | 'retired'
+  /** True while the work under way is a REPAIR of a set that has already stood. */
+  repairing: boolean
+  /** The engine week the work completes; null for an endowed set that was never built. */
+  completesWeek: number | null
+  /** Whole weeks of work left. 0 whenever nothing is under way. */
+  weeksRemaining: number
+  /** 0..100, SHOWN. */
+  quality: number
+  /** 0..100, SHOWN. Wears per production. */
+  condition: number
+  /** 0..1, SHOWN. Depletes when a picture that shot here reaches an audience. */
+  novelty: number
+  /** The ENGINE's own answer to "may a picture shoot on this?". Never re-derived here. */
+  usable: boolean
+  /**
+   * The scenery-shop facility whose crew holds this set's work, or null when no work is
+   * under way. The engine derives the slot; the lot only reports where the crew is.
+   */
+  sceneryFacilityId: string | null
+}
+
+/**
+ * One PERMANENT (Tier D) thing that happened to this studio in the CURRENT week.
+ *
+ * Class A by construction (§4.2): the ledger is persisted engine truth, so a week's
+ * worth of these renders identically on load, after a batch, and mid-playback. The lot
+ * surfaces them through the badge / attention / caption channels it already has — no
+ * new animation machinery — and nothing here is ever an input to anything.
+ *
+ * Only the kinds the world has words for are carried. A row the adapter cannot resolve
+ * into a name a player would recognise is omitted rather than printed as an id.
+ */
+export type LotWeekEvent =
+  | {
+      kind: 'wrapped'
+      /** The picture that finished shooting. */
+      title: string
+      /** The soundstage facility it wrapped on. */
+      stageFacilityId: string
+      /** The set it stood on, or null when it was bound to none. */
+      setId: string | null
+    }
+  | { kind: 'setBuilt'; setId: string }
+  | { kind: 'setRetired'; setId: string }
+
 /** Coarse reception band for a released film — a display badge, not a score. */
 export type ReceptionBand = 'flop' | 'mixed' | 'hit' | 'smash'
 
@@ -787,6 +853,22 @@ type StudioLotSnapshotBase = {
    * through `stageIdentity.ts`, which applies that fallback in one place.
    */
   stages?: LotStageIdentity[]
+  /**
+   * Every SET this studio owns, in the engine's own `state.sets` order (C2a-M2, §3.1).
+   *
+   * Optional ONLY so the older hand-authored presentation fixtures stay source-
+   * compatible, and omitted in legacy mode, where a studio holds no sets at all.
+   * Absent and empty therefore mean the same thing to every consumer: nothing stands
+   * on this studio's stages, which is a fact the world states rather than hides.
+   */
+  sets?: LotSetState[]
+  /**
+   * The permanent things that happened to this studio THIS week (§4.2 Class A).
+   *
+   * Optional and omitted in legacy mode for the same reason as `sets`: a world with no
+   * studio operations keeps no studio history. Absent ⇒ nothing to report.
+   */
+  weekEvents?: LotWeekEvent[]
   /** Films shooting now — drives which stages are lit and their progress. */
   activeProductions: ProductionCard[]
   /** Recent releases — drives the theater marquee. */

@@ -216,6 +216,12 @@ import {
   studioPresence as coreStudioPresence,
   // First Film Journey V1 — "where is my picture, and what do I do next", engine-owned.
   firstFilmJourney as coreFirstFilmJourney,
+  // C2a-M2 §3.1 — Sets. The lot paints them; every JUDGEMENT about them is the
+  // engine's, read through these four total functions and through nothing else.
+  resourceClaims as coreResourceClaims,
+  setIsUnderRepair as coreSetIsUnderRepair,
+  setIsUsable as coreSetIsUsable,
+  setTypeLabel as coreSetTypeLabel,
 } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
@@ -248,7 +254,9 @@ import type {
   LotPresenceProjection,
   LotProductionCompanyMember,
   LotProductionCompanyRole,
+  LotSetState,
   LotStageIdentity,
+  LotWeekEvent,
   ProductionOperationsState,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
 import {
@@ -6255,6 +6263,105 @@ export type StudioLotSnapshotWithJourney = StudioLotSnapshot & {
   firstFilmJourney?: FirstFilmJourneyView
 }
 
+// ── C2a-M2 §3.1 — the SETS read model, and this week's permanent history ─────
+//
+// Plumbing, and only plumbing. Every judgement below is the engine's own, read through
+// a total function it already exports: whether a set may be shot on (`setIsUsable`),
+// whether the work under way is a repair or a first build (`setIsUnderRepair`), what
+// its location is called (`setTypeLabel`), and which scenery shop's crew holds it
+// (`resourceClaims`, the one union producer §3.2 named). The lot re-answers none of
+// them — a renderer that re-derives an engine gate is how the two drift.
+
+/**
+ * Which scenery-shop facility each set under work is being worked on in.
+ *
+ * The engine DERIVES the slot assignment rather than persisting it (§8: V14 is the
+ * complete schema and M2 adds no member to `StudioSet`), so the honest way to report
+ * where the crew is standing is to ask the same producer the allocator asks. A set with
+ * no claim — only reachable on a forged save — is simply absent, and the world then
+ * says nothing about where its work is happening rather than picking a shop.
+ */
+function setSceneryFacilityIds(state: GameState): Map<string, string> {
+  const byFacility = new Map<string, string>()
+  for (const claim of coreResourceClaims({
+    sets: state.sets,
+    operations: state.operations,
+    scriptDevelopment: state.scriptDevelopment,
+    castingSessions: state.castingSessions,
+  })) {
+    if (claim.owner !== 'set' || claim.kind !== 'facility') continue
+    if (byFacility.has(claim.ownerId)) continue
+    byFacility.set(claim.ownerId, claim.facilityId)
+  }
+  return byFacility
+}
+
+/** Every set this studio owns, in `state.sets` order, as the lot reads them. */
+function lotSetStates(state: GameState): LotSetState[] {
+  const week = state.market.tick
+  const sceneryBySetId = setSceneryFacilityIds(state)
+  return state.sets.map((set) => {
+    const working = set.status === 'under-construction'
+    // The engine owns the clock. `completesWeek` is its number and the countdown is the
+    // difference, floored at zero — never a week this module counts for itself.
+    const weeksRemaining =
+      working && set.completesWeek !== null ? Math.max(0, set.completesWeek - week) : 0
+    return {
+      id: set.id,
+      name: set.name,
+      locationLabel: coreSetTypeLabel(set.setType),
+      mountedOnFacilityId: set.mountedOn,
+      status: set.status,
+      repairing: coreSetIsUnderRepair(set),
+      completesWeek: set.completesWeek,
+      weeksRemaining,
+      quality: set.quality,
+      condition: set.condition,
+      novelty: set.novelty,
+      usable: coreSetIsUsable(set),
+      sceneryFacilityId: working ? (sceneryBySetId.get(set.id) ?? null) : null,
+    }
+  })
+}
+
+/**
+ * The permanent (Tier D) rows the ledger stamped with THIS week, as the lot reads them.
+ *
+ * Class A (§4.2): `studioEvents` is persisted engine truth, so the same week reads the
+ * same way on load, after a batch and mid-playback. Witness, never input — nothing the
+ * lot does with these ever re-enters the simulation.
+ *
+ * A `wrapped` row whose production can no longer be named is DROPPED rather than printed
+ * as an id: the professional floor (`00F`) forbids an engine string reaching a player,
+ * and "we cannot name it" is not worth telling anybody about a picture that wrapped.
+ */
+function lotWeekEvents(state: GameState): LotWeekEvent[] {
+  const week = state.market.tick
+  const events: LotWeekEvent[] = []
+  for (const row of state.studioEvents.rows) {
+    if (row.week !== week) continue
+    if (row.kind === 'wrapped') {
+      const production = state.studio.activeProductions.find(
+        (candidate) => candidate.id === row.productionId,
+      )
+      if (production === undefined) continue
+      events.push({
+        kind: 'wrapped',
+        title: productionTitle(state, production),
+        stageFacilityId: row.stageFacilityId,
+        setId: row.setId,
+      })
+      continue
+    }
+    if (row.kind === 'setBuilt') {
+      events.push({ kind: 'setBuilt', setId: row.setId })
+      continue
+    }
+    if (row.kind === 'setRetired') events.push({ kind: 'setRetired', setId: row.setId })
+  }
+  return events
+}
+
 export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourney {
   const week = state.market.tick
   const cash = state.studio.cash
@@ -6863,6 +6970,12 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
     // from, and a legacy studio's stages are exactly the two authored founding bodies
     // the `stageIdentity` fallback already answers with.
     ...(state.operations.mode === 'managed' ? { stages: stageIdentities } : {}),
+    // C2a-M2 §3.1 — the sets, and the permanent things that happened this week. Managed
+    // mode only, for the same reason `stages` is: a legacy world holds no sets and keeps
+    // no studio history, so there is nothing honest to claim about either.
+    ...(state.operations.mode === 'managed'
+      ? { sets: lotSetStates(state), weekEvents: lotWeekEvents(state) }
+      : {}),
     activeProductions,
     releasedFilms,
     releasePresence,
