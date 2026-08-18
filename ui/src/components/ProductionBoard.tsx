@@ -117,6 +117,15 @@ export function ProductionBoard({
                       ? ' · called'
                       : ' · locked'}
                 </Metric>
+                {/* C2a-M2 §3.1 — a picture does not merely occupy a stage, it stands
+                    on a NAMED SET. Shown only once it does: a picture still in
+                    development is bound to nothing, and a "Set: —" would be an
+                    absence dressed as a fact. */}
+                {card.boundSet !== null && (
+                  <Metric label="Standing on" small testid={`production-set-${card.productionId}`}>
+                    {card.boundSet.name} · {card.boundSet.stageName}
+                  </Metric>
+                )}
               </div>
 
               {card.blocker && (

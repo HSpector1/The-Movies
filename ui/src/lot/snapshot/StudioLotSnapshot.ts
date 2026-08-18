@@ -400,7 +400,16 @@ export type ProductionOperationsState = {
   taskStatus: LotShootingTaskStatus | null
   statusLabel: string
   blocker: {
-    kind: 'facility-capacity' | 'director-dispatch' | 'scenery-load-in' | 'take-scheduling'
+    // C2a-M2: widened by ONE arm, additively, because the engine gained one. A
+    // picture with a free stage and nothing built inside it waits on a SET, not on
+    // a facility slot, and the lot may not fold the two together — the remedies
+    // differ, and the world is where that difference becomes visible.
+    kind:
+      | 'facility-capacity'
+      | 'set-unavailable'
+      | 'director-dispatch'
+      | 'scenery-load-in'
+      | 'take-scheduling'
     headline: string
     detail: string
   } | null

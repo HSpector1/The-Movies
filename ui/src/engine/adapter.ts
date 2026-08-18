@@ -673,10 +673,28 @@ export type ProductionCommandView =
   | { kind: 'scheduleShootingTake'; productionId: string; label: string }
 
 export type ProductionBoardBlockerView = {
-  kind: 'facility-capacity' | 'director-dispatch' | 'scenery-load-in' | 'take-scheduling'
+  // C2a-M2: `set-unavailable` is the engine's own second waiting arm, and it had no
+  // producer here. A picture held for want of scenery matched no branch below, so
+  // the board called it "On schedule" — a sentence that was false at exactly the
+  // state it mattered most, with no reason and no remedy beside it (G12, owner law 2).
+  kind:
+    | 'facility-capacity'
+    | 'set-unavailable'
+    | 'director-dispatch'
+    | 'scenery-load-in'
+    | 'take-scheduling'
   headline: string
   detail: string
   consequence: string
+}
+
+/** The set a picture is physically standing on, once it has one (C2a-M2 §3.1). */
+export type ProductionBoardSetView = {
+  setId: string
+  /** The set's own name — what the ledger, the package and the world all call it. */
+  name: string
+  /** The engine facility name of the stage it stands on. */
+  stageName: string
 }
 
 export type ProductionBoardCardView = {
@@ -694,6 +712,13 @@ export type ProductionBoardCardView = {
   }
   shootingTaskStatus: ShootingTaskStatus | null
   statusLabel: string
+  /**
+   * The set this picture stands on, or null (C2a-M2). Null means exactly what it
+   * says — this picture is bound to no set — which is true of a picture still in
+   * development, of a picture waiting for one, and of every legacy or migrated
+   * in-flight production the grandfather rule left unbound.
+   */
+  boundSet: ProductionBoardSetView | null
   blocker: ProductionBoardBlockerView | null
   command: ProductionCommandView | null
   forecast: {
@@ -749,6 +774,8 @@ function legacyProductionBoardCard(state: GameState, production: Production): Pr
     director: { ...director, status: 'locked' },
     shootingTaskStatus: null,
     statusLabel: 'In production',
+    // A legacy studio holds no sets at all, so this is not "unknown" — it is none.
+    boundSet: null,
     blocker: null,
     command: null,
     forecast: {
@@ -756,6 +783,22 @@ function legacyProductionBoardCard(state: GameState, production: Production): Pr
       expectedCriticScore: production.forecastSnapshot.expectedCriticScore,
     },
   }
+}
+
+/**
+ * The set a workflow is bound to, named, or null (C2a-M2 §3.1).
+ *
+ * Pure lookup. A bound id that names no set returns null rather than a placeholder:
+ * the engine's own invariant already refuses that state, so inventing a name for it
+ * here would only hide a corruption the board is not the right place to report.
+ */
+function boundSetOf(state: GameState, workflow: ProductionWorkflow): ProductionBoardSetView | null {
+  const setId = workflow.bindings?.setId ?? null
+  if (setId === null) return null
+  const set = state.sets.find((candidate) => candidate.id === setId)
+  if (set === undefined) return null
+  const stage = state.operations.facilities.find((facility) => facility.id === set.mountedOn)
+  return { setId: set.id, name: set.name, stageName: stage?.name ?? set.mountedOn }
 }
 
 function managedProductionBoardCard(state: GameState, production: Production): ProductionBoardCardView {
@@ -808,6 +851,23 @@ function managedProductionBoardCard(state: GameState, production: Production): P
       consequence: PRODUCTION_HOLD_CONSEQUENCE,
     }
     statusLabel = 'Held for facility capacity'
+  } else if (workflow.blocker?.kind === 'set-unavailable') {
+    // C2a-M2 §3.2 — the OTHER waiting arm, and the reason the engine tells them
+    // apart: a picture with no stage waits on a BUILDING; a picture with a stage and
+    // nothing built inside it waits on a SET, and the two remedies are different
+    // things. Saying so is what keeps this relievable, which owner law 2 requires.
+    const target = PRODUCTION_PHASE_LABEL[workflow.blocker.targetPhase]
+    blocker = {
+      kind: 'set-unavailable',
+      headline: `${target} held — nothing to shoot on`,
+      // "A stage is free" is literally true at this state and not a softener: the
+      // engine raises this arm ONLY after it has seen a free stage, and raises
+      // `facility-capacity` when it has not.
+      detail:
+        'A stage is free, but there is no set standing on it that this picture can use. Commission or repair a set at the Scenery Shop; the picture will try again next week.',
+      consequence: PRODUCTION_HOLD_CONSEQUENCE,
+    }
+    statusLabel = 'Waiting for a set'
   } else if (task?.status === 'unassigned') {
     blocker = {
       kind: 'director-dispatch',
@@ -868,6 +928,10 @@ function managedProductionBoardCard(state: GameState, production: Production): P
     },
     shootingTaskStatus: task?.status ?? null,
     statusLabel,
+    // The bound set, named. `bindings.setId` is the engine's own record of what this
+    // picture is physically standing on; the stage name comes from the facility the
+    // set is mounted on, which is the single spoken authority for a stage (§3.1).
+    boundSet: boundSetOf(state, workflow),
     blocker,
     command,
     forecast: {
