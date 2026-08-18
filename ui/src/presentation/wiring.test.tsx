@@ -246,6 +246,74 @@ describe('PF1-M2 — aria-only promotion', () => {
     expect(block, 'the M2 flex-item declaration is gone with the defect').not.toContain('flex:')
   })
 
+  it('keeps the topbar to ONE ROW by compacting Saves and Settings, losing nothing', async () => {
+    // PF1-M4 addendum 2 intent pin. M3 added these two entries to a flex row that was
+    // already full, so below ~1120px the row wrapped and the topbar went 63px → 119.5px —
+    // the height that pushed the anchored panels out of the governed viewport
+    // (`lot.spec.ts` context top -80.5 @ 960x540; `publicity-campaign-v1.spec.ts` bottom
+    // 805.5 in a 768-tall viewport). Below the breakpoint they compact to their glyph.
+    //
+    // jsdom has no layout engine and evaluates no media query, so this pins what it CAN
+    // see: nothing was hidden or renamed, the handlers and testids are untouched, and the
+    // stylesheet's compact rules say what they must. Geometry stays with the browser specs.
+    const state = managedStudio('pf1-m4-topbar-one-row')
+    const navigations: unknown[] = []
+    const settingsOpened: number[] = []
+    render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={(route) => navigations.push(route)}
+        onExit={() => {}}
+        onAdvance={() => {}}
+        onOpenSettings={() => settingsOpened.push(1)}
+      />,
+    )
+    await screen.findByTestId('studio-lot-screen')
+
+    for (const [testid, name] of [
+      ['lot-open-saves', 'Saves'],
+      ['lot-open-settings', 'Settings'],
+    ] as const) {
+      const control = screen.getByTestId(testid)
+      expect(control.tagName, `${name} is still a button`).toBe('BUTTON')
+      expect(control, `${name} keeps the ghost treatment`).toHaveClass('ghost')
+      expect(control, `${name} is compactable`).toHaveClass('lot-topbar-compactable')
+      // The full name is spoken whichever span is painted.
+      expect(control).toHaveAttribute('aria-label', name)
+      expect(control.getAttribute('title')?.length ?? 0, `${name} has a tooltip`).toBeGreaterThan(0)
+      // The words are still in the document, and the mark is decorative.
+      expect(control.querySelector('.lot-topbar-label')).toHaveTextContent(name)
+      const mark = control.querySelector('.lot-topbar-mark')
+      expect(mark, `${name} carries a glyph`).not.toBeNull()
+      expect(mark).toHaveAttribute('aria-hidden', 'true')
+      expect((mark?.textContent ?? '').trim().length, `${name} glyph is not empty`).toBeGreaterThan(0)
+      // Accessible-name lookup still finds it, under the same name as before.
+      expect(screen.getByRole('button', { name })).toBe(control)
+    }
+
+    // The handlers are the ones they always were.
+    fireEvent.click(screen.getByTestId('lot-open-saves'))
+    expect(navigations).toEqual([{ kind: 'saves' }])
+    fireEvent.click(screen.getByTestId('lot-open-settings'))
+    expect(settingsOpened).toHaveLength(1)
+
+    const css = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', 'lot', 'lot.css'), 'utf8')
+    const compact = /@media \(max-width: 1120px\) \{([\s\S]*?)\n\}/.exec(css)?.[1] ?? ''
+    expect(compact, 'the breakpoint exists').not.toBe('')
+    expect(compact, 'the glyph appears below it').toContain('.lot-topbar-mark')
+    expect(compact, 'and the words are clipped, never display:none').toContain('clip: rect(0, 0, 0, 0)')
+    expect(compact).not.toMatch(/\.lot-topbar-label\s*\{[^}]*display:\s*none/)
+    expect(compact, 'the hit target never drops below 44px').toContain('min-width: 44px')
+    expect(compact).toContain('min-height: 44px')
+    // The studio's own focus ring is untouched and still reaches these buttons.
+    expect(css).toContain('.lot-screen :focus-visible')
+    // And the blocked-state reason can no longer make the bar taller.
+    const reason = /\.lot-next-event-disabled-reason \{([^}]*)\}/.exec(css)?.[1] ?? ''
+    expect(reason, 'the explainer line hangs below the bar instead of growing it').toContain(
+      'position: absolute',
+    )
+  })
+
   it('leaves the three already-visible announcements screen-reader-only', async () => {
     const state = managedStudio('pf1-m2-unpromoted')
     renderLot(state, 3)

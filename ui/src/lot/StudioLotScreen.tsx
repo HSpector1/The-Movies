@@ -8081,8 +8081,24 @@ export function StudioLotScreen({
             Dashboard. This is ordinary deep navigation through the SAME owner every other
             lot destination uses; it spends nothing and changes no state.
           */}
+          {/*
+            PF1-M4 addendum 2 — THE TOPBAR IS ONE ROW AT EVERY GOVERNED VIEWPORT.
+            M3 added these last two entries to a flex row that was already full. Below
+            1120px the row wrapped, and a wrapped topbar is 119.5px instead of 63px — it
+            pushed the world and every panel anchored in it past the viewport, which is
+            what `lot.spec.ts` read as a context panel at -80.5 @ 960x540 and
+            `publicity-campaign-v1.spec.ts` as a bottom of 805.5 in a 768-tall viewport.
+
+            So below the breakpoint these two compact to their glyph. Nothing is hidden
+            and nothing is removed: the same buttons, the same testids, the same handlers,
+            a >=44px hit target, the studio's own focus ring, and the full name still
+            spoken — carried by `aria-label` (so the accessible name never depends on which
+            span is painted) and shown on hover by `title`. The label span is not
+            `display: none` either; it is clipped, so a UA that ignores the stylesheet
+            still shows words rather than a bare mark.
+          */}
           <button
-            className="ghost"
+            className="ghost lot-topbar-compactable"
             disabled={worldInputSuspended}
             onPointerDown={containWorldInput}
             onMouseDown={containWorldInput}
@@ -8090,14 +8106,16 @@ export function StudioLotScreen({
             onClick={() => {
               if (!worldInputSuspendedRef.current) onNavigateRef.current({ kind: 'saves' })
             }}
+            aria-label="Saves"
             title="Export a print of this studio, or load one"
             data-testid="lot-open-saves"
           >
-            Saves
+            <span className="lot-topbar-mark" aria-hidden="true">▤</span>
+            <span className="lot-topbar-label">Saves</span>
           </button>
           {onOpenSettings && (
             <button
-              className="ghost"
+              className="ghost lot-topbar-compactable"
               disabled={worldInputSuspended}
               onPointerDown={containWorldInput}
               onMouseDown={containWorldInput}
@@ -8105,9 +8123,14 @@ export function StudioLotScreen({
               onClick={() => {
                 if (!worldInputSuspendedRef.current) onOpenSettings()
               }}
+              aria-label="Settings"
+              title="Sound, motion, and the rest of the projection booth"
               data-testid="lot-open-settings"
             >
-              Settings
+              {/* VARIATION SELECTOR-15: the gear is drawn as a glyph, never as a colour
+                  emoji, so it matches the rest of the bar on every platform. */}
+              <span className="lot-topbar-mark" aria-hidden="true">{'⚙︎'}</span>
+              <span className="lot-topbar-label">Settings</span>
             </button>
           )}
         </div>
