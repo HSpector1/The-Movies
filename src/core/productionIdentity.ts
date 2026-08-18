@@ -59,6 +59,53 @@ export function persistedProductionIds(state: GameState): Set<string> {
 }
 
 /**
+ * EVERY PLACE A CONCEPT IDENTITY IS PERSISTED — the concept analogue of
+ * `persistedProductionIds`, and the reservation the C2a-M3 screenplay mint checks
+ * against so a `concept-orig-NNNN` id is never re-minted (charter §3.5; guardrail
+ * `00B`.2 in its concept form; G17).
+ *
+ * FIVE ROOTS, and lane 14 §3.3 verified the list is exactly five by walking every
+ * persisted type: the source of truth `state.concepts`, plus the four roots that
+ * hold a `conceptId` after the concept itself is claimed —
+ *
+ *   * `studio.activeProductions[].conceptId` — a picture in flight;
+ *   * `studio.releasedFilms[].conceptId` — a picture in the library, forever;
+ *   * `theatricalRuns[].conceptId` — a run still on screens;
+ *   * `scriptDevelopment.projects[].conceptId` — a screenplay in development.
+ *
+ * The roots that carry NO concept id are as load-bearing as the ones that do, so
+ * they are named rather than left to a reader to re-derive: the cash ledger
+ * (talent/production/construction ids only), `careerEvents` (whose `filmId` is a
+ * PRODUCTION id and whose `filmTitle` is a frozen string), broadcast items and
+ * coverage contexts (production ids), and the operations workflows. Over-reserving
+ * against those would burn ids for no reason; under-reserving against the five
+ * would re-mint a live identity.
+ *
+ * Read DEFENSIVELY, exactly as `persistedProductionIds` is, because the save
+ * validators call identity checks over FROZEN V8–V13 fragments that genuinely
+ * predate later roots.
+ */
+export function persistedConceptIds(state: GameState): Set<string> {
+  const taken = new Set<string>()
+  const add = (id: string | null | undefined): void => {
+    if (id !== null && id !== undefined) taken.add(id)
+  }
+
+  for (const concept of state.concepts ?? []) add(concept.id)
+  for (const active of state.studio.activeProductions) add(active.conceptId)
+  for (const film of state.studio.releasedFilms) add(film.conceptId)
+  for (const run of state.theatricalRuns ?? []) add(run.conceptId)
+  for (const project of state.scriptDevelopment.projects) add(project.conceptId)
+  // The blueprint root is a sixth witness rather than a fifth source: a blueprint
+  // can only exist for a concept that exists. It joins the walk anyway, in BOTH
+  // directions, because that is the rule every new identity-bearing root follows
+  // the week it lands (§8.2, law 20).
+  for (const blueprint of state.originalScreenplays?.blueprints ?? []) add(blueprint.conceptId)
+
+  return taken
+}
+
+/**
  * The production identity a queue row carries — which is NONE, for every arm, on
  * purpose (§5.3): a queued intent references a script project, and no production
  * exists until greenlight commits one.

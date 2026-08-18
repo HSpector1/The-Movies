@@ -785,6 +785,45 @@ export const TUNING = {
   SET_GENRE_WEIGHT_STRONG: 0.7, // [ICH] convincing, not native
   SET_GENRE_WEIGHT_NEUTRAL: 0.5, // [ICH] serviceable — the house-set weight
   SET_GENRE_WEIGHT_WEAK: 0.25, // [ICH] it will read as the wrong place
+
+  // ── C2a-M3 — how long a screenplay takes to write (charter §3.5, `00E`.9) ──
+  //
+  // THE RULED LAW, and it reverses what C1 shipped: *writer experience affects
+  // WRITING SPEED, not script quality; the office tier owns the achievable
+  // quality ceiling* [CORPUS Prima, developer-reviewed, verbatim: "The more
+  // experience a scriptwriter has, the faster scripts will be completed.
+  // Scriptwriter experience has no bearing on the quality of the script. To speed
+  // the writing of scripts, put multiple writers on the project."] These numbers
+  // are that sentence, in weeks.
+  //
+  // THE BLAST-RADIUS BOUND, stated as a design constraint rather than discovered
+  // later: a POOL concept's draft is ONE WEEK UNCONDITIONALLY. Adapting a premise
+  // the market already owns is the fast path, every C1 commission keeps the clock
+  // it was measured with, and the variable clock belongs to the thing that is
+  // genuinely new — writing an original.
+  SCRIPT_DRAFT_WEEKS_POOL: 1, // [ICH] weeks to adapt a market concept — the C1 clock, unchanged
+  SCRIPT_DRAFT_WEEKS_BASE: 3, // [ICH] weeks an original screenplay starts from
+  SCRIPT_DRAFT_WEEKS_MIN: 1, // [ICH] no draft is ever instant (`00E`.9 names the floor)
+  SCRIPT_DRAFT_WEEKS_MAX: 6, // [ICH] and none is ever open-ended
+  // RICHNESS. A better office writes a RICHER script — more scenes, more roles —
+  // and the corpus is explicit that richer takes longer: Basic scripts "take the
+  // shortest time to write", every tier above "take[s] longer to write"
+  // [CORPUS Prima per-tier descriptions; Bible §5.2]. One week per tier above the
+  // studio's baseline development office.
+  SCRIPT_DRAFT_RICHNESS_WEEKS_PER_OFFICE_TIER: 1, // [CORPUS] weeks added per office tier above baseline
+  // EXPERIENCE. The veteran's whole advantage, and its ceiling. Applied through
+  // smoothstep over 0..100 perceived genre experience, so a first-timer pays full
+  // freight and the difference between two veterans is small.
+  SCRIPT_DRAFT_EXPERIENCE_WEEKS_MAX: 2, // [ICH] weeks the most experienced hand can save
+  // POOLING. "To speed the writing of scripts, put multiple writers on the
+  // project" [CORPUS Prima]. Half a week per extra hand: four extra writers buy
+  // two weeks, which is the same size as the whole experience lever — deliberately,
+  // so neither dominates.
+  SCRIPT_DRAFT_WEEKS_PER_EXTRA_WRITER: 0.5, // [ICH] weeks saved per writer beyond the first
+  SCRIPT_DRAFT_MAX_WRITERS: 5, // [CORPUS] the five-writer cap, verbatim (Prima; Bible §5.4)
+  // A renamed screenplay is a marquee title, not an essay. Bounded so a rename can
+  // never make a card, a hoarding or a headline unrenderable.
+  SCREENPLAY_TITLE_MAX_LENGTH: 64, // [ICH] characters a player-chosen title may run to
 } as const
 
 // ── Placement Core V12 — the facility blueprint catalog ──────────────────────
@@ -868,7 +907,7 @@ export const DEVELOPMENT_OFFICE_2_BLUEPRINT = {
   projectIdBase: 'construction-development-office-2',
   ledgerNote: 'Development Office II construction',
   effectSummary:
-    'Raises every screenplay drafted here by 4 points of estimated strength. It does not make writing faster.',
+    'Raises every screenplay drafted here by 4 points of estimated strength. An original screenplay written to this standard is richer, and takes a week longer to write.',
   requires: [],
   maxInstances: 1,
 } as const satisfies FacilityBlueprint
@@ -894,7 +933,7 @@ export const DEVELOPMENT_OFFICE_3_BLUEPRINT = {
   projectIdBase: 'construction-development-office-3',
   ledgerNote: 'Development Office III construction',
   effectSummary:
-    'Raises every screenplay drafted here by 9 points of estimated strength, replacing the second office\u2019s smaller gain.',
+    'Raises every screenplay drafted here by 9 points of estimated strength, replacing the second office\u2019s smaller gain. An original screenplay written to this standard takes two weeks longer to write.',
   requires: [{ kind: 'facility', blueprintId: 'development-office-2' }],
   maxInstances: 1,
 } as const satisfies FacilityBlueprint
@@ -1613,6 +1652,42 @@ export const WORLD_CONFIG = {
   talentCount: 60,
   conceptCount: 30,
   marketValueRange: [20_000_000, 80_000_000] as [number, number],
+} as const
+
+/**
+ * B11 — every film concept gets exactly these three cast slots, in this order.
+ *
+ * Hoisted here from `worldgen.ts` at C2a-M3 (same members, same order, so every
+ * generated world is byte-identical) because the screenplay mint has to build its
+ * `roleRequirements` in the SAME fixed order: the draw order IS the values, and
+ * two copies of a "fixed order" is how a fixed order stops being one.
+ */
+export const SLOT_ORDER: readonly CastSlot[] = ['lead', 'antagonist', 'support'] as const
+
+/**
+ * THE DISTRIBUTIONS A FILM CONCEPT IS DRAWN FROM (§9, B8, B11).
+ *
+ * Hoisted out of `worldgen.ts` at C2a-M3 at their exact shipped values — the
+ * generated worlds are byte-identical — because a MINTED original screenplay must
+ * draw its latents from *the same distribution the world's own premises came
+ * from* (charter §3.5). Two copies of "mean 60, sd 15, floor 20, ceiling 95"
+ * could drift apart in a later tuning pass and nobody would notice until an
+ * original screenplay was quietly a different kind of thing from a pool one.
+ * One table, two readers, and a test asserts both read it.
+ */
+export const CONCEPT_DISTRIBUTIONS = {
+  /** The hidden latent: 60% of C1's assessed strength, 100% of M3's. */
+  baselineStrength: { mean: 60, sd: 15, min: 20, max: 95 },
+  originalityRaw: { mean: 55, sd: 20, min: 5, max: 100 },
+  /**
+   * The funding-demand anchor. A minted concept never DRAWS this — it derives it
+   * from its own strength (charter §3.5, lane 14 §8.9), and these are the
+   * parameters that derivation maps onto.
+   */
+  baseNegativeCost: { mean: 4_500_000, sd: 1_500_000, min: 2_000_000, max: 9_000_000 },
+  /** Per-slot persona target axes, uniform over this interval. */
+  roleTargetAxis: { min: -1, max: 1 },
+  roleTolerance: { min: 0.8, max: 1.8 },
 } as const
 
 // ═══════════════════════════════════════════════════════════════════════════════

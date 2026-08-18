@@ -50,6 +50,20 @@ export type RngPurpose =
   // week, keyed talentId:week. Derived-only and read by a projection that writes
   // nothing, so presentation consumes zero simulation RNG and replay stays exact.
   | 'presence-v1'
+  // Renewable Screenplay Generation V1 (C2a-M3, charter §3.5 / guardrail
+  // `00C`.10.G): the latents and the working title of a MINTED original
+  // screenplay, keyed `<conceptId>:<field>` — one dedicated substream per field,
+  // exactly as worldgen's own concept generation does, so adding or removing a
+  // field never shifts another field's draws.
+  //
+  // KEYED ON THE MINT ORDINAL, NEVER ON A WEEK OR A YEAR. That is what makes a
+  // screenplay era-clean (G15): the engine has no calendar, and a generator that
+  // invented one would be exactly the blocking architecture the 1920→2040+
+  // timeline law forbids.
+  //
+  // DERIVED-ONLY, so minting never advances `state.rngState` and the M0A
+  // acceptance corpus stays byte-identical across this milestone.
+  | 'screenplay-v1'
 
 // A 32-bit hash accumulator step (splitmix32 finalizer). Deterministic, avalanche-y.
 function splitmix32(seed: number): { value: number; next: number } {

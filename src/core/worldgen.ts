@@ -59,6 +59,7 @@ import { emptyStudioEventLog } from './studioEvents.js'
 import { stream } from './rng.js'
 import { RngStream } from './rng.js'
 import {
+  CONCEPT_DISTRIBUTIONS,
   DISCIPLINE_ORDER,
   GEN_ADJACENCY,
   GEN_ARCHETYPE_MIX,
@@ -67,6 +68,7 @@ import {
   INITIAL_STANDING,
   ROLE_TO_DISCIPLINE,
   SKILL_ORDER,
+  SLOT_ORDER,
   TUNING,
   WORLD_CONFIG,
 } from './tuning.js'
@@ -124,8 +126,9 @@ const GENRE_ORDER: readonly Genre[] = [
   'adventure',
 ] as const
 
-// B11 — every concept always gets exactly these three slots, in this order.
-const SLOT_ORDER: readonly CastSlot[] = ['lead', 'antagonist', 'support'] as const
+// B11's slot order now lives in `tuning.ts` beside the other fixed vocabularies,
+// because the C2a-M3 screenplay mint draws its role requirements in the same
+// order and a "fixed order" declared twice is not one.
 
 // D-5 — segment order + shares (shares sum to 1); taste = TUNING.SEGMENT_TASTES[id].
 const SEGMENT_ORDER: readonly { id: SegmentId; share: number }[] = [
@@ -546,22 +549,45 @@ function generateConcepts(seed: string): FilmConcept[] {
 
   const concepts: FilmConcept[] = []
   for (let j = 0; j < WORLD_CONFIG.conceptCount; j++) {
+    // The four distribution tables live in TUNING as of C2a-M3, at their exact
+    // shipped values, because the screenplay mint draws from the same ones.
+    const strengthD = CONCEPT_DISTRIBUTIONS.baselineStrength
+    const originalityD = CONCEPT_DISTRIBUTIONS.originalityRaw
+    const costD = CONCEPT_DISTRIBUTIONS.baseNegativeCost
+    const axisD = CONCEPT_DISTRIBUTIONS.roleTargetAxis
+    const toleranceD = CONCEPT_DISTRIBUTIONS.roleTolerance
+
     const genre = GENRE_ORDER[Math.floor(genreS.next() * GENRE_ORDER.length)]!
-    const baselineStrength = strengthS.truncatedNormal(60, 15, 20, 95)
-    const originalityRaw = originalityS.truncatedNormal(55, 20, 5, 100)
+    const baselineStrength = strengthS.truncatedNormal(
+      strengthD.mean,
+      strengthD.sd,
+      strengthD.min,
+      strengthD.max,
+    )
+    const originalityRaw = originalityS.truncatedNormal(
+      originalityD.mean,
+      originalityD.sd,
+      originalityD.min,
+      originalityD.max,
+    )
     // B8 — baseNegativeCost
-    const baseNegativeCost = costS.truncatedNormal(4_500_000, 1_500_000, 2_000_000, 9_000_000)
+    const baseNegativeCost = costS.truncatedNormal(
+      costD.mean,
+      costD.sd,
+      costD.min,
+      costD.max,
+    )
 
     // roleRequirements built in FIXED slot order (B11): target axes uniform(-1,1),
     // tolerance uniform(0.8, 1.8).
     const roleRequirements = {} as Record<CastSlot, RoleRequirement>
     for (const slot of SLOT_ORDER) {
       const target: Persona = {
-        warmth: rolesS.uniform(-1, 1),
-        gravity: rolesS.uniform(-1, 1),
-        physicality: rolesS.uniform(-1, 1),
+        warmth: rolesS.uniform(axisD.min, axisD.max),
+        gravity: rolesS.uniform(axisD.min, axisD.max),
+        physicality: rolesS.uniform(axisD.min, axisD.max),
       }
-      const tolerance = rolesS.uniform(0.8, 1.8)
+      const tolerance = rolesS.uniform(toleranceD.min, toleranceD.max)
       roleRequirements[slot] = { target, tolerance }
     }
 

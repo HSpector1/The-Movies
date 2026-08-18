@@ -102,6 +102,29 @@ export function developmentOfficeEstUplift(state: GameState): number {
 }
 
 /**
+ * The studio's baseline script office — the founding Development & Casting
+ * department every managed studio has before it builds anything.
+ */
+export const BASELINE_DEVELOPMENT_OFFICE_TIER = 'development-casting-annex'
+
+/**
+ * WHICH office tier is standing right now, by blueprint id (C2a-M3).
+ *
+ * The same "highest tier wins, nothing stacks" ladder `developmentOfficeEstUplift`
+ * reads, returning the TIER rather than its EST points, because one tier has two
+ * consequences and they are not the same number: it raises what a screenplay can
+ * become (the uplift, unchanged since C1-M4) and it makes an original screenplay
+ * RICHER and therefore slower to write (`00E`.9, charter §3.5). Recorded on the
+ * blueprint as `officeTierAtMint`, which is an AUDIT TRAIL of what the studio
+ * worked to that week — never a strength term.
+ */
+export function developmentOfficeTier(state: GameState): string {
+  if (hasOperationalBlueprint(state, 'development-office-3')) return 'development-office-3'
+  if (hasOperationalBlueprint(state, 'development-office-2')) return 'development-office-2'
+  return BASELINE_DEVELOPMENT_OFFICE_TIER
+}
+
+/**
  * The OPERATIONAL blueprint that makes building this one add nothing — the
  * highest standing tier strictly above it in its own effect family — or null.
  *

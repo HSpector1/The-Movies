@@ -220,8 +220,10 @@ export {
   structureCells,
 } from './lot.js'
 export {
+  BASELINE_DEVELOPMENT_OFFICE_TIER,
   DEVELOPMENT_OFFICE_TIER_BLUEPRINT_IDS,
   developmentOfficeEstUplift,
+  developmentOfficeTier,
   freelancerFeeMultiplier,
   hasOperationalBlueprint,
   nonStackingDiscountMultiplier,
@@ -340,6 +342,10 @@ export {
   FORCE_VECTORS,
   INITIAL_STANDING,
   WORLD_CONFIG,
+  // C2a-M3 — the distributions a film concept is drawn from, and the fixed cast
+  // slot order both worldgen and the screenplay mint build against.
+  CONCEPT_DISTRIBUTIONS,
+  SLOT_ORDER,
   // D-9.16 large tables / fixed orders (named exports beside CAST_WEIGHT/FORCE_VECTORS)
   SKILL_ORDER,
   DISCIPLINE_ORDER,
@@ -430,6 +436,51 @@ export type { RngPurpose } from './rng.js'
 
 // §9 world generation (phase 3) + the §10-shared salary curve (B7)
 export { generateWorld, salaryCurve } from './worldgen.js'
+
+// ── C2a-M3 — Renewable Screenplay Generation V1 (charter §3.5) ───────────────
+// The authored vocabulary, the mint, the set demand, the writer-speed law, and
+// the provenance a surface prints.
+export {
+  BEAT_TEMPLATES,
+  BEATS_PER_BLUEPRINT,
+  TITLE_LEAD_BY_GENRE,
+  UNUSED_RECOVERED_BEAT_SHAPES,
+  type BeatTemplate,
+  type BeatTemplateProvenance,
+  type TemplateBeat,
+} from './data/screenplay.js'
+export { TITLE_LEAD, TITLE_NOUN } from './data/wordlists.js'
+export {
+  ACQUIRED_SCREENPLAY_LABEL,
+  ORIGINAL_CONCEPT_ID_PREFIX,
+  assertMovieBlueprintInvariants,
+  beatsForGenre,
+  blueprintForConcept,
+  developmentOfficeRichnessTier,
+  emptyOriginalScreenplays,
+  generateScreenplayTitle,
+  isOriginalConceptId,
+  isOriginalScreenplay,
+  mintOriginalConcept,
+  mintedNegativeCost,
+  movieBlueprint,
+  normalizeScreenplayTitle,
+  originalConceptId,
+  originalScreenplayCredit,
+  persistedConceptIds,
+  renameScreenplayRefusal,
+  requiredSetDemand,
+  requiredSetTypes,
+  screenplayDraftConsequence,
+  screenplayProvenance,
+  scriptDraftWeeks,
+  writingPaceExperience,
+  type MovieBlueprintInvariantContext,
+  type RequiredSetTypeView,
+  type ScreenplayProvenanceView,
+  type ScreenplayRenameRefusal,
+} from './screenplay.js'
+export { persistedProductionIds } from './productionIdentity.js'
 
 // §3 applyActions (phase 3) — greenlight / cancel / createTalent / createCustomTalent / createBalancedTalent
 export { applyActions, previewCustomTalent, previewBalancedTalent, balancedBoostDiscipline, predictProductionId } from './actions.js'
