@@ -3,6 +3,11 @@
 // This module is pure: it consumes no RNG, reads no wall clock, and never mutates
 // caller-owned state.
 
+import {
+  productionPhaseForRemainingTicks,
+  reachableCapacityBlockerForRemainingTicks,
+  requirementsForPhase,
+} from './productionPhases.js'
 import { TUNING } from './tuning.js'
 import type {
   FacilityCapability,
@@ -79,44 +84,10 @@ export function initialManagedStudioOperations(): StudioOperations {
   }
 }
 
-export function productionPhaseForRemainingTicks(remainingTicks: number): ProductionPhase {
-  switch (remainingTicks) {
-    case 8:
-      return 'development'
-    case 7:
-      return 'preProduction'
-    case 6:
-      return 'rehearsal'
-    case 5:
-    case 4:
-      return 'shooting'
-    case 3:
-    case 2:
-      return 'postProduction'
-    case 1:
-      return 'releaseReady'
-    default:
-      throw new Error(
-        `productionPhaseForRemainingTicks: remainingTicks ${String(remainingTicks)} is outside managed production range [1, 8]`,
-      )
-  }
-}
-
-function requirementsForPhase(phase: ProductionPhase): readonly FacilityCapability[] {
-  switch (phase) {
-    case 'development':
-    case 'preProduction':
-      return ['development-casting']
-    case 'rehearsal':
-      return ['soundstage']
-    case 'shooting':
-      return ['soundstage', 'set-scenery']
-    case 'postProduction':
-      return ['post']
-    case 'releaseReady':
-      return []
-  }
-}
+// The countdown→phase and phase→capability tables now live in ONE place
+// (`productionPhases.ts`) that the save validator reads too. Re-exported here
+// because this module has been their public address since V8.
+export { productionPhaseForRemainingTicks }
 
 function compareId<T extends { id: string }>(a: T, b: T): number {
   return a.id < b.id ? -1 : a.id > b.id ? 1 : 0
@@ -555,14 +526,12 @@ export function assertStudioOperationsInvariants(
     }
 
     if (workflow.blocker?.kind === 'facility-capacity') {
-      const reachableBlocker =
-        production.remainingTicks === 7
-          ? { capability: 'soundstage' as const, targetPhase: 'rehearsal' as const }
-          : production.remainingTicks === 6
-            ? { capability: 'set-scenery' as const, targetPhase: 'shooting' as const }
-            : production.remainingTicks === 4
-              ? { capability: 'post' as const, targetPhase: 'postProduction' as const }
-              : null
+      // Derived from the one phase table, not hand-tabled a third time: the only
+      // reachable refusal is the first capability the NEXT phase requires that
+      // this phase does not already hold and carry across (sticky retention).
+      const reachableBlocker = reachableCapacityBlockerForRemainingTicks(
+        production.remainingTicks,
+      )
       invariant(
         reachableBlocker !== null,
         `workflow "${workflow.productionId}" cannot have a capacity blocker at remainingTicks ${String(production.remainingTicks)}`,

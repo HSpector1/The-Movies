@@ -82,6 +82,11 @@ import {
   emptyStudioOperations,
 } from "./operations.js";
 import {
+  nextProductionPhase,
+  productionPhaseForRemainingTicksOrNull,
+  requirementsForPhase,
+} from "./productionPhases.js";
+import {
   assertScriptDevelopmentInvariants,
   emptyScriptDevelopment,
 } from "./scriptDevelopment.js";
@@ -2138,37 +2143,14 @@ function asPhase(value: unknown, label: string): OperationsPhase {
   return value as OperationsPhase;
 }
 
-function phaseForRemainingTicks(
-  remainingTicks: number,
-): OperationsPhase | null {
-  if (remainingTicks === 8) return "development";
-  if (remainingTicks === 7) return "preProduction";
-  if (remainingTicks === 6) return "rehearsal";
-  if (remainingTicks === 5 || remainingTicks === 4) return "shooting";
-  if (remainingTicks === 3 || remainingTicks === 2) return "postProduction";
-  if (remainingTicks === 1) return "releaseReady";
-  return null;
-}
-
-const REQUIRED_CAPABILITIES: Readonly<
-  Record<OperationsPhase, readonly OperationsCapability[]>
-> = {
-  development: ["development-casting"],
-  preProduction: ["development-casting"],
-  rehearsal: ["soundstage"],
-  shooting: ["soundstage", "set-scenery"],
-  postProduction: ["post"],
-  releaseReady: [],
-};
-
-const NEXT_PHASE: Readonly<Partial<Record<OperationsPhase, OperationsPhase>>> =
-  {
-    development: "preProduction",
-    preProduction: "rehearsal",
-    rehearsal: "shooting",
-    shooting: "postProduction",
-    postProduction: "releaseReady",
-  };
+// C2a-M0: `phaseForRemainingTicks`, `REQUIRED_CAPABILITIES`, and `NEXT_PHASE`
+// used to be a SECOND copy of the engine's phase machinery, living here so the
+// validator could refuse a malformed workflow without importing typed core logic.
+// Two copies of one table is two tables, and C2 is about to change what a phase
+// requires — so all three now come from `productionPhases.ts`, the single source
+// `operations.ts` reads as well. The validator keeps its own reading of the
+// countdown (null, not a throw) because it is holding untrusted JSON and owns the
+// message; that is a named function over the shared table, not a second table.
 
 // Validate the complete authoritative operations surface rather than accepting it as
 // display-only data. A malformed reservation or workflow changes the release clock, so
@@ -2312,7 +2294,9 @@ function checkOperationsState(
         `${itemLabel} owns a production with invalid remainingTicks`,
       );
     }
-    const expectedPhase = phaseForRemainingTicks(production.remainingTicks);
+    const expectedPhase = productionPhaseForRemainingTicksOrNull(
+      production.remainingTicks,
+    );
     if (phase !== expectedPhase) {
       throw new Error(
         `${itemLabel}.phase ${JSON.stringify(phase)} disagrees with remainingTicks ${production.remainingTicks} (expected ${JSON.stringify(expectedPhase)})`,
@@ -2384,7 +2368,7 @@ function checkOperationsState(
       if (capability === "soundstage") soundstageFacilityIds.add(facilityId);
     }
     const actualCapabilities = [...reservationCapabilities].sort();
-    const requiredCapabilities = [...REQUIRED_CAPABILITIES[phase]].sort();
+    const requiredCapabilities = [...requirementsForPhase(phase)].sort();
     if (!deepEqual(actualCapabilities, requiredCapabilities)) {
       throw new Error(
         `${itemLabel}.reservations must provide exactly ${requiredCapabilities.join(" + ") || "no facilities"} for ${phase}`,
@@ -2478,12 +2462,12 @@ function checkOperationsState(
           blocker.targetPhase,
           `${itemLabel}.blocker.targetPhase`,
         );
-        if (NEXT_PHASE[phase] !== targetPhase) {
+        if (nextProductionPhase(phase) !== targetPhase) {
           throw new Error(
             `${itemLabel}.blocker.targetPhase must be the next scheduled phase`,
           );
         }
-        if (!REQUIRED_CAPABILITIES[targetPhase].includes(capability)) {
+        if (!requirementsForPhase(targetPhase).includes(capability)) {
           throw new Error(
             `${itemLabel}.blocker.capability is not required by its target phase`,
           );
