@@ -2,10 +2,12 @@
 
 Fable PM / Game Director reconciliation pass · 2026-08-17 · **v1.2**
 
-**v1.2 (2026-08-18): Campaign 1 sealed and promoted (pending ratification); PF1
-inserted.** Campaign 1 (Lot Content Expansion) sealed KEEP at `f294077` and was
-fast-forwarded to canonical `main` this date — a single-key action disclosed for Owner
-ratification (charter §11.5). The Owner's 2026-08-18 launch order inserts **Professional Floor V1
+**v1.2 (2026-08-18): Campaign 1 sealed and promoted (RATIFIED); PF1 inserted and its
+charter selected.** Campaign 1 (Lot Content Expansion) sealed KEEP at `f294077` and was
+fast-forwarded to canonical `main` this date; the Owner ratified the promotion the same
+day (charter §11.5). The Owner also selected this branch's charter as the canonical PF1
+charter and retired the parallel planning session (its `professional-floor-v1` branch is
+read-only historical evidence, never merged). The Owner's 2026-08-18 launch order inserts **Professional Floor V1
 (PF1)** — a short audio/feedback/product-shell bridge campaign — between C1 and C2, reserves
 three design items for C2 (Premiere Night V1, the simulation-theater law, the Time Model
 Ruling Docket — §8a), and directs that PF1 build no new simulation subsystem. PF1's charter:
@@ -297,8 +299,8 @@ Relationships V1 moves ahead of Economy Closure** (recommendation below).
    catalog on the proven placement engine, unified facility identity including
    founding placements, Move & Demolish V1, expandable-property architecture,
    declarative unlock schema. Fully scoped in §9. **SEALED: KEEP at `f294077`
-   (2026-08-18), milestones M1–M8; fast-forwarded to canonical `main` the same date,
-   pending Owner ratification (charter §11.5).**
+   (2026-08-18), milestones M1–M8; fast-forwarded to canonical `main` the same date and
+   RATIFIED by the Owner (charter §11.5).**
 
    **→ Inserted next, before Campaign 2 — item 1a. Professional Floor V1 (PF1): Audio,
    Feedback & Product Shell** (bridge campaign, Owner order 2026-08-18; charter:
@@ -427,9 +429,9 @@ C2 planning must compare, explicitly and in writing:
   for mid-period actions.
 
 The docket's output is a recommendation returned to the Owner at C2 planning; the Owner
-rules. (The interrupted 2026-08-18 planning session's draft recorded a current Owner
-preference to investigate B first; that preference is unconfirmed by the standing launch
-order and awaits the Owner's own word.)
+rules. **Owner ruling 2026-08-18: Model B (living turn) is the preferred model to
+investigate FIRST — a starting hypothesis, not a ruling; the comparison remains genuine
+and evidence may defeat B.**
 
 ## 9. Campaign #1 — LOT CONTENT EXPANSION ("a studio you actually build")
 
@@ -649,17 +651,23 @@ machinima work; any macroeconomy repair beyond instrumentation.
     restrained humor, period flavor; established in PF1 charter §3, reused by later
     campaigns.
 
-**Carried from the interrupted 2026-08-18 planning session — unconfirmed, Owner to
-confirm or strike at PF1 authorization:**
-- The **futures shelf / "anticipation pillar"** (≤3 truthful locked catalog rows on the
-  existing not-yet-attainable machinery) — excluded from PF1's baseline pending the ruling
-  (charter §11.1).
-- The **living-turn (B) time-model investigation preference** (§8a note).
+**Resolved by the 2026-08-18 authorization-pass rulings (recorded, binding — charter §11):**
+12. **This branch's charter is the canonical PF1 charter**; the parallel session is
+    retired, its branch read-only, never merged.
+13. **Futures shelf STRUCK from PF1** — `src/core` is never touched to tease future
+    systems; anticipation returns at C3/C4 planning.
+14. **Model B (living turn) = preferred investigation hypothesis** for the C2 §8a docket,
+    not a ruling.
+15. **Wrap → C2; first-profit / achievement-style beats → C3; PF1 manufactures no
+    substitute events.** Existing authoritative FMJ events receive normal punctuation.
+16. **C1 main promotion RATIFIED**; canonical `main` correct at `f294077`.
+17. **Save shell: the cheap set is sufficient; no save-slot subsystem in PF1.**
+18. **PF1-M4 ends SEAL → STOP FOR OWNER REVIEW**; C2 is the intended next campaign but
+    requires its own authorization.
 
 **Still required from the Owner:**
-0. **PF1 implementation authorization** — the charter is a planning deliverable; PF1 does
-   not begin until the Owner authorizes it, ruling on charter §11 (futures shelf; branch
-   naming; the wrap/achievements substitution; optionally the time-model preference).
+0. **PF1 GO** — rulings are recorded and the commercial red-team is reconciled (charter
+   §0.7); implementation begins only on the Owner's explicit GO.
 1. **Concurrency/capacity specifics — before C2 freeze** (the explicit ruling Owner
    Ruling 5 assigns to C2): target concurrent-production range at mature build-out,
    and which constraint should bind first (stages, sets, casting/development slots,
@@ -709,6 +717,7 @@ at developer-reviewed or engine-schema confidence.
 without implementation, per the mission's hard stop. Campaign 1 awaits Owner
 authorization.*
 
-*v1.2 — Campaign 1 sealed KEEP and fast-forwarded to canonical `main` (pending Owner
-ratification); PF1 inserted and chartered as a planning deliverable; C2 reservations
-recorded; stopped without implementation. PF1 awaits Owner authorization.*
+*v1.2 — Campaign 1 sealed KEEP and fast-forwarded to canonical `main` (RATIFIED); PF1
+inserted, chartered, its charter selected as canonical with Owner rulings applied, and
+the commercial red-team reconciled; C2 reservations recorded; stopped without
+implementation. PF1 awaits the Owner's explicit GO.*

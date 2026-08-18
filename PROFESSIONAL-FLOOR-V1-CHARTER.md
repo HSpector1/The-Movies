@@ -1,6 +1,7 @@
-# PROFESSIONAL FLOOR V1 — CAMPAIGN CHARTER (FOR OWNER AUTHORIZATION)
+# PROFESSIONAL FLOOR V1 — CAMPAIGN CHARTER (CANONICAL — OWNER RULINGS APPLIED)
 
-> Status: **PLANNING DELIVERABLE — no implementation is authorized by this document.**
+> Status: **CANONICAL PF1 CHARTER, selected by the Owner 2026-08-18 with rulings applied
+> (§11 records them). Implementation still awaits the Owner's explicit GO.**
 > Prepared by the Fable PM session of 2026-08-18 under the Owner launch order
 > ("PROJECT: STUDIO — GAME DIRECTOR / PM SESSION", PF1 direction approved with hard scope).
 > Base: the sealed Campaign 1 tree (`f294077`), now promoted to canonical `main`.
@@ -17,7 +18,7 @@
    seal. The seal `f294077` was an 88-commit clean fast-forward; I pushed it
    (`24fb87b..f294077 → main`, no force) and verified. This was a single-key action under a
    standing two-key custom, taken to make the launch order's stated precondition true —
-   disclosed for Owner ratification at §11.5.
+   disclosed, and **ratified by the Owner** (§11.5).
 2. **A parallel PF1 planning session exists and has published its own charter.** When this
    session started, the Autonomous Marathon worktree held an *uncommitted* draft charter
    (file written 09:49) on branch `professional-floor-v1`; per the launch order I treated
@@ -25,8 +26,9 @@
    claims independently. At 10:02 — while this session was working — that session (or
    someone at that worktree) **committed the draft (`de34e8c`, `6087b67`) and pushed
    `professional-floor-v1` to `hspector-github`.** I have not touched that branch or
-   worktree. **There are now two competing PF1 charters; §11.0 puts the choice to the
-   Owner.** Where the two disagree on verifiable facts, this charter's positions were
+   worktree. Two competing PF1 charters briefly existed; **the Owner ruled this one
+   canonical and retired that session (§11.0).** Where the two disagreed on verifiable
+   facts, this charter's positions were
    re-verified against the code this session (e.g. 9 dialog sites not 9-plus-miscounts;
    no wrap event; no achievements system; Phaser-vs-standalone audio ownership; save
    slots not cheap).
@@ -34,16 +36,37 @@
    carries the other session's commits, this campaign lives on
    **`professional-floor-v1-fresh`** (branched from the same C1 seal). Nothing is lost;
    the Owner consolidates at authorization.
-4. **Two predecessor-draft claims could not be traced to the launch order** and are routed to
-   the Owner in §11 rather than silently adopted: the "futures shelf / anticipation pillar",
-   and a recorded Owner preference for the "living-turn" time model.
+4. **Two predecessor-draft claims could not be traced to the launch order** and were routed
+   to the Owner rather than silently adopted — both are now ruled: the futures shelf is
+   STRUCK from PF1 (§11.1), and the living-turn preference is recorded as the Owner's
+   investigation hypothesis for the C2 docket, not a ruling (§11.2).
 5. **The C1 regression floor reproduces in this worktree** (this session, fresh `npm ci`):
    both tsc clean, vitest 241 files / 3,318 tests all passing, and the lot-evidence
    Playwright spec green (exit 0) — the baseline PF1 inherits is real here, not remembered.
-6. **Two v1.2s of the master plan now exist** — the parallel session committed its own to
-   `professional-floor-v1`; this session's (materially different, §11-aligned) lands only
-   on `professional-floor-v1-fresh`. **Neither merges anywhere until §11.0 is ruled**, so
-   exactly one v1.2 ever reaches canonical history.
+6. **Two v1.2s of the master plan existed** — the parallel session committed its own to
+   `professional-floor-v1`; this session's lands only on `professional-floor-v1-fresh`.
+   **Ruled 2026-08-18: this charter and this plan are canonical; the archive session is
+   retired and its branch is read-only historical evidence, never merged** (§11.0).
+7. **Commercial red-team reconciliation (2026-08-18, live-game lease held by this PM).**
+   Sonnet's two CRITICAL findings against the C1 baseline were reconciled by direct
+   reproduction:
+   - *"Screenplay-review actions dead" — DOES NOT REPRODUCE; environment artifact.* The
+     sealed FMJ golden-path Playwright proof passes at `f294077`, and a manual virgin
+     pass exercised commission → draft → **Request final rewrite** (EST 66.5 → 74.5) →
+     final review → **Accept** (from the Writers' Room deep screen) → Writers' Room
+     re-entry → ready-to-package, all green.
+   - *"Lot blank all session" — reproduces ONLY in a hidden tab, and is the deliberate
+     CPU-saver, not a defect.* `StudioLotScreen` pauses the whole renderer while
+     `document.hidden` (scene-ready reconcile + `visibilitychange` handler,
+     `StudioLotScreen.tsx:4180, 4432-4449`); automation tabs driven over CDP stay
+     hidden forever, so the canvas (transparent) shows the page background. Simulating
+     visibility painted the **whole property, correctly framed, with zero guidance
+     navigation** — the initial framing is correct and the design self-heals the moment
+     a real player looks at the tab. The earlier "first-load camera void" observation
+     was this same mechanism. **No hotfix required; the Owner's acceptance test — on
+     first legitimate (visible) Lot entry the player sees the studio — passes.** QA/
+     automation law recorded for every future agent: **drive the game in a visible tab,
+     or the renderer sleeps by design.**
 
 ## 1. Mission and bounds
 
@@ -75,8 +98,8 @@ is still an instrument panel.
 
 - Punctuation and audio fire from **authoritative receipts and state transitions the engine
   already emits** — `SimResult`/`SimStopReason` (`adapter.ts:2213-2246`), the greenlight
-  formation receipt, construction completion receipts, action outcomes, the FirstFilmJourney
-  stage projection — never from renderer motion, timers, or React-inferred state. The engine
+  formation receipt, construction completion receipts, action outcomes — never from
+  renderer motion, timers, or React-inferred state. The engine
   owns the fact; the UI owns the words (`facilityMutation.ts:1-16`); `stopMessage` is
   displayed verbatim and never paraphrased (`adapter.ts:2241-2243`).
 - Presentation state (volumes, motion preference, audio unlock) lives **outside `GameState`**
@@ -93,12 +116,10 @@ is still an instrument panel.
   so a reloaded save replays no stings without needing any persisted "seen" marker. One
   named exception: the session-restore/migration cue, which is *about* the load event
   itself, fires once per genuine first-load and never on remount.
-- One bounded derivation is permitted and named: **journey "firsts"** come from comparing
-  the FirstFilmJourney **stage projection** (`firstFilmJourney(state)` ordinals — a pure
-  engine projection, not an emitted event) across an action/advance boundary, in one named
-  detector module, session-scoped and non-persisted. Diffing two authoritative projections
-  of engine state is engine truth, not React invention; anything beyond this single carve-out
-  is out of bounds.
+- **No manufactured events** (Owner ruling, 2026-08-18): PF1 punctuates only transitions
+  that already arrive as authoritative receipts. It does not build detectors to derive
+  "first"-style milestone events that the engine does not emit — achievement-style beats
+  wait for C3, wrap waits for C2 (§11.4).
 - Audio must not narrate skipped time (operational law 3): a multi-week batch is one stop and
   one punctuation, never per-week theater.
 - **Proof obligation (the Owner's restraint test, made mechanical):** a scripted parity run —
@@ -197,7 +218,8 @@ these workstreams explicitly.
   nothing emits it), and **quota/storage failure is silently swallowed**
   (`session.ts:40-42`) — the player is never told persistence is off. These are the cheap
   wins the Owner's "if cheap" clause covers. Multi-slot saves are NOT cheap (a new subsystem
-  plus envelope metadata pressure toward V14) — excluded, §9.
+  plus envelope metadata pressure toward V14) — excluded, §9, and the Owner ruled the cheap
+  set sufficient.
 - **UI scale has no seam.** ~159 absolute px font-size declarations across the two global
   stylesheets, a hard `width=1280` viewport meta (`index.html:5`), no rem discipline. Cut
   from PF1 per the Owner's own condition ("if clean" — it is not).
@@ -212,9 +234,9 @@ these workstreams explicitly.
 - **Known live defects PF1 inherits and will fix in passing** (all presentation-side): the
   silent quota swallow above; the stale absolute worktree path in `ui/m6b-art.config.ts:3`
   (points at the Marathon worktree — silently exercises the wrong tree); no favicon/meta at
-  all (`index.html`, 12 lines). And one **defect found in my play session, to red-team**: on
-  first load at an unusual viewport, the lot camera framed an empty region and the world
-  appeared as a black void until the first guidance navigation reframed it.
+  all (`index.html`, 12 lines). The earlier "first-load camera void" observation was
+  reconciled as NOT a defect — it is the hidden-tab renderer pause self-healing on
+  visibility (§0.7); the initial framing is correct.
 - **Known seams PF1 must present honestly but NOT fix** (other campaigns' scope): the F4
   whole-board-idle commission eject, F2 unengageable effect buildings, F3 demolish-for-refund
   timing (C2, recorded at the C1 seal); the 480×270/DSF2 below-fold placement; the
@@ -300,10 +322,15 @@ check (fresh studio, hands off — the place sounds like it exists).
 ### PF1-M2 — PUNCTUATION (important events get felt; the law gets codified)
 
 - **A pure cue grammar** — `ui/src/presentation/eventGrammar.ts`, a total function from
-  authoritative inputs (`SimResult`, action receipts, formation receipt, journey milestones)
-  to cue descriptors `{id, tier, soundFamily, motion, worldAnchor}`. No React, no timers, no
+  authoritative inputs (`SimResult`, action receipts, the formation receipt) to cue
+  descriptors `{id, tier, soundFamily, motion, worldAnchor}`. No React, no timers, no
   audio calls. An exhaustiveness test iterates the `SimStopReason` union so an 11th member
   fails the suite instead of producing silence.
+- **Transient notice lifecycle (Owner-approved red-team addition):** every toast/receipt
+  strip carries an explicit lifecycle — it clears on the next unrelated player action or
+  week advance, and never sits indefinitely through play (today's commissioned-receipt
+  strip persists across whole sessions). Dismissal is presentation state only; **no
+  persisted journal** — history remains the clippings/Chronicle.
 - **Tier discipline** (the cue descriptor's `motion` field is a closed vocabulary —
   `none | emphasis | held-beat | count-up` — so the pinned tier table is checkable):
   - *Tier 1 — memorable (reserved, few; motion `held-beat` or `emphasis`):* movie release
@@ -316,8 +343,7 @@ check (fresh studio, hands off — the place sounds like it exists).
   - *Tier 2 — minor (one small sound + motion `emphasis` or `count-up`):* commit receipts
     (build/commission/casting/package), construction started, contract/renewal warnings,
     cash-negative crossing (warning family), week advance (a quiet tick — the world
-    acknowledging time), journey "firsts" (via the §2 carve-out; if the Owner prefers
-    strictness, these defer to C2's event model — §11.4).
+    acknowledging time).
   - *Tier 3 — none (motion `none`):* bookkeeping stays bookkeeping. The restraint test is a
     seal gate, not a vibe.
 - **Co-tick law:** the orthogonal `constructionCompletion` beside a primary stop reason
@@ -385,10 +411,22 @@ tsc; full vitest; focused Playwright.
   stays visible — determinism is product identity — but presented as "the world", not a
   form field. Favicon, page title, meta description; the recovered/migration banners
   restyled in voice and wired into the punctuation grammar (restore cue per the §2
-  exception: genuine first-load only, never HMR remounts).
+  exception: genuine first-load only, never HMR remounts) — and **honest** (Owner-approved
+  red-team addition): routine continuation of the same session never announces "Recovered
+  your studio"; the banner appears only on genuine recovery, migration, or corrupt-save
+  quarantine.
+- **Keyboard focus visibility (Owner-approved red-team addition):** an intentional,
+  accessible `:focus-visible` treatment designed as part of the shell — keyboard focus
+  visibility is never removed or reduced anywhere PF1 touches.
 - **Config hygiene:** fix the stale worktree path in `ui/m6b-art.config.ts:3`.
 - Editorial voice applied to every string this milestone touches (§3 discipline: new copy
-  free; pinned copy only via owning module + provenance re-pins).
+  free; pinned copy only via owning module + provenance re-pins). **Targeted
+  prototype-copy cleanup (Owner-approved red-team addition), Publicity Campaigns first:**
+  remove player-facing prose that reads as balance-analysis notes, measurement
+  methodology, implementation commentary, internal acceptance-test language, or developer
+  disclaimers (the Standing explanations and "exact acceptance receipt validation"
+  register). Preserve the actual mechanic and the exact refusal facts. This is a named
+  short-list pass, NOT a whole-game copy rewrite; `src/core`-owned strings route per §3.
 
 Gate: both tsc; full vitest; zero-browser-dialog hygiene gate; settings/save e2e spec on the
 5179 origin (settings open/persist/reload, mute toggle, motion root-attribute, one real
@@ -396,7 +434,7 @@ punctuated event) using DOM telemetry attributes, not sound; byte-parity proof; 
 matrix on touched surfaces (960×540, 200% zoom, forced colors, reduced motion, 480×270/DSF2,
 44px targets, visible focus).
 
-### PF1-M4 — SEAL (playtest, red-team, KEEP/KILL)
+### PF1-M4 — SEAL → STOP FOR OWNER REVIEW (playtest, red-team, KEEP/KILL)
 
 - **Fable playtest against the Owner's four tests, verbatim:** the 60-second test (launch,
   touch nothing — does the studio sound like a place that exists?); the 30-minute test
@@ -407,9 +445,10 @@ matrix on touched surfaces (960×540, 200% zoom, forced colors, reduced motion, 
 - **Bounded fix wave** (OPUS-FIX, §6: sole writer, scope strictly the red-team findings the
   PM rules in-scope — anything larger reopens the relevant milestone instead), then seal:
   KEEP/KILL per milestone, gate figures regenerated at the named seal HEAD, campaign log
-  closed, handoff written pointing directly into C2 planning (which owns Premiere Night V1,
-  the simulation-theater law, the Time Model Ruling Docket — and now the event-model
-  design, §10).
+  closed. **PF1 ends: SEAL → STOP FOR OWNER REVIEW.** C2 is the intended next campaign and
+  its planning inputs are recorded (Premiere Night V1, the simulation-theater law, the Time
+  Model Ruling Docket, the event-model docket — §10), but **C2 does not start
+  automatically; it requires its own Owner authorization.**
 
 ## 6. Opus dispatch plan (who builds what; the PM grades it)
 
@@ -491,8 +530,10 @@ serialized Playwright on both origins at the M4 seal.
 - Structural pins byte-identical; draw calls unmoved; no new display objects.
 - Voice truthfulness: every new/edited sentence literally true at its state (the C1-M8
   standard); no engine jargon reaching the player anywhere.
-- The first-load camera-void defect found in this session's play: reproduce, diagnose,
-  fix or file with evidence.
+- The hidden-tab pause/resume seam (§0.7): verify the renderer wakes correctly across
+  every mount state (hidden before import, hidden at scene-ready, hidden mid-session)
+  and that no PF1 audio plays while the renderer sleeps in a hidden tab; the
+  automation-visibility law is documented for QA agents.
 - Dialog-replacement control flow: the 3 refusal paths that relied on `alert()`'s blocking
   semantics (`App.tsx:2691, 2701, 2810`) — prove no race with dispatch/autosave.
 
@@ -505,7 +546,9 @@ serialized Playwright on both origins at the M4 seal.
 | Time model (real-time/pause/speed) | **C2 Ruling Docket** (Owner-reserved) | Simulation-design decision, not presentation |
 | Authoritative event stream / GameStateV14 | **C2 planning docket** (PM recommendation, §10) | Design it next to its real consumers |
 | "Principal photography wraps" beat | **C2** | No authoritative wrap transition exists today (§4) |
-| Achievements system; awards/rank/research punctuation | **C3/C4** | Systems don't exist; PF1 punctuates journey "firsts" instead |
+| Achievements system; awards/rank/research punctuation; "first"-style milestone beats | **C3/C4** | Systems don't exist; PF1 manufactures no substitute events (Owner ruling §11.4) |
+| Talent portraits / visual identity | **C5 Stars Become People** | No PF1 portrait-art campaign (Owner ruling) |
+| Creative-shape control redesign | **Deferred, unowned** | Owner ruling |
 | "First profitable picture" beat | **C3** | Needs a cumulative-profit derivation + honesty ruling |
 | Ambient NPC simulation, crowds, vehicles-with-purpose | **C2+** | Owner hard scope |
 | Voice acting / recorded announcer | **Later production-value decision** | Text register + stings suffice |
@@ -533,56 +576,30 @@ serialized Playwright on both origins at the M4 seal.
 3. **The seed of Premiere Night** exists in PF1 only as the release sting + NewspaperReveal
    handoff; C2 stages the rest.
 
-## 11. Items requiring an explicit Owner ruling at authorization
+## 11. Owner rulings recorded (2026-08-18 authorization pass)
 
-0. **Two charters exist — pick one and retire the other session.** The parallel session's
-   charter (r1 `de34e8c`, master plan `6087b67`; since iterated to **r2 `83d0c46`** with
-   plan note `e8462e7` "ownership plan frozen" — the contrasts below were verified against
-   r1, and that session is still actively pushing) and this one agree on the
-   four-milestone shape, the presentation law, the voice direction, and most non-goals.
-   They differ materially where this session's recon corrected facts or applied the
-   launch order's conditionals:
-   - *Audio ownership:* theirs rides Phaser's sound manager; this charter disables it and
-     builds one standalone service (events fire on non-Lot screens; the Lot is lazy-loaded
-     and rollback-able; renderer recreation would kill scene-owned audio).
-   - *Save shell:* theirs commits to 6 named slots; this charter ships the cheap set and
-     defers slots (the Owner's "if cheap" condition — slots are a new subsystem with
-     V14 pressure).
-   - *Futures shelf:* theirs bakes it in as Owner-approved; this charter routes it to
-     ruling §11.1.
-   - *This charter adds* the required Opus dispatch plan, the corpus-verified original
-     soundscape (PA/radio/four-ensemble evidence and its restraint consequences), the
-     wrap/achievements honesty finding (§11.4), the aria-only audit scope (five regions,
-     not two), and the C2 event-model docket recommendation.
-   Only one campaign may proceed; "one production writer per mutable surface" applies to
-   PM sessions too.
-1. **The futures shelf ("anticipation pillar") — recommend STRIKE from PF1; revisit at
-   C3/C4 planning.** The parallel session's charter proposes ≤3 locked catalog rows
-   (Laboratory / Star Trailer / North Annex land grant) and records them as Owner-approved;
-   I cannot trace that approval to my launch order — and the red-team established the item
-   **cannot land inside PF1's own bounds at any price**: the build catalog is engine data
-   (`FACILITY_BLUEPRINTS` in `src/core/tuning.ts:748-755`), so adding rows breaches §1's
-   "`src/core` is untouched"; and rows gated on systems that do not exist violate the
-   committed no-decorative-blueprint product law (`tuning.ts:625-631`: "no dependency on
-   any system that does not exist yet"; the C1-M4 scenery-annex precedent was STOPPED on
-   exactly these merits). If the Owner nonetheless wants it in PF1, it requires an explicit
-   written waiver of §1 plus a named `src/core` writer added to §6 — this charter
-   recommends against, and carries it as a §9 non-goal routed to C3/C4, where the
-   requirement kinds it depends on actually activate.
-2. **The "living-turn" time-model preference.** The draft records model B as the Owner's
-   current investigation preference. My launch order confirms the docket but not the
-   preference. The master-plan amendment lists A/B/C neutrally; the Owner's preference gets
-   recorded at C2 planning (or now, if the Owner wishes).
-3. **Branch naming** (§0.3): keep `professional-floor-v1-fresh`, or direct a consolidation.
-4. **"Wrap" and "achievements" in the launch order's punctuation list** cannot be punctuated
-   authoritatively in PF1 (§4). This charter substitutes journey "firsts" (via the bounded
-   §2 projection-diff carve-out) and defers wrap to C2 — confirm the substitution, or
-   direct the strict alternative (journey firsts also wait for C2's event model).
-5. **Ratify the main promotion.** This session fast-forwarded canonical `main`
-   `24fb87b → f294077` (the Owner-accepted C1 seal; no force, nothing lost) to make the
-   launch order's stated precondition true — a single-key action under a standing two-key
-   custom. Ratify it, or direct the remedy; this charter recommends ratification (a revert
-   would rewrite shared history for no content difference).
+0. **This charter is CANONICAL.** The parallel "archive Fable" session is retired; its
+   `professional-floor-v1` branch (r1 `de34e8c`/`6087b67`, r2 `83d0c46`/`e8462e7`) is
+   read-only historical evidence and is never merged. One PM, one charter, one campaign.
+1. **Futures shelf: STRUCK from PF1.** `src/core` is not touched to tease future systems
+   (the red-team's finding stands: catalog rows are engine data, and rows gated on
+   nonexistent systems violate the no-decorative-blueprint law — `tuning.ts:625-631`,
+   C1-M4 scenery-annex precedent). Anticipation returns at C3/C4 planning, where
+   progression/research/land exist.
+2. **Time model: Model B ("living turn") is the Owner's preferred model to investigate
+   first — a hypothesis, NOT a ruling.** C2's §8a docket still compares A (discrete
+   event/week), B (living turn), and C (continuous) in writing; analysis begins from B
+   and evidence may defeat it. The Owner rules on the docket's recommendation.
+3. **Branch: `professional-floor-v1-fresh` is kept** as the PF1 working branch.
+4. **Wrap lands in C2; first-profit and achievement-style beats land in C3.** PF1 does
+   NOT manufacture replacement events for wishlist items that don't authoritatively
+   exist — the journey-"firsts" substitution is removed (§2). Existing authoritative
+   FMJ events (commission, script review, accept, formation/PICTURE FORMED, release,
+   construction, refusals) receive normal punctuation where already supported.
+5. **The main promotion (`24fb87b → f294077`) is RATIFIED.** Canonical `main` is correct.
+6. **Save shell: the cheap set is ruled sufficient** — human save presentation, file
+   import/export, player-visible storage/quota failure, an accessible Saves entry. No
+   named save-slot subsystem in PF1. PF1 stays short.
 
 ## 12. Owner playtest (requested at seal)
 
@@ -592,8 +609,7 @@ export, reimport. The four tests (§5-M4) are the script. PF1 ships only on your
 
 ## 13. Definition of DONE
 
-PF1 is DONE when, at a single named HEAD on the PF1 working branch fixed by the §11.3
-ruling (default `professional-floor-v1-fresh`):
+PF1 is DONE when, at a single named HEAD on `professional-floor-v1-fresh` (§11.3):
 
 1. The four Owner tests pass in the Owner's own playtest (§12).
 2. The parity proof holds: identical seeded action script, presentation on vs off/muted,
@@ -616,5 +632,5 @@ ruling (default `professional-floor-v1-fresh`):
    structural pins byte-identical; every gate figure names its HEAD; no test deleted or
    weakened.
 10. The presentation-never-persists law is recorded in `docs/SHIFT-OPERATIONAL-LAWS.md`,
-    and the campaign log records KEEP/KILL per milestone with independent verification,
-    sealing directly into C2 planning.
+    and the campaign log records KEEP/KILL per milestone with independent verification.
+    **The seal STOPS for Owner review; C2 requires its own authorization.**
