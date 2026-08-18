@@ -9,7 +9,7 @@ proposed here: where a number looks wrong it is **FLAGGED** and left alone.
 | Fact | Value |
 | --- | --- |
 | Generating command | `node_modules/.bin/vite-node scripts/measure-c1-economy.mts` |
-| Generated at HEAD | `bd6c4ba9c97db58c3491e04e0e34f9d8af5cb23f` |
+| Generated at HEAD | `c1e7cb09dfec819e019f8eaa69ecd74ec8714d65` |
 | Last commit touching `src/` or `ui/src/` | `63339cdb42ee59d58d9553b2b29e5978f4dfdbfb` |
 | Direct-measurement seed | `c1-economy-001` |
 | Capacity-study seeds | `c1-economy-001`, `c1-economy-002`, `c1-economy-003`, `c1-economy-004`, `c1-economy-005` |
@@ -105,11 +105,11 @@ estimate, and the tiers replace rather than stack: Office III is +9 and never +1
 
 Each arm carried its picture from commission to the close of its theatrical run.
 
-| Arm | Critic score | Box office | Studio revenue | Δ revenue vs no office | Capital spent by Week 20 |
-| --- | --- | --- | --- | --- | --- |
-| No development office | 60.122 | $13,206,817 | $6,867,545 | — | $1,879,660 |
-| Development Office II (operational Week 8) | 60.902 | $13,472,069 | $7,005,476 | $137,931 | $2,509,660 |
-| Development Offices II + III (III operational Week 20) | 61.877 | $13,807,762 | $7,180,036 | $312,491 | $3,709,660 |
+| Arm | Critic score | Box office | Studio revenue | Δ revenue vs no office | Facility capital committed | Total cash burned by Week 20 |
+| --- | --- | --- | --- | --- | --- | --- |
+| No development office | 60.122 | $13,206,817 | $6,867,545 | — | $0 | $1,879,660 |
+| Development Office II (operational Week 8) | 60.902 | $13,472,069 | $7,005,476 | $137,931 | $600,000 | $2,509,660 |
+| Development Offices II + III (III operational Week 20) | 61.877 | $13,807,762 | $7,180,036 | $312,491 | $1,800,000 | $3,709,660 |
 
 | Step | EST points bought | Capital | EST points per $1M | Revenue per picture | Revenue per $1M of capital |
 | --- | --- | --- | --- | --- | --- |

@@ -28,8 +28,10 @@
 //     accepted research observatory, driven at the two-production policy — consumed
 //     read-only, never modified;
 //   • output is DETERMINISTIC: no clock, no `Math.random`, fixed-precision formatting,
-//     and the only environment fact recorded is the HEAD the run was taken at. Two runs
-//     at one HEAD produce byte-identical files.
+//     and the only environment facts recorded are the HEAD the run was taken at and the
+//     last commit that touched a surface capable of moving a number. Two runs at one HEAD
+//     produce byte-identical files, and a run at a later HEAD differs only in that first
+//     provenance line unless the economy itself moved.
 
 import { execFileSync } from 'node:child_process'
 import { mkdirSync, writeFileSync } from 'node:fs'
@@ -456,7 +458,10 @@ function measureBuiltOut(): BuiltOutMeasurement {
 type UpliftArm = {
   id: 'none' | 'office-2' | 'office-3'
   label: string
-  capitalSpent: number
+  /** Everything the studio spent between founding and the commission week, not only capital. */
+  cashBurnedByCommission: number
+  /** The facility capital this arm committed, taken from its own `constructionCapex` rows. */
+  facilityCapital: number
   cashAtCommission: number
   rngStateAtCommission: string
   upliftPoints: number
@@ -556,7 +561,11 @@ function measureUpliftAB(): { arms: UpliftArm[]; rngIdentical: boolean; commissi
   let sharedMarketing: number | null = null
   const arms: UpliftArm[] = []
   for (const arm of armStates) {
-    const capitalSpent = foundingCash - arm.state.studio.cash
+    const cashBurnedByCommission = foundingCash - arm.state.studio.cash
+    let facilityCapital = 0
+    for (const entry of arm.state.ledger) {
+      if (entry.kind === 'constructionCapex') facilityCapital += -entry.amount
+    }
     const uplift = developmentOfficeUplift(arm.state)
     const cashAtCommission = arm.state.studio.cash
     const rngStateAtCommission = arm.state.rngState
@@ -633,7 +642,8 @@ function measureUpliftAB(): { arms: UpliftArm[]; rngIdentical: boolean; commissi
     arms.push({
       id: arm.id,
       label: arm.label,
-      capitalSpent,
+      cashBurnedByCommission,
+      facilityCapital,
       cashAtCommission,
       rngStateAtCommission,
       upliftPoints: uplift?.points ?? 0,
@@ -1023,14 +1033,15 @@ function main(): void {
     'Each arm carried its picture from commission to the close of its theatrical run.',
     '',
     ...table(
-      ['Arm', 'Critic score', 'Box office', 'Studio revenue', 'Δ revenue vs no office', 'Capital spent by Week 20'],
+      ['Arm', 'Critic score', 'Box office', 'Studio revenue', 'Δ revenue vs no office', 'Facility capital committed', 'Total cash burned by Week 20'],
       uplift.arms.map((arm) => [
         arm.label,
         fixed(arm.criticScore, 3),
         money(arm.boxOfficeTotal),
         money(arm.studioRevenue),
         arm.id === 'none' ? '—' : money(arm.studioRevenue - none.studioRevenue),
-        money(arm.capitalSpent),
+        money(arm.facilityCapital),
+        money(arm.cashBurnedByCommission),
       ]),
     ),
     '',
