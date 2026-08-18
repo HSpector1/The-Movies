@@ -3,6 +3,7 @@
 // This module is pure: it consumes no RNG, reads no wall clock, and never mutates
 // caller-owned state.
 
+import { TUNING } from './tuning.js'
 import type {
   FacilityCapability,
   FacilityReservation,
@@ -18,17 +19,42 @@ import type {
 // Deep-frozen because this template is part of the public core surface. The live
 // state always receives mutable-by-replacement clones; no consumer can alter the
 // authoritative defaults or the invariant baseline through this singleton.
+//
+// C2a-M0: the capacities are named TUNING constants, not literals. The identities,
+// names, capabilities, and ARRAY ORDER stay here — they are facility identity, not
+// tuning — but "how many shared slots a founding studio starts with" is a number
+// C2 is about to make the player change, so it lives in §16 TUNING.
 export const INITIAL_STUDIO_FACILITIES: readonly StudioFacility[] = Object.freeze([
   Object.freeze({
     id: 'facility-development-casting',
     name: 'Development & Casting',
     capability: 'development-casting',
-    capacity: 2,
+    capacity: TUNING.FOUNDING_DEVELOPMENT_CASTING_CAPACITY,
   }),
-  Object.freeze({ id: 'facility-post-building', name: 'Post Building', capability: 'post', capacity: 2 }),
-  Object.freeze({ id: 'facility-scenery-shop', name: 'Scenery Shop', capability: 'set-scenery', capacity: 2 }),
-  Object.freeze({ id: 'facility-soundstage-07', name: 'Soundstage 7', capability: 'soundstage', capacity: 1 }),
-  Object.freeze({ id: 'facility-soundstage-12', name: 'Soundstage 12', capability: 'soundstage', capacity: 1 }),
+  Object.freeze({
+    id: 'facility-post-building',
+    name: 'Post Building',
+    capability: 'post',
+    capacity: TUNING.FOUNDING_POST_CAPACITY,
+  }),
+  Object.freeze({
+    id: 'facility-scenery-shop',
+    name: 'Scenery Shop',
+    capability: 'set-scenery',
+    capacity: TUNING.FOUNDING_SCENERY_CAPACITY,
+  }),
+  Object.freeze({
+    id: 'facility-soundstage-07',
+    name: 'Soundstage 7',
+    capability: 'soundstage',
+    capacity: TUNING.FOUNDING_SOUNDSTAGE_CAPACITY,
+  }),
+  Object.freeze({
+    id: 'facility-soundstage-12',
+    name: 'Soundstage 12',
+    capability: 'soundstage',
+    capacity: TUNING.FOUNDING_SOUNDSTAGE_CAPACITY,
+  }),
 ]) as readonly StudioFacility[]
 
 // The one construction-created facility authorized by Development & Casting

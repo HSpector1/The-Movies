@@ -235,7 +235,7 @@ staged so the sealed First Movie Journey never breaks along the way.
 |---|---|---|
 | `gate` (Studio Gate) | **PERMANENT LANDMARK** | The entrance is company identity, the hiring/arrival stage, and the original's own gate was fixed non-buildable (corroborated: the recovered `facility_gatehouse.ini` candidate is $0, non-demolishable, non-moveable) |
 | `admin` (Administration) | **PERMANENT LANDMARK** | The Staff Office analog — founding, company administration; the original's Staff Office was pre-built at start, never buildable |
-| `theater` (Theater) | **LANDMARK (lean)** | Exhibition is the town's, not studio construction; the original never made cinemas buildable (its "Cinema" facility is confirmed dormant/debug content). Final call at the Founding Flip design review — an explicit open decision, not silently settled |
+| `theater` (Theater) | **LANDMARK (lean)** → **LANDMARK — RULED** (`00C`.7) | Exhibition is the town's, not studio construction; the original never made cinemas buildable (its "Cinema" facility is confirmed dormant/debug content). Final call at the Founding Flip design review — an explicit open decision, not silently settled. **[CLOSED at the C2 design review, 2026-08-18, by Owner ruling `00C`.7 — charter §6 (`CAMPAIGN-2-SETS-THROUGHPUT-CHARTER.md:774-798`). The lean was right and is now law, with three parts the "final call" clause left open: (a) LANDMARK ON ENDOWED LOTS — the existing `theater` structure stands untouched as a historical landmark, and it already provides nothing mechanically (`src/core/lot.ts:213-220`: `role: 'landmark'`, `providesFacilityIds: []`); (b) THE FOUNDING FLIP DOES NOT SEED ONE — the r2-era "amend the minimum lot" recommendation is WITHDRAWN and the §6 minimum-lot sentence below (`:245-249`: Gate, Administration/Staff Office, frontage road, vacant parcels) stands exactly as originally written; (c) an optional buildable **Screening Theater / Premiere House** (prestige, test-screening, festival infrastructure) routes to **C3** — the concept is de-required, never deleted. Premiere Night V1 is venue-independent by construction, staged at the Studio Gate, which exists in BOTH founding regimes; the release-semantic anchors become regime-aware at C2a-M6. The Theater is not, and never was, core release authority.]** |
 | `writers` (Development) | **CONVERT** → buildable tiered Development Office class | C1 introduces higher tiers as new construction; the base building becomes a founding placement in data now, buildable-from-scratch at the Flip |
 | `casting` (Casting/Talent) | **CONVERT** → buildable Casting Office class | Founding placement in C1; buildable at the Flip |
 | `stage-a` / `stage-b` (Stages 7/12) | **CONVERT** → buildable Soundstage class | Conversion lands in **Campaign 2** with Sets, where stage construction belongs |
@@ -643,7 +643,9 @@ machinima work; any macroeconomy repair beyond instrumentation.
    kinds), activated by data in C3/C4.
 5. ~~Fixed buildings~~ → **transitional**: migration strategy per §6 (founding
    placements in C1; buildable core + Founding Flip in C2; Gate/Admin permanent;
-   Theater leaning landmark).
+   Theater leaning landmark). **[The lean is now a ruling — Theater = landmark on
+   endowed lots, not seeded by the Founding Flip, buildable Screening Theater deferred
+   to C3. `00C`.7 / charter §6; see the §6 classification row above.]**
 6. Concurrency **principle** → throughput ultimately emerges from built physical
    capacity; C1 hard-codes nothing around two productions.
 
@@ -684,7 +686,13 @@ machinima work; any macroeconomy repair beyond instrumentation.
    crew, talent).
 2. **Founding Flip ratification — at C2 planning**: confirm the Flip as C2's
    capstone (with the split-into-mini-campaign contingency), and make the Theater
-   landmark-vs-buildable final call at that design review.
+   landmark-vs-buildable final call at that design review. **[BOTH DONE, 2026-08-18.
+   The Flip is ratified (`00C`.9) and scoped as its own sub-campaign **C2b**
+   (SaveFileV15) — the split-into-mini-campaign contingency this document pre-authorized
+   at §6 was TAKEN and Owner-ACCEPTED (`00E`.1 "Structure ACCEPTED … C2a/C2b split";
+   charter §2, §7, §12 C2b). The Theater call was MADE — landmark on endowed lots, NOT
+   seeded by the Flip, buildable Screening Theater → C3 (`00C`.7, charter §6). This item
+   is closed; it is no longer an open question.]**
 3. **Star-Life-before-Economy reorder — ratify §7's recommendation** (Campaigns 5/6
    as proposed).
 4. **Audience-taste movement vs the "cultural drift" non-goal — before C4.**

@@ -578,6 +578,27 @@ export const TUNING = {
   PLACEMENT_ANNEX_FOOTPRINT_WIDTH: 3, // [ICH] cells along gx
   PLACEMENT_ANNEX_FOOTPRINT_DEPTH: 2, // [ICH] cells along gy
   PLACEMENT_ANNEX_CLEARANCE_RING: 1, // [ICH] cells of separation from other placements
+
+  // ── C2a-M0 — the FOUNDING facility capacities (charter §12-M0 "capacity hoists
+  // to TUNING") ──────────────────────────────────────────────────────────────
+  // These are the shared-slot counts of the five facilities every managed studio
+  // is founded with (`INITIAL_STUDIO_FACILITIES`, src/core/operations.ts). They
+  // were literals inside that array; C2 makes studio capacity a thing the player
+  // changes, so the numbers that define "how much studio you start with" have to
+  // be named and tunable in ONE place before anything is allowed to move them.
+  //
+  // VALUES ARE UNCHANGED FROM THE FROZEN V1 SET — this hoist is pure naming, and
+  // the initial-v1 facility-identity invariant still pins the founding array
+  // element-by-element, so a value edit here fails loudly rather than silently
+  // re-founding every studio.
+  //
+  // Each founding SOUNDSTAGE carries one slot and there are two of them
+  // (Soundstage 7, Soundstage 12); the per-stage capacity is named once because
+  // both stages share it, and C2's N-stage world derives new stages from it.
+  FOUNDING_DEVELOPMENT_CASTING_CAPACITY: 2, // [V1 law] Development & Casting shared slots
+  FOUNDING_POST_CAPACITY: 2, // [V1 law] Post Building shared slots
+  FOUNDING_SCENERY_CAPACITY: 2, // [V1 law] Scenery Shop shared slots
+  FOUNDING_SOUNDSTAGE_CAPACITY: 1, // [V1 law] shared slots on EACH founding soundstage
 } as const
 
 // ── Placement Core V12 — the facility blueprint catalog ──────────────────────
