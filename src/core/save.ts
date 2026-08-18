@@ -99,6 +99,7 @@ import {
   emptyScriptDevelopment,
 } from "./scriptDevelopment.js";
 import {
+  assertSetsInvariants,
   ENDOWED_NEXT_SET_ID,
   endowedHouseSets,
   SET_TYPES,
@@ -4457,6 +4458,22 @@ export function validateSaveV14(save: unknown): SaveFileV14 {
     if (typedState.studioEvents.rows.length !== 0 || typedState.studioEvents.nextSeq !== 0) {
       v14Error("state.studioEvents", "must be empty while studio operations are legacy");
     }
+  }
+
+  // C2a-M2 — the SET cross-reference laws, at the boundary a forged file has to
+  // cross. `checkSetsShape` above has already proved structure, ranges, id
+  // monotonicity and that every `mountedOn` names a real soundstage; what is left
+  // needs the REST of the state and therefore belongs to the sets authority: one
+  // set per stage, a scenery crew for every set under work, the build/repair
+  // discriminator, and — the one that matters most — that a picture recorded as
+  // filming on a set is filming on a set that is actually standing.
+  //
+  // The message is re-labelled rather than re-worded: the authority owns the
+  // sentence, and this owns saying which validator refused the file.
+  try {
+    assertSetsInvariants(typedState as unknown as GameState);
+  } catch (error) {
+    throw new Error(`validateSaveV14: ${(error as Error).message}`);
   }
 
   return save as SaveFileV14;
