@@ -14,14 +14,22 @@ import {
   INITIAL_STUDIO_FACILITIES,
   TUNING,
   applyActions,
+  assertNoDoubleBookedResourceSlots,
   beginFounding,
   exportSave,
+  facilitySlotKey,
+  findDoubleBookedResourceSlot,
   generateWorld,
   importSave,
   initialManagedStudioConstruction,
   initialManagedStudioOperations,
   initialManagedStudioPlacement,
+  isResourceSlotClaim,
   makeSaveV13,
+  occupiedResourceSlots,
+  resourceClaimsOf,
+  resourceFacilityKey,
+  resourceSlotKey,
   tick,
 } from '../src/core/index.js'
 import type {
@@ -293,5 +301,52 @@ describe('C2a-M0 — the phase machinery has exactly one source (charter §12-M0
         'releaseReady',
       ]),
     )
+  })
+})
+
+describe('C2a-M0 — the union producer keeps the M2+ namespace open (charter §3.2)', () => {
+  it('kind-qualifies every claim at the RUNTIME layer while persisting nothing new', () => {
+    let state = greenlight(managedStudio('c2a-m0-union-keys'))
+    state = tick(state) // the greenlight week does not advance the picture
+    const claims = resourceClaimsOf(occupiedResourceSlots(state))
+    expect(claims.length).toBeGreaterThan(0)
+    for (const held of claims) {
+      expect(held.kind).toBe('facility')
+      expect(held.key.startsWith('facility:')).toBe(true)
+      if (held.slot === null) {
+        expect(held.key).toBe(resourceFacilityKey('facility', held.facilityId))
+        expect(held.facilitySlotKey).toBeNull()
+      } else {
+        expect(held.key).toBe(resourceSlotKey('facility', held.facilityId, held.slot))
+        expect(held.facilitySlotKey).toBe(facilitySlotKey(held.facilityId, held.slot))
+      }
+    }
+    // The producer's own index speaks the BARE key the allocators have used since
+    // V8, so no persisted or exchanged string changed this milestone.
+    for (const key of occupiedResourceSlots(state).keys()) {
+      expect(key.startsWith('facility:')).toBe(false)
+    }
+    // Nothing kind-qualified reaches the save.
+    expect(exportSave(makeSaveV13(state))).not.toContain('facility:facility-')
+  })
+
+  it('never counts a whole-building claim as occupying a slot', () => {
+    // A shooting task denormalizes its own production's stage. Both claims name
+    // the same building; only one of them names a SLOT, so the fail-closed
+    // cross-owner refusal cannot fire on this entirely legal state.
+    let state = greenlight(managedStudio('c2a-m0-union-slotless'))
+    for (let week = 0; week < 4; week++) state = tick(state)
+    const workflow = state.operations.workflows[0]!
+    expect(workflow.phase).toBe('shooting')
+    const stage = workflow.shootingTask!.soundstageFacilityId
+    expect(workflow.reservations.some((reservation) => reservation.facilityId === stage)).toBe(true)
+
+    const onStage = resourceClaimsOf(occupiedResourceSlots(state)).filter(
+      (held) => held.facilityId === stage,
+    )
+    expect(onStage.map((held) => held.owner)).toEqual(['production', 'shootingTask'])
+    expect(onStage.filter(isResourceSlotClaim)).toHaveLength(1)
+    expect(findDoubleBookedResourceSlot(state)).toBeNull()
+    expect(() => assertNoDoubleBookedResourceSlots(state)).not.toThrow()
   })
 })
