@@ -285,7 +285,20 @@ Relationships V1 moves ahead of Economy Closure** (recommendation below).
 1. **Campaign 1 — Lot Content Expansion** (P0, no dependencies): the facility
    catalog on the proven placement engine, unified facility identity including
    founding placements, Move & Demolish V1, expandable-property architecture,
-   declarative unlock schema. Fully scoped in §9.
+   declarative unlock schema. Fully scoped in §9. **SEALED: KEEP at `f294077`
+   (2026-08-18), all milestones M1–M8.**
+
+**→ Between C1 and C2: Professional Floor V1 (PF1) — Audio, Feedback & Product
+Shell** (bridge campaign, inserted by Owner order 2026-08-18; charter:
+`PROFESSIONAL-FLOOR-V1-CHARTER.md`): the professional sensory floor before the
+next content campaign — audio architecture + 1948 ambience + UI sound floor;
+punctuation for existing authoritative events under the standing law
+**PRESENTATION NEVER CREATES OR PERSISTS GAME TRUTH**; settings/save-shell/
+browser-dialog removal; editorial voice established; a ≤3-row truthful futures
+shelf on the existing not-yet-attainable machinery. **No new simulation
+subsystem. Exactly one short campaign — a bridge into C2, never a polish
+program; no PF2 without fresh Owner authorization.**
+
 2. **Campaign 2 — Sets, Stages & Production Throughput + the Founding Flip** (P0,
    depends on C1): Sets as placeable, decaying, genre-weighted, novelty-carrying,
    script-required entities; **Soundstages become buildable**; the explicit
@@ -293,7 +306,8 @@ Relationships V1 moves ahead of Economy Closure** (recommendation below).
    queue — under the standing principle (Owner Ruling 5) that throughput emerges
    from what the player built (usable Sets, stages, casting/development capacity,
    crew and talent availability, lot travel); shooting-week theater; **capstone: the
-   Founding Flip** (§6).
+   Founding Flip** (§6). **Owner-approved charter additions (2026-08-18): Premiere
+   Night V1, the simulation-theater law, and the Time Model Ruling Docket — §8a.**
 3. **Campaign 3 — Progression, Prestige & Awards + Land Acquisition V1** (P1):
    discrete checklist-gated Studio Rank ladder over existing Standing; Lot Prestige
    reconnected to physical maintenance/decay/ornamentation (landscaping layer lands
@@ -349,18 +363,65 @@ roadmap question): YES, adopt the order above.**
 
 ## 8. Exact next three campaigns
 
-1. **Lot Content Expansion** — §9.
+1. **Professional Floor V1** — charter: `PROFESSIONAL-FLOOR-V1-CHARTER.md`.
+   Headline acceptance (the Owner's four tests): a fresh studio sounds like it
+   exists within 60 untouched seconds; 30 minutes of natural play acknowledges
+   success, communicates refusal, rewards commitment, and shows zero
+   developer-tool UX; five minutes of UI/sound reads as "this is a game"; and a
+   scripted parity run proves authoritative outcomes byte-identical with
+   presentation on or off.
 2. **Sets, Stages & Production Throughput + Founding Flip** — headline acceptance:
    a player builds a chosen stage and set, a script requires the set by name, a
    blocked set flags red with the reason, layout visibly affects cost/schedule, two
    productions contend for one desirable set, and — at the capstone — a brand-new
    studio starts from Gate + Admin and builds its own core. Requires the concurrency
-   ruling (Owner decision, §10).
+   ruling (Owner decision, §10). **Charter additions per Owner order 2026-08-18:**
+   - **Premiere Night V1** — movie release staged as one of the game's largest
+     events, in the world: marquee title, exterior theater activity, crowd,
+     photographers, arriving talent, lights where appropriate, release sting,
+     then the existing newspaper/results chain. Presentation of the existing
+     authoritative release result only; **no movie footage renders** (that
+     remains future movie-authoring/machinima scope).
+   - **The simulation-theater law** — world movement preferentially communicates
+     real simulation state: crew moves because a shoot is scheduled, a scenery
+     truck arrives because a Set requires load-in, a stage empties because a
+     production wrapped, construction workers appear because construction is
+     underway. Animation is evidence; engine state remains authoritative. No
+     decorative NPC motion detached from state.
+   - **The "principal photography wraps" beat** (deferred from PF1) — needs the
+     phase-transition derivation C2's visible shooting creates.
 3. **Progression, Prestige & Awards + Land Acquisition V1** — headline acceptance:
    a fresh player can name their current rank, see the checklist to the next one,
    watch prestige move when the lot decays or gets dressed, read a ceremony verdict
    that follows from legible numbers, and — once earned — buy the adjacent parcel
-   and build on it.
+   and build on it. Carries the "first profitable picture" beat (deferred from
+   PF1: needs a cumulative-profit derivation and a projected-vs-final honesty
+   ruling).
+
+## 8a. Time Model Ruling Docket (C2 planning — Owner-ordered, 2026-08-18)
+
+Real-time simulation is **not** to be implemented in PF1, and not bolted onto the
+weekly deterministic engine because the genre commonly has it. The semantic
+questions are simulation-design decisions, not presentation details: what an
+action at "Week 12.4" means; when money accrues; when RNG draws are made; whether
+time runs while casting/package UI is open; whether the player can miss a
+decision; whether a blocker pauses time; whether actions execute immediately or
+queue to a boundary.
+
+The C2 planning pass must compare, explicitly and in writing:
+
+- **A. Current discrete event/week model** — the shipped baseline; receipts-stop
+  semantics preserved.
+- **B. Living-turn model** — the world remains visually and audibly alive while
+  authoritative progress advances through discrete deterministic
+  boundaries/events. *The Owner's current preference to investigate first.*
+- **C. Finer-grained continuous simulation** — pause/speed controls with explicit
+  semantics for mid-period actions.
+
+Fable recommends after dependency analysis (test-estate migration cost, presence
+playback, guidance's one-next-step model, reduced-motion law, determinism
+suites). This is not yet an Owner ruling; the docket's output is a recommendation
+returned to the Owner at C2 planning.
 
 ## 9. Campaign #1 — LOT CONTENT EXPANSION ("a studio you actually build")
 
@@ -566,7 +627,29 @@ machinima work; any macroeconomy repair beyond instrumentation.
 6. Concurrency **principle** → throughput ultimately emerges from built physical
    capacity; C1 hard-codes nothing around two productions.
 
+**Resolved by the 2026-08-18 Owner order (PF1 direction; recorded, binding):**
+7. **PF1 inserted between C1 and C2** as a single short bridge campaign — audio,
+   punctuation, product shell; no new simulation subsystem; no PF2 without fresh
+   authorization (§7 item 1.5; charter `PROFESSIONAL-FLOOR-V1-CHARTER.md`).
+8. **PRESENTATION NEVER CREATES OR PERSISTS GAME TRUTH** adopted as standing law
+   (recorded in the operational laws at PF1 implementation start).
+9. **Premiere Night V1, the simulation-theater law, and the Time Model Ruling
+   Docket** added to C2's charter (§8/§8a). Real-time is not implemented in PF1;
+   the Owner's preference to investigate first is the living-turn model (B).
+10. **Voice acting deferred** — text/radio PA register + stings suffice for PF1;
+    recorded voice is a later production-value decision.
+11. **Editorial voice direction** — confident 20th-century Hollywood trade
+    language, restrained humor, period flavor; established in the PF1 charter §3
+    and reused by later campaigns.
+12. **Anticipation pillar** — truthful future glimpses begin at PF1 (bounded
+    futures shelf on the existing not-yet-attainable machinery); the real
+    progression/unlock systems remain C3/C4 scope. No fabricated unlock
+    requirements; no catalog flooding.
+
 **Still required from the Owner:**
+0. **PF1 implementation authorization** — the charter is a draft; PF1 does not
+   begin until the Owner authorizes it (and approves or strikes each proposed
+   futures-shelf row named in charter §5, M3).
 1. **Concurrency/capacity specifics — before C2 freeze** (the explicit ruling Owner
    Ruling 5 assigns to C2): target concurrent-production range at mature build-out,
    and which constraint should bind first (stages, sets, casting/development slots,
@@ -580,6 +663,8 @@ machinima work; any macroeconomy repair beyond instrumentation.
 5. **Genre vocabulary (six current vs five original) — C4 planning.** Flagged so
    nobody "fixes" it casually in C1/C2.
 6. **Machinima scope ruling — unchanged, not blocking C1–C6.**
+7. **Time model ruling — at C2 planning**, from the §8a docket (A vs B vs C);
+   Fable recommends after dependency analysis, the Owner rules.
 
 ## 11. Historical uncertainties: blocking vs safe to design around
 
@@ -610,6 +695,10 @@ at developer-reviewed or engine-schema confidence.
 
 ---
 
-*v1.1 — Owner Amendment incorporated, reviewed against the live build, and stopped
-without implementation, per the mission's hard stop. Campaign 1 awaits Owner
-authorization.*
+*v1.2 — Campaign 1 executed and SEALED: KEEP at `f294077` (2026-08-18). The
+2026-08-18 Owner order inserted Professional Floor V1 between C1 and C2 (§7 item
+PF1; charter `PROFESSIONAL-FLOOR-V1-CHARTER.md`), added Premiere Night V1, the
+simulation-theater law and the Time Model Ruling Docket to C2 (§8/§8a), and
+recorded the presentation-never-persists law. The PF1 charter is a draft:
+**Professional Floor V1 awaits Owner authorization.** No implementation has
+begun, per the order's hard stop.*
