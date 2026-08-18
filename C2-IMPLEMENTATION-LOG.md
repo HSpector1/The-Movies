@@ -76,10 +76,11 @@ bound set with quality/novelty/condition/fit + projected uplift and priced
 remedies; a THIRD SOUNDSTAGE built end-to-end in a real browser renders,
 inspects, and speaks. Sweep verdict: north-back-lot spur DROPPED; ceiling = two
 additional 4×4 stages on existing ground; support buildings ≤3 cells wide.
-Playwright: the workflow's nohup run was killed with its shell at test 33/215
-(all green; ~51 specs incl. both golden paths verified individually by the
-integrator); FULL rerun in flight as a tracked task — confirm before calling the
-floor. CARRIED ITEMS: (1) OWNER RULING NEEDED — scenery load-in + shooting-take
+Playwright FLOOR CONFIRMED: full serialized rerun 202 passed / 4 skipped, plus
+the 2 'did not run' entries diagnosed as real V13-era pin failures and fixed
+tightening-not-weakening (writerIds asserted exactly = [writerId] in
+studio-home-v1; CATALOG_IDS widened to the nine the engine publishes in
+tycoon-build-catalog-v1) — both green in isolation; floor = 204+4 green/215. CARRIED ITEMS: (1) OWNER RULING NEEDED — scenery load-in + shooting-take
 affordances are sealed to Soundstage 7 by accepted D1-B specs; a third stage gets
 neither; suggested landing: M4's queue/intervention surface. (2) next-event
 rail's two-value location vocabulary (LotNextEventRail.tsx:295 / App.tsx:3118) —
