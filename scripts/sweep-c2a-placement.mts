@@ -49,6 +49,7 @@ import { fileURLToPath } from 'node:url'
 
 import {
   PLACEMENT_REJECTION_ORDER,
+  blueprintById,
   footprintCells,
   parcelReservedBlueprintId,
   queryPlacement,
@@ -546,6 +547,15 @@ if (byIdQuote.primary !== 'unknownBlueprint') {
  * is suspect and the script refuses to publish.
  */
 const HALL_ID = 'development-casting-hall'
+const hallBlueprint = blueprintById(HALL_ID)
+if (hallBlueprint === null) {
+  throw new Error(`sweep-c2a-placement: the control blueprint ${HALL_ID} is no longer in the catalog`)
+}
+if (hallBlueprint.footprint.width !== SCENERY_LARGE.footprint.width || hallBlueprint.footprint.depth !== SCENERY_LARGE.footprint.depth) {
+  throw new Error(
+    `sweep-c2a-placement: the control is only meaningful against a same-shape blueprint — ${HALL_ID} is now ${String(hallBlueprint.footprint.width)}×${String(hallBlueprint.footprint.depth)}`,
+  )
+}
 const controlDisagreements: string[] = []
 let controlOrigins = 0
 let controlAccepted = 0
@@ -631,12 +641,15 @@ push(
   '',
   '**The control.** Everything here rests on one assumption — that a hypothetical blueprint gets',
   'the answer a real catalog blueprint of the same shape would get. It is checked at all 123',
-  `origins against the shipped **Development & Casting Hall** (\`${HALL_ID}\`), which is 4×3 with`,
-  'clearance ring 1 and road access required: the same shape as the 4×3 sensitivity case below.',
-  'Asked by id through `queryPlacement` and asked as a hypothetical through `quoteForBlueprint`,',
-  `the two agreed on \`ok\` and on the full ordered \`rejections\` list at **all ${String(controlOrigins)} origins**`,
-  `(the shipped Hall accepts ${String(controlAccepted)} of them, at its real $1.4M capex, so the money gate was live and`,
-  'still never bound). The script throws rather than publishing if they ever disagree anywhere.',
+  `origins against the shipped **${hallBlueprint.name}** (\`${HALL_ID}\`), which is`,
+  `${String(hallBlueprint.footprint.width)}×${String(hallBlueprint.footprint.depth)} with clearance ring ${String(hallBlueprint.clearanceRing)} and road access required: the same shape as the 4×3`,
+  'sensitivity case below. Asked by id through `queryPlacement` and asked as a hypothetical',
+  `through \`quoteForBlueprint\`, the two agreed on \`ok\` and on the full ordered \`rejections\` list`,
+  `at **all ${String(controlOrigins)} origins** — and the Hall accepts ${String(controlAccepted)} of them at its real $${(hallBlueprint.capex / 1_000_000).toFixed(1)}M capex, so the`,
+  'money gate was live throughout and provably never bound (had it bound anywhere, the',
+  'zero-capex hypothetical would have disagreed and the script would have refused to publish).',
+  'The script throws rather than publishing if they ever disagree anywhere, or if the control',
+  'blueprint ever stops being the same shape as the case it controls.',
   '',
   '**Every rejection printed below is a geometry rejection.** The sweep blueprints carry',
   '`capex: 0`, `requires: []`, and no `maxInstances`, which makes `insufficientFunds`,',
