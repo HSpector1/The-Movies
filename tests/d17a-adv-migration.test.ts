@@ -268,8 +268,8 @@ describe('D-17A/D — validateSave still guards the version boundary loudly', ()
   })
 
   // Property State V13 (C1-M1a): 13 is known, so the loud-rejection boundary is 14.
-  it('rejects an unknown version 14 loudly', () => {
-    expect(() => validateSave({ ...v6, saveVersion: 14 })).toThrow(/unknown saveVersion 14/)
+  it('rejects an unknown version 15 loudly', () => {
+    expect(() => validateSave({ ...v6, saveVersion: 15 })).toThrow(/unknown saveVersion 15/)
   })
 
   it('rejects a V6 whose persisted regime fact is missing or not a boolean', () => {

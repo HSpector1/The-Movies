@@ -15,7 +15,7 @@ import {
   exportSave,
   generateWorld,
   importSave,
-  makeSaveV13,
+  makeSaveV14,
   stableStringify,
 } from '../src/core/index.js'
 import {
@@ -253,9 +253,9 @@ function writeAcceptedSmokeArtifact(
   const entryIndex: RosterWallAcceptedArtifactManifest['entryIndex'] = []
   const state = generateWorld('accepted-smoke-entry')
   state.market.tick = 196
-  const saveJson = exportSave(makeSaveV13(state))
+  const saveJson = exportSave(makeSaveV14(state))
   const imported = importSave(saveJson)
-  if (imported.saveVersion !== 13) throw new Error('test fixture did not produce SaveFileV13')
+  if (imported.saveVersion !== 14) throw new Error('test fixture did not produce SaveFileV14')
   const entrySaveHash = rosterWallSha256(saveJson)
   const entryStateHash = rosterWallSha256(stableStringify(imported.state))
 
@@ -576,7 +576,7 @@ function writeAcceptedSmokeArtifact(
 function writeExampleArtifact(root: string, runName: string, cash = 123): void {
   const writer = new RosterWallArtifactWriter(root, runName)
   const state = generateWorld(`fixture-seed-${String(cash)}`)
-  const saveJson = exportSave(makeSaveV13(state))
+  const saveJson = exportSave(makeSaveV14(state))
   writer.writeEntry({
     entryId: 'entry-a',
     row: {
@@ -620,7 +620,7 @@ describe('roster-wall provenance gates', () => {
       tree: git(fixture.root, ['rev-parse', 'HEAD^{tree}']),
       worktreeDirty: false,
       runtime: 'node provenance-test',
-      saveVersion: 13,
+      saveVersion: 14,
       productionAuthorityCommit: fixture.authority,
       productionAuthorityTree: git(fixture.root, [
         'rev-parse',
@@ -779,7 +779,7 @@ describe('roster-wall artifact infrastructure', () => {
       productionAuthority: accepted.authority,
     })
     const writer = new RosterWallArtifactWriter(accepted.root, 'accepted')
-    const saveJson = exportSave(makeSaveV13(generateWorld('accepted-finalization')))
+    const saveJson = exportSave(makeSaveV14(generateWorld('accepted-finalization')))
     writer.writeEntry({ entryId: 'entry-a', row: { entryId: 'entry-a' }, saveJson })
     writer.writeRow({ recordType: 'weekly' })
     const acceptedFinalization = acceptedTestFinalization(source)
@@ -795,7 +795,7 @@ describe('roster-wall artifact infrastructure', () => {
   it('rejects the former skeletal smoke counterfeit before semantic acceptance', () => {
     const fixture = createGitFixture()
     expect(() => writeAcceptedSmokeArtifact(fixture, 'semantic-smoke')).toThrow(
-      /same governed repository|production authority failed|summary\.json lacks denominators|governed entry projection|projection disagrees|accepted clean SaveFileV13 provenance/,
+      /same governed repository|production authority failed|summary\.json lacks denominators|governed entry projection|projection disagrees|accepted clean SaveFileV14 provenance/,
     )
   })
 
@@ -879,7 +879,7 @@ describe('roster-wall artifact infrastructure', () => {
     expect(() => new RosterWallArtifactWriter(root, 'stale')).toThrow(/not empty/)
 
     const writer = new RosterWallArtifactWriter(root, 'immutable')
-    const saveJson = exportSave(makeSaveV13(generateWorld('immutable-save')))
+    const saveJson = exportSave(makeSaveV14(generateWorld('immutable-save')))
     writer.writeEntry({ entryId: 'same', row: { entryId: 'same' }, saveJson })
     expect(() =>
       writer.writeEntry({ entryId: 'same', row: { entryId: 'same' }, saveJson }),
