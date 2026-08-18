@@ -40,13 +40,21 @@ const BUILD_PARCEL = 'south-lawn'
 const OFFICE_2 = 'development-office-2'
 const OFFICE_3 = 'development-office-3'
 
-/** The five blueprints M4 shipped, in the engine's own authored order. */
+/**
+ * Every blueprint the engine publishes, in its own authored order — the C1 five
+ * plus the C2a-M2 slate (stage, post, scenery, baseline office). The per-entry
+ * assertions below read the engine's own catalog entries, so they extend with it.
+ */
 const CATALOG_IDS = [
   'development-casting-annex',
   'development-casting-hall',
   OFFICE_2,
   OFFICE_3,
   'craft-annex',
+  'stage-standard',
+  'post-building',
+  'scenery-shop',
+  'development-casting-office',
 ] as const
 
 test.describe.configure({ timeout: 180_000 })

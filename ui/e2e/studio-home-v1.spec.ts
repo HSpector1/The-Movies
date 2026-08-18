@@ -402,6 +402,9 @@ test('fresh Founding retains the exact Hollywood Lot through cancel and accepted
     id: 'script-0000',
     conceptId,
     writerId,
+    // V14 (00E.9): the bounded pooling list exists beside the attributed writer;
+    // at commission it must be exactly [writerId] — asserted, not tolerated.
+    writerIds: [writerId],
     shape: {
       opening: 'slowSetup',
       midpoint: 'reversal',
