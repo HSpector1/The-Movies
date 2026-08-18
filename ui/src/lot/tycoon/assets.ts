@@ -212,21 +212,156 @@ function flatRoof(b: Builder, fw: number, fd: number, H: number): void {
   stroke(g, [p(0, 0, H + 5), p(fw, 0, H + 5), p(fw, fd, H + 5), p(0, fd, H + 5)], C.shadow, 1.5, 0.3, true)
 }
 
-function gableRoof(b: Builder, fw: number, fd: number, H: number, peak: number): void {
+function gableRoof(
+  b: Builder,
+  fw: number,
+  fd: number,
+  H: number,
+  peak: number,
+  lit = C.terracotta,
+  shade = C.terracottaDark,
+): void {
   const { g, p } = b
   const cy = fd / 2
   const R0 = p(0, cy, H + peak)
   const R1 = p(fw, cy, H + peak)
   // back slope (gy = 0 side) — away from the sun
-  poly(g, [p(0, 0, H), p(fw, 0, H), R1, R0], C.terracottaDark)
+  poly(g, [p(0, 0, H), p(fw, 0, H), R1, R0], shade)
   // near slope (gy = fd side) — lit
-  poly(g, [p(0, fd, H), p(fw, fd, H), R1, R0], C.terracotta)
+  poly(g, [p(0, fd, H), p(fw, fd, H), R1, R0], lit)
   // gable ends
   poly(g, [p(0, 0, H), p(0, fd, H), R0], C.cream)
   poly(g, [p(fw, 0, H), p(fw, fd, H), R1], C.creamShade)
   // eave overhang shadow on the lit wall
   poly(g, [p(0, fd, H - 5), p(fw, fd, H - 5), p(fw, fd, H), p(0, fd, H)], C.shadow, 0.22)
   stroke(g, [R0, R1], C.shadow, 1.5, 0.22)
+}
+
+/**
+ * A HIPPED roof — four slopes to a short ridge, no gable ends (C1-M6b).
+ *
+ * The whole point is that it is not a gable: Casting and Development were the same 3 × 2
+ * cream box under the same terracotta gable, differing only by 8px of wall height, and at
+ * management zoom that is not a difference at all. A hip in a different colour is a
+ * silhouette AND a colour a player can tell apart across the property.
+ */
+function hipRoof(
+  b: Builder,
+  fw: number,
+  fd: number,
+  H: number,
+  peak: number,
+  lit: number,
+  shade: number,
+): void {
+  const { g, p } = b
+  const cy = fd / 2
+  const inset = Math.min(0.8, fw * 0.28)
+  const R0 = p(inset, cy, H + peak)
+  const R1 = p(fw - inset, cy, H + peak)
+  // eaves overhang the walls a little, which is what reads as a roof rather than a lid
+  const e = 0.14
+  poly(g, [p(-e, -e, H), p(fw + e, -e, H), R1, R0], shade)
+  poly(g, [p(-e, fd + e, H), p(fw + e, fd + e, H), R1, R0], lit)
+  poly(g, [p(-e, -e, H), p(-e, fd + e, H), R0], mix(lit, shade, 0.5))
+  poly(g, [p(fw + e, -e, H), p(fw + e, fd + e, H), R1], shade)
+  poly(g, [p(0, fd, H - 5), p(fw, fd, H - 5), p(fw, fd, H), p(0, fd, H)], C.shadow, 0.24)
+  stroke(g, [R0, R1], C.shadow, 1.5, 0.3)
+}
+
+/**
+ * A SAW-TOOTH north-light roof: the universal signature of a workshop.
+ *
+ * Scenery & Post is where things are BUILT, and nothing else on the property is. Giving
+ * it the one roof form that means "this is a shop floor" is worth more than any label.
+ */
+function sawtoothRoof(b: Builder, fw: number, fd: number, H: number, teeth: number): void {
+  const { g, p } = b
+  const rise = 16
+  for (let i = 0; i < teeth; i++) {
+    const y0 = (i / teeth) * fd
+    const y1 = ((i + 1) / teeth) * fd
+    // the sloping deck, falling away from the glazed face
+    poly(g, [p(0, y0, H + rise), p(fw, y0, H + rise), p(fw, y1, H), p(0, y1, H)], C.corrugate)
+    // the vertical glazed face looking away from the sun
+    poly(g, [p(0, y0, H), p(fw, y0, H), p(fw, y0, H + rise), p(0, y0, H + rise)], C.glassDeep, 0.95)
+    stroke(g, [p(0, y0, H + rise), p(fw, y0, H + rise)], C.corrugateDark, 1.5, 0.85)
+  }
+  // the near eave, thick enough to read as a fascia
+  poly(g, [p(0, fd, H - 4), p(fw, fd, H - 4), p(fw, fd, H), p(0, fd, H)], C.corrugateDark)
+}
+
+/** A MONO-PITCH corrugated roof: one plane, falling to the service side. */
+function monoPitchRoof(b: Builder, fw: number, fd: number, H: number, rise: number): void {
+  const { g, p } = b
+  poly(g, [p(-0.1, -0.1, H + rise), p(fw + 0.1, -0.1, H + rise), p(fw + 0.1, fd + 0.1, H), p(-0.1, fd + 0.1, H)], C.corrugate)
+  g.lineStyle(1, C.corrugateDark, 0.7)
+  for (let t = 0.08; t < fw; t += 0.34) {
+    const a = p(t, -0.1, H + rise)
+    const c = p(t, fd + 0.1, H)
+    g.lineBetween(a.x, a.y, c.x, c.y)
+  }
+  poly(g, [p(-0.1, -0.1, H + rise), p(fw + 0.1, -0.1, H + rise), p(fw + 0.1, -0.1, H + rise - 4), p(-0.1, -0.1, H + rise - 4)], C.corrugateDark)
+  poly(g, [p(0, fd, H - 4), p(fw, fd, H - 4), p(fw, fd, H), p(0, fd, H)], C.corrugateDark)
+}
+
+/** A masonry chimney on the shaded slope — Development's one masonry note. */
+function chimney(b: Builder, fw: number, H: number, peak: number): void {
+  const { g, p } = b
+  const gx0 = fw * 0.66
+  const gx1 = gx0 + 0.36
+  const top = H + peak + 16
+  poly(g, [p(gx0, 0.32, H + 6), p(gx1, 0.32, H + 6), p(gx1, 0.32, top), p(gx0, 0.32, top)], C.brick)
+  poly(g, [p(gx1, 0.02, H + 6), p(gx1, 0.32, H + 6), p(gx1, 0.32, top), p(gx1, 0.02, top)], C.brickDark)
+  poly(g, [p(gx0 - 0.06, 0.0, top), p(gx1 + 0.06, 0.0, top), p(gx1 + 0.06, 0.36, top), p(gx0 - 0.06, 0.36, top)], C.creamShade)
+}
+
+/** A projecting entry portico with two columns — Casting's public face. */
+function portico(b: Builder, fw: number, fd: number, roofColour: number): void {
+  const { g, p } = b
+  const cx = fw / 2
+  const out = 0.5
+  const HP = 30
+  for (const x of [cx - 0.62, cx + 0.62]) {
+    poly(g, [p(x - 0.09, fd + out, 0), p(x + 0.09, fd + out, 0), p(x + 0.09, fd + out, HP), p(x - 0.09, fd + out, HP)], C.cream)
+    poly(g, [p(x + 0.09, fd, 0), p(x + 0.09, fd + out, 0), p(x + 0.09, fd + out, HP), p(x + 0.09, fd, HP)], C.creamShade)
+  }
+  // the canopy slab, and its shadow thrown back onto the wall
+  poly(g, [p(cx - 0.86, fd, HP + 8), p(cx + 0.86, fd, HP + 8), p(cx + 0.86, fd + out, HP + 8), p(cx - 0.86, fd + out, HP + 8)], roofColour)
+  poly(g, [p(cx - 0.86, fd + out, HP), p(cx + 0.86, fd + out, HP), p(cx + 0.86, fd + out, HP + 8), p(cx - 0.86, fd + out, HP + 8)], mix(roofColour, C.shadow, 0.35))
+  poly(g, [p(cx - 0.86, fd, HP - 8), p(cx + 0.86, fd, HP - 8), p(cx + 0.86, fd, HP + 8), p(cx - 0.86, fd, HP + 8)], C.shadow, 0.2)
+}
+
+/** A glazed roof MONITOR: the Hall's badge, and a big building's daylight. */
+function roofMonitor(b: Builder, fw: number, fd: number, H: number): void {
+  const { g, p } = b
+  const y0 = fd * 0.34
+  const y1 = fd * 0.66
+  const z0 = H + 5
+  const z1 = z0 + 18
+  poly(g, [p(0.4, y1, z0), p(fw - 0.4, y1, z0), p(fw - 0.4, y1, z1), p(0.4, y1, z1)], C.glassDeep, 0.95)
+  poly(g, [p(fw - 0.4, y0, z0), p(fw - 0.4, y1, z0), p(fw - 0.4, y1, z1), p(fw - 0.4, y0, z1)], C.slateShade)
+  poly(g, [p(0.4, y0, z1), p(fw - 0.4, y0, z1), p(fw - 0.4, y1, z1), p(0.4, y1, z1)], C.brass, 0.9)
+  g.lineStyle(1.2, C.brassDark, 0.8)
+  for (let t = 0.8; t < fw - 0.4; t += 0.5) {
+    const a = p(t, y1, z0)
+    const c = p(t, y1, z1)
+    g.lineBetween(a.x, a.y, c.x, c.y)
+  }
+}
+
+/** A lantern cupola on the ridge — Office III's rank, readable as a SHAPE. */
+function cupola(b: Builder, fw: number, fd: number, H: number, peak: number): void {
+  const { g, p } = b
+  const cx = fw / 2
+  const cy = fd / 2
+  const z = H + peak - 4
+  const r = 0.3
+  poly(g, [p(cx - r, cy + r, z), p(cx + r, cy + r, z), p(cx + r, cy + r, z + 20), p(cx - r, cy + r, z + 20)], C.windowLit, 0.95)
+  poly(g, [p(cx + r, cy - r, z), p(cx + r, cy + r, z), p(cx + r, cy + r, z + 20), p(cx + r, cy - r, z + 20)], C.creamShade)
+  poly(g, [p(cx - r - 0.1, cy - r - 0.1, z + 20), p(cx + r + 0.1, cy - r - 0.1, z + 20), p(cx + r + 0.1, cy + r + 0.1, z + 20), p(cx - r - 0.1, cy + r + 0.1, z + 20)], C.terracotta)
+  poly(g, [p(cx - r, cy + r, z + 20), p(cx + r, cy + r, z + 20), p(cx, cy, z + 32)], C.terracotta)
+  poly(g, [p(cx + r, cy - r, z + 20), p(cx + r, cy + r, z + 20), p(cx, cy, z + 32)], C.terracottaDark)
 }
 
 /** Vaulted soundstage roof — stacked domed rhombi. */
@@ -361,8 +496,32 @@ function bakeAdmin(scene: Phaser.Scene): void {
   finalize(b, 'tw-admin')
 }
 
-function bakeOffice(scene: Phaser.Scene, key: string, fw: number, fd: number, H: number, peak: number): void {
-  const b = beginBuilding(scene, fw, fd, H, peak)
+/**
+ * The two founding office bodies — and, at C1-M6b, no longer the same building twice.
+ *
+ * Before this pass `tw-writers` and `tw-casting` were one bake called with two wall
+ * heights: identical cream box, identical terracotta gable, identical door, 8px apart.
+ * Two of the five founding bodies were therefore untellable at a glance, which is the
+ * cold-lot problem in its purest form. Each now carries its own architecture:
+ *
+ *   development — terracotta GABLE, a brick chimney breaking the ridge, and a projecting
+ *                 bay window under the sign: a writers' building with a fireplace in it;
+ *   casting     — a green-slate HIP (the one cool roof on the property), a two-column
+ *                 entry PORTICO, and a rail along the frontage where the queue forms.
+ *
+ * Silhouette, roof colour and frontage all differ, so the difference survives institution
+ * zoom where the sign has already disappeared.
+ */
+function bakeOffice(
+  scene: Phaser.Scene,
+  key: string,
+  fw: number,
+  fd: number,
+  H: number,
+  peak: number,
+  dress: 'development' | 'casting',
+): void {
+  const b = beginBuilding(scene, fw, fd, H, peak + (dress === 'development' ? 20 : 12))
   const { g, p } = b
   drawWalls(b, fw, fd, H, C.cream, C.creamShade)
   windowsLit(b, fw, fd, H, fw + 1, 2, C.glass, C.windowLit)
@@ -371,7 +530,24 @@ function bakeOffice(scene: Phaser.Scene, key: string, fw: number, fd: number, H:
   poly(g, [p(fw / 2 - 0.28, fd, 0), p(fw / 2 + 0.28, fd, 0), p(fw / 2 + 0.28, fd, 30), p(fw / 2 - 0.28, fd, 30)], C.signPanel, 0.9)
   poly(g, [p(fw / 2 - 0.5, fd, 32), p(fw / 2 + 0.5, fd, 32), p(fw / 2 + 0.5, fd, 38), p(fw / 2 - 0.5, fd, 38)], C.awning)
   signField(b, fw, fd, H, 0.7, 0.86, 0.3)
-  gableRoof(b, fw, fd, H, peak)
+
+  if (dress === 'development') {
+    // a projecting bay window on the lit face, and its own little lead roof
+    const bx = fw * 0.24
+    poly(g, [p(bx - 0.3, fd + 0.3, 6), p(bx + 0.3, fd + 0.3, 6), p(bx + 0.3, fd + 0.3, 34), p(bx - 0.3, fd + 0.3, 34)], C.glass, 0.95)
+    poly(g, [p(bx + 0.3, fd, 6), p(bx + 0.3, fd + 0.3, 6), p(bx + 0.3, fd + 0.3, 34), p(bx + 0.3, fd, 34)], C.creamShade)
+    poly(g, [p(bx - 0.38, fd, 34), p(bx + 0.38, fd, 34), p(bx + 0.38, fd + 0.38, 38), p(bx - 0.38, fd + 0.38, 38)], C.roofMetal)
+    gableRoof(b, fw, fd, H, peak)
+    chimney(b, fw, H, peak)
+  } else {
+    portico(b, fw, fd, C.roofSlateGreen)
+    hipRoof(b, fw, fd, H, peak, C.roofSlateGreen, C.roofSlateGreenDark)
+    // the queue rail: this is the one founding building people actually line up outside
+    for (const x of [0.25, 0.75, 1.25]) {
+      poly(g, [p(fw - x, fd + 0.62, 0), p(fw - x + 0.06, fd + 0.62, 0), p(fw - x + 0.06, fd + 0.62, 15), p(fw - x, fd + 0.62, 15)], C.steel)
+    }
+    stroke(g, [p(fw - 1.25, fd + 0.62, 15), p(fw - 0.25, fd + 0.62, 15)], C.steel, 2, 0.95)
+  }
   TYCOON_BUILDING_TEX[key] = { key, originX: 0.5, originY: b.originY, fw, fd }
   finalize(b, key)
 }
@@ -470,7 +646,7 @@ function bakeDevelopmentOffice(scene: Phaser.Scene, key: string, tier: 2 | 3): v
   const fd = 2
   const H = tier === 3 ? 88 : 74
   const peak = tier === 3 ? 38 : 34
-  const b = beginBuilding(scene, fw, fd, H, peak + 26)
+  const b = beginBuilding(scene, fw, fd, H, peak + 44)
   const { g, p } = b
   drawWalls(b, fw, fd, H, C.cream, C.creamShade)
   windowsLit(b, fw, fd, H, fw + 1, tier === 3 ? 3 : 2, C.glass, C.windowLit)
@@ -488,13 +664,20 @@ function bakeDevelopmentOffice(scene: Phaser.Scene, key: string, tier: 2 | 3): v
   signField(b, fw, fd, H, 0.68, 0.84, 0.3)
   gableRoof(b, fw, fd, H, peak)
   // …and on the roof: the rank a player reads at institution zoom.
+  //
+  // C1-M6b sharpens the tier gap. A finial is a few pixels of brass; at the whole-property
+  // framing II and III still read as one building. III now carries a LIT LANTERN CUPOLA on
+  // the ridge — a shape, not a detail — plus a chimney, so the taller tier is taller AND
+  // busier in silhouette, which is what "the same thing, more of it" should look like.
   if (tier === 3) {
-    dormer(b, fd, H, fw * 0.3, peak)
-    dormer(b, fd, H, fw * 0.7, peak)
-    stroke(g, [p(fw / 2, fd / 2, H + peak), p(fw / 2, fd / 2, H + peak + 22)], C.brassDark, 2.5)
-    poly(g, [p(fw / 2 - 0.12, fd / 2 - 0.12, H + peak + 22), p(fw / 2 + 0.12, fd / 2 - 0.12, H + peak + 22), p(fw / 2 + 0.12, fd / 2 + 0.12, H + peak + 22), p(fw / 2 - 0.12, fd / 2 + 0.12, H + peak + 22)], C.brass)
+    dormer(b, fd, H, fw * 0.24, peak)
+    dormer(b, fd, H, fw * 0.76, peak)
+    cupola(b, fw, fd, H, peak)
+    chimney(b, fw, H, peak)
   } else {
     dormer(b, fd, H, fw * 0.5, peak)
+    stroke(g, [p(fw / 2, fd / 2, H + peak), p(fw / 2, fd / 2, H + peak + 18)], C.brassDark, 2.5)
+    poly(g, [p(fw / 2 - 0.12, fd / 2 - 0.12, H + peak + 18), p(fw / 2 + 0.12, fd / 2 - 0.12, H + peak + 18), p(fw / 2 + 0.12, fd / 2 + 0.12, H + peak + 18), p(fw / 2 - 0.12, fd / 2 + 0.12, H + peak + 18)], C.brass)
   }
   TYCOON_BUILDING_TEX[key] = { key, originX: 0.5, originY: b.originY, fw, fd }
   finalize(b, key)
@@ -511,7 +694,7 @@ function bakeHall(scene: Phaser.Scene): void {
   const fw = 4
   const fd = 3
   const H = 82
-  const b = beginBuilding(scene, fw, fd, H, 22)
+  const b = beginBuilding(scene, fw, fd, H, 30)
   const { g, p } = b
   drawWalls(b, fw, fd, H, C.taupe, C.taupeShade)
   pilasters(b, fw, fd, H, 3, 0.2)
@@ -522,13 +705,19 @@ function bakeHall(scene: Phaser.Scene): void {
   poly(g, [p(fw / 2 - 0.42, fd, 0), p(fw / 2 + 0.42, fd, 0), p(fw / 2 + 0.42, fd, 32), p(fw / 2 - 0.42, fd, 32)], C.signPanel, 0.9)
   stroke(g, [p(fw / 2, fd, 0), p(fw / 2, fd, 32)], C.brassDark, 1.5, 0.8)
   poly(g, [p(fw / 2 - 0.78, fd, 34), p(fw / 2 + 0.78, fd, 34), p(fw / 2 + 0.78, fd, 41), p(fw / 2 - 0.78, fd, 41)], C.awning)
+  // C1-M6b: an entry portico on the frontage. A 4 × 3 flat-roofed box and a 3 × 2 one are
+  // the same building at institution zoom; a projecting porch under a brass-capped monitor
+  // is not.
+  portico(b, fw, fd, C.brass)
   signField(b, fw, fd, H, 0.74, 0.9, 0.34)
   flatRoof(b, fw, fd, H)
-  // roof plant — a big building runs big machinery, and the roof says so
-  for (const [x0, x1] of [[0.7, 1.5], [2.4, 3.3]] as const) {
-    poly(g, [p(x0, 0.6, H + 5), p(x1, 0.6, H + 5), p(x1, 1.3, H + 5), p(x0, 1.3, H + 5)], C.slateLit)
-    poly(g, [p(x0, 1.3, H + 5), p(x1, 1.3, H + 5), p(x1, 1.3, H + 18), p(x0, 1.3, H + 18)], C.slateShade)
-    poly(g, [p(x0, 0.6, H + 18), p(x1, 0.6, H + 18), p(x1, 1.3, H + 18), p(x0, 1.3, H + 18)], C.slate)
+  // the badge: a full-length glazed roof monitor, brass-capped
+  roofMonitor(b, fw, fd, H)
+  // roof plant, pushed to the ends so the monitor owns the middle
+  for (const [x0, x1] of [[0.35, 1.0], [3.0, 3.65]] as const) {
+    poly(g, [p(x0, 0.2, H + 5), p(x1, 0.2, H + 5), p(x1, 0.75, H + 5), p(x0, 0.75, H + 5)], C.slateLit)
+    poly(g, [p(x0, 0.75, H + 5), p(x1, 0.75, H + 5), p(x1, 0.75, H + 18), p(x0, 0.75, H + 18)], C.slateShade)
+    poly(g, [p(x0, 0.2, H + 18), p(x1, 0.2, H + 18), p(x1, 0.75, H + 18), p(x0, 0.75, H + 18)], C.slate)
   }
   TYCOON_BUILDING_TEX['tw-hall'] = { key: 'tw-hall', originX: 0.5, originY: b.originY, fw, fd }
   finalize(b, 'tw-hall')
@@ -546,7 +735,7 @@ function bakeCraftAnnex(scene: Phaser.Scene): void {
   const fw = 3
   const fd = 2
   const H = 36
-  const b = beginBuilding(scene, fw, fd, H, 30)
+  const b = beginBuilding(scene, fw, fd, H, 48)
   const { g, p } = b
   drawWalls(b, fw, fd, H, C.taupeLit, C.creamDeep)
   // service ROLLER SHUTTER on the shade face — deliveries come in the back
@@ -565,14 +754,17 @@ function bakeCraftAnnex(scene: Phaser.Scene): void {
   }
   poly(g, [p(0.36, fd, 29), p(fw - 0.36, fd, 29), p(fw - 0.36, fd, 30), p(0.36, fd, 30)], C.awningDark)
   windowsShade(b, fw, fd, H, 2, 0.55, 0.8)
-  // a shallow gravel roof, then the kitchen's own flue and a vent hood
-  flatRoof(b, fw, fd, H)
-  poly(g, [p(0.55, 0.5, H + 5), p(0.95, 0.5, H + 5), p(0.95, 0.95, H + 5), p(0.55, 0.95, H + 5)], C.steel)
-  poly(g, [p(0.55, 0.95, H + 5), p(0.95, 0.95, H + 5), p(0.95, 0.95, H + 26), p(0.55, 0.95, H + 26)], C.slateShade)
-  poly(g, [p(0.5, 0.45, H + 26), p(1.0, 0.45, H + 26), p(1.0, 1.0, H + 26), p(0.5, 1.0, H + 26)], C.slateLit)
+  // C1-M6b: a MONO-PITCH corrugated roof, not a flat parapet. Every other small building
+  // on this property has a flat or a gable; one plane falling to the service side reads as
+  // a shed from any distance, which is exactly what the crew canteen should read as.
+  const rise = 18
+  monoPitchRoof(b, fw, fd, H, rise)
+  poly(g, [p(0.55, 0.5, H + rise), p(0.95, 0.5, H + rise), p(0.95, 0.95, H + rise), p(0.55, 0.95, H + rise)], C.steel)
+  poly(g, [p(0.55, 0.95, H + rise), p(0.95, 0.95, H + rise), p(0.95, 0.95, H + 26 + rise), p(0.55, 0.95, H + 26 + rise)], C.slateShade)
+  poly(g, [p(0.5, 0.45, H + 26 + rise), p(1.0, 0.45, H + 26 + rise), p(1.0, 1.0, H + 26 + rise), p(0.5, 1.0, H + 26 + rise)], C.slateLit)
   // a low vent hood beside it, so the roof plane has a service silhouette
-  poly(g, [p(1.9, 0.6, H + 5), p(2.6, 0.6, H + 5), p(2.6, 1.2, H + 5), p(1.9, 1.2, H + 5)], C.slate)
-  poly(g, [p(1.9, 1.2, H + 5), p(2.6, 1.2, H + 5), p(2.6, 1.2, H + 12), p(1.9, 1.2, H + 12)], C.slateShade)
+  poly(g, [p(1.9, 0.6, H + rise - 3), p(2.6, 0.6, H + rise - 3), p(2.6, 1.2, H + rise - 5), p(1.9, 1.2, H + rise - 5)], C.slate)
+  poly(g, [p(1.9, 1.2, H + rise - 5), p(2.6, 1.2, H + rise - 5), p(2.6, 1.2, H + rise + 3), p(1.9, 1.2, H + rise + 3)], C.slateShade)
   // stacked crates against the shade wall: the yard's own vocabulary, borrowed
   poly(g, [p(fw - 0.05, 1.62, 0), p(fw - 0.05, 1.95, 0), p(fw - 0.05, 1.95, 13), p(fw - 0.05, 1.62, 13)], C.crate)
   poly(g, [p(fw - 0.05, 1.62, 13), p(fw - 0.05, 1.95, 13), p(fw - 0.05, 1.95, 24), p(fw - 0.05, 1.62, 24)], C.crateDark)
@@ -611,30 +803,41 @@ export function bakeBlueprintTexture(scene: Phaser.Scene, texKey: string): boole
   }
 }
 
+/**
+ * Scenery & Post — a WORKSHOP, and at C1-M6b it finally looks like one.
+ *
+ * It was a slate box with a flat roof and rooftop plant, which is what half the property
+ * already looked like. The only building on the lot where things are physically BUILT now
+ * carries the one roof form that means exactly that: a saw-tooth north light, over
+ * corrugated cladding, with the roller shutter tall enough to take a flat through it.
+ */
 function bakePost(scene: Phaser.Scene): void {
   const fw = 3
   const fd = 2
   const H = 66
-  const b = beginBuilding(scene, fw, fd, H, 26)
+  const b = beginBuilding(scene, fw, fd, H, 30)
   const { g, p } = b
   drawWalls(b, fw, fd, H, C.slate, C.slateShade)
-  windowsLit(b, fw, fd, H, 4, 2, C.glass, C.glass)
+  // corrugated cladding on the lit face — vertical ribs, not a smooth stucco plane
+  g.lineStyle(1, C.slateShade, 0.5)
+  for (let t = 0.12; t < fw; t += 0.22) {
+    const a = p(t, fd, 2)
+    const c = p(t, fd, H - 2)
+    g.lineBetween(a.x, a.y, c.x, c.y)
+  }
+  windowsLit(b, fw, fd, H, 4, 1, C.glass, C.glass)
   // roller shutter — this block also serves the scenery yard behind it
-  poly(g, [p(1.6, fd, 0), p(2.7, fd, 0), p(2.7, fd, 44), p(1.6, fd, 44)], C.crateDark)
-  for (let i = 1; i < 5; i++) {
-    stroke(g, [p(1.6, fd, i * 9), p(2.7, fd, i * 9)], C.shadow, 1, 0.35)
+  poly(g, [p(1.5, fd, 0), p(2.75, fd, 0), p(2.75, fd, 50), p(1.5, fd, 50)], C.crateDark)
+  for (let i = 1; i < 6; i++) {
+    stroke(g, [p(1.5, fd, i * 9), p(2.75, fd, i * 9)], C.shadow, 1, 0.35)
   }
+  poly(g, [p(1.42, fd, 50), p(2.83, fd, 50), p(2.83, fd, 55), p(1.42, fd, 55)], C.steel)
   signField(b, fw, fd, H, 0.74, 0.9, 0.25)
-  flatRoof(b, fw, fd, H)
-  // rooftop plant
-  for (const [gx, gy] of [
-    [0.9, 0.6],
-    [2.0, 1.2],
-  ] as const) {
-    poly(g, [p(gx - 0.28, gy - 0.28, H + 5), p(gx + 0.28, gy - 0.28, H + 5), p(gx + 0.28, gy + 0.28, H + 5), p(gx - 0.28, gy + 0.28, H + 5)], C.slateLit)
-    poly(g, [p(gx - 0.28, gy + 0.28, H + 5), p(gx + 0.28, gy + 0.28, H + 5), p(gx + 0.28, gy + 0.28, H + 17), p(gx - 0.28, gy + 0.28, H + 17)], C.slateShade)
-    poly(g, [p(gx - 0.28, gy - 0.28, H + 17), p(gx + 0.28, gy - 0.28, H + 17), p(gx + 0.28, gy + 0.28, H + 17), p(gx - 0.28, gy + 0.28, H + 17)], C.slate)
-  }
+  sawtoothRoof(b, fw, fd, H, 3)
+  // one extract stack, so the workshop reads as running machinery
+  poly(g, [p(0.35, 0.2, H + 16), p(0.68, 0.2, H + 16), p(0.68, 0.55, H + 16), p(0.35, 0.55, H + 16)], C.steel)
+  poly(g, [p(0.35, 0.55, H + 16), p(0.68, 0.55, H + 16), p(0.68, 0.55, H + 30), p(0.35, 0.55, H + 30)], C.slateShade)
+  poly(g, [p(0.3, 0.15, H + 30), p(0.73, 0.15, H + 30), p(0.73, 0.6, H + 30), p(0.3, 0.6, H + 30)], C.slateLit)
   TYCOON_BUILDING_TEX['tw-post'] = { key: 'tw-post', originX: 0.5, originY: b.originY, fw, fd }
   finalize(b, 'tw-post')
 }
@@ -828,13 +1031,46 @@ function bakeProps(scene: Phaser.Scene): void {
     stroke(g, [{ x: cx - 25, y: 130 }, { x: cx + 25, y: 130 }], C.steel, 2)
     stroke(g, [{ x: cx - 36, y: 204 }, { x: cx + 15, y: 104 }], C.steel, 1.5, 0.55)
     stroke(g, [{ x: cx + 36, y: 204 }, { x: cx - 15, y: 104 }], C.steel, 1.5, 0.55)
+    // C1-M6b: the tank gets the details a real one has — a catwalk with a handrail, a
+    // service ladder up the near leg, cross-braced guys, and a painted name band. The
+    // lot's tallest landmark was the one silhouette carrying no craft at close zoom.
     g.fillStyle(C.cream, 1)
     g.fillRect(cx - 28, 56, 56, 48)
     g.fillStyle(C.creamShade, 1)
     g.fillRect(cx + 8, 56, 20, 48)
+    // staved barrel: vertical seams across the lit face
+    g.lineStyle(1, C.creamShade, 0.55)
+    for (let x = cx - 22; x < cx + 8; x += 7) g.lineBetween(x, 58, x, 102)
     g.fillStyle(C.brass, 0.85)
     g.fillRect(cx - 28, 74, 56, 4)
+    g.fillStyle(C.signPanel, 0.9)
+    g.fillRect(cx - 24, 80, 48, 12)
+    g.fillStyle(C.brass, 0.75)
+    g.fillRect(cx - 19, 84, 38, 3)
+    // catwalk deck + handrail round the base of the tank
+    g.fillStyle(C.steel, 1)
+    g.fillRect(cx - 34, 102, 68, 3)
+    g.lineStyle(1.6, C.steel, 0.95)
+    g.strokeRect(cx - 34, 92, 68, 10)
+    for (let x = cx - 30; x <= cx + 30; x += 10) g.lineBetween(x, 92, x, 102)
+    // service ladder up the near leg, hooped at the top
+    stroke(g, [{ x: cx - 24, y: 196 }, { x: cx - 12, y: 104 }], C.steel, 1.6, 0.9)
+    stroke(g, [{ x: cx - 18, y: 196 }, { x: cx - 6, y: 104 }], C.steel, 1.6, 0.9)
+    for (let i = 1; i < 9; i++) {
+      const t = i / 9
+      stroke(
+        g,
+        [
+          { x: cx - 24 + 12 * t, y: 196 - 92 * t },
+          { x: cx - 18 + 12 * t, y: 196 - 92 * t },
+        ],
+        C.steel,
+        1.2,
+        0.85,
+      )
+    }
     poly(g, [{ x: cx - 28, y: 56 }, { x: cx + 28, y: 56 }, { x: cx, y: 24 }], C.terracotta)
+    poly(g, [{ x: cx + 4, y: 52 }, { x: cx + 28, y: 56 }, { x: cx, y: 24 }], C.terracottaDark)
     stroke(g, [{ x: cx, y: 24 }, { x: cx, y: 11 }], C.steel, 2)
     g.fillStyle(C.awning, 1)
     g.fillCircle(cx, 10, 3.2)
@@ -1009,6 +1245,187 @@ function bakeProps(scene: Phaser.Scene): void {
     g.fillStyle(C.awning, 1)
     g.fillRect(8, 6, 7, 5)
   })
+
+  bakeBacklotProps(scene)
+}
+
+// ── C1-M6b backlot dressing ───────────────────────────────────────────────────
+//
+// Inert props whose only job is to make the property look INHABITED — a working lot has
+// standing gear on it, and a lot with none reads as an architectural model.
+//
+// Every one of these is presentation and nothing else: they carry no hit area, no state,
+// no id, and the world places them only on ground no player can build on (see
+// `backlotDressing` in ./world.ts). They are deliberately SMALL and LOW — a prop that
+// competes with a building's silhouette would be dressing that lies about what stands
+// where. Nothing here is taller than a person except the two fence runs and the light
+// stand, and none of them casts a footprint big enough to be mistaken for a body.
+
+function bakeBacklotProps(scene: Phaser.Scene): void {
+  /**
+   * A post-and-wire fence run, one tile long, in each of the two isometric directions.
+   * Fencing is what actually tells a player where the working yard ends and the graded
+   * lot begins — a boundary the ground zoning alone cannot draw.
+   */
+  // One tile long, anchored at the MIDDLE of its run: the sprite's origin lands on the
+  // grid point it is placed at, so a row of them joins up instead of marching off-line.
+  const fenceBase = 30
+  const fenceTexH = 70
+  const fence = (key: string, along: 'gx' | 'gy'): void => {
+    bakeProp(scene, key, TILE_W, fenceTexH, (fenceBase + TILE_H * 0.25) / fenceTexH, (g) => {
+      const p = (t: number, z: number): Pt =>
+        along === 'gx'
+          ? { x: t * TILE_W, y: t * TILE_H * 0.5 - z + fenceBase }
+          : { x: TILE_W - t * TILE_W, y: t * TILE_H * 0.5 - z + fenceBase }
+      const H = 26
+      // three posts, then two wire runs and a top rail between them
+      for (const t of [0.04, 0.5, 0.96]) {
+        const foot = p(t, 0)
+        const head = p(t, H)
+        g.fillStyle(C.fencePost, 1)
+        g.fillRect(foot.x - 2, head.y, 4, foot.y - head.y)
+        g.fillStyle(C.shadow, 0.28)
+        g.fillRect(foot.x + 2, head.y + 2, 2, foot.y - head.y - 2)
+      }
+      for (const z of [H, H * 0.66, H * 0.33]) {
+        stroke(g, [p(0.04, z), p(0.96, z)], z === H ? C.fencePost : C.fenceWire, z === H ? 2.5 : 1.4, 0.9)
+      }
+    })
+  }
+  fence('tw-fence-x', 'gx')
+  fence('tw-fence-y', 'gy')
+
+  // Painted oil drums — the one hit of studio red out in the yard.
+  bakeProp(scene, 'tw-drums', 52, 44, 0.86, (g) => {
+    contact(g, 26, 38, 15)
+    const drum = (cx: number, cy: number, colour: number): void => {
+      g.fillStyle(colour, 1)
+      g.fillRect(cx - 8, cy - 20, 16, 20)
+      g.fillStyle(mix(colour, C.shadow, 0.34), 1)
+      g.fillRect(cx + 2, cy - 20, 6, 20)
+      g.fillStyle(mix(colour, 0xffffff, 0.22), 1)
+      g.fillEllipse(cx, cy - 20, 16, 6)
+      g.lineStyle(1.2, C.shadow, 0.4)
+      g.lineBetween(cx - 8, cy - 13, cx + 8, cy - 13)
+      g.lineBetween(cx - 8, cy - 7, cx + 8, cy - 7)
+    }
+    drum(16, 36, C.drum)
+    drum(33, 33, C.drumAlt)
+    drum(25, 40, C.drum)
+  })
+
+  // A stack of timber pallets: the shape a working yard is actually full of.
+  bakeProp(scene, 'tw-pallets', 56, 40, 0.86, (g) => {
+    contact(g, 28, 34, 17)
+    const p = (gx: number, gy: number, z: number): Pt => ({ x: (gx - gy) * 14 + 28, y: (gx + gy) * 7 - z + 26 })
+    for (let i = 0; i < 4; i++) {
+      const z = i * 6
+      poly(g, [p(0, 1, z), p(1, 1, z), p(1, 1, z + 4), p(0, 1, z + 4)], i % 2 ? C.timber : C.timberDark)
+      poly(g, [p(1, 0, z), p(1, 1, z), p(1, 1, z + 4), p(1, 0, z + 4)], C.crateDark)
+    }
+    poly(g, [p(0, 0, 24), p(1, 0, 24), p(1, 1, 24), p(0, 1, 24)], mix(C.timber, 0xffffff, 0.18))
+  })
+
+  // A leaning ladder and a paint pot — somebody is mid-job here.
+  bakeProp(scene, 'tw-ladder', 44, 56, 0.92, (g) => {
+    contact(g, 20, 50, 11)
+    stroke(g, [{ x: 12, y: 51 }, { x: 30, y: 8 }], C.timber, 2.6)
+    stroke(g, [{ x: 18, y: 53 }, { x: 36, y: 10 }], C.timber, 2.6)
+    for (let i = 1; i < 6; i++) {
+      const t = i / 6
+      stroke(
+        g,
+        [{ x: 12 + (30 - 12) * t, y: 51 + (8 - 51) * t }, { x: 18 + (36 - 18) * t, y: 53 + (10 - 53) * t }],
+        C.timberDark,
+        1.6,
+      )
+    }
+    g.fillStyle(C.drum, 1).fillRect(4, 44, 9, 9)
+    g.fillStyle(C.steelLit, 1).fillEllipse(8.5, 44, 9, 3.5)
+  })
+
+  // Sandbags and a coil of cable: soundstage rigging that lives outside the doors.
+  bakeProp(scene, 'tw-rigging', 52, 34, 0.84, (g) => {
+    contact(g, 26, 28, 15)
+    for (const [x, y] of [[12, 26], [24, 28], [36, 25], [18, 20], [30, 21]] as const) {
+      g.fillStyle(C.canvasTarp, 1)
+      g.fillEllipse(x, y, 15, 8)
+      g.fillStyle(mix(C.canvasTarp, C.shadow, 0.3), 1)
+      g.fillEllipse(x + 3, y + 2, 11, 5)
+    }
+    g.lineStyle(2.4, C.tyre, 0.9)
+    g.strokeEllipse(24, 15, 20, 9)
+    g.strokeEllipse(24, 13, 14, 6)
+  })
+
+  // A film lamp on a stand. Nothing on the lot says "movie studio" faster.
+  bakeProp(scene, 'tw-lightstand', 42, 82, 0.95, (g) => {
+    contact(g, 21, 76, 11)
+    stroke(g, [{ x: 21, y: 77 }, { x: 12, y: 62 }], C.steel, 2.2)
+    stroke(g, [{ x: 21, y: 77 }, { x: 30, y: 62 }], C.steel, 2.2)
+    stroke(g, [{ x: 21, y: 77 }, { x: 21, y: 26 }], C.steel, 3)
+    g.fillStyle(C.steel, 1).fillRect(11, 12, 20, 17)
+    g.fillStyle(C.steelLit, 1).fillRect(11, 12, 20, 4)
+    g.fillStyle(C.lampGlass, 0.95).fillEllipse(31, 21, 7, 14)
+    g.lineStyle(1.8, C.steel, 1).strokeEllipse(31, 21, 7, 14)
+  })
+
+  // A small scaffold tower — the corpus' construction idiom, standing idle in the yard.
+  bakeProp(scene, 'tw-scaffold', 74, 86, 0.93, (g) => {
+    contact(g, 37, 78, 24)
+    for (const x of [12, 34, 60]) stroke(g, [{ x, y: 80 }, { x, y: 14 }], C.steel, 2.4)
+    for (const y of [22, 44, 66]) stroke(g, [{ x: 12, y }, { x: 60, y: y - 6 }], C.steel, 2)
+    stroke(g, [{ x: 12, y: 80 }, { x: 60, y: 8 }], C.steel, 1.4, 0.5)
+    stroke(g, [{ x: 60, y: 74 }, { x: 12, y: 14 }], C.steel, 1.4, 0.5)
+    g.fillStyle(C.timber, 1).fillRect(10, 40, 52, 5)
+    g.fillStyle(C.timberDark, 1).fillRect(10, 45, 52, 2)
+    g.fillStyle(C.canvasTarp, 0.85).fillRect(36, 46, 26, 20)
+  })
+
+  // A refuse skip. Unglamorous, and exactly why the lot reads as worked in.
+  bakeProp(scene, 'tw-skip', 62, 40, 0.86, (g) => {
+    contact(g, 31, 34, 18)
+    const p = (gx: number, gy: number, z: number): Pt => ({ x: (gx - gy) * 16 + 31, y: (gx + gy) * 8 - z + 26 })
+    poly(g, [p(0, 1, 0), p(1, 1, 0), p(1, 1, 14), p(0, 1, 14)], C.drumAlt)
+    poly(g, [p(1, 0, 0), p(1, 1, 0), p(1, 1, 14), p(1, 0, 14)], mix(C.drumAlt, C.shadow, 0.34))
+    poly(g, [p(0, 0, 14), p(1, 0, 14), p(1, 1, 14), p(0, 1, 14)], mix(C.drumAlt, C.shadow, 0.5))
+    g.fillStyle(C.timber, 0.9)
+    g.fillRect(20, 15, 20, 5)
+    g.fillStyle(C.crate, 0.9)
+    g.fillRect(32, 12, 14, 6)
+  })
+
+  // Dry backlot scrub — the planting that grows where nobody waters.
+  bakeProp(scene, 'tw-scrub', 46, 34, 0.9, (g) => {
+    contact(g, 23, 29, 12)
+    for (const [x, y, r] of [[13, 24, 8], [24, 21, 10], [33, 25, 7], [19, 18, 7]] as const) {
+      g.fillStyle(C.scrubDark, 1)
+      g.fillEllipse(x + 2, y + 2, r * 2, r * 1.1)
+      g.fillStyle(C.scrub, 1)
+      g.fillEllipse(x, y, r * 2, r * 1.1)
+    }
+  })
+
+  // A delivery van — a different silhouette from the truck and the studio cars.
+  bakeProp(scene, 'tw-van', 92, 54, 0.83, (g) => {
+    contact(g, 46, 46, 28)
+    g.fillStyle(C.vanBody, 1)
+    g.fillRoundedRect(6, 12, 56, 26, 4)
+    g.fillStyle(mix(C.vanBody, C.shadow, 0.3), 1)
+    g.fillRect(40, 12, 22, 26)
+    g.fillStyle(C.vanBody, 1)
+    g.fillRoundedRect(58, 18, 28, 20, 5)
+    g.fillStyle(C.glass, 0.9)
+    g.fillRect(68, 21, 14, 9)
+    g.fillStyle(C.timber, 0.85)
+    g.fillRect(12, 20, 24, 3)
+    g.fillStyle(C.tyre, 1)
+    g.fillCircle(22, 40, 8)
+    g.fillCircle(72, 40, 8)
+    g.fillStyle(C.steelLit, 1)
+    g.fillCircle(22, 40, 3)
+    g.fillCircle(72, 40, 3)
+  })
 }
 
 // ── ground tiles ──────────────────────────────────────────────────────────────
@@ -1038,12 +1455,28 @@ function bakeTiles(scene: Phaser.Scene): void {
     g.fillEllipse(hw, hh, 34, 16)
   })
   mk('tw-t-lawn2', C.lawnAlt, C.lawnEdge)
+  // C1-M6b: the driest grass. Two scorch blooms rather than one flat fill, so a run of
+  // verge cells reads as worn ground instead of a painted stripe.
+  mk('tw-t-lawn-dry', C.lawnDry, C.lawnEdge, (g) => {
+    g.fillStyle(C.lawnAlt, 0.4)
+    g.fillEllipse(hw - 15, hh + 5, 26, 12)
+    g.fillStyle(C.surround, 0.32)
+    g.fillEllipse(hw + 17, hh - 4, 22, 10)
+  })
   mk('tw-t-path', C.path, C.pathEdge)
   mk('tw-t-road', C.road, C.roadEdge, (g) => {
+    // C1-M6b: patched asphalt. The tile is shared by BOTH road directions, so the wear
+    // is a repair patch rather than a wheel track — a track would have to point somewhere.
+    g.fillStyle(C.roadWear, 0.5)
+    g.fillEllipse(hw - 18, hh + 6, 30, 13)
+    g.fillStyle(C.roadWear, 0.34)
+    g.fillEllipse(hw + 20, hh - 5, 22, 9)
     // kerb highlight on the up-sun edges keeps roads from reading as holes
     stroke(g, [{ x: 0, y: hh }, { x: hw, y: 0 }], C.roadLine, 1.5, 0.16)
   })
   mk('tw-t-road-line', C.road, C.roadEdge, (g) => {
+    g.fillStyle(C.roadWear, 0.42)
+    g.fillEllipse(hw + 21, hh + 7, 24, 10)
     g.fillStyle(C.roadLine, 0.72)
     g.fillRect(hw - 13, hh - 2, 26, 4)
     stroke(g, [{ x: 0, y: hh }, { x: hw, y: 0 }], C.roadLine, 1.5, 0.16)
@@ -1130,8 +1563,8 @@ export function bakePeopleFallback(scene: Phaser.Scene): void {
 export function bakeTycoonTextures(scene: Phaser.Scene): void {
   bakeTiles(scene)
   bakeAdmin(scene)
-  bakeOffice(scene, 'tw-writers', 3, 2, 66, 32)
-  bakeOffice(scene, 'tw-casting', 3, 2, 58, 28)
+  bakeOffice(scene, 'tw-writers', 3, 2, 66, 32, 'development')
+  bakeOffice(scene, 'tw-casting', 3, 2, 58, 28, 'casting')
   bakeAnnex(scene)
   bakePost(scene)
   bakeTheater(scene)

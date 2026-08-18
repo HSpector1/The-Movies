@@ -51,6 +51,7 @@ export type GridPoint = { gx: number; gy: number }
 export type GroundKind =
   | 'tw-t-lawn'
   | 'tw-t-lawn2'
+  | 'tw-t-lawn-dry'
   | 'tw-t-dirt'
   | 'tw-t-gravel'
   | 'tw-t-plaza'
@@ -598,6 +599,157 @@ export function landscaping(): PropPlacement[] {
   // theater forecourt
   props.push({ texKey: 'tw-planter', gx: 6.3, gy: 17.4 })
   props.push({ texKey: 'tw-lamp', gx: 6.5, gy: 15.6 })
+
+  return props
+}
+
+// ── C1-M6b — backlot dressing ─────────────────────────────────────────────────
+//
+// A studio lot is a WORKING place. Before this pass the property was correct and empty:
+// the right buildings on the right ground with nothing standing about between them, which
+// is what made it read cold. This is the fix, and it is the smallest honest version of it.
+//
+// THE LAW THIS INVENTORY IS WRITTEN TO. Dressing is presentation and only presentation. It
+// enters no occupancy, carries no hit area, holds no state and answers no question. So it
+// may not stand anywhere that would make a player believe ground is taken when it is not:
+// every point below is on ground the parcel map does NOT offer for building — road verges,
+// the two BLOCKED parcels (the courtyard and the service yard), the aprons, and the
+// unclaimed margins outside every parcel rectangle. `world.test.ts` asserts exactly that
+// against the engine's own `LOT_PARCELS`, so the claim is checked rather than promised.
+//
+// The legacy landscaping above predates that law and is left where the accepted specs put
+// it; the SCENE additionally makes any prop yield to a real body standing on its cell, so
+// even a grandfathered prop stops painting the moment its ground is genuinely built on.
+//
+// DENSITY is the tutorial-era lot from the corpus, not the ten-year one: margins and
+// working yards dressed, the middle of the property left open for the studio the player
+// is going to build.
+
+/**
+ * Deterministic, clock-free variation from a grid coordinate. No RNG, no `Date.now`.
+ *
+ * The odd constant it STARTS from is load-bearing, and was put there by a failing test: a
+ * hash built by multiplying and xoring the inputs alone has a fixed point at the origin —
+ * `gridHash(0, 0)` returned exactly 0, so the corner of the property was permanently the
+ * driest cell on it and every salted variation there agreed with every other. Seeding the
+ * accumulator removes the fixed point; the corner is now an ordinary cell.
+ */
+export function gridHash(gx: number, gy: number, salt = 0): number {
+  const x = Math.round(gx * 16) | 0
+  const y = Math.round(gy * 16) | 0
+  let h = (0x9e3779b9 ^ Math.imul(x, 0x27d4eb2d)) >>> 0
+  h = (h ^ Math.imul(y ^ 0x85ebca6b, 0x165667b1)) >>> 0
+  h = (h ^ Math.imul(salt ^ 0xc2b2ae35, 0x27d4eb2d)) >>> 0
+  h = Math.imul(h ^ (h >>> 15), 0x85ebca6b) >>> 0
+  h = Math.imul(h ^ (h >>> 13), 0xc2b2ae35) >>> 0
+  return (h ^ (h >>> 16)) >>> 0
+}
+
+/** The same hash as a fraction in [0, 1). */
+export function gridNoise(gx: number, gy: number, salt = 0): number {
+  return gridHash(gx, gy, salt) / 0x1_0000_0000
+}
+
+/**
+ * How dry one open ground cell is, from its coordinates alone.
+ *
+ * The corpus' ground is BLOTCHED — sun-scorched patches through watered grass — and a
+ * single flat tone is what made this property read as a diagram. Two octaves of the
+ * coordinate hash give the blotches size without any noise texture, and because it is a
+ * pure function of the cell, two paints of the same snapshot are byte-identical.
+ */
+export function groundDryness(gx: number, gy: number): number {
+  const coarse = gridNoise(Math.floor(gx / 3), Math.floor(gy / 3), 11)
+  const fine = gridNoise(gx, gy, 29)
+  return coarse * 0.68 + fine * 0.32
+}
+
+/** Above this, an open lawn cell is painted as scorched rather than watered. */
+export const GROUND_SCORCH_THRESHOLD = 0.62
+/** Traffic verges are drier: a cell beside a road or apron scorches this much sooner. */
+export const GROUND_VERGE_BONUS = 0.28
+
+/**
+ * Standing gear, fencing and dry planting — the property, inhabited.
+ *
+ * Grouped by where on the lot they stand, because that is how they were authored and how
+ * a reviewer checks them.
+ */
+export function backlotDressing(): PropPlacement[] {
+  const props: PropPlacement[] = []
+  const at = (texKey: string, gx: number, gy: number, jitter?: number): void => {
+    props.push(jitter === undefined ? { texKey, gx, gy } : { texKey, gx, gy, jitter })
+  }
+
+  // ── the north margin, behind the back wall line (gy 0-1) ───────────────────
+  at('tw-palm', 1.4, 0.5, 0.1)
+  at('tw-palm', 4.6, 0.6, 0.1)
+  at('tw-palm', 11.5, 0.6, 0.1)
+  at('tw-palm', 16.4, 0.5, 0.1)
+  at('tw-scrub', 2.6, 1.4, 0.08)
+  at('tw-scrub', 7.5, 0.5, 0.08)
+  at('tw-scrub', 12.4, 1.5, 0.08)
+  at('tw-scrub', 19.5, 1.4, 0.08)
+
+  // ── the west margin, outside the owned lawns (gx 0-2, gy 15-25) ────────────
+  at('tw-palm', 1.4, 16.4, 0.1)
+  at('tw-palm', 0.6, 19.6, 0.1)
+  at('tw-palm', 1.5, 23.4, 0.1)
+  at('tw-scrub', 2.4, 17.6, 0.08)
+  at('tw-scrub', 0.5, 21.5, 0.08)
+  at('tw-scrub', 2.5, 24.6, 0.08)
+  // a fence run marking where the studio's own ground begins
+  for (const gy of [19.5, 20.5, 21.5, 22.5]) at('tw-fence-y', 2.9, gy)
+
+  // ── the stage road verge (gx 12 and gx 15) ────────────────────────────────
+  at('tw-lamp', 12.4, 3.5)
+  at('tw-lamp', 12.4, 11.5)
+  at('tw-lamp', 12.4, 19.5)
+  at('tw-scrub', 12.5, 5.6, 0.08)
+  at('tw-scrub', 12.5, 16.5, 0.08)
+  at('tw-crate', 15.6, 2.6, 0.06)
+  at('tw-lightstand', 15.5, 4.4)
+
+  // ── standing gear on the two stage aprons ─────────────────────────────────
+  at('tw-rigging', 18.6, 6.6)
+  at('tw-rigging', 19.6, 13.5)
+  at('tw-drums', 16.5, 13.4)
+  at('tw-ladder', 21.4, 12.4)
+
+  // ── the scenery & service yard (a BLOCKED parcel — nothing may be built here) ─
+  at('tw-pallets', 22.5, 16.5)
+  at('tw-drums', 25.4, 17.6)
+  at('tw-scaffold', 26.4, 16.4)
+  at('tw-skip', 21.5, 18.6)
+  at('tw-ladder', 24.5, 16.5)
+  for (const gx of [22.5, 23.5, 24.5, 25.5]) at('tw-fence-x', gx, 18.9)
+
+  // ── the back-lot parking, on the strip the parcel map does not offer ───────
+  at('tw-van', 21.6, 23.5)
+  at('tw-drums', 22.5, 20.4)
+  at('tw-lamp', 21.4, 24.4)
+
+  // ── the south-east margin, behind the back-lot road ───────────────────────
+  at('tw-palm', 16.5, 24.5, 0.1)
+  at('tw-palm', 19.5, 23.5, 0.1)
+  at('tw-scrub', 18.4, 25.4, 0.08)
+  for (const gx of [15.5, 16.5, 17.5]) at('tw-fence-x', gx, 23.1)
+
+  // ── the east margin ────────────────────────────────────────────────────────
+  at('tw-palm', 27.4, 10.5, 0.08)
+  at('tw-palm', 27.4, 13.5, 0.08)
+  at('tw-scrub', 27.5, 17.4, 0.08)
+
+  // ── the boulevard verge, on the gate approach ─────────────────────────────
+  at('tw-lamp', 11.5, 19.4)
+  at('tw-palm', 11.6, 21.5, 0.08)
+  at('tw-palm', 12.5, 24.5, 0.08)
+
+  // ── the courtyard and the avenue, softened (both BLOCKED or unclaimed) ─────
+  at('tw-planter', 8.6, 10.4, 0.05)
+  at('tw-planter', 10.4, 13.6, 0.05)
+  at('tw-lamp', 4.4, 6.4)
+  at('tw-planter', 6.6, 9.4, 0.05)
 
   return props
 }
