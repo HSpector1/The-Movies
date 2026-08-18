@@ -23,6 +23,16 @@ import { ErrorBox } from '../components/common.tsx'
 import { deriveSaveCard } from '../shell/saveCard.ts'
 import { money } from '../format.ts'
 
+/**
+ * The ceiling on a file this screen will even open (PF1-M4).
+ *
+ * A real export is a few hundred kilobytes; eight megabytes is generous by an order of
+ * magnitude and still small enough that no browser has to hold a hostile file in memory.
+ * A file over it is refused on its stated size alone, before a single byte is read.
+ */
+const MAX_IMPORT_MB = 8
+const MAX_IMPORT_BYTES = MAX_IMPORT_MB * 1024 * 1024
+
 export function Saves({
   state,
   onLoad,
@@ -86,6 +96,17 @@ export function Saves({
   function readFile(file: File | null | undefined) {
     if (!file) return
     setError(null)
+    // PF1-M4 — refuse an oversized print BEFORE reading it. A save this studio wrote is a
+    // few hundred kilobytes; anything past the ceiling is not one, and reading it whole
+    // into a controlled React value renders every byte into the textarea before the engine
+    // ever gets to refuse it. The size is known from the File itself, so the refusal costs
+    // nothing and the file is never opened.
+    if (file.size > MAX_IMPORT_BYTES) {
+      setError(
+        `That file is far larger than any print this studio has ever cut (${MAX_IMPORT_MB} MB is the limit) — it was not opened. Choose the save you exported, or paste its contents below.`,
+      )
+      return
+    }
     const reader = new FileReader()
     reader.onload = () => {
       const text = typeof reader.result === 'string' ? reader.result : ''

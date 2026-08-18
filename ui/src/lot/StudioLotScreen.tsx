@@ -7964,17 +7964,29 @@ export function StudioLotScreen({
         `role`/`aria-live`/`aria-atomic`/testid contract is untouched, and the composed copy
         is carried verbatim. The other three hidden regions stay hidden on purpose: their
         content is already fully visible beside them (see the M2 report).
+
+        PF1-M4 — THE DOUBLE-ANNOUNCE FIX. The React key used to embed the punctuation
+        serial, which bumps on ANY committed action. So a build receipt landing while an
+        Operational notice was still on screen replaced the live region's child with a new
+        node carrying the identical sentence — and an aria-atomic polite region re-reads
+        that, word for word, to a player who has already heard it. The key is now THE
+        SENTENCE ONLY: identical copy is the same node, so it is announced exactly once,
+        and genuinely new copy is still a new node and still announced. The serial moves to
+        `data-punctuation` on the region wrapper, where the stylesheet can restart the
+        notice animation without touching the announced subtree (attribute changes on a
+        live region are not announcements). DOM-only: no renderer call, no display object.
       */}
       <div
         className="lot-notice"
         role="status"
         aria-live="polite"
         aria-atomic="true"
+        data-punctuation={String(punctuation?.key ?? 0)}
         data-testid="lot-annex-operational-announcement"
       >
         {operationalAnnouncement !== '' && (
           <span
-            key={`${String(punctuation?.key ?? 0)}:${operationalAnnouncement}`}
+            key={operationalAnnouncement}
             className="lot-notice-line"
             data-motion={noticeMotion}
           >
@@ -7987,11 +7999,12 @@ export function StudioLotScreen({
         role="status"
         aria-live="polite"
         aria-atomic="true"
+        data-punctuation={String(punctuation?.key ?? 0)}
         data-testid="lot-week-update-announcement"
       >
         {advanceFeedback !== null && advanceFeedback.constructionCompletion === null && (
           <span
-            key={`${String(punctuation?.key ?? 0)}:${String(advanceFeedback.week)}`}
+            key={`week:${String(advanceFeedback.week)}`}
             className="lot-notice-line"
             data-motion={noticeMotion}
           >

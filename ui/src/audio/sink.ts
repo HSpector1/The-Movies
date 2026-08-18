@@ -22,10 +22,17 @@ export type PlaybackChannel = Exclude<AudioChannel, 'master'>
  * hidden tab, and audio on a browser with no Web Audio at all are all SILENCE, never
  * errors. `unlocked` is the sink's own answer to "has a user gesture given me a
  * context yet" — the service drops cues while it is false.
+ *
+ * PF1-M4 fix: `unlocked` and `running` are DIFFERENT questions and the difference is the
+ * whole autoplay bug. `unlocked` says a context OBJECT exists; `running` says the browser
+ * actually granted playback. A first gesture the browser refuses leaves a suspended
+ * context behind — unlocked, not running — and the sink must stay RETRYABLE so the next
+ * genuine gesture asks again instead of the session being silent forever.
  */
 export interface AudioSink {
   resume(): void
   readonly unlocked: boolean
+  readonly running: boolean
   play(assetId: string, channel: PlaybackChannel, gain: number): void
   startLoop(assetId: string, channel: PlaybackChannel, gain: number): void
   stopLoop(assetId: string): void
@@ -46,10 +53,20 @@ export type RecordedAudioCall =
  * `unlocked` is a plain writable field so a suite can hold the sink locked (the
  * autoplay-policy case) or force it open without a gesture. `resume()` opens it,
  * exactly as a real gesture-driven resume does.
+ *
+ * PF1-M4: `running` MIRRORS `unlocked` here, deliberately. The double models a browser
+ * that always grants the first request, so "a context exists" and "playback was granted"
+ * are the same fact — and a suite that forces `unlocked` still gets a fully open sink.
+ * The refusal case has no double: it is exercised against the real `WebAudioSink` with a
+ * refusing AudioContext. The log format is unchanged.
  */
 export class RecordingSink implements AudioSink {
   readonly log: RecordedAudioCall[] = []
   unlocked = false
+
+  get running(): boolean {
+    return this.unlocked
+  }
 
   resume(): void {
     this.log.push({ call: 'resume' })
@@ -127,11 +144,22 @@ export class WebAudioSink implements AudioSink {
   /** Loops the caller currently WANTS, whether or not a context exists yet. */
   private readonly desiredLoops = new Map<string, { channel: PlaybackChannel; gain: number }>()
   private readonly liveLoops = new Map<string, { source: AudioBufferSourceNode; gain: GainNode }>()
+  /**
+   * PF1-M4: this latches on the resume promise RESOLVING, never on the attempt. The old
+   * latch was set before the request was made, so a browser that refused the very first
+   * gesture — the ordinary autoplay case — was never asked a second time and the session
+   * stayed silent for its whole life.
+   */
   private resumed = false
 
   /** True once a context exists. A suspended-but-present context is still silence, not an error. */
   get unlocked(): boolean {
     return this.ctx !== null
+  }
+
+  /** True only while the browser is actually running the context — the real grant. */
+  get running(): boolean {
+    return this.ctx !== null && this.ctx.state === 'running'
   }
 
   resume(): void {
@@ -153,13 +181,26 @@ export class WebAudioSink implements AudioSink {
         }
       }
       if (!this.resumed) {
-        this.resumed = true
-        void this.ctx.resume?.()?.catch?.(() => {})
+        const pending = this.ctx.resume?.()
+        if (pending !== undefined && typeof pending.then === 'function') {
+          pending.then(
+            () => {
+              // The grant landed. Only now is the sink done asking, and only now can the
+              // loops the studio wanted while it was locked actually be heard.
+              this.resumed = true
+              this.startDesiredLoops()
+            },
+            () => {
+              // Refused. Nothing latches: the NEXT gesture asks the browser again.
+            },
+          )
+        } else {
+          // A context whose resume() answers nothing at all has already granted playback.
+          this.resumed = true
+        }
       }
       // Anything asked for before the context existed starts now.
-      for (const [assetId, want] of this.desiredLoops) {
-        if (!this.liveLoops.has(assetId)) this.ensureLoop(assetId, want.channel, want.gain)
-      }
+      this.startDesiredLoops()
     } catch {
       /* audio is unavailable in this environment — the product runs silent */
     }
@@ -216,6 +257,13 @@ export class WebAudioSink implements AudioSink {
 
   private busFor(channel: PlaybackChannel): AudioNode | null {
     return this.channelNodes.get(channel) ?? null
+  }
+
+  /** Start every loop the caller still wants and that is not already live. */
+  private startDesiredLoops(): void {
+    for (const [assetId, want] of this.desiredLoops) {
+      if (!this.liveLoops.has(assetId)) this.ensureLoop(assetId, want.channel, want.gain)
+    }
   }
 
   private startOneShot(assetId: string, channel: PlaybackChannel, gain: number): void {

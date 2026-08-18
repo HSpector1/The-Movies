@@ -2588,11 +2588,36 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   45% { background: var(--bg-panel-2); color: var(--accent); }
   100% { background: var(--bg-panel); color: var(--text-dim); }
 }
+/* PF1-M4 — restarting the beat WITHOUT remounting the announced node.
+   The notice line used to be re-keyed on the punctuation serial, which re-announced
+   already-read copy to a screen reader (see StudioLotScreen). The serial now rides on
+   `.lot-notice[data-punctuation]`, and a running CSS animation restarts when its
+   KEYFRAMES NAME changes — so odd serials name a byte-identical twin. The swap goes
+   through a custom property on purpose: these two rules keep exactly the specificity
+   they had, so every `animation: none` rule around them still wins under reduced
+   motion, where this whole block must stay inert. */
+@keyframes lot-notice-emphasis-alt {
+  from { background: var(--bg-panel-2); color: var(--text); }
+  to { background: var(--bg-panel); color: var(--text-dim); }
+}
+@keyframes lot-notice-held-beat-alt {
+  0% { background: var(--bg-panel-2); color: var(--accent); }
+  45% { background: var(--bg-panel-2); color: var(--accent); }
+  100% { background: var(--bg-panel); color: var(--text-dim); }
+}
+.lot-notice[data-punctuation$='1'],
+.lot-notice[data-punctuation$='3'],
+.lot-notice[data-punctuation$='5'],
+.lot-notice[data-punctuation$='7'],
+.lot-notice[data-punctuation$='9'] {
+  --lot-notice-emphasis-name: lot-notice-emphasis-alt;
+  --lot-notice-held-beat-name: lot-notice-held-beat-alt;
+}
 .lot-notice-line[data-motion='emphasis'] {
-  animation: lot-notice-emphasis 320ms ease-out 1;
+  animation: var(--lot-notice-emphasis-name, lot-notice-emphasis) 320ms ease-out 1;
 }
 .lot-notice-line[data-motion='held-beat'] {
-  animation: lot-notice-held-beat 600ms ease-out 1;
+  animation: var(--lot-notice-held-beat-name, lot-notice-held-beat) 600ms ease-out 1;
 }
 .lot-notice-line[data-motion='none'],
 .lot-notice-line[data-motion='count-up'] {

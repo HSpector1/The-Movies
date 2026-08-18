@@ -219,8 +219,12 @@ export function Dashboard({
         <div className="card stack">
           <h2>Next decision</h2>
           <p className="hint">
+            {/* PF1-M4 VOICE PASS (charter §3, and the §3 named-offender list). "unattended
+                simulation" is what the codebase calls Sim to next event; a studio calls it
+                simming ahead. Copy only — the mechanic is unchanged: a screenplay waiting
+                to be read stops Sim to next event, and Advance one week stays legal. */}
             {pendingScriptDecision
-              ? `${pendingScriptDecision.title} needs screenplay review before unattended simulation can continue.`
+              ? `${pendingScriptDecision.title} is waiting to be read in the Writers’ Room. The studio will not sim ahead until it is.`
               : pendingCastingDecision
                 ? `${pendingCastingDecision.title} has audition results waiting for review in the Casting Room.`
               : pendingProductionDecision
@@ -269,13 +273,17 @@ export function Dashboard({
                 simulation", which is what the codebase calls Sim to next event, not what a
                 studio calls anything. Mechanics unchanged: Sim to next event is disabled while
                 a screenplay review is pending, Advance one week stays legal, and the review
-                still waits with no hidden progress. */}
+                still waits with no hidden progress.
+                PF1-M4 completes the pass: the casting and production branches said it too,
+                and now speak in the register the screenplay branch established. Copy only —
+                Sim to next event is disabled at all three gates exactly as before, a
+                deliberate single week stays legal at all three, and no fact moved. */}
             {pendingScriptDecision
               ? 'The studio will not sim ahead: a screenplay is waiting to be read in the Writers’ Room. Read it, or advance a single week deliberately — the script keeps its place, and nothing moves behind your back.'
               : pendingCastingDecision
-                ? 'Review the camera-test evidence before unattended simulation. Acknowledgement is always legal and never selects a winner.'
+                ? 'The studio will not sim ahead: the camera-test evidence is waiting to be reviewed. Acknowledgement is always legal and never selects a winner.'
               : pendingProductionDecision
-              ? 'Resolve the command on the Production Board before unattended simulation. You may still advance a week deliberately; the film will hold while studio costs continue.'
+              ? 'The studio will not sim ahead: a command on the Production Board is waiting to be resolved. You may still advance a single week deliberately — the film holds where it is, and studio costs continue.'
               : capacityHold
                 ? 'The Production Board shows the capacity warning. Advance or Sim to retry it while payroll and studio overhead continue.'
               : 'Sim to next event runs weeks in order — applying payroll, overhead, and theatrical revenue — and stops at a screenplay review, casting review, production decision, release, run ending, contract change, or cash going negative.'}

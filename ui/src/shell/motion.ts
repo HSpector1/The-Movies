@@ -64,27 +64,16 @@ export function subscribeMotionPref(listener: (pref: MotionPref) => void): () =>
  * Persist the player's motion choice and tell every live surface.
  *
  * The read-modify-write is deliberate. `prefs.v1` is one record shared with the audio
- * service, which holds its own in-memory copy taken at construction; writing the whole
- * record from a stale copy is how a preference gets un-written. Reading immediately
- * before writing is what keeps a volume change and a motion change from erasing each other.
+ * service; writing the whole record from a stale copy is how a preference gets un-written.
+ * Reading immediately before writing is what keeps a volume change and a motion change
+ * from erasing each other.
+ *
+ * PF1-M4: the audio service now reads before it writes too, so BOTH writers of the shared
+ * record hold this discipline. The repair helper the settings surface used to call after
+ * every audio write (`reassertMotionPref`) is gone with the defect it patched: an
+ * invariant held by one call site's good manners was never held at all.
  */
 export function writeMotionPref(pref: MotionPref): void {
   savePrefs({ ...loadPrefs(), motion: pref })
   for (const listener of listeners) listener(pref)
-}
-
-/**
- * Put the live motion preference back into storage if an audio write displaced it.
- *
- * The audio service (frozen this milestone) persists the whole shared prefs record from a
- * snapshot it took when it was constructed, so a volume or mute write issued AFTER a motion
- * change carries the older motion value back to storage. The settings surface calls this
- * with its live value immediately after every audio write; both calls are synchronous, so
- * storage ends the gesture holding both facts. No live surface is notified — the player's
- * choice never changed, only the record of it was corrected.
- */
-export function reassertMotionPref(pref: MotionPref): void {
-  const stored = loadPrefs()
-  if (stored.motion === pref) return
-  savePrefs({ ...stored, motion: pref })
 }

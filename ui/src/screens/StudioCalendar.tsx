@@ -34,7 +34,11 @@ function decisionCopy(
   if (decision === null) {
     return {
       headline: 'No decision waiting',
-      detail: 'No screenplay, casting, or production command currently blocks unattended simulation.',
+      // PF1-M4 VOICE PASS (charter §3, named-offender list): "unattended simulation" was
+      // engine vocabulary. The fact is unchanged — nothing on the screenplay, casting or
+      // production side is holding a stop — it is simply said the way the studio says it.
+      detail:
+        'Nothing on the screenplay, casting, or production side is holding the studio back — it is free to sim ahead.',
       label: null,
       route: null,
     }

@@ -53,7 +53,15 @@ export type PresentationCue = {
   motion: CueMotion
 }
 
-/** The player commits PF1 punctuates. Each one is a receipt the engine already accepted. */
+/**
+ * The player commits PF1 punctuates. Each one is a receipt the engine already accepted.
+ *
+ * PF1-M4 adds `founding`. The founding screen was firing `draft-accepted` — the receipt
+ * for a screenplay a player accepts, weeks later, in the Writers' Room. The sound was
+ * right (it is an ordinary commit) but the NAME was a lie about which moment it was, and
+ * a cue id is derived from the kind, so the studio's own ledger read wrong. This is a
+ * relabel: same family, same tier, same motion, nothing weakened.
+ */
 export type CommitKind =
   | 'commission'
   | 'build-commit'
@@ -61,6 +69,7 @@ export type CommitKind =
   | 'demolish-commit'
   | 'auditions-planned'
   | 'draft-accepted'
+  | 'founding'
   | 'publicity'
   | 'package-step'
 
@@ -96,6 +105,9 @@ const COMMIT_CUES: Record<CommitKind, CueShape> = {
   'demolish-commit': { tier: 2, sound: 'commit', motion: 'emphasis' },
   'auditions-planned': { tier: 2, sound: 'commit', motion: 'emphasis' },
   'draft-accepted': { tier: 2, sound: 'commit', motion: 'emphasis' },
+  // The same row as every generic commit: signing a founding contract is the studio
+  // accepting a signature, not one of the three reserved beats.
+  founding: { tier: 2, sound: 'commit', motion: 'emphasis' },
   publicity: { tier: 2, sound: 'commit', motion: 'emphasis' },
   'package-step': { tier: 2, sound: 'commit', motion: 'emphasis' },
 }

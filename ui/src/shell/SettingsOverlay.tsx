@@ -13,7 +13,7 @@ import { useState } from 'react'
 import { getAudioService } from '../audio/audioService.ts'
 import type { AudioChannel } from '../audio/sink.ts'
 import type { MotionPref } from '../prefs.ts'
-import { reassertMotionPref, writeMotionPref } from './motion.ts'
+import { writeMotionPref } from './motion.ts'
 import { useResolvedMotion } from './useResolvedMotion.ts'
 
 const CHANNELS: readonly { channel: AudioChannel; label: string; hint: string }[] = [
@@ -47,12 +47,11 @@ export function SettingsOverlay({ onClose }: { onClose: () => void }) {
   const [muted, setMuted] = useState(() => audio.getState().muted)
   const { pref, osReduced, resolved } = useResolvedMotion()
 
-  // The audio service persists the WHOLE shared preferences record from a snapshot it took
-  // when it was constructed, so an audio write can carry an older motion value back to
-  // storage. Correcting it in the same synchronous gesture is what keeps a volume drag from
-  // un-writing the player's motion choice. See motion.ts.
+  // PF1-M4: this used to re-assert the motion preference after every audio write, because
+  // the service persisted the whole shared record from a construction-time snapshot. The
+  // service now reads the record fresh on each write, so the store itself holds the
+  // invariant and this surface only has to reflect what changed. See motion.ts.
   function afterAudioWrite() {
-    reassertMotionPref(pref)
     const next = audio.getState()
     setVolumes(next.volumes)
     setMuted(next.muted)

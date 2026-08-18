@@ -42,6 +42,8 @@ export type AmbienceScene = {
 
 export type AudioServiceState = {
   unlocked: boolean
+  /** PF1-M4: the browser actually granted playback, not merely "a context was made". */
+  running: boolean
   muted: boolean
   volumes: Record<AudioChannel, number>
 }
@@ -66,10 +68,17 @@ export class AudioService {
   private prefs: Prefs
   /** QA hard mute: not the player's setting, so it is never written to their prefs. */
   private readonly forcedMute: boolean
-  private unlockRequested = false
   private ambienceRunning = false
   private constructionRunning = false
   private musicTrack: string | null = null
+  /**
+   * What the world WOULD sound like if it were not muted. Presentation state, held here
+   * on purpose: a muted session must issue no sink work at all (and therefore fetch
+   * nothing), but unmuting mid-session has to bring the studio back without waiting for
+   * the Lot to re-render its scene.
+   */
+  private desiredScene: AmbienceScene | null = null
+  private desiredEra: string | null = null
 
   constructor(sink: AudioSink) {
     this.sink = sink
@@ -77,10 +86,16 @@ export class AudioService {
     this.forcedMute = qaForcedMute()
   }
 
-  /** Give the sink its context. Idempotent: the second gesture is not a second unlock. */
+  /**
+   * Give the sink its context.
+   *
+   * Idempotent ONCE THE GRANT LANDED — the second gesture of a running session is not a
+   * second unlock. But a browser that REFUSED the first gesture leaves the sink not
+   * running, and then every later gesture is a fresh, legitimate chance to ask. PF1-M4:
+   * the old `unlockRequested` latch turned one refusal into permanent silence.
+   */
   unlock(): void {
-    if (this.unlockRequested) return
-    this.unlockRequested = true
+    if (this.sink.running) return
     this.sink.resume()
     this.pushAllGains()
   }
@@ -98,8 +113,15 @@ export class AudioService {
   /**
    * Match the ambience to the world. Idempotent per state: calling it every render
    * with an unchanged scene issues no sink calls at all.
+   *
+   * PF1-M4: a MUTED session starts nothing. Mute used to be a master-gain fact only, so a
+   * silent studio still asked the sink for its beds and the sink still downloaded them —
+   * roughly three quarters of a megabyte a muted player never hears. The scene is
+   * remembered instead, and honoured the moment the player unmutes.
    */
   setAmbienceScene(scene: AmbienceScene): void {
+    this.desiredScene = scene
+    if (this.isMuted()) return
     if (!this.ambienceRunning) {
       this.sink.startLoop(AMBIENCE_BASE_ASSET, 'ambience', LOOP_TRIM)
       this.ambienceRunning = true
@@ -117,6 +139,7 @@ export class AudioService {
 
   /** Silence the place. Safe to call when nothing is running. */
   stopAmbience(): void {
+    this.desiredScene = null
     if (this.constructionRunning) {
       this.sink.stopLoop(AMBIENCE_CONSTRUCTION_ASSET)
       this.constructionRunning = false
@@ -127,8 +150,13 @@ export class AudioService {
     }
   }
 
-  /** Start (or keep) the era's music bed. Re-asking for the same era changes nothing. */
+  /**
+   * Start (or keep) the era's music bed. Re-asking for the same era changes nothing.
+   * A muted session starts nothing and downloads nothing (see `setAmbienceScene`).
+   */
   startMusic(eraKey: string): void {
+    this.desiredEra = eraKey
+    if (this.isMuted()) return
     const track = musicTracksForEra(eraKey)[0]
     if (track === undefined) return
     if (this.musicTrack === track) return
@@ -138,34 +166,52 @@ export class AudioService {
   }
 
   stopMusic(): void {
+    this.desiredEra = null
     if (this.musicTrack === null) return
     this.sink.stopLoop(this.musicTrack)
     this.musicTrack = null
   }
 
-  /** Set and persist one channel's volume. Out-of-range input is clamped, not refused. */
+  /**
+   * Set and persist one channel's volume. Out-of-range input is clamped, not refused.
+   *
+   * PF1-M4: the record is re-read from storage on every write. `prefs.v1` is ONE record
+   * shared with the motion preference; writing the whole of it from a snapshot taken when
+   * this service was constructed un-wrote any motion choice made since. The store is now
+   * the guarantee, so no caller has to remember to repair it afterwards.
+   */
   setVolume(channel: AudioChannel, volume: number): void {
     const value = clampVolume(volume)
-    this.prefs = { ...this.prefs, volumes: { ...this.prefs.volumes, [channel]: value } }
+    const current = loadPrefs()
+    this.prefs = { ...current, volumes: { ...current.volumes, [channel]: value } }
     savePrefs(this.prefs)
     if (channel === 'master') this.pushMasterGain()
     else this.sink.setChannelGain(channel, value)
   }
 
   /**
-   * Mute is a master-gain fact, not a teardown: loops keep running silently so
-   * unmuting restores the studio instantly rather than restarting it.
+   * Mute is a master-gain fact for what is already running, not a teardown: live loops
+   * keep running silently so unmuting restores the studio instantly rather than
+   * restarting it. What mute DOES prevent is new audio work — a session muted from the
+   * start never asks for a bed at all, and unmuting starts what the world wanted.
+   *
+   * The same fresh-read discipline as `setVolume`.
    */
   setMuted(muted: boolean): void {
     if (this.forcedMute) return // QA mute is not the player's preference and is never persisted
-    this.prefs = { ...this.prefs, muted }
+    this.prefs = { ...loadPrefs(), muted }
     savePrefs(this.prefs)
     this.pushMasterGain()
+    if (this.isMuted()) return
+    // Unmuted: honour whatever the world last said it sounded like.
+    if (this.desiredScene !== null) this.setAmbienceScene(this.desiredScene)
+    if (this.desiredEra !== null) this.startMusic(this.desiredEra)
   }
 
   getState(): AudioServiceState {
     return {
       unlocked: this.sink.unlocked,
+      running: this.sink.running,
       muted: this.isMuted(),
       volumes: { ...this.prefs.volumes },
     }

@@ -1313,18 +1313,25 @@ export function App() {
 
   // PF1-M1 — the autoplay gate, handled once for the whole product. The browser only
   // grants an AudioContext inside a user gesture, so the FIRST pointer or key event
-  // anywhere in the document unlocks the service and both listeners retire together.
-  // There is no unlock button and no nag: a player who never interacts simply hears
-  // nothing, which is a correct state.
+  // anywhere in the document unlocks the service. There is no unlock button and no nag:
+  // a player who never interacts simply hears nothing, which is a correct state.
+  //
+  // PF1-M4 — the listeners retire only once the grant ACTUALLY LANDED. A browser may
+  // refuse the first gesture (an ambiguous one, a tab restored in the background, a
+  // policy that wants a click rather than a keystroke); retiring on the attempt made
+  // that one refusal permanent, and the studio stayed silent for the whole session. So
+  // the gate asks the service whether audio is running and keeps listening until it is.
+  // On a browser that flips the context to running only after its resume settles, that
+  // costs one extra pass of two cheap listeners — the price of never going permanently
+  // silent, and `unlock()` is a no-op the moment the grant is in.
   useEffect(() => {
     if (typeof document === 'undefined') return
-    let unlocked = false
     const unlock = () => {
-      if (unlocked) return
-      unlocked = true
+      const service = getAudioService()
+      service.unlock()
+      if (!service.getState().running) return // refused — the next gesture asks again
       document.removeEventListener('pointerdown', unlock, true)
       document.removeEventListener('keydown', unlock, true)
-      getAudioService().unlock()
     }
     document.addEventListener('pointerdown', unlock, true)
     document.addEventListener('keydown', unlock, true)
@@ -4132,9 +4139,11 @@ export function App() {
           state={state}
           // FoundingScreen calls onChange from exactly one place — an accepted signature
           // (`FoundingScreen.tsx:107`) — so this seam can name the receipt honestly.
+          // PF1-M4: and now it does. It used to fire `draft-accepted`, the screenplay
+          // receipt, which sounded correct and read wrong. The founding row is its own.
           onChange={(next) => {
             replaceAuthoritativeState(next)
-            applyPunctuation(punctuateCommit('draft-accepted', next.market.tick))
+            applyPunctuation(punctuateCommit('founding', next.market.tick))
           }}
           onCreate={() =>
             setScreen({

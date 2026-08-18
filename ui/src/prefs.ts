@@ -119,10 +119,17 @@ export function loadPrefs(): Prefs {
   }
 }
 
-/** Persist preferences. A failed write (quota, private mode) leaves the session intact. */
-export function savePrefs(p: Prefs): void {
+/**
+ * Persist preferences. A failed write (quota, private mode) leaves the session intact.
+ *
+ * PF1-M4: returns TRUE when the record actually reached storage. A lost preference is
+ * not destructive — the studio and the save are untouched, and the setting still holds
+ * for the rest of the session — so no surface interrupts the player with it (PM ruling).
+ * But "did that land?" is now a question a caller can ask rather than assume.
+ */
+export function savePrefs(p: Prefs): boolean {
   const store = storage()
-  if (store === null) return
+  if (store === null) return false
   try {
     store.setItem(
       PREFS_KEY,
@@ -138,7 +145,8 @@ export function savePrefs(p: Prefs): void {
         motion: readMotion(p.motion) ?? 'system',
       }),
     )
+    return true
   } catch {
-    /* quota / storage unavailable — preferences are not kept this session */
+    return false // quota / storage unavailable — preferences are not kept this session
   }
 }
