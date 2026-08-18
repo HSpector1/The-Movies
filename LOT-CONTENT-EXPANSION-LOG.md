@@ -251,3 +251,51 @@ branch (freelancer craft fees) shipped instead. Family satisfied.
 Economy flags recorded for M7/M8 (NOT gut-tuned now): Office III value weakest in
 slate; Hall's 20-week payback may exceed a run's horizon. PM gates: 232 files /
 3,227 tests green (no flake this run), both tsc clean.
+
+## M5 — RULING: KEEP (2026-08-18) — catalog UX + world presentation, and the flake class closed
+
+UI agent delivered on 5 commits (`d5b43d6..58791c1`): the build catalog as a real
+tycoon list (`buildCatalog.ts` word module + `lot-build-catalog` in the parcel
+panel), four distinguishable presentation bodies for the placed blueprints, and the
+effectSummary sentences surfaced at every decision point. Locked precedence
+locked > at-limit > unaffordable; ghost legality and the quote grammar preserved
+verbatim. The agent found and fixed three of its own defects at proof time (catalog
+scroll box, guidance-fold infinite wait, spec `.click()` timeout) and avoided a
+Week-0 pin bump (174→175) by baking the blueprint texture lazily.
+
+Flake class CLOSED product-side (commits `703ede2..328b2a2`, my ruling, Option B):
+the repaint-reconciliation effect re-asserted selection unconditionally and strict
+doubles counted every invocation. Now the scene exposes `worldSelection()` renderer
+truth, the effect re-asserts ONLY when the renderer actually lost the selection, and
+the three doubles faithfully report what they hold (they had reported holding
+nothing, which would have made the guard inert and the fix vacuous). New
+non-vacuous property test; 5×148 clean contention loops; full suite green.
+
+PM gates: both tsc clean; full vitest 234 files / 3,239 tests green; full Playwright
+serialized 195 passed / 4 skipped, exit 0 (PIPESTATUS-verified).
+
+PM personal playtest (fresh studio, seed studio-001, Chrome, by eye): founded with
+six signings; South Lawn catalog read cleanly — parcel facts "6 × 4 cells · 24
+free", road frontage sentence, state badges, Office III LOCKED with the verbatim
+bound reason "Requires an operational Development Office II.", Craft Annex's 15%
+sentence; Office II ghost world-first (green 3×2 footprint, floating "$600,000 · 8
+weeks" tag, origin nudge pad); commit debited exactly $600K with receipt +
+construction body + "8 WEEKS LEFT" sign; 8 advances → completion toast, sign flipped
+to OPERATIONAL, parcel facts "Operational since Week 8 · $2,500/week", overheads
+flowing; **Office III's lock cleared same-session by data** and Office II showed the
+at-limit copy ("The studio builds only one of these, and it already has it."); the
+commission form carried the uplift line verbatim — "Development Office II will add 4
+points of estimated strength to this draft."; canvas-clicking the office opened its
+own first-class inspector with Move and "Demolish this building — refund $300,000",
+confirm grammar exact ("THE STUDIO RECOVERS $300,000." / "This cannot be undone."),
+cancel clean. Hybrid interaction law holds: building is world-first, commissioning
+stays a retained overlay with the live lot behind it.
+
+Blemish logged for M6 polish (not a defect): the completion toast appends the
+slot-delta template to every facility — "0 shared Development & Casting slots are
+now available" on a facility that adds none is true but noisy. Suppress the
+sentence when the delta is zero.
+
+Owner acceptance trajectory: the South Lawn now holds a building I chose, paid for,
+watched go up, and could point to. "I built this place" is starting to be literally
+true on screen.
