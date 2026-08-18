@@ -329,9 +329,30 @@ parts. **The long game — the careers, the eras, the ladder, the rivals, the li
 entirely ahead.** Every pillar that is FUTURE or PLANNED is a piece of the tenth film.
 
 *(Note on reading the table: at this commit there is **no live implementing campaign** — Campaign 1
-is sealed, PF1 is chartered, C2 is in planning. Several pillars therefore sit between the
-definitions of IN PROGRESS and PLANNED. Where a pillar has substantial accepted implementation but
-an unmet player-facing test, it is marked IN PROGRESS with the specific gap named in its section.)*
+is sealed, PF1 is chartered, C2's charter has since frozen. Several pillars therefore sit between
+the definitions of IN PROGRESS and PLANNED. Where a pillar has substantial accepted implementation
+but an unmet player-facing test, it is marked IN PROGRESS with the specific gap named in its
+section.)*
+
+### THINGS THE ORIGINAL DID NOT HAVE — do not cite these as parity
+
+Every item below was checked by full-text search against the Mechanics Bible and returned **zero
+occurrences**, or exists only in a form materially weaker than it is usually remembered. They appear
+in this Blueprint as **successor targets**, which is legitimate — but a later reader must never
+re-read them as recovering something the original had. That re-reading is the specific failure mode
+this section exists to prevent, because it converts an invention into an unexamined obligation.
+
+| Claim to watch | The verified position |
+|---|---|
+| Sequels, remakes, franchises, reissues, licensing, library valuation, back-catalogue revenue, IP ownership | **Zero occurrences.** The Production Office's *Archive* room is confirmed to **exist** but its function is documented nowhere — cite it as "no evidence," never as evidence of a library. |
+| Acquisitions, mergers, subsidiaries, labels, co-productions | **Zero occurrences.** "Empire" appears only as retrospective player language about crew shortages limiting expansion. |
+| Mentorship, lineage, dynasties, succession | **Zero evidence of any kind.** The only documented star-making pipeline is Extra → Star. Directors are not even a mechanically separate class from Actors — one applicant queue, one stat block, one lifecycle. |
+| Rivalries, feuds, gossip, soured pairings | The **Nemeses** (0–10%) and **Enemies** (11–30%) ladder bands are real — but no source documents a negative *state*, a gossip mechanic, or any player-triggerable conflict. Those bands read as unbuilt or decayed rapport on the same single scalar. **"The original had Nemeses" must never become "the original had rivalries."** |
+| A production queue or scheduler | **The original had neither.** A role could sit unfilled indefinitely, and hard blocks stalled a production rather than scheduling around it. Our "queue, don't magically forbid" is an **improvement on the floor**, not a recovery of it. |
+| Television, widescreen, home video, blockbuster economics, streaming, digital/VFX | **No historical floor.** "CGI" appears once, as a single item inside the research track's own description. *Specific trap:* a `televisionCompetition` field exists in **our** code — a later reader can mistake a typed field for a historical mechanic. It is ours. |
+| Real-time speed values | Only the **existence** of a pause/play/fast-forward cluster is documented. No tick rate, no seconds-per-week, no multiplier exists anywhere. Every numeric speed in the successor is authored invention. |
+| Named, player-visible quality stages | The five-stage architecture is single-source and uncorroborated, and the original **never showed the stages to players at all**. Surfacing them is a good idea and an invention — not parity. |
+| An awards competitiveness forecast | No nominee list, no rival nominee, and no competitor presentation exists anywhere in the record. A "competitiveness" readout presumes visible rivals that have **no historical model** and are **not currently authorized scope** — it quietly drags rival modelling into an authorized campaign. Re-base it on the player's own absolute achievement. |
 
 ---
 
@@ -719,6 +740,13 @@ instinct was correct and we keep it.
 Long term, consider: aging; development; decline; retirement; filmographies; Awards; collaborations;
 repeat partnerships; and mentorship or dynasties.
 
+**Label the last one honestly.** Mentorship, lineage, dynasties and succession have **zero evidence
+of any kind** in the historical record — not weak evidence, none. The only documented star-making
+pipeline is Extra → Star, and Directors are not even a mechanically separate class from Actors: one
+applicant queue, one stat block, one lifecycle. A dynasty system is therefore a **double
+authorization** — new invention *and* new scope — and should never be presented as recovering
+something the original had.
+
 **What we explicitly improve.** The original gave you numbers on a person. We should give you a
 **career** — a person whose filmography you can read, whose best decade you can name, and whose
 retirement you notice. The engine already carries a typed credit graph, which is precisely the data
@@ -787,6 +815,14 @@ engine data names these contexts explicitly. The source package is a **relations
 mod**, so its *gain-rate values* are known-modified and are **not** vanilla data. The finding is
 "these contexts exist in the engine's relationship schema," not "here is how fast relationships
 grew during filming."
+
+**And one trap specific to this pillar.** The ladder's bottom bands — **Nemeses** (0–10%) and
+**Enemies** (11–30%) — are real and officially sourced. They are *not* evidence of a rivalry system.
+No source of any tier documents a negative relationship *state*, a gossip mechanic, a feud, or any
+player-triggerable conflict; those bands read as **unbuilt or decayed rapport on the same single
+0–100% scalar.** *"The original had Nemeses"* must never be allowed to become *"the original had
+rivalries."* If Project: Studio wants friction, soured pairings or a refused re-teaming, those are
+successor inventions and must be labelled as such.
 
 **The successor target.** Relationships and chemistry matter mechanically. **Work itself builds
 relationships** — the REHEARSE/FILM/CASTING evidence is the design lead, and it is a more elegant
@@ -950,6 +986,15 @@ Highest Climbing Studio, Most Prolific Studio) are inherently **comparative**. T
 studios to be measured against. A faithful awards system and Pillar 11 are therefore coupled, and
 this document records that coupling rather than pretending awards can reach full parity alone.
 
+**A live scoping hazard that follows directly from that coupling.** An "Awards competitiveness
+forecast" appears as an acceptance criterion in the progression campaign's own notes — and it
+presumes **visible competitors**. The record contains no nominee list, no rival shown as a nominee,
+and no competitor presentation of any kind; only the player's own wins were ever tallied. So that
+criterion (a) has no historical model to build from and (b) quietly imports rival modelling, which
+is **explicitly not currently authorized scope**, into an authorized campaign. **Re-base it on the
+player's own absolute achievement**, or hold it until Pillar 11 is authorized — but do not let it
+ride in unexamined.
+
 **What we explicitly improve.** The original's bonuses were real and interesting but some were
 period busywork; which named effects survive as systems and which retire is a design decision the
 Bible explicitly hands to the progression campaign rather than pre-deciding. And the original never
@@ -992,6 +1037,14 @@ player recognizes across decades.
 
 **What we reject.** Rivals as difficulty tax. A competitor that exists only to make numbers harder
 adds pressure without adding story.
+
+**One thing worth fixing long before this pillar is authorized.** A live invariant violation already
+exists in the code: founding a studio re-prices the **world-level** concept pool as a side effect —
+harmless with one studio, and wrong the instant a second exists, because one studio's founding would
+re-price the shared script market for everyone. There is an in-code comment already acknowledging
+the boundary. It costs almost nothing to fix now and a great deal to fix after rivals exist. The
+same applies to studio identity: the player's studio has **no persisted id or name today**, and a
+competitor chart is not expressible without one.
 
 **Where it stands, and the scope position — stated carefully.** No rival system exists.
 Historically this was framed as a **permanent** product exclusion — §40 lists rival-studio
@@ -1349,10 +1402,13 @@ opened. It is listed for the player's sake, not the planner's.
 
 ## CONTRADICTIONS BETWEEN BIBLE EVIDENCE AND NEWER OWNER DIRECTION
 
-**What counts as a contradiction here.** The Bible describing what the original did, while the
-Owner wants something different, is the **normal and expected** relationship between history and
-intent — that is not a contradiction and none of those are listed. What follows are cases where two
-things cannot both stand as written, or where a claim is pointed at the wrong evidence.
+**Twelve are recorded, two of them blocking.**
+
+**What counts as a contradiction here.** The Bible describing what the original did, while the Owner
+wants something different, is the **normal and expected** relationship between history and intent —
+that is not a contradiction, and none of those are listed. What follows are cases where two things
+cannot both stand as written, or where a claim is pointed at the wrong evidence. Each was verified
+against source by an adversarial pass instructed to refute rather than confirm.
 
 ### 1. The project's own `CLAUDE.md` contradicts current Owner authority — and is actively blocking
 
@@ -1484,8 +1540,53 @@ documents still carry the older framing.
   were granted **at** a scheduled ceremony or **the instant** requirements were met. Both readings
   are in the corpus; the Bible deliberately resolves neither, and states Project: Studio is not bound
   to reproduce whichever the original did.
+- §31's own table calls the award categories **"yearly"** one row after calling the ceremony
+  **"quinquennial."** A wording slip in a single table header, not counter-evidence: every
+  substantive statement elsewhere — the manual, Prima, and a directly-observed in-game ceremony date
+  — says five years. Read "five-year" and move on.
 
-### 10. A design conflict nobody has resolved: franchises versus novelty
+**And one in the Master Plan.** It lists *"sandbox timing"* as an outstanding Owner ruling in one
+section while omitting it from the section that registers outstanding rulings — which is the list
+an Owner would actually work from, so the item would simply never surface. Cheap to reconcile in
+either direction.
+
+### 10. "Campaign 4" and "Campaign 5" each name two different campaigns
+
+**Severity: material.** This is not one stale number, it is a **two-way collision across two live
+numbering generations**, and nothing reconciles it:
+
+| Label | Means, in the Bible's five-campaign order | Means, in the Master Plan's current order |
+|---|---|---|
+| **Campaign 4** | Progression & Prestige Ladder — *and* Awards | Genre Depth, Research & the Opening of Time |
+| **Campaign 5** | Genre Depth & Economy Closure | Stars Become People + Relationships |
+
+Both documents are current authority for different things — the Bible for rulings, the Master Plan
+for sequencing — so both senses are in circulation simultaneously. A ruling that says "Awards land
+in Campaign 4" and a plan that says "Campaign 4 opens time" are describing **different campaigns**,
+and an agent briefed on both will route work to the wrong one without ever noticing the ambiguity.
+
+**Recommendation:** stop using bare "Campaign N" in rulings. Name the campaign
+(*"Progression, Prestige & Awards"*) or use the Master Plan's own C-prefixed identifiers. This
+document uses C1/PF1/C2…C9 throughout and names the campaign on first use for exactly this reason.
+
+### 11. Two further one-way doors verified in the schema
+
+**Severity: material.** Alongside the `Standing` leaf in item 6, two more constraints point the
+opposite way from the guidance written against them:
+
+- **`EraConfig.censorship` is a closed union** (`'none' | 'code' | 'ratings'`), validated as an enum
+  reachable from save versions V8 through V13. The instruction to "let `EraConfig` vary and unlock
+  over calendar time" is sound as intent, but the naive implementation of it **breaks every existing
+  save**. Era work has to land on a new root, and C4 must be able to *move* cultural-force and
+  segment values without *adding members*.
+- **`beginFounding` rewrites a world-level root.** It returns re-priced world `concepts` as a
+  consequence of one studio's founding — with an in-code comment already acknowledging the boundary.
+  This is harmless with one studio and **breaks the moment a second exists**: one studio's founding
+  would re-price the shared script market for everyone. It is a live violation of the invariant the
+  entire Hollywood-ecosystem pillar depends on, sitting in the code today, costing nothing to fix
+  now and a great deal to fix after rivals exist.
+
+### 12. A design conflict nobody has resolved: franchises versus novelty
 
 **Severity: material, for a pillar that is not yet scoped.** The original **taxed repetition**:
 novelty was a Success-stage input, sets and actors accumulated public boredom, and reuse was
@@ -1503,7 +1604,8 @@ cannot be designed without settling both.
   Bible marks its own conclusion INFERRED.
 - **Awards at "Campaign 4" versus C3.** These are the same campaign under two numbering generations:
   the Bible's five-campaign order numbered Progression as 4; the Master Plan's current order numbers
-  it 3. A routing hazard, not a disagreement about content.
+  it 3. Not a disagreement about content — but see the collision immediately below, which *is* worse
+  than a routing hazard.
 - **Stale routing documents.** `ROADMAP.md`, `DECISIONS.md`, `PLAYTEST.md`, `START-HERE.md`,
   `NEXT-HIGHEST-LEVERAGE.md` and `CURRENT-BEST.md` all describe superseded eras, and several record
   the save format as V11 when the live format is V13. They are out of date, not in conflict — but
@@ -1530,7 +1632,7 @@ data, identity or save compatibility that gets more expensive with every week it
 that would merely be *useful to settle eventually* has been left off, and there is a short list of
 those at the end for completeness.
 
-Five decisions meet that bar.
+Six decisions meet that bar.
 
 ### D1 — Reconcile `CLAUDE.md` with current Owner authority
 
@@ -1588,21 +1690,59 @@ concrete mechanics. In practice option 1 is now the operating assumption. That m
 reconciliation down **more** urgent, not less: a frozen charter and a standing Owner ruling now name
 different owners for the same system, and the Master Plan records neither.
 
+**Ratify the identity law at the same time, in the same breath.** Existing `FilmConcept.id` values
+are permanent: concepts may be appended with fresh IDs, and an existing ID may never be removed,
+reassigned or re-minted. This is currently recorded in a governance document on an unmerged branch.
+It deserves to be a **numbered operational law**, because it is the clause that protects every film
+already in a player's history — a regenerated pool that re-minted an existing ID would silently
+rewrite the identity of films that have already been released. Generation is the interesting
+problem; **the identity rule is the one that is unforgiving**, and it should not live somewhere a
+future implementer might not read.
+
+### D3b — Rule the time model, and rule separately on Advance Week
+
+**Why now:** it is on the Master Plan's own still-required list, positioned at C2 planning — and
+C2 is next. **Half of Pillar 2 cannot be built or proven until it lands.** The Master Plan also
+forbids bolting real-time onto the weekly engine "merely because the genre commonly has it," so
+there is no default path that gets taken while the decision waits.
+
+The living-time *requirement* is already ruled. What is not ruled is the architecture, and the open
+questions are simulation-design decisions with real consequences: what an action at "week 12.4"
+means, when money accrues, when random draws happen, whether time runs while a decision panel is
+open, whether a player can miss a decision, whether a blocker pauses time.
+
+**Options:** (a) the current discrete week model; (b) a living-turn model — the world stays visibly
+and audibly alive while authoritative progress advances through deterministic boundaries; (c)
+finer-grained continuous simulation with explicit mid-period semantics. **B is the Owner's stated
+preferred hypothesis to investigate first, explicitly not a ruling**, and evidence is permitted to
+defeat it.
+
+**A separate sub-ruling, easily missed:** does **Advance Week** survive as a permanent convenience
+once time runs on its own, or retire? It has **no original analogue** — it can never be defended as
+parity — so it lives or dies purely as a modern convenience, and that is a product call.
+
 ### D4 — Rule on the `Standing` fourth channel before C3 designs against it
 
-**Why now:** **one-way door.** `Standing` is a frozen three-key leaf reachable from every save
-version; adding a channel retroactively changes V1 through V13. C3 — progression, prestige and
-awards — is the campaign that will want one, and it is two rungs away. Deciding after C3 has
-designed against the wrong assumption means either a migration nobody planned or a design
-compromise nobody wanted.
+**Why now:** **a pure one-way door, and the corpus currently points the wrong way through it.**
+`Standing` is a frozen three-key leaf reachable from every save version; adding a channel
+retroactively changes V1 through V13 at once. C3 — progression, prestige and awards — is explicitly
+the campaign that will want one. Deciding after C3 has designed against the wrong assumption means
+either a migration nobody planned or a design compromise nobody wanted.
+
+**The same ruling should cover era work**, because it is the identical hazard one campaign later:
+`EraConfig.censorship` is a closed union validated across V8–V13, so "let `EraConfig` vary over
+time" cannot be implemented literally without breaking saves. C4 must be able to **move**
+cultural-force and segment values without **adding members**.
 
 **Options:**
-1. **New root** — awards/prestige channels land on a new state root, leaving `Standing` frozen.
-2. **Widen `Standing`** and accept a migration touching every prior save version.
+1. **New root** — awards, prestige and era facts land on new state roots, leaving `Standing` and
+   `EraConfig` frozen as they are.
+2. **Widen the existing leaves** and accept a migration touching every prior save version.
 3. **Derived read model only** — no new persisted channel at all; compute prestige from existing
    state.
 
-**Recommendation:** option 1 or 3. Option 2 is the one that should not be chosen by accident.
+**Recommendation:** option 1 or 3. Option 2 is the one that should not be chosen by accident — and
+right now it is the one the written guidance points at.
 
 ### D5 — Rule on whether the save-size ceiling is blocking
 
@@ -1614,12 +1754,19 @@ This is partly an engineering matter, but the **Owner call** is whether a storag
 the "hard game-over" the horizon ruling forbids. If it does, it is a blocker with a deadline; if it
 does not, it needs saying so that nobody treats it as one.
 
-**Options:** (a) declare it blocking and require a persistence strategy before the 2040 target is
-claimed; (b) declare it non-blocking for now, but require that the silent failure at minimum become
-a loud one; (c) accept it as a known limitation of the browser build.
+**There is a second half to this decision that is easy to miss.** The fix lives in `ui/`, which
+**PF1 has frozen**. So ruling that the ceiling is blocking is not sufficient on its own — it also
+requires **explicitly authorizing someone to touch `ui/`**, or consciously routing the work to a
+later campaign and accepting the exposure until then.
+
+**Options:** (a) declare it blocking, authorize the persistence work, and require a strategy before
+the 2040 target is claimed anywhere; (b) declare it non-blocking for now, but require at minimum
+that the silent failure becomes a loud one; (c) accept it as a known limitation of the browser
+build and record it as such.
 
 **Recommendation:** at minimum (b). A silent, unrecoverable failure is not an acceptable state
-regardless of how the larger question is answered.
+regardless of how the larger question is answered — a player should never be the first thing that
+discovers it.
 
 ### Pending, but explicitly *not* needed now
 
@@ -1687,6 +1834,16 @@ document resolves no historical dispute that the Bible left open.
 that otherwise propagates silently: the title/rename evidence for Pillar 3 had been summarized with
 the two pipelines reversed. The corrected position is stated in Pillar 3 and in contradiction 2. The
 project's own C2 ruling states it correctly; only the summary had drifted.
+
+**Method.** Evidence was gathered by parallel readers over the Bible's pillar-relevant sections, an
+independent status audit against closure records and the shipped code, an independent sequencing
+read of the plan and charters, and a final **adversarial cross-check** instructed to refute rather
+than confirm — to verify claims against source, to reject history-versus-intent differences as
+non-contradictions, and to hunt specifically for invented original-game mechanics. Its verified
+findings are incorporated: the fabrication guard table, the campaign-numbering collision, the two
+additional schema one-way doors, the Nemeses and awards-competitiveness traps, and the time-model
+ruling as a sixth decision needed now. Where it disagreed with an earlier draft, the source was
+re-read and the source won.
 
 ---
 
