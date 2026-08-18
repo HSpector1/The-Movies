@@ -308,3 +308,35 @@ voice finding), and the app-level banners' pre-existing column footprint.
 minute, then ~30 minutes of natural play — found, build, commission, advance to a
 release; open Settings, mute, unmute, reduce motion; save, export, reimport. The
 `package-step` cue cadence during assembly is specifically submitted to the Owner's ear.
+
+## OWNER REVIEW — PF1 ACCEPTED KEEP AT `3fb3986` · PROMOTED TO CANONICAL MAIN
+
+The Owner played the sealed build and ruled **KEEP + PROMOTE** (2026-08-18).
+
+### Owner playtest findings — POST-PF1 INHERITED RESIDUALS (not PF1 blockers)
+
+Recorded here as the durable register; every one is planning input for the next
+authorized campaign and none reopens PF1:
+
+1. **Movie #2's core loop is not understandable.** The second-picture path does not
+   explain itself the way the first-picture journey does.
+2. **Auditions do not clearly show what information/value they provide** — the player
+   cannot see what the camera tests bought them.
+3. **Casting appears to allow the same performer in multiple principal roles** — verify,
+   and fix in C2 if true. (PF1-M4 note: the package workspace showed "Already assigned to
+   another slot on this film" on at least one path, so the legality guard exists somewhere;
+   the Owner observed an apparent counterexample — treat as unverified until reproduced.)
+4. **Production blockers speak engine/debug language instead of filmmaking language** —
+   the register of the blocker vocabulary itself, beyond the copy PF1's voice pass
+   reached (aligns with the recorded core-owned copy findings).
+5. **The standing legibility law, restated by the Owner:** at every stage the player must
+   understand what happened, why it matters, and what to do next.
+6. **A fresh 1920 start should require real Builders** who physically construct the
+   studio and affect build speed — construction as labor, not only as a countdown.
+7. **Presentation remains far below the professional Movies / Zoo Tycoon / RCT / Sims
+   standard.** PF1 laid the floor; it is not the ceiling.
+8. **C2's acceptance bar, ruled now: C2 may not seal until the Owner can make Movie #2
+   without guessing.**
+
+These residuals bind the NEXT campaign's planning (C2 remains unauthorized and untouched
+by this record). No new PF1 implementation follows from them.
