@@ -461,3 +461,45 @@ always meant to measure.
 Class accounting for the seal: the M2/M3b selection-counter class was closed
 product-side at M5 (worldSelection guard); this was a spec-side measurement race,
 different mechanism, now closed at the source. No open flakes on the watch.
+
+## M8 (part 1) — PM PLAYTEST: PASS against the Owner acceptance test (2026-08-18)
+
+Fresh studio in Chrome at HEAD `c351086`, virgin seed `ochre-gate-08`, dev server,
+by hand and by eye. Founded with a seven-person roster; built the Craft Services
+Annex on the West Lawn ($400,000 exact) and Development Office II on the South Lawn
+($600,000 exact); watched both complete — the Annex's Week-6 toast reads
+"Craft Services Annex is Operational in Week 6." with NO phantom slot sentence
+(the C1-M6 adapter fix, confirmed live); commissioned "The Forgotten Foundling"
+under the office's verbatim +4 line and drafted to EST 82.1 · Strong; accepted;
+planned auditions in the retained overlay with the live lot behind it (the slate
+refused my lazy two-people-everywhere picks with "complete slate needs at least
+three different people" — honest, and right); reviewed camera tests; then the C1
+loop again: Office III showed AVAILABLE the moment II stood operational, and
+placing it on the South Lawn met a REAL refusal — "This site is too close to
+another building — leave a cell of clearance." The parcel I had built was FULL for
+a 3×2 under the clearance ring, so the bigger office went to the North Lawn
+($1,200,000 exact) — genuine parcel pressure, discovered by play, felt like a
+tycoon decision. Moved the Craft Annex two cells for $0: instant, identity intact
+("Operational since Week 6" survived the move).
+
+THE SEAM, felt: with a screenplay readyToPackage, the Development inspector does
+NOT dangle a dead commission verb — it says "Commissioning opens here again once it
+moves on," a reason and a reopening promise in the blocked-state grammar. The
+parallel-development limit stands (C2 concurrency scope, already queued), but it is
+honestly communicated in-world; no silent eject on this surface.
+
+OWNER ACCEPTANCE TEST — the look: three structures on three lawns that exist
+because I chose them, one counting down its construction, one standing where I
+moved it, the founding nine anchoring it all, a picture in camera tests behind.
+"This is just a menu of sprites" does not describe this screen. "I built this
+place" does. PASS.
+
+ONE FINDING (fixed same-day, `6671054`): the move flow's quote panel reused the
+build template verbatim — "CONSTRUCTION CLOCK 6 weeks · completes Week 16" and
+"once operational" for a move that is instant and changes nothing. Behavior was
+honest; the copy was not (quote-grammar law). `quoteFacts` is context-aware now: a
+move quotes Move cost / Downtime "None — the building moves standing." / weekly
+cost "unchanged by the move", and no capacity row. Unit-pinned both contexts;
+e2e proof folds into the seal-time full run. The red-team was pointed at this
+finding's FAMILY (template lines promising wrong facts in other flows) before the
+fix landed.
