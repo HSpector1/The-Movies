@@ -31,7 +31,9 @@ canonical Lessons Learned.
   `e6426fcff8fec0744f9ce1bc9fe88f8d09d94ff9`.
 - Frozen Audition contract: `d94dd4714ab6ee8e0666afba3aae9a714c578db4`.
 - Prior retained Commission closure: `5cacd872a773910a18699b20cb5d4ab3c01a4821`.
-- Save writer: **SaveFileV11**; import/migration supports V1–V11.
+- Save writer: **SaveFileV13**; import/migration supports V1–V13. (Corrected 2026-08-18: this line
+  claimed V11 long after V12 and V13 shipped. Verified at `main` `1e6b422` — `makeSave` →
+  `makeSaveV13`, `save.ts:4388`.)
 - Protected `main`: `33eb33ae307904aa3f00db20bc695e40bf46d1e4`.
 - Accepted D-17B: `35d42687a410a621becf1df35c75986657f8c44e`.
 - Operation Hollywood bridge: `623b8b2a80e9c6b85304eaa2a338b6045e8f6b21`.

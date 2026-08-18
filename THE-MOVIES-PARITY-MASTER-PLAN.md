@@ -134,7 +134,7 @@ next event stops with full period receipts.
    trait words and genre bars.
 4. **Camera, placement machinery, versioned saves, deterministic harness** — as the
    Bible records (tycoon camera; queryPlacement/ghost/countdown/capacity-flip;
-   SaveFileV12 with migrations; seeded RNG + massive suite). No 2005 equivalent.
+   SaveFileV13 with migrations; seeded RNG + massive suite). No 2005 equivalent.
 5. **Six-week theatrical release loop** with Newspaper/ReleaseResult/Autopsy —
    a more rigorous release→reviews→decaying-box-office than the original's.
 6. **Blocked-state discipline** — every stall names subject + place + problem with a

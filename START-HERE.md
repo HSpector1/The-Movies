@@ -4,7 +4,7 @@
 > is retained for provenance. It is not current authority for
 > `operation-hollywood-autonomous-marathon`. Begin with `CURRENT-BEST.md`, `PROGRESS.md`,
 > `DECISIONS.md`, `NEXT-HIGHEST-LEVERAGE.md`, `MARATHON-LOG.md`, and
-> `AUTONOMOUS-MARATHON-HANDOFF.md`, then current Git. The game is now playable, SaveFileV11 is the
+> `AUTONOMOUS-MARATHON-HANDOFF.md`, then current Git. The game is now playable, SaveFileV13 is the
 > current writer, and the Owner has ruled that **THE STUDIO LOT IS THE PRIMARY GAME SURFACE**.
 
 ## Current launch
