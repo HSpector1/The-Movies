@@ -138,7 +138,13 @@ function loadFixture(): GameState {
   const bytes = readFileSync(BLOCKED_FIXTURE, 'utf8')
   const imported = importSaveJson(bytes)
   if (!imported.ok) throw new Error(imported.error)
-  if (imported.converted) throw new Error('expected native SaveFileV11 fixture')
+  // C2a-M2 — the fixture is PINNED at V13 and the live format is V14, so loading it is a
+  // migration and `converted` is true. The version claim moves to the envelope, where it
+  // is checked exactly rather than by proxy; the byte-replay guard below is untouched and
+  // is now the first thing that speaks when this fixture no longer replays.
+  if ((JSON.parse(bytes) as { saveVersion?: unknown }).saveVersion !== 13) {
+    throw new Error('expected the pinned SaveFileV13 fixture')
+  }
   if (exportSaveJson(imported.state) !== bytes) throw new Error('fixture roundtrip changed')
   return imported.state
 }
