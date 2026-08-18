@@ -22,7 +22,13 @@ If anything in it is undefined, contradictory, or unimplementable: **stop and re
 Do not resolve it yourself. Do not fill the gap with a reasonable guess. A silently
 filled gap is a gap nobody can find later.
 
-## Scope: phases 1-4, then stop
+## Scope: phases 1-4, then stop — **HISTORICAL (M0A only; long since superseded)**
+
+> This section is the **original M0A scope gate and is no longer current authority.** Phase 5,
+> Phase 5.1, the tycoon world conversion, the First Movie Journey and all of Campaign 1 have
+> shipped under later explicit Owner authorization. Do **not** read the "stop before phase 5"
+> instruction below as blocking authorized work; current scope comes from the active campaign
+> charter and `THE-MOVIES-PARITY-MASTER-PLAN.md`. Retained verbatim for provenance.
 
 Implement phases 1-4 (contract section 12) and produce the M0A instrumentation report.
 
@@ -39,16 +45,32 @@ nobody has looked at means rebuilding it when the numbers change.
 Do not begin phase 5 until the owner says "approved for phase 5". If you believe M0A is
 complete, present the report and end your turn.
 
-## Do not build
+## Not current scope
 
-Section 11 non-goals is a decision, not an oversight. Do not build, scaffold, abstract
-for, or leave TODOs for:
+**Not current scope unless explicitly authorized by the Owner or the current campaign.**
+Newer Owner authority supersedes historical milestone exclusions. Do not build, scaffold,
+abstract for, or leave TODOs for anything below **without that authorization** — and do not
+cite this list to refuse work the current charter authorizes.
 
-chemistry - readable memories - production incidents - contract negotiation - the lot -
-rival studios as agents - awards season - scene composition - screenplay generation -
-visual output - library economics - receivership - SimulationFlags - the studio economy -
-cultural drift - aging and career progression - late promise repositioning - competition
-modelling - LLM integration of any kind - onboarding - tutorial - accessibility - mobile layout
+*(Reframed 2026-08-18 by Owner ruling — see `docs/OWNER-RULINGS-HOLLYWOOD-HORIZON.md` §4. This
+was previously framed as a set of permanent product exclusions. Nothing is erased: whether any
+individual item is a permanent cut or merely not-yet-scheduled remains an Owner call, and is
+**not** decided by that reframing.)*
+
+**Already superseded — shipped by later explicit authority.** Do not stop, delete or roll back:
+the lot · visual output · the studio economy · accessibility
+
+**Legitimate long-term product directions, not currently authorized** (Owner ruling §3/§4):
+rival studios as agents · awards season · library economics · competition modelling ·
+receivership *(rival studios only — the no-hard-bankruptcy ruling still binds the player's
+studio)*
+
+**Not current scope; permanence undecided:**
+chemistry · readable memories · production incidents · contract negotiation ·
+scene composition · screenplay generation · SimulationFlags · cultural drift *(the related
+audience-taste-movement question is an open Owner decision — master plan §10 item 4, due
+before C4)* · aging and career progression · late promise repositioning ·
+LLM integration of any kind · onboarding · tutorial · mobile layout
 
 Design documents exist for several of these. They are deliberately not in this repo.
 Wanting one is the signal to stop and report a finding, not to reconstruct it.
