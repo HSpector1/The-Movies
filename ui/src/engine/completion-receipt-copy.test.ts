@@ -142,6 +142,30 @@ describe('C1-M6 completion receipts: a facility that adds no slot says nothing a
     )
   })
 
+  it('a CAPACITY-0 primary joins the remainder sentence with exactly one space', () => {
+    // The one seam this change touches that no other suite covers: when several builds
+    // complete on one advance the lowest id owns the receipt and the message STATES the
+    // remainder. The removed slot sentence used to be what the remainder was joined onto,
+    // so the join has to be checked against a message that now ends one sentence earlier.
+    let state = managedStudio('c1-m6-receipt-zero-capacity-remainder')
+    state = place(state, legalRequest(state, 'development-office-2')) // 8 weeks
+    state = advanceWeek(state).next
+    state = advanceWeek(state).next
+    state = place(state, legalRequest(state, 'craft-annex')) // 6 weeks, from Week 2
+    const placements = studioPlacement(state).placements
+    expect(placements).toHaveLength(2)
+    expect(placements[0]!.completesWeek).toBe(placements[1]!.completesWeek)
+    const completesWeek = placements[0]!.completesWeek
+
+    const { receipts } = receiptsThroughCompletion(state)
+    expect(receipts).toEqual([
+      `Development Office II is Operational in Week ${String(completesWeek)}. One further committed build also completed on this advance.`,
+    ])
+    // Neither building adds a slot, and neither says so.
+    expect(receipts[0]!).not.toContain('slot')
+    expect(receipts[0]!).not.toContain('.  ')
+  })
+
   it('the full ordered list carries the same copy the singular receipt does', () => {
     let state = managedStudio('c1-m6-receipt-ordered-list')
     state = place(state, legalRequest(state, 'development-office-2'))
