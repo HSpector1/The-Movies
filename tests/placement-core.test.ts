@@ -89,7 +89,9 @@ describe('Placement Core V12 — the blueprint catalog', () => {
   it('keeps the Annex law exactly as V11 wrote it, inside a widened catalog', () => {
     // C1-M4 widened the catalog; the Annex's own law did not move by a dollar or
     // a week, and it is still the entry every migrated V11 world points at.
-    expect(FACILITY_BLUEPRINTS).toHaveLength(5)
+    // C2a-M2 appended the §3.4 slate (soundstage / post / scenery / baseline
+    // office). The Annex is still entry ZERO and still byte-identical below.
+    expect(FACILITY_BLUEPRINTS).toHaveLength(9)
     expect(FACILITY_BLUEPRINTS[0]).toBe(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT)
     expect(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT).toEqual({
       id: 'development-casting-annex',
@@ -632,6 +634,11 @@ describe('Placement Core V12 — the build-mode read model', () => {
       'development-office-2',
       'development-office-3',
       'craft-annex',
+      // C2a-M2 — the §3.4 slate, appended in authored order.
+      'stage-standard',
+      'post-building',
+      'scenery-shop',
+      'development-casting-office',
     ])
     expect(empty.catalog.slice(0, 1)).toEqual([
       {

@@ -163,13 +163,20 @@ function draftEst(state: GameState, conceptIndex = 0): { state: GameState; est: 
 // ── the catalog itself ───────────────────────────────────────────────────────
 
 describe('C1-M4 — the widened catalog', () => {
-  it('ships five entries, each with authored numbers in their stated ranges', () => {
+  it('ships the C1 five and the C2a four, each with authored numbers in their stated ranges', () => {
     expect(FACILITY_BLUEPRINTS.map((blueprint) => blueprint.id)).toEqual([
       'development-casting-annex',
       'development-casting-hall',
       'development-office-2',
       'development-office-3',
       'craft-annex',
+      // C2a-M2 — the §3.4 slate. Their own bounded-term pins live in
+      // tests/c2a-m2-blueprint-slate.test.ts; this list is the one place the
+      // catalog's authored ORDER is written down.
+      'stage-standard',
+      'post-building',
+      'scenery-shop',
+      'development-casting-office',
     ])
     // The bounded-term law runs at every action, tick, and save boundary; this
     // pins the authored values themselves so a price cannot drift unnoticed.
@@ -480,8 +487,18 @@ describe('C1-M4 — the whole catalog standing at once', () => {
     const estate = fullEstate('m4-estate')
     expect(estate.placement.facilities).toHaveLength(5)
     expect(estate.placement.facilities.every((placed) => placed.status === 'operational')).toBe(true)
-    for (const blueprint of FACILITY_BLUEPRINTS) {
-      expect(hasOperationalBlueprint(estate, blueprint.id)).toBe(true)
+    // The five THIS estate stands, named rather than read off the live catalog:
+    // C2a-M2 appended four more blueprints that `fullEstate` deliberately does
+    // not build, and a loop over the whole catalog would silently start asking
+    // this estate about buildings it was never meant to contain.
+    for (const blueprintId of [
+      'development-casting-annex',
+      'development-casting-hall',
+      'development-office-2',
+      'development-office-3',
+      'craft-annex',
+    ]) {
+      expect(hasOperationalBlueprint(estate, blueprintId)).toBe(true)
     }
     // Only the capacity-bearing ones joined the shared-capacity registry.
     const registered = estate.operations.facilities.map((facility) => facility.id)
@@ -525,7 +542,7 @@ describe('C1-M4 — the whole catalog standing at once', () => {
 
   it('shows the whole catalog in the build read model, with its unlock state', () => {
     const view = studioPlacementView(withCash(managedStudio('m4-catalog-view'), 50_000_000))
-    expect(view.catalog).toHaveLength(5)
+    expect(view.catalog).toHaveLength(9)
     const office3 = view.catalog.find((entry) => entry.blueprintId === 'development-office-3')!
     expect(office3.available).toBe(false)
     expect(office3.unmet[0]!.reason).toBe('Requires an operational Development Office II.')

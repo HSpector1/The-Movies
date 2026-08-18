@@ -622,7 +622,7 @@ describe('C1-M2 — the shipped Annex is unchanged', () => {
 
   it('reports the Annex as available and buildable in the catalog read model', () => {
     const view = studioPlacementView(withCash(managedStudio('c1-m2-catalog'), 5_000_000))
-    expect(view.catalog).toHaveLength(5)
+    expect(view.catalog).toHaveLength(9)
     expect(view.catalog[0]).toMatchObject({
       blueprintId: ANNEX,
       available: true,
