@@ -283,9 +283,26 @@ export function quoteRejectionText(quote: PlacementQuote | null): string | null 
  * The whole cost box for one quote: capital, construction clock, weekly running cost,
  * and the capacity it would add. This is the quote a Build button's enabled-state
  * belongs to (Entry 3: "confirm button enabled-ness IS the current phase's verdict").
+ *
+ * A MOVE is quoted through the same machinery but promises different facts: it costs
+ * nothing, finishes the moment it commits, changes no running cost and adds no
+ * capacity. Printing the blueprint's build clock here promised a six-week rebuild
+ * that never happens (C1-M8 playtest finding), so the move context states only what
+ * a move actually does.
  */
-export function quoteFacts(quote: PlacementQuote | null): LotParcelFact[] {
+export function quoteFacts(quote: PlacementQuote | null, moving = false): LotParcelFact[] {
   if (quote === null) return []
+  if (moving) {
+    return [
+      { key: 'quote:cost', term: 'Move cost', detail: moneyExact(quote.cost) },
+      { key: 'quote:weeks', term: 'Downtime', detail: 'None — the building moves standing.' },
+      {
+        key: 'quote:opex',
+        term: 'Weekly running cost',
+        detail: `${moneyExact(quote.weeklyOperatingCost)} — unchanged by the move`,
+      },
+    ]
+  }
   return [
     { key: 'quote:cost', term: 'Capital cost', detail: moneyExact(quote.cost) },
     {

@@ -223,6 +223,23 @@ describe('Build Mode V1 — the cost box and the receipt', () => {
       `$780,000 committed to Development & Casting Annex. Construction completes in Week ${String(quote.completesOnWeek)}.`,
     )
   })
+
+  // C1-M8: a move quoted through the build machinery must not promise a build. The
+  // blueprint's construction clock in a move panel offered a six-week rebuild that
+  // never happens; a move states only what a move does.
+  it('a move quote promises no construction clock and no new capacity', () => {
+    const quote = placementQuote(BASE, { blueprintId: ANNEX, origin: { gx: 3, gy: 19 } })
+    const facts = quoteFacts(quote, true)
+    expect(facts.map((fact) => fact.key)).toEqual(['quote:cost', 'quote:weeks', 'quote:opex'])
+    expect(facts[0]!.term).toBe('Move cost')
+    expect(facts[1]!).toMatchObject({
+      term: 'Downtime',
+      detail: 'None — the building moves standing.',
+    })
+    expect(facts[2]!.detail).toBe('$3,500 — unchanged by the move')
+    expect(facts.some((fact) => fact.detail.includes('completes Week'))).toBe(false)
+    expect(facts.some((fact) => fact.detail.includes('once operational'))).toBe(false)
+  })
 })
 
 describe('Build Mode V1 — the parcel panel', () => {

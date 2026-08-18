@@ -6046,7 +6046,7 @@ export function StudioLotScreen({
         </div>
 
         <dl className="hollywood-annex-facts" data-testid="lot-build-quote">
-          {quoteFacts(buildQuote).map((fact) => (
+          {quoteFacts(buildQuote, buildDraft.movingPlacementId !== null).map((fact) => (
             <div key={fact.key} data-fact-key={fact.key}>
               <dt>{fact.term}</dt>
               <dd>{fact.detail}</dd>
