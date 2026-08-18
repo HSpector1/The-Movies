@@ -101,6 +101,7 @@
 
 import { canAfford, economyEngaged, type Affordability } from './employment.js'
 import { supersedingOperationalBlueprintId } from './facilityEffects.js'
+import { occupiedResourceSlots, resourceClaimsOf } from './occupancy.js'
 import {
   annexCanonicalProductionIdCollision,
   assertStudioConstructionInvariants,
@@ -809,60 +810,56 @@ export function facilityEngagements(
 ): FacilityEngagement[] {
   const holders: FacilityEngagement[] = []
 
-  // 1 + 2. Production workflows, and the shooting task's denormalized copy.
-  for (const workflow of state.operations.workflows) {
-    for (const reservation of workflow.reservations) {
-      if (reservation.facilityId !== facilityId) continue
-      holders.push({
-        kind: 'production',
-        facilityId,
-        holderId: workflow.productionId,
-        activity: workflow.phase,
-      })
+  // C2a-M0: the five sources listed in this module's header ARE
+  // `occupiedResourceSlots`' five roots, walked in the same fixed order. This
+  // predicate keeps its own vocabulary — a refusal has to read as a sentence about
+  // a person — and drops its private copy of the list, so a sixth holder is taught
+  // once and every guard learns it at the same moment.
+  for (const held of resourceClaimsOf(occupiedResourceSlots(state))) {
+    if (held.facilityId !== facilityId) continue
+    switch (held.owner) {
+      case 'production':
+        holders.push({
+          kind: 'production',
+          facilityId,
+          holderId: held.ownerId,
+          activity: held.phase,
+        })
+        break
+      case 'shootingTask':
+        holders.push({
+          kind: 'shootingTask',
+          facilityId,
+          holderId: held.ownerId,
+          activity: 'shooting',
+        })
+        break
+      case 'screenplay':
+        holders.push({
+          kind: 'screenplay',
+          facilityId,
+          holderId: held.ownerId,
+          activity:
+            held.status === 'rewriting' ? 'rewriting a screenplay' : 'drafting a screenplay',
+        })
+        break
+      case 'castingSession':
+        holders.push({
+          kind: 'castingSession',
+          facilityId,
+          holderId: held.ownerId,
+          activity: 'auditioning',
+        })
+        break
+      case 'legacyConstructionProject':
+        holders.push({
+          kind: 'legacyConstructionProject',
+          facilityId,
+          holderId: held.ownerId,
+          activity: 'construction',
+        })
+        break
     }
-    if (workflow.shootingTask?.soundstageFacilityId === facilityId) {
-      holders.push({
-        kind: 'shootingTask',
-        facilityId,
-        holderId: workflow.productionId,
-        activity: 'shooting',
-      })
-    }
-  }
-
-  // 3. Screenplays. Tested on the reservation, never the status, so a malformed
-  // state fails CLOSED rather than reading as idle.
-  for (const project of state.scriptDevelopment.projects) {
-    if (project.reservation?.facilityId !== facilityId) continue
-    holders.push({
-      kind: 'screenplay',
-      facilityId,
-      holderId: project.id,
-      activity: project.status === 'rewriting' ? 'rewriting a screenplay' : 'drafting a screenplay',
-    })
-  }
-
-  // 4. Audition sessions. Same reservation-not-status rule.
-  for (const session of state.castingSessions.sessions) {
-    if (session.reservation?.facilityId !== facilityId) continue
-    holders.push({
-      kind: 'castingSession',
-      facilityId,
-      holderId: session.id,
-      activity: 'auditioning',
-    })
-  }
-
-  // 5. The retired V11 construction root. Provably empty under V12 and later;
-  // walked so a migrated or forged save cannot slip past.
-  for (const project of state.construction.projects) {
-    if (project.facilityId !== facilityId) continue
-    holders.push({
-      kind: 'legacyConstructionProject',
-      facilityId,
-      holderId: project.id,
-      activity: 'construction',
-    })
   }
 
   return holders

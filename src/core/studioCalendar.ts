@@ -3,6 +3,7 @@
 // This module creates no schedule, reservation, command, or second clock.
 
 import { renewalWindowOpen, weeklySalary } from './employment.js'
+import { facilitySlotKey, occupiedResourceSlots, resourceSlotClaimsOf } from './occupancy.js'
 import {
   assertStudioOperationsInvariants,
   productionPhaseForRemainingTicks,
@@ -229,10 +230,6 @@ function requireTalentName(state: GameState, talentId: string, owner: string): s
   return talent.name
 }
 
-function facilitySlotKey(facilityId: string, slot: number): string {
-  return `${facilityId}:${String(slot)}`
-}
-
 function decisionView(decision: StudioDecisionView | null): StudioCalendarDecisionView | null {
   if (decision === null) return null
   switch (decision.kind) {
@@ -283,6 +280,12 @@ function facilityViews(state: GameState): StudioCalendarFacilityView[] {
     occupied.set(key, occupant)
   }
 
+  // PASS 1 — the laws that are about an owner rather than about a slot: does the
+  // workflow name a real production on the right week, and does an owner hold a
+  // reservation exactly when its own status says it should? A zero-reservation
+  // workflow (Release Ready) contributes no claim, so these have to be asked of
+  // the owners, not of the occupancy list.
+  const productionTitles = new Map<string, string>()
   for (const workflow of state.operations.workflows) {
     const production = state.studio.activeProductions.find(
       (candidate) => candidate.id === workflow.productionId,
@@ -294,72 +297,94 @@ function facilityViews(state: GameState): StudioCalendarFacilityView[] {
     if (workflow.phase !== expectedPhase) {
       throw new Error(`studioCalendar: workflow "${workflow.productionId}" phase disagrees with production countdown`)
     }
-    const title = requireConceptTitle(state, production.conceptId, `production "${production.id}"`)
-    for (const reservation of workflow.reservations) {
-      if (reservation.productionId !== production.id || reservation.phase !== workflow.phase) {
-        throw new Error(`studioCalendar: production reservation ownership disagrees with workflow "${workflow.productionId}"`)
-      }
-      claim(reservation.facilityId, reservation.slot, reservation.capability, {
-        owner: 'production',
-        ownerId: production.id,
-        title,
-        activity: workflow.phase,
-      })
-    }
+    productionTitles.set(
+      production.id,
+      requireConceptTitle(state, production.conceptId, `production "${production.id}"`),
+    )
   }
-
   for (const project of state.scriptDevelopment.projects) {
-    if (project.status === 'drafting' || project.status === 'rewriting') {
-      if (project.reservation === null) {
-        throw new Error(`studioCalendar: active screenplay "${project.id}" has no reservation`)
-      }
-    } else {
-      if (project.reservation !== null) {
-        throw new Error(`studioCalendar: inactive screenplay "${project.id}" retains a reservation`)
-      }
-      continue
+    const active = project.status === 'drafting' || project.status === 'rewriting'
+    if (active && project.reservation === null) {
+      throw new Error(`studioCalendar: active screenplay "${project.id}" has no reservation`)
     }
-    if (project.reservation.projectId !== project.id) {
-      throw new Error(`studioCalendar: screenplay reservation owner disagrees with project "${project.id}"`)
-    }
-    if (project.reservation.capability !== 'development-casting') {
-      throw new Error(`studioCalendar: screenplay "${project.id}" reservation is not development-casting`)
-    }
-    claim(project.reservation.facilityId, project.reservation.slot, project.reservation.capability, {
-      owner: 'script',
-      ownerId: project.id,
-      title: requireConceptTitle(state, project.conceptId, `screenplay "${project.id}"`),
-      activity: project.status,
-    })
   }
-
   for (const session of state.castingSessions.sessions) {
-    const active = session.status === 'auditioning'
-    if (active && session.reservation === null) {
+    if (session.status === 'auditioning' && session.reservation === null) {
       throw new Error(`studioCalendar: auditioning session "${session.id}" has no reservation`)
     }
-    if (!active && session.reservation !== null) {
-      throw new Error(`studioCalendar: inactive casting session "${session.id}" retains a reservation`)
+  }
+
+  // PASS 2 — the occupancy itself, from the ONE union producer, in its fixed
+  // source order (productions, then screenplays, then auditions). This module
+  // keeps its own words and its own title lookups; it no longer keeps its own
+  // list of which roots can hold a slot.
+  for (const held of resourceSlotClaimsOf(occupiedResourceSlots(state))) {
+    switch (held.owner) {
+      case 'production': {
+        const title = productionTitles.get(held.ownerId)
+        if (title === undefined) {
+          throw new Error(`studioCalendar: workflow references unknown production "${held.ownerId}"`)
+        }
+        if (held.reservation.productionId !== held.ownerId || held.reservation.phase !== held.phase) {
+          throw new Error(`studioCalendar: production reservation ownership disagrees with workflow "${held.ownerId}"`)
+        }
+        claim(held.facilityId, held.slot, held.capability, {
+          owner: 'production',
+          ownerId: held.ownerId,
+          title,
+          activity: held.phase,
+        })
+        break
+      }
+      case 'screenplay': {
+        if (held.status !== 'drafting' && held.status !== 'rewriting') {
+          throw new Error(`studioCalendar: inactive screenplay "${held.ownerId}" retains a reservation`)
+        }
+        if (held.reservation.projectId !== held.ownerId) {
+          throw new Error(`studioCalendar: screenplay reservation owner disagrees with project "${held.ownerId}"`)
+        }
+        if (held.capability !== 'development-casting') {
+          throw new Error(`studioCalendar: screenplay "${held.ownerId}" reservation is not development-casting`)
+        }
+        const project = state.scriptDevelopment.projects.find(
+          (candidate) => candidate.id === held.ownerId,
+        )!
+        claim(held.facilityId, held.slot, held.capability, {
+          owner: 'script',
+          ownerId: held.ownerId,
+          title: requireConceptTitle(state, project.conceptId, `screenplay "${held.ownerId}"`),
+          activity: held.status,
+        })
+        break
+      }
+      case 'castingSession': {
+        if (held.status !== 'auditioning') {
+          throw new Error(`studioCalendar: inactive casting session "${held.ownerId}" retains a reservation`)
+        }
+        if (held.reservation.sessionId !== held.ownerId) {
+          throw new Error(`studioCalendar: casting reservation owner disagrees with session "${held.ownerId}"`)
+        }
+        if (held.capability !== 'development-casting') {
+          throw new Error(`studioCalendar: casting session "${held.ownerId}" reservation is not development-casting`)
+        }
+        const session = state.castingSessions.sessions.find(
+          (candidate) => candidate.id === held.ownerId,
+        )!
+        const project = state.scriptDevelopment.projects.find(
+          (candidate) => candidate.id === session.projectId,
+        )
+        if (project === undefined) {
+          throw new Error(`studioCalendar: casting session "${held.ownerId}" references unknown screenplay "${session.projectId}"`)
+        }
+        claim(held.facilityId, held.slot, held.capability, {
+          owner: 'casting',
+          ownerId: held.ownerId,
+          title: requireConceptTitle(state, project.conceptId, `casting session "${held.ownerId}"`),
+          activity: 'auditioning',
+        })
+        break
+      }
     }
-    if (session.reservation === null) continue
-    if (session.reservation.sessionId !== session.id) {
-      throw new Error(`studioCalendar: casting reservation owner disagrees with session "${session.id}"`)
-    }
-    if (session.reservation.capability !== 'development-casting') {
-      throw new Error(`studioCalendar: casting session "${session.id}" reservation is not development-casting`)
-    }
-    const project = state.scriptDevelopment.projects.find(
-      (candidate) => candidate.id === session.projectId,
-    )
-    if (project === undefined) {
-      throw new Error(`studioCalendar: casting session "${session.id}" references unknown screenplay "${session.projectId}"`)
-    }
-    claim(session.reservation.facilityId, session.reservation.slot, session.reservation.capability, {
-      owner: 'casting',
-      ownerId: session.id,
-      title: requireConceptTitle(state, project.conceptId, `casting session "${session.id}"`),
-      activity: 'auditioning',
-    })
   }
 
   return facilities.map((facility): StudioCalendarFacilityView => {

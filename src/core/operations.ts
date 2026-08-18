@@ -4,6 +4,12 @@
 // caller-owned state.
 
 import {
+  assertNoDoubleBookedResourceSlots,
+  facilitySlotKey,
+  occupiedResourceSlots,
+} from './occupancy.js'
+import type { OccupancySources } from './occupancy.js'
+import {
   productionPhaseForRemainingTicks,
   reachableCapacityBlockerForRemainingTicks,
   requirementsForPhase,
@@ -93,17 +99,25 @@ function compareId<T extends { id: string }>(a: T, b: T): number {
   return a.id < b.id ? -1 : a.id > b.id ? 1 : 0
 }
 
+// Every slot this workflow must treat as taken: the OTHER productions' slots,
+// from the one union producer, plus whatever the tick boundary already knows
+// screenplays and auditions are holding. The workflow's own slots are excluded so
+// retention can re-claim them.
 function occupiedSlots(
-  workflows: readonly ProductionWorkflow[],
+  operations: StudioOperations,
   excludingProductionId: string,
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
 ): Set<string> {
   const occupied = new Set<string>(externallyOccupiedSlots)
-  for (const workflow of workflows) {
-    if (workflow.productionId === excludingProductionId) continue
-    for (const reservation of workflow.reservations) {
-      occupied.add(`${reservation.facilityId}:${String(reservation.slot)}`)
-    }
+  for (const key of occupiedResourceSlots(
+    { operations },
+    {
+      owners: ['production'],
+      excludeOwner: 'production',
+      excludeOwnerId: excludingProductionId,
+    },
+  ).keys()) {
+    occupied.add(key)
   }
   return occupied
 }
@@ -118,11 +132,7 @@ function allocateForPhase(
   targetPhase: ProductionPhase,
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
 ): AllocationResult {
-  const occupied = occupiedSlots(
-    operations.workflows,
-    workflow.productionId,
-    externallyOccupiedSlots,
-  )
+  const occupied = occupiedSlots(operations, workflow.productionId, externallyOccupiedSlots)
   const reservations: FacilityReservation[] = []
   const facilities = [...operations.facilities].sort(compareId)
 
@@ -135,7 +145,7 @@ function allocateForPhase(
         : undefined
     if (retained !== undefined) {
       reservations.push({ ...retained, phase: targetPhase })
-      occupied.add(`${retained.facilityId}:${String(retained.slot)}`)
+      occupied.add(facilitySlotKey(retained.facilityId, retained.slot))
       continue
     }
 
@@ -143,7 +153,7 @@ function allocateForPhase(
     for (const facility of facilities) {
       if (facility.capability !== capability) continue
       for (let slot = 0; slot < facility.capacity; slot++) {
-        const key = `${facility.id}:${String(slot)}`
+        const key = facilitySlotKey(facility.id, slot)
         if (occupied.has(key)) continue
         allocated = {
           productionId: workflow.productionId,
@@ -337,6 +347,13 @@ export function assertStudioOperationsInvariants(
     // Required with `placement-v12`: the exact operational placed facilities that
     // must follow the initial five, in weekly-completion append order.
     placedFacilities?: readonly StudioFacility[]
+    // C2a-M0 defense-in-depth (§3.2). The OTHER roots that can hold a facility
+    // slot, when the caller can see them. Supplying them turns the overbooking
+    // invariant below from "productions against each other" into the full
+    // cross-owner refusal. Allocation is already cross-owner aware, so this must
+    // never fire on a legal state — it exists for the day a new holder is added
+    // and one allocator is missed.
+    sharedOccupancy?: Omit<OccupancySources, 'operations'>
   },
 ): void {
   if (operations.mode === 'legacy') {
@@ -444,7 +461,6 @@ export function assertStudioOperationsInvariants(
     'managed active productions and workflows must be one-to-one',
   )
   const workflowIds = new Set<string>()
-  const occupied = new Set<string>()
   const facilityById = new Map(operations.facilities.map((facility) => [facility.id, facility]))
 
   for (const workflow of operations.workflows) {
@@ -479,9 +495,6 @@ export function assertStudioOperationsInvariants(
         Number.isInteger(reservation.slot) && reservation.slot >= 0 && reservation.slot < facility.capacity,
         `reservation slot is outside facility "${facility.id}" capacity`,
       )
-      const key = `${facility.id}:${String(reservation.slot)}`
-      invariant(!occupied.has(key), `facility slot "${key}" is overbooked`)
-      occupied.add(key)
     }
 
     if (workflow.phase === 'shooting') {
@@ -543,6 +556,22 @@ export function assertStudioOperationsInvariants(
       )
     }
   }
+
+  // FAIL-CLOSED, from the one union producer. Every reservation above has already
+  // proved its facility, capability, phase, and slot range; what is left is the
+  // cross-owner question — is any slot claimed twice? — and that question now has
+  // exactly one implementation, so the day Sets become a sixth holder there is
+  // one place to teach.
+  //
+  // `sharedOccupancy` widens it from "productions against each other" to the full
+  // cross-owner check. Callers that can see the screenplay and audition roots pass
+  // them; callers that legitimately cannot (the frozen V8 save projection) still
+  // get the production-against-production law.
+  assertNoDoubleBookedResourceSlots(
+    { operations, ...(options?.sharedOccupancy ?? {}) },
+    (booking) => `operations invariant: facility slot "${booking.facilitySlotKey}" is overbooked`,
+  )
+
   for (const production of productions) {
     invariant(workflowIds.has(production.id), `active production "${production.id}" has no workflow`)
   }

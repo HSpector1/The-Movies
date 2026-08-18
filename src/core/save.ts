@@ -77,6 +77,7 @@ import type {
   WorkHistory,
 } from "./types.js";
 import { legacyTheatricalRun } from "./economy.js";
+import { assertNoDoubleBookedResourceSlots } from "./occupancy.js";
 import {
   assertStudioOperationsInvariants,
   emptyStudioOperations,
@@ -3063,6 +3064,17 @@ function validateSaveV10WithPolicy(
       operations: typedState.operations,
       scriptDevelopment: typedState.scriptDevelopment,
       talent: typedState.talent,
+    });
+    // C2a-M0 fail-closed (charter §3.2). This is the first point in the validator
+    // where ALL THREE Development & Casting owners are typed and present, which is
+    // why the cross-owner union check lands here rather than in the operations
+    // validator above. Defense-in-depth: the per-owner walks inside the assertion
+    // already refuse the collisions they can see; this one asks the union producer
+    // the whole question, across every capability, in one place.
+    assertNoDoubleBookedResourceSlots({
+      operations: typedState.operations,
+      scriptDevelopment: typedState.scriptDevelopment,
+      castingSessions,
     });
   } catch (error) {
     throw new Error(`validateSaveV10: ${(error as Error).message}`);

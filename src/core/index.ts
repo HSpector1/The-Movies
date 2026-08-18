@@ -423,6 +423,33 @@ export {
   assertStudioOperationsInvariants,
 } from './operations.js'
 
+// Shared resource occupancy (C2a-M0, charter §3.2) — THE one named union
+// producer over every persisted holder of studio capacity, plus the fail-closed
+// cross-owner double-booking refusal every boundary wires into.
+export {
+  occupiedResourceSlots,
+  resourceClaims,
+  resourceClaimsOf,
+  resourceSlotClaimsOf,
+  screenplayOccupiedSlotKeys,
+  findDoubleBookedResourceSlot,
+  assertNoDoubleBookedResourceSlots,
+  isResourceSlotClaim,
+  facilitySlotKey,
+  resourceSlotKey,
+  resourceFacilityKey,
+} from './occupancy.js'
+export type {
+  OccupancySources,
+  OccupiedSlotFilter,
+  ResourceClaim,
+  ResourceDoubleBooking,
+  ResourceKind,
+  ResourceOccupancy,
+  ResourceOwnerKind,
+  ResourceSlotClaim,
+} from './occupancy.js'
+
 // Script Projects V1 — authoritative screenplay lifecycle and shared capacity.
 export {
   emptyScriptDevelopment,

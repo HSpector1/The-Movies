@@ -3,6 +3,7 @@
 // consumes no RNG, reads no wall clock, performs no I/O, and mutates no input.
 
 import { clamp } from './math.js'
+import { facilitySlotKey, occupiedResourceSlots, screenplayOccupiedSlotKeys } from './occupancy.js'
 import { resolveShape } from './shape.js'
 import { effectiveSkill } from './talentSummary.js'
 import type {
@@ -68,34 +69,18 @@ function clonePromise(promise: FilmPromise): FilmPromise {
   }
 }
 
-export function facilitySlotKey(facilityId: string, slot: number): string {
-  return `${facilityId}:${String(slot)}`
-}
-
-function productionOccupiedFacilitySlots(operations: StudioOperations): Set<string> {
-  const occupied = new Set<string>()
-  for (const workflow of operations.workflows) {
-    for (const reservation of workflow.reservations) {
-      occupied.add(facilitySlotKey(reservation.facilityId, reservation.slot))
-    }
-  }
-  return occupied
-}
+// The bare allocation key now belongs to `occupancy.ts`, which owns every read of
+// a persisted reservation. Re-exported here because this module has been its
+// public address since V9.
+export { facilitySlotKey }
 
 // The shared-capacity interface consumed by Production Operations allocation.
-// A caller completing due screenplay work first receives a set with those newly
-// released slots absent, making the governed tick order explicit.
-export function scriptOccupiedFacilitySlots(
-  development: ScriptDevelopment,
-  excludingProjectId?: string,
-): Set<string> {
-  const occupied = new Set<string>()
-  for (const project of development.projects) {
-    if (project.id === excludingProjectId || project.reservation === null) continue
-    occupied.add(facilitySlotKey(project.reservation.facilityId, project.reservation.slot))
-  }
-  return occupied
-}
+//
+// C2a-M0: this module no longer implements it. Both this helper and the private
+// `productionOccupiedFacilitySlots` copy that used to sit beside it were hand
+// traversals of the persisted roots; `occupancy.ts` owns that reading now, and
+// this is the V9 public address kept pointing at it.
+export { screenplayOccupiedSlotKeys as scriptOccupiedFacilitySlots }
 
 export function developmentCastingOccupancy(
   operations: StudioOperations,
@@ -177,8 +162,17 @@ export function allocateScriptReservation(
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
 ): ScriptReservation | null {
   const occupied = new Set(externallyOccupiedSlots)
-  for (const key of productionOccupiedFacilitySlots(operations)) occupied.add(key)
-  for (const key of scriptOccupiedFacilitySlots(development, projectId)) occupied.add(key)
+  // Productions and every OTHER screenplay, from the one union producer.
+  for (const key of occupiedResourceSlots(
+    { operations, scriptDevelopment: development },
+    {
+      owners: ['production', 'screenplay'],
+      excludeOwner: 'screenplay',
+      excludeOwnerId: projectId,
+    },
+  ).keys()) {
+    occupied.add(key)
+  }
 
   const facilities = operations.facilities
     .filter((facility) => facility.capability === 'development-casting')
@@ -862,7 +856,11 @@ export function assertScriptDevelopmentInvariants(
   const activeScriptWriters = new Set<string>()
   const conceptIds = new Set<string>()
   const productionLinks = new Set<string>()
-  const occupied = productionOccupiedFacilitySlots(context.operations)
+  // Seed the shared-capacity ledger with the PRODUCTIONS' slots, from the one
+  // union producer; each active project then claims against it below.
+  const occupied = new Set(
+    occupiedResourceSlots({ operations: context.operations }, { owners: ['production'] }).keys(),
+  )
 
   for (let index = 0; index < development.projects.length; index++) {
     const project = development.projects[index]!

@@ -62,6 +62,7 @@ import { developTalent, type DevelopmentContext } from './development.js'
 import { economyEngaged, weeklyPayroll } from './employment.js'
 import { openTheatricalRun } from './economy.js'
 import { clamp } from './math.js'
+import { assertNoDoubleBookedResourceSlots } from './occupancy.js'
 import { advanceManagedProductions } from './operations.js'
 import { developmentOfficeEstUplift } from './facilityEffects.js'
 import {
@@ -697,6 +698,18 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // stays untouched (declare-only until phase 6). `talent` is unchanged unless the
   // DEVELOPMENT gate (step 6) is on. D-11 employment fields (contracts/ledger/
   // freeAgents) thread through; founding is unchanged (ticks only run post-founding).
+  // FAIL-CLOSED at the tick boundary (charter §3.2). Every allocator run above is
+  // already cross-owner aware; this asks the union producer the one question none
+  // of them can answer alone — did this advance leave any slot with two owners? It
+  // must never fire on a legal state, and it is where the Sets exclusivity check
+  // lands at M2 without a second walk being invented for it.
+  assertNoDoubleBookedResourceSlots({
+    operations,
+    scriptDevelopment,
+    castingSessions,
+    construction,
+  })
+
   return {
     ...state,
     rngState: rng.serialize(),

@@ -50,6 +50,7 @@ import {
 } from './employment.js'
 import { computeForecast, type ForecastContext } from './forecast.js'
 import { clamp } from './math.js'
+import { assertNoDoubleBookedResourceSlots } from './occupancy.js'
 import {
   acknowledgeCastingSession,
   assertCastingSessionsInvariants,
@@ -2083,5 +2084,12 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
       }
     }
   }
+
+  // FAIL-CLOSED at the action boundary (charter §3.2), the twin of the tick
+  // boundary's check. Greenlight, commission, and startCastingSession each
+  // allocate against the other owners' slots already; this asks the union producer
+  // whether the batch as a WHOLE left any slot with two owners. It must never fire
+  // on a legal state.
+  assertNoDoubleBookedResourceSlots(next)
   return next
 }

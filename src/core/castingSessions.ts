@@ -4,9 +4,13 @@
 // assignment state, and it never mutates caller-owned inputs.
 
 import { clamp } from './math.js'
+import {
+  facilitySlotKey,
+  occupiedResourceSlots,
+  resourceSlotClaimsOf,
+} from './occupancy.js'
 import { stream } from './rng.js'
 import { resolveShape } from './shape.js'
-import { facilitySlotKey } from './scriptDevelopment.js'
 import { castSlotExecution } from './talentSummary.js'
 import {
   CASTING_CANDIDATES_PER_ROLE,
@@ -163,35 +167,26 @@ export function assertCastingSlateEligibility(
   }
 }
 
-function productionOccupiedFacilitySlots(operations: StudioOperations): Set<string> {
-  const occupied = new Set<string>()
-  for (const workflow of operations.workflows) {
-    for (const reservation of workflow.reservations) {
-      occupied.add(facilitySlotKey(reservation.facilityId, reservation.slot))
-    }
-  }
-  return occupied
-}
-
-function scriptOccupiedFacilitySlots(development: ScriptDevelopment): Set<string> {
-  const occupied = new Set<string>()
-  for (const project of development.projects) {
-    if (project.reservation === null) continue
-    occupied.add(facilitySlotKey(project.reservation.facilityId, project.reservation.slot))
-  }
-  return occupied
-}
-
+// C2a-M0: a thin view over the one union producer. The two private
+// `productionOccupiedFacilitySlots` / `scriptOccupiedFacilitySlots` copies that
+// used to sit beside it — duplicates of the same helpers in
+// `scriptDevelopment.ts` — are gone.
 export function castingOccupiedFacilitySlots(
   casting: CastingSessions,
   excludingSessionId?: string,
 ): Set<string> {
-  const occupied = new Set<string>()
-  for (const session of casting.sessions) {
-    if (session.id === excludingSessionId || session.reservation === null) continue
-    occupied.add(facilitySlotKey(session.reservation.facilityId, session.reservation.slot))
-  }
-  return occupied
+  return new Set(
+    occupiedResourceSlots(
+      { castingSessions: casting },
+      excludingSessionId === undefined
+        ? { owners: ['castingSession'] }
+        : {
+            owners: ['castingSession'],
+            excludeOwner: 'castingSession',
+            excludeOwnerId: excludingSessionId,
+          },
+    ).keys(),
+  )
 }
 
 export function castingDevelopmentCastingOccupancy(
@@ -232,9 +227,19 @@ export function allocateCastingReservation(
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
 ): CastingReservation | null {
   const occupied = new Set(externallyOccupiedSlots)
-  for (const key of productionOccupiedFacilitySlots(operations)) occupied.add(key)
-  for (const key of scriptOccupiedFacilitySlots(scriptDevelopment)) occupied.add(key)
-  for (const key of castingOccupiedFacilitySlots(casting, sessionId)) occupied.add(key)
+  // Productions, screenplays, and every OTHER audition — one traversal, from the
+  // one union producer. This allocator has always been cross-owner aware; what
+  // changes is that it no longer re-derives the owner list itself.
+  for (const key of occupiedResourceSlots(
+    { operations, scriptDevelopment, castingSessions: casting },
+    {
+      owners: ['production', 'screenplay', 'castingSession'],
+      excludeOwner: 'castingSession',
+      excludeOwnerId: sessionId,
+    },
+  ).keys()) {
+    occupied.add(key)
+  }
 
   const facilities = operations.facilities
     .filter((facility) => facility.capability === 'development-casting')
@@ -503,24 +508,28 @@ function assertCastingReservation(
   occupied.add(key)
 }
 
+// C2a-M0: the walk is the one union producer's, in its fixed source order
+// (production reservations, then screenplays); only the per-owner refusal words
+// stay here, because they are what this module's contract pins.
 function initialDevelopmentCastingOccupancy(
   operations: StudioOperations,
   scriptDevelopment: ScriptDevelopment,
 ): Set<string> {
   const occupied = new Set<string>()
-  for (const workflow of operations.workflows) {
-    for (const reservation of workflow.reservations) {
-      if (reservation.capability !== 'development-casting') continue
-      const key = facilitySlotKey(reservation.facilityId, reservation.slot)
-      invariant(!occupied.has(key), `facility slot "${key}" is duplicated by production reservations`)
-      occupied.add(key)
-    }
-  }
-  for (const project of scriptDevelopment.projects) {
-    if (project.reservation === null) continue
-    const key = facilitySlotKey(project.reservation.facilityId, project.reservation.slot)
-    invariant(!occupied.has(key), `facility slot "${key}" is overbooked across productions/scripts`)
-    occupied.add(key)
+  for (const claim of resourceSlotClaimsOf(
+    occupiedResourceSlots(
+      { operations, scriptDevelopment },
+      { owners: ['production', 'screenplay'] },
+    ),
+  )) {
+    if (claim.owner === 'production' && claim.capability !== 'development-casting') continue
+    invariant(
+      !occupied.has(claim.facilitySlotKey),
+      claim.owner === 'production'
+        ? `facility slot "${claim.facilitySlotKey}" is duplicated by production reservations`
+        : `facility slot "${claim.facilitySlotKey}" is overbooked across productions/scripts`,
+    )
+    occupied.add(claim.facilitySlotKey)
   }
   return occupied
 }
