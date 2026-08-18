@@ -280,6 +280,52 @@ export function lotSetWorkByShop(snapshot: StudioLotSnapshot): Map<string, LotSe
 }
 
 /**
+ * The same facts as a SENTENCE, for the panel a player opens by clicking the building.
+ *
+ * The world's chrome is a badge — clipped, upper case, read at a glance. The in-world
+ * panel is prose, and prose is where the REMEDY belongs (`00F`): "repair it before
+ * another picture can be bound to it" is a thing to do, where "TOO WORN TO SHOOT ON" is
+ * only a thing to know. Same facts, same order, two registers — never two answers.
+ */
+export function lotSetDressingSentence(dressing: LotSetDressing): string {
+  const set = dressing.set
+  if (set === null) {
+    return 'No set is mounted here — nothing can be filmed on this stage until one is built.'
+  }
+  switch (dressing.state) {
+    case 'building':
+      return `${set.name} is going up — ${plainWeeks(set.weeksRemaining)} to go.`
+    case 'repairing':
+      return `${set.name} is being repaired — ${plainWeeks(set.weeksRemaining)} to go.`
+    case 'new':
+      return `${set.name} is standing. It went up this week.`
+    case 'standing':
+      return `${set.name} is standing, in good repair.`
+    case 'worn':
+      return `${set.name} is standing and showing wear.`
+    case 'needs-repair':
+      return `${set.name} is too worn to shoot on. Repair it before another picture can stand on it.`
+    default:
+      return `${set.name} is mounted on this stage.`
+  }
+}
+
+/** What a shop's crew is making, as a sentence. */
+export function lotSetWorkSentence(work: LotSetWorkAtShop): string {
+  if (work.sets.length !== 1) {
+    return `${String(work.sets.length)} sets are under way here.`
+  }
+  const only = work.sets[0]!
+  const verb = only.repairing === true ? 'repairing' : 'building'
+  return `The scenery crew is ${verb} ${only.name} — ${plainWeeks(only.weeksRemaining)} to go.`
+}
+
+function plainWeeks(count: number): string {
+  const weeksLeft = typeof count === 'number' && Number.isFinite(count) ? Math.max(0, count) : 0
+  return weeksLeft === 1 ? '1 week' : `${String(weeksLeft)} weeks`
+}
+
+/**
  * What one body's chrome says once its set lines are added to whatever it already said.
  *
  * ONE function for BOTH channels, and that is the point: a founding body carries a

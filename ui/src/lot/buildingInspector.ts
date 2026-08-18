@@ -43,6 +43,12 @@ import {
   facilityMutationBlockedReason,
 } from './facilityMutation.ts'
 import { lotFacilityPresenceOccupants } from './snapshot/presenceLines.ts'
+import {
+  lotSetDressingFor,
+  lotSetDressingSentence,
+  lotSetWorkByShop,
+  lotSetWorkSentence,
+} from './snapshot/setDressing.ts'
 import { isLotStageBuildingId } from './snapshot/stageIdentity.ts'
 import type {
   ScriptProjectsReadModel,
@@ -614,6 +620,64 @@ function placedFacts(
 }
 
 /**
+ * WHAT IS BUILT INSIDE THIS STAGE — the fact the panel could not state at all (C2a-M2).
+ *
+ * Emitted only when the snapshot actually carries a sets root. A snapshot without one
+ * describes a studio the engine has told this panel nothing about, and "no set is
+ * mounted here" would then be a claim rather than a report (the same fail-neutral
+ * discipline every other fact group in this module keeps).
+ */
+function stageSetFacts(
+  snapshot: StudioLotSnapshot,
+  buildingId: BuildingId,
+): LotBuildingInspectorFact[] {
+  if (!Array.isArray(snapshot.sets)) return []
+  const dressing = lotSetDressingFor(snapshot, buildingId)
+  if (dressing === null) return []
+  const facts: LotBuildingInspectorFact[] = [
+    { key: 'set:state', term: 'Set', detail: lotSetDressingSentence(dressing) },
+  ]
+  const set = dressing.set
+  if (set !== null && set.status === 'standing') {
+    // The three numbers a player weighs when they decide whether to shoot here. The
+    // engine's own persisted stats, printed; nothing is computed from them.
+    facts.push({
+      key: 'set:stats',
+      term: set.locationLabel,
+      detail: `Quality ${String(Math.round(set.quality))} · Condition ${String(
+        Math.round(set.condition),
+      )} · Freshness ${String(Math.round(set.novelty * 100))}%`,
+    })
+  }
+  return facts
+}
+
+/**
+ * WHAT THE SCENERY CREW IS MAKING. The Studio Calendar carries productions, screenplays
+ * and auditions — it has never carried sets — so a shop with a crew building one would
+ * otherwise have reported "nothing is booked in here this week" while a crew was
+ * plainly at work in it. That is a G12 violation, and this closes it at both the
+ * founding block and any shop the studio built.
+ */
+function sceneryWorkFacts(
+  snapshot: StudioLotSnapshot,
+  facilityIds: readonly string[],
+): LotBuildingInspectorFact[] {
+  const work = lotSetWorkByShop(snapshot)
+  const facts: LotBuildingInspectorFact[] = []
+  for (const facilityId of facilityIds) {
+    const held = work.get(facilityId)
+    if (held === undefined) continue
+    facts.push({
+      key: `scenery:${facilityId}`,
+      term: 'Scenery work',
+      detail: lotSetWorkSentence(held),
+    })
+  }
+  return facts
+}
+
+/**
  * The one live status line a SOUNDSTAGE says, whatever body it stands in (C2a-M2).
  *
  * Lifted verbatim out of the founding `stage-a`/`stage-b` arm so the founding stages and
@@ -631,6 +695,7 @@ function stageStatusLine(operations: readonly ProductionOperationsState[]): stri
 function placedStatusLine(
   placed: LotPlacedFacilityState,
   calendar: StudioCalendarView | null,
+  sceneryWork: readonly LotBuildingInspectorFact[] = [],
 ): string {
   if (placed.status === 'underConstruction') {
     return placed.weeksRemaining === 0
@@ -642,8 +707,14 @@ function placedStatusLine(
         )} to go.`
   }
   const capacity = calendarFacilityFacts([placed.facilityId], calendar, undefined)
-  if (capacity === null) return `${placed.name} is operational.`
-  return capacity.some((fact) => fact.key.startsWith('slot:'))
+  if (capacity === null) {
+    return sceneryWork.length > 0
+      ? `Work is under way in ${placed.name}.`
+      : `${placed.name} is operational.`
+  }
+  // A set under construction holds a scenery slot the Calendar does not carry, so it has
+  // to be counted here or the shop reports itself idle with a crew inside it.
+  return capacity.some((fact) => fact.key.startsWith('slot:')) || sceneryWork.length > 0
     ? `Work is under way in ${placed.name}.`
     : `${placed.name} is operational — nothing is booked in here this week.`
 }
@@ -937,13 +1008,18 @@ export function lotBuildingInspectorContext(
     facts.push(...placedFacts(snapshot, placed, calendar))
     occupantFacts.push(...presenceFacts(snapshot, buildingId, [placed.facilityId]))
     facts.push(...operationFacts(operations))
+    // C2a-M2 — a stage says what is built inside it, and a shop says what its crew is
+    // making. Both are the same facts the WORLD paints on the body's own caption, in the
+    // panel's own register, so the two surfaces can never disagree.
+    const placedScenery = sceneryWorkFacts(snapshot, [placed.facilityId])
+    facts.push(...stageSetFacts(snapshot, buildingId), ...placedScenery)
     // A soundstage the studio BUILT is a soundstage, and says the soundstage sentence
     // its founding siblings say (C2a-M2 §3.1). Anything else is the professional floor
     // failing at exactly the moment a player looks at the thing they paid to put up.
     status =
       placed.status === 'operational' && isLotStageBuildingId(snapshot, buildingId)
         ? stageStatusLine(operations)
-        : placedStatusLine(placed, calendar)
+        : placedStatusLine(placed, calendar, placedScenery)
   }
 
   /** The founding place this panel is describing, or '' when a placed facility answered. */
@@ -987,6 +1063,7 @@ export function lotBuildingInspectorContext(
       if (occupancy !== null) facts.push(...occupancy)
       occupantFacts.push(...presenceFacts(snapshot, buildingId))
       facts.push(...operationFacts(operations))
+      facts.push(...stageSetFacts(snapshot, buildingId))
       status = stageStatusLine(operations)
       break
     }
@@ -995,12 +1072,18 @@ export function lotBuildingInspectorContext(
       if (occupancy !== null) facts.push(...occupancy)
       occupantFacts.push(...presenceFacts(snapshot, 'post'))
       facts.push(...operationFacts(operations))
+      // The founding block houses BOTH founding facilities, so it reports the scenery
+      // crew's work as well as the cutting rooms' (C2a-M2).
+      const founding = sceneryWorkFacts(snapshot, BUILDING_FACILITY_IDS.post ?? [])
+      facts.push(...founding)
       status =
         operations.length === 1
           ? `${operations[0]!.title} · ${operations[0]!.statusLabel}`
           : operations.length > 1
             ? `${String(operations.length)} productions are recorded here.`
-            : 'The shop and the cutting rooms are quiet.'
+            : founding.length > 0
+              ? founding[0]!.detail
+              : 'The shop and the cutting rooms are quiet.'
       break
     }
     case 'theater': {
