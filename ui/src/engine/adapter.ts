@@ -564,6 +564,23 @@ export type StandingChannel = {
 // The truthful D-6 meanings, and the commercial disclosure R8 asks for — only awareness is
 // connected to box office (it feeds `preMarketingAwareness` → reach); prestige and confidence
 // are reputation channels that record what the studio has done and change nothing today.
+//
+// PF1-M3 VOICE PASS (charter §3; targeted prototype-copy cleanup, publicity first). These three
+// strings are ADAPTER-OWNED, so they are rewritten HERE, in their owning module, and the suites
+// that pinned the old wording were re-pinned deliberately (never weakened) — the C1-M8 F6
+// precedent. What changed is REGISTER only: the studio now speaks in the present tense about
+// *your* studio instead of reporting balance-analysis findings in the past tense.
+// Every R8 disclosure survives intact and is still pinned:
+//   • awareness is still named as the ONLY channel that affects box office;
+//   • prestige still discloses that it buys nothing commercially today;
+//   • confidence still names its FULL-GROSS-against-committed-cost basis, still says it is not
+//     money, and still discloses that it changes nothing today.
+// The measured operating band (0–57, the 90% below-neutral share, the >35 weekly pull-down) is
+// NOT deleted: it is measurement detail that belongs to the decision surface, and it is stated
+// in full — in voice — on the Dashboard's publicity panel (`awareness-practical-band`), which
+// is where a player is actually spending money against it. The one-line meaning keeps the
+// player-relevant consequence ("settles well short of the top of the scale") without the
+// methodology.
 export function standingChannels(state: GameState): StandingChannel[] {
   const s = state.studio.standing
   return [
@@ -571,21 +588,21 @@ export function standingChannels(state: GameState): StandingChannel[] {
       key: 'audienceAwareness',
       label: 'Audience Awareness',
       meaning:
-        'How visible the studio is to audiences. Its practical operating band is roughly 0–57 of the nominal 0–100; about 90% of measured decline for a working studio came from below-neutral releases, with the weekly pull-down above 35 accounting for the rest. It is the only channel that affects box office.',
+        'How well the audience knows your studio. It is the only channel that affects box office, and in practice it settles well short of the top of the scale — nobody is famous everywhere.',
       value: s.audienceAwareness,
     },
     {
       key: 'industryPrestige',
       label: 'Industry Prestige',
       meaning:
-        'The studio’s critical reputation (driven by critic scores alone). It has no commercial effect today.',
+        'What the critics make of your studio, on their scores and nothing else. Respect is all it buys today — no tickets, no money.',
       value: s.industryPrestige,
     },
     {
       key: 'commercialConfidence',
       label: 'Commercial Confidence',
       meaning:
-        'An industry reputation signal tracking full-gross returns against committed cost, plus budget discipline. It is not money and has no mechanical effect today.',
+        'How the industry rates your studio at turning money into money: the full gross a picture returns against what it cost, and how tightly you spend. It is a reputation, not money, and today it changes nothing.',
       value: s.commercialConfidence,
     },
   ]

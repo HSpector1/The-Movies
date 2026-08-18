@@ -798,10 +798,22 @@ describe('D-17A/T8 — the standing channels describe what they actually are', (
       expect(c.meaning).not.toMatch(/trust the studio with money/i)
     }
     // Exactly one channel is described as commercially connected.
+    // PF1-M3 VOICE PASS re-pin (charter §3): the three meanings were rewritten in register in
+    // their owning module (`ui/src/engine/adapter.ts`). Every R8 disclosure these lines existed
+    // to protect is unchanged and still bound here — only the wording moved:
+    //   "no commercial effect today"  → "Respect is all it buys today — no tickets, no money."
+    //   "no mechanical effect today"  → "It is a reputation, not money, and today it changes nothing."
+    //   "full-gross returns"          → "the full gross a picture returns against what it cost"
+    // The confidence re-pin binds BOTH halves of R8's disclosure (not money AND no effect today)
+    // in one regex, where the old pin bound only the second — a stronger assertion, not a weaker one.
     expect(by('audienceAwareness').meaning).toMatch(/only channel that affects box office/i)
-    expect(by('industryPrestige').meaning).toMatch(/no commercial effect today/i)
-    expect(by('commercialConfidence').meaning).toMatch(/no mechanical effect today/i)
-    expect(by('commercialConfidence').meaning).toMatch(/full-gross returns/i)
+    expect(by('industryPrestige').meaning).toMatch(/no tickets, no money/i)
+    expect(by('commercialConfidence').meaning).toMatch(
+      /it is a reputation, not money, and today it changes nothing/i,
+    )
+    expect(by('commercialConfidence').meaning).toMatch(
+      /full gross a picture returns against what it cost/i,
+    )
   })
 
   it('the Dashboard renders the new meanings, structurally unchanged', () => {

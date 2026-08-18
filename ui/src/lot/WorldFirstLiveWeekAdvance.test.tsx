@@ -200,8 +200,12 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
         await userEvent.keyboard('{Enter}')
       }
 
+      // PF1-M3 VOICE PASS re-pin (charter §3), applied to every week-notice assertion in this
+      // file: the copy is "Week N on the lot." since M2 promoted the region to visible. The
+      // notice still carries the exact App-owned week, still appears exactly once per advance,
+      // and the region's role/aria contract is unchanged — only the wording moved.
       await waitFor(() => expect(screen.getByTestId('lot-week-update-announcement')).toHaveTextContent(
-        `Week ${expected.next.market.tick}. Studio Lot updated.`,
+        `Week ${expected.next.market.tick} on the lot.`,
       ))
       expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
       expect(screen.queryByTestId('no-week-releases')).not.toBeInTheDocument()
@@ -253,7 +257,7 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
 
     fireEvent.click(advance)
     await waitFor(() => expect(screen.getByTestId('lot-week-update-announcement')).toHaveTextContent(
-      `Week ${expected.next.market.tick}. Studio Lot updated.`,
+      `Week ${expected.next.market.tick} on the lot.`,
     ))
 
     expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
@@ -330,11 +334,11 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
 
     fireEvent.click(advance)
     await waitFor(() => expect(screen.getByTestId('lot-week-update-announcement')).toHaveTextContent(
-      `Week ${first.next.market.tick}. Studio Lot updated.`,
+      `Week ${first.next.market.tick} on the lot.`,
     ))
     fireEvent.click(advance)
     await waitFor(() => expect(screen.getByTestId('lot-week-update-announcement')).toHaveTextContent(
-      `Week ${second.next.market.tick}. Studio Lot updated.`,
+      `Week ${second.next.market.tick} on the lot.`,
     ))
 
     expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
@@ -373,7 +377,7 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
     fireEvent.click(advance)
 
     await waitFor(() => expect(screen.getByTestId('lot-week-update-announcement')).toHaveTextContent(
-      `Week ${expected.next.market.tick}. Studio Lot updated.`,
+      `Week ${expected.next.market.tick} on the lot.`,
     ))
     expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
     expect(advance).toHaveFocus()
@@ -403,7 +407,7 @@ describe('World-First Live Week Advance V1 — App authority and routing', () =>
     fireEvent.click(advance)
 
     await waitFor(() => expect(screen.getByTestId('lot-week-update-announcement')).toHaveTextContent(
-      `Week ${expected.next.market.tick}. Studio Lot updated.`,
+      `Week ${expected.next.market.tick} on the lot.`,
     ))
     expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
     expect(screen.getByTestId('lot-canvas-fallback')).toBeInTheDocument()

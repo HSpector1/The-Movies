@@ -2737,9 +2737,16 @@ export function App() {
       result.next.publicity.lastUsedWeek !== acceptedWeek ||
       result.next.publicity.byTier[tier] !== acceptedWeek
     ) {
+      // PF1-M3 VOICE PASS (charter §3), the named worst offender. This refusal became
+      // player-visible when M3 routed it through the notice idiom, and it was raw engine
+      // jargon: "Publicity successor failed exact acceptance receipt validation." The CHECK
+      // is unchanged — the successor state must record this exact tier on this exact week or
+      // nothing is applied — and the refusal now states fact, reason, way forward in that
+      // order. Nothing was spent because `replaceAuthoritativeState` is never reached.
       return {
         ok: false,
-        error: 'Publicity successor failed exact acceptance receipt validation.',
+        error:
+          'The campaign was not booked — the studio could not find it on this week’s books. Nothing was spent; run it again.',
       }
     }
     replaceAuthoritativeState(result.next)
@@ -3645,9 +3652,11 @@ export function App() {
     const view = releaseNewspaper(state, film)
     if (!view) {
       punctuateRefusal(state.market.tick)
+      // PF1-M3 VOICE PASS (charter §3): the internal decision citation "(D-11.A)" was a
+      // developer reference the player cannot look up. The honest explanation is unchanged.
       showNotice(
         'This film has no archived front page. A newspaper clipping is kept only for films ' +
-          'released with a full participant record (D-11.A); older films predate that record.',
+          'released with a full participant record; older films predate that record.',
       )
       return
     }

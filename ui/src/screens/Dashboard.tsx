@@ -265,8 +265,13 @@ export function Dashboard({
             </button>
           </div>
           <p className="hint">
+            {/* PF1-M3 VOICE PASS (charter §3): the screenplay branch said "unattended
+                simulation", which is what the codebase calls Sim to next event, not what a
+                studio calls anything. Mechanics unchanged: Sim to next event is disabled while
+                a screenplay review is pending, Advance one week stays legal, and the review
+                still waits with no hidden progress. */}
             {pendingScriptDecision
-              ? 'Review the screenplay in the Writers’ Room before unattended simulation. Advancing one week deliberately leaves the review waiting without hidden progress.'
+              ? 'The studio will not sim ahead: a screenplay is waiting to be read in the Writers’ Room. Read it, or advance a single week deliberately — the script keeps its place, and nothing moves behind your back.'
               : pendingCastingDecision
                 ? 'Review the camera-test evidence before unattended simulation. Acknowledgement is always legal and never selects a winner.'
               : pendingProductionDecision
@@ -377,21 +382,32 @@ export function Dashboard({
         <div className="spread" style={{ alignItems: 'flex-start', gap: 16 }}>
           <div>
             <h2 style={{ marginTop: 0 }}>Publicity campaigns</h2>
+            {/* PF1-M3 VOICE PASS (charter §3). Was balance-analysis prose in the past tense
+                ("the measured Whisper maintenance rule's lifetime break-even crosses at…",
+                "decision inputs, not a recommended tier or promised outcome"). Every fact is
+                kept — the immediate lift, the diminishing return, the 30–32 crossover, and the
+                refusal to recommend a tier or promise an outcome — said as the studio would. */}
             <p className="hint" style={{ marginBottom: 0 }}>
-              Buy an immediate Audience Awareness lift. Returns diminish sharply as awareness
-              rises: the measured Whisper maintenance rule&rsquo;s lifetime break-even crosses at
-              roughly 30–32 awareness, so the figures below are decision inputs, not a
-              recommended tier or promised outcome.
+              Buy the audience&rsquo;s attention outright: a campaign lifts Audience Awareness the
+              moment it runs. The more of it you already have, the less the next point is worth —
+              past roughly 30–32 awareness a Whisper never earns its cost back over its life. The
+              studio quotes the figures; which campaign to run is your call, and no outcome is
+              promised.
             </p>
           </div>
           <Metric label="Awareness now" small testid="publicity-awareness">
             {channels.find((channel) => channel.key === 'audienceAwareness')?.value.toFixed(2)} / 100
           </Metric>
         </div>
+        {/* PF1-M3 VOICE PASS (charter §3). The three measured facts are unchanged and still
+            pinned by `d17b-truth-surfaces.test.tsx` — the 0–57 practical band, the ~90% share of
+            decline owed to below-neutral releases, and the weekly pull-down above 35. What went
+            is the methodology register ("In measured working studios…", past tense): the studio
+            states how the scale behaves for a working studio, in the present tense. */}
         <p className="hint" data-testid="awareness-practical-band">
-          In measured working studios the practical band was roughly 0–57 of the nominal 0–100.
-          About 90% of awareness decline came from below-neutral releases; the weekly pull-down
-          above 35 accounted for the rest.
+          In practice a working studio lives in roughly 0–57 of the nominal 0–100 — the top of the
+          scale belongs to nobody. About 90% of the awareness a studio loses goes to below-neutral
+          releases; the weekly pull-down above 35 takes the rest.
         </p>
         <p className="hint" data-testid="publicity-global-cooldown">
           Every purchase starts a shared {publicity[0]?.globalCooldownWeeks}-week cooldown across

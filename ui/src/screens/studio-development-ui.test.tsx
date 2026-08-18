@@ -288,8 +288,11 @@ describe('Development & Casting Annex player experience', () => {
     fireEvent.click(screen.getByTestId('lot-advance-week'))
     expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
     expect(screen.queryByTestId('annex-completion-summary')).not.toBeInTheDocument()
+    // PF1-M3 VOICE PASS re-pin (charter §3): the week notice reads "Week N on the lot." since
+    // M2 promoted the region to visible. What this test proves is unchanged — the Annex
+    // completion week suppresses the week notice, and the NEXT ordinary week announces itself.
     expect(screen.getByTestId('lot-week-update-announcement')).toHaveTextContent(
-      'Week 14. Studio Lot updated.',
+      'Week 14 on the lot.',
     )
     expect(screen.getByTestId('lot-annex-operational-announcement')).toHaveTextContent('')
   })

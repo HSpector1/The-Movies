@@ -7995,7 +7995,13 @@ export function StudioLotScreen({
             className="lot-notice-line"
             data-motion={noticeMotion}
           >
-            {`Week ${advanceFeedback.week}. Studio Lot updated.`}
+            {/* PF1-M3 VOICE PASS (charter §3, rule 3 — restraint is voice too). M2 promoted this
+                region from aria-only to visible, so "Week N. Studio Lot updated." stopped being
+                a screen-reader crumb and became copy the player reads every single week. It is a
+                routine week: it gets a quiet declarative line, not a bulletin. Still ONE element,
+                so the visible copy and the announcement remain verbatim-identical by
+                construction; role/aria-live/aria-atomic/testid are untouched. */}
+            {`Week ${advanceFeedback.week} on the lot.`}
           </span>
         )}
       </div>

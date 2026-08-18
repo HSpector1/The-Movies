@@ -613,9 +613,13 @@ describe('StudioLotScreen — World-First Live Week Advance V1 host boundary', (
     const button = getByTestId('lot-advance-week')
     button.focus()
 
+    // PF1-M3 VOICE PASS re-pin (charter §3), applied to every week-notice assertion in this
+    // file: the copy is "Week N on the lot." since M2 promoted the region to visible. Same
+    // element, same role/aria-live/aria-atomic/testid, same one-announcement-per-advance
+    // contract — only the wording moved.
     fireEvent.click(button)
     await waitFor(() => expect(getByTestId('lot-week-update-announcement')).toHaveTextContent(
-      'Week 1. Studio Lot updated.',
+      'Week 1 on the lot.',
     ))
     expect(getByTestId('lot-advance-week')).toBe(button)
     expect(button).toHaveFocus()
@@ -627,7 +631,7 @@ describe('StudioLotScreen — World-First Live Week Advance V1 host boundary', (
 
     fireEvent.click(button)
     await waitFor(() => expect(getByTestId('lot-week-update-announcement')).toHaveTextContent(
-      'Week 2. Studio Lot updated.',
+      'Week 2 on the lot.',
     ))
     expect((view.snapshots.at(-1) as { week: number }).week).toBe(2)
     expect(spy.instances).toHaveLength(1)
@@ -757,7 +761,7 @@ describe('StudioLotScreen — World-First Live Week Advance V1 host boundary', (
     )
     expect(queryByTestId('annex-completion-summary')).not.toBeInTheDocument()
     expect(getByTestId('lot-week-update-announcement')).toHaveTextContent(
-      `Week ${following.next.market.tick}. Studio Lot updated.`,
+      `Week ${following.next.market.tick} on the lot.`,
     )
     expect(getByTestId('lot-annex-operational-announcement')).toHaveTextContent('')
   })

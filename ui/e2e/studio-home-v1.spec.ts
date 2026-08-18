@@ -593,8 +593,11 @@ test('supporting-Dashboard no-release Advance returns to the Lot and focuses the
 
   await expectLotReady(page)
   await expect(page.getByTestId('lot-advance-week')).toBeFocused()
+  // PF1-M3 VOICE PASS re-pin (charter §3): the week notice reads "Week N on the lot." since M2
+  // promoted the region to visible. The assertion is unchanged in kind — the notice must carry
+  // the exact post-advance week — only the wording moved.
   await expect(page.getByTestId('lot-week-update-announcement')).toHaveText(
-    `Week ${before.state.market.tick + 1}. Studio Lot updated.`,
+    `Week ${before.state.market.tick + 1} on the lot.`,
   )
   const after = JSON.parse(await activeSessionBytes(page)) as {
     seed: string

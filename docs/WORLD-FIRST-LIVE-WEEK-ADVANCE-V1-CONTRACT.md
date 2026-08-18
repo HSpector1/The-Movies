@@ -1,5 +1,12 @@
 # World-First Live Week Advance V1 Contract
 
+> **PF1-M3 SUPERSESSION NOTE (2026-08-18):** the literal announcement copy pinned below
+> ("Week <N>. Studio Lot updated.") is superseded by the PF1 editorial voice — the shipped
+> string is now "Week <N> on the lot." (PROFESSIONAL-FLOOR-V1-CHARTER.md §3/§5-M2; the
+> region was also promoted from visually-hidden to a visible notice at PF1-M2). The
+> STRUCTURAL contract — exactly one status announcement per advance, same region, same
+> role/aria-live/aria-atomic/testid — is unchanged and remains binding.
+
 Status: **FROZEN AUTONOMOUS-MARATHON IMPLEMENTATION CONTRACT**
 
 Date: 2026-08-14

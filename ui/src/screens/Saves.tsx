@@ -288,9 +288,14 @@ export function Saves({
       <div className="card" style={{ marginTop: 16 }}>
         <div className="spread">
           <div>
-            <h3 style={{ margin: 0 }}>New / restart</h3>
+            {/* PF1-M3 VOICE PASS (charter §3). "New / restart" over "Start over from the seed
+                screen" was the last of the sterile Export/Import/New/restart register the
+                charter named, and "the seed screen" is a name only the codebase uses. The
+                mechanic is unchanged: this control returns to the front door and starts over. */}
+            <h3 style={{ margin: 0 }}>A new studio</h3>
             <p className="hint" style={{ margin: 0 }}>
-              Start over from the seed screen. Export a print first if you want to keep this studio.
+              This closes the studio you are running and takes you back to the front door. Export a
+              print first if you want to keep it.
             </p>
           </div>
           <button className="danger" onClick={onNewGame} data-testid="restart-game">

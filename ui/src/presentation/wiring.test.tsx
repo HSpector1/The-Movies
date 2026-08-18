@@ -203,7 +203,12 @@ describe('PF1-M2 — aria-only promotion', () => {
     expect(region).toHaveAttribute('aria-live', 'polite')
     expect(region).toHaveAttribute('aria-atomic', 'true')
     // The composed copy is carried verbatim — promotion replaces nothing accessible.
-    expect(region).toHaveTextContent('Week 7. Studio Lot updated.')
+    // PF1-M3 VOICE PASS re-pin (charter §3): the week notice now reads "Week N on the lot."
+    // Once M2 made this region visible, "Week N. Studio Lot updated." became copy the player
+    // reads every week, and a routine week gets a quiet line, not a bulletin. Structure is
+    // untouched — same single element, role, aria-live, aria-atomic, testid — so this suite
+    // still proves exactly what it proved: one region, one announcement, copy carried verbatim.
+    expect(region).toHaveTextContent('Week 7 on the lot.')
   })
 
   it('leaves the three already-visible announcements screen-reader-only', async () => {
@@ -242,7 +247,7 @@ describe('PF1-M2 — aria-only promotion', () => {
     ).toHaveAttribute('data-motion', 'none')
     // The copy is identical either way: reduced motion removes movement, never information.
     expect(reduced.getByTestId('lot-week-update-announcement')).toHaveTextContent(
-      'Week 4. Studio Lot updated.',
+      'Week 4 on the lot.',
     )
   })
 })
