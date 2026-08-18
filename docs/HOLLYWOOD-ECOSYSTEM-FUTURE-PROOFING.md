@@ -16,6 +16,18 @@
 > `1e6b422` are docs-only (`git diff f294077..1e6b422 -- src/ ui/ tests/` is empty), so every
 > `file:line` citation below still resolves correctly at live main, and the live save format is
 > still **SaveFileV13**.
+>
+> **Citation re-validation at `main` @ `2b75e3d`** (pre-C2 governance reconciliation, 2026-08-18).
+> PF1 has since landed, so the blanket claim above no longer covers `ui/`. Split verdict:
+> - **All `src/core/*` and `tests/*` citations still hold exactly.** `git diff --name-only 1e6b422 2b75e3d -- src/ tests/`
+>   is empty — PF1 changed no engine or test file — and the anchors were spot-checked live
+>   (`INITIAL_PROPERTY` at `lot.ts:272`, `save.ts:5083`, `save.ts:4151`). Save format is still **SaveFileV13**.
+> - **The four `ui/` citations must be re-resolved.** PF1 rewrote this layer. `ui/src/engine/session.ts:35-43`
+>   still lands on `saveActiveSession`; `ui/src/engine/adapter.ts:2349` and `:5289` still land in the right
+>   regions; **`ui/src/App.tsx:1240` has drifted** — the autosave call site is now `App.tsx:1371`.
+>
+> This block is additive. Nothing in the report below has been edited: it is retained as the artifact
+> that produced the rulings, drift and all.
 
 ---
 
@@ -172,6 +184,15 @@ but it must be known before anyone measures a 120-year campaign. *(Recorded beca
 asserted no autosave exists — that is wrong; verified at both call sites.)*
 
 > §2.7 and §2.8 sit in `src/core` and `ui/`, which PF1 has frozen. Neither is today's work.
+
+> **§2.8 partially superseded by PF1-M3** (noted at the pre-C2 governance reconciliation, 2026-08-18;
+> the finding above is left verbatim). The **"swallows the quota failure in an empty catch"** half is
+> **fixed**: `saveActiveSession` now returns a boolean documented as "non-fatal on failure — but NEVER
+> SILENT," and the shell consumes it (`ui/src/App.tsx:1371`, `setPersistenceOk(...)`) to show the
+> player a visible notice. The call site also moved from the cited `App.tsx:1240` to `1371`.
+> **The half that still stands is the one that mattered:** the 8–14 MB-vs-~5 MB quota estimate is
+> untouched, so a long campaign still stops persisting — it now fails loudly instead of silently.
+> **C2 WATCH remains open on that basis.**
 
 ---
 

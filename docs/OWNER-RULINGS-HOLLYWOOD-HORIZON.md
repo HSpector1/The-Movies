@@ -91,7 +91,9 @@ equality target. Editing it to produce a bare starting lot would retroactively c
 existing V12 save reconstructs on load — silently deleting founding buildings from saves already on
 disk. This is irreversible and would not surface as a test failure in new-game paths.
 
-Recorded as **law 29** in `docs/SHIFT-OPERATIONAL-LAWS.md`.
+Recorded as **law 30** in `docs/SHIFT-OPERATIONAL-LAWS.md`. *(Renumbered from 29 at the pre-C2
+governance reconciliation, 2026-08-18: PF1 independently landed its own law 29 — "presentation reacts
+to truth" — on `main` while this branch was parked. PF1 keeps 29; this law is 30.)*
 
 ## 6. SAVE-VERSION ROUTING
 

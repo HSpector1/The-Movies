@@ -41,8 +41,9 @@ Compact briefing for every production agent this shift. Citations: `LL <entry> (
 18. V12/V13 saves: positive projection (enumerate owned roots, no clone-then-delete);
     strict current version, permissive historical repair. `LL BY (2072)`, `LL BP (1956)`.
 19. Copy the historical-boundary guard pattern verbatim for new roots (see
-    `save.ts:351–378` construction rejection at pre-V11; `migrateToV11` downgrade refusal
-    `save.ts:4240–4253`). `LL CO (2290)`, `LL CS (2336)`.
+    `save.ts:396–434` `rejectV11AuthorityAtHistoricalBoundary` construction rejection at
+    pre-V11; `migrateToV11` downgrade refusal `save.ts:5235–5243`). `LL CO (2290)`,
+    `LL CS (2336)`.
 20. New IDs reserve against the longest-lived identity authority (productions, ledger,
     careers, tasks, reservations, canceled traces). Temporal claims need an immutable
     event witness, not an editable timestamp. `LL CL/BX/CM`.
@@ -119,9 +120,17 @@ Compact briefing for every production agent this shift. Citations: `LL <entry> (
     disabled/muted must export byte-identical saves, and reduced motion plus muted audio
     must equal the pre-PF1 game exactly. Structural tuples (law 25) staying byte-identical
     is the second half of that proof — any movement is a defect, not a re-pin.
+30. `INITIAL_PROPERTY` (`lot.ts:272`) is HISTORICAL migration authority, not a fresh-game
+    template. It is the value `convertV12ToV13` synthesizes for every migrated save
+    (`save.ts:5083`) and the frozen-builder equality target (`save.ts:4151`); editing it
+    retroactively changes what saves already on disk reconstruct on load. The Founding Flip
+    ships its bare-start property as a SEPARATE definition and switches `generateWorld`,
+    never the anchor. Owner ruling 2026-08-18,
+    `docs/OWNER-RULINGS-HOLLYWOOD-HORIZON.md` §5.
 
 Planning notes: travel/occupancy/queue/workload/pathfinding are greenfield (every prior
 closure asserts they never changed) but bound by laws 2–3. Current save = **V13**
-(`SaveFileV13` at `src/core/save.ts:267-272`; `makeSave` → V13 at `save.ts:4388`) —
+(`SaveFileV13` at `src/core/save.ts:267-272`; `makeSave` → V13 at `save.ts:4388`; highest
+migration `convertV12ToV13` at `save.ts:5076`) —
 corrected at PF1-M2 from a stale V11 trailer that predated the C1-M1a property envelope;
 browser session key = `project-studio.active-session.v4`.
