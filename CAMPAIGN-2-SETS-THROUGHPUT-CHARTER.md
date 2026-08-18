@@ -1,5 +1,5 @@
 # CAMPAIGN 2 — SETS, STAGES, SCREENPLAYS & PRODUCTION THROUGHPUT + THE FOUNDING FLIP
-## CAMPAIGN CHARTER (r3.1 — FROZEN FOR OWNER GO)
+## CAMPAIGN CHARTER (r3.2 — FROZEN; ALL OWNER DECISIONS RULED; WAITING FOR PF1 SEAL + GO)
 
 > Status: **IMPLEMENTATION-READY, awaiting the Owner's explicit GO.** Prepared by the
 > Fable C2 Architect session of 2026-08-18 under the Owner launch order
@@ -81,8 +81,14 @@
 
 ## 1. Mission
 
-**Player feeling (00C §12):** *"I built this studio"* and *"I can physically watch
-this studio manufacture movies"* — with the chain increasingly resembling:
+**The north-star acceptance statement (`00E`.21, binding on every milestone):**
+
+> *"I built this movie studio, it operates while I watch, my writers create
+> pictures, and I can physically watch multiple films compete for real
+> production resources."*
+
+Technical completion without this player-facing experience is insufficient —
+with the chain increasingly resembling:
 
 build a development office → assign a writer → **the writer develops a NEW
 screenplay over time → a new movie identity and title emerge → rename it** →
@@ -96,7 +102,10 @@ production → queues when resources conflict → shooting → wrap → resource
 1. Concurrency comes from physical capacity; the two-production ceiling is
    transitional; throughput emerges from real constrained resources — screenplay
    development capacity, writers, casting capacity, directors, stars, crew, stages,
-   Sets, support, layout where mechanically applicable. **No arbitrary global cap
+   Sets, support, layout where mechanically applicable. **3–4 concurrent
+   productions is a mature balance TARGET, never a maximum (`00E`.3): capacity
+   and reservations limit throughput; a global movie counter does not; a player
+   who legitimately builds enough capacity may exceed four.** **No arbitrary global cap
    replaces the deleted one.** *(C2a delivers screenplay/dev capacity, stages, Sets,
    and layout-via-load-in; crew, directors and stars as exclusive countable
    capacity are explicit deferrals the Owner signs — §18 item 1d.)*
@@ -261,7 +270,12 @@ TECH-SET-008), and owner laws 3/4 both name.
   split migrator content across M1/M2). Founding capacity is therefore exactly
   today's (2 stages, 2 sets, scenery 2, dev/casting 2, post 2): every sealed spec
   runs unmodified; contention begins with the third picture. Auto-bind fires when
-  exactly one candidate set is free.
+  exactly one candidate set is free. **The endowment is a COMPATIBILITY DEVICE,
+  not permanent founding law (`00E`.12):** it exists for migrated saves, the
+  sealed FMJ fixtures, pre-Flip C2a, and bounded harnesses — once the bare-start
+  experience lands (C2b), fresh games start bare and build their sets, and
+  **test fixtures adapt rather than weakening the product law** ("START SMALL.
+  BUILD THE FILMMAKING OPERATION YOURSELF.").
 - Set unlock gating reuses `BlueprintRequirement` verbatim (TECH-SET-007; kind
   switch `blueprintRequirements.ts:104-118`, aggregator `:170-190`).
 - **Display-name authority (ruled at M2, before any queue copy):** the engine
@@ -313,10 +327,22 @@ correct, fail-closed, leak-free).
   resource ranked ≤ anything it holds. The composite is one atomic rank-2 node
   (X1 impossible). `mount` is unranked because it is never waited on (§3.1).
   **No preemption, ever.**
-- **A production blocked entering post KEEPS its stage and set** (forward-rank
-  waits cannot cycle; this is starvation-pressure, not deadlock). Relief =
-  buildable post + the joined surface ("Post is full — that is why Soundstage 7
-  is still busy"). A Tier-1 Owner decision with the trade stated (§18 item 7-i).
+- **THE RESOURCE-RELEASE LAW (`00E`.5 — the Owner REVERSED r3.1's HOLD
+  recommendation):** *a scarce resource is held only while the current phase
+  genuinely requires it; when a phase's work COMPLETES, that phase's resources
+  RELEASE, even if the next phase's resource is unavailable.* Shooting completes
+  → stage and set release (wrap, §4.3, fires unconditionally at that moment) →
+  the production queues for Post **holding nothing** → the freed stage is
+  available to the next shoot. Completed work never hostages an old resource.
+  Mechanically this splits the currently-atomic phase transition
+  (release-on-completion, then acquire-next inside the fixed-point sweep — a
+  designed M4 change) and *simplifies* the deadlock story: a post-waiter holds
+  nothing, so hold-and-wait vanishes on that edge; the acquisition ranks now
+  govern only the in-phase retention edges (rehearsal→shooting stage+set, which
+  the next phase genuinely requires, stands). The joined queue surface reads
+  "Wrapped — waiting for Post," and the r3.1 head-of-line congestion analysis is
+  superseded: the failure mode to watch becomes re-acquisition fairness, which
+  the ordinal/aging order already governs and §15 attacks.
 - **Sticky reservations** (lane 2's R-1): retention becomes sticky for ALL
   capabilities — a contract-conformance repair
   (`DEVELOPMENT-CASTING-ANNEX-V1-CONTRACT.md:500` "no reservation migration").
@@ -533,8 +559,9 @@ document until lane 14.
   a strength term — so RSG introduces zero new economy levers and needs no §9
   exception. The corpus four-tier ladder
   (Basic→Intermediate→Proficient→First-Class) is the C4 deepening target; C1's
-  three office tiers are V1's ladder. The writer-experience contradiction (§1) is
-  ruled at §18 item 9a — V1 keeps shipped behavior, records the divergence.
+  three office tiers are V1's ladder. The writer-experience contradiction (§1)
+  is RULED at `00E`.9 (§18 item 9a): C2 implements the SOURCE behavior — the
+  writer-speed/pooling bullet below carries the design.
 - **Pool concepts become blueprints on first commission** (ONE production path —
   lane 14's recommendation): commissioning a pool concept derives its blueprint
   (beats from its genre template, officeTierAtMint, no generatedTitle). The 30
@@ -556,15 +583,29 @@ document until lane 14.
   ever mints. The lot commission workspace's exact-key check
   (`ui/src/lot/snapshot/scriptCommission.ts:537-545`) is updated with the
   provenance field in the same commit that adds it.
-- **Fenced OUT of V1** (→ §19): multi-writer-per-script pooling (three
-  frozen-shape changes for a speed refinement; multiple OFFICES already deliver
-  parallel-script throughput); variable draft length (the one-week draft is
-  invariant-pinned — `scriptDevelopment.ts:900-916`; richer-script demand lands
-  as beat/role/cost richness, never clock changes — same law as shooting weeks);
-  the 8-factor Script Quality model (cited with its own inconsistencies — ~117%
-  totals — never cloned); genre-room buildings; era-sensitive premises, evolving
-  genre interest, research coupling, richer content pools (C4); Advanced
-  Movie-Maker anything.
+- **Writer speed and bounded pooling (`00E`.9 — the Owner REVERSED r3.1's
+  keep-shipped recommendation and its pooling deferral):** binding successor
+  behavior, implemented in M3: *writer experience affects WRITING SPEED, not
+  script quality; the office tier owns the achievable quality ceiling.* The
+  shipped writer-quality term (40% of draft strength,
+  `scriptDevelopment.ts:352-362`) is re-based out with no compensating bonus
+  invented; **draft duration becomes a bounded deterministic function of
+  blueprint richness, writer experience, and pool size** (minimum 1 week; named
+  TUNING — `SCRIPT_DRAFT_WEEKS_*`), relaxing the one-week invariant
+  (`scriptDevelopment.ts:900-916`) under law 28 with this charter as the
+  explicit instruction; `ScriptProject` gains a bounded writers list (≤5, the
+  corpus bound) as a persisted-leaf widening under the §8.3 version-aware
+  boundary rule; the affected sealed invariants and assessments join §11.8's
+  re-based category with named successors. The causal chain is the law
+  (`00E`.10): *Genre → Story Structure → FilmShape → Screenplay Blueprint →
+  Roles/Sets → Physical Production → Movie Quality* — RSG is never
+  random-title + random-number.
+- **Fenced OUT of V1** (→ §19): the 8-factor Script Quality model (cited with
+  its own inconsistencies — ~117% totals — never cloned); genre-room buildings;
+  era-sensitive premises, evolving genre interest, research coupling, richer
+  content pools (C4); Advanced Movie-Maker anything. Variable SHOOTING length
+  stays out (the eight-week production clock is untouched; richer-script demand
+  lands as beat/role/cost richness there).
 
 ---
 
@@ -662,10 +703,14 @@ presence — the RSG fantasy made visible).
 **Wrap is the authoritative completion of shooting — automatic, not a player
 command.** Split correctly across the campaign:
 
-- **M1 (engine, PF1-independent):** the shooting→post reallocation (the silent
-  `remainingTicks 4→3` boundary) emits a Tier-D `wrapped` event at the moment
-  stage and set release; the fixed-point sweep makes freed capacity allocatable
-  the same week. The event-model's worked example.
+- **M1 (engine, PF1-independent):** the shooting-completion boundary (the
+  silent `remainingTicks 4→3` transition) emits a Tier-D `wrapped` event at the
+  moment stage and set release — which under the RESOURCE-RELEASE LAW
+  (`00E`.5, §3.2) is **unconditional**: wrap fires when shooting completes,
+  whether or not Post is available, and the freed capacity is allocatable the
+  same week via the fixed-point sweep. The event-model's worked example.
+  (The release-on-completion split of the currently-atomic transition is M4's
+  designed engine change; M1's event lands on the boundary as it exists.)
 - **M5 (UI, post-PF1-seal):** `SimStopReason` gains `wrap` — **inserted
   immediately after `productionDecision`, before `constructionCompleted`**.
   NOTIFY-class in the living loop; a normal stop in the batch verb. Named
@@ -693,7 +738,11 @@ Pins:
 
 1. Appended **only by `src/core`** ("the engine" = `src/core`; the adapter is the
    boundary layer). No `seen`/`consumed` field ever (byte-parity, PF1 §2 —
-   appendix).
+   appendix). **Domain history ONLY (`00E`.15, binding):** the ledger records
+   meaningful authoritative/domain facts — never toasts, animation cues, sound
+   triggers, hover chatter, or any presentation event; a 120-year save is not
+   a presentation archive. Persistence must be justified by historical/domain
+   meaning.
 2. **Witness, never input** — single exception: `persistedProductionIds` walks it
    (law 20), enforced by an invariant test that nothing else in src/core reads it.
 3. **Two-tier retention; Tier D is the identity-bearing tier.** Tier D permanent:
@@ -940,6 +989,9 @@ type StudioEventLog = { nextSeq: number; rows: readonly StudioEvent[] }
 //   studioEvents: StudioEventLog
 //   operations.workflows[*].bindings: WorkflowBindings          (leaf widening — §8.2 note)
 //   ProductionBlocker gains the SetUnavailableBlocker arm       (leaf widening — §8.2 note)
+//   ScriptProject gains writerIds: readonly string[] (≤5, 00E.9 pooling) beside
+//   the frozen writerId (kept for compatibility; leaf widening — §8.2 note),
+//   and draft dueWeek varies by SCRIPT_DRAFT_WEEKS_* (min 1)
 // Generated FilmConcepts APPEND to the existing state.concepts (world-shaped fields
 // only; the frozen 8-field FilmConcept shape is never widened).
 ```
@@ -956,10 +1008,10 @@ authority is the ordinal (§3.3); every new root carrying production ids joins
 `persistedProductionIds` both directions (§8.3); **no frozen save leaf is
 widened** (`EraConfig`, `Standing`, `CulturalForce`, `SegmentId`, `FilmConcept` —
 lane 14's mechanical check: the empty optional-key list at `save.ts:1379-1395`).
-**Stated honestly (r3): V14 adds four new roots PLUS two widened persisted
-leaves** — `ProductionWorkflow.bindings` and the `ProductionBlocker`
-`set-unavailable` arm — neither of which is a frozen leaf; §8.3 carries their
-version-aware boundary rule. The cash `state.ledger` is never windowed (§5.3);
+**Stated honestly (r3, widened r3.2): V14 adds four new roots PLUS three widened
+persisted leaves** — `ProductionWorkflow.bindings`, the `ProductionBlocker`
+`set-unavailable` arm, and `ScriptProject.writerIds` (`00E`.9 pooling) — none of
+which is a frozen leaf; §8.3 carries their version-aware boundary rule. The cash `state.ledger` is never windowed (§5.3);
 `market.tick` stays the authoritative week with no persisted intra-week position
 (§4.1); `state.talent` stays an append-only census (untouched by C2); no
 studio-relative fact is written onto shared-world entities (set demand and
@@ -1036,7 +1088,12 @@ figure so C6 inherits a measured lever, not a confound.
   artifact `docs/economy/C2-ECONOMY-SNAPSHOT.md` via `measure-c2-economy.mts`
   EXTENDING the C1 script; the **19** named figures (18 + the set-lever A/B).
 - **Queue idle:** status quo — full payroll accrues while queued — measured, not
-  redesigned (Tier-1, §18 item 7-ii).
+  redesigned (RULED, §18 item 7-ii), **with the release-law nuance (`00E`.16):**
+  the freight is the resources/contracts GENUINELY still committed during the
+  wait (payroll, locked talent); a production is never charged for a physical
+  resource it has released (our model already complies — there are no
+  production-level stage/set fees, only facility opex); balance measures, the
+  initial numbers are not sacred.
 - **TUNING inventory** (names + intent; values are implementation's):
   `STAGE_STANDARD_{CAPEX,BUILD_WEEKS,WEEKLY_OPERATING_COST,SIMULTANEOUS_PRODUCTIONS,FOOTPRINT,CLEARANCE}`,
   `STAGE_BLUEPRINTS`; `SET_<id>_CAPEX`, `SET_BUILD_WEEKS_BAND_*`,
@@ -1302,6 +1359,21 @@ figure so C6 inherits a measured lever, not a confound.
 | OPUS-REDTEAM | M8 / C2b-M5 | Independent; findings only; HELD LIST mandatory |
 | OPUS-FIX | M8 / C2b-M5 | Sole writer during fix waves; ruled findings only |
 
+**The two development laws (`00E`.19/.20, binding on every lane):**
+**SOURCE-FIRST DESIGN** — before modifying an original-game-derived mechanic,
+consult the reconstructed evidence (primary:
+`THE-MOVIES-2005-COMPLETE-MECHANICS-BIBLE.md`; supporting:
+`THE-MOVIES-2005-TECHNICAL-ARTIFACT-REGISTER.md`); newer explicit Owner rulings
+govern intentional successor changes; mechanics we reconstructed are never
+casually reinvented. **RESEARCH FIRST, REUSE FIRST, INVENT LAST** — inspect
+existing Project: Studio code, then recovered schemas/patterns, then mature
+license-compatible implementations; adapt proven work when it cleanly fits;
+write bespoke when reuse would harm determinism, architecture, security,
+licensing, maintainability, or fit. *Reuse before reinventing, not reuse at all
+costs* — bounded investigations, never open-ended archaeology; for any
+substantial new subsystem the implementation notes state what was inspected
+before from-scratch was chosen.
+
 Rules carried from PF1 (appendix): no force-push; `App.tsx` and
 `StudioLotScreen.tsx` are the PF1-vendored one-writer surfaces, and
 **`adapter.ts` joins them as this charter's own addition** (r3.1 — not
@@ -1350,7 +1422,9 @@ Reservation exploits (reserve-and-cancel churn — priced first: cancel already
 forfeits the greenlight lump; demolish/strike-under-binding; the indefinite
 player-controlled soundstage hold via never-scheduling the take; queue-jumping
 via cancel/resubmit; intent-payload staleness abuse). Deadlock/starvation
-(rank-order violations; head-of-line post bottleneck; aging starvation;
+(rank-order violations; **release-law conformance — no completed phase's
+resource survives its wrap; re-acquisition fairness after release** (`00E`.5
+replaced the old head-of-line target); aging starvation;
 fixed-point sweep termination). Economy (queue-parking; premiere farming; F2/F3
 churn prices re-derived; runaway acceleration measured, not hidden; **set-uplift
 stacking/farming against the G3 bounds**). **Screenplays (r3):** title-stream
@@ -1389,7 +1463,10 @@ allows, and watch the queue drain into it. Reach a release: attend the **Premier
 send-off at the Gate** (title on the hoarding, the company departs, the crowd
 gathers — and on this endowed lot, the Theater marquee lights as flavor); read
 the Gazette. Open the queue panel once and relieve a named bottleneck by
-building what the remedy names. PASS = "my writers keep handing me new movies, I
+building what the remedy names. PASS = the north-star sentence lived (`00E`.21):
+"I built this movie studio, it operates while I watch, my writers create
+pictures, and I can physically watch multiple films compete for real production
+resources" — concretely: "my writers keep handing me new movies, I
 watched my studio manufacture several at once, I always knew what was waiting
 and why, and it ran without me pushing it." FAIL = a stalled queue with no
 stated reason, motion I couldn't attribute, a title I couldn't change, or
@@ -1418,54 +1495,66 @@ binds regardless of PF1's fate.
 
 ---
 
-## 18. Owner decisions — the GO sheet
+## 18. Owner decisions — the GO sheet (ALL RULED at `00E`, 2026-08-18)
 
-**Tier 1 — genuine choices that block implementation** (cited from the body as
-"§18 item N"):
+**Every Tier-1 item below is now RULED** — the sheet is a record of the rulings,
+not open decisions. **The only thing that blocks implementation is the GO itself
+(after the PF1 seal).** Citations "§18 item N" throughout the body resolve here.
 
-1. **Concurrency targets and law-1 coverage** (master plan §10.1):
-   **1a** target concurrent-production range at mature C2a build-out —
-   *recommendation: 3–4*; **1b** which constraint binds first — *stated for the
-   mature build-out (r3): the stage+set composite, with dev/casting binding
-   early at the founding plant (it saturates first at capacity 2 — the playtest
-   is scripted to that truth) until the player builds capacity*; **1c** does
-   `casting` become its own capability in C2a or stay merged? —
-   *recommendation: merged, one baseline blueprint*; **1d** acknowledge the
-   law-1 deferrals: crew, directors and stars as exclusive countable capacity
-   ship in a later campaign, with reasons recorded.
-2. **Ratify the C2a/C2b split** (§2) — including RSG's placement inside C2a-M3.
-3. **Living Turn V1** (§4.1/08A) — the shape INCLUDING the auto-pause partition
-   (PAUSE/NOTIFY lists; `limit` batch-only), the Lot-only scope, AND the
-   supersession of the enumerated refusal clauses (§11.3).
-4. **Event model** (§5) — persisted `studioEvents` (Option A) over transient
-   emission.
-5. **Renewable Screenplay Generation V1 as chartered** (§3.5) — mint at
-   commission; Movie Blueprint root; generated+renamable titles as an Owner
-   ruling with the AMM precedent (the evidence distinction stands in the
-   record); six beat templates with three labelled authored-not-recovered; pool
-   concepts become blueprints on first commission; the pool stays a finite
-   founding premium with a non-terminal exhaustion remedy; provenance visible.
-6. **Sets mandatory for new managed greenlights + the two-set founding
-   endowment** (§3.1) — the FMJ-preservation device.
-7. **The two queue-feel rulings:** **7-i** blocked-entering-post HOLDS its stage
-   (safe, can congest; relief = buildable post + the joined surface) vs RELEASES
-   it — *charter written for HOLD*; **7-ii** queue-idle payroll: full freight
-   accrues (queueing is a real cost, measured) vs a reduced idle rate (an
-   unmeasured lever D-17B forbids) — *charter written for FULL FREIGHT*.
-8. **The de-scope floors and conditional world work, pre-decided:** if C2a runs
-   long — the Call Board placard without the Backed-Up Lot, and the Gate
-   hoarding + marquee without the staged send-off — pre-approve or refuse
-   (charter commits to B/full send-off with the floors as approved
-   contingency); the **north-back-lot road spur** as evidence-gated headroom
-   (§3.4); the **layout narrowing** (load-in distance only; the Scenery Load-In
-   V1 contract moves and is re-proven); premiere zero-cash.
-9. **The screenplay rulings bundle:** **9a** the writer-experience contradiction
-   (corpus: speed-only; shipped C1: quality-not-speed) — *recommendation: keep
-   shipped behavior in V1, record the divergence, route reconciliation to C4*;
-   **9b** office tier stays additive uplift (not the original's hard ceiling) —
-   *recommendation: keep uplift*; **9c** rename scope: generated concepts only
-   in V1, permitted post-release with the two frozen-history surfaces stated —
-   *recommendation: yes*.
+1. **Concurrency targets and law-1 coverage** — RULED (`00E`.3):
+   **1a** 3–4 concurrent productions is a **mature balance/throughput TARGET,
+   NOT a maximum** — there is no ordinary global film cap; a player who
+   legitimately builds, hires, and organizes enough capacity may exceed four.
+   Binding law: *CAPACITY AND RESERVATIONS LIMIT THROUGHPUT; A GLOBAL MOVIE
+   COUNTER DOES NOT* (`AGENT_MAX_SLATE` bounds harness agents' policy, never the
+   player); **1b** dev/casting binding first at founding and the stage+set
+   composite binding at maturity is **desirable emergent behavior**, ruled;
+   **1c** `casting` stays MERGED in V1, one baseline blueprint — RULED
+   (`00E`.14); **1d** crew/director/star capacity deferrals ACKNOWLEDGED —
+   RULED.
+2. **The C2a/C2b split, RSG inside C2a-M3** — RULED ACCEPTED (`00E`.1; never
+   moved out for milestone size).
+3. **Living Turn V1** (§4.1/08A) — RULED (`00E`.2): the pillar is
+   **C2-authorized / IN PROGRESS**, not an open product decision; the
+   enumerated refusal clauses (§11.3) are superseded as required.
+4. **Event model** — RULED (`00E`.15): persisted `studioEvents` for meaningful
+   authoritative/domain history ONLY (§5's clarification).
+5. **Renewable Screenplay Generation V1 as chartered** — RULED (`00E`.6/.7/.8):
+   mint at commission-COMMIT accepted with the identity invariants; the title
+   evidence distinction stands; the M3 corpus-question row files without
+   blocking.
+6. **Sets mandatory + the two-set endowment** — RULED (`00E`.11/.12), with the
+   binding nuance: the endowment is a **compatibility device** (migrated saves,
+   FMJ fixtures, pre-Flip C2a), NOT permanent founding law — post-Flip fresh
+   games start bare and fixtures adapt rather than weakening the product law.
+7. **The two queue-feel rulings** — RULED: **7-i** the r3.1 HOLD recommendation
+   is **REVERSED** (`00E`.5) — the RESOURCE-RELEASE LAW governs (§3.2): a
+   completed phase's resources release even when the next resource is
+   unavailable; completed work never hostages an old resource; **7-ii** FULL
+   FREIGHT accepted with the release-law nuance (`00E`.16): waiting carries the
+   cost of resources/contracts GENUINELY still committed (payroll, locked
+   talent); a production is never charged for a released physical resource
+   merely because it is blocked elsewhere; measured at balance, initial numbers
+   not sacred.
+8. **The de-scope floors and conditional world work** — RULED ACCEPTED
+   (`00E`.18): Call Board treatment as chartered; marquee-only floor where
+   specified; the evidence-gated north-back-lot spur; the layout narrowing —
+   which **satisfies the Success Blueprint's option A** (a bounded
+   deterministic spatial consequence on TIME via load-in distance), with the
+   remaining general distance/travel consequence recorded as a **NAMED PARITY
+   RESIDUAL owned by the C3+ travel docket** (`00E`.13 — it may not disappear
+   silently); premiere zero-cash with **no direct Premiere cash reward in V1**
+   (`00E`.17); and the full non-goal fence — the Success Blueprint may not
+   expand C2 into later pillars.
+9. **The screenplay rulings bundle** — RULED: **9a** the keep-shipped
+   recommendation is **REVERSED** (`00E`.9) — C2 implements the source
+   behavior: *writer experience affects WRITING SPEED, not script quality;
+   office tier owns the achievable ceiling; bounded pooling (≤5 writers)
+   accelerates completion* (§3.5 carries the design; §11.8 the test re-bases;
+   SOURCE-FIRST DESIGN is the governing law); **9b** office tier as additive
+   uplift STANDS — with the writer-quality term removed it is the ONLY quality
+   lever, which is "office tier owns the achievable ceiling" in our economy's
+   vocabulary; **9c** rename scope as recommended — RULED.
 
 **Tier 2 — ratifications of recorded recommendations (one signature covers the
 sheet):** sticky reservations as contract conformance (§3.2); wrap automatic +
@@ -1477,11 +1566,13 @@ successors/re-bases; §11.9's completed ceiling-doc registry; opex precedent
 (§11.11); D-16 suite into the floor (§11.10); corpus re-base policy (§7.7);
 novelty per-instance, condition gates-only with the M2 repair loop, set numbers
 SHOWN and WIRED, fit advisory (§3.1); one bound Set per production (X2); no
-footprint rotation in V1; no per-shooting-week stage/set fees in V1; multi-writer
-pooling OUT of V1; the one-week draft clock kept in V1 (variable draft length →
-C4, with the invariant citation); genre-keyed title subsets in V1, full
-per-genre vocabularies → C4; `AGENT_MAX_SLATE` preserving the M0A corpus (§3.3);
-presentation constants UI-side (§9).
+footprint rotation in V1; no per-shooting-week stage/set fees in V1;
+**bounded writer pooling (≤5) and richness/experience-scaled draft duration IN
+V1 per `00E`.9** (the r3.1 deferrals are superseded — §3.5); genre-keyed title
+subsets in V1, full per-genre vocabularies → C4; `AGENT_MAX_SLATE` preserving
+the M0A corpus (§3.3); presentation constants UI-side (§9); **the two
+development laws** — SOURCE-FIRST DESIGN and RESEARCH-FIRST/REUSE-FIRST/
+INVENT-LAST (`00E`.19/.20; §13).
 
 ---
 
@@ -1491,10 +1582,10 @@ presentation constants UI-side (§9).
 countable capacity** (whole-film exclusivity stays a package decision — §18
 item 1d); **exterior/backlot sets**; **Soundstage (Large)**; multi-set
 productions (X2); reshoots (X4); partial wrap; stage-strike duration;
-set-condition quality *penalty* (V1 gates only); **multi-writer-per-script
-pooling** (three frozen-shape changes for a speed refinement); **variable draft
-length and variable shooting length** (invariant-pinned clocks; richer scripts
-express as beat/role/cost richness); **the 8-factor Script Quality model**
+set-condition quality *penalty* (V1 gates only); **variable SHOOTING length**
+(the eight-week production clock is untouched; richer scripts express as
+beat/role/cost richness there — note: writer pooling and variable DRAFT
+duration are IN V1 per `00E`.9, §3.5); **the 8-factor Script Quality model**
 (cited with its own ~117% inconsistencies, never cloned); **genre-room
 buildings**; **era-sensitive premises, evolving genre interests,
 research-coupled generation, richer content pools, the four-tier office ladder,
@@ -1568,8 +1659,14 @@ green, and the seal STOPS. **No successor campaign is automatic.**
 
 ---
 
-*r3.1, FROZEN 2026-08-18 by the Fable C2 Architect after three adversarial
+*r3.2, FROZEN 2026-08-18 by the Fable C2 Architect after three adversarial
 review cycles (five-lens, three-lens, two-lens final check — every finding
-adjudicated on the record) and four Owner ruling sets (`00A`–`00D`). Planning
-artifacts: `docs/c2-planning/00–14` on this branch. No production code was
-written or modified. PF1's worktree and branches were never touched.*
+adjudicated on the record) and FIVE Owner ruling sets (`00A`–`00E`). r3.2 is
+the bounded docs-only amendment encoding the Owner's final pre-GO adjudication
+(`00E`): every GO-sheet decision is RULED — the resource-release law replaces
+HOLD; writer experience → speed with bounded pooling replaces the keep-shipped
+recommendation; the two development laws (SOURCE-FIRST; REUSE-FIRST) bind every
+lane; the north-star statement governs acceptance. Status: **FROZEN — WAITING
+FOR PF1 SEAL + EXPLICIT OWNER GO** (at GO: M0 baseline reproduction first).
+Planning artifacts: `docs/c2-planning/00–14` on this branch. No production code
+was written or modified. PF1's worktree and branches were never touched.*
