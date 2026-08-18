@@ -188,6 +188,7 @@ import {
   placedFacilityById,
 } from './facilityMutation.ts'
 import { PLACE_BY_BUILDING } from './tycoon/world.ts'
+import { getAudioService } from '../audio/audioService.ts'
 import type { LotActionEvent, SelectionInfo, StudioLotView as StudioLotViewClass } from './StudioLotView.ts'
 import type {
   HollywoodPerformance,
@@ -225,6 +226,30 @@ export type LotAuditionPlanningOrigin = Readonly<{
     reason: string
   }>
 }>
+
+// The era this studio operates in, as the world states it in its own masthead. It is
+// the ONE place the year is written: the topbar subtitle and the era-keyed music bed
+// read the same constant, so the studio can never sound like one decade and read as
+// another. (GameState's EraConfig carries no year — costScale, sound, censorship and
+// television only — so the presented era is presentation truth, and this is where it
+// lives until the engine owns a calendar year.)
+const LOT_ERA_KEY = '1948'
+
+// The retained plate's scene RE-EMITS `selected` when the host itself re-asserts a
+// selection (`LotScene.selectFromHost` → `select`), while the shipped grid world paints
+// without emitting (`TycoonScene.selectFromHost`). A restored, reconciled or route-driven
+// selection is not a player gesture, so the select cue is suppressed across exactly those
+// calls. The scene emits synchronously inside the call, which is what makes a counter
+// around it sufficient — the same reasoning the existing orientation guard already uses.
+let hostDrivenSelection = 0
+function withoutSelectCue(paint: () => void): void {
+  hostDrivenSelection += 1
+  try {
+    paint()
+  } finally {
+    hostDrivenSelection -= 1
+  }
+}
 
 // Phaser listens for mouse and touch input at window level. Contain every down
 // event family from React overlays so a desk command cannot also select the
@@ -1464,6 +1489,19 @@ export function StudioLotScreen({
   }, [])
 
   const snapshot = readSnapshot(state)
+  // PF1-M1 — the tab's own visibility, held as state so the lot's audio can follow the
+  // renderer's existing pause/resume seam instead of inventing a second one.
+  const [documentHidden, setDocumentHidden] = useState(
+    () => typeof document !== 'undefined' && document.hidden,
+  )
+  // Is work physically underway on the property this week? Read from the SAME snapshot
+  // the world is painted from — a placement still standing as a building site, or the
+  // legacy annex mid-construction. The ambience derives nothing the world does not show.
+  const lotConstructionActive =
+    (Array.isArray(snapshot.placement?.placements) &&
+      snapshot.placement.placements.some((placed) => placed.status === 'underConstruction')) ||
+    (Array.isArray(snapshot.buildings) &&
+      snapshot.buildings.some((building) => building.constructionStatus === 'building'))
   const latestGameStateRef = useRef(state)
   latestGameStateRef.current = state
   const currentPublicityCampaign = publicityCampaignContext(snapshot)
@@ -2833,7 +2871,7 @@ export function StudioLotScreen({
         setSelectionInfo(null)
         recordSelection('writers')
         setScriptReviewIntent({ projectId: review.projectId, title: review.title })
-        if (!hollywood) viewRef.current?.select('writers')
+        if (!hollywood) withoutSelectCue(() => viewRef.current?.select('writers'))
         queueMicrotask(() => focusVisibleLotOwner(scriptReviewHeadingRef.current))
         return
       }
@@ -2868,7 +2906,7 @@ export function StudioLotScreen({
           projectId: review.projectId,
           title: review.title,
         })
-        if (!hollywood) viewRef.current?.select('casting')
+        if (!hollywood) withoutSelectCue(() => viewRef.current?.select('casting'))
         queueMicrotask(() => focusVisibleLotOwner(castingReviewHeadingRef.current))
         return
       }
@@ -3547,7 +3585,7 @@ export function StudioLotScreen({
       projectId: context.projectId,
       title: context.title,
     })
-    if (!hollywood) viewRef.current?.select('writers')
+    if (!hollywood) withoutSelectCue(() => viewRef.current?.select('writers'))
     queueMicrotask(() => focusVisibleLotOwner(scriptReviewHeadingRef.current))
     return context
   }, [
@@ -4002,6 +4040,10 @@ export function StudioLotScreen({
           },
           onSelect: (sel) => {
             if (applyingNextEventOrientationRef.current) return
+            // The player addressed a building in the world. A deselection is not a
+            // selection, and a host-driven re-assert is not a gesture (see
+            // `withoutSelectCue`), so neither one sounds.
+            if (sel !== null && hostDrivenSelection === 0) getAudioService().playCue('select')
             yieldNextEventOrientation()
             clearFormationContext()
             if (sel?.buildingId === 'writers' && enterCurrentScriptReview() !== null) {
@@ -4160,7 +4202,7 @@ export function StudioLotScreen({
               view?.selectHollywoodSceneryLoadIn?.(sceneryProductionId)
             } else if (annexSelectedRef.current) {
               if (hollywood) view?.selectHollywoodAnnexPlace?.()
-              else view?.select('expansion')
+              else withoutSelectCue(() => view?.select('expansion'))
             } else if (
               hollywoodStage7DetailProductionIdRef.current !== null &&
               stage7ProductionDetailContext(latestSnapshotRef.current)?.operation.productionId ===
@@ -4170,7 +4212,7 @@ export function StudioLotScreen({
             } else {
               const selectedBuilding = getLotSelectedBuilding()
               if (selectedBuilding && (!hollywood || selectedBuilding !== 'casting')) {
-                view?.select(selectedBuilding)
+                withoutSelectCue(() => view?.select(selectedBuilding))
               }
             }
             if (reducedMotion) view?.setReducedMotion(true)
@@ -4363,7 +4405,7 @@ export function StudioLotScreen({
       } else if (!publicitySelectedRef.current && annexSelectedRef.current) {
         if (held?.placeId !== ANNEX_PLACE_ID) {
           if (hollywood) v.selectHollywoodAnnexPlace?.()
-          else v.select('expansion')
+          else withoutSelectCue(() => v.select('expansion'))
         }
       } else if (
         !publicitySelectedRef.current &&
@@ -4439,6 +4481,9 @@ export function StudioLotScreen({
         cancelGateCandidateGesture()
       }
       nextEventDocumentWasHiddenRef.current = hidden
+      // PF1-M1: the studio's sound sleeps and wakes on exactly this seam, so a
+      // backgrounded tab is silent for the same reason it stops drawing.
+      setDocumentHidden(hidden)
       const v = viewRef.current
       if (!v) return
       if (hidden) v.pause()
@@ -4448,6 +4493,25 @@ export function StudioLotScreen({
     onVisibility()
     return () => document.removeEventListener('visibilitychange', onVisibility)
   }, [cancelGateCandidateGesture, cancelHollywoodStage7Gesture, clearNextEventGesture])
+
+  // ── PF1-M1 audio: the lot is audible while it is mounted AND visible. ────────
+  // Music and ambience begin with the screen and end with it (or with the hidden-tab
+  // pause above). Nothing here reads engine internals: the construction texture keys
+  // off the SAME snapshot the world is painted from.
+  useEffect(() => {
+    if (documentHidden) return
+    const audio = getAudioService()
+    audio.startMusic(LOT_ERA_KEY)
+    return () => {
+      audio.stopMusic()
+      audio.stopAmbience()
+    }
+  }, [documentHidden])
+
+  useEffect(() => {
+    if (documentHidden) return
+    getAudioService().setAmbienceScene({ constructionActive: lotConstructionActive })
+  }, [documentHidden, lotConstructionActive])
 
   // Honour a live change to the OS reduced-motion preference.
   useEffect(() => {
@@ -7893,7 +7957,7 @@ export function StudioLotScreen({
           >
             {snapshot.studioName}
           </h1>
-          <span className="lot-sub">{hollywood ? 'Studio Chronicle · Hollywood, 1948' : 'Studio Lot'} · Week {snapshot.week}</span>
+          <span className="lot-sub">{hollywood ? `Studio Chronicle · Hollywood, ${LOT_ERA_KEY}` : 'Studio Lot'} · Week {snapshot.week}</span>
         </div>
         <div className="lot-topbar-actions">
           <span className="lot-cash" data-testid="lot-cash">

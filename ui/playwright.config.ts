@@ -135,6 +135,10 @@ export default defineConfig({
       VITE_STUDIO_LOT_OVERVIEW: '',
       VITE_OPERATION_HOLLYWOOD: '',
       VITE_TYCOON_WORLD: '0',
+      // PF1-M1: the browser suite runs the product hard-muted. Audio is a presentation
+      // layer with its own double-backed unit coverage; e2e must never depend on an
+      // autoplay grant, a decoded buffer, or a headless audio device.
+      VITE_AUDIO_MUTED: '1',
     },
     url: `http://localhost:${PORT}`,
     reuseExistingServer: false,
@@ -150,6 +154,8 @@ export default defineConfig({
       VITE_STUDIO_LOT_OVERVIEW: '',
       VITE_OPERATION_HOLLYWOOD: '',
       VITE_TYCOON_WORLD: '',
+      // Hard mute, for the same reason as the plate origin above.
+      VITE_AUDIO_MUTED: '1',
     },
     url: `http://localhost:${GRID_PORT}`,
     reuseExistingServer: false,

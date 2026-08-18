@@ -33,6 +33,47 @@ beforeEach(() => {
   }
 })
 
+// jsdom has no Web Audio at all, and ~80 UI test files mount components that can reach
+// the audio service through an ordinary click. The service's sink already treats a missing
+// implementation as permanent silence; this inert stub is the SECOND belt, so a test that
+// exercises a real interaction path can never explode on a browser API jsdom does not have.
+// It records nothing and produces nothing: audio behaviour is asserted through RecordingSink,
+// never here. (Same precedent as the storage boundary above: install the deterministic
+// boundary rather than depend on the host implementation.)
+class InertAudioContext {
+  readonly state = 'running'
+  readonly currentTime = 0
+  readonly destination = { connect: () => {}, disconnect: () => {} }
+  createGain() {
+    return { gain: { value: 1 }, connect: () => {}, disconnect: () => {} }
+  }
+  createBufferSource() {
+    return {
+      buffer: null,
+      loop: false,
+      onended: null,
+      connect: () => {},
+      disconnect: () => {},
+      start: () => {},
+      stop: () => {},
+    }
+  }
+  decodeAudioData() {
+    return Promise.reject(new Error('jsdom has no audio decoder')) // the sink catches this
+  }
+  resume() {
+    return Promise.resolve()
+  }
+  close() {
+    return Promise.resolve()
+  }
+}
+Object.defineProperty(globalThis, 'AudioContext', {
+  configurable: true,
+  writable: true,
+  value: InertAudioContext,
+})
+
 // jsdom has no layout engine, so window.scrollTo is "not implemented" and logs noisily
 // whenever a component resets scroll on a transition (Assembly A2). Stub it as a no-op —
 // the accessible signal the UI actually relies on (focusing the new step heading) is fully

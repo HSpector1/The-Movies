@@ -158,6 +158,11 @@ export class StudioLotView {
       // Transparent so the CSS gradient on the mount element reads as sky/atmosphere
       // around the lot rather than a flat fill.
       transparent: true,
+      // PF1-M1: the product owns exactly one AudioContext, and it is not this one.
+      // Phaser would otherwise instantiate a WebAudio sound manager it never uses,
+      // while the studio's sound is served by ui/src/audio — which outlives this
+      // renderer (lazy mount, rollback gates, fail-closed context-loss teardown).
+      audio: { noAudio: true },
       scale: { mode: Phaser.Scale.RESIZE, width: '100%', height: '100%' },
       // The grid world pans continuously over baked isometric tiles, where sub-pixel
       // sampling shimmers; the painted plate does not and keeps its existing setting.

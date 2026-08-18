@@ -112,6 +112,9 @@ import type { LotAuditionPlanningOrigin } from './lot/StudioLotScreen.tsx'
 // or the lot screen into the eager bundle.
 import { resetLotStageAssignment } from './lot/snapshot/stageAssignment.ts'
 import { resetLotSelectedBuilding } from './lot/snapshot/selectedBuildingSession.ts'
+// The audio service is created on first use, inside the gesture handler below — importing
+// it costs nothing and touches no browser audio API.
+import { getAudioService } from './audio/audioService.ts'
 import type { LotPublicityResult } from './lot/snapshot/publicityCampaign.ts'
 import {
   operationalAnnexWorkContext,
@@ -1215,6 +1218,29 @@ export function App() {
     }
     if (typeof requestAnimationFrame === 'function') requestAnimationFrame(restore)
     else queueMicrotask(restore)
+  }, [])
+
+  // PF1-M1 — the autoplay gate, handled once for the whole product. The browser only
+  // grants an AudioContext inside a user gesture, so the FIRST pointer or key event
+  // anywhere in the document unlocks the service and both listeners retire together.
+  // There is no unlock button and no nag: a player who never interacts simply hears
+  // nothing, which is a correct state.
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    let unlocked = false
+    const unlock = () => {
+      if (unlocked) return
+      unlocked = true
+      document.removeEventListener('pointerdown', unlock, true)
+      document.removeEventListener('keydown', unlock, true)
+      getAudioService().unlock()
+    }
+    document.addEventListener('pointerdown', unlock, true)
+    document.addEventListener('keydown', unlock, true)
+    return () => {
+      document.removeEventListener('pointerdown', unlock, true)
+      document.removeEventListener('keydown', unlock, true)
+    }
   }, [])
 
   useEffect(() => {

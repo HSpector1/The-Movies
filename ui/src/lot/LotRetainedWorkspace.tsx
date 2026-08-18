@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import type { KeyboardEvent as ReactKeyboardEvent, ReactNode } from 'react'
+import { getAudioService } from '../audio/audioService.ts'
 
 type Props = {
   layerClassName: string
@@ -115,6 +116,8 @@ export function LotRetainedWorkspace({
     if (event.key === 'Escape' && escapeEnabled) {
       event.preventDefault()
       event.stopPropagation()
+      // The workspace closed with nothing committed: the one cancel cue M1 wires.
+      getAudioService().playCue('cancel')
       escapeRef.current()
       return
     }
