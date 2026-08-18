@@ -61,6 +61,7 @@ const ALL_COMMIT_KINDS = [
   'demolish-commit',
   'auditions-planned',
   'draft-accepted',
+  'founding', // PF1-M4 — the founding receipt, relabelled off `draft-accepted`
   'publicity',
   'package-step',
 ] as const satisfies readonly CommitKind[]

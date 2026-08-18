@@ -84,6 +84,9 @@ const COMMIT_TIERS = {
   'demolish-commit': { tier: 2, sound: 'commit', motion: 'emphasis' },
   'auditions-planned': { tier: 2, sound: 'commit', motion: 'emphasis' },
   'draft-accepted': { tier: 2, sound: 'commit', motion: 'emphasis' },
+  // PF1-M4 (additive): the founding screen was firing `draft-accepted`. Its own row
+  // carries the identical generic-commit shape — a relabel, never a re-tiering.
+  founding: { tier: 2, sound: 'commit', motion: 'emphasis' },
   publicity: { tier: 2, sound: 'commit', motion: 'emphasis' },
   'package-step': { tier: 2, sound: 'commit', motion: 'emphasis' },
 } satisfies Record<CommitKind, TierRow>
@@ -122,6 +125,7 @@ const ALL_COMMIT_KINDS = [
   'demolish-commit',
   'auditions-planned',
   'draft-accepted',
+  'founding', // PF1-M4
   'publicity',
   'package-step',
 ] as const satisfies readonly CommitKind[]
@@ -438,7 +442,8 @@ describe('PF1-M2 contract — cue ids are stable and derived from receipt facts 
 // ── The action-receipt rows ──────────────────────────────────────────────────
 describe('PF1-M2 contract — action commits, refusal, formation, week advance', () => {
   it('pins the full row for every CommitKind', () => {
-    expect(ALL_COMMIT_KINDS).toHaveLength(8)
+    // 8 at M2; 9 from PF1-M4, which gave founding its own name (see ALL_COMMIT_KINDS).
+    expect(ALL_COMMIT_KINDS).toHaveLength(9)
     expect([...ALL_COMMIT_KINDS].sort()).toEqual(Object.keys(COMMIT_TIERS).sort())
     for (const kind of ALL_COMMIT_KINDS) {
       expect(row(cueForActionCommit(kind, 12)), `${kind} tier row`).toEqual(COMMIT_TIERS[kind])
