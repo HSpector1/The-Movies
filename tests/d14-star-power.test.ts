@@ -206,7 +206,7 @@ describe('D-14 Star Power lifecycle (real engine)', () => {
 
     // Round-trip: export → import. Career events preserved byte-identically.
     const reloaded = importSave(exportSave(makeSave(s)))
-    if (reloaded.saveVersion !== 13) throw new Error('expected V13')
+    if (reloaded.saveVersion !== 14) throw new Error('expected V14')
     expect(reloaded.state.careerEvents).toEqual(s.careerEvents)
 
     // Advancing the reloaded state with NO new release adds NO new events (no re-apply).

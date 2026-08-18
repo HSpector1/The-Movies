@@ -408,6 +408,14 @@ describe('Facilities & Construction research observatory', () => {
         capability: 'post',
         targetPhase: 'postProduction',
       },
+      bindings: {
+        requiresSetBinding: false,
+        stageFacilityId: 'fixture-soundstage',
+        setId: null,
+        lockedNovelty: null,
+        lockedUplift: null,
+        heldSinceWeek: 0,
+      },
     })
     const hold = (productionId: string) =>
       createFacilitiesProductionHoldIntent({

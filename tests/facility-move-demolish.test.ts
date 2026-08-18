@@ -41,14 +41,14 @@ import {
   importSave,
   makeSave,
   makeSaveV12,
-  migrateToV13,
+  migrateToV14,
   moveFacility,
   queryPlacement,
   stableStringify,
   studioCalendar,
   tick,
   validateSave,
-  validateSaveV13,
+  validateSaveV14,
 } from '../src/core/index.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
@@ -775,12 +775,12 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     state = advance(state, 2)
 
     const save = makeSave(state)
-    expect(save.saveVersion).toBe(13)
+    expect(save.saveVersion).toBe(14)
     expect(validateSave(save)).toBe(save)
-    expect(validateSaveV13(save)).toBe(save)
+    expect(validateSaveV14(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json))).toBe(json)
-    const reloaded = migrateToV13(importSave(json)).state
+    const reloaded = migrateToV14(importSave(json)).state
     expect(exportSave(makeSave(reloaded))).toBe(json)
     expect(reloaded.placement.facilities).toEqual(state.placement.facilities)
     expect(refundRows(reloaded)).toHaveLength(1)
@@ -801,6 +801,14 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     }
     delete forgedV11.state.property
     delete forgedV11.state.placement
+    // C2a-M1: strip the V14 roots too, so the REFUND ROW is the first violation
+    // this forgery contains. A forgery that trips a newer closed-world rule first
+    // proves nothing about the guard under test.
+    delete forgedV11.state.sets
+    delete forgedV11.state.nextSetId
+    delete forgedV11.state.productionQueue
+    delete forgedV11.state.originalScreenplays
+    delete forgedV11.state.studioEvents
     forgedV11.saveVersion = 11
     expect(() => validateSave(forgedV11)).toThrow(
       /SaveFileV13 facility demolition authority|facilityDemolitionRefund/,

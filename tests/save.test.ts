@@ -28,7 +28,7 @@ import type {
   FilmConcept,
   Segment,
 } from "../src/core/index.js";
-import type { SaveFileV13 } from "../src/core/save.js";
+import type { SaveFileV14 } from "../src/core/save.js";
 import { initialProperty } from "../src/core/lot.js";
 
 // ── Minimal valid fixtures (all values are chosen inputs) ────────────────────
@@ -184,12 +184,19 @@ function makeState(broadcastItems: BroadcastItem[]): GameState {
     placement: { mode: "legacy", nextPlacementId: 1, facilities: [] },
     // C1-M1a: every live state carries its property.
     property: initialProperty(),
+    // C2a-M1 SaveFileV14: a hand-built world owns no studio operations, so it
+    // owns no sets, no queue, no screenplay provenance, and no history.
+    sets: [],
+    nextSetId: 0,
+    productionQueue: [],
+    originalScreenplays: { nextOrdinal: 0, blueprints: [] },
+    studioEvents: { nextSeq: 0, rows: [] },
   };
 }
 
 // A well-formed save: envelope seed === state.seed, broadcastCache === broadcastItems.
-// makeSave is the Property State V13 default (C1-M1a).
-function wellFormedSave(): SaveFileV13 {
+// makeSave is the C2a-M1 SaveFileV14 default.
+function wellFormedSave(): SaveFileV14 {
   const items = [broadcastItem];
   const state = makeState(items);
   return makeSave(state);
@@ -215,11 +222,11 @@ describe("§17 / §15.7 — export→import→export round-trips byte-identicall
 });
 
 describe("§17 — loud rejection of an unknown saveVersion", () => {
-  it("throws on an unknown saveVersion (e.g. 14)", () => {
+  it("throws on an unknown saveVersion (e.g. 15)", () => {
     // Source: §17 "loud rejection of unknown versions". Versions 1–13 are known;
     // Property State V13 (C1-M1a) moved the unknown boundary from 13 to 14.
     const save = wellFormedSave();
-    const bad = { ...save, saveVersion: 14 } as unknown as SaveFileV13;
+    const bad = { ...save, saveVersion: 15 } as unknown as SaveFileV14;
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -229,7 +236,7 @@ describe("M14 — loud rejection when envelope seed ≠ state.seed", () => {
     // Source: M14 "the envelope seed must equal state.seed; load validation
     // rejects any divergence loudly (same failure mode as an unknown saveVersion)."
     const save = wellFormedSave();
-    const bad: SaveFileV13 = { ...save, seed: "a-different-seed" };
+    const bad: SaveFileV14 = { ...save, seed: "a-different-seed" };
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -243,14 +250,14 @@ describe("M14 — loud rejection when broadcastCache ≠ state.broadcastItems", 
       ...broadcastItem,
       template: "release-worse",
     };
-    const bad: SaveFileV13 = { ...save, broadcastCache: [divergentItem] };
+    const bad: SaveFileV14 = { ...save, broadcastCache: [divergentItem] };
     expect(() => loadSave(bad)).toThrow();
   });
 
   it("throws when broadcastCache differs from state.broadcastItems by length", () => {
     // Source: M14 — any divergence (including cardinality) is rejected.
     const save = wellFormedSave();
-    const bad: SaveFileV13 = { ...save, broadcastCache: [] };
+    const bad: SaveFileV14 = { ...save, broadcastCache: [] };
     expect(() => loadSave(bad)).toThrow();
   });
 });

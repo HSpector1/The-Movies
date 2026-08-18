@@ -37,7 +37,8 @@ import {
   exportSave,
   importSave,
   makeSave,
-  migrateToV13,
+  makeSaveV13,
+  migrateToV14,
   parcelById,
   parcelHasRoadFrontage,
   placementWouldSeverLot,
@@ -106,7 +107,7 @@ const fixtureBytes = readFileSync(join(FIXTURE_DIRECTORY, entry.file), 'utf8')
 
 /** The fixture world, through the live import boundary — never a hand-built state. */
 function southYardStudio(): GameState {
-  return migrateToV13(importSave(fixtureBytes)).state
+  return migrateToV14(importSave(fixtureBytes)).state
 }
 
 /** The founding property's own answer to the same question, for the contrast. */
@@ -174,13 +175,16 @@ describe('C1-M6 (1) — the committed second-zone fixture is what the generator 
     // every V12 placement law — against the property the FILE carries.
     expect(() => validateSaveV13(JSON.parse(fixtureBytes))).not.toThrow()
 
-    const reloaded = migrateToV13(importSave(fixtureBytes))
-    expect(reloaded.saveVersion).toBe(13)
-    expect(exportSave(makeSave(reloaded.state))).toBe(fixtureBytes)
-    // …and a second lap changes nothing either.
-    expect(exportSave(makeSave(migrateToV13(importSave(exportSave(makeSave(reloaded.state)))).state))).toBe(
-      fixtureBytes,
-    )
+    // C2a-M1: the committed fixture is a GENUINE V13 file — the live format moved
+    // on, the file did not. Migrating it up and writing it back down through the
+    // frozen V13 builder reproduces its bytes exactly, which is the whole claim:
+    // the migration adds only what a V13 file could never describe.
+    const reloaded = migrateToV14(importSave(fixtureBytes))
+    expect(reloaded.saveVersion).toBe(14)
+    expect(exportSave(makeSaveV13(reloaded.state))).toBe(fixtureBytes)
+    // …and the live V14 envelope round-trips byte-identically too, twice over.
+    const liveJson = exportSave(makeSave(reloaded.state))
+    expect(exportSave(makeSave(migrateToV14(importSave(liveJson)).state))).toBe(liveJson)
     expect(() => assertStudioPlacementInvariants(reloaded.state)).not.toThrow()
   })
 })
@@ -307,7 +311,7 @@ describe('C1-M6 (1) — placement legality accepts a build in the second zone', 
 
     // …and the whole grown world round-trips at the live boundary.
     const json = exportSave(makeSave(operational))
-    const reloaded = migrateToV13(importSave(json))
+    const reloaded = migrateToV14(importSave(json))
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(stableStringify(reloaded.state.property)).toBe(stableStringify(operational.property))
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)

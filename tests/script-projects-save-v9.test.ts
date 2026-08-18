@@ -2,6 +2,7 @@
 
 import { describe, expect, it } from "vitest";
 import {
+  emptyWorkflowBindings,
   addManagedProductionWorkflow,
   applyActions,
   convertV1ToV2,
@@ -52,6 +53,7 @@ function scriptProject(
     id: "script-0000",
     conceptId: concept.id,
     writerId: writer.id,
+    writerIds: [writer.id],
     shape: {
       opening: "slowSetup",
       midpoint: "revelation",
@@ -388,13 +390,13 @@ describe("Script Projects V1 — SaveFileV9", () => {
     expect(migrateToV9(current)).toBe(current);
   });
 
-  it("rejects unknown version 14 and refuses to downgrade V9 through migrateToV8", () => {
+  it("rejects unknown version 15 and refuses to downgrade V9 through migrateToV8", () => {
     const save = makeSaveV9(generateWorld("save-v9-boundary"));
-    expect(() => validateSave({ ...save, saveVersion: 14 })).toThrow(
-      /unknown saveVersion 14/,
+    expect(() => validateSave({ ...save, saveVersion: 15 })).toThrow(
+      /unknown saveVersion 15/,
     );
-    expect(() => validateSave({ ...save, saveVersion: 14 })).toThrow(
-      /versions 1 through 13 only/,
+    expect(() => validateSave({ ...save, saveVersion: 15 })).toThrow(
+      /versions 1 through 14 only/,
     );
     expect(() => migrateToV8(save)).toThrow(/cannot downgrade SaveFileV9/);
   });
@@ -496,6 +498,7 @@ describe("Script Projects V1 — SaveFileV9", () => {
       reservations: [],
       shootingTask: null,
       blocker: null,
+      bindings: emptyWorkflowBindings(),
     };
     const released = tick(releaseReady);
     expect(released.scriptDevelopment.projects[0]!.status).toBe("produced");

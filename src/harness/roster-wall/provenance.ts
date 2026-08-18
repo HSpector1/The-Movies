@@ -39,7 +39,10 @@ export type RosterWallSourceProvenance = {
   tree: string
   worktreeDirty: false
   runtime: string
-  saveVersion: 13
+  // C2a-M1: the observatory records the save format its evidence was produced
+  // under. The bump is mechanical — the roster-wall world never activates managed
+  // operations, so its four V14 roots are empty and its arithmetic is untouched.
+  saveVersion: 14
   productionAuthorityCommit: string
   productionAuthorityTree: string
   authorityDiffPaths: string[]
@@ -292,7 +295,7 @@ export function rosterWallSourceProvenance(
     tree,
     worktreeDirty: false,
     runtime: options.runtime ?? `node ${process.version}`,
-    saveVersion: 13,
+    saveVersion: 14,
     productionAuthorityCommit: authorityCommit,
     productionAuthorityTree: authorityTree,
     authorityDiffPaths,

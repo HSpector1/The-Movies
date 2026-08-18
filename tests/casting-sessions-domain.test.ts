@@ -14,7 +14,8 @@ import {
   nextCastingSessionNeedingReview,
   startCastingSession,
 } from '../src/core/castingSessions.js'
-import { initialManagedStudioOperations } from '../src/core/operations.js'
+import {
+  emptyWorkflowBindings, initialManagedStudioOperations } from '../src/core/operations.js'
 import { roleFit } from '../src/core/reception.js'
 import { resolveShape } from '../src/core/shape.js'
 import { castSlotExecution, effectiveSkill } from '../src/core/talentSummary.js'
@@ -52,6 +53,7 @@ function fixture(seed = 'casting-domain'): {
     id: 'script-0000',
     conceptId: concept.id,
     writerId: writer.id,
+    writerIds: [writer.id],
     shape: { ...SHAPE },
     promise: {
       genre: concept.genre,
@@ -339,6 +341,7 @@ describe('Casting Sessions V1 domain', () => {
           ],
           shootingTask: null,
           blocker: null,
+          bindings: emptyWorkflowBindings(),
         },
       ],
     }

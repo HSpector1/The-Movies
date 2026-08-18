@@ -23,7 +23,8 @@ import {
   scriptWriterAssignment,
 } from '../src/core/scriptDevelopment.js'
 import { effectiveSkill } from '../src/core/talentSummary.js'
-import { initialManagedStudioOperations } from '../src/core/operations.js'
+import {
+  emptyWorkflowBindings, initialManagedStudioOperations } from '../src/core/operations.js'
 import { resolveShape } from '../src/core/shape.js'
 import { generateWorld } from '../src/core/worldgen.js'
 import type {
@@ -172,6 +173,7 @@ function withProductionReservation(slot: number): StudioOperations {
       }],
       shootingTask: null,
       blocker: null,
+      bindings: emptyWorkflowBindings(),
     }],
   }
 }

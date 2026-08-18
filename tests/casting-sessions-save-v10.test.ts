@@ -52,6 +52,7 @@ function readyProject(
     id: "script-0000",
     conceptId: concept.id,
     writerId: writer.id,
+    writerIds: [writer.id],
     shape: {
       opening: "slowSetup",
       midpoint: "revelation",

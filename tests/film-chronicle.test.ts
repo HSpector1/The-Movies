@@ -804,6 +804,7 @@ function validProducedState(seed: string): { state: GameState; productionId: str
     id: "script-0000",
     conceptId: production.conceptId,
     writerId: production.writerId,
+    writerIds: [production.writerId],
     shape: clone(production.shape),
     promise: clone(production.promise),
     status: "produced",
@@ -893,7 +894,7 @@ describe("Film Chronicle V1 — SaveFileV11 durability", () => {
   it("reconstructs a deep-equal Chronicle after an exact V11 export/import round-trip", () => {
     const { state, productionId } = validProducedState("film-chronicle-save-v11");
     const envelope = makeSave(state);
-    expect(envelope.saveVersion).toBe(13);
+    expect(envelope.saveVersion).toBe(14);
     expect(validateSave(envelope)).toBe(envelope);
 
     const beforeState = stableStringify(state);
@@ -904,8 +905,8 @@ describe("Film Chronicle V1 — SaveFileV11 durability", () => {
     expectAvailable(before!.productionRecord);
 
     const restored = importSave(exportSave(envelope));
-    expect(restored.saveVersion).toBe(13);
-    if (restored.saveVersion !== 13) return;
+    expect(restored.saveVersion).toBe(14);
+    if (restored.saveVersion !== 14) return;
     const after = buildFilmChronicle(inputFromState(restored.state, productionId));
 
     expect(after).toEqual(before);

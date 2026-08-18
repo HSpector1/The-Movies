@@ -35,7 +35,8 @@ import {
   groundOccupiedCellKeys,
   importSave,
   makeSave,
-  migrateToV13,
+  makeSaveV13,
+  migrateToV14,
   moveFacility,
   parcelAt,
   placementWouldSeverLot,
@@ -89,7 +90,7 @@ const entry = manifest.fixtures.find((candidate) => candidate.id === FIXTURE_ID)
 const fixtureBytes = readFileSync(join(FIXTURE_DIRECTORY, entry.file), 'utf8')
 
 function farPropertyStudio(): GameState {
-  return migrateToV13(importSave(fixtureBytes)).state
+  return migrateToV14(importSave(fixtureBytes)).state
 }
 
 /** Cash adjustment that keeps the cash/ledger reconciliation true. */
@@ -142,8 +143,10 @@ describe('C1-M6 (2) — the committed far-property fixture', () => {
     expect(createHash('sha256').update(fixtureBytes, 'utf8').digest('hex')).toBe(entry.sha256)
     expect(() => validateSaveV13(JSON.parse(fixtureBytes))).not.toThrow()
 
-    const reloaded = migrateToV13(importSave(fixtureBytes))
-    expect(exportSave(makeSave(reloaded.state))).toBe(fixtureBytes)
+    // C2a-M1: a genuine V13 fixture round-trips through the V14 migrator and back
+    // down the frozen V13 builder without moving a byte.
+    const reloaded = migrateToV14(importSave(fixtureBytes))
+    expect(exportSave(makeSaveV13(reloaded.state))).toBe(fixtureBytes)
     expect(() => assertStudioPlacementInvariants(reloaded.state)).not.toThrow()
   })
 
@@ -315,7 +318,7 @@ describe('C1-M6 (2) — composition, legality, completion, move, demolish, save,
 
     // …and the whole thing round-trips byte-identically.
     const json = exportSave(makeSave(operational))
-    const reloaded = migrateToV13(importSave(json))
+    const reloaded = migrateToV14(importSave(json))
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(stableStringify(reloaded.state.property)).toBe(stableStringify(operational.property))
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)
@@ -402,7 +405,7 @@ describe('C1-M6 (2) — composition, legality, completion, move, demolish, save,
 
     // …and the survivors, on a property this size, still round-trip byte-identically.
     const json = exportSave(makeSave(demolished))
-    const reloaded = migrateToV13(importSave(json))
+    const reloaded = migrateToV14(importSave(json))
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(reloaded.state.property.parcels).toHaveLength(demolished.property.parcels.length)
     expect(reloaded.state.property.structures).toHaveLength(demolished.property.structures.length)

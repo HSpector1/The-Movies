@@ -46,7 +46,7 @@ import {
   studioCalendar,
   studioConstructionView,
   tick,
-  validateSaveV13,
+  validateSaveV14,
 } from '../src/core/index.js'
 import {
   CRAFT_ANNEX_BLUEPRINT,
@@ -55,7 +55,7 @@ import {
   DEVELOPMENT_OFFICE_2_BLUEPRINT,
   FACILITY_BLUEPRINTS,
 } from '../src/core/tuning.js'
-import type { GameState, LotCell, SaveFileV13 } from '../src/core/index.js'
+import type { GameState, LotCell, SaveFileV14 } from '../src/core/index.js'
 
 const ANNEX = DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.id
 const OFFICE_2 = DEVELOPMENT_OFFICE_2_BLUEPRINT.id
@@ -340,7 +340,7 @@ describe('C1-M8 (D) — the legacy Annex contract works exactly as sealed', () =
 
 describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED', () => {
   /** The forgery a pre-fix session could genuinely have written to disk. */
-  function forgedSave(seed: string): SaveFileV13 {
+  function forgedSave(seed: string): SaveFileV14 {
     const save = clone(makeSave(standingOffice(seed)))
     const placed = save.state.placement.facilities[0]!
     placed.parcelId = LEGACY_EXPANSION_PARCEL_ID
@@ -362,7 +362,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
     expect(() =>
       assertStudioPlacementInvariants(save.state as unknown as GameState),
     ).toThrow(named)
-    expect(() => validateSaveV13(save)).toThrow(named)
+    expect(() => validateSaveV14(save)).toThrow(named)
     // The load path a player actually reaches — never a half-loaded world.
     expect(() => importSave(JSON.stringify(save))).toThrow(named)
   })
@@ -373,9 +373,9 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
       DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.buildWeeks,
     )
     const save = makeSave(annex)
-    expect(validateSaveV13(save)).toBe(save)
+    expect(validateSaveV14(save)).toBe(save)
     const json = exportSave(save)
-    expect(exportSave(importSave(json) as SaveFileV13)).toBe(json)
+    expect(exportSave(importSave(json) as SaveFileV14)).toBe(json)
     expect(annex.placement.facilities[0]!.parcelId).toBe(LEGACY_EXPANSION_PARCEL_ID)
   })
 
@@ -401,7 +401,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
           placed.cells.push({ gx: LEGACY_ORIGIN.gx + dx, gy: LEGACY_ORIGIN.gy + dy })
         }
       }
-      expect(() => validateSaveV13(save), blueprint.id).toThrow(/reserved for the studio's Annex/)
+      expect(() => validateSaveV14(save), blueprint.id).toThrow(/reserved for the studio's Annex/)
     }
   })
 })

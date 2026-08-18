@@ -980,7 +980,7 @@ function parseAcceptedSource(value: unknown, label: string): RosterWallSourcePro
     value['productionAuthorityTree'] !== ROSTER_WALL_PRODUCTION_AUTHORITY_TREE ||
     !Array.isArray(value['authorityDiffPaths'])
   ) {
-    throw new Error(`roster-wall artifacts: ${label} is not accepted clean SaveFileV13 provenance`)
+    throw new Error(`roster-wall artifacts: ${label} is not accepted clean SaveFileV14 provenance`)
   }
   const authorityDiffPaths = value['authorityDiffPaths']
   if (
@@ -1007,7 +1007,7 @@ function parseAcceptedSource(value: unknown, label: string): RosterWallSourcePro
     tree: value['tree'],
     worktreeDirty: false,
     runtime: value['runtime'],
-    saveVersion: 13,
+    saveVersion: 14,
     productionAuthorityCommit: value['productionAuthorityCommit'],
     productionAuthorityTree: value['productionAuthorityTree'],
     authorityDiffPaths: [...authorityDiffPaths] as string[],
@@ -1499,8 +1499,8 @@ function assertCanonicalEntrySaves(
 
 function assertExactSaveV11(saveJson: string, label: string): void {
   const imported = importSave(saveJson)
-  if (imported.saveVersion !== 13) {
-    throw new Error(`roster-wall artifacts: ${label} must be an exact SaveFileV13`)
+  if (imported.saveVersion !== 14) {
+    throw new Error(`roster-wall artifacts: ${label} must be an exact SaveFileV14`)
   }
   const replay = exportSave(imported)
   if (replay !== saveJson) {
@@ -1712,7 +1712,7 @@ function assertAcceptedEntryPayload(
       replay['importedReexportByteIdentical'] === true &&
       replay['remadeReexportByteIdentical'] === true
   if (!replayExact) {
-    throw new Error(`roster-wall artifacts: ${label} lacks exact SaveFileV13 replay proof`)
+    throw new Error(`roster-wall artifacts: ${label} lacks exact SaveFileV14 replay proof`)
   }
   if (state === undefined) return
 
@@ -3243,7 +3243,7 @@ export function verifyRosterWallAcceptedArtifactDirectory(
     const imported = importSave(saveJson)
     const stateHash = rosterWallSha256(stableStringify(imported.state))
     if (
-      imported.saveVersion !== 13 ||
+      imported.saveVersion !== 14 ||
       imported.state.market.tick !== 196 ||
       rosterWallSha256(saveJson) !== fact.entrySaveHash ||
       stateHash !== fact.entryStateHash

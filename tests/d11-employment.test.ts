@@ -525,7 +525,7 @@ describe('D-11 — determinism & live saves', () => {
   it('new games save at the live version and round-trip byte-identically', () => {
     const s = foundStudio('save-v4')
     const save = makeSave(s)
-    expect(save.saveVersion).toBe(13) // Property State V13 (C1-M1a): new games save as V13.
+    expect(save.saveVersion).toBe(14) // C2a-M1 SaveFileV14: new games save as V14.
     const a = exportSave(save)
     const b = exportSave(importSave(a))
     expect(b).toBe(a)
@@ -537,7 +537,7 @@ describe('D-11 — determinism & live saves', () => {
     // Split: advance 3, export/import at the live version, advance 3 more.
     const mid = advanceWeeks(s0, 3)
     const reloaded = importSave(exportSave(makeSave(mid)))
-    if (reloaded.saveVersion !== 13) throw new Error('expected V13')
+    if (reloaded.saveVersion !== 14) throw new Error('expected V14')
     const split = advanceWeeks(reloaded.state, 3)
     expect(split.studio.cash).toBe(continuous.studio.cash)
     expect(split.ledger.length).toBe(continuous.ledger.length)

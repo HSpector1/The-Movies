@@ -488,6 +488,14 @@ describe('Production Operations V1', () => {
                 status: 'completed' as const,
               },
               blocker: null,
+              bindings: {
+                requiresSetBinding: false,
+                stageFacilityId: 'facility-soundstage-07',
+                setId: null,
+                lockedNovelty: null,
+                lockedUplift: null,
+                heldSinceWeek: 0,
+              },
             }
           : {
               productionId: waiterId,
@@ -504,6 +512,14 @@ describe('Production Operations V1', () => {
                 kind: 'facility-capacity' as const,
                 capability: 'soundstage' as const,
                 targetPhase: 'rehearsal' as const,
+              },
+              bindings: {
+                requiresSetBinding: false,
+                stageFacilityId: null,
+                setId: null,
+                lockedNovelty: null,
+                lockedUplift: null,
+                heldSinceWeek: null,
               },
             },
       )
