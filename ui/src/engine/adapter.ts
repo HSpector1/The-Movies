@@ -96,7 +96,7 @@ import {
   makeSave,
   exportSave,
   importSave,
-  migrateToV13,
+  migrateToV14,
   convertV4ToV5,
   convertV5ToV6,
   convertV6ToV7,
@@ -106,6 +106,7 @@ import {
   convertV10ToV11,
   convertV11ToV12,
   convertV12ToV13,
+  convertV13ToV14,
   importLegacyV2ToV4,
   importLegacyV1ToV4,
   // ── D-11 employment / contracts / roster / freelancer market ──
@@ -3094,10 +3095,17 @@ export function remainingWeeks(prod: Production): number {
 }
 
 // ── Saves ────────────────────────────────────────────────────────────────────
-// New games save as SaveFileV13. V13 appends the authoritative studio property
-// (bounds, roads, parcels, structures) that V12 held as module constants. Older
-// envelopes migrate deterministically without inventing a project, debit,
-// completion, facility, or a property they were not already played on.
+// New games save as SaveFileV14. V14 appends the four C2a roots — sets, the set-id
+// counter, the production queue, original screenplays, and the studio-event ledger.
+// Older envelopes migrate deterministically without inventing a project, debit,
+// completion, facility, set, or a property they were not already played on.
+//
+// C2a-M2 REPAIR. Every import below stopped at `migrateToV13` after the V14 bump, so
+// a V13 state was being handed back as the live `GameState`: the UI package did not
+// compile at all, and had it compiled, an imported save would have carried NO `sets`
+// and NO `studioEvents` root — every C2a reader would have thrown on the first field
+// it touched. The live migrator is `migrateToV14`, and the two frozen legacy
+// affordances end with `convertV13ToV14` for exactly the same reason.
 export function exportSaveJson(state: GameState): string {
   return exportSave(makeSave(state))
 }
@@ -3106,14 +3114,14 @@ export type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
   | { ok: false; error: string }
 
-// Import a save. Accepts V13 (current) and every legacy version V1–V12, all deterministic.
+// Import a save. Accepts V14 (current) and every legacy version V1–V13, all deterministic.
 // `converted` tells the caller a legacy save was upgraded so the UI can inform the player
-// — their original file is never overwritten (a fresh V13 is returned).
+// — their original file is never overwritten (a fresh V14 is returned).
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    const converted = save.saveVersion !== 13
-    return { ok: true, state: migrateToV13(save).state, converted }
+    const converted = save.saveVersion !== 14
+    return { ok: true, state: migrateToV14(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -3125,7 +3133,7 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))))))).state,
+      state: convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json))))))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -3139,7 +3147,7 @@ export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))))))).state,
+      state: convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json))))))))))).state,
       converted: true,
     }
   } catch (e) {

@@ -397,10 +397,24 @@ export type LotParcelState = {
 // legality is a separate live `placementQuote(..., { movingPlacementId })` the host runs
 // per draft revision, exactly like the build ghost, and it never enters this snapshot.
 
-/** One live claim on a facility, mirrored from the engine's own engagement guard. */
+/**
+ * One live claim on a facility, mirrored from the engine's own engagement guard.
+ *
+ * `'set'` is C2a-M2's addition and it is TWO holds: a set going up or being repaired
+ * holds a scenery-shop slot, and a standing set holds the MOUNT on the stage it is
+ * built on — which is why a stage carrying a set cannot be taken down until the set is
+ * struck. The engine widened `FacilityEngagementKind` for it; this mirror has to follow,
+ * or the boundary that copies one into the other stops compiling (it did).
+ */
 export type LotFacilityEngagement = {
-  kind: 'production' | 'shootingTask' | 'screenplay' | 'castingSession' | 'legacyConstructionProject'
-  /** The production, screenplay, or session id holding it. */
+  kind:
+    | 'production'
+    | 'shootingTask'
+    | 'screenplay'
+    | 'castingSession'
+    | 'legacyConstructionProject'
+    | 'set'
+  /** The production, screenplay, session, or SET id holding it. */
   holderId: string
   /** The engine's own activity word, verbatim. */
   activity: string

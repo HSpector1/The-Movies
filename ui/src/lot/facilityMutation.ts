@@ -48,6 +48,29 @@ export function facilityActivityLabel(activity: string): string | null {
   return LOT_FACILITY_ACTIVITY_LABEL[activity] ?? null
 }
 
+/**
+ * A SET holding a building, in the studio's own words — WITH THE REMEDY (C2a-M2).
+ *
+ * Sets are the one holder whose block a player can clear directly and at once, and the
+ * professional floor (`00F`) requires a refusal to carry an obvious remedy. The generic
+ * sentence would have been true and useless here: a set resolves no title through the
+ * Studio Calendar (the Calendar carries productions, screenplays and auditions, not
+ * sets), so every set block would have degraded to "reserved by current studio work"
+ * with no way for a player to learn that STRIKING THE SET is what unblocks the ground.
+ *
+ * The keys are the ENGINE's three activity phrases, verbatim (`src/core/placement.ts`).
+ * A phrase this table has not been taught falls through to the generic sentence rather
+ * than promising a remedy that might not be the right one.
+ */
+export const LOT_SET_ENGAGEMENT_SENTENCE: Readonly<Record<string, string>> = {
+  'a set standing on this stage':
+    'has a set standing on it. Strike the set before moving or taking down the stage.',
+  'a set going up on this stage':
+    'has a set going up on it. Moving or taking down the stage opens up once that work finishes and the set is struck.',
+  'building a set':
+    'has a scenery crew building a set. Moving or taking it down opens up once that work finishes.',
+}
+
 function isText(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0
 }
@@ -88,11 +111,18 @@ export function facilityMutationBlockedReason(
   const first = holders[0]!
   const activity = facilityActivityLabel(first.activity)
   const title = isText(first.title) ? first.title : null
+  // C2a-M2 — a SET says its own sentence, because the remedy is one the player owns.
+  const setClause = first.kind === 'set' ? LOT_SET_ENGAGEMENT_SENTENCE[first.activity] : undefined
   const head =
     title === null
       ? `${name} is reserved by current studio work`
       : `${name} is reserved by ${title}`
-  const sentence = activity === null ? `${head}.` : `${head} — ${activity}.`
+  const sentence =
+    setClause !== undefined
+      ? `${name} ${setClause}`
+      : activity === null
+        ? `${head}.`
+        : `${head} — ${activity}.`
   if (holders.length === 1) return sentence
   const others = holders.length - 1
   return `${sentence} ${String(others)} other ${others === 1 ? 'commitment holds' : 'commitments hold'} it too.`
