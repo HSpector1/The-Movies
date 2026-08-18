@@ -136,14 +136,33 @@ function allocateForPhase(
   const reservations: FacilityReservation[] = []
   const facilities = [...operations.facilities].sort(compareId)
 
+  // STICKY RETENTION, FOR EVERY CAPABILITY (charter §3.2, the R-1
+  // contract-conformance repair). A reservation whose capability the next phase
+  // ALSO requires is retained — same facility, same slot — instead of being
+  // re-allocated first-fit.
+  //
+  // This was soundstage-only, and that was a defect, not a design:
+  // DEVELOPMENT-CASTING-ANNEX-V1-CONTRACT.md:500 requires "no reservation
+  // migration", :243-244 that "existing reservations never move merely because
+  // another facility became available", and :494-495 that
+  // "Development-to-Pre-production retains the production's existing slot". Under
+  // first-fit-ascending-by-id, a picture holding the Annex moved to
+  // `facility-development-casting` the moment a base slot freed — and the lot
+  // renders those as two different buildings, so the crew visibly teleported
+  // across the lot for no authoritative reason.
+  //
+  // Retaining is always legal here: the workflow's own slots are excluded from
+  // `occupied`, so the slot it already holds is by construction free to re-claim.
+  const alreadyRetained = new Set<FacilityCapability>()
+
   for (const capability of requirementsForPhase(targetPhase)) {
-    // Rehearsal → Shooting retains the physical soundstage. Since the workflow's
-    // own reservations are excluded from occupiedSlots, this slot remains legal.
-    const retained =
-      capability === 'soundstage'
-        ? workflow.reservations.find((reservation) => reservation.capability === 'soundstage')
-        : undefined
+    // One held reservation per capability may be carried across; a second
+    // requirement of the same capability allocates fresh.
+    const retained = alreadyRetained.has(capability)
+      ? undefined
+      : workflow.reservations.find((reservation) => reservation.capability === capability)
     if (retained !== undefined) {
+      alreadyRetained.add(capability)
       reservations.push({ ...retained, phase: targetPhase })
       occupied.add(facilitySlotKey(retained.facilityId, retained.slot))
       continue
