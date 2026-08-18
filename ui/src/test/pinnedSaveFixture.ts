@@ -27,6 +27,28 @@ import { exportSaveJson, importSaveJson } from '../engine/adapter.ts'
 import type { GameState } from '../engine/adapter.ts'
 
 /**
+ * The V13 file a live state describes — the strictest comparable form of it.
+ *
+ * A V13 envelope has no room for the studio-event log the engine began keeping in
+ * C2a-M1 (§5), so `makeSaveV13` refuses any state that holds one, and rightly:
+ * `convertV13ToV14` gives a migrated world an EMPTY history, and inventing rows would be
+ * manufacturing history. Clearing the log is therefore not a concession — it is asking
+ * the question a V13 digest can actually answer: is every V13-VISIBLE byte still what it
+ * was? Everything else about the state is passed through untouched, so a real change to
+ * cash, the ledger, the RNG, a phase, a reservation or a release still moves the digest.
+ *
+ * This is the same move `tests/contracts/_v14Contract.ts` makes with `historicalV13Form`,
+ * and `tests/production-operations-save-v8.test.ts` with `historicalWorld`.
+ */
+export function pinnedSaveV13Projection(state: GameState): string {
+  // `makeSaveV13` is typed against the frozen GameStateV13, which by construction has no
+  // V14 roots to name. The builder's own guard is what decides whether this state may
+  // cross — it is not relaxed here, only reached.
+  const historical = { ...state, studioEvents: { nextSeq: 0, rows: [] } }
+  return exportSave(makeSaveV13(historical as unknown as Parameters<typeof makeSaveV13>[0]))
+}
+
+/**
  * Load one committed SaveFileV13 fixture, proving it is still exactly the artefact it
  * was frozen as, and return the migrated live state the suite plays against.
  *

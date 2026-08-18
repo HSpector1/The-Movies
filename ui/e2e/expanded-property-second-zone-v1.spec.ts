@@ -35,6 +35,7 @@ import {
   importSaveJson,
   studioPlacement,
 } from '../src/engine/adapter.ts'
+import { loadPinnedSaveV13Fixture } from '../src/test/pinnedSaveFixture.ts'
 
 const GRID_BASE_URL = 'http://localhost:5179'
 
@@ -80,20 +81,24 @@ function verifiedFixture(): string {
   if (createHash('sha256').update(SECOND_ZONE_SAVE, 'utf8').digest('hex') !== claimed.sha256) {
     throw new Error('the second-zone fixture does not hash to the digest its manifest claims')
   }
-  const replay = importSaveJson(SECOND_ZONE_SAVE)
-  if (!replay.ok || replay.converted || exportSaveJson(replay.state) !== SECOND_ZONE_SAVE) {
-    throw new Error('the second-zone fixture does not replay byte-identically')
-  }
-  if (replay.state.property.bounds.depth !== claimed.claim.bounds.depth) {
+  // C2a-M1 — this artefact is PINNED at SaveFileV13 and the live format is V14, so
+  // loading it is a migration. Byte-identity is unchanged in strength and is asked of the
+  // writer that owns the format the file is in: `makeSaveV13` is frozen and refuses to
+  // write any state it cannot put back byte for byte, so a pinned V13 file that survives
+  // the migration and projects home unchanged is the strictest statement available about
+  // it. The shared loader also proves the live V14 artefact the migration produced is
+  // itself lossless. See `ui/src/test/pinnedSaveFixture.ts`.
+  const state = loadPinnedSaveV13Fixture(join(fixtureDirectory, FIXTURE_FILE))
+  if (state.property.bounds.depth !== claimed.claim.bounds.depth) {
     throw new Error('the second-zone fixture is not carrying the property its manifest describes')
   }
   return SECOND_ZONE_SAVE
 }
 
-const SECOND_ZONE_STATE = importSaveJson(verifiedFixture())
-if (!SECOND_ZONE_STATE.ok) throw new Error('the second-zone fixture failed to import')
+const SECOND_ZONE_STATE = loadPinnedSaveV13Fixture(join(fixtureDirectory, FIXTURE_FILE))
+verifiedFixture()
 /** The ENGINE's own answer for the parcel this spec builds on. No coordinate is authored. */
-const BUILD_PARCEL_RECT = studioPlacement(SECOND_ZONE_STATE.state).parcels.find(
+const BUILD_PARCEL_RECT = studioPlacement(SECOND_ZONE_STATE).parcels.find(
   (parcel) => parcel.id === BUILD_PARCEL,
 )!.rect
 

@@ -21,6 +21,7 @@ import {
   type DraftPackage,
   type SimResult,
 } from '../src/engine/adapter.ts'
+import { pinnedSaveV13Projection } from '../src/test/pinnedSaveFixture.ts'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(here, '..', '..')
@@ -159,11 +160,18 @@ test.beforeAll(() => {
     expect(createHash('sha256').update(bytes).digest('hex'), `${fixture.id} SHA-256`)
       .toBe(fixture.sha256)
 
+    // C2a-M1 — these are PINNED SaveFileV13 artefacts and the live format is V14, so
+    // loading one is a migration. Byte-identity is unchanged in strength and is asked of
+    // the writer that owns the format the file is in: `makeSaveV13` is frozen and refuses
+    // any state it cannot put back byte for byte, so a pinned V13 file that survives the
+    // migration and projects home unchanged is the strictest statement available about it.
     const imported = importSaveJson(bytes)
-    expect(imported.ok, `${fixture.id} imports as native SaveFileV11`).toBe(true)
+    expect(imported.ok, `${fixture.id} imports`).toBe(true)
     if (!imported.ok) throw new Error(imported.error)
-    expect(imported.converted, `${fixture.id} does not migrate`).toBe(false)
-    expect(exportSaveJson(imported.state), `${fixture.id} byte-identical replay`).toBe(bytes)
+    expect(imported.converted, `${fixture.id} is a pinned V13 artefact and must migrate`)
+      .toBe(true)
+    expect(pinnedSaveV13Projection(imported.state), `${fixture.id} byte-identical replay`)
+      .toBe(bytes)
     expect(imported.state.seed).toBe(fixture.seed)
     expect(imported.state.market.tick).toBe(fixture.expectedStartWeek)
 
@@ -174,8 +182,13 @@ test.beforeAll(() => {
     expect(result.stopReason, `${fixture.id} stop`).toBe(fixture.expectedStopReason)
     expect(result.toWeek, `${fixture.id} final week`).toBe(fixture.expectedEndWeek)
     expect(result.weeks, `${fixture.id} elapsed weeks`).toBe(fixture.expectedWeeksAdvanced)
-    expect(createHash('sha256').update(finalBytes).digest('hex'), `${fixture.id} final SHA-256`)
-      .toBe(fixture.expectedFinalSaveSha256)
+    // The pinned digest names a V13 FILE, so it is compared against the V13 file this
+    // advance produces. Every V13-visible byte — cash, ledger, RNG, phases, reservations,
+    // blockers, releases — must still hash to the frozen value; all twelve do.
+    expect(
+      createHash('sha256').update(pinnedSaveV13Projection(result.next)).digest('hex'),
+      `${fixture.id} final SHA-256`,
+    ).toBe(fixture.expectedFinalSaveSha256)
     directResults.set(fixture.id, result)
     finalSaveBytes.set(fixture.id, finalBytes)
   }
