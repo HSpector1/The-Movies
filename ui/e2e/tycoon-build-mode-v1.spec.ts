@@ -689,11 +689,23 @@ test('a selection pans the camera and never zooms it, and the whole property is 
       .toBe(framed.zoom)
     expect(await gridProjection(page), label).toEqual(framed)
   }
+  // The camera holds its FRAMING across a canvas-box change, so the new box shows up as
+  // a new zoom only once Phaser's Scale Manager has processed it. Measuring before that
+  // settles captures the STALE fit — the ~1-in-4 flake the C1-M7 gate caught (expected
+  // 0.32001948 vs received 0.37037037 is exactly pre- vs post-resize whole-property
+  // fit). Same wait the guidance test below names with "Waiting for it matters".
+  const canvasBoxSettled = async (change: () => Promise<unknown>) => {
+    const before = (await gridProjection(page)).zoom
+    await change()
+    await expect.poll(async () => (await gridProjection(page)).zoom !== before).toBe(true)
+  }
   for (const viewport of [{ width: 960, height: 540 }, { width: 1280, height: 720 }]) {
-    await page.setViewportSize(viewport)
+    await canvasBoxSettled(() => page.setViewportSize(viewport))
     await reframes(`${viewport.width}×${viewport.height}`)
   }
-  await page.evaluate(() => { document.documentElement.style.zoom = '2' })
+  await canvasBoxSettled(() =>
+    page.evaluate(() => { document.documentElement.style.zoom = '2' }),
+  )
   await reframes('effective 200% zoom')
   await page.evaluate(() => { document.documentElement.style.zoom = '1' })
 
