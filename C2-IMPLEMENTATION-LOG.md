@@ -50,7 +50,7 @@ Floors at baseline: tsc×2 clean; vitest 269f/3,802+5; Playwright 209/4/0 (16.4m
 Final M0 vitest at `f7e426b`: expected 275f/3,852+5 — the last clean solo run's
 log is `/tmp/c2a-m0-vitest-final.log`.
 
-## M1+M2 — IN FLIGHT (wave `wf_66f46b6d-0b2` + two recovery agents)
+## M1+M2 — LANDED (wave `wf_66f46b6d-0b2` + two recovery agents); checkpoint 2026-08-19
 
 Wave design: Phase 1 parallel [ENGINE-M1 complete V14+studioEvents+wrap event;
 WORLD-M2a dynamic N-stage identity + stage bakes + plate fallback; SCREENS-M2a
@@ -65,6 +65,31 @@ their partial work (tests: `tests/contracts/_v14Contract.ts`,
 `tests/v14-migration.contract.test.ts`; screens: TalentPicker/common/
 LotCastingReviewPanel/Assembly + `ui/src/presentation/auditionEvidence.ts`,
 `refusalVoice.ts`) on the original ownership sets.
+
+CHECKPOINT (integrator INTEGRATE-M1M2, HEAD `4ef9297`): root tsc 0 · ui tsc 0 ·
+FULL vitest **296 files / 4,126 passed + 5 skipped / 0 failed** (solo, unpiped —
+/tmp/c2a-m1m2-vitest.log). M1 gate green by name (M0A corpus byte-identical and
+untouched since Phase 4; dual-run equality; parity; T9 30/30 + frozen-builder
+corroboration adjudicated). M2 gate green except the human visual review (open,
+Owner's) — incl. the in-browser legibility spec (0341df5): package names the
+bound set with quality/novelty/condition/fit + projected uplift and priced
+remedies; a THIRD SOUNDSTAGE built end-to-end in a real browser renders,
+inspects, and speaks. Sweep verdict: north-back-lot spur DROPPED; ceiling = two
+additional 4×4 stages on existing ground; support buildings ≤3 cells wide.
+Playwright: the workflow's nohup run was killed with its shell at test 33/215
+(all green; ~51 specs incl. both golden paths verified individually by the
+integrator); FULL rerun in flight as a tracked task — confirm before calling the
+floor. CARRIED ITEMS: (1) OWNER RULING NEEDED — scenery load-in + shooting-take
+affordances are sealed to Soundstage 7 by accepted D1-B specs; a third stage gets
+neither; suggested landing: M4's queue/intervention surface. (2) next-event
+rail's two-value location vocabulary (LotNextEventRail.tsx:295 / App.tsx:3118) —
+G12 landmine once a built stage must be named; fix spec recorded by WORLD-M2a;
+needs the App writer token (M4/M5). (3) Human visual review of the new bodies/
+badges (no canvas digests exist — mandatory gate, Owner's eyes). (4) Stale V13
+literals in ui/src/engine/film-chronicle-adapter.test.ts:279 +
+d17-save-migration.test.ts (2 sites) — one-line V14 re-tags, engine-test owner.
+(5) E2/figure-19 must A/B the set uplift on byte-identical rngState (endowed
+house set = +4.70 craft neutral-fit; factor 1.00 first use).
 
 NEXT after this wave: M3 (Renewable Screenplay Generation V1 — §3.5), M4
 (throughput: cap deletion, queues, release law), M5 (Living Turn V1 + theater),
