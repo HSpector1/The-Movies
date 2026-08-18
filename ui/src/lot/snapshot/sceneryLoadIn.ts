@@ -2,6 +2,7 @@ import type {
   ProductionOperationsState,
   StudioLotSnapshot,
 } from './StudioLotSnapshot'
+import { FOUNDING_STAGE_SEVEN_BUILDING_ID } from './stageIdentity.ts'
 
 /**
  * The only two Engine projections that Scenery & Service may own on the lot.
@@ -20,6 +21,15 @@ export type SceneryLoadInContext = {
  * snapshot. This selector is intentionally stricter than a generic stage lookup:
  * every provenance, location, phase, task, blocker, command, and production-id
  * relationship must agree, otherwise the world affordance fails closed.
+ *
+ * C2a-M2 note — DELIBERATELY NOT GENERALISED to N stages. The world's stage identity is
+ * derived now (`stageIdentity.ts`), but this selector's own accepted specs assert that a
+ * valid intervention on Soundstage 12 is NOT borrowed here ("does not borrow a valid
+ * scenery intervention from Stage 12"). Widening it would rewrite an accepted D1-B
+ * affordance under cover of a rendering milestone. The founding-stage constant is named
+ * rather than spelled, so this reads as the decision it is; opening the load-in
+ * affordance to every stage is a ruled change that belongs with the queue surface that
+ * will own N-stage intervention.
  */
 export function sceneryLoadInContext(
   snapshot: StudioLotSnapshot,
@@ -33,7 +43,7 @@ export function sceneryLoadInContext(
   }
 
   const stage7 = snapshot.productionOperations.filter(
-    (operation) => operation?.locationBuildingId === 'stage-a',
+    (operation) => operation?.locationBuildingId === FOUNDING_STAGE_SEVEN_BUILDING_ID,
   )
   if (stage7.length !== 1) return null
 

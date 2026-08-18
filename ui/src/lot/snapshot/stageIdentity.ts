@@ -57,7 +57,7 @@ export const FOUNDING_STAGE_BUILDING_IDS: readonly FoundingBuildingId[] = ['stag
  * somebody forgot to generalise (see `sceneryLoadIn.ts` / `stage7Production.ts`, whose
  * accepted specs assert that exact narrowness).
  */
-export const FOUNDING_STAGE_SEVEN_BUILDING_ID: FoundingBuildingId = 'stage-a'
+export const FOUNDING_STAGE_SEVEN_BUILDING_ID = 'stage-a' as const satisfies FoundingBuildingId
 
 /** The capability that makes a facility a soundstage. The engine's own term. */
 export const SOUNDSTAGE_CAPABILITY = 'soundstage'

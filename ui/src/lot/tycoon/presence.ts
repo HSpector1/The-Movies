@@ -43,8 +43,13 @@ import { INITIAL_WORLD_BUILDINGS, worldBuildingById, type WorldBuilding } from '
 /**
  * Which authored place each FOUNDING engine facility is.
  *
- * Mirrors the accepted adapter mapping (`LOT_STAGE_BY_SOUNDSTAGE_ID`) and
- * `buildingInspector.ts`'s `BUILDING_FACILITY_IDS`. Two deliberate rulings:
+ * FOUNDING only, and it must never grow a third soundstage row (C2a-M2 §3.1). A facility
+ * the studio BUILT is answered before this table is ever consulted, by `placedSite()`,
+ * off the engine's own cell list and its blueprint's anchor template — which is why a
+ * third, fourth and fifth soundstage already stand their crews at their own doors while
+ * this table still names exactly the six bodies a studio is founded with.
+ *
+ * Two deliberate rulings:
  *
  *  • `facility-development-casting` is ONE physical building in the engine, and the
  *    property draws two (Development and Casting). Physical presence stands at

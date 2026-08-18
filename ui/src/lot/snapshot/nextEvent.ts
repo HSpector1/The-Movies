@@ -470,6 +470,18 @@ function productionTarget(
   if (matches.length !== 1 || !isExactOperationForCard(matches[0], card)) return null
   const operation = matches[0]
 
+  // C2a-M2 §3.1 — RECORDED SEAM, deliberately not closed here.
+  //
+  // This target's `location` is a two-value vocabulary, and the rail prints "Soundstage
+  // 12" for everything that is not `stage-7` while App.tsx's world hop translates it
+  // back to `stage-b`. A picture on a stage the studio BUILT would therefore be both
+  // MISNAMED and MIS-NAVIGATED — so `isExactOperationForCard` above still refuses a
+  // location outside the founding two, and a third stage produces no world target at
+  // all. Silence over a sentence that is false at its state (G12) and a hop that opens
+  // the wrong building.
+  //
+  // Closing it is additive widening of a CLOSED receipt shape (`hasExactOwnKeys`) plus
+  // one line in App.tsx, which this lane does not write. It is reported, not guessed.
   if (operation.locationBuildingId === 'stage-a') {
     const stage7 = stage7ProductionDetailContext(snapshot)
     if (stage7 === null || stage7.operation !== operation) return null

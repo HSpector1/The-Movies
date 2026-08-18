@@ -4,6 +4,12 @@ import type {
   ProductionOperationsState,
   StudioLotSnapshot,
 } from './StudioLotSnapshot.ts'
+// C2a-M2 §3.1 — this selector is Soundstage 7's, deliberately: its accepted specs assert
+// that a Soundstage 12 record is neither selected nor substituted here. The world's stage
+// identity is derived now; the founding body is NAMED so this narrowness reads as the
+// ruling it is rather than a literal nobody generalised. Opening the Stage 7 detail
+// handoff to every stage is a ruled change, not a rendering one.
+import { FOUNDING_STAGE_SEVEN_BUILDING_ID } from './stageIdentity.ts'
 
 export type Stage7ProductionOwnerIntent = {
   productionId: string
@@ -100,7 +106,8 @@ export function stage7ProductionDetailContext(
   const operations: unknown[] = snapshot.productionOperations
   const stage7 = operations.filter(
     (operation): operation is Record<string, unknown> =>
-      isRecord(operation) && operation.locationBuildingId === 'stage-a',
+      isRecord(operation) &&
+      operation.locationBuildingId === FOUNDING_STAGE_SEVEN_BUILDING_ID,
   )
   if (stage7.length !== 1) return null
 
@@ -116,7 +123,7 @@ export function stage7ProductionDetailContext(
     !Number.isFinite(operation.progress01) ||
     operation.progress01 < 0 ||
     operation.progress01 > 1 ||
-    operation.locationBuildingId !== 'stage-a' ||
+    operation.locationBuildingId !== FOUNDING_STAGE_SEVEN_BUILDING_ID ||
     !isNonEmptyString(operation.facilityLabel) ||
     !isNonEmptyString(operation.directorId) ||
     !isNonEmptyString(operation.directorName) ||
@@ -151,7 +158,7 @@ export function stage7ProductionDetailContext(
     operation: exactOperation,
     ownerIntent: {
       productionId: exactOperation.productionId,
-      locationBuildingId: 'stage-a',
+      locationBuildingId: FOUNDING_STAGE_SEVEN_BUILDING_ID,
     },
   }
 }
