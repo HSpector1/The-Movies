@@ -115,6 +115,16 @@ import { resetLotSelectedBuilding } from './lot/snapshot/selectedBuildingSession
 // The audio service is created on first use, inside the gesture handler below — importing
 // it costs nothing and touches no browser audio API.
 import { getAudioService } from './audio/audioService.ts'
+// PF1-M2 punctuation. The grammar is pure and lives elsewhere; App only holds the
+// single-owner gates where an authoritative receipt actually arrives.
+import {
+  punctuateAdvanceWeek,
+  punctuateCommit,
+  punctuateFormation,
+  punctuateRefusal,
+  punctuateSimResult,
+} from './presentation/punctuate.ts'
+import type { CueMotion, PresentationCue } from './presentation/eventGrammar.ts'
 import type { LotPublicityResult } from './lot/snapshot/publicityCampaign.ts'
 import {
   operationalAnnexWorkContext,
@@ -1082,7 +1092,40 @@ export function App() {
   const [lotOperationalAnnouncementSuppressed, setLotOperationalAnnouncementSuppressed] =
     useState(false)
 
+  // ── PF1-M2: the transient-notice epoch and the punctuation hand-off ──────────
+  //
+  // Both are PRESENTATION STATE and nothing else: they are not in `GameState`, they never
+  // reach a save file, and no engine code can read them. `noticeEpoch` advances once per
+  // authoritative state replacement — that is the definition of "the player did something
+  // else", and it is what expires a receipt strip that would otherwise sit under the world
+  // for the rest of the session. `lotPunctuation` carries the motion strength the cue
+  // grammar chose, so the Lot animates its EXISTING notice DOM without inventing an event
+  // of its own.
+  const [noticeEpoch, setNoticeEpoch] = useState(0)
+  const bumpNoticeEpoch = useCallback(() => {
+    setNoticeEpoch((epoch) => epoch + 1)
+  }, [])
+  const [lotPunctuation, setLotPunctuation] = useState<
+    { key: number; motion: CueMotion } | null
+  >(null)
+  const punctuationKeyRef = useRef(0)
+  // Strongest motion wins: a co-tick completion beside a release must not downgrade the
+  // release's held beat. `none` is silence for the eyes and never disturbs a live one.
+  const applyPunctuation = useCallback((cues: PresentationCue[]) => {
+    const motion: CueMotion = cues.some((c) => c.motion === 'held-beat')
+      ? 'held-beat'
+      : cues.some((c) => c.motion === 'emphasis')
+        ? 'emphasis'
+        : cues.some((c) => c.motion === 'count-up')
+          ? 'count-up'
+          : 'none'
+    if (motion === 'none') return
+    punctuationKeyRef.current += 1
+    setLotPunctuation({ key: punctuationKeyRef.current, motion })
+  }, [])
+
   const replaceAuthoritativeState = useCallback((next: GameState | null) => {
+    bumpNoticeEpoch()
     lotNextEventSessionRef.current = null
     lotNextEventActivationRef.current = null
     lotScriptReviewActivationRef.current = null
@@ -1097,6 +1140,7 @@ export function App() {
     setScreen(clearNextEventScreenIntent)
     setState(next)
   }, [
+    bumpNoticeEpoch,
     clearLotAuditionPresentation,
     clearLotCommissionPresentation,
     clearLotPackagePresentation,
@@ -1107,6 +1151,7 @@ export function App() {
   // Keep this boundary separate from ordinary whole-state replacement: even an identity-returning
   // setScreen updater would still violate the frozen no-screen-mutation contract for this path.
   const replaceMountedLotAuthoritativeState = useCallback((next: GameState) => {
+    bumpNoticeEpoch()
     lotNextEventSessionRef.current = null
     lotNextEventActivationRef.current = null
     lotScriptReviewActivationRef.current = null
@@ -1120,6 +1165,7 @@ export function App() {
     setLotOperationalAnnouncementSuppressed(false)
     setState(next)
   }, [
+    bumpNoticeEpoch,
     clearLotAuditionPresentation,
     clearLotCommissionPresentation,
     clearLotPackagePresentation,
@@ -1383,6 +1429,13 @@ export function App() {
             receipt: workspace.formationReceipt,
           }
       commitLotPackagePresentation({ workspace: null, liveFormation })
+      // PF1-M2: PICTURE FORMED. The formation-witness publish gate is the one place a
+      // formation receipt becomes visible to the player, it has already refused every
+      // stale/mismatched/duplicate claim above, and it cannot be reached by a remount —
+      // so the greenlight sting is exact-once here and nowhere else.
+      if (liveFormation !== null) {
+        applyPunctuation(punctuateFormation(workspace.next.market.tick))
+      }
       if (liveFormation === null) {
         restoreRetainedPackageFocus(workspace, false)
       }
@@ -1391,6 +1444,7 @@ export function App() {
       active = false
     }
   }, [
+    applyPunctuation,
     commitLotPackagePresentation,
     lotPackagePresentation.workspace,
     restoreRetainedPackageFocus,
@@ -2004,9 +2058,13 @@ export function App() {
     lotCastingReviewActivationRef.current = null
     lotCastingPackageHandoffRef.current = null
     latestStateRef.current = result.next
+    // This path inlines the replacement instead of calling replaceAuthoritativeState (the
+    // mounted Lot host must survive), so it inlines the epoch bump with it.
+    bumpNoticeEpoch()
     setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setState(result.next)
+    applyPunctuation(punctuateCommit('auditions-planned', result.next.market.tick))
     return result
   }
 
@@ -2145,9 +2203,12 @@ export function App() {
     lotCastingReviewActivationRef.current = null
     lotCastingPackageHandoffRef.current = null
     latestStateRef.current = result.next
+    // Inlined replacement (see the audition path): the epoch bump is inlined with it.
+    bumpNoticeEpoch()
     setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setState(result.next)
+    applyPunctuation(punctuateCommit('commission', result.next.market.tick))
     return result
   }
 
@@ -2192,7 +2253,10 @@ export function App() {
     }
     commitLotPackagePresentation({ workspace: updated, liveFormation: null })
     latestStateRef.current = next
+    // Inlined replacement (the Package workspace must stay mounted): epoch bump inlined too.
+    bumpNoticeEpoch()
     setState(next)
+    applyPunctuation(punctuateCommit('package-step', next.market.tick))
   }
 
   function handleLotPackageOpenProfile(
@@ -2274,6 +2338,10 @@ export function App() {
     lotCastingReviewActivationRef.current = null
     lotCastingPackageHandoffRef.current = null
     latestStateRef.current = next
+    // Inlined replacement: epoch bump inlined. No commit cue here on purpose — the
+    // greenlight's sting belongs to the formation-witness publish gate above, and firing
+    // one here as well would punctuate the same moment twice.
+    bumpNoticeEpoch()
     setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setState(next)
@@ -2328,6 +2396,10 @@ export function App() {
         entryFocus: 'production-formation',
         entryProductionFormation: appReceipt,
       })
+      // PF1-M2: the full-screen Assembly's route to the same PICTURE FORMED ceremony. The
+      // receipt has been independently re-derived and cross-proved against Assembly's own
+      // above, so this is the second (and last) formation-witness publish gate.
+      applyPunctuation(punctuateFormation(next.market.tick))
       return
     }
 
@@ -2513,6 +2585,17 @@ export function App() {
     // talent (pure read of two immutable snapshots — no re-run of development).
     const development = buildReleaseDevelopment(preTick, next, released)
     replaceAuthoritativeState(next)
+    // PF1-M2: one advance, one punctuation. `advanceWeek` carries no `SimStopReason` — it
+    // never asked the engine to stop for anything — but it is still the tick a picture can
+    // reach audiences on and the tick a building can be finished on, and the grammar owns
+    // that priority so this call site does not have to.
+    applyPunctuation(
+      punctuateAdvanceWeek({
+        toWeek: next.market.tick,
+        released,
+        constructionCompletion,
+      }),
+    )
     const resolvedReturnContext: StudioReturnContext =
       returnContext.kind === 'lot'
         ? {
@@ -2598,12 +2681,18 @@ export function App() {
       }
     }
     replaceAuthoritativeState(result.next)
+    applyPunctuation(punctuateCommit('publicity', acceptedWeek))
     return { ok: true, tier, acceptedWeek }
   }
 
   function handleDashboardPublicity(tier: PublicityTier) {
     const result = executePublicity(tier)
-    if (!result.ok) alert(result.error)
+    if (!result.ok) {
+      // PF1-M2: the refusal is heard where it is SURFACED, once. M3 replaces the alert
+      // itself; the cue is already attached to the right moment.
+      punctuateRefusal(latestStateRef.current?.market.tick ?? 0)
+      alert(result.error)
+    }
   }
 
   function handleLotPublicity(tier: PublicityTier): LotPublicityResult {
@@ -2623,6 +2712,7 @@ export function App() {
     if (result.ok) {
       replaceAuthoritativeState(result.next)
     } else {
+      punctuateRefusal(state.market.tick)
       alert(result.error)
     }
     return result
@@ -2635,6 +2725,9 @@ export function App() {
     if (!state) return
     const result = advanceToNextEvent(state)
     replaceAuthoritativeState(result.next)
+    // PF1-M2: the governed stop is the receipt. One stop, one punctuation, whatever the
+    // week count — a forty-week batch is not forty beats (operational law 3).
+    applyPunctuation(punctuateSimResult(result))
     const demotedReturnContext = withoutTransientWorldReturnIntent(returnContext)
     const resolvedReturnContext: StudioReturnContext =
       demotedReturnContext.kind === 'lot'
@@ -2714,6 +2807,7 @@ export function App() {
     try {
       if (studioDecision(current) !== null) return false
     } catch {
+      punctuateRefusal(current.market.tick)
       alert('The studio could not verify whether a decision is already waiting.')
       return false
     }
@@ -2724,6 +2818,7 @@ export function App() {
       result = advanceToNextEvent(current)
     } catch {
       lotNextEventActivationRef.current = null
+      punctuateRefusal(current.market.tick)
       alert('The studio could not advance to the next event. The current lot is unchanged.')
       return false
     }
@@ -2763,6 +2858,10 @@ export function App() {
       replaceMountedLotAuthoritativeState(result.next)
     }
     setLotOperationalAnnouncementSuppressed(suppressOperationalAnnouncement)
+    // PF1-M2: punctuate only AFTER the claim has survived every staleness guard above and
+    // the successor has actually been committed. A rejected or superseded result makes no
+    // sound at all — that is what "reacts to truth" means at a contested gate.
+    applyPunctuation(punctuateSimResult(result))
 
     if (hasRelease) {
       const returnContext: StudioReturnContext = {
@@ -2833,6 +2932,7 @@ export function App() {
     // The real adapter always supplies finite final primitives. This branch is defensive against
     // a hostile boundary replacement: accept no presentation claim that was not independently safe.
     setLotCadenceFeedback(null)
+    punctuateRefusal(result.next.market.tick)
     alert('The studio advanced, but exact event details were unavailable. Review the current lot.')
     return true
   }
@@ -3472,6 +3572,7 @@ export function App() {
     if (!state) return
     const view = releaseNewspaper(state, film)
     if (!view) {
+      punctuateRefusal(state.market.tick)
       alert(
         'This film has no archived front page. A newspaper clipping is kept only for films ' +
           'released with a full participant record (D-11.A); older films predate that record.',
@@ -3500,6 +3601,7 @@ export function App() {
       setScreen({ kind: 'filmRecord', view: record, returnContext })
       return
     }
+    punctuateRefusal(state.market.tick)
     alert(
       'This older film predates the frozen participant record required for a Film Chronicle.',
     )
@@ -3512,6 +3614,7 @@ export function App() {
   ) {
     const snap = snapshots[film.productionId]
     if (!snap) {
+      punctuateRefusal(latestStateRef.current?.market.tick ?? 0)
       alert(
         'The full autopsy needs the studio state from just before this film released. ' +
           'That snapshot is kept only for films that released while you were playing this session. ' +
@@ -3615,6 +3718,9 @@ export function App() {
     const result = startDevelopmentCastingAnnexAction(loadedState)
     if (result.ok) {
       replaceAuthoritativeState(result.next)
+      // Breaking ground is its own family — the studio starting a building does not
+      // sound like signing a form.
+      applyPunctuation(punctuateCommit('build-commit', result.next.market.tick))
     }
     return result
   }
@@ -3629,6 +3735,7 @@ export function App() {
     const result = placeFacilityAction(loadedState, placement)
     if (result.ok) {
       replaceAuthoritativeState(result.next)
+      applyPunctuation(punctuateCommit('build-commit', result.next.market.tick))
     }
     return result
   }
@@ -3645,6 +3752,7 @@ export function App() {
     const result = moveFacilityAction(loadedState, move)
     if (result.ok && result.next !== loadedState) {
       replaceAuthoritativeState(result.next)
+      applyPunctuation(punctuateCommit('move-commit', result.next.market.tick))
     }
     return result
   }
@@ -3656,6 +3764,7 @@ export function App() {
     const result = demolishFacilityAction(loadedState, demolition)
     if (result.ok && result.next !== loadedState) {
       replaceAuthoritativeState(result.next)
+      applyPunctuation(punctuateCommit('demolish-commit', result.next.market.tick))
     }
     return result
   }
@@ -3869,7 +3978,12 @@ export function App() {
       {screen.kind === 'founding' && (
         <FoundingScreen
           state={state}
-          onChange={replaceAuthoritativeState}
+          // FoundingScreen calls onChange from exactly one place — an accepted signature
+          // (`FoundingScreen.tsx:107`) — so this seam can name the receipt honestly.
+          onChange={(next) => {
+            replaceAuthoritativeState(next)
+            applyPunctuation(punctuateCommit('draft-accepted', next.market.tick))
+          }}
           onCreate={() =>
             setScreen({
               kind: 'talent',
@@ -4013,7 +4127,11 @@ export function App() {
       {screen.kind === 'studioDevelopment' && (
         <StudioDevelopment
           state={state}
-          onChange={replaceAuthoritativeState}
+          // One call site (`StudioDevelopment.tsx:131`): the Annex breaking ground.
+          onChange={(next) => {
+            replaceAuthoritativeState(next)
+            applyPunctuation(punctuateCommit('build-commit', next.market.tick))
+          }}
           onBack={() => returnToStudioContext(screen.returnContext)}
         />
       )}
@@ -4214,6 +4332,11 @@ export function App() {
         >
           <StudioLotScreen
             state={state}
+            // PF1-M2 presentation-only channels. `noticeEpoch` expires transient notices on
+            // the next player action; `punctuation` carries the motion strength the cue
+            // grammar chose. Neither is game truth and neither is ever persisted.
+            noticeEpoch={noticeEpoch}
+            punctuation={lotPunctuation}
             onPresentationMount={mountLotPresentation}
             onNavigate={(route) => handleLotNavigate(route, state, screen, lotPresentationToken!)}
             onOpenAuditionPlanning={(renderedState, origin) =>

@@ -38,6 +38,12 @@ import {
   talentProfile,
 } from '../engine/adapter.ts'
 import { ConstructionCompletionNotice } from '../components/ConstructionCompletionNotice.tsx'
+// PF1-M2 presentation. The grammar is pure and lives above the Lot; the Lot only owns the
+// refusal seam the engine hands it and the DOM the motion runs on.
+import { punctuateRefusal } from '../presentation/punctuate.ts'
+import type { CueMotion } from '../presentation/eventGrammar.ts'
+import { useTransientNotice } from '../presentation/transientNotice.ts'
+import { CashReadout } from '../presentation/CashReadout.tsx'
 import {
   LotNextEventRail,
   type LotNextEventRailAction,
@@ -431,6 +437,19 @@ type Props = {
   onAdvance: () => void
   /** One mutually exclusive App-owned weekly or next-event feedback arm. */
   cadenceFeedback?: LotCadenceFeedback | null
+  /**
+   * PF1-M2 transient-notice epoch. App advances it once per authoritative state
+   * replacement; a notice that was announced under an older epoch has been overtaken by a
+   * newer player action and expires. Presentation only — never `GameState`, never saved.
+   * Defaults to a constant so a directly-rendered Lot behaves exactly as it did before.
+   */
+  noticeEpoch?: number
+  /**
+   * PF1-M2 punctuation hand-off: the motion strength the cue grammar chose for the moment
+   * that just arrived. The Lot animates its EXISTING notice DOM with it and nothing else —
+   * no new canvas object, no new tween, no manufactured event.
+   */
+  punctuation?: { key: number; motion: CueMotion } | null
   /** Legacy focused-test compatibility; App uses cadenceFeedback. */
   advanceFeedback?: {
     week: number
@@ -854,6 +873,8 @@ export function StudioLotScreen({
   onExit,
   onAdvance,
   cadenceFeedback = null,
+  noticeEpoch = 0,
+  punctuation = null,
   advanceFeedback: legacyAdvanceFeedback = null,
   entryFocus,
   entryStage7ProductionId,
@@ -1424,6 +1445,20 @@ export function StudioLotScreen({
     setHollywoodActivitySerial((serial) => serial + 1)
     setHollywoodActivity(activity)
   }, [])
+
+  // PF1-M2 (Owner-approved): the receipt strip is news, not furniture. It survives the
+  // action that produced it and expires on the next one, so "Screenplay commissioned: …"
+  // can no longer sit under the world for the rest of the session. Nothing is written
+  // down when it goes — dismissal is not a journal; history is the clippings.
+  const expireHollywoodActivity = useCallback(() => {
+    setHollywoodActivity(null)
+  }, [])
+  useTransientNotice(
+    hollywoodActivitySerial,
+    hollywoodActivity !== null,
+    noticeEpoch,
+    expireHollywoodActivity,
+  )
 
   // ── Identity gating: two INDEPENDENT capabilities (owner ruling: player enablement) ──────
   // `playerIdentity` is the ORDINARY-PLAYER content gate (default ON): it shows the approved
@@ -2818,6 +2853,21 @@ export function StudioLotScreen({
     operationalAnnexCapacity,
     suppressOperationalAnnouncement,
   ])
+
+  // PF1-M2: now that this announcement is VISIBLE (below), it needs the shelf life a
+  // visible notice must have. Its own effect can never retract it — "operational" stays
+  // true forever — so without this it would become permanent furniture the first time the
+  // player returned to a lot with a finished Annex. Its identity is its text, because
+  // that is exactly what changes when a genuinely new announcement is composed.
+  const expireOperationalAnnouncement = useCallback(() => {
+    setOperationalAnnouncement('')
+  }, [])
+  useTransientNotice(
+    operationalAnnouncement,
+    operationalAnnouncement !== '',
+    noticeEpoch,
+    expireOperationalAnnouncement,
+  )
 
   useEffect(() => {
     if (!entryFocus || entryFocusConsumedRef.current) return
@@ -5543,6 +5593,8 @@ export function StudioLotScreen({
       // what the engine refused — never the action layer's diagnostic message.
       setBuildAnnouncementSerial((serial) => serial + 1)
       setDemolishError(facilityRefusalWords(placementId, name))
+      // PF1-M2: the studio declining, out loud — once, where the refusal is surfaced.
+      punctuateRefusal(latestGameStateRef.current.market.tick)
       return
     }
     demolishIntentRef.current = null
@@ -5608,6 +5660,7 @@ export function StudioLotScreen({
     if (!latest.ok) {
       setBuildAnnouncementSerial((serial) => serial + 1)
       setBuildError(quoteRejectionText(latest) ?? 'This placement is no longer legal.')
+      punctuateRefusal(latestGameStateRef.current.market.tick)
       return
     }
 
@@ -5627,6 +5680,7 @@ export function StudioLotScreen({
       // player reads the Engine's own words (shift law 15: receipts explain, never veto).
       setBuildAnnouncementSerial((serial) => serial + 1)
       setBuildError(outcome.error)
+      punctuateRefusal(latestGameStateRef.current.market.tick)
       return
     }
     setBuildAnnouncementSerial((serial) => serial + 1)
@@ -7888,6 +7942,12 @@ export function StudioLotScreen({
     }
   }
 
+  // PF1-M2 motion gate. Reduced motion is not a shorter animation, it is NO animation:
+  // the attribute itself reads `none`, so the gate is visible in the DOM and provable in a
+  // test rather than buried in a stylesheet. `.lot-reduced-motion` on the root is the
+  // second belt (the established Lot pattern). Reduced motion + muted = today's game.
+  const noticeMotion: CueMotion = reducedMotion ? 'none' : (punctuation?.motion ?? 'emphasis')
+
   return (
     <div
       className={`lot-screen${reducedMotion ? ' lot-reduced-motion' : ''}${hollywood ? ' lot-hollywood' : ''}`}
@@ -7895,25 +7955,48 @@ export function StudioLotScreen({
       data-entry-focus={entryFocus ?? 'none'}
       inert={worldInputSuspended || undefined}
     >
+      {/*
+        PF1-M2 aria-only promotion. These two moments were invisible: a facility becoming
+        operational, and a week actually landing. Everything a sighted player had was a
+        counter quietly changing. The SAME region is now a modest visible notice —
+        one element, one announcement, no second live region, no double-announce; the
+        `role`/`aria-live`/`aria-atomic`/testid contract is untouched, and the composed copy
+        is carried verbatim. The other three hidden regions stay hidden on purpose: their
+        content is already fully visible beside them (see the M2 report).
+      */}
       <div
-        className="visually-hidden"
+        className="lot-notice"
         role="status"
         aria-live="polite"
         aria-atomic="true"
         data-testid="lot-annex-operational-announcement"
       >
-        {operationalAnnouncement}
+        {operationalAnnouncement !== '' && (
+          <span
+            key={`${String(punctuation?.key ?? 0)}:${operationalAnnouncement}`}
+            className="lot-notice-line"
+            data-motion={noticeMotion}
+          >
+            {operationalAnnouncement}
+          </span>
+        )}
       </div>
       <div
-        className="visually-hidden"
+        className="lot-notice"
         role="status"
         aria-live="polite"
         aria-atomic="true"
         data-testid="lot-week-update-announcement"
       >
-        {advanceFeedback !== null && advanceFeedback.constructionCompletion === null
-          ? `Week ${advanceFeedback.week}. Studio Lot updated.`
-          : ''}
+        {advanceFeedback !== null && advanceFeedback.constructionCompletion === null && (
+          <span
+            key={`${String(punctuation?.key ?? 0)}:${String(advanceFeedback.week)}`}
+            className="lot-notice-line"
+            data-motion={noticeMotion}
+          >
+            {`Week ${advanceFeedback.week}. Studio Lot updated.`}
+          </span>
+        )}
       </div>
       <div
         className="visually-hidden"
@@ -7960,9 +8043,7 @@ export function StudioLotScreen({
           <span className="lot-sub">{hollywood ? `Studio Chronicle · Hollywood, ${LOT_ERA_KEY}` : 'Studio Lot'} · Week {snapshot.week}</span>
         </div>
         <div className="lot-topbar-actions">
-          <span className="lot-cash" data-testid="lot-cash">
-            {snapshot.cash < 0 ? '-' : ''}${Math.abs(Math.round(snapshot.cash)).toLocaleString('en-US')}
-          </span>
+          <CashReadout cash={snapshot.cash} reducedMotion={reducedMotion} />
           <button
             ref={advanceButtonRef}
             type="button"

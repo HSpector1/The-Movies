@@ -94,8 +94,34 @@ Compact briefing for every production agent this shift. Citations: `LL <entry> (
     commits with `git diff --name-only`; never weaken/delete a failing test to go green;
     never fill a contract gap with a guess; never rewrite audited systems (RNG, save,
     reception, forecast) without a failing test or explicit instruction. `LL E/G/H/AH/J`.
+29. **PRESENTATION REACTS TO TRUTH. PRESENTATION NEVER CREATES OR PERSISTS GAME TRUTH.**
+    (PF1, `PROFESSIONAL-FLOOR-V1-CHARTER.md` §2; recorded at PF1-M2.) Sound, motion and
+    punctuation fire ONLY from authoritative receipts the engine already emits —
+    `SimResult`/`SimStopReason` (`ui/src/engine/adapter.ts:2213-2246`), the greenlight
+    formation receipt, construction-completion receipts, action outcomes — never from
+    renderer motion, a timer, or a reason React inferred from current state. The engine
+    owns the fact; the UI owns the words; `stopMessage` is displayed verbatim and never
+    paraphrased (`adapter.ts:2241-2243`). Punctuation is EXACT-ONCE and TRANSIENT: it
+    fires at the existing single-owner announcement gates when a receipt arrives live, and
+    never on load or hydration — so a reloaded save replays no stings and needs no
+    persisted "seen" marker (one named exception: the session-restore/migration cue, which
+    is about the load event itself). The co-tick law holds: an orthogonal construction
+    completion beside a primary stop punctuates exactly once and never outranks the
+    primary. No manufactured events — PF1 punctuates only transitions that already arrive
+    as receipts, and builds no detectors for milestones the engine does not emit. Audio
+    never narrates skipped time (law 3): a multi-week batch is one stop and one
+    punctuation. Presentation state (volumes, mute, motion preference, audio unlock,
+    notice epochs) lives OUTSIDE `GameState`, never enters a save file, and persists only
+    under the one versioned key `project-studio.prefs.v1` — explicitly not
+    `project-studio.flags.*`, which is a QA surface (`ui/src/flags.ts:5-6`). Presentation
+    makes zero RNG draws and zero `Math.random()` calls (law 23). The MECHANICAL GATE is
+    byte parity: the same seeded action sequence with presentation enabled vs
+    disabled/muted must export byte-identical saves, and reduced motion plus muted audio
+    must equal the pre-PF1 game exactly. Structural tuples (law 25) staying byte-identical
+    is the second half of that proof — any movement is a defect, not a re-pin.
 
 Planning notes: travel/occupancy/queue/workload/pathfinding are greenfield (every prior
-closure asserts they never changed) but bound by laws 2–3. Current save = V11
-(`save.ts:218`, `makeSave` → V11 at `save.ts:3516`); browser session key =
-`project-studio.active-session.v4`.
+closure asserts they never changed) but bound by laws 2–3. Current save = **V13**
+(`SaveFileV13` at `src/core/save.ts:267-272`; `makeSave` → V13 at `save.ts:4388`) —
+corrected at PF1-M2 from a stale V11 trailer that predated the C1-M1a property envelope;
+browser session key = `project-studio.active-session.v4`.

@@ -2510,3 +2510,102 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   text-transform: uppercase;
   color: #91a095;
 }
+
+/* ── PF1-M2 · Punctuation chrome ─────────────────────────────────────────────
+   Everything below is DOM chrome over surfaces that already existed. No canvas,
+   no new display object, no new tween: the structural tuples this project pins
+   must stay byte-identical, so all M2 motion lives here.
+
+   Two promoted announcements (a facility becoming Operational, and a week
+   actually landing) were previously screen-reader-only. They are now a modest
+   visible strip in the SAME live region — the region is always mounted so the
+   polite-region lifetime is unchanged; it simply collapses when it has nothing
+   to say. */
+.lot-notice {
+  flex: 0 0 auto;
+}
+.lot-notice:empty {
+  display: none;
+}
+.lot-notice-line {
+  display: block;
+  padding: 7px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text-dim);
+  font-size: 13px;
+  letter-spacing: 0.01em;
+}
+
+/* Tier 2 — a short acknowledgement. Tier 1 — the held beat: the same gesture,
+   slower and once, and still under the 600ms ceiling. `none` is the reduced
+   motion contract and is spelled out rather than left to a missing rule. */
+@keyframes lot-notice-emphasis {
+  from { background: var(--bg-panel-2); color: var(--text); }
+  to { background: var(--bg-panel); color: var(--text-dim); }
+}
+@keyframes lot-notice-held-beat {
+  0% { background: var(--bg-panel-2); color: var(--accent); }
+  45% { background: var(--bg-panel-2); color: var(--accent); }
+  100% { background: var(--bg-panel); color: var(--text-dim); }
+}
+.lot-notice-line[data-motion='emphasis'] {
+  animation: lot-notice-emphasis 320ms ease-out 1;
+}
+.lot-notice-line[data-motion='held-beat'] {
+  animation: lot-notice-held-beat 600ms ease-out 1;
+}
+.lot-notice-line[data-motion='none'],
+.lot-notice-line[data-motion='count-up'] {
+  animation: none;
+}
+.lot-reduced-motion .lot-notice-line {
+  animation: none;
+}
+
+/* The receipt strip earns the same restrained acknowledgement. Its child is
+   already re-keyed for every genuine announcement (law 26), so the animation
+   replays exactly when there is genuinely new news and never on a repaint. */
+.hollywood-activity {
+  animation: lot-notice-emphasis 320ms ease-out 1;
+}
+.lot-reduced-motion .hollywood-activity {
+  animation: none;
+}
+
+/* ── The cash count-up ───────────────────────────────────────────────────────
+   `[data-testid="lot-cash"]` always holds the final authoritative figure, at
+   every instant including mid-count. The travelling digits are a separate
+   aria-hidden overlay laid exactly over it, unmounted the moment it settles —
+   so the accessible name and every assertion read the truth and only the truth.
+   Under reduced motion the overlay is never created at all. */
+.lot-cash-slot {
+  position: relative;
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+/* `opacity`, deliberately, not `visibility: hidden`: the authoritative figure must stay in
+   the accessibility tree for the whole count, so a screen reader that reaches the topbar
+   mid-animation still reads the studio's real money. */
+.lot-cash-slot[data-counting='true'] .lot-cash {
+  opacity: 0;
+}
+.lot-cash-countup {
+  position: absolute;
+  inset: 0;
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+.lot-hollywood .lot-cash-countup {
+  font-family: Georgia, serif;
+  font-size: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lot-notice-line,
+  .hollywood-activity {
+    animation: none;
+  }
+}
