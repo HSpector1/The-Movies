@@ -62,3 +62,46 @@ factor if that would blow scope.
   is what creates set demand, which is exactly the C2 coupling the Owner names.
 - This note supersedes nothing in `00A`–`00C`; it directs the RSG lane's evidence
   base and V1 shape.
+
+## Addendum — Owner source pointer (same day, second note)
+
+Directed sources, so yesterday's research is used, not rediscovered:
+- **Bible sections:** §5 Script/Screenplay System, §7 Film Production Pipeline,
+  **§12 Writers**, §32 Advanced Movie-Maker — focusing on Script Office genre
+  rooms; script pool / multi-writer behavior; office-tier quality ceilings;
+  scene-count / role / Set requirements; Hollywood Scriptwriting Templates;
+  standard AI-generated scripts; Custom Script Office title/structure behavior;
+  Script Quality factors.
+- **Manual** (`movies manual_english.pdf`): pp. 12, 16–17 (writers, Script
+  Office, script pool, casting flow); pp. 28–30 (the five genre templates).
+- **Prima eGuide**: printed pp. ~40–53 (simulation movie-making / Script
+  Quality); ~98–100 (Advanced Movie-Maker). **Prima is the strongest detailed
+  source (Lionhead-reviewed); prefer it when the Bible flags conflicting
+  secondary accounts.**
+
+Recovered facts the Owner establishes as the design floor: each Script Office
+handles ONE script at a time; up to FIVE writers may work one script; more/
+experienced writers improve SPEED, never the office's quality ceiling; four
+office tiers (Basic → Intermediate → Proficient → First-Class) produce
+progressively richer scripts; higher-quality scripts contain more scenes/roles
+and require more production resources (more Stars/staff, cost more, take longer
+to shoot); standard writers auto-generate the screenplay; the five genre
+structures as listed above; Prima's 8-factor Script Quality model; the Advanced
+Movie-Maker supports genre-influenced random titles OR player-written titles and
+Simple/Detailed/Freeform structures; the manual confirms writers are assigned to
+the desired GENRE ROOM and enter the script pool.
+
+**Evidence distinction (Owner-mandated, verbatim intent):** the genre-sensitive
+random-title control is directly confirmed for the **Advanced Movie-Maker**.
+The Owner's firsthand memory that normal writer-generated scripts ALSO received
+renamable generated titles must NOT be upgraded to documentary fact without
+direct evidence — the successor design adopts generated+renamable titles as an
+Owner ruling with the AMM control as precedent, recorded exactly so.
+
+**Architect scope notes at receipt:** "more writers = speed" (multi-writer per
+script) is a refinement, not the core fantasy — V1 candidates should weigh it
+against smallest-deterministic scope; multiple OFFICES = parallel scripts is
+already our slot model. "Richer scripts take longer to shoot" collides with the
+audited eight-week production clock (`PRODUCTION_TICKS`) — variable shoot length
+is NOT V1 scope; richer-script demand lands as beat/role/set-demand richness and
+cost, never as clock changes, unless the Owner separately reopens the clock.
