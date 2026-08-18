@@ -406,6 +406,20 @@ resumes/proceeds authoritatively — yes; inspect any inhabitant's job/place/cre
 initiate and inspect real construction — yes; observe events and react from the world —
 yes. Facility-capacity queues remain latent in shipped config (recorded Owner decision).
 
+> **[SUPERSEDED at C2a-M0 — 2026-08-18. The line above is history and stands unedited.]**
+> The recorded Owner decision that facility-capacity queues stay latent is **superseded by
+> C2 owner law 2** — "When capacity is unavailable: QUEUE, DON'T MAGICALLY FORBID. The
+> player must know what is waiting, what it needs, what occupies it, and how to relieve
+> the bottleneck" (`docs/c2-planning/00-C2-PLANNING-BRIEF.md:25-27`) — and the
+> supersession is signed in the campaign charter, which names this very line: **charter
+> §11 item 4** (`CAMPAIGN-2-SETS-THROUGHPUT-CHARTER.md:1163-1164`, "`TYCOON-WORLD-
+> CONVERSION-LOG.md:407` (latent-queues Owner decision) — **superseded** by owner law 2").
+> Latency was the honest shipped state at this log's HEAD; it is no longer the target
+> state. C2a makes the queue live and legible — Phase-Gate Admission at the three front
+> doors, queue state + aging + ordinal, and the derived `studioQueueView` with `Remedy` —
+> at **C2a-M4** (charter §3.3; §12 C2a-M4, gated by G10.1 and G16). Read the sentence
+> above as a dated record of what shipped in this shift, not as standing law.
+
 ## Independent red-team audit (pre-seal)
 
 Verdict: **VERIFIED WITH CAVEATS. Zero P0, zero P1.** All four gate claims reproduced
