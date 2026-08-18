@@ -1,12 +1,9 @@
-import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { useState } from 'react'
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { ActionOutcome, GameState } from '../engine/adapter.ts'
 import {
-  exportSaveJson,
-  importSaveJson,
   runProductionCommand,
   studioLotSnapshot,
 } from '../engine/adapter.ts'
@@ -22,6 +19,7 @@ import type {
 } from './snapshot/StudioLotSnapshot.ts'
 import type { Stage7ProductionOwnerIntent } from './snapshot/stage7Production.ts'
 import { resetLotStageAssignment } from './snapshot/stageAssignment.ts'
+import { loadPinnedSaveV13Fixture } from '../test/pinnedSaveFixture.ts'
 import { StudioLotScreen } from './StudioLotScreen.tsx'
 
 const adapterBoundary = vi.hoisted(() => ({
@@ -135,18 +133,7 @@ const BLOCKED_FIXTURE = resolve(
 )
 
 function loadFixture(): GameState {
-  const bytes = readFileSync(BLOCKED_FIXTURE, 'utf8')
-  const imported = importSaveJson(bytes)
-  if (!imported.ok) throw new Error(imported.error)
-  // C2a-M2 — the fixture is PINNED at V13 and the live format is V14, so loading it is a
-  // migration and `converted` is true. The version claim moves to the envelope, where it
-  // is checked exactly rather than by proxy; the byte-replay guard below is untouched and
-  // is now the first thing that speaks when this fixture no longer replays.
-  if ((JSON.parse(bytes) as { saveVersion?: unknown }).saveVersion !== 13) {
-    throw new Error('expected the pinned SaveFileV13 fixture')
-  }
-  if (exportSaveJson(imported.state) !== bytes) throw new Error('fixture roundtrip changed')
-  return imported.state
+  return loadPinnedSaveV13Fixture(BLOCKED_FIXTURE)
 }
 
 function stage7Operation(state: GameState): ProductionOperationsState {

@@ -1,4 +1,3 @@
-import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { useState } from 'react'
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
@@ -23,6 +22,7 @@ import type {
   StudioLotSnapshot,
 } from './snapshot/StudioLotSnapshot.ts'
 import { resetLotStageAssignment } from './snapshot/stageAssignment.ts'
+import { loadPinnedSaveV13Fixture, pinnedSaveV13LiveBytes } from '../test/pinnedSaveFixture.ts'
 import { StudioLotScreen } from './StudioLotScreen.tsx'
 import { ProductionBoard } from '../components/ProductionBoard.tsx'
 
@@ -200,18 +200,7 @@ const READY_FIXTURE = resolve(
 )
 
 function loadFixture(path: string): GameState {
-  const bytes = readFileSync(path, 'utf8')
-  const imported = importSaveJson(bytes)
-  if (!imported.ok) throw new Error(imported.error)
-  // C2a-M2 — the fixture is PINNED at V13 and the live format is V14, so loading it is a
-  // migration and `converted` is true. The version claim moves to the envelope, where it
-  // is checked exactly rather than by proxy; the byte-replay guard below is untouched and
-  // is now the first thing that speaks when this fixture no longer replays.
-  if ((JSON.parse(bytes) as { saveVersion?: unknown }).saveVersion !== 13) {
-    throw new Error(`expected the pinned SaveFileV13 fixture at ${path}`)
-  }
-  if (exportSaveJson(imported.state) !== bytes) throw new Error(`fixture roundtrip changed ${path}`)
-  return imported.state
+  return loadPinnedSaveV13Fixture(path)
 }
 
 function operationAt(
@@ -663,7 +652,7 @@ describe('World-First Scenery Load-In V1 — StudioLotScreen contract', () => {
 
   it('produces one byte-identical successor from service yard, Stage 7, Production Board, and direct adapter', async () => {
     const blocked = loadFixture(BLOCKED_FIXTURE)
-    const frozenPrestate = readFileSync(BLOCKED_FIXTURE, 'utf8')
+    const frozenPrestate = pinnedSaveV13LiveBytes(BLOCKED_FIXTURE)
     const operation = operationAt(blocked)
     if (operation.currentCommand?.kind !== 'clearSceneryLoadIn') {
       throw new Error('blocked fixture lacks clearSceneryLoadIn')
@@ -722,7 +711,7 @@ describe('World-First Scenery Load-In V1 — StudioLotScreen contract', () => {
       ['Stage 7 inspector command', stageSuccessor],
       ['Production Board/application command', boardSuccessor],
     ] as const) {
-      expect(exportSaveJson(successor), `${surface} SaveFileV11 bytes`).toBe(directBytes)
+      expect(exportSaveJson(successor), `${surface} save bytes`).toBe(directBytes)
       expect(successor.rngState, `${surface} RNG state`).toBe(direct.next.rngState)
       expect(successor.ledger, `${surface} ledger`).toEqual(direct.next.ledger)
     }
@@ -938,7 +927,7 @@ describe('World-First Scenery Load-In V1 — StudioLotScreen contract', () => {
     expect(button).toBeEnabled()
     expect(view.productionSelections).toEqual([])
     expect(exportSaveJson(blocked)).toBe(originalBytes)
-    expect(originalBytes).toBe(readFileSync(BLOCKED_FIXTURE, 'utf8'))
+    expect(originalBytes).toBe(pinnedSaveV13LiveBytes(BLOCKED_FIXTURE))
   })
 
   it('re-announces identical schedule rejections with fresh DOM identity and no false Stage 7 selection', async () => {
@@ -980,7 +969,7 @@ describe('World-First Scenery Load-In V1 — StudioLotScreen contract', () => {
     expect(button).toBeEnabled()
     expect(view.productionSelections).toEqual([])
     expect(exportSaveJson(ready)).toBe(originalBytes)
-    expect(originalBytes).toBe(readFileSync(READY_FIXTURE, 'utf8'))
+    expect(originalBytes).toBe(pinnedSaveV13LiveBytes(READY_FIXTURE))
   })
 
   it('fails closed for malformed or duplicate Stage 7 truth and clears a stale selected identity', async () => {
@@ -1184,6 +1173,6 @@ describe('World-First Scenery Load-In V1 — StudioLotScreen contract', () => {
     expect(owner).not.toHaveBeenCalled()
     expect(view.scenerySelections).toEqual([operation.productionId])
     expect(view.productionSelections).toEqual([])
-    expect(exportSaveJson(ready)).toBe(readFileSync(READY_FIXTURE, 'utf8'))
+    expect(exportSaveJson(ready)).toBe(pinnedSaveV13LiveBytes(READY_FIXTURE))
   })
 })

@@ -4,11 +4,11 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
   exportSaveJson,
-  importSaveJson,
   studioCalendarBoard,
   studioLotSnapshot,
 } from '../engine/adapter.ts'
 import { operationalAnnexWorkContext } from './snapshot/annexWork.ts'
+import { loadPinnedSaveV13Fixture } from '../test/pinnedSaveFixture.ts'
 
 const OUTPUT_DIRECTORY = 'ui/e2e/world-first-operational-annex-work-presence-v1'
 const ANNEX_FACILITY_ID = 'facility-development-casting-annex'
@@ -162,10 +162,11 @@ describe('World-First Operational Annex Work Presence V1 — native fixture auth
     }
   })
 
-  it('replays all three native SaveFileV13 files byte-identically and projects exact Annex truth', () => {
+  it('replays all three pinned SaveFileV13 files byte-identically and projects exact Annex truth', () => {
     for (const fixture of manifest().fixtures) {
       const expected = EXPECTED_SAVES[fixture.file]
-      const bytes = readFileSync(join(OUTPUT_DIRECTORY, fixture.file), 'utf8')
+      const path = join(OUTPUT_DIRECTORY, fixture.file)
+      const bytes = readFileSync(path, 'utf8')
       expect(Buffer.byteLength(bytes, 'utf8')).toBe(expected.byteLength)
       expect(sha256(bytes)).toBe(expected.sha256)
 
@@ -175,21 +176,15 @@ describe('World-First Operational Annex Work Presence V1 — native fixture auth
         seed: 'world-first-operational-annex-work',
       })
 
-      const first = importSaveJson(bytes)
-      expect(first.ok).toBe(true)
-      if (!first.ok) throw new Error(first.error)
-      expect(first.converted).toBe(false)
-      const firstReplay = exportSaveJson(first.state)
-      expect(firstReplay).toBe(bytes)
+      // C2a-M1/M2 — the live format is V14, so loading this frozen artefact is a migration.
+      // Byte-identity is unchanged in strength and is asked of the writer that owns the
+      // format the file is in: the frozen V13 builder must put every byte back, in order.
+      // The loader additionally proves the live V14 artefact the migration produced is
+      // itself lossless and reloads as current.
+      const restored = loadPinnedSaveV13Fixture(path)
 
-      const second = importSaveJson(firstReplay)
-      expect(second.ok).toBe(true)
-      if (!second.ok) throw new Error(second.error)
-      expect(second.converted).toBe(false)
-      expect(exportSaveJson(second.state)).toBe(bytes)
-
-      const before = exportSaveJson(first.state)
-      const calendar = studioCalendarBoard(first.state)
+      const before = exportSaveJson(restored)
+      const calendar = studioCalendarBoard(restored)
       const annexRows = calendar.facilities.filter(
         (facility) => facility.facilityId === ANNEX_FACILITY_ID,
       )
@@ -215,7 +210,7 @@ describe('World-First Operational Annex Work Presence V1 — native fixture auth
         ],
       })
 
-      const snapshot = studioLotSnapshot(first.state)
+      const snapshot = studioLotSnapshot(restored)
       const context = operationalAnnexWorkContext(snapshot)
       expect(context?.state).toBe(expected.contextState)
       expect(fixture.claim.annex.occupant).toEqual(expected.occupant)
@@ -226,7 +221,7 @@ describe('World-First Operational Annex Work Presence V1 — native fixture auth
         ...fixture.claim.annex,
       })
       expect(context?.annexWork).toBe(snapshot.annexWork)
-      expect(exportSaveJson(first.state)).toBe(before)
+      expect(exportSaveJson(restored)).toBe(before)
 
       if (expected.occupant === null) {
         expect(context).toMatchObject({

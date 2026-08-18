@@ -1,12 +1,10 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { App } from '../App.tsx'
 import type { GameState } from '../engine/adapter.ts'
 import {
   exportSaveJson,
-  importSaveJson,
   studioLotSnapshot,
 } from '../engine/adapter.ts'
 import {
@@ -23,6 +21,7 @@ import {
 import type { LotRoute } from './navigation.ts'
 import type { Stage7ProductionOwnerIntent } from './snapshot/stage7Production.ts'
 import * as stage7Selector from './snapshot/stage7Production.ts'
+import { loadPinnedSaveV13Fixture } from '../test/pinnedSaveFixture.ts'
 
 type LotProbeProps = {
   state: GameState
@@ -119,20 +118,7 @@ const BLOCKED_FIXTURE = resolve(
 )
 
 function nativeBlockedStudio(): GameState {
-  const bytes = readFileSync(BLOCKED_FIXTURE, 'utf8')
-  const imported = importSaveJson(bytes)
-  if (!imported.ok) throw new Error(imported.error)
-  // C2a-M2 — the fixture is PINNED at V13 and the live format is V14, so loading it is a
-  // migration and `converted` is true. The version claim moves to the envelope, where it
-  // is checked exactly rather than by proxy; the byte-replay guard below is untouched and
-  // is now the first thing that speaks when this fixture no longer replays.
-  if ((JSON.parse(bytes) as { saveVersion?: unknown }).saveVersion !== 13) {
-    throw new Error('expected the pinned SaveFileV13 Stage 7 fixture')
-  }
-  if (exportSaveJson(imported.state) !== bytes) {
-    throw new Error('native Stage 7 fixture did not replay byte-identically')
-  }
-  return imported.state
+  return loadPinnedSaveV13Fixture(BLOCKED_FIXTURE)
 }
 
 function exactStage7(state: GameState) {
