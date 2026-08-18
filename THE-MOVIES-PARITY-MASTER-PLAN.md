@@ -397,6 +397,16 @@ roadmap question): YES, adopt the order above.**
    - **The simulation-theater law** — visible world activity preferentially follows
      real authoritative work, never decorative screensaver motion.
    - **The Time Model Ruling Docket** (§8a).
+   - **Renewable Screenplay Generation (RSG) V1** — **C2 owns RSG V1; C4 owns its
+     era/genre/creative deepening.** C2 delivers the foundational fantasy — a writer goes
+     to work and eventually hands the player a new movie — and C4 makes concept supply
+     era- and genre-sensitive. Recorded here because this plan previously did not mention
+     screenplay generation at all, which left the **30-concept lifetime ceiling** (a fixed
+     worldgen pool; concepts are claimed permanently, so a managed campaign can greenlight
+     at most 30 films ever) looking like an **unowned blocker** to anyone auditing by this
+     document — an audit actually reached that conclusion. **It is not ownerless: it is
+     C2's.** Existing `FilmConcept.id` values remain permanent historical identities —
+     append with fresh IDs; never remove, reassign or re-mint an existing one.
    - *(PM recommendation from PF1 recon, not yet Owner-ruled):* the **event-model
      docket** — the engine currently emits no events (the UI diffs state); C2, which
      mints many new transitions, is where an authoritative event/observation model

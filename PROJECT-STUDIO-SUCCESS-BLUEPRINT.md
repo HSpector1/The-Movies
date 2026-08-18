@@ -1725,10 +1725,11 @@ different owners for the same system, and the Master Plan records neither.
 
 **Resolution (2026-08-18, pre-C2 governance reconciliation): option 1 is ratified — RSG ownership is
 C2 (V1) → C4 (deepening).** Pillar 3 and the pillar table already read that way; this closes the gap
-between them and this docket. **Still outstanding, and not closed by this:** `THE-MOVIES-PARITY-MASTER-PLAN.md`
-does not yet record the assignment, so an audit reading the Master Plan alone can still reach the
-"ownerless blocker" conclusion described above. That is a one-line follow-up in the Master Plan, and
-it is deliberately **not** made here — this reconciliation does not edit the plan's scope entries.
+between them and this docket. **The Master Plan now records it too**, by Owner order:
+`THE-MOVIES-PARITY-MASTER-PLAN.md` §8 item 2 names RSG V1 as C2 scope, names C4 as owner of the
+era/genre deepening, and names the 30-concept ceiling explicitly. The "ownerless blocker" conclusion
+described above is therefore no longer reachable from any of the three authorities — it was correct
+when it was drawn, and it is now closed.
 
 **Ratify the identity law at the same time, in the same breath.** Existing `FilmConcept.id` values
 are permanent: concepts may be appended with fresh IDs, and an existing ID may never be removed,
