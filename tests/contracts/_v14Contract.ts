@@ -498,6 +498,34 @@ export function grandfatheredBindings(state: GameState): GameState {
   }
 }
 
+/**
+ * The form a real SaveFileV13 on a player's disk can ACTUALLY describe: grandfathered
+ * bindings, and no studio event log at all.
+ *
+ * `grandfatheredBindings` handles the workflow leaf; this handles the other half. From
+ * C2a-M1 the engine appends its own history (§5), so every played managed studio carries
+ * rows a V13 envelope has no room for — and `assertFrozenBuilderCanProjectV14State`
+ * rightly refuses to write one, because `convertV13ToV14` gives a migrated world an EMPTY
+ * history and inventing rows would be manufacturing history.
+ *
+ * That refusal is correct and is asserted in its own right by
+ * `v14-boundary-guards.contract.test.ts`. It is also what makes the frozen builder useless
+ * as a CORROBORATOR of the hand-projected T9 twin unless it is handed the state the twin
+ * actually claims to be. This is that state: the same world with the one root a V13 file
+ * cannot hold cleared, exactly as `tests/production-operations-save-v8.test.ts` does with
+ * its `historicalWorld` helper.
+ *
+ * Deliberately NOT used to build the T9 fixtures themselves — the played world keeps its
+ * real history, and T9 (B) compares V13 PROJECTIONS, from which the log is absent on both
+ * sides anyway.
+ */
+export function historicalV13Form(state: GameState): GameState {
+  return {
+    ...grandfatheredBindings(state),
+    studioEvents: { nextSeq: 0, rows: [] },
+  }
+}
+
 // ── building the T9 fixtures ────────────────────────────────────────────────
 
 export type HeadlineFixture = {

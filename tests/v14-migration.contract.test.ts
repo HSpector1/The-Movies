@@ -49,6 +49,7 @@ import { reachableCapacityBlockerForRemainingTicks } from '../src/core/productio
 
 import {
   buildHeadlineFixtures,
+  historicalV13Form,
   CHARTER_GENRES,
   CHARTER_HEADLINE_MATRIX,
   CHARTER_UNREACHABLE_CAPACITY_BLOCKER_TICKS,
@@ -170,14 +171,33 @@ describe('C2a-M1 · T9 (A) — the headline matrix covers every phase that holds
   // reasoned — and it is checked, cell by cell. A builder that refuses is a legal
   // answer for a state carrying V14 authority; a builder that writes something
   // ELSE would mean the whole T9 comparison is against a file that never existed.
+  //
+  // C2a-M1M2 ADJUDICATION. From §5 the engine appends its own history, so every
+  // one of these played cells carries studio-event rows — and the frozen builder
+  // refuses ALL nine, which made this corroboration vacuous. The builder is right
+  // to refuse (a V13 envelope has no room for a log, and `convertV13ToV14` cannot
+  // put invented rows back); that refusal is asserted in its own right by
+  // `contracts/v14-boundary-guards.contract.test.ts`, which accepts either arm.
+  // So the builder is handed the state the twin actually CLAIMS to be — the same
+  // world in the form a V13 file can describe — and corroborates all nine cells
+  // instead of none. Neither this assertion nor the guard moved.
   it('agrees byte-for-byte with the frozen V13 builder wherever that builder writes', () => {
     const module = requireV14()
     void module
     let checked = 0
     for (const { cell, native } of fixtures) {
+      const historical = historicalV13Form(native)
+      // The V13 twin of the historical form and of the played world are the same
+      // file: `projectToV13State` deletes the log from both.
+      expect(
+        stableStringify(v13TwinOf(historical).state),
+        `${cell.key}: clearing the log changed the V13 twin`,
+      ).toBe(stableStringify(v13TwinOf(native).state))
       let written: { saveVersion: number; state: Record<string, unknown> }
       try {
-        written = makeSaveV13(native as unknown as Parameters<typeof makeSaveV13>[0]) as unknown as {
+        written = makeSaveV13(
+          historical as unknown as Parameters<typeof makeSaveV13>[0],
+        ) as unknown as {
           saveVersion: number
           state: Record<string, unknown>
         }
