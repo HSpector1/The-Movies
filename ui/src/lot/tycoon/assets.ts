@@ -26,7 +26,12 @@ import { TILE_W, TILE_H } from '../scene/iso'
 import { WARM as C } from './palette'
 // The one name for the stage-CLASS body, so the bake and the presentation that asks
 // for it can never drift apart (C2a-M2 §3.1). `world.ts` imports only a snapshot type.
-import { PLACED_SOUNDSTAGE_TEX_KEY } from './world'
+import {
+  PLACED_DEVELOPMENT_CASTING_TEX_KEY,
+  PLACED_POST_TEX_KEY,
+  PLACED_SCENERY_TEX_KEY,
+  PLACED_SOUNDSTAGE_TEX_KEY,
+} from './world'
 
 const hw = TILE_W / 2
 const hh = TILE_H / 2
@@ -807,6 +812,29 @@ export function bakeBlueprintTexture(scene: Phaser.Scene, texKey: string): boole
       // Grid world only. The plate origin never gets a placed body (law 27a).
       bakeStage(scene, PLACED_SOUNDSTAGE_TEX_KEY)
       return true
+    case PLACED_SCENERY_TEX_KEY:
+      // C2a-M2 §3.4 — Scenery Shop. The founding Scenery & Post block's own workshop
+      // body: corrugated cladding, a shutter tall enough to take a flat through, and the
+      // saw-tooth north light that is this property's one "things are physically BUILT
+      // here" roof form. `bakePost` gained a key parameter for exactly this and the
+      // founding bake still passes its own, so no existing texture moves.
+      bakePost(scene, PLACED_SCENERY_TEX_KEY)
+      return true
+    case PLACED_POST_TEX_KEY:
+      // C2a-M2 §3.4 — Post Building. The ONE support class with no body of its own to
+      // inherit: the founding block houses the post building AND the scenery shop, so
+      // dressing both classes in the saw-tooth would leave a studio's two support
+      // buildings untellable at a glance. Cutting rooms are dark boxes; this is one.
+      bakePostBuilding(scene, PLACED_POST_TEX_KEY)
+      return true
+    case PLACED_DEVELOPMENT_CASTING_TEX_KEY:
+      // C2a-M2 §3.4 — Development & Casting Office. The founding Casting office's own
+      // body, at its own wall height and peak: cream walls, the property's one cool
+      // slate-green hip, a two-column portico, and the frontage rail people queue along.
+      // The four C1 development blueprints have AUTHORED bodies and keep them; only the
+      // baseline office, which has none, is dressed by its class.
+      bakeOffice(scene, PLACED_DEVELOPMENT_CASTING_TEX_KEY, 3, 2, 58, 28, 'casting')
+      return true
     default:
       // A blueprint whose art has not been authored gets the honest massing block the
       // placement layer already draws — never another building's body (shift law 12).
@@ -822,7 +850,7 @@ export function bakeBlueprintTexture(scene: Phaser.Scene, texKey: string): boole
  * carries the one roof form that means exactly that: a saw-tooth north light, over
  * corrugated cladding, with the roller shutter tall enough to take a flat through it.
  */
-function bakePost(scene: Phaser.Scene): void {
+function bakePost(scene: Phaser.Scene, key: string): void {
   const fw = 3
   const fd = 2
   const H = 66
@@ -849,8 +877,64 @@ function bakePost(scene: Phaser.Scene): void {
   poly(g, [p(0.35, 0.2, H + 16), p(0.68, 0.2, H + 16), p(0.68, 0.55, H + 16), p(0.35, 0.55, H + 16)], C.steel)
   poly(g, [p(0.35, 0.55, H + 16), p(0.68, 0.55, H + 16), p(0.68, 0.55, H + 30), p(0.35, 0.55, H + 30)], C.slateShade)
   poly(g, [p(0.3, 0.15, H + 30), p(0.73, 0.15, H + 30), p(0.73, 0.6, H + 30), p(0.3, 0.6, H + 30)], C.slateLit)
-  TYCOON_BUILDING_TEX['tw-post'] = { key: 'tw-post', originX: 0.5, originY: b.originY, fw, fd }
-  finalize(b, 'tw-post')
+  TYCOON_BUILDING_TEX[key] = { key, originX: 0.5, originY: b.originY, fw, fd }
+  finalize(b, key)
+}
+
+/**
+ * The POST BUILDING — cutting rooms, and the one §3.4 class with no body to inherit.
+ *
+ * The founding Scenery & Post block houses BOTH the post building and the scenery shop,
+ * so it cannot serve as the class body for each of them: a studio that put up one of
+ * each would have two identical saw-tooth sheds and no way to tell which was which at
+ * management zoom. The scenery class keeps the workshop (that is what a scenery shop
+ * IS); post gets its own body here.
+ *
+ * The architecture is what the building actually does. Cutting rooms and a projection
+ * theatre are DARK ROOMS: a solid lower wall with no glazing at working height, one
+ * high clerestory band where the corridor is, a single service door under a canopy, and
+ * a flat roof carrying the plant that keeps a sealed building breathable. Flat + blank
+ * against the workshop's saw-tooth + shutter reads as a different building from any
+ * distance, which is the whole requirement (C1-M6b's silhouette law).
+ */
+function bakePostBuilding(scene: Phaser.Scene, key: string): void {
+  const fw = 3
+  const fd = 2
+  const H = 62
+  const b = beginBuilding(scene, fw, fd, H, 34)
+  const { g, p } = b
+  drawWalls(b, fw, fd, H, C.taupeLit, C.creamDeep)
+  // The blank band: no windows at working height, because there is nothing to see out
+  // of a cutting room. One shadow line where the render course would be.
+  poly(g, [p(0, fd, H * 0.3), p(fw, fd, H * 0.3), p(fw, fd, H * 0.3 + 3), p(0, fd, H * 0.3 + 3)], C.shadow, 0.2)
+  // the high clerestory band — the corridor behind the rooms, lit late
+  for (let i = 0; i < 5; i++) {
+    const x0 = 0.34 + (i / 5) * (fw - 0.68)
+    const x1 = 0.34 + ((i + 0.62) / 5) * (fw - 0.68)
+    poly(g, [p(x0, fd, H * 0.7), p(x1, fd, H * 0.7), p(x1, fd, H * 0.78), p(x0, fd, H * 0.78)], C.windowLit, 0.9)
+  }
+  windowsShade(b, fw, fd, H, 2, 0.66, 0.78)
+  // one service door under a shallow canopy, on the lit face
+  poly(g, [p(fw / 2 - 0.26, fd, 0), p(fw / 2 + 0.26, fd, 0), p(fw / 2 + 0.26, fd, 27), p(fw / 2 - 0.26, fd, 27)], C.steel, 0.95)
+  poly(g, [p(fw / 2 - 0.5, fd, 28), p(fw / 2 + 0.5, fd, 28), p(fw / 2 + 0.5, fd, 33), p(fw / 2 - 0.5, fd, 33)], C.awning)
+  // the red lamp beside the door: a running theatre is not to be walked into
+  g.fillStyle(C.awningDark, 1)
+  const lamp = p(fw / 2 + 0.62, fd, 30)
+  g.fillCircle(lamp.x, lamp.y, 3.4)
+  signField(b, fw, fd, H, 0.44, 0.6, 0.3)
+  flatRoof(b, fw, fd, H)
+  // rooftop plant: two boxed units and a stack. A sealed building breathes through them,
+  // and they are what stops the roof plane reading as a bare rectangle at close zoom.
+  for (const gx of [0.5, 1.6]) {
+    poly(g, [p(gx, 0.4, H + 5), p(gx + 0.7, 0.4, H + 5), p(gx + 0.7, 1.1, H + 5), p(gx, 1.1, H + 5)], C.steelLit)
+    poly(g, [p(gx, 1.1, H + 5), p(gx + 0.7, 1.1, H + 5), p(gx + 0.7, 1.1, H + 20), p(gx, 1.1, H + 20)], C.steel)
+    poly(g, [p(gx, 0.4, H + 20), p(gx + 0.7, 0.4, H + 20), p(gx + 0.7, 1.1, H + 20), p(gx, 1.1, H + 20)], C.slateLit)
+  }
+  poly(g, [p(2.5, 0.3, H + 5), p(2.8, 0.3, H + 5), p(2.8, 0.6, H + 5), p(2.5, 0.6, H + 5)], C.steel)
+  poly(g, [p(2.5, 0.6, H + 5), p(2.8, 0.6, H + 5), p(2.8, 0.6, H + 32), p(2.5, 0.6, H + 32)], C.slateShade)
+  poly(g, [p(2.45, 0.25, H + 32), p(2.85, 0.25, H + 32), p(2.85, 0.65, H + 32), p(2.45, 0.65, H + 32)], C.slateLit)
+  TYCOON_BUILDING_TEX[key] = { key, originX: 0.5, originY: b.originY, fw, fd }
+  finalize(b, key)
 }
 
 function bakeTheater(scene: Phaser.Scene): void {
@@ -1577,7 +1661,7 @@ export function bakeTycoonTextures(scene: Phaser.Scene): void {
   bakeOffice(scene, 'tw-writers', 3, 2, 66, 32, 'development')
   bakeOffice(scene, 'tw-casting', 3, 2, 58, 28, 'casting')
   bakeAnnex(scene)
-  bakePost(scene)
+  bakePost(scene, 'tw-post')
   bakeTheater(scene)
   bakeStage(scene, 'tw-stage-a')
   bakeStage(scene, 'tw-stage-b')

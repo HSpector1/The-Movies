@@ -175,7 +175,13 @@ describe('C2a-M2 — the Soundstage (Standard) class body', () => {
   })
 
   it('never borrows a body: an unauthored non-stage still gets the massing block', () => {
-    expect(blueprintPresentation('some-future-blueprint', 'post')).toEqual(
+    // C2a-M2 §3.4 EXEMPLAR MOVED, CLAIM UNCHANGED. This assertion is about a capability
+    // NOBODY HAS DRAWN, and it used `post` as its example. The §3.4 slate then gave the
+    // post class a body of its own, so `post` stopped being an example of the thing
+    // under test. A capability that genuinely has no body takes its place; the claim,
+    // and its strength, are exactly what they were. (`placedSupportBodies.test.ts` is
+    // where the three drawn support classes are proved.)
+    expect(blueprintPresentation('some-future-blueprint', 'a-capability-nobody-drew')).toEqual(
       DEFAULT_BLUEPRINT_PRESENTATION,
     )
     expect(blueprintPresentation('some-future-blueprint', undefined)).toEqual(

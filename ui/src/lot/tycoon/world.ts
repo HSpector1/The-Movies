@@ -438,17 +438,52 @@ export const BLUEPRINT_PRESENTATION: Readonly<Record<string, BlueprintPresentati
 /** The baked body every soundstage-capability facility with no authored art wears. */
 export const PLACED_SOUNDSTAGE_TEX_KEY = 'tw-stage-standard'
 
+// The §3.4 slate's three SUPPORT classes, keyed the same way and for the same reason.
+//
+// Every one of them is 3 × 2, and every one of them already has a body ON THIS LOT
+// whose class it belongs to — which is what makes these class bodies rather than
+// borrowed ones (law 12, and the §3.1 reasoning the stage class was landed under):
+//
+//   • `set-scenery`  wears the founding Scenery & Post block's own workshop body. The
+//     saw-tooth north light is the property's one "things are physically BUILT here"
+//     roof form, and it is the roof over `facility-scenery-shop` today;
+//   • `post`         is the one class with no body of its own to inherit — the founding
+//     block houses BOTH the post building and the scenery shop, so giving the post class
+//     the same saw-tooth would have made a studio's two support buildings untellable at
+//     a glance. It gets its own body (see `bakePostBuilding`): dark cutting rooms under
+//     a flat roof, which is what a post building actually is;
+//   • `development-casting` wears the founding Casting office's own body. A blueprint
+//     that has AUTHORED art still wins over its class, so the four C1 development
+//     blueprints keep their own bodies unchanged; only the §3.4 baseline office, which
+//     has none, is dressed by the class.
+export const PLACED_POST_TEX_KEY = 'tw-post-standard'
+export const PLACED_SCENERY_TEX_KEY = 'tw-scenery-standard'
+export const PLACED_DEVELOPMENT_CASTING_TEX_KEY = 'tw-office-standard'
+
 /**
  * Presentation by CAPABILITY, for a blueprint that carries no authored body of its own.
  *
  * Anchors: a soundstage is 4 × 4, a full tile wider and deeper than the Annex's 3 × 2,
  * so its door sits further from the centre of its frontage and its people stand one
- * tile further out — the same reasoning C1-M5 recorded for the 4 × 3 Hall.
+ * tile further out — the same reasoning C1-M5 recorded for the 4 × 3 Hall. The three
+ * support classes are 3 × 2 like the Annex and keep the Annex's own standoffs.
  */
 const CAPABILITY_PRESENTATION: Readonly<Record<string, BlueprintPresentation>> = {
   soundstage: {
     texKey: PLACED_SOUNDSTAGE_TEX_KEY,
     anchors: { workStandoff: 2.1, waitStandoff: 2.7, waitAcross: 1.8 },
+  },
+  post: {
+    texKey: PLACED_POST_TEX_KEY,
+    anchors: DEFAULT_BLUEPRINT_PRESENTATION.anchors,
+  },
+  'set-scenery': {
+    texKey: PLACED_SCENERY_TEX_KEY,
+    anchors: DEFAULT_BLUEPRINT_PRESENTATION.anchors,
+  },
+  'development-casting': {
+    texKey: PLACED_DEVELOPMENT_CASTING_TEX_KEY,
+    anchors: DEFAULT_BLUEPRINT_PRESENTATION.anchors,
   },
 }
 
