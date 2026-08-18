@@ -224,6 +224,77 @@ describe('C2a-M2 — the Soundstage (Standard) class body', () => {
   })
 })
 
+describe('C2a-M2 — a built soundstage says what a soundstage says', () => {
+  function inspectorSnapshot(
+    operations: Record<string, unknown>[],
+  ): StudioLotSnapshot {
+    const placed = placedSoundstage()
+    const base = snapshotWithBuiltStage(placed) as unknown as Record<string, unknown>
+    return {
+      ...base,
+      operationsMode: 'managed',
+      stageAssignmentAuthority: 'engine',
+      productionOperations: operations,
+      stages: [
+        {
+          facilityId: 'facility-soundstage-3',
+          facilityName: 'Soundstage 3',
+          buildingId: 'placed-7',
+          origin: 'placed',
+          standing: true,
+        },
+      ],
+      buildings: [{ id: 'placed-7', available: true, attention: 'normal' }],
+      placement: {
+        mode: 'managed',
+        currentWeek: 40,
+        buildEnabled: true,
+        lotWidth: 28,
+        lotDepth: 26,
+        parcels: [],
+        placements: [placed],
+        catalog: [],
+        weeklyOperatingCost: 4_000,
+      },
+    } as unknown as StudioLotSnapshot
+  }
+
+  it('is dark when nothing shoots in it, and names the picture when one does', async () => {
+    const { lotBuildingInspectorContext } = await import('../buildingInspector.ts')
+
+    const dark = lotBuildingInspectorContext(inspectorSnapshot([]), 'placed-7', null, null)
+    expect(dark.status).toBe('The stage is dark — no picture is shooting here.')
+
+    const busy = lotBuildingInspectorContext(
+      inspectorSnapshot([
+        {
+          productionId: 'prod-1',
+          title: 'Ravine',
+          phase: 'shooting',
+          phaseLabel: 'Principal photography',
+          weeksRemaining: 4,
+          progress01: 0.5,
+          locationBuildingId: 'placed-7',
+          facilityLabel: 'Soundstage 3',
+          directorId: 'dir-1',
+          directorName: 'A Director',
+          taskStatus: 'scheduled',
+          statusLabel: 'Shooting on Soundstage 3',
+          blocker: null,
+          attention: 'active',
+          currentCommand: null,
+        },
+      ]),
+      'placed-7',
+      null,
+      null,
+    )
+    expect(busy.status).toBe('Ravine · Shooting on Soundstage 3')
+    // The sign on the building is the engine's own name, never an invented one.
+    expect(busy.label).toBe('Soundstage 3')
+  })
+})
+
 // ── §3.1 — the PLATE origin's honest fallback (rollback-world maintenance) ────
 //
 // The plate origin (flag 5178) is the rollback renderer. Its building list is a static
