@@ -10,6 +10,7 @@
 
 import type {
   ArchetypePreset,
+  BlueprintRequirement,
   CastSlot,
   CulturalForce,
   Discipline,
@@ -638,6 +639,152 @@ export const TUNING = {
   HOUSE_SET_PRIORITY_GENRE: 'drama' as Genre, // [ICH] the neutral weights make this advisory only
   SET_NOVELTY_INITIAL: 1, // [ICH] 0..1 — a newly standing set is wholly fresh
   SET_CONDITION_INITIAL: 100, // [ICH] 0..100 — a newly standing set is undamaged
+
+  // ── C2a-M2 — the §3.4 buildable slate ──────────────────────────────────────
+  // Four families. Every number here is priced against the C1 catalog's own scale
+  // — the Development & Casting Annex ($780,000 / 13 weeks / $3,500 a week for one
+  // shared slot) and the Hall ($1,400,000 / 20 weeks / $6,000 for two) — because a
+  // catalog whose new half is priced on a different scale is two catalogs.
+  //
+  // GROUND (charter §3.4, answered by the sweep at
+  // `docs/c2-planning/16-placement-sweep.md`, HEAD f3d4313): the C2a slate FITS on
+  // today's road-served parcels, so the pre-authorized north-back-lot road spur is
+  // DROPPED and no spur is authored. Two binding facts came out of that sweep and
+  // are honoured by the footprints below:
+  //   * a 4x4 soundstage has 5 legal origins and AT MOST TWO can stand at once;
+  //   * every SUPPORT building must be at most THREE cells wide, because only
+  //     three parcels are four wide and the two stages take the only two of those
+  //     that are available. Depth is cheap (west-lawn is 3x6); width is not.
+  // A future support building grows in gy, never in gx.
+
+  // Soundstage (Standard) — ONE stage class in C2a (§3.1). The largest structure
+  // on the lot and the only one that adds a production LINE rather than a slot
+  // inside an existing one, so it sits at the top of the catalog: more capital
+  // than the Hall, more weeks than any office, and the highest weekly cost of
+  // anything a studio can build. `simultaneousProductions` names its unit — one
+  // picture shoots on a stage at a time, which is the whole scarcity C2 is about.
+  STAGE_STANDARD_CAPEX: 2_400_000, // [ICH] capital cost of one Standard soundstage
+  STAGE_STANDARD_BUILD_WEEKS: 16, // [ICH] weeks from commit to operational
+  STAGE_STANDARD_WEEKLY_OPERATING_COST: 9_000, // [ICH] weekly opex — the catalog's dearest
+  STAGE_STANDARD_SIMULTANEOUS_PRODUCTIONS: 1, // [ICH] pictures that may shoot on it at once
+  STAGE_STANDARD_FOOTPRINT_WIDTH: 4, // [SWEEP] cells along gx — matches founding Stage 7 / 12
+  STAGE_STANDARD_FOOTPRINT_DEPTH: 4, // [SWEEP] cells along gy
+  STAGE_STANDARD_CLEARANCE: 1, // [SWEEP] cells of separation from other placements
+
+  // Post Building — the second instance of the founding class (the display-name
+  // ruling, §3.1: the engine facility name is the single spoken authority, and the
+  // founding one is already called "Post Building"). It carries the same two
+  // shared slots the founding one does, because it IS the same building; a
+  // different capacity would make one of them a lie.
+  POST_BUILDING_CAPEX: 1_150_000, // [ICH] capital cost
+  POST_BUILDING_BUILD_WEEKS: 14, // [ICH] weeks from commit to operational
+  POST_BUILDING_WEEKLY_OPERATING_COST: 5_000, // [ICH] weekly opex
+  POST_BUILDING_CAPACITY: 2, // [ICH] shared post slots gained — the founding count
+  POST_BUILDING_FOOTPRINT_WIDTH: 3, // [SWEEP] at most three cells wide
+  POST_BUILDING_FOOTPRINT_DEPTH: 2, // [SWEEP] cells along gy
+  POST_BUILDING_CLEARANCE: 1, // [SWEEP] cells of separation
+
+  // Scenery Shop — likewise the second instance of the founding class, and the
+  // building set construction, repair and load-in are all supplied by. Cheaper and
+  // quicker than Post: a carpentry and paint shop, not a laboratory.
+  SCENERY_SHOP_CAPEX: 850_000, // [ICH] capital cost
+  SCENERY_SHOP_BUILD_WEEKS: 11, // [ICH] weeks from commit to operational
+  SCENERY_SHOP_WEEKLY_OPERATING_COST: 4_000, // [ICH] weekly opex
+  SCENERY_SHOP_CAPACITY: 2, // [ICH] shared set-scenery slots gained — the founding count
+  SCENERY_SHOP_FOOTPRINT_WIDTH: 3, // [SWEEP] at most three cells wide
+  SCENERY_SHOP_FOOTPRINT_DEPTH: 2, // [SWEEP] cells along gy
+  SCENERY_SHOP_CLEARANCE: 1, // [SWEEP] cells of separation
+
+  // Baseline Development & Casting Office — the from-scratch path (§3.4), the one
+  // baseline blueprint, and the building a studio with no Development & Casting at
+  // all must be able to put up. Two shared slots, like the founding department it
+  // reproduces.
+  //
+  // PRICED SO IT DOMINATES NOTHING, deliberately. Against the Hall it costs
+  // $100,000 MORE for the same two slots; what it buys for that money is six weeks
+  // and three-cell-wide ground, which the sweep proves is the ground that is
+  // actually left once two stages stand. Against the Annex it is twice the money
+  // for twice the slots. Neither incumbent becomes pointless, which is the test a
+  // new catalog entry has to pass — the C1 economy snapshot already recorded one
+  // entry (the Hall) whose measured benefit was negative, and a second entry that
+  // silently retires a frozen owner-law building would be worse than that.
+  BASELINE_DEVELOPMENT_CASTING_CAPEX: 1_500_000, // [ICH] capital cost
+  BASELINE_DEVELOPMENT_CASTING_BUILD_WEEKS: 14, // [ICH] weeks from commit to operational
+  BASELINE_DEVELOPMENT_CASTING_WEEKLY_OPERATING_COST: 5_500, // [ICH] weekly opex
+  BASELINE_DEVELOPMENT_CASTING_CAPACITY: 2, // [ICH] shared slots gained — the founding count
+  BASELINE_DEVELOPMENT_CASTING_FOOTPRINT_WIDTH: 3, // [SWEEP] at most three cells wide
+  BASELINE_DEVELOPMENT_CASTING_FOOTPRINT_DEPTH: 2, // [SWEEP] cells along gy
+  BASELINE_DEVELOPMENT_CASTING_CLEARANCE: 1, // [SWEEP] cells of separation
+
+  // ── C2a-M2 — the Set families (charter §3.1/§9) ────────────────────────────
+  //
+  // BUILD-WEEK BANDS. A set is scenery, not a building: the cheapest goes up in
+  // under a month and the showpiece takes two. Three named rungs rather than a
+  // per-blueprint week, so "how long does a set take" is a property of its CLASS
+  // and a new catalog entry cannot invent a fourth answer.
+  SET_BUILD_WEEKS_BAND_LOW: 3, // [ICH] weeks — flats, a door and a dressing
+  SET_BUILD_WEEKS_BAND_MID: 5, // [ICH] weeks — a full room or a street face
+  SET_BUILD_WEEKS_BAND_HIGH: 8, // [ICH] weeks — the showpiece build
+  // A NAMED ZERO, and the evidence for it is the strongest single number in
+  // lane 3: the original's set schema carries `[finance] annualcost` and
+  // `dailyrate` and BOTH ARE 0 IN EVERY EXAMPLE RECOVERED
+  // (`03-original-sets-dataset.md` §11, TECH-SCHEMA-001). A set costs capital once
+  // and labour forever, never a visible recurring cash charge. Named, charged
+  // through the ordinary weekly path, and invariant-checked, exactly as
+  // FACILITY_MOVE_COST is — so a real standing charge is a one-line tuning change
+  // whose path is already proven by the tests that run with it at zero.
+  SET_WEEKLY_MAINTENANCE_COST: 0, // [CORPUS] weekly cash cost of one standing set
+  // CONDITION. Wear is per-USE and deterministic (§3.1), applied at wrap. The
+  // threshold GATES USE ONLY in V1 — the corpus self-contradicts on whether
+  // disrepair also costs quality (Bible §7.1 says usability only;
+  // `movie_rating_pipeline.json` stage 2 lists it as a quality component), and
+  // lane 3 §6 records the tension, so V1 ships the manual-corroborated reading.
+  //
+  // THE LAW BETWEEN THESE TWO NUMBERS: the threshold must exceed the wear, so a
+  // set that is legal to shoot on cannot be worn past zero by shooting on it. That
+  // is what makes `condition === 0` mean one thing and one thing only — "this set
+  // has never stood" — which is how a set under FIRST construction is told apart
+  // from a standing set being REPAIRED without adding a schema member V14 froze
+  // shut. A bounded-term test pins the inequality.
+  SET_CONDITION_WEAR_PER_PRODUCTION: 9, // [ICH] condition lost per wrapped production
+  SET_CONDITION_UNUSABLE_THRESHOLD: 35, // [ICH] below this a set cannot be bound
+  SET_REPAIR_COST: 60_000, // [ICH] cash to restore a worn set to full condition
+  SET_REPAIR_WEEKS: 2, // [ICH] weeks a repair holds one set-scenery slot
+  // A NAMED ZERO (§3.1 states it as one): striking a set is instant. There is no
+  // schedule to wait on — the flats come down and the stage is clear — and a
+  // duration invented here would be a delay with nothing behind it.
+  SET_STRIKE_WEEKS: 0, // [ICH] weeks a strike takes
+  // The fraction of a set's ORIGINAL capital cost returned when it is struck.
+  // LOWER than a building's half (FACILITY_DEMOLITION_REFUND_FRACTION = 0.5)
+  // because a struck set recovers timber, flats and dressing rather than a
+  // structure. Strictly less than 1 is the law that makes build-then-strike always
+  // a net loss; the exact fraction is tuning.
+  SET_DEMOLITION_REFUND_FRACTION: 0.35, // [ICH] depreciated fraction refunded at strike
+  // NOVELTY. Per-INSTANCE (the explicit ruling at §3.1: a duplicate stage+set is a
+  // concurrency AND a freshness purchase), locked at bind, depleted per RELEASE —
+  // never per greenlight, so a cancelled picture burns none.
+  SET_NOVELTY_DEPLETION_PER_RELEASE: 0.15, // [ICH] 0..1 lost when a film shot here releases
+  // The floor of the bounded reception factor a stale set produces. At novelty 1
+  // the factor is exactly 1.0 — a bit-exact IEEE no-op, which is what keeps an
+  // unbound or freshly built set byte-identical rather than merely equal.
+  SET_NOVELTY_RECEPTION_FACTOR_MIN: 0.85, // [ICH] draw multiplier at novelty 0
+  // THE UPLIFT — owner law 3's teeth, and §9's ONE ratified exception to
+  // "instrument, don't fix". Two additive craft points, bounded by construction:
+  // quality contributes at most SET_QUALITY_UPLIFT_MAX and fit at most
+  // SET_GENRE_FIT_UPLIFT_MAX, so the whole lever is at most 10 points of a 0..100
+  // craft score. Isolated for measurement by the 19th economy figure.
+  SET_QUALITY_UPLIFT_MAX: 6, // [ICH] craft points at quality 100
+  SET_GENRE_FIT_UPLIFT_MAX: 4, // [ICH] craft points at fit 1
+  SET_GENRE_FIT_PRIORITY_BONUS: 0.25, // [ICH] fit added when priorityGenre === the picture's genre
+  // The authored weight rungs a blueprint's per-genre weights are written in.
+  // Rungs rather than free floats so "what is this set good for" is a decision
+  // from a small vocabulary and two entries cannot disagree by 0.03 for no reason.
+  // NEUTRAL is the house set's weight, and is deliberately the same number
+  // HOUSE_SET_GENRE_WEIGHT already carries.
+  SET_GENRE_WEIGHT_PRIMARY: 0.9, // [ICH] what this place was built for
+  SET_GENRE_WEIGHT_STRONG: 0.7, // [ICH] convincing, not native
+  SET_GENRE_WEIGHT_NEUTRAL: 0.5, // [ICH] serviceable — the house-set weight
+  SET_GENRE_WEIGHT_WEAK: 0.25, // [ICH] it will read as the wrong place
 } as const
 
 // ── Placement Core V12 — the facility blueprint catalog ──────────────────────
@@ -805,16 +952,543 @@ export const CRAFT_ANNEX_BLUEPRINT = {
   maxInstances: 1,
 } as const satisfies FacilityBlueprint
 
+// ── C2a-M2 — the §3.4 slate: the build path C2 could not otherwise reach ─────
+//
+// The catalog before this milestone held five entries, ZERO soundstage, ZERO post
+// and ZERO effective set-scenery: a studio could add development desks and nothing
+// else. Every one of the four below adds capacity the player can already feel
+// missing, and none of them gates on a system that does not exist — `requires` is
+// empty on all four, so CASH IS THE ONLY ACTIVE GATE, which is the C1 law the
+// Annex shipped under and the honest thing to say while rank, certificates,
+// awards, research and land are all still unattainable kinds.
+//
+// GROUND: see the sweep note in the TUNING block above. The slate fits; the
+// north-back-lot spur is dropped; no support building is wider than three cells.
+
+/**
+ * Soundstage (Standard) — the only stage class in C2a (§3.1; Soundstage (Large)
+ * is deferred at §19 because `bakeStage()` hard-codes footprint and rise).
+ *
+ * It is the first blueprint in this catalog that adds a whole production LINE
+ * rather than another desk inside one. No `maxInstances`: the ground is the limit
+ * and it is a visible one — the sweep measured exactly two more 4x4 origins on
+ * today's road-served parcels, and a player who tries for a third is refused by
+ * geometry, in the place where geometry is legible, rather than by a number in a
+ * table nobody can see.
+ */
+export const STAGE_STANDARD_BLUEPRINT = {
+  id: 'stage-standard',
+  name: 'Soundstage',
+  capability: 'soundstage',
+  capacity: TUNING.STAGE_STANDARD_SIMULTANEOUS_PRODUCTIONS,
+  footprint: {
+    width: TUNING.STAGE_STANDARD_FOOTPRINT_WIDTH,
+    depth: TUNING.STAGE_STANDARD_FOOTPRINT_DEPTH,
+  },
+  clearanceRing: TUNING.STAGE_STANDARD_CLEARANCE,
+  requiresRoadAccess: true,
+  buildWeeks: TUNING.STAGE_STANDARD_BUILD_WEEKS,
+  capex: TUNING.STAGE_STANDARD_CAPEX,
+  weeklyOperatingCost: TUNING.STAGE_STANDARD_WEEKLY_OPERATING_COST,
+  // `facility-stage`, deliberately NOT `facility-soundstage`: the founding stages
+  // are `facility-soundstage-07` and `facility-soundstage-12`, and the frozen
+  // historical-boundary guards detect a placed facility by the prefix
+  // `${facilityIdBase}-`. A base of `facility-soundstage` would make both founding
+  // stages look like V12 placements to every one of those guards.
+  facilityIdBase: 'facility-stage',
+  projectIdBase: 'construction-stage',
+  ledgerNote: 'Soundstage construction',
+  effectSummary:
+    'One more picture can shoot at a time. Sets are mounted on it, and a set must stand on a stage before anything can be filmed there.',
+  requires: [],
+  // Soundstage 7 and Soundstage 12 are already on the lot; a third called plainly
+  // "Soundstage" would read as a missing number.
+  numberedInstances: true,
+} as const satisfies FacilityBlueprint
+
+/**
+ * Post Building — a second instance of the founding class, at the founding
+ * capacity. It relieves the head-of-line hold honestly: a picture that has
+ * wrapped is waiting on a cutting room, and this is the cutting room.
+ */
+export const POST_BUILDING_BLUEPRINT = {
+  id: 'post-building',
+  name: 'Post Building',
+  capability: 'post',
+  capacity: TUNING.POST_BUILDING_CAPACITY,
+  footprint: {
+    width: TUNING.POST_BUILDING_FOOTPRINT_WIDTH,
+    depth: TUNING.POST_BUILDING_FOOTPRINT_DEPTH,
+  },
+  clearanceRing: TUNING.POST_BUILDING_CLEARANCE,
+  requiresRoadAccess: true,
+  buildWeeks: TUNING.POST_BUILDING_BUILD_WEEKS,
+  capex: TUNING.POST_BUILDING_CAPEX,
+  weeklyOperatingCost: TUNING.POST_BUILDING_WEEKLY_OPERATING_COST,
+  facilityIdBase: 'facility-post-building',
+  projectIdBase: 'construction-post-building',
+  ledgerNote: 'Post Building construction',
+  effectSummary:
+    'Adds two cutting rooms, so two more wrapped pictures can be in post at a time.',
+  requires: [],
+} as const satisfies FacilityBlueprint
+
+/**
+ * Scenery Shop — a second instance of the founding class, and the building that
+ * supplies set construction, repair and load-in. The name is the founding
+ * facility's name verbatim (the §3.1 display-name ruling: the engine facility
+ * name is the single spoken authority, and r2's "Scenery Workshop" is unified
+ * away).
+ */
+export const SCENERY_SHOP_BLUEPRINT = {
+  id: 'scenery-shop',
+  name: 'Scenery Shop',
+  capability: 'set-scenery',
+  capacity: TUNING.SCENERY_SHOP_CAPACITY,
+  footprint: {
+    width: TUNING.SCENERY_SHOP_FOOTPRINT_WIDTH,
+    depth: TUNING.SCENERY_SHOP_FOOTPRINT_DEPTH,
+  },
+  clearanceRing: TUNING.SCENERY_SHOP_CLEARANCE,
+  requiresRoadAccess: true,
+  buildWeeks: TUNING.SCENERY_SHOP_BUILD_WEEKS,
+  capex: TUNING.SCENERY_SHOP_CAPEX,
+  weeklyOperatingCost: TUNING.SCENERY_SHOP_WEEKLY_OPERATING_COST,
+  facilityIdBase: 'facility-scenery-shop',
+  projectIdBase: 'construction-scenery-shop',
+  ledgerNote: 'Scenery Shop construction',
+  effectSummary:
+    'Adds two scenery crews, so two more sets can be built, repaired or loaded in at a time.',
+  requires: [],
+} as const satisfies FacilityBlueprint
+
+/**
+ * Baseline Development & Casting Office — the from-scratch path, and the ONE
+ * baseline blueprint (§3.4; the same-capability duplicate was cut). A studio that
+ * owns no Development & Casting at all cannot commission a screenplay or hold an
+ * audition; this is the building that puts it in business.
+ */
+export const BASELINE_DEVELOPMENT_CASTING_BLUEPRINT = {
+  id: 'development-casting-office',
+  name: 'Development & Casting Office',
+  capability: 'development-casting',
+  capacity: TUNING.BASELINE_DEVELOPMENT_CASTING_CAPACITY,
+  footprint: {
+    width: TUNING.BASELINE_DEVELOPMENT_CASTING_FOOTPRINT_WIDTH,
+    depth: TUNING.BASELINE_DEVELOPMENT_CASTING_FOOTPRINT_DEPTH,
+  },
+  clearanceRing: TUNING.BASELINE_DEVELOPMENT_CASTING_CLEARANCE,
+  requiresRoadAccess: true,
+  buildWeeks: TUNING.BASELINE_DEVELOPMENT_CASTING_BUILD_WEEKS,
+  capex: TUNING.BASELINE_DEVELOPMENT_CASTING_CAPEX,
+  weeklyOperatingCost: TUNING.BASELINE_DEVELOPMENT_CASTING_WEEKLY_OPERATING_COST,
+  facilityIdBase: 'facility-development-casting-office',
+  projectIdBase: 'construction-development-casting-office',
+  ledgerNote: 'Development & Casting Office construction',
+  effectSummary:
+    'Adds two shared Development & Casting slots, so two more screenplays or auditions can run at a time.',
+  requires: [],
+} as const satisfies FacilityBlueprint
+
+/**
+ * The stage classes, named as their own list (§9's `STAGE_BLUEPRINTS`). One entry
+ * in C2a. It exists as a list so the N-stage world reads "every stage blueprint"
+ * rather than "the stage blueprint", which is the whole difference between a
+ * second class being additive and being a rewrite.
+ */
+export const STAGE_BLUEPRINTS: readonly FacilityBlueprint[] = [STAGE_STANDARD_BLUEPRINT]
+
 export const FACILITY_BLUEPRINTS: readonly FacilityBlueprint[] = [
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
   DEVELOPMENT_CASTING_HALL_BLUEPRINT,
   DEVELOPMENT_OFFICE_2_BLUEPRINT,
   DEVELOPMENT_OFFICE_3_BLUEPRINT,
   CRAFT_ANNEX_BLUEPRINT,
+  ...STAGE_BLUEPRINTS,
+  POST_BUILDING_BLUEPRINT,
+  SCENERY_SHOP_BLUEPRINT,
+  BASELINE_DEVELOPMENT_CASTING_BLUEPRINT,
 ]
 
 /** The canonical ledger note for a weekly placed-facility operating charge. */
 export const FACILITY_OPEX_LEDGER_NOTE = 'weekly facility operating cost'
+
+// ── C2a-M2 — SET_TYPES: the closed authored location vocabulary (§9) ─────────
+//
+// A `BlueprintBeat`'s `requiredSetType` resolves against this list, which is why
+// it has to be CLOSED: a beat demanding a location no blueprint can ever satisfy
+// is an unrelievable queue reason, and owner law 2 forbids those. The other half
+// of that guarantee is `SET_BLUEPRINTS` below — every id here is buildable, and a
+// catalog invariant refuses the day one stops being.
+//
+// ── HOW THE LIST WAS CHOSEN (source-first) ──────────────────────────────────
+//
+// The 2005 catalog (`docs/c2-planning/03-original-sets-dataset.md` §3.1 — 39 rows
+// in nine families) is the SHAPE this follows and deliberately not the content.
+// Five of its families are physical (Urban / Suburban / Rural / Tropical /
+// Traveling Vehicle) and three are thematic (Sci-Fi / Wild West / War) — a
+// taxonomy lane 3 itself flags as internally inconsistent. A location vocabulary
+// that mixes "where the camera is" with "what kind of picture this is" cannot
+// answer a beat, because a beat asks the first question only.
+//
+// So every entry below is a PLACE, and the genre association lives where the
+// corpus proves it lives: on the SET, as per-genre float weights plus an explicit
+// priority genre (`set_definition_schema.csv` TECH-SET-008), never on the type.
+// That is also what makes the corpus's two famous inversions representable rather
+// than embarrassing — a Wild West Saloon that trains Romance and a Wild West Bank
+// that trains Comedy are a place and a number, not a contradiction.
+//
+// ERA-CLEANLINESS (G15). No entry names a decade, a technology or a genre
+// fashion. A city street, a courtroom and a graveyard are the same request in 1920
+// and in 2040; a "Starship Bridge" is not.
+export const SET_TYPES = Object.freeze([
+  // The undressed stage interior every house set is — §9's generic type. It suits
+  // any beat passably and none well, which is the whole point of a house set.
+  'generic-interior',
+  // ── exteriors ──
+  'city-street',
+  'back-alley',
+  'country-field',
+  'graveyard',
+  'jungle-clearing',
+  // ── interiors ──
+  'apartment-interior',
+  'grand-ballroom',
+  'hotel-lobby',
+  'police-station',
+  'courtroom',
+  'old-house-interior',
+] as const)
+
+export type KnownSetTypeId = (typeof SET_TYPES)[number]
+
+/**
+ * What a player calls each location.
+ *
+ * Authored beside the vocabulary rather than in a UI file because the same words
+ * appear in a set's name, in the package surface's "shot on" line and in a beat's
+ * demand — three surfaces that must never disagree about what the place is. These
+ * are FILMMAKING words: a player reads "Back Alley", never `back-alley`.
+ */
+export const SET_TYPE_LABELS: Readonly<Record<KnownSetTypeId, string>> = Object.freeze({
+  'generic-interior': 'Standing Interior',
+  'city-street': 'City Street',
+  'back-alley': 'Back Alley',
+  'country-field': 'Country Field',
+  graveyard: 'Graveyard',
+  'jungle-clearing': 'Jungle Clearing',
+  'apartment-interior': 'Apartment Interior',
+  'grand-ballroom': 'Grand Ballroom',
+  'hotel-lobby': 'Hotel Lobby',
+  'police-station': 'Police Station',
+  courtroom: 'Courtroom',
+  'old-house-interior': 'Old House Interior',
+})
+
+// ── C2a-M2 — SET_BLUEPRINTS: what a studio may build a set FROM (§9) ─────────
+//
+// Authored constants, never persisted — a standing set stores only its
+// `blueprintId`, exactly as a placed facility does, so a later catalog correction
+// can never rewrite a cost that has already been charged or a quality that has
+// already been shot on.
+//
+// ONE ENTRY PER SET TYPE, and that is a law rather than a coincidence: it is what
+// makes the closed vocabulary safe (above). The catalog invariant proves it.
+//
+// PRICING, from lane 3 and from this repo's own scale. The corpus prices sets at
+// $5,000-$99,999 against facilities at $3,000-$77,777 — sets were "the expensive
+// half of the lot" (§11), the top set dearer than the top facility. Ours are
+// deliberately NOT: a set here is scenery mounted inside a $2,400,000 soundstage
+// the studio has already paid for, so the ladder runs $150,000 (the house set) to
+// $900,000 (the showpiece street) — 3% to 19% of a typical $4.8M negative, which
+// makes a set a repeatable decision rather than a once-a-campaign event.
+//
+// The corpus's cost↔quality relationship is reproduced honestly, INVERSIONS
+// INCLUDED (§3.4: rho ~ +0.76 with real exceptions — a $5,000 Battlefield at
+// quality 0, a $99,999 School Library at 55). Old House Interior is dearer in
+// quality and cheaper in cash than Police Station on purpose: a good set is not
+// simply an expensive one, and a catalog where price is a perfect proxy for
+// quality is a catalog with no decisions in it.
+//
+// `attractiveness` is DATA WIRED TO NOTHING (§9) — C3's prestige lane. It is
+// always NEGATIVE, which is the corpus's own finding (§11: -25 to -60 across the
+// eight known rows, "roughly an order of magnitude worse than facilities'").
+
+const W = {
+  primary: TUNING.SET_GENRE_WEIGHT_PRIMARY,
+  strong: TUNING.SET_GENRE_WEIGHT_STRONG,
+  neutral: TUNING.SET_GENRE_WEIGHT_NEUTRAL,
+  weak: TUNING.SET_GENRE_WEIGHT_WEAK,
+} as const
+
+/** One buildable set class. Authored data; never a persisted shape. */
+export type SetBlueprint = {
+  id: string
+  name: string
+  setType: KnownSetTypeId
+  /** 0..100 — the hidden Quality of every instance built from it, SHOWN by us. */
+  quality: number
+  capex: number
+  buildWeeks: number
+  /** Lot-prestige cost of the thing existing. DATA ONLY — wired to nothing (§9). */
+  attractiveness: number
+  genreWeights: Readonly<Record<Genre, number>>
+  priorityGenre: Genre
+  /** Declarative unlock gates. EMPTY on every C2a entry: cash is the only live gate. */
+  requires: readonly BlueprintRequirement[]
+}
+
+function setGenreWeights(weights: Record<Genre, number>): Readonly<Record<Genre, number>> {
+  return Object.freeze({ ...weights })
+}
+
+export const SET_BLUEPRINTS: readonly SetBlueprint[] = Object.freeze([
+  {
+    // The blueprint the two endowed house sets already carry. Its id was fixed at
+    // M1 so a migrated save and a newly activated studio name the same thing; its
+    // quality is HOUSE_SET_QUALITY and its weights are the neutral rung, because
+    // the endowment was minted from exactly these numbers and a catalog that
+    // disagreed with what is already standing would be a catalog nobody could
+    // trust.
+    id: 'set-house-generic',
+    name: 'House Set',
+    setType: 'generic-interior',
+    quality: TUNING.HOUSE_SET_QUALITY,
+    capex: 150_000,
+    buildWeeks: TUNING.SET_BUILD_WEEKS_BAND_LOW,
+    attractiveness: -20,
+    genreWeights: setGenreWeights({
+      comedy: W.neutral,
+      drama: W.neutral,
+      crime: W.neutral,
+      romance: W.neutral,
+      horror: W.neutral,
+      adventure: W.neutral,
+    }),
+    priorityGenre: TUNING.HOUSE_SET_PRIORITY_GENRE,
+    requires: [],
+  },
+  {
+    id: 'set-city-street',
+    name: 'City Street',
+    setType: 'city-street',
+    quality: 80,
+    capex: 900_000,
+    buildWeeks: TUNING.SET_BUILD_WEEKS_BAND_HIGH,
+    attractiveness: -55,
+    genreWeights: setGenreWeights({
+      comedy: W.strong,
+      drama: W.strong,
+      crime: W.primary,
+      romance: W.neutral,
+      horror: W.neutral,
+      adventure: W.strong,
+    }),
+    priorityGenre: 'crime',
+    requires: [],
+  },
+  {
+    id: 'set-back-alley',
+    name: 'Back Alley',
+    setType: 'back-alley',
+    quality: 60,
+    capex: 320_000,
+    buildWeeks: TUNING.SET_BUILD_WEEKS_BAND_LOW,
+    attractiveness: -45,
+    genreWeights: setGenreWeights({
+      comedy: W.weak,
+      drama: W.neutral,
+      crime: W.primary,
+      romance: W.weak,
+      horror: W.strong,
+      adventure: W.neutral,
+    }),
+    priorityGenre: 'crime',
+    requires: [],
+  },
+  {
+    id: 'set-country-field',
+    name: 'Country Field',
+    setType: 'country-field',
+    quality: 55,
+    capex: 260_000,
+    buildWeeks: TUNING.SET_BUILD_WEEKS_BAND_LOW,
+    attractiveness: -25,
+    genreWeights: setGenreWeights({
+      comedy: W.neutral,
+      drama: W.primary,
+      crime: W.weak,
+      romance: W.strong,
+      horror: W.weak,
+      adventure: W.strong,
+    }),
+    priorityGenre: 'drama',
+    requires: [],
+  },
+  {
+    id: 'set-graveyard',
+    name: 'Graveyard',
+    setType: 'graveyard',
+    quality: 65,
+    capex: 380_000,
+    buildWeeks: TUNING.SET_BUILD_WEEKS_BAND_MID,
+    attractiveness: -50,
+    genreWeights: setGenreWeights({
+      comedy: W.weak,
+      drama: W.neutral,
+      crime: W.neutral,
+      romance: W.weak,
+      horror: W.primary,
+      adventure: W.neutral,
+    }),
+    priorityGenre: 'horror',
+    requires: [],
+  },
+  {
+    id: 'set-jungle-clearing',
+    name: 'Jungle Clearing',
+    setType: 'jungle-clearing',
+    quality: 70,
+    capex: 620_000,
+    buildWeeks: TUNING.SET_BUILD_WEEKS_BAND_MID,
+    attractiveness: -35,
+    genreWeights: setGenreWeights({
+      comedy: W.weak,
+      drama: W.neutral,
+      crime: W.weak,
+      romance: W.weak,
+      horror: W.strong,
+      adventure: W.primary,
+    }),
+    priorityGenre: 'adventure',
+    requires: [],
+  },
+  {
+    id: 'set-apartment-interior',
+    name: 'Apartment Interior',
+    setType: 'apartment-interior',
+    quality: 60,
+    capex: 340_000,
+    buildWeeks: TUNING.SET_BUILD_WEEKS_BAND_LOW,
+    attractiveness: -20,
+    genreWeights: setGenreWeights({
+      comedy: W.strong,
+      drama: W.primary,
+      crime: W.neutral,
+      romance: W.strong,
+      horror: W.neutral,
+      adventure: W.weak,
+    }),
+    priorityGenre: 'drama',
+    requires: [],
+  },
+  {
+    id: 'set-grand-ballroom',
+    name: 'Grand Ballroom',
+    setType: 'grand-ballroom',
+    quality: 85,
+    capex: 880_000,
+    buildWeeks: TUNING.SET_BUILD_WEEKS_BAND_HIGH,
+    attractiveness: -30,
+    genreWeights: setGenreWeights({
+      comedy: W.strong,
+      drama: W.strong,
+      crime: W.neutral,
+      romance: W.primary,
+      horror: W.weak,
+      adventure: W.weak,
+    }),
+    priorityGenre: 'romance',
+    requires: [],
+  },
+  {
+    id: 'set-hotel-lobby',
+    name: 'Hotel Lobby',
+    setType: 'hotel-lobby',
+    quality: 72,
+    capex: 560_000,
+    buildWeeks: TUNING.SET_BUILD_WEEKS_BAND_MID,
+    attractiveness: -30,
+    genreWeights: setGenreWeights({
+      comedy: W.primary,
+      drama: W.neutral,
+      crime: W.strong,
+      romance: W.strong,
+      horror: W.weak,
+      adventure: W.weak,
+    }),
+    priorityGenre: 'comedy',
+    requires: [],
+  },
+  {
+    id: 'set-police-station',
+    name: 'Police Station',
+    setType: 'police-station',
+    quality: 62,
+    capex: 400_000,
+    buildWeeks: TUNING.SET_BUILD_WEEKS_BAND_MID,
+    attractiveness: -40,
+    genreWeights: setGenreWeights({
+      comedy: W.neutral,
+      drama: W.strong,
+      crime: W.primary,
+      romance: W.weak,
+      horror: W.weak,
+      adventure: W.weak,
+    }),
+    priorityGenre: 'crime',
+    requires: [],
+  },
+  {
+    id: 'set-courtroom',
+    name: 'Courtroom',
+    setType: 'courtroom',
+    quality: 75,
+    capex: 520_000,
+    buildWeeks: TUNING.SET_BUILD_WEEKS_BAND_MID,
+    attractiveness: -25,
+    genreWeights: setGenreWeights({
+      comedy: W.neutral,
+      drama: W.primary,
+      crime: W.strong,
+      romance: W.weak,
+      horror: W.weak,
+      adventure: W.weak,
+    }),
+    priorityGenre: 'drama',
+    requires: [],
+  },
+  {
+    // THE AUTHORED INVERSION (see the note above): better than the Police Station
+    // and cheaper than it. A rotting staircase and a landing is a small build that
+    // photographs beautifully.
+    id: 'set-old-house-interior',
+    name: 'Old House Interior',
+    setType: 'old-house-interior',
+    quality: 68,
+    capex: 300_000,
+    buildWeeks: TUNING.SET_BUILD_WEEKS_BAND_MID,
+    attractiveness: -45,
+    genreWeights: setGenreWeights({
+      comedy: W.weak,
+      drama: W.neutral,
+      crime: W.neutral,
+      romance: W.weak,
+      horror: W.primary,
+      adventure: W.weak,
+    }),
+    priorityGenre: 'horror',
+    requires: [],
+  },
+] as const satisfies readonly SetBlueprint[])
+
+/** The set blueprint with this id, or null. */
+export function setBlueprintById(blueprintId: string): SetBlueprint | null {
+  for (const blueprint of SET_BLUEPRINTS) {
+    if (blueprint.id === blueprintId) return blueprint
+  }
+  return null
+}
 
 // ── C1-M3a Move & Demolish V1 ────────────────────────────────────────────────
 /**

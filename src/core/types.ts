@@ -1004,6 +1004,23 @@ export type FacilityBlueprint = {
    * which is exactly the kind that exists for it.
    */
   maxInstances?: number
+  /**
+   * C2a-M2: whether EVERY placement of this blueprint is numbered, including the
+   * first.
+   *
+   * ABSENT is the proven V12 behaviour and stays the default: the first placement
+   * takes the blueprint's identity verbatim ("Development & Casting Annex") and
+   * later ones are numbered. That reads correctly for a building the studio has
+   * exactly one canonical instance of.
+   *
+   * It reads WRONG for a building the studio was FOUNDED with siblings of. A
+   * player who owns Soundstage 7 and Soundstage 12 and builds a third would see it
+   * called "Soundstage" — which looks like a missing number rather than a name.
+   * Setting this makes the first one "Soundstage 5" and its id
+   * `facility-soundstage-5`, so the name and the id agree and no stage on the lot
+   * is anonymous.
+   */
+  numberedInstances?: boolean
 }
 
 export type PlacementStatus = 'underConstruction' | 'operational'

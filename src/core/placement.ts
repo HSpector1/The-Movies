@@ -315,6 +315,10 @@ export function placedStudioFacility(placed: PlacedFacility): StudioFacility {
   }
   return {
     id: placed.facilityId,
+    // The bare base means "the canonical one" and takes the blueprint's name
+    // verbatim; anything else is numbered by its placement id. A blueprint marked
+    // `numberedInstances` never holds the bare base, so it is always numbered here
+    // by the same one rule rather than by a second one.
     name:
       placed.facilityId === blueprint.facilityIdBase
         ? blueprint.name
@@ -652,8 +656,18 @@ export function quoteForBlueprint(
   }
 }
 
-function deriveIdentity(base: string, placementId: number, taken: ReadonlySet<string>): string {
-  return taken.has(base) ? `${base}-${String(placementId)}` : base
+function deriveIdentity(
+  base: string,
+  placementId: number,
+  taken: ReadonlySet<string>,
+  // C2a-M2: a blueprint whose instances are ALWAYS numbered never takes the bare
+  // base, even when it is free. See `FacilityBlueprint.numberedInstances` — a
+  // third soundstage called "Soundstage" beside "Soundstage 7" and "Soundstage 12"
+  // reads as a missing number, not as a name. Absent on every C1 blueprint, so
+  // every existing identity is derived exactly as before.
+  alwaysNumbered = false,
+): string {
+  return alwaysNumbered || taken.has(base) ? `${base}-${String(placementId)}` : base
 }
 
 /** Every facility id already spoken for, from both live authorities. */
@@ -690,8 +704,14 @@ export function commitPlacement(state: GameState, request: PlacementRequest): Ga
   const parcel = parcelAt(propertyOf(state), quote.origin)
   if (parcel === null) return state // unreachable: an ok quote owns its origin
 
-  const facilityId = deriveIdentity(blueprint.facilityIdBase, id, takenFacilityIds(state))
-  const projectId = deriveIdentity(blueprint.projectIdBase, id, takenProjectIds(state))
+  const numbered = blueprint.numberedInstances === true
+  const facilityId = deriveIdentity(
+    blueprint.facilityIdBase,
+    id,
+    takenFacilityIds(state),
+    numbered,
+  )
+  const projectId = deriveIdentity(blueprint.projectIdBase, id, takenProjectIds(state), numbered)
   const placed: PlacedFacility = {
     id,
     blueprintId: blueprint.id,

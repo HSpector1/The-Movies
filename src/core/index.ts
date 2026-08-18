@@ -362,7 +362,17 @@ export {
   AUTHORED_START_OVR,
   // D-11.C Balanced Creator archetype presets
   BALANCED_ARCHETYPES,
+  // C2a-M2 — the §3.4 buildable slate and the Set catalog (charter §9)
+  STAGE_STANDARD_BLUEPRINT,
+  STAGE_BLUEPRINTS,
+  POST_BUILDING_BLUEPRINT,
+  SCENERY_SHOP_BLUEPRINT,
+  BASELINE_DEVELOPMENT_CASTING_BLUEPRINT,
+  SET_BLUEPRINTS,
+  SET_TYPE_LABELS,
+  setBlueprintById,
 } from './tuning.js'
+export type { SetBlueprint } from './tuning.js'
 
 // §4 shape declarations + resolveShape (phase 2)
 export { SHAPE_OPTIONS, specificity, resolveShape } from './shape.js'
@@ -463,6 +473,7 @@ export {
   endowedHouseSets,
   neutralGenreWeights,
   setId,
+  setTypeLabel,
 } from './sets.js'
 export type { KnownSetTypeId } from './sets.js'
 export {

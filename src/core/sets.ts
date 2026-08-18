@@ -22,25 +22,28 @@
 //
 // This module is pure data + total functions: no RNG, no clock, no I/O.
 
-import { GENRE_ORDER, TUNING } from './tuning.js'
+import {
+  GENRE_ORDER,
+  SET_TYPE_LABELS,
+  SET_TYPES,
+  TUNING,
+  type KnownSetTypeId,
+} from './tuning.js'
 import type { Genre, StudioSet } from './types.js'
 
-/**
- * The CLOSED authored location vocabulary (charter §9). A `BlueprintBeat`'s
- * `requiredSetType` resolves against it, which is why it has to be closed: a beat
- * demanding a location that no blueprint can ever satisfy is an unrelievable
- * queue reason, and owner law 2 forbids those.
- *
- * M1 authors the ONE starter entry the endowed house sets are built from. M2
- * authors the full list, because M3's beats consume it — that ordering is the
- * lane-14 interface dependency, joined at M2 on purpose.
- */
-export const SET_TYPES = Object.freeze(['generic-interior'] as const)
-
-export type KnownSetTypeId = (typeof SET_TYPES)[number]
+// The CLOSED authored location vocabulary lives in TUNING (charter §9) beside the
+// blueprint catalog that guarantees every entry in it is buildable. It is
+// RE-EXPORTED here because `sets.ts` has been its public address since M1 and the
+// save validator reads it from here.
+export { SET_TYPES, SET_TYPE_LABELS, type KnownSetTypeId } from './tuning.js'
 
 /** The starter entry: the undressed stage interior every house set is. */
 export const STARTER_SET_TYPE: KnownSetTypeId = SET_TYPES[0]
+
+/** The player-facing name of a location, falling back to its id for a stranger. */
+export function setTypeLabel(setType: string): string {
+  return SET_TYPE_LABELS[setType as KnownSetTypeId] ?? setType
+}
 
 /**
  * The blueprint id the two endowed house sets carry. The catalog itself (costs,
