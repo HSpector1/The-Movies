@@ -174,6 +174,9 @@ function placedSite(
     { gx: x0, gy: y0 },
     { width: x1 - x0 + 1, depth: y1 - y0 + 1 },
     placed.blueprintId,
+    // A stage's crew stand at a stage's door. The class template answers for a body
+    // whose blueprint carries no authored art of its own (C2a-M2 §3.1).
+    placed.capability,
   )
   const work = clampToLot(anchors.work ?? { gx: x0, gy: y1 })
   const wait = clampToLot(anchors.wait ?? work)

@@ -24,6 +24,9 @@
 import type Phaser from 'phaser'
 import { TILE_W, TILE_H } from '../scene/iso'
 import { WARM as C } from './palette'
+// The one name for the stage-CLASS body, so the bake and the presentation that asks
+// for it can never drift apart (C2a-M2 §3.1). `world.ts` imports only a snapshot type.
+import { PLACED_SOUNDSTAGE_TEX_KEY } from './world'
 
 const hw = TILE_W / 2
 const hh = TILE_H / 2
@@ -795,6 +798,14 @@ export function bakeBlueprintTexture(scene: Phaser.Scene, texKey: string): boole
       return true
     case 'tw-craft':
       bakeCraftAnnex(scene)
+      return true
+    case PLACED_SOUNDSTAGE_TEX_KEY:
+      // C2a-M2 §3.1 — Soundstage (Standard). The SAME geometry the two founding stages
+      // wear, keyed as a class rather than per stage: `bakeStage` was already
+      // parameterised by texture key only, so a studio's third, fourth and fifth
+      // soundstage all read as soundstages at every zoom band for one texture's bytes.
+      // Grid world only. The plate origin never gets a placed body (law 27a).
+      bakeStage(scene, PLACED_SOUNDSTAGE_TEX_KEY)
       return true
     default:
       // A blueprint whose art has not been authored gets the honest massing block the

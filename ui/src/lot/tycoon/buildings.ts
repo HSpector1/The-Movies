@@ -58,6 +58,12 @@ export type WorldBuilding = WorldPlace & {
   placedFacilityId: number | null
   /** Which blueprint's presentation it wears, or null for an authored place. */
   blueprintId: string | null
+  /**
+   * What a placed body IS, in the engine's own capability term, or null for an authored
+   * place. A body with no authored art of its own is dressed by its CLASS from this
+   * (C2a-M2 §3.1) — one procedural soundstage serves every soundstage a studio builds.
+   */
+  capability: string | null
   /** Whether a body stands here yet. `null` for an authored place, which always does. */
   status: 'underConstruction' | 'operational' | null
 }
@@ -109,6 +115,7 @@ function composeOne(record: LotWorldBuilding): WorldBuilding | null {
     const placedId = record.placedFacilityId ?? placedFacilityIdOf(record.id)
     if (placedId === null) return null
     const blueprintId = record.blueprintId ?? null
+    const capability = record.capability ?? null
     const origin: GridPoint = { gx: record.origin.gx, gy: record.origin.gy }
     return {
       buildingId: record.id,
@@ -116,15 +123,16 @@ function composeOne(record: LotWorldBuilding): WorldBuilding | null {
       // not exist when that vocabulary was written. Its own world id IS its place id.
       placeId: record.id,
       label: record.label.toUpperCase(),
-      texKey: blueprintPresentation(blueprintId).texKey,
+      texKey: blueprintPresentation(blueprintId, capability).texKey,
       gx: origin.gx,
       gy: origin.gy,
       fw: record.footprint.width,
       fd: record.footprint.depth,
-      anchors: placedAnchors(origin, record.footprint, blueprintId),
+      anchors: placedAnchors(origin, record.footprint, blueprintId, capability),
       role: 'placed',
       placedFacilityId: placedId,
       blueprintId,
+      capability,
       status: record.status ?? 'underConstruction',
     }
   }
@@ -147,6 +155,7 @@ function composeOne(record: LotWorldBuilding): WorldBuilding | null {
     role: record.role,
     placedFacilityId: null,
     blueprintId: null,
+    capability: null,
     status: null,
   }
 }
@@ -167,6 +176,7 @@ function legacyExpansionBuilding(): WorldBuilding {
     role: 'parcel',
     placedFacilityId: null,
     blueprintId: null,
+    capability: null,
     status: null,
   }
 }
@@ -183,6 +193,7 @@ export const INITIAL_WORLD_BUILDINGS: readonly WorldBuilding[] = WORLD_PLACES.ma
   role: place.buildingId === LEGACY_ANNEX_PARCEL_ID ? ('parcel' as const) : ('founding' as const),
   placedFacilityId: null,
   blueprintId: null,
+  capability: null,
   status: null,
 }))
 

@@ -1793,7 +1793,7 @@ export class TycoonScene extends Phaser.Scene {
     extent: LotGridRect,
     depth: number,
   ): void {
-    const texKey = blueprintPresentation(placed.blueprintId).texKey
+    const texKey = blueprintPresentation(placed.blueprintId, placed.capability).texKey
     const meta = texKey === '' ? undefined : TYCOON_BUILDING_TEX[texKey]
     const anchor = this.world((extent.x0 + extent.x1 + 1) / 2, (extent.y0 + extent.y1 + 1) / 2)
     if (!meta) {
@@ -1881,7 +1881,7 @@ export class TycoonScene extends Phaser.Scene {
    */
   private placementCaptionLift(placed: LotPlacedFacilityState, extent: LotGridRect): number {
     if (placed.status === 'operational') {
-      const texKey = blueprintPresentation(placed.blueprintId).texKey
+      const texKey = blueprintPresentation(placed.blueprintId, placed.capability).texKey
       const meta = texKey === '' ? undefined : TYCOON_BUILDING_TEX[texKey]
       if (meta === undefined) return 42
       const fw = extent.x1 - extent.x0 + 1

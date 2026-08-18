@@ -422,10 +422,56 @@ export const BLUEPRINT_PRESENTATION: Readonly<Record<string, BlueprintPresentati
   },
 }
 
-/** The presentation one blueprint wears. Never null: an unknown blueprint is honest. */
-export function blueprintPresentation(blueprintId: string | null | undefined): BlueprintPresentation {
-  if (typeof blueprintId !== 'string') return DEFAULT_BLUEPRINT_PRESENTATION
-  return BLUEPRINT_PRESENTATION[blueprintId] ?? DEFAULT_BLUEPRINT_PRESENTATION
+// ── C2a-M2 §3.1 — stage CLASSES are the art unit, not stage instances ─────────
+//
+// A studio may build any number of soundstages, and authoring one body per blueprint id
+// does not survive that: the authored-PNG pipeline is a per-building, Art-Director-gated
+// process with a private-repo source obligation, and the C1-M5 per-blueprint table would
+// need a new entry for every stage class anyone ever adds.
+//
+// So a body with no authored art of its own is dressed by what it IS. One procedural
+// Soundstage (Standard) body serves every soundstage the studio builds: N instances cost
+// one sprite each and ZERO additional texture bytes, because textures are keyed by class.
+// This is NOT a borrowed body (law 12) — it is the honest body of that class, the same
+// geometry the two founding stages already wear.
+
+/** The baked body every soundstage-capability facility with no authored art wears. */
+export const PLACED_SOUNDSTAGE_TEX_KEY = 'tw-stage-standard'
+
+/**
+ * Presentation by CAPABILITY, for a blueprint that carries no authored body of its own.
+ *
+ * Anchors: a soundstage is 4 × 4, a full tile wider and deeper than the Annex's 3 × 2,
+ * so its door sits further from the centre of its frontage and its people stand one
+ * tile further out — the same reasoning C1-M5 recorded for the 4 × 3 Hall.
+ */
+const CAPABILITY_PRESENTATION: Readonly<Record<string, BlueprintPresentation>> = {
+  soundstage: {
+    texKey: PLACED_SOUNDSTAGE_TEX_KEY,
+    anchors: { workStandoff: 2.1, waitStandoff: 2.7, waitAcross: 1.8 },
+  },
+}
+
+/**
+ * The presentation one blueprint wears. Never null: an unknown blueprint is honest.
+ *
+ * Order is deliberate. An AUTHORED body for this exact blueprint always wins — it is the
+ * specific truth about that building. Failing that, the body of its CLASS. Failing both,
+ * the honest massing block, which is what "we have not drawn this yet" looks like.
+ */
+export function blueprintPresentation(
+  blueprintId: string | null | undefined,
+  capability?: string | null | undefined,
+): BlueprintPresentation {
+  if (typeof blueprintId === 'string') {
+    const authored = BLUEPRINT_PRESENTATION[blueprintId]
+    if (authored !== undefined) return authored
+  }
+  if (typeof capability === 'string') {
+    const byClass = CAPABILITY_PRESENTATION[capability]
+    if (byClass !== undefined) return byClass
+  }
+  return DEFAULT_BLUEPRINT_PRESENTATION
 }
 
 /**
@@ -439,8 +485,9 @@ export function placedAnchors(
   origin: GridPoint,
   footprint: { width: number; depth: number },
   blueprintId: string | null | undefined,
+  capability?: string | null | undefined,
 ): Record<string, GridPoint> {
-  const template = blueprintPresentation(blueprintId).anchors
+  const template = blueprintPresentation(blueprintId, capability).anchors
   const front = origin.gy + footprint.depth - 1
   const centre = (origin.gx + (origin.gx + footprint.width - 1) + 1) / 2
   const work = { gx: centre, gy: front + template.workStandoff }
