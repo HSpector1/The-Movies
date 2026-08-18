@@ -62,8 +62,9 @@ import { developTalent, type DevelopmentContext } from './development.js'
 import { economyEngaged, weeklyPayroll } from './employment.js'
 import { openTheatricalRun } from './economy.js'
 import { clamp } from './math.js'
-import { assertNoDoubleBookedResourceSlots } from './occupancy.js'
+import { assertNoDoubleBookedResourceSlots, setOccupiedFacilitySlots } from './occupancy.js'
 import { advanceManagedProductions } from './operations.js'
+import { assertSetsInvariants, completeDueSets } from './sets.js'
 import {
   commitStudioEvents,
   disabledStudioEventSink,
@@ -168,6 +169,11 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   assertStudioPlacementInvariants(state, {
     facilityPolicy: state.placement.facilities.length === 0 ? 'configured' : 'placement-v12',
   })
+  // C2a-M2: the Set cross-reference laws, at the same boundary and for the same
+  // reason — a tick may not repair a state in which two sets stand on one stage,
+  // a set is being built by nobody, or a picture is filming on a set that is not
+  // standing.
+  assertSetsInvariants(state)
 
   // Deserialize the sim stream ONCE. Its state is re-serialized as the final step.
   const rng = RngStream.deserialize(state.rngState)
@@ -224,6 +230,14 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // Advance every active production with startTick < currentTick (M1 skip-first-
   // tick: a film greenlit at t does NOT advance during tick t). Immutable: build a
   // fresh Production for advanced ones, share the untouched ones by reference.
+  // C2a-M2: the scenery crews the SETS root is already holding join the two
+  // shared-slot views production allocation has always been handed. A set going
+  // up or being repaired occupies a `set-scenery` slot exactly as a shooting
+  // picture does, and the allocator has to see it or the two race for one crew.
+  //
+  // Derived from the state as it stands at the START of this advance, which is
+  // what breaks the circularity: the sets read the reservations productions are
+  // already holding, and productions are then told what the sets took.
   const productionAdvance = advanceManagedProductions(
     state.operations,
     state.studio.activeProductions,
@@ -231,6 +245,12 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     new Set([
       ...scriptOccupiedFacilitySlots(scriptDevelopment),
       ...castingOccupiedFacilitySlots(castingSessions),
+      ...setOccupiedFacilitySlots(
+        state.sets,
+        state.operations,
+        scriptDevelopment,
+        castingSessions,
+      ),
     ]),
     events,
   )
@@ -273,6 +293,18 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       completed.completesWeek,
     )
   }
+
+  // ── 1.7 SET COMPLETION (C2a-M2) ─────────────────────────────────────────
+  // INSERTION, NOT A REORDERING, in exactly the position construction and
+  // placement completion already hold and for exactly their reason: a set that
+  // finishes during this advance was still scaffolding for the week that just
+  // ran, so it contributes nothing to the allocation that has already happened
+  // and cannot be shot on until the next one.
+  //
+  // A first build records a permanent `setBuilt` row; a repair records nothing,
+  // because the set was built once and the studio's history is not editable.
+  const setCompletion = completeDueSets(state.sets, currentTick + 1, events)
+  const sets = setCompletion.sets
 
   // ── 2. RELEASE ─────────────────────────────────────────────────────────────
   // Collect productions at remainingTicks === 0 after step 1; the rest stay
@@ -747,6 +779,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     scriptDevelopment,
     castingSessions,
     construction,
+    sets,
   })
 
   return {
@@ -772,6 +805,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     castingSessions,
     construction,
     placement,
+    sets,
     // Stamped, appended, and compacted against the week this advance PRODUCES —
     // the week `market.tick` now reads — so the log a caller gets back is already
     // at its steady-state size and the save validator's window check agrees with

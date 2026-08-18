@@ -843,7 +843,11 @@ export function facilityEngagements(
           kind: 'production',
           facilityId,
           holderId: held.ownerId,
-          activity: held.phase,
+          // C2a-M2: a production's SET claim names no facility slot and never
+          // reaches here for a real facility id — its `facilityId` is the stage
+          // the picture already holds through its own reservation, which the
+          // reservation arm has already reported.
+          activity: held.kind === 'set' ? 'shooting' : held.phase,
         })
         break
       case 'shootingTask':
@@ -877,6 +881,22 @@ export function facilityEngagements(
           facilityId,
           holderId: held.ownerId,
           activity: 'construction',
+        })
+        break
+      // C2a-M2. Two sentences, because they are two different refusals: a stage
+      // cannot be demolished while a set stands on it ("strike the set first"),
+      // and a scenery shop cannot be demolished while its crew is building one.
+      case 'set':
+        holders.push({
+          kind: 'set',
+          facilityId,
+          holderId: held.ownerId,
+          activity:
+            held.kind === 'mount'
+              ? held.set.status === 'under-construction'
+                ? 'a set going up on this stage'
+                : 'a set standing on this stage'
+              : 'building a set',
         })
         break
     }

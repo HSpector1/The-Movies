@@ -84,7 +84,22 @@ import {
   scheduleShootingTake,
 } from './operations.js'
 import { publicityLiftAt } from './publicity.js'
-import { ENDOWED_NEXT_SET_ID, endowedHouseSets } from './sets.js'
+import {
+  ENDOWED_NEXT_SET_ID,
+  assertSetsInvariants,
+  commissionSet,
+  commissionSetRefusal,
+  endowedHouseSets,
+  repairSet,
+  repairSetRefusal,
+  setById,
+  setCommissionRefusalCopy,
+  setRepairRefusalCopy,
+  setStrikeRefusalCopy,
+  strikeSet,
+  strikeSetRefusal,
+  type SetRefusalCopy,
+} from './sets.js'
 import {
   commitStudioEvents,
   disabledStudioEventSink,
@@ -1440,6 +1455,100 @@ function applyStartDevelopmentCastingAnnex(
   )
 }
 
+// ── C2a-M2 — the three Set verbs (charter §3.1) ─────────────────────────────
+//
+// Identical in shape to the placement verbs: validate the state FIRST so a forged
+// ledger cannot launder an apparently legal build, then ask the ONE refusal
+// authority, then apply — and abort loudly if the pure helper disagrees with the
+// probe that just passed.
+//
+// The thrown message carries the refusal's own PLAYER SENTENCE, not a code. A set
+// refusal is a thing a producer would say out loud ("Stage 7 already has the
+// Graveyard on it — strike it first"), and it is the same sentence a surface
+// renders, because a second copy of that sentence is a second chance to lie.
+function rejectRefusedSetVerb(
+  state: GameState,
+  actionName: string,
+  copy: SetRefusalCopy | null,
+  apply: (state: GameState) => GameState,
+): GameState {
+  assertStudioPlacementInvariants(state)
+  assertSetsInvariants(state)
+  if (copy !== null) {
+    throw new Error(`applyActions: ${actionName} rejected — ${copy.reason} ${copy.remedy}`)
+  }
+  const next = apply(state)
+  if (next === state) {
+    throw new Error(
+      `applyActions: ${actionName} rejected — the helper refused a set verb its own probe accepted`,
+    )
+  }
+  assertSetsInvariants(next)
+  return next
+}
+
+function applyCommissionSet(
+  state: GameState,
+  action: Action & { kind: 'commissionSet' },
+): GameState {
+  // The SOLVENCY gate, not a bare cash comparison: a set is capital spending and
+  // goes through the same D-12 gate every other capital verb does.
+  const refusal = commissionSetRefusal(
+    state,
+    action.commission,
+    (cost) => canAfford(state, cost).ok,
+  )
+  const stage = state.operations.facilities.find(
+    (facility) => facility.id === action.commission.stageFacilityId,
+  )
+  return rejectRefusedSetVerb(
+    state,
+    'commissionSet',
+    refusal === null
+      ? null
+      : setCommissionRefusalCopy(refusal, {
+          ...(stage === undefined ? {} : { stageName: stage.name }),
+        }),
+    (current) => commissionSet(current, action.commission),
+  )
+}
+
+function applyRepairSet(state: GameState, action: Action & { kind: 'repairSet' }): GameState {
+  const refusal = repairSetRefusal(state, action.setId, (cost) => canAfford(state, cost).ok)
+  const set = setById(state.sets, action.setId)
+  return rejectRefusedSetVerb(
+    state,
+    'repairSet',
+    refusal === null
+      ? null
+      : setRepairRefusalCopy(refusal, { ...(set === null ? {} : { setName: set.name }) }),
+    (current) => repairSet(current, action.setId),
+  )
+}
+
+function applyStrikeSet(state: GameState, action: Action & { kind: 'strikeSet' }): GameState {
+  const refusal = strikeSetRefusal(state, action.setId)
+  const set = setById(state.sets, action.setId)
+  return rejectRefusedSetVerb(
+    state,
+    'strikeSet',
+    refusal === null
+      ? null
+      : setStrikeRefusalCopy(refusal, { ...(set === null ? {} : { setName: set.name }) }),
+    (current) => {
+      // A struck set is PERMANENT history: the stage is clear, the studio has its
+      // money back, and the record of what stood there survives the strike.
+      const events = studioEventSinkFor(current)
+      const next = strikeSet(current, action.setId, events)
+      if (next === current) return current
+      return {
+        ...next,
+        studioEvents: commitStudioEvents(next.studioEvents, events, next.market.tick),
+      }
+    },
+  )
+}
+
 function requireActiveProductionForOperations(
   state: GameState,
   productionId: string,
@@ -2114,6 +2223,15 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'demolishFacility':
         next = applyDemolishFacility(next, action)
+        break
+      case 'commissionSet':
+        next = applyCommissionSet(next, action)
+        break
+      case 'repairSet':
+        next = applyRepairSet(next, action)
+        break
+      case 'strikeSet':
+        next = applyStrikeSet(next, action)
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).

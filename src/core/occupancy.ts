@@ -32,6 +32,18 @@
 //   5. `construction.projects[].facilityId` — the retired V11 construction root.
 //      Provably empty under V12 and later; walked so a migrated or forged save
 //      cannot slip past.
+//   6. `sets[]` — C2a-M2, THE SIXTH HOLDER this module was written for. A set
+//      holds two different things and they are deliberately not the same claim:
+//        * MOUNT (`mount:<facilityId>`) — every set that is not retired occupies
+//          the mount on the stage it is built on. Never waited on, acquired
+//          instantly at commission (§3.1), and never a production slot: a stage
+//          with a set on it still has its production slot free, which is why the
+//          endowed studio's Stage 7 is available at week 0.
+//        * a `set-scenery` SLOT, while the set is going up or being repaired. A
+//          standing set holds no scenery crew — the carpenters have gone home.
+//      A bound set's exclusivity (`set:<setId>`) is claimed by the PRODUCTION
+//      that bound it, from `workflow.bindings`, because the picture is what holds
+//      the set — the set does not hold itself.
 //
 // KEYS. The producer's key is KIND-QUALIFIED — `facility:<facilityId>:<slot>` —
 // and the qualification is a RUNTIME fact only: nothing here is persisted, and no
@@ -67,13 +79,15 @@ import type {
   ShootingTask,
   StudioConstruction,
   StudioOperations,
+  StudioSet,
 } from './types.js'
 
 /**
- * The kinds of resource a claim can name. `facility` is the only one that exists
- * at C2a-M0; `stage`, `set`, and `mount` are documented above and land at M2+.
+ * The kinds of resource a claim can name. `facility` addresses a schedulable slot
+ * inside a building; `set` and `mount` address things that are not slots at all
+ * and are exclusive by identity (C2a-M2). `stage` stays reserved.
  */
-export type ResourceKind = 'facility'
+export type ResourceKind = 'facility' | 'set' | 'mount'
 
 /** Every persisted root that can hold studio capacity. */
 export type ResourceOwnerKind =
@@ -82,6 +96,7 @@ export type ResourceOwnerKind =
   | 'screenplay'
   | 'castingSession'
   | 'legacyConstructionProject'
+  | 'set'
 
 type ResourceClaimBase = {
   /** Kind-qualified runtime key. Slot claims carry the slot; facility-level ones do not. */
@@ -140,6 +155,32 @@ export type ResourceClaim =
       readonly facilitySlotKey: null
       readonly project: ConstructionProject
     })
+  // C2a-M2. Three shapes, one owner: the scenery slot a set under work holds, the
+  // mount it stands on, and the set itself while a picture is bound to it.
+  | (ResourceClaimBase & {
+      readonly owner: 'set'
+      readonly kind: 'facility'
+      readonly slot: number
+      readonly capability: 'set-scenery'
+      readonly facilitySlotKey: string
+      readonly set: StudioSet
+    })
+  | (ResourceClaimBase & {
+      readonly owner: 'set'
+      readonly kind: 'mount'
+      readonly slot: null
+      readonly capability: null
+      readonly facilitySlotKey: null
+      readonly set: StudioSet
+    })
+  | (ResourceClaimBase & {
+      readonly owner: 'production'
+      readonly kind: 'set'
+      readonly slot: null
+      readonly capability: null
+      readonly facilitySlotKey: null
+      readonly setId: string
+    })
 
 /** A claim that occupies a SCHEDULABLE slot — the only kind that can be double-booked. */
 export type ResourceSlotClaim = Extract<ResourceClaim, { slot: number }>
@@ -159,6 +200,8 @@ export type OccupancySources = {
   readonly scriptDevelopment?: ScriptDevelopment
   readonly castingSessions?: CastingSessions
   readonly construction?: StudioConstruction
+  /** C2a-M2 — `state.sets`. Absent means "this caller cannot see the sets root". */
+  readonly sets?: readonly StudioSet[]
 }
 
 /** The bare allocation key that has addressed a facility slot since V8. */
@@ -174,6 +217,16 @@ export function resourceSlotKey(kind: ResourceKind, facilityId: string, slot: nu
 /** The kind-qualified runtime key for a whole-building claim that names no slot. */
 export function resourceFacilityKey(kind: ResourceKind, facilityId: string): string {
   return `${kind}:${facilityId}`
+}
+
+/** The mount on one stage. Exactly one set may occupy it (C2a-M2). */
+export function mountKey(stageFacilityId: string): string {
+  return resourceFacilityKey('mount', stageFacilityId)
+}
+
+/** One set's exclusivity key. Exactly one picture may hold it (§3.2). */
+export function setExclusivityKey(setId: string): string {
+  return `set:${setId}`
 }
 
 /** True when the claim occupies a schedulable slot rather than a whole building. */
@@ -200,6 +253,12 @@ export function isResourceSlotClaim(claim: ResourceClaim): claim is ResourceSlot
 export type ResourceOccupancy = Map<string, ResourceClaim[]>
 
 function occupancyKeyOf(claim: ResourceClaim): string {
+  // A FACILITY claim keys exactly as it has since V8 — the bare `facilityId:slot`
+  // for a slot, the bare `facilityId` for a whole building — so no existing key
+  // moves. The C2a-M2 kinds address things that are not facility slots and key on
+  // their own qualified name, which is what makes a double MOUNT or a double SET
+  // visible in the same map that has always shown a double slot.
+  if (claim.kind !== 'facility') return claim.key
   return claim.facilitySlotKey ?? claim.facilityId
 }
 
@@ -322,7 +381,127 @@ export function resourceClaims(sources: OccupancySources): ResourceClaim[] {
     })
   }
 
+  // 6. SETS (C2a-M2), in three passes so the order inside the source is fixed.
+  const sets = sources.sets ?? []
+
+  //   6a. The MOUNT. Every set that has not retired stands on a stage, whether it
+  //       is finished or still going up, and that stage's mount is spoken for.
+  for (const set of sets) {
+    if (set.status === 'retired') continue
+    claims.push({
+      key: mountKey(set.mountedOn),
+      facilitySlotKey: null,
+      kind: 'mount',
+      facilityId: set.mountedOn,
+      slot: null,
+      capability: null,
+      owner: 'set',
+      ownerId: set.id,
+      set,
+    })
+  }
+
+  //   6b. The SCENERY SLOT a set under work holds.
+  //
+  //       DERIVED, NOT PERSISTED, and deliberately so: V14's `StudioSet` is the
+  //       complete schema and M2 adds no member to it (§8). The assignment is a
+  //       pure function of the claims ALREADY produced above plus the sets in
+  //       state order, so it is deterministic and it can never collide with a
+  //       claim another owner is holding — the derivation reads their slots and
+  //       skips them. Productions are told about these slots in turn through
+  //       `setOccupiedFacilitySlots`, which is what stops the two from racing.
+  //
+  //       A set that finds NO free slot produces no claim rather than a forged
+  //       one. That state is unreachable through the actions (a commission
+  //       refuses up front unless a slot is free, and scenery capacity cannot be
+  //       demolished out from under a set that is holding one), and the sets
+  //       invariant refuses it if a forged save carries it.
+  const setsUnderWork = sets.filter((set) => set.status === 'under-construction')
+  if (setsUnderWork.length > 0) {
+    const taken = new Set<string>()
+    for (const claim of claims) {
+      if (claim.facilitySlotKey !== null) taken.add(claim.facilitySlotKey)
+    }
+    const shops = (sources.operations?.facilities ?? [])
+      .filter((facility) => facility.capability === 'set-scenery')
+      .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
+    for (const set of setsUnderWork) {
+      let assigned = false
+      for (const shop of shops) {
+        for (let slot = 0; slot < shop.capacity && !assigned; slot++) {
+          const key = facilitySlotKey(shop.id, slot)
+          if (taken.has(key)) continue
+          taken.add(key)
+          assigned = true
+          claims.push({
+            key: resourceSlotKey('facility', shop.id, slot),
+            facilitySlotKey: key,
+            kind: 'facility',
+            facilityId: shop.id,
+            slot,
+            capability: 'set-scenery',
+            owner: 'set',
+            ownerId: set.id,
+            set,
+          })
+        }
+        if (assigned) break
+      }
+    }
+  }
+
+  //   6c. SET EXCLUSIVITY, claimed by the PICTURE that bound it (§3.2: bindings
+  //       are not reservations, and a set's exclusivity is enforced HERE). The
+  //       claim exists only while the picture is physically on the set —
+  //       rehearsal and shooting — because that is exactly how long the set is
+  //       unavailable to anybody else. `bindings.setId` survives into post as the
+  //       picture's RECORD of what it shot on, and a record holds nothing.
+  for (const workflow of sources.operations?.workflows ?? []) {
+    const bound = workflow.bindings?.setId ?? null
+    if (bound === null) continue
+    if (workflow.phase !== 'rehearsal' && workflow.phase !== 'shooting') continue
+    claims.push({
+      key: setExclusivityKey(bound),
+      facilitySlotKey: null,
+      kind: 'set',
+      facilityId: workflow.bindings.stageFacilityId ?? '',
+      slot: null,
+      capability: null,
+      owner: 'production',
+      ownerId: workflow.productionId,
+      setId: bound,
+    })
+  }
+
   return claims
+}
+
+/**
+ * The scenery slots the SETS root is holding — the view production allocation
+ * needs, in the same shape `scriptOccupiedFacilitySlots` and
+ * `castingOccupiedFacilitySlots` already hand it.
+ *
+ * Bare `facilityId:slot` keys, because that is the vocabulary the allocator
+ * speaks.
+ */
+export function setOccupiedFacilitySlots(
+  sets: readonly StudioSet[],
+  operations: StudioOperations,
+  scriptDevelopment?: ScriptDevelopment,
+  castingSessions?: CastingSessions,
+): Set<string> {
+  const held = new Set<string>()
+  const sources: OccupancySources = {
+    sets,
+    operations,
+    ...(scriptDevelopment === undefined ? {} : { scriptDevelopment }),
+    ...(castingSessions === undefined ? {} : { castingSessions }),
+  }
+  for (const claim of resourceClaims(sources)) {
+    if (claim.owner !== 'set') continue
+    if (claim.facilitySlotKey !== null) held.add(claim.facilitySlotKey)
+  }
+  return held
 }
 
 /** Restrict a claim list to the owners a caller is entitled to see. */

@@ -1023,6 +1023,14 @@ export type FacilityBlueprint = {
   numberedInstances?: boolean
 }
 
+/** C2a-M2 — what a commission names: a set class, and the stage to mount it on. */
+export type CommissionSetPayload = {
+  /** A `SET_BLUEPRINTS` entry. */
+  blueprintId: string
+  /** The `StudioFacility.id` of a soundstage the studio owns. */
+  stageFacilityId: string
+}
+
 export type PlacementStatus = 'underConstruction' | 'operational'
 
 export type PlacedFacility = {
@@ -1057,6 +1065,13 @@ export type FacilityEngagementKind =
   | 'castingSession'
   /** The retired V11 construction root. Defensive; empty under V12 and later. */
   | 'legacyConstructionProject'
+  /**
+   * C2a-M2 — a Set. Two different holds, both of them real:
+   *   * a set going up or being repaired holds one `set-scenery` slot;
+   *   * a STANDING set holds the MOUNT on the stage it is built on, which is why
+   *     a stage with a set on it cannot be demolished until the set is struck.
+   */
+  | 'set'
 
 /**
  * One live claim on a facility, named precisely enough for a refusal to be
@@ -1572,6 +1587,14 @@ export type Action =
   // structures are out of reach by the shape of the action itself.
   | { kind: 'moveFacility'; move: FacilityMoveRequest }
   | { kind: 'demolishFacility'; demolition: FacilityDemolitionRequest }
+  // ── C2a-M2 — Sets (charter §3.1) ──
+  // Three verbs on a first-class entity. `commissionSet` names a blueprint AND a
+  // stage because a set has no existence apart from the stage it stands on; the
+  // other two name a set, never a stage, so no verb can reach a stage's mount
+  // without going through the set that occupies it.
+  | { kind: 'commissionSet'; commission: CommissionSetPayload }
+  | { kind: 'repairSet'; setId: string }
+  | { kind: 'strikeSet'; setId: string }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a
