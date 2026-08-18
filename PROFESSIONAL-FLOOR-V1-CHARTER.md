@@ -1,11 +1,20 @@
 # PROFESSIONAL FLOOR V1 — CAMPAIGN CHARTER (DRAFT FOR OWNER AUTHORIZATION)
 
-> Status: **DRAFT — planning only. No implementation is authorized by this document.**
+> Status: **DRAFT r2 — planning only. No implementation is authorized by this document.**
 > Prepared by Fable (Game Director/PM) under the Owner order of 2026-08-18
-> ("PROFESSIONAL FLOOR DIRECTION APPROVED, WITH HARD SCOPE").
+> ("PROFESSIONAL FLOOR DIRECTION APPROVED, WITH HARD SCOPE"), revised per the
+> Owner's PF1 Director Review (same date): Sonnet Surface Audit findings
+> incorporated (aria inventory corrected and re-verified against the code; audio
+> framing corrected; preferences substrate moved ahead of its dependents), Owner
+> rulings 1–6 recorded, module paths frozen, and the implementation ownership
+> plan added (§10). Final authorization awaits the Owner's read of the pending
+> independent commercial red-team report and Fable's triage of it (scope filter:
+> professionalism defects, in-scope fixes, and collision/assumption corrections
+> only — later-game deficiencies route to C2/C3+).
 > Base: the sealed Campaign 1 tree (`f294077`). Branch: `professional-floor-v1`.
 > Every scope claim below was verified against the live build by a three-scout
-> recon pass; file:line evidence is cited where a claim depends on it.
+> recon pass plus the independent Sonnet Surface Audit; file:line evidence is
+> cited where a claim depends on it.
 
 ## 1. Mission and bounds
 
@@ -75,11 +84,14 @@ charter section, not a new document — later campaigns cite this section.
 
 ## 4. What the recon verified (the facts this scope stands on)
 
-- **The sound engine is already shipped.** Phaser 3.90 full build is the pinned
-  dependency; the game config sets no `audio` key, so the WebAudio sound manager
-  boots today and `this.sound` sits live and unused in every scene
-  (`StudioLotView.ts:155-170`). Enabling audio is asset-and-wiring work, not a
-  dependency or architecture decision.
+- **Phaser provides the audio capability; the project has no audio layer.**
+  Phaser 3.90 full build is the pinned dependency and the game config sets no
+  `audio` key (`StudioLotView.ts:155-170`), so the platform capability is present
+  — but Project: Studio today has **no audio service, no audio configuration, no
+  audio assets, no gesture-unlock flow, and no actual sound usage anywhere**.
+  PF1 establishes that layer from scratch. What the platform fact buys us: no new
+  dependency and no game-config surgery — the cost is the service, the assets,
+  and the policy work, all of which are this campaign.
 - **Binary assets have an existing pattern.** `ui/public/lot/` already ships 9
   PNGs + 2 JSON manifests loaded by URL through Phaser's loader
   (`TycoonScene.ts:486-492`). Audio files follow the same path.
@@ -95,23 +107,32 @@ charter section, not a new document — later campaigns cite this section.
   demolish commit receipts, and the FirstFilmJourney milestone ladder
   (`src/core/firstFilmJourney.ts:73-85`). Each has exactly one sealed copy
   composer.
-- **Two event channels are invisible today.** Of the five aria-live regions
-  (`StudioLotScreen.tsx:7834-7885`), "annex operational (in-lot path)" and "plain
-  week advance" have **zero visible surface**; the other three decorate existing
-  visible receipts. The single-owner cadence gate is sealed law
-  (`completionAnnouncementOwnedRef`, `StudioLotScreen.tsx:1570` and `2760-2775`;
-  "The next-event rail owns this cadence moment", `StudioLotScreen.tsx:7821`);
-  punctuation attaches to the same gates.
+- **Three authoritative moments are aria-only today** (inventory corrected per
+  the Sonnet Surface Audit and re-verified against the code): **(1) the Annex
+  construction commit** (`lot-annex-action-announcement`,
+  `StudioLotScreen.tsx:6903-6911`), **(2) Annex operational on the relevant
+  in-lot paths** (`lot-annex-operational-announcement`,
+  `StudioLotScreen.tsx:7834-7842`), and **(3) the plain week advance**
+  (`lot-week-update-announcement`, `StudioLotScreen.tsx:7843-7853`). The
+  remaining live regions (casting review, production formation, script review)
+  decorate moments that already have visible receipt surfaces. The single-owner
+  cadence gate is sealed law (`completionAnnouncementOwnedRef`,
+  `StudioLotScreen.tsx:1570` and `2760-2775`; "The next-event rail owns this
+  cadence moment", `StudioLotScreen.tsx:7821`); punctuation attaches to the same
+  gates and **never duplicates a completion announcement merely to make an
+  aria-only path visible**.
 - **Browser dialogs: exactly 9, all in `App.tsx`** (8 alerts, 1 confirm), and the
   lot already codified the replacement law: "a destructive verb must be answered
   where the thing being destroyed is standing … never a browser dialog"
   (`StudioLotScreen.tsx:6218-6220`). Reusable idioms exist: the in-world confirm,
   the `LotRetainedWorkspace` dialog host, and `ErrorBox`.
-- **Save slots are cheap at 6, risky above.** Saves run 220–270KB and grow;
-  under worst-case UTF-16 accounting, 6 named slots + autosave + quarantine
-  stays inside a 5MB origin quota (8+ slots would not at upper save sizes);
-  `session.ts:40-42` currently **swallows quota failures silently** — a live
-  defect PF1 fixes.
+- **Save slots target six, proven by measurement rather than arithmetic** (Owner
+  ruling 6). Saves run 220–270KB and grow with play; no absolute "safe with
+  margin" claim is made. Implementation must include **measured upper-bound
+  quota testing** (largest realistic saves × six slots + autosave + quarantine,
+  under the browser's real accounting) and **graceful runtime quota failure** in
+  every write path. `session.ts:40-42` currently **swallows quota failures
+  silently** — a live defect PF1 fixes. `SaveFileV13` is not changed.
 - **UI scale has no seam.** ~1,200 hard px declarations, no root font-size rule.
   Cut from PF1 (§8) per the Owner's own condition ("if current architecture
   supports it cleanly" — it does not).
@@ -134,14 +155,26 @@ charter section, not a new document — later campaigns cite this section.
 
 ## 5. Milestones (exactly four)
 
-### PF1-M1 — THE STUDIO SOUNDS ALIVE (audio architecture + ambience + UI floor)
+### PF1-M1 — THE STUDIO SOUNDS ALIVE (prefs substrate + audio architecture + ambience)
 
-One audio service for the whole product, designed for reuse by every later
-campaign (C2 will create dozens of world events needing sound):
+PF1 establishes the project's **first audio layer** — service, configuration,
+assets, gesture-unlock, policy — designed for reuse by every later campaign (C2
+will create dozens of world events needing sound). Before anything depends on
+it, M1 first lands the presentation-preferences substrate (Owner correction C):
 
-- **Channel model:** master / music / ambience / effects, each with a prefs-backed
-  volume, all behind one facade. Autoplay policy handled once: audio unlocks on
-  the first user gesture, silently, with no nag.
+- **The preferences substrate comes first.** One tiny module (frozen path:
+  `ui/src/prefs.ts`) owning the `project-studio.prefs.*` namespace — storage,
+  schema, and resolution for exactly five preferences: master / music / ambience
+  / effects volume and the motion preference. The **motion resolver**
+  (OS `prefers-reduced-motion` OR stored pref, strengthen-only) ships here, so
+  M2 punctuation depends on a resolver that already exists. This is a substrate,
+  not a framework: five keys, one resolver, one change-subscription. Player
+  settings never touch `project-studio.flags.*` (a QA surface by its own
+  declaration, `flags.ts:5-6`). M3 later *exposes* these already-functional
+  preferences through the Settings UI; it does not invent the model.
+- **Channel model:** master / music / ambience / effects (all four Owner-approved),
+  each reading its `prefs.ts` volume, all behind one facade. Autoplay policy
+  handled once: audio unlocks on the first user gesture, silently, with no nag.
 - **World ambience:** a restrained 1948 studio bed — environment (wind, birds,
   distant town), sparse work texture (distant hammering when construction is
   underway — reading real state; a calm lot when nothing is), camera-scale aware
@@ -151,10 +184,12 @@ campaign (C2 will create dozens of world events needing sound):
 - **Music:** an era-keyed registry (`era → track list`) with a 1948 bed now, so
   C4's decade march swaps music by data. No commercial soundtrack; see asset
   policy below.
-- **UI sound families**, wired at existing interaction seams: select (sparing),
-  commit, cancel, refusal/error, construction started, construction completed,
-  positive outcome, important warning. Families, not one-off files — later
-  campaigns pick from the family, not the disk.
+- **UI sound families**, shipped in the service in M1: select (sparing), commit,
+  cancel, refusal/error, construction started, construction completed, positive
+  outcome, important warning. Families, not one-off files — later campaigns pick
+  from the family, not the disk. **Wiring at interaction sites is owned by the
+  surface owners** (§10): lot-side seams land with M2, app/screen-side seams
+  with M3 — so no M1 writer touches the shared integration surfaces.
 - **Asset policy (binding, exactly the Owner's categories):** project-owned,
   public-domain/CC0, generated-for-project, or clearly-temporary development
   audio only; every file listed in a committed `AUDIO-PROVENANCE.md` with source
@@ -187,11 +222,13 @@ emphasis at the existing single-owner gates:
   world acknowledging time, not a fanfare).
 - **Tier 3 — none:** bookkeeping stays bookkeeping. The restraint test is a seal
   gate, not a vibe.
-- **The two invisible channels become visible:** the aria-only "annex
-  operational (in-lot path)" and "week advance" moments get modest visible
-  presentation carrying the **existing composed copy verbatim** — no new
-  composer, same ownership gates, aria regions preserved untouched (standing
-  accessibility law).
+- **The three aria-only moments become visible** (§4 inventory: Annex
+  construction commit, Annex operational in-lot, plain week advance): each gets
+  modest visible presentation carrying the **existing composed copy verbatim** —
+  no new composer, attached at the same single-owner cadence gates, aria regions
+  preserved untouched (standing accessibility law). **The existing single-owner
+  completion cadence is preserved exactly; no duplicate completion announcement
+  may be created merely to make an aria-only path visible** (Owner correction A).
 - **Cash presentation:** the topbar cash readout counts to its new value with a
   brief emphasis on large deltas. No floating world ticks in PF1 (canvas work
   belongs with C2's simulation theater).
@@ -211,40 +248,44 @@ parity proof green.
 ### PF1-M3 — THE COMMERCIAL SHELL (settings, saves, no browser voice, a glimpse of the future)
 
 - **Settings screen** (one new screen variant in the existing union — mechanical
-  per recon): master/music/ambience/effects volume sliders (the Owner named
-  master/music/effects; the fourth **ambience** slider follows from the ambience
-  mandate — Owner ratifies or strikes it at authorization); **motion preference**
-  (System / Reduced / Full) implemented by promoting the 7 CSS
-  `@media (prefers-reduced-motion)` blocks to a root class driven by OS-query-OR-
-  stored-pref (the two JS `matchMedia` sites join the same resolver); UI scale is
-  **not** included (§8). Settings persist under `project-studio.prefs.*` and
-  never enter saves. Existing accessibility laws preserved verbatim; the OS
-  reduced-motion signal can only ever be *strengthened* by the in-game pref,
-  never overridden to less motion-safe.
-- **Save shell** on the existing architecture (no rewrite): 6 named slots +
-  the always-on autosave, clearly labeled as autosave; each slot shows name,
-  week, seed, and saved-at timestamp; save/load/delete through the proven
-  export/import/validation path (`Saves.tsx`, `session.ts`) with the legacy-V1
-  import and the corrupt-quarantine behavior preserved; **quota failures
-  surfaced** (fixing the silent swallow at `session.ts:40-42`) in voice
-  ("The studio vault is full — clear a shelf before filing another print.").
-  JSON export/import remains, reframed as "Export a print" for backup/sharing.
+  per recon): it **exposes the five preferences M1 already made functional** —
+  master/music/ambience/effects volume sliders (all four **Owner-approved**,
+  ruling 1) and the **motion preference** (System / Reduced / Full). The motion
+  pref rides M1's resolver; M3's work is promoting the 7 CSS
+  `@media (prefers-reduced-motion)` blocks to the resolver-driven root class
+  (the two JS `matchMedia` sites already joined the resolver in M1). UI scale is
+  **not** included (§8; Owner ruling 3). Settings persist under
+  `project-studio.prefs.*` and never enter saves. Existing accessibility laws
+  preserved verbatim; the OS reduced-motion signal can only ever be
+  *strengthened* by the in-game pref, never overridden to less motion-safe.
+- **Save shell** on the existing architecture (no rewrite; `SaveFileV13`
+  unchanged): 6 named slots + the always-on autosave, clearly labeled as
+  autosave; each slot shows name, week, seed, and saved-at timestamp;
+  save/load/delete through the proven export/import/validation path
+  (`Saves.tsx`, `session.ts`) with the legacy-V1 import and the
+  corrupt-quarantine behavior preserved. Quota safety is **measured, not
+  assumed** (Owner ruling 6): an upper-bound quota test with the largest
+  realistic saves is part of the milestone gate, and **every write path fails
+  gracefully at quota** (fixing the silent swallow at `session.ts:40-42`) in
+  voice ("The studio vault is full — clear a shelf before filing another
+  print."). JSON export/import remains, reframed as "Export a print" for
+  backup/sharing.
 - **The browser never speaks again:** all 9 `window.alert`/`confirm` sites
   replaced — 8 error notices through the existing `ErrorBox`/notice idiom in
   place, the new-studio confirm through the proven dialog-host pattern. A static
   source gate (unit test) asserts zero browser-dialog calls in `ui/src`
   thereafter.
-- **The futures shelf (anticipation, truthfully):** at most **three** authored
-  catalog rows using only the existing not-yet-attainable machinery — proposed:
-  **The Laboratory** (research kind — C4's unlock engine), **a Star Trailer**
-  (rank kind — C5 amenity behind C3 progression), **the North Annex land grant**
-  (landZone kind — C3 land acquisition). Each row: real name, honest effect
-  sentence in future tense, the sealed "not part of the game yet" reason, the
-  existing distant-future styling. No new requirement kinds, no invented unlock
-  logic, no world bodies. The four catalog-count pins and the texKey-uniqueness
-  pin (§4) move 5→8 with provenance, each row carrying a minimal distinct
-  presentation entry. **The Owner strikes or approves each row at
-  authorization.**
+- **The futures shelf (anticipation, truthfully):** exactly **three** authored
+  catalog rows, **all Owner-approved (ruling 2)**: **The Laboratory** (research
+  kind — C4's unlock engine), **a Star Trailer** (rank kind — C5 amenity behind
+  C3 progression), **the North Annex land grant** (landZone kind — C3 land
+  acquisition). They remain **truthful not-yet-attainable teasers only — no new
+  progression logic of any kind**. Each row: real name, honest effect sentence
+  in future tense, the sealed "not part of the game yet" reason, the existing
+  distant-future styling. No new requirement kinds, no invented unlock logic,
+  no world bodies. The four catalog-count pins and the texKey-uniqueness pin
+  (§4) move 5→8 with provenance, each row carrying a minimal distinct
+  presentation entry.
 - Editorial voice applied to every line this milestone touches.
 
 Gate: both tsc; full vitest; settings/save-shell e2e specs; zero-browser-dialog
@@ -323,3 +364,42 @@ PF1 is DONE when, at a single named HEAD on `professional-floor-v1`:
 9. The presentation-never-persists law is recorded in the operational laws.
 10. The campaign log records KEEP/KILL per milestone with independent
     verification, and the seal entry hands off directly into C2 planning.
+
+## 10. Implementation ownership plan (frozen before any dispatch)
+
+The Sonnet Surface Audit found the campaign's real collision risk: PF1's three
+implementation milestones all want the same integration surfaces
+(`ui/src/App.tsx`, `ui/src/lot/StudioLotScreen.tsx`, and
+`ui/src/lot/tycoon/TycoonScene.ts`). The following plan is **binding** at
+dispatch; the PM enforces it at every gate.
+
+### Frozen canonical module paths (correction D — no worker invents these)
+
+| Concern | Canonical path |
+|---|---|
+| Presentation preferences + motion resolver | `ui/src/prefs.ts` (single module: `project-studio.prefs.*` storage, schema, resolution, change subscription) |
+| Audio service facade + channels | `ui/src/audio/AudioService.ts` |
+| Era-keyed music registry + UI sound families | `ui/src/audio/registry.ts` |
+| Faithful audio test double | `ui/src/audio/double.ts` |
+| Audio assets + provenance | `ui/public/audio/` + `ui/public/audio/AUDIO-PROVENANCE.md` |
+| Beat classifier (pure; no React, no Phaser) | `ui/src/punctuation.ts` |
+
+### One-writer surface ownership (correction E)
+
+Milestone waves are **strictly serialized** — one production writer per wave,
+PM verification gates between waves, no parallel M2/M3 edits ever. Within a
+wave, a second worker may own only disjoint **new** files (e.g. test authoring).
+`App.tsx`, `StudioLotScreen.tsx`, and `TycoonScene.ts` never have two writers
+at any point in the campaign.
+
+| Wave | Writer owns (write access) | Explicitly does NOT touch |
+|---|---|---|
+| **M1** | `ui/src/prefs.ts` (new), `ui/src/audio/**` (new), `ui/public/audio/**` (new), `ui/src/lot/StudioLotView.ts` (service bootstrap + gesture unlock), `TycoonScene.ts` — **audio subsystem only**: asset preload + one named, commented ambience hook in `update()` | `App.tsx`, `StudioLotScreen.tsx`, any announcement/receipt surface |
+| **M2** | `ui/src/punctuation.ts` (new), `StudioLotScreen.tsx` (beat hooks at the single-owner gates, lot-side UI-sound wiring, the three aria-only moments' visible presentation), `TycoonScene.ts` — **world-highlight section only** (must not edit M1's ambience section; both sections carry ownership comments), `ui/src/screens/NewspaperReveal.tsx` (release sting, `source === 'release'` only), the parity-proof harness (new files) | `App.tsx`, `prefs.ts` internals, `AudioService` internals (consumes the facade only) |
+| **M3** | `App.tsx` (browser-dialog replacement, Settings/Saves routing, app-side UI-sound wiring), new Settings screen file, `ui/src/screens/Saves.tsx`, `ui/src/engine/session.ts` (slots + graceful quota), `src/core/tuning.ts` (three futures rows, data-only), the five named pins, `ui/src/lot/tycoon/world.ts` (three minimal presentation entries) | `StudioLotScreen.tsx` (except the strictly mechanical Settings entry point if one lives there — pre-declared to the PM if so), `TycoonScene.ts`, engine behavior of any kind |
+| **M4** | Red-team writes only new probe files; the PM integrates and seals | Everything else |
+
+TycoonScene sequencing note: M1 creates the audio section; M2 adds the
+world-highlight section; sequential waves mean one writer at a time, and each
+section is comment-fenced so the later writer never edits the earlier one's
+lines.
