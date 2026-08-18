@@ -50,7 +50,7 @@ import {
 } from './employment.js'
 import { computeForecast, type ForecastContext } from './forecast.js'
 import { clamp } from './math.js'
-import { assertNoDoubleBookedResourceSlots } from './occupancy.js'
+import { assertNoDoubleBookedResourceSlots, setOccupiedFacilitySlots } from './occupancy.js'
 import {
   acknowledgeCastingSession,
   assertCastingSessionsInvariants,
@@ -629,8 +629,39 @@ function applyGreenlight(
             new Set([
               ...scriptOccupiedFacilitySlots(state.scriptDevelopment),
               ...castingOccupiedFacilitySlots(state.castingSessions),
+              // C2a-M2: the scenery crews the sets root is holding. A greenlight
+              // opens in Development and takes no scenery slot, so this changes
+              // nothing today — it is passed because the allocator's occupancy
+              // view must be the same view everywhere, not the view that happens
+              // to matter at one call site.
+              ...setOccupiedFacilitySlots(
+                state.sets,
+                state.operations,
+                state.scriptDevelopment,
+                state.castingSessions,
+              ),
             ]),
             greenlightEvents,
+            // ── THE MARKER (charter §3.1) ────────────────────────────────────
+            //
+            // "The requirement binds only productions greenlit in managed mode at
+            // V14+; legacy/headless untouched; migrated in-flight grandfathered;
+            // DIRECTLY-CONSTRUCTED TEST STATES UNTOUCHED."
+            //
+            // Three of those four are already true by construction — a legacy or
+            // headless studio never reaches this call at all, and a migrated
+            // in-flight workflow keeps the `false` its migration gave it. The
+            // fourth needs a fact, and `nextSetId` is that fact: it counts the
+            // sets this world has EVER minted, and it is > 0 for every studio
+            // founded through `activateStudioOperations` (2, the endowment) and
+            // for every managed save the V14 migrator has lifted (also 2).
+            //
+            // ZERO means no set has ever existed in this world — a state assembled
+            // field by field rather than founded — and a picture cannot be
+            // required to stand on a kind of thing its world has never had. The
+            // moment such a world commissions its very first set, the counter
+            // moves and every greenlight after it binds.
+            state.nextSetId > 0,
           ),
           studioEvents: commitStudioEvents(
             state.studioEvents,

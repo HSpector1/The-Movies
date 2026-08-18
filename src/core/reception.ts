@@ -15,6 +15,7 @@
 import { fameReach } from './economy.js'
 import { clamp, lerp, mean, remap, smoothstep } from './math.js'
 import type { RngStream } from './rng.js'
+import { setNoveltyReceptionFactor } from './sets.js'
 import { specificity } from './shape.js'
 import { castSlotExecution, effectiveSkill } from './talentSummary.js'
 import { CAST_WEIGHT, FORCE_VECTORS, ROLE_WEIGHT, SLOT_TRANSFORM, TUNING } from './tuning.js'
@@ -83,6 +84,23 @@ export type ReceptionInputs = {
   // perceived assessment. Realized reception supplies `actual`; no caller has to
   // move the hidden value through a preview/UI boundary merely to satisfy the type.
   scriptStrengthOverride?: { actual?: number; perceived?: number }
+  // ── C2a-M2 — what the BOUND SET gave this picture (charter §3.1) ───────────
+  //
+  // Both terms are SNAPSHOTS taken at the moment the set was bound, carried on
+  // the workflow's `bindings` leaf and handed here at release. They are not read
+  // from the set: a set's novelty depletes and its condition wears while the
+  // picture is shooting on it, and a picture whose own use of a set changed what
+  // that set gave it would be reporting a number that never existed.
+  //
+  // ABSENT is the whole legacy world — no set bound, no uplift, and a novelty
+  // factor of exactly 1.0, which is a bit-exact IEEE no-op rather than an
+  // approximate one. That is what keeps every pre-C2a path byte-identical.
+  //
+  // This is §9's ONE ratified exception to "instrument, don't fix", bounded by
+  // its own two authored maxima and isolated for measurement by the 19th economy
+  // figure, so C6 inherits a measured lever rather than a confound.
+  setUplift?: number
+  setNovelty?: number | null
 }
 
 // The rich breakdown §5.6 requires: every intermediate exposed alongside the
@@ -258,6 +276,11 @@ function computeCraft(inp: ReceptionInputs, engaged = false): {
     inp.shapeEffects.budgetDemandMultiplier,
     engaged,
   )
+  // C2a-M2: the bound set's ONE additive uplift, inside the SAME clamp as every
+  // other craft term and beside `realizationDelta`, which is the addend it most
+  // resembles. Zero when no set is bound, so the sum is bit-identical to the
+  // world before this milestone.
+  const setUplift = inp.setUplift ?? 0
   const craft = clamp(
     0.3 * scriptStrength +
       0.25 * directorExecution +
@@ -265,7 +288,8 @@ function computeCraft(inp: ReceptionInputs, engaged = false): {
       0.15 * technical +
       0.1 * budgetAdequacy +
       inp.shapeEffects.craftMod +
-      realizationDelta,
+      realizationDelta +
+      setUplift,
     0,
     100,
   )
@@ -592,6 +616,17 @@ export function computeBoxOffice(
   // opening star draw (0..100) used for reach support. Defaults keep every existing caller unchanged.
   discoverabilityZ = 0,
   openingStarDraw = 0,
+  // C2a-M2 (§3.1): the bounded multiplier a set's NOVELTY puts on the opening
+  // draw — the corpus's stage-4 "audience boredom" shape, our numbers. Applied at
+  // exactly the point `economyScale` is applied, and for the same reason: after
+  // creative, talent, fame and marketing have determined the opening, and before
+  // the theatrical schedule and the studio's share. Scaling the opening scales
+  // the total; legs are untouched, because a stale street corner costs a picture
+  // its first audience, not its word of mouth.
+  //
+  // DEFAULTS TO EXACTLY 1 — a bit-exact IEEE no-op — so every forecast, every
+  // legacy release and every unbound picture is byte-identical.
+  setNoveltyFactor = 1,
 ): {
   marketingQuality: number
   preMarketingAwareness: number
@@ -660,7 +695,13 @@ export function computeBoxOffice(
   // scales the total (legs unchanged) and every conserved weekly payment proportionally. Never scales
   // costs/payroll/overhead/the post-share revenue — those stay full-scale.
   const economyScale = engaged ? TUNING.ECONOMY_BOX_OFFICE_SCALE : 1
-  const opening = baseMarketValue * reachSum * openingReachMult * competitionFactor * economyScale
+  const opening =
+    baseMarketValue *
+    reachSum *
+    openingReachMult *
+    competitionFactor *
+    economyScale *
+    setNoveltyFactor
   // Stage B overexposure (engaged only): a campaign far beyond efficient capacity raises audience
   // expectations; a film that UNDER-delivers (low weighted audience score) sours them and front-loads
   // (its legs shrink). Deterministic — reads only spend÷capacity and the (already-computed) audience
@@ -768,6 +809,8 @@ export function resolveReception(
     engaged, // D-12 P2: economy calibration (routine gross scale + awareness marketing), distinct from fame
     discoverabilityZ, // D-13: governed opening-reach uncertainty (0 for forecast/M0A)
     appealBlock.starDraw, // D-13: star support for reachSupport (fame, not quality)
+    // C2a-M2: the bound set's locked novelty. Exactly 1 when nothing was bound.
+    setNoveltyReceptionFactor(inp.setNovelty ?? null),
   )
 
   return {

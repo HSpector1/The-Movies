@@ -64,7 +64,11 @@ import { openTheatricalRun } from './economy.js'
 import { clamp } from './math.js'
 import { assertNoDoubleBookedResourceSlots, setOccupiedFacilitySlots } from './occupancy.js'
 import { advanceManagedProductions } from './operations.js'
-import { assertSetsInvariants, completeDueSets } from './sets.js'
+import {
+  assertSetsInvariants,
+  completeDueSets,
+  depleteSetNoveltyForRelease,
+} from './sets.js'
 import {
   commitStudioEvents,
   disabledStudioEventSink,
@@ -238,6 +242,12 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // Derived from the state as it stands at the START of this advance, which is
   // what breaks the circularity: the sets read the reservations productions are
   // already holding, and productions are then told what the sets took.
+  //
+  // C2a-M2 also hands the advance the SETS themselves plus a way to ask what a
+  // picture IS, because the stage+set composite is acquired here (§3.2) and the
+  // fit half of the uplift is computed from the picture's genre. The concept
+  // lookup is a closure over `state.concepts` rather than a copy, so there is one
+  // authority for what a production is about.
   const productionAdvance = advanceManagedProductions(
     state.operations,
     state.studio.activeProductions,
@@ -253,6 +263,16 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       ),
     ]),
     events,
+    {
+      sets: state.sets,
+      genreOf: (productionId) => {
+        const production = state.studio.activeProductions.find(
+          (candidate) => candidate.id === productionId,
+        )
+        if (production === undefined) return null
+        return state.concepts.find((concept) => concept.id === production.conceptId)?.genre ?? null
+      },
+    },
   )
   const advanced: Production[] = productionAdvance.productions
 
@@ -303,8 +323,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   //
   // A first build records a permanent `setBuilt` row; a repair records nothing,
   // because the set was built once and the studio's history is not editable.
-  const setCompletion = completeDueSets(state.sets, currentTick + 1, events)
-  const sets = setCompletion.sets
+  const setCompletion = completeDueSets(productionAdvance.sets, currentTick + 1, events)
+  let sets = setCompletion.sets
 
   // ── 2. RELEASE ─────────────────────────────────────────────────────────────
   // Collect productions at remainingTicks === 0 after step 1; the rest stay
@@ -349,6 +369,18 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       requireTalent(state.talent, id, `release craftIds[${i}]`),
     )
 
+    // ── C2a-M2 — what the bound set gave this picture ─────────────────────
+    //
+    // Read from the workflow's bindings AS THEY STOOD AT THE START of this
+    // advance: step 1 has already retired the workflow of a releasing picture, so
+    // the pre-advance operations root is the only place the record still exists.
+    // Both numbers were locked when the set was bound, which is exactly why they
+    // survive the workflow that carried them.
+    const releasedBindings = state.operations.workflows.find(
+      (workflow) => workflow.productionId === prod.id,
+    )?.bindings
+    const boundSetId = releasedBindings?.setId ?? null
+
     const inp: ReceptionInputs = {
       concept,
       // RULING C: the greenlight-LOCKED shape stored on the Production (never a
@@ -379,6 +411,14 @@ export function tick(state: GameState, options?: TickOptions): GameState {
             }
           : {}
       })(),
+      // Absent — not zero and not null — when nothing was bound, so an unbound
+      // release takes the same code path it always did.
+      ...(releasedBindings?.lockedUplift == null
+        ? {}
+        : { setUplift: releasedBindings.lockedUplift }),
+      ...(releasedBindings?.lockedNovelty == null
+        ? {}
+        : { setNovelty: releasedBindings.lockedNovelty }),
     }
 
     // The single §5.3 critic draw for this release — the ONLY sim-stream advance. `engaged` drives
@@ -511,6 +551,13 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // it. Recorded in the same ascending-id release order everything else in this
     // loop uses.
     events.append({ kind: 'premiere', filmId: prod.id })
+
+    // THE SET IS THAT MUCH LESS OF A NOVELTY. At RELEASE, never at greenlight and
+    // never at wrap: §3.1 rules that a cancelled production burns no novelty, and
+    // a picture nobody has seen has shown nobody this street corner. Applied in
+    // the same ascending-id release order everything else in this loop uses, so a
+    // double release on one set depletes it twice, deterministically.
+    sets = depleteSetNoveltyForRelease(sets, boundSetId)
 
     records.push({ filmResult, benchmarks, ctx, broadcast, develop })
   }

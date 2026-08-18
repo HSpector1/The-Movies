@@ -15,11 +15,18 @@ import {
   reachableCapacityBlockerForRemainingTicks,
   requirementsForPhase,
 } from './productionPhases.js'
+import {
+  bindableSetsOn,
+  heldSetIds,
+  setBindingUplift,
+  wearSetAtWrap,
+} from './sets.js'
 import { disabledStudioEventSink, StudioEventSink } from './studioEvents.js'
 import { TUNING } from './tuning.js'
 import type {
   FacilityCapability,
   FacilityReservation,
+  Genre,
   Production,
   ProductionBlocker,
   ProductionPhase,
@@ -27,8 +34,27 @@ import type {
   ShootingTask,
   StudioFacility,
   StudioOperations,
+  StudioSet,
   WorkflowBindings,
 } from './types.js'
+
+/**
+ * C2a-M2 — everything the allocator needs to bind a SET as well as a stage.
+ *
+ * Threaded in rather than reached for, because `operations.ts` is the pure
+ * allocation authority and `state.sets` lives outside it. `genreOf` answers what
+ * a picture is, which is what the fit half of the uplift is computed from; a
+ * production whose concept cannot be resolved gets a null genre and therefore
+ * only the quality half, which is honest rather than convenient.
+ *
+ * ABSENT means "this caller cannot see the sets root" — the frozen save
+ * projections and the directly-constructed test states — and every one of those
+ * paths carries `requiresSetBinding: false`, so nothing binds and nothing changes.
+ */
+export type SetBindingContext = {
+  sets: readonly StudioSet[]
+  genreOf: (productionId: string) => Genre | null
+}
 
 // Deep-frozen because this template is part of the public core surface. The live
 // state always receives mutable-by-replacement clones; no consumer can alter the
@@ -119,10 +145,19 @@ function compareId<T extends { id: string }>(a: T, b: T): number {
 //     binding until M2 makes set binding real. M2 mints it true at greenlight.
 //     A marker minted true today would be a flag asserting a law nothing enforces.
 
-/** The bindings a workflow holding no stage carries. */
-export function emptyWorkflowBindings(): WorkflowBindings {
+/**
+ * The bindings a workflow holding no stage carries.
+ *
+ * `requiresSetBinding` is the MARKER, and C2a-M2 mints it TRUE for every picture
+ * greenlit in managed mode (§3.1). It is a parameter rather than a constant
+ * because the same empty leaf is what a legacy, migrated, or directly-constructed
+ * workflow carries, and those are grandfathered: a picture already in flight when
+ * set binding arrived keeps its scenery-shop reservation byte-for-byte and never
+ * acquires a set.
+ */
+export function emptyWorkflowBindings(requiresSetBinding = false): WorkflowBindings {
   return {
-    requiresSetBinding: false,
+    requiresSetBinding,
     stageFacilityId: null,
     setId: null,
     lockedNovelty: null,
@@ -181,18 +216,93 @@ function occupiedSlots(
 }
 
 type AllocationResult =
-  | { ok: true; reservations: FacilityReservation[] }
+  | { ok: true; reservations: FacilityReservation[]; boundSet: StudioSet | null }
   | { ok: false; blocker: ProductionBlocker }
+
+/**
+ * Whether this workflow must hold a SET to enter `targetPhase`.
+ *
+ * The composite is stage + set, so the requirement lands exactly where the stage
+ * requirement does — no second table, and no phase can require a set without
+ * requiring somewhere to put it.
+ */
+function requiresSetForPhase(
+  workflow: ProductionWorkflow,
+  targetPhase: ProductionPhase,
+  binding: SetBindingContext | undefined,
+): boolean {
+  return (
+    binding !== undefined &&
+    workflow.bindings?.requiresSetBinding === true &&
+    requirementsForPhase(targetPhase).includes('soundstage')
+  )
+}
 
 function allocateForPhase(
   operations: StudioOperations,
   workflow: ProductionWorkflow,
   targetPhase: ProductionPhase,
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
+  binding?: SetBindingContext,
 ): AllocationResult {
   const occupied = occupiedSlots(operations, workflow.productionId, externallyOccupiedSlots)
   const reservations: FacilityReservation[] = []
   const facilities = [...operations.facilities].sort(compareId)
+
+  // ── THE STAGE+SET COMPOSITE (charter §3.2) ────────────────────────────────
+  //
+  // ATOMIC, and that is the whole design: a stage with no set on it is not a
+  // place a picture can shoot, so the allocator may not hand one out. Acquiring
+  // them together is what makes lane 2's X1 deadlock cycle impossible rather than
+  // merely unlikely — there is no moment at which a picture holds one and waits
+  // for the other.
+  //
+  // RETENTION FIRST. A picture already standing on its set keeps it through
+  // shooting, exactly as it keeps its stage: `bindings.setId` survives, no
+  // candidate search runs, and the crew does not move.
+  const needsSet = requiresSetForPhase(workflow, targetPhase, binding)
+  const retainedSetId = workflow.bindings?.setId ?? null
+  const retainingSet =
+    needsSet &&
+    retainedSetId !== null &&
+    workflow.reservations.some((reservation) => reservation.capability === 'soundstage')
+  let boundSet: StudioSet | null = null
+  if (needsSet && !retainingSet && binding !== undefined) {
+    const held = heldSetIds(operations, workflow.productionId)
+    let sawFreeStage = false
+    for (const facility of facilities) {
+      if (facility.capability !== 'soundstage') continue
+      let free = -1
+      for (let slot = 0; slot < facility.capacity; slot++) {
+        if (!occupied.has(facilitySlotKey(facility.id, slot))) {
+          free = slot
+          break
+        }
+      }
+      if (free < 0) continue
+      sawFreeStage = true
+      const candidates = bindableSetsOn(binding.sets, facility.id, held)
+      // AUTO-BIND WHEN EXACTLY ONE CANDIDATE IS FREE (§3.1). In V1 a stage carries
+      // at most one set, so "the first candidate on the first stage that has one"
+      // IS that rule — and it is deterministic, because both walks are in a fixed
+      // order.
+      if (candidates.length === 0) continue
+      boundSet = candidates[0]!
+      break
+    }
+    if (boundSet === null) {
+      // TWO DIFFERENT REFUSALS, and telling them apart is the point. A picture
+      // with nowhere to shoot is waiting on a STAGE; a picture with a stage and
+      // no scenery on it is waiting on a SET, and the remedy for the second one
+      // is to build or repair a set rather than to wait for a stage to clear.
+      return {
+        ok: false,
+        blocker: sawFreeStage
+          ? { kind: 'set-unavailable', targetPhase }
+          : { kind: 'facility-capacity', capability: 'soundstage', targetPhase },
+      }
+    }
+  }
 
   // STICKY RETENTION, FOR EVERY CAPABILITY (charter §3.2, the R-1
   // contract-conformance repair). A reservation whose capability the next phase
@@ -229,6 +339,11 @@ function allocateForPhase(
     let allocated: FacilityReservation | null = null
     for (const facility of facilities) {
       if (facility.capability !== capability) continue
+      // The composite already chose the stage — the one its set stands on — so
+      // the general first-fit walk is not allowed to pick a different one.
+      if (capability === 'soundstage' && boundSet !== null && facility.id !== boundSet.mountedOn) {
+        continue
+      }
       for (let slot = 0; slot < facility.capacity; slot++) {
         const key = facilitySlotKey(facility.id, slot)
         if (occupied.has(key)) continue
@@ -254,7 +369,7 @@ function allocateForPhase(
     reservations.push(allocated)
   }
 
-  return { ok: true, reservations }
+  return { ok: true, reservations, boundSet }
 }
 
 // ── C2a-M1 — the studioEvents producers (charter §5) ────────────────────────
@@ -325,6 +440,10 @@ export function addManagedProductionWorkflow(
   production: Production,
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
   events: StudioEventSink = disabledStudioEventSink(),
+  // C2a-M2: whether this greenlight requires a set. TRUE at every managed V14+
+  // greenlight; the default is false so every frozen projection and
+  // directly-constructed test state keeps the grandfathered leaf it had.
+  requiresSetBinding = false,
 ): StudioOperations {
   if (operations.mode !== 'managed') return operations
   if (operations.workflows.some((workflow) => workflow.productionId === production.id)) {
@@ -339,7 +458,7 @@ export function addManagedProductionWorkflow(
     reservations: [],
     shootingTask: null,
     blocker: null,
-    bindings: emptyWorkflowBindings(),
+    bindings: emptyWorkflowBindings(requiresSetBinding),
   }
   const withDraft: StudioOperations = {
     ...operations,
@@ -786,18 +905,27 @@ function enterPhase(
   externallyOccupiedSlots: ReadonlySet<string>,
   week: number,
   events: StudioEventSink,
-): { operations: StudioOperations; production: Production; advanced: boolean } {
+  binding?: SetBindingContext,
+  sets: readonly StudioSet[] = [],
+): {
+  operations: StudioOperations
+  production: Production
+  advanced: boolean
+  sets: readonly StudioSet[]
+} {
   const allocation = allocateForPhase(
     operations,
     workflow,
     targetPhase,
     externallyOccupiedSlots,
+    binding,
   )
   if (!allocation.ok) {
     return {
       operations: replaceWorkflow(operations, { ...workflow, blocker: allocation.blocker }),
       production,
       advanced: false,
+      sets,
     }
   }
 
@@ -823,6 +951,7 @@ function enterPhase(
   //
   // `setId` is null until M2 binds sets. It is null, not absent: the row's shape
   // is permanent, and a picture that shot on no bound set shot on no bound set.
+  let nextSets = sets
   if (workflow.phase === 'shooting' && targetPhase === 'postProduction') {
     const stage = workflow.reservations.find(
       (reservation) => reservation.capability === 'soundstage',
@@ -832,12 +961,22 @@ function enterPhase(
         `tick: shooting productionId "${production.id}" completed without a soundstage reservation`,
       )
     }
+    // C2a-M2: the row now names the SET the picture shot on as well as the stage
+    // it stood in. `null` still means what it always meant — this picture was
+    // bound to no set — and that is the literal truth of a legacy, migrated, or
+    // pre-V14 production.
+    const wrappedSetId = workflow.bindings?.setId ?? null
     events.append({
       kind: 'wrapped',
       productionId: production.id,
       stageFacilityId: stage.facilityId,
-      setId: null,
+      setId: wrappedSetId,
     })
+    // THE WEAR, at the moment the work finished. Per-USE and deterministic (§3.1)
+    // — one wrap, one wear, no clock and no draw — and applied HERE rather than
+    // at release because it is the shooting that wore the scenery out, and a
+    // picture that never reaches an audience wore it just the same.
+    nextSets = wearSetAtWrap(nextSets, wrappedSetId)
   }
 
   recordReservationTransition(events, workflow, allocation.reservations)
@@ -856,24 +995,51 @@ function enterPhase(
         }
       : null
 
+  // ── THE LOCK (charter §3.1) ───────────────────────────────────────────────
+  //
+  // Quality and fit become ONE number at the moment of binding, and novelty is
+  // snapshotted beside it. Both are locked because a set's novelty depletes and
+  // its condition wears while a picture is shooting on it: if the picture read
+  // the set's live numbers at release, its own use of the set would retroactively
+  // change what the set gave it.
+  //
+  // The lock happens exactly once, on the advance that acquires the set. A
+  // retained binding keeps the numbers it was given.
+  const derived = deriveBindings(workflow.bindings, allocation.reservations, week)
+  const bindings: WorkflowBindings =
+    allocation.boundSet === null
+      ? derived
+      : {
+          ...derived,
+          setId: allocation.boundSet.id,
+          lockedNovelty: allocation.boundSet.novelty,
+          lockedUplift: setBindingUplift(
+            allocation.boundSet,
+            binding?.genreOf(production.id) ?? null,
+          ),
+        }
+
   const replacement: ProductionWorkflow = {
     ...workflow,
     phase: targetPhase,
     reservations: allocation.reservations,
     shootingTask,
     blocker: null,
-    bindings: deriveBindings(workflow.bindings, allocation.reservations, week),
+    bindings,
   }
   return {
     operations: replaceWorkflow(operations, replacement),
     production: { ...production, remainingTicks: production.remainingTicks - 1 },
     advanced: true,
+    sets: nextSets,
   }
 }
 
 export type ManagedProductionAdvance = {
   productions: Production[]
   operations: StudioOperations
+  /** The sets root after this advance — wear at wrap is the only thing that moves it. */
+  sets: readonly StudioSet[]
 }
 
 export function advanceManagedProductions(
@@ -882,7 +1048,9 @@ export function advanceManagedProductions(
   currentTick: number,
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
   events: StudioEventSink = disabledStudioEventSink(),
+  binding?: SetBindingContext,
 ): ManagedProductionAdvance {
+  let sets: readonly StudioSet[] = binding?.sets ?? []
   if (operations.mode !== 'managed') {
     return {
       productions: productions.map((production) =>
@@ -891,6 +1059,7 @@ export function advanceManagedProductions(
           : production,
       ),
       operations,
+      sets,
     }
   }
 
@@ -957,8 +1126,13 @@ export function advanceManagedProductions(
       externallyOccupiedSlots,
       currentTick,
       events,
+      // The sets the NEXT picture in this advance can bind are the sets as they
+      // stand after the previous one wore its own. One walk, one authority.
+      binding === undefined ? undefined : { ...binding, sets },
+      sets,
     )
     nextOperations = result.operations
+    sets = result.sets
     if (result.advanced) byId.set(production.id, result.production)
   }
 
@@ -967,5 +1141,6 @@ export function advanceManagedProductions(
   return {
     productions: productions.map((production) => byId.get(production.id)!),
     operations: nextOperations,
+    sets,
   }
 }

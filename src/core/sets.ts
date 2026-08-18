@@ -55,7 +55,13 @@ import {
   type KnownSetTypeId,
   type SetBlueprint,
 } from './tuning.js'
-import type { CommissionSetPayload, GameState, Genre, StudioSet } from './types.js'
+import type {
+  CommissionSetPayload,
+  GameState,
+  Genre,
+  StudioOperations,
+  StudioSet,
+} from './types.js'
 
 // The CLOSED authored location vocabulary lives in TUNING (charter §9) beside the
 // blueprint catalog that guarantees every entry in it is buildable. It is
@@ -191,7 +197,11 @@ export function setIsUnderRepair(set: StudioSet): boolean {
  * Fit is ADVISORY, never a gate (§3.1): any set can shoot any picture, and poor
  * fit costs uplift rather than refusing the work.
  */
-export function setGenreFit(set: StudioSet, genre: Genre): number {
+export function setGenreFit(set: StudioSet, genre: Genre | null): number {
+  // A picture whose concept cannot be resolved has no genre to fit, so it earns
+  // the quality half of the uplift and nothing else. Honest, not convenient: an
+  // unknown genre is not a neutral one.
+  if (genre === null) return 0
   const weight = set.genreWeights[genre] ?? 0
   const bonus = set.priorityGenre === genre ? TUNING.SET_GENRE_FIT_PRIORITY_BONUS : 0
   return clamp(weight + bonus, 0, 1)
@@ -206,7 +216,7 @@ export function setGenreFit(set: StudioSet, genre: Genre): number {
  * at BIND so a set's own wear and staleness during the shoot cannot retroactively
  * change what it gave the picture standing on it.
  */
-export function setBindingUplift(set: StudioSet, genre: Genre): number {
+export function setBindingUplift(set: StudioSet, genre: Genre | null): number {
   return (
     TUNING.SET_QUALITY_UPLIFT_MAX * clamp(set.quality / 100, 0, 1) +
     TUNING.SET_GENRE_FIT_UPLIFT_MAX * setGenreFit(set, genre)
@@ -724,20 +734,40 @@ export function depleteSetNoveltyForRelease(
  * because multi-set staging (§3.1's X2) is out of V1 rather than out of the
  * language.
  */
-export function bindableSetsOnStage(
-  state: GameState,
+export function bindableSetsOn(
+  sets: readonly StudioSet[],
   stageFacilityId: string,
-  excludingProductionId?: string,
+  heldSetIds: ReadonlySet<string>,
 ): StudioSet[] {
+  return sets.filter(
+    (set) => set.mountedOn === stageFacilityId && setIsUsable(set) && !heldSetIds.has(set.id),
+  )
+}
+
+/** The sets other pictures are physically standing on right now. */
+export function heldSetIds(
+  operations: StudioOperations,
+  excludingProductionId?: string,
+): Set<string> {
   const held = new Set<string>()
-  for (const workflow of state.operations.workflows) {
+  for (const workflow of operations.workflows) {
     if (workflow.productionId === excludingProductionId) continue
     const bound = workflow.bindings?.setId ?? null
     if (bound === null) continue
     if (workflow.phase === 'rehearsal' || workflow.phase === 'shooting') held.add(bound)
   }
-  return state.sets.filter(
-    (set) => set.mountedOn === stageFacilityId && setIsUsable(set) && !held.has(set.id),
+  return held
+}
+
+export function bindableSetsOnStage(
+  state: GameState,
+  stageFacilityId: string,
+  excludingProductionId?: string,
+): StudioSet[] {
+  return bindableSetsOn(
+    state.sets,
+    stageFacilityId,
+    heldSetIds(state.operations, excludingProductionId),
   )
 }
 
