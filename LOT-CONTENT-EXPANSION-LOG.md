@@ -443,3 +443,21 @@ full-screen Writers Room. Not a defect against any accepted contract (the engine
 shared slots allow it; the world UI gates it), but under the hybrid interaction law
 it is a casual eject for a core action, and it is the same SHAPE as the twice-found
 family. Belongs to C2's concurrency ruling; queued for the seal report.
+
+## FLAKE WATCH — RESOLVED (2026-08-18) — the zoom-leg measurement race is closed
+
+Dedicated pass, PM-executed (one-line class, diagnosis already verified by the M7
+implementer). REPRODUCED first: 4 of 6 repeats failed pre-fix, every failure the
+exact diagnosed pair (expected 0.32001948 = whole-property fit against the STALE
+canvas box, received 0.37037037 = the settled fit). FIX: `canvasBoxSettled()` in
+the camera-grammar test — capture zoom, apply the viewport/CSS-zoom change, poll
+until the projection answers a NEW zoom (the sibling guidance test's own idiom,
+"Waiting for it matters"), then measure. Applied at all three `reframes()` call
+sites. PROOF: 12/12 repeats clean post-fix; the file 7/7; ui tsc clean; FULL
+serialized Playwright at the fixed tree 209 collected / 205 passed / 4 env-gated
+skips / 0 failed, exit 0. No assertion weakened — the test now measures what it
+always meant to measure.
+
+Class accounting for the seal: the M2/M3b selection-counter class was closed
+product-side at M5 (worldSelection guard); this was a spec-side measurement race,
+different mechanism, now closed at the source. No open flakes on the watch.
