@@ -34,13 +34,25 @@ import { composeWorldBuildings, worldBuildingById } from './tycoon/buildings.ts'
 
 const COUNTS: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 3, craft: 1 }
 
-/** The five blueprints M4 shipped, in the engine's own authored order. */
+/**
+ * Every blueprint the studio catalog holds, in the engine's own authored order.
+ *
+ * FIVE at C1-M4; NINE since C2a-M2 added the §3.4 slate — the Soundstage, the Post
+ * Building, the Scenery Shop and the from-scratch Development & Casting Office. The
+ * count is widened rather than the assertion loosened: the whole point of this test
+ * is that the catalog is EXACTLY the engine's list in EXACTLY the engine's order, so
+ * a blueprint appearing, vanishing or moving must break it.
+ */
 const CATALOG_IDS = [
   'development-casting-annex',
   'development-casting-hall',
   'development-office-2',
   'development-office-3',
   'craft-annex',
+  'stage-standard',
+  'post-building',
+  'scenery-shop',
+  'development-casting-office',
 ] as const
 
 function managedStudio(seed: string): GameState {
@@ -124,7 +136,7 @@ function row(overrides: Partial<LotBlueprintState> = {}): LotBlueprintState {
 }
 
 describe('C1-M5 — the catalog lists every blueprint, in the studio’s own words', () => {
-  it('offers all five, in engine order, each stating what it does', () => {
+  it('offers every blueprint, in engine order, each stating what it does', () => {
     const catalog = catalogOf(managedStudio('c1-m5-catalog-shape'))
     expect(catalog.map((entry) => entry.blueprintId)).toEqual([...CATALOG_IDS])
     for (const entry of catalog) {
@@ -136,13 +148,21 @@ describe('C1-M5 — the catalog lists every blueprint, in the studio’s own wor
       expect(entry.cost).toBeGreaterThan(0)
       expect(entry.buildWeeks).toBeGreaterThan(0)
     }
-    // A brand-new studio can afford and start four of them; only the office tier
-    // gated on another building is out of reach.
+    // A brand-new studio can afford and start every one of them EXCEPT the office
+    // tier gated on another building. That includes the whole C2a-M2 slate: all four
+    // §3.4 entries carry an empty `requires`, because cash is the only live gate
+    // while rank, certificates, awards, research and land are unattainable kinds —
+    // so what actually stops a studio building a third soundstage is the GROUND, at
+    // the moment it looks for somewhere to put it, and never a greyed-out row.
     expect(catalog.filter((entry) => entry.state === 'buildable').map((e) => e.blueprintId)).toEqual([
       'development-casting-annex',
       'development-casting-hall',
       'development-office-2',
       'craft-annex',
+      'stage-standard',
+      'post-building',
+      'scenery-shop',
+      'development-casting-office',
     ])
   })
 
@@ -286,7 +306,21 @@ describe('C1-M5 — a lock that a studio can actually clear', () => {
 
 describe('C1-M5 — every new blueprint is a fully presented world citizen', () => {
   it('gives each its own body and template, and none of them borrows another’s', () => {
-    const texKeys = CATALOG_IDS.map((id) => blueprintPresentation(id).texKey)
+    // C2a-M2: a body is resolved by BLUEPRINT first and by CAPABILITY second — an
+    // authored body for this exact building always wins, and a building with none
+    // wears the honest body of its class. That is the call the world itself makes
+    // (`placedAnchors` takes both), so it is the call this asserts: the catalog's
+    // own capability is read from the catalog rather than restated here, and every
+    // one of the nine still resolves to a body of its own.
+    const capabilityOf = new Map(
+      catalogOf(managedStudio('c1-m5-catalog-bodies')).map((entry) => [
+        entry.blueprintId,
+        entry.capability,
+      ]),
+    )
+    const texKeys = CATALOG_IDS.map(
+      (id) => blueprintPresentation(id, capabilityOf.get(id)).texKey,
+    )
     expect(new Set(texKeys).size).toBe(CATALOG_IDS.length)
     for (const key of texKeys) expect(key).not.toBe('')
     // The Hall is the biggest development body, so its people stand further out.

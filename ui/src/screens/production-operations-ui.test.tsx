@@ -112,6 +112,19 @@ function greenlitManagedGame(seed: string): GameState {
   return greenlightManaged(managedGame(seed))
 }
 
+/**
+ * A studio with ONE soundstage, so the second picture is held on capacity.
+ *
+ * C2a-M2 — THE FIXTURE HAD TO FOLLOW THE STAGE. Taking a soundstage away used to be
+ * the whole of this setup; since a Set is mounted ON a stage, a state that removes
+ * `facility-soundstage-12` and keeps "Stage 12 House Set" standing on it is a state
+ * the engine's own invariant refuses — a set mounted on no soundstage. That is the
+ * invariant working, not a rule to route around, so the endowed set that stood on
+ * that stage goes with it. `nextSetId` is deliberately NOT rolled back: ids are
+ * never recycled, and a studio that has minted two sets has minted two sets.
+ *
+ * What the test is about is unchanged: one stage, two pictures, the second waiting.
+ */
 function capacityHeldGame(seed: string): GameState {
   let state = managedGame(seed, RICH_FOUNDING_COUNTS)
   state = {
@@ -122,6 +135,7 @@ function capacityHeldGame(seed: string): GameState {
         (facility) => facility.id !== 'facility-soundstage-12',
       ),
     },
+    sets: state.sets.filter((set) => set.mountedOn !== 'facility-soundstage-12'),
   }
   state = greenlightManaged(state, 0)
   state = greenlightManaged(state, 1)
