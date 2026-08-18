@@ -80,8 +80,8 @@ presentation scheduler:
    narrated week theater).
 
 **The mandatory engineering rule (LL EX, lane 8):** the scheduler consumes the
-adapter's exported per-tick stop predicate. The ten-reason priority ladder is
-never re-implemented in React.
+adapter's exported per-tick stop predicate. The stop-reason priority ladder
+(ten members today, eleven once `wrap` lands) is never re-implemented in React.
 
 **Determinism proof obligation:** the same seeded action script produces
 byte-identical exported saves whether weeks were advanced by hand, by the living
