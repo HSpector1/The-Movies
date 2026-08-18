@@ -15,6 +15,7 @@ import {
   reachableCapacityBlockerForRemainingTicks,
   requirementsForPhase,
 } from './productionPhases.js'
+import { disabledStudioEventSink, StudioEventSink } from './studioEvents.js'
 import { TUNING } from './tuning.js'
 import type {
   FacilityCapability,
@@ -256,6 +257,57 @@ function allocateForPhase(
   return { ok: true, reservations }
 }
 
+// ── C2a-M1 — the studioEvents producers (charter §5) ────────────────────────
+//
+// The engine states the FACT; the log stamps it. These are the REAL transition
+// sites — the places where a reservation is actually granted or released and a
+// phase is actually entered — not a summary pass that re-derives them afterwards.
+// A re-derived event is a second implementation of the same truth, and the whole
+// reason this ledger exists is that seventeen consumers were each doing exactly
+// that.
+//
+// `resourceKey` is the BARE `facilityId:slot` address the allocation layer has
+// exchanged since V8 — deliberately NOT the union producer's kind-qualified
+// runtime key. C2a-M0 reserved the `facility:` / `stage:` / `set:` / `mount:`
+// namespace as a RUNTIME fact and stated plainly that nothing kind-qualified is
+// persisted; writing one into a save would freeze that namespace into the file
+// format a milestone before the kinds it reserves actually exist, and there is a
+// sealed M0 assertion that says so. When M2 gives a set its own address, the
+// milestone that adds the kind can rule on what its rows carry.
+
+/**
+ * Record what a workflow's reservation set GAINED and LOST across a transition.
+ *
+ * Retention is invisible here by construction: a slot present on both sides
+ * produces no row, which is exactly right — a picture that keeps the stage it
+ * already had neither released nor was granted anything, and saying otherwise
+ * would make the log claim the crew moved when nobody moved.
+ *
+ * Releases are recorded before grants, in the workflow's own reservation order,
+ * so the sequence is a deterministic function of state.
+ */
+function recordReservationTransition(
+  events: StudioEventSink,
+  workflow: ProductionWorkflow,
+  next: readonly FacilityReservation[],
+): void {
+  if (!events.enabled) return
+  const keyOf = (reservation: FacilityReservation): string =>
+    facilitySlotKey(reservation.facilityId, reservation.slot)
+  const before = workflow.reservations.map(keyOf)
+  const after = next.map(keyOf)
+  for (const key of before) {
+    if (!after.includes(key)) {
+      events.append({ kind: 'reservationReleased', ownerId: workflow.productionId, resourceKey: key })
+    }
+  }
+  for (const key of after) {
+    if (!before.includes(key)) {
+      events.append({ kind: 'reservationGranted', ownerId: workflow.productionId, resourceKey: key })
+    }
+  }
+}
+
 function replaceWorkflow(
   operations: StudioOperations,
   replacement: ProductionWorkflow,
@@ -272,6 +324,7 @@ export function addManagedProductionWorkflow(
   operations: StudioOperations,
   production: Production,
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
+  events: StudioEventSink = disabledStudioEventSink(),
 ): StudioOperations {
   if (operations.mode !== 'managed') return operations
   if (operations.workflows.some((workflow) => workflow.productionId === production.id)) {
@@ -303,6 +356,12 @@ export function addManagedProductionWorkflow(
       `applyActions: managed greenlight rejected — no ${allocation.blocker.kind === 'facility-capacity' ? allocation.blocker.capability : 'required facility'} capacity for productionId "${production.id}"`,
     )
   }
+  // GREENLIGHT FORMATION, recorded where it happens: the picture takes its first
+  // slots and enters Development. Both rows are Tier W — this is operating
+  // history, not identity — and the production id they carry is already
+  // permanent by the time the ledger sees it.
+  recordReservationTransition(events, draft, allocation.reservations)
+  events.append({ kind: 'phaseEntered', productionId: production.id, phase })
   return replaceWorkflow(withDraft, {
     ...draft,
     reservations: allocation.reservations,
@@ -374,6 +433,7 @@ export function assignShootingDirector(
 export function clearSceneryLoadIn(
   operations: StudioOperations,
   productionId: string,
+  events: StudioEventSink = disabledStudioEventSink(),
 ): StudioOperations {
   const workflow = requireManagedWorkflow(operations, productionId, 'clearSceneryLoadIn')
   const task = workflow.shootingTask
@@ -388,6 +448,9 @@ export function clearSceneryLoadIn(
       `applyActions: clearSceneryLoadIn rejected — productionId "${productionId}" has no active scenery-load-in blocker`,
     )
   }
+  // The scenery reached the stage — the one load-in fact the world already
+  // animates and the only thing standing between a blocked take and a ready one.
+  events.append({ kind: 'sceneryArrived', productionId })
   return replaceWorkflow(operations, {
     ...workflow,
     shootingTask: { ...task, status: 'ready' },
@@ -722,6 +785,7 @@ function enterPhase(
   targetPhase: ProductionPhase,
   externallyOccupiedSlots: ReadonlySet<string>,
   week: number,
+  events: StudioEventSink,
 ): { operations: StudioOperations; production: Production; advanced: boolean } {
   const allocation = allocateForPhase(
     operations,
@@ -736,6 +800,48 @@ function enterPhase(
       advanced: false,
     }
   }
+
+  // ── THE WRAP EVENT (charter §4.3-M1) ──────────────────────────────────────
+  //
+  // Wrap is the authoritative completion of SHOOTING — automatic, never a player
+  // command — and this is the boundary it happens on: the silent
+  // `remainingTicks 4 → 3` transition out of Shooting. The row is Tier D and
+  // PERMANENT, because "this picture wrapped on this stage in this week" is the
+  // studio's history, not its operating chatter.
+  //
+  // It is emitted UNCONDITIONALLY at that boundary — nothing about Post's
+  // availability gates it, because wrap is a fact about the work that finished,
+  // not about the work that comes next.
+  //
+  // WHAT IS NOT HERE, stated so the next milestone does not have to infer it: the
+  // RESOURCE-RELEASE LAW (`00E`.5) says a completed phase releases its resources
+  // even when the next resource is unavailable — shooting completes, stage and
+  // set release, the picture queues for Post holding nothing. Today's transition
+  // is still atomic, so the stage is released as part of entering Post. That
+  // split is M4's designed engine change; M1's event lands on the boundary AS IT
+  // EXISTS, which is exactly what the charter asks for.
+  //
+  // `setId` is null until M2 binds sets. It is null, not absent: the row's shape
+  // is permanent, and a picture that shot on no bound set shot on no bound set.
+  if (workflow.phase === 'shooting' && targetPhase === 'postProduction') {
+    const stage = workflow.reservations.find(
+      (reservation) => reservation.capability === 'soundstage',
+    )
+    if (stage === undefined) {
+      throw new Error(
+        `tick: shooting productionId "${production.id}" completed without a soundstage reservation`,
+      )
+    }
+    events.append({
+      kind: 'wrapped',
+      productionId: production.id,
+      stageFacilityId: stage.facilityId,
+      setId: null,
+    })
+  }
+
+  recordReservationTransition(events, workflow, allocation.reservations)
+  events.append({ kind: 'phaseEntered', productionId: production.id, phase: targetPhase })
 
   const shootingTask: ShootingTask | null =
     targetPhase === 'shooting'
@@ -775,6 +881,7 @@ export function advanceManagedProductions(
   productions: readonly Production[],
   currentTick: number,
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
+  events: StudioEventSink = disabledStudioEventSink(),
 ): ManagedProductionAdvance {
   if (operations.mode !== 'managed') {
     return {
@@ -827,6 +934,11 @@ export function advanceManagedProductions(
     const nextRemaining = production.remainingTicks - 1
     if (nextRemaining === 0) {
       byId.set(production.id, { ...production, remainingTicks: 0 })
+      // The workflow leaves with the picture. `releaseReady` requires no
+      // capability, so today this releases nothing and records nothing — it is
+      // written as a transition rather than assumed empty so the day a phase
+      // holds something at release, the release is in the log.
+      recordReservationTransition(events, workflow, [])
       nextOperations = removeManagedProductionWorkflow(nextOperations, production.id)
       continue
     }
@@ -844,6 +956,7 @@ export function advanceManagedProductions(
       targetPhase,
       externallyOccupiedSlots,
       currentTick,
+      events,
     )
     nextOperations = result.operations
     if (result.advanced) byId.set(production.id, result.production)

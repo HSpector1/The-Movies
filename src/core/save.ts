@@ -5083,6 +5083,17 @@ function assertFrozenBuilderCanProjectV14State(
       );
     }
   }
+  // THE EVENT LEDGER. Refused the moment it holds ANYTHING — a row of either
+  // tier, or a `nextSeq` that has ever counted.
+  //
+  // The test is not "is this fact important", it is the one every exemption on
+  // this boundary already answers: CAN THE MIGRATOR PUT THE IDENTICAL BYTES BACK?
+  // For an untouched endowment it can, which is why that is exempt. For a log it
+  // cannot — `convertV13ToV14` gives a migrated world an EMPTY history, because
+  // inventing rows for events nobody observed would be manufacturing history. So
+  // a V13 envelope written from a studio that has recorded anything is a file
+  // that silently forgets what the studio did, and `nextSeq` would rewind on the
+  // way back up, which pin 3 forbids outright.
   if (isRecord(candidate.studioEvents)) {
     const events = candidate.studioEvents;
     if (

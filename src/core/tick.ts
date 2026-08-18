@@ -64,6 +64,11 @@ import { openTheatricalRun } from './economy.js'
 import { clamp } from './math.js'
 import { assertNoDoubleBookedResourceSlots } from './occupancy.js'
 import { advanceManagedProductions } from './operations.js'
+import {
+  commitStudioEvents,
+  disabledStudioEventSink,
+  StudioEventSink,
+} from './studioEvents.js'
 import { developmentOfficeEstUplift } from './facilityEffects.js'
 import {
   completeDueScriptWork,
@@ -167,6 +172,21 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // Deserialize the sim stream ONCE. Its state is re-serialized as the final step.
   const rng = RngStream.deserialize(state.rngState)
 
+  // ── C2a-M1 — the studio's own history (charter §5) ────────────────────────
+  // THE GATE, in one place: a studio with no managed operations has no studio
+  // history, so the legacy/headless path collects a sink that keeps nothing and
+  // every producer downstream stays exactly the code it was. That is what holds
+  // the M0A acceptance corpus byte-identical across this bump.
+  //
+  // Rows are stamped with `currentTick` — the week being advanced — which is the
+  // same clock the cash ledger has stamped its rows with since D-11. The one
+  // exception is a completing building, which carries its own committed
+  // completion week and is stamped with it.
+  const events =
+    state.operations.mode === 'managed'
+      ? new StudioEventSink(currentTick, true)
+      : disabledStudioEventSink()
+
   // ── 0.5 SCRIPT DEVELOPMENT ────────────────────────────────────────────────
   // A commission/rewrite made in week t is due at t+1 and completes during the
   // single visible advance from t to t+1. Completed work releases its shared
@@ -212,6 +232,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       ...scriptOccupiedFacilitySlots(scriptDevelopment),
       ...castingOccupiedFacilitySlots(castingSessions),
     ]),
+    events,
   )
   const advanced: Production[] = productionAdvance.productions
 
@@ -240,6 +261,18 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   )
   const operations = placementCompletion.operations
   const placement = placementCompletion.placement
+  // A building OPENED. Tier D and permanent: the studio's estate is a matter of
+  // record for the rest of the campaign. Stamped with the placement's own
+  // committed completion week rather than the week being advanced, because that
+  // week is already on the record the row describes and two dates for one fact is
+  // one date too many. Ascending placement id — `completeDuePlacements` already
+  // sorted them, so the sequence is a function of state, not of iteration order.
+  for (const completed of placementCompletion.completed) {
+    events.append(
+      { kind: 'constructionCompleted', placementId: String(completed.id) },
+      completed.completesWeek,
+    )
+  }
 
   // ── 2. RELEASE ─────────────────────────────────────────────────────────────
   // Collect productions at remainingTicks === 0 after step 1; the rest stay
@@ -440,6 +473,12 @@ export function tick(state: GameState, options?: TickOptions): GameState {
         criticScore: result.criticScore,
       },
     }
+
+    // THE PREMIERE. Tier D and permanent — a released film is an identity this
+    // studio owns forever, and `persistedProductionIds` walks this row to prove
+    // it. Recorded in the same ascending-id release order everything else in this
+    // loop uses.
+    events.append({ kind: 'premiere', filmId: prod.id })
 
     records.push({ filmResult, benchmarks, ctx, broadcast, develop })
   }
@@ -733,5 +772,11 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     castingSessions,
     construction,
     placement,
+    // Stamped, appended, and compacted against the week this advance PRODUCES —
+    // the week `market.tick` now reads — so the log a caller gets back is already
+    // at its steady-state size and the save validator's window check agrees with
+    // it. Compaction is a pure function of that week: same log, same week, same
+    // answer, on every replay.
+    studioEvents: commitStudioEvents(state.studioEvents, events, currentTick + 1),
   }
 }

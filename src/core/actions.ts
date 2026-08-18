@@ -85,6 +85,11 @@ import {
 } from './operations.js'
 import { publicityLiftAt } from './publicity.js'
 import { ENDOWED_NEXT_SET_ID, endowedHouseSets } from './sets.js'
+import {
+  commitStudioEvents,
+  disabledStudioEventSink,
+  StudioEventSink,
+} from './studioEvents.js'
 import { persistedProductionIds } from './productionIdentity.js'
 import {
   acceptScriptProject,
@@ -598,6 +603,7 @@ function applyGreenlight(
     },
     ledger: [...state.ledger, ...ledgerAdds],
   }
+  const greenlightEvents = studioEventSinkFor(state)
   const withOperations =
     state.operations.mode === 'managed'
       ? {
@@ -609,6 +615,12 @@ function applyGreenlight(
               ...scriptOccupiedFacilitySlots(state.scriptDevelopment),
               ...castingOccupiedFacilitySlots(state.castingSessions),
             ]),
+            greenlightEvents,
+          ),
+          studioEvents: commitStudioEvents(
+            state.studioEvents,
+            greenlightEvents,
+            state.market.tick,
           ),
         }
       : next
@@ -1442,6 +1454,17 @@ function requireActiveProductionForOperations(
   return production
 }
 
+// ── C2a-M1 — the studioEvents gate on the ACTION path (charter §5) ──────────
+// The same gate `tick` applies, in the same words: a studio with no managed
+// operations has no studio history, so a legacy or headless caller collects a
+// sink that keeps nothing. Action rows are stamped with `market.tick`, the week
+// the command was actually given.
+function studioEventSinkFor(state: GameState): StudioEventSink {
+  return state.operations.mode === 'managed'
+    ? new StudioEventSink(state.market.tick, true)
+    : disabledStudioEventSink()
+}
+
 function applyAssignShootingDirector(
   state: GameState,
   action: Action & { kind: 'assignShootingDirector' },
@@ -1462,9 +1485,11 @@ function applyClearSceneryLoadIn(
   action: Action & { kind: 'clearSceneryLoadIn' },
 ): GameState {
   requireActiveProductionForOperations(state, action.productionId, 'clearSceneryLoadIn')
+  const events = studioEventSinkFor(state)
   return {
     ...state,
-    operations: clearSceneryLoadIn(state.operations, action.productionId),
+    operations: clearSceneryLoadIn(state.operations, action.productionId, events),
+    studioEvents: commitStudioEvents(state.studioEvents, events, state.market.tick),
   }
 }
 
