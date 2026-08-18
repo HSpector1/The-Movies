@@ -1,6 +1,16 @@
 // ── Start screen ─────────────────────────────────────────────────────────────
 // New game (seed input, sensible default), or import a save. One line noting the
 // same seed → same world. No tutorial.
+//
+// PF1-M3 — THE FRONT DOOR. A STATIC title card, and static on purpose: no timed
+// sequence, no camera move, no skippable intro. The only thing that happens on arrival is
+// the page being there. (The unlock stinger M1 already provides on the first click is the
+// whole of the product's welcome, and it is a consequence of the player acting, not a
+// performance played at them.)
+//
+// The copy is unchanged — it was already in voice. What changed is the composition: the
+// title reads as a title, the seed is presented as the world's fingerprint rather than a
+// bare form field, and restoring a save is secondary to opening a studio.
 
 import { useState } from 'react'
 import type { GameState } from '../engine/adapter.ts'
@@ -40,28 +50,30 @@ export function StartScreen({
 
   return (
     <div className="app-shell">
-      <div className="topbar">
-        <div className="brand">
-          <span className="mark">PROJECT: STUDIO</span>
-          <span className="sub">a studio you run one film at a time</span>
-        </div>
-      </div>
+      <header className="title-card" data-testid="title-card">
+        <span className="title-card-year">Hollywood · 1948</span>
+        <h1 className="title-card-mark mark">PROJECT: STUDIO</h1>
+        <div className="title-card-rule" aria-hidden="true" />
+        <span className="title-card-sub sub">a studio you run one film at a time</span>
+      </header>
 
-      <div className="grid grid-2">
+      <div className="front-door">
         <div className="card stack">
           <h2>New studio</h2>
           <p className="hint">
             The seed sets the whole world — talent, concepts, market. The same seed always
             produces the same world.
           </p>
-          <label htmlFor="seed-input">Seed</label>
-          <input
-            id="seed-input"
-            type="text"
-            value={seed}
-            onChange={(e) => setSeed(e.target.value)}
-            data-testid="seed-input"
-          />
+          <div className="seed-plate">
+            <label htmlFor="seed-input">The world</label>
+            <input
+              id="seed-input"
+              type="text"
+              value={seed}
+              onChange={(e) => setSeed(e.target.value)}
+              data-testid="seed-input"
+            />
+          </div>
           <div>
             <button className="accent" onClick={handleNew} data-testid="new-game">
               Open the studio
@@ -69,7 +81,7 @@ export function StartScreen({
           </div>
         </div>
 
-        <div className="card stack">
+        <div className="card stack front-door-secondary">
           <h2>Continue from a save</h2>
           <p className="hint">Paste an exported save file to restore a studio exactly.</p>
           <label htmlFor="import-text">Save JSON</label>

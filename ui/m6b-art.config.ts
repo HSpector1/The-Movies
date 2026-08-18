@@ -1,6 +1,11 @@
 import { defineConfig, devices } from '@playwright/test'
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const UI_DIR = '/Users/bruce/The Movies - Autonomous Marathon/ui'
+// PF1-M3 config hygiene. This was a hard-coded absolute path to ANOTHER worktree, so an
+// art shot taken from this tree silently exercised a different tree's UI. It is the
+// directory this config file lives in, and now it says so.
+const UI_DIR = dirname(fileURLToPath(import.meta.url))
 const PORT = 5181
 
 export default defineConfig({

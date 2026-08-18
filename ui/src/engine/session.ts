@@ -31,14 +31,19 @@ function storage(): Storage | null {
 }
 
 // Persist the active session. Called AFTER an authoritative state transition completes, so a
-// half-applied transaction is never written (the engine returns whole states). Non-fatal on failure.
-export function saveActiveSession(state: GameState): void {
+// half-applied transaction is never written (the engine returns whole states). Non-fatal on
+// failure — but NEVER SILENT: the boolean is the whole point. `true` means this exact state
+// is now written down; `false` means it is not, for any reason (storage unavailable, quota
+// exhausted, serialization refused), and the shell owes the player a visible notice. The UI
+// must never claim a save succeeded when it did not (PF1-M3 Owner addendum).
+export function saveActiveSession(state: GameState): boolean {
   const s = storage()
-  if (!s) return
+  if (!s) return false
   try {
     s.setItem(ACTIVE_SESSION_KEY, exportSaveJson(state))
+    return true
   } catch {
-    /* quota / serialization failure — the in-memory session is unaffected */
+    return false // quota / serialization failure — the in-memory session is unaffected
   }
 }
 

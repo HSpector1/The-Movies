@@ -340,14 +340,11 @@ describe('saves: migration disclosure through real App navigation', () => {
     expect(notice).toHaveTextContent(/older save was upgraded to the current format/i)
     expect(notice.textContent ?? '').not.toMatch(/\bV[1-8]\b/i)
 
-    const originalConfirm = window.confirm
-    window.confirm = () => true
-    try {
-      fireEvent.click(screen.getByTestId('open-saves'))
-      fireEvent.click(screen.getByTestId('restart-game'))
-    } finally {
-      window.confirm = originalConfirm
-    }
+    // PF1-M3 re-pin (Owner-approved, charter §5-M3): the destructive verb is answered in the
+    // product's own confirm dialog, not by `window.confirm`. Same decision, real buttons.
+    fireEvent.click(screen.getByTestId('open-saves'))
+    fireEvent.click(screen.getByTestId('restart-game'))
+    fireEvent.click(screen.getByTestId('confirm-dialog-confirm'))
     expect(screen.getByTestId('new-game')).toBeInTheDocument()
     expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheDocument()
     fireEvent.click(screen.getByTestId('new-game'))
@@ -360,7 +357,10 @@ describe('saves: migration disclosure through real App navigation', () => {
     render(<App />)
 
     expect(screen.getByTestId('dash-week')).toBeInTheDocument()
-    expect(screen.getByTestId('recovery-notice')).toHaveTextContent(/Recovered your studio/i)
+    // PF1-M3 re-pin (Owner-approved, charter §5-M3): a routine same-format restore continues,
+    // it does not "recover". The migration card below is a separate notice and keeps its own
+    // message — which is exactly what this test is about.
+    expect(screen.getByTestId('recovery-notice')).toHaveTextContent(/Continuing your studio/i)
     const notice = screen.getByTestId('save-migration-notice')
     expect(notice).toHaveTextContent(/older save was upgraded to the current format/i)
     expect(notice.textContent ?? '').not.toMatch(/\bV[1-8]\b/i)

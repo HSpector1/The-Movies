@@ -675,6 +675,7 @@
   }
 }
 
+/* PF1-M3 motion promotion 4/8. */
 @media (prefers-reduced-motion: reduce) {
   .lot-next-event-button,
   .lot-next-event-rail,
@@ -685,6 +686,15 @@
     transition: none !important;
     animation: none !important;
   }
+}
+:root[data-motion="reduced"] .lot-next-event-button,
+:root[data-motion="reduced"] .lot-next-event-rail,
+:root[data-motion="reduced"] .lot-next-event-rail *,
+:root[data-motion="reduced"] .lot-casting-review-panel,
+:root[data-motion="reduced"] .lot-casting-review-panel * {
+  scroll-behavior: auto;
+  transition: none !important;
+  animation: none !important;
 }
 .lot-canvas-note {
   position: absolute;
@@ -817,11 +827,18 @@
 }
 
 /* ── Reduced motion: freeze non-essential motion; readability + navigation intact ── */
+/* PF1-M3 motion promotion 5/8. `.lot-reduced-motion` is the precedent this campaign
+   generalised: the class is applied by the Lot from the RESOLVED value, and the root
+   attribute carries the same fact to every surface the Lot does not own. */
 @media (prefers-reduced-motion: reduce) {
   .lot-screen * {
     transition: none !important;
     animation: none !important;
   }
+}
+:root[data-motion="reduced"] .lot-screen * {
+  transition: none !important;
+  animation: none !important;
 }
 .lot-reduced-motion * {
   transition: none !important;
@@ -850,6 +867,24 @@
   align-items: center;
 }
 #root:has(> .lot-screen) > [data-testid="recovery-notice"] button {
+  min-height: 44px;
+  padding-block: 4px;
+}
+/* PF1-M3: the studio's own notices sit in the same place and answer to the same rule.
+   A refusal and a persistence warning are chrome over the world, not a slice taken out of
+   it — the Lot is the primary game surface and keeps its height. */
+#root:has(> .lot-screen) > .app-notice,
+#root:has(> .lot-screen) > .app-persistence-notice {
+  margin-bottom: 0 !important;
+  padding: 0 12px;
+  border-width: 0 0 1px;
+  border-radius: 0;
+}
+#root:has(> .lot-screen) > .app-notice > .spread {
+  flex-direction: row;
+  align-items: center;
+}
+#root:has(> .lot-screen) > .app-notice button {
   min-height: 44px;
   padding-block: 4px;
 }
@@ -1077,11 +1112,15 @@
   outline: 3px solid #f2cf78;
   outline-offset: 3px;
 }
+/* PF1-M3 motion promotion 6/8. */
 @media (prefers-reduced-motion: reduce) {
   .hollywood-picture-guidance-body,
   .hollywood-picture-guidance-toggle,
   .hollywood-picture-guidance-next { transition: none; }
 }
+:root[data-motion="reduced"] .hollywood-picture-guidance-body,
+:root[data-motion="reduced"] .hollywood-picture-guidance-toggle,
+:root[data-motion="reduced"] .hollywood-picture-guidance-next { transition: none; }
 .hollywood-consequence { display: flex; align-items: flex-start; gap: 9px; margin: 10px 0 0; padding: 9px; background: rgba(104, 48, 23, .44); border-left: 3px solid #c7893d; font-size: 11px; }
 button.hollywood-consequence { width: 100%; color: inherit; text-align: left; border-top: 0; border-right: 0; border-bottom: 0; cursor: pointer; }
 button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
@@ -2603,9 +2642,53 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   font-size: 18px;
 }
 
+/* PF1-M3 motion promotion 7/8. (The M2 punctuation block — added after the campaign's
+   recon counted seven, which is why the promotion is written against the CURRENT file
+   contents rather than a remembered number.) */
 @media (prefers-reduced-motion: reduce) {
   .lot-notice-line,
   .hollywood-activity {
     animation: none;
   }
+}
+:root[data-motion="reduced"] .lot-notice-line,
+:root[data-motion="reduced"] .hollywood-activity {
+  animation: none;
+}
+
+/* ── PF1-M3 — settings over the LIVING world ──────────────────────────────────
+   Settings is not a screen: a Screen switch would unmount the Lot and tear the
+   renderer down to change a volume. It is hosted by the proven retained-workspace
+   host, which keeps the world mounted, suspended, and inert underneath. */
+.lot-settings-layer {
+  position: fixed;
+  z-index: 60;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 3vw, 44px);
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: rgba(5, 7, 12, 0.52);
+  isolation: isolate;
+}
+
+.lot-settings-workspace {
+  display: flex;
+  flex-direction: column;
+  width: min(560px, 90vw);
+  max-height: min(88dvh, 900px);
+  min-height: 0;
+  overflow: hidden;
+  color: var(--text);
+  background: var(--bg-panel);
+  border: 1px solid var(--accent-dim);
+  border-radius: 12px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.62);
+}
+
+.lot-settings-workspace:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }

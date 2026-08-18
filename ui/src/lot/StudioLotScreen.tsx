@@ -44,6 +44,7 @@ import { punctuateRefusal } from '../presentation/punctuate.ts'
 import type { CueMotion } from '../presentation/eventGrammar.ts'
 import { useTransientNotice } from '../presentation/transientNotice.ts'
 import { CashReadout } from '../presentation/CashReadout.tsx'
+import { useResolvedMotion } from '../shell/useResolvedMotion.ts'
 import {
   LotNextEventRail,
   type LotNextEventRailAction,
@@ -596,6 +597,12 @@ type Props = {
   ) => boolean
   /** Dismiss only current next-event presentation. */
   onDismissNextEvent?: () => void
+  /**
+   * Open the shell's settings dialog over this MOUNTED world (PF1-M3). Optional because
+   * settings is not a screen and this component is mounted directly by its own suites: with
+   * no shell above it there is no dialog to host, so the control is not offered at all.
+   */
+  onOpenSettings?: (() => void) | undefined
 }
 
 // Stage assignment memory. Like selected-building memory, it is UI session state — NOT
@@ -676,13 +683,10 @@ function inspectorScriptBoardView(state: GameState): ScriptProjectsReadModel | n
   }
 }
 
-function prefersReducedMotion(): boolean {
-  try {
-    return typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  } catch {
-    return false
-  }
-}
+// PF1-M3: the OS query is no longer read here. Motion is the RESOLVED value now — the OS
+// signal strengthened, never weakened, by the player's own setting — and exactly one module
+// owns that rule (`shell/motion.ts`). A second reader of the raw media query would be a
+// second answer to the same question, and the one that ignored the player's setting.
 
 function lotNextEventEligibility(state: GameState): {
   eligible: boolean
@@ -915,6 +919,7 @@ export function StudioLotScreen({
   onOpenNextEventDetails,
   onInvalidateNextEvent,
   onDismissNextEvent,
+  onOpenSettings,
 }: Props) {
   useLayoutEffect(() => onPresentationMount?.(), [onPresentationMount])
 
@@ -1252,7 +1257,10 @@ export function StudioLotScreen({
   const resetNextEventRailInput = useCallback(() => {
     setNextEventRailInputResetEpoch((epoch) => epoch + 1)
   }, [])
-  const [reducedMotion, setReducedMotionState] = useState(prefersReducedMotion)
+  // The one resolved answer, shared with the shell. `.lot-reduced-motion`, the scene's own
+  // `setReducedMotion`, and the notice motion gate all read THIS — so the player's setting
+  // reaches the renderer, not only the stylesheets.
+  const reducedMotion = useResolvedMotion().resolved === 'reduced'
   const hollywood = operationHollywoodEnabled()
   // Tycoon World Conversion M1: the grid property is the adopted default world. It rides
   // on the Hollywood semantic contract, so the plate rollback also rolls this back.
@@ -4563,15 +4571,8 @@ export function StudioLotScreen({
     getAudioService().setAmbienceScene({ constructionActive: lotConstructionActive })
   }, [documentHidden, lotConstructionActive])
 
-  // Honour a live change to the OS reduced-motion preference.
-  useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    if (!mq) return
-    const onChange = () => setReducedMotionState(mq.matches)
-    mq.addEventListener?.('change', onChange)
-    return () => mq.removeEventListener?.('change', onChange)
-  }, [])
+  // A live change to the OS preference — or to the player's — arrives through
+  // `useResolvedMotion` above. There is no second subscription here on purpose.
 
   // ── Drive the scene's identity + reduced-motion from the effective values above. ─────────
   // One path for BOTH capabilities: the ordinary player gets Concept A (or the rollback baseline)
@@ -8117,6 +8118,41 @@ export function StudioLotScreen({
           >
             Open Dashboard
           </button>
+          {/*
+            THE WAY TO THE VAULT. The saves route has existed since D1 and nothing on the
+            property emitted it, so the only way to a print of the studio was through the
+            Dashboard. This is ordinary deep navigation through the SAME owner every other
+            lot destination uses; it spends nothing and changes no state.
+          */}
+          <button
+            className="ghost"
+            disabled={worldInputSuspended}
+            onPointerDown={containWorldInput}
+            onMouseDown={containWorldInput}
+            onTouchStart={containWorldInput}
+            onClick={() => {
+              if (!worldInputSuspendedRef.current) onNavigateRef.current({ kind: 'saves' })
+            }}
+            title="Export a print of this studio, or load one"
+            data-testid="lot-open-saves"
+          >
+            Saves
+          </button>
+          {onOpenSettings && (
+            <button
+              className="ghost"
+              disabled={worldInputSuspended}
+              onPointerDown={containWorldInput}
+              onMouseDown={containWorldInput}
+              onTouchStart={containWorldInput}
+              onClick={() => {
+                if (!worldInputSuspendedRef.current) onOpenSettings()
+              }}
+              data-testid="lot-open-settings"
+            >
+              Settings
+            </button>
+          )}
         </div>
       </header>
 

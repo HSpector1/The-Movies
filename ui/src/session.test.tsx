@@ -176,12 +176,16 @@ describe('D-12 active-session recovery — safety', () => {
 })
 
 describe('D-12 active-session recovery — App startup', () => {
-  it('a valid autosave is RESTORED on mount (no new studio) with a recovery notice', () => {
+  it('a valid autosave is RESTORED on mount (no new studio) with a continuation notice', () => {
     // Seed an active session, then mount a FRESH App (a reload/HMR remount).
     saveActiveSession(newFoundedGame('rec-app'))
     render(<App />)
-    // It did NOT drop to the Start screen; it recovered onto the studio dashboard with the notice.
-    expect(screen.getByTestId('recovery-notice').textContent).toMatch(/Recovered your studio from Week/)
+    // It did NOT drop to the Start screen; it continued onto the studio dashboard with the notice.
+    // PF1-M3 re-pin (Owner-approved, charter §5-M3): a routine same-format restore is not a
+    // rescue and no longer announces one. "Recover" is reserved for the corrupt-quarantine
+    // path, which is pinned unchanged below.
+    expect(screen.getByTestId('recovery-notice')).toHaveAttribute('data-recovery', 'continuing')
+    expect(screen.getByTestId('recovery-notice').textContent).toMatch(/Continuing your studio — Week/)
     expect(screen.getByTestId('dash-week')).toBeInTheDocument() // the founded studio's dashboard rendered
   })
 
@@ -193,6 +197,8 @@ describe('D-12 active-session recovery — App startup', () => {
   it('an invalid autosave surfaces a safe recovery-failed notice, not a crash', () => {
     localStorage.setItem(ACTIVE_SESSION_KEY, 'garbage')
     render(<App />)
+    // The ONE case still allowed to speak in alarm (PF1-M3): a quarantined payload.
+    expect(screen.getByTestId('recovery-notice')).toHaveAttribute('data-recovery', 'corrupt')
     expect(screen.getByTestId('recovery-notice').textContent).toMatch(/Could not recover/i)
   })
 
@@ -230,29 +236,28 @@ describe('D-12 active-session recovery — App startup', () => {
 // New Studio is a confirmed destructive action (D-12 A5). The prompt must fire on the LIVE studio,
 // not on whether persistence happened to succeed — otherwise private-mode/storage-disabled sessions
 // would be wiped silently. These tests drive the real Saves → New Studio button.
+//
+// PF1-M3 re-pin (Owner-approved, charter §5-M3 "the browser never speaks again"): the guard is
+// unchanged — it still fires on the in-memory studio and still gates the wipe — but it is now the
+// product's own focus-trapped dialog with two named verbs instead of `window.confirm`. These tests
+// therefore drive real buttons rather than stubbing a browser global; the ASSERTIONS about what
+// survives a decline and what a confirm destroys are identical.
 describe('D-12 New Studio — confirmed destructive action', () => {
-  function openNewStudio(): number {
+  function openNewStudio(): void {
     fireEvent.click(screen.getByTestId('open-saves'))
     fireEvent.click(screen.getByTestId('restart-game'))
-    return 0
   }
 
   it('asks for confirmation and PRESERVES the studio when the player declines', () => {
     saveActiveSession(newFoundedGame('confirm-decline'))
     render(<App />)
     expect(screen.getByTestId('dash-week')).toBeInTheDocument()
-    let asked = 0
-    const orig = window.confirm
-    window.confirm = () => {
-      asked++
-      return false // the player cancels
-    }
-    try {
-      openNewStudio()
-    } finally {
-      window.confirm = orig
-    }
-    expect(asked).toBeGreaterThan(0) // the guard fired on the in-memory studio
+    openNewStudio()
+    // The guard fired on the in-memory studio: nothing is gone yet, the studio is asked about.
+    expect(screen.getByTestId('confirm-dialog')).toBeInTheDocument()
+    expect(screen.queryByTestId('new-game')).toBeNull()
+    fireEvent.click(screen.getByTestId('confirm-dialog-cancel')) // the player cancels
+    expect(screen.queryByTestId('confirm-dialog')).toBeNull()
     expect(screen.queryByTestId('new-game')).toBeNull() // did NOT drop to the Start screen
     expect(hasActiveSession()).toBe(true) // studio preserved — the autosave is intact
   })
@@ -260,13 +265,8 @@ describe('D-12 New Studio — confirmed destructive action', () => {
   it('wipes to the Start screen and clears the autosave when the player confirms', () => {
     saveActiveSession(newFoundedGame('confirm-accept'))
     render(<App />)
-    const orig = window.confirm
-    window.confirm = () => true
-    try {
-      openNewStudio()
-    } finally {
-      window.confirm = orig
-    }
+    openNewStudio()
+    fireEvent.click(screen.getByTestId('confirm-dialog-confirm'))
     expect(screen.getByTestId('new-game')).toBeInTheDocument() // dropped to the Start screen
     expect(hasActiveSession()).toBe(false) // autosave cleared so a refresh won't resurrect it
   })

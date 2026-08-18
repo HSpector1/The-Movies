@@ -56,6 +56,7 @@ export function Dashboard({
   onOpenCalendar,
   onOpenDevelopment,
   onSaves,
+  onOpenSettings,
   onOpenAutopsy,
   canOpenAutopsy,
   onOpenChronicle,
@@ -87,6 +88,12 @@ export function Dashboard({
   onOpenCalendar?: () => void
   onOpenDevelopment?: () => void
   onSaves: () => void
+  /**
+   * Open the shell's settings dialog (PF1-M3). Optional because settings is NOT a screen:
+   * the Dashboard is mounted directly by several suites with no shell above it, and a
+   * missing host must leave no control promising something nothing will answer.
+   */
+  onOpenSettings?: (() => void) | undefined
   onOpenAutopsy: (film: FilmResult) => void
   canOpenAutopsy?: (film: FilmResult) => boolean
   // Film Chronicle V1: the durable persisted-data record is distinct from the
@@ -341,6 +348,11 @@ export function Dashboard({
             <button className="ghost" onClick={onSaves} data-testid="open-saves">
               Saves
             </button>
+            {onOpenSettings && (
+              <button className="ghost" onClick={onOpenSettings} data-testid="open-settings">
+                Settings
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -103,6 +103,16 @@ import { StudioRunRecap } from './screens/StudioRunRecap.tsx'
 import { saveActiveSession, loadActiveSession, clearActiveSession } from './engine/session.ts'
 import { operationHollywoodEnabled, studioLotOverviewEnabled } from './flags.ts'
 import type { LotRoute } from './lot/navigation.ts'
+// PF1-M3 shell. Settings is a modal component, never a Screen — a Screen switch would
+// unmount the Lot and tear its renderer down to change a volume. The notices are what the
+// browser's own dialogs used to say, said by the studio instead.
+import { AppNotice, PersistenceNotice } from './shell/AppNotice.tsx'
+import { ConfirmDialog } from './shell/ConfirmDialog.tsx'
+import { SettingsOverlay } from './shell/SettingsOverlay.tsx'
+import { ShellDialog } from './shell/ShellDialog.tsx'
+import { LotRetainedWorkspace } from './lot/LotRetainedWorkspace.tsx'
+import { browserStorageAvailable } from './shell/persistence.ts'
+import { useMotionDocumentAttribute, useResolvedMotion } from './shell/useResolvedMotion.ts'
 import { LotPackageWorkspace } from './lot/LotPackageWorkspace.tsx'
 import { LotCommissionWorkspace } from './lot/LotCommissionWorkspace.tsx'
 import { LotAuditionWorkspace } from './lot/LotAuditionWorkspace.tsx'
@@ -125,6 +135,7 @@ import {
   punctuateSimResult,
 } from './presentation/punctuate.ts'
 import type { CueMotion, PresentationCue } from './presentation/eventGrammar.ts'
+import { useTransientNotice } from './presentation/transientNotice.ts'
 import type { LotPublicityResult } from './lot/snapshot/publicityCampaign.ts'
 import {
   operationalAnnexWorkContext,
@@ -1031,10 +1042,16 @@ export function App() {
     commitLotPackagePresentation,
     lotPresentationToken,
   ])
-  // A dismissible recovery notice: the recovered week, or a safe "recovery failed" message.
-  const [recovery, setRecovery] = useState<{ kind: 'recovered'; week: number } | { kind: 'corrupt' } | null>(
+  // What the shell says about how this session opened.
+  //
+  // PF1-M3 — HONESTY (Owner-approved): a routine reload of a same-format session is not a
+  // rescue and must not be announced as one. It gets a quiet continuation line. The word
+  // "recover" belongs to the ONE case that earned it — a payload that failed validation and
+  // was quarantined. (The separate "older save upgraded" card keeps its own message: a
+  // migration genuinely happened and the player may want a copy in the current format.)
+  const [recovery, setRecovery] = useState<{ kind: 'continuing'; week: number } | { kind: 'corrupt' } | null>(
     restore.ok
-      ? { kind: 'recovered', week: restore.state.market.tick }
+      ? { kind: 'continuing', week: restore.state.market.tick }
       : restore.reason === 'corrupt'
         ? { kind: 'corrupt' }
         : null,
@@ -1123,6 +1140,34 @@ export function App() {
     punctuationKeyRef.current += 1
     setLotPunctuation({ key: punctuationKeyRef.current, motion })
   }, [])
+
+  // ── PF1-M3: the shell. Presentation state, all of it. ────────────────────────
+  //
+  // `appNotice` is what `alert()` used to be — one refusal at a time, in the studio's voice,
+  // carrying its own serial so a repeat of the SAME sentence still reads as a new notice.
+  // `settingsOpen` and `confirmNewGame` are modal hosts, not routes: neither may unmount the
+  // Lot, and neither is ever restored from anything.
+  const [appNotice, setAppNotice] = useState<{ key: number; message: string } | null>(null)
+  const noticeKeyRef = useRef(0)
+  const showNotice = useCallback((message: string) => {
+    noticeKeyRef.current += 1
+    setAppNotice({ key: noticeKeyRef.current, message })
+  }, [])
+  const dismissNotice = useCallback(() => setAppNotice(null), [])
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [confirmNewGame, setConfirmNewGame] = useState(false)
+
+  // The resolved motion signal, published once on the document element. Every promoted
+  // `:root[data-motion="reduced"]` rule reads it; the mounted Lot resolves the same two
+  // inputs itself rather than trusting a prop it can also be mounted without.
+  const motion = useResolvedMotion()
+  useMotionDocumentAttribute(motion.resolved)
+
+  // AUTOSAVE FAILURE IS NEVER SILENT (PF1-M3 Owner addendum). One status, one notice.
+  // Seeded from the storage probe so private mode is known before the first write, then
+  // driven by the return value of every autosave. Cleared automatically the moment a later
+  // autosave succeeds — the notice is a live condition, not a logged event.
+  const [persistenceOk, setPersistenceOk] = useState(browserStorageAvailable)
 
   const replaceAuthoritativeState = useCallback((next: GameState | null) => {
     bumpNoticeEpoch()
@@ -1309,8 +1354,20 @@ export function App() {
   // setState, so this single effect covers founding, hiring, greenlight, advance, sim, release,
   // theatrical payments, roster changes, etc. Whole engine states only (no half-applied writes).
   useEffect(() => {
-    if (state) saveActiveSession(state)
+    if (!state) return
+    // The write either happened or it did not, and the player is told which. Nothing here
+    // retries: a retry the shell cannot prove would be the same silent lie in a new costume.
+    //
+    // Only an explicit `false` is evidence of failure. Several suites replace the whole
+    // persistence boundary with a stub that returns nothing; "no signal" is not "the studio
+    // was lost", and the product must not accuse itself on a test double's silence.
+    setPersistenceOk(saveActiveSession(state) !== false)
   }, [state])
+
+  // A refusal survives the action that produced it and expires on the next one — the same
+  // epoch law the Lot's receipt strip follows (M2). The refusal itself replaces no state,
+  // so its epoch does not move until the player does something else.
+  useTransientNotice(appNotice?.key ?? null, appNotice !== null, noticeEpoch, dismissNotice)
 
   // A clear Casting review may hand off only after the exact successor has committed and the
   // established autosave effect above has been invoked for it. Re-prove the complete transition
@@ -1611,18 +1668,23 @@ export function App() {
   }
 
   // A destructive "new studio" — confirmed whenever a live studio exists, then the autosave is
-  // cleared so a subsequent refresh does not resurrect the abandoned studio. The prompt is gated on
-  // the in-memory studio (`state`), NOT on whether persistence succeeded: in private/incognito mode
-  // hasActiveSession() is false, but there is still a live studio to lose, so it must still confirm.
+  // cleared so a subsequent refresh does not resurrect the abandoned studio. The gate is the
+  // in-memory studio (`state`), NOT whether persistence succeeded: in private/incognito mode
+  // hasActiveSession() is false, but there is still a live studio to lose, so it must still ask.
+  //
+  // PF1-M3: it asks in a focus-trapped dialog of the product's own, with two named verbs, in
+  // place of `window.confirm`. The decision boundary is unchanged — nothing below this line
+  // runs until the player has said the destructive word.
   function requestNewGame() {
-    if (
-      state !== null &&
-      typeof window !== 'undefined' &&
-      typeof window.confirm === 'function' &&
-      !window.confirm('Start a new studio? This will replace your current studio.')
-    ) {
+    if (state !== null) {
+      setConfirmNewGame(true)
       return
     }
+    performNewGame()
+  }
+
+  function performNewGame() {
+    setConfirmNewGame(false)
     clearActiveSession()
     replaceAuthoritativeState(null)
     clearTalentProfileWithoutFocusRestore()
@@ -2688,10 +2750,10 @@ export function App() {
   function handleDashboardPublicity(tier: PublicityTier) {
     const result = executePublicity(tier)
     if (!result.ok) {
-      // PF1-M2: the refusal is heard where it is SURFACED, once. M3 replaces the alert
-      // itself; the cue is already attached to the right moment.
+      // PF1-M2: the refusal is heard where it is SURFACED, once — and since M3 it is also
+      // SAID here, by the studio, in the same commit as the cue.
       punctuateRefusal(latestStateRef.current?.market.tick ?? 0)
-      alert(result.error)
+      showNotice(result.error)
     }
   }
 
@@ -2713,7 +2775,7 @@ export function App() {
       replaceAuthoritativeState(result.next)
     } else {
       punctuateRefusal(state.market.tick)
-      alert(result.error)
+      showNotice(result.error)
     }
     return result
   }
@@ -2807,8 +2869,11 @@ export function App() {
     try {
       if (studioDecision(current) !== null) return false
     } catch {
+      // The alert this replaces was BLOCKING, and the early return below was reached only
+      // after the player dismissed it. Nothing is dispatched on this path either way: the
+      // activation claim was never taken, so the notice cannot race a state replacement.
       punctuateRefusal(current.market.tick)
-      alert('The studio could not verify whether a decision is already waiting.')
+      showNotice('The studio could not verify whether a decision is already waiting.')
       return false
     }
 
@@ -2817,9 +2882,12 @@ export function App() {
     try {
       result = advanceToNextEvent(current)
     } catch {
+      // The activation claim is released BEFORE the notice, exactly as it was released
+      // before the blocking alert: the lot must be operable again the moment the studio
+      // refuses, not only once the player has acknowledged the refusal.
       lotNextEventActivationRef.current = null
       punctuateRefusal(current.market.tick)
-      alert('The studio could not advance to the next event. The current lot is unchanged.')
+      showNotice('The studio could not advance to the next event. The current lot is unchanged.')
       return false
     }
 
@@ -2931,9 +2999,13 @@ export function App() {
 
     // The real adapter always supplies finite final primitives. This branch is defensive against
     // a hostile boundary replacement: accept no presentation claim that was not independently safe.
+    // The successor was ALREADY committed above (and autosaved) before this branch is
+    // reached — the alert this replaces blocked after the dispatch, never before it. The
+    // notice therefore lands in the same commit as the state replacement that bumped the
+    // epoch, which is precisely the ordering the transient-notice hook is written for.
     setLotCadenceFeedback(null)
     punctuateRefusal(result.next.market.tick)
-    alert('The studio advanced, but exact event details were unavailable. Review the current lot.')
+    showNotice('The studio advanced, but exact event details were unavailable. Review the current lot.')
     return true
   }
 
@@ -3573,7 +3645,7 @@ export function App() {
     const view = releaseNewspaper(state, film)
     if (!view) {
       punctuateRefusal(state.market.tick)
-      alert(
+      showNotice(
         'This film has no archived front page. A newspaper clipping is kept only for films ' +
           'released with a full participant record (D-11.A); older films predate that record.',
       )
@@ -3602,7 +3674,7 @@ export function App() {
       return
     }
     punctuateRefusal(state.market.tick)
-    alert(
+    showNotice(
       'This older film predates the frozen participant record required for a Film Chronicle.',
     )
   }
@@ -3615,7 +3687,7 @@ export function App() {
     const snap = snapshots[film.productionId]
     if (!snap) {
       punctuateRefusal(latestStateRef.current?.market.tick ?? 0)
-      alert(
+      showNotice(
         'The full autopsy needs the studio state from just before this film released. ' +
           'That snapshot is kept only for films that released while you were playing this session. ' +
           'Open the film’s Chronicle for its durable production record.',
@@ -3642,13 +3714,18 @@ export function App() {
     openProfileId !== null ||
     lotPackagePresentation.workspace !== null ||
     lotCommissionPresentation.workspace !== null ||
-    lotAuditionPresentation.workspace !== null
+    lotAuditionPresentation.workspace !== null ||
+    settingsOpen ||
+    confirmNewGame
 
-  // A concise, dismissible recovery notice shown once after a restore (or a safe failure message).
+  // A concise, dismissible line about how this session opened. Two registers, one element:
+  // a continuation is a quiet fact and reads like one; a quarantined payload is an alarm and
+  // is the only case allowed to sound like one (`data-recovery` names which, for the gates).
   const recoveryBanner = recovery && (
     <div
       className="card"
       data-testid="recovery-notice"
+      data-recovery={recovery.kind}
       role="status"
       style={{ marginBottom: 12 }}
       inert={backgroundModalOpen || undefined}
@@ -3656,8 +3733,8 @@ export function App() {
     >
       <div className="spread">
         <span>
-          {recovery.kind === 'recovered'
-            ? `Recovered your studio from Week ${recovery.week}.`
+          {recovery.kind === 'continuing'
+            ? `Continuing your studio — Week ${recovery.week}.`
             : 'Could not recover your last studio (the saved session was unreadable). Your manual saves are unaffected — start a new studio or load a save.'}
         </span>
         <button className="ghost" onClick={() => setRecovery(null)} data-testid="recovery-dismiss">
@@ -3665,6 +3742,67 @@ export function App() {
         </button>
       </div>
     </div>
+  )
+
+  // One condition, one notice, always in the same place: the studio is not being written down.
+  const persistenceBanner = !persistenceOk && state !== null && (
+    <PersistenceNotice background={backgroundModalOpen} />
+  )
+
+  // The studio's answer where the browser used to speak.
+  const appNoticeBanner = appNotice !== null && (
+    <AppNotice
+      key={appNotice.key}
+      message={appNotice.message}
+      background={backgroundModalOpen}
+      onDismiss={dismissNotice}
+    />
+  )
+
+  // Settings is hosted by whichever surface opened it. On the Lot that MUST be the retained
+  // workspace host, because the authoritative renderer stays mounted underneath and the world
+  // is suspended, not torn down (laws 7/8/9/26). Everywhere else there is no renderer to
+  // protect, so the shell's own dialog does the same containment with less ceremony.
+  const settingsDialog = settingsOpen && (
+    screen.kind === 'lot' ? (
+      <LotRetainedWorkspace
+        layerClassName="lot-settings-layer"
+        layerTestId="lot-settings-layer"
+        dialogClassName="lot-settings-workspace"
+        dialogTestId="settings-dialog"
+        titleId="lot-settings-title"
+        descriptionId="lot-settings-description"
+        title="Studio settings"
+        description="Sound and motion for this studio. Nothing here changes the picture you are making."
+        nestedModalOpen={openProfileId !== null}
+        onEscape={() => setSettingsOpen(false)}
+      >
+        <SettingsOverlay onClose={() => setSettingsOpen(false)} />
+      </LotRetainedWorkspace>
+    ) : (
+      <ShellDialog
+        titleId="shell-settings-title"
+        descriptionId="shell-settings-description"
+        title="Studio settings"
+        description="Sound and motion for this studio. Nothing here changes the picture you are making."
+        dialogTestId="settings-dialog"
+        layerTestId="settings-dialog-layer"
+        onDismiss={() => setSettingsOpen(false)}
+      >
+        <SettingsOverlay onClose={() => setSettingsOpen(false)} />
+      </ShellDialog>
+    )
+  )
+
+  const newGameConfirmDialog = confirmNewGame && (
+    <ConfirmDialog
+      title="Start a new studio?"
+      body="This replaces the studio you are running now. Export a print first if you want to keep it."
+      confirmLabel="Start a new studio"
+      cancelLabel="Keep this studio"
+      onConfirm={performNewGame}
+      onCancel={() => setConfirmNewGame(false)}
+    />
   )
 
   const saveMigrationBanner = saveMigrationNotice && (
@@ -3697,7 +3835,10 @@ export function App() {
       <DevErrorBoundary>
         {recoveryBanner}
         {saveMigrationBanner}
+        {persistenceBanner}
+        {appNoticeBanner}
         <StartScreen onStart={startGame} />
+        {newGameConfirmDialog}
       </DevErrorBoundary>
     )
   }
@@ -3967,6 +4108,8 @@ export function App() {
     <DevErrorBoundary>
       {recoveryBanner}
       {saveMigrationBanner}
+      {persistenceBanner}
+      {appNoticeBanner}
       {openProfile && (
         <TalentProfileDrawer
           profile={openProfile}
@@ -4002,6 +4145,7 @@ export function App() {
       {screen.kind === 'dashboard' && (
         <Dashboard
           state={state}
+          onOpenSettings={() => setSettingsOpen(true)}
           onAssemble={() =>
             setScreen(
               state.scriptDevelopment.mode === 'managed'
@@ -4478,8 +4622,12 @@ export function App() {
               profileDrawerOpen ||
               retainedPackageWorkspace !== null ||
               retainedCommissionWorkspace !== null ||
-              retainedAuditionWorkspace !== null
+              retainedAuditionWorkspace !== null ||
+              // Settings is a modal over a LIVING renderer: the world keeps running and
+              // keeps its camera, and takes no input at all while the dialog is up.
+              settingsOpen
             }
+            onOpenSettings={() => setSettingsOpen(true)}
           />
         </Suspense>
       )}
@@ -4581,6 +4729,15 @@ export function App() {
                 }}
           />
         )}
+
+      {/*
+        The shell's modals are the LAST children on purpose: the retained workspaces above
+        establish the precedent that a layer over the world is painted after the world it
+        covers. Settings never unmounts what is underneath it; the confirmation is the one
+        thing standing between the player and a studio they cannot get back.
+      */}
+      {settingsDialog}
+      {newGameConfirmDialog}
     </DevErrorBoundary>
   )
 }

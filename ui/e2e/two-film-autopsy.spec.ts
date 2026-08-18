@@ -271,11 +271,17 @@ test('two different films keep DISTINCT autopsy participants, preserved across s
   // record. After reload there is no session snapshot, so the transient Autopsy action is
   // disabled and the durable Chronicle renders only from the film's frozen record.
   await page.getByTestId('open-saves').click()
+  // PF1-M3: the raw envelope now waits behind a disclosure (it stays MOUNTED, so the read
+  // works either way — opening it is what a player does, and what this asserts).
+  await page.getByTestId('saves-raw-toggle').click()
   const saveJson = await page.getByTestId('export-text').inputValue()
   expect(saveJson.length).toBeGreaterThan(100)
-  // "New Studio" is now a confirmed destructive action (D-12 A5) — a real user accepts the prompt.
-  page.once('dialog', (dialog) => dialog.accept())
+  // "New Studio" is a confirmed destructive action (D-12 A5) — a real user accepts.
+  // PF1-M3 re-pin (Owner-approved, charter §5-M3 "the browser never speaks again"): the
+  // confirmation is the product's own focus-trapped dialog, so there is no native dialog to
+  // accept — the player presses the destructive verb by name.
   await page.getByTestId('restart-game').click()
+  await page.getByTestId('confirm-dialog-confirm').click()
   await expect(page.getByTestId('new-game')).toBeVisible()
   await page.getByTestId('seed-input').fill('two-film-reload-throwaway')
   await page.getByTestId('import-text').fill(saveJson)

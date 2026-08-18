@@ -209,10 +209,16 @@
   }
 }
 
+/* PF1-M3 motion promotion 8/8. */
 @media (prefers-reduced-motion: reduce) {
   .lot-audition-workspace,
   .lot-audition-workspace-layer {
     animation: none !important;
     transition: none !important;
   }
+}
+:root[data-motion="reduced"] .lot-audition-workspace,
+:root[data-motion="reduced"] .lot-audition-workspace-layer {
+  animation: none !important;
+  transition: none !important;
 }

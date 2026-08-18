@@ -490,7 +490,9 @@ test('default founded recovery opens the Hollywood Lot first and preserves truth
 
   // Clean/default means no positive feature overrides. The adopted gates alone choose the
   // primary world and its Hollywood presentation.
-  await expect(page.getByTestId('recovery-notice')).toContainText('Recovered your studio from Week 0.')
+  // PF1-M3 re-pin (Owner-approved, charter §5-M3): a routine same-format restore continues,
+  // it does not "recover"; alarm language is reserved for the corrupt-quarantine path.
+  await expect(page.getByTestId('recovery-notice')).toContainText('Continuing your studio — Week 0.')
   await expect(page.getByTestId('studio-lot-screen')).toHaveClass(/\blot-hollywood\b/)
   await expect(page.getByTestId('hollywood-production-idle')).toBeVisible()
   await expect(page.getByTestId('dash-week')).toHaveCount(0)
@@ -616,7 +618,9 @@ test('overview rollback keeps the Dashboard root and never requests the lazy Lot
   await seedFoundedRecovery(page, { overviewRollback: true })
   await page.goto('/')
 
-  await expect(page.getByTestId('recovery-notice')).toContainText('Recovered your studio from Week 0.')
+  // PF1-M3 re-pin (Owner-approved, charter §5-M3): a routine same-format restore continues,
+  // it does not "recover"; alarm language is reserved for the corrupt-quarantine path.
+  await expect(page.getByTestId('recovery-notice')).toContainText('Continuing your studio — Week 0.')
   await expect(page.getByTestId('dash-week')).toHaveText('0')
   await expect(page.getByTestId('studio-lot-screen')).toHaveCount(0)
   await expect(page.getByTestId('studio-lot-lazy-loading')).toHaveCount(0)
@@ -638,7 +642,9 @@ test('Hollywood rollback keeps the Studio Lot as home with the legacy presentati
   await page.goto('/')
 
   await expectLotReady(page)
-  await expect(page.getByTestId('recovery-notice')).toContainText('Recovered your studio from Week 0.')
+  // PF1-M3 re-pin (Owner-approved, charter §5-M3): a routine same-format restore continues,
+  // it does not "recover"; alarm language is reserved for the corrupt-quarantine path.
+  await expect(page.getByTestId('recovery-notice')).toContainText('Continuing your studio — Week 0.')
   await expect(page.getByTestId('studio-lot-screen')).not.toHaveClass(/\blot-hollywood\b/)
   await expect(page.getByTestId('hollywood-current-production')).toHaveCount(0)
   await expect(page.getByTestId('hollywood-production-idle')).toHaveCount(0)

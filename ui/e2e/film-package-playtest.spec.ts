@@ -117,7 +117,9 @@ test('film-package legibility: mismatch→improve→lock/autopsy (A) then specia
 
   // ── STEP 1 — Restore the explicit direct-package compatibility studio. ────
   await page.goto('/')
-  await expect(page.getByTestId('recovery-notice')).toContainText('Recovered your studio from Week 0.')
+  // PF1-M3 re-pin (Owner-approved, charter §5-M3): a routine same-format restore continues,
+  // it does not "recover"; alarm language is reserved for the corrupt-quarantine path.
+  await expect(page.getByTestId('recovery-notice')).toContainText('Continuing your studio — Week 0.')
   await expect(page.getByTestId('dash-week')).toHaveText('0')
 
   // ── STEP 2 — Assemble Film A with obvious mismatches. ───────────────────────

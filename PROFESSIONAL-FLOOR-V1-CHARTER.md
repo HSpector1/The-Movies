@@ -404,7 +404,11 @@ tsc; full vitest; focused Playwright.
   wire one control); **quota/storage failure surfaced in voice** (fixing `session.ts:40-42`:
   "The studio vault is full — clear a shelf before filing another print."), including the
   private-mode "this studio is not being saved" notice; export reframed as "Export a print".
-  No slots (§9).
+  No slots (§9). **Owner addendum (mid-M2, verified defect):** no autosave/storage failure
+  is ever silently swallowed — `saveActiveSession` reports its status, a visible persistent
+  notice tells the player the studio is NOT being written down while autosave fails
+  (cleared on the next success), the UI never claims a save succeeded when it did not, and
+  manual export remains the recovery path. No new persistence architecture.
 - **The front door:** StartScreen restyled as a title card in voice — **static composition
   only**, at most one stinger on the unlock gesture; no timed sequence, no camera move, no
   skippable intro (the cinematic-intro restraint, enforced at the M4 restraint check). Seed

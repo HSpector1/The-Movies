@@ -1956,11 +1956,12 @@ describe('World-First Lot-Native Next-Event Cadence V1 — App/Lot integration',
     await expectExactReactionRestored()
 
     await openSavesFromExactReaction()
-    const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false)
+    // PF1-M3 re-pin (Owner-approved, charter §5-M3 "the browser never speaks again"): the
+    // declined restart is declined in the product's own dialog. The point of this assertion is
+    // unchanged — the player was asked, said no, and the exact live-world reaction survived.
     fireEvent.click(screen.getByTestId('restart-game'))
-    expect(confirm).toHaveBeenCalledWith(
-      'Start a new studio? This will replace your current studio.',
-    )
+    expect(screen.getByTestId('confirm-dialog')).toHaveTextContent('Start a new studio?')
+    fireEvent.click(screen.getByTestId('confirm-dialog-cancel'))
     expect(screen.getByTestId('saves-import-text')).toBeInTheDocument()
     expect(currentSessionBytes()).toBe(acceptedBytes)
     fireEvent.click(screen.getByTestId('saves-back'))

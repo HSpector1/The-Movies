@@ -44,7 +44,9 @@ test('a page reload restores the active studio (no lost session), and advancing 
   // RELOAD — the studio must be recovered, NOT reset to the Start screen.
   await page.reload()
   await expect(page.getByTestId('recovery-notice')).toBeVisible()
-  await expect(page.getByTestId('recovery-notice')).toContainText(/Recovered your studio from Week/)
+  // PF1-M3 re-pin (Owner-approved, charter §5-M3): a routine same-format restore continues,
+  // it does not "recover"; alarm language is reserved for the corrupt-quarantine path.
+  await expect(page.getByTestId('recovery-notice')).toContainText(/Continuing your studio — Week/)
   await expect(page.getByTestId('dash-week')).toBeVisible()
   expect(await page.getByTestId('dash-week').textContent()).toBe(weekBefore)
   // Cash reflects the advanced session, not a fresh $20M start.

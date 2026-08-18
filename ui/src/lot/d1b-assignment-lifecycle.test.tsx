@@ -211,11 +211,14 @@ describe('CASE B — a new studio does not inherit the previous studio’s stage
 
     // Boot the app into game 1 and take the route a player actually takes: Saves →
     // "Start a new studio" (confirmed) → the start screen → "New studio".
-    vi.spyOn(window, 'confirm').mockReturnValue(true)
+    // PF1-M3 re-pin (Owner-approved, charter §5-M3 "the browser never speaks again"): the
+    // destructive confirmation is the product's own dialog now, so the route a player takes
+    // is a real button rather than a stubbed browser global. Same boundary, same wipe.
     localStorage.setItem(ACTIVE_SESSION_KEY, exportSaveJson(states[states.length - 1]!))
     render(<App />)
     fireEvent.click(screen.getByTestId('open-saves'))
     fireEvent.click(screen.getByTestId('restart-game'))
+    fireEvent.click(screen.getByTestId('confirm-dialog-confirm'))
     fireEvent.change(screen.getByTestId('seed-input'), { target: { value: 'lifecycle-b2' } })
     fireEvent.click(screen.getByTestId('new-game'))
 
