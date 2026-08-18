@@ -100,6 +100,7 @@ export type {
   PropertyStructure,
   PropertyStructureRole,
   GameStateV13,
+  GameStateV14,
   CashLedgerCheckpoint,
   ScriptDevelopmentMode,
   ScriptProjectStatus,
@@ -419,6 +420,7 @@ export {
   initialManagedStudioOperations,
   addManagedProductionWorkflow,
   advanceManagedProductions,
+  emptyWorkflowBindings,
   productionPhaseForRemainingTicks,
   assertStudioOperationsInvariants,
 } from './operations.js'
@@ -439,6 +441,30 @@ export {
   resourceSlotKey,
   resourceFacilityKey,
 } from './occupancy.js'
+
+// ── C2a-M1 — Sets (charter §3.1) and the studio event ledger (§5) ────────────
+export {
+  SET_TYPES,
+  STARTER_SET_TYPE,
+  HOUSE_SET_BLUEPRINT_ID,
+  ENDOWED_HOUSE_SET_STAGES,
+  ENDOWED_NEXT_SET_ID,
+  endowedHouseSets,
+  neutralGenreWeights,
+  setId,
+} from './sets.js'
+export type { KnownSetTypeId } from './sets.js'
+export {
+  TIER_D_STUDIO_EVENT_KINDS,
+  isTierDStudioEventKind,
+  emptyStudioEventLog,
+  compactStudioEvents,
+  commitStudioEvents,
+  disabledStudioEventSink,
+  studioEventProductionIds,
+  StudioEventSink,
+} from './studioEvents.js'
+export type { StudioEventDraft } from './studioEvents.js'
 export type {
   OccupancySources,
   OccupiedSlotFilter,
@@ -866,6 +892,7 @@ export {
   validateSaveV11,
   validateSaveV12,
   validateSaveV13,
+  validateSaveV14,
   makeSave,
   makeSaveV1,
   makeSaveV2,
@@ -880,6 +907,7 @@ export {
   makeSaveV11,
   makeSaveV12,
   makeSaveV13,
+  makeSaveV14,
   loadSave,
   exportSave,
   importSave,
@@ -924,9 +952,11 @@ export {
   convertV10ToV11,
   convertV11ToV12,
   convertV12ToV13,
+  convertV13ToV14,
   migrateToV11,
   migrateToV12,
   migrateToV13,
+  migrateToV14,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -942,6 +972,7 @@ export type {
   SaveFileV11,
   SaveFileV12,
   SaveFileV13,
+  SaveFileV14,
   SaveFile,
   TalentV1,
   GameStateV1,

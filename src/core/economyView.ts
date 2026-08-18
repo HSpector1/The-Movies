@@ -468,6 +468,17 @@ const KIND_FIELD: Record<LedgerKind, keyof FinanceTotals> = {
   // a new reporting field would change every finance read model's shape for a
   // number that belongs beside the weekly overhead it sits next to.
   facilityOpex: 'overhead',
+  // C2a-M1: a Set is CAPITAL. Commissioning one sinks capital into the physical
+  // studio exactly as a building does, and striking one recovers a depreciated
+  // fraction of it, so both report in the same NET capital bucket the facility
+  // family reports in — otherwise "what have I sunk into this studio" would
+  // answer differently depending on whether the thing is a wall or a stage.
+  // Maintenance is the recurring cost of KEEPING one, which is overhead that
+  // scales with the property, so it sits beside the facility operating charge it
+  // is the twin of.
+  setCapex: 'construction',
+  setDemolitionRefund: 'construction',
+  setMaintenance: 'overhead',
 }
 
 // Aggregate the whole signed ledger by kind. `net` is the reconciliation total.
@@ -556,6 +567,15 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
       // KIND_FIELD above; the two must never disagree.
       case 'facilityDemolitionRefund':
         s.construction += e.amount
+        break
+      // C2a-M1: the set capital family, filed exactly as KIND_FIELD files it —
+      // the two must never disagree.
+      case 'setCapex':
+      case 'setDemolitionRefund':
+        s.construction += e.amount
+        break
+      case 'setMaintenance':
+        s.overhead += e.amount
         break
       case 'signingBonus':
       case 'freelancerFee':

@@ -55,6 +55,7 @@ import { emptyStudioPlacement } from './placement.js'
 import { initialProperty } from './lot.js'
 import { emptyStudioOperations } from './operations.js'
 import { emptyScriptDevelopment } from './scriptDevelopment.js'
+import { emptyStudioEventLog } from './studioEvents.js'
 import { stream } from './rng.js'
 import { RngStream } from './rng.js'
 import {
@@ -680,5 +681,17 @@ export function generateWorld(seed: string): GameState {
     // never the frozen constant, so state is always independently mutable and no
     // world can reach back and edit the authored source of truth.
     property: initialProperty(),
+    // ── C2a-M1 SaveFileV14 ──────────────────────────────────────────────────
+    // A headless world owns no physical production capacity beyond its legacy
+    // countdown: no sets are endowed until a founded studio activates managed
+    // operations, so `nextSetId` has handed out nothing. The queue, the original
+    // screenplays, and the studio's own history are all EMPTY here — and the
+    // event log staying empty on this path is exactly what keeps the M0A
+    // acceptance corpus byte-identical (§5 pin 5).
+    sets: [],
+    nextSetId: 0,
+    productionQueue: [],
+    originalScreenplays: { nextOrdinal: 0, blueprints: [] },
+    studioEvents: emptyStudioEventLog(),
   }
 }

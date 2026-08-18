@@ -51,6 +51,7 @@ import type {
   GameStateV11,
   GameStateV12,
   GameStateV13,
+  GameStateV14,
   GameStateV2,
   GameStateV3,
   GameStateV4,
@@ -62,9 +63,15 @@ import type {
   LedgerEntryV10,
   LedgerEntryV11,
   LedgerKind,
+  OriginalScreenplays,
+  ProductionQueueEntry,
+  ProductionWorkflow,
   PropertyState,
   PublicityState,
   ScriptDevelopment,
+  ScriptProject,
+  StudioEventLog,
+  StudioSet,
   CastingSessions,
   StudioOperations,
   StudioConstruction,
@@ -91,6 +98,12 @@ import {
   assertScriptDevelopmentInvariants,
   emptyScriptDevelopment,
 } from "./scriptDevelopment.js";
+import {
+  ENDOWED_NEXT_SET_ID,
+  endowedHouseSets,
+  SET_TYPES,
+} from "./sets.js";
+import { emptyStudioEventLog, isTierDStudioEventKind } from "./studioEvents.js";
 import {
   assertCastingSessionsInvariants,
   emptyCastingSessions,
@@ -277,6 +290,19 @@ export type SaveFileV13 = {
   broadcastCache: BroadcastItem[];
 };
 
+// C2a-M1 SaveFileV14 — the live envelope (V13 plus the four Campaign-2 roots:
+// the studio's Sets and their monotonic id counter, the production queue, the
+// original-screenplay blueprints, and the studio's own event history). V13 joins
+// V1–V12 as a frozen, readable historical format the moment this exists: a V13
+// file's sets were not "empty", they were UNREPRESENTABLE, which is exactly why a
+// V13 envelope may never carry them.
+export type SaveFileV14 = {
+  saveVersion: 14;
+  seed: string;
+  state: GameStateV14;
+  broadcastCache: BroadcastItem[];
+};
+
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
   | SaveFileV1
@@ -291,7 +317,8 @@ export type SaveFile =
   | SaveFileV10
   | SaveFileV11
   | SaveFileV12
-  | SaveFileV13;
+  | SaveFileV13
+  | SaveFileV14;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -526,6 +553,48 @@ function rejectV13AuthorityAtHistoricalBoundary(
   }
 }
 
+// The same posture one version on again (C2a-M1) — and this time the roots LEAK
+// IDENTITIES, which is why the V12 three-legged pattern is copied rather than the
+// V13 root-only one. `studioEvents` Tier D names productions and films;
+// `productionQueue` names script projects and payload identities; the set family
+// spends real money. Accepting any of them under an older tag would let a caller
+// keep the history while writing a format that cannot describe it, and a
+// production id whose only trace was discarded is a production id the engine can
+// hand out twice.
+//
+// LEG 1 of 3 — the VALIDATOR leg (leg 2 is `assertFrozenBuilderCanProjectV14State`
+// on the write side; leg 3 is the version-aware widened-leaf rule threaded
+// through `checkOperationsState` / `checkScriptDevelopmentShape`).
+function rejectV14AuthorityAtHistoricalBoundary(
+  state: Record<string, unknown>,
+  label: string,
+): void {
+  for (const root of V14_ROOT_KEYS) {
+    if (Object.prototype.hasOwnProperty.call(state, root)) {
+      throw new Error(
+        `${label}: state.${root} belongs only to SaveFileV14 and cannot appear at this historical boundary`,
+      );
+    }
+  }
+  // The set capital family is V14-only ledger authority, exactly as
+  // constructionCapex was V11-only, facilityOpex V12-only, and
+  // facilityDemolitionRefund V13-only.
+  if (Array.isArray(state.ledger)) {
+    for (let i = 0; i < state.ledger.length; i++) {
+      const entry = state.ledger[i];
+      if (
+        isRecord(entry) &&
+        typeof entry.kind === "string" &&
+        (V14_ONLY_LEDGER_KINDS as readonly string[]).includes(entry.kind)
+      ) {
+        throw new Error(
+          `${label}: state.ledger[${String(i)}] contains SaveFileV14 set capital authority`,
+        );
+      }
+    }
+  }
+}
+
 // ── V1 validation (ORIGINAL rules, UNCHANGED) ────────────────────────────────
 // Throws on any divergence; returns the narrowed SaveFileV1 (old-shape talent).
 // The V1 rules are exactly the pre-D-9 rules; nothing about them changed.
@@ -543,6 +612,7 @@ export function validateSaveV1(save: unknown): SaveFileV1 {
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV1");
   rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV1");
   rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV1");
+  rejectV14AuthorityAtHistoricalBoundary(state, "validateSaveV1");
   return save as SaveFileV1;
 }
 
@@ -563,6 +633,7 @@ export function validateSaveV2(save: unknown): SaveFileV2 {
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV2");
   rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV2");
   rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV2");
+  rejectV14AuthorityAtHistoricalBoundary(state, "validateSaveV2");
   return save as SaveFileV2;
 }
 
@@ -583,6 +654,7 @@ export function validateSaveV3(save: unknown): SaveFileV3 {
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV3");
   rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV3");
   rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV3");
+  rejectV14AuthorityAtHistoricalBoundary(state, "validateSaveV3");
   return save as SaveFileV3;
 }
 
@@ -601,6 +673,7 @@ export function validateSaveV4(save: unknown): SaveFileV4 {
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV4");
   rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV4");
   rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV4");
+  rejectV14AuthorityAtHistoricalBoundary(state, "validateSaveV4");
   return save as SaveFileV4;
 }
 
@@ -619,6 +692,7 @@ export function validateSaveV5(save: unknown): SaveFileV5 {
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV5");
   rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV5");
   rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV5");
+  rejectV14AuthorityAtHistoricalBoundary(state, "validateSaveV5");
   return save as SaveFileV5;
 }
 
@@ -651,6 +725,7 @@ export function validateSaveV6(save: unknown): SaveFileV6 {
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV6");
   rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV6");
   rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV6");
+  rejectV14AuthorityAtHistoricalBoundary(state, "validateSaveV6");
   return save as SaveFileV6;
 }
 
@@ -713,6 +788,7 @@ export function validateSaveV7(save: unknown): SaveFileV7 {
   rejectV11AuthorityAtHistoricalBoundary(state, "validateSaveV7");
   rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV7");
   rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV7");
+  rejectV14AuthorityAtHistoricalBoundary(state, "validateSaveV7");
   return save as SaveFileV7;
 }
 
@@ -822,6 +898,30 @@ const V13_LEDGER_KINDS = [
   ...V12_LEDGER_KINDS,
   "facilityDemolitionRefund",
 ] as const;
+// C2a-M1 (§8.3): the set capital family. Commissioning a set spends capital,
+// standing sets cost money to keep, and striking one recovers a depreciated
+// fraction — three facts about ONE entity, on three kinds, so the whole capital
+// life of a set is an auditable trail rather than an untyped `production` row.
+// No producer exists until M2; the kinds and their boundary legs land now.
+const V14_ONLY_LEDGER_KINDS = [
+  "setCapex",
+  "setMaintenance",
+  "setDemolitionRefund",
+] as const;
+const V14_LEDGER_KINDS = [
+  ...V13_LEDGER_KINDS,
+  ...V14_ONLY_LEDGER_KINDS,
+] as const;
+// The four roots SaveFileV14 owns. One list, read by the historical-boundary
+// guard, the state-key list, and the frozen-builder guard, so the three legs can
+// never disagree about what V14 authority IS.
+const V14_ROOT_KEYS = [
+  "sets",
+  "nextSetId",
+  "productionQueue",
+  "originalScreenplays",
+  "studioEvents",
+] as const;
 
 // Historical validators use the exact facility/ledger laws they shipped with.
 // V11 reuses their exhaustive structural checks under this explicitly wider,
@@ -835,11 +935,33 @@ type LiveStateValidationPolicy =
   // that admission cannot leak backwards. A genuine SaveFileV12 is still
   // validated under "placement-v12" and still refuses the row, which is what
   // makes the historical boundary real rather than nominal.
-  | "property-v13";
+  | "property-v13"
+  // C2a-M1: the live V14 policy. It differs from "property-v13" in exactly three
+  // ways — it admits the set capital ledger kinds, it REQUIRES the widened
+  // `ProductionWorkflow.bindings` and `ScriptProject.writerIds` leaves, and it
+  // admits the `set-unavailable` blocker arm — and it exists so none of that can
+  // leak backwards. A genuine SaveFileV13 is still validated under
+  // "property-v13" and still refuses every one of them, which is what makes the
+  // historical boundary real rather than nominal.
+  | "sets-v14";
 
-/** Both policies that know about the placement root and its catalog project ids. */
+/** Every policy that knows about the placement root and its catalog project ids. */
 function placementAwarePolicy(policy: LiveStateValidationPolicy): boolean {
-  return policy === "placement-v12" || policy === "property-v13";
+  return (
+    policy === "placement-v12" ||
+    policy === "property-v13" ||
+    policy === "sets-v14"
+  );
+}
+
+/** Every policy that admits V13's property root and its demolition-refund ledger kind. */
+function propertyAwarePolicy(policy: LiveStateValidationPolicy): boolean {
+  return policy === "property-v13" || policy === "sets-v14";
+}
+
+/** The ONE policy that admits V14's roots, ledger kinds, and widened leaves. */
+function setsAwarePolicy(policy: LiveStateValidationPolicy): boolean {
+  return policy === "sets-v14";
 }
 const CAREER_REASON_CODES = [
   "substantialLeadExposure",
@@ -1686,13 +1808,15 @@ function v8LedgerEntry(
   v8Integer(entry.week, `${label}.week`, 0);
   v8Enum(
     entry.kind,
-    policy === "property-v13"
-      ? V13_LEDGER_KINDS
-      : policy === "placement-v12"
-        ? V12_LEDGER_KINDS
-        : policy === "annex-v1"
-          ? V11_LEDGER_KINDS
-          : LEDGER_KINDS,
+    policy === "sets-v14"
+      ? V14_LEDGER_KINDS
+      : policy === "property-v13"
+        ? V13_LEDGER_KINDS
+        : policy === "placement-v12"
+          ? V12_LEDGER_KINDS
+          : policy === "annex-v1"
+            ? V11_LEDGER_KINDS
+            : LEDGER_KINDS,
     `${label}.kind`,
   );
   v8Number(entry.amount, `${label}.amount`);
@@ -1716,7 +1840,7 @@ function v8LedgerEntry(
     // shared project id IS the link between committing capital and recovering it.
     const correlatedKind =
       entry.kind === "constructionCapex" ||
-      (policy === "property-v13" && entry.kind === "facilityDemolitionRefund");
+      (propertyAwarePolicy(policy) && entry.kind === "facilityDemolitionRefund");
     if (correlatedKind) {
       if (!hasConstructionProjectId) {
         v8Error(
@@ -1737,12 +1861,12 @@ function v8LedgerEntry(
     } else if (hasConstructionProjectId) {
       v8Error(
         `${label}.constructionProjectId`,
-        policy === "property-v13"
+        propertyAwarePolicy(policy)
           ? "is forbidden unless kind is constructionCapex or facilityDemolitionRefund"
           : "is forbidden unless kind is constructionCapex",
       );
     }
-    if (policy === "property-v13" && entry.kind === "facilityDemolitionRefund") {
+    if (propertyAwarePolicy(policy) && entry.kind === "facilityDemolitionRefund") {
       // A refund is the one INFLOW in the construction family. A negative or zero
       // "refund" would be a disguised charge; the exact depreciated amount and its
       // correlation to a real prior capex row are proved by the placement
@@ -1772,6 +1896,34 @@ function v8LedgerEntry(
           `${label}.note`,
           `must equal ${JSON.stringify(FACILITY_OPEX_LEDGER_NOTE)}`,
         );
+      }
+    }
+    // C2a-M1: what a SET capital row may carry. A set is not a facility and not
+    // a film, so a set row correlates to neither: no talentId, no productionId,
+    // and no constructionProjectId (the `else if` above already refuses that
+    // one, since a set kind is never a `correlatedKind`). The set's own identity
+    // travels in the note, which is why the note must say something. M2's
+    // producers add the exact-note law when there are exact notes to pin.
+    if ((V14_ONLY_LEDGER_KINDS as readonly string[]).includes(String(entry.kind))) {
+      if (
+        Object.prototype.hasOwnProperty.call(entry, "talentId") ||
+        Object.prototype.hasOwnProperty.call(entry, "productionId")
+      ) {
+        v8Error(
+          label,
+          `${String(entry.kind)} cannot carry talentId or productionId`,
+        );
+      }
+      v8String(entry.note, `${label}.note`, true);
+      if (entry.kind === "setDemolitionRefund") {
+        // The one INFLOW in the set family, exactly as facilityDemolitionRefund
+        // is in the facility family. A negative or zero "refund" is a disguised
+        // charge wearing a credit's name.
+        if (typeof entry.amount !== "number" || !(entry.amount > 0)) {
+          v8Error(`${label}.amount`, "must be a positive credit");
+        }
+      } else if (typeof entry.amount !== "number" || !(entry.amount < 0)) {
+        v8Error(`${label}.amount`, "must be a debit");
       }
     }
   } else if (policy === "annex-v1") {
@@ -2153,6 +2305,72 @@ function asPhase(value: unknown, label: string): OperationsPhase {
 // countdown (null, not a throw) because it is holding untrusted JSON and owns the
 // message; that is a named function over the shared table, not a second table.
 
+/**
+ * The V14 `ProductionWorkflow.bindings` leaf (§8.1). Structural, plus the ONE
+ * cross-check that makes the leaf trustworthy: `stageFacilityId` MIRRORS the
+ * workflow's live soundstage reservation. The reservation is the authority; the
+ * binding is its record. A save that disagreed with itself about which stage a
+ * picture stands on would be a save whose migration derivation (§8.3) is a guess.
+ *
+ * The other four fields are M2's and are only range-checked here: `setId`,
+ * `lockedNovelty`, and `lockedUplift` are bound atomically with the stage at
+ * rehearsal entry, and `requiresSetBinding` is minted at greenlight.
+ */
+function checkWorkflowBindings(
+  value: unknown,
+  label: string,
+  soundstageFacilityIds: ReadonlySet<string>,
+): void {
+  if (!isRecord(value)) {
+    throw new Error(`${label} must be a plain object`);
+  }
+  v8ExactKeys(
+    value,
+    [
+      "requiresSetBinding",
+      "stageFacilityId",
+      "setId",
+      "lockedNovelty",
+      "lockedUplift",
+      "heldSinceWeek",
+    ],
+    [],
+    label,
+  );
+  v8Boolean(value.requiresSetBinding, `${label}.requiresSetBinding`);
+
+  const expectedStage =
+    soundstageFacilityIds.size === 1 ? [...soundstageFacilityIds][0]! : null;
+  if (value.stageFacilityId !== expectedStage) {
+    throw new Error(
+      `${label}.stageFacilityId must be ${expectedStage === null ? "null" : JSON.stringify(expectedStage)} — the workflow's live soundstage reservation`,
+    );
+  }
+
+  if (value.setId !== null) v8String(value.setId, `${label}.setId`, true);
+  if (value.lockedNovelty !== null) {
+    const lockedNovelty = v8Number(value.lockedNovelty, `${label}.lockedNovelty`);
+    if (lockedNovelty < 0 || lockedNovelty > 1) {
+      v8Error(`${label}.lockedNovelty`, "must be within [0, 1]");
+    }
+  }
+  if (value.lockedUplift !== null) {
+    v8Number(value.lockedUplift, `${label}.lockedUplift`);
+  }
+  if (value.heldSinceWeek !== null) {
+    v8Integer(value.heldSinceWeek, `${label}.heldSinceWeek`, 0);
+  }
+  // A locked uplift term without a bound set is a snapshot of nothing.
+  if (
+    value.setId === null &&
+    (value.lockedNovelty !== null || value.lockedUplift !== null)
+  ) {
+    throw new Error(
+      `${label} cannot carry a locked uplift term without a bound set`,
+    );
+  }
+}
+
 // Validate the complete authoritative operations surface rather than accepting it as
 // display-only data. A malformed reservation or workflow changes the release clock, so
 // it must fail at import instead of silently overbooking a facility or desynchronizing a
@@ -2267,9 +2485,17 @@ function checkOperationsState(
     const raw = workflowsRaw[i];
     const itemLabel = `${label}: state.operations.workflows[${i}]`;
     if (!isRecord(raw)) throw new Error(`${itemLabel} is not an object`);
+    // LEG 3 of the V14 boundary (§8.3, the widened-leaf rule): the workflow key
+    // list is VERSION-AWARE. Pre-V14 boundaries still refuse `bindings`
+    // outright; V14 requires it. A leaf that is merely "allowed" on both sides
+    // would make the historical boundary nominal — a V13 file could carry a
+    // stage binding it has no schema for, and a V14 file could omit the leaf its
+    // migrator promises is always there.
     v8ExactKeys(
       raw,
-      ["productionId", "phase", "reservations", "shootingTask", "blocker"],
+      setsAwarePolicy(policy)
+        ? ["productionId", "phase", "reservations", "shootingTask", "blocker", "bindings"]
+        : ["productionId", "phase", "reservations", "shootingTask", "blocker"],
       [],
       itemLabel,
     );
@@ -2373,6 +2599,14 @@ function checkOperationsState(
     if (!deepEqual(actualCapabilities, requiredCapabilities)) {
       throw new Error(
         `${itemLabel}.reservations must provide exactly ${requiredCapabilities.join(" + ") || "no facilities"} for ${phase}`,
+      );
+    }
+
+    if (setsAwarePolicy(policy)) {
+      checkWorkflowBindings(
+        raw.bindings,
+        `${itemLabel}.bindings`,
+        soundstageFacilityIds,
       );
     }
 
@@ -2489,6 +2723,25 @@ function checkOperationsState(
             `${itemLabel}.blocker must reference its blocked shooting task`,
           );
         }
+      } else if (blocker.kind === "set-unavailable" && setsAwarePolicy(policy)) {
+        // The ONE new persisted blocker arm (§8.1), version-aware like
+        // `bindings`: a pre-V14 boundary falls through to "invalid kind" and
+        // refuses it. It carries NO capability, so it gets its own exact-key
+        // list and is deliberately OUT of scope of the capability ∈
+        // REQUIRED_CAPABILITIES cross-check above — a picture waiting on a SET
+        // is not waiting on a facility slot. `occupiedBy` / `remedies` /
+        // `alsoMissing` are derived studioQueueView fields and are never
+        // persisted, which is why they are not in this list.
+        v8ExactKeys(blocker, ["kind", "targetPhase"], [], `${itemLabel}.blocker`);
+        const targetPhase = asPhase(
+          blocker.targetPhase,
+          `${itemLabel}.blocker.targetPhase`,
+        );
+        if (nextProductionPhase(phase) !== targetPhase) {
+          throw new Error(
+            `${itemLabel}.blocker.targetPhase must be the next scheduled phase`,
+          );
+        }
       } else {
         throw new Error(`${itemLabel}.blocker.kind is invalid`);
       }
@@ -2580,6 +2833,8 @@ export function validateSaveV8(save: unknown): SaveFileV8 {
 }
 
 const V9_STATE_KEYS = [...V8_STATE_KEYS, "scriptDevelopment"] as const;
+// C2a-M1 (owner ruling `00E`.9): the corpus bound on the pooled writers list.
+const MAX_SCRIPT_WRITERS = 5;
 const SCRIPT_PROJECT_STATUSES = [
   "drafting",
   "review",
@@ -2697,7 +2952,10 @@ function v9Promise(value: unknown, label: string): void {
   }
 }
 
-function checkScriptDevelopmentShape(value: unknown): ScriptDevelopment {
+function checkScriptDevelopmentShape(
+  value: unknown,
+  policy: LiveStateValidationPolicy = "historical",
+): ScriptDevelopment {
   const development = v9Record(value, "state.scriptDevelopment");
   v9ExactKeys(development, ["mode", "projects"], "state.scriptDevelopment");
   if (development.mode !== "legacy" && development.mode !== "managed") {
@@ -2712,27 +2970,70 @@ function checkScriptDevelopmentShape(value: unknown): ScriptDevelopment {
   for (let i = 0; i < development.projects.length; i++) {
     const label = `state.scriptDevelopment.projects[${String(i)}]`;
     const project = v9Record(development.projects[i], label);
+    // LEG 3 of the V14 boundary (§8.3): `writerIds` is version-aware exactly as
+    // `bindings` is. A V13 file has no schema for a writers list and REFUSES one;
+    // a V14 file must carry it.
     v9ExactKeys(
       project,
-      [
-        "id",
-        "conceptId",
-        "writerId",
-        "shape",
-        "promise",
-        "status",
-        "rewriteCount",
-        "commissionedWeek",
-        "dueWeek",
-        "assessment",
-        "reservation",
-        "productionId",
-      ],
+      setsAwarePolicy(policy)
+        ? [
+            "id",
+            "conceptId",
+            "writerId",
+            "writerIds",
+            "shape",
+            "promise",
+            "status",
+            "rewriteCount",
+            "commissionedWeek",
+            "dueWeek",
+            "assessment",
+            "reservation",
+            "productionId",
+          ]
+        : [
+            "id",
+            "conceptId",
+            "writerId",
+            "shape",
+            "promise",
+            "status",
+            "rewriteCount",
+            "commissionedWeek",
+            "dueWeek",
+            "assessment",
+            "reservation",
+            "productionId",
+          ],
       label,
     );
     v9String(project.id, `${label}.id`);
     v9String(project.conceptId, `${label}.conceptId`);
-    v9String(project.writerId, `${label}.writerId`);
+    const writerId = v9String(project.writerId, `${label}.writerId`);
+    if (setsAwarePolicy(policy)) {
+      // The bounded pooling list (owner ruling `00E`.9). Its cap is the corpus
+      // bound; `writerId` stays the project's attribution and must therefore be
+      // the FIRST member, so the two can never name different authors.
+      if (!Array.isArray(project.writerIds)) {
+        v9Error(`${label}.writerIds`, "must be an array");
+      }
+      const writerIds = project.writerIds as unknown[];
+      if (writerIds.length < 1 || writerIds.length > MAX_SCRIPT_WRITERS) {
+        v9Error(
+          `${label}.writerIds`,
+          `must hold between 1 and ${String(MAX_SCRIPT_WRITERS)} writers`,
+        );
+      }
+      const seen = new Set<string>();
+      for (let w = 0; w < writerIds.length; w++) {
+        const id = v9String(writerIds[w], `${label}.writerIds[${String(w)}]`);
+        if (seen.has(id)) v9Error(`${label}.writerIds[${String(w)}]`, "is duplicated");
+        seen.add(id);
+      }
+      if (writerIds[0] !== writerId) {
+        v9Error(`${label}.writerIds[0]`, "must be the project's attributed writer");
+      }
+    }
     v9FilmShape(project.shape, `${label}.shape`);
     v9Promise(project.promise, `${label}.promise`);
     if (!(SCRIPT_PROJECT_STATUSES as readonly unknown[]).includes(project.status)) {
@@ -2830,7 +3131,10 @@ function validateSaveV9WithPolicy(
     );
   }
 
-  const scriptDevelopment = checkScriptDevelopmentShape(rawScriptDevelopment);
+  const scriptDevelopment = checkScriptDevelopmentShape(
+    rawScriptDevelopment,
+    policy,
+  );
   const typedState = state as GameStateV9;
   try {
     assertScriptDevelopmentInvariants(scriptDevelopment, {
@@ -3279,6 +3583,7 @@ function validateSaveV11WithPolicy(
   if (!placementAwarePolicy(policy)) {
     rejectV12AuthorityAtHistoricalBoundary(state, "validateSaveV11");
     rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV11");
+    rejectV14AuthorityAtHistoricalBoundary(state, "validateSaveV11");
   }
 
   const hasCashLedgerCheckpoint = Object.prototype.hasOwnProperty.call(
@@ -3319,7 +3624,7 @@ function validateSaveV11WithPolicy(
   if (!placementAwarePolicy(policy)) {
     try {
       // The checker reads no V12 root, so a frozen V11 fragment is a valid input.
-      assertStudioConstructionInvariants(state as unknown as GameStateV13);
+      assertStudioConstructionInvariants(state as unknown as GameState);
     } catch (error) {
       throw new Error(`validateSaveV11: ${(error as Error).message}`);
     }
@@ -3462,7 +3767,7 @@ function checkPlacementShape(value: unknown): StudioPlacement {
 // this returns. Structure, envelope, and the frozen V11 law all still run here.
 function validateSaveV12WithPolicy(
   save: unknown,
-  policy: "placement-v12" | "property-v13",
+  policy: "placement-v12" | "property-v13" | "sets-v14",
 ): SaveFileV12 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV12: save is not a plain object");
@@ -3479,8 +3784,11 @@ function validateSaveV12WithPolicy(
   }
   const state = v12Record(checkEnvelope(save, "validateSaveV12"), "state");
   v12ExactKeys(state, V12_STATE_KEYS, "state", V11_OPTIONAL_STATE_KEYS);
-  if (policy !== "property-v13") {
+  if (!propertyAwarePolicy(policy)) {
     rejectV13AuthorityAtHistoricalBoundary(state, "validateSaveV12");
+  }
+  if (!setsAwarePolicy(policy)) {
+    rejectV14AuthorityAtHistoricalBoundary(state, "validateSaveV12");
   }
 
   const { placement: rawPlacement, ...v11State } = state;
@@ -3494,8 +3802,9 @@ function validateSaveV12WithPolicy(
       },
       // C1-M3a: thread the LIVE policy down so a V13 save's demolition-refund
       // rows survive the frozen-V12 projection, while a genuine V12 file is still
-      // validated under "placement-v12" and still refuses them.
-      policy === "property-v13" ? "property-v13" : "placement-v12",
+      // validated under "placement-v12" and still refuses them. C2a-M1 threads
+      // "sets-v14" the same way, one version on.
+      propertyAwarePolicy(policy) ? policy : "placement-v12",
     );
   } catch (error) {
     throw new Error(
@@ -3504,12 +3813,12 @@ function validateSaveV12WithPolicy(
   }
 
   checkPlacementShape(rawPlacement);
-  if (policy !== "property-v13") {
+  if (!propertyAwarePolicy(policy)) {
     try {
       // A frozen V12 state carries no property root, so the authority reads the
       // initial authored property — which IS the property every V12 file was
       // written against. See `propertyOf`.
-      assertStudioPlacementInvariants(state as unknown as GameStateV13);
+      assertStudioPlacementInvariants(state as unknown as GameState);
     } catch (error) {
       throw new Error(`validateSaveV12: ${(error as Error).message}`);
     }
@@ -3641,7 +3950,10 @@ function checkPropertyShape(value: unknown): PropertyState {
 // bounds, road and parcel rectangles, structure geometry, provides-links, and
 // every V12 placement law — this time against the property the state actually
 // carries rather than the authored constants.
-export function validateSaveV13(save: unknown): SaveFileV13 {
+function validateSaveV13WithPolicy(
+  save: unknown,
+  policy: "property-v13" | "sets-v14",
+): SaveFileV13 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV13: save is not a plain object");
   }
@@ -3657,6 +3969,9 @@ export function validateSaveV13(save: unknown): SaveFileV13 {
   }
   const state = v12Record(checkEnvelope(save, "validateSaveV13"), "state");
   v12ExactKeys(state, V13_STATE_KEYS, "state", V11_OPTIONAL_STATE_KEYS);
+  if (!setsAwarePolicy(policy)) {
+    rejectV14AuthorityAtHistoricalBoundary(state, "validateSaveV13");
+  }
 
   const { property: rawProperty, ...v12State } = state;
   try {
@@ -3667,7 +3982,7 @@ export function validateSaveV13(save: unknown): SaveFileV13 {
         state: v12State,
         broadcastCache: save.broadcastCache,
       },
-      "property-v13",
+      policy,
     );
   } catch (error) {
     throw new Error(
@@ -3677,11 +3992,474 @@ export function validateSaveV13(save: unknown): SaveFileV13 {
 
   checkPropertyShape(rawProperty);
   try {
-    assertStudioPlacementInvariants(state as unknown as GameStateV13);
+    assertStudioPlacementInvariants(state as unknown as GameState);
   } catch (error) {
     throw new Error(`validateSaveV13: ${(error as Error).message}`);
   }
   return save as SaveFileV13;
+}
+
+export function validateSaveV13(save: unknown): SaveFileV13 {
+  return validateSaveV13WithPolicy(save, "property-v13");
+}
+
+// ── Sets, queue, screenplays, and history — SaveFileV14 (C2a-M1) ─────────────
+
+const V14_STATE_KEYS = [...V13_STATE_KEYS, ...V14_ROOT_KEYS] as const;
+const SET_STATUSES = ["under-construction", "standing", "retired"] as const;
+const STUDIO_EVENT_KINDS = [
+  "wrapped",
+  "premiere",
+  "constructionCompleted",
+  "setBuilt",
+  "setRetired",
+  "reservationGranted",
+  "reservationReleased",
+  "phaseEntered",
+  "sceneryArrived",
+  "queueAdmitted",
+  "queueIntentExpired",
+] as const;
+const QUEUE_ENTRY_KINDS = [
+  "commissionScript",
+  "commissionOriginalScreenplay",
+  "startCastingSession",
+  "greenlightScriptProject",
+] as const;
+
+function v14Error(label: string, message: string): never {
+  throw new Error(`validateSaveV14: ${label} ${message}`);
+}
+
+function v14Record(value: unknown, label: string): Record<string, unknown> {
+  if (!isRecord(value)) return v14Error(label, "must be a plain object");
+  return value;
+}
+
+function v14Array(value: unknown, label: string): unknown[] {
+  if (!Array.isArray(value)) return v14Error(label, "must be an array");
+  return value;
+}
+
+function v14String(value: unknown, label: string): string {
+  if (typeof value !== "string" || value.length === 0) {
+    return v14Error(label, "must be a non-empty string");
+  }
+  return value;
+}
+
+function v14Integer(value: unknown, label: string, min = 0): number {
+  if (
+    typeof value !== "number" ||
+    !Number.isFinite(value) ||
+    !Number.isInteger(value) ||
+    value < min
+  ) {
+    return v14Error(label, `must be a finite integer no less than ${String(min)}`);
+  }
+  return value;
+}
+
+function v14Bounded(value: unknown, label: string, min: number, max: number): number {
+  if (typeof value !== "number" || !Number.isFinite(value) || value < min || value > max) {
+    return v14Error(label, `must be a finite number within [${String(min)}, ${String(max)}]`);
+  }
+  return value;
+}
+
+/**
+ * `state.sets` + `state.nextSetId` (§8.1). Structural, plus the identity law that
+ * makes the counter meaningful: ids are `set-<n>` with `n < nextSetId`, and no id
+ * repeats. `nextSetId` NEVER rolls back — that is what stops a struck set's id
+ * from being handed to a different set later and quietly rewriting which picture
+ * shot where.
+ *
+ * `mountedOn` is proved against the studio's real soundstages, because a set
+ * mounted on a building that is not a stage is not a set anybody can shoot on.
+ */
+function checkSetsShape(
+  value: unknown,
+  nextSetIdRaw: unknown,
+  soundstageFacilityIds: ReadonlySet<string>,
+): readonly StudioSet[] {
+  const sets = v14Array(value, "state.sets");
+  const nextSetId = v14Integer(nextSetIdRaw, "state.nextSetId", 0);
+  const ids = new Set<string>();
+  const genres = [...GENRE_ORDER];
+  for (let i = 0; i < sets.length; i++) {
+    const label = `state.sets[${String(i)}]`;
+    const set = v14Record(sets[i], label);
+    v14ExactKeys(
+      set,
+      [
+        "id",
+        "name",
+        "blueprintId",
+        "mountedOn",
+        "setType",
+        "status",
+        "completesWeek",
+        "quality",
+        "novelty",
+        "condition",
+        "genreWeights",
+        "priorityGenre",
+      ],
+      label,
+    );
+    const id = v14String(set.id, `${label}.id`);
+    if (ids.has(id)) v14Error(`${label}.id`, "is duplicated");
+    ids.add(id);
+    const ordinal = /^set-(0|[1-9][0-9]*)$/.exec(id);
+    if (ordinal === null) {
+      v14Error(`${label}.id`, 'must be "set-" followed by its mint ordinal');
+    }
+    if (Number(ordinal[1]) >= nextSetId) {
+      v14Error(
+        `${label}.id`,
+        `was never minted — state.nextSetId is ${String(nextSetId)}`,
+      );
+    }
+    v14String(set.name, `${label}.name`);
+    v14String(set.blueprintId, `${label}.blueprintId`);
+    const mountedOn = v14String(set.mountedOn, `${label}.mountedOn`);
+    if (!soundstageFacilityIds.has(mountedOn)) {
+      v14Error(`${label}.mountedOn`, "must name one of the studio's soundstages");
+    }
+    if (!(SET_TYPES as readonly string[]).includes(v14String(set.setType, `${label}.setType`))) {
+      v14Error(`${label}.setType`, "is not in the authored SET_TYPES vocabulary");
+    }
+    if (!(SET_STATUSES as readonly unknown[]).includes(set.status)) {
+      v14Error(`${label}.status`, "is invalid");
+    }
+    if (set.completesWeek !== null) {
+      v14Integer(set.completesWeek, `${label}.completesWeek`, 0);
+    }
+    // A set still going up owes the player a completion week; a standing or
+    // retired one is done being promised anything.
+    if (set.status === "under-construction" && set.completesWeek === null) {
+      v14Error(`${label}.completesWeek`, "is required while a set is under construction");
+    }
+    v14Bounded(set.quality, `${label}.quality`, 0, 100);
+    v14Bounded(set.novelty, `${label}.novelty`, 0, 1);
+    v14Bounded(set.condition, `${label}.condition`, 0, 100);
+    const weights = v14Record(set.genreWeights, `${label}.genreWeights`);
+    v14ExactKeys(weights, genres, `${label}.genreWeights`);
+    for (const genre of genres) {
+      v14Bounded(weights[genre], `${label}.genreWeights.${genre}`, 0, 1);
+    }
+    if (!genres.includes(set.priorityGenre as (typeof genres)[number])) {
+      v14Error(`${label}.priorityGenre`, "is not a known genre");
+    }
+  }
+  return sets as unknown as readonly StudioSet[];
+}
+
+function v14ExactKeys(
+  value: Record<string, unknown>,
+  required: readonly string[],
+  label: string,
+): void {
+  const allowed = new Set(required);
+  for (const key of required) {
+    if (!Object.prototype.hasOwnProperty.call(value, key)) {
+      v14Error(label, `is missing required field ${JSON.stringify(key)}`);
+    }
+  }
+  for (const key of Object.keys(value)) {
+    if (!allowed.has(key)) v14Error(label, `has unknown field ${JSON.stringify(key)}`);
+  }
+}
+
+/**
+ * `state.productionQueue` (§8.1). Structural only, and deliberately so: a queued
+ * intent's payload is REVALIDATED at dequeue against the state of that week, not
+ * trusted because it was legal when it was admitted. What this proves is the
+ * ordering law — ordinals are unique and strictly ascending, because the ordinal
+ * IS the queue's fairness guarantee (§3.3) — and that no row carries a production
+ * id, which it cannot, because no production exists before greenlight.
+ */
+function checkProductionQueueShape(value: unknown): readonly ProductionQueueEntry[] {
+  const queue = v14Array(value, "state.productionQueue");
+  let previousOrdinal = -1;
+  for (let i = 0; i < queue.length; i++) {
+    const label = `state.productionQueue[${String(i)}]`;
+    const entry = v14Record(queue[i], label);
+    const kind = entry.kind;
+    if (!(QUEUE_ENTRY_KINDS as readonly unknown[]).includes(kind)) {
+      v14Error(`${label}.kind`, "is not a known queue entry kind");
+    }
+    v14ExactKeys(
+      entry,
+      kind === "greenlightScriptProject"
+        ? ["kind", "ordinal", "queuedWeek", "scriptProjectId", "payload"]
+        : ["kind", "ordinal", "queuedWeek", "payload"],
+      label,
+    );
+    const ordinal = v14Integer(entry.ordinal, `${label}.ordinal`, 0);
+    if (ordinal <= previousOrdinal) {
+      v14Error(`${label}.ordinal`, "must be strictly ascending — the ordinal is the queue order");
+    }
+    previousOrdinal = ordinal;
+    v14Integer(entry.queuedWeek, `${label}.queuedWeek`, 0);
+    if (kind === "greenlightScriptProject") {
+      v14String(entry.scriptProjectId, `${label}.scriptProjectId`);
+    }
+    v14Record(entry.payload, `${label}.payload`);
+    v8AssertPlainJson(entry.payload, label);
+  }
+  return queue as unknown as readonly ProductionQueueEntry[];
+}
+
+/**
+ * `state.originalScreenplays` (§8.1). The blueprint root is APPEND-ONLY history:
+ * ordinals are unique, `nextOrdinal` is above every minted one, and a concept id
+ * appears at most once — a screenplay's provenance is minted exactly once and is
+ * never re-minted (owner ruling `00E`.7).
+ */
+function checkOriginalScreenplaysShape(value: unknown): OriginalScreenplays {
+  const root = v14Record(value, "state.originalScreenplays");
+  v14ExactKeys(root, ["nextOrdinal", "blueprints"], "state.originalScreenplays");
+  const nextOrdinal = v14Integer(root.nextOrdinal, "state.originalScreenplays.nextOrdinal", 0);
+  const blueprints = v14Array(root.blueprints, "state.originalScreenplays.blueprints");
+  const conceptIds = new Set<string>();
+  const ordinals = new Set<number>();
+  for (let i = 0; i < blueprints.length; i++) {
+    const label = `state.originalScreenplays.blueprints[${String(i)}]`;
+    const blueprint = v14Record(blueprints[i], label);
+    v14ExactKeys(
+      blueprint,
+      [
+        "conceptId",
+        "ordinal",
+        "mintedWeek",
+        "projectId",
+        "writerId",
+        "generatedTitle",
+        "renamedWeek",
+        "beats",
+        "officeTierAtMint",
+      ],
+      label,
+    );
+    const conceptId = v14String(blueprint.conceptId, `${label}.conceptId`);
+    if (conceptIds.has(conceptId)) v14Error(`${label}.conceptId`, "is duplicated");
+    conceptIds.add(conceptId);
+    if (blueprint.ordinal !== null) {
+      const ordinal = v14Integer(blueprint.ordinal, `${label}.ordinal`, 0);
+      if (ordinal >= nextOrdinal) {
+        v14Error(`${label}.ordinal`, "was never minted — it is at or above nextOrdinal");
+      }
+      if (ordinals.has(ordinal)) v14Error(`${label}.ordinal`, "is duplicated");
+      ordinals.add(ordinal);
+    }
+    v14Integer(blueprint.mintedWeek, `${label}.mintedWeek`, 0);
+    v14String(blueprint.projectId, `${label}.projectId`);
+    v14String(blueprint.writerId, `${label}.writerId`);
+    if (blueprint.generatedTitle !== null) {
+      v14String(blueprint.generatedTitle, `${label}.generatedTitle`);
+    }
+    if (blueprint.renamedWeek !== null) {
+      v14Integer(blueprint.renamedWeek, `${label}.renamedWeek`, 0);
+    }
+    const beats = v14Array(blueprint.beats, `${label}.beats`);
+    for (let b = 0; b < beats.length; b++) {
+      const beatLabel = `${label}.beats[${String(b)}]`;
+      const beat = v14Record(beats[b], beatLabel);
+      v14ExactKeys(beat, ["name", "requiredSetType"], beatLabel);
+      v14String(beat.name, `${beatLabel}.name`);
+      const setType = v14String(beat.requiredSetType, `${beatLabel}.requiredSetType`);
+      if (!(SET_TYPES as readonly string[]).includes(setType)) {
+        v14Error(
+          `${beatLabel}.requiredSetType`,
+          "is not in the authored SET_TYPES vocabulary",
+        );
+      }
+    }
+    v14String(blueprint.officeTierAtMint, `${label}.officeTierAtMint`);
+  }
+  return root as unknown as OriginalScreenplays;
+}
+
+/**
+ * `state.studioEvents` (§5/§8.1). The laws that make the log trustworthy:
+ *
+ *   * `seq` is unique and STRICTLY ASCENDING, and every row's seq is below
+ *     `nextSeq` — the counter never rewinds, so a consumer's cursor stays
+ *     meaningful across a compaction.
+ *   * NO row carries a `seen` or `consumed` field. That is enforced by the
+ *     per-kind exact-key lists, and it is the reason two identical playthroughs
+ *     export identical bytes.
+ *   * Tier W rows are inside the retention window; Tier D rows may be any age.
+ *     Compaction is a pure function of `market.tick`, so a row outside the window
+ *     is a row the engine could not have produced.
+ *   * No row is dated in the future.
+ */
+function checkStudioEventsShape(value: unknown, currentWeek: number): StudioEventLog {
+  const log = v14Record(value, "state.studioEvents");
+  v14ExactKeys(log, ["nextSeq", "rows"], "state.studioEvents");
+  const nextSeq = v14Integer(log.nextSeq, "state.studioEvents.nextSeq", 0);
+  const rows = v14Array(log.rows, "state.studioEvents.rows");
+  const oldestKeptWeek = currentWeek - (TUNING.STUDIO_EVENT_WINDOW_WEEKS - 1);
+  let previousSeq = -1;
+  for (let i = 0; i < rows.length; i++) {
+    const label = `state.studioEvents.rows[${String(i)}]`;
+    const row = v14Record(rows[i], label);
+    const kind = row.kind;
+    if (!(STUDIO_EVENT_KINDS as readonly unknown[]).includes(kind)) {
+      v14Error(`${label}.kind`, "is not a known studio event kind");
+    }
+    v14ExactKeys(row, ["seq", "week", "kind", ...studioEventPayloadKeys(kind as string)], label);
+    const seq = v14Integer(row.seq, `${label}.seq`, 0);
+    if (seq <= previousSeq) {
+      v14Error(`${label}.seq`, "must be strictly ascending");
+    }
+    previousSeq = seq;
+    if (seq >= nextSeq) {
+      v14Error(`${label}.seq`, "is at or above nextSeq — the sequence never rewinds");
+    }
+    const week = v14Integer(row.week, `${label}.week`, 0);
+    if (week > currentWeek) {
+      v14Error(`${label}.week`, "is in the future");
+    }
+    if (!isTierDStudioEventKind(kind as never) && week < oldestKeptWeek) {
+      v14Error(
+        `${label}.week`,
+        `is outside the ${String(TUNING.STUDIO_EVENT_WINDOW_WEEKS)}-week retention window and should have been compacted`,
+      );
+    }
+    for (const key of studioEventPayloadKeys(kind as string)) {
+      if (key === "setId" && kind === "wrapped") {
+        if (row.setId !== null) v14String(row.setId, `${label}.setId`);
+        continue;
+      }
+      if (key === "refund" || key === "ordinal") {
+        v14Integer(row[key], `${label}.${key}`, key === "refund" ? 0 : 0);
+        continue;
+      }
+      if (key === "phase") {
+        if (!(OPERATIONS_PHASES as readonly unknown[]).includes(row.phase)) {
+          v14Error(`${label}.phase`, "is not a known production phase");
+        }
+        continue;
+      }
+      v14String(row[key], `${label}.${key}`);
+    }
+  }
+  return log as unknown as StudioEventLog;
+}
+
+/** The payload keys each event kind carries beyond `seq`/`week`/`kind`. */
+function studioEventPayloadKeys(kind: string): readonly string[] {
+  switch (kind) {
+    case "wrapped":
+      return ["productionId", "stageFacilityId", "setId"];
+    case "premiere":
+      return ["filmId"];
+    case "constructionCompleted":
+      return ["placementId"];
+    case "setBuilt":
+      return ["setId"];
+    case "setRetired":
+      return ["setId", "refund"];
+    case "reservationGranted":
+    case "reservationReleased":
+      return ["ownerId", "resourceKey"];
+    case "phaseEntered":
+      return ["productionId", "phase"];
+    case "sceneryArrived":
+      return ["productionId"];
+    case "queueAdmitted":
+      return ["entryKind", "ordinal"];
+    case "queueIntentExpired":
+      return ["entryKind", "ordinal", "reason"];
+    default:
+      return [];
+  }
+}
+
+/**
+ * The C2a-M1 live validator. The frozen V13 projection is validated under the
+ * sets policy — which is what admits the widened `bindings` / `writerIds` leaves
+ * and the set capital ledger kinds one level down — and then the four new roots
+ * receive their own exact-key, scalar, range, identity, and ordering checks.
+ *
+ * The GATE (§5 pin 6) is proved here rather than assumed: a legacy-mode studio
+ * has no operations, and therefore no sets, no queue, and no history. A legacy
+ * save carrying any of them is a save the engine could not have written.
+ */
+export function validateSaveV14(save: unknown): SaveFileV14 {
+  if (!isRecord(save)) {
+    throw new Error("validateSaveV14: save is not a plain object");
+  }
+  v12ExactKeys(save, ["saveVersion", "seed", "state", "broadcastCache"], "save");
+  if (save.saveVersion !== 14) {
+    throw new Error(
+      `validateSaveV14: expected saveVersion 14, got ${JSON.stringify(save.saveVersion)}`,
+    );
+  }
+  const state = v14Record(checkEnvelope(save, "validateSaveV14"), "state");
+  v12ExactKeys(state, V14_STATE_KEYS, "state", V11_OPTIONAL_STATE_KEYS);
+
+  const {
+    sets: rawSets,
+    nextSetId: rawNextSetId,
+    productionQueue: rawQueue,
+    originalScreenplays: rawScreenplays,
+    studioEvents: rawEvents,
+    ...v13State
+  } = state;
+  try {
+    validateSaveV13WithPolicy(
+      {
+        saveVersion: 13,
+        seed: save.seed,
+        state: v13State,
+        broadcastCache: save.broadcastCache,
+      },
+      "sets-v14",
+    );
+  } catch (error) {
+    throw new Error(
+      `validateSaveV14: frozen V13 state is invalid — ${(error as Error).message}`,
+    );
+  }
+
+  const typedState = state as unknown as GameStateV14;
+  const managed = typedState.operations.mode === "managed";
+  const soundstageFacilityIds = new Set<string>(
+    typedState.operations.facilities
+      .filter((facility) => facility.capability === "soundstage")
+      .map((facility) => facility.id),
+  );
+
+  checkSetsShape(rawSets, rawNextSetId, soundstageFacilityIds);
+  checkProductionQueueShape(rawQueue);
+  checkOriginalScreenplaysShape(rawScreenplays);
+  checkStudioEventsShape(rawEvents, typedState.market.tick);
+
+  if (!managed) {
+    // THE GATE. Legacy and headless worlds own no studio operations, so they own
+    // no studio history — and that is exactly what keeps the M0A acceptance
+    // corpus byte-identical across this bump without re-baselining it.
+    if ((rawSets as unknown[]).length !== 0 || rawNextSetId !== 0) {
+      v14Error("state.sets", "must be empty while studio operations are legacy");
+    }
+    if ((rawQueue as unknown[]).length !== 0) {
+      v14Error("state.productionQueue", "must be empty while studio operations are legacy");
+    }
+    if (typedState.originalScreenplays.blueprints.length !== 0) {
+      v14Error(
+        "state.originalScreenplays.blueprints",
+        "must be empty while studio operations are legacy",
+      );
+    }
+    if (typedState.studioEvents.rows.length !== 0 || typedState.studioEvents.nextSeq !== 0) {
+      v14Error("state.studioEvents", "must be empty while studio operations are legacy");
+    }
+  }
+
+  return save as SaveFileV14;
 }
 
 // ── Version-dispatching validation (LOUD rejection of unknown versions) ──────
@@ -3706,8 +4484,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 11) return validateSaveV11(save);
   if (s.saveVersion === 12) return validateSaveV12(save);
   if (s.saveVersion === 13) return validateSaveV13(save);
+  if (s.saveVersion === 14) return validateSaveV14(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 13 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 14 only)`,
   );
 }
 
@@ -3831,12 +4610,75 @@ function projectStateV7(
   };
 }
 
+// ── The V14 LEAF projection (C2a-M1) ────────────────────────────────────────
+//
+// `ProductionWorkflow.bindings` and `ScriptProject.writerIds` are widened
+// persisted LEAVES (§8.2), not roots — they ride inside `operations` and
+// `scriptDevelopment`, which every frozen projection copies wholesale. A frozen
+// envelope must carry the shape ITS OWN VERSION shipped, and the pre-V14
+// validators enforce exactly that, so the leaves are enumerated away here.
+//
+// DROPPING THEM IS LOSSLESS BY CONSTRUCTION, which is why this is a projection
+// and not a refusal:
+//   * `assertFrozenBuilderCanProjectV14State` has already refused any state whose
+//     bindings carry authority — a bound set, a locked uplift term, a
+//     `requiresSetBinding` marker, a `set-unavailable` blocker;
+//   * what remains, `stageFacilityId` and `heldSinceWeek`, is DERIVED from the
+//     soundstage reservation the frozen envelope still carries — which is
+//     precisely how §8.3 reconstructs it on the way back up;
+//   * `writerIds` is `[writerId]`, and `writerId` is frozen V9 state.
+// So the round trip puts back identical bytes.
+//
+// Positively enumerated, never clone-then-delete: a future leaf must be given a
+// home here deliberately rather than surviving by omission.
+function projectWorkflowPreV14(workflow: ProductionWorkflow): ProductionWorkflow {
+  return {
+    productionId: workflow.productionId,
+    phase: workflow.phase,
+    reservations: workflow.reservations,
+    shootingTask: workflow.shootingTask,
+    blocker: workflow.blocker,
+  } as unknown as ProductionWorkflow;
+}
+
+function projectOperationsPreV14(operations: StudioOperations): StudioOperations {
+  return {
+    ...operations,
+    workflows: operations.workflows.map(projectWorkflowPreV14),
+  };
+}
+
+function projectScriptDevelopmentPreV14(
+  development: ScriptDevelopment,
+): ScriptDevelopment {
+  return {
+    ...development,
+    projects: development.projects.map(
+      (project) =>
+        ({
+          id: project.id,
+          conceptId: project.conceptId,
+          writerId: project.writerId,
+          shape: project.shape,
+          promise: project.promise,
+          status: project.status,
+          rewriteCount: project.rewriteCount,
+          commissionedWeek: project.commissionedWeek,
+          dueWeek: project.dueWeek,
+          assessment: project.assessment,
+          reservation: project.reservation,
+          productionId: project.productionId,
+        }) as unknown as ScriptProject,
+    ),
+  };
+}
+
 function projectStateV8(
   state: HistoricalProjectionSource<GameStateV8>,
 ): GameStateV8 {
   return {
     ...projectStateV7(state),
-    operations: state.operations,
+    operations: projectOperationsPreV14(state.operations),
   };
 }
 
@@ -3845,7 +4687,7 @@ function projectStateV9(
 ): GameStateV9 {
   return {
     ...projectStateV8(state),
-    scriptDevelopment: state.scriptDevelopment,
+    scriptDevelopment: projectScriptDevelopmentPreV14(state.scriptDevelopment),
   };
 }
 
@@ -3914,8 +4756,8 @@ function projectStateV11(state: HistoricalProjectionSourceV11): GameStateV11 {
     careerEvents: state.careerEvents,
     economyEngagedEver: state.economyEngagedEver,
     publicity: state.publicity,
-    operations: state.operations,
-    scriptDevelopment: state.scriptDevelopment,
+    operations: projectOperationsPreV14(state.operations),
+    scriptDevelopment: projectScriptDevelopmentPreV14(state.scriptDevelopment),
     castingSessions: state.castingSessions,
     construction: state.construction,
     ...(state.cashLedgerCheckpoint === undefined
@@ -3953,8 +4795,8 @@ function projectStateV12(state: HistoricalProjectionSourceV12): GameStateV12 {
     careerEvents: state.careerEvents,
     economyEngagedEver: state.economyEngagedEver,
     publicity: state.publicity,
-    operations: state.operations,
-    scriptDevelopment: state.scriptDevelopment,
+    operations: projectOperationsPreV14(state.operations),
+    scriptDevelopment: projectScriptDevelopmentPreV14(state.scriptDevelopment),
     castingSessions: state.castingSessions,
     construction: state.construction,
     placement: state.placement,
@@ -3964,12 +4806,35 @@ function projectStateV12(state: HistoricalProjectionSourceV12): GameStateV12 {
   };
 }
 
-// The live projection (C1-M1a). Same positive enumeration one version on, plus
-// the property root that makes the studio's ground savable.
+// The frozen V13 projection (C1-M1a). Same positive enumeration one version on,
+// plus the property root that makes the studio's ground savable. FROZEN as of
+// C2a-M1: it deliberately does not copy the four V14 roots, and
+// `assertFrozenBuilderCanProjectV14State` refuses any state that would lose
+// something real by having them dropped here.
 function projectStateV13(state: GameStateV13): GameStateV13 {
   return {
     ...projectStateV12(state),
     property: state.property,
+  };
+}
+
+// The live projection (C2a-M1). Positive enumeration again, one version on: the
+// studio's sets and the counter that names them, the queue of admitted intents,
+// the original-screenplay blueprints, and the studio's own history.
+function projectStateV14(state: GameStateV14): GameStateV14 {
+  return {
+    ...projectStateV13(state),
+    // The frozen projections below this one enumerate the widened V14 LEAVES
+    // away, because a frozen envelope must carry its own version's shape. The
+    // live envelope carries them, so they are restored here — positively, at the
+    // one version that owns them.
+    operations: state.operations,
+    scriptDevelopment: state.scriptDevelopment,
+    sets: state.sets,
+    nextSetId: state.nextSetId,
+    productionQueue: state.productionQueue,
+    originalScreenplays: state.originalScreenplays,
+    studioEvents: state.studioEvents,
   };
 }
 
@@ -4152,12 +5017,113 @@ function assertFrozenBuilderCanProjectV13State(
   }
 }
 
+// LEG 2 of the V14 historical boundary (C2a-M1) — the WRITE side. The validator
+// leg refuses V14 authority ARRIVING under an old tag; this one refuses V14
+// authority LEAVING through an old builder.
+//
+// A frozen builder may cross this boundary only when the state carries no
+// authoritative V14 history: no standing or retired set, no counter that has
+// handed out an id, no queued intent, no minted blueprint, no recorded event, no
+// set capital row, and no workflow that has bound anything. Every one of those is
+// a fact with no home in any historical format, and none of them may be silently
+// dropped to write one.
+//
+// The endowment is deliberately NOT an exemption. Two house sets and
+// `nextSetId: 2` are real state a V13 file cannot describe — `convertV13ToV14`
+// puts them back on the way up, but that is a migration, not a round trip.
+function assertFrozenBuilderCanProjectV14State(
+  state: object,
+  builder: string,
+): void {
+  const candidate = state as Record<string, unknown>;
+  if (Array.isArray(candidate.ledger)) {
+    for (const raw of candidate.ledger) {
+      if (
+        isRecord(raw) &&
+        typeof raw.kind === "string" &&
+        (V14_ONLY_LEDGER_KINDS as readonly string[]).includes(raw.kind)
+      ) {
+        throw new Error(
+          `${builder}: cannot downgrade or discard authoritative V14 set capital ledger state`,
+        );
+      }
+    }
+  }
+  // The ENDOWMENT is not authoritative history — it is the exact value every
+  // managed studio carries before it has done anything, and `convertV13ToV14`
+  // puts back the identical bytes. This is the same exemption V12 grants the
+  // vacant managed placement root and V13 grants `INITIAL_PROPERTY`: a state
+  // that has built nothing loses nothing by crossing the boundary. A studio that
+  // has built, struck, or re-mounted a set has moved off it and is refused.
+  if (Object.prototype.hasOwnProperty.call(candidate, "sets")) {
+    const isLegacyEmpty =
+      deepEqual(candidate.sets, []) && candidate.nextSetId === 0;
+    const isUntouchedEndowment =
+      deepEqual(candidate.sets, endowedHouseSets()) &&
+      candidate.nextSetId === ENDOWED_NEXT_SET_ID;
+    if (!isLegacyEmpty && !isUntouchedEndowment) {
+      throw new Error(
+        `${builder}: cannot downgrade or discard authoritative V14 sets`,
+      );
+    }
+  }
+  if (Array.isArray(candidate.productionQueue) && candidate.productionQueue.length > 0) {
+    throw new Error(
+      `${builder}: cannot downgrade or discard the authoritative V14 production queue`,
+    );
+  }
+  if (isRecord(candidate.originalScreenplays)) {
+    const screenplays = candidate.originalScreenplays;
+    if (
+      (Array.isArray(screenplays.blueprints) && screenplays.blueprints.length > 0) ||
+      screenplays.nextOrdinal !== 0
+    ) {
+      throw new Error(
+        `${builder}: cannot downgrade or discard authoritative V14 screenplay provenance`,
+      );
+    }
+  }
+  if (isRecord(candidate.studioEvents)) {
+    const events = candidate.studioEvents;
+    if (
+      (Array.isArray(events.rows) && events.rows.length > 0) ||
+      events.nextSeq !== 0
+    ) {
+      throw new Error(
+        `${builder}: cannot downgrade or discard authoritative V14 studio history`,
+      );
+    }
+  }
+  if (isRecord(candidate.operations) && Array.isArray(candidate.operations.workflows)) {
+    for (const workflow of candidate.operations.workflows) {
+      if (!isRecord(workflow) || !isRecord(workflow.bindings)) continue;
+      const bindings = workflow.bindings;
+      if (
+        bindings.requiresSetBinding === true ||
+        bindings.setId !== null ||
+        bindings.lockedNovelty !== null ||
+        bindings.lockedUplift !== null
+      ) {
+        throw new Error(
+          `${builder}: cannot downgrade or discard an authoritative V14 set binding`,
+        );
+      }
+      if (isRecord(workflow.blocker) && workflow.blocker.kind === "set-unavailable") {
+        throw new Error(
+          `${builder}: cannot downgrade or discard an authoritative V14 set-unavailable blocker`,
+        );
+      }
+    }
+  }
+}
+
 // Build a validated V1 envelope from a legacy GameStateV1 (broadcastCache mirrors
 // the state's aired items, per M14). Kept so V1 fixtures/back-compat are typed.
 export function makeSaveV1(state: GameStateV1 | GameState): SaveFileV1 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV1", 1);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV1");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV1");
+  assertFrozenBuilderCanProjectV14State(state, "makeSaveV1");
   const frozenState = projectStateV1(state);
   const save: SaveFileV1 = {
     saveVersion: 1,
@@ -4174,6 +5140,7 @@ export function makeSaveV2(state: GameStateV2 | GameState): SaveFileV2 {
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV2", 2);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV2");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV2");
+  assertFrozenBuilderCanProjectV14State(state, "makeSaveV2");
   const frozenState = projectStateV2(state);
   const save: SaveFileV2 = {
     saveVersion: 2,
@@ -4192,6 +5159,7 @@ export function makeSaveV3(
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV3", 3);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV3");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV3");
+  assertFrozenBuilderCanProjectV14State(state, "makeSaveV3");
   const frozenState = projectStateV3(state);
   const save: SaveFileV3 = {
     saveVersion: 3,
@@ -4210,6 +5178,7 @@ export function makeSaveV4(
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV4", 4);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV4");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV4");
+  assertFrozenBuilderCanProjectV14State(state, "makeSaveV4");
   const frozenState = projectStateV4(state);
   const save: SaveFileV4 = {
     saveVersion: 4,
@@ -4228,6 +5197,7 @@ export function makeSaveV5(
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV5", 5);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV5");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV5");
+  assertFrozenBuilderCanProjectV14State(state, "makeSaveV5");
   const frozenState = projectStateV5(state);
   const save: SaveFileV5 = {
     saveVersion: 5,
@@ -4246,6 +5216,7 @@ export function makeSaveV6(
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV6", 6);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV6");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV6");
+  assertFrozenBuilderCanProjectV14State(state, "makeSaveV6");
   const frozenState = projectStateV6(state);
   const save: SaveFileV6 = {
     saveVersion: 6,
@@ -4264,6 +5235,7 @@ export function makeSaveV7(
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV7", 7);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV7");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV7");
+  assertFrozenBuilderCanProjectV14State(state, "makeSaveV7");
   // Structural typing permits present and future live roots where GameStateV7 is
   // expected. Use the same positive allowlist as the other frozen builders so no
   // later field can be mislabeled as V7 or make this builder's output unmigratable.
@@ -4285,6 +5257,7 @@ export function makeSaveV8(
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV8", 8);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV8");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV8");
+  assertFrozenBuilderCanProjectV14State(state, "makeSaveV8");
   const frozenState = projectStateV8(state);
   const save: SaveFileV8 = {
     saveVersion: 8,
@@ -4303,6 +5276,7 @@ export function makeSaveV9(
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV9", 9);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV9");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV9");
+  assertFrozenBuilderCanProjectV14State(state, "makeSaveV9");
   const frozenState = projectStateV9(state);
   const save: SaveFileV9 = {
     saveVersion: 9,
@@ -4321,6 +5295,7 @@ export function makeSaveV10(
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV10", 10);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV10");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV10");
+  assertFrozenBuilderCanProjectV14State(state, "makeSaveV10");
   const frozenState = projectStateV10(state);
   const save: SaveFileV10 = {
     saveVersion: 10,
@@ -4339,6 +5314,7 @@ export function makeSaveV11(
 ): SaveFileV11 {
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV11");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV11");
+  assertFrozenBuilderCanProjectV14State(state, "makeSaveV11");
   const frozenState = projectStateV11(state);
   const save: SaveFileV11 = {
     saveVersion: 11,
@@ -4356,6 +5332,7 @@ export function makeSaveV12(
   state: HistoricalProjectionSourceV12,
 ): SaveFileV12 {
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV12");
+  assertFrozenBuilderCanProjectV14State(state, "makeSaveV12");
   const frozenState = projectStateV12(state);
   const save: SaveFileV12 = {
     saveVersion: 12,
@@ -4368,7 +5345,10 @@ export function makeSaveV12(
 
 // Build the current V13 envelope (C1-M1a). Live state already owns an explicit
 // property root, so this boundary never invents migration defaults.
-export function makeSaveV13(state: GameState): SaveFileV13 {
+export function makeSaveV13(state: GameStateV13): SaveFileV13 {
+  // FROZEN as of C2a-M1: V13 is now a historical format, so writing one is a
+  // downgrade and gets the same guard every other frozen builder has.
+  assertFrozenBuilderCanProjectV14State(state, "makeSaveV13");
   const currentState = projectStateV13(state);
   const save: SaveFileV13 = {
     saveVersion: 13,
@@ -4379,10 +5359,24 @@ export function makeSaveV13(state: GameState): SaveFileV13 {
   return validateSaveV13(save);
 }
 
-// makeSave — the Property State V13 live boundary. Frozen V12 values must cross
-// convertV12ToV13/migrateToV13 explicitly.
-export function makeSave(state: GameState): SaveFileV13 {
-  return makeSaveV13(state);
+// Build the current V14 envelope (C2a-M1). Live state already owns explicit sets,
+// queue, screenplay, and history roots, so this is a projection with no
+// synthesis: nothing is invented on the way out.
+export function makeSaveV14(state: GameState): SaveFileV14 {
+  const currentState = projectStateV14(state);
+  const save: SaveFileV14 = {
+    saveVersion: 14,
+    seed: currentState.seed,
+    state: currentState,
+    broadcastCache: currentState.broadcastItems,
+  };
+  return validateSaveV14(save);
+}
+
+// makeSave — the C2a-M1 live boundary. Frozen V13 values must cross
+// convertV13ToV14/migrateToV14 explicitly.
+export function makeSave(state: GameState): SaveFileV14 {
+  return makeSaveV14(state);
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -4792,6 +5786,13 @@ const LEDGER_KIND_PROVES_ENGAGEMENT = {
   // C1-M3a: demolishing one requires having built one, so the refund is decisive
   // engagement evidence for exactly the same reason its capex row is.
   facilityDemolitionRefund: true,
+  // C2a-M1: a set can only exist in a founded, engaged, managed studio — the
+  // endowment is minted by `activateStudioOperations` and by nothing else — so
+  // every row in the set capital family is decisive engagement evidence for
+  // exactly the reason the facility family's rows are.
+  setCapex: true,
+  setMaintenance: true,
+  setDemolitionRefund: true,
 } as const satisfies Record<LedgerKind, boolean>;
 
 function ledgerKindProvesEngagement(kind: LedgerKind): boolean {
@@ -5081,6 +6082,85 @@ export function convertV12ToV13(v12: SaveFileV12): SaveFileV13 {
   return makeSaveV13(newState);
 }
 
+// ══════════════════════════════════════════════════════════════════════════════
+// C2a-M1 — deterministic V13 → V14 conversion (charter §8.3).
+//
+// EVERY derivation here is a FACT the V13 state already carries, or a compat
+// device the charter names. Nothing is guessed:
+//
+//   bindings.stageFacilityId := the workflow's LIVE soundstage reservation when
+//     one is held (rehearsal AND shooting — a rehearsal-phase save has no
+//     shootingTask, so reading the task would silently miss half the cases),
+//     else null.
+//   bindings.lockedNovelty / lockedUplift := null. A migrated picture never bound
+//     a set, so there is no snapshot to reconstruct and inventing one would put a
+//     number on the film's strength that nothing earned.
+//   bindings.heldSinceWeek := the migration week. A recorded migration fact: this
+//     is the first week the engine can honestly say it has been watching.
+//   bindings.requiresSetBinding := FALSE for every migrated workflow. THE
+//     GRANDFATHER: an in-flight production keeps `facility-scenery-shop`
+//     byte-for-byte and never acquires a set. A picture halfway through shooting
+//     cannot retroactively be told it needed a standing set it was never offered.
+//   writerIds := [writerId]. The project has exactly one writer and always did.
+//   sets := the TWO endowed house sets for MANAGED-mode saves, empty for legacy;
+//     nextSetId := 2 and 0 respectively. Founding capacity is therefore exactly
+//     today's, so every sealed spec runs unmodified.
+//   productionQueue := empty; originalScreenplays := empty (nextOrdinal 0);
+//     studioEvents := empty. A migrated studio's history starts the week it
+//     migrates, because inventing rows for events nobody observed would be
+//     manufacturing history.
+//
+// ZERO RNG is consumed and `rngState` is byte-identical: a resumed run replays
+// exactly as it would have.
+// ══════════════════════════════════════════════════════════════════════════════
+
+export function convertV13ToV14(v13: SaveFileV13): SaveFileV14 {
+  const validated = validateSaveV13(v13);
+  const oldState = clonePlainJson(validated.state);
+  const migrationWeek = oldState.market.tick;
+  const managed = oldState.operations.mode === "managed";
+
+  const operations = {
+    ...oldState.operations,
+    workflows: oldState.operations.workflows.map((workflow) => {
+      const stage = workflow.reservations.find(
+        (reservation) => reservation.capability === "soundstage",
+      );
+      return {
+        ...workflow,
+        bindings: {
+          requiresSetBinding: false,
+          stageFacilityId: stage === undefined ? null : stage.facilityId,
+          setId: null,
+          lockedNovelty: null,
+          lockedUplift: null,
+          heldSinceWeek: migrationWeek,
+        },
+      };
+    }),
+  };
+
+  const scriptDevelopment = {
+    ...oldState.scriptDevelopment,
+    projects: oldState.scriptDevelopment.projects.map((project) => ({
+      ...project,
+      writerIds: [project.writerId],
+    })),
+  };
+
+  const newState: GameStateV14 = {
+    ...oldState,
+    operations,
+    scriptDevelopment,
+    sets: managed ? endowedHouseSets() : [],
+    nextSetId: managed ? ENDOWED_NEXT_SET_ID : 0,
+    productionQueue: [],
+    originalScreenplays: { nextOrdinal: 0, blueprints: [] },
+    studioEvents: emptyStudioEventLog(),
+  };
+  return makeSaveV14(newState);
+}
+
 // importLegacyV{3,2,1}ToV4 — parse a legacy JSON string and return a NEW SaveFileV4.
 export function importLegacyV3ToV4(json: string): SaveFileV4 {
   let parsed: unknown;
@@ -5178,7 +6258,8 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
     save.saveVersion === 10 ||
     save.saveVersion === 11 ||
     save.saveVersion === 12 ||
-    save.saveVersion === 13
+    save.saveVersion === 13 ||
+    save.saveVersion === 14
   ) {
     throw new Error(
       `migrateToV8: cannot downgrade SaveFileV${String(save.saveVersion)} or discard newer authoritative state`,
@@ -5196,7 +6277,8 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
     save.saveVersion === 10 ||
     save.saveVersion === 11 ||
     save.saveVersion === 12 ||
-    save.saveVersion === 13
+    save.saveVersion === 13 ||
+    save.saveVersion === 14
   ) {
     throw new Error(
       `migrateToV9: cannot downgrade SaveFileV${String(save.saveVersion)} or discard newer authoritative state`,
@@ -5213,7 +6295,8 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
   if (
     save.saveVersion === 11 ||
     save.saveVersion === 12 ||
-    save.saveVersion === 13
+    save.saveVersion === 13 ||
+    save.saveVersion === 14
   ) {
     throw new Error(
       `migrateToV10: cannot downgrade SaveFileV${String(save.saveVersion)} or discard construction, placement, and property state`,
@@ -5229,7 +6312,11 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
 // mode. V12 is rejected, never downgraded: a placed facility, its land, its
 // debit, and its operating history have no V11 home.
 export function migrateToV11(save: SaveFile): SaveFileV11 {
-  if (save.saveVersion === 12 || save.saveVersion === 13) {
+  if (
+    save.saveVersion === 12 ||
+    save.saveVersion === 13 ||
+    save.saveVersion === 14
+  ) {
     throw new Error(
       `migrateToV11: cannot downgrade SaveFileV${String(save.saveVersion)} or discard placement and property state`,
     );
@@ -5243,9 +6330,9 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
 // their own validated construction history implies at the final V11→V12 step.
 // V13 is rejected, never downgraded: a property that has grown has no V12 home.
 export function migrateToV12(save: SaveFile): SaveFileV12 {
-  if (save.saveVersion === 13) {
+  if (save.saveVersion === 13 || save.saveVersion === 14) {
     throw new Error(
-      "migrateToV12: cannot downgrade SaveFileV13 or discard property state",
+      `migrateToV12: cannot downgrade SaveFileV${String(save.saveVersion)} or discard property, set, queue, screenplay, and studio-history state`,
     );
   }
   if (save.saveVersion === 12) return save;
@@ -5256,7 +6343,22 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // identity; V1–V12 cross every frozen boundary, then receive the initial authored
 // property at the final V12→V13 step — which is the property they were already
 // implicitly played on.
+// migrateToV14 — the LIVE load-to-play migration (C2a-M1). V14 passes through by
+// identity; V1–V13 cross every frozen boundary, then receive the four Campaign-2
+// roots at the final V13→V14 step — including the two endowed house sets, which
+// are the compatibility device that keeps founding capacity exactly what it has
+// always been.
+export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 14) return save;
+  return convertV13ToV14(migrateToV13(save));
+}
+
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 14) {
+    throw new Error(
+      "migrateToV13: cannot downgrade SaveFileV14 or discard set, queue, screenplay, and studio-history state",
+    );
+  }
   if (save.saveVersion === 13) return save;
   return convertV12ToV13(migrateToV12(save));
 }

@@ -270,6 +270,11 @@ export function commissionScriptProject(
     id,
     conceptId: payload.conceptId,
     writerId: payload.writerId,
+    // C2a-M1 (§8.1, owner ruling `00E`.9): the bounded writers list lands with
+    // the V14 schema carrying exactly the writer the project already has. M3's
+    // pooling adds the rest; nothing reads it before then, and a commission that
+    // named one writer says so.
+    writerIds: [payload.writerId],
     shape: cloneShape(payload.shape),
     promise: clonePromise(payload.promise),
     status: 'drafting',

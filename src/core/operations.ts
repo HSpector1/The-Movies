@@ -10,6 +10,7 @@ import {
 } from './occupancy.js'
 import type { OccupancySources } from './occupancy.js'
 import {
+  nextProductionPhase,
   productionPhaseForRemainingTicks,
   reachableCapacityBlockerForRemainingTicks,
   requirementsForPhase,
@@ -25,6 +26,7 @@ import type {
   ShootingTask,
   StudioFacility,
   StudioOperations,
+  WorkflowBindings,
 } from './types.js'
 
 // Deep-frozen because this template is part of the public core surface. The live
@@ -97,6 +99,61 @@ export { productionPhaseForRemainingTicks }
 
 function compareId<T extends { id: string }>(a: T, b: T): number {
   return a.id < b.id ? -1 : a.id > b.id ? 1 : 0
+}
+
+// ── C2a-M1 — the bindings leaf (charter §8.1/§8.3) ──────────────────────────
+//
+// `bindings` records a production's claim on PHYSICAL production capacity. At M1
+// exactly one of its six fields is live: `stageFacilityId`, which mirrors the
+// workflow's soundstage reservation, plus `heldSinceWeek`, stamped when that
+// stage is acquired and PRESERVED across sticky retention (rehearsal → shooting
+// keeps the same stage, so it keeps the same acquisition week — that is the whole
+// meaning of the field).
+//
+// The other four are minted null/false and stay that way this milestone:
+//   * `setId`, `lockedNovelty`, `lockedUplift` — bound atomically with the stage
+//     at rehearsal entry, which is M2's designed engine change.
+//   * `requiresSetBinding` — FALSE for every workflow M1 creates, and that is the
+//     literal truth of the state it describes: no production requires a set
+//     binding until M2 makes set binding real. M2 mints it true at greenlight.
+//     A marker minted true today would be a flag asserting a law nothing enforces.
+
+/** The bindings a workflow holding no stage carries. */
+export function emptyWorkflowBindings(): WorkflowBindings {
+  return {
+    requiresSetBinding: false,
+    stageFacilityId: null,
+    setId: null,
+    lockedNovelty: null,
+    lockedUplift: null,
+    heldSinceWeek: null,
+  }
+}
+
+/**
+ * Re-derive the bindings leaf from the reservations a workflow now holds.
+ *
+ * The soundstage reservation is the AUTHORITY — bindings mirror it, never the
+ * other way round — so there is exactly one place a stage claim is recorded and
+ * the leaf can never drift from it. `week` is the week being advanced, the same
+ * clock reading the cash ledger stamps its rows with.
+ */
+function deriveBindings(
+  previous: WorkflowBindings,
+  reservations: readonly FacilityReservation[],
+  week: number,
+): WorkflowBindings {
+  const stage = reservations.find((reservation) => reservation.capability === 'soundstage')
+  if (stage === undefined) {
+    return { ...previous, stageFacilityId: null, heldSinceWeek: null }
+  }
+  const retained =
+    previous.stageFacilityId === stage.facilityId && previous.heldSinceWeek !== null
+  return {
+    ...previous,
+    stageFacilityId: stage.facilityId,
+    heldSinceWeek: retained ? previous.heldSinceWeek : week,
+  }
 }
 
 // Every slot this workflow must treat as taken: the OTHER productions' slots,
@@ -229,6 +286,7 @@ export function addManagedProductionWorkflow(
     reservations: [],
     shootingTask: null,
     blocker: null,
+    bindings: emptyWorkflowBindings(),
   }
   const withDraft: StudioOperations = {
     ...operations,
@@ -245,7 +303,15 @@ export function addManagedProductionWorkflow(
       `applyActions: managed greenlight rejected — no ${allocation.blocker.kind === 'facility-capacity' ? allocation.blocker.capability : 'required facility'} capacity for productionId "${production.id}"`,
     )
   }
-  return replaceWorkflow(withDraft, { ...draft, reservations: allocation.reservations })
+  return replaceWorkflow(withDraft, {
+    ...draft,
+    reservations: allocation.reservations,
+    // A greenlight opens in Development, which holds no stage, so this derives
+    // the empty leaf today. It is derived rather than assumed so the leaf has ONE
+    // producer: the reservations a workflow actually holds. `startTick` is the
+    // greenlight week — the production's own record of when it began.
+    bindings: deriveBindings(draft.bindings, allocation.reservations, production.startTick),
+  })
 }
 
 export function removeManagedProductionWorkflow(
@@ -353,6 +419,18 @@ export function scheduleShootingTake(
 
 function invariant(condition: boolean, message: string): asserts condition {
   if (!condition) throw new Error(`operations invariant: ${message}`)
+}
+
+/**
+ * The blockers that describe "the NEXT phase cannot start yet" — as opposed to
+ * `scenery-load-in`, which is a THIS-phase blocker and may exist only in
+ * Shooting. `facility-capacity` (no slot) and `set-unavailable` (no standing set)
+ * are the same shape of refusal about two different kinds of resource.
+ */
+function isNextPhaseBlocker(blocker: ProductionBlocker | null): boolean {
+  return (
+    blocker === null || blocker.kind === 'facility-capacity' || blocker.kind === 'set-unavailable'
+  )
 }
 
 // Shared core/save boundary. Callers should first establish the outer object/array
@@ -516,6 +594,34 @@ export function assertStudioOperationsInvariants(
       )
     }
 
+    // C2a-M1: the bindings leaf MIRRORS the reservations, so the two can never
+    // disagree about which stage a picture is standing on. Everything else on the
+    // leaf is M2's; this is the one law that exists to enforce today, and it is
+    // the law the V14 migration derivation depends on being true.
+    //
+    // The leaf is checked ONLY WHEN PRESENT, and that is not laxity: this
+    // authority also runs over FROZEN pre-V14 fragments (the save validators
+    // strip the V14 roots and re-validate the older shape), and a genuine V13
+    // workflow has no `bindings` at all. Refusing those would make every save on
+    // a player's disk unreadable — version-awareness has two halves, and this is
+    // the second one. The V14 validator separately REQUIRES the leaf, so a V14
+    // save cannot reach here without it.
+    const bindings = workflow.bindings as WorkflowBindings | undefined
+    if (bindings !== undefined) {
+      const boundStage = workflow.reservations.find(
+        (reservation) => reservation.capability === 'soundstage',
+      )
+      invariant(
+        bindings.stageFacilityId === (boundStage?.facilityId ?? null),
+        `workflow "${workflow.productionId}" bindings.stageFacilityId disagrees with its soundstage reservation`,
+      )
+      invariant(
+        bindings.heldSinceWeek === null ||
+          (Number.isInteger(bindings.heldSinceWeek) && bindings.heldSinceWeek >= 0),
+        `workflow "${workflow.productionId}" bindings.heldSinceWeek must be a week or null`,
+      )
+    }
+
     if (workflow.phase === 'shooting') {
       const task = workflow.shootingTask
       invariant(task !== null, `shooting workflow "${workflow.productionId}" has no shooting task`)
@@ -543,7 +649,7 @@ export function assertStudioOperationsInvariants(
         )
       } else if (task.status === 'completed') {
         invariant(
-          workflow.blocker === null || workflow.blocker.kind === 'facility-capacity',
+          isNextPhaseBlocker(workflow.blocker),
           'a completed take may only be held by next-phase facility capacity',
         )
       } else {
@@ -552,8 +658,21 @@ export function assertStudioOperationsInvariants(
     } else {
       invariant(workflow.shootingTask === null, 'shooting task must be cleared outside Shooting')
       invariant(
-        workflow.blocker === null || workflow.blocker.kind === 'facility-capacity',
+        isNextPhaseBlocker(workflow.blocker),
         'scenery blocker may exist only in Shooting',
+      )
+    }
+
+    // C2a-M1: the `set-unavailable` arm is persisted schema with no producer
+    // until M2 binds sets. It is admitted here — rather than refused as an
+    // unknown kind — so the save validator and this authority agree about what a
+    // legal state may CARRY; what it may MEAN is M2's. The one law that applies
+    // today is the one every next-phase blocker obeys: it names the next
+    // scheduled phase and nothing else.
+    if (workflow.blocker?.kind === 'set-unavailable') {
+      invariant(
+        nextProductionPhase(workflow.phase) === workflow.blocker.targetPhase,
+        `set-unavailable blocker must target the next scheduled phase after ${workflow.phase}`,
       )
     }
 
@@ -602,6 +721,7 @@ function enterPhase(
   production: Production,
   targetPhase: ProductionPhase,
   externallyOccupiedSlots: ReadonlySet<string>,
+  week: number,
 ): { operations: StudioOperations; production: Production; advanced: boolean } {
   const allocation = allocateForPhase(
     operations,
@@ -636,6 +756,7 @@ function enterPhase(
     reservations: allocation.reservations,
     shootingTask,
     blocker: null,
+    bindings: deriveBindings(workflow.bindings, allocation.reservations, week),
   }
   return {
     operations: replaceWorkflow(operations, replacement),
@@ -722,6 +843,7 @@ export function advanceManagedProductions(
       production,
       targetPhase,
       externallyOccupiedSlots,
+      currentTick,
     )
     nextOperations = result.operations
     if (result.advanced) byId.set(production.id, result.production)

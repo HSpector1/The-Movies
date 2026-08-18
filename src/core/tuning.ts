@@ -599,6 +599,45 @@ export const TUNING = {
   FOUNDING_POST_CAPACITY: 2, // [V1 law] Post Building shared slots
   FOUNDING_SCENERY_CAPACITY: 2, // [V1 law] Scenery Shop shared slots
   FOUNDING_SOUNDSTAGE_CAPACITY: 1, // [V1 law] shared slots on EACH founding soundstage
+
+  // ── C2a-M1 — the studioEvents retention window (charter §5 pin 3) ───────────
+  // How many weeks of Tier-W operating chatter — reservation grants and releases,
+  // phase entries, scenery arrivals, queue admissions and expiries — the studio's
+  // history keeps. Tier D (premiere, wrapped, constructionCompleted, setBuilt,
+  // setRetired) is PERMANENT and this constant does not touch it; neither does it
+  // touch the cash `state.ledger`, which is permanent history and is never pruned
+  // (`00B`.5).
+  //
+  // WHY 26 — the reasoning, not a preference:
+  //   * IT IS A HALF-YEAR OF GAME TIME. Every consumer of Tier W asks a
+  //     recent-past question ("what is holding this stage", "what happened while
+  //     I was away", "why did this picture stall"). Half a year answers all of
+  //     them with room to spare; a year answers none of them any better.
+  //   * IT IS BIGGER THAN THE LONGEST THING IT DESCRIBES. A managed production
+  //     runs 8 weeks and the longest build in the catalog is 13, so a 26-week
+  //     window always contains the WHOLE life of any single in-flight subject —
+  //     the window can never cut a story in half.
+  //   * THE MEASUREMENT SAYS IT COSTS ALMOST NOTHING. `scripts/measure-v14-save-size.mts`
+  //     exports a played save at weeks 52 / 208 / 520 and records the sizes in
+  //     its header; windowed Tier W is a bounded per-week cost that stops growing
+  //     after week 26 while Tier D and the cash ledger keep accumulating — which
+  //     is the whole point of windowing THIS root and nothing else.
+  //
+  // Compaction is a pure function of `market.tick`: the window is INCLUSIVE of
+  // the current week, so a row survives while `row.week >= tick - (WINDOW - 1)`.
+  STUDIO_EVENT_WINDOW_WEEKS: 26, // [ICH] weeks of Tier-W studio history retained
+
+  // ── C2a-M1 — the endowed house sets (charter §3.1) ─────────────────────────
+  // The two generic sets a managed studio is founded with, and the initial values
+  // every set is born with. M2 authors the full SET_BLUEPRINTS catalog, the
+  // uplift/novelty/condition families, and their bounded-term tests; these are
+  // the values the V14 migrator and `activateStudioOperations` need to mint an
+  // endowment that is honest about being modest.
+  HOUSE_SET_QUALITY: 45, // [ICH] 0..100 — modest: a serviceable house set, not a showpiece
+  HOUSE_SET_GENRE_WEIGHT: 0.5, // [ICH] 0..1 — NEUTRAL: identical on all six genres, favouring none
+  HOUSE_SET_PRIORITY_GENRE: 'drama' as Genre, // [ICH] the neutral weights make this advisory only
+  SET_NOVELTY_INITIAL: 1, // [ICH] 0..1 — a newly standing set is wholly fresh
+  SET_CONDITION_INITIAL: 100, // [ICH] 0..100 — a newly standing set is undamaged
 } as const
 
 // ── Placement Core V12 — the facility blueprint catalog ──────────────────────

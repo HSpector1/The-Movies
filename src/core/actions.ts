@@ -84,6 +84,7 @@ import {
   scheduleShootingTake,
 } from './operations.js'
 import { publicityLiftAt } from './publicity.js'
+import { ENDOWED_NEXT_SET_ID, endowedHouseSets } from './sets.js'
 import { persistedProductionIds } from './productionIdentity.js'
 import {
   acceptScriptProject,
@@ -1271,11 +1272,23 @@ function applyActivateStudioOperations(
       'applyActions: activateStudioOperations rejected — the active production slate is not empty',
     )
   }
+  if (state.sets.length !== 0 || state.nextSetId !== 0) {
+    throw new Error(
+      'applyActions: activateStudioOperations rejected — legacy set state is not an empty slate',
+    )
+  }
   return {
     ...state,
     operations: initialManagedStudioOperations(),
     construction: initialManagedStudioConstruction(),
     placement: initialManagedStudioPlacement(),
+    // C2a-M1 (charter §3.1): the founding endowment — TWO generic house sets,
+    // one mounted on each founding soundstage. Minted HERE alongside
+    // INITIAL_STUDIO_FACILITIES and synthesized identically by `migrateToV14`
+    // for managed-mode saves, so an activated studio and a migrated one are the
+    // same studio. Ordinals 0 and 1 are consumed and never handed out again.
+    sets: endowedHouseSets(),
+    nextSetId: ENDOWED_NEXT_SET_ID,
   }
 }
 

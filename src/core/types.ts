@@ -381,7 +381,17 @@ export type LedgerKindV12 = LedgerKindV11 | 'facilityOpex'
 // kind, never a negative capex and never generic revenue, so the whole capital
 // life of a building — committed, operated, recovered — is one auditable trail
 // correlated by `constructionProjectId`.
-export type LedgerKind = LedgerKindV12 | 'facilityDemolitionRefund'
+export type LedgerKindV13 = LedgerKindV12 | 'facilityDemolitionRefund'
+// C2a-M1 (charter §8.3): the three SET capital kinds. A Set is a first-class
+// entity with its own capital life — commissioned, maintained, struck — and that
+// life is auditable on its own kinds rather than laundered through the facility
+// family. No producer exists until M2 builds sets; the kinds and their historical
+// boundary legs land NOW so the V14 schema is complete in one milestone.
+export type LedgerKind =
+  | LedgerKindV13
+  | 'setCapex'
+  | 'setMaintenance'
+  | 'setDemolitionRefund'
 
 // Frozen V11 rows discriminate the one capital event and its exact correlation.
 // Construction capex cannot masquerade as film/talent spend, while historical
@@ -435,6 +445,20 @@ export type LedgerEntry =
       talentId?: never
       productionId?: never
       constructionProjectId: string
+      note: string
+    }
+  // C2a-M1. The Set capital family. A set is commissioned at a stage, maintained
+  // while it stands, and refunded at a depreciated fraction when struck — three
+  // events on ONE entity, so each is its own kind carrying the set's identity in
+  // its note rather than borrowing a facility correlation it does not have.
+  // Schema only at M1: no producer exists until M2.
+  | {
+      week: number
+      kind: 'setCapex' | 'setMaintenance' | 'setDemolitionRefund'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId?: never
       note: string
     }
 
@@ -569,6 +593,40 @@ export type ProductionBlocker =
       kind: 'scenery-load-in'
       taskId: string
     }
+  // C2a-M1 (charter §8.1): the ONE new persisted blocker arm. It carries NO
+  // capability — a picture waiting on a SET is not waiting on a facility slot,
+  // and pretending otherwise would put it through the capability cross-check
+  // that belongs to `facility-capacity` alone. `occupiedBy`, `remedies`, and
+  // `alsoMissing` are DERIVED studioQueueView fields and are never persisted.
+  // Schema only at M1: the producer lands with set binding at M2.
+  | {
+      kind: 'set-unavailable'
+      targetPhase: ProductionPhase
+    }
+
+// C2a-M1 (charter §8.1) — the persisted leaf that carries a production's claim on
+// PHYSICAL production capacity: which stage it holds, which set is bound to it,
+// and the two uplift terms locked at the moment of binding.
+//
+// Why the uplift terms are SNAPSHOTS and not lookups: a set's novelty depletes
+// and its condition wears while a picture is shooting on it. If the picture read
+// the set's live numbers at release, its own use of the set would retroactively
+// change what the set gave it. Locking at bind is the law (§3.1) and this leaf is
+// where the lock lives.
+export type WorkflowBindings = {
+  /** True iff greenlit in managed mode at V14+. M2 mints it true at greenlight. */
+  requiresSetBinding: boolean
+  /** The workflow's live soundstage reservation while one is held; null otherwise. */
+  stageFacilityId: string | null
+  /** Bound atomically with the stage at rehearsal entry (M2). */
+  setId: string | null
+  /** SET_NOVELTY snapshot at bind; null while nothing is bound. */
+  lockedNovelty: number | null
+  /** Set quality+fit uplift snapshot at bind; null while nothing is bound. */
+  lockedUplift: number | null
+  /** Stamped when the stage is acquired; preserved across sticky retention. */
+  heldSinceWeek: number | null
+}
 
 export type ProductionWorkflow = {
   productionId: string
@@ -576,6 +634,9 @@ export type ProductionWorkflow = {
   reservations: FacilityReservation[]
   shootingTask: ShootingTask | null
   blocker: ProductionBlocker | null
+  // C2a-M1 leaf widening (§8.2/§8.3). Version-aware at the save boundary:
+  // pre-V14 boundaries REFUSE it, V14 REQUIRES it.
+  bindings: WorkflowBindings
 }
 
 export type StudioOperations = {
@@ -620,6 +681,11 @@ export type ScriptProject = {
   id: string
   conceptId: string
   writerId: string
+  // C2a-M1 leaf widening (§8.1, owner ruling `00E`.9): the bounded writers list
+  // (≤ 5) that M3's pooling accelerates a draft with. `writerId` is KEPT beside
+  // it for compatibility and remains the project's attribution; `writerIds[0]`
+  // is that same writer. Present and validated from V14; unused until M3.
+  writerIds: readonly string[]
   shape: FilmShape
   promise: Promise
   status: ScriptProjectStatus
@@ -1209,7 +1275,196 @@ export type GameStateV13 = GameStateV12 & {
   property: PropertyState
 }
 
-export type GameState = GameStateV13
+// ── C2a-M1 SaveFileV14 — Sets, the production queue, original screenplays, and
+//    the studio event ledger (charter §8.1, verbatim) ──────────────────────────
+//
+// FOUR new roots land together and the COMPLETE migrator lands with them, because
+// a schema that arrives in pieces is a schema every later milestone has to
+// re-migrate. M2+ populate these roots through actions and add no schema member.
+
+/**
+ * The CLOSED authored location vocabulary a `BlueprintBeat` resolves against
+ * (charter §9). M1 defines the type and the ONE starter entry the endowed house
+ * sets need; M2 authors the full list, because M3's beats consume it.
+ */
+export type SetTypeId = string
+
+/**
+ * A standing physical Set — a first-class entity, not a facility. Shooting
+ * requires a stage AND a set (§3.1); WHICH set is the quality choice, and these
+ * are the numbers that choice is made on. Every one of quality / novelty /
+ * condition is SHOWN to the player.
+ */
+export type StudioSet = {
+  /** `'set-' + monotonic nextSetId`. Never rolled back, never recycled. */
+  id: string
+  name: string
+  /** SET_BLUEPRINTS entry. The catalog carries attractiveness as DATA — never persisted state. */
+  blueprintId: string
+  /** The facilityId of the stage it is mounted on (interior-only in V1). */
+  mountedOn: string
+  /** From its blueprint; what a BlueprintBeat's requiredSetType resolves against. */
+  setType: SetTypeId
+  status: 'under-construction' | 'standing' | 'retired'
+  completesWeek: number | null
+  /** 0..100, SHOWN. */
+  quality: number
+  /** 0..1, SET_NOVELTY_INITIAL at completion, SHOWN. Per-INSTANCE. */
+  novelty: number
+  /** 0..100, wears per production, SHOWN. */
+  condition: number
+  genreWeights: Readonly<Record<Genre, number>>
+  priorityGenre: Genre
+}
+
+/** The action payload M3 commissions an original screenplay with. No conceptId: the concept is MINTED at commit. */
+export type CommissionOriginalScreenplayPayload = {
+  writerId: string
+  genre: Genre
+  shape: FilmShape
+  promise: Promise
+}
+
+/**
+ * One admitted intent waiting at a front door (§3.3). The discriminants match the
+ * real Action arms and the payloads are persisted whole, because a queued intent
+ * is REVALIDATED at dequeue rather than trusted. Nothing is held while queued and
+ * no production id exists before greenlight — which is why a queue row can never
+ * carry one.
+ *
+ * Schema only at M1: the queue itself is M4.
+ */
+export type ProductionQueueEntry =
+  | {
+      kind: 'commissionScript'
+      ordinal: number
+      queuedWeek: number
+      payload: CommissionScriptPayload
+    }
+  | {
+      kind: 'commissionOriginalScreenplay'
+      ordinal: number
+      queuedWeek: number
+      payload: CommissionOriginalScreenplayPayload
+    }
+  | {
+      kind: 'startCastingSession'
+      ordinal: number
+      queuedWeek: number
+      payload: StartCastingSessionPayload
+    }
+  | {
+      kind: 'greenlightScriptProject'
+      ordinal: number
+      queuedWeek: number
+      scriptProjectId: string
+      payload: GreenlightScriptProjectPayload
+    }
+
+/** One beat of a Movie Blueprint: what the scene is, and the kind of set it demands. */
+export type BlueprintBeat = {
+  name: string
+  requiredSetType: SetTypeId
+}
+
+/**
+ * The persisted provenance of one screenplay: who wrote it, when it was minted,
+ * what it is called, and the seven beats that turn it into physical production
+ * demand. Blueprint provenance lives HERE, never on the shared-world FilmConcept
+ * (§8.2: no studio-relative fact is written onto a shared-world entity).
+ *
+ * Schema only at M1: the mint lands at M3.
+ */
+export type MovieBlueprint = {
+  /** `'concept-orig-NNNN'` (generated) or `'c-NN'` (pool, on first commission). */
+  conceptId: string
+  /** The mint ordinal for a generated concept; null for a pool concept. */
+  ordinal: number | null
+  mintedWeek: number
+  /** The commissioning ScriptProject (`script-NNNN`). */
+  projectId: string
+  writerId: string
+  /** Immutable once minted; null for pool concepts. Rename never touches it. */
+  generatedTitle: string | null
+  renamedWeek: number | null
+  beats: readonly BlueprintBeat[]
+  /** The ceiling lever record (§3.5): the Script Office tier at mint. */
+  officeTierAtMint: string
+}
+
+export type OriginalScreenplays = {
+  nextOrdinal: number
+  blueprints: readonly MovieBlueprint[]
+}
+
+/**
+ * One domain fact the studio's own history records (charter §5).
+ *
+ * TWO TIERS, and the tier is a property of the KIND, not of the row:
+ *   Tier D — identity-bearing and PERMANENT: `premiere`, `wrapped`,
+ *            `constructionCompleted`, `setBuilt`, `setRetired`.
+ *   Tier W — WINDOWED by `TUNING.STUDIO_EVENT_WINDOW_WEEKS`, compacted as a pure
+ *            function of `market.tick`.
+ *
+ * There is deliberately NO `seen` or `consumed` field, ever: a cursor is a
+ * consumer's business and writing one here would make two identical playthroughs
+ * export different bytes. Queue-intent rows reference SCRIPT PROJECTS and never a
+ * production id — a production does not exist until greenlight.
+ */
+export type StudioEvent =
+  // ── Tier D — permanent ──
+  | {
+      seq: number
+      week: number
+      kind: 'wrapped'
+      productionId: string
+      stageFacilityId: string
+      setId: string | null
+    }
+  | { seq: number; week: number; kind: 'premiere'; filmId: string }
+  | { seq: number; week: number; kind: 'constructionCompleted'; placementId: string }
+  | { seq: number; week: number; kind: 'setBuilt'; setId: string }
+  | { seq: number; week: number; kind: 'setRetired'; setId: string; refund: number }
+  // ── Tier W — windowed ──
+  | { seq: number; week: number; kind: 'reservationGranted'; ownerId: string; resourceKey: string }
+  | { seq: number; week: number; kind: 'reservationReleased'; ownerId: string; resourceKey: string }
+  | { seq: number; week: number; kind: 'phaseEntered'; productionId: string; phase: ProductionPhase }
+  | { seq: number; week: number; kind: 'sceneryArrived'; productionId: string }
+  | { seq: number; week: number; kind: 'queueAdmitted'; entryKind: string; ordinal: number }
+  | {
+      seq: number
+      week: number
+      kind: 'queueIntentExpired'
+      entryKind: string
+      ordinal: number
+      reason: string
+    }
+
+export type StudioEventKind = StudioEvent['kind']
+
+/**
+ * The event ledger. `nextSeq` NEVER rewinds — compaction removes rows, it never
+ * renumbers them, so a consumer's cursor stays meaningful across a compaction.
+ */
+export type StudioEventLog = {
+  nextSeq: number
+  rows: readonly StudioEvent[]
+}
+
+// SaveFileV13 remains recursively frozen above. SaveFileV14 owns the four C2a
+// roots plus three widened persisted leaves (`ProductionWorkflow.bindings`, the
+// `set-unavailable` blocker arm, `ScriptProject.writerIds`) — none of which is a
+// frozen leaf (§8.2). Their version-aware boundary rule lives in `save.ts`.
+export type GameStateV14 = GameStateV13 & {
+  sets: readonly StudioSet[]
+  /** Monotonic set-id counter. Never rolled back, even when every set is struck. */
+  nextSetId: number
+  productionQueue: readonly ProductionQueueEntry[]
+  originalScreenplays: OriginalScreenplays
+  studioEvents: StudioEventLog
+}
+
+export type GameState = GameStateV14
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
