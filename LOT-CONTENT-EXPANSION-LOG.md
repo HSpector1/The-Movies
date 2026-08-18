@@ -377,3 +377,69 @@ digests matching claims, tree clean; new e2e spec 3/3 in isolation, exit 0. Full
 serialized Playwright at this tree: 208 collected / 204 passed / 4 env-gated skips /
 0 failed, exit 0 (checkpoint-2 ran 205-corpus at `ceb55ef`, M6a ran 208-corpus at
 `c61030d`; collection arithmetic exact: 205 + 3 new).
+
+## M7 — RULING: KEEP (2026-08-18) — the whole loop holds, and the economy is now a measured fact
+
+**Golden path (`bd6c4ba`):** one spec, one continuous browser session on shipped
+defaults, no reload — found → catalog compared (effect sentences asserted against
+the engine's own effectSummary; the lock bound to its control by aria-describedby)
+→ a real refusal, byte-neutral → Office II bought with the exact debit → eight
+weeks counted down on the canvas → the zero-slot completion toast carries NO slot
+sentence (the C1-M6 adapter fix's first golden-path exercise) → the commission
+uplift proven as ENGINE TRUTH (+4 on both strengths vs the engine's own
+counterfactual assessor, not copy) → moved for $0 with the ledger byte-identical →
+demolished AFTER the commission for exactly half the capital, the stored assessment
+surviving byte-identically → picture #1 carried to PICTURE FORMED and picture #2
+commissioned in the same session, with the uplift sentence correctly GONE (effects
+read live) and a cancel-and-re-enter in the middle. No product change needed, no
+assertion weakened. 18 seconds.
+
+**Economy snapshot (`c1e7cb0`, `73c8611`):** scripts/measure-c1-economy.mts →
+docs/economy/C1-ECONOMY-SNAPSHOT.md, deterministic and byte-reproducible (PM
+re-ran: identical numbers, only the provenance HEAD line moves). Headlines:
+built-out = $4,380,000 capital / $18,000-wk opex (16.1% of weekly outflow; payroll
+59.8%); every refund exactly 50.0%; uplift A/B with rngState byte-identical across
+arms — Office II +$137,931 revenue per picture, II+III +$312,491, tiers replace and
+never stack; shared slots at the 2-production ceiling are MEASURABLY INERT (4 of 5
+seeds byte-identical outcomes with +1/+2 slots; mean marginal slot −$323,532 before
+the building is paid for; 35 of 48 capacity refusals fall before Week 13, earlier
+than any bought slot can stand); paybacks — Office II 26.7 wks, Office III 43.5 wks
+marginal, Annex and Hall NEVER at today's ceiling, Craft Annex 13.1 freelancer
+hires and $0 for a roster-staffed studio. THE TWO STANDING FLAGS ANSWERED WITH
+DATA: (a) Office III is not the slate's weakest but is the worst-value OFFICE
+(4.17 EST pts/$1M vs II's 6.67, 37.5% less per dollar) — the weakest entries are
+the Annex and the Hall; (b) the Hall cannot pay back at the current ceiling, and
+the clock is the second problem — the constraint it relieves is not the constraint
+the studio is under. Counterweight recorded: slots buy optionality a scripted
+policy never exercises. NOTHING TUNED — this is C2/C6 evidence, exactly as the
+Master Plan intends (concurrency-from-capacity will move these numbers; tune after
+that ruling, not before).
+
+**PM gates, independently re-run at HEAD `73c8611`:** root tsc 0; ui tsc 0; full
+vitest 240 files / 3,296 tests exit 0; golden-path spec 1/1 (19.6s) exit 0;
+economy script reproduction byte-identical. Implementer's full serialized
+Playwright at this HEAD: 209 collected / 205 passed / 4 env-gated skips / 0 failed,
+exit 0 (arithmetic exact: 208 + 1 new). Its FIRST full run failed once on the
+pre-existing zoom-leg flake in tycoon-build-mode-v1.spec.ts — see below.
+
+**FLAKE WATCH — HARD TRIGGER FIRED (third distinct file).**
+`tycoon-build-mode-v1.spec.ts:606`, the effective-200%-zoom leg, ~1-in-4,
+reproduced in a clean worktree at the untouched branch tip — NOT caused by M7
+(additive files, spec not even collected in the failing repro). Implementer's
+diagnosis, verified readable in the source: `reframes()` measures immediately after
+`setViewportSize` + `documentElement.style.zoom = '2'` with no wait for Phaser's
+Scale Manager to settle, so the first capture can read the stale canvas box
+(expected 0.32001948 = pre-resize fit vs received 0.37037037 = post-resize fit —
+the numbers match the mechanism exactly). The sibling test in the same file waits
+for precisely this with the comment "Waiting for it matters". This is a DIFFERENT
+mechanism from the M2/M3b selection-counter class (already closed product-side at
+M5): a measurement race in the spec, not a product defect. Dedicated pass follows
+this ruling, before any M8 seal.
+
+**Handoff item recorded (C2):** the in-world commissioning workspace opens only
+when lotAttention is idle, so a second screenplay cannot be commissioned FROM THE
+WORLD while the first sits readyToPackage — the player is ejected to the
+full-screen Writers Room. Not a defect against any accepted contract (the engine's
+shared slots allow it; the world UI gates it), but under the hybrid interaction law
+it is a casual eject for a core action, and it is the same SHAPE as the twice-found
+family. Belongs to C2's concurrency ruling; queued for the seal report.
