@@ -35,9 +35,9 @@ The guardrails, verbatim intent:
 
 r2 already complies by construction — the adversarial review had independently
 forced the same shapes — and the charter now states each binding explicitly
-(charter §8.3): the queue orders by persisted ordinal, never a reformatted id (G2);
+(charter §8.2): the queue orders by persisted ordinal, never a reformatted id (G2);
 `studioEvents`/`productionQueue` join `persistedProductionIds` both directions
-(§8.2); Tier-W windowing applies to `studioEvents` ONLY — the cash ledger is never
+(§8.3); Tier-W windowing applies to `studioEvents` ONLY — the cash ledger is never
 windowed (§5); Living Turn V1 persists no intra-week position (§4.1); V14 adds new
 roots and widens no frozen leaf; set demand is a derived read model, never written
 onto `FilmConcept`; set occupancy extends the ONE union (§3.2); the Flip's bare lot

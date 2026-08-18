@@ -4,9 +4,9 @@
 > **`1e6b422`** ("docs(pf1): FREEZE — Owner rulings applied; commercial red-team
 > reconciled; charter canonical", 2026-08-18). Quoted by the C2 architect, who read
 > the full charter via `git show` this session (the PF1 worktree itself was never
-> touched). These excerpts exist so every PF1 reference in the C2 charter resolves
-> from the `c2-sets-throughput-plan` branch alone. On any doubt, the PF1 charter at
-> that SHA governs, not this appendix.
+> touched). These excerpts exist so every load-bearing PF1 clause the C2 charter
+> depends on resolves from the `c2-sets-throughput-plan` branch alone. On any
+> doubt, the PF1 charter at that SHA governs, not this appendix.
 
 ## PF1 §2 — the byte-parity proof obligation
 
@@ -71,3 +71,22 @@
 ## PF1 §11.4 — wrap ownership ruling
 
 > **Wrap lands in C2; first-profit and achievement-style beats land in C3.**
+
+## PF1 §5-M2 — the tier-1 release sting (the premiere's downbeat) and the laws-doc correction
+
+> *Tier 1 — memorable (reserved, few; motion `held-beat` or `emphasis`):* movie
+> release (sting + the existing NewspaperReveal, keyed on release source — archive
+> clippings never sting) …
+
+> The standing law (§2) is recorded in `docs/SHIFT-OPERATIONAL-LAWS.md` in this
+> milestone — and while editing that file, the stale planning trailer asserting
+> SaveFileV11 is corrected to V13 with a file:line citation at the named HEAD
+> (law 28 discipline).
+
+## PF1 §6 — the one-writer-at-a-time rule on the big UI files
+
+> Rules: `App.tsx` and `StudioLotScreen.tsx` are one-writer-at-a-time surfaces,
+> serialized across milestones (M1: OPUS-AUDIO, call sites only → M2: OPUS-GRAMMAR
+> → M3: OPUS-SHELL → M3-tail: OPUS-VOICE → M4: OPUS-FIX); all new behavior arrives
+> as new modules called from those files. **No force-push on any branch for the
+> duration of PF1, by any role.**

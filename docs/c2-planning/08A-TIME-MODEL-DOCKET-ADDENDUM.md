@@ -41,10 +41,11 @@ in src/core); renderer frame rate and animations remain evidence only.
 **The loop (new, UI-owned):** while the studio is UNPAUSED, the app runs a
 presentation scheduler:
 
-1. Play week N as witnessed time using the shipped 10-beat playback
-   (`ui/src/lot/tycoon/playback.ts`, PLAYBACK_BEAT_MS pacing), widened by C2's
-   theater projection to the manufacturing loop (stages hot, scenery moving,
-   queues standing, wrap clearing).
+1. Play week N as witnessed time using the shipped week playback
+   (`ui/src/lot/tycoon/playback.ts` — 9 played beats, `PLAYBACK_LAST_BEAT = 8`,
+   10.35s at 1×; the engine's BEATS_PER_WEEK = 10 is the projection's beat count,
+   not the playback's), widened by C2's theater projection to the manufacturing
+   loop (stages hot, scenery moving, queues standing, wrap clearing).
 2. At the end of the played week, the scheduler commits exactly the same
    authoritative advance a player's "Advance Week" press commits today — the
    identical adapter action, producing the identical `SimResult`.
@@ -55,14 +56,20 @@ presentation scheduler:
    loop AUTO-PAUSES with the stop surfaced exactly as today. **NOTIFY-class**
    stops (`wrap`, `runCompleted`, `constructionCompleted`, `contractExpired`,
    `renewalWindow`) surface through the existing attention/badge channel and
-   the played week's beats; the loop CONTINUES. Without the partition, a busy
+   the played week's beats; the loop CONTINUES. `limit` (the 520-week batch
+   safety guard) is batch-verb-only: the living loop commits one tick at a time
+   and can never raise it — stated so the partition is total over the union
+   (ten members today, eleven once `wrap` lands). Without the partition, a busy
    studio pauses every week or two and the proof sentence is defeated by the
    spec itself. The batch fast-forward verb keeps the FULL unpartitioned
-   ladder — its semantics are unchanged.
+   ladder — its semantics are unchanged. A studio stalled only on NOTIFY-class
+   facts keeps running with its reasons continuously stated on the Class-A
+   queue surfaces; `cashNegative` is PAUSE-class, so a genuinely failing studio
+   always pauses with a stated reason.
 4. **Pause** freezes the scheduler (never the engine — there is nothing to
    freeze; no tick is in flight between commits). **Speed** multiplies playback
    pacing: a named ladder **1× / 2× / 4×** on PLAYBACK_BEAT_MS (4× is the
-   ceiling; ~11.5s → ~2.9s per week). Above 2×, Class-B witnessed beats
+   ceiling; 10.35s → ~5.2s → ~2.6s per week). Above 2×, Class-B witnessed beats
    (arrivals, wrap clears, premiere walks) collapse to final positions via the
    existing reduced-motion path while Class-A state stays continuous — speed
    never produces half-played ceremonies. Reduced motion honors the existing
