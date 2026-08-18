@@ -101,6 +101,37 @@ export function developmentOfficeEstUplift(state: GameState): number {
   return 0
 }
 
+/**
+ * The OPERATIONAL blueprint that makes building this one add nothing — the
+ * highest standing tier strictly above it in its own effect family — or null.
+ *
+ * C1-M8. This is the honest half of "highest tier wins, and nothing stacks",
+ * published so a catalog can say it. With a Development Office III standing, the
+ * Office II row still promised "+4 points of estimated strength", and building it
+ * would have added exactly 0: true sentence, false promise, $600,000.
+ *
+ * It is derived from THE EFFECTS AUTHORITY — the tier list this module already
+ * uses to decide the uplift, read in the same order — rather than from any
+ * pattern in a name or an id. A family whose tiers change here changes here only.
+ * A blueprint in no tiered family, or one with nothing above it standing, is
+ * never superseded; the top tier never is.
+ */
+export function supersedingOperationalBlueprintId(
+  state: GameState,
+  blueprintId: string,
+): string | null {
+  const tiers: readonly string[] = DEVELOPMENT_OFFICE_TIER_BLUEPRINT_IDS
+  const tier = tiers.indexOf(blueprintId)
+  if (tier < 0) return null
+  // Highest first: if two tiers above it stand, the one that actually wins is the
+  // one the uplift accessor would read.
+  for (let higher = tiers.length - 1; higher > tier; higher--) {
+    const candidate = tiers[higher]!
+    if (hasOperationalBlueprint(state, candidate)) return candidate
+  }
+  return null
+}
+
 // ── the Craft Services Annex (C1-M4) ─────────────────────────────────────────
 
 /**

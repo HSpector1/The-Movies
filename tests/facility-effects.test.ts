@@ -34,6 +34,7 @@ import {
   stableStringify,
   studioCalendar,
   studioPlacementView,
+  supersedingOperationalBlueprintId,
   tick,
 } from '../src/core/index.js'
 import {
@@ -537,5 +538,91 @@ describe('C1-M4 — the whole catalog standing at once', () => {
       const blueprint = FACILITY_BLUEPRINTS.find((b) => b.id === entry.blueprintId)!
       expect(blueprint.effectSummary.length).toBeGreaterThan(0)
     }
+  })
+})
+
+// ── C1-M8 — the catalog stops promising an effect a higher tier already gives ─
+
+describe('C1-M8 — a superseded tier says so', () => {
+  it('names the standing higher tier for the lower one, and nothing for the top', () => {
+    const none = managedStudio('c1-m8-supersede-none')
+    for (const id of [DEVELOPMENT_OFFICE_2_BLUEPRINT.id, DEVELOPMENT_OFFICE_3_BLUEPRINT.id]) {
+      expect(supersedingOperationalBlueprintId(none, id)).toBeNull()
+    }
+
+    // Office II standing supersedes NOTHING: it is the lower tier, and the rule is
+    // strictly one-directional. Office III's row is untouched by it.
+    const twoStanding = advance(
+      build(none, DEVELOPMENT_OFFICE_2_BLUEPRINT.id, SITE.office2),
+      DEVELOPMENT_OFFICE_2_BLUEPRINT.buildWeeks,
+    )
+    expect(hasOperationalBlueprint(twoStanding, DEVELOPMENT_OFFICE_2_BLUEPRINT.id)).toBe(true)
+    expect(
+      supersedingOperationalBlueprintId(twoStanding, DEVELOPMENT_OFFICE_3_BLUEPRINT.id),
+    ).toBeNull()
+    expect(
+      supersedingOperationalBlueprintId(twoStanding, DEVELOPMENT_OFFICE_2_BLUEPRINT.id),
+    ).toBeNull()
+
+    // Office III standing DOES supersede Office II — and the claim is exactly the
+    // uplift arithmetic: with III operational, adding II would move EST by zero.
+    const threeStanding = advance(
+      build(twoStanding, DEVELOPMENT_OFFICE_3_BLUEPRINT.id, SITE.office3),
+      DEVELOPMENT_OFFICE_3_BLUEPRINT.buildWeeks,
+    )
+    expect(
+      supersedingOperationalBlueprintId(threeStanding, DEVELOPMENT_OFFICE_2_BLUEPRINT.id),
+    ).toBe(DEVELOPMENT_OFFICE_3_BLUEPRINT.id)
+    expect(
+      supersedingOperationalBlueprintId(threeStanding, DEVELOPMENT_OFFICE_3_BLUEPRINT.id),
+    ).toBeNull()
+    expect(developmentOfficeEstUplift(threeStanding)).toBe(SCRIPT_DEVELOPMENT_OFFICE_TIER_3_EST_UPLIFT)
+
+    // A building in no tiered family is never superseded by anything.
+    for (const id of [
+      DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.id,
+      DEVELOPMENT_CASTING_HALL_BLUEPRINT.id,
+      CRAFT_ANNEX_BLUEPRINT.id,
+    ]) {
+      expect(supersedingOperationalBlueprintId(threeStanding, id)).toBeNull()
+    }
+  })
+
+  it('is OPERATIONAL-only, and is carried on the catalog projection', () => {
+    // A tier under construction supersedes nothing: it is not working yet, which
+    // is the same gate every other effect in this module uses.
+    const site = build(
+      advance(
+        build(managedStudio('c1-m8-supersede-site'), DEVELOPMENT_OFFICE_2_BLUEPRINT.id, SITE.office2),
+        DEVELOPMENT_OFFICE_2_BLUEPRINT.buildWeeks,
+      ),
+      DEVELOPMENT_OFFICE_3_BLUEPRINT.id,
+      SITE.office3,
+    )
+    expect(
+      supersedingOperationalBlueprintId(site, DEVELOPMENT_OFFICE_2_BLUEPRINT.id),
+    ).toBeNull()
+    const buildingRow = studioPlacementView(site).catalog.find(
+      (entry) => entry.blueprintId === DEVELOPMENT_OFFICE_2_BLUEPRINT.id,
+    )!
+    expect(buildingRow.supersededBy).toBeNull()
+
+    const standing = advance(site, DEVELOPMENT_OFFICE_3_BLUEPRINT.buildWeeks)
+    const catalog = studioPlacementView(standing).catalog
+    expect(
+      catalog.find((entry) => entry.blueprintId === DEVELOPMENT_OFFICE_2_BLUEPRINT.id)!.supersededBy,
+    ).toBe(DEVELOPMENT_OFFICE_3_BLUEPRINT.id)
+    expect(
+      catalog.find((entry) => entry.blueprintId === DEVELOPMENT_OFFICE_3_BLUEPRINT.id)!.supersededBy,
+    ).toBeNull()
+
+    // …and it ends the moment the higher tier comes down.
+    const razed = demolishFacility(standing, {
+      placementId: standing.placement.facilities.find(
+        (placed) => placed.blueprintId === DEVELOPMENT_OFFICE_3_BLUEPRINT.id,
+      )!.id,
+    })
+    expect(supersedingOperationalBlueprintId(razed, DEVELOPMENT_OFFICE_2_BLUEPRINT.id)).toBeNull()
+    assertStudioPlacementInvariants(razed)
   })
 })

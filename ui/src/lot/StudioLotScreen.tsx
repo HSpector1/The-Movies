@@ -6472,6 +6472,16 @@ export function StudioLotScreen({
                         >
                           {entry.effectSummary}
                         </span>
+                        {/* …and, when a higher tier is already standing, what that
+                            sentence is actually worth this week (C1-M8). */}
+                        {entry.supersededNote !== null && (
+                          <span
+                            className="lot-build-catalog-superseded"
+                            data-testid={`lot-build-superseded-${entry.blueprintId}`}
+                          >
+                            {entry.supersededNote}
+                          </span>
+                        )}
                         <span className="lot-build-catalog-facts">
                           {moneyExact(entry.cost)} · {entry.buildWeeks} weeks ·{' '}
                           {entry.footprint.width}×{entry.footprint.depth} cells

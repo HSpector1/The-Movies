@@ -2439,6 +2439,14 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   line-height: 1.35;
   color: #d8cdb4;
 }
+/* …and the correction beside it when a higher tier already delivers that effect
+   (C1-M8). Quieter than the promise it qualifies, and never louder than a lock. */
+.lot-build-catalog-superseded {
+  font-size: 10px;
+  line-height: 1.35;
+  color: #9fb3a6;
+  font-style: italic;
+}
 /* A blocked entry reads at lower contrast but stays legible — browsing is the point. */
 .lot-build-catalog-item.is-blocked {
   cursor: default;

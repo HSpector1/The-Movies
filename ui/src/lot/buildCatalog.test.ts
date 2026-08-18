@@ -6,12 +6,13 @@
 // the campaign's stale-lock defect in its exact shape.
 //
 // The pure projection is also exercised directly on synthesized rows, because state
-// precedence ("locked outranks spent outranks broke") is a rule about ORDER that a
-// studio cannot easily be driven into all four corners of.
+// precedence ("owned outranks locked outranks broke" since the C1-M8 ruling) is a rule
+// about ORDER that a studio cannot easily be driven into all four corners of.
 
 import { describe, expect, it } from 'vitest'
 import {
   advanceWeek,
+  demolishFacilityAction,
   developmentOfficeUplift,
   foundManagedStudioAction,
   foundingApplicantCards,
@@ -115,6 +116,7 @@ function row(overrides: Partial<LotBlueprintState> = {}): LotBlueprintState {
     instanceCount: 0,
     maxInstances: null,
     atInstanceLimit: false,
+    supersededBy: null,
     buildable: true,
     owned: { operational: 0, underConstruction: 0 },
     ...overrides,
@@ -144,7 +146,7 @@ describe('C1-M5 — the catalog lists every blueprint, in the studio’s own wor
     ])
   })
 
-  it('states the four blocked states in the engine’s own binding order', () => {
+  it('states the four blocked states in their binding order', () => {
     expect(lotCatalogEntry(row())?.state).toBe('buildable')
     expect(lotCatalogEntry(row({ affordable: false }))?.state).toBe('unaffordable')
     expect(lotCatalogEntry(row({ atInstanceLimit: true }))?.state).toBe('at-limit')
@@ -153,14 +155,35 @@ describe('C1-M5 — the catalog lists every blueprint, in the studio’s own wor
         row({ available: false, unmet: [{ reason: 'Needs a thing.', notYetAttainable: false }] }),
       )?.state,
     ).toBe('locked')
-    // A studio that is BOTH locked out and broke is told the domain reason, because
-    // that is the one it has to solve first — the engine binds them in that order.
-    const both = lotCatalogEntry(
+    // C1-M8 RULING — AT-LIMIT NOW OUTRANKS LOCKED. M5 pinned the opposite here.
+    // The case that ruled it: a studio with a Development Office III standing and
+    // the II demolished read LOCKED · "Requires an operational Development Office
+    // II." · 1 owned — the catalog telling a player their operating building needs
+    // a prerequisite they lack. OWNING one is the larger fact: a requirement gates
+    // only the NEXT one, and the allowance says there will not be a next one.
+    const owned = lotCatalogEntry(
       row({
         available: false,
         unmet: [{ reason: 'Needs a thing.', notYetAttainable: false }],
         affordable: false,
         atInstanceLimit: true,
+        instanceCount: 1,
+        maxInstances: 1,
+        owned: { operational: 1, underConstruction: 0 },
+      }),
+    )
+    expect(owned?.state).toBe('at-limit')
+    expect(owned?.limitReason).toBe('The studio builds only one of these, and it already has it.')
+    expect(owned?.lockReasons).toEqual([])
+    expect(owned?.affordabilityReason).toBeNull()
+    // Everything else about the order is UNCHANGED: a studio that is locked out and
+    // broke, with its allowance still open, is told the domain reason, because that
+    // is the one it has to solve first.
+    const both = lotCatalogEntry(
+      row({
+        available: false,
+        unmet: [{ reason: 'Needs a thing.', notYetAttainable: false }],
+        affordable: false,
       }),
     )
     expect(both?.state).toBe('locked')
@@ -354,5 +377,73 @@ describe('C1-M5 — every new blueprint is a fully presented world citizen', () 
     const placedBodies = composed.filter((building) => building.role === 'placed')
     expect(placedBodies).toHaveLength(2)
     expect(new Set(placedBodies.map((building) => building.texKey)).size).toBe(2)
+  })
+})
+
+// ── C1-M8 — the catalog stops contradicting the studio's own lot ─────────────
+
+describe('C1-M8 — an owned entry outranks a lock, and a superseded tier says so', () => {
+  /** A studio with Development Office III operational and Office II demolished. */
+  function thirdTierOnly(seed: string): GameState {
+    let state = managedStudio(seed)
+    state = completeEverything(place(state, legalRequest(state, 'development-office-2')))
+    const officeTwo = studioPlacement(state).placements[0]!
+    state = completeEverything(
+      place(state, legalRequest(state, 'development-office-3', [officeTwo.parcelId])),
+    )
+    const razed = demolishFacilityAction(state, { placementId: officeTwo.id })
+    if (!razed.ok) throw new Error(razed.error)
+    return razed.next
+  }
+
+  it('reads an operating building as OWNED, never as locked out of a prerequisite', () => {
+    const state = thirdTierOnly('c1-m8-owned-outranks-locked')
+    const three = lotCatalogEntryFor(studioLotSnapshot(state).placement, 'development-office-3')!
+    // The engine still says the requirement is unmet — that is TRUE, and the row
+    // for the NEXT one would be locked. But this studio is operating an Office III.
+    const projection = studioPlacement(state).catalog.find(
+      (entry) => entry.blueprintId === 'development-office-3',
+    )!
+    expect(projection.available).toBe(false)
+    expect(projection.atInstanceLimit).toBe(true)
+    // C1-M8 RULING: owning one is the larger fact, so the row says BUILT · 1 owned
+    // and carries the allowance sentence — never "Requires an operational
+    // Development Office II." beside "1 owned".
+    expect(three.state).toBe('at-limit')
+    expect(three.stateLabel).toBe('Built')
+    expect(three.ownedLabel).toBe('1 owned')
+    expect(three.limitReason).toBe('The studio builds only one of these, and it already has it.')
+    expect(three.lockReasons).toEqual([])
+    expect(three.selectable).toBe(false)
+  })
+
+  it('notes the lower tier as superseded while the higher one stands', () => {
+    const state = thirdTierOnly('c1-m8-superseded-note')
+    const two = lotCatalogEntryFor(studioLotSnapshot(state).placement, 'development-office-2')!
+    // Its allowance is free again, so it is genuinely buildable — and its authored
+    // sentence still promises the uplift, which is why the correction is needed.
+    expect(two.state).toBe('buildable')
+    expect(two.effectSummary).toContain('4')
+    expect(two.supersededNote).toBe(
+      'Superseded while Development Office III stands — building it would add nothing.',
+    )
+    // The tier standing above it is not superseded by anything.
+    const three = lotCatalogEntryFor(studioLotSnapshot(state).placement, 'development-office-3')!
+    expect(three.supersededNote).toBeNull()
+  })
+
+  it('leaves the higher tier’s row untouched when only the LOWER one stands', () => {
+    let state = managedStudio('c1-m8-superseded-other-way')
+    state = completeEverything(place(state, legalRequest(state, 'development-office-2')))
+    const catalog = catalogOf(state)
+    const two = catalog.find((entry) => entry.blueprintId === 'development-office-2')!
+    const three = catalog.find((entry) => entry.blueprintId === 'development-office-3')!
+    // Office II standing is what UNLOCKS Office III; it supersedes nothing.
+    expect(three.state).toBe('buildable')
+    expect(three.supersededNote).toBeNull()
+    expect(two.state).toBe('at-limit')
+    expect(two.supersededNote).toBeNull()
+    // No other row in the catalog is superseded either — the rule is one family's.
+    expect(catalog.filter((entry) => entry.supersededNote !== null)).toEqual([])
   })
 })

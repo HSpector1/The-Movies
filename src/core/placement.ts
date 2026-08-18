@@ -100,6 +100,7 @@
 // cycle a player can farm. The bound is enforced as an invariant, not a habit.
 
 import { canAfford, economyEngaged, type Affordability } from './employment.js'
+import { supersedingOperationalBlueprintId } from './facilityEffects.js'
 import {
   annexCanonicalProductionIdCollision,
   assertStudioConstructionInvariants,
@@ -2001,6 +2002,17 @@ export type PlacementCatalogView = {
   /** True when the allowance is used up — a distinct, separately worded lock. */
   atInstanceLimit: boolean
   /**
+   * C1-M8 — the OPERATIONAL blueprint that makes building this one add nothing,
+   * or null. The effects authority's own answer (`supersedingOperationalBlueprintId`),
+   * carried so a catalog can qualify an effect sentence that is true in general
+   * and worthless right now: a Development Office II still adds +4 EST, but not
+   * to a studio whose Office III is already standing.
+   *
+   * It is NOT a lock. A superseded entry stays buildable — the player may have a
+   * reason — it simply stops promising something it would not deliver.
+   */
+  supersededBy: string | null
+  /**
    * True when the entry is buildable somewhere in principle right now: unlocked,
    * within its allowance, and affordable. It deliberately says nothing about
    * whether a legal SITE exists — that is a per-origin question and belongs to
@@ -2109,6 +2121,7 @@ export function studioPlacementView(state: GameState): StudioPlacementView {
         instanceCount: blueprintInstanceCount(state.placement, blueprint.id),
         maxInstances: blueprintMaxInstances(blueprint),
         atInstanceLimit: atLimit,
+        supersededBy: supersedingOperationalBlueprintId(state, blueprint.id),
         buildable: availability.available && !atLimit && affordable,
       }
     }),

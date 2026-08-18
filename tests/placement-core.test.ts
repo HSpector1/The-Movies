@@ -651,6 +651,10 @@ describe('Placement Core V12 — the build-mode read model', () => {
         instanceCount: 0,
         maxInstances: null,
         atInstanceLimit: false,
+        // C1-M8: the catalog carries the effects authority's own answer to "is a
+        // higher tier of this already standing?". The Annex is in no tiered
+        // family, so it is never superseded — the field is present and null.
+        supersededBy: null,
         buildable: true,
       },
     ])

@@ -24,12 +24,23 @@ import { LOT_PLACEMENT_REJECTION_TEXT } from './buildMode.ts'
 import { moneyExact } from '../format.ts'
 
 /**
- * Why an entry cannot be started, in the ENGINE's own binding order.
+ * Why an entry cannot be started.
  *
- * `locked` outranks `at-limit` outranks `unaffordable`, which is exactly the order
- * `PLACEMENT_REJECTION_ORDER` binds `requirementsUnmet` → `instanceLimit` →
- * `insufficientFunds`. A studio that is both locked out and broke is told the domain
- * reason, because that is the one it has to solve first.
+ * `at-limit` outranks `locked` outranks `unaffordable`.
+ *
+ * C1-M8 RULING — a ruled evolution of the M5 order, not a weakening of it. M5 put
+ * `locked` first, mirroring `PLACEMENT_REJECTION_ORDER`'s `requirementsUnmet` →
+ * `instanceLimit` → `insufficientFunds`, and that is still the right order for the
+ * two cases it was written for. But an OWNED entry at its allowance can also be
+ * locked, and then the catalog contradicted the studio's own lot: with a
+ * Development Office III standing and the II demolished, the III row read LOCKED ·
+ * "Requires an operational Development Office II." · 1 owned — the catalog telling
+ * a player that the building they are operating needs a prerequisite they do not
+ * have. Owning one is the larger and more useful fact: a requirement can only ever
+ * gate the NEXT one, and the allowance says there will not be a next one.
+ *
+ * Money stays last, exactly as the engine binds it: a domain answer never hides
+ * behind affordability.
  */
 export type LotCatalogEntryState = 'buildable' | 'locked' | 'at-limit' | 'unaffordable'
 
@@ -55,6 +66,13 @@ export type LotCatalogEntry = {
   limitReason: string | null
   /** The money sentence, or null. Present only when `unaffordable`. */
   affordabilityReason: string | null
+  /**
+   * C1-M8 — the sentence that qualifies an effect the studio would not actually
+   * get, or null. Present whenever the engine names a superseding operational
+   * building, whatever the entry's state: it is a correction to the PROMISE, not
+   * another reason the entry is blocked.
+   */
+  supersededNote: string | null
   /** May the player start a draft from this entry right now? */
   selectable: boolean
 }
@@ -73,6 +91,18 @@ export function ownedLabelFor(owned: { operational: number; underConstruction: n
   if (owned.operational > 0) parts.push(`${String(owned.operational)} owned`)
   if (owned.underConstruction > 0) parts.push(`${String(owned.underConstruction)} building`)
   return parts.length === 0 ? null : parts.join(' · ')
+}
+
+/**
+ * The sentence for an effect a higher tier is already delivering (C1-M8).
+ *
+ * The catalog does not decide the FACT — the engine's effects authority does, and
+ * publishes the superseding building's name — it only says it in the studio's own
+ * words, beside the effect sentence it qualifies. "Would add nothing" is exactly
+ * what the tier rule means: highest tier wins, and nothing stacks.
+ */
+export function supersededNoteFor(supersededBy: string): string {
+  return `Superseded while ${supersededBy} stands — building it would add nothing.`
 }
 
 /** The allowance sentence for an entry whose allowance is used up. */
@@ -104,10 +134,10 @@ export function lotCatalogEntry(entry: LotBlueprintState): LotCatalogEntry | nul
   }
 
   const state: LotCatalogEntryState =
-    entry.available === false || unmet.length > 0
-      ? 'locked'
-      : entry.atInstanceLimit === true
-        ? 'at-limit'
+    entry.atInstanceLimit === true
+      ? 'at-limit'
+      : entry.available === false || unmet.length > 0
+        ? 'locked'
         : entry.affordable === false
           ? 'unaffordable'
           : 'buildable'
@@ -142,6 +172,7 @@ export function lotCatalogEntry(entry: LotBlueprintState): LotCatalogEntry | nul
       state === 'unaffordable'
         ? `${moneyExact(entry.cost)} is more than the studio can commit this week.`
         : null,
+    supersededNote: isText(entry.supersededBy) ? supersededNoteFor(entry.supersededBy) : null,
     // ONLY a buildable entry starts a draft. A locked or spent entry is readable —
     // that is the whole point of a catalog — but it is never a way in.
     selectable: state === 'buildable',

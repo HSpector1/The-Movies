@@ -549,6 +549,13 @@ export type LotBlueprintState = {
   maxInstances: number | null
   /** The allowance is used up — a separately worded lock, not a lack of money. */
   atInstanceLimit: boolean
+  /**
+   * C1-M8 — the NAME of the operational building that makes this one add nothing
+   * right now, or null. The engine's own answer, from the effects authority that
+   * decides the effect itself; the lot never works it out from a name or a tier
+   * number. It qualifies the effect sentence, and locks nothing.
+   */
+  supersededBy: string | null
   /** Buildable somewhere in principle: unlocked, within allowance, affordable. */
   buildable: boolean
   /** The same count as `instanceCount`, told apart so the list can be honest. */

@@ -214,6 +214,7 @@ export {
   hasOperationalBlueprint,
   nonStackingDiscountMultiplier,
   operationalBlueprintCount,
+  supersedingOperationalBlueprintId,
 } from './facilityEffects.js'
 export {
   LIVE_REQUIREMENT_KINDS,

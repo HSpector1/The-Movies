@@ -6151,6 +6151,14 @@ function lotPlacementProjection(state: GameState): LotPlacementProjection {
       instanceCount: blueprint.instanceCount,
       maxInstances: blueprint.maxInstances,
       atInstanceLimit: blueprint.atInstanceLimit,
+      // C1-M8 — the superseding building's NAME, joined exactly as `effectSummary`
+      // is: the engine says WHICH blueprint supersedes this one, and the one place
+      // that knows what a blueprint is called answers for its name. An id the
+      // catalog cannot name is carried as null rather than shown raw.
+      supersededBy:
+        blueprint.supersededBy === null
+          ? null
+          : (blueprintById(blueprint.supersededBy)?.name ?? null),
       buildable: blueprint.buildable,
       // Owned, told apart. `instanceCount` is the engine's own "in any status"; a
       // player reading "2 owned" while one of them is still a hole in the ground is
