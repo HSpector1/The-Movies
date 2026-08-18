@@ -25,7 +25,7 @@ import {
   initialManagedStudioOperations,
   initialManagedStudioPlacement,
   isResourceSlotClaim,
-  makeSaveV13,
+  makeSaveV14,
   occupiedResourceSlots,
   resourceClaimsOf,
   resourceFacilityKey,
@@ -36,7 +36,7 @@ import type {
   CastSlot,
   CreativeRole,
   GameState,
-  SaveFileV13,
+  SaveFileV14,
   SegmentId,
   Talent,
 } from '../src/core/index.js'
@@ -285,9 +285,9 @@ describe('C2a-M0 — the phase machinery has exactly one source (charter §12-M0
       )
       seen.push(workflow.phase)
       // The save validator's reading of the same table, on the same state. Both
-      // makeSaveV13 and importSave run checkOperationsState, which now consumes
+      // makeSaveV14 and importSave run checkOperationsState, which now consumes
       // the shared table instead of its own copy.
-      const roundTripped = importSave(exportSave(makeSaveV13(state))) as SaveFileV13
+      const roundTripped = importSave(exportSave(makeSaveV14(state))) as SaveFileV14
       expect(roundTripped.state.operations.workflows[0]!.phase).toBe(workflow.phase)
       state = tick(state)
     }
@@ -327,7 +327,7 @@ describe('C2a-M0 — the union producer keeps the M2+ namespace open (charter §
       expect(key.startsWith('facility:')).toBe(false)
     }
     // Nothing kind-qualified reaches the save.
-    expect(exportSave(makeSaveV13(state))).not.toContain('facility:facility-')
+    expect(exportSave(makeSaveV14(state))).not.toContain('facility:facility-')
   })
 
   it('never counts a whole-building claim as occupying a slot', () => {

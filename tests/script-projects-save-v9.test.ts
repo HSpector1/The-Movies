@@ -502,7 +502,15 @@ describe("Script Projects V1 — SaveFileV9", () => {
     };
     const released = tick(releaseReady);
     expect(released.scriptDevelopment.projects[0]!.status).toBe("produced");
-    expect(() => makeSaveV9(released)).not.toThrow();
+    // C2a-M1: the release recorded a Tier-D `premiere`, which a V9 envelope
+    // cannot carry and the migrator could never put back. The frozen builder
+    // refuses to drop it silently, so this fixture drops it by name — the claim
+    // under test is about the V9 SCRIPT surface, not about studio history.
+    const releasedHistorical: GameState = {
+      ...released,
+      studioEvents: { nextSeq: 0, rows: [] },
+    };
+    expect(() => makeSaveV9(releasedHistorical)).not.toThrow();
   });
 
   it("rejects shared Development & Casting slot collisions across scripts and productions", () => {

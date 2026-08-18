@@ -62,9 +62,20 @@ function clone<T>(value: T): T {
   return JSON.parse(stableStringify(value)) as T
 }
 
+// ── C2a-M1 — a HISTORICAL fixture (charter §8.3) ───────────────────────────
+// These suites exercise HISTORICAL validators, so they need a historical world:
+// one with no V14 studio history. The frozen builders refuse to discard a studio
+// event log silently, because `convertV13ToV14` gives a migrated world an EMPTY
+// history and so the round trip would lose it. Discarding it HERE, by name, is
+// the opposite of hiding the loss — the fixture states that the world it is
+// about is a world that recorded nothing.
+function historicalWorld<T extends GameState>(state: T): T {
+  return { ...state, studioEvents: { nextSeq: 0, rows: [] } }
+}
+
 function managedVacant(seed: string): GameState {
   const engaged: GameState = { ...generateWorld(seed), economyEngagedEver: true }
-  return applyActions(engaged, [{ kind: 'activateStudioOperations' }])
+  return historicalWorld(applyActions(engaged, [{ kind: 'activateStudioOperations' }]))
 }
 
 function building(seed: string): GameState {
@@ -162,7 +173,7 @@ describe('Placement Core V12 — the frozen envelope', () => {
       commitPlacement(commitPlacement(managedVacant('save-v12-many'), LEGACY), WEST_NORTH),
     ]
     for (const state of states) {
-      const save = makeSaveV12(state)
+      const save = makeSaveV12(historicalWorld(state))
       expect(save.saveVersion).toBe(12)
       expect(validateSave(save)).toBe(save)
       expect(validateSaveV12(save)).toBe(save)

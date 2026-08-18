@@ -125,6 +125,17 @@ function productionPayload(state: GameState) {
   };
 }
 
+// ── C2a-M1 — a HISTORICAL fixture (charter §8.3) ───────────────────────────
+// These suites exercise HISTORICAL validators, so they need a historical world:
+// one with no V14 studio history. The frozen builders refuse to discard a studio
+// event log silently, because `convertV13ToV14` gives a migrated world an EMPTY
+// history and so the round trip would lose it. Discarding it HERE, by name, is
+// the opposite of hiding the loss — the fixture states that the world it is
+// about is a world that recorded nothing.
+function historicalWorld<T extends GameState>(state: T): T {
+  return { ...state, studioEvents: { nextSeq: 0, rows: [] } }
+}
+
 function managedShootingState(seed: string): GameState {
   let state = foundedStudio(seed);
   state = applyActions(state, [{ kind: "activateStudioOperations" }]);
@@ -135,7 +146,7 @@ function managedShootingState(seed: string): GameState {
   state = tick(state); // Development → Pre-production
   state = tick(state); // Pre-production → Rehearsal
   state = tick(state); // Rehearsal → Shooting
-  return state;
+  return historicalWorld(state);
 }
 
 function preOpeningBandSaves() {
