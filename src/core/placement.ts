@@ -616,7 +616,16 @@ export function quoteForBlueprint(
   }
 
   // Money LAST — a domain failure always outranks affordability.
-  if (!canAfford(state, chargedCost).ok) found.add('insufficientFunds')
+  //
+  // C1-M8: and only when there is money to find. `canAfford` is the SOLVENCY GATE
+  // for a voluntary commitment — "cash after this transaction must be ≥ 0" — and
+  // a studio already in the red fails it for every amount, zero included. A move
+  // costs FACILITY_MOVE_COST, which is 0: it commits nothing, so there is nothing
+  // for the gate to judge, and a studio was being told "the studio cannot cover
+  // the capital cost this week" beside a quote reading MOVE COST $0. A zero-cost
+  // mutation is not a commitment; the gate binds the moment a fee exists, and the
+  // one charging rule for both verbs is unchanged.
+  if (chargedCost > 0 && !canAfford(state, chargedCost).ok) found.add('insufficientFunds')
 
   const rejections = orderedRejections(found)
   const originParcel = parcelAt(property, origin)

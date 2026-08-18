@@ -488,6 +488,44 @@ describe('C1-M3a (C) — move', () => {
     expect(facilityMoveRefusal(broke, { placementId: id, origin: SOUTH_LAWN })).toBeNull()
   })
 
+  it('is not refused for money by a studio that is already in the red (C1-M8)', () => {
+    // `canAfford` is the solvency gate for a voluntary COMMITMENT, and a studio
+    // whose cash is negative fails it for every amount — zero included. A move
+    // commits nothing, so a broke studio was being refused a free mutation with
+    // "the studio cannot cover the capital cost this week" beside a quote reading
+    // MOVE COST $0. The gate binds the moment a fee exists, and not before.
+    const state = studioWithOperationalAnnex('m3a-move-in-the-red')
+    const id = state.placement.facilities[0]!.id
+    const inTheRed = withCash(state, -25_000)
+    expect(inTheRed.studio.cash).toBeLessThan(0)
+
+    const quote = queryPlacement(
+      inTheRed,
+      { blueprintId: ANNEX, origin: SOUTH_LAWN },
+      { movingPlacementId: id },
+    )
+    expect(quote.cost).toBe(FACILITY_MOVE_COST)
+    expect(quote.rejections).not.toContain('insufficientFunds')
+    expect(facilityMoveRefusal(inTheRed, { placementId: id, origin: SOUTH_LAWN })).toBeNull()
+    const moved = moveFacility(inTheRed, { placementId: id, origin: SOUTH_LAWN })
+    expect(moved).not.toBe(inTheRed)
+    expect(placementOf(moved, id)!.origin).toEqual(SOUTH_LAWN)
+    expect(moved.studio.cash).toBe(inTheRed.studio.cash)
+    expect(() => assertStudioPlacementInvariants(moved)).not.toThrow()
+
+    // A demolition PAYS the studio, and never consulted the gate at all.
+    const razed = demolishFacility(inTheRed, { placementId: id })
+    expect(razed).not.toBe(inTheRed)
+    expect(razed.studio.cash).toBe(inTheRed.studio.cash + REFUND)
+
+    // …and a real purchase is still refused, exactly as before: the rule that
+    // changed is "zero is not a commitment", not "the studio may overspend".
+    const purchase = queryPlacement(inTheRed, { blueprintId: ANNEX, origin: SOUTH_LAWN })
+    expect(purchase.cost).toBe(CAPEX)
+    expect(purchase.rejections).toContain('insufficientFunds')
+    expect(commitPlacement(inTheRed, { blueprintId: ANNEX, origin: SOUTH_LAWN })).toBe(inTheRed)
+  })
+
   it('moves a site that is still under construction without touching its clock', () => {
     const site = commitPlacement(withCash(managedStudio('m3a-move-site'), 50_000_000), {
       blueprintId: ANNEX,
