@@ -441,6 +441,60 @@ export function assertNoV14AuthorityInFixture(state: GameState, where: string): 
     if (workflow.blocker !== null && (workflow.blocker.kind as string) === 'set-unavailable') {
       throw new Error(`${where}: fixture carries the V14 set-unavailable blocker arm`)
     }
+    // C2a-M2. A SET BINDING is V14 authority too, and it is the kind a fixture
+    // acquires by accident rather than on purpose: from M2 a live greenlight
+    // mints `requiresSetBinding: true` and the picture binds a set at rehearsal.
+    // A T9 fixture must describe a world a V13 FILE COULD DESCRIBE, and a V13
+    // file cannot describe any of this — which is precisely why §8.3 grandfathers
+    // every migrated workflow. Checked here so the grandfathering below is proved
+    // rather than assumed.
+    const bindings = workflow.bindings as
+      | { requiresSetBinding?: unknown; setId?: unknown; lockedNovelty?: unknown; lockedUplift?: unknown }
+      | undefined
+    if (
+      bindings !== undefined &&
+      (bindings.requiresSetBinding === true ||
+        (bindings.setId ?? null) !== null ||
+        (bindings.lockedNovelty ?? null) !== null ||
+        (bindings.lockedUplift ?? null) !== null)
+    ) {
+      throw new Error(`${where}: fixture carries an authoritative V14 set binding`)
+    }
+  }
+}
+
+/**
+ * The V13-DESCRIBABLE form of a live world: every workflow carries the exact
+ * bindings leaf `convertV13ToV14` synthesises, and nothing else.
+ *
+ * WHY T9 NEEDS THIS FROM C2a-M2 ONWARD. T9 asks whether a migrated V13 file plays
+ * identically to the native world it came from. A V13 file cannot carry
+ * `requiresSetBinding`, so §8.3 rules that every migrated workflow is
+ * GRANDFATHERED — false marker, no set, ever. From M2 a natively greenlit picture
+ * carries the marker and binds a set, so the two sides would describe DIFFERENT
+ * worlds and the comparison would be measuring the grandfather instead of the
+ * migration.
+ *
+ * `stageFacilityId` and `heldSinceWeek` are deliberately LEFT ALONE: both are
+ * derived from the live soundstage reservation, both are what the migrator
+ * reconstructs, and neither is authority a V13 file lacks.
+ */
+export function grandfatheredBindings(state: GameState): GameState {
+  return {
+    ...state,
+    operations: {
+      ...state.operations,
+      workflows: state.operations.workflows.map((workflow) => ({
+        ...workflow,
+        bindings: {
+          ...workflow.bindings,
+          requiresSetBinding: false,
+          setId: null,
+          lockedNovelty: null,
+          lockedUplift: null,
+        },
+      })),
+    },
   }
 }
 
@@ -520,8 +574,12 @@ export function buildHeadlineFixtures(seed: string): HeadlineFixture[] {
   }
 
   return CHARTER_HEADLINE_MATRIX.map((cell) => {
-    const native = byKey[cell.key]
-    if (native === undefined) throw new Error(`T9 fixture builder has no state for ${cell.key}`)
+    const built = byKey[cell.key]
+    if (built === undefined) throw new Error(`T9 fixture builder has no state for ${cell.key}`)
+    // The native side is put into the V13-describable form its own migrated twin
+    // will have (§8.3's grandfather) BEFORE the guard runs, so the guard proves
+    // the fixture carries no V14 authority rather than the fixture assuming it.
+    const native = grandfatheredBindings(built)
     assertNoV14AuthorityInFixture(native, `T9 fixture ${cell.key}`)
     return { cell, native }
   })

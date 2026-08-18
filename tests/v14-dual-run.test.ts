@@ -300,7 +300,12 @@ describe('C2a-M1 · dual-run equality — the ledger says exactly what a state-d
           ),
           'the wrap names a stage the picture did not hold',
         ).toBe(true)
-        expect(wrap.setId, 'M1 binds no set, so the wrap names none').toBeNull()
+        // C2a-M2: the wrap now names the SET the picture shot on as well as the
+        // stage it stood in — and it names the one the picture was actually bound
+        // to, never a set that merely happens to be standing there.
+        expect(wrap.setId, 'the wrap names a set the picture did not hold').toBe(
+          before?.bindings.setId ?? null,
+        )
       }
     }
     // Every picture that reached Post wrapped exactly once.

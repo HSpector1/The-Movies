@@ -132,8 +132,41 @@ function productionPayload(state: GameState) {
 // history and so the round trip would lose it. Discarding it HERE, by name, is
 // the opposite of hiding the loss — the fixture states that the world it is
 // about is a world that recorded nothing.
+/**
+ * The V13-and-earlier-DESCRIBABLE form of a live world.
+ *
+ * These suites write HISTORICAL save formats from a world the live engine built,
+ * and a frozen builder may write one only when the migrator can put the identical
+ * bytes back. Two things a played managed studio now carries cannot survive that
+ * round trip, so a fixture that wants a historical format has to give them up
+ * deliberately rather than discover the refusal:
+ *
+ *   * `studioEvents` — a migrated world gets an EMPTY history by design, and
+ *     `nextSeq` would rewind on the way back up (C2a-M1, §5 pin 3);
+ *   * the SET BINDING — a V13 file cannot describe `requiresSetBinding`, which is
+ *     exactly why §8.3 grandfathers every migrated workflow (C2a-M2).
+ *
+ * Neither is what these tests are about: they are about V8 operations validation,
+ * and every assertion below is unchanged.
+ */
 function historicalWorld<T extends GameState>(state: T): T {
-  return { ...state, studioEvents: { nextSeq: 0, rows: [] } }
+  return {
+    ...state,
+    studioEvents: { nextSeq: 0, rows: [] },
+    operations: {
+      ...state.operations,
+      workflows: state.operations.workflows.map((workflow) => ({
+        ...workflow,
+        bindings: {
+          ...workflow.bindings,
+          requiresSetBinding: false,
+          setId: null,
+          lockedNovelty: null,
+          lockedUplift: null,
+        },
+      })),
+    },
+  }
 }
 
 function managedShootingState(seed: string): GameState {
