@@ -1,6 +1,6 @@
 import {
   canonicalScriptProjectId,
-  makeSaveV13,
+  makeSaveV14,
 } from '../../../../src/core/index.ts'
 import { scriptProjectsBoard } from '../../engine/adapter.ts'
 import type {
@@ -85,10 +85,15 @@ const PAYLOAD_KEYS = ['conceptId', 'writerId', 'shape', 'promise'] as const
 const SHAPE_KEYS = ['opening', 'midpoint', 'ending'] as const
 const PROMISE_KEYS = ['genre', 'intendedSegments', 'ranges'] as const
 const RANGE_KEYS = ['intimacy', 'tonalWeight', 'kineticEnergy'] as const
+// C2a-M1 leaf widening (§8.1, owner ruling 00E.9): a V14 screenplay carries the bounded
+// `writerIds` list beside its attributed `writerId`. It is listed here so the closed key
+// check keeps REFUSING anything else, and it is asserted positively at both call sites —
+// at commission the list is exactly the one commissioned writer.
 const PROJECT_KEYS = [
   'id',
   'conceptId',
   'writerId',
+  'writerIds',
   'shape',
   'promise',
   'status',
@@ -243,8 +248,13 @@ function sameClosedFieldsExcept(
     )
 }
 
+// C2a-M1/M2 — "is this a canonical, undecorated live state?" is answered by projecting it
+// through the LIVE save builder and comparing key-for-key. That builder is now makeSaveV14:
+// V13 is a frozen historical format that cannot see the sets, queue, screenplay or history
+// roots a live state carries, so asking it would report every ordinary studio as decorated.
+// The assertion is unchanged — only the name of "current" moved.
 function isClosedCanonicalState(state: GameState): boolean {
-  const projected = makeSaveV13(state).state
+  const projected = makeSaveV14(state).state
   return sameClosedValue(state, projected)
 }
 
@@ -708,6 +718,7 @@ export function acceptedScreenplayCommissionReceipt(
       beforeProjects.has(projectId) ||
       project.conceptId !== payload.conceptId ||
       project.writerId !== payload.writerId ||
+      !sameClosedValue(project.writerIds, [payload.writerId]) ||
       !sameClosedValue(project.shape, payload.shape) ||
       !sameClosedValue(project.promise, payload.promise) ||
       project.status !== 'drafting' ||
@@ -788,6 +799,7 @@ export function currentScreenplayCommissionReceipt(
       !hasExactOwnKeys(project, PROJECT_KEYS) ||
       project.conceptId !== receipt.conceptId ||
       project.writerId !== receipt.writerId ||
+      !sameClosedValue(project.writerIds, [receipt.writerId]) ||
       project.status !== 'drafting' ||
       project.rewriteCount !== 0 ||
       project.commissionedWeek !== receipt.commissionedWeek ||
