@@ -49,13 +49,25 @@ const OFFICE_2 = 'development-office-2'
 const OFFICE_3 = 'development-office-3'
 const CRAFT_ANNEX = 'craft-annex'
 
-/** The five blueprints the studio's catalog holds, in the engine's authored order. */
+/**
+ * Every blueprint the studio's catalog holds, in the engine's authored order.
+ *
+ * C2a-M2 appended the §3.4 slate — a soundstage, a post building, a scenery shop and a
+ * second development office — to the C1 five. This journey is about the C1 LOOP, not
+ * about the catalog's length, so the list is widened to what the engine actually
+ * publishes rather than pinned to the count it happened to have in C1. The entries this
+ * act really reads are named one by one below and are unchanged.
+ */
 const CATALOG_IDS = [
   'development-casting-annex',
   'development-casting-hall',
   OFFICE_2,
   OFFICE_3,
   CRAFT_ANNEX,
+  'stage-standard',
+  'post-building',
+  'scenery-shop',
+  'development-casting-office',
 ] as const
 
 /** Development stands at grid (3,2)–(5,3); (4,3) is its own ground. */
