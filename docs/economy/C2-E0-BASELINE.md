@@ -338,3 +338,32 @@ These figures are the pre-C2 baseline. E1, E2, E3 and E4 each diff against them.
   C2 snapshot rather than overwritten.
 - §2.7's two flags will change meaning at E2 by design. That is expected, and it must be
   *stated* at E2, not discovered later.
+
+## 6. Gate timing, and one commit-provenance defect
+
+### The gate fired at the right moment
+
+Lane 10 §5.0 sets E0 at "the first C2 commit that touches `src/core/`". At the time of
+writing, the first — and only — C2 commit touching `src/core/` on `c2a-implementation` is
+`bf4e9b0` (`feat(c2a-m0): name the founding facility capacities in TUNING`, the §3.4
+capacity hoist). The baseline above was measured at `6da5743`, which precedes it. **The
+baseline is therefore a true pre-C2 measurement**, taken before any C2 change to the
+engine, exactly as the gate requires.
+
+`bf4e9b0` adds `FOUNDING_*_CAPACITY` names to TUNING and touches **no** economy constant
+(verified: its `tuning.ts` diff contains no `AWARENESS_*`, `PUBLICITY_*`, `DISC_*` or
+`MARKETING_*` line). The figures above are unaffected by it.
+
+### Commit provenance — recorded, not hidden
+
+This document was authored as an untracked file and was swept into `bf4e9b0` by a
+concurrent lane's broad `git add` before this lane could commit it. Its content is intact
+(340 lines, verified against the authored text), and the commit that carries it is
+therefore mis-titled with respect to this file: a `feat` commit about TUNING capacities
+also contains the E0 economy baseline.
+
+No history was rewritten to repair this — rewriting a shared branch to fix an attribution
+would risk another lane's work to solve a labelling problem. The record is corrected here
+instead: **the E0 baseline is the ECONOMY-E0 lane's artifact, and its measurements were
+taken at `6da5743`, not at `bf4e9b0`.** Flagged for the integrator as a one-writer-per-
+surface breach worth a process note, not a code change.
