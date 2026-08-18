@@ -6,10 +6,12 @@
 // I chose", not a menu of sprites.
 //
 // This module is the whole of the list's thinking, and it is PURE. It owns no legality:
-// every state below is the engine's own answer, re-stated in the order the engine binds
-// them. It writes no description either — `effectSummary` is authored TUNING and is
-// shown verbatim, because the one place that knows what a building does is the place
-// that gave it its effect.
+// every FACT below is the engine's own answer. What it owns is the order those facts are
+// told in, which is a question about a player reading a list rather than about the rule
+// engine — see `LotCatalogEntryState` for the one place that order deliberately differs
+// from `PLACEMENT_REJECTION_ORDER`, and why. It writes no description either:
+// `effectSummary` is authored TUNING and is shown verbatim, because the one place that
+// knows what a building does is the place that gave it its effect.
 //
 // The 2005 Facilities panel is the FEEL this matches, not the skin: every entry visible
 // at once with its price, how many you own, and what it is for — so the decision is made
@@ -115,7 +117,7 @@ export function instanceLimitReason(entry: LotBlueprintState): string {
 }
 
 /**
- * ONE catalog entry, in the order the engine binds its refusals.
+ * ONE catalog entry, in the binding order above.
  *
  * A malformed entry is not rendered as a broken row: it is refused entirely, exactly
  * as every other strict projection in the lot refuses a fact group it cannot prove.
