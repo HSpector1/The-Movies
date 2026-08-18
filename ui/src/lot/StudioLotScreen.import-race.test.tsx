@@ -116,7 +116,14 @@ function blockedSceneryFixture(): GameState {
   ), 'utf8')
   const imported = importSaveJson(bytes)
   if (!imported.ok) throw new Error(imported.error)
-  if (imported.converted) throw new Error('expected native SaveFileV11 scenery fixture')
+  // C2a-M2 — THE FIXTURE IS PINNED, THE LIVE FORMAT MOVED. This artefact is a frozen,
+  // manifest-pinned SaveFileV13 and the live format is V14, so loading it IS a
+  // migration and `converted` is true where it used to be false. What the guard is for
+  // has not changed, and its grip is TIGHTER: it names the exact envelope version the
+  // fixture was frozen at instead of "whatever the live version happens to be".
+  if ((JSON.parse(bytes) as { saveVersion?: unknown }).saveVersion !== 13) {
+    throw new Error('expected the pinned SaveFileV13 scenery fixture')
+  }
   return imported.state
 }
 

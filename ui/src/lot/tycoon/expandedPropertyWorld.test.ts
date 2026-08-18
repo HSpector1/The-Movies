@@ -65,7 +65,12 @@ function fixtureState(file: string): GameState {
   expect(createHash('sha256').update(bytes, 'utf8').digest('hex')).toBe(claimed.sha256)
   const imported = importSaveJson(bytes)
   if (!imported.ok) throw new Error(imported.error)
-  expect(imported.converted).toBe(false)
+  // C2a-M2 — THE FIXTURE IS PINNED, THE LIVE FORMAT MOVED. This artefact is a frozen,
+  // manifest-pinned SaveFileV13 and the live format is V14, so loading it IS a
+  // migration and `converted` is true where it used to be false. What the guard is for
+  // has not changed, and its grip is TIGHTER: it names the exact envelope version the
+  // fixture was frozen at instead of "whatever the live version happens to be".
+  expect((JSON.parse(bytes) as { saveVersion?: unknown }).saveVersion).toBe(13)
   return imported.state
 }
 
