@@ -503,3 +503,92 @@ cost "unchanged by the move", and no capacity row. Unit-pinned both contexts;
 e2e proof folds into the seal-time full run. The red-team was pointed at this
 finding's FAMILY (template lines promising wrong facts in other flows) before the
 fix landed.
+
+## M8 (part 2) — RED-TEAM, FIX WAVE, AND THE SEAL (2026-08-18)
+
+**Red-team (independent, adversarial, at `c351086`, seeds studio-red-01..05).**
+One BLOCKER: the legacy Annex Expansion Parcel was a one-way door — the shipped
+move flow carried a bought building onto it with the world's own blessing ("This
+ground is clear. The building can stand here."), whereupon the adapter dropped it
+from the composed world: no body, no verbs, no explanation, $2,500/week forever,
+blueprint locked at 1/1, the retained Annex contract permanently dead, one-way,
+save-persistent, zero errors. The inverse test (a building ON the pad refuses both
+verbs) had existed since M3a; nothing ever probed the door from outside, and every
+fixture deliberately routed around the parcel — a textbook closed-world blind spot,
+the twice-found family arriving through a path orphan-safety could not see.
+Three MAJORs, all recorded as Owner/C2 items rather than late code changes (the
+campaign's law is measured evidence, not gut tuning): (F2) effect buildings are
+structurally unengageable (capacity 0 → no reservation can name them), so a timed
+build→consume→demolish pays ~50% of catalog price — the economy snapshot's paybacks
+model a price no rational player pays; (F3) Office II is demolishable the week
+Office III breaks ground for +$330,000 and zero downside — requirements bind at
+quote time only; (F4) the in-world commission verb demands the WHOLE screenplay
+board idle (active-work / review-required / ready-script, at three seams), so the
+Annex's and Hall's advertised slots are unrealizable from the primary surface —
+this generalises the M7 handoff item and is C2-concurrency scope. Minors: a $0
+move refused for money at negative cash; engine/UI disagreement on the pad's
+buildability; a six-item copy family. THE HELD LIST (evidence, not silence):
+refund farming strictly lossy across 5 seeds × every cycle shape incl.
+mid-construction; two-way ledger correlation and forged-refund guards; historical
+opex reconciliation exact across demolished history; the quote→cash-drop→commit
+race safe; engagement-guard exhaustiveness audited against every facilityId field
+in types.ts; save round-trip byte-identity after every mutation kind; V12→V13
+mid-journey migration then immediate mutation clean; four hostile property roots
+fail closed with named errors; capacity blueprints inert-means-inert over 50 idle
+weeks; a 60-week × 5-seed soak; craft discount live-read; rewrites never
+recompound; dressing intercepts no input; suites at its checkout 246/3,333 vitest
+exit 0 and 210/206/4/0 Playwright exit 0, no flake under full contention.
+
+**Fix wave (commits `fb11401..9d8b0b4`).** F1 CLOSED at the engine: twelfth
+rejection code `groundReserved` ("This ground is held for the studio's Annex
+contract."), per-cell, parcel-id-keyed via RESERVED_PARCEL_BLUEPRINTS (design (b) —
+a data flag — was proven invalid: the Annex contract path consults the same query
+machinery, and a new parcel field would have moved every committed fixture's
+bytes); ordered after terrainUnbuildable and before occupied (a reservation is a
+permanent fact about ground; occupancy is one week's). Every move onto the pad
+refused whatever the blueprint; the sealed Annex contract byte-identical. THE
+STANDING INVARIANT, per PM addendum: "a placement the engine accepts must compose
+a body" — assertStudioPlacementInvariants now rejects a generic placement on
+reserved ground with a named error across validate/import/migration, with the
+standing-Annex case proven valid so the law cannot over-tighten. False-premise
+comments corrected. The red-team's browser probe adopted as
+`tycoon-legacy-parcel-refusal-v1.spec.ts` (refusal sentence, commit disabled,
+byte-neutral escape, building intact with verbs, contract alive — and the same
+move landing elsewhere for $0, proving the rule is the ground's). Engine variants
+distilled into `tests/legacy-parcel-ground.test.ts` (14 tests incl. the swept
+invariant and the forged-save trio). F5: affordability consulted only when
+cost > 0 — dormant, not deleted. F6a RULED PRECEDENCE CHANGE: owned-at-limit now
+outranks locked (a lock explains why you can't get one; at-limit explains you HAVE
+one); locked > unaffordable kept; M5 pins updated with provenance. F6b: superseded
+tiers say so — `supersededBy` derived from the effects authority's own tier list,
+row note "Superseded while Development Office III stands — building it would add
+nothing.", operational-only, both orderings pinned. F7: an under-construction
+demolition names itself a construction site and states the write-off; operational
+copy byte-identical. RULED NON-CHANGES: the "+0 shared slots" quote row (decision
+context informs; toast suppression is receipt context — three-way split is
+deliberate); the same-week uplift void (effects read live at draft completion is
+the design; the golden path proves the honest paths). Red-team probes not adopted
+were deleted; tree seals clean. Noted seam, accepted for C1:
+`lotParcelInspectorContext(placement,'expansion')` still answers canBuild:true on
+a surface no route reaches (no hotspot, no rail row) with the engine refusing
+regardless — making the parcel projection reservation-aware moves a pinned shape
+and belongs to the campaign that next touches that surface.
+
+**SEAL GATES — independently verified by the PM at HEAD `9d8b0b4`, tree clean:**
+root tsc exit 0 · ui tsc exit 0 · full vitest 241 files / 3,318 tests exit 0
+(+1 file/+21 tests over pre-wave, none removed) · new refusal spec 2/2 + golden
+path 1/1 in isolation exit 0. Implementer's FULL serialized Playwright at this
+exact HEAD: 211 collected / 207 passed / 4 env-gated skips / 0 failed, exit 0
+(16.0m), collection arithmetic exact (209 + 2). Commits after `9d8b0b4` are
+documentation only.
+
+## CAMPAIGN 1 — SEALED: KEEP (2026-08-18)
+
+Every milestone M1–M8 ruled KEEP on independent verification. The Owner acceptance
+test passed on a virgin seed: the lot reads as a place the player built — bodies
+with clocks, opex, refusals and consequences, not a menu of sprites. The critical
+regression law held to the end: FMJ specs pass unmodified; no test deleted or
+weakened all campaign; the structural pins moved exactly once, for the warmth
+pass, with named measured reasons. Sealed at the closure checkpoint containing
+this entry. Owner decision items and the proposed C2 handoff are in the final
+report. No successor campaign is automatic.
