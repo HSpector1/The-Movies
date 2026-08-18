@@ -1236,7 +1236,7 @@ never timing. **None is invented here.**
 | 0 | **Foundation / First Movie** | *"I understand how to make a movie."* | **SEALED** |
 | 1 | **Campaign 1 — Lot Content** | *"I built this place."* | **SEALED** — KEEP at `f294077`, ratified |
 | 1a | **PF1 — Professional Floor** | *"This feels like real game software."* | **CHARTER FROZEN / IN FLIGHT** — GO status disputed between documents (see below) |
-| 2 | **C2 — Living Studio / Production Throughput** | *"I built this movie studio, it operates while I watch, my writers create pictures, and I can physically watch multiple films compete for real production resources."* | **IN PLANNING** — does **not** start automatically; needs its own Owner authorization. May split C2a/C2b — undecided |
+| 2 | **C2 — Living Studio / Production Throughput** | *"I built this movie studio, it operates while I watch, my writers create pictures, and I can physically watch multiple films compete for real production resources."* | **CHARTER FROZEN (r3.1)** — see the note below; still does **not** start automatically, and needs its own Owner authorization |
 | 3 | **C3 — Progression / Prestige / Awards / Land** | *"My studio has status, goals, recognition and things I desperately want to unlock."* | **SEQUENCED** — position frozen, uncharted |
 | 4 | **C4 — Era / Genre / Research** | *"I am living through film history and the kinds of movies worth making change with the world."* | **SEQUENCED** — position frozen, uncharted |
 | 5 | **Stars / Relationships** | *"I know these people and remember their careers."* | **TENTATIVE** — the C5-before-C6 reorder is an unratified PM recommendation |
@@ -1279,6 +1279,17 @@ neither that the GO is outstanding nor that PF1 is complete.
 becomes the thing the North Star describes. It combines the time model, renewable screenplay
 generation, Sets and Stages as real contended resources, the visible queue, premiere night, and
 the Founding Flip. This is where Pillars 2, 3 and 4 land together, because they are one experience.
+
+> **Update, later the same day as this Blueprint's base.** The C2 charter has since **frozen at
+> revision 3.1**, with Renewable Screenplay Generation V1 incorporated and given concrete mechanics,
+> the Theater ruling applied, and set types authored. This is recorded as a **fact about
+> sequencing**, not a summary of C2's design, and this document does not restate or interpret that
+> charter — read it directly.
+>
+> It also **sharpens rather than settles decision D3**: C2's charter now firmly owns RSG V1, while
+> the horizon ruling still names C4 as the owning campaign for concept supply and the Master Plan
+> still records neither. Two frozen documents now point in different directions. The reconciliation
+> is cheaper to write down today than it was this morning.
 
 **3 — Progression / Prestige / Awards / Land.** The rung that converts accumulation into ambition.
 Pillars 9 and 10, plus prestige reconnected to the physical lot and the first earned expansion of
@@ -1572,6 +1583,11 @@ book.** Writing the reconciliation down fixes that in one line.
 
 **Recommendation:** option 1 — it is what both rulings appear to mean, and it only needs writing down.
 
+**Update:** the C2 charter has since frozen at revision 3.1 with RSG V1 incorporated and given
+concrete mechanics. In practice option 1 is now the operating assumption. That makes writing the
+reconciliation down **more** urgent, not less: a frozen charter and a standing Owner ruling now name
+different owners for the same system, and the Master Plan records neither.
+
 ### D4 — Rule on the `Standing` fourth channel before C3 designs against it
 
 **Why now:** **one-way door.** `Standing` is a frozen three-key leaf reachable from every save
@@ -1647,6 +1663,12 @@ a campaign for an unsequenced pillar, that attribution is marked **TENTATIVE** a
 `docs/project-studio-success-blueprint`, created from that commit in an isolated worktree. The PF1
 and C2 worktrees were **not touched**; C2's Owner-ruling records were read, read-only, to establish
 which pillars C2 owns. No shared file was modified. This pass adds exactly one file.
+
+**A moving target, noted honestly.** The C2 planning stream advanced *while this document was being
+written* — its charter froze at revision 3.1 after this Blueprint's base commit. The affected
+statements have been updated and marked. Anything here about sequencing is true as of `1e6b422`
+plus that one observed change; **the charters remain the authority on their own scope**, and a
+reader should check them rather than trusting this document's snapshot.
 
 **Sources read directly** (not summarized from other summaries): the Mechanics Bible's front matter,
 Owner Product Authority, Magic 15, DO NOT CLONE THE TEDIUM, and §§4, 5, 7, 8, 15, 22, 23, 24, 31,
