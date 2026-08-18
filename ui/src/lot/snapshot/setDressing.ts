@@ -279,6 +279,64 @@ export function lotSetWorkByShop(snapshot: StudioLotSnapshot): Map<string, LotSe
   return work
 }
 
+/**
+ * What one body's chrome says once its set lines are added to whatever it already said.
+ *
+ * ONE function for BOTH channels, and that is the point: a founding body carries a
+ * status badge and a placed body carries a single caption, and the two must never drift
+ * into two different ways of saying the same thing about the same kind of place. The
+ * set lines always go UNDER the line that was already there, because the headline is the
+ * building's identity and the set is what is happening inside it.
+ */
+export function lotChromeWithSetLines(
+  carried: string | null,
+  lines: readonly string[],
+): string {
+  const under = lines.filter((line) => typeof line === 'string' && line.length > 0)
+  const head = typeof carried === 'string' && carried.length > 0 ? [carried] : []
+  return [...head, ...under].join('\n')
+}
+
+/**
+ * The founding BODIES that house a scenery-shop facility.
+ *
+ * Frozen vocabulary and deliberately closed, exactly like `FOUNDING_STAGE_BUILDING_ID`:
+ * `facility-scenery-shop` is authored property, and the Scenery & Post block is the body
+ * it lives in. Everything else with the capability is something the studio BUILT, and a
+ * built thing derives its body from the placement projection like every other one.
+ */
+export const FOUNDING_SCENERY_BUILDING_ID: Readonly<Record<string, BuildingId>> = {
+  'facility-scenery-shop': 'post',
+}
+
+/**
+ * Set work, keyed by the BODY on the property a player would look at.
+ *
+ * The last hop from facility to ground. A shop whose body cannot be resolved — a
+ * capability standing on no body at all — contributes nothing rather than being painted
+ * onto some other building (law 12, again).
+ */
+export function lotSetWorkByBuilding(
+  snapshot: StudioLotSnapshot,
+): Map<BuildingId, LotSetWorkAtShop> {
+  const placements = Array.isArray(snapshot.placement?.placements)
+    ? snapshot.placement.placements
+    : []
+  const byBuilding = new Map<BuildingId, LotSetWorkAtShop>()
+  for (const [facilityId, work] of lotSetWorkByShop(snapshot)) {
+    const founding = FOUNDING_SCENERY_BUILDING_ID[facilityId]
+    if (founding !== undefined) {
+      byBuilding.set(founding, work)
+      continue
+    }
+    const bodies = placements.filter((placed) => placed.facilityId === facilityId)
+    // Two placements claiming one facility is contradictory truth: paint neither.
+    if (bodies.length !== 1) continue
+    byBuilding.set(`placed-${String(bodies[0]!.id)}`, work)
+  }
+  return byBuilding
+}
+
 // ── This week's permanent history, as the lot reads it ───────────────────────
 
 /** The week events a snapshot carries, validated. Absent ⇒ nothing happened worth saying. */

@@ -18,9 +18,11 @@ import type {
 } from './StudioLotSnapshot.ts'
 import {
   LOT_SET_CONDITION_GOOD_AT_LEAST,
+  lotChromeWithSetLines,
   lotSetDressingFor,
   lotSetDressings,
   lotSetMountedOn,
+  lotSetWorkByBuilding,
   lotSetWorkByShop,
   lotWeekEvents,
 } from './setDressing.ts'
@@ -286,5 +288,85 @@ describe('C2a-M2 — a snapshot that carries none of this claims none of it', ()
     expect(lotSetDressingFor(hostile, 'stage-a')?.lines).toEqual([
       'STAGE 7 HOUSE SET · STANDING · GOOD REPAIR',
     ])
+  })
+})
+
+// ── The two chrome channels the world paints these lines through ─────────────
+//
+// A founding body carries a status BADGE; a facility the studio built carries one
+// CAPTION. Both take their set lines from the same composer, which is the whole reason
+// a stage says the same thing about the same set whether the studio was founded with it
+// or paid for it (`00F`: one vocabulary per kind of place).
+
+describe('C2a-M2 — the set lines ride the chrome each body already wears', () => {
+  it('puts the set under the headline, never over it, in both channels', () => {
+    // The founding stage's badge, which already carries its own status line.
+    expect(
+      lotChromeWithSetLines('STAGE 7 · FILMING', [
+        'GRAVEYARD · STANDING · GOOD REPAIR',
+        'RAVINE WRAPPED HERE THIS WEEK',
+      ]),
+    ).toBe('STAGE 7 · FILMING\nGRAVEYARD · STANDING · GOOD REPAIR\nRAVINE WRAPPED HERE THIS WEEK')
+    // A built stage's single caption. Same order, same words, one composer.
+    expect(
+      lotChromeWithSetLines('SOUNDSTAGE 3 · OPERATIONAL', ['NO SET MOUNTED']),
+    ).toBe('SOUNDSTAGE 3 · OPERATIONAL\nNO SET MOUNTED')
+  })
+
+  it('a body with nothing else to say shows the set lines alone', () => {
+    expect(lotChromeWithSetLines(null, ['NO SET MOUNTED'])).toBe('NO SET MOUNTED')
+    expect(lotChromeWithSetLines('', ['NO SET MOUNTED'])).toBe('NO SET MOUNTED')
+  })
+
+  it('never leaves a dangling blank line when there is nothing to add', () => {
+    expect(lotChromeWithSetLines('STAGE 12 · AVAILABLE', [])).toBe('STAGE 12 · AVAILABLE')
+    expect(lotChromeWithSetLines('STAGE 12 · AVAILABLE', ['', ''])).toBe('STAGE 12 · AVAILABLE')
+    expect(lotChromeWithSetLines(null, [])).toBe('')
+  })
+})
+
+describe('C2a-M2 — set work lands on the ground a player would look at', () => {
+  const working = (facilityId: string): LotSetState =>
+    set({
+      id: 'set-4',
+      name: 'Graveyard',
+      status: 'under-construction',
+      weeksRemaining: 2,
+      sceneryFacilityId: facilityId,
+    })
+
+  it('the founding scenery shop is the Scenery & Post block', () => {
+    const byBuilding = lotSetWorkByBuilding(snapshot([working('facility-scenery-shop')]))
+    expect([...byBuilding.keys()]).toEqual(['post'])
+    expect(byBuilding.get('post')?.line).toBe('BUILDING GRAVEYARD · 2 WEEKS')
+  })
+
+  it('a shop the studio BUILT is its own body, taken from the placement projection', () => {
+    const built = {
+      ...snapshot([working('facility-scenery-shop-1')]),
+      placement: {
+        placements: [{ id: 6, facilityId: 'facility-scenery-shop-1' }],
+      },
+    } as unknown as StudioLotSnapshot
+    expect([...lotSetWorkByBuilding(built).keys()]).toEqual(['placed-6'])
+  })
+
+  it('a shop standing on no body at all is painted onto nothing', () => {
+    // Law 12 applied to words: the work is real, the ground is unknown, so the world
+    // says nothing rather than pointing at the wrong building.
+    expect(lotSetWorkByBuilding(snapshot([working('facility-scenery-shop-9')])).size).toBe(0)
+  })
+
+  it('two placements claiming one facility paint neither', () => {
+    const contradictory = {
+      ...snapshot([working('facility-scenery-shop-1')]),
+      placement: {
+        placements: [
+          { id: 6, facilityId: 'facility-scenery-shop-1' },
+          { id: 7, facilityId: 'facility-scenery-shop-1' },
+        ],
+      },
+    } as unknown as StudioLotSnapshot
+    expect(lotSetWorkByBuilding(contradictory).size).toBe(0)
   })
 })

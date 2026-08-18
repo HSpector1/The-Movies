@@ -31,7 +31,7 @@ import type {
   ProductionOperationsState,
   StudioLotSnapshot,
 } from '../snapshot/StudioLotSnapshot'
-import { buildingLabelFor } from '../snapshot/StudioLotSnapshot'
+import { buildingLabelFor, placedBuildingId } from '../snapshot/StudioLotSnapshot'
 import {
   LEGACY_ANNEX_PARCEL_ID,
   composeWorldBuildings,
@@ -76,6 +76,11 @@ import type {
   HollywoodGateVisitorPresentation,
   HollywoodPerformance,
 } from '../hollywood/HollywoodScene.ts'
+import {
+  lotChromeWithSetLines,
+  lotSetDressings,
+  lotSetWorkByBuilding,
+} from '../snapshot/setDressing.ts'
 import { WARM as C } from './palette.ts'
 import {
   AUTHORED_STAGE_A_KEY,
@@ -386,6 +391,16 @@ export class TycoonScene extends Phaser.Scene {
   private siteGraphics: Phaser.GameObjects.Graphics | null = null
   private placementSprites = new Map<number, Phaser.GameObjects.Sprite>()
   private placementLabels = new Map<number, Phaser.GameObjects.Text>()
+  /**
+   * C2a-M2 §3.1/§4.2 — what each BODY says about the sets on it, this week.
+   *
+   * Derived from the snapshot by `../snapshot/setDressing.ts` and cached here for one
+   * paint, because two chrome channels read it: the founding bodies' badge stack and the
+   * placed bodies' single caption. Class A — a pure function of the settled week, so it
+   * repaints identically on load, after a batch and mid-playback, and it starts no
+   * ceremony and consumes no transition.
+   */
+  private setDressingLines = new Map<BuildingId, string[]>()
   private previewGraphics: Phaser.GameObjects.Graphics | null = null
   /** The hazard outline under the body being carried. ONE layer for the whole world. */
   private carriedGraphics: Phaser.GameObjects.Graphics | null = null
@@ -1750,6 +1765,7 @@ export class TycoonScene extends Phaser.Scene {
   private paintPlacements(): void {
     const g = this.siteGraphics
     if (!g) return
+    this.refreshSetDressing()
     g.clear()
     const placement = this.placement
     const live = new Set<number>()
@@ -1903,10 +1919,14 @@ export class TycoonScene extends Phaser.Scene {
     const anchor = this.world((extent.x0 + extent.x1 + 1) / 2, (extent.y0 + extent.y1 + 1) / 2)
     const occupants = this.presencePlacementOccupants.get(placed.id) ?? 0
     const here = occupants > 0 ? ` · ${String(occupants)} HERE` : ''
-    const text =
+    const headline =
       placed.status === 'operational'
         ? `${placed.name.toUpperCase()} · OPERATIONAL${here}`
         : `${placed.name.toUpperCase()} · ${String(placed.weeksRemaining)} ${placed.weeksRemaining === 1 ? 'WEEK' : 'WEEKS'} LEFT`
+    // C2a-M2 — a stage the studio built says what is standing on it, and a scenery shop
+    // it built says what its crew is making, in the ONE caption the body already has.
+    const dressing = this.setDressingLines.get(placedBuildingId(placed.id)) ?? []
+    const text = lotChromeWithSetLines(headline, dressing)
     const existing = this.placementLabels.get(placed.id)
     const label =
       existing ??
@@ -2793,6 +2813,58 @@ export class TycoonScene extends Phaser.Scene {
     }
   }
 
+  /**
+   * Re-read what the sets root says about each body. Pure, cheap and idempotent.
+   *
+   * Called at the top of BOTH chrome passes rather than once, because the placement
+   * layer repaints on its own in a few paths and a caption that read a stale map would
+   * be telling a player about a set that has already been struck.
+   */
+  private refreshSetDressing(): void {
+    this.setDressingLines = new Map<BuildingId, string[]>()
+    for (const dressing of lotSetDressings(this.snapshot)) {
+      this.setDressingLines.set(dressing.buildingId, [...dressing.lines])
+    }
+    // The shops. A body can be both — a scenery shop is never a stage in V1, but the
+    // union is written this way so it stays correct if that ever stops being true.
+    for (const [buildingId, work] of lotSetWorkByBuilding(this.snapshot)) {
+      const existing = this.setDressingLines.get(buildingId)
+      if (existing === undefined) this.setDressingLines.set(buildingId, [work.line])
+      else existing.push(work.line)
+    }
+  }
+
+  /**
+   * Paint the set lines onto the chrome each body already wears (C2a-M2 §4.2, Class A).
+   *
+   * NO NEW CHANNEL and no new machinery: a founding body's lines ride the status badge
+   * it has had since C1 — appended under the status line when it already carries one, or
+   * raising the badge itself when it does not — and a placed body's lines ride its single
+   * caption, painted by `paintPlacementLabel` from the same map. Both inherit the badge's
+   * own LOD rule, so they step aside at institution scale with every other word.
+   *
+   * Runs LAST in the chrome pass, after the stage lamps, precisely so it can append to a
+   * stage's own status rather than fight it for the same object.
+   */
+  private paintSetDressing(): void {
+    for (const [id, view] of this.buildings) {
+      const lines = this.setDressingLines.get(id)
+      if (lines === undefined || lines.length === 0) continue
+      // A placed body carries no badge on purpose (C1-M1b): its caption already says its
+      // name and its status, and the placement layer paints these lines onto it instead.
+      if (view.badge === null || view.chip === null) continue
+      const carried = view.badge.getData('want') === true ? view.badge.text : ''
+      if (carried === '') {
+        // Nothing else is claiming this body's badge, so the sets ARE the news here —
+        // "watch" is the standing amber the badge channel already uses for a fact worth
+        // reading that is not a decision waiting on the player.
+        this.setBadge(view, lotChromeWithSetLines(null, lines), 'watch')
+        continue
+      }
+      view.badge.setText(lotChromeWithSetLines(carried, lines))
+    }
+  }
+
   /** Building availability, attention badges, status chips and the two stage lamps. */
   private paintBuildingStates(
     snapshot: StudioLotSnapshot,
@@ -2800,6 +2872,7 @@ export class TycoonScene extends Phaser.Scene {
   ): void {
     const established = snapshot.standing === 'established' || snapshot.standing === 'prestige'
     for (const prop of this.establishedProps) prop.setVisible(established)
+    this.refreshSetDressing()
 
     // The gate beam carries the studio's own name, from the snapshot.
     const gateSign = this.buildings.get('gate')?.sign
@@ -2834,6 +2907,7 @@ export class TycoonScene extends Phaser.Scene {
 
     this.paintStageStatus('stage-a', stage7)
     this.paintStageStatus('stage-b', null)
+    this.paintSetDressing()
     this.applyChromeVisibility()
   }
 
@@ -3901,6 +3975,14 @@ export class TycoonScene extends Phaser.Scene {
     lodBand: LodBand
     visibleBuildingLabels: number
     buildingLabels: string[]
+    /**
+     * Every status BADGE the world is currently showing, as `<building id>|<text>`.
+     *
+     * The evidence seam for the badge channel (C2a-M2 §4.2). The name channel above
+     * already had one; the status channel did not, so nothing could prove what a stage
+     * actually says about the set standing on it without a screenshot.
+     */
+    buildingBadges: string[]
     placementLabels: string[]
     presenceWeek: number | null
     presencePlaybackWeek: number | null
@@ -3964,6 +4046,10 @@ export class TycoonScene extends Phaser.Scene {
       buildingLabels: [...this.buildings.values()]
         .filter((view) => view.label?.visible === true)
         .map((view) => view.label!.text)
+        .sort(),
+      buildingBadges: [...this.buildings.entries()]
+        .filter(([, view]) => view.badge?.visible === true)
+        .map(([id, view]) => `${id}|${view.badge!.text}`)
         .sort(),
       placementLabels: [...this.placementLabels.values()]
         .filter((label) => label.visible)
