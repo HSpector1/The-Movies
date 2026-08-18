@@ -43,7 +43,18 @@ Compact briefing for every production agent this shift. Citations: `LL <entry> (
 19. Copy the historical-boundary guard pattern verbatim for new roots (see
     `save.ts:396–434` `rejectV11AuthorityAtHistoricalBoundary` construction rejection at
     pre-V11; `migrateToV11` downgrade refusal `save.ts:5235–5243`). `LL CO (2290)`,
-    `LL CS (2336)`.
+    `LL CS (2336)`. **Both pointers re-resolved by symbol and re-verified EXACT at the
+    C2a-M0 HEAD** (`rejectV11AuthorityAtHistoricalBoundary` opens `src/core/save.ts:396`,
+    closes `:434`; `migrateToV11` opens `save.ts:5235`, throws its downgrade refusal at
+    `:5238` — "cannot downgrade SaveFileV${…} or discard placement and property state" —
+    and closes `:5243`). The V11 guard is now copied twice over
+    (`rejectV12AuthorityAtHistoricalBoundary` `save.ts:441`,
+    `rejectV13AuthorityAtHistoricalBoundary` `save.ts:498`), which is this law working.
+    **SYMBOL-NAME RESOLUTION IS THE RULE** (charter §10 stale-docs row, C2a-M0): where a
+    citation in this document names a symbol, the SYMBOL NAME is the authority and the
+    line number is a convenience that drifts with every edit above it. Re-resolve with
+    `grep -n "<symbol>" <file>` and correct the number in passing; a line that no longer
+    lands on its named symbol is a stale citation, never evidence that the guard is gone.
 20. New IDs reserve against the longest-lived identity authority (productions, ledger,
     careers, tasks, reservations, canceled traces). Temporal claims need an immutable
     event witness, not an editable timestamp. `LL CL/BX/CM`.
@@ -128,9 +139,34 @@ Compact briefing for every production agent this shift. Citations: `LL <entry> (
     never the anchor. Owner ruling 2026-08-18,
     `docs/OWNER-RULINGS-HOLLYWOOD-HORIZON.md` §5.
 
-Planning notes: travel/occupancy/queue/workload/pathfinding are greenfield (every prior
-closure asserts they never changed) but bound by laws 2–3. Current save = **V13**
-(`SaveFileV13` at `src/core/save.ts:267-272`; `makeSave` → V13 at `save.ts:4388`; highest
-migration `convertV12ToV13` at `save.ts:5076`) —
-corrected at PF1-M2 from a stale V11 trailer that predated the C1-M1a property envelope;
-browser session key = `project-studio.active-session.v4`.
+Planning notes: occupancy, queueing, workload and pathfinding are greenfield (every prior
+closure asserts they never changed) but bound by laws 2–3.
+
+**TRAVEL IS NOT ONE UNDIVIDED GREENFIELD** (corrected at C2a-M0 — charter §10 stale-docs
+row; the pre-correction sentence listed "travel" flatly among the greenfields, which a
+planner would read as permission to author a travel system that already ships).
+
+- **SHIPPED — presentation travel over AUTHORED routes.** `DIRECTOR_ROUTE`
+  (`ui/src/lot/tycoon/world.ts:788`, the one scripted walk), `PRESENCE_ROUTES`
+  (`world.ts:878`, the home→`work`-anchor commute table) and `AMBIENT_ROUTES`
+  (`world.ts:1054`, deterministic patrols), walked by `personPositionAt`
+  (`ui/src/lot/tycoon/playback.ts:132`) over `pointAlongPath` (`playback.ts:74`) across
+  the engine's own `travel` beat (`playback.ts:150`), against the path from
+  `presencePath` (`ui/src/lot/tycoon/presence.ts:228`). New work here EXTENDS a shipped
+  system; it does not start one.
+- **GREENFIELD — pathfinding.** The routes are authored waypoint lists, never searched:
+  "They are AUTHORED, not searched… without inventing a pathfinder the milestone
+  explicitly excludes" (`world.ts:863-866`).
+- **GREENFIELD — distance-affects-outcome.** No route length feeds any engine result;
+  law 2 holds on the shipped leg — "LAW 2. Nothing on these paths advances anything. A
+  person's POSITION during a week playback is interpolation over the engine's own beat
+  array" (`world.ts:871-872`). Making distance matter is a NEW engine fact and belongs to
+  a milestone that says so, not to the renderer.
+
+Current save = **V13** (`SaveFileV13` at `src/core/save.ts:267-272`; `makeSave` → V13 at
+`save.ts:4388`; highest migration `convertV12ToV13` at `save.ts:5076`) — corrected at
+PF1-M2 from a stale V11 trailer that predated the C1-M1a property envelope, and **all
+three anchors re-resolved by symbol and re-verified EXACT at the C2a-M0 HEAD**. C2a-M1
+advances this line to V14 (charter §8.1/§12 C2a-M1); it is M1's edit, not M0's. Browser
+session key = `project-studio.active-session.v4` (`ACTIVE_SESSION_KEY`,
+`ui/src/engine/session.ts:20`).
