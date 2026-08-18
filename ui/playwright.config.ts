@@ -91,9 +91,31 @@ export default defineConfig({
     //
     // GRID TUPLES, by fixture — displayObjects / dynamicActors / decoded bytes / draw calls:
     //
-    //     build-mode "grid managed-idle", Week 0            173 / 14 / 8,545,720 / 4
-    //     presence   "grid presence",     Week 0            173 / 14 / 8,546,680 / 4
-    //     presence   "grid presence greenlit", Week 0 and 1 173 / 14 / 8,546,680 / 4
+    //     build-mode "grid managed-idle", Week 0            231 / 14 / 8,806,568 / 6
+    //     presence   "grid presence",     Week 0            231 / 14 / 8,807,528 / 6
+    //     presence   "grid presence greenlit", Week 0 and 1 231 / 14 / 8,807,528 / 6
+    //
+    // C1-M6 RE-PIN (the visual warmth pass), re-measured at HEAD from a real run of the two
+    // owning specs. Every grid row moved together and for the same three reasons, which are
+    // written out in full beside the constants each spec owns:
+    //
+    //   • objects 174 → 231: +57, the backlot dressing inventory, one Image per authored
+    //     prop placement. Authored, so it does not move as a journey advances;
+    //   • decoded bytes +260,848 in BOTH studios: eleven new prop bakes, one new scorched-
+    //     lawn ground tile, and the differentiated building bakes. Identical delta on two
+    //     different rosters is what proves it is world art and not people;
+    //   • draws 4 → 6: the counter sums the multi-texture pipeline's batch entries, and a
+    //     new entry opens when its texture-unit set is exhausted — twelve more textures,
+    //     two more rebinds. No new pass, no new pipeline.
+    //
+    // Dynamic actors are 14 in every grid row, before and after, including across the
+    // greenlit Week-0 → Week-1 playback: the pass touched no person. The plate rows above
+    // are a different world and did not move at all — the warmth pass is grid-world art.
+    //
+    // DOC-DRIFT REPAIR, second occurrence. This table printed 173 in all three rows while
+    // the specs that own the fixtures had asserted 174 since the M-D guidance marker; the
+    // note below explains the FIRST drift (172 → 173) and was itself left stale by the
+    // second. The values above are now the values the specs assert, taken from the same run.
     //
     // M3-UI moved the first of these by exactly ONE display object: the single shared
     // waiting-queue Graphics layer (`tier:presence-queue`). Presence itself adds no object

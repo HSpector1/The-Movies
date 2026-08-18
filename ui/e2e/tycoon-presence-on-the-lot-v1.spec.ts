@@ -711,24 +711,46 @@ test('simulating to the next event lands on current truth and animates no skippe
 // advances or as a week plays back. Dynamic actors (14), decoded bytes (8,546,680) and
 // draw calls (4) are unchanged in every case, which is what proves the delta is that one
 // layer: the pool batches into the existing graphics pipeline and loads no texture.
-
+//
+// C1-M6 RE-PIN (the visual warmth pass) — 174 → 231 objects, 8,546,680 → 8,807,528 decoded
+// bytes, 4 → 6 draw calls, in ALL THREE tuples. Same movement, same reasons, in the same
+// shape as the build-mode suite's own re-pin:
+//
+//   • +57 display objects — `backlotDressing()` authors exactly 57 prop placements and the
+//     scene paints one Image per placement. The inventory is authored, not generated, so
+//     the figure is identical in all three fixtures and does not move as the journey
+//     advances or as a week plays back — which is the same property the guidance marker
+//     above has, and the reason these three tuples can still be read as one number.
+//   • +260,848 decoded bytes — eleven new prop bakes, one new scorched-lawn ground tile,
+//     and the differentiated building bakes. This studio is NOT the build-mode studio (its
+//     own seed, its own roster, its own 960-byte-larger baseline), and it moved by exactly
+//     the same +260,848, which is what proves the delta is shared world art rather than
+//     anything belonging to these people.
+//   • +2 draw calls — the counter sums `pipeline.batch.length`, the number of batch entries
+//     the multi-texture pipeline flushed; a new entry opens when its texture-unit set is
+//     exhausted, so twelve more textures cost two more rebinds. No new pass, no new
+//     pipeline.
+//   • dynamic actors UNCHANGED at 14 in every fixture, INCLUDING across the greenlit
+//     Week-0 → Week-1 playback. The warmth pass touched no person: presence still MOVES
+//     existing bodies and creates none, and a whole week of playback still costs nothing
+//     structural. That is the assertion this suite exists to make, and it is unweakened.
 const GRID_PRESENCE_WEEK_0_STRUCTURE = {
-  displayObjects: 174,
+  displayObjects: 231,
   dynamicActors: 14,
-  decodedBytes: 8_546_680,
-  drawCalls: 4,
+  decodedBytes: 8_807_528,
+  drawCalls: 6,
 }
 
 const GRID_GREENLIT_WEEK_0_STRUCTURE = {
-  displayObjects: 174,
+  displayObjects: 231,
   dynamicActors: 14,
-  decodedBytes: 8_546_680,
-  drawCalls: 4,
+  decodedBytes: 8_807_528,
+  drawCalls: 6,
 }
 
 const GRID_GREENLIT_WEEK_1_STRUCTURE = {
-  displayObjects: 174,
+  displayObjects: 231,
   dynamicActors: 14,
-  decodedBytes: 8_546_680,
-  drawCalls: 4,
+  decodedBytes: 8_807_528,
+  drawCalls: 6,
 }

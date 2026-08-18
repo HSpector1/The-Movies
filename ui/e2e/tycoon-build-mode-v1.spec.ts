@@ -929,9 +929,35 @@ test('a facility the studio built is a first-class citizen of the world', async 
 // unchanged: 14 dynamic actors, 8,545,720 decoded bytes, and still 4 draw calls (the pool
 // batches into the existing graphics pipeline), which is what proves the delta is that one
 // layer and not a leak.
+//
+// C1-M6 RE-PIN (the visual warmth pass) — 174 → 231 objects, 8,545,720 → 8,806,568 decoded
+// bytes, 4 → 6 draw calls. THREE named movements, and one deliberate non-movement:
+//
+//   • +57 display objects — the backlot dressing. `backlotDressing()` authors exactly 57
+//     prop placements and `TycoonScene` paints ONE Image per placement, so the object delta
+//     is the inventory, counted. It is not a per-frame or per-week figure: the list is
+//     authored, so this number moves only when a prop is added or removed, never as the
+//     journey advances. (A prop standing on ground a placed facility later covers stops
+//     PAINTING, which changes what is visible without changing what exists.)
+//   • +260,848 decoded bytes — twelve new baked textures: eleven prop bakes (tw-fence-x,
+//     tw-fence-y, tw-drums, tw-pallets, tw-ladder, tw-rigging, tw-lightstand, tw-scaffold,
+//     tw-skip, tw-scrub, tw-van), one new ground tile (tw-t-lawn-dry, the scorched lawn),
+//     and the taller/differentiated building bakes (Development's bay and chimney, Casting's
+//     hip roof and portico, the saw-tooth north light, the cupola, the roof monitor). The
+//     presence suite's fixtures — a different studio with a different roster — moved by the
+//     SAME +260,848, which is what proves the delta is world art and not people.
+//   • +2 draw calls — this counter sums `pipeline.batch.length`, i.e. how many batch entries
+//     the multi-texture pipeline flushed, and the pipeline opens a new entry when its
+//     texture-unit set is exhausted. Twelve more textures in the same scene therefore cost
+//     two more texture-unit rebinds. No new render pass and no new pipeline: the ground wear
+//     is baked into the existing ground render texture and the halo strokes reuse the
+//     existing graphics pipeline, both of which cost zero draws by construction.
+//   • dynamic actors UNCHANGED at 14 — the warmth pass touched no person. Dressing is
+//     presentation only: it enters no occupancy, carries no hit area, holds no state and
+//     answers no question, so an actor delta here would have been the leak to look for.
 const GRID_MANAGED_IDLE_STRUCTURE = {
-  displayObjects: 174,
+  displayObjects: 231,
   dynamicActors: 14,
-  decodedBytes: 8_545_720,
-  drawCalls: 4,
+  decodedBytes: 8_806_568,
+  drawCalls: 6,
 }
