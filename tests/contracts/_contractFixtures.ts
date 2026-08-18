@@ -297,8 +297,16 @@ export function commissionPayload(
   }
 }
 
-export function auditionSlate(state: GameState, projectId: string): StartCastingSessionPayload {
-  const actors = contractedByRole(state, 'actor')
+/**
+ * `offset` skips actors already engaged elsewhere — a candidate busy on an
+ * active production is refused by the slate eligibility law.
+ */
+export function auditionSlate(
+  state: GameState,
+  projectId: string,
+  offset = 0,
+): StartCastingSessionPayload {
+  const actors = contractedByRole(state, 'actor').slice(offset)
   return {
     projectId,
     slate: {
