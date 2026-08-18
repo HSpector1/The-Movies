@@ -141,8 +141,9 @@ export default defineConfig({
     timeout: 120_000,
   }, {
     // The M2 grid-world layer: the SHIPPED DEFAULT world, no rollback of any gate.
-    // `ui/e2e/tycoon-build-mode-v1.spec.ts` is the only spec that uses this origin,
-    // and it addresses it absolutely (`GRID_BASE_URL`) rather than through `baseURL`.
+    // Specs that exercise the shipped grid world use this origin (eight of them as of
+    // C1-M6 — `tycoon-build-mode-v1.spec.ts` was merely the first), addressing it
+    // absolutely (`GRID_BASE_URL`) rather than through `baseURL`.
     command: `npx vite --config vite.config.ts --port ${GRID_PORT} --strictPort`,
     cwd: uiDir,
     env: {
