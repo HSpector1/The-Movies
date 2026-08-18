@@ -97,6 +97,11 @@ import {
   DIRECTOR_ROUTE,
   FOCUS_COMFORT_MARGIN_PX,
   GHOST_FILL_ALPHA,
+  GROUND_SCORCH_THRESHOLD,
+  GROUND_VERGE_BONUS,
+  backlotDressing,
+  gridNoise,
+  groundDryness,
   GUIDANCE_MARKER_ALPHA_STATIC,
   GUIDANCE_MARKER_FILL_ALPHA,
   GUIDANCE_MARKER_PULSE_MS,
@@ -315,6 +320,20 @@ type AmbientActor = {
   speed: number
 }
 
+/**
+ * One inert dressing prop and the cell it stands on (C1-M6b).
+ *
+ * The cell is the whole reason this record exists: a prop is presentation with no identity
+ * and no state, but it still has to be able to STEP ASIDE when the studio builds where it
+ * stands, and stepping aside is the only thing this is ever asked.
+ */
+type DressingProp = {
+  sprite: Phaser.GameObjects.Sprite
+  gx: number
+  gy: number
+  yielded?: boolean
+}
+
 type CosmeticRoute = { productionId: string; personId: string; elapsed: number }
 type CosmeticSceneryLoadIn = { productionId: string; title: string; elapsed: number }
 
@@ -348,6 +367,8 @@ export class TycoonScene extends Phaser.Scene {
   private requestedGateVisitor: HollywoodGateVisitorPresentation | null = null
   private establishedProps: Phaser.GameObjects.Sprite[] = []
   private stageCars: Phaser.GameObjects.Sprite[] = []
+  /** Every dressing prop with the CELL it stands on, so it can yield to a real body. */
+  private dressingProps: DressingProp[] = []
 
   private selectionGraphics: Phaser.GameObjects.Graphics | null = null
   private sceneryGraphics: Phaser.GameObjects.Graphics | null = null
@@ -690,7 +711,45 @@ export class TycoonScene extends Phaser.Scene {
     paint(PATHS, 'tw-t-path')
     paint(ROADS, 'tw-t-road', 'tw-t-road-line')
     paint(APRONS, 'tw-t-apron')
+    this.scorchGround(grid)
     return grid
+  }
+
+  /**
+   * The ochre pass over the finished zoning (C1-M6b).
+   *
+   * Two effects, one rule: a GRASS cell is repainted as the dry tone when the coordinate
+   * hash says it is a scorch blotch, and a grass cell that touches traffic — a road, an
+   * apron, the parking, the plaza — is a great deal more likely to be, because that is
+   * where a lot is actually worn. Nothing else is touched: paving, roads, the graded
+   * annex pad and the yard gravel all keep the exact tone their zoning gave them, so the
+   * circulation a player reads legality from is unchanged.
+   *
+   * `groundDryness` is a pure function of the cell, so this is deterministic without
+   * consuming any RNG at all — two paints of the same snapshot are byte-identical.
+   */
+  private scorchGround(grid: GroundKind[][]): void {
+    const grass = (kind: GroundKind | undefined): boolean =>
+      kind === 'tw-t-lawn' || kind === 'tw-t-lawn2'
+    const traffic = (gx: number, gy: number): boolean => {
+      const kind = grid[gy]?.[gx]
+      return (
+        kind === 'tw-t-road' ||
+        kind === 'tw-t-road-line' ||
+        kind === 'tw-t-apron' ||
+        kind === 'tw-t-plaza' ||
+        kind === 'tw-t-path'
+      )
+    }
+    for (let gy = 0; gy < this.lotD; gy++) {
+      for (let gx = 0; gx < this.lotW; gx++) {
+        if (!grass(grid[gy]?.[gx])) continue
+        const verge =
+          traffic(gx - 1, gy) || traffic(gx + 1, gy) || traffic(gx, gy - 1) || traffic(gx, gy + 1)
+        const dryness = groundDryness(gx, gy) + (verge ? GROUND_VERGE_BONUS : 0)
+        if (dryness >= GROUND_SCORCH_THRESHOLD) grid[gy]![gx] = 'tw-t-lawn-dry'
+      }
+    }
   }
 
   private buildGround(): void {
@@ -740,6 +799,7 @@ export class TycoonScene extends Phaser.Scene {
     // Plinths, drop shadows and the perimeter wall are baked into the ground so they
     // cost no display object and can never sort between a building and its own footing.
     const decals = this.make.graphics({ x: 0, y: 0 })
+    this.drawGroundWear(decals, kinds, minX, minY)
     this.drawPerimeter(decals, minX, minY)
     for (const place of this.worldBuildings) {
       if (place.texKey === '') continue
@@ -749,11 +809,14 @@ export class TycoonScene extends Phaser.Scene {
         const cy = (pts[0].y + pts[2].y) / 2
         return pts.map((p) => ({ x: cx + (p.x - cx) * k, y: cy + (p.y - cy) * k }))
       }
-      // soft drop shadow, thrown to the lower right by the upper-left key light
+      // Soft drop shadow, thrown to the lower right by the upper-left key light.
+      // C1-M6b DEEPENED these: the ground came up ~8 points of lightness in the ochre
+      // shift, and the contact shadow is the single cue that keeps a body from floating
+      // on it. Readability wins over warmth wherever the two disagree.
       for (const [k, a, dx, dy] of [
-        [1.16, 0.1, 26, 13],
-        [1.08, 0.13, 18, 9],
-        [1.02, 0.16, 11, 6],
+        [1.16, 0.13, 26, 13],
+        [1.08, 0.17, 18, 9],
+        [1.02, 0.21, 11, 6],
       ] as const) {
         decals.fillStyle(C.shadow, a)
         const s = grow(k).map((p) => ({ x: p.x + dx, y: p.y + dy }))
@@ -771,13 +834,68 @@ export class TycoonScene extends Phaser.Scene {
       for (let i = 1; i < slab.length; i++) decals.lineTo(slab[i].x, slab[i].y)
       decals.closePath()
       decals.fillPath()
-      decals.lineStyle(1.5, C.plazaEdge, 0.85)
+      // A warm dark kerb, not the old pale one: over ochre ground a pale edge on a pale
+      // slab disappears, and the slab is what tells a player where a body's ground ends.
+      decals.lineStyle(1.75, C.shadow, 0.45)
       decals.strokePath()
     }
     rt.beginDraw()
     rt.batchDraw(decals, 0, 0)
     rt.endDraw()
     decals.destroy()
+  }
+
+  /**
+   * GROUND WEAR (C1-M6b) — where the studio's own traffic has worn the property.
+   *
+   * Baked into the ground render texture with the plinths and the wall, so the whole pass
+   * costs zero display objects, zero draw calls and nothing per frame. Two marks, both
+   * derived from the finished zoning rather than authored by hand, so they follow the road
+   * network instead of duplicating it:
+   *
+   *   • a SHOULDER SCUFF where a road, apron or plaza cell meets ground that is not
+   *     paved — the crumbling edge every unkerbed studio road has;
+   *   • a WORN CROSSING where two pieces of circulation meet, which is where a lot's
+   *     traffic actually concentrates.
+   *
+   * Both are pure functions of the cell (`gridNoise`), never of a clock or an RNG stream,
+   * so the bake is identical on every paint of the same snapshot.
+   */
+  private drawGroundWear(
+    g: Phaser.GameObjects.Graphics,
+    kinds: GroundKind[][],
+    minX: number,
+    minY: number,
+  ): void {
+    const paved = (gx: number, gy: number): boolean => {
+      const kind = kinds[gy]?.[gx]
+      return (
+        kind === 'tw-t-road' ||
+        kind === 'tw-t-road-line' ||
+        kind === 'tw-t-apron' ||
+        kind === 'tw-t-plaza'
+      )
+    }
+    for (let gy = 0; gy < this.lotD; gy++) {
+      for (let gx = 0; gx < this.lotW; gx++) {
+        if (!paved(gx, gy)) continue
+        const open =
+          (paved(gx - 1, gy) ? 0 : 1) +
+          (paved(gx + 1, gy) ? 0 : 1) +
+          (paved(gx, gy - 1) ? 0 : 1) +
+          (paved(gx, gy + 1) ? 0 : 1)
+        if (open === 0) continue
+        const centre = this.world(gx + 0.5, gy + 0.5)
+        const x = centre.x - minX
+        const y = centre.y - minY
+        // the scuff itself: two warm-dark smudges spanning the paving edge
+        const spin = gridNoise(gx, gy, 71)
+        g.fillStyle(C.shadow, 0.055 + open * 0.02)
+        g.fillEllipse(x + (spin - 0.5) * 26, y + (gridNoise(gx, gy, 73) - 0.5) * 12, 74, 34)
+        g.fillStyle(C.dirtEdge, 0.07 + open * 0.015)
+        g.fillEllipse(x + (gridNoise(gx, gy, 79) - 0.5) * 30, y + (spin - 0.5) * 14, 52, 24)
+      }
+    }
   }
 
   /**
@@ -1074,14 +1192,21 @@ export class TycoonScene extends Phaser.Scene {
     const gx = spec.gx + (j === 0 ? 0 : rng.range(-j, j))
     const gy = spec.gy + (j === 0 ? 0 : rng.range(-j, j))
     const p = this.world(gx, gy)
-    return this.add
+    const sprite = this.add
       .sprite(p.x, p.y, meta.key)
       .setOrigin(meta.originX, meta.originY)
       .setDepth(this.depthAt(gx, gy, 6))
+    // Which CELL this prop stands on, so the yield pass can ask whether a real body has
+    // since been built over it. Dressing never enters occupancy — it only steps aside.
+    this.dressingProps.push({ sprite, gx: Math.floor(gx), gy: Math.floor(gy) })
+    return sprite
   }
 
   private buildDressing(): void {
     landscaping().forEach((spec, index) => this.placeProp(spec, index))
+    // C1-M6b backlot dressing: standing gear, fencing and dry planting on ground the
+    // parcel map does not offer for building (see `backlotDressing`).
+    backlotDressing().forEach((spec, index) => this.placeProp(spec, 3000 + index))
     establishedDressing().forEach((spec, index) => {
       const sprite = this.placeProp(spec, 1000 + index)
       if (sprite) {
@@ -1096,6 +1221,36 @@ export class TycoonScene extends Phaser.Scene {
     ].entries()) {
       const sprite = this.placeProp({ texKey: 'tw-car', gx: at.gx, gy: at.gy }, 2000 + i)
       if (sprite) this.stageCars.push(sprite)
+    }
+  }
+
+  /**
+   * DRESSING YIELDS TO A REAL BODY (C1-M6b).
+   *
+   * A prop may never make a player believe ground is taken, and it may never sit on top of
+   * a building the studio actually paid for. Both are the same rule, and this is it: any
+   * dressing whose cell is covered by a placed facility — under construction or
+   * operational — stops painting until that facility is gone.
+   *
+   * The new backlot inventory is authored onto ground no parcel offers, so in practice
+   * this catches exactly the LEGACY landscaping that predates the rule (the water tower on
+   * the north back lot, the back-lot cars, the two hedges on the stage pads). It decides
+   * nothing: occupancy is read from the Engine's own placement projection, and a prop that
+   * yields still occupies no cell in any answer the engine gives.
+   */
+  private yieldDressingToBodies(): void {
+    if (this.dressingProps.length === 0) return
+    const taken = new Set<string>()
+    for (const placed of this.placement?.placements ?? []) {
+      for (const cell of placed.cells) taken.add(`${String(cell.gx)}:${String(cell.gy)}`)
+    }
+    for (const prop of this.dressingProps) {
+      const covered = taken.has(`${String(prop.gx)}:${String(prop.gy)}`)
+      if (prop.yielded === covered) continue
+      prop.yielded = covered
+      // An established-dressing prop is hidden for its own reasons; never turn one back on.
+      if (covered) prop.sprite.setVisible(false)
+      else if (!this.establishedProps.includes(prop.sprite)) prop.sprite.setVisible(true)
     }
   }
 
@@ -1272,6 +1427,32 @@ export class TycoonScene extends Phaser.Scene {
   }
 
   /**
+   * A stroke laid over a dark bed, so warm chrome survives warm ground (C1-M6b).
+   *
+   * The ochre shift lifted the property's ground by roughly eight points of lightness, and
+   * four of this world's cues are warm and LIGHT: the gold selection ring, the pale hover
+   * ring, the guidance pool's brass rim, and the ghost's outline. All four were reading
+   * against a cold olive lawn and none of them can be trusted to read against gold.
+   *
+   * Rather than recolour four established cues — which would have thrown away recognition
+   * the player already has — every one of them is now drawn over a wider, darker line
+   * first. Contrast arrives from underneath, the identity colour is untouched, and it works
+   * over BOTH the pale surround and the dark asphalt, which no single recolour would.
+   *
+   * READABILITY BEATS WARMTH. This is where that is paid for.
+   */
+  private strokePolygonHaloed(
+    g: Phaser.GameObjects.Graphics,
+    points: readonly Point[],
+    colour: number,
+    width: number,
+    alpha: number,
+  ): void {
+    this.strokePolygon(g, points, C.chromeHalo, width + Math.max(2, width * 0.9), alpha * 0.62)
+    this.strokePolygon(g, points, colour, width, alpha)
+  }
+
+  /**
    * Create one hit area per BUILDABLE parcel, once, when the first placement
    * projection arrives. The parcel map is authored engine data and never changes
    * shape, so these are built once and then only repainted.
@@ -1342,7 +1523,13 @@ export class TycoonScene extends Phaser.Scene {
     g.clear()
     const polygon = this.rectPolygon(parcel.rect)
     this.fillPolygon(g, polygon, selected ? C.selection : C.hover, selected ? 0.16 : 0.08)
-    this.strokePolygon(g, polygon, selected ? C.selection : C.hover, selected ? 3.5 : 2, 0.95)
+    this.strokePolygonHaloed(
+      g,
+      polygon,
+      selected ? C.selection : C.hover,
+      selected ? 3.5 : 2,
+      0.95,
+    )
   }
 
   /** Host/DOM parity: paint a parcel without emitting an event. */
@@ -1443,7 +1630,13 @@ export class TycoonScene extends Phaser.Scene {
     }
     const outline = this.rectPolygon(extent)
     this.fillPolygon(g, outline, C.brass, 0.12)
-    this.strokePolygon(g, outline, C.brass, chromeStrokeWidth(3, this.cameras.main.zoom), 0.9)
+    this.strokePolygonHaloed(
+      g,
+      outline,
+      C.brass,
+      chromeStrokeWidth(3, this.cameras.main.zoom),
+      0.9,
+    )
     g.setVisible(true)
   }
 
@@ -1481,7 +1674,9 @@ export class TycoonScene extends Phaser.Scene {
     const extent = TycoonScene.cellsExtent(preview.cells)
     if (extent !== null) {
       const outline = this.rectPolygon(extent)
-      this.strokePolygon(
+      // Haloed since C1-M6b: the ghost's verdict outline has to survive a ground that is
+      // now light and warm, and the ghost is the one cue a player commits money on.
+      this.strokePolygonHaloed(
         g,
         outline,
         preview.ok ? PREVIEW_OK : PREVIEW_BAD,
@@ -1788,20 +1983,25 @@ export class TycoonScene extends Phaser.Scene {
     const view = this.buildings.get(place.buildingId)
     if (!view) return
     g.clear()
+    const colour = selected ? C.selection : C.hover
     const foot = view.footprint.map((p) => new Phaser.Math.Vector2(p.x, p.y))
-    g.fillStyle(selected ? C.selection : C.hover, selected ? 0.2 : 0.1)
+    g.fillStyle(colour, selected ? 0.2 : 0.1)
     g.fillPoints(foot, true)
-    g.lineStyle(selected ? 4 : 2.5, selected ? C.selection : C.hover, 0.95)
-    g.strokePoints(foot, true)
+    // Haloed since C1-M6b: gold on gold ground is not a selection anybody can see.
+    this.strokePolygonHaloed(g, view.footprint, colour, selected ? 4 : 2.5, 0.95)
     const body =
       view.sprite ??
       (view.place.placedFacilityId === null
         ? null
         : this.placementSprites.get(view.place.placedFacilityId) ?? null)
     if (body) {
-      const sil = view.silhouette.map((p) => new Phaser.Math.Vector2(p.x, p.y))
-      g.lineStyle(selected ? 3 : 2, selected ? C.selection : C.hover, selected ? 0.85 : 0.5)
-      g.strokePoints(sil, true)
+      this.strokePolygonHaloed(
+        g,
+        view.silhouette,
+        colour,
+        selected ? 3 : 2,
+        selected ? 0.85 : 0.5,
+      )
     }
   }
 
@@ -1985,11 +2185,20 @@ export class TycoonScene extends Phaser.Scene {
 
     // Two nested pools give the light a soft edge without a gradient texture, and the
     // rim keeps a constant SCREEN weight so it never sub-pixels away at institution scale.
+    // C1-M6b: the outer pool is BRASS rather than near-white cream, and the rim is haloed.
+    // A pale pool of light on pale ground is not a pool of light; the marker still reads as
+    // warm light, it just no longer relies on being lighter than a lot that got lighter.
     const fill = GUIDANCE_MARKER_FILL_ALPHA[this.lodBand]
     const outer = spread(GUIDANCE_MARKER_SPREAD.outer)
-    this.fillPolygon(g, outer, C.marquee, fill * 0.55)
+    this.fillPolygon(g, outer, C.brass, fill * 0.55)
     this.fillPolygon(g, spread(GUIDANCE_MARKER_SPREAD.inner), C.marquee, fill)
-    this.strokePolygon(g, outer, C.brass, chromeStrokeWidth(2, this.cameras.main.zoom), 0.85)
+    this.strokePolygonHaloed(
+      g,
+      outer,
+      C.brass,
+      chromeStrokeWidth(2, this.cameras.main.zoom),
+      0.85,
+    )
 
     g.setVisible(true)
     g.setAlpha(guidanceMarkerAlpha(this.guidanceElapsed, this.reducedMotion))
@@ -2482,6 +2691,8 @@ export class TycoonScene extends Phaser.Scene {
     }
     this.paintPlacements()
     this.paintCarriedBody()
+    // Dressing steps aside for anything the studio actually built on its cell.
+    this.yieldDressingToBodies()
   }
 
   /** The home-zone parking point for one rendered person, exactly as M1.5 authored it. */
