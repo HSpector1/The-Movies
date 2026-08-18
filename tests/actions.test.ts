@@ -408,6 +408,119 @@ describe('applyActions — greenlight M16 validation rejections', () => {
     expect(result.studio.activeProductions.length).toBe(1)
   })
 
+  // ── EXHAUSTIVE single-role uniqueness: all fifteen seat pairings ─────────────
+  // The ruling above ("a talent fills exactly one role in one production") forbids
+  // ONE talent occupying TWO seats of ONE production. A production offers six
+  // assignable seats — writerId, directorId, the craft seat, and the three cast
+  // slots — so there are C(6,2) = 15 distinct ways to violate it. The two tests
+  // above pin exactly ONE of them (writerId ↔ cast.lead). The loop below pins
+  // every one, so a refactor that removes the uniqueness sweep fails loudly
+  // instead of silently re-opening the other fourteen doors.
+  //
+  // Expectation is derived from the ruling, not the implementation: each pairing
+  // must be REFUSED, and the refusal must name the duplicated talent id (a silent
+  // or anonymous rejection is not a legible refusal). Which internal rule fires
+  // first is deliberately NOT asserted.
+  type Seat =
+    | 'writerId'
+    | 'directorId'
+    | 'craftIds[0]'
+    | 'cast.lead'
+    | 'cast.antagonist'
+    | 'cast.support'
+  type GreenlightPayload = Omit<
+    Production,
+    'id' | 'startTick' | 'remainingTicks' | 'forecastSnapshot'
+  >
+
+  const SEATS: readonly Seat[] = [
+    'writerId',
+    'directorId',
+    'craftIds[0]',
+    'cast.lead',
+    'cast.antagonist',
+    'cast.support',
+  ]
+
+  function readSeat(p: GreenlightPayload, seat: Seat): string {
+    switch (seat) {
+      case 'writerId':
+        return p.writerId
+      case 'directorId':
+        return p.directorId
+      case 'craftIds[0]':
+        return p.craftIds[0]
+      case 'cast.lead':
+        return p.cast.lead
+      case 'cast.antagonist':
+        return p.cast.antagonist
+      case 'cast.support':
+        return p.cast.support
+    }
+  }
+
+  function writeSeat(p: GreenlightPayload, seat: Seat, id: string): GreenlightPayload {
+    switch (seat) {
+      case 'writerId':
+        return { ...p, writerId: id }
+      case 'directorId':
+        return { ...p, directorId: id }
+      case 'craftIds[0]':
+        return { ...p, craftIds: [id, ...p.craftIds.slice(1)] }
+      case 'cast.lead':
+        return { ...p, cast: { ...p.cast, lead: id } }
+      case 'cast.antagonist':
+        return { ...p, cast: { ...p.cast, antagonist: id } }
+      case 'cast.support':
+        return { ...p, cast: { ...p.cast, support: id } }
+    }
+  }
+
+  // A six-seat baseline: the default five plus a real craft-role talent in the
+  // craft seat, all six ids distinct by construction.
+  function buildSixSeatBaseline(state: GameState): GreenlightPayload {
+    const craft = byRole(state, 'craft')[0]
+    return { ...buildGreenlightProduction(state), craftIds: [craft.id] }
+  }
+
+  it('the six-seat baseline is legal and its six ids are distinct (fixture guard)', () => {
+    const state = generateWorld('gl-6seat-baseline')
+    const prod = buildSixSeatBaseline(state)
+    const ids = SEATS.map((seat) => readSeat(prod, seat))
+    expect(ids.length).toBe(6)
+    expect(new Set(ids).size).toBe(6)
+    expect(() => applyActions(state, [greenlight(prod)])).not.toThrow()
+    const result = applyActions(state, [greenlight(prod)])
+    expect(result.studio.activeProductions.length).toBe(1)
+  })
+
+  for (let i = 0; i < 6; i += 1) {
+    for (let j = i + 1; j < 6; j += 1) {
+      const occupied = SEATS[i]
+      const stolen = SEATS[j]
+      it(`one talent in both ${occupied} and ${stolen} throws (single-role uniqueness)`, () => {
+        const state = generateWorld(`gl-dup-${i}-${j}`)
+        const base = buildSixSeatBaseline(state)
+        const duplicatedId = readSeat(base, occupied)
+        // Overwrite the SECOND seat with the FIRST seat's talent: exactly one
+        // collision, every other seat still distinct.
+        const prod = writeSeat(base, stolen, duplicatedId)
+        const ids = SEATS.map((seat) => readSeat(prod, seat))
+        expect(new Set(ids).size).toBe(5) // exactly one duplicate introduced
+
+        expect(() => applyActions(state, [greenlight(prod)])).toThrow()
+        // The refusal must name the talent it is refusing.
+        let message = ''
+        try {
+          applyActions(state, [greenlight(prod)])
+        } catch (e) {
+          message = e instanceof Error ? e.message : String(e)
+        }
+        expect(message).toContain(duplicatedId)
+      })
+    }
+  }
+
   it('promise.genre !== concept.genre throws (M4)', () => {
     const state = generateWorld('gl-rej-genre')
     const base = buildGreenlightProduction(state)
