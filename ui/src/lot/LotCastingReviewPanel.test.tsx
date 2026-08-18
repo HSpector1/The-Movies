@@ -647,6 +647,47 @@ describe('LotCastingReviewPanel', () => {
     expect(onAction).toHaveBeenCalledOnce()
   })
 
+  // C2a-M2/R4 — the 00F tycoon floor at THIS panel. A rejected acknowledge arrives as
+  // the engine's own throw (`casting sessions: acknowledge rejected — …`). The panel
+  // now speaks it; player copy a caller already wrote still passes through untouched,
+  // which is what the case above pins.
+  it('speaks a rejected acknowledge in the studio’s language, never the engine’s', () => {
+    const view = render(
+      <LotCastingReviewPanel
+        inputBoundary={inputBoundary}
+        context={blockedContext}
+        onAction={vi.fn()}
+        feedback={{
+          kind: 'error',
+          message:
+            'casting sessions: acknowledge rejected — session "casting-midnight" does not need review',
+        }}
+      />,
+    )
+    const voiced = screen.getByTestId('lot-casting-review-feedback')
+    expect(voiced).toHaveAttribute('data-refusal', 'casting-already-reviewed')
+    expect(voiced).toHaveTextContent('These results have already been reviewed')
+    expect(voiced).toHaveTextContent('Open the picture’s package to cast it.')
+    expect(voiced.textContent ?? '').not.toContain('casting sessions:')
+    expect(voiced.textContent ?? '').not.toContain('casting-midnight')
+
+    // An engine refusal with no translation yet keeps its raw note, disclosed — the
+    // player is never told something the studio did not say.
+    const unknown = 'casting sessions: acknowledge rejected — a rule nobody has voiced yet'
+    view.rerender(
+      <LotCastingReviewPanel
+        inputBoundary={inputBoundary}
+        context={blockedContext}
+        onAction={vi.fn()}
+        feedback={{ kind: 'error', message: unknown }}
+      />,
+    )
+    const generic = screen.getByTestId('lot-casting-review-feedback')
+    expect(generic).toHaveAttribute('data-refusal', 'untranslated')
+    expect(generic).toHaveTextContent('The studio would not do that')
+    expect(generic).toHaveTextContent(unknown)
+  })
+
   it('drops a captured physical gesture on unmount', () => {
     const onAction = vi.fn()
     const view = render(

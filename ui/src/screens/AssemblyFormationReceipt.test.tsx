@@ -187,11 +187,22 @@ describe('Assembly production-formation handoff', () => {
     )
     fireEvent.click(screen.getByTestId('greenlight'))
     expect(onGreenlit).not.toHaveBeenCalled()
-    expect(screen.getByRole('alert')).toHaveTextContent(/founding draft/i)
+    // C2a-M2/R4: the refusal is still announced at the same alert, but in the studio's
+    // language. This assertion used to read /founding draft/i — which passed only
+    // because the engine's own throw was rendered verbatim (the 00F defect). It now
+    // pins the voiced refusal AND the absence of the engine string it replaced.
+    const refused = screen.getByTestId('greenlight-refusal')
+    expect(refused).toHaveAttribute('role', 'alert')
+    expect(refused).toHaveAttribute('data-refusal', 'greenlight-before-founding')
+    expect(refused).toHaveTextContent('The studio is not founded yet')
+    expect(refused).toHaveTextContent('Finish the founding roster and found the studio.')
+    expect(refused.textContent ?? '').not.toContain('applyActions')
     fireEvent.click(screen.getByTestId('greenlight'))
     fireEvent.click(screen.getByTestId('greenlight'))
     expect(greenlightCalls).toHaveBeenCalledTimes(1)
-    expect(screen.getByRole('alert')).toHaveTextContent(/founding draft/i)
+    expect(screen.getByTestId('greenlight-refusal')).toHaveTextContent(
+      'The studio is not founded yet',
+    )
 
     // The rejected attempt must not poison retry. Restore the exact legal state and send the
     // kinds of compatibility/cross-key tails that can follow one accepted native click.
