@@ -292,6 +292,40 @@ lane's ownership set. **Suggested owner: OPUS-ENGINE-CORE at M0-integration.**
 
 ---
 
+## 6A. INTEGRATOR DISPOSITION (lane INTEGRATE-M0)
+
+Recorded by the M0 integration lane, which holds the whole worktree as sole writer.
+Each of §6's residuals is either landed or routed to a named milestone and owner — none
+is left as an unowned note.
+
+| # | Residual | Disposition | Owner / milestone |
+|---|---|---|---|
+| R1 | No load-time uniqueness assert in `v8Production` (`src/core/save.ts`) | **DEFERRED, as recommended.** Not landed at M0. | **OPUS-ENGINE-CORE, C2a-M2**, with the V14 save/migration work |
+| R2 | M16.7 pinned by one pairing only (`tests/actions.test.ts`) | **LANDED at M0-integration** — commit `ee0cb24`, `test(c2a-m0): pin all fifteen single-role seat pairings, not one`. `tests/actions.test.ts` 32 → 48 tests. | INTEGRATE-M0 (test-only) |
+| R3 | Movie #2 legibility: the casting → package seam drops the audition payoff | **ROUTED, not landed.** Presentational only; belongs with the package/greenlight legibility gate. | **OPUS-SCREENS, C2a-M2** (the §12-M2 LEGIBILITY gate already owns the package/greenlight surface) |
+| R4 | Tycoon-floor defect: raw engine refusal strings rendered verbatim at the greenlight button | **ROUTED, not landed.** Needs a translation seam between `ActionOutcome.error` and the player; the blocked-state grammar surface is charter §12-M4's **G16** gate. | **OPUS-SCREENS, C2a-M4** (adapter edits, if any, to OPUS-ENGINE-CORE per charter `:1348`) |
+| R5 | Minor robustness: a malformed `FilmShape` at greenlight crashes downstream with a bare `TypeError` instead of a validated refusal | **ROUTED, not landed.** Same class as R1 (payload validation), same file family. | **OPUS-ENGINE-CORE, C2a-M2** |
+
+**On R2 specifically.** The integration lane's standing instruction was to land the
+audit's bounded fix *only if duplication is possible*. It is not — §1's verdict stands
+after re-verification at this HEAD (the M16.7 sweep is present and unmodified in
+`applyGreenlight`, and `greenlightScriptProject` still delegates through it). So no
+*invariant* was added. R2 was landed anyway because it is strictly a **pin on existing
+behaviour**: it changes no engine byte, so it cannot disturb the M0A corpus
+byte-identity gate, and it converts a silent-deletion risk into a loud one. Its
+non-vacuity was proven by temporarily short-circuiting the M16.7 guard — 13 tests fail
+under that mutation (the 12 new non-cast-only pairings plus the pre-existing
+writer↔lead pin), and the 3 cast-only pairings correctly stay green because M16.3 owns
+them. The guard was restored before the commit.
+
+**Anchor re-verification at the integration HEAD.** The audit's file:line anchors were
+written against `8580546` and were spot-checked here against `ee0cb24`'s parent: M16.7
+still occupies `src/core/actions.ts:381-406`; `requireRole`'s relaxed has-discipline
+form is still at `:265-280` (which is why the explicit sweep is load-bearing); the
+`economyEngaged`-gated D-11.13/D-11.12 checks are still at `:499-530`. No drift.
+
+---
+
 ## 7. MOVIE #2 LEGIBILITY (00F gate) — one paragraph, as commissioned
 
 One thing on the casting→package seam is worth naming now, and it is the Owner's own
