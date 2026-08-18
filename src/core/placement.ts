@@ -87,6 +87,14 @@
 // property with no placement record at all — and that is asserted rather than
 // assumed.
 //
+// AND THE OTHER HALF OF THAT CONTRACT (C1-M8): nothing else may STAND there
+// either. Excluding the Annex's ground from both verbs only froze what was
+// already on it; the ground itself accepted any building the player carried or
+// built onto it, and the world then refused to show what the engine had accepted.
+// `RESERVED_PARCEL_BLUEPRINTS` states the rule where legality is decided, and the
+// standing invariant it restores is: A PLACEMENT THE ENGINE ACCEPTS MUST COMPOSE
+// A BODY — no ground may accept a building it will not show.
+//
 // CAPITAL IS STRICTLY LOSSY. A demolition refunds a fraction of the ORIGINAL
 // capex, never more, so build-then-demolish always nets negative and there is no
 // cycle a player can farm. The bound is enforced as an invariant, not a habit.
@@ -155,6 +163,10 @@ export const PLACEMENT_REJECTION_ORDER: readonly PlacementRejection[] = [
   'offLot',
   'notOwned',
   'terrainUnbuildable',
+  // C1-M8. A reservation is a permanent fact about the GROUND — true before
+  // anything stands there and after it comes down — so it ranks with terrain and
+  // above `occupied`, which is only ever true of one particular week.
+  'groundReserved',
   'occupied',
   'clearanceRing',
   'noRoadAccess',
@@ -167,6 +179,52 @@ export const PLACEMENT_REJECTION_ORDER: readonly PlacementRejection[] = [
   'instanceLimit',
   'insufficientFunds',
 ]
+
+/**
+ * GROUND HELD FOR AN AUTHORED CONTRACT (C1-M8) — parcel id → the ONE blueprint
+ * that may be built on it.
+ *
+ * THE LAW IT ENFORCES: a placement the engine ACCEPTS must compose a body. No
+ * ground may accept a building it will not show.
+ *
+ * The legacy `expansion` parcel is the Development & Casting Annex's own ground:
+ * the retained V11 contract, its read model, its identities and its world place
+ * all assume that a placement standing there IS the Annex (M1b: one owner per
+ * ground). Everything downstream is built on that assumption — the composed world
+ * DROPS any placement on this parcel because the `expansion` place already paints
+ * that ground's lifecycle, and both destructive verbs refuse anything standing
+ * there because the Annex contract is frozen until the C2 Flip.
+ *
+ * Until this milestone the assumption was enforced NOWHERE. A generic building
+ * moved (or, at engine level, built) onto this parcel was accepted, and then had
+ * no body, no verbs, no demolition and no way back, billed opex forever, and left
+ * the Annex contract permanently unstartable — with no error anywhere. The rule is
+ * now stated where legality is decided, so the assumption is a guarantee again.
+ *
+ * TWO THINGS ARE REFUSED, and both follow from the same fact:
+ *   • any blueprint OTHER than the reserved one, at any cell of the parcel;
+ *   • any MOVE onto the parcel, whatever the blueprint. The reserved ground holds
+ *     the placement the CONTRACT ITSELF creates, and a second Annex-class building
+ *     carried in from elsewhere is not that placement — it would take over the
+ *     contract's ground and its read-model identity by relocation.
+ *
+ * What is deliberately NOT refused is the contract's own build: the retained
+ * `startDevelopmentCastingAnnex` action and `studioConstructionView.canStart` both
+ * go through `queryPlacement` with this exact blueprint at this exact parcel, and
+ * they answer today exactly as they did before this rule existed.
+ *
+ * It is a MAP FROM PARCEL ID, not from coordinates: the reservation belongs to the
+ * named ground the legacy contract owns, and a property whose parcels move (or
+ * grow, per C1-M6a) carries its reservation with the parcel.
+ */
+export const RESERVED_PARCEL_BLUEPRINTS: ReadonlyMap<string, string> = new Map([
+  [LEGACY_EXPANSION_PARCEL_ID, DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.id],
+])
+
+/** The only blueprint that may be built on this parcel, or null when any may. */
+export function parcelReservedBlueprintId(parcelId: string): string | null {
+  return RESERVED_PARCEL_BLUEPRINTS.get(parcelId) ?? null
+}
 
 export function emptyStudioPlacement(): StudioPlacement {
   return { mode: 'legacy', nextPlacementId: 1, facilities: [] }
@@ -382,6 +440,27 @@ function orderedRejections(found: ReadonlySet<PlacementRejection>): PlacementRej
 }
 
 /**
+ * C1-M8 — is this request refused by the reservation on this parcel's ground?
+ *
+ * See `RESERVED_PARCEL_BLUEPRINTS` for the whole law. Unreserved ground answers
+ * false for every request, which is every parcel but one.
+ *
+ * AN ORDERING THIS DELIBERATELY DEPENDS ON: `isMove` refuses EVERY move onto
+ * reserved ground, the Annex's own placement included. That is not an oversight
+ * and must not be "simplified" into an Annex exemption — the Annex standing on
+ * that parcel is refused a move by `facilityMutationEligibility`'s
+ * `foundingPlacement` rule long before any destination is quoted, so the only
+ * mover this clause can ever actually see is a DIFFERENT building being carried
+ * onto the contract's ground. If that eligibility rule ever relaxes, this clause
+ * is what keeps a relocation from taking over the contract's ground and identity.
+ */
+function reservedAgainst(parcelId: string, blueprint: FacilityBlueprint, isMove: boolean): boolean {
+  const reserved = parcelReservedBlueprintId(parcelId)
+  if (reserved === null) return false
+  return isMove || blueprint.id !== reserved
+}
+
+/**
  * Pure legality + price. NEVER throws on an illegal request — illegality is
  * reported, which is the whole point of a preview. (A malformed GameState is a
  * different matter and is caught by the invariant checker at the action, tick,
@@ -494,6 +573,10 @@ export function quoteForBlueprint(
       const parcel = parcelAt(property, cell)
       if (parcel === null) rejection = 'notOwned'
       else if (parcel.terrain !== 'buildable') rejection = 'terrainUnbuildable'
+      // C1-M8 — ground an authored contract holds. Asked PER CELL, not of the
+      // origin's parcel: a footprint that only overlaps the reserved ground would
+      // still occupy it, and would still leave the contract unable to build.
+      else if (reservedAgainst(parcel.id, blueprint, isMove)) rejection = 'groundReserved'
       else if (occupied.has(cellKey(cell))) rejection = 'occupied'
     }
     if (rejection !== null) found.add(rejection)
@@ -1498,6 +1581,32 @@ export function assertStudioPlacementInvariants(
       invariant(
         standing === undefined,
         `placed facility ${String(placed.id)} overlaps property structure "${String(standing)}"`,
+      )
+    }
+  }
+
+  // C1-M8: no placement stands on ground an authored contract holds, unless it IS
+  // that contract's building. THE STANDING INVARIANT: a placement the engine
+  // accepts must compose a body, and the composed world will not show a generic
+  // building on the Annex's own pad — so a save that carries one is not a state
+  // this engine may run. It is a load-time refusal rather than a silent repair:
+  // such a save was written by a build that predates the query rule (or was
+  // forged), and half-loading it is exactly the eaten-building state this law
+  // exists to make unreachable.
+  //
+  // Like the structure-overlap law above it, this runs AFTER every V12 placement
+  // law so it can only ever ADD a verdict, never relabel one, and it is asked PER
+  // CELL because a footprint that merely overlaps the reserved ground occupies it
+  // just as completely.
+  for (const placed of placement.facilities) {
+    for (const cell of placed.cells) {
+      // An unowned cell is already the V12 law's business, above.
+      const parcel = parcelAt(property, cell)
+      if (parcel === null) continue
+      const reserved = parcelReservedBlueprintId(parcel.id)
+      invariant(
+        reserved === null || placed.blueprintId === reserved,
+        `placed facility ${String(placed.id)} stands on ground reserved for the studio's Annex contract`,
       )
     }
   }

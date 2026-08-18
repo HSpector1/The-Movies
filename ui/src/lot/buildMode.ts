@@ -87,6 +87,10 @@ export const LOT_PLACEMENT_REJECTION_TEXT: Record<PlacementRejection, string> = 
   offLot: 'Part of this footprint falls outside the studio property.',
   notOwned: 'Part of this footprint stands on ground the studio does not own.',
   terrainUnbuildable: 'This ground is protected — the studio does not build on it.',
+  // C1-M8. Ground an authored contract holds. It names the contract rather than the
+  // rule, because the useful thing to know is not "this is reserved" but WHO it is
+  // reserved for — the player can then see the Annex's own pad for what it is.
+  groundReserved: 'This ground is held for the studio’s Annex contract.',
   occupied: 'Something already stands on part of this footprint.',
   clearanceRing: 'This site is too close to another building — leave a cell of clearance.',
   noRoadAccess: 'This site has no road frontage; construction trucks cannot reach it.',

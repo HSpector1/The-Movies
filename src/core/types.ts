@@ -1023,7 +1023,7 @@ export type StudioPlacement = {
 }
 
 /**
- * The eleven rejection codes, in their binding legality ORDER. `primary` is the
+ * The twelve rejection codes, in their binding legality ORDER. `primary` is the
  * first of these present in a quote; money is always last, so a placement that is
  * both illegal and unaffordable reports the domain failure.
  *
@@ -1035,12 +1035,20 @@ export type StudioPlacement = {
  * of the cell under the cursor. `requirementsUnmet` outranks `instanceLimit`
  * because an unmet requirement means the building is not unlocked at all, which
  * is a larger fact than having used up its allowance.
+ *
+ * C1-M8 adds `groundReserved`: ground an authored contract holds, which no other
+ * building may take. It sits with the other GROUND facts and directly after
+ * `terrainUnbuildable`, because a reservation is a permanent property of the
+ * ground itself — true whether or not anything is standing there yet — and so it
+ * is a more fundamental answer than `occupied`, which is only true this week.
+ * See `RESERVED_PARCEL_BLUEPRINTS` in placement.ts for the law it enforces.
  */
 export type PlacementRejection =
   | 'unknownBlueprint'
   | 'offLot'
   | 'notOwned'
   | 'terrainUnbuildable'
+  | 'groundReserved'
   | 'occupied'
   | 'clearanceRing'
   | 'noRoadAccess'

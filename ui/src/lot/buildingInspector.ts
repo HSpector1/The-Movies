@@ -744,6 +744,13 @@ function primaryActions(
   // The founding bodies and the legacy Annex never reach here: they own no placed
   // identity, so no `placed-*` id names one, and `canOfferFacilityVerbs` refuses the
   // `foundingPlacement` code besides. The verbs are ABSENT there, not disabled.
+  //
+  // C1-M8 CORRECTION: that first clause was an assumption, and it was false — the move
+  // flow would carry an ordinary building onto the legacy Annex parcel, where it kept
+  // its `placed-*` id, lost its body, and was refused both verbs with nothing to read.
+  // It is an ENFORCED INVARIANT now rather than a hope: the engine reserves that ground
+  // for the Annex contract's own building, so a `placed-*` id can only ever name a
+  // building the world composes a body for.
   if (placed !== null) {
     const mutation = placed.mutation ?? null
     if (!canOfferFacilityVerbs(mutation) || mutation === null) return []

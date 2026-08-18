@@ -26,9 +26,11 @@ import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import {
   INITIAL_PROPERTY,
+  LEGACY_EXPANSION_PARCEL_ID,
   LOT_DEPTH,
   LOT_WIDTH,
   PLACEMENT_REJECTION_ORDER,
+  parcelReservedBlueprintId,
   assertStudioPlacementInvariants,
   cellKey,
   commitPlacement,
@@ -326,6 +328,9 @@ describe('C1-M6 (1) — the quote grammar is unchanged in the second zone', () =
       'offLot',
       'notOwned',
       'terrainUnbuildable',
+      // C1-M8 extends the vocabulary by one GROUND code (`groundReserved`), which
+      // this fixture answers on its own ground below. Nothing else moved.
+      'groundReserved',
       'occupied',
       'clearanceRing',
       'noRoadAccess',
@@ -404,6 +409,25 @@ describe('C1-M6 (1) — the quote grammar is unchanged in the second zone', () =
       'noRoadAccess',
       'insufficientFunds',
     ])
+
+    // groundReserved — C1-M8. This code belongs to ground an authored contract HOLDS,
+    // and the grown property still holds exactly the one the founding property did: the
+    // legacy Annex pad, carried by PARCEL ID rather than by coordinates, with the new
+    // zone adding none of its own. A generic blueprint is refused there on the grown
+    // property exactly as on the founding one — growing the property may not quietly
+    // hand the contract's ground to something else.
+    expect(
+      state.property.parcels
+        .filter((parcel) => parcelReservedBlueprintId(parcel.id) !== null)
+        .map((parcel) => parcel.id),
+    ).toEqual([LEGACY_EXPANSION_PARCEL_ID])
+    const reserved = record(queryPlacement(state, at(7, 15, CRAFT_ANNEX_BLUEPRINT.id)))
+    expect(reserved.primary).toBe('groundReserved')
+    expect(reserved.cellLegality.every((verdict) => verdict.rejection === 'groundReserved')).toBe(
+      true,
+    )
+    // …and the contract's OWN blueprint still answers `ok` on its own ground.
+    expect(queryPlacement(state, at(7, 15)).ok).toBe(true)
 
     // seversLot — the severance walk BINDS on the new ground. It is asked of the one
     // authority directly, exactly as `placement-lot.test.ts` asks it: the clearance

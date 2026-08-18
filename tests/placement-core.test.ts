@@ -324,6 +324,11 @@ describe('Placement Core V12 — the legality query', () => {
       'offLot',
       'notOwned',
       'terrainUnbuildable',
+      // C1-M8: ground an authored contract holds. A reservation is a permanent
+      // fact about the ground, so it ranks with terrain and above `occupied`,
+      // which is only ever true of one week. EXTENDS the vocabulary — every code
+      // below keeps its place and its meaning.
+      'groundReserved',
       'occupied',
       'clearanceRing',
       'noRoadAccess',

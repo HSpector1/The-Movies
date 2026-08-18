@@ -103,8 +103,17 @@ export function canOfferFacilityVerbs(mutation: LotFacilityMutation | null | und
   if (mutation === null || mutation === undefined) return false
   const code = mutation.blocked?.code ?? null
   // A caller-state refusal is not a player situation: no verb, no disabled button, no
-  // sentence. `foundingPlacement` never reaches a `placed-*` id (the legacy Annex owns
-  // no placed identity), and is withheld here too so the rule holds if that ever changes.
+  // sentence.
+  //
+  // `foundingPlacement` is the engine's word for "this stands on the legacy Annex's
+  // ground", and it is withheld here as well. C1-M8 CORRECTION: this comment used to
+  // claim such a code could never reach a `placed-*` id. It could — the move flow
+  // carried ordinary buildings onto that parcel, where the composed world then refused
+  // to show them. The engine now REFUSES that ground to anything but the Annex
+  // contract's own building (`RESERVED_PARCEL_BLUEPRINTS`), so the enforced invariant
+  // is: a placement the engine accepts composes a body, and the only placement on that
+  // parcel is the Annex, which owns no `placed-*` identity. This clause is the second
+  // line of defence for that invariant, not an assumption about it.
   return code === null || code === 'facilityEngaged'
 }
 

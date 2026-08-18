@@ -227,6 +227,8 @@ export {
 } from './blueprintRequirements.js'
 export {
   PLACEMENT_REJECTION_ORDER,
+  RESERVED_PARCEL_BLUEPRINTS,
+  parcelReservedBlueprintId,
   assertStudioPlacementInvariants,
   blueprintById,
   clearanceRingCells,

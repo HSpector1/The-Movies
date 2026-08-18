@@ -115,6 +115,16 @@ function synthetic(overrides: Partial<FacilityBlueprint> & { id: string }): Faci
 /** A legal, road-fronting, buildable origin on the initial property. */
 const LEGAL_ORIGIN = { gx: 7, gy: 15 } // the `expansion` parcel
 const SECOND_ORIGIN = { gx: 0, gy: 9 } // `west-lawn`, far from the first
+/**
+ * Open ground for a SYNTHETIC blueprint (C1-M8).
+ *
+ * The `expansion` parcel is ground the legacy Annex contract holds, and since
+ * C1-M8 it accepts that contract's own blueprint and nothing else. The two
+ * requirement tests below judge a blueprint the catalog does not contain, so they
+ * ask on unreserved ground; every assertion they make is unchanged, and the Annex
+ * itself still uses `LEGAL_ORIGIN` everywhere else in this file.
+ */
+const SYNTHETIC_ORIGIN = { gx: 0, gy: 12 } // `west-lawn`, south end
 
 // Every kind, with one requirement that IS satisfiable today (where possible)
 // and one that is not, so no kind can quietly go unexercised.
@@ -458,7 +468,7 @@ describe('C1-M2 — placement integration and the binding rejection order', () =
         { kind: 'certificate', certificateId: 'First Hit' },
       ],
     })
-    const quote = quoteForBlueprint(state, locked, LEGAL_ORIGIN)
+    const quote = quoteForBlueprint(state, locked, SYNTHETIC_ORIGIN)
     expect(quote.ok).toBe(false)
     expect(quote.rejections).toEqual(['requirementsUnmet'])
     expect(quote.primary).toBe('requirementsUnmet')
@@ -561,11 +571,11 @@ describe('C1-M2 — placement integration and the binding rejection order', () =
     const state = withCash(managedStudio('c1-m2-gate-opens'), 5_000_000)
     const gated = synthetic({ id: 'gated', requires: [{ kind: 'date', week: 4 }] })
 
-    const before = quoteForBlueprint(state, gated, LEGAL_ORIGIN)
+    const before = quoteForBlueprint(state, gated, SYNTHETIC_ORIGIN)
     expect(before.ok).toBe(false)
     expect(before.primary).toBe('requirementsUnmet')
 
-    const after = quoteForBlueprint(advance(state, 4), gated, LEGAL_ORIGIN)
+    const after = quoteForBlueprint(advance(state, 4), gated, SYNTHETIC_ORIGIN)
     expect(after.ok).toBe(true)
     expect(after.rejections).toEqual([])
     expect(after.unmetRequirements).toEqual([])
