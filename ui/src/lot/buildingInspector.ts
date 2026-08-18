@@ -39,6 +39,7 @@ import { lotCatalogEntryFor } from './buildCatalog.ts'
 import {
   canOfferFacilityVerbs,
   demolishVerbLabel,
+  demolitionSubjectOf,
   facilityMutationBlockedReason,
 } from './facilityMutation.ts'
 import { lotFacilityPresenceOccupants } from './snapshot/presenceLines.ts'
@@ -763,7 +764,8 @@ function primaryActions(
     }
     const demolish: LotBuildingInspectorPrimaryAction = {
       kind: 'demolish',
-      label: demolishVerbLabel(mutation.demolitionRefund),
+      // C1-M8: a foundation is not a building, and the verb says which it is.
+      label: demolishVerbLabel(mutation.demolitionRefund, demolitionSubjectOf(placed)),
       ...(mutation.canDemolish ? {} : { disabled: true as const }),
       ...(mutation.canDemolish || reason === null ? {} : { reason }),
     }

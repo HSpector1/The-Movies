@@ -181,6 +181,7 @@ import { placedFacilityIdOf } from './snapshot/StudioLotSnapshot.ts'
 import {
   demolishConfirmText,
   demolishReceiptText,
+  demolitionSubjectOf,
   facilityMutationBlockedReason,
   moveFlowHeading,
   moveReceiptText,
@@ -6227,6 +6228,9 @@ export function StudioLotScreen({
                 {demolishConfirmText(
                   demolishFacility.name,
                   demolishFacility.mutation?.demolitionRefund ?? 0,
+                  // C1-M8: an unfinished site is named for what it is, and the
+                  // weeks the studio is abandoning are named with it.
+                  demolitionSubjectOf(demolishFacility),
                 )}
               </h4>
               <p

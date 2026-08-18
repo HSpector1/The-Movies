@@ -41,6 +41,7 @@ import {
   demolishConfirmText,
   demolishReceiptText,
   demolishVerbLabel,
+  demolitionSubjectOf,
   facilityActivityLabel,
   facilityMutationBlockedReason,
   moveReceiptText,
@@ -201,6 +202,84 @@ describe('C1-M3b — the words never invent a name and never print an engine wor
     expect(moveReceiptText('Development & Casting Annex', null)).toBe(
       'Development & Casting Annex moved to its new site.',
     )
+  })
+
+  it('calls a construction site a construction site, and names the write-off (C1-M8)', () => {
+    // A half-built foundation is not "this building", and taking it down is not
+    // cashing something in: the weeks already paid for are gone, and the confirm
+    // said nothing about them. Driven through a real 20-week Hall, exactly as the
+    // rest of this file drives its states.
+    let state = managedStudio('c1-m8-demolish-site')
+    const view = studioPlacement(state)
+    let request: PlacementRequest | null = null
+    for (const parcel of view.parcels) {
+      if (parcel.id === 'expansion' || request !== null) continue
+      for (let gy = parcel.rect.y0; gy <= parcel.rect.y1 && request === null; gy++) {
+        for (let gx = parcel.rect.x0; gx <= parcel.rect.x1 && request === null; gx++) {
+          const candidate = { blueprintId: 'development-casting-hall', origin: { gx, gy } }
+          if (placementQuote(state, candidate).ok) request = candidate
+        }
+      }
+    }
+    if (request === null) throw new Error('no legal site for the Hall')
+    state = place(state, request)
+
+    const rowAt = (current: GameState) =>
+      studioLotSnapshot(current).placement!.placements[0]!
+
+    // Before any advance: nothing built yet, and the sentence says exactly that.
+    const sameWeek = demolitionSubjectOf(rowAt(state))
+    expect(sameWeek).toEqual({ status: 'underConstruction', weeksBuilt: 0 })
+    expect(demolishConfirmText('Development & Casting Hall', 700_000, sameWeek)).toBe(
+      'Demolish the Development & Casting Hall construction site? The studio recovers $700,000; no weeks of building are lost yet.',
+    )
+
+    // One weekly advance reads as one week.
+    state = advanceWeek(state).next
+    const firstWeek = demolitionSubjectOf(rowAt(state))
+    expect(firstWeek).toEqual({ status: 'underConstruction', weeksBuilt: 1 })
+    expect(demolishConfirmText('Development & Casting Hall', 700_000, firstWeek)).toBe(
+      'Demolish the Development & Casting Hall construction site? The studio recovers $700,000; 1 week of building is written off.',
+    )
+
+    // Seven weeks in, and it is still a site — with seven weeks to lose.
+    for (let week = 0; week < 6; week++) state = advanceWeek(state).next
+    const halfBuilt = rowAt(state)
+    expect(halfBuilt.status).toBe('underConstruction')
+    const site = demolitionSubjectOf(halfBuilt)
+    expect(site).toEqual({ status: 'underConstruction', weeksBuilt: 7 })
+    expect(demolishVerbLabel(halfBuilt.mutation!.demolitionRefund, site)).toBe(
+      'Demolish this construction site — refund $700,000',
+    )
+    expect(demolishConfirmText(halfBuilt.name, halfBuilt.mutation!.demolitionRefund, site)).toBe(
+      'Demolish the Development & Casting Hall construction site? The studio recovers $700,000; 7 weeks of building are written off.',
+    )
+    // …and that is the verb the world actually offers, through the inspector.
+    const siteContext = lotBuildingInspectorContext(
+      studioLotSnapshot(state),
+      placedBuildingId(halfBuilt.id),
+      studioCalendarBoard(state),
+      null,
+    )
+    expect(
+      siteContext.primaryActions.find((action) => action.kind === 'demolish')?.label,
+    ).toBe('Demolish this construction site — refund $700,000')
+
+    // THE OPERATIONAL COPY IS UNCHANGED, byte for byte, with or without a subject.
+    const standing = studioWithOneFacility('c1-m8-demolish-standing')
+    const built = studioLotSnapshot(standing).placement!.placements[0]!
+    const subject = demolitionSubjectOf(built)
+    expect(subject?.status).toBe('operational')
+    expect(demolishVerbLabel(390_000, subject)).toBe(demolishVerbLabel(390_000))
+    expect(demolishConfirmText(built.name, 390_000, subject)).toBe(
+      demolishConfirmText(built.name, 390_000),
+    )
+    expect(demolishConfirmText(built.name, 390_000, subject)).toBe(
+      `Demolish ${built.name}? The studio recovers $390,000.`,
+    )
+    // A subject the world could not prove changes nothing either.
+    expect(demolitionSubjectOf(null)).toBeNull()
+    expect(demolishVerbLabel(390_000, null)).toBe('Demolish this building — refund $390,000')
   })
 })
 

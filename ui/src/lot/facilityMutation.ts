@@ -117,19 +117,79 @@ export function canOfferFacilityVerbs(mutation: LotFacilityMutation | null | und
   return code === null || code === 'facilityEngaged'
 }
 
-/** The label the Demolish verb wears, refund and all. */
-export function demolishVerbLabel(refund: number): string {
+/**
+ * WHAT IS ACTUALLY STANDING THERE (C1-M8) — the fact the two demolition sentences
+ * need, and the only thing about a placement that changes their words.
+ *
+ * A building and a construction site are not the same subject. Calling a
+ * half-finished foundation "this building" and offering a refund with no mention
+ * of what the studio loses tells a player they are cashing something in, when in
+ * fact they are abandoning weeks they have already paid for. Both facts are on
+ * the placement the world is already holding; nothing here re-derives them.
+ */
+export type LotDemolitionSubject = {
+  status: 'underConstruction' | 'operational'
+  /** Weekly advances already spent building it — the write-off. */
+  weeksBuilt: number
+}
+
+/** The demolition subject one placed facility is, or null when it is not one. */
+export function demolitionSubjectOf(
+  placed: LotPlacedFacilityState | null | undefined,
+): LotDemolitionSubject | null {
+  if (placed === null || placed === undefined) return null
+  if (placed.status !== 'underConstruction' && placed.status !== 'operational') return null
+  const buildWeeks = placed.completesWeek - placed.placedWeek
+  const remaining = typeof placed.weeksRemaining === 'number' ? placed.weeksRemaining : 0
+  const built = buildWeeks - remaining
+  return {
+    status: placed.status,
+    weeksBuilt: Number.isFinite(built) && built > 0 ? Math.floor(built) : 0,
+  }
+}
+
+/** The write-off clause, in weeks the studio has already paid for. */
+function writtenOffClause(weeksBuilt: number): string {
+  if (weeksBuilt <= 0) return 'no weeks of building are lost yet'
+  return weeksBuilt === 1
+    ? '1 week of building is written off'
+    : `${String(weeksBuilt)} weeks of building are written off`
+}
+
+/**
+ * The label the Demolish verb wears, refund and all.
+ *
+ * The operational wording is unchanged, byte for byte. A site under construction
+ * is named for what it is.
+ */
+export function demolishVerbLabel(
+  refund: number,
+  subject?: LotDemolitionSubject | null,
+): string {
+  const thing = subject?.status === 'underConstruction' ? 'this construction site' : 'this building'
   return Number.isFinite(refund) && refund > 0
-    ? `Demolish this building — refund ${moneyExact(refund)}`
-    : 'Demolish this building'
+    ? `Demolish ${thing} — refund ${moneyExact(refund)}`
+    : `Demolish ${thing}`
 }
 
 /** The one confirm sentence, anchored in the world beside the building it names. */
-export function demolishConfirmText(name: string, refund: number): string {
+export function demolishConfirmText(
+  name: string,
+  refund: number,
+  subject?: LotDemolitionSubject | null,
+): string {
   const facility = isText(name) ? name : 'this building'
-  return Number.isFinite(refund) && refund > 0
-    ? `Demolish ${facility}? The studio recovers ${moneyExact(refund)}.`
-    : `Demolish ${facility}?`
+  const credit = Number.isFinite(refund) && refund > 0 ? moneyExact(refund) : null
+  if (subject?.status === 'underConstruction') {
+    const site = isText(name) ? `the ${name} construction site` : 'this construction site'
+    const written = writtenOffClause(subject.weeksBuilt)
+    return credit === null
+      ? `Demolish ${site}? ${written.charAt(0).toUpperCase()}${written.slice(1)}.`
+      : `Demolish ${site}? The studio recovers ${credit}; ${written}.`
+  }
+  return credit === null
+    ? `Demolish ${facility}?`
+    : `Demolish ${facility}? The studio recovers ${credit}.`
 }
 
 /** The receipt a completed demolition earns. Names the facility and the credit. */
