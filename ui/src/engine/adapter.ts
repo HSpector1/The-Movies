@@ -2088,16 +2088,27 @@ export function constructionCompletionsBetween(
       }
       const name = placedStudioFacility(placed).name
       const capability = FACILITY_CAPABILITY_LABEL[blueprint.capability]
+      // C1-M6 (PM playtest blemish, logged at the M5 ruling): the slot sentence used to be
+      // appended unconditionally, so an effect-only facility announced "0 shared Development &
+      // Casting slots are now available." — true, and noise. M4 opened the catalog to
+      // capacity-0 blueprints (both Development Office tiers, the Craft Services Annex), so a
+      // zero delta is now a normal, permanent kind of building rather than an impossible case.
+      // A facility that adds no slot says nothing about slots: the message ends at the
+      // Operational sentence, with no trailing space. Capacity 1 and capacity >1 keep their
+      // accepted V11/M4 sentences character-for-character.
+      const opening = `${name} is Operational in Week ${String(placed.completesWeek)}.`
       const slots =
-        blueprint.capacity === 1
-          ? `One shared ${capability} slot is now available.`
-          : `${String(blueprint.capacity)} shared ${capability} slots are now available.`
+        blueprint.capacity === 0
+          ? null
+          : blueprint.capacity === 1
+            ? `One shared ${capability} slot is now available.`
+            : `${String(blueprint.capacity)} shared ${capability} slots are now available.`
       return {
         projectId: placed.projectId,
         facilityId: placed.facilityId,
         name,
         completedWeek: placed.completesWeek,
-        message: `${name} is Operational in Week ${String(placed.completesWeek)}. ${slots}`,
+        message: slots === null ? opening : `${opening} ${slots}`,
       }
     })
 }
