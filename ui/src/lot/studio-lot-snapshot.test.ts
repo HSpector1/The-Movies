@@ -5,6 +5,7 @@
 // the engine's public surface exactly as the core tests do.
 
 import { describe, expect, it } from 'vitest'
+import { emptyWorkflowBindings } from '../../../src/core/index.js'
 import {
   applyActions,
   advanceManagedProductions,
@@ -1178,6 +1179,10 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
             reservations: [],
             shootingTask: null,
             blocker: null,
+            // C2a-M1 (§8.3): the mechanical widening the charter names — this
+            // fixture literal-constructs a workflow, and V14 requires the
+            // bindings leaf. A releaseReady picture holds no stage.
+            bindings: emptyWorkflowBindings(),
           },
         ],
       },
