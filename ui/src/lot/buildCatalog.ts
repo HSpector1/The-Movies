@@ -55,6 +55,18 @@ export type LotCatalogEntry = {
   buildWeeks: number
   weeklyOperatingCost: number
   capacity: number
+  /** The engine capability this building supplies. Decides what its capacity is CALLED. */
+  capability: string
+  /**
+   * C2a-M2 — what the capacity IS, in the words the building's own effect sentence
+   * uses, or null when the building supplies no shared capacity at all.
+   *
+   * The row used to read "+1 shared slot" for every capability, which was already
+   * loose for a cutting room and became untrue the moment the catalog gained a
+   * Soundstage: a stage is not a shared slot, it is a stage, and it carries one
+   * picture at a time. See `capacityPhrase`.
+   */
+  capacityLabel: string | null
   footprint: { width: number; depth: number }
   state: LotCatalogEntryState
   /** One short word for the state, for the badge. */
@@ -107,6 +119,41 @@ export function supersededNoteFor(supersededBy: string): string {
   return `Superseded while ${supersededBy} stands — building it would add nothing.`
 }
 
+/**
+ * What a building's capacity is CALLED, per capability (C2a-M2).
+ *
+ * Every phrase here is taken from the engine's OWN effect sentence for buildings of
+ * that capability — "cutting rooms", "scenery crews", "Development & Casting slots",
+ * "one more picture can shoot at a time" — so the compact facts line and the effect
+ * line beneath it can never describe the same capacity with two different words.
+ *
+ * A SOUNDSTAGE IS NOT A SHARED SLOT. Its capacity field is
+ * `simultaneousProductions`, and a stage carries one picture at a time; calling that
+ * a slot was engine language standing in for a filmmaking fact, which the 00F floor
+ * forbids at exactly this kind of comparison surface.
+ *
+ * An unknown capability returns null rather than a guess: a catalog that invented a
+ * word for a building it does not understand would be worse than a silent row.
+ */
+export function capacityPhrase(capability: string, capacity: number): string | null {
+  if (!Number.isInteger(capacity) || capacity <= 0) return null
+  const many = capacity !== 1
+  switch (capability) {
+    case 'soundstage':
+      return capacity === 1
+        ? 'carries 1 picture at a time'
+        : `carries ${String(capacity)} pictures at a time`
+    case 'post':
+      return `+${String(capacity)} cutting ${many ? 'rooms' : 'room'}`
+    case 'set-scenery':
+      return `+${String(capacity)} scenery ${many ? 'crews' : 'crew'}`
+    case 'development-casting':
+      return `+${String(capacity)} Development & Casting ${many ? 'slots' : 'slot'}`
+    default:
+      return null
+  }
+}
+
 /** The allowance sentence for an entry whose allowance is used up. */
 export function instanceLimitReason(entry: LotBlueprintState): string {
   const allowance = entry.maxInstances
@@ -152,6 +199,10 @@ export function lotCatalogEntry(entry: LotBlueprintState): LotCatalogEntry | nul
     buildWeeks: entry.buildWeeks,
     weeklyOperatingCost: entry.weeklyOperatingCost,
     capacity: isCount(entry.capacity) ? entry.capacity : 0,
+    capability: isText(entry.capability) ? entry.capability : '',
+    capacityLabel: isText(entry.capability)
+      ? capacityPhrase(entry.capability, isCount(entry.capacity) ? entry.capacity : 0)
+      : null,
     footprint: {
       width: entry.footprint?.width ?? 0,
       depth: entry.footprint?.depth ?? 0,

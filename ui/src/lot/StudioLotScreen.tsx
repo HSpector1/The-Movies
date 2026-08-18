@@ -6605,14 +6605,14 @@ export function StudioLotScreen({
                             {entry.supersededNote}
                           </span>
                         )}
+                        {/* C2a-M2: the capacity is named by CAPABILITY, in the words
+                            the entry's own effect sentence uses. "+1 shared slot" was
+                            already loose and became untrue for a Soundstage, which
+                            carries a picture rather than sharing a slot. */}
                         <span className="lot-build-catalog-facts">
                           {moneyExact(entry.cost)} · {entry.buildWeeks} weeks ·{' '}
                           {entry.footprint.width}×{entry.footprint.depth} cells
-                          {entry.capacity > 0
-                            ? ` · +${String(entry.capacity)} shared ${
-                                entry.capacity === 1 ? 'slot' : 'slots'
-                              }`
-                            : ''}
+                          {entry.capacityLabel === null ? '' : ` · ${entry.capacityLabel}`}
                         </span>
                         <span className="lot-build-catalog-opex">
                           {moneyExact(entry.weeklyOperatingCost)} a week to run once open

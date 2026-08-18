@@ -10,6 +10,11 @@ import {
   studioDevelopment,
 } from '../engine/adapter.ts'
 import { moneyExact } from '../format.ts'
+// C2a-M2 §3.1 — the Scenery Shop's three verbs. This screen is already the deep
+// "facilities & construction" surface and is already reachable from the Dashboard
+// and from the lot, so the sets a studio builds belong beside the buildings it
+// builds rather than behind a route of their own.
+import { SceneryShopPanel } from '../components/SceneryShopPanel.tsx'
 
 function statusLabel(view: StudioConstructionView): string {
   switch (view.status) {
@@ -142,7 +147,8 @@ export function StudioDevelopment({
           <div className="eyebrow">Facilities &amp; construction · Week {view.currentWeek}</div>
           <h1 ref={headingRef} tabIndex={-1}>Studio Development</h1>
           <p className="hint">
-            One fixed expansion parcel, one capital project, and no financing or repeat build.
+            The studio&rsquo;s own plant: the fixed expansion parcel below, and the scenery its
+            pictures are shot on.
           </p>
         </div>
         <button type="button" onClick={onBack} data-testid="development-back">Back to studio</button>
@@ -263,6 +269,10 @@ export function StudioDevelopment({
           <p className="hint" data-testid="development-legacy-copy">{view.consequence}</p>
         )}
       </section>
+
+      {/* C2a-M2 — the Scenery Shop. It renders itself away for a studio that runs no
+          operations of its own, so a legacy studio's screen is unchanged. */}
+      <SceneryShopPanel state={state} onChange={onChange} />
 
       <section className="card stack" aria-labelledby="development-boundary-heading">
         <h2 id="development-boundary-heading">What the Annex changes</h2>
