@@ -75,6 +75,10 @@ import type {
   CycleFixedCost,
   DiscoveryExposureView,
 } from '../engine/adapter.ts'
+// C2a-M2 §12-M2 — WHERE the picture would shoot. The set read-model is the second
+// module of the one engine boundary (`ui/src/engine/`); nothing about it is decided
+// here, and the whole projection is one call.
+import { packageSetPlan } from '../engine/sets.ts'
 import {
   SHAPE_DESCRIPTIONS,
   OPENING_OPTIONS,
@@ -1866,7 +1870,10 @@ function ReviewStep({
         </div>
       </div>
 
-      {/* Full four-dimension Film Package summary at greenlight review */}
+      {/* Full four-dimension Film Package summary at greenlight review, plus the
+          physical one: WHERE the picture would be shot, and what standing there is
+          worth to it (C2a-M2 §12-M2). The genre is the package's own settled
+          promise, which is what the engine measures set fit against. */}
       {cohesion && (
         <FilmPackageSummary
           cohesion={cohesion}
@@ -1876,6 +1883,7 @@ function ReviewStep({
           cycleFixedCost={cycleFixedCost}
           {...(discovery ? { discovery } : {})}
           marketing={menu}
+          setPlan={packageSetPlan(state, pkg.promise.genre)}
         />
       )}
     </div>

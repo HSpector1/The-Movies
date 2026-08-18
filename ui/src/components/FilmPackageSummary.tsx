@@ -17,9 +17,11 @@ import type {
   DiscoveryExposureView,
   MarketingMenuView,
 } from '../engine/adapter.ts'
+import type { PackageSetPlanView } from '../engine/sets.ts'
 import { money, moneyExact, score, confidenceLabel } from '../format.ts'
 import { Metric, Warn } from './common.tsx'
 import { DiscoveryExposureLine } from './DiscoveryExposure.tsx'
+import { SetStagePanel } from './SetStagePanel.tsx'
 
 // A4: a plain money figure in a Downside/Expected/Upside triple (Studio Revenue — always ≥ 0).
 function RangeFigure({ label, value, testid }: { label: string; value: number; testid?: string }) {
@@ -102,6 +104,7 @@ export function FilmPackageSummary({
   cycleFixedCost,
   discovery,
   marketing,
+  setPlan,
 }: {
   cohesion: CreativeCohesion
   fit?: PackageFit
@@ -116,6 +119,11 @@ export function FilmPackageSummary({
   // D-17B §4: exact engine menu for this package. Shown here as package truth;
   // the Budget step separately renders it at the pre-greenlight decision.
   marketing?: MarketingMenuView
+  // C2a-M2 §12-M2: WHERE this picture would be shot, and what standing there is
+  // worth to it. Absent ⇒ the set surface is out of scope for this render (a
+  // studio whose pictures are not bound to sets renders nothing either way, which
+  // the panel itself decides from `required`).
+  setPlan?: PackageSetPlanView
 }) {
   const fixedCost = cycleFixedCost?.amount ?? 0
   return (
@@ -242,6 +250,9 @@ export function FilmPackageSummary({
           )}
         </div>
       )}
+
+      {/* 2b ── Where it will shoot — the set, its stat block, and its uplift ── */}
+      {setPlan !== undefined && <SetStagePanel plan={setPlan} />}
 
       {/* 3 ── Execution Confidence — perceived only, WE excluded ──────────── */}
       {execution !== undefined && (
