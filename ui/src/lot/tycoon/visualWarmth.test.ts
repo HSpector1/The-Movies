@@ -130,7 +130,7 @@ describe('C1-M6b — the ground is painted deterministically', () => {
     // Blotches, not a second lawn and not a desert: the corpus' tutorial-era ground is
     // mottled, and a mottle that covers everything or nothing is not a mottle.
     expect(fraction).toBeGreaterThan(0.05)
-    expect(fraction).toBeLessThan(0.45)
+    expect(fraction).toBeLessThan(0.5)
   })
 
   it('makes a traffic verge drier than open ground, which is the whole point of it', () => {

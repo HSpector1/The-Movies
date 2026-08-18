@@ -179,8 +179,8 @@ export const WARM = {
   trunk: 0x7a5b3c,
   frond: 0x59713f,
   frondDark: 0x445a31,
-  hedge: 0x6d8348,
-  hedgeDark: 0x596e39,
+  hedge: 0x7a8a45,
+  hedgeDark: 0x64703a,
   planter: 0xb26a44,
   /** Dry backlot scrub — the planting that grows where nobody waters. */
   scrub: 0x8b8b4f,

@@ -646,7 +646,7 @@ function bakeDevelopmentOffice(scene: Phaser.Scene, key: string, tier: 2 | 3): v
   const fd = 2
   const H = tier === 3 ? 88 : 74
   const peak = tier === 3 ? 38 : 34
-  const b = beginBuilding(scene, fw, fd, H, peak + 44)
+  const b = beginBuilding(scene, fw, fd, H, peak + 32)
   const { g, p } = b
   drawWalls(b, fw, fd, H, C.cream, C.creamShade)
   windowsLit(b, fw, fd, H, fw + 1, tier === 3 ? 3 : 2, C.glass, C.windowLit)

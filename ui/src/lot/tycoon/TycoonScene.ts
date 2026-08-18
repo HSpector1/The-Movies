@@ -1140,11 +1140,18 @@ export class TycoonScene extends Phaser.Scene {
     // Height of the sign band as a fraction of the drawn sprite height, tuned per
     // building so the lettering lands on its painted field (and, for the two authored
     // stage images, on their blank upper wall).
+    //
+    // THE FRACTION IS OF THE WHOLE SPRITE, NOT OF THE WALL, which is why C1-M6b had to
+    // re-tune three of them: Development gained a chimney, Casting a hip and a portico and
+    // Scenery & Post a saw-tooth roof, every one of which needed more headroom in the bake,
+    // and a taller texture moved the same fraction UP off its painted field and onto the
+    // roof. Each value below is `signFieldCentre × wallHeight ÷ (wallHeight + headroom)`
+    // for its own bake, so the lettering lands where it was painted to land.
     const zFrac: Partial<Record<BuildingId, number>> = {
       admin: 0.34,
-      writers: 0.52,
-      casting: 0.52,
-      post: 0.58,
+      writers: 0.436,
+      casting: 0.462,
+      post: 0.564,
       theater: 0.39,
       'stage-a': 0.56,
       'stage-b': 0.6,

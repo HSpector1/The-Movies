@@ -664,8 +664,15 @@ export function groundDryness(gx: number, gy: number): number {
   return coarse * 0.68 + fine * 0.32
 }
 
-/** Above this, an open lawn cell is painted as scorched rather than watered. */
-export const GROUND_SCORCH_THRESHOLD = 0.62
+/**
+ * Above this, an open lawn cell is painted as scorched rather than watered.
+ *
+ * THE DIAL FOR "MORE / LESS OCHRE", named so an art note can be answered with one number
+ * rather than a repaint. At 0.58 about 41% of the open ground is dry: enough that the
+ * property reads sun-baked at the whole-property framing, not so much that the watered
+ * lawn stops being what the studio's own ground is made of.
+ */
+export const GROUND_SCORCH_THRESHOLD = 0.58
 /** Traffic verges are drier: a cell beside a road or apron scorches this much sooner. */
 export const GROUND_VERGE_BONUS = 0.28
 
