@@ -319,3 +319,61 @@ Process lesson, binding for the rest of the campaign: a gate figure cited in a
 ruling must name the HEAD it was executed at, and a full-suite run older than the
 newest spec file is not a gate. (Also recorded: this zsh expands `${PIPESTATUS[0]}`
 as empty — it is bash-only; use `$?` after redirection, never a pipe.)
+
+## M6 — RULING: KEEP (2026-08-18) — the lot warms up, and the property proves it can grow
+
+Two halves, three implementers, one art review.
+
+**M6b — visual warmth (commits `2c4dfcd..2255062`, follow-through `7054f18..ceb55ef`).**
+Ochre rotation with the scorch inversion (lighter gold = dry, not darker green =
+damp), 57 authored backlot dressing props on non-buildable ground with a runtime
+yield closing the legacy-landscaping legality lie, six buildings now tellable at a
+glance (green-slate hip on Casting is the lot's only cool roof; saw-tooth
+north-light on Scenery & Post; chimneys/cupola/monitor split the office tiers), and
+readability defended by haloed strokes under every ring and outline. PM ART REVIEW:
+APPROVED AS-IS — corpus-faithful mood at tutorial-era density; the legality ghost
+and the construction scaffold both read unambiguously over the warm ground.
+Checkpoint-1 implementer caught two of its own defects (gridHash origin fixed-point;
+wall signs drifting onto roofs) and STOPPED correctly on the toast fix when it found
+the copy authority in `ui/src/engine/adapter.ts` — surface granted, fixed by the
+checkpoint-2 implementer with the zero-capacity seam pinned. Structural re-pins per
+law 25 with MEASURED reasons (231/14/8,806,568/6 and the presence variants; +57
+objects verified by running `backlotDressing()`, byte delta identical across two
+different-seed studios proving world-art-not-people, draws 4→6 verified in Phaser's
+batch source). Evidence chain: all seven generators re-run, every save byte-
+identical. Finding accepted: THE SUITE HAS NO COMMITTED CANVAS DIGESTS — canvas is
+pinned structurally and relationally by design; the digest constants are save/asset
+digests. PM rulings recorded: legacy landscaping stays (runtime yield is the C1
+mechanism; the north-back-lot water tower vanishing if a player builds there is an
+accepted consequence, revisit with C3 landscaping).
+
+**M6a — expandability proof (commits `590aac8..c61030d`).** All three claims proven
+with ZERO engine or renderer changes — nine files, all new, all test/fixture.
+(1) SECOND ZONE BY DATA: the South Yard fixture (depth 26→34, four parcels carrying
+the full rule surface — road-served, unserved, blocked) accepts a build, completes
+it, joins shared capacity, round-trips byte-identically; the 11-code rejection
+vocabulary answers word-for-word on new ground; in the browser the zone gets
+hotspots and companion rows, refuses without road frontage, and composes the placed
+body through the standard catalog→ghost→commit path. (2) NO LIFETIME CAP: 60×60 /
+22 parcels / 24 structures / 36 placements — placement, move, demolish, opex, save
+round-trip all hold; ids never reused; capital strictly lossy. (3) IDENTITY NOT
+COORDINATES: a move changes ground and nothing else; an engaged building refuses
+identically at two destinations in two zones; a successor on the same cells gets new
+ids and inherits no history. Fixtures claim SAVE boundary only, no canvas anchors,
+`shipsToPlayers: false`; the property root is authored data and the manifest says so.
+
+**Findings recorded (not defects; named for C3):** the renderer's ground zoning
+(roads/plazas/aprons) is still authored presentation inside 28×26 — a data-grown
+zone's roads are rule-live but invisible; `presence.ts` clamps people to founding
+LOT_W/LOT_D. Both are the presentation seam land acquisition must convert before a
+second zone is SHIPPABLE rather than provable. The V13 validator accepting any
+well-formed property is a deliberate open door, now stated. The world join draws
+only bodies it has presentation for, asserted (8 drawable / 16 not in the far
+fixture) rather than silent.
+
+**PM gates, independently re-run at HEAD `c61030d`:** root tsc 0; ui tsc 0; full
+vitest 240 files / 3,296 tests, exit 0; generator reproduction `unchanged` ×3 with
+digests matching claims, tree clean; new e2e spec 3/3 in isolation, exit 0. Full
+serialized Playwright at this tree: 208 collected / 204 passed / 4 env-gated skips /
+0 failed, exit 0 (checkpoint-2 ran 205-corpus at `ceb55ef`, M6a ran 208-corpus at
+`c61030d`; collection arithmetic exact: 205 + 3 new).
