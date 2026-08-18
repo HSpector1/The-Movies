@@ -14,6 +14,29 @@ import { Rng } from './rng'
 import { STAGE_APRONS } from './layout'
 import type { StudioLotSnapshot, ProductionCard } from '../snapshot/StudioLotSnapshot'
 
+// ── The rollback plate world's stage vocabulary (C2a-M2, §3.1) ────────────────
+//
+// `ProductionCard.stageId` became the open `BuildingId` when the world stopped being
+// hard-wired to two stages, but THIS renderer is the PLATE origin: its aprons are
+// hand-measured against the painted plate, and law 27a forbids authoring plate cells
+// for a body the painting does not contain. So the plate composes vignettes for the
+// founding stages it genuinely has ground for, and a picture on a stage the studio
+// BUILT gets no plate vignette at all — silence, not another stage's apron dressed
+// with someone else's picture (law 12). The grid origin is where a built stage is
+// drawn; this is recorded rollback-world maintenance, not a gap to fill here.
+
+/** The soundstage bodies this plate world has authored apron ground for. */
+const PLATE_APRON_STAGE_IDS = ['stage-a', 'stage-b'] as const
+
+type PlateApronStageId = (typeof PLATE_APRON_STAGE_IDS)[number]
+
+/** A picture whose stage this plate world can actually dress. */
+type PlateStageProduction = ProductionCard & { stageId: PlateApronStageId }
+
+function isPlateApronStageProduction(card: ProductionCard): card is PlateStageProduction {
+  return (PLATE_APRON_STAGE_IDS as readonly string[]).includes(card.stageId)
+}
+
 export type MomentKind =
   | 'production-arrival'
   | 'stage-preparation'
@@ -259,8 +282,8 @@ export class VignetteDirector {
 
   // ── plan builders ───────────────────────────────────────────────────────────
 
-  private activeStages(snap: StudioLotSnapshot): ProductionCard[] {
-    return snap.activeProductions.filter((p) => p.active)
+  private activeStages(snap: StudioLotSnapshot): PlateStageProduction[] {
+    return snap.activeProductions.filter((p) => p.active).filter(isPlateApronStageProduction)
   }
 
   private buildPlan(kind: MomentKind, counter: number): Plan | null {
@@ -300,7 +323,7 @@ export class VignetteDirector {
     return this.planReaction(tone, recent.title)
   }
 
-  private planArrival(prod: ProductionCard): Plan {
+  private planArrival(prod: PlateStageProduction): Plan {
     const a = STAGE_APRONS[prod.stageId]
     const entry = { gx: a.park.gx + 4, gy: a.park.gy }
     const duration = 14
@@ -377,7 +400,7 @@ export class VignetteDirector {
     }
   }
 
-  private planPrep(prod: ProductionCard): Plan {
+  private planPrep(prod: PlateStageProduction): Plan {
     const a = STAGE_APRONS[prod.stageId]
     const store = { gx: a.gear.gx + 3.5, gy: a.gear.gy + 1.5 }
     const duration = 12
@@ -440,7 +463,7 @@ export class VignetteDirector {
     }
   }
 
-  private planFilming(prod: ProductionCard): Plan {
+  private planFilming(prod: PlateStageProduction): Plan {
     const a = STAGE_APRONS[prod.stageId]
     const duration = 8
     return {
@@ -623,6 +646,6 @@ function prevGx(a: VActor, t: number): number {
   return sampleActor(a, Math.max(0, t - 0.2)).gx
 }
 
-function stageName(id: 'stage-a' | 'stage-b'): string {
+function stageName(id: PlateApronStageId): string {
   return id === 'stage-a' ? 'Soundstage A' : 'Soundstage B'
 }

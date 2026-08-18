@@ -31,16 +31,33 @@
 //     boundary — assignment falls back to snapshot order, i.e. exactly the adapter's
 //     arrangement, reproducing the documented "[0] → Stage A" behaviour.
 
-import type { BuildingState, ProductionCard, StudioLotSnapshot } from './StudioLotSnapshot'
+import type { BuildingId, BuildingState, ProductionCard, StudioLotSnapshot } from './StudioLotSnapshot'
+import { FOUNDING_STAGE_BUILDING_IDS, lotStageBuildingIds } from './stageIdentity'
 
-/** The two stage slots a production can be displayed on. */
-export type StageSlotId = 'stage-a' | 'stage-b'
+/**
+ * A stage slot a production can be displayed on.
+ *
+ * Was the closed pair `'stage-a' | 'stage-b'` until C2a-M2. It is the open `BuildingId`
+ * now, for the same reason `ProductionCard.stageId` is: which bodies are stages is a
+ * fact about the studio, derived per snapshot, not a constant of the presentation.
+ */
+export type StageSlotId = BuildingId
 
-/** Slot order — index 0 is the slot a first production takes on a cold start. */
-export const STAGE_SLOTS: readonly StageSlotId[] = ['stage-a', 'stage-b'] as const
+/**
+ * The FOUNDING slot order — index 0 is the slot a first production takes on a cold start.
+ *
+ * Retained as the fallback, and it is the right one: this resolver only ever runs in
+ * LEGACY mode (managed occupancy is engine truth and bypasses it entirely), legacy
+ * operations hold no facilities and can build nothing, so a legacy studio's stages are
+ * exactly these two authored founding bodies. `stageSlotsFor` reads the snapshot's own
+ * derived list first so the resolver cannot be the thing that closes the world again.
+ */
+export const STAGE_SLOTS: readonly StageSlotId[] = FOUNDING_STAGE_BUILDING_IDS
 
-function isStageSlot(id: string): id is StageSlotId {
-  return id === 'stage-a' || id === 'stage-b'
+/** The display slots THIS snapshot's studio has, in world order. */
+function stageSlotsFor(snapshot: StudioLotSnapshot): readonly StageSlotId[] {
+  const derived = lotStageBuildingIds(snapshot)
+  return derived.length === 0 ? STAGE_SLOTS : derived
 }
 
 /**
@@ -66,7 +83,10 @@ export class StageAssignment {
    * Productions that have left release their slot; productions already on the lot keep
    * theirs; newcomers take the lowest-numbered free slot, in snapshot order.
    */
-  private plan(prods: readonly ProductionCard[]): Map<string, StageSlotId> {
+  private plan(
+    prods: readonly ProductionCard[],
+    slots: readonly StageSlotId[],
+  ): Map<string, StageSlotId> {
     const present = new Set(prods.map((p) => p.id))
     for (const id of [...this.slotOf.keys()]) {
       if (!present.has(id)) this.slotOf.delete(id)
@@ -74,7 +94,7 @@ export class StageAssignment {
     const taken = new Set(this.slotOf.values())
     for (const p of prods) {
       if (this.slotOf.has(p.id)) continue
-      const free = STAGE_SLOTS.find((s) => !taken.has(s))
+      const free = slots.find((s) => !taken.has(s))
       // The snapshot never carries more productions than slots (the adapter slices to
       // STAGE_IDS.length). If that ever changes, fall back to the adapter's own choice
       // rather than dropping the card.
@@ -97,7 +117,9 @@ export class StageAssignment {
       this.slotOf.clear()
       return snap
     }
-    const plan = this.plan(snap.activeProductions)
+    const slots = stageSlotsFor(snap)
+    const isStageSlot = (id: string): boolean => slots.includes(id)
+    const plan = this.plan(snap.activeProductions, slots)
     const moved = snap.activeProductions.some((p) => plan.get(p.id) !== p.stageId)
     if (!moved) return snap
     return {
@@ -110,13 +132,13 @@ export class StageAssignment {
         ? {
             productionOperations: snap.productionOperations.map((operation) => {
               const slot = plan.get(operation.productionId)
-              return slot && isStageSlot(operation.locationBuildingId)
+              return slot !== undefined && isStageSlot(operation.locationBuildingId)
                 ? { ...operation, locationBuildingId: slot }
                 : operation
             }),
           }
         : {}),
-      buildings: remapStageBuildings(snap.buildings, snap.activeProductions, plan),
+      buildings: remapStageBuildings(snap.buildings, snap.activeProductions, plan, slots),
     }
   }
 }
@@ -169,20 +191,22 @@ function remapStageBuildings(
   buildings: readonly BuildingState[],
   prods: readonly ProductionCard[],
   plan: ReadonlyMap<string, StageSlotId>,
+  slots: readonly StageSlotId[],
 ): BuildingState[] {
+  const isStageSlot = (id: string): boolean => slots.includes(id)
   // target slot → the adapter slot whose presentation belongs there
   const source = new Map<StageSlotId, StageSlotId>()
   const usedSource = new Set<StageSlotId>()
   for (const p of prods) {
     const target = plan.get(p.id)
-    if (!target) continue
+    if (target === undefined) continue
     source.set(target, p.stageId)
     usedSource.add(p.stageId)
   }
   // Any slot left without a production takes an unused adapter slot — i.e. an empty stage.
-  const spare = STAGE_SLOTS.filter((s) => !usedSource.has(s))
+  const spare = slots.filter((s) => !usedSource.has(s))
   let next = 0
-  for (const s of STAGE_SLOTS) {
+  for (const s of slots) {
     if (!source.has(s)) source.set(s, spare[next++] ?? s)
   }
 
@@ -192,7 +216,7 @@ function remapStageBuildings(
   return buildings.map((b) => {
     if (!isStageSlot(b.id)) return b
     const from = source.get(b.id)
-    const src = from ? bySlot.get(from) : undefined
+    const src = from === undefined ? undefined : bySlot.get(from)
     // keep this entry's own id; take the other slot's presentation
     return src ? { ...src, id: b.id } : b
   })

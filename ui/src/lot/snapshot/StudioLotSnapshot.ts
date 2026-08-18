@@ -190,7 +190,16 @@ export type ProductionCard = {
   id: string
   title: string
   genre: string // display label only (e.g. "Crime"), not the sim Genre union
-  stageId: 'stage-a' | 'stage-b'
+  /**
+   * The soundstage BODY this picture is on.
+   *
+   * Was the closed pair `'stage-a' | 'stage-b'` until C2a-M2. It is now the open
+   * `BuildingId`, because a studio that builds a third soundstage has a third body a
+   * picture can be shooting in, and a type that could not say so was the reason the
+   * adapter threw on one. Which ids are actually stages is DERIVED, never assumed —
+   * see `stageIdentity.ts` and the snapshot's own `stages` list.
+   */
+  stageId: BuildingId
   /** Fraction complete, 0..1. Presentation only — how full the progress bar is. */
   progress01: number
   /** Whole weeks left, for the label "N weeks left". */
@@ -201,6 +210,26 @@ export type ProductionCard = {
   stageState?: StageState
   /** One concise attention reason, when the stage needs the player. D1: usually absent. */
   attentionReason?: string
+}
+
+/**
+ * One SOUNDSTAGE this studio has, and the body on the property that is it (C2a-M2).
+ *
+ * Derived — never enumerated. The rules, the founding vocabulary and the honest law-12
+ * gap live in `stageIdentity.ts`; only the shape lives here, because this file is the
+ * one boundary the visual lot is allowed to touch.
+ */
+export type LotStageIdentity = {
+  /** The engine facility id — `facility-soundstage-07`, or a built stage's own id. */
+  facilityId: string
+  /** The engine's own name for it. The single spoken authority (§3.1). */
+  facilityName: string
+  /** The world body that IS this stage. */
+  buildingId: BuildingId
+  /** Authored founding property, or a facility the studio built. */
+  origin: 'founding' | 'placed'
+  /** Whether a BODY stands here yet, or only a building site with no floor to shoot on. */
+  standing: boolean
 }
 
 /** Coarse reception band for a released film — a display badge, not a score. */
@@ -404,6 +433,14 @@ export type LotFacilityMutation = {
 export type LotPlacedFacilityState = {
   id: number
   blueprintId: string
+  /**
+   * What this facility IS, in the engine's own capability term — C2a-M2 §3.1.
+   *
+   * Joined from the committed blueprint, so it answers for a site under construction as
+   * well as a finished body. The renderer dresses a body with no authored art by this
+   * CLASS; absent ⇒ the honest massing block, exactly as before.
+   */
+  capability?: string
   name: string
   facilityId: string
   parcelId: string
@@ -600,6 +637,16 @@ export type LotWorldBuilding = {
   /** Placed facilities only: which blueprint's presentation template it wears. */
   blueprintId?: string
   /**
+   * Placed facilities only: what this body IS, in the engine's own capability term
+   * (`soundstage`, `post`, `set-scenery`, `development-casting`) — C2a-M2.
+   *
+   * The renderer dresses a body it has no authored art for by CLASS rather than by
+   * blueprint id: one procedural soundstage body serves every soundstage a studio ever
+   * builds, at one texture and zero per-instance bytes (§3.1's stage-CLASS art unit).
+   * Absent ⇒ the honest massing block, exactly as before.
+   */
+  capability?: string
+  /**
    * Placed facilities only: whether a BODY stands here yet, or only a building site.
    *
    * The renderer needs it before it paints: a site's hit area is the graded pad it
@@ -716,6 +763,16 @@ type StudioLotSnapshotBase = {
    * engine projection can read, so there is nothing honest to claim).
    */
   presence?: LotPresenceProjection
+  /**
+   * Every SOUNDSTAGE this studio has, derived from the engine's own facilities and the
+   * bodies standing for them (C2a-M2, §3.1). In engine facility order.
+   *
+   * Optional ONLY so the older hand-authored presentation fixtures stay source-
+   * compatible, and omitted in legacy mode, where operations hold no facilities to
+   * derive from and the stages are exactly the two authored founding bodies. Read it
+   * through `stageIdentity.ts`, which applies that fallback in one place.
+   */
+  stages?: LotStageIdentity[]
   /** Films shooting now — drives which stages are lit and their progress. */
   activeProductions: ProductionCard[]
   /** Recent releases — drives the theater marquee. */

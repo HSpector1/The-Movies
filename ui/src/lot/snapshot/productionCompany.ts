@@ -8,6 +8,7 @@ import type {
   ProductionOperationsState,
   StudioLotSnapshot,
 } from './StudioLotSnapshot.ts'
+import { placedFacilityIdOf } from './StudioLotSnapshot.ts'
 
 export type LotProductionCompanyMemberContext = {
   member: LotProductionCompanyMember
@@ -37,7 +38,14 @@ const PRODUCTION_PHASES = new Set([
   'releaseReady',
 ])
 
-const BUILDING_IDS = new Set<BuildingId>([
+/**
+ * The nine FOUNDING places. A production may also be located at a body the studio BUILT
+ * — a third soundstage, a second post building — whose id is `placed-<placementId>`
+ * (C2a-M2 §3.1). `isLocatableBuildingId` accepts both and nothing else: a location this
+ * validator could not account for would fail an otherwise-exact projection closed, which
+ * is the closed-world defect this campaign has now found three times.
+ */
+const FOUNDING_BUILDING_IDS = new Set<BuildingId>([
   'admin',
   'writers',
   'casting',
@@ -48,6 +56,11 @@ const BUILDING_IDS = new Set<BuildingId>([
   'gate',
   'expansion',
 ])
+
+function isLocatableBuildingId(value: unknown): value is BuildingId {
+  if (typeof value !== 'string') return false
+  return FOUNDING_BUILDING_IDS.has(value) || placedFacilityIdOf(value) !== null
+}
 
 const TASK_STATUSES = new Set([
   'unassigned',
@@ -190,7 +203,7 @@ function completeManagedOperation(value: unknown): value is ProductionOperations
     value.progress01 >= 0 &&
     value.progress01 <= 1 &&
     typeof value.locationBuildingId === 'string' &&
-    BUILDING_IDS.has(value.locationBuildingId as BuildingId) &&
+    isLocatableBuildingId(value.locationBuildingId) &&
     isNonEmptyString(value.facilityLabel) &&
     isNonEmptyString(value.directorId) &&
     isNonEmptyString(value.directorName) &&

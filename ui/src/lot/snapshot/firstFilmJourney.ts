@@ -18,6 +18,7 @@
 // between the engine's shape and this mirror is a compile error at that seam.
 
 import type { AttentionState, BuildingId, StudioLotSnapshot } from './StudioLotSnapshot.ts'
+import { FOUNDING_STAGE_BUILDING_IDS, lotStageBuildingIds } from './stageIdentity.ts'
 
 // ── The frozen projection contract ────────────────────────────────────────────
 
@@ -91,8 +92,19 @@ const JOURNEY_SITES: readonly JourneySite[] = [
 
 // ── Semantic site → physical building ─────────────────────────────────────────
 
-/** The two soundstages, in the order the world lays them out. */
-export const JOURNEY_STAGE_BUILDING_IDS: readonly BuildingId[] = ['stage-a', 'stage-b']
+/**
+ * The FOUNDING soundstages, in the order the world lays them out.
+ *
+ * Retained as the fallback for a snapshot that names no stages of its own; it is no
+ * longer "the two soundstages", because a studio may have more (C2a-M2 §3.1). Every
+ * question about which bodies ARE stages goes through `journeyStageBuildingIds`.
+ */
+export const JOURNEY_STAGE_BUILDING_IDS: readonly BuildingId[] = FOUNDING_STAGE_BUILDING_IDS
+
+/** Every soundstage THIS studio has, in world order. Derived from the snapshot. */
+export function journeyStageBuildingIds(snapshot: StudioLotSnapshot): readonly BuildingId[] {
+  return lotStageBuildingIds(snapshot)
+}
 
 /**
  * Every fixed site's building, in the exact `BuildingId` vocabulary the world and the
@@ -123,8 +135,8 @@ function hasExactOwnKeys(value: UnknownRecord, expected: readonly string[]): boo
   )
 }
 
-function isStageBuildingId(value: unknown): value is BuildingId {
-  return typeof value === 'string' && JOURNEY_STAGE_BUILDING_IDS.includes(value as BuildingId)
+function isStageBuildingId(value: unknown, stages: readonly BuildingId[]): value is BuildingId {
+  return typeof value === 'string' && stages.includes(value)
 }
 
 /**
@@ -136,11 +148,12 @@ function isStageBuildingId(value: unknown): value is BuildingId {
 export function activeStageBuildingId(snapshot: StudioLotSnapshot): BuildingId | null {
   const operations = snapshot.productionOperations
   if (!Array.isArray(operations)) return null
+  const stages = journeyStageBuildingIds(snapshot)
   const occupied: BuildingId[] = []
   for (const operation of operations) {
     if (!isPlainRecord(operation)) continue
     const located = operation['locationBuildingId']
-    if (!isStageBuildingId(located)) continue
+    if (!isStageBuildingId(located, stages)) continue
     if (!occupied.includes(located)) occupied.push(located)
   }
   return occupied.length === 1 ? occupied[0]! : null
@@ -156,7 +169,14 @@ export function journeyTargetBuildingId(
 ): BuildingId | null {
   if (site === null) return null
   if (site === 'stage') {
-    return activeStageBuildingId(snapshot) ?? JOURNEY_STAGE_BUILDING_IDS[0]!
+    // The stage a picture is PROVABLY in wins. With none proved, the guidance points at
+    // the studio's FIRST soundstage — first in the engine's own facility order, i.e.
+    // the stage this studio has had longest, which for every pre-Flip studio is
+    // Soundstage 7. That is a derived place, not `[0]` of a hand-written pair: a studio
+    // with no soundstage at all is addressed no building rather than a founding id it
+    // does not have (law 12).
+    const stages = journeyStageBuildingIds(snapshot)
+    return activeStageBuildingId(snapshot) ?? stages[0] ?? null
   }
   return JOURNEY_SITE_BUILDING[site]
 }

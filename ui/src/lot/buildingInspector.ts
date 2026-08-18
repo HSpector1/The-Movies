@@ -43,6 +43,7 @@ import {
   facilityMutationBlockedReason,
 } from './facilityMutation.ts'
 import { lotFacilityPresenceOccupants } from './snapshot/presenceLines.ts'
+import { isLotStageBuildingId } from './snapshot/stageIdentity.ts'
 import type {
   ScriptProjectsReadModel,
   StudioCalendarView,
@@ -181,10 +182,15 @@ const BUILDING_ROLE: Record<FoundingBuildingId, string> = {
 }
 
 /**
- * Which engine facility each place IS. Mirrors the accepted adapter mapping
- * (`LOT_STAGE_BY_SOUNDSTAGE_ID`) and the founding facility set in src/core/operations.ts.
+ * Which engine facility each FOUNDING place is — the authored property, and only that.
+ *
  * Development and Casting share one physical Development & Casting facility, so both
  * places truthfully report that one facility's occupancy.
+ *
+ * It is not a table of "every stage" and must never become one (C2a-M2 §3.1). A facility
+ * the studio BUILT — a third soundstage included — is answered by the placed branch of
+ * `lotBuildingInspectorContext`, which reads its own `facilityId` off the placement
+ * projection and asks the Calendar the same questions through the same strictness.
  */
 const BUILDING_FACILITY_IDS: Partial<Record<BuildingId, readonly string[]>> = {
   writers: ['facility-development-casting', 'facility-development-casting-annex'],
@@ -195,7 +201,10 @@ const BUILDING_FACILITY_IDS: Partial<Record<BuildingId, readonly string[]>> = {
 }
 
 /**
- * Which facilities each place reports PRESENCE for — "who's here this week".
+ * Which facilities each FOUNDING place reports PRESENCE for — "who's here this week".
+ *
+ * Founding-only for the same reason as the map above: a built facility supplies its own
+ * `facilityId` through the placed branch (C2a-M2 §3.1).
  *
  * The occupancy list above and this one are deliberately separate maps. Occupancy is
  * the Calendar's slot record and the Annex parcel has never printed one; presence is
@@ -604,6 +613,20 @@ function placedFacts(
   return facts
 }
 
+/**
+ * The one live status line a SOUNDSTAGE says, whatever body it stands in (C2a-M2).
+ *
+ * Lifted verbatim out of the founding `stage-a`/`stage-b` arm so the founding stages and
+ * a built one cannot drift into two vocabularies for one kind of place.
+ */
+function stageStatusLine(operations: readonly ProductionOperationsState[]): string {
+  if (operations.length === 1) return `${operations[0]!.title} · ${operations[0]!.statusLabel}`
+  if (operations.length > 1) {
+    return `${String(operations.length)} productions are recorded at this stage.`
+  }
+  return 'The stage is dark — no picture is shooting here.'
+}
+
 /** One live status line for a facility the studio built. */
 function placedStatusLine(
   placed: LotPlacedFacilityState,
@@ -914,7 +937,13 @@ export function lotBuildingInspectorContext(
     facts.push(...placedFacts(snapshot, placed, calendar))
     occupantFacts.push(...presenceFacts(snapshot, buildingId, [placed.facilityId]))
     facts.push(...operationFacts(operations))
-    status = placedStatusLine(placed, calendar)
+    // A soundstage the studio BUILT is a soundstage, and says the soundstage sentence
+    // its founding siblings say (C2a-M2 §3.1). Anything else is the professional floor
+    // failing at exactly the moment a player looks at the thing they paid to put up.
+    status =
+      placed.status === 'operational' && isLotStageBuildingId(snapshot, buildingId)
+        ? stageStatusLine(operations)
+        : placedStatusLine(placed, calendar)
   }
 
   /** The founding place this panel is describing, or '' when a placed facility answered. */
@@ -958,12 +987,7 @@ export function lotBuildingInspectorContext(
       if (occupancy !== null) facts.push(...occupancy)
       occupantFacts.push(...presenceFacts(snapshot, buildingId))
       facts.push(...operationFacts(operations))
-      status =
-        operations.length === 1
-          ? `${operations[0]!.title} · ${operations[0]!.statusLabel}`
-          : operations.length > 1
-            ? `${String(operations.length)} productions are recorded at this stage.`
-            : 'The stage is dark — no picture is shooting here.'
+      status = stageStatusLine(operations)
       break
     }
     case 'post': {

@@ -247,6 +247,7 @@ import type {
   LotPresenceProjection,
   LotProductionCompanyMember,
   LotProductionCompanyRole,
+  LotStageIdentity,
   ProductionOperationsState,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
 import {
@@ -254,6 +255,13 @@ import {
   LOT_PRESENCE_STATIC_BEAT,
   placedBuildingId,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
+// C2a-M2 §3.1 — which bodies are soundstages is DERIVED from the engine's own
+// facilities and the placements standing for them. The adapter no longer keeps a
+// hand-written two-entry table, and no longer throws on a studio with a third stage.
+import {
+  FOUNDING_STAGE_BUILDING_IDS,
+  deriveLotStageIdentities,
+} from '../lot/snapshot/stageIdentity.ts'
 // The renderer's mirror of the frozen journey contract. Typing the snapshot field with
 // IT, and filling it from the CORE projection, makes any drift between engine and
 // renderer a compile error at this one seam.
@@ -5357,10 +5365,19 @@ function titleCaseGenre(g: string): string {
   return g.length ? g[0]!.toUpperCase() + g.slice(1) : g
 }
 
-const LOT_STAGE_BY_SOUNDSTAGE_ID = {
-  'facility-soundstage-07': 'stage-a',
-  'facility-soundstage-12': 'stage-b',
-} as const satisfies Record<string, 'stage-a' | 'stage-b'>
+/**
+ * Which world body each soundstage facility is, for THIS studio, this week (C2a-M2).
+ *
+ * Replaces the closed two-entry `LOT_STAGE_BY_SOUNDSTAGE_ID` table. Founding stages
+ * still resolve to `stage-a`/`stage-b` byte-for-byte; a stage the studio BUILT resolves
+ * to its own `placed-<placementId>` body, and a soundstage with no body standing for it
+ * resolves to nothing at all (law 12) rather than being pointed at another building.
+ */
+function lotStageBodyByFacilityId(
+  stages: readonly LotStageIdentity[],
+): ReadonlyMap<string, BuildingId> {
+  return new Map(stages.map((stage) => [stage.facilityId, stage.buildingId]))
+}
 
 const LOT_ANNEX_FACILITY_ID = 'facility-development-casting-annex'
 const LOT_ANNEX_FACILITY_NAME = 'Development & Casting Annex'
@@ -5531,7 +5548,10 @@ function operationalAnnexProjection(calendar: StudioCalendarView): LotAnnexWork 
   }
 }
 
-function managedWorkflowLocation(workflow: ProductionWorkflow): BuildingId {
+function managedWorkflowLocation(
+  workflow: ProductionWorkflow,
+  stageBodyByFacilityId: ReadonlyMap<string, BuildingId>,
+): BuildingId {
   switch (workflow.phase) {
     case 'development':
     case 'preProduction': {
@@ -5554,7 +5574,10 @@ function managedWorkflowLocation(workflow: ProductionWorkflow): BuildingId {
           `studioLotSnapshot: managed ${workflow.phase} productionId "${workflow.productionId}" has no soundstage reservation`,
         )
       }
-      const stage = LOT_STAGE_BY_SOUNDSTAGE_ID[soundstage.facilityId as keyof typeof LOT_STAGE_BY_SOUNDSTAGE_ID]
+      // Derived, not enumerated. A reservation naming a soundstage with NO body on this
+      // property is contradictory truth — the engine granted a slot in a facility the
+      // property projection says does not stand — and stays an error, exactly as before.
+      const stage = stageBodyByFacilityId.get(soundstage.facilityId)
       if (stage === undefined) {
         throw new Error(
           `studioLotSnapshot: managed productionId "${workflow.productionId}" uses unmapped soundstage "${soundstage.facilityId}"`,
@@ -5991,6 +6014,14 @@ function lotPropertyProjection(
       footprint: extent.footprint,
       placedFacilityId: placed.id,
       blueprintId: placed.blueprintId,
+      // What the body IS, from the blueprint the studio actually committed. Carried so
+      // the renderer can dress a body by CLASS when no art was authored for its
+      // blueprint id — a soundstage looks like a soundstage without anyone having to
+      // teach the world one new id per stage (C2a-M2 §3.1).
+      ...(() => {
+        const capability = blueprintById(placed.blueprintId)?.capability
+        return capability === undefined ? {} : { capability }
+      })(),
       status: placed.status,
     })
   }
@@ -6124,9 +6155,15 @@ function lotPlacementProjection(state: GameState): LotPlacementProjection {
         placed.status === 'operational'
           ? buildWeeks
           : Math.max(0, Math.min(buildWeeks, view.currentWeek - placed.placedWeek))
+      const capability = blueprintById(placed.blueprintId)?.capability
       return {
         id: placed.id,
         blueprintId: placed.blueprintId,
+        // Joined from the blueprint the studio committed, exactly as `effectSummary` is
+        // joined on the catalog below: one place knows what a blueprint is, and a
+        // blueprint the catalog cannot account for is carried as nothing rather than a
+        // guess (C2a-M2 §3.1 — the world dresses an unauthored body by its class).
+        ...(capability === undefined ? {} : { capability }),
         name: placed.name,
         facilityId: placed.facilityId,
         parcelId: placed.parcelId,
@@ -6247,10 +6284,29 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
   // Legacy productions retain their labelled presentation assignment. Managed productions
   // expose physical stage cards only while Rehearsal/Shooting actually reserves a soundstage.
   const prods = state.studio.activeProductions
-  const STAGE_IDS: ('stage-a' | 'stage-b')[] = ['stage-a', 'stage-b']
+
+  // ── C2a-M2 §3.1: the studio's soundstages, DERIVED ──────────────────────────
+  //
+  // The placement projection has to be in hand before the production cards are built,
+  // because which body a picture is IN is now an answer about the property, not a
+  // two-entry table. It is the same pure projection this selector already computed
+  // further down; only its position moved.
+  const placementProjection = lotPlacementProjection(state)
+  const stageIdentities = deriveLotStageIdentities(
+    state.operations.facilities,
+    placementProjection.placements,
+    LEGACY_EXPANSION_PARCEL_ID,
+  )
+  const stageBodyByFacilityId = lotStageBodyByFacilityId(stageIdentities)
+  const stageBuildingIds: readonly BuildingId[] = stageIdentities.map((stage) => stage.buildingId)
+
+  // The LEGACY display slots. Legacy operations hold no facilities and can build
+  // nothing, so a legacy studio's stages are exactly the two authored founding bodies —
+  // the same two this array has always held, spelled from the derived vocabulary.
+  const STAGE_IDS: readonly BuildingId[] = FOUNDING_STAGE_BUILDING_IDS
   const progressCard = (
     p: Production,
-    stageId: 'stage-a' | 'stage-b',
+    stageId: BuildingId,
     options?: Pick<ProductionCard, 'active' | 'stageState' | 'attentionReason'>,
   ): ProductionCard => {
     const concept = findConcept(state, p.conceptId)
@@ -6290,6 +6346,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
                   `studioLotSnapshot: managed productionId "${production.id}" has no authoritative workflow`,
                 )
               })(),
+            stageBodyByFacilityId,
           )
         : STAGE_IDS[index] ?? 'post'
     const attention = operationsAttention(card)
@@ -6353,7 +6410,9 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
             return []
           }
           const stageId = operation.locationBuildingId
-          if (stageId !== 'stage-a' && stageId !== 'stage-b') {
+          // Derived membership, not a literal pair: a picture on the studio's THIRD
+          // soundstage is on a soundstage, and this no longer throws when it is.
+          if (!stageBuildingIds.includes(stageId)) {
             throw new Error(
               `studioLotSnapshot: managed ${operation.phase} productionId "${production.id}" is not located on a soundstage`,
             )
@@ -6473,10 +6532,14 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
       }
     }
   }
-  const stageOccupied: Record<'stage-a' | 'stage-b', ProductionCard | undefined> = {
-    'stage-a': activeProductions.find((p) => p.stageId === 'stage-a'),
-    'stage-b': activeProductions.find((p) => p.stageId === 'stage-b'),
-  }
+  // Which picture is in which stage BODY, over however many stages this studio has.
+  // Legacy keeps the founding two; managed reads its own derived list.
+  const stageOccupied = new Map<BuildingId, ProductionCard | undefined>(
+    (state.operations.mode === 'managed' ? stageBuildingIds : STAGE_IDS).map((id) => [
+      id,
+      activeProductions.find((p) => p.stageId === id),
+    ]),
+  )
 
   // Releases → theater presence + marquee. criticScore is authoritative CRITICAL
   // reception (not box office). Presence never invents payment/revenue data.
@@ -6535,6 +6598,29 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
     }
   }
 
+  /**
+   * What ONE soundstage body says about itself this week (C2a-M2).
+   *
+   * Extracted out of the `stage-a`/`stage-b` arm verbatim so that a stage the studio
+   * BUILT speaks the same two sentences its founding siblings do — "RAVINE — 4 weeks
+   * left" when a picture is in it, "Available" when it is empty. A third stage that
+   * reported a flat "Operational" while a picture was shooting in it would be a place
+   * the player can see working and the world refuses to describe.
+   */
+  function stageBuildingPresentation(id: BuildingId): { attention: AttentionState; reason: string } {
+    const occ = stageOccupied.get(id)
+    if (occ) {
+      const cue = managedOperationCue(id)
+      return {
+        attention: cue?.attention ?? 'active',
+        reason:
+          cue?.reason ??
+          `${occ.title} — ${occ.weeksRemaining} week${occ.weeksRemaining === 1 ? '' : 's'} left`,
+      }
+    }
+    return { attention: 'empty', reason: 'Available' }
+  }
+
   function buildingState(id: FoundingBuildingId): BuildingState {
     let attention: AttentionState = 'normal'
     let reason: string | undefined
@@ -6584,17 +6670,9 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
       }
       case 'stage-a':
       case 'stage-b': {
-        const occ = stageOccupied[id]
-        if (occ) {
-          const cue = managedOperationCue(id)
-          attention = cue?.attention ?? 'active'
-          reason =
-            cue?.reason ??
-            `${occ.title} — ${occ.weeksRemaining} week${occ.weeksRemaining === 1 ? '' : 's'} left`
-        } else {
-          attention = 'empty'
-          reason = 'Available'
-        }
+        const stage = stageBuildingPresentation(id)
+        attention = stage.attention
+        reason = stage.reason
         break
       }
       case 'post': { // Production / Post
@@ -6695,7 +6773,6 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
     }
   }
 
-  const placementProjection = lotPlacementProjection(state)
   const propertyProjection = lotPropertyProjection(state, placementProjection)
 
   /**
@@ -6712,8 +6789,22 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
       placed.status === 'operational'
         ? buildWeeks
         : Math.max(0, Math.min(buildWeeks, week - placed.placedWeek))
+    const id = placedBuildingId(placed.id)
+    // A finished soundstage the studio BUILT reports what is shooting in it, in the
+    // same words the founding stages use. Under construction it is still a building
+    // site and keeps the countdown, which is the truer sentence at that moment.
+    if (placed.status === 'operational' && stageOccupied.has(id)) {
+      const stage = stageBuildingPresentation(id)
+      return {
+        id,
+        available: true,
+        ...(underDressed ? { underDressed: true } : {}),
+        attention: stage.attention,
+        attentionReason: stage.reason,
+      }
+    }
     return {
-      id: placedBuildingId(placed.id),
+      id,
       available: placed.status === 'operational',
       ...(underDressed ? { underDressed: true } : {}),
       attention: placed.status === 'operational' ? 'normal' : 'active',
@@ -6760,6 +6851,10 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
     placement: placementProjection,
     property: propertyProjection,
     ...(presence === undefined ? {} : { presence }),
+    // Emitted in managed mode only: legacy operations hold no facilities to derive
+    // from, and a legacy studio's stages are exactly the two authored founding bodies
+    // the `stageIdentity` fallback already answers with.
+    ...(state.operations.mode === 'managed' ? { stages: stageIdentities } : {}),
     activeProductions,
     releasedFilms,
     releasePresence,
