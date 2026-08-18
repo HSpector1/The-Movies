@@ -297,7 +297,7 @@ as a player would experience it.
 | # | Pillar | Status | Owner |
 |---|---|---|---|
 | 1 | The lot is the game | **IN PROGRESS** | C2 + C3 |
-| 2 | The studio lives without the player | **OWNER RULING REQUIRED** | C2 |
+| 2 | The studio lives without the player | **IN PROGRESS** | C2 |
 | 3 | Writers create movies | **IN PROGRESS** | C2 → C4 |
 | 4 | Screenplays become physical productions | **IN PROGRESS** | C2 |
 | 5 | Quality is not success | **IN PROGRESS** | distributed; calibration at C6 |
@@ -433,7 +433,7 @@ unexamined omission.**
 
 ## PILLAR 2 — THE STUDIO LIVES WITHOUT THE PLAYER
 
-**Status: OWNER RULING REQUIRED** — the *requirement* is ruled; the *architecture* is not, and nothing can be built until it is · **Expected to close: C2 — FROZEN**
+**Status: IN PROGRESS** — C2 is authorized and owns this pillar; the *requirement* is ruled, and the *time-model architecture* (D3b) is an open Owner decision **inside** C2's scope rather than a gate in front of it · **Expected to close: C2 — FROZEN**
 
 **The original fantasy.** One continuous timeline from 1920 onward — no missions, no scenarios
 (§31: "a single continuous open-ended timeline… No 'scenario' or 'mission select' terminology
@@ -477,14 +477,25 @@ explicit player action; there is no unpaused time and no speed control anywhere 
 accepted batch boundary is one engine call producing one final state, and the project's own rules
 forbid claiming any intermediate week was ever watched.
 
-**Why this is classified OWNER RULING REQUIRED rather than IN PROGRESS.** Living time is already
-ruled as a **requirement** — the docket answers *how*, not *whether*. But the *how* is a genuine
-simulation-design decision reserved to the Owner, and it is on the Master Plan's own
-still-required list. The open questions are not presentation details: what an action at "week 12.4"
-means, when money accrues, when random draws happen, whether time runs while a decision panel is
-open, whether a player can miss a decision, whether a blocker pauses time. The Master Plan
-explicitly forbids bolting real-time onto the weekly engine "merely because the genre commonly has
-it." Until the ruling lands, **nothing about the living half can be built or proven.**
+**Why this is classified IN PROGRESS.** Living time is already ruled as a **requirement** — the
+docket answers *how*, not *whether* — and **C2 is authorized and owns this pillar**, which is
+exactly the bar this document sets for IN PROGRESS: authorized and actively being built or planned
+by a named, live campaign.
+
+*(Status corrected at the pre-C2 governance reconciliation, 2026-08-18. This section previously read
+**OWNER RULING REQUIRED**, on the reasoning that the architecture ruling gated all work. That was
+written before C2 was authorized. The reclassification changes the **status label only** — it
+settles none of the design questions below, and it is not evidence that the living half exists.)*
+
+**What is still genuinely unruled, and it is not a presentation detail.** The *how* remains a
+simulation-design decision reserved to the Owner, and it is on the Master Plan's own still-required
+list: what an action at "week 12.4" means, when money accrues, when random draws happen, whether
+time runs while a decision panel is open, whether a player can miss a decision, whether a blocker
+pauses time. The Master Plan explicitly forbids bolting real-time onto the weekly engine "merely
+because the genre commonly has it." **The living half cannot be proven until D3b lands** — the
+change here is that the decision now sits inside an authorized campaign's scope, with a named owner,
+instead of blocking in front of one. The evidence distinction above stands unchanged: authority half
+proven, living half does not exist yet.
 
 > ### SUCCESS TEST
 > **Success means** a player can take their hands off the controls, watch their studio keep
@@ -1288,7 +1299,7 @@ never timing. **None is invented here.**
 |---|---|---|---|
 | 0 | **Foundation / First Movie** | *"I understand how to make a movie."* | **SEALED** |
 | 1 | **Campaign 1 — Lot Content** | *"I built this place."* | **SEALED** — KEEP at `f294077`, ratified |
-| 1a | **PF1 — Professional Floor** | *"This feels like real game software."* | **CHARTER FROZEN / IN FLIGHT** — GO status disputed between documents (see below) |
+| 1a | **PF1 — Professional Floor** | *"This feels like real game software."* | **SEALED** — KEEP + PROMOTE at `d95d6a6`, promoted to `main` (see below) |
 | 2 | **C2 — Living Studio / Production Throughput** | *"I built this movie studio, it operates while I watch, my writers create pictures, and I can physically watch multiple films compete for real production resources."* | **CHARTER FROZEN (r3.1)** — see the note below; still does **not** start automatically, and needs its own Owner authorization |
 | 3 | **C3 — Progression / Prestige / Awards / Land** | *"My studio has status, goals, recognition and things I desperately want to unlock."* | **SEQUENCED** — position frozen, uncharted |
 | 4 | **C4 — Era / Genre / Research** | *"I am living through film history and the kinds of movies worth making change with the world."* | **SEQUENCED** — position frozen, uncharted |
@@ -1322,11 +1333,19 @@ presentation never creates or persists game truth.** Explicitly one short campai
 PF2 without fresh Owner authorization. It also establishes the editorial voice — confident
 20th-century Hollywood trade language — which is then reused everywhere.
 
-*Recorded honestly:* two documents of the same date disagree about PF1's start. The Master Plan
-still lists "PF1 GO" among decisions **still required from the Owner**, while the C2 planning brief
-states PF1 **is being implemented now** on its own branch. Neither supersedes the other on its
-face. This Blueprint therefore describes PF1 as **charter frozen and in flight**, and asserts
-neither that the GO is outstanding nor that PF1 is complete.
+*Recorded honestly, then overtaken:* two documents of the same date disagreed about PF1's start. The
+Master Plan listed "PF1 GO" among decisions **still required from the Owner**, while the C2 planning
+brief stated PF1 **was being implemented now** on its own branch. Neither superseded the other on its
+face, and this Blueprint's base text therefore described PF1 as charter frozen and in flight,
+asserting neither that the GO was outstanding nor that PF1 was complete.
+
+> **Status corrected at the pre-C2 governance reconciliation, 2026-08-18.** That ambiguity is closed
+> by the record: PF1 is **sealed and promoted**. Owner review returned **KEEP + PROMOTE** (`4aef763`),
+> the seal HEAD was corrected to `d95d6a6` with the decisive gates re-run green at it (`2b75e3d`), and
+> that work is in `main` — it is the base this document is being added onto. The dispute account above
+> is retained as provenance, not as current status. Two distinctions survive it and are **not** rounded
+> up: PF1 was a bridge campaign, not proof of any pillar, and the Owner review recorded playtest
+> findings as **post-PF1 inherited residuals** rather than as PF1 defects.
 
 **2 — Living Studio.** The largest single jump on the ladder, and the first rung where the game
 becomes the thing the North Star describes. It combines the time model, renewable screenplay
@@ -1339,10 +1358,11 @@ the Founding Flip. This is where Pillars 2, 3 and 4 land together, because they 
 > sequencing**, not a summary of C2's design, and this document does not restate or interpret that
 > charter — read it directly.
 >
-> It also **sharpens rather than settles decision D3**: C2's charter now firmly owns RSG V1, while
-> the horizon ruling still names C4 as the owning campaign for concept supply and the Master Plan
-> still records neither. Two frozen documents now point in different directions. The reconciliation
-> is cheaper to write down today than it was this morning.
+> It also **settles decision D3**, which this document originally recorded as open: **C2 owns
+> Renewable Screenplay Generation V1; C4 owns the era-sensitive deepening.** C2's charter firmly owns
+> RSG V1, and the horizon ruling's naming of C4 for concept supply is the *deep* version, not a
+> competing claim on V1. Recorded as ruled at the pre-C2 governance reconciliation, 2026-08-18 — see
+> D3 below for the evidence trail that made this look contested.
 
 **3 — Progression / Prestige / Awards / Land.** The rung that converts accumulation into ambition.
 Pillars 9 and 10, plus prestige reconnected to the physical lot and the first earned expansion of
@@ -1653,19 +1673,32 @@ has learned that the project's own instructions are advisory, which is worse.
 
 **Recommendation:** option 1, with option 3 applied to anything the Owner actually wants kept shut.
 
-### D2 — Settle PF1's GO status
+### D2 — Settle PF1's GO status — **OVERTAKEN BY EVENTS**
 
-**Why now:** two same-dated documents disagree about whether implementation is authorized, and work
-appears to be in flight on a branch. This is a one-sentence ruling that removes ambiguity about
-whether current activity is sanctioned.
+> **Closed by the record, not by a ruling.** This docket item was written when PF1's authorization was
+> ambiguous. It is moot at this document's own base: PF1 was sealed, Owner-reviewed **KEEP + PROMOTE**,
+> and promoted into `main` — `4aef763` ("Owner review — KEEP + PROMOTE"), sealed HEAD `d95d6a6`,
+> recorded at `2b75e3d`. Option (a) is what happened. Retained for provenance.
+
+**Why it was raised:** two same-dated documents disagreed about whether implementation was authorized,
+and work appeared to be in flight on a branch. This was a one-sentence ruling that would remove
+ambiguity about whether current activity was sanctioned.
 
 **Options:** (a) confirm GO was given and clear the "still required" item; (b) confirm GO is
 outstanding and that branch work is preparatory only.
 
-### D3 — Reconcile who owns renewable screenplay supply: C2 or C4
+### D3 — Who owns renewable screenplay supply: C2 or C4 — **RULED**
 
-**Why now:** C2 is being chartered **right now**, and its scope depends on the answer. Two rulings
-of the same date point at different campaigns with no way to establish which is later.
+> **RULED at the pre-C2 governance reconciliation, 2026-08-18: option 1. C2 owns Renewable
+> Screenplay Generation V1 — the foundational fantasy, "a writer goes to work and eventually hands
+> me a new movie." C4 owns the era-sensitive deep version.** The thirty-screenplay ceiling therefore
+> has a named owner: **C2**. It is no longer an unowned blocker.
+>
+> The record below is retained unchanged as the evidence trail — it explains why the ownership looked
+> contested to anyone auditing by the book, and that diagnosis was correct at the time.
+
+**Why this was raised:** C2 was being chartered, and its scope depended on the answer. Two rulings
+of the same date pointed at different campaigns with no way to establish which was later.
 
 **And the gap has a measurable consequence already.** An independent status audit of this
 repository — reading the Master Plan as the sequencing authority, which is correct practice —
@@ -1689,6 +1722,13 @@ book.** Writing the reconciliation down fixes that in one line.
 concrete mechanics. In practice option 1 is now the operating assumption. That makes writing the
 reconciliation down **more** urgent, not less: a frozen charter and a standing Owner ruling now name
 different owners for the same system, and the Master Plan records neither.
+
+**Resolution (2026-08-18, pre-C2 governance reconciliation): option 1 is ratified — RSG ownership is
+C2 (V1) → C4 (deepening).** Pillar 3 and the pillar table already read that way; this closes the gap
+between them and this docket. **Still outstanding, and not closed by this:** `THE-MOVIES-PARITY-MASTER-PLAN.md`
+does not yet record the assignment, so an audit reading the Master Plan alone can still reach the
+"ownerless blocker" conclusion described above. That is a one-line follow-up in the Master Plan, and
+it is deliberately **not** made here — this reconciliation does not edit the plan's scope entries.
 
 **Ratify the identity law at the same time, in the same breath.** Existing `FilmConcept.id` values
 are permanent: concepts may be appended with fresh IDs, and an existing ID may never be removed,
