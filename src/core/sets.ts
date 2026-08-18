@@ -664,7 +664,11 @@ export function completeDueSets(
       novelty: wasRepair ? set.novelty : TUNING.SET_NOVELTY_INITIAL,
     }
     if (!wasRepair) {
-      events.append({ kind: 'setBuilt', setId: set.id })
+      // Stamped with the set's OWN committed completion week, not the week being
+      // advanced — the same rule a completing building follows, and for the same
+      // reason: that week is already on the record this row describes, and two
+      // dates for one fact is one date too many.
+      events.append({ kind: 'setBuilt', setId: set.id }, set.completesWeek)
       completed.push(done)
     }
     return done

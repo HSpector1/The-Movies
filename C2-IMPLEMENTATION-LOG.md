@@ -71,3 +71,76 @@ NEXT after this wave: M3 (Renewable Screenplay Generation V1 — §3.5), M4
 M6 (Premiere at the Gate), M7 (economy remeasure), M8 (seal + Owner playtest).
 Budget posture: consolidate later milestones into fewer, larger sequential lanes;
 gates are the verification (no separate verify workflows during implementation).
+
+## M2 — the ENGINE half, landed (lane ENGINE-M2)
+
+Six commits: the two authored catalogs; the life of a Set; the stage+set
+composite and the wired stat block; the sets authority at the V14 save boundary;
+and their test suites.
+
+**GROUND (§3.4, the milestone's stated first task) — the spur is DROPPED, and no
+ground is authored.** SWEEP-M2 published the arithmetic at
+`docs/c2-planning/16-placement-sweep.md` (HEAD `f3d4313`); this lane consumed the
+verdict rather than re-litigating it, and recorded its two binding findings AS
+CONSTRAINTS where the blueprints land, so a later price or size edit cannot
+silently invalidate the sweep:
+
+* **at most TWO additional 4×4 soundstages** can ever stand on today's
+  road-served parcels — §16a's third-stage beat and the M2 gate's stage count are
+  stated against 2;
+* **no support building may exceed THREE cells of WIDTH.** Only three parcels are
+  four wide and the two stages take the only two available. Depth is cheap
+  (`west-lawn` is 3×6); width is what runs out. A bigger support building grows
+  in gy, never gx.
+
+### Four decisions a later lane will need, and why
+
+1. **`SET_WEEKLY_MAINTENANCE_COST` is a NAMED ZERO, on evidence, not on
+   convenience.** Lane 3 §11 (TECH-SCHEMA-001) records that the original's shared
+   facility/set schema carries `[finance] annualcost` and `dailyrate` and that
+   **both are 0 in every example recovered**: a set costs capital once and labour
+   forever, never a visible recurring cash charge. It is named, charged through
+   the ordinary weekly path, and invariant-checked, so a real standing charge is a
+   one-line tuning change whose path is already proven. It also happens to be what
+   keeps every sealed spec byte-identical — but the reason is the corpus.
+
+2. **Two facts about a Set are DERIVED, because V14 is the complete schema and M2
+   adds no member (§8).**
+   * *Which scenery slot* a set under work holds — derived in `occupancy.ts` from
+     the claims every other owner is already making, then fed back to production
+     allocation through `setOccupiedFacilitySlots`. The circularity breaks on
+     ordering: sets read the reservations productions already hold; productions
+     are then told what the sets took.
+   * *Build vs repair* — `condition === 0` means, and can only mean, "this set has
+     never stood". A standing set's condition can never reach 0 because
+     `SET_CONDITION_UNUSABLE_THRESHOLD > SET_CONDITION_WEAR_PER_PRODUCTION` (a set
+     below the threshold cannot be bound, so it cannot be worn again). That
+     inequality is a bounded-term test. It is what lets a repair record **no**
+     `setBuilt` row: the set was built once, and the studio's history is not
+     editable.
+
+3. **`requiresSetBinding` is scoped by `state.nextSetId > 0`.** §3.1 names four
+   exclusions; three are true by construction (legacy and headless never reach the
+   greenlight call; migrated in-flight workflows keep the migrator's `false`). The
+   fourth — "directly-constructed test states untouched" — needs a fact, and
+   `nextSetId` is it: it counts the sets a world has EVER minted, and it is 2 for
+   every studio founded through `activateStudioOperations` and 2 for every managed
+   save the V14 migrator lifts. Zero means no set has ever existed there, and a
+   picture cannot be required to stand on a kind of thing its world has never had.
+   The moment such a world commissions its first set, the counter moves and every
+   greenlight after it binds. **C2b must revisit this** when the bare-lot founding
+   regime lands: a bare studio starts with `nextSetId === 0` by design, so the
+   regime — not the counter — becomes the authority.
+
+4. **The soundstage blueprint's `facilityIdBase` is `facility-stage`, NOT
+   `facility-soundstage`.** The frozen historical-boundary guards detect a placed
+   facility by the prefix `${facilityIdBase}-`; the obvious base would have made
+   the FOUNDING `facility-soundstage-07` and `-12` read as V12 placements to every
+   one of them. Caught by a V11 boundary test during authoring; now asserted in
+   both directions in `tests/c2a-m2-blueprint-slate.test.ts`.
+
+### What this lane did NOT touch
+
+`ui/**` — WORLD-M2a and SCREENS-M2 are live there. One engine change needs two
+lines in files they own; it is stated as a blocker in this lane's handoff rather
+than edited across a lane boundary.
