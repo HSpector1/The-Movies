@@ -1,0 +1,670 @@
+{
+  "schemaVersion": "c1-m6-expanded-property-fixtures-v1",
+  "generatedBy": "scripts/gen-expanded-property-fixtures.mts",
+  "reproduceCommand": "node_modules/.bin/vite-node scripts/gen-expanded-property-fixtures.mts",
+  "outputDirectory": "ui/e2e/expanded-property-v1",
+  "authority": {
+    "studioConstruction": "public Engine actions and UI adapter action boundaries only",
+    "propertyConstruction": "AUTHORED AS DATA BY THIS GENERATOR — Campaign 1 has no land-acquisition action (that is Campaign 3). Every authored property is then proved through assertStudioPlacementInvariants, the one placementQuote/placeFacilityAction legality authority, and the live SaveFileV13 boundary.",
+    "placements": "placeFacilityAction, at origins placementQuote called legal",
+    "serialization": "exportSaveJson / importSaveJson live SaveFileV13 boundary",
+    "deterministic": true,
+    "generatedFilesAreHandEdited": false,
+    "claimsCanvasAnchors": false,
+    "claimsStructuralTuples": false,
+    "shipsToPlayers": false,
+    "initialPropertyUntouched": true
+  },
+  "commonFoundingRecipe": {
+    "applicantSelection": "first N foundingApplicantCards in authoritative draft order for each role",
+    "roleOrder": [
+      "actor",
+      "director",
+      "writer",
+      "craft"
+    ],
+    "counts": {
+      "actor": 3,
+      "director": 1,
+      "writer": 1,
+      "craft": 1
+    },
+    "termWeeks": 104,
+    "managedSystemsActivated": [
+      "Studio Operations",
+      "Studio Placement"
+    ]
+  },
+  "fixtures": [
+    {
+      "id": "week-0-south-yard-second-zone",
+      "file": "week-0-south-yard-second-zone.save.json",
+      "saveVersion": 13,
+      "byteLength": 220918,
+      "sha256": "3ceab80cba42d0d33a9265107d52b8894b96fabf90a6e29cd2b3510805a833f8",
+      "seed": "c1-m6-south-yard",
+      "claim": {
+        "week": 0,
+        "bounds": {
+          "width": 28,
+          "depth": 34
+        },
+        "roadCount": 7,
+        "parcelCount": 14,
+        "parcelIds": [
+          "backlot-apron",
+          "courtyard",
+          "expansion",
+          "north-back-lot",
+          "north-court",
+          "north-lawn",
+          "service-yard",
+          "south-lawn",
+          "stage-south",
+          "west-lawn",
+          "south-yard-west",
+          "south-yard-east",
+          "south-yard-back",
+          "south-yard-tank"
+        ],
+        "buildableParcelIds": [
+          "backlot-apron",
+          "expansion",
+          "north-back-lot",
+          "north-court",
+          "north-lawn",
+          "south-lawn",
+          "stage-south",
+          "west-lawn",
+          "south-yard-west",
+          "south-yard-east",
+          "south-yard-back"
+        ],
+        "roadServedParcelIds": [
+          "backlot-apron",
+          "expansion",
+          "north-court",
+          "north-lawn",
+          "service-yard",
+          "south-lawn",
+          "stage-south",
+          "west-lawn",
+          "south-yard-west",
+          "south-yard-east"
+        ],
+        "structureCount": 8,
+        "structureIds": [
+          "gate",
+          "admin",
+          "theater",
+          "writers",
+          "casting",
+          "stage-a",
+          "stage-b",
+          "post"
+        ],
+        "placementCount": 0,
+        "placements": [],
+        "cash": 20000000,
+        "zone": {
+          "name": "South Yard",
+          "addedDepth": 8,
+          "addedRoads": 2,
+          "addedParcels": [
+            "south-yard-west",
+            "south-yard-east",
+            "south-yard-back",
+            "south-yard-tank"
+          ],
+          "buildSites": [
+            "south-yard-west",
+            "south-yard-east"
+          ],
+          "unservedGround": "south-yard-back",
+          "protectedGround": "south-yard-tank"
+        }
+      },
+      "actionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "c1-m6-south-yard"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 3,
+            "director": 1,
+            "writer": 1,
+            "craft": 1
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-19",
+              "name": "Ingrid Calloway",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-04",
+              "name": "Constance Merrick",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-03",
+              "name": "Miriam Marlowe",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-05",
+              "name": "Spencer Ostrow",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-07",
+              "name": "Leslie Voss",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-02",
+              "name": "Irene Emerson",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundManagedStudio",
+          "resultWeek": 0
+        },
+        {
+          "authoring": "property",
+          "note": "DATA ONLY. There is no land-acquisition action in Campaign 1, so the property root is authored by this generator and then proved through assertStudioPlacementInvariants, placementQuote, and the live SaveFileV13 boundary.",
+          "boundsDepth": {
+            "from": 26,
+            "to": 34
+          },
+          "addedRoads": [
+            {
+              "x0": 9,
+              "y0": 26,
+              "x1": 10,
+              "y1": 33
+            },
+            {
+              "x0": 2,
+              "y0": 28,
+              "x1": 20,
+              "y1": 29
+            }
+          ],
+          "addedParcels": [
+            {
+              "id": "south-yard-west",
+              "label": "South Yard West",
+              "terrain": "buildable",
+              "rect": {
+                "x0": 2,
+                "y0": 30,
+                "x1": 7,
+                "y1": 33
+              },
+              "ownedFromStart": true
+            },
+            {
+              "id": "south-yard-east",
+              "label": "South Yard East",
+              "terrain": "buildable",
+              "rect": {
+                "x0": 12,
+                "y0": 30,
+                "x1": 19,
+                "y1": 33
+              },
+              "ownedFromStart": true
+            },
+            {
+              "id": "south-yard-back",
+              "label": "South Yard Back Ground",
+              "terrain": "buildable",
+              "rect": {
+                "x0": 23,
+                "y0": 26,
+                "x1": 27,
+                "y1": 27
+              },
+              "ownedFromStart": true
+            },
+            {
+              "id": "south-yard-tank",
+              "label": "South Yard Tank Pad",
+              "terrain": "blocked",
+              "rect": {
+                "x0": 22,
+                "y0": 30,
+                "x1": 26,
+                "y1": 33
+              },
+              "ownedFromStart": true
+            }
+          ],
+          "foundingContentChanged": false
+        }
+      ]
+    },
+    {
+      "id": "week-0-far-property-twenty-two-parcels",
+      "file": "week-0-far-property-twenty-two-parcels.save.json",
+      "saveVersion": 13,
+      "byteLength": 231551,
+      "sha256": "1de17efd2ef13e2f1a70293be27d9043f75e7d3be757df6bcae48d9ad99ceed7",
+      "seed": "c1-m6-far-property",
+      "claim": {
+        "week": 0,
+        "bounds": {
+          "width": 60,
+          "depth": 60
+        },
+        "roadCount": 10,
+        "parcelCount": 22,
+        "parcelIds": [
+          "backlot-apron",
+          "courtyard",
+          "expansion",
+          "north-back-lot",
+          "north-court",
+          "north-lawn",
+          "service-yard",
+          "south-lawn",
+          "stage-south",
+          "west-lawn",
+          "east-field-north",
+          "east-field-south",
+          "east-ridge-north",
+          "east-ridge-south",
+          "far-east-north",
+          "far-east-south",
+          "south-yard-west",
+          "south-yard-east",
+          "south-ridge-east",
+          "far-south-west",
+          "far-south-mid",
+          "far-south-east"
+        ],
+        "buildableParcelIds": [
+          "backlot-apron",
+          "expansion",
+          "north-back-lot",
+          "north-court",
+          "north-lawn",
+          "south-lawn",
+          "stage-south",
+          "west-lawn",
+          "east-field-north",
+          "east-field-south",
+          "east-ridge-north",
+          "east-ridge-south",
+          "far-east-north",
+          "far-east-south",
+          "south-yard-west",
+          "south-yard-east",
+          "south-ridge-east",
+          "far-south-west",
+          "far-south-mid",
+          "far-south-east"
+        ],
+        "roadServedParcelIds": [
+          "backlot-apron",
+          "expansion",
+          "north-court",
+          "north-lawn",
+          "service-yard",
+          "south-lawn",
+          "stage-south",
+          "west-lawn",
+          "east-field-north",
+          "east-field-south",
+          "east-ridge-north",
+          "east-ridge-south",
+          "far-east-north",
+          "far-east-south",
+          "south-yard-west",
+          "south-yard-east",
+          "south-ridge-east",
+          "far-south-west",
+          "far-south-mid",
+          "far-south-east"
+        ],
+        "structureCount": 24,
+        "structureIds": [
+          "gate",
+          "admin",
+          "theater",
+          "writers",
+          "casting",
+          "stage-a",
+          "stage-b",
+          "post",
+          "property-depot-1",
+          "property-depot-2",
+          "property-depot-3",
+          "property-depot-4",
+          "property-depot-5",
+          "property-depot-6",
+          "property-depot-7",
+          "property-depot-8",
+          "property-depot-9",
+          "property-depot-10",
+          "property-depot-11",
+          "property-depot-12",
+          "property-depot-13",
+          "property-depot-14",
+          "property-depot-15",
+          "property-depot-16"
+        ],
+        "placementCount": 12,
+        "placements": [
+          {
+            "id": 1,
+            "blueprintId": "development-casting-annex",
+            "parcelId": "east-field-north",
+            "facilityId": "facility-development-casting-annex",
+            "projectId": "construction-development-casting-annex",
+            "origin": {
+              "gx": 32,
+              "gy": 0
+            },
+            "status": "underConstruction"
+          },
+          {
+            "id": 2,
+            "blueprintId": "development-casting-annex",
+            "parcelId": "east-field-south",
+            "facilityId": "facility-development-casting-annex-2",
+            "projectId": "construction-development-casting-annex-2",
+            "origin": {
+              "gx": 32,
+              "gy": 9
+            },
+            "status": "underConstruction"
+          },
+          {
+            "id": 3,
+            "blueprintId": "development-casting-annex",
+            "parcelId": "east-ridge-north",
+            "facilityId": "facility-development-casting-annex-3",
+            "projectId": "construction-development-casting-annex-3",
+            "origin": {
+              "gx": 43,
+              "gy": 0
+            },
+            "status": "underConstruction"
+          },
+          {
+            "id": 4,
+            "blueprintId": "development-casting-annex",
+            "parcelId": "east-ridge-south",
+            "facilityId": "facility-development-casting-annex-4",
+            "projectId": "construction-development-casting-annex-4",
+            "origin": {
+              "gx": 43,
+              "gy": 9
+            },
+            "status": "underConstruction"
+          },
+          {
+            "id": 5,
+            "blueprintId": "development-casting-annex",
+            "parcelId": "far-east-north",
+            "facilityId": "facility-development-casting-annex-5",
+            "projectId": "construction-development-casting-annex-5",
+            "origin": {
+              "gx": 51,
+              "gy": 0
+            },
+            "status": "underConstruction"
+          },
+          {
+            "id": 6,
+            "blueprintId": "development-casting-annex",
+            "parcelId": "far-east-south",
+            "facilityId": "facility-development-casting-annex-6",
+            "projectId": "construction-development-casting-annex-6",
+            "origin": {
+              "gx": 51,
+              "gy": 9
+            },
+            "status": "underConstruction"
+          },
+          {
+            "id": 7,
+            "blueprintId": "development-casting-annex",
+            "parcelId": "south-yard-west",
+            "facilityId": "facility-development-casting-annex-7",
+            "projectId": "construction-development-casting-annex-7",
+            "origin": {
+              "gx": 0,
+              "gy": 30
+            },
+            "status": "underConstruction"
+          },
+          {
+            "id": 8,
+            "blueprintId": "development-casting-annex",
+            "parcelId": "south-yard-east",
+            "facilityId": "facility-development-casting-annex-8",
+            "projectId": "construction-development-casting-annex-8",
+            "origin": {
+              "gx": 23,
+              "gy": 30
+            },
+            "status": "underConstruction"
+          },
+          {
+            "id": 9,
+            "blueprintId": "development-casting-annex",
+            "parcelId": "south-ridge-east",
+            "facilityId": "facility-development-casting-annex-9",
+            "projectId": "construction-development-casting-annex-9",
+            "origin": {
+              "gx": 43,
+              "gy": 30
+            },
+            "status": "underConstruction"
+          },
+          {
+            "id": 10,
+            "blueprintId": "development-casting-annex",
+            "parcelId": "far-south-west",
+            "facilityId": "facility-development-casting-annex-10",
+            "projectId": "construction-development-casting-annex-10",
+            "origin": {
+              "gx": 0,
+              "gy": 46
+            },
+            "status": "underConstruction"
+          },
+          {
+            "id": 11,
+            "blueprintId": "development-casting-annex",
+            "parcelId": "far-south-mid",
+            "facilityId": "facility-development-casting-annex-11",
+            "projectId": "construction-development-casting-annex-11",
+            "origin": {
+              "gx": 22,
+              "gy": 46
+            },
+            "status": "underConstruction"
+          },
+          {
+            "id": 12,
+            "blueprintId": "development-casting-annex",
+            "parcelId": "far-south-east",
+            "facilityId": "facility-development-casting-annex-12",
+            "projectId": "construction-development-casting-annex-12",
+            "origin": {
+              "gx": 42,
+              "gy": 46
+            },
+            "status": "underConstruction"
+          }
+        ],
+        "cash": 10640000,
+        "farBeyondFounding": {
+          "foundingBounds": {
+            "width": 28,
+            "depth": 26
+          },
+          "foundingParcelCount": 10,
+          "foundingStructureCount": 8,
+          "parcelsAdded": 12,
+          "structuresAdded": 16,
+          "roadsAdded": 5
+        }
+      },
+      "actionRecipe": [
+        {
+          "action": "newGame",
+          "seed": "c1-m6-far-property"
+        },
+        {
+          "action": "signContract",
+          "selector": "first N foundingApplicantCards in authoritative draft order for each role",
+          "roleOrder": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "counts": {
+            "actor": 3,
+            "director": 1,
+            "writer": 1,
+            "craft": 1
+          },
+          "termWeeks": 104,
+          "resolvedSignings": [
+            {
+              "id": "t-act-12",
+              "name": "Rex Calloway",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-23",
+              "name": "Bette Pemberton",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-act-13",
+              "name": "Loretta Reyes",
+              "role": "actor",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-dir-06",
+              "name": "Sylvia Vandermeer",
+              "role": "director",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-wri-04",
+              "name": "Leslie Delacroix",
+              "role": "writer",
+              "termWeeks": 104
+            },
+            {
+              "id": "t-cra-00",
+              "name": "Jean Attwater",
+              "role": "craft",
+              "termWeeks": 104
+            }
+          ]
+        },
+        {
+          "action": "foundManagedStudio",
+          "resultWeek": 0
+        },
+        {
+          "authoring": "property",
+          "note": "DATA ONLY, as above. Founding roads, parcels, and structures carried through verbatim; twelve parcels, sixteen structures, and five roads added.",
+          "bounds": {
+            "from": {
+              "width": 28,
+              "depth": 26
+            },
+            "to": {
+              "width": 60,
+              "depth": 60
+            }
+          },
+          "addedParcels": [
+            "east-field-north",
+            "east-field-south",
+            "east-ridge-north",
+            "east-ridge-south",
+            "far-east-north",
+            "far-east-south",
+            "south-yard-west",
+            "south-yard-east",
+            "south-ridge-east",
+            "far-south-west",
+            "far-south-mid",
+            "far-south-east"
+          ],
+          "addedStructures": [
+            "property-depot-1",
+            "property-depot-2",
+            "property-depot-3",
+            "property-depot-4",
+            "property-depot-5",
+            "property-depot-6",
+            "property-depot-7",
+            "property-depot-8",
+            "property-depot-9",
+            "property-depot-10",
+            "property-depot-11",
+            "property-depot-12",
+            "property-depot-13",
+            "property-depot-14",
+            "property-depot-15",
+            "property-depot-16"
+          ],
+          "foundingContentChanged": false
+        },
+        {
+          "action": "placeFacility",
+          "blueprintId": "development-casting-annex",
+          "selector": "the first origin on each added parcel that placementQuote calls legal",
+          "parcelOrder": [
+            "east-field-north",
+            "east-field-south",
+            "east-ridge-north",
+            "east-ridge-south",
+            "far-east-north",
+            "far-east-south",
+            "south-yard-west",
+            "south-yard-east",
+            "south-ridge-east",
+            "far-south-west",
+            "far-south-mid",
+            "far-south-east"
+          ],
+          "resultWeek": 0
+        }
+      ]
+    }
+  ]
+}
