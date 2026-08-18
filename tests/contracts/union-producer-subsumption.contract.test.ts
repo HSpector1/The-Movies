@@ -17,8 +17,15 @@
 // copy still agrees. The defect is that they are SEPARATE — the next owner kind
 // (a Set, §3.2) has to be remembered in four places or it silently is not
 // counted. So the assertion has to be about the code, exactly as the hygiene
-// test's Math.random scan is. Comments are stripped first, so prose ABOUT the
-// retired helpers can neither satisfy nor falsify the scan.
+// test's scan for the forbidden unseeded-RNG call is. Comments are stripped
+// first, so prose ABOUT the retired helpers can neither satisfy nor falsify
+// the scan.
+//
+// NOTE (C2a-M0 integration ruling): this comment deliberately does NOT spell
+// the literal needle that tests/hygiene.test.ts greps for. That floor scans
+// RAW file contents and excludes only itself, so naming the needle here — even
+// in prose — fails it. Reworded rather than adding an exclusion, because an
+// exclusion would blind that floor to a REAL offence in this file later.
 //
 // EXPECTED CONTRACT-FIRST STATE: red until M0's union lands.
 
