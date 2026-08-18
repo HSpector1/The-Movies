@@ -73,11 +73,28 @@
   outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
+/* PF1-M4 addendum 2 — the blocked-state reason must not make the topbar taller.
+   This line is the "reason" half of the blocked-state grammar, so it stays visible, stays
+   in the DOM and stays the target of the button's `aria-describedby`. What it stops doing
+   is growing the bar it lives in: at a constrained width it wrapped to two or three 12.5px
+   lines and drove the topbar from 63px to ~92px in exactly the decision states the
+   reachability specs drive. It now hangs just below its own button instead — same place on
+   screen, zero column height. `z-index` clears the notice strips (21) and the next-event
+   rail (20); it can never be the tallest thing in the row again. */
+.lot-next-event-control {
+  position: relative;
+}
 .lot-next-event-disabled-reason {
+  position: absolute;
+  z-index: 22;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
   color: var(--text-dim);
   font-size: 10px;
   line-height: 1.25;
   text-align: center;
+  pointer-events: none;
 }
 .lot-next-event-wrap {
   /* The wrapper has no hit-test box: only the bounded rail intercepts the Lot. */
@@ -91,6 +108,15 @@
   font-variant-numeric: tabular-nums;
   color: var(--text);
   font-size: 15px;
+}
+/* PF1-M4 addendum 2 — the compactable topbar entries. At every width where the row fits,
+   these read as words and the mark is not in the tree at all. The breakpoint below swaps
+   them. */
+.lot-topbar-compactable {
+  position: relative;
+}
+.lot-topbar-mark {
+  display: none;
 }
 
 /* ── Body: canvas stage + companion navigation ── */
@@ -2033,6 +2059,91 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
     overscroll-behavior: contain;
   }
 }
+/* ── PF1-M4 addendum 2 · ONE TOPBAR ROW AT EVERY GOVERNED VIEWPORT ────────────
+   The bar carries seven entries. M3 added the last two to a row that was already full,
+   so below ~1120px it wrapped — and a wrapped topbar is 119.5px instead of 63px. That
+   56.5px is what pushed the world and every panel anchored inside it out of the governed
+   viewport (`lot.spec.ts` read a context panel top of -80.5 @ 960x540;
+   `publicity-campaign-v1.spec.ts` a bottom of 805.5 in a 768-tall viewport).
+
+   Measured, at 960 (the tightest GOVERNED width; the 200%-zoom step asserts visibility and
+   the absence of HORIZONTAL overflow, not bounds, and wrapping is what prevents that):
+     available to the actions   924 - 16 - 234.7 (brand) = 673.3
+     actions, shipped           844.2   → over by 170.9, so it wrapped
+     actions, compacted here    654.4   → fits, 18.9 to spare
+   Every number is derived from the declarations in this file (Arial/Helvetica advance
+   metrics for the shipped system stack); the same box model reproduces the PM's browser
+   measurement of this component exactly — ghost button 42.5, bar 63, bar wrapped 119.5 —
+   which is what licenses the widths above. The full arithmetic is in the M4 report.
+
+   Nothing is hidden and no entry is removed. Saves and Settings become their glyph with
+   the full name on `aria-label` and `title`; the roomy 16px button padding tightens to
+   10px; the gap tightens to the 8px this file already uses on small screens; and the
+   next-event control gives back the slack in its fixed 220px box. Every control stays at
+   or above 44px in both axes — the glyph buttons gain a `min-height` the ghost buttons
+   never had. */
+@media (max-width: 1120px) {
+  .lot-topbar-actions {
+    gap: 8px;
+  }
+  .lot-topbar-actions .lot-advance-week,
+  .lot-topbar-actions .lot-next-event-button,
+  .lot-topbar-actions > button.ghost {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .lot-next-event-control {
+    width: min(150px, 100%);
+  }
+  .lot-topbar-compactable {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lot-topbar-compactable .lot-topbar-mark {
+    display: inline;
+    font-size: 17px;
+    line-height: 1;
+  }
+  /* Clipped, never `display: none`: the words stay in the document for a UA that never
+     applied this stylesheet, and the accessible name comes from `aria-label` regardless. */
+  .lot-topbar-compactable .lot-topbar-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* THE GUARANTEE, independent of any width arithmetic: across the governed band an
+   ordinary shortage lands on the brand — a quietly clipped subtitle — before the actions
+   row gives ground. Stated as shrink BIAS, never as `flex-shrink: 0` on the actions row:
+   CSS zoom halves the LAYOUT width while media queries keep reading the raw viewport, so
+   at the governed 200% step this block is active with only 480px of layout — a row
+   forbidden to shrink cannot wrap and becomes page-level horizontal overflow (the exact
+   PF1-M4 seal-gate failure). With bias instead, the brand yields first at real 900–1120
+   widths and the row still wraps when the layout is genuinely half-size. */
+@media (min-width: 900px) and (max-width: 1120px) {
+  .lot-brand {
+    min-width: 0;
+    flex-shrink: 4;
+  }
+  .lot-brand .lot-sub {
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 @media (max-width: 720px) {
   .lot-next-event-rail:has(.lot-script-review-panel) {
     max-height: min(360px, calc(100% - 360px));
