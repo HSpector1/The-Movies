@@ -7,6 +7,9 @@
 // and whether the cash readout can ever show a figure that is not the studio's.
 
 import { useState } from 'react'
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
@@ -209,6 +212,38 @@ describe('PF1-M2 — aria-only promotion', () => {
     // untouched — same single element, role, aria-live, aria-atomic, testid — so this suite
     // still proves exactly what it proved: one region, one announcement, copy carried verbatim.
     expect(region).toHaveTextContent('Week 7 on the lot.')
+  })
+
+  it('costs the column NOTHING: both promoted strips are an overlay on the stage', async () => {
+    // PF1-M4 layout-neutrality pin. M2 put these strips in the `.lot-screen` COLUMN, above
+    // the topbar, where a visible notice added its own height to a column that is already
+    // `min-height: 100vh`. That pushed the world and every panel anchored inside it past
+    // the governed viewport, the document scrolled, and two reachability specs read a
+    // context panel at a negative top (`lot.spec.ts` @ 960x540) and below the bottom edge
+    // (`publicity-campaign-v1.spec.ts` @ 200% zoom).
+    //
+    // jsdom has no layout engine, so this pins the two facts that CAUSE layout neutrality
+    // and can be checked here: the strips are not column children, and the stylesheet takes
+    // them out of flow without letting them take a click. Geometry itself stays where it
+    // belongs — in the governed-viewport browser specs.
+    const state = managedStudio('pf1-m4-layout-neutral')
+    renderLot(state, 5)
+    await screen.findByTestId('studio-lot-screen')
+
+    for (const testid of ['lot-week-update-announcement', 'lot-annex-operational-announcement']) {
+      const region = screen.getByTestId(testid)
+      expect(region.parentElement, `${testid} sits inside the stage`).toHaveClass('lot-stage-wrap')
+      expect(
+        region.closest('.lot-screen > *')?.classList.contains('lot-notice'),
+        `${testid} is not a direct child of the column`,
+      ).toBe(false)
+    }
+
+    const css = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', 'lot', 'lot.css'), 'utf8')
+    const block = /\.lot-notice\s*\{([^}]*)\}/.exec(css)?.[1] ?? ''
+    expect(block, 'the strips are declared out of flow').toContain('position: absolute')
+    expect(block, 'and non-interactive: they carry no control').toContain('pointer-events: none')
+    expect(block, 'the M2 flex-item declaration is gone with the defect').not.toContain('flex:')
   })
 
   it('leaves the three already-visible announcements screen-reader-only', async () => {

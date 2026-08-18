@@ -7956,68 +7956,6 @@ export function StudioLotScreen({
       data-entry-focus={entryFocus ?? 'none'}
       inert={worldInputSuspended || undefined}
     >
-      {/*
-        PF1-M2 aria-only promotion. These two moments were invisible: a facility becoming
-        operational, and a week actually landing. Everything a sighted player had was a
-        counter quietly changing. The SAME region is now a modest visible notice —
-        one element, one announcement, no second live region, no double-announce; the
-        `role`/`aria-live`/`aria-atomic`/testid contract is untouched, and the composed copy
-        is carried verbatim. The other three hidden regions stay hidden on purpose: their
-        content is already fully visible beside them (see the M2 report).
-
-        PF1-M4 — THE DOUBLE-ANNOUNCE FIX. The React key used to embed the punctuation
-        serial, which bumps on ANY committed action. So a build receipt landing while an
-        Operational notice was still on screen replaced the live region's child with a new
-        node carrying the identical sentence — and an aria-atomic polite region re-reads
-        that, word for word, to a player who has already heard it. The key is now THE
-        SENTENCE ONLY: identical copy is the same node, so it is announced exactly once,
-        and genuinely new copy is still a new node and still announced. The serial moves to
-        `data-punctuation` on the region wrapper, where the stylesheet can restart the
-        notice animation without touching the announced subtree (attribute changes on a
-        live region are not announcements). DOM-only: no renderer call, no display object.
-      */}
-      <div
-        className="lot-notice"
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-        data-punctuation={String(punctuation?.key ?? 0)}
-        data-testid="lot-annex-operational-announcement"
-      >
-        {operationalAnnouncement !== '' && (
-          <span
-            key={operationalAnnouncement}
-            className="lot-notice-line"
-            data-motion={noticeMotion}
-          >
-            {operationalAnnouncement}
-          </span>
-        )}
-      </div>
-      <div
-        className="lot-notice"
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-        data-punctuation={String(punctuation?.key ?? 0)}
-        data-testid="lot-week-update-announcement"
-      >
-        {advanceFeedback !== null && advanceFeedback.constructionCompletion === null && (
-          <span
-            key={`week:${String(advanceFeedback.week)}`}
-            className="lot-notice-line"
-            data-motion={noticeMotion}
-          >
-            {/* PF1-M3 VOICE PASS (charter §3, rule 3 — restraint is voice too). M2 promoted this
-                region from aria-only to visible, so "Week N. Studio Lot updated." stopped being
-                a screen-reader crumb and became copy the player reads every single week. It is a
-                routine week: it gets a quiet declarative line, not a bulletin. Still ONE element,
-                so the visible copy and the announcement remain verbatim-identical by
-                construction; role/aria-live/aria-atomic/testid are untouched. */}
-            {`Week ${advanceFeedback.week} on the lot.`}
-          </span>
-        )}
-      </div>
       <div
         className="visually-hidden"
         role="status"
@@ -8184,6 +8122,81 @@ export function StudioLotScreen({
         <div className="lot-stage-wrap" data-guidance-target={guidanceMarkerTarget ?? 'none'}>
           {/* Primary visual world surface; the DOM companion is its semantic equivalent. */}
           <div ref={mountRef} className="lot-canvas" data-testid="studio-lot-canvas" aria-hidden="true" />
+
+          {/*
+            PF1-M2 aria-only promotion. These two moments were invisible: a facility becoming
+            operational, and a week actually landing. Everything a sighted player had was a
+            counter quietly changing. The SAME region is now a modest visible notice —
+            one element, one announcement, no second live region, no double-announce; the
+            `role`/`aria-live`/`aria-atomic`/testid contract is untouched, and the composed copy
+            is carried verbatim. The other three hidden regions stay hidden on purpose: their
+            content is already fully visible beside them (see the M2 report).
+
+            PF1-M4 — THE DOUBLE-ANNOUNCE FIX. The React key used to embed the punctuation
+            serial, which bumps on ANY committed action. So a build receipt landing while an
+            Operational notice was still on screen replaced the live region's child with a new
+            node carrying the identical sentence — and an aria-atomic polite region re-reads
+            that, word for word, to a player who has already heard it. The key is now THE
+            SENTENCE ONLY: identical copy is the same node, so it is announced exactly once,
+            and genuinely new copy is still a new node and still announced. The serial moves to
+            `data-punctuation` on the region wrapper, where the stylesheet can restart the
+            notice animation without touching the announced subtree (attribute changes on a
+            live region are not announcements). DOM-only: no renderer call, no display object.
+
+            PF1-M4 — AND THEY ARE LAYOUT-NEUTRAL. These strips used to sit in the
+            `.lot-screen` COLUMN, above the topbar, where a visible notice added its own
+            height to a column that is already `min-height: 100vh`. That pushed the world
+            and every panel anchored inside it past the governed viewport, the document
+            scrolled, and two reachability specs read a context panel at a negative top
+            (`lot.spec.ts` @ 960x540) or past the bottom edge (`publicity-campaign-v1.spec.ts`
+            @ 200% zoom). They now live INSIDE the stage as an absolutely positioned overlay
+            pinned to its top edge (`lot.css`: `.lot-notice`), so they consume zero column
+            height at every governed viewport and the world is exactly the size it was
+            before a notice existed. Non-interactive, so they are `pointer-events: none` and
+            can never take a click meant for the world beneath them.
+          */}
+          <div
+            className="lot-notice"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            data-punctuation={String(punctuation?.key ?? 0)}
+            data-testid="lot-annex-operational-announcement"
+          >
+            {operationalAnnouncement !== '' && (
+              <span
+                key={operationalAnnouncement}
+                className="lot-notice-line"
+                data-motion={noticeMotion}
+              >
+                {operationalAnnouncement}
+              </span>
+            )}
+          </div>
+          <div
+            className="lot-notice"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            data-punctuation={String(punctuation?.key ?? 0)}
+            data-testid="lot-week-update-announcement"
+          >
+            {advanceFeedback !== null && advanceFeedback.constructionCompletion === null && (
+              <span
+                key={`week:${String(advanceFeedback.week)}`}
+                className="lot-notice-line"
+                data-motion={noticeMotion}
+              >
+                {/* PF1-M3 VOICE PASS (charter §3, rule 3 — restraint is voice too). M2 promoted this
+                    region from aria-only to visible, so "Week N. Studio Lot updated." stopped being
+                    a screen-reader crumb and became copy the player reads every single week. It is a
+                    routine week: it gets a quiet declarative line, not a bulletin. Still ONE element,
+                    so the visible copy and the announcement remain verbatim-identical by
+                    construction; role/aria-live/aria-atomic/testid are untouched. */}
+                {`Week ${advanceFeedback.week} on the lot.`}
+              </span>
+            )}
+          </div>
 
           {/*
             THE WAY BACK. Panning and zooming a property this size is a gesture a player
