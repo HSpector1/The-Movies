@@ -299,3 +299,23 @@ sentence when the delta is zero.
 Owner acceptance trajectory: the South Lawn now holds a building I chose, paid for,
 watched go up, and could point to. "I built this place" is starting to be literally
 true on screen.
+
+## PM CORRECTION (2026-08-18) — the M5 ruling cited a stale Playwright figure
+
+The M5 KEEP entry records "full Playwright serialized 195 passed / 4 skipped, exit 0".
+That run collected 199 tests — which is the M1a-repair-era corpus. The M3b spec
+(`tycoon-move-demolish-v1`, 3 tests) and the M5 spec (`tycoon-build-catalog-v1`,
+3 tests) had landed by then, and the tree at `328b2a2` collects 205. The full-suite
+run I credited to the M5 gate was in fact executed on a pre-M3b tree; the M5-tree
+full Playwright run never happened under that ruling. Found while chasing a
+collection-count discrepancy flagged by the M6 checkpoint-2 implementer.
+
+Material impact: none — the M6 checkpoint-2 full run at `ceb55ef` (which contains
+the entire M5 corpus plus the warmth pass) collected 205, passed 201, skipped the 4
+env-gated evidence tests, failed 0, exit 0 verified without pipes. Both new spec
+files pass in full runs. The M5 KEEP ruling stands on that superseding evidence.
+
+Process lesson, binding for the rest of the campaign: a gate figure cited in a
+ruling must name the HEAD it was executed at, and a full-suite run older than the
+newest spec file is not a gate. (Also recorded: this zsh expands `${PIPESTATUS[0]}`
+as empty — it is bash-only; use `$?` after redirection, never a pipe.)
