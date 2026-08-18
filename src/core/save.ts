@@ -5045,9 +5045,13 @@ function assertFrozenBuilderCanProjectV13State(
 // a fact with no home in any historical format, and none of them may be silently
 // dropped to write one.
 //
-// The endowment is deliberately NOT an exemption. Two house sets and
-// `nextSetId: 2` are real state a V13 file cannot describe — `convertV13ToV14`
-// puts them back on the way up, but that is a migration, not a round trip.
+// The UNTOUCHED ENDOWMENT is the one exemption, on the same test every other
+// exemption on this boundary answers: CAN THE MIGRATOR PUT THE IDENTICAL BYTES
+// BACK? For two house sets and `nextSetId: 2` it can, byte for byte, because
+// that is the exact value `convertV13ToV14` synthesises for every migrated
+// managed studio. A studio that has built, struck or re-mounted a set has moved
+// off it and is refused. The enforcing code is below and is the authority; this
+// paragraph previously claimed the opposite and was wrong.
 function assertFrozenBuilderCanProjectV14State(
   state: object,
   builder: string,
