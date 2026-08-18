@@ -238,6 +238,11 @@ describe('Presence Projection V1 — scenario walk', () => {
     greenlight(1, second.projectId)
 
     // One soundstage for two companies.
+    //
+    // C2a-M2: the stage's HOUSE SET goes with it. A set is mounted on a stage and
+    // cannot outlive it — the engine refuses to demolish a stage with a set still
+    // standing on it, so a fixture that removed only the building would be
+    // constructing a state no play can reach.
     state = {
       ...state,
       operations: {
@@ -246,6 +251,7 @@ describe('Presence Projection V1 — scenario walk', () => {
           (facility) => facility.id !== 'facility-soundstage-12',
         ),
       },
+      sets: state.sets.filter((set) => set.mountedOn !== 'facility-soundstage-12'),
     }
     assertStudioOperationsInvariants(state.operations, state.studio.activeProductions, {
       facilityPolicy: 'configured',
