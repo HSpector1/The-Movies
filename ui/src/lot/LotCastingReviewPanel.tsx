@@ -19,6 +19,8 @@ import type {
   LotCastingReviewRole,
 } from './snapshot/castingReview.ts'
 import { genreLabel } from '../content.ts'
+import { RefusalBody } from '../components/common.tsx'
+import { refusalFamilyId } from '../presentation/refusalVoice.ts'
 
 export type LotCastingReviewPanelFeedback =
   | { kind: 'success'; message: string }
@@ -523,13 +525,21 @@ export const LotCastingReviewPanel = forwardRef<
 
       {feedback !== null && (
         <div
-          className={feedback.kind === 'error' ? 'errbox' : 'result-block'}
+          className={feedback.kind === 'error' ? 'errbox stack' : 'result-block'}
           role={feedback.kind === 'error' ? 'alert' : undefined}
           aria-atomic={feedback.kind === 'error' ? 'true' : undefined}
           data-testid="lot-casting-review-feedback"
           data-feedback-kind={feedback.kind}
+          {...(feedback.kind === 'error'
+            ? { 'data-refusal': refusalFamilyId(feedback.message) }
+            : {})}
         >
-          {feedback.message}
+          {/* 00F tycoon floor: a rejected acknowledge arrives here as the engine's own
+              throw. The seam speaks the studio's language; a message that is already
+              player copy passes through it untouched. */}
+          {feedback.kind === 'error'
+            ? <RefusalBody message={feedback.message} />
+            : feedback.message}
         </div>
       )}
     </section>

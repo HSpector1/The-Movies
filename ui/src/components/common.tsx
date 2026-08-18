@@ -2,6 +2,11 @@
 
 import type { ReactNode } from 'react'
 import { deltaClass, signed } from '../format.ts'
+import {
+  readRefusal,
+  refusalFamilyId,
+  UNTRANSLATED_REFUSAL_DISCLOSURE,
+} from '../presentation/refusalVoice.ts'
 
 export function Metric({
   label,
@@ -60,11 +65,83 @@ export function Delta({ value, digits = 1, testid }: { value: number; digits?: n
   )
 }
 
+// Every error the player is shown passes the refusal seam. A message a caller already
+// wrote in the studio's own language reads `plain` and renders byte-identically to the
+// way it always has; only ENGINE language is translated. That is what makes this the
+// safe place to close the 00F leak — no call site can route around it.
 export function ErrorBox({ message }: { message: string }) {
   return (
-    <div className="errbox" role="alert" data-testid="error-box">
-      {message}
+    <div
+      className="errbox stack"
+      role="alert"
+      data-testid="error-box"
+      data-refusal={refusalFamilyId(message)}
+      style={{ gap: 4 }}
+    >
+      <RefusalBody message={message} testid="error-box-refusal" />
     </div>
+  )
+}
+
+// ── RefusalNotice — the player-facing end of the refusal seam ─────────────────
+// Renders an ActionOutcome error the way a studio would say it: the fact, the
+// reason, and the way forward. Translation lives in `presentation/refusalVoice.ts`
+// (data); this component only renders whichever of the three readings comes back.
+// A message that is NOT engine language is passed through untouched, so a caller
+// that already wrote player copy is never overwritten.
+export function RefusalNotice({
+  message,
+  nameOf,
+  testid = 'refusal-notice',
+}: {
+  message: string
+  /** Engine id → the person's name, so no refusal ever shows the player an id. */
+  nameOf?: ((talentId: string) => string | undefined) | undefined
+  testid?: string
+}) {
+  return (
+    <div
+      className="errbox stack"
+      role="alert"
+      data-testid={testid}
+      data-refusal={refusalFamilyId(message)}
+      style={{ gap: 4 }}
+    >
+      <RefusalBody message={message} nameOf={nameOf} testid={testid} />
+    </div>
+  )
+}
+
+/**
+ * The refusal's CONTENT without a container, for surfaces that already own their
+ * own alert box (the Lot workspace panels). Same three readings, same law: a
+ * message that is not engine language is rendered exactly as it was written.
+ */
+export function RefusalBody({
+  message,
+  nameOf,
+  testid = 'refusal-notice',
+}: {
+  message: string
+  nameOf?: ((talentId: string) => string | undefined) | undefined
+  testid?: string
+}) {
+  const reading = readRefusal(message, { nameOf })
+  if (reading.kind === 'plain') return <>{reading.message}</>
+  return (
+    <>
+      <strong data-testid={`${testid}-headline`}>{reading.copy.headline}</strong>
+      <span data-testid={`${testid}-detail`}>{reading.copy.detail}</span>
+      <span className="hint" data-testid={`${testid}-remedy`}>
+        <strong>Remedy:</strong> {reading.copy.remedy}
+      </span>
+      {reading.kind === 'untranslated' && (
+        <details data-testid={`${testid}-raw`}>
+          <summary>{UNTRANSLATED_REFUSAL_DISCLOSURE}</summary>
+          <span className="mono">{reading.raw}</span>
+        </details>
+      )}
+    </>
   )
 }
 
