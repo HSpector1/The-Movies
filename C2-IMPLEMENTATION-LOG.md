@@ -92,6 +92,35 @@ d17-save-migration.test.ts (2 sites) — one-line V14 re-tags, engine-test owner
 (5) E2/figure-19 must A/B the set uplift on byte-identical rngState (endowed
 house set = +4.70 craft neutral-fit; factor 1.00 first use).
 
+CHECKPOINT (UI-M3, HEAD `38a29f8`): **M3's fantasy is on the screen.** The
+commission form has two supplies — adapt a market premise, or COMMISSION AN
+ORIGINAL (genre + creative shape + one of the studio's own writers) — and it
+states the writing weeks from `scriptDraftWeeks` BEFORE the commitment
+(`00E`.9). The exhaustion story is inverted: the Writers Room door stays open on
+a bought-out market and the blocker's remedy is a button beside the sentence
+that offers it. The title moment lands twice — "‹Writer› is writing ‘T’" on the
+board while the draft is out, "‹Writer› delivers ‘T’" at the Lot review when it
+comes in — and RENAME is one field and one button, with "Written as ‘T’" kept
+beside the new title because two frozen-history surfaces keep the old one
+forever by design. Provenance ("An Original Screenplay by ‹writer›") is on the
+board, the review, the package and the Chronicle; the package's M2 set panel
+gains "The script calls for ‹Location›" from the blueprint's beats, advisory and
+never a blocker. Pooling ships (the engine shipped `assignScreenplayWriter`) and
+offers only writers the engine actually accepts, each labelled with the week
+that successor carries. root tsc 0 · ui tsc 0 · FULL vitest **305 files / 4,205
+passed + 5 skipped / 0 failed**. Playwright FLOOR: **207 passed / 4 skipped / 2
+did not run / 4 failed of 217** — the four red are exactly the four carried
+pre-existing failures (lot.spec.ts:500 + publicity-campaign-v1.spec.ts:296
+viewport geometry; recap.spec.ts:80 + stage7-production-detail-handoff-v1.spec
+.ts:198 stale V13 literals). ZERO new failures; the new legibility spec
+(`c2a-m3-renewable-screenplay-v1`) is green in the floor and in isolation.
+CARRIED: (6) `canStart` is one answer to two questions — the read model should
+publish `canStartOriginal` and scope the `no-concepts` blocker to the market
+path (engine, M4/M7; the UI scopes it in one shared predicate meanwhile).
+(7) an ORIGINAL commission has no Lot witness card: that card is keyed to a
+market payload it cannot have — additive follow-up, no engine work. Both are
+written up in `docs/c2-planning/17-m3-records.md` §8.
+
 NEXT after this wave: M3 (Renewable Screenplay Generation V1 — §3.5), M4
 (throughput: cap deletion, queues, release law), M5 (Living Turn V1 + theater),
 M6 (Premiere at the Gate), M7 (economy remeasure), M8 (seal + Owner playtest).
