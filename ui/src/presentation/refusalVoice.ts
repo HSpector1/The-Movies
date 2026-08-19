@@ -3,7 +3,7 @@
 // TYCOON FLOOR: "expose the simulation; translate the implementation").
 //
 // The engine refuses in engine language — `applyActions: greenlight rejected —
-// activeProductions at capacity (2/2)`. Rendered verbatim, that is debug text at
+// no Development & Casting slot is available`. Rendered verbatim, that is debug text at
 // the most important button in the game. This module reads such a string and
 // returns the studio's language in the blocked-state grammar the screenplay
 // package blockers already use: the FACT (headline), the REASON (detail), and the
@@ -71,13 +71,31 @@ function personName(
 // ── The families ─────────────────────────────────────────────────────────────
 // Order is first-match-wins, so narrower patterns precede broader ones.
 export const REFUSAL_FAMILIES: readonly RefusalFamily[] = [
+  // ── C2a-M4 (§11.8 retirement + named successor, owner law 1) ──────────────
+  //
+  // RETIRED: `production-slate-full`, which matched
+  // `activeProductions at capacity (2/2)`. That string was minted by the
+  // MAX_CONCURRENT_PRODUCTIONS throw, and owner law 1 DELETED the constant and
+  // its throw — no engine in this repo can speak that sentence any more, so a
+  // family that matched it was voicing a refusal that cannot happen.
+  //
+  // SUCCESSOR: `development-casting-slot-taken`, below. What actually stops work
+  // starting now is a ROOM, and the three surviving capacity refusals all say so
+  // in the same words. On the four front doors §3.3 names, this refusal never
+  // reaches a player at all — it becomes a queued intent. It reaches one only on
+  // the doors the charter did NOT open (the rewrite door, and a legacy studio's
+  // own greenlight), which is why the sentence teaches the queue rather than a
+  // cap: the studio is out of rooms, not out of permission.
   {
-    id: 'production-slate-full',
-    match: /activeProductions at capacity \((\d+)\/(\d+)\)/,
-    copy: (m) => ({
-      headline: 'The production slate is full',
-      detail: `The studio already has ${m[1]} of ${m[2]} pictures in production.`,
-      remedy: 'Wait for a picture in production to finish and release before greenlighting another.',
+    id: 'development-casting-slot-taken',
+    match:
+      /no Development & Casting slot is available|no development-casting capacity for productionId/,
+    copy: () => ({
+      headline: 'Every Development & Casting room is taken',
+      detail:
+        'A picture, a screenplay, or a set of camera tests is using each of the studio’s Development & Casting rooms, and this work needs one of its own.',
+      remedy:
+        'Wait for one of them to finish — the Studio Calendar’s queue says which frees first — or build another Development & Casting room.',
     }),
   },
   // TWO founding-draft families, narrower first. The engine refuses SIX different

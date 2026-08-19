@@ -1333,9 +1333,24 @@ function TalentStep({
 // silently folded into a film's Contribution).
 //
 // The headline assumes SOLE OCCUPANCY (concurrency 1) and says so: conservative, and
-// conservative exactly when the studio is poorest. Shared occupancy is a NAMED second line at
-// concurrency 2 — never blended into the headline, never an "expected concurrency 1.4".
+// conservative exactly when the studio is poorest. Shared occupancy is a NAMED second line —
+// never blended into the headline, never an "expected concurrency 1.4".
 // Every figure comes from `cycleInclusiveBreakEvenGross`; this component does no arithmetic.
+//
+// ── C2a-M4 (§10, "Assembly break-even literal 2"; G12) ──────────────────────
+//
+// The second line's sharer count WAS the literal 2, and the literal 2 was the
+// production cap. Owner law 1 deleted the cap, so the sentence "if a SECOND film
+// shares those weeks" became a false sentence the moment a third picture could
+// exist — the studio would be running three and the screen would still be
+// pricing two.
+//
+// The successor counts the films that would ACTUALLY share the cycle: everything
+// in flight, plus this one. On an empty lot that is 2 and the sentence is the
+// counterfactual it has always been — byte-identical copy and figure, which is
+// why the D-17A pin needs no re-base. On a busy lot it is 3, or 4, and it says
+// so. The two-value law retires with the cap, exactly as §10 rules; what
+// replaces it is not a blend, it is a COUNT.
 function BreakEvenBlock({
   state,
   committed,
@@ -1346,7 +1361,10 @@ function BreakEvenBlock({
   prefix: 'budget' | 'release'
 }) {
   const be = cycleInclusiveBreakEvenGross(state, committed)
-  const shared = cycleInclusiveBreakEvenGross(state, committed, { concurrency: 2 })
+  // This film is not greenlit yet, so it is never already inside `activeProductions`.
+  const inFlight = state.studio.activeProductions.length
+  const sharers = Math.max(2, inFlight + 1)
+  const shared = cycleInclusiveBreakEvenGross(state, committed, { concurrency: sharers })
   const fc = be.fixedCost
   return (
     <div className="stack" data-testid={`${prefix}-breakeven-block`} style={{ gap: 4 }}>
@@ -1357,7 +1375,9 @@ function BreakEvenBlock({
         {money(be.direct)} against this film&rsquo;s direct costs only.
       </span>
       <span className="hint" data-testid={`${prefix}-breakeven-shared`}>
-        {money(shared.cycleInclusive)} if a second film shares those {fc.weeks} weeks.
+        {sharers === 2
+          ? `${money(shared.cycleInclusive)} if a second film shares those ${String(fc.weeks)} weeks.`
+          : `${money(shared.cycleInclusive)} with all ${String(sharers)} of the studio's films sharing those ${String(fc.weeks)} weeks.`}
       </span>
       <span className="hint" data-testid={`${prefix}-breakeven-assumption`}>
         The headline assumes this film alone carries all {fc.weeks} weeks of studio fixed costs

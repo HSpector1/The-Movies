@@ -1,8 +1,8 @@
 // ── R4: the refusal voice seam (00F professional tycoon floor) ───────────────
 // The floor's rule is blunt: no debug or engine string ever reaches the player, and
 // every player-facing sentence is literally true (G12). The engine refuses in its own
-// language — `applyActions: greenlight rejected — activeProductions at capacity (2/2)`
-// — and before this seam that string was rendered verbatim at the greenlight button.
+// language — `script development: rewrite rejected — no Development & Casting slot is
+// available` — and before this seam that string was rendered verbatim at the button.
 //
 // These tests pin the seam's four obligations:
 //   1. a KNOWN refusal is spoken as fact / reason / way forward, with no engine text;
@@ -30,8 +30,11 @@ afterEach(cleanup)
 
 // One REAL engine string per family, keyed by the family it must reach.
 const ENGINE_REFUSALS: Record<string, string> = {
-  'production-slate-full':
-    'applyActions: greenlight rejected — activeProductions at capacity (2/2)',
+  // C2a-M4 (§11.8): `production-slate-full` RETIRED with the constant that minted
+  // its string; its named successor is the room refusal the engine actually
+  // speaks, taken verbatim from `scriptDevelopment.ts` / `castingSessions.ts`.
+  'development-casting-slot-taken':
+    'script development: rewrite rejected — no Development & Casting slot is available',
   'greenlight-before-founding':
     'applyActions: greenlight rejected — the studio is still in its founding draft (D-11)',
   'founding-draft-open':
@@ -110,23 +113,35 @@ describe('R4 · the refusal voice seam', () => {
     }
   })
 
-  it('renders a known refusal at the greenlight button in the studio’s language', () => {
-    render(<RefusalNotice message={ENGINE_REFUSALS['production-slate-full']!} />)
+  it('renders a known refusal at the button in the studio’s language', () => {
+    // C2a-M4: the SUCCESSOR of the retired `production-slate-full` case. The
+    // subject changed because owner law 1 changed it — there is no slate cap to
+    // be full of, only rooms to be out of — and the successor is asserted the
+    // same way, sentence for sentence.
+    render(<RefusalNotice message={ENGINE_REFUSALS['development-casting-slot-taken']!} />)
     const notice = screen.getByTestId('refusal-notice')
-    expect(notice).toHaveAttribute('data-refusal', 'production-slate-full')
+    expect(notice).toHaveAttribute('data-refusal', 'development-casting-slot-taken')
     expect(screen.getByTestId('refusal-notice-headline')).toHaveTextContent(
-      'The production slate is full',
+      'Every Development & Casting room is taken',
     )
     expect(screen.getByTestId('refusal-notice-detail')).toHaveTextContent(
-      'The studio already has 2 of 2 pictures in production.',
+      'A picture, a screenplay, or a set of camera tests is using each of the studio’s Development & Casting rooms',
     )
-    expect(screen.getByTestId('refusal-notice-remedy')).toHaveTextContent(
-      'Wait for a picture in production to finish and release before greenlighting another.',
-    )
+    expect(screen.getByTestId('refusal-notice-remedy')).toHaveTextContent('queue')
     // The engine's own words are GONE, not merely reworded alongside.
-    expect(notice.textContent ?? '').not.toContain('applyActions')
-    expect(notice.textContent ?? '').not.toContain('activeProductions')
+    expect(notice.textContent ?? '').not.toContain('script development:')
+    expect(notice.textContent ?? '').not.toContain('rewrite rejected')
     expect(screen.queryByTestId('refusal-notice-raw')).toBeNull()
+  })
+
+  it('no longer voices the deleted production cap, because no engine can speak it', () => {
+    // §11.8 retirement, proven: the cap's own string is now UNTRANSLATED — which
+    // is the honest reading of a sentence this engine cannot produce. If a cap
+    // were ever reintroduced, this test is the one that would notice.
+    expect(refusalFamilyId('applyActions: greenlight rejected — activeProductions at capacity (2/2)')).toBe(
+      'untranslated',
+    )
+    expect(REFUSAL_FAMILIES.some((family) => family.id === 'production-slate-full')).toBe(false)
   })
 
   it('names the person instead of the id, and stays true when the id cannot be resolved', () => {
