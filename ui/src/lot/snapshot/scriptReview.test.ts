@@ -17,6 +17,10 @@ import type {
   ScriptProjectsReadModel,
 } from '../../engine/adapter.ts'
 import {
+  commissionOriginalScreenplayAction,
+  renameScreenplayAction,
+} from '../../engine/screenplay.ts'
+import {
   acceptedLotScriptReviewSuccess,
   currentLotScriptReviewContext,
   sameLotScriptReviewAction,
@@ -134,6 +138,17 @@ describe('current Lot screenplay review context', () => {
       consequence: card.consequence,
       blockers: card.blockers,
       legalActions: card.legalActions,
+      // C2a-M3 — the context now carries WHERE THE SCREENPLAY CAME FROM (charter
+      // §3.5). This fixture commissions a MARKET premise, so the credit is the
+      // market line and there is no generated title to keep: the studio bought
+      // this story. The original-screenplay arm is pinned in its own case below.
+      provenance: {
+        origin: 'pool',
+        label: 'Acquired from the open script market',
+        writerName: null,
+        generatedTitle: null,
+        renamed: false,
+      },
     })
     expect(context?.assessment.label).toBe('Est.')
     expect(context?.legalActions.map((action) => action.kind)).toEqual([
@@ -573,5 +588,61 @@ describe('accepted Lot screenplay review successor proof', () => {
       candidate === state ? priorBoard : annexClaim,
     )
     expect(acceptedLotScriptReviewSuccess(context, action, state, result.next)).toBeNull()
+  })
+
+  // ── C2a-M3 — the ORIGINAL arm of the same surface (charter §3.5, §12-M3) ────
+  it('names the studio’s own writer on an original, and the working title they gave it', () => {
+    const managed = managedStudio('lot-script-review-original')
+    const writer = scriptProjectsBoard(managed).commission.writers.find(
+      (candidate) => candidate.available && candidate.primaryRole === 'writer',
+    )!
+    const commissioned = commissionOriginalScreenplayAction(managed, {
+      writerId: writer.id,
+      genre: 'crime',
+      shape: SHAPE,
+      promise: {
+        genre: 'crime',
+        intendedSegments: ['adult'],
+        ranges: {
+          intimacy: [-0.4, 0.4],
+          tonalWeight: [-0.4, 0.4],
+          kineticEnergy: [-0.4, 0.4],
+        },
+      },
+    })
+    if (!commissioned.ok) throw new Error(commissioned.error)
+
+    // The draft takes as many weeks as the engine says it does — never assumed here.
+    let state = commissioned.next
+    for (let week = 0; week < 8 && currentLotScriptReviewContext(state) === null; week += 1) {
+      state = advanceWeek(state).next
+    }
+    const context = currentLotScriptReviewContext(state)
+    if (context === null) throw new Error('setup: the original draft never came in for review')
+
+    expect(context.provenance).toEqual({
+      origin: 'original',
+      label: `An Original Screenplay by ${writer.name}`,
+      writerName: writer.name,
+      generatedTitle: context.title,
+      renamed: false,
+    })
+
+    // …and a retitled picture keeps the record of what its writers called it.
+    const generatedTitle = context.title
+    const conceptId = state.scriptDevelopment.projects.at(-1)!.conceptId
+    const renamed = renameScreenplayAction(state, conceptId, 'The Long Way Down')
+    if (!renamed.ok) throw new Error(renamed.error)
+    const after = currentLotScriptReviewContext(renamed.next)!
+    expect(after.title).toBe('The Long Way Down')
+    expect(after.provenance).toEqual({
+      origin: 'original',
+      label: `An Original Screenplay by ${writer.name}`,
+      writerName: writer.name,
+      generatedTitle,
+      renamed: true,
+    })
+    // A rename changes the picture, so a rendered review of the old one is stale.
+    expect(sameLotScriptReviewContext(context, after)).toBe(false)
   })
 })

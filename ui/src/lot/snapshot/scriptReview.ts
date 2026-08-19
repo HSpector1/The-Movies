@@ -9,6 +9,7 @@ import type {
   ScriptProjectActionView,
   ScriptProjectsReadModel,
 } from '../../engine/adapter.ts'
+import { screenplayIdentityForProject } from '../../engine/screenplay.ts'
 import { operationalAnnexWorkContext } from './annexWork.ts'
 
 export type LotScriptReviewTarget = {
@@ -46,6 +47,29 @@ export type LotScriptReviewContext = {
   consequence: string
   blockers: LotScriptReviewBlocker[]
   legalActions: LotScriptReviewAction[]
+  /**
+   * C2a-M3 — WHERE THIS SCREENPLAY CAME FROM (charter §3.5).
+   *
+   * The moment a draft lands is the moment the milestone's fantasy either lands
+   * with it or does not: *a writer goes to work and eventually hands me a new
+   * movie.* So the review names the writer's credit — "An Original Screenplay by
+   * Ava Hartwell" — and, when the studio's own writers named the picture, what
+   * they called it.
+   *
+   * NULL WHEN IT CANNOT BE RESOLVED. A withheld credit is a missing sentence,
+   * never a guessed one (laws 6 / 21), and the decision itself is never withheld
+   * because of it: a player can always accept or reject the draft in front of them.
+   */
+  provenance: LotScriptReviewProvenance | null
+}
+
+/** The provenance facts this panel prints, and nothing beyond them. */
+export type LotScriptReviewProvenance = {
+  origin: 'original' | 'pool'
+  label: string
+  writerName: string | null
+  generatedTitle: string | null
+  renamed: boolean
 }
 
 export type LotScriptReviewSuccess =
@@ -119,6 +143,16 @@ const CONTEXT_KEYS = [
   'consequence',
   'blockers',
   'legalActions',
+  // C2a-M3 — the credit line the §12-M3 legibility gate asks for.
+  'provenance',
+] as const
+
+const PROVENANCE_KEYS = [
+  'origin',
+  'label',
+  'writerName',
+  'generatedTitle',
+  'renamed',
 ] as const
 const CAPACITY_KEYS = ['capacity', 'occupied', 'available', 'facilities'] as const
 const CAPACITY_FACILITY_KEYS = [
@@ -530,9 +564,45 @@ function contextIsClosed(value: unknown): value is LotScriptReviewContext {
     !isNonEmptyString(value.consequence)
   ) return false
 
+  if (value.provenance !== null && !isProvenance(value.provenance)) return false
+
   const copiedBlockers = blockers(value.blockers)
   const copiedActions = reviewActions(value.legalActions, value.projectId)
   return copiedBlockers !== null && copiedActions !== null
+}
+
+function isProvenance(value: unknown): value is LotScriptReviewProvenance {
+  return isPlainRecord(value) &&
+    hasExactOwnKeys(value, PROVENANCE_KEYS) &&
+    (value.origin === 'original' || value.origin === 'pool') &&
+    isNonEmptyString(value.label) &&
+    (value.writerName === null || isNonEmptyString(value.writerName)) &&
+    (value.generatedTitle === null || isNonEmptyString(value.generatedTitle)) &&
+    typeof value.renamed === 'boolean'
+}
+
+/**
+ * The provenance of the screenplay under review, or null when it cannot be
+ * resolved from the blueprint root and the talent census.
+ *
+ * Never throws into the caller: this is a sentence beside a decision, and a
+ * decision must not be withheld because a sentence could not be written.
+ */
+function reviewProvenance(state: GameState, projectId: string): LotScriptReviewProvenance | null {
+  try {
+    const identity = screenplayIdentityForProject(state, projectId)
+    if (identity === null) return null
+    const row: LotScriptReviewProvenance = {
+      origin: identity.provenance.origin,
+      label: identity.provenance.label,
+      writerName: identity.provenance.writerName,
+      generatedTitle: identity.provenance.generatedTitle,
+      renamed: identity.provenance.renamed,
+    }
+    return isProvenance(row) ? row : null
+  } catch {
+    return null
+  }
 }
 
 /**
@@ -635,6 +705,7 @@ export function currentLotScriptReviewContext(
       consequence: selected.consequence as string,
       blockers: selectedBlockers,
       legalActions: selectedActions,
+      provenance: reviewProvenance(state, currentDecision.projectId),
     }
   } catch {
     return null
@@ -869,8 +940,21 @@ export function sameLotScriptReviewContext(
           blocker.detail === other.detail &&
           blocker.remedy === other.remedy
       }) &&
-      sameActionArray(left.legalActions, right.legalActions)
+      sameActionArray(left.legalActions, right.legalActions) &&
+      sameProvenance(left.provenance, right.provenance)
   } catch {
     return false
   }
+}
+
+function sameProvenance(
+  left: LotScriptReviewProvenance | null,
+  right: LotScriptReviewProvenance | null,
+): boolean {
+  if (left === null || right === null) return left === right
+  return left.origin === right.origin &&
+    left.label === right.label &&
+    left.writerName === right.writerName &&
+    left.generatedTitle === right.generatedTitle &&
+    left.renamed === right.renamed
 }

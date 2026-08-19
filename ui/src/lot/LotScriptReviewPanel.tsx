@@ -313,6 +313,30 @@ export const LotScriptReviewPanel = forwardRef<
         </header>
       )}
 
+      {/* C2a-M3 — THE MOMENT THE WRITER HANDS IT OVER (charter §3.5, §12-M3).
+          The credit and the delivery sentence are the fantasy landing; both come
+          from the context, and a context that could not resolve them prints
+          nothing rather than guessing. The decision below is never withheld for
+          want of a sentence. */}
+      {context.provenance !== null && (
+        <div className="stack" data-testid="lot-script-review-provenance">
+          {context.provenance.origin === 'original' &&
+            context.provenance.writerName !== null && (
+              <strong data-testid="lot-script-review-delivery">
+                {context.provenance.writerName} delivers ‘{context.title}’.
+              </strong>
+            )}
+          <span className="hint" data-testid="lot-script-review-provenance-label">
+            {context.provenance.label}
+          </span>
+          {context.provenance.renamed && context.provenance.generatedTitle !== null && (
+            <span className="hint" data-testid="lot-script-review-working-title">
+              Written as ‘{context.provenance.generatedTitle}’.
+            </span>
+          )}
+        </div>
+      )}
+
       <div className="lot-script-review-evidence stack">
         <dl className="lot-next-event-facts" aria-label="Screenplay review identity">
           <div>

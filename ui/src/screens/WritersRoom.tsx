@@ -27,13 +27,19 @@ import type {
 } from '../engine/adapter.ts'
 import {
   SCREENPLAY_GENRES,
+  SCREENPLAY_TITLE_MAX_LENGTH,
   commissionOriginalScreenplayAction,
+  deliveredScreenplaySentence,
   originalCommissionOpen,
   originalDraftEstimate,
+  renameScreenplayAction,
+  screenplayIdentitiesByProject,
+  writingScreenplaySentence,
 } from '../engine/screenplay.ts'
 import type {
   CommissionOriginalScreenplayPayload,
   OriginalDraftEstimateView,
+  ScreenplayIdentityView,
 } from '../engine/screenplay.ts'
 import {
   ENDING_OPTIONS,
@@ -142,6 +148,137 @@ function Blockers({
     </div>
   )
 }
+
+/**
+ * C2a-M3 — WHO WROTE IT, WHAT THEY FIRST CALLED IT, AND THE RENAME.
+ *
+ * THE TITLE MOMENT. The studio's own writers name the picture at the moment the
+ * commission commits; the board says so while they are working on it and again
+ * when they deliver it. The credit line is the engine's
+ * (`originalScreenplayCredit`), and the delivery sentence is the one the §12-M3
+ * legibility gate asks for.
+ *
+ * THE RENAME IS WITHOUT CEREMONY. One field, one confirmation, no dialog. It
+ * writes `FilmConcept.title` — the single stored display authority twenty-one
+ * live surfaces resolve — so a retitled picture is retitled everywhere at once.
+ *
+ * WHAT THE WRITERS CALLED IT SURVIVES IT. The working title is shown beside the
+ * new one after a rename, because it is the record: two frozen-history surfaces
+ * (a talent's career credits, a press clipping) keep it forever BY DESIGN, and a
+ * board that hid it would make those two look like bugs.
+ *
+ * THE ENGINE HOLDS THE ONLY GATE. `renameRefusal` is the engine's own sentence;
+ * this control is offered only when it is null, and the action is still refused by
+ * the engine if it is not. A market premise keeps the name it came with (V1 scope
+ * — charter §3.5), and that refusal is the engine's, not this file's.
+ */
+function ScreenplayProvenance({
+  identity,
+  projectId,
+  status,
+  onRename,
+}: {
+  identity: ScreenplayIdentityView
+  projectId: string
+  status: ScriptProjectStatusLike
+  onRename: ((title: string) => ActionOutcome) | null
+}) {
+  const [editing, setEditing] = useState(false)
+  const [draft, setDraft] = useState(identity.title)
+  const [refusal, setRefusal] = useState('')
+  const renameable = onRename !== null && identity.renameRefusal === null
+
+  function open() {
+    setDraft(identity.title)
+    setRefusal('')
+    setEditing(true)
+  }
+
+  function save() {
+    if (onRename === null) return
+    const result = onRename(draft)
+    if (!result.ok) {
+      setRefusal(result.error)
+      return
+    }
+    setRefusal('')
+    setEditing(false)
+  }
+
+  return (
+    <div className="stack" data-testid={`script-provenance-${projectId}`}>
+      <span className="hint" data-testid={`script-provenance-label-${projectId}`}>
+        {identity.provenance.label}
+      </span>
+
+      {identity.provenance.origin === 'original' && identity.provenance.writerName !== null && (
+        <span data-testid={`script-title-moment-${projectId}`}>
+          {status === 'drafting' || status === 'rewriting'
+            ? writingScreenplaySentence(identity.provenance.writerName, identity.title)
+            : deliveredScreenplaySentence(identity.provenance.writerName, identity.title)}
+        </span>
+      )}
+
+      {identity.provenance.renamed && identity.provenance.generatedTitle !== null && (
+        <span className="hint" data-testid={`script-working-title-${projectId}`}>
+          Written as ‘{identity.provenance.generatedTitle}’.
+        </span>
+      )}
+
+      {renameable && !editing && (
+        <div className="btn-row">
+          <button
+            type="button"
+            onClick={open}
+            data-testid={`script-rename-open-${projectId}`}
+          >
+            Retitle this picture
+          </button>
+        </div>
+      )}
+
+      {renameable && editing && (
+        <div className="stack">
+          <label className="stack" htmlFor={`script-rename-input-${projectId}`}>
+            <strong>New title</strong>
+            <input
+              id={`script-rename-input-${projectId}`}
+              data-testid={`script-rename-input-${projectId}`}
+              value={draft}
+              maxLength={SCREENPLAY_TITLE_MAX_LENGTH}
+              onChange={(event) => setDraft(event.target.value)}
+            />
+          </label>
+          <div className="btn-row">
+            <button
+              type="button"
+              className="primary"
+              onClick={save}
+              data-testid={`script-rename-save-${projectId}`}
+            >
+              Retitle it
+            </button>
+            <button
+              type="button"
+              onClick={() => { setEditing(false); setRefusal('') }}
+              data-testid={`script-rename-cancel-${projectId}`}
+            >
+              Keep the current title
+            </button>
+          </div>
+          {refusal && (
+            <div className="errbox" role="alert" data-testid={`script-rename-error-${projectId}`}>
+              {refusal}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+/** The lifecycle statuses this file distinguishes; the board publishes the value. */
+type ScriptProjectStatusLike = ScriptProjectsReadModel['sections']['inDevelopment'][number]['status']
 
 /**
  * C2a-M3 — THE SECOND WAY TO START A PICTURE (charter §3.5).
@@ -601,6 +738,10 @@ export function WritersRoom({
   // writers become the way through (§3.5).
   const originalOpen = originalCommissionOpen(board)
   const commissioningOpen = board.commission.canStart || originalOpen
+  // C2a-M3 — provenance is resolved once for the whole board, from the blueprint
+  // root and the talent census. It is never stored on the shared-world premise
+  // (guardrail 8): who wrote a screenplay is a studio-relative fact.
+  const identities = useMemo(() => screenplayIdentitiesByProject(state), [state])
   const pendingFocusProjectId = useRef<string | null>(null)
   const initialFocusProjectId = useRef<string | null>(focusProjectId ?? null)
   const actionRefs = useRef(new Map<string, HTMLButtonElement>())
@@ -801,6 +942,23 @@ export function WritersRoom({
                         {card.lifecycleLabel}
                       </span>
                     </div>
+
+                    {(() => {
+                      const identity = identities.get(card.projectId)
+                      if (identity === undefined) return null
+                      return (
+                        <ScreenplayProvenance
+                          identity={identity}
+                          projectId={card.projectId}
+                          status={card.status}
+                          onRename={(title) => {
+                            const result = renameScreenplayAction(state, identity.conceptId, title)
+                            if (result.ok) onChange(result.next)
+                            return result
+                          }}
+                        />
+                      )
+                    })()}
 
                     {card.weeksUntilDecision !== null && (
                       <div className="mono" data-testid={`script-weeks-${card.projectId}`}>

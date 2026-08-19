@@ -64,6 +64,16 @@ const firstDraftContext: LotScriptReviewContext = {
     },
   ],
   legalActions: firstDraftActions,
+  // C2a-M3 — this fixture is a MARKET premise, which is what the C1 surface always
+  // showed: the studio bought the story and one of its writers drafted it. The
+  // original-screenplay arm has its own fixture below.
+  provenance: {
+    origin: 'pool',
+    label: 'Acquired from the open script market',
+    writerName: null,
+    generatedTitle: null,
+    renamed: false,
+  },
 }
 
 const inputBoundary = Object.freeze({ state: 'rendered-screenplay-review' })
@@ -512,5 +522,71 @@ describe('LotScriptReviewPanel', () => {
     fireEvent.click(accept, { detail: 1 })
     expect(onAction).toHaveBeenCalledOnce()
     expect(onAction.mock.calls[0]![0]).toBe(firstDraftActions[0])
+  })
+
+  // ── C2a-M3 — the moment the writer hands it over (charter §3.5, §12-M3) ─────
+  it('names the studio’s own writer, the picture they delivered, and what they first called it', () => {
+    const original: LotScriptReviewContext = {
+      ...firstDraftContext,
+      title: 'The Long Way Down',
+      provenance: {
+        origin: 'original',
+        label: 'An Original Screenplay by Octavia Montgomery-Smythe',
+        writerName: 'Octavia Montgomery-Smythe',
+        generatedTitle: 'A Fraction of Midnight',
+        renamed: true,
+      },
+    }
+
+    render(
+      <LotScriptReviewPanel
+        inputBoundary={inputBoundary}
+        context={original}
+        onAction={vi.fn()}
+      />,
+    )
+
+    expect(screen.getByTestId('lot-script-review-delivery')).toHaveTextContent(
+      'Octavia Montgomery-Smythe delivers ‘The Long Way Down’.',
+    )
+    expect(screen.getByTestId('lot-script-review-provenance-label')).toHaveTextContent(
+      'An Original Screenplay by Octavia Montgomery-Smythe',
+    )
+    // The record of the working title stands; the rename did not erase it.
+    expect(screen.getByTestId('lot-script-review-working-title')).toHaveTextContent(
+      'Written as ‘A Fraction of Midnight’.',
+    )
+  })
+
+  it('credits the market for a premise the studio bought, and claims no writer for the story', () => {
+    render(
+      <LotScriptReviewPanel
+        inputBoundary={inputBoundary}
+        context={firstDraftContext}
+        onAction={vi.fn()}
+      />,
+    )
+
+    expect(screen.getByTestId('lot-script-review-provenance-label')).toHaveTextContent(
+      'Acquired from the open script market',
+    )
+    expect(screen.queryByTestId('lot-script-review-delivery')).toBeNull()
+    expect(screen.queryByTestId('lot-script-review-working-title')).toBeNull()
+  })
+
+  it('withholds the credit rather than guessing when provenance could not be resolved', () => {
+    render(
+      <LotScriptReviewPanel
+        inputBoundary={inputBoundary}
+        context={{ ...firstDraftContext, provenance: null }}
+        onAction={vi.fn()}
+      />,
+    )
+
+    expect(screen.queryByTestId('lot-script-review-provenance')).toBeNull()
+    // …and the DECISION is never withheld for want of a sentence.
+    expect(
+      screen.getByTestId('lot-script-review-action-acceptScript-script-midnight'),
+    ).toBeTruthy()
   })
 })
