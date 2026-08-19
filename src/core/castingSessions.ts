@@ -9,6 +9,7 @@ import {
   occupiedResourceSlots,
   resourceSlotClaimsOf,
 } from './occupancy.js'
+import { QueueableCapacityRefusal } from './productionQueue.js'
 import { stream } from './rng.js'
 import { resolveShape } from './shape.js'
 import { castSlotExecution } from './talentSummary.js'
@@ -305,7 +306,13 @@ export function startCastingSession(
   const id = nextCastingSessionId(casting)
   const reservation = allocateCastingReservation(casting, operations, scriptDevelopment, id)
   if (reservation === null) {
-    castingError('start rejected — no Development & Casting slot is available')
+    // C2a-M4 (§3.3): the SAME sentence, now a NAMED refusal — the one an audition
+    // front door converts into a queued intent. Every refusal above it (unknown
+    // project, not Ready, already cast, an ineligible slate) still throws here and
+    // now, because none of those is a thing waiting can fix.
+    throw new QueueableCapacityRefusal(
+      'casting sessions: start rejected — no Development & Casting slot is available',
+    )
   }
   const session: CastingSession = {
     id,

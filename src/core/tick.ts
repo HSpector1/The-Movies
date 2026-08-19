@@ -64,6 +64,7 @@ import { openTheatricalRun } from './economy.js'
 import { clamp } from './math.js'
 import { assertNoDoubleBookedResourceSlots, setOccupiedFacilitySlots } from './occupancy.js'
 import { advanceManagedProductions } from './operations.js'
+import { admitQueuedIntents } from './queueAdmission.js'
 import {
   assertSetsInvariants,
   completeDueSets,
@@ -219,7 +220,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // Due camera tests resolve after screenplay work and before production
   // allocation. Their observations use isolated derived streams and release the
   // shared slot during this same visible week.
-  const castingSessions = completeDueCastingSessions(
+  let castingSessions = completeDueCastingSessions(
     state.castingSessions,
     currentTick + 1,
     {
@@ -274,14 +275,62 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       },
     },
   )
-  const advanced: Production[] = productionAdvance.productions
+  // ── 1.05 QUEUE ADMISSION (C2a-M4, charter §3.3) ─────────────────────────
+  // INSERTION, NOT A REORDERING (D-12 §9, the rule steps 1.5/1.6/1.7 already
+  // stand on). The front doors no longer refuse a picture because a room was
+  // busy — they admit the intent and it waits here, in `state.productionQueue`,
+  // holding nothing at all. This step is where the waiting ends: the slots
+  // released by step 1 (a picture moving on, or the resource-release law letting
+  // a wrapped picture drop the stage it no longer needs) are granted to the
+  // longest-waiting intent, in the SAME visible week they came free.
+  //
+  // It sits before construction completion for the reason every completion pass
+  // sits there: a building that opens during this advance was still a site for
+  // the week being advanced, and the queue does not get to move into it early.
+  //
+  // The verbs it commits are the player's own verbs, called with the tick's own
+  // event sink, so a queued picture and a played picture are the same picture.
+  const admission = admitQueuedIntents(
+    {
+      ...state,
+      operations: productionAdvance.operations,
+      sets: productionAdvance.sets,
+      scriptDevelopment,
+      castingSessions,
+      studio: { ...state.studio, activeProductions: productionAdvance.productions },
+      // THE WEEK THAT HAS ARRIVED, and the reason the clock reads it here.
+      //
+      // Steps 0.5, 0.6, 1.5, 1.6 and 1.7 all resolve THIS advance's completions
+      // against `currentTick + 1`, because a thing that finishes during an
+      // advance belongs to the week the advance produces. An admission is the
+      // same kind of fact: the slot came free as this week ended, and the work it
+      // grants begins as the next one starts. Stamped with `currentTick` instead,
+      // a draft admitted here would carry a due week that had already been
+      // checked — a due date that passes without a delivery, which is exactly the
+      // kind of lie this milestone exists to remove.
+      //
+      // `market` is restored immediately below: the clock is the TICK's to
+      // advance, as its last step (M1), and this reading is scoped to the
+      // admission that needs it.
+      market: { ...state.market, tick: currentTick + 1 },
+    },
+    currentTick + 1,
+    events,
+  )
+  const admitted: GameState = { ...admission.state, market: state.market }
+  // The two roots an admitted intent writes into are the two this advance is
+  // still holding in locals. Rebind them, or a granted commission or audition
+  // would be assembled away at the end of the tick.
+  scriptDevelopment = admitted.scriptDevelopment
+  castingSessions = admitted.castingSessions
+  const advanced: Production[] = [...admitted.studio.activeProductions]
 
   // ── 1.5 CONSTRUCTION COMPLETION ─────────────────────────────────────────
   // A project due on arrival at S+13 becomes physical only AFTER this advance's
   // script, casting, and production allocation. Do not retry or move any work.
   const constructionCompletion = completeDueConstruction(
-    state.construction,
-    productionAdvance.operations,
+    admitted.construction,
+    admitted.operations,
     currentTick + 1,
   )
   const construction = constructionCompletion.construction
@@ -323,7 +372,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   //
   // A first build records a permanent `setBuilt` row; a repair records nothing,
   // because the set was built once and the studio's history is not editable.
-  const setCompletion = completeDueSets(productionAdvance.sets, currentTick + 1, events)
+  const setCompletion = completeDueSets(admitted.sets, currentTick + 1, events)
   let sets = setCompletion.sets
 
   // ── 2. RELEASE ─────────────────────────────────────────────────────────────
@@ -342,10 +391,13 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // (the accumulation in step 4 has not begun).
   const startOfTickStanding: Standing = state.studio.standing
   const records: ReleaseRecord[] = []
-  let cash = state.studio.cash
-  const releasedFilms: FilmResult[] = [...state.studio.releasedFilms]
+  // C2a-M4: from the POST-ADMISSION state — a greenlight granted at step 1.05 has
+  // already debited its negative, its marketing and its freelancer fees, exactly
+  // as the same greenlight played by hand would have.
+  let cash = admitted.studio.cash
+  const releasedFilms: FilmResult[] = [...admitted.studio.releasedFilms]
   // D-11.18 financial ledger — every cash movement is recorded (reconciles with cash).
-  const ledger: LedgerEntry[] = [...state.ledger]
+  const ledger: LedgerEntry[] = [...admitted.ledger]
   // ── D-12 economy (gated) — a shallow copy of the run history so weekly progress can be
   // recorded without mutating the input. Empty (and untouched) for the M0A corpus.
   const engaged = economyEngaged(state)
@@ -830,12 +882,15 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   })
 
   return {
-    ...state,
+    // C2a-M4: the ADMITTED state is the base — it carries this advance's queue
+    // (rows granted or expired are gone from it), the concepts an admitted
+    // original commission minted, and the blueprint root that recorded them.
+    ...admitted,
     rngState: rng.serialize(),
     market: { ...state.market, tick: currentTick + 1 },
     talent,
     studio: {
-      ...state.studio,
+      ...admitted.studio,
       cash,
       standing,
       activeProductions: stillActive,

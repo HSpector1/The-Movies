@@ -716,6 +716,23 @@ export type {
   StudioCalendarView,
 } from './studioCalendar.js'
 
+// ── The production queue (C2a-M4, charter §3.3) ──────────────────────────────
+// Phase-Gate Admission: the front doors admit what capacity cannot yet carry,
+// and the queue is the studio's record of what is waiting for what.
+export {
+  QUEUE_GATE_CAPABILITY,
+  QueueableCapacityRefusal,
+  freeGateSlot,
+  gateSlotAvailable,
+  nextQueueOrdinal,
+  queueEntryLabel,
+  queueEntrySubjectId,
+  queueInPriorityOrder,
+  queueWaitWeeks,
+} from './productionQueue.js'
+export { admitQueuedIntents } from './queueAdmission.js'
+export type { QueueAdmissionResult } from './queueAdmission.js'
+
 // §6 standing (phase 3) — the three-channel updateStanding (B12 context param)
 export { updateStanding } from './standing.js'
 export type { ReleaseBenchmarks, StandingContext } from './standing.js'

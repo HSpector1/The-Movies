@@ -997,7 +997,10 @@ function shadowActionRejection(
   let shadowStateHash: string | null = null
   try {
     const shadowState = applyActions(configured, [structuredClone(action)])
-    admitted = true
+    // C2a-M4: the shadow asks "would ONE more slot have admitted this?", so an
+    // intent that merely joined the queue in the shadow world is not an
+    // admission — the extra capacity did not relieve it.
+    admitted = shadowState.productionQueue.length === configured.productionQueue.length
     shadowStateHash = stateHash(shadowState)
   } catch (error) {
     shadowReason = errorMessage(error)
@@ -1037,8 +1040,25 @@ function attemptAction(
   let reason: string | null = null
   let capability: FacilityCapability | null = null
   try {
-    runtime.state = applyActions(before, [action])
-    accepted = true
+    const next = applyActions(before, [action])
+    // ── C2a-M4: THIS OBSERVATORY DOES NOT QUEUE (charter §3.3, §11.8 item 10) ──
+    //
+    // The front doors now admit what they used to refuse (§3.3), and this
+    // instrument's whole subject is what a studio CANNOT do in a given week —
+    // its one-boundary shadow rows exist to prove that a refusal was capacity and
+    // nothing else. A queued intent would erase the very boundary being measured.
+    // So the arm declines the wait, rolls the admission back whole (nothing was
+    // held while queued, so nothing is released), and records the refusal it has
+    // always recorded. The C1 economy figures this instrument produced stay
+    // reproducible for exactly this reason.
+    if (next.productionQueue.length > before.productionQueue.length) {
+      const queued = next.productionQueue[next.productionQueue.length - 1]!
+      reason = `${queued.kind} declined the queue — no Development & Casting slot is available (C2a-M4 §3.3; this observatory does not queue)`
+      capability = capacityFromReason(reason)
+    } else {
+      runtime.state = next
+      accepted = true
+    }
   } catch (error) {
     reason = errorMessage(error)
     capability = capacityFromReason(reason)

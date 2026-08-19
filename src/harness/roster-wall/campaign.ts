@@ -576,8 +576,27 @@ function attemptAction(
   let reason: string | null = null
   let capability: FacilityCapability | null = null
   try {
-    runtime.state = applyActions(before, [action])
-    accepted = true
+    const next = applyActions(before, [action])
+    // ── C2a-M4: THIS OBSERVATORY DOES NOT QUEUE (charter §3.3, §11.8 item 10) ──
+    //
+    // The front doors now ADMIT what they used to refuse: an intent the shared
+    // Development & Casting slot cannot carry joins `state.productionQueue`
+    // instead of throwing. That is the product law, and this instrument is not
+    // the product — it is the frozen Week-208 contract-wall measurement, whose
+    // policies are calibrated against a studio that acts or does not act in the
+    // week it decides. So the policy DECLINES THE WAIT in exactly one place: a
+    // queued admission is rolled back whole (nothing was held, so nothing is
+    // released) and recorded as the capacity refusal it has always been recorded
+    // as. The alternative is an instrument that silently accumulates intents it
+    // never measured and a `while` that never terminates.
+    if (next.productionQueue.length > before.productionQueue.length) {
+      const admitted = next.productionQueue[next.productionQueue.length - 1]!
+      reason = `${admitted.kind} declined the queue — no Development & Casting slot is available (C2a-M4 §3.3; this observatory does not queue)`
+      capability = capacityFromReason(reason)
+    } else {
+      runtime.state = next
+      accepted = true
+    }
   } catch (error) {
     reason = errorMessage(error)
     capability = capacityFromReason(reason)

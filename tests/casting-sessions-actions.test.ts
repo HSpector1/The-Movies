@@ -285,18 +285,43 @@ describe('Casting Sessions V1 action, tick, and read-model integration', () => {
       'casting',
       'script',
     ])
-    expect(() =>
-      applyActions(state, [
-        {
-          kind: 'commissionScript',
-          project: commissionPayload(
-            state,
-            2,
-            contractedByRole(state, 'director')[0]!.id,
-          ),
-        },
-      ]),
-    ).toThrow(/no Development & Casting slot is available/)
+    // ── C2a-M4 RE-BASE (charter §3.3; owner law 2, ruling `00E`.16) ─────────
+    //
+    // The predecessor pinned the REFUSAL: a commission with both shared slots
+    // occupied threw. Phase-Gate Admission replaces the refusal with a wait, so
+    // this assertion is re-based onto its successor — and the successor proves
+    // strictly more than the refusal did: the intent is ADMITTED, it carries its
+    // whole payload, it HOLDS NOTHING while it waits (no project, no reservation,
+    // no slot, no charge), and it is granted the week a slot actually frees.
+    const thirdCommission = commissionPayload(
+      state,
+      2,
+      contractedByRole(state, 'director')[0]!.id,
+    )
+    const queued = applyActions(state, [
+      { kind: 'commissionScript', project: thirdCommission },
+    ])
+    expect(queued.productionQueue).toEqual([
+      {
+        kind: 'commissionScript',
+        ordinal: 0,
+        queuedWeek: state.market.tick,
+        payload: thirdCommission,
+      },
+    ])
+    // NOTHING IS HELD WHILE QUEUED.
+    expect(queued.scriptDevelopment.projects).toHaveLength(
+      state.scriptDevelopment.projects.length,
+    )
+    expect(scriptCapacityView(queued)).toMatchObject({ capacity: 2, occupied: 2, available: 0 })
+    // ...and the week the slots free, the queue is what takes one.
+    const admittedFromQueue = tick(queued)
+    expect(admittedFromQueue.productionQueue).toEqual([])
+    expect(
+      admittedFromQueue.scriptDevelopment.projects.find(
+        (candidate) => candidate.conceptId === thirdCommission.conceptId,
+      )?.status,
+    ).toBe('drafting')
 
     const untouched = stableStringify(state)
     expect(() =>

@@ -107,6 +107,15 @@ import {
 } from './studioEvents.js'
 import { persistedProductionIds } from './productionIdentity.js'
 import {
+  QueueableCapacityRefusal,
+  gateSlotAvailable,
+  queueCommissionOriginalScreenplay,
+  queueCommissionScript,
+  queueGreenlightScriptProject,
+  queueStartCastingSession,
+  queueingActive,
+} from './productionQueue.js'
+import {
   acceptScriptProject,
   activeScriptWriterAssignments,
   assertScriptDevelopmentInvariants,
@@ -177,7 +186,9 @@ import type {
   PlacementRequest,
   PotentialTier,
   Production,
+  ProductionQueueEntry,
   Promise as FilmPromise,
+  ScriptProject,
   ShapeEffects,
   SkillBias,
   SkillProfiles,
@@ -328,6 +339,12 @@ function applyGreenlight(
   state: GameState,
   prod: Action & { kind: 'greenlight' },
   scriptProjectId?: string,
+  // C2a-M4: the tick's OWN event sink, when this greenlight is being committed by
+  // the queue's admission step rather than by a player action. Injected so the
+  // week's rows keep one true order and one commit — an admission that opened its
+  // own sink would stamp its rows into the log before the advance that freed the
+  // slot had recorded a thing.
+  injectedEvents?: StudioEventSink,
 ): GameState {
   const p = prod.production
   const currentTick = state.market.tick
@@ -637,7 +654,7 @@ function applyGreenlight(
     },
     ledger: [...state.ledger, ...ledgerAdds],
   }
-  const greenlightEvents = studioEventSinkFor(state)
+  const greenlightEvents = injectedEvents ?? studioEventSinkFor(state)
   const withOperations =
     state.operations.mode === 'managed'
       ? {
@@ -682,11 +699,12 @@ function applyGreenlight(
             // moves and every greenlight after it binds.
             state.nextSetId > 0,
           ),
-          studioEvents: commitStudioEvents(
-            state.studioEvents,
-            greenlightEvents,
-            state.market.tick,
-          ),
+          // An INJECTED sink belongs to the tick and is committed once, at the end
+          // of the advance, with every other row of the week.
+          studioEvents:
+            injectedEvents === undefined
+              ? commitStudioEvents(state.studioEvents, greenlightEvents, state.market.tick)
+              : state.studioEvents,
         }
       : next
   return scriptProject === undefined
@@ -1624,6 +1642,153 @@ function studioEventSinkFor(state: GameState): StudioEventSink {
     : disabledStudioEventSink()
 }
 
+// ── THE THREE FRONT DOORS (charter §3.3) ────────────────────────────────────
+//
+// C2a-M4. "When capacity is unavailable: QUEUE, DON'T MAGICALLY FORBID" (owner
+// law 2). Greenlight-on-dev-slot, commission (pool AND original), and casting
+// start stop being refusals and become ADMISSIONS: the intent joins
+// `state.productionQueue` with its full payload, its ordinal and the week it
+// started waiting, and it is committed later — by the inserted tick step — the
+// week a slot is actually free.
+//
+// WHAT IS QUEUED AND WHAT IS STILL REFUSED. Exactly one refusal converts: the
+// NAMED `QueueableCapacityRefusal` the three allocators throw when the shared
+// Development & Casting slot is gone. An unknown concept, an uncontracted writer,
+// a busy writer, an ineligible slate, an unaffordable picture — every one of those
+// still throws at the door, because waiting cannot fix any of them, and a queue
+// that swallows illegal intents is a queue that lies about what will happen.
+//
+// NOTHING IS HELD WHILE QUEUED. The commit closure runs first and is discarded
+// whole on refusal: no cash moved, no talent locked, no concept minted, no
+// ordinal burned, no reservation written. That is only true because every one of
+// these functions is pure — the state that comes back is the state that went in.
+
+/** Append an admitted intent and record the Tier-W row that says so. */
+function admitToQueue(
+  state: GameState,
+  queue: readonly ProductionQueueEntry[],
+): GameState {
+  const admitted = queue[queue.length - 1]!
+  const events = studioEventSinkFor(state)
+  events.append({
+    kind: 'queueAdmitted',
+    entryKind: admitted.kind,
+    ordinal: admitted.ordinal,
+  })
+  return {
+    ...state,
+    productionQueue: queue,
+    studioEvents: commitStudioEvents(state.studioEvents, events, state.market.tick),
+  }
+}
+
+/**
+ * Commit the verb, or — if and only if the shared slot is what stopped it — admit
+ * it to the queue.
+ *
+ * `allowQueue` is FALSE on the dequeue path: the queue's own commit must let a
+ * capacity refusal propagate, or an intent that cannot start yet would clone
+ * itself onto the back of the queue it is already at the head of.
+ */
+function admitOrQueue(
+  state: GameState,
+  commit: () => GameState,
+  enqueue: (queue: readonly ProductionQueueEntry[]) => readonly ProductionQueueEntry[],
+  allowQueue = true,
+): GameState {
+  try {
+    return commit()
+  } catch (error) {
+    if (
+      !allowQueue ||
+      !(error instanceof QueueableCapacityRefusal) ||
+      !queueingActive(state.operations)
+    ) {
+      throw error
+    }
+    return admitToQueue(state, enqueue(state.productionQueue))
+  }
+}
+
+/** What one dequeue attempt did: it started, it is still waiting, or it expired. */
+export type QueuedIntentOutcome =
+  | { outcome: 'granted'; state: GameState }
+  | { outcome: 'waiting' }
+  | { outcome: 'expired'; reason: string }
+
+/**
+ * THE DEQUEUE COMMIT (§3.3) — the same verb, asked again.
+ *
+ * Revalidation is not a second copy of the front door's legality rules; it is the
+ * front door's own commit, run against the state of THIS week. Whatever the
+ * engine refuses, the intent expires on, and the engine's own sentence becomes
+ * the `queueIntentExpired` row's stated reason. There is exactly one
+ * implementation of every one of these verbs, which is the only way a queued
+ * picture and a played picture can be the same picture.
+ *
+ * `week` is the week that has ARRIVED — the advance is already past this week's
+ * script and casting completions, so an intent granted here is stamped with the
+ * week the player will see it start in, not the week it was still waiting.
+ */
+export function commitQueuedIntent(
+  state: GameState,
+  entry: ProductionQueueEntry,
+  week: number,
+  events: StudioEventSink,
+): QueuedIntentOutcome {
+  try {
+    switch (entry.kind) {
+      case 'commissionScript':
+        return {
+          outcome: 'granted',
+          state: applyCommissionScript(
+            state,
+            { kind: 'commissionScript', project: entry.payload },
+            week,
+            false,
+          ),
+        }
+      case 'commissionOriginalScreenplay':
+        return {
+          outcome: 'granted',
+          state: applyCommissionOriginalScreenplay(
+            state,
+            { kind: 'commissionOriginalScreenplay', screenplay: entry.payload },
+            week,
+            false,
+          ),
+        }
+      case 'startCastingSession':
+        return {
+          outcome: 'granted',
+          state: applyStartCastingSession(
+            state,
+            { kind: 'startCastingSession', session: entry.payload },
+            week,
+            false,
+          ),
+        }
+      case 'greenlightScriptProject':
+        return {
+          outcome: 'granted',
+          state: applyGreenlightScriptProject(
+            state,
+            { kind: 'greenlightScriptProject', production: entry.payload },
+            week,
+            false,
+            events,
+          ),
+        }
+    }
+  } catch (error) {
+    if (error instanceof QueueableCapacityRefusal) return { outcome: 'waiting' }
+    return {
+      outcome: 'expired',
+      reason: error instanceof Error ? error.message : String(error),
+    }
+  }
+}
+
 function applyAssignShootingDirector(
   state: GameState,
   action: Action & { kind: 'assignShootingDirector' },
@@ -1778,6 +1943,8 @@ function assertCurrentScreenplayState(state: GameState): GameState {
 function applyCommissionScript(
   state: GameState,
   action: Action & { kind: 'commissionScript' },
+  week: number = state.market.tick,
+  allowQueue = true,
 ): GameState {
   requireCommissionableWriter(state, action.project.writerId, 'commissionScript')
   const projectId = nextScriptProjectId(state.scriptDevelopment)
@@ -1787,40 +1954,47 @@ function applyCommissionScript(
       `applyActions: commissionScript references unknown concept "${action.project.conceptId}"`,
     )
   }
-  const scriptDevelopment = commissionScriptProject(
-    state.scriptDevelopment,
-    state.operations,
-    action.project,
-    state.market.tick,
-    castingOccupiedFacilitySlots(state.castingSessions),
-    // Adapting a premise the market already owns is the fast path, and it is the
-    // C1 clock to the week (`00E`.9's bounded blast radius).
-    scriptDraftWeeks({
-      origin: 'pool',
-      officeTierAtMint: developmentOfficeTier(state),
-      writerExperience: 0,
-      writerCount: 1,
-    }),
-  )
-  return assertCurrentScreenplayState(
-    assertCurrentScriptState({
-      ...state,
-      scriptDevelopment,
-      originalScreenplays: appendBlueprint(
-        state,
-        movieBlueprint({
-          conceptId: concept.id,
-          ordinal: null,
-          mintedWeek: state.market.tick,
-          projectId,
-          writerId: action.project.writerId,
-          generatedTitle: null,
-          genre: concept.genre,
+  return admitOrQueue(
+    state,
+    () => {
+      const scriptDevelopment = commissionScriptProject(
+        state.scriptDevelopment,
+        state.operations,
+        action.project,
+        week,
+        castingOccupiedFacilitySlots(state.castingSessions),
+        // Adapting a premise the market already owns is the fast path, and it is the
+        // C1 clock to the week (`00E`.9's bounded blast radius).
+        scriptDraftWeeks({
+          origin: 'pool',
           officeTierAtMint: developmentOfficeTier(state),
+          writerExperience: 0,
+          writerCount: 1,
         }),
-        state.originalScreenplays.nextOrdinal,
-      ),
-    }),
+      )
+      return assertCurrentScreenplayState(
+        assertCurrentScriptState({
+          ...state,
+          scriptDevelopment,
+          originalScreenplays: appendBlueprint(
+            state,
+            movieBlueprint({
+              conceptId: concept.id,
+              ordinal: null,
+              mintedWeek: week,
+              projectId,
+              writerId: action.project.writerId,
+              generatedTitle: null,
+              genre: concept.genre,
+              officeTierAtMint: developmentOfficeTier(state),
+            }),
+            state.originalScreenplays.nextOrdinal,
+          ),
+        }),
+      )
+    },
+    (queue) => queueCommissionScript(queue, action.project, week),
+    allowQueue,
   )
 }
 
@@ -1843,6 +2017,8 @@ function applyCommissionScript(
 function applyCommissionOriginalScreenplay(
   state: GameState,
   action: Action & { kind: 'commissionOriginalScreenplay' },
+  week: number = state.market.tick,
+  allowQueue = true,
 ): GameState {
   const payload = action.screenplay
   requireCommissionableWriter(state, payload.writerId, 'commissionOriginalScreenplay')
@@ -1854,6 +2030,24 @@ function applyCommissionOriginalScreenplay(
   if (payload.promise.genre !== payload.genre) {
     throw new Error(
       'applyActions: commissionOriginalScreenplay rejected — the promise names a different genre than the screenplay',
+    )
+  }
+
+  // ── THE QUEUE COMES BEFORE THE MINT (charter §3.3/§8.1) ───────────────────
+  //
+  // A queued original commission carries writer/genre/shape and NO conceptId,
+  // because the mint IS the commit. Everything below this gate — the ordinal, the
+  // concept id, the latents, the working title, the blueprint — comes into
+  // existence only when the slot is actually granted, so an intent that waits and
+  // then expires orphans no concept and burns no ordinal.
+  if (allowQueue && queueingActive(state.operations) && !gateSlotAvailable(state)) {
+    return admitToQueue(
+      state,
+      queueCommissionOriginalScreenplay(
+        state.productionQueue,
+        { writerId: payload.writerId, genre: payload.genre, shape: payload.shape, promise: payload.promise },
+        week,
+      ),
     )
   }
 
@@ -1887,7 +2081,7 @@ function applyCommissionOriginalScreenplay(
       shape: payload.shape,
       promise: payload.promise,
     },
-    state.market.tick,
+    week,
     castingOccupiedFacilitySlots(state.castingSessions),
     draftWeeks,
   )
@@ -1904,7 +2098,7 @@ function applyCommissionOriginalScreenplay(
         movieBlueprint({
           conceptId,
           ordinal,
-          mintedWeek: state.market.tick,
+          mintedWeek: week,
           projectId,
           writerId: payload.writerId,
           generatedTitle: concept.title,
@@ -2061,6 +2255,9 @@ function applyAcceptScript(
 function applyGreenlightScriptProject(
   state: GameState,
   action: Action & { kind: 'greenlightScriptProject' },
+  week: number = state.market.tick,
+  allowQueue = true,
+  injectedEvents?: StudioEventSink,
 ): GameState {
   const project = state.scriptDevelopment.projects.find(
     (candidate) => candidate.id === action.production.projectId,
@@ -2075,6 +2272,27 @@ function applyGreenlightScriptProject(
       `applyActions: greenlightScriptProject rejected — writer "${project.writerId}" must be currently studio-contracted`,
     )
   }
+  return admitOrQueue(
+    state,
+    () => applyGreenlightScriptProjectNow(state, action, project, injectedEvents),
+    (queue) =>
+      queueGreenlightScriptProject(queue, action.production.projectId, action.production, week),
+    allowQueue,
+  )
+}
+
+/**
+ * The greenlight itself, once the Development & Casting slot is known to be
+ * grantable. Split out so the front door and the queue's dequeue commit THE SAME
+ * verb — a queued greenlight is not a second greenlight path, it is this one,
+ * asked again later.
+ */
+function applyGreenlightScriptProjectNow(
+  state: GameState,
+  action: Action & { kind: 'greenlightScriptProject' },
+  project: ScriptProject,
+  injectedEvents?: StudioEventSink,
+): GameState {
   const next = applyGreenlight(
     state,
     {
@@ -2101,6 +2319,7 @@ function applyGreenlightScriptProject(
       },
     },
     project.id,
+    injectedEvents,
   )
   return assertCurrentScriptState(next)
 }
@@ -2139,6 +2358,8 @@ function applyActivateCastingSessions(
 function applyStartCastingSession(
   state: GameState,
   action: Action & { kind: 'startCastingSession' },
+  week: number = state.market.tick,
+  allowQueue = true,
 ): GameState {
   if (state.founding !== null) {
     throw new Error(
@@ -2149,21 +2370,27 @@ function applyStartCastingSession(
   for (const person of state.talent) {
     if (isContracted(state, person.id)) assignableTalentIds.add(person.id)
   }
-  return assertCurrentScriptState({
-    ...state,
-    castingSessions: startCastingSession(
-      state.castingSessions,
-      state.operations,
-      state.scriptDevelopment,
-      action.session,
-      state.market.tick,
-      {
-        talent: state.talent,
-        assignableTalentIds,
-        busyTalentIds: busyTalentIds(state),
-      },
-    ),
-  })
+  return admitOrQueue(
+    state,
+    () =>
+      assertCurrentScriptState({
+        ...state,
+        castingSessions: startCastingSession(
+          state.castingSessions,
+          state.operations,
+          state.scriptDevelopment,
+          action.session,
+          week,
+          {
+            talent: state.talent,
+            assignableTalentIds,
+            busyTalentIds: busyTalentIds(state),
+          },
+        ),
+      }),
+    (queue) => queueStartCastingSession(queue, action.session, week),
+    allowQueue,
+  )
 }
 
 function applyAcknowledgeCastingSession(

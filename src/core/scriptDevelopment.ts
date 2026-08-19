@@ -4,6 +4,7 @@
 
 import { clamp } from './math.js'
 import { facilitySlotKey, occupiedResourceSlots, screenplayOccupiedSlotKeys } from './occupancy.js'
+import { QueueableCapacityRefusal } from './productionQueue.js'
 import { TUNING } from './tuning.js'
 import type {
   CommissionScriptPayload,
@@ -300,7 +301,10 @@ export function commissionScriptProject(
     externallyOccupiedSlots,
   )
   if (reservation === null) {
-    throw new Error(
+    // C2a-M4 (§3.3): the SAME sentence, now a NAMED refusal. This is the one
+    // refusal a front door converts into a queued intent — every other commission
+    // refusal above still throws and is never queued.
+    throw new QueueableCapacityRefusal(
       'script development: commission rejected — no Development & Casting slot is available',
     )
   }

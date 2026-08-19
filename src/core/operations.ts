@@ -9,6 +9,7 @@ import {
   occupiedResourceSlots,
 } from './occupancy.js'
 import type { OccupancySources } from './occupancy.js'
+import { QueueableCapacityRefusal } from './productionQueue.js'
 import {
   nextProductionPhase,
   productionPhaseForRemainingTicks,
@@ -471,8 +472,15 @@ export function addManagedProductionWorkflow(
     externallyOccupiedSlots,
   )
   if (!allocation.ok) {
-    throw new Error(
+    // C2a-M4 (§3.3): the SAME sentence, now a NAMED refusal. A greenlight opens
+    // in Development, whose only requirement is the shared Development & Casting
+    // slot, so this refusal is always the gate's — and the front door turns it
+    // into a queued intent instead of throwing a finished picture away.
+    throw new QueueableCapacityRefusal(
       `applyActions: managed greenlight rejected — no ${allocation.blocker.kind === 'facility-capacity' ? allocation.blocker.capability : 'required facility'} capacity for productionId "${production.id}"`,
+      allocation.blocker.kind === 'facility-capacity'
+        ? allocation.blocker.capability
+        : 'development-casting',
     )
   }
   // GREENLIGHT FORMATION, recorded where it happens: the picture takes its first
