@@ -375,6 +375,27 @@ finished) + `ui/e2e/` additions.
   changes what is VISIBLE and this counter counts what EXISTS. Both worlds keep
   their own numbers: the plate tuples are a different world and did not move.
 
+- **THE TWO WAYS THE TRANSPORT COULD HAVE LIED** (`d3c02e3`, `cc34977`, `5a8476f`).
+  (i) the theater layer repaints per frame while a week plays (the freight has to
+  be SEEN crossing its leg) and was re-DERIVING the projection on each of those
+  frames — the exact law `recomputePresence` states against. Derivation is now
+  once per snapshot (`refreshWeekTheater`); the paint reads the cached value.
+  (ii) the Call Board's copy was composed inside the Phaser scene, the one place a
+  sentence a player reads cannot be tested — `theaterCallBoardLines` moved to the
+  snapshot module and gained three tests.
+  (iii) **THE SILENT STALL**: a running loop waits on a witnessed week, and several
+  ordinary paths clear the Lot's cadence channel (a deep surface opening and
+  closing, a dismissed receipt, a return from the Dashboard), leaving the transport
+  saying "running" over a studio that had quietly stopped. The week on screen is
+  now re-armed whenever the player is on the Lot, the loop is running and nothing
+  is being witnessed.
+  (iv) **THE BATCH VERB HOLDS THE STUDIO** (§4.1 / law 3). Sim-to-next-event keeps
+  the full unpartitioned ladder untouched — which is exactly why it must stop the
+  loop: it always lands on a governed event with a summary the player is meant to
+  read, and a loop carrying on through that stop would be narrating weeks nobody
+  was present for. Both verbs hold it (lot-native and Dashboard).
+  Floors: root tsc 0 · ui tsc 0 · ui **188 files / 2,554 passed + 5 skipped / 0**.
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and

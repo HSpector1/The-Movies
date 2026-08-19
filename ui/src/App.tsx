@@ -2961,7 +2961,14 @@ export function App() {
     // clock through `handleLotWeekPlayed`, which is the same clock the living loop
     // commits on. There is no second clock and nothing about the release changed:
     // `next` is already the authoritative state, and only the SURFACE waits.
-    if (resolvedReturnContext.kind === 'lot') {
+    //
+    // THE PRECONDITION IS THAT THE LOT IS ON SCREEN. A week can only be witnessed
+    // by the surface that draws it, so an advance pressed from the supporting
+    // Dashboard — where the Lot is not mounted and nothing can report a settled
+    // week — keeps TODAY'S behaviour exactly: the release surfaces take over at
+    // once. Deferring there would hold a release behind a clock nobody is running.
+    const lotIsOnScreen = latestScreenRef.current.kind === 'lot'
+    if (resolvedReturnContext.kind === 'lot' && (released.length === 0 || lotIsOnScreen)) {
       setLotCadenceFeedback({
         kind: 'week',
         week: next.market.tick,
