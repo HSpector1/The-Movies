@@ -215,6 +215,22 @@ Lane ENGINE-M5 owns `src/core/**`, `ui/src/engine/adapter.ts`,
   FULL vitest at this point: **316 files / 4,305 passed + 5 skipped / 0 failed**
   (`/tmp/c2a-m5-full-2.log`), root tsc 0, ui tsc 0.
 
+- **DETERMINISM, PROVEN** (§4.1 / `08A`).
+  `ui/src/test/contracts/m5-determinism.contract.test.ts` (7 tests): same seed +
+  same action script → identical stop sequences, identical theater tracks week
+  for week, and byte-identical exported saves; **hand-advanced vs batch-skipped
+  twins export BYTE-IDENTICAL saves at the same week**, with the batch arm
+  asserted NON-VACUOUS (≥2 genuine multi-week skips). The remaining two arms of
+  08A's four-way parity (the living loop at any speed, paused/resumed) are
+  OPUS-TIME's and reduce to this one, because the scheduler commits the identical
+  `advanceWeek` a manual press commits. LEGACY SILENCE pinned directly: over 40
+  weeks a legacy world produces no theater subjects, no wrap stops, an absent
+  `weekTheater`, and `studioEvents.nextSeq === 0`; the batch verb never mints a
+  wrap there either. `tests/acceptance-corpus.test.ts` (M0A byte-identity) green
+  throughout.
+  **LANE TOTAL at this point: root tsc 0 · ui tsc 0 · FULL vitest 317 files /
+  4,312 passed + 5 skipped / 0 failed** (M4 floor was 312 / 4,256 + 5).
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and
