@@ -253,6 +253,19 @@ describe('PF1-M2 — aria-only promotion', () => {
     // (`lot.spec.ts` context top -80.5 @ 960x540; `publicity-campaign-v1.spec.ts` bottom
     // 805.5 in a 768-tall viewport). Below the breakpoint they compact to their glyph.
     //
+    // C2a-M5 RE-PIN, with the measurement behind it. Living Turn V1 put the studio's
+    // TRANSPORT in the same row (charter §4.1), and the row was already full. Measured on
+    // a real browser run at HEAD, `.lot-topbar` height at the governed widths:
+    //   1280×900  63 shipped → 119.5 with the transport;  1120×720  63 → 115.
+    // The 56px is the same regression this pin exists to prevent, so the BAND the addendum
+    // defined widens from 1120px to 1400px and the two MANUAL ADVANCE VERBS join Saves and
+    // Settings as compactable entries — the two the charter itself demotes ("the ruling
+    // demotes [Advance Week] from required heartbeat to option", `08A` §4). After it:
+    //   1440 63 · 1280 63 · 1120 63 · 960 115 (960 is IDENTICAL to the shipped bar, which
+    //   already wrapped there and which every panel assertion is written against).
+    // Nothing is weakened: the pin now covers FOUR entries instead of two, and the same
+    // four properties are asserted on each.
+    //
     // jsdom has no layout engine and evaluates no media query, so this pins what it CAN
     // see: nothing was hidden or renamed, the handlers and testids are untouched, and the
     // stylesheet's compact rules say what they must. Geometry stays with the browser specs.
@@ -270,13 +283,15 @@ describe('PF1-M2 — aria-only promotion', () => {
     )
     await screen.findByTestId('studio-lot-screen')
 
-    for (const [testid, name] of [
-      ['lot-open-saves', 'Saves'],
-      ['lot-open-settings', 'Settings'],
+    for (const [testid, name, treatment] of [
+      ['lot-open-saves', 'Saves', 'ghost'],
+      ['lot-open-settings', 'Settings', 'ghost'],
+      ['lot-advance-week', 'Advance one week', 'primary'],
+      ['lot-sim-to-next-event', 'Sim to next event', 'accent'],
     ] as const) {
       const control = screen.getByTestId(testid)
       expect(control.tagName, `${name} is still a button`).toBe('BUTTON')
-      expect(control, `${name} keeps the ghost treatment`).toHaveClass('ghost')
+      expect(control, `${name} keeps its treatment`).toHaveClass(treatment)
       expect(control, `${name} is compactable`).toHaveClass('lot-topbar-compactable')
       // The full name is spoken whichever span is painted.
       expect(control).toHaveAttribute('aria-label', name)
@@ -298,7 +313,7 @@ describe('PF1-M2 — aria-only promotion', () => {
     expect(settingsOpened).toHaveLength(1)
 
     const css = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', 'lot', 'lot.css'), 'utf8')
-    const compact = /@media \(max-width: 1120px\) \{([\s\S]*?)\n\}/.exec(css)?.[1] ?? ''
+    const compact = /@media \(max-width: 1400px\) \{([\s\S]*?)\n\}/.exec(css)?.[1] ?? ''
     expect(compact, 'the breakpoint exists').not.toBe('')
     expect(compact, 'the glyph appears below it').toContain('.lot-topbar-mark')
     expect(compact, 'and the words are clipped, never display:none').toContain('clip: rect(0, 0, 0, 0)')

@@ -2088,7 +2088,7 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
    next-event control gives back the slack in its fixed 220px box. Every control stays at
    or above 44px in both axes — the glyph buttons gain a `min-height` the ghost buttons
    never had. */
-@media (max-width: 1120px) {
+@media (max-width: 1400px) {
   .lot-topbar-actions {
     gap: 8px;
   }
@@ -2136,7 +2136,7 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
    forbidden to shrink cannot wrap and becomes page-level horizontal overflow (the exact
    PF1-M4 seal-gate failure). With bias instead, the brand yields first at real 900–1120
    widths and the row still wraps when the layout is genuinely half-size. */
-@media (min-width: 900px) and (max-width: 1120px) {
+@media (min-width: 900px) and (max-width: 1400px) {
   .lot-brand {
     min-width: 0;
     flex-shrink: 4;
@@ -2955,7 +2955,7 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   font-size: 12px;
 }
 
-@media (max-width: 1120px) {
+@media (max-width: 1400px) {
   .lot-transport {
     gap: 4px;
   }
@@ -2967,3 +2967,34 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
     font-size: 12px;
   }
 }
+
+/* ── C2a-M5 · ONE TOPBAR ROW, WITH THE TRANSPORT IN IT ───────────────────────
+   Living Turn V1 puts the studio's transport in the bar (charter §4.1), and the
+   bar was already full — PF1-M4 addendum 2 measured 18.9px of slack at 960.
+   MEASURED AT HEAD, the transport wrapped the row at BOTH 1280 (63 → 119.5) and
+   1120 (63 → 115): the 56px that pushes the world and every panel anchored in it
+   down the page, which is exactly the regression PF1-M4 bought back.
+
+   IT IS BOUGHT BACK THE SAME WAY, BY WIDENING THE BAND PF1-M4 ALREADY DEFINED —
+   `max-width: 1120px` becomes `max-width: 1400px` above, and the two manual
+   advance verbs join Saves and Settings as compactable entries. No new mechanism,
+   no new breakpoint shape, and nothing hidden or removed: same buttons, same
+   testids, same handlers, ≥44px targets, the studio's own focus ring, the full
+   name on `aria-label`/`title`, and words CLIPPED rather than `display: none`.
+
+   WHY THOSE TWO ENTRIES GIVE THE ROOM. `08A` §4 and charter §4.1 DEMOTE them in
+   so many words — "the ruling demotes [Advance Week] from required heartbeat to
+   option" — and the transport is the control this milestone is about. The bar's
+   prominence follows the charter's own ordering.
+
+   MEASURED, `.lot-topbar` height at the governed widths, whole-property framing,
+   on a real run of the browser suite at HEAD:
+     1440×900   63 shipped → 63 with the transport (above the band — unchanged)
+     1280×900   63 shipped → 119.5 with the transport → **63** here
+     1120×720   63 shipped → 115   with the transport → **63** here
+      960×540  115 shipped → 115   with the transport → **115** here — IDENTICAL
+                to the shipped bar. The shipped bar already wraps at this width
+                and every panel assertion in `lot.spec.ts` and
+                `publicity-campaign-v1.spec.ts` is written against that geometry,
+                so this pass deliberately leaves it exactly where it was rather
+                than improving it and moving every panel a player has learned. */

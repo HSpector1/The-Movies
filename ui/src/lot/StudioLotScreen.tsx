@@ -8307,7 +8307,7 @@ export function StudioLotScreen({
           <button
             ref={advanceButtonRef}
             type="button"
-            className="primary lot-advance-week"
+            className="primary lot-advance-week lot-topbar-compactable"
             onPointerDown={containWorldInput}
             onMouseDown={containWorldInput}
             onTouchStart={containWorldInput}
@@ -8318,15 +8318,18 @@ export function StudioLotScreen({
                 onAdvance()
               }
             }}
+            aria-label="Advance one week"
+            title="Advance one week"
             data-testid="lot-advance-week"
           >
-            Advance one week
+            <span className="lot-topbar-mark" aria-hidden="true">▸</span>
+            <span className="lot-topbar-label">Advance one week</span>
           </button>
           <div className="lot-next-event-control">
             <button
               ref={nextEventButtonRef}
               type="button"
-              className="accent lot-next-event-button"
+              className="accent lot-next-event-button lot-topbar-compactable"
               onPointerDown={(event) => beginNextEventPointerGesture(event, 'pointer')}
               onMouseDown={(event) => beginNextEventPointerGesture(event, 'mouse')}
               onTouchStart={(event) => beginNextEventPointerGesture(event, 'touch')}
@@ -8353,9 +8356,12 @@ export function StudioLotScreen({
                   : undefined
               }
               onClick={(event) => activateNextEvent(event.detail)}
+              aria-label="Sim to next event"
+              title="Sim to next event"
               data-testid="lot-sim-to-next-event"
             >
-              Sim to next event
+              <span className="lot-topbar-mark" aria-hidden="true">»</span>
+              <span className="lot-topbar-label">Sim to next event</span>
             </button>
             {!nextEventEligibility.eligible && nextEventEligibility.reason !== null && (
               <span
