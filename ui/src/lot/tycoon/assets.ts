@@ -1342,6 +1342,399 @@ function bakeProps(scene: Phaser.Scene): void {
   })
 
   bakeBacklotProps(scene)
+  bakeProductionProps(scene)
+}
+
+// ── C2a-M5x production plant, planting and crews ──────────────────────────────
+//
+// 00H priorities 1 (visibly active workers tied to real jobs), 4 (more production
+// props / equipment / vehicles), 6 (department identity) and 7 (density).
+//
+// The Owner's read of the M5 lot was "only marginally busier". The C1-M6b inventory
+// dressed the MARGINS — fences, drums, scrub — and deliberately left the property's
+// middle open. That reads as a model of a studio rather than a studio. This set is the
+// working plant itself: the vehicles a picture arrives and leaves in, the gear a stage
+// runs on, the trees a 1948 California lot is planted with, and — the part no static
+// prop could carry before — CREW CLUSTERS, small groups of figures caught mid-job.
+//
+// A crew cluster is one baked texture and therefore ONE display object for three or
+// four figures. That is the whole reason it exists: the alternative, a sprite per
+// person, would have put a hundred objects and a hundred hit tests on the lot to say
+// something presentation is allowed to say once. Nothing in this file is addressable,
+// holds state, or answers a question — and the WORLD only stands a crew cluster
+// somewhere the ENGINE's own week theater says that work is happening (see
+// `theaterCrewProps` in TycoonScene).
+
+/** A small standing figure for a crew cluster, in the people atlas' silhouette language. */
+function crewFigure(
+  g: Phaser.GameObjects.Graphics,
+  x: number,
+  y: number,
+  h: number,
+  suit: number,
+  hat: number | null,
+  arms: 'down' | 'up' | 'carry' = 'down',
+): void {
+  const s = h / 46
+  g.fillStyle(C.shadow, 0.24)
+  g.fillEllipse(x + 2 * s, y, 16 * s, 5 * s)
+  g.fillStyle(0x2a231b, 1)
+  g.fillRect(x - 5.5 * s, y - 15 * s, 4.5 * s, 15 * s)
+  g.fillRect(x + 1 * s, y - 15 * s, 4.5 * s, 15 * s)
+  g.fillStyle(suit, 1)
+  g.fillRoundedRect(x - 7 * s, y - 33 * s, 14 * s, 20 * s, 3 * s)
+  if (arms === 'up') {
+    g.fillRoundedRect(x - 11 * s, y - 42 * s, 4 * s, 14 * s, 2 * s)
+    g.fillRoundedRect(x + 7 * s, y - 42 * s, 4 * s, 14 * s, 2 * s)
+  } else if (arms === 'carry') {
+    g.fillRoundedRect(x - 12 * s, y - 32 * s, 12 * s, 4 * s, 2 * s)
+    g.fillRoundedRect(x + 6 * s, y - 30 * s, 4 * s, 12 * s, 2 * s)
+  } else {
+    g.fillRoundedRect(x - 10 * s, y - 32 * s, 4 * s, 16 * s, 2 * s)
+    g.fillRoundedRect(x + 6 * s, y - 32 * s, 4 * s, 16 * s, 2 * s)
+  }
+  g.fillStyle(0xd7a678, 1)
+  g.fillCircle(x, y - 37.5 * s, 5.2 * s)
+  if (hat !== null) {
+    g.fillStyle(hat, 1)
+    g.fillEllipse(x, y - 41.5 * s, 13 * s, 5.5 * s)
+    g.fillRect(x - 4 * s, y - 45 * s, 8 * s, 4 * s)
+  }
+}
+
+function bakeProductionProps(scene: Phaser.Scene): void {
+  // ── planting ────────────────────────────────────────────────────────────────
+  // The palm is the only tree on the lot today, and a lot planted with one species
+  // reads as a texture rather than a landscape. Two more: the broadleaf shade tree
+  // that fills a lawn, and the cypress that marks a corner.
+  bakeProp(scene, 'tw-tree', 76, 98, 0.95, (g) => {
+    const cx = 38
+    contact(g, cx, 93, 26)
+    stroke(g, [{ x: cx, y: 93 }, { x: cx - 3, y: 62 }, { x: cx + 1, y: 50 }], C.trunk, 7)
+    stroke(g, [{ x: cx + 1, y: 66 }, { x: cx + 12, y: 55 }], C.trunk, 4)
+    g.fillStyle(C.frondDark, 1)
+    g.fillCircle(cx - 9, 44, 22)
+    g.fillCircle(cx + 12, 48, 18)
+    g.fillCircle(cx + 2, 28, 20)
+    g.fillStyle(C.frond, 1)
+    g.fillCircle(cx - 7, 40, 19)
+    g.fillCircle(cx + 10, 44, 15)
+    g.fillCircle(cx + 1, 25, 16)
+    g.fillStyle(mix(C.frond, 0xffffff, 0.2), 1)
+    g.fillCircle(cx - 10, 32, 11)
+    g.fillCircle(cx, 20, 8)
+  })
+
+  bakeProp(scene, 'tw-cypress', 44, 112, 0.96, (g) => {
+    const cx = 22
+    contact(g, cx, 107, 14)
+    g.fillStyle(C.frondDark, 1)
+    poly(g, [{ x: cx, y: 6 }, { x: cx + 14, y: 78 }, { x: cx + 8, y: 104 }, { x: cx - 8, y: 104 }, { x: cx - 14, y: 78 }], C.frondDark)
+    g.fillStyle(C.frond, 1)
+    poly(g, [{ x: cx - 2, y: 12 }, { x: cx + 6, y: 78 }, { x: cx + 2, y: 102 }, { x: cx - 8, y: 102 }, { x: cx - 11, y: 74 }], C.frond)
+  })
+
+  bakeProp(scene, 'tw-flowerbed', 66, 40, 0.86, (g) => {
+    contact(g, 33, 34, 20)
+    g.fillStyle(C.dirt, 1)
+    g.fillEllipse(33, 26, 56, 20)
+    g.fillStyle(C.dirtEdge, 0.6)
+    g.fillEllipse(33, 28, 56, 18)
+    for (let i = 0; i < 14; i++) {
+      const a = (Math.PI * 2 * i) / 14
+      g.fillStyle(i % 3 === 0 ? C.awning : i % 3 === 1 ? C.brass : C.marquee, 1)
+      g.fillCircle(33 + Math.cos(a) * 21, 25 + Math.sin(a) * 7, 3.2)
+    }
+    g.fillStyle(C.hedge, 1)
+    g.fillCircle(33, 22, 5)
+  })
+
+  // ── the picture's own vehicles ──────────────────────────────────────────────
+  bakeProp(scene, 'tw-trailer', 116, 78, 0.86, (g) => {
+    contact(g, 58, 70, 36)
+    // a star's trailer: cream body, brass waistline, awning over the door
+    g.fillStyle(C.cream, 1)
+    g.fillRoundedRect(10, 24, 92, 34, 8)
+    g.fillStyle(C.creamShade, 1)
+    g.fillRect(58, 24, 44, 34)
+    g.fillStyle(mix(C.cream, 0xffffff, 0.25), 1)
+    g.fillRoundedRect(12, 22, 88, 9, 5)
+    g.fillStyle(C.brass, 0.9)
+    g.fillRect(12, 41, 88, 3)
+    g.fillStyle(C.glass, 0.85)
+    g.fillRoundedRect(19, 29, 18, 10, 2)
+    g.fillRoundedRect(43, 29, 18, 10, 2)
+    g.fillStyle(C.creamDeep, 1)
+    g.fillRect(76, 30, 15, 28)
+    g.fillStyle(C.awning, 1)
+    poly(g, [{ x: 72, y: 28 }, { x: 96, y: 28 }, { x: 100, y: 20 }, { x: 76, y: 20 }], C.awning)
+    g.fillStyle(C.awningDark, 1)
+    g.fillRect(76, 58, 15, 3)
+    g.fillStyle(C.tyre, 1)
+    g.fillCircle(32, 60, 9)
+    g.fillCircle(84, 60, 9)
+    g.fillStyle(C.steelLit, 1)
+    g.fillCircle(32, 60, 3.4)
+    g.fillCircle(84, 60, 3.4)
+    stroke(g, [{ x: 10, y: 46 }, { x: 2, y: 52 }], C.steel, 3)
+  })
+
+  bakeProp(scene, 'tw-boxtruck', 122, 82, 0.85, (g) => {
+    contact(g, 61, 74, 38)
+    g.fillStyle(C.truckBody, 1)
+    g.fillRect(8, 18, 74, 40)
+    g.fillStyle(mix(C.truckBody, C.shadow, 0.3), 1)
+    g.fillRect(56, 18, 26, 40)
+    g.fillStyle(C.truckTrim, 0.9)
+    g.fillRect(12, 32, 66, 5)
+    g.fillStyle(mix(C.truckBody, 0xffffff, 0.12), 1)
+    g.fillRect(8, 15, 74, 5)
+    g.fillStyle(C.truckBody, 1)
+    g.fillRoundedRect(80, 26, 32, 32, 5)
+    g.fillStyle(C.glass, 0.9)
+    g.fillRect(92, 30, 16, 12)
+    g.fillStyle(C.tyre, 1)
+    g.fillCircle(26, 60, 10)
+    g.fillCircle(66, 60, 10)
+    g.fillCircle(98, 60, 10)
+    g.fillStyle(C.steelLit, 1)
+    g.fillCircle(26, 60, 3.6)
+    g.fillCircle(66, 60, 3.6)
+    g.fillCircle(98, 60, 3.6)
+  })
+
+  bakeProp(scene, 'tw-sedan', 108, 58, 0.83, (g) => {
+    contact(g, 54, 50, 33)
+    const body = C.vanBody
+    g.fillStyle(body, 1)
+    g.fillRoundedRect(4, 20, 100, 22, 10)
+    g.fillStyle(mix(body, 0xffffff, 0.16), 1)
+    g.fillRoundedRect(28, 7, 50, 25, 10)
+    poly(g, [{ x: 34, y: 11 }, { x: 51, y: 11 }, { x: 51, y: 25 }, { x: 34, y: 25 }], C.glass, 0.72)
+    poly(g, [{ x: 56, y: 11 }, { x: 73, y: 14 }, { x: 73, y: 25 }, { x: 56, y: 25 }], C.glass, 0.72)
+    g.fillStyle(C.carTrim, 0.85)
+    g.fillRect(10, 30, 88, 3)
+    g.fillStyle(C.tyre, 1)
+    g.fillCircle(26, 42, 10)
+    g.fillCircle(80, 42, 10)
+    g.fillStyle(C.marquee, 1)
+    g.fillCircle(26, 42, 4)
+    g.fillCircle(80, 42, 4)
+  })
+
+  // ── the gear a stage actually runs on ───────────────────────────────────────
+  bakeProp(scene, 'tw-crane', 124, 116, 0.95, (g) => {
+    contact(g, 56, 110, 34)
+    // dolly base
+    g.fillStyle(C.steel, 1)
+    g.fillRoundedRect(26, 92, 60, 12, 4)
+    g.fillStyle(C.tyre, 1)
+    g.fillCircle(34, 106, 7)
+    g.fillCircle(78, 106, 7)
+    // column and boom
+    g.fillStyle(C.steelLit, 1)
+    g.fillRect(50, 58, 12, 36)
+    stroke(g, [{ x: 56, y: 62 }, { x: 112, y: 16 }], C.steel, 7)
+    stroke(g, [{ x: 56, y: 62 }, { x: 16, y: 94 }], C.steel, 7)
+    stroke(g, [{ x: 56, y: 62 }, { x: 100, y: 26 }], C.steelLit, 2.5)
+    // counterweights at the tail
+    g.fillStyle(C.shadow, 1)
+    g.fillRoundedRect(10, 84, 22, 16, 3)
+    // camera head and operator seat
+    g.fillStyle(0x1e2120, 1)
+    g.fillRoundedRect(100, 8, 22, 15, 3)
+    g.fillCircle(122, 15, 6)
+    g.fillStyle(C.glass, 0.8)
+    g.fillCircle(122, 15, 3)
+    g.fillStyle(C.truckBody, 1)
+    g.fillRoundedRect(92, 22, 14, 9, 3)
+  })
+
+  bakeProp(scene, 'tw-arcrig', 60, 112, 0.96, (g) => {
+    contact(g, 30, 106, 18)
+    stroke(g, [{ x: 30, y: 104 }, { x: 16, y: 108 }], C.steel, 3)
+    stroke(g, [{ x: 30, y: 104 }, { x: 44, y: 108 }], C.steel, 3)
+    stroke(g, [{ x: 30, y: 104 }, { x: 30, y: 46 }], C.steel, 4.5)
+    g.fillStyle(0x2b2b28, 1)
+    g.fillRoundedRect(12, 20, 36, 30, 5)
+    g.fillStyle(C.lampGlass, 1)
+    g.fillCircle(46, 35, 11)
+    g.fillStyle(mix(C.lampGlass, 0xffffff, 0.5), 0.9)
+    g.fillCircle(46, 35, 6)
+    g.fillStyle(0x1d1d1b, 1)
+    g.fillRect(44, 18, 16, 5)
+    g.fillRect(44, 47, 16, 5)
+    stroke(g, [{ x: 20, y: 50 }, { x: 6, y: 100 }, { x: 20, y: 106 }], 0x24211c, 3)
+  })
+
+  bakeProp(scene, 'tw-genset', 78, 54, 0.87, (g) => {
+    contact(g, 39, 46, 24)
+    g.fillStyle(C.truckBody, 1)
+    g.fillRoundedRect(10, 14, 58, 24, 3)
+    g.fillStyle(mix(C.truckBody, C.shadow, 0.32), 1)
+    g.fillRect(46, 14, 22, 24)
+    g.fillStyle(C.steel, 1)
+    for (let x = 14; x < 42; x += 5) g.fillRect(x, 18, 2, 16)
+    g.fillStyle(C.steel, 1)
+    g.fillRect(6, 36, 66, 4)
+    g.fillStyle(C.tyre, 1)
+    g.fillCircle(20, 44, 7)
+    g.fillCircle(58, 44, 7)
+    stroke(g, [{ x: 68, y: 26 }, { x: 76, y: 30 }], C.steel, 3)
+  })
+
+  bakeProp(scene, 'tw-cablereel', 58, 50, 0.87, (g) => {
+    contact(g, 29, 44, 20)
+    for (const [cx, cy, r] of [[20, 26, 15], [40, 30, 12]] as const) {
+      g.fillStyle(C.timberDark, 1)
+      g.fillCircle(cx, cy, r)
+      g.fillStyle(0x24211c, 1)
+      g.fillCircle(cx, cy, r * 0.62)
+      g.fillStyle(C.timber, 1)
+      g.fillCircle(cx, cy, r * 0.2)
+    }
+  })
+
+  bakeProp(scene, 'tw-cratestack', 66, 76, 0.91, (g) => {
+    contact(g, 33, 70, 22)
+    const p = (gx: number, gy: number, z: number): Pt => ({ x: (gx - gy) * 15 + 33, y: (gx + gy) * 7.5 - z + 52 })
+    const box = (bx: number, by: number, z0: number, size: number): void => {
+      const H = size
+      poly(g, [p(bx, by + 1, z0), p(bx + 1, by + 1, z0), p(bx + 1, by + 1, z0 + H), p(bx, by + 1, z0 + H)], C.crate)
+      poly(g, [p(bx + 1, by, z0), p(bx + 1, by + 1, z0), p(bx + 1, by + 1, z0 + H), p(bx + 1, by, z0 + H)], C.crateDark)
+      poly(g, [p(bx, by, z0 + H), p(bx + 1, by, z0 + H), p(bx + 1, by + 1, z0 + H), p(bx, by + 1, z0 + H)], mix(C.crate, 0xffffff, 0.16))
+      stroke(g, [p(bx, by + 1, z0 + H * 0.5), p(bx + 1, by + 1, z0 + H * 0.5)], C.timberDark, 1.4, 0.75)
+    }
+    box(-0.5, -0.5, 0, 17)
+    box(0.5, 0.4, 0, 15)
+    box(-0.4, 0.5, 0, 15)
+    box(0, 0, 17, 16)
+    box(-0.1, -0.05, 33, 14)
+  })
+
+  bakeProp(scene, 'tw-flatlean', 108, 94, 0.92, (g) => {
+    contact(g, 54, 86, 34)
+    // painted scenery flats leaning on a stage wall — the tallest yard prop, and the
+    // one that says SET rather than storage. Painted faces, not blank timber.
+    const faces = [C.taupeLit, C.awning, C.glassDeep, C.timber] as const
+    for (let i = 0; i < 4; i++) {
+      const x = 8 + i * 13
+      poly(
+        g,
+        [{ x, y: 84 }, { x: x + 32, y: 84 }, { x: x + 40, y: 10 + i * 3 }, { x: x + 8, y: 10 + i * 3 }],
+        faces[i],
+      )
+      stroke(g, [{ x, y: 84 }, { x: x + 8, y: 10 + i * 3 }], C.shadow, 2, 0.4)
+      // a painted horizon band so a flat reads as scenery
+      poly(
+        g,
+        [{ x: x + 3, y: 60 }, { x: x + 35, y: 60 }, { x: x + 36, y: 50 }, { x: x + 4, y: 50 }],
+        mix(faces[i], C.shadow, 0.28),
+        0.8,
+      )
+    }
+  })
+
+  bakeProp(scene, 'tw-lumber', 92, 58, 0.88, (g) => {
+    contact(g, 46, 50, 28)
+    for (const x of [16, 66]) {
+      stroke(g, [{ x: x - 7, y: 48 }, { x, y: 30 }, { x: x + 7, y: 48 }], C.timberDark, 3)
+    }
+    for (let i = 0; i < 4; i++) {
+      g.fillStyle(i % 2 ? C.timber : mix(C.timber, C.shadow, 0.18), 1)
+      g.fillRect(8, 30 - i * 5, 76, 4.4)
+    }
+    g.fillStyle(C.steel, 1)
+    g.fillRect(70, 12, 3, 16)
+    g.fillStyle(C.steelLit, 1)
+    poly(g, [{ x: 62, y: 14 }, { x: 80, y: 10 }, { x: 80, y: 14 }, { x: 62, y: 18 }], C.steelLit)
+  })
+
+  // ── crews, caught mid-job ───────────────────────────────────────────────────
+  // Each of these is placed by the WORLD only where the engine's own week theater
+  // says that work is happening. They are the answer to 00H priority 1.
+
+  bakeProp(scene, 'tw-crew-build', 118, 96, 0.93, (g) => {
+    // a construction gang: one up a ladder, two placing a plank, materials at their feet
+    g.fillStyle(C.timberDark, 1)
+    g.fillRect(6, 78, 44, 5)
+    g.fillRect(10, 84, 36, 5)
+    stroke(g, [{ x: 62, y: 90 }, { x: 70, y: 24 }], C.timber, 3.5)
+    stroke(g, [{ x: 74, y: 90 }, { x: 82, y: 24 }], C.timber, 3.5)
+    for (let i = 0; i < 6; i++) stroke(g, [{ x: 63 + i * 1.4, y: 80 - i * 11 }, { x: 75 + i * 1.4, y: 80 - i * 11 }], C.timber, 2.4)
+    crewFigure(g, 76, 52, 34, 0x6d4c2e, 0xc9a24a, 'up')
+    crewFigure(g, 26, 90, 40, 0x4a5140, 0xc9a24a, 'carry')
+    crewFigure(g, 48, 94, 42, 0x3a4f5a, 0xc9a24a, 'down')
+    g.fillStyle(C.crate, 1)
+    g.fillRect(92, 74, 20, 14)
+    g.fillStyle(C.crateDark, 1)
+    g.fillRect(104, 74, 8, 14)
+    g.fillStyle(C.drum, 1)
+    g.fillRoundedRect(2, 64, 13, 20, 3)
+  })
+
+  bakeProp(scene, 'tw-crew-grip', 104, 84, 0.92, (g) => {
+    // grips at a stage door: a gear cart, a light on a stand, two hands working
+    g.fillStyle(C.steel, 1)
+    g.fillRect(8, 60, 34, 5)
+    g.fillStyle(C.tyre, 1)
+    g.fillCircle(14, 68, 5)
+    g.fillCircle(36, 68, 5)
+    g.fillStyle(C.canvasTarp, 1)
+    g.fillRect(12, 44, 26, 16)
+    g.fillStyle(C.crate, 1)
+    g.fillRect(16, 34, 18, 10)
+    stroke(g, [{ x: 88, y: 76 }, { x: 88, y: 30 }], C.steel, 3.5)
+    g.fillStyle(0x2b2b28, 1)
+    g.fillRoundedRect(76, 14, 24, 18, 4)
+    g.fillStyle(C.lampGlass, 1)
+    g.fillCircle(99, 23, 7)
+    crewFigure(g, 54, 78, 40, 0x4a5140, 0x2c3a42, 'carry')
+    crewFigure(g, 70, 82, 42, 0x35322e, null, 'up')
+  })
+
+  bakeProp(scene, 'tw-crew-haul', 100, 78, 0.9, (g) => {
+    // two hands walking a loaded hand truck down the road
+    g.fillStyle(C.steel, 1)
+    g.fillRect(44, 34, 4, 34)
+    g.fillRect(44, 66, 22, 4)
+    g.fillStyle(C.tyre, 1)
+    g.fillCircle(50, 70, 6)
+    g.fillStyle(C.crate, 1)
+    g.fillRect(48, 40, 26, 26)
+    g.fillStyle(C.crateDark, 1)
+    g.fillRect(64, 40, 10, 26)
+    stroke(g, [{ x: 48, y: 53 }, { x: 74, y: 53 }], C.timberDark, 1.6, 0.8)
+    crewFigure(g, 26, 74, 42, 0x6d4c2e, 0x2c3a42, 'carry')
+    crewFigure(g, 86, 76, 42, 0x4a5140, 0x2c3a42, 'carry')
+  })
+
+  bakeProp(scene, 'tw-crew-queue', 124, 82, 0.92, (g) => {
+    // a line of hopefuls outside a casting door: the queue the world can WEAR
+    const suits = [0x2a6a5c, 0x74495f, 0x715f4a, 0x4d3527, 0x3a4f5a] as const
+    for (let i = 0; i < 5; i++) {
+      crewFigure(g, 14 + i * 24, 76 - (i % 2) * 4, 40, suits[i], i % 2 ? 0x33261e : null, 'down')
+    }
+  })
+
+  bakeProp(scene, 'tw-crew-camera', 96, 86, 0.93, (g) => {
+    // a camera crew on the apron: tripod head, an operator, a slate
+    stroke(g, [{ x: 34, y: 78 }, { x: 22, y: 84 }], C.steel, 3)
+    stroke(g, [{ x: 34, y: 78 }, { x: 46, y: 84 }], C.steel, 3)
+    stroke(g, [{ x: 34, y: 78 }, { x: 34, y: 40 }], C.steel, 4)
+    g.fillStyle(0x1e2120, 1)
+    g.fillRoundedRect(18, 22, 34, 20, 4)
+    g.fillCircle(52, 32, 8)
+    g.fillStyle(C.glass, 0.85)
+    g.fillCircle(52, 32, 4)
+    g.fillStyle(0x2b2b28, 1)
+    g.fillCircle(26, 18, 9)
+    crewFigure(g, 66, 82, 42, 0x35322e, 0x2c3a42, 'up')
+    g.fillStyle(C.signInk, 1)
+    g.fillRect(84, 54, 12, 10)
+    g.fillStyle(C.signPanel, 1)
+    for (let i = 0; i < 3; i++) g.fillRect(84 + i * 4, 54, 2, 3)
+  })
 }
 
 // ── C1-M6b backlot dressing ───────────────────────────────────────────────────
