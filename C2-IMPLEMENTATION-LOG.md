@@ -396,6 +396,78 @@ finished) + `ui/e2e/` additions.
   was present for. Both verbs hold it (lot-native and Dashboard).
   Floors: root tsc 0 · ui tsc 0 · ui **188 files / 2,554 passed + 5 skipped / 0**.
 
+- **ONE TOPBAR ROW, WITH THE TRANSPORT IN IT** (`a2f985d`). The browser floor
+  caught a real regression and this is the measurement that closed it. Living Turn
+  V1 put the transport into a row PF1-M4 addendum 2 had measured at 18.9px of
+  slack. MEASURED at HEAD, `.lot-topbar` height: 1280×900 **63 → 119.5**;
+  1120×720 **63 → 115**; 960×540 115 → 115 (the shipped bar already wraps there).
+  That 56px is exactly the height PF1-M4 bought back — it pushes the world and
+  every anchored panel down the page — and it is what
+  `tycoon-build-mode-v1.spec.ts`'s camera test failed on. Bought back with NO new
+  mechanism: the band the addendum already defined widens 1120px → 1400px and the
+  two MANUAL ADVANCE VERBS join Saves and Settings as compactable entries — the
+  two the charter itself demotes (`08A` §4: "the ruling demotes [Advance Week]
+  from required heartbeat to option") while the transport is the control this
+  milestone is about. AFTER, measured: **1440 63 · 1280 63 · 1120 63 · 960 115**,
+  and 960 is IDENTICAL to the shipped bar on purpose (every panel assertion in
+  `lot.spec.ts` / `publicity-campaign-v1.spec.ts` is written against that
+  geometry). RE-PIN of the intent test `wiring.test.tsx` per the five rules and
+  NOT weakened: the band regex follows the band and the pin now covers FOUR
+  entries instead of two, with the same four properties asserted on each.
+
+### UI-M5 FLOORS AT THE LANE'S HEAD (`a2f985d`)
+
+root tsc 0 · ui tsc 0 · **FULL vitest 320 files / 4,370 passed + 5 skipped / 0
+failed** (solo, unpiped — `/tmp/c2a-m5-full-uim5.log`; ENGINE-M5 left
+317 / 4,313 + 5). **FULL Playwright, whole floor, serialized: 217 passed /
+4 skipped / 0 FAILED of 221 (19.3m)** — `/tmp/c2a-m5-pw-final2.log`. The M4/
+ENGINE-M5 floor was 215 / 4 / 0 of 219; the two additions are exactly this lane's
+new spec. **Zero regressions.**
+
+### UI-M5 FINDINGS (for the Owner / PM)
+
+1. **CARRIED, still open — LADDER RANK.** ENGINE-M5's finding 1 stands unchanged:
+   `wrap` outranks `cashNegative`, so on a tick where both fire the reported stop
+   is `wrap`. The living loop is what makes it matter, because `wrap` is NOTIFY
+   (keep running) and `cashNegative` is PAUSE. Implemented as the charter states
+   it. **An Owner/PM ruling is still owed** on whether PAUSE-class should outrank
+   NOTIFY-class inside one tick.
+2. **THE GATE'S "TWO PICTURES IN FLIGHT, ≥12 QUIET WEEKS" CANNOT BE MET AS
+   WRITTEN, and this is an engine fact, not a shortfall.** MEASURED: from a
+   greenlit studio the engine asks for a production decision at **week 4** — the
+   longest hands-off stretch with pictures in PRODUCTION is four weeks. The
+   ≥12-week hands-off proof is therefore delivered on a studio with a picture IN
+   THEATRES (money moving weekly, a theatrical run completing mid-flight as a
+   NOTIFY-class stop), with the twelve weeks proven quiet by a hand-advanced twin
+   before the browser sees them, and the PAUSE-class run length asserted exactly
+   on the in-production studio. Both halves of the gate are proven; they are
+   proven on two fixtures because no single one can carry both.
+3. **THE PLAYED WEEK'S STAGE LIGHTS ARE CLASS-A.** §12-M5 asks that stages "light
+   when shooting starts and go dark at wrap WITHIN the played week". What ships is
+   the settled week's own marks (a hot stage spills working light; a wrap leaves a
+   clearing ring) plus freight that genuinely travels across the played week. A
+   true mid-week lamp TRANSITION is Class-B work needing a beat-indexed lamp
+   state, and it is not in this lane. Reported, not silently skipped.
+4. **HAUL PROPORTION IS APPROXIMATE, and the fix belongs to the engine.** The
+   theater subject carries `weeksRemaining` but not the trip's TOTAL, so the lot
+   reconstructs the fraction as `1 - remaining/(remaining+1)` — honest, monotonic,
+   never backwards, but it renders a three-week haul as three equal "one more and
+   it's there" steps rather than thirds of the whole trip. If the Owner wants true
+   proportional travel, `studioWeekTheater` should carry `totalWeeks` on the
+   subject; the renderer would then need no change beyond reading it.
+5. **A PRESENTATION WATCHDOG EXISTS AND IS NAMED.** The deferred release carries a
+   `livingTurnWeekMs(1) * 2` timeout so the release surface appears even if the Lot
+   never reports a settled week. It decides nothing about the world — it only
+   guarantees a surface — and it is stated as such at the call site.
+6. **CARRIED UNTOUCHED**: ENGINE-M5's finding 2 (`lotWeekEvents` may never see a
+   wrap — a shipped M1/M2 surface, still routed to its owner) and finding 3
+   (`SCENERY_LOAD_IN_WEEKS_PER_DISTANCE` is the Owner's balance dial).
+7. **HUMAN VISUAL REVIEW IS STILL THE OPEN GATE.** No canvas digests exist and
+   none were minted. The theater's marks, the crates on the road, the backed-up
+   apron and the grounded patrols have never been looked at by a person. The
+   structural budget IS measured (+1 display object, 0 decoded bytes, 0 draw
+   calls, dynamic actors unchanged at 14).
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and
