@@ -289,3 +289,31 @@ silently invalidate the sweep:
 `ui/**` — WORLD-M2a and SCREENS-M2 are live there. One engine change needs two
 lines in files they own; it is stated as a blocker in this lane's handoff rather
 than edited across a lane boundary.
+
+## M3 — LANDED (checkpoint 2026-08-19, HEAD after closeout `b403d97`)
+
+Renewable Screenplay Generation V1 complete: mint-at-commit ('concept-orig-NNNN' +
+MovieBlueprint), generated titles (genre-keyed lead subsets, 'screenplay-v1'
+stream), rename (identity-stable, proven the strong way), six 7-beat templates
+(3 recovered verbatim, 3 authored-labelled), beat→set demand on the package,
+pool-blueprint derivation (one path), the 30-film ceiling REMOVED (terminal
+blocker → 'Commission an original screenplay'), writer-speed law per 00E.9
+(quality term out, renormalised — see 17-m3-records.md §2 for the renormalisation
+reading; pool drafts keep the 1-week clock, originals scale with office richness,
+pooling ≤5 buys time only). Gate green by name; FULL vitest 305f/4,205+5/0.
+00E.9 re-base audit: five pins, all cited. Q071 filed in the corpus register.
+CLOSEOUT: the four pre-existing e2e reds fixed (recap V13→V14 re-tag; Stage 7
+live-format equality with the one legitimate sceneryArrived row named; lot +
+publicity = the migrated-save banner's 92.5px, dismissed via the new shared
+helper which itself asserts the banner appears and clears). Checkpoint item 4's
+vitest literals were ALREADY green — that entry was stale, corrected here.
+FULL Playwright floor certification deferred to M4 integration (each fixed spec
+green in isolation + the four together: 33 passed).
+CARRIED to M4: canStartOriginal read-model split (one boolean answers two
+questions); the original-commission Lot witness card (additive);
+17-m3-records.md's three design questions (EST=truth at first draft → M7/C4;
+price-signals-potential → future ruling; renormalisation reading → Owner FYI).
+PM RULING for M4 (recorded under the Owner's delegated authority): the
+Soundstage-7-sealed scenery/take affordances WIDEN to N stages in M4 with the
+D1-B spec re-pins done additively (Stage-7 assertions preserved) — the Movie #2
+gate demands production blocking be legible on every stage the player builds.
