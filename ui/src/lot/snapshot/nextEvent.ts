@@ -14,6 +14,10 @@ import type {
   SimStopReason,
 } from '../../engine/adapter.ts'
 import { stage7ProductionDetailContext } from './stage7Production.ts'
+import {
+  FOUNDING_STAGE_SEVEN_BUILDING_ID,
+  lotStageIdentityFor,
+} from './stageIdentity.ts'
 import type {
   BuildingId,
   LotProductionCommand,
@@ -41,7 +45,26 @@ export type LotNextEventWorldTarget =
       kind: 'production'
       productionId: string
       title: string
+      /**
+       * C2a-M2's recorded seam, CLOSED at C2a-M4 (WORLD-M2a's carried spec).
+       *
+       * `location` was a TWO-VALUE vocabulary — `stage-7`, and "the other one" —
+       * and it could not survive a studio that BUILDS a third soundstage: the
+       * rail printed "Soundstage 12" for a stage that is not Soundstage 12, and
+       * App's world hop translated the same two values back into `stage-b` and
+       * opened the wrong building. Both are G12 offences the moment §3.4's
+       * buildable stages exist.
+       *
+       * The receipt now CARRIES the truth instead of re-deriving it: the exact
+       * body the picture is on, and the engine's OWN name for its facility (§3.1
+       * display-name ruling — the engine name is the single spoken authority).
+       * `location` is kept beside them, unchanged and still validated, because
+       * accepted receipts are written against it and a closed shape widens
+       * additively or not at all.
+       */
       location: 'stage-7' | 'stage-12-semantic'
+      buildingId: BuildingId
+      stageName: string
     }
   | {
       kind: 'run-completed'
@@ -470,19 +493,17 @@ function productionTarget(
   if (matches.length !== 1 || !isExactOperationForCard(matches[0], card)) return null
   const operation = matches[0]
 
-  // C2a-M2 §3.1 — RECORDED SEAM, deliberately not closed here.
+  // C2a-M2 §3.1's RECORDED SEAM, CLOSED (C2a-M4, WORLD-M2a's carried spec).
   //
-  // This target's `location` is a two-value vocabulary, and the rail prints "Soundstage
-  // 12" for everything that is not `stage-7` while App.tsx's world hop translates it
-  // back to `stage-b`. A picture on a stage the studio BUILT would therefore be both
-  // MISNAMED and MIS-NAVIGATED — so `isExactOperationForCard` above still refuses a
-  // location outside the founding two, and a third stage produces no world target at
-  // all. Silence over a sentence that is false at its state (G12) and a hop that opens
-  // the wrong building.
-  //
-  // Closing it is additive widening of a CLOSED receipt shape (`hasExactOwnKeys`) plus
-  // one line in App.tsx, which this lane does not write. It is reported, not guessed.
-  if (operation.locationBuildingId === 'stage-a') {
+  // The stage this picture is on is now READ from the derived stage identities —
+  // the same authority the world, the companion rail and the presence layer read —
+  // rather than sorted into "Soundstage 7" and "everything else". A body that is
+  // not one of THIS studio's soundstages still produces no target at all: that
+  // silence was never about the founding two, it was about not naming a place the
+  // studio does not have.
+  const identity = lotStageIdentityFor(snapshot, operation.locationBuildingId)
+  if (identity === null || !isNonEmptyString(identity.facilityName)) return null
+  if (operation.locationBuildingId === FOUNDING_STAGE_SEVEN_BUILDING_ID) {
     const stage7 = stage7ProductionDetailContext(snapshot)
     if (stage7 === null || stage7.operation !== operation) return null
     return {
@@ -490,13 +511,20 @@ function productionTarget(
       productionId: card.productionId,
       title: card.title,
       location: 'stage-7',
+      buildingId: identity.buildingId,
+      stageName: identity.facilityName,
     }
   }
   return {
     kind: 'production',
     productionId: card.productionId,
     title: card.title,
+    // Unchanged for every state that could reach it before: the founding
+    // Soundstage 12, and now every stage the studio has built beside it. The
+    // NAME and the BODY no longer come from this discriminant.
     location: 'stage-12-semantic',
+    buildingId: identity.buildingId,
+    stageName: identity.facilityName,
   }
 }
 
@@ -784,10 +812,22 @@ function isTarget(value: unknown): value is LotNextEventWorldTarget {
         isNonEmptyString(value.title) &&
         value.buildingId === 'casting'
     case 'production':
-      return hasExactOwnKeys(value, ['kind', 'productionId', 'title', 'location']) &&
+      // C2a-M4: two members added, both required. A receipt minted before this
+      // widening carries neither and is rejected as the stale shape it is —
+      // which is what a CLOSED receipt is for.
+      return hasExactOwnKeys(value, [
+        'kind',
+        'productionId',
+        'title',
+        'location',
+        'buildingId',
+        'stageName',
+      ]) &&
         isNonEmptyString(value.productionId) &&
         isNonEmptyString(value.title) &&
-        (value.location === 'stage-7' || value.location === 'stage-12-semantic')
+        (value.location === 'stage-7' || value.location === 'stage-12-semantic') &&
+        isNonEmptyString(value.buildingId) &&
+        isNonEmptyString(value.stageName)
     case 'run-completed': {
       if (!hasExactOwnKeys(value, ['kind', 'runs', 'buildingId']) || value.buildingId !== 'theater') {
         return false
@@ -921,7 +961,9 @@ export function currentLotNextEventProductionCommand(
       target === null ||
       target.productionId !== receipt.target.productionId ||
       target.title !== receipt.target.title ||
-      target.location !== receipt.target.location
+      target.location !== receipt.target.location ||
+      target.buildingId !== receipt.target.buildingId ||
+      target.stageName !== receipt.target.stageName
     ) return null
     return current.decision.command
   } catch {

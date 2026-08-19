@@ -291,9 +291,11 @@ function ReasonIdentity({ target }: { target: LotNextEventWorldTarget }) {
         >
           <span className="lot-next-event-kicker">Production decision</span>
           <strong>{target.title}</strong>
-          <span>
-            {target.location === "stage-7" ? "Soundstage 7" : "Soundstage 12"}
-          </span>
+          {/* C2a-M4 (WORLD-M2a's carried spec, G12): this printed "Soundstage 12"
+              for every stage that was not Soundstage 7 — false the moment §3.4's
+              buildable stages exist. The receipt carries the engine's own name
+              for the facility the picture is on; the rail says it. */}
+          <span>{target.stageName}</span>
         </div>
       );
     case "run-completed":

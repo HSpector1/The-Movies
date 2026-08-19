@@ -231,11 +231,18 @@ describe('strict Lot next-event presentation boundary', () => {
     const production = productionResult('next-event-receipt-stage-7')
     const productionReceipt = acceptedLotNextEventReceipt(production.before, production.result)
     expect(production.result.stopReason).toBe('productionDecision')
+    // C2a-M4 (WORLD-M2a's carried spec): ADDITIVE widening of a closed receipt.
+    // The Stage-7 assertions above are preserved verbatim; the two new members
+    // are the body the picture is on and the engine's OWN name for its facility,
+    // which is what lets the rail name a stage the studio BUILT instead of
+    // calling everything that is not Soundstage 7 "Soundstage 12".
     expect(productionReceipt?.target).toEqual({
       kind: 'production',
       productionId: production.result.productionDecision!.productionId,
       title: production.result.productionDecision!.title,
       location: 'stage-7',
+      buildingId: 'stage-a',
+      stageName: 'Soundstage 7',
     })
   })
 

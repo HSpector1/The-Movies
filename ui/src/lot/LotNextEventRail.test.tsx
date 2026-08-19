@@ -44,7 +44,12 @@ function exactReceipt(
     kind: "production",
     productionId: "prod-44",
     title: "A Fraction of Midnight",
+    // C2a-M4: the receipt CARRIES the body and the engine's own facility name
+    // now, so the rail names the stage the picture is actually on instead of
+    // printing "Soundstage 12" for everything that is not Soundstage 7.
     location: "stage-12-semantic",
+    buildingId: "stage-b",
+    stageName: "Soundstage 12",
   },
 ): LotNextEventReceipt {
   return {
@@ -816,5 +821,63 @@ describe("LotNextEventRail", () => {
     await new Promise((resolve) => setTimeout(resolve, 5));
     fireEvent.click(button, { detail: 0 });
     expect(deep).toHaveBeenCalledTimes(3);
+  });
+});
+
+describe("C2a-M4 · the rail names the stage the picture is actually on", () => {
+  // WORLD-M2a's carried spec, closed. The rail printed "Soundstage 12" for every
+  // stage that was not Soundstage 7 — a two-value vocabulary that becomes a FALSE
+  // SENTENCE (G12) the moment §3.4's buildable stages exist. The receipt now
+  // carries the engine's own name for the facility; the rail prints it.
+  it("prints the engine's own name for a stage the studio BUILT", () => {
+    const feedback = {
+      kind: "next-event-exact" as const,
+      receipt: exactReceipt({
+        kind: "production",
+        productionId: "prod-51",
+        title: "The Long Ravine",
+        location: "stage-12-semantic",
+        buildingId: "placed-7",
+        stageName: "Soundstage 3",
+      }),
+    };
+    render(
+      <LotNextEventRail
+        feedback={feedback}
+        reasonDetail={<p>Shooting · Decision required</p>}
+        worldAction={{ label: "Call director to Soundstage 3", onActivate: () => {} }}
+        deepAction={{ label: "Open Production Board details", onActivate: () => {} }}
+        onDismiss={() => {}}
+      />,
+    );
+    const rail = screen.getByTestId("lot-next-event-rail");
+    expect(rail).toHaveTextContent("Soundstage 3");
+    // The retired two-value answer would have said this instead.
+    expect(rail).not.toHaveTextContent("Soundstage 12");
+    expect(rail).not.toHaveTextContent("placed-7");
+  });
+
+  it("still names Soundstage 7 for a founding-stage receipt", () => {
+    const feedback = {
+      kind: "next-event-exact" as const,
+      receipt: exactReceipt({
+        kind: "production",
+        productionId: "prod-52",
+        title: "A Fraction of Midnight",
+        location: "stage-7",
+        buildingId: "stage-a",
+        stageName: "Soundstage 7",
+      }),
+    };
+    render(
+      <LotNextEventRail
+        feedback={feedback}
+        reasonDetail={<p>Shooting · Decision required</p>}
+        worldAction={{ label: "Call director to Soundstage 7", onActivate: () => {} }}
+        deepAction={{ label: "Open Production Board details", onActivate: () => {} }}
+        onDismiss={() => {}}
+      />,
+    );
+    expect(screen.getByTestId("lot-next-event-rail")).toHaveTextContent("Soundstage 7");
   });
 });

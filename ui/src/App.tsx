@@ -3194,7 +3194,14 @@ export function App() {
         case 'production': {
           const target = receipt.target
           const decision = studioDecision(current)
-          const location = target.location === 'stage-7' ? 'stage-a' : 'stage-b'
+          // C2a-M4 (WORLD-M2a's carried spec): the receipt CARRIES the body it
+          // was minted against. Translating the two-value `location` back into
+          // `stage-a`/`stage-b` sent a picture on a BUILT stage to the wrong
+          // building — and made the agreement check below pass for a stage the
+          // picture is not on. The carried id is preferred; `location` stays as
+          // the coarse discriminant it always was and is still validated at the
+          // receipt boundary.
+          const location = target.buildingId
           const operations = (studioLotSnapshot(current).productionOperations ?? []).filter(
             (operation) => operation.productionId === target.productionId,
           )
