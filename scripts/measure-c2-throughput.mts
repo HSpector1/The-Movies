@@ -62,10 +62,22 @@ function git(args: readonly string[]): string {
 const HEAD = git(['rev-parse', 'HEAD'])
 /** The last commit that touched a surface capable of MOVING A NUMBER in this report. */
 const MEASURED_SOURCE_COMMIT = git(['log', '-1', '--format=%H', '--', 'src', 'ui/src'])
+/**
+ * Dirtiness is asked of THE SURFACES THAT CAN MOVE A NUMBER, not of the whole worktree.
+ *
+ * Measured, not assumed: a bare `git status --porcelain` includes this script's OWN
+ * output, so run 1 wrote "clean" and run 2 — reading the untracked report run 1 had just
+ * created — wrote "provisional". Two runs at one HEAD were not byte-identical, which is
+ * the determinism this report claims. Scoping the question to `src`, `ui/src` and
+ * `scripts` fixes it and makes the flag mean what a reader needs it to mean: *is the code
+ * these figures came out of committed?* `scripts` is deliberately included — an
+ * uncommitted edit to this file does make its figures provisional.
+ */
+const DIRTY_SURFACES = ['src', 'ui/src', 'scripts'] as const
 const SOURCE: FacilitiesSourceProvenance = {
   sourceCommit: HEAD,
   sourceTree: git(['rev-parse', 'HEAD^{tree}']),
-  worktreeDirty: git(['status', '--porcelain']) !== '',
+  worktreeDirty: git(['status', '--porcelain', '--', ...DIRTY_SURFACES]) !== '',
   runtime: 'measure-c2-throughput',
 }
 
@@ -232,7 +244,10 @@ function main(): void {
         ['Generating command', '`node_modules/.bin/vite-node scripts/measure-c2-throughput.mts`'],
         ['HEAD at measurement', `\`${HEAD}\``],
         ['Last commit touching `src/` or `ui/src/`', `\`${MEASURED_SOURCE_COMMIT}\``],
-        ['Worktree clean', SOURCE.worktreeDirty ? '**NO — figures are provisional**' : 'yes'],
+        [
+          '`src` / `ui/src` / `scripts` committed',
+          SOURCE.worktreeDirty ? '**NO — figures are provisional**' : 'yes',
+        ],
         ['Instrument', '`runFacilitiesArm` (`src/harness/facilities`), consumed read-only'],
         ['Seeds', SEEDS.map((seed) => `\`${seed}\``).join(' … ')],
         ['Horizon', `${String(HORIZON_WEEKS)} weeks per arm (C1’s horizon)`],
