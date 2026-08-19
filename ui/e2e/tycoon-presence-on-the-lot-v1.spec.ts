@@ -734,22 +734,42 @@ test('simulating to the next event lands on current truth and animates no skippe
 //     Week-0 → Week-1 playback. The warmth pass touched no person: presence still MOVES
 //     existing bodies and creates none, and a whole week of playback still costs nothing
 //     structural. That is the assertion this suite exists to make, and it is unweakened.
+//
+// C2a-M5 RE-PIN (the Living Studio) — 231 → 232 objects in ALL THREE tuples, and NOTHING
+// ELSE MOVES. This is a change of KIND, argued as one, with all three parts measured on a
+// real run of this spec at HEAD:
+//
+//   • +1 display object — `tier:week-theater`, ONE shared Graphics layer for the whole
+//     plant: freight on the road, freight backed up on a contended apron, and the marks a
+//     hot / clearing / mounting body wears. It is created with the other overlays whether
+//     or not the plant is currently doing anything, exactly like `tier:presence-queue` and
+//     `tier:guidance-marker` before it, which is why the figure is IDENTICAL in all three
+//     fixtures and does not move as the journey advances or as a week plays back.
+//   • decoded bytes UNCHANGED at 8,807,528 — the layer is vector, and loads no texture.
+//     A byte delta here would have meant new art, and this milestone authored none.
+//   • draw calls UNCHANGED at 6 — the layer batches into the existing graphics pipeline,
+//     the same reason the queue cue and the guidance pool cost none.
+//   • dynamic actors UNCHANGED at 14 — and this one is the load-bearing non-movement. M5
+//     GROUNDS the eight ambient patrols (§4.2): a patrol whose authoritative fact is false
+//     is no longer VISIBLE. It still EXISTS, and this counter counts existence, so the
+//     figure is unchanged — which is exactly the evidence that grounding is a visibility
+//     law and not a covert change to what the world is made of.
 const GRID_PRESENCE_WEEK_0_STRUCTURE = {
-  displayObjects: 231,
+  displayObjects: 232,
   dynamicActors: 14,
   decodedBytes: 8_807_528,
   drawCalls: 6,
 }
 
 const GRID_GREENLIT_WEEK_0_STRUCTURE = {
-  displayObjects: 231,
+  displayObjects: 232,
   dynamicActors: 14,
   decodedBytes: 8_807_528,
   drawCalls: 6,
 }
 
 const GRID_GREENLIT_WEEK_1_STRUCTURE = {
-  displayObjects: 231,
+  displayObjects: 232,
   dynamicActors: 14,
   decodedBytes: 8_807_528,
   drawCalls: 6,

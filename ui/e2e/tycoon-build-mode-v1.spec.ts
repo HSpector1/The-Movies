@@ -967,8 +967,24 @@ test('a facility the studio built is a first-class citizen of the world', async 
 //   • dynamic actors UNCHANGED at 14 — the warmth pass touched no person. Dressing is
 //     presentation only: it enters no occupancy, carries no hit area, holds no state and
 //     answers no question, so an actor delta here would have been the leak to look for.
+//
+// C2a-M5 RE-PIN (the Living Studio) — 231 → 232 objects, and NOTHING ELSE MOVES. A change
+// of KIND, argued as one, measured on a real run of this spec at HEAD:
+//
+//   • +1 display object — `tier:week-theater`, ONE shared Graphics layer for the whole
+//     plant (freight on the road, freight backed up on a contended apron, and the marks a
+//     hot / clearing / mounting body wears). Created with the other overlays whether or not
+//     the plant is doing anything, exactly like `tier:presence-queue` and
+//     `tier:guidance-marker`, so the figure does not move as the journey advances.
+//   • decoded bytes UNCHANGED at 8,806,568 — the layer is vector and loads no texture. A
+//     byte delta would have meant new art; this milestone authored none.
+//   • draw calls UNCHANGED at 6 — it batches into the existing graphics pipeline.
+//   • dynamic actors UNCHANGED at 14 — the load-bearing non-movement. M5 GROUNDS the eight
+//     ambient patrols (§4.2): one whose authoritative fact is false is no longer VISIBLE.
+//     It still EXISTS, and this counter counts existence — which is the evidence that
+//     grounding is a visibility law, not a covert change to what the world is made of.
 const GRID_MANAGED_IDLE_STRUCTURE = {
-  displayObjects: 231,
+  displayObjects: 232,
   dynamicActors: 14,
   decodedBytes: 8_806_568,
   drawCalls: 6,

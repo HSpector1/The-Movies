@@ -8240,6 +8240,11 @@ export function StudioLotScreen({
               data-testid="lot-transport"
               data-mode={livingTurn.mode}
               data-speed={String(livingTurn.speed)}
+              // TELEMETRY, not a control. The authoritative week beside the mode
+              // and the pace, so a browser test can read what the studio did
+              // instead of racing a stopwatch against an animation.
+              data-week={String(snapshot.week)}
+              data-paused-by={livingTurn.pausedBy ?? 'none'}
             >
               <button
                 type="button"
