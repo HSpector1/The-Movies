@@ -112,12 +112,29 @@ import {
   assertScriptDevelopmentInvariants,
   commissionScriptProject,
   initialManagedScriptDevelopment,
+  joinScreenplayWriterPool,
   linkScriptProjectToProduction,
+  nextScriptProjectId,
   requestScriptRewrite,
   returnScriptProjectToReady,
   screenplayFactsMatch,
   scriptOccupiedFacilitySlots,
+  scriptProjectWriterIds,
 } from './scriptDevelopment.js'
+import {
+  assertMovieBlueprintInvariants,
+  blueprintForConcept,
+  isOriginalScreenplay,
+  mintOriginalConcept,
+  movieBlueprint,
+  normalizeScreenplayTitle,
+  originalConceptId,
+  persistedConceptIds,
+  renameScreenplayRefusal,
+  scriptDraftWeeks,
+  writingPaceExperience,
+} from './screenplay.js'
+import { developmentOfficeTier } from './facilityEffects.js'
 import type { ReceptionInputs } from './reception.js'
 import { stream, type RngStream } from './rng.js'
 import { resolveShape } from './shape.js'
@@ -150,6 +167,8 @@ import type {
   FilmParticipants,
   Forecast,
   GameState,
+  MovieBlueprint,
+  OriginalScreenplays,
   Genre,
   GenreExperience,
   LedgerEntry,
@@ -1699,36 +1718,296 @@ function applyActivateScriptDevelopment(
   })
 }
 
-function applyCommissionScript(
+/**
+ * The gates EVERY screenplay commission passes, pool or original. One list, so
+ * "who may write, and when" cannot answer differently depending on which verb
+ * the player used.
+ */
+function requireCommissionableWriter(
   state: GameState,
-  action: Action & { kind: 'commissionScript' },
-): GameState {
+  writerId: string,
+  verb: string,
+): Talent {
   if (state.founding !== null) {
-    throw new Error(
-      'applyActions: commissionScript rejected — the studio is still in its founding draft',
-    )
+    throw new Error(`applyActions: ${verb} rejected — the studio is still in its founding draft`)
   }
-  const writer = requireTalent(state.talent, action.project.writerId, 'commissionScript writerId')
-  requireRole(writer, 'writer', 'commissionScript writerId')
+  const writer = requireTalent(state.talent, writerId, `${verb} writerId`)
+  requireRole(writer, 'writer', `${verb} writerId`)
   if (!isContracted(state, writer.id)) {
     throw new Error(
-      `applyActions: commissionScript rejected — writer "${writer.id}" is not currently studio-contracted`,
+      `applyActions: ${verb} rejected — writer "${writer.id}" is not currently studio-contracted`,
     )
   }
   if (busyTalentIds(state).has(writer.id)) {
     throw new Error(
-      `applyActions: commissionScript rejected — writer "${writer.id}" already has an active assignment`,
+      `applyActions: ${verb} rejected — writer "${writer.id}" already has an active assignment`,
     )
   }
+  return writer
+}
+
+/**
+ * THE BLUEPRINT EVERY COMMISSION MINTS (charter §3.5 — ONE PRODUCTION PATH).
+ *
+ * A pool concept gets one too, on its FIRST commission, with a null ordinal and
+ * no generated title: it was authored by the world, not written by this studio.
+ * That is what makes the thirty founding premises genuinely "templates" and it is
+ * what stops two kinds of production existing — every managed picture has beats,
+ * and therefore every managed picture has set demand.
+ */
+function appendBlueprint(
+  state: GameState,
+  blueprint: MovieBlueprint,
+  nextOrdinal: number,
+): OriginalScreenplays {
+  return {
+    nextOrdinal,
+    blueprints: [...state.originalScreenplays.blueprints, blueprint],
+  }
+}
+
+function assertCurrentScreenplayState(state: GameState): GameState {
+  assertMovieBlueprintInvariants(state.originalScreenplays, {
+    currentWeek: state.market.tick,
+    concepts: state.concepts,
+    projects: state.scriptDevelopment.projects,
+  })
+  return state
+}
+
+function applyCommissionScript(
+  state: GameState,
+  action: Action & { kind: 'commissionScript' },
+): GameState {
+  requireCommissionableWriter(state, action.project.writerId, 'commissionScript')
+  const projectId = nextScriptProjectId(state.scriptDevelopment)
+  const concept = state.concepts.find((candidate) => candidate.id === action.project.conceptId)
+  if (concept === undefined) {
+    throw new Error(
+      `applyActions: commissionScript references unknown concept "${action.project.conceptId}"`,
+    )
+  }
+  const scriptDevelopment = commissionScriptProject(
+    state.scriptDevelopment,
+    state.operations,
+    action.project,
+    state.market.tick,
+    castingOccupiedFacilitySlots(state.castingSessions),
+    // Adapting a premise the market already owns is the fast path, and it is the
+    // C1 clock to the week (`00E`.9's bounded blast radius).
+    scriptDraftWeeks({
+      origin: 'pool',
+      officeTierAtMint: developmentOfficeTier(state),
+      writerExperience: 0,
+      writerCount: 1,
+    }),
+  )
+  return assertCurrentScreenplayState(
+    assertCurrentScriptState({
+      ...state,
+      scriptDevelopment,
+      originalScreenplays: appendBlueprint(
+        state,
+        movieBlueprint({
+          conceptId: concept.id,
+          ordinal: null,
+          mintedWeek: state.market.tick,
+          projectId,
+          writerId: action.project.writerId,
+          generatedTitle: null,
+          genre: concept.genre,
+          officeTierAtMint: developmentOfficeTier(state),
+        }),
+        state.originalScreenplays.nextOrdinal,
+      ),
+    }),
+  )
+}
+
+/**
+ * COMMISSION AN ORIGINAL SCREENPLAY — the verb the whole milestone exists for
+ * (charter §3.5). *A writer goes to work and eventually hands me a new movie.*
+ *
+ * THE MINT IS THE COMMIT. The concept, its identity, its latents, its working
+ * title and its blueprint all come into existence here, in one action, at the
+ * moment the Development & Casting slot is actually granted — and if the slot
+ * cannot be granted, `commissionScriptProject` throws before any of it is
+ * appended, so a refused commission burns no ordinal and orphans no concept.
+ * That ordering is the whole cancellation story and it is why it needs no
+ * abandon verb.
+ *
+ * THE IDENTITY IS RESERVED, not merely counted: the minted id is checked against
+ * `persistedConceptIds`, which walks every root that holds a concept id, so an id
+ * can never be re-minted onto a picture that already owns it (G17).
+ */
+function applyCommissionOriginalScreenplay(
+  state: GameState,
+  action: Action & { kind: 'commissionOriginalScreenplay' },
+): GameState {
+  const payload = action.screenplay
+  requireCommissionableWriter(state, payload.writerId, 'commissionOriginalScreenplay')
+  if (!GENRE_ORDER.includes(payload.genre)) {
+    throw new Error(
+      `applyActions: commissionOriginalScreenplay rejected — "${payload.genre}" is not a genre this studio makes`,
+    )
+  }
+  if (payload.promise.genre !== payload.genre) {
+    throw new Error(
+      'applyActions: commissionOriginalScreenplay rejected — the promise names a different genre than the screenplay',
+    )
+  }
+
+  const ordinal = state.originalScreenplays.nextOrdinal
+  const conceptId = originalConceptId(ordinal)
+  if (persistedConceptIds(state).has(conceptId)) {
+    throw new Error(
+      `applyActions: commissionOriginalScreenplay rejected — concept id "${conceptId}" is already in use`,
+    )
+  }
+  const concept = mintOriginalConcept(state.seed, conceptId, payload.genre)
+  const projectId = nextScriptProjectId(state.scriptDevelopment)
+  const officeTierAtMint = developmentOfficeTier(state)
+  const writer = requireTalent(state.talent, payload.writerId, 'commissionOriginalScreenplay')
+  const draftWeeks = scriptDraftWeeks({
+    origin: 'original',
+    officeTierAtMint,
+    writerExperience: writingPaceExperience([writer], payload.genre),
+    writerCount: 1,
+  })
+
+  // The EXISTING draft machinery, unchanged: it allocates the slot, marks the
+  // writer busy, and refuses if either is impossible. Nothing below this line is
+  // new production behaviour.
+  const scriptDevelopment = commissionScriptProject(
+    state.scriptDevelopment,
+    state.operations,
+    {
+      conceptId,
+      writerId: payload.writerId,
+      shape: payload.shape,
+      promise: payload.promise,
+    },
+    state.market.tick,
+    castingOccupiedFacilitySlots(state.castingSessions),
+    draftWeeks,
+  )
+
+  return assertCurrentScreenplayState(
+    assertCurrentScriptState({
+      ...state,
+      // APPEND-ONLY, and world-shaped: eight fields, the same eight a worldgen
+      // premise carries. Every studio-relative fact lives in the blueprint.
+      concepts: [...state.concepts, concept],
+      scriptDevelopment,
+      originalScreenplays: appendBlueprint(
+        state,
+        movieBlueprint({
+          conceptId,
+          ordinal,
+          mintedWeek: state.market.tick,
+          projectId,
+          writerId: payload.writerId,
+          generatedTitle: concept.title,
+          genre: payload.genre,
+          officeTierAtMint,
+        }),
+        ordinal + 1,
+      ),
+    }),
+  )
+}
+
+/**
+ * Put another writer on a screenplay in progress (`00E`.9's bounded pooling).
+ * It buys time and touches nothing else — attribution, beats, latents and the
+ * assessment are all out of its reach.
+ */
+function applyAssignScreenplayWriter(
+  state: GameState,
+  action: Action & { kind: 'assignScreenplayWriter' },
+): GameState {
+  const writer = requireCommissionableWriter(state, action.writerId, 'assignScreenplayWriter')
+  const project = state.scriptDevelopment.projects.find(
+    (candidate) => candidate.id === action.projectId,
+  )
+  if (project === undefined) {
+    throw new Error(
+      `applyActions: assignScreenplayWriter references unknown project "${action.projectId}"`,
+    )
+  }
+  const blueprint = blueprintForConcept(state.originalScreenplays, project.conceptId)
+  const concept = state.concepts.find((candidate) => candidate.id === project.conceptId)
+  if (concept === undefined) {
+    throw new Error(
+      `applyActions: assignScreenplayWriter references unknown concept "${project.conceptId}"`,
+    )
+  }
+  const pooled = [
+    ...scriptProjectWriterIds(project)
+      .map((id) => state.talent.find((person) => person.id === id))
+      .filter((person): person is Talent => person !== undefined),
+    writer,
+  ]
+  const draftWeeks = scriptDraftWeeks({
+    origin: blueprint !== undefined && isOriginalScreenplay(blueprint) ? 'original' : 'pool',
+    officeTierAtMint: blueprint?.officeTierAtMint ?? developmentOfficeTier(state),
+    writerExperience: writingPaceExperience(pooled, concept.genre),
+    writerCount: pooled.length,
+  })
   return assertCurrentScriptState({
     ...state,
-    scriptDevelopment: commissionScriptProject(
+    scriptDevelopment: joinScreenplayWriterPool(
       state.scriptDevelopment,
-      state.operations,
-      action.project,
+      action.projectId,
+      action.writerId,
       state.market.tick,
-      castingOccupiedFacilitySlots(state.castingSessions),
+      draftWeeks,
     ),
+  })
+}
+
+/**
+ * RENAME — the player's title replaces the working one the studio's writers gave
+ * it (charter §3.5).
+ *
+ * IT WRITES ONE FIELD. `FilmConcept.title` is the single stored display
+ * authority and twenty-one live surfaces resolve it, so one write reaches all of
+ * them and nothing has to be re-resolved.
+ *
+ * IDENTITY IS UNTOUCHED, BY THE SHAPE OF THE ACTION: it cannot name an id, a
+ * project, an ordinal or a deterministic key, and the blueprint's
+ * `generatedTitle` is immutable — a rename records the WEEK it happened beside
+ * what the screenplay was originally called, and never overwrites it.
+ *
+ * TWO SURFACES KEEP THE OLD TITLE FOREVER, BY DESIGN — `TalentCareerEvent.
+ * filmTitle` and `BroadcastItem.template`. A career record names the film as it
+ * was called when the person made it, and a press clipping is a clipping. This is
+ * stated here, in the contract, so a playtester who renames a released picture
+ * and opens a talent profile reads a documented behaviour rather than filing a
+ * bug. `tests/c2a-m3-rename.test.ts` asserts both stay frozen.
+ */
+function applyRenameScreenplay(
+  state: GameState,
+  action: Action & { kind: 'renameScreenplay' },
+): GameState {
+  const refusal = renameScreenplayRefusal(state.originalScreenplays, action.conceptId, action.title)
+  if (refusal !== null) {
+    throw new Error(`applyActions: renameScreenplay rejected — ${refusal.reason}`)
+  }
+  const title = normalizeScreenplayTitle(action.title)
+  return assertCurrentScreenplayState({
+    ...state,
+    concepts: state.concepts.map((concept) =>
+      concept.id === action.conceptId ? { ...concept, title } : concept,
+    ),
+    originalScreenplays: {
+      ...state.originalScreenplays,
+      blueprints: state.originalScreenplays.blueprints.map((blueprint) =>
+        blueprint.conceptId === action.conceptId
+          ? { ...blueprint, renamedWeek: state.market.tick }
+          : blueprint,
+      ),
+    },
   })
 }
 
@@ -2224,6 +2503,15 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'commissionScript':
         next = applyCommissionScript(next, action)
+        break
+      case 'commissionOriginalScreenplay':
+        next = applyCommissionOriginalScreenplay(next, action)
+        break
+      case 'assignScreenplayWriter':
+        next = applyAssignScreenplayWriter(next, action)
+        break
+      case 'renameScreenplay':
+        next = applyRenameScreenplay(next, action)
         break
       case 'requestScriptRewrite':
         next = applyRequestScriptRewrite(next, action)

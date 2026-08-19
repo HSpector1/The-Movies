@@ -105,6 +105,7 @@ import {
   SET_TYPES,
 } from "./sets.js";
 import { emptyStudioEventLog, isTierDStudioEventKind } from "./studioEvents.js";
+import { assertMovieBlueprintInvariants } from "./screenplay.js";
 import {
   assertCastingSessionsInvariants,
   emptyCastingSessions,
@@ -4472,6 +4473,26 @@ export function validateSaveV14(save: unknown): SaveFileV14 {
   // sentence, and this owns saying which validator refused the file.
   try {
     assertSetsInvariants(typedState as unknown as GameState);
+  } catch (error) {
+    throw new Error(`validateSaveV14: ${(error as Error).message}`);
+  }
+
+  // C2a-M3 — the MOVIE BLUEPRINT cross-reference laws, at the same boundary and
+  // for the same reason. `checkOriginalScreenplaysShape` above has proved
+  // structure, key lists, ordinal uniqueness and that every beat asks for an
+  // authored location; what is left needs the rest of the state and belongs to
+  // the screenplay authority: that every blueprint resolves a concept AND the
+  // project that commissioned it, that the project commissioned THAT concept,
+  // that a generated id matches the ordinal that minted it, that the beats are
+  // its genre's beats in order, and — the one a forged file would reach for —
+  // that a screenplay recorded as never renamed still carries exactly the title
+  // its writers gave it.
+  try {
+    assertMovieBlueprintInvariants(typedState.originalScreenplays, {
+      currentWeek: typedState.market.tick,
+      concepts: typedState.concepts,
+      projects: typedState.scriptDevelopment.projects,
+    });
   } catch (error) {
     throw new Error(`validateSaveV14: ${(error as Error).message}`);
   }

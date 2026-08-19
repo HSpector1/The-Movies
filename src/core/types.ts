@@ -1569,6 +1569,19 @@ export type Action =
   // ── Script Projects V1 ──
   | { kind: 'activateScriptDevelopment' }
   | { kind: 'commissionScript'; project: CommissionScriptPayload }
+  // ── C2a-M3 — Renewable Screenplay Generation V1 (charter §3.5) ──
+  // THREE verbs, and what they can reach is the shape of the design.
+  //   * `commissionOriginalScreenplay` names a writer and a creative direction
+  //     and NEVER a conceptId — the concept does not exist yet; it is minted at
+  //     the instant the Development & Casting slot is granted.
+  //   * `assignScreenplayWriter` puts another hand on a screenplay already being
+  //     written. It buys TIME and nothing else (`00E`.9).
+  //   * `renameScreenplay` names a concept and a title, never an identity: the
+  //     stable id, the deterministic keys and the blueprint's generated title are
+  //     all out of its reach by the shape of the action itself.
+  | { kind: 'commissionOriginalScreenplay'; screenplay: CommissionOriginalScreenplayPayload }
+  | { kind: 'assignScreenplayWriter'; projectId: string; writerId: string }
+  | { kind: 'renameScreenplay'; conceptId: string; title: string }
   | { kind: 'requestScriptRewrite'; projectId: string }
   | { kind: 'acceptScript'; projectId: string }
   | { kind: 'greenlightScriptProject'; production: GreenlightScriptProjectPayload }
