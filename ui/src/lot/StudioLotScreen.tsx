@@ -978,6 +978,25 @@ export function StudioLotScreen({
     : cadenceFeedback === null
       ? legacyAdvanceFeedback
       : null
+  // ── C2a-M4: the construction notice is dismissible, and the key is WHICH one ──
+  //
+  // Keyed by the completion's own identity — the same pair the notice's focus
+  // effect keys on — so dismissing THIS building's card can never suppress the
+  // NEXT one. A studio that finishes two buildings in two weeks is told twice.
+  const [dismissedConstructionNotice, setDismissedConstructionNotice] = useState<string | null>(
+    null,
+  )
+  const visibleConstructionCompletionKey =
+    advanceFeedback?.constructionCompletion == null
+      ? null
+      : `${advanceFeedback.constructionCompletion.projectId}:${String(
+          advanceFeedback.constructionCompletion.completedWeek,
+        )}`
+  const visibleConstructionCompletion =
+    advanceFeedback?.constructionCompletion != null &&
+    visibleConstructionCompletionKey !== dismissedConstructionNotice
+      ? advanceFeedback.constructionCompletion
+      : null
   const rawNextEventFeedback = cadenceFeedback?.kind === 'next-event-exact' ||
       cadenceFeedback?.kind === 'next-event-neutral'
     ? cadenceFeedback
@@ -8345,16 +8364,38 @@ export function StudioLotScreen({
             </button>
           )}
 
-          {advanceFeedback?.constructionCompletion && (
+          {visibleConstructionCompletion !== null && (
             <div
               className="lot-event-notice"
               onPointerDown={containWorldInput}
               onMouseDown={containWorldInput}
               onTouchStart={containWorldInput}
             >
-              <ConstructionCompletionNotice
-                completion={advanceFeedback.constructionCompletion}
-              />
+              <ConstructionCompletionNotice completion={visibleConstructionCompletion} />
+              {/* ── C2a-M4: THE NOTICE THE PLAYER COULD NOT PUT DOWN ─────────
+                  This card is `position: absolute` over the middle of the world
+                  at `z-index: 18`, and it deliberately swallows world input
+                  (`containWorldInput`, three handlers above) so reading it never
+                  moves the lot. Both of those are right. Together, and with no
+                  way to close it, they were not: the building the player just
+                  finished announces itself ON TOP OF the buildings they want to
+                  click, and the only way out was to advance another week. Two
+                  browser journeys measured it — a click meant for Development
+                  landed on this card's heading instead.
+
+                  A close control, on the card that is covering the world. The
+                  shared `ConstructionCompletionNotice` is untouched on purpose:
+                  Weekly Summary, Release Result and the Newspaper render it
+                  INLINE, where it covers nothing and a dismiss would be noise.
+                  The overlay owns the dismissal because the overlay is the thing
+                  in the way. */}
+              <button
+                className="ghost lot-event-notice-dismiss"
+                onClick={() => setDismissedConstructionNotice(visibleConstructionCompletionKey)}
+                data-testid="lot-event-notice-dismiss"
+              >
+                Back to the lot
+              </button>
             </div>
           )}
 

@@ -766,6 +766,80 @@ describe('StudioLotScreen — World-First Live Week Advance V1 host boundary', (
     expect(getByTestId('lot-annex-operational-announcement')).toHaveTextContent('')
   })
 
+  // ── C2a-M4: the completion card can be put down, and only THIS one ──────────
+  //
+  // The card is absolutely positioned over the middle of the world at z-index 18 and
+  // deliberately swallows world input, so with no close control the building that just
+  // finished stood on top of the buildings the player wanted to click next. Two browser
+  // journeys measured exactly that. The dismissal is keyed by the completion's own
+  // identity, which is the half worth a unit test: putting down one building's card must
+  // never silence the next building's.
+  it('dismisses the construction card, and a LATER completion still announces itself', async () => {
+    let state = foundManagedStudio('lot-completion-dismiss')
+    const started = startDevelopmentCastingAnnexAction(state)
+    if (!started.ok) throw new Error(started.error)
+    state = started.next
+    for (let i = 0; i < 12; i++) state = advanceWeek(state).next
+    const completed = advanceWeek(state)
+    if (!completed.constructionCompletion) throw new Error('expected Annex completion')
+
+    const { getByTestId, queryByTestId, rerender } = render(
+      <StudioLotScreen
+        state={completed.next}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onAdvance={() => {}}
+        advanceFeedback={{
+          week: completed.next.market.tick,
+          constructionCompletion: completed.constructionCompletion,
+        }}
+        entryFocus="selected-building"
+      />,
+    )
+    expect(getByTestId('annex-completion-summary')).toBeInTheDocument()
+    fireEvent.click(getByTestId('lot-event-notice-dismiss'))
+    expect(queryByTestId('annex-completion-summary')).not.toBeInTheDocument()
+
+    // A re-render carrying the SAME completion keeps it down — dismissing is a decision
+    // about a building, not a one-frame flicker.
+    rerender(
+      <StudioLotScreen
+        state={completed.next}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onAdvance={() => {}}
+        advanceFeedback={{
+          week: completed.next.market.tick,
+          constructionCompletion: completed.constructionCompletion,
+        }}
+        entryFocus="selected-building"
+      />,
+    )
+    expect(queryByTestId('annex-completion-summary')).not.toBeInTheDocument()
+
+    // …and a DIFFERENT building finishing is a different announcement, which the
+    // dismissal of the first may not swallow.
+    const secondCompletion = {
+      ...completed.constructionCompletion,
+      projectId: `${completed.constructionCompletion.projectId}-second`,
+      completedWeek: completed.constructionCompletion.completedWeek + 4,
+    }
+    rerender(
+      <StudioLotScreen
+        state={completed.next}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onAdvance={() => {}}
+        advanceFeedback={{
+          week: completed.next.market.tick,
+          constructionCompletion: secondCompletion,
+        }}
+        entryFocus="selected-building"
+      />,
+    )
+    expect(getByTestId('annex-completion-summary')).toBeInTheDocument()
+  })
+
   it('suppresses Operational on the immediate deep return, then restores it on a fresh mount', async () => {
     let state = foundManagedStudio('lot-week-advance-return-suppression')
     const started = startDevelopmentCastingAnnexAction(state)

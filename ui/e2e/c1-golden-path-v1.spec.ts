@@ -19,6 +19,7 @@
 
 import { expect, test, type Locator, type Page } from '@playwright/test'
 import { assessFirstDraft } from '../../src/core/index.ts'
+import { dismissConstructionCompletionNotice } from './helpers/construction-completion-notice.ts'
 import {
   exportSaveJson,
   foundManagedStudioAction,
@@ -506,6 +507,11 @@ test('the whole Campaign 1 loop holds in one studio, in one browser, with no rel
   await expect(toast.locator('p')).toHaveText('Development Office II is Operational in Week 8.')
   await expect(toast).not.toContainText('slot')
   await expect(toast).not.toContainText('0 shared')
+  // …and the player can put it down, which is what gives Act 6 the world back. The card
+  // stands over the middle of the lot and swallows world input; before C2a-M4 there was
+  // no close control, and Act 6's click at the Development building landed on this
+  // card's heading. Asserting it clears is a claim this journey could not make before.
+  await dismissConstructionCompletionNotice(page)
 
   // The body on the canvas flipped with it.
   expect((await gridDebug(page)).placementLabels).toEqual([

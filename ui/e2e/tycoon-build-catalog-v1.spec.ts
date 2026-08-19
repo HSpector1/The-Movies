@@ -13,6 +13,7 @@
 // byte-identical to the one that pin was measured on).
 
 import { expect, test, type Locator, type Page } from '@playwright/test'
+import { clearConstructionCompletionNotice } from './helpers/construction-completion-notice.ts'
 import {
   exportSaveJson,
   foundManagedStudioAction,
@@ -369,6 +370,11 @@ test('a standing Development Office states its uplift on the commission form', a
   }
 
   // …and now the form says what the studio bought, where the choice is actually made.
+  // The completion card is standing over the middle of the lot and swallowing world
+  // input, so it is put down first — the way a player puts it down. Before C2a-M4 it had
+  // no close control, and this act's click landed on the card's heading instead of on
+  // Development.
+  await clearConstructionCompletionNotice(page)
   await foldGuidance(page)
   await clickCell(page, 4, 3)
   await expect(page.getByTestId('lot-building-inspector-writers')).toBeVisible()

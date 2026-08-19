@@ -153,6 +153,12 @@
   border-color: rgba(210, 174, 98, 0.72);
   box-shadow: 0 12px 34px rgba(0, 0, 0, 0.5);
 }
+/* C2a-M4 — the way out of a card that is standing on the world. It sits INSIDE
+   the notice's own footprint so it adds nothing to what the overlay covers. */
+.lot-event-notice-dismiss {
+  display: block;
+  margin: 8px auto 0;
+}
 
 /* ── Lot-native Sim to next event receipt ───────────────────────────────────
    A bounded rail over the still-live world, never a replacement management
