@@ -234,8 +234,19 @@ Lane ENGINE-M5 owns `src/core/**`, `ui/src/engine/adapter.ts`,
 ### ENGINE-M5 handoff — what the next lane needs (2026-08-19)
 
 **Everything ENGINE-M5 owed is landed and pushed.** Branch `c2a-implementation`,
-four commits: `6f2eff4` (ladder + wrap), `33fe1e5` (load-in distance), `d132c20`
-(theater), `df00239` (determinism). Resumable from Git alone.
+seven commits: `6f2eff4` (ladder + wrap), `33fe1e5` (load-in distance), `d132c20`
+(theater), `df00239` (determinism), `d80af53` (this handoff), `087a9e9` (one
+operations root per tick step), `e1cbdef` (the wrap receipt proven end to end).
+Resumable from Git alone.
+
+**FLOORS AT THE LANE'S HEAD.** root tsc 0 · ui tsc 0 · FULL vitest **317 files /
+4,313 passed + 5 skipped / 0 failed** (solo, unpiped — `/tmp/c2a-m5-full-final
+.log`; M4's floor was 312 / 4,256 + 5). FULL Playwright, whole floor, serialized,
+measured at `d80af53`: **215 passed / 4 skipped / 0 FAILED of 219 (18.4m)** —
+`/tmp/c2a-m5-pw-full.log`. Identical to the M4 floor: **zero new failures, zero
+regressions**, including the whole `lot-native-next-event-v1` spec (the stop
+ladder's own browser surface, 20 tests) and both golden paths. The two commits
+after that measurement are a provable no-op inside one tick step and a new test.
 
 **FOR OPUS-TIME (the scheduler).** `simStopFor(before, after): SimStopReason |
 null` and `simStopDetailFor` are exported from `ui/src/engine/adapter.ts`;
