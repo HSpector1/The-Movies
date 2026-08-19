@@ -43,6 +43,8 @@ import {
   simStopFor,
 } from '../../engine/adapter.ts'
 import type { SimStopReason } from '../../engine/adapter.ts'
+import { acceptedLotNextEventReceipt } from '../../lot/snapshot/nextEvent.ts'
+import type { LotNextEventReceipt } from '../../lot/snapshot/nextEvent.ts'
 
 const ADAPTER_SOURCE = readFileSync(
   resolve(dirname(fileURLToPath(import.meta.url)), '../../engine/adapter.ts'),
@@ -302,6 +304,35 @@ describe('C2a-M5 §4.3 — the wrap member', () => {
     for (const banned of ['remainingTicks', 'workflow', 'reservation', 'facility-', 'prod-']) {
       expect(wrapMessage!.includes(banned), `stop message must not say "${banned}"`).toBe(false)
     }
+  })
+})
+
+describe('C2a-M5 §4.3 — the LOT can mint an exact wrap receipt', () => {
+  it('mints one, and it points at the stage the picture wrapped on', () => {
+    const founded = greenlight(foundManagedStudio(WRAP_SEED), 0)
+    let cur = founded
+    let receipt: LotNextEventReceipt | null = null
+    for (let i = 0; i < HORIZON && receipt === null; i++) {
+      cur = driveTakes(cur)
+      const before = cur
+      const result = advanceToNextEvent(cur)
+      if (result.stopReason === 'wrap') {
+        receipt = acceptedLotNextEventReceipt(before, result)
+      }
+      cur = result.next
+    }
+    // The three named surfaces, proven together: EXACT_STOP_REASONS admitted the
+    // reason, `targetFor` produced a target, and the closed receipt validator
+    // accepted the pair.
+    expect(receipt, 'a wrap must be able to mint an exact lot receipt').not.toBeNull()
+    expect(receipt!.stopReason).toBe('wrap')
+    expect(receipt!.target.kind).toBe('wrap')
+    if (receipt!.target.kind !== 'wrap') return
+    expect(receipt!.target.stageName.length).toBeGreaterThan(0)
+    expect(receipt!.target.title.length).toBeGreaterThan(0)
+    expect(receipt!.target.buildingId.length).toBeGreaterThan(0)
+    // And the sentence beside it is the filmmaking one, not the guard sentence.
+    expect(receipt!.stopMessage).toContain('principal photography wraps on')
   })
 })
 
