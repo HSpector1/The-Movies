@@ -59,6 +59,15 @@ export const FACILITIES_POLICY_IDS = [
   'direct-package',
   'development-casting',
   'scaled-two-team',
+  // ── C2a-M4: THE ARM G10.1 NEEDS (charter §3.3, §12-M4; ruling `00E`.3) ──────
+  //
+  // Every policy above wants at most TWO pictures, because until owner law 1 two
+  // was all a studio could have. That made this instrument structurally unable to
+  // answer G10.1: a purchased Development & Casting slot stayed inert BY POLICY,
+  // whatever the engine did, so the C1 finding ("+1/+2 slots are byte-identical")
+  // would have reproduced on a post-cap engine and proved nothing. `00E`.3 says
+  // 3–4 is a mature TARGET and not a maximum; this is the policy that wants four.
+  'scaled-four-team',
 ] as const
 
 export type FacilitiesPolicyId = (typeof FACILITIES_POLICY_IDS)[number]
@@ -581,7 +590,13 @@ export type RunFacilitiesCorpusInput = {
 
 type PolicyDefinition = {
   id: FacilitiesPolicyId
-  targetActiveProductions: 1 | 2
+  /**
+   * C2a-M4: WIDENED from the literal `1 | 2`. That union was the deleted cap
+   * wearing a type's clothes — it made a >2-picture policy unrepresentable, and
+   * so made G10.1 unmeasurable at any engine. It is a policy's own appetite now,
+   * never a game law (owner law 1, `00E`.3).
+   */
+  targetActiveProductions: number
   targetPipeline: number
   auditions: boolean
   rewriteBelow: number | null
@@ -612,6 +627,26 @@ const POLICY: Record<FacilitiesPolicyId, PolicyDefinition> = {
     auditions: true,
     rewriteBelow: 60,
     desiredRoster: { actor: 6, director: 2, writer: 3, craft: 2 },
+  },
+  // ── C2a-M4: the four-picture arm (G10.1's instrument) ──────────────────────
+  //
+  // `scaled-two-team` DOUBLED. Every number here is that policy's number times
+  // two, and nothing else is different — because the question G10.1 asks is what
+  // one more Development & Casting slot buys a studio that WANTS the pictures,
+  // and any other change would answer a different question. A package needs one
+  // director, one craft lead and three actors nobody else is using, so four
+  // pictures need 4/4/12 disjoint; the pipeline that feeds them is doubled to 8.
+  // The founding budget still governs how much of this roster is affordable —
+  // `sign` declines what it cannot pay for, and what the studio actually got is
+  // recorded in `initialRoster`, so an unaffordable appetite is measured rather
+  // than assumed.
+  'scaled-four-team': {
+    id: 'scaled-four-team',
+    targetActiveProductions: 4,
+    targetPipeline: 8,
+    auditions: true,
+    rewriteBelow: 60,
+    desiredRoster: { actor: 12, director: 4, writer: 6, craft: 4 },
   },
 }
 
