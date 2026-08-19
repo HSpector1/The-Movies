@@ -1425,6 +1425,27 @@ function bakeProductionProps(scene: Phaser.Scene): void {
     g.fillCircle(cx, 20, 8)
   })
 
+  // The second broadleaf. One tree species repeated eighty times is a texture, not a
+  // landscape: this one is broader, lower and greyer (the pepper trees a 1940s lot was
+  // actually planted with), so a run of planting reads as mixed rather than stamped.
+  bakeProp(scene, 'tw-tree2', 84, 82, 0.94, (g) => {
+    const cx = 42
+    contact(g, cx, 77, 28)
+    stroke(g, [{ x: cx, y: 77 }, { x: cx + 4, y: 56 }], C.trunk, 8)
+    stroke(g, [{ x: cx + 4, y: 60 }, { x: cx - 12, y: 50 }], C.trunk, 4)
+    stroke(g, [{ x: cx + 4, y: 58 }, { x: cx + 17, y: 47 }], C.trunk, 4)
+    g.fillStyle(C.groveDark, 1)
+    g.fillEllipse(cx - 14, 44, 40, 30)
+    g.fillEllipse(cx + 16, 46, 36, 28)
+    g.fillEllipse(cx + 1, 32, 44, 32)
+    g.fillStyle(C.grove, 1)
+    g.fillEllipse(cx - 13, 40, 34, 25)
+    g.fillEllipse(cx + 14, 42, 30, 23)
+    g.fillEllipse(cx, 28, 38, 26)
+    g.fillStyle(mix(C.grove, 0xffffff, 0.22), 1)
+    g.fillEllipse(cx - 10, 25, 22, 13)
+  })
+
   bakeProp(scene, 'tw-cypress', 44, 112, 0.96, (g) => {
     const cx = 22
     contact(g, cx, 107, 14)
@@ -1531,23 +1552,41 @@ function bakeProductionProps(scene: Phaser.Scene): void {
     g.fillStyle(C.tyre, 1)
     g.fillCircle(34, 106, 7)
     g.fillCircle(78, 106, 7)
-    // column and boom
+    // column and boom — a LATTICE, in lit steel. Drawn as an open truss rather than a
+    // solid arm on purpose: at the whole-property framing a filled boom collapsed into
+    // one black slab and read as debris, which is the opposite of "a camera crane".
     g.fillStyle(C.steelLit, 1)
     g.fillRect(50, 58, 12, 36)
-    stroke(g, [{ x: 56, y: 62 }, { x: 112, y: 16 }], C.steel, 7)
-    stroke(g, [{ x: 56, y: 62 }, { x: 16, y: 94 }], C.steel, 7)
-    stroke(g, [{ x: 56, y: 62 }, { x: 100, y: 26 }], C.steelLit, 2.5)
-    // counterweights at the tail
-    g.fillStyle(C.shadow, 1)
-    g.fillRoundedRect(10, 84, 22, 16, 3)
-    // camera head and operator seat
-    g.fillStyle(0x1e2120, 1)
-    g.fillRoundedRect(100, 8, 22, 15, 3)
-    g.fillCircle(122, 15, 6)
-    g.fillStyle(C.glass, 0.8)
-    g.fillCircle(122, 15, 3)
-    g.fillStyle(C.truckBody, 1)
-    g.fillRoundedRect(92, 22, 14, 9, 3)
+    stroke(g, [{ x: 56, y: 64 }, { x: 112, y: 18 }], C.steelLit, 4)
+    stroke(g, [{ x: 56, y: 56 }, { x: 110, y: 12 }], C.steel, 3)
+    for (let t = 0.15; t < 1; t += 0.2) {
+      stroke(
+        g,
+        [
+          { x: 56 + 54 * t, y: 64 - 46 * t },
+          { x: 56 + 54 * (t + 0.1), y: 56 - 44 * (t + 0.1) },
+        ],
+        C.steel,
+        1.8,
+      )
+    }
+    stroke(g, [{ x: 56, y: 64 }, { x: 18, y: 90 }], C.steelLit, 4)
+    stroke(g, [{ x: 56, y: 56 }, { x: 20, y: 82 }], C.steel, 3)
+    // counterweight discs at the tail
+    for (const [cx2, cy2] of [[22, 86], [30, 82]] as const) {
+      g.fillStyle(C.steel, 1)
+      g.fillCircle(cx2, cy2, 8)
+      g.fillStyle(C.shadow, 0.7)
+      g.fillCircle(cx2, cy2, 3.5)
+    }
+    // camera head, lens and the operator riding it
+    g.fillStyle(0x2b2b28, 1)
+    g.fillRoundedRect(100, 6, 20, 14, 3)
+    g.fillStyle(C.steelLit, 1)
+    g.fillCircle(121, 13, 5)
+    g.fillStyle(C.glass, 0.9)
+    g.fillCircle(121, 13, 2.6)
+    crewFigure(g, 92, 34, 26, 0x35322e, 0x2c3a42, 'up')
   })
 
   bakeProp(scene, 'tw-arcrig', 60, 112, 0.96, (g) => {
@@ -1718,17 +1757,29 @@ function bakeProductionProps(scene: Phaser.Scene): void {
   })
 
   bakeProp(scene, 'tw-crew-camera', 96, 86, 0.93, (g) => {
-    // a camera crew on the apron: tripod head, an operator, a slate
+    // A camera crew on the apron: sticks, a blimped body, an operator and a slate.
+    //
+    // Deliberately drawn in STEEL rather than the true near-black of a 1940s camera
+    // body. At the whole-property framing the honest colour collapsed the whole
+    // cluster into one dark slab that read as debris on the apron — the exact failure
+    // this milestone exists to fix. Readability wins over accuracy where they disagree
+    // (the same trade the palette's own value ladder is written to).
     stroke(g, [{ x: 34, y: 78 }, { x: 22, y: 84 }], C.steel, 3)
     stroke(g, [{ x: 34, y: 78 }, { x: 46, y: 84 }], C.steel, 3)
-    stroke(g, [{ x: 34, y: 78 }, { x: 34, y: 40 }], C.steel, 4)
-    g.fillStyle(0x1e2120, 1)
-    g.fillRoundedRect(18, 22, 34, 20, 4)
-    g.fillCircle(52, 32, 8)
-    g.fillStyle(C.glass, 0.85)
-    g.fillCircle(52, 32, 4)
-    g.fillStyle(0x2b2b28, 1)
-    g.fillCircle(26, 18, 9)
+    stroke(g, [{ x: 34, y: 78 }, { x: 34, y: 44 }], C.steel, 4)
+    g.fillStyle(C.steel, 1)
+    g.fillRoundedRect(22, 28, 26, 15, 3)
+    g.fillStyle(C.steelLit, 1)
+    g.fillRoundedRect(22, 26, 26, 5, 2)
+    g.fillStyle(C.steelLit, 1)
+    g.fillCircle(50, 36, 6)
+    g.fillStyle(C.glass, 0.9)
+    g.fillCircle(50, 36, 3)
+    // the film magazine, on top where a Mitchell carries it
+    g.fillStyle(C.steelLit, 1)
+    g.fillCircle(30, 22, 7)
+    g.fillStyle(C.steel, 1)
+    g.fillCircle(30, 22, 3)
     crewFigure(g, 66, 82, 42, 0x35322e, 0x2c3a42, 'up')
     g.fillStyle(C.signInk, 1)
     g.fillRect(84, 54, 12, 10)

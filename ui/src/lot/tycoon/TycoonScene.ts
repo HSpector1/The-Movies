@@ -447,6 +447,14 @@ export class TycoonScene extends Phaser.Scene {
 
   private selectedPersonId: string | null = null
   private selectedPlaceId: string | null = null
+  /**
+   * The body the pointer is over, or null (C2a-M5x, 00H priority 5).
+   *
+   * Presentation only: it raises a name and a status sentence and nothing else. No verb
+   * reads it, nothing is committed by it, and it is cleared when the body it names is
+   * disposed so a rebuilt world can never leave a pill floating over nothing.
+   */
+  private hoveredBuildingId: BuildingId | null = null
   private selectedProductionId: string | null = null
   private selectedCompanyProductionId: string | null = null
   private expansionStatus: 'legacy' | 'vacant' | 'building' | 'operational' = 'legacy'
@@ -469,6 +477,12 @@ export class TycoonScene extends Phaser.Scene {
   // ── Studio Week Theater V1 (C2a-M5, §4.2) ──────────────────────────────────
   /** The whole plant's ground layer: freight, aprons, and the marks a body wears. */
   private theaterGraphics: Phaser.GameObjects.Graphics | null = null
+  /**
+   * One crew cluster per job the engine's week theater publishes (C2a-M5x).
+   * Keyed by subject, so a week that changes what is happening moves people rather
+   * than churning objects, and a week that ends a job takes its crew off the lot.
+   */
+  private theaterCrews = new Map<string, Phaser.GameObjects.Sprite>()
   /** One Call Board placard per contended body. Reused across repaints. */
   private callBoards = new Map<string, Phaser.GameObjects.Text>()
   /**
@@ -1485,6 +1499,7 @@ export class TycoonScene extends Phaser.Scene {
     view.sign?.destroy()
     view.lamp?.destroy()
     this.buildings.delete(id)
+    if (this.hoveredBuildingId === id) this.hoveredBuildingId = null
     if (this.selectedPlaceId === view.place.placeId) this.clearPlaceSelection()
     if (this.guidanceTarget === id) this.setGuidanceTarget(null)
   }
@@ -1532,9 +1547,18 @@ export class TycoonScene extends Phaser.Scene {
     zone.on('pointerover', () => {
       if (this.inputSuspended) return
       if (this.selectedPlaceId === null) this.drawSelectionRing(place, false)
+      // C2a-M5x: pointing at a body is how its name and its status sentence are ASKED
+      // for. Nothing else about the world changes — this is a chrome channel, not a
+      // selection, and it commits nothing.
+      this.hoveredBuildingId = place.buildingId
+      this.applyChromeVisibility()
     })
     zone.on('pointerout', () => {
       if (this.selectedPlaceId === null) this.selectionGraphics?.clear()
+      if (this.hoveredBuildingId === place.buildingId) {
+        this.hoveredBuildingId = null
+        this.applyChromeVisibility()
+      }
     })
     zone.on('pointerup', (pointer: Phaser.Input.Pointer) => {
       if (!this.isCanvasPointer(pointer) || this.dragMoved) return
@@ -2317,9 +2341,18 @@ export class TycoonScene extends Phaser.Scene {
   }
 
   /**
-   * A construction site: hoarding around the pad, scaffold standards, and a frame that
-   * rises with the Engine's own progress fraction. The frame's height is READ, never
-   * animated — no tick here advances a build (shift law 2).
+   * A construction site: hoarding around the pad, a shell that RISES on the real
+   * footprint, and the scaffold cage wrapped round it. Every height is READ from the
+   * Engine's own completed-advances fraction — no tick here advances a build (law 2).
+   *
+   * C2a-M5x (00H priority 2, "construction crews visibly building"). The previous
+   * version drew the frame as a SCREEN-SPACE rectangle floating over the pad: a flat
+   * grey box that never sat in the isometric world and read, at the whole-property
+   * framing, as nothing at all — which is why the only thing carrying an in-progress
+   * build was the floating "· 11 WEEKS LEFT" pill the Owner asked us to stop leaning
+   * on. It is a real body now, extruded on the footprint the engine gave us, with the
+   * scaffold standards, ledgers, plank decks and material stacks the 2005 corpus'
+   * own construction shells have. The crew at its base is stood by `paintTheaterCrews`.
    */
   private paintConstructionSite(
     g: Phaser.GameObjects.Graphics,
@@ -2327,40 +2360,108 @@ export class TycoonScene extends Phaser.Scene {
     extent: LotGridRect,
   ): void {
     const outline = this.rectPolygon(extent)
-    const left = Math.min(...outline.map((p) => p.x))
-    const right = Math.max(...outline.map((p) => p.x))
-    const top = Math.min(...outline.map((p) => p.y))
-    const bottom = Math.max(...outline.map((p) => p.y))
-    const cx = (left + right) / 2
     const progress = Math.max(0, Math.min(1, placed.progress01))
+    const [north, east, south, west] = outline as [Point, Point, Point, Point]
+    const up = (p: Point, z: number): Point => ({ x: p.x, y: p.y - z })
+    const lerp = (a: Point, b: Point, t: number): Point => ({
+      x: a.x + (b.x - a.x) * t,
+      y: a.y + (b.y - a.y) * t,
+    })
 
-    // graded pad
-    this.fillPolygon(g, outline, C.dirt, 0.92)
+    // graded pad, and the churned earth a site stands in
+    this.fillPolygon(g, outline, C.dirt, 0.94)
     this.strokePolygon(g, outline, C.dirtEdge, 2, 0.9)
+    g.fillStyle(C.dirtEdge, 0.35)
+    g.fillEllipse((west.x + east.x) / 2 - 18, (north.y + south.y) / 2 + 10, 74, 26)
 
-    // hoarding: a stake at each ground corner, joined along the two near edges
+    // ── the rising shell ──────────────────────────────────────────────────────
+    // Two visible faces on the same key light as every other body: the lower-left
+    // (west→south) face lit, the lower-right (south→east) face in shade.
+    // The shell rises with the engine's fraction; the CAGE does not. A real site puts
+    // its scaffold up first and builds inside it, which is what makes a week-one build
+    // read as a build instead of a graded slab — the failure mode the Owner saw.
+    const H = 10 + Math.round(progress * 120)
+    g.fillStyle(C.shadow, 0.2)
+    this.fillPolygon(
+      g,
+      [
+        { x: north.x + 16, y: north.y + 9 },
+        { x: east.x + 16, y: east.y + 9 },
+        { x: south.x + 16, y: south.y + 9 },
+        { x: west.x + 16, y: west.y + 9 },
+      ],
+      C.shadow,
+      0.18,
+    )
+    this.fillPolygon(g, [west, south, up(south, H), up(west, H)], C.slate, 1)
+    this.fillPolygon(g, [south, east, up(east, H), up(south, H)], C.slateShade, 1)
+    this.fillPolygon(
+      g,
+      [up(north, H), up(east, H), up(south, H), up(west, H)],
+      C.slateLit,
+      1,
+    )
+    // the panel grid a poured shell wears, on both faces
+    g.lineStyle(1.25, C.shadow, 0.3)
+    for (let z = 26; z < H; z += 26) {
+      g.lineBetween(west.x, west.y - z, south.x, south.y - z)
+      g.lineBetween(south.x, south.y - z, east.x, east.y - z)
+    }
+    for (let t = 0.2; t < 1; t += 0.2) {
+      const a = lerp(west, south, t)
+      const b = lerp(south, east, t)
+      g.lineBetween(a.x, a.y, a.x, a.y - H)
+      g.lineBetween(b.x, b.y, b.x, b.y - H)
+    }
+
+    // ── the scaffold cage ─────────────────────────────────────────────────────
+    // Standards at the corners and every fifth of each near edge, standing proud of
+    // the shell, with ledgers every lift and a plank deck at the working height.
+    const standards: Point[] = [west, south, east]
+    for (let t = 0.2; t < 1; t += 0.2) {
+      standards.push(lerp(west, south, t), lerp(south, east, t))
+    }
+    const cage = Math.max(64, H + 22)
+    g.lineStyle(2, C.steel, 0.9)
+    for (const s of standards) g.lineBetween(s.x, s.y + 2, s.x, s.y - cage)
+    for (let z = 24; z <= cage; z += 26) {
+      g.lineBetween(west.x, west.y - z, south.x, south.y - z)
+      g.lineBetween(south.x, south.y - z, east.x, east.y - z)
+    }
+    // diagonal bracing on the lit face only, so the cage reads as built not drawn
+    g.lineStyle(1.5, C.steel, 0.55)
+    for (let t = 0; t < 0.8; t += 0.2) {
+      const a = lerp(west, south, t)
+      const b = lerp(west, south, t + 0.2)
+      g.lineBetween(a.x, a.y, b.x, b.y - 26)
+    }
+    // the working plank deck at the top lift
+    const deck = Math.max(24, Math.floor(cage / 26) * 26)
+    g.lineStyle(5, C.timber, 0.95)
+    g.lineBetween(west.x, west.y - deck, south.x, south.y - deck)
+    g.lineBetween(south.x, south.y - deck, east.x, east.y - deck)
+    g.lineStyle(1.5, C.timberDark, 0.8)
+    g.lineBetween(west.x, west.y - deck - 9, south.x, south.y - deck - 9)
+    g.lineBetween(south.x, south.y - deck - 9, east.x, east.y - deck - 9)
+
+    // ── hoarding, and the materials stacked inside it ─────────────────────────
     for (const corner of outline) {
-      g.fillStyle(C.brass, 0.95).fillRect(corner.x - 2.5, corner.y - 20, 5, 24)
+      g.fillStyle(C.brass, 0.95).fillRect(corner.x - 2.5, corner.y - 22, 5, 26)
     }
     g.lineStyle(3, C.timberDark, 0.85)
-    g.lineBetween(outline[3]!.x, outline[3]!.y - 12, outline[2]!.x, outline[2]!.y - 12)
-    g.lineBetween(outline[2]!.x, outline[2]!.y - 12, outline[1]!.x, outline[1]!.y - 12)
-
-    // the rising frame
-    const height = 16 + Math.round(progress * 78)
-    const width = Math.max(70, Math.min(190, right - left - 84))
-    const baseY = (top + bottom) / 2 + 22
-    g.fillStyle(C.shadow, 0.22).fillRect(cx - width / 2 - 8, baseY - 2, width + 16, 12)
-    g.fillStyle(C.timber, 1).fillRect(cx - width / 2, baseY - height, width, height)
-    g.fillStyle(C.timberDark, 1).fillRect(cx + width / 2 - 22, baseY - height, 22, height)
-    g.lineStyle(2.5, C.brass, 0.9).strokeRect(cx - width / 2, baseY - height, width, height)
-    // scaffold lattice, only as tall as the frame
-    g.lineStyle(2, C.steel, 0.85)
-    for (let x = cx - width / 2 - 10; x <= cx + width / 2 + 10; x += 30) {
-      g.lineBetween(x, baseY - height - 10, x, baseY + 4)
+    g.lineBetween(west.x, west.y - 13, south.x, south.y - 13)
+    g.lineBetween(south.x, south.y - 13, east.x, east.y - 13)
+    const yard = lerp(west, south, 0.12)
+    for (let i = 0; i < 3; i++) {
+      g.fillStyle(i % 2 === 0 ? C.timber : C.timberDark, 1)
+      g.fillRect(yard.x - 30, yard.y + 12 - i * 6, 46, 5.5)
     }
-    for (let y = baseY - height - 6; y <= baseY; y += 24) {
-      g.lineBetween(cx - width / 2 - 12, y, cx + width / 2 + 12, y)
+    const drums = lerp(south, east, 0.14)
+    for (const [dx, dy] of [[0, 0], [13, 5], [-9, 7]] as const) {
+      g.fillStyle(C.drum, 1)
+      g.fillRoundedRect(drums.x + dx + 6, drums.y + dy + 4, 11, 15, 3)
+      g.fillStyle(C.shadow, 0.25)
+      g.fillEllipse(drums.x + dx + 11, drums.y + dy + 21, 15, 5)
     }
   }
 
@@ -2522,6 +2623,7 @@ export class TycoonScene extends Phaser.Scene {
     this.clearParcelSelection()
     this.selectedPlaceId = place.placeId
     this.drawSelectionRing(place, true)
+    this.applyChromeVisibility()
     if (place.buildingId === 'post' && this.selectSceneryLoadInSurface()) return
     this.clearProductionCompanySelection()
     this.selectedProductionId = null
@@ -2548,6 +2650,7 @@ export class TycoonScene extends Phaser.Scene {
     this.selectedProductionId = null
     this.selectedPlaceId = null
     this.selectionGraphics?.clear()
+    this.applyChromeVisibility()
   }
 
   /** Host/DOM parity: paint a place without emitting an event. */
@@ -2556,6 +2659,7 @@ export class TycoonScene extends Phaser.Scene {
     if (place === null) return false
     this.selectedPlaceId = place.placeId
     this.drawSelectionRing(place, true)
+    this.applyChromeVisibility()
     return true
   }
 
@@ -2604,6 +2708,7 @@ export class TycoonScene extends Phaser.Scene {
     this.selectedPlaceId = SERVICE_YARD_PLACE_ID
     const post = this.buildingFor('post')
     if (post !== null) this.drawSelectionRing(post, true)
+    this.applyChromeVisibility()
     if (emitSelection) {
       this.emitEvent({
         type: 'scenery-load-in',
@@ -3181,10 +3286,15 @@ export class TycoonScene extends Phaser.Scene {
     // to be standing there. Both are read from the settled week's own projection,
     // derived HERE and cached — the paint runs per frame while a week plays.
     this.refreshWeekTheater()
-    this.paintWeekTheater()
     this.applyAmbientGrounding()
     this.paintExpansion(this.snapshot)
     this.paintPlacementFromSnapshot()
+    // AFTER the placement projection is adopted (C2a-M5x): the theater layer stands a
+    // construction gang on every scaffold the engine says is rising, and it cannot see
+    // one until `this.placement` holds this snapshot's placements. Painted here it is
+    // right on the FIRST frame; painted before, a build's crew was always one repaint
+    // late — which on a fresh load meant never.
+    this.paintWeekTheater()
     // Attention is snapshot truth, so a building that starts (or stops) demanding a
     // decision changes whether the marker may stand there at all.
     this.paintGuidanceMarker()
@@ -3286,7 +3396,7 @@ export class TycoonScene extends Phaser.Scene {
   /** Grid anchor of a body, or null when nothing on this property is that body. */
   private theaterAnchor(
     buildingId: string,
-    anchor: 'work' | 'wait' | 'entry',
+    anchor: 'work' | 'wait' | 'entry' | 'crewCall' | 'camera' | 'service',
   ): GridPoint | null {
     const place = worldBuildingById(this.worldBuildings, buildingId)
     const point = place?.anchors[anchor] ?? place?.anchors.work ?? null
@@ -3407,13 +3517,142 @@ export class TycoonScene extends Phaser.Scene {
       text.setPosition(p.x, p.y - 6)
       text.setText(lines.join('\n'))
       text.setScale(1 / this.chromeZoom)
-      text.setVisible(this.lodBand !== 'institution')
+      // C2a-M5x: the placard is an ANSWER, raised when the body is asked about. The
+      // apron itself wears the queue whether or not anybody asks — freight elements,
+      // and the line of people standing at the door.
+      text.setVisible(this.lodBand !== 'institution' && this.isChromeAskedFor(key))
       this.callBoards.set(key, text)
     }
     for (const [key, text] of [...this.callBoards]) {
       if (wanted.has(key)) continue
       text.destroy()
       this.callBoards.delete(key)
+    }
+
+    this.paintTheaterCrews()
+  }
+
+  // ── CREWS AT WORK (C2a-M5x, 00H priorities 1, 2 and 3) ──────────────────────
+  //
+  // The Owner's first three priorities are one priority: a player should be able to
+  // look at the lot and see WHO IS DOING WHAT, without reading a label. Until now the
+  // week theater said it in vector marks (a pool of light, a ring, three little flats)
+  // and in a floating placard. Marks are legible once you know the code; PEOPLE are
+  // legible immediately.
+  //
+  // So every subject the engine already publishes now stands a crew on the ground:
+  //
+  //   stage-hot                → grips at the crew call, a camera crew on the apron
+  //   wrap-clearing            → a crew walking the load out of the door
+  //   set-mounting             → a crew walking the load in
+  //   scenery-in-transit       → a crew hauling it, ON the moving freight's own mark
+  //   company-/queue-waiting   → the line standing at the door that will not open
+  //   construction-progressing → a gang on the scaffold (drawn by the placement layer,
+  //                              which owns construction ground — shift law 10)
+  //
+  // NOTHING IS INVENTED. Every cluster stands on an anchor of a body the projection
+  // already resolved, keyed to the engine's own subject, and it is destroyed the week
+  // that subject stops being published. Placement is a pure function of the anchor —
+  // no RNG, no clock — so two paints of one snapshot put every figure in one place.
+  //
+  // COST: one display object per cluster of three or four figures, and the clusters
+  // exist only while the work does.
+
+  /** Stand (or move) one crew cluster. Reused across repaints so a week costs no churn. */
+  private placeCrew(key: string, texKey: string, gx: number, gy: number): void {
+    const meta = TYCOON_PROP_TEX[texKey]
+    if (meta === undefined) return
+    const p = this.world(gx, gy)
+    const existing = this.theaterCrews.get(key)
+    const sprite =
+      existing ?? this.add.sprite(p.x, p.y, meta.key).setName(`crew:${key}`)
+    sprite
+      .setTexture(meta.key)
+      .setOrigin(meta.originX, meta.originY)
+      .setPosition(p.x, p.y)
+      .setDepth(this.depthAt(gx, gy, 7))
+      .setVisible(this.lodBand !== 'institution')
+    this.theaterCrews.set(key, sprite)
+  }
+
+  private paintTheaterCrews(): void {
+    const wanted = new Set<string>()
+    const stand = (key: string, texKey: string, at: GridPoint | null, dx = 0, dy = 0): void => {
+      if (at === null) return
+      wanted.add(key)
+      this.placeCrew(key, texKey, at.gx + dx, at.gy + dy)
+    }
+
+    for (const body of this.theaterBodies) {
+      const id = body.buildingId
+      if (body.hot) {
+        // A stage with a company on it: grips at the crew call, camera on the apron.
+        stand(`grip:${id}`, 'tw-crew-grip', this.theaterAnchor(id, 'crewCall'), 0.1, 0.5)
+        stand(`camera:${id}`, 'tw-crew-camera', this.theaterAnchor(id, 'camera'), -0.2, 0.7)
+      }
+      if (body.clearing || body.setMounting) {
+        // A load going out of the door, or coming in through it. Same job, same crew,
+        // opposite sides of the entry — so the two never stand in one place.
+        stand(
+          `haul:${id}`,
+          'tw-crew-haul',
+          this.theaterAnchor(id, 'entry'),
+          body.clearing ? 1.5 : -1.4,
+          body.clearing ? 0.9 : 0.8,
+        )
+      }
+    }
+
+    // Freight on the road is CARRIED. The cluster rides the haul's own interpolated
+    // mark, so the crates and the hands that move them are never in two places.
+    const ease = this.theaterHaulEase()
+    for (const haul of this.theaterHauls) {
+      const to = this.theaterAnchor(haul.to, 'entry')
+      const from = haul.from === null ? null : this.theaterAnchor(haul.from, 'entry')
+      if (to === null || from === null) continue
+      const step = haul.totalWeeks <= 0 ? 1 : 1 / haul.totalWeeks
+      const previous01 = Math.max(0, haul.progress01 - step)
+      const t = previous01 + (haul.progress01 - previous01) * ease
+      stand(
+        `road:${haul.subjectId}`,
+        'tw-crew-haul',
+        { gx: from.gx + (to.gx - from.gx) * t, gy: from.gy + (to.gy - from.gy) * t },
+        0,
+        0.55,
+      )
+    }
+
+    // The line at a door that will not open this week.
+    for (const placard of this.theaterBoards) {
+      if (placard.waiting.length === 0) continue
+      stand(
+        `queue:${placard.buildingId}`,
+        'tw-crew-queue',
+        this.theaterAnchor(placard.buildingId, 'wait'),
+        0.3,
+        0.85,
+      )
+    }
+
+    // A gang on every scaffold the engine says is rising (00H priority 2).
+    for (const placed of this.placement?.placements ?? []) {
+      if (placed.parcelId === ANNEX_PARCEL_ID) continue
+      if (placed.status === 'operational') continue
+      const extent = TycoonScene.cellsExtent(placed.cells)
+      if (extent === null) continue
+      wanted.add(`build:${String(placed.id)}`)
+      this.placeCrew(
+        `build:${String(placed.id)}`,
+        'tw-crew-build',
+        (extent.x0 + extent.x1 + 1) / 2 - 0.4,
+        extent.y1 + 1.5,
+      )
+    }
+
+    for (const [key, sprite] of [...this.theaterCrews]) {
+      if (wanted.has(key)) continue
+      sprite.destroy()
+      this.theaterCrews.delete(key)
     }
   }
 
@@ -4492,6 +4731,29 @@ export class TycoonScene extends Phaser.Scene {
     if (this.guidanceTarget !== null) this.paintGuidanceMarker()
   }
 
+  /**
+   * The body the player is asking about right now — pointed at, or selected.
+   *
+   * C2a-M5x (00H priority 5, "less floating debug-label dependence"). The name and the
+   * status sentence are ANSWERS TO A QUESTION, and until this pass the world answered
+   * all nine of them, unasked, all the time: the Owner's screenshot carried fourteen
+   * floating pills over a lot that had almost nothing else to look at, and two of them
+   * sat squarely on top of the construction site they were describing.
+   *
+   * They are asked-for chrome now. What the world says without being asked is what the
+   * world WEARS — the stage door's working light, the flats stacked where a set is
+   * mounting or striking, the freight backed up on a contended apron, the crews
+   * standing at the jobs they are doing, the scaffold rising on a build, and the status
+   * LAMP, which is deliberately exempt below because colour is the one readout that
+   * survives institution zoom.
+   */
+  private isChromeFocused(view: BuildingView): boolean {
+    return (
+      view.place.placeId === this.selectedPlaceId ||
+      view.place.buildingId === this.hoveredBuildingId
+    )
+  }
+
   /** One owner of on-canvas chrome visibility, so a repaint and a zoom cannot disagree. */
   private applyChromeVisibility(): void {
     const band = this.lodBand
@@ -4499,15 +4761,35 @@ export class TycoonScene extends Phaser.Scene {
     for (const view of this.buildings.values()) {
       if (view.label === null || view.badge === null || view.chip === null) continue
       const wantBadge = view.badge.getData('want') === true
+      const asked = this.isChromeFocused(view)
       // The Annex parcel carries its own lifecycle caption instead of generic chrome.
-      view.label.setVisible(text && view.place.buildingId !== ANNEX_PARCEL_ID)
-      view.badge.setVisible(band === 'operations' && wantBadge)
+      view.label.setVisible(text && asked && view.place.buildingId !== ANNEX_PARCEL_ID)
+      view.badge.setVisible(band !== 'institution' && asked && wantBadge)
       // Status colour survives every band; at institution scale it is the only readout.
       view.chip.setVisible(view.chip.getData('status') === true)
     }
-    this.expansionLabel?.setVisible(text)
+    // The Call Board's placards are the same kind of answer, and the apron already
+    // wears the queue they describe (freight elements, and the line standing at the
+    // door), so they are asked-for too.
+    for (const [buildingId, board] of this.callBoards) {
+      board.setVisible(text && this.isChromeAskedFor(buildingId))
+    }
+    // The Annex parcel's own lifecycle caption is the same kind of answer. The parcel
+    // is already marked in the world — a graded pad, survey stakes, its own outline —
+    // so it does not need a permanent pill to say it is there.
+    this.expansionLabel?.setVisible(text && this.isChromeAskedFor(ANNEX_PARCEL_ID))
+    // A PLACEMENT CAPTION IS DELIBERATELY NOT DEMOTED. It carries the build clock —
+    // "· 11 WEEKS LEFT" — which is a fact about time that no amount of scaffold can
+    // draw, and five accepted specs read it as the evidence a build is progressing.
     for (const label of this.placementLabels.values()) label.setVisible(text)
     if (this.previewLabel !== null) this.previewLabel.setVisible(text && this.preview !== null)
+  }
+
+  /** The focus test by building id, for chrome that is not owned by a `BuildingView`. */
+  private isChromeAskedFor(buildingId: string): boolean {
+    if (buildingId === this.hoveredBuildingId) return true
+    const view = this.buildings.get(buildingId)
+    return view !== undefined && view.place.placeId === this.selectedPlaceId
   }
 
   // ── telemetry ───────────────────────────────────────────────────────────────
@@ -4667,6 +4949,18 @@ export class TycoonScene extends Phaser.Scene {
      * actually says about the set standing on it without a screenshot.
      */
     buildingBadges: string[]
+    /**
+     * What the name / status channels SAY about every body, painted or not (C2a-M5x).
+     *
+     * Since 00H the world only paints a body's name and status sentence when it is
+     * asked — hovered or selected — so the two fields above answer "what is on screen".
+     * These two answer "what does the channel carry", which is the question the
+     * occupancy and set-legibility assertions were always really asking.
+     */
+    buildingNameChannel: string[]
+    buildingBadgeChannel: string[]
+    hoveredBuildingId: string | null
+    theaterCrews: string[]
     placementLabels: string[]
     presenceWeek: number | null
     presencePlaybackWeek: number | null
@@ -4735,6 +5029,26 @@ export class TycoonScene extends Phaser.Scene {
         .filter(([, view]) => view.badge?.visible === true)
         .map(([id, view]) => `${id}|${view.badge!.text}`)
         .sort(),
+      // The CHANNEL, painted or not (C2a-M5x). `buildingLabels` above reports what the
+      // world is currently SHOWING, and since 00H that is only the body being asked
+      // about. What the name channel SAYS about every body is a separate question — it
+      // is the question the occupancy assertions have always actually been asking — so
+      // it gets its own seam rather than riding on a visibility flag whose meaning
+      // changed underneath it.
+      buildingNameChannel: [...this.buildings.values()]
+        .filter((view) => view.label !== null)
+        .map((view) => view.label!.text)
+        .sort(),
+      buildingBadgeChannel: [...this.buildings.entries()]
+        .filter(([, view]) => view.badge !== null && view.badge.getData('want') === true)
+        .map(([id, view]) => `${id}|${view.badge!.text}`)
+        .sort(),
+      hoveredBuildingId: this.hoveredBuildingId,
+      // Every crew cluster standing on the property this week, as `<subject key>`.
+      // The evidence seam for 00H priorities 1-3: a crew is on the lot if and only if
+      // the engine's own week theater (or the placement projection) says that job is
+      // being done, so this list IS the claim "workers are tied to real jobs".
+      theaterCrews: [...this.theaterCrews.keys()].sort(),
       placementLabels: [...this.placementLabels.values()]
         .filter((label) => label.visible)
         .map((label) => label.text)

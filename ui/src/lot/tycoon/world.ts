@@ -859,9 +859,9 @@ export function backlotDressing(): PropPlacement[] {
 
   // ── the north lawns: the planted approach to the office row ────────────────
   at('tw-tree', 3.4, 0.6)
-  at('tw-tree', 6.4, 0.7)
+  at('tw-tree2', 6.4, 0.7)
   at('tw-tree', 9.5, 1.4)
-  at('tw-tree', 12.4, 0.6)
+  at('tw-tree2', 12.4, 0.6)
   at('tw-cypress', 8.4, 1.5)
   at('tw-hedge', 5.5, 1.5)
   at('tw-flowerbed', 10.5, 1.5)
@@ -869,7 +869,7 @@ export function backlotDressing(): PropPlacement[] {
   at('tw-hedge', 4.5, 6.5)
   at('tw-flowerbed', 5.4, 4.5)
   at('tw-bench', 3.6, 4.4)
-  at('tw-tree', 12.6, 5.5)
+  at('tw-tree2', 12.6, 5.5)
 
   // ── the studio avenue: staff cars at the kerb, both verges ─────────────────
   at('tw-sedan', 11.5, 6.5)
@@ -877,7 +877,7 @@ export function backlotDressing(): PropPlacement[] {
   at('tw-sedan', 25.5, 6.5)
   at('tw-sedan', 6.5, 9.5)
   at('tw-tree', 11.5, 9.5)
-  at('tw-tree', 22.5, 9.4)
+  at('tw-tree2', 22.5, 9.4)
   at('tw-sedan', 15.5, 9.5)
 
   // ── the transport yard, east of the stages (the property's one empty field) ─
@@ -890,7 +890,7 @@ export function backlotDressing(): PropPlacement[] {
   at('tw-cablereel', 25.5, 12.6)
   at('tw-cratestack', 25.4, 9.6)
   at('tw-tree', 26.6, 9.4)
-  at('tw-tree', 21.6, 13.6)
+  at('tw-tree2', 21.6, 13.6)
   at('tw-lamp', 22.4, 9.5)
   at('tw-lamp', 26.4, 12.5)
   at('tw-sedan', 24.5, 13.5)
@@ -909,7 +909,7 @@ export function backlotDressing(): PropPlacement[] {
 
   // ── the courtyard, planted like a front lot (a BLOCKED parcel) ─────────────
   at('tw-tree', 7.6, 10.6)
-  at('tw-tree', 11.4, 13.4)
+  at('tw-tree2', 11.4, 13.4)
   at('tw-cypress', 7.4, 13.4)
   at('tw-cypress', 11.6, 10.4)
   at('tw-flowerbed', 9.5, 12.5)
@@ -918,7 +918,7 @@ export function backlotDressing(): PropPlacement[] {
 
   // ── the west lawn, between Casting and the Theater ─────────────────────────
   at('tw-tree', 3.6, 12.4)
-  at('tw-tree', 5.6, 13.6)
+  at('tw-tree2', 5.6, 13.6)
   at('tw-hedge', 4.5, 11.5)
   at('tw-flowerbed', 6.4, 12.6)
   at('tw-lamp', 6.4, 14.4)
@@ -926,18 +926,18 @@ export function backlotDressing(): PropPlacement[] {
   at('tw-tree', 6.6, 16.6)
   at('tw-flowerbed', 6.4, 15.5)
   at('tw-hedge', 4.5, 18.5)
-  at('tw-tree', 6.5, 18.4)
+  at('tw-tree2', 6.5, 18.4)
   at('tw-lamp', 3.4, 18.4)
 
   // ── the south-west margin ──────────────────────────────────────────────────
   at('tw-tree', 1.5, 18.5)
-  at('tw-tree', 0.6, 22.6)
+  at('tw-tree2', 0.6, 22.6)
   at('tw-cypress', 2.4, 15.5)
   at('tw-scrub', 1.4, 25.4, 0.08)
 
   // ── the boulevard, from the courtyard down to the Gate ─────────────────────
   at('tw-tree', 11.6, 16.5)
-  at('tw-tree', 12.4, 18.5)
+  at('tw-tree2', 12.4, 18.5)
   at('tw-sedan', 11.5, 22.6)
   at('tw-sedan', 11.4, 20.5)
   at('tw-lamp', 12.4, 22.4)
@@ -963,19 +963,19 @@ export function backlotDressing(): PropPlacement[] {
   at('tw-sedan', 22.5, 19.5)
   at('tw-sedan', 21.6, 23.6)
   at('tw-boxtruck', 22.5, 24.5)
-  at('tw-tree', 27.4, 6.5)
+  at('tw-tree2', 27.4, 6.5)
   at('tw-tree', 27.5, 21.5)
   at('tw-cypress', 27.4, 24.5)
 
   // ── the south-east back lot, behind the stages ─────────────────────────────
-  at('tw-tree', 15.5, 24.5)
+  at('tw-tree2', 15.5, 24.5)
   at('tw-tree', 18.5, 24.6)
   at('tw-boxtruck', 17.5, 23.5)
   at('tw-lumber', 19.4, 23.6)
   at('tw-cratestack', 20.5, 24.5)
 
   // ── north of the stages ────────────────────────────────────────────────────
-  at('tw-tree', 15.5, 1.5)
+  at('tw-tree2', 15.5, 1.5)
   at('tw-tree', 19.5, 0.6)
   at('tw-cratestack', 16.5, 3.5)
   at('tw-lumber', 16.4, 1.4)
