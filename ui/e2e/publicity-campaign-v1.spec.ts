@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto'
 import { mkdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { acknowledgeMigratedSaveNotice } from './helpers/save-migration-notice.ts'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(here, '..', '..')
@@ -297,6 +298,14 @@ test('campaign panel remains reachable beside Stage 7 at governed viewports, max
   await seedPublicityLot(page)
   await page.getByTestId('recovery-dismiss').click()
   await expect(page.getByTestId('recovery-notice')).toHaveCount(0)
+  // V14 boundary follow-up (C2a-M1), and the same reason this journey already clears the
+  // recovery notice one line above. The seeded fixture is a committed SaveFileV13 artefact, so
+  // the app now — correctly — raises its migrated-save acknowledgement too: 92.5px of
+  // dismissible chrome above a `min-height: 100vh` lot, which put exactly that much of the
+  // campaign panel below the fold at every viewport measured below. The helper asserts the
+  // banner was raised and that Dismiss clears it, so the migration is proved rather than
+  // stepped around.
+  await acknowledgeMigratedSaveNotice(page)
   await activateSemanticAdministration(page)
   await expect(page.getByTestId('hollywood-publicity-context')).toBeVisible()
 

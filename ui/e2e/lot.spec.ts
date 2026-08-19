@@ -12,6 +12,7 @@ import { execSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { acknowledgeMigratedSaveNotice } from './helpers/save-migration-notice.ts'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(here, '..', '..')
@@ -517,6 +518,14 @@ test('scenery load-in remains reachable across governed viewports and maximum wo
   await page.setViewportSize({ width: 1280, height: 720 })
   await seedSceneryLoadIn(page, 'blocked')
   await openSceneryLoadInLot(page)
+  // V14 boundary follow-up (C2a-M1). The seeded fixture is a committed SaveFileV13 artefact,
+  // so the app now — correctly — raises its migrated-save acknowledgement above the lot. That
+  // banner is 92.5px of dismissible chrome stacked on a `min-height: 100vh` screen, which is
+  // 92.5px of lot pushed below the fold at EVERY viewport below. Acknowledging it is what a
+  // player does, and it is what makes the loop below measure the lot rather than the notice.
+  // The helper asserts the banner was there and that Dismiss clears it — two claims this
+  // journey never made while a V13 fixture was the current format.
+  await acknowledgeMigratedSaveNotice(page)
 
   for (const [label, width, height] of [
     ['1280x720', 1280, 720],
