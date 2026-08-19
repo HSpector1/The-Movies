@@ -121,6 +121,70 @@ path (engine, M4/M7; the UI scopes it in one shared predicate meanwhile).
 market payload it cannot have — additive follow-up, no engine work. Both are
 written up in `docs/c2-planning/17-m3-records.md` §8.
 
+## M5 — CORRECTION WAVE (00H): the lot the Owner asked for; checkpoint 2026-08-19
+
+DELIVERABLE: the lot screenshot, obviously different at a glance. Not architecture.
+Pixels. `/private/tmp/lot-after-week2.png` (Week 2 — queue pressure and a build in
+progress) and `/private/tmp/lot-after-week7.png` (Week 7 — TWO companies shooting),
+both taken at code HEAD `e06d223`, against `/private/tmp/lot-baseline-week2.png`.
+
+WHAT A STRANGER SEES. The property no longer floats. A 2:1 diamond in a 16:9 frame
+leaves four triangles it can never reach — about a third of the picture — and all four
+were one flat sand fill. They are landscape now: a ridge line, orange groves in planted
+rows, and the PUBLIC STREET the Studio Gate opens onto, with sidewalks, traffic, street
+palms, picture billboards and a neighbourhood of stucco-and-terracotta bungalows. The
+property line is a built wall with stucco piers every four tiles, broken at the
+boulevard because that is where the Gate stands. Inside it, the middle of the lot is no
+longer empty: 99 new placements — star trailers, box trucks, sedans at the kerb, a
+camera crane and an arc rig on each stage apron, painted flats, lumber, gensets, cable
+reels, crate stacks and eighty trees in two species. Crews stand where work is
+happening: grips at a hot stage's crew call, a camera crew on its apron, a gang on
+every rising scaffold, hands walking a load in or out of a door, the line waiting at a
+door that will not open. A construction site is a BODY now — a shell that rises with the
+engine's own fraction inside a full scaffold cage with ledgers, bracing and a plank
+deck — where it was a screen-space grey rectangle floating over the pad. And the
+fourteen floating pills that carried the whole story are down to ONE: names, status
+sentences, Call Board placards and the Annex caption are raised only for the body the
+player points at or selects.
+
+LAWS KEPT. Zero `Math.random` anywhere touched; every surround stroke and every prop
+position is a pure function of a coordinate or an id (`gridNoise`, seeded `Rng`).
+`src/core` untouched, `App.tsx` scheduler and `adapter.ts` untouched. No engine fact
+invented: every crew stands on an anchor of a body the projection already resolved,
+keyed to a subject `studioWeekTheater` already publishes, and leaves the lot the week
+that subject stops.
+
+BUDGET, MEASURED. displayObjects 232 -> 331 (+99, exactly the 99 authored placements,
+one Image each) · decoded bytes 8,807,528 -> 9,376,440 (+568,912, exactly the nineteen
+new bakes, itemised by name and byte count in the presence spec) · draw calls 6 -> 10
+(four more texture-unit rebinds for nineteen more textures; no new pass, no new
+pipeline) · dynamic actors UNCHANGED at 14 — a crew cluster is ONE baked texture
+carrying three or four figures, so a whole gang costs one display object and no actor.
+The entire surround landscape costs zero of all four: it bakes into the existing single
+`tier:ground` render texture, whose margins went 320x200 -> 500x380 world px.
+
+FLOORS, MEASURED WHOLE AT THIS HEAD. root tsc 0 · ui tsc 0 · FULL vitest **322 files /
+4,389 passed + 5 skipped / 0 failed** (solo, unpiped, 52.7s — `/tmp/c2a-m5x-vitest.log`)
+· FULL Playwright serialized `workers=1`, whole: **220 passed / 4 skipped / 0 FAILED of
+224 (19.5m)** — `/tmp/c2a-m5x-pw.log`. The M5-accepted floor was 219 / 4 / 0 of 223;
+the one addition is this wave's own label test. ZERO regressions, and the floor law
+(0 failed) is met with every re-pin argued rather than loosened.
+
+RE-PINS: all four structural tuples plus the label channel, each with measured reasons
+citing 00H — and STRENGTHENED, not loosened. Build-mode's `visibleBuildingLabels` 8 -> 0
+is replaced by an EXACT nine-name assertion on the new `buildingNameChannel` seam plus a
+dedicated test that fails in BOTH directions (a name raised unasked, or asking failing
+to raise one). The presence suite's five occupancy claims keep their exact strings and
+move to the channel that carries them, with a new line pinning that the count is right
+AND not on screen.
+
+NOT DONE, deliberately: the two authored soundstage PNGs (shipped art with their own
+adoption specs — this lane may not re-cut them); the default camera framing (the
+property already fills the frame's width at `overview`, and moving it would re-baseline
+every screenshot spec for about 6%); and the placement caption, the one pill left
+standing, because it carries the build clock no scaffold can draw and five accepted
+specs read it.
+
 ## M5 — LANDED (lanes ENGINE-M5 + UI-M5 + INTEGRATE-M5); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M5, HEAD `f58cba9` + this entry): **you can stop touching
