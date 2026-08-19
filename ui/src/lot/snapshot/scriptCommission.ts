@@ -93,6 +93,20 @@ const COMMISSION_WRITER_KEYS = [
 ] as const
 const WRITING_ESTIMATE_KEYS = ['label', 'score'] as const
 const LOT_ATTENTION_KEYS = ['kind', 'headline', 'detail'] as const
+/**
+ * Every attention kind the engine publishes (`scriptReadModel.ts`).
+ *
+ * F4 (§10): the workspace validates that the board's kind is one the engine can
+ * actually say, and — below — that `capacity-constraint` agrees with a full
+ * board. It no longer requires the board to be IDLE.
+ */
+const LOT_ATTENTION_KINDS = new Set([
+  'review-required',
+  'capacity-constraint',
+  'active-work',
+  'ready-script',
+  'idle',
+])
 const CAPACITY_KEYS = ['capacity', 'occupied', 'available', 'facilities'] as const
 const CAPACITY_FACILITY_KEYS = [
   'facilityId',
@@ -558,7 +572,27 @@ function commissionBeforeProjection(
     board.mode !== 'managed' ||
     !isPlainRecord(board.lotAttention) ||
     !hasExactOwnKeys(board.lotAttention, LOT_ATTENTION_KEYS) ||
-    board.lotAttention.kind !== 'idle' ||
+    // ── F4 (charter §10), owned by M4 ──────────────────────────────────────
+    //
+    // This read `board.lotAttention.kind !== 'idle'`, and 'idle' means the whole
+    // screenplay board has NOTHING going on: no review pending, no draft out, no
+    // accepted script waiting to be packaged. So the world's commissioning
+    // workspace published its receipt only for a studio doing nothing else —
+    // "the commission verb demands the whole board idle", the seam §10 names.
+    //
+    // That was never the engine's rule. The engine commissions whenever a
+    // Development & Casting slot is free, and `lotAttention`'s own comment says
+    // so in as many words ("a picture in development occupies one slot, it does
+    // not stop the studio commissioning the next screenplay in another"). The
+    // predicate is now a function of FREE SLOTS, which is the queue's own truth
+    // and the same question `availableDevelopmentCastingSlots` answers.
+    //
+    // The board's attention kind is still VALIDATED — it must be one the engine
+    // publishes, and `capacity-constraint` must AGREE with a full board, which is
+    // a check this guard did not have before. What it no longer does is refuse a
+    // studio for being busy.
+    !isNonEmptyString(board.lotAttention.kind) ||
+    !LOT_ATTENTION_KINDS.has(board.lotAttention.kind) ||
     !isNonEmptyString(board.lotAttention.headline) ||
     !isNonEmptyString(board.lotAttention.detail) ||
     !isPlainRecord(board.commission) ||
@@ -655,9 +689,16 @@ function commissionBeforeProjection(
     writer.primaryRole !== stateTalent.get(payload.writerId)?.role
   ) return null
 
+  // F4: THE PREDICATE. A free Development & Casting slot is the whole rule — the
+  // same one the engine's own front door applies — and the slot named on the
+  // receipt is the one the allocator would take.
   const capacity = strictCapacityProjection(state, board.capacity)
   const firstFree = capacity === null ? null : firstFreeSlot(capacity)
   if (capacity === null || capacity.available <= 0 || firstFree === null) return null
+  // AGREEMENT, not decoration: the board may only cry capacity when it has none.
+  if ((board.lotAttention.kind === 'capacity-constraint') !== (capacity.available === 0)) {
+    return null
+  }
   const facilityName = selectedNameIsUnique(stateFacilities, firstFree.facilityId, 'name')
   const sourceFacility = stateFacilities.get(firstFree.facilityId)
   if (

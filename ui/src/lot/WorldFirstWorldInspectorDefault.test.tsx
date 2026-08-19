@@ -577,10 +577,11 @@ describe('M-B — the buildings carry the verbs the guidance names', () => {
     const order = inspectorReadingOrder(panel)
     expect(order).toContain('occupants')
     expect(order.indexOf('occupants')).toBeLessThan(order.indexOf('capacity'))
-    // The action slot is occupied even though no button is: the engine still calls
-    // commissioning legal here (another contracted person can write), while the world's
-    // retained workspace needs an idle Writers' Room — so the panel prints the reason
-    // exactly where the verb would have been instead of going silent.
+    // C2a-M4 / F4 (§10) RE-BASE: the action slot used to hold a NOTE here, because
+    // the verb was withheld while the Writers' Room held anything. It holds the
+    // VERB now — the engine calls commissioning legal (another contracted person
+    // can write, into the room that is free), and the world agrees with it. The
+    // reading ORDER, which is what this test is about, is asserted unchanged.
     expect(order).toEqual([
       'description',
       'status',
@@ -590,12 +591,12 @@ describe('M-B — the buildings carry the verbs the guidance names', () => {
       'capacity',
       'deep',
     ])
-    expect(
-      screen.queryByTestId('lot-building-inspector-primary-commission'),
-    ).not.toBeInTheDocument()
-    expect(screen.getByTestId('lot-building-inspector-primary-note')).toHaveTextContent(
-      /^The writers are working on .+\. Commissioning opens here again once it moves on\.$/,
+    expect(screen.getByTestId('lot-building-inspector-primary-commission')).toHaveTextContent(
+      'Commission a screenplay',
     )
+    expect(
+      screen.queryByTestId('lot-building-inspector-primary-note'),
+    ).not.toBeInTheDocument()
     // The people group is its own block, and capacity did not swallow it.
     expect(screen.getByTestId('lot-building-inspector-occupants')).toHaveTextContent(
       'Who’s here this week',
@@ -639,18 +640,27 @@ describe('M-B — the buildings carry the verbs the guidance names', () => {
 
     fireEvent.click(commission)
 
-    // It takes the EXACT intent the deep ghost takes — the one the App intercepts into
-    // the retained in-world commission workspace. Not a second opener with its own rules.
-    expect(routes).toEqual([{ kind: 'assembly' }])
+    // C2a-M4 / F4 (§10) RE-BASE, with its reason at the site. The verb used to
+    // share `assembly` with every generic Development activation, and the point
+    // of that sharing was "one intent, one landing surface". F4 widened THE VERB
+    // and not the other callers — the engine now commissions on a free room, not
+    // on an idle board — so a shared route can no longer carry the distinction.
+    // The verb has its own route; what has NOT changed is that it stays in the
+    // world and is intercepted into the retained commissioning workspace.
+    expect(routes).toEqual([{ kind: 'commissionScreenplay' }])
     expect(screen.getByTestId('studio-lot-screen')).toBeInTheDocument()
   })
 
-  it('routes the Commission verb and the deep ghost to the same owner', async () => {
+  it('routes the Commission verb to the commission intent, and the deep ghost to Development', async () => {
+    // SUCCESSOR to "routes the Commission verb and the deep ghost to the same
+    // owner". They are two intents now, and the difference is exactly the one F4
+    // created: the verb commissions, the ghost opens Development. Both stay
+    // owned by the host; neither invents a screen of its own.
     const { routes, unmount } = renderLot(managedScriptWeekZero('m-b-commission-parity'))
     await onlyView()
     fireEvent.click(screen.getByTestId('lot-nav-writers'))
     fireEvent.click(screen.getByTestId('lot-building-inspector-primary-commission'))
-    const fromVerb = [...routes]
+    expect(routes).toEqual([{ kind: 'commissionScreenplay' }])
     unmount()
     renderer.instances.length = 0
     resetLotSelectedBuilding()
@@ -660,40 +670,49 @@ describe('M-B — the buildings carry the verbs the guidance names', () => {
     fireEvent.click(screen.getByTestId('lot-nav-writers'))
     fireEvent.click(screen.getByTestId('lot-building-inspector-open-details-writers'))
 
-    expect(second.routes).toEqual(fromVerb)
+    expect(second.routes).toEqual([{ kind: 'assembly' }])
   })
 
-  it('withholds the Commission verb the moment the engine says commissioning is illegal', async () => {
-    // A screenplay already occupies the Writers Room: the board stops publishing an idle
-    // Development, and the panel must stop offering the verb rather than lie about it.
-    renderLot(draftingStudio('m-b-commission-illegal'))
-    await onlyView()
-
-    fireEvent.click(screen.getByTestId('lot-nav-writers'))
-    expect(screen.getByTestId('lot-building-inspector-writers')).toBeInTheDocument()
-    expect(
-      screen.queryByTestId('lot-building-inspector-primary-commission'),
-    ).not.toBeInTheDocument()
-  })
-
-  it('tells the player WHY Development is not offering the verb, in the verb’s own slot', async () => {
-    // The red-team's exact frame: the screenplay is accepted and waiting on casting, the
-    // engine still calls commissioning legal, and the world's retained workspace requires
-    // an idle Writers' Room — so the button is correctly absent. Before this, the panel
-    // said nothing at all about it and the player was left to guess.
-    const state = readyToPackageStudio('m-b-commission-withheld')
-    const title = scriptProjectsBoard(state).sections.readyToPackage[0]!.title
+  // ── F4 RE-BASE (charter §10, owned by C2a-M4) ────────────────────────────
+  //
+  // RETIRED: "withholds the Commission verb the moment the engine says
+  // commissioning is illegal" (whose fixture was a BUSY board, not an illegal
+  // one) and "tells the player WHY Development is not offering the verb"
+  // (whose sentence — "Commissioning opens here again once it moves on" — is
+  // false the moment a second room is free). Both encoded the seam §10 names.
+  //
+  // NAMED SUCCESSORS, both here: the verb is OFFERED while other work is in
+  // flight, and it is withheld — with the engine's own reason in the verb's own
+  // slot — when the rooms are actually full.
+  it('F4: offers the Commission verb while a screenplay is already being written', async () => {
+    const state = draftingStudio('m-b-commission-f4-drafting')
+    // The precondition, stated: the board is busy AND a room is free.
+    expect(scriptProjectsBoard(state).lotAttention.kind).not.toBe('idle')
+    expect(scriptProjectsBoard(state).capacity.available).toBeGreaterThan(0)
     renderLot(state)
     await onlyView()
 
     fireEvent.click(screen.getByTestId('lot-nav-writers'))
     expect(screen.getByTestId('lot-building-inspector-writers')).toBeInTheDocument()
-    expect(
-      screen.queryByTestId('lot-building-inspector-primary-commission'),
-    ).not.toBeInTheDocument()
-    expect(screen.getByTestId('lot-building-inspector-primary-note')).toHaveTextContent(
-      `${title} is accepted and waiting on casting. Commissioning opens here again once it moves on.`,
+    expect(screen.getByTestId('lot-building-inspector-primary-commission')).toHaveTextContent(
+      'Commission a screenplay',
     )
+  })
+
+  it('F4: offers it with an accepted screenplay waiting on casting, too', async () => {
+    const state = readyToPackageStudio('m-b-commission-f4-ready')
+    expect(scriptProjectsBoard(state).lotAttention.kind).not.toBe('idle')
+    expect(scriptProjectsBoard(state).capacity.available).toBeGreaterThan(0)
+    renderLot(state)
+    await onlyView()
+
+    fireEvent.click(screen.getByTestId('lot-nav-writers'))
+    expect(screen.getByTestId('lot-building-inspector-primary-commission')).toHaveTextContent(
+      'Commission a screenplay',
+    )
+    expect(
+      screen.queryByTestId('lot-building-inspector-primary-note'),
+    ).not.toBeInTheDocument()
   })
 
   it('names the picture in Casting’s audition verb, and prefers the retained in-world planner', async () => {

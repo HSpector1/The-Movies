@@ -80,12 +80,19 @@ export function weeksPhrase(weeks: number): string {
   return `${String(weeks)} week${weeks === 1 ? '' : 's'}`
 }
 
-/** "RAVINE is shooting on Soundstage 7 — frees in 2 weeks." */
+/**
+ * "RAVINE is shooting on Soundstage 7 — frees in 2 weeks."
+ *
+ * A picture stands ON a stage and ON a set; work happens IN an office. The
+ * preposition follows what the waiter is short of, which the engine has already
+ * told us — it is not a guess about the building's name.
+ */
 export function holderSentence(
   occupant: StudioQueueWaiterView['occupiedBy'][number],
   place: string | undefined,
+  preposition: 'on' | 'in' = 'in',
 ): string {
-  const where = place === undefined ? '' : ` on ${place}`
+  const where = place === undefined ? '' : ` ${preposition} ${place}`
   const frees =
     occupant.freesInWeeks === null
       ? ' — no return date is committed yet'
@@ -242,7 +249,13 @@ export function StudioQueueWaiterRow({
               <ul className="queue-holder-list">
                 {waiter.occupiedBy.map((occupant) => (
                   <li key={occupant.resourceId} data-testid={`queue-holder-${waiter.id}-${occupant.resourceId}`}>
-                    {holderSentence(occupant, places.get(occupant.resourceId))}
+                    {holderSentence(
+                      occupant,
+                      places.get(occupant.resourceId),
+                      waiter.needs.kind === 'set' || waiter.needs.capability === 'soundstage'
+                        ? 'on'
+                        : 'in',
+                    )}
                   </li>
                 ))}
               </ul>

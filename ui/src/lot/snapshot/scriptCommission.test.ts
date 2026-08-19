@@ -230,18 +230,39 @@ describe('accepted screenplay commission receipt', () => {
     }
   })
 
-  it('requires an idle, startable canonical before projection and an available projected writer', () => {
+  it('requires a startable canonical before projection with a FREE SLOT and an available projected writer', () => {
+    // ── F4 RE-BASE (charter §10, owned by M4) ───────────────────────────────
+    //
+    // RETIRED ARM: an `active-work` board was refused, because this guard read
+    // "the whole board must be idle". That IS the F4 seam — the engine
+    // commissions whenever a Development & Casting slot is free, and idleness was
+    // never its rule.
+    //
+    // NAMED SUCCESSOR, landed here in the same commit: a board that CLAIMS
+    // `capacity-constraint` while its own capacity projection says a slot is
+    // free is refused. The guard trades a rule about business for a rule about
+    // agreement, which is what a hostile-input boundary is for. The positive
+    // half — a busy board with a free slot publishing its receipt — is the test
+    // immediately below.
     const pair = acceptedPair('script-commission-receipt-before-projection')
     const original = scriptProjectsBoard(pair.before)
     const projections: ScriptProjectsReadModel[] = []
 
-    const active = clone(original)
-    active.lotAttention = {
-      kind: 'active-work',
-      headline: 'Hostile active work',
-      detail: 'Not idle.',
+    const lyingCapacityClaim = clone(original)
+    lyingCapacityClaim.lotAttention = {
+      kind: 'capacity-constraint',
+      headline: 'Hostile capacity claim',
+      detail: 'Claims full while its own slots are free.',
     }
-    projections.push(active)
+    projections.push(lyingCapacityClaim)
+
+    const unknownAttention = clone(original)
+    unknownAttention.lotAttention = {
+      kind: 'hostile-kind' as ScriptProjectsReadModel['lotAttention']['kind'],
+      headline: 'Hostile attention kind',
+      detail: 'Not a kind the engine publishes.',
+    }
+    projections.push(unknownAttention)
 
     const blocked = clone(original)
     blocked.commission.canStart = false
@@ -274,6 +295,32 @@ describe('accepted screenplay commission receipt', () => {
       ).toBeNull()
       vi.restoreAllMocks()
     }
+  })
+
+  it('publishes the receipt while OTHER work is in flight — F4, the free-slot rule (§10)', () => {
+    // The world's commissioning workspace used to go silent the moment anything
+    // else was happening on the screenplay board. A studio with a draft out and a
+    // second Development & Casting slot free is the ordinary case of a lot with
+    // more than one picture in it, and it commissions.
+    const pair = acceptedPair('script-commission-receipt-f4-busy')
+    const original = scriptProjectsBoard(pair.before)
+
+    const busy = clone(original)
+    busy.lotAttention = {
+      kind: 'active-work',
+      headline: 'Drafting: Another Picture',
+      detail: 'A screenplay is being written in the other room.',
+    }
+    vi.spyOn(adapter, 'scriptProjectsBoard').mockReturnValue(busy)
+    const receipt = acceptedScreenplayCommissionReceipt(pair.before, pair.after, pair.payload)
+    vi.restoreAllMocks()
+
+    expect(receipt).not.toBeNull()
+    // And it is the SAME receipt the idle board publishes — the busy-ness never
+    // touched a fact, it only used to suppress the whole thing.
+    expect(receipt).toEqual(
+      acceptedScreenplayCommissionReceipt(pair.before, pair.after, pair.payload),
+    )
   })
 
   it('fails neutral on throwing reads and hostile array/object topology', () => {

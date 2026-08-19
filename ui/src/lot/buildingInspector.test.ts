@@ -502,11 +502,18 @@ describe('World Inspector projection — primary actions (M-B)', () => {
     attention?: string
     canStart?: boolean
     sections?: Record<string, { title: string }[]>
+    /** C2a-M4/F4: the board's OWN blockers are what withholds the verb now. */
+    blockers?: { kind: string; headline: string; detail: string; remedy: string }[]
   } = {}): ScriptProjectsReadModel {
     return {
       mode: overrides.mode ?? 'managed',
       lotAttention: { kind: overrides.attention ?? 'idle', headline: 'x', detail: 'y' },
-      commission: { canStart: overrides.canStart ?? true, blockers: [], concepts: [], writers: [] },
+      commission: {
+        canStart: overrides.canStart ?? true,
+        blockers: overrides.blockers ?? [],
+        concepts: [],
+        writers: [],
+      },
       ...(overrides.sections === undefined ? {} : { sections: overrides.sections }),
     } as unknown as ScriptProjectsReadModel
   }
@@ -562,10 +569,20 @@ describe('World Inspector projection — primary actions (M-B)', () => {
     expect(context.primaryActions).toEqual([])
   })
 
-  it('offers NO verb when both development slots are full', () => {
-    // The board stops calling the Writers Room idle the moment capacity is constrained,
-    // and the host's retained-commissioning interception requires that exact `idle`.
-    for (const attention of ['capacity-constraint', 'active-work', 'review-required', 'ready-script']) {
+  it('OFFERS the verb while other work is in flight, and withholds it only when the rooms are full', () => {
+    // ── F4 RE-BASE (charter §10, owned by C2a-M4) ─────────────────────────
+    //
+    // RETIRED: "offers NO verb when both development slots are full", which
+    // asserted the verb was absent for FOUR attention kinds — three of which are
+    // "the Writers' Room is busy" and one of which is "the rooms are full". That
+    // is the seam §10 names: the verb demanded an idle board.
+    //
+    // NAMED SUCCESSOR, here: a BUSY board still offers the verb, because the
+    // engine will commission on a free slot; a board whose engine legality is
+    // false does not. The capacity case is preserved — it is the one arm of the
+    // retired test that was measuring a real rule, and it is measured through
+    // the engine's own `canStart` rather than through an attention label.
+    for (const attention of ['active-work', 'review-required', 'ready-script']) {
       const context = lotBuildingInspectorContext(
         baseSnapshot(),
         'writers',
@@ -573,65 +590,77 @@ describe('World Inspector projection — primary actions (M-B)', () => {
         null,
         board({ attention }),
       )
-      expect(context.primaryActions, attention).toEqual([])
+      expect(context.primaryActions, attention).toEqual([
+        { kind: 'commission', label: 'Commission a screenplay' },
+      ])
     }
+    // Rooms full: the engine says no, and so does the world.
+    const full = lotBuildingInspectorContext(
+      baseSnapshot(),
+      'writers',
+      null,
+      null,
+      board({
+        attention: 'capacity-constraint',
+        canStart: false,
+        blockers: [
+          {
+            kind: 'facility-capacity',
+            headline: 'Development & Casting is full',
+            detail: 'Every slot is occupied.',
+            remedy: 'Wait for a named task to release a slot.',
+          },
+        ],
+      }),
+    )
+    expect(full.primaryActions).toEqual([])
+    expect(full.primaryActionNote).toBe(
+      'Development & Casting is full. Wait for a named task to release a slot.',
+    )
   })
 
-  it('says WHY commissioning is withheld whenever the engine says it is legal', () => {
-    // The defect: with a screenplay accepted and waiting on casting, Development read
-    // "No screenplay is in development · 0/2 slots" and the verb was simply gone. The
-    // legality gate is unchanged — the sentence is what was missing.
-    const cases: Array<[string, Record<string, { title: string }[]>, string]> = [
+  it('says WHY commissioning is withheld, in the board’s own words', () => {
+    // The original defect stands and is still measured: where the button would
+    // have been, a SENTENCE. What changed with F4 is which reasons are real.
+    // "The writers are busy" is no longer one of them — the studio can commission
+    // into any free room — so the note speaks the engine's own blockers instead
+    // of inventing a story about the board's mood.
+    const cases: Array<[string, string, string]> = [
       [
-        'ready-script',
-        { readyToPackage: [{ title: 'A Season of Archipelago' }] },
-        'A Season of Archipelago is accepted and waiting on casting. Commissioning opens here again once it moves on.',
+        'facility-capacity',
+        'Development & Casting is full',
+        'Wait for a named task to release a slot.',
       ],
       [
-        'active-work',
-        { inDevelopment: [{ title: 'The Long Way Down' }] },
-        'The writers are working on The Long Way Down. Commissioning opens here again once it moves on.',
-      ],
-      [
-        'review-required',
-        { needsReview: [{ title: 'Harbour Lights' }] },
-        'Harbour Lights is waiting on an Accept or Rewrite decision. Commissioning opens here again once it moves on.',
-      ],
-      [
-        'capacity-constraint',
-        {},
-        'Every Development & Casting slot is occupied. Commissioning opens here again once it moves on.',
+        'no-writers',
+        'No contracted writer is available',
+        'Wait for an assignment to finish or sign a writing-capable person.',
       ],
     ]
-    for (const [attention, sections, note] of cases) {
+    for (const [kind, headline, remedy] of cases) {
       const context = lotBuildingInspectorContext(
         baseSnapshot(),
         'writers',
         null,
         null,
-        board({ attention, sections }),
+        board({
+          attention: 'capacity-constraint',
+          canStart: false,
+          blockers: [{ kind, headline, detail: 'x', remedy }],
+        }),
       )
-      expect(context.primaryActions, attention).toEqual([])
-      expect(context.primaryActionNote, attention).toBe(note)
+      expect(context.primaryActions, kind).toEqual([])
+      expect(context.primaryActionNote, kind).toBe(`${headline}. ${remedy}`)
     }
   })
 
   it('says nothing when there is nothing to explain, and never guesses a reason', () => {
-    // A verb that IS offered explains itself; a real blocker already speaks through the
-    // board's own blockers; an unknown attention kind and a title-less section are
-    // withheld facts, so the note degrades instead of inventing one.
+    // A verb that IS offered explains itself; a withheld board and a legacy board
+    // say nothing; and a refusal with no published blocker degrades to silence
+    // rather than inventing a reason.
     expect(
       lotBuildingInspectorContext(baseSnapshot(), 'writers', null, null, board())
         .primaryActionNote,
-    ).toBeNull()
-    expect(
-      lotBuildingInspectorContext(
-        baseSnapshot(),
-        'writers',
-        null,
-        null,
-        board({ attention: 'ready-script', canStart: false }),
-      ).primaryActionNote,
     ).toBeNull()
     expect(
       lotBuildingInspectorContext(baseSnapshot(), 'writers', null, null, null).primaryActionNote,
@@ -651,20 +680,9 @@ describe('World Inspector projection — primary actions (M-B)', () => {
         'writers',
         null,
         null,
-        board({ attention: 'invented-kind' }),
+        board({ canStart: false }),
       ).primaryActionNote,
     ).toBeNull()
-    // A section whose first row carries no printable title still gets an honest sentence,
-    // just without the picture's name.
-    expect(
-      lotBuildingInspectorContext(
-        baseSnapshot(),
-        'writers',
-        null,
-        null,
-        board({ attention: 'ready-script', sections: { readyToPackage: [] } }),
-      ).primaryActionNote,
-    ).toBe('An accepted screenplay is waiting on casting. Commissioning opens here again once it moves on.')
     // …and no other place ever carries one.
     for (const id of ALL_BUILDING_IDS) {
       if (id === 'writers') continue
@@ -674,7 +692,12 @@ describe('World Inspector projection — primary actions (M-B)', () => {
           id,
           null,
           null,
-          board({ attention: 'ready-script', sections: { readyToPackage: [{ title: 'X' }] } }),
+          board({
+            canStart: false,
+            blockers: [
+              { kind: 'facility-capacity', headline: 'H', detail: 'd', remedy: 'r' },
+            ],
+          }),
         ).primaryActionNote,
         id,
       ).toBeNull()

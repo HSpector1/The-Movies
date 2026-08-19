@@ -2660,6 +2660,16 @@ export function App() {
       case 'hub':
         setScreen({ kind: 'hub', returnContext })
         break
+      // ── C2a-M4 / F4 (§10): the COMMISSION verb has its own route ───────────
+      //
+      // `assembly` means "take me to the studio's screenplay work" and is
+      // dispatched by every generic Development activation. The commission VERB
+      // means one thing only, and F4 widened exactly that one thing — so it now
+      // carries its own route rather than sharing a route whose other callers
+      // were never part of the ruling. The two cases share one landing rule:
+      // the retained in-world workspace when it can be opened, the deep screen
+      // otherwise. What differs is the PREDICATE, and only for the verb.
+      case 'commissionScreenplay':
       case 'assembly':
         if (hollywoodEnabled) {
           const currentState = latestStateRef.current
@@ -2677,7 +2687,16 @@ export function App() {
             currentScreen.kind === 'lot' &&
             currentPresentation !== null &&
             board?.mode === 'managed' &&
-            board.lotAttention.kind === 'idle' &&
+            // ── F4 (charter §10), owned by C2a-M4 ─────────────────────────
+            // The IDLE-BOARD rule is retired FOR THE VERB, and only for it. A
+            // player who clicked "Commission a screenplay" with a draft already
+            // out was ejected to the full-screen surface — the host half of the
+            // seam §10 names — and the rule is FREE SLOTS now, which is exactly
+            // the predicate the Lot's verb reads. The generic `assembly` route
+            // keeps its original idle-board condition: it was never the subject
+            // of the ruling, and its other callers mean "open Development",
+            // whose deep screen is a legitimate destination.
+            (route.kind === 'commissionScreenplay' || board.lotAttention.kind === 'idle') &&
             // C2a-M3: EITHER supply opens the retained workspace. This is the same
             // predicate the Lot's Development verb reads, so the verb and the
             // interception can never disagree about which surface a click lands on.

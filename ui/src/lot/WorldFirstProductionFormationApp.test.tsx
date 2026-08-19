@@ -184,6 +184,12 @@ vi.mock('../screens/WritersRoom.tsx', () => ({
       </main>
     )
   },
+  // C2a-M4 / F4 (§10): the host's retained commissioning workspace no longer
+  // requires an IDLE screenplay board, so this suite's fixtures — which run with
+  // work in flight — can now reach it. The module mock has to publish the same
+  // exports the module does, or the App throws on a surface this suite is not
+  // about. A probe, not a behaviour: this suite measures FORMATION.
+  ScreenplayCommissionForm: () => <div data-testid="formation-app-commission-probe" />,
 }))
 
 function directPackage(
@@ -286,6 +292,8 @@ async function restoreLotStudio(state: GameState) {
   render(<App />)
   return screen.findByTestId('formation-app-lot-probe')
 }
+
+
 
 async function expectSavedState(expected: GameState) {
   await waitFor(() => {

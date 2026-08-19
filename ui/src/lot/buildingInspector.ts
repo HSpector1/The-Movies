@@ -870,7 +870,20 @@ function primaryActions(
     if (
       scriptBoard === null ||
       scriptBoard.mode !== 'managed' ||
-      scriptBoard.lotAttention.kind !== 'idle' ||
+      // ── F4 (charter §10), owned by C2a-M4 ─────────────────────────────────
+      //
+      // This clause was `scriptBoard.lotAttention.kind !== 'idle'`, and it is
+      // the seam §10 names: "the commission verb demands the whole board idle".
+      // A studio with one screenplay being written and a second Development &
+      // Casting room standing empty was offered NO verb at all — the world went
+      // quiet on a lot that was perfectly able to start the next picture, which
+      // is precisely the "you must guess" failure this campaign exists to close.
+      //
+      // The rule is now FREE SLOTS, and it always was the engine's: `canStart`
+      // carries the `facility-capacity` blocker, so `screenplayCommissioningOpen`
+      // is already false exactly when every room is taken. Nothing weakened —
+      // one condition was DELETED, and the one that remains is the engine's own.
+      //
       // C2a-M3: the verb is offered when EITHER supply is open — a market premise to
       // adapt, or the studio's own writers. This is literally the same predicate the
       // host's retained-commissioning interception reads (App.tsx), which is the
@@ -899,17 +912,6 @@ function primaryActions(
   return []
 }
 
-/** The first printable title in one screenplay-board section, or null. */
-function sectionTitle(board: ScriptProjectsReadModel, section: string): string | null {
-  const sections: unknown = (board as unknown as Record<string, unknown>).sections
-  if (!isRecord(sections)) return null
-  const rows: unknown = sections[section]
-  if (!Array.isArray(rows)) return null
-  const first: unknown = rows[0]
-  if (!isRecord(first) || !isText(first.title)) return null
-  return first.title
-}
-
 /**
  * Why Development is not offering "Commission a screenplay" right now.
  *
@@ -926,35 +928,22 @@ function sectionTitle(board: ScriptProjectsReadModel, section: string): string |
  * and none of them claims anything about surfaces other than this one.
  */
 function commissionWithheldNote(board: ScriptProjectsReadModel | null): string | null {
-  if (board === null || board.mode !== 'managed' || board.commission?.canStart !== true) return null
-  const attention: unknown = (board as unknown as Record<string, unknown>).lotAttention
-  if (!isRecord(attention) || !isText(attention.kind) || attention.kind === 'idle') return null
-  const reopens = 'Commissioning opens here again once it moves on.'
-  switch (attention.kind) {
-    case 'review-required': {
-      const title = sectionTitle(board, 'needsReview')
-      return title === null
-        ? `Development is holding a screenplay decision. ${reopens}`
-        : `${title} is waiting on an Accept or Rewrite decision. ${reopens}`
-    }
-    case 'active-work': {
-      const title = sectionTitle(board, 'inDevelopment')
-      return title === null
-        ? `The writers are working on a screenplay. ${reopens}`
-        : `The writers are working on ${title}. ${reopens}`
-    }
-    case 'ready-script': {
-      const title = sectionTitle(board, 'readyToPackage')
-      return title === null
-        ? `An accepted screenplay is waiting on casting. ${reopens}`
-        : `${title} is accepted and waiting on casting. ${reopens}`
-    }
-    case 'capacity-constraint':
-      return `Every Development & Casting slot is occupied. ${reopens}`
-    default:
-      // An attention kind this panel has never been taught to explain says nothing at all.
-      return null
-  }
+  if (board === null || board.mode !== 'managed') return null
+  // ── F4 RE-BASE (charter §10) ────────────────────────────────────────────
+  //
+  // RETIRED: the busy-board explanations. This note existed because the verb was
+  // withheld whenever the Writers' Room held ANYTHING, and its every sentence
+  // ended "Commissioning opens here again once it moves on." Under F4 that
+  // sentence is FALSE — commissioning is open right now, in the other room, and
+  // the verb the note stood in for is on the screen beside it.
+  //
+  // SUCCESSOR: the note explains the reasons that genuinely withhold the verb,
+  // which are the board's OWN blockers, in the board's own words. It is only
+  // reached when there are no actions, so it can never contradict a button.
+  if (screenplayCommissioningOpen(board)) return null
+  const blocker = board.commission?.blockers?.[0]
+  if (blocker === undefined) return null
+  return `${blocker.headline}. ${blocker.remedy}`
 }
 
 /**

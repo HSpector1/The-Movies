@@ -22,6 +22,13 @@ export type LotRoute =
   | { kind: 'hub' } // Talent Hub (read-only browse)
   | { kind: 'assembly' } // Assemble a Film wizard
   | { kind: 'saves' } // Saves
+  // C2a-M4 / F4 (§10): the commission VERB's own route. It lands the retained
+  // in-world commissioning workspace whenever the engine will commission — which
+  // after F4 is "a Development & Casting room is free", not "the whole board is
+  // idle" — and falls back to the same deep screen `assembly` uses. It is a
+  // separate kind because the ruling widened one verb, not every way into
+  // Development.
+  | { kind: 'commissionScreenplay' }
   | { kind: 'studioDevelopment' } // complete deep surface; lot also owns a bounded world-native start
 
 export type LotActionResolution = {

@@ -153,7 +153,11 @@ vi.mock('./StudioLotScreen.tsx', async () => {
           'button',
           {
             'data-testid': 'mock-commission-development',
-            onClick: () => props.onNavigate({ kind: 'assembly' }),
+            // C2a-M4 / F4 (§10): the COMMISSION verb has its own route now. This
+            // probe stands for that verb — it is named for it — so it dispatches
+            // the verb's intent rather than the generic Development route it used
+            // to share.
+            onClick: () => props.onNavigate({ kind: 'commissionScreenplay' }),
             type: 'button',
           },
           'Open Development',
@@ -582,11 +586,22 @@ describe('World-first retained screenplay commissioning — App authority', () =
     expect(authorityProbe.lotUnmounts).toBe(0)
   })
 
-  it.each([
-    ['active work', activeStudio, 'active-work'],
-    ['a Ready screenplay', readyStudio, 'ready-script'],
-    ['constrained capacity', capacityStudio, 'capacity-constraint'],
-  ] as const)(
+  // ── F4 RE-BASE (charter §10, owned by C2a-M4) ───────────────────────────
+  //
+  // RETIRED: the `active-work` and `ready-script` arms of this fallback, which
+  // asserted that a BUSY screenplay board sent the player out of the world and
+  // into the full Writers Room. That is the seam §10 names — the interception
+  // demanded an idle board — and it is exactly the "the world goes quiet" defect
+  // the retained workspace was built to close.
+  //
+  // NAMED SUCCESSOR, immediately below: those two states KEEP the player in the
+  // world and open the retained workspace, because the engine will commission
+  // into any free Development & Casting room.
+  //
+  // PRESERVED, verbatim: the capacity arm. That fallback was never about the
+  // board being busy — it is about the rooms being FULL, which is a real refusal
+  // the engine still makes.
+  it.each([['constrained capacity', capacityStudio, 'capacity-constraint']] as const)(
     'keeps %s in the full Writers Room instead of guessing a retained commission',
     async (_label, fixture, attention) => {
       const before = fixture(`retained-commission-fallback-${attention}`)
@@ -602,6 +617,31 @@ describe('World-first retained screenplay commissioning — App authority', () =
       expect(authorityProbe.commissionCalls).toHaveLength(0)
       expect(authorityProbe.lotMounts).toBe(1)
       expect(authorityProbe.lotUnmounts).toBe(1)
+    },
+  )
+
+  it.each([
+    ['active work', activeStudio, 'active-work'],
+    ['a Ready screenplay', readyStudio, 'ready-script'],
+  ] as const)(
+    'F4: keeps %s IN THE WORLD and opens the retained workspace on a free room',
+    async (_label, fixture, attention) => {
+      const before = fixture(`retained-commission-f4-${attention}`)
+      expect(scriptProjectsBoard(before).lotAttention.kind).toBe(attention)
+      // The precondition that makes this legal, stated: a room is free.
+      expect(scriptProjectsBoard(before).capacity.available).toBeGreaterThan(0)
+      const { lot } = await mountStudio(before)
+
+      fireEvent.click(screen.getByTestId('mock-commission-development'))
+
+      expect(await screen.findByTestId('lot-commission-workspace')).toBeInTheDocument()
+      expect(screen.queryByTestId('writers-room')).not.toBeInTheDocument()
+      // The world never unmounted — that is the whole point of the retained surface.
+      expect(lot.isConnected).toBe(true)
+      expect(activeSessionBytes()).toBe(exportSaveJson(before))
+      expect(authorityProbe.commissionCalls).toHaveLength(0)
+      expect(authorityProbe.lotMounts).toBe(1)
+      expect(authorityProbe.lotUnmounts).toBe(0)
     },
   )
 

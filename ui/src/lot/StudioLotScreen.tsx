@@ -3945,6 +3945,21 @@ export function StudioLotScreen({
   }, [])
 
   /**
+   * C2a-M4 / F4 (§10): the COMMISSION verb's own route.
+   *
+   * The verb used to share `assembly` with every generic Development activation,
+   * so the host could not tell "the player asked to commission a screenplay"
+   * from "the player opened Development". F4 widened the first and not the
+   * second; a shared route cannot carry that distinction, and the verb landing
+   * the full-screen surface is the exact defect the retained workspace exists to
+   * prevent.
+   */
+  const dispatchCommissionRoute = useCallback(() => {
+    if (worldInputSuspendedRef.current) return
+    onNavigateRef.current({ kind: 'commissionScreenplay' })
+  }, [])
+
+  /**
    * Exact origin proof for the retained first-session planner, for ONE named opener.
    *
    * TWO controls can legitimately open the planner, and each must prove itself against
@@ -6007,7 +6022,8 @@ export function StudioLotScreen({
       if (worldInputSuspendedRef.current) return
       switch (action.kind) {
         case 'commission':
-          dispatchRoute(BUILDING_ACTION.writers)
+          // C2a-M4 / F4: the verb's own route (see `navigation.ts`).
+          dispatchCommissionRoute()
           return
         case 'plan-auditions':
           if (openCurrentAuditionPlanning('inspector')) return
@@ -6031,7 +6047,13 @@ export function StudioLotScreen({
         }
       }
     },
-    [beginFacilityMove, dispatchRoute, openCurrentAuditionPlanning, openDemolishConfirm],
+    [
+      beginFacilityMove,
+      dispatchCommissionRoute,
+      dispatchRoute,
+      openCurrentAuditionPlanning,
+      openDemolishConfirm,
+    ],
   )
 
   /**
@@ -7388,7 +7410,7 @@ export function StudioLotScreen({
               className="accent"
               disabled={worldInputSuspended}
               onClick={() => {
-                if (!worldInputSuspendedRef.current) dispatchRoute(BUILDING_ACTION.writers)
+                if (!worldInputSuspendedRef.current) dispatchCommissionRoute()
               }}
               data-testid="lot-screenplay-commission-open-details"
             >
