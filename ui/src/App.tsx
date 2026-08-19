@@ -2832,6 +2832,22 @@ export function App() {
     )
   }
 
+  // THE LOOP CANNOT STALL SILENTLY. A running studio needs a witnessed week to
+  // wait on; several ordinary paths clear the Lot's cadence channel (a deep surface
+  // opening and closing, a dismissed receipt, a return from the Dashboard) and would
+  // otherwise leave the transport saying "running" over a studio that had quietly
+  // stopped. Whenever the player is on the Lot, the loop is running and nothing is
+  // being witnessed, the week on screen is armed again. It is idempotent by
+  // construction: the very next thing that happens is the Lot reporting it.
+  useEffect(() => {
+    if (screen.kind !== 'lot') return
+    if (livingTurn.mode !== 'running') return
+    if (lotCadenceFeedback !== null) return
+    const current = latestStateRef.current
+    if (current === null) return
+    setLotCadenceFeedback({ kind: 'week', week: current.market.tick, constructionCompletion: null })
+  }, [livingTurn.mode, lotCadenceFeedback, screen.kind, state])
+
   function handleLivingTurnCommand(command: LivingTurnCommand) {
     setLivingTurn((run) => livingTurnAfterCommand(run, command))
     if (command.kind !== 'play') return
@@ -3035,6 +3051,13 @@ export function App() {
   // stop tick is exactly one tick after `preTick`); any other stop shows the weekly summary.
   function handleSimToEvent(returnContext: StudioReturnContext) {
     if (!state) return
+    // Living Turn V1 (§4.1 / law 3). The batch verb keeps the FULL unpartitioned
+    // ladder and its semantics are unchanged — so it always lands on a governed
+    // event, with a summary the player is meant to read. Holding the studio there
+    // is the honest reading: a skipped batch was never witnessed time, and a loop
+    // that carried on through the stop would be narrating weeks nobody was present
+    // for. The player rolls again when they have looked.
+    setLivingTurn((run) => livingTurnAfterCommand(run, { kind: 'pause' }))
     const result = advanceToNextEvent(state)
     replaceAuthoritativeState(result.next)
     // PF1-M2: the governed stop is the receipt. One stop, one punctuation, whatever the
@@ -3175,6 +3198,12 @@ export function App() {
     } else {
       replaceMountedLotAuthoritativeState(result.next)
     }
+    // Living Turn V1 (§4.1 / law 3): the batch verb HOLDS the studio. It keeps the
+    // full unpartitioned ladder and always lands on a governed event with a summary
+    // the player is meant to read; a loop that carried on through that stop would be
+    // narrating weeks nobody was present for. The player rolls again when they have
+    // looked. This is the LOT-NATIVE batch; the Dashboard's own verb holds it too.
+    setLivingTurn((run) => livingTurnAfterCommand(run, { kind: 'pause' }))
     setLotOperationalAnnouncementSuppressed(suppressOperationalAnnouncement)
     // PF1-M2: punctuate only AFTER the claim has survived every staleness guard above and
     // the successor has actually been committed. A rejected or superseded result makes no

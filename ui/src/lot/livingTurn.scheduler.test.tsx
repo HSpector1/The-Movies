@@ -473,6 +473,50 @@ describe('Living Turn V1 — the partition, at the seam', () => {
   })
 })
 
+describe('Living Turn V1 — the loop cannot stall silently, and the batch verb holds it', () => {
+  it('re-arms the week on screen when the cadence channel is cleared under a running loop', async () => {
+    const start = walkToWeekBefore(operatingStudio('living-turn-rearm'), (step) =>
+      step.released.length > 0,
+    )
+    await mountLot(advanceWeek(start).next)
+    const week0 = shownWeek()
+    fireEvent.click(screen.getByTestId('lot-transport-toggle'))
+    await spendWeeks(1)
+    await waitFor(() => expect(shownWeek()).toBe(week0 + 1))
+
+    // Open a deep surface and come straight back: the Lot's cadence channel is
+    // cleared on the way through, which used to leave the transport saying
+    // "running" over a studio that had quietly stopped.
+    fireEvent.click(screen.getByTestId('lot-return-dashboard'))
+    await waitFor(() => expect(screen.getByTestId('dash-week')).toBeInTheDocument())
+    const backToLot =
+      screen.queryByTestId('back-to-studio-lot') ?? screen.getByTestId('open-studio-lot')
+    fireEvent.click(backToLot)
+    await waitFor(() => expect(screen.getByTestId('studio-lot-screen')).toBeInTheDocument())
+
+    const back = shownWeek()
+    await spendWeeks(1)
+    await waitFor(() => expect(shownWeek()).toBe(back + 1))
+  })
+
+  it('the batch verb HOLDS the studio — a skipped batch was never witnessed time', async () => {
+    const start = walkToWeekBefore(operatingStudio('living-turn-batch-holds'), (step) =>
+      step.released.length > 0,
+    )
+    await mountLot(advanceWeek(start).next)
+    fireEvent.click(screen.getByTestId('lot-transport-toggle'))
+    expect(screen.getByTestId('lot-transport')).toHaveAttribute('data-mode', 'running')
+    const batch = screen.getByTestId('lot-sim-to-next-event')
+    // The verb is only the subject when it is genuinely available; a disabled
+    // control proves nothing about what running it does.
+    expect(batch).toBeEnabled()
+    fireEvent.click(batch)
+    await waitFor(() =>
+      expect(screen.getByTestId('lot-transport')).toHaveAttribute('data-mode', 'paused'),
+    )
+  })
+})
+
 describe('Living Turn V1 — the release week plays before its surfaces take over', () => {
   it('the shipping week is witnessed, and the release surface follows it', async () => {
     const start = walkToWeekBefore(operatingStudio('living-turn-release-hole'), (step) =>
