@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      # Runtime dependencies only (react/react-dom); dev tooling is tracked by
+      # Dependabot rather than failing CI on advisories in test-only packages.
+      - run: npm audit --omit=dev --audit-level=high
+      # No unseeded randomness below the harness boundary (ADR-0002).
+      - name: Forbid Math.random in the core
+        run: |
+          if grep -rn 'Math\.random' src ui/src --include='*.ts' --include='*.tsx'; then
+            echo 'Math.random is banned — use the seeded RNG (src/core/rng.ts)'; exit 1
+          fi
+      # No large binaries sneak back into the repo (ADR-0006).
+      - name: Forbid files over 2MB
+        run: |
+          big=$(find . -path ./node_modules -prune -o -path ./.git -prune -o -type f -size +2M -print)
+          if [ -n "$big" ]; then echo "Files over 2MB:"; echo "$big"; exit 1; fi
