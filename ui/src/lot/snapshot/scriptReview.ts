@@ -612,6 +612,13 @@ function reviewProvenance(state: GameState, projectId: string): LotScriptReviewP
  * state, infers rewrite legality, repairs ordering, chooses among identities, or
  * mutates the supplied GameState. Any malformed or ambiguous projection fails
  * neutrally.
+ *
+ * C2a-M3 — ONE EXCEPTION, AND IT IS NOT A LEGALITY ONE. `provenance` is resolved
+ * through the engine boundary module (`engine/screenplay.ts`), which is the one
+ * address for "who wrote this". It decides NOTHING: it cannot add, remove or
+ * reorder an action, cannot change a blocker, and cannot make a review appear or
+ * disappear. It is a sentence, it is `try`-guarded, and it is null when it cannot
+ * be written.
  */
 export function currentLotScriptReviewContext(
   state: GameState,
