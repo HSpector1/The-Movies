@@ -181,6 +181,40 @@ Lane ENGINE-M5 owns `src/core/**`, `ui/src/engine/adapter.ts`,
   1,799 passed / 0 failed** · ui **183 files / 2,484 passed + 5 skipped / 0
   failed**.
 
+- **`studioWeekTheater(state)` — THE PLANT, AS BEAT TRACKS** (§4.2). New pure,
+  save-neutral, zero-RNG projection `src/core/studioWeekTheater.ts`, built to
+  `presence.ts`'s header law (quoted in its own header). Presence answers WHO is
+  where; this answers WHAT THE PLANT IS DOING, over the engine's own ten-beat
+  week. Nine subjects, each with exactly one authority behind it:
+  `scenery-in-transit` (the §4.2 load-in, with weeksRemaining + distance),
+  `stage-hot` / `stage-dark` (soundstage reservations, or their total absence),
+  `set-mounting` (a set's own status + clock), `set-struck`, `wrap-clearing`
+  (the Tier-D rows), `company-waiting` (the blocker's own words),
+  `queue-waiting` (names no picture — §5 pin 3 forbids it), and
+  `construction-progressing`. Beat vocabulary `idle|travel|working|waiting|
+  clearing`; the track is BEATS, never milliseconds, so the renderer plays the
+  same track at 1×/2×/4× without the track changing.
+  **THE LEDGER WINDOW IS PER KIND, and this is a real finding**: `tick` stamps a
+  row with `currentTick` and THEN increments the clock, so an ENGINE-written row
+  (`wrapped`) carries `market.tick - 1` once the week settles, while a
+  COMMAND-written row (`setRetired`) carries the settled week itself. Reading
+  both with one rule shows a wrap a week late or a strike twice. → CARRY: the
+  shipped `lotWeekEvents` (adapter ~6510) filters `row.week !== state.market.tick`
+  for `wrapped` rows, so its wrap events appear to be unreachable in a settled
+  state. Not touched by this lane (a shipped M1/M2 surface); recorded for the
+  surface owner.
+  Plumbing: `studioWeekTheaterView(state)` in the adapter (copies field for
+  field, joins ONE display string — the picture's title — and carries the
+  withholdings verbatim), `LotWeekTheater`/`LotTheaterSubject` types beside
+  `LotPresenceProjection`, and an additive `weekTheater?` on the lot snapshot,
+  populated in managed mode and absent in legacy on exactly presence's terms. It
+  shares presence's `staticBeat`, so the people and the work they are inside of
+  can never describe two different instants.
+  Suites: `tests/c2a-m5-studio-week-theater.test.ts` (17) +
+  `ui/src/test/contracts/week-theater-mirror.contract.test.ts` (5).
+  FULL vitest at this point: **316 files / 4,305 passed + 5 skipped / 0 failed**
+  (`/tmp/c2a-m5-full-2.log`), root tsc 0, ui tsc 0.
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and

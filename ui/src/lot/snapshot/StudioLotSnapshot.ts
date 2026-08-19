@@ -629,6 +629,74 @@ export type LotPresenceProjection = {
  */
 export const LOT_PRESENCE_STATIC_BEAT = 5
 
+// ── Studio Week Theater V1 (C2a-M5, charter §4.2) — what the PLANT is doing ──
+//
+// Presence's twin, mirrored at the same boundary and under the same law: a
+// field-for-field copy of the ENGINE's own `studioWeekTheater(state)` projection
+// (`src/core/studioWeekTheater.ts`), plus ONE strictly cross-checked presentation
+// string — `productionTitle` — joined from the state the projection was taken
+// from, on the SAME production id. A title that cannot be proven is dropped and
+// the placement facts are kept (law 21: omitted atomically, never half-guessed).
+//
+// Nothing here is a rule. The lot decides no beat, invents no site, and advances
+// no clock: it renders the decomposition the engine already made, and it may play
+// the same track at 1×, 2× or 4× (§4.1) without the track changing — which is why
+// the track is BEATS and not milliseconds.
+
+/** One integer beat of the plant's week. Closed vocabulary. */
+export type LotTheaterBeat = 'idle' | 'travel' | 'working' | 'waiting' | 'clearing'
+
+/** The manufacturing loop's subjects (§4.2's named list). */
+export type LotTheaterSubjectKind =
+  | 'scenery-in-transit'
+  | 'stage-hot'
+  | 'stage-dark'
+  | 'set-mounting'
+  | 'set-struck'
+  | 'wrap-clearing'
+  | 'company-waiting'
+  | 'queue-waiting'
+  | 'construction-progressing'
+
+export type LotTheaterSubject = {
+  kind: LotTheaterSubjectKind
+  /** Stable within a week and across identical weeks. */
+  id: string
+  /** The ENGINE facility id this happens at, or null. */
+  facilityId: string | null
+  /** The ENGINE's own name for it (§3.1), or null. Never invented here. */
+  facilityName: string | null
+  /** The picture, when the engine names one. */
+  productionId: string | null
+  /** Its spoken title, when the join proved it. Never an id (`00F`). */
+  productionTitle: string | null
+  /** Its phase, when there is one. */
+  phase: string | null
+  /** The set, when there is one. */
+  setId: string | null
+  /** Whole weeks of this work still ahead, or null for "the engine does not know". */
+  weeksRemaining: number | null
+  /** Grid cells a load-in is travelling; null for every other subject. */
+  distance: number | null
+  /** The engine's own waiting reason, verbatim, or null. */
+  reason: string | null
+  /** Exactly `beatsPerWeek` entries, in beat order. */
+  beats: LotTheaterBeat[]
+}
+
+/** The engine's canonical reading of what the plant is doing, mirrored for the lot. */
+export type LotWeekTheater = {
+  week: number
+  /** The engine's BEATS_PER_WEEK. Carried so the renderer never assumes it. */
+  beatsPerWeek: number
+  /** The beat the STATIC lot renders — shared with presence, by construction. */
+  staticBeat: number
+  /** Ascending by id; each id appears at most once. */
+  subjects: LotTheaterSubject[]
+  /** Subjects the engine deliberately withheld, with the reason it stated. */
+  withheld: { subjectId: string | null; reason: string }[]
+}
+
 /** One buildable blueprint the catalog offers. */
 /** One unmet requirement, in the engine's own player copy (C1-M5). */
 export type LotBlueprintUnmet = {
@@ -852,6 +920,12 @@ type StudioLotSnapshotBase = {
    * engine projection can read, so there is nothing honest to claim).
    */
   presence?: LotPresenceProjection
+  /**
+   * Studio Week Theater V1 truth (C2a-M5, §4.2) — what the PLANT is doing this
+   * week. Optional on exactly the same terms as `presence`: always emitted in
+   * managed mode, omitted in legacy mode, where there is no plant to watch.
+   */
+  weekTheater?: LotWeekTheater
   /**
    * Every SOUNDSTAGE this studio has, derived from the engine's own facilities and the
    * bodies standing for them (C2a-M2, §3.1). In engine facility order.

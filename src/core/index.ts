@@ -765,6 +765,20 @@ export {
 } from './sceneryLoadIn.js'
 export type { SceneryLoadIn, SceneryLoadInWithholding } from './sceneryLoadIn.js'
 
+// ── Studio Week Theater V1 (C2a-M5, charter §4.2) ────────────────────────────
+// The manufacturing loop as beat tracks over the engine's own ten-beat week —
+// scenery in transit, stages hot and dark, sets going up and coming down, a wrap
+// clearing a stage, companies waiting, a building rising. Presence's twin: pure,
+// save-neutral, RNG-neutral, withholds with a reason, never throws.
+export { studioWeekTheater } from './studioWeekTheater.js'
+export type {
+  StudioWeekTheater,
+  TheaterBeat,
+  TheaterSubject,
+  TheaterSubjectKind,
+  TheaterWithholding,
+} from './studioWeekTheater.js'
+
 // §6 standing (phase 3) — the three-channel updateStanding (B12 context param)
 export { updateStanding } from './standing.js'
 export type { ReleaseBenchmarks, StandingContext } from './standing.js'

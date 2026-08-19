@@ -223,6 +223,7 @@ import {
   // Presence Projection V1 — the engine's canonical "who is where this week".
   BEATS_PER_WEEK,
   studioPresence as coreStudioPresence,
+  studioWeekTheater as coreStudioWeekTheater,
   // First Film Journey V1 — "where is my picture, and what do I do next", engine-owned.
   firstFilmJourney as coreFirstFilmJourney,
   // C2a-M2 §3.1 — Sets. The lot paints them; every JUDGEMENT about them is the
@@ -265,7 +266,10 @@ import type {
   LotProductionCompanyRole,
   LotSetState,
   LotStageIdentity,
+  LotTheaterBeat,
+  LotTheaterSubject,
   LotWeekEvent,
+  LotWeekTheater,
   ProductionOperationsState,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
 import {
@@ -6066,6 +6070,75 @@ function lotPresenceProjection(
   }
 }
 
+// ── Studio Week Theater V1 — mirroring `studioWeekTheater` at the one boundary ─
+//
+// Presence's twin, and deliberately the same three-step shape:
+//
+//   1. copies the projection field for field into presentation-safe shapes;
+//   2. JOINS one display string — the picture's TITLE — from the state the
+//      projection was taken from, on the SAME production id. A title that cannot be
+//      proven is dropped and the subject keeps its facts (law 21). An id is never
+//      printed in its place (`00F`, the tycoon floor);
+//   3. carries the engine's withholdings verbatim, so a missing subject is
+//      provably a deliberate silence rather than a lookup miss.
+//
+// It adds no subject, no site, and no beat of its own. `staticBeat` is presence's
+// own constant, shared rather than re-chosen, so the canvas cannot show a person
+// at one instant of the week and the work they are inside of at another.
+
+const LOT_THEATER_BEATS: readonly LotTheaterBeat[] = [
+  'idle',
+  'travel',
+  'working',
+  'waiting',
+  'clearing',
+]
+
+export function studioWeekTheaterView(state: GameState): LotWeekTheater | undefined {
+  // Legacy operations hold no plant for the projection to read; the field is absent
+  // rather than empty-but-present, exactly as presence's is.
+  if (state.operations.mode !== 'managed') return undefined
+  const theater = coreStudioWeekTheater(state)
+  if (theater.week === null) return undefined
+
+  const titleById = new Map<string, string>()
+  for (const production of state.studio.activeProductions) {
+    titleById.set(production.id, productionTitle(state, production))
+  }
+
+  const subjects: LotTheaterSubject[] = []
+  for (const subject of theater.subjects) {
+    const beats = subject.beats.filter((beat): beat is LotTheaterBeat =>
+      LOT_THEATER_BEATS.includes(beat as LotTheaterBeat),
+    )
+    // A malformed beat array cannot be repaired into a truthful one.
+    if (beats.length !== subject.beats.length || beats.length !== BEATS_PER_WEEK) continue
+    const title = subject.productionId === null ? null : titleById.get(subject.productionId) ?? null
+    subjects.push({
+      kind: subject.kind,
+      id: subject.id,
+      facilityId: subject.facilityId,
+      facilityName: subject.facilityName,
+      productionId: subject.productionId,
+      productionTitle: title,
+      phase: subject.phase,
+      setId: subject.setId,
+      weeksRemaining: subject.weeksRemaining,
+      distance: subject.distance,
+      reason: subject.reason,
+      beats,
+    })
+  }
+
+  return {
+    week: theater.week,
+    beatsPerWeek: BEATS_PER_WEEK,
+    staticBeat: LOT_PRESENCE_STATIC_BEAT,
+    subjects,
+    withheld: theater.withheld.map((entry) => ({ ...entry })),
+  }
+}
+
 function operationsAttention(card: ProductionBoardCardView): AttentionState {
   if (card.blocker?.kind === 'facility-capacity') return 'warning'
   if (card.blocker !== null || card.command !== null) return 'decision-required'
@@ -6761,6 +6834,10 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
   // the Calendar for its three display strings. Pure and cheap; computed once here,
   // with the rest of the snapshot, so canvas and DOM read one identical answer.
   const presence = lotPresenceProjection(state, calendar)
+  // Studio Week Theater V1 (C2a-M5, §4.2): what the PLANT is doing this week,
+  // computed beside presence and from the same state, so the people and the work
+  // they are inside of can never describe two different weeks.
+  const weekTheater = studioWeekTheaterView(state)
   const runway = fin.runway
   const standingBand = lotStandingBand(standing)
   const underDressed = standingBand === 'struggling'
@@ -7341,6 +7418,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
     placement: placementProjection,
     property: propertyProjection,
     ...(presence === undefined ? {} : { presence }),
+    ...(weekTheater === undefined ? {} : { weekTheater }),
     // Emitted in managed mode only: legacy operations hold no facilities to derive
     // from, and a legacy studio's stages are exactly the two authored founding bodies
     // the `stageIdentity` fallback already answers with.
